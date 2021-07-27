@@ -279,7 +279,11 @@ bool GrainExprParser::grainPropSet(double val)
         grain_->setTimeAfter(std::max<double>(0, val));
     break;
     case GRAIN_PROP_LENGTH:
-        grain_->setLengthInSamples(std::max<double>(0, val));
+        if (val <= 0) {
+            LIB_ERR << "positive value expected for length property, got: " << val;
+            return false;
+        }
+        grain_->setLengthInSamples(val);
     break;
     case GRAIN_PROP_PAN:
         grain_->setPan(res_);

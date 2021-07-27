@@ -75,7 +75,6 @@ prop_expr ::= prop ondone assign expr. {
     default:
         if (!p->byteCodeEval()) {
             std::cerr << "eval failed: " << p->byteCode() << std::endl;
-            return YY_ERROR_ACTION;
         }
     break;
     }

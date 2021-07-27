@@ -109,7 +109,11 @@ bool GrainExprParser::grainPropSet(double val)
         grain_->setTimeAfter(std::max<double>(0, val));
     break;
     case GRAIN_PROP_LENGTH:
-        grain_->setLengthInSamples(std::max<double>(0, val));
+        if (val <= 0) {
+            LIB_ERR << "positive value expected for length property, got: " << val;
+            return false;
+        }
+        grain_->setLengthInSamples(val);
     break;
     case GRAIN_PROP_PAN:
         grain_->setPan(res_);
@@ -258,7 +262,7 @@ bool GrainExprParser::doParse(const char* data)
     double dval = 0;
 
     
-#line 262 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr_parser.cpp"
+#line 266 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr_parser.cpp"
 	{
 	cs = grain_expr_start;
 	ts = 0;
@@ -266,9 +270,9 @@ bool GrainExprParser::doParse(const char* data)
 	act = 0;
 	}
 
-#line 431 "grain_expr.rl"
+#line 435 "grain_expr.rl"
     
-#line 272 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr_parser.cpp"
+#line 276 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr_parser.cpp"
 	{
 	if ( p == pe )
 		goto _test_eof;
@@ -672,7 +676,7 @@ st106:
 case 106:
 #line 1 "NONE"
 	{ts = p;}
-#line 676 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr_parser.cpp"
+#line 680 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr_parser.cpp"
 	switch( (*p) ) {
 		case 32: goto st107;
 		case 36: goto st1;
@@ -762,7 +766,7 @@ st108:
 	if ( ++p == pe )
 		goto _test_eof108;
 case 108:
-#line 766 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr_parser.cpp"
+#line 770 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr_parser.cpp"
 	if ( (*p) == 101 )
 		goto st5;
 	goto tr181;
@@ -781,7 +785,7 @@ st109:
 	if ( ++p == pe )
 		goto _test_eof109;
 case 109:
-#line 785 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr_parser.cpp"
+#line 789 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr_parser.cpp"
 	if ( (*p) == 103 )
 		goto st6;
 	goto tr181;
@@ -807,7 +811,7 @@ st110:
 	if ( ++p == pe )
 		goto _test_eof110;
 case 110:
-#line 811 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr_parser.cpp"
+#line 815 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr_parser.cpp"
 	switch( (*p) ) {
 		case 97: goto st8;
 		case 105: goto tr186;
@@ -828,7 +832,7 @@ st111:
 	if ( ++p == pe )
 		goto _test_eof111;
 case 111:
-#line 832 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr_parser.cpp"
+#line 836 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr_parser.cpp"
 	switch( (*p) ) {
 		case 112: goto st9;
 		case 114: goto tr189;
@@ -910,7 +914,7 @@ st115:
 	if ( ++p == pe )
 		goto _test_eof115;
 case 115:
-#line 914 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr_parser.cpp"
+#line 918 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr_parser.cpp"
 	if ( (*p) == 46 )
 		goto st14;
 	if ( 48 <= (*p) && (*p) <= 57 )
@@ -931,7 +935,7 @@ st116:
 	if ( ++p == pe )
 		goto _test_eof116;
 case 116:
-#line 935 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr_parser.cpp"
+#line 939 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr_parser.cpp"
 	if ( 48 <= (*p) && (*p) <= 57 )
 		goto tr29;
 	goto tr196;
@@ -1009,7 +1013,7 @@ st117:
 	if ( ++p == pe )
 		goto _test_eof117;
 case 117:
-#line 1013 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr_parser.cpp"
+#line 1017 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr_parser.cpp"
 	if ( (*p) == 101 )
 		goto st23;
 	goto tr199;
@@ -1028,7 +1032,7 @@ st118:
 	if ( ++p == pe )
 		goto _test_eof118;
 case 118:
-#line 1032 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr_parser.cpp"
+#line 1036 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr_parser.cpp"
 	if ( (*p) == 103 )
 		goto st24;
 	goto tr199;
@@ -1054,7 +1058,7 @@ st119:
 	if ( ++p == pe )
 		goto _test_eof119;
 case 119:
-#line 1058 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr_parser.cpp"
+#line 1062 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr_parser.cpp"
 	if ( (*p) == 97 )
 		goto st26;
 	goto tr202;
@@ -1073,7 +1077,7 @@ st120:
 	if ( ++p == pe )
 		goto _test_eof120;
 case 120:
-#line 1077 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr_parser.cpp"
+#line 1081 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr_parser.cpp"
 	if ( (*p) == 112 )
 		goto st27;
 	goto tr204;
@@ -1122,7 +1126,7 @@ st122:
 	if ( ++p == pe )
 		goto _test_eof122;
 case 122:
-#line 1126 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr_parser.cpp"
+#line 1130 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr_parser.cpp"
 	if ( (*p) == 105 )
 		goto st31;
 	goto tr208;
@@ -1141,7 +1145,7 @@ st123:
 	if ( ++p == pe )
 		goto _test_eof123;
 case 123:
-#line 1145 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr_parser.cpp"
+#line 1149 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr_parser.cpp"
 	if ( (*p) == 100 )
 		goto st32;
 	goto tr208;
@@ -1426,7 +1430,7 @@ st124:
 	if ( ++p == pe )
 		goto _test_eof124;
 case 124:
-#line 1430 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr_parser.cpp"
+#line 1434 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr_parser.cpp"
 	switch( (*p) ) {
 		case 49: goto st69;
 		case 50: goto tr213;
@@ -1470,7 +1474,7 @@ st126:
 	if ( ++p == pe )
 		goto _test_eof126;
 case 126:
-#line 1474 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr_parser.cpp"
+#line 1478 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr_parser.cpp"
 	if ( (*p) == 101 )
 		goto st72;
 	goto tr216;
@@ -1648,7 +1652,7 @@ st127:
 	if ( ++p == pe )
 		goto _test_eof127;
 case 127:
-#line 1652 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr_parser.cpp"
+#line 1656 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr_parser.cpp"
 	switch( (*p) ) {
 		case 97: goto st95;
 		case 101: goto st97;
@@ -1769,7 +1773,7 @@ st129:
 case 129:
 #line 1 "NONE"
 	{ts = p;}
-#line 1773 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr_parser.cpp"
+#line 1777 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr_parser.cpp"
 	switch( (*p) ) {
 		case 32: goto st130;
 		case 95: goto st131;
@@ -1991,7 +1995,7 @@ case 131:
 	_out: {}
 	}
 
-#line 432 "grain_expr.rl"
+#line 436 "grain_expr.rl"
 
     if (cs < 106) {
         char buf[32] = "";

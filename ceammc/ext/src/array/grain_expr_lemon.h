@@ -1494,371 +1494,370 @@ static YYACTIONTYPE yy_reduce(
     default:
         if (!p->byteCodeEval()) {
             std::cerr << "eval failed: " << p->byteCode() << std::endl;
-            return YY_ERROR_ACTION;
         }
     break;
     }
 }
-#line 1502 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1501 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 14: /* prop_expr ::= PROP_WINDOW wintype */
-#line 86 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 85 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->setWinType(static_cast<ceammc::GrainWindowType>(yymsp[0].minor.yy0.val)); }
-#line 1507 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1506 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 15: /* overflow ::= OVERFLOW CLIP */
-#line 92 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 91 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->setPanOverflow(ceammc::GRAIN_PROP_OVERFLOW_CLIP); }
-#line 1512 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1511 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 16: /* overflow ::= OVERFLOW FOLD */
-#line 93 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 92 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->setPanOverflow(ceammc::GRAIN_PROP_OVERFLOW_FOLD); }
-#line 1517 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1516 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 17: /* overflow ::= OVERFLOW WRAP */
-#line 94 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 93 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->setPanOverflow(ceammc::GRAIN_PROP_OVERFLOW_WRAP); }
-#line 1522 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1521 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 18: /* interp ::= NONE */
-#line 96 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 95 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->setInterp(ceammc::GRAIN_INTERP_NONE); }
-#line 1527 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1526 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 19: /* interp ::= LINEAR */
-#line 97 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 96 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->setInterp(ceammc::GRAIN_INTERP_LINEAR); }
-#line 1532 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1531 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 20: /* interp ::= CUBIC */
-#line 98 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 97 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->setInterp(ceammc::GRAIN_INTERP_CUBIC); }
-#line 1537 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1536 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 21: /* mode ::= MODE NONE */
-#line 100 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 99 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->setPanMode(ceammc::GRAIN_PAN_NONE); }
-#line 1542 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1541 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 22: /* mode ::= MODE LINEAR */
-#line 101 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 100 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->setPanMode(ceammc::GRAIN_PAN_LINEAR); }
-#line 1547 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1546 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 23: /* mode ::= MODE FN_SQRT */
-#line 102 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 101 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->setPanMode(ceammc::GRAIN_PAN_SQRT); }
-#line 1552 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1551 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 24: /* waveform1 ::= SIN */
-#line 104 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 103 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { yymsp[0].minor.yy0 = ceammc::GRAIN_MOD_SIN; }
-#line 1557 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1556 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 25: /* waveform1 ::= SAW */
-#line 105 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 104 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { yymsp[0].minor.yy0 = ceammc::GRAIN_MOD_SAW; }
-#line 1562 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1561 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 26: /* waveform1 ::= TRI */
-#line 106 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 105 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { yymsp[0].minor.yy0 = ceammc::GRAIN_MOD_TRI; }
-#line 1567 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1566 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 27: /* waveform1 ::= SQR */
-#line 107 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 106 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { yymsp[0].minor.yy0 = ceammc::GRAIN_MOD_SQR; }
-#line 1572 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1571 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 28: /* modulate ::= expr DOTS expr waveform1 OPENP expr CLOSEP */
-#line 110 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 109 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->setModulation(yymsp[-6].minor.yy0.val, yymsp[-4].minor.yy0.val, (ceammc::GrainModulation)yymsp[-3].minor.yy0.val, yymsp[-1].minor.yy0.val); }
-#line 1577 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1576 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 29: /* modulate ::= NONE */
-#line 111 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 110 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->setModulation(0, 0, ceammc::GRAIN_MOD_NONE, 0); }
-#line 1582 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1581 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 30: /* vars ::= CONST_AMP */
-#line 114 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 113 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_CONST0); }
-#line 1587 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1586 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 31: /* vars ::= CONST_AT */
-#line 115 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 114 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_CONST1); }
-#line 1592 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1591 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 32: /* vars ::= CONST_LEN */
-#line 116 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 115 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_CONST2); }
-#line 1597 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1596 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 33: /* vars ::= CONST_PAN */
-#line 117 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 116 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_CONST3); }
-#line 1602 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1601 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 34: /* vars ::= CONST_SPEED */
-#line 118 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 117 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_CONST4); }
-#line 1607 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1606 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 35: /* vars ::= CONST_TIME_BEFORE */
-#line 119 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 118 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_CONST5); }
-#line 1612 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1611 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 36: /* vars ::= CONST_TIME_AFTER */
-#line 120 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 119 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_CONST13); }
-#line 1617 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1616 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 37: /* vars ::= CONST_SR */
-#line 122 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 121 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_CONST6); }
-#line 1622 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1621 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 38: /* vars ::= CONST_BS */
-#line 123 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 122 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_CONST7); }
-#line 1627 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1626 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 39: /* vars ::= CONST_ASIZE */
-#line 124 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 123 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_CONST8); }
-#line 1632 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1631 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 40: /* vars ::= CONST_NITER */
-#line 125 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 124 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_CONST9); }
-#line 1637 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1636 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 41: /* vars ::= CONST_NBLOCK */
-#line 126 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 125 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_CONST10); }
-#line 1642 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1641 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 42: /* vars ::= CONST_NSAMP */
-#line 127 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 126 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_CONST11); }
-#line 1647 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1646 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 43: /* vars ::= CONST_GIDX */
-#line 128 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 127 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_CONST12); }
-#line 1652 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1651 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 44: /* assign ::= ASSIGN_ADD */
-#line 130 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 129 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->setAssignType(ceammc::BC_ASSIGN_ADD); }
-#line 1657 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1656 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 45: /* assign ::= ASSIGN_SUB */
-#line 131 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 130 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->setAssignType(ceammc::BC_ASSIGN_SUB); }
-#line 1662 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1661 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 46: /* assign ::= ASSIGN_MUL */
-#line 132 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 131 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->setAssignType(ceammc::BC_ASSIGN_MUL); }
-#line 1667 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1666 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 47: /* assign ::= ASSIGN_SET */
-#line 133 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 132 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->setAssignType(ceammc::BC_ASSIGN_SET); }
-#line 1672 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1671 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 48: /* expr ::= FN_ABS OPENP expr CLOSEP */
-#line 139 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 138 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_ABS); }
-#line 1677 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1676 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 49: /* expr ::= FN_SQRT OPENP expr CLOSEP */
-#line 140 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 139 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_SQRT); }
-#line 1682 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1681 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 50: /* expr ::= SIN OPENP expr CLOSEP */
-#line 141 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 140 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_SIN); }
-#line 1687 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1686 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 51: /* expr ::= FN_COS OPENP expr CLOSEP */
-#line 142 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 141 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_COS); }
-#line 1692 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1691 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 52: /* expr ::= FN_TAN OPENP expr CLOSEP */
-#line 143 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 142 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_TAN); }
-#line 1697 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1696 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 53: /* expr ::= FN_ACOS OPENP expr CLOSEP */
-#line 144 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 143 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_ACOS); }
-#line 1702 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1701 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 54: /* expr ::= FN_ASIN OPENP expr CLOSEP */
-#line 145 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 144 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_ASIN); }
-#line 1707 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1706 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 55: /* expr ::= FN_ATAN OPENP expr CLOSEP */
-#line 146 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 145 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_ATAN); }
-#line 1712 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1711 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 56: /* expr ::= FN_CEIL OPENP expr CLOSEP */
-#line 147 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 146 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_CEIL); }
-#line 1717 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1716 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 57: /* expr ::= FN_FLOOR OPENP expr CLOSEP */
-#line 148 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 147 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_FLOOR); }
-#line 1722 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1721 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 58: /* expr ::= FN_ROUND OPENP expr CLOSEP */
-#line 149 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 148 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_ROUND); }
-#line 1727 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1726 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 59: /* expr ::= FN_LOG OPENP expr CLOSEP */
-#line 150 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 149 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_LOG); }
-#line 1732 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1731 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 60: /* expr ::= FN_LOG10 OPENP expr CLOSEP */
-#line 151 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 150 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_LOG10); }
-#line 1737 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1736 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 61: /* expr ::= FN_LOG2 OPENP expr CLOSEP */
-#line 152 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 151 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_LOG2); }
-#line 1742 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1741 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 62: /* expr ::= FN_FRAC OPENP expr CLOSEP */
-#line 153 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 152 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_FRAC); }
-#line 1747 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1746 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 63: /* expr ::= WRAP OPENP expr CLOSEP */
-#line 155 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 154 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_WRAP0); }
-#line 1752 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1751 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 64: /* expr ::= WRAP OPENP expr COMMA expr CLOSEP */
-#line 157 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 156 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_WRAP1); }
-#line 1757 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1756 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 65: /* expr ::= WRAP OPENP expr COMMA expr COMMA expr CLOSEP */
-#line 159 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 158 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_WRAP2); }
-#line 1762 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1761 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 66: /* expr ::= FN_URAND OPENP CLOSEP */
-#line 161 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 160 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_URAND0); }
-#line 1767 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1766 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 67: /* expr ::= FN_URAND OPENP expr CLOSEP */
-#line 162 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 161 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_URAND1); }
-#line 1772 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1771 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 68: /* expr ::= FN_URAND OPENP expr COMMA expr CLOSEP */
-#line 164 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 163 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_URAND2); }
-#line 1777 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1776 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 69: /* number ::= DOUBLE */
       case 83: /* expr ::= DOUBLE */ yytestcase(yyruleno==83);
-#line 166 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 165 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { yylhsminor.yy0 = yymsp[0].minor.yy0; p->bcPushValue(yymsp[0].minor.yy0.val); }
-#line 1783 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1782 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
   yymsp[0].minor.yy0 = yylhsminor.yy0;
         break;
       case 70: /* number ::= MINUS DOUBLE */
       case 84: /* expr ::= MINUS DOUBLE */ yytestcase(yyruleno==84);
-#line 167 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 166 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { yymsp[-1].minor.yy0.val = -yymsp[0].minor.yy0.val; p->bcPushValue(-yymsp[0].minor.yy0.val); }
-#line 1790 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1789 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 71: /* num_vargs ::= num_vargs COMMA number */
       case 72: /* num_vargs ::= number */ yytestcase(yyruleno==72);
-#line 169 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 168 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcVarArg(); }
-#line 1796 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1795 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 73: /* expr ::= CHOICE OPENP num_vargs CLOSEP */
-#line 172 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 171 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushVarArgs(); p->bcPushCode(ceammc::OP_CHOICE); }
-#line 1801 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1800 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 74: /* expr ::= FOLD OPENP expr CLOSEP */
-#line 174 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 173 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_FOLD0); }
-#line 1806 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1805 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 75: /* expr ::= FOLD OPENP expr COMMA expr CLOSEP */
-#line 176 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 175 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_FOLD1); }
-#line 1811 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1810 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 76: /* expr ::= CLIP OPENP expr COMMA expr COMMA expr CLOSEP */
-#line 180 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 179 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_CLIP); }
-#line 1816 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1815 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 77: /* expr ::= expr PLUS expr */
-#line 183 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 182 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_ADD); }
-#line 1821 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1820 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 78: /* expr ::= expr MINUS expr */
-#line 184 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 183 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_SUB); }
-#line 1826 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1825 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 79: /* expr ::= expr TIMES expr */
-#line 185 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 184 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_MUL); }
-#line 1831 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1830 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 80: /* expr ::= expr DIVIDE expr */
-#line 186 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 185 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_DIV); }
-#line 1836 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1835 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 81: /* expr ::= expr POW expr */
-#line 187 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 186 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_POW); }
-#line 1841 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1840 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 82: /* expr ::= expr MOD expr */
-#line 188 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 187 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_MOD); }
-#line 1846 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1845 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 85: /* expr ::= DOUBLE SAMP */
-#line 191 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 190 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushValue(yymsp[-1].minor.yy0.val); }
-#line 1851 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1850 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 86: /* expr ::= DOUBLE MSEC */
-#line 192 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 191 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushValue((sys_getsr() / 1000.0) * yymsp[-1].minor.yy0.val); }
-#line 1856 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1855 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 87: /* expr ::= DOUBLE SEC */
-#line 193 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+#line 192 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushValue(sys_getsr() * yymsp[-1].minor.yy0.val); }
-#line 1861 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1860 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       default:
       /* (88) program ::= prop_list */ yytestcase(yyruleno==88);
@@ -1919,7 +1918,7 @@ static void yy_parse_failed(
 #line 35 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 
     p->setErrorMsg("parse failure");
-#line 1922 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1921 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
 /************ End %parse_failure code *****************************************/
   parse_grain_exprARG_STORE /* Suppress warning about unused %extra_argument variable */
   parse_grain_exprCTX_STORE
@@ -1948,7 +1947,7 @@ static void yy_syntax_error(
             std::cerr << "possible token: " << yyTokenName[i] << "\n";
         }
     }
-#line 1951 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1950 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
 /************ End %syntax_error code ******************************************/
   parse_grain_exprARG_STORE /* Suppress warning about unused %extra_argument variable */
   parse_grain_exprCTX_STORE
@@ -1976,7 +1975,7 @@ static void yy_accept(
 /*********** Begin %parse_accept code *****************************************/
 #line 33 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
  
-#line 1979 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1978 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
 /*********** End %parse_accept code *******************************************/
   parse_grain_exprARG_STORE /* Suppress warning about unused %extra_argument variable */
   parse_grain_exprCTX_STORE

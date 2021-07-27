@@ -48,7 +48,6 @@ TEST_CASE("array_grain", "[externals]")
         REQUIRE(g.pan() == 1);
 
         REQUIRE(p.parse(AtomList::parseString("@l -25.25")));
-        REQUIRE(p.result() == -25.25);
 
         REQUIRE(p.parse(AtomList::parseString("@pan (12)")));
         REQUIRE(p.result() == 12);
