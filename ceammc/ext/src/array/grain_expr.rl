@@ -279,7 +279,7 @@ bool GrainExprParser::grainPropSet(double val)
         grain_->setTimeAfter(std::max<double>(0, val));
     break;
     case GRAIN_PROP_LENGTH:
-        grain_->setLengthInSamples(val);
+        grain_->setLengthInSamples(std::max<double>(0, val));
     break;
     case GRAIN_PROP_PAN:
         grain_->setPan(res_);
