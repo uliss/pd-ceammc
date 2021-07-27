@@ -2093,6 +2093,12 @@ void GrainExprParser::setWinType(GrainWindowType wt)
         grain_->setWinType(wt);
 }
 
+void GrainExprParser::setWinParam(double v)
+{
+    if (grain_)
+        grain_->setWinParam(v);
+}
+
 void GrainExprParser::setInterp(GrainInterp i)
 {
     if (grain_)

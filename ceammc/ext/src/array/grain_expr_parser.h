@@ -60,6 +60,7 @@ public:
     void startProp(GrainPropId prop);
 
     void setWinType(GrainWindowType wt);
+    void setWinParam(double v);
     void setInterp(GrainInterp i);
     void setModulation(double a, double b, GrainModulation m, float freq);
 

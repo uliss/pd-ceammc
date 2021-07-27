@@ -56,12 +56,12 @@ prop    ::= PROP_REPEATS.     { p->startProp(ceammc::GRAIN_PROP_REPEATS); }
 ondone  ::= ONDONE.           { p->setCalcMoment(ceammc::GRAIN_CALC_ONDONE); }
 ondone  ::= .
 
-wintype(A) ::= HANN.  { A.val = ceammc::GRAIN_WIN_HANN; }
-wintype(A) ::= RECT.  { A.val = ceammc::GRAIN_WIN_RECT; }
-wintype(A) ::= TRI.   { A.val = ceammc::GRAIN_WIN_TRI; }
-wintype(A) ::= TRPZ.  { A.val = ceammc::GRAIN_WIN_TRPZ; }
-wintype(A) ::= TRPZ OPENP DOUBLE CLOSEP.
-                      { A.val = ceammc::GRAIN_WIN_TRPZ; }
+wintype(A) ::= HANN.  { A.val = ceammc::GRAIN_WIN_HANN; p->setWinParam(0); }
+wintype(A) ::= RECT.  { A.val = ceammc::GRAIN_WIN_RECT; p->setWinParam(0); }
+wintype(A) ::= TRI.   { A.val = ceammc::GRAIN_WIN_TRI;  p->setWinParam(0); }
+wintype(A) ::= TRPZ.  { A.val = ceammc::GRAIN_WIN_TRPZ; p->setWinParam(0); }
+wintype(A) ::= TRPZ OPENP DOUBLE(B) CLOSEP.
+                      { A.val = ceammc::GRAIN_WIN_TRPZ; p->setWinParam(B.val); }
 
 prop_pan  ::= PROP_PAN overflow.
 prop_pan  ::= PROP_PAN mode.

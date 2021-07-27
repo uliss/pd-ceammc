@@ -175,6 +175,9 @@ private:
     uint32_t time_after_ = { 0 }; ///< silence after grain in samples
     double play_pos_ = { 0 }; ///< current grain play position in samples
 
+    // tag
+    t_symbol* tag_ { nullptr };
+
     // actions
     std::unique_ptr<GrainPropActions> ondone_;
 
@@ -191,17 +194,18 @@ private:
     ///< pan
     float pan_ = { 0.5 }; // 0: left, 0.5: center, 1: right
 
+    ///< win param
+    float win_param_ = { 0 };
+
     ///< grain id
     uint16_t id_ = { 0 };
 
     ///< flags
-    GrainState state_;
-    GrainPropOverflow pan_overflow_;
-    GrainPan pan_mode_;
-    GrainInterp play_interp_;
-    GrainWindowType win_type_;
-
-    t_symbol* tag_ { nullptr };
+    GrainState state_ : 1;
+    GrainPropOverflow pan_overflow_ : 2;
+    GrainPan pan_mode_ : 2;
+    GrainInterp play_interp_ : 2;
+    GrainWindowType win_type_ : 2;
 
     Grain(const Grain&) = delete;
     Grain& operator=(const Grain&) = delete;
@@ -292,6 +296,10 @@ public:
     // window
     GrainWindowType winType() const { return win_type_; }
     void setWinType(GrainWindowType t) { win_type_ = t; }
+
+    // win param
+    float winParam() const { return win_param_; }
+    void setWinParam(float v) { win_param_ = v; }
 
     // pan
     float pan() const { return pan_; }

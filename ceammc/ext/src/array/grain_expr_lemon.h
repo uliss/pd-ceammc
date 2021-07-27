@@ -1475,27 +1475,27 @@ static YYACTIONTYPE yy_reduce(
         break;
       case 9: /* wintype ::= HANN */
 #line 59 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
-{ yymsp[0].minor.yy0.val = ceammc::GRAIN_WIN_HANN; }
+{ yymsp[0].minor.yy0.val = ceammc::GRAIN_WIN_HANN; p->setWinParam(0); }
 #line 1479 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 10: /* wintype ::= RECT */
 #line 60 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
-{ yymsp[0].minor.yy0.val = ceammc::GRAIN_WIN_RECT; }
+{ yymsp[0].minor.yy0.val = ceammc::GRAIN_WIN_RECT; p->setWinParam(0); }
 #line 1484 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 11: /* wintype ::= TRI */
 #line 61 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
-{ yymsp[0].minor.yy0.val = ceammc::GRAIN_WIN_TRI; }
+{ yymsp[0].minor.yy0.val = ceammc::GRAIN_WIN_TRI;  p->setWinParam(0); }
 #line 1489 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 12: /* wintype ::= TRPZ */
 #line 62 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
-{ yymsp[0].minor.yy0.val = ceammc::GRAIN_WIN_TRPZ; }
+{ yymsp[0].minor.yy0.val = ceammc::GRAIN_WIN_TRPZ; p->setWinParam(0); }
 #line 1494 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 13: /* wintype ::= TRPZ OPENP DOUBLE CLOSEP */
 #line 64 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
-{ yymsp[-3].minor.yy0.val = ceammc::GRAIN_WIN_TRPZ; }
+{ yymsp[-3].minor.yy0.val = ceammc::GRAIN_WIN_TRPZ; p->setWinParam(yymsp[-1].minor.yy0.val); }
 #line 1499 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 14: /* prop_tag ::= PROP_TAG SYMBOL */
