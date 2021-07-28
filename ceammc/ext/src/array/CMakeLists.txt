@@ -70,8 +70,9 @@ target_include_directories(ceammc_array PRIVATE
     "$<TARGET_PROPERTY:soundtouch,INCLUDE_DIRECTORIES>"
     "$<TARGET_PROPERTY:soxr,INCLUDE_DIRECTORIES>"
     "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>"
+    ${PROJECT_SOURCE_DIR}/ceammc/extra/aubio/aubio/src
 )
 
 target_link_libraries(ceammc_array PRIVATE
-    soundtouch
+    soundtouch aubio
 )

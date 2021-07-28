@@ -12,12 +12,31 @@
  * this file belongs to.
  *****************************************************************************/
 #include "array_grainer.h"
+#include "aubio.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 #include "grain_expr_parser.h"
 
 #include <limits>
+#include <memory>
 #include <random>
+
+using namespace ceammc;
+
+struct FVecDeleter {
+    void operator()(fvec_t* v) { del_fvec(v); }
+};
+
+struct OnsetDeleter {
+    void operator()(aubio_onset_t* o)
+    {
+        if (o)
+            del_aubio_onset(o);
+    }
+};
+
+using FVecPtr = std::unique_ptr<fvec_t, FVecDeleter>;
+using OnsetPtr = std::unique_ptr<aubio_onset_t, OnsetDeleter>;
 
 ArrayGrainer::ArrayGrainer(const PdArgs& args)
     : SoundExternal(args)
@@ -234,6 +253,56 @@ void ArrayGrainer::m_clear(t_symbol* s, const AtomListView& lv)
     }
 }
 
+void ArrayGrainer::m_onsets(t_symbol* s, const AtomListView& lv)
+{
+    constexpr const char* DEFAULT_METHOD = "default";
+    constexpr int DEFAULT_BUFFER_SIZE = 1024;
+
+    if (!array_.open(array_name_->value())) {
+        METHOD_ERR(s) << "can't open array: " << array_name_->value();
+        return;
+    }
+
+    const size_t BS = DEFAULT_BUFFER_SIZE; // buffer size
+    const size_t HS = BS / 2; // hop size
+    const size_t AS = array_.size();
+    const char* METHOD = (lv.size() > 0 && lv[0].isSymbol()) ? lv[0].asT<t_symbol*>()->s_name : DEFAULT_METHOD;
+
+    OnsetPtr detector(new_aubio_onset(METHOD, BS, HS, sys_getsr()));
+
+    if (!detector) {
+        METHOD_ERR(s) << "can't create onset detector";
+        return;
+    }
+
+    FVecPtr in(new_fvec(HS));
+    FVecPtr out(new_fvec(1));
+
+    onsets_.clear();
+
+    size_t hop_idx = 0;
+    while (true) {
+        const auto hop_offset = hop_idx * HS;
+
+        if (hop_offset >= AS)
+            break;
+
+        for (size_t i = 0; i < HS; i++) {
+            const auto hop_pos = hop_offset + i;
+            if (hop_pos < AS)
+                fvec_set_sample(in.get(), array_[hop_pos], i);
+            else
+                fvec_set_sample(in.get(), 0.f, i);
+        }
+
+        aubio_onset_do(detector.get(), in.get(), out.get());
+        if (fvec_get_sample(out.get(), 0) > 0)
+            onsets_.push_back(aubio_onset_get_last(detector.get()));
+
+        hop_idx++;
+    }
+}
+
 void setup_array_grainer()
 {
     SoundExternalFactory<ArrayGrainer> obj("array.grainer~", OBJECT_FACTORY_DEFAULT);
@@ -243,4 +312,5 @@ void setup_array_grainer()
     obj.addMethod("fill", &ArrayGrainer::m_fill);
     obj.addMethod("grain", &ArrayGrainer::m_grain);
     obj.addMethod("set", &ArrayGrainer::m_set);
+    obj.addMethod("onsets", &ArrayGrainer::m_onsets);
 }

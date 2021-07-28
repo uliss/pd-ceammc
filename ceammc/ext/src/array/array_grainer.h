@@ -25,6 +25,7 @@ class ArrayGrainer : public SoundExternal {
     SymbolProperty* array_name_;
     Array array_;
     GrainCloud cloud_;
+    std::vector<size_t> onsets_;
 
 public:
     ArrayGrainer(const PdArgs& args);
@@ -38,6 +39,7 @@ public:
     void m_clear(t_symbol* s, const AtomListView& lv);
     void m_fill(t_symbol* s, const AtomListView& lv);
     void m_grain(t_symbol* s, const AtomListView& lv);
+    void m_onsets(t_symbol* s, const AtomListView& lv);
     void m_set(t_symbol* s, const AtomListView& lv);
 
     const GrainCloud& cloud() const { return cloud_; }
