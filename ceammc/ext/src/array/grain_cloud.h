@@ -50,6 +50,12 @@ public:
     void removeById(int id);
     void removeByTag(t_symbol* tag);
 
+    void alignGrain(Grain* g, const std::vector<size_t>& onsets);
+    void alignAll(const std::vector<size_t>& onsets);
+    void alignById(int id, const std::vector<size_t>& onsets);
+    void alignByTag(t_symbol* tag, const std::vector<size_t>& onsets);
+    void alignFinished(const std::vector<size_t>& onsets);
+
     void setArrayData(ArrayIterator data, size_t sz)
     {
         array_it_ = data;

@@ -21,6 +21,9 @@
 #include <memory>
 #include <random>
 
+constexpr const char* CHAR_ALL = "*";
+constexpr const char* CHAR_FINISHED = ".";
+
 using namespace ceammc;
 
 struct FVecDeleter {
@@ -93,25 +96,21 @@ void ArrayGrainer::m_align(t_symbol* s, const AtomListView& lv)
         return;
     }
 
-    for (auto* g : cloud_.grains()) {
-        const long pos = g->arrayPosInSamples();
-        auto next = std::upper_bound(onsets_.begin(), onsets_.end(), pos);
-
-        if (next == onsets_.end()) { // position after last onset
-            g->setArrayPosInSamples(onsets_.back());
-        } else if (next == onsets_.begin()) { // position before first onset
-            g->setArrayPosInSamples(onsets_.front());
-        } else {
-            const size_t next_onset = *next;
-            const size_t prev_onset = *(next - 1);
-            const size_t d0 = pos - prev_onset;
-            const size_t d1 = next_onset - pos;
-
-            if (d0 < d1)
-                g->setArrayPosInSamples(prev_onset);
-            else
-                g->setArrayPosInSamples(next_onset);
+    if (lv.empty() || lv[0] == gensym(CHAR_ALL)) { /// align all
+        cloud_.alignAll(onsets_);
+    } else if (lv[0].isFloat()) { /// remove by #ID
+        const int id = lv[0].asInt();
+        if (id < 0) {
+            METHOD_ERR(s) << "non-negative grain id expected, got: " << id;
+            return;
         }
+
+        cloud_.alignById(id, onsets_);
+    } else if (lv[0] == gensym(CHAR_FINISHED)) { /// remove finished
+        cloud_.alignFinished(onsets_);
+    } else if (lv[0].isSymbol()) { /// remove by tag
+        t_symbol* tag = lv[0].asT<t_symbol*>();
+        cloud_.alignByTag(tag, onsets_);
     }
 }
 
@@ -187,7 +186,7 @@ void ArrayGrainer::m_set(t_symbol* s, const AtomListView& lv)
         }
 
         METHOD_ERR(s) << "grain #" << id << " not found";
-    } else if (subj == gensym("*")) { /// set all grains
+    } else if (subj == gensym(CHAR_ALL)) { /// set all grains
         GrainExprParser p(nullptr);
 
         for (auto g : cloud_.grains()) {
@@ -268,7 +267,7 @@ void ArrayGrainer::m_fill(t_symbol* s, const AtomListView& lv)
 
 void ArrayGrainer::m_clear(t_symbol* s, const AtomListView& lv)
 {
-    if (lv.empty() || lv[0] == gensym("*")) { /// remove all
+    if (lv.empty() || lv[0] == gensym(CHAR_ALL)) { /// remove all
         cloud_.clear();
     } else if (lv[0].isFloat()) { /// remove by #ID
         const int id = lv[0].asInt();
@@ -278,7 +277,7 @@ void ArrayGrainer::m_clear(t_symbol* s, const AtomListView& lv)
         }
 
         cloud_.removeById(id);
-    } else if (lv[0] == gensym(".")) { /// remove finished
+    } else if (lv[0] == gensym(CHAR_FINISHED)) { /// remove finished
         cloud_.removeFinished();
     } else if (lv[0].isSymbol()) { /// remove by tag
         t_symbol* tag = lv[0].asT<t_symbol*>();

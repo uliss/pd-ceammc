@@ -72,6 +72,38 @@ void GrainCloud::removeByTag(t_symbol* tag)
     grains_.erase(from, grains_.end());
 }
 
+void GrainCloud::alignAll(const std::vector<size_t>& onsets)
+{
+    for (auto* g : grains_)
+        alignGrain(g, onsets);
+}
+
+void GrainCloud::alignById(int id, const std::vector<size_t>& onsets)
+{
+    for (auto* g : grains_) {
+        if (g->id() == id) {
+            alignGrain(g, onsets);
+            break;
+        }
+    }
+}
+
+void GrainCloud::alignByTag(t_symbol* tag, const std::vector<size_t>& onsets)
+{
+    for (auto* g : grains_) {
+        if (g->tag() == tag)
+            alignGrain(g, onsets);
+    }
+}
+
+void GrainCloud::alignFinished(const std::vector<size_t>& onsets)
+{
+    for (auto* g : grains_) {
+        if (g->playStatus() == GRAIN_FINISHED)
+            alignGrain(g, onsets);
+    }
+}
+
 void GrainCloud::popGrain()
 {
     if (grains_.empty())
@@ -100,6 +132,28 @@ void GrainCloud::playBuffer(t_sample** buf, uint32_t bs, uint32_t sr)
 
             g->process(array_it_, array_size_, buf, bs, sr);
         }
+    }
+}
+
+void GrainCloud::alignGrain(Grain* g, const std::vector<size_t>& onsets)
+{
+    const long pos = g->arrayPosInSamples();
+    auto next = std::upper_bound(onsets.begin(), onsets.end(), pos);
+
+    if (next == onsets.end()) { // position after last onset
+        g->setArrayPosInSamples(onsets.back());
+    } else if (next == onsets.begin()) { // position before first onset
+        g->setArrayPosInSamples(onsets.front());
+    } else {
+        const size_t next_onset = *next;
+        const size_t prev_onset = *(next - 1);
+        const size_t d0 = pos - prev_onset;
+        const size_t d1 = next_onset - pos;
+
+        if (d0 < d1)
+            g->setArrayPosInSamples(prev_onset);
+        else
+            g->setArrayPosInSamples(next_onset);
     }
 }
 
