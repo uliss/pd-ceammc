@@ -49,11 +49,14 @@
             <method name="fill">fill with grains (remove all existing grains before) 
             <param name="N" type="int" required="true" minvalue="1">number of grains</param>
             <param name="PROPS" type="list" required="true">grain properties</param></method>
-            <method name="onsets">analyze source array for onsets
-            <param name="METHOD" type="symbol" default="default" enum="default hfc energy complex phase wphase specdiff kl mkl specflux">onset detection method</param>
-            <param name="SPACE" type="float" default="64" units="millisecond" required="false">minimal space between onsets</param>
-            <param name="SILENCE" type="float" default="-40" units="decibel" required="false">silence level</param>
-            </method>
+            <method name="onsets">analyze source array for onsets 
+            <param name="METHOD" type="symbol" default="default"
+            enum="default hfc energy complex phase wphase specdiff kl mkl specflux">onset detection
+            method</param>
+            <param name="SPACE" type="float" default="64" units="millisecond" required="false">
+            minimal space between onsets</param>
+            <param name="SILENCE" type="float" default="-40" units="decibel" required="false">
+            silence level</param></method>
         </methods>
         <properties>
             <property name="@array" type="symbol" default="">array name</property>

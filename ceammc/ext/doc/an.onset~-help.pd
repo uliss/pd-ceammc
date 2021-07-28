@@ -30,7 +30,7 @@ specflux kl mkl;
 #X text 110 405 2\.;
 #X text 150 405 symbol;
 #X obj 246 406 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 405 METHOD: overlap of analysis frames.;
+#X text 245 405 METHOD: detection method.;
 #X text 110 425 3\.;
 #X text 150 425 int;
 #X obj 246 426 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
