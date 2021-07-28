@@ -77,7 +77,6 @@ public:
     void playBuffer(t_sample** buf, uint32_t bs, uint32_t sr);
 };
 
-std::ostream& operator<<(std::ostream& os, const GrainCloud& cloud);
 }
 
 #endif // GRAIN_CLOUD_H

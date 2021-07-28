@@ -157,9 +157,4 @@ void GrainCloud::alignGrain(Grain* g, const std::vector<size_t>& onsets)
     }
 }
 
-std::ostream& operator<<(std::ostream& os, const GrainCloud& cloud)
-{
-    return os;
-}
-
 }
