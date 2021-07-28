@@ -60,7 +60,7 @@
 #X text 110 612 3\.;
 #X text 150 612 symbol;
 #X obj 246 613 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 612 METHOD: overlap of analysis frames.;
+#X text 245 612 METHOD: detection method.;
 #X text 110 632 4\.;
 #X text 150 632 int;
 #X obj 246 633 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -125,7 +125,7 @@ Type: float. Units: ms. Default value: 50\. Min value: 1\.;
 #X text 245 1422 Get/Set peak picking threshold. Type: float. Default
 value: 0.058\.;
 #X msg 110 1464 @wphase;
-#X text 245 1464 alias to @method phase.Weighted Phase Deviation onset
+#X text 245 1464 alias to @method phase. Weighted Phase Deviation onset
 detection function.;
 #X obj 20 1516 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1521 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
