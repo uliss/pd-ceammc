@@ -37,8 +37,8 @@ values: 0 \, 1\.;
 -49933 0;
 #X msg 110 599 resize;
 #X text 245 599 resize target array. Arguments are:;
-#X obj 255 622 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 622 SAMP: new size. Type: int. Min value: 10\.;
+#X obj 255 622 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 622 SZ: new size. Type: int. Min value: 10\. Units: samp.;
 #X obj 20 657 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 662 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;

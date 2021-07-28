@@ -76,8 +76,8 @@ Min value: 0\.;
 #X msg 110 1330 angles;
 #X text 245 1330 set the angles of channels. Angles are in radians
 \, wrapped between 0 and 2π. Arguments are:;
-#X obj 255 1368 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1368 RAD: list of angles. Type: list.;
+#X obj 255 1368 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1368 VALS: list of angles. Type: list. Units: rad.;
 #X msg 110 1393 wide;
 #X text 245 1393 set the widening value of channels. Widening value
 is clipped between 0\. (omnidirectional) and 1\. (directional). Arguments

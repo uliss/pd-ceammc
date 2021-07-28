@@ -81,7 +81,8 @@ are:;
 #X obj 255 1410 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1410 RAD: radius. Type: float. Range: 0\...1\.;
 #X obj 255 1433 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1433 RAD: rotation angle. Type: float. Range: 0\...2π.;
+#X text 255 1433 ANG: rotation angle. Type: float. Range: 0\...2π.
+Units: rad.;
 #X obj 20 1468 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1473 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;

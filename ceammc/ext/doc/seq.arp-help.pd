@@ -35,8 +35,9 @@
 -49933 0;
 #X msg 110 558 asr;
 #X text 245 558 set arpeggiate mode and run. Arguments are:;
-#X obj 255 581 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 581 MS: step duration. Type: float. Min value: 0\.;
+#X obj 255 581 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 581 STEP: step duration. Type: float. Min value: 0\. Units:
+ms.;
 #X obj 255 604 cnv 1 60 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 604 ON_MODE: on mode. Type: symbol. Allowed values: all
 \, first \, last.;
