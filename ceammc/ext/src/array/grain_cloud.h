@@ -27,12 +27,24 @@
 namespace ceammc {
 
 class GrainCloud {
+public:
+    enum SyncMode {
+        SYNC_NONE,
+        SYNC_INTERNAL,
+        SYNC_EXTERNAL,
+    };
+
+private:
     std::vector<Grain*> grains_;
     ArrayIterator array_it_;
     size_t array_size_ = { 0 };
 
     using Pool = boost::object_pool<Grain>;
     Pool pool_;
+
+    SyncMode sync_ = { SYNC_NONE };
+    uint32_t sync_counter_ = { 0 };
+    float sync_interval_ = { 50 };
 
 public:
     GrainCloud(size_t chunk_size = 32);
@@ -45,6 +57,12 @@ public:
     const std::vector<Grain*>& grains() const { return grains_; }
     /// clear all grains
     void clear();
+
+    SyncMode syncMode() const { return sync_; }
+    void setSyncMode(SyncMode m) { sync_ = m; }
+
+    float syncInterval() const { return sync_interval_; }
+    void setSyncInterval(float ms) { sync_interval_ = ms; }
 
     void removeFinished();
     void removeById(int id);

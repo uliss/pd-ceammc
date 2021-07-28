@@ -44,6 +44,8 @@ using OnsetPtr = std::unique_ptr<aubio_onset_t, OnsetDeleter>;
 ArrayGrainer::ArrayGrainer(const PdArgs& args)
     : SoundExternal(args)
     , array_name_(nullptr)
+    , sync_(nullptr)
+    , sync_interval_(nullptr)
 {
     createSignalOutlet();
     createSignalOutlet();
@@ -51,6 +53,24 @@ ArrayGrainer::ArrayGrainer(const PdArgs& args)
     array_name_ = new SymbolProperty("@array", &s_);
     array_name_->setArgIndex(0);
     addProperty(array_name_);
+
+    sync_ = new SymbolEnumProperty("@sync", { "none", "int", "ext" });
+    sync_->setSuccessFn([this](Property*) {
+        const auto v = sync_->value();
+        if (v == gensym("ext"))
+            cloud_.setSyncMode(GrainCloud::SYNC_EXTERNAL);
+        else if (v == gensym("int"))
+            cloud_.setSyncMode(GrainCloud::SYNC_INTERNAL);
+        else
+            cloud_.setSyncMode(GrainCloud::SYNC_NONE);
+    });
+    addProperty(sync_);
+
+    sync_interval_ = new FloatProperty("@tsync", 50);
+    sync_interval_->checkMinEq(1);
+    sync_interval_->setUnitsMs();
+    sync_interval_->setSuccessFn([this](Property*) { cloud_.setSyncInterval(sync_interval_->value()); });
+    addProperty(sync_interval_);
 }
 
 void ArrayGrainer::setupDSP(t_signal** sp)

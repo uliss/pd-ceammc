@@ -15,6 +15,7 @@
 #define ARRAY_GRAINER_H
 
 #include "ceammc_array.h"
+#include "ceammc_property_enum.h"
 #include "ceammc_sound_external.h"
 #include "grain.h"
 #include "grain_cloud.h"
@@ -23,6 +24,8 @@ using namespace ceammc;
 
 class ArrayGrainer : public SoundExternal {
     SymbolProperty* array_name_;
+    SymbolEnumProperty* sync_;
+    FloatProperty* sync_interval_;
     Array array_;
     GrainCloud cloud_;
     std::vector<size_t> onsets_;

@@ -127,8 +127,23 @@ void GrainCloud::playBuffer(t_sample** buf, uint32_t bs, uint32_t sr)
             continue;
 
         if (g->canBePlayed()) {
-            if (g->playStatus() == GRAIN_FINISHED)
-                g->start(0);
+            if (g->playStatus() == GRAIN_FINISHED) {
+                switch (sync_) {
+                case SYNC_INTERNAL:
+                    sync_counter_ += bs;
+
+                    if (sync_counter_ > (sr * 0.001 * sync_interval_)) {
+                        sync_counter_ = 0;
+                        g->start(0);
+                    }
+
+                    break;
+                case SYNC_NONE:
+                default:
+                    g->start(0);
+                    break;
+                }
+            }
 
             g->process(array_it_, array_size_, buf, bs, sr);
         }
