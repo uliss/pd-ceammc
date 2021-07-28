@@ -110,9 +110,10 @@ mode ::= MODE LINEAR.          { p->setPanMode(ceammc::GRAIN_PAN_LINEAR); }
 mode ::= MODE FN_SQRT.         { p->setPanMode(ceammc::GRAIN_PAN_SQRT); }
 
 waveform1(A) ::= SIN.          { A = ceammc::GRAIN_MOD_SIN; }
-waveform1(A) ::= SAW.          { A = ceammc::GRAIN_MOD_SAW; }
 waveform1(A) ::= TRI.          { A = ceammc::GRAIN_MOD_TRI; }
 waveform1(A) ::= SQR.          { A = ceammc::GRAIN_MOD_SQR; }
+waveform1(A) ::= USAW.         { A = ceammc::GRAIN_MOD_SAWUP; }
+waveform1(A) ::= DSAW.         { A = ceammc::GRAIN_MOD_SAWDOWN; }
 
 modulate ::= expr(A) DOTS expr(B) waveform1(W) OPENP expr(FREQ) CLOSEP.
                                { p->setModulation(A.val, B.val, (ceammc::GrainModulation)W.val, FREQ.val); }

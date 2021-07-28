@@ -505,8 +505,10 @@ double GrainPropModulator::mod(double sr, double t)
     switch (mtype_) {
     case GRAIN_MOD_SIN:
         return convert::lin2lin<double, -1, 1>(std::sin(two_pi * freq_ * t / sr), min_, max_);
-    case GRAIN_MOD_SAW:
+    case GRAIN_MOD_SAWUP:
         return convert::lin2lin<double, 0, 1>(std::fmod(freq_ * t / sr, 1), min_, max_);
+    case GRAIN_MOD_SAWDOWN:
+        return convert::lin2lin<double, 0, 1>(1 - std::fmod(freq_ * t / sr, 1), min_, max_);
     case GRAIN_MOD_SQR:
         return convert::lin2lin<double, 0, 1>(std::fmod(freq_ * t / sr, 1) >= 0.5 ? 1 : 0, min_, max_);
     case GRAIN_MOD_TRI:

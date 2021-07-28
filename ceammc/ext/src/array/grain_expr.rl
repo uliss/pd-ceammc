@@ -196,7 +196,8 @@ main := |*
   'lin'       =>  { pushToken(TK_LINEAR); };
   'cubic'     =>  { pushToken(TK_CUBIC); };
   'mod'       =>  { pushToken(TK_MODULATE); };
-  'saw'       =>  { pushToken(TK_SAW); };
+  'u'?'saw'   =>  { pushToken(TK_USAW); };
+  'dsaw'      =>  { pushToken(TK_DSAW); };
   'sqr'       =>  { pushToken(TK_SQR); };
   '..'        =>  { pushToken(TK_DOTS); };
   # spaces

@@ -1096,7 +1096,7 @@ TEST_CASE("array_grain", "[externals]")
         bl.fill(0);
 
         g.start(0);
-        g.setModulation(GRAIN_PROP_AMP, GrainPropModulator(GRAIN_MOD_SAW, 2, -1, 1));
+        g.setModulation(GRAIN_PROP_AMP, GrainPropModulator(GRAIN_MOD_SAWUP, 2, -1, 1));
         REQUIRE(g.hasModulation(GRAIN_PROP_AMP));
 
         REQUIRE(g.process(aptr->begin(), SZ, buf, BS, SR) == GRAIN_FINISHED);
@@ -1108,6 +1108,24 @@ TEST_CASE("array_grain", "[externals]")
         REQUIRE(bl[5] == 0.25);
         REQUIRE(bl[6] == 0.5);
         REQUIRE(bl[7] == 0.75);
+
+        br.fill(0);
+        bl.fill(0);
+
+        g.start(0);
+        g.setModulation(GRAIN_PROP_AMP, GrainPropModulator(GRAIN_MOD_SAWDOWN, 2, -1, 1));
+        REQUIRE(g.hasModulation(GRAIN_PROP_AMP));
+
+        REQUIRE(g.process(aptr->begin(), SZ, buf, BS, SR) == GRAIN_FINISHED);
+        REQUIRE(bl[0] == 1);
+        REQUIRE(bl[1] == 0.75);
+        REQUIRE(bl[2] == 0.5);
+        REQUIRE(bl[3] == 0.25);
+        REQUIRE(bl[4] == 0);
+        REQUIRE(bl[5] == -0.25);
+        REQUIRE(bl[6] == -0.5);
+        REQUIRE(bl[7] == -0.75);
+
 
         br.fill(0);
         bl.fill(0);

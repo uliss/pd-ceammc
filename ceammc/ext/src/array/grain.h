@@ -83,8 +83,9 @@ enum GrainModulation : uint8_t {
     GRAIN_MOD_NONE,
     GRAIN_MOD_SIN,
     GRAIN_MOD_TRI,
-    GRAIN_MOD_SAW,
     GRAIN_MOD_SQR,
+    GRAIN_MOD_SAWUP,
+    GRAIN_MOD_SAWDOWN,
 };
 
 class GrainPropAct {
