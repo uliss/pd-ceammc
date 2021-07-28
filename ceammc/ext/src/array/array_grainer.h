@@ -35,6 +35,7 @@ public:
 
     void dump() const override;
 
+    void m_align(t_symbol* s, const AtomListView& lv);
     void m_append(t_symbol* s, const AtomListView& lv);
     void m_clear(t_symbol* s, const AtomListView& lv);
     void m_fill(t_symbol* s, const AtomListView& lv);

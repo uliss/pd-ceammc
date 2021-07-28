@@ -79,7 +79,40 @@ void ArrayGrainer::dump() const
     for (auto g : cloud_.grains())
         OBJ_POST << *g;
 
+    OBJ_POST << "onsets: ";
+    for (auto x : onsets_)
+        OBJ_POST << x;
+
     SoundExternal::dump();
+}
+
+void ArrayGrainer::m_align(t_symbol* s, const AtomListView& lv)
+{
+    if (onsets_.empty()) {
+        METHOD_DBG(s) << "no onset information, can't align";
+        return;
+    }
+
+    for (auto* g : cloud_.grains()) {
+        const long pos = g->arrayPosInSamples();
+        auto next = std::upper_bound(onsets_.begin(), onsets_.end(), pos);
+
+        if (next == onsets_.end()) { // position after last onset
+            g->setArrayPosInSamples(onsets_.back());
+        } else if (next == onsets_.begin()) { // position before first onset
+            g->setArrayPosInSamples(onsets_.front());
+        } else {
+            const size_t next_onset = *next;
+            const size_t prev_onset = *(next - 1);
+            const size_t d0 = pos - prev_onset;
+            const size_t d1 = next_onset - pos;
+
+            if (d0 < d1)
+                g->setArrayPosInSamples(prev_onset);
+            else
+                g->setArrayPosInSamples(next_onset);
+        }
+    }
 }
 
 void ArrayGrainer::m_append(t_symbol* s, const AtomListView& lv)
@@ -275,6 +308,9 @@ void ArrayGrainer::m_onsets(t_symbol* s, const AtomListView& lv)
         return;
     }
 
+    aubio_onset_set_minioi_ms(detector.get(), clip_min<t_float, 64>(lv.floatAt(1, 250)));
+    aubio_onset_set_silence(detector.get(), clip<t_float, -80, 0>(lv.floatAt(2, -40)));
+
     FVecPtr in(new_fvec(HS));
     FVecPtr out(new_fvec(1));
 
@@ -313,4 +349,5 @@ void setup_array_grainer()
     obj.addMethod("grain", &ArrayGrainer::m_grain);
     obj.addMethod("set", &ArrayGrainer::m_set);
     obj.addMethod("onsets", &ArrayGrainer::m_onsets);
+    obj.addMethod("align", &ArrayGrainer::m_align);
 }
