@@ -1746,6 +1746,11 @@
       <xi:include href="random.pw_lin.pddoc" parse="xml"/>
     </entry>
   </category>
+  <category name="samp">
+    <entry name="samp.time~" descr="sample counter" ref_view="object">
+      <xi:include href="samp.time~.pddoc" parse="xml"/>
+    </entry>
+  </category>
   <category name="seq">
     <entry name="seq.arp" descr="sequence arpeggiator" ref_view="object">
       <xi:include href="seq.arp.pddoc" parse="xml"/>

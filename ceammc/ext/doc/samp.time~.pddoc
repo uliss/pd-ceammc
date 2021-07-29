@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="samp.time~">
+        <title>samp.time~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>sample counter</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>samp</category>
+            <keywords>base</keywords>
+            <since>0.9.4</since>
+            <aliases>
+                <alias>samp.t~</alias>
+            </aliases>
+        </meta>
+        <arguments/>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>on 0->1 change: start counter, on 1->0 stops.</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="bang">reset sample counter</xinfo>
+                <xinfo on="float">set current value</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>current sample number</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[T]    [bang(
+|      |.
+[samp.t~]
+|
+[ui.n~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

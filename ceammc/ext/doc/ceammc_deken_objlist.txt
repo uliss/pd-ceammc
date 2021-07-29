@@ -467,6 +467,7 @@ fx.pitchshift~	simple pitch shifter based on 2 delay lines
 fx.recho~	reversed echo effect
 fx.room~	Gardners room emulation algorithms
 fx.sdelay~	smooth delay with a feedback control
+fx.secho~	enchanced echo effect that does not click on delay change
 fx.shimmer~	shimmer reverb effect effect
 fx.tapiir~	multi-tap delay
 fx.vocoder~	very simple vocoder where the spectrum of the modulation signal is analyzed using a 32-band filter bank
@@ -911,6 +912,8 @@ random.i	uniform random integer generator in specified range
 random.linear	random linear distribution
 random.pw_const	piecewise constant random distribution
 random.pw_lin	piecewise linear random distribution
+samp.time~	sample counter
+samp.t~	sample counter
 seq.arp	sequence arpeggiator
 seq.bangs	bang sequencer
 seq.b	bang sequencer

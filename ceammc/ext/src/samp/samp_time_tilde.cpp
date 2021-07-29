@@ -60,4 +60,10 @@ void SampTimeTilde::onInlet(size_t n, const AtomListView& lv)
 void setup_samp_time_tilde()
 {
     SoundExternalFactory<SampTimeTilde> obj("samp.time~");
+    obj.addAlias("samp.t~");
+
+    obj.setXletsInfo({ "signal: start on up front signal, stop on down",
+                         "bang: reset\n"
+                         "float: set counter value" },
+        { "signal: output sample" });
 }

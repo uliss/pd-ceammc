@@ -562,6 +562,7 @@ set(DOC_FILES
     replace
     route.float
     rtree.to_list
+    samp.time~
     set.contains
     set.diff
     set.equal

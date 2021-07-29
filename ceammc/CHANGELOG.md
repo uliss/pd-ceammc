@@ -15,6 +15,7 @@
   - fx.shimmer~: shimmer reverb added
   - fx.room~: room reverb added
   - fx.tapiir~: multitap delay with feedback
+  - samp.time~: sample counter added (with samp.t~ alias)
   - spring: return to specified value in specified time
   - synth.snare~: snare drum
   - synth.kick~: low kick
