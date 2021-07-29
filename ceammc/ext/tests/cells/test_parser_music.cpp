@@ -181,19 +181,19 @@ TEST_CASE("parser_music", "[ceammc::ceammc_units]")
             REQUIRE(p.parse("Cbb4"));
             REQUIRE(p.spn().midi() == 58);
 
-            REQUIRE(p.parse("C4|+50c"));
+            REQUIRE(p.parse("C4(+50c)"));
             REQUIRE(p.spn().midi() == 60.5);
 
-            REQUIRE(p.parse("C4|+0c"));
+            REQUIRE(p.parse("C4(+0c)"));
             REQUIRE(p.spn().midi() == 60);
 
-            REQUIRE(p.parse("C4|+01c"));
+            REQUIRE(p.parse("C4(+01c)"));
             REQUIRE(p.spn().midi() == Approx(60.01));
 
-            REQUIRE(p.parse("C4|+5c"));
+            REQUIRE(p.parse("C4(+5c)"));
             REQUIRE(p.spn().midi() == Approx(60.05));
 
-            REQUIRE(p.parse("C4|-25c"));
+            REQUIRE(p.parse("C4(-25c)"));
             REQUIRE(p.spn().midi() == 59.75);
 
             REQUIRE(p.parse("A4"));
@@ -350,7 +350,7 @@ TEST_CASE("parser_music", "[ceammc::ceammc_units]")
             REQUIRE(p.note().dur.den == 4);
             REQUIRE(p.note().dur.ratio() == 0.25);
 
-            REQUIRE(p.parse("C#1(4)"));
+            REQUIRE(p.parse("C#1|4"));
             REQUIRE(p.note().spn.midi() == 25);
             REQUIRE(p.note().dur.isAbs());
             REQUIRE(p.note().spn.oct == 1);
@@ -358,89 +358,89 @@ TEST_CASE("parser_music", "[ceammc::ceammc_units]")
             REQUIRE(p.note().dur.den == 4);
             REQUIRE(p.note().dur.ratio() == 0.25);
 
-            REQUIRE(p.parse("Cb5(2.)"));
+            REQUIRE(p.parse("Cb5|2."));
             REQUIRE(p.note().spn.midi() == 71);
             REQUIRE(p.note().spn.oct == 5);
             REQUIRE(p.note().dur.num == 3);
             REQUIRE(p.note().dur.den == 4);
             REQUIRE(p.note().dur.ratio() == 0.75);
 
-            REQUIRE(p.parse("Cb5(2..)"));
+            REQUIRE(p.parse("Cb5|2.."));
             REQUIRE(p.note().spn.midi() == 71);
             REQUIRE(p.note().spn.oct == 5);
             REQUIRE(p.note().dur.num == 7);
             REQUIRE(p.note().dur.den == 8);
             REQUIRE(p.note().dur.ratio() == 0.875);
 
-            REQUIRE(p.parse("Cbb5(2...)"));
+            REQUIRE(p.parse("Cbb5|2..."));
             REQUIRE(p.note().spn.midi() == 70);
             REQUIRE(p.note().spn.oct == 5);
             REQUIRE(p.note().dur.num == 15);
             REQUIRE(p.note().dur.den == 16);
             REQUIRE(p.note().dur.ratio() == 0.9375);
 
-            REQUIRE(p.parse("D(256)"));
+            REQUIRE(p.parse("D|256"));
             REQUIRE(p.note().dur.num == 1);
             REQUIRE(p.note().dur.den == 256);
 
-            REQUIRE(p.parse("D(2/3)"));
+            REQUIRE(p.parse("D|2/3"));
             REQUIRE(p.note().dur.num == 2);
             REQUIRE(p.note().dur.den == 3);
             REQUIRE(p.note().dur.isAbs());
 
-            REQUIRE(p.parse("D(1/4)"));
+            REQUIRE(p.parse("D|1/4"));
             REQUIRE(p.note().dur.num == 1);
             REQUIRE(p.note().dur.den == 4);
 
-            REQUIRE(p.parse("D(1/4.)"));
+            REQUIRE(p.parse("D|1/4."));
             REQUIRE(p.note().dur.num == 3);
             REQUIRE(p.note().dur.den == 8);
 
-            REQUIRE(p.parse("C|+50c(5/4)"));
+            REQUIRE(p.parse("C(+50c)|5/4"));
             REQUIRE(p.note().spn.midi() == 60.5);
             REQUIRE(p.note().dur.num == 5);
             REQUIRE(p.note().dur.den == 4);
             REQUIRE(p.note().dur.ratio() == 1.25);
 
-            REQUIRE(p.parse("C|+50c(2/4.)"));
+            REQUIRE(p.parse("C(+50c)|2/4."));
             REQUIRE(p.note().spn.midi() == 60.5);
             REQUIRE(p.note().dur.num == 6);
             REQUIRE(p.note().dur.den == 8);
             REQUIRE(p.note().dur.isAbs());
 
-            REQUIRE(p.parse("C|+25cent(2/4.)"));
+            REQUIRE(p.parse("C(+25c)|2/4."));
             REQUIRE(p.note().spn.midi() == 60.25);
             REQUIRE(p.note().dur.num == 6);
             REQUIRE(p.note().dur.den == 8);
             REQUIRE(p.note().dur.isAbs());
 
-            REQUIRE(p.parse("C|+12_c(2/4.)"));
+            REQUIRE(p.parse("C(+12c)|2/4."));
             REQUIRE(p.note().spn.midi() == Approx(60.12));
             REQUIRE(p.note().dur.num == 6);
             REQUIRE(p.note().dur.den == 8);
             REQUIRE(p.note().dur.isAbs());
 
-            REQUIRE(p.parse("C^|+50c(*11)"));
+            REQUIRE(p.parse("C^(+50c)|*11"));
             REQUIRE(p.note().spn.midi() == 72.5);
             REQUIRE(p.note().dur.num == 11);
             REQUIRE(p.note().dur.den == 1);
             REQUIRE(p.note().dur.durtype == DURATION_REL);
             REQUIRE(p.note().dur.ratio() == 11);
 
-            REQUIRE(p.parse("C^|+50c(*3/16)"));
+            REQUIRE(p.parse("C^(+50c)|*3/16"));
             REQUIRE(p.note().dur.num == 3);
             REQUIRE(p.note().dur.den == 16);
             REQUIRE(p.note().dur.durtype == DURATION_REL);
             REQUIRE(!p.note().dur.isAbs());
 
-            REQUIRE(p.parse("C^|-25c(/16)"));
+            REQUIRE(p.parse("C^(-25c)|/16"));
             REQUIRE(p.note().spn.midi() == 71.75);
             REQUIRE(p.note().dur.num == 1);
             REQUIRE(p.note().dur.den == 16);
             REQUIRE(p.note().dur.durtype == DURATION_REL);
             REQUIRE(!p.note().dur.isAbs());
 
-            REQUIRE(p.parse("R(4)"));
+            REQUIRE(p.parse("R|4"));
             REQUIRE(p.note().isRest());
             REQUIRE(p.note().dur.isAbs());
             REQUIRE(p.note().dur.num == 1);
@@ -452,7 +452,7 @@ TEST_CASE("parser_music", "[ceammc::ceammc_units]")
             REQUIRE(p.note().dur.timeMs({ 120, 0.25 }) == 500);
             REQUIRE(p.note().dur.timeSamp(44100) == 44100);
 
-            REQUIRE(p.parse("R(7/8)"));
+            REQUIRE(p.parse("R|7/8"));
             REQUIRE(p.note().isRest());
             REQUIRE(p.note().dur.num == 7);
             REQUIRE(p.note().dur.den == 8);

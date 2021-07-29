@@ -61,11 +61,11 @@ spn_octave = (spn_octave_abs | spn_octave_rel) >{spn.octtype = OCTAVE_REL;};
 
 spn_dev =
     (
-        '|'
+        '('
         ('-'|'+')    @{spn.sign = (fc=='-') ? -1 : 1;}
         ([0-9]{1,2}) ${(spn.dev *= 10) += (fc - '0');}
-        '_' ?
-        'c' 'ent'?   %{spn.dev *= spn.sign;}
+        'c'          %{spn.dev *= spn.sign;}
+        ')'
     );
 
 spn = (
@@ -124,7 +124,7 @@ dur_sequence = dur_repeat ? note_dur_abs;
 
 note_dur_all = note_dur_rel | note_dur_abs;
 
-note_dur_par = '(' note_dur_all ')';
+note_dur_par = '|' note_dur_all;
 note_rest = 'R' @{note.rest = 1;};
 
 note_single = (note_rest | spn) note_dur_par?
