@@ -48,19 +48,39 @@ void Duration2Time::onFloat(t_float f)
 void Duration2Time::onSymbol(t_symbol* s)
 {
     using namespace ceammc::parser;
+
     DurationFullMatch p;
-    if (!p.parse(s->s_name)) {
+    DurationVec out;
+
+    if (!p.parse(AtomListView(s), out)) {
         OBJ_ERR << "invalid duration: " << s->s_name;
         return;
     }
 
-    const auto ms = bpm_->wholePeriodMs() * p.result().ratio();
-    floatTo(0, ms);
+    SmallAtomVec atoms;
+    atoms.reserve(out.size());
+
+    t_float t = 0;
+    const bool seq = seq_->value();
+
+    for (size_t i = 0; i < out.size(); i++) {
+        const auto ms = out[i].timeMs(Bpm(bpm_->value(), bpm_->beatlen()));
+
+        if (seq)
+            t += ms;
+        else
+            t = ms;
+
+        atoms.push_back(t);
+    }
+
+    listTo(0, AtomListView(atoms.data(), atoms.size()));
 }
 
 void Duration2Time::onList(const AtomList& lst)
 {
     using namespace ceammc::parser;
+
     DurationFullMatch p;
     DurationVec out;
     const auto n = p.parse(lst.view(), out);
@@ -70,12 +90,12 @@ void Duration2Time::onList(const AtomList& lst)
     }
 
     SmallAtomVec atoms;
-    atoms.reserve(n);
+    atoms.reserve(out.size());
 
     t_float t = 0;
     const bool seq = seq_->value();
 
-    for (size_t i = 0; i < n; i++) {
+    for (size_t i = 0; i < out.size(); i++) {
         const auto ms = out[i].timeMs(Bpm(bpm_->value(), bpm_->beatlen()));
 
         if (seq)
