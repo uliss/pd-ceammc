@@ -4,10 +4,10 @@
 #X obj 125 25 inlet~;
 #X obj 525 25 inlet;
 #X obj 525 200 route fx.zita_rev1;
-#X obj 525 250 route @bypass @decay_low @decay_mid @delay @drywet
-@dump_hf @fr_ldecay @fr_mdecay @fr_time @freeze @freq_low;
+#X obj 525 250 route @bypass @damp_hf @decay_low @decay_mid @delay
+@drywet @fr_ldecay @fr_mdecay @fr_time @freeze @freq_low;
 #X obj 775 350 print unknown property;
-#X msg 425 75 @decay_low 3 \, @decay_mid 2 \, @delay 60 \, @drywet 1 \, @dump_hf 6000 \, @fr_ldecay 40 \, @fr_mdecay 40 \, @fr_time 100 \, @freq_low 200 \,;
+#X msg 425 75 @damp_hf 6000 \, @decay_low 3 \, @decay_mid 2 \, @delay 60 \, @drywet 1 \, @fr_ldecay 40 \, @fr_mdecay 40 \, @fr_time 100 \, @freq_low 200 \,;
 #X obj 425 25 msg.onload;
 #X obj 500 550 outlet~;
 #X obj 600 550 outlet~;
@@ -19,35 +19,35 @@
 /gui/\$1/fx.zita_rev1~/checkbox0;
 #X msg 260 218 @bypass \$1;
 #X obj 12 256 ui.slider @size 125 12 @active_scale 1 @label
-decay_low(sec): @label_side top @label_align left @fontsize 10
-@presetname /gui/\$1/fx.zita_rev1~/slider1 @min 1 @max 60;
+damp_hf(Hz): @label_side top @label_align left @fontsize 10
+@presetname /gui/\$1/fx.zita_rev1~/slider1 @min 1500 @max 47040;
 #X obj 190 256 sync;
-#X obj 145 256 ui.number @size 50 12 @min 1 @max 60 @digits 2;
-#X msg 260 256 @decay_low \$1;
+#X obj 145 256 ui.number @size 50 12 @min 1500 @max 47040 @digits 1;
+#X msg 260 256 @damp_hf \$1;
 #X obj 12 288 ui.slider @size 125 12 @active_scale 1 @label
-decay_mid(sec): @label_side top @label_align left @fontsize 10
+decay_low(sec): @label_side top @label_align left @fontsize 10
 @presetname /gui/\$1/fx.zita_rev1~/slider2 @min 1 @max 60;
 #X obj 190 288 sync;
 #X obj 145 288 ui.number @size 50 12 @min 1 @max 60 @digits 2;
-#X msg 260 288 @decay_mid \$1;
-#X obj 12 320 ui.slider @size 125 12 @active_scale 1 @label delay(ms):
-@label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/fx.zita_rev1~/slider3 @min 20 @max 100;
+#X msg 260 288 @decay_low \$1;
+#X obj 12 320 ui.slider @size 125 12 @active_scale 1 @label
+decay_mid(sec): @label_side top @label_align left @fontsize 10
+@presetname /gui/\$1/fx.zita_rev1~/slider3 @min 1 @max 60;
 #X obj 190 320 sync;
-#X obj 145 320 ui.number @size 50 12 @min 20 @max 100 @digits 2;
-#X msg 260 320 @delay \$1;
-#X obj 12 352 ui.slider @size 125 12 @active_scale 1 @label drywet:
+#X obj 145 320 ui.number @size 50 12 @min 1 @max 60 @digits 2;
+#X msg 260 320 @decay_mid \$1;
+#X obj 12 352 ui.slider @size 125 12 @active_scale 1 @label delay(ms):
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/fx.zita_rev1~/slider4 @min 0 @max 1;
+/gui/\$1/fx.zita_rev1~/slider4 @min 20 @max 100;
 #X obj 190 352 sync;
-#X obj 145 352 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 352 @drywet \$1;
-#X obj 12 384 ui.slider @size 125 12 @active_scale 1 @label
-dump_hf(Hz): @label_side top @label_align left @fontsize 10
-@presetname /gui/\$1/fx.zita_rev1~/slider5 @min 1500 @max 47040;
+#X obj 145 352 ui.number @size 50 12 @min 20 @max 100 @digits 2;
+#X msg 260 352 @delay \$1;
+#X obj 12 384 ui.slider @size 125 12 @active_scale 1 @label drywet:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/fx.zita_rev1~/slider5 @min 0 @max 1;
 #X obj 190 384 sync;
-#X obj 145 384 ui.number @size 50 12 @min 1500 @max 47040 @digits 1;
-#X msg 260 384 @dump_hf \$1;
+#X obj 145 384 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 384 @drywet \$1;
 #X obj 12 416 ui.slider @size 125 12 @active_scale 1 @label
 fr_ldecay(sec): @label_side top @label_align left @fontsize 10
 @presetname /gui/\$1/fx.zita_rev1~/slider6 @min 0 @max 60;

@@ -37,9 +37,12 @@ gfx.greyhole~
 gfx.pitchshift~
 gfx.recho~
 gfx.sdelay~
+gfx.secho~
 gfx.vocoder~
 gfx.wahwah~
 gfx.zita_rev1~
+gfx_reverb_duck~
+gfx_room~
 gfx_shimmer~
 gnoise.crackle~
 gnoise.lfreq0~

@@ -4,10 +4,10 @@
 #X obj 125 25 inlet~;
 #X obj 525 25 inlet;
 #X obj 525 200 route fx_shimmer;
-#X obj 525 250 route @bypass @control @decay_low @decay_mid @depth
-@drywet @dump_hf @envelope @freq_low @mode @ps_drywet @shift @speed;
+#X obj 525 250 route @bypass @control @damp_hf @decay_low @decay_mid
+@depth @drywet @envelope @freq_low @mode @ps_drywet @shift @speed;
 #X obj 775 350 print unknown property;
-#X msg 425 75 @control 0.5 \, @decay_low 3 \, @decay_mid 2 \, @depth 0 \, @drywet 0.5 \, @dump_hf 6000 \, @envelope 1 \, @freq_low 200 \, @mode 0 \, @ps_drywet 0.5 \, @shift 0 \, @speed 0.1 \,;
+#X msg 425 75 @control 0.5 \, @damp_hf 6000 \, @decay_low 3 \, @decay_mid 2 \, @depth 0 \, @drywet 0.5 \, @envelope 1 \, @freq_low 200 \, @mode 0 \, @ps_drywet 0.5 \, @shift 0 \, @speed 0.1 \,;
 #X obj 425 25 msg.onload;
 #X obj 500 550 outlet~;
 #X obj 600 550 outlet~;
@@ -25,35 +25,35 @@
 #X obj 145 256 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 256 @control \$1;
 #X obj 12 288 ui.slider @size 125 12 @active_scale 1 @label
-decay_low(sec): @label_side top @label_align left @fontsize 10
-@presetname /gui/\$1/fx_shimmer~/slider2 @min 1 @max 8;
+damp_hf(Hz): @label_side top @label_align left @fontsize 10
+@presetname /gui/\$1/fx_shimmer~/slider2 @min 1500 @max 47040;
 #X obj 190 288 sync;
-#X obj 145 288 ui.number @size 50 12 @min 1 @max 8 @digits 3;
-#X msg 260 288 @decay_low \$1;
+#X obj 145 288 ui.number @size 50 12 @min 1500 @max 47040 @digits 1;
+#X msg 260 288 @damp_hf \$1;
 #X obj 12 320 ui.slider @size 125 12 @active_scale 1 @label
-decay_mid(sec): @label_side top @label_align left @fontsize 10
+decay_low(sec): @label_side top @label_align left @fontsize 10
 @presetname /gui/\$1/fx_shimmer~/slider3 @min 1 @max 8;
 #X obj 190 320 sync;
 #X obj 145 320 ui.number @size 50 12 @min 1 @max 8 @digits 3;
-#X msg 260 320 @decay_mid \$1;
-#X obj 12 352 ui.slider @size 125 12 @active_scale 1 @label depth:
-@label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/fx_shimmer~/slider4 @min 0 @max 1;
+#X msg 260 320 @decay_low \$1;
+#X obj 12 352 ui.slider @size 125 12 @active_scale 1 @label
+decay_mid(sec): @label_side top @label_align left @fontsize 10
+@presetname /gui/\$1/fx_shimmer~/slider4 @min 1 @max 8;
 #X obj 190 352 sync;
-#X obj 145 352 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 352 @depth \$1;
-#X obj 12 384 ui.slider @size 125 12 @active_scale 1 @label drywet:
+#X obj 145 352 ui.number @size 50 12 @min 1 @max 8 @digits 3;
+#X msg 260 352 @decay_mid \$1;
+#X obj 12 384 ui.slider @size 125 12 @active_scale 1 @label depth:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx_shimmer~/slider5 @min 0 @max 1;
 #X obj 190 384 sync;
 #X obj 145 384 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 384 @drywet \$1;
-#X obj 12 416 ui.slider @size 125 12 @active_scale 1 @label
-dump_hf(Hz): @label_side top @label_align left @fontsize 10
-@presetname /gui/\$1/fx_shimmer~/slider6 @min 1500 @max 47040;
+#X msg 260 384 @depth \$1;
+#X obj 12 416 ui.slider @size 125 12 @active_scale 1 @label drywet:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/fx_shimmer~/slider6 @min 0 @max 1;
 #X obj 190 416 sync;
-#X obj 145 416 ui.number @size 50 12 @min 1500 @max 47040 @digits 1;
-#X msg 260 416 @dump_hf \$1;
+#X obj 145 416 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 416 @drywet \$1;
 #X obj 12 448 ui.slider @size 125 12 @active_scale 1 @label
 envelope(sec): @label_side top @label_align left @fontsize 10
 @presetname /gui/\$1/fx_shimmer~/slider7 @min 0.1 @max 3;
