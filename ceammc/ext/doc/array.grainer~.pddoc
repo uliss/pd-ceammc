@@ -69,10 +69,13 @@
             after specified interval (@tsync).</property>
             <property name="@tsync" type="float" default="50" minvalue="1" units="millisecond">
             grain sync interval</property>
+            <property name="@prob" type="float" default="1" minvalue="0" maxvalue="1">grain start
+            probability in internal or external sync mode. ('int' or 'ext')</property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo>control inlet</xinfo>
+                <xinfo on="bang">if @sync = 'ext': starts finished grains playback</xinfo>
             </inlet>
         </inlets>
         <outlets>
