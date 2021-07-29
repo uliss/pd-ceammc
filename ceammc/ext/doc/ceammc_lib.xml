@@ -1939,7 +1939,7 @@
     <entry name="synth.eguitar~" descr="simple electric guitar model with steel strings" ref_view="object">
       <xi:include href="synth.eguitar~.pddoc" parse="xml"/>
     </entry>
-    <entry name="synth.english_bell~" descr="german church bell modal model" ref_view="object">
+    <entry name="synth.english_bell~" descr="english church bell modal model" ref_view="object">
       <xi:include href="synth.english_bell~.pddoc" parse="xml"/>
     </entry>
     <entry name="synth.fgrain~" descr="file granulator from STK" ref_view="object">
@@ -1992,6 +1992,9 @@
     </entry>
     <entry name="synth.snare~" descr="Snare drum synth from Guitarix project" ref_view="object">
       <xi:include href="synth.snare~.pddoc" parse="xml"/>
+    </entry>
+    <entry name="synth.standard_bell~" descr="german church bell modal model" ref_view="object">
+      <xi:include href="synth.standard_bell~.pddoc" parse="xml"/>
     </entry>
     <entry name="synth.tube_bell~" descr="STK tubular bell (orchestral chime) FM synthesis instrument" ref_view="object">
       <xi:include href="synth.tube_bell~.pddoc" parse="xml"/>

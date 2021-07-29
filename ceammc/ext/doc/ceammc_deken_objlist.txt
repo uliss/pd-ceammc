@@ -1021,7 +1021,7 @@ synth.church_bell~	generic church bell modal model
 synth.dubdub~	simple synth based on a sawtooth wave filtered by a resonant lowpass
 synth.dx7~	FAUST dx7 implementation
 synth.eguitar~	simple electric guitar model with steel strings
-synth.english_bell~	german church bell modal model
+synth.english_bell~	english church bell modal model
 synth.fgrain~	file granulator from STK
 synth.german_bell~	german church bell modal model
 synth.glass_harm~	nonlinear banded waveguide modeled Glass Harmonica
@@ -1039,6 +1039,7 @@ synth.russian_bell~	russian church bell modal model
 synth.shakers~	various percussion sounds from STK library
 synth.sitar~	STK sitar
 synth.snare~	Snare drum synth from Guitarix project
+synth.standard_bell~	german church bell modal model
 synth.tube_bell~	STK tubular bell (orchestral chime) FM synthesis instrument
 synth.wurley~	Wurlitzer electric piano FM synthesis instrument
 system.colorpanel	System color panel dialog popup

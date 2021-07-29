@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
-    <object name="synth.english_bell~">
-        <title>synth.english_bell~</title>
+    <object name="synth.standard_bell~">
+        <title>synth.standard_bell~</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>english church bell modal model</description>
+            <description>german church bell modal model</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>synth</category>
@@ -17,7 +17,7 @@
             <par>Modeled after D. Bartocha and . Baron, Influence of Tin Bronze Melting and Pouring
             Parameters on Its Properties and Bell' Tone, Archives of Foundry Engineering,
             2016</par>
-            <par>Model height is 1m</par>
+            <par>Model height is 1.8m</par>
             <par>This model contains 7 excitation positions going linearly from the bottom to the
             top of the bell</par>
         </info>
@@ -63,9 +63,9 @@
 |
 [msg.after 300 @gate 0]
 |
-[msg synth.english_bell]
+[msg synth.standard_bell]
 |
-[gsynth.english_bell~ {i=1,o=1}]
+[gsynth.standard_bell~ {i=1,o=1}]
 |
 |
 |
