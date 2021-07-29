@@ -1,4 +1,4 @@
-#N canvas 0 0 470 414 12;
+#N canvas 0 0 485 414 12;
 #X text 20 48 asbolute octave number in -1..9 range \, C4=60;
 #X msg 20 77 list C4 D5 E2 F-1 G9;
 #X obj 20 106 music.v->m;

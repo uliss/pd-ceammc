@@ -45,7 +45,7 @@
 
 [music.voice2midi.notes] [music.voice2midi.oct]
 
-[music.voice2midi.alt]
+[music.voice2midi.alt]   [music.voice2midi.micro]
 ]]>
             </pdascii>
             <pdascii id="notes">
@@ -60,6 +60,17 @@
             <pdascii id="alt">
 <![CDATA[
 [list C C# C## Eb Fbb(
+|
+[music.v->m]
+|
+[ui.dt]
+]]>
+            </pdascii>
+            <pdascii id="micro">
+<![CDATA[
+/*deviation in cents: -99..+99 range*/
+
+[list C4\(-10c) C^\(+99c)(
 |
 [music.v->m]
 |

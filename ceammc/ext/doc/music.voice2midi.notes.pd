@@ -1,4 +1,4 @@
-#N canvas 0 0 470 241 12;
+#N canvas 0 0 485 241 12;
 #X msg 20 48 list C D E F G A B;
 #X obj 20 77 music.v->m;
 #X obj 20 106 ui.dt;

@@ -1,0 +1,7 @@
+#N canvas 0 0 485 241 12;
+#X text 20 48 deviation in cents: -99..+99 range;
+#X msg 20 77 list C4(-10c) C^(+99c);
+#X obj 20 106 music.v->m;
+#X obj 20 135 ui.dt;
+#X connect 1 0 2 0;
+#X connect 2 0 3 0;
