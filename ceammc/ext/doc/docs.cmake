@@ -616,6 +616,7 @@ set(DOC_FILES
     synth.eguitar~
     synth.fgrain~
     synth.harpsichord~
+    synth.german_bell~
     synth.glass_harm~
     synth.glitch~
     synth.kick~

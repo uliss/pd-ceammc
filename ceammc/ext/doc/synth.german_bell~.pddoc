@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="synth.german_bell~">
+        <title>synth.german_bell~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>german church bell modal model</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>synth</category>
+            <keywords>bell church german</keywords>
+            <since>0.9.4</since>
+        </meta>
+        <info>
+            <par>Modeled after D. Bartocha and . Baron, Influence of Tin Bronze Melting and Pouring
+            Parameters on Its Properties and Bell' Tone, Archives of Foundry Engineering,
+            2016</par>
+            <par>Model height is 1m</par>
+            <par>This model contains 7 excitation positions going linearly from the bottom to the
+            top of the bell</par>
+        </info>
+        <methods>
+            <method name="reset">reset synth</method>
+        </methods>
+        <properties>
+            <property name="@pos" type="int" minvalue="0" maxvalue="6" default="0">strike position
+            (0 is on the bottom)</property>
+            <property name="@gain" type="float" minvalue="0" maxvalue="1" default="1">strike
+            gain</property>
+            <property name="@sharp" type="float" minvalue="0.01" maxvalue="5" default="0.25">strike
+            sharpness</property>
+            <property name="@cutoff" type="float" minvalue="20" maxvalue="20000" default="4000"
+            units="herz">strike cutoff frequency</property>
+            <property name="@t60" type="float" minvalue="0.1" maxvalue="30" default="20"
+            units="second">time to decay to -60db level</property>
+            <property name="@decay_ratio" type="float" minvalue="0" maxvalue="1" default="1">decay
+            ratio</property>
+            <property name="@decay_slope" type="float" minvalue="0" maxvalue="10" default="3">decay
+            slope</property>
+            <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">play trigger
+            - 1: on, 0: off</property>
+            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
+            processing</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">play</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">output signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[T]            [ui.dsp~]
+|
+[metro 1000]
+|
+[@gate 1(
+|
+[msg.after 300 @gate 0]
+|
+[msg synth.german_bell]
+|
+[gsynth.german_bell~ {i=1,o=1}]
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+[ui.gain~ @size 120 16]
+|\
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

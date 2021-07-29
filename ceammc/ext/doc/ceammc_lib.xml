@@ -1942,6 +1942,9 @@
     <entry name="synth.fgrain~" descr="file granulator from STK" ref_view="object">
       <xi:include href="synth.fgrain~.pddoc" parse="xml"/>
     </entry>
+    <entry name="synth.german_bell~" descr="german church bell modal model" ref_view="object">
+      <xi:include href="synth.german_bell~.pddoc" parse="xml"/>
+    </entry>
     <entry name="synth.glass_harm~" descr="nonlinear banded waveguide modeled Glass Harmonica" ref_view="object">
       <xi:include href="synth.glass_harm~.pddoc" parse="xml"/>
     </entry>
