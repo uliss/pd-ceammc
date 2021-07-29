@@ -38,7 +38,7 @@ TEST_CASE("music.dur2time", "[ceammc::music]")
         TExt t1("music.d->t");
     }
 
-    SECTION("do")
+    SECTION("@seq 1")
     {
         TExt t("music.d->t", "@bpm", "120|4bpm");
         REQUIRE_PROPERTY(t, @bpm, LF(120, 0.25));
@@ -75,5 +75,43 @@ TEST_CASE("music.dur2time", "[ceammc::music]")
 
         t << "2*2/4";
         REQUIRE(t.outputListAt(0) == LF(1000, 2000));
+    }
+
+    SECTION("@seq 0")
+    {
+        TExt t("music.d->t", "@bpm", "120|4bpm", "@seq", 0.);
+
+        t << LF(1, 2, 4, 8);
+        REQUIRE(t.outputListAt(0) == LF(2000, 1000, 500, 250));
+
+        t << LA("2/4");
+        REQUIRE(t.outputListAt(0) == LF(1000));
+
+        t << LA("4.", "8");
+        REQUIRE(t.outputListAt(0) == LF(750, 250));
+
+        t << LA("1/4.", "1/8");
+        REQUIRE(t.outputListAt(0) == LF(750, 250));
+
+        t << LA("4*4");
+        REQUIRE(t.outputListAt(0) == LF(500, 500, 500, 500));
+
+        t << LA("2*4", "2*8", "1*16");
+        REQUIRE(t.outputListAt(0) == LF(500, 500, 250, 250, 125));
+
+        t << 4;
+        REQUIRE(t.outputFloatAt(0) == 500);
+
+        t << 2;
+        REQUIRE(t.outputFloatAt(0) == 1000);
+
+        t << "4";
+        REQUIRE(t.outputListAt(0) == LF(500));
+
+        t << "3/4";
+        REQUIRE(t.outputListAt(0) == LF(1500));
+
+        t << "2*2/4";
+        REQUIRE(t.outputListAt(0) == LF(1000, 1000));
     }
 }
