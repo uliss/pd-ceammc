@@ -57,13 +57,18 @@
             minimal space between onsets</param>
             <param name="SILENCE" type="float" default="-40" units="decibel" required="false">
             silence level</param></method>
-            <method name="align">align gain(s) to onset
-            <param name="SUBJ" type="atom" required="false">if '*' or ommited: align all grains,
-            if '.': align finished grains only, if float: align grain with corresponding #id, if
+            <method name="align">align gain(s) to onset 
+            <param name="SUBJ" type="atom" required="false">if '*' or ommited: align all grains, if
+            '.': align finished grains only, if float: align grain with corresponding #id, if
             symbol: align grains with corresponding tag</param></method>
         </methods>
         <properties>
             <property name="@array" type="symbol" default="">array name</property>
+            <property name="@sync" type="symbol" default="none" enum="none int ext">grain sync
+            mode. If 'none': start grains right after they are finished, if 'int': start grains
+            after specified interval (@tsync).</property>
+            <property name="@tsync" type="float" default="50" minvalue="1" units="millisecond">
+            grain sync interval</property>
         </properties>
         <inlets>
             <inlet>
