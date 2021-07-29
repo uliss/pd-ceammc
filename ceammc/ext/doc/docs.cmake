@@ -481,6 +481,7 @@ set(DOC_FILES
     msg
     msg.after
     msg.onload
+    music.dur2time
     net.host2ip
     noise.baker
     noise.clifford

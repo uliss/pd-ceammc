@@ -306,6 +306,9 @@
     <entry name="conv.str2sec" descr="converts formatted time to float value in seconds" ref_view="object">
       <xi:include href="conv.str2sec.pddoc" parse="xml"/>
     </entry>
+    <entry name="music.dur2time" descr="convert duration list to time" ref_view="object">
+      <xi:include href="music.dur2time.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="data">
     <entry name="data.copy" descr="make copy for any data types: MList, Set etc..." ref_view="object">

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="music.dur2time">
+        <title>music.dur2time</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>convert duration list to time</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>conv</category>
+            <keywords>conv music duration</keywords>
+            <since>0.9.4</since>
+            <aliases>
+                <alias>music.d-&gt;t</alias>
+            </aliases>
+        </meta>
+        <info>
+            <par>duration can be specified</par>
+            <par>- by denominator: 1 (whole), 2_. (dotted half), 8 (eight) etc.</par>
+            <par>or</par>
+            <par>- by ratio: 3/4 (three quaters), 1/8.(one dotted eight), 3/8 (three eights) etc.</par>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo>duration list</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>converted value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[list 2_. 4 8 8 16 16 16 1/16 3/2(
+|
+|    [T]
+|    |
+|    [@seq $1(
+|    |
+[music.d->t @bpm 60 1 @seq 0]
+|
+[ui.dt]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
