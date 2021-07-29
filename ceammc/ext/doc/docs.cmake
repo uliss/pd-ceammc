@@ -482,6 +482,7 @@ set(DOC_FILES
     msg.after
     msg.onload
     music.dur2time
+    music.voice2midi
     net.host2ip
     noise.baker
     noise.clifford

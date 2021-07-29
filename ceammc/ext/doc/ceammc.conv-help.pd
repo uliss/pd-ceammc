@@ -91,7 +91,9 @@ to current samplerate;
 #X text 200 1248 converts formatted time to float value in seconds;
 #X obj 30 1275 music.dur2time;
 #X text 200 1275 convert duration list to time;
+#X obj 30 1302 music.voice2midi;
+#X text 200 1302 convert voice music list of midi pitches;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::conv 20 20 0 20 -104026
 -4096 0;
-#X obj 1 1302 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 1312 library: ceammc;
+#X obj 1 1329 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 1339 library: ceammc;

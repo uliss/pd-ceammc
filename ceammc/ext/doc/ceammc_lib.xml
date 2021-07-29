@@ -309,6 +309,9 @@
     <entry name="music.dur2time" descr="convert duration list to time" ref_view="object">
       <xi:include href="music.dur2time.pddoc" parse="xml"/>
     </entry>
+    <entry name="music.voice2midi" descr="convert voice music list of midi pitches" ref_view="object">
+      <xi:include href="music.voice2midi.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="data">
     <entry name="data.copy" descr="make copy for any data types: MList, Set etc..." ref_view="object">
