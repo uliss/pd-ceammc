@@ -225,6 +225,7 @@ set(DOC_FILES
     fx.recho~
     fx.room~
     fx.sdelay~
+    fx.secho~
     fx.shimmer~
     fx.tapiir~
     fx.vocoder~

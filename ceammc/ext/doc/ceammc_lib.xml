@@ -771,6 +771,9 @@
     <entry name="fx.sdelay~" descr="smooth delay with a feedback control" ref_view="object">
       <xi:include href="fx.sdelay~.pddoc" parse="xml"/>
     </entry>
+    <entry name="fx.secho~" descr="enchanced echo effect that does not click on delay change" ref_view="object">
+      <xi:include href="fx.secho~.pddoc" parse="xml"/>
+    </entry>
     <entry name="fx.shimmer~" descr="shimmer reverb effect effect" ref_view="object">
       <xi:include href="fx.shimmer~.pddoc" parse="xml"/>
     </entry>
