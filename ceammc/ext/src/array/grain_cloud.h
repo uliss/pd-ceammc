@@ -45,6 +45,8 @@ private:
     SyncMode sync_ = { SYNC_NONE };
     uint32_t sync_counter_ = { 0 };
     float sync_interval_ = { 50 };
+    bool sync_ext_ = { false };
+    float sync_prob_ = { 1 };
 
 public:
     GrainCloud(size_t chunk_size = 32);
@@ -63,6 +65,11 @@ public:
 
     float syncInterval() const { return sync_interval_; }
     void setSyncInterval(float ms) { sync_interval_ = ms; }
+
+    float syncProbability() const { return sync_prob_; }
+    void setSyncProbability(float p) { sync_prob_ = p; }
+
+    void externalSyncTick() { sync_ext_ = true; }
 
     void removeFinished();
     void removeById(int id);

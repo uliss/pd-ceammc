@@ -26,6 +26,7 @@ class ArrayGrainer : public SoundExternal {
     SymbolProperty* array_name_;
     SymbolEnumProperty* sync_;
     FloatProperty* sync_interval_;
+    FloatProperty* sync_prob_;
     Array array_;
     GrainCloud cloud_;
     std::vector<size_t> onsets_;
@@ -35,6 +36,8 @@ public:
 
     void setupDSP(t_signal** sp) override;
     void processBlock(const t_sample** in, t_sample** out) override;
+
+    void onBang() override;
 
     void dump() const override;
 

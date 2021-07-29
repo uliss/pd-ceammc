@@ -46,6 +46,7 @@ ArrayGrainer::ArrayGrainer(const PdArgs& args)
     , array_name_(nullptr)
     , sync_(nullptr)
     , sync_interval_(nullptr)
+    , sync_prob_(nullptr)
 {
     createSignalOutlet();
     createSignalOutlet();
@@ -71,6 +72,11 @@ ArrayGrainer::ArrayGrainer(const PdArgs& args)
     sync_interval_->setUnitsMs();
     sync_interval_->setSuccessFn([this](Property*) { cloud_.setSyncInterval(sync_interval_->value()); });
     addProperty(sync_interval_);
+
+    sync_prob_ = new FloatProperty("@prob", 1);
+    sync_prob_->checkClosedRange(0, 1);
+    sync_prob_->setSuccessFn([this](Property*) { cloud_.setSyncProbability(sync_prob_->value()); });
+    addProperty(sync_prob_);
 }
 
 void ArrayGrainer::setupDSP(t_signal** sp)
@@ -90,6 +96,11 @@ void ArrayGrainer::setupDSP(t_signal** sp)
 void ArrayGrainer::processBlock(const t_sample** /*in*/, t_sample** out)
 {
     cloud_.playBuffer(out, blockSize(), samplerate());
+}
+
+void ArrayGrainer::onBang()
+{
+    cloud_.externalSyncTick();
 }
 
 void ArrayGrainer::dump() const

@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "grain_cloud.h"
+#include "grain_random.h"
 
 #include <algorithm>
 
@@ -134,9 +135,27 @@ void GrainCloud::playBuffer(t_sample** buf, uint32_t bs, uint32_t sr)
 
                     if (sync_counter_ > (sr * 0.001 * sync_interval_)) {
                         sync_counter_ = 0;
-                        g->start(0);
+
+                        bool start = true;
+                        if (sync_prob_ < 1)
+                            start = GrainRandom::instance().urandf(0, 1) < sync_prob_;
+
+                        if (start)
+                            g->start(0);
                     }
 
+                    break;
+                case SYNC_EXTERNAL:
+                    if (sync_ext_) {
+                        sync_ext_ = false;
+
+                        bool start = true;
+                        if (sync_prob_ < 1)
+                            start = GrainRandom::instance().urandf(0, 1) < sync_prob_;
+
+                        if (start)
+                            g->start(0);
+                    }
                     break;
                 case SYNC_NONE:
                 default:
