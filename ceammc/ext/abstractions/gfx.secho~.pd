@@ -1,0 +1,68 @@
+#N canvas 0 0 950 600 12;
+#X obj 25 125 fx.secho~;
+#X obj 25 25 inlet~;
+#X obj 425 25 inlet;
+#X obj 425 200 route fx.secho;
+#X obj 425 250 route @bypass @delay @drywet @feedback;
+#X obj 675 350 print unknown property;
+#X msg 325 75 @delay 500 \, @drywet 1 \, @feedback 0.3 \,;
+#X obj 325 25 msg.onload;
+#X obj 500 550 outlet~;
+#X obj 600 550 outlet ctl;
+#X obj 3 202 cnv 8 198 18 empty empty [fx.secho~] 3 9 0 12 -104026
+-262144 0;
+#X obj 12 226 ui.toggle @size 12 12 @label bypass @label_side right
+@label_align left @fontsize 10 @presetname
+/gui/\$1/fx.secho~/checkbox0;
+#X msg 260 218 @bypass \$1;
+#X obj 12 256 ui.slider @size 125 12 @active_scale 1 @label delay(ms):
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/fx.secho~/slider1 @min 10 @max 10000;
+#X obj 190 256 sync;
+#X obj 145 256 ui.number @size 50 12 @min 10 @max 10000 @digits 0;
+#X msg 260 256 @delay \$1;
+#X obj 12 288 ui.slider @size 125 12 @active_scale 1 @label drywet:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/fx.secho~/slider2 @min 0 @max 1;
+#X obj 190 288 sync;
+#X obj 145 288 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 288 @drywet \$1;
+#X obj 12 320 ui.slider @size 125 12 @active_scale 1 @label feedback:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/fx.secho~/slider3 @min 0 @max 0.99;
+#X obj 190 320 sync;
+#X obj 145 320 ui.number @size 50 12 @min 0 @max 0.99 @digits 4;
+#X msg 260 320 @feedback \$1;
+#X connect 1 0 0 0;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;
+#X connect 4 4 5 0;
+#X connect 6 0 4 0;
+#X connect 7 0 6 0;
+#X connect 0 0 8 0;
+#X connect 3 1 9 0;
+#X connect 11 0 12 0;
+#X connect 12 0 0 0;
+#X connect 4 0 11 0;
+#X connect 13 0 14 0;
+#X connect 14 0 13 0;
+#X connect 15 0 14 1;
+#X connect 14 1 15 0;
+#X connect 13 0 16 0;
+#X connect 16 0 0 0;
+#X connect 4 1 13 0;
+#X connect 17 0 18 0;
+#X connect 18 0 17 0;
+#X connect 19 0 18 1;
+#X connect 18 1 19 0;
+#X connect 17 0 20 0;
+#X connect 20 0 0 0;
+#X connect 4 2 17 0;
+#X connect 21 0 22 0;
+#X connect 22 0 21 0;
+#X connect 23 0 22 1;
+#X connect 22 1 23 0;
+#X connect 21 0 24 0;
+#X connect 24 0 0 0;
+#X connect 4 3 21 0;
+#X coords 0 -1 1 1 200 140 2 2 200;
