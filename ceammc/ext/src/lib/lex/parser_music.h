@@ -281,6 +281,18 @@ namespace parser {
 
             return res;
         }
+
+        static void calcAbsOctaves(SmallSpnVec& spn, int oct = 4)
+        {
+            if (spn.size() > 0 && !spn[0].isAbsOctave())
+                spn[0].setAbsOctave(oct);
+
+            for (size_t i = 0; i + 1 < spn.size(); i++) {
+                const auto& p0 = spn[i];
+                auto& p1 = spn[i + 1];
+                Spn::setNextOctave(p0, p1);
+            }
+        }
     };
 
     struct Duration {
@@ -361,6 +373,37 @@ namespace parser {
         bool parse(const char* str);
         bool parse(const Atom& a);
         size_t parse(const AtomListView& lv, NoteVec& out);
+
+        static void calcAbsOctaves(NoteVec& notes, int oct = 4)
+        {
+            // find first note
+            for (size_t i = 0; i < notes.size(); i++) {
+                if (notes[i].isRest())
+                    continue;
+
+                // if relative: set abs octave
+                if (!notes[i].spn.isAbsOctave())
+                    notes[i].spn.setAbsOctave(oct);
+
+                break;
+            }
+
+            Spn* p0 = nullptr;
+            Spn* p1 = nullptr;
+
+            for (size_t i = 0; i < notes.size(); i++) {
+                if (notes[i].isRest())
+                    continue;
+
+                auto& p = notes[i].spn;
+
+                std::swap(p0, p1);
+                p1 = &p;
+
+                if (p0 && p1)
+                    Spn::setNextOctave(*p0, *p1);
+            }
+        }
     };
 
     template <size_t N>

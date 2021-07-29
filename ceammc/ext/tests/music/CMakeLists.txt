@@ -26,6 +26,7 @@ function(add_music_test src)
 endfunction()
 
 add_music_test(dur2time)
+add_music_test(voice2midi)
 add_music_test(scale)
 add_music_test(theory)
 add_music_test(theory_alteration)
