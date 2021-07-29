@@ -17,7 +17,7 @@
 #include <map>
 #include <memory>
 
-#include "aubio/aubio/src/aubio.h"
+#include "aubio/src/aubio.h"
 #include "ceammc_property_enum.h"
 #include "ceammc_sound_external.h"
 using namespace ceammc;
