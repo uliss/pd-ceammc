@@ -401,22 +401,22 @@ TEST_CASE("parser_units", "[ceammc::ceammc_units]")
         REQUIRE(p.bpm().beatlen == 0.25);
         REQUIRE(p.type() == TYPE_BPM);
 
-        REQUIRE(p.parse("60-8_bpm"));
+        REQUIRE(p.parse("60|8_bpm"));
         REQUIRE(p.bpm().bpm == 60);
         REQUIRE(p.bpm().beatlen == 0.125);
         REQUIRE(p.type() == TYPE_BPM);
 
-        REQUIRE(p.parse("144-4._bpm"));
+        REQUIRE(p.parse("144|4._bpm"));
         REQUIRE(p.bpm().bpm == 144);
         REQUIRE(p.bpm().beatlen == 0.375);
         REQUIRE(p.type() == TYPE_BPM);
 
-        REQUIRE(p.parse("12-1/8bpm"));
+        REQUIRE(p.parse("12|1/8bpm"));
         REQUIRE(p.bpm().bpm == 12);
         REQUIRE(p.bpm().beatlen == 0.125);
         REQUIRE(p.type() == TYPE_BPM);
 
-        REQUIRE(p.parse("4.5-3/4_bpm"));
+        REQUIRE(p.parse("4.5|3/4_bpm"));
         REQUIRE(p.bpm().bpm == 4.5);
         REQUIRE(p.bpm().beatlen == 0.75);
         REQUIRE(p.type() == TYPE_BPM);
