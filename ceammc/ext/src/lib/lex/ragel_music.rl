@@ -84,18 +84,34 @@ action note_add_dot {
     }
 }
 
+# duration actions
+action set_dur_abs       { note.durtype = DURATION_ABS; }
+action set_dur_rel       { note.durtype = DURATION_REL; }
+action set_dur_num1      { note.num = 1; }
+action set_dur_den1      { note.den = 1; }
+action set_dur_repeats   { note.repeats = note.num; }
+action reset_dur_num     { note.num = 0; }
+action add_dur_num_digit { (note.num *= 10) += (fc - '0'); }
+action reset_dur_den     { note.den = 0; }
+action add_dur_den_digit { (note.den *= 10) += (fc - '0'); }
+
 note_dec  = [1-9] [0-9]*;
-note_dur_num = note_dec >{note.num = 0;} ${(note.num *= 10) += (fc - '0');};
-note_dur_den = note_dec >{note.den = 0;} ${(note.den *= 10) += (fc - '0');};
+note_dur_num = note_dec >reset_dur_num $add_dur_num_digit;
+note_dur_den = note_dec >reset_dur_den $add_dur_den_digit;
 note_dots = '_'? ('.'{0,3} $note_add_dot);
 
-note_dur_rel = ('*' note_dur_num '/' note_dur_den)     %{note.durtype = DURATION_REL;}
-               | ('*' note_dur_num)                    %{note.den = 1; note.durtype = DURATION_REL;}
-               | ('/' note_dur_den)                    %{note.num = 1; note.durtype = DURATION_REL;};
+note_dur_rel = ('*' note_dur_num '/' note_dur_den)     %set_dur_rel
+               | ('*' note_dur_num %set_dur_den1)      %set_dur_rel
+               | ('/' note_dur_den %set_dur_num1)      %set_dur_rel;
 
 note_dur_abs =
-    (note_dur_num '/' note_dur_den note_dots)      %{note.durtype = DURATION_ABS;}
-    | ((note_dur_den %{note.num = 1;}) note_dots)  %{note.durtype = DURATION_ABS;};
+    (note_dur_num '/' note_dur_den note_dots)      %set_dur_abs
+    | ((note_dur_den %set_dur_num1) note_dots)  %set_dur_abs;
+
+dur_repeat = note_dec
+             '*' %~set_dur_repeats;
+
+dur_sequence = dur_repeat ? note_dur_abs;
 
 note_dur_all = note_dur_rel | note_dur_abs;
 

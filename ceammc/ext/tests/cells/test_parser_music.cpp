@@ -485,6 +485,7 @@ TEST_CASE("parser_music", "[ceammc::ceammc_units]")
         {
             using namespace ceammc::parser;
             DurationFullMatch p;
+            DurationVec out;
 
             REQUIRE(p.parse(A(2)));
             REQUIRE(p.result().ratio() == 0.5);
@@ -497,6 +498,24 @@ TEST_CASE("parser_music", "[ceammc::ceammc_units]")
 
             REQUIRE(p.parse(AtomList::parseString("2_.")[0]));
             REQUIRE(p.result().ratio() == 0.75);
+
+            REQUIRE(p.parse(AtomList::parseString("1*1/8")[0]));
+            REQUIRE(p.result().ratio() == 0.125);
+
+            REQUIRE(p.parse(AtomList::parseString("2*1/8"), out));
+            REQUIRE(out.size() == 2);
+            REQUIRE(out[0].ratio() == 0.125);
+            REQUIRE(out[1].ratio() == 0.125);
+
+            out.clear();
+            REQUIRE(p.parse(AtomList::parseString("10*4"), out));
+            REQUIRE(out.size() == 10);
+            REQUIRE(std::all_of(out.begin(), out.end(), [](const Duration& d) { return d.ratio() == 0.25; }));
+
+            out.clear();
+            REQUIRE(p.parse(AtomList::parseString("4*4."), out));
+            REQUIRE(out.size() == 4);
+            REQUIRE(std::all_of(out.begin(), out.end(), [](const Duration& d) { return d.ratio() == 0.375; }));
         }
 
         SECTION("list")

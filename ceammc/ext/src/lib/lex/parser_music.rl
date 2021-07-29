@@ -15,6 +15,15 @@ namespace parser {
     write data;
 }%%
 
+std::ostream& operator<<(std::ostream& os, const Duration& dur)
+{
+    if (dur.repeats > 1)
+        os << (int)dur.repeats << '*';
+
+    os << (int)dur.num << '/' << (int)dur.den;
+    return os;
+}
+
 BpmFullMatch::BpmFullMatch()
 {
     reset();
@@ -224,7 +233,7 @@ size_t NotationSingle::parse(const AtomListView& lv, NoteVec& out)
     machine duration;
     include music_common "ragel_music.rl";
 
-    main := note_dur_abs;
+    main := dur_sequence;
     write data;
 }%%
 
@@ -288,6 +297,10 @@ size_t DurationFullMatch::parse(const AtomListView& lv, DurationVec& out)
             return i;
 
         out.push_back(dur_);
+        if(dur_.repeats > 1) {
+            out.insert(out.end(), dur_.repeats - 1, out.back());
+            dur_.repeats = 1;
+        }
     }
 
     return N;

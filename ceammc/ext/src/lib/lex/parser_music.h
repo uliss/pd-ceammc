@@ -68,6 +68,7 @@ namespace parser {
             int rest { 0 };
             int tnum { 0 };
             int tden { 0 };
+            int repeats { 0 };
             DurationType durtype { DURATION_ABS };
         };
     }
@@ -286,12 +287,14 @@ namespace parser {
         int16_t num;
         int16_t den;
         int8_t dots;
+        int8_t repeats;
         DurationType durtype;
 
         Duration(int16_t n = 1, int16_t d = 4, int8_t ndots = 0, DurationType dt = DURATION_ABS)
             : num(n)
             , den(d)
             , dots(ndots)
+            , repeats(1)
             , durtype(dt)
         {
         }
@@ -299,6 +302,7 @@ namespace parser {
         Duration(const fsm::NotationData& d)
             : Duration(d.num, d.den, d.dots, d.durtype)
         {
+            repeats = d.repeats;
         }
 
         t_float ratio() const { return t_float(num) / den; }
@@ -314,7 +318,11 @@ namespace parser {
         }
 
         bool isAbs() const { return durtype == DURATION_ABS; }
+
+        friend std::ostream& operator<<(std::ostream& os, const Duration& dur);
     };
+
+    std::ostream& operator<<(std::ostream& os, const Duration& dur);
 
     struct Notation {
         Spn spn;
