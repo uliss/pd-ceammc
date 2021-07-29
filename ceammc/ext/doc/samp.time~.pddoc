@@ -16,7 +16,9 @@
                 <alias>samp.t~</alias>
             </aliases>
         </meta>
-        <arguments />
+        <arguments>
+            <argument name="STATE" type="int" enum="0 1">initial counter state: on or off</argument>
+        </arguments>
         <methods>
             <method name="reset">reset sample counter to 0</method>
             <method name="set">set current value 
@@ -37,9 +39,15 @@
         <example>
             <pdascii>
 <![CDATA[
-[T]    [bang(
-|      |.
-[samp.t~]      [ui.dsp~]
+[T]    [bang(    [lfo.+square~ 100]
+|      |.        |
+[samp.t~]        [samp.t~]
+|                |
+[ui.n~]          [ui.n~]
+
+[T]
+|
+[samp.t~ 0]      [ui.dsp~]
 |
 [ui.n~]
 ]]>

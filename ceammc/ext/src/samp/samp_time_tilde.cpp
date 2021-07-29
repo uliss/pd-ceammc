@@ -18,7 +18,7 @@ SampTimeTilde::SampTimeTilde(const PdArgs& args)
     : SoundExternal(args)
     , t_(0)
     , in_prev_(0)
-    , on_(true)
+    , on_(this->args().boolAt(0, true))
 {
     createInlet();
     createSignalOutlet();
