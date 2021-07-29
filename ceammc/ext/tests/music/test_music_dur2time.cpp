@@ -40,7 +40,7 @@ TEST_CASE("music.dur2time", "[ceammc::music]")
 
     SECTION("do")
     {
-        TExt t("music.d->t", "@bpm", "120-4bpm");
+        TExt t("music.d->t", "@bpm", "120|4bpm");
         REQUIRE_PROPERTY(t, @bpm, LF(120, 0.25));
 
         t << LF(1, 2, 4, 8);
