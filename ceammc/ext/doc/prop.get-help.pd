@@ -24,7 +24,7 @@
 #X text 110 389 1\.;
 #X text 150 389 list;
 #X obj 246 390 cnv 1 46 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 389 PROPS: property names.;
+#X text 245 389 PROPS: property names. Type: list.;
 #X obj 20 419 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 424 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;

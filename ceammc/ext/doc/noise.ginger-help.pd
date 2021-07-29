@@ -37,15 +37,15 @@ https://en.wikipedia.org/wiki/Gingerbreadman_map;
 #X text 110 594 1\.;
 #X text 150 594 float;
 #X obj 246 595 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 594 SEED: seed value \, default 0.82\.;
+#X text 245 594 SEED: seed value \, default 0.82\. Type: float.;
 #X text 110 614 2\.;
 #X text 150 614 float;
 #X obj 246 615 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 614 X: initial x value \, default 0.7\.;
+#X text 245 614 X: initial x value \, default 0.7\. Type: float.;
 #X text 110 634 3\.;
 #X text 150 634 float;
 #X obj 246 635 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 634 Y: initial y value \, default 1.2\.;
+#X text 245 634 Y: initial y value \, default 1.2\. Type: float.;
 #X obj 20 664 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 669 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;

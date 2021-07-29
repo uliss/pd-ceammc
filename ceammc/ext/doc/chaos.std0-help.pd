@@ -44,15 +44,15 @@ by Boris Chirikov in 1969;
 #X text 110 735 1\.;
 #X text 150 735 float;
 #X obj 246 736 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 735 K: k value \, default 1\.;
+#X text 245 735 K: k value \, default 1\. Type: float.;
 #X text 110 755 2\.;
 #X text 150 755 float;
 #X obj 246 756 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 755 X: initial x value \, default 0.5\.;
+#X text 245 755 X: initial x value \, default 0.5\. Type: float.;
 #X text 110 775 3\.;
 #X text 150 775 float;
 #X obj 246 776 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 775 Y: initial y value \, default 0\.;
+#X text 245 775 Y: initial y value \, default 0\. Type: float.;
 #X obj 20 805 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 810 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;

@@ -21,7 +21,7 @@
 #X text 150 467 float;
 #X obj 246 468 cnv 1 46 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 467 shift: shift amount. Float values cause linear interpolation.
-Can be negative..;
+Can be negative.. Type: float.;
 #X obj 20 512 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 517 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;

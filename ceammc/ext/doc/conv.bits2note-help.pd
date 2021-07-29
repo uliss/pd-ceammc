@@ -33,7 +33,7 @@ outlet;
 #X text 110 546 1\.;
 #X text 150 546 list;
 #X obj 246 547 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 546 KEYS: list of note keys.;
+#X text 245 546 KEYS: list of note keys. Type: list.;
 #X obj 20 576 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 581 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;

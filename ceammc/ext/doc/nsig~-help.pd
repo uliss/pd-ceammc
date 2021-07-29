@@ -21,11 +21,11 @@
 #X text 110 351 1\.;
 #X text 150 351 float;
 #X obj 246 352 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 351 NUM: @n property. Range: 1\...12;
+#X text 245 351 NUM: @n property. Type: float. Range: 1\...12;
 #X text 110 371 2\.;
 #X text 150 371 list;
 #X obj 246 372 cnv 1 38 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 371 INIT: init values.;
+#X text 245 371 INIT: init values. Type: list.;
 #X obj 20 401 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 406 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;

@@ -24,11 +24,11 @@
 #X text 110 438 1\.;
 #X text 150 438 float;
 #X obj 246 439 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 438 RADIUS: @radius property.;
+#X text 245 438 RADIUS: @radius property. Type: float.;
 #X text 110 458 2\.;
 #X text 150 458 float;
 #X obj 246 459 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 458 ANGLE: @angle property.;
+#X text 245 458 ANGLE: @angle property. Type: float.;
 #X obj 20 488 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 493 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;

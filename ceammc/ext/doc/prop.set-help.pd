@@ -31,7 +31,7 @@ props \, but using internal pd method calls;
 #X text 110 504 1\.;
 #X text 150 504 list;
 #X obj 246 505 cnv 1 46 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 504 PROPS: property names.;
+#X text 245 504 PROPS: property names. Type: list.;
 #X obj 20 534 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 539 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;

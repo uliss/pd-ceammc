@@ -39,7 +39,7 @@ a of a digital filter \, compute its frequency response: H(eʲʷ) = B(eʲʷ)/A(e
 #X text 110 479 1\.;
 #X text 150 479 int;
 #X obj 246 480 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 479 N: number of points. Range: 4\...1024;
+#X text 245 479 N: number of points. Type: int. Range: 4\...1024;
 #X obj 20 509 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 514 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;

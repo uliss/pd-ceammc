@@ -35,90 +35,92 @@ multichannel configuration.;
 #X text 110 599 1\.;
 #X text 150 599 int;
 #X obj 246 600 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 599 ORDER: the order of decomposition. Range: 1\...63;
+#X text 245 599 ORDER: the order of decomposition. Type: int. Range:
+1\...63;
 #X text 110 619 2\.;
 #X text 150 619 symbol;
 #X obj 246 620 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 619 MODE: decoding mode.;
-#X text 110 639 3\.;
-#X text 150 639 int;
-#X obj 246 640 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 639 N: number of loud speakers (minimum 2*ORDER+1 for ambisonic
-mode).;
-#X obj 20 684 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 689 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 245 619 MODE: decoding mode. Allowed values: ambisonic \, irregular
+\, binaural. . Type: symbol.;
+#X text 110 654 3\.;
+#X text 150 654 int;
+#X obj 246 655 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 654 N: number of loud speakers (minimum 2*ORDER+1 for ambisonic
+mode). Type: int.;
+#X obj 20 699 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 704 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 724 @angles;
-#X text 245 724 Get/Set angles of loudspeakers. Only available for
+#X msg 110 739 @angles;
+#X text 245 739 Get/Set angles of loudspeakers. Only available for
 @irregular mode. Type: list. Units: deg.;
-#X msg 110 766 @binaural;
-#X text 245 766 alias for @mode binaural.;
-#X msg 110 795 @crop;
-#X text 245 795 Get/Set crop HRIR response. Only for @binaural mode.
+#X msg 110 781 @binaural;
+#X text 245 781 alias for @mode binaural.;
+#X msg 110 810 @crop;
+#X text 245 810 Get/Set crop HRIR response. Only for @binaural mode.
 Type: int. Units: samp. Default value: 16\. Range: 0\...512\.;
-#X msg 110 837 @irregular;
-#X text 245 837 alias for @mode irregular.;
-#X msg 110 866 @mode;
-#X text 245 866 (readonly) Get decoding mode. Type: symbol. Default
+#X msg 110 852 @irregular;
+#X text 245 852 alias for @mode irregular.;
+#X msg 110 881 @mode;
+#X text 245 881 (readonly) Get decoding mode. Type: symbol. Default
 value: regular. Allowed values: regular \, irregular \, binaural.;
-#X msg 110 908 @nharm;
-#X text 245 908 (readonly) Get number of circular harmonics. Type:
+#X msg 110 923 @nharm;
+#X text 245 923 (readonly) Get number of circular harmonics. Type:
 int. Default value: 3\. Min value: 1\.;
-#X msg 110 950 @nwaves;
-#X text 245 950 (readonly) Get number of plain waves. Type: int. Default
+#X msg 110 965 @nwaves;
+#X text 245 965 (readonly) Get number of plain waves. Type: int. Default
 value: 0\. Min value: 1\.;
-#X msg 110 992 @offset;
-#X text 245 992 Get/Set rotation of loudspeakers. Only available for
+#X msg 110 1007 @offset;
+#X text 245 1007 Get/Set rotation of loudspeakers. Only available for
 @regular and @irregular mode. Type: float. Units: deg. Default value:
 0\.;
-#X msg 110 1049 @order;
-#X text 245 1049 (readonly) Get the order of decomposition. Type: int.
+#X msg 110 1064 @order;
+#X text 245 1064 (readonly) Get the order of decomposition. Type: int.
 Default value: 1\. Range: 1\...63\.;
-#X msg 110 1091 @pw_x;
-#X text 245 1091 (readonly) Get list of plain wave x-coordinates (abscissas).
+#X msg 110 1106 @pw_x;
+#X text 245 1106 (readonly) Get list of plain wave x-coordinates (abscissas).
 -1 is the left of the soundfield \, 0 is the center of the soundfield
 and 1 is the right of the soundfield. Type: list. Units: rad. Range:
 -1\...1\.;
-#X msg 110 1163 @pw_y;
-#X text 245 1163 (readonly) Get list of plain wave y-coordinates (ordinatas).
+#X msg 110 1178 @pw_y;
+#X text 245 1178 (readonly) Get list of plain wave y-coordinates (ordinatas).
 -1 is the back of the soundfield \, 0 is the center of the soundfield
 and 1 is the front of the soundfield. Type: list. Units: rad. Range:
 -1\...1\.;
-#X msg 110 1235 @pw_z;
-#X text 245 1235 (readonly) Get list of plain wave z-coordinates (heights).
+#X msg 110 1250 @pw_z;
+#X text 245 1250 (readonly) Get list of plain wave z-coordinates (heights).
 -1 is the bottom of the soundfield \, 0 is the center of the soundfield
 and 1 is the top of the soundfield. Type: list. Units: rad. Range:
 -1\...1\.;
-#X msg 110 1307 @regular;
-#X text 245 1307 alias for @mode regular.;
-#X obj 20 1346 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1351 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X msg 110 1322 @regular;
+#X text 245 1322 alias for @mode regular.;
+#X obj 20 1361 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1366 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1352 1\.;
-#X text 245 1352 first input harmonic.;
-#X text 110 1372 ....;
-#X text 245 1372 ... input harmonic.;
-#X text 110 1392 n.;
-#X text 245 1392 n-th input harmonic.;
-#X obj 20 1422 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1427 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 1367 1\.;
+#X text 245 1367 first input harmonic.;
+#X text 110 1387 ....;
+#X text 245 1387 ... input harmonic.;
+#X text 110 1407 n.;
+#X text 245 1407 n-th input harmonic.;
+#X obj 20 1437 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1442 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1428 1\.;
-#X text 245 1428 first loudspeaker output.;
-#X text 110 1448 ....;
-#X text 245 1448 ... loudspeaker output.;
-#X text 110 1468 n.;
-#X text 245 1468 n-th loudspeaker output.;
+#X text 110 1443 1\.;
+#X text 245 1443 first loudspeaker output.;
+#X text 110 1463 ....;
+#X text 245 1463 ... loudspeaker output.;
+#X text 110 1483 n.;
+#X text 245 1483 n-th loudspeaker output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 1518 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1521 library: ceammc v0.9.3;
-#X text 579 1533 see also:;
-#X obj 653 1533 hoa.encoder~;
-#N canvas 10 1540 400 290 info 0;
+#X obj 1 1533 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1536 library: ceammc v0.9.3;
+#X text 579 1548 see also:;
+#X obj 653 1548 hoa.encoder~;
+#N canvas 10 1555 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -143,7 +145,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1540 pd info;
+#X restore 10 1555 pd info;
 #X connect 13 0 15 0;
 #X connect 14 0 16 0;
 #X connect 15 0 17 0;

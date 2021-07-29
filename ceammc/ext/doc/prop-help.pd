@@ -24,7 +24,7 @@ limits can be set to property;
 #X text 110 449 1\.;
 #X text 150 449 symbol;
 #X obj 246 450 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 449 @NAME: property name.;
+#X text 245 449 @NAME: property name. Type: symbol.;
 #X obj 20 479 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 484 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;

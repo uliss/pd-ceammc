@@ -28,7 +28,7 @@ https://en.wikipedia.org/wiki/Mersenne_Twister;
 #X text 150 408 list;
 #X obj 246 409 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 408 ARG: @min=ARG[0] \, @max=ARG[1] \, in case of signle
-arg: @min=0 \, @max=ARG[0].;
+arg: @min=0 \, @max=ARG[0]. Type: list.;
 #X obj 20 453 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 458 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;

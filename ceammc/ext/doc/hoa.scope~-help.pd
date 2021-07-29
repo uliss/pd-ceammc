@@ -22,7 +22,8 @@ field;
 #X text 110 448 1\.;
 #X text 150 448 int;
 #X obj 246 449 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 448 ORDER: the order of decomposition. Min value: 1;
+#X text 245 448 ORDER: the order of decomposition. Type: int. Min value:
+1;
 #X obj 20 478 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 483 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;

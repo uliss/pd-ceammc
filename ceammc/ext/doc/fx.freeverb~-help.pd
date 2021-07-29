@@ -34,12 +34,12 @@ Schroeder-Moorer filtered-feedback comb-filters for each audio channel
 #X text 110 523 1\.;
 #X text 150 523 float;
 #X obj 246 524 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 523 ROOM: room size. Range: 0\...1;
+#X text 245 523 ROOM: room size. Type: float. Range: 0\...1;
 #X text 110 543 2\.;
 #X text 150 543 float;
 #X obj 246 544 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 543 DRYWET: proportion of mix between the original (dry)
-and 'effected' (wet) signals. Range: 0\...1;
+and 'effected' (wet) signals. Type: float. Range: 0\...1;
 #X obj 20 588 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 593 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;

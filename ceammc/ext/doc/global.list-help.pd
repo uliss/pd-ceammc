@@ -25,7 +25,7 @@ name.;
 #X text 110 348 1\.;
 #X text 150 348 symbol;
 #X obj 246 349 cnv 1 23 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 348 ID: object ID.;
+#X text 245 348 ID: object ID. Type: symbol.;
 #X obj 20 378 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 383 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;

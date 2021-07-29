@@ -41,7 +41,8 @@ are returned. Other indexes are wrapped by modulo division.;
 #X text 110 656 1\.;
 #X text 150 656 list;
 #X obj 246 657 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 656 position: single or multiple elements position.;
+#X text 245 656 position: single or multiple elements position. Type:
+list.;
 #X obj 20 686 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 691 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;

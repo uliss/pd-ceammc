@@ -24,26 +24,26 @@
 #X text 150 380 float;
 #X obj 246 381 cnv 1 45 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 380 ratio: compression ratio (1 = no compression \, >1
-means compression). Min value: 1;
+means compression). Type: float. Min value: 1;
 #X text 110 415 2\.;
 #X text 150 415 float;
 #X obj 246 416 cnv 1 108 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 415 threshold(db): level threshold above which compression
-kicks in (100 dB = max level). Range: 0\...100;
+kicks in (100 dB = max level). Type: float. Range: 0\...100;
 #X text 110 450 3\.;
 #X text 150 450 float;
 #X obj 246 451 cnv 1 85 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 450 attack(ms): attack time = time constant when level
-& compression going up.;
+& compression going up. Type: float.;
 #X text 110 485 4\.;
 #X text 150 485 float;
 #X obj 246 486 cnv 1 91 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 485 release(ms): release time = time constant coming out
-of compression.;
+of compression. Type: float.;
 #X text 110 520 5\.;
 #X text 150 520 symbol;
 #X obj 246 521 cnv 1 23 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 520 ID: object ID for OSC control path.;
+#X text 245 520 ID: object ID for OSC control path. Type: symbol.;
 #X obj 20 550 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 555 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;

@@ -19,15 +19,15 @@
 #X text 110 423 1\.;
 #X text 150 423 int;
 #X obj 246 424 cnv 1 38 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 423 FROM: start value. Range: 0\...127;
+#X text 245 423 FROM: start value. Type: int. Range: 0\...127;
 #X text 110 443 2\.;
 #X text 150 443 int;
 #X obj 246 444 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 443 TO: end value. Range: 0\...127;
+#X text 245 443 TO: end value. Type: int. Range: 0\...127;
 #X text 110 463 3\.;
 #X text 150 463 int;
 #X obj 246 464 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 463 N: number of steps. Min value: 0;
+#X text 245 463 N: number of steps. Type: int. Min value: 0;
 #X obj 20 493 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 498 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;

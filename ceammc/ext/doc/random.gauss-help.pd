@@ -45,11 +45,12 @@ initialized with current time.;
 #X text 110 688 1\.;
 #X text 150 688 float;
 #X obj 246 689 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 688 MU: the mean.;
+#X text 245 688 MU: the mean. Type: float.;
 #X text 110 708 2\.;
 #X text 150 708 float;
 #X obj 246 709 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 708 SIGMA: the standard deviation. Min value: 0;
+#X text 245 708 SIGMA: the standard deviation. Type: float. Min value:
+0;
 #X obj 20 738 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 743 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;

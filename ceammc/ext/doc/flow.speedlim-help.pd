@@ -29,7 +29,7 @@ this interval expiried goes to opened state;
 #X text 110 509 1\.;
 #X text 150 509 int;
 #X obj 246 510 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 509 TIME(ms): limit time.;
+#X text 245 509 TIME(ms): limit time. Type: int.;
 #X obj 20 539 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 544 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;

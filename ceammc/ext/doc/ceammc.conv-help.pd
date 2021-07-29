@@ -90,7 +90,7 @@ to current samplerate;
 #X obj 30 1248 conv.str2sec;
 #X text 200 1248 converts formatted time to float value in seconds;
 #X obj 30 1275 music.dur2time;
-#X text 200 1275 convert music score events to list to time in ms;
+#X text 200 1275 convert duration list to time;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::conv 20 20 0 20 -104026
 -4096 0;
 #X obj 1 1302 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

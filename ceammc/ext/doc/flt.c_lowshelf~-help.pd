@@ -27,11 +27,11 @@
 #X text 110 546 1\.;
 #X text 150 546 float;
 #X obj 246 547 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 546 freq(Hz): cutoff frequency.;
+#X text 245 546 freq(Hz): cutoff frequency. Type: float.;
 #X text 110 566 2\.;
 #X text 150 566 float;
 #X obj 246 567 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 566 gain(db): filter gain. Range: -15\...15;
+#X text 245 566 gain(db): filter gain. Type: float. Range: -15\...15;
 #X obj 20 596 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 601 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;

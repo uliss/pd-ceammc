@@ -26,15 +26,15 @@
 #X text 110 294 1\.;
 #X text 150 294 int;
 #X obj 246 295 cnv 1 38 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 294 FROM: start value.;
+#X text 245 294 FROM: start value. Type: int.;
 #X text 110 314 2\.;
 #X text 150 314 int;
 #X obj 246 315 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 314 TO: end value.;
+#X text 245 314 TO: end value. Type: int.;
 #X text 110 334 3\.;
 #X text 150 334 int;
 #X obj 246 335 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 334 REPEATS: number of repeats.;
+#X text 245 334 REPEATS: number of repeats. Type: int.;
 #X obj 20 364 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 369 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;

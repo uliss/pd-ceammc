@@ -28,77 +28,82 @@ an "allpass-complementary filter bank";
 #X text 110 659 1\.;
 #X text 150 659 float;
 #X obj 246 660 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 659 f250(db): @f250 property init value. Range: -6\...6;
-#X text 110 679 2\.;
-#X text 150 679 float;
-#X obj 246 680 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 679 f500(db): @f500 property init value. Range: -6\...6;
-#X text 110 699 3\.;
-#X text 150 699 float;
-#X obj 246 700 cnv 1 77 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 699 f1000(db): @f1000 property init value. Range: -6\...6;
-#X text 110 719 4\.;
-#X text 150 719 float;
-#X obj 246 720 cnv 1 77 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 719 f2000(db): @f2000 property init value. Range: -6\...6;
-#X text 110 739 5\.;
-#X text 150 739 float;
-#X obj 246 740 cnv 1 77 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 739 f4000(db): @f4000 property init value. Range: -6\...6;
-#X obj 20 769 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 774 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 245 659 f250(db): @f250 property init value. Type: float. Range:
+-6\...6;
+#X text 110 694 2\.;
+#X text 150 694 float;
+#X obj 246 695 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 694 f500(db): @f500 property init value. Type: float. Range:
+-6\...6;
+#X text 110 729 3\.;
+#X text 150 729 float;
+#X obj 246 730 cnv 1 77 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 729 f1000(db): @f1000 property init value. Type: float.
+Range: -6\...6;
+#X text 110 764 4\.;
+#X text 150 764 float;
+#X obj 246 765 cnv 1 77 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 764 f2000(db): @f2000 property init value. Type: float.
+Range: -6\...6;
+#X text 110 799 5\.;
+#X text 150 799 float;
+#X obj 246 800 cnv 1 77 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 799 f4000(db): @f4000 property init value. Type: float.
+Range: -6\...6;
+#X obj 20 844 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 849 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 809 @active;
-#X text 245 809 Get/Set on/off dsp processing. Type: int. Default value:
+#X msg 110 884 @active;
+#X text 245 884 Get/Set on/off dsp processing. Type: int. Default value:
 1\. Allowed values: 0 \, 1\.;
-#X msg 110 851 @f1000;
-#X text 245 851 Get/Set third filter (bandpass) gain at 1000Hz. Type:
+#X msg 110 926 @f1000;
+#X text 245 926 Get/Set third filter (bandpass) gain at 1000Hz. Type:
 float. Units: db. Default value: 0\. Range: -6\...6\.;
-#X msg 110 893 @f2000;
-#X text 245 893 Get/Set fourth filter (bandpass) gain at 2000Hz. Type:
+#X msg 110 968 @f2000;
+#X text 245 968 Get/Set fourth filter (bandpass) gain at 2000Hz. Type:
 float. Units: db. Default value: 0\. Range: -6\...6\.;
-#X msg 110 935 @f250;
-#X text 245 935 Get/Set first filter (lowpass) gain at 250Hz. Type:
+#X msg 110 1010 @f250;
+#X text 245 1010 Get/Set first filter (lowpass) gain at 250Hz. Type:
 float. Units: db. Default value: 0\. Range: -6\...6\.;
-#X msg 110 977 @f4000;
-#X text 245 977 Get/Set fifth filter (highpass) gain at 4000Hz. Type:
+#X msg 110 1052 @f4000;
+#X text 245 1052 Get/Set fifth filter (highpass) gain at 4000Hz. Type:
 float. Units: db. Default value: 0\. Range: -6\...6\.;
-#X msg 110 1019 @f500;
-#X text 245 1019 Get/Set second filter (bandpass) gain at 500Hz. Type:
+#X msg 110 1094 @f500;
+#X text 245 1094 Get/Set second filter (bandpass) gain at 500Hz. Type:
 float. Units: db. Default value: 0\. Range: -6\...6\.;
-#X obj 20 1071 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1076 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1146 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1151 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 1111 reset;
-#X text 245 1111 reset filter state.;
-#X obj 20 1148 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1153 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X msg 110 1186 reset;
+#X text 245 1186 reset filter state.;
+#X obj 20 1223 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1228 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1154 1\.;
-#X text 245 1154 input signal.;
-#X text 150 1174 *list*;
-#X text 245 1174 5 element list of db gains.;
-#X obj 20 1204 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1209 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 1229 1\.;
+#X text 245 1229 input signal.;
+#X text 150 1249 *list*;
+#X text 245 1249 5 element list of db gains.;
+#X obj 20 1279 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1284 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1210 1\.;
-#X text 245 1210 lpf: 250Hz.;
-#X text 110 1230 2\.;
-#X text 245 1230 bpf: 500Hz.;
-#X text 110 1250 3\.;
-#X text 245 1250 bpf: 1000Hz.;
-#X text 110 1270 4\.;
-#X text 245 1270 bpf: 2000Hz.;
-#X text 110 1290 5\.;
-#X text 245 1290 hpf: 4000Hz.;
+#X text 110 1285 1\.;
+#X text 245 1285 lpf: 250Hz.;
+#X text 110 1305 2\.;
+#X text 245 1305 bpf: 500Hz.;
+#X text 110 1325 3\.;
+#X text 245 1325 bpf: 1000Hz.;
+#X text 110 1345 4\.;
+#X text 245 1345 bpf: 2000Hz.;
+#X text 110 1365 5\.;
+#X text 245 1365 hpf: 4000Hz.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title flt @url ceammc.flt-help.pd;
-#X obj 1 1340 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1343 library: ceammc v0.9.3;
-#N canvas 10 1362 400 290 info 0;
+#X obj 1 1415 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1418 library: ceammc v0.9.3;
+#N canvas 10 1437 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -122,7 +127,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1362 pd info;
+#X restore 10 1437 pd info;
 #X connect 8 0 10 0;
 #X connect 9 0 11 0;
 #X connect 10 0 12 0;

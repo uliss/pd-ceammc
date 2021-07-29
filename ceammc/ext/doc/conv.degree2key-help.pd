@@ -16,7 +16,7 @@
 #X obj 69 230 ui.dt;
 #X obj 50 273 msg @v;
 #X obj 146 273 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 50 302 seq @t 120#4_bpm @inf;
+#X obj 50 302 seq @t 120|4_bpm @inf;
 #X obj 50 330 + 72;
 #X obj 50 359 mtof;
 #X obj 50 388 osc~;

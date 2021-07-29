@@ -20,11 +20,11 @@
 #X text 110 366 1\.;
 #X text 150 366 float;
 #X obj 246 367 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 366 freq(Hz): frequency.;
+#X text 245 366 freq(Hz): frequency. Type: float.;
 #X text 110 386 2\.;
 #X text 150 386 float;
 #X obj 246 387 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 386 duty: duty cycle. Range: 0\...1;
+#X text 245 386 duty: duty cycle. Type: float. Range: 0\...1;
 #X obj 20 416 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 421 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;

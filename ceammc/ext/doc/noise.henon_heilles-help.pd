@@ -32,23 +32,23 @@
 #X text 110 505 1\.;
 #X text 150 505 float;
 #X obj 246 506 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 505 ARG0: x value (optional).;
+#X text 245 505 ARG0: x value (optional). Type: float.;
 #X text 110 525 2\.;
 #X text 150 525 float;
 #X obj 246 526 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 525 ARG1: y value (optional).;
+#X text 245 525 ARG1: y value (optional). Type: float.;
 #X text 110 545 3\.;
 #X text 150 545 float;
 #X obj 246 546 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 545 ARG2: y' value (optional).;
+#X text 245 545 ARG2: y' value (optional). Type: float.;
 #X text 110 565 4\.;
 #X text 150 565 float;
 #X obj 246 566 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 565 ARG3: e value (optional).;
+#X text 245 565 ARG3: e value (optional). Type: float.;
 #X text 110 585 5\.;
 #X text 150 585 float;
 #X obj 246 586 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 585 ARG4: dt value (optional).;
+#X text 245 585 ARG4: dt value (optional). Type: float.;
 #X obj 20 615 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 620 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;

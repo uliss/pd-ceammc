@@ -20,7 +20,7 @@ is specified by the argument;
 #X text 150 323 int;
 #X obj 246 324 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 323 AT: size of first list. The size of the list on the
-second output is the size of input list - this value.;
+second output is the size of input list - this value. Type: int.;
 #X obj 20 368 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 373 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;

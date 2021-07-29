@@ -223,8 +223,8 @@ s->f~	convert signal to floats
 conv.str2sec	converts formatted time to float value in seconds
 ceammc/str->sec	converts formatted time to float value in seconds
 str->sec	converts formatted time to float value in seconds
-music.dur2time	convert music score events to list to time in ms
-music.d->t	convert music score events to list to time in ms
+music.dur2time	convert duration list to time
+music.d->t	convert duration list to time
 data.copy	make copy for any data types: MList, Set etc...
 data.dict	dictionary container: store values by key
 ceammc/dict	dictionary container: store values by key

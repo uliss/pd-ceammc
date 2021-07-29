@@ -22,7 +22,8 @@ a length of key/value pair. First element of the pair becames a key
 #X text 110 349 1\.;
 #X text 150 349 int;
 #X obj 246 350 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 349 STEP: key/value length in input list. Min value: 2;
+#X text 245 349 STEP: key/value length in input list. Type: int. Min
+value: 2;
 #X obj 20 379 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 384 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;

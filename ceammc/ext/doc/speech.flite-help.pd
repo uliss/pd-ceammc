@@ -37,7 +37,7 @@ flite TTS engine.;
 #X text 110 589 1\.;
 #X text 150 589 symbol;
 #X obj 246 590 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 589 ARRAY: destination array name render to.;
+#X text 245 589 ARRAY: destination array name render to. Type: symbol.;
 #X obj 20 619 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 624 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;

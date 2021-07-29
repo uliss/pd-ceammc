@@ -23,11 +23,11 @@
 #X text 110 409 1\.;
 #X text 150 409 float;
 #X obj 246 410 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 409 MIN: min random range.;
+#X text 245 409 MIN: min random range. Type: float.;
 #X text 110 429 2\.;
 #X text 150 429 float;
 #X obj 246 430 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 429 MAX: max random range.;
+#X text 245 429 MAX: max random range. Type: float.;
 #X obj 20 459 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 464 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;

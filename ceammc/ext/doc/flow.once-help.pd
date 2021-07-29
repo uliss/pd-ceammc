@@ -17,7 +17,8 @@
 #X text 110 265 1\.;
 #X text 150 265 int;
 #X obj 246 266 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 265 OPENED: set init state.;
+#X text 245 265 OPENED: set init state. Allowed values: 0 \, 1\. .
+Type: int.;
 #X obj 20 295 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 300 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;

@@ -32,11 +32,11 @@ VALUE(;
 #X text 110 560 1\.;
 #X text 150 560 int;
 #X obj 246 561 cnv 1 31 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 560 ROW: matrix rows. Range: 1\...64;
+#X text 245 560 ROW: matrix rows. Type: int. Range: 1\...64;
 #X text 110 580 2\.;
 #X text 150 580 int;
 #X obj 246 581 cnv 1 31 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 580 COL: matrix columns. Range: 1\...64;
+#X text 245 580 COL: matrix columns. Type: int. Range: 1\...64;
 #X obj 20 610 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 615 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;

@@ -31,15 +31,15 @@
 #X text 110 523 1\.;
 #X text 150 523 float;
 #X obj 246 524 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 523 ARG0: x value (optional).;
+#X text 245 523 ARG0: x value (optional). Type: float.;
 #X text 110 543 2\.;
 #X text 150 543 float;
 #X obj 246 544 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 543 ARG1: y value (optional).;
+#X text 245 543 ARG1: y value (optional). Type: float.;
 #X text 110 563 3\.;
 #X text 150 563 float;
 #X obj 246 564 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 563 ARG2: cr value (optional).;
+#X text 245 563 ARG2: cr value (optional). Type: float.;
 #X obj 20 593 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 598 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;

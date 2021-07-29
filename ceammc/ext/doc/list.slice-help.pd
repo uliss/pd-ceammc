@@ -31,15 +31,15 @@
 #X text 110 409 1\.;
 #X text 150 409 int;
 #X obj 246 410 cnv 1 38 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 409 FROM: @from property.;
+#X text 245 409 FROM: @from property. Type: int.;
 #X text 110 429 2\.;
 #X text 150 429 int;
 #X obj 246 430 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 429 TO: @to property.;
+#X text 245 429 TO: @to property. Type: int.;
 #X text 110 449 3\.;
 #X text 150 449 int;
 #X obj 246 450 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 449 STEP: @step property.;
+#X text 245 449 STEP: @step property. Type: int.;
 #X obj 20 479 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 484 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;

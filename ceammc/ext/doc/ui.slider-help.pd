@@ -48,11 +48,11 @@
 #X text 110 633 1\.;
 #X text 150 633 float;
 #X obj 246 634 cnv 1 31 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 633 min: min value.;
+#X text 245 633 min: min value. Type: float.;
 #X text 110 653 2\.;
 #X text 150 653 float;
 #X obj 246 654 cnv 1 31 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 653 max: max value.;
+#X text 245 653 max: max value. Type: float.;
 #X obj 20 683 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 688 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;

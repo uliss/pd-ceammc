@@ -21,12 +21,12 @@
 #X text 110 279 1\.;
 #X text 150 279 int;
 #X obj 246 280 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 279 N: number of inputs. Min value: 1;
+#X text 245 279 N: number of inputs. Type: int. Min value: 1;
 #X text 110 299 2\.;
 #X text 150 299 list;
 #X obj 246 300 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 299 VALS: default values for all inlets. If not enough
-default values given it sets to 0\.;
+default values given it sets to 0\. Type: list.;
 #X obj 20 344 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 349 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;

@@ -24,11 +24,12 @@ the delay time is changed;
 #X text 110 434 1\.;
 #X text 150 434 float;
 #X obj 246 435 cnv 1 77 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 434 delay(ms): delay time. Range: 10\...6000;
+#X text 245 434 delay(ms): delay time. Type: float. Range: 10\...6000;
 #X text 110 454 2\.;
 #X text 150 454 float;
 #X obj 246 455 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 454 feedback: feedback coefficient. Range: 0\...1;
+#X text 245 454 feedback: feedback coefficient. Type: float. Range:
+0\...1;
 #X obj 20 484 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 489 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;

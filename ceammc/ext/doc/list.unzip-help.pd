@@ -29,7 +29,8 @@ If @pad method used with value X \, output if [1 3 5] and [2 4 X];
 #X text 110 486 1\.;
 #X text 150 486 int;
 #X obj 246 487 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 486 N: number of output outlets. Min value: 2;
+#X text 245 486 N: number of output outlets. Type: int. Min value:
+2;
 #X obj 20 516 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 521 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;

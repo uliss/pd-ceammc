@@ -21,15 +21,15 @@
 #X text 110 423 1\.;
 #X text 150 423 float;
 #X obj 246 424 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 423 freq(Hz): center frequency. Range: 20\...20000;
+#X text 245 423 freq(Hz): center frequency. Type: float. Range: 20\...20000;
 #X text 110 443 2\.;
 #X text 150 443 float;
 #X obj 246 444 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 443 gain(db): filter gain. Range: -15\...+15;
+#X text 245 443 gain(db): filter gain. Type: float. Range: -15\...+15;
 #X text 110 463 3\.;
 #X text 150 463 float;
 #X obj 246 464 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 463 q: quality factory. Range: 0.01\...100;
+#X text 245 463 q: quality factory. Type: float. Range: 0.01\...100;
 #X obj 20 493 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 498 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;

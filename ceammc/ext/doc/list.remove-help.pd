@@ -19,7 +19,7 @@
 #X text 150 323 list;
 #X obj 246 324 cnv 1 61 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 323 INDEXES: list of indexes to remove. Negative indexes
-are also supported.;
+are also supported. Type: list.;
 #X obj 20 368 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 373 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;

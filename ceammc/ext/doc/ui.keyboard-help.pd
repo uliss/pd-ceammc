@@ -60,11 +60,11 @@ note).;
 #X text 110 777 1\.;
 #X text 150 777 int;
 #X obj 246 778 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 777 NKEYS: number of keys. Range: 5\...88;
+#X text 245 777 NKEYS: number of keys. Type: int. Range: 5\...88;
 #X text 110 797 2\.;
 #X text 150 797 int;
 #X obj 246 798 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 797 SHIFT: pitch of starting key. Range: 6\...88;
+#X text 245 797 SHIFT: pitch of starting key. Type: int. Range: 6\...88;
 #X obj 20 827 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 832 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;

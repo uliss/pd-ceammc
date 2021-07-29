@@ -21,7 +21,7 @@ which are in either of the sets and not in their intersection;
 #X text 110 391 1\.;
 #X text 150 391 any;
 #X obj 246 392 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 391 ARGS: right set elements.;
+#X text 245 391 ARGS: right set elements. Type: any.;
 #X obj 20 421 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 426 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
