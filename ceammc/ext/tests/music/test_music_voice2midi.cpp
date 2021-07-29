@@ -57,7 +57,22 @@ TEST_CASE("music.voice2midi", "[ceammc::music]")
         t << LA("C", "E__", "R", "A4", "R", "B", "Cbb3");
         REQUIRE(t.outputListAt(0) == LF(60, 40, 0, 69, 0, 71, 46));
 
-        t << "C##5";
+        t << "C##5|4.";
         REQUIRE(t.outputListAt(0) == LF(74));
+
+        t << "C(+25c)|4.";
+        REQUIRE(t.outputListAt(0) == LF(60.25));
+
+        t << "C5(-25c)|1/32";
+        REQUIRE(t.outputListAt(0) == LF(71.75));
+
+        t << "1*C4";
+        REQUIRE(t.outputListAt(0) == LF(60));
+
+        t << "2*C4";
+        REQUIRE(t.outputListAt(0) == LF(60, 60));
+
+        t << "10*C4";
+        REQUIRE(t.outputListAt(0) == AtomList::filled(60, 10));
     }
 }

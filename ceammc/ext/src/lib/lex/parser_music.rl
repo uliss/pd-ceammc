@@ -164,7 +164,7 @@ size_t SpnFullMatch::parse(const AtomListView& lv, SmallSpnVec& out)
     machine notation;
     include music_common "ragel_music.rl";
 
-    main := note_single;
+    main := note_single_seq;
     write data;
 }%%
 
@@ -224,6 +224,11 @@ size_t NotationSingle::parse(const AtomListView& lv, NoteVec& out)
             return i;
 
         out.push_back(note_);
+        if (note_.dur.repeats > 1) {
+            std::cerr << note_.dur.repeats << "\n";
+            out.insert(out.end(), note_.dur.repeats - 1, out.back());
+            note_.dur.repeats = 1;
+        }
     }
 
     return N;

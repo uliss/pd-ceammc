@@ -131,6 +131,13 @@ note_single = (note_rest | spn) note_dur_par?
     >{note.num = 1; note.den = 4; note.dots = 0; note.durtype = DURATION_REL;}
     %{cat_ = CAT_UNIT; type_ = TYPE_SPN;};
 
+
+action note_repeat_init  { note.repeats = 0; }
+action note_repeat_digit { (note.repeats *= 10) += (fc - '0'); }
+
+note_repeat = (note_dec >note_repeat_init $note_repeat_digit) '*';
+note_single_seq = note_repeat ? note_single;
+
 note_chord_seq = note_single (['] note_single)*;
 note_chord = '<' note_chord_seq '>' note_dur_par?;
 
