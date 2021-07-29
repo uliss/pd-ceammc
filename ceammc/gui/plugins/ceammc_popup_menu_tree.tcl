@@ -102,9 +102,9 @@
         fx.bitdown~ fx.chorus~ fx.distortion1~ fx.distortion2~ fx.distortion3~
         fx.distortion~ fx.drive~ fx.drone_box~ fx.echo2~ fx.echo~ fx.flanger~
         fx.freeverb2~ fx.freeverb~ fx.freqshift~ fx.granulator~ fx.greyhole~
-        fx.infrev~ fx.looper~ fx.pitchshift_s~ fx.pitchshift~ fx.recho~
-        fx.room~ fx.sdelay~ fx.secho~ fx.shimmer~ fx.tapiir~ fx.vocoder~
-        fx.wahwah~ fx.zita_rev1~
+        fx.infrev~ fx.looper~ fx.pitchshift_s~ fx.pitchshift~
+        fx.rb_pitchshift~ fx.recho~ fx.room~ fx.sdelay~ fx.secho~ fx.shimmer~
+        fx.tapiir~ fx.vocoder~ fx.wahwah~ fx.zita_rev1~
     }}
     {global {
         global.dict global.float global.int global.list global.mlist
