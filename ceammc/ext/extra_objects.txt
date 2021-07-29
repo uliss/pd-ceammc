@@ -231,6 +231,7 @@ gfx.pitchshift~
 gfx.recho~
 gfx.sdelay~
 gfx.secho~
+gfx.tapiir~
 gfx.vocoder~
 gfx.wahwah~
 gfx.zita_rev1~
@@ -263,4 +264,3 @@ gsynth.risset_tone~
 gsynth.russian_bell~
 gsynth.snare~
 gsynth.standard_bell~
-gtapiir~

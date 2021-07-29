@@ -1,4 +1,4 @@
-declare name 		"tapiir";
+declare name 		"fx.tapiir";
 declare version 	"1.0";
 declare author 		"Grame";
 declare license 	"BSD";

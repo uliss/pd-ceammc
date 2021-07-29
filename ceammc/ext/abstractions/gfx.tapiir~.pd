@@ -1,9 +1,9 @@
 #N canvas 0 0 950 600 12;
-#X obj 25 125 tapiir~;
+#X obj 25 125 fx.tapiir~;
 #X obj 25 25 inlet~;
 #X obj 125 25 inlet~;
 #X obj 525 25 inlet;
-#X obj 525 200 route tapiir;
+#X obj 525 200 route fx.tapiir;
 #X obj 525 250 route @tap0.delay @tap0.fb0 @tap0.fb1 @tap0.fb2
 @tap0.fb3 @tap0.fb4 @tap0.fb5 @tap0.gain @tap0.in0 @tap0.in1
 @tap1.delay @tap1.fb0 @tap1.fb1 @tap1.fb2 @tap1.fb3 @tap1.fb4
@@ -23,473 +23,473 @@
 #X obj 500 550 outlet~;
 #X obj 600 550 outlet~;
 #X obj 700 550 outlet ctl;
-#X obj 3 202 cnv 8 198 18 empty empty [tapiir~] 3 9 0 12 -104026
+#X obj 3 202 cnv 8 198 18 empty empty [fx.tapiir~] 3 9 0 12 -104026
 -262144 0;
 #X obj 12 238 ui.slider @size 125 12 @active_scale 1 @label
 tap0.delay(ms): @label_side top @label_align left @fontsize 10
-@presetname /gui/\$1/tapiir~/slider0 @min 0 @max 5000;
+@presetname /gui/\$1/fx.tapiir~/slider0 @min 0 @max 5000;
 #X obj 190 238 sync;
 #X obj 145 238 ui.number @size 50 12 @min 0 @max 5000 @digits 0;
 #X msg 260 238 @tap0.delay \$1;
 #X obj 12 270 ui.slider @size 125 12 @active_scale 1 @label tap0.fb0:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider1 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider1 @min 0 @max 1;
 #X obj 190 270 sync;
 #X obj 145 270 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 270 @tap0.fb0 \$1;
 #X obj 12 302 ui.slider @size 125 12 @active_scale 1 @label tap0.fb1:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider2 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider2 @min 0 @max 1;
 #X obj 190 302 sync;
 #X obj 145 302 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 302 @tap0.fb1 \$1;
 #X obj 12 334 ui.slider @size 125 12 @active_scale 1 @label tap0.fb2:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider3 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider3 @min 0 @max 1;
 #X obj 190 334 sync;
 #X obj 145 334 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 334 @tap0.fb2 \$1;
 #X obj 12 366 ui.slider @size 125 12 @active_scale 1 @label tap0.fb3:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider4 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider4 @min 0 @max 1;
 #X obj 190 366 sync;
 #X obj 145 366 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 366 @tap0.fb3 \$1;
 #X obj 12 398 ui.slider @size 125 12 @active_scale 1 @label tap0.fb4:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider5 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider5 @min 0 @max 1;
 #X obj 190 398 sync;
 #X obj 145 398 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 398 @tap0.fb4 \$1;
 #X obj 12 430 ui.slider @size 125 12 @active_scale 1 @label tap0.fb5:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider6 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider6 @min 0 @max 1;
 #X obj 190 430 sync;
 #X obj 145 430 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 430 @tap0.fb5 \$1;
 #X obj 12 462 ui.slider @size 125 12 @active_scale 1 @label
 tap0.gain(db): @label_side top @label_align left @fontsize 10
-@presetname /gui/\$1/tapiir~/slider7 @min -60 @max 0;
+@presetname /gui/\$1/fx.tapiir~/slider7 @min -60 @max 0;
 #X obj 190 462 sync;
 #X obj 145 462 ui.number @size 50 12 @min -60 @max 0 @digits 2;
 #X msg 260 462 @tap0.gain \$1;
 #X obj 12 494 ui.slider @size 125 12 @active_scale 1 @label tap0.in0:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider8 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider8 @min 0 @max 1;
 #X obj 190 494 sync;
 #X obj 145 494 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 494 @tap0.in0 \$1;
 #X obj 12 526 ui.slider @size 125 12 @active_scale 1 @label tap0.in1:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider9 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider9 @min 0 @max 1;
 #X obj 190 526 sync;
 #X obj 145 526 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 526 @tap0.in1 \$1;
 #X obj 12 558 ui.slider @size 125 12 @active_scale 1 @label
 tap1.delay(ms): @label_side top @label_align left @fontsize 10
-@presetname /gui/\$1/tapiir~/slider10 @min 0 @max 5000;
+@presetname /gui/\$1/fx.tapiir~/slider10 @min 0 @max 5000;
 #X obj 190 558 sync;
 #X obj 145 558 ui.number @size 50 12 @min 0 @max 5000 @digits 0;
 #X msg 260 558 @tap1.delay \$1;
 #X obj 12 590 ui.slider @size 125 12 @active_scale 1 @label tap1.fb0:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider11 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider11 @min 0 @max 1;
 #X obj 190 590 sync;
 #X obj 145 590 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 590 @tap1.fb0 \$1;
 #X obj 12 622 ui.slider @size 125 12 @active_scale 1 @label tap1.fb1:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider12 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider12 @min 0 @max 1;
 #X obj 190 622 sync;
 #X obj 145 622 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 622 @tap1.fb1 \$1;
 #X obj 12 654 ui.slider @size 125 12 @active_scale 1 @label tap1.fb2:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider13 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider13 @min 0 @max 1;
 #X obj 190 654 sync;
 #X obj 145 654 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 654 @tap1.fb2 \$1;
 #X obj 12 686 ui.slider @size 125 12 @active_scale 1 @label tap1.fb3:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider14 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider14 @min 0 @max 1;
 #X obj 190 686 sync;
 #X obj 145 686 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 686 @tap1.fb3 \$1;
 #X obj 12 718 ui.slider @size 125 12 @active_scale 1 @label tap1.fb4:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider15 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider15 @min 0 @max 1;
 #X obj 190 718 sync;
 #X obj 145 718 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 718 @tap1.fb4 \$1;
 #X obj 12 750 ui.slider @size 125 12 @active_scale 1 @label tap1.fb5:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider16 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider16 @min 0 @max 1;
 #X obj 190 750 sync;
 #X obj 145 750 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 750 @tap1.fb5 \$1;
 #X obj 12 782 ui.slider @size 125 12 @active_scale 1 @label
 tap1.gain(db): @label_side top @label_align left @fontsize 10
-@presetname /gui/\$1/tapiir~/slider17 @min -60 @max 0;
+@presetname /gui/\$1/fx.tapiir~/slider17 @min -60 @max 0;
 #X obj 190 782 sync;
 #X obj 145 782 ui.number @size 50 12 @min -60 @max 0 @digits 2;
 #X msg 260 782 @tap1.gain \$1;
 #X obj 12 814 ui.slider @size 125 12 @active_scale 1 @label tap1.in0:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider18 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider18 @min 0 @max 1;
 #X obj 190 814 sync;
 #X obj 145 814 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 814 @tap1.in0 \$1;
 #X obj 12 846 ui.slider @size 125 12 @active_scale 1 @label tap1.in1:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider19 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider19 @min 0 @max 1;
 #X obj 190 846 sync;
 #X obj 145 846 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 846 @tap1.in1 \$1;
 #X obj 12 878 ui.slider @size 125 12 @active_scale 1 @label
 tap2.delay(ms): @label_side top @label_align left @fontsize 10
-@presetname /gui/\$1/tapiir~/slider20 @min 0 @max 5000;
+@presetname /gui/\$1/fx.tapiir~/slider20 @min 0 @max 5000;
 #X obj 190 878 sync;
 #X obj 145 878 ui.number @size 50 12 @min 0 @max 5000 @digits 0;
 #X msg 260 878 @tap2.delay \$1;
 #X obj 12 910 ui.slider @size 125 12 @active_scale 1 @label tap2.fb0:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider21 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider21 @min 0 @max 1;
 #X obj 190 910 sync;
 #X obj 145 910 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 910 @tap2.fb0 \$1;
 #X obj 12 942 ui.slider @size 125 12 @active_scale 1 @label tap2.fb1:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider22 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider22 @min 0 @max 1;
 #X obj 190 942 sync;
 #X obj 145 942 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 942 @tap2.fb1 \$1;
 #X obj 12 974 ui.slider @size 125 12 @active_scale 1 @label tap2.fb2:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider23 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider23 @min 0 @max 1;
 #X obj 190 974 sync;
 #X obj 145 974 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 974 @tap2.fb2 \$1;
 #X obj 12 1006 ui.slider @size 125 12 @active_scale 1 @label tap2.fb3:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider24 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider24 @min 0 @max 1;
 #X obj 190 1006 sync;
 #X obj 145 1006 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 1006 @tap2.fb3 \$1;
 #X obj 12 1038 ui.slider @size 125 12 @active_scale 1 @label tap2.fb4:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider25 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider25 @min 0 @max 1;
 #X obj 190 1038 sync;
 #X obj 145 1038 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 1038 @tap2.fb4 \$1;
 #X obj 12 1070 ui.slider @size 125 12 @active_scale 1 @label tap2.fb5:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider26 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider26 @min 0 @max 1;
 #X obj 190 1070 sync;
 #X obj 145 1070 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 1070 @tap2.fb5 \$1;
 #X obj 12 1102 ui.slider @size 125 12 @active_scale 1 @label
 tap2.gain(db): @label_side top @label_align left @fontsize 10
-@presetname /gui/\$1/tapiir~/slider27 @min -60 @max 0;
+@presetname /gui/\$1/fx.tapiir~/slider27 @min -60 @max 0;
 #X obj 190 1102 sync;
 #X obj 145 1102 ui.number @size 50 12 @min -60 @max 0 @digits 2;
 #X msg 260 1102 @tap2.gain \$1;
 #X obj 12 1134 ui.slider @size 125 12 @active_scale 1 @label tap2.in0:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider28 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider28 @min 0 @max 1;
 #X obj 190 1134 sync;
 #X obj 145 1134 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 1134 @tap2.in0 \$1;
 #X obj 12 1166 ui.slider @size 125 12 @active_scale 1 @label tap2.in1:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider29 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider29 @min 0 @max 1;
 #X obj 190 1166 sync;
 #X obj 145 1166 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 1166 @tap2.in1 \$1;
 #X obj 12 1198 ui.slider @size 125 12 @active_scale 1 @label
 tap3.delay(ms): @label_side top @label_align left @fontsize 10
-@presetname /gui/\$1/tapiir~/slider30 @min 0 @max 5000;
+@presetname /gui/\$1/fx.tapiir~/slider30 @min 0 @max 5000;
 #X obj 190 1198 sync;
 #X obj 145 1198 ui.number @size 50 12 @min 0 @max 5000 @digits 0;
 #X msg 260 1198 @tap3.delay \$1;
 #X obj 12 1230 ui.slider @size 125 12 @active_scale 1 @label tap3.fb0:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider31 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider31 @min 0 @max 1;
 #X obj 190 1230 sync;
 #X obj 145 1230 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 1230 @tap3.fb0 \$1;
 #X obj 12 1262 ui.slider @size 125 12 @active_scale 1 @label tap3.fb1:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider32 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider32 @min 0 @max 1;
 #X obj 190 1262 sync;
 #X obj 145 1262 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 1262 @tap3.fb1 \$1;
 #X obj 12 1294 ui.slider @size 125 12 @active_scale 1 @label tap3.fb2:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider33 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider33 @min 0 @max 1;
 #X obj 190 1294 sync;
 #X obj 145 1294 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 1294 @tap3.fb2 \$1;
 #X obj 12 1326 ui.slider @size 125 12 @active_scale 1 @label tap3.fb3:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider34 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider34 @min 0 @max 1;
 #X obj 190 1326 sync;
 #X obj 145 1326 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 1326 @tap3.fb3 \$1;
 #X obj 12 1358 ui.slider @size 125 12 @active_scale 1 @label tap3.fb4:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider35 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider35 @min 0 @max 1;
 #X obj 190 1358 sync;
 #X obj 145 1358 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 1358 @tap3.fb4 \$1;
 #X obj 12 1390 ui.slider @size 125 12 @active_scale 1 @label tap3.fb5:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider36 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider36 @min 0 @max 1;
 #X obj 190 1390 sync;
 #X obj 145 1390 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 1390 @tap3.fb5 \$1;
 #X obj 12 1422 ui.slider @size 125 12 @active_scale 1 @label
 tap3.gain(db): @label_side top @label_align left @fontsize 10
-@presetname /gui/\$1/tapiir~/slider37 @min -60 @max 0;
+@presetname /gui/\$1/fx.tapiir~/slider37 @min -60 @max 0;
 #X obj 190 1422 sync;
 #X obj 145 1422 ui.number @size 50 12 @min -60 @max 0 @digits 2;
 #X msg 260 1422 @tap3.gain \$1;
 #X obj 12 1454 ui.slider @size 125 12 @active_scale 1 @label tap3.in0:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider38 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider38 @min 0 @max 1;
 #X obj 190 1454 sync;
 #X obj 145 1454 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 1454 @tap3.in0 \$1;
 #X obj 12 1486 ui.slider @size 125 12 @active_scale 1 @label tap3.in1:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider39 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider39 @min 0 @max 1;
 #X obj 190 1486 sync;
 #X obj 145 1486 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 1486 @tap3.in1 \$1;
 #X obj 12 1518 ui.slider @size 125 12 @active_scale 1 @label
 tap4.delay(ms): @label_side top @label_align left @fontsize 10
-@presetname /gui/\$1/tapiir~/slider40 @min 0 @max 5000;
+@presetname /gui/\$1/fx.tapiir~/slider40 @min 0 @max 5000;
 #X obj 190 1518 sync;
 #X obj 145 1518 ui.number @size 50 12 @min 0 @max 5000 @digits 0;
 #X msg 260 1518 @tap4.delay \$1;
 #X obj 12 1550 ui.slider @size 125 12 @active_scale 1 @label tap4.fb0:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider41 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider41 @min 0 @max 1;
 #X obj 190 1550 sync;
 #X obj 145 1550 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 1550 @tap4.fb0 \$1;
 #X obj 12 1582 ui.slider @size 125 12 @active_scale 1 @label tap4.fb1:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider42 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider42 @min 0 @max 1;
 #X obj 190 1582 sync;
 #X obj 145 1582 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 1582 @tap4.fb1 \$1;
 #X obj 12 1614 ui.slider @size 125 12 @active_scale 1 @label tap4.fb2:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider43 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider43 @min 0 @max 1;
 #X obj 190 1614 sync;
 #X obj 145 1614 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 1614 @tap4.fb2 \$1;
 #X obj 12 1646 ui.slider @size 125 12 @active_scale 1 @label tap4.fb3:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider44 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider44 @min 0 @max 1;
 #X obj 190 1646 sync;
 #X obj 145 1646 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 1646 @tap4.fb3 \$1;
 #X obj 12 1678 ui.slider @size 125 12 @active_scale 1 @label tap4.fb4:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider45 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider45 @min 0 @max 1;
 #X obj 190 1678 sync;
 #X obj 145 1678 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 1678 @tap4.fb4 \$1;
 #X obj 12 1710 ui.slider @size 125 12 @active_scale 1 @label tap4.fb5:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider46 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider46 @min 0 @max 1;
 #X obj 190 1710 sync;
 #X obj 145 1710 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 1710 @tap4.fb5 \$1;
 #X obj 12 1742 ui.slider @size 125 12 @active_scale 1 @label
 tap4.gain(db): @label_side top @label_align left @fontsize 10
-@presetname /gui/\$1/tapiir~/slider47 @min -60 @max 0;
+@presetname /gui/\$1/fx.tapiir~/slider47 @min -60 @max 0;
 #X obj 190 1742 sync;
 #X obj 145 1742 ui.number @size 50 12 @min -60 @max 0 @digits 2;
 #X msg 260 1742 @tap4.gain \$1;
 #X obj 12 1774 ui.slider @size 125 12 @active_scale 1 @label tap4.in0:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider48 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider48 @min 0 @max 1;
 #X obj 190 1774 sync;
 #X obj 145 1774 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 1774 @tap4.in0 \$1;
 #X obj 12 1806 ui.slider @size 125 12 @active_scale 1 @label tap4.in1:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider49 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider49 @min 0 @max 1;
 #X obj 190 1806 sync;
 #X obj 145 1806 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 1806 @tap4.in1 \$1;
 #X obj 12 1838 ui.slider @size 125 12 @active_scale 1 @label
 tap5.delay(ms): @label_side top @label_align left @fontsize 10
-@presetname /gui/\$1/tapiir~/slider50 @min 0 @max 5000;
+@presetname /gui/\$1/fx.tapiir~/slider50 @min 0 @max 5000;
 #X obj 190 1838 sync;
 #X obj 145 1838 ui.number @size 50 12 @min 0 @max 5000 @digits 0;
 #X msg 260 1838 @tap5.delay \$1;
 #X obj 12 1870 ui.slider @size 125 12 @active_scale 1 @label tap5.fb0:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider51 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider51 @min 0 @max 1;
 #X obj 190 1870 sync;
 #X obj 145 1870 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 1870 @tap5.fb0 \$1;
 #X obj 12 1902 ui.slider @size 125 12 @active_scale 1 @label tap5.fb1:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider52 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider52 @min 0 @max 1;
 #X obj 190 1902 sync;
 #X obj 145 1902 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 1902 @tap5.fb1 \$1;
 #X obj 12 1934 ui.slider @size 125 12 @active_scale 1 @label tap5.fb2:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider53 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider53 @min 0 @max 1;
 #X obj 190 1934 sync;
 #X obj 145 1934 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 1934 @tap5.fb2 \$1;
 #X obj 12 1966 ui.slider @size 125 12 @active_scale 1 @label tap5.fb3:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider54 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider54 @min 0 @max 1;
 #X obj 190 1966 sync;
 #X obj 145 1966 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 1966 @tap5.fb3 \$1;
 #X obj 12 1998 ui.slider @size 125 12 @active_scale 1 @label tap5.fb4:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider55 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider55 @min 0 @max 1;
 #X obj 190 1998 sync;
 #X obj 145 1998 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 1998 @tap5.fb4 \$1;
 #X obj 12 2030 ui.slider @size 125 12 @active_scale 1 @label tap5.fb5:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider56 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider56 @min 0 @max 1;
 #X obj 190 2030 sync;
 #X obj 145 2030 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 2030 @tap5.fb5 \$1;
 #X obj 12 2062 ui.slider @size 125 12 @active_scale 1 @label
 tap5.gain(db): @label_side top @label_align left @fontsize 10
-@presetname /gui/\$1/tapiir~/slider57 @min -60 @max 0;
+@presetname /gui/\$1/fx.tapiir~/slider57 @min -60 @max 0;
 #X obj 190 2062 sync;
 #X obj 145 2062 ui.number @size 50 12 @min -60 @max 0 @digits 2;
 #X msg 260 2062 @tap5.gain \$1;
 #X obj 12 2094 ui.slider @size 125 12 @active_scale 1 @label tap5.in0:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider58 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider58 @min 0 @max 1;
 #X obj 190 2094 sync;
 #X obj 145 2094 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 2094 @tap5.in0 \$1;
 #X obj 12 2126 ui.slider @size 125 12 @active_scale 1 @label tap5.in1:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider59 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider59 @min 0 @max 1;
 #X obj 190 2126 sync;
 #X obj 145 2126 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 2126 @tap5.in1 \$1;
 #X obj 12 2158 ui.slider @size 125 12 @active_scale 1 @label
 out0.gain(db): @label_side top @label_align left @fontsize 10
-@presetname /gui/\$1/tapiir~/slider60 @min -60 @max 0;
+@presetname /gui/\$1/fx.tapiir~/slider60 @min -60 @max 0;
 #X obj 190 2158 sync;
 #X obj 145 2158 ui.number @size 50 12 @min -60 @max 0 @digits 2;
 #X msg 260 2158 @out0.gain \$1;
 #X obj 12 2190 ui.slider @size 125 12 @active_scale 1 @label out0.in0:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider61 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider61 @min 0 @max 1;
 #X obj 190 2190 sync;
 #X obj 145 2190 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 2190 @out0.in0 \$1;
 #X obj 12 2222 ui.slider @size 125 12 @active_scale 1 @label out0.in1:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider62 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider62 @min 0 @max 1;
 #X obj 190 2222 sync;
 #X obj 145 2222 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 2222 @out0.in1 \$1;
 #X obj 12 2254 ui.slider @size 125 12 @active_scale 1 @label
 out0.tap0: @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider63 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider63 @min 0 @max 1;
 #X obj 190 2254 sync;
 #X obj 145 2254 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 2254 @out0.tap0 \$1;
 #X obj 12 2286 ui.slider @size 125 12 @active_scale 1 @label
 out0.tap1: @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider64 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider64 @min 0 @max 1;
 #X obj 190 2286 sync;
 #X obj 145 2286 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 2286 @out0.tap1 \$1;
 #X obj 12 2318 ui.slider @size 125 12 @active_scale 1 @label
 out0.tap2: @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider65 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider65 @min 0 @max 1;
 #X obj 190 2318 sync;
 #X obj 145 2318 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 2318 @out0.tap2 \$1;
 #X obj 12 2350 ui.slider @size 125 12 @active_scale 1 @label
 out0.tap3: @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider66 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider66 @min 0 @max 1;
 #X obj 190 2350 sync;
 #X obj 145 2350 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 2350 @out0.tap3 \$1;
 #X obj 12 2382 ui.slider @size 125 12 @active_scale 1 @label
 out0.tap4: @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider67 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider67 @min 0 @max 1;
 #X obj 190 2382 sync;
 #X obj 145 2382 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 2382 @out0.tap4 \$1;
 #X obj 12 2414 ui.slider @size 125 12 @active_scale 1 @label
 out0.tap5: @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider68 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider68 @min 0 @max 1;
 #X obj 190 2414 sync;
 #X obj 145 2414 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 2414 @out0.tap5 \$1;
 #X obj 12 2446 ui.slider @size 125 12 @active_scale 1 @label
 out1.gain(db): @label_side top @label_align left @fontsize 10
-@presetname /gui/\$1/tapiir~/slider69 @min -60 @max 0;
+@presetname /gui/\$1/fx.tapiir~/slider69 @min -60 @max 0;
 #X obj 190 2446 sync;
 #X obj 145 2446 ui.number @size 50 12 @min -60 @max 0 @digits 2;
 #X msg 260 2446 @out1.gain \$1;
 #X obj 12 2478 ui.slider @size 125 12 @active_scale 1 @label out1.in0:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider70 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider70 @min 0 @max 1;
 #X obj 190 2478 sync;
 #X obj 145 2478 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 2478 @out1.in0 \$1;
 #X obj 12 2510 ui.slider @size 125 12 @active_scale 1 @label out1.in1:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider71 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider71 @min 0 @max 1;
 #X obj 190 2510 sync;
 #X obj 145 2510 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 2510 @out1.in1 \$1;
 #X obj 12 2542 ui.slider @size 125 12 @active_scale 1 @label
 out1.tap0: @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider72 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider72 @min 0 @max 1;
 #X obj 190 2542 sync;
 #X obj 145 2542 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 2542 @out1.tap0 \$1;
 #X obj 12 2574 ui.slider @size 125 12 @active_scale 1 @label
 out1.tap1: @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider73 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider73 @min 0 @max 1;
 #X obj 190 2574 sync;
 #X obj 145 2574 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 2574 @out1.tap1 \$1;
 #X obj 12 2606 ui.slider @size 125 12 @active_scale 1 @label
 out1.tap2: @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider74 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider74 @min 0 @max 1;
 #X obj 190 2606 sync;
 #X obj 145 2606 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 2606 @out1.tap2 \$1;
 #X obj 12 2638 ui.slider @size 125 12 @active_scale 1 @label
 out1.tap3: @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider75 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider75 @min 0 @max 1;
 #X obj 190 2638 sync;
 #X obj 145 2638 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 2638 @out1.tap3 \$1;
 #X obj 12 2670 ui.slider @size 125 12 @active_scale 1 @label
 out1.tap4: @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider76 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider76 @min 0 @max 1;
 #X obj 190 2670 sync;
 #X obj 145 2670 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 2670 @out1.tap4 \$1;
 #X obj 12 2702 ui.slider @size 125 12 @active_scale 1 @label
 out1.tap5: @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/tapiir~/slider77 @min 0 @max 1;
+/gui/\$1/fx.tapiir~/slider77 @min 0 @max 1;
 #X obj 190 2702 sync;
 #X obj 145 2702 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 2702 @out1.tap5 \$1;

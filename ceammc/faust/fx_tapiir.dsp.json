@@ -1,5 +1,5 @@
 {
-	"name": "tapiir",
+	"name": "fx.tapiir",
 	"filename": "fx_tapiir.dsp",
 	"version": "2.30.12",
 	"compile_options": "-lang cpp -es 1 -scal -ftz 0",
@@ -24,7 +24,7 @@
 		{ "maths.lib/license": "LGPL with exception" },
 		{ "maths.lib/name": "Faust Math Library" },
 		{ "maths.lib/version": "2.3" },
-		{ "name": "tapiir" },
+		{ "name": "fx.tapiir" },
 		{ "platform.lib/name": "Generic Platform Library" },
 		{ "platform.lib/version": "0.1" },
 		{ "signals.lib/name": "Faust Signal Routing Library" },
@@ -34,7 +34,7 @@
 	"ui": [ 
 		{
 			"type": "vgroup",
-			"label": "tapiir",
+			"label": "fx.tapiir",
 			"items": [ 
 				{
 					"type": "tgroup",
@@ -43,7 +43,7 @@
 						{
 							"type": "vslider",
 							"label": "tap0.delay",
-							"address": "/tapiir/0x00/tap0.delay",
+							"address": "/fx.tapiir/0x00/tap0.delay",
 							"meta": [
 								{ "unit": "ms" }
 							],
@@ -55,7 +55,7 @@
 						{
 							"type": "vslider",
 							"label": "tap0.fb0",
-							"address": "/tapiir/0x00/tap0.fb0",
+							"address": "/fx.tapiir/0x00/tap0.fb0",
 							"init": 0,
 							"min": 0,
 							"max": 1,
@@ -64,7 +64,7 @@
 						{
 							"type": "vslider",
 							"label": "tap0.fb1",
-							"address": "/tapiir/0x00/tap0.fb1",
+							"address": "/fx.tapiir/0x00/tap0.fb1",
 							"init": 0,
 							"min": 0,
 							"max": 1,
@@ -73,7 +73,7 @@
 						{
 							"type": "vslider",
 							"label": "tap0.fb2",
-							"address": "/tapiir/0x00/tap0.fb2",
+							"address": "/fx.tapiir/0x00/tap0.fb2",
 							"init": 0,
 							"min": 0,
 							"max": 1,
@@ -82,7 +82,7 @@
 						{
 							"type": "vslider",
 							"label": "tap0.fb3",
-							"address": "/tapiir/0x00/tap0.fb3",
+							"address": "/fx.tapiir/0x00/tap0.fb3",
 							"init": 0,
 							"min": 0,
 							"max": 1,
@@ -91,7 +91,7 @@
 						{
 							"type": "vslider",
 							"label": "tap0.fb4",
-							"address": "/tapiir/0x00/tap0.fb4",
+							"address": "/fx.tapiir/0x00/tap0.fb4",
 							"init": 0,
 							"min": 0,
 							"max": 1,
@@ -100,7 +100,7 @@
 						{
 							"type": "vslider",
 							"label": "tap0.fb5",
-							"address": "/tapiir/0x00/tap0.fb5",
+							"address": "/fx.tapiir/0x00/tap0.fb5",
 							"init": 0,
 							"min": 0,
 							"max": 1,
@@ -109,7 +109,7 @@
 						{
 							"type": "vslider",
 							"label": "tap0.gain",
-							"address": "/tapiir/0x00/tap0.gain",
+							"address": "/fx.tapiir/0x00/tap0.gain",
 							"meta": [
 								{ "unit": "db" }
 							],
@@ -121,7 +121,7 @@
 						{
 							"type": "vslider",
 							"label": "tap0.in0",
-							"address": "/tapiir/0x00/tap0.in0",
+							"address": "/fx.tapiir/0x00/tap0.in0",
 							"init": 1,
 							"min": 0,
 							"max": 1,
@@ -130,7 +130,7 @@
 						{
 							"type": "vslider",
 							"label": "tap0.in1",
-							"address": "/tapiir/0x00/tap0.in1",
+							"address": "/fx.tapiir/0x00/tap0.in1",
 							"init": 1,
 							"min": 0,
 							"max": 1,
@@ -139,7 +139,7 @@
 						{
 							"type": "vslider",
 							"label": "tap1.delay",
-							"address": "/tapiir/0x00/tap1.delay",
+							"address": "/fx.tapiir/0x00/tap1.delay",
 							"meta": [
 								{ "unit": "ms" }
 							],
@@ -151,7 +151,7 @@
 						{
 							"type": "vslider",
 							"label": "tap1.fb0",
-							"address": "/tapiir/0x00/tap1.fb0",
+							"address": "/fx.tapiir/0x00/tap1.fb0",
 							"init": 0,
 							"min": 0,
 							"max": 1,
@@ -160,7 +160,7 @@
 						{
 							"type": "vslider",
 							"label": "tap1.fb1",
-							"address": "/tapiir/0x00/tap1.fb1",
+							"address": "/fx.tapiir/0x00/tap1.fb1",
 							"init": 0,
 							"min": 0,
 							"max": 1,
@@ -169,7 +169,7 @@
 						{
 							"type": "vslider",
 							"label": "tap1.fb2",
-							"address": "/tapiir/0x00/tap1.fb2",
+							"address": "/fx.tapiir/0x00/tap1.fb2",
 							"init": 0,
 							"min": 0,
 							"max": 1,
@@ -178,7 +178,7 @@
 						{
 							"type": "vslider",
 							"label": "tap1.fb3",
-							"address": "/tapiir/0x00/tap1.fb3",
+							"address": "/fx.tapiir/0x00/tap1.fb3",
 							"init": 0,
 							"min": 0,
 							"max": 1,
@@ -187,7 +187,7 @@
 						{
 							"type": "vslider",
 							"label": "tap1.fb4",
-							"address": "/tapiir/0x00/tap1.fb4",
+							"address": "/fx.tapiir/0x00/tap1.fb4",
 							"init": 0,
 							"min": 0,
 							"max": 1,
@@ -196,7 +196,7 @@
 						{
 							"type": "vslider",
 							"label": "tap1.fb5",
-							"address": "/tapiir/0x00/tap1.fb5",
+							"address": "/fx.tapiir/0x00/tap1.fb5",
 							"init": 0,
 							"min": 0,
 							"max": 1,
@@ -205,7 +205,7 @@
 						{
 							"type": "vslider",
 							"label": "tap1.gain",
-							"address": "/tapiir/0x00/tap1.gain",
+							"address": "/fx.tapiir/0x00/tap1.gain",
 							"meta": [
 								{ "unit": "db" }
 							],
@@ -217,7 +217,7 @@
 						{
 							"type": "vslider",
 							"label": "tap1.in0",
-							"address": "/tapiir/0x00/tap1.in0",
+							"address": "/fx.tapiir/0x00/tap1.in0",
 							"init": 1,
 							"min": 0,
 							"max": 1,
@@ -226,7 +226,7 @@
 						{
 							"type": "vslider",
 							"label": "tap1.in1",
-							"address": "/tapiir/0x00/tap1.in1",
+							"address": "/fx.tapiir/0x00/tap1.in1",
 							"init": 1,
 							"min": 0,
 							"max": 1,
@@ -235,7 +235,7 @@
 						{
 							"type": "vslider",
 							"label": "tap2.delay",
-							"address": "/tapiir/0x00/tap2.delay",
+							"address": "/fx.tapiir/0x00/tap2.delay",
 							"meta": [
 								{ "unit": "ms" }
 							],
@@ -247,7 +247,7 @@
 						{
 							"type": "vslider",
 							"label": "tap2.fb0",
-							"address": "/tapiir/0x00/tap2.fb0",
+							"address": "/fx.tapiir/0x00/tap2.fb0",
 							"init": 0,
 							"min": 0,
 							"max": 1,
@@ -256,7 +256,7 @@
 						{
 							"type": "vslider",
 							"label": "tap2.fb1",
-							"address": "/tapiir/0x00/tap2.fb1",
+							"address": "/fx.tapiir/0x00/tap2.fb1",
 							"init": 0,
 							"min": 0,
 							"max": 1,
@@ -265,7 +265,7 @@
 						{
 							"type": "vslider",
 							"label": "tap2.fb2",
-							"address": "/tapiir/0x00/tap2.fb2",
+							"address": "/fx.tapiir/0x00/tap2.fb2",
 							"init": 0,
 							"min": 0,
 							"max": 1,
@@ -274,7 +274,7 @@
 						{
 							"type": "vslider",
 							"label": "tap2.fb3",
-							"address": "/tapiir/0x00/tap2.fb3",
+							"address": "/fx.tapiir/0x00/tap2.fb3",
 							"init": 0,
 							"min": 0,
 							"max": 1,
@@ -283,7 +283,7 @@
 						{
 							"type": "vslider",
 							"label": "tap2.fb4",
-							"address": "/tapiir/0x00/tap2.fb4",
+							"address": "/fx.tapiir/0x00/tap2.fb4",
 							"init": 0,
 							"min": 0,
 							"max": 1,
@@ -292,7 +292,7 @@
 						{
 							"type": "vslider",
 							"label": "tap2.fb5",
-							"address": "/tapiir/0x00/tap2.fb5",
+							"address": "/fx.tapiir/0x00/tap2.fb5",
 							"init": 0,
 							"min": 0,
 							"max": 1,
@@ -301,7 +301,7 @@
 						{
 							"type": "vslider",
 							"label": "tap2.gain",
-							"address": "/tapiir/0x00/tap2.gain",
+							"address": "/fx.tapiir/0x00/tap2.gain",
 							"meta": [
 								{ "unit": "db" }
 							],
@@ -313,7 +313,7 @@
 						{
 							"type": "vslider",
 							"label": "tap2.in0",
-							"address": "/tapiir/0x00/tap2.in0",
+							"address": "/fx.tapiir/0x00/tap2.in0",
 							"init": 1,
 							"min": 0,
 							"max": 1,
@@ -322,7 +322,7 @@
 						{
 							"type": "vslider",
 							"label": "tap2.in1",
-							"address": "/tapiir/0x00/tap2.in1",
+							"address": "/fx.tapiir/0x00/tap2.in1",
 							"init": 1,
 							"min": 0,
 							"max": 1,
@@ -331,7 +331,7 @@
 						{
 							"type": "vslider",
 							"label": "tap3.delay",
-							"address": "/tapiir/0x00/tap3.delay",
+							"address": "/fx.tapiir/0x00/tap3.delay",
 							"meta": [
 								{ "unit": "ms" }
 							],
@@ -343,7 +343,7 @@
 						{
 							"type": "vslider",
 							"label": "tap3.fb0",
-							"address": "/tapiir/0x00/tap3.fb0",
+							"address": "/fx.tapiir/0x00/tap3.fb0",
 							"init": 0,
 							"min": 0,
 							"max": 1,
@@ -352,7 +352,7 @@
 						{
 							"type": "vslider",
 							"label": "tap3.fb1",
-							"address": "/tapiir/0x00/tap3.fb1",
+							"address": "/fx.tapiir/0x00/tap3.fb1",
 							"init": 0,
 							"min": 0,
 							"max": 1,
@@ -361,7 +361,7 @@
 						{
 							"type": "vslider",
 							"label": "tap3.fb2",
-							"address": "/tapiir/0x00/tap3.fb2",
+							"address": "/fx.tapiir/0x00/tap3.fb2",
 							"init": 0,
 							"min": 0,
 							"max": 1,
@@ -370,7 +370,7 @@
 						{
 							"type": "vslider",
 							"label": "tap3.fb3",
-							"address": "/tapiir/0x00/tap3.fb3",
+							"address": "/fx.tapiir/0x00/tap3.fb3",
 							"init": 0,
 							"min": 0,
 							"max": 1,
@@ -379,7 +379,7 @@
 						{
 							"type": "vslider",
 							"label": "tap3.fb4",
-							"address": "/tapiir/0x00/tap3.fb4",
+							"address": "/fx.tapiir/0x00/tap3.fb4",
 							"init": 0,
 							"min": 0,
 							"max": 1,
@@ -388,7 +388,7 @@
 						{
 							"type": "vslider",
 							"label": "tap3.fb5",
-							"address": "/tapiir/0x00/tap3.fb5",
+							"address": "/fx.tapiir/0x00/tap3.fb5",
 							"init": 0,
 							"min": 0,
 							"max": 1,
@@ -397,7 +397,7 @@
 						{
 							"type": "vslider",
 							"label": "tap3.gain",
-							"address": "/tapiir/0x00/tap3.gain",
+							"address": "/fx.tapiir/0x00/tap3.gain",
 							"meta": [
 								{ "unit": "db" }
 							],
@@ -409,7 +409,7 @@
 						{
 							"type": "vslider",
 							"label": "tap3.in0",
-							"address": "/tapiir/0x00/tap3.in0",
+							"address": "/fx.tapiir/0x00/tap3.in0",
 							"init": 1,
 							"min": 0,
 							"max": 1,
@@ -418,7 +418,7 @@
 						{
 							"type": "vslider",
 							"label": "tap3.in1",
-							"address": "/tapiir/0x00/tap3.in1",
+							"address": "/fx.tapiir/0x00/tap3.in1",
 							"init": 1,
 							"min": 0,
 							"max": 1,
@@ -427,7 +427,7 @@
 						{
 							"type": "vslider",
 							"label": "tap4.delay",
-							"address": "/tapiir/0x00/tap4.delay",
+							"address": "/fx.tapiir/0x00/tap4.delay",
 							"meta": [
 								{ "unit": "ms" }
 							],
@@ -439,7 +439,7 @@
 						{
 							"type": "vslider",
 							"label": "tap4.fb0",
-							"address": "/tapiir/0x00/tap4.fb0",
+							"address": "/fx.tapiir/0x00/tap4.fb0",
 							"init": 0,
 							"min": 0,
 							"max": 1,
@@ -448,7 +448,7 @@
 						{
 							"type": "vslider",
 							"label": "tap4.fb1",
-							"address": "/tapiir/0x00/tap4.fb1",
+							"address": "/fx.tapiir/0x00/tap4.fb1",
 							"init": 0,
 							"min": 0,
 							"max": 1,
@@ -457,7 +457,7 @@
 						{
 							"type": "vslider",
 							"label": "tap4.fb2",
-							"address": "/tapiir/0x00/tap4.fb2",
+							"address": "/fx.tapiir/0x00/tap4.fb2",
 							"init": 0,
 							"min": 0,
 							"max": 1,
@@ -466,7 +466,7 @@
 						{
 							"type": "vslider",
 							"label": "tap4.fb3",
-							"address": "/tapiir/0x00/tap4.fb3",
+							"address": "/fx.tapiir/0x00/tap4.fb3",
 							"init": 0,
 							"min": 0,
 							"max": 1,
@@ -475,7 +475,7 @@
 						{
 							"type": "vslider",
 							"label": "tap4.fb4",
-							"address": "/tapiir/0x00/tap4.fb4",
+							"address": "/fx.tapiir/0x00/tap4.fb4",
 							"init": 0,
 							"min": 0,
 							"max": 1,
@@ -484,7 +484,7 @@
 						{
 							"type": "vslider",
 							"label": "tap4.fb5",
-							"address": "/tapiir/0x00/tap4.fb5",
+							"address": "/fx.tapiir/0x00/tap4.fb5",
 							"init": 0,
 							"min": 0,
 							"max": 1,
@@ -493,7 +493,7 @@
 						{
 							"type": "vslider",
 							"label": "tap4.gain",
-							"address": "/tapiir/0x00/tap4.gain",
+							"address": "/fx.tapiir/0x00/tap4.gain",
 							"meta": [
 								{ "unit": "db" }
 							],
@@ -505,7 +505,7 @@
 						{
 							"type": "vslider",
 							"label": "tap4.in0",
-							"address": "/tapiir/0x00/tap4.in0",
+							"address": "/fx.tapiir/0x00/tap4.in0",
 							"init": 1,
 							"min": 0,
 							"max": 1,
@@ -514,7 +514,7 @@
 						{
 							"type": "vslider",
 							"label": "tap4.in1",
-							"address": "/tapiir/0x00/tap4.in1",
+							"address": "/fx.tapiir/0x00/tap4.in1",
 							"init": 1,
 							"min": 0,
 							"max": 1,
@@ -523,7 +523,7 @@
 						{
 							"type": "vslider",
 							"label": "tap5.delay",
-							"address": "/tapiir/0x00/tap5.delay",
+							"address": "/fx.tapiir/0x00/tap5.delay",
 							"meta": [
 								{ "unit": "ms" }
 							],
@@ -535,7 +535,7 @@
 						{
 							"type": "vslider",
 							"label": "tap5.fb0",
-							"address": "/tapiir/0x00/tap5.fb0",
+							"address": "/fx.tapiir/0x00/tap5.fb0",
 							"init": 0,
 							"min": 0,
 							"max": 1,
@@ -544,7 +544,7 @@
 						{
 							"type": "vslider",
 							"label": "tap5.fb1",
-							"address": "/tapiir/0x00/tap5.fb1",
+							"address": "/fx.tapiir/0x00/tap5.fb1",
 							"init": 0,
 							"min": 0,
 							"max": 1,
@@ -553,7 +553,7 @@
 						{
 							"type": "vslider",
 							"label": "tap5.fb2",
-							"address": "/tapiir/0x00/tap5.fb2",
+							"address": "/fx.tapiir/0x00/tap5.fb2",
 							"init": 0,
 							"min": 0,
 							"max": 1,
@@ -562,7 +562,7 @@
 						{
 							"type": "vslider",
 							"label": "tap5.fb3",
-							"address": "/tapiir/0x00/tap5.fb3",
+							"address": "/fx.tapiir/0x00/tap5.fb3",
 							"init": 0,
 							"min": 0,
 							"max": 1,
@@ -571,7 +571,7 @@
 						{
 							"type": "vslider",
 							"label": "tap5.fb4",
-							"address": "/tapiir/0x00/tap5.fb4",
+							"address": "/fx.tapiir/0x00/tap5.fb4",
 							"init": 0,
 							"min": 0,
 							"max": 1,
@@ -580,7 +580,7 @@
 						{
 							"type": "vslider",
 							"label": "tap5.fb5",
-							"address": "/tapiir/0x00/tap5.fb5",
+							"address": "/fx.tapiir/0x00/tap5.fb5",
 							"init": 0,
 							"min": 0,
 							"max": 1,
@@ -589,7 +589,7 @@
 						{
 							"type": "vslider",
 							"label": "tap5.gain",
-							"address": "/tapiir/0x00/tap5.gain",
+							"address": "/fx.tapiir/0x00/tap5.gain",
 							"meta": [
 								{ "unit": "db" }
 							],
@@ -601,7 +601,7 @@
 						{
 							"type": "vslider",
 							"label": "tap5.in0",
-							"address": "/tapiir/0x00/tap5.in0",
+							"address": "/fx.tapiir/0x00/tap5.in0",
 							"init": 1,
 							"min": 0,
 							"max": 1,
@@ -610,7 +610,7 @@
 						{
 							"type": "vslider",
 							"label": "tap5.in1",
-							"address": "/tapiir/0x00/tap5.in1",
+							"address": "/fx.tapiir/0x00/tap5.in1",
 							"init": 1,
 							"min": 0,
 							"max": 1,
@@ -621,7 +621,7 @@
 				{
 					"type": "vslider",
 					"label": "out0.gain",
-					"address": "/tapiir/out0.gain",
+					"address": "/fx.tapiir/out0.gain",
 					"meta": [
 						{ "unit": "db" }
 					],
@@ -633,7 +633,7 @@
 				{
 					"type": "vslider",
 					"label": "out0.in0",
-					"address": "/tapiir/out0.in0",
+					"address": "/fx.tapiir/out0.in0",
 					"init": 0,
 					"min": 0,
 					"max": 1,
@@ -642,7 +642,7 @@
 				{
 					"type": "vslider",
 					"label": "out0.in1",
-					"address": "/tapiir/out0.in1",
+					"address": "/fx.tapiir/out0.in1",
 					"init": 0,
 					"min": 0,
 					"max": 1,
@@ -651,7 +651,7 @@
 				{
 					"type": "vslider",
 					"label": "out0.tap0",
-					"address": "/tapiir/out0.tap0",
+					"address": "/fx.tapiir/out0.tap0",
 					"init": 0,
 					"min": 0,
 					"max": 1,
@@ -660,7 +660,7 @@
 				{
 					"type": "vslider",
 					"label": "out0.tap1",
-					"address": "/tapiir/out0.tap1",
+					"address": "/fx.tapiir/out0.tap1",
 					"init": 0,
 					"min": 0,
 					"max": 1,
@@ -669,7 +669,7 @@
 				{
 					"type": "vslider",
 					"label": "out0.tap2",
-					"address": "/tapiir/out0.tap2",
+					"address": "/fx.tapiir/out0.tap2",
 					"init": 0,
 					"min": 0,
 					"max": 1,
@@ -678,7 +678,7 @@
 				{
 					"type": "vslider",
 					"label": "out0.tap3",
-					"address": "/tapiir/out0.tap3",
+					"address": "/fx.tapiir/out0.tap3",
 					"init": 0,
 					"min": 0,
 					"max": 1,
@@ -687,7 +687,7 @@
 				{
 					"type": "vslider",
 					"label": "out0.tap4",
-					"address": "/tapiir/out0.tap4",
+					"address": "/fx.tapiir/out0.tap4",
 					"init": 0,
 					"min": 0,
 					"max": 1,
@@ -696,7 +696,7 @@
 				{
 					"type": "vslider",
 					"label": "out0.tap5",
-					"address": "/tapiir/out0.tap5",
+					"address": "/fx.tapiir/out0.tap5",
 					"init": 0,
 					"min": 0,
 					"max": 1,
@@ -705,7 +705,7 @@
 				{
 					"type": "vslider",
 					"label": "out1.gain",
-					"address": "/tapiir/out1.gain",
+					"address": "/fx.tapiir/out1.gain",
 					"meta": [
 						{ "unit": "db" }
 					],
@@ -717,7 +717,7 @@
 				{
 					"type": "vslider",
 					"label": "out1.in0",
-					"address": "/tapiir/out1.in0",
+					"address": "/fx.tapiir/out1.in0",
 					"init": 0,
 					"min": 0,
 					"max": 1,
@@ -726,7 +726,7 @@
 				{
 					"type": "vslider",
 					"label": "out1.in1",
-					"address": "/tapiir/out1.in1",
+					"address": "/fx.tapiir/out1.in1",
 					"init": 0,
 					"min": 0,
 					"max": 1,
@@ -735,7 +735,7 @@
 				{
 					"type": "vslider",
 					"label": "out1.tap0",
-					"address": "/tapiir/out1.tap0",
+					"address": "/fx.tapiir/out1.tap0",
 					"init": 0,
 					"min": 0,
 					"max": 1,
@@ -744,7 +744,7 @@
 				{
 					"type": "vslider",
 					"label": "out1.tap1",
-					"address": "/tapiir/out1.tap1",
+					"address": "/fx.tapiir/out1.tap1",
 					"init": 0,
 					"min": 0,
 					"max": 1,
@@ -753,7 +753,7 @@
 				{
 					"type": "vslider",
 					"label": "out1.tap2",
-					"address": "/tapiir/out1.tap2",
+					"address": "/fx.tapiir/out1.tap2",
 					"init": 0,
 					"min": 0,
 					"max": 1,
@@ -762,7 +762,7 @@
 				{
 					"type": "vslider",
 					"label": "out1.tap3",
-					"address": "/tapiir/out1.tap3",
+					"address": "/fx.tapiir/out1.tap3",
 					"init": 0,
 					"min": 0,
 					"max": 1,
@@ -771,7 +771,7 @@
 				{
 					"type": "vslider",
 					"label": "out1.tap4",
-					"address": "/tapiir/out1.tap4",
+					"address": "/fx.tapiir/out1.tap4",
 					"init": 0,
 					"min": 0,
 					"max": 1,
@@ -780,7 +780,7 @@
 				{
 					"type": "vslider",
 					"label": "out1.tap5",
-					"address": "/tapiir/out1.tap5",
+					"address": "/fx.tapiir/out1.tap5",
 					"init": 0,
 					"min": 0,
 					"max": 1,
