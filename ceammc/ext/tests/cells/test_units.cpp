@@ -237,38 +237,38 @@ TEST_CASE("units", "[ceammc::ceammc_units]")
         REQUIRE(v.value() == 120);
         REQUIRE(v.toHerz() == 2);
         REQUIRE(v.units() == FreqValue::BPM);
-        REQUIRE(FreqValue::parse(LA("120(1)_bpm")).matchValue(v));
+        REQUIRE(FreqValue::parse(LA("120-1_bpm")).matchValue(v));
         REQUIRE(v.value() == 120);
         REQUIRE(v.toHerz() == 2);
         REQUIRE(v.units() == FreqValue::BPM);
-        REQUIRE(FreqValue::parse(LA("120(2)_bpm")).matchValue(v));
+        REQUIRE(FreqValue::parse(LA("120-2_bpm")).matchValue(v));
         REQUIRE(v.value() == 120);
         REQUIRE(v.toHerz() == 2);
         REQUIRE(v.units() == FreqValue::BPM);
-        REQUIRE(FreqValue::parse(LA("120(4)_bpm")).matchValue(v));
+        REQUIRE(FreqValue::parse(LA("120-4_bpm")).matchValue(v));
         REQUIRE(v.value() == 120);
         REQUIRE(v.toHerz() == 2);
         REQUIRE(v.units() == FreqValue::BPM);
-        REQUIRE(FreqValue::parse(LA("120(8)_bpm")).matchValue(v));
+        REQUIRE(FreqValue::parse(LA("120-8_bpm")).matchValue(v));
         REQUIRE(v.value() == 120);
         REQUIRE(v.toHerz() == 2);
         REQUIRE(v.units() == FreqValue::BPM);
-        REQUIRE(FreqValue::parse(LA("10(16)_bpm")).matchValue(v));
+        REQUIRE(FreqValue::parse(LA("10-16_bpm")).matchValue(v));
         REQUIRE(v.value() == 10);
         REQUIRE(v.units() == FreqValue::BPM);
-        REQUIRE(FreqValue::parse(LA("10(32)_bpm")).matchValue(v));
+        REQUIRE(FreqValue::parse(LA("10-32_bpm")).matchValue(v));
         REQUIRE(v.value() == 10);
         REQUIRE(v.units() == FreqValue::BPM);
-        REQUIRE(FreqValue::parse(LA("10(64)_bpm")).matchValue(v));
+        REQUIRE(FreqValue::parse(LA("10-64_bpm")).matchValue(v));
         REQUIRE(v.value() == 10);
         REQUIRE(v.units() == FreqValue::BPM);
-        REQUIRE(FreqValue::parse(LA("10(128)_bpm")).matchValue(v));
+        REQUIRE(FreqValue::parse(LA("10-128_bpm")).matchValue(v));
         REQUIRE(v.value() == 10);
         REQUIRE(v.units() == FreqValue::BPM);
-        REQUIRE(FreqValue::parse(LA("10.0(256)bpm")).matchValue(v));
+        REQUIRE(FreqValue::parse(LA("10.0-256bpm")).matchValue(v));
         REQUIRE(v.value() == 10);
         REQUIRE(v.units() == FreqValue::BPM);
-        REQUIRE(FreqValue::parse(LA("10.5(2)_bpm")).matchValue(v));
+        REQUIRE(FreqValue::parse(LA("10.5-2_bpm")).matchValue(v));
         REQUIRE(v.value() == 10.5);
 
         REQUIRE(FreqValue::parse(LA("-10bpm")).matchError(err));
@@ -313,11 +313,11 @@ TEST_CASE("units", "[ceammc::ceammc_units]")
         REQUIRE(v.value() == 60.25);
         REQUIRE(v.beatlen() == 0.25);
 
-        REQUIRE(BpmValue::parse(LA("60(1)bpm")).matchValue(v));
+        REQUIRE(BpmValue::parse(LA("60-1_bpm")).matchValue(v));
         REQUIRE(v.value() == 60);
         REQUIRE(v.beatlen() == 1);
 
-        REQUIRE(BpmValue::parse(LA("60(2.)bpm")).matchValue(v));
+        REQUIRE(BpmValue::parse(LA("60-2.bpm")).matchValue(v));
         REQUIRE(v.value() == 60);
         REQUIRE(v.beatlen() == 0.75);
 

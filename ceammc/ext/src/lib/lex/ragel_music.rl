@@ -3,26 +3,35 @@
 machine music_common;
 
 # tempo: Beats Per Minute
-action bpm_add_int  {(bpm.ival *= 10) += (fc - '0');}
-action bpm_add_frac {(bpm.fnum *= 10) += (fc - '0'); bpm.fden *= 10;}
+action bpm_add_int       { (bpm.ival *= 10) += (fc - '0'); }
+action bpm_add_frac      { (bpm.fnum *= 10) += (fc - '0'); bpm.fden *= 10; }
+action bpm_add_dot       { bpm.dur_num *= 3; bpm.dur_den *= 2; }
+action bpm_init          { bpm.dur_num = 1; bpm.dur_den = 4; }
+action bpm_done          { cat_ = CAT_UNIT; type_ = TYPE_BPM; }
+action bpm_beat_num_init { bpm.dur_num = 0; }
+action bpm_beat_num_dig  { (bpm.dur_num *= 10) += (fc - '0'); }
+action bpm_beat_den_init { bpm.dur_den = 0;}
+action bpm_beat_den_dig  { (bpm.dur_den *= 10) += (fc - '0'); }
 
 bpm_frac = '.' [0-9]+ $bpm_add_frac;
-bpm_int = ('0' | ([1-9] [0-9]*)) $bpm_add_int;
+bpm_natural = ([1-9] [0-9]*);
+bpm_int = ('0' | bpm_natural) $bpm_add_int;
 bpm_value = bpm_int bpm_frac?;
-bpm_beat_len =
-    '('
-    ([1-9] [0-9]*) >{bpm.dur_den=0;} ${(bpm.dur_den *= 10) += (fc - '0');}
-    ('.' @{bpm.dur_num *= 3; bpm.dur_den *= 2;})?
-    ')';
+bpm_beat_num = bpm_natural >bpm_beat_num_init $bpm_beat_num_dig;
+bpm_beat_den = bpm_natural >bpm_beat_den_init $bpm_beat_den_dig;
+
+bpm_beat_dur =
+    '-' ((bpm_beat_num '/' bpm_beat_den) | (bpm_beat_den %{bpm.dur_num = 1;}))
+    ('.' @bpm_add_dot)?;
 
 bpm = (
         bpm_value
-        bpm_beat_len?
+        bpm_beat_dur?
         '_'?
         'bpm'?
       )
-      >{bpm.dur_num = 1;bpm.dur_den = 4;}
-      %{cat_ = CAT_UNIT; type_ = TYPE_BPM;};
+      >bpm_init
+      %bpm_done;
 
 # Scientific (standard) Pitch Notation
 spn_alt = ( '#'  @{spn.alt = 1;}
@@ -85,19 +94,19 @@ action note_add_dot {
 }
 
 # duration actions
-action set_dur_abs       { note.durtype = DURATION_ABS; }
-action set_dur_rel       { note.durtype = DURATION_REL; }
-action set_dur_num1      { note.num = 1; }
-action set_dur_den1      { note.den = 1; }
-action set_dur_repeats   { note.repeats = note.num; }
-action reset_dur_num     { note.num = 0; }
-action add_dur_num_digit { (note.num *= 10) += (fc - '0'); }
-action reset_dur_den     { note.den = 0; }
-action add_dur_den_digit { (note.den *= 10) += (fc - '0'); }
+action set_dur_abs     { note.durtype = DURATION_ABS; }
+action set_dur_rel     { note.durtype = DURATION_REL; }
+action set_dur_num1    { note.num = 1; }
+action set_dur_den1    { note.den = 1; }
+action set_dur_nreps   { note.repeats = note.num; }
+action reset_dur_num   { note.num = 0; }
+action add_dur_num_dig { (note.num *= 10) += (fc - '0'); }
+action reset_dur_den   { note.den = 0; }
+action add_dur_den_dig { (note.den *= 10) += (fc - '0'); }
 
 note_dec  = [1-9] [0-9]*;
-note_dur_num = note_dec >reset_dur_num $add_dur_num_digit;
-note_dur_den = note_dec >reset_dur_den $add_dur_den_digit;
+note_dur_num = note_dec >reset_dur_num $add_dur_num_dig;
+note_dur_den = note_dec >reset_dur_den $add_dur_den_dig;
 note_dots = '_'? ('.'{0,3} $note_add_dot);
 
 note_dur_rel = ('*' note_dur_num '/' note_dur_den)     %set_dur_rel
@@ -106,10 +115,10 @@ note_dur_rel = ('*' note_dur_num '/' note_dur_den)     %set_dur_rel
 
 note_dur_abs =
     (note_dur_num '/' note_dur_den note_dots)      %set_dur_abs
-    | ((note_dur_den %set_dur_num1) note_dots)  %set_dur_abs;
+    | ((note_dur_den %set_dur_num1) note_dots)     %set_dur_abs;
 
 dur_repeat = note_dec
-             '*' %~set_dur_repeats;
+             '*' %~set_dur_nreps;
 
 dur_sequence = dur_repeat ? note_dur_abs;
 

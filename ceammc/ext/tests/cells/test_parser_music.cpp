@@ -60,27 +60,27 @@ TEST_CASE("parser_music", "[ceammc::ceammc_units]")
             REQUIRE(p.bpm().bpm == 50.25);
             REQUIRE(p.bpm().beatlen == 0.25);
 
-            REQUIRE(p.parse("50(1)_bpm"));
+            REQUIRE(p.parse("50-1_bpm"));
             REQUIRE(p.bpm().bpm == 50);
             REQUIRE(p.bpm().beatlen == 1);
 
-            REQUIRE(p.parse("50(2)_bpm"));
+            REQUIRE(p.parse("50-2_bpm"));
             REQUIRE(p.bpm().bpm == 50);
             REQUIRE(p.bpm().beatlen == 0.5);
 
-            REQUIRE(p.parse("50(2.)_bpm"));
+            REQUIRE(p.parse("50-2._bpm"));
             REQUIRE(p.bpm().bpm == 50);
             REQUIRE(p.bpm().beatlen == 0.75);
 
-            REQUIRE(p.parse("50(4)_bpm"));
+            REQUIRE(p.parse("50-4_bpm"));
             REQUIRE(p.bpm().bpm == 50);
             REQUIRE(p.bpm().beatlen == 0.25);
 
-            REQUIRE(p.parse("50(4.)_bpm"));
+            REQUIRE(p.parse("50-1/4._bpm"));
             REQUIRE(p.bpm().bpm == 50);
             REQUIRE(p.bpm().beatlen == 0.375);
 
-            REQUIRE(p.parse("50(16)_bpm"));
+            REQUIRE(p.parse("50-16_bpm"));
             REQUIRE(p.bpm().value() == 50);
             REQUIRE(p.bpm().beatlen == 1 / 16.0);
 
@@ -89,7 +89,9 @@ TEST_CASE("parser_music", "[ceammc::ceammc_units]")
             REQUIRE(p.bpm().periodMs() == 0);
             REQUIRE(p.bpm().periodMs(-100) == -100);
 
-            REQUIRE(p.parse("60(4.)bpm"));
+            REQUIRE(p.parse("60-4.bpm"));
+
+            REQUIRE(p.parse("60-1/4bpm"));
 
             REQUIRE_FALSE(p.parse("00"));
             REQUIRE_FALSE(p.parse("+12"));
@@ -139,17 +141,17 @@ TEST_CASE("parser_music", "[ceammc::ceammc_units]")
             REQUIRE(r0[1] == Bpm { 61, 0.5 });
             REQUIRE(r0[2] == Bpm { 61, 0.5 });
 
-            r0 = p.parseN<3>(LA(120, "140.5(8)bpm"), Bpm { 62, 2 });
+            r0 = p.parseN<3>(LA(120, "140.5-8bpm"), Bpm { 62, 2 });
             REQUIRE(r0[0] == Bpm { 120, 1 / 4.0 });
             REQUIRE(r0[1] == Bpm { 140.5, 1 / 8.0 });
             REQUIRE(r0[2] == Bpm { 62, 2 });
 
-            r0 = p.parseN<3>(LA(120, "140.5bpm", "100(16)_bpm"), Bpm { 62, 1 / 128.0 });
+            r0 = p.parseN<3>(LA(120, "140.5bpm", "100-16_bpm"), Bpm { 62, 1 / 128.0 });
             REQUIRE(r0[0] == Bpm { 120, 0.25 });
             REQUIRE(r0[1] == Bpm { 140.5, 0.25 });
             REQUIRE(r0[2] == Bpm { 100, 1 / 16.0 });
 
-            r0 = p.parseN<3>(LA(120, "???", "100(32)_bpm"), Bpm { 63, 2 });
+            r0 = p.parseN<3>(LA(120, "???", "100-32_bpm"), Bpm { 63, 2 });
             REQUIRE(r0[0] == Bpm { 120, 0.25 });
             REQUIRE(r0[1] == Bpm { 63, 2 });
             REQUIRE(r0[2] == Bpm { 100, 1 / 32.0 });

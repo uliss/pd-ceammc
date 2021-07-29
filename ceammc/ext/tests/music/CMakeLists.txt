@@ -7,11 +7,13 @@ target_compile_definitions(test_ext_music
 
 target_include_directories(test_ext_music
     PRIVATE
+        "${PROJECT_SOURCE_DIR}/ceammc/ext/src/music"
         "${CMAKE_CURRENT_SOURCE_DIR}/.."
         "${CATCH_INCLUDE_DIR}")
 
 target_link_libraries(test_ext_music PUBLIC
     tests_main_lib
+    ceammc_music
     ceammc_core
     puredata-core)
 
@@ -23,6 +25,7 @@ function(add_music_test src)
     target_sources(test_ext_music PRIVATE "test_music_${src}.cpp")
 endfunction()
 
+add_music_test(dur2time)
 add_music_test(scale)
 add_music_test(theory)
 add_music_test(theory_alteration)
