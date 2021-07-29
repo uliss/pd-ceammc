@@ -1021,6 +1021,7 @@ synth.church_bell~	generic church bell modal model
 synth.dubdub~	simple synth based on a sawtooth wave filtered by a resonant lowpass
 synth.dx7~	FAUST dx7 implementation
 synth.eguitar~	simple electric guitar model with steel strings
+synth.english_bell~	german church bell modal model
 synth.fgrain~	file granulator from STK
 synth.german_bell~	german church bell modal model
 synth.glass_harm~	nonlinear banded waveguide modeled Glass Harmonica

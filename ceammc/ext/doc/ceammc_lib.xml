@@ -1939,6 +1939,9 @@
     <entry name="synth.eguitar~" descr="simple electric guitar model with steel strings" ref_view="object">
       <xi:include href="synth.eguitar~.pddoc" parse="xml"/>
     </entry>
+    <entry name="synth.english_bell~" descr="german church bell modal model" ref_view="object">
+      <xi:include href="synth.english_bell~.pddoc" parse="xml"/>
+    </entry>
     <entry name="synth.fgrain~" descr="file granulator from STK" ref_view="object">
       <xi:include href="synth.fgrain~.pddoc" parse="xml"/>
     </entry>

@@ -614,6 +614,7 @@ set(DOC_FILES
     synth.dubdub~
     synth.dx7~
     synth.eguitar~
+    synth.english_bell~
     synth.fgrain~
     synth.harpsichord~
     synth.german_bell~

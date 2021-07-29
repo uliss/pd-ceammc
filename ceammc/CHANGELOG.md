@@ -20,6 +20,8 @@
   - synth.snare~: snare drum
   - synth.kick~: low kick
   - synth.risset_bell~
+  - synth.german_bell~ added
+  - synth.english_bell~ added
   - synth.tube_bell~: STK TubeBell FM instrument added
   - sfizz~: SFZ 2.0 format sample player
   - flow.float: float pass flow object added
