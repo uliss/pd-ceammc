@@ -32,20 +32,20 @@
 }
 {ceammc
     {an {
-        an.onset an.onset~ an.pitchtrack~ an.rms~
+        an.onset an.onset~ an.pitchtrack~ an.rms~ an.tempo~
     }}
     {array {
-        array.bpm array.copy array.do array.each array.fill array.hist
-        array.mean array.minmax array.play~ array.plot array.plot~
-        array.resample array.rms array.set array.stddev array.stretch
-        array.sum array.sum2 array.variance array.vplay array.window
-        plot.geomspace~ plot.hist~ plot.linspace~ plot.logspace~
+        array.bpm array.circular~ array.copy array.do array.each array.fill
+        array.grainer~ array.hist array.mean array.minmax array.play~
+        array.plot array.plot~ array.resample array.rms array.set array.stddev
+        array.stretch array.sum array.sum2 array.variance array.vplay
+        array.window plot.geomspace~ plot.hist~ plot.linspace~ plot.logspace~
         plot.response~
     }}
     {base {
         ceammc.search function function.call gain~ logger matrix~
-        metro.pattern metro.random metro.seq mix~ nsig~ obj.props radio sync
-        window xdac~ xfade2~ xfade~
+        metro.pattern metro.random metro.seq mix~ nsig~ obj.props radio spring
+        sync window xdac~ xfade2~ xfade~
     }}
     {chaos {
         chaos.gbman0 chaos.gbman0~ chaos.jong chaos.logistic chaos.std0
@@ -81,7 +81,7 @@
     {flow {
         expand_env flow.append flow.change flow.count flow.delay
         flow.demultiplex flow.demultiplex2~ flow.demultiplex~ flow.dollar
-        flow.dup flow.gate flow.greater flow.greater_eq flow.group
+        flow.dup flow.float flow.gate flow.greater flow.greater_eq flow.group
         flow.interval flow.less flow.less_eq flow.list2many flow.match
         flow.mem flow.multiplex flow.multiplex2~ flow.multiplex~ flow.once
         flow.pack flow.pass flow.pass_if flow.pipe flow.queue flow.reject
@@ -100,10 +100,11 @@
     }}
     {fx {
         fx.bitdown~ fx.chorus~ fx.distortion1~ fx.distortion2~ fx.distortion3~
-        fx.distortion~ fx.drive~ fx.drone_box~ fx.echo~ fx.flanger~
+        fx.distortion~ fx.drive~ fx.drone_box~ fx.echo2~ fx.echo~ fx.flanger~
         fx.freeverb2~ fx.freeverb~ fx.freqshift~ fx.granulator~ fx.greyhole~
         fx.infrev~ fx.looper~ fx.pitchshift_s~ fx.pitchshift~ fx.recho~
-        fx.sdelay~ fx.vocoder~ fx.wahwah~ fx.zita_rev1~
+        fx.room~ fx.sdelay~ fx.secho~ fx.shimmer~ fx.tapiir~ fx.vocoder~
+        fx.wahwah~ fx.zita_rev1~
     }}
     {global {
         global.dict global.float global.int global.list global.mlist
@@ -129,10 +130,11 @@
         list.min list.none_of list.normalize list.pass_if list.prepend
         list.product list.range list.reduce list.remove list.remove_if
         list.repack list.repeat list.resample list.resize list.reverse
-        list.rldecode list.rlencode list.rotate list.route list.search
-        list.separate list.seq list.set list.shift list.shuffle list.slice
-        list.sort list.sort_with list.split list.stretch list.sum list.unique
-        list.unpack list.unzip list.walk list.zip
+        list.rldecode list.rlencode list.rotate list.route list.rundiff
+        list.runsum list.search list.separate list.seq list.set list.shift
+        list.shuffle list.slice list.sort list.sort_with list.split
+        list.stretch list.sum list.unique list.unpack list.unzip list.walk
+        list.zip
     }}
     {live {
         live.capture~
@@ -165,7 +167,7 @@
         midi.sustain midi.sysex midi.track midi.tuning midi.vramp midi.vrand
     }}
     {misc {
-        click~ fluid~ modplug~ speech.flite speech.flite~
+        click~ fluid~ modplug~ sfizz~ speech.flite speech.flite~
     }}
     {msg {
         loadexpr msg msg.after msg.onload
@@ -189,7 +191,8 @@
         patch.args patch.deps patch.tree
     }}
     {path {
-        path.basename path.dirname path.exists path.is_dir path.lsdir
+        file.size path.basename path.dirname path.exists path.is_dir
+        path.lsdir
     }}
     {predicates {
         is_any is_bang is_data is_dict is_even is_file is_float is_list is_odd
@@ -203,7 +206,8 @@
         prop.split
     }}
     {proto {
-        proto.firmata proto.midi proto.mpv proto.sp.alpaca proto.xtouch_ext
+        proto.firmata proto.midi proto.midi.cc proto.mpv proto.sp.alpaca
+        proto.xtouch_ext
     }}
     {random {
         random.atom random.discrete random.float random.gauss random.int
@@ -221,7 +225,7 @@
         hoa.2d.projector~ hoa.2d.recomposer~ hoa.2d.rotate~ hoa.2d.wider~
         hoa.@process hoa.in hoa.in~ hoa.out hoa.out~ hoa.process~ hoa.scope~
         pan.cos~ pan.linsig~ pan.lin~ pan.spread~ pan.sqrt~ spat.pan4~
-        spat.pan8~ spat.zita6x8~
+        spat.pan8~ spat.zita6x8~ spat.zita8~
     }}
     {string {
         string string.contains string.ends_with string.equal string.format
@@ -235,9 +239,10 @@
     {synth {
         synth.bee3~ synth.birds~ synth.church_bell~ synth.dubdub~ synth.dx7~
         synth.eguitar~ synth.fgrain~ synth.glass_harm~ synth.glitch~
-        synth.harpsichord~ synth.ks~ synth.marimba~ synth.piano~ synth.rhodey~
-        synth.risset_arp~ synth.risset_tone~ synth.russian_bell~
-        synth.shakers~ synth.sitar~ synth.wurley~
+        synth.harpsichord~ synth.kick~ synth.ks~ synth.marimba~ synth.piano~
+        synth.rhodey~ synth.risset_arp~ synth.risset_bell~ synth.risset_tone~
+        synth.russian_bell~ synth.shakers~ synth.sitar~ synth.snare~
+        synth.tube_bell~ synth.wurley~
     }}
     {system {
         system.colorpanel system.cursor system.exec system.exit system.getenv

@@ -37,6 +37,7 @@ any->props
 apf->biquad
 approx
 array.bpm
+array.circular~
 array.copy
 array.do
 array.each
@@ -190,7 +191,6 @@ ceammc/pan8~
 ceammc/pan~
 ceammc/pass
 ceammc/pass_if
-ceammc/path
 ceammc/phase->rad
 ceammc/phase->rad~
 ceammc/pi
@@ -221,6 +221,7 @@ ceammc/sfizz~
 ceammc/sig->float~
 ceammc/speedlim
 ceammc/split
+ceammc/spring
 ceammc/str
 ceammc/str->any
 ceammc/str->sec
@@ -364,6 +365,8 @@ flow.demux2~
 flow.demux~
 flow.dollar
 flow.dup
+flow.f
+flow.float
 flow.gate
 flow.greater
 flow.greater_eq
@@ -449,6 +452,7 @@ fx.distortion3~
 fx.distortion~
 fx.drive~
 fx.drone_box~
+fx.echo2~
 fx.echo~
 fx.flanger~
 fx.freeverb2~
@@ -461,8 +465,11 @@ fx.looper~
 fx.pitchshift_s~
 fx.pitchshift~
 fx.recho~
+fx.room~
 fx.sdelay~
 fx.secho~
+fx.shimmer~
+fx.tapiir~
 fx.vocoder~
 fx.wahwah~
 fx.zita_rev1~
@@ -597,6 +604,8 @@ list.rldecode
 list.rlencode
 list.rotate
 list.route
+list.rundiff
+list.runsum
 list.search
 list.sep
 list.separate
@@ -794,6 +803,8 @@ ms->samp~
 msg
 msg.after
 msg.onload
+music.d->t
+music.dur2time
 mux2~
 mux~
 net.host->ip
@@ -853,7 +864,6 @@ patch.args
 patch.deps
 patch.props
 patch.tree
-path
 path.basename
 path.dirname
 path.exists
@@ -925,6 +935,7 @@ s->f~
 samp->ms
 samp->ms~
 samp->sec
+samp.time~
 sec->bpm
 sec->samp
 sec->str
@@ -960,6 +971,7 @@ speech.flite
 speech.flite~
 speedlim
 split
+spring
 str
 str->any
 str->sec
@@ -1005,19 +1017,27 @@ synth.church_bell~
 synth.dubdub~
 synth.dx7~
 synth.eguitar~
+synth.english_bell~
 synth.fgrain~
+synth.french_bell~
+synth.german_bell~
 synth.glass_harm~
 synth.glitch~
 synth.harpsichord~
+synth.kick~
 synth.ks~
 synth.marimba~
 synth.piano~
 synth.rhodey~
 synth.risset_arp~
+synth.risset_bell~
 synth.risset_tone~
 synth.russian_bell~
 synth.shakers~
 synth.sitar~
+synth.snare~
+synth.standard_bell~
+synth.tube_bell~
 synth.wurley~
 system.colorpanel
 system.cursor
