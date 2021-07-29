@@ -1945,6 +1945,9 @@
     <entry name="synth.fgrain~" descr="file granulator from STK" ref_view="object">
       <xi:include href="synth.fgrain~.pddoc" parse="xml"/>
     </entry>
+    <entry name="synth.french_bell~" descr="french church bell modal model" ref_view="object">
+      <xi:include href="synth.french_bell~.pddoc" parse="xml"/>
+    </entry>
     <entry name="synth.german_bell~" descr="german church bell modal model" ref_view="object">
       <xi:include href="synth.german_bell~.pddoc" parse="xml"/>
     </entry>

@@ -23,6 +23,7 @@
   - synth.german_bell~ added
   - synth.english_bell~ added
   - synth.standard_bell~ added
+  - synth.french_bell~ added
   - synth.tube_bell~: STK TubeBell FM instrument added
   - sfizz~: SFZ 2.0 format sample player
   - flow.float: float pass flow object added

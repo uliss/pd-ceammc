@@ -1023,6 +1023,7 @@ synth.dx7~	FAUST dx7 implementation
 synth.eguitar~	simple electric guitar model with steel strings
 synth.english_bell~	english church bell modal model
 synth.fgrain~	file granulator from STK
+synth.french_bell~	french church bell modal model
 synth.german_bell~	german church bell modal model
 synth.glass_harm~	nonlinear banded waveguide modeled Glass Harmonica
 synth.glitch~	Glitch synthesizer by naivesound
