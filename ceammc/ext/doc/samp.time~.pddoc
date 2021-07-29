@@ -16,10 +16,15 @@
                 <alias>samp.t~</alias>
             </aliases>
         </meta>
-        <arguments/>
+        <arguments />
+        <methods>
+            <method name="reset">reset sample counter to 0</method>
+            <method name="set">set current value 
+            <param name="VAL" type="float" default="0">new counter value</param></method>
+        </methods>
         <inlets>
             <inlet type="audio">
-                <xinfo>on 0->1 change: start counter, on 1->0 stops.</xinfo>
+                <xinfo>on 0-&gt;1 change: start counter, on 1-&gt;0 stops.</xinfo>
             </inlet>
             <inlet>
                 <xinfo on="bang">reset sample counter</xinfo>
@@ -34,7 +39,7 @@
 <![CDATA[
 [T]    [bang(
 |      |.
-[samp.t~]
+[samp.t~]      [ui.dsp~]
 |
 [ui.n~]
 ]]>

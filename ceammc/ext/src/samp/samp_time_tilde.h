@@ -28,6 +28,9 @@ public:
     void processBlock(const t_sample** in, t_sample** out) override;
 
     void onInlet(size_t n, const AtomListView& lv) override;
+
+    void m_reset(t_symbol* s, const AtomListView& lv);
+    void m_set(t_symbol* s, const AtomListView& lv);
 };
 
 void setup_samp_time_tilde();

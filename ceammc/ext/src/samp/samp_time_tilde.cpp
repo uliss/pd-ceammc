@@ -57,10 +57,21 @@ void SampTimeTilde::onInlet(size_t n, const AtomListView& lv)
         t_ = lv[0].asT<t_float>();
 }
 
+void SampTimeTilde::m_reset(t_symbol* s, const AtomListView& lv)
+{
+    t_ = 0;
+}
+void SampTimeTilde::m_set(t_symbol* s, const AtomListView& lv)
+{
+    t_ = lv.floatAt(0, 0);
+}
+
 void setup_samp_time_tilde()
 {
     SoundExternalFactory<SampTimeTilde> obj("samp.time~");
     obj.addAlias("samp.t~");
+    obj.addMethod("reset", &SampTimeTilde::m_reset);
+    obj.addMethod("set", &SampTimeTilde::m_set);
 
     obj.setXletsInfo({ "signal: start on up front signal, stop on down",
                          "bang: reset\n"
