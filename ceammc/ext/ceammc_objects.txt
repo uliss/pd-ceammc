@@ -936,6 +936,7 @@ samp->ms
 samp->ms~
 samp->sec
 samp.time~
+samp.t~
 sec->bpm
 sec->samp
 sec->str
