@@ -202,7 +202,7 @@ TEST_CASE("units", "[ceammc::ceammc_units]")
 
         REQUIRE(FractionValue::parse(LA("1/0")).matchValue(v));
         REQUIRE(v.value() == 1);
-        REQUIRE(std::isinf(v.toFraction()));
+        REQUIRE(v.toFraction() == 0);
         REQUIRE(v.units() == FractionValue::RATIO);
     }
 

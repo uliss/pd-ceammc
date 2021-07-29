@@ -129,6 +129,9 @@ namespace units {
             case PERCENT:
                 return value() / 100;
             case RATIO:
+                if (denom_ == 0)
+                    return 0;
+
                 return value() / denom_;
             case PHASE:
             default:
