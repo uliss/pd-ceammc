@@ -1,0 +1,6 @@
+#N canvas 0 0 306 241 12;
+#X msg 20 48 list C D E F G A B;
+#X obj 20 77 music.v->m;
+#X obj 20 106 ui.dt;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
