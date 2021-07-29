@@ -42,27 +42,29 @@
 #X text 200 602 signal version of fx.pitchshift~;
 #X obj 30 629 fx.pitchshift~;
 #X text 200 629 simple pitch shifter based on 2 delay lines;
-#X obj 30 656 fx.recho~;
-#X text 200 656 reversed echo effect;
-#X obj 30 683 fx.room~;
-#X text 200 683 Gardners room emulation algorithms;
-#X obj 30 710 fx.sdelay~;
-#X text 200 710 smooth delay with a feedback control;
-#X obj 30 737 fx.secho~;
-#X text 200 737 enchanced echo effect that does not click on delay
+#X obj 30 656 fx.rb_pitchshift~;
+#X text 200 656 rubber band pitchshift;
+#X obj 30 683 fx.recho~;
+#X text 200 683 reversed echo effect;
+#X obj 30 710 fx.room~;
+#X text 200 710 Gardners room emulation algorithms;
+#X obj 30 737 fx.sdelay~;
+#X text 200 737 smooth delay with a feedback control;
+#X obj 30 764 fx.secho~;
+#X text 200 764 enchanced echo effect that does not click on delay
 change;
-#X obj 30 764 fx.shimmer~;
-#X text 200 764 shimmer reverb effect effect;
-#X obj 30 791 fx.tapiir~;
-#X text 200 791 multi-tap delay;
-#X obj 30 818 fx.vocoder~;
-#X text 200 818 very simple vocoder where the spectrum of the modulation
+#X obj 30 791 fx.shimmer~;
+#X text 200 791 shimmer reverb effect effect;
+#X obj 30 818 fx.tapiir~;
+#X text 200 818 multi-tap delay;
+#X obj 30 845 fx.vocoder~;
+#X text 200 845 very simple vocoder where the spectrum of the modulation
 signal is analyzed using a 32-band filter bank;
-#X obj 30 858 fx.wahwah~;
-#X text 200 858 digitized CryBaby wah pedal;
-#X obj 30 885 fx.zita_rev1~;
-#X text 200 885 Zita stereo reverb;
+#X obj 30 885 fx.wahwah~;
+#X text 200 885 digitized CryBaby wah pedal;
+#X obj 30 912 fx.zita_rev1~;
+#X text 200 912 Zita stereo reverb;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::fx 20 20 0 20 -104026
 -4096 0;
-#X obj 1 912 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 922 library: ceammc;
+#X obj 1 939 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 949 library: ceammc;

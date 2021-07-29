@@ -464,6 +464,7 @@ fx.infrev~
 fx.looper~
 fx.pitchshift_s~
 fx.pitchshift~
+fx.rb_pitchshift~
 fx.recho~
 fx.room~
 fx.sdelay~
@@ -923,7 +924,6 @@ random.int
 random.linear
 random.pw_const
 random.pw_lin
-rb.pitchshift~
 reject
 reject_if
 replace

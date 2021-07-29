@@ -210,6 +210,6 @@ void AubioPitchshiftTilde::update()
 
 void setup_aubio_pitchshift_tilde()
 {
-    SoundExternalFactory<AubioPitchshiftTilde> obj("rb.pitchshift~");
+    SoundExternalFactory<AubioPitchshiftTilde> obj("fx.rb_pitchshift~");
     obj.setXletsInfo({ "signal: input", "float: transpose in semitones" }, { "signal: output" });
 }

@@ -464,6 +464,7 @@ fx.infrev~	port of Infinity VST plugin from airwindows
 fx.looper~	One track looper
 fx.pitchshift_s~	signal version of fx.pitchshift~
 fx.pitchshift~	simple pitch shifter based on 2 delay lines
+fx.rb_pitchshift~	rubber band pitchshift
 fx.recho~	reversed echo effect
 fx.room~	Gardners room emulation algorithms
 fx.sdelay~	smooth delay with a feedback control

@@ -220,6 +220,7 @@ fx.infrev~		~~		~~
 fx.looper~		~		~.
 fx.pitchshift_s~		~~		~
 fx.pitchshift~		~.		~
+fx.rb_pitchshift~		~.		~
 fx.recho~		~		~
 fx.room~		~		~
 fx.sdelay~		~		~

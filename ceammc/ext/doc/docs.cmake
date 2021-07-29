@@ -222,6 +222,7 @@ set(DOC_FILES
     fx.looper~
     fx.pitchshift~
     fx.pitchshift_s~
+    fx.rb_pitchshift~
     fx.recho~
     fx.room~
     fx.sdelay~

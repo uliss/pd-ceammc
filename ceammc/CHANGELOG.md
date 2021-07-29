@@ -7,11 +7,12 @@
   - array.circular~: circular buffer write/read for arrays
   - array.grainer~: array granulator
   - lfo.mosc~: LFO oscillator with various waveform and runtime change between them. Sin, saw, square, pulse, triangle and positive variants of above.
-  - fx.secho~: enchanced version of echo that does not click on delay change
   - an.tempo~: tempo analizer based on Aubio library
   - proto.midi.cc: parser for MIDI control change messages
+  - fx.secho~: enchanced version of echo that does not click on delay change  
   - fx.recho~: reverse echo fx added
   - fx.echo2~: stereo echo with ping-pong delay added
+  - fx.rb_pitchshift~: pitchshifter based on RubberBand library
   - fx.shimmer~: shimmer reverb added
   - fx.room~: room reverb added
   - fx.tapiir~: multitap delay with feedback
