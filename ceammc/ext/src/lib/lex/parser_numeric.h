@@ -55,6 +55,9 @@ namespace parser {
             case TYPE_BIN:
                 return i0;
             case TYPE_RATIO:
+                if (i1 == 0)
+                    return 0;
+
                 return double(i0) / double(i1);
             case TYPE_PERCENT:
                 return f / 100.0;
