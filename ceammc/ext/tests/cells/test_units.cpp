@@ -313,11 +313,11 @@ TEST_CASE("units", "[ceammc::ceammc_units]")
         REQUIRE(v.value() == 60.25);
         REQUIRE(v.beatlen() == 0.25);
 
-        REQUIRE(BpmValue::parse(LA("60-1_bpm")).matchValue(v));
+        REQUIRE(BpmValue::parse(LA("60|1_bpm")).matchValue(v));
         REQUIRE(v.value() == 60);
         REQUIRE(v.beatlen() == 1);
 
-        REQUIRE(BpmValue::parse(LA("60-2.bpm")).matchValue(v));
+        REQUIRE(BpmValue::parse(LA("60|2.bpm")).matchValue(v));
         REQUIRE(v.value() == 60);
         REQUIRE(v.beatlen() == 0.75);
 

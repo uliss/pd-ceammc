@@ -1063,11 +1063,10 @@ case 79:
 	switch( (*p) ) {
 		case 37: goto tr60;
 		case 42: goto tr61;
-		case 45: goto st34;
-		case 46: goto tr112;
+		case 46: goto tr111;
 		case 47: goto st27;
 		case 72: goto tr65;
-		case 95: goto tr113;
+		case 95: goto tr112;
 		case 98: goto st35;
 		case 99: goto tr67;
 		case 100: goto tr68;
@@ -1076,164 +1075,41 @@ case 79:
 		case 112: goto tr71;
 		case 114: goto tr72;
 		case 115: goto tr73;
+		case 124: goto st37;
 	}
 	if ( 48 <= (*p) && (*p) <= 57 )
 		goto tr64;
 	goto st0;
+tr111:
+#line 10 "lex/ragel_numeric.rl"
+	{ num_.ival *= num_.sign; cat_ = CAT_NUMBER; type_ = TYPE_INT; }
+#line 54 "lex/ragel_numeric.rl"
+	{num_.inum = 0; num_.iden = 1;}
+	goto st34;
 st34:
 	if ( ++p == pe )
 		goto _test_eof34;
 case 34:
-	if ( 49 <= (*p) && (*p) <= 57 )
+#line 1094 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+	if ( 48 <= (*p) && (*p) <= 57 )
 		goto tr47;
 	goto st0;
 tr47:
-#line 11 "lex/ragel_music.rl"
-	{ bpm.dur_num = 0; }
-#line 12 "lex/ragel_music.rl"
-	{ (bpm.dur_num *= 10) += ((*p) - '0'); }
-#line 13 "lex/ragel_music.rl"
-	{ bpm.dur_den = 0;}
-#line 14 "lex/ragel_music.rl"
-	{ (bpm.dur_den *= 10) += ((*p) - '0'); }
-	goto st80;
-tr117:
-#line 12 "lex/ragel_music.rl"
-	{ (bpm.dur_num *= 10) += ((*p) - '0'); }
-#line 14 "lex/ragel_music.rl"
-	{ (bpm.dur_den *= 10) += ((*p) - '0'); }
+#line 46 "lex/ragel_numeric.rl"
+	{(num_.inum *= 10) += ((*p) - '0'); num_.iden *= 10;}
+#line 7 "lex/ragel_music.rl"
+	{ (bpm.fnum *= 10) += ((*p) - '0'); bpm.fden *= 10; }
 	goto st80;
 st80:
 	if ( ++p == pe )
 		goto _test_eof80;
 case 80:
-#line 1111 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
-	switch( (*p) ) {
-		case 46: goto tr115;
-		case 47: goto st37;
-		case 95: goto tr118;
-		case 98: goto tr119;
-	}
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr117;
-	goto st0;
-tr115:
-#line 24 "lex/ragel_music.rl"
-	{bpm.dur_num = 1;}
-#line 8 "lex/ragel_music.rl"
-	{ bpm.dur_num *= 3; bpm.dur_den *= 2; }
-	goto st81;
-tr121:
-#line 8 "lex/ragel_music.rl"
-	{ bpm.dur_num *= 3; bpm.dur_den *= 2; }
-	goto st81;
-st81:
-	if ( ++p == pe )
-		goto _test_eof81;
-case 81:
-#line 1135 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
-	switch( (*p) ) {
-		case 95: goto st82;
-		case 98: goto st35;
-	}
-	goto st0;
-tr118:
-#line 24 "lex/ragel_music.rl"
-	{bpm.dur_num = 1;}
-	goto st82;
-st82:
-	if ( ++p == pe )
-		goto _test_eof82;
-case 82:
-#line 1149 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
-	if ( (*p) == 98 )
-		goto st35;
-	goto st0;
-tr119:
-#line 24 "lex/ragel_music.rl"
-	{bpm.dur_num = 1;}
-	goto st35;
-st35:
-	if ( ++p == pe )
-		goto _test_eof35;
-case 35:
-#line 1161 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
-	if ( (*p) == 112 )
-		goto st36;
-	goto st0;
-st36:
-	if ( ++p == pe )
-		goto _test_eof36;
-case 36:
-	if ( (*p) == 109 )
-		goto st83;
-	goto st0;
-st83:
-	if ( ++p == pe )
-		goto _test_eof83;
-case 83:
-	goto st0;
-st37:
-	if ( ++p == pe )
-		goto _test_eof37;
-case 37:
-	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr50;
-	goto st0;
-tr50:
-#line 13 "lex/ragel_music.rl"
-	{ bpm.dur_den = 0;}
-#line 14 "lex/ragel_music.rl"
-	{ (bpm.dur_den *= 10) += ((*p) - '0'); }
-	goto st84;
-tr122:
-#line 14 "lex/ragel_music.rl"
-	{ (bpm.dur_den *= 10) += ((*p) - '0'); }
-	goto st84;
-st84:
-	if ( ++p == pe )
-		goto _test_eof84;
-case 84:
-#line 1198 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
-	switch( (*p) ) {
-		case 46: goto tr121;
-		case 95: goto st82;
-		case 98: goto st35;
-	}
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr122;
-	goto st0;
-tr112:
-#line 10 "lex/ragel_numeric.rl"
-	{ num_.ival *= num_.sign; cat_ = CAT_NUMBER; type_ = TYPE_INT; }
-#line 54 "lex/ragel_numeric.rl"
-	{num_.inum = 0; num_.iden = 1;}
-	goto st38;
-st38:
-	if ( ++p == pe )
-		goto _test_eof38;
-case 38:
-#line 1217 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr51;
-	goto st0;
-tr51:
-#line 46 "lex/ragel_numeric.rl"
-	{(num_.inum *= 10) += ((*p) - '0'); num_.iden *= 10;}
-#line 7 "lex/ragel_music.rl"
-	{ (bpm.fnum *= 10) += ((*p) - '0'); bpm.fden *= 10; }
-	goto st85;
-st85:
-	if ( ++p == pe )
-		goto _test_eof85;
-case 85:
-#line 1231 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 1108 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
 	switch( (*p) ) {
 		case 37: goto tr74;
 		case 42: goto tr75;
-		case 45: goto st34;
 		case 72: goto tr76;
-		case 95: goto tr123;
+		case 95: goto tr115;
 		case 98: goto st35;
 		case 99: goto tr78;
 		case 100: goto tr79;
@@ -1242,11 +1118,12 @@ case 85:
 		case 112: goto tr82;
 		case 114: goto tr83;
 		case 115: goto tr84;
+		case 124: goto st37;
 	}
 	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr51;
+		goto tr47;
 	goto st0;
-tr113:
+tr112:
 #line 10 "lex/ragel_numeric.rl"
 	{ num_.ival *= num_.sign; cat_ = CAT_NUMBER; type_ = TYPE_INT; }
 #line 24 "lex/ragel_units.rl"
@@ -1255,20 +1132,20 @@ tr113:
 	{num_.fval = num_.ival;}
 #line 65 "lex/ragel_numeric.rl"
 	{num_.fval = num_.ival;}
-	goto st86;
-tr123:
+	goto st81;
+tr115:
 #line 19 "lex/ragel_numeric.rl"
 	{
         cat_ = CAT_NUMBER;
         type_ = TYPE_FLOAT;
         num_.fval = num_.ival + num_.sign * (double(num_.inum)/num_.iden);
     }
-	goto st86;
-st86:
+	goto st81;
+st81:
 	if ( ++p == pe )
-		goto _test_eof86;
-case 86:
-#line 1272 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+		goto _test_eof81;
+case 81:
+#line 1149 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
 	switch( (*p) ) {
 		case 37: goto st45;
 		case 72: goto st5;
@@ -1281,6 +1158,129 @@ case 86:
 		case 114: goto st19;
 		case 115: goto st64;
 	}
+	goto st0;
+tr120:
+#line 24 "lex/ragel_music.rl"
+	{bpm.dur_num = 1;}
+	goto st35;
+st35:
+	if ( ++p == pe )
+		goto _test_eof35;
+case 35:
+#line 1171 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+	if ( (*p) == 112 )
+		goto st36;
+	goto st0;
+st36:
+	if ( ++p == pe )
+		goto _test_eof36;
+case 36:
+	if ( (*p) == 109 )
+		goto st82;
+	goto st0;
+st82:
+	if ( ++p == pe )
+		goto _test_eof82;
+case 82:
+	goto st0;
+st37:
+	if ( ++p == pe )
+		goto _test_eof37;
+case 37:
+	if ( 49 <= (*p) && (*p) <= 57 )
+		goto tr50;
+	goto st0;
+tr50:
+#line 11 "lex/ragel_music.rl"
+	{ bpm.dur_num = 0; }
+#line 12 "lex/ragel_music.rl"
+	{ (bpm.dur_num *= 10) += ((*p) - '0'); }
+#line 13 "lex/ragel_music.rl"
+	{ bpm.dur_den = 0;}
+#line 14 "lex/ragel_music.rl"
+	{ (bpm.dur_den *= 10) += ((*p) - '0'); }
+	goto st83;
+tr118:
+#line 12 "lex/ragel_music.rl"
+	{ (bpm.dur_num *= 10) += ((*p) - '0'); }
+#line 14 "lex/ragel_music.rl"
+	{ (bpm.dur_den *= 10) += ((*p) - '0'); }
+	goto st83;
+st83:
+	if ( ++p == pe )
+		goto _test_eof83;
+case 83:
+#line 1214 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+	switch( (*p) ) {
+		case 46: goto tr116;
+		case 47: goto st38;
+		case 95: goto tr119;
+		case 98: goto tr120;
+	}
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr118;
+	goto st0;
+tr116:
+#line 24 "lex/ragel_music.rl"
+	{bpm.dur_num = 1;}
+#line 8 "lex/ragel_music.rl"
+	{ bpm.dur_num *= 3; bpm.dur_den *= 2; }
+	goto st84;
+tr122:
+#line 8 "lex/ragel_music.rl"
+	{ bpm.dur_num *= 3; bpm.dur_den *= 2; }
+	goto st84;
+st84:
+	if ( ++p == pe )
+		goto _test_eof84;
+case 84:
+#line 1238 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+	switch( (*p) ) {
+		case 95: goto st85;
+		case 98: goto st35;
+	}
+	goto st0;
+tr119:
+#line 24 "lex/ragel_music.rl"
+	{bpm.dur_num = 1;}
+	goto st85;
+st85:
+	if ( ++p == pe )
+		goto _test_eof85;
+case 85:
+#line 1252 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+	if ( (*p) == 98 )
+		goto st35;
+	goto st0;
+st38:
+	if ( ++p == pe )
+		goto _test_eof38;
+case 38:
+	if ( 49 <= (*p) && (*p) <= 57 )
+		goto tr51;
+	goto st0;
+tr51:
+#line 13 "lex/ragel_music.rl"
+	{ bpm.dur_den = 0;}
+#line 14 "lex/ragel_music.rl"
+	{ (bpm.dur_den *= 10) += ((*p) - '0'); }
+	goto st86;
+tr123:
+#line 14 "lex/ragel_music.rl"
+	{ (bpm.dur_den *= 10) += ((*p) - '0'); }
+	goto st86;
+st86:
+	if ( ++p == pe )
+		goto _test_eof86;
+case 86:
+#line 1277 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+	switch( (*p) ) {
+		case 46: goto tr122;
+		case 95: goto st85;
+		case 98: goto st35;
+	}
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr123;
 	goto st0;
 tr4:
 #line 71 "lex/ragel_units.rl"
@@ -1310,11 +1310,10 @@ case 87:
 	switch( (*p) ) {
 		case 37: goto tr60;
 		case 42: goto tr61;
-		case 45: goto st34;
-		case 46: goto tr112;
+		case 46: goto tr111;
 		case 47: goto st27;
 		case 72: goto tr65;
-		case 95: goto tr113;
+		case 95: goto tr112;
 		case 98: goto st35;
 		case 99: goto tr67;
 		case 100: goto tr68;
@@ -1323,6 +1322,7 @@ case 87:
 		case 112: goto tr71;
 		case 114: goto tr72;
 		case 115: goto tr73;
+		case 124: goto st37;
 	}
 	if ( 48 <= (*p) && (*p) <= 57 )
 		goto tr124;
@@ -1345,12 +1345,11 @@ case 88:
 	switch( (*p) ) {
 		case 37: goto tr60;
 		case 42: goto tr61;
-		case 45: goto st34;
-		case 46: goto tr112;
+		case 46: goto tr111;
 		case 47: goto st27;
 		case 58: goto st29;
 		case 72: goto tr65;
-		case 95: goto tr113;
+		case 95: goto tr112;
 		case 98: goto st35;
 		case 99: goto tr67;
 		case 100: goto tr68;
@@ -1359,6 +1358,7 @@ case 88:
 		case 112: goto tr71;
 		case 114: goto tr72;
 		case 115: goto tr73;
+		case 124: goto st37;
 	}
 	if ( 48 <= (*p) && (*p) <= 57 )
 		goto tr125;
@@ -1393,11 +1393,10 @@ case 89:
 	switch( (*p) ) {
 		case 37: goto tr60;
 		case 42: goto tr61;
-		case 45: goto st34;
-		case 46: goto tr112;
+		case 46: goto tr111;
 		case 47: goto st27;
 		case 72: goto tr65;
-		case 95: goto tr113;
+		case 95: goto tr112;
 		case 98: goto st35;
 		case 99: goto tr67;
 		case 100: goto tr68;
@@ -1406,6 +1405,7 @@ case 89:
 		case 112: goto tr71;
 		case 114: goto tr72;
 		case 115: goto tr73;
+		case 124: goto st37;
 	}
 	if ( 48 <= (*p) && (*p) <= 57 )
 		goto tr125;
@@ -1539,14 +1539,14 @@ case 43:
 	_test_eof34: cs = 34; goto _test_eof; 
 	_test_eof80: cs = 80; goto _test_eof; 
 	_test_eof81: cs = 81; goto _test_eof; 
-	_test_eof82: cs = 82; goto _test_eof; 
 	_test_eof35: cs = 35; goto _test_eof; 
 	_test_eof36: cs = 36; goto _test_eof; 
-	_test_eof83: cs = 83; goto _test_eof; 
+	_test_eof82: cs = 82; goto _test_eof; 
 	_test_eof37: cs = 37; goto _test_eof; 
+	_test_eof83: cs = 83; goto _test_eof; 
 	_test_eof84: cs = 84; goto _test_eof; 
-	_test_eof38: cs = 38; goto _test_eof; 
 	_test_eof85: cs = 85; goto _test_eof; 
+	_test_eof38: cs = 38; goto _test_eof; 
 	_test_eof86: cs = 86; goto _test_eof; 
 	_test_eof87: cs = 87; goto _test_eof; 
 	_test_eof88: cs = 88; goto _test_eof; 
@@ -1577,8 +1577,8 @@ case 43:
 	break;
 	case 81: 
 	case 82: 
-	case 83: 
 	case 84: 
+	case 85: 
 	case 86: 
 #line 10 "lex/ragel_music.rl"
 	{ cat_ = CAT_UNIT; type_ = TYPE_BPM; }
@@ -1707,7 +1707,7 @@ case 43:
 #line 72 "lex/ragel_units.rl"
 	{cat_ = CAT_UNIT;}
 	break;
-	case 85: 
+	case 80: 
 #line 19 "lex/ragel_numeric.rl"
 	{
         cat_ = CAT_NUMBER;
@@ -1735,7 +1735,7 @@ case 43:
 #line 72 "lex/ragel_units.rl"
 	{cat_ = CAT_UNIT;}
 	break;
-	case 80: 
+	case 83: 
 #line 24 "lex/ragel_music.rl"
 	{bpm.dur_num = 1;}
 #line 10 "lex/ragel_music.rl"

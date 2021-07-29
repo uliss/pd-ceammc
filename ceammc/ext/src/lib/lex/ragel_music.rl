@@ -21,7 +21,7 @@ bpm_beat_num = bpm_natural >bpm_beat_num_init $bpm_beat_num_dig;
 bpm_beat_den = bpm_natural >bpm_beat_den_init $bpm_beat_den_dig;
 
 bpm_beat_dur =
-    '-' ((bpm_beat_num '/' bpm_beat_den) | (bpm_beat_den %{bpm.dur_num = 1;}))
+    '|' ((bpm_beat_num '/' bpm_beat_den) | (bpm_beat_den %{bpm.dur_num = 1;}))
     ('.' @bpm_add_dot)?;
 
 bpm = (
