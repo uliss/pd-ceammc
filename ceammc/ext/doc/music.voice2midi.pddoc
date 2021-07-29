@@ -43,7 +43,7 @@
 |
 [ui.dt]
 
-[music.voice2midi.notes]
+[music.voice2midi.notes] [music.voice2midi.oct]
 
 [music.voice2midi.alt]
 ]]>
@@ -60,6 +60,33 @@
             <pdascii id="alt">
 <![CDATA[
 [list C C# C## Eb Fbb(
+|
+[music.v->m]
+|
+[ui.dt]
+]]>
+            </pdascii>
+            <pdascii id="oct">
+<![CDATA[
+/*asbolute octave number in -1..9 range, C4=60*/
+
+[list C4 D5 E2 F-1 G9(
+|
+[music.v->m]
+|
+[ui.dt]
+
+/*if octave is ommited, previous note octave is used*/
+
+[list C2 B E F G A7 C D(
+|
+[music.v->m]
+|
+[ui.dt]
+
+/*relative octave changes: ^(up) and _(down)*/
+
+[list C4 E G C^ C_ C__ G^^^(
 |
 [music.v->m]
 |
