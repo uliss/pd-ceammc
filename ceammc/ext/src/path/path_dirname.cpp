@@ -18,7 +18,7 @@ public:
     }
 };
 
-extern "C" void setup_path0x2edirname()
+void setup_path_dirname()
 {
     ObjectFactory<PathDirname> obj("path.dirname");
 }

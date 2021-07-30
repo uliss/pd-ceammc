@@ -18,7 +18,7 @@ public:
     }
 };
 
-extern "C" void setup_path0x2ebasename()
+void setup_path_basename()
 {
     ObjectFactory<PathBasename> obj("path.basename");
 }
