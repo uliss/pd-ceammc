@@ -16,6 +16,9 @@
 #include "ceammc_factory.h"
 #include "proto_midi_parser.h"
 
+constexpr const char* MASTER_TUNING_COARSE = "mtune~";
+constexpr const char* MASTER_TUNING_FINE = "mtune.";
+
 enum SysExId {
     SYSEX_ID_NON_COMMERCIAL = 0x7D,
     SYSEX_ID_UNIVERSAL_NONRT = 0x7E,
@@ -279,6 +282,6 @@ void setup_proto_midi_sysex()
     obj.addMethod("id_request", &ProtoMidiSysex::m_id_request);
     obj.addMethod("id_reply", &ProtoMidiSysex::m_id_reply);
     obj.addMethod("mvolume", &ProtoMidiSysex::m_mvolume);
-    obj.addMethod("mtune_fine", &ProtoMidiSysex::m_mtune_fine);
-    obj.addMethod("mtune_coarse", &ProtoMidiSysex::m_mtune_coarse);
+    obj.addMethod(MASTER_TUNING_FINE, &ProtoMidiSysex::m_mtune_fine);
+    obj.addMethod(MASTER_TUNING_COARSE, &ProtoMidiSysex::m_mtune_coarse);
 }

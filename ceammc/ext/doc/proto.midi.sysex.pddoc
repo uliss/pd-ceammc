@@ -14,9 +14,16 @@
             <since>0.9.4</since>
         </meta>
         <methods>
-            <method name="mvolume">adjusts a device's master
+            <method name="mvolume">set device master volume
             <param type="float" minvalue="0" maxvalue="1" required="true" name="LEVEL">
             volume level</param>
+            </method>
+            <method name="mtune~">set device master coarse tuning in semitones
+            <param type="int" minvalue="-64" maxvalue="63" required="true" name="V" units="semitone">
+            tuning</param></method>
+            <method name="mtune.">set device master fine tuning in cents
+            <param type="int" minvalue="-100" maxvalue="100" required="true" name="V" units="cent">
+            tuning</param>
             </method>
         </methods>
         <inlets>
@@ -33,6 +40,8 @@
             <pdascii>
 <![CDATA[
 [proto.midi.sysex.mvol]
+
+[proto.midi.sysex.mtune]
 ]]>
             </pdascii>
             <pdascii id="mvol">
@@ -46,6 +55,21 @@
 [proto.midi.sysex]
 |
 [midiout]
+]]>
+            </pdascii>
+            <pdascii id="mtune">
+<![CDATA[
+/*coarse tuning*/       /*fine tuning*/
+
+[ui.midi]               [ui.midi]
+
+[midiin]  [F]           [midiin]  [F]
+|         |             |         |
+|         [mtune~ $1(   |         [mtune. $1(
+|         |             |         |
+[proto.midi.sysex]      [proto.midi.sysex]
+|                       |
+[midiout]               [midiout]
 ]]>
             </pdascii>
         </example>
