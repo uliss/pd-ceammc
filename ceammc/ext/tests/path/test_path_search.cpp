@@ -94,9 +94,17 @@ TEST_CASE("path.search", "[externals]")
             t.schedTicks(200);
             REQUIRE(t.hasOutputAt(0));
             REQUIRE(t.outputSymbolAt(0) == SYM(path0.c_str()));
+
+            // no home search
+            t->setProperty("@home", LF(0));
+            t << ".bashrc";
+            REQUIRE(t.hasOutputAt(1));
+            REQUIRE(t.isOutputBangAt(1));
         }
 
         if (platform::path_exists(path1.c_str())) {
+            t->setProperty("@home", LF(1));
+
             t << ".vimrc";
             t.schedTicks(200);
             REQUIRE(t.hasOutputAt(0));
