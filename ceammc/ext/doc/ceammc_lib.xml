@@ -1636,6 +1636,9 @@
     <entry name="path.lsdir" descr="list directory contents" ref_view="object">
       <xi:include href="path.lsdir.pddoc" parse="xml"/>
     </entry>
+    <entry name="path.search" descr="file search" ref_view="object">
+      <xi:include href="path.search.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="predicates">
     <entry name="is_any" descr="checks if input data has *any* type" ref_view="object">

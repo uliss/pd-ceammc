@@ -14,6 +14,8 @@
 #X text 200 224 check if path is directory;
 #X obj 30 251 path.lsdir;
 #X text 200 251 list directory contents;
+#X obj 30 278 path.search;
+#X text 200 278 file search;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::path 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

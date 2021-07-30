@@ -530,6 +530,7 @@ path.dirname		.		.
 path.exists		.		.
 path.is_dir		.		..
 path.lsdir,path.ls		..		.
+path.search		.		..
 plot.geomspace~		.		~.
 plot.hist~,ceammc/hist~,hist~		~		~.
 plot.linspace~		.		~.
