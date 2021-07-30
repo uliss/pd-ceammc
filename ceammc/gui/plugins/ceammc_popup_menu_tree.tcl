@@ -193,7 +193,7 @@
     }}
     {path {
         file.size path.basename path.dirname path.exists path.is_dir
-        path.lsdir
+        path.lsdir path.search path.split
     }}
     {predicates {
         is_any is_bang is_data is_dict is_even is_file is_float is_list is_odd

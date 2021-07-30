@@ -875,6 +875,7 @@ path.is_dir
 path.ls
 path.lsdir
 path.search
+path.split
 phase->rad
 phase->rad~
 pi
