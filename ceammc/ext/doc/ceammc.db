@@ -531,6 +531,7 @@ path.exists		.		.
 path.is_dir		.		..
 path.lsdir,path.ls		..		.
 path.search		.		..
+path.split		.		..
 plot.geomspace~		.		~.
 plot.hist~,ceammc/hist~,hist~		~		~.
 plot.linspace~		.		~.

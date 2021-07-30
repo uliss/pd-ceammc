@@ -533,6 +533,7 @@ set(DOC_FILES
     path.is_dir
     path.lsdir
     path.search
+    path.split
     plot.hist~
     plot.geomspace~
     plot.linspace~
