@@ -17,7 +17,8 @@
             </aliases>
         </meta>
         <arguments>
-            <argument name="STATE" type="int" enum="0 1">initial counter state: on or off</argument>
+            <argument name="STATE" type="int" enum="0 1">initial counter state: on or
+            off</argument>
         </arguments>
         <methods>
             <method name="reset">reset sample counter to 0</method>
