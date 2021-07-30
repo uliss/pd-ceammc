@@ -36,7 +36,7 @@ TEST_CASE("path.search", "[externals]")
             REQUIRE(t.numOutlets() == 2);
 
             REQUIRE_PROPERTY(t, @async, 1);
-            REQUIRE_PROPERTY(t, @recursive, 0.);
+            REQUIRE_PROPERTY(t, @depth, 0.);
             REQUIRE_PROPERTY(t, @paths, L());
         }
 
@@ -104,7 +104,7 @@ TEST_CASE("path.search", "[externals]")
 
     SECTION("recursive @sync search in user dir")
     {
-        TExt t("path.search", PROJECT_SOURCE_DIR "/ceammc/ext", "@sync", "@recursive", 1);
+        TExt t("path.search", PROJECT_SOURCE_DIR "/ceammc/ext", "@sync", "@depth", 1);
         REQUIRE_PROPERTY(t, @async, 0.);
 
         const auto fname = platform::basename(__FILE__);
@@ -117,14 +117,14 @@ TEST_CASE("path.search", "[externals]")
         REQUIRE(t.isOutputBangAt(1));
 
         // should be ok
-        t->setProperty("@recursive", LF(2));
+        t->setProperty("@depth", LF(2));
         t << fname.c_str();
 
         REQUIRE(t.hasOutputAt(0));
         REQUIRE(t.outputSymbolAt(0) == SYM(full_name.c_str()));
 
         // also ok
-        t->setProperty("@recursive", LF(-1));
+        t->setProperty("@depth", LF(-1));
         t << fname.c_str();
 
         REQUIRE(t.hasOutputAt(0));

@@ -20,7 +20,7 @@ using namespace ceammc;
 
 class PathSearch : public PathAsyncBase<std::string> {
     ListProperty* paths_;
-    IntProperty* recursive_;
+    IntProperty* depth_;
     std::atomic_bool search_stop_;
     std::string needle_;
 

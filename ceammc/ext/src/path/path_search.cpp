@@ -33,7 +33,7 @@ static std::string searchFileTask(
     const std::vector<std::string>& user_paths,
     const std::vector<std::string>& sys_paths,
     const std::string& file,
-    int recursive_depth,
+    int search_depth,
     std::atomic_bool& quit)
 {
     std::vector<std::string> relative_user_paths;
@@ -53,10 +53,10 @@ static std::string searchFileTask(
             if (fs::exists(fpath)) {
                 std::cerr << "found in user: " << fpath << "\n";
                 return fpath.string();
-            } else if (recursive_depth == RECURSIVE_INF || recursive_depth > 0) {
+            } else if (search_depth == RECURSIVE_INF || search_depth > 0) {
                 auto it = fs::recursive_directory_iterator(user_path);
                 for (auto& entry : it) {
-                    if (recursive_depth != RECURSIVE_INF && it.depth() >= recursive_depth) {
+                    if (search_depth != RECURSIVE_INF && it.depth() >= search_depth) {
                         it.disable_recursion_pending();
                         continue;
                     }
@@ -120,7 +120,7 @@ static std::string searchFileTask(
 PathSearch::PathSearch(const PdArgs& args)
     : PathAsyncBase(args)
     , paths_(nullptr)
-    , recursive_(nullptr)
+    , depth_(nullptr)
     , search_stop_(false)
 {
     createOutlet();
@@ -130,9 +130,9 @@ PathSearch::PathSearch(const PdArgs& args)
     paths_->setArgIndex(0);
     addProperty(paths_);
 
-    recursive_ = new IntProperty("@recursive", 0);
-    recursive_->checkMinEq(-1);
-    addProperty(recursive_);
+    depth_ = new IntProperty("@depth", 0);
+    depth_->checkMinEq(-1);
+    addProperty(depth_);
 }
 
 PathSearch::~PathSearch()
@@ -206,7 +206,7 @@ PathSearch::FutureResult PathSearch::createTask()
         OBJ_DBG << "sys_paths: " << s;
 
     return std::async(taskLaunchType(),
-        searchFileTask, user_paths, sys_paths, needle_, recursive_->value(), std::ref(search_stop_));
+        searchFileTask, user_paths, sys_paths, needle_, depth_->value(), std::ref(search_stop_));
 }
 
 void setup_path_search()
