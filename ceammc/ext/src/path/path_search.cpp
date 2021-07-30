@@ -63,7 +63,7 @@ static std::string searchFileTask(
                     const fs::path fpath = entry / file;
                     std::cerr << "trying user recursive path: " << fpath << "\n";
                     if (fs::exists(fpath)) {
-                        std::cerr << "found in user resursive: " << fpath << "\n";
+                        std::cerr << "found in user recursive: " << fpath << "\n";
                         return fpath.string();
                     }
                 }
@@ -139,10 +139,15 @@ void PathSearch::onDataT(const StringAtom& a)
     runTask();
 }
 
+void PathSearch::m_cancel(t_symbol* s, const AtomListView& lv)
+{
+    search_stop_ = true;
+}
+
 void PathSearch::processResult()
 {
     if (result().empty()) {
-        OBJ_ERR << "file not found";
+        OBJ_ERR << "file not found: " << needle_;
         bangTo(1);
     } else {
         symbolTo(0, gensym(result().c_str()));
@@ -197,4 +202,8 @@ void setup_path_search()
     obj.parseArgsMode(PdArgs::PARSE_UNQUOTE);
     obj.parsePosProps(PdArgs::PARSE_UNQUOTE);
     obj.processData<DataTypeString>();
+
+    obj.setXletsInfo({ "symbol: search filename" }, { "symbol: full path to found file", "bang: if not found" });
+
+    obj.addMethod("cancel", &PathSearch::m_cancel);
 }

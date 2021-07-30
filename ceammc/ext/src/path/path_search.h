@@ -31,6 +31,8 @@ public:
     void onSymbol(t_symbol* s) override;
     void onDataT(const StringAtom& a);
 
+    void m_cancel(t_symbol* s, const AtomListView& lv);
+
 private:
     void processResult() override;
     FutureResult createTask() override;
