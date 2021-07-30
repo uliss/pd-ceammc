@@ -52,6 +52,7 @@
         <inlets>
             <inlet>
                 <xinfo on="symbol">filename</xinfo>
+                <xinfo on="data:string">filename</xinfo>
             </inlet>
         </inlets>
         <outlets>
