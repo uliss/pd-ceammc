@@ -115,6 +115,7 @@ static std::string searchFileTask(
             std::cerr << "found in standard: " << fname << "\n";
             return fname.string();
         } else if (relative_user_paths.size() > 0) {
+            // search in relative user paths
             for (const auto& rel_dir : relative_user_paths) {
                 CHECK_QUIT()
 
@@ -125,12 +126,14 @@ static std::string searchFileTask(
                     std::cerr << "found in relative: " << fname << "\n";
                     return fname.string();
                 } else if (search_recursive(search_depth)) {
+                    // recursive search in relative user paths
                     auto res = searchRecursive(abs_dir, file, search_depth, quit);
                     if (!res.empty())
                         return res.string();
                 }
             }
         } else if (search_recursive(search_depth)) {
+            // recursive search in relative user paths
             auto res = searchRecursive(std_dir, file, search_depth, quit);
             if (!res.empty())
                 return res.string();
