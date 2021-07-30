@@ -804,8 +804,11 @@ ms->samp~
 msg
 msg.after
 msg.onload
+msg.sched
 music.d->t
 music.dur2time
+music.v->m
+music.voice2midi
 mux2~
 mux~
 net.host->ip

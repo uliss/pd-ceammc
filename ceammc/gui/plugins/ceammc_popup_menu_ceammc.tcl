@@ -28,7 +28,8 @@
         conv.ms2samp conv.ms2samp~ conv.phase2rad conv.phase2rad~
         conv.pitch2midi conv.pol2car conv.rad2phase conv.rad2phase~
         conv.samp2ms conv.samp2ms~ conv.samp2sec conv.sec2bpm conv.sec2samp
-        conv.sec2str conv.sig2float~ conv.str2sec
+        conv.sec2str conv.sig2float~ conv.str2sec music.dur2time
+        music.voice2midi
     }}
     {data {
         data.copy data.dict data.fifo data.float data.int data.list data.mlist
@@ -138,7 +139,7 @@
         click~ fluid~ modplug~ sfizz~ speech.flite speech.flite~
     }}
     {msg {
-        loadexpr msg msg.after msg.onload
+        loadexpr msg msg.after msg.onload msg.sched
     }}
     {net {
         net.host2ip

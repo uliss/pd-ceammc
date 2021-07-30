@@ -4,34 +4,37 @@
 ### Added:
 - loadmsg - dollar arg support added
 - new objects:
+  - an.tempo~: tempo analizer based on Aubio library
   - array.circular~: circular buffer write/read for arrays
   - array.grainer~: array granulator
-  - lfo.mosc~: LFO oscillator with various waveform and runtime change between them. Sin, saw, square, pulse, triangle and positive variants of above.
-  - an.tempo~: tempo analizer based on Aubio library
-  - proto.midi.cc: parser for MIDI control change messages
-  - fx.secho~: enchanced version of echo that does not click on delay change  
-  - fx.recho~: reverse echo fx added
+  - file.size: aync/sync filesize requests
+  - flow.float: float pass flow object added
   - fx.echo2~: stereo echo with ping-pong delay added
-  - fx.rb_pitchshift~: pitchshifter based on RubberBand library
-  - fx.shimmer~: shimmer reverb added
+  - fx.rb_pitchshift~: pitchshifter based on RubberBand library (via Aubio wrapper, see: https://breakfastquay.com/rubberband/)
+  - fx.recho~: reverse echo fx added
   - fx.room~: room reverb added
-  - fx.tapiir~: multitap delay with feedback
+  - fx.secho~: enchanced version of echo that does not click on delay change  
+  - fx.shimmer~: shimmer reverb added
+  - fx.tapiir~: multitap delay with feedback (base on Faust port of Maarten de Boer, seeL https://www.researchgate.net/publication/246433873_TAPIIR_A_SOFTWARE_MULTITAP_DELAY)
+  - lfo.mosc~: LFO oscillator with various waveform and runtime change between them. Sin, saw, square, pulse, triangle and positive variants of above.  
+  - list.rundiff: running difference (adjacent difference or partial difference)
+  - list.runsum: running sum (cumulative sum or partial sum)
+  - msg.sched: message scheduler added
+  - music.dur2time: duration syntax (1/4, 2., etc.) to time converter added (with music.d->t alias)
+  - music.voice2midi: single voice syntax (C, F#5, Ab(-30c), D|1/4., etc.) to midi pitch converter added (with music.v->m alias)
+  - proto.midi.cc: parser for MIDI control change messages
   - samp.time~: sample counter added (with samp.t~ alias)
+  - sfizz~: SFZ 2.0 format sample player
+  - spat.zita8~: 8-channel spat reverb added
   - spring: return to specified value in specified time
-  - synth.snare~: snare drum
+  - synth.english_bell~ added (from Faust lib)
+  - synth.french_bell~ added (from Faust lib)
+  - synth.german_bell~ added (from Faust lib)
   - synth.kick~: low kick
   - synth.risset_bell~
-  - synth.german_bell~ added
-  - synth.english_bell~ added
-  - synth.standard_bell~ added
-  - synth.french_bell~ added
+  - synth.snare~: snare drum
+  - synth.standard_bell~ added (from Faust lib)
   - synth.tube_bell~: STK TubeBell FM instrument added
-  - sfizz~: SFZ 2.0 format sample player
-  - flow.float: float pass flow object added
-  - list.runsum: running sum (cumulative sum or partial sum)
-  - list.rundiff: running difference (adjacent difference or partial difference)
-  - file.size: aync/sync filesize requests
-  - spat.zita8~: 8-channel spat reverb added
 - new properties:
   - lfo.+saw~, lfo.saw~, lfo.+tri~, lfo.tri~, lfo.+square~, lfo.square~, lfo.+pulse~, lfo.pulse~: @phase and @pause properties added
   - ui.knob: @show_value property added
