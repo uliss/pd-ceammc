@@ -4,8 +4,7 @@
 #X obj 192 77 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X msg 192 106 @home \$1;
 #X obj 20 135 path.search @home 0;
-#X obj 125 164 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
--1;
+#X msg 125 164 not found;
 #X obj 20 192 ui.dt @size 500 35 @auto_size 0;
 #X connect 2 0 3 0;
 #X connect 1 0 4 0;

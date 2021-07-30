@@ -19,11 +19,12 @@
         <info>
             <par>Searches file by name in user specified or PureData system paths.</par>
             <par>Outputs first found file.</par>
-            <par>First searches in user defined paths, then in current patch directory, then in
-            PureData system paths, then in Home directory.</par>
-            <par>Home directory can be specified with '~' symbol</par>
+            <par>Search order: 1. user defined paths (@path property), 2. current patch directory,
+            3. PureData system path, 4. home directory.</par>
+            <par>Absolute paths processed before relative.</par>
+            <par>Home directory can be specified with '~' symbol.</par>
             <par>Note: by default search request is performed asynchronously, so a delay will
-            occured between input and output</par>
+            occured between input and output.</par>
         </info>
         <arguments>
             <argument name="PATHS" type="list">list of paths, can be quoted to handle
@@ -66,11 +67,11 @@
 |
 |  [S digits=30]
 |  |
-|  |  [@paths ???( /*change search path*/
+|  |  [@paths sound(/*change search path*/
 |  |  |
-[path.search sound #z]
+[path.search #z]
 |          ^|
-|          [B]/*not found*/
+|          [not found(
 |          |
 [ui.dt @size 500 35 @auto_size 0]
 
@@ -85,7 +86,7 @@
 |                 |
 [path.search @std 0]
 |          ^|
-|          [B]
+|          [not found(
 |          |
 [ui.dt @size 500 35 @auto_size 0]
 ]]>
@@ -100,7 +101,7 @@
 |                 |
 [path.search @home 0]
 |          ^|
-|          [B]
+|          [not found(
 |          |
 [ui.dt @size 500 35 @auto_size 0]
 ]]>
