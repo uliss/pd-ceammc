@@ -874,6 +874,8 @@ path.exists
 path.is_dir
 path.ls
 path.lsdir
+path.norm
+path.normalize
 path.search
 path.split
 phase->rad

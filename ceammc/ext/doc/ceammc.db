@@ -530,6 +530,7 @@ path.dirname		.		.
 path.exists		.		.
 path.is_dir		.		..
 path.lsdir,path.ls		..		.
+path.normalize,path.norm		.		.
 path.search		.		..
 path.split		.		..
 plot.geomspace~		.		~.

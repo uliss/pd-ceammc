@@ -864,7 +864,10 @@ path.exists	checks if given path exists
 path.is_dir	check if path is directory
 path.lsdir	list directory contents
 path.ls	list directory contents
+path.normalize	normalize file paths
+path.norm	normalize file paths
 path.search	file search
+path.split	file path split
 is_any	checks if input data has *any* type
 is_bang	checks if input data has *bang* type
 is_data	checks if input data has *data* type
