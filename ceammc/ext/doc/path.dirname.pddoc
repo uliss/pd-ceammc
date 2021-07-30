@@ -41,9 +41,7 @@
 |               |     |
 [path.dirname         ]
 |
-[msg set]
-|
-[ (
+[ui.dt]
 ]]>
             </pdascii>
         </example>

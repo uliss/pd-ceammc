@@ -17,21 +17,20 @@
 #X msg 357 219 C://file.txt;
 #X obj 261 248 symbol;
 #X obj 50 277 path.dirname;
-#X obj 50 305 msg set;
-#X msg 50 334 ;
-#X obj 20 383 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 388 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 50 305 ui.dt;
+#X obj 20 354 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 359 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 389 1\.;
-#X text 150 389 *symbol*;
-#X text 245 389 outputs directory portion of pathname.;
-#X text 150 409 *data:string*;
-#X text 245 409 outputs directory portion of pathname.;
-#X obj 20 439 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 444 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 360 1\.;
+#X text 150 360 *symbol*;
+#X text 245 360 outputs directory portion of pathname.;
+#X text 150 380 *data:string*;
+#X text 245 380 outputs directory portion of pathname.;
+#X obj 20 410 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 415 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 445 1\.;
-#X text 245 445 directory name.;
+#X text 110 416 1\.;
+#X text 245 416 directory name.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
@@ -78,4 +77,3 @@ https://github.com/uliss/pure-data;
 #X connect 10 0 15 0;
 #X connect 14 0 15 0;
 #X connect 15 0 16 0;
-#X connect 16 0 17 0;
