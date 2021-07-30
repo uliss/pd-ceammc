@@ -217,20 +217,21 @@ PathSearch::FutureResult PathSearch::createTask()
     }
 
     std::vector<std::string> sys_paths;
-    if (canvas()) {
-        // patch directory
-        auto cnv_dir = canvas_info_dir(canvas());
-        if (cnv_dir)
-            sys_paths.push_back(cnv_dir->s_name);
-
-        // patch search paths
-        for (auto c : canvas_info_paths(canvas())) {
-            if (c.isSymbol())
-                sys_paths.push_back(c.asT<t_symbol*>()->s_name);
-        }
-    }
 
     if (std_->value()) {
+        if (canvas()) {
+            // patch directory
+            auto cnv_dir = canvas_info_dir(canvas());
+            if (cnv_dir)
+                sys_paths.push_back(cnv_dir->s_name);
+
+            // patch search paths
+            for (auto c : canvas_info_paths(canvas())) {
+                if (c.isSymbol())
+                    sys_paths.push_back(c.asT<t_symbol*>()->s_name);
+            }
+        }
+
         // Pd search paths
         for (auto p = STUFF->st_searchpath; p != nullptr; p = p->nl_next)
             sys_paths.push_back(p->nl_string);

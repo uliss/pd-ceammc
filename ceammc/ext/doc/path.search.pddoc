@@ -60,9 +60,9 @@
         <example>
             <pdascii>
 <![CDATA[
-[symbol loop_breakbeat.flac #a(
+[symbol loop_breakbeat.flac #a(             [path.search.std]
 
-[symbol guitar1.wav(
+[symbol guitar1.wav(                        [path.search.home]
 |
 |  [S digits=30]
 |  |
@@ -75,6 +75,34 @@
 [ui.dt @size 500 35 @auto_size 0]
 
 [X a->z]
+]]>
+            </pdascii>
+            <pdascii id="std">
+<![CDATA[
+[guitar1.wav(     [T]
+|                 |
+[symbol]          [@std $1(
+|                 |
+[path.search @std 0]
+|          ^|
+|          [B]
+|          |
+[ui.dt @size 500 35 @auto_size 0]
+]]>
+            </pdascii>
+            <pdascii id="home">
+<![CDATA[
+/*unix or macos*/
+
+[symbol .bashrc(  [T]
+|                 |
+|                 [@home $1(
+|                 |
+[path.search @home 0]
+|          ^|
+|          [B]
+|          |
+[ui.dt @size 500 35 @auto_size 0]
 ]]>
             </pdascii>
         </example>
