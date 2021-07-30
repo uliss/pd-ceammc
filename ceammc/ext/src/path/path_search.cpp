@@ -27,11 +27,13 @@ extern "C" {
 #include "filesystem.hpp"
 namespace fs = ghc::filesystem;
 
+constexpr int RECURSIVE_INF = -1;
+
 static std::string searchFileTask(
     const std::vector<std::string>& user_paths,
     const std::vector<std::string>& sys_paths,
     const std::string& file,
-    bool recursive,
+    int recursive_depth,
     std::atomic_bool& quit)
 {
     std::vector<std::string> relative_user_paths;
@@ -51,8 +53,14 @@ static std::string searchFileTask(
             if (fs::exists(fpath)) {
                 std::cerr << "found in user: " << fpath << "\n";
                 return fpath.string();
-            } else if (recursive) {
-                for (auto& entry : fs::recursive_directory_iterator(user_path)) {
+            } else if (recursive_depth == RECURSIVE_INF || recursive_depth > 0) {
+                auto it = fs::recursive_directory_iterator(user_path);
+                for (auto& entry : it) {
+                    if (recursive_depth != RECURSIVE_INF && it.depth() >= recursive_depth) {
+                        it.disable_recursion_pending();
+                        continue;
+                    }
+
                     if (quit)
                         return {};
 
@@ -61,7 +69,11 @@ static std::string searchFileTask(
                         continue;
 
                     const fs::path fpath = entry / file;
+
+#ifndef NDEBUG
                     std::cerr << "trying user recursive path: " << fpath << "\n";
+#endif
+
                     if (fs::exists(fpath)) {
                         std::cerr << "found in user recursive: " << fpath << "\n";
                         return fpath.string();
@@ -118,7 +130,8 @@ PathSearch::PathSearch(const PdArgs& args)
     paths_->setArgIndex(0);
     addProperty(paths_);
 
-    recursive_ = new BoolProperty("@recursive", false);
+    recursive_ = new IntProperty("@recursive", 0);
+    recursive_->checkMinEq(-1);
     addProperty(recursive_);
 }
 
