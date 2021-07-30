@@ -29,6 +29,10 @@
             <param type="float" minvalue="-64" maxvalue="63" required="true" name="V" units="semitone">
             tuning</param>
             </method>
+            <method name="mbal:f">set device master balance
+            <param type="float" minvalue="-1" maxvalue="1" required="true" name="PAN">
+            balance</param>
+            </method>
         </methods>
         <inlets>
             <inlet>
@@ -45,7 +49,11 @@
 <![CDATA[
 [proto.midi.sysex.mvol]
 
+[proto.midi.sysex.mbal]
+
 [proto.midi.sysex.mtune]
+
+[proto.midi.sysex.idreq]
 ]]>
             </pdascii>
             <pdascii id="mvol">
@@ -74,6 +82,32 @@
 [proto.midi.sysex]      [proto.midi.sysex]     [proto.midi.sysex]
 |                       |                      |
 [midiout]               [midiout]              [midiout]
+]]>
+            </pdascii>
+            <pdascii id="mbal">
+<![CDATA[
+[ui.midi]
+
+[ui.hsl -1 1 @show_value 1]
+|
+[mbal:f $1(
+|
+[proto.midi.sysex]
+|
+[midiout]
+]]>
+            </pdascii>
+            <pdascii id="idreq">
+<![CDATA[
+[ui.midi]
+
+[midiin]
+|
+|         [id_request(
+|         |
+[proto.midi.sysex]
+|
+[midiout]
 ]]>
             </pdascii>
         </example>

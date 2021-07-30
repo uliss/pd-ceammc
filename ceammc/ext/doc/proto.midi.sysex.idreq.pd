@@ -1,0 +1,9 @@
+#N canvas 0 0 827 241 12;
+#X obj 20 48 ui.midi;
+#X obj 20 77 midiin;
+#X msg 116 106 id_request;
+#X obj 20 135 proto.midi.sysex;
+#X obj 20 164 midiout;
+#X connect 1 0 3 0;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;

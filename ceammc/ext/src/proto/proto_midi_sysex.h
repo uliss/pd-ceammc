@@ -46,7 +46,9 @@ public:
 
     void m_id_request(t_symbol*, const AtomListView&);
     void m_id_reply(t_symbol*, const AtomListView&);
+
     void m_mvolume(t_symbol* s, const AtomListView& lv);
+    void m_mbalance_float(t_symbol* s, const AtomListView& lv);
 
     void m_mtune_fine(t_symbol* s, const AtomListView& lv);
     void m_mtune_coarse(t_symbol* s, const AtomListView& lv);
