@@ -99,18 +99,18 @@ static std::string searchFileTask(
     for (const auto& p : sys_paths) {
         CHECK_QUIT()
 
-        fs::path std_path(p);
+        fs::path std_dir(p);
 
         // only absolute standart paths are supported
-        if (!std_path.is_absolute() || !ghc::filesystem::exists(std_path))
+        if (!std_dir.is_absolute() || !ghc::filesystem::exists(std_dir))
             continue;
 
-        std_path.append(file);
-        std::cerr << "trying standard path: " << std_path << "\n";
+        const fs::path fname = std_dir / file;
+        std::cerr << "trying standard path: " << fname << "\n";
 
-        if (ghc::filesystem::exists(std_path)) {
-            std::cerr << "found in standard: " << std_path << "\n";
-            return std_path.string();
+        if (ghc::filesystem::exists(fname)) {
+            std::cerr << "found in standard: " << fname << "\n";
+            return fname.string();
         } else if (relative_user_paths.size() > 0) {
             for (const auto& rpath : relative_user_paths) {
                 CHECK_QUIT()
