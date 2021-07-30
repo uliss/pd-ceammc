@@ -28,18 +28,21 @@ MsgSched::MsgSched(const PdArgs& args)
 
 void MsgSched::onList(const AtomList& lst)
 {
-    if (lst.size() > 0 && lst[0].isFloat() && lst[0].asT<t_float>() >= 0) {
+    if (lst.size() > 0 && lst[0].isFloat()) {
         const auto del_ms = lst[0].asT<t_float>();
 
-        queue_.emplace_back([this, lst]() {
-            listTo(0, lst.view(1));
-            cleanup_.delay(0); // cleanup on next round to prevent self-destruction
-        });
+        if (del_ms >= 0) {
+            queue_.emplace_back([this, lst]() {
+                listTo(0, lst.view(1));
+                cleanup_.delay(0); // cleanup on next round to prevent self-destruction
+            });
 
-        queue_.back().delay(del_ms);
+            queue_.back().delay(del_ms);
+        } else
+            listTo(0, lst.view(1));
 
     } else
-        listTo(0, lst.view(1));
+        listTo(0, lst);
 }
 
 void MsgSched::proxy_bang()
