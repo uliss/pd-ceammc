@@ -37,13 +37,13 @@ private:
     BoolProperty* async_;
 
 public:
-    PathAsyncBase(const PdArgs& args)
+    PathAsyncBase(const PdArgs& args, uint16_t poll_time_ms = 100)
         : BaseObject(args)
         , task_check_([this]() {
             if (isTaskFinished())
                 processResult();
         })
-        , poll_time_(100)
+        , poll_time_(poll_time_ms)
         , async_(nullptr)
     {
         async_ = new BoolProperty("@async", true);
