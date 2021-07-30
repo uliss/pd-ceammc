@@ -104,13 +104,14 @@ TEST_CASE("path.search", "[externals]")
 
     SECTION("recursive @sync search in user dir")
     {
-        TExt t("path.search", PROJECT_SOURCE_DIR "/ceammc/ext", "@sync", "@recursive", 1);
+        TExt t("path.search", PROJECT_SOURCE_DIR "/ceammc/ext/tests", "@sync", "@recursive", 1);
         REQUIRE_PROPERTY(t, @async, 0.);
 
         const auto fname = platform::basename(__FILE__);
+        const std::string full_name = TEST_SRC_DIR "/" + fname;
         t << fname.c_str();
 
         REQUIRE(t.hasOutputAt(0));
-        REQUIRE(t.outputSymbolAt(0) == SYM(PROJECT_SOURCE_DIR));
+        REQUIRE(t.outputSymbolAt(0) == SYM(full_name.c_str()));
     }
 }
