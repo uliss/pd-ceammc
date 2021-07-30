@@ -25,6 +25,10 @@
             <param type="int" minvalue="-100" maxvalue="100" required="true" name="V" units="cent">
             tuning</param>
             </method>
+            <method name="mtune">set device master tuning in float semitones (combination of coarse and fine tune)
+            <param type="float" minvalue="-64" maxvalue="63" required="true" name="V" units="semitone">
+            tuning</param>
+            </method>
         </methods>
         <inlets>
             <inlet>
@@ -59,17 +63,17 @@
             </pdascii>
             <pdascii id="mtune">
 <![CDATA[
-/*coarse tuning*/       /*fine tuning*/
+/*coarse tuning*/       /*fine tuning*/        /*float tuning*/
 
-[ui.midi]               [ui.midi]
+[ui.midi]               [ui.midi]              [ui.midi]
 
-[midiin]  [F]           [midiin]  [F]
-|         |             |         |
-|         [mtune~ $1(   |         [mtune. $1(
-|         |             |         |
-[proto.midi.sysex]      [proto.midi.sysex]
-|                       |
-[midiout]               [midiout]
+[midiin]  [F]           [midiin]  [F]          [midiin]  [ui.hsl -12 12 @show_value 1]
+|         |             |         |            |         |
+|         [mtune~ $1(   |         [mtune. $1(  |         [mtune $1(
+|         |             |         |            |         |
+[proto.midi.sysex]      [proto.midi.sysex]     [proto.midi.sysex]
+|                       |                      |
+[midiout]               [midiout]              [midiout]
 ]]>
             </pdascii>
         </example>
