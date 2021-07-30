@@ -38,8 +38,8 @@
             <property name="@async" type="int" enum="0 1" default="1">perform async search in
             separate thread</property>
             <property name="@sync" type="alias">alias to @async 0</property>
-            <property name="@recursive" type="int" enum="0 1" default="0">perform async search in
-            separate thread</property>
+            <property name="@depth" type="int" minvalue="-1" default="0">search recursion depth
+            (-1: infinite)</property>
             <property name="@paths" type="list">user defined search paths</property>
         </properties>
         <inlets>

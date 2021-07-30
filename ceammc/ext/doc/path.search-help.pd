@@ -39,11 +39,11 @@ Type: list.;
 #X msg 110 705 @async;
 #X text 245 705 Get/Set perform async search in separate thread. Type:
 int. Default value: 1\. Allowed values: 0 \, 1\.;
-#X msg 110 747 @paths;
-#X text 245 747 Get/Set user defined search paths. Type: list.;
-#X msg 110 776 @recursive;
-#X text 245 776 Get/Set perform async search in separate thread. Type:
-int. Default value: 0\. Allowed values: 0 \, 1\.;
+#X msg 110 747 @depth;
+#X text 245 747 Get/Set search recursion depth (-1: infinite). Type:
+int. Default value: 0\. Min value: -1\.;
+#X msg 110 789 @paths;
+#X text 245 789 Get/Set user defined search paths. Type: list.;
 #X msg 110 818 @sync;
 #X text 245 818 alias to @async 0\.;
 #X obj 20 857 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
