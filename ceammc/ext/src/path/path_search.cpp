@@ -99,30 +99,29 @@ static std::string searchFileTask(
     for (const auto& p : sys_paths) {
         CHECK_QUIT()
 
-        fs::path path(p);
-        if (path.is_absolute()) {
-            // abs search path not found
-            if (!ghc::filesystem::exists(path))
-                continue;
+        fs::path std_path(p);
 
-            path.append(file);
-            std::cerr << "trying standard path: " << path << "\n";
+        // only absolute standart paths are supported
+        if (!std_path.is_absolute() || !ghc::filesystem::exists(std_path))
+            continue;
 
-            if (ghc::filesystem::exists(path)) {
-                std::cerr << "found in standard: " << path << "\n";
-                return path.string();
-            } else if (relative_user_paths.size() > 0) {
-                for (const auto& rpath : relative_user_paths) {
-                    CHECK_QUIT()
+        std_path.append(file);
+        std::cerr << "trying standard path: " << std_path << "\n";
 
-                    ghc::filesystem::path path(p);
-                    path.append(rpath);
-                    path.append(file);
+        if (ghc::filesystem::exists(std_path)) {
+            std::cerr << "found in standard: " << std_path << "\n";
+            return std_path.string();
+        } else if (relative_user_paths.size() > 0) {
+            for (const auto& rpath : relative_user_paths) {
+                CHECK_QUIT()
 
-                    if (ghc::filesystem::exists(path)) {
-                        std::cerr << "found in relative: " << path << "\n";
-                        return path.string();
-                    }
+                ghc::filesystem::path path(p);
+                path.append(rpath);
+                path.append(file);
+
+                if (ghc::filesystem::exists(path)) {
+                    std::cerr << "found in relative: " << path << "\n";
+                    return path.string();
                 }
             }
         }
