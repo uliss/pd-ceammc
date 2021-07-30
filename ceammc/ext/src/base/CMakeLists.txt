@@ -20,6 +20,7 @@ set(BASE_SOURCES
     metro_seq.cpp
     msg.cpp
     msg_after.cpp
+    msg_sched.cpp
     obj_info.cpp
     obj_props.cpp
     patch_args.cpp

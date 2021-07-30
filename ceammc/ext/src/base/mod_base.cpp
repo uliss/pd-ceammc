@@ -16,6 +16,7 @@
 #include "metro_seq.h"
 #include "mix.h"
 #include "msg_after.h"
+#include "msg_sched.h"
 #include "obj_info.h"
 #include "obj_props.h"
 #include "patch_args.h"
@@ -101,6 +102,7 @@ void ceammc_base_setup()
     setup_metro_random();
     setup_metro_seq();
     setup_msg_after();
+    setup_msg_sched();
     setup_nsig_tilde();
     setup_obj_info();
     setup_obj_props();
