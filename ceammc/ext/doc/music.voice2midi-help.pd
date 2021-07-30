@@ -18,6 +18,7 @@
 #X obj 50 355 ui.dt;
 #X obj 50 384 music.voice2midi.notes;
 #X obj 290 384 music.voice2midi.oct;
+#X obj 530 384 music.voice2midi.dur;
 #X obj 50 412 music.voice2midi.alt;
 #X obj 290 412 music.voice2midi.micro;
 #X obj 20 461 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

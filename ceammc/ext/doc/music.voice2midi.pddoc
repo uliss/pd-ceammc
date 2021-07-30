@@ -43,7 +43,7 @@
 |
 [ui.dt]
 
-[music.voice2midi.notes] [music.voice2midi.oct]
+[music.voice2midi.notes] [music.voice2midi.oct]   [music.voice2midi.dur]
 
 [music.voice2midi.alt]   [music.voice2midi.micro]
 ]]>
@@ -60,6 +60,33 @@
             <pdascii id="alt">
 <![CDATA[
 [list C C# C## Eb Fbb(
+|
+[music.v->m]
+|
+[ui.dt]
+]]>
+            </pdascii>
+            <pdascii id="dur">
+<![CDATA[
+/*duration as denominator*/
+
+[list C|1 C|2 C|4 C|8 C|16 C|32 C|64 C|128 C|256(
+|
+[music.v->m]
+|
+[ui.dt]
+
+/*duration as ratio*/
+
+[list C|2/3 D|1/16(
+|
+[music.v->m]
+|
+[ui.dt]
+
+/*duration relative*/
+
+[list C|1 D|/2 E F|*2(
 |
 [music.v->m]
 |
