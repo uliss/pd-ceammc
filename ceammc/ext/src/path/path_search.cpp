@@ -72,22 +72,22 @@ static std::string searchFileTask(
     for (auto& p : user_paths) {
         CHECK_QUIT()
 
-        const fs::path user_path(p);
+        const fs::path user_dir(p);
 
-        if (user_path.is_absolute()) {
-            auto st = fs::status(user_path);
+        if (user_dir.is_absolute()) {
+            auto st = fs::status(user_dir);
             // abs search path not found
             if (!fs::is_directory(st))
                 continue;
 
-            const fs::path fpath = user_path / file;
+            const fs::path fpath = user_dir / file;
             std::cerr << "trying user path: " << fpath << "\n";
 
             if (fs::exists(fpath)) {
                 std::cerr << "found in user: " << fpath << "\n";
                 return fpath.string();
             } else if (search_recursive(search_depth)) {
-                auto res = searchRecursive(user_path, file, search_depth, quit);
+                auto res = searchRecursive(user_dir, file, search_depth, quit);
                 if (!res.empty())
                     return res.string();
             }
@@ -105,7 +105,7 @@ static std::string searchFileTask(
         fs::path std_dir(p);
 
         // only absolute standart paths are supported
-        if (!std_dir.is_absolute() || !ghc::filesystem::exists(std_dir))
+        if (!std_dir.is_absolute() || !fs::exists(std_dir))
             continue;
 
         const fs::path fname = std_dir / file;
@@ -115,16 +115,19 @@ static std::string searchFileTask(
             std::cerr << "found in standard: " << fname << "\n";
             return fname.string();
         } else if (relative_user_paths.size() > 0) {
-            for (const auto& rpath : relative_user_paths) {
+            for (const auto& rel_dir : relative_user_paths) {
                 CHECK_QUIT()
 
-                ghc::filesystem::path path(p);
-                path.append(rpath);
-                path.append(file);
+                const auto abs_dir = std_dir / rel_dir;
+                const auto fname = abs_dir / file;
 
-                if (ghc::filesystem::exists(path)) {
-                    std::cerr << "found in relative: " << path << "\n";
-                    return path.string();
+                if (fs::exists(fname)) {
+                    std::cerr << "found in relative: " << fname << "\n";
+                    return fname.string();
+                } else if (search_recursive(search_depth)) {
+                    auto res = searchRecursive(abs_dir, file, search_depth, quit);
+                    if (!res.empty())
+                        return res.string();
                 }
             }
         } else if (search_recursive(search_depth)) {
