@@ -48,8 +48,8 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>symbol: full file name</outlet>
-            <outlet>bang if file not found</outlet>
+            <outlet>symbol: fullfile name</outlet>
+            <outlet>bang if not found</outlet>
         </outlets>
         <example>
             <pdascii>
@@ -60,12 +60,12 @@
 |
 |  [S digits=30]
 |  |
-|  |  [@paths sound(
+|  |  [@paths ???( /*change search path*/
 |  |  |
-[path.search #z]
-|         ^|
-|         [B]
-|
+[path.search sound #z]
+|          ^|
+|          [B]/*not found*/
+|          |
 [ui.dt @size 500 35 @auto_size 0]
 
 [X a->z]
