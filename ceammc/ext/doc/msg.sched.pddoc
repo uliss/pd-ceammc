@@ -18,7 +18,7 @@
         </meta>
         <info>
             <par>First element of input list considered as delay time in milliseconds.</par>
-            <par>Other messages passed as is immidiately.</par>
+            <par>Other messages passed 'as is' immidiately.</par>
         </info>
         <inlets>
             <inlet>
@@ -43,11 +43,13 @@
         <example>
             <pdascii>
 <![CDATA[
-[@gate 1, 750 @gate 0(
+[@freq 100, @gate 1, 400 @freq 800, 600 @freq 200, 750 @gate 0(
+|
+|
 |
 [msg.sched]
 |
-[synth.dubdub~ @freq 110]
+[synth.dubdub~]
 |
 [ui.hgain~]     [ui.dsp~]
 |\
