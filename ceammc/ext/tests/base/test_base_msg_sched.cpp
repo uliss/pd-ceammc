@@ -26,6 +26,8 @@ TEST_CASE("msg.sched", "[extension]")
     SECTION("construct")
     {
         TExt t("msg.sched");
+        REQUIRE(t.numInlets() == 2);
+        REQUIRE(t.numOutlets() == 1);
     }
 
     SECTION("do")
@@ -68,6 +70,8 @@ TEST_CASE("msg.sched", "[extension]")
         t << LF(32, 32);
         t << LF(16, 16);
 
+        t->dump();
+
         REQUIRE_FALSE(t.hasOutputAt(0));
         t.schedTicks(16);
         REQUIRE(t.outputListAt(0) == LF(16));
@@ -79,5 +83,26 @@ TEST_CASE("msg.sched", "[extension]")
         REQUIRE_FALSE(t.hasOutputAt(0));
         t.schedTicks(16);
         REQUIRE(t.outputListAt(0) == LF(64));
+        t.clearAll();
+
+        t << LF(10, 1000);
+        t->proxy_bang();
+        REQUIRE_FALSE(t.hasOutputAt(0));
+        t.schedTicks(100);
+        REQUIRE_FALSE(t.hasOutputAt(0));
+        t.clearAll();
+
+        t << LF(10, 1000);
+        t->proxy_reset(L());
+        REQUIRE_FALSE(t.hasOutputAt(0));
+        t.schedTicks(100);
+        REQUIRE_FALSE(t.hasOutputAt(0));
+
+        t << LF(10, 1000);
+        t->proxy_flush(L());
+        REQUIRE(t.outputListAt(0) == LF(1000));
+        t.clearAll();
+        t.schedTicks(100);
+        REQUIRE_FALSE(t.hasOutputAt(0));
     }
 }

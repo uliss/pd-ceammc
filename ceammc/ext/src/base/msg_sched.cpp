@@ -21,6 +21,8 @@ MsgSched::MsgSched(const PdArgs& args)
         queue_.remove_if([](ClockLambdaFunction& c) { return !c.isActive(); });
     })
 {
+    inlet_new(owner(), &inlet_proxy_.x_obj, nullptr, nullptr);
+
     createOutlet();
 }
 
@@ -45,12 +47,12 @@ void MsgSched::proxy_bang()
     queue_.clear();
 }
 
-void MsgSched::proxy_flush(const AtomListView& lv)
+void MsgSched::proxy_reset(const AtomListView& lv)
 {
     queue_.clear();
 }
 
-void MsgSched::proxy_reset(const AtomListView& lv)
+void MsgSched::proxy_flush(const AtomListView& lv)
 {
     for (auto& event : queue_) {
         if (event.isActive())
