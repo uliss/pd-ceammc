@@ -28,6 +28,7 @@ extern "C" {
 namespace fs = ghc::filesystem;
 
 constexpr int RECURSIVE_INF = -1;
+static bool search_recursive(int depth) { return depth == RECURSIVE_INF || depth > 0; }
 
 static std::string searchFileTask(
     const std::vector<std::string>& user_paths,
@@ -36,9 +37,17 @@ static std::string searchFileTask(
     int search_depth,
     std::atomic_bool& quit)
 {
+#define CHECK_QUIT()   \
+    {                  \
+        if (quit)      \
+            return {}; \
+    }
+
     std::vector<std::string> relative_user_paths;
 
     for (auto& p : user_paths) {
+        CHECK_QUIT()
+
         const fs::path user_path(p);
 
         if (user_path.is_absolute()) {
@@ -53,7 +62,7 @@ static std::string searchFileTask(
             if (fs::exists(fpath)) {
                 std::cerr << "found in user: " << fpath << "\n";
                 return fpath.string();
-            } else if (search_depth == RECURSIVE_INF || search_depth > 0) {
+            } else if (search_recursive(search_depth)) {
                 auto it = fs::recursive_directory_iterator(user_path);
                 for (auto& entry : it) {
                     if (search_depth != RECURSIVE_INF && it.depth() >= search_depth) {
@@ -61,8 +70,7 @@ static std::string searchFileTask(
                         continue;
                     }
 
-                    if (quit)
-                        return {};
+                    CHECK_QUIT()
 
                     auto st = fs::status(entry);
                     if (!fs::is_directory(st))
@@ -85,8 +93,12 @@ static std::string searchFileTask(
         }
     }
 
+    CHECK_QUIT()
+
     // search in pd standard paths
     for (const auto& p : sys_paths) {
+        CHECK_QUIT()
+
         fs::path path(p);
         if (path.is_absolute()) {
             // abs search path not found
@@ -101,6 +113,8 @@ static std::string searchFileTask(
                 return path.string();
             } else if (relative_user_paths.size() > 0) {
                 for (const auto& rpath : relative_user_paths) {
+                    CHECK_QUIT()
+
                     ghc::filesystem::path path(p);
                     path.append(rpath);
                     path.append(file);
@@ -115,6 +129,8 @@ static std::string searchFileTask(
     }
 
     return {};
+
+#undef CHECK_QUIT
 }
 
 PathSearch::PathSearch(const PdArgs& args)
