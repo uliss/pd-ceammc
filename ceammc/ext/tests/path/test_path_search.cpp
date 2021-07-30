@@ -38,6 +38,8 @@ TEST_CASE("path.search", "[externals]")
             REQUIRE_PROPERTY(t, @async, 1);
             REQUIRE_PROPERTY(t, @depth, 0.);
             REQUIRE_PROPERTY(t, @paths, L());
+            REQUIRE_PROPERTY(t, @home, 1);
+            REQUIRE_PROPERTY(t, @std, 1);
         }
 
         SECTION("args")

@@ -133,7 +133,7 @@ static std::string searchFileTask(
                 }
             }
         } else if (search_recursive(search_depth)) {
-            // recursive search in relative user paths
+            // recursive search in standard user paths
             auto res = searchRecursive(std_dir, file, search_depth, quit);
             if (!res.empty())
                 return res.string();
@@ -149,6 +149,8 @@ PathSearch::PathSearch(const PdArgs& args)
     : PathAsyncBase(args)
     , paths_(nullptr)
     , depth_(nullptr)
+    , home_(nullptr)
+    , std_(nullptr)
     , search_stop_(false)
 {
     createOutlet();
@@ -161,6 +163,14 @@ PathSearch::PathSearch(const PdArgs& args)
     depth_ = new IntProperty("@depth", 0);
     depth_->checkMinEq(-1);
     addProperty(depth_);
+
+    home_ = new BoolProperty("@home", true);
+    addProperty(home_);
+    addProperty(new AliasProperty<BoolProperty>("@nohome", home_, false));
+
+    std_ = new BoolProperty("@std", true);
+    addProperty(std_);
+    addProperty(new AliasProperty<BoolProperty>("@nostd", std_, false));
 }
 
 PathSearch::~PathSearch()
@@ -220,12 +230,16 @@ PathSearch::FutureResult PathSearch::createTask()
         }
     }
 
-    // Pd search paths
-    for (auto p = STUFF->st_searchpath; p != nullptr; p = p->nl_next)
-        sys_paths.push_back(p->nl_string);
+    if (std_->value()) {
+        // Pd search paths
+        for (auto p = STUFF->st_searchpath; p != nullptr; p = p->nl_next)
+            sys_paths.push_back(p->nl_string);
+    }
 
-    // home directory
-    sys_paths.push_back(platform::home_directory());
+    if (home_->value()) {
+        // home directory
+        sys_paths.push_back(platform::home_directory());
+    }
 
     for (auto& s : user_paths)
         OBJ_DBG << "user_paths: " << s;
