@@ -5,77 +5,84 @@
 #X obj 1 1 cnv 5 765 40 empty empty path.search 20 20 0 20 -104026
 -4096 0;
 #X obj 661 11 path.search;
-#X obj 210 80 cnv 1 555 250 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 210 80 cnv 1 555 195 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 Searches file by name in user specified or PureData
 system paths.;
 #X text 215 120 Outputs first found file.;
 #X text 215 145 First searches in user defined paths \, then in current
 patch directory \, then in PureData system paths \, then in Home directory.;
 #X text 215 200 Home directory can be specified with '~' symbol;
-#X text 215 225 Note: recursive search can be performed only in uses
-defined path. To do recursive search in Home directory specify it explicitly
-in user paths;
-#X text 215 280 Note: by default search request is performed asynchronously
+#X text 215 225 Note: by default search request is performed asynchronously
 \, so a delay will occured between input and output;
-#X msg 50 358 symbol loop_breakbeat.flac;
-#X msg 50 387 symbol guitar1.wav;
-#X symbolatom 78 416 30 0 0 0 - - -;
-#X msg 107 445 @paths ???;
-#X text 232 445 change search path;
-#X obj 50 474 path.search sound;
-#X obj 155 502 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X msg 50 303 symbol loop_breakbeat.flac;
+#X msg 50 332 symbol guitar1.wav;
+#X symbolatom 78 361 30 0 0 0 - - -;
+#X msg 107 390 @paths ???;
+#X text 232 390 change search path;
+#X obj 50 419 path.search sound;
+#X obj 155 447 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X text 184 502 not found;
-#X obj 50 531 ui.dt @size 500 35 @auto_size 0;
-#X obj 20 580 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 585 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X text 184 447 not found;
+#X obj 50 476 ui.dt @size 500 35 @auto_size 0;
+#X obj 20 525 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 530 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 620 1\.;
-#X text 150 620 list;
-#X obj 246 621 cnv 1 46 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 620 PATHS: list of paths \, can be quoted to handle whitespace..
+#X text 110 565 1\.;
+#X text 150 565 list;
+#X obj 246 566 cnv 1 46 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 565 PATHS: list of paths \, can be quoted to handle whitespace..
 Type: list.;
-#X obj 20 665 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 670 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 20 610 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 615 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 705 @async;
-#X text 245 705 Get/Set perform async search in separate thread. Type:
+#X msg 110 650 @async;
+#X text 245 650 Get/Set perform async search in separate thread. Type:
 int. Default value: 1\. Allowed values: 0 \, 1\.;
-#X msg 110 747 @depth;
-#X text 245 747 Get/Set search recursion depth (-1: infinite). Type:
+#X msg 110 692 @depth;
+#X text 245 692 Get/Set search recursion depth (-1: infinite). Type:
 int. Default value: 0\. Min value: -1\.;
-#X msg 110 789 @paths;
-#X text 245 789 Get/Set user defined search paths. Type: list.;
-#X msg 110 818 @sync;
-#X text 245 818 alias to @async 0\.;
-#X obj 20 857 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 862 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X msg 110 734 @home;
+#X text 245 734 Get/Set search in home directory. Type: int. Default
+value: 1\. Allowed values: 0 \, 1\.;
+#X msg 110 776 @nohome;
+#X text 245 776 alias to @home 0 \, do not search in home directory.;
+#X msg 110 805 @nostd;
+#X text 245 805 alias to @std 0 \, do not search in standard dirs.;
+#X msg 110 834 @paths;
+#X text 245 834 Get/Set user defined search paths. Type: list.;
+#X msg 110 863 @std;
+#X text 245 863 Get/Set search in PureData standard directory. Type:
+int. Default value: 1\. Allowed values: 0 \, 1\.;
+#X msg 110 905 @sync;
+#X text 245 905 alias to @async 0\.;
+#X obj 20 944 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 949 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 897 cancel;
-#X text 245 897 cancel search process.;
-#X obj 20 934 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 939 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
-0;
-#X text 110 940 1\.;
-#X text 150 940 *symbol*;
-#X text 245 940 filename.;
-#X obj 20 970 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 975 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X msg 110 984 cancel;
+#X text 245 984 cancel search process.;
+#X obj 20 1021 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1026 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 976 1\.;
-#X text 245 976 symbol: fullfile name.;
-#X text 110 996 2\.;
-#X text 245 996 bang if not found.;
+#X text 110 1027 1\.;
+#X text 150 1027 *symbol*;
+#X text 245 1027 filename.;
+#X obj 20 1057 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1062 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+-49933 0;
+#X text 110 1063 1\.;
+#X text 245 1063 symbol: full filename.;
+#X text 110 1083 2\.;
+#X text 245 1083 bang: if not found.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title path @url ceammc.path-help.pd;
-#X obj 1 1046 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1049 library: ceammc v0.9.3;
-#X text 601 1061 see also:;
-#X obj 675 1061 file.size;
-#N canvas 10 1068 400 290 info 0;
+#X obj 1 1133 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1136 library: ceammc v0.9.3;
+#X text 601 1148 see also:;
+#X obj 675 1148 file.size;
+#N canvas 10 1155 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -99,11 +106,11 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1068 pd info;
-#X connect 12 0 16 0;
-#X connect 13 0 16 0;
-#X connect 14 0 16 0;
-#X connect 16 1 17 0;
-#X connect 16 0 19 0;
-#X connect 17 0 19 0;
-#X connect 11 0 16 0;
+#X restore 10 1155 pd info;
+#X connect 11 0 15 0;
+#X connect 12 0 15 0;
+#X connect 13 0 15 0;
+#X connect 15 1 16 0;
+#X connect 15 0 18 0;
+#X connect 16 0 18 0;
+#X connect 10 0 15 0;

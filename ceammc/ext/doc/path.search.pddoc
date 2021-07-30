@@ -22,8 +22,6 @@
             <par>First searches in user defined paths, then in current patch directory, then in
             PureData system paths, then in Home directory.</par>
             <par>Home directory can be specified with '~' symbol</par>
-            <par>Note: recursive search can be performed only in uses defined path. To do recursive
-            search in Home directory specify it explicitly in user paths</par>
             <par>Note: by default search request is performed asynchronously, so a delay will
             occured between input and output</par>
         </info>
@@ -41,6 +39,14 @@
             <property name="@depth" type="int" minvalue="-1" default="0">search recursion depth
             (-1: infinite)</property>
             <property name="@paths" type="list">user defined search paths</property>
+            <property name="@home" type="int" enum="0 1" default="1">search in home
+            directory</property>
+            <property name="@std" type="int" enum="0 1" default="1">search in PureData standard
+            directory</property>
+            <property name="@nohome" type="alias">alias to @home 0, do not search in home
+            directory</property>
+            <property name="@nostd" type="alias">alias to @std 0, do not search in standard
+            dirs</property>
         </properties>
         <inlets>
             <inlet>
@@ -48,8 +54,8 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>symbol: fullfile name</outlet>
-            <outlet>bang if not found</outlet>
+            <outlet>symbol: full filename</outlet>
+            <outlet>bang: if not found</outlet>
         </outlets>
         <example>
             <pdascii>
