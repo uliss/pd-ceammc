@@ -1485,6 +1485,9 @@
     <entry name="msg.onload" descr="send message when patch loads" ref_view="object">
       <xi:include href="msg.onload.pddoc" parse="xml"/>
     </entry>
+    <entry name="msg.sched" descr="message scheduler" ref_view="object">
+      <xi:include href="msg.sched.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="net">
     <entry name="net.host2ip" descr="returns IP address by DNS name" ref_view="object">

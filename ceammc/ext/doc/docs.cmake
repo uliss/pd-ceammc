@@ -481,6 +481,7 @@ set(DOC_FILES
     msg
     msg.after
     msg.onload
+    msg.sched
     music.dur2time
     music.voice2midi
     net.host2ip

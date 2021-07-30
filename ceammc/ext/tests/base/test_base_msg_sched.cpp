@@ -69,6 +69,11 @@ TEST_CASE("msg.sched", "[extension]")
         t.schedTicks(16);
         REQUIRE(t.outputListAt(0) == LF(1, 2, 3));
 
+        t << LA(10, "@prop", 1);
+        REQUIRE_FALSE(t.hasOutputAt(0));
+        t.schedTicks(16);
+        REQUIRE(t.outputAnyAt(0) == LA("@prop", 1));
+
         t << LF(64, 64);
         t << LF(32, 32);
         t << LF(16, 16);

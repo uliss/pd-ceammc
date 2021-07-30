@@ -45,6 +45,9 @@ public:
     void proxy_reset(const AtomListView& lv);
 
     void dump() const override;
+
+private:
+    void output(const AtomListView& lv);
 };
 
 void setup_msg_sched();

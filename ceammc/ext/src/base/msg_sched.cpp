@@ -33,13 +33,13 @@ void MsgSched::onList(const AtomList& lst)
 
         if (del_ms >= 0) {
             queue_.emplace_back([this, lst]() {
-                listTo(0, lst.view(1));
+                output(lst.view(1));
                 cleanup_.delay(0); // cleanup on next round to prevent self-destruction
             });
 
             queue_.back().delay(del_ms);
         } else
-            listTo(0, lst.view(1));
+            output(lst.view(1));
 
     } else
         listTo(0, lst);
@@ -67,6 +67,14 @@ void MsgSched::dump() const
 {
     BaseObject::dump();
     OBJ_POST << "number of scheduled events: " << queue_.size();
+}
+
+void MsgSched::output(const AtomListView& lv)
+{
+    if (lv.size() > 0 && lv[0].isSymbol())
+        anyTo(0, lv);
+    else
+        listTo(0, lv);
 }
 
 void setup_msg_sched()

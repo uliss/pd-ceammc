@@ -815,6 +815,7 @@ msg.after	send specified message after incoming message
 msg.onload	send message when patch loads
 ceammc/loadmsg	send message when patch loads
 loadmsg	send message when patch loads
+msg.sched	message scheduler
 net.host2ip	returns IP address by DNS name
 net.host->ip	returns IP address by DNS name
 noise.baker	Part of a-chaos library

@@ -479,6 +479,7 @@ modplug~,ceammc/modplug~		.		~~
 msg,ceammc/msg,ceammc/m,m,ceammc/prepend,prepend		..		.
 msg.after		..		.
 msg.onload,ceammc/loadmsg,loadmsg		-		.
+msg.sched		..		.
 music.dur2time,music.d->t		.		.
 music.voice2midi,music.v->m		.		.
 net.host2ip,net.host->ip		.		.
