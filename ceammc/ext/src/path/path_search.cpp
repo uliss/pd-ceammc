@@ -30,6 +30,30 @@ namespace fs = ghc::filesystem;
 constexpr int RECURSIVE_INF = -1;
 static bool search_recursive(int depth) { return depth == RECURSIVE_INF || depth > 0; }
 
+static fs::path searchRecursive(const fs::path& dir, const fs::path& name, int depth, std::atomic_bool& quit)
+{
+    auto it = fs::recursive_directory_iterator(dir);
+    for (auto& entry : it) {
+        if (quit)
+            return {};
+
+        if (depth != RECURSIVE_INF && it.depth() >= depth) {
+            it.disable_recursion_pending();
+            continue;
+        }
+
+        auto st = fs::status(entry);
+        if (!fs::is_directory(st))
+            continue;
+
+        const fs::path fpath = entry / name;
+        if (fs::exists(fpath))
+            return fpath.string();
+    }
+
+    return {};
+}
+
 static std::string searchFileTask(
     const std::vector<std::string>& user_paths,
     const std::vector<std::string>& sys_paths,
@@ -63,30 +87,9 @@ static std::string searchFileTask(
                 std::cerr << "found in user: " << fpath << "\n";
                 return fpath.string();
             } else if (search_recursive(search_depth)) {
-                auto it = fs::recursive_directory_iterator(user_path);
-                for (auto& entry : it) {
-                    if (search_depth != RECURSIVE_INF && it.depth() >= search_depth) {
-                        it.disable_recursion_pending();
-                        continue;
-                    }
-
-                    CHECK_QUIT()
-
-                    auto st = fs::status(entry);
-                    if (!fs::is_directory(st))
-                        continue;
-
-                    const fs::path fpath = entry / file;
-
-#ifndef NDEBUG
-                    std::cerr << "trying user recursive path: " << fpath << "\n";
-#endif
-
-                    if (fs::exists(fpath)) {
-                        std::cerr << "found in user recursive: " << fpath << "\n";
-                        return fpath.string();
-                    }
-                }
+                auto res = searchRecursive(user_path, file, search_depth, quit);
+                if (!res.empty())
+                    return res.string();
             }
         } else {
             relative_user_paths.push_back(p);
@@ -124,6 +127,10 @@ static std::string searchFileTask(
                     return path.string();
                 }
             }
+        } else if (search_recursive(search_depth)) {
+            auto res = searchRecursive(std_dir, file, search_depth, quit);
+            if (!res.empty())
+                return res.string();
         }
     }
 
