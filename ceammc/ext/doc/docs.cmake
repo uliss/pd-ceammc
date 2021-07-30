@@ -554,6 +554,7 @@ set(DOC_FILES
     proto.firmata
     proto.midi
     proto.midi.cc
+    proto.midi.sysex
     proto.mpv
     proto.xtouch_ext
     proto.sp.alpaca

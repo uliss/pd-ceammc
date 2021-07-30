@@ -25,7 +25,8 @@
   - path.normalize: file path normalization
   - path.search: file search added
   - path.split: split filename to dirname and basename
-  - proto.midi.cc: parser for MIDI control change messages
+  - proto.midi.cc: parser and composer for MIDI control change messages
+  - proto.midi.sysex: parser and composer for MIDI SysEx messages
   - samp.time~: sample counter added (with samp.t~ alias)
   - sfizz~: SFZ 2.0 format sample player
   - spat.zita8~: 8-channel spat reverb added

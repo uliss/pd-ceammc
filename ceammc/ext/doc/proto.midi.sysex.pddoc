@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="proto.midi.sysex">
+        <title>proto.midi.sysex</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>raw midi SYSex encoder/parser</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>proto</category>
+            <keywords>parser midi</keywords>
+            <since>0.9.4</since>
+        </meta>
+        <methods>
+            <method name="mvolume">adjusts a device's master
+            <param type="float" minvalue="0" maxvalue="1" required="true" name="LEVEL">
+            volume level</param>
+            </method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="float">raw midi input bytes</xinfo>
+                <xinfo on="list">raw midi input bytes</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>float: raw midi output or parsed messages with selector (output format is the
+            same as for corresponding methods)</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[proto.midi.sysex.mvol]
+]]>
+            </pdascii>
+            <pdascii id="mvol">
+<![CDATA[
+[ui.midi]
+
+[midiin]  [ui.hsl]
+|         |
+|         [mvolume $1(
+|         |
+[proto.midi.sysex]
+|
+[midiout]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
