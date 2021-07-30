@@ -22,6 +22,8 @@
   - msg.sched: message scheduler added
   - music.dur2time: duration syntax (1/4, 2., etc.) to time converter added (with music.d->t alias)
   - music.voice2midi: single voice syntax (C, F#5, Ab(-30c), D|1/4., etc.) to midi pitch converter added (with music.v->m alias)
+  - path.search: file search added
+  - path.split: split filename to dirname and basename
   - proto.midi.cc: parser for MIDI control change messages
   - samp.time~: sample counter added (with samp.t~ alias)
   - sfizz~: SFZ 2.0 format sample player

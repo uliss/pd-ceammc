@@ -45,4 +45,11 @@ void setup_path_split()
 {
     ObjectFactory<PathSplit> obj("path.split");
     obj.processData<DataTypeString>();
+
+    obj.setXletsInfo({ "symbol: path\n"
+                       "data:string: path" },
+        { "symbol: dirname\n"
+          "data:string: dirname",
+            "symbol: basename\n"
+            "data:string: basename" });
 }
