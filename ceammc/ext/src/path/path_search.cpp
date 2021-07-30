@@ -111,7 +111,7 @@ static std::string searchFileTask(
         const fs::path fname = std_dir / file;
         std::cerr << "trying standard path: " << fname << "\n";
 
-        if (ghc::filesystem::exists(fname)) {
+        if (fs::exists(fname)) {
             std::cerr << "found in standard: " << fname << "\n";
             return fname.string();
         } else if (relative_user_paths.size() > 0) {
