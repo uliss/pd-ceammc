@@ -17,7 +17,6 @@
 #include "proto_midi_parser.h"
 
 constexpr const char* MASTER_BALANCE_FLOAT = "mbal:f";
-constexpr const char* MASTER_BALANCE_INT = "mbal:i";
 
 constexpr const char* MASTER_TUNING_COARSE = "mtune~";
 constexpr const char* MASTER_TUNING_FINE = "mtune.";
