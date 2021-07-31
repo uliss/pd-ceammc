@@ -98,6 +98,47 @@ public:
 
         return res;
     }
+
+    static std::array<uint8_t, 13> setChorusType(int t)
+    {
+        std::array<uint8_t, 13> res {
+            SYSEX,
+            SYSEX_ID_UNIVERSAL_RT,
+            SYSEX_DEVICE_BROADCAST,
+            SUBID1_DEV_CONTROL,
+            SUBID2_GLOBAL_PARAM,
+            0x1,
+            0x1,
+            0x1,
+            0x1,
+            0x2,
+            0x0,
+            0x0,
+            EOX,
+        };
+
+        auto* p = &res[11];
+
+        switch (t) {
+        case 1:
+            *p = 0x0;
+            break;
+        case 2:
+            *p = 0x2;
+            break;
+        case 3:
+            *p = 0xA;
+            break;
+        case 4:
+            *p = 0xB;
+            break;
+        default:
+            *p = 0x0;
+            break;
+        }
+
+        return res;
+    }
 };
 
 ProtoMidiCasio::ProtoMidiCasio(const PdArgs& args)
@@ -138,10 +179,26 @@ void ProtoMidiCasio::m_reverb_time(t_symbol* s, const AtomListView& lv)
         METHOD_ERR(s) << "model not supported: " << model_->value();
 }
 
+void ProtoMidiCasio::m_chorus_type(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_INT)) {
+        METHOD_ERR(s) << "chorus type expected, got: " << lv;
+        return;
+    }
+
+    if (model_->value() == gensym(PRIVIA_PX160)) {
+        const auto data = PX160::setChorusType(lv[0].asInt());
+        output(data);
+    } else
+        METHOD_ERR(s) << "model not supported: " << model_->value();
+}
+
 void setup_proto_midi_casio()
 {
     ObjectFactory<ProtoMidiCasio> obj("proto.midi.casio");
 
     obj.addMethod("revtype", &ProtoMidiCasio::m_reverb_type);
     obj.addMethod("revtime", &ProtoMidiCasio::m_reverb_time);
+
+    obj.addMethod("chorustype", &ProtoMidiCasio::m_chorus_type);
 }
