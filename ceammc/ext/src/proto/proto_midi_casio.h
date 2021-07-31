@@ -34,6 +34,10 @@ public:
     void m_reverb_time(t_symbol* s, const AtomListView& lv);
 
     void m_chorus_type(t_symbol* s, const AtomListView& lv);
+    void m_chorus_rate(t_symbol* s, const AtomListView& lv);
+    void m_chorus_depth(t_symbol* s, const AtomListView& lv);
+    void m_chorus_fb(t_symbol* s, const AtomListView& lv);
+    void m_chorus_send(t_symbol* s, const AtomListView& lv);
 
 private:
     template <typename T>
