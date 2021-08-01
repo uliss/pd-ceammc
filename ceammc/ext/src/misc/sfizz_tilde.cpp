@@ -15,6 +15,7 @@
 #include "ceammc_args.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
+#include "midi/midi_names.h"
 #include "proto/proto_midi_cc.h"
 #include "proto/proto_midi_cc_rpn_parser.h"
 
@@ -619,8 +620,8 @@ void setup_misc_sfizz_tilde()
     obj.addMethod("bend:f", &SfizzTilde::m_bend_float);
     obj.addMethod("bendsens", &SfizzTilde::m_set_bend_sens);
 
-    obj.addMethod("notes_off", &SfizzTilde::m_notesOff);
-    obj.addMethod("sounds_off", &SfizzTilde::m_soundsOff);
+    obj.addMethod(M_ALL_NOTES_OFF, &SfizzTilde::m_notesOff);
+    obj.addMethod(M_ALL_SOUND_OFF, &SfizzTilde::m_soundsOff);
 
     obj.addMethod("tunesel", &SfizzTilde::m_tune_select);
     obj.addMethod("tune:12", &SfizzTilde::m_tune_octave);
