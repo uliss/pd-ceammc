@@ -21,11 +21,6 @@
 #include <cmath>
 #include <utility>
 
-constexpr const char* SEL_BANK_SELECT_MSB = "banksel:msb";
-constexpr const char* SEL_BANK_SELECT_LSB = "banksel:lsb";
-constexpr const char* SEL_BANK_SELECT_INT = "banksel:i";
-constexpr const char* SEL_BANK_SELECT = "banksel";
-
 constexpr const char* SEL_MOD_WHEEL_COARSE = "modwheel~";
 constexpr const char* SEL_PAN_POSITION_INT = "pan:i";
 constexpr const char* SEL_PAN_POSITION_FLOAT = "pan:f";
@@ -443,6 +438,75 @@ void ProtoMidiCC::m_all_soundsOff(t_symbol* s, const AtomListView& lv)
     sendCCEnd();
 }
 
+void ProtoMidiCC::m_volume_coarse(t_symbol* s, const AtomListView& lv)
+{
+    auto usage = [&]() { METHOD_ERR(s) << "usage: CHAN VALUE, got: " << lv; };
+
+    if (!checkArgs(lv, ARG_INT, ARG_BYTE)) {
+        usage();
+        return;
+    }
+
+    int chan = lv[0].asInt();
+    int v = lv[1].asInt();
+
+    if (!checkChan(chan)) {
+        usage();
+        return;
+    }
+
+    sendCCBegin();
+    sendCC(chan, CC_VOLUME_COARSE, v & 0x7F);
+    sendCCEnd();
+}
+
+void ProtoMidiCC::m_volume_fine(t_symbol* s, const AtomListView& lv)
+{
+    auto usage = [&]() { METHOD_ERR(s) << "usage: CHAN VALUE, got: " << lv; };
+
+    if (!checkArgs(lv, ARG_INT, ARG_BYTE)) {
+        usage();
+        return;
+    }
+
+    int chan = lv[0].asInt();
+    int v = lv[1].asInt();
+
+    if (!checkChan(chan)) {
+        usage();
+        return;
+    }
+
+    sendCCBegin();
+    sendCC(chan, CC_VOLUME_FINE, v & 0x7F);
+    sendCCEnd();
+}
+
+void ProtoMidiCC::m_volume_float(t_symbol* s, const AtomListView& lv)
+{
+    auto usage = [&]() { METHOD_ERR(s) << "usage: CHAN VALUE, got: " << lv; };
+
+    if (!checkArgs(lv, ARG_INT, ARG_FLOAT)) {
+        usage();
+        return;
+    }
+
+    int chan = lv[0].asInt();
+    int v = convert::lin2lin_clip<t_float, 0, 1>(lv[1].asFloat(), 0, 0x3FFF);
+
+    if (!checkChan(chan)) {
+        usage();
+        return;
+    }
+
+    sendCCBegin();
+    sendCC(chan, CC_VOLUME_COARSE, (v >> 7) & 0x7F);
+    sendCCEnd();
+    sendCCBegin();
+    sendCC(chan, CC_VOLUME_FINE, v & 0x7F);
+    sendCCEnd();
+}
+
 void ProtoMidiCC::m_all_notesOff(t_symbol* s, const AtomListView& lv)
 {
     auto usage = [&]() { METHOD_ERR(s) << "usage: CHAN, got: " << lv; };
@@ -524,6 +588,18 @@ void ProtoMidiCC::onCC(int chan, int cc, int v)
         Atom data(chan);
         return anyTo(0, gensym(M_ALL_SOUND_OFF), AtomListView(data));
     }
+    case CC_VOLUME_COARSE: {
+        vol0_ = v;
+        handleVolumeCoarse(chan);
+        handleVolume(chan);
+        return;
+    }
+    case CC_VOLUME_FINE: {
+        vol0_ = v;
+        handleVolumeFine(chan);
+        handleVolume(chan);
+        return;
+    }
     case CC_RPN_COARSE:
     case CC_RPN_FINE:
     case CC_DATA_ENTRY_COARSE:
@@ -573,20 +649,39 @@ void ProtoMidiCC::sendCC(int chan, int cc, int v)
 void ProtoMidiCC::handleBankSelectMsb(int chan)
 {
     const Atom data[2] = { chan, banksel0_ };
-    anyTo(0, gensym(SEL_BANK_SELECT_MSB), AtomListView(data, 2));
+    anyTo(0, gensym(M_BANK_SELECT_MSB), AtomListView(data, 2));
 }
 
 void ProtoMidiCC::handleBankSelectLsb(int chan)
 {
     const Atom data[2] = { chan, banksel1_ };
-    anyTo(0, gensym(SEL_BANK_SELECT_LSB), AtomListView(data, 2));
+    anyTo(0, gensym(M_BANK_SELECT_LSB), AtomListView(data, 2));
 }
 
 void ProtoMidiCC::handleBankSelect(int chan)
 {
     const int val14bit = (pan_pos0_ << 7) | pan_pos1_;
     Atom data[2] = { chan, val14bit };
-    anyTo(0, gensym(SEL_BANK_SELECT), AtomListView(data, 2));
+    anyTo(0, gensym(M_BANK_SELECT), AtomListView(data, 2));
+}
+
+void ProtoMidiCC::handleVolumeCoarse(int chan)
+{
+    const Atom data[2] = { chan, vol0_ };
+    anyTo(0, gensym(M_CC_VOLUME_COARSE), AtomListView(data, 2));
+}
+
+void ProtoMidiCC::handleVolumeFine(int chan)
+{
+    const Atom data[2] = { chan, vol1_ };
+    anyTo(0, gensym(M_CC_VOLUME_FINE), AtomListView(data, 2));
+}
+
+void ProtoMidiCC::handleVolume(int chan)
+{
+    const t_float vol = convert::lin2lin<t_float, 0, 0x3FFF>((vol0_ << 7) | vol1_, 0, 1);
+    const Atom data[2] = { chan, vol };
+    anyTo(0, gensym(M_CC_VOLUME_FLOAT), AtomListView(data, 2));
 }
 
 void ProtoMidiCC::sendTuneFine(float cents, int chan)
@@ -689,14 +784,18 @@ void setup_proto_midi_cc()
     obj.addMethod(SEL_PAN_POSITION_FLOAT, &ProtoMidiCC::m_pan_float);
     obj.addMethod(SEL_PAN_POSITION_INT, &ProtoMidiCC::m_pan_int);
 
-    obj.addMethod(SEL_BANK_SELECT_MSB, &ProtoMidiCC::m_banksel_msb);
-    obj.addMethod(SEL_BANK_SELECT_LSB, &ProtoMidiCC::m_banksel_lsb);
-    obj.addMethod(SEL_BANK_SELECT_INT, &ProtoMidiCC::m_banksel_int);
-    obj.addMethod(SEL_BANK_SELECT, &ProtoMidiCC::m_banksel_int);
-
     obj.addMethod(SEL_HOLD_PEDAL, &ProtoMidiCC::m_hold_pedal);
     obj.addMethod(SEL_SOSTENUTO_PEDAL, &ProtoMidiCC::m_sostenuto_pedal);
 
+    obj.addMethod(M_BANK_SELECT_MSB, &ProtoMidiCC::m_banksel_msb);
+    obj.addMethod(M_BANK_SELECT_LSB, &ProtoMidiCC::m_banksel_lsb);
+    obj.addMethod(M_BANK_SELECT_INT, &ProtoMidiCC::m_banksel_int);
+    obj.addMethod(M_BANK_SELECT, &ProtoMidiCC::m_banksel_int);
+
     obj.addMethod(M_ALL_NOTES_OFF, &ProtoMidiCC::m_all_notesOff);
     obj.addMethod(M_ALL_SOUND_OFF, &ProtoMidiCC::m_all_soundsOff);
+
+    obj.addMethod(M_CC_VOLUME_COARSE, &ProtoMidiCC::m_volume_coarse);
+    obj.addMethod(M_CC_VOLUME_FINE, &ProtoMidiCC::m_volume_fine);
+    obj.addMethod(M_CC_VOLUME_FLOAT, &ProtoMidiCC::m_volume_float);
 }

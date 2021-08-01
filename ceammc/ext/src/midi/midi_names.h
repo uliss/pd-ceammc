@@ -19,6 +19,15 @@ namespace ceammc {
 constexpr const char* M_ALL_NOTES_OFF = "notes_off";
 constexpr const char* M_ALL_SOUND_OFF = "sounds_off";
 
+constexpr const char* M_CC_VOLUME_COARSE = "volume~";
+constexpr const char* M_CC_VOLUME_FINE = "volume.";
+constexpr const char* M_CC_VOLUME_FLOAT = "volume:f";
+
+constexpr const char* M_BANK_SELECT_MSB = "bank:msb";
+constexpr const char* M_BANK_SELECT_LSB = "bank:lsb";
+constexpr const char* M_BANK_SELECT_INT = "bank:i";
+constexpr const char* M_BANK_SELECT = "bank";
+
 }
 
 #endif // MIDI_NAMES_H

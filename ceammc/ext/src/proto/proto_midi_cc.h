@@ -23,10 +23,13 @@ using namespace ceammc;
 
 enum {
     CC_BANK_SELECT_MSB = 0,
-    CC_BANK_SELECT_LSB = 32,
     CC_MOD_WHEEL_COARSE = 1,
+    CC_PORTAMENTO = 5,
+    CC_VOLUME_COARSE = 7,
     //
     CC_PAN_POSITION_COARSE = 10,
+    CC_BANK_SELECT_LSB = 32,
+    CC_VOLUME_FINE = 39,
     CC_PAN_POSITION_FINE = 42,
     CC_HOLD_PEDAL = 64,
     CC_SOSTENUTO_PEDAL = 66,
@@ -52,6 +55,7 @@ class ProtoMidiCC : public BaseObject {
     uint8_t pan_pos0_, pan_pos1_;
     uint8_t rpn0_, rpn1_;
     uint8_t banksel0_, banksel1_;
+    uint8_t vol0_, vol1_;
 
 public:
     ProtoMidiCC(const PdArgs& args);
@@ -82,6 +86,10 @@ public:
     void m_all_notesOff(t_symbol* s, const AtomListView& lv);
     void m_all_soundsOff(t_symbol* s, const AtomListView& lv);
 
+    void m_volume_coarse(t_symbol* s, const AtomListView& lv);
+    void m_volume_fine(t_symbol* s, const AtomListView& lv);
+    void m_volume_float(t_symbol* s, const AtomListView& lv);
+
 public:
     static std::pair<uint8_t, uint8_t> panToBit14(t_float v);
     static t_float bit14ToPan(uint8_t msb, uint8_t lsb);
@@ -95,6 +103,10 @@ private:
     void handleBankSelectMsb(int chan);
     void handleBankSelectLsb(int chan);
     void handleBankSelect(int chan);
+
+    void handleVolumeCoarse(int chan);
+    void handleVolumeFine(int chan);
+    void handleVolume(int chan);
 
     void sendTuneFine(float cents, int chan = 0);
     void sendTuneCoarse(int semi, int chan = 0);
