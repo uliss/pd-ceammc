@@ -1,10 +1,10 @@
 #N canvas 0 0 524 328 12;
 #X obj 20 48 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 221 48 ui.k @min -1 @max 1 @show_value 1;
+#X obj 221 48 ui.k @min 0 @max 1 @show_value 1;
 #X obj 20 77 metro 250;
 #X msg 20 106 80;
 #X obj 20 135 makenote 127 50;
-#X msg 221 135 pan:f 0 \$1;
+#X msg 221 135 volume:f 0 \$1;
 #X obj 20 164 pack f f;
 #X obj 221 164 proto.midi.cc;
 #X obj 20 192 msg note;

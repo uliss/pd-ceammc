@@ -33,6 +33,22 @@
             <method name="pan:i">send Pan CC message. Args: CHAN PAN(0..0x3fff) or CHAN MSB(0..127)
             LSB(0..127). In case of 14 bit value 0 means left, 0x2000: center and 0x3fff:
             right</method>
+            <!-- volume messages -->
+            <method name="volume:f">send CC Volume messages (coarse and fine)
+            <param type="int" minvalue="0" maxvalue="15" required="true" name="CHAN">midi
+            channel</param>
+            <param type="float" minvalue="0" maxvalue="1" required="true" name="PAN">volume value
+            </param></method>
+            <method name="volume~">send coarse CC Volume message
+            <param type="int" minvalue="0" maxvalue="15" required="true" name="CHAN">midi
+            channel</param>
+            <param type="int" minvalue="0" maxvalue="127" required="true" name="PAN">pan
+            value</param></method>
+            <method name="volume.">send fine CC Volume message
+            <param type="int" minvalue="0" maxvalue="15" required="true" name="CHAN">midi
+            channel</param>
+            <param type="int" minvalue="0" maxvalue="127" required="true" name="PAN">pan
+            value</param></method>
             <!-- -->
         </methods>
         <inlets>
@@ -49,6 +65,8 @@
             <pdascii>
 <![CDATA[
 [proto.midi.cc.pan]
+
+[proto.midi.cc.vol]
 ]]>
             </pdascii>
             <pdascii id="pan">
@@ -59,7 +77,28 @@
 |                    |
 [80(                 |
 |                    |
-[makenote 127 50]   [pan:f 0 $1(
+[makenote 127 50]    [pan:f 0 $1(
+*|*                  |
+[pack f f]           [proto.midi.cc]
+|                    |
+[msg note]           [msg midi]
+|                    |
+[fluid~              ]
+*|*
+[ui.hgain2~]   [ui.dsp~]
+*|*
+[dac~]
+]]>
+            </pdascii>
+            <pdascii id="vol">
+<![CDATA[
+[T]                  [ui.k @min 0 @max 1 @show_value 1]
+|                    |
+[metro 250]          |
+|                    |
+[80(                 |
+|                    |
+[makenote 127 50]    [volume:f 0 $1(
 *|*                  |
 [pack f f]           [proto.midi.cc]
 |                    |
