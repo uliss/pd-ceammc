@@ -20,6 +20,7 @@
 #include "proto/proto_midi_cc.h"
 
 #include "fluidsynth.h"
+#include "midi/midi_names.h"
 #include "sfloader/fluid_sfont.h"
 
 #define PROP_ERR() LogPdObject(owner(), LOG_ERROR).stream() << errorPrefix()
@@ -1017,8 +1018,8 @@ void setup_misc_fluid()
     obj.addMethod("gen", &Fluid::m_gen);
     obj.addMethod("panic", &Fluid::m_panic);
     obj.addMethod("reset", &Fluid::m_reset);
-    obj.addMethod("notes_off", &Fluid::m_notesOff);
-    obj.addMethod("sounds_off", &Fluid::m_soundsOff);
+    obj.addMethod(M_ALL_NOTES_OFF, &Fluid::m_notesOff);
+    obj.addMethod(M_ALL_SOUND_OFF, &Fluid::m_soundsOff);
     obj.addMethod("sysex", &Fluid::m_sysex);
     obj.addMethod("midi", &Fluid::m_midi);
 
