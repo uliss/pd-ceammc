@@ -507,6 +507,28 @@ void ProtoMidiCC::m_volume_float(t_symbol* s, const AtomListView& lv)
     sendCCEnd();
 }
 
+void ProtoMidiCC::m_portamento_switch(t_symbol* s, const AtomListView& lv)
+{
+    auto usage = [&]() { METHOD_ERR(s) << "usage: CHAN VALUE(0|1), got: " << lv; };
+
+    if (!checkArgs(lv, ARG_INT, ARG_BOOL)) {
+        usage();
+        return;
+    }
+
+    int chan = lv[0].asInt();
+    int on = lv[1].asBool();
+
+    if (!checkChan(chan)) {
+        usage();
+        return;
+    }
+
+    sendCCBegin();
+    sendCC(chan, CC_PORTAMENO_SWITCH, on ? 127 : 0);
+    sendCCEnd();
+}
+
 void ProtoMidiCC::m_all_notesOff(t_symbol* s, const AtomListView& lv)
 {
     auto usage = [&]() { METHOD_ERR(s) << "usage: CHAN, got: " << lv; };
@@ -575,6 +597,10 @@ void ProtoMidiCC::onCC(int chan, int cc, int v)
     case CC_HOLD_PEDAL: {
         Atom data[2] = { chan, v > 63 };
         return anyTo(0, gensym(SEL_HOLD_PEDAL), AtomListView(data, 2));
+    }
+    case CC_PORTAMENO_SWITCH: {
+        Atom data[2] = { chan, v > 63 };
+        return anyTo(0, gensym(M_PORTAMENTO_SWITCH), AtomListView(data, 2));
     }
     case CC_SOSTENUTO_PEDAL: {
         Atom data[2] = { chan, v > 63 };
@@ -798,4 +824,6 @@ void setup_proto_midi_cc()
     obj.addMethod(M_CC_VOLUME_COARSE, &ProtoMidiCC::m_volume_coarse);
     obj.addMethod(M_CC_VOLUME_FINE, &ProtoMidiCC::m_volume_fine);
     obj.addMethod(M_CC_VOLUME_FLOAT, &ProtoMidiCC::m_volume_float);
+
+    obj.addMethod(M_PORTAMENTO_SWITCH, &ProtoMidiCC::m_portamento_switch);
 }

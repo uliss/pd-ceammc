@@ -32,6 +32,7 @@ enum {
     CC_VOLUME_FINE = 39,
     CC_PAN_POSITION_FINE = 42,
     CC_HOLD_PEDAL = 64,
+    CC_PORTAMENO_SWITCH = 65,
     CC_SOSTENUTO_PEDAL = 66,
     CC_SOFT_PEDAL = 67,
     CC_LEGATO_PEDAL = 67,
@@ -89,6 +90,8 @@ public:
     void m_volume_coarse(t_symbol* s, const AtomListView& lv);
     void m_volume_fine(t_symbol* s, const AtomListView& lv);
     void m_volume_float(t_symbol* s, const AtomListView& lv);
+
+    void m_portamento_switch(t_symbol* s, const AtomListView& lv);
 
 public:
     static std::pair<uint8_t, uint8_t> panToBit14(t_float v);

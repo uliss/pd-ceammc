@@ -28,6 +28,8 @@ constexpr const char* M_BANK_SELECT_LSB = "bank:lsb";
 constexpr const char* M_BANK_SELECT_INT = "bank:i";
 constexpr const char* M_BANK_SELECT = "bank";
 
+constexpr const char* M_PORTAMENTO_SWITCH = "portamento";
+
 }
 
 #endif // MIDI_NAMES_H
