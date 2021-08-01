@@ -16,10 +16,16 @@
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 
+#include "midi_names.h"
+
 #include <cmath>
 #include <utility>
 
-constexpr const char* SEL_BANK_SELECT = "bankselect";
+constexpr const char* SEL_BANK_SELECT_MSB = "banksel:msb";
+constexpr const char* SEL_BANK_SELECT_LSB = "banksel:lsb";
+constexpr const char* SEL_BANK_SELECT_INT = "banksel:i";
+constexpr const char* SEL_BANK_SELECT = "banksel";
+
 constexpr const char* SEL_MOD_WHEEL_COARSE = "modwheel~";
 constexpr const char* SEL_PAN_POSITION_INT = "pan:i";
 constexpr const char* SEL_PAN_POSITION_FLOAT = "pan:f";
@@ -39,6 +45,8 @@ ProtoMidiCC::ProtoMidiCC(const PdArgs& args)
     , pan_pos1_(0)
     , rpn0_(0)
     , rpn1_(0)
+    , banksel0_(0)
+    , banksel1_(0)
 {
     createOutlet();
 
@@ -306,6 +314,75 @@ void ProtoMidiCC::m_pan_int(t_symbol* s, const AtomListView& lv)
     sendCCEnd();
 }
 
+void ProtoMidiCC::m_banksel_msb(t_symbol* s, const AtomListView& lv)
+{
+    auto usage = [&]() { METHOD_ERR(s) << "usage: CHAN BANK_MSB, got: " << lv; };
+
+    if (!checkArgs(lv, ARG_INT, ARG_BYTE)) {
+        usage();
+        return;
+    }
+
+    int chan = lv[0].asInt();
+    int msb = lv[1].asInt();
+
+    if (!checkChan(chan) || msb < 0 || msb > 0x7F) {
+        usage();
+        return;
+    }
+
+    sendCCBegin();
+    sendCC(chan, CC_BANK_SELECT_MSB, msb);
+    sendCCEnd();
+}
+
+void ProtoMidiCC::m_banksel_lsb(t_symbol* s, const AtomListView& lv)
+{
+    auto usage = [&]() { METHOD_ERR(s) << "usage: CHAN BANK_LSB, got: " << lv; };
+
+    if (!checkArgs(lv, ARG_INT, ARG_BYTE)) {
+        usage();
+        return;
+    }
+
+    int chan = lv[0].asInt();
+    int lsb = lv[1].asInt();
+
+    if (!checkChan(chan) || lsb < 0 || lsb > 0x7F) {
+        usage();
+        return;
+    }
+
+    sendCCBegin();
+    sendCC(chan, CC_BANK_SELECT_LSB, lsb);
+    sendCCEnd();
+}
+
+void ProtoMidiCC::m_banksel_int(t_symbol* s, const AtomListView& lv)
+{
+    auto usage = [&]() { METHOD_ERR(s) << "usage: CHAN BANK, got: " << lv; };
+
+    if (!checkArgs(lv, ARG_INT, ARG_INT)) {
+        usage();
+        return;
+    }
+
+    int chan = lv[0].asInt();
+    int val = lv[1].asInt();
+
+    if (!checkChan(chan) || val < 0 || val > 0x3FFF) {
+        usage();
+        return;
+    }
+
+    sendCCBegin();
+    sendCC(chan, CC_BANK_SELECT_MSB, (val >> 7) & 0x7F);
+    sendCCEnd();
+    sendCCBegin();
+    sendCC(chan, CC_BANK_SELECT_LSB, (val & 0x7F));
+    sendCCEnd();
+}
+
 void ProtoMidiCC::m_hold_pedal(t_symbol* s, const AtomListView& lv)
 {
     auto usage = [&]() { METHOD_ERR(s) << "usage: CHAN VALUE(0|1), got: " << lv; };
@@ -350,6 +427,38 @@ void ProtoMidiCC::m_sostenuto_pedal(t_symbol* s, const AtomListView& lv)
     sendCCEnd();
 }
 
+void ProtoMidiCC::m_all_soundsOff(t_symbol* s, const AtomListView& lv)
+{
+    auto usage = [&]() { METHOD_ERR(s) << "usage: CHAN, got: " << lv; };
+
+    if (!checkArgs(lv, ARG_INT) || !checkChan(lv[0].asInt())) {
+        usage();
+        return;
+    }
+
+    int chan = lv[0].asInt();
+
+    sendCCBegin();
+    sendCC(chan, CC_ALL_SOUND_OFF, 0x7F);
+    sendCCEnd();
+}
+
+void ProtoMidiCC::m_all_notesOff(t_symbol* s, const AtomListView& lv)
+{
+    auto usage = [&]() { METHOD_ERR(s) << "usage: CHAN, got: " << lv; };
+
+    if (!checkArgs(lv, ARG_INT) || !checkChan(lv[0].asInt())) {
+        usage();
+        return;
+    }
+
+    int chan = lv[0].asInt();
+
+    sendCCBegin();
+    sendCC(chan, CC_ALL_NOTES_OFF, 0x7F);
+    sendCCEnd();
+}
+
 void ProtoMidiCC::sendCCBegin()
 {
     if (as_list_->value())
@@ -372,8 +481,18 @@ void ProtoMidiCC::sendCCEnd()
 void ProtoMidiCC::onCC(int chan, int cc, int v)
 {
     switch (cc) {
-    case CC_BANK_SELECT:
-        return anyTo(0, gensym(SEL_BANK_SELECT), Atom(v));
+    case CC_BANK_SELECT_MSB: {
+        banksel0_ = v;
+        handleBankSelectMsb(chan);
+        handleBankSelect(chan);
+        return;
+    }
+    case CC_BANK_SELECT_LSB: {
+        banksel1_ = v;
+        handleBankSelectLsb(chan);
+        handleBankSelect(chan);
+        return;
+    }
     case CC_MOD_WHEEL_COARSE:
         mod_wheel0_ = v;
         return anyTo(0, gensym(SEL_MOD_WHEEL_COARSE), Atom(v));
@@ -396,6 +515,14 @@ void ProtoMidiCC::onCC(int chan, int cc, int v)
     case CC_SOSTENUTO_PEDAL: {
         Atom data[2] = { chan, v > 63 };
         return anyTo(0, gensym(SEL_SOSTENUTO_PEDAL), AtomListView(data, 2));
+    }
+    case CC_ALL_NOTES_OFF: {
+        Atom data(chan);
+        return anyTo(0, gensym(M_ALL_NOTES_OFF), AtomListView(data));
+    }
+    case CC_ALL_SOUND_OFF: {
+        Atom data(chan);
+        return anyTo(0, gensym(M_ALL_SOUND_OFF), AtomListView(data));
     }
     case CC_RPN_COARSE:
     case CC_RPN_FINE:
@@ -441,6 +568,25 @@ void ProtoMidiCC::sendCC(int chan, int cc, int v)
         floatTo(0, 0x7F & cc);
         floatTo(0, 0x7F & v);
     }
+}
+
+void ProtoMidiCC::handleBankSelectMsb(int chan)
+{
+    const Atom data[2] = { chan, banksel0_ };
+    anyTo(0, gensym(SEL_BANK_SELECT_MSB), AtomListView(data, 2));
+}
+
+void ProtoMidiCC::handleBankSelectLsb(int chan)
+{
+    const Atom data[2] = { chan, banksel1_ };
+    anyTo(0, gensym(SEL_BANK_SELECT_LSB), AtomListView(data, 2));
+}
+
+void ProtoMidiCC::handleBankSelect(int chan)
+{
+    const int val14bit = (pan_pos0_ << 7) | pan_pos1_;
+    Atom data[2] = { chan, val14bit };
+    anyTo(0, gensym(SEL_BANK_SELECT), AtomListView(data, 2));
 }
 
 void ProtoMidiCC::sendTuneFine(float cents, int chan)
@@ -543,6 +689,14 @@ void setup_proto_midi_cc()
     obj.addMethod(SEL_PAN_POSITION_FLOAT, &ProtoMidiCC::m_pan_float);
     obj.addMethod(SEL_PAN_POSITION_INT, &ProtoMidiCC::m_pan_int);
 
+    obj.addMethod(SEL_BANK_SELECT_MSB, &ProtoMidiCC::m_banksel_msb);
+    obj.addMethod(SEL_BANK_SELECT_LSB, &ProtoMidiCC::m_banksel_lsb);
+    obj.addMethod(SEL_BANK_SELECT_INT, &ProtoMidiCC::m_banksel_int);
+    obj.addMethod(SEL_BANK_SELECT, &ProtoMidiCC::m_banksel_int);
+
     obj.addMethod(SEL_HOLD_PEDAL, &ProtoMidiCC::m_hold_pedal);
     obj.addMethod(SEL_SOSTENUTO_PEDAL, &ProtoMidiCC::m_sostenuto_pedal);
+
+    obj.addMethod(M_ALL_NOTES_OFF, &ProtoMidiCC::m_all_notesOff);
+    obj.addMethod(M_ALL_SOUND_OFF, &ProtoMidiCC::m_all_soundsOff);
 }

@@ -22,7 +22,8 @@
 using namespace ceammc;
 
 enum {
-    CC_BANK_SELECT = 0,
+    CC_BANK_SELECT_MSB = 0,
+    CC_BANK_SELECT_LSB = 32,
     CC_MOD_WHEEL_COARSE = 1,
     //
     CC_PAN_POSITION_COARSE = 10,
@@ -38,6 +39,8 @@ enum {
     CC_DATA_ENTRY_FINE = 38,
     CC_DATA_INCREMENT = 96,
     CC_DATA_DECREMENT = 97,
+    CC_ALL_NOTES_OFF = 123,
+    CC_ALL_SOUND_OFF = 120,
 };
 
 class ProtoMidiCC : public BaseObject {
@@ -48,6 +51,7 @@ class ProtoMidiCC : public BaseObject {
     uint8_t mod_wheel0_, mod_wheel1_;
     uint8_t pan_pos0_, pan_pos1_;
     uint8_t rpn0_, rpn1_;
+    uint8_t banksel0_, banksel1_;
 
 public:
     ProtoMidiCC(const PdArgs& args);
@@ -68,8 +72,15 @@ public:
     void m_pan_float(t_symbol* s, const AtomListView& lv);
     void m_pan_int(t_symbol* s, const AtomListView& lv);
 
+    void m_banksel_msb(t_symbol* s, const AtomListView& lv);
+    void m_banksel_lsb(t_symbol* s, const AtomListView& lv);
+    void m_banksel_int(t_symbol* s, const AtomListView& lv);
+
     void m_hold_pedal(t_symbol* s, const AtomListView& lv);
     void m_sostenuto_pedal(t_symbol* s, const AtomListView& lv);
+
+    void m_all_notesOff(t_symbol* s, const AtomListView& lv);
+    void m_all_soundsOff(t_symbol* s, const AtomListView& lv);
 
 public:
     static std::pair<uint8_t, uint8_t> panToBit14(t_float v);
@@ -80,6 +91,10 @@ private:
     void sendCCEnd();
     void onCC(int chan, int cc, int v);
     void sendCC(int chan, int cc, int v);
+
+    void handleBankSelectMsb(int chan);
+    void handleBankSelectLsb(int chan);
+    void handleBankSelect(int chan);
 
     void sendTuneFine(float cents, int chan = 0);
     void sendTuneCoarse(int semi, int chan = 0);

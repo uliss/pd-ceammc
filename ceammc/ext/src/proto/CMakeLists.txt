@@ -22,5 +22,6 @@ target_include_directories(ceammc_proto
         ${PROJECT_SOURCE_DIR}/ceammc/extra/readerwriterqueue
     PRIVATE
         ${PROJECT_BINARY_DIR} # for config.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/../midi
 )
 target_link_libraries(ceammc_proto PRIVATE proto_firmata)
