@@ -724,12 +724,14 @@ ProtoMidiCC::Data2 ProtoMidiCC::getCCFloat(t_symbol* s, const AtomListView& lv, 
 {
     ProtoMidiCC::Data2 res { -1, -1 };
 
+    t_float value = 0;
+
     if (lv.size() == 1 && lv[0].isFloat()) {
         res.chan = 0;
-        res.value = lv[0].asT<t_float>();
+        value = lv[0].asT<t_float>();
     } else if (lv.size() == 2 && lv[0].isInteger() && lv[1].isFloat()) {
         res.chan = lv[0].asT<int>();
-        res.value = lv[1].asT<t_float>();
+        value = lv[1].asT<t_float>();
     } else {
         METHOD_ERR(s) << "expected CHAN[0..15] VALUE[0..1], got: " << lv;
         return res;
@@ -740,12 +742,12 @@ ProtoMidiCC::Data2 ProtoMidiCC::getCCFloat(t_symbol* s, const AtomListView& lv, 
         return { -1, -1 };
     }
 
-    if (res.value < 0 || res.value > 1) {
+    if (value < 0 || value > 1) {
         METHOD_ERR(s) << "value should be in [0..1] range";
         return { -1, -1 };
     }
 
-    res.value = static_cast<int>(convert::lin2lin<t_float>(res.value, 0, 1, from, to));
+    res.value = static_cast<int>(convert::lin2lin<t_float>(value, 0, 1, from, to));
     return res;
 }
 
@@ -804,4 +806,9 @@ void setup_proto_midi_cc()
     obj.addMethod(M_CC_VOLUME_INT, &ProtoMidiCC::m_volume_int);
 
     obj.addMethod(M_PORTAMENTO_SWITCH, &ProtoMidiCC::m_portamento_switch);
+
+    obj.addMethod(M_MODWHEEL_COARSE, &ProtoMidiCC::m_mod_coarse);
+    obj.addMethod(M_MODWHEEL_FINE, &ProtoMidiCC::m_mod_fine);
+    obj.addMethod(M_MODWHEEL_FLOAT, &ProtoMidiCC::m_mod_float);
+    obj.addMethod(M_MODWHEEL_INT, &ProtoMidiCC::m_mod_int);
 }
