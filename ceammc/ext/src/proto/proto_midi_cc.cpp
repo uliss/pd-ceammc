@@ -35,6 +35,8 @@ ProtoMidiCC::ProtoMidiCC(const PdArgs& args)
     , rpn1_(0)
     , banksel0_(0)
     , banksel1_(0)
+    , vol0_(0)
+    , vol1_(0)
 {
     createOutlet();
 
@@ -278,6 +280,17 @@ void ProtoMidiCC::m_volume_fine(t_symbol* s, const AtomListView& lv)
 void ProtoMidiCC::m_volume_float(t_symbol* s, const AtomListView& lv)
 {
     auto data = getCCFloat(s, lv, 0, 0x3FFF);
+    if (data.chan < 0)
+        return;
+
+    ccBegin();
+    ccSet14(data.chan, CC_VOLUME_COARSE, CC_VOLUME_FINE, data.value);
+    ccSend();
+}
+
+void ProtoMidiCC::m_volume_int(t_symbol* s, const AtomListView& lv)
+{
+    auto data = getCCInt14(s, lv);
     if (data.chan < 0)
         return;
 
@@ -761,6 +774,7 @@ void setup_proto_midi_cc()
     obj.addMethod(M_CC_VOLUME_COARSE, &ProtoMidiCC::m_volume_coarse);
     obj.addMethod(M_CC_VOLUME_FINE, &ProtoMidiCC::m_volume_fine);
     obj.addMethod(M_CC_VOLUME_FLOAT, &ProtoMidiCC::m_volume_float);
+    obj.addMethod(M_CC_VOLUME_INT, &ProtoMidiCC::m_volume_int);
 
     obj.addMethod(M_PORTAMENTO_SWITCH, &ProtoMidiCC::m_portamento_switch);
 }

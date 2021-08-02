@@ -170,6 +170,44 @@ TEST_CASE("proto.midi.cc", "[externals]")
                 });
         t1.clearAll();
 
+        t0.call("volume~", 2, 0x60);
+        REQUIRE(t1.messagesAt(0) == ML {
+                    M("volume~", 2, 0x60),
+                    M("volume:i", 2, 0x60 << 7),
+                    M("volume:f", 2, float(0x60 << 7) / 0x3FFF),
+                });
+        t1.clearAll();
+
+        t0.call("volume.", 2, 0x60);
+        REQUIRE(t1.messagesAt(0) == ML {
+                    M("volume.", 2, 0x60),
+                    M("volume:i", 2, 0x60 << 7 | 0x60),
+                    M("volume:f", 2, float(0x60 << 7 | 0x60) / 0x3FFF),
+                });
+        t1.clearAll();
+
+        t0.call("volume:i", 2, 0);
+        REQUIRE(t1.messagesAt(0) == ML {
+                    M("volume~", 2, 0),
+                    M("volume:i", 2, 0x60),
+                    M("volume:f", 2, float(0x60) / 0x3FFF),
+                    M("volume.", 2, 0),
+                    M("volume:i", 2, 0),
+                    M("volume:f", 2, 0),
+                });
+        t1.clearAll();
+
+        t0.call("volume:f", 2, 1);
+        REQUIRE(t1.messagesAt(0) == ML {
+                    M("volume~", 2, 0x7F),
+                    M("volume:i", 2, 0x7F << 7),
+                    M("volume:f", 2, float(0x7F << 7) / 0x3FFF),
+                    M("volume.", 2, 0x7F),
+                    M("volume:i", 2, 0x3FFF),
+                    M("volume:f", 2, 1),
+                });
+        t1.clearAll();
+
         t0.call("hold", 0, 0);
         REQUIRE(t1.messagesAt(0) == ML { M("hold", 0, 0) });
         t1.clearAll();

@@ -91,6 +91,7 @@ public:
     void m_volume_coarse(t_symbol* s, const AtomListView& lv);
     void m_volume_fine(t_symbol* s, const AtomListView& lv);
     void m_volume_float(t_symbol* s, const AtomListView& lv);
+    void m_volume_int(t_symbol* s, const AtomListView& lv);
 
     void m_portamento_switch(t_symbol* s, const AtomListView& lv);
 
