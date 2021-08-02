@@ -726,10 +726,10 @@ ProtoMidiCC::Data2 ProtoMidiCC::getCCFloat(t_symbol* s, const AtomListView& lv, 
 
     if (lv.size() == 1 && lv[0].isFloat()) {
         res.chan = 0;
-        res.value = lv[0].asT<int>();
+        res.value = lv[0].asT<t_float>();
     } else if (lv.size() == 2 && lv[0].isInteger() && lv[1].isFloat()) {
         res.chan = lv[0].asT<int>();
-        res.value = lv[1].asT<int>();
+        res.value = lv[1].asT<t_float>();
     } else {
         METHOD_ERR(s) << "expected CHAN[0..15] VALUE[0..1], got: " << lv;
         return res;
