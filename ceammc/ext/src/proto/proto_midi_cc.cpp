@@ -256,15 +256,20 @@ void ProtoMidiCC::m_sostenuto_pedal(t_symbol* s, const AtomListView& lv)
 
 void ProtoMidiCC::m_all_soundsOff(t_symbol* s, const AtomListView& lv)
 {
-    auto usage = [&]() { METHOD_ERR(s) << "usage: CHAN, got: " << lv; };
+    auto usage = [&]() { METHOD_ERR(s) << "usage: CHAN[0..15]?, got: " << lv; };
 
-    if (!checkArgs(lv, ARG_INT) || !checkChan(lv[0].asInt())) {
+    if (lv.size() == 1 || !checkChan(lv[0].asInt())) {
         usage();
         return;
     }
 
-    int chan = lv[0].asInt();
-    ccSend(chan, CC_ALL_SOUND_OFF, 0x7F);
+    int chan = lv[0].asInt(-1);
+    if (chan < 0) {
+        for (int i = 0; i < 16; i++)
+            ccSend(i, CC_ALL_SOUND_OFF, 0x7F);
+    } else {
+        ccSend(chan, CC_ALL_SOUND_OFF, 0x7F);
+    }
 }
 
 void ProtoMidiCC::m_volume_coarse(t_symbol* s, const AtomListView& lv)
