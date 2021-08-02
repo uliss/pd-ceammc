@@ -128,6 +128,10 @@ private:
     void handlePanPositionCoarse(int chan);
     void handlePanPosition(int chan);
 
+    void handleModWheelFine(int chan);
+    void handleModWheelCoarse(int chan);
+    void handleModWheel(int chan);
+
     bool checkChan(int chan) const;
     bool checkByteValue(int value) const;
 

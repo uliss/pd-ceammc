@@ -392,11 +392,15 @@ void ProtoMidiCC::onCC(int chan, int cc, int v)
     }
     case CC_MOD_WHEEL_COARSE: {
         mod_wheel0_ = v;
-        return anyTo(0, gensym(M_MODWHEEL_COARSE), Atom(v));
+        handleModWheelCoarse(chan);
+        handleModWheel(chan);
+        return;
     }
     case CC_MOD_WHEEL_FINE: {
         mod_wheel1_ = v;
-        return anyTo(0, gensym(M_MODWHEEL_FINE), Atom(v));
+        handleModWheelFine(chan);
+        handleModWheel(chan);
+        return;
     }
     case CC_PAN_POSITION_COARSE: {
         pan_pos0_ = v;
@@ -579,6 +583,28 @@ void ProtoMidiCC::handlePanPosition(int chan)
 
     data[1] = bit14ToPan(pan_pos0_, pan_pos1_);
     anyTo(0, gensym(M_PAN_POSITION_FLOAT), AtomListView(data, 2));
+}
+
+void ProtoMidiCC::handleModWheelFine(int chan)
+{
+    const Atom data[2] = { chan, mod_wheel1_ };
+    anyTo(0, gensym(M_MODWHEEL_FINE), AtomListView(data, 2));
+}
+
+void ProtoMidiCC::handleModWheelCoarse(int chan)
+{
+    const Atom data[2] = { chan, mod_wheel0_ };
+    anyTo(0, gensym(M_MODWHEEL_COARSE), AtomListView(data, 2));
+}
+
+void ProtoMidiCC::handleModWheel(int chan)
+{
+    auto v = (mod_wheel0_ << 7) | mod_wheel1_;
+    Atom data[2] = { chan, v };
+    anyTo(0, gensym(M_MODWHEEL_INT), AtomListView(data, 2));
+
+    data[1] = t_float(v) / 0x3FFF;
+    anyTo(0, gensym(M_MODWHEEL_FLOAT), AtomListView(data, 2));
 }
 
 bool ProtoMidiCC::checkChan(int chan) const
