@@ -194,4 +194,18 @@ TEST_CASE("proto.midi.cc", "[externals]")
         t << LF(0xB1, CC_PAN_POSITION_FINE, 0x7F);
         REQUIRE(t.messagesAt(0) == ML { M("pan.", 1, 0x7F), M("pan:i", 1, 0x3FFF), M("pan:f", 1, 1) });
     }
+
+    SECTION("volume")
+    {
+        TExt t("proto.midi.cc");
+        t << LF(0xB1, CC_VOLUME_COARSE, 0x40);
+        REQUIRE(t.messagesAt(0) == ML { M("volume~", 1, 0x40), M("volume:i", 1, 0x40 << 7), M("volume:f", 1, float(0x40 << 7) / 0x3FFF) });
+
+        t << LF(0xB1, CC_VOLUME_FINE, 0x7F);
+        REQUIRE(t.messagesAt(0) == ML { M("volume.", 1, 0x7F), M("volume:i", 1, 0x40 << 7 | 0x7F), M("volume:f", 1, float(0x40 << 7 | 0x7F) / 0x3FFF) });
+
+        t << LF(0xB1, CC_VOLUME_COARSE, 0x7F);
+        t << LF(0xB1, CC_VOLUME_FINE, 0x7F);
+        REQUIRE(t.messagesAt(0) == ML { M("volume.", 1, 0x7F), M("volume:i", 1, 0x3FFF), M("volume:f", 1, 1) });
+    }
 }

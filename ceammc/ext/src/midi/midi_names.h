@@ -22,6 +22,7 @@ constexpr const char* M_ALL_SOUND_OFF = "sounds_off";
 constexpr const char* M_CC_VOLUME_COARSE = "volume~";
 constexpr const char* M_CC_VOLUME_FINE = "volume.";
 constexpr const char* M_CC_VOLUME_FLOAT = "volume:f";
+constexpr const char* M_CC_VOLUME_INT = "volume:i";
 
 constexpr const char* M_BANK_SELECT_MSB = "bank:msb";
 constexpr const char* M_BANK_SELECT_LSB = "bank:lsb";
@@ -29,6 +30,19 @@ constexpr const char* M_BANK_SELECT_INT = "bank:i";
 constexpr const char* M_BANK_SELECT = "bank";
 
 constexpr const char* M_PORTAMENTO_SWITCH = "portamento";
+
+constexpr const char* M_MODWHEEL_COARSE = "mod~";
+constexpr const char* M_MODWHEEL_FINE = "mod.";
+constexpr const char* M_MODWHEEL_INT = "mod:i";
+constexpr const char* M_MODWHEEL_FLOAT = "mod:f";
+
+constexpr const char* M_HOLD_PEDAL = "hold";
+constexpr const char* M_SOSTENUTO_PEDAL = "sostenuto";
+
+constexpr const char* M_PAN_POSITION_INT = "pan:i";
+constexpr const char* M_PAN_POSITION_FLOAT = "pan:f";
+constexpr const char* M_PAN_POSITION_COARSE = "pan~";
+constexpr const char* M_PAN_POSITION_FINE = "pan.";
 
 }
 

@@ -29,6 +29,7 @@ enum {
     //
     CC_PAN_POSITION_COARSE = 10,
     CC_BANK_SELECT_LSB = 32,
+    CC_MOD_WHEEL_FINE = 33,
     CC_VOLUME_FINE = 39,
     CC_PAN_POSITION_FINE = 42,
     CC_HOLD_PEDAL = 64,
@@ -93,15 +94,23 @@ public:
 
     void m_portamento_switch(t_symbol* s, const AtomListView& lv);
 
+    void m_mod_fine(t_symbol* s, const AtomListView& lv);
+    void m_mod_coarse(t_symbol* s, const AtomListView& lv);
+    void m_mod_float(t_symbol* s, const AtomListView& lv);
+    void m_mod_int(t_symbol* s, const AtomListView& lv);
+
 public:
     static std::pair<uint8_t, uint8_t> panToBit14(t_float v);
     static t_float bit14ToPan(uint8_t msb, uint8_t lsb);
 
 private:
-    void sendCCBegin();
-    void sendCCEnd();
+    void ccBegin();
+    void ccSend();
+    void ccSet(int chan, int cc, int v);
+    void ccSet14(int chan, int cc0, int cc1, int v);
+    void ccSend(int chan, int cc, int v);
+
     void onCC(int chan, int cc, int v);
-    void sendCC(int chan, int cc, int v);
 
     void handleBankSelectMsb(int chan);
     void handleBankSelectLsb(int chan);
@@ -120,6 +129,17 @@ private:
 
     bool checkChan(int chan) const;
     bool checkByteValue(int value) const;
+
+    struct Data2 {
+        int chan, value;
+    };
+
+    Data2 getCCBool(t_symbol* s, const AtomListView& lv) const;
+    Data2 getCCByte(t_symbol* s, const AtomListView& lv) const;
+    Data2 getCCInt14(t_symbol* s, const AtomListView& lv) const;
+    Data2 getCCFloat(t_symbol* s, const AtomListView& lv, int from = 0, int to = 0x3FFF) const;
+
+    void sendCCbyte(t_symbol* s, const AtomListView& lv, uint8_t cc);
 };
 
 void setup_proto_midi_cc();
