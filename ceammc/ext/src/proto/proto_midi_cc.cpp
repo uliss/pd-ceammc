@@ -37,6 +37,8 @@ ProtoMidiCC::ProtoMidiCC(const PdArgs& args)
     , banksel1_(0)
     , vol0_(0)
     , vol1_(0)
+    , expr0_(0)
+    , expr1_(0)
 {
     createOutlet();
 
@@ -345,6 +347,38 @@ void ProtoMidiCC::m_mod_int(t_symbol* s, const AtomListView& lv)
     ccSend();
 }
 
+void ProtoMidiCC::m_exp_fine(t_symbol* s, const AtomListView& lv)
+{
+    sendCCbyte(s, lv, CC_EXPRESSION_FINE);
+}
+
+void ProtoMidiCC::m_exp_coarse(t_symbol* s, const AtomListView& lv)
+{
+    sendCCbyte(s, lv, CC_EXPRESSION_COARSE);
+}
+
+void ProtoMidiCC::m_exp_float(t_symbol* s, const AtomListView& lv)
+{
+    auto data = getCCFloat(s, lv, 0, 0x3FFF);
+    if (data.chan < 0)
+        return;
+
+    ccBegin();
+    ccSet14(data.chan, CC_EXPRESSION_COARSE, CC_EXPRESSION_FINE, data.value);
+    ccSend();
+}
+
+void ProtoMidiCC::m_exp_int(t_symbol* s, const AtomListView& lv)
+{
+    auto data = getCCInt14(s, lv);
+    if (data.chan < 0)
+        return;
+
+    ccBegin();
+    ccSet14(data.chan, CC_EXPRESSION_COARSE, CC_EXPRESSION_FINE, data.value);
+    ccSend();
+}
+
 void ProtoMidiCC::m_all_notesOff(t_symbol* s, const AtomListView& lv)
 {
     auto usage = [&]() { METHOD_ERR(s) << "usage: CHAN, got: " << lv; };
@@ -417,6 +451,18 @@ void ProtoMidiCC::onCC(int chan, int cc, int v)
         pan_pos1_ = v;
         handlePanPositionFine(chan);
         handlePanPosition(chan);
+        return;
+    }
+    case CC_EXPRESSION_COARSE: {
+        expr0_ = v;
+        handleExpressionCoarse(chan);
+        handleExpression(chan);
+        return;
+    }
+    case CC_EXPRESSION_FINE: {
+        expr1_ = v;
+        handleExpressionFine(chan);
+        handleExpression(chan);
         return;
     }
     case CC_HOLD_PEDAL: {
@@ -610,6 +656,28 @@ void ProtoMidiCC::handleModWheel(int chan)
 
     data[1] = t_float(v) / 0x3FFF;
     anyTo(0, gensym(M_MODWHEEL_FLOAT), AtomListView(data, 2));
+}
+
+void ProtoMidiCC::handleExpressionFine(int chan)
+{
+    const Atom data[2] = { chan, expr1_ };
+    anyTo(0, gensym(M_EXPRESSION_FINE), AtomListView(data, 2));
+}
+
+void ProtoMidiCC::handleExpressionCoarse(int chan)
+{
+    const Atom data[2] = { chan, expr0_ };
+    anyTo(0, gensym(M_EXPRESSION_COARSE), AtomListView(data, 2));
+}
+
+void ProtoMidiCC::handleExpression(int chan)
+{
+    auto v = (expr0_ << 7) | expr1_;
+    Atom data[2] = { chan, v };
+    anyTo(0, gensym(M_EXPRESSION_INT), AtomListView(data, 2));
+
+    data[1] = t_float(v) / 0x3FFF;
+    anyTo(0, gensym(M_EXPRESSION_FLOAT), AtomListView(data, 2));
 }
 
 bool ProtoMidiCC::checkChan(int chan) const
@@ -816,4 +884,9 @@ void setup_proto_midi_cc()
     obj.addMethod(M_MODWHEEL_FINE, &ProtoMidiCC::m_mod_fine);
     obj.addMethod(M_MODWHEEL_FLOAT, &ProtoMidiCC::m_mod_float);
     obj.addMethod(M_MODWHEEL_INT, &ProtoMidiCC::m_mod_int);
+
+    obj.addMethod(M_EXPRESSION_COARSE, &ProtoMidiCC::m_exp_coarse);
+    obj.addMethod(M_EXPRESSION_FINE, &ProtoMidiCC::m_exp_fine);
+    obj.addMethod(M_EXPRESSION_FLOAT, &ProtoMidiCC::m_exp_float);
+    obj.addMethod(M_EXPRESSION_INT, &ProtoMidiCC::m_exp_int);
 }

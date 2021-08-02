@@ -36,6 +36,11 @@ constexpr const char* M_MODWHEEL_FINE = "mod.";
 constexpr const char* M_MODWHEEL_INT = "mod:i";
 constexpr const char* M_MODWHEEL_FLOAT = "mod:f";
 
+constexpr const char* M_EXPRESSION_COARSE = "exp~";
+constexpr const char* M_EXPRESSION_FINE = "exp.";
+constexpr const char* M_EXPRESSION_INT = "exp:i";
+constexpr const char* M_EXPRESSION_FLOAT = "exp:f";
+
 constexpr const char* M_HOLD_PEDAL = "hold";
 constexpr const char* M_SOSTENUTO_PEDAL = "sostenuto";
 constexpr const char* M_SOFT_PEDAL = "soft";

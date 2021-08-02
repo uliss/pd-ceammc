@@ -28,10 +28,12 @@ enum {
     CC_VOLUME_COARSE = 7,
     //
     CC_PAN_POSITION_COARSE = 10,
+    CC_EXPRESSION_COARSE = 11,
     CC_BANK_SELECT_LSB = 32,
     CC_MOD_WHEEL_FINE = 33,
     CC_VOLUME_FINE = 39,
     CC_PAN_POSITION_FINE = 42,
+    CC_EXPRESSION_FINE = 43,
     CC_HOLD_PEDAL = 64,
     CC_PORTAMENO_SWITCH = 65,
     CC_SOSTENUTO_PEDAL = 66,
@@ -58,6 +60,7 @@ class ProtoMidiCC : public BaseObject {
     uint8_t rpn0_, rpn1_;
     uint8_t banksel0_, banksel1_;
     uint8_t vol0_, vol1_;
+    uint8_t expr0_, expr1_;
 
 public:
     ProtoMidiCC(const PdArgs& args);
@@ -100,6 +103,11 @@ public:
     void m_mod_float(t_symbol* s, const AtomListView& lv);
     void m_mod_int(t_symbol* s, const AtomListView& lv);
 
+    void m_exp_fine(t_symbol* s, const AtomListView& lv);
+    void m_exp_coarse(t_symbol* s, const AtomListView& lv);
+    void m_exp_float(t_symbol* s, const AtomListView& lv);
+    void m_exp_int(t_symbol* s, const AtomListView& lv);
+
 public:
     static std::pair<uint8_t, uint8_t> panToBit14(t_float v);
     static t_float bit14ToPan(uint8_t msb, uint8_t lsb);
@@ -131,6 +139,10 @@ private:
     void handleModWheelFine(int chan);
     void handleModWheelCoarse(int chan);
     void handleModWheel(int chan);
+
+    void handleExpressionFine(int chan);
+    void handleExpressionCoarse(int chan);
+    void handleExpression(int chan);
 
     bool checkChan(int chan) const;
     bool checkByteValue(int value) const;
