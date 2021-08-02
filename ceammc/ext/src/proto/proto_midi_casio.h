@@ -39,6 +39,8 @@ public:
     void m_chorus_fb(t_symbol* s, const AtomListView& lv);
     void m_chorus_send(t_symbol* s, const AtomListView& lv);
 
+    void m_instr(t_symbol* s, const AtomListView& lv);
+
 private:
     template <typename T>
     bool output(const T& data)
@@ -51,6 +53,9 @@ private:
 
         return true;
     }
+
+    void bankSelect(int chan, int msb, int lsb);
+    void progChange(int chan, int val);
 };
 
 void setup_proto_midi_casio();

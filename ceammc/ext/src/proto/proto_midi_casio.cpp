@@ -15,6 +15,8 @@
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 
+#include "ceammc_crc32.h"
+
 constexpr const char* PRIVIA_PX160 = "px160";
 
 enum SysExId {
@@ -281,6 +283,163 @@ void ProtoMidiCasio::m_chorus_send(t_symbol* s, const AtomListView& lv)
         METHOD_ERR(s) << "model not supported: " << model_->value();
 }
 
+void ProtoMidiCasio::m_instr(t_symbol* s, const AtomListView& lv)
+{
+    if (model_->value() == gensym(PRIVIA_PX160)) {
+        int chan = 0;
+        t_symbol* instr = &s_;
+        uint32_t id = 0;
+
+        if (lv.size() == 3 && lv[0].isInteger() && lv[1].isSymbol()) {
+            chan = lv[0].asT<int>();
+            instr = lv[1].asSymbol();
+            id = lv[2].isFloat() ? lv[2].asT<int>() : crc32_hash(lv[2].asT<t_symbol*>()->s_name);
+        } else if (lv.size() == 2 && lv[0].isSymbol()) {
+            instr = lv[0].asSymbol();
+            id = lv[1].isFloat() ? lv[1].asT<int>() : crc32_hash(lv[1].asT<t_symbol*>()->s_name);
+        } else {
+            METHOD_ERR(s) << "CHAN[0..15]? CATEGORY NAME expected, got: " << lv;
+            return;
+        }
+
+        switch (crc32_hash(instr->s_name)) {
+        case "piano"_hash:
+            switch (id) {
+            case "concert"_hash:
+            case 0:
+                bankSelect(chan, 0, 0);
+                progChange(chan, 0);
+                break;
+            case "modern"_hash:
+            case 1:
+                bankSelect(chan, 1, 0);
+                progChange(chan, 0);
+                break;
+            case "classic"_hash:
+            case 2:
+                bankSelect(chan, 2, 0);
+                progChange(chan, 0);
+                break;
+            case "mellow"_hash:
+            case 3:
+                bankSelect(chan, 3, 0);
+                progChange(chan, 0);
+                break;
+            case "bright"_hash:
+            case 4:
+                bankSelect(chan, 4, 0);
+                progChange(chan, 0);
+                break;
+            default:
+                METHOD_ERR(s) << "unknown piano name, expected (concert|modern|classic|mellow|bright|0..4), got: " << lv[1];
+                return;
+            }
+            break;
+        case "epiano"_hash:
+            switch (id) {
+            case 0:
+                bankSelect(chan, 0, 0);
+                progChange(chan, 4);
+                break;
+            case 1:
+                bankSelect(chan, 1, 0);
+                progChange(chan, 4);
+                break;
+            case 2:
+            case "fm"_hash:
+                bankSelect(chan, 0, 0);
+                progChange(chan, 5);
+                break;
+            case 3:
+            case 60:
+                bankSelect(chan, 2, 0);
+                progChange(chan, 4);
+                break;
+            default:
+                METHOD_ERR(s) << "unknown electric piano name, expected (0|1|fm|2|3|60), got: " << lv[1];
+                return;
+            }
+            break;
+        case "strings"_hash:
+            switch (id) {
+            case 0:
+                bankSelect(chan, 0, 0);
+                progChange(chan, 0x31);
+                break;
+            case 1:
+                bankSelect(chan, 0, 0);
+                progChange(chan, 0x30);
+                break;
+            default:
+                METHOD_ERR(s) << "unknown strings name, expected (0|1), got: " << lv[1];
+                return;
+            }
+            break;
+        case "bass"_hash:
+            bankSelect(chan, 0, 0);
+            progChange(chan, 0x20);
+            break;
+        case "organ"_hash:
+            switch (id) {
+            case 0:
+            case "pipe"_hash:
+                bankSelect(chan, 0, 0);
+                progChange(chan, 0x13);
+                break;
+            case 1:
+            case "jazz"_hash:
+                bankSelect(chan, 0, 0);
+                progChange(chan, 0x11);
+                break;
+            case 2:
+            case "elec1"_hash:
+                bankSelect(chan, 1, 0);
+                progChange(chan, 0x10);
+                break;
+            case 3:
+            case "elec2"_hash:
+                bankSelect(chan, 0, 0);
+                progChange(chan, 0x10);
+                break;
+            }
+            break;
+        case "vibr"_hash:
+            bankSelect(chan, 0, 0);
+            progChange(chan, 0x0B);
+            break;
+        case "haprs"_hash:
+            bankSelect(chan, 0, 0);
+            progChange(chan, 0x06);
+            break;
+        default:
+            METHOD_ERR(s) << "unknown instrument category: " << instr;
+            return;
+        }
+    } else
+        METHOD_ERR(s) << "model not supported: " << model_->value();
+}
+
+void ProtoMidiCasio::bankSelect(int chan, int msb, int lsb)
+{
+    std::array<int, 6> msg {
+        0xB0 | (chan & 0x7),
+        0,
+        msb & 0x7F,
+        0xB0 | (chan & 0x7),
+        0x20,
+        lsb & 0x7F,
+    };
+
+    output(msg);
+}
+
+void ProtoMidiCasio::progChange(int chan, int val)
+{
+    std::array<int, 2> msg { 0xC0 | (chan & 0x7), val & 0x7F };
+
+    output(msg);
+}
+
 void setup_proto_midi_casio()
 {
     ObjectFactory<ProtoMidiCasio> obj("proto.midi.casio");
@@ -293,4 +452,6 @@ void setup_proto_midi_casio()
     obj.addMethod("chorus_depth", &ProtoMidiCasio::m_chorus_depth);
     obj.addMethod("chorus_fb", &ProtoMidiCasio::m_chorus_fb);
     obj.addMethod("chorus_send", &ProtoMidiCasio::m_chorus_send);
+
+    obj.addMethod("instr", &ProtoMidiCasio::m_instr);
 }
