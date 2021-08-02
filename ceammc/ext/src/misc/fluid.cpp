@@ -1013,7 +1013,7 @@ void setup_misc_fluid()
     obj.addMethod("bend", &Fluid::m_bend);
     obj.addMethod("bend:i", &Fluid::m_bend_int);
     obj.addMethod("bend:f", &Fluid::m_bend_float);
-    obj.addMethod("bendsens", &Fluid::m_set_bend_sens);
+    obj.addMethod(M_BEND_SENSIVITY, &Fluid::m_set_bend_sens);
 
     obj.addMethod("gen", &Fluid::m_gen);
     obj.addMethod("panic", &Fluid::m_panic);
@@ -1029,11 +1029,11 @@ void setup_misc_fluid()
     obj.addMethod("tune:12", &Fluid::m_tune_octave);
 
     obj.addMethod("pan", &Fluid::m_pan);
-    obj.addMethod("pan:f", &Fluid::m_pan_float);
-    obj.addMethod("pan:i", &Fluid::m_pan_int);
+    obj.addMethod(M_PAN_POSITION_FLOAT, &Fluid::m_pan_float);
+    obj.addMethod(M_PAN_POSITION_INT, &Fluid::m_pan_int);
 
-    obj.addMethod("hold", &Fluid::m_hold_pedal);
-    obj.addMethod("sostenuto", &Fluid::m_sostenuto_pedal);
-    obj.addMethod("soft", &Fluid::m_soft_pedal);
+    obj.addMethod(M_HOLD_PEDAL, &Fluid::m_hold_pedal);
+    obj.addMethod(M_SOSTENUTO_PEDAL, &Fluid::m_sostenuto_pedal);
+    obj.addMethod(M_SOFT_PEDAL, &Fluid::m_soft_pedal);
     obj.addMethod("legato", &Fluid::m_legato_pedal);
 }

@@ -748,12 +748,13 @@ void setup_proto_midi_cc()
 {
     ObjectFactory<ProtoMidiCC> obj("proto.midi.cc");
 
-    obj.addMethod("bendsens", &ProtoMidiCC::m_bend_sens);
     obj.addMethod("tunebank", &ProtoMidiCC::m_tune_bank_select);
     obj.addMethod("tuneprog", &ProtoMidiCC::m_tune_prog_change);
     obj.addMethod("tunefine", &ProtoMidiCC::m_tune_fine);
     obj.addMethod("tunecoarse", &ProtoMidiCC::m_tune_coarse);
     obj.addMethod("tunesemi", &ProtoMidiCC::m_tune_semi);
+
+    obj.addMethod(M_BEND_SENSIVITY, &ProtoMidiCC::m_bend_sens);
 
     obj.addMethod(M_PAN_POSITION_COARSE, &ProtoMidiCC::m_pan_coarse);
     obj.addMethod(M_PAN_POSITION_FINE, &ProtoMidiCC::m_pan_fine);

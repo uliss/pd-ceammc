@@ -38,11 +38,14 @@ constexpr const char* M_MODWHEEL_FLOAT = "mod:f";
 
 constexpr const char* M_HOLD_PEDAL = "hold";
 constexpr const char* M_SOSTENUTO_PEDAL = "sostenuto";
+constexpr const char* M_SOFT_PEDAL = "soft";
 
 constexpr const char* M_PAN_POSITION_INT = "pan:i";
 constexpr const char* M_PAN_POSITION_FLOAT = "pan:f";
 constexpr const char* M_PAN_POSITION_COARSE = "pan~";
 constexpr const char* M_PAN_POSITION_FINE = "pan.";
+
+constexpr const char* M_BEND_SENSIVITY = "bendsens";
 
 }
 

@@ -618,7 +618,7 @@ void setup_misc_sfizz_tilde()
     obj.addMethod("bend", &SfizzTilde::m_bend);
     obj.addMethod("bend:i", &SfizzTilde::m_bend_int);
     obj.addMethod("bend:f", &SfizzTilde::m_bend_float);
-    obj.addMethod("bendsens", &SfizzTilde::m_set_bend_sens);
+    obj.addMethod(M_BEND_SENSIVITY, &SfizzTilde::m_set_bend_sens);
 
     obj.addMethod(M_ALL_NOTES_OFF, &SfizzTilde::m_notesOff);
     obj.addMethod(M_ALL_SOUND_OFF, &SfizzTilde::m_soundsOff);
@@ -627,11 +627,11 @@ void setup_misc_sfizz_tilde()
     obj.addMethod("tune:12", &SfizzTilde::m_tune_octave);
 
     obj.addMethod("pan", &SfizzTilde::m_pan);
-    obj.addMethod("pan:f", &SfizzTilde::m_pan_float);
-    obj.addMethod("pan:i", &SfizzTilde::m_pan_int);
+    obj.addMethod(M_PAN_POSITION_FLOAT, &SfizzTilde::m_pan_float);
+    obj.addMethod(M_PAN_POSITION_INT, &SfizzTilde::m_pan_int);
 
-    obj.addMethod("hold", &SfizzTilde::m_hold_pedal);
-    obj.addMethod("sostenuto", &SfizzTilde::m_sostenuto_pedal);
-    obj.addMethod("soft", &SfizzTilde::m_soft_pedal);
+    obj.addMethod(M_HOLD_PEDAL, &SfizzTilde::m_hold_pedal);
+    obj.addMethod(M_SOSTENUTO_PEDAL, &SfizzTilde::m_sostenuto_pedal);
+    obj.addMethod(M_SOFT_PEDAL, &SfizzTilde::m_soft_pedal);
     obj.addMethod("legato", &SfizzTilde::m_legato_pedal);
 }
