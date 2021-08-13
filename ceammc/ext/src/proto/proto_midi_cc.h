@@ -46,8 +46,12 @@ enum {
     CC_DATA_ENTRY_FINE = 38,
     CC_DATA_INCREMENT = 96,
     CC_DATA_DECREMENT = 97,
-    CC_ALL_NOTES_OFF = 123,
     CC_ALL_SOUND_OFF = 120,
+    CC_ALL_NOTES_OFF = 123,
+    CC_OMNI_MODE_OFF = 124,
+    CC_OMNI_MODE_ON = 125,
+    CC_MONO = 126,
+    CC_POLY = 127,
 };
 
 class ProtoMidiCC : public BaseObject {
