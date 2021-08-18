@@ -41,10 +41,10 @@ private:
     ControlProxy control_;
     ClockLambdaFunction clock_;
     Events events_;
-    double rec_start_;
-    double play_start_;
+    double rec_start_, rec_len_ms_;
     IntProperty* max_size_;
     IntProperty* repeats_;
+    BoolProperty* auto_start_;
     State state_;
     size_t current_idx_;
     int repeat_counter_;

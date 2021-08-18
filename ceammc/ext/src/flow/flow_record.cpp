@@ -39,11 +39,11 @@ FlowRecord::FlowRecord(const PdArgs& args)
         if (current_idx_ >= events_.size())
             return;
 
-        const auto sys_time = events_[current_idx_].second;
+        const auto last_time = events_[current_idx_].second;
 
         auto first = events_.begin() + current_idx_;
         // find simultaneous messages
-        auto last = std::find_if_not(first, events_.end(), [sys_time](const FlowEvent& e) { return e.second == sys_time; });
+        auto last = std::find_if_not(first, events_.end(), [last_time](const FlowEvent& e) { return e.second == last_time; });
 
         // output messages
         auto outl = outletAt(0);
@@ -54,14 +54,14 @@ FlowRecord::FlowRecord(const PdArgs& args)
 
         // schedule next
         if (current_idx_ < events_.size()) {
-            const auto next_sys_time = events_[current_idx_].second;
-            clock_.delay(sysTimeToMs(next_sys_time - sys_time));
+            const auto next_time = events_[current_idx_].second;
+            clock_.delay(next_time - last_time);
         } else {
             repeat_counter_++;
             if (repeatAgain()) {
                 current_idx_ = 0;
-                clock_.delay(sysTimeToMs(play_start_ - sys_time));
-                OBJ_DBG << "repeat: " << sys_time;
+                clock_.delay(rec_len_ms_ - last_time);
+                OBJ_DBG << "repeat: " << rec_len_ms_ - last_time;
             } else {
                 state_ = STOP;
                 OBJ_DBG << "stopped";
@@ -69,9 +69,10 @@ FlowRecord::FlowRecord(const PdArgs& args)
         }
     })
     , rec_start_(0)
-    , play_start_(0)
+    , rec_len_ms_(0)
     , max_size_(nullptr)
     , repeats_(nullptr)
+    , auto_start_(nullptr)
     , state_(STOP)
     , repeat_counter_(0)
 {
@@ -85,6 +86,9 @@ FlowRecord::FlowRecord(const PdArgs& args)
     repeats_ = new IntProperty("@r", 1);
     repeats_->checkMinEq(-1);
     addProperty(repeats_);
+
+    auto_start_ = new BoolProperty("@auto", false);
+    addProperty(auto_start_);
 }
 
 FlowRecord::~FlowRecord()
@@ -138,20 +142,27 @@ void FlowRecord::dump() const
     BaseObject::dump();
     OBJ_POST << "events: ";
     for (auto& e : events_)
-        OBJ_POST << " - [" << sysTimeToMs(e.second) << "] " << e.first->view();
+        OBJ_POST << " - [" << e.second << "] " << e.first->view();
 }
 
 void FlowRecord::appendMessage(FlowMessage* m)
 {
-    if (state_ != RECORD)
+    if (!auto_start_->value() && state_ != RECORD)
         return;
+
+    if (auto_start_->value() && state_ == STOP)
+        setState(RECORD);
 
     if (!sizeInf() && events_.size() > MAX_SIZE) {
         OBJ_ERR << "overfulled, max size has reached: " << events_.size();
         return;
     }
 
-    events_.push_back({ m, clock_getlogicaltime() });
+    // store event time relative to record start
+    const auto time_ms = sysTimeToMs(clock_getlogicaltime() - rec_start_);
+    events_.push_back({ m, time_ms });
+
+    OBJ_DBG << " - " << time_ms << " " << m->view();
 }
 
 void FlowRecord::setState(FlowRecord::State new_st)
@@ -165,15 +176,12 @@ void FlowRecord::setState(FlowRecord::State new_st)
                 return;
             }
 
-            const auto now = clock_getlogicaltime();
-            const auto time_ms = sysTimeToMs(events_.front().second - rec_start_);
-            OBJ_DBG << "first event in: " << events_.front().second - rec_start_;
-            clock_.delay(time_ms);
+            OBJ_DBG << "first event in: " << events_.front().second;
+            clock_.delay(events_.front().second);
             state_ = PLAY;
             current_idx_ = 0;
             repeat_counter_ = 0;
-            play_start_ = now;
-            OBJ_DBG << "playing";
+            OBJ_DBG << "playing length: " << rec_len_ms_ << "ms";
             return;
         }
         case RECORD: {
@@ -181,6 +189,7 @@ void FlowRecord::setState(FlowRecord::State new_st)
             clear();
             state_ = RECORD;
             rec_start_ = clock_getlogicaltime();
+            rec_len_ms_ = 0;
             return;
         }
         case STOP: {
@@ -219,7 +228,8 @@ void FlowRecord::setState(FlowRecord::State new_st)
         switch (new_st) {
         case STOP: {
             state_ = STOP;
-            OBJ_DBG << "record stopped";
+            rec_len_ms_ = sysTimeToMs(clock_getlogicaltime() - rec_start_);
+            OBJ_DBG << "record stopped: length " << rec_len_ms_ << "ms";
             return;
         }
         case PLAY: {
@@ -228,15 +238,13 @@ void FlowRecord::setState(FlowRecord::State new_st)
                 return;
             }
 
-            const auto now = clock_getlogicaltime();
-            const auto time_ms = sysTimeToMs(events_.front().second - rec_start_);
-            OBJ_DBG << "first event in: " << events_.front().second - rec_start_;
-            clock_.delay(time_ms);
+            OBJ_DBG << "first event in: " << events_.front().second;
+            clock_.delay(events_.front().second);
             state_ = PLAY;
             current_idx_ = 0;
             repeat_counter_ = 0;
-            play_start_ = now;
-            OBJ_DBG << "playing";
+            rec_len_ms_ = sysTimeToMs(clock_getlogicaltime() - rec_start_);
+            OBJ_DBG << "playing length: " << rec_len_ms_ << "ms";
             return;
         }
         }

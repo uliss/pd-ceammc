@@ -34,6 +34,7 @@ TEST_CASE("flow.record", "[externals]")
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY_FLOAT(t, @r, 1);
+            REQUIRE_PROPERTY_FLOAT(t, @auto, 0);
         }
     }
 
@@ -129,7 +130,6 @@ TEST_CASE("flow.record", "[externals]")
         t.schedTicks(20_ticks);
         t << 10;
 
-        t.sendMessageTo(Message(SYM("stop"), AtomListView()), 1);
         t->dump();
         t.clearAll();
 
