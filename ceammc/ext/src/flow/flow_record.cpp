@@ -14,6 +14,7 @@
 #include "flow_record.h"
 #include "ceammc_containers.h"
 #include "ceammc_factory.h"
+#include "ceammc_units.h"
 
 #include "../mempool/MemoryPool.h"
 
@@ -128,12 +129,27 @@ void FlowRecord::m_clear(const AtomListView& lv)
 
 void FlowRecord::m_quant(const AtomListView& lv)
 {
-    if (!lv.isFloat()) {
-        OBJ_ERR << "quant float value expected, got: " << lv;
+    t_float q = 0;
+    if (lv.isFloat()) {
+        q = lv[0].asT<t_float>();
+    } else if (lv.isSymbol()) {
+        auto res = units::BpmValue::parse(lv);
+
+        units::UnitParseError err;
+        units::BpmValue bpm(60);
+
+        if (res.matchError(err)) {
+            OBJ_ERR << err.msg;
+            return;
+        } else if (res.matchValue(bpm)) {
+            q = bpm.beatlen() * 1000 * bpm.herz();
+        } else
+            return;
+    } else {
+        OBJ_ERR << "quant float or bpm value expected, got: " << lv;
         return;
     }
 
-    const auto q = lv[0].asT<t_float>();
     if (q <= 0) {
         OBJ_ERR << "positive value expected, got: " << q;
         return;
