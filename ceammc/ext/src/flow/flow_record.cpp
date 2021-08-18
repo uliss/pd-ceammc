@@ -126,6 +126,27 @@ void FlowRecord::m_clear(const AtomListView& lv)
     clear();
 }
 
+void FlowRecord::m_quant(const AtomListView& lv)
+{
+    if (!lv.isFloat()) {
+        OBJ_ERR << "quant float value expected, got: " << lv;
+        return;
+    }
+
+    const auto q = lv[0].asT<t_float>();
+    if (q <= 0) {
+        OBJ_ERR << "positive value expected, got: " << q;
+        return;
+    }
+
+    // quant events
+    for (auto& e : events_)
+        e.second = std::round(e.second / q) * q;
+
+    // quant length
+    rec_len_ms_ = std::round(rec_len_ms_ / q) * q;
+}
+
 void FlowRecord::m_flush(const AtomListView& lv)
 {
     auto* outl = outletAt(0);
@@ -140,7 +161,9 @@ void FlowRecord::m_flush(const AtomListView& lv)
 void FlowRecord::dump() const
 {
     BaseObject::dump();
-    OBJ_POST << "events: ";
+    OBJ_POST << "length: "
+             << rec_len_ms_ << "ms, "
+             << "events: ";
     for (auto& e : events_)
         OBJ_POST << " - [" << e.second << "] " << e.first->view();
 }
@@ -277,4 +300,5 @@ void setup_flow_record()
     FlowRecord::ControlProxy::set_method_callback(gensym("rec"), &FlowRecord::m_record);
     FlowRecord::ControlProxy::set_method_callback(gensym("clear"), &FlowRecord::m_clear);
     FlowRecord::ControlProxy::set_method_callback(gensym("flush"), &FlowRecord::m_flush);
+    FlowRecord::ControlProxy::set_method_callback(gensym("quant"), &FlowRecord::m_quant);
 }

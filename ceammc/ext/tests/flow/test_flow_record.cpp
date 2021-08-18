@@ -34,7 +34,9 @@ TEST_CASE("flow.record", "[externals]")
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY_FLOAT(t, @r, 1);
+            // clang-format off
             REQUIRE_PROPERTY_FLOAT(t, @auto, 0);
+            // clang-format on
         }
     }
 
@@ -159,5 +161,48 @@ TEST_CASE("flow.record", "[externals]")
 
         t.schedTicks(100);
         REQUIRE_FALSE(t.hasOutput());
+    }
+
+    SECTION("quant")
+    {
+        TExt t("flow.record");
+
+        t.sendMessageTo(Message(SYM("rec"), AtomListView()), 1);
+
+        t.schedTicks(4); // 4
+        t << 1;
+        t.schedTicks(4); // 8
+        t << 2;
+        t.schedTicks(4); // 12
+        t << 3;
+        t.schedTicks(4); // 16
+        t << 4;
+        t.schedTicks(4); // 20
+        t << 5;
+        t.schedTicks(4); // 24
+        t << 6;
+
+        t.sendMessageTo(Message(SYM("stop"), AtomListView()), 1);
+
+#define REQUIRE_TICKS(t, n, v)                                      \
+    {                                                               \
+        REQUIRE(t->events()[n].second == Approx(v).margin(0.0001)); \
+    }
+
+        REQUIRE_TICKS(t, 0, 4);
+        REQUIRE_TICKS(t, 1, 8);
+        REQUIRE_TICKS(t, 2, 12);
+        REQUIRE_TICKS(t, 3, 16);
+        REQUIRE_TICKS(t, 4, 20);
+        REQUIRE_TICKS(t, 5, 24);
+
+        t.sendMessageTo(Message(SYM("quant"), AtomListView(5)), 1);
+
+        REQUIRE_TICKS(t, 0, 5);
+        REQUIRE_TICKS(t, 1, 10);
+        REQUIRE_TICKS(t, 2, 10);
+        REQUIRE_TICKS(t, 3, 15);
+        REQUIRE_TICKS(t, 4, 20);
+        REQUIRE_TICKS(t, 5, 25);
     }
 }

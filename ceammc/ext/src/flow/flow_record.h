@@ -65,8 +65,12 @@ public:
     void m_record(const AtomListView& lv) { setState(lv.boolAt(0, true) ? RECORD : STOP); }
     void m_clear(const AtomListView& lv);
     void m_flush(const AtomListView& lv);
+    void m_quant(const AtomListView& lv);
 
     void dump() const override;
+
+public:
+    const Events& events() const { return events_; }
 
 private:
     void appendMessage(FlowMessage* m);
