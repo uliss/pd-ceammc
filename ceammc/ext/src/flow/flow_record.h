@@ -45,6 +45,7 @@ private:
     IntProperty* max_size_;
     IntProperty* repeats_;
     BoolProperty* auto_start_;
+    FloatProperty* speed_;
     State state_;
     size_t current_idx_;
     int repeat_counter_;
@@ -79,6 +80,8 @@ private:
     void clear();
 
     bool repeatAgain() const { return (repeats_->value() > 0 && repeat_counter_ < repeats_->value()) || repeats_->value() < 0; }
+
+    void schedMs(t_float ms) { clock_.delay(ms / speed_->value()); }
 };
 
 void setup_flow_record();

@@ -56,16 +56,14 @@ FlowRecord::FlowRecord(const PdArgs& args)
         // schedule next
         if (current_idx_ < events_.size()) {
             const auto next_time = events_[current_idx_].second;
-            clock_.delay(next_time - last_time);
+            schedMs(next_time - last_time);
         } else {
             repeat_counter_++;
             if (repeatAgain()) {
                 current_idx_ = 0;
-                clock_.delay(rec_len_ms_ - last_time);
-                // OBJ_DBG << "repeat: " << rec_len_ms_ - last_time;
+                schedMs(rec_len_ms_ - last_time);
             } else {
                 state_ = STOP;
-                // OBJ_DBG << "stopped";
             }
         }
     })
@@ -74,6 +72,7 @@ FlowRecord::FlowRecord(const PdArgs& args)
     , max_size_(nullptr)
     , repeats_(nullptr)
     , auto_start_(nullptr)
+    , speed_(nullptr)
     , state_(STOP)
     , repeat_counter_(0)
 {
@@ -90,6 +89,10 @@ FlowRecord::FlowRecord(const PdArgs& args)
 
     auto_start_ = new BoolProperty("@auto", false);
     addProperty(auto_start_);
+
+    speed_ = new FloatProperty("@speed", 1);
+    speed_->checkClosedRange(1.0 / 64.0, 64.0);
+    addProperty(speed_);
 }
 
 FlowRecord::~FlowRecord()
@@ -213,7 +216,7 @@ void FlowRecord::setState(FlowRecord::State new_st)
                 return;
             }
 
-            clock_.delay(events_.front().second);
+            schedMs(events_.front().second);
             state_ = PLAY;
             current_idx_ = 0;
             repeat_counter_ = 0;
@@ -274,12 +277,20 @@ void FlowRecord::setState(FlowRecord::State new_st)
                 return;
             }
 
-            clock_.delay(events_.front().second);
+            schedMs(events_.front().second);
             state_ = PLAY;
             current_idx_ = 0;
             repeat_counter_ = 0;
             rec_len_ms_ = sysTimeToMs(clock_getlogicaltime() - rec_start_);
             OBJ_DBG << "playing length: " << rec_len_ms_ << "ms";
+            return;
+        }
+        case RECORD: {
+            OBJ_ERR << "already recording";
+            return;
+        }
+        default: {
+            OBJ_ERR << "unknown new state: " << (int)new_st;
             return;
         }
         }
@@ -299,6 +310,8 @@ void FlowRecord::clear()
         pool.deleteElement(el.first);
 
     events_.clear();
+    clock_.unset();
+    state_ = STOP;
 }
 
 void setup_flow_record()
