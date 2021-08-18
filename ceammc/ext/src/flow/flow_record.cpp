@@ -166,6 +166,24 @@ void FlowRecord::m_quant(const AtomListView& lv)
     rec_len_ms_ = std::round(rec_len_ms_ / q) * q;
 }
 
+void FlowRecord::m_qlist(const AtomListView& lv)
+{
+    auto sym_add = gensym("add");
+
+    SmallAtomListN<32> lst;
+
+    double prev_ms = 0;
+
+    for (auto& e : events_) {
+        lst.clear();
+        lst.push_back(e.second - prev_ms);
+        prev_ms = e.second;
+        const auto v = e.first->view();
+        std::copy(v.begin(), v.end(), std::back_inserter(lst));
+        anyTo(0, sym_add, AtomListView(lst.data(), lst.size()));
+    }
+}
+
 void FlowRecord::m_flush(const AtomListView& lv)
 {
     auto* outl = outletAt(0);
@@ -330,4 +348,5 @@ void setup_flow_record()
     FlowRecord::ControlProxy::set_method_callback(gensym("clear"), &FlowRecord::m_clear);
     FlowRecord::ControlProxy::set_method_callback(gensym("flush"), &FlowRecord::m_flush);
     FlowRecord::ControlProxy::set_method_callback(gensym("quant"), &FlowRecord::m_quant);
+    FlowRecord::ControlProxy::set_method_callback(gensym("qlist"), &FlowRecord::m_qlist);
 }

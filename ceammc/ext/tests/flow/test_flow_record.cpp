@@ -206,4 +206,25 @@ TEST_CASE("flow.record", "[externals]")
         REQUIRE_TICKS(t, 4, 20);
         REQUIRE_TICKS(t, 5, 25);
     }
+
+    SECTION("qlist")
+    {
+        TExt t("flow.record");
+
+        t.sendMessageTo(Message(SYM("rec"), AtomListView()), 1);
+
+        t.schedTicks(5); // 4
+        t << 1;
+        t.schedTicks(6); // 8
+        t << 2;
+        t.schedTicks(7); // 12
+        t << 3;
+
+        t.sendMessageTo(Message(SYM("qlist"), AtomListView()), 1);
+        REQUIRE(t.messagesAt(0) == ML {
+                    M(SYM("add"), LF(5, 1)),
+                    M(SYM("add"), LF(6, 2)),
+                    M(SYM("add"), LF(7, 3)),
+                });
+    }
 }
