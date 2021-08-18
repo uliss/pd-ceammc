@@ -34,6 +34,7 @@ TEST_CASE("flow.record", "[externals]")
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY_FLOAT(t, @r, 1);
+            REQUIRE_PROPERTY_FLOAT(t, @speed, 1);
             // clang-format off
             REQUIRE_PROPERTY_FLOAT(t, @auto, 0);
             // clang-format on
