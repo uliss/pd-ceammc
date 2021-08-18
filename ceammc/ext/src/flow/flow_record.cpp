@@ -61,10 +61,10 @@ FlowRecord::FlowRecord(const PdArgs& args)
             if (repeatAgain()) {
                 current_idx_ = 0;
                 clock_.delay(rec_len_ms_ - last_time);
-                OBJ_DBG << "repeat: " << rec_len_ms_ - last_time;
+                // OBJ_DBG << "repeat: " << rec_len_ms_ - last_time;
             } else {
                 state_ = STOP;
-                OBJ_DBG << "stopped";
+                // OBJ_DBG << "stopped";
             }
         }
     })
@@ -161,8 +161,6 @@ void FlowRecord::appendMessage(FlowMessage* m)
     // store event time relative to record start
     const auto time_ms = sysTimeToMs(clock_getlogicaltime() - rec_start_);
     events_.push_back({ m, time_ms });
-
-    OBJ_DBG << " - " << time_ms << " " << m->view();
 }
 
 void FlowRecord::setState(FlowRecord::State new_st)
@@ -176,7 +174,6 @@ void FlowRecord::setState(FlowRecord::State new_st)
                 return;
             }
 
-            OBJ_DBG << "first event in: " << events_.front().second;
             clock_.delay(events_.front().second);
             state_ = PLAY;
             current_idx_ = 0;
@@ -238,7 +235,6 @@ void FlowRecord::setState(FlowRecord::State new_st)
                 return;
             }
 
-            OBJ_DBG << "first event in: " << events_.front().second;
             clock_.delay(events_.front().second);
             state_ = PLAY;
             current_idx_ = 0;
