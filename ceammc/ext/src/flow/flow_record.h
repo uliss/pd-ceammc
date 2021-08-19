@@ -24,7 +24,11 @@
 using namespace ceammc;
 
 using FlowMessage = SmallMessageN<4>;
-using FlowEvent = std::pair<FlowMessage*, double>;
+
+struct FlowEvent {
+    FlowMessage* msg;
+    double t_ms;
+};
 
 class FlowRecord : public BaseObject {
 public:
@@ -40,8 +44,8 @@ public:
 private:
     ControlProxy control_;
     ClockLambdaFunction clock_;
-    Events events_;
-    double rec_start_; ///< abs logic time
+    Events events_; ///< abs logic time ms
+    double rec_start_; ///< abs logic time ms
     double rec_len_ms_;
     IntProperty* max_size_;
     IntProperty* repeats_;
@@ -51,9 +55,9 @@ private:
     State state_;
     size_t current_idx_;
     int repeat_counter_;
-    // abs sync event time
-    // first - prev sync time
-    // second - current sync time
+    // abs sync event time ms
+    // first - prev sync time ms
+    // second - current sync time ms
     std::pair<double, double> sync_time_;
 
 public:
@@ -78,6 +82,8 @@ public:
 
     void dump() const override;
 
+    double recStartMs() const { return rec_start_; }
+
 public:
     const Events& events() const { return events_; }
 
@@ -91,7 +97,12 @@ private:
 
     void schedMs(t_float ms) { clock_.delay(ms / speed_->value()); }
 
-    void recStart();
+    void startRec();
+
+private:
+    static inline double now_sys() { return clock_getlogicaltime(); }
+    static inline double now_ms() { return clock_gettimesince(0); }
+    static inline double sys_time2ms(double tsys) { return clock_gettimesince(now_sys() - tsys); }
 };
 
 void setup_flow_record();

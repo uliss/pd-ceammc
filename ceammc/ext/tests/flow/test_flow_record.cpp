@@ -170,6 +170,8 @@ TEST_CASE("flow.record", "[externals]")
 
         t.sendMessageTo(Message(SYM("rec"), AtomListView()), 1);
 
+        const auto rec_start = t->recStartMs();
+
         t.schedTicks(4); // 4
         t << 1;
         t.schedTicks(4); // 8
@@ -185,9 +187,9 @@ TEST_CASE("flow.record", "[externals]")
 
         t.sendMessageTo(Message(SYM("stop"), AtomListView()), 1);
 
-#define REQUIRE_TICKS(t, n, v)                                      \
-    {                                                               \
-        REQUIRE(t->events()[n].second == Approx(v).margin(0.0001)); \
+#define REQUIRE_TICKS(t, n, v)                                                \
+    {                                                                         \
+        REQUIRE(t->events()[n].t_ms == Approx(v + rec_start).margin(0.0001)); \
     }
 
         REQUIRE_TICKS(t, 0, 4);

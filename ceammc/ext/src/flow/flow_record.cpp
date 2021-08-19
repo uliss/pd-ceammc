@@ -24,12 +24,6 @@ constexpr int DEFAULT_SIZE = 256;
 
 using MessagePool = SingletonMeyers<MemoryPool<FlowMessage>>;
 
-static inline double sys_time2ms(double t)
-{
-    const auto now = clock_getlogicaltime();
-    return clock_gettimesince(now - t);
-}
-
 static void sync_nearest(double& t, double a, double b)
 {
     const auto d0 = t - a;
@@ -49,28 +43,28 @@ FlowRecord::FlowRecord(const PdArgs& args)
         if (current_idx_ >= events_.size())
             return;
 
-        const auto last_time = events_[current_idx_].second;
+        const auto last_time = events_[current_idx_].t_ms;
 
         auto first = events_.begin() + current_idx_;
         // find simultaneous messages
-        auto last = std::find_if_not(first, events_.end(), [last_time](const FlowEvent& e) { return e.second == last_time; });
+        auto last = std::find_if_not(first, events_.end(), [last_time](const FlowEvent& e) { return e.t_ms == last_time; });
 
         // output messages
         auto outl = outletAt(0);
         for (auto it = first; it != last; ++it) {
             current_idx_++;
-            it->first->outputTo(outl);
+            it->msg->outputTo(outl);
         }
 
         // schedule next
         if (current_idx_ < events_.size()) {
-            const auto next_time = events_[current_idx_].second;
+            const auto next_time = events_[current_idx_].t_ms;
             schedMs(next_time - last_time);
         } else {
             repeat_counter_++;
             if (repeatAgain()) {
                 current_idx_ = 0;
-                schedMs(rec_len_ms_ - last_time);
+                schedMs(rec_start_ + rec_len_ms_ - last_time);
             } else {
                 state_ = STOP;
             }
@@ -173,7 +167,7 @@ void FlowRecord::m_quant(const AtomListView& lv)
 
     // quant events
     for (auto& e : events_)
-        e.second = std::round(e.second / q) * q;
+        e.t_ms = std::round((e.t_ms - rec_start_) / q) * q + rec_start_;
 
     // quant length
     rec_len_ms_ = std::round(rec_len_ms_ / q) * q;
@@ -185,13 +179,13 @@ void FlowRecord::m_qlist(const AtomListView& lv)
 
     SmallAtomListN<32> lst;
 
-    double prev_ms = 0;
+    double prev_ms = rec_start_;
 
     for (auto& e : events_) {
         lst.clear();
-        lst.push_back(e.second - prev_ms);
-        prev_ms = e.second;
-        const auto v = e.first->view();
+        lst.push_back(e.t_ms - prev_ms);
+        prev_ms = e.t_ms;
+        const auto v = e.msg->view();
         std::copy(v.begin(), v.end(), std::back_inserter(lst));
         anyTo(0, sym_add, AtomListView(lst.data(), lst.size()));
     }
@@ -205,16 +199,15 @@ void FlowRecord::m_bang()
     // move current time to last
     std::swap(sync_time_.first, sync_time_.second);
     // update current time
-    sync_time_.second = clock_getlogicaltime();
+    sync_time_.second = now_ms();
 
-    const auto ta = sys_time2ms(sync_time_.first - rec_start_);
-    const auto tb = sys_time2ms(sync_time_.second - rec_start_);
+    const auto ta = sync_time_.first - rec_start_;
+    const auto tb = sync_time_.second - rec_start_;
 
     //OBJ_DBG << "sync: " << ta << "-" << tb << '=' << tb - ta;
 
     for (auto it = events_.rbegin(); it != events_.rend(); ++it) {
-        auto& t = it->second;
-        sync_nearest(t, ta, tb);
+        sync_nearest(it->t_ms, ta, tb);
     }
 
     sync_nearest(rec_len_ms_, ta, tb);
@@ -225,7 +218,7 @@ void FlowRecord::m_flush(const AtomListView& lv)
     auto* outl = outletAt(0);
 
     for (size_t i = current_idx_; i < events_.size(); i++) {
-        events_[i].first->outputTo(outl);
+        events_[i].msg->outputTo(outl);
     }
 
     clear();
@@ -238,7 +231,7 @@ void FlowRecord::dump() const
              << rec_len_ms_ << "ms, "
              << "events: ";
     for (auto& e : events_)
-        OBJ_POST << " - [" << e.second << "] " << e.first->view();
+        OBJ_POST << " - [" << e.t_ms - rec_start_ << "] " << e.msg->view();
 }
 
 void FlowRecord::appendMessage(FlowMessage* m)
@@ -254,9 +247,8 @@ void FlowRecord::appendMessage(FlowMessage* m)
         return;
     }
 
-    // store event time relative to record start
-    const auto time_ms = sys_time2ms(clock_getlogicaltime() - rec_start_);
-    events_.push_back({ m, time_ms });
+    // store event abs time ms
+    events_.push_back({ m, now_ms() });
 }
 
 void FlowRecord::setState(FlowRecord::State new_st)
@@ -270,7 +262,7 @@ void FlowRecord::setState(FlowRecord::State new_st)
                 return;
             }
 
-            schedMs(events_.front().second);
+            schedMs(events_.front().t_ms - rec_start_);
             state_ = PLAY;
             current_idx_ = 0;
             repeat_counter_ = 0;
@@ -278,7 +270,7 @@ void FlowRecord::setState(FlowRecord::State new_st)
             return;
         }
         case RECORD:
-            return recStart();
+            return startRec();
         case STOP: {
             OBJ_DBG << "already stopped";
             return;
@@ -315,7 +307,7 @@ void FlowRecord::setState(FlowRecord::State new_st)
         switch (new_st) {
         case STOP: {
             state_ = STOP;
-            rec_len_ms_ = sys_time2ms(clock_getlogicaltime() - rec_start_);
+            rec_len_ms_ = now_ms() - rec_start_;
             OBJ_DBG << "record stopped: length " << rec_len_ms_ << "ms";
             return;
         }
@@ -325,11 +317,11 @@ void FlowRecord::setState(FlowRecord::State new_st)
                 return;
             }
 
-            schedMs(events_.front().second);
+            schedMs(events_.front().t_ms - rec_start_);
             state_ = PLAY;
             current_idx_ = 0;
             repeat_counter_ = 0;
-            rec_len_ms_ = sys_time2ms(clock_getlogicaltime() - rec_start_);
+            rec_len_ms_ = now_ms() - rec_start_;
             OBJ_DBG << "playing length: " << rec_len_ms_ << "ms";
             return;
         }
@@ -355,14 +347,14 @@ void FlowRecord::clear()
     auto& pool = MessagePool::instance();
 
     for (auto& el : events_)
-        pool.deleteElement(el.first);
+        pool.deleteElement(el.msg);
 
     events_.clear();
     clock_.unset();
     state_ = STOP;
 }
 
-void FlowRecord::recStart()
+void FlowRecord::startRec()
 {
     OBJ_DBG << "record started";
 
@@ -370,7 +362,7 @@ void FlowRecord::recStart()
     rec_len_ms_ = 0;
     state_ = RECORD;
 
-    rec_start_ = clock_getlogicaltime();
+    rec_start_ = now_ms();
     sync_nearest(rec_start_, sync_time_.first, sync_time_.second);
 }
 
