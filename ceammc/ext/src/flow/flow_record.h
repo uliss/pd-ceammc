@@ -41,14 +41,20 @@ private:
     ControlProxy control_;
     ClockLambdaFunction clock_;
     Events events_;
-    double rec_start_, rec_len_ms_;
+    double rec_start_; ///< abs logic time
+    double rec_len_ms_;
     IntProperty* max_size_;
     IntProperty* repeats_;
     BoolProperty* auto_start_;
+    BoolProperty* sync_;
     FloatProperty* speed_;
     State state_;
     size_t current_idx_;
     int repeat_counter_;
+    // abs sync event time
+    // first - prev sync time
+    // second - current sync time
+    std::pair<double, double> sync_time_;
 
 public:
     FlowRecord(const PdArgs& args);
@@ -68,6 +74,7 @@ public:
     void m_flush(const AtomListView& lv);
     void m_quant(const AtomListView& lv);
     void m_qlist(const AtomListView& lv);
+    void m_bang();
 
     void dump() const override;
 
@@ -83,6 +90,8 @@ private:
     bool repeatAgain() const { return (repeats_->value() > 0 && repeat_counter_ < repeats_->value()) || repeats_->value() < 0; }
 
     void schedMs(t_float ms) { clock_.delay(ms / speed_->value()); }
+
+    void recStart();
 };
 
 void setup_flow_record();

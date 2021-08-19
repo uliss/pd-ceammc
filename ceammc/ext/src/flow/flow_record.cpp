@@ -24,10 +24,19 @@ constexpr int DEFAULT_SIZE = 256;
 
 using MessagePool = SingletonMeyers<MemoryPool<FlowMessage>>;
 
-static inline double sysTimeToMs(double t)
+static inline double sys_time2ms(double t)
 {
     const auto now = clock_getlogicaltime();
     return clock_gettimesince(now - t);
+}
+
+static void sync_nearest(double& t, double a, double b)
+{
+    const auto d0 = t - a;
+    const auto d1 = b - t;
+
+    if (d0 >= 0 && d1 >= 0)
+        t = (d0 < d1) ? a : b;
 }
 
 FlowRecord::FlowRecord(const PdArgs& args)
@@ -72,6 +81,7 @@ FlowRecord::FlowRecord(const PdArgs& args)
     , max_size_(nullptr)
     , repeats_(nullptr)
     , auto_start_(nullptr)
+    , sync_(nullptr)
     , speed_(nullptr)
     , state_(STOP)
     , repeat_counter_(0)
@@ -93,6 +103,9 @@ FlowRecord::FlowRecord(const PdArgs& args)
     speed_ = new FloatProperty("@speed", 1);
     speed_->checkClosedRange(1.0 / 64.0, 64.0);
     addProperty(speed_);
+
+    sync_ = new BoolProperty("@sync", false);
+    addProperty(sync_);
 }
 
 FlowRecord::~FlowRecord()
@@ -184,6 +197,29 @@ void FlowRecord::m_qlist(const AtomListView& lv)
     }
 }
 
+void FlowRecord::m_bang()
+{
+    if (!sync_->value())
+        return;
+
+    // move current time to last
+    std::swap(sync_time_.first, sync_time_.second);
+    // update current time
+    sync_time_.second = clock_getlogicaltime();
+
+    const auto ta = sys_time2ms(sync_time_.first - rec_start_);
+    const auto tb = sys_time2ms(sync_time_.second - rec_start_);
+
+    //OBJ_DBG << "sync: " << ta << "-" << tb << '=' << tb - ta;
+
+    for (auto it = events_.rbegin(); it != events_.rend(); ++it) {
+        auto& t = it->second;
+        sync_nearest(t, ta, tb);
+    }
+
+    sync_nearest(rec_len_ms_, ta, tb);
+}
+
 void FlowRecord::m_flush(const AtomListView& lv)
 {
     auto* outl = outletAt(0);
@@ -207,11 +243,11 @@ void FlowRecord::dump() const
 
 void FlowRecord::appendMessage(FlowMessage* m)
 {
-    if (!auto_start_->value() && state_ != RECORD)
-        return;
-
     if (auto_start_->value() && state_ == STOP)
         setState(RECORD);
+
+    if (state_ != RECORD)
+        return;
 
     if (!sizeInf() && events_.size() > MAX_SIZE) {
         OBJ_ERR << "overfulled, max size has reached: " << events_.size();
@@ -219,7 +255,7 @@ void FlowRecord::appendMessage(FlowMessage* m)
     }
 
     // store event time relative to record start
-    const auto time_ms = sysTimeToMs(clock_getlogicaltime() - rec_start_);
+    const auto time_ms = sys_time2ms(clock_getlogicaltime() - rec_start_);
     events_.push_back({ m, time_ms });
 }
 
@@ -241,14 +277,8 @@ void FlowRecord::setState(FlowRecord::State new_st)
             OBJ_DBG << "playing length: " << rec_len_ms_ << "ms";
             return;
         }
-        case RECORD: {
-            OBJ_DBG << "record started";
-            clear();
-            state_ = RECORD;
-            rec_start_ = clock_getlogicaltime();
-            rec_len_ms_ = 0;
-            return;
-        }
+        case RECORD:
+            return recStart();
         case STOP: {
             OBJ_DBG << "already stopped";
             return;
@@ -285,7 +315,7 @@ void FlowRecord::setState(FlowRecord::State new_st)
         switch (new_st) {
         case STOP: {
             state_ = STOP;
-            rec_len_ms_ = sysTimeToMs(clock_getlogicaltime() - rec_start_);
+            rec_len_ms_ = sys_time2ms(clock_getlogicaltime() - rec_start_);
             OBJ_DBG << "record stopped: length " << rec_len_ms_ << "ms";
             return;
         }
@@ -299,7 +329,7 @@ void FlowRecord::setState(FlowRecord::State new_st)
             state_ = PLAY;
             current_idx_ = 0;
             repeat_counter_ = 0;
-            rec_len_ms_ = sysTimeToMs(clock_getlogicaltime() - rec_start_);
+            rec_len_ms_ = sys_time2ms(clock_getlogicaltime() - rec_start_);
             OBJ_DBG << "playing length: " << rec_len_ms_ << "ms";
             return;
         }
@@ -332,6 +362,18 @@ void FlowRecord::clear()
     state_ = STOP;
 }
 
+void FlowRecord::recStart()
+{
+    OBJ_DBG << "record started";
+
+    clear();
+    rec_len_ms_ = 0;
+    state_ = RECORD;
+
+    rec_start_ = clock_getlogicaltime();
+    sync_nearest(rec_start_, sync_time_.first, sync_time_.second);
+}
+
 void setup_flow_record()
 {
     ObjectFactory<FlowRecord> obj("flow.record");
@@ -341,6 +383,7 @@ void setup_flow_record()
     obj.noPropsDispatch();
 
     FlowRecord::ControlProxy::init();
+    FlowRecord::ControlProxy::set_bang_callback(&FlowRecord::m_bang);
     FlowRecord::ControlProxy::set_method_callback(gensym("play"), &FlowRecord::m_play);
     FlowRecord::ControlProxy::set_method_callback(gensym("stop"), &FlowRecord::m_stop);
     FlowRecord::ControlProxy::set_method_callback(gensym("pause"), &FlowRecord::m_pause);
