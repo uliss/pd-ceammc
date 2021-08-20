@@ -46,7 +46,7 @@ private:
     ClockLambdaFunction clock_;
     Events events_; ///< abs logic time ms
     double rec_start_; ///< abs logic time ms
-    double rec_len_ms_;
+    double rec_stop_; ///< abs logic time ms
     IntProperty* max_size_;
     IntProperty* repeats_;
     BoolProperty* auto_start_;

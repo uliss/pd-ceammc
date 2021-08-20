@@ -24,13 +24,16 @@ constexpr int DEFAULT_SIZE = 256;
 
 using MessagePool = SingletonMeyers<MemoryPool<FlowMessage>>;
 
-static void sync_nearest(double& t, double a, double b)
+static bool sync_nearest(double& t, double a, double b)
 {
     const auto d0 = t - a;
     const auto d1 = b - t;
 
-    if (d0 >= 0 && d1 >= 0)
+    if (d0 >= 0 && d1 >= 0) {
         t = (d0 < d1) ? a : b;
+        return true;
+    } else
+        return false;
 }
 
 FlowRecord::FlowRecord(const PdArgs& args)
@@ -64,14 +67,14 @@ FlowRecord::FlowRecord(const PdArgs& args)
             repeat_counter_++;
             if (repeatAgain()) {
                 current_idx_ = 0;
-                schedMs(rec_start_ + rec_len_ms_ - last_time);
+                schedMs(rec_stop_ - last_time);
             } else {
                 state_ = STOP;
             }
         }
     })
     , rec_start_(0)
-    , rec_len_ms_(0)
+    , rec_stop_(0)
     , max_size_(nullptr)
     , repeats_(nullptr)
     , auto_start_(nullptr)
@@ -170,7 +173,7 @@ void FlowRecord::m_quant(const AtomListView& lv)
         e.t_ms = std::round((e.t_ms - rec_start_) / q) * q + rec_start_;
 
     // quant length
-    rec_len_ms_ = std::round(rec_len_ms_ / q) * q;
+    rec_stop_ = std::round((rec_stop_ - rec_start_) / q) * q + rec_start_;
 }
 
 void FlowRecord::m_qlist(const AtomListView& lv)
@@ -201,16 +204,16 @@ void FlowRecord::m_bang()
     // update current time
     sync_time_.second = now_ms();
 
-    const auto ta = sync_time_.first - rec_start_;
-    const auto tb = sync_time_.second - rec_start_;
+    const auto ta = sync_time_.first;
+    const auto tb = sync_time_.second;
 
-    //OBJ_DBG << "sync: " << ta << "-" << tb << '=' << tb - ta;
+    sync_nearest(rec_start_, ta, tb);
 
     for (auto it = events_.rbegin(); it != events_.rend(); ++it) {
         sync_nearest(it->t_ms, ta, tb);
     }
 
-    sync_nearest(rec_len_ms_, ta, tb);
+    sync_nearest(rec_stop_, ta, tb);
 }
 
 void FlowRecord::m_flush(const AtomListView& lv)
@@ -228,7 +231,7 @@ void FlowRecord::dump() const
 {
     BaseObject::dump();
     OBJ_POST << "length: "
-             << rec_len_ms_ << "ms, "
+             //<< rec_len_ms_ << "ms, "
              << "events: ";
     for (auto& e : events_)
         OBJ_POST << " - [" << e.t_ms - rec_start_ << "] " << e.msg->view();
@@ -266,7 +269,7 @@ void FlowRecord::setState(FlowRecord::State new_st)
             state_ = PLAY;
             current_idx_ = 0;
             repeat_counter_ = 0;
-            OBJ_DBG << "playing length: " << rec_len_ms_ << "ms";
+            //OBJ_DBG << "playing length: " << rec_len_ms_ << "ms";
             return;
         }
         case RECORD:
@@ -307,8 +310,8 @@ void FlowRecord::setState(FlowRecord::State new_st)
         switch (new_st) {
         case STOP: {
             state_ = STOP;
-            rec_len_ms_ = now_ms() - rec_start_;
-            OBJ_DBG << "record stopped: length " << rec_len_ms_ << "ms";
+            rec_stop_ = now_ms();
+            //OBJ_DBG << "record stopped: length " << rec_len_ms_ << "ms";
             return;
         }
         case PLAY: {
@@ -321,8 +324,8 @@ void FlowRecord::setState(FlowRecord::State new_st)
             state_ = PLAY;
             current_idx_ = 0;
             repeat_counter_ = 0;
-            rec_len_ms_ = now_ms() - rec_start_;
-            OBJ_DBG << "playing length: " << rec_len_ms_ << "ms";
+            rec_stop_ = now_ms();
+            //OBJ_DBG << "playing length: " << rec_len_ms_ << "ms";
             return;
         }
         case RECORD: {
@@ -359,11 +362,16 @@ void FlowRecord::startRec()
     OBJ_DBG << "record started";
 
     clear();
-    rec_len_ms_ = 0;
     state_ = RECORD;
 
     rec_start_ = now_ms();
-    sync_nearest(rec_start_, sync_time_.first, sync_time_.second);
+    rec_stop_ = rec_start_;
+
+    if (sync_->value()) {
+        OBJ_DBG << "rec start sync: " << rec_start_ << " -> |" << sync_time_.first << ' ' << sync_time_.second << '|';
+        if (sync_nearest(rec_start_, sync_time_.first, sync_time_.second))
+            OBJ_DBG << "rec sync done: " << rec_start_;
+    }
 }
 
 void setup_flow_record()

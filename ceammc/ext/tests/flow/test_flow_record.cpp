@@ -229,4 +229,32 @@ TEST_CASE("flow.record", "[externals]")
                     M(SYM("add"), LF(7, 3)),
                 });
     }
+
+    SECTION("sync")
+    {
+        TExt t("flow.record", "@sync", 1);
+
+        t.schedTicks(100);
+        t.sendBangTo(1);
+        t.schedTicks(100);
+        t.sendBangTo(1);
+
+        t.schedTicks(20);
+        t.sendMessageTo(Message(SYM("rec"), AtomListView()), 1);
+        auto rs = t->recStartMs();
+
+        t.schedTicks(20);
+        t << "A";
+        t.schedTicks(60);
+        t.sendBangTo(1);
+
+        t.schedTicks(70);
+        t << "B";
+        t.schedTicks(20);
+        t.sendMessageTo(Message(SYM("stop"), AtomListView()), 1);
+        t.schedTicks(10);
+        t.sendBangTo(1);
+
+        t->dump();
+    }
 }
