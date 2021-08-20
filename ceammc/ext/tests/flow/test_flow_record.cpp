@@ -256,5 +256,8 @@ TEST_CASE("flow.record", "[externals]")
         t.sendBangTo(1);
 
         t->dump();
+
+        REQUIRE(t->events()[0].t_ms == 0);
+        REQUIRE(t->events()[1].t_ms == 200);
     }
 }
