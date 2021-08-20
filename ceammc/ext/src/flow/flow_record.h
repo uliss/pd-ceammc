@@ -83,6 +83,7 @@ public:
     void dump() const override;
 
     double recStartMs() const { return rec_start_; }
+    double recLengthMs() const { return rec_stop_ - rec_start_; }
 
 public:
     const Events& events() const { return events_; }

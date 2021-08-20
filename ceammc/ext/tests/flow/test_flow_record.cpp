@@ -254,10 +254,11 @@ TEST_CASE("flow.record", "[externals]")
         t.sendMessageTo(Message(SYM("stop"), AtomListView()), 1);
         t.schedTicks(10);
         t.sendBangTo(1);
+        t.schedTicks(100);
+        t.sendBangTo(1);
 
         t->dump();
 
-        REQUIRE(t->events()[0].t_ms == 0);
-        REQUIRE(t->events()[1].t_ms == 200);
+        REQUIRE(t->recLengthMs() == Approx(200).margin(0.00001));
     }
 }
