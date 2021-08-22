@@ -78,6 +78,7 @@ public:
     void m_flush(const AtomListView& lv);
     void m_quant(const AtomListView& lv);
     void m_qlist(const AtomListView& lv);
+    void m_length(const AtomListView& lv);
     void m_bang();
 
     void dump() const override;

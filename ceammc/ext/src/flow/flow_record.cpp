@@ -214,6 +214,37 @@ void FlowRecord::m_qlist(const AtomListView& lv)
     }
 }
 
+void FlowRecord::m_length(const AtomListView& lv)
+{
+    t_float len = 0;
+    auto res = units::TimeValue::parse(lv);
+
+    units::UnitParseError err;
+    units::TimeValue time(0);
+
+    if (res.matchError(err)) {
+        OBJ_ERR << err.msg;
+        return;
+    } else if (res.matchValue(time)) {
+        len = time.toMs();
+    }
+
+    if (len <= 0) {
+        OBJ_ERR << "positive value expected, got: " << len;
+        return;
+    }
+
+    rec_stop_ = rec_start_ + len;
+
+    auto last = std::lower_bound(events_.begin(), events_.end(), rec_stop_, [](const FlowEvent& e, double v) { return e.t_ms <= v; });
+    for (auto it = last; it != events_.end(); ++it) {
+        MessagePool::instance().deleteElement(const_cast<FlowMessage*>(it->msg));
+        it->msg = nullptr;
+    }
+
+    events_.erase(last, events_.end());
+}
+
 void FlowRecord::m_bang()
 {
     if (!sync_->value())
@@ -423,4 +454,5 @@ void setup_flow_record()
     FlowRecord::ControlProxy::set_method_callback(gensym("flush"), &FlowRecord::m_flush);
     FlowRecord::ControlProxy::set_method_callback(gensym("quant"), &FlowRecord::m_quant);
     FlowRecord::ControlProxy::set_method_callback(gensym("qlist"), &FlowRecord::m_qlist);
+    FlowRecord::ControlProxy::set_method_callback(gensym("length"), &FlowRecord::m_length);
 }

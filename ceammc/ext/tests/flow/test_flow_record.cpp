@@ -281,11 +281,39 @@ TEST_CASE("flow.record", "[externals]")
 
     SECTION("any")
     {
-        TExt t("flow.record", "@max", 4);
+        TExt t("flow.record", "@max", 4, "@auto", 1);
 
-        t.sendMessageTo(Message(SYM("rec"), AtomListView()), 1);
         t.sendMessage(SYM("@any"), LF(1, 2, 3));
         REQUIRE(t->events().size() == 1);
         REQUIRE(t->events()[0].msg->view() == LA("@any", 1, 2, 3));
+    }
+
+    SECTION("length")
+    {
+        TExt t("flow.record", "@auto", 1);
+
+        t << 1;
+        t.schedTicks(5);
+        t << 2;
+        t.schedTicks(5);
+        t << 3;
+        t.schedTicks(5);
+        t << 4;
+        t.schedTicks(5);
+
+        t.sendMessageTo(Message(SYM("stop"), AtomListView()), 1);
+        REQUIRE(t->recLengthMs() == Approx(20).margin(0.00001));
+
+        t.sendMessageTo(Message(SYM("length"), LF(30)), 1);
+        REQUIRE(t->recLengthMs() == 30);
+        REQUIRE(t->events().size() == 4);
+
+        t.sendMessageTo(Message(SYM("length"), LF(16)), 1);
+        REQUIRE(t->recLengthMs() == 16);
+        REQUIRE(t->events().size() == 4);
+
+        t.sendMessageTo(Message(SYM("length"), LA("5ms")), 1);
+        REQUIRE(t->recLengthMs() == 5);
+        REQUIRE(t->events().size() == 1);
     }
 }
