@@ -31,15 +31,19 @@
         <example>
             <pdascii>
 <![CDATA[
-[osc~ 440]
+[osc~ 440]  [ui.dsp~]
+|
 |
 | [B] [symbol A( [list 1 2 3( [@p 1(
 | |   |          |            |
+| |   |          |            |
 [flow.tee~                    ]
-|        ^|
-[*~ 0.1]  [msg set]
-|         |
-[dac~ 1]  [ (
+|      ^|
+|      [ui.dt]
+|
+[ui.hgain~]
+|\
+[dac~]
 ]]>
             </pdascii>
         </example>
