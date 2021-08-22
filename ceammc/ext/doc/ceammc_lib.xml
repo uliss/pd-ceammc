@@ -557,6 +557,9 @@
     <entry name="flow.queue" descr="multi-channel control flow sync queue (or FIFO)" ref_view="object">
       <xi:include href="flow.queue.pddoc" parse="xml"/>
     </entry>
+    <entry name="flow.record" descr="flow stream recorder/player" ref_view="object">
+      <xi:include href="flow.record.pddoc" parse="xml"/>
+    </entry>
     <entry name="flow.reject" descr="reject specified values" ref_view="object">
       <xi:include href="flow.reject.pddoc" parse="xml"/>
     </entry>

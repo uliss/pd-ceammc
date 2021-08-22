@@ -151,6 +151,7 @@ set(DOC_FILES
     flow.pass
     flow.pass_if
     flow.pipe
+    flow.record
     flow.reject
     flow.reject_if
     flow.ring

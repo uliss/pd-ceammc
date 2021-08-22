@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="flow.record">
+        <title>flow.record</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>flow stream recorder/player</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>flow</category>
+            <keywords>flow record</keywords>
+            <since>0.9</since>
+            <aliases>
+                <alias>flow.rec</alias>
+            </aliases>
+        </meta>
+        <properties/>
+        <inlets>
+            <inlet>
+                <xinfo on="any">input message</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="bang">sync tick (when @sync 1)</xinfo>
+                <xinfo>rec: start flow record</xinfo>
+                <xinfo>play: play recorded flow</xinfo>
+                <xinfo>stop: stop recording</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output message</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[ui.keyboard]
+|
+|
+|
+|
+|     [stop( [play(
+|     |.     |.
+[flow.record @auto 1]
+|
+[msg note]
+|
+[fluid~]          [ui.dsp~]
+*|*
+[ui.hgain2~]
+*|*
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

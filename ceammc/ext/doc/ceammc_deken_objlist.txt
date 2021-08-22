@@ -370,6 +370,8 @@ ceammc/pass_if	pass values that accepted by predicate object
 pass_if	pass values that accepted by predicate object
 flow.pipe	enhanced version on vanilla pipe object
 flow.queue	multi-channel control flow sync queue (or FIFO)
+flow.record	flow stream recorder/player
+flow.rec	flow stream recorder/player
 flow.reject	reject specified values
 ceammc/reject	reject specified values
 reject	reject specified values
