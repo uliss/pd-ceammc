@@ -50,7 +50,7 @@
 |             |
 [line         ]
 |
-[trigger         f f]
+[t f f              ]
 ^|                  |
 [flow.speedlim 100] [sel 100]
 |                   |
@@ -58,9 +58,7 @@
 |                   |
 [flow.group  @by 100]
 |
-[msg set]
-|
-[ (
+[ui.dt]
 ]]>
             </pdascii>
         </example>
