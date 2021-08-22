@@ -266,7 +266,11 @@ bool FlowRecord::appendMessage(FlowMessage* m)
         return false;
 
     if (!hasSpace()) {
-        OBJ_ERR << "overfulled, max size has reached: " << max_size_->value();
+        if (auto_start_->value())
+            setState(PLAY);
+        else
+            OBJ_ERR << "overfulled, max size has reached: " << max_size_->value();
+
         return false;
     }
 

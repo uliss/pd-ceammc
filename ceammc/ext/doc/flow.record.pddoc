@@ -61,6 +61,30 @@
 [ui.hgain2~]
 *|*
 [dac~]
+
+[flow.record.speed]
+]]>
+            </pdascii>
+            <pdascii id="speed">
+<![CDATA[
+[ui.keyboard]
+|
+|
+|
+|
+[msg note]
+|
+| [ui.hsl 0.25 4 @show_value 1]
+| |
+| [@speed $1(
+| |
+[flow.record @auto 1 @max 4 @r -1]
+|
+[fluid~]          [ui.dsp~]
+*|*
+[ui.hgain2~]
+*|*
+[dac~]
 ]]>
             </pdascii>
         </example>
