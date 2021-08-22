@@ -41,9 +41,7 @@
 |         |     |.     |.
 [list.search           A]
 |
-[msg set]
-|
-[ (
+[ui.dt]
 ]]>
             </pdascii>
         </example>
