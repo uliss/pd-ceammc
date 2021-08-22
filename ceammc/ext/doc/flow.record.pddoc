@@ -16,7 +16,18 @@
                 <alias>flow.rec</alias>
             </aliases>
         </meta>
-        <properties/>
+        <properties>
+            <property name="@r" type="int" minvalue="-1" default="1">number of repeats in play
+            mode. If -1: repeat infinitely</property>
+            <property name="@max" type="int" minvalue="0" default="256" maxvalue="65536">max number
+            of events, if 0: no max size check</property>
+            <property name="@speed" type="float" minvalue="0.015625" default="1" maxvalue="64">play
+            speed</property>
+            <property name="@auto" type="int" enum="0 1" default="0">autostart record on first
+            input atom</property>
+            <property name="@sync" type="int" enum="0 1" default="0">use external bang pulse to
+            sync recorded events with.</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo on="any">input message</xinfo>
