@@ -35,9 +35,9 @@
             </inlet>
             <inlet>
                 <xinfo on="bang">sync tick (when @sync 1)</xinfo>
-                <xinfo>rec [1|0]?: start (stop) flow record</xinfo>
-                <xinfo>play [1|0]?: play (stop) recorded flow</xinfo>
-                <xinfo>stop [1|0]?: stop (play) recording</xinfo>
+                <xinfo>[rec (1|0)?( - start (stop) flow record</xinfo>
+                <xinfo>[play (1|0)?( - play (stop) recorded flow</xinfo>
+                <xinfo>[stop (1|0)?( - stop (play) recording</xinfo>
                 <xinfo>[clear( - remove all recorded messages</xinfo>
                 <xinfo>[flush( - output and remove all recorded messages</xinfo>
                 <xinfo>[qlist( - output to qlist object</xinfo>
