@@ -70,7 +70,7 @@ public:
     void onList(const AtomList& lst) override;
     void onAny(t_symbol* s, const AtomListView& lv) override;
 
-    void m_play(const AtomListView& lv) { setState(lv.boolAt(0, true) ? PLAY : STOP); }
+    void m_play(const AtomListView& lv);
     void m_stop(const AtomListView& lv) { setState(lv.boolAt(0, true) ? STOP : PLAY); }
     void m_pause(const AtomListView& lv) { setState(STOP); }
     void m_record(const AtomListView& lv) { setState(lv.boolAt(0, true) ? RECORD : STOP); }

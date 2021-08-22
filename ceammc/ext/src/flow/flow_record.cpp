@@ -135,6 +135,11 @@ void FlowRecord::onAny(t_symbol* s, const AtomListView& lv)
     appendMessage(MessagePool::instance().newElement(s, lv));
 }
 
+void FlowRecord::m_play(const AtomListView& lv)
+{
+    setState(lv.boolAt(0, true) ? PLAY : STOP);
+}
+
 void FlowRecord::m_clear(const AtomListView& lv)
 {
     clear();

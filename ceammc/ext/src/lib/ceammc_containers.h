@@ -92,7 +92,7 @@ public:
     {
         atoms_.reserve(lv.size() + 1);
         atoms_.push_back(s);
-        std::copy(lv.begin() + 1, lv.end(), std::back_inserter(atoms_));
+        std::copy(lv.begin(), lv.end(), std::back_inserter(atoms_));
     }
 
     Type type() const { return type_; }
