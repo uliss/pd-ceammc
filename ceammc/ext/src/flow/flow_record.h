@@ -26,7 +26,7 @@ using namespace ceammc;
 using FlowMessage = SmallMessageN<4>;
 
 struct FlowEvent {
-    FlowMessage* msg;
+    const FlowMessage* msg;
     double t_ms;
 };
 
@@ -89,8 +89,10 @@ public:
     const Events& events() const { return events_; }
 
 private:
-    void appendMessage(FlowMessage* m);
+    bool appendMessage(FlowMessage* m);
     bool sizeInf() const { return max_size_->value() == 0; }
+    bool hasSpace() const { return max_size_->value() == 0 || ((int)events_.size() < max_size_->value()); }
+
     void setState(State new_st);
     void clear();
 

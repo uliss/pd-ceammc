@@ -101,7 +101,7 @@ public:
     AtomListView view() const { return AtomListView(&atoms_[0].atom(), atoms_.size()); }
 
 public:
-    void outputTo(t_outlet* x)
+    void outputTo(t_outlet* x) const
     {
         switch (type_) {
         case FLOAT:

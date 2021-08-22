@@ -19,7 +19,7 @@
 #include "../mempool/MemoryPool.h"
 
 constexpr int MIN_SIZE = 0;
-constexpr int MAX_SIZE = 1024 * 32;
+constexpr int MAX_SIZE = 1024 * 64;
 constexpr int DEFAULT_SIZE = 256;
 
 using MessagePool = SingletonMeyers<MemoryPool<FlowMessage>>;
@@ -112,27 +112,42 @@ FlowRecord::~FlowRecord()
 
 void FlowRecord::onBang()
 {
-    appendMessage(MessagePool::instance().newElement());
+    auto msg = MessagePool::instance().newElement();
+
+    if (!appendMessage(msg))
+        MessagePool::instance().deleteElement(msg);
 }
 
 void FlowRecord::onFloat(t_float v)
 {
-    appendMessage(MessagePool::instance().newElement(v));
+    auto msg = MessagePool::instance().newElement(v);
+
+    if (!appendMessage(msg))
+        MessagePool::instance().deleteElement(msg);
 }
 
 void FlowRecord::onSymbol(t_symbol* s)
 {
-    appendMessage(MessagePool::instance().newElement(s));
+    auto msg = MessagePool::instance().newElement(s);
+
+    if (!appendMessage(msg))
+        MessagePool::instance().deleteElement(msg);
 }
 
 void FlowRecord::onList(const AtomList& lst)
 {
-    appendMessage(MessagePool::instance().newElement(lst.view()));
+    auto msg = MessagePool::instance().newElement(lst.view());
+
+    if (!appendMessage(msg))
+        MessagePool::instance().deleteElement(msg);
 }
 
 void FlowRecord::onAny(t_symbol* s, const AtomListView& lv)
 {
-    appendMessage(MessagePool::instance().newElement(s, lv));
+    auto msg = MessagePool::instance().newElement(s, lv);
+
+    if (!appendMessage(msg))
+        MessagePool::instance().deleteElement(msg);
 }
 
 void FlowRecord::m_play(const AtomListView& lv)
@@ -242,21 +257,28 @@ void FlowRecord::dump() const
         OBJ_POST << " - [" << e.t_ms - rec_start_ << "] " << e.msg->view();
 }
 
-void FlowRecord::appendMessage(FlowMessage* m)
+bool FlowRecord::appendMessage(FlowMessage* m)
 {
     if (auto_start_->value() && state_ == STOP)
         setState(RECORD);
 
     if (state_ != RECORD)
-        return;
+        return false;
 
-    if (!sizeInf() && events_.size() > MAX_SIZE) {
-        OBJ_ERR << "overfulled, max size has reached: " << events_.size();
-        return;
+    if (!hasSpace()) {
+        OBJ_ERR << "overfulled, max size has reached: " << max_size_->value();
+        return false;
     }
 
     // store event abs time ms
-    events_.push_back({ m, now_ms() });
+
+    try {
+        events_.push_back({ m, now_ms() });
+    } catch (std::exception& e) {
+        return false;
+    }
+
+    return true;
 }
 
 void FlowRecord::setState(FlowRecord::State new_st)
@@ -355,7 +377,7 @@ void FlowRecord::clear()
     auto& pool = MessagePool::instance();
 
     for (auto& el : events_)
-        pool.deleteElement(el.msg);
+        pool.deleteElement(const_cast<FlowMessage*>(el.msg));
 
     events_.clear();
     clock_.unset();

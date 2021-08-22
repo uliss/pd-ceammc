@@ -35,6 +35,7 @@ TEST_CASE("flow.record", "[externals]")
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY_FLOAT(t, @r, 1);
             REQUIRE_PROPERTY_FLOAT(t, @speed, 1);
+            REQUIRE_PROPERTY_FLOAT(t, @max, 256);
             // clang-format off
             REQUIRE_PROPERTY_FLOAT(t, @auto, 0);
             // clang-format on
@@ -260,5 +261,21 @@ TEST_CASE("flow.record", "[externals]")
         t->dump();
 
         REQUIRE(t->recLengthMs() == Approx(200).margin(0.00001));
+    }
+
+    SECTION("@max")
+    {
+        TExt t("flow.record", "@max", 4);
+
+        t.sendMessageTo(Message(SYM("rec"), AtomListView()), 1);
+        t << 1;
+        t << 2;
+        t << 3;
+        t << 4;
+
+        REQUIRE(t->events().size() == 4);
+
+        t << 5;
+        REQUIRE(t->events().size() == 4);
     }
 }
