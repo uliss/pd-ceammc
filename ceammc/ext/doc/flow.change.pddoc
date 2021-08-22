@@ -32,6 +32,10 @@
             <inlet>
                 <xinfo on="bang">force output current value</xinfo>
             </inlet>
+            <inlet>
+                <xinfo>reset: reset state</xinfo>
+                <xinfo>set: sets current value without output</xinfo>
+            </inlet>
         </inlets>
         <outlets>
             <outlet>output only if input changed</outlet>
@@ -39,17 +43,27 @@
         <example>
             <pdascii>
 <![CDATA[
-    [1 2( [3 4( [list a b( [a b( [reset(
-    |     |     |          |     |
-[F] | [B] | [S] |          |     |
-|   | |   | |   |          |     |
-[flow.change                     ]
+[1 #a(  [list a b #b(    [@prop 123 #c(
+
+   [B]  [symbol ABC #d(  [reset #e(
+   |
+[flow.change #z]
 |
 [ui.dt]
+
+[flow.change.repeats]
+
+[X a->z]
+[X b->z]
+[X c->z]
+[X d->z]
+[X e->z:1]
 ]]>
             </pdascii>
             <pdascii id="repeats">
 <![CDATA[
+/*non repeated (from step to step) random values*/
+
 [B] [func try_again]
 |    ^|
 [random.int 1 3]

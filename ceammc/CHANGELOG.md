@@ -9,6 +9,7 @@
   - array.grainer~: array granulator
   - file.size: aync/sync filesize requests
   - flow.float: float pass flow object added
+  - flow.change: any message support added and second inlet for control messages
   - fx.echo2~: stereo echo with ping-pong delay added
   - fx.rb_pitchshift~: pitchshifter based on RubberBand library (via Aubio wrapper, see: https://breakfastquay.com/rubberband/)
   - fx.recho~: reverse echo fx added
