@@ -117,7 +117,7 @@ public:
             outlet_list(x, &s_list, atoms_.size(), const_cast<t_atom*>(&atoms_[0].atom()));
             break;
         case ANY:
-            outlet_list(x, atoms_[0].template asT<t_symbol*>(), atoms_.size() - 1, const_cast<t_atom*>(&atoms_[1].atom()));
+            outlet_anything(x, atoms_[0].template asT<t_symbol*>(), atoms_.size() - 1, const_cast<t_atom*>(&atoms_[1].atom()));
             break;
         case BANG:
         default:

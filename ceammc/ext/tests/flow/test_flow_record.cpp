@@ -278,4 +278,14 @@ TEST_CASE("flow.record", "[externals]")
         t << 5;
         REQUIRE(t->events().size() == 4);
     }
+
+    SECTION("any")
+    {
+        TExt t("flow.record", "@max", 4);
+
+        t.sendMessageTo(Message(SYM("rec"), AtomListView()), 1);
+        t.sendMessage(SYM("@any"), LF(1, 2, 3));
+        REQUIRE(t->events().size() == 1);
+        REQUIRE(t->events()[0].msg->view() == LA("@any", 1, 2, 3));
+    }
 }
