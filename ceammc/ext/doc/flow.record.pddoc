@@ -41,6 +41,7 @@
                 <xinfo>[clear( - remove all recorded messages</xinfo>
                 <xinfo>[flush( - output and remove all recorded messages</xinfo>
                 <xinfo>[qlist( - output to qlist object</xinfo>
+                <xinfo>[length FLOAT|time( - resize recorded messages (remove after specified length)</xinfo>
             </inlet>
         </inlets>
         <outlets>
