@@ -26,7 +26,7 @@ TEST_CASE("flow.change", "[externals]")
     SECTION("init")
     {
         TObj t("flow.change");
-        REQUIRE(t.numInlets() == 1);
+        REQUIRE(t.numInlets() == 2);
         REQUIRE(t.numOutlets() == 1);
         REQUIRE_PROPERTY(t, @onrepeat, "");
     }
@@ -86,7 +86,7 @@ TEST_CASE("flow.change", "[externals]")
         WHEN_SEND_FLOAT_TO(0, t, 2);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
-        WHEN_CALL(t, reset);
+        t.m_reset({});
         WHEN_SEND_FLOAT_TO(0, t, 2);
         REQUIRE_FLOAT_AT_OUTLET(0, t, 2);
     }
@@ -101,11 +101,11 @@ TEST_CASE("flow.change", "[externals]")
         WHEN_SEND_FLOAT_TO(0, t, 2);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
-        WHEN_CALL_N(t, set, 1);
+        t.m_set(LF(1));
         WHEN_SEND_FLOAT_TO(0, t, 2);
         REQUIRE_FLOAT_AT_OUTLET(0, t, 2);
 
-        WHEN_CALL_N(t, set, 1, 2, 3);
+        t.m_set(LF(1, 2, 3));
         WHEN_SEND_LIST_TO(0, t, LF(1, 2, 3));
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 

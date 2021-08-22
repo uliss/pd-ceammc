@@ -15,23 +15,26 @@
 #define FLOW_CHANGE_H
 
 #include "ceammc_object.h"
+#include "ceammc_proxy.h"
 
 using namespace ceammc;
 
 class FlowChange : public BaseObject {
     Message msg_;
     SymbolProperty* on_repeat_;
+    InletProxy<FlowChange> ctrl_;
 
 public:
     FlowChange(const PdArgs& a);
+
     void onBang() override;
     void onFloat(t_float f) override;
     void onSymbol(t_symbol* s) override;
     void onList(const AtomList& l) override;
     void onAny(t_symbol* s, const AtomListView& lv) override;
 
-    void m_reset(t_symbol*, const AtomListView&);
-    void m_set(t_symbol*, const AtomListView& l);
+    void m_reset(const AtomListView&);
+    void m_set(const AtomListView& lv);
 
 private:
     void onRepeat();

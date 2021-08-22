@@ -18,7 +18,10 @@
 FlowChange::FlowChange(const PdArgs& a)
     : BaseObject(a)
     , on_repeat_(NULL)
+    , ctrl_(this)
 {
+    inlet_new(owner(), &ctrl_.x_obj, nullptr, nullptr);
+
     on_repeat_ = new SymbolProperty("@onrepeat", &s_);
     addProperty(on_repeat_);
     createOutlet();
@@ -76,17 +79,17 @@ void FlowChange::onAny(t_symbol* s, const AtomListView& lv)
     anyTo(0, s, lv);
 }
 
-void FlowChange::m_reset(t_symbol*, const AtomListView&)
+void FlowChange::m_reset(const AtomListView&)
 {
     msg_ = Message();
 }
 
-void FlowChange::m_set(t_symbol*, const AtomListView& l)
+void FlowChange::m_set(const AtomListView& lv)
 {
-    if (l.size() == 1)
-        msg_ = Message(l[0]);
+    if (lv.size() == 1)
+        msg_ = Message(lv[0]);
     else
-        msg_ = Message(l);
+        msg_ = Message(lv);
 }
 
 void FlowChange::onRepeat()
@@ -107,6 +110,15 @@ void FlowChange::onRepeat()
 void setup_flow_change()
 {
     ObjectFactory<FlowChange> obj("flow.change");
-    obj.addMethod("reset", &FlowChange::m_reset);
-    obj.addMethod("set", &FlowChange::m_set);
+
+    obj.noInletsDispatch();
+    obj.noPropsDispatch();
+
+    obj.setXletsInfo({ "any", "reset: reset object state\n"
+                              "set: set current value" },
+        { "any" });
+
+    InletProxy<FlowChange>::init();
+    InletProxy<FlowChange>::set_method_callback(gensym("reset"), &FlowChange::m_reset);
+    InletProxy<FlowChange>::set_method_callback(gensym("set"), &FlowChange::m_set);
 }

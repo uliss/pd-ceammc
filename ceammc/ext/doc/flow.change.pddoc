@@ -39,17 +39,17 @@
         <example>
             <pdascii>
 <![CDATA[
-    [1 2( [3 4( [list a b( [a b( [reset(    [func fn_repeat]
-    |     |     |          |     |           ^|
-[F] | [B] | [S] |          |     |          [B]
+    [1 2( [3 4( [list a b( [a b( [reset(
+    |     |     |          |     |
+[F] | [B] | [S] |          |     |
 |   | |   | |   |          |     |
-[flow.change  @onrepeat  fn_repeat]
-|                 |
-[msg set]         [print passed]
+[flow.change                     ]
 |
-[ (
-
-
+[ui.dt]
+]]>
+            </pdascii>
+            <pdascii id="repeats">
+<![CDATA[
 [B] [func try_again]
 |    ^|
 [random.int 1 3]
