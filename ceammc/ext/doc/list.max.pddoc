@@ -57,9 +57,7 @@
 |             |      |
 [list.max @any       ]
 |
-[msg set]
-|
-[ (
+[ui.dt]
 ]]>
             </pdascii>
         </example>
