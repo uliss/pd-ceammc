@@ -2037,7 +2037,7 @@
     <entry name="system.colorpanel" descr="System color panel dialog popup" ref_view="object">
       <xi:include href="system.colorpanel.pddoc" parse="xml"/>
     </entry>
-    <entry name="system.cursor" descr="Output cursor motion, mousewheel and buttonclicks" ref_view="object">
+    <entry name="system.cursor" descr="Output cursor motion, mousewheel and button clicks" ref_view="object">
       <xi:include href="system.cursor.pddoc" parse="xml"/>
     </entry>
     <entry name="system.exec" descr="run external command in separate process" ref_view="object">

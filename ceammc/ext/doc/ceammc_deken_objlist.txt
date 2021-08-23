@@ -1057,7 +1057,7 @@ synth.standard_bell~	german church bell modal model
 synth.tube_bell~	STK tubular bell (orchestral chime) FM synthesis instrument
 synth.wurley~	Wurlitzer electric piano FM synthesis instrument
 system.colorpanel	System color panel dialog popup
-system.cursor	Output cursor motion, mousewheel and buttonclicks
+system.cursor	Output cursor motion, mousewheel and button clicks
 system.exec	run external command in separate process
 system.exit	quit PureData
 system.getenv	Get system environment variables

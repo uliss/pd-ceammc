@@ -5,7 +5,7 @@
 #X obj 30 116 system.colorpanel;
 #X text 200 116 System color panel dialog popup;
 #X obj 30 143 system.cursor;
-#X text 200 143 Output cursor motion \, mousewheel and buttonclicks;
+#X text 200 143 Output cursor motion \, mousewheel and button clicks;
 #X obj 30 170 system.exec;
 #X text 200 170 run external command in separate process;
 #X obj 30 197 system.exit;

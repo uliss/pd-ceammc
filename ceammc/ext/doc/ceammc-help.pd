@@ -1462,7 +1462,7 @@ instrument;
 #X obj 30 20031 system.colorpanel;
 #X text 200 20031 System color panel dialog popup;
 #X obj 30 20058 system.cursor;
-#X text 200 20058 Output cursor motion \, mousewheel and buttonclicks;
+#X text 200 20058 Output cursor motion \, mousewheel and button clicks;
 #X obj 30 20085 system.exec;
 #X text 200 20085 run external command in separate process;
 #X obj 30 20112 system.exit;
