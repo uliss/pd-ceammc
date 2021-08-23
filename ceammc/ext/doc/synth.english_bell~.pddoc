@@ -29,15 +29,15 @@
             (0 is on the bottom)</property>
             <property name="@gain" type="float" minvalue="0" maxvalue="1" default="1">strike
             gain</property>
-            <property name="@sharp" type="float" minvalue="0.01" maxvalue="5" default="0.25">strike
+            <property name="@sharp" type="float" minvalue="0.01" maxvalue="5" default="0.5">strike
             sharpness</property>
-            <property name="@cutoff" type="float" minvalue="20" maxvalue="20000" default="4000"
+            <property name="@cutoff" type="float" minvalue="20" maxvalue="20000" default="6500"
             units="herz">strike cutoff frequency</property>
             <property name="@t60" type="float" minvalue="0.1" maxvalue="30" default="20"
             units="second">time to decay to -60db level</property>
             <property name="@decay_ratio" type="float" minvalue="0" maxvalue="1" default="1">decay
             ratio</property>
-            <property name="@decay_slope" type="float" minvalue="0" maxvalue="10" default="3">decay
+            <property name="@decay_slope" type="float" minvalue="0" maxvalue="10" default="2.5">decay
             slope</property>
             <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">play trigger
             - 1: on, 0: off</property>

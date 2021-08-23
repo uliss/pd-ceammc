@@ -29,12 +29,12 @@ from the bottom to the top of the bell;
 1\. Allowed values: 0 \, 1\.;
 #X msg 110 816 @cutoff;
 #X text 245 816 Get/Set strike cutoff frequency. Type: float. Units:
-Hz. Default value: 4000\. Range: 20\...20000\.;
+Hz. Default value: 6500\. Range: 20\...20000\.;
 #X msg 110 858 @decay_ratio;
 #X text 245 858 Get/Set decay ratio. Type: float. Default value: 1\.
 Range: 0\...1\.;
 #X msg 110 900 @decay_slope;
-#X text 245 900 Get/Set decay slope. Type: float. Default value: 3\.
+#X text 245 900 Get/Set decay slope. Type: float. Default value: 2.5\.
 Range: 0\...10\.;
 #X msg 110 942 @gain;
 #X text 245 942 Get/Set strike gain. Type: float. Default value: 1\.
@@ -47,7 +47,7 @@ Default value: 0\. Range: 0\...1\.;
 int. Default value: 0\. Range: 0\...6\.;
 #X msg 110 1068 @sharp;
 #X text 245 1068 Get/Set strike sharpness. Type: float. Default value:
-0.25\. Range: 0.01\...5\.;
+0.5\. Range: 0.01\...5\.;
 #X msg 110 1110 @t60;
 #X text 245 1110 Get/Set time to decay to -60db level. Type: float.
 Units: sec. Default value: 20\. Range: 0.1\...30\.;
