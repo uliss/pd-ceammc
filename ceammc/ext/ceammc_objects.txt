@@ -391,6 +391,8 @@ flow.pass
 flow.pass_if
 flow.pipe
 flow.queue
+flow.rec
+flow.record
 flow.reject
 flow.reject_if
 flow.ring
@@ -911,6 +913,7 @@ prop~>
 proto.firmata
 proto.hui
 proto.midi
+proto.midi.casio
 proto.midi.cc
 proto.midi.sysex
 proto.mpv

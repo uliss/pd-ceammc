@@ -53,8 +53,8 @@
         flow.dup flow.float flow.gate flow.greater flow.greater_eq flow.group
         flow.interval flow.less flow.less_eq flow.list2many flow.match
         flow.mem flow.multiplex flow.multiplex2~ flow.multiplex~ flow.once
-        flow.pack flow.pass flow.pass_if flow.pipe flow.queue flow.reject
-        flow.reject_if flow.ring flow.route flow.select flow.space
+        flow.pack flow.pass flow.pass_if flow.pipe flow.queue flow.record
+        flow.reject flow.reject_if flow.ring flow.route flow.select flow.space
         flow.speedlim flow.split flow.stack flow.sync flow.sync_pack flow.tee~
         replace route.float
     }}
@@ -175,8 +175,8 @@
         prop.split
     }}
     {proto {
-        proto.firmata proto.midi proto.midi.cc proto.mpv proto.sp.alpaca
-        proto.xtouch_ext
+        proto.firmata proto.midi proto.midi.cc proto.midi.sysex proto.mpv
+        proto.sp.alpaca proto.xtouch_ext
     }}
     {random {
         random.atom random.discrete random.float random.gauss random.int
