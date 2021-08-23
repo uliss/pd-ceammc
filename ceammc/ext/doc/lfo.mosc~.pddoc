@@ -33,7 +33,8 @@
             <property name="@windex" type="int" minvalue="0" maxvalue="9" default="0">waveform
             index (counting from 0): sin, saw, tri, sqr, pulse, +sin, +saw, +tri, +sqr,
             +pulse.</property>
-            <property name="@wave" type="symbol" default="sin" enum="sin saw tri sqr pulse +sin +saw +tri +sqr +pulse">wave type</property>
+            <property name="@wave" type="symbol" default="sin"
+            enum="sin saw tri sqr pulse +sin +saw +tri +sqr +pulse">wave type</property>
             <property name="@active" type="int" enum="0 1" default="1">on/off dsp
             processing</property>
         </properties>

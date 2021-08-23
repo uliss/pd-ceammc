@@ -27,10 +27,14 @@
             <property name="@accel" type="float" minvalue="-5" maxvalue="5" default="0">
             acceleration factor, 0: means linear motion (no acceleration), &gt;0: begin fast, then
             slow down, &lt;0: begin slow, then speed up</property>
-            <property name="@mouse_down" type="int" minvalue="0" maxvalue="1" default="0">internal state</property>
-            <property name="@mouse_up" type="int" minvalue="0" maxvalue="1" default="0">internal state</property>
-            <property name="@mouse_move" type="int" minvalue="0" maxvalue="1" default="0">internal state</property>
-            <property name="@mouse_drag" type="int" minvalue="0" maxvalue="1" default="0">internal state</property>
+            <property name="@mouse_down" type="int" minvalue="0" maxvalue="1" default="0">internal
+            state</property>
+            <property name="@mouse_up" type="int" minvalue="0" maxvalue="1" default="0">internal
+            state</property>
+            <property name="@mouse_move" type="int" minvalue="0" maxvalue="1" default="0">internal
+            state</property>
+            <property name="@mouse_drag" type="int" minvalue="0" maxvalue="1" default="0">internal
+            state</property>
         </properties>
         <inlets>
             <inlet>

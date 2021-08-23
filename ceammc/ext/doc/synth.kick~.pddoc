@@ -24,7 +24,8 @@
             units="millisecond">release time</property>
             <property name="@envwait" type="int" enum="0 1" default="0">ignore new notes until
             previous note is not finished release time</property>
-            <property name="@freq" type="float" default="50" minvalue="10" maxvalue="5000">start frequency</property>
+            <property name="@freq" type="float" default="50" minvalue="10" maxvalue="5000">start
+            frequency</property>
         </properties>
         <methods>
             <method name="reset">reset synth</method>

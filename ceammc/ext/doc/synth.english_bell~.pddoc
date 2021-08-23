@@ -37,8 +37,8 @@
             units="second">time to decay to -60db level</property>
             <property name="@decay_ratio" type="float" minvalue="0" maxvalue="1" default="1">decay
             ratio</property>
-            <property name="@decay_slope" type="float" minvalue="0" maxvalue="10" default="2.5">decay
-            slope</property>
+            <property name="@decay_slope" type="float" minvalue="0" maxvalue="10" default="2.5">
+            decay slope</property>
             <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">play trigger
             - 1: on, 0: off</property>
             <property name="@active" type="int" enum="0 1" default="1">on/off dsp

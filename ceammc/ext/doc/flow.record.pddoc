@@ -20,8 +20,8 @@
             <property name="@r" type="int" minvalue="-1" default="1">number of repeats in play
             mode. If -1: repeat infinitely</property>
             <property name="@max" type="int" minvalue="0" default="256" maxvalue="65536">max number
-            of events, if 0: no max size check. If @auto is set - starts playback when max size reached.
-            </property>
+            of events, if 0: no max size check. If @auto is set - starts playback when max size
+            reached.</property>
             <property name="@speed" type="float" minvalue="0.015625" default="1" maxvalue="64">play
             speed</property>
             <property name="@auto" type="int" enum="0 1" default="0">autostart record on first
@@ -41,7 +41,8 @@
                 <xinfo>[clear( - remove all recorded messages</xinfo>
                 <xinfo>[flush( - output and remove all recorded messages</xinfo>
                 <xinfo>[qlist( - output to qlist object</xinfo>
-                <xinfo>[length FLOAT|time( - resize recorded messages (remove after specified length)</xinfo>
+                <xinfo>[length FLOAT|time( - resize recorded messages (remove after specified
+                length)</xinfo>
             </inlet>
         </inlets>
         <outlets>
