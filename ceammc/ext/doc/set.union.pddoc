@@ -42,11 +42,7 @@
 |                   |.
 [set.union           ]
 |
-[set->list @sort]
-|
-[msg set]
-|
-[ (
+[ui.dt]
 ]]>
             </pdascii>
         </example>
