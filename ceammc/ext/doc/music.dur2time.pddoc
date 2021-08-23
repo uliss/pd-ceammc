@@ -23,6 +23,10 @@
             <par>- by ratio: 3/4 (three quaters), 1/8.(one dotted eight), 3/8 (three eights)
             etc.</par>
         </info>
+        <properties>
+            <property name="@bpm" type="list" default="60 0.25">tempo</property>
+            <property name="@seq" type="int" enum="0 1" default="1">sequencial durations</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo>duration list</xinfo>
