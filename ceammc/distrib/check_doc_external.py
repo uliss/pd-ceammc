@@ -328,6 +328,9 @@ if __name__ == '__main__':
                     e1 = []
                     for x in p1["enum"].split(" "):
                         try:
+                            if x == "inf":
+                                raise 1
+
                             y = float(x)
                             if y.is_integer():
                                 y = int(x)
