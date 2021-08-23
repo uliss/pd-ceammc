@@ -11,7 +11,7 @@ cm = library("ceammc.lib");
 //https://github.com/josmithiii/faust-jos/tree/master/percussion
 
 process = kick_mix with {
-    gate  = checkbox("gate");
+    gate  = checkbox("gate [type:float]");
     ampdb = vslider("gain [unit:db]", -20, -60, 40, 0.1);
     freq  = vslider("freq [unit:hz]", 50, 10, 5000, 0.1);
     beater_rel = vslider("release [unit:ms]", 1000, 10, 8000, 0.1) : cm.time_pd2faust;
@@ -23,10 +23,12 @@ process = kick_mix with {
     // using gate value as amplitude: sample and hold it on gate open
     amp = gate  : cm.clip(0, 1) : ba.latch(trigger) : *(ba.db2linear(-12));
 
-    perc(att,rel,trigger) = adsr(att,0,1.0,rel,envgate(att,trigger));
+    perc(att,rel,trigger) = cm.adsr(att,0,1.0,rel,cm.envgate(att,trigger));
     pmosc(carfreq,modfreq,index) = os.oscrs(carfreq + (index*modfreq)
                                  * os.oscrs(modfreq));
 
+    decay(n,x) = x - (x>0.0)/n;
+    release(n) = + ~ decay(n);
     line(start,end,dur,trigger) = trigger : release(int(dur*float(ma.SR)))
                         : *(start-end)+end;
 

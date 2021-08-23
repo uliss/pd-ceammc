@@ -801,6 +801,7 @@ class synth_kick : public synth_kick_dsp {
 		ui_interface->addVerticalSlider("attack", &fVslider0, 10.0f, 1.0f, 50.0f, 0.100000001f);
 		ui_interface->declare(&fVslider2, "unit", "hz");
 		ui_interface->addVerticalSlider("freq", &fVslider2, 50.0f, 10.0f, 5000.0f, 0.100000001f);
+		ui_interface->declare(&fCheckbox0, "type", "float");
 		ui_interface->addCheckButton("gate", &fCheckbox0);
 		ui_interface->declare(&fVslider1, "unit", "ms");
 		ui_interface->addVerticalSlider("release", &fVslider1, 1000.0f, 10.0f, 8000.0f, 0.100000001f);

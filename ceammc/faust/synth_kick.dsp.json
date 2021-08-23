@@ -89,7 +89,10 @@
 				{
 					"type": "checkbox",
 					"label": "gate",
-					"address": "/synth.kick/gate"
+					"address": "/synth.kick/gate",
+					"meta": [
+						{ "type": "float" }
+					]
 				},
 				{
 					"type": "vslider",
