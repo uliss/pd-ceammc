@@ -8,7 +8,7 @@ process(freq) = wave with {
     pause = checkbox("pause") > 0.5;
     init_phase = hslider("phase", 0, 0, 1, 0.001);
     duty = hslider("duty", 0.5, 0, 1, 0.01);
-    windex = nentry("windex", 0, 0, 10, 1);
+    windex = nentry("windex [type:int]", 0, 0, 9, 1);
 
     psin = osc.lfo_sin_pos(freq, init_phase, pause);
     psaw = osc.lfo_saw_pos(freq, init_phase, pause);

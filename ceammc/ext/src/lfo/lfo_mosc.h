@@ -666,7 +666,8 @@ class lfo_mosc : public lfo_mosc_dsp {
 		ui_interface->addHorizontalSlider("duty", &fHslider1, 0.5f, 0.0f, 1.0f, 0.00999999978f);
 		ui_interface->addCheckButton("pause", &fCheckbox0);
 		ui_interface->addHorizontalSlider("phase", &fHslider0, 0.0f, 0.0f, 1.0f, 0.00100000005f);
-		ui_interface->addNumEntry("windex", &fEntry0, 0.0f, 0.0f, 10.0f, 1.0f);
+		ui_interface->declare(&fEntry0, "type", "int");
+		ui_interface->addNumEntry("windex", &fEntry0, 0.0f, 0.0f, 9.0f, 1.0f);
 		ui_interface->closeBox();
 	}
 	
