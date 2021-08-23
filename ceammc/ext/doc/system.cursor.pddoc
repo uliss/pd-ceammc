@@ -39,9 +39,9 @@
 |
 [route motion mousewheel button]
 |          ^|   ^^|
-[msg set]  [F]   [route 1 2 3]
+|         [F]   [route 1 2 3]
 |                |   ^|   ^^|
-[ (              [T] [T]  [T]
+[ui.dt]          [T] [T]  [T]
 ]]>
             </pdascii>
         </example>
