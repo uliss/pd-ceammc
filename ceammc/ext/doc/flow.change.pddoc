@@ -21,10 +21,6 @@
             value, or bang to force output.</par>
             <par>Note: [list a b c( and [a b c( are different values!</par>
         </info>
-        <methods>
-            <method name="reset">resets state</method>
-            <method name="set">sets current value, but without output</method>
-        </methods>
         <properties>
             <property name="@onrepeat" type="symbol">function called when repeat occurs</property>
         </properties>
