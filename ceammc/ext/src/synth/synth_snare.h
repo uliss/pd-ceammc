@@ -792,6 +792,7 @@ class synth_snare : public synth_snare_dsp {
 		ui_interface->addVerticalSlider("attack", &fVslider0, 0.5f, 0.300000012f, 100.0f, 0.00999999978f);
 		ui_interface->declare(&fVslider1, "unit", "ms");
 		ui_interface->addVerticalSlider("decay", &fVslider1, 1.0f, 1.0f, 100.0f, 0.00999999978f);
+		ui_interface->declare(&fCheckbox0, "type", "float");
 		ui_interface->addCheckButton("gate", &fCheckbox0);
 		ui_interface->declare(&fVslider2, "unit", "ms");
 		ui_interface->addVerticalSlider("release", &fVslider2, 200.0f, 10.0f, 1000.0f, 0.00999999978f);
@@ -832,7 +833,7 @@ class synth_snare : public synth_snare_dsp {
 			fRec5[0] = ((fTemp6 + (fConst5 * fRec5[1])) - (fConst4 * fRec4[1]));
 			iRec6[0] = (iTemp3 & (iRec6[1] | (fRec7[1] >= 1.0f)));
 			int iTemp7 = (iTemp4 & (fRec7[1] > 0.0f));
-			fRec7[0] = (((fSlow5 * float((((iRec6[1] == 0) & iTemp3) & (fRec7[1] < 1.0f)))) - (fRec7[1] * ((fSlow10 * float(iTemp7)) - (1.0f - (fSlow7 * float((iRec6[1] & (fRec7[1] > 1.0f)))))))) * float(((iTemp7 == 0) | (fRec7[1] >= 9.99999997e-07f))));
+			fRec7[0] = (((fSlow5 * float((((iRec6[1] == 0) & iTemp3) & (fRec7[1] < 1.0f)))) + (fRec7[1] * ((1.0f - (fSlow7 * float((iRec6[1] & (fRec7[1] > 1.0f))))) - (fSlow10 * float(iTemp7))))) * float(((iTemp7 == 0) | (fRec7[1] >= 9.99999997e-07f))));
 			fRec8[0] = ((fConst8 * fRec9[1]) + (fConst9 * fRec8[1]));
 			fRec9[0] = ((fTemp6 + (fConst9 * fRec9[1])) - (fConst8 * fRec8[1]));
 			iRec10[0] = (iTemp3 & (iRec10[1] | (fRec11[1] >= 1.0f)));
@@ -848,7 +849,7 @@ class synth_snare : public synth_snare_dsp {
 			fRec16[0] = (((fSlow5 * float((((iRec15[1] == 0) & iTemp3) & (fRec16[1] < 1.0f)))) + (fRec16[1] * ((1.0f - (fSlow7 * float((iRec15[1] & (fRec16[1] > 1.0f))))) - (fSlow12 * float(iTemp10))))) * float(((iTemp10 == 0) | (fRec16[1] >= 9.99999997e-07f))));
 			fRec18[0] = ((4.65661287e-10f * ((fConst24 * fTemp9) + (fConst25 * fVec3[1]))) - (fConst26 * fRec18[1]));
 			fRec17[0] = (fRec18[0] - (fConst19 * ((fConst27 * fRec17[2]) + (fConst28 * fRec17[1]))));
-			output0[i] = FAUSTFLOAT((0.251188636f * (fRec0[0] * ((fRec2[0] * (fRec4[0] + 0.25f)) + ((fRec7[0] * (fRec8[0] + 0.25f)) + (0.200000003f * ((fConst12 * (fRec11[0] * (fRec12[2] + (fRec12[0] + (2.0f * fRec12[1]))))) + (fConst19 * (fRec16[0] * (((fConst22 * fRec17[0]) + (fConst29 * fRec17[1])) + (fConst22 * fRec17[2])))))))))));
+			output0[i] = FAUSTFLOAT((0.251188636f * (fRec0[0] * (((fRec2[0] * (fRec4[0] + 0.25f)) + (fRec7[0] * (fRec8[0] + 0.25f))) + (0.200000003f * ((fConst12 * (fRec11[0] * (fRec12[2] + (fRec12[0] + (2.0f * fRec12[1]))))) + (fConst19 * (fRec16[0] * (((fConst22 * fRec17[0]) + (fConst29 * fRec17[1])) + (fConst22 * fRec17[2]))))))))));
 			iVec0[1] = iVec0[0];
 			fVec1[1] = fVec1[0];
 			iVec2[1] = iVec2[0];

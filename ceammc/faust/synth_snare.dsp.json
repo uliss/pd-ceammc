@@ -89,7 +89,10 @@
 				{
 					"type": "checkbox",
 					"label": "gate",
-					"address": "/synth.snare/gate"
+					"address": "/synth.snare/gate",
+					"meta": [
+						{ "type": "float" }
+					]
 				},
 				{
 					"type": "vslider",
