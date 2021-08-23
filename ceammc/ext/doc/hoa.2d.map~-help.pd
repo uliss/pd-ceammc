@@ -63,7 +63,7 @@ Default value: 1\. Range: 1\...63\.;
 #X text 245 1174 (readonly) Get the order of decomposition. Type: int.
 Default value: 1\. Range: 1\...63\.;
 #X msg 110 1216 @ramp;
-#X text 245 1216 Get/Set ramp time. Type: int. Default value: 100\.
+#X text 245 1216 Get/Set ramp time. Type: float. Default value: 100\.
 Min value: 0\.;
 #X obj 20 1268 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1273 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
