@@ -20,8 +20,8 @@ value on inlet it immediately outputs it.;
 #X obj 50 275 prop<- @size @a;
 #X obj 50 304 prop-> @size;
 #X floatatom 50 332 5 0 0 0 - - -;
-#X obj 107 332 ui.display @display_type 1;
-#X obj 386 332 ui.display @display_type 1;
+#X obj 117 332 ui.dt;
+#X obj 386 332 ui.dt;
 #X obj 20 381 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 386 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
