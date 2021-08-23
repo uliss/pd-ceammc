@@ -311,6 +311,8 @@ if __name__ == '__main__':
                     pass
                 elif v1 == "-inf" and float(v0) < -1.0e+24:
                     pass
+                elif v0 == "Set " and v1 == "Set()":
+                    pass
                 elif v0 != v1:
                     cprint(f"DOC [{ext_name}] invalid default \"{p}\": {v1}, in external: {v0}", 'magenta')
             elif attr == HAVE_EXTERNAL:
