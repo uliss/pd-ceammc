@@ -1227,7 +1227,7 @@ value;
 #X obj 30 16774 prop.join;
 #X text 200 16774 join property to main data flow;
 #X obj 30 16801 prop.set;
-#X text 200 16801 set object property;
+#X text 200 16801 set property for connected object/subpatch/abstraction;
 #X obj 30 16828 prop.split;
 #X text 200 16828 separate properties from dataflow;
 #X obj 20 16855 cnv 5 58 31 empty empty proto 4 13 0 17 -262144 -49933
