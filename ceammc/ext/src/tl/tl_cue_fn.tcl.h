@@ -17,7 +17,7 @@ const char* tl_cue_fn_tcl =
 "    foreach x $bind {bind $tag $event $x}\n"
 "}\n"
 "proc ::ceammc::tl::update_line {win x y w h} {\n"
-"    pdsend \"tl_cue_canvas_resize update_line $win.c $x $y $w $h\"\n"
+"    pdsend \"tl_cue_canvas_resize .update_line $win.c $x $y $w $h\"\n"
 "}\n"
 "proc ::ceammc::tl::startpolling {} {\n"
 "    ::pdwindow::verbose 0 \"\\[ceammc\\] start tl.cue canvas resize polling...\\n\"\n"
