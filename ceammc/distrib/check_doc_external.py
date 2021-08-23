@@ -156,7 +156,7 @@ if __name__ == '__main__':
 
     ext_methods = read_methods(ext_name)
     is_ceammc = '.is_cicm?' in ext_methods or '.is_base?' in ext_methods
-    ext_methods = set([x for x in ext_methods if len(x) and x[0] != '.'])
+    ext_methods = set([x for x in ext_methods if len(x) and x[0] != '.' and x[0] != '_'])
     # print(doc_methods_set)
     # print(ext_methods)
     ignored_methods = {'dump', 'dsp', 'signal', 'mouseup', 'mouseenter', 'dialog',
