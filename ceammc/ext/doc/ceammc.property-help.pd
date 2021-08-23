@@ -15,7 +15,7 @@
 #X obj 30 251 prop.join;
 #X text 200 251 join property to main data flow;
 #X obj 30 278 prop.set;
-#X text 200 278 set object property;
+#X text 200 278 set property for connected object/subpatch/abstraction;
 #X obj 30 305 prop.split;
 #X text 200 305 separate properties from dataflow;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::property 20 20 0 20

@@ -6,7 +6,7 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>set object property</description>
+            <description>set property for connected object/subpatch/abstraction</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>property</category>
@@ -63,7 +63,7 @@
 [ui.d]
 
 
-[F] /*patch properties*/
+[F] /*abstraction property*/
 |
 [prop.set @p1]
 |

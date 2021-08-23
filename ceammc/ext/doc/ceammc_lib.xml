@@ -1717,7 +1717,7 @@
     <entry name="prop.join" descr="join property to main data flow" ref_view="object">
       <xi:include href="prop.join.pddoc" parse="xml"/>
     </entry>
-    <entry name="prop.set" descr="set object property" ref_view="object">
+    <entry name="prop.set" descr="set property for connected object/subpatch/abstraction" ref_view="object">
       <xi:include href="prop.set.pddoc" parse="xml"/>
     </entry>
     <entry name="prop.split" descr="separate properties from dataflow" ref_view="object">

@@ -902,8 +902,8 @@ prop~>	Property extractor from sound stream
 @~>	Property extractor from sound stream
 prop.join	join property to main data flow
 prop<-	join property to main data flow
-prop.set	set object property
-p.set	set object property
+prop.set	set property for connected object/subpatch/abstraction
+p.set	set property for connected object/subpatch/abstraction
 prop.split	separate properties from dataflow
 prop->	separate properties from dataflow
 @->	separate properties from dataflow

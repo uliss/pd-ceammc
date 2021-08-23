@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 614 50 cnv 1 151 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 614 50 set object property;
+#X obj 346 50 cnv 1 419 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 346 50 set property for connected object/subpatch/abstraction;
 #X obj 1 1 cnv 5 765 40 empty empty prop.set 20 20 0 20 -104026 -4096
 0;
 #X obj 621 11 p.set;
@@ -27,7 +27,7 @@ props \, but using internal pd method calls;
 #X obj 50 411 prop.set @size;
 #X obj 50 440 ui.d;
 #X floatatom 50 483 5 0 0 0 - - -;
-#X text 88 483 patch properties;
+#X text 88 483 abstraction property;
 #X obj 50 512 prop.set @p1;
 #X obj 50 541 prop.set.patch;
 #X obj 20 590 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
