@@ -74,6 +74,17 @@
 [global.list id]           [global.list id]
 |                          |
 [ui.dt]                    [ui.dt]
+
+[global.list.pd]
+]]>
+            </pdascii>
+            <pdascii id="pd">
+<![CDATA[
+[B]
+|
+[global.list id]
+|
+[ui.dt]
 ]]>
             </pdascii>
         </example>
