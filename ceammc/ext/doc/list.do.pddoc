@@ -36,9 +36,7 @@
 |
 [list.do #x1] X [expr $f1 - ($f2 / $f3)]
 |
-[msg set]
-|
-[ (
+[ui.dt]
 ]]>
             </pdascii>
         </example>
