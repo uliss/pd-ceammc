@@ -155,38 +155,38 @@ bool DataTypeProperty::setList(const AtomList& lst)
     return true;
 }
 
-bool DataTypeProperty::setFromPdArgs(const AtomList& lst)
+bool DataTypeProperty::setFromPdArgs(const AtomListView& lv)
 {
     if (isFloat()) {
-        if (lst.isFloat())
-            setFloat(lst[0].asFloat());
+        if (lv.isFloat())
+            setFloat(lv[0].asFloat());
         else {
-            LIB_ERR << name_ << " float argument is expected: " << lst;
+            LIB_ERR << name_ << " float argument is expected: " << lv;
             return false;
         }
     } else if (isInt()) {
-        if (lst.isFloat())
-            setInt(lst[0].asFloat());
+        if (lv.isFloat())
+            setInt(lv[0].asFloat());
         else {
-            LIB_ERR << name_ << "int argument is expected: " << lst;
+            LIB_ERR << name_ << "int argument is expected: " << lv;
             return false;
         }
     } else if (isBool()) {
-        if (lst.isFloat() && (lst[0].asFloat() == 0.0 || lst[0].asFloat() == 1.0)) {
-            setBool(lst[0].asFloat());
+        if (lv.isFloat() && (lv[0].asFloat() == 0.0 || lv[0].asFloat() == 1.0)) {
+            setBool(lv[0].asFloat());
         } else {
-            LIB_ERR << name_ << "1 or 0 is expected: " << lst;
+            LIB_ERR << name_ << "1 or 0 is expected: " << lv;
             return false;
         }
     } else if (isSymbol()) {
-        if (lst.isSymbol())
-            setSymbol(lst[0].asSymbol());
+        if (lv.isSymbol())
+            setSymbol(lv[0].asSymbol());
         else {
-            LIB_ERR << name_ << "symbol is expected: " << lst;
+            LIB_ERR << name_ << "symbol is expected: " << lv;
             return false;
         }
     } else if (isList()) {
-        setList(lst);
+        setList(lv);
     } else {
         LIB_ERR << "unhandled property type: " << to_string(propertyType());
         return false;
