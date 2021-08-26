@@ -22,9 +22,9 @@ PropSet::PropSet(const PdArgs& args)
     createOutlet();
 }
 
-void PropSet::parseProperties() {}
+void PropSet::parseProperties() { }
 
-void PropSet::onInlet(size_t n, const AtomListView& lst)
+void PropSet::onInlet(size_t n, const AtomListView& lv)
 {
     // inlet index correction
     if (n-- == 0)
@@ -39,9 +39,9 @@ void PropSet::onInlet(size_t n, const AtomListView& lst)
         conn = obj_nexttraverseoutlet(conn, &dest, &inletp, &whichp);
 
         if (dest->te_g.g_pd == canvas_class)
-            processCanvasProps(reinterpret_cast<t_glist*>(dest), props_[n], lst);
+            processCanvasProps(reinterpret_cast<t_glist*>(dest), props_[n], lv);
         else
-            processObjectProps(dest, props_[n], lst);
+            processObjectProps(dest, props_[n], lv);
     }
 }
 
@@ -53,24 +53,24 @@ const char* PropSet::annotateInlet(size_t n) const
         return nullptr;
 }
 
-void PropSet::processCanvasProps(t_glist* dest, t_symbol* s, const AtomList& lst)
+void PropSet::processCanvasProps(t_glist* dest, t_symbol* s, const AtomListView& lv)
 {
     for (size_t i = 0; i < props_.size(); i++) {
         auto* full = PropertyStorage::makeFullName(props_[i], dest);
         PropertyPtr pp(full);
         if (pp)
-            pp->setFromPdArgs(lst);
+            pp->setFromPdArgs(lv);
         else
             OBJ_ERR << "can't find property: " << s->s_name;
     }
 }
 
-void PropSet::processObjectProps(t_object* dest, t_symbol* s, const AtomList& lst)
+void PropSet::processObjectProps(t_object* dest, t_symbol* s, const AtomListView& lv)
 {
     auto fn = ceammc_get_propset_fn(dest);
     if (!fn)
         OBJ_ERR << "can't find property: " << s->s_name;
-    else if (!fn(dest, s, lst.size(), lst.toPdData()))
+    else if (!fn(dest, s, lv.size(), lv.toPdData()))
         OBJ_ERR << "can't set property: " << s->s_name;
 }
 
