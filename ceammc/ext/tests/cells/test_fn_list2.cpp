@@ -364,6 +364,7 @@ TEST_CASE("list functions2", "[core]")
         AtomList pav6 = LA(-1, "@a", 1, 2, 3, "@b", 10, 20, 30, "@c", 100);
         AtomList pbv1 = LA("@b", 10, 20, 30);
         AtomList pbv2 = LA("@b", 10, 20, 30, "@c", 100);
+        AtomList pcv1 = LA("@c", 100);
 
         REQUIRE(list::findProperty(L()) == list::ViewSlice {});
         REQUIRE(list::findProperty(LF(1)) == list::ViewSlice {});
@@ -376,5 +377,11 @@ TEST_CASE("list functions2", "[core]")
         REQUIRE(list::findProperty(pav4) == list::ViewSlice { pav1, pb });
         REQUIRE(list::findProperty(pav5) == list::ViewSlice { pav1, pbv1 });
         REQUIRE(list::findProperty(pav6) == list::ViewSlice { pav1, pbv2 });
+
+        auto res = list::findProperty(pav6);
+        while (!res.first.empty()) {
+            REQUIRE((res.first == pav1 || res.first == pbv1 || res.first == pcv1));
+            res = list::findProperty(res.second);
+        }
     }
 }

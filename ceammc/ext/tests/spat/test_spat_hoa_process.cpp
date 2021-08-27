@@ -11,6 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
+#include "../base/mod_base.h"
 #include "hoa_process.h"
 #include "mod_spat.h"
 
@@ -20,7 +21,11 @@ PD_COMPLETE_TEST_SETUP(HoaProcess, spat, hoa_process)
 
 TEST_CASE("hoa.process~", "[externals]")
 {
-    pd_test_init([]() { ceammc_spat_setup(); });
+    pd_test_init([]() {
+        ceammc_spat_setup();
+        ceammc_base_setup();
+        setTestSampleRate(64000);
+    });
     auto cnv = PureData::instance().findCanvas("test_canvas");
 
     SECTION("init")
@@ -1048,5 +1053,28 @@ TEST_CASE("hoa.process~", "[externals]")
         t.clearAll();
         tr.sendMessage("#:2", "@msg", 1, 2, 3, 4, 5, 6, 7);
         REQUIRE(t.messagesAt(0) == messageList(Message("@msg", 1), Message("@msg", 2), Message("@msg", 3)));
+    }
+
+    SECTION("arg props")
+    {
+        using ML = std::vector<Message>;
+        using M = Message;
+
+        TExt t("hoa.process~", LA(2, TEST_DATA_DIR "/hoa_test_14", "harmonics", "@freq", 150));
+        REQUIRE(t.numInlets() == 2);
+        REQUIRE(t.numOutlets() == 1);
+        REQUIRE_PROPERTY(t, @domain, S("harmonics"));
+        REQUIRE_PROPERTY_FLOAT(t, @n, 2);
+
+        pd::External tr("trigger", LA("a"));
+        REQUIRE(tr.connectTo(0, t, 1));
+
+        // wait for loadbang
+        t.schedTicks(10);
+
+        t.clearAll();
+        tr.sendMessage("#0", "@freq?");
+        auto f150 = M("@freq", 150);
+        REQUIRE(t.messagesAt(0) == ML { f150 });
     }
 }

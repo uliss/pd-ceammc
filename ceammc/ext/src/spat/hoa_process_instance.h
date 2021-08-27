@@ -44,7 +44,7 @@ public:
     void createSwitch();
     void dspOn(bool state);
     void dspCalc();
-    bool init(t_symbol* name, const AtomList& args);
+    bool init(t_symbol* name, const AtomListView& args);
 
     void bangTo(size_t inlet_idx);
     void floatTo(size_t inlet_idx, t_float v);
@@ -63,7 +63,7 @@ public:
     void setOutletBuffer(t_sample* s, size_t idx);
 
     const AtomList& args() const { return args_; }
-    void setArgs(const AtomList& args) { args_ = args; }
+    void setArgs(const AtomListView& args) { args_ = args; }
 
 private:
     void doScanCanvas(t_canvas* cnv);

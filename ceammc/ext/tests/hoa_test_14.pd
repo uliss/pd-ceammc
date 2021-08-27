@@ -1,0 +1,7 @@
+#N canvas 286 274 703 255 12;
+#X obj 87 51 hoa.in;
+#X obj 87 193 hoa.out;
+#X obj 87 127 hoa.@process;
+#X obj 297 74 prop.declare freq @min 20 @max 1000 @default 200;
+#X connect 0 0 2 0;
+#X connect 2 0 1 0;
