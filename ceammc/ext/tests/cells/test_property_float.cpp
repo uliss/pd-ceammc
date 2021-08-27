@@ -251,6 +251,35 @@ TEST_CASE("FloatProperty", "[core]")
         REQUIRE(p.value() == 1);
     }
 
+    SECTION("%")
+    {
+        REQUIRE(p.setList(AtomList::parseString("1.5")));
+        REQUIRE(p.value() == 1.5);
+        REQUIRE(p.setList(AtomList::parseString("% 1")));
+        REQUIRE(p.value() == 0.5);
+        REQUIRE(p.setList(AtomList::parseString("% 0.75")));
+        REQUIRE(p.value() == 0.5);
+    }
+
+    SECTION("default")
+    {
+        REQUIRE(p.setList(AtomList::parseString("1.5")));
+        REQUIRE(p.value() == 1.5);
+        REQUIRE(p.setList(AtomList::parseString("default")));
+        REQUIRE(p.value() == 0.5);
+    }
+
+    SECTION("random")
+    {
+        REQUIRE_FALSE(p.setList(AtomList::parseString("random")));
+        p.setDefault(1.5);
+        p.checkClosedRange(1, 2);
+
+        REQUIRE(p.setList(AtomList::parseString("random")));
+        REQUIRE(p.value() >= 1);
+        REQUIRE(p.value() <= 2);
+    }
+
     SECTION("denormals")
     {
         REQUIRE_FALSE(p.setList(LF(std::numeric_limits<t_float>::infinity())));

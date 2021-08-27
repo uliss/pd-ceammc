@@ -1021,32 +1021,97 @@ bool FloatProperty::setList(const AtomListView& lv)
     if (!emptyCheck(lv))
         return false;
 
-    if (lv.size() == 1)
-        return setValue(lv[0]);
-    else if (lv.size() == 2 && lv[0].isSymbol() && lv[1].isFloat()) { // OPERATOR FLOAT
-        const auto val = lv[1].asT<t_float>();
-        const auto op = lv[0].asT<t_symbol*>()->s_name;
+    if (lv.size() == 1 && lv[0].isFloat())
+        return setValue(lv[0].asT<t_float>());
+    else if (lv[0].isSymbol()) {
+        using namespace parser;
 
-        if (is_op(op, '+'))
-            return setValue(value() + val);
-        else if (is_op(op, '-'))
-            return setValue(value() - val);
-        else if (is_op(op, '*'))
-            return setValue(value() * val);
-        else if (is_op(op, '/')) {
-            if (val == 0) {
-                PROP_ERR() << "division by zero";
-                return false;
-            } else
-                return setValue(value() / val);
-        } else {
-            PROP_ERR() << "expected +-*/, got: " << lv[0];
+        auto s = lv[0].asT<t_symbol*>();
+        auto op = parse_numeric_prop_op(s->s_name);
+        switch (op) {
+        case NumericPropOp::UNKNOWN: {
+            PROP_ERR() << "float or +|-|/|*|random|default expected, got: " << lv;
             return false;
         }
-    } else {
-        PROP_ERR() << "float value expected, got: " << lv;
-        return false;
+        case NumericPropOp::DEFAULT: {
+            return setValue(info().defaultFloat());
+        } break;
+        case NumericPropOp::RANDOM: {
+            t_float new_min, new_max;
+            constexpr auto max_float = std::numeric_limits<t_float>::max();
+            constexpr auto min_float = -std::numeric_limits<t_float>::max();
+
+            auto c = info().constraints();
+            switch (c) {
+            case PropValueConstraints::CLOSED_OPEN_RANGE: {
+                new_min = info().minFloat();
+                new_max = info().maxFloat();
+            } break;
+            case PropValueConstraints::CLOSED_RANGE: {
+                new_min = info().minFloat();
+                new_max = std::nextafter(info().maxFloat(), max_float);
+            } break;
+            case PropValueConstraints::OPEN_RANGE: {
+                new_min = std::nextafter(info().minFloat(), min_float);
+                new_max = info().maxFloat();
+            } break;
+            case PropValueConstraints::OPEN_CLOSED_RANGE: {
+                new_min = std::nextafter(info().minFloat(), min_float);
+                new_max = std::nextafter(info().maxFloat(), max_float);
+            } break;
+            default:
+                PROP_ERR() << "no range constraints for property to set random value";
+                return false;
+            }
+
+            if (lv.size() == 3 && lv[1].isFloat() && lv[2].isFloat()) {
+                new_min = std::max(new_min, lv[1].asT<t_float>());
+                new_max = std::min(new_max, lv[2].asT<t_float>());
+            } else if (lv.size() != 1) {
+                PROP_ERR() << "random [MIN MAX]? expected, got: " << lv;
+                return false;
+            }
+
+            std::random_device rnd;
+            std::uniform_real_distribution<t_float> dist(new_min, new_max);
+            return setValue(dist(rnd));
+        } break;
+        default: { // math
+            if (lv.size() == 2 && lv[1].isFloat()) {
+                const auto val = lv[1].asT<t_float>();
+                switch (op) {
+                case NumericPropOp::ADD:
+                    return setValue(value() + val);
+                case NumericPropOp::SUB:
+                    return setValue(value() - val);
+                case NumericPropOp::MUL:
+                    return setValue(value() * val);
+                case NumericPropOp::DIV: {
+                    if (val == 0) {
+                        PROP_ERR() << "division by zero";
+                        return false;
+                    }
+                    return setValue(value() / val);
+                }
+                case NumericPropOp::MOD: {
+                    if (val == 0) {
+                        PROP_ERR() << "division by zero";
+                        return false;
+                    }
+                    return setValue(std::fmod(value(), val));
+                }
+                default:
+                    PROP_ERR() << "unsupported operator: " << lv;
+                    return false;
+                }
+            }
+            break;
+        }
+        }
     }
+
+    PROP_ERR() << "float or +|-|/|*|random|default expected, got: " << lv;
+    return false;
 }
 
 bool FloatProperty::setFloat(t_float v)
