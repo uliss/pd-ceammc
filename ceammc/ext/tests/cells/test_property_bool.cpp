@@ -155,4 +155,11 @@ TEST_CASE("BoolProperty", "[core]")
     {
         REQUIRE(p.setList(AtomList::parseString("random")));
     }
+
+    SECTION("default")
+    {
+        p.setValue(false);
+        REQUIRE(p.setList(AtomList::parseString("default")));
+        REQUIRE(p.value() == true);
+    }
 }

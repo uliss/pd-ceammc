@@ -1166,17 +1166,17 @@ AtomList BoolProperty::get() const
     return AtomList({ v_ ? 1.f : 0.f });
 }
 
-bool BoolProperty::setList(const AtomListView& lst)
+bool BoolProperty::setList(const AtomListView& lv)
 {
-    if (!emptyCheck(lst))
+    if (!emptyCheck(lv))
         return false;
 
-    if (lst.size() != 1) {
-        PROP_ERR() << "bool value (0|1|true|false|~|!|random) expected, got: " << lst;
+    if (lv.size() != 1) {
+        PROP_ERR() << "bool value (0|1|true|false|~|!|random) expected, got: " << lv;
         return false;
     }
 
-    return setValue(lst[0]);
+    return setValue(lv[0]);
 }
 
 bool BoolProperty::setBool(bool b)
@@ -1207,16 +1207,19 @@ bool BoolProperty::setValue(const Atom& a)
         using namespace parser;
 
         switch (parse_bool_prop(a.asT<t_symbol*>()->s_name)) {
-        case BoolPropValue::TRUE:
+        case BoolPropOp::TRUE:
             v_ = true;
             return true;
-        case BoolPropValue::FALSE:
+        case BoolPropOp::FALSE:
             v_ = false;
             return true;
-        case BoolPropValue::INVERT:
+        case BoolPropOp::INVERT:
             v_ = !v_;
             return true;
-        case BoolPropValue::RANDOM: {
+        case BoolPropOp::DEFAULT:
+            v_ = info().defaultBool();
+            return true;
+        case BoolPropOp::RANDOM: {
             auto dist = std::uniform_int_distribution<int>(0, 1);
             v_ = dist(rnd);
             return true;

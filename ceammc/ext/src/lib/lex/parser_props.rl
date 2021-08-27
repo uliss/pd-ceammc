@@ -9,35 +9,37 @@ namespace parser {
 %%{
     machine bool_prop;
 
-    true =   ('T'|'t') 'rue'  %{ type = BoolPropValue::TRUE; };
-    false =  ('F'|'f') 'alse' %{ type = BoolPropValue::FALSE; };
-    random = 'random'         %{ type = BoolPropValue::RANDOM; };
-    invert = ('!'|'~')        %{ type = BoolPropValue::INVERT; };
-    bool = true | false | random | invert;
+    true =   ('T'|'t') 'rue'    %{ type = BoolPropOp::TRUE; };
+    false =  ('F'|'f') 'alse'   %{ type = BoolPropOp::FALSE; };
+    random = 'random'           %{ type = BoolPropOp::RANDOM; };
+    invert = ('!'|'~')          %{ type = BoolPropOp::INVERT; };
+    default = ('def'|'default') %{ type = BoolPropOp::DEFAULT; };
+    bool = true | false | random | invert | default;
 
     main := bool;
     write data;
 }%%
 
-enum class BoolPropValue {
+enum class BoolPropOp {
     UNKNOWN,
     TRUE,
     FALSE,
     RANDOM,
-    INVERT
+    INVERT,
+    DEFAULT
 };
 
-static inline BoolPropValue parse_bool_prop(const char* str)
+static inline BoolPropOp parse_bool_prop(const char* str)
 {
     const auto len = std::strlen(str);
     if (len == 0)
-        return BoolPropValue::UNKNOWN;
+        return BoolPropOp::UNKNOWN;
 
     int cs = 0;
     const char* p = str;
     const char* pe = p + len;
     const char* eof = pe;
-    BoolPropValue type = BoolPropValue::UNKNOWN;
+    BoolPropOp type = BoolPropOp::UNKNOWN;
 
     %% write init;
     %% write exec;
@@ -46,7 +48,7 @@ static inline BoolPropValue parse_bool_prop(const char* str)
     if (ok)
         return type;
     else
-        return BoolPropValue::UNKNOWN;
+        return BoolPropOp::UNKNOWN;
 }
 
 enum class NumericPropOp {
