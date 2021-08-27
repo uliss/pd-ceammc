@@ -1189,10 +1189,10 @@ bool IntProperty::setList(const AtomListView& lv)
         auto sym = lv[0].asT<t_symbol*>();
         auto op = parse_numeric_prop_op(sym->s_name);
         switch (op) {
-        case NumericPropOp::DEFAULT: {
+        case NumericPropOp::DEFAULT: { // default
             return setValue(info().defaultInt());
         } break;
-        case NumericPropOp::RANDOM: {
+        case NumericPropOp::RANDOM: { // random
             int new_min, new_max;
 
             switch (info().constraints()) {
@@ -1230,11 +1230,11 @@ bool IntProperty::setList(const AtomListView& lv)
             std::uniform_int_distribution<int> dist(new_min, new_max);
             return setValue(dist(rnd));
         } break;
-        case NumericPropOp::UNKNOWN: {
+        case NumericPropOp::UNKNOWN: { // error
             PROP_ERR() << "expected +|-|*|/|%|random|default, got: " << lv[0];
             return false;
         } break;
-        default: {
+        default: { // math
             if (lv.size() == 2 && lv[1].isFloat()) { // basic math
                 const auto val = lv[1].asT<int>();
                 switch (op) {
