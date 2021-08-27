@@ -15,6 +15,7 @@
 #include "ceammc_crc32.h"
 #include "ceammc_format.h"
 #include "ceammc_log.h"
+#include "lex/parser_props.h"
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wsign-conversion"
@@ -1106,7 +1107,7 @@ bool BoolProperty::setList(const AtomListView& lst)
         return false;
 
     if (lst.size() != 1) {
-        PROP_ERR() << "bool value (0|1|true|false) expected, got: " << lst;
+        PROP_ERR() << "bool value (0|1|true|false|~|!|random) expected, got: " << lst;
         return false;
     }
 
@@ -1134,42 +1135,29 @@ bool BoolProperty::setValue(const Atom& a)
 {
     static std::random_device rnd;
 
-    constexpr auto SYM_TRUE = "true"_hash;
-    constexpr auto SYM_FALSE = "false"_hash;
-    constexpr auto SYM_RANDOM = "random"_hash;
-
     if (a.isFloat()) {
         v_ = (a.asInt(0) == 0) ? false : true;
         return true;
     } else if (a.isSymbol()) {
-        t_symbol* s = a.asSymbol();
-        const auto xs = crc32_hash(s->s_name);
+        using namespace parser;
 
-        // fast check symbol
-        if (xs == SYM_TRUE) {
+        switch (parse_bool_prop(a.asT<t_symbol*>()->s_name)) {
+        case BoolPropValue::TRUE:
             v_ = true;
             return true;
-        } else if (xs == SYM_FALSE) {
+        case BoolPropValue::FALSE:
             v_ = false;
             return true;
-        } else if (xs == SYM_RANDOM) {
+        case BoolPropValue::INVERT:
+            v_ = !v_;
+            return true;
+        case BoolPropValue::RANDOM: {
             auto dist = std::uniform_int_distribution<int>(0, 1);
             v_ = dist(rnd);
             return true;
-        } else if (is_op(s->s_name, '~') || is_op(s->s_name, '!')) {
-            v_ = !v_;
-            return true;
-        } else { // slow check string
-            std::string str(s->s_name);
-            std::transform(str.begin(), str.end(), str.begin(), ::tolower);
-
-            if (str == "true") {
-                v_ = true;
-                return true;
-            } else if (str == "false") {
-                v_ = false;
-                return true;
-            }
+        }
+        default:
+            return false;
         }
     }
 

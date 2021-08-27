@@ -139,6 +139,9 @@ if(RAGEL_FOUND)
     RAGEL_TARGET(parser_units
         lex/parser_units.rl ${CMAKE_CURRENT_SOURCE_DIR}/lex/parser_units.cpp
         COMPILE_FLAGS "-G2 -s")
+    RAGEL_TARGET(parser_props
+        lex/parser_props.rl ${CMAKE_CURRENT_SOURCE_DIR}/lex/parser_props.h
+        COMPILE_FLAGS "-G2 -s")
 endif()
 
 # ragel generated sources
@@ -148,6 +151,7 @@ target_sources(ceammc_core
         lex/parser_music.cpp
         lex/parser_numeric.cpp
         lex/parser_units.cpp
+        lex/parser_props.h
 )
 
 if(BISON_FOUND AND FLEX_FOUND)
