@@ -1132,10 +1132,6 @@ bool BoolProperty::setValue(const Atom& a)
     static t_symbol* SYM_TRUE = gensym("true");
     static t_symbol* SYM_FALSE = gensym("false");
 
-    auto is_toggle = [](t_symbol* s) {
-        return (s->s_name[0] == '~' || s->s_name[0] == '!') && s->s_name[1] == '\0';
-    };
-
     if (a.isFloat()) {
         v_ = (a.asInt(0) == 0) ? false : true;
         return true;
@@ -1149,7 +1145,7 @@ bool BoolProperty::setValue(const Atom& a)
         } else if (s == SYM_FALSE) {
             v_ = false;
             return true;
-        } else if (is_toggle(s)) {
+        } else if (is_op(s->s_name, '~') || is_op(s->s_name, '!')) {
             v_ = !v_;
             return true;
         } else { // slow check string
