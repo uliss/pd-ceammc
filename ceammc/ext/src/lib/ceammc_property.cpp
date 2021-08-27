@@ -1187,13 +1187,13 @@ bool IntProperty::setList(const AtomListView& lst)
     else if (lst.size() == 2 && lst[0].isSymbol() && lst[1].isFloat()) {
         const auto val = lst[1].asT<int>();
         const auto op = lst[0].asT<t_symbol*>()->s_name;
-        if (op[0] == '+' && op[1] == '\0')
+        if (is_op(op, '+'))
             return setValue(value() + val);
-        else if (op[0] == '-' && op[1] == '\0')
+        else if (is_op(op, '-'))
             return setValue(value() - val);
-        else if (op[0] == '*' && op[1] == '\0')
+        else if (is_op(op, '*'))
             return setValue(value() * val);
-        else if (op[0] == '/' && op[1] == '\0') {
+        else if (is_op(op, '/')) {
             if (val == 0) {
                 PROP_ERR() << "division by zero";
                 return false;
@@ -1288,13 +1288,13 @@ bool SizeTProperty::setList(const AtomListView& lst)
     else if (lst.size() == 2 && lst[0].isSymbol() && lst[1].isFloat()) {
         const auto val = lst[1].asT<int>();
         const auto op = lst[0].asT<t_symbol*>()->s_name;
-        if (op[0] == '+' && op[1] == '\0')
+        if (is_op(op, '+'))
             return setValue(value() + val);
-        else if (op[0] == '-' && op[1] == '\0')
+        else if (is_op(op, '-'))
             return setValue(value() - val);
-        else if (op[0] == '*' && op[1] == '\0')
+        else if (is_op(op, '*'))
             return setValue(value() * val);
-        else if (op[0] == '/' && op[1] == '\0') {
+        else if (is_op(op, '/')) {
             if (val == 0) {
                 PROP_ERR() << "division by zero";
                 return false;
