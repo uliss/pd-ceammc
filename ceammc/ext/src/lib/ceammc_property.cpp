@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_property.h"
+#include "ceammc_crc32.h"
 #include "ceammc_format.h"
 #include "ceammc_log.h"
 
@@ -23,6 +24,8 @@
 #include <algorithm>
 #include <cctype>
 #include <cmath>
+#include <ctime>
+#include <random>
 
 #define PROP_ERR() LogPdObject(owner(), LOG_ERROR).stream() << errorPrefix()
 #define PROP_CHECK_ERR(v)                                                \
@@ -1129,21 +1132,29 @@ bool BoolProperty::setValue(bool v)
 
 bool BoolProperty::setValue(const Atom& a)
 {
-    static t_symbol* SYM_TRUE = gensym("true");
-    static t_symbol* SYM_FALSE = gensym("false");
+    static std::random_device rnd;
+
+    constexpr auto SYM_TRUE = "true"_hash;
+    constexpr auto SYM_FALSE = "false"_hash;
+    constexpr auto SYM_RANDOM = "random"_hash;
 
     if (a.isFloat()) {
         v_ = (a.asInt(0) == 0) ? false : true;
         return true;
     } else if (a.isSymbol()) {
         t_symbol* s = a.asSymbol();
+        const auto xs = crc32_hash(s->s_name);
 
         // fast check symbol
-        if (s == SYM_TRUE) {
+        if (xs == SYM_TRUE) {
             v_ = true;
             return true;
-        } else if (s == SYM_FALSE) {
+        } else if (xs == SYM_FALSE) {
             v_ = false;
+            return true;
+        } else if (xs == SYM_RANDOM) {
+            auto dist = std::uniform_int_distribution<int>(0, 1);
+            v_ = dist(rnd);
             return true;
         } else if (is_op(s->s_name, '~') || is_op(s->s_name, '!')) {
             v_ = !v_;
