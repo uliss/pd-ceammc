@@ -1007,34 +1007,40 @@ AtomList FloatProperty::get() const
     return { v_ };
 }
 
-bool FloatProperty::setList(const AtomListView& lst)
+static inline bool is_op(const char* sym, char op)
 {
-    if (!emptyCheck(lst))
+    return sym[0] == op && sym[1] == '\0';
+}
+
+bool FloatProperty::setList(const AtomListView& lv)
+{
+    if (!emptyCheck(lv))
         return false;
 
-    if (lst.size() == 1)
-        return setValue(lst[0]);
-    else if (lst.size() == 2 && lst[0].isSymbol() && lst[1].isFloat()) {
-        const auto val = lst[1].asT<t_float>();
-        const auto op = lst[0].asT<t_symbol*>()->s_name;
-        if (op[0] == '+' && op[1] == '\0')
+    if (lv.size() == 1)
+        return setValue(lv[0]);
+    else if (lv.size() == 2 && lv[0].isSymbol() && lv[1].isFloat()) { // OPERATOR FLOAT
+        const auto val = lv[1].asT<t_float>();
+        const auto op = lv[0].asT<t_symbol*>()->s_name;
+
+        if (is_op(op, '+'))
             return setValue(value() + val);
-        else if (op[0] == '-' && op[1] == '\0')
+        else if (is_op(op, '-'))
             return setValue(value() - val);
-        else if (op[0] == '*' && op[1] == '\0')
+        else if (is_op(op, '*'))
             return setValue(value() * val);
-        else if (op[0] == '/' && op[1] == '\0') {
+        else if (is_op(op, '/')) {
             if (val == 0) {
                 PROP_ERR() << "division by zero";
                 return false;
             } else
                 return setValue(value() / val);
         } else {
-            PROP_ERR() << "expected +-*/, got: " << lst[0];
+            PROP_ERR() << "expected +-*/, got: " << lv[0];
             return false;
         }
     } else {
-        PROP_ERR() << "float value expected, got: " << lst;
+        PROP_ERR() << "float value expected, got: " << lv;
         return false;
     }
 }
