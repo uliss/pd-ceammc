@@ -222,4 +222,48 @@ TEST_CASE("IntProperty", "[core]")
         REQUIRE_FALSE(p.setList(AtomList::parseString("/ 0")));
         REQUIRE(p.value() == 6);
     }
+
+    SECTION("%")
+    {
+        p.setValue(15);
+        REQUIRE(p.setList(AtomList::parseString("% 10")));
+        REQUIRE(p.value() == 5);
+
+        REQUIRE(p.setList(AtomList::parseString("% 2")));
+        REQUIRE(p.value() == 1);
+
+        REQUIRE_FALSE(p.setList(AtomList::parseString("% 0")));
+    }
+
+    SECTION("random")
+    {
+        REQUIRE_FALSE(p.setList(AtomList::parseString("random")));
+
+        p.setDefault(50);
+        p.checkClosedRange(0, 1000);
+        REQUIRE(p.setList(AtomList::parseString("random")));
+        auto v = p.value();
+        REQUIRE(p.setList(AtomList::parseString("random")));
+        // hope so)
+        REQUIRE(v != p.value());
+
+        // wrong args
+        REQUIRE_FALSE(p.setList(AtomList::parseString("random 10")));
+
+        //
+        REQUIRE(p.setList(AtomList::parseString("random 10 11")));
+        REQUIRE((p.value() == 10 || p.value() == 11));
+    }
+
+    SECTION("default")
+    {
+        REQUIRE(p.setList(AtomList::parseString("125")));
+        REQUIRE(p.value() == 125);
+        REQUIRE(p.setList(AtomList::parseString("default")));
+        REQUIRE(p.value() == 120);
+        REQUIRE(p.setList(AtomList::parseString("30")));
+        REQUIRE(p.value() == 30);
+        REQUIRE(p.setList(AtomList::parseString("def")));
+        REQUIRE(p.value() == 120);
+    }
 }

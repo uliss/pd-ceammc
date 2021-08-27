@@ -1176,35 +1176,119 @@ IntProperty::IntProperty(const std::string& name, int init, PropValueAccess acce
     info().setDefault(init);
 }
 
-bool IntProperty::setList(const AtomListView& lst)
+bool IntProperty::setList(const AtomListView& lv)
 {
-    if (!emptyCheck(lst))
+    if (!emptyCheck(lv))
         return false;
 
-    if (lst.size() == 1)
-        return setValue(lst[0]);
-    else if (lst.size() == 2 && lst[0].isSymbol() && lst[1].isFloat()) {
-        const auto val = lst[1].asT<int>();
-        const auto op = lst[0].asT<t_symbol*>()->s_name;
-        if (is_op(op, '+'))
-            return setValue(value() + val);
-        else if (is_op(op, '-'))
-            return setValue(value() - val);
-        else if (is_op(op, '*'))
-            return setValue(value() * val);
-        else if (is_op(op, '/')) {
-            if (val == 0) {
-                PROP_ERR() << "division by zero";
+    if (lv.size() == 1 && lv[0].isFloat())
+        return setValue(lv[0]);
+    else if (lv[0].isSymbol()) {
+        using namespace parser;
+
+        auto sym = lv[0].asT<t_symbol*>();
+        auto op = parse_numeric_prop_op(sym->s_name);
+        switch (op) {
+        case NumericPropOp::DEFAULT: {
+            return setValue(info().defaultInt());
+        } break;
+        case NumericPropOp::RANDOM: {
+            int new_min, new_max;
+
+            switch (info().constraints()) {
+            case PropValueConstraints::CLOSED_RANGE:
+                new_min = info().minInt();
+                new_max = info().maxInt();
+                break;
+            case PropValueConstraints::OPEN_RANGE:
+                new_min = info().minInt() + 1;
+                new_max = info().maxInt() - 1;
+                break;
+            case PropValueConstraints::OPEN_CLOSED_RANGE:
+                new_min = info().minInt() + 1;
+                new_max = info().maxInt();
+                break;
+            case PropValueConstraints::CLOSED_OPEN_RANGE:
+                new_min = info().minInt();
+                new_max = info().maxInt() - 1;
+                break;
+            default:
+                PROP_ERR() << "property should have range for setting it random";
                 return false;
-            } else
-                return setValue(value() / val);
+            }
+
+            if (lv.size() == 1) { /* ok */
+            } else if (lv.size() == 3 && lv[1].isInteger() && lv[2].isInteger()) {
+                new_min = std::max<int>(new_min, lv[1].asT<int>());
+                new_max = std::min<int>(new_max, lv[2].asT<int>());
+            } else {
+                PROP_ERR() << "random [MIN MAX]? expected, got: " << lv;
+                return false;
+            }
+
+            std::random_device rnd;
+            std::uniform_int_distribution<int> dist(new_min, new_max);
+            return setValue(dist(rnd));
+        } break;
+        case NumericPropOp::UNKNOWN: {
+            PROP_ERR() << "expected +|-|*|/|%|random|default, got: " << lv[0];
+        } break;
+        default: {
+            if (lv.size() == 2 && lv[1].isFloat()) { // basic math
+                const auto val = lv[1].asT<int>();
+                switch (op) {
+                case NumericPropOp::ADD:
+                    return setValue(value() + val);
+                case NumericPropOp::SUB:
+                    return setValue(value() - val);
+                case NumericPropOp::MUL:
+                    return setValue(value() * val);
+                case NumericPropOp::DIV: {
+                    if (val == 0) {
+                        PROP_ERR() << "division by zero";
+                        return false;
+                    }
+                    return setValue(value() / val);
+                case NumericPropOp::MOD: {
+                    if (val == 0) {
+                        PROP_ERR() << "division by zero";
+                        return false;
+                    }
+                    return setValue(value() % val);
+                }
+                default:
+                    PROP_ERR() << "unknown op: " << (int)op;
+                    return false;
+                }
+                }
+            }
+            break;
+        }
+        }
+
+        if (lv.size() == 2 && lv[0].isSymbol() && lv[1].isFloat()) {
+            const auto val = lv[1].asT<int>();
+            const auto op = lv[0].asT<t_symbol*>()->s_name;
+            if (is_op(op, '+'))
+                return setValue(value() + val);
+            else if (is_op(op, '-'))
+                return setValue(value() - val);
+            else if (is_op(op, '*'))
+                return setValue(value() * val);
+            else if (is_op(op, '/')) {
+                if (val == 0) {
+                    PROP_ERR() << "division by zero";
+                    return false;
+                } else
+                    return setValue(value() / val);
+            } else {
+                PROP_ERR() << "expected +-*/, got: " << lv[0];
+                return false;
+            }
         } else {
-            PROP_ERR() << "expected +-*/, got: " << lst[0];
+            PROP_ERR() << "integer value expected, got " << lv;
             return false;
         }
-    } else {
-        PROP_ERR() << "integer value expected, got " << lst;
-        return false;
     }
 }
 
