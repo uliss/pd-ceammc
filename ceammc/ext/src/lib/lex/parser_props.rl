@@ -9,8 +9,8 @@ namespace parser {
 %%{
     machine bool_prop;
 
-    true =   ('T'|'t') 'rue'    %{ type = BoolPropOp::TRUE; };
-    false =  ('F'|'f') 'alse'   %{ type = BoolPropOp::FALSE; };
+    true =   (('T'|'t') 'rue')  %{ type = BoolPropOp::TRUE; };
+    false =  (('F'|'f') 'alse') %{ type = BoolPropOp::FALSE; };
     random = 'random'           %{ type = BoolPropOp::RANDOM; };
     invert = ('!'|'~')          %{ type = BoolPropOp::INVERT; };
     default = ('def'|'default') %{ type = BoolPropOp::DEFAULT; };
