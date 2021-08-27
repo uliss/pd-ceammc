@@ -482,7 +482,7 @@ bool Property::setSymbolEnumCheck(std::initializer_list<t_symbol*> l)
     info_.setConstraints(PropValueConstraints::ENUM);
     info_.clearEnum();
     for (auto s : l)
-        info_.addEnum(s);
+        PROP_USED info_.addEnum(s);
 
     setSymbolCheckFn([this](t_symbol* s) -> bool { return info_.enumContains(s); });
     return true;
@@ -498,7 +498,7 @@ bool Property::setSymbolEnumCheck(std::initializer_list<const char*> l)
     info_.setConstraints(PropValueConstraints::ENUM);
     info_.clearEnum();
     for (auto s : l)
-        info_.addEnum(gensym(s));
+        PROP_USED info_.addEnum(gensym(s));
 
     setSymbolCheckFn([this](t_symbol* s) -> bool { return info_.enumContains(s); });
     return true;
@@ -1265,11 +1265,12 @@ bool IntProperty::setList(const AtomListView& lv)
             }
             break;
         }
-        } // switch
+        } // end switch
     } else {
         PROP_ERR() << "expected +|-|*|/|%|random|default, got: " << lv[0];
-        return false;
     }
+
+    return false;
 }
 
 bool IntProperty::setInt(int v)
