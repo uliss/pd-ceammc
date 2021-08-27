@@ -1232,6 +1232,7 @@ bool IntProperty::setList(const AtomListView& lv)
         } break;
         case NumericPropOp::UNKNOWN: {
             PROP_ERR() << "expected +|-|*|/|%|random|default, got: " << lv[0];
+            return false;
         } break;
         default: {
             if (lv.size() == 2 && lv[1].isFloat()) { // basic math
@@ -1264,31 +1265,10 @@ bool IntProperty::setList(const AtomListView& lv)
             }
             break;
         }
-        }
-
-        if (lv.size() == 2 && lv[0].isSymbol() && lv[1].isFloat()) {
-            const auto val = lv[1].asT<int>();
-            const auto op = lv[0].asT<t_symbol*>()->s_name;
-            if (is_op(op, '+'))
-                return setValue(value() + val);
-            else if (is_op(op, '-'))
-                return setValue(value() - val);
-            else if (is_op(op, '*'))
-                return setValue(value() * val);
-            else if (is_op(op, '/')) {
-                if (val == 0) {
-                    PROP_ERR() << "division by zero";
-                    return false;
-                } else
-                    return setValue(value() / val);
-            } else {
-                PROP_ERR() << "expected +-*/, got: " << lv[0];
-                return false;
-            }
-        } else {
-            PROP_ERR() << "integer value expected, got " << lv;
-            return false;
-        }
+        } // switch
+    } else {
+        PROP_ERR() << "expected +|-|*|/|%|random|default, got: " << lv[0];
+        return false;
     }
 }
 
