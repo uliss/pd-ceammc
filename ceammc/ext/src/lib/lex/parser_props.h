@@ -3,13 +3,22 @@
 #ifndef PARSER_PROP_RAGEL_H_
 #define PARSER_PROP_RAGEL_H_
 
+# include "ceammc_atomlist_view.h"
+
 # include <cstring>
+# include <cstdlib>
+# include <iostream>
 
 namespace ceammc {
 namespace parser {
 
+enum class PropParseRes {
+    OK,
+    UNKNOWN
+};
 
-#line 13 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.h"
+
+#line 22 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.h"
 static const int bool_prop_start = 1;
 static const int bool_prop_first_final = 19;
 static const int bool_prop_error = 0;
@@ -17,7 +26,7 @@ static const int bool_prop_error = 0;
 static const int bool_prop_en_main = 1;
 
 
-#line 21 "lex/parser_props.rl"
+#line 30 "lex/parser_props.rl"
 
 
 enum class BoolPropOp {
@@ -29,7 +38,7 @@ enum class BoolPropOp {
     DEFAULT
 };
 
-static inline BoolPropOp parse_bool_prop(const char* str)
+static BoolPropOp parse_bool_prop(const char* str)
 {
     const auto len = std::strlen(str);
     if (len == 0)
@@ -42,14 +51,14 @@ static inline BoolPropOp parse_bool_prop(const char* str)
     BoolPropOp type = BoolPropOp::UNKNOWN;
 
     
-#line 46 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.h"
+#line 55 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.h"
 	{
 	cs = bool_prop_start;
 	}
 
-#line 45 "lex/parser_props.rl"
+#line 54 "lex/parser_props.rl"
     
-#line 53 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.h"
+#line 62 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.h"
 	{
 	if ( p == pe )
 		goto _test_eof;
@@ -251,40 +260,82 @@ case 24:
 	{
 	switch ( cs ) {
 	case 21: 
-#line 12 "lex/parser_props.rl"
+#line 21 "lex/parser_props.rl"
 	{ type = BoolPropOp::TRUE; }
 	break;
 	case 20: 
-#line 13 "lex/parser_props.rl"
+#line 22 "lex/parser_props.rl"
 	{ type = BoolPropOp::FALSE; }
 	break;
 	case 24: 
-#line 14 "lex/parser_props.rl"
+#line 23 "lex/parser_props.rl"
 	{ type = BoolPropOp::RANDOM; }
 	break;
 	case 19: 
-#line 15 "lex/parser_props.rl"
+#line 24 "lex/parser_props.rl"
 	{ type = BoolPropOp::INVERT; }
 	break;
 	case 22: 
 	case 23: 
-#line 16 "lex/parser_props.rl"
+#line 25 "lex/parser_props.rl"
 	{ type = BoolPropOp::DEFAULT; }
 	break;
-#line 275 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.h"
+#line 284 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.h"
 	}
 	}
 
 	_out: {}
 	}
 
-#line 46 "lex/parser_props.rl"
+#line 55 "lex/parser_props.rl"
 
     const bool ok = cs >= 19;
     if (ok)
         return type;
     else
         return BoolPropOp::UNKNOWN;
+}
+
+static const char* bool_prop_expected()
+{
+    return "bool value (1|0|true|false) or operation (random|defaut|!|~)";
+}
+
+static PropParseRes bool_prop_calc(bool prev, bool def, const AtomListView& lv, bool& res)
+{
+    // assert (!lv.empty())
+
+    if (lv.isBool()) {
+        res = lv[0].asBool();
+        return PropParseRes::OK;
+    } else if (lv.isSymbol()) {
+
+        auto s = lv[0].asT<t_symbol*>();
+        auto op = parse_bool_prop(s->s_name);
+
+        switch (op) {
+        case BoolPropOp::TRUE:
+            res = true;
+            break;
+        case BoolPropOp::FALSE:
+            res = false;
+            break;
+        case BoolPropOp::INVERT:
+            res = !prev;
+            break;
+        case BoolPropOp::DEFAULT:
+            res  = def;
+            break;
+        case BoolPropOp::RANDOM:
+            res = std::rand() & 0x1;
+            break;
+        default:
+            return PropParseRes::UNKNOWN;
+        }
+
+        return PropParseRes::OK;
+    } else
+        return PropParseRes::UNKNOWN;
 }
 
 enum class NumericPropOp {
@@ -299,7 +350,7 @@ enum class NumericPropOp {
 };
 
 
-#line 303 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.h"
+#line 354 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.h"
 static const int numeric_prop_start = 1;
 static const int numeric_prop_first_final = 12;
 static const int numeric_prop_error = 0;
@@ -307,10 +358,10 @@ static const int numeric_prop_error = 0;
 static const int numeric_prop_en_main = 1;
 
 
-#line 79 "lex/parser_props.rl"
+#line 130 "lex/parser_props.rl"
 
 
-static inline NumericPropOp parse_numeric_prop_op(const char* str)
+static NumericPropOp parse_numeric_prop_op(const char* str)
 {
     const auto len = std::strlen(str);
     if (len == 0)
@@ -323,14 +374,14 @@ static inline NumericPropOp parse_numeric_prop_op(const char* str)
     NumericPropOp type = NumericPropOp::UNKNOWN;
 
     
-#line 327 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.h"
+#line 378 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.h"
 	{
 	cs = numeric_prop_start;
 	}
 
-#line 94 "lex/parser_props.rl"
+#line 145 "lex/parser_props.rl"
     
-#line 334 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.h"
+#line 385 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.h"
 	{
 	if ( p == pe )
 		goto _test_eof;
@@ -487,42 +538,42 @@ case 19:
 	{
 	switch ( cs ) {
 	case 14: 
-#line 68 "lex/parser_props.rl"
+#line 119 "lex/parser_props.rl"
 	{ type = NumericPropOp::ADD; }
 	break;
 	case 15: 
-#line 69 "lex/parser_props.rl"
+#line 120 "lex/parser_props.rl"
 	{ type = NumericPropOp::SUB; }
 	break;
 	case 13: 
-#line 70 "lex/parser_props.rl"
+#line 121 "lex/parser_props.rl"
 	{ type = NumericPropOp::MUL; }
 	break;
 	case 16: 
-#line 71 "lex/parser_props.rl"
+#line 122 "lex/parser_props.rl"
 	{ type = NumericPropOp::DIV; }
 	break;
 	case 12: 
-#line 72 "lex/parser_props.rl"
+#line 123 "lex/parser_props.rl"
 	{ type = NumericPropOp::MOD; }
 	break;
 	case 19: 
-#line 73 "lex/parser_props.rl"
+#line 124 "lex/parser_props.rl"
 	{ type = NumericPropOp::RANDOM; }
 	break;
 	case 17: 
 	case 18: 
-#line 74 "lex/parser_props.rl"
+#line 125 "lex/parser_props.rl"
 	{ type = NumericPropOp::DEFAULT; }
 	break;
-#line 519 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.h"
+#line 570 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.h"
 	}
 	}
 
 	_out: {}
 	}
 
-#line 95 "lex/parser_props.rl"
+#line 146 "lex/parser_props.rl"
 
     const bool ok = cs >= 12;
     if (ok)

@@ -89,7 +89,7 @@ bool CallbackProperty::setList(const AtomListView& lv)
     case Type::BOOL: {
         using namespace parser;
 
-        if (lv.empty())
+        if (!emptyCheck(lv))
             return false;
 
         if (lv.isBool())
@@ -124,9 +124,12 @@ bool CallbackProperty::setList(const AtomListView& lv)
         return false;
     } break;
     case Type::FLOAT:
+        if(!emptyCheck(lv))
+            return false;
+
         if (lv.isFloat())
-            return setFloat(lv[0].asFloat());
-        else if (lv.size() == 2 && lv[0].isSymbol() && lv[1].isFloat()) {
+            return setFloat(lv[0].asT<t_float>());
+        else if (lv[0].isSymbol()) {
             t_float a = 0;
             if (!getFloat(a))
                 return false;

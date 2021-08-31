@@ -1,10 +1,19 @@
 #ifndef PARSER_PROP_RAGEL_H_
 #define PARSER_PROP_RAGEL_H_
 
+# include "ceammc_atomlist_view.h"
+
 # include <cstring>
+# include <cstdlib>
+# include <iostream>
 
 namespace ceammc {
 namespace parser {
+
+enum class PropParseRes {
+    OK,
+    UNKNOWN
+};
 
 %%{
     machine bool_prop;
@@ -29,7 +38,7 @@ enum class BoolPropOp {
     DEFAULT
 };
 
-static inline BoolPropOp parse_bool_prop(const char* str)
+static BoolPropOp parse_bool_prop(const char* str)
 {
     const auto len = std::strlen(str);
     if (len == 0)
@@ -49,6 +58,48 @@ static inline BoolPropOp parse_bool_prop(const char* str)
         return type;
     else
         return BoolPropOp::UNKNOWN;
+}
+
+static const char* bool_prop_expected()
+{
+    return "bool value (1|0|true|false) or operation (random|defaut|!|~)";
+}
+
+static PropParseRes bool_prop_calc(bool prev, bool def, const AtomListView& lv, bool& res)
+{
+    // assert (!lv.empty())
+
+    if (lv.isBool()) {
+        res = lv[0].asBool();
+        return PropParseRes::OK;
+    } else if (lv.isSymbol()) {
+
+        auto s = lv[0].asT<t_symbol*>();
+        auto op = parse_bool_prop(s->s_name);
+
+        switch (op) {
+        case BoolPropOp::TRUE:
+            res = true;
+            break;
+        case BoolPropOp::FALSE:
+            res = false;
+            break;
+        case BoolPropOp::INVERT:
+            res = !prev;
+            break;
+        case BoolPropOp::DEFAULT:
+            res  = def;
+            break;
+        case BoolPropOp::RANDOM:
+            res = std::rand() & 0x1;
+            break;
+        default:
+            return PropParseRes::UNKNOWN;
+        }
+
+        return PropParseRes::OK;
+    } else
+        return PropParseRes::UNKNOWN;
 }
 
 enum class NumericPropOp {
@@ -78,7 +129,7 @@ enum class NumericPropOp {
     write data;
 }%%
 
-static inline NumericPropOp parse_numeric_prop_op(const char* str)
+static NumericPropOp parse_numeric_prop_op(const char* str)
 {
     const auto len = std::strlen(str);
     if (len == 0)

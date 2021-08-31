@@ -1198,38 +1198,19 @@ bool BoolProperty::setValue(bool v)
 
 bool BoolProperty::setValue(const Atom& a)
 {
+    using namespace parser;
+
     static std::random_device rnd;
 
-    if (a.isFloat()) {
-        v_ = (a.asInt(0) == 0) ? false : true;
-        return true;
-    } else if (a.isSymbol()) {
-        using namespace parser;
-
-        switch (parse_bool_prop(a.asT<t_symbol*>()->s_name)) {
-        case BoolPropOp::TRUE:
-            v_ = true;
-            return true;
-        case BoolPropOp::FALSE:
-            v_ = false;
-            return true;
-        case BoolPropOp::INVERT:
-            v_ = !v_;
-            return true;
-        case BoolPropOp::DEFAULT:
-            v_ = info().defaultBool();
-            return true;
-        case BoolPropOp::RANDOM: {
-            auto dist = std::uniform_int_distribution<int>(0, 1);
-            v_ = dist(rnd);
-            return true;
-        }
-        default:
-            return false;
-        }
+    bool res = false;
+    auto err = bool_prop_calc(v_, info().defaultBool(), AtomListView(a), res);
+    if (err != PropParseRes::OK) {
+        PROP_ERR() << bool_prop_expected() << " expected, got: " << a;
+        return false;
     }
 
-    return false;
+    v_ = res;
+    return true;
 }
 
 bool BoolProperty::defaultValue() const
