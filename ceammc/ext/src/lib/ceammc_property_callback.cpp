@@ -92,39 +92,21 @@ bool CallbackProperty::setList(const AtomListView& lv)
         if (!emptyCheck(lv))
             return false;
 
-        if (lv.isBool())
-            return setBool(lv[0].asBool());
-        else if (lv.isSymbol()) {
-            auto s = lv[0].asT<t_symbol*>();
-            auto op = parse_bool_prop(s->s_name);
+        bool res = false;
+        bool prev = false;
+        if (!getBool(prev))
+            return false;
 
-            switch (op) {
-            case BoolPropOp::TRUE:
-                return setBool(true);
-            case BoolPropOp::FALSE:
-                return setBool(false);
-            case BoolPropOp::INVERT: {
-                bool b = false;
-                if (!getBool(b))
-                    return false;
-
-                return setBool(!b);
-            }
-            case BoolPropOp::DEFAULT:
-                return setBool(info().defaultBool());
-            case BoolPropOp::RANDOM:
-                return setBool(std::rand() & 0x1);
-            default:
-                PROP_ERR << "bool value (0|1|true|false) or operation (random|default|~|!) expected, got: " << lv;
-                return false;
-            }
+        auto err = bool_prop_calc(prev, info().defaultBool(), lv, res);
+        if (err != PropParseRes::OK) {
+            PROP_ERR << bool_prop_expected() << " expected, got: " << lv;
+            return false;
         }
 
-        PROP_ERR << "bool value (0|1|true|false) or operation (random|default|~|!) expected, got: " << lv;
-        return false;
+        return setBool(res);
     } break;
     case Type::FLOAT:
-        if(!emptyCheck(lv))
+        if (!emptyCheck(lv))
             return false;
 
         if (lv.isFloat())
