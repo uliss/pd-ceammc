@@ -105,39 +105,37 @@ bool CallbackProperty::setList(const AtomListView& lv)
 
         return setBool(res);
     } break;
-    case Type::FLOAT:
+    case Type::FLOAT: {
+        using namespace parser;
+
         if (!emptyCheck(lv))
             return false;
 
-        if (lv.isFloat())
-            return setFloat(lv[0].asT<t_float>());
-        else if (lv[0].isSymbol()) {
-            t_float a = 0;
-            if (!getFloat(a))
-                return false;
+        t_float res = false;
+        t_float value = false;
+        if (!getFloat(value))
+            return false;
 
-            const auto b = lv[1].asT<t_float>();
-            const auto op = lv[0].asT<t_symbol*>();
-            if (is_plus(op))
-                return setFloat(a + b);
-            else if (is_minus(op))
-                return setFloat(a - b);
-            else if (is_mul(op))
-                return setFloat(a * b);
-            else if (is_div(op)) {
-                if (b == 0) {
-                    PROP_ERR << "division by zero";
-                    return false;
-                } else
-                    return setFloat(a / b);
-            } else {
-                PROP_ERR << "expected +-*/, got: " << lv[0];
-                return false;
-            }
-        } else
-            PROP_ERR << "float value expected, got: " << lv;
+        auto rc = numeric_prop_calc<t_float>(value, info(), lv, res);
+        switch (rc) {
+        case PropParseRes::OK:
+            return setFloat(res);
+        case PropParseRes::DIVBYZERO:
+            PROP_ERR << "division by zero: " << lv;
+            return false;
+        case PropParseRes::NORANGE:
+            PROP_ERR << "property without range, can't set random";
+            return false;
+        case PropParseRes::INVALID_RANDOM_ARGS:
+            PROP_ERR << "random [MIN MAX]? expected, got: " << lv;
+            return false;
+        case PropParseRes::UNKNOWN:
+        default:
+            PROP_ERR << float_prop_expected() << " expected, got: " << lv;
+            return false;
+        }
 
-        break;
+    } break;
     case Type::INT:
         if (lv.isFloat()) {
             t_float v = lv[0].asFloat();
