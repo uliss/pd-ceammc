@@ -303,7 +303,8 @@ static const char* bool_prop_expected()
 
 static PropParseRes bool_prop_calc(bool prev, bool def, const AtomListView& lv, bool& res)
 {
-    // assert (!lv.empty())
+    if (lv.empty())
+        return PropParseRes::UNNOWN;
 
     if (lv.isBool()) {
         res = lv[0].asBool();
@@ -350,7 +351,7 @@ enum class NumericPropOp {
 };
 
 
-#line 354 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.h"
+#line 355 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.h"
 static const int numeric_prop_start = 1;
 static const int numeric_prop_first_final = 12;
 static const int numeric_prop_error = 0;
@@ -358,7 +359,7 @@ static const int numeric_prop_error = 0;
 static const int numeric_prop_en_main = 1;
 
 
-#line 130 "lex/parser_props.rl"
+#line 131 "lex/parser_props.rl"
 
 
 static NumericPropOp parse_numeric_prop_op(const char* str)
@@ -374,14 +375,14 @@ static NumericPropOp parse_numeric_prop_op(const char* str)
     NumericPropOp type = NumericPropOp::UNKNOWN;
 
     
-#line 378 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.h"
+#line 379 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.h"
 	{
 	cs = numeric_prop_start;
 	}
 
-#line 145 "lex/parser_props.rl"
+#line 146 "lex/parser_props.rl"
     
-#line 385 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.h"
+#line 386 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.h"
 	{
 	if ( p == pe )
 		goto _test_eof;
@@ -538,42 +539,42 @@ case 19:
 	{
 	switch ( cs ) {
 	case 14: 
-#line 119 "lex/parser_props.rl"
+#line 120 "lex/parser_props.rl"
 	{ type = NumericPropOp::ADD; }
 	break;
 	case 15: 
-#line 120 "lex/parser_props.rl"
+#line 121 "lex/parser_props.rl"
 	{ type = NumericPropOp::SUB; }
 	break;
 	case 13: 
-#line 121 "lex/parser_props.rl"
+#line 122 "lex/parser_props.rl"
 	{ type = NumericPropOp::MUL; }
 	break;
 	case 16: 
-#line 122 "lex/parser_props.rl"
+#line 123 "lex/parser_props.rl"
 	{ type = NumericPropOp::DIV; }
 	break;
 	case 12: 
-#line 123 "lex/parser_props.rl"
+#line 124 "lex/parser_props.rl"
 	{ type = NumericPropOp::MOD; }
 	break;
 	case 19: 
-#line 124 "lex/parser_props.rl"
+#line 125 "lex/parser_props.rl"
 	{ type = NumericPropOp::RANDOM; }
 	break;
 	case 17: 
 	case 18: 
-#line 125 "lex/parser_props.rl"
+#line 126 "lex/parser_props.rl"
 	{ type = NumericPropOp::DEFAULT; }
 	break;
-#line 570 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.h"
+#line 571 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.h"
 	}
 	}
 
 	_out: {}
 	}
 
-#line 146 "lex/parser_props.rl"
+#line 147 "lex/parser_props.rl"
 
     const bool ok = cs >= 12;
     if (ok)

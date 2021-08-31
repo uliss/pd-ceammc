@@ -16,6 +16,7 @@
 #include "ceammc_datatypes.h"
 #include "ceammc_format.h"
 #include "ceammc_log.h"
+#include "lex/parser_props.h"
 
 #include <cstring>
 #include <limits>
@@ -172,12 +173,20 @@ bool DataTypeProperty::setFromPdArgs(const AtomListView& lv)
             return false;
         }
     } else if (isBool()) {
-        if (lv.isFloat() && (lv[0].asFloat() == 0.0 || lv[0].asFloat() == 1.0)) {
-            setBool(lv[0].asFloat());
-        } else {
-            LIB_ERR << name_ << "1 or 0 is expected: " << lv;
+        using namespace parser;
+
+        bool res = false;
+        bool prev = false;
+        if (!getBool(prev))
+            return false;
+
+        auto err = bool_prop_calc(prev, info().defaultBool(), lv, res);
+        if (err != PropParseRes::OK) {
+            LIB_ERR << name_ << ' ' << bool_prop_expected() << " expected, got: " << lv;
             return false;
         }
+
+        return setBool(res);
     } else if (isSymbol()) {
         if (lv.isSymbol())
             setSymbol(lv[0].asSymbol());

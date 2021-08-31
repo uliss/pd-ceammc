@@ -67,7 +67,8 @@ static const char* bool_prop_expected()
 
 static PropParseRes bool_prop_calc(bool prev, bool def, const AtomListView& lv, bool& res)
 {
-    // assert (!lv.empty())
+    if (lv.empty())
+        return PropParseRes::UNNOWN;
 
     if (lv.isBool()) {
         res = lv[0].asBool();
