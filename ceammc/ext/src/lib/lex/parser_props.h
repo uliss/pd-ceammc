@@ -5,20 +5,28 @@
 
 # include "ceammc_atomlist_view.h"
 
-# include <cstring>
+# include <algorithm>
+# include <cmath>
 # include <cstdlib>
+# include <cstring>
 # include <iostream>
+# include <limits>
+# include <random>
 
 namespace ceammc {
 namespace parser {
 
 enum class PropParseRes {
     OK,
-    UNKNOWN
+    UNKNOWN,
+    NORANGE,
+    INVALID_RANDOM_ARGS,
+    DIVBYZERO,
+    UNKNOWN_OP
 };
 
 
-#line 22 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.h"
+#line 30 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.h"
 static const int bool_prop_start = 1;
 static const int bool_prop_first_final = 19;
 static const int bool_prop_error = 0;
@@ -26,7 +34,7 @@ static const int bool_prop_error = 0;
 static const int bool_prop_en_main = 1;
 
 
-#line 30 "lex/parser_props.rl"
+#line 38 "lex/parser_props.rl"
 
 
 enum class BoolPropOp {
@@ -51,14 +59,14 @@ static BoolPropOp parse_bool_prop(const char* str)
     BoolPropOp type = BoolPropOp::UNKNOWN;
 
     
-#line 55 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.h"
+#line 63 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.h"
 	{
 	cs = bool_prop_start;
 	}
 
-#line 54 "lex/parser_props.rl"
+#line 62 "lex/parser_props.rl"
     
-#line 62 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.h"
+#line 70 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.h"
 	{
 	if ( p == pe )
 		goto _test_eof;
@@ -260,34 +268,34 @@ case 24:
 	{
 	switch ( cs ) {
 	case 21: 
-#line 21 "lex/parser_props.rl"
+#line 29 "lex/parser_props.rl"
 	{ type = BoolPropOp::TRUE; }
 	break;
 	case 20: 
-#line 22 "lex/parser_props.rl"
+#line 30 "lex/parser_props.rl"
 	{ type = BoolPropOp::FALSE; }
 	break;
 	case 24: 
-#line 23 "lex/parser_props.rl"
+#line 31 "lex/parser_props.rl"
 	{ type = BoolPropOp::RANDOM; }
 	break;
 	case 19: 
-#line 24 "lex/parser_props.rl"
+#line 32 "lex/parser_props.rl"
 	{ type = BoolPropOp::INVERT; }
 	break;
 	case 22: 
 	case 23: 
-#line 25 "lex/parser_props.rl"
+#line 33 "lex/parser_props.rl"
 	{ type = BoolPropOp::DEFAULT; }
 	break;
-#line 284 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.h"
+#line 292 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.h"
 	}
 	}
 
 	_out: {}
 	}
 
-#line 55 "lex/parser_props.rl"
+#line 63 "lex/parser_props.rl"
 
     const bool ok = cs >= 19;
     if (ok)
@@ -304,7 +312,7 @@ static const char* bool_prop_expected()
 static PropParseRes bool_prop_calc(bool prev, bool def, const AtomListView& lv, bool& res)
 {
     if (lv.empty())
-        return PropParseRes::UNNOWN;
+        return PropParseRes::UNKNOWN;
 
     if (lv.isBool()) {
         res = lv[0].asBool();
@@ -351,7 +359,7 @@ enum class NumericPropOp {
 };
 
 
-#line 355 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.h"
+#line 363 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.h"
 static const int numeric_prop_start = 1;
 static const int numeric_prop_first_final = 12;
 static const int numeric_prop_error = 0;
@@ -359,8 +367,13 @@ static const int numeric_prop_error = 0;
 static const int numeric_prop_en_main = 1;
 
 
-#line 131 "lex/parser_props.rl"
+#line 139 "lex/parser_props.rl"
 
+
+static const char* float_prop_expected()
+{
+    return "float or operation (+|-|*|/|%|random|defaut)";
+}
 
 static NumericPropOp parse_numeric_prop_op(const char* str)
 {
@@ -375,14 +388,14 @@ static NumericPropOp parse_numeric_prop_op(const char* str)
     NumericPropOp type = NumericPropOp::UNKNOWN;
 
     
-#line 379 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.h"
+#line 392 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.h"
 	{
 	cs = numeric_prop_start;
 	}
 
-#line 146 "lex/parser_props.rl"
+#line 159 "lex/parser_props.rl"
     
-#line 386 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.h"
+#line 399 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.h"
 	{
 	if ( p == pe )
 		goto _test_eof;
@@ -539,48 +552,173 @@ case 19:
 	{
 	switch ( cs ) {
 	case 14: 
-#line 120 "lex/parser_props.rl"
+#line 128 "lex/parser_props.rl"
 	{ type = NumericPropOp::ADD; }
 	break;
 	case 15: 
-#line 121 "lex/parser_props.rl"
+#line 129 "lex/parser_props.rl"
 	{ type = NumericPropOp::SUB; }
 	break;
 	case 13: 
-#line 122 "lex/parser_props.rl"
+#line 130 "lex/parser_props.rl"
 	{ type = NumericPropOp::MUL; }
 	break;
 	case 16: 
-#line 123 "lex/parser_props.rl"
+#line 131 "lex/parser_props.rl"
 	{ type = NumericPropOp::DIV; }
 	break;
 	case 12: 
-#line 124 "lex/parser_props.rl"
+#line 132 "lex/parser_props.rl"
 	{ type = NumericPropOp::MOD; }
 	break;
 	case 19: 
-#line 125 "lex/parser_props.rl"
+#line 133 "lex/parser_props.rl"
 	{ type = NumericPropOp::RANDOM; }
 	break;
 	case 17: 
 	case 18: 
-#line 126 "lex/parser_props.rl"
+#line 134 "lex/parser_props.rl"
 	{ type = NumericPropOp::DEFAULT; }
 	break;
-#line 571 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.h"
+#line 584 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.h"
 	}
 	}
 
 	_out: {}
 	}
 
-#line 147 "lex/parser_props.rl"
+#line 160 "lex/parser_props.rl"
 
     const bool ok = cs >= 12;
     if (ok)
         return type;
     else
         return NumericPropOp::UNKNOWN;
+}
+
+static bool numeric_prop_random_range(const PropertyInfo& info, t_float& new_min, t_float& new_max)
+{
+    constexpr auto max_float = std::numeric_limits<t_float>::max();
+    constexpr auto min_float = -std::numeric_limits<t_float>::max();
+
+    auto c = info.constraints();
+    switch (c) {
+    case PropValueConstraints::CLOSED_OPEN_RANGE:
+        new_min = info.minFloat();
+        new_max = info.maxFloat();
+        return true;
+    case PropValueConstraints::CLOSED_RANGE:
+        new_min = info.minFloat();
+        new_max = std::nextafter(info.maxFloat(), max_float);
+        return true;
+    case PropValueConstraints::OPEN_RANGE:
+        new_min = std::nextafter(info.minFloat(), min_float);
+        new_max = info.maxFloat();
+        return true;
+    case PropValueConstraints::OPEN_CLOSED_RANGE:
+        new_min = std::nextafter(info.minFloat(), min_float);
+        new_max = std::nextafter(info.maxFloat(), max_float);
+        return true;
+    default:
+        return false;
+    }
+}
+
+static t_float numeric_prop_calc_random(t_float min, t_float max)
+{
+    std::random_device rnd;
+    std::uniform_real_distribution<t_float> dist(min, max);
+    return dist(rnd);
+}
+
+template <typename T>
+static PropParseRes numeric_prop_calc_math(NumericPropOp op, T arg, T prev, T& res)
+{
+    switch (op) {
+    case NumericPropOp::ADD:
+        res = prev + arg;
+        return PropParseRes::OK;
+    case NumericPropOp::SUB:
+        res = prev - arg;
+        return PropParseRes::OK;
+    case NumericPropOp::MUL:
+        res = prev * arg;
+        return PropParseRes::OK;
+    case NumericPropOp::DIV: {
+        if (arg == 0)
+            return PropParseRes::DIVBYZERO;
+        res = prev / arg;
+        return PropParseRes::OK;
+    }
+    case NumericPropOp::MOD: {
+        if (arg == 0)
+            return PropParseRes::DIVBYZERO;
+        res = std::fmod(prev, arg);
+        return PropParseRes::OK;
+    }
+    default:
+        return PropParseRes::UNKNOWN_OP;
+    }
+}
+
+template <typename T>
+static PropParseRes numeric_prop_calc(T prev, const PropertyInfo& info, const AtomListView& lv, T& res)
+{
+    if (lv.empty())
+        return PropParseRes::UNKNOWN;
+
+    if (lv.size() == 1 && lv[0].isA<T>()) {
+        res = lv[0].asT<T>();
+        return PropParseRes::OK;
+    } else if (lv[0].isSymbol()) {
+
+        auto s = lv[0].asT<t_symbol*>();
+        auto op = parse_numeric_prop_op(s->s_name);
+
+        switch (op) {
+        case NumericPropOp::DEFAULT: {
+            T def = 0;
+            if (!info.getDefault(def))
+                return PropParseRes::UNKNOWN;
+
+            res = def;
+            return PropParseRes::OK;
+        }
+        case NumericPropOp::RANDOM: {
+            T new_min = 0;
+            T new_max = 0;
+
+            if (!numeric_prop_random_range(info, new_min, new_max))
+                return PropParseRes::NORANGE;
+
+            const bool void_random_args = (lv.size() == 1);
+            const bool random_args = (lv.size() == 3 && lv[1].isA<T>() && lv[2].isA<T>());
+
+            if (!void_random_args && !random_args)
+                return PropParseRes::INVALID_RANDOM_ARGS;
+
+            if (random_args) {
+                new_min = std::max(new_min, lv[1].asT<T>());
+                new_max = std::min(new_max, lv[2].asT<T>());
+            }
+
+            res = numeric_prop_calc_random(new_min, new_max);
+            return PropParseRes::OK;
+        } break;
+        case NumericPropOp::UNKNOWN:
+            return PropParseRes::UNKNOWN;
+        default: // math
+            if (lv.size() == 2 && lv[1].isA<T>()) {
+                const T arg = lv[1].asT<T>();
+                return numeric_prop_calc_math(op, arg, prev, res);
+            } else
+                return PropParseRes::UNKNOWN;
+
+        } // end switch
+
+    } else {
+        return PropParseRes::UNKNOWN;
+    }
 }
 
 }
