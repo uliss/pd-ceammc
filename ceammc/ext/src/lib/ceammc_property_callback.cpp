@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "ceammc_property_callback.h"
 #include "ceammc_log.h"
+#include "lex/parser_props.h"
 
 #include <cmath>
 
@@ -66,7 +67,7 @@ CallbackProperty::CallbackProperty(const std::string& name, PropertyListGetter g
 {
 }
 
-bool CallbackProperty::setList(const AtomListView& lst)
+bool CallbackProperty::setList(const AtomListView& lv)
 {
     static auto is_toggle = [](t_symbol* s) {
         return (s->s_name[0] == '~' || s->s_name[0] == '!') && s->s_name[1] == '\0';
@@ -79,40 +80,63 @@ bool CallbackProperty::setList(const AtomListView& lst)
 
     switch (setter_.type) {
     case Type::LIST:
-        if (!hasListCb(SETTER) || !checkList(lst))
+        if (!hasListCb(SETTER) || !checkList(lv))
             return false;
 
-        if (!setter_.fn_list(lst)) {
+        if (!setter_.fn_list(lv)) {
             PROP_ERR << "list setter error: " << cb_err_msg_;
             return false;
         } else
             return true;
 
         break;
-    case Type::BOOL:
-        if (lst.isBool())
-            return setBool(lst[0].asBool());
-        else if (lst.isSymbol() && is_toggle(lst[0].asT<t_symbol*>())) {
-            bool v = false;
+    case Type::BOOL: {
+        using namespace parser;
 
-            if (!getBool(v))
+        if (lv.empty())
+            return false;
+
+        if (lv.isBool())
+            return setBool(lv[0].asBool());
+        else if (lv.isSymbol()) {
+            auto s = lv[0].asT<t_symbol*>();
+            auto op = parse_bool_prop(s->s_name);
+
+            switch (op) {
+            case BoolPropOp::TRUE:
+                return setBool(true);
+            case BoolPropOp::FALSE:
+                return setBool(false);
+            case BoolPropOp::INVERT: {
+                bool b = false;
+                if (!getBool(b))
+                    return false;
+
+                return setBool(!b);
+            }
+            case BoolPropOp::DEFAULT:
+                return setBool(info().defaultBool());
+            case BoolPropOp::RANDOM:
+                return setBool(std::rand() & 0x1);
+            default:
+                PROP_ERR << "bool value (0|1|true|false) or operation (random|default|~|!) expected, got: " << lv;
                 return false;
-            else
-                return setBool(!v);
-        } else
-            PROP_ERR << "bool value expected (0|1|true|false), got: " << lst;
+            }
+        }
 
-        break;
+        PROP_ERR << "bool value (0|1|true|false) or operation (random|default|~|!) expected, got: " << lv;
+        return false;
+    } break;
     case Type::FLOAT:
-        if (lst.isFloat())
-            return setFloat(lst[0].asFloat());
-        else if (lst.size() == 2 && lst[0].isSymbol() && lst[1].isFloat()) {
+        if (lv.isFloat())
+            return setFloat(lv[0].asFloat());
+        else if (lv.size() == 2 && lv[0].isSymbol() && lv[1].isFloat()) {
             t_float a = 0;
             if (!getFloat(a))
                 return false;
 
-            const auto b = lst[1].asT<t_float>();
-            const auto op = lst[0].asT<t_symbol*>();
+            const auto b = lv[1].asT<t_float>();
+            const auto op = lv[0].asT<t_symbol*>();
             if (is_plus(op))
                 return setFloat(a + b);
             else if (is_minus(op))
@@ -126,30 +150,30 @@ bool CallbackProperty::setList(const AtomListView& lst)
                 } else
                     return setFloat(a / b);
             } else {
-                PROP_ERR << "expected +-*/, got: " << lst[0];
+                PROP_ERR << "expected +-*/, got: " << lv[0];
                 return false;
             }
         } else
-            PROP_ERR << "float value expected, got: " << lst;
+            PROP_ERR << "float value expected, got: " << lv;
 
         break;
     case Type::INT:
-        if (lst.isFloat()) {
-            t_float v = lst[0].asFloat();
+        if (lv.isFloat()) {
+            t_float v = lv[0].asFloat();
 
-            if (!lst.isInteger()) {
+            if (!lv.isInteger()) {
                 v = std::round(v);
-                PROP_ERR << "int value expected, got: " << lst << ", rounding to " << v;
+                PROP_ERR << "int value expected, got: " << lv << ", rounding to " << v;
             }
 
             return setInt(static_cast<int>(v));
-        } else if (lst.size() == 2 && lst[0].isSymbol() && lst[1].isFloat()) {
+        } else if (lv.size() == 2 && lv[0].isSymbol() && lv[1].isFloat()) {
             int a = 0;
             if (!getInt(a))
                 return false;
 
-            const auto b = lst[1].asT<int>();
-            const auto op = lst[0].asT<t_symbol*>();
+            const auto b = lv[1].asT<int>();
+            const auto op = lv[0].asT<t_symbol*>();
             if (is_plus(op))
                 return setInt(a + b);
             else if (is_minus(op))
@@ -163,25 +187,25 @@ bool CallbackProperty::setList(const AtomListView& lst)
                 } else
                     return setInt(a / b);
             } else {
-                PROP_ERR << "expected +-*/, got: " << lst[0];
+                PROP_ERR << "expected +-*/, got: " << lv[0];
                 return false;
             }
         } else
-            PROP_ERR << "int value expected, got: " << lst;
+            PROP_ERR << "int value expected, got: " << lv;
 
         break;
     case Type::SYMBOL:
-        if (lst.isSymbol())
-            return setSymbol(lst[0].asSymbol());
+        if (lv.isSymbol())
+            return setSymbol(lv[0].asSymbol());
         else
-            PROP_ERR << "symbol value expected, got: " << lst;
+            PROP_ERR << "symbol value expected, got: " << lv;
 
         break;
     case Type::ATOM:
-        if (lst.isAtom())
-            return setAtom(lst[0]);
+        if (lv.isAtom())
+            return setAtom(lv[0]);
         else
-            PROP_ERR << "single atom value expected, got: " << lst;
+            PROP_ERR << "single atom value expected, got: " << lv;
         break;
     default:
         PROP_ERR << "unknown property type: " << (int)setter_.type;
