@@ -42,6 +42,25 @@ TEST_CASE("DataStringParser", "[core]")
     test::pdPrintToStdError();
     IntData int100(100);
 
+    SECTION("lexer")
+    {
+        DataStringLexer l("100");
+        REQUIRE(l.lex().kind() == DataStringParser::symbol_kind::S_FLOAT);
+        REQUIRE(l.lex().kind() == DataStringParser::symbol_kind::S_YYEOF);
+
+        l.in("-15");
+        REQUIRE(l.lex().kind() == DataStringParser::symbol_kind::S_FLOAT);
+        REQUIRE(l.lex().kind() == DataStringParser::symbol_kind::S_YYEOF);
+
+        l.in("0.5ms");
+        REQUIRE(l.lex().kind() == DataStringParser::symbol_kind::S_SYMBOL);
+        REQUIRE(l.lex().kind() == DataStringParser::symbol_kind::S_YYEOF);
+
+        l.in("-0.5ms");
+        REQUIRE(l.lex().kind() == DataStringParser::symbol_kind::S_SYMBOL);
+        REQUIRE(l.lex().kind() == DataStringParser::symbol_kind::S_YYEOF);
+    }
+
     SECTION("basic atom types")
     {
         REQUIRE(parse("") == L());
@@ -87,6 +106,16 @@ TEST_CASE("DataStringParser", "[core]")
         REQUIRE(parse("\"toomany!@#$%^&*,:{}\"") == LA("toomany!@#$%^&*,:{}"));
     }
 
+    SECTION("units")
+    {
+        REQUIRE(parse("100ms") == LA("100ms"));
+        REQUIRE(parse("0.5_ms") == LA("0.5_ms"));
+        REQUIRE(parse("-12.5ms") == LA("-12.5ms"));
+
+        REQUIRE(parse("5%") == LA("5%"));
+        REQUIRE(parse("-5%") == LA("-5%"));
+    }
+
     SECTION("base sequence")
     {
         REQUIRE(parse("1 2 3") == LF(1, 2, 3));
@@ -102,6 +131,7 @@ TEST_CASE("DataStringParser", "[core]")
     SECTION("data atom")
     {
         REQUIRE(parse("IntData(100)") == LA(new IntData(100)));
+        REQUIRE(parse("IntData(-100)") == LA(new IntData(-100)));
         REQUIRE(parse("StrData(abc)") == LA(new StrData("abc")));
         REQUIRE(parse("StrData(\"a b c\")") == LA(new StrData("a b c")));
         REQUIRE(parse("UnknownData(1 2 3)") == Atom());
@@ -114,7 +144,7 @@ TEST_CASE("DataStringParser", "[core]")
         REQUIRE(parse("(null)") == LA(new ML(Atom())));
         REQUIRE(parse("(null null)") == LA(new ML(Atom(), Atom())));
         REQUIRE(parse("(a b c)") == LA(new ML("a", "b", "c")));
-        REQUIRE(parse("(1 2 3)") == LF(new ML(1, 2, 3)));
+        REQUIRE(parse("(1 2 -3)") == LF(new ML(1, 2, -3)));
         REQUIRE(parse(R"(("a b" "c d"))") == LA(new ML("a b", "c d")));
 
         // using ctor
@@ -159,7 +189,7 @@ TEST_CASE("DataStringParser", "[core]")
         REQUIRE(parse("[key: value]") == LA(new DD("[key: value]")));
         REQUIRE(parse("[key: 1]") == LA(new DD("[key: 1]")));
         REQUIRE(parse("[a: 1 b: 20]") == LA(new DD("[a: 1 b: 20]")));
-        REQUIRE(parse("[key: 1 2 3]") == LA(new DD("[key: 1 2 3]")));
+        REQUIRE(parse("[key: 1 2 -3]") == LA(new DD("[key: 1 2 -3]")));
         REQUIRE(parse("[key: \"a\"]") == LA(new DD("[key: a]")));
         REQUIRE(parse("[a: [b: 1 2 3]]") == LA(new DD("[a: [b: 1 2 3]]")));
 

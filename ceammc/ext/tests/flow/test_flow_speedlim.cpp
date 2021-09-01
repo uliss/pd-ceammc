@@ -121,9 +121,9 @@ TEST_CASE("flow.speedlim", "[externals]")
 
     SECTION("do")
     {
-        setTestSampleRate(44100);
+        setTestSampleRate(64000);
 
-        TExt t("flow.speedlim", 2_ticks);
+        TExt t("flow.speedlim", 3_ticks);
         REQUIRE_PROPERTY_FLOAT(t, @limit, 3);
         const auto bang = Message::makeBang();
         const auto f0 = Message(100);
