@@ -143,6 +143,11 @@ static const char* float_prop_expected()
     return "float or operation (+|-|*|/|%|random|defaut)";
 }
 
+static const char* int_prop_expected()
+{
+    return "int or operation (+|-|*|/|%|random|defaut)";
+}
+
 static NumericPropOp parse_numeric_prop_op(const char* str)
 {
     const auto len = std::strlen(str);
@@ -193,10 +198,41 @@ static bool numeric_prop_random_range(const PropertyInfo& info, t_float& new_min
     }
 }
 
+static bool numeric_prop_random_range(const PropertyInfo& info, int& new_min, int& new_max)
+{
+    switch (info.constraints()) {
+    case PropValueConstraints::CLOSED_RANGE:
+        new_min = info.minInt();
+        new_max = info.maxInt();
+        return true;
+    case PropValueConstraints::OPEN_RANGE:
+        new_min = info.minInt() + 1;
+        new_max = info.maxInt() - 1;
+        return true;
+    case PropValueConstraints::OPEN_CLOSED_RANGE:
+        new_min = info.minInt() + 1;
+        new_max = info.maxInt();
+        return true;
+    case PropValueConstraints::CLOSED_OPEN_RANGE:
+        new_min = info.minInt();
+        new_max = info.maxInt() - 1;
+        return true;
+    default:
+        return false;
+    }
+}
+
 static t_float numeric_prop_calc_random(t_float min, t_float max)
 {
     std::random_device rnd;
     std::uniform_real_distribution<t_float> dist(min, max);
+    return dist(rnd);
+}
+
+static int numeric_prop_calc_random(int min, int max)
+{
+    std::random_device rnd;
+    std::uniform_int_distribution<int> dist(min, max);
     return dist(rnd);
 }
 
@@ -236,7 +272,7 @@ static PropParseRes numeric_prop_calc(T prev, const PropertyInfo& info, const At
     if (lv.empty())
         return PropParseRes::UNKNOWN;
 
-    if (lv.size() == 1 && lv[0].isA<T>()) {
+    if (lv.size() == 1 && lv[0].isFloat()) {
         res = lv[0].asT<T>();
         return PropParseRes::OK;
     } else if (lv[0].isSymbol()) {
@@ -277,7 +313,7 @@ static PropParseRes numeric_prop_calc(T prev, const PropertyInfo& info, const At
         case NumericPropOp::UNKNOWN:
             return PropParseRes::UNKNOWN;
         default: // math
-            if (lv.size() == 2 && lv[1].isA<T>()) {
+            if (lv.size() == 2 && lv[1].isFloat()) {
                 const T arg = lv[1].asT<T>();
                 return numeric_prop_calc_math(op, arg, prev, res);
             } else

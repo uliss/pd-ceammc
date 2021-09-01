@@ -136,43 +136,38 @@ bool CallbackProperty::setList(const AtomListView& lv)
         }
 
     } break;
-    case Type::INT:
-        if (lv.isFloat()) {
-            t_float v = lv[0].asFloat();
+    case Type::INT: {
 
-            if (!lv.isInteger()) {
-                v = std::round(v);
-                PROP_ERR << "int value expected, got: " << lv << ", rounding to " << v;
-            }
+        using namespace parser;
 
-            return setInt(static_cast<int>(v));
-        } else if (lv.size() == 2 && lv[0].isSymbol() && lv[1].isFloat()) {
-            int a = 0;
-            if (!getInt(a))
-                return false;
+        if (!emptyCheck(lv))
+            return false;
 
-            const auto b = lv[1].asT<int>();
-            const auto op = lv[0].asT<t_symbol*>();
-            if (is_plus(op))
-                return setInt(a + b);
-            else if (is_minus(op))
-                return setInt(a - b);
-            else if (is_mul(op))
-                return setInt(a * b);
-            else if (is_div(op)) {
-                if (b == 0) {
-                    PROP_ERR << "division by zero";
-                    return false;
-                } else
-                    return setInt(a / b);
-            } else {
-                PROP_ERR << "expected +-*/, got: " << lv[0];
-                return false;
-            }
-        } else
-            PROP_ERR << "int value expected, got: " << lv;
+        int res = false;
+        int value = false;
+        if (!getInt(value))
+            return false;
 
-        break;
+        auto rc = numeric_prop_calc<int>(value, info(), lv, res);
+        switch (rc) {
+        case PropParseRes::OK:
+            return setInt(res);
+        case PropParseRes::DIVBYZERO:
+            PROP_ERR << "division by zero: " << lv;
+            return false;
+        case PropParseRes::NORANGE:
+            PROP_ERR << "property without range, can't set random";
+            return false;
+        case PropParseRes::INVALID_RANDOM_ARGS:
+            PROP_ERR << "random [MIN MAX]? expected, got: " << lv;
+            return false;
+        case PropParseRes::UNKNOWN:
+        default:
+            PROP_ERR << int_prop_expected() << " expected, got: " << lv;
+            return false;
+        }
+
+    } break;
     case Type::SYMBOL:
         if (lv.isSymbol())
             return setSymbol(lv[0].asSymbol());
