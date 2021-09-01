@@ -1160,93 +1160,26 @@ bool IntProperty::setList(const AtomListView& lv)
     if (!emptyCheck(lv))
         return false;
 
-    if (lv.size() == 1 && lv[0].isFloat())
-        return setValue(lv[0]);
-    else if (lv[0].isSymbol()) {
-        using namespace parser;
+    using namespace parser;
 
-        auto sym = lv[0].asT<t_symbol*>();
-        auto op = parse_numeric_prop_op(sym->s_name);
-        switch (op) {
-        case NumericPropOp::DEFAULT: { // default
-            return setValue(info().defaultInt());
-        } break;
-        case NumericPropOp::RANDOM: { // random
-            int new_min, new_max;
-
-            switch (info().constraints()) {
-            case PropValueConstraints::CLOSED_RANGE:
-                new_min = info().minInt();
-                new_max = info().maxInt();
-                break;
-            case PropValueConstraints::OPEN_RANGE:
-                new_min = info().minInt() + 1;
-                new_max = info().maxInt() - 1;
-                break;
-            case PropValueConstraints::OPEN_CLOSED_RANGE:
-                new_min = info().minInt() + 1;
-                new_max = info().maxInt();
-                break;
-            case PropValueConstraints::CLOSED_OPEN_RANGE:
-                new_min = info().minInt();
-                new_max = info().maxInt() - 1;
-                break;
-            default:
-                PROP_ERR() << "property should have range for setting it random";
-                return false;
-            }
-
-            if (lv.size() == 1) { /* ok */
-            } else if (lv.size() == 3 && lv[1].isInteger() && lv[2].isInteger()) {
-                new_min = std::max<int>(new_min, lv[1].asT<int>());
-                new_max = std::min<int>(new_max, lv[2].asT<int>());
-            } else {
-                PROP_ERR() << "random [MIN MAX]? expected, got: " << lv;
-                return false;
-            }
-
-            std::random_device rnd;
-            std::uniform_int_distribution<int> dist(new_min, new_max);
-            return setValue(dist(rnd));
-        } break;
-        case NumericPropOp::UNKNOWN: { // error
-            PROP_ERR() << "expected +|-|*|/|%|random|default, got: " << lv[0];
-            return false;
-        } break;
-        default: { // math
-            if (lv.size() == 2 && lv[1].isFloat()) { // basic math
-                const auto val = lv[1].asT<int>();
-                switch (op) {
-                case NumericPropOp::ADD:
-                    return setValue(value() + val);
-                case NumericPropOp::SUB:
-                    return setValue(value() - val);
-                case NumericPropOp::MUL:
-                    return setValue(value() * val);
-                case NumericPropOp::DIV: {
-                    if (val == 0) {
-                        PROP_ERR() << "division by zero";
-                        return false;
-                    }
-                    return setValue(value() / val);
-                case NumericPropOp::MOD: {
-                    if (val == 0) {
-                        PROP_ERR() << "division by zero";
-                        return false;
-                    }
-                    return setValue(value() % val);
-                }
-                default:
-                    PROP_ERR() << "unknown op: " << (int)op;
-                    return false;
-                }
-                }
-            }
-            break;
-        }
-        } // end switch
-    } else {
-        PROP_ERR() << "expected +|-|*|/|%|random|default, got: " << lv[0];
+    int res = 0;
+    auto rc = numeric_prop_calc<int>(value(), info(), lv, res);
+    switch (rc) {
+    case PropParseRes::OK:
+        return setValue(res);
+    case PropParseRes::DIVBYZERO:
+        PROP_ERR() << "division by zero: " << lv;
+        return false;
+    case PropParseRes::NORANGE:
+        PROP_ERR() << "property without range, can't set random";
+        return false;
+    case PropParseRes::INVALID_RANDOM_ARGS:
+        PROP_ERR() << "random [MIN MAX]? expected, got: " << lv;
+        return false;
+    case PropParseRes::UNKNOWN:
+    default:
+        PROP_ERR() << int_prop_expected() << " expected, got: " << lv;
+        return false;
     }
 
     return false;
