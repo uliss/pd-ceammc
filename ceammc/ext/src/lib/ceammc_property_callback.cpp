@@ -69,11 +69,6 @@ CallbackProperty::CallbackProperty(const std::string& name, PropertyListGetter g
 
 bool CallbackProperty::setList(const AtomListView& lv)
 {
-    static auto is_plus = [](t_symbol* s) { return s->s_name[0] == '+' && s->s_name[1] == '\0'; };
-    static auto is_minus = [](t_symbol* s) { return s->s_name[0] == '-' && s->s_name[1] == '\0'; };
-    static auto is_mul = [](t_symbol* s) { return s->s_name[0] == '*' && s->s_name[1] == '\0'; };
-    static auto is_div = [](t_symbol* s) { return s->s_name[0] == '/' && s->s_name[1] == '\0'; };
-
     switch (setter_.type) {
     case Type::LIST:
         if (!hasListCb(SETTER) || !checkList(lv))

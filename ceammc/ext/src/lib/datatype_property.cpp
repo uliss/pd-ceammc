@@ -24,6 +24,8 @@
 
 const int DataTypeProperty::dataType = data::DATA_PROPERTY;
 
+#define PROP_ERR() LIB_ERR << name_ << ' '
+
 DataTypeProperty::DataTypeProperty(t_symbol* name)
     : name_(name)
     , type_(PropValueType::FLOAT)
@@ -159,19 +161,59 @@ bool DataTypeProperty::setList(const AtomList& lst)
 bool DataTypeProperty::setFromPdArgs(const AtomListView& lv)
 {
     if (isFloat()) {
-        if (lv.isFloat())
-            setFloat(lv[0].asFloat());
-        else {
-            LIB_ERR << name_ << " float argument is expected: " << lv;
+        using namespace parser;
+
+        t_float res = false;
+        t_float prev = false;
+        if (!getFloat(prev))
+            return false;
+
+        auto rc = numeric_prop_calc<t_float>(prev, info(), lv, res);
+        switch (rc) {
+        case PropParseRes::OK:
+            return setFloat(res);
+        case PropParseRes::DIVBYZERO:
+            PROP_ERR() << "division by zero: " << lv;
+            return false;
+        case PropParseRes::NORANGE:
+            PROP_ERR() << "property without range, can't set random";
+            return false;
+        case PropParseRes::INVALID_RANDOM_ARGS:
+            PROP_ERR() << "random [MIN MAX]? expected, got: " << lv;
+            return false;
+        case PropParseRes::UNKNOWN:
+        default:
+            PROP_ERR() << float_prop_expected() << " expected, got: " << lv;
             return false;
         }
+
     } else if (isInt()) {
-        if (lv.isFloat())
-            setInt(lv[0].asFloat());
-        else {
-            LIB_ERR << name_ << "int argument is expected: " << lv;
+        using namespace parser;
+
+        int res = false;
+        int prev = false;
+        if (!getInt(prev))
+            return false;
+
+        auto rc = numeric_prop_calc<int>(prev, info(), lv, res);
+        switch (rc) {
+        case PropParseRes::OK:
+            return setInt(res);
+        case PropParseRes::DIVBYZERO:
+            PROP_ERR() << "division by zero: " << lv;
+            return false;
+        case PropParseRes::NORANGE:
+            PROP_ERR() << "property without range, can't set random";
+            return false;
+        case PropParseRes::INVALID_RANDOM_ARGS:
+            PROP_ERR() << "random [MIN MAX]? expected, got: " << lv;
+            return false;
+        case PropParseRes::UNKNOWN:
+        default:
+            PROP_ERR() << int_prop_expected() << " expected, got: " << lv;
             return false;
         }
+
     } else if (isBool()) {
         using namespace parser;
 
@@ -182,7 +224,7 @@ bool DataTypeProperty::setFromPdArgs(const AtomListView& lv)
 
         auto err = bool_prop_calc(prev, info().defaultBool(), lv, res);
         if (err != PropParseRes::OK) {
-            LIB_ERR << name_ << ' ' << bool_prop_expected() << " expected, got: " << lv;
+            PROP_ERR() << bool_prop_expected() << " expected, got: " << lv;
             return false;
         }
 
@@ -191,13 +233,13 @@ bool DataTypeProperty::setFromPdArgs(const AtomListView& lv)
         if (lv.isSymbol())
             setSymbol(lv[0].asSymbol());
         else {
-            LIB_ERR << name_ << "symbol is expected: " << lv;
+            PROP_ERR() << "symbol is expected: " << lv;
             return false;
         }
     } else if (isList()) {
         setList(lv);
     } else {
-        LIB_ERR << "unhandled property type: " << to_string(propertyType());
+        PROP_ERR() << "unhandled property type: " << to_string(propertyType());
         return false;
     }
 
