@@ -18,6 +18,7 @@ HwCuvaveCubeTurner::HwCuvaveCubeTurner(const PdArgs& args)
     : BaseObject(args)
 {
     createOutlet();
+    createOutlet();
 
     OBJ_DBG << "only iOS mode is supported";
 
@@ -26,32 +27,20 @@ HwCuvaveCubeTurner::HwCuvaveCubeTurner(const PdArgs& args)
 
 void HwCuvaveCubeTurner::onList(const AtomList& lst)
 {
-    if (!checkArgs(lst.view(), ARG_INT, ARG_SYMBOL))
+    const bool ok = (lst.size() == 2) && lst[0].isInteger() && lst[1].isSymbol();
+    if (!ok)
         return;
 
     auto ch = lst[1].asT<t_symbol*>()->s_name[0];
-    Atom data[2];
 
     switch (ch) {
     case 'U':
-        data[0] = 0.0;
-        data[1] = lst[0].asT<int>();
-        anyTo(0, gensym("p"), AtomListView(data, 2));
+    case 'L':
+        floatTo(0, lst[0].asT<int>());
         break;
     case 'D':
-        data[0] = 1.0;
-        data[1] = lst[0].asT<int>();
-        anyTo(0, gensym("p"), AtomListView(data, 2));
-        break;
-    case 'L':
-        data[0] = 0.0;
-        data[1] = lst[0].asT<int>();
-        anyTo(0, gensym("l"), AtomListView(data, 2));
-        break;
     case 'R':
-        data[0] = 1.0;
-        data[1] = lst[0].asT<int>();
-        anyTo(0, gensym("l"), AtomListView(data, 2));
+        floatTo(1, lst[0].asT<int>());
         break;
     default:
         break;
