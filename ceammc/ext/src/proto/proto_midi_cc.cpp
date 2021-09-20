@@ -720,7 +720,7 @@ ProtoMidiCC::Data2 ProtoMidiCC::getCCBool(t_symbol* s, const AtomListView& lv) c
 
     if (lv.size() == 1 && lv[0].isInteger()) {
         res.chan = 0;
-        res.value = lv[0].asT<bool>();
+        res.value = lv[0].asT<bool>() ? 0x7F : 0;
     } else if (lv.size() == 2 && lv[0].isInteger() && lv[1].isInteger()) {
         res.chan = lv[0].asT<int>();
         res.value = lv[1].asT<bool>() ? 0x7F : 0;

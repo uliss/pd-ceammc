@@ -212,6 +212,14 @@ TEST_CASE("proto.midi.cc", "[externals]")
         REQUIRE(t1.messagesAt(0) == ML { M("hold", 0, 0) });
         t1.clearAll();
 
+        t0.call("hold", 0);
+        REQUIRE(t1.messagesAt(0) == ML { M("hold", 0, 0) });
+        t1.clearAll();
+
+        t0.call("hold", 1);
+        REQUIRE(t1.messagesAt(0) == ML { M("hold", 0, 1) });
+        t1.clearAll();
+
         t0.call("hold", 2, 1);
         REQUIRE(t1.messagesAt(0) == ML { M("hold", 2, 1) });
         t1.clearAll();
