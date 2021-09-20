@@ -10,70 +10,77 @@
 #X obj 20 196 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 201 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 236 pan.;
-#X text 245 236 send Pan CC fine message. Arguments are:;
-#X obj 255 259 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 259 CHAN: midi channel. Type: int. Range: 0\...15\.;
-#X obj 255 282 cnv 1 28 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 282 PAN: pan value. Type: int. Range: 0\...127\.;
-#X msg 110 307 pan:f;
-#X text 245 307 send CC Pan messages (coarse and fine). Arguments are:;
+#X msg 110 236 hold;
+#X text 245 236 send CC Hold pedal message. Arguments are:;
+#X obj 255 259 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 259 [CHAN]: midi channel. Type: int. Range: 0\...15\.;
+#X obj 255 282 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 282 BOOL: on/off value. Type: int. Allowed values: 0 \,
+1\.;
+#X msg 110 307 pan.;
+#X text 245 307 send Pan CC fine message. Arguments are:;
 #X obj 255 330 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 330 CHAN: midi channel. Type: int. Range: 0\...15\.;
 #X obj 255 353 cnv 1 28 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 353 PAN: pan value. -1 means left \, 0: center \, +1: right.
+#X text 255 353 PAN: pan value. Type: int. Range: 0\...127\.;
+#X msg 110 378 pan:f;
+#X text 245 378 send CC Pan messages (coarse and fine). Arguments are:;
+#X obj 255 401 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 401 CHAN: midi channel. Type: int. Range: 0\...15\.;
+#X obj 255 424 cnv 1 28 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 424 PAN: pan value. -1 means left \, 0: center \, +1: right.
 Type: float. Range: -1\...1\.;
-#X msg 110 393 pan:i;
-#X text 245 393 send Pan CC message. Args: CHAN PAN(0\..0x3fff) or
+#X msg 110 464 pan:i;
+#X text 245 464 send Pan CC message. Args: CHAN PAN(0\..0x3fff) or
 CHAN MSB(0\..127) LSB(0\..127). In case of 14 bit value 0 means left
 \, 0x2000: center and 0x3fff: right.;
-#X msg 110 448 pan~;
-#X text 245 448 send Pan CC coarse message. Arguments are:;
-#X obj 255 471 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 471 CHAN: midi channel. Type: int. Range: 0\...15\.;
-#X obj 255 494 cnv 1 28 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 494 PAN: pan value. Type: int. Range: 0\...127\.;
-#X msg 110 519 volume.;
-#X text 245 519 send fine CC Volume message. Arguments are:;
+#X msg 110 519 pan~;
+#X text 245 519 send Pan CC coarse message. Arguments are:;
 #X obj 255 542 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 542 CHAN: midi channel. Type: int. Range: 0\...15\.;
 #X obj 255 565 cnv 1 28 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 565 PAN: pan value. Type: int. Range: 0\...127\.;
-#X msg 110 590 volume:f;
-#X text 245 590 send CC Volume messages (coarse and fine). Arguments
-are:;
+#X msg 110 590 volume.;
+#X text 245 590 send fine CC Volume message. Arguments are:;
 #X obj 255 613 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 613 CHAN: midi channel. Type: int. Range: 0\...15\.;
 #X obj 255 636 cnv 1 28 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 636 PAN: volume value. Type: float. Range: 0\...1\.;
-#X msg 110 661 volume~;
-#X text 245 661 send coarse CC Volume message. Arguments are:;
+#X text 255 636 PAN: pan value. Type: int. Range: 0\...127\.;
+#X msg 110 661 volume:f;
+#X text 245 661 send CC Volume messages (coarse and fine). Arguments
+are:;
 #X obj 255 684 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 684 CHAN: midi channel. Type: int. Range: 0\...15\.;
 #X obj 255 707 cnv 1 28 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 707 PAN: pan value. Type: int. Range: 0\...127\.;
-#X obj 20 742 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 747 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X text 255 707 PAN: volume value. Type: float. Range: 0\...1\.;
+#X msg 110 732 volume~;
+#X text 245 732 send coarse CC Volume message. Arguments are:;
+#X obj 255 755 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 755 CHAN: midi channel. Type: int. Range: 0\...15\.;
+#X obj 255 778 cnv 1 28 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 778 PAN: pan value. Type: int. Range: 0\...127\.;
+#X obj 20 813 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 818 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 748 1\.;
-#X text 150 748 *float*;
-#X text 245 748 raw midi input bytes.;
-#X text 150 768 *list*;
-#X text 245 768 raw midi input bytes.;
-#X obj 20 798 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 803 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 819 1\.;
+#X text 150 819 *float*;
+#X text 245 819 raw midi input bytes.;
+#X text 150 839 *list*;
+#X text 245 839 raw midi input bytes.;
+#X obj 20 869 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 874 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 804 1\.;
-#X text 245 804 float: raw midi output or parsed messages with selector
+#X text 110 875 1\.;
+#X text 245 875 float: raw midi output or parsed messages with selector
 (output format is the same as for corresponding methods).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title proto @url ceammc.proto-help.pd;
-#X obj 1 869 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 872 library: ceammc v0.9.3;
-#N canvas 10 891 400 290 info 0;
+#X obj 1 940 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 943 library: ceammc v0.9.3;
+#N canvas 10 962 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -97,4 +104,4 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 891 pd info;
+#X restore 10 962 pd info;

@@ -49,7 +49,11 @@
             channel</param>
             <param type="int" minvalue="0" maxvalue="127" required="true" name="PAN">pan
             value</param></method>
-            <!-- -->
+            <!-- hold message -->
+            <method name="hold">send CC Hold pedal message
+            <param type="int" minvalue="0" maxvalue="15" required="false" name="CHAN">midi
+            channel</param>
+            <param type="int" enum="0 1" required="true" name="BOOL">on/off value</param></method>
         </methods>
         <inlets>
             <inlet>
