@@ -17,7 +17,7 @@ function(add_benchmark name)
 
     set_property(TARGET bm_${name} APPEND_STRING PROPERTY LINK_FLAGS "${PD_EXTERNAL_LDFLAGS}")
 
-    message(STATUS "Bechmark target added: benchmark_${name}")
+    message(STATUS "Benchmark target added: benchmark_${name}")
 
     set(_REPORT "${BM_HTML_DIR}/benchmark_${name}.html")
     add_custom_target(benchmark_${name}
