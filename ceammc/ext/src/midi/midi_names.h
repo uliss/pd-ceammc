@@ -62,6 +62,8 @@ constexpr const char* M_TUNE_SEMITONES = "tune:s";
 constexpr const char* M_TUNE_CENTS = "tune:c";
 constexpr const char* M_TUNE_OCTAVE = "tune:12";
 constexpr const char* M_TUNE_SELECT = "tunesel";
+constexpr const char* M_TUNE_BANK = "tunebank";
+constexpr const char* M_TUNE_PROG = "tuneprog";
 
 }
 

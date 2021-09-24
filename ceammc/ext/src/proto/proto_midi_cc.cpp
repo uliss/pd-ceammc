@@ -916,8 +916,8 @@ void setup_proto_midi_cc()
 {
     ObjectFactory<ProtoMidiCC> obj("proto.midi.cc");
 
-    obj.addMethod("tunebank", &ProtoMidiCC::m_tune_bank_select);
-    obj.addMethod("tuneprog", &ProtoMidiCC::m_tune_prog_change);
+    obj.addMethod(M_TUNE_BANK, &ProtoMidiCC::m_tune_bank_select);
+    obj.addMethod(M_TUNE_PROG, &ProtoMidiCC::m_tune_prog_change);
 
     obj.addMethod(M_TUNE_SELECT, &ProtoMidiCC::m_tune_select);
     obj.addMethod(M_TUNE_FINE, &ProtoMidiCC::m_tune_fine);
