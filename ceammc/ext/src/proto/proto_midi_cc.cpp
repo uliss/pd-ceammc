@@ -91,6 +91,9 @@ void ProtoMidiCC::m_bend_sens(t_symbol* s, const AtomListView& lv)
         return;
     }
 
+    if (!checkChan(chan))
+        return;
+
     const int semitones = int(sens);
     const int cents = std::round((sens - (int)sens) * 100);
     if (semitones < 0) {
@@ -98,7 +101,7 @@ void ProtoMidiCC::m_bend_sens(t_symbol* s, const AtomListView& lv)
         return;
     }
 
-    rpnSend(0, midi::RPNParser::RPN_PITCH_BEND_SENSIVITY, semitones, cents);
+    rpnSend(chan, midi::RPNParser::RPN_PITCH_BEND_SENSIVITY, semitones, cents);
 }
 
 void ProtoMidiCC::m_tune_bank_select(t_symbol* s, const AtomListView& lv)
