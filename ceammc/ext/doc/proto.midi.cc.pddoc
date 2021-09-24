@@ -55,6 +55,9 @@
             channel</param>
             <param type="int" enum="0 1" required="true" name="BOOL">on/off value</param></method>
         </methods>
+        <properties>
+            <property name="@list" type="int" enum="0 1" default="0">output as list</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo on="float">raw midi input bytes</xinfo>
