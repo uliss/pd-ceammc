@@ -167,6 +167,26 @@
             tuning bank</param>
             <param type="int" minvalue="0" maxvalue="127" required="true" name="PROG">
             tuning program</param></method>
+            <!-- bank -->
+            <method name="bank">send CC Bank Select
+            <param type="int" minvalue="0" maxvalue="15" required="false" name="CH">midi
+            channel</param>
+            <param type="int" minvalue="0" maxvalue="16384" required="true" name="BANK">
+            bank</param></method>
+            <!-- bank:i -->
+            <method name="bank:i">same as [bank(</method>
+            <!-- bank:msb -->
+            <method name="bank:msb">send CC Bank Select MSB
+            <param type="int" minvalue="0" maxvalue="15" required="false" name="CH">midi
+            channel</param>
+            <param type="int" minvalue="0" maxvalue="127" required="true" name="BANK">
+            bank MSB</param></method>
+            <!-- bank:lsb -->
+            <method name="bank:lsb">send CC Bank Select LSB
+            <param type="int" minvalue="0" maxvalue="15" required="false" name="CH">midi
+            channel</param>
+            <param type="int" minvalue="0" maxvalue="127" required="true" name="BANK">
+            bank LSB</param></method>
         </methods>
         <properties>
             <property name="@list" type="int" enum="0 1" default="0">output as list</property>
