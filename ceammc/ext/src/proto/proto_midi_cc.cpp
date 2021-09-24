@@ -627,22 +627,12 @@ void ProtoMidiCC::sendTuneFine(float cents, int chan)
     const uint16_t msb = 0x7F & (val >> 7);
     const uint16_t lsb = 0x7F & val;
 
-    ccBegin();
-    ccSet(chan, midi::RPNParser::CC_RPN_COARSE, 0);
-    ccSet(chan, midi::RPNParser::CC_RPN_FINE, midi::RPNParser::RRN_CHANNEL_TUNING_FINE);
-    ccSet(chan, midi::RPNParser::CC_DATA_ENTRY_COARSE, msb);
-    ccSet(chan, midi::RPNParser::CC_DATA_ENTRY_FINE, lsb);
-    ccSend();
+    rpnSend(chan, midi::RPNParser::RRN_CHANNEL_TUNING_FINE, msb, lsb);
 }
 
 void ProtoMidiCC::sendTuneCoarse(int semi, int chan)
 {
-    ccBegin();
-    ccSet(chan, midi::RPNParser::CC_RPN_COARSE, 0);
-    ccSet(chan, midi::RPNParser::CC_RPN_FINE, midi::RPNParser::RRN_CHANNEL_TUNING_COARSE);
-    ccSet(chan, midi::RPNParser::CC_DATA_ENTRY_COARSE, semi + 64);
-    ccSet(chan, midi::RPNParser::CC_DATA_ENTRY_FINE, 0);
-    ccSend();
+    rpnSend(chan, midi::RPNParser::RRN_CHANNEL_TUNING_COARSE, semi + 64, 0);
 }
 
 void ProtoMidiCC::handlePanPositionCoarse(int chan)
