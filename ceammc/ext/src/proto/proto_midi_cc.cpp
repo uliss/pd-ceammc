@@ -141,16 +141,14 @@ void ProtoMidiCC::m_tune_fine(t_symbol* s, const AtomListView& lv)
 
 void ProtoMidiCC::m_tune_coarse(t_symbol* s, const AtomListView& lv)
 {
-    if (!checkArgs(lv, ARG_INT, s))
-        return;
+    const auto data = getCCValue(s, lv);
 
-    const int tune = lv[0].asT<int>();
-    if (tune < -64 || tune > 63) {
-        METHOD_ERR(s) << "expected coarse tuning (in semitones) in [-64..+63] range, got: " << lv;
+    if (data.chan < 0 || (data.value < -64 || data.value > 63)) {
+        METHOD_ERR(s) << "usage: CHAN[0..15]? TUNE[-64..63], got: " << lv;
         return;
     }
 
-    sendTuneCoarse(tune);
+    sendTuneCoarse(data.value, data.chan);
 }
 
 void ProtoMidiCC::m_tune_semi(t_symbol* s, const AtomListView& lv)
@@ -877,7 +875,7 @@ void setup_proto_midi_cc()
     obj.addMethod("tunebank", &ProtoMidiCC::m_tune_bank_select);
     obj.addMethod("tuneprog", &ProtoMidiCC::m_tune_prog_change);
     obj.addMethod("tunefine", &ProtoMidiCC::m_tune_fine);
-    obj.addMethod("tunecoarse", &ProtoMidiCC::m_tune_coarse);
+    obj.addMethod(M_TUNE_COARSE, &ProtoMidiCC::m_tune_coarse);
     obj.addMethod(M_TUNE_SEMITONES, &ProtoMidiCC::m_tune_semi);
 
     obj.addMethod(M_BEND_SENSIVITY, &ProtoMidiCC::m_bend_sens);
