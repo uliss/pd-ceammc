@@ -107,10 +107,18 @@
             channel</param>
             <param type="int" enum="0 1" required="true" name="BOOL">on/off value</param></method>
             <!-- portamento message -->
-            <method name="portamento">send CC portamento pedal message
+            <method name="portamento">send CC portamento switch message
             <param type="int" minvalue="0" maxvalue="15" required="false" name="CHAN">midi
             channel</param>
             <param type="int" enum="0 1" required="true" name="BOOL">on/off value</param></method>
+            <!-- all notes off -->
+            <method name="notes_off">send All Notes Off message
+            <param type="int" minvalue="0" maxvalue="15" required="true" name="CH">midi
+            channel</param></method>
+            <!-- all sounds off -->
+            <method name="sounds_off">send All Sounds Off message
+            <param type="int" minvalue="0" maxvalue="15" required="true" name="CH">midi
+            channel</param></method>
         </methods>
         <properties>
             <property name="@list" type="int" enum="0 1" default="0">output as list</property>
