@@ -34,7 +34,7 @@
             LSB(0..127). In case of 14 bit value 0 means left, 0x2000: center and 0x3fff:
             right</method>
             <!-- volume messages -->
-            <method name="volume:f">send CC Volume messages (coarse and fine) 
+            <method name="volume:f">send CC normalized Volume message
             <param type="int" minvalue="0" maxvalue="15" required="true" name="CHAN">midi
             channel</param>
             <param type="float" minvalue="0" maxvalue="1" required="true" name="VOL">volume
@@ -53,6 +53,27 @@
             <param type="int" minvalue="0" maxvalue="15" required="true" name="CHAN">midi
             channel</param>
             <param type="int" minvalue="0" maxvalue="16384" required="true" name="VOL">value
+            </param></method>
+            <!-- expression messages -->
+            <method name="exp:f">send CC normalized Expression message
+            <param type="int" minvalue="0" maxvalue="15" required="true" name="CHAN">midi
+            channel</param>
+            <param type="float" minvalue="0" maxvalue="1" required="true" name="VAL">expression
+            value</param></method>
+            <method name="exp~">send coarse CC Expression message
+            <param type="int" minvalue="0" maxvalue="15" required="true" name="CHAN">midi
+            channel</param>
+            <param type="int" minvalue="0" maxvalue="127" required="true" name="VAL">expression
+            value</param></method>
+            <method name="exp.">send fine CC Expression message
+            <param type="int" minvalue="0" maxvalue="15" required="true" name="CHAN">midi
+            channel</param>
+            <param type="int" minvalue="0" maxvalue="127" required="true" name="VAL">expression
+            value</param></method>
+            <method name="exp:i">send 14-bit CC Expression message
+            <param type="int" minvalue="0" maxvalue="15" required="true" name="CHAN">midi
+            channel</param>
+            <param type="int" minvalue="0" maxvalue="16384" required="true" name="VAL">expression
             </param></method>
             <!-- hold message -->
             <method name="hold">send CC Hold pedal message
