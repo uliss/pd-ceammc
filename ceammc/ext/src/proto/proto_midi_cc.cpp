@@ -91,38 +91,64 @@ void ProtoMidiCC::m_bend_sens(t_symbol* s, const AtomListView& lv)
         return;
     }
 
-    ccBegin();
-    ccSet(0, midi::RPNParser::CC_RPN_COARSE, 0);
-    ccSet(0, midi::RPNParser::CC_RPN_FINE, midi::RPNParser::RPN_PITCH_BEND_SENSIVITY);
-    ccSet(0, midi::RPNParser::CC_DATA_ENTRY_COARSE, semitones);
-    ccSet(0, midi::RPNParser::CC_DATA_ENTRY_FINE, cents);
-    ccSend();
+    rpnSend(0, midi::RPNParser::RPN_PITCH_BEND_SENSIVITY, semitones, cents);
 }
 
 void ProtoMidiCC::m_tune_bank_select(t_symbol* s, const AtomListView& lv)
 {
-    if (!checkArgs(lv, ARG_BYTE, s))
+    const auto data = getCCByte(s, lv);
+    if (data.chan < 0 || data.value < 0 || data.value > 127) {
+        METHOD_ERR(s) << "CHAN[0..15]? TUNE_BANK[0..127] expected, got: " << lv;
+        return;
+    }
+
+    rpnSend(data.chan, midi::RPNParser::RPN_CHANNEL_TUNING_BANK_SELECT, 0, data.value);
+}
+
+void ProtoMidiCC::m_tune_select(t_symbol* s, const AtomListView& lv)
+{
+    int chan = 0;
+    int bank = 0;
+    int prog = 0;
+
+    if (checkArgs(lv, ARG_INT, ARG_INT, ARG_INT)) {
+        chan = lv[0].asT<int>();
+        bank = lv[1].asT<int>();
+        prog = lv[2].asT<int>();
+    } else if (checkArgs(lv, ARG_INT, ARG_INT)) {
+        bank = lv[0].asT<int>();
+        prog = lv[1].asT<int>();
+    } else {
+        METHOD_ERR(s) << "CHAN[0..15]? TUNE_BANK[0..127] TUNE_PROG[0..127] expected, got: " << lv;
+        return;
+    }
+
+    if (!checkChan(chan))
         return;
 
-    ccBegin();
-    ccSet(0, midi::RPNParser::CC_RPN_COARSE, 0);
-    ccSet(0, midi::RPNParser::CC_RPN_FINE, midi::RPNParser::RPN_CHANNEL_TUNING_BANK_SELECT);
-    ccSet(0, midi::RPNParser::CC_DATA_ENTRY_COARSE, 0);
-    ccSet(0, midi::RPNParser::CC_DATA_ENTRY_FINE, lv[0].asInt());
-    ccSend();
+    if (bank < 0 || bank > 127) {
+        METHOD_ERR(s) << "invalid tuning bank value: " << bank;
+        return;
+    }
+
+    if (prog < 0 || prog > 127) {
+        METHOD_ERR(s) << "invalid tuning prog value: " << bank;
+        return;
+    }
+
+    rpnSend(chan, midi::RPNParser::RPN_CHANNEL_TUNING_BANK_SELECT, 0, bank);
+    rpnSend(chan, midi::RPNParser::RPN_CHANNEL_TUNING_PROG_CHANGE, 0, prog);
 }
 
 void ProtoMidiCC::m_tune_prog_change(t_symbol* s, const AtomListView& lv)
 {
-    if (!checkArgs(lv, ARG_BYTE, s))
+    const auto data = getCCByte(s, lv);
+    if (data.chan < 0 || data.value < 0 || data.value > 127) {
+        METHOD_ERR(s) << "CHAN[0..15]? TUNE_PROG[0..127] expected, got: " << lv;
         return;
+    }
 
-    ccBegin();
-    ccSet(0, midi::RPNParser::CC_RPN_COARSE, 0);
-    ccSet(0, midi::RPNParser::CC_RPN_FINE, midi::RPNParser::RPN_CHANNEL_TUNING_PROG_CHANGE);
-    ccSet(0, midi::RPNParser::CC_DATA_ENTRY_COARSE, 0);
-    ccSet(0, midi::RPNParser::CC_DATA_ENTRY_FINE, lv[0].asInt());
-    ccSend();
+    rpnSend(data.chan, midi::RPNParser::RPN_CHANNEL_TUNING_PROG_CHANGE, 0, data.value);
 }
 
 void ProtoMidiCC::m_tune_fine(t_symbol* s, const AtomListView& lv)
@@ -709,6 +735,16 @@ void ProtoMidiCC::ccSend(int chan, int cc, int v)
     ccSend();
 }
 
+void ProtoMidiCC::rpnSend(int chan, int rpn, int msb, int lsb)
+{
+    ccBegin();
+    ccSet(chan, CC_RPN_COARSE, 0);
+    ccSet(chan, midi::RPNParser::CC_RPN_FINE, rpn);
+    ccSet(chan, midi::RPNParser::CC_DATA_ENTRY_COARSE, msb);
+    ccSet(chan, midi::RPNParser::CC_DATA_ENTRY_FINE, lsb);
+    ccSend();
+}
+
 ProtoMidiCC::Data2 ProtoMidiCC::getCCBool(t_symbol* s, const AtomListView& lv) const
 {
     ProtoMidiCC::Data2 res { -1, -1 };
@@ -873,6 +909,7 @@ void setup_proto_midi_cc()
     obj.addMethod("tunebank", &ProtoMidiCC::m_tune_bank_select);
     obj.addMethod("tuneprog", &ProtoMidiCC::m_tune_prog_change);
 
+    obj.addMethod(M_TUNE_SELECT, &ProtoMidiCC::m_tune_select);
     obj.addMethod(M_TUNE_FINE, &ProtoMidiCC::m_tune_fine);
     obj.addMethod(M_TUNE_CENTS, &ProtoMidiCC::m_tune_fine);
     obj.addMethod(M_TUNE_COARSE, &ProtoMidiCC::m_tune_coarse);

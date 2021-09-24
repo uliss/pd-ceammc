@@ -1023,10 +1023,11 @@ void setup_misc_fluid()
     obj.addMethod("sysex", &Fluid::m_sysex);
     obj.addMethod("midi", &Fluid::m_midi);
 
-    obj.addMethod("tunesel", &Fluid::m_tune_select);
-    obj.addMethod("tune:c", &Fluid::m_tune_cent);
+    obj.addMethod(M_TUNE_SELECT, &Fluid::m_tune_select);
+    obj.addMethod(M_TUNE_FINE, &Fluid::m_tune_cent);
+    obj.addMethod(M_TUNE_CENTS, &Fluid::m_tune_cent);
     obj.addMethod(M_TUNE_SEMITONES, &Fluid::m_tune_semi);
-    obj.addMethod("tune:12", &Fluid::m_tune_octave);
+    obj.addMethod(M_TUNE_OCTAVE, &Fluid::m_tune_octave);
 
     obj.addMethod("pan", &Fluid::m_pan);
     obj.addMethod(M_PAN_POSITION_FLOAT, &Fluid::m_pan_float);

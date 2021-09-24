@@ -484,7 +484,7 @@ void SfizzTilde::m_tune_octave(t_symbol* s, const AtomListView& lv)
 void SfizzTilde::m_tune_select(t_symbol* s, const AtomListView& lv)
 {
     if (!checkArgs(lv, ARG_INT, ARG_INT)) {
-        METHOD_ERR(s) << "BANK PRESET exopected, got: " << lv;
+        METHOD_ERR(s) << "BANK PRESET expected, got: " << lv;
         return;
     }
 
@@ -623,8 +623,8 @@ void setup_misc_sfizz_tilde()
     obj.addMethod(M_ALL_NOTES_OFF, &SfizzTilde::m_notesOff);
     obj.addMethod(M_ALL_SOUND_OFF, &SfizzTilde::m_soundsOff);
 
-    obj.addMethod("tunesel", &SfizzTilde::m_tune_select);
-    obj.addMethod("tune:12", &SfizzTilde::m_tune_octave);
+    obj.addMethod(M_TUNE_SELECT, &SfizzTilde::m_tune_select);
+    obj.addMethod(M_TUNE_OCTAVE, &SfizzTilde::m_tune_octave);
 
     obj.addMethod("pan", &SfizzTilde::m_pan);
     obj.addMethod(M_PAN_POSITION_FLOAT, &SfizzTilde::m_pan_float);

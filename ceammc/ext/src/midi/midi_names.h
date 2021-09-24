@@ -51,11 +51,17 @@ constexpr const char* M_PAN_POSITION_COARSE = "pan~";
 constexpr const char* M_PAN_POSITION_FINE = "pan.";
 
 constexpr const char* M_BEND_SENSIVITY = "bendsens";
+constexpr const char* M_BEND_INT = "bend:i";
+constexpr const char* M_BEND_COARSE = "bend~";
+constexpr const char* M_BEND_FINE = "bend.";
+constexpr const char* M_BEND_FLOAT = "bend:f";
 
 constexpr const char* M_TUNE_COARSE = "tune~";
 constexpr const char* M_TUNE_FINE = "tune.";
 constexpr const char* M_TUNE_SEMITONES = "tune:s";
 constexpr const char* M_TUNE_CENTS = "tune:c";
+constexpr const char* M_TUNE_OCTAVE = "tune:12";
+constexpr const char* M_TUNE_SELECT = "tunesel";
 
 }
 

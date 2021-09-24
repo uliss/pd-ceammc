@@ -76,6 +76,7 @@ public:
     void m_bend_sens(t_symbol* s, const AtomListView& lv);
     void m_tune_bank_select(t_symbol* s, const AtomListView& lv);
     void m_tune_prog_change(t_symbol* s, const AtomListView& lv);
+    void m_tune_select(t_symbol* s, const AtomListView& lv);
     void m_tune_fine(t_symbol* s, const AtomListView& lv);
     void m_tune_coarse(t_symbol* s, const AtomListView& lv);
     void m_tune_semi(t_symbol* s, const AtomListView& lv);
@@ -122,6 +123,7 @@ private:
     void ccSet(int chan, int cc, int v);
     void ccSet14(int chan, int cc0, int cc1, int v);
     void ccSend(int chan, int cc, int v);
+    void rpnSend(int chan, int rpn, int msb, int lsb);
 
     void onCC(int chan, int cc, int v);
 
