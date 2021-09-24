@@ -147,6 +147,26 @@
             channel</param>
             <param type="float" minvalue="-100" maxvalue="100" required="true" name="CENTS">
             tuning in cents</param></method>
+            <!-- tune bank -->
+            <method name="tunebank">send RPN tune bank select
+            <param type="int" minvalue="0" maxvalue="15" required="false" name="CH">midi
+            channel</param>
+            <param type="int" minvalue="0" maxvalue="127" required="true" name="BANK">
+            tuning bank</param></method>
+            <!-- tune prog -->
+            <method name="tuneprog">send RPN tune prog change
+            <param type="int" minvalue="0" maxvalue="15" required="false" name="CH">midi
+            channel</param>
+            <param type="int" minvalue="0" maxvalue="127" required="true" name="PROG">
+            tuning program</param></method>
+            <!-- tune select -->
+            <method name="tunesel">send RPN tune select
+            <param type="int" minvalue="0" maxvalue="15" required="false" name="CH">midi
+            channel</param>
+            <param type="int" minvalue="0" maxvalue="127" required="true" name="BANK">
+            tuning bank</param>
+            <param type="int" minvalue="0" maxvalue="127" required="true" name="PROG">
+            tuning program</param></method>
         </methods>
         <properties>
             <property name="@list" type="int" enum="0 1" default="0">output as list</property>
