@@ -127,16 +127,14 @@ void ProtoMidiCC::m_tune_prog_change(t_symbol* s, const AtomListView& lv)
 
 void ProtoMidiCC::m_tune_fine(t_symbol* s, const AtomListView& lv)
 {
-    if (!checkArgs(lv, ARG_FLOAT, s))
-        return;
+    const auto data = getCCValue(s, lv);
 
-    const float tune = lv[0].asT<t_float>();
-    if (tune < -100 || tune > 100) {
+    if (data.chan < 0 || (data.value < -100 || data.value > 100)) {
         METHOD_ERR(s) << "expected fine tuning (in cents) in [-100..+100] range, got: " << lv;
         return;
     }
 
-    sendTuneFine(tune);
+    sendTuneFine(data.value, data.chan);
 }
 
 void ProtoMidiCC::m_tune_coarse(t_symbol* s, const AtomListView& lv)
@@ -874,7 +872,9 @@ void setup_proto_midi_cc()
 
     obj.addMethod("tunebank", &ProtoMidiCC::m_tune_bank_select);
     obj.addMethod("tuneprog", &ProtoMidiCC::m_tune_prog_change);
-    obj.addMethod("tunefine", &ProtoMidiCC::m_tune_fine);
+
+    obj.addMethod(M_TUNE_FINE, &ProtoMidiCC::m_tune_fine);
+    obj.addMethod(M_TUNE_CENTS, &ProtoMidiCC::m_tune_fine);
     obj.addMethod(M_TUNE_COARSE, &ProtoMidiCC::m_tune_coarse);
     obj.addMethod(M_TUNE_SEMITONES, &ProtoMidiCC::m_tune_semi);
 

@@ -91,27 +91,27 @@ TEST_CASE("proto.midi.cc", "[externals]")
         REQUIRE(t1.messagesAt(0) == ML { M("rpn", 0, 3, 35) });
         t1.clearAll();
 
-        t0.call("tunefine", 0);
+        t0.call("tune.", 0);
         REQUIRE(t1.messagesAt(0) == ML { M("rpn", 0, 1, 0x2000) });
         t1.clearAll();
 
-        t0.call("tunefine", -50);
+        t0.call("tune.", -50);
         REQUIRE(t1.messagesAt(0) == ML { M("rpn", 0, 1, 0x1000) });
         t1.clearAll();
 
-        t0.call("tunefine", -100);
+        t0.call("tune.", -100);
         REQUIRE(t1.messagesAt(0) == ML { M("rpn", 0, 1, 0) });
         t1.clearAll();
 
-        t0.call("tunefine", 100);
+        t0.call("tune.", 100);
         REQUIRE(t1.messagesAt(0) == ML { M("rpn", 0, 1, 0x3FFF) });
         t1.clearAll();
 
-        t0.call("tunefine", 50);
+        t0.call("tune:c", 50);
         REQUIRE(t1.messagesAt(0) == ML { M("rpn", 0, 1, 0x2FFF) });
         t1.clearAll();
 
-        t0.call("tunefine", -15);
+        t0.call("tune:c", -15);
         REQUIRE(t1.messagesAt(0) == ML { M("rpn", 0, 1, 0x2000 - 1229) });
         t1.clearAll();
 
