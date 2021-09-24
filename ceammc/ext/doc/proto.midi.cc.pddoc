@@ -114,10 +114,14 @@
             <!-- all notes off -->
             <method name="notes_off">send All Notes Off message
             <param type="int" minvalue="0" maxvalue="15" required="true" name="CH">midi
-            channel</param></method>
+            channel. if missing or -1: send to all channels</param></method>
             <!-- all sounds off -->
             <method name="sounds_off">send All Sounds Off message
-            <param type="int" minvalue="0" maxvalue="15" required="true" name="CH">midi
+            <param type="int" minvalue="0" maxvalue="15" required="false" name="CH">midi
+            channel. if missing or -1: send to all channels</param></method>
+            <!-- pitch bend sensivity -->
+            <method name="bendsens">send Pitch bend sensivity message
+            <param type="int" minvalue="0" required="true" name="CH">midi
             channel</param></method>
         </methods>
         <properties>
