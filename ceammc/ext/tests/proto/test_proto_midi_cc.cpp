@@ -75,6 +75,10 @@ TEST_CASE("proto.midi.cc", "[externals]")
         REQUIRE(t1.messagesAt(0) == ML { M("rpn", 0, 0, (0x1 << 7) | 50) });
         t1.clearAll();
 
+        t0.call("bendsens", 11, 1.5);
+        REQUIRE(t1.messagesAt(0) == ML { M("rpn", 11, 0, (0x1 << 7) | 50) });
+        t1.clearAll();
+
         t0.call("bendsens", 1.75);
         REQUIRE(t1.messagesAt(0) == ML { M("rpn", 0, 0, (0x1 << 7) | 75) });
         t1.clearAll();
@@ -83,12 +87,16 @@ TEST_CASE("proto.midi.cc", "[externals]")
         REQUIRE(t1.messagesAt(0) == ML { M("rpn", 0, 4, 1) });
         t1.clearAll();
 
-        t0.call("tunebank", 35);
-        REQUIRE(t1.messagesAt(0) == ML { M("rpn", 0, 4, 35) });
+        t0.call("tunebank", 3, 35);
+        REQUIRE(t1.messagesAt(0) == ML { M("rpn", 3, 4, 35) });
         t1.clearAll();
 
         t0.call("tuneprog", 35);
         REQUIRE(t1.messagesAt(0) == ML { M("rpn", 0, 3, 35) });
+        t1.clearAll();
+
+        t0.call("tuneprog", 2, 35);
+        REQUIRE(t1.messagesAt(0) == ML { M("rpn", 2, 3, 35) });
         t1.clearAll();
 
         t0.call("tune.", 0);
@@ -107,8 +115,16 @@ TEST_CASE("proto.midi.cc", "[externals]")
         REQUIRE(t1.messagesAt(0) == ML { M("rpn", 0, 1, 0x3FFF) });
         t1.clearAll();
 
+        t0.call("tune.", 2, 100);
+        REQUIRE(t1.messagesAt(0) == ML { M("rpn", 2, 1, 0x3FFF) });
+        t1.clearAll();
+
         t0.call("tune:c", 50);
         REQUIRE(t1.messagesAt(0) == ML { M("rpn", 0, 1, 0x2FFF) });
+        t1.clearAll();
+
+        t0.call("tune:c", 11, 50);
+        REQUIRE(t1.messagesAt(0) == ML { M("rpn", 11, 1, 0x2FFF) });
         t1.clearAll();
 
         t0.call("tune:c", -15);
@@ -123,12 +139,20 @@ TEST_CASE("proto.midi.cc", "[externals]")
         REQUIRE(t1.messagesAt(0) == ML { M("rpn", 0, 2, 69 << 7) });
         t1.clearAll();
 
+        t0.call("tune~", 3, 5);
+        REQUIRE(t1.messagesAt(0) == ML { M("rpn", 3, 2, 69 << 7) });
+        t1.clearAll();
+
         t0.call("tune:s", 1.5);
         REQUIRE(t1.messagesAt(0) == ML { M("rpn", 0, 2, 65 << 7), M("rpn", 0, 1, 0x2FFF) });
         t1.clearAll();
 
         t0.call("tune:s", -2.5);
         REQUIRE(t1.messagesAt(0) == ML { M("rpn", 0, 2, 62 << 7), M("rpn", 0, 1, 0x1000) });
+        t1.clearAll();
+
+        t0.call("tune:s", 9, -2.5);
+        REQUIRE(t1.messagesAt(0) == ML { M("rpn", 9, 2, 62 << 7), M("rpn", 9, 1, 0x1000) });
         t1.clearAll();
 
         t0.call("tune:s", -200);
@@ -226,6 +250,10 @@ TEST_CASE("proto.midi.cc", "[externals]")
 
         t0.call("sostenuto", 3, 1);
         REQUIRE(t1.messagesAt(0) == ML { M("sostenuto", 3, 1) });
+        t1.clearAll();
+
+        t0.call("portamento", 3, 1);
+        REQUIRE(t1.messagesAt(0) == ML { M("portamento", 3, 1) });
         t1.clearAll();
     }
 

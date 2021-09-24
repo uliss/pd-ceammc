@@ -81,11 +81,11 @@ void ProtoMidiCC::m_bend_sens(t_symbol* s, const AtomListView& lv)
     int chan = 0;
     t_float sens = 0;
 
-    if (checkArgs(lv, ARG_FLOAT)) {
-        sens = lv[0].asT<t_float>();
-    } else if (checkArgs(lv, ARG_INT, ARG_FLOAT)) {
+    if (checkArgs(lv, ARG_INT, ARG_FLOAT)) {
         chan = lv[0].asT<int>();
         sens = lv[1].asT<t_float>();
+    } else if (checkArgs(lv, ARG_FLOAT)) {
+        sens = lv[0].asT<t_float>();
     } else {
         METHOD_ERR(s) << "CHAN[0..15]? SENS expected, got: " << lv;
         return;
