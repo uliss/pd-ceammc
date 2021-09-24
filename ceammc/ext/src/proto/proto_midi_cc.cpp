@@ -383,16 +383,18 @@ void ProtoMidiCC::m_all_notesOff(t_symbol* s, const AtomListView& lv)
 {
     auto usage = [&]() { METHOD_ERR(s) << "usage: CHAN, got: " << lv; };
 
-    if (!checkArgs(lv, ARG_INT) || !checkChan(lv[0].asInt())) {
+    if (lv.size() == 1 || !checkChan(lv[0].asInt())) {
         usage();
         return;
     }
 
-    int chan = lv[0].asInt();
-
-    ccBegin();
-    ccSet(chan, CC_ALL_NOTES_OFF, 0x7F);
-    ccSend();
+    int chan = lv[0].asInt(-1);
+    if (chan < 0) {
+        for (int i = 0; i < 16; i++)
+            ccSend(i, CC_ALL_NOTES_OFF, 0x7F);
+    } else {
+        ccSend(chan, CC_ALL_NOTES_OFF, 0x7F);
+    }
 }
 
 void ProtoMidiCC::ccBegin()
@@ -725,7 +727,7 @@ ProtoMidiCC::Data2 ProtoMidiCC::getCCBool(t_symbol* s, const AtomListView& lv) c
         res.chan = lv[0].asT<int>();
         res.value = lv[1].asT<bool>() ? 0x7F : 0;
     } else {
-        METHOD_ERR(s) << "expected CHAN[0..15] VALUE(0|1), got: " << lv;
+        METHOD_ERR(s) << "expected CHAN[0..15]? VALUE(0|1), got: " << lv;
         return res;
     }
 
@@ -748,7 +750,7 @@ ProtoMidiCC::Data2 ProtoMidiCC::getCCByte(t_symbol* s, const AtomListView& lv) c
         res.chan = lv[0].asT<int>();
         res.value = lv[1].asT<int>();
     } else {
-        METHOD_ERR(s) << "expected CHAN[0..15] VALUE[0..127], got: " << lv;
+        METHOD_ERR(s) << "expected CHAN[0..15]? VALUE[0..127], got: " << lv;
         return res;
     }
 
@@ -776,7 +778,7 @@ ProtoMidiCC::Data2 ProtoMidiCC::getCCInt14(t_symbol* s, const AtomListView& lv) 
         res.chan = lv[0].asT<int>();
         res.value = lv[1].asT<int>();
     } else {
-        METHOD_ERR(s) << "expected CHAN[0..15] VALUE[0..16384], got: " << lv;
+        METHOD_ERR(s) << "expected CHAN[0..15]? VALUE[0..16384], got: " << lv;
         return res;
     }
 
@@ -806,7 +808,7 @@ ProtoMidiCC::Data2 ProtoMidiCC::getCCFloat(t_symbol* s, const AtomListView& lv, 
         res.chan = lv[0].asT<int>();
         value = lv[1].asT<t_float>();
     } else {
-        METHOD_ERR(s) << "expected CHAN[0..15] VALUE[0..1], got: " << lv;
+        METHOD_ERR(s) << "expected CHAN[0..15]? VALUE[0..1], got: " << lv;
         return res;
     }
 
