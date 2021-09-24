@@ -75,8 +75,39 @@
             channel</param>
             <param type="int" minvalue="0" maxvalue="16384" required="true" name="VAL">expression
             </param></method>
+            <!-- modulation messages -->
+            <method name="mod:f">send CC normalized Modulation message
+            <param type="int" minvalue="0" maxvalue="15" required="true" name="CHAN">midi
+            channel</param>
+            <param type="float" minvalue="0" maxvalue="1" required="true" name="VAL">modulation
+            value</param></method>
+            <method name="mod~">send coarse CC Modulation message
+            <param type="int" minvalue="0" maxvalue="15" required="true" name="CHAN">midi
+            channel</param>
+            <param type="int" minvalue="0" maxvalue="127" required="true" name="VAL">modulation
+            value</param></method>
+            <method name="mod.">send fine CC Modulation message
+            <param type="int" minvalue="0" maxvalue="15" required="true" name="CHAN">midi
+            channel</param>
+            <param type="int" minvalue="0" maxvalue="127" required="true" name="VAL">modulation
+            value</param></method>
+            <method name="mod:i">send 14-bit CC Modulation message
+            <param type="int" minvalue="0" maxvalue="15" required="true" name="CHAN">midi
+            channel</param>
+            <param type="int" minvalue="0" maxvalue="16384" required="true" name="VAL">modulation
+            </param></method>
             <!-- hold message -->
             <method name="hold">send CC Hold pedal message
+            <param type="int" minvalue="0" maxvalue="15" required="false" name="CHAN">midi
+            channel</param>
+            <param type="int" enum="0 1" required="true" name="BOOL">on/off value</param></method>
+            <!-- sostenuto message -->
+            <method name="sostenuto">send CC sostenuto pedal message
+            <param type="int" minvalue="0" maxvalue="15" required="false" name="CHAN">midi
+            channel</param>
+            <param type="int" enum="0 1" required="true" name="BOOL">on/off value</param></method>
+            <!-- portamento message -->
+            <method name="portamento">send CC portamento pedal message
             <param type="int" minvalue="0" maxvalue="15" required="false" name="CHAN">midi
             channel</param>
             <param type="int" enum="0 1" required="true" name="BOOL">on/off value</param></method>
