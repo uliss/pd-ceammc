@@ -52,6 +52,8 @@ constexpr const char* M_PAN_POSITION_FINE = "pan.";
 
 constexpr const char* M_BEND_SENSIVITY = "bendsens";
 
+constexpr const char* M_TUNE_SEMITONES = "tune:s";
+
 }
 
 #endif // MIDI_NAMES_H

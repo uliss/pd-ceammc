@@ -155,9 +155,15 @@ private:
         int chan, value;
     };
 
+    struct FData {
+        int chan;
+        t_float value;
+    };
+
     Data2 getCCBool(t_symbol* s, const AtomListView& lv) const;
     Data2 getCCByte(t_symbol* s, const AtomListView& lv) const;
     Data2 getCCInt14(t_symbol* s, const AtomListView& lv) const;
+    FData getCCValue(t_symbol* s, const AtomListView& lv) const;
     Data2 getCCFloat(t_symbol* s, const AtomListView& lv, int from = 0, int to = 0x3FFF) const;
 
     void sendCCbyte(t_symbol* s, const AtomListView& lv, uint8_t cc);

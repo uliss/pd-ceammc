@@ -123,6 +123,12 @@
             <method name="bendsens">send Pitch bend sensivity message
             <param type="int" minvalue="0" required="true" name="CH">midi
             channel</param></method>
+            <!-- tune semitones -->
+            <method name="tune:s">send RPN tuning request in semitones
+            <param type="int" minvalue="0" maxvalue="15" required="false" name="CH">midi
+            channel</param>
+            <param type="float" minvalue="-64" maxvalue="63" required="true" name="SEMI">
+            tuning in semitones</param></method>
         </methods>
         <properties>
             <property name="@list" type="int" enum="0 1" default="0">output as list</property>

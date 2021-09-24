@@ -155,21 +155,18 @@ void ProtoMidiCC::m_tune_coarse(t_symbol* s, const AtomListView& lv)
 
 void ProtoMidiCC::m_tune_semi(t_symbol* s, const AtomListView& lv)
 {
-    static ArgChecker chk("f-64..63 i0..15?");
+    const auto data = getCCValue(s, lv);
 
-    if (!chk.check(lv)) {
-        METHOD_ERR(s) << "usage: TUNE[-64..63] CHAN[0..15]?, got: " << lv;
+    if (data.chan < 0 || (data.value < -64 || data.value > 63)) {
+        METHOD_ERR(s) << "usage: CHAN[0..15]? TUNE[-64..63], got: " << lv;
         return;
     }
 
-    const auto tune = lv.floatAt(0, 0);
-    const int chan = lv.intAt(1, 0);
-
     t_float semi = 0;
-    const t_float cents = std::modf(tune, &semi) * 100;
+    const t_float cents = std::modf(data.value, &semi) * 100;
 
-    sendTuneCoarse(semi, chan);
-    sendTuneFine(cents, chan);
+    sendTuneCoarse(semi, data.chan);
+    sendTuneFine(cents, data.chan);
 }
 
 void ProtoMidiCC::m_pan_fine(t_symbol* s, const AtomListView& lv)
@@ -795,6 +792,32 @@ ProtoMidiCC::Data2 ProtoMidiCC::getCCInt14(t_symbol* s, const AtomListView& lv) 
     return res;
 }
 
+ProtoMidiCC::FData ProtoMidiCC::getCCValue(t_symbol* s, const AtomListView& lv) const
+{
+    ProtoMidiCC::FData res { -1, -1 };
+
+    t_float value = 0;
+
+    if (lv.size() == 1 && lv[0].isFloat()) {
+        res.chan = 0;
+        value = lv[0].asT<t_float>();
+    } else if (lv.size() == 2 && lv[0].isInteger() && lv[1].isFloat()) {
+        res.chan = lv[0].asT<int>();
+        value = lv[1].asT<t_float>();
+    } else {
+        METHOD_ERR(s) << "expected CHAN[0..15]? VALUE, got: " << lv;
+        return res;
+    }
+
+    if (res.chan < 0 || res.chan > 15) {
+        METHOD_ERR(s) << "channel should be in [0..15] range";
+        return { -1, -1 };
+    }
+
+    res.value = value;
+    return res;
+}
+
 ProtoMidiCC::Data2 ProtoMidiCC::getCCFloat(t_symbol* s, const AtomListView& lv, int from, int to) const
 {
     ProtoMidiCC::Data2 res { -1, -1 };
@@ -855,7 +878,7 @@ void setup_proto_midi_cc()
     obj.addMethod("tuneprog", &ProtoMidiCC::m_tune_prog_change);
     obj.addMethod("tunefine", &ProtoMidiCC::m_tune_fine);
     obj.addMethod("tunecoarse", &ProtoMidiCC::m_tune_coarse);
-    obj.addMethod("tunesemi", &ProtoMidiCC::m_tune_semi);
+    obj.addMethod(M_TUNE_SEMITONES, &ProtoMidiCC::m_tune_semi);
 
     obj.addMethod(M_BEND_SENSIVITY, &ProtoMidiCC::m_bend_sens);
 

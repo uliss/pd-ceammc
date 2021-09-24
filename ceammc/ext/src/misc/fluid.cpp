@@ -1025,7 +1025,7 @@ void setup_misc_fluid()
 
     obj.addMethod("tunesel", &Fluid::m_tune_select);
     obj.addMethod("tune:c", &Fluid::m_tune_cent);
-    obj.addMethod("tune:s", &Fluid::m_tune_semi);
+    obj.addMethod(M_TUNE_SEMITONES, &Fluid::m_tune_semi);
     obj.addMethod("tune:12", &Fluid::m_tune_octave);
 
     obj.addMethod("pan", &Fluid::m_pan);
