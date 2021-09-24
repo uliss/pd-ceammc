@@ -136,13 +136,13 @@
             <param type="int" minvalue="-64" maxvalue="63" required="true" name="SEMI">
             tuning in semitones</param></method>
             <!-- tune fine -->
-            <method name="tune.">send RPN coarse tuning request (in cents)
+            <method name="tune.">send RPN fine tuning request (in cents)
             <param type="int" minvalue="0" maxvalue="15" required="false" name="CH">midi
             channel</param>
             <param type="float" minvalue="-100" maxvalue="100" required="true" name="CENTS">
             tuning in cents</param></method>
             <!-- tune fine -->
-            <method name="tune:c">send RPN coarse tuning request (in cents)
+            <method name="tune:c">send RPN fine tuning request (in cents)
             <param type="int" minvalue="0" maxvalue="15" required="false" name="CH">midi
             channel</param>
             <param type="float" minvalue="-100" maxvalue="100" required="true" name="CENTS">

@@ -124,14 +124,14 @@ CHAN MSB(0\..127) LSB(0\..127). In case of 14 bit value 0 means left
 #X text 255 1526 [CH]: midi channel. if missing or -1: send to all
 channels. Type: int. Range: 0\...15\.;
 #X msg 110 1566 tune.;
-#X text 245 1566 send RPN coarse tuning request (in cents). Arguments
+#X text 245 1566 send RPN fine tuning request (in cents). Arguments
 are:;
 #X obj 255 1589 cnv 1 31 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1589 [CH]: midi channel. Type: int. Range: 0\...15\.;
 #X obj 255 1612 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1612 CENTS: tuning in cents. Type: float. Range: -100\...100\.;
 #X msg 110 1637 tune:c;
-#X text 245 1637 send RPN coarse tuning request (in cents). Arguments
+#X text 245 1637 send RPN fine tuning request (in cents). Arguments
 are:;
 #X obj 255 1660 cnv 1 31 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1660 [CH]: midi channel. Type: int. Range: 0\...15\.;
