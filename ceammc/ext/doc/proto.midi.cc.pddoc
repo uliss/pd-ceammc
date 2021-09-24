@@ -37,18 +37,23 @@
             <method name="volume:f">send CC Volume messages (coarse and fine) 
             <param type="int" minvalue="0" maxvalue="15" required="true" name="CHAN">midi
             channel</param>
-            <param type="float" minvalue="0" maxvalue="1" required="true" name="PAN">volume
+            <param type="float" minvalue="0" maxvalue="1" required="true" name="VOL">volume
             value</param></method>
             <method name="volume~">send coarse CC Volume message 
             <param type="int" minvalue="0" maxvalue="15" required="true" name="CHAN">midi
             channel</param>
-            <param type="int" minvalue="0" maxvalue="127" required="true" name="PAN">pan
+            <param type="int" minvalue="0" maxvalue="127" required="true" name="VOL">pan
             value</param></method>
             <method name="volume.">send fine CC Volume message 
             <param type="int" minvalue="0" maxvalue="15" required="true" name="CHAN">midi
             channel</param>
-            <param type="int" minvalue="0" maxvalue="127" required="true" name="PAN">pan
+            <param type="int" minvalue="0" maxvalue="127" required="true" name="VOL">pan
             value</param></method>
+            <method name="volume:i">send 14-bit CC Volume message
+            <param type="int" minvalue="0" maxvalue="15" required="true" name="CHAN">midi
+            channel</param>
+            <param type="int" minvalue="0" maxvalue="16384" required="true" name="VOL">value
+            </param></method>
             <!-- hold message -->
             <method name="hold">send CC Hold pedal message
             <param type="int" minvalue="0" maxvalue="15" required="false" name="CHAN">midi
