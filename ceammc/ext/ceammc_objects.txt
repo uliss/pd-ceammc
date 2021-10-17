@@ -133,6 +133,7 @@ ceammc/demux2~
 ceammc/demux~
 ceammc/dict
 ceammc/dict->list
+ceammc/edge->bang
 ceammc/env
 ceammc/env->array
 ceammc/env->vline
@@ -268,6 +269,7 @@ conv.cc2amp
 conv.dbfs2amp
 conv.dbfs2amp~
 conv.degree2key
+conv.edge2bang
 conv.hex2int
 conv.int2bits
 conv.lin2curve
@@ -326,6 +328,7 @@ dyn.gate~
 dyn.limit2~
 dyn.limit~
 dyn.softclip~
+edge->bang
 env
 env->array
 env->vline
@@ -517,6 +520,7 @@ hw.apple_smc
 hw.apple_sms
 hw.arduino
 hw.cpu_temp
+hw.cubeturner
 hw.display
 hw.kbd_light
 hw.serial
@@ -911,6 +915,7 @@ prop.split
 prop<-
 prop~>
 proto.firmata
+proto.http
 proto.hui
 proto.midi
 proto.midi.casio
@@ -918,6 +923,7 @@ proto.midi.cc
 proto.midi.sysex
 proto.mpv
 proto.sp.alpaca
+proto.vlc
 proto.xtouch_ext
 rad->phase
 rad->phase~
