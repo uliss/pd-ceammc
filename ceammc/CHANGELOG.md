@@ -7,6 +7,7 @@
   - an.tempo~: tempo analizer based on Aubio library
   - array.circular~: circular buffer write/read for arrays
   - array.grainer~: array granulator
+  - conv.edge2bang with (edge->bang alias) added
   - file.size: aync/sync filesize requests
   - flow.float: float pass flow object added
   - flow.change: any message support added and second inlet for control messages

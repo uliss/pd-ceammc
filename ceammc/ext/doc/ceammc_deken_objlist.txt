@@ -138,6 +138,9 @@ dbfs->amp~	convert decibel full scale to amplitude
 conv.degree2key	convert scale degree to key
 ceammc/degree->key	convert scale degree to key
 degree->key	convert scale degree to key
+conv.edge2bang	edge detector for numeric stream
+ceammc/edge->bang	edge detector for numeric stream
+edge->bang	edge detector for numeric stream
 conv.hex2int	hex symbol to int value
 ceammc/hex->int	hex symbol to int value
 hex->int	hex symbol to int value

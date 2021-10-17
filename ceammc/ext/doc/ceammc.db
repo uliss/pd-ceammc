@@ -55,6 +55,7 @@ conv.cc2amp,ceammc/cc->amp,cc->amp		.		.
 conv.dbfs2amp,ceammc/dbfs->amp,dbfs->amp		.		.
 conv.dbfs2amp~,ceammc/dbfs->amp~,dbfs->amp~		~		~
 conv.degree2key,ceammc/degree->key,degree->key		.		.
+conv.edge2bang,ceammc/edge->bang,edge->bang		.		.
 conv.hex2int,ceammc/hex->int,hex->int		.		.
 conv.int2bits,ceammc/int->bits,int->bits		.		.
 conv.lin2curve,ceammc/lin->curve,lin->curve		.		.
