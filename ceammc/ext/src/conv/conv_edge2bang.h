@@ -14,12 +14,15 @@
 #ifndef CONV_EDGE2BANG_H
 #define CONV_EDGE2BANG_H
 
+#include <cstdint>
+
 #include "ceammc_object.h"
 #include "ceammc_property_enum.h"
 using namespace ceammc;
 
 class ConvEdgeToBang : public BaseObject {
     t_float val_ { 0 };
+    int8_t both_mode_dir_ { 0 }; // direction
 
     SymbolEnumProperty* mode_;
 

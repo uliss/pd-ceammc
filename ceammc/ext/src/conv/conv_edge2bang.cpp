@@ -42,11 +42,16 @@ void ConvEdgeToBang::onFloat(t_float f)
             bangTo(0);
 
         break;
-    case 'b':
-        if (diff != 0)
+    case 'b': {
+        if (diff > 0 && both_mode_dir_ <= 0) {
             bangTo(0);
+            both_mode_dir_ = 1;
+        } else if (diff < 0 && both_mode_dir_ >= 0) {
+            bangTo(0);
+            both_mode_dir_ = -1;
+        }
 
-        break;
+    } break;
     default:
         return;
     }
