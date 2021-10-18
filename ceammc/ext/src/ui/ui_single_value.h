@@ -61,13 +61,16 @@ public:
     void interpPreset(t_float idx);
     bool hasPresetInterp() const { return true; }
 
-    void m_set(t_float f);
+    void m_set(const AtomListView& lv);
+    void m_set_float(t_float f);
+    void m_set_random();
     void m_plus(t_float f);
     void m_minus(t_float f);
     void m_mul(t_float f);
     void m_div(t_float f);
     void m_increment();
     void m_decrement();
+    void m_random();
 
     void startListenMidi();
     void stopListenMidi();

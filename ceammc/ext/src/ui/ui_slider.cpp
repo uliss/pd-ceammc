@@ -22,7 +22,7 @@ UISlider::UISlider()
 {
 }
 
-void UISlider::init(t_symbol* name, const AtomListView &args, bool usePresets)
+void UISlider::init(t_symbol* name, const AtomListView& args, bool usePresets)
 {
     UISingleValue::init(name, args, usePresets);
     if (name == gensym("ui.hsl")) {
@@ -199,6 +199,7 @@ void UISlider::setup()
     obj.addMethod("++", &UISingleValue::m_increment);
     obj.addMethod("--", &UISingleValue::m_decrement);
     obj.addMethod("set", &UISingleValue::m_set);
+    obj.addMethod("random", &UISingleValue::m_random);
 
     obj.setDefaultSize(15, 120);
 
