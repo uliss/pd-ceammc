@@ -197,6 +197,16 @@ void UISliders::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, 
     size_t idx = 0;
     t_float val = 0.f;
 
+    // locked movement
+    if (modifiers & EMOD_ALT) {
+        click_phase_ = (is_vertical_)
+            ? convert::lin2lin<t_float>(pt.x, 0, width(), 0, 1)
+            : convert::lin2lin<t_float>(pt.y, 0, height(), 1, 0);
+
+        prev_pos_values_ = pos_values_;
+        return;
+    }
+
     if (is_vertical_) {
         if (pt.y < 0)
             return;
@@ -223,7 +233,24 @@ void UISliders::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
 
 void UISliders::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
 {
-    onMouseDown(view, pt, pt, modifiers);
+    // locked movement
+    if (modifiers & EMOD_ALT) {
+        t_float new_mouse_phase = (is_vertical_)
+            ? convert::lin2lin<t_float>(pt.x, 0, width(), 0, 1)
+            : convert::lin2lin<t_float>(pt.y, 0, height(), 1, 0);
+
+        const t_float delta = new_mouse_phase - click_phase_;
+        const auto mm = std::minmax_element(prev_pos_values_.begin(), prev_pos_values_.end());
+        if (mm.first == prev_pos_values_.end() || *mm.first + delta < 0 || *mm.second + delta > 1)
+            return;
+
+        for (size_t i = 0; i < std::min(prev_pos_values_.size(), pos_values_.size()); i++)
+            pos_values_[i] = prev_pos_values_[i] + delta;
+
+        outputList();
+        redrawAll();
+    } else
+        onMouseDown(view, pt, pt, modifiers);
 }
 
 void UISliders::onDblClick(t_object* view, const t_pt& pt, long modifiers)

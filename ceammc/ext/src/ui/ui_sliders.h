@@ -22,6 +22,7 @@ class UISliders : public UIObject {
     long select_idx_;
     bool is_vertical_;
     std::vector<t_float> pos_values_;
+    std::vector<t_float> prev_pos_values_;
 
 private:
     t_rgba prop_slider_color;
@@ -34,6 +35,7 @@ private:
     int prop_count;
     char c_min[16];
     char c_max[16];
+    t_float click_phase_;
 
 public:
     UISliders();
