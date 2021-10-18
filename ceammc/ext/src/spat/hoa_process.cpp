@@ -32,8 +32,14 @@ HoaProcess::HoaProcess(const PdArgs& args)
     , domain_(nullptr)
     , patch_(nullptr)
     , num_(nullptr)
+    , args_(nullptr)
     , clock_(this, &HoaProcess::clockTick)
 {
+    args_ = new ListProperty("@args");
+    args_->setInitOnly();
+    args_->setArgIndex(3);
+    addProperty(args_);
+
     domain_ = new SymbolEnumProperty("@domain", { SYM_HARMONICS, SYM_PLANEWAVES });
     domain_->setInitOnly();
     domain_->setArgIndex(2);
@@ -64,14 +70,12 @@ void HoaProcess::initDone()
                 throw std::invalid_argument("number of planewaves required");
         }
 
-        auto patch_args = args().view(3);
-
         if (domain_->value() == SYM_HARMONICS) {
-            if (!loadHarmonics(patch_->value(), patch_args)) {
+            if (!loadHarmonics(patch_->value(), args_->value().view())) {
                 throw std::runtime_error(fmt::format("can't load the patch {0}.pd", patch_->value()->s_name));
             }
         } else {
-            if (!loadPlaneWaves(patch_->value(), patch_args)) {
+            if (!loadPlaneWaves(patch_->value(), args_->value().view())) {
                 throw std::runtime_error(fmt::format("can't load the patch {0}.pd", patch_->value()->s_name));
             }
         }

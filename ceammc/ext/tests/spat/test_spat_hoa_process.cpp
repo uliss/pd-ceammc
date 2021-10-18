@@ -1060,7 +1060,30 @@ TEST_CASE("hoa.process~", "[externals]")
         using ML = std::vector<Message>;
         using M = Message;
 
-        TExt t("hoa.process~", LA(2, TEST_DATA_DIR "/hoa_test_14", "harmonics", "@freq", 150));
+        TExt t("hoa.process~", LA(2, TEST_DATA_DIR "/hoa_test_14", "harmonics", "\"@freq\"", 150));
+        REQUIRE(t.numInlets() == 2);
+        REQUIRE(t.numOutlets() == 1);
+        REQUIRE_PROPERTY(t, @domain, S("harmonics"));
+        REQUIRE_PROPERTY_FLOAT(t, @n, 2);
+
+        pd::External tr("trigger", LA("a"));
+        REQUIRE(tr.connectTo(0, t, 1));
+
+        // wait for loadbang
+        t.schedTicks(10);
+
+        t.clearAll();
+        tr.sendMessage("#0", "@freq?");
+        auto f150 = M("@freq", 150);
+        REQUIRE(t.messagesAt(0) == ML { f150 });
+    }
+
+    SECTION("@args props")
+    {
+        using ML = std::vector<Message>;
+        using M = Message;
+
+        TExt t("hoa.process~", LA(2, TEST_DATA_DIR "/hoa_test_14", "harmonics", "@args", "\"@freq\"", 150));
         REQUIRE(t.numInlets() == 2);
         REQUIRE(t.numOutlets() == 1);
         REQUIRE_PROPERTY(t, @domain, S("harmonics"));
