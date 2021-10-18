@@ -49,6 +49,7 @@
 - new methods:
   - seq.phasor: [phase( method added to set current phase
   - ui.slider: [random( method added and [set random( args support added
+  - ui.knob: [random( method added and [set random( args support added
   - lfo.+saw~, lfo.saw~, lfo.+tri~, lfo.tri~, lfo.+square~, lfo.square~, lfo.+pulse~, lfo.pulse~: [reset( method added to reset to initial phase value (@phase)
   - fluid~: 
     - [pan(: set synth pan normalized to \[-1..+1\] range

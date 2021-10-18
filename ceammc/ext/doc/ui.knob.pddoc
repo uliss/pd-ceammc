@@ -108,7 +108,8 @@
             pixels</property>
         </properties>
         <methods>
-            <method name="set">sets knob state without output</method>
+            <method name="set">sets knob value without output
+            <param name="V" type="atom" required="true">new float value or 'random'</param></method>
             <method name="++">increment knob value without output</method>
             <method name="--">decrement knob value without output</method>
             <method name="+">add value to knob without output 
@@ -119,6 +120,7 @@
             <param name="V" type="float" required="true">multiplied value</param></method>
             <method name="/">divide knob value without output 
             <param name="V" type="float" required="true">denominator value</param></method>
+            <method name="random">set knob to random value and output</method>
             <!-- presets -->
             <method name="load" category="preset">loads specified preset 
             <param type="int" name="IDX" required="true">preset index</param></method>

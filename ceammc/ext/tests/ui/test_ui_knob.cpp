@@ -665,4 +665,22 @@ TEST_CASE("ui.knob", "[ui.knob]")
             REQUIRE_UI_FLOAT_PROPERTY(t, "max", 5.5);
         }
     }
+
+    SECTION("random")
+    {
+        TestExtKnob t("ui.knob");
+
+        auto v = t->value();
+
+        t.call("random");
+        REQUIRE(v != t->value());
+        REQUIRE(t.outputFloatAt(0) == t->value());
+
+        v = t->value();
+
+        t.clearAll();
+        t.call("set", LA("random"));
+        REQUIRE(v != t->value());
+        REQUIRE_FALSE(t.hasOutput());
+    }
 }

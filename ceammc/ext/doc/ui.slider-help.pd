@@ -184,7 +184,7 @@ list. Default value: 15 120\.;
 #X msg 110 2427 set;
 #X text 245 2427 sets slider value without output. Arguments are:;
 #X obj 255 2450 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2450 V: new value flow value or 'random'. Type: atom.;
+#X text 255 2450 V: new float value or 'random'. Type: atom.;
 #X msg 110 2475 store;
 #X text 245 2475 stores specified preset. Arguments are:;
 #X obj 255 2498 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;

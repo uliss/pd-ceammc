@@ -126,6 +126,7 @@ void UIKnob::setup()
     obj.addMethod("++", &UISingleValue::m_increment);
     obj.addMethod("--", &UISingleValue::m_decrement);
     obj.addMethod("set", &UISingleValue::m_set);
+    obj.addMethod("random", &UISingleValue::m_random);
 
     obj.setDefaultSize(40, 40);
 
