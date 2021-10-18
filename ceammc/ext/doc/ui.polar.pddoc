@@ -92,6 +92,7 @@
             <method name="rotate">rotate slider by specified angle 
             <param name="A" type="float" required="true">angle in degrees or radians (depends on
             @use_degrees property)</param></method>
+            <method name="random">set to random value and output</method>
             <!-- presets -->
             <method name="load">loads specified preset 
             <param type="int" name="IDX" required="true">preset index</param></method>

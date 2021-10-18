@@ -58,6 +58,8 @@ public:
     void m_polar(const AtomListView& lv);
     void m_cartesian(const AtomListView& lv);
     void m_rotate(t_float angle);
+    void m_random();
+
     void loadPreset(size_t idx);
     void storePreset(size_t idx);
     void interpPreset(t_float idx);
