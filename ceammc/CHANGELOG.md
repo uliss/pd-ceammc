@@ -68,6 +68,7 @@
   - fluid~ loads WaveSine.sf2 font by default
   - math.*: any message support, multiply float atoms only
   - Up/Down key support for ui.number
+  - ui.sliders: locked movemenet added with ALT pressed
   
 ### Fixed:
 - flow.space: reset message fix - can not use object after reset

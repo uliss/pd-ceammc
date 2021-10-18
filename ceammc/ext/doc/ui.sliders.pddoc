@@ -27,6 +27,7 @@
             <event editmode="false" type="right-click">opens popup menu for quick settings of
             values: fill, linup, lindown and random</event>
             <event editmode="false" type="drag">change slider values</event>
+            <event editmode="false" type="drag" keys="Alt">locked movement</event>
         </mouse>
         <arguments>
             <argument name="N" type="float" minvalue="1" maxvalue="1024">number of
