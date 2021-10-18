@@ -10,7 +10,7 @@
 #X obj 326 473 osc~ 1;
 #X obj 326 451 line~;
 #X msg 326 429 \$1 20;
-#X obj 231 63 hoa.in extra 1;
+#X obj 231 63 hoa.in 1;
 #X text 324 63 Extra 1 Receive the inlet messages.;
 #X text 84 29 Default arguments and attributes;
 #X text 377 473 Simple ring modulation;
