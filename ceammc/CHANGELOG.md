@@ -46,6 +46,7 @@
   - ui.knob: @show_value property added
   - fluid~: @volume property added to set output level in db
   - system.cursor: @norm property added for cursor coordinates normalization by screen (or window) size
+  - hoa.process~: @args property added
 - new methods:
   - seq.phasor: [phase( method added to set current phase
   - ui.slider: [random( method added and [set random( args support added
