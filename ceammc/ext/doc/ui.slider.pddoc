@@ -106,7 +106,8 @@
         </properties>
         <methods>
             <method name="set">sets slider value without output 
-            <param name="V" type="atom" required="true">new float value or 'random'</param></method>
+            <param name="V" type="atom" required="true">new float value or
+            'random'</param></method>
             <method name="++">increment slider value without output</method>
             <method name="--">decrement slider value without output</method>
             <method name="+">add value to slider without output 

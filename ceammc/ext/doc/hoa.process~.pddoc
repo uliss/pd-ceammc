@@ -44,8 +44,7 @@
         <properties>
             <property name="@n" type="int" minvalue="0" maxvalue="63" default="0" readonly="true">
             the order of decomposition/number of planewaves</property>
-            <property name="@patch" type="symbol" readonly="true">
-            patch name</property>
+            <property name="@patch" type="symbol" readonly="true">patch name</property>
             <property name="@domain" type="symbol" readonly="true" default="harmonics"
             enum="harmonics planewaves">process domain: harmonics or planewaves</property>
         </properties>

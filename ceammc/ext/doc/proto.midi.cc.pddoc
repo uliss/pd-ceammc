@@ -34,7 +34,7 @@
             LSB(0..127). In case of 14 bit value 0 means left, 0x2000: center and 0x3fff:
             right</method>
             <!-- volume messages -->
-            <method name="volume:f">send CC normalized Volume message
+            <method name="volume:f">send CC normalized Volume message 
             <param type="int" minvalue="0" maxvalue="15" required="true" name="CHAN">midi
             channel</param>
             <param type="float" minvalue="0" maxvalue="1" required="true" name="VOL">volume
@@ -49,126 +49,125 @@
             channel</param>
             <param type="int" minvalue="0" maxvalue="127" required="true" name="VOL">pan
             value</param></method>
-            <method name="volume:i">send 14-bit CC Volume message
+            <method name="volume:i">send 14-bit CC Volume message 
             <param type="int" minvalue="0" maxvalue="15" required="true" name="CHAN">midi
             channel</param>
-            <param type="int" minvalue="0" maxvalue="16384" required="true" name="VOL">value
-            </param></method>
+            <param type="int" minvalue="0" maxvalue="16384" required="true" name="VOL">
+            value</param></method>
             <!-- expression messages -->
-            <method name="exp:f">send CC normalized Expression message
+            <method name="exp:f">send CC normalized Expression message 
             <param type="int" minvalue="0" maxvalue="15" required="true" name="CHAN">midi
             channel</param>
             <param type="float" minvalue="0" maxvalue="1" required="true" name="VAL">expression
             value</param></method>
-            <method name="exp~">send coarse CC Expression message
+            <method name="exp~">send coarse CC Expression message 
             <param type="int" minvalue="0" maxvalue="15" required="true" name="CHAN">midi
             channel</param>
             <param type="int" minvalue="0" maxvalue="127" required="true" name="VAL">expression
             value</param></method>
-            <method name="exp.">send fine CC Expression message
+            <method name="exp.">send fine CC Expression message 
             <param type="int" minvalue="0" maxvalue="15" required="true" name="CHAN">midi
             channel</param>
             <param type="int" minvalue="0" maxvalue="127" required="true" name="VAL">expression
             value</param></method>
-            <method name="exp:i">send 14-bit CC Expression message
+            <method name="exp:i">send 14-bit CC Expression message 
             <param type="int" minvalue="0" maxvalue="15" required="true" name="CHAN">midi
             channel</param>
-            <param type="int" minvalue="0" maxvalue="16384" required="true" name="VAL">expression
-            </param></method>
+            <param type="int" minvalue="0" maxvalue="16384" required="true" name="VAL">
+            expression</param></method>
             <!-- modulation messages -->
-            <method name="mod:f">send CC normalized Modulation message
+            <method name="mod:f">send CC normalized Modulation message 
             <param type="int" minvalue="0" maxvalue="15" required="true" name="CHAN">midi
             channel</param>
             <param type="float" minvalue="0" maxvalue="1" required="true" name="VAL">modulation
             value</param></method>
-            <method name="mod~">send coarse CC Modulation message
+            <method name="mod~">send coarse CC Modulation message 
             <param type="int" minvalue="0" maxvalue="15" required="true" name="CHAN">midi
             channel</param>
             <param type="int" minvalue="0" maxvalue="127" required="true" name="VAL">modulation
             value</param></method>
-            <method name="mod.">send fine CC Modulation message
+            <method name="mod.">send fine CC Modulation message 
             <param type="int" minvalue="0" maxvalue="15" required="true" name="CHAN">midi
             channel</param>
             <param type="int" minvalue="0" maxvalue="127" required="true" name="VAL">modulation
             value</param></method>
-            <method name="mod:i">send 14-bit CC Modulation message
+            <method name="mod:i">send 14-bit CC Modulation message 
             <param type="int" minvalue="0" maxvalue="15" required="true" name="CHAN">midi
             channel</param>
-            <param type="int" minvalue="0" maxvalue="16384" required="true" name="VAL">modulation
-            </param></method>
+            <param type="int" minvalue="0" maxvalue="16384" required="true" name="VAL">
+            modulation</param></method>
             <!-- hold message -->
-            <method name="hold">send CC Hold pedal message
+            <method name="hold">send CC Hold pedal message 
             <param type="int" minvalue="0" maxvalue="15" required="false" name="CHAN">midi
             channel</param>
             <param type="int" enum="0 1" required="true" name="BOOL">on/off value</param></method>
             <!-- sostenuto message -->
-            <method name="sostenuto">send CC sostenuto pedal message
+            <method name="sostenuto">send CC sostenuto pedal message 
             <param type="int" minvalue="0" maxvalue="15" required="false" name="CHAN">midi
             channel</param>
             <param type="int" enum="0 1" required="true" name="BOOL">on/off value</param></method>
             <!-- portamento message -->
-            <method name="portamento">send CC portamento switch message
+            <method name="portamento">send CC portamento switch message 
             <param type="int" minvalue="0" maxvalue="15" required="false" name="CHAN">midi
             channel</param>
             <param type="int" enum="0 1" required="true" name="BOOL">on/off value</param></method>
             <!-- all notes off -->
-            <method name="notes_off">send All Notes Off message
-            <param type="int" minvalue="0" maxvalue="15" required="true" name="CH">midi
-            channel. if missing or -1: send to all channels</param></method>
+            <method name="notes_off">send All Notes Off message 
+            <param type="int" minvalue="0" maxvalue="15" required="true" name="CH">midi channel. if
+            missing or -1: send to all channels</param></method>
             <!-- all sounds off -->
-            <method name="sounds_off">send All Sounds Off message
-            <param type="int" minvalue="0" maxvalue="15" required="false" name="CH">midi
-            channel. if missing or -1: send to all channels</param></method>
+            <method name="sounds_off">send All Sounds Off message 
+            <param type="int" minvalue="0" maxvalue="15" required="false" name="CH">midi channel.
+            if missing or -1: send to all channels</param></method>
             <!-- pitch bend sensivity -->
-            <method name="bendsens">send Pitch bend sensivity message
-            <param type="int" minvalue="0" required="true" name="CH">midi
-            channel</param></method>
+            <method name="bendsens">send Pitch bend sensivity message 
+            <param type="int" minvalue="0" required="true" name="CH">midi channel</param></method>
             <!-- tune semitones -->
-            <method name="tune:s">send RPN tuning request in semitones
+            <method name="tune:s">send RPN tuning request in semitones 
             <param type="int" minvalue="0" maxvalue="15" required="false" name="CH">midi
             channel</param>
-            <param type="float" minvalue="-64" maxvalue="63" required="true" name="SEMI">
-            tuning in semitones</param></method>
+            <param type="float" minvalue="-64" maxvalue="63" required="true" name="SEMI">tuning in
+            semitones</param></method>
             <!-- tune coarse -->
-            <method name="tune~">send RPN coarse tuning request (in semitones)
+            <method name="tune~">send RPN coarse tuning request (in semitones) 
             <param type="int" minvalue="0" maxvalue="15" required="false" name="CH">midi
             channel</param>
-            <param type="int" minvalue="-64" maxvalue="63" required="true" name="SEMI">
-            tuning in semitones</param></method>
+            <param type="int" minvalue="-64" maxvalue="63" required="true" name="SEMI">tuning in
+            semitones</param></method>
             <!-- tune fine -->
-            <method name="tune.">send RPN fine tuning request (in cents)
+            <method name="tune.">send RPN fine tuning request (in cents) 
             <param type="int" minvalue="0" maxvalue="15" required="false" name="CH">midi
             channel</param>
-            <param type="float" minvalue="-100" maxvalue="100" required="true" name="CENTS">
-            tuning in cents</param></method>
+            <param type="float" minvalue="-100" maxvalue="100" required="true" name="CENTS">tuning
+            in cents</param></method>
             <!-- tune fine -->
-            <method name="tune:c">send RPN fine tuning request (in cents)
+            <method name="tune:c">send RPN fine tuning request (in cents) 
             <param type="int" minvalue="0" maxvalue="15" required="false" name="CH">midi
             channel</param>
-            <param type="float" minvalue="-100" maxvalue="100" required="true" name="CENTS">
-            tuning in cents</param></method>
+            <param type="float" minvalue="-100" maxvalue="100" required="true" name="CENTS">tuning
+            in cents</param></method>
             <!-- tune bank -->
-            <method name="tunebank">send RPN tune bank select
+            <method name="tunebank">send RPN tune bank select 
             <param type="int" minvalue="0" maxvalue="15" required="false" name="CH">midi
             channel</param>
-            <param type="int" minvalue="0" maxvalue="127" required="true" name="BANK">
-            tuning bank</param></method>
+            <param type="int" minvalue="0" maxvalue="127" required="true" name="BANK">tuning
+            bank</param></method>
             <!-- tune prog -->
-            <method name="tuneprog">send RPN tune prog change
+            <method name="tuneprog">send RPN tune prog change 
             <param type="int" minvalue="0" maxvalue="15" required="false" name="CH">midi
             channel</param>
-            <param type="int" minvalue="0" maxvalue="127" required="true" name="PROG">
-            tuning program</param></method>
+            <param type="int" minvalue="0" maxvalue="127" required="true" name="PROG">tuning
+            program</param></method>
             <!-- tune select -->
-            <method name="tunesel">send RPN tune select
+            <method name="tunesel">send RPN tune select 
             <param type="int" minvalue="0" maxvalue="15" required="false" name="CH">midi
             channel</param>
-            <param type="int" minvalue="0" maxvalue="127" required="true" name="BANK">
-            tuning bank</param>
-            <param type="int" minvalue="0" maxvalue="127" required="true" name="PROG">
-            tuning program</param></method>
+            <param type="int" minvalue="0" maxvalue="127" required="true" name="BANK">tuning
+            bank</param>
+            <param type="int" minvalue="0" maxvalue="127" required="true" name="PROG">tuning
+            program</param></method>
             <!-- bank -->
-            <method name="bank">send CC Bank Select
+            <method name="bank">send CC Bank Select 
             <param type="int" minvalue="0" maxvalue="15" required="false" name="CH">midi
             channel</param>
             <param type="int" minvalue="0" maxvalue="16384" required="true" name="BANK">
@@ -176,17 +175,17 @@
             <!-- bank:i -->
             <method name="bank:i">same as [bank(</method>
             <!-- bank:msb -->
-            <method name="bank:msb">send CC Bank Select MSB
+            <method name="bank:msb">send CC Bank Select MSB 
             <param type="int" minvalue="0" maxvalue="15" required="false" name="CH">midi
             channel</param>
-            <param type="int" minvalue="0" maxvalue="127" required="true" name="BANK">
-            bank MSB</param></method>
+            <param type="int" minvalue="0" maxvalue="127" required="true" name="BANK">bank
+            MSB</param></method>
             <!-- bank:lsb -->
-            <method name="bank:lsb">send CC Bank Select LSB
+            <method name="bank:lsb">send CC Bank Select LSB 
             <param type="int" minvalue="0" maxvalue="15" required="false" name="CH">midi
             channel</param>
-            <param type="int" minvalue="0" maxvalue="127" required="true" name="BANK">
-            bank LSB</param></method>
+            <param type="int" minvalue="0" maxvalue="127" required="true" name="BANK">bank
+            LSB</param></method>
         </methods>
         <properties>
             <property name="@list" type="int" enum="0 1" default="0">output as list</property>

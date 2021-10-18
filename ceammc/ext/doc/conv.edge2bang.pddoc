@@ -18,8 +18,8 @@
             </aliases>
         </meta>
         <properties>
-            <property name="@mode" type="symbol" enum="up down both" default="up">edge detection mode
-            </property>
+            <property name="@mode" type="symbol" enum="up down both" default="up">edge detection
+            mode</property>
             <property name="@up" type="alias">alias to @mode up</property>
             <property name="@down" type="alias">alias to @mode down</property>
             <property name="@both" type="alias">alias to @mode both</property>
