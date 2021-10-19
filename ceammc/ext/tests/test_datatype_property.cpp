@@ -11,8 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "datatype_property.h"
 #include "ceammc_datatypes.h"
+#include "datatype_property.h"
 #include "test_common.h"
 
 using namespace ceammc;
@@ -245,5 +245,41 @@ TEST_CASE("DataTypeProperty", "[ceammc::DataTypeProperty]")
         l1.restoreDefault();
         REQUIRE(l1.getList(l));
         REQUIRE(l == LA(1, 2, 3));
+    }
+
+    SECTION("info")
+    {
+        SECTION("constrains")
+        {
+            SECTION("min")
+            {
+                DataTypeProperty p(SYM("c0"));
+
+                REQUIRE(p.setFloat(0));
+                REQUIRE(p.info().name() == gensym("c0"));
+                REQUIRE(p.info().type() == PropValueType::FLOAT);
+                REQUIRE(!p.info().hasConstraintsMin());
+                REQUIRE(!p.info().hasConstraintsMax());
+                REQUIRE(p.info().defaultFloat() == 0);
+
+                p.setTypeFloat(0.5);
+                REQUIRE(p.info().type() == PropValueType::FLOAT);
+                REQUIRE(p.info().defaultFloat() == 0.5);
+
+                p.setFloatRange(-1, 1);
+                REQUIRE(p.info().hasConstraintsMin());
+                REQUIRE(p.info().hasConstraintsMax());
+
+                p.setTypeInt(12);
+                REQUIRE(p.info().type() == PropValueType::INTEGER);
+                REQUIRE(p.info().defaultInt() == 12);
+                REQUIRE(!p.info().hasConstraintsMin());
+                REQUIRE(!p.info().hasConstraintsMax());
+
+                p.setIntRange(-100, 100);
+                REQUIRE(p.info().hasConstraintsMin());
+                REQUIRE(p.info().hasConstraintsMax());
+            }
+        }
     }
 }

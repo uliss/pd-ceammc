@@ -24,6 +24,13 @@
 
 const int DataTypeProperty::dataType = data::DATA_PROPERTY;
 
+constexpr auto min_fdefault = std::numeric_limits<t_float>::lowest();
+constexpr auto max_fdefault = std::numeric_limits<t_float>::max();
+constexpr auto min_idefault = std::numeric_limits<int>::lowest();
+constexpr auto max_idefault = std::numeric_limits<int>::max();
+
+#define CHECK_DECLTYPE(cons, member) static_assert(std::is_same<std::remove_const<decltype(cons)>::type, decltype(member)>::value, "");
+
 #define PROP_ERR() LIB_ERR << name_ << ' '
 
 DataTypeProperty::DataTypeProperty(t_symbol* name)
@@ -31,11 +38,15 @@ DataTypeProperty::DataTypeProperty(t_symbol* name)
     , type_(PropValueType::FLOAT)
     , value_(0.f)
     , default_(0.f)
-    , fmin_(std::numeric_limits<t_float>::lowest())
-    , fmax_(std::numeric_limits<t_float>::max())
-    , lmin_(std::numeric_limits<decltype(lmin_)>::lowest())
-    , lmax_(std::numeric_limits<decltype(lmax_)>::max())
+    , fmin_(min_fdefault)
+    , fmax_(max_fdefault)
+    , lmin_(min_idefault)
+    , lmax_(max_idefault)
 {
+    CHECK_DECLTYPE(min_fdefault, fmin_);
+    CHECK_DECLTYPE(max_fdefault, fmax_);
+    CHECK_DECLTYPE(max_idefault, lmax_);
+    CHECK_DECLTYPE(max_idefault, lmax_);
 }
 
 DataTypeProperty::DataTypeProperty(const DataTypeProperty& p)
@@ -401,13 +412,56 @@ bool DataTypeProperty::hasEnumValues() const
 
 PropertyInfo DataTypeProperty::info() const
 {
-    auto name = std::strchr(name_->s_name, '@');
+    const char* name = "??";
+    // skip first '@'
+    if (name_->s_name[0] != '@')
+        name = name_->s_name;
+    else
+        name = name_->s_name + 1;
+
     PropertyInfo res(name, type_);
 
     if (isFloat()) {
-        if (res.setRangeFloat(fmin_, fmax_))
-            res.setDefault(boost::get<t_float>(default_));
+        const bool has_min = fmin_ != min_fdefault;
+        const bool has_max = fmax_ != max_fdefault;
+
+        if (has_min && has_max) {
+            res.setConstraints(PropValueConstraints::CLOSED_RANGE);
+            if (!res.setRangeFloat(fmin_, fmax_))
+                res.setConstraints(PropValueConstraints::NONE);
+
+        } else if (has_min && !has_max) {
+            res.setConstraints(PropValueConstraints::GREATER_EQUAL);
+            if (!res.setMinFloat(fmin_))
+                res.setConstraints(PropValueConstraints::NONE);
+
+        } else if (!has_min && has_max) {
+            res.setConstraints(PropValueConstraints::LESS_EQUAL);
+            if (!res.setMaxFloat(fmax_))
+                res.setConstraints(PropValueConstraints::NONE);
+        }
+
+        res.setDefault(boost::get<t_float>(default_));
     } else if (isInt()) {
+        const bool has_min = lmin_ != min_idefault;
+        const bool has_max = lmax_ != max_idefault;
+
+        if (has_min && has_max) {
+            res.setConstraints(PropValueConstraints::CLOSED_RANGE);
+            if (!res.setRangeInt(lmin_, lmax_))
+                res.setConstraints(PropValueConstraints::NONE);
+
+        } else if (has_min && !has_max) {
+            res.setConstraints(PropValueConstraints::GREATER_EQUAL);
+            if (!res.setMinInt(lmin_))
+                res.setConstraints(PropValueConstraints::NONE);
+
+        } else if (!has_min && has_max) {
+            res.setConstraints(PropValueConstraints::LESS_EQUAL);
+            if (!res.setMaxInt(lmax_))
+                res.setConstraints(PropValueConstraints::NONE);
+        }
+
         res.setDefault(boost::get<int>(default_));
     } else if (isBool()) {
         res.setDefault(boost::get<bool>(default_) ? 1 : 0);
