@@ -47,7 +47,7 @@
 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @text_color
 0 0 0 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman"
 @fontsize 13 @label "(null)" @label_inner 0 @label_side "top" @label_align
-"left" @label_valign "top" @label_margins 0 0 @min -1 @max 1 @digits
+"left" @label_valign "top" @label_margins 0 0 @min 0 @max 1 @digits
 -1;
 #X msg 338 202 @dry \$1;
 #X msg 428 202 @wet \$1;
@@ -57,33 +57,40 @@
 0.75 1 1 @text_color 0 0 0 1 @fontname "Helvetica" @fontweight "normal"
 @fontslant "roman" @fontsize 13 @label "(null)" @label_inner 0 @label_side
 "top" @label_align "left" @label_valign "top" @label_margins 0 0 @min
--1 @max 1 @digits -1;
+0 @max 1 @digits -1;
 #X obj 528 179 ui.number @size 53 15 @receive "(null)" @send "(null)"
 @pinned 0 @presetname "ui.number.1" @background_color 0.93 0.93 0.93
 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0
 0.75 1 1 @text_color 0 0 0 1 @fontname "Helvetica" @fontweight "normal"
 @fontslant "roman" @fontsize 13 @label "(null)" @label_inner 0 @label_side
 "top" @label_align "left" @label_valign "top" @label_margins 0 0 @min
--1 @max 1 @digits -1;
+0 @max 1 @digits -1;
 #X obj 639 179 ui.number @size 53 15 @receive "(null)" @send "(null)"
 @pinned 0 @presetname "ui.number.2" @background_color 0.93 0.93 0.93
 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0
 0.75 1 1 @text_color 0 0 0 1 @fontname "Helvetica" @fontweight "normal"
 @fontslant "roman" @fontsize 13 @label "(null)" @label_inner 0 @label_side
 "top" @label_align "left" @label_valign "top" @label_margins 0 0 @min
--1 @max 1 @digits -1;
+0 @max 0.99 @digits -1;
 #X obj 639 259 ui.number @size 53 15 @receive "(null)" @send "(null)"
 @pinned 0 @presetname "ui.number.3" @background_color 0.93 0.93 0.93
 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0
 0.75 1 1 @text_color 0 0 0 1 @fontname "Helvetica" @fontweight "normal"
 @fontslant "roman" @fontsize 13 @label "(null)" @label_inner 0 @label_side
 "top" @label_align "left" @label_valign "top" @label_margins 0 0 @min
--1 @max 1 @digits -1;
+0 @max 1 @digits -1;
 #X msg 528 202 @damp \$1;
 #X msg 639 281 @diff \$1;
 #X msg 639 202 @room \$1;
 #X obj 113 258 hoa.process~ 3 hoa.fx.freeverb~ harmonics "@wet" 1 "@dry"
 0 "@room" 0.75 "@damp" 0.5 "@diff" 0.75, f 31;
+#X obj 6 219 ui.radio @size 105 15 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.hrd.0" @mouse_events 0 @background_color
+0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color
+0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman"
+@fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align
+"left" @label_valign "top" @label_margins 0 0 @nitems 7 @mode 0;
+#X msg 6 241 open \$1;
 #X connect 2 0 10 0;
 #X connect 3 0 9 0;
 #X connect 9 0 15 0;
@@ -133,4 +140,6 @@
 #X connect 34 5 18 5;
 #X connect 34 6 16 6;
 #X connect 34 6 18 6;
+#X connect 35 0 36 0;
+#X connect 36 0 34 0;
 #X coords 0 731 1 730 100 60 0;
