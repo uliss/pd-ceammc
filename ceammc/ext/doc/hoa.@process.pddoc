@@ -68,7 +68,7 @@
 |        |        |                          |
 |        |        |   /*click me*/           [list.do #e] [\#$2 @freq $1 #x(
 |        |        |                                       |.
-[hoa.process~ 3 hoa/hoa_prop_example1 planewaves @freq 250 {w=60,i=2,o=4} #z]
+[hoa.process~ 3 hoa/hoa_prop_example1 planewaves "@freq" 250 {w=60,i=2,o=4} #z]
 | ^| ^^|                                   ^^^|
 |  |   |                                      |
 |  |   |                                      |

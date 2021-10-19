@@ -21,7 +21,7 @@ properties and get/set properties declared via [prop.declare];
 #X text 261 331 click me;
 #X obj 482 331 list.do;
 #X msg 606 331 #\$2 @freq \$1;
-#X obj 50 360 hoa.process~ 3 hoa/hoa_prop_example1 planewaves @freq
+#X obj 50 360 hoa.process~ 3 hoa/hoa_prop_example1 planewaves "@freq"
 250, f 60;
 #X obj 50 418 ui.hgain~;
 #X obj 184 418 ui.dsp~;
