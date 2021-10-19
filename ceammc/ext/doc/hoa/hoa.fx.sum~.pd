@@ -2,5 +2,5 @@
 #X obj 224 106 hoa.in~;
 #X text 104 106 Receive the signal;
 #X text 111 233 Output the signal;
-#X obj 224 232 hoa.out~ extra 1;
+#X obj 224 232 hoa.out~ 1;
 #X connect 0 0 3 0;
