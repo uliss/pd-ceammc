@@ -20,6 +20,7 @@ endmacro()
 
 ceammc_array_external(bpm)
 ceammc_array_external(circular_tilde)
+ceammc_array_external(convolve)
 ceammc_array_external(copy)
 ceammc_array_external(do)
 ceammc_array_external(each)
@@ -74,5 +75,5 @@ target_include_directories(ceammc_array PRIVATE
 )
 
 target_link_libraries(ceammc_array PRIVATE
-    soundtouch aubio
+    soundtouch aubio fftconv
 )

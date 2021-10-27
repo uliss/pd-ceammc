@@ -6,6 +6,8 @@ target_sources(fftconv
             FFTConvolver/TwoStageFFTConvolver.cpp
             FFTConvolver/Utilities.cpp)
 
+target_include_directories(fftconv INTERFACE FFTConvolver)
+
 if(APPLE)
     target_compile_definitions(fftconv PRIVATE AUDIOFFT_APPLE_ACCELERATE)
 elseif(FFTW_FOUND)
