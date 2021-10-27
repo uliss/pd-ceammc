@@ -30,6 +30,7 @@ endfunction()
 
 add_array_test(bpm)
 add_array_test(circular)
+add_array_test(convolve)
 add_array_test(copy)
 add_array_test(do)
 add_array_test(each)

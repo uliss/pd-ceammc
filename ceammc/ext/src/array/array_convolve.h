@@ -35,6 +35,7 @@ public:
     ~ArrayConvolve();
 
     void onBang() override;
+    void onInlet(size_t n, const AtomListView& lv) override;
 };
 
 void setup_array_convolve();

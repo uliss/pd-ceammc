@@ -28,6 +28,7 @@ ArrayConvolve::ArrayConvolve(const PdArgs& args)
     , ir_name_(nullptr)
     , ir_data_(MAX_IR_SIZE)
 {
+    createInlet();
     createOutlet();
 
     ir_name_ = new SymbolProperty("@ir", &s_);
@@ -65,10 +66,10 @@ void ArrayConvolve::onBang()
     for (size_t i = 0; i < IR_SIZE; i++)
         ir_data_[i] = ir[i];
 
-    conv_->init(BS, ir_data_.data(), ir_data_.size());
+    conv_->init(BS, ir_data_.data(), IR_SIZE);
 
     const auto OLD_SIZE = array_.size();
-    const size_t NEW_SIZE = OLD_SIZE + ir_data_.size() - 1;
+    const size_t NEW_SIZE = OLD_SIZE + IR_SIZE - 1;
     if (!array_.resize(NEW_SIZE)) {
         OBJ_ERR << "can't resize array from " << OLD_SIZE << " to " << NEW_SIZE;
         return;
@@ -97,6 +98,12 @@ void ArrayConvolve::onBang()
     const auto t1 = std::chrono::steady_clock::now();
     const auto time_ms = std::chrono::duration_cast<std::chrono::milliseconds>(t1 - t0).count();
     OBJ_DBG << "convolution time: " << time_ms << " ms";
+}
+
+void ArrayConvolve::onInlet(size_t n, const AtomListView& lv)
+{
+    if (n == 1)
+        ir_name_->setList(lv);
 }
 
 void setup_array_convolve()
