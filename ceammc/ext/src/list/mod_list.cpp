@@ -8,6 +8,7 @@ void setup_list_apply_to();
 void setup_list_at();
 void setup_list_choice();
 void setup_list_contains();
+void setup_list_convolve();
 void setup_list_count();
 void setup_list_count_if();
 void setup_list_delta();
@@ -75,6 +76,7 @@ void ceammc_list_setup()
     setup_list_at();
     setup_list_choice();
     setup_list_contains();
+    setup_list_convolve();
     setup_list_count();
     setup_list_count_if();
     setup_list_delta();
