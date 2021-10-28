@@ -520,6 +520,7 @@ list.at	outputs list element(s) at specified index(es)
 list.choice	outputs random element from list
 list.contains	checks if input list contains specified atoms
 list.convolve	convolution for lists
+list.conv	convolution for lists
 list.count	output the number of items that equal to specified value
 list.count_if	output the number of items that satisfy to external predicate
 list.delta	returns the difference between the current list of floats and the previous one.

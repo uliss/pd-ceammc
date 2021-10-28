@@ -293,7 +293,7 @@ list.apply_to		...		..
 list.at		..		.
 list.choice		.		.
 list.contains		..		.
-list.convolve		..		.
+list.convolve,list.conv		..		.
 list.count		..		.
 list.count_if		..		..
 list.delta		.		.

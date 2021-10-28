@@ -117,5 +117,6 @@ void ListConvolve::setB(const AtomListView& lv)
 void setup_list_convolve()
 {
     ObjectFactory<ListConvolve> obj("list.convolve");
+    obj.addAlias("list.conv");
     obj.setXletsInfo({ "list: set first convolution arg then calculate", "list: set second convolution arg" }, { "list: convolution result" });
 }
