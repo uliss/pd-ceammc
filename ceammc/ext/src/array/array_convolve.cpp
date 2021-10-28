@@ -98,6 +98,7 @@ void ArrayConvolve::onBang()
     const auto t1 = std::chrono::steady_clock::now();
     const auto time_ms = std::chrono::duration_cast<std::chrono::milliseconds>(t1 - t0).count();
     OBJ_DBG << "convolution time: " << time_ms << " ms";
+    bangTo(0);
 }
 
 void ArrayConvolve::onInlet(size_t n, const AtomListView& lv)
@@ -109,4 +110,5 @@ void ArrayConvolve::onInlet(size_t n, const AtomListView& lv)
 void setup_array_convolve()
 {
     ObjectFactory<ArrayConvolve> obj("array.convolve");
+    obj.setXletsInfo({ "bang: do convolution", "symbol: set IR array name" }, { "bang on done" });
 }
