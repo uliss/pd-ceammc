@@ -62,6 +62,17 @@ void ListConvolve::onList(const AtomList& lst)
     listTo(0, lout_);
 }
 
+void ListConvolve::onFloat(t_float f)
+{
+    l0_.resize(1);
+    l0_[0] = f;
+
+    if (!convolve())
+        return;
+
+    listTo(0, lout_);
+}
+
 bool ListConvolve::convolve()
 {
     if (l0_.empty()) {

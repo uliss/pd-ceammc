@@ -26,6 +26,7 @@ public:
 
     void onInlet(size_t n, const AtomListView& lv) override;
     void onList(const AtomList& lst) override;
+    void onFloat(t_float f) override;
 
 private:
     bool convolve();
