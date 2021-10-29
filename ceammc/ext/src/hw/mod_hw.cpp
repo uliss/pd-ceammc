@@ -1,6 +1,5 @@
 #include "mod_hw.h"
 #include "hw_arduino.h"
-#include "hw_cuvave_cubeturner.h"
 #include "hw_serial.h"
 #include "hw_udmx.h"
 #include "hw_usb.h"
@@ -18,7 +17,6 @@ void ceammc_hw_setup()
     setup_hw_apple_smc();
     setup_hw_apple_sms();
     setup_hw_cpu_temp();
-    setup_hw_cuvave_cubeturner();
     setup_hw_display();
     setup_hw_keyboard_light();
 
