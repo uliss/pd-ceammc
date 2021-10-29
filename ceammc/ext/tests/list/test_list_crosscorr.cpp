@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_data.h"
-#include "list_crosscorr.h"
+#include "list_correlate.h"
 #include "test_list_base.h"
 
 PD_COMPLETE_TEST_SETUP(ListCorrelate, list, correlate)
