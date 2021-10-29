@@ -377,6 +377,7 @@ set(DOC_FILES
     math.atan~
     math.atanh
     math.atanh~
+    math.binomial
     math.cabs~
     math.carg~
     math.cbrt

@@ -618,6 +618,8 @@ math.atan	arc tangent function
 math.atanh	inverse hyperbolic tangent function
 math.atanh~	hyperbolic arc tangent for signals
 math.atan~	arc tangent for signals
+math.binomial	binomial coefficient calculator
+math.nck	binomial coefficient calculator
 math.cabs~	magnitude of a complex signals
 ceammc/cabs~	magnitude of a complex signals
 cabs~	magnitude of a complex signals

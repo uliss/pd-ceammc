@@ -1166,6 +1166,9 @@
     <entry name="math.atan~" descr="arc tangent for signals" ref_view="object">
       <xi:include href="math.atan~.pddoc" parse="xml"/>
     </entry>
+    <entry name="math.binomial" descr="binomial coefficient calculator" ref_view="object">
+      <xi:include href="math.binomial.pddoc" parse="xml"/>
+    </entry>
     <entry name="math.cabs~" descr="magnitude of a complex signals" ref_view="object">
       <xi:include href="math.cabs~.pddoc" parse="xml"/>
     </entry>

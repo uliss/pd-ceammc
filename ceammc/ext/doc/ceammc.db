@@ -375,6 +375,7 @@ math.atan		.		.
 math.atanh		.		.
 math.atanh~		~		~
 math.atan~		~		~
+math.binomial,math.nck		.		.
 math.cabs~,ceammc/cabs~,cabs~		~~		~
 math.carg~,ceammc/carg~,carg~		~~		~
 math.cbrt		.		.

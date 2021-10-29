@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.binomial">
+        <title>math.binomial</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>binomial coefficient calculator</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math binomial</keywords>
+            <since>0.9.4</since>
+            <aliases>
+                <alias>math.nck</alias>
+            </aliases>
+        </meta>
+        <info>
+            <wiki name="Binomial_coefficient">Binomial coefficient</wiki>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo on="float">calc all coefficients for given order and output them as list</xinfo>
+                <xinfo on="list">N K pair expected. Calc and output only specified coefficient.</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>result value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[4 2( [14 9(  [S digits=16]
+|     |       |
+|     |       [sym->any]
+|     |       |
+[math.binomial]
+|
+[ui.dt]
+
+
+/*Pascal triangle. See Pd console output*/
+
+[10(
+|
+[list.seq]
+|
+[list.sep]
+|
+[math.binomial]
+|
+[print]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

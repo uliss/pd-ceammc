@@ -23,6 +23,7 @@
   - list.correlate: list cross-correlation added with O^2 complexity
   - list.rundiff: running difference (adjacent difference or partial difference)
   - list.runsum: running sum (cumulative sum or partial sum)
+  - math.binomial: binomial coefficient calculator added (with math.nck alias)
   - msg.sched: message scheduler added
   - music.dur2time: duration syntax (1/4, 2., etc.) to time converter added (with music.d->t alias)
   - music.voice2midi: single voice syntax (C, F#5, Ab(-30c), D|1/4., etc.) to midi pitch converter added (with music.v->m alias)
