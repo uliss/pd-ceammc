@@ -216,4 +216,6 @@ void setup_system_exec()
     obj.addMethod("terminate", &SystemExec::m_terminate);
     obj.addMethod("write", &SystemExec::m_write);
     obj.addMethod("eof", &SystemExec::m_eof);
+
+    obj.setXletsInfo({ "list: command name and args" }, { "int: process result code", "process output: flow of String datatypes" });
 }
