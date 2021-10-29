@@ -53,6 +53,24 @@ void RandomFloat::onBang()
     floatTo(0, dist(gen_.get()));
 }
 
+void RandomFloat::m_gen(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_NATURAL, s))
+        return;
+
+    const auto n = lv[0].asT<int>();
+
+    AtomList res;
+    res.reserve(n);
+
+    std::uniform_real_distribution<t_float> dist(min_->value(), max_->value());
+
+    for (int i = 0; i < n; i++)
+        res.append(dist(gen_.get()));
+
+    listTo(0, res);
+}
+
 void RandomFloat::onInlet(size_t n, const AtomListView& lv)
 {
     switch (n) {
@@ -81,6 +99,8 @@ void setup_random_float()
     obj.setKeywords({ "random", "float" });
     obj.setCategory("random");
     obj.setSinceVersion(0, 1);
+
+    obj.addMethod("gen", &RandomFloat::m_gen);
 
     RandomFloat::setInletsInfo(obj.classPointer(), { "bang", "float: set min value", "float: set max value" });
     RandomFloat::setOutletsInfo(obj.classPointer(), { "float: random within \\[@min..@max) range" });

@@ -59,6 +59,8 @@
 <![CDATA[
 [B] [@seed 0( [gen 5(
 |   |         |
+|   |         |
+|   |         |
 [random.int -10 10]
 |
 [ui.dt]

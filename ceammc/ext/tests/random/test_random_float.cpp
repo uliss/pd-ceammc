@@ -96,13 +96,13 @@ TEST_CASE("random.float", "[externals]")
         constexpr size_t N = 10;
 
         std::vector<t_float> v0;
-        for (int i = 0; i < N; i++) {
+        for (size_t i = 0; i < N; i++) {
             t.bang();
             v0.push_back(floatAt(t));
         }
 
         std::vector<t_float> v1;
-        for (int i = 0; i < N; i++) {
+        for (size_t i = 0; i < N; i++) {
             t.bang();
             v1.push_back(floatAt(t));
         }
@@ -110,7 +110,7 @@ TEST_CASE("random.float", "[externals]")
         REQUIRE(v0 != v1);
 
         t->setProperty("@seed", LF(1));
-        for (int i = 0; i < N; i++) {
+        for (size_t i = 0; i < N; i++) {
             t.bang();
             v1[i] = floatAt(t);
         }
@@ -136,5 +136,21 @@ TEST_CASE("random.float", "[externals]")
         t.sendListTo(LF(1, 2), 1);
         REQUIRE_PROPERTY(t, @min, 1);
         REQUIRE_PROPERTY(t, @max, 2);
+    }
+
+    SECTION("gen")
+    {
+        TExt t("random.f", 1, 2, "@seed", 100);
+
+        t.sendMessage("gen", LF(10));
+        REQUIRE(t.hasOutputAt(0));
+        const auto l0 = t.outputListAt(0);
+        REQUIRE(l0.size() == 10);
+        REQUIRE(std::all_of(l0.begin(), l0.end(), [](const Atom& a) { return a >= 1 && a < 2; }));
+        t->setProperty("@seed", LF(100));
+
+        t.sendMessage("gen", LF(10));
+        REQUIRE(t.hasOutputAt(0));
+        REQUIRE(t.outputListAt(0) == l0);
     }
 }
