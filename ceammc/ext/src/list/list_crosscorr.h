@@ -16,11 +16,13 @@
 
 #include "ceammc_data.h"
 #include "ceammc_object.h"
+#include "ceammc_property_enum.h"
 using namespace ceammc;
 
 class ListCrosscorr : public BaseObject {
     std::vector<t_float> l0_, l1_;
     AtomList lout_;
+    SymbolEnumProperty* mode_;
 
 public:
     ListCrosscorr(const PdArgs& args);
@@ -32,6 +34,7 @@ public:
 
 private:
     bool calc();
+    void output();
     void setA(const AtomListView& lv);
     void setB(const AtomListView& lv);
 };

@@ -12,11 +12,28 @@
  * this file belongs to.
  *****************************************************************************/
 #include "list_crosscorr.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "datatype_mlist.h"
 
+constexpr const char* STR_VALID = "valid";
+constexpr const char* STR_SAME = "same";
+constexpr const char* STR_FULL = "full";
+
+constexpr auto HASH_VALID = "valid"_hash;
+constexpr auto HASH_SAME = "same"_hash;
+constexpr auto HASH_FULL = "full"_hash;
+
+constexpr bool not_eq3(uint32_t a, uint32_t b, uint32_t c)
+{
+    return a != b && a != c && b != c;
+}
+
+static_assert(not_eq3(HASH_VALID, HASH_SAME, HASH_FULL), "");
+
 ListCrosscorr::ListCrosscorr(const PdArgs& args)
     : BaseObject(args)
+    , mode_(nullptr)
 {
     createInlet();
     createOutlet();
@@ -46,6 +63,13 @@ ListCrosscorr::ListCrosscorr(const PdArgs& args)
             return true;
         })
         ->setArgIndex(0);
+
+    mode_ = new SymbolEnumProperty("@mode", { STR_VALID, STR_SAME, STR_FULL });
+    addProperty(mode_);
+
+    addProperty(new SymbolEnumAlias("@valid", mode_, gensym(STR_VALID)));
+    addProperty(new SymbolEnumAlias("@same", mode_, gensym(STR_SAME)));
+    addProperty(new SymbolEnumAlias("@full", mode_, gensym(STR_FULL)));
 }
 
 void ListCrosscorr::onInlet(size_t n, const AtomListView& lv)
@@ -60,7 +84,7 @@ void ListCrosscorr::onList(const AtomList& lst)
     if (!calc())
         return;
 
-    listTo(0, lout_);
+    output();
 }
 
 void ListCrosscorr::onFloat(t_float f)
@@ -71,7 +95,7 @@ void ListCrosscorr::onFloat(t_float f)
     if (!calc())
         return;
 
-    listTo(0, lout_);
+    output();
 }
 
 void ListCrosscorr::onDataT(const MListAtom& ml)
@@ -102,6 +126,33 @@ bool ListCrosscorr::calc()
     }
 
     return true;
+}
+
+void ListCrosscorr::output()
+{
+    switch (crc32_hash(mode_->value()->s_name)) {
+    case HASH_VALID: {
+
+        const auto M = l0_.size();
+        const auto N = l1_.size();
+        const auto LRES = M + N - 1;
+        const auto LOUT = std::max(M, N) - std::min(M, N) + 1;
+        const auto OFF = (LRES - LOUT) / 2;
+
+        listTo(0, lout_.view(OFF, LOUT));
+
+    } break;
+    case HASH_SAME: {
+        const auto NS = l0_.size() + l1_.size() - 1;
+        const auto N0 = std::max(l0_.size(), l1_.size());
+        const auto off = NS - N0;
+        listTo(0, lout_.view(off / 2, N0));
+    } break;
+    case HASH_FULL:
+    default:
+        listTo(0, lout_);
+        break;
+    }
 }
 
 void ListCrosscorr::setA(const AtomListView& lv)
@@ -136,8 +187,7 @@ void ListCrosscorr::setB(const AtomListView& lv)
 
 void setup_list_crosscorr()
 {
-    ObjectFactory<ListCrosscorr> obj("list.crosscorr");
-    obj.addAlias("list.xcorr");
+    ObjectFactory<ListCrosscorr> obj("list.correlate");
     obj.processData<DataTypeMList>();
 
     obj.setXletsInfo(
