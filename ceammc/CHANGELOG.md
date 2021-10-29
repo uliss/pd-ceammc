@@ -77,6 +77,7 @@
   - math.*: any message support, multiply float atoms only
   - Up/Down key support for ui.number
   - ui.sliders: locked movemenet added with ALT pressed
+  - ui.sliders: snap to center while dragging with pressed SHIFT
   - random.float: extra inlets added for min and max values
   - random.int: extra inlets added for min and max values
   - string.split: extra inlet added for setting separator
