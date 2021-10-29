@@ -11,17 +11,36 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef LIST_CONVOLVE_H
-#define LIST_CONVOLVE_H
+#ifndef LIST_CONVOLVE_BASE_H
+#define LIST_CONVOLVE_BASE_H
 
-#include "list_convolve_base.h"
+#include "ceammc_data.h"
+#include "ceammc_object.h"
+#include "ceammc_property_enum.h"
+using namespace ceammc;
 
-class ListConvolve : public ListConvolveBase {
+class ListConvolveBase : public BaseObject {
+protected:
+    std::vector<t_float> l0_, l1_;
+    AtomList lout_;
+    SymbolEnumProperty* mode_;
+
 public:
-    ListConvolve(const PdArgs& args);
-    bool calc() final;
+    ListConvolveBase(const PdArgs& args);
+
+    void initModeProperty();
+
+    void onInlet(size_t n, const AtomListView& lv) override;
+    void onList(const AtomList& lst) override;
+    void onFloat(t_float f) override;
+    void onDataT(const MListAtom& ml);
+
+    virtual bool calc() = 0;
+
+private:
+    void setA(const AtomListView& lv);
+    void setB(const AtomListView& lv);
+    void output();
 };
 
-void setup_list_convolve();
-
-#endif // LIST_CONVOLVE_H
+#endif // LIST_CONVOLVE_BASE_H
