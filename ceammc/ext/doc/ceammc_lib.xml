@@ -922,6 +922,9 @@
     <entry name="list.convolve" descr="convolution for lists" ref_view="object">
       <xi:include href="list.convolve.pddoc" parse="xml"/>
     </entry>
+    <entry name="list.correlate" descr="list cross-correlation" ref_view="object">
+      <xi:include href="list.correlate.pddoc" parse="xml"/>
+    </entry>
     <entry name="list.count" descr="output the number of items that equal to specified value" ref_view="object">
       <xi:include href="list.count.pddoc" parse="xml"/>
     </entry>

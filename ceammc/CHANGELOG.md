@@ -20,6 +20,7 @@
   - fx.tapiir~: multitap delay with feedback (base on Faust port of Maarten de Boer, seeL https://www.researchgate.net/publication/246433873_TAPIIR_A_SOFTWARE_MULTITAP_DELAY)
   - lfo.mosc~: LFO oscillator with various waveform and runtime change between them. Sin, saw, square, pulse, triangle and positive variants of above.  
   - list.convolve: list convolution with O^2 complexity (with list.conv alias)
+  - list.correlate: list cross-correlation added with O^2 complexity
   - list.rundiff: running difference (adjacent difference or partial difference)
   - list.runsum: running sum (cumulative sum or partial sum)
   - msg.sched: message scheduler added

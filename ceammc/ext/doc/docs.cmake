@@ -296,6 +296,7 @@ set(DOC_FILES
     list.choice
     list.contains
     list.convolve
+    list.correlate
     list.count
     list.count_if
     list.delta

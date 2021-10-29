@@ -294,6 +294,7 @@ list.at		..		.
 list.choice		.		.
 list.contains		..		.
 list.convolve,list.conv		..		.
+list.correlate		..		.
 list.count		..		.
 list.count_if		..		..
 list.delta		.		.

@@ -115,7 +115,7 @@ constexpr uint32_t operator"" _hash(char const* const str, std::size_t const len
 /**
  * @param str [must be 0-terminated]
  */
-uint32_t crc32_hash(const char* str)
+inline uint32_t crc32_hash(const char* str)
 {
     uint32_t crc = crc32_hash_seed();
     char c = '\0';
