@@ -14,7 +14,8 @@
             <since>0.9.4</since>
         </meta>
         <info>
-            <par>Note: may perform slowly in large lists because it does not use the FFT to compute the convolution</par>
+            <par>Note: may perform slowly in large lists because it does not use the FFT to compute
+            the convolution</par>
         </info>
         <arguments>
             <argument type="list" name="B">second argument values</argument>
@@ -22,13 +23,13 @@
         <properties>
             <property name="@a" type="list">first argument</property>
             <property name="@b" type="list">second argument</property>
-            <property name="@mode" type="symbol" enum="valid same full">output mode.
-            'full' - output the cross-correlation at each point of overlap, with an output length of (M+N-1).
-            At the end-points of the cross-correlation, the signals do not overlap completely, and boundary effects may be seen.
-            'valid' - output of length (max(M,N)-min(M,N)+1).
-            The cross-correlation product is only given for points where the signals overlap completely.
-            Values outside the signal boundary have no effect.
-            'same' - output of length max(M,N). Boundary effects are still visible</property>
+            <property name="@mode" type="symbol" enum="valid same full">output mode. 'full' -
+            output the cross-correlation at each point of overlap, with an output length of
+            (M+N-1). At the end-points of the cross-correlation, the signals do not overlap
+            completely, and boundary effects may be seen. 'valid' - output of length
+            (max(M,N)-min(M,N)+1). The cross-correlation product is only given for points where the
+            signals overlap completely. Values outside the signal boundary have no effect. 'same' -
+            output of length max(M,N). Boundary effects are still visible</property>
             <property name="@valid" type="alias">alias to @mode valid</property>
             <property name="@same" type="alias">alias to @mode same</property>
             <property name="@full" type="alias">alias to @mode full</property>
