@@ -26,7 +26,7 @@ class SndFile : public ceammc::BaseObject {
     FlagProperty* verbose_;
     FlagProperty* debug_;
     FloatProperty* smpte_framerate_;
-    AtomList samplerates_, filenames_, samplecount_; // results of last load
+    AtomList samplerates_, filenames_, samplecount_, channels_; // results of last load
 
 public:
     SndFile(const PdArgs& a);

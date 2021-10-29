@@ -108,6 +108,7 @@ bool ArrayLoader::loadArrays(const sound::SoundFilePtr& file, bool redraw)
 {
     // clear loaded samples info
     loaded_samples_.clear();
+    loaded_channels_.clear();
 
     if (!file || !file->isOpened()) {
         err() << fmt::format("can't open file: {}\n", file->filename());
@@ -177,6 +178,7 @@ bool ArrayLoader::loadArrays(const sound::SoundFilePtr& file, bool redraw)
             }
 
             loaded_samples_.push_back(DEST_LEN);
+            loaded_channels_.push_back(channel);
 
         } else {
             if (ARRAY_SIZE <= ARRAY_OFFSET) { // write beyond file end
@@ -198,6 +200,7 @@ bool ArrayLoader::loadArrays(const sound::SoundFilePtr& file, bool redraw)
             }
 
             loaded_samples_.push_back(NIN_SAMPLES);
+            loaded_channels_.push_back(channel);
         }
 
         if (debug_) {
