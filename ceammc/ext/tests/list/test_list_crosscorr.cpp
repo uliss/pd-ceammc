@@ -28,7 +28,7 @@ TEST_CASE("list.correlate", "[externals]")
     {
         SECTION("empty")
         {
-            TObj t("list.correlate");
+            TExt t("list.correlate");
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY(t, @a, L());

@@ -21,7 +21,14 @@ ListConvolve::ListConvolve(const PdArgs& args)
     createInlet();
     createOutlet();
 
-    initModeProperty();
+    using namespace ceammc::details;
+
+    mode_ = new SymbolEnumProperty("@mode", { STR_FULL, STR_VALID, STR_SAME });
+    addProperty(mode_);
+
+    addProperty(new SymbolEnumAlias("@valid", mode_, gensym(STR_VALID)));
+    addProperty(new SymbolEnumAlias("@same", mode_, gensym(STR_SAME)));
+    addProperty(new SymbolEnumAlias("@full", mode_, gensym(STR_FULL)));
 }
 
 bool ListConvolve::calc()

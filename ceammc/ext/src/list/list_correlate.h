@@ -14,29 +14,12 @@
 #ifndef LIST_CORRELATE_H
 #define LIST_CORRELATE_H
 
-#include "ceammc_data.h"
-#include "ceammc_object.h"
-#include "ceammc_property_enum.h"
-using namespace ceammc;
+#include "list_convolve_base.h"
 
-class ListCorrelate : public BaseObject {
-    std::vector<t_float> l0_, l1_;
-    AtomList lout_;
-    SymbolEnumProperty* mode_;
-
+class ListCorrelate : public ListConvolveBase {
 public:
     ListCorrelate(const PdArgs& args);
-
-    void onInlet(size_t n, const AtomListView& lv) override;
-    void onList(const AtomList& lst) override;
-    void onFloat(t_float f) override;
-    void onDataT(const MListAtom& ml);
-
-private:
-    bool calc();
-    void output();
-    void setA(const AtomListView& lv);
-    void setB(const AtomListView& lv);
+    bool calc() override;
 };
 
 void setup_list_correlate();

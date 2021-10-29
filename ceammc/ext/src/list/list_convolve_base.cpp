@@ -12,18 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "list_convolve_base.h"
-#include "ceammc_crc32.h"
 #include "datatype_mlist.h"
-
-constexpr const char* STR_VALID = "valid";
-constexpr const char* STR_SAME = "same";
-constexpr const char* STR_FULL = "full";
-
-constexpr auto HASH_VALID = "valid"_hash;
-constexpr auto HASH_SAME = "same"_hash;
-constexpr auto HASH_FULL = "full"_hash;
-
-static_assert(check_crc32_unique(HASH_VALID, HASH_SAME, HASH_FULL), "");
 
 ListConvolveBase::ListConvolveBase(const PdArgs& args)
     : BaseObject(args)
@@ -54,16 +43,6 @@ ListConvolveBase::ListConvolveBase(const PdArgs& args)
             return true;
         })
         ->setArgIndex(0);
-}
-
-void ListConvolveBase::initModeProperty()
-{
-    mode_ = new SymbolEnumProperty("@mode", { STR_FULL, STR_VALID, STR_SAME });
-    addProperty(mode_);
-
-    addProperty(new SymbolEnumAlias("@valid", mode_, gensym(STR_VALID)));
-    addProperty(new SymbolEnumAlias("@same", mode_, gensym(STR_SAME)));
-    addProperty(new SymbolEnumAlias("@full", mode_, gensym(STR_FULL)));
 }
 
 void ListConvolveBase::setA(const AtomListView& lv)
@@ -134,6 +113,8 @@ void ListConvolveBase::output()
         listTo(0, lout_);
         return;
     }
+
+    using namespace ceammc::details;
 
     switch (crc32_hash(mode_->value()->s_name)) {
     case HASH_VALID: {
