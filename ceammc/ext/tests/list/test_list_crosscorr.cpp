@@ -107,5 +107,19 @@ TEST_CASE("list.correlate", "[externals]")
             REQUIRE_CORR(t, LF(1, 2, 3), LF(1, 0, 2, 5), LF(5, 12, 19, 7, 2, 3));
             REQUIRE_CORR(t, LF(1, 2, 3), LF(1, 0, 2, 5, -1), LF(-1, 3, 9, 19, 7, 2, 3));
         }
+
+        SECTION("same")
+        {
+            TExt t("list.correlate", LA("@same"));
+            REQUIRE_PROPERTY(t, @mode, LA("same"));
+
+            REQUIRE_CORR(t, LF(1, 2, 3), LF(2), LF(2, 4, 6));
+            REQUIRE_CORR(t, LF(1, 2, 3), LF(0.5), LF(0.5, 1, 1.5));
+
+            REQUIRE_CORR(t, LF(1, 2, 3), LF(1, 0), LF(0, 1, 2));
+            REQUIRE_CORR(t, LF(1, 2, 3), LF(1, 0, 2), LF(4, 7, 2));
+            REQUIRE_CORR(t, LF(1, 2, 3), LF(1, 0, 2, 5), LF(12, 19, 7, 2));
+            REQUIRE_CORR(t, LF(1, 2, 3), LF(1, 0, 2, 5, -1), LF(3, 9, 19, 7, 2));
+        }
     }
 }
