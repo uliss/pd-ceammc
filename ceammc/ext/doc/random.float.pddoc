@@ -41,6 +41,12 @@
             <inlet>
                 <xinfo on="bang">generate new number</xinfo>
             </inlet>
+            <inlet>
+                <xinfo on="float">set @min property</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="float">set @max property</xinfo>
+            </inlet>
         </inlets>
         <outlets>
             <outlet>result value</outlet>
@@ -54,7 +60,7 @@
 |    |
 [random.float 1 3]
 |
-[F]
+[ui.dt]
 ]]>
             </pdascii>
         </example>

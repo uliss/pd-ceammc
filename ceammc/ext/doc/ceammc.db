@@ -564,7 +564,7 @@ proto.xtouch_ext		.		..
 radio,ceammc/radio		.		?
 random.atom,random.a		.		.
 random.discrete		.		.
-random.float,random.f		.		.
+random.float,random.f		...		.
 random.gauss		.		.
 random.int,random.i		.		.
 random.linear		.		.

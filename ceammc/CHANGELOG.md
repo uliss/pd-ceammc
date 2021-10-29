@@ -73,6 +73,7 @@
   - math.*: any message support, multiply float atoms only
   - Up/Down key support for ui.number
   - ui.sliders: locked movemenet added with ALT pressed
+  - random.float: separate inlets added for min and max values
   
 ### Fixed:
 - flow.space: reset message fix - can not use object after reset

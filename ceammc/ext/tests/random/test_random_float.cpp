@@ -25,7 +25,7 @@ TEST_CASE("random.float", "[externals]")
         SECTION("default")
         {
             TObj t("random.float");
-            REQUIRE(t.numInlets() == 1);
+            REQUIRE(t.numInlets() == 3);
             REQUIRE(t.numOutlets() == 1);
 
             REQUIRE_PROPERTY(t, @min, 0);
@@ -36,7 +36,7 @@ TEST_CASE("random.float", "[externals]")
         SECTION("args max")
         {
             TObj t("random.float", LF(2));
-            REQUIRE(t.numInlets() == 1);
+            REQUIRE(t.numInlets() == 3);
             REQUIRE(t.numOutlets() == 1);
 
             REQUIRE_PROPERTY(t, @min, 0);
@@ -46,7 +46,7 @@ TEST_CASE("random.float", "[externals]")
         SECTION("args min/max")
         {
             TObj t("random.float", LF(-1, 2));
-            REQUIRE(t.numInlets() == 1);
+            REQUIRE(t.numInlets() == 3);
             REQUIRE(t.numOutlets() == 1);
 
             REQUIRE_PROPERTY(t, @min, -1);
@@ -56,8 +56,6 @@ TEST_CASE("random.float", "[externals]")
         SECTION("properties")
         {
             TObj t("random.float", LA("@max", 3, "@min", 1));
-            REQUIRE(t.numInlets() == 1);
-            REQUIRE(t.numOutlets() == 1);
 
             REQUIRE_PROPERTY(t, @min, 1);
             REQUIRE_PROPERTY(t, @max, 3);
@@ -118,5 +116,25 @@ TEST_CASE("random.float", "[externals]")
         }
 
         REQUIRE(v0 == v1);
+    }
+
+    SECTION("inlets")
+    {
+        TExt t("random.float", 3, 4);
+
+        REQUIRE_PROPERTY(t, @min, 3);
+        REQUIRE_PROPERTY(t, @max, 4);
+
+        t.sendFloatTo(-100, 1);
+        REQUIRE_PROPERTY(t, @min, -100);
+        REQUIRE_PROPERTY(t, @max, 4);
+
+        t.sendFloatTo(200, 2);
+        REQUIRE_PROPERTY(t, @min, -100);
+        REQUIRE_PROPERTY(t, @max, 200);
+
+        t.sendListTo(LF(1, 2), 1);
+        REQUIRE_PROPERTY(t, @min, 1);
+        REQUIRE_PROPERTY(t, @max, 2);
     }
 }
