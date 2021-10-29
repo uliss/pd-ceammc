@@ -11,6 +11,7 @@ void setup_list_contains();
 void setup_list_convolve();
 void setup_list_count();
 void setup_list_count_if();
+void setup_list_crosscorr();
 void setup_list_delta();
 void setup_list_distribution();
 void setup_list_do();
@@ -79,6 +80,7 @@ void ceammc_list_setup()
     setup_list_convolve();
     setup_list_count();
     setup_list_count_if();
+    setup_list_crosscorr();
     setup_list_delta();
     setup_list_distribution();
     setup_list_do();
