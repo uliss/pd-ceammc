@@ -14,6 +14,7 @@
 #ifndef LIST_CROSSCORR_H
 #define LIST_CROSSCORR_H
 
+#include "ceammc_data.h"
 #include "ceammc_object.h"
 using namespace ceammc;
 
@@ -27,6 +28,7 @@ public:
     void onInlet(size_t n, const AtomListView& lv) override;
     void onList(const AtomList& lst) override;
     void onFloat(t_float f) override;
+    void onDataT(const MListAtom& ml);
 
 private:
     bool calc();

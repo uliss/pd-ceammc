@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "list_crosscorr.h"
 #include "ceammc_factory.h"
+#include "datatype_mlist.h"
 
 ListCrosscorr::ListCrosscorr(const PdArgs& args)
     : BaseObject(args)
@@ -73,6 +74,11 @@ void ListCrosscorr::onFloat(t_float f)
     listTo(0, lout_);
 }
 
+void ListCrosscorr::onDataT(const MListAtom& ml)
+{
+    onList(ml->data());
+}
+
 bool ListCrosscorr::calc()
 {
     if (l0_.empty()) {
@@ -103,8 +109,14 @@ void ListCrosscorr::setA(const AtomListView& lv)
     l0_.clear();
     l0_.reserve(lv.size());
 
-    for (auto& a : lv)
-        l0_.push_back(a.toT<t_float>(0));
+    if (lv.isA<DataTypeMList>()) {
+        auto data = lv.asD<DataTypeMList>();
+        for (auto& a : *data)
+            l0_.push_back(a.toT<t_float>(0));
+    } else {
+        for (auto& a : lv)
+            l0_.push_back(a.toT<t_float>(0));
+    }
 }
 
 void ListCrosscorr::setB(const AtomListView& lv)
@@ -112,14 +124,21 @@ void ListCrosscorr::setB(const AtomListView& lv)
     l1_.clear();
     l1_.reserve(lv.size());
 
-    for (auto& a : lv)
-        l1_.push_back(a.toT<t_float>(0));
+    if (lv.isA<DataTypeMList>()) {
+        auto data = lv.asD<DataTypeMList>();
+        for (auto& a : *data)
+            l1_.push_back(a.toT<t_float>(0));
+    } else {
+        for (auto& a : lv)
+            l1_.push_back(a.toT<t_float>(0));
+    }
 }
 
 void setup_list_crosscorr()
 {
     ObjectFactory<ListCrosscorr> obj("list.crosscorr");
     obj.addAlias("list.xcorr");
+    obj.processData<DataTypeMList>();
 
     obj.setXletsInfo(
         { "list: set first cross-correlation arg then calculate",
