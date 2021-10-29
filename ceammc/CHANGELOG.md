@@ -47,6 +47,7 @@
 - new properties:
   - lfo.+saw~, lfo.saw~, lfo.+tri~, lfo.tri~, lfo.+square~, lfo.square~, lfo.+pulse~, lfo.pulse~: @phase and @pause properties added
   - ui.knob: @show_value property added
+  - string.split: @sym flag added to split to list of Pd symbols
   - fluid~: @volume property added to set output level in db
   - system.cursor: @norm property added for cursor coordinates normalization by screen (or window) size
   - hoa.process~: @args property added
@@ -77,6 +78,7 @@
   - ui.sliders: locked movemenet added with ALT pressed
   - random.float: extra inlets added for min and max values
   - random.int: extra inlets added for min and max values
+  - string.split: extra inlet added for setting separator
   
 ### Fixed:
 - flow.space: reset message fix - can not use object after reset

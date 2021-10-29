@@ -28,7 +28,7 @@ TEST_CASE("string.split", "[external]")
     SECTION("process")
     {
         TObj t("str.split");
-        REQUIRE(t.numInlets() == 1);
+        REQUIRE(t.numInlets() == 2);
         REQUIRE(t.numOutlets() == 1);
 
         WHEN_SEND_BANG_TO(0, t);
@@ -116,5 +116,14 @@ TEST_CASE("string.split", "[external]")
 
         t << "A|B|C";
         REQUIRE(t.outputListAt(0) == LA("A", "B", "C"));
+    }
+
+    SECTION("inlets")
+    {
+        TExt t("str.split", LA("@sep", "_"));
+        REQUIRE_PROPERTY(t, @sep, "_");
+
+        t.sendSymbolTo(SYM("..."), 1);
+        REQUIRE_PROPERTY(t, @sep, "...");
     }
 }

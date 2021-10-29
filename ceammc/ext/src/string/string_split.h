@@ -16,17 +16,22 @@
 
 #include "ceammc_data.h"
 #include "ceammc_object.h"
+#include "ceammc_property.h"
 
 using namespace ceammc;
 
 class StringSplit : public BaseObject {
     AtomList tokens_;
-    std::string sep_;
+    std::string str_sep_;
+    SymbolProperty* sep_;
     FlagProperty* sym_;
 
 public:
     StringSplit(const PdArgs& a);
+
     void onSymbol(t_symbol* s) override;
+    void onInlet(size_t n, const AtomListView& lv) override;
+
     void onDataT(const StringAtom& str);
 
 private:

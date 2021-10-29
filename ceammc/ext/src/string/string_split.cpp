@@ -18,12 +18,15 @@
 
 StringSplit::StringSplit(const PdArgs& a)
     : BaseObject(a)
+    , sep_(nullptr)
     , sym_(nullptr)
 {
+    createInlet();
     createOutlet();
 
-    addProperty(new SymbolProperty("@sep", &s_))
-        ->setSuccessFn([this](Property* p) { sep_ = to_string(p->get()); });
+    sep_ = new SymbolProperty("@sep", &s_);
+    addProperty(sep_);
+    sep_->setSuccessFn([this](Property* p) { str_sep_ = to_string(p->get()); });
     property("@sep")->setArgIndex(0);
 
     sym_ = new FlagProperty("@sym");
@@ -36,6 +39,12 @@ void StringSplit::onSymbol(t_symbol* s)
     output();
 }
 
+void StringSplit::onInlet(size_t n, const AtomListView& lv)
+{
+    if (n == 1)
+        sep_->setList(lv);
+}
+
 void StringSplit::onDataT(const StringAtom& str)
 {
     split(*str);
@@ -46,7 +55,7 @@ void StringSplit::split(const DataTypeString& s)
 {
     tokens_.clear();
     std::vector<std::string> tokens;
-    s.split(tokens, sep_);
+    s.split(tokens, str_sep_);
 
     if (sym_->value()) {
         for (auto& x : tokens)
@@ -69,4 +78,6 @@ void setup_string_split()
     obj.addAlias("str.split");
     obj.parseArgsMode(PdArgs::PARSE_UNQUOTE);
     obj.parsePropsMode(PdArgs::PARSE_UNQUOTE);
+
+    obj.setXletsInfo({ "symbol or data:String", "symbol: set split symbol" }, { "list of data:Strings or symbols" });
 }
