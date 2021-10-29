@@ -35,11 +35,11 @@ public:
         createOutlet();
     }
 
-    bool processAnyProps(t_symbol* sel, const AtomListView& lst) override
+    bool processAnyProps(t_symbol* sel, const AtomListView& lv) override
     {
         // intercept @gate call
         if (sel == gensym("@gate")) {
-            if (lst.boolAt(0, false)) {
+            if (lv.boolAt(0, false)) {
                 clockReset();
                 ad_done_.delay(prop_attack_->value() + prop_decay_->value());
             } else {
@@ -48,7 +48,7 @@ public:
             }
         }
 
-        return faust_env_adsr_tilde::processAnyProps(sel, lst);
+        return faust_env_adsr_tilde::processAnyProps(sel, lv);
     }
 
     void onList(const AtomList& l) override
