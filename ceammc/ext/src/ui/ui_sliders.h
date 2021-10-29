@@ -32,6 +32,7 @@ private:
     t_symbol* prop_auto_range_mode;
     int prop_auto_count;
     int prop_show_range;
+    int prop_show_lines;
     int prop_count;
     char c_min[16];
     char c_max[16];

@@ -116,6 +116,13 @@ void UISliders::paint()
             rgba_to_hex_int(prop_color_label),
             c_min, c_max);
     }
+
+    if (prop_show_lines) {
+        sys_vgui("ui::sliders_draw_lines %s %lx %d %d %d #%6.6x\n",
+            asEBox()->b_canvas_id->s_name, asEBox(),
+            (int)width(), (int)height(), (int)zoom(),
+            rgba_to_hex_int(prop_slider_color));
+    }
 }
 
 void UISliders::paintSliders()
@@ -688,6 +695,7 @@ void UISliders::setup()
 
     obj.addProperty("show_range", _("Show range"), true, &UISliders::prop_show_range, "Main");
     obj.addProperty("auto_count", _("Auto count"), false, &UISliders::prop_auto_count, "Main");
+    obj.addProperty("show_lines", _("Show lines"), false, &UISliders::prop_show_lines, "Main");
 
     obj.addProperty("range", &UISliders::propRange, 0);
     obj.addProperty("value", &UISliders::propValue, 0);

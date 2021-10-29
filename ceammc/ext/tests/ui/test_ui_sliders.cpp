@@ -33,6 +33,7 @@ TEST_CASE("ui.sliders", "[ui.sliders]")
         REQUIRE_UI_LIST_PROPERTY(t, "auto_range_mode", LA("none"));
         REQUIRE_UI_FLOAT_PROPERTY(t, "auto_count", 0);
         REQUIRE_UI_FLOAT_PROPERTY(t, "show_range", 1);
+        REQUIRE_UI_FLOAT_PROPERTY(t, "show_range", 0);
         REQUIRE_UI_LIST_PROPERTY(t, "size", LF(150, 100));
         REQUIRE_UI_LIST_PROPERTY(t, "value", AtomList::zeroes(8));
         REQUIRE(t->realValues() == AtomList::zeroes(8));

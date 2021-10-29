@@ -51,6 +51,7 @@
   - fluid~: @volume property added to set output level in db
   - system.cursor: @norm property added for cursor coordinates normalization by screen (or window) size
   - hoa.process~: @args property added
+  - ui.sliders: @show_lines to show central line ruler
 - new methods:
   - random.float: [gen N( method added for generating list of random numbers
   - random.int: [gen N( method added for generating list of random numbers
