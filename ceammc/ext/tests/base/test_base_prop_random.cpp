@@ -175,7 +175,6 @@ TEST_CASE("prop.random", "[externals]")
         REQUIRE(tp->fp6_->value() == out);
 
         t.sendBang();
-        REQUIRE(tp->fp6_->value() != out);
     }
 
     SECTION("int not bounded prop")
@@ -215,7 +214,6 @@ TEST_CASE("prop.random", "[externals]")
         REQUIRE(tp->ip3_->value() == out);
 
         t.sendBang();
-        REQUIRE(tp->ip3_->value() != out);
     }
 
     SECTION("bool prop ok")
@@ -238,5 +236,31 @@ TEST_CASE("prop.random", "[externals]")
         REQUIRE(t.hasOutputAt(1));
         const auto out = t.outputSymbolAt(1);
         REQUIRE(tp->senum0_->value() == out);
+    }
+
+    SECTION("multiple props")
+    {
+        TExt t("prop.random", LA("@fp6", "@ip3", "@unknown"));
+        REQUIRE(t.numInlets() == 3);
+        REQUIRE(t.numOutlets() == 2);
+
+        TProp tp("test.rp");
+        REQUIRE(t.connectTo(0, tp, 0));
+        auto ip = tp->ip3_->value();
+
+        t.sendBangTo(0);
+        REQUIRE(ip == tp->ip3_->value());
+        REQUIRE(t.outputFloatAt(1) == tp->fp6_->value());
+
+        auto fp = tp->fp6_->value();
+        t.sendBangTo(1);
+        REQUIRE(fp == tp->fp6_->value());
+        ip = tp->ip3_->value();
+        REQUIRE(t.outputFloatAt(1) == tp->ip3_->value());
+
+        t.sendBangTo(2);
+        REQUIRE(!t.hasOutput());
+        REQUIRE(fp == tp->fp6_->value());
+        REQUIRE(ip == tp->ip3_->value());
     }
 }
