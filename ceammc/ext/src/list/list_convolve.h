@@ -16,11 +16,13 @@
 
 #include "ceammc_data.h"
 #include "ceammc_object.h"
+#include "ceammc_property_enum.h"
 using namespace ceammc;
 
 class ListConvolve : public BaseObject {
     std::vector<t_float> l0_, l1_;
     AtomList lout_;
+    SymbolEnumProperty* mode_;
 
 public:
     ListConvolve(const PdArgs& args);
@@ -31,6 +33,7 @@ public:
     void onDataT(const MListAtom& ml);
 
 private:
+    void output();
     bool convolve();
     void setA(const AtomListView& lv);
     void setB(const AtomListView& lv);

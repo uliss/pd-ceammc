@@ -12,11 +12,23 @@
  * this file belongs to.
  *****************************************************************************/
 #include "list_convolve.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "datatype_mlist.h"
 
+constexpr const char* STR_VALID = "valid";
+constexpr const char* STR_SAME = "same";
+constexpr const char* STR_FULL = "full";
+
+constexpr auto HASH_VALID = "valid"_hash;
+constexpr auto HASH_SAME = "same"_hash;
+constexpr auto HASH_FULL = "full"_hash;
+
+static_assert(check_crc32_unique(HASH_VALID, HASH_SAME, HASH_FULL), "");
+
 ListConvolve::ListConvolve(const PdArgs& args)
     : BaseObject(args)
+    , mode_(nullptr)
 {
     createInlet();
     createOutlet();
@@ -46,6 +58,13 @@ ListConvolve::ListConvolve(const PdArgs& args)
             return true;
         })
         ->setArgIndex(0);
+
+    mode_ = new SymbolEnumProperty("@mode", { STR_FULL, STR_VALID, STR_SAME });
+    addProperty(mode_);
+
+    addProperty(new SymbolEnumAlias("@valid", mode_, gensym(STR_VALID)));
+    addProperty(new SymbolEnumAlias("@same", mode_, gensym(STR_SAME)));
+    addProperty(new SymbolEnumAlias("@full", mode_, gensym(STR_FULL)));
 }
 
 void ListConvolve::onInlet(size_t n, const AtomListView& lv)
@@ -60,7 +79,7 @@ void ListConvolve::onList(const AtomList& lst)
     if (!convolve())
         return;
 
-    listTo(0, lout_);
+    output();
 }
 
 void ListConvolve::onFloat(t_float f)
@@ -71,7 +90,34 @@ void ListConvolve::onFloat(t_float f)
     if (!convolve())
         return;
 
-    listTo(0, lout_);
+    output();
+}
+
+void ListConvolve::output()
+{
+    switch (crc32_hash(mode_->value()->s_name)) {
+    case HASH_VALID: {
+
+        const auto M = l0_.size();
+        const auto N = l1_.size();
+        const auto LRES = M + N - 1;
+        const auto LOUT = std::max(M, N) - std::min(M, N) + 1;
+        const auto OFF = (LRES - LOUT) / 2;
+
+        listTo(0, lout_.view(OFF, LOUT));
+
+    } break;
+    case HASH_SAME: {
+        const auto NS = l0_.size() + l1_.size() - 1;
+        const auto N0 = std::max(l0_.size(), l1_.size());
+        const auto off = NS - N0;
+        listTo(0, lout_.view(off / 2, N0));
+    } break;
+    case HASH_FULL:
+    default:
+        listTo(0, lout_);
+        break;
+    }
 }
 
 void ListConvolve::onDataT(const MListAtom& ml)

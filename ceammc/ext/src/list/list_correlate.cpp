@@ -24,12 +24,7 @@ constexpr auto HASH_VALID = "valid"_hash;
 constexpr auto HASH_SAME = "same"_hash;
 constexpr auto HASH_FULL = "full"_hash;
 
-constexpr bool not_eq3(uint32_t a, uint32_t b, uint32_t c)
-{
-    return a != b && a != c && b != c;
-}
-
-static_assert(not_eq3(HASH_VALID, HASH_SAME, HASH_FULL), "");
+static_assert(check_crc32_unique(HASH_VALID, HASH_SAME, HASH_FULL), "");
 
 ListCorrelate::ListCorrelate(const PdArgs& args)
     : BaseObject(args)

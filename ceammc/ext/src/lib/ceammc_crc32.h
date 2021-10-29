@@ -132,6 +132,26 @@ inline uint32_t crc32_hash(const std::string& str)
     return crc32_hash(str.data());
 }
 
+constexpr bool check_crc32_unique(uint32_t a, uint32_t b)
+{
+    return a != b;
+}
+
+constexpr bool check_crc32_unique(uint32_t a, uint32_t b, uint32_t c)
+{
+    return check_crc32_unique(a, b) && a != c && b != c;
+}
+
+constexpr bool check_crc32_unique(uint32_t a, uint32_t b, uint32_t c, uint32_t d)
+{
+    return check_crc32_unique(a, b, c) && a != d && b != d && c != d;
+}
+
+constexpr bool check_crc32_unique(uint32_t a, uint32_t b, uint32_t c, uint32_t d, uint32_t e)
+{
+    return check_crc32_unique(a, b, c, d) && a != e && b != e && c != e && d != e;
+}
+
 }
 
 #endif
