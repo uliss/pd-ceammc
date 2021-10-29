@@ -185,7 +185,7 @@ void ListCorrelate::setB(const AtomListView& lv)
     }
 }
 
-void setup_list_crosscorr()
+void setup_list_correlate()
 {
     ObjectFactory<ListCorrelate> obj("list.correlate");
     obj.processData<DataTypeMList>();

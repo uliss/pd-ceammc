@@ -39,6 +39,6 @@ private:
     void setB(const AtomListView& lv);
 };
 
-void setup_list_crosscorr();
+void setup_list_correlate();
 
 #endif // LIST_CORRELATE_H
