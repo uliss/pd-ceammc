@@ -148,4 +148,21 @@ TEST_CASE("random.int", "[externals]")
         REQUIRE_PROPERTY(t, @min, 1);
         REQUIRE_PROPERTY(t, @max, 2);
     }
+
+    SECTION("gen")
+    {
+        TExt t("random.i", 1, 2, "@seed", 100);
+
+        t.sendMessage("gen", LF(10));
+        REQUIRE(t.hasOutputAt(0));
+        const auto l0 = t.outputListAt(0);
+        REQUIRE(l0.size() == 10);
+        REQUIRE(std::all_of(l0.begin(), l0.end(), [](const Atom& a) { return a == 1 || a == 2; }));
+        t->setProperty("@seed", LF(100));
+
+        t.sendMessage("gen", LF(10));
+        REQUIRE(t.hasOutputAt(0));
+        REQUIRE(t.outputListAt(0) == l0);
+        REQUIRE(std::all_of(l0.begin(), l0.end(), [](const Atom& a) { return a == 1 || a == 2; }));
+    }
 }

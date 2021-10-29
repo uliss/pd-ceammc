@@ -51,6 +51,7 @@
   - system.cursor: @norm property added for cursor coordinates normalization by screen (or window) size
   - hoa.process~: @args property added
 - new methods:
+  - random.int: [gen N( method added for generating list of random numbers
   - seq.phasor: [phase( method added to set current phase
   - ui.slider: [random( method added and [set random( args support added
   - ui.knob: [random( method added and [set random( args support added

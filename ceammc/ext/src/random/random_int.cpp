@@ -71,6 +71,24 @@ void RandomInt::onInlet(size_t n, const AtomListView& lv)
     }
 }
 
+void RandomInt::m_gen(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_NATURAL, s))
+        return;
+
+    const auto n = lv[0].asT<int>();
+
+    AtomList res;
+    res.reserve(n);
+
+    std::uniform_int_distribution<int> dist(min_->value(), max_->value());
+
+    for (int i = 0; i < n; i++)
+        res.append(dist(gen_.get()));
+
+    listTo(0, res);
+}
+
 void setup_random_int()
 {
     ObjectFactory<RandomInt> obj("random.int");
@@ -81,6 +99,8 @@ void setup_random_int()
     obj.setKeywords({ "random", "int" });
     obj.setCategory("random");
     obj.setSinceVersion(0, 1);
+
+    obj.addMethod("gen", &RandomInt::m_gen);
 
     RandomInt::setInletsInfo(obj.classPointer(), { "bang", "int: set min value", "int: set max value" });
     RandomInt::setOutletsInfo(obj.classPointer(), { "int: random in \\[@min..@max\\] range" });
