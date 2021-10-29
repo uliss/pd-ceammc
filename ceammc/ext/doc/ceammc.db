@@ -566,7 +566,7 @@ random.atom,random.a		.		.
 random.discrete		.		.
 random.float,random.f		...		.
 random.gauss		.		.
-random.int,random.i		.		.
+random.int,random.i		...		.
 random.linear		.		.
 random.pw_const		.		.
 random.pw_lin		.		.

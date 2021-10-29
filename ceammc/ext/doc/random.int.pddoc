@@ -38,7 +38,13 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">generates random number</xinfo>
+                <xinfo on="bang">generate new number</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="int">set @min property</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="int">set @max property</xinfo>
             </inlet>
         </inlets>
         <outlets>
