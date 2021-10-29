@@ -17,7 +17,8 @@
             </aliases>
         </meta>
         <info>
-            <par>Note: Complexity is O^2, so it's not suitable for long lists</par>
+            <par>Note: may perform slowly in large lists because it does not use the FFT to compute
+            the convolution</par>
         </info>
         <arguments>
             <argument type="list" name="B">second argument values</argument>
