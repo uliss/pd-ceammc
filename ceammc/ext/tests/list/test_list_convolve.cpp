@@ -33,6 +33,10 @@ TEST_CASE("list.convolve", "[externals]")
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY(t, @a, L());
             REQUIRE_PROPERTY(t, @b, L());
+            REQUIRE_PROPERTY(t, @mode, "full");
+            REQUIRE_PROPERTY(t, @full, 1);
+            REQUIRE_PROPERTY(t, @valid, 0.);
+            REQUIRE_PROPERTY(t, @same, 0.);
         }
 
         SECTION("args")
