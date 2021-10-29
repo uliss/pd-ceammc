@@ -28,6 +28,7 @@ class RandomInt : public BaseObject {
 public:
     RandomInt(const PdArgs& a);
     void onBang() override;
+    void onInlet(size_t n, const AtomListView& lv) override;
 };
 
 void setup_random_int();
