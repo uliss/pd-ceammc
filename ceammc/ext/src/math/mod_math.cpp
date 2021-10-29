@@ -9,6 +9,7 @@ void setup_math_asin();
 void setup_math_asinh();
 void setup_math_atan();
 void setup_math_atanh();
+void setup_math_binomial();
 void setup_math_cabs_tilde();
 void setup_math_carg_tilde();
 void setup_math_cbrt();
@@ -62,6 +63,7 @@ void ceammc_math_setup()
     setup_math_asinh();
     setup_math_atan();
     setup_math_atanh();
+    setup_math_binomial();
     setup_math_cabs_tilde();
     setup_math_carg_tilde();
     setup_math_cbrt();

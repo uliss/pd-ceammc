@@ -53,6 +53,7 @@ ceammc_mathxx_external(inf)
 
 ceammc_mathxx_external(and)
 ceammc_mathxx_external(approx)
+ceammc_mathxx_external(binomial)
 ceammc_mathxx_external(cabs_tilde)
 ceammc_mathxx_external(carg_tilde)
 ceammc_mathxx_external(cdiv_tilde)
