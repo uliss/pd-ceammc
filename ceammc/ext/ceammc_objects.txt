@@ -38,6 +38,7 @@ apf->biquad
 approx
 array.bpm
 array.circular~
+array.convolve
 array.copy
 array.do
 array.each
@@ -520,7 +521,6 @@ hw.apple_smc
 hw.apple_sms
 hw.arduino
 hw.cpu_temp
-hw.cubeturner
 hw.display
 hw.kbd_light
 hw.serial
@@ -569,6 +569,9 @@ list.at
 list.average
 list.choice
 list.contains
+list.conv
+list.convolve
+list.correlate
 list.count
 list.count_if
 list.deinterleave
@@ -689,6 +692,7 @@ math.atan
 math.atanh
 math.atanh~
 math.atan~
+math.binomial
 math.cabs~
 math.carg~
 math.cbrt
@@ -730,6 +734,7 @@ math.log~
 math.mul
 math.nan
 math.nan~
+math.nck
 math.neg
 math.or
 math.pi

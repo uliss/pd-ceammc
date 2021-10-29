@@ -92,18 +92,18 @@
     }}
     {list {
         list.^at list.^contains list.^search list.all_of list.any_of
-        list.append list.apply_to list.at list.choice list.contains list.count
-        list.count_if list.delta list.distribution list.do list.each
-        list.enumerate list.equal list.first list.gen list.histogram
-        list.insert list.integrator list.last list.length list.max list.mean
-        list.min list.none_of list.normalize list.pass_if list.prepend
-        list.product list.range list.reduce list.remove list.remove_if
-        list.repack list.repeat list.resample list.resize list.reverse
-        list.rldecode list.rlencode list.rotate list.route list.rundiff
-        list.runsum list.search list.separate list.seq list.set list.shift
-        list.shuffle list.slice list.sort list.sort_with list.split
-        list.stretch list.sum list.unique list.unpack list.unzip list.walk
-        list.zip
+        list.append list.apply_to list.at list.choice list.contains
+        list.convolve list.correlate list.count list.count_if list.delta
+        list.distribution list.do list.each list.enumerate list.equal
+        list.first list.gen list.histogram list.insert list.integrator
+        list.last list.length list.max list.mean list.min list.none_of
+        list.normalize list.pass_if list.prepend list.product list.range
+        list.reduce list.remove list.remove_if list.repack list.repeat
+        list.resample list.resize list.reverse list.rldecode list.rlencode
+        list.rotate list.route list.rundiff list.runsum list.search
+        list.separate list.seq list.set list.shift list.shuffle list.slice
+        list.sort list.sort_with list.split list.stretch list.sum list.unique
+        list.unpack list.unzip list.walk list.zip
     }}
     {live {
         live.capture~
@@ -114,21 +114,21 @@
     {math {
         math.abs math.abs~ math.acos math.acosh math.acosh~ math.acos~
         math.and math.approx math.asin math.asinh math.asinh~ math.asin~
-        math.atan math.atanh math.atanh~ math.atan~ math.cabs~ math.carg~
-        math.cbrt math.cbrt~ math.cdiv~ math.ceil math.ceil~ math.cexp~
-        math.cmul~ math.cos math.cosh math.cosh~ math.cos~ math.div math.e
-        math.erf math.erf~ math.exp math.exp2 math.exp2~ math.expr math.exp~
-        math.floor math.floor~ math.gamma math.gamma~ math.gcd math.inf
-        math.inf~ math.lcm math.lgamma math.lgamma~ math.log math.log10
-        math.log10~ math.log2 math.log2~ math.log~ math.mul math.nan math.nan~
-        math.neg math.or math.pi math.pi~ math.polyeval math.reciprocal
-        math.reciprocal~ math.round math.round~ math.sign math.sin math.sinh
-        math.sinh~ math.sin~ math.sqrt math.sqrt~ math.squared math.squared~
-        math.sync_add math.sync_and math.sync_div math.sync_eq math.sync_ge
-        math.sync_gt math.sync_le math.sync_lshift math.sync_lt math.sync_mod
-        math.sync_mul math.sync_ne math.sync_or math.sync_rshift math.sync_sub
-        math.sync_xor math.tan math.tanh math.tanh~ math.tan~ math.trunc
-        math.trunc~
+        math.atan math.atanh math.atanh~ math.atan~ math.binomial math.cabs~
+        math.carg~ math.cbrt math.cbrt~ math.cdiv~ math.ceil math.ceil~
+        math.cexp~ math.cmul~ math.cos math.cosh math.cosh~ math.cos~ math.div
+        math.e math.erf math.erf~ math.exp math.exp2 math.exp2~ math.expr
+        math.exp~ math.floor math.floor~ math.gamma math.gamma~ math.gcd
+        math.inf math.inf~ math.lcm math.lgamma math.lgamma~ math.log
+        math.log10 math.log10~ math.log2 math.log2~ math.log~ math.mul
+        math.nan math.nan~ math.neg math.or math.pi math.pi~ math.polyeval
+        math.reciprocal math.reciprocal~ math.round math.round~ math.sign
+        math.sin math.sinh math.sinh~ math.sin~ math.sqrt math.sqrt~
+        math.squared math.squared~ math.sync_add math.sync_and math.sync_div
+        math.sync_eq math.sync_ge math.sync_gt math.sync_le math.sync_lshift
+        math.sync_lt math.sync_mod math.sync_mul math.sync_ne math.sync_or
+        math.sync_rshift math.sync_sub math.sync_xor math.tan math.tanh
+        math.tanh~ math.tan~ math.trunc math.trunc~
     }}
     {midi {
         midi.cc midi.clock midi.ctl2str midi.event2ctl midi.event2note
