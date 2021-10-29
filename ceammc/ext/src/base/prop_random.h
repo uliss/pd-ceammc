@@ -22,6 +22,7 @@ using namespace ceammc;
 class PropRandom : public BaseObject {
     std::default_random_engine rnd_;
     std::vector<t_symbol*> props_;
+    IntProperty* seed_;
 
 public:
     PropRandom(const PdArgs& args);

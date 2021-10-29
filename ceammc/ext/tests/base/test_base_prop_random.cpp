@@ -103,11 +103,10 @@ TEST_CASE("prop.random", "[externals]")
 
     SECTION("construct")
     {
-        External t("prop.random", LA("@db"));
+        TExt t("prop.random", LA(12, "@n"));
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 2);
-
-        t.sendBang();
+        REQUIRE_PROPERTY(t, @seed, 12);
     }
 
     SECTION("readonly prop")
@@ -262,5 +261,33 @@ TEST_CASE("prop.random", "[externals]")
         REQUIRE(!t.hasOutput());
         REQUIRE(fp == tp->fp6_->value());
         REQUIRE(ip == tp->ip3_->value());
+    }
+
+    SECTION("vanilla object")
+    {
+        TExt t("prop.random", LA("@abc"));
+
+        External tp("mtof");
+        REQUIRE(t.connectTo(0, tp, 0));
+        t.sendBangTo(0);
+        REQUIRE(!t.hasOutput());
+    }
+
+    SECTION("multiple object object")
+    {
+        TExt t("prop.random", LA(1, "@fp6"));
+
+        TProp p0("test.rp");
+        TProp p1("test.rp");
+
+        REQUIRE(t.connectTo(0, p0, 0));
+        REQUIRE(t.connectTo(0, p1, 0));
+
+        const auto fp0 = p0->fp6_->value();
+        const auto fp1 = p1->fp6_->value();
+
+        t.sendBang();
+        REQUIRE(fp0 != p0->fp6_->value());
+        REQUIRE(fp1 != p1->fp6_->value());
     }
 }

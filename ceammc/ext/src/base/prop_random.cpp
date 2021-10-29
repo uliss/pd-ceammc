@@ -29,14 +29,23 @@ using URandomFloat = std::uniform_real_distribution<t_float>;
 PropRandom::PropRandom(const PdArgs& args)
     : BaseObject(args)
     , rnd_(std::time(0))
+    , seed_(nullptr)
 {
-    props_.reserve(args.args.size());
+    seed_ = new IntProperty("@seed", 0);
+    seed_->setSuccessFn([this](Property*) { rnd_.seed(seed_->value()); });
+    addProperty(seed_);
 
-    for (auto& a : args.args) {
+    const auto NARGS = args.args.size();
+    props_.reserve(NARGS);
+
+    for (size_t i = 0; i < NARGS; i++) {
+        const Atom& a = args.args[i];
         if (a.isProperty()) {
             props_.push_back(a.asSymbol());
             createInlet();
-        } else
+        } else if (i == 0)
+            seed_->set(a);
+        else
             OBJ_ERR << "property name expected (starting from '@'), got: " << a << ", skipping argument";
     }
 
