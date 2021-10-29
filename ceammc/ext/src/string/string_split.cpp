@@ -18,12 +18,16 @@
 
 StringSplit::StringSplit(const PdArgs& a)
     : BaseObject(a)
+    , sym_(nullptr)
 {
     createOutlet();
 
     addProperty(new SymbolProperty("@sep", &s_))
         ->setSuccessFn([this](Property* p) { sep_ = to_string(p->get()); });
     property("@sep")->setArgIndex(0);
+
+    sym_ = new FlagProperty("@sym");
+    addProperty(sym_);
 }
 
 void StringSplit::onSymbol(t_symbol* s)
@@ -44,8 +48,13 @@ void StringSplit::split(const DataTypeString& s)
     std::vector<std::string> tokens;
     s.split(tokens, sep_);
 
-    for (auto& x : tokens)
-        tokens_.append(new DataTypeString(x));
+    if (sym_->value()) {
+        for (auto& x : tokens)
+            tokens_.append(gensym(x.c_str()));
+    } else {
+        for (auto& x : tokens)
+            tokens_.append(new DataTypeString(x));
+    }
 }
 
 void StringSplit::output()

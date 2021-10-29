@@ -22,6 +22,7 @@ using namespace ceammc;
 class StringSplit : public BaseObject {
     AtomList tokens_;
     std::string sep_;
+    FlagProperty* sym_;
 
 public:
     StringSplit(const PdArgs& a);

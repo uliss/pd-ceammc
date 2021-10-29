@@ -109,4 +109,12 @@ TEST_CASE("string.split", "[external]")
         t.setProperty("@sep", LA("A"));
         REQUIRE_PROPERTY(t, @sep, "A");
     }
+
+    SECTION("@sym")
+    {
+        TExt t("str.split", LA("|", "@sym"));
+
+        t << "A|B|C";
+        REQUIRE(t.outputListAt(0) == LA("A", "B", "C"));
+    }
 }
