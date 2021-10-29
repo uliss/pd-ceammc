@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "list_convolve.h"
 #include "ceammc_factory.h"
+#include "datatype_mlist.h"
 
 ListConvolve::ListConvolve(const PdArgs& args)
     : BaseObject(args)
@@ -73,6 +74,11 @@ void ListConvolve::onFloat(t_float f)
     listTo(0, lout_);
 }
 
+void ListConvolve::onDataT(const MListAtom& ml)
+{
+    onList(ml->data());
+}
+
 bool ListConvolve::convolve()
 {
     if (l0_.empty()) {
@@ -101,8 +107,14 @@ void ListConvolve::setA(const AtomListView& lv)
     l0_.clear();
     l0_.reserve(lv.size());
 
-    for (auto& a : lv)
-        l0_.push_back(a.toT<t_float>(0));
+    if (lv.isA<DataTypeMList>()) {
+        auto data = lv.asD<DataTypeMList>();
+        for (auto& a : *data)
+            l0_.push_back(a.toT<t_float>(0));
+    } else {
+        for (auto& a : lv)
+            l0_.push_back(a.toT<t_float>(0));
+    }
 }
 
 void ListConvolve::setB(const AtomListView& lv)
@@ -110,13 +122,24 @@ void ListConvolve::setB(const AtomListView& lv)
     l1_.clear();
     l1_.reserve(lv.size());
 
-    for (auto& a : lv)
-        l1_.push_back(a.toT<t_float>(0));
+    if (lv.isA<DataTypeMList>()) {
+        auto data = lv.asD<DataTypeMList>();
+        for (auto& a : *data)
+            l1_.push_back(a.toT<t_float>(0));
+    } else {
+        for (auto& a : lv)
+            l1_.push_back(a.toT<t_float>(0));
+    }
 }
 
 void setup_list_convolve()
 {
     ObjectFactory<ListConvolve> obj("list.convolve");
     obj.addAlias("list.conv");
-    obj.setXletsInfo({ "list: set first convolution arg then calculate", "list: set second convolution arg" }, { "list: convolution result" });
+    obj.processData<DataTypeMList>();
+
+    obj.setXletsInfo(
+        { "list: set first convolution arg then calculate",
+            "list: set second convolution arg" },
+        { "list: convolution result" });
 }
