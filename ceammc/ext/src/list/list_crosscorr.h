@@ -11,21 +11,21 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef LIST_CROSSCORR_H
-#define LIST_CROSSCORR_H
+#ifndef LIST_CORRELATE_H
+#define LIST_CORRELATE_H
 
 #include "ceammc_data.h"
 #include "ceammc_object.h"
 #include "ceammc_property_enum.h"
 using namespace ceammc;
 
-class ListCrosscorr : public BaseObject {
+class ListCorrelate : public BaseObject {
     std::vector<t_float> l0_, l1_;
     AtomList lout_;
     SymbolEnumProperty* mode_;
 
 public:
-    ListCrosscorr(const PdArgs& args);
+    ListCorrelate(const PdArgs& args);
 
     void onInlet(size_t n, const AtomListView& lv) override;
     void onList(const AtomList& lst) override;
@@ -41,4 +41,4 @@ private:
 
 void setup_list_crosscorr();
 
-#endif // LIST_CROSSCORR_H
+#endif // LIST_CORRELATE_H

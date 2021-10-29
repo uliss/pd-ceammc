@@ -31,7 +31,7 @@ constexpr bool not_eq3(uint32_t a, uint32_t b, uint32_t c)
 
 static_assert(not_eq3(HASH_VALID, HASH_SAME, HASH_FULL), "");
 
-ListCrosscorr::ListCrosscorr(const PdArgs& args)
+ListCorrelate::ListCorrelate(const PdArgs& args)
     : BaseObject(args)
     , mode_(nullptr)
 {
@@ -72,13 +72,13 @@ ListCrosscorr::ListCrosscorr(const PdArgs& args)
     addProperty(new SymbolEnumAlias("@full", mode_, gensym(STR_FULL)));
 }
 
-void ListCrosscorr::onInlet(size_t n, const AtomListView& lv)
+void ListCorrelate::onInlet(size_t n, const AtomListView& lv)
 {
     if (n == 1)
         setB(lv);
 }
 
-void ListCrosscorr::onList(const AtomList& lst)
+void ListCorrelate::onList(const AtomList& lst)
 {
     setA(lst.view());
     if (!calc())
@@ -87,7 +87,7 @@ void ListCrosscorr::onList(const AtomList& lst)
     output();
 }
 
-void ListCrosscorr::onFloat(t_float f)
+void ListCorrelate::onFloat(t_float f)
 {
     l0_.resize(1);
     l0_[0] = f;
@@ -98,12 +98,12 @@ void ListCrosscorr::onFloat(t_float f)
     output();
 }
 
-void ListCrosscorr::onDataT(const MListAtom& ml)
+void ListCorrelate::onDataT(const MListAtom& ml)
 {
     onList(ml->data());
 }
 
-bool ListCrosscorr::calc()
+bool ListCorrelate::calc()
 {
     if (l0_.empty()) {
         OBJ_ERR << "first arg is empty";
@@ -128,7 +128,7 @@ bool ListCrosscorr::calc()
     return true;
 }
 
-void ListCrosscorr::output()
+void ListCorrelate::output()
 {
     switch (crc32_hash(mode_->value()->s_name)) {
     case HASH_VALID: {
@@ -155,7 +155,7 @@ void ListCrosscorr::output()
     }
 }
 
-void ListCrosscorr::setA(const AtomListView& lv)
+void ListCorrelate::setA(const AtomListView& lv)
 {
     l0_.clear();
     l0_.reserve(lv.size());
@@ -170,7 +170,7 @@ void ListCrosscorr::setA(const AtomListView& lv)
     }
 }
 
-void ListCrosscorr::setB(const AtomListView& lv)
+void ListCorrelate::setB(const AtomListView& lv)
 {
     l1_.clear();
     l1_.reserve(lv.size());
@@ -187,7 +187,7 @@ void ListCrosscorr::setB(const AtomListView& lv)
 
 void setup_list_crosscorr()
 {
-    ObjectFactory<ListCrosscorr> obj("list.correlate");
+    ObjectFactory<ListCorrelate> obj("list.correlate");
     obj.processData<DataTypeMList>();
 
     obj.setXletsInfo(

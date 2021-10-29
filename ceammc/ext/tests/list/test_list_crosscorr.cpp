@@ -15,7 +15,7 @@
 #include "list_crosscorr.h"
 #include "test_list_base.h"
 
-PD_COMPLETE_TEST_SETUP(ListCrosscorr, list, crosscorr)
+PD_COMPLETE_TEST_SETUP(ListCorrelate, list, crosscorr)
 
 using MA = MListAtom;
 
