@@ -212,6 +212,21 @@ void UISliders::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, 
 
         prev_pos_values_ = pos_values_;
         return;
+    } else if (modifiers & EMOD_SHIFT) {
+        auto val = sliderPosValueAt(pt);
+        auto* old_val = val.first;
+        auto new_val = val.second;
+        if (old_val) {
+            // crossing middle line
+            if ((*old_val < 0.5 && new_val >= 0.5)
+                || (*old_val == 0.5 && new_val != 0.5)
+                || (*old_val > 0.5 && new_val <= 0.5)) {
+                *old_val = 0.5;
+                outputList();
+                redrawAll();
+                return;
+            }
+        }
     }
 
     if (is_vertical_) {
@@ -260,9 +275,30 @@ void UISliders::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
         onMouseDown(view, pt, pt, modifiers);
 }
 
+std::pair<t_float*, t_float> UISliders::sliderPosValueAt(const t_pt& pt)
+{
+    const t_rect r = rect();
+    const int N = pos_values_.size();
+
+    if (is_vertical_) {
+        if (pt.y < 0)
+            return { nullptr, 0 };
+
+        const auto idx = clip<size_t>(floorf(pt.y / r.height * N), 0, N - 1);
+        return { &pos_values_[idx], clip01<t_float>(pt.x / r.width) };
+    } else {
+        if (pt.x < 0)
+            return { nullptr, 0 };
+
+        const auto idx = clip<size_t>(floorf(pt.x / r.width * N), 0, N - 1);
+        return { &pos_values_[idx], clip01<t_float>(1.f - pt.y / r.height) };
+    }
+}
+
 void UISliders::onDblClick(t_object* view, const t_pt& pt, long modifiers)
 {
     t_canvas* c = reinterpret_cast<t_canvas*>(view);
+
     if (c->gl_edit)
         resize(height() / zoom(), width() / zoom());
 }

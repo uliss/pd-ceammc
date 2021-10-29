@@ -99,6 +99,8 @@ private:
 
     void generateTxtLabels();
 
+    std::pair<t_float*, t_float> sliderPosValueAt(const t_pt& pt);
+
 public:
     static void setup();
 
