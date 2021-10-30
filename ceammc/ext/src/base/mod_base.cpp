@@ -25,6 +25,7 @@
 #include "patch_tree.h"
 #include "prop.h"
 #include "prop_declare.h"
+#include "prop_random.h"
 #include "radio.h"
 #include "xfade2_tilde.h"
 #include "xfade_tilde.h"
@@ -114,6 +115,7 @@ void ceammc_base_setup()
     setup_prop_get();
     setup_prop_get_tilde();
     setup_prop_join();
+    setup_prop_random();
     setup_prop_set();
     setup_prop_split();
     setup_snd_file();

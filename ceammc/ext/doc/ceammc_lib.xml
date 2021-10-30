@@ -1729,6 +1729,9 @@
     <entry name="prop.join" descr="join property to main data flow" ref_view="object">
       <xi:include href="prop.join.pddoc" parse="xml"/>
     </entry>
+    <entry name="prop.random" descr="property randomizer" ref_view="object">
+      <xi:include href="prop.random.pddoc" parse="xml"/>
+    </entry>
     <entry name="prop.set" descr="set property for connected object/subpatch/abstraction" ref_view="object">
       <xi:include href="prop.set.pddoc" parse="xml"/>
     </entry>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="prop.random">
+        <title>prop.random</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>property randomizer</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>property</category>
+            <keywords>property random</keywords>
+            <since>0.9.4</since>
+            <also>
+                <see>prop</see>
+                <see>prop.declare</see>
+                <see>patch.props</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="SEED" type="int">init random seed</argument>
+            <argument name="PROPS" type="list">properties names</argument>
+        </arguments>
+        <properties>
+            <property name="@seed" type="int"
+            default="float">random seed</property>
+        </properties>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]
+|
+[prop.random @index]
+|        ^|
+|        [F]
+|
+[ui.hrd 16]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

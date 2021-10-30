@@ -554,6 +554,7 @@ set(DOC_FILES
     prop.get
     prop.get~
     prop.join
+    prop.random
     prop.set
     prop.split
     proto.firmata
