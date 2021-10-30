@@ -415,6 +415,7 @@ TEST_CASE("array_grain", "[externals]")
         {
             REQUIRE(g.timeBefore() == 0);
 
+#ifdef __APPLE__
             GrainRandom::seed(0);
             REQUIRE(p.parse(AtomList::parseString("@tb choice(1\\,2\\,3)")));
             REQUIRE(g.timeBefore() == 1);
@@ -430,6 +431,7 @@ TEST_CASE("array_grain", "[externals]")
 
             REQUIRE(p.parse(AtomList::parseString("@tb choice(1\\,2\\,3)")));
             REQUIRE(g.timeBefore() == 2);
+#endif
         }
 
         SECTION("time ondone")
