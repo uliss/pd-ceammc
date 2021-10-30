@@ -28,7 +28,7 @@ endif()
 find_package(PkgConfig QUIET)
 
 if(WITH_SFIZZ)
-    pkg_check_modules(SFIZZ "sfizz" REQUIRED)
+    pkg_search_module(SFIZZ sfizz>=1.0 REQUIRED)
 else()
     pkg_check_modules(SFIZZ "sfizz")
 endif()
