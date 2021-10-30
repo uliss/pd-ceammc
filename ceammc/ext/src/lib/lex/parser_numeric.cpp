@@ -4,6 +4,7 @@
 
 # include <cstdint>
 # include <cstring>
+# include <limits>
 
 namespace ceammc {
 namespace parser {
@@ -35,7 +36,7 @@ static uint8_t xchar2digit(char c)
 }
 
 
-#line 39 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 40 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
 static const int numeric_full_start = 1;
 static const int numeric_full_first_final = 14;
 static const int numeric_full_error = 0;
@@ -43,7 +44,7 @@ static const int numeric_full_error = 0;
 static const int numeric_full_en_main = 1;
 
 
-#line 41 "lex/parser_numeric.rl"
+#line 42 "lex/parser_numeric.rl"
 
 
 NumericFullMatch::NumericFullMatch()
@@ -93,14 +94,14 @@ bool NumericFullMatch::parse(const char* str)
     reset();
 
     
-#line 97 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 98 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
 	{
 	cs = numeric_full_start;
 	}
 
-#line 90 "lex/parser_numeric.rl"
+#line 91 "lex/parser_numeric.rl"
     
-#line 104 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 105 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
 	{
 	if ( p == pe )
 		goto _test_eof;
@@ -127,7 +128,7 @@ st2:
 	if ( ++p == pe )
 		goto _test_eof2;
 case 2:
-#line 131 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 132 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
 	switch( (*p) ) {
 		case 48: goto tr5;
 		case 105: goto st10;
@@ -145,7 +146,7 @@ st14:
 	if ( ++p == pe )
 		goto _test_eof14;
 case 14:
-#line 149 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 150 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
 	switch( (*p) ) {
 		case 37: goto tr19;
 		case 42: goto tr20;
@@ -173,7 +174,7 @@ st15:
 	if ( ++p == pe )
 		goto _test_eof15;
 case 15:
-#line 177 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 178 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
 	goto st0;
 tr20:
 #line 10 "lex/ragel_numeric.rl"
@@ -193,7 +194,7 @@ st16:
 	if ( ++p == pe )
 		goto _test_eof16;
 case 16:
-#line 197 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 198 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
 	goto st0;
 tr21:
 #line 10 "lex/ragel_numeric.rl"
@@ -205,7 +206,7 @@ st3:
 	if ( ++p == pe )
 		goto _test_eof3;
 case 3:
-#line 209 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 210 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
 	if ( 48 <= (*p) && (*p) <= 57 )
 		goto tr6;
 	goto st0;
@@ -217,7 +218,7 @@ st17:
 	if ( ++p == pe )
 		goto _test_eof17;
 case 17:
-#line 221 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 222 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
 	switch( (*p) ) {
 		case 37: goto tr25;
 		case 42: goto tr26;
@@ -247,7 +248,7 @@ st4:
 	if ( ++p == pe )
 		goto _test_eof4;
 case 4:
-#line 251 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 252 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
 	switch( (*p) ) {
 		case 37: goto st15;
 		case 112: goto st5;
@@ -271,7 +272,7 @@ st5:
 	if ( ++p == pe )
 		goto _test_eof5;
 case 5:
-#line 275 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 276 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
 	if ( (*p) == 104 )
 		goto st6;
 	goto st0;
@@ -313,7 +314,7 @@ st18:
 	if ( ++p == pe )
 		goto _test_eof18;
 case 18:
-#line 317 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 318 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
 	goto st0;
 tr14:
 #line 16 "lex/ragel_numeric.rl"
@@ -323,7 +324,7 @@ st19:
 	if ( ++p == pe )
 		goto _test_eof19;
 case 19:
-#line 327 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 328 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
 	if ( 48 <= (*p) && (*p) <= 57 )
 		goto tr14;
 	goto st0;
@@ -337,7 +338,7 @@ st20:
 	if ( ++p == pe )
 		goto _test_eof20;
 case 20:
-#line 341 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 342 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
 	switch( (*p) ) {
 		case 37: goto tr19;
 		case 42: goto tr20;
@@ -378,7 +379,7 @@ st22:
 	if ( ++p == pe )
 		goto _test_eof22;
 case 22:
-#line 382 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 383 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
 	switch( (*p) ) {
 		case 37: goto tr19;
 		case 42: goto tr20;
@@ -405,7 +406,7 @@ st23:
 	if ( ++p == pe )
 		goto _test_eof23;
 case 23:
-#line 409 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 410 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
 	if ( 48 <= (*p) && (*p) <= 49 )
 		goto tr17;
 	goto st0;
@@ -430,7 +431,7 @@ st24:
 	if ( ++p == pe )
 		goto _test_eof24;
 case 24:
-#line 434 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 435 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
 	if ( (*p) < 65 ) {
 		if ( 48 <= (*p) && (*p) <= 57 )
 			goto tr18;
@@ -511,14 +512,14 @@ case 24:
 #line 68 "lex/ragel_numeric.rl"
 	{type_ = TYPE_PHASE;}
 	break;
-#line 515 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 516 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
 	}
 	}
 
 	_out: {}
 	}
 
-#line 91 "lex/parser_numeric.rl"
+#line 92 "lex/parser_numeric.rl"
 
     switch(type_) {
     case TYPE_PHASE:
@@ -604,7 +605,7 @@ size_t NumericFullMatch::parseSome(const AtomListView& lv, SmallFVec& out)
 }
 
 
-#line 608 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 609 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
 static const int numeric_some_start = 1;
 static const int numeric_some_first_final = 14;
 static const int numeric_some_error = 0;
@@ -612,7 +613,7 @@ static const int numeric_some_error = 0;
 static const int numeric_some_en_main = 1;
 
 
-#line 186 "lex/parser_numeric.rl"
+#line 187 "lex/parser_numeric.rl"
 
 
 NumericMatchSome::NumericMatchSome()
@@ -623,12 +624,12 @@ NumericMatchSome::NumericMatchSome()
 void NumericMatchSome::reset()
 {
     
-#line 627 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 628 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
 	{
 	cs = numeric_some_start;
 	}
 
-#line 196 "lex/parser_numeric.rl"
+#line 197 "lex/parser_numeric.rl"
     res_.clear();
 }
 
@@ -648,14 +649,14 @@ bool NumericMatchSome::parseSingle(const char* str, const char*& endptr)
     bool ok = false;
 
     
-#line 652 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 653 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
 	{
 	cs = numeric_some_start;
 	}
 
-#line 215 "lex/parser_numeric.rl"
+#line 216 "lex/parser_numeric.rl"
     
-#line 659 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 660 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
 	{
 	if ( p == pe )
 		goto _test_eof;
@@ -687,7 +688,7 @@ st2:
 	if ( ++p == pe )
 		goto _test_eof2;
 case 2:
-#line 691 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 692 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
 	switch( (*p) ) {
 		case 48: goto tr6;
 		case 105: goto st10;
@@ -705,7 +706,7 @@ st14:
 	if ( ++p == pe )
 		goto _test_eof14;
 case 14:
-#line 709 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 710 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
 	switch( (*p) ) {
 		case 9: goto tr20;
 		case 32: goto tr20;
@@ -760,9 +761,9 @@ st15:
 	if ( ++p == pe )
 		goto _test_eof15;
 case 15:
-#line 179 "lex/parser_numeric.rl"
+#line 180 "lex/parser_numeric.rl"
 	{if((*p)!=' '&&(*p)!='\t'){p--;{p++; cs = 15; goto _out;}}}
-#line 766 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 767 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
 	switch( (*p) ) {
 		case 9: goto st15;
 		case 32: goto st15;
@@ -791,7 +792,7 @@ st17:
 	if ( ++p == pe )
 		goto _test_eof17;
 case 17:
-#line 795 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 796 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
 	switch( (*p) ) {
 		case 9: goto tr29;
 		case 32: goto tr29;
@@ -815,7 +816,7 @@ st18:
 	if ( ++p == pe )
 		goto _test_eof18;
 case 18:
-#line 819 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 820 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
 	switch( (*p) ) {
 		case 9: goto tr30;
 		case 32: goto tr30;
@@ -831,7 +832,7 @@ st3:
 	if ( ++p == pe )
 		goto _test_eof3;
 case 3:
-#line 835 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 836 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
 	if ( 48 <= (*p) && (*p) <= 57 )
 		goto tr7;
 	goto st0;
@@ -843,7 +844,7 @@ st19:
 	if ( ++p == pe )
 		goto _test_eof19;
 case 19:
-#line 847 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 848 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
 	switch( (*p) ) {
 		case 9: goto tr31;
 		case 32: goto tr31;
@@ -875,7 +876,7 @@ st4:
 	if ( ++p == pe )
 		goto _test_eof4;
 case 4:
-#line 879 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 880 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
 	switch( (*p) ) {
 		case 37: goto st17;
 		case 112: goto st5;
@@ -899,7 +900,7 @@ st5:
 	if ( ++p == pe )
 		goto _test_eof5;
 case 5:
-#line 903 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 904 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
 	if ( (*p) == 104 )
 		goto st6;
 	goto st0;
@@ -941,7 +942,7 @@ st20:
 	if ( ++p == pe )
 		goto _test_eof20;
 case 20:
-#line 945 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 946 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
 	switch( (*p) ) {
 		case 9: goto tr36;
 		case 32: goto tr36;
@@ -955,7 +956,7 @@ st21:
 	if ( ++p == pe )
 		goto _test_eof21;
 case 21:
-#line 959 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 960 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
 	switch( (*p) ) {
 		case 9: goto tr36;
 		case 32: goto tr36;
@@ -973,7 +974,7 @@ st22:
 	if ( ++p == pe )
 		goto _test_eof22;
 case 22:
-#line 977 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 978 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
 	switch( (*p) ) {
 		case 9: goto tr20;
 		case 32: goto tr20;
@@ -1020,7 +1021,7 @@ st24:
 	if ( ++p == pe )
 		goto _test_eof24;
 case 24:
-#line 1024 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 1025 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
 	switch( (*p) ) {
 		case 9: goto tr20;
 		case 32: goto tr20;
@@ -1049,7 +1050,7 @@ st25:
 	if ( ++p == pe )
 		goto _test_eof25;
 case 25:
-#line 1053 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 1054 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
 	switch( (*p) ) {
 		case 9: goto tr40;
 		case 32: goto tr40;
@@ -1078,7 +1079,7 @@ st26:
 	if ( ++p == pe )
 		goto _test_eof26;
 case 26:
-#line 1082 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 1083 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
 	switch( (*p) ) {
 		case 9: goto tr41;
 		case 32: goto tr41;
@@ -1166,14 +1167,14 @@ case 26:
 #line 68 "lex/ragel_numeric.rl"
 	{type_ = TYPE_PHASE;}
 	break;
-#line 1170 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 1171 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
 	}
 	}
 
 	_out: {}
 	}
 
-#line 216 "lex/parser_numeric.rl"
+#line 217 "lex/parser_numeric.rl"
 
     ok = cs >= 14;
 

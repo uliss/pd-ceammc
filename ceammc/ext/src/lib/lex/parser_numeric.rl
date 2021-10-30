@@ -2,6 +2,7 @@
 
 # include <cstdint>
 # include <cstring>
+# include <limits>
 
 namespace ceammc {
 namespace parser {
