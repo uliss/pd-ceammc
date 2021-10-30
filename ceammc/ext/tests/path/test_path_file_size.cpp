@@ -15,6 +15,8 @@
 #include "file_size.h"
 #include "test_path_base.h"
 
+#include <thread>
+
 PD_COMPLETE_TEST_SETUP(FileSize, file, size)
 
 TEST_CASE("file.size", "[externals]")
