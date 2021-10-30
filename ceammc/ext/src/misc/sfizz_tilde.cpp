@@ -74,7 +74,7 @@ static bool is_builtin(const char* name)
 
 static std::string builtin_sfz(const char* name)
 {
-    char buf[32] = {};
+    char buf[128] = {};
     snprintf(buf, sizeof(buf) - 1,
         R"(<region>
 sample=*%s
