@@ -7,7 +7,7 @@
 #X obj 548 11 ceammc/loadexpr;
 #X obj 682 11 loadexpr;
 #X obj 210 80 cnv 1 555 60 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 like [loadmsg] \, but support expression calls ans datatype;
+#X text 215 80 like [loadmsg] \, but support expression calls and datatype;
 #X text 215 105 Click on object sends message again;
 #X text 50 168 click me!;
 #X obj 50 197 loadexpr symbol "with space" \, pi() \, mtof(60 61) \,
