@@ -186,7 +186,7 @@ TEST_CASE("snd.file", "[externals]")
                 REQUIRE_PROPERTY(t, @filename, TEST_DATA_DIR "/base/snd0_ch07_44.1k_441samp.wav");
                 REQUIRE_PROPERTY(t, @sr, 44100);
                 REQUIRE_PROPERTY(t, @samples, 100);
-                REQUIRE_PROPERTY(t, @channels, 1);
+                REQUIRE_PROPERTY(t, @channels, 4);
 
                 REQUIRE(all_eq(arr1->begin(), arr1->end(), 0.33333));
             }
