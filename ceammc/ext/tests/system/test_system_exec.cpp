@@ -92,7 +92,10 @@ TEST_CASE("system.exec", "[externals]")
         t <<= LA("stop");
         test::pdRunMainLoopMs(MS(10));
         REQUIRE_PROPERTY(t, @is_running, 0);
-        REQUIRE(floatAt(t, 0_out) == 2);
+
+#ifndef __WIN32__
+        REQUIRE(floatAt(t, 0_out) == -1);
+#endif
 
         t <<= LA("stop");
         test::pdRunMainLoopMs(MS(50));
