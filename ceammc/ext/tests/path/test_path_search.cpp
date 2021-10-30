@@ -78,7 +78,7 @@ TEST_CASE("path.search", "[externals]")
         t << "test_data0.mp3";
 
         REQUIRE(t.hasOutputAt(0));
-        REQUIRE(t.outputSymbolAt(0) == SYM(TEST_DATA_DIR "/test_data0.mp3"));
+        REQUIRE(t.outputSymbolAt(0)->s_name == std::string(TEST_DATA_DIR "/test_data0.mp3"));
     }
 
     SECTION("simple @sync search in home dir")

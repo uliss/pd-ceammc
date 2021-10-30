@@ -48,7 +48,7 @@ static fs::path searchRecursive(const fs::path& dir, const fs::path& name, int d
 
         const fs::path fpath = entry / name;
         if (fs::exists(fpath))
-            return fpath.string();
+            return fpath;
     }
 
     return {};
@@ -81,15 +81,15 @@ static std::string searchFileTask(
                 continue;
 
             const fs::path fpath = user_dir / file;
-            std::cerr << "trying user path: " << fpath << "\n";
+            // std::cerr << "trying user path: " << fpath.generic_string() << "\n";
 
             if (fs::exists(fpath)) {
-                std::cerr << "found in user: " << fpath << "\n";
-                return fpath.string();
+                // std::cerr << "found in user: " << fpath.generic_string() << "\n";
+                return fpath.generic_string();
             } else if (search_recursive(search_depth)) {
                 auto res = searchRecursive(user_dir, file, search_depth, quit);
                 if (!res.empty())
-                    return res.string();
+                    return res.generic_string();
             }
         } else {
             relative_user_paths.push_back(p);
@@ -109,11 +109,11 @@ static std::string searchFileTask(
             continue;
 
         const fs::path fname = std_dir / file;
-        std::cerr << "trying standard path: " << fname << "\n";
+        // std::cerr << "trying standard path: " << fname.generic_string() << "\n";
 
         if (fs::exists(fname)) {
-            std::cerr << "found in standard: " << fname << "\n";
-            return fname.string();
+            // std::cerr << "found in standard: " << fname.generic_string() << "\n";
+            return fname.generic_string();
         } else if (relative_user_paths.size() > 0) {
             // search in relative user paths
             for (const auto& rel_dir : relative_user_paths) {
@@ -123,20 +123,20 @@ static std::string searchFileTask(
                 const auto fname = abs_dir / file;
 
                 if (fs::exists(fname)) {
-                    std::cerr << "found in relative: " << fname << "\n";
-                    return fname.string();
+                    // std::cerr << "found in relative: " << fname << "\n";
+                    return fname.generic_string();
                 } else if (search_recursive(search_depth)) {
                     // recursive search in relative user paths
                     auto res = searchRecursive(abs_dir, file, search_depth, quit);
                     if (!res.empty())
-                        return res.string();
+                        return res.generic_string();
                 }
             }
         } else if (search_recursive(search_depth)) {
             // recursive search in standard user paths
             auto res = searchRecursive(std_dir, file, search_depth, quit);
             if (!res.empty())
-                return res.string();
+                return res.generic_string();
         }
     }
 
@@ -223,23 +223,23 @@ PathSearch::FutureResult PathSearch::createTask()
             // patch directory
             auto cnv_dir = canvas_info_dir(canvas());
             if (cnv_dir)
-                sys_paths.push_back(cnv_dir->s_name);
+                sys_paths.push_back(fs::path(cnv_dir->s_name).generic_string());
 
             // patch search paths
             for (auto c : canvas_info_paths(canvas())) {
                 if (c.isSymbol())
-                    sys_paths.push_back(c.asT<t_symbol*>()->s_name);
+                    sys_paths.push_back(fs::path(c.asT<t_symbol*>()->s_name).generic_string());
             }
         }
 
         // Pd search paths
         for (auto p = STUFF->st_searchpath; p != nullptr; p = p->nl_next)
-            sys_paths.push_back(p->nl_string);
+            sys_paths.push_back(fs::path(p->nl_string).generic_string());
     }
 
     if (home_->value()) {
         // home directory
-        sys_paths.push_back(platform::home_directory());
+        sys_paths.push_back(fs::path(platform::home_directory()).generic_string());
     }
 
     for (auto& s : user_paths)

@@ -27,13 +27,13 @@ PathNormalize::PathNormalize(const PdArgs& args)
 void PathNormalize::onSymbol(t_symbol* s)
 {
     fs::path p(s->s_name);
-    symbolTo(0, gensym(p.lexically_normal().string().c_str()));
+    symbolTo(0, gensym(p.lexically_normal().generic_string().c_str()));
 }
 
 void PathNormalize::onDataT(const StringAtom& s)
 {
     fs::path p(s->str());
-    atomTo(0, StringAtom(p.lexically_normal().string()));
+    atomTo(0, StringAtom(p.lexically_normal().generic_string()));
 }
 
 void setup_path_normalize()
