@@ -46,6 +46,8 @@ public:
     void m_midi(t_symbol* s, const AtomListView& lv);
     void m_notesOff(t_symbol* s, const AtomListView& lv);
     void m_soundsOff(t_symbol*, const AtomListView&);
+    void m_aftertouch(t_symbol* s, const AtomListView& lv);
+    void m_polytouch(t_symbol* s, const AtomListView& lv);
 
     /// tune
     void m_tune_octave(t_symbol* s, const AtomListView& lv);

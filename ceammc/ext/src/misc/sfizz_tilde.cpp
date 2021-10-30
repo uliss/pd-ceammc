@@ -210,7 +210,7 @@ void SfizzTilde::dump() const
 void SfizzTilde::m_note(t_symbol* s, const AtomListView& lv)
 {
     int key = 0;
-    t_float vel = 0;
+    float vel = 0;
 
     if (lv.size() == 3 && lv[0].isFloat() && lv[1].isFloat() && lv[2].isFloat()) {
         // NOTE: channel is ignored, but leaved for compatibility with fluid~ external
@@ -235,7 +235,7 @@ void SfizzTilde::m_note(t_symbol* s, const AtomListView& lv)
 void SfizzTilde::m_cc(t_symbol* s, const AtomListView& lv)
 {
     int cc = 0;
-    t_float val = 0;
+    float val = 0;
 
     if (lv.size() == 3 && lv[0].isFloat() && lv[1].isFloat() && lv[2].isFloat()) {
         // NOTE: channel is ignored, but leaved for compatibility with fluid~ external
@@ -317,7 +317,7 @@ void SfizzTilde::m_bend_int(t_symbol* s, const AtomListView& lv)
 
 void SfizzTilde::m_bend_float(t_symbol* s, const AtomListView& lv)
 {
-    t_float val = 0;
+    float val = 0;
 
     if (checkArgs(lv, ARG_FLOAT, ARG_FLOAT))
         val = lv[1].asFloat();
@@ -450,6 +450,47 @@ void SfizzTilde::m_legato_pedal(t_symbol* s, const AtomListView& lv)
 void SfizzTilde::m_soundsOff(t_symbol*, const AtomListView&)
 {
     sfz_.allSoundOff();
+}
+
+void SfizzTilde::m_aftertouch(t_symbol *s, const AtomListView& lv)
+{
+    float val = 0;
+
+    if (lv.size() == 2 && lv[0].isFloat() && lv[1].isFloat()) {
+        // NOTE: channel is ignored, but leaved for compatibility with fluid~ external
+        // that accepts both [aftertouch CHAN VAL( and [aftertouch VAL( messages
+        // int chan = lv[0].asInt();
+        val = lv[1].asFloat();
+    } else if (lv.size() == 1 && lv[0].isFloat()) {
+        val = lv[0].asFloat();
+    } else {
+        METHOD_ERR(s) << "CHAN? VAL expected, got: " << lv;
+        return;
+    }
+
+    sfz_.hdChannelAftertouch(0, val / 127.0);
+}
+
+void SfizzTilde::m_polytouch(t_symbol *s, const AtomListView& lv)
+{
+    int key = 0;
+    float vel = 0;
+
+    if (lv.size() == 3 && lv[0].isFloat() && lv[1].isFloat() && lv[2].isFloat()) {
+        // NOTE: channel is ignored, but leaved for compatibility with fluid~ external
+        // that accepts both [polytouch CHAN KEY VEL( and [polytouch KEY VEL( messages
+        // int chan = lv[0].asInt();
+        key = lv[1].asInt();
+        vel = lv[2].asFloat();
+    } else if (lv.size() == 2 && lv[0].isFloat() && lv[1].isFloat()) {
+        key = lv[0].asInt();
+        vel = lv[1].asFloat();
+    } else {
+        METHOD_ERR(s) << "CHAN? KEY VEL expected, got: " << lv;
+        return;
+    }
+
+    sfz_.hdPolyAftertouch(0, key, vel);
 }
 
 void SfizzTilde::m_tune_octave(t_symbol* s, const AtomListView& lv)
@@ -614,6 +655,8 @@ void setup_misc_sfizz_tilde()
     obj.addMethod("note", &SfizzTilde::m_note);
     obj.addMethod("cc", &SfizzTilde::m_cc);
     obj.addMethod("midi", &SfizzTilde::m_midi);
+    obj.addMethod(M_AFTER_TOUCH, &SfizzTilde::m_aftertouch);
+    obj.addMethod(M_POLY_TOUCH, &SfizzTilde::m_polytouch);
 
     obj.addMethod("bend", &SfizzTilde::m_bend);
     obj.addMethod("bend:i", &SfizzTilde::m_bend_int);
