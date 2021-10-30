@@ -16,6 +16,7 @@
 #include "ceammc_format.h"
 
 #include <chrono>
+#include <thread>
 
 extern "C" {
 #include "cst_features.h"
