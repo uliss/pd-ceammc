@@ -26,16 +26,52 @@
             <property name="@seed" type="int"
             default="float">random seed</property>
         </properties>
+        <inlets dynamic="true">
+            <inlet number="1">
+                <xinfo>first specified property</xinfo>
+            </inlet>
+            <inlet number="...">
+                <xinfo>... specified property</xinfo>
+            </inlet>
+            <inlet number="n">
+                <xinfo>n-th specified property</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>connect to target object</outlet>
+            <outlet>atom: new random value</outlet>
+        </outlets>
         <example>
             <pdascii>
 <![CDATA[
 [B]
 |
-[prop.random @index]
-|        ^|
-|        [F]
+[prop.random @feedback]
+|              ^|
+| [sig~ 50]    [F]
+| |
+[osc.sinfb~]   [ui.dsp~]
 |
-[ui.hrd 16]
+[ui.hgain~]
+|\
+[dac~]
+
+[prop.random.1]
+]]>
+            </pdascii>
+            <pdascii id="1">
+<![CDATA[
+[B]
+|
+[prop.random @wave]
+|              ^|
+| [sig~ 50]    [S]
+| |
+[lfo.mosc~]    [ui.dsp~]
+|
+[ui.hgain~]
+|\
+[dac~]
 ]]>
             </pdascii>
         </example>

@@ -552,7 +552,7 @@ prop.declare		-		-
 prop.get,p.get		.		?
 prop.get~,prop~>,@~>		~		?
 prop.join,prop<-		?		.
-prop.random		-		-
+prop.random		?		..
 prop.set,p.set		?		.
 prop.split,prop->,@->		.		?
 proto.firmata		.		.
