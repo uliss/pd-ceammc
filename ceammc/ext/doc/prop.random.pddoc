@@ -56,7 +56,9 @@
 |\
 [dac~]
 
-[prop.random.1]  [prop.random.2]
+[prop.random.1]   [prop.random.2]
+
+[prop.random.3]
 ]]>
             </pdascii>
             <pdascii id="1">
@@ -85,6 +87,36 @@
 [flt.moog_vcf~      0.6      ]
 |
 [ui.gain~ @size 120 16] [ui.dsp~]
+|\
+[dac~]
+]]>
+            </pdascii>
+            <pdascii id="abs">
+<![CDATA[
+[inlet]
+
+[prop.declare freq @f @min 50 @max 200 @default 50]
+
+[prop @freq]
+|
+[F]
+|
+[osc~]
+|
+[outlet~]
+]]>
+            </pdascii>
+            <pdascii id="3">
+<![CDATA[
+[B]
+|
+[prop.random @freq]
+|             ^|
+|             [F]
+|
+[prop.random.abs]
+|
+[ui.hgain~]
 |\
 [dac~]
 ]]>
