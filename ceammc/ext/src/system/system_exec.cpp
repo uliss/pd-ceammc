@@ -86,8 +86,11 @@ void SystemExec::onList(const AtomList& l)
     }
 
     sys::Process::Priority pri = sys::Process::PRIORITY_LOW;
+
+#ifndef __WIN32__
     if (!process_->setPriority(pri))
         OBJ_ERR << fmt::format("can't set priority {}: {}", pri, process_->error());
+#endif
 
     should_close_stdin_ = false;
     checkProcess();
@@ -180,19 +183,23 @@ void SystemExec::checkProcess()
     if (process_->readStdErr(err_str) && !err_str.empty())
         OBJ_ERR << "[stderr] " << err_str;
 
-    if (process_->running())
+    if (process_->running()) {
+        if (should_close_stdin_) {
+            if (!process_->closeStdIn()) {
+                OBJ_ERR << fmt::format("stdin close error: ", process_->error());
+                should_close_stdin_ = false;
+            }
+        }
+
         clock_.delay(DELAY_TIME);
+        return;
+    }
 
     // remove if finished
     if (process_->finished()) {
         floatTo(0, process_->exitStatus());
         process_.reset(nullptr);
         log_.flush();
-    } else if (should_close_stdin_) {
-        if (!process_->closeStdIn()) {
-            OBJ_ERR << fmt::format("stdin close error: ", process_->error());
-            should_close_stdin_ = false;
-        }
     }
 }
 

@@ -90,9 +90,9 @@ TEST_CASE("system.exec", "[externals]")
         REQUIRE_PROPERTY(t, @is_running, 1);
 
         t <<= LA("stop");
-        test::pdRunMainLoopMs(MS(50));
+        test::pdRunMainLoopMs(MS(10));
         REQUIRE_PROPERTY(t, @is_running, 0);
-        REQUIRE(floatAt(t, 0_out) == -1);
+        REQUIRE(floatAt(t, 0_out) == 2);
 
         t <<= LA("stop");
         test::pdRunMainLoopMs(MS(50));
