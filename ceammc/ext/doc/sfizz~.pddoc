@@ -27,7 +27,7 @@
             MIDI channel, ignored</param>
             <param name="NOTE" required="true" type="int" minvalue="0" maxvalue="127">MIDI
             note</param>
-            <param name="VEL" required="true" type="int" minvalue="0" maxvalue="127">MIDI
+            <param name="VEL" required="true" type="float" minvalue="0" maxvalue="127">MIDI
             velocity</param></method>
             <!-- cc -->
             <method name="cc">control change 
@@ -35,11 +35,25 @@
             MIDI channel, ignored</param>
             <param name="CC" required="true" type="int" minvalue="0" maxvalue="127">MIDI control
             number</param>
-            <param name="VAL" required="true" type="int" minvalue="0" maxvalue="127">MIDI control
+            <param name="VAL" required="true" type="float" minvalue="0" maxvalue="127">MIDI control
             value</param></method>
             <method name="prog">program change (CHANNEL, PROGRAM expected)</method>
             <method name="bank">set instrument bank number on a MIDI channel (CHANNEL, BANK
             expected)</method>
+            <!-- aftertouch -->
+            <method name="aftertouch">play note
+            <param name="CHAN" required="false" type="int" default="0" minvalue="0" maxvalue="16">
+            MIDI channel, ignored</param>
+            <param name="VEL" required="true" type="float" minvalue="0" maxvalue="127">MIDI
+            velocity</param></method>
+            <!-- polytouch -->
+            <method name="polytouch">play note
+            <param name="CHAN" required="false" type="int" default="0" minvalue="0" maxvalue="16">
+            MIDI channel, ignored</param>
+            <param name="NOTE" required="true" type="int" minvalue="0" maxvalue="127">MIDI
+            note</param>
+            <param name="VEL" required="true" type="float" minvalue="0" maxvalue="127">MIDI
+            velocity</param></method>
             <!-- bend -->
             <method name="bend">pitchband change 
             <param name="CHAN" required="false" type="int" default="0" minvalue="0" maxvalue="16">
@@ -303,7 +317,7 @@
 |
 | [notes_off(
 | |
-[fluid~ \#sine]
+[sfizz~ \#sine]
 *|*
 [ui.hgain2~]    [ui.dsp~]
 *|*
