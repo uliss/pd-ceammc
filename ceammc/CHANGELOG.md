@@ -32,6 +32,7 @@
   - path.split: split filename to dirname and basename
   - proto.midi.cc: parser and composer for MIDI control change messages
   - proto.midi.sysex: parser and composer for MIDI SysEx messages
+  - prop.random: basic property randomizer
   - samp.time~: sample counter added (with samp.t~ alias)
   - sfizz~: SFZ 2.0 format sample player
   - spat.zita8~: 8-channel spat reverb added
@@ -133,7 +134,6 @@
   - midi.sustain - sustain pedal emulation added
   - midi.sysex added (read sysex messages as list)
   - midi.vrand - velocity randomizer added
-  - prop.random: basic property randomizer
   - proto.midi added (raw dataflow midi parser/encoder)
   - route.float (with route.f alias) added
   - seq.life - conway game of life sequencer
