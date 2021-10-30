@@ -1,8 +1,8 @@
 /* ------------------------------------------------------------
 author: "Alain Bonardi & Paul Goutmann"
 name: "synth.risset_bell", "abc_rissetsbell"
-Code generated with Faust 2.30.12 (https://faust.grame.fr)
-Compilation options: -lang cpp -es 1 -scal -ftz 0
+Code generated with Faust 2.37.3 (https://faust.grame.fr)
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __synth_risset_bell_H__
@@ -219,24 +219,69 @@ class dsp_factory {
     
 };
 
-/**
- * On Intel set FZ (Flush to Zero) and DAZ (Denormals Are Zero)
- * flags to avoid costly denormals.
- */
+// Denormal handling
 
-#ifdef __SSE__
-    #include <xmmintrin.h>
-    #ifdef __SSE2__
-        #define AVOIDDENORMALS _mm_setcsr(_mm_getcsr() | 0x8040)
-    #else
-        #define AVOIDDENORMALS _mm_setcsr(_mm_getcsr() | 0x8000)
-    #endif
-#else
-    #define AVOIDDENORMALS
+#if defined (__SSE__)
+#include <xmmintrin.h>
 #endif
 
+class ScopedNoDenormals
+{
+    private:
+    
+        intptr_t fpsr;
+        
+        void setFpStatusRegister(intptr_t fpsr_aux) noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+           asm volatile("msr fpcr, %0" : : "ri" (fpsr_aux));
+        #elif defined (__SSE__)
+            _mm_setcsr(static_cast<uint32_t>(fpsr_aux));
+        #endif
+        }
+        
+        void getFpStatusRegister() noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+            asm volatile("mrs %0, fpcr" : "=r" (fpsr));
+        #elif defined ( __SSE__)
+            fpsr = static_cast<intptr_t>(_mm_getcsr());
+        #endif
+        }
+    
+    public:
+    
+        ScopedNoDenormals() noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+            intptr_t mask = (1 << 24 /* FZ */);
+        #else
+            #if defined(__SSE__)
+            #if defined(__SSE2__)
+                intptr_t mask = 0x8040;
+            #else
+                intptr_t mask = 0x8000;
+            #endif
+            #else
+                intptr_t mask = 0x0000;
+            #endif
+        #endif
+            getFpStatusRegister();
+            setFpStatusRegister(fpsr | mask);
+        }
+        
+        ~ScopedNoDenormals() noexcept
+        {
+            setFpStatusRegister(fpsr);
+        }
+
+};
+
+#define AVOIDDENORMALS ScopedNoDenormals();
+
 #endif
-/**************************  END  synth_risset_bell_dsp.h **************************/
+
+/************************** END synth_risset_bell_dsp.h **************************/
 /************************** BEGIN UI.h **************************/
 /************************************************************************
  FAUST Architecture File
@@ -310,6 +355,9 @@ struct UIReal
     // -- metadata declarations
     
     virtual void declare(REAL* zone, const char* key, const char* val) {}
+    
+    // To be used by LLVM client
+    virtual int sizeOfFAUSTFLOAT() { return sizeof(FAUSTFLOAT); }
 };
 
 struct UI : public UIReal<FAUSTFLOAT>
@@ -506,6 +554,7 @@ class synth_risset_bellSIG0 {
 	
   private:
 	
+	int iVec2[2];
 	int iRec1[2];
 	
   public:
@@ -516,41 +565,22 @@ class synth_risset_bellSIG0 {
 	int getNumOutputssynth_risset_bellSIG0() {
 		return 1;
 	}
-	int getInputRatesynth_risset_bellSIG0(int channel) {
-		int rate;
-		switch ((channel)) {
-			default: {
-				rate = -1;
-				break;
-			}
-		}
-		return rate;
-	}
-	int getOutputRatesynth_risset_bellSIG0(int channel) {
-		int rate;
-		switch ((channel)) {
-			case 0: {
-				rate = 0;
-				break;
-			}
-			default: {
-				rate = -1;
-				break;
-			}
-		}
-		return rate;
-	}
 	
 	void instanceInitsynth_risset_bellSIG0(int sample_rate) {
 		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
-			iRec1[l3] = 0;
+			iVec2[l3] = 0;
+		}
+		for (int l4 = 0; (l4 < 2); l4 = (l4 + 1)) {
+			iRec1[l4] = 0;
 		}
 	}
 	
 	void fillsynth_risset_bellSIG0(int count, float* table) {
-		for (int i = 0; (i < count); i = (i + 1)) {
-			iRec1[0] = (iRec1[1] + 1);
-			table[i] = std::cos((9.58738019e-05f * float((iRec1[0] + -1))));
+		for (int i1 = 0; (i1 < count); i1 = (i1 + 1)) {
+			iVec2[0] = 1;
+			iRec1[0] = ((iVec2[1] + iRec1[1]) % 65536);
+			table[i1] = std::cos((9.58738019e-05f * float(iRec1[0])));
+			iVec2[1] = iVec2[0];
 			iRec1[1] = iRec1[0];
 		}
 	}
@@ -586,63 +616,65 @@ class synth_risset_bell : public synth_risset_bell_dsp {
 	float fConst1;
 	FAUSTFLOAT fHslider0;
 	float fRec2[2];
+	float fConst2;
 	FAUSTFLOAT fHslider1;
+	float fConst3;
 	float fRec3[2];
 	float fRec4[2];
-	float fConst2;
-	float fConst3;
-	int iRec5[2];
 	float fConst4;
-	FAUSTFLOAT fHslider2;
 	float fConst5;
+	int iRec5[2];
+	float fConst6;
+	FAUSTFLOAT fHslider2;
+	float fConst7;
 	float fRec6[2];
 	float fRec7[2];
-	float fConst6;
-	float fConst7;
+	float fConst8;
+	float fConst9;
 	float fRec8[2];
 	float fRec9[2];
-	float fConst8;
+	float fConst10;
 	float fRec10[2];
 	float fRec11[2];
-	float fConst9;
-	float fConst10;
-	float fRec12[2];
-	float fRec13[2];
 	float fConst11;
 	float fConst12;
-	float fRec14[2];
-	float fRec15[2];
+	float fRec12[2];
+	float fRec13[2];
 	float fConst13;
 	float fConst14;
-	float fRec16[2];
-	float fRec17[2];
+	float fRec14[2];
+	float fRec15[2];
 	float fConst15;
 	float fConst16;
-	float fRec18[2];
-	float fRec19[2];
+	float fRec16[2];
+	float fRec17[2];
 	float fConst17;
 	float fConst18;
-	float fRec20[2];
-	float fRec21[2];
+	float fRec18[2];
+	float fRec19[2];
 	float fConst19;
 	float fConst20;
-	float fRec22[2];
-	float fRec23[2];
+	float fRec20[2];
+	float fRec21[2];
 	float fConst21;
 	float fConst22;
+	float fRec22[2];
+	float fRec23[2];
+	float fConst23;
+	float fConst24;
 	float fRec24[2];
 	float fRec25[2];
-	float fConst23;
+	float fConst25;
 	
  public:
 	
 	void metadata(Meta* m) { 
 		m->declare("author", "Alain Bonardi & Paul Goutmann");
 		m->declare("basics.lib/name", "Faust Basic Element Library");
-		m->declare("basics.lib/version", "0.1");
+		m->declare("basics.lib/version", "0.2");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
 		m->declare("ceammc.lib/version", "0.1.2");
-		m->declare("compile_options", "-lang cpp -es 1 -scal -ftz 0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0");
 		m->declare("envelopes.lib/ar:author", "Yann Orlarey, Stéphane Letz");
 		m->declare("envelopes.lib/author", "GRAME");
 		m->declare("envelopes.lib/copyright", "GRAME");
@@ -655,14 +687,14 @@ class synth_risset_bell : public synth_risset_bell_dsp {
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
-		m->declare("maths.lib/version", "2.3");
+		m->declare("maths.lib/version", "2.5");
 		m->declare("name", "synth.risset_bell");
 		m->declare("oscillators.lib/name", "Faust Oscillator Library");
 		m->declare("oscillators.lib/version", "0.1");
 		m->declare("platform.lib/name", "Generic Platform Library");
-		m->declare("platform.lib/version", "0.1");
+		m->declare("platform.lib/version", "0.2");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
-		m->declare("signals.lib/version", "0.0");
+		m->declare("signals.lib/version", "0.1");
 	}
 
 	virtual int getNumInputs() {
@@ -670,30 +702,6 @@ class synth_risset_bell : public synth_risset_bell_dsp {
 	}
 	virtual int getNumOutputs() {
 		return 1;
-	}
-	virtual int getInputRate(int channel) {
-		int rate;
-		switch ((channel)) {
-			default: {
-				rate = -1;
-				break;
-			}
-		}
-		return rate;
-	}
-	virtual int getOutputRate(int channel) {
-		int rate;
-		switch ((channel)) {
-			case 0: {
-				rate = 1;
-				break;
-			}
-			default: {
-				rate = -1;
-				break;
-			}
-		}
-		return rate;
 	}
 	
 	static void classInit(int sample_rate) {
@@ -707,28 +715,30 @@ class synth_risset_bell : public synth_risset_bell_dsp {
 		fSampleRate = sample_rate;
 		float fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
 		fConst1 = (0.560000002f / fConst0);
-		fConst2 = std::max<float>(1.0f, (0.00499999989f * fConst0));
-		fConst3 = (1.0f / fConst2);
-		fConst4 = (0.00100000005f * fConst0);
-		fConst5 = (1.0f / fConst0);
-		fConst6 = (0.000899999985f * fConst0);
-		fConst7 = (0.920000017f / fConst0);
-		fConst8 = (0.000650000002f * fConst0);
-		fConst9 = (0.000549999997f * fConst0);
-		fConst10 = (1.19000006f / fConst0);
-		fConst11 = (0.000325000001f * fConst0);
-		fConst12 = (1.70000005f / fConst0);
-		fConst13 = (0.000349999988f * fConst0);
-		fConst14 = (2.0f / fConst0);
-		fConst15 = (0.000250000012f * fConst0);
-		fConst16 = (2.74000001f / fConst0);
-		fConst17 = (0.000199999995f * fConst0);
-		fConst18 = (3.0f / fConst0);
-		fConst19 = (0.000150000007f * fConst0);
-		fConst20 = (3.75999999f / fConst0);
-		fConst21 = (9.99999975e-05f * fConst0);
-		fConst22 = (4.07000017f / fConst0);
-		fConst23 = (7.50000036e-05f * fConst0);
+		fConst2 = (44.0999985f / fConst0);
+		fConst3 = (1.0f - fConst2);
+		fConst4 = std::max<float>(1.0f, (0.00499999989f * fConst0));
+		fConst5 = (1.0f / fConst4);
+		fConst6 = (0.00100000005f * fConst0);
+		fConst7 = (1.0f / fConst0);
+		fConst8 = (0.000899999985f * fConst0);
+		fConst9 = (0.920000017f / fConst0);
+		fConst10 = (0.000650000002f * fConst0);
+		fConst11 = (0.000549999997f * fConst0);
+		fConst12 = (1.19000006f / fConst0);
+		fConst13 = (0.000325000001f * fConst0);
+		fConst14 = (1.70000005f / fConst0);
+		fConst15 = (0.000349999988f * fConst0);
+		fConst16 = (2.0f / fConst0);
+		fConst17 = (0.000250000012f * fConst0);
+		fConst18 = (2.74000001f / fConst0);
+		fConst19 = (0.000199999995f * fConst0);
+		fConst20 = (3.0f / fConst0);
+		fConst21 = (0.000150000007f * fConst0);
+		fConst22 = (3.75999999f / fConst0);
+		fConst23 = (9.99999975e-05f * fConst0);
+		fConst24 = (4.07000017f / fConst0);
+		fConst25 = (7.50000036e-05f * fConst0);
 	}
 	
 	virtual void instanceResetUserInterface() {
@@ -748,77 +758,77 @@ class synth_risset_bell : public synth_risset_bell_dsp {
 		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
 			fRec0[l2] = 0.0f;
 		}
-		for (int l4 = 0; (l4 < 2); l4 = (l4 + 1)) {
-			fRec2[l4] = 0.0f;
-		}
 		for (int l5 = 0; (l5 < 2); l5 = (l5 + 1)) {
-			fRec3[l5] = 0.0f;
+			fRec2[l5] = 0.0f;
 		}
 		for (int l6 = 0; (l6 < 2); l6 = (l6 + 1)) {
-			fRec4[l6] = 0.0f;
+			fRec3[l6] = 0.0f;
 		}
 		for (int l7 = 0; (l7 < 2); l7 = (l7 + 1)) {
-			iRec5[l7] = 0;
+			fRec4[l7] = 0.0f;
 		}
 		for (int l8 = 0; (l8 < 2); l8 = (l8 + 1)) {
-			fRec6[l8] = 0.0f;
+			iRec5[l8] = 0;
 		}
 		for (int l9 = 0; (l9 < 2); l9 = (l9 + 1)) {
-			fRec7[l9] = 0.0f;
+			fRec6[l9] = 0.0f;
 		}
 		for (int l10 = 0; (l10 < 2); l10 = (l10 + 1)) {
-			fRec8[l10] = 0.0f;
+			fRec7[l10] = 0.0f;
 		}
 		for (int l11 = 0; (l11 < 2); l11 = (l11 + 1)) {
-			fRec9[l11] = 0.0f;
+			fRec8[l11] = 0.0f;
 		}
 		for (int l12 = 0; (l12 < 2); l12 = (l12 + 1)) {
-			fRec10[l12] = 0.0f;
+			fRec9[l12] = 0.0f;
 		}
 		for (int l13 = 0; (l13 < 2); l13 = (l13 + 1)) {
-			fRec11[l13] = 0.0f;
+			fRec10[l13] = 0.0f;
 		}
 		for (int l14 = 0; (l14 < 2); l14 = (l14 + 1)) {
-			fRec12[l14] = 0.0f;
+			fRec11[l14] = 0.0f;
 		}
 		for (int l15 = 0; (l15 < 2); l15 = (l15 + 1)) {
-			fRec13[l15] = 0.0f;
+			fRec12[l15] = 0.0f;
 		}
 		for (int l16 = 0; (l16 < 2); l16 = (l16 + 1)) {
-			fRec14[l16] = 0.0f;
+			fRec13[l16] = 0.0f;
 		}
 		for (int l17 = 0; (l17 < 2); l17 = (l17 + 1)) {
-			fRec15[l17] = 0.0f;
+			fRec14[l17] = 0.0f;
 		}
 		for (int l18 = 0; (l18 < 2); l18 = (l18 + 1)) {
-			fRec16[l18] = 0.0f;
+			fRec15[l18] = 0.0f;
 		}
 		for (int l19 = 0; (l19 < 2); l19 = (l19 + 1)) {
-			fRec17[l19] = 0.0f;
+			fRec16[l19] = 0.0f;
 		}
 		for (int l20 = 0; (l20 < 2); l20 = (l20 + 1)) {
-			fRec18[l20] = 0.0f;
+			fRec17[l20] = 0.0f;
 		}
 		for (int l21 = 0; (l21 < 2); l21 = (l21 + 1)) {
-			fRec19[l21] = 0.0f;
+			fRec18[l21] = 0.0f;
 		}
 		for (int l22 = 0; (l22 < 2); l22 = (l22 + 1)) {
-			fRec20[l22] = 0.0f;
+			fRec19[l22] = 0.0f;
 		}
 		for (int l23 = 0; (l23 < 2); l23 = (l23 + 1)) {
-			fRec21[l23] = 0.0f;
+			fRec20[l23] = 0.0f;
 		}
 		for (int l24 = 0; (l24 < 2); l24 = (l24 + 1)) {
-			fRec22[l24] = 0.0f;
+			fRec21[l24] = 0.0f;
 		}
 		for (int l25 = 0; (l25 < 2); l25 = (l25 + 1)) {
-			fRec23[l25] = 0.0f;
+			fRec22[l25] = 0.0f;
 		}
 		for (int l26 = 0; (l26 < 2); l26 = (l26 + 1)) {
-			fRec24[l26] = 0.0f;
+			fRec23[l26] = 0.0f;
 		}
 		for (int l27 = 0; (l27 < 2); l27 = (l27 + 1)) {
-			fRec25[l27] = 0.0f;
+			fRec24[l27] = 0.0f;
+		}
+		for (int l28 = 0; (l28 < 2); l28 = (l28 + 1)) {
+			fRec25[l28] = 0.0f;
 		}
 	}
 	
@@ -843,11 +853,11 @@ class synth_risset_bell : public synth_risset_bell_dsp {
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("synth.risset_bell");
 		ui_interface->declare(&fHslider2, "unit", "ms");
-		ui_interface->addHorizontalSlider("dur", &fHslider2, 5000.0f, 10.0f, 600000.0f, 1.0f);
+		ui_interface->addHorizontalSlider("dur", &fHslider2, FAUSTFLOAT(5000.0f), FAUSTFLOAT(10.0f), FAUSTFLOAT(600000.0f), FAUSTFLOAT(1.0f));
 		ui_interface->declare(&fHslider0, "unit", "Hz");
-		ui_interface->addHorizontalSlider("freq", &fHslider0, 440.0f, 1.0f, 10000.0f, 0.00999999978f);
+		ui_interface->addHorizontalSlider("freq", &fHslider0, FAUSTFLOAT(440.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(10000.0f), FAUSTFLOAT(0.00999999978f));
 		ui_interface->addButton("gate", &fButton0);
-		ui_interface->addHorizontalSlider("pfreq", &fHslider1, 1.0f, 0.0f, 10.0f, 0.00100000005f);
+		ui_interface->addHorizontalSlider("pfreq", &fHslider1, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(10.0f), FAUSTFLOAT(0.00100000005f));
 		ui_interface->closeBox();
 	}
 	
@@ -857,37 +867,37 @@ class synth_risset_bell : public synth_risset_bell_dsp {
 		float fSlow1 = std::min<float>(1.0f, std::max<float>(0.0f, fSlow0));
 		float fSlow2 = float(fHslider0);
 		float fSlow3 = (fConst1 * fSlow2);
-		float fSlow4 = (0.00100000005f * float(fHslider1));
+		float fSlow4 = (fConst2 * float(fHslider1));
 		float fSlow5 = float(fHslider2);
-		float fSlow6 = (1.0f / std::max<float>(1.0f, (fConst4 * fSlow5)));
-		float fSlow7 = (fConst5 * ((0.560000002f * fSlow2) + 1.0f));
-		float fSlow8 = (1.0f / std::max<float>(1.0f, (fConst6 * fSlow5)));
-		float fSlow9 = (fConst7 * fSlow2);
-		float fSlow10 = (1.0f / std::max<float>(1.0f, (fConst8 * fSlow5)));
-		float fSlow11 = (fConst5 * ((0.920000017f * fSlow2) + 1.70000005f));
-		float fSlow12 = (1.0f / std::max<float>(1.0f, (fConst9 * fSlow5)));
-		float fSlow13 = (fConst10 * fSlow2);
-		float fSlow14 = (1.0f / std::max<float>(1.0f, (fConst11 * fSlow5)));
-		float fSlow15 = (fConst12 * fSlow2);
-		float fSlow16 = (1.0f / std::max<float>(1.0f, (fConst13 * fSlow5)));
-		float fSlow17 = (fConst14 * fSlow2);
-		float fSlow18 = (1.0f / std::max<float>(1.0f, (fConst15 * fSlow5)));
-		float fSlow19 = (fConst16 * fSlow2);
-		float fSlow20 = (1.0f / std::max<float>(1.0f, (fConst17 * fSlow5)));
-		float fSlow21 = (fConst18 * fSlow2);
-		float fSlow22 = (1.0f / std::max<float>(1.0f, (fConst19 * fSlow5)));
-		float fSlow23 = (fConst20 * fSlow2);
-		float fSlow24 = (1.0f / std::max<float>(1.0f, (fConst21 * fSlow5)));
-		float fSlow25 = (fConst22 * fSlow2);
-		float fSlow26 = (1.0f / std::max<float>(1.0f, (fConst23 * fSlow5)));
-		for (int i = 0; (i < count); i = (i + 1)) {
+		float fSlow6 = (1.0f / std::max<float>(1.0f, (fConst6 * fSlow5)));
+		float fSlow7 = (fConst7 * ((0.560000002f * fSlow2) + 1.0f));
+		float fSlow8 = (1.0f / std::max<float>(1.0f, (fConst8 * fSlow5)));
+		float fSlow9 = (fConst9 * fSlow2);
+		float fSlow10 = (1.0f / std::max<float>(1.0f, (fConst10 * fSlow5)));
+		float fSlow11 = (fConst7 * ((0.920000017f * fSlow2) + 1.70000005f));
+		float fSlow12 = (1.0f / std::max<float>(1.0f, (fConst11 * fSlow5)));
+		float fSlow13 = (fConst12 * fSlow2);
+		float fSlow14 = (1.0f / std::max<float>(1.0f, (fConst13 * fSlow5)));
+		float fSlow15 = (fConst14 * fSlow2);
+		float fSlow16 = (1.0f / std::max<float>(1.0f, (fConst15 * fSlow5)));
+		float fSlow17 = (fConst16 * fSlow2);
+		float fSlow18 = (1.0f / std::max<float>(1.0f, (fConst17 * fSlow5)));
+		float fSlow19 = (fConst18 * fSlow2);
+		float fSlow20 = (1.0f / std::max<float>(1.0f, (fConst19 * fSlow5)));
+		float fSlow21 = (fConst20 * fSlow2);
+		float fSlow22 = (1.0f / std::max<float>(1.0f, (fConst21 * fSlow5)));
+		float fSlow23 = (fConst22 * fSlow2);
+		float fSlow24 = (1.0f / std::max<float>(1.0f, (fConst23 * fSlow5)));
+		float fSlow25 = (fConst24 * fSlow2);
+		float fSlow26 = (1.0f / std::max<float>(1.0f, (fConst25 * fSlow5)));
+		for (int i0 = 0; (i0 < count); i0 = (i0 + 1)) {
 			fVec0[0] = fSlow0;
 			int iTemp0 = (fSlow0 > fVec0[1]);
 			iVec1[0] = iTemp0;
 			int iTemp1 = ((iVec1[1] <= 0) & (iTemp0 > 0));
 			fRec0[0] = ((fRec0[1] * float((1 - iTemp1))) + (fSlow1 * float(iTemp1)));
 			fRec2[0] = (fSlow3 + (fRec2[1] - std::floor((fSlow3 + fRec2[1]))));
-			fRec3[0] = (fSlow4 + (0.999000013f * fRec3[1]));
+			fRec3[0] = (fSlow4 + (fConst3 * fRec3[1]));
 			int iTemp2 = (fRec3[0] == 1.0f);
 			float fTemp3 = float((iTemp2 + 1));
 			float fTemp4 = float((1 - iTemp2));
@@ -895,8 +905,8 @@ class synth_risset_bell : public synth_risset_bell_dsp {
 			fRec4[0] = (fTemp5 - std::floor(fTemp5));
 			iRec5[0] = (iTemp0 + ((iRec5[1] + (iRec5[1] > 0)) * (fSlow0 <= fVec0[1])));
 			float fTemp6 = float(iRec5[0]);
-			float fTemp7 = (fConst3 * fTemp6);
-			float fTemp8 = (fConst2 - fTemp6);
+			float fTemp7 = (fConst5 * fTemp6);
+			float fTemp8 = (fConst4 - fTemp6);
 			fRec6[0] = (fSlow7 + (fRec6[1] - std::floor((fSlow7 + fRec6[1]))));
 			float fTemp9 = (fRec7[1] + (fSlow7 * fRec3[0]));
 			fRec7[0] = (fTemp9 - std::floor(fTemp9));
@@ -927,7 +937,7 @@ class synth_risset_bell : public synth_risset_bell_dsp {
 			fRec24[0] = (fSlow25 + (fRec24[1] - std::floor((fSlow25 + fRec24[1]))));
 			float fTemp18 = (fRec25[1] + (fSlow25 * fRec3[0]));
 			fRec25[0] = (fTemp18 - std::floor(fTemp18));
-			output0[i] = FAUSTFLOAT((fRec0[0] * (((((((((((0.0500000007f * (((ftbl0synth_risset_bellSIG0[int((65536.0f * fRec2[0]))] * fTemp3) + (fTemp4 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec4[0]))])) * synth_risset_bell_faustpower4_f(std::max<float>(0.0f, std::min<float>(fTemp7, ((fSlow6 * fTemp8) + 1.0f)))))) + (0.0335000008f * (((fTemp3 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec6[0]))]) + (fTemp4 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec7[0]))])) * synth_risset_bell_faustpower4_f(std::max<float>(0.0f, std::min<float>(fTemp7, ((fSlow8 * fTemp8) + 1.0f))))))) + (0.0500000007f * (((fTemp3 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec8[0]))]) + (fTemp4 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec9[0]))])) * synth_risset_bell_faustpower4_f(std::max<float>(0.0f, std::min<float>(fTemp7, ((fSlow10 * fTemp8) + 1.0f))))))) + (0.0900000036f * (((fTemp3 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec10[0]))]) + (fTemp4 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec11[0]))])) * synth_risset_bell_faustpower4_f(std::max<float>(0.0f, std::min<float>(fTemp7, ((fSlow12 * fTemp8) + 1.0f))))))) + (0.133499995f * (((fTemp3 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec12[0]))]) + (fTemp4 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec13[0]))])) * synth_risset_bell_faustpower4_f(std::max<float>(0.0f, std::min<float>(fTemp7, ((fSlow14 * fTemp8) + 1.0f))))))) + (0.0834999979f * (((fTemp3 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec14[0]))]) + (fTemp4 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec15[0]))])) * synth_risset_bell_faustpower4_f(std::max<float>(0.0f, std::min<float>(fTemp7, ((fSlow16 * fTemp8) + 1.0f))))))) + (0.0729999989f * (((fTemp3 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec16[0]))]) + (fTemp4 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec17[0]))])) * synth_risset_bell_faustpower4_f(std::max<float>(0.0f, std::min<float>(fTemp7, ((fSlow18 * fTemp8) + 1.0f))))))) + (0.0665000007f * (((fTemp3 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec18[0]))]) + (fTemp4 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec19[0]))])) * synth_risset_bell_faustpower4_f(std::max<float>(0.0f, std::min<float>(fTemp7, ((fSlow20 * fTemp8) + 1.0f))))))) + (0.0665000007f * (((fTemp3 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec20[0]))]) + (fTemp4 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec21[0]))])) * synth_risset_bell_faustpower4_f(std::max<float>(0.0f, std::min<float>(fTemp7, ((fSlow22 * fTemp8) + 1.0f))))))) + (0.0500000007f * (((fTemp3 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec22[0]))]) + (fTemp4 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec23[0]))])) * synth_risset_bell_faustpower4_f(std::max<float>(0.0f, std::min<float>(fTemp7, ((fSlow24 * fTemp8) + 1.0f))))))) + (0.0665000007f * (((fTemp3 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec24[0]))]) + (fTemp4 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec25[0]))])) * synth_risset_bell_faustpower4_f(std::max<float>(0.0f, std::min<float>(fTemp7, ((fSlow26 * fTemp8) + 1.0f)))))))));
+			output0[i0] = FAUSTFLOAT((fRec0[0] * (((((((((((0.0500000007f * (((ftbl0synth_risset_bellSIG0[int((65536.0f * fRec2[0]))] * fTemp3) + (fTemp4 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec4[0]))])) * synth_risset_bell_faustpower4_f(std::max<float>(0.0f, std::min<float>(fTemp7, ((fSlow6 * fTemp8) + 1.0f)))))) + (0.0335000008f * (((fTemp3 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec6[0]))]) + (fTemp4 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec7[0]))])) * synth_risset_bell_faustpower4_f(std::max<float>(0.0f, std::min<float>(fTemp7, ((fSlow8 * fTemp8) + 1.0f))))))) + (0.0500000007f * (((fTemp3 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec8[0]))]) + (fTemp4 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec9[0]))])) * synth_risset_bell_faustpower4_f(std::max<float>(0.0f, std::min<float>(fTemp7, ((fSlow10 * fTemp8) + 1.0f))))))) + (0.0900000036f * (((fTemp3 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec10[0]))]) + (fTemp4 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec11[0]))])) * synth_risset_bell_faustpower4_f(std::max<float>(0.0f, std::min<float>(fTemp7, ((fSlow12 * fTemp8) + 1.0f))))))) + (0.133499995f * (((fTemp3 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec12[0]))]) + (fTemp4 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec13[0]))])) * synth_risset_bell_faustpower4_f(std::max<float>(0.0f, std::min<float>(fTemp7, ((fSlow14 * fTemp8) + 1.0f))))))) + (0.0834999979f * (((fTemp3 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec14[0]))]) + (fTemp4 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec15[0]))])) * synth_risset_bell_faustpower4_f(std::max<float>(0.0f, std::min<float>(fTemp7, ((fSlow16 * fTemp8) + 1.0f))))))) + (0.0729999989f * (((fTemp3 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec16[0]))]) + (fTemp4 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec17[0]))])) * synth_risset_bell_faustpower4_f(std::max<float>(0.0f, std::min<float>(fTemp7, ((fSlow18 * fTemp8) + 1.0f))))))) + (0.0665000007f * (((fTemp3 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec18[0]))]) + (fTemp4 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec19[0]))])) * synth_risset_bell_faustpower4_f(std::max<float>(0.0f, std::min<float>(fTemp7, ((fSlow20 * fTemp8) + 1.0f))))))) + (0.0665000007f * (((fTemp3 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec20[0]))]) + (fTemp4 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec21[0]))])) * synth_risset_bell_faustpower4_f(std::max<float>(0.0f, std::min<float>(fTemp7, ((fSlow22 * fTemp8) + 1.0f))))))) + (0.0500000007f * (((fTemp3 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec22[0]))]) + (fTemp4 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec23[0]))])) * synth_risset_bell_faustpower4_f(std::max<float>(0.0f, std::min<float>(fTemp7, ((fSlow24 * fTemp8) + 1.0f))))))) + (0.0665000007f * (((fTemp3 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec24[0]))]) + (fTemp4 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec25[0]))])) * synth_risset_bell_faustpower4_f(std::max<float>(0.0f, std::min<float>(fTemp7, ((fSlow26 * fTemp8) + 1.0f)))))))));
 			fVec0[1] = fVec0[0];
 			iVec1[1] = iVec1[0];
 			fRec0[1] = fRec0[0];

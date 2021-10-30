@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "spat.pan4"
-Code generated with Faust 2.30.12 (https://faust.grame.fr)
-Compilation options: -lang cpp -es 1 -scal -ftz 0
+Code generated with Faust 2.37.3 (https://faust.grame.fr)
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __spat_pan4_H__
@@ -218,24 +218,69 @@ class dsp_factory {
     
 };
 
-/**
- * On Intel set FZ (Flush to Zero) and DAZ (Denormals Are Zero)
- * flags to avoid costly denormals.
- */
+// Denormal handling
 
-#ifdef __SSE__
-    #include <xmmintrin.h>
-    #ifdef __SSE2__
-        #define AVOIDDENORMALS _mm_setcsr(_mm_getcsr() | 0x8040)
-    #else
-        #define AVOIDDENORMALS _mm_setcsr(_mm_getcsr() | 0x8000)
-    #endif
-#else
-    #define AVOIDDENORMALS
+#if defined (__SSE__)
+#include <xmmintrin.h>
 #endif
 
+class ScopedNoDenormals
+{
+    private:
+    
+        intptr_t fpsr;
+        
+        void setFpStatusRegister(intptr_t fpsr_aux) noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+           asm volatile("msr fpcr, %0" : : "ri" (fpsr_aux));
+        #elif defined (__SSE__)
+            _mm_setcsr(static_cast<uint32_t>(fpsr_aux));
+        #endif
+        }
+        
+        void getFpStatusRegister() noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+            asm volatile("mrs %0, fpcr" : "=r" (fpsr));
+        #elif defined ( __SSE__)
+            fpsr = static_cast<intptr_t>(_mm_getcsr());
+        #endif
+        }
+    
+    public:
+    
+        ScopedNoDenormals() noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+            intptr_t mask = (1 << 24 /* FZ */);
+        #else
+            #if defined(__SSE__)
+            #if defined(__SSE2__)
+                intptr_t mask = 0x8040;
+            #else
+                intptr_t mask = 0x8000;
+            #endif
+            #else
+                intptr_t mask = 0x0000;
+            #endif
+        #endif
+            getFpStatusRegister();
+            setFpStatusRegister(fpsr | mask);
+        }
+        
+        ~ScopedNoDenormals() noexcept
+        {
+            setFpStatusRegister(fpsr);
+        }
+
+};
+
+#define AVOIDDENORMALS ScopedNoDenormals();
+
 #endif
-/**************************  END  spat_pan4_dsp.h **************************/
+
+/************************** END spat_pan4_dsp.h **************************/
 /************************** BEGIN UI.h **************************/
 /************************************************************************
  FAUST Architecture File
@@ -309,6 +354,9 @@ struct UIReal
     // -- metadata declarations
     
     virtual void declare(REAL* zone, const char* key, const char* val) {}
+    
+    // To be used by LLVM client
+    virtual int sizeOfFAUSTFLOAT() { return sizeof(FAUSTFLOAT); }
 };
 
 struct UI : public UIReal<FAUSTFLOAT>
@@ -525,16 +573,16 @@ class spat_pan4 : public spat_pan4_dsp {
  public:
 	
 	void metadata(Meta* m) { 
-		m->declare("compile_options", "-lang cpp -es 1 -scal -ftz 0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0");
 		m->declare("filename", "spat_pan4.dsp");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
-		m->declare("maths.lib/version", "2.3");
+		m->declare("maths.lib/version", "2.5");
 		m->declare("name", "spat.pan4");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
-		m->declare("signals.lib/version", "0.0");
+		m->declare("signals.lib/version", "0.1");
 		m->declare("spats.lib/name", "Faust Spatialization Library");
 		m->declare("spats.lib/version", "0.0");
 	}
@@ -544,46 +592,6 @@ class spat_pan4 : public spat_pan4_dsp {
 	}
 	virtual int getNumOutputs() {
 		return 4;
-	}
-	virtual int getInputRate(int channel) {
-		int rate;
-		switch ((channel)) {
-			case 0: {
-				rate = 1;
-				break;
-			}
-			default: {
-				rate = -1;
-				break;
-			}
-		}
-		return rate;
-	}
-	virtual int getOutputRate(int channel) {
-		int rate;
-		switch ((channel)) {
-			case 0: {
-				rate = 1;
-				break;
-			}
-			case 1: {
-				rate = 1;
-				break;
-			}
-			case 2: {
-				rate = 1;
-				break;
-			}
-			case 3: {
-				rate = 1;
-				break;
-			}
-			default: {
-				rate = -1;
-				break;
-			}
-		}
-		return rate;
 	}
 	
 	static void classInit(int sample_rate) {
@@ -634,8 +642,8 @@ class spat_pan4 : public spat_pan4_dsp {
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("spat.pan4");
 		ui_interface->declare(&fVslider1, "unit", "rad");
-		ui_interface->addVerticalSlider("angle", &fVslider1, 0.0f, 0.0f, 6.28318548f, 9.99999975e-05f);
-		ui_interface->addVerticalSlider("radius", &fVslider0, 1.0f, 0.0f, 1.0f, 9.99999975e-05f);
+		ui_interface->addVerticalSlider("angle", &fVslider1, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(6.28318548f), FAUSTFLOAT(9.99999975e-05f));
+		ui_interface->addVerticalSlider("radius", &fVslider0, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(9.99999975e-05f));
 		ui_interface->closeBox();
 	}
 	
@@ -652,16 +660,16 @@ class spat_pan4 : public spat_pan4_dsp {
 		float fSlow4 = (4.99999987e-05f * (fSlow1 * std::sqrt(std::max<float>(0.0f, (1.0f - (4.0f * (fSlow0 * std::fabs((std::fmod((fSlow2 + 1.25f), 1.0f) + -0.5f)))))))));
 		float fSlow5 = (4.99999987e-05f * (fSlow1 * std::sqrt(std::max<float>(0.0f, (1.0f - (4.0f * (fSlow0 * std::fabs((std::fmod((fSlow2 + 1.0f), 1.0f) + -0.5f)))))))));
 		float fSlow6 = (4.99999987e-05f * (fSlow1 * std::sqrt(std::max<float>(0.0f, (1.0f - (4.0f * (fSlow0 * std::fabs((std::fmod((fSlow2 + 0.75f), 1.0f) + -0.5f)))))))));
-		for (int i = 0; (i < count); i = (i + 1)) {
-			float fTemp0 = float(input0[i]);
+		for (int i0 = 0; (i0 < count); i0 = (i0 + 1)) {
+			float fTemp0 = float(input0[i0]);
 			fRec0[0] = (fSlow3 + (0.999899983f * fRec0[1]));
-			output0[i] = FAUSTFLOAT((fTemp0 * fRec0[0]));
+			output0[i0] = FAUSTFLOAT((fTemp0 * fRec0[0]));
 			fRec1[0] = (fSlow4 + (0.999899983f * fRec1[1]));
-			output1[i] = FAUSTFLOAT((fTemp0 * fRec1[0]));
+			output1[i0] = FAUSTFLOAT((fTemp0 * fRec1[0]));
 			fRec2[0] = (fSlow5 + (0.999899983f * fRec2[1]));
-			output2[i] = FAUSTFLOAT((fTemp0 * fRec2[0]));
+			output2[i0] = FAUSTFLOAT((fTemp0 * fRec2[0]));
 			fRec3[0] = (fSlow6 + (0.999899983f * fRec3[1]));
-			output3[i] = FAUSTFLOAT((fTemp0 * fRec3[0]));
+			output3[i0] = FAUSTFLOAT((fTemp0 * fRec3[0]));
 			fRec0[1] = fRec0[0];
 			fRec1[1] = fRec1[0];
 			fRec2[1] = fRec2[0];

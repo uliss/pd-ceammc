@@ -3,8 +3,8 @@ author: "Viacheslav Lotsmanov (unclechu)"
 copyright: "(c) Viacheslav Lotsmanov, 2015"
 license: "BSD"
 name: "fx.bitdown"
-Code generated with Faust 2.30.12 (https://faust.grame.fr)
-Compilation options: -lang cpp -es 1 -scal -ftz 0
+Code generated with Faust 2.37.3 (https://faust.grame.fr)
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __fx_bitdown_H__
@@ -221,24 +221,69 @@ class dsp_factory {
     
 };
 
-/**
- * On Intel set FZ (Flush to Zero) and DAZ (Denormals Are Zero)
- * flags to avoid costly denormals.
- */
+// Denormal handling
 
-#ifdef __SSE__
-    #include <xmmintrin.h>
-    #ifdef __SSE2__
-        #define AVOIDDENORMALS _mm_setcsr(_mm_getcsr() | 0x8040)
-    #else
-        #define AVOIDDENORMALS _mm_setcsr(_mm_getcsr() | 0x8000)
-    #endif
-#else
-    #define AVOIDDENORMALS
+#if defined (__SSE__)
+#include <xmmintrin.h>
 #endif
 
+class ScopedNoDenormals
+{
+    private:
+    
+        intptr_t fpsr;
+        
+        void setFpStatusRegister(intptr_t fpsr_aux) noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+           asm volatile("msr fpcr, %0" : : "ri" (fpsr_aux));
+        #elif defined (__SSE__)
+            _mm_setcsr(static_cast<uint32_t>(fpsr_aux));
+        #endif
+        }
+        
+        void getFpStatusRegister() noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+            asm volatile("mrs %0, fpcr" : "=r" (fpsr));
+        #elif defined ( __SSE__)
+            fpsr = static_cast<intptr_t>(_mm_getcsr());
+        #endif
+        }
+    
+    public:
+    
+        ScopedNoDenormals() noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+            intptr_t mask = (1 << 24 /* FZ */);
+        #else
+            #if defined(__SSE__)
+            #if defined(__SSE2__)
+                intptr_t mask = 0x8040;
+            #else
+                intptr_t mask = 0x8000;
+            #endif
+            #else
+                intptr_t mask = 0x0000;
+            #endif
+        #endif
+            getFpStatusRegister();
+            setFpStatusRegister(fpsr | mask);
+        }
+        
+        ~ScopedNoDenormals() noexcept
+        {
+            setFpStatusRegister(fpsr);
+        }
+
+};
+
+#define AVOIDDENORMALS ScopedNoDenormals();
+
 #endif
-/**************************  END  fx_bitdown_dsp.h **************************/
+
+/************************** END fx_bitdown_dsp.h **************************/
 /************************** BEGIN UI.h **************************/
 /************************************************************************
  FAUST Architecture File
@@ -312,6 +357,9 @@ struct UIReal
     // -- metadata declarations
     
     virtual void declare(REAL* zone, const char* key, const char* val) {}
+    
+    // To be used by LLVM client
+    virtual int sizeOfFAUSTFLOAT() { return sizeof(FAUSTFLOAT); }
 };
 
 struct UI : public UIReal<FAUSTFLOAT>
@@ -529,11 +577,11 @@ class fx_bitdown : public fx_bitdown_dsp {
 	void metadata(Meta* m) { 
 		m->declare("author", "Viacheslav Lotsmanov (unclechu)");
 		m->declare("basics.lib/name", "Faust Basic Element Library");
-		m->declare("basics.lib/version", "0.1");
+		m->declare("basics.lib/version", "0.2");
 		m->declare("category", "Distortion");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
 		m->declare("ceammc_ui.lib/version", "0.1.2");
-		m->declare("compile_options", "-lang cpp -es 1 -scal -ftz 0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0");
 		m->declare("copyright", "(c) Viacheslav Lotsmanov, 2015");
 		m->declare("filename", "fx_bitdown.dsp");
 		m->declare("license", "BSD");
@@ -545,34 +593,6 @@ class fx_bitdown : public fx_bitdown_dsp {
 	}
 	virtual int getNumOutputs() {
 		return 1;
-	}
-	virtual int getInputRate(int channel) {
-		int rate;
-		switch ((channel)) {
-			case 0: {
-				rate = 1;
-				break;
-			}
-			default: {
-				rate = -1;
-				break;
-			}
-		}
-		return rate;
-	}
-	virtual int getOutputRate(int channel) {
-		int rate;
-		switch ((channel)) {
-			case 0: {
-				rate = 1;
-				break;
-			}
-			default: {
-				rate = -1;
-				break;
-			}
-		}
-		return rate;
 	}
 	
 	static void classInit(int sample_rate) {
@@ -618,10 +638,10 @@ class fx_bitdown : public fx_bitdown_dsp {
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("fx.bitdown");
 		ui_interface->declare(&fVslider1, "type", "int");
-		ui_interface->addVerticalSlider("bits", &fVslider1, 16.0f, 1.0f, 16.0f, 0.100000001f);
+		ui_interface->addVerticalSlider("bits", &fVslider1, FAUSTFLOAT(16.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(16.0f), FAUSTFLOAT(0.100000001f));
 		ui_interface->addCheckButton("bypass", &fCheckbox0);
 		ui_interface->declare(&fVslider0, "type", "int");
-		ui_interface->addVerticalSlider("downsamp", &fVslider0, 1.0f, 1.0f, 200.0f, 1.0f);
+		ui_interface->addVerticalSlider("downsamp", &fVslider0, FAUSTFLOAT(1.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(200.0f), FAUSTFLOAT(1.0f));
 		ui_interface->closeBox();
 	}
 	
@@ -634,13 +654,16 @@ class fx_bitdown : public fx_bitdown_dsp {
 		float fSlow3 = float(int(std::pow(2.0f, (float(fVslider1) + -1.0f))));
 		float fSlow4 = (1.0f / fSlow3);
 		int iSlow5 = (iSlow1 + -1);
-		for (int i = 0; (i < count); i = (i + 1)) {
-			float fTemp0 = float(input0[i]);
+		for (int i0 = 0; (i0 < count); i0 = (i0 + 1)) {
+			float fTemp0 = float(input0[i0]);
 			float fTemp1 = (fSlow4 * std::floor((fSlow3 * (iSlow0 ? 0.0f : fTemp0))));
-			float fTemp2 = ((fTemp1 > 1.0f) ? 1.0f : ((fTemp1 < -1.0f) ? -1.0f : fTemp1));
-			iRec1[0] = ((iRec1[1] < iSlow5) ? (iRec1[1] + 1) : 0);
+			float fThen2 = ((fTemp1 < -1.0f) ? -1.0f : fTemp1);
+			float fTemp2 = ((fTemp1 > 1.0f) ? 1.0f : fThen2);
+			int iElse3 = (iRec1[1] + 1);
+			iRec1[0] = ((iRec1[1] < iSlow5) ? iElse3 : 0);
 			fRec0[0] = ((iRec1[0] == 0) ? fTemp2 : fRec0[1]);
-			output0[i] = FAUSTFLOAT((iSlow0 ? fTemp0 : (iSlow2 ? fRec0[0] : fTemp2)));
+			float fThen6 = (iSlow2 ? fRec0[0] : fTemp2);
+			output0[i0] = FAUSTFLOAT((iSlow0 ? fTemp0 : fThen6));
 			iRec1[1] = iRec1[0];
 			fRec0[1] = fRec0[0];
 		}

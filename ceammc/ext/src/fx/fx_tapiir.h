@@ -4,8 +4,8 @@ copyright: "(c)GRAME 2006"
 license: "BSD"
 name: "fx.tapiir"
 version: "1.0"
-Code generated with Faust 2.30.12 (https://faust.grame.fr)
-Compilation options: -lang cpp -es 1 -scal -ftz 0
+Code generated with Faust 2.37.3 (https://faust.grame.fr)
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __fx_tapiir_H__
@@ -222,24 +222,69 @@ class dsp_factory {
     
 };
 
-/**
- * On Intel set FZ (Flush to Zero) and DAZ (Denormals Are Zero)
- * flags to avoid costly denormals.
- */
+// Denormal handling
 
-#ifdef __SSE__
-    #include <xmmintrin.h>
-    #ifdef __SSE2__
-        #define AVOIDDENORMALS _mm_setcsr(_mm_getcsr() | 0x8040)
-    #else
-        #define AVOIDDENORMALS _mm_setcsr(_mm_getcsr() | 0x8000)
-    #endif
-#else
-    #define AVOIDDENORMALS
+#if defined (__SSE__)
+#include <xmmintrin.h>
 #endif
 
+class ScopedNoDenormals
+{
+    private:
+    
+        intptr_t fpsr;
+        
+        void setFpStatusRegister(intptr_t fpsr_aux) noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+           asm volatile("msr fpcr, %0" : : "ri" (fpsr_aux));
+        #elif defined (__SSE__)
+            _mm_setcsr(static_cast<uint32_t>(fpsr_aux));
+        #endif
+        }
+        
+        void getFpStatusRegister() noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+            asm volatile("mrs %0, fpcr" : "=r" (fpsr));
+        #elif defined ( __SSE__)
+            fpsr = static_cast<intptr_t>(_mm_getcsr());
+        #endif
+        }
+    
+    public:
+    
+        ScopedNoDenormals() noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+            intptr_t mask = (1 << 24 /* FZ */);
+        #else
+            #if defined(__SSE__)
+            #if defined(__SSE2__)
+                intptr_t mask = 0x8040;
+            #else
+                intptr_t mask = 0x8000;
+            #endif
+            #else
+                intptr_t mask = 0x0000;
+            #endif
+        #endif
+            getFpStatusRegister();
+            setFpStatusRegister(fpsr | mask);
+        }
+        
+        ~ScopedNoDenormals() noexcept
+        {
+            setFpStatusRegister(fpsr);
+        }
+
+};
+
+#define AVOIDDENORMALS ScopedNoDenormals();
+
 #endif
-/**************************  END  fx_tapiir_dsp.h **************************/
+
+/************************** END fx_tapiir_dsp.h **************************/
 /************************** BEGIN UI.h **************************/
 /************************************************************************
  FAUST Architecture File
@@ -313,6 +358,9 @@ struct UIReal
     // -- metadata declarations
     
     virtual void declare(REAL* zone, const char* key, const char* val) {}
+    
+    // To be used by LLVM client
+    virtual int sizeOfFAUSTFLOAT() { return sizeof(FAUSTFLOAT); }
 };
 
 struct UI : public UIReal<FAUSTFLOAT>
@@ -619,10 +667,10 @@ class fx_tapiir : public fx_tapiir_dsp {
 	void metadata(Meta* m) { 
 		m->declare("author", "Grame");
 		m->declare("basics.lib/name", "Faust Basic Element Library");
-		m->declare("basics.lib/version", "0.1");
+		m->declare("basics.lib/version", "0.2");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
 		m->declare("ceammc.lib/version", "0.1.2");
-		m->declare("compile_options", "-lang cpp -es 1 -scal -ftz 0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0");
 		m->declare("copyright", "(c)GRAME 2006");
 		m->declare("delays.lib/name", "Faust Delay Library");
 		m->declare("delays.lib/version", "0.1");
@@ -632,12 +680,12 @@ class fx_tapiir : public fx_tapiir_dsp {
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
-		m->declare("maths.lib/version", "2.3");
+		m->declare("maths.lib/version", "2.5");
 		m->declare("name", "fx.tapiir");
 		m->declare("platform.lib/name", "Generic Platform Library");
-		m->declare("platform.lib/version", "0.1");
+		m->declare("platform.lib/version", "0.2");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
-		m->declare("signals.lib/version", "0.0");
+		m->declare("signals.lib/version", "0.1");
 		m->declare("version", "1.0");
 	}
 
@@ -646,42 +694,6 @@ class fx_tapiir : public fx_tapiir_dsp {
 	}
 	virtual int getNumOutputs() {
 		return 2;
-	}
-	virtual int getInputRate(int channel) {
-		int rate;
-		switch ((channel)) {
-			case 0: {
-				rate = 1;
-				break;
-			}
-			case 1: {
-				rate = 1;
-				break;
-			}
-			default: {
-				rate = -1;
-				break;
-			}
-		}
-		return rate;
-	}
-	virtual int getOutputRate(int channel) {
-		int rate;
-		switch ((channel)) {
-			case 0: {
-				rate = 1;
-				break;
-			}
-			case 1: {
-				rate = 1;
-				break;
-			}
-			default: {
-				rate = -1;
-				break;
-			}
-		}
-		return rate;
 	}
 	
 	static void classInit(int sample_rate) {
@@ -837,98 +849,98 @@ class fx_tapiir : public fx_tapiir_dsp {
 		ui_interface->openVerticalBox("fx.tapiir");
 		ui_interface->openTabBox("0x00");
 		ui_interface->declare(&fVslider2, "unit", "ms");
-		ui_interface->addVerticalSlider("tap0.delay", &fVslider2, 0.0f, 0.0f, 5000.0f, 0.00999999978f);
-		ui_interface->addVerticalSlider("tap0.fb0", &fVslider5, 0.0f, 0.0f, 1.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("tap0.fb1", &fVslider6, 0.0f, 0.0f, 1.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("tap0.fb2", &fVslider7, 0.0f, 0.0f, 1.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("tap0.fb3", &fVslider8, 0.0f, 0.0f, 1.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("tap0.fb4", &fVslider4, 0.0f, 0.0f, 1.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("tap0.fb5", &fVslider9, 0.0f, 0.0f, 1.0f, 0.100000001f);
+		ui_interface->addVerticalSlider("tap0.delay", &fVslider2, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(5000.0f), FAUSTFLOAT(0.00999999978f));
+		ui_interface->addVerticalSlider("tap0.fb0", &fVslider4, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("tap0.fb1", &fVslider5, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("tap0.fb2", &fVslider6, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("tap0.fb3", &fVslider7, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("tap0.fb4", &fVslider8, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("tap0.fb5", &fVslider9, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
 		ui_interface->declare(&fVslider3, "unit", "db");
-		ui_interface->addVerticalSlider("tap0.gain", &fVslider3, 0.0f, -60.0f, 0.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("tap0.in0", &fVslider10, 1.0f, 0.0f, 1.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("tap0.in1", &fVslider11, 1.0f, 0.0f, 1.0f, 0.100000001f);
+		ui_interface->addVerticalSlider("tap0.gain", &fVslider3, FAUSTFLOAT(0.0f), FAUSTFLOAT(-60.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("tap0.in0", &fVslider10, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("tap0.in1", &fVslider11, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
 		ui_interface->declare(&fVslider12, "unit", "ms");
-		ui_interface->addVerticalSlider("tap1.delay", &fVslider12, 0.0f, 0.0f, 5000.0f, 0.00999999978f);
-		ui_interface->addVerticalSlider("tap1.fb0", &fVslider14, 0.0f, 0.0f, 1.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("tap1.fb1", &fVslider15, 0.0f, 0.0f, 1.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("tap1.fb2", &fVslider16, 0.0f, 0.0f, 1.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("tap1.fb3", &fVslider17, 0.0f, 0.0f, 1.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("tap1.fb4", &fVslider18, 0.0f, 0.0f, 1.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("tap1.fb5", &fVslider19, 0.0f, 0.0f, 1.0f, 0.100000001f);
+		ui_interface->addVerticalSlider("tap1.delay", &fVslider12, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(5000.0f), FAUSTFLOAT(0.00999999978f));
+		ui_interface->addVerticalSlider("tap1.fb0", &fVslider14, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("tap1.fb1", &fVslider15, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("tap1.fb2", &fVslider16, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("tap1.fb3", &fVslider17, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("tap1.fb4", &fVslider18, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("tap1.fb5", &fVslider19, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
 		ui_interface->declare(&fVslider13, "unit", "db");
-		ui_interface->addVerticalSlider("tap1.gain", &fVslider13, 0.0f, -60.0f, 0.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("tap1.in0", &fVslider20, 1.0f, 0.0f, 1.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("tap1.in1", &fVslider21, 1.0f, 0.0f, 1.0f, 0.100000001f);
+		ui_interface->addVerticalSlider("tap1.gain", &fVslider13, FAUSTFLOAT(0.0f), FAUSTFLOAT(-60.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("tap1.in0", &fVslider20, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("tap1.in1", &fVslider21, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
 		ui_interface->declare(&fVslider22, "unit", "ms");
-		ui_interface->addVerticalSlider("tap2.delay", &fVslider22, 0.0f, 0.0f, 5000.0f, 0.00999999978f);
-		ui_interface->addVerticalSlider("tap2.fb0", &fVslider25, 0.0f, 0.0f, 1.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("tap2.fb1", &fVslider26, 0.0f, 0.0f, 1.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("tap2.fb2", &fVslider27, 0.0f, 0.0f, 1.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("tap2.fb3", &fVslider28, 0.0f, 0.0f, 1.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("tap2.fb4", &fVslider24, 0.0f, 0.0f, 1.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("tap2.fb5", &fVslider29, 0.0f, 0.0f, 1.0f, 0.100000001f);
+		ui_interface->addVerticalSlider("tap2.delay", &fVslider22, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(5000.0f), FAUSTFLOAT(0.00999999978f));
+		ui_interface->addVerticalSlider("tap2.fb0", &fVslider24, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("tap2.fb1", &fVslider25, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("tap2.fb2", &fVslider26, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("tap2.fb3", &fVslider27, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("tap2.fb4", &fVslider28, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("tap2.fb5", &fVslider29, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
 		ui_interface->declare(&fVslider23, "unit", "db");
-		ui_interface->addVerticalSlider("tap2.gain", &fVslider23, 0.0f, -60.0f, 0.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("tap2.in0", &fVslider30, 1.0f, 0.0f, 1.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("tap2.in1", &fVslider31, 1.0f, 0.0f, 1.0f, 0.100000001f);
+		ui_interface->addVerticalSlider("tap2.gain", &fVslider23, FAUSTFLOAT(0.0f), FAUSTFLOAT(-60.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("tap2.in0", &fVslider30, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("tap2.in1", &fVslider31, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
 		ui_interface->declare(&fVslider32, "unit", "ms");
-		ui_interface->addVerticalSlider("tap3.delay", &fVslider32, 0.0f, 0.0f, 5000.0f, 0.00999999978f);
-		ui_interface->addVerticalSlider("tap3.fb0", &fVslider34, 0.0f, 0.0f, 1.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("tap3.fb1", &fVslider35, 0.0f, 0.0f, 1.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("tap3.fb2", &fVslider36, 0.0f, 0.0f, 1.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("tap3.fb3", &fVslider37, 0.0f, 0.0f, 1.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("tap3.fb4", &fVslider38, 0.0f, 0.0f, 1.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("tap3.fb5", &fVslider39, 0.0f, 0.0f, 1.0f, 0.100000001f);
+		ui_interface->addVerticalSlider("tap3.delay", &fVslider32, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(5000.0f), FAUSTFLOAT(0.00999999978f));
+		ui_interface->addVerticalSlider("tap3.fb0", &fVslider34, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("tap3.fb1", &fVslider35, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("tap3.fb2", &fVslider36, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("tap3.fb3", &fVslider37, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("tap3.fb4", &fVslider38, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("tap3.fb5", &fVslider39, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
 		ui_interface->declare(&fVslider33, "unit", "db");
-		ui_interface->addVerticalSlider("tap3.gain", &fVslider33, 0.0f, -60.0f, 0.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("tap3.in0", &fVslider40, 1.0f, 0.0f, 1.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("tap3.in1", &fVslider41, 1.0f, 0.0f, 1.0f, 0.100000001f);
+		ui_interface->addVerticalSlider("tap3.gain", &fVslider33, FAUSTFLOAT(0.0f), FAUSTFLOAT(-60.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("tap3.in0", &fVslider40, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("tap3.in1", &fVslider41, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
 		ui_interface->declare(&fVslider42, "unit", "ms");
-		ui_interface->addVerticalSlider("tap4.delay", &fVslider42, 0.0f, 0.0f, 5000.0f, 0.00999999978f);
-		ui_interface->addVerticalSlider("tap4.fb0", &fVslider44, 0.0f, 0.0f, 1.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("tap4.fb1", &fVslider45, 0.0f, 0.0f, 1.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("tap4.fb2", &fVslider46, 0.0f, 0.0f, 1.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("tap4.fb3", &fVslider47, 0.0f, 0.0f, 1.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("tap4.fb4", &fVslider48, 0.0f, 0.0f, 1.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("tap4.fb5", &fVslider49, 0.0f, 0.0f, 1.0f, 0.100000001f);
+		ui_interface->addVerticalSlider("tap4.delay", &fVslider42, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(5000.0f), FAUSTFLOAT(0.00999999978f));
+		ui_interface->addVerticalSlider("tap4.fb0", &fVslider44, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("tap4.fb1", &fVslider45, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("tap4.fb2", &fVslider46, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("tap4.fb3", &fVslider47, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("tap4.fb4", &fVslider48, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("tap4.fb5", &fVslider49, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
 		ui_interface->declare(&fVslider43, "unit", "db");
-		ui_interface->addVerticalSlider("tap4.gain", &fVslider43, 0.0f, -60.0f, 0.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("tap4.in0", &fVslider50, 1.0f, 0.0f, 1.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("tap4.in1", &fVslider51, 1.0f, 0.0f, 1.0f, 0.100000001f);
+		ui_interface->addVerticalSlider("tap4.gain", &fVslider43, FAUSTFLOAT(0.0f), FAUSTFLOAT(-60.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("tap4.in0", &fVslider50, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("tap4.in1", &fVslider51, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
 		ui_interface->declare(&fVslider52, "unit", "ms");
-		ui_interface->addVerticalSlider("tap5.delay", &fVslider52, 0.0f, 0.0f, 5000.0f, 0.00999999978f);
-		ui_interface->addVerticalSlider("tap5.fb0", &fVslider54, 0.0f, 0.0f, 1.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("tap5.fb1", &fVslider55, 0.0f, 0.0f, 1.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("tap5.fb2", &fVslider56, 0.0f, 0.0f, 1.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("tap5.fb3", &fVslider57, 0.0f, 0.0f, 1.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("tap5.fb4", &fVslider58, 0.0f, 0.0f, 1.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("tap5.fb5", &fVslider59, 0.0f, 0.0f, 1.0f, 0.100000001f);
+		ui_interface->addVerticalSlider("tap5.delay", &fVslider52, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(5000.0f), FAUSTFLOAT(0.00999999978f));
+		ui_interface->addVerticalSlider("tap5.fb0", &fVslider54, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("tap5.fb1", &fVslider55, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("tap5.fb2", &fVslider56, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("tap5.fb3", &fVslider57, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("tap5.fb4", &fVslider58, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("tap5.fb5", &fVslider59, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
 		ui_interface->declare(&fVslider53, "unit", "db");
-		ui_interface->addVerticalSlider("tap5.gain", &fVslider53, 0.0f, -60.0f, 0.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("tap5.in0", &fVslider60, 1.0f, 0.0f, 1.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("tap5.in1", &fVslider61, 1.0f, 0.0f, 1.0f, 0.100000001f);
+		ui_interface->addVerticalSlider("tap5.gain", &fVslider53, FAUSTFLOAT(0.0f), FAUSTFLOAT(-60.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("tap5.in0", &fVslider60, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("tap5.in1", &fVslider61, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
 		ui_interface->closeBox();
 		ui_interface->declare(&fVslider0, "unit", "db");
-		ui_interface->addVerticalSlider("out0.gain", &fVslider0, 0.0f, -60.0f, 0.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("out0.in0", &fVslider67, 0.0f, 0.0f, 1.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("out0.in1", &fVslider68, 0.0f, 0.0f, 1.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("out0.tap0", &fVslider1, 0.0f, 0.0f, 1.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("out0.tap1", &fVslider62, 0.0f, 0.0f, 1.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("out0.tap2", &fVslider63, 0.0f, 0.0f, 1.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("out0.tap3", &fVslider64, 0.0f, 0.0f, 1.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("out0.tap4", &fVslider65, 0.0f, 0.0f, 1.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("out0.tap5", &fVslider66, 0.0f, 0.0f, 1.0f, 0.100000001f);
+		ui_interface->addVerticalSlider("out0.gain", &fVslider0, FAUSTFLOAT(0.0f), FAUSTFLOAT(-60.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("out0.in0", &fVslider67, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("out0.in1", &fVslider68, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("out0.tap0", &fVslider1, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("out0.tap1", &fVslider62, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("out0.tap2", &fVslider63, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("out0.tap3", &fVslider64, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("out0.tap4", &fVslider65, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("out0.tap5", &fVslider66, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
 		ui_interface->declare(&fVslider69, "unit", "db");
-		ui_interface->addVerticalSlider("out1.gain", &fVslider69, 0.0f, -60.0f, 0.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("out1.in0", &fVslider70, 0.0f, 0.0f, 1.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("out1.in1", &fVslider77, 0.0f, 0.0f, 1.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("out1.tap0", &fVslider76, 0.0f, 0.0f, 1.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("out1.tap1", &fVslider75, 0.0f, 0.0f, 1.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("out1.tap2", &fVslider71, 0.0f, 0.0f, 1.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("out1.tap3", &fVslider74, 0.0f, 0.0f, 1.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("out1.tap4", &fVslider73, 0.0f, 0.0f, 1.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("out1.tap5", &fVslider72, 0.0f, 0.0f, 1.0f, 0.100000001f);
+		ui_interface->addVerticalSlider("out1.gain", &fVslider69, FAUSTFLOAT(0.0f), FAUSTFLOAT(-60.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("out1.in0", &fVslider76, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("out1.in1", &fVslider77, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("out1.tap0", &fVslider70, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("out1.tap1", &fVslider71, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("out1.tap2", &fVslider72, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("out1.tap3", &fVslider73, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("out1.tap4", &fVslider74, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("out1.tap5", &fVslider75, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f));
 		ui_interface->closeBox();
 	}
 	
@@ -1051,16 +1063,16 @@ class fx_tapiir : public fx_tapiir_dsp {
 		float fSlow111 = float(fVslider75);
 		float fSlow112 = float(fVslider76);
 		float fSlow113 = float(fVslider77);
-		for (int i = 0; (i < count); i = (i + 1)) {
-			float fTemp0 = float(input0[i]);
-			float fTemp1 = float(input1[i]);
-			float fTemp2 = (fSlow5 * ((fSlow6 * fRec4[1]) + (((((((fSlow7 * fRec0[1]) + (fSlow8 * fRec1[1])) + (fSlow9 * fRec2[1])) + (fSlow10 * fRec3[1])) + (fSlow11 * fRec5[1])) + (fSlow12 * fTemp0)) + (fSlow13 * fTemp1))));
+		for (int i0 = 0; (i0 < count); i0 = (i0 + 1)) {
+			float fTemp0 = float(input0[i0]);
+			float fTemp1 = float(input1[i0]);
+			float fTemp2 = (fSlow5 * ((((((((fSlow6 * fRec0[1]) + (fSlow7 * fRec1[1])) + (fSlow8 * fRec2[1])) + (fSlow9 * fRec3[1])) + (fSlow10 * fRec4[1])) + (fSlow11 * fRec5[1])) + (fSlow12 * fTemp0)) + (fSlow13 * fTemp1)));
 			fVec0[(IOTA & 1048575)] = fTemp2;
 			fRec0[0] = ((fSlow4 * fVec0[((IOTA - iSlow15) & 1048575)]) + (fSlow16 * fVec0[((IOTA - iSlow17) & 1048575)]));
 			float fTemp3 = (fSlow21 * ((((((((fSlow22 * fRec0[1]) + (fSlow23 * fRec1[1])) + (fSlow24 * fRec2[1])) + (fSlow25 * fRec3[1])) + (fSlow26 * fRec4[1])) + (fSlow27 * fRec5[1])) + (fSlow28 * fTemp0)) + (fSlow29 * fTemp1)));
 			fVec1[(IOTA & 1048575)] = fTemp3;
 			fRec1[0] = ((fSlow20 * fVec1[((IOTA - iSlow31) & 1048575)]) + (fSlow32 * fVec1[((IOTA - iSlow33) & 1048575)]));
-			float fTemp4 = (fSlow37 * ((fSlow38 * fRec4[1]) + (((((((fSlow39 * fRec0[1]) + (fSlow40 * fRec1[1])) + (fSlow41 * fRec2[1])) + (fSlow42 * fRec3[1])) + (fSlow43 * fRec5[1])) + (fSlow44 * fTemp0)) + (fSlow45 * fTemp1))));
+			float fTemp4 = (fSlow37 * ((((((((fSlow38 * fRec0[1]) + (fSlow39 * fRec1[1])) + (fSlow40 * fRec2[1])) + (fSlow41 * fRec3[1])) + (fSlow42 * fRec4[1])) + (fSlow43 * fRec5[1])) + (fSlow44 * fTemp0)) + (fSlow45 * fTemp1)));
 			fVec2[(IOTA & 1048575)] = fTemp4;
 			fRec2[0] = ((fSlow36 * fVec2[((IOTA - iSlow47) & 1048575)]) + (fSlow48 * fVec2[((IOTA - iSlow49) & 1048575)]));
 			float fTemp5 = (fSlow53 * ((((((((fSlow54 * fRec0[1]) + (fSlow55 * fRec1[1])) + (fSlow56 * fRec2[1])) + (fSlow57 * fRec3[1])) + (fSlow58 * fRec4[1])) + (fSlow59 * fRec5[1])) + (fSlow60 * fTemp0)) + (fSlow61 * fTemp1)));
@@ -1072,8 +1084,8 @@ class fx_tapiir : public fx_tapiir_dsp {
 			float fTemp7 = (fSlow85 * ((((((((fSlow86 * fRec0[1]) + (fSlow87 * fRec1[1])) + (fSlow88 * fRec2[1])) + (fSlow89 * fRec3[1])) + (fSlow90 * fRec4[1])) + (fSlow91 * fRec5[1])) + (fSlow92 * fTemp0)) + (fSlow93 * fTemp1)));
 			fVec5[(IOTA & 1048575)] = fTemp7;
 			fRec5[0] = ((fSlow84 * fVec5[((IOTA - iSlow95) & 1048575)]) + (fSlow96 * fVec5[((IOTA - iSlow97) & 1048575)]));
-			output0[i] = FAUSTFLOAT((fSlow0 * ((((((((fSlow1 * fRec0[0]) + (fSlow98 * fRec1[0])) + (fSlow99 * fRec2[0])) + (fSlow100 * fRec3[0])) + (fSlow101 * fRec4[0])) + (fSlow102 * fRec5[0])) + (fSlow103 * fTemp0)) + (fSlow104 * fTemp1))));
-			output1[i] = FAUSTFLOAT((fSlow105 * ((fSlow106 * fTemp0) + ((fSlow107 * fRec2[0]) + ((fSlow108 * fRec5[0]) + ((fSlow109 * fRec4[0]) + ((fSlow110 * fRec3[0]) + ((fSlow111 * fRec1[0]) + ((fSlow112 * fRec0[0]) + (fSlow113 * fTemp1))))))))));
+			output0[i0] = FAUSTFLOAT((fSlow0 * ((((((((fSlow1 * fRec0[0]) + (fSlow98 * fRec1[0])) + (fSlow99 * fRec2[0])) + (fSlow100 * fRec3[0])) + (fSlow101 * fRec4[0])) + (fSlow102 * fRec5[0])) + (fSlow103 * fTemp0)) + (fSlow104 * fTemp1))));
+			output1[i0] = FAUSTFLOAT((fSlow105 * ((((((((fSlow106 * fRec0[0]) + (fSlow107 * fRec1[0])) + (fSlow108 * fRec2[0])) + (fSlow109 * fRec3[0])) + (fSlow110 * fRec4[0])) + (fSlow111 * fRec5[0])) + (fSlow112 * fTemp0)) + (fSlow113 * fTemp1))));
 			IOTA = (IOTA + 1);
 			fRec0[1] = fRec0[0];
 			fRec1[1] = fRec1[0];

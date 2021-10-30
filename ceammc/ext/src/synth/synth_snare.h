@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "synth.snare"
-Code generated with Faust 2.30.12 (https://faust.grame.fr)
-Compilation options: -lang cpp -es 1 -scal -ftz 0
+Code generated with Faust 2.37.3 (https://faust.grame.fr)
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __synth_snare_H__
@@ -218,24 +218,69 @@ class dsp_factory {
     
 };
 
-/**
- * On Intel set FZ (Flush to Zero) and DAZ (Denormals Are Zero)
- * flags to avoid costly denormals.
- */
+// Denormal handling
 
-#ifdef __SSE__
-    #include <xmmintrin.h>
-    #ifdef __SSE2__
-        #define AVOIDDENORMALS _mm_setcsr(_mm_getcsr() | 0x8040)
-    #else
-        #define AVOIDDENORMALS _mm_setcsr(_mm_getcsr() | 0x8000)
-    #endif
-#else
-    #define AVOIDDENORMALS
+#if defined (__SSE__)
+#include <xmmintrin.h>
 #endif
 
+class ScopedNoDenormals
+{
+    private:
+    
+        intptr_t fpsr;
+        
+        void setFpStatusRegister(intptr_t fpsr_aux) noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+           asm volatile("msr fpcr, %0" : : "ri" (fpsr_aux));
+        #elif defined (__SSE__)
+            _mm_setcsr(static_cast<uint32_t>(fpsr_aux));
+        #endif
+        }
+        
+        void getFpStatusRegister() noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+            asm volatile("mrs %0, fpcr" : "=r" (fpsr));
+        #elif defined ( __SSE__)
+            fpsr = static_cast<intptr_t>(_mm_getcsr());
+        #endif
+        }
+    
+    public:
+    
+        ScopedNoDenormals() noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+            intptr_t mask = (1 << 24 /* FZ */);
+        #else
+            #if defined(__SSE__)
+            #if defined(__SSE2__)
+                intptr_t mask = 0x8040;
+            #else
+                intptr_t mask = 0x8000;
+            #endif
+            #else
+                intptr_t mask = 0x0000;
+            #endif
+        #endif
+            getFpStatusRegister();
+            setFpStatusRegister(fpsr | mask);
+        }
+        
+        ~ScopedNoDenormals() noexcept
+        {
+            setFpStatusRegister(fpsr);
+        }
+
+};
+
+#define AVOIDDENORMALS ScopedNoDenormals();
+
 #endif
-/**************************  END  synth_snare_dsp.h **************************/
+
+/************************** END synth_snare_dsp.h **************************/
 /************************** BEGIN UI.h **************************/
 /************************************************************************
  FAUST Architecture File
@@ -309,6 +354,9 @@ struct UIReal
     // -- metadata declarations
     
     virtual void declare(REAL* zone, const char* key, const char* val) {}
+    
+    // To be used by LLVM client
+    virtual int sizeOfFAUSTFLOAT() { return sizeof(FAUSTFLOAT); }
 };
 
 struct UI : public UIReal<FAUSTFLOAT>
@@ -572,10 +620,10 @@ class synth_snare : public synth_snare_dsp {
 	
 	void metadata(Meta* m) { 
 		m->declare("basics.lib/name", "Faust Basic Element Library");
-		m->declare("basics.lib/version", "0.1");
+		m->declare("basics.lib/version", "0.2");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
 		m->declare("ceammc.lib/version", "0.1.2");
-		m->declare("compile_options", "-lang cpp -es 1 -scal -ftz 0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0");
 		m->declare("filename", "synth_snare.dsp");
 		m->declare("filters.lib/fir:author", "Julius O. Smith III");
 		m->declare("filters.lib/fir:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -611,14 +659,14 @@ class synth_snare : public synth_snare_dsp {
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
-		m->declare("maths.lib/version", "2.3");
+		m->declare("maths.lib/version", "2.5");
 		m->declare("name", "synth.snare");
 		m->declare("noises.lib/name", "Faust Noise Generator Library");
-		m->declare("noises.lib/version", "0.0");
+		m->declare("noises.lib/version", "0.1");
 		m->declare("oscillators.lib/name", "Faust Oscillator Library");
 		m->declare("oscillators.lib/version", "0.1");
 		m->declare("platform.lib/name", "Generic Platform Library");
-		m->declare("platform.lib/version", "0.1");
+		m->declare("platform.lib/version", "0.2");
 	}
 
 	virtual int getNumInputs() {
@@ -626,30 +674,6 @@ class synth_snare : public synth_snare_dsp {
 	}
 	virtual int getNumOutputs() {
 		return 1;
-	}
-	virtual int getInputRate(int channel) {
-		int rate;
-		switch ((channel)) {
-			default: {
-				rate = -1;
-				break;
-			}
-		}
-		return rate;
-	}
-	virtual int getOutputRate(int channel) {
-		int rate;
-		switch ((channel)) {
-			case 0: {
-				rate = 1;
-				break;
-			}
-			default: {
-				rate = -1;
-				break;
-			}
-		}
-		return rate;
 	}
 	
 	static void classInit(int sample_rate) {
@@ -789,13 +813,13 @@ class synth_snare : public synth_snare_dsp {
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("synth.snare");
 		ui_interface->declare(&fVslider0, "unit", "ms");
-		ui_interface->addVerticalSlider("attack", &fVslider0, 0.5f, 0.300000012f, 100.0f, 0.00999999978f);
+		ui_interface->addVerticalSlider("attack", &fVslider0, FAUSTFLOAT(0.5f), FAUSTFLOAT(0.300000012f), FAUSTFLOAT(100.0f), FAUSTFLOAT(0.00999999978f));
 		ui_interface->declare(&fVslider1, "unit", "ms");
-		ui_interface->addVerticalSlider("decay", &fVslider1, 1.0f, 1.0f, 100.0f, 0.00999999978f);
+		ui_interface->addVerticalSlider("decay", &fVslider1, FAUSTFLOAT(1.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(100.0f), FAUSTFLOAT(0.00999999978f));
 		ui_interface->declare(&fCheckbox0, "type", "float");
 		ui_interface->addCheckButton("gate", &fCheckbox0);
 		ui_interface->declare(&fVslider2, "unit", "ms");
-		ui_interface->addVerticalSlider("release", &fVslider2, 200.0f, 10.0f, 1000.0f, 0.00999999978f);
+		ui_interface->addVerticalSlider("release", &fVslider2, FAUSTFLOAT(200.0f), FAUSTFLOAT(10.0f), FAUSTFLOAT(1000.0f), FAUSTFLOAT(0.00999999978f));
 		ui_interface->closeBox();
 	}
 	
@@ -814,7 +838,7 @@ class synth_snare : public synth_snare_dsp {
 		float fSlow10 = (1.0f - (1.0f / std::pow(1000.0f, (1.0f / ((fConst6 * fSlow8) + float(((0.000375000003f * fSlow8) == 0.0f)))))));
 		float fSlow11 = (1.0f - (1.0f / std::pow(1000.0f, (1.0f / ((fConst1 * fSlow8) + float(((0.00100000005f * fSlow8) == 0.0f)))))));
 		float fSlow12 = (1.0f - (1.0f / std::pow(1000.0f, (1.0f / ((fConst20 * fSlow8) + float(((0.000914999982f * fSlow8) == 0.0f)))))));
-		for (int i = 0; (i < count); i = (i + 1)) {
+		for (int i0 = 0; (i0 < count); i0 = (i0 + 1)) {
 			iVec0[0] = 1;
 			fVec1[0] = fSlow0;
 			int iTemp0 = (fSlow0 > fVec1[1]);
@@ -849,7 +873,7 @@ class synth_snare : public synth_snare_dsp {
 			fRec16[0] = (((fSlow5 * float((((iRec15[1] == 0) & iTemp3) & (fRec16[1] < 1.0f)))) + (fRec16[1] * ((1.0f - (fSlow7 * float((iRec15[1] & (fRec16[1] > 1.0f))))) - (fSlow12 * float(iTemp10))))) * float(((iTemp10 == 0) | (fRec16[1] >= 9.99999997e-07f))));
 			fRec18[0] = ((4.65661287e-10f * ((fConst24 * fTemp9) + (fConst25 * fVec3[1]))) - (fConst26 * fRec18[1]));
 			fRec17[0] = (fRec18[0] - (fConst19 * ((fConst27 * fRec17[2]) + (fConst28 * fRec17[1]))));
-			output0[i] = FAUSTFLOAT((0.251188636f * (fRec0[0] * (((fRec2[0] * (fRec4[0] + 0.25f)) + (fRec7[0] * (fRec8[0] + 0.25f))) + (0.200000003f * ((fConst12 * (fRec11[0] * (fRec12[2] + (fRec12[0] + (2.0f * fRec12[1]))))) + (fConst19 * (fRec16[0] * (((fConst22 * fRec17[0]) + (fConst29 * fRec17[1])) + (fConst22 * fRec17[2]))))))))));
+			output0[i0] = FAUSTFLOAT((0.251188636f * (fRec0[0] * (((fRec2[0] * (fRec4[0] + 0.25f)) + (fRec7[0] * (fRec8[0] + 0.25f))) + (0.200000003f * ((fConst12 * (fRec11[0] * (fRec12[2] + (fRec12[0] + (2.0f * fRec12[1]))))) + (fConst19 * (fRec16[0] * (((fConst22 * fRec17[0]) + (fConst29 * fRec17[1])) + (fConst22 * fRec17[2]))))))))));
 			iVec0[1] = iVec0[0];
 			fVec1[1] = fVec1[0];
 			iVec2[1] = iVec2[0];

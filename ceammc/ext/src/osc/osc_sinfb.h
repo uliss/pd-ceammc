@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "osc_sinfb"
-Code generated with Faust 2.30.12 (https://faust.grame.fr)
-Compilation options: -lang cpp -es 1 -scal -ftz 0
+Code generated with Faust 2.37.3 (https://faust.grame.fr)
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __osc_sinfb_H__
@@ -218,24 +218,69 @@ class dsp_factory {
     
 };
 
-/**
- * On Intel set FZ (Flush to Zero) and DAZ (Denormals Are Zero)
- * flags to avoid costly denormals.
- */
+// Denormal handling
 
-#ifdef __SSE__
-    #include <xmmintrin.h>
-    #ifdef __SSE2__
-        #define AVOIDDENORMALS _mm_setcsr(_mm_getcsr() | 0x8040)
-    #else
-        #define AVOIDDENORMALS _mm_setcsr(_mm_getcsr() | 0x8000)
-    #endif
-#else
-    #define AVOIDDENORMALS
+#if defined (__SSE__)
+#include <xmmintrin.h>
 #endif
 
+class ScopedNoDenormals
+{
+    private:
+    
+        intptr_t fpsr;
+        
+        void setFpStatusRegister(intptr_t fpsr_aux) noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+           asm volatile("msr fpcr, %0" : : "ri" (fpsr_aux));
+        #elif defined (__SSE__)
+            _mm_setcsr(static_cast<uint32_t>(fpsr_aux));
+        #endif
+        }
+        
+        void getFpStatusRegister() noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+            asm volatile("mrs %0, fpcr" : "=r" (fpsr));
+        #elif defined ( __SSE__)
+            fpsr = static_cast<intptr_t>(_mm_getcsr());
+        #endif
+        }
+    
+    public:
+    
+        ScopedNoDenormals() noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+            intptr_t mask = (1 << 24 /* FZ */);
+        #else
+            #if defined(__SSE__)
+            #if defined(__SSE2__)
+                intptr_t mask = 0x8040;
+            #else
+                intptr_t mask = 0x8000;
+            #endif
+            #else
+                intptr_t mask = 0x0000;
+            #endif
+        #endif
+            getFpStatusRegister();
+            setFpStatusRegister(fpsr | mask);
+        }
+        
+        ~ScopedNoDenormals() noexcept
+        {
+            setFpStatusRegister(fpsr);
+        }
+
+};
+
+#define AVOIDDENORMALS ScopedNoDenormals();
+
 #endif
-/**************************  END  osc_sinfb_dsp.h **************************/
+
+/************************** END osc_sinfb_dsp.h **************************/
 /************************** BEGIN UI.h **************************/
 /************************************************************************
  FAUST Architecture File
@@ -309,6 +354,9 @@ struct UIReal
     // -- metadata declarations
     
     virtual void declare(REAL* zone, const char* key, const char* val) {}
+    
+    // To be used by LLVM client
+    virtual int sizeOfFAUSTFLOAT() { return sizeof(FAUSTFLOAT); }
 };
 
 struct UI : public UIReal<FAUSTFLOAT>
@@ -505,6 +553,7 @@ class osc_sinfbSIG0 {
 	
   private:
 	
+	int iVec0[2];
 	int iRec1[2];
 	
   public:
@@ -515,41 +564,22 @@ class osc_sinfbSIG0 {
 	int getNumOutputsosc_sinfbSIG0() {
 		return 1;
 	}
-	int getInputRateosc_sinfbSIG0(int channel) {
-		int rate;
-		switch ((channel)) {
-			default: {
-				rate = -1;
-				break;
-			}
-		}
-		return rate;
-	}
-	int getOutputRateosc_sinfbSIG0(int channel) {
-		int rate;
-		switch ((channel)) {
-			case 0: {
-				rate = 0;
-				break;
-			}
-			default: {
-				rate = -1;
-				break;
-			}
-		}
-		return rate;
-	}
 	
 	void instanceInitosc_sinfbSIG0(int sample_rate) {
 		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
-			iRec1[l0] = 0;
+			iVec0[l0] = 0;
+		}
+		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
+			iRec1[l1] = 0;
 		}
 	}
 	
 	void fillosc_sinfbSIG0(int count, float* table) {
-		for (int i = 0; (i < count); i = (i + 1)) {
-			iRec1[0] = (iRec1[1] + 1);
-			table[i] = std::sin((9.58738019e-05f * float((iRec1[0] + -1))));
+		for (int i1 = 0; (i1 < count); i1 = (i1 + 1)) {
+			iVec0[0] = 1;
+			iRec1[0] = ((iVec0[1] + iRec1[1]) % 65536);
+			table[i1] = std::sin((9.58738019e-05f * float(iRec1[0])));
+			iVec0[1] = iVec0[0];
 			iRec1[1] = iRec1[0];
 		}
 	}
@@ -563,6 +593,7 @@ class osc_sinfbSIG1 {
 	
   private:
 	
+	int iVec1[2];
 	int iRec4[2];
 	
   public:
@@ -573,41 +604,22 @@ class osc_sinfbSIG1 {
 	int getNumOutputsosc_sinfbSIG1() {
 		return 1;
 	}
-	int getInputRateosc_sinfbSIG1(int channel) {
-		int rate;
-		switch ((channel)) {
-			default: {
-				rate = -1;
-				break;
-			}
-		}
-		return rate;
-	}
-	int getOutputRateosc_sinfbSIG1(int channel) {
-		int rate;
-		switch ((channel)) {
-			case 0: {
-				rate = 0;
-				break;
-			}
-			default: {
-				rate = -1;
-				break;
-			}
-		}
-		return rate;
-	}
 	
 	void instanceInitosc_sinfbSIG1(int sample_rate) {
-		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
-			iRec4[l3] = 0;
+		for (int l4 = 0; (l4 < 2); l4 = (l4 + 1)) {
+			iVec1[l4] = 0;
+		}
+		for (int l5 = 0; (l5 < 2); l5 = (l5 + 1)) {
+			iRec4[l5] = 0;
 		}
 	}
 	
 	void fillosc_sinfbSIG1(int count, float* table) {
-		for (int i = 0; (i < count); i = (i + 1)) {
-			iRec4[0] = (iRec4[1] + 1);
-			table[i] = std::cos((9.58738019e-05f * float((iRec4[0] + -1))));
+		for (int i2 = 0; (i2 < count); i2 = (i2 + 1)) {
+			iVec1[0] = 1;
+			iRec4[0] = ((iVec1[1] + iRec4[1]) % 65536);
+			table[i2] = std::cos((9.58738019e-05f * float(iRec4[0])));
+			iVec1[1] = iVec1[0];
 			iRec4[1] = iRec4[0];
 		}
 	}
@@ -634,9 +646,11 @@ class osc_sinfb : public osc_sinfb_dsp {
  private:
 	
 	int fSampleRate;
-	float fConst0;
+	float fConst1;
 	float fRec2[2];
+	float fConst2;
 	FAUSTFLOAT fHslider0;
+	float fConst3;
 	float fRec3[2];
 	float fRec0[2];
 	
@@ -644,21 +658,21 @@ class osc_sinfb : public osc_sinfb_dsp {
 	
 	void metadata(Meta* m) { 
 		m->declare("basics.lib/name", "Faust Basic Element Library");
-		m->declare("basics.lib/version", "0.1");
-		m->declare("compile_options", "-lang cpp -es 1 -scal -ftz 0");
+		m->declare("basics.lib/version", "0.2");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0");
 		m->declare("filename", "osc_sinfb.dsp");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
-		m->declare("maths.lib/version", "2.3");
+		m->declare("maths.lib/version", "2.5");
 		m->declare("name", "osc_sinfb");
 		m->declare("oscillators.lib/name", "Faust Oscillator Library");
 		m->declare("oscillators.lib/version", "0.1");
 		m->declare("platform.lib/name", "Generic Platform Library");
-		m->declare("platform.lib/version", "0.1");
+		m->declare("platform.lib/version", "0.2");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
-		m->declare("signals.lib/version", "0.0");
+		m->declare("signals.lib/version", "0.1");
 	}
 
 	virtual int getNumInputs() {
@@ -666,34 +680,6 @@ class osc_sinfb : public osc_sinfb_dsp {
 	}
 	virtual int getNumOutputs() {
 		return 1;
-	}
-	virtual int getInputRate(int channel) {
-		int rate;
-		switch ((channel)) {
-			case 0: {
-				rate = 1;
-				break;
-			}
-			default: {
-				rate = -1;
-				break;
-			}
-		}
-		return rate;
-	}
-	virtual int getOutputRate(int channel) {
-		int rate;
-		switch ((channel)) {
-			case 0: {
-				rate = 1;
-				break;
-			}
-			default: {
-				rate = -1;
-				break;
-			}
-		}
-		return rate;
 	}
 	
 	static void classInit(int sample_rate) {
@@ -709,7 +695,10 @@ class osc_sinfb : public osc_sinfb_dsp {
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
-		fConst0 = (1.0f / std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate))));
+		float fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
+		fConst1 = (1.0f / fConst0);
+		fConst2 = (44.0999985f / fConst0);
+		fConst3 = (1.0f - fConst2);
 	}
 	
 	virtual void instanceResetUserInterface() {
@@ -717,14 +706,14 @@ class osc_sinfb : public osc_sinfb_dsp {
 	}
 	
 	virtual void instanceClear() {
-		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
-			fRec2[l1] = 0.0f;
-		}
 		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
-			fRec3[l2] = 0.0f;
+			fRec2[l2] = 0.0f;
 		}
-		for (int l4 = 0; (l4 < 2); l4 = (l4 + 1)) {
-			fRec0[l4] = 0.0f;
+		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
+			fRec3[l3] = 0.0f;
+		}
+		for (int l6 = 0; (l6 < 2); l6 = (l6 + 1)) {
+			fRec0[l6] = 0.0f;
 		}
 	}
 	
@@ -748,22 +737,22 @@ class osc_sinfb : public osc_sinfb_dsp {
 	
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("osc_sinfb");
-		ui_interface->addHorizontalSlider("feedback", &fHslider0, 0.0f, 0.0f, 6.28318548f, 0.100000001f);
+		ui_interface->addHorizontalSlider("feedback", &fHslider0, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(6.28318548f), FAUSTFLOAT(0.100000001f));
 		ui_interface->closeBox();
 	}
 	
 	virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
 		FAUSTFLOAT* input0 = inputs[0];
 		FAUSTFLOAT* output0 = outputs[0];
-		float fSlow0 = (0.00100000005f * float(fHslider0));
-		for (int i = 0; (i < count); i = (i + 1)) {
-			float fTemp0 = (fRec2[1] + (fConst0 * float(input0[i])));
+		float fSlow0 = (fConst2 * float(fHslider0));
+		for (int i0 = 0; (i0 < count); i0 = (i0 + 1)) {
+			float fTemp0 = (fRec2[1] + (fConst1 * float(input0[i0])));
 			fRec2[0] = (fTemp0 - std::floor(fTemp0));
 			int iTemp1 = int((65536.0f * fRec2[0]));
-			fRec3[0] = (fSlow0 + (0.999000013f * fRec3[1]));
+			fRec3[0] = (fSlow0 + (fConst3 * fRec3[1]));
 			float fTemp2 = (fRec3[0] * fRec0[1]);
 			fRec0[0] = ((ftbl0osc_sinfbSIG0[iTemp1] * std::cos(fTemp2)) + (ftbl1osc_sinfbSIG1[iTemp1] * std::sin(fTemp2)));
-			output0[i] = FAUSTFLOAT(fRec0[0]);
+			output0[i0] = FAUSTFLOAT(fRec0[0]);
 			fRec2[1] = fRec2[0];
 			fRec3[1] = fRec3[0];
 			fRec0[1] = fRec0[0];

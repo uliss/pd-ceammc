@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "fx.wahwah"
-Code generated with Faust 2.30.12 (https://faust.grame.fr)
-Compilation options: -lang cpp -es 1 -scal -ftz 0
+Code generated with Faust 2.37.3 (https://faust.grame.fr)
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __fx_wahwah_H__
@@ -218,24 +218,69 @@ class dsp_factory {
     
 };
 
-/**
- * On Intel set FZ (Flush to Zero) and DAZ (Denormals Are Zero)
- * flags to avoid costly denormals.
- */
+// Denormal handling
 
-#ifdef __SSE__
-    #include <xmmintrin.h>
-    #ifdef __SSE2__
-        #define AVOIDDENORMALS _mm_setcsr(_mm_getcsr() | 0x8040)
-    #else
-        #define AVOIDDENORMALS _mm_setcsr(_mm_getcsr() | 0x8000)
-    #endif
-#else
-    #define AVOIDDENORMALS
+#if defined (__SSE__)
+#include <xmmintrin.h>
 #endif
 
+class ScopedNoDenormals
+{
+    private:
+    
+        intptr_t fpsr;
+        
+        void setFpStatusRegister(intptr_t fpsr_aux) noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+           asm volatile("msr fpcr, %0" : : "ri" (fpsr_aux));
+        #elif defined (__SSE__)
+            _mm_setcsr(static_cast<uint32_t>(fpsr_aux));
+        #endif
+        }
+        
+        void getFpStatusRegister() noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+            asm volatile("mrs %0, fpcr" : "=r" (fpsr));
+        #elif defined ( __SSE__)
+            fpsr = static_cast<intptr_t>(_mm_getcsr());
+        #endif
+        }
+    
+    public:
+    
+        ScopedNoDenormals() noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+            intptr_t mask = (1 << 24 /* FZ */);
+        #else
+            #if defined(__SSE__)
+            #if defined(__SSE2__)
+                intptr_t mask = 0x8040;
+            #else
+                intptr_t mask = 0x8000;
+            #endif
+            #else
+                intptr_t mask = 0x0000;
+            #endif
+        #endif
+            getFpStatusRegister();
+            setFpStatusRegister(fpsr | mask);
+        }
+        
+        ~ScopedNoDenormals() noexcept
+        {
+            setFpStatusRegister(fpsr);
+        }
+
+};
+
+#define AVOIDDENORMALS ScopedNoDenormals();
+
 #endif
-/**************************  END  fx_wahwah_dsp.h **************************/
+
+/************************** END fx_wahwah_dsp.h **************************/
 /************************** BEGIN UI.h **************************/
 /************************************************************************
  FAUST Architecture File
@@ -309,6 +354,9 @@ struct UIReal
     // -- metadata declarations
     
     virtual void declare(REAL* zone, const char* key, const char* val) {}
+    
+    // To be used by LLVM client
+    virtual int sizeOfFAUSTFLOAT() { return sizeof(FAUSTFLOAT); }
 };
 
 struct UI : public UIReal<FAUSTFLOAT>
@@ -514,37 +562,13 @@ class fx_wahwahSIG0 {
 	int getNumOutputsfx_wahwahSIG0() {
 		return 1;
 	}
-	int getInputRatefx_wahwahSIG0(int channel) {
-		int rate;
-		switch ((channel)) {
-			default: {
-				rate = -1;
-				break;
-			}
-		}
-		return rate;
-	}
-	int getOutputRatefx_wahwahSIG0(int channel) {
-		int rate;
-		switch ((channel)) {
-			case 0: {
-				rate = 0;
-				break;
-			}
-			default: {
-				rate = -1;
-				break;
-			}
-		}
-		return rate;
-	}
 	
 	void instanceInitfx_wahwahSIG0(int sample_rate) {
 	}
 	
 	void fillfx_wahwahSIG0(int count, float* table) {
-		for (int i = 0; (i < count); i = (i + 1)) {
-			table[i] = 0.0f;
+		for (int i1 = 0; (i1 < count); i1 = (i1 + 1)) {
+			table[i1] = 0.0f;
 		}
 	}
 
@@ -571,14 +595,16 @@ class fx_wahwah : public fx_wahwah_dsp {
  private:
 	
 	FAUSTFLOAT fCheckbox0;
+	int fSampleRate;
+	float fConst1;
 	FAUSTFLOAT fHslider0;
+	float fConst2;
 	int iVec0[2];
 	float fRec0[2];
 	float ftbl0[16];
 	FAUSTFLOAT fHslider1;
 	float fVec1[2];
-	int fSampleRate;
-	float fConst1;
+	float fConst3;
 	FAUSTFLOAT fHslider2;
 	float fRec4[2];
 	int iRec3[2];
@@ -586,8 +612,8 @@ class fx_wahwah : public fx_wahwah_dsp {
 	float fRec5[2];
 	int iRec6[2];
 	float fRec2[2];
-	float fConst2;
-	float fConst3;
+	float fConst4;
+	float fConst5;
 	float fRec7[2];
 	float fRec8[2];
 	float fRec1[3];
@@ -596,12 +622,12 @@ class fx_wahwah : public fx_wahwah_dsp {
 	
 	void metadata(Meta* m) { 
 		m->declare("basics.lib/name", "Faust Basic Element Library");
-		m->declare("basics.lib/version", "0.1");
+		m->declare("basics.lib/version", "0.2");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
 		m->declare("ceammc.lib/version", "0.1.2");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
 		m->declare("ceammc_ui.lib/version", "0.1.2");
-		m->declare("compile_options", "-lang cpp -es 1 -scal -ftz 0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0");
 		m->declare("filename", "fx_wahwah.dsp");
 		m->declare("filters.lib/fir:author", "Julius O. Smith III");
 		m->declare("filters.lib/fir:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -609,7 +635,7 @@ class fx_wahwah : public fx_wahwah_dsp {
 		m->declare("filters.lib/iir:author", "Julius O. Smith III");
 		m->declare("filters.lib/iir:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/iir:license", "MIT-style STK-4.3 license");
-		m->declare("filters.lib/lowpass0_highpass1", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
+		m->declare("filters.lib/lowpass0_highpass1", "MIT-style STK-4.3 license");
 		m->declare("filters.lib/name", "Faust Filters Library");
 		m->declare("filters.lib/tf2:author", "Julius O. Smith III");
 		m->declare("filters.lib/tf2:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -619,14 +645,14 @@ class fx_wahwah : public fx_wahwah_dsp {
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
-		m->declare("maths.lib/version", "2.3");
+		m->declare("maths.lib/version", "2.5");
 		m->declare("name", "fx.wahwah");
 		m->declare("platform.lib/name", "Generic Platform Library");
-		m->declare("platform.lib/version", "0.1");
+		m->declare("platform.lib/version", "0.2");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
-		m->declare("signals.lib/version", "0.0");
+		m->declare("signals.lib/version", "0.1");
 		m->declare("vaeffects.lib/name", "Faust Virtual Analog Filter Effect Library");
-		m->declare("vaeffects.lib/version", "0.0");
+		m->declare("vaeffects.lib/version", "0.2");
 	}
 
 	virtual int getNumInputs() {
@@ -635,47 +661,21 @@ class fx_wahwah : public fx_wahwah_dsp {
 	virtual int getNumOutputs() {
 		return 1;
 	}
-	virtual int getInputRate(int channel) {
-		int rate;
-		switch ((channel)) {
-			case 0: {
-				rate = 1;
-				break;
-			}
-			default: {
-				rate = -1;
-				break;
-			}
-		}
-		return rate;
-	}
-	virtual int getOutputRate(int channel) {
-		int rate;
-		switch ((channel)) {
-			case 0: {
-				rate = 1;
-				break;
-			}
-			default: {
-				rate = -1;
-				break;
-			}
-		}
-		return rate;
-	}
 	
 	static void classInit(int sample_rate) {
 	}
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
+		float fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
+		fConst1 = (44.0999985f / fConst0);
+		fConst2 = (1.0f - fConst1);
 		fx_wahwahSIG0* sig0 = newfx_wahwahSIG0();
 		sig0->instanceInitfx_wahwahSIG0(sample_rate);
 		sig0->fillfx_wahwahSIG0(16, ftbl0);
-		float fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
-		fConst1 = (60.0f * fConst0);
-		fConst2 = (1413.71667f / fConst0);
-		fConst3 = (2827.43335f / fConst0);
+		fConst3 = (60.0f * fConst0);
+		fConst4 = (1413.71667f / fConst0);
+		fConst5 = (2827.43335f / fConst0);
 		deletefx_wahwahSIG0(sig0);
 	}
 	
@@ -745,12 +745,12 @@ class fx_wahwah : public fx_wahwah_dsp {
 	
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("fx.wahwah");
-		ui_interface->addHorizontalSlider("angle", &fHslider1, 0.600000024f, 0.0f, 1.0f, 0.00999999978f);
+		ui_interface->addHorizontalSlider("angle", &fHslider1, FAUSTFLOAT(0.600000024f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.00999999978f));
 		ui_interface->addCheckButton("bypass", &fCheckbox0);
 		ui_interface->declare(&fHslider0, "style", "knob");
-		ui_interface->addHorizontalSlider("drywet", &fHslider0, 1.0f, 0.0f, 1.0f, 0.00999999978f);
+		ui_interface->addHorizontalSlider("drywet", &fHslider0, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.00999999978f));
 		ui_interface->declare(&fHslider2, "unit", "bpm");
-		ui_interface->addHorizontalSlider("speed", &fHslider2, 540.0f, 360.0f, 780.0f, 0.100000001f);
+		ui_interface->addHorizontalSlider("speed", &fHslider2, FAUSTFLOAT(540.0f), FAUSTFLOAT(360.0f), FAUSTFLOAT(780.0f), FAUSTFLOAT(0.100000001f));
 		ui_interface->closeBox();
 	}
 	
@@ -758,31 +758,33 @@ class fx_wahwah : public fx_wahwah_dsp {
 		FAUSTFLOAT* input0 = inputs[0];
 		FAUSTFLOAT* output0 = outputs[0];
 		int iSlow0 = int(float(fCheckbox0));
-		float fSlow1 = (0.00100000005f * float(fHslider0));
+		float fSlow1 = (fConst1 * float(fHslider0));
 		float fSlow2 = float(fHslider1);
-		float fSlow3 = (0.00100000005f * float(fHslider2));
+		float fSlow3 = (fConst1 * float(fHslider2));
 		int iSlow4 = (fSlow2 <= 0.0f);
-		for (int i = 0; (i < count); i = (i + 1)) {
-			float fTemp0 = float(input0[i]);
+		for (int i0 = 0; (i0 < count); i0 = (i0 + 1)) {
+			float fTemp0 = float(input0[i0]);
 			float fTemp1 = (iSlow0 ? 0.0f : fTemp0);
 			iVec0[0] = 1;
-			fRec0[0] = (fSlow1 + (0.999000013f * fRec0[1]));
+			fRec0[0] = (fSlow1 + (fConst2 * fRec0[1]));
 			fVec1[0] = fSlow2;
-			fRec4[0] = (fSlow3 + (0.999000013f * fRec4[1]));
-			iRec3[0] = ((iVec0[1] + iRec3[1]) % int((fConst1 / float(int(fRec4[0])))));
-			int iTemp2 = (iRec3[0] == 0);
+			fRec4[0] = (fSlow3 + (fConst2 * fRec4[1]));
+			iRec3[0] = ((iVec0[1] + iRec3[1]) % int((fConst3 / float(int(fRec4[0])))));
+			int iTemp2 = (iRec3[0] <= iRec3[1]);
 			iVec2[0] = iTemp2;
-			fRec5[0] = (iVec2[1] ? 0.0f : (std::fabs((fSlow2 - fVec1[1])) + fRec5[1]));
+			float fThen1 = (std::fabs((fSlow2 - fVec1[1])) + fRec5[1]);
+			fRec5[0] = (iVec2[1] ? 0.0f : fThen1);
 			iRec6[0] = ((iTemp2 + iRec6[1]) % 15);
 			ftbl0[((iTemp2 & ((fRec5[0] > 0.0f) | iSlow4)) ? iRec6[0] : 15)] = fSlow2;
 			float fTemp3 = ftbl0[iRec6[0]];
 			fRec2[0] = ((0.999000013f * fRec2[1]) + (9.99999975e-05f * std::pow(4.0f, fTemp3)));
 			float fTemp4 = std::pow(2.0f, (2.29999995f * fTemp3));
-			float fTemp5 = (1.0f - (fConst2 * (fTemp4 / std::pow(2.0f, ((2.0f * (1.0f - fTemp3)) + 1.0f)))));
-			fRec7[0] = ((0.999000013f * fRec7[1]) - (0.00200000009f * (fTemp5 * std::cos((fConst3 * fTemp4)))));
+			float fTemp5 = (1.0f - (fConst4 * (fTemp4 / std::pow(2.0f, ((2.0f * (1.0f - fTemp3)) + 1.0f)))));
+			fRec7[0] = ((0.999000013f * fRec7[1]) - (0.00200000009f * (fTemp5 * std::cos((fConst5 * fTemp4)))));
 			fRec8[0] = ((0.999000013f * fRec8[1]) + (0.00100000005f * fx_wahwah_faustpower2_f(fTemp5)));
 			fRec1[0] = ((fRec2[0] * fTemp1) - ((fRec7[0] * fRec1[1]) + (fRec8[0] * fRec1[2])));
-			output0[i] = FAUSTFLOAT((iSlow0 ? fTemp0 : ((fTemp1 * (1.0f - fRec0[0])) + (fRec0[0] * (fRec1[0] - fRec1[1])))));
+			float fThen3 = ((fTemp1 * (1.0f - fRec0[0])) + (fRec0[0] * (fRec1[0] - fRec1[1])));
+			output0[i0] = FAUSTFLOAT((iSlow0 ? fTemp0 : fThen3));
 			iVec0[1] = iVec0[0];
 			fRec0[1] = fRec0[0];
 			fVec1[1] = fVec1[0];

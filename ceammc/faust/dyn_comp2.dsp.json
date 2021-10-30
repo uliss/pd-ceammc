@@ -1,8 +1,8 @@
 {
 	"name": "dyn.comp2",
 	"filename": "dyn_comp2.dsp",
-	"version": "2.30.12",
-	"compile_options": "-lang cpp -es 1 -scal -ftz 0",
+	"version": "2.37.3",
+	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0",
 	"library_list": ["/Users/serge/work/music/pure-data/ceammc/faust/ceammc.lib","/usr/local/share/faust/compressors.lib","/usr/local/share/faust/analyzers.lib","/usr/local/share/faust/signals.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib"],
 	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
 	"inputs": 2,
@@ -11,10 +11,10 @@
 		{ "analyzers.lib/name": "Faust Analyzer Library" },
 		{ "analyzers.lib/version": "0.1" },
 		{ "basics.lib/name": "Faust Basic Element Library" },
-		{ "basics.lib/version": "0.1" },
+		{ "basics.lib/version": "0.2" },
 		{ "ceammc.lib/name": "Ceammc PureData misc utils" },
 		{ "ceammc.lib/version": "0.1.2" },
-		{ "compile_options": "-lang cpp -es 1 -scal -ftz 0" },
+		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0" },
 		{ "compressors.lib/compression_gain_mono:author": "Julius O. Smith III" },
 		{ "compressors.lib/compression_gain_mono:copyright": "Copyright (C) 2014-2020 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
 		{ "compressors.lib/compression_gain_mono:license": "MIT-style STK-4.3 license" },
@@ -28,12 +28,12 @@
 		{ "maths.lib/copyright": "GRAME" },
 		{ "maths.lib/license": "LGPL with exception" },
 		{ "maths.lib/name": "Faust Math Library" },
-		{ "maths.lib/version": "2.3" },
+		{ "maths.lib/version": "2.5" },
 		{ "name": "dyn.comp2" },
 		{ "platform.lib/name": "Generic Platform Library" },
-		{ "platform.lib/version": "0.1" },
+		{ "platform.lib/version": "0.2" },
 		{ "signals.lib/name": "Faust Signal Routing Library" },
-		{ "signals.lib/version": "0.0" }
+		{ "signals.lib/version": "0.1" }
 	],
 	"ui": [ 
 		{

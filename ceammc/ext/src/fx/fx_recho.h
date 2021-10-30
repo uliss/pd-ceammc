@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "fx.recho"
-Code generated with Faust 2.30.12 (https://faust.grame.fr)
-Compilation options: -lang cpp -es 1 -scal -ftz 0
+Code generated with Faust 2.37.3 (https://faust.grame.fr)
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __fx_recho_H__
@@ -218,24 +218,69 @@ class dsp_factory {
     
 };
 
-/**
- * On Intel set FZ (Flush to Zero) and DAZ (Denormals Are Zero)
- * flags to avoid costly denormals.
- */
+// Denormal handling
 
-#ifdef __SSE__
-    #include <xmmintrin.h>
-    #ifdef __SSE2__
-        #define AVOIDDENORMALS _mm_setcsr(_mm_getcsr() | 0x8040)
-    #else
-        #define AVOIDDENORMALS _mm_setcsr(_mm_getcsr() | 0x8000)
-    #endif
-#else
-    #define AVOIDDENORMALS
+#if defined (__SSE__)
+#include <xmmintrin.h>
 #endif
 
+class ScopedNoDenormals
+{
+    private:
+    
+        intptr_t fpsr;
+        
+        void setFpStatusRegister(intptr_t fpsr_aux) noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+           asm volatile("msr fpcr, %0" : : "ri" (fpsr_aux));
+        #elif defined (__SSE__)
+            _mm_setcsr(static_cast<uint32_t>(fpsr_aux));
+        #endif
+        }
+        
+        void getFpStatusRegister() noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+            asm volatile("mrs %0, fpcr" : "=r" (fpsr));
+        #elif defined ( __SSE__)
+            fpsr = static_cast<intptr_t>(_mm_getcsr());
+        #endif
+        }
+    
+    public:
+    
+        ScopedNoDenormals() noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+            intptr_t mask = (1 << 24 /* FZ */);
+        #else
+            #if defined(__SSE__)
+            #if defined(__SSE2__)
+                intptr_t mask = 0x8040;
+            #else
+                intptr_t mask = 0x8000;
+            #endif
+            #else
+                intptr_t mask = 0x0000;
+            #endif
+        #endif
+            getFpStatusRegister();
+            setFpStatusRegister(fpsr | mask);
+        }
+        
+        ~ScopedNoDenormals() noexcept
+        {
+            setFpStatusRegister(fpsr);
+        }
+
+};
+
+#define AVOIDDENORMALS ScopedNoDenormals();
+
 #endif
-/**************************  END  fx_recho_dsp.h **************************/
+
+/************************** END fx_recho_dsp.h **************************/
 /************************** BEGIN UI.h **************************/
 /************************************************************************
  FAUST Architecture File
@@ -309,6 +354,9 @@ struct UIReal
     // -- metadata declarations
     
     virtual void declare(REAL* zone, const char* key, const char* val) {}
+    
+    // To be used by LLVM client
+    virtual int sizeOfFAUSTFLOAT() { return sizeof(FAUSTFLOAT); }
 };
 
 struct UI : public UIReal<FAUSTFLOAT>
@@ -514,37 +562,13 @@ class fx_rechoSIG0 {
 	int getNumOutputsfx_rechoSIG0() {
 		return 1;
 	}
-	int getInputRatefx_rechoSIG0(int channel) {
-		int rate;
-		switch ((channel)) {
-			default: {
-				rate = -1;
-				break;
-			}
-		}
-		return rate;
-	}
-	int getOutputRatefx_rechoSIG0(int channel) {
-		int rate;
-		switch ((channel)) {
-			case 0: {
-				rate = 0;
-				break;
-			}
-			default: {
-				rate = -1;
-				break;
-			}
-		}
-		return rate;
-	}
 	
 	void instanceInitfx_rechoSIG0(int sample_rate) {
 	}
 	
 	void fillfx_rechoSIG0(int count, float* table) {
-		for (int i = 0; (i < count); i = (i + 1)) {
-			table[i] = 0.0f;
+		for (int i1 = 0; (i1 < count); i1 = (i1 + 1)) {
+			table[i1] = 0.0f;
 		}
 	}
 
@@ -571,21 +595,23 @@ class fx_recho : public fx_recho_dsp {
  private:
 	
 	FAUSTFLOAT fCheckbox0;
+	int fSampleRate;
+	float fConst1;
 	FAUSTFLOAT fHslider0;
+	float fConst2;
 	float fRec0[2];
 	float ftbl0[96000];
 	FAUSTFLOAT fHslider1;
 	float fRec2[2];
 	int iRec3[2];
-	int fSampleRate;
-	float fConst1;
+	float fConst3;
 	FAUSTFLOAT fHslider2;
 	float ftbl1[96000];
-	float fConst2;
-	float fConst3;
 	float fConst4;
 	float fConst5;
 	float fConst6;
+	float fConst7;
+	float fConst8;
 	float fRec6[2];
 	float fRec5[2];
 	float fRec4[2];
@@ -597,12 +623,12 @@ class fx_recho : public fx_recho_dsp {
 		m->declare("analyzers.lib/name", "Faust Analyzer Library");
 		m->declare("analyzers.lib/version", "0.1");
 		m->declare("basics.lib/name", "Faust Basic Element Library");
-		m->declare("basics.lib/version", "0.1");
+		m->declare("basics.lib/version", "0.2");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
 		m->declare("ceammc.lib/version", "0.1.2");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
 		m->declare("ceammc_ui.lib/version", "0.1.2");
-		m->declare("compile_options", "-lang cpp -es 1 -scal -ftz 0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0");
 		m->declare("compressors.lib/compression_gain_mono:author", "Julius O. Smith III");
 		m->declare("compressors.lib/compression_gain_mono:copyright", "Copyright (C) 2014-2020 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("compressors.lib/compression_gain_mono:license", "MIT-style STK-4.3 license");
@@ -619,12 +645,12 @@ class fx_recho : public fx_recho_dsp {
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
-		m->declare("maths.lib/version", "2.3");
+		m->declare("maths.lib/version", "2.5");
 		m->declare("name", "fx.recho");
 		m->declare("platform.lib/name", "Generic Platform Library");
-		m->declare("platform.lib/version", "0.1");
+		m->declare("platform.lib/version", "0.2");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
-		m->declare("signals.lib/version", "0.0");
+		m->declare("signals.lib/version", "0.1");
 	}
 
 	virtual int getNumInputs() {
@@ -633,52 +659,26 @@ class fx_recho : public fx_recho_dsp {
 	virtual int getNumOutputs() {
 		return 1;
 	}
-	virtual int getInputRate(int channel) {
-		int rate;
-		switch ((channel)) {
-			case 0: {
-				rate = 1;
-				break;
-			}
-			default: {
-				rate = -1;
-				break;
-			}
-		}
-		return rate;
-	}
-	virtual int getOutputRate(int channel) {
-		int rate;
-		switch ((channel)) {
-			case 0: {
-				rate = 1;
-				break;
-			}
-			default: {
-				rate = -1;
-				break;
-			}
-		}
-		return rate;
-	}
 	
 	static void classInit(int sample_rate) {
 	}
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
+		float fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
+		fConst1 = (44.0999985f / fConst0);
+		fConst2 = (1.0f - fConst1);
 		fx_rechoSIG0* sig0 = newfx_rechoSIG0();
 		sig0->instanceInitfx_rechoSIG0(sample_rate);
 		sig0->fillfx_rechoSIG0(96000, ftbl0);
-		float fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
-		fConst1 = (0.00100000005f * fConst0);
+		fConst3 = (0.00100000005f * fConst0);
 		sig0->instanceInitfx_rechoSIG0(sample_rate);
 		sig0->fillfx_rechoSIG0(96000, ftbl1);
-		fConst2 = (0.000500000024f * fConst0);
-		fConst3 = std::exp((0.0f - (0.200000003f / fConst0)));
-		fConst4 = (1.0f - fConst3);
-		fConst5 = std::exp((0.0f - (0.100000001f / fConst0)));
-		fConst6 = std::exp((0.0f - (0.0199999996f / fConst0)));
+		fConst4 = (0.000500000024f * fConst0);
+		fConst5 = std::exp((0.0f - (0.200000003f / fConst0)));
+		fConst6 = (1.0f - fConst5);
+		fConst7 = std::exp((0.0f - (0.100000001f / fConst0)));
+		fConst8 = std::exp((0.0f - (0.0199999996f / fConst0)));
 		deletefx_rechoSIG0(sig0);
 	}
 	
@@ -735,10 +735,10 @@ class fx_recho : public fx_recho_dsp {
 		ui_interface->openVerticalBox("fx.recho");
 		ui_interface->addCheckButton("bypass", &fCheckbox0);
 		ui_interface->declare(&fHslider2, "unit", "ms");
-		ui_interface->addHorizontalSlider("delay", &fHslider2, 500.0f, 0.0f, 2000.0f, 0.100000001f);
+		ui_interface->addHorizontalSlider("delay", &fHslider2, FAUSTFLOAT(500.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(2000.0f), FAUSTFLOAT(0.100000001f));
 		ui_interface->declare(&fHslider0, "style", "knob");
-		ui_interface->addHorizontalSlider("drywet", &fHslider0, 1.0f, 0.0f, 1.0f, 0.00999999978f);
-		ui_interface->addHorizontalSlider("feedback", &fHslider1, 0.300000012f, 0.0f, 0.99000001f, 0.00100000005f);
+		ui_interface->addHorizontalSlider("drywet", &fHslider0, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.00999999978f));
+		ui_interface->addHorizontalSlider("feedback", &fHslider1, FAUSTFLOAT(0.300000012f), FAUSTFLOAT(0.0f), FAUSTFLOAT(0.99000001f), FAUSTFLOAT(0.00100000005f));
 		ui_interface->closeBox();
 	}
 	
@@ -746,36 +746,41 @@ class fx_recho : public fx_recho_dsp {
 		FAUSTFLOAT* input0 = inputs[0];
 		FAUSTFLOAT* output0 = outputs[0];
 		int iSlow0 = int(float(fCheckbox0));
-		float fSlow1 = (0.00100000005f * float(fHslider0));
-		float fSlow2 = (0.00100000005f * float(fHslider1));
+		float fSlow1 = (fConst1 * float(fHslider0));
+		float fSlow2 = (fConst1 * float(fHslider1));
 		float fSlow3 = float(fHslider2);
-		int iSlow4 = int(std::min<float>(96000.0f, (fConst1 * fSlow3)));
+		int iSlow4 = int(std::min<float>(96000.0f, (fConst3 * fSlow3)));
 		int iSlow5 = (2 * iSlow4);
 		float fSlow6 = (3.14159274f / float(iSlow4));
-		int iSlow7 = int((fConst2 * fSlow3));
-		for (int i = 0; (i < count); i = (i + 1)) {
-			float fTemp0 = float(input0[i]);
+		int iSlow7 = int((fConst4 * fSlow3));
+		for (int i0 = 0; (i0 < count); i0 = (i0 + 1)) {
+			float fTemp0 = float(input0[i0]);
 			float fTemp1 = (iSlow0 ? 0.0f : fTemp0);
-			fRec0[0] = (fSlow1 + (0.999000013f * fRec0[1]));
-			fRec2[0] = (fSlow2 + (0.999000013f * fRec2[1]));
+			fRec0[0] = (fSlow1 + (fConst2 * fRec0[1]));
+			fRec2[0] = (fSlow2 + (fConst2 * fRec2[1]));
 			float fTemp2 = (fTemp1 + (fRec2[0] * fRec1[1]));
 			iRec3[0] = (iRec3[1] + 1);
 			int iTemp3 = (iRec3[0] % iSlow5);
-			ftbl0[((iTemp3 > iSlow4) ? (iSlow5 - iTemp3) : iTemp3)] = fTemp2;
+			int iElse1 = (iSlow5 - iTemp3);
+			ftbl0[((iTemp3 > iSlow4) ? iElse1 : iTemp3)] = fTemp2;
 			int iTemp4 = (iRec3[0] + 1);
 			int iTemp5 = (iTemp4 % iSlow5);
+			int iElse2 = (iSlow5 - iTemp5);
 			int iTemp6 = ((iSlow7 + iRec3[0]) % iSlow5);
-			ftbl1[((iTemp6 > iSlow4) ? (iSlow5 - iTemp6) : iTemp6)] = fTemp2;
+			int iElse3 = (iSlow5 - iTemp6);
+			ftbl1[((iTemp6 > iSlow4) ? iElse3 : iTemp6)] = fTemp2;
 			int iTemp7 = (iSlow7 + iTemp4);
 			int iTemp8 = (iTemp7 % iSlow5);
-			float fTemp9 = ((ftbl0[((iTemp5 > iSlow4) ? (iSlow5 - iTemp5) : iTemp5)] * fx_recho_faustpower2_f(std::sin((fSlow6 * float((iTemp4 % iSlow4)))))) + (ftbl1[((iTemp8 > iSlow4) ? (iSlow5 - iTemp8) : iTemp8)] * fx_recho_faustpower2_f(std::sin((fSlow6 * float((iTemp7 % iSlow4)))))));
+			int iElse4 = (iSlow5 - iTemp8);
+			float fTemp9 = ((ftbl0[((iTemp5 > iSlow4) ? iElse2 : iTemp5)] * fx_recho_faustpower2_f(std::sin((fSlow6 * float((iTemp4 % iSlow4)))))) + (ftbl1[((iTemp8 > iSlow4) ? iElse4 : iTemp8)] * fx_recho_faustpower2_f(std::sin((fSlow6 * float((iTemp7 % iSlow4)))))));
 			float fTemp10 = std::fabs(fTemp9);
-			float fTemp11 = ((fRec5[1] > fTemp10) ? fConst6 : fConst5);
+			float fTemp11 = ((fRec5[1] > fTemp10) ? fConst8 : fConst7);
 			fRec6[0] = ((fRec6[1] * fTemp11) + (fTemp10 * (1.0f - fTemp11)));
 			fRec5[0] = fRec6[0];
-			fRec4[0] = ((fConst3 * fRec4[1]) + (fConst4 * (0.0f - (0.800000012f * std::max<float>(((20.0f * std::log10(fRec5[0])) + 3.0f), 0.0f)))));
+			fRec4[0] = ((fConst5 * fRec4[1]) + (fConst6 * (0.0f - (0.800000012f * std::max<float>(((20.0f * std::log10(std::max<float>(1.17549435e-38f, fRec5[0]))) + 3.0f), 0.0f)))));
 			fRec1[0] = (fTemp9 * std::pow(10.0f, (0.0500000007f * fRec4[0])));
-			output0[i] = FAUSTFLOAT((iSlow0 ? fTemp0 : ((fTemp1 * (1.0f - fRec0[0])) + (fRec0[0] * fRec1[0]))));
+			float fThen6 = ((fTemp1 * (1.0f - fRec0[0])) + (fRec0[0] * fRec1[0]));
+			output0[i0] = FAUSTFLOAT((iSlow0 ? fTemp0 : fThen6));
 			fRec0[1] = fRec0[0];
 			fRec2[1] = fRec2[0];
 			iRec3[1] = iRec3[0];

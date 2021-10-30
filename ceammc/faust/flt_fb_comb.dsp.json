@@ -1,16 +1,16 @@
 {
 	"name": "flt_fb_comb",
 	"filename": "flt_fb_comb.dsp",
-	"version": "2.30.12",
-	"compile_options": "-lang cpp -es 1 -scal -ftz 0",
-	"library_list": ["/usr/local/share/faust/filters.lib","/usr/local/share/faust/signals.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib","/usr/local/share/faust/delays.lib"],
+	"version": "2.37.3",
+	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0",
+	"library_list": ["/usr/local/share/faust/filters.lib","/usr/local/share/faust/signals.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/delays.lib"],
 	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
 	"inputs": 2,
 	"outputs": 1,
 	"meta": [ 
 		{ "basics.lib/name": "Faust Basic Element Library" },
-		{ "basics.lib/version": "0.1" },
-		{ "compile_options": "-lang cpp -es 1 -scal -ftz 0" },
+		{ "basics.lib/version": "0.2" },
+		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0" },
 		{ "delays.lib/name": "Faust Delay Library" },
 		{ "delays.lib/version": "0.1" },
 		{ "filename": "flt_fb_comb.dsp" },
@@ -24,12 +24,12 @@
 		{ "maths.lib/copyright": "GRAME" },
 		{ "maths.lib/license": "LGPL with exception" },
 		{ "maths.lib/name": "Faust Math Library" },
-		{ "maths.lib/version": "2.3" },
+		{ "maths.lib/version": "2.5" },
 		{ "name": "flt_fb_comb" },
 		{ "platform.lib/name": "Generic Platform Library" },
-		{ "platform.lib/version": "0.1" },
+		{ "platform.lib/version": "0.2" },
 		{ "signals.lib/name": "Faust Signal Routing Library" },
-		{ "signals.lib/version": "0.0" }
+		{ "signals.lib/version": "0.1" }
 	],
 	"ui": [ 
 		{

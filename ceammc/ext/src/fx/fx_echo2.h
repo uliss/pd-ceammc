@@ -1,8 +1,8 @@
 /* ------------------------------------------------------------
 author: "Albert Graef"
 name: "fx.echo2"
-Code generated with Faust 2.30.12 (https://faust.grame.fr)
-Compilation options: -lang cpp -es 1 -scal -ftz 0
+Code generated with Faust 2.37.3 (https://faust.grame.fr)
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __fx_echo2_H__
@@ -219,24 +219,69 @@ class dsp_factory {
     
 };
 
-/**
- * On Intel set FZ (Flush to Zero) and DAZ (Denormals Are Zero)
- * flags to avoid costly denormals.
- */
+// Denormal handling
 
-#ifdef __SSE__
-    #include <xmmintrin.h>
-    #ifdef __SSE2__
-        #define AVOIDDENORMALS _mm_setcsr(_mm_getcsr() | 0x8040)
-    #else
-        #define AVOIDDENORMALS _mm_setcsr(_mm_getcsr() | 0x8000)
-    #endif
-#else
-    #define AVOIDDENORMALS
+#if defined (__SSE__)
+#include <xmmintrin.h>
 #endif
 
+class ScopedNoDenormals
+{
+    private:
+    
+        intptr_t fpsr;
+        
+        void setFpStatusRegister(intptr_t fpsr_aux) noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+           asm volatile("msr fpcr, %0" : : "ri" (fpsr_aux));
+        #elif defined (__SSE__)
+            _mm_setcsr(static_cast<uint32_t>(fpsr_aux));
+        #endif
+        }
+        
+        void getFpStatusRegister() noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+            asm volatile("mrs %0, fpcr" : "=r" (fpsr));
+        #elif defined ( __SSE__)
+            fpsr = static_cast<intptr_t>(_mm_getcsr());
+        #endif
+        }
+    
+    public:
+    
+        ScopedNoDenormals() noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+            intptr_t mask = (1 << 24 /* FZ */);
+        #else
+            #if defined(__SSE__)
+            #if defined(__SSE2__)
+                intptr_t mask = 0x8040;
+            #else
+                intptr_t mask = 0x8000;
+            #endif
+            #else
+                intptr_t mask = 0x0000;
+            #endif
+        #endif
+            getFpStatusRegister();
+            setFpStatusRegister(fpsr | mask);
+        }
+        
+        ~ScopedNoDenormals() noexcept
+        {
+            setFpStatusRegister(fpsr);
+        }
+
+};
+
+#define AVOIDDENORMALS ScopedNoDenormals();
+
 #endif
-/**************************  END  fx_echo2_dsp.h **************************/
+
+/************************** END fx_echo2_dsp.h **************************/
 /************************** BEGIN UI.h **************************/
 /************************************************************************
  FAUST Architecture File
@@ -310,6 +355,9 @@ struct UIReal
     // -- metadata declarations
     
     virtual void declare(REAL* zone, const char* key, const char* val) {}
+    
+    // To be used by LLVM client
+    virtual int sizeOfFAUSTFLOAT() { return sizeof(FAUSTFLOAT); }
 };
 
 struct UI : public UIReal<FAUSTFLOAT>
@@ -517,18 +565,20 @@ class fx_echo2 : public fx_echo2_dsp {
  private:
 	
 	FAUSTFLOAT fCheckbox0;
+	int fSampleRate;
+	float fConst1;
 	FAUSTFLOAT fHslider0;
+	float fConst2;
 	float fRec0[2];
 	FAUSTFLOAT fHslider1;
 	float fRec1[2];
-	int fSampleRate;
-	float fConst1;
+	float fConst3;
 	FAUSTFLOAT fHslider2;
 	FAUSTFLOAT fHslider3;
 	float fRec4[2];
 	int IOTA;
 	float fVec0[1048576];
-	float fConst2;
+	float fConst4;
 	float fRec2[2];
 	float fVec1[1048576];
 	float fRec3[2];
@@ -538,12 +588,12 @@ class fx_echo2 : public fx_echo2_dsp {
 	void metadata(Meta* m) { 
 		m->declare("author", "Albert Graef");
 		m->declare("basics.lib/name", "Faust Basic Element Library");
-		m->declare("basics.lib/version", "0.1");
+		m->declare("basics.lib/version", "0.2");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
 		m->declare("ceammc.lib/version", "0.1.2");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
 		m->declare("ceammc_ui.lib/version", "0.1.2");
-		m->declare("compile_options", "-lang cpp -es 1 -scal -ftz 0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0");
 		m->declare("delays.lib/name", "Faust Delay Library");
 		m->declare("delays.lib/version", "0.1");
 		m->declare("filename", "fx_echo2.dsp");
@@ -551,14 +601,14 @@ class fx_echo2 : public fx_echo2_dsp {
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
-		m->declare("maths.lib/version", "2.3");
+		m->declare("maths.lib/version", "2.5");
 		m->declare("name", "fx.echo2");
 		m->declare("platform.lib/name", "Generic Platform Library");
-		m->declare("platform.lib/version", "0.1");
+		m->declare("platform.lib/version", "0.2");
 		m->declare("routes.lib/name", "Faust Signal Routing Library");
 		m->declare("routes.lib/version", "0.2");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
-		m->declare("signals.lib/version", "0.0");
+		m->declare("signals.lib/version", "0.1");
 	}
 
 	virtual int getNumInputs() {
@@ -567,42 +617,6 @@ class fx_echo2 : public fx_echo2_dsp {
 	virtual int getNumOutputs() {
 		return 2;
 	}
-	virtual int getInputRate(int channel) {
-		int rate;
-		switch ((channel)) {
-			case 0: {
-				rate = 1;
-				break;
-			}
-			case 1: {
-				rate = 1;
-				break;
-			}
-			default: {
-				rate = -1;
-				break;
-			}
-		}
-		return rate;
-	}
-	virtual int getOutputRate(int channel) {
-		int rate;
-		switch ((channel)) {
-			case 0: {
-				rate = 1;
-				break;
-			}
-			case 1: {
-				rate = 1;
-				break;
-			}
-			default: {
-				rate = -1;
-				break;
-			}
-		}
-		return rate;
-	}
 	
 	static void classInit(int sample_rate) {
 	}
@@ -610,8 +624,10 @@ class fx_echo2 : public fx_echo2_dsp {
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
 		float fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
-		fConst1 = (0.00100000005f * fConst0);
-		fConst2 = ((5.0f * fConst0) + 1.0f);
+		fConst1 = (44.0999985f / fConst0);
+		fConst2 = (1.0f - fConst1);
+		fConst3 = (0.00100000005f * fConst0);
+		fConst4 = ((5.0f * fConst0) + 1.0f);
 	}
 	
 	virtual void instanceResetUserInterface() {
@@ -669,11 +685,11 @@ class fx_echo2 : public fx_echo2_dsp {
 		ui_interface->openVerticalBox("fx.echo2");
 		ui_interface->addCheckButton("bypass", &fCheckbox0);
 		ui_interface->declare(&fHslider2, "unit", "ms");
-		ui_interface->addHorizontalSlider("delay", &fHslider2, 500.0f, 10.0f, 5000.0f, 1.0f);
+		ui_interface->addHorizontalSlider("delay", &fHslider2, FAUSTFLOAT(500.0f), FAUSTFLOAT(10.0f), FAUSTFLOAT(5000.0f), FAUSTFLOAT(1.0f));
 		ui_interface->declare(&fHslider0, "style", "knob");
-		ui_interface->addHorizontalSlider("drywet", &fHslider0, 1.0f, 0.0f, 1.0f, 0.00999999978f);
-		ui_interface->addHorizontalSlider("feedback", &fHslider3, 0.300000012f, 0.0f, 0.99000001f, 0.00100000005f);
-		ui_interface->addHorizontalSlider("stereo", &fHslider1, 1.0f, 0.0f, 1.0f, 0.00100000005f);
+		ui_interface->addHorizontalSlider("drywet", &fHslider0, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.00999999978f));
+		ui_interface->addHorizontalSlider("feedback", &fHslider3, FAUSTFLOAT(0.300000012f), FAUSTFLOAT(0.0f), FAUSTFLOAT(0.99000001f), FAUSTFLOAT(0.00100000005f));
+		ui_interface->addHorizontalSlider("stereo", &fHslider1, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.00100000005f));
 		ui_interface->closeBox();
 	}
 	
@@ -683,34 +699,36 @@ class fx_echo2 : public fx_echo2_dsp {
 		FAUSTFLOAT* output0 = outputs[0];
 		FAUSTFLOAT* output1 = outputs[1];
 		int iSlow0 = int(float(fCheckbox0));
-		float fSlow1 = (0.00100000005f * float(fHslider0));
-		float fSlow2 = (0.00100000005f * float(fHslider1));
-		float fSlow3 = (fConst1 * float(fHslider2));
+		float fSlow1 = (fConst1 * float(fHslider0));
+		float fSlow2 = (fConst1 * float(fHslider1));
+		float fSlow3 = (fConst3 * float(fHslider2));
 		float fSlow4 = std::floor(fSlow3);
 		float fSlow5 = (fSlow4 + (1.0f - fSlow3));
-		float fSlow6 = (0.00100000005f * float(fHslider3));
+		float fSlow6 = (fConst1 * float(fHslider3));
 		int iSlow7 = int(fSlow3);
-		int iSlow8 = int(std::min<float>(fConst2, float(std::max<int>(0, iSlow7))));
+		int iSlow8 = int(std::min<float>(fConst4, float(std::max<int>(0, iSlow7))));
 		float fSlow9 = (fSlow3 - fSlow4);
-		int iSlow10 = int(std::min<float>(fConst2, float(std::max<int>(0, (iSlow7 + 1)))));
-		for (int i = 0; (i < count); i = (i + 1)) {
-			float fTemp0 = float(input0[i]);
+		int iSlow10 = int(std::min<float>(fConst4, float(std::max<int>(0, (iSlow7 + 1)))));
+		for (int i0 = 0; (i0 < count); i0 = (i0 + 1)) {
+			float fTemp0 = float(input0[i0]);
 			float fTemp1 = (iSlow0 ? 0.0f : fTemp0);
-			fRec0[0] = (fSlow1 + (0.999000013f * fRec0[1]));
+			fRec0[0] = (fSlow1 + (fConst2 * fRec0[1]));
 			float fTemp2 = (1.0f - fRec0[0]);
-			fRec1[0] = (fSlow2 + (0.999000013f * fRec1[1]));
-			fRec4[0] = (fSlow6 + (0.999000013f * fRec4[1]));
+			fRec1[0] = (fSlow2 + (fConst2 * fRec1[1]));
+			fRec4[0] = (fSlow6 + (fConst2 * fRec4[1]));
 			float fTemp3 = (1.0f - fRec1[0]);
 			float fTemp4 = (fTemp1 + (fRec4[0] * ((fTemp3 * fRec2[1]) + (fRec1[0] * fRec3[1]))));
 			fVec0[(IOTA & 1048575)] = fTemp4;
 			fRec2[0] = ((fSlow5 * fVec0[((IOTA - iSlow8) & 1048575)]) + (fSlow9 * fVec0[((IOTA - iSlow10) & 1048575)]));
-			float fTemp5 = float(input1[i]);
+			float fTemp5 = float(input1[i0]);
 			float fTemp6 = (iSlow0 ? 0.0f : fTemp5);
 			float fTemp7 = (fTemp6 + (fRec4[0] * ((fTemp3 * fRec3[1]) + (fRec1[0] * fRec2[1]))));
 			fVec1[(IOTA & 1048575)] = fTemp7;
 			fRec3[0] = ((fSlow5 * fVec1[((IOTA - iSlow8) & 1048575)]) + (fSlow9 * fVec1[((IOTA - iSlow10) & 1048575)]));
-			output0[i] = FAUSTFLOAT((iSlow0 ? fTemp0 : ((fTemp1 * fTemp2) + (0.5f * (fRec0[0] * ((fRec1[0] * fRec3[0]) + (fTemp1 + (fRec2[0] * fTemp3))))))));
-			output1[i] = FAUSTFLOAT((iSlow0 ? fTemp5 : ((fTemp2 * fTemp6) + (0.5f * (fRec0[0] * ((fRec1[0] * fRec2[0]) + (fTemp6 + (fRec3[0] * fTemp3))))))));
+			float fThen2 = ((fTemp1 * fTemp2) + (0.5f * (fRec0[0] * ((fRec1[0] * fRec3[0]) + (fTemp1 + (fRec2[0] * fTemp3))))));
+			output0[i0] = FAUSTFLOAT((iSlow0 ? fTemp0 : fThen2));
+			float fThen3 = ((fTemp2 * fTemp6) + (0.5f * (fRec0[0] * ((fRec1[0] * fRec2[0]) + (fTemp6 + (fRec3[0] * fTemp3))))));
+			output1[i0] = FAUSTFLOAT((iSlow0 ? fTemp5 : fThen3));
 			fRec0[1] = fRec0[0];
 			fRec1[1] = fRec1[0];
 			fRec4[1] = fRec4[0];

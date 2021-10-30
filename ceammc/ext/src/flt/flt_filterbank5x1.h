@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "flt.fbank5x1"
-Code generated with Faust 2.30.12 (https://faust.grame.fr)
-Compilation options: -lang cpp -es 1 -scal -ftz 0
+Code generated with Faust 2.37.3 (https://faust.grame.fr)
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __flt_filterbank5x1_H__
@@ -218,24 +218,69 @@ class dsp_factory {
     
 };
 
-/**
- * On Intel set FZ (Flush to Zero) and DAZ (Denormals Are Zero)
- * flags to avoid costly denormals.
- */
+// Denormal handling
 
-#ifdef __SSE__
-    #include <xmmintrin.h>
-    #ifdef __SSE2__
-        #define AVOIDDENORMALS _mm_setcsr(_mm_getcsr() | 0x8040)
-    #else
-        #define AVOIDDENORMALS _mm_setcsr(_mm_getcsr() | 0x8000)
-    #endif
-#else
-    #define AVOIDDENORMALS
+#if defined (__SSE__)
+#include <xmmintrin.h>
 #endif
 
+class ScopedNoDenormals
+{
+    private:
+    
+        intptr_t fpsr;
+        
+        void setFpStatusRegister(intptr_t fpsr_aux) noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+           asm volatile("msr fpcr, %0" : : "ri" (fpsr_aux));
+        #elif defined (__SSE__)
+            _mm_setcsr(static_cast<uint32_t>(fpsr_aux));
+        #endif
+        }
+        
+        void getFpStatusRegister() noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+            asm volatile("mrs %0, fpcr" : "=r" (fpsr));
+        #elif defined ( __SSE__)
+            fpsr = static_cast<intptr_t>(_mm_getcsr());
+        #endif
+        }
+    
+    public:
+    
+        ScopedNoDenormals() noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+            intptr_t mask = (1 << 24 /* FZ */);
+        #else
+            #if defined(__SSE__)
+            #if defined(__SSE2__)
+                intptr_t mask = 0x8040;
+            #else
+                intptr_t mask = 0x8000;
+            #endif
+            #else
+                intptr_t mask = 0x0000;
+            #endif
+        #endif
+            getFpStatusRegister();
+            setFpStatusRegister(fpsr | mask);
+        }
+        
+        ~ScopedNoDenormals() noexcept
+        {
+            setFpStatusRegister(fpsr);
+        }
+
+};
+
+#define AVOIDDENORMALS ScopedNoDenormals();
+
 #endif
-/**************************  END  flt_filterbank5x1_dsp.h **************************/
+
+/************************** END flt_filterbank5x1_dsp.h **************************/
 /************************** BEGIN UI.h **************************/
 /************************************************************************
  FAUST Architecture File
@@ -309,6 +354,9 @@ struct UIReal
     // -- metadata declarations
     
     virtual void declare(REAL* zone, const char* key, const char* val) {}
+    
+    // To be used by LLVM client
+    virtual int sizeOfFAUSTFLOAT() { return sizeof(FAUSTFLOAT); }
 };
 
 struct UI : public UIReal<FAUSTFLOAT>
@@ -520,85 +568,87 @@ class flt_filterbank5x1 : public flt_filterbank5x1_dsp {
 	
 	int fSampleRate;
 	float fConst3;
+	float fConst4;
 	FAUSTFLOAT fVslider0;
-	float fRec0[2];
 	float fConst5;
+	float fRec0[2];
+	float fConst7;
 	float fConst8;
-	float fConst10;
 	float fConst11;
+	float fConst13;
 	float fConst14;
-	float fConst16;
 	float fConst17;
 	float fConst19;
 	float fConst20;
 	float fConst22;
 	float fConst23;
+	float fConst25;
+	float fConst26;
 	float fVec0[2];
 	float fRec8[2];
-	float fConst24;
-	float fConst26;
 	float fConst27;
+	float fConst29;
+	float fConst30;
 	float fRec7[3];
 	float fVec1[2];
 	float fRec6[2];
-	float fConst28;
-	float fConst30;
 	float fConst31;
+	float fConst33;
+	float fConst34;
 	float fRec5[3];
 	float fVec2[2];
 	float fRec4[2];
-	float fConst32;
-	float fConst34;
 	float fConst35;
+	float fConst37;
+	float fConst38;
 	float fRec3[3];
 	float fVec3[2];
-	float fConst36;
 	float fRec2[2];
-	float fConst37;
 	float fConst39;
-	float fConst40;
+	float fConst41;
+	float fConst42;
 	float fRec1[3];
 	FAUSTFLOAT fVslider1;
 	float fRec9[2];
-	float fConst41;
-	float fConst42;
 	float fConst43;
+	float fConst44;
+	float fConst45;
 	float fRec11[2];
 	float fRec10[3];
-	float fConst44;
+	float fConst46;
 	FAUSTFLOAT fVslider2;
 	float fRec12[2];
-	float fConst45;
-	float fConst46;
 	float fConst47;
-	float fRec15[2];
-	float fRec14[3];
 	float fConst48;
 	float fConst49;
+	float fRec15[2];
+	float fRec14[3];
 	float fConst50;
+	float fConst51;
+	float fConst52;
 	float fRec13[3];
 	FAUSTFLOAT fVslider3;
 	float fRec16[2];
-	float fConst51;
-	float fConst52;
 	float fConst53;
+	float fConst54;
+	float fConst55;
 	float fRec20[2];
 	float fRec19[3];
-	float fConst54;
-	float fRec18[3];
-	float fConst55;
 	float fConst56;
+	float fRec18[3];
+	float fConst57;
+	float fConst58;
 	float fRec17[3];
 	FAUSTFLOAT fVslider4;
 	float fRec21[2];
-	float fConst57;
+	float fConst59;
 	float fRec26[2];
 	float fRec25[3];
-	float fConst58;
+	float fConst60;
 	float fRec24[3];
 	float fRec23[3];
-	float fConst59;
-	float fConst60;
+	float fConst61;
+	float fConst62;
 	float fRec22[3];
 	
  public:
@@ -607,8 +657,8 @@ class flt_filterbank5x1 : public flt_filterbank5x1_dsp {
 		m->declare("analyzers.lib/name", "Faust Analyzer Library");
 		m->declare("analyzers.lib/version", "0.1");
 		m->declare("basics.lib/name", "Faust Basic Element Library");
-		m->declare("basics.lib/version", "0.1");
-		m->declare("compile_options", "-lang cpp -es 1 -scal -ftz 0");
+		m->declare("basics.lib/version", "0.2");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0");
 		m->declare("filename", "flt_filterbank5x1.dsp");
 		m->declare("filters.lib/fir:author", "Julius O. Smith III");
 		m->declare("filters.lib/fir:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -647,12 +697,12 @@ class flt_filterbank5x1 : public flt_filterbank5x1_dsp {
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
-		m->declare("maths.lib/version", "2.3");
+		m->declare("maths.lib/version", "2.5");
 		m->declare("name", "flt.fbank5x1");
 		m->declare("platform.lib/name", "Generic Platform Library");
-		m->declare("platform.lib/version", "0.1");
+		m->declare("platform.lib/version", "0.2");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
-		m->declare("signals.lib/version", "0.0");
+		m->declare("signals.lib/version", "0.1");
 	}
 
 	virtual int getNumInputs() {
@@ -660,50 +710,6 @@ class flt_filterbank5x1 : public flt_filterbank5x1_dsp {
 	}
 	virtual int getNumOutputs() {
 		return 5;
-	}
-	virtual int getInputRate(int channel) {
-		int rate;
-		switch ((channel)) {
-			case 0: {
-				rate = 1;
-				break;
-			}
-			default: {
-				rate = -1;
-				break;
-			}
-		}
-		return rate;
-	}
-	virtual int getOutputRate(int channel) {
-		int rate;
-		switch ((channel)) {
-			case 0: {
-				rate = 1;
-				break;
-			}
-			case 1: {
-				rate = 1;
-				break;
-			}
-			case 2: {
-				rate = 1;
-				break;
-			}
-			case 3: {
-				rate = 1;
-				break;
-			}
-			case 4: {
-				rate = 1;
-				break;
-			}
-			default: {
-				rate = -1;
-				break;
-			}
-		}
-		return rate;
 	}
 	
 	static void classInit(int sample_rate) {
@@ -715,63 +721,65 @@ class flt_filterbank5x1 : public flt_filterbank5x1_dsp {
 		float fConst1 = std::tan((1570.79639f / fConst0));
 		float fConst2 = (1.0f / fConst1);
 		fConst3 = (1.0f / (((fConst2 + 1.0f) / fConst1) + 1.0f));
-		float fConst4 = (fConst2 + 1.0f);
-		fConst5 = (1.0f / fConst4);
-		float fConst6 = std::tan((3141.59277f / fConst0));
-		float fConst7 = (1.0f / fConst6);
-		fConst8 = (1.0f / (((fConst7 + 1.0f) / fConst6) + 1.0f));
-		float fConst9 = (fConst7 + 1.0f);
-		fConst10 = (1.0f / fConst9);
-		fConst11 = (1.0f - fConst7);
-		float fConst12 = std::tan((6283.18555f / fConst0));
-		float fConst13 = (1.0f / fConst12);
-		fConst14 = (1.0f / (((fConst13 + 1.0f) / fConst12) + 1.0f));
-		float fConst15 = (fConst13 + 1.0f);
-		fConst16 = (1.0f / fConst15);
-		fConst17 = (1.0f - fConst13);
-		float fConst18 = std::tan((12566.3711f / fConst0));
+		fConst4 = (44.0999985f / fConst0);
+		fConst5 = (1.0f - fConst4);
+		float fConst6 = (fConst2 + 1.0f);
+		fConst7 = (1.0f / fConst6);
+		fConst8 = (1.0f - fConst2);
+		float fConst9 = std::tan((3141.59277f / fConst0));
+		float fConst10 = (1.0f / fConst9);
+		fConst11 = (1.0f / (((fConst10 + 1.0f) / fConst9) + 1.0f));
+		float fConst12 = (fConst10 + 1.0f);
+		fConst13 = (1.0f / fConst12);
+		fConst14 = (1.0f - fConst10);
+		float fConst15 = std::tan((6283.18555f / fConst0));
+		float fConst16 = (1.0f / fConst15);
+		fConst17 = (1.0f / (((fConst16 + 1.0f) / fConst15) + 1.0f));
+		float fConst18 = (fConst16 + 1.0f);
 		fConst19 = (1.0f / fConst18);
-		fConst20 = (1.0f / (((fConst19 + 1.0f) / fConst18) + 1.0f));
-		float fConst21 = (fConst19 + 1.0f);
+		fConst20 = (1.0f - fConst16);
+		float fConst21 = std::tan((12566.3711f / fConst0));
 		fConst22 = (1.0f / fConst21);
-		fConst23 = (1.0f - fConst19);
-		fConst24 = (((fConst19 + -1.0f) / fConst18) + 1.0f);
-		float fConst25 = flt_filterbank5x1_faustpower2_f(fConst18);
-		fConst26 = (1.0f / fConst25);
-		fConst27 = (2.0f * (1.0f - fConst26));
-		fConst28 = (((fConst13 + -1.0f) / fConst12) + 1.0f);
-		float fConst29 = flt_filterbank5x1_faustpower2_f(fConst12);
-		fConst30 = (1.0f / fConst29);
-		fConst31 = (2.0f * (1.0f - fConst30));
-		fConst32 = (((fConst7 + -1.0f) / fConst6) + 1.0f);
-		float fConst33 = flt_filterbank5x1_faustpower2_f(fConst6);
-		fConst34 = (1.0f / fConst33);
-		fConst35 = (2.0f * (1.0f - fConst34));
-		fConst36 = (1.0f - fConst2);
-		fConst37 = (((fConst2 + -1.0f) / fConst1) + 1.0f);
-		float fConst38 = flt_filterbank5x1_faustpower2_f(fConst1);
-		fConst39 = (1.0f / fConst38);
-		fConst40 = (2.0f * (1.0f - fConst39));
-		fConst41 = (1.0f / (fConst1 * fConst4));
-		fConst42 = (0.0f - fConst41);
-		fConst43 = (fConst36 / fConst4);
-		fConst44 = (0.0f - (2.0f / fConst38));
-		fConst45 = (1.0f / (fConst6 * fConst9));
-		fConst46 = (0.0f - fConst45);
-		fConst47 = (fConst11 / fConst9);
-		fConst48 = (0.0f - (2.0f / fConst33));
-		fConst49 = (1.0f / ((fConst4 / fConst1) + 1.0f));
-		fConst50 = (1.0f - (fConst36 / fConst1));
-		fConst51 = (1.0f / (fConst12 * fConst15));
-		fConst52 = (0.0f - fConst51);
-		fConst53 = (fConst17 / fConst15);
-		fConst54 = (0.0f - (2.0f / fConst29));
-		fConst55 = (1.0f / ((fConst9 / fConst6) + 1.0f));
-		fConst56 = (1.0f - (fConst11 / fConst6));
-		fConst57 = (0.0f - (1.0f / (fConst18 * fConst21)));
-		fConst58 = (0.0f - (2.0f / fConst25));
-		fConst59 = (1.0f / ((fConst15 / fConst12) + 1.0f));
-		fConst60 = (((fConst13 + -1.0f) / fConst12) + 1.0f);
+		fConst23 = (1.0f / (((fConst22 + 1.0f) / fConst21) + 1.0f));
+		float fConst24 = (fConst22 + 1.0f);
+		fConst25 = (1.0f / fConst24);
+		fConst26 = (1.0f - fConst22);
+		fConst27 = (((fConst22 + -1.0f) / fConst21) + 1.0f);
+		float fConst28 = flt_filterbank5x1_faustpower2_f(fConst21);
+		fConst29 = (1.0f / fConst28);
+		fConst30 = (2.0f * (1.0f - fConst29));
+		fConst31 = (((fConst16 + -1.0f) / fConst15) + 1.0f);
+		float fConst32 = flt_filterbank5x1_faustpower2_f(fConst15);
+		fConst33 = (1.0f / fConst32);
+		fConst34 = (2.0f * (1.0f - fConst33));
+		fConst35 = (((fConst10 + -1.0f) / fConst9) + 1.0f);
+		float fConst36 = flt_filterbank5x1_faustpower2_f(fConst9);
+		fConst37 = (1.0f / fConst36);
+		fConst38 = (2.0f * (1.0f - fConst37));
+		fConst39 = (((fConst2 + -1.0f) / fConst1) + 1.0f);
+		float fConst40 = flt_filterbank5x1_faustpower2_f(fConst1);
+		fConst41 = (1.0f / fConst40);
+		fConst42 = (2.0f * (1.0f - fConst41));
+		fConst43 = (1.0f / (fConst1 * fConst6));
+		fConst44 = (0.0f - fConst43);
+		fConst45 = (fConst8 / fConst6);
+		fConst46 = (0.0f - (2.0f / fConst40));
+		fConst47 = (1.0f / (fConst9 * fConst12));
+		fConst48 = (0.0f - fConst47);
+		fConst49 = (fConst14 / fConst12);
+		fConst50 = (0.0f - (2.0f / fConst36));
+		fConst51 = (1.0f / ((fConst6 / fConst1) + 1.0f));
+		fConst52 = (1.0f - (fConst8 / fConst1));
+		fConst53 = (1.0f / (fConst15 * fConst18));
+		fConst54 = (0.0f - fConst53);
+		fConst55 = (fConst20 / fConst18);
+		fConst56 = (0.0f - (2.0f / fConst32));
+		fConst57 = (1.0f / ((fConst12 / fConst9) + 1.0f));
+		fConst58 = (1.0f - (fConst14 / fConst9));
+		fConst59 = (0.0f - (1.0f / (fConst21 * fConst24)));
+		fConst60 = (0.0f - (2.0f / fConst28));
+		fConst61 = (1.0f / ((fConst18 / fConst15) + 1.0f));
+		fConst62 = (1.0f - (fConst20 / fConst15));
 	}
 	
 	virtual void instanceResetUserInterface() {
@@ -899,15 +907,15 @@ class flt_filterbank5x1 : public flt_filterbank5x1_dsp {
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("flt.fbank5x1");
 		ui_interface->declare(&fVslider2, "unit", "db");
-		ui_interface->addVerticalSlider("f1000", &fVslider2, 0.0f, -6.0f, 6.0f, 0.100000001f);
+		ui_interface->addVerticalSlider("f1000", &fVslider2, FAUSTFLOAT(0.0f), FAUSTFLOAT(-6.0f), FAUSTFLOAT(6.0f), FAUSTFLOAT(0.100000001f));
 		ui_interface->declare(&fVslider3, "unit", "db");
-		ui_interface->addVerticalSlider("f2000", &fVslider3, 0.0f, -6.0f, 6.0f, 0.100000001f);
+		ui_interface->addVerticalSlider("f2000", &fVslider3, FAUSTFLOAT(0.0f), FAUSTFLOAT(-6.0f), FAUSTFLOAT(6.0f), FAUSTFLOAT(0.100000001f));
 		ui_interface->declare(&fVslider0, "unit", "db");
-		ui_interface->addVerticalSlider("f250", &fVslider0, 0.0f, -6.0f, 6.0f, 0.100000001f);
+		ui_interface->addVerticalSlider("f250", &fVslider0, FAUSTFLOAT(0.0f), FAUSTFLOAT(-6.0f), FAUSTFLOAT(6.0f), FAUSTFLOAT(0.100000001f));
 		ui_interface->declare(&fVslider4, "unit", "db");
-		ui_interface->addVerticalSlider("f4000", &fVslider4, 0.0f, -6.0f, 6.0f, 0.100000001f);
+		ui_interface->addVerticalSlider("f4000", &fVslider4, FAUSTFLOAT(0.0f), FAUSTFLOAT(-6.0f), FAUSTFLOAT(6.0f), FAUSTFLOAT(0.100000001f));
 		ui_interface->declare(&fVslider1, "unit", "db");
-		ui_interface->addVerticalSlider("f500", &fVslider1, 0.0f, -6.0f, 6.0f, 0.100000001f);
+		ui_interface->addVerticalSlider("f500", &fVslider1, FAUSTFLOAT(0.0f), FAUSTFLOAT(-6.0f), FAUSTFLOAT(6.0f), FAUSTFLOAT(0.100000001f));
 		ui_interface->closeBox();
 	}
 	
@@ -918,58 +926,58 @@ class flt_filterbank5x1 : public flt_filterbank5x1_dsp {
 		FAUSTFLOAT* output2 = outputs[2];
 		FAUSTFLOAT* output3 = outputs[3];
 		FAUSTFLOAT* output4 = outputs[4];
-		float fSlow0 = (0.00100000005f * std::pow(10.0f, (0.0500000007f * float(fVslider0))));
-		float fSlow1 = (0.00100000005f * std::pow(10.0f, (0.0500000007f * float(fVslider1))));
-		float fSlow2 = (0.00100000005f * std::pow(10.0f, (0.0500000007f * float(fVslider2))));
-		float fSlow3 = (0.00100000005f * std::pow(10.0f, (0.0500000007f * float(fVslider3))));
-		float fSlow4 = (0.00100000005f * std::pow(10.0f, (0.0500000007f * float(fVslider4))));
-		for (int i = 0; (i < count); i = (i + 1)) {
-			fRec0[0] = (fSlow0 + (0.999000013f * fRec0[1]));
-			float fTemp0 = float(input0[i]);
+		float fSlow0 = (fConst4 * std::pow(10.0f, (0.0500000007f * float(fVslider0))));
+		float fSlow1 = (fConst4 * std::pow(10.0f, (0.0500000007f * float(fVslider1))));
+		float fSlow2 = (fConst4 * std::pow(10.0f, (0.0500000007f * float(fVslider2))));
+		float fSlow3 = (fConst4 * std::pow(10.0f, (0.0500000007f * float(fVslider3))));
+		float fSlow4 = (fConst4 * std::pow(10.0f, (0.0500000007f * float(fVslider4))));
+		for (int i0 = 0; (i0 < count); i0 = (i0 + 1)) {
+			fRec0[0] = (fSlow0 + (fConst5 * fRec0[1]));
+			float fTemp0 = float(input0[i0]);
 			fVec0[0] = fTemp0;
-			fRec8[0] = (0.0f - (fConst22 * ((fConst23 * fRec8[1]) - (fTemp0 + fVec0[1]))));
-			fRec7[0] = (fRec8[0] - (fConst20 * ((fConst24 * fRec7[2]) + (fConst27 * fRec7[1]))));
+			fRec8[0] = (0.0f - (fConst25 * ((fConst26 * fRec8[1]) - (fTemp0 + fVec0[1]))));
+			fRec7[0] = (fRec8[0] - (fConst23 * ((fConst27 * fRec7[2]) + (fConst30 * fRec7[1]))));
 			float fTemp1 = (fRec7[2] + (fRec7[0] + (2.0f * fRec7[1])));
 			fVec1[0] = fTemp1;
-			fRec6[0] = (0.0f - (fConst16 * ((fConst17 * fRec6[1]) - (fConst20 * (fTemp1 + fVec1[1])))));
-			fRec5[0] = (fRec6[0] - (fConst14 * ((fConst28 * fRec5[2]) + (fConst31 * fRec5[1]))));
+			fRec6[0] = (0.0f - (fConst19 * ((fConst20 * fRec6[1]) - (fConst23 * (fTemp1 + fVec1[1])))));
+			fRec5[0] = (fRec6[0] - (fConst17 * ((fConst31 * fRec5[2]) + (fConst34 * fRec5[1]))));
 			float fTemp2 = (fRec5[2] + (fRec5[0] + (2.0f * fRec5[1])));
 			fVec2[0] = fTemp2;
-			fRec4[0] = (0.0f - (fConst10 * ((fConst11 * fRec4[1]) - (fConst14 * (fTemp2 + fVec2[1])))));
-			fRec3[0] = (fRec4[0] - (fConst8 * ((fConst32 * fRec3[2]) + (fConst35 * fRec3[1]))));
+			fRec4[0] = (0.0f - (fConst13 * ((fConst14 * fRec4[1]) - (fConst17 * (fTemp2 + fVec2[1])))));
+			fRec3[0] = (fRec4[0] - (fConst11 * ((fConst35 * fRec3[2]) + (fConst38 * fRec3[1]))));
 			float fTemp3 = (fRec3[2] + (fRec3[0] + (2.0f * fRec3[1])));
 			fVec3[0] = fTemp3;
-			fRec2[0] = (fConst5 * ((fConst8 * (fTemp3 + fVec3[1])) - (fConst36 * fRec2[1])));
-			fRec1[0] = (fRec2[0] - (fConst3 * ((fConst37 * fRec1[2]) + (fConst40 * fRec1[1]))));
-			output0[i] = FAUSTFLOAT((fConst3 * (fRec0[0] * (fRec1[2] + (fRec1[0] + (2.0f * fRec1[1]))))));
-			fRec9[0] = (fSlow1 + (0.999000013f * fRec9[1]));
-			fRec11[0] = ((fConst8 * ((fConst41 * fTemp3) + (fConst42 * fVec3[1]))) - (fConst43 * fRec11[1]));
-			fRec10[0] = (fRec11[0] - (fConst3 * ((fConst37 * fRec10[2]) + (fConst40 * fRec10[1]))));
-			output1[i] = FAUSTFLOAT((fConst3 * (fRec9[0] * (((fConst39 * fRec10[0]) + (fConst44 * fRec10[1])) + (fConst39 * fRec10[2])))));
-			fRec12[0] = (fSlow2 + (0.999000013f * fRec12[1]));
-			fRec15[0] = ((fConst14 * ((fConst45 * fTemp2) + (fConst46 * fVec2[1]))) - (fConst47 * fRec15[1]));
-			fRec14[0] = (fRec15[0] - (fConst8 * ((fConst32 * fRec14[2]) + (fConst35 * fRec14[1]))));
-			float fTemp4 = (fConst40 * fRec13[1]);
-			fRec13[0] = ((fConst8 * (((fConst34 * fRec14[0]) + (fConst48 * fRec14[1])) + (fConst34 * fRec14[2]))) - (fConst49 * ((fConst50 * fRec13[2]) + fTemp4)));
-			output2[i] = FAUSTFLOAT((fRec12[0] * (fRec13[2] + (fConst49 * (fTemp4 + (fConst50 * fRec13[0]))))));
-			fRec16[0] = (fSlow3 + (0.999000013f * fRec16[1]));
-			fRec20[0] = ((fConst20 * ((fConst51 * fTemp1) + (fConst52 * fVec1[1]))) - (fConst53 * fRec20[1]));
-			fRec19[0] = (fRec20[0] - (fConst14 * ((fConst28 * fRec19[2]) + (fConst31 * fRec19[1]))));
-			float fTemp5 = (fConst40 * fRec18[1]);
-			fRec18[0] = ((fConst14 * (((fConst30 * fRec19[0]) + (fConst54 * fRec19[1])) + (fConst30 * fRec19[2]))) - (fConst49 * ((fConst50 * fRec18[2]) + fTemp5)));
-			float fTemp6 = (fConst35 * fRec17[1]);
-			fRec17[0] = ((fRec18[2] + (fConst49 * (fTemp5 + (fConst50 * fRec18[0])))) - (fConst55 * ((fConst56 * fRec17[2]) + fTemp6)));
-			output3[i] = FAUSTFLOAT((fRec16[0] * (fRec17[2] + (fConst55 * (fTemp6 + (fConst56 * fRec17[0]))))));
-			fRec21[0] = (fSlow4 + (0.999000013f * fRec21[1]));
-			fRec26[0] = ((fConst57 * fVec0[1]) - (fConst22 * ((fConst23 * fRec26[1]) - (fConst19 * fTemp0))));
-			fRec25[0] = (fRec26[0] - (fConst20 * ((fConst24 * fRec25[2]) + (fConst27 * fRec25[1]))));
-			float fTemp7 = (fConst40 * fRec24[1]);
-			fRec24[0] = ((fConst20 * (((fConst26 * fRec25[0]) + (fConst58 * fRec25[1])) + (fConst26 * fRec25[2]))) - (fConst49 * ((fConst50 * fRec24[2]) + fTemp7)));
-			float fTemp8 = (fConst35 * fRec23[1]);
-			fRec23[0] = ((fRec24[2] + (fConst49 * (fTemp7 + (fConst50 * fRec24[0])))) - (fConst55 * ((fConst56 * fRec23[2]) + fTemp8)));
-			float fTemp9 = (fConst31 * fRec22[1]);
-			fRec22[0] = ((fRec23[2] + (fConst55 * (fTemp8 + (fConst56 * fRec23[0])))) - (fConst59 * ((fConst60 * fRec22[2]) + fTemp9)));
-			output4[i] = FAUSTFLOAT((fRec21[0] * (fRec22[2] + (fConst59 * (fTemp9 + (fConst60 * fRec22[0]))))));
+			fRec2[0] = (0.0f - (fConst7 * ((fConst8 * fRec2[1]) - (fConst11 * (fTemp3 + fVec3[1])))));
+			fRec1[0] = (fRec2[0] - (fConst3 * ((fConst39 * fRec1[2]) + (fConst42 * fRec1[1]))));
+			output0[i0] = FAUSTFLOAT((fConst3 * (fRec0[0] * (fRec1[2] + (fRec1[0] + (2.0f * fRec1[1]))))));
+			fRec9[0] = (fSlow1 + (fConst5 * fRec9[1]));
+			fRec11[0] = ((fConst11 * ((fConst43 * fTemp3) + (fConst44 * fVec3[1]))) - (fConst45 * fRec11[1]));
+			fRec10[0] = (fRec11[0] - (fConst3 * ((fConst39 * fRec10[2]) + (fConst42 * fRec10[1]))));
+			output1[i0] = FAUSTFLOAT((fConst3 * (fRec9[0] * (((fConst41 * fRec10[0]) + (fConst46 * fRec10[1])) + (fConst41 * fRec10[2])))));
+			fRec12[0] = (fSlow2 + (fConst5 * fRec12[1]));
+			fRec15[0] = ((fConst17 * ((fConst47 * fTemp2) + (fConst48 * fVec2[1]))) - (fConst49 * fRec15[1]));
+			fRec14[0] = (fRec15[0] - (fConst11 * ((fConst35 * fRec14[2]) + (fConst38 * fRec14[1]))));
+			float fTemp4 = (fConst42 * fRec13[1]);
+			fRec13[0] = ((fConst11 * (((fConst37 * fRec14[0]) + (fConst50 * fRec14[1])) + (fConst37 * fRec14[2]))) - (fConst51 * ((fConst52 * fRec13[2]) + fTemp4)));
+			output2[i0] = FAUSTFLOAT((fRec12[0] * (fRec13[2] + (fConst51 * (fTemp4 + (fConst52 * fRec13[0]))))));
+			fRec16[0] = (fSlow3 + (fConst5 * fRec16[1]));
+			fRec20[0] = ((fConst23 * ((fConst53 * fTemp1) + (fConst54 * fVec1[1]))) - (fConst55 * fRec20[1]));
+			fRec19[0] = (fRec20[0] - (fConst17 * ((fConst31 * fRec19[2]) + (fConst34 * fRec19[1]))));
+			float fTemp5 = (fConst42 * fRec18[1]);
+			fRec18[0] = ((fConst17 * (((fConst33 * fRec19[0]) + (fConst56 * fRec19[1])) + (fConst33 * fRec19[2]))) - (fConst51 * ((fConst52 * fRec18[2]) + fTemp5)));
+			float fTemp6 = (fConst38 * fRec17[1]);
+			fRec17[0] = ((fRec18[2] + (fConst51 * (fTemp5 + (fConst52 * fRec18[0])))) - (fConst57 * ((fConst58 * fRec17[2]) + fTemp6)));
+			output3[i0] = FAUSTFLOAT((fRec16[0] * (fRec17[2] + (fConst57 * (fTemp6 + (fConst58 * fRec17[0]))))));
+			fRec21[0] = (fSlow4 + (fConst5 * fRec21[1]));
+			fRec26[0] = ((fConst59 * fVec0[1]) - (fConst25 * ((fConst26 * fRec26[1]) - (fConst22 * fTemp0))));
+			fRec25[0] = (fRec26[0] - (fConst23 * ((fConst27 * fRec25[2]) + (fConst30 * fRec25[1]))));
+			float fTemp7 = (fConst42 * fRec24[1]);
+			fRec24[0] = ((fConst23 * (((fConst29 * fRec25[0]) + (fConst60 * fRec25[1])) + (fConst29 * fRec25[2]))) - (fConst51 * ((fConst52 * fRec24[2]) + fTemp7)));
+			float fTemp8 = (fConst38 * fRec23[1]);
+			fRec23[0] = ((fRec24[2] + (fConst51 * (fTemp7 + (fConst52 * fRec24[0])))) - (fConst57 * ((fConst58 * fRec23[2]) + fTemp8)));
+			float fTemp9 = (fConst34 * fRec22[1]);
+			fRec22[0] = ((fRec23[2] + (fConst57 * (fTemp8 + (fConst58 * fRec23[0])))) - (fConst61 * ((fConst62 * fRec22[2]) + fTemp9)));
+			output4[i0] = FAUSTFLOAT((fRec21[0] * (fRec22[2] + (fConst61 * (fTemp9 + (fConst62 * fRec22[0]))))));
 			fRec0[1] = fRec0[0];
 			fVec0[1] = fVec0[0];
 			fRec8[1] = fRec8[0];
