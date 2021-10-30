@@ -29,16 +29,16 @@ void PathSplit::onSymbol(t_symbol* s)
 {
     fs::path p(s->s_name);
 
-    symbolTo(1, gensym(p.filename().string().c_str()));
-    symbolTo(0, gensym(p.parent_path().string().c_str()));
+    symbolTo(1, gensym(p.filename().generic_string().c_str()));
+    symbolTo(0, gensym(p.parent_path().generic_string().c_str()));
 }
 
 void PathSplit::onDataT(const StringAtom& s)
 {
     fs::path p(s->str());
 
-    atomTo(1, StringAtom(p.filename().string()));
-    atomTo(0, StringAtom(p.parent_path().string()));
+    atomTo(1, StringAtom(p.filename().generic_string()));
+    atomTo(0, StringAtom(p.parent_path().generic_string()));
 }
 
 void setup_path_split()
