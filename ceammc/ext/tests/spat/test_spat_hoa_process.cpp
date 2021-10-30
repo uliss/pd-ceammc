@@ -19,6 +19,9 @@
 
 PD_COMPLETE_TEST_SETUP(HoaProcess, spat, hoa_process)
 
+#define QPATH(path) "\"" TEST_DATA_DIR "/" path "\""
+#define SPATH(path) gensym(TEST_DATA_DIR "/" path)
+
 TEST_CASE("hoa.process~", "[externals]")
 {
     pd_test_init([]() {
@@ -59,7 +62,7 @@ TEST_CASE("hoa.process~", "[externals]")
 
         SECTION("patch name 01")
         {
-            TExt t("hoa.process~", LA(5, TEST_DATA_DIR "/hoa_test_01"));
+            TExt t("hoa.process~", LA(5, QPATH("hoa_test_01")));
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY(t, @domain, S("harmonics"));
@@ -68,7 +71,7 @@ TEST_CASE("hoa.process~", "[externals]")
 
         SECTION("patch name 02")
         {
-            TExt t("hoa.process~", LA(5, TEST_DATA_DIR "/hoa_test_02"));
+            TExt t("hoa.process~", LA(5, QPATH("hoa_test_02")));
             REQUIRE(t.numInlets() == 3);
             REQUIRE(t.numOutlets() == 4);
             REQUIRE_PROPERTY(t, @domain, S("harmonics"));
@@ -86,7 +89,7 @@ TEST_CASE("hoa.process~", "[externals]")
 
         SECTION("patch name planewaves")
         {
-            TExt t("hoa.process~", LA(15, TEST_DATA_DIR "/hoa_test_10", "planewaves"));
+            TExt t("hoa.process~", LA(15, QPATH("hoa_test_10"), "planewaves"));
             REQUIRE_PROPERTY_FLOAT(t, @n, 15);
             REQUIRE_PROPERTY(t, @domain, S("planewaves"));
             REQUIRE(t.numInlets() == 15);
@@ -96,7 +99,7 @@ TEST_CASE("hoa.process~", "[externals]")
 
     SECTION("control 01")
     {
-        TExt t("hoa.process~", LA(2, TEST_DATA_DIR "/hoa_test_01"));
+        TExt t("hoa.process~", LA(2, QPATH("hoa_test_01")));
         REQUIRE(t.numInlets() == 2);
         REQUIRE(t.numOutlets() == 1);
 
@@ -140,7 +143,7 @@ TEST_CASE("hoa.process~", "[externals]")
 
     SECTION("control 03")
     {
-        TExt t("hoa.process~", LA(2, TEST_DATA_DIR "/hoa_test_03"));
+        TExt t("hoa.process~", LA(2, QPATH("hoa_test_03")));
         REQUIRE(t.numInlets() == 2);
         REQUIRE(t.numOutlets() == 1);
 
@@ -154,7 +157,7 @@ TEST_CASE("hoa.process~", "[externals]")
 
     SECTION("control 04")
     {
-        TExt t("hoa.process~", LA(1, TEST_DATA_DIR "/hoa_test_04"));
+        TExt t("hoa.process~", LA(1, QPATH("hoa_test_04")));
         REQUIRE(t.numInlets() == 2);
         REQUIRE(t.numOutlets() == 4);
 
@@ -170,7 +173,7 @@ TEST_CASE("hoa.process~", "[externals]")
 
     SECTION("control 05")
     {
-        TExt t("hoa.process~", LA(1, TEST_DATA_DIR "/hoa_test_05"));
+        TExt t("hoa.process~", LA(1, QPATH("hoa_test_05")));
         REQUIRE(t.numInlets() == 2);
         REQUIRE(t.numOutlets() == 4);
 
@@ -193,49 +196,49 @@ TEST_CASE("hoa.process~", "[externals]")
 
     SECTION("audio 10")
     {
-        TExt t("hoa.process~", LA(3, TEST_DATA_DIR "/hoa_test_10"));
+        TExt t("hoa.process~", LA(3, QPATH("hoa_test_10")));
         REQUIRE(t.numInlets() == 7);
         REQUIRE(t.numOutlets() == 7);
     }
 
     SECTION("audio 10 plain")
     {
-        TExt t("hoa.process~", LA(3, TEST_DATA_DIR "/hoa_test_10", "planewaves"));
+        TExt t("hoa.process~", LA(3, QPATH("hoa_test_10"), "planewaves"));
         REQUIRE(t.numInlets() == 3);
         REQUIRE(t.numOutlets() == 3);
     }
 
     SECTION("audio 11")
     {
-        TExt t("hoa.process~", LA(4, TEST_DATA_DIR "/hoa_test_11"));
+        TExt t("hoa.process~", LA(4, QPATH("hoa_test_11")));
         REQUIRE(t.numInlets() == 9);
         REQUIRE(t.numOutlets() == 9);
     }
 
     SECTION("audio 11 plane")
     {
-        TExt t("hoa.process~", LA(4, TEST_DATA_DIR "/hoa_test_11", "planewaves"));
+        TExt t("hoa.process~", LA(4, QPATH("hoa_test_11"), "planewaves"));
         REQUIRE(t.numInlets() == 4);
         REQUIRE(t.numOutlets() == 4);
     }
 
     SECTION("audio 12")
     {
-        TExt t("hoa.process~", LA(5, TEST_DATA_DIR "/hoa_test_12"));
+        TExt t("hoa.process~", LA(5, QPATH("hoa_test_12")));
         REQUIRE(t.numInlets() == 11);
         REQUIRE(t.numOutlets() == 12);
     }
 
     SECTION("audio 12 plane")
     {
-        TExt t("hoa.process~", LA(5, TEST_DATA_DIR "/hoa_test_12", "planewaves"));
+        TExt t("hoa.process~", LA(5, QPATH("hoa_test_12"), "planewaves"));
         REQUIRE(t.numInlets() == 5);
         REQUIRE(t.numOutlets() == 6);
     }
 
     SECTION("audio 13")
     {
-        TExt t("hoa.process~", LA(1, TEST_DATA_DIR "/hoa_test_10"));
+        TExt t("hoa.process~", LA(1, QPATH("hoa_test_10")));
         REQUIRE(t.numInlets() == 3);
         REQUIRE(t.numOutlets() == 3);
         REQUIRE(t->numInputChannels() == 3);
@@ -277,7 +280,7 @@ TEST_CASE("hoa.process~", "[externals]")
 
     SECTION("audio 13 plane")
     {
-        TExt t("hoa.process~", LA(3, TEST_DATA_DIR "/hoa_test_10", "planewaves"));
+        TExt t("hoa.process~", LA(3, QPATH("hoa_test_10"), "planewaves"));
         REQUIRE(t.numInlets() == 3);
         REQUIRE(t.numOutlets() == 3);
         REQUIRE(t->numInputChannels() == 3);
@@ -319,7 +322,7 @@ TEST_CASE("hoa.process~", "[externals]")
 
     SECTION("audio 14 plane")
     {
-        TExt t("hoa.process~", LA(3, TEST_DATA_DIR "/hoa_test_11", "planewaves"));
+        TExt t("hoa.process~", LA(3, QPATH("hoa_test_11"), "planewaves"));
         REQUIRE(t.numInlets() == 3);
         REQUIRE(t.numOutlets() == 3);
         REQUIRE(t->numInputChannels() == 3);
@@ -329,7 +332,7 @@ TEST_CASE("hoa.process~", "[externals]")
 
     SECTION("audio 15 plane")
     {
-        TExt t("hoa.process~", LA(3, TEST_DATA_DIR "/hoa_test_12", "planewaves"));
+        TExt t("hoa.process~", LA(3, QPATH("hoa_test_12"), "planewaves"));
         REQUIRE(t.numInlets() == 3);
         REQUIRE(t.numOutlets() == 4);
         REQUIRE(t->numInputChannels() == 3);
@@ -373,7 +376,7 @@ TEST_CASE("hoa.process~", "[externals]")
 
     SECTION("audio 16 plane")
     {
-        TExt t("hoa.process~", LA(3, TEST_DATA_DIR "/hoa_test_13", "planewaves"));
+        TExt t("hoa.process~", LA(3, QPATH("hoa_test_13"), "planewaves"));
         REQUIRE(t.numInlets() == 4);
         REQUIRE(t.numOutlets() == 3);
         REQUIRE(t->numInputChannels() == 4);
@@ -434,7 +437,7 @@ TEST_CASE("hoa.process~", "[externals]")
 
     SECTION("audio 17 plane")
     {
-        TExt t("hoa.process~", LA(3, TEST_DATA_DIR "/hoa_test_13a", "planewaves"));
+        TExt t("hoa.process~", LA(3, QPATH("hoa_test_13a"), "planewaves"));
         REQUIRE(t.numInlets() == 5);
         REQUIRE(t.numOutlets() == 3);
         REQUIRE(t->numInputChannels() == 5);
@@ -479,14 +482,14 @@ TEST_CASE("hoa.process~", "[externals]")
 
     SECTION("audio 18 plane")
     {
-        TExt t("hoa.process~", LA(2, TEST_DATA_DIR "/hoa_test_13b", "planewaves"));
+        TExt t("hoa.process~", LA(2, QPATH("hoa_test_13b"), "planewaves"));
         REQUIRE(t.numInlets() == 5);
         REQUIRE(t.numOutlets() == 2);
         REQUIRE(t->numInputChannels() == 4);
         REQUIRE(t->numOutputChannels() == 2);
         REQUIRE_PROPERTY(t, @domain, S("planewaves"));
         REQUIRE_PROPERTY(t, @n, 2);
-        REQUIRE_PROPERTY(t, @patch, S(TEST_DATA_DIR "/hoa_test_13b"));
+        REQUIRE_PROPERTY(t, @patch, SPATH("hoa_test_13b"));
 
         pd::External sig1("sig~", LF(0.5));
         REQUIRE(sig1.connectTo(0, t, 0));
@@ -572,7 +575,7 @@ TEST_CASE("hoa.process~", "[externals]")
 
     SECTION("@target")
     {
-        TExt t("hoa.process~", LA(2, TEST_DATA_DIR "/hoa_test_01"));
+        TExt t("hoa.process~", LA(2, QPATH("hoa_test_01")));
         REQUIRE(t.numInlets() == 2);
         REQUIRE(t.numOutlets() == 1);
 
@@ -1060,7 +1063,7 @@ TEST_CASE("hoa.process~", "[externals]")
         using ML = std::vector<Message>;
         using M = Message;
 
-        TExt t("hoa.process~", LA(2, TEST_DATA_DIR "/hoa_test_14", "harmonics", "\"@freq\"", 150));
+        TExt t("hoa.process~", LA(2, QPATH("hoa_test_14"), "harmonics", "\"@freq\"", 150));
         REQUIRE(t.numInlets() == 2);
         REQUIRE(t.numOutlets() == 1);
         REQUIRE_PROPERTY(t, @domain, S("harmonics"));
@@ -1070,9 +1073,10 @@ TEST_CASE("hoa.process~", "[externals]")
         REQUIRE(tr.connectTo(0, t, 1));
 
         // wait for loadbang
-        t.schedTicks(10);
+        t.schedTicks(100);
 
         t.clearAll();
+        REQUIRE_FALSE(t.hasOutputAt(0));
         tr.sendMessage("#0", "@freq?");
         auto f150 = M("@freq", 150);
         REQUIRE(t.messagesAt(0) == ML { f150 });
@@ -1083,7 +1087,7 @@ TEST_CASE("hoa.process~", "[externals]")
         using ML = std::vector<Message>;
         using M = Message;
 
-        TExt t("hoa.process~", LA(2, TEST_DATA_DIR "/hoa_test_14", "harmonics", "@args", "\"@freq\"", 150));
+        TExt t("hoa.process~", LA(2, QPATH("hoa_test_14"), "harmonics", "@args", "\"@freq\"", 150));
         REQUIRE(t.numInlets() == 2);
         REQUIRE(t.numOutlets() == 1);
         REQUIRE_PROPERTY(t, @domain, S("harmonics"));
