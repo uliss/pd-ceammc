@@ -210,32 +210,32 @@ void SfizzTilde::dump() const
 void SfizzTilde::m_note(t_symbol* s, const AtomListView& lv)
 {
     int key = 0;
-    int vel = 0;
+    t_float vel = 0;
 
     if (lv.size() == 3 && lv[0].isFloat() && lv[1].isFloat() && lv[2].isFloat()) {
         // NOTE: channel is ignored, but leaved for compatibility with fluid~ external
         // that accepts both [note CHAN KEY VEL( and [note KEY VEL( messages
         // int chan = lv[0].asInt();
         key = lv[1].asInt();
-        vel = lv[2].asInt();
+        vel = lv[2].asFloat();
     } else if (lv.size() == 2 && lv[0].isFloat() && lv[1].isFloat()) {
         key = lv[0].asInt();
-        vel = lv[1].asInt();
+        vel = lv[1].asFloat();
     } else {
         METHOD_ERR(s) << "CHAN? KEY VEL expected, got: " << lv;
         return;
     }
 
     if (vel > 0)
-        sfz_.noteOn(0, key, vel);
+        sfz_.hdNoteOn(0, key, vel / 127.0);
     else
-        sfz_.noteOff(0, key, vel);
+        sfz_.hdNoteOff(0, key, vel / 127.0);
 }
 
 void SfizzTilde::m_cc(t_symbol* s, const AtomListView& lv)
 {
     int cc = 0;
-    int val = 0;
+    t_float val = 0;
 
     if (lv.size() == 3 && lv[0].isFloat() && lv[1].isFloat() && lv[2].isFloat()) {
         // NOTE: channel is ignored, but leaved for compatibility with fluid~ external
@@ -243,16 +243,16 @@ void SfizzTilde::m_cc(t_symbol* s, const AtomListView& lv)
         // int chan = lv[0].asInt();
 
         cc = lv[1].asInt();
-        val = lv[2].asInt();
+        val = lv[2].asFloat();
     } else if (lv.size() == 2 && lv[0].isFloat() && lv[1].isFloat()) {
         cc = lv[0].asInt();
-        val = lv[1].asInt();
+        val = lv[1].asFloat();
     } else {
         METHOD_ERR(s) << "CHAN? CC VAL expected, got: " << lv;
         return;
     }
 
-    sfz_.cc(0, cc, val);
+    sfz_.hdcc(0, cc, val / 127.0);
 }
 
 void SfizzTilde::m_midi(t_symbol* s, const AtomListView& lv)
@@ -333,7 +333,7 @@ void SfizzTilde::m_bend_float(t_symbol* s, const AtomListView& lv)
         return;
     }
 
-    sfz_.pitchWheel(0, val * 0x2000);
+    sfz_.hdPitchWheel(0, val);
 }
 
 void SfizzTilde::m_set_bend_sens(t_symbol* s, const AtomListView& lv)
@@ -582,11 +582,11 @@ void SfizzTilde::bindMidiParser()
     });
 
     midi_parser_.setAfterTouchFn([this](int /*chan*/, int val) {
-        sfz_.aftertouch(0, val);
+        sfz_.channelAftertouch(0, val);
     });
 
-    midi_parser_.setPolyTouchFn([this](int, int, int) {
-        OBJ_ERR << "polytouch not suppored";
+    midi_parser_.setPolyTouchFn([this](int, int note, int vel) {
+        sfz_.polyAftertouch(0, note, vel);
     });
 
     midi_parser_.setProgramChangeFn([this](int, int) {
