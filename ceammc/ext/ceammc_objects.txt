@@ -915,6 +915,7 @@ prop.declare
 prop.get
 prop.get~
 prop.join
+prop.random
 prop.set
 prop.split
 prop<-

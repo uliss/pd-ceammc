@@ -133,6 +133,7 @@
   - midi.sustain - sustain pedal emulation added
   - midi.sysex added (read sysex messages as list)
   - midi.vrand - velocity randomizer added
+  - prop.random: basic property randomizer
   - proto.midi added (raw dataflow midi parser/encoder)
   - route.float (with route.f alias) added
   - seq.life - conway game of life sequencer

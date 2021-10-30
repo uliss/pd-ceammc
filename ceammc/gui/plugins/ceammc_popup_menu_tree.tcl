@@ -203,8 +203,8 @@
         preset.float preset.list preset.storage preset.symbol
     }}
     {property {
-        patch.props prop prop.declare prop.get prop.get~ prop.join prop.set
-        prop.split
+        patch.props prop prop.declare prop.get prop.get~ prop.join prop.random
+        prop.set prop.split
     }}
     {proto {
         proto.firmata proto.midi proto.midi.cc proto.midi.sysex proto.mpv
