@@ -56,7 +56,7 @@
 |\
 [dac~]
 
-[prop.random.1]
+[prop.random.1]  [prop.random.2]
 ]]>
             </pdascii>
             <pdascii id="1">
@@ -70,6 +70,21 @@
 [lfo.mosc~]    [ui.dsp~]
 |
 [ui.hgain~]
+|\
+[dac~]
+]]>
+            </pdascii>
+            <pdascii id="2">
+<![CDATA[
+[F]                         [B]
+|                           |
+[phasor~ 50] [lfo.+tri~ 1]  [prop.random @res]
+|            |              |              ^|
+|            [*~ 7000]      |              [F]
+|            |.             |.
+[flt.moog_vcf~      0.6      ]
+|
+[ui.gain~ @size 120 16] [ui.dsp~]
 |\
 [dac~]
 ]]>
