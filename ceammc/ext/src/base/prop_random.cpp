@@ -120,8 +120,10 @@ void PropRandom::randomCanvasProps(t_glist* dest, t_symbol* s)
 
 void PropRandom::randomObjectProps(t_object* dest, t_symbol* s)
 {
-    if (!dest)
+    if (!dest) {
+        OBJ_ERR << "NULL object";
         return;
+    }
 
     t_symbol* obj_name = dest->te_g.g_pd->c_name;
     auto fn = ceammc_get_propset_fn(dest);
@@ -143,12 +145,18 @@ void PropRandom::randomObjectProps(t_object* dest, t_symbol* s)
         props = ceammc_ui_properties(dest);
     else if (is_ceammc_abstraction(dest))
         props = ceammc_abstraction_properties(dest);
-    else
+    else {
+        OBJ_ERR << "not a CEAMMC object: [" << obj_name << ']';
         return;
+    }
+
+    bool prop_found = false;
 
     for (auto& pi : props) {
         if (pi.name() != s)
             continue;
+
+        // prop found
 
         if (pi.isInitOnly()) {
             OBJ_ERR << "initonly property: " << s->s_name;
@@ -190,13 +198,18 @@ void PropRandom::randomObjectProps(t_object* dest, t_symbol* s)
             break;
         }
 
-        if (!fn(dest, s, 1, const_cast<t_atom*>(&a.atom())))
+        if (!fn(dest, s, 1, const_cast<t_atom*>(&a.atom()))) {
             OBJ_ERR << "can't set property " << s->s_name << " to " << a;
-        else
+            break;
+        } else
             atomTo(1, a);
 
+        prop_found = true;
         break;
     }
+
+    if (!prop_found)
+        OBJ_ERR << "can't find property " << s->s_name << " in object [" << obj_name->s_name << ']';
 }
 
 const char* PropRandom::annotateInlet(size_t n) const

@@ -290,4 +290,13 @@ TEST_CASE("prop.random", "[externals]")
         REQUIRE(fp0 != p0->fp6_->value());
         REQUIRE(fp1 != p1->fp6_->value());
     }
+
+    SECTION("not found")
+    {
+        External t("prop.random", LA(1, "@x"));
+        REQUIRE(t.object());
+        TProp p("test.rp");
+        REQUIRE(t.connectTo(0, p, 0));
+        t.sendBang();
+    }
 }
