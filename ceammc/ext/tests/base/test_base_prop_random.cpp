@@ -13,6 +13,8 @@
  *****************************************************************************/
 #include "ceammc_factory.h"
 #include "ceammc_property_enum.h"
+#include "prop.h"
+#include "prop_declare.h"
 #include "prop_random.h"
 #include "test_external.h"
 
@@ -99,6 +101,8 @@ TEST_CASE("prop.random", "[externals]")
 {
     pd_test_init();
     setup_test_props_random();
+    setup_prop_declare();
+    setup_base_prop();
     test::pdPrintToStdError();
 
     SECTION("construct")
@@ -145,7 +149,7 @@ TEST_CASE("prop.random", "[externals]")
         t.sendBang();
     }
 
-    SECTION("flaot min bounded prop")
+    SECTION("float min bounded prop")
     {
         External t("prop.random", LA("@fp4"));
         TProp tp("test.rp");
@@ -298,5 +302,27 @@ TEST_CASE("prop.random", "[externals]")
         TProp p("test.rp");
         REQUIRE(t.connectTo(0, p, 0));
         t.sendBang();
+    }
+
+    SECTION("abstraction properties")
+    {
+        PureData::instance().createTopCanvas(TEST_DATA_DIR "/test_props_random.pd");
+
+        TExt t("prop.random", LA(1, "@freq", "@chan", "@active"));
+        External p("prop_random_test");
+        REQUIRE(t.connectTo(0, p, 0));
+
+        t.sendBang();
+        REQUIRE(t.hasOutputAt(1));
+        REQUIRE(t.outputFloatAt(1) >= 20);
+
+        t.sendBangTo(1);
+        REQUIRE(t.hasOutputAt(1));
+        REQUIRE(t.outputFloatAt(1) >= 1);
+
+        t.sendBangTo(2);
+        REQUIRE(t.hasOutputAt(1));
+        const bool ok = t.outputFloatAt(1) == 0 || t.outputFloatAt(1) == 1;
+        REQUIRE(ok);
     }
 }

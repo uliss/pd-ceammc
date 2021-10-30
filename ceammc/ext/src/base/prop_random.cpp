@@ -96,21 +96,28 @@ void PropRandom::randomCanvasProps(t_glist* dest, t_symbol* s)
     if (pp) {
         const auto has_range = pp->hasMinValue() && pp->hasMaxValue();
 
-        if (pp->isBool() && has_range) {
+        if (pp->isBool()) {
             URandomInt dist(0, 1);
-            pp->setBool(dist(rnd_));
+            auto val = dist(rnd_);
+            pp->setBool(val);
+            floatTo(1, val);
         } else if (pp->isInt() && has_range) {
             const auto range = pp->intRange();
             URandomInt dist(range.first, range.second);
-            pp->setInt(dist(rnd_));
+            auto val = dist(rnd_);
+            pp->setInt(val);
+            floatTo(1, val);
         } else if (pp->isFloat() && has_range) {
             const auto range = pp->floatRange();
             URandomFloat dist(range.first, range.second);
-            pp->setFloat(dist(rnd_));
+            auto val = dist(rnd_);
+            pp->setFloat(val);
+            floatTo(1, val);
         } else if (pp->hasEnumValues()) {
             const auto& en = pp->enumValues();
             const auto ridx = URandomInt(0, en.size() - 1)(rnd_);
             pp->setFromPdArgs(en[ridx]);
+            atomTo(1, en[ridx]);
         } else {
             OBJ_ERR << "can't randomize property: " << s->s_name;
         }
