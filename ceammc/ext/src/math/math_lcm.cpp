@@ -14,7 +14,7 @@
 #include "math_lcm.h"
 #include "ceammc_factory.h"
 
-#include <boost/math/common_factor.hpp>
+#include <boost/integer/common_factor.hpp>
 
 MathLCM::MathLCM(const PdArgs& a)
     : BaseObject(a)
@@ -26,7 +26,7 @@ MathLCM::MathLCM(const PdArgs& a)
 
 void MathLCM::onFloat(t_float f)
 {
-    floatTo(0, boost::math::lcm(int(f), int(b_)));
+    floatTo(0, boost::integer::lcm(int(f), int(b_)));
 }
 
 void MathLCM::onList(const AtomList& l)
