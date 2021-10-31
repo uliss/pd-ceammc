@@ -470,7 +470,11 @@ TEST_CASE("parser_units", "[ceammc::ceammc_units]")
         REQUIRE(p.type() == TYPE_MSEC);
         REQUIRE(p.parse("%"));
         REQUIRE(p.type() == TYPE_PERCENT);
+        REQUIRE(p.parse("perc"));
+        REQUIRE(p.type() == TYPE_PERCENT);
         REQUIRE(p.parse("*"));
+        REQUIRE(p.type() == TYPE_PHASE);
+        REQUIRE(p.parse("phase"));
         REQUIRE(p.type() == TYPE_PHASE);
 
         REQUIRE(p.parse(A(100)));

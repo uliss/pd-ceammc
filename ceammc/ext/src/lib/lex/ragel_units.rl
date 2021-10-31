@@ -19,7 +19,9 @@ unit_suffixes =
         | ('c' 'ent'?)     %{type_ = TYPE_CENT;}
         | ('semi' 'tone'?) %{type_ = TYPE_SEMITONE;}
         | '%'              %{type_ = TYPE_PERCENT;}
+        | ('perc' 'ent'?)  %{type_ = TYPE_PERCENT;}
         | '*'              %{type_ = TYPE_PHASE;}
+        | 'phase'          %{type_ = TYPE_PHASE;}
     )
     ;
 
