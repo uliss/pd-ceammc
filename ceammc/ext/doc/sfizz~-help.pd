@@ -12,12 +12,13 @@
 #X obj 232 248 ui.dsp~;
 #X obj 50 277 dac~;
 #X obj 50 305 sfizz~.freq;
-#X obj 203 305 sfizz~.pan;
-#X obj 366 305 sfizz~.pedals;
+#X obj 222 305 sfizz~.pan;
+#X obj 386 305 sfizz~.pedals;
 #X obj 50 334 sfizz~.bend;
-#X obj 203 334 sfizz~.tune-12;
-#X obj 366 334 sfizz~.soundsoff;
+#X obj 222 334 sfizz~.tune-12;
+#X obj 386 334 sfizz~.soundsoff;
 #X obj 50 363 sfizz~.notesoff;
+#X obj 222 363 sfizz~.sfz;
 #X obj 20 412 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 417 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;

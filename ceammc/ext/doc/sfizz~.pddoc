@@ -184,11 +184,11 @@
 *|*
 [dac~]
 
-[sfizz~.freq]   [sfizz~.pan]     [sfizz~.pedals]
+[sfizz~.freq]     [sfizz~.pan]     [sfizz~.pedals]
 
-[sfizz~.bend]   [sfizz~.tune-12] [sfizz~.soundsoff]
+[sfizz~.bend]     [sfizz~.tune-12] [sfizz~.soundsoff]
 
-[sfizz~.notesoff]
+[sfizz~.notesoff] [sfizz~.sfz]
 ]]>
             </pdascii>
             <pdascii id="freq">
@@ -315,6 +315,23 @@
 | [notes_off(
 | |
 [sfizz~ \#sine]
+*|*
+[ui.hgain2~]    [ui.dsp~]
+*|*
+[dac~]
+]]>
+            </pdascii>
+            <pdascii id="sfz">
+<![CDATA[
+[note 60 120, note 65 120, note 47 120(
+|
+|               /*change modulation*/
+|
+| [notes_off(   [ui.hsl 0 127]
+| |             |
+| |             [cc 71 $1(
+| |             |
+[sfizz~ sfz/example.sfz]
 *|*
 [ui.hgain2~]    [ui.dsp~]
 *|*

@@ -29,6 +29,7 @@ PD_TCL=$PD_RESOURCES/tcl
 PD_PO=$PD_RESOURCES/po
 PD_CEAMMC=$PD_EXTRA/ceammc
 PD_SF2=$PD_CEAMMC/sf2
+PD_SFZ=$PD_CEAMMC/sfz
 PD_SAMPLES=$PD_CEAMMC/sound
 
 # absolute dir names
@@ -43,6 +44,7 @@ BUNDLE_BIN="${DIST_DIR}/${PD_BIN}"
 BUNDLE_TCL="${DIST_DIR}/${PD_TCL}"
 BUNDLE_CEAMMC="${DIST_DIR}/${PD_CEAMMC}"
 BUNDLE_SF2="${DIST_DIR}/${PD_SF2}"
+BUNDLE_SFZ="${DIST_DIR}/${PD_SFZ}"
 BUNDLE_SAMPLES="${DIST_DIR}/${PD_SAMPLES}"
 BUNDLE_INCLUDE="${DIST_DIR}/${PD_INCLUDE}"
 BUNDLE_COMPLETIONS="${BUNDLE_TCL}/ceammc/custom_completions"
@@ -286,6 +288,13 @@ section "Copying CEAMMC sf2 soundfonts"
 for sf in $SRC_CEAMMC/ext/doc/sf2/*
 do
     copy ${sf} "${BUNDLE_SF2}"
+done
+
+section "Copying CEAMMC sfz soundfonts"
+mkdir -p "${BUNDLE_SFZ}"
+for sf in $SRC_CEAMMC/ext/doc/sfz/*
+do
+    copy ${sf} "${BUNDLE_SFZ}"
 done
 
 section "Copying sound samples"
