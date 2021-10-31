@@ -60,6 +60,8 @@ public:
     void m_soundsOff(t_symbol* s, const AtomListView& lv);
     void m_sysex(t_symbol* s, const AtomListView& lv);
     void m_midi(t_symbol* s, const AtomListView& lv);
+    void m_aftertouch(t_symbol* s, const AtomListView& lv);
+    void m_polytouch(t_symbol* s, const AtomListView& lv);
 
     void m_tune_cent(t_symbol* s, const AtomListView& lv);
     void m_tune_semi(t_symbol* s, const AtomListView& lv);

@@ -871,6 +871,38 @@ void Fluid::m_midi(t_symbol* s, const AtomListView& lv)
     }
 }
 
+void Fluid::m_aftertouch(t_symbol* s, const AtomListView& lv)
+{
+    auto res = midiByteValue2(s, "VEL", lv);
+    if (!res.ok)
+        return;
+
+    // play on first channel
+    if (res.chan == -1)
+        res.chan = 0;
+
+    auto fn = [](fluid_synth_t* synth, int chan, uint8_t val) -> bool {
+        return fluid_synth_channel_pressure(synth, chan, val) == FLUID_OK;
+    };
+    callFluidChannelFn(s, res.chan, fn, res.value, "aftertouch", lv);
+}
+
+void Fluid::m_polytouch(t_symbol* s, const AtomListView& lv)
+{
+    auto res = midiByteValue3(s, "NOTE", "VEL", lv);
+    if (!res.ok)
+        return;
+
+    // play on first channel
+    if (res.chan == -1)
+        res.chan = 0;
+
+    auto fn = [&res](fluid_synth_t* synth, int chan, uint8_t val) -> bool {
+        return fluid_synth_key_pressure(synth, chan, res.n, val) == FLUID_OK;
+    };
+    callFluidChannelFn(s, res.chan, fn, res.value, "polytouch", lv);
+}
+
 void Fluid::dump() const
 {
     SoundExternal::dump();
@@ -1009,6 +1041,8 @@ void setup_misc_fluid()
     obj.addMethod("cc", &Fluid::m_cc);
     obj.addMethod("prog", &Fluid::m_prog);
     obj.addMethod("bank", &Fluid::m_bank);
+    obj.addMethod(M_AFTER_TOUCH, &Fluid::m_aftertouch);
+    obj.addMethod(M_POLY_TOUCH, &Fluid::m_polytouch);
 
     obj.addMethod("bend", &Fluid::m_bend);
     obj.addMethod("bend:i", &Fluid::m_bend_int);
