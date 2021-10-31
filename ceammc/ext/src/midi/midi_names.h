@@ -31,6 +31,7 @@ constexpr const char* M_BANK_SELECT = "bank";
 
 constexpr const char* M_AFTER_TOUCH = "aftertouch";
 constexpr const char* M_POLY_TOUCH = "polytouch";
+constexpr const char* M_PANIC = "panic";
 
 constexpr const char* M_PORTAMENTO_SWITCH = "portamento";
 

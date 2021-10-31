@@ -1016,7 +1016,7 @@ void setup_misc_fluid()
     obj.addMethod(M_BEND_SENSIVITY, &Fluid::m_set_bend_sens);
 
     obj.addMethod("gen", &Fluid::m_gen);
-    obj.addMethod("panic", &Fluid::m_panic);
+    obj.addMethod(M_PANIC, &Fluid::m_panic);
     obj.addMethod("reset", &Fluid::m_reset);
     obj.addMethod(M_ALL_NOTES_OFF, &Fluid::m_notesOff);
     obj.addMethod(M_ALL_SOUND_OFF, &Fluid::m_soundsOff);

@@ -665,6 +665,8 @@ void setup_misc_sfizz_tilde()
 
     obj.addMethod(M_ALL_NOTES_OFF, &SfizzTilde::m_notesOff);
     obj.addMethod(M_ALL_SOUND_OFF, &SfizzTilde::m_soundsOff);
+    obj.addMethod(M_PANIC, &SfizzTilde::m_soundsOff);
+    obj.addMethod("reset", &SfizzTilde::m_soundsOff);
 
     obj.addMethod(M_TUNE_SELECT, &SfizzTilde::m_tune_select);
     obj.addMethod(M_TUNE_OCTAVE, &SfizzTilde::m_tune_octave);
