@@ -668,7 +668,7 @@ ui.button,ui.btn		.		.
 ui.colorpanel		.		.
 ui.display,ui.d,ui.dt		.		-
 ui.dsp~		.		-
-ui.env		.		.
+ui.env		.		..
 ui.faust~		?		?
 ui.filter		.		.
 ui.filter~		~		~

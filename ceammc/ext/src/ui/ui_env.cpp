@@ -2,6 +2,7 @@
 #include "ceammc_datatypes.h"
 #include "ceammc_preset.h"
 #include "ceammc_ui.h"
+#include "lex/parser_units.h"
 
 #include <boost/range.hpp>
 #include <limits>
@@ -54,6 +55,8 @@ UIEnv::UIEnv()
     appendToLayerList(&cursor_layer_);
 
     createOutlet();
+    createOutlet();
+
     env_.setADSR(40 * 1000, 60 * 1000, 0.3, 400 * 1000);
     updateNodes();
 
@@ -752,6 +755,41 @@ void UIEnv::m_ear(const AtomListView& lv)
     setNamedEnvelope(SYM_EAR, lv);
 }
 
+void UIEnv::m_at(const AtomListView& lv)
+{
+    using namespace ceammc::parser;
+
+    t_float time_ms = 0;
+    UnitTypeFullMatch p;
+
+    if (lv.size() == 1 && lv[0].isFloat()) {
+        time_ms = env_.valueAtTime(lv[0].asT<t_float>() * 1000.0);
+    } else if (lv.size() == 2 && lv[0].isFloat() && p.parse(lv[1])) {
+        const double length = env_.totalLength();
+        const double val = lv[0].asT<t_float>();
+
+        switch (p.type()) {
+        case TYPE_PHASE:
+            time_ms = env_.valueAtTime(val * length);
+            break;
+        case TYPE_PERCENT:
+            time_ms = env_.valueAtTime(val * (length / 100));
+            break;
+        case TYPE_MSEC:
+            time_ms = env_.valueAtTime(val * 1000.0);
+            break;
+        case TYPE_SEC:
+            time_ms = env_.valueAtTime(val * 1000.0 * 1000.0);
+            break;
+        default:
+            UI_ERR << "supported units are: sec, ms(ec), % and *, unknown got: " << lv[1];
+            return;
+        }
+    }
+
+    floatTo(1, time_ms);
+}
+
 void UIEnv::setNamedEnvelope(t_symbol* env, const AtomListView& lv)
 {
     if (!env_.setNamedEnvelope(env, lv)) {
@@ -830,6 +868,7 @@ void UIEnv::setup()
     obj.addMethod(SYM_EADSR, &UIEnv::m_eadsr);
     obj.addMethod(SYM_EASR, &UIEnv::m_easr);
     obj.addMethod(SYM_EAR, &UIEnv::m_ear);
+    obj.addMethod(gensym("at"), &UIEnv::m_at);
 }
 
 void setup_ui_env()

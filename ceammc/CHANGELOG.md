@@ -60,6 +60,7 @@
   - ui.slider: [random( method added and [set random( args support added
   - ui.knob: [random( method added and [set random( args support added
   - ui.polar: [random( method added and [set random( args support added
+  - ui.env: [at( method added to get envelope value at specified position in ms, sec, % and phase
   - lfo.+saw~, lfo.saw~, lfo.+tri~, lfo.tri~, lfo.+square~, lfo.square~, lfo.+pulse~, lfo.pulse~: [reset( method added to reset to initial phase value (@phase)
   - fluid~: 
     - [pan(: set synth pan normalized to \[-1..+1\] range
@@ -83,6 +84,7 @@
   - random.float: extra inlets added for min and max values
   - random.int: extra inlets added for min and max values
   - string.split: extra inlet added for setting separator
+  - ui.env: second outlet added for getting single value
   
 ### Fixed:
 - flow.space: reset message fix - can not use object after reset
