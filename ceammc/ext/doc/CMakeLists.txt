@@ -194,6 +194,7 @@ install(DIRECTORY faust DESTINATION ${DOC_INSTALL_PATH})
 
 add_subdirectory(sound)
 add_subdirectory(sf2)
+add_subdirectory(sfz)
 
 find_program(RSYNC_EXEC rsync)
 
