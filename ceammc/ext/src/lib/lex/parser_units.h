@@ -136,6 +136,20 @@ namespace parser {
             return res;
         }
     };
+
+    class UnitTypeFullMatch {
+        int cs { 0 };
+        AtomType type_ { TYPE_UNKNOWN };
+
+    public:
+        UnitTypeFullMatch() {}
+        void reset() { type_ = TYPE_UNKNOWN; }
+
+        AtomType type() const { return type_; }
+
+        bool parse(const char* str);
+        bool parse(const Atom& a);
+    };
 }
 }
 

@@ -456,4 +456,30 @@ TEST_CASE("parser_units", "[ceammc::ceammc_units]")
         REQUIRE(res7[6].type == TYPE_BPM);
         REQUIRE(res7[6].value == 0);
     }
+
+    SECTION("unit types")
+    {
+        using namespace ceammc::parser;
+        UnitTypeFullMatch p;
+
+        REQUIRE_FALSE(p.parse(""));
+
+        REQUIRE(p.parse("ms"));
+        REQUIRE(p.type() == TYPE_MSEC);
+        REQUIRE(p.parse("msec"));
+        REQUIRE(p.type() == TYPE_MSEC);
+        REQUIRE(p.parse("%"));
+        REQUIRE(p.type() == TYPE_PERCENT);
+        REQUIRE(p.parse("*"));
+        REQUIRE(p.type() == TYPE_PHASE);
+
+        REQUIRE(p.parse(A(100)));
+        REQUIRE(p.type() == TYPE_UNKNOWN);
+
+        REQUIRE_FALSE(p.parse(Atom()));
+        REQUIRE(p.type() == TYPE_UNKNOWN);
+
+        REQUIRE(p.parse(A("db")));
+        REQUIRE(p.type() == TYPE_DB);
+    }
 }

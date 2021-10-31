@@ -111,6 +111,43 @@ size_t UnitsFullMatch::parse(const AtomListView& lv, UnitVec& out)
     return N;
 }
 
+%%{
+    machine units_type;
+    include units_common "ragel_units.rl";
+
+    main := unit_suffixes;
+    write data;
+}%%
+
+bool UnitTypeFullMatch::parse(const char* str)
+{
+    reset();
+
+    const auto len = strlen(str);
+    if (len == 0)
+        return false;
+
+    const char* p = str;
+    const char* pe = p + len;
+    const char* eof = pe;
+
+    %% write init;
+    %% write exec;
+
+    return cs >= %%{ write first_final; }%%;
+}
+
+bool UnitTypeFullMatch::parse(const Atom& a)
+{
+    if (a.isSymbol()) {
+        return parse(a.asT<t_symbol*>()->s_name);
+    } else if(a.isFloat()) {
+        reset();
+        return true;
+    } else
+        return false;
+}
+
 }
 }
 

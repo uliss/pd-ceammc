@@ -18,6 +18,8 @@ unit_suffixes =
         | ('ms' 'ec'?)     %{type_ = TYPE_MSEC;}
         | ('c' 'ent'?)     %{type_ = TYPE_CENT;}
         | ('semi' 'tone'?) %{type_ = TYPE_SEMITONE;}
+        | '%'              %{type_ = TYPE_PERCENT;}
+        | '*'              %{type_ = TYPE_PHASE;}
     )
     ;
 
