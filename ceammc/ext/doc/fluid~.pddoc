@@ -26,7 +26,7 @@
         <properties>
             <property name="@sf" type="symbol">soundfont path, you can use **default** value to
             load default soundfont</property>
-            <property name="@version" type="symbol" readonly="true" default="2.0.0">FluidSynth
+            <property name="@version" type="symbol" readonly="true" default="2.1.9">FluidSynth
             version</property>
             <property name="@soundfonts" type="list" readonly="true">list of found
             soundfonts</property>
@@ -66,6 +66,20 @@
             number</param>
             <param name="VAL" required="true" type="int" minvalue="0" maxvalue="127">MIDI control
             value</param></method>
+            <!-- aftertouch -->
+            <method name="aftertouch">aftertouch channel pressure
+            <param name="CHAN" required="false" type="int" default="0" minvalue="0" maxvalue="16">
+            MIDI channel, ignored</param>
+            <param name="VEL" required="true" type="int" minvalue="0" maxvalue="127">MIDI
+            velocity</param></method>
+            <!-- polytouch -->
+            <method name="polytouch">polytouch key pressure
+            <param name="CHAN" required="false" type="int" default="0" minvalue="0" maxvalue="16">
+            MIDI channel, ignored</param>
+            <param name="NOTE" required="true" type="int" minvalue="0" maxvalue="127">MIDI
+            note</param>
+            <param name="VEL" required="true" type="int" minvalue="0" maxvalue="127">MIDI
+            velocity</param></method>
             <!-- program -->
             <method name="prog">program change 
             <param name="CHAN" required="false" type="int" default="0" minvalue="0" maxvalue="16">

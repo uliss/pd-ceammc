@@ -38,13 +38,13 @@
             <param name="VAL" required="true" type="float" minvalue="0" maxvalue="127">MIDI control
             value</param></method>
             <!-- aftertouch -->
-            <method name="aftertouch">play note
+            <method name="aftertouch">aftertouch channel pressure
             <param name="CHAN" required="false" type="int" default="0" minvalue="0" maxvalue="16">
             MIDI channel, ignored</param>
             <param name="VEL" required="true" type="float" minvalue="0" maxvalue="127">MIDI
             velocity</param></method>
             <!-- polytouch -->
-            <method name="polytouch">play note
+            <method name="polytouch">polytouch key pressure
             <param name="CHAN" required="false" type="int" default="0" minvalue="0" maxvalue="16">
             MIDI channel, ignored</param>
             <param name="NOTE" required="true" type="int" minvalue="0" maxvalue="127">MIDI

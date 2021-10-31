@@ -57,7 +57,7 @@ Default value: [].;
 #X obj 20 888 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 923 aftertouch;
-#X text 245 923 play note. Arguments are:;
+#X text 245 923 aftertouch channel pressure. Arguments are:;
 #X obj 255 946 cnv 1 62 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 946 [CHAN=0]: MIDI channel \, ignored. Type: int. Range:
 0\...16\.;
@@ -168,7 +168,7 @@ Type: float. Range: -1\...1\.;
 \, turns off notes \, resets controllers and restores initial basic
 channel configuration.;
 #X msg 110 2137 polytouch;
-#X text 245 2137 play note. Arguments are:;
+#X text 245 2137 polytouch key pressure. Arguments are:;
 #X obj 255 2160 cnv 1 62 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 2160 [CHAN=0]: MIDI channel \, ignored. Type: int. Range:
 0\...16\.;

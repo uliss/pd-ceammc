@@ -67,6 +67,7 @@
     - [sostenuto(: sostenuto (middle) pedal support
     - [soft(: soft (left) pedal support
     - [legato(: legato pedal support
+    - [aftertouch( and [polytouch( support
 - new creation args:
   - ui.knob: MIN MAX float creation args added
   - ui.slider: MIN MAX float creation args added
