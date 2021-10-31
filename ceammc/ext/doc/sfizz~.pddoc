@@ -37,9 +37,6 @@
             number</param>
             <param name="VAL" required="true" type="float" minvalue="0" maxvalue="127">MIDI control
             value</param></method>
-            <method name="prog">program change (CHANNEL, PROGRAM expected)</method>
-            <method name="bank">set instrument bank number on a MIDI channel (CHANNEL, BANK
-            expected)</method>
             <!-- aftertouch -->
             <method name="aftertouch">play note
             <param name="CHAN" required="false" type="int" default="0" minvalue="0" maxvalue="16">
