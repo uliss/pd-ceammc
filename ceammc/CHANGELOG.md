@@ -72,6 +72,7 @@
 - new creation args:
   - ui.knob: MIN MAX float creation args added
   - ui.slider: MIN MAX float creation args added
+  - ui.link: URL [TITLE]? creation args added
 - misc:
   - flow.space: float to right inlet sets @delay property
   - WaveSine.sf2: simple sine waveform SF2 soundfont added
@@ -85,6 +86,7 @@
   - random.int: extra inlets added for min and max values
   - string.split: extra inlet added for setting separator
   - ui.env: second outlet added for getting single value
+  - ui.link: show @url property in tooltip on mouse over
   
 ### Fixed:
 - flow.space: reset message fix - can not use object after reset

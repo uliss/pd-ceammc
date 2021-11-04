@@ -32,6 +32,7 @@ public:
     void paint();
     void m_resize(const AtomListView& lv);
 
+    void init(t_symbol* name, const AtomListView& args, bool usePresets);
     void setDrawParams(t_edrawparams* params);
     void onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers);
 

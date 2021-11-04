@@ -31,6 +31,19 @@ UILink::~UILink()
     pd_unbind(asPd(), rid_);
 }
 
+void UILink::init(t_symbol* name, const AtomListView& args, bool usePresets)
+{
+    UIObject::init(name, args, usePresets);
+
+    if (args.size() >= 2 && args[0].isSymbol()) {
+        prop_url = args[0].asT<t_symbol*>();
+        p_setTitle(args.subView(1));
+    } else if (args.size() == 1 && args[0].isSymbol()) {
+        prop_url = args[0].asT<t_symbol*>();
+        prop_title = prop_url;
+    }
+}
+
 void UILink::paint()
 {
     sys_vgui("ui::link_update %s %lx %s %d %d %d "

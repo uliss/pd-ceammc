@@ -18,6 +18,10 @@
             supported by your OS. If relative file path is given, it searched in current directory,
             then Pd doc directory and Pd external directories</par>
         </info>
+        <arguments>
+            <argument name="URL" type="symbol">@url property value</argument>
+            <argument name="TITLE" type="list">@title property value</argument>
+        </arguments>
         <methods>
             <!-- common-->
             <method name="pos">set UI element position 
