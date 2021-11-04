@@ -14,10 +14,10 @@ switch -- $::windowingsystem {
         set link::font_family "Menlo"
     }
     "x11"  {
-        set link::font_family "DejaVu Sans Mono"
+        set link::font_family "Helvetica"
     }
     "win32" {
-        set link::font_family "DejaVu Sans Mono"
+        set link::font_family "Helvetica"
     }
 }
 
