@@ -188,6 +188,12 @@ if __name__ == '__main__':
         if len(unknown_props):
             cprint(f"[{ext_name}] unknown properties in doc: {unknown_props}", 'yellow')
 
+        # check internal props
+        internal_props = {x for x in ext_props_set if ext_props_dict[x].get("visibility", "") == "internal" }
+        for p in internal_props:
+            if p in doc_props_dict:
+                cprint(f"[{ext_name}] internal property in doc: {p}", 'magenta')
+
         HAVE_PDDOC = -1
         HAVE_EXTERNAL = 1
         HAVE_NONE = 0
