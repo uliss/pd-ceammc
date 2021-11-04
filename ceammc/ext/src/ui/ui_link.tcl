@@ -18,6 +18,7 @@ switch -- $::windowingsystem {
     }
     "win32" {
         set link::font_family "Helvetica"
+        set link::font_size 7
     }
 }
 

@@ -17,6 +17,7 @@ const char* ui_link_tcl =
 "    }\n"
 "    \"win32\" {\n"
 "        set link::font_family \"Helvetica\"\n"
+"        set link::font_size 7\n"
 "    }\n"
 "}\n"
 "proc link_type_font { zoom } { return \"$link::font_family [expr $zoom * $link::font_size] normal roman\" }\n"
