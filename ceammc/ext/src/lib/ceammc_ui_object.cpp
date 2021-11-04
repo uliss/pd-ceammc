@@ -274,6 +274,8 @@ void UIObjectImpl::setDrawParams(t_edrawparams* params)
     params->d_bordercolor = prop_color_border;
     params->d_boxfillcolor = prop_color_background;
     params->d_labelcolor = prop_color_label;
+    params->d_hideiolets = false;
+    params->d_hideborder = false;
 }
 
 void UIObjectImpl::onZoom(t_float z)

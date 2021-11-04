@@ -2,14 +2,6 @@ if(WIN32)
     add_definitions("-D_WINDOWS=1")
 endif()
 
-set(UILINK_TCL ui_link.tcl)
-
-add_custom_target(uilink_tcl
-    DEPENDS ${UILINK_TCL}
-    SOURCES ${UILINK_TCL} ui_link_tcl.h
-    COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/tcl_to_c.sh ${UILINK_TCL} uilink_tcl_init > ui_link_tcl.h
-    WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
-
 macro(ceammc_ui_extension name)
     list(APPEND UI_SOURCES "ui_${name}.cpp")
 endmacro()
@@ -73,6 +65,7 @@ add_custom_target(ceammc_ui_tcl_gen
     COMMAND ${TCL_GEN_SCRIPT} ui_radio.tcl
     COMMAND ${TCL_GEN_SCRIPT} ui_sliders.tcl
     COMMAND ${TCL_GEN_SCRIPT} ui_toggle.tcl
+    COMMAND ${TCL_GEN_SCRIPT} ui_link.tcl
     SOURCES
         ui_bang.tcl
         ui_button.tcl
@@ -87,5 +80,6 @@ add_custom_target(ceammc_ui_tcl_gen
         ui_radio.tcl
         ui_sliders.tcl
         ui_toggle.tcl
+        ui_link.tcl
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 )

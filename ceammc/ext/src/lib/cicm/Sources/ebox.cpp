@@ -472,6 +472,8 @@ void ebox_ready(t_ebox* x)
     x->b_boxparameters.d_bordercolor = rgba_black;
     x->b_boxparameters.d_boxfillcolor = rgba_white;
     x->b_boxparameters.d_labelcolor = rgba_black;
+    x->b_boxparameters.d_hideiolets = false;
+    x->b_boxparameters.d_hideborder = false;
 
     if (c->c_widget.w_getdrawparameters)
         c->c_widget.w_getdrawparameters(x, &x->b_boxparameters);
@@ -714,8 +716,10 @@ static void ebox_paint(t_ebox* x)
             x->b_canvas_id->s_name, x, (int)x->label_inner);
     }
 
-    ebox_draw_border(x);
-    ebox_draw_iolets(x);
+    if (!x->b_boxparameters.d_hideborder) {
+        ebox_draw_border(x);
+        ebox_draw_iolets(x);
+    }
 }
 
 //! Widget
@@ -1885,7 +1889,7 @@ void ebox_dialog(t_ebox* x, t_symbol* s, int argc, t_atom* argv)
                             buffer += temp;
                         }
                         sys_vgui("%s delete 0 end\n", WIDGET_ID);
-                        sys_vgui("%s insert 0 \"%s\"\n", WIDGET_ID, buffer.c_str());
+                        sys_vgui("%s insert 0 {%s}\n", WIDGET_ID, buffer.c_str());
                     } else {
                         atom_string(av, temp, MAXPDSTRING);
                         std::string buffer(temp);
@@ -1910,7 +1914,7 @@ void ebox_dialog(t_ebox* x, t_symbol* s, int argc, t_atom* argv)
                         sys_vgui("%s delete 0 end \n", WIDGET_ID);
                         // replace #\d+ -> $\d+
                         // tcl: regsub -all {#(\d+)} $s {$\1}
-                        sys_vgui("%s insert 0 [regsub -all {#(\\d+)} \"%s\" {$\\1}]\n",
+                        sys_vgui("%s insert 0 [regsub -all {#(\\d+)} {%s} {$\\1}]\n",
                             WIDGET_ID, buffer.c_str());
                     }
 
