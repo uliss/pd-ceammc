@@ -109,7 +109,7 @@ TEST_CASE("minimp3", "[ceammc_sound]")
                 REQUIRE(loader.sampleCount() == 44100);
 
                 t_word dest[512];
-                auto rc = loader.read(dest, 512, 0, 1000, 3000);
+                auto rc = loader.read(dest, 512, 0, 1000, 512);
                 REQUIRE(rc == 512);
 
                 // from test_1ch_44100_192_off1000_len32.dat
@@ -133,7 +133,7 @@ TEST_CASE("minimp3", "[ceammc_sound]")
                 REQUIRE(loader.sampleCount() == 88200);
 
                 t_word dest[1000];
-                auto rc = loader.read(dest, 1000, 0, 1000, 10000);
+                auto rc = loader.read(dest, 1000, 0, 1000, 1000);
                 REQUIRE(rc == 1000);
 
                 // from test_2ch_44100_192_off1000_len32.dat
@@ -157,7 +157,7 @@ TEST_CASE("minimp3", "[ceammc_sound]")
                 REQUIRE(loader.sampleCount() == 88200);
 
                 t_word dest[1000];
-                auto rc = loader.read(dest, 1000, 1, 1000, 10000);
+                auto rc = loader.read(dest, 1000, 1, 1000, 1000);
                 REQUIRE(rc == 1000);
 
                 // from test_2ch_44100_192_off1000_len32.dat
@@ -183,7 +183,7 @@ TEST_CASE("minimp3", "[ceammc_sound]")
             REQUIRE(loader.sampleCount() == 24000);
 
             t_word dest[1000];
-            auto rc = loader.read(dest, 1000, 0, 1000, 10000);
+            auto rc = loader.read(dest, 1000, 0, 1000, 1000);
             REQUIRE(rc == 1000);
 
             // from test_1ch_24000_vbr_off1000_len32.dat
