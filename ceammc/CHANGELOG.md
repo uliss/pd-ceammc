@@ -87,6 +87,7 @@
   - string.split: extra inlet added for setting separator
   - ui.env: second outlet added for getting single value
   - ui.link: show @url property in tooltip on mouse over
+  - MP3 support added to snd.file on Linux and Windows platforms
   
 ### Fixed:
 - flow.space: reset message fix - can not use object after reset
