@@ -28,6 +28,16 @@
 
 namespace {
 
+using SoxPtr = std::unique_ptr<soxr, decltype(&soxr_delete)>;
+
+soxr_t ceammc_soxr_create(double ratio, unsigned ch, soxr_error_t* err)
+{
+    return soxr_create(
+        1, ratio, ch, /* Input rate, output rate, # of channels. */
+        err, /* To report any error during creation. */
+        nullptr, nullptr, nullptr);
+}
+
 }
 
 namespace ceammc {
@@ -126,11 +136,15 @@ namespace sound {
 
     long MiniMp3::readResampled(t_word* dest, size_t sz, size_t ch, long offset, size_t max_samples)
     {
-        if (resampleRatio() < 0.001)
+        if (resampleRatio() < 0.001) {
+            LIB_ERR << "[minimp3] invalid resample ratio: " << resampleRatio();
             return -1;
+        }
 
-        if (!decoder_)
+        if (!decoder_) {
+            LIB_ERR << "[minimp3] decoder init error";
             return -1;
+        }
 
         const auto NUM_CH = channels();
         if (ch >= NUM_CH) {
@@ -138,21 +152,16 @@ namespace sound {
             return -1;
         }
 
-        //        t_word* x = dest;
         //        const sf_count_t FRAME_COUNT = 256;
-        //        const int n = channels();
         //        const sf_count_t IN_BUF_SIZE = FRAME_COUNT * n;
         //        float frame_buf[IN_BUF_SIZE];
 
         // resampler init
         soxr_error_t error;
-        soxr_t soxr = soxr_create(
-            1, resampleRatio(), NUM_CH, /* Input rate, output rate, # of channels. */
-            &error, /* To report any error during creation. */
-            nullptr, nullptr, nullptr); /* Use configuration defaults.*/
+        SoxPtr soxr(ceammc_soxr_create(resampleRatio(), NUM_CH, &error), &soxr_delete);
 
         if (error) {
-            soxr_delete(soxr);
+            LIB_ERR << "[minimp3] resampler init failed: " << error;
             return -1;
         }
 
@@ -163,88 +172,74 @@ namespace sound {
             return -1;
         }
 
-        //        const size_t OUT_FRAME_COUNT = std::round(FRAME_COUNT * resampleRatio());
-        //        const size_t OUT_BUF_SIZE = std::round(IN_BUF_SIZE * resampleRatio());
-        //        float resampled_buf[OUT_BUF_SIZE];
+        // decode to buffer
+        const size_t mp3_out_bufsize = MINIMP3_MAX_SAMPLES_PER_FRAME;
+        std::vector<mp3d_sample_t> buffer(mp3_out_bufsize);
+        const size_t should_read = sz * NUM_CH;
 
-        //        // read frames
-        //        sf_count_t frames_read_total = 0;
-        //        size_t frames_resampled_total = 0;
-        //        const sf_count_t steps = sf_count_t(sz) / FRAME_COUNT;
+        const size_t OUT_BUF_SIZE = std::round(buffer.size() * resampleRatio());
+        std::vector<float> resampled_buf(OUT_BUF_SIZE);
 
-        //        // read full buffers
-        //        for (sf_count_t i = 0; i < steps; i++) {
-        //            const auto frames_read = handle_.readf(frame_buf, FRAME_COUNT);
-        //            if (frames_read == 0)
-        //                break;
+        size_t total_read_samples = 0;
+        t_word* x = dest;
+        while (total_read_samples < should_read) {
+            bool eof = false;
+            // read to buffer
+            const auto nsamp = mp3dec_ex_read(decoder_.get(), buffer.data(), buffer.size());
+            if (nsamp != buffer.size()) { /* normal eof or error condition */
+                if (decoder_->last_error) {
+                    LIB_ERR << "[minimp3] read error";
+                    return -1;
+                }
 
-        //            /*
-        //             * Copy data from the input buffer into the resampler, and resample
-        //             * to produce as much output as is possible to the given output buffer:
-        //             */
-        //            size_t odone;
-        //            error = soxr_process(soxr, frame_buf, frames_read, nullptr, resampled_buf, OUT_FRAME_COUNT, &odone);
+                // eof
+                eof = true;
+            }
 
-        //            if (error) {
-        //                std::cerr << "[soxr] error: " << error << "\n";
-        //                break;
-        //            }
+            /*
+             * Copy data from the mp3 decoder buffer into the resampler and resample
+             * to produce as much output as is possible to the given output buffer:
+             */
+            size_t odone;
+            error = soxr_process(soxr.get(), buffer.data(), buffer.size(), nullptr, resampled_buf.data(), NUM_CH, &odone);
+            if (error) {
+                std::cerr << "[soxr] error: " << error << "\n";
+                break;
+            }
 
-        //            frames_read_total += frames_read;
+            // write channel data to destination
+            for (size_t j = 0; j < odone && total_read_samples < max_samples; j++) {
+                x->w_float = resampled_buf[j * NUM_CH + ch] * gain();
+                x++;
+                total_read_samples++;
+            }
 
-        //            // write channel data to destination
-        //            for (sf_count_t j = 0; j < odone && frames_resampled_total < max_samples; j++) {
-        //                x->w_float = resampled_buf[j * n + ch] * gain();
-        //                x++;
-        //                frames_resampled_total++;
-        //            }
+            if (eof) {
+                // process remaining resample data
+                while (true) {
+                    size_t odone = 0;
+                    // indicate end of input with nullptr
+                    error = soxr_process(soxr.get(), nullptr, 0, nullptr, resampled_buf.data(), NUM_CH, &odone);
+                    if (error) {
+                        std::cerr << "[soxr] " << error << "\n";
+                        break;
+                    }
 
-        //            // seek to next
-        //            if (handle_.seek(offset + frames_read_total, SEEK_SET) == -1)
-        //                break;
-        //        }
+                    if (odone == 0)
+                        break;
 
-        //        // read remaining file samples
-        //        if (sf_count_t(sz) % FRAME_COUNT != 0) {
-        //            const sf_count_t frames_read = handle_.readf(frame_buf, sf_count_t(sz) % FRAME_COUNT);
+                    // write channel data to destination
+                    for (size_t j = 0; j < odone && total_read_samples < max_samples; j++) {
+                        x->w_float = resampled_buf[j * NUM_CH + ch] * gain();
+                        x++;
+                        total_read_samples++;
+                    }
+                }
+                break;
+            }
+        }
 
-        //            size_t odone;
-        //            error = soxr_process(soxr, frame_buf, frames_read, nullptr, resampled_buf, OUT_FRAME_COUNT, &odone);
-
-        //            if (!error) {
-        //                // write channel data to destination
-        //                for (sf_count_t j = 0; j < odone && frames_resampled_total < max_samples; j++) {
-        //                    x->w_float = resampled_buf[j * n + ch] * gain();
-        //                    x++;
-        //                }
-        //            } else
-        //                std::cerr << "soxr: " << error << "\n";
-        //        }
-
-        //        // process remaining resample data
-        //        while (true) {
-        //            size_t odone = 0;
-        //            // indicate end of input with nullptr
-        //            error = soxr_process(soxr, nullptr, 0, nullptr, resampled_buf, OUT_FRAME_COUNT, &odone);
-        //            if (error) {
-        //                std::cerr << "[soxr] " << error << "\n";
-        //                break;
-        //            }
-
-        //            if (odone == 0)
-        //                break;
-
-        //            // write channel data to destination
-        //            for (sf_count_t j = 0; j < odone && frames_resampled_total < max_samples; j++) {
-        //                x->w_float = resampled_buf[j * n + ch] * gain();
-        //                x++;
-        //                frames_resampled_total++;
-        //            }
-        //        }
-
-        //        soxr_delete(soxr);
-
-        //        return frames_resampled_total;
+        return total_read_samples;
     }
 
     FormatList MiniMp3::supportedFormats()
