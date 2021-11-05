@@ -1,5 +1,11 @@
 # CEAMMC Pd distribution changelog
 
+## [2021.11]
+### Added:
+- disable enternal FFTease and LyonPotpourri externals cause they available via deken
+- separate "double" version settings from signle
+- **CEAMMC** external library v0.9.4 - [ceammc/CHANGELOG.md](ceammc/CHANGELOG.md)
+
 ## [2021.03]
 ### Added:
 - migration to Pd version 0.51.4

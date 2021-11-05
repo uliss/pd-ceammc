@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 ### Added:
+
+## [0.9.4]
+### Added:
 - loadmsg - dollar arg support added
 - new objects:
   - an.tempo~: tempo analizer based on Aubio library
