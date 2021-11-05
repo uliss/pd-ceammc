@@ -38,6 +38,8 @@ soxr_t ceammc_soxr_create(double ratio, unsigned ch, soxr_error_t* err)
         nullptr, nullptr, nullptr);
 }
 
+const bool debug = false;
+
 }
 
 namespace ceammc {
@@ -168,14 +170,16 @@ namespace sound {
             return -1;
         }
 
-        LIB_ERR << "offset " << pos;
+        if (debug)
+            LIB_DBG << "offset " << pos;
 
         // decode to buffer
         const size_t mp3_out_bufsize = MINIMP3_MAX_SAMPLES_PER_FRAME;
         std::vector<mp3d_sample_t> in_buffer(mp3_out_bufsize);
         const size_t should_read = sz * NUM_CH;
 
-        LIB_ERR << "should output " << should_read << " samples";
+        if (debug)
+            LIB_DBG << "should output " << should_read << " samples";
 
         const size_t OUT_BUF_SIZE = std::round(in_buffer.size() * resampleRatio());
         std::vector<float> out_buf(OUT_BUF_SIZE);
@@ -242,8 +246,10 @@ namespace sound {
             }
         }
 
-        LIB_ERR << "total decoded mp3 samples: " << total_decoded_mp3_samples;
-        LIB_ERR << "total output samples: " << total_output_samples;
+        if (debug) {
+            LIB_ERR << "total decoded mp3 samples: " << total_decoded_mp3_samples;
+            LIB_ERR << "total output samples: " << total_output_samples;
+        }
 
         return total_output_samples;
     }
