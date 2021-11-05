@@ -17,12 +17,12 @@ switch -- $::windowingsystem {
         set link::font_family "Helvetica"
     }
     "win32" {
-        set link::font_family "Helvetica"
+        set link::font_family "Dejavu Sans Mono"
         set link::font_size 7
     }
 }
 
-proc link_type_font { zoom } { return "$link::font_family [expr $zoom * $link::font_size] normal roman" }
+proc link_type_font { zoom } { return "{$link::font_family} [expr $zoom * $link::font_size] normal roman" }
 
 proc link_open {filename dir} {
     if {[string first "://" $filename] > -1} {
