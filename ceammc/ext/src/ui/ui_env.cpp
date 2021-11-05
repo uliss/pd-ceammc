@@ -431,6 +431,8 @@ void UIEnv::onMouseMove(t_object*, const t_pt& pt, long modifiers)
 void UIEnv::onMouseDrag(t_object*, const t_pt& pt, long mod)
 {
     const float z = zoom();
+
+    UI_DBG << pt.x;
     const float x_norm = pt.x / z;
     const float y_norm = pt.y / z;
 
@@ -584,6 +586,13 @@ void UIEnv::onMouseUp(t_object* view, const t_pt& pt, long mod)
 {
     if (output_mode_ == SYM_MODE_ON_MOUSE_UP && !isCmdPressed(mod))
         outputEnvelope();
+
+    const auto idx = findSelectedNodeIdx();
+    // if last node was moved
+    if (idx >= 0 && idx == ((long)nodes_.size() - 1)) {
+        updateNodes();
+        redrawAll();
+    }
 }
 
 void UIEnv::onMouseWheel(const t_pt& pt, long mod, float delta)
@@ -655,7 +664,7 @@ void UIEnv::updateNodes()
     const float z = zoom();
 
     for (size_t i = 0; i < n; i++) {
-        bool is_edge = (i == 0) || (i == (n - 1));
+        const bool is_edge = (i == 0);
 
         // using normalized width() and height()
         nodes_.push_back(Node::fromEnvelope(env_.pointAt(i), total_us, width() / z, height() / z, is_edge));
