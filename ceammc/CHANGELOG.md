@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 ### Added:
+
+## [0.9.4]
+### Added:
 - loadmsg - dollar arg support added
 - new objects:
   - an.tempo~: tempo analizer based on Aubio library
@@ -62,7 +65,7 @@
   - ui.polar: [random( method added and [set random( args support added
   - ui.env: [at( method added to get envelope value at specified position in ms, sec, % and phase
   - lfo.+saw~, lfo.saw~, lfo.+tri~, lfo.tri~, lfo.+square~, lfo.square~, lfo.+pulse~, lfo.pulse~: [reset( method added to reset to initial phase value (@phase)
-  - fluid~: 
+  - fluid~:
     - [pan(: set synth pan normalized to \[-1..+1\] range
     - [hold(: hold (sustain, right) pedal support
     - [sostenuto(: sostenuto (middle) pedal support
@@ -88,7 +91,9 @@
   - ui.env: second outlet added for getting single value
   - ui.link: show @url property in tooltip on mouse over
   - MP3 support added to snd.file on Linux and Windows platforms
-  
+  - ui.preset: preset display now is zero-base
+  - ui.env: change env.length by dragging last envelope point left/right
+
 ### Fixed:
 - flow.space: reset message fix - can not use object after reset
 - ui.midi: fixed missing binding to Program Change and After Touch events
@@ -98,7 +103,7 @@
 ### Changed:
 - fx.looper~: @loop_bang is ON by default
 - fx.zita_rev1~: property typo fixed, @dump_hf changed to @damp_hf
-  
+
 ## [0.9.3]
 ### Added:
 - new objects:
@@ -109,7 +114,7 @@
     to make possible direct connection of ui.aview with array.play~
 - new aliases:
   - str->any and string2any for symbol2any (string support added)
-    
+
 ### Changed:
 - properties:
   - @cursor_ms, @cursor_sec in array.play~ make writeable
@@ -130,9 +135,9 @@
   - flt.c_notch (with notch->biquad alias) biquad calculator added
   - flt.c_pole (with pole->biquad alias) biquad calculator added
   - fx.infrev~ infinite reverb added (port of airwindows Infinity VST OpenSource plugin)
-  - fx.fbank5x1~ filterbank added (5 band, one octave) 
+  - fx.fbank5x1~ filterbank added (5 band, one octave)
   - loadexpr added (supports functions and datatypes)
-  - lang.faust~ external added 
+  - lang.faust~ external added
   - midi.cc added (enhanced version of ctlin)
   - midi.clock added
   - midi.kbd added (computer key to midi note converter)
@@ -150,7 +155,7 @@
   - ui.button added (with ui.btn alias)
   - ui.midi added (display for incoming messages)
   - ui.vkeyboard added (with ui.vk alias for vertical keyboard)
-  - ui.filter~ added 
+  - ui.filter~ added
   - ui.filter added (biquad calculator)
   - ui.faust~ added
 - new aliases:
@@ -159,7 +164,7 @@
   - ui.k alias added for ui.knob
   - ui.vm~ alias added for ui.meter~ (vertical)
   - ui.vsliders alias added for vertical ui.sliders
-  - *ceammc/* prefix added to all global like objects: **ceammc/xfade~**, **ceammc/mix~** etc. 
+  - *ceammc/* prefix added to all global like objects: **ceammc/xfade~**, **ceammc/mix~** etc.
 - mouse:
   - ui.meter~ change orientation by Ctl/Cmd+double-click in edit mode, like ui.radio and ui.slider
 - arguments:
@@ -192,7 +197,7 @@
 - using AtomListView instead of AtomList in UI objects
 - second inlet added to path.ls to set @match property
 - ui.number~ @decimal property renamed to @precision
-- ui.sliders: @auto_range options split into @auto_range and @auto_count 
+- ui.sliders: @auto_range options split into @auto_range and @auto_count
 
 ### Fixed:
 - ui.hgain~/ui.hgain2~ midi bind fixed
@@ -290,10 +295,10 @@
     - ceammc.search added
     - counter object added
 - proto.* updates:
-    - proto.xtouch_ext - Behringer XTouch externder support added 
+    - proto.xtouch_ext - Behringer XTouch externder support added
 - noise.* updates:
     - documentation for a-chaos files added
-    
+
 
 ### Changed:
 - ext_info output format changed.
@@ -904,7 +909,7 @@
 - random.discrete added
 - array.set added
 - array.bpm added (via SoundTouch library: https://www.surina.net/soundtouch/)
-- array.stretch added (time-stretch, pitch-shift and rate-range) 
+- array.stretch added (time-stretch, pitch-shift and rate-range)
 - patch.args added
 - canvas.current added
 - canvas.top added

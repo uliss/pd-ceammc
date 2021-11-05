@@ -101,7 +101,7 @@ void UIPreset::paint()
         p.fill();
 
         // draw button text
-        sprintf(number, "%i", i + 1);
+        sprintf(number, "%i", i);
         numbers_[i]->setColor(prop_color_text);
         numbers_[i]->set(number, btn_x, btn_y, 40, 0);
         p.drawText(*numbers_[i]);
@@ -117,9 +117,7 @@ void UIPreset::paint()
 
 void UIPreset::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
-    int index = buttonIndexAt(pt.x, pt.y);
-    if (index < 0 || index >= presets_.size())
-        return;
+    auto index = buttonIndexAt(pt.x, pt.y);
 
     if (modifiers & EMOD_ALT)
         clearIndex(index);
@@ -131,7 +129,7 @@ void UIPreset::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, l
 
 void UIPreset::onMouseMove(t_object* view, const t_pt& pt, long modifiers)
 {
-    int index = buttonIndexAt(pt.x, pt.y);
+    auto index = buttonIndexAt(pt.x, pt.y);
 
     if (mouse_over_index_ != index) {
         mouse_over_index_ = index;
@@ -155,44 +153,44 @@ int UIPreset::buttonIndexAt(float x, float y) const
     return row * num_cols + col;
 }
 
-void UIPreset::m_read(const AtomListView& lst)
+void UIPreset::m_read(const AtomListView& lv)
 {
-    if (PresetStorage::instance().read(canvas(), to_string(lst))) {
+    if (PresetStorage::instance().read(canvas(), to_string(lv))) {
         selected_index_ = -1;
 
         redrawLayer(bg_layer_);
     }
 }
 
-void UIPreset::m_write(const AtomListView& lst)
+void UIPreset::m_write(const AtomListView& lv)
 {
-    PresetStorage::instance().write(canvas(), to_string(lst));
+    PresetStorage::instance().write(canvas(), to_string(lv));
 }
 
-void UIPreset::m_load(const AtomListView& lst)
+void UIPreset::m_load(const AtomListView& lv)
 {
-    loadIndex(lst.floatAt(0, 0));
+    loadIndex(lv.floatAt(0, 0));
 }
 
-void UIPreset::m_interp(const AtomListView& lst)
+void UIPreset::m_interp(const AtomListView& lv)
 {
-    interpIndex(lst.floatAt(0, 0));
+    interpIndex(lv.floatAt(0, 0));
 }
 
-void UIPreset::m_store(const AtomListView& lst)
+void UIPreset::m_store(const AtomListView& lv)
 {
-    storeIndex(lst.floatAt(0, 0));
+    storeIndex(lv.floatAt(0, 0));
 }
 
-void UIPreset::m_clear(const AtomListView& lst)
+void UIPreset::m_clear(const AtomListView& lv)
 {
-    for (auto x : lst) {
+    for (auto x : lv) {
         if (x.isFloat())
             clearIndex(x.asFloat());
     }
 }
 
-void UIPreset::m_clearall(const AtomListView& lst)
+void UIPreset::m_clearall(const AtomListView&)
 {
     for (size_t i = 0; i < presets_.size(); i++) {
         if (!presets_.test(i))
@@ -207,9 +205,9 @@ void UIPreset::m_clearall(const AtomListView& lst)
     redrawLayer(bg_layer_);
 }
 
-void UIPreset::m_duplicate(const AtomListView& lst)
+void UIPreset::m_duplicate(const AtomListView& lv)
 {
-    if (lst.empty())
+    if (lv.empty())
         PresetStorage::instance().duplicateAll();
 }
 
@@ -218,14 +216,12 @@ t_int UIPreset::propCurrent() const
     return selected_index_;
 }
 
-void UIPreset::indexAdd(const AtomListView& lst)
+void UIPreset::indexAdd(const AtomListView& lv)
 {
-    if (lst.isFloat()) {
-        int idx = lst.asT<int>();
-        if (idx < 0 || idx >= presets_.size()) {
-            UI_ERR << "invalid preset index: " << idx;
+    if (lv.isFloat()) {
+        int idx = lv.asT<int>();
+        if (!checkIndex(idx))
             return;
-        }
 
         // update only if changed
         if (!presets_.test(idx)) {
@@ -235,14 +231,12 @@ void UIPreset::indexAdd(const AtomListView& lst)
     }
 }
 
-void UIPreset::indexRemove(const AtomListView& lst)
+void UIPreset::indexRemove(const AtomListView& lv)
 {
-    if (lst.isFloat()) {
-        int idx = lst.asT<int>();
-        if (idx < 0 || idx >= presets_.size()) {
-            UI_ERR << "invalid preset index: " << idx;
+    if (lv.isFloat()) {
+        int idx = lv.asT<int>();
+        if (!checkIndex(idx))
             return;
-        }
 
         // update only if changed
         if (presets_.test(idx)) {
@@ -261,10 +255,8 @@ void UIPreset::updateIndexes()
 
 void UIPreset::loadIndex(int idx)
 {
-    if (idx < 0 || idx >= presets_.size()) {
-        UI_ERR << "invalid preset index: " << idx;
+    if (!checkIndex(idx))
         return;
-    }
 
     if (presets_.test(idx)) {
         selected_index_ = idx;
@@ -275,10 +267,8 @@ void UIPreset::loadIndex(int idx)
 
 void UIPreset::storeIndex(int idx)
 {
-    if (idx < 0 || idx >= presets_.size()) {
-        UI_ERR << "invalid preset index: " << idx;
+    if (!checkIndex(idx))
         return;
-    }
 
     PresetStorage::instance().storeAll(idx);
     presets_.set(idx, true);
@@ -287,10 +277,8 @@ void UIPreset::storeIndex(int idx)
 
 void UIPreset::clearIndex(int idx)
 {
-    if (idx < 0 || idx >= presets_.size()) {
-        UI_ERR << "invalid preset index: " << idx;
+    if (!checkIndex(idx))
         return;
-    }
 
     if (presets_.test(idx)) {
         if (selected_index_ == idx)
@@ -304,12 +292,19 @@ void UIPreset::clearIndex(int idx)
 
 void UIPreset::interpIndex(t_float idx)
 {
-    if (idx < 0 || idx >= presets_.size()) {
-        UI_ERR << "invalid preset index: " << idx;
+    if (!checkIndex(idx))
         return;
-    }
 
     PresetStorage::instance().interpAll(idx);
+}
+
+bool UIPreset::checkIndex(float idx) const
+{
+    if (idx < 0 || idx >= presets_.size()) {
+        UI_ERR << "invalid preset index: " << idx;
+        return false;
+    } else
+        return true;
 }
 
 void UIPreset::setup()

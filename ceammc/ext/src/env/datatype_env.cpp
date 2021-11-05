@@ -483,6 +483,8 @@ void DataTypeEnv::setAR(size_t attack_us, size_t release_us, double value)
     points_.push_back(EnvelopePoint(0, 0, false, CURVE_LINE));
     points_.push_back(EnvelopePoint(attack_us, value, false, CURVE_LINE));
     points_.push_back(EnvelopePoint(attack_us + release_us, 0));
+    points_.front().setFixBoth();
+    points_.back().setFixValue();
 }
 
 void DataTypeEnv::setEAR(size_t attack_us, float attack_curve, size_t release_us, float release_curve)
@@ -491,6 +493,8 @@ void DataTypeEnv::setEAR(size_t attack_us, float attack_curve, size_t release_us
     points_.push_back(EnvelopePoint(0, 0, false, CURVE_EXP, attack_curve));
     points_.push_back(EnvelopePoint(attack_us, 1, false, CURVE_EXP, release_curve));
     points_.push_back(EnvelopePoint(attack_us + release_us, 0));
+    points_.front().setFixBoth();
+    points_.back().setFixValue();
 }
 
 void DataTypeEnv::setASR(size_t attack_us, size_t release_us, double value)
@@ -499,6 +503,8 @@ void DataTypeEnv::setASR(size_t attack_us, size_t release_us, double value)
     points_.push_back(EnvelopePoint(0, 0, false, CURVE_LINE));
     points_.push_back(EnvelopePoint(attack_us, value, true, CURVE_LINE));
     points_.push_back(EnvelopePoint(attack_us + release_us, 0));
+    points_.front().setFixBoth();
+    points_.back().setFixValue();
 }
 
 void DataTypeEnv::setEASR(size_t attack_us, float attack_curve, size_t release_us, float release_curve)
@@ -507,6 +513,8 @@ void DataTypeEnv::setEASR(size_t attack_us, float attack_curve, size_t release_u
     points_.push_back(EnvelopePoint(0, 0, false, CURVE_EXP, attack_curve));
     points_.push_back(EnvelopePoint(attack_us, 1, true, CURVE_EXP, release_curve));
     points_.push_back(EnvelopePoint(attack_us + release_us, 0));
+    points_.front().setFixBoth();
+    points_.back().setFixValue();
 }
 
 void DataTypeEnv::setADSR(size_t attack_us, size_t decay_us, double sustain_level, size_t release_us)
@@ -516,6 +524,9 @@ void DataTypeEnv::setADSR(size_t attack_us, size_t decay_us, double sustain_leve
     points_.push_back(EnvelopePoint(attack_us, 1, false, CURVE_LINE));
     points_.push_back(EnvelopePoint(attack_us + decay_us, sustain_level, true, CURVE_LINE));
     points_.push_back(EnvelopePoint(attack_us + decay_us + release_us, 0, false, CURVE_LINE));
+    points_.front().setFixBoth();
+    points_[1].setFixValue();
+    points_.back().setFixValue();
 }
 
 void DataTypeEnv::setEADSR(size_t attack_us, float attack_curve, size_t decay_us, float decay_curve, double sustain_level, size_t release_us, float release_curve)
@@ -525,79 +536,81 @@ void DataTypeEnv::setEADSR(size_t attack_us, float attack_curve, size_t decay_us
     points_.push_back(EnvelopePoint(attack_us, 1, false, CURVE_EXP, decay_curve));
     points_.push_back(EnvelopePoint(attack_us + decay_us, sustain_level, true, CURVE_EXP, release_curve));
     points_.push_back(EnvelopePoint(attack_us + decay_us + release_us, 0, false, CURVE_LINE));
+    points_.front().setFixBoth();
+    points_.back().setFixValue();
 }
 
-bool DataTypeEnv::setAR(const AtomListView& lst)
+bool DataTypeEnv::setAR(const AtomListView& lv)
 {
     const char* usage = "Usage: AR attack(ms) release(ms)";
 
-    if (lst.size() != 2) {
+    if (lv.size() != 2) {
         LIB_ERR << usage;
         return false;
     }
 
-    VALIDATE_ATTACK(lst, 0, usage);
-    VALIDATE_RELEASE(lst, 1, usage);
+    VALIDATE_ATTACK(lv, 0, usage);
+    VALIDATE_RELEASE(lv, 1, usage);
 
-    setAR(lst[0].asFloat() * 1000, lst[1].asFloat() * 1000);
+    setAR(lv[0].asFloat() * 1000, lv[1].asFloat() * 1000);
 
     return true;
 }
 
-bool DataTypeEnv::setASR(const AtomListView& lst)
+bool DataTypeEnv::setASR(const AtomListView& lv)
 {
     const char* usage = "Usage: ASR attack(ms) release(ms)";
 
-    if (lst.size() != 2) {
+    if (lv.size() != 2) {
         LIB_ERR << usage;
         return false;
     }
 
-    VALIDATE_ATTACK(lst, 0, usage);
-    VALIDATE_RELEASE(lst, 1, usage);
+    VALIDATE_ATTACK(lv, 0, usage);
+    VALIDATE_RELEASE(lv, 1, usage);
 
-    setASR(lst[0].asFloat() * 1000, lst[1].asFloat() * 1000);
+    setASR(lv[0].asFloat() * 1000, lv[1].asFloat() * 1000);
 
     return true;
 }
 
-bool DataTypeEnv::setADSR(const AtomListView& lst)
+bool DataTypeEnv::setADSR(const AtomListView& lv)
 {
     static const char* usage = "Usage: ADSR attack(ms) decay(ms) sustain(%) release(ms)";
 
-    if (lst.size() != 4) {
+    if (lv.size() != 4) {
         LIB_ERR << usage;
         return false;
     }
 
-    VALIDATE_ATTACK(lst, 0, usage);
-    VALIDATE_DECAY(lst, 1, usage);
-    VALIDATE_SUSTAIN(lst, 2, usage);
-    VALIDATE_RELEASE(lst, 3, usage);
+    VALIDATE_ATTACK(lv, 0, usage);
+    VALIDATE_DECAY(lv, 1, usage);
+    VALIDATE_SUSTAIN(lv, 2, usage);
+    VALIDATE_RELEASE(lv, 3, usage);
 
-    setADSR(lst[0].asFloat() * 1000,
-        lst[1].asFloat() * 1000,
-        lst[2].asFloat() / 100,
-        lst[3].asFloat() * 1000);
+    setADSR(lv[0].asFloat() * 1000,
+        lv[1].asFloat() * 1000,
+        lv[2].asFloat() / 100,
+        lv[3].asFloat() * 1000);
 
     return true;
 }
 
-bool DataTypeEnv::setEAR(const AtomListView& lst)
+bool DataTypeEnv::setEAR(const AtomListView& lv)
 {
     static const char* usage = "Usage: EAR attack(ms) attack_curve release(ms) release_curve";
 
-    if (lst.size() != 4) {
+    if (lv.size() != 4) {
         LIB_ERR << usage;
         return false;
     }
 
-    VALIDATE_ATTACK(lst, 0, usage);
-    VALIDATE_ATTACK_CURVE(lst, 1, usage);
-    VALIDATE_RELEASE(lst, 2, usage);
-    VALIDATE_RELEASE_CURVE(lst, 3, usage);
+    VALIDATE_ATTACK(lv, 0, usage);
+    VALIDATE_ATTACK_CURVE(lv, 1, usage);
+    VALIDATE_RELEASE(lv, 2, usage);
+    VALIDATE_RELEASE_CURVE(lv, 3, usage);
 
-    setEAR(lst[0].asFloat() * 1000, lst[1].asFloat(), lst[2].asFloat() * 1000, lst[3].asFloat());
+    setEAR(lv[0].asFloat() * 1000, lv[1].asFloat(), lv[2].asFloat() * 1000, lv[3].asFloat());
 
     return true;
 }
@@ -712,9 +725,9 @@ bool DataTypeEnv::setLine(const AtomListView& lst)
     return true;
 }
 
-bool DataTypeEnv::setExponential(const AtomListView& lst)
+bool DataTypeEnv::setExponential(const AtomListView& lv)
 {
-    const size_t N = lst.size();
+    const size_t N = lv.size();
 
     // check args
     if (!(N > 3 && (N % 3 == 1))) {
@@ -728,9 +741,9 @@ bool DataTypeEnv::setExponential(const AtomListView& lst)
     t_float offset_us = 0;
 
     for (size_t i = 0; i < (N - 2); i += 3) {
-        t_float value = lst[i].asFloat();
-        t_float segm_len_us = lst[i + 1].asFloat() * 1000;
-        t_float curve = lst[i + 2].asFloat();
+        t_float value = lv[i].asFloat();
+        t_float segm_len_us = lv[i + 1].asFloat() * 1000;
+        t_float curve = lv[i + 2].asFloat();
 
         if (segm_len_us < 1) {
             LIB_ERR << "invalid segment, skipping...";
@@ -741,15 +754,15 @@ bool DataTypeEnv::setExponential(const AtomListView& lst)
         offset_us += segm_len_us;
     }
 
-    points_.push_back(EnvelopePoint(offset_us, lst.back().asFloat(), false, CURVE_EXP, 0));
+    points_.push_back(EnvelopePoint(offset_us, lv.back().asFloat(), false, CURVE_EXP, 0));
 
     return true;
 }
 
-bool DataTypeEnv::setSin2(const AtomListView& lst)
+bool DataTypeEnv::setSin2(const AtomListView& lv)
 {
     // check args
-    if (lst.size() % 2 != 1) {
+    if (lv.size() % 2 != 1) {
         LIB_ERR << "Usage: sin2 VAL_0 LEN_0 VAL_1 [LEN_1 VAL_2] ...";
         return false;
     }
@@ -758,13 +771,13 @@ bool DataTypeEnv::setSin2(const AtomListView& lst)
     points_.clear();
 
     // insert start point
-    points_.push_back(EnvelopePoint(0, lst[0].asFloat(), false, CURVE_SIN2));
+    points_.push_back(EnvelopePoint(0, lv[0].asFloat(), false, CURVE_SIN2));
 
     t_float offset_us = 0;
 
     // inserts remaining
-    for (size_t i = 1; i < (lst.size() - 1); i += 2) {
-        t_float time_us = lst[i].asFloat() * 1000;
+    for (size_t i = 1; i < (lv.size() - 1); i += 2) {
+        t_float time_us = lv[i].asFloat() * 1000;
 
         if (time_us < 1) {
             LIB_ERR << "invalid segment, skipping...";
@@ -772,15 +785,15 @@ bool DataTypeEnv::setSin2(const AtomListView& lst)
         }
 
         offset_us += time_us;
-        points_.push_back(EnvelopePoint(offset_us, lst[i + 1].asFloat(), false, CURVE_SIN2));
+        points_.push_back(EnvelopePoint(offset_us, lv[i + 1].asFloat(), false, CURVE_SIN2));
     }
 
     return true;
 }
 
-bool DataTypeEnv::setSigmoid(const AtomListView& lst)
+bool DataTypeEnv::setSigmoid(const AtomListView& lv)
 {
-    const size_t N = lst.size();
+    const size_t N = lv.size();
 
     // check args
     if (!(N > 3 && (N % 3 == 1))) {
@@ -794,9 +807,9 @@ bool DataTypeEnv::setSigmoid(const AtomListView& lst)
     t_float offset_us = 0;
 
     for (size_t i = 0; i < (N - 2); i += 3) {
-        t_float value = lst[i].asFloat();
-        t_float segm_len_us = lst[i + 1].asFloat() * 1000;
-        t_float curve = lst[i + 2].asFloat();
+        t_float value = lv[i].asFloat();
+        t_float segm_len_us = lv[i + 1].asFloat() * 1000;
+        t_float curve = lv[i + 2].asFloat();
 
         if (segm_len_us < 1) {
             LIB_ERR << "invalid segment, skipping...";
@@ -808,7 +821,7 @@ bool DataTypeEnv::setSigmoid(const AtomListView& lst)
         offset_us += segm_len_us;
     }
 
-    points_.push_back(EnvelopePoint(offset_us, lst.back().asFloat(0), false, CURVE_SIGMOID, 0));
+    points_.push_back(EnvelopePoint(offset_us, lv.back().asFloat(0), false, CURVE_SIGMOID, 0));
 
     return true;
 }
