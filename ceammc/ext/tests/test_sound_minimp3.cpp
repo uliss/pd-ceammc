@@ -198,7 +198,7 @@ TEST_CASE("minimp3", "[ceammc_sound]")
             REQUIRE(dest[8].w_float == Approx(0.66940307617 * 0.5).margin(0.0001));
         }
 
-        SECTION("resample")
+        SECTION("resample to 12000 (x0.5)")
         {
             MiniMp3 loader(TEST_DATA_DIR "/mp3/test_1ch_24000_vbr.mp3");
             REQUIRE(loader.isOpened());
@@ -206,10 +206,36 @@ TEST_CASE("minimp3", "[ceammc_sound]")
             REQUIRE(loader.sampleRate() == 24000);
             REQUIRE(loader.sampleCount() == 24000);
 
-            loader.setResampleRatio(2);
+            loader.setResampleRatio(12000 / 24000.0);
 
             t_word dest[1000];
-            auto rc = loader.read(dest, 1000, 0, 1000, 1000);
+            auto rc = loader.read(dest, 1000, 0, 2000, 1000);
+            REQUIRE(rc == 1000);
+
+            // from test_1ch_24000_vbr_off1000_len32.dat
+            REQUIRE(dest[0].w_float == Approx(0.01883).margin(0.0001));
+            REQUIRE(dest[1].w_float == Approx(0.21369).margin(0.0001));
+            REQUIRE(dest[2].w_float == Approx(0.41585).margin(0.0001));
+            REQUIRE(dest[3].w_float == Approx(0.56779).margin(0.0001));
+            REQUIRE(dest[4].w_float == Approx(0.67085).margin(0.0001));
+            REQUIRE(dest[5].w_float == Approx(0.70255).margin(0.0001));
+            REQUIRE(dest[6].w_float == Approx(0.67064).margin(0.0001));
+            REQUIRE(dest[7].w_float == Approx(0.56840).margin(0.0001));
+            REQUIRE(dest[8].w_float == Approx(0.41485).margin(0.0001));
+        }
+
+        SECTION("resample to 48000 (x2)")
+        {
+            MiniMp3 loader(TEST_DATA_DIR "/mp3/test_1ch_24000_vbr.mp3");
+            REQUIRE(loader.isOpened());
+            REQUIRE(loader.channels() == 1);
+            REQUIRE(loader.sampleRate() == 24000);
+            REQUIRE(loader.sampleCount() == 24000);
+
+            loader.setResampleRatio(48000 / 24000.0);
+
+            t_word dest[1000];
+            auto rc = loader.read(dest, 1000, 0, 500, 1000);
             REQUIRE(rc == 1000);
 
             // from test_1ch_24000_vbr_off1000_len32.dat
