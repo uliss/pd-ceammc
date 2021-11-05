@@ -172,5 +172,30 @@ TEST_CASE("minimp3", "[ceammc_sound]")
                 REQUIRE(dest[8].w_float == Approx(0.53469848633).margin(0.0001));
             }
         }
+
+        SECTION("vbr")
+        {
+            MiniMp3 loader(TEST_DATA_DIR "/mp3/test_1ch_24000_vbr.mp3");
+            loader.setGain(0.5);
+            REQUIRE(loader.channels() == 1);
+            REQUIRE(loader.isOpened());
+            REQUIRE(loader.sampleRate() == 24000);
+            REQUIRE(loader.sampleCount() == 24000);
+
+            t_word dest[1000];
+            auto rc = loader.read(dest, 1000, 0, 1000, 10000);
+            REQUIRE(rc == 1000);
+
+            // from test_1ch_24000_vbr_off1000_len32.dat
+            REQUIRE(dest[0].w_float == Approx(-0.0001220703 * 0.5).margin(0.0001));
+            REQUIRE(dest[1].w_float == Approx(0.11004638672 * 0.5).margin(0.0001));
+            REQUIRE(dest[2].w_float == Approx(0.21746826172 * 0.5).margin(0.0001));
+            REQUIRE(dest[3].w_float == Approx(0.31951904297 * 0.5).margin(0.0001));
+            REQUIRE(dest[4].w_float == Approx(0.41372680664 * 0.5).margin(0.0001));
+            REQUIRE(dest[5].w_float == Approx(0.49771118164 * 0.5).margin(0.0001));
+            REQUIRE(dest[6].w_float == Approx(0.56942749023 * 0.5).margin(0.0001));
+            REQUIRE(dest[7].w_float == Approx(0.62713623047 * 0.5).margin(0.0001));
+            REQUIRE(dest[8].w_float == Approx(0.66940307617 * 0.5).margin(0.0001));
+        }
     }
 }

@@ -99,14 +99,14 @@ namespace sound {
             return -1;
         }
 
-        /* dec.samples, dec.info.hz, dec.info.layer, dec.info.channels should be filled */
+        // seek to offset
         const auto pos = std::min<size_t>(offset * NUM_CH, sampleCount());
-
         if (mp3dec_ex_seek(decoder_.get(), pos)) {
             LIB_ERR << "[minimp3] can't seek to pos #" << offset;
             return -1;
         }
 
+        // decode to buffer
         std::vector<mp3d_sample_t> buffer(sz * NUM_CH);
         size_t readed = mp3dec_ex_read(decoder_.get(), buffer.data(), buffer.size());
         if (readed != buffer.size()) { /* normal eof or error condition */
@@ -116,17 +116,20 @@ namespace sound {
             }
         }
 
+        // copy to destination
+        const auto g = gain();
         for (size_t i = ch, j = 0; i < readed && i < buffer.size(); i += NUM_CH, j++)
-            dest[j].w_float = buffer[i];
+            dest[j].w_float = buffer[i] * g;
 
         return readed / NUM_CH;
     }
 
     long MiniMp3::readResampled(t_word* dest, size_t sz, size_t ch, long offset, size_t max_samples)
     {
-        return -1;
-
         if (resampleRatio() < 0.001)
+            return -1;
+
+        if (!decoder_)
             return -1;
 
         const auto NUM_CH = channels();
@@ -145,7 +148,7 @@ namespace sound {
         //        if (handle_.seek(offset, SEEK_SET) == -1)
         //            return -1;
 
-        // SoxR
+        // resampler init
         soxr_error_t error;
         soxr_t soxr = soxr_create(
             1, resampleRatio(), NUM_CH, /* Input rate, output rate, # of channels. */
@@ -154,6 +157,13 @@ namespace sound {
 
         if (error) {
             soxr_delete(soxr);
+            return -1;
+        }
+
+        // seek to position
+        const auto pos = std::min<size_t>(offset * NUM_CH, sampleCount());
+        if (mp3dec_ex_seek(decoder_.get(), pos)) {
+            LIB_ERR << "[minimp3] can't seek to pos #" << offset;
             return -1;
         }
 
