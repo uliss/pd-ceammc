@@ -34,7 +34,11 @@ std::string ceammc_quote_str(const std::string& str, char q = '\'');
 
 static std::array<const char*, ECURSOR_HDOUBLE_ARROW + 1> my_cursorlist = {
     "left_ptr",
+#ifdef __WIN32
+    "arrow",
+#else
     "center_ptr",
+#endif
     "plus",
     "hand2",
     "circle",
