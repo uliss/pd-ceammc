@@ -422,6 +422,12 @@ namespace faust {
     {
     }
 
+    bool UIProperty::getFloat(t_float& res) const
+    {
+        res = value();
+        return true;
+    }
+
     bool UIProperty::setList(const AtomListView& lst)
     {
         if (!emptyCheck(lst))
@@ -512,7 +518,8 @@ namespace faust {
             { "sec", PropValueUnits::SEC },
             { "percent", PropValueUnits::PERCENT },
             { "db", PropValueUnits::DB },
-            { "bpm", PropValueUnits::BPM }
+            { "bpm", PropValueUnits::BPM },
+            { "semitone", PropValueUnits::SEMITONE },
         };
 
         for (auto& p : umap) {

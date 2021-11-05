@@ -23,8 +23,10 @@
 #include "flow_once.h"
 #include "flow_pack.h"
 #include "flow_pass.h"
+#include "flow_pass_float.h"
 #include "flow_pass_if.h"
 #include "flow_queue.h"
+#include "flow_record.h"
 #include "flow_reject.h"
 #include "flow_reject_if.h"
 #include "flow_ring.h"
@@ -84,9 +86,11 @@ void ceammc_flow_setup()
     setup_flow_once();
     setup_flow_pack();
     setup_flow_pass();
+    setup_flow_pass_float();
     setup_flow_pass_if();
     setup_flow_pipe();
     setup_flow_queue();
+    setup_flow_record();
     setup_flow_reject();
     setup_flow_reject_if();
     setup_flow_route();

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="list.runsum">
+        <title>list.runsum</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>running sum</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>list</category>
+            <keywords>list running total sum partial cumulative</keywords>
+            <since>0.9.4</since>
+            <also>
+                <see>list.rundiff</see>
+            </also>
+        </meta>
+        <info>
+            <par>Computes the partial sums of the elements in the subranges of the input list</par>
+            <par>• y0 = x0</par>
+            <par>• y1 = x0 + x1</par>
+            <par>• y2 = x0 + x1 + x2</par>
+            <par>• y3 = x0 + x1 + x2 + x3</par>
+            <par>etc...</par>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo on="list">input list</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>result list</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[ui.sliders @size 150 80]
+|
+|
+|
+|
+|
+[list.runsum]
+|
+[ui.dt]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

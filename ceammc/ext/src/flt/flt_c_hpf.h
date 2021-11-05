@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "flt_c_hpf"
-Code generated with Faust 2.30.12 (https://faust.grame.fr)
-Compilation options: -lang cpp -es 1 -scal -ftz 0
+Code generated with Faust 2.37.3 (https://faust.grame.fr)
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __flt_c_hpf_H__
@@ -218,24 +218,69 @@ class dsp_factory {
     
 };
 
-/**
- * On Intel set FZ (Flush to Zero) and DAZ (Denormals Are Zero)
- * flags to avoid costly denormals.
- */
+// Denormal handling
 
-#ifdef __SSE__
-    #include <xmmintrin.h>
-    #ifdef __SSE2__
-        #define AVOIDDENORMALS _mm_setcsr(_mm_getcsr() | 0x8040)
-    #else
-        #define AVOIDDENORMALS _mm_setcsr(_mm_getcsr() | 0x8000)
-    #endif
-#else
-    #define AVOIDDENORMALS
+#if defined (__SSE__)
+#include <xmmintrin.h>
 #endif
 
+class ScopedNoDenormals
+{
+    private:
+    
+        intptr_t fpsr;
+        
+        void setFpStatusRegister(intptr_t fpsr_aux) noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+           asm volatile("msr fpcr, %0" : : "ri" (fpsr_aux));
+        #elif defined (__SSE__)
+            _mm_setcsr(static_cast<uint32_t>(fpsr_aux));
+        #endif
+        }
+        
+        void getFpStatusRegister() noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+            asm volatile("mrs %0, fpcr" : "=r" (fpsr));
+        #elif defined ( __SSE__)
+            fpsr = static_cast<intptr_t>(_mm_getcsr());
+        #endif
+        }
+    
+    public:
+    
+        ScopedNoDenormals() noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+            intptr_t mask = (1 << 24 /* FZ */);
+        #else
+            #if defined(__SSE__)
+            #if defined(__SSE2__)
+                intptr_t mask = 0x8040;
+            #else
+                intptr_t mask = 0x8000;
+            #endif
+            #else
+                intptr_t mask = 0x0000;
+            #endif
+        #endif
+            getFpStatusRegister();
+            setFpStatusRegister(fpsr | mask);
+        }
+        
+        ~ScopedNoDenormals() noexcept
+        {
+            setFpStatusRegister(fpsr);
+        }
+
+};
+
+#define AVOIDDENORMALS ScopedNoDenormals();
+
 #endif
-/**************************  END  flt_c_hpf_dsp.h **************************/
+
+/************************** END flt_c_hpf_dsp.h **************************/
 /************************** BEGIN UI.h **************************/
 /************************************************************************
  FAUST Architecture File
@@ -309,6 +354,9 @@ struct UIReal
     // -- metadata declarations
     
     virtual void declare(REAL* zone, const char* key, const char* val) {}
+    
+    // To be used by LLVM client
+    virtual int sizeOfFAUSTFLOAT() { return sizeof(FAUSTFLOAT); }
 };
 
 struct UI : public UIReal<FAUSTFLOAT>
@@ -516,8 +564,10 @@ class flt_c_hpf : public flt_c_hpf_dsp {
  private:
 	
 	int fSampleRate;
-	float fConst0;
+	float fConst1;
+	float fConst2;
 	FAUSTFLOAT fVslider0;
+	float fConst3;
 	float fRec0[2];
 	FAUSTFLOAT fVslider1;
 	float fRec1[2];
@@ -527,13 +577,13 @@ class flt_c_hpf : public flt_c_hpf_dsp {
 	void metadata(Meta* m) { 
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
 		m->declare("ceammc_ui.lib/version", "0.1.2");
-		m->declare("compile_options", "-lang cpp -es 1 -scal -ftz 0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0");
 		m->declare("filename", "flt_c_hpf.dsp");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
-		m->declare("maths.lib/version", "2.3");
+		m->declare("maths.lib/version", "2.5");
 		m->declare("maxmsp.lib/author", "GRAME");
 		m->declare("maxmsp.lib/copyright", "GRAME");
 		m->declare("maxmsp.lib/license", "LGPL with exception");
@@ -541,9 +591,9 @@ class flt_c_hpf : public flt_c_hpf_dsp {
 		m->declare("maxmsp.lib/version", "1.1");
 		m->declare("name", "flt_c_hpf");
 		m->declare("platform.lib/name", "Generic Platform Library");
-		m->declare("platform.lib/version", "0.1");
+		m->declare("platform.lib/version", "0.2");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
-		m->declare("signals.lib/version", "0.0");
+		m->declare("signals.lib/version", "0.1");
 		m->declare("ui", "disable");
 	}
 
@@ -553,57 +603,16 @@ class flt_c_hpf : public flt_c_hpf_dsp {
 	virtual int getNumOutputs() {
 		return 5;
 	}
-	virtual int getInputRate(int channel) {
-		int rate;
-		switch ((channel)) {
-			case 0: {
-				rate = 0;
-				break;
-			}
-			default: {
-				rate = -1;
-				break;
-			}
-		}
-		return rate;
-	}
-	virtual int getOutputRate(int channel) {
-		int rate;
-		switch ((channel)) {
-			case 0: {
-				rate = 1;
-				break;
-			}
-			case 1: {
-				rate = 1;
-				break;
-			}
-			case 2: {
-				rate = 1;
-				break;
-			}
-			case 3: {
-				rate = 1;
-				break;
-			}
-			case 4: {
-				rate = 1;
-				break;
-			}
-			default: {
-				rate = -1;
-				break;
-			}
-		}
-		return rate;
-	}
 	
 	static void classInit(int sample_rate) {
 	}
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
-		fConst0 = (6.28318548f / std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate))));
+		float fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
+		fConst1 = (6.28318548f / fConst0);
+		fConst2 = (44.0999985f / fConst0);
+		fConst3 = (1.0f - fConst2);
 	}
 	
 	virtual void instanceResetUserInterface() {
@@ -641,8 +650,8 @@ class flt_c_hpf : public flt_c_hpf_dsp {
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("flt_c_hpf");
 		ui_interface->declare(&fVslider0, "unit", "Hz");
-		ui_interface->addVerticalSlider("freq", &fVslider0, 1000.0f, 20.0f, 20000.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("q", &fVslider1, 1.0f, 0.00999999978f, 100.0f, 0.100000001f);
+		ui_interface->addVerticalSlider("freq", &fVslider0, FAUSTFLOAT(1000.0f), FAUSTFLOAT(20.0f), FAUSTFLOAT(20000.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("q", &fVslider1, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.00999999978f), FAUSTFLOAT(100.0f), FAUSTFLOAT(0.100000001f));
 		ui_interface->closeBox();
 	}
 	
@@ -653,21 +662,21 @@ class flt_c_hpf : public flt_c_hpf_dsp {
 		FAUSTFLOAT* output2 = outputs[2];
 		FAUSTFLOAT* output3 = outputs[3];
 		FAUSTFLOAT* output4 = outputs[4];
-		float fSlow0 = (0.00100000005f * float(fVslider0));
-		float fSlow1 = (0.00100000005f * float(fVslider1));
-		for (int i = 0; (i < count); i = (i + 1)) {
-			fRec0[0] = (fSlow0 + (0.999000013f * fRec0[1]));
-			float fTemp0 = (fConst0 * std::max<float>(0.0f, fRec0[0]));
+		float fSlow0 = (fConst2 * float(fVslider0));
+		float fSlow1 = (fConst2 * float(fVslider1));
+		for (int i0 = 0; (i0 < count); i0 = (i0 + 1)) {
+			fRec0[0] = (fSlow0 + (fConst3 * fRec0[1]));
+			float fTemp0 = (fConst1 * std::max<float>(0.0f, fRec0[0]));
 			float fTemp1 = std::cos(fTemp0);
-			fRec1[0] = (fSlow1 + (0.999000013f * fRec1[1]));
+			fRec1[0] = (fSlow1 + (fConst3 * fRec1[1]));
 			float fTemp2 = (0.5f * (std::sin(fTemp0) / std::max<float>(0.00100000005f, fRec1[0])));
 			float fTemp3 = (fTemp2 + 1.0f);
 			float fTemp4 = (0.5f * ((fTemp1 + 1.0f) / fTemp3));
-			output0[i] = FAUSTFLOAT(fTemp4);
-			output1[i] = FAUSTFLOAT(((-1.0f - fTemp1) / fTemp3));
-			output2[i] = FAUSTFLOAT(fTemp4);
-			output3[i] = FAUSTFLOAT(((0.0f - (2.0f * fTemp1)) / fTemp3));
-			output4[i] = FAUSTFLOAT(((1.0f - fTemp2) / fTemp3));
+			output0[i0] = FAUSTFLOAT(fTemp4);
+			output1[i0] = FAUSTFLOAT(((-1.0f - fTemp1) / fTemp3));
+			output2[i0] = FAUSTFLOAT(fTemp4);
+			output3[i0] = FAUSTFLOAT(((0.0f - (2.0f * fTemp1)) / fTemp3));
+			output4[i0] = FAUSTFLOAT(((1.0f - fTemp2) / fTemp3));
 			fRec0[1] = fRec0[0];
 			fRec1[1] = fRec1[0];
 		}

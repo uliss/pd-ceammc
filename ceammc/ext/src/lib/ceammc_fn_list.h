@@ -20,6 +20,8 @@
 #include <vector>
 
 namespace ceammc {
+class AtomListView;
+
 namespace list {
 
     size_t shortestListSize(const std::vector<AtomList>& l);
@@ -195,6 +197,16 @@ namespace list {
     {
         return true;
     }
+
+    using ViewSlice = std::pair<AtomListView, AtomListView>;
+
+    /**
+     * Search property in given list
+     * @param lv - searched list
+     * @return view of first found property and remaining props view
+     * @note no dynamic memory allocation
+     */
+    ViewSlice findProperty(const AtomListView& lv);
 }
 }
 

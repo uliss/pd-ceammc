@@ -45,7 +45,7 @@ protected:
     FlagProperty* prop_int_;
 
 public:
-    MathSyncBase(FloatBinFn fn, const PdArgs& args);
+    MathSyncBase(FloatBinFn fn, const PdArgs& args, bool create_int_prop = true);
     void onBang() final;
     void onFloat(t_float f) final;
     void onInlet(size_t n, const AtomListView& lst) final;

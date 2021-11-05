@@ -7,7 +7,7 @@
                 <author>Hans-Christoph Steiner</author>
                 <author>Serge Poltavski</author>
             </authors>
-            <description>Output cursor motion, mousewheel and buttonclicks</description>
+            <description>Output cursor motion, mousewheel and button clicks</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>system</category>
@@ -17,6 +17,8 @@
         <properties>
             <property name="@relative" type="int" enum="0 1" default="0">relative output mode: if
             on output coords relative to window, otherwise output screen coordinates</property>
+            <property name="@norm" type="int" enum="0 1" default="0">cursor x/y coordinates
+            normalization by screen (or window) width/height</property>
         </properties>
         <inlets>
             <inlet>
@@ -31,17 +33,21 @@
         <example>
             <pdascii>
 <![CDATA[
-[T]             [T]
-|               |
-|  [bang(       [@relative $1(
-|  |            |
-[system.cursor  ]
+[T]          [T]            [T]
+|            |              |
+|  [bang(    [@relative $1( [@norm $1(
+|  |         |              |
+|  |         |              |
+|  |         |              |
+[system.cursor              ]
 |
 [route motion mousewheel button]
-|          ^|   ^^|
-[msg set]  [F]   [route 1 2 3]
-|                |   ^|   ^^|
-[ (              [T] [T]  [T]
+|        ^|   ^^|
+|        [F]   [route 1 2 3]
+|              |   ^|   ^^|
+|              [T] [T]  [T]
+|
+[ui.dt]
 ]]>
             </pdascii>
         </example>

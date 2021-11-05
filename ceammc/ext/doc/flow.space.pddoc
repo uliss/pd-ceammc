@@ -13,6 +13,9 @@
             <keywords>space</keywords>
             <since>0.9.1</since>
         </meta>
+        <info>
+            <par>first message is delayed to next scheduler time</par>
+        </info>
         <arguments>
             <argument type="float" name="MS" units="msec">time space between messages</argument>
             <argument type="int" name="N" minvalue="0">time space = N*space after last outputted
@@ -22,14 +25,17 @@
             <property name="@delay" type="float" default="1" minvalue="1" units="millisecond">
             time-space between messages</property>
             <property name="@done" type="int" default="1" minvalue="0">time space (=@done*@delay)
-            after last outputted message. After that delay output sbang to second outlet</property>
+            after last outputted message. After that delay output bang to second outlet</property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo>messages</xinfo>
             </inlet>
             <inlet>
-                <xinfo>reset: cancel all scheduled outputs</xinfo>
+                <xinfo on="float">set space interval (ms)</xinfo>
+                <xinfo>reset: cancel all scheduled outputs and clear message queue</xinfo>
+                <xinfo>@delay: set @delay property</xinfo>
+                <xinfo>@done: set @done property</xinfo>
             </inlet>
         </inlets>
         <outlets>

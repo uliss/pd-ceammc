@@ -50,8 +50,9 @@
             list of supported formats</property>
             <property name="@sr" readonly="true" type="list">source file samplerate</property>
             <property name="@filename" readonly="true" type="list">filename</property>
-            <property name="@samples" readonly="true" type="list">list of loaded samples to each
+            <property name="@samples" readonly="true" type="list">list of number of loaded samples into each
             array</property>
+            <property name="@channels" readonly="true" type="list">list of loaded channels into each array</property>
             <property name="@smpte_fr" type="float" minvalue="1" maxvalue="99" default="30">SMPTE
             framerate for SMPTE offset calculations</property>
             <property name="@verbose" type="int" enum="0 1" default="0">verbose output to Pd
@@ -72,8 +73,10 @@
 |
 [openpanel #p1]
 
-[symbol %CEAMMC%/sin_ch4_44.1k.wav(
-|
+ [symbol %CEAMMC%/sin_ch4_44.1k.wav(
+ |
+ |  [symbol %CEAMMC%/sound/vla-overtones-3.mp3(
+ |  |
 [load $1 to array[1|2] @resize #m1(       [A array1 w=120 h=80]
 |
 [expand_env]

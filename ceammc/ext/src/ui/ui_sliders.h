@@ -22,6 +22,7 @@ class UISliders : public UIObject {
     long select_idx_;
     bool is_vertical_;
     std::vector<t_float> pos_values_;
+    std::vector<t_float> prev_pos_values_;
 
 private:
     t_rgba prop_slider_color;
@@ -31,9 +32,11 @@ private:
     t_symbol* prop_auto_range_mode;
     int prop_auto_count;
     int prop_show_range;
+    int prop_show_lines;
     int prop_count;
     char c_min[16];
     char c_max[16];
+    t_float click_phase_;
 
 public:
     UISliders();
@@ -95,6 +98,8 @@ private:
     AtomList propValue() const;
 
     void generateTxtLabels();
+
+    std::pair<t_float*, t_float> sliderPosValueAt(const t_pt& pt);
 
 public:
     static void setup();

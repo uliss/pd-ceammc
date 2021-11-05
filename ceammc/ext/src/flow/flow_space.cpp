@@ -149,18 +149,40 @@ void FlowSpace::m_reset(const AtomListView&)
     for (auto& c : pipe_)
         c.clock.unset();
 
+    pipe_.clear();
     packet_sched_.unset();
     done_fn_.unset();
     num_active_ = 0;
+    packet_count_ = 0;
+}
+
+void FlowSpace::m_prop_delay(const AtomListView& lv)
+{
+    delay_->set(lv);
+}
+
+void FlowSpace::m_prop_done(const AtomListView& lv)
+{
+    done_->set(lv);
+}
+
+void FlowSpace::setInterval(t_float f)
+{
+    delay_->setValue(f);
 }
 
 void setup_flow_space()
 {
     InletProxy<FlowSpace>::init();
     InletProxy<FlowSpace>::set_method_callback(gensym("reset"), &FlowSpace::m_reset);
+    InletProxy<FlowSpace>::set_method_callback(gensym("@delay"), &FlowSpace::m_prop_delay);
+    InletProxy<FlowSpace>::set_method_callback(gensym("@done"), &FlowSpace::m_prop_done);
+    InletProxy<FlowSpace>::set_float_callback(&FlowSpace::setInterval);
 
     ObjectFactory<FlowSpace> obj("flow.space");
     obj.noPropsDispatch();
 
-    obj.setXletsInfo({ "any message", "reset: remove scheduled output" }, { "any message", "bang: after @done*@delay (ms)" });
+    obj.setXletsInfo({ "any message", "float: set interval (ms)\n"
+                                      "reset: remove scheduled output" },
+        { "any message", "bang: after @done*@delay (ms)" });
 }

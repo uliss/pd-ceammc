@@ -24,28 +24,35 @@
         </arguments>
         <properties>
             <property name="@invert" type="int" enum="0 1" default="0">wave inversion</property>
+            <property name="@pause" type="int" enum="0 1" default="0">pause oscillator at current
+            value</property>
+            <property name="@phase" type="float" minvalue="0" maxvalue="1" default="0">initial
+            phase</property>
             <property name="@active" type="int" enum="0 1" default="1">on/off dsp
             processing</property>
         </properties>
+        <methods>
+            <method name="reset">reset to initial state</method>
+        </methods>
         <inlets>
             <inlet type="audio">
-                <xinfo>frequency in Hz</xinfo>
+                <xinfo>frequency in Hz (can be negative and zero)</xinfo>
             </inlet>
             <inlet>
-                <xinfo on="bang">reset phase</xinfo>
+                <xinfo on="bang">reset phase to initial value (@phase)</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">pulsetrain wave in [0-1] range</outlet>
+            <outlet type="audio">sawtooth wave in [0-1) range</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[F]    [T]
-|      |
-|      [@invert $1(
-|      |
-[lfo.+saw~ 1]
+[F]      [T]             [T]
+|        |               |
+|        [@invert $1 #a( [@pause $1 #b( [bang #c(
+|
+[lfo.+saw~ 1 #x]
 |
 [*~ 3000]
 |
@@ -56,6 +63,10 @@
 [ui.gain~ @size 120 14]  [ui.dsp~]
 |\
 [dac~]
+
+[X a->x]
+[X b->x]
+[X c->x:1]
 ]]>
             </pdascii>
         </example>

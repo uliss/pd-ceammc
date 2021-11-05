@@ -9,6 +9,7 @@ list(APPEND ANALYZE_SOURCES "an_rms.cpp")
 
 ceammc_an_external(aubio_onset)
 ceammc_an_external(aubio_onset_tilde)
+ceammc_an_external(aubio_tempo_tilde)
 ceammc_an_external(pitchtrack)
 
 add_library(ceammc_analyze STATIC ${ANALYZE_SOURCES})

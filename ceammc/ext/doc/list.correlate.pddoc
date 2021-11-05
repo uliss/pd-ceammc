@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="list.correlate">
+        <title>list.correlate</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>list cross-correlation</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>list</category>
+            <keywords>list correlation cross</keywords>
+            <since>0.9.4</since>
+        </meta>
+        <info>
+            <par>Note: may perform slowly in large lists because it does not use the FFT to compute
+            the convolution</par>
+        </info>
+        <arguments>
+            <argument type="list" name="B">second argument values</argument>
+        </arguments>
+        <properties>
+            <property name="@a" type="list">first argument</property>
+            <property name="@b" type="list">second argument</property>
+            <property name="@mode" type="symbol" enum="valid same full">output mode. 'full' -
+            output the cross-correlation at each point of overlap, with an output length of
+            (M+N-1). At the end-points of the cross-correlation, the signals do not overlap
+            completely, and boundary effects may be seen. 'valid' - output of length
+            (max(M,N)-min(M,N)+1). The cross-correlation product is only given for points where the
+            signals overlap completely. Values outside the signal boundary have no effect. 'same' -
+            output of length max(M,N). Boundary effects are still visible</property>
+            <property name="@valid" type="alias">alias to @mode valid</property>
+            <property name="@same" type="alias">alias to @mode same</property>
+            <property name="@full" type="alias">alias to @mode full</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="list">calculate cross-correlation and output</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="list">set second argument (@b property)</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>list: output result</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[1 2 3 1 2 3 1 2 3(
+|
+|        [ui.hrd 4]
+|        |.
+[list.>> 0]
+|
+[list.correlate 2 4 6]
+|
+[list.normalize @range]
+|
+[ui.sliders @auto_count 1 #x]
+
+
+
+
+/* ... */
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

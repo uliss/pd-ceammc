@@ -29,9 +29,10 @@ int SystemCursor::instances_polling_ = 0;
 
 SystemCursor::SystemCursor(const PdArgs& args)
     : BaseObject(args)
-    , is_polling_(false)
     , clock_(this, &SystemCursor::clockTick)
     , relative_(nullptr)
+    , normalize_(nullptr)
+    , is_polling_(false)
 {
     createOutlet();
 
@@ -41,6 +42,9 @@ SystemCursor::SystemCursor(const PdArgs& args)
 
     relative_ = new BoolProperty("@relative", false);
     addProperty(relative_);
+
+    normalize_ = new BoolProperty("@norm", false);
+    addProperty(normalize_);
 }
 
 SystemCursor::~SystemCursor()
@@ -55,7 +59,7 @@ SystemCursor::~SystemCursor()
 
 void SystemCursor::onBang()
 {
-    sys_vgui("pdsend \"%s .motion [winfo pointerxy .]\"\n", receive()->s_name);
+    sys_vgui("pdsend \"%s .motion [winfo pointerxy .] [winfo screenwidth .] [winfo screenheight .]\"\n", receive()->s_name);
 }
 
 void SystemCursor::onFloat(t_float f)
@@ -84,18 +88,35 @@ void SystemCursor::m_button(t_symbol* s, const AtomListView& lv)
 
 void SystemCursor::m_motion(t_symbol* s, const AtomListView& lv)
 {
-    static t_symbol* SYM = gensym("motion");
+    if (!checkArgs(lv, ARG_FLOAT, ARG_FLOAT, ARG_FLOAT, ARG_FLOAT))
+        return;
 
-    if (!relative_->value()) {
-        anyTo(0, SYM, lv);
-    } else {
-        if (checkArgs(lv, ARG_FLOAT, ARG_FLOAT)) {
-            t_canvas* cnv = canvas_getrootfor(canvas());
-            auto r = canvas_info_rect(cnv);
-            Atom res[2] = { lv[0].asFloat() - r.x, lv[1].asFloat() - r.y };
-            anyTo(0, SYM, AtomListView(res, 2));
+    const auto x = lv[0].asT<t_float>();
+    const auto y = lv[1].asT<t_float>();
+    t_rect wrect { 0, 0, 0, 0 };
+
+    Atom res[2] = { x, y };
+
+    if (relative_->value()) {
+        auto cnv = canvas_getrootfor(canvas());
+        wrect = canvas_info_rect(cnv);
+        res[0] -= wrect.x;
+        res[1] -= wrect.y;
+    }
+
+    if (normalize_->value()) {
+        const bool rel = relative_->value();
+
+        const auto w = rel ? wrect.w : lv[2].asT<t_float>();
+        const auto h = rel ? wrect.h : lv[3].asT<t_float>();
+
+        if (w && h) {
+            res[0] /= w;
+            res[1] /= h;
         }
     }
+
+    anyTo(0, gensym("motion"), AtomListView(res, 2));
 }
 
 void SystemCursor::m_wheel(t_symbol* s, const AtomListView& lv)

@@ -1,0 +1,112 @@
+#N canvas 0 0 950 600 12;
+#X obj 25 125 synth.standard_bell~;
+#X obj 325 25 inlet;
+#X obj 325 200 route synth.standard_bell;
+#X obj 325 250 route @cutoff @decay_ratio @decay_slope @gain @gate
+@pos @sharp @t60;
+#X obj 575 350 print unknown property;
+#X msg 225 75 @cutoff 4000 \, @decay_ratio 1 \, @decay_slope 3 \, @gain 1 \, @pos 0 \, @sharp 0.25 \, @t60 20 \,;
+#X obj 225 25 msg.onload;
+#X obj 500 550 outlet~;
+#X obj 600 550 outlet ctl;
+#X obj 3 202 cnv 8 198 18 empty empty [synth.standard_bell~] 3 9 0 12
+-104026 -262144 0;
+#X obj 12 238 ui.slider @size 125 12 @active_scale 1 @label
+cutoff(Hz): @label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.standard_bell~/slider0 @min 20 @max 20000;
+#X obj 190 238 sync;
+#X obj 145 238 ui.number @size 50 12 @min 20 @max 20000 @digits 1;
+#X msg 260 238 @cutoff \$1;
+#X obj 12 270 ui.slider @size 125 12 @active_scale 1 @label
+decay_ratio: @label_side top @label_align left @fontsize 10
+@presetname /gui/\$1/synth.standard_bell~/slider1 @min 0 @max 1;
+#X obj 190 270 sync;
+#X obj 145 270 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 270 @decay_ratio \$1;
+#X obj 12 302 ui.slider @size 125 12 @active_scale 1 @label
+decay_slope: @label_side top @label_align left @fontsize 10
+@presetname /gui/\$1/synth.standard_bell~/slider2 @min 0 @max 10;
+#X obj 190 302 sync;
+#X obj 145 302 ui.number @size 50 12 @min 0 @max 10 @digits 3;
+#X msg 260 302 @decay_slope \$1;
+#X obj 12 334 ui.slider @size 125 12 @active_scale 1 @label gain:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.standard_bell~/slider3 @min 0 @max 1;
+#X obj 190 334 sync;
+#X obj 145 334 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 334 @gain \$1;
+#X obj 12 354 ui.toggle @size 12 12 @label gate @label_side right
+@label_align left @fontsize 10;
+#X msg 260 346 @gate \$1;
+#X obj 12 382 ui.number @size 60 12 @label pos: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.standard_bell~/numbox5 @min 0 @max 6 @step 1;
+#X msg 260 382 @pos \$1;
+#X obj 12 414 ui.slider @size 125 12 @active_scale 1 @label sharp:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.standard_bell~/slider6 @min 0.01 @max 5;
+#X obj 190 414 sync;
+#X obj 145 414 ui.number @size 50 12 @min 0.01 @max 5 @digits 3;
+#X msg 260 414 @sharp \$1;
+#X obj 12 446 ui.slider @size 125 12 @active_scale 1 @label t60(sec):
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.standard_bell~/slider7 @min 0.1 @max 30;
+#X obj 190 446 sync;
+#X obj 145 446 ui.number @size 50 12 @min 0.1 @max 30 @digits 2;
+#X msg 260 446 @t60 \$1;
+#X connect 1 0 2 0;
+#X connect 2 0 3 0;
+#X connect 3 8 4 0;
+#X connect 5 0 3 0;
+#X connect 6 0 5 0;
+#X connect 0 0 7 0;
+#X connect 2 1 8 0;
+#X connect 10 0 11 0;
+#X connect 11 0 10 0;
+#X connect 12 0 11 1;
+#X connect 11 1 12 0;
+#X connect 10 0 13 0;
+#X connect 13 0 0 0;
+#X connect 3 0 10 0;
+#X connect 14 0 15 0;
+#X connect 15 0 14 0;
+#X connect 16 0 15 1;
+#X connect 15 1 16 0;
+#X connect 14 0 17 0;
+#X connect 17 0 0 0;
+#X connect 3 1 14 0;
+#X connect 18 0 19 0;
+#X connect 19 0 18 0;
+#X connect 20 0 19 1;
+#X connect 19 1 20 0;
+#X connect 18 0 21 0;
+#X connect 21 0 0 0;
+#X connect 3 2 18 0;
+#X connect 22 0 23 0;
+#X connect 23 0 22 0;
+#X connect 24 0 23 1;
+#X connect 23 1 24 0;
+#X connect 22 0 25 0;
+#X connect 25 0 0 0;
+#X connect 3 3 22 0;
+#X connect 26 0 27 0;
+#X connect 27 0 0 0;
+#X connect 3 4 26 0;
+#X connect 28 0 29 0;
+#X connect 29 0 0 0;
+#X connect 3 5 28 0;
+#X connect 30 0 31 0;
+#X connect 31 0 30 0;
+#X connect 32 0 31 1;
+#X connect 31 1 32 0;
+#X connect 30 0 33 0;
+#X connect 33 0 0 0;
+#X connect 3 6 30 0;
+#X connect 34 0 35 0;
+#X connect 35 0 34 0;
+#X connect 36 0 35 1;
+#X connect 35 1 36 0;
+#X connect 34 0 37 0;
+#X connect 37 0 0 0;
+#X connect 3 7 34 0;
+#X coords 0 -1 1 1 200 266 2 2 200;

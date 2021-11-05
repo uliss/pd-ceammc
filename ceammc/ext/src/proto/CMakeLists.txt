@@ -9,6 +9,8 @@ endfunction()
 ceammc_proto_external(firmata)
 ceammc_proto_external(hui)
 ceammc_proto_external(midi)
+ceammc_proto_external(midi_casio)
+ceammc_proto_external(midi_cc)
 ceammc_proto_external(midi_sysex)
 ceammc_proto_external(mpv)
 ceammc_proto_external(sp_alpaca)
@@ -20,5 +22,6 @@ target_include_directories(ceammc_proto
         ${PROJECT_SOURCE_DIR}/ceammc/extra/readerwriterqueue
     PRIVATE
         ${PROJECT_BINARY_DIR} # for config.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/../midi
 )
 target_link_libraries(ceammc_proto PRIVATE proto_firmata)

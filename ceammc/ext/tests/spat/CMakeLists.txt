@@ -15,6 +15,7 @@ target_include_directories(test_ext_spat
 target_link_libraries(test_ext_spat PUBLIC
     tests_main_lib
     ceammc_spat
+    ceammc_base
     ceammc_core
     puredata-core)
 

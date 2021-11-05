@@ -163,7 +163,7 @@ TEST_CASE("fx.looper~", "[externals]")
         REQUIRE(t.numOutputChannels() == 1);
         REQUIRE(t.maxSamples() == 64);
         REQUIRE_PROPERTY(t, @capacity, 0.125f);
-        REQUIRE_PROPERTY(t, @loop_bang, 0.f);
+        REQUIRE_PROPERTY(t, @loop_bang, 1);
         REQUIRE_PROPERTY(t, @length, 0.f);
         REQUIRE_PROPERTY(t, @play_to_stop_time, 10);
         REQUIRE_PROPERTY(t, @stop_to_play_time, 10);

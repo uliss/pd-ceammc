@@ -25,7 +25,7 @@ TEST_CASE("random.float", "[externals]")
         SECTION("default")
         {
             TObj t("random.float");
-            REQUIRE(t.numInlets() == 1);
+            REQUIRE(t.numInlets() == 3);
             REQUIRE(t.numOutlets() == 1);
 
             REQUIRE_PROPERTY(t, @min, 0);
@@ -36,7 +36,7 @@ TEST_CASE("random.float", "[externals]")
         SECTION("args max")
         {
             TObj t("random.float", LF(2));
-            REQUIRE(t.numInlets() == 1);
+            REQUIRE(t.numInlets() == 3);
             REQUIRE(t.numOutlets() == 1);
 
             REQUIRE_PROPERTY(t, @min, 0);
@@ -46,7 +46,7 @@ TEST_CASE("random.float", "[externals]")
         SECTION("args min/max")
         {
             TObj t("random.float", LF(-1, 2));
-            REQUIRE(t.numInlets() == 1);
+            REQUIRE(t.numInlets() == 3);
             REQUIRE(t.numOutlets() == 1);
 
             REQUIRE_PROPERTY(t, @min, -1);
@@ -56,8 +56,6 @@ TEST_CASE("random.float", "[externals]")
         SECTION("properties")
         {
             TObj t("random.float", LA("@max", 3, "@min", 1));
-            REQUIRE(t.numInlets() == 1);
-            REQUIRE(t.numOutlets() == 1);
 
             REQUIRE_PROPERTY(t, @min, 1);
             REQUIRE_PROPERTY(t, @max, 3);
@@ -98,13 +96,13 @@ TEST_CASE("random.float", "[externals]")
         constexpr size_t N = 10;
 
         std::vector<t_float> v0;
-        for (int i = 0; i < N; i++) {
+        for (size_t i = 0; i < N; i++) {
             t.bang();
             v0.push_back(floatAt(t));
         }
 
         std::vector<t_float> v1;
-        for (int i = 0; i < N; i++) {
+        for (size_t i = 0; i < N; i++) {
             t.bang();
             v1.push_back(floatAt(t));
         }
@@ -112,11 +110,47 @@ TEST_CASE("random.float", "[externals]")
         REQUIRE(v0 != v1);
 
         t->setProperty("@seed", LF(1));
-        for (int i = 0; i < N; i++) {
+        for (size_t i = 0; i < N; i++) {
             t.bang();
             v1[i] = floatAt(t);
         }
 
         REQUIRE(v0 == v1);
+    }
+
+    SECTION("inlets")
+    {
+        TExt t("random.float", 3, 4);
+
+        REQUIRE_PROPERTY(t, @min, 3);
+        REQUIRE_PROPERTY(t, @max, 4);
+
+        t.sendFloatTo(-100, 1);
+        REQUIRE_PROPERTY(t, @min, -100);
+        REQUIRE_PROPERTY(t, @max, 4);
+
+        t.sendFloatTo(200, 2);
+        REQUIRE_PROPERTY(t, @min, -100);
+        REQUIRE_PROPERTY(t, @max, 200);
+
+        t.sendListTo(LF(1, 2), 1);
+        REQUIRE_PROPERTY(t, @min, 1);
+        REQUIRE_PROPERTY(t, @max, 2);
+    }
+
+    SECTION("gen")
+    {
+        TExt t("random.f", 1, 2, "@seed", 100);
+
+        t.sendMessage("gen", LF(10));
+        REQUIRE(t.hasOutputAt(0));
+        const auto l0 = t.outputListAt(0);
+        REQUIRE(l0.size() == 10);
+        REQUIRE(std::all_of(l0.begin(), l0.end(), [](const Atom& a) { return a >= 1 && a < 2; }));
+        t->setProperty("@seed", LF(100));
+
+        t.sendMessage("gen", LF(10));
+        REQUIRE(t.hasOutputAt(0));
+        REQUIRE(t.outputListAt(0) == l0);
     }
 }

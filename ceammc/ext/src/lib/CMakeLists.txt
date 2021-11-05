@@ -124,6 +124,37 @@ set(CEAMMC_UI_SRC
 
 target_sources(ceammc_core PRIVATE ${CEAMMC_UI_SRC})
 
+find_package(RAGEL 6.6)
+
+if(RAGEL_FOUND)
+    RAGEL_TARGET(parser_numeric
+        lex/parser_numeric.rl ${CMAKE_CURRENT_SOURCE_DIR}/lex/parser_numeric.cpp
+        COMPILE_FLAGS "-G2 -s")
+    RAGEL_TARGET(parser_color
+        lex/parser_color.rl ${CMAKE_CURRENT_SOURCE_DIR}/lex/parser_color.cpp
+        COMPILE_FLAGS "-G2 -s")
+    RAGEL_TARGET(parser_music
+        lex/parser_music.rl ${CMAKE_CURRENT_SOURCE_DIR}/lex/parser_music.cpp
+        COMPILE_FLAGS "-G2 -s")
+    RAGEL_TARGET(parser_units
+        lex/parser_units.rl ${CMAKE_CURRENT_SOURCE_DIR}/lex/parser_units.cpp
+        COMPILE_FLAGS "-G2 -s")
+    RAGEL_TARGET(parser_props
+        lex/parser_props.rl ${CMAKE_CURRENT_SOURCE_DIR}/lex/parser_props.cpp
+        COMPILE_FLAGS "-G2 -s")
+endif()
+
+# ragel generated sources
+target_sources(ceammc_core
+    PRIVATE
+        lex/parser_color.cpp
+        lex/parser_music.cpp
+        lex/parser_numeric.cpp
+        lex/parser_units.cpp
+        lex/parser_props.cpp
+        lex/parser_props_details.cpp
+)
+
 if(BISON_FOUND AND FLEX_FOUND)
     add_custom_target(ceammc_argcheck_gen
         COMMAND $<TARGET_FILE:reflex-bin> argcheck.l
@@ -147,11 +178,6 @@ if(BISON_FOUND AND FLEX_FOUND)
                 lex/array_loader.y
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lex)
 
-    add_custom_target(ceammc_lexer_fraction
-        COMMAND $<TARGET_FILE:reflex-bin> fraction.l
-        SOURCES lex/fraction.l
-        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lex)
-
     add_custom_target(ceammc_select_gen
         COMMAND $<TARGET_FILE:reflex-bin> select.l
         COMMAND ${BISON_EXECUTABLE} select.y
@@ -162,11 +188,6 @@ if(BISON_FOUND AND FLEX_FOUND)
         COMMAND $<TARGET_FILE:reflex-bin> score.l
         COMMAND ${BISON_EXECUTABLE} score.y
         SOURCES lex/score.l lex/score.y
-        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lex)
-
-    add_custom_target(ceammc_units_gen
-        COMMAND $<TARGET_FILE:reflex-bin> units.l
-        SOURCES lex/units.l
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lex)
 endif()
 
@@ -214,10 +235,8 @@ set(CEAMMC_LOAD_SRC
     lex/array_loader.lexer.cpp
     lex/array_loader.parser.cpp
     lex/array_loader.cpp
-    lex/fraction.lexer.cpp
     lex/select.lexer.cpp
     lex/select.parser.cpp
-    lex/units.lexer.cpp
     lex/score.lexer.cpp
     lex/score.parser.cpp
     array_load_pattern.h
@@ -231,6 +250,10 @@ if(LIBSNDFILE_FOUND)
     target_include_directories(ceammc_core PRIVATE ${LIBSNDFILE_INCLUDE_DIRS})
     target_link_libraries(ceammc_core PUBLIC ${LIBSNDFILE_LIBRARIES})
 endif()
+
+# minimp3
+target_sources(ceammc_core PRIVATE ceammc_loader_minimp3.cpp)
+target_include_directories(ceammc_core PRIVATE ${PROJECT_SOURCE_DIR}/ceammc/extra/minimp3)
 
 # coreaudio backend
 if(APPLE AND CMAKE_CXX_COMPILER_ID MATCHES "Clang")

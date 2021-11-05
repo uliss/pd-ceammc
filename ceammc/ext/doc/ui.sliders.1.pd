@@ -1,0 +1,4 @@
+#N canvas 0 0 740 371 12;
+#X text 20 48 @show_lines 1;
+#X obj 20 77 ui.sliders @show_lines 1;
+#X text 20 135 ...;

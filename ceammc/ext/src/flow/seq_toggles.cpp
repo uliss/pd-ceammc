@@ -14,6 +14,7 @@
 #include "seq_toggles.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
+#include "lex/parser_units.h"
 
 #include <algorithm>
 #include <cstdio>
@@ -48,54 +49,61 @@ t_float LengthProperty::calcValue(t_float v) const
 bool LengthProperty::setList(const AtomListView& lv)
 {
     if (lv.size() == 1) {
-        if (lv[0].isSymbol()) {
-            auto sym = lv[0].asT<t_symbol*>();
-            const auto* str = sym->s_name;
-            const auto len = strlen(str);
-            if (len > 0 && str[len - 1] == '%') { // XX%
-                auto res = std::strtod(str, nullptr);
-                if (res < 0 || res > 100) {
-                    PROP_ERR() << "positive percent value in 0..100 range expected, got: " << res;
-                    return false;
-                } else {
-                    const auto rc = setValue(res);
-                    if (rc) {
-                        percent_value_ = sym;
-                        mode_ = PERCENT;
-                    }
+        using namespace parser;
 
-                    return res;
-                }
-            } else if (len > 1 && str[len - 2] == 'm' && str[len - 1] == 's') { // fixed
-                auto res = std::strtod(str, nullptr);
-                if (res < 0) {
-                    PROP_ERR() << "positive fixed length value expected, got: " << res;
-                    return false;
-                } else {
-                    const auto rc = setValue(res);
-                    if (rc)
-                        mode_ = FIXED;
-
-                    return res;
-                }
-            }
-        } else if (lv[0].isFloat()) {
-            const auto f = lv[0].asT<t_float>();
-            if (f < 0) { // -50
-                bool rc = setValue(f);
-                if (rc)
-                    mode_ = SUBTRACT;
-
-                return rc;
-            }
+        const Atom& a = lv[0];
+        UnitsFullMatch p;
+        if (!p.parse(a)) {
+            PROP_ERR() << "float, int, % or ms value expected, got: " << a;
+            return false;
         }
-    }
 
-    bool rc = FloatProperty::setList(lv);
-    if (rc)
+        const auto& v = p.result();
+        switch (v.type) {
+        case AtomType::TYPE_FLOAT:
+        case AtomType::TYPE_INT:
+            if (setValue(v.value)) {
+                mode_ = (v.value >= 0) ? FIXED : SUBTRACT;
+                return true;
+            } else
+                return false;
+            break;
+        case AtomType::TYPE_PERCENT:
+            if (v.value < 0 || v.value > 100) {
+                PROP_ERR() << "positive percent value in 0..100 range expected, got: " << a;
+                return false;
+            } else {
+                const auto rc = setValue(v.value);
+                if (rc) {
+                    percent_value_ = a.asT<t_symbol*>();
+                    mode_ = PERCENT;
+                    return true;
+                } else
+                    return false;
+            }
+            break;
+        case AtomType::TYPE_MSEC:
+            if (setValue(v.value)) {
+                mode_ = (v.value >= 0) ? FIXED : SUBTRACT;
+                return true;
+            } else
+                return false;
+            break;
+        case AtomType::TYPE_SEC:
+            if (setValue(v.value * 1000)) {
+                mode_ = (v.value >= 0) ? FIXED : SUBTRACT;
+                return true;
+            } else
+                return false;
+            break;
+        default:
+            return FloatProperty::setList(lv);
+        }
+    } else if (FloatProperty::setList(lv)) {
         mode_ = FIXED;
-
-    return rc;
+        return true;
+    } else
+        return false;
 }
 
 AtomList LengthProperty::get() const

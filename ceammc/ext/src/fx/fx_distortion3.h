@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "fx.distortion3"
-Code generated with Faust 2.30.12 (https://faust.grame.fr)
-Compilation options: -lang cpp -es 1 -scal -ftz 0
+Code generated with Faust 2.37.3 (https://faust.grame.fr)
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __fx_distortion3_H__
@@ -218,24 +218,69 @@ class dsp_factory {
     
 };
 
-/**
- * On Intel set FZ (Flush to Zero) and DAZ (Denormals Are Zero)
- * flags to avoid costly denormals.
- */
+// Denormal handling
 
-#ifdef __SSE__
-    #include <xmmintrin.h>
-    #ifdef __SSE2__
-        #define AVOIDDENORMALS _mm_setcsr(_mm_getcsr() | 0x8040)
-    #else
-        #define AVOIDDENORMALS _mm_setcsr(_mm_getcsr() | 0x8000)
-    #endif
-#else
-    #define AVOIDDENORMALS
+#if defined (__SSE__)
+#include <xmmintrin.h>
 #endif
 
+class ScopedNoDenormals
+{
+    private:
+    
+        intptr_t fpsr;
+        
+        void setFpStatusRegister(intptr_t fpsr_aux) noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+           asm volatile("msr fpcr, %0" : : "ri" (fpsr_aux));
+        #elif defined (__SSE__)
+            _mm_setcsr(static_cast<uint32_t>(fpsr_aux));
+        #endif
+        }
+        
+        void getFpStatusRegister() noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+            asm volatile("mrs %0, fpcr" : "=r" (fpsr));
+        #elif defined ( __SSE__)
+            fpsr = static_cast<intptr_t>(_mm_getcsr());
+        #endif
+        }
+    
+    public:
+    
+        ScopedNoDenormals() noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+            intptr_t mask = (1 << 24 /* FZ */);
+        #else
+            #if defined(__SSE__)
+            #if defined(__SSE2__)
+                intptr_t mask = 0x8040;
+            #else
+                intptr_t mask = 0x8000;
+            #endif
+            #else
+                intptr_t mask = 0x0000;
+            #endif
+        #endif
+            getFpStatusRegister();
+            setFpStatusRegister(fpsr | mask);
+        }
+        
+        ~ScopedNoDenormals() noexcept
+        {
+            setFpStatusRegister(fpsr);
+        }
+
+};
+
+#define AVOIDDENORMALS ScopedNoDenormals();
+
 #endif
-/**************************  END  fx_distortion3_dsp.h **************************/
+
+/************************** END fx_distortion3_dsp.h **************************/
 /************************** BEGIN UI.h **************************/
 /************************************************************************
  FAUST Architecture File
@@ -309,6 +354,9 @@ struct UIReal
     // -- metadata declarations
     
     virtual void declare(REAL* zone, const char* key, const char* val) {}
+    
+    // To be used by LLVM client
+    virtual int sizeOfFAUSTFLOAT() { return sizeof(FAUSTFLOAT); }
 };
 
 struct UI : public UIReal<FAUSTFLOAT>
@@ -519,13 +567,15 @@ class fx_distortion3 : public fx_distortion3_dsp {
  private:
 	
 	FAUSTFLOAT fCheckbox0;
-	FAUSTFLOAT fHslider0;
-	float fRec0[2];
 	int fSampleRate;
 	float fConst1;
-	FAUSTFLOAT fVslider0;
+	FAUSTFLOAT fHslider0;
+	float fConst2;
+	float fRec0[2];
 	float fConst3;
-	float fConst4;
+	FAUSTFLOAT fVslider0;
+	float fConst5;
+	float fConst6;
 	FAUSTFLOAT fVslider1;
 	float fRec4[3];
 	float fVec0[2];
@@ -541,13 +591,13 @@ class fx_distortion3 : public fx_distortion3_dsp {
 	
 	void metadata(Meta* m) { 
 		m->declare("basics.lib/name", "Faust Basic Element Library");
-		m->declare("basics.lib/version", "0.1");
+		m->declare("basics.lib/version", "0.2");
 		m->declare("category", "Distortion");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
 		m->declare("ceammc.lib/version", "0.1.2");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
 		m->declare("ceammc_ui.lib/version", "0.1.2");
-		m->declare("compile_options", "-lang cpp -es 1 -scal -ftz 0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0");
 		m->declare("description", "A simple Wavesharper distortion");
 		m->declare("filename", "fx_distortion3.dsp");
 		m->declare("filters.lib/fir:author", "Julius O. Smith III");
@@ -582,12 +632,12 @@ class fx_distortion3 : public fx_distortion3_dsp {
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
-		m->declare("maths.lib/version", "2.3");
+		m->declare("maths.lib/version", "2.5");
 		m->declare("name", "fx.distortion3");
 		m->declare("platform.lib/name", "Generic Platform Library");
-		m->declare("platform.lib/version", "0.1");
+		m->declare("platform.lib/version", "0.2");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
-		m->declare("signals.lib/version", "0.0");
+		m->declare("signals.lib/version", "0.1");
 	}
 
 	virtual int getNumInputs() {
@@ -596,34 +646,6 @@ class fx_distortion3 : public fx_distortion3_dsp {
 	virtual int getNumOutputs() {
 		return 1;
 	}
-	virtual int getInputRate(int channel) {
-		int rate;
-		switch ((channel)) {
-			case 0: {
-				rate = 1;
-				break;
-			}
-			default: {
-				rate = -1;
-				break;
-			}
-		}
-		return rate;
-	}
-	virtual int getOutputRate(int channel) {
-		int rate;
-		switch ((channel)) {
-			case 0: {
-				rate = 1;
-				break;
-			}
-			default: {
-				rate = -1;
-				break;
-			}
-		}
-		return rate;
-	}
 	
 	static void classInit(int sample_rate) {
 	}
@@ -631,10 +653,12 @@ class fx_distortion3 : public fx_distortion3_dsp {
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
 		float fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
-		fConst1 = (3.14159274f / fConst0);
-		float fConst2 = (1.0f / std::tan((20520.8828f / fConst0)));
-		fConst3 = (1.0f / (fConst2 + 1.0f));
-		fConst4 = (1.0f - fConst2);
+		fConst1 = (44.0999985f / fConst0);
+		fConst2 = (1.0f - fConst1);
+		fConst3 = (3.14159274f / fConst0);
+		float fConst4 = (1.0f / std::tan((20520.8828f / fConst0)));
+		fConst5 = (1.0f / (fConst4 + 1.0f));
+		fConst6 = (1.0f - fConst4);
 	}
 	
 	virtual void instanceResetUserInterface() {
@@ -695,15 +719,15 @@ class fx_distortion3 : public fx_distortion3_dsp {
 		ui_interface->openVerticalBox("fx.distortion3");
 		ui_interface->addCheckButton("bypass", &fCheckbox0);
 		ui_interface->declare(&fVslider3, "tooltip", "Distortion Level");
-		ui_interface->addVerticalSlider("drive", &fVslider3, 0.5f, 0.0f, 1.0f, 1.0f);
+		ui_interface->addVerticalSlider("drive", &fVslider3, FAUSTFLOAT(0.5f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(1.0f));
 		ui_interface->declare(&fHslider0, "style", "knob");
-		ui_interface->addHorizontalSlider("drywet", &fHslider0, 1.0f, 0.0f, 1.0f, 0.00999999978f);
+		ui_interface->addHorizontalSlider("drywet", &fHslider0, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.00999999978f));
 		ui_interface->declare(&fVslider2, "unit", "db");
-		ui_interface->addVerticalSlider("gain", &fVslider2, 0.0f, -30.0f, 10.0f, 0.100000001f);
+		ui_interface->addVerticalSlider("gain", &fVslider2, FAUSTFLOAT(0.0f), FAUSTFLOAT(-30.0f), FAUSTFLOAT(10.0f), FAUSTFLOAT(0.100000001f));
 		ui_interface->declare(&fVslider1, "unit", "Hz");
-		ui_interface->addVerticalSlider("hp_freq", &fVslider1, 30.0f, 20.0f, 2000.0f, 1.08000004f);
+		ui_interface->addVerticalSlider("hp_freq", &fVslider1, FAUSTFLOAT(30.0f), FAUSTFLOAT(20.0f), FAUSTFLOAT(2000.0f), FAUSTFLOAT(1.08000004f));
 		ui_interface->declare(&fVslider0, "unit", "Hz");
-		ui_interface->addVerticalSlider("lp_freq", &fVslider0, 10000.0f, 1000.0f, 20000.0f, 1.08000004f);
+		ui_interface->addVerticalSlider("lp_freq", &fVslider0, FAUSTFLOAT(10000.0f), FAUSTFLOAT(1000.0f), FAUSTFLOAT(20000.0f), FAUSTFLOAT(1.08000004f));
 		ui_interface->closeBox();
 	}
 	
@@ -711,11 +735,11 @@ class fx_distortion3 : public fx_distortion3_dsp {
 		FAUSTFLOAT* input0 = inputs[0];
 		FAUSTFLOAT* output0 = outputs[0];
 		int iSlow0 = int(float(fCheckbox0));
-		float fSlow1 = (0.00100000005f * float(fHslider0));
-		float fSlow2 = std::tan((fConst1 * float(fVslider0)));
+		float fSlow1 = (fConst1 * float(fHslider0));
+		float fSlow2 = std::tan((fConst3 * float(fVslider0)));
 		float fSlow3 = (1.0f / fSlow2);
 		float fSlow4 = (1.0f / (((fSlow3 + 1.41421354f) / fSlow2) + 1.0f));
-		float fSlow5 = std::tan((fConst1 * float(fVslider1)));
+		float fSlow5 = std::tan((fConst3 * float(fVslider1)));
 		float fSlow6 = (1.0f / fSlow5);
 		float fSlow7 = (1.0f / (((fSlow6 + 1.41421354f) / fSlow5) + 1.0f));
 		float fSlow8 = fx_distortion3_faustpower2_f(fSlow5);
@@ -723,26 +747,27 @@ class fx_distortion3 : public fx_distortion3_dsp {
 		float fSlow10 = (((fSlow6 + -1.41421354f) / fSlow5) + 1.0f);
 		float fSlow11 = (2.0f * (1.0f - fSlow9));
 		float fSlow12 = (0.0f - (2.0f / fSlow8));
-		float fSlow13 = (0.00100000005f * std::pow(10.0f, (0.0500000007f * float(fVslider2))));
-		float fSlow14 = (0.00100000005f * float(fVslider3));
+		float fSlow13 = (fConst1 * std::pow(10.0f, (0.0500000007f * float(fVslider2))));
+		float fSlow14 = (fConst1 * float(fVslider3));
 		float fSlow15 = (((fSlow3 + -1.41421354f) / fSlow2) + 1.0f);
 		float fSlow16 = (2.0f * (1.0f - (1.0f / fx_distortion3_faustpower2_f(fSlow2))));
-		for (int i = 0; (i < count); i = (i + 1)) {
-			float fTemp0 = float(input0[i]);
+		for (int i0 = 0; (i0 < count); i0 = (i0 + 1)) {
+			float fTemp0 = float(input0[i0]);
 			float fTemp1 = (iSlow0 ? 0.0f : fTemp0);
-			fRec0[0] = (fSlow1 + (0.999000013f * fRec0[1]));
+			fRec0[0] = (fSlow1 + (fConst2 * fRec0[1]));
 			fRec4[0] = (fTemp1 - (fSlow7 * ((fSlow10 * fRec4[2]) + (fSlow11 * fRec4[1]))));
 			float fTemp2 = (fSlow7 * (((fSlow9 * fRec4[0]) + (fSlow12 * fRec4[1])) + (fSlow9 * fRec4[2])));
 			fVec0[0] = fTemp2;
-			fRec3[0] = (0.0f - (fConst3 * ((fConst4 * fRec3[1]) - (fTemp2 + fVec0[1]))));
-			fRec5[0] = (fSlow13 + (0.999000013f * fRec5[1]));
+			fRec3[0] = (0.0f - (fConst5 * ((fConst6 * fRec3[1]) - (fTemp2 + fVec0[1]))));
+			fRec5[0] = (fSlow13 + (fConst2 * fRec5[1]));
 			float fTemp3 = (fRec3[0] * fRec5[0]);
-			fRec6[0] = (fSlow14 + (0.999000013f * fRec6[1]));
+			fRec6[0] = (fSlow14 + (fConst2 * fRec6[1]));
 			float fTemp4 = std::sin((1.53999639f * (fRec6[0] + 0.00999999978f)));
 			float fTemp5 = (1.0f - fTemp4);
 			fRec2[0] = ((0.5f * fRec2[3]) + ((fTemp3 * ((2.0f * (fTemp4 / fTemp5)) + 1.0f)) / ((2.0f * ((std::fabs(fTemp3) * fTemp4) / fTemp5)) + 1.0f)));
 			fRec1[0] = (fRec2[0] - (fSlow4 * ((fSlow15 * fRec1[2]) + (fSlow16 * fRec1[1]))));
-			output0[i] = FAUSTFLOAT((iSlow0 ? fTemp0 : ((fTemp1 * (1.0f - fRec0[0])) + (fSlow4 * (fRec0[0] * (fRec1[2] + (fRec1[0] + (2.0f * fRec1[1]))))))));
+			float fThen1 = ((fTemp1 * (1.0f - fRec0[0])) + (fSlow4 * (fRec0[0] * (fRec1[2] + (fRec1[0] + (2.0f * fRec1[1]))))));
+			output0[i0] = FAUSTFLOAT((iSlow0 ? fTemp0 : fThen1));
 			fRec0[1] = fRec0[0];
 			fRec4[2] = fRec4[1];
 			fRec4[1] = fRec4[0];

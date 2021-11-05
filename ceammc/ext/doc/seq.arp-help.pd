@@ -24,7 +24,7 @@
 #X text 110 409 1\.;
 #X text 150 409 list;
 #X obj 246 410 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 409 CHORD: list of pitches to arpeggiate.;
+#X text 245 409 CHORD: list of pitches to arpeggiate. Type: list.;
 #X obj 20 439 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 444 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -35,8 +35,9 @@
 -49933 0;
 #X msg 110 558 asr;
 #X text 245 558 set arpeggiate mode and run. Arguments are:;
-#X obj 255 581 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 581 MS: step duration. Type: float. Min value: 0\.;
+#X obj 255 581 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 581 STEP: step duration. Type: float. Min value: 0\. Units:
+ms.;
 #X obj 255 604 cnv 1 60 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 604 ON_MODE: on mode. Type: symbol. Allowed values: all
 \, first \, last.;
@@ -89,7 +90,7 @@ value: 1\.;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title seq @url ceammc.seq-help.pd;
 #X obj 1 1154 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1157 library: ceammc v0.9.3;
+#X text 10 1157 library: ceammc v0.9.4;
 #X text 579 1169 see also:;
 #X obj 653 1169 seq.b;
 #X obj 704 1169 seq.t;
@@ -98,7 +99,7 @@ value: 1\.;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.3;
+#X text 120 32 0.9.4;
 #X text 10 54 object:;
 #X text 120 54 seq.arp;
 #X text 10 76 category:;

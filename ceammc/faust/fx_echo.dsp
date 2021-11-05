@@ -1,11 +1,13 @@
 declare name "fx.echo";
+declare version "0.2";
 
 cm = library("ceammc.lib");
 ui = library("ceammc_ui.lib");
 import("stdfaust.lib");
 
-echo = ef.echo(10.0, time, feedback) with {
-    time = hslider("delay [unit:ms]", 500, 10, 10000, 1) : cm.clip(10, 10000) : cm.time_pd2faust;
+echo = ef.echo(max_sec, time, feedback) with {
+    max_sec = 10;
+    time = hslider("delay [unit:ms]", 500, 10, max_sec * 1000, 1) : cm.time_pd2faust;
     feedback = hslider("feedback", 0.3, 0, 0.99, 0.001) : si.smoo;
 };
 

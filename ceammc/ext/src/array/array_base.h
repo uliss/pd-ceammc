@@ -149,8 +149,9 @@ bool ArrayReadIFace<Base>::setArray(t_symbol* s)
 {
     array_name_ = s;
     if (!array_.open(array_name_)) {
+        if (!Base::isPatchLoading())
+            OBJ_ERR << "array not found: " << s->s_name;
 
-        OBJ_ERR << "array not found: " << s->s_name;
         return false;
     }
 

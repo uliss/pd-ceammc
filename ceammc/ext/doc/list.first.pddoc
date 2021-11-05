@@ -33,9 +33,7 @@
 |           |          |
 [list.first            ]
 |
-[msg set]
-|
-[ (
+[ui.dt]
 ]]>
             </pdascii>
         </example>

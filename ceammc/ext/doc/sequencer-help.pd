@@ -33,7 +33,7 @@
 #X text 110 438 1\.;
 #X text 150 438 list;
 #X obj 246 439 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 438 VALUES: sequence elements.;
+#X text 245 438 VALUES: sequence elements. Type: list.;
 #X obj 20 468 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 473 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -106,13 +106,13 @@ iteration or [done( when done.;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title seq @url ceammc.seq-help.pd;
 #X obj 1 1320 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1323 library: ceammc v0.9.3;
+#X text 10 1323 library: ceammc v0.9.4;
 #N canvas 10 1342 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.3;
+#X text 120 32 0.9.4;
 #X text 10 54 object:;
 #X text 120 54 sequencer;
 #X text 10 76 category:;

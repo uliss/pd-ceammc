@@ -24,12 +24,12 @@ public:
     PropSet(const PdArgs& args);
 
     void parseProperties() override;
-    void onInlet(size_t n, const AtomListView& lst) override;
+    void onInlet(size_t n, const AtomListView& lv) override;
     const char* annotateInlet(size_t n) const override;
 
 private:
-    void processCanvasProps(t_glist* dest, t_symbol* s, const AtomList& lst);
-    void processObjectProps(t_object* dest, t_symbol* s, const AtomList& lst);
+    void processCanvasProps(t_glist* dest, t_symbol* s, const AtomListView& lv);
+    void processObjectProps(t_object* dest, t_symbol* s, const AtomListView& lv);
 };
 
 void setup_prop_set();

@@ -6,11 +6,8 @@
 using namespace ceammc;
 
 class UIKnob : public UISingleValue {
-    UIFont txt_font;
-    UITextLayout txt_min;
-    UITextLayout txt_max;
-
     int show_range_;
+    int show_value_;
     int draw_active_scale_;
     t_pt click_pos_;
 

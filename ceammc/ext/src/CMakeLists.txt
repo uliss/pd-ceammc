@@ -40,8 +40,8 @@ find_package(FLEX)
 
 set(CEAMMC_EXT_LINK_LIBRARIES ceammc_analyze ceammc_array ceammc_base ceammc_conv ceammc_data ceammc_dyn ceammc_env
     ceammc_flt ceammc_flow ceammc_fx ceammc_hw ceammc_lang ceammc_lfo ceammc_list ceammc_math ceammc_midi
-    ceammc_misc ceammc_net ceammc_noise ceammc_osc ceammc_preset ceammc_path ceammc_proto ceammc_random
-    ceammc_spat ceammc_synth ceammc_system ceammc_string ceammc_tl ceammc_ui ceammc_window
+    ceammc_misc ceammc_music ceammc_net ceammc_noise ceammc_osc ceammc_preset ceammc_path ceammc_proto ceammc_random
+    ceammc_samp ceammc_spat ceammc_synth ceammc_system ceammc_string ceammc_tl ceammc_ui ceammc_window
     ceammc_core)
 
 add_subdirectory(lib)
@@ -73,6 +73,7 @@ add_subdirectory(list)
 add_subdirectory(math)
 add_subdirectory(midi)
 add_subdirectory(misc)
+add_subdirectory(music)
 add_subdirectory(net)
 add_subdirectory(noise)
 add_subdirectory(osc)
@@ -81,6 +82,7 @@ add_subdirectory(preset)
 add_subdirectory(proto)
 add_subdirectory(random)
 add_subdirectory(rtmidi)
+add_subdirectory(samp)
 add_subdirectory(spat)
 add_subdirectory(string)
 add_subdirectory(synth)

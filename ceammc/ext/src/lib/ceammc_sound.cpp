@@ -23,6 +23,8 @@
 #include "ceammc_loader_coreaudio.h"
 #endif
 
+#include "ceammc_loader_minimp3.h"
+
 #include <algorithm>
 #include <iostream>
 
@@ -50,6 +52,14 @@ namespace sound {
     static const bool coreaudio_register = SoundFileLoader::registerLoader(
         LoaderDescr("coreaudio", &coreaudio_load_func, CoreAudioFile::supportedFormats));
 #endif
+
+    static SoundFilePtr minimp3_load_func(const std::string& path)
+    {
+        return SoundFilePtr(new MiniMp3(path));
+    }
+
+    static const bool minimp3_register = SoundFileLoader::registerLoader(
+        LoaderDescr("minimp3", &minimp3_load_func, MiniMp3::supportedFormats));
 
     SoundFile::SoundFile(const std::string& fname)
         : fname_(fname)

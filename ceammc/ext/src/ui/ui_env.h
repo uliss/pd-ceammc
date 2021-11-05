@@ -91,6 +91,7 @@ public:
     void m_eadsr(const AtomListView& lv);
     void m_easr(const AtomListView& lv);
     void m_ear(const AtomListView& lv);
+    void m_at(const AtomListView& lv);
 
     void setNamedEnvelope(t_symbol* env, const AtomListView& lv);
 

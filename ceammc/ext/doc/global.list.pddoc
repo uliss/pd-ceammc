@@ -69,13 +69,22 @@
 <![CDATA[
 [list a b c(  [set 3 2 1(
 |             |
-|  [1 2 3(    |            [bng]
+|  [1 2 3(    |            [B]
 |  |          |            |
 [global.list id]           [global.list id]
 |                          |
-[msg set]                  [msg set]
-|                          |
-[ (                        [ (
+[ui.dt]                    [ui.dt]
+
+[global.list.pd]
+]]>
+            </pdascii>
+            <pdascii id="pd">
+<![CDATA[
+[B]
+|
+[global.list id]
+|
+[ui.dt]
 ]]>
             </pdascii>
         </example>

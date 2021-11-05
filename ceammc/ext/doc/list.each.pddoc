@@ -50,9 +50,7 @@
 |                     |
 [list.each] X [pow 2] [list.each 2] X [*]
 |                     |
-[msg set]             [msg set]
-|                     |
-[ (                   [ (
+[ui.dt]               [ui.dt]
 
 /* more complex example: multiply by three element in list */
 
@@ -64,9 +62,7 @@
 |  |
 [list.each 3] X [list.reduce] X [*]
 |
-[msg set]
-|
-[ (
+[ui.dt]
 ]]>
             </pdascii>
         </example>

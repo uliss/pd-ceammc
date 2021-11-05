@@ -10,9 +10,11 @@
 #include "misc_modplug.h"
 #endif
 
+#include "aubio_pitchshift_tilde.h"
 #include "fluid.h"
 
 extern void setup_live_capture_tilde();
+extern void setup_misc_sfizz_tilde();
 
 void ceammc_misc_setup()
 {
@@ -25,6 +27,12 @@ void ceammc_misc_setup()
 #ifdef CEAMMC_HAVE_FLUIDSYNTH
     setup_misc_fluid();
 #endif
+
+#ifdef WITH_SFIZZ
+    setup_misc_sfizz_tilde();
+#endif
+
+   setup_aubio_pitchshift_tilde();
 
 #ifdef CEAMMC_HAVE_TTS_FLITE
     setup_misc_speech_flite();

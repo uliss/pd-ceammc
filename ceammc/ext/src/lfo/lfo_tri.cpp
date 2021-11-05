@@ -21,4 +21,6 @@ public:
 void setup_lfo_tri_tilde()
 {
     SoundExternalFactory<LfoTri> obj("lfo.tri~");
+    obj.addMethod("reset", &LfoTri::m_reset);
+    obj.setXletsInfo({ "freq in hz", "bang: reset phase" }, { "triangle wave in \\[-1,+1) range" });
 }

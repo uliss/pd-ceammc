@@ -36,8 +36,13 @@ add_cell_test(data)
 add_cell_test(datatype_dict)
 add_cell_test(datatype_mlist)
 add_cell_test(datatype_string)
+
+add_cell_test(parser_color)
 add_cell_test(parser_data_string)
+add_cell_test(parser_music)
+add_cell_test(parser_numeric)
 add_cell_test(parser_score)
+add_cell_test(parser_units)
 
 add_cell_test(properties)
 add_cell_test(properties2)

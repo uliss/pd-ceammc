@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "flt.bpf12"
-Code generated with Faust 2.30.12 (https://faust.grame.fr)
-Compilation options: -lang cpp -es 1 -double -ftz 0
+Code generated with Faust 2.37.3 (https://faust.grame.fr)
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -double -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __flt_bpf12_H__
@@ -218,24 +218,69 @@ class dsp_factory {
     
 };
 
-/**
- * On Intel set FZ (Flush to Zero) and DAZ (Denormals Are Zero)
- * flags to avoid costly denormals.
- */
+// Denormal handling
 
-#ifdef __SSE__
-    #include <xmmintrin.h>
-    #ifdef __SSE2__
-        #define AVOIDDENORMALS _mm_setcsr(_mm_getcsr() | 0x8040)
-    #else
-        #define AVOIDDENORMALS _mm_setcsr(_mm_getcsr() | 0x8000)
-    #endif
-#else
-    #define AVOIDDENORMALS
+#if defined (__SSE__)
+#include <xmmintrin.h>
 #endif
 
+class ScopedNoDenormals
+{
+    private:
+    
+        intptr_t fpsr;
+        
+        void setFpStatusRegister(intptr_t fpsr_aux) noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+           asm volatile("msr fpcr, %0" : : "ri" (fpsr_aux));
+        #elif defined (__SSE__)
+            _mm_setcsr(static_cast<uint32_t>(fpsr_aux));
+        #endif
+        }
+        
+        void getFpStatusRegister() noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+            asm volatile("mrs %0, fpcr" : "=r" (fpsr));
+        #elif defined ( __SSE__)
+            fpsr = static_cast<intptr_t>(_mm_getcsr());
+        #endif
+        }
+    
+    public:
+    
+        ScopedNoDenormals() noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+            intptr_t mask = (1 << 24 /* FZ */);
+        #else
+            #if defined(__SSE__)
+            #if defined(__SSE2__)
+                intptr_t mask = 0x8040;
+            #else
+                intptr_t mask = 0x8000;
+            #endif
+            #else
+                intptr_t mask = 0x0000;
+            #endif
+        #endif
+            getFpStatusRegister();
+            setFpStatusRegister(fpsr | mask);
+        }
+        
+        ~ScopedNoDenormals() noexcept
+        {
+            setFpStatusRegister(fpsr);
+        }
+
+};
+
+#define AVOIDDENORMALS ScopedNoDenormals();
+
 #endif
-/**************************  END  flt_bpf12_dsp.h **************************/
+
+/************************** END flt_bpf12_dsp.h **************************/
 /************************** BEGIN UI.h **************************/
 /************************************************************************
  FAUST Architecture File
@@ -309,6 +354,9 @@ struct UIReal
     // -- metadata declarations
     
     virtual void declare(REAL* zone, const char* key, const char* val) {}
+    
+    // To be used by LLVM client
+    virtual int sizeOfFAUSTFLOAT() { return sizeof(FAUSTFLOAT); }
 };
 
 struct UI : public UIReal<FAUSTFLOAT>
@@ -524,13 +572,15 @@ class flt_bpf12 : public flt_bpf12_dsp {
 	double fConst3;
 	double fConst4;
 	double fConst5;
+	double fConst6;
 	FAUSTFLOAT fVslider0;
+	double fConst7;
 	double fRec1[2];
 	FAUSTFLOAT fVslider1;
 	double fRec2[2];
-	double fConst6;
-	double fConst7;
 	double fConst8;
+	double fConst9;
+	double fConst10;
 	double fRec0[3];
 	
  public:
@@ -538,7 +588,7 @@ class flt_bpf12 : public flt_bpf12_dsp {
 	void metadata(Meta* m) { 
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
 		m->declare("ceammc_ui.lib/version", "0.1.2");
-		m->declare("compile_options", "-lang cpp -es 1 -double -ftz 0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -double -ftz 0");
 		m->declare("filename", "flt_bpf12.dsp");
 		m->declare("filters.lib/bandpass0_bandstop1:author", "Julius O. Smith III");
 		m->declare("filters.lib/bandpass0_bandstop1:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -565,12 +615,12 @@ class flt_bpf12 : public flt_bpf12_dsp {
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
-		m->declare("maths.lib/version", "2.3");
+		m->declare("maths.lib/version", "2.5");
 		m->declare("name", "flt.bpf12");
 		m->declare("platform.lib/name", "Generic Platform Library");
-		m->declare("platform.lib/version", "0.1");
+		m->declare("platform.lib/version", "0.2");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
-		m->declare("signals.lib/version", "0.0");
+		m->declare("signals.lib/version", "0.1");
 	}
 
 	virtual int getNumInputs() {
@@ -578,34 +628,6 @@ class flt_bpf12 : public flt_bpf12_dsp {
 	}
 	virtual int getNumOutputs() {
 		return 1;
-	}
-	virtual int getInputRate(int channel) {
-		int rate;
-		switch ((channel)) {
-			case 0: {
-				rate = 1;
-				break;
-			}
-			default: {
-				rate = -1;
-				break;
-			}
-		}
-		return rate;
-	}
-	virtual int getOutputRate(int channel) {
-		int rate;
-		switch ((channel)) {
-			case 0: {
-				rate = 1;
-				break;
-			}
-			default: {
-				rate = -1;
-				break;
-			}
-		}
-		return rate;
 	}
 	
 	static void classInit(int sample_rate) {
@@ -619,9 +641,11 @@ class flt_bpf12 : public flt_bpf12_dsp {
 		fConst3 = (2.0 * fConst2);
 		fConst4 = (4.0 * flt_bpf12_faustpower2_f(fConst0));
 		fConst5 = (3.1415926535897931 / fConst0);
-		fConst6 = (0.48999999999999999 * fConst0);
-		fConst7 = (2.0 * fConst0);
-		fConst8 = (0.5 / fConst0);
+		fConst6 = (44.100000000000001 / fConst0);
+		fConst7 = (1.0 - fConst6);
+		fConst8 = (0.48999999999999999 * fConst0);
+		fConst9 = (2.0 * fConst0);
+		fConst10 = (0.5 / fConst0);
 	}
 	
 	virtual void instanceResetUserInterface() {
@@ -662,28 +686,28 @@ class flt_bpf12 : public flt_bpf12_dsp {
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("flt.bpf12");
 		ui_interface->declare(&fVslider0, "unit", "Hz");
-		ui_interface->addVerticalSlider("freq", &fVslider0, 1000.0, 20.0, 20000.0, 0.10000000000000001);
-		ui_interface->addVerticalSlider("q", &fVslider1, 2.0, 0.01, 100.0, 0.10000000000000001);
+		ui_interface->addVerticalSlider("freq", &fVslider0, FAUSTFLOAT(1000.0), FAUSTFLOAT(20.0), FAUSTFLOAT(20000.0), FAUSTFLOAT(0.10000000000000001));
+		ui_interface->addVerticalSlider("q", &fVslider1, FAUSTFLOAT(2.0), FAUSTFLOAT(0.01), FAUSTFLOAT(100.0), FAUSTFLOAT(0.10000000000000001));
 		ui_interface->closeBox();
 	}
 	
 	virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
 		FAUSTFLOAT* input0 = inputs[0];
 		FAUSTFLOAT* output0 = outputs[0];
-		double fSlow0 = (0.0010000000000000009 * double(fVslider0));
-		double fSlow1 = (0.0010000000000000009 * double(fVslider1));
-		for (int i = 0; (i < count); i = (i + 1)) {
-			fRec1[0] = (fSlow0 + (0.999 * fRec1[1]));
-			fRec2[0] = (fSlow1 + (0.999 * fRec2[1]));
+		double fSlow0 = (fConst6 * double(fVslider0));
+		double fSlow1 = (fConst6 * double(fVslider1));
+		for (int i0 = 0; (i0 < count); i0 = (i0 + 1)) {
+			fRec1[0] = (fSlow0 + (fConst7 * fRec1[1]));
+			fRec2[0] = (fSlow1 + (fConst7 * fRec2[1]));
 			double fTemp0 = (0.5 / fRec2[0]);
-			double fTemp1 = std::tan((fConst5 * std::min<double>((fRec1[0] * (fTemp0 + 1.0)), fConst6)));
+			double fTemp1 = std::tan((fConst5 * std::min<double>((fRec1[0] * (fTemp0 + 1.0)), fConst8)));
 			double fTemp2 = flt_bpf12_faustpower2_f(std::sqrt((fConst4 * (std::tan((fConst5 * std::max<double>((fRec1[0] * (1.0 - fTemp0)), 20.0))) * fTemp1))));
 			double fTemp3 = (fConst2 * fTemp2);
-			double fTemp4 = ((fConst7 * fTemp1) - (fConst8 * (fTemp2 / fTemp1)));
+			double fTemp4 = ((fConst9 * fTemp1) - (fConst10 * (fTemp2 / fTemp1)));
 			double fTemp5 = (fConst1 * fTemp4);
 			double fTemp6 = ((fTemp3 + fTemp5) + 4.0);
-			fRec0[0] = (double(input0[i]) - (((fRec0[1] * ((fConst3 * fTemp2) + -8.0)) + (fRec0[2] * (fTemp3 + (4.0 - fTemp5)))) / fTemp6));
-			output0[i] = FAUSTFLOAT(((fConst1 * ((fRec0[0] * fTemp4) / fTemp6)) + (fRec0[2] * (0.0 - (fConst1 * (fTemp4 / fTemp6))))));
+			fRec0[0] = (double(input0[i0]) - (((fRec0[1] * ((fConst3 * fTemp2) + -8.0)) + (fRec0[2] * (fTemp3 + (4.0 - fTemp5)))) / fTemp6));
+			output0[i0] = FAUSTFLOAT(((fConst1 * ((fRec0[0] * fTemp4) / fTemp6)) + (fRec0[2] * (0.0 - (fConst1 * (fTemp4 / fTemp6))))));
 			fRec1[1] = fRec1[0];
 			fRec2[1] = fRec2[0];
 			fRec0[2] = fRec0[1];

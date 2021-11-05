@@ -19,6 +19,10 @@
 
 PD_COMPLETE_TEST_SETUP(LoadMsg, load, msg)
 
+extern "C" {
+int canvas_getdollarzero();
+}
+
 TEST_CASE("msg.onload", "[extension]")
 {
     pd_test_init();
@@ -106,11 +110,24 @@ TEST_CASE("msg.onload", "[extension]")
             const auto c = Atom::comma();
             const auto b = Message::makeBang();
 
-
             TExt t("msg.onload", AtomList::parseString(", 1, float 2, symbol ABC, 1 2 3, list 4 5 6, any message, @prop 1 2 3,"));
 
             t->onLoadBang();
             REQUIRE(t.messagesAt(0) == ML { b, 1, 2, SYM("ABC"), LF(1, 2, 3), LF(4, 5, 6), M(SYM("any"), LA("message")), M(SYM("@prop"), LF(1, 2, 3)) });
+        }
+
+        SECTION("dollars")
+        {
+            using M = Message;
+            using ML = std::vector<Message>;
+
+            TExt t("msg.onload", LA("test", "$0-msg"));
+
+            t->onLoadBang();
+
+            char buf[32];
+            sprintf(buf, "%d-msg", canvas_getdollarzero());
+            REQUIRE(t.messagesAt(0) == ML { M { SYM("test"), LA(buf) } });
         }
     }
 }

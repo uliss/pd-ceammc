@@ -205,6 +205,8 @@ TEST_CASE("metro.pattern", "[externals]")
     SECTION("external")
     {
         setTestSampleRate(44100);
+        pd_this->pd_systime = 0;
+
         REQUIRE(1_tick != 0);
 
         TExt t("metro.pattern", LF(5_ticks, 10_ticks));

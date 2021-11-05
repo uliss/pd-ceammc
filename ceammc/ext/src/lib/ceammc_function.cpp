@@ -114,7 +114,7 @@ AtomList fn_amp2db(const AtomList& args)
 
     const auto f = args[0].asT<t_float>();
     if (f <= 0) {
-        LIB_ERR << fmt::format("amp2db(): invalid amplitude value: '{}', shoudl be >0", f);
+        LIB_ERR << fmt::format("amp2db(): invalid amplitude value: '{}', should be >0", f);
         return { -144 };
     }
 

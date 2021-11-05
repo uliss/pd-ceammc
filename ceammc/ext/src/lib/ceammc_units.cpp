@@ -14,8 +14,9 @@
 #include "ceammc_units.h"
 #include "ceammc_format.h"
 #include "fmt/format.h"
-//#include "lex/fraction.lexer.h"
-#include "lex/units.lexer.h"
+#include "lex/parser_music.h"
+#include "lex/parser_numeric.h"
+#include "lex/parser_units.h"
 
 #include <cerrno>
 #include <climits>
@@ -43,49 +44,48 @@ TimeValue::ParseResult TimeValue::parse(const AtomListView& lv)
 
     if (lv.isSymbol()) {
         auto cstr = lv[0].asT<t_symbol*>()->s_name;
-        units::UnitsLexer lexer(cstr);
-        using UnitType = units::UnitsLexer::UnitType;
+        using namespace ceammc::parser;
+        UnitsFullMatch parser;
 
-        int rc = lexer.parseSingle();
-
-        if (rc < UnitsLexer::STATUS_EOF)
+        if (!parser.parse(cstr))
             return UnitParseError("invalid timevalue");
         else {
-            auto& v = lexer.values.back();
-            const bool is_int = (v.type == UnitsLexer::T_LONG);
             TimeValue tval(0);
+            const auto v = parser.result();
 
-            switch (v.unit) {
-            case UnitType::U_MSEC:
-                tval = TimeValue(is_int ? v.val.int_val : v.val.dbl_val, MS);
+            switch (v.type) {
+            case TYPE_MSEC:
+                tval = TimeValue(v.value, MS);
                 break;
-            case UnitType::U_SEC:
-                tval = TimeValue(is_int ? v.val.int_val : v.val.dbl_val, SEC);
+            case TYPE_SEC:
+                tval = TimeValue(v.value, SEC);
                 break;
-            case UnitType::U_MINUTE:
-                tval = TimeValue(is_int ? v.val.int_val : v.val.dbl_val, MIN);
+            case TYPE_MIN:
+                tval = TimeValue(v.value, MIN);
                 break;
-            case UnitType::U_HOUR:
-                tval = TimeValue(is_int ? v.val.int_val : v.val.dbl_val, HOUR);
+            case TYPE_HOUR:
+                tval = TimeValue(v.value, HOUR);
                 break;
-            case UnitType::U_DAY:
-                tval = TimeValue(is_int ? v.val.int_val : v.val.dbl_val, DAY);
+            case TYPE_DAY:
+                tval = TimeValue(v.value, DAY);
                 break;
-            case UnitType::U_SAMP:
-                tval = TimeValue(is_int ? v.val.int_val : v.val.dbl_val, SAMPLE);
+            case TYPE_SAMP:
+                tval = TimeValue(v.value, SAMPLE);
                 break;
-            case UnitType::U_SMPTE: {
-                const auto& smpte = v.val.smpte_val;
-                const double sec = smpte.hour * 3600 + smpte.min * 60 + smpte.sec;
-                const double val = 1000 * sec + smpte.frame;
-                tval = TimeValue(val, SMPTE);
+            case TYPE_SMPTE: {
+                tval = TimeValue(v.smpte.timeSec(1000) * 1000, SMPTE);
                 break;
             }
+            case TYPE_INT:
+            case TYPE_FLOAT:
+            case TYPE_UNKNOWN:
+                tval = TimeValue(v.value, MS);
+                break;
             default:
                 return UnitParseError("invalid time");
             }
 
-            tval.end_offset_ = v.end_offset;
+            tval.end_offset_ = (v.pos == POSITION_END);
             return tval;
         }
     } else if (lv.isFloat())
@@ -98,21 +98,22 @@ FractionValue::ParseResult FractionValue::parse(const AtomListView& lv)
 {
     if (lv.isSymbol()) {
         auto cstr = lv[0].asT<t_symbol*>()->s_name;
-        units::UnitsLexer lexer(cstr);
-        using UnitType = units::UnitsLexer::UnitType;
+        using namespace ceammc::parser;
+        NumericFullMatch parser;
 
-        if (lexer.parseSingle() < 0)
+        if (!parser.parse(cstr))
             return UnitParseError("invalid fraction");
         else {
-            auto& v = lexer.values.back();
-
-            switch (v.unit) {
-            case UnitType::U_PERCENT:
-                return FractionValue { v.val.dbl_val, Units::PERCENT };
-            case UnitType::U_PHASE:
-                return FractionValue { v.val.dbl_val, Units::PHASE };
-            case UnitType::U_RATIO:
-                return FractionValue::ratio(v.val.ratio_val.num, v.val.ratio_val.den);
+            switch (parser.type()) {
+            case TYPE_PERCENT:
+                return FractionValue { parser.result().percent(), Units::PERCENT };
+            case TYPE_PHASE:
+                return FractionValue { parser.asFloat(), Units::PHASE };
+            case TYPE_RATIO: {
+                t_int num, den;
+                parser.getRatio(num, den);
+                return FractionValue::ratio(num, den);
+            }
             default:
                 return UnitParseError("invalid fraction");
             }
@@ -133,34 +134,59 @@ FreqValue::ParseResult FreqValue::parse(const AtomListView& lv)
     if (lv.empty())
         return UnitParseError("empty list");
 
-    if (lv.isSymbol()) {
-        auto cstr = lv[0].asT<t_symbol*>()->s_name;
-        units::UnitsLexer lexer(cstr);
-        using UnitType = units::UnitsLexer::UnitType;
+    return parse(lv[0]);
+}
 
-        int rc = lexer.parseSingle();
-        if (rc < 0)
-            return UnitParseError("invalid frequency");
+FreqValue::ParseResult FreqValue::parse(const Atom& atom)
+{
+    if (atom.isSymbol()) {
+        auto cstr = atom.asT<t_symbol*>()->s_name;
+        using namespace ceammc::parser;
+        UnitsFullMatch parser;
+
+        if (!parser.parse(cstr))
+            return UnitParseError(fmt::format("invalid frequency: '{}'", cstr));
         else {
-            auto& v = lexer.values.back();
+            auto& v = parser.result();
 
-            switch (v.unit) {
-            case UnitType::U_BPM:
-                return FreqValue(v.val.dbl_val, Units::BPM);
-            case UnitType::U_HZ:
-                return FreqValue(v.val.dbl_val, Units::HZ);
-            case UnitType::U_MSEC: {
-                if (v.val.dbl_val == 0)
+            switch (v.type) {
+            case TYPE_BPM:
+                return FreqValue(v.bpm.bpm, Units::BPM);
+            case TYPE_HZ:
+                return FreqValue(v.value, Units::HZ);
+            case TYPE_MSEC: {
+                if (v.value == 0)
                     return UnitParseError("zero period");
                 else
-                    return FreqValue(v.val.dbl_val, Units::MS);
+                    return FreqValue(v.value, Units::MS);
             }
             default:
-                return UnitParseError("invalid frequency");
+                return UnitParseError(fmt::format("invalid frequency: '{}'", cstr));
             }
         }
-    } else if (lv.isFloat())
-        return FreqValue(lv.asT<t_float>(), HZ);
+    } else if (atom.isFloat())
+        return FreqValue(atom.asT<t_float>(), HZ);
     else
-        return UnitParseError(fmt::format("unexpected frequency format: {}", to_string(lv)));
+        return UnitParseError(fmt::format("unexpected frequency format: {}", to_string(atom)));
+}
+
+BpmValue::ParseResult BpmValue::parse(const Atom& a)
+{
+    using namespace ceammc::parser;
+    BpmFullMatch parser;
+
+    if (!parser.parse(a))
+        return UnitParseError(fmt::format("invalid bpm: '{}'", to_string(a)));
+    else {
+        const auto& v = parser.bpm();
+        return BpmValue(v.bpm, v.beatlen);
+    }
+}
+
+BpmValue::ParseResult BpmValue::parse(const AtomListView& lv)
+{
+    if (lv.empty())
+        return UnitParseError("empty list");
+
+    return parse(lv[0]);
 }

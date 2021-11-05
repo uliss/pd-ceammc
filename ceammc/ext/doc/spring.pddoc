@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="spring">
+        <title>spring</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>float value "spring"</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>base</category>
+            <keywords>spring float</keywords>
+            <since>0.9.4</since>
+            <aliases>
+                <alias>ceammc/spring</alias>
+            </aliases>
+        </meta>
+        <arguments>
+            <argument name="VAL" type="float">target value</argument>
+            <argument name="TIME" type="float">time to reach the target value</argument>
+        </arguments>
+        <properties>
+            <property name="@value" type="float" default="0">target value</property>
+            <property name="@time" type="float" minvalue="50" maxvalue="5000" default="500"
+            units="millisecond">time to reach target value</property>
+            <property name="@accel" type="float" minvalue="-5" maxvalue="5" default="0">
+            acceleration factor, 0: means linear motion (no acceleration), &gt;0: begin fast, then
+            slow down, &lt;0: begin slow, then speed up</property>
+            <property name="@mouse_down" type="int" minvalue="0" maxvalue="1" default="0">internal
+            state</property>
+            <property name="@mouse_up" type="int" minvalue="0" maxvalue="1" default="0">internal
+            state</property>
+            <property name="@mouse_move" type="int" minvalue="0" maxvalue="1" default="0">internal
+            state</property>
+            <property name="@mouse_drag" type="int" minvalue="0" maxvalue="1" default="0">internal
+            state</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="float">set current value</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="float">set @value</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>float: value</outlet>
+            <outlet>bang: when target value is reached</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+/*Note: @mouse_events property is *on**/
+
+[loadmsg 0.5]
+|
+[ui.k @mouse_events 1 @show_value 1 #a]
+  |
+  |
+  |
+  [spring 0.5 1000 @accel 2 #b]
+  |                 ^|
+  [F]               [B]
+[X b->a]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

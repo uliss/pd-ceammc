@@ -1,0 +1,5 @@
+# pan 0
+# voice slt
+.say this is minor correction release
+.say main features are:
+.say documentation fixes, proto.mpv control for MPV video player added

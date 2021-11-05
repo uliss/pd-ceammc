@@ -72,10 +72,10 @@ TEST_CASE("seq.toggles", "[externals]")
             REQUIRE_PROPERTY(t, @length, 99);
         }
 
-        SECTION("@length fixed invalid")
+        SECTION("@length fixed msec")
         {
-            TObj t("seq.toggles", LA("@length", "-99ms"));
-            REQUIRE_PROPERTY(t, @length, "75%");
+            TObj t("seq.toggles", LA("@length", "-10ms"));
+            REQUIRE_PROPERTY(t, @length, -10);
         }
 
         SECTION("@length fixed subtract")

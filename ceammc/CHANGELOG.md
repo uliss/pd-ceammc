@@ -1,5 +1,104 @@
 # CEAMMC external library changelog
 
+## [Unreleased]
+### Added:
+- loadmsg - dollar arg support added
+- new objects:
+  - an.tempo~: tempo analizer based on Aubio library
+  - array.circular~: circular buffer write/read for arrays
+  - array.grainer~: array granulator
+  - conv.edge2bang with (edge->bang alias) added
+  - file.size: aync/sync filesize requests
+  - flow.float: float pass flow object added
+  - flow.change: any message support added and second inlet for control messages
+  - fx.echo2~: stereo echo with ping-pong delay added
+  - fx.rb_pitchshift~: pitchshifter based on RubberBand library (via Aubio wrapper, see: https://breakfastquay.com/rubberband/)
+  - fx.recho~: reverse echo fx added
+  - fx.room~: room reverb added
+  - fx.secho~: enchanced version of echo that does not click on delay change  
+  - fx.shimmer~: shimmer reverb added
+  - fx.tapiir~: multitap delay with feedback (base on Faust port of Maarten de Boer, seeL https://www.researchgate.net/publication/246433873_TAPIIR_A_SOFTWARE_MULTITAP_DELAY)
+  - lfo.mosc~: LFO oscillator with various waveform and runtime change between them. Sin, saw, square, pulse, triangle and positive variants of above.  
+  - list.convolve: list convolution with O^2 complexity (with list.conv alias)
+  - list.correlate: list cross-correlation added with O^2 complexity
+  - list.rundiff: running difference (adjacent difference or partial difference)
+  - list.runsum: running sum (cumulative sum or partial sum)
+  - math.binomial: binomial coefficient calculator added (with math.nck alias)
+  - msg.sched: message scheduler added
+  - music.dur2time: duration syntax (1/4, 2., etc.) to time converter added (with music.d->t alias)
+  - music.voice2midi: single voice syntax (C, F#5, Ab(-30c), D|1/4., etc.) to midi pitch converter added (with music.v->m alias)
+  - path.normalize: file path normalization
+  - path.search: file search added
+  - path.split: split filename to dirname and basename
+  - proto.midi.cc: parser and composer for MIDI control change messages
+  - proto.midi.sysex: parser and composer for MIDI SysEx messages
+  - prop.random: basic property randomizer
+  - samp.time~: sample counter added (with samp.t~ alias)
+  - sfizz~: SFZ 2.0 format sample player
+  - spat.zita8~: 8-channel spat reverb added
+  - spring: return to specified value in specified time
+  - synth.english_bell~ added (from Faust lib)
+  - synth.french_bell~ added (from Faust lib)
+  - synth.german_bell~ added (from Faust lib)
+  - synth.kick~: low kick
+  - synth.risset_bell~
+  - synth.snare~: snare drum
+  - synth.standard_bell~ added (from Faust lib)
+  - synth.tube_bell~: STK TubeBell FM instrument added
+- new properties:
+  - lfo.+saw~, lfo.saw~, lfo.+tri~, lfo.tri~, lfo.+square~, lfo.square~, lfo.+pulse~, lfo.pulse~: @phase and @pause properties added
+  - ui.knob: @show_value property added
+  - string.split: @sym flag added to split to list of Pd symbols
+  - fluid~: @volume property added to set output level in db
+  - system.cursor: @norm property added for cursor coordinates normalization by screen (or window) size
+  - hoa.process~: @args property added
+  - ui.sliders: @show_lines to show central line ruler
+- new methods:
+  - random.float: [gen N( method added for generating list of random numbers
+  - random.int: [gen N( method added for generating list of random numbers
+  - seq.phasor: [phase( method added to set current phase
+  - ui.slider: [random( method added and [set random( args support added
+  - ui.knob: [random( method added and [set random( args support added
+  - ui.polar: [random( method added and [set random( args support added
+  - ui.env: [at( method added to get envelope value at specified position in ms, sec, % and phase
+  - lfo.+saw~, lfo.saw~, lfo.+tri~, lfo.tri~, lfo.+square~, lfo.square~, lfo.+pulse~, lfo.pulse~: [reset( method added to reset to initial phase value (@phase)
+  - fluid~: 
+    - [pan(: set synth pan normalized to \[-1..+1\] range
+    - [hold(: hold (sustain, right) pedal support
+    - [sostenuto(: sostenuto (middle) pedal support
+    - [soft(: soft (left) pedal support
+    - [legato(: legato pedal support
+    - [aftertouch( and [polytouch( support
+- new creation args:
+  - ui.knob: MIN MAX float creation args added
+  - ui.slider: MIN MAX float creation args added
+  - ui.link: URL [TITLE]? creation args added
+- misc:
+  - flow.space: float to right inlet sets @delay property
+  - WaveSine.sf2: simple sine waveform SF2 soundfont added
+  - waves.sf2: sine, saw, tri, square waveforms SF2 soundfont added
+  - fluid~ loads WaveSine.sf2 font by default
+  - math.*: any message support, multiply float atoms only
+  - Up/Down key support for ui.number
+  - ui.sliders: locked movemenet added with ALT pressed
+  - ui.sliders: snap to center while dragging with pressed SHIFT
+  - random.float: extra inlets added for min and max values
+  - random.int: extra inlets added for min and max values
+  - string.split: extra inlet added for setting separator
+  - ui.env: second outlet added for getting single value
+  - ui.link: show @url property in tooltip on mouse over
+  - MP3 support added to snd.file on Linux and Windows platforms
+  
+### Fixed:
+- flow.space: reset message fix - can not use object after reset
+- ui.midi: fixed missing binding to Program Change and After Touch events
+- ui.gain2~: missing popup menu fixes
+- ui.gain2~: missing mouse wheel support fixed
+
+### Changed:
+- fx.looper~: @loop_bang is ON by default
+- fx.zita_rev1~: property typo fixed, @dump_hf changed to @damp_hf
+  
 ## [0.9.3]
 ### Added:
 - new objects:

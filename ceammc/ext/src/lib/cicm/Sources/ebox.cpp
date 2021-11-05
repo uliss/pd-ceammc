@@ -472,6 +472,8 @@ void ebox_ready(t_ebox* x)
     x->b_boxparameters.d_bordercolor = rgba_black;
     x->b_boxparameters.d_boxfillcolor = rgba_white;
     x->b_boxparameters.d_labelcolor = rgba_black;
+    x->b_boxparameters.d_hideiolets = false;
+    x->b_boxparameters.d_hideborder = false;
 
     if (c->c_widget.w_getdrawparameters)
         c->c_widget.w_getdrawparameters(x, &x->b_boxparameters);
@@ -714,8 +716,10 @@ static void ebox_paint(t_ebox* x)
             x->b_canvas_id->s_name, x, (int)x->label_inner);
     }
 
-    ebox_draw_border(x);
-    ebox_draw_iolets(x);
+    if (!x->b_boxparameters.d_hideborder) {
+        ebox_draw_border(x);
+        ebox_draw_iolets(x);
+    }
 }
 
 //! Widget
@@ -1176,27 +1180,33 @@ void ebox_key(t_ebox* x, t_symbol* s, int argc, t_atom* argv)
 {
     t_eclass* c = eobj_getclass(&x->b_obj);
 
+    constexpr int KEY_TAB = 0xFF09;
+    constexpr int KEY_ENTER = 0xFF0D;
+    constexpr int KEY_ESCAPE = 0xFF1B;
+    constexpr int KEY_BACKSPACE = 65288;
+
     if (argc >= 2 && argv && atom_gettype(argv + 1) == A_FLOAT) {
         if (!x->b_obj.o_canvas->gl_edit) {
-            if (atom_getfloat(argv + 1) == 65288) {
+            const int key = atom_getfloat(argv + 1);
+            if (key == KEY_BACKSPACE) {
                 if (c->c_widget.w_keyfilter) {
                     c->c_widget.w_keyfilter(x, NULL, EKEY_DEL, 0);
                 } else if (c->c_widget.w_key) {
                     c->c_widget.w_key(x, NULL, EKEY_DEL, 0);
                 }
-            } else if (atom_getfloat(argv + 1) == 65289) {
+            } else if (key == KEY_TAB) {
                 if (c->c_widget.w_keyfilter) {
                     c->c_widget.w_keyfilter(x, NULL, EKEY_TAB, 0);
                 } else if (c->c_widget.w_key) {
                     c->c_widget.w_key(x, NULL, EKEY_TAB, 0);
                 }
-            } else if (atom_getfloat(argv + 1) == 65293) {
+            } else if (key == KEY_ENTER) {
                 if (c->c_widget.w_keyfilter) {
                     c->c_widget.w_keyfilter(x, NULL, EKEY_ENTER, 0);
                 } else if (c->c_widget.w_key) {
                     c->c_widget.w_key(x, NULL, EKEY_ENTER, 0);
                 }
-            } else if (atom_getfloat(argv + 1) == 65307) {
+            } else if (key == KEY_ESCAPE) {
                 if (c->c_widget.w_keyfilter) {
                     c->c_widget.w_keyfilter(x, NULL, EKEY_ESC, 0);
                 } else if (c->c_widget.w_key) {
@@ -1204,7 +1214,7 @@ void ebox_key(t_ebox* x, t_symbol* s, int argc, t_atom* argv)
                 }
             } else {
                 if (c->c_widget.w_key) {
-                    c->c_widget.w_key(x, NULL, (char)atom_getfloat(argv + 1), 0);
+                    c->c_widget.w_key(x, NULL, key, 0);
                 }
             }
         }
@@ -1879,7 +1889,7 @@ void ebox_dialog(t_ebox* x, t_symbol* s, int argc, t_atom* argv)
                             buffer += temp;
                         }
                         sys_vgui("%s delete 0 end\n", WIDGET_ID);
-                        sys_vgui("%s insert 0 \"%s\"\n", WIDGET_ID, buffer.c_str());
+                        sys_vgui("%s insert 0 {%s}\n", WIDGET_ID, buffer.c_str());
                     } else {
                         atom_string(av, temp, MAXPDSTRING);
                         std::string buffer(temp);
@@ -1904,7 +1914,7 @@ void ebox_dialog(t_ebox* x, t_symbol* s, int argc, t_atom* argv)
                         sys_vgui("%s delete 0 end \n", WIDGET_ID);
                         // replace #\d+ -> $\d+
                         // tcl: regsub -all {#(\d+)} $s {$\1}
-                        sys_vgui("%s insert 0 [regsub -all {#(\\d+)} \"%s\" {$\\1}]\n",
+                        sys_vgui("%s insert 0 [regsub -all {#(\\d+)} {%s} {$\\1}]\n",
                             WIDGET_ID, buffer.c_str());
                     }
 

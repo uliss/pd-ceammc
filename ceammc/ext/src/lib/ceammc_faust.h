@@ -35,20 +35,17 @@
 #define FAUSTFLOAT t_float
 #endif
 
-/**
- * On Intel set FZ (Flush to Zero) and DAZ (Denormals Are Zero)
- * flags to avoid costly denormals.
- */
-
+#ifndef CEAMMC_AVOIDDENORMALS
 #ifdef __SSE__
 #include <xmmintrin.h>
 #ifdef __SSE2__
-#define AVOIDDENORMALS _mm_setcsr(_mm_getcsr() | 0x8040)
+#define CEAMMC_AVOIDDENORMALS _mm_setcsr(_mm_getcsr() | 0x8040)
 #else
-#define AVOIDDENORMALS _mm_setcsr(_mm_getcsr() | 0x8000)
+#define CEAMMC_AVOIDDENORMALS _mm_setcsr(_mm_getcsr() | 0x8000)
 #endif
 #else
-#define AVOIDDENORMALS
+#define CEAMMC_AVOIDDENORMALS
+#endif
 #endif
 
 struct Soundfile;
@@ -70,6 +67,8 @@ namespace faust {
         AtomList get() const override;
         t_float value() const;
         void setValue(t_float v, bool clip = false) const;
+
+        bool getFloat(t_float& res) const override;
 
         UIElement* uiElement() { return el_; }
         const UIElement* uiElement() const { return el_; }
@@ -326,7 +325,7 @@ namespace faust {
 
         void processBlock(const t_sample** in, t_sample** out) override
         {
-            AVOIDDENORMALS;
+            CEAMMC_AVOIDDENORMALS;
 
             if (!dsp_)
                 return;

@@ -46,9 +46,13 @@ public:
 
     void m_id_request(t_symbol*, const AtomListView&);
     void m_id_reply(t_symbol*, const AtomListView&);
+
     void m_mvolume(t_symbol* s, const AtomListView& lv);
+    void m_mbalance_float(t_symbol* s, const AtomListView& lv);
+
     void m_mtune_fine(t_symbol* s, const AtomListView& lv);
     void m_mtune_coarse(t_symbol* s, const AtomListView& lv);
+    void m_mtune(t_symbol* s, const AtomListView& lv);
 
 private:
     bool appendByte(Byte b);
@@ -56,6 +60,9 @@ private:
     void reset();
 
     bool startsWith(std::initializer_list<Byte> l) const;
+
+    void output_mtune_coarse(int v);
+    void output_mtune_fine(t_float v);
 };
 
 void setup_proto_midi_sysex();

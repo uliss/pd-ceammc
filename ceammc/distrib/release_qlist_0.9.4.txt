@@ -1,0 +1,5 @@
+pan 0;
+speech @voice slt;
+speech list this is minor correction release;
+1 speech list main features are;
+2 speech list documentation fixes \,  proto.mpv control for MPV video player added;

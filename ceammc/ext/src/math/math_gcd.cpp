@@ -14,7 +14,7 @@
 #include "math_gcd.h"
 #include "ceammc_factory.h"
 
-#include <boost/math/common_factor.hpp>
+#include <boost/integer/common_factor.hpp>
 
 MathGCD::MathGCD(const PdArgs& a)
     : BaseObject(a)
@@ -26,7 +26,7 @@ MathGCD::MathGCD(const PdArgs& a)
 
 void MathGCD::onFloat(t_float f)
 {
-    floatTo(0, boost::math::gcd(int(f), int(b_)));
+    floatTo(0, boost::integer::gcd(int(f), int(b_)));
 }
 
 void MathGCD::onList(const AtomList& l)

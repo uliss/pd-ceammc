@@ -8,6 +8,8 @@ RandomInt::RandomInt(const PdArgs& a)
     , max_(nullptr)
     , seed_(nullptr)
 {
+    createInlet();
+    createInlet();
     createOutlet();
 
     min_ = new IntProperty("@min", 0);
@@ -51,6 +53,42 @@ void RandomInt::onBang()
     floatTo(0, dist(gen_.get()));
 }
 
+void RandomInt::onInlet(size_t n, const AtomListView& lv)
+{
+    switch (n) {
+    case 1:
+
+        if (checkArgs(lv, ARG_FLOAT, ARG_FLOAT)) {
+            min_->setInt(lv[0].asT<int>());
+            max_->setInt(lv[1].asT<int>());
+        } else
+            min_->setList(lv);
+
+        break;
+    case 2:
+        max_->setList(lv);
+        break;
+    }
+}
+
+void RandomInt::m_gen(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_NATURAL, s))
+        return;
+
+    const auto n = lv[0].asT<int>();
+
+    AtomList res;
+    res.reserve(n);
+
+    std::uniform_int_distribution<int> dist(min_->value(), max_->value());
+
+    for (int i = 0; i < n; i++)
+        res.append(dist(gen_.get()));
+
+    listTo(0, res);
+}
+
 void setup_random_int()
 {
     ObjectFactory<RandomInt> obj("random.int");
@@ -62,6 +100,8 @@ void setup_random_int()
     obj.setCategory("random");
     obj.setSinceVersion(0, 1);
 
-    RandomInt::setInletsInfo(obj.classPointer(), { "bang" });
+    obj.addMethod("gen", &RandomInt::m_gen);
+
+    RandomInt::setInletsInfo(obj.classPointer(), { "bang", "int: set min value", "int: set max value" });
     RandomInt::setOutletsInfo(obj.classPointer(), { "int: random in \\[@min..@max\\] range" });
 }

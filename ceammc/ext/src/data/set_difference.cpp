@@ -45,4 +45,6 @@ void setup_set_difference()
 {
     ObjectFactory<SetDifference> obj("set.diff");
     obj.processData<DataTypeSet>();
+
+    obj.setXletsInfo({ "list or Set", "list or Set" }, { "list or Set: difference" });
 }

@@ -22,7 +22,7 @@
 #X text 110 351 1\.;
 #X text 150 351 any;
 #X obj 246 352 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 351 ARGS: right set elements.;
+#X text 245 351 ARGS: right set elements. Type: any.;
 #X obj 20 381 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 386 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -50,7 +50,7 @@ Default value: Set().;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title data @url ceammc.data-help.pd;
 #X obj 1 605 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 608 library: ceammc v0.9.3;
+#X text 10 608 library: ceammc v0.9.4;
 #X text 608 620 see also:;
 #X obj 682 620 data.set;
 #N canvas 10 627 400 290 info 0;
@@ -58,7 +58,7 @@ Default value: Set().;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.3;
+#X text 120 32 0.9.4;
 #X text 10 54 object:;
 #X text 120 54 set.equal;
 #X text 10 76 category:;

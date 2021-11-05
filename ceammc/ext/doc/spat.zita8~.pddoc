@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="spat.zita8~">
+        <title>spat.zita8~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>8 channel reverb spatializer</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>spat</category>
+            <keywords>fx spat zita</keywords>
+            <since>0.9.4</since>
+        </meta>
+        <arguments>
+            <argument name="RADIUS" type="float">@radius property</argument>
+            <argument name="ANGLE" type="float">@angle property</argument>
+        </arguments>
+        <methods>
+            <method name="reset">reset spat and reverb</method>
+        </methods>
+        <properties>
+            <property name="@angle" type="float" minvalue="0" default="0" maxvalue="1">source
+            panning position</property>
+            <property name="@radius" type="float" minvalue="0" maxvalue="1" default="1">source
+            distance from circle center</property>
+            <property name="@decay_low" type="float" minvalue="1" maxvalue="60" default="3"
+            units="second">time (in seconds) to decay 60dB in low-frequency band</property>
+            <property name="@decay_mid" type="float" minvalue="1" maxvalue="60" default="2"
+            units="second">time (in seconds) to decay 60dB in mid-frequency band</property>
+            <property name="@delay" type="float" minvalue="20" maxvalue="100" default="60"
+            units="millisecond">a delay of 20 to 100 ms operating on the 'wet' signal. Large values
+            will provide the impression of a larger room</property>
+            <property name="@freq_low" type="float" minvalue="50" maxvalue="1000" default="200"
+            units="herz">Crossover frequency (Hz) separating low and middle frequencies</property>
+            <property name="@dump_hf" type="float" minvalue="1500" maxvalue="47040" default="6000"
+            units="herz">Frequency (Hz) at which the high-frequency T60 is half the middle-band's
+            T60</property>
+            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
+            processing</property>
+        </properties>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">1st output</outlet>
+            <outlet type="audio">2dn output</outlet>
+            <outlet type="audio">3rd output</outlet>
+            <outlet type="audio">4th output</outlet>
+            <outlet type="audio">5th output</outlet>
+            <outlet type="audio">6th output</outlet>
+            <outlet type="audio">7th output</outlet>
+            <outlet type="audio">8th output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[open #msg(                    [ui.polar @positive 1 @clockwise 1]
+|                                     |
+[expand_env #a]                       |
+|                                     |
+[readsf~ #b]                          |
+|                                     |
+|                                     |
+|                                     |
+| [osc~ 1000]                  [list.apply_to 1 #d]X[/ 360]
+| |                                   |
+| [env.ar~ 20 100] [ui.dt #e]  [@radius $1, @angle $2(
+| |                                   |
+| |                                   |
+| |                                   |
+[spat.zita8~                 {w=25} #z ]
+*|*
+[dac~ 1 2 3 4 5 6 7 8 {w=25}]  [ui.dsp~]
+
+[X d->e]
+#msg %CEAMMC%/sound/vln-pizz-a4.aiff, 1
+#z @radius 0
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

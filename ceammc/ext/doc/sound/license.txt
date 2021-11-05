@@ -12,6 +12,18 @@ author:   Alex McLean and contributors
 details:  part of TidalCycles https://github.com/tidalcycles/Tidal
 license:  GNU Public license version 3 (or later)
 
+vla-overtones-3.mp3
+===================================
+author:   PhonosUPF @ freesound.org
+details:  https://freesound.org/people/PhonosUPF/sounds/495956/download/495956__phonosupf__viola-overtones-3.wav
+license:  Creative Commons 0: http://creativecommons.org/publicdomain/zero/1.0/
+
+vla-grave-3.mp3
+===================================
+author:   PhonosUPF @ freesound.org
+details:  https://freesound.org/people/PhonosUPF/sounds/495958/download/495958__phonosupf__viola-grave-3.wav
+license:  Creative Commons 0: http://creativecommons.org/publicdomain/zero/1.0/
+
 
 
 

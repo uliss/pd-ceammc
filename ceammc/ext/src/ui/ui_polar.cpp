@@ -15,6 +15,8 @@
 #include <algorithm>
 #include <cmath>
 #include <cstdio>
+#include <ctime>
+#include <random>
 
 #include "ceammc_atomlist.h"
 #include "ceammc_convert.h"
@@ -283,12 +285,24 @@ void UIPolar::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
 
 void UIPolar::m_set(const AtomListView& lv)
 {
-    if (lv.size() != 2) {
-        UI_ERR << "invalid list given: set RAD ANG expected";
+    static std::default_random_engine eng(time(nullptr));
+    static const t_float m_pi = std::acos(-1);
+
+    auto SYM_RAND = gensym("random");
+
+    const bool ok = (lv == SYM_RAND)
+        || (lv.size() == 2 && lv[0].isFloat() && lv[1].isFloat());
+
+    if (!ok) {
+        UI_ERR << "invalid list given: set RAD ANG or set random expected: got: " << lv;
         return;
     }
 
-    if (!setRealValue(lv))
+    if (lv == SYM_RAND) {
+        std::uniform_real_distribution<t_float> dist(0, 1);
+        radius_ = dist(eng);
+        angle_ = dist(eng) * (prop_radians_ ? m_pi : 360.0);
+    } else if (!setRealValue(lv))
         return;
 
     redrawKnob();
@@ -342,6 +356,13 @@ void UIPolar::m_rotate(t_float angle)
 {
     angle_ += angle;
     redrawKnob();
+    output();
+}
+
+void UIPolar::m_random()
+{
+    Atom s = gensym("random");
+    m_set(AtomListView(s));
     output();
 }
 
@@ -545,4 +566,5 @@ void UIPolar::setup()
     obj.addMethod("polar", &UIPolar::m_polar);
     obj.addMethod("cartesian", &UIPolar::m_cartesian);
     obj.addMethod("rotate", &UIPolar::m_rotate);
+    obj.addMethod("random", &UIPolar::m_random);
 }

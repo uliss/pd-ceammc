@@ -35,9 +35,7 @@
 |               |          |
 [list.last                 ]
 |
-[msg set]
-|
-[ (
+[ui.dt]
 ]]>
             </pdascii>
         </example>

@@ -156,7 +156,7 @@ if __name__ == '__main__':
 
     ext_methods = read_methods(ext_name)
     is_ceammc = '.is_cicm?' in ext_methods or '.is_base?' in ext_methods
-    ext_methods = set([x for x in ext_methods if len(x) and x[0] != '.'])
+    ext_methods = set([x for x in ext_methods if len(x) and x[0] != '.' and x[0] != '_'])
     # print(doc_methods_set)
     # print(ext_methods)
     ignored_methods = {'dump', 'dsp', 'signal', 'mouseup', 'mouseenter', 'dialog',
@@ -187,6 +187,12 @@ if __name__ == '__main__':
 
         if len(unknown_props):
             cprint(f"[{ext_name}] unknown properties in doc: {unknown_props}", 'yellow')
+
+        # check internal props
+        internal_props = {x for x in ext_props_set if ext_props_dict[x].get("visibility", "") == "internal" }
+        for p in internal_props:
+            if p in doc_props_dict:
+                cprint(f"[{ext_name}] internal property in doc: {p}", 'magenta')
 
         HAVE_PDDOC = -1
         HAVE_EXTERNAL = 1
@@ -311,6 +317,8 @@ if __name__ == '__main__':
                     pass
                 elif v1 == "-inf" and float(v0) < -1.0e+24:
                     pass
+                elif v0 == "Set " and v1 == "Set()":
+                    pass
                 elif v0 != v1:
                     cprint(f"DOC [{ext_name}] invalid default \"{p}\": {v1}, in external: {v0}", 'magenta')
             elif attr == HAVE_EXTERNAL:
@@ -328,6 +336,9 @@ if __name__ == '__main__':
                     e1 = []
                     for x in p1["enum"].split(" "):
                         try:
+                            if x == "inf":
+                                raise 1
+
                             y = float(x)
                             if y.is_integer():
                                 y = int(x)

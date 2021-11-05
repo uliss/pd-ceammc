@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="prop.random">
+        <title>prop.random</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>property randomizer</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>property</category>
+            <keywords>property random</keywords>
+            <since>0.9.4</since>
+            <also>
+                <see>prop</see>
+                <see>prop.declare</see>
+                <see>patch.props</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="SEED" type="int">init random seed</argument>
+            <argument name="PROPS" type="list">properties names</argument>
+        </arguments>
+        <properties>
+            <property name="@seed" type="int"
+            default="float">random seed</property>
+        </properties>
+        <inlets dynamic="true">
+            <inlet number="1">
+                <xinfo>first specified property</xinfo>
+            </inlet>
+            <inlet number="...">
+                <xinfo>... specified property</xinfo>
+            </inlet>
+            <inlet number="n">
+                <xinfo>n-th specified property</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>connect to target object</outlet>
+            <outlet>atom: new random value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]
+|
+[prop.random @feedback]
+|              ^|
+| [sig~ 50]    [F]
+| |
+[osc.sinfb~]   [ui.dsp~]
+|
+[ui.hgain~]
+|\
+[dac~]
+
+[prop.random.1]   [prop.random.2]
+
+[prop.random.3]
+]]>
+            </pdascii>
+            <pdascii id="1">
+<![CDATA[
+[B]
+|
+[prop.random @wave]
+|              ^|
+| [sig~ 50]    [S]
+| |
+[lfo.mosc~]    [ui.dsp~]
+|
+[ui.hgain~]
+|\
+[dac~]
+]]>
+            </pdascii>
+            <pdascii id="2">
+<![CDATA[
+[F]                         [B]
+|                           |
+[phasor~ 50] [lfo.+tri~ 1]  [prop.random @res]
+|            |              |              ^|
+|            [*~ 7000]      |              [F]
+|            |.             |.
+[flt.moog_vcf~      0.6      ]
+|
+[ui.gain~ @size 120 16] [ui.dsp~]
+|\
+[dac~]
+]]>
+            </pdascii>
+            <pdascii id="abs">
+<![CDATA[
+[inlet]
+
+[prop.declare freq @f @min 50 @max 200 @default 50]
+
+[prop @freq]
+|
+[F]
+|
+[osc~]
+|
+[outlet~]
+]]>
+            </pdascii>
+            <pdascii id="3">
+<![CDATA[
+[B]
+|
+[prop.random @freq]
+|             ^|
+|             [F]
+|
+[prop.random.abs]
+|
+[ui.hgain~]
+|\
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

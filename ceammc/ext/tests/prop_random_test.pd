@@ -1,0 +1,23 @@
+#N canvas 282 199 700 500 12;
+#X obj 45 40 prop.declare freq @f @min 20 @max 20000 @default 1000
+;
+#X obj 45 77 prop.declare chan @i @min 1 @max 4 @default 4;
+#X obj 45 117 prop.declare active @b @default 1;
+#X obj 45 157 prop.declare name @s @default defaultName;
+#X obj 45 197 prop.declare lst @l @default 1 2 3;
+#X obj 48 284 prop @freq;
+#X obj 48 309 outlet;
+#X obj 148 309 outlet;
+#X obj 148 284 prop @chan;
+#X obj 248 309 outlet;
+#X obj 248 284 prop @active;
+#X obj 368 309 outlet;
+#X obj 368 284 prop @name;
+#X obj 468 309 outlet;
+#X obj 468 284 prop @lst;
+#X obj 10 10 inlet;
+#X connect 5 0 6 0;
+#X connect 8 0 7 0;
+#X connect 10 0 9 0;
+#X connect 12 0 11 0;
+#X connect 14 0 13 0;

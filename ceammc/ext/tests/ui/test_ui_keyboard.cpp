@@ -62,6 +62,19 @@ TEST_CASE("ui.keyboard", "[ui.keyboard]")
             TestExtKeyboard t("ui.vk");
             REQUIRE_UI_LIST_PROPERTY(t, "size", LF(60, 432));
         }
+
+        SECTION("args @keys")
+        {
+            TestExtKeyboard t("ui.vk", LF(12));
+            REQUIRE_UI_FLOAT_PROPERTY(t, "keys", 12);
+        }
+
+        SECTION("args @keys|@shift")
+        {
+            TestExtKeyboard t("ui.vk", LF(24, 60));
+            REQUIRE_UI_FLOAT_PROPERTY(t, "keys", 24);
+            REQUIRE_UI_FLOAT_PROPERTY(t, "shift", 60);
+        }
     }
 
     SECTION("chord")

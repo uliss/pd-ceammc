@@ -4,6 +4,7 @@ macro(ceammc_lfo_obj_external name)
 endmacro()
 
 ceammc_lfo_obj_external(impulse)
+ceammc_lfo_obj_external(mosc)
 ceammc_lfo_obj_external(pulse)
 ceammc_lfo_obj_external(pulse_pos)
 ceammc_lfo_obj_external(saw)

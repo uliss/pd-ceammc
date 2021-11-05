@@ -29,7 +29,7 @@
             readonly="true">current playing phase position</property>
             <property name="@state" type="symbol" enum="init stop record play overdub"
             readonly="true" default="init">current state</property>
-            <property name="@loop_bang" type="int" enum="0 1" default="0">output bang on each loop
+            <property name="@loop_bang" type="int" enum="0 1" default="1">output bang on each loop
             start</property>
             <property name="@loop_smooth" type="float" units="millisecond" default="10"
             minvalue="0">time of lin fadein/fadeout applied to recorded loop for smooth

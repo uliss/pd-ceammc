@@ -20,4 +20,6 @@ public:
 void setup_lfo_square_pos_tilde()
 {
     SoundExternalFactory<LfoSquarePos> obj("lfo.+square~");
+    obj.addMethod("reset", &LfoSquarePos::m_reset);
+    obj.setXletsInfo({ "freq in hz", "bang: reset phase" }, { "square wave in \\[0,+1\\] range" });
 }

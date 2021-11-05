@@ -30,7 +30,7 @@ https://faust.grame.fr/ @url https://faust.grame.fr/;
 #X text 110 459 1\.;
 #X text 150 459 symbol;
 #X obj 246 460 cnv 1 46 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 459 FNAME: path to faust dsp file.;
+#X text 245 459 FNAME: path to faust dsp file. Type: symbol.;
 #X obj 20 489 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 494 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -77,13 +77,13 @@ dsp file on change. Type: int. Default value: 1\. Allowed values: 0
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title lang @url ceammc.lang-help.pd;
 #X obj 1 977 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 980 library: ceammc v0.9.3;
+#X text 10 980 library: ceammc v0.9.4;
 #N canvas 10 999 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.3;
+#X text 120 32 0.9.4;
 #X text 10 54 object:;
 #X text 120 54 lang.faust~;
 #X text 10 76 category:;

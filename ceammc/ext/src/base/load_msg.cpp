@@ -14,33 +14,46 @@
 #include "load_msg.h"
 #include "ceammc_factory.h"
 
+extern "C" {
+#include "g_canvas.h"
+}
+
 LoadMsg::LoadMsg(const PdArgs& args)
     : BaseObject(args)
+    , raw_args_(binbufArgs())
 {
     createOutlet();
+    realizeDollars();
+}
+
+void LoadMsg::realizeDollars()
+{
+    auto cnv = canvas();
+    for (auto& a : raw_args_) {
+        if (a.isSymbol())
+            a = canvas_realizedollar(cnv, a.asT<t_symbol*>());
+    }
 }
 
 void LoadMsg::output()
 {
-    const auto msg = binbufArgs();
-
-    if (msg.empty())
+    if (raw_args_.empty())
         bangTo(0);
-    else if (msg.isFloat())
-        floatTo(0, msg[0].asT<t_float>());
+    else if (raw_args_.isFloat())
+        floatTo(0, raw_args_[0].asT<t_float>());
     else {
         size_t msg_start = 0;
-        for (size_t i = 0; i < msg.size(); i++) {
-            auto& a = msg[i];
+        for (size_t i = 0; i < raw_args_.size(); i++) {
+            auto& a = raw_args_[i];
             if (a.isComma()) {
-                const auto mpart = msg.subView(msg_start, i - msg_start);
+                const auto mpart = raw_args_.view(msg_start, i - msg_start);
                 doOutput(mpart);
                 msg_start = i + 1;
             }
         }
 
-        if (msg_start < msg.size())
-            doOutput(msg.subView(msg_start, msg.size() - msg_start));
+        if (msg_start < raw_args_.size())
+            doOutput(raw_args_.view(msg_start, raw_args_.size() - msg_start));
     }
 }
 

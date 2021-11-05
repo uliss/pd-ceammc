@@ -108,6 +108,7 @@ bool ArrayLoader::loadArrays(const sound::SoundFilePtr& file, bool redraw)
 {
     // clear loaded samples info
     loaded_samples_.clear();
+    loaded_channels_.clear();
 
     if (!file || !file->isOpened()) {
         err() << fmt::format("can't open file: {}\n", file->filename());
@@ -171,12 +172,13 @@ bool ArrayLoader::loadArrays(const sound::SoundFilePtr& file, bool redraw)
             t_word* vecs = reinterpret_cast<t_word*>(&arr.at(ARRAY_OFFSET));
             long read = file->read(vecs, SRC_LEN, channel, begin_, DEST_LEN);
 
-            if (read != DEST_LEN) {
+            if (read == 0) {
                 err() << fmt::format("can't read {} samples to array '{}'\n", DEST_LEN, name);
                 return false;
             }
 
             loaded_samples_.push_back(DEST_LEN);
+            loaded_channels_.push_back(channel);
 
         } else {
             if (ARRAY_SIZE <= ARRAY_OFFSET) { // write beyond file end
@@ -198,6 +200,7 @@ bool ArrayLoader::loadArrays(const sound::SoundFilePtr& file, bool redraw)
             }
 
             loaded_samples_.push_back(NIN_SAMPLES);
+            loaded_channels_.push_back(channel);
         }
 
         if (debug_) {

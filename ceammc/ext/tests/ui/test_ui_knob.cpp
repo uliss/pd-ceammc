@@ -527,7 +527,7 @@ TEST_CASE("ui.knob", "[ui.knob]")
             + LA("@label_inner", "@label_margins", "@label_side", "@label_valign",
                 "@max", "@midi_channel", "@midi_control")
             + LA("@midi_pickup", "@min", "@mouse_events", "@pinned", "@presetname", "@receive",
-                "@scale", "@scale_color", "@send", "@show_range", "@size", "@value");
+                "@scale", "@scale_color", "@send", "@show_range", "@show_value", "@size", "@value");
         REQUIRE(props == desired);
 
         t.call("@max?", LA("@min?", "@xxx?", "", "@non", "unknown", 100, "@receive?"));
@@ -647,5 +647,40 @@ TEST_CASE("ui.knob", "[ui.knob]")
 
         t.call("@border_color", LF(0.75, 0.5, 0.25));
         REQUIRE_UI_LIST_PROPERTY(t, "border_color", LF(0.75, 0.5, 0.25, 1));
+    }
+
+    SECTION("pos args")
+    {
+        SECTION("min")
+        {
+            TestExtKnob t("ui.knob", LF(-10));
+            REQUIRE_UI_FLOAT_PROPERTY(t, "min", -10);
+            REQUIRE_UI_FLOAT_PROPERTY(t, "max", 1);
+        }
+
+        SECTION("minmax")
+        {
+            TestExtKnob t("ui.knob", LF(-10, 5.5));
+            REQUIRE_UI_FLOAT_PROPERTY(t, "min", -10);
+            REQUIRE_UI_FLOAT_PROPERTY(t, "max", 5.5);
+        }
+    }
+
+    SECTION("random")
+    {
+        TestExtKnob t("ui.knob");
+
+        auto v = t->value();
+
+        t.call("random");
+        REQUIRE(v != t->value());
+        REQUIRE(t.outputFloatAt(0) == t->value());
+
+        v = t->value();
+
+        t.clearAll();
+        t.call("set", LA("random"));
+        REQUIRE(v != t->value());
+        REQUIRE_FALSE(t.hasOutput());
     }
 }

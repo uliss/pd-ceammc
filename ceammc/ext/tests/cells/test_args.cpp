@@ -68,7 +68,7 @@ TEST_CASE("args", "[core]")
             // ==
             REQUIRE_FLOAT(is_float, A(1), FLOAT_EQUAL, 1);
             REQUIRE_FLOAT_FALSE(is_float, A(1), FLOAT_EQUAL, 2);
-            REQUIRE(ctx.error == "expected value is 2.0, got 1.0");
+            REQUIRE(ctx.error == "expected value is 2, got 1");
             // !=
             REQUIRE_FLOAT_FALSE(is_float, A(1), FLOAT_NOT_EQUAL, 1);
             REQUIRE_FLOAT(is_float, A(1), FLOAT_NOT_EQUAL, 2);

@@ -204,7 +204,7 @@ void PropDeclare::onLoadBang()
     if (!pptr)
         return;
 
-    if (!pptr->setFromPdArgs(pv))
+    if (!pptr->setFromPdArgs(pv.view()))
         OBJ_ERR << "error setting property: " << sym_name_;
 
     if (sym_full_name_->s_thing)

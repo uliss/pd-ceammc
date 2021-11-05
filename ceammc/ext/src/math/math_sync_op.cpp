@@ -137,7 +137,7 @@ MathSyncLeftShift::MathSyncLeftShift(const PdArgs& args)
 
         return (i2 >= 0) ? (i1 << i2) : (i1 >> (-i2));
     },
-        args)
+        args, false)
 {
 }
 
@@ -146,7 +146,9 @@ MathSyncRightShift::MathSyncRightShift(const PdArgs& args)
         const auto i1 = static_cast<IntType>(v1);
         const auto i2 = static_cast<IntType>(v2);
 
-        return (i2 >= 0) ? (i1 >> i2) : (i1 << (-i2)); }, args)
+        return (i2 >= 0) ? (i1 >> i2) : (i1 << (-i2));
+    },
+        args, false)
 {
 }
 

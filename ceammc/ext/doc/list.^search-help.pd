@@ -24,7 +24,7 @@
 #X text 110 405 1\.;
 #X text 150 405 list;
 #X obj 246 406 cnv 1 38 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 405 LIST: list contents.;
+#X text 245 405 LIST: list contents. Type: list.;
 #X obj 20 435 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 440 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -62,7 +62,7 @@ value: 0\. Min value: 0\.;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
 #X obj 1 770 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 773 library: ceammc v0.9.3;
+#X text 10 773 library: ceammc v0.9.4;
 #X text 363 785 see also:;
 #X obj 437 785 list.search;
 #X obj 531 785 list.contains;
@@ -72,7 +72,7 @@ value: 0\. Min value: 0\.;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.3;
+#X text 120 32 0.9.4;
 #X text 10 54 object:;
 #X text 120 54 list.^search;
 #X text 10 76 category:;

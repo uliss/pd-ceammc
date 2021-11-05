@@ -15,7 +15,7 @@ proc ::ceammc::tl::unbind {tag event script} {
 }
 
 proc ::ceammc::tl::update_line {win x y w h} {
-    pdsend "tl_cue_canvas_resize update_line $win.c $x $y $w $h"
+    pdsend "tl_cue_canvas_resize .update_line $win.c $x $y $w $h"
 }
 
 proc ::ceammc::tl::startpolling {} {

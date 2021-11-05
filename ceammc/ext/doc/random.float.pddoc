@@ -32,6 +32,10 @@
             <argument name="ARG" type="list">@min=ARG[0], @max=ARG[1], in case of signle arg:
             @min=0, @max=ARG[0]</argument>
         </arguments>
+        <methods>
+            <method name="gen">generate list of random floats with specified length
+            <param name="N" type="int" required="true" minvalue="1">list length</param></method>
+        </methods>
         <properties>
             <property name="@min" type="float" default="0">random range lower bound</property>
             <property name="@max" type="float" default="1">random range upper bound</property>
@@ -41,20 +45,26 @@
             <inlet>
                 <xinfo on="bang">generate new number</xinfo>
             </inlet>
+            <inlet>
+                <xinfo on="float">set @min property</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="float">set @max property</xinfo>
+            </inlet>
         </inlets>
         <outlets>
-            <outlet>result value</outlet>
+            <outlet>float ot list: result value</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[B]  [@seed 0(
-|    |
-|    |
-|    |
+[B]  [@seed 0( [gen 5(
+|    |         |
+|    |         |
+|    |         |
 [random.float 1 3]
 |
-[F]
+[ui.dt]
 ]]>
             </pdascii>
         </example>

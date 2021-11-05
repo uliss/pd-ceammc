@@ -104,7 +104,7 @@ void ProcessInstance::dspCalc()
         pd::object_bang(switch_);
 }
 
-bool ProcessInstance::init(t_symbol* name, const AtomList& args)
+bool ProcessInstance::init(t_symbol* name, const AtomListView& args)
 {
     pd_this->pd_newest = nullptr;
     typedmess(&pd_objectmaker, name, (int)args.size(), args.toPdData());

@@ -74,9 +74,18 @@
 |  |          |            |
 [local.list id]            [local.list id]
 |                          |
-[msg set]                  [msg set]
-|                          |
-[ (                        [ (
+[ui.dt]                    [ui.dt]
+
+[local.list.nonlocal]
+]]>
+            </pdascii>
+            <pdascii id="nonlocal">
+<![CDATA[
+[bng]
+|
+[local.list id]
+|
+[ui.dt]
 ]]>
             </pdascii>
         </example>

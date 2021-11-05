@@ -1,0 +1,7 @@
+#N canvas 0 0 445 213 12;
+#X obj 20 48 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 20 77 global.list id;
+#X obj 20 106 ui.dt;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;

@@ -44,11 +44,7 @@
 |
 [set.symdiff C D E F]
 |
-[set->list @sort]
-|
-[msg set]
-|
-[ (
+[ui.dt]
 ]]>
             </pdascii>
         </example>

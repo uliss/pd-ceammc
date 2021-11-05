@@ -23,4 +23,6 @@ public:
 void setup_lfo_pulse_pos_tilde()
 {
     SoundExternalFactory<LfoPulsePos> obj("lfo.+pulse~");
+    obj.addMethod("reset", &LfoPulsePos::m_reset);
+    obj.setXletsInfo({ "freq in hz", "bang: reset phase" }, { "pulse wave in \\[0,+1\\] range" });
 }

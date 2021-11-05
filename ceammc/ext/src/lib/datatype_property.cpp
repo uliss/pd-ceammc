@@ -16,6 +16,7 @@
 #include "ceammc_datatypes.h"
 #include "ceammc_format.h"
 #include "ceammc_log.h"
+#include "lex/parser_props.h"
 
 #include <cstring>
 #include <limits>
@@ -23,16 +24,29 @@
 
 const int DataTypeProperty::dataType = data::DATA_PROPERTY;
 
+constexpr auto min_fdefault = std::numeric_limits<t_float>::lowest();
+constexpr auto max_fdefault = std::numeric_limits<t_float>::max();
+constexpr auto min_idefault = std::numeric_limits<int>::lowest();
+constexpr auto max_idefault = std::numeric_limits<int>::max();
+
+#define CHECK_DECLTYPE(cons, member) static_assert(std::is_same<std::remove_const<decltype(cons)>::type, decltype(member)>::value, "");
+
+#define PROP_ERR() LIB_ERR << name_ << ' '
+
 DataTypeProperty::DataTypeProperty(t_symbol* name)
     : name_(name)
     , type_(PropValueType::FLOAT)
     , value_(0.f)
     , default_(0.f)
-    , fmin_(std::numeric_limits<t_float>::lowest())
-    , fmax_(std::numeric_limits<t_float>::max())
-    , lmin_(std::numeric_limits<decltype(lmin_)>::lowest())
-    , lmax_(std::numeric_limits<decltype(lmax_)>::max())
+    , fmin_(min_fdefault)
+    , fmax_(max_fdefault)
+    , lmin_(min_idefault)
+    , lmax_(max_idefault)
 {
+    CHECK_DECLTYPE(min_fdefault, fmin_);
+    CHECK_DECLTYPE(max_fdefault, fmax_);
+    CHECK_DECLTYPE(max_idefault, lmax_);
+    CHECK_DECLTYPE(max_idefault, lmax_);
 }
 
 DataTypeProperty::DataTypeProperty(const DataTypeProperty& p)
@@ -155,40 +169,88 @@ bool DataTypeProperty::setList(const AtomList& lst)
     return true;
 }
 
-bool DataTypeProperty::setFromPdArgs(const AtomList& lst)
+bool DataTypeProperty::setFromPdArgs(const AtomListView& lv)
 {
     if (isFloat()) {
-        if (lst.isFloat())
-            setFloat(lst[0].asFloat());
-        else {
-            LIB_ERR << name_ << " float argument is expected: " << lst;
+        using namespace parser;
+
+        t_float res = false;
+        t_float prev = false;
+        if (!getFloat(prev))
+            return false;
+
+        auto rc = numeric_prop_calc<t_float>(prev, info(), lv, res);
+        switch (rc) {
+        case PropParseRes::OK:
+            return setFloat(res);
+        case PropParseRes::DIVBYZERO:
+            PROP_ERR() << "division by zero: " << lv;
+            return false;
+        case PropParseRes::NORANGE:
+            PROP_ERR() << "property without range, can't set random";
+            return false;
+        case PropParseRes::INVALID_RANDOM_ARGS:
+            PROP_ERR() << "random [MIN MAX]? expected, got: " << lv;
+            return false;
+        case PropParseRes::UNKNOWN:
+        default:
+            PROP_ERR() << float_prop_expected() << " expected, got: " << lv;
             return false;
         }
+
     } else if (isInt()) {
-        if (lst.isFloat())
-            setInt(lst[0].asFloat());
-        else {
-            LIB_ERR << name_ << "int argument is expected: " << lst;
+        using namespace parser;
+
+        int res = false;
+        int prev = false;
+        if (!getInt(prev))
+            return false;
+
+        auto rc = numeric_prop_calc<int>(prev, info(), lv, res);
+        switch (rc) {
+        case PropParseRes::OK:
+            return setInt(res);
+        case PropParseRes::DIVBYZERO:
+            PROP_ERR() << "division by zero: " << lv;
+            return false;
+        case PropParseRes::NORANGE:
+            PROP_ERR() << "property without range, can't set random";
+            return false;
+        case PropParseRes::INVALID_RANDOM_ARGS:
+            PROP_ERR() << "random [MIN MAX]? expected, got: " << lv;
+            return false;
+        case PropParseRes::UNKNOWN:
+        default:
+            PROP_ERR() << int_prop_expected() << " expected, got: " << lv;
             return false;
         }
+
     } else if (isBool()) {
-        if (lst.isFloat() && (lst[0].asFloat() == 0.0 || lst[0].asFloat() == 1.0)) {
-            setBool(lst[0].asFloat());
-        } else {
-            LIB_ERR << name_ << "1 or 0 is expected: " << lst;
+        using namespace parser;
+
+        bool res = false;
+        bool prev = false;
+        if (!getBool(prev))
+            return false;
+
+        auto err = bool_prop_calc(prev, info().defaultBool(), lv, res);
+        if (err != PropParseRes::OK) {
+            PROP_ERR() << bool_prop_expected() << " expected, got: " << lv;
             return false;
         }
+
+        return setBool(res);
     } else if (isSymbol()) {
-        if (lst.isSymbol())
-            setSymbol(lst[0].asSymbol());
+        if (lv.isSymbol())
+            setSymbol(lv[0].asSymbol());
         else {
-            LIB_ERR << name_ << "symbol is expected: " << lst;
+            PROP_ERR() << "symbol is expected: " << lv;
             return false;
         }
     } else if (isList()) {
-        setList(lst);
+        setList(lv);
     } else {
-        LIB_ERR << "unhandled property type: " << to_string(propertyType());
+        PROP_ERR() << "unhandled property type: " << to_string(propertyType());
         return false;
     }
 
@@ -350,13 +412,56 @@ bool DataTypeProperty::hasEnumValues() const
 
 PropertyInfo DataTypeProperty::info() const
 {
-    auto name = std::strchr(name_->s_name, '@');
+    const char* name = "??";
+    // skip first '@'
+    if (name_->s_name[0] != '@')
+        name = name_->s_name;
+    else
+        name = name_->s_name + 1;
+
     PropertyInfo res(name, type_);
 
     if (isFloat()) {
-        if (res.setRangeFloat(fmin_, fmax_))
-            res.setDefault(boost::get<t_float>(default_));
+        const bool has_min = fmin_ != min_fdefault;
+        const bool has_max = fmax_ != max_fdefault;
+
+        if (has_min && has_max) {
+            res.setConstraints(PropValueConstraints::CLOSED_RANGE);
+            if (!res.setRangeFloat(fmin_, fmax_))
+                res.setConstraints(PropValueConstraints::NONE);
+
+        } else if (has_min && !has_max) {
+            res.setConstraints(PropValueConstraints::GREATER_EQUAL);
+            if (!res.setMinFloat(fmin_))
+                res.setConstraints(PropValueConstraints::NONE);
+
+        } else if (!has_min && has_max) {
+            res.setConstraints(PropValueConstraints::LESS_EQUAL);
+            if (!res.setMaxFloat(fmax_))
+                res.setConstraints(PropValueConstraints::NONE);
+        }
+
+        res.setDefault(boost::get<t_float>(default_));
     } else if (isInt()) {
+        const bool has_min = lmin_ != min_idefault;
+        const bool has_max = lmax_ != max_idefault;
+
+        if (has_min && has_max) {
+            res.setConstraints(PropValueConstraints::CLOSED_RANGE);
+            if (!res.setRangeInt(lmin_, lmax_))
+                res.setConstraints(PropValueConstraints::NONE);
+
+        } else if (has_min && !has_max) {
+            res.setConstraints(PropValueConstraints::GREATER_EQUAL);
+            if (!res.setMinInt(lmin_))
+                res.setConstraints(PropValueConstraints::NONE);
+
+        } else if (!has_min && has_max) {
+            res.setConstraints(PropValueConstraints::LESS_EQUAL);
+            if (!res.setMaxInt(lmax_))
+                res.setConstraints(PropValueConstraints::NONE);
+        }
+
         res.setDefault(boost::get<int>(default_));
     } else if (isBool()) {
         res.setDefault(boost::get<bool>(default_) ? 1 : 0);

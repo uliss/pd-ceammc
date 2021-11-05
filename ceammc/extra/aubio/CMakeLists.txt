@@ -74,6 +74,15 @@ target_include_directories(aubio PRIVATE
      aubio/src)
 target_compile_definitions(aubio PRIVATE -DHAVE_CONFIG_H -DHAVE_WAVWRITE -DHAVE_WAVREAD)
 
+find_package(PkgConfig QUIET)
+pkg_check_modules(RUBBERBAND "rubberband")
+
+if(RUBBERBAND_FOUND)
+    target_include_directories(aubio PRIVATE ${SRUBBERBAND_INCLUDE_DIRS})
+    target_link_libraries(aubio PUBLIC ${RUBBERBAND_LIBRARIES})
+    target_compile_definitions(aubio PRIVATE -DHAVE_RUBBERBAND)
+endif()
+
 check_include_file_cxx("complex" HAVE_COMPLEX)
 if(HAVE_COMPLEX)
     target_compile_definitions(aubio PRIVATE -DHAVE_COMPLEX_H)

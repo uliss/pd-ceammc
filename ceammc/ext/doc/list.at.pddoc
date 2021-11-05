@@ -79,9 +79,7 @@
 |
 [list.at -1 1 3]
 |
-[msg set]
-|
-[ (
+[ui.dt]
 ]]>
             </pdascii>
         </example>

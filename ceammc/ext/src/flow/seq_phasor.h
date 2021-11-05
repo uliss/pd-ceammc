@@ -42,6 +42,8 @@ public:
     t_float calcNextTick() const;
     t_float value() const;
 
+    void m_phase(t_symbol* s, const AtomListView& lv);
+
 private:
     void next();
 };

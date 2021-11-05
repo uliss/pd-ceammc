@@ -42,11 +42,7 @@
 |                   |.
 [set.intersect       ]
 |
-[set->list @sort]
-|
-[msg set]
-|
-[ (
+[ui.dt]
 ]]>
             </pdascii>
         </example>

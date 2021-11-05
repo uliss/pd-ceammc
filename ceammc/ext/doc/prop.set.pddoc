@@ -6,7 +6,7 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>set object property</description>
+            <description>set property for connected object/subpatch/abstraction</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>property</category>
@@ -23,6 +23,7 @@
             <par>The object adds ability to change properties of flow objects that should accept
             any incoming messages. The object should be connected to destination, but it not sends
             pd messages to change props, but using internal pd method calls</par>
+            <par>Object can be used with patch declared user properties</par>
             <par>Note: you can connect to *any* destination inlet</par>
         </info>
         <arguments>
@@ -51,7 +52,7 @@
 |                            |.
 [flow.delay 1000              ]
 |
-[ui.display @display_type 1]
+[ui.dt]
 
 [F] /*the only way to resize*/
 |
@@ -60,6 +61,26 @@
 [prop.set @size]
 |
 [ui.d]
+
+
+[F] /*abstraction property*/
+|
+[prop.set @p1]
+|
+[prop.set.patch {i=1}]
+]]>
+            </pdascii>
+            <pdascii id="patch">
+<![CDATA[
+[inlet]
+
+[prop.declare p1 float @min -1 @max 20 @default 4]
+
+[loadbang]
+|
+[prop @p1]
+|
+[F]
 ]]>
             </pdascii>
         </example>

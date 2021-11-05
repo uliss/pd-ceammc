@@ -43,12 +43,15 @@
 <![CDATA[
 [F]                  [F]  [B] [1 2 3 4 5(
 |                    |    |   |
-[pass_if]X[is_even]  [pass_if ]X[is_list]
+[pass_if]X[is_even]  [flow.pass_if]X[is_list]
 |                    |
-|                    |
-[msg set]            [msg set]
-|                    |
-[ (                  [ (
+[ui.dt]              [ui.dt]
+
+[hsl]
+|
+[pass_if]X[< 64]
+|
+[F]
 ]]>
             </pdascii>
         </example>

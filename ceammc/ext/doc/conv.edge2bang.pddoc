@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="conv.edge2bang">
+        <title>conv.edge2bang</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>edge detector for numeric stream</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>conv</category>
+            <keywords>conv edge detector</keywords>
+            <since>0.9.4</since>
+            <aliases>
+                <alias>ceammc/edge-&gt;bang</alias>
+                <alias>edge-&gt;bang</alias>
+            </aliases>
+        </meta>
+        <properties>
+            <property name="@mode" type="symbol" enum="up down both" default="up">edge detection
+            mode</property>
+            <property name="@up" type="alias">alias to @mode up</property>
+            <property name="@down" type="alias">alias to @mode down</property>
+            <property name="@both" type="alias">alias to @mode both</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="float">input value</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>bang: on edge</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[phasor~ 0.5]      [phasor~ 0.5]     [lfo.tri~ 0.5]
+|                  |                 |
+[s->f~]            [*~ -1]           [s->f~]
+|                  |                 |
+[F]                [s->f~]           [F]
+|                  |                 |
+[edge->bang @down] [F]               [edge->bang @both]
+|                  |                 |
+[B]                [edge->bang @up]  [B]
+                   |
+[ui.dsp~]          [B]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

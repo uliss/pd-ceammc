@@ -16,17 +16,24 @@
                 <alias>ceammc/fluid~</alias>
             </aliases>
         </meta>
+        <info>
+            <par>If no soundfont specified: default soundfont is loaded</par>
+            <par>It is WaveSine.sf2, simple sine synth</par>
+        </info>
         <arguments>
             <argument name="SF" type="symbol">soundfont path</argument>
         </arguments>
         <properties>
-            <property name="@sf" type="symbol">soundfont path</property>
-            <property name="@version" type="symbol" readonly="true" default="2.0.0">FluidSynth
+            <property name="@sf" type="symbol">soundfont path, you can use **default** value to
+            load default soundfont</property>
+            <property name="@version" type="symbol" readonly="true" default="2.1.9">FluidSynth
             version</property>
             <property name="@soundfonts" type="list" readonly="true">list of found
             soundfonts</property>
             <property name="@gain" type="float" minvalue="0" maxvalue="10" default="0">output
             gain</property>
+            <property name="@volume" type="float" minvalue="-60" maxvalue="10" default="0"
+            units="decibel">output volume (same as @gain but in db)</property>
             <property name="@reverb_level" type="float" default="0">reverberation level</property>
             <property name="@reverb_room" type="float" default="0">reverberation room
             size</property>
@@ -35,36 +42,170 @@
             <property name="@reverb_damp" type="float" default="0">reverberation damp</property>
             <property name="@poly" type="float" minvalue="1" maxvalue="1024" default="0">max number
             of voices</property>
-            <property name="@avoices" type="float" default="0" readonly="true">number of active
+            <property name="@avoices" type="float" default="0" readonly="true">number midi
+            channels</property>
+            <property name="@n" type="int" default="16" readonly="true">number of active
             voices</property>
             <property name="@bufsize" units="sample" type="float" default="0" readonly="true">
             internal buffer size</property>
         </properties>
+        <methods>
+            <!-- note -->
+            <method name="note">play note 
+            <param name="CHAN" required="false" type="int" default="0" minvalue="0" maxvalue="16">
+            MIDI channel, if zero or ommited play on first(!) channel</param>
+            <param name="NOTE" required="true" type="int" minvalue="0" maxvalue="127">MIDI
+            note</param>
+            <param name="VEL" required="true" type="int" minvalue="0" maxvalue="127">MIDI
+            velocity</param></method>
+            <!-- cc -->
+            <method name="cc">control change 
+            <param name="CHAN" required="false" type="int" default="0" minvalue="0" maxvalue="16">
+            MIDI channel, if zero or ommited set on all channel</param>
+            <param name="CC" required="true" type="int" minvalue="0" maxvalue="127">MIDI control
+            number</param>
+            <param name="VAL" required="true" type="int" minvalue="0" maxvalue="127">MIDI control
+            value</param></method>
+            <!-- aftertouch -->
+            <method name="aftertouch">aftertouch channel pressure
+            <param name="CHAN" required="false" type="int" default="0" minvalue="0" maxvalue="16">
+            MIDI channel, ignored</param>
+            <param name="VEL" required="true" type="int" minvalue="0" maxvalue="127">MIDI
+            velocity</param></method>
+            <!-- polytouch -->
+            <method name="polytouch">polytouch key pressure
+            <param name="CHAN" required="false" type="int" default="0" minvalue="0" maxvalue="16">
+            MIDI channel, ignored</param>
+            <param name="NOTE" required="true" type="int" minvalue="0" maxvalue="127">MIDI
+            note</param>
+            <param name="VEL" required="true" type="int" minvalue="0" maxvalue="127">MIDI
+            velocity</param></method>
+            <!-- program -->
+            <method name="prog">program change 
+            <param name="CHAN" required="false" type="int" default="0" minvalue="0" maxvalue="16">
+            MIDI channel, if zero or ommited set for all channels</param>
+            <param name="PGM" required="true" type="int" minvalue="0" maxvalue="16383">program
+            number</param></method>
+            <!-- bank -->
+            <method name="bank">select instrument bank number on a MIDI channel, but doesn't change
+            instrument, it should be done with after that with *prog* message. 
+            <param name="CHAN" required="false" type="int" default="0" minvalue="0" maxvalue="16">
+            MIDI channel, if zero or ommited set for all channels</param>
+            <param name="BANK" required="true" type="int" minvalue="0" maxvalue="16383">instrument
+            bank number</param></method>
+            <!-- bend -->
+            <method name="bend">pitchband change 
+            <param name="CHAN" required="false" type="int" default="0" minvalue="0" maxvalue="16">
+            MIDI channel, if zero or ommited set for all channels</param>
+            <param name="VALUE" required="true" type="int" minvalue="0" maxvalue="16383">value in
+            0..0x3fff range, with 0x2000 center.</param></method>
+            <method name="bend:i">pitchband change 
+            <param name="CHAN" required="false" type="int" default="0" minvalue="0" maxvalue="16">
+            MIDI channel, if zero or ommited set for all channels</param>
+            <param name="VALUE" required="true" type="int" minvalue="-8192" maxvalue="8191">value
+            in -0x2000..0x1fff range, with 0 center.</param></method>
+            <method name="bend:f">pitchband change 
+            <param name="CHAN" required="false" type="int" default="0" minvalue="0" maxvalue="16">
+            MIDI channel, if zero or ommited set for all channels</param>
+            <param name="VALUE" required="true" type="float" minvalue="-1" maxvalue="1">value in
+            -1..+1 range, with 0 center.</param></method>
+            <method name="bendsens">set pitchbend sensivity 
+            <param name="CHAN" required="false" type="int" default="0" minvalue="0" maxvalue="16">
+            MIDI channel, if zero or ommited set for all channels</param>
+            <param name="RANGE" units="semitone" type="int" minvalue="0" maxvalue="64"
+            required="true">semitones sensivity</param></method>
+            <!-- tune:s -->
+            <method name="tune:s">set tuninig in semitones 
+            <param name="CHAN" required="false" type="int" default="0" minvalue="0" maxvalue="16">
+            MIDI channel, if zero or not specified apply tuning to all channels</param>
+            <param name="SEMI" type="float" required="true" minvalue="-64" maxvalue="63">semitones
+            (float) tuning</param></method>
+            <!-- tune:c -->
+            <method name="tune:c">set fine tuning in cents 
+            <param name="CHAN" required="false" type="int" default="0" minvalue="0" maxvalue="16">
+            MIDI channel, if zero or not specified apply tuning to all channels</param>
+            <param name="CENTS" type="float" required="true" minvalue="-100" maxvalue="100">cents
+            (float) tuning</param></method>
+            <!-- tune:12 -->
+            <method name="tune:12">set and activate octave tuning program in cents deviations 
+            <param name="BANK" required="true" type="int" minvalue="1" maxvalue="256">tuning bank
+            (not related to MIDI instrument bank)</param>
+            <param name="PRESET" required="true" type="int" minvalue="1" maxvalue="256">tuning
+            preset (not related to MIDI instrument program)</param>
+            <param name="TUNES" type="list" required="true">list of scale deviations from 12TET in
+            cents</param></method>
+            <!-- tunesel -->
+            <method name="tunesel">select tuning bank and preset 
+            <param name="BANK" required="true" type="int" minvalue="1" maxvalue="256">tuning bank
+            (not related to MIDI instrument bank)</param>
+            <param name="PRESET" required="true" type="int" minvalue="1" maxvalue="256">tuning
+            preset (not related to MIDI instrument program)</param></method>
+            <!-- gen -->
+            <method name="gen">set a SoundFont generator (effect) value on a MIDI channel in
+            real-time (CHANNEL, PARAM, VALUE or PARAM, VALUE expected)</method>
+            <method name="panic">send MIDI system reset command (big red 'panic' button), turns off
+            notes, resets controllers and restores initial basic channel configuration</method>
+            <!-- reset -->
+            <method name="reset">reset synth channels 
+            <param name="CHAN" required="false" type="int" default="0" minvalue="0" maxvalue="16">
+            MIDI channel, if zero or not specified reset all channels</param></method>
+            <!-- notes off -->
+            <method name="notes_off">turn off all notes on a MIDI channel (put them into release
+            phase) 
+            <param name="CHAN" required="false" type="int" default="0" minvalue="0" maxvalue="16">
+            MIDI channel, if zero or not specified turn notes on all channels</param></method>
+            <!-- sounds off -->
+            <method name="sounds_off">immediately stop all notes (skips release phase). 
+            <param name="CHAN" required="false" type="int" default="0" minvalue="0" maxvalue="16">
+            MIDI channel, if zero or not specified stop notes on all channels</param></method>
+            <!-- pan -->
+            <method name="pan">set channel panning 
+            <param name="CHAN" type="int" minvalue="0" maxvalue="16" default="0" required="false">
+            MIDI channel, if zero or ommited set for all channels</param>
+            <param name="PAN" type="float" minvalue="0" maxvalue="16383" required="true">pan value,
+            0: left, 8192(0x2000): center, 16383(0x3fff): right</param></method>
+            <method name="pan:f">set channel panning 
+            <param name="CHAN" type="int" minvalue="0" maxvalue="16" default="0" required="false">
+            MIDI channel, if zero or ommited set for all channels</param>
+            <param name="PAN" type="float" minvalue="-1" maxvalue="1" required="true">pan value,
+            -1: left, 0: center, 1): right</param></method>
+            <method name="pan:i">set channel panning 
+            <param name="CHAN" type="int" minvalue="0" maxvalue="16" default="0" required="false">
+            MIDI channel, if zero or ommited set for all channels</param>
+            <param name="PAN" type="float" minvalue="-8192" maxvalue="8191" required="true">pan
+            value, -8192(-0x2000): left, 0: center, 8191(0x1fff): right</param></method>
+            <!-- hold -->
+            <method name="hold">hold (sustain, right) pedal, ignore note release when active,
+            release all notes when set to off. 
+            <param name="CHAN" type="int" minvalue="0" maxvalue="16" default="0" required="true">
+            MIDI channel, if zero or ommited sustain all channels</param>
+            <param name="VAL" type="int" enum="0 1" required="true">pedal state</param></method>
+            <!-- sostenuto -->
+            <method name="sostenuto">sostenuto (middle) pedal, hold notes pressed before pedal
+            activation, new notes are passed untouched. Release holded notes when set to off 
+            <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">MIDI channel,
+            if zero or ommited apply to all channels</param>
+            <param name="VAL" type="int" enum="0 1" required="true">pedal state</param></method>
+            <!-- soft -->
+            <method name="soft">soft (left) pedal, activate the soft strike effect 
+            <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">MIDI channel,
+            if zero or ommited apply to all channels</param>
+            <param name="VAL" type="int" enum="0 1" required="true">pedal state</param></method>
+            <!-- legato -->
+            <method name="legato">enable or disable legato/smooth transitions between consecutive
+            notes 
+            <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">MIDI channel,
+            if zero or ommited apply to all channels</param>
+            <param name="VAL" type="int" enum="0 1" required="true">pedal state</param></method>
+            <!-- MIDI -->
+            <method name="midi">send raw midi message to synth 
+            <param name="BYTES" type="list" required="true">list of bytes</param></method>
+        </methods>
         <inlets>
             <inlet>
                 <xinfo on="symbol">load mod file</xinfo>
             </inlet>
         </inlets>
-        <methods>
-            <method name="note">play note (CHANNEL, KEY, VELOCITY or KEY, VELOCITY
-            expected)</method>
-            <method name="cc">control change (CHANNEL, KEY, VALUE or KEY, VALUE expected)</method>
-            <method name="prog">program change (CHANNEL, PROGRAM expected)</method>
-            <method name="bank">set instrument bank number on a MIDI channel (CHANNEL, BANK
-            expected)</method>
-            <method name="bend">pitchband change (CHANNEL, VALUE expected)</method>
-            <method name="gen">set a SoundFont generator (effect) value on a MIDI channel in
-            real-time (CHANNEL, PARAM, VALUE or PARAM, VALUE expected)</method>
-            <method name="panic">send MIDI system reset command (big red 'panic' button), turns off
-            notes, resets controllers and restores initial basic channel configuration</method>
-            <method name="reset">reset all synth channels</method>
-            <method name="notes_off">turn off all notes on a MIDI channel (put them into release
-            phase) 
-            <param name="CHAN" type="int" default="0">MIDI channel</param></method>
-            <method name="sounds_off">immediately stop all notes on a MIDI channel (skips release
-            phase). 
-            <param name="CHAN" type="int" default="0">MIDI channel</param></method>
-        </methods>
         <outlets>
             <outlet type="audio">left channel and property output</outlet>
             <outlet type="audio">right channel</outlet>
@@ -81,15 +222,222 @@
 |            |
 [msg note 1] [prog 1 $1(
 |            |
-| [dump(     | [loadbang]
-| |          | |
+| [dump(     |
 | |          | [@sf sf2/VintageDreamsWaves-v2.sf2(
 | |          | |
 [fluid~        ]
 | ^|
-[ui.gain~ @size 120 16]  [ui.dsp~]
+[ui.hgain~]    [ui.dsp~]
 | \
 [dac~]
+
+[fluid~.bend]   [fluid~.tune]    [fluid~.pan]  [fluid~.bank]
+
+[fluid~.midi]   [fluid~.tune-12] [fluid~.prog] [fluid~.notesoff]
+
+[fluid~.pedals] [fluid~.soundsoff]
+]]>
+            </pdascii>
+            <pdascii id="bend">
+<![CDATA[
+[ui.keyboard 25 48]
+|
+|                   [loadmsg 1]
+|                   |
+|                   [ui.hsl  #a] X [spring 0]  [ui.k #b] [ui.k #c]
+|                   |                          |         |
+|                   [flow.f]    [ui.hrd]       |         |
+|                   |           |              |         |
+[msg note 1]        [bend:f $1( [bendsens $1(  [bend $1( [bend:i $1(
+|                   |           |              |         |
+|                   |           |              |         |
+[fluid~                                                  ]
+*|*
+[ui.hgain2~]    [ui.dsp~]
+*|*
+[dac~]
+
+#a -1 1 @show_value 1 @mouse_events 1
+#b 0 16383 @show_value 1
+#c -8192 8191 @show_value 1
+]]>
+            </pdascii>
+            <pdascii id="midi">
+<![CDATA[
+/*play MIDI keyboard with default Sine tone sample*/
+
+[midiin]
+|
+[msg midi]
+|
+[fluid~]
+*|*
+[ui.hgain2~]    [ui.dsp~]
+*|*
+[dac~]
+]]>
+            </pdascii>
+            <pdascii id="tune">
+<![CDATA[
+/*play MIDI keyboard with default Sine tone sample*/
+
+[midiin]   [F]          [F]
+|          |            |
+[msg midi] [tune:s $1(  [tune:c $1(
+|          |            |
+[fluid~                 ]
+*|*
+[ui.hgain2~]    [ui.dsp~]
+*|*
+[dac~]
+]]>
+            </pdascii>
+            <pdascii id="tune-12">
+<![CDATA[
+/*play MIDI keyboard with default Sine tone sample*/
+
+            /*save and activate tuning at bank:1, preset:1*/
+
+[midiin]    [1 1 0 0 -50 0 0 0 0 0 0 0 0 -50(
+|           |
+|           |             /*restore 12TFT*/
+|           |
+[msg midi]  [msg tune:12] [tunesel 0 0( [tunesel 1 1(
+|           |             |             |
+[fluid~                                 ] /*activate bank:1, preset:1*/
+*|*
+[ui.hgain2~]    [ui.dsp~]
+*|*
+[dac~]
+]]>
+            </pdascii>
+            <pdascii id="pan">
+<![CDATA[
+[midiin]   [ui.k #a] [ui.k #b]  [ui.k #c]
+|          |         |          |
+|          |         |          |
+|          |         |          |
+[msg midi] [pan $1(  [pan:i $1( [pan:f $1(
+|          |         |          |
+[fluid~                         ]
+*|*
+[ui.hgain2~]    [ui.dsp~]
+*|*
+[dac~]
+
+#a 0 16383 @show_value 1
+#b -8192 8191 @show_value 1
+#c -1 1 @show_value 1
+]]>
+            </pdascii>
+            <pdascii id="prog">
+<![CDATA[
+[ui.keyboard 25 60]
+|
+|
+|
+|
+|          [ui.hrd 5] /*different attack and vibrato*/
+|          |
+[msg note] [prog 1 $1(
+|          |
+[fluid~    ]
+*|*
+[ui.hgain2~]    [ui.dsp~]
+*|*
+[dac~]
+]]>
+            </pdascii>
+            <pdascii id="bank">
+<![CDATA[
+[ui.keyboard 25 60]
+|
+|
+|
+|
+|
+|   [ui.hrd 4]
+|   |
+|   [+ 1]
+|   |.
+[msg 1]    [loadbang]
+|          |
+[msg note] [bank 1 0, prog 1 1, bank 2 1, prog 2 4, bank 3 2, prog 3 1, bank 4 3, prog 4 1(
+|          |
+|          |
+|          |
+[fluid~ sf2/waves.sf2]
+*|*
+[ui.hgain2~]    [ui.dsp~]
+*|*
+[dac~]
+]]>
+            </pdascii>
+            <pdascii id="reset">
+<![CDATA[
+[note 1 60 120, note 1 65 120, note 2 47 120(
+|
+| [reset( [reset 1( [reset 2(
+| |       |         |
+[fluid~             ]
+*|*
+[ui.hgain2~]    [ui.dsp~]
+*|*
+[dac~]
+]]>
+            </pdascii>
+            <pdascii id="notesoff">
+<![CDATA[
+[note 1 60 120, note 1 65 120, note 2 47 120(
+|
+| /*all*/     /*1st chan*/  /*2nd chan*/   [loadbang]
+|                                          |
+| [notes_off( [notes_off 1( [notes_off 2(  [bank 0 0, prog 0 1( /*slow attack/release*/
+| |           |             |              |
+[fluid~ sf2/waves.sf2                      ]
+*|*
+[ui.hgain2~]    [ui.dsp~]
+*|*
+[dac~]
+]]>
+            </pdascii>
+            <pdascii id="soundsoff">
+<![CDATA[
+[note 1 60 120, note 1 65 120, note 2 47 120(
+|
+| /*all*/      /*1st chan*/   /*2nd chan*/   [loadbang]
+|                                            |
+| [sounds_off( [sounds_off 1( [sounds_off 2( [bank 0 0, prog 0 1( /*slow attack/release*/
+| |            |              |              |
+[fluid~ sf2/waves.sf2                        ]
+*|*
+[ui.hgain2~]    [ui.dsp~]
+*|*
+[dac~]
+]]>
+            </pdascii>
+            <pdascii id="pedals">
+<![CDATA[
+[notein]
+*|*
+[pack f f]
+|
+[ui.keyboard]
+|
+|
+|
+|
+|           [ui.btn]  [ui.btn]  [ui.btn]    [ui.btn]
+|           |         |         |           |
+[msg note]  [hold $1( [soft $1( [legato $1( [sostenuto $1(
+|           |         |         |           |
+|           |         |         |           |
+[fluid~ sf2/waves.sf2 #z                    ]
+*|*
+[ui.hgain2~]    [ui.dsp~]   [bank 1 0, prog 1 2 #a(
+*|*
+[dac~]
+[X a->z]
 ]]>
             </pdascii>
         </example>

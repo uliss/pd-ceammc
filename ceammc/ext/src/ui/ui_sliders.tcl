@@ -29,6 +29,27 @@ proc sliders_draw_labels {cnv id w h zoom color lmin lmax} {
     $c create text $x0 $y0 -text $lmax -anchor nw -justify left -font $f -fill $color -width 0 -tags $t
 }
 
+proc sliders_draw_lines {cnv id w h zoom color} {
+    set c [::ceammc::ui::widget_canvas $cnv $id]
+    set f [sliders_label_font $zoom]
+    set t [::ceammc::ui::widget_tag $id]
+
+    if {$w > $h} {
+        set x0 0
+        set y0 [expr $h/2]
+        set x1 $w
+        set y1 $y0
+    } else {
+        set x0 [expr $w/2]
+        set y0 0
+        set x1 $x0
+        set y1 $h
+    }
+
+    set line_color [::tk::Darken $color 70]
+    $c create line $x0 $y0 $x1 $y1 -fill $line_color -width $zoom -capstyle butt -tags $t
+}
+
 proc sliders_draw_vbar {c t w h zoom color i bar} {
     set v [expr $bar / 999.0]
     if { $v < 0 } { set v 0 }

@@ -3,6 +3,7 @@
 #include "base_click.h"
 #include "base_dac.h"
 #include "base_log.h"
+#include "base_spring.h"
 #include "canvas_current.h"
 #include "canvas_top.h"
 #include "ceammc_search.h"
@@ -15,6 +16,7 @@
 #include "metro_seq.h"
 #include "mix.h"
 #include "msg_after.h"
+#include "msg_sched.h"
 #include "obj_info.h"
 #include "obj_props.h"
 #include "patch_args.h"
@@ -23,6 +25,7 @@
 #include "patch_tree.h"
 #include "prop.h"
 #include "prop_declare.h"
+#include "prop_random.h"
 #include "radio.h"
 #include "xfade2_tilde.h"
 #include "xfade_tilde.h"
@@ -83,6 +86,7 @@ void ceammc_base_setup()
     setup_base_prop();
     setup_base_radio();
     setup_base_replace();
+    setup_base_spring();
     setup_base_sync();
     setup_base_xfade2_tilde();
     setup_base_xfade_tilde();
@@ -99,6 +103,7 @@ void ceammc_base_setup()
     setup_metro_random();
     setup_metro_seq();
     setup_msg_after();
+    setup_msg_sched();
     setup_nsig_tilde();
     setup_obj_info();
     setup_obj_props();
@@ -110,6 +115,7 @@ void ceammc_base_setup()
     setup_prop_get();
     setup_prop_get_tilde();
     setup_prop_join();
+    setup_prop_random();
     setup_prop_set();
     setup_prop_split();
     setup_snd_file();

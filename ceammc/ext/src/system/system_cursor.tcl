@@ -25,12 +25,12 @@ proc ::ceammc::cursor::mousewheel {delta} {
     pdsend "$receive_symbol .mousewheel $delta"
 } 
 
-proc ::ceammc::cursor::motion {x y} {
+proc ::ceammc::cursor::motion {x y w h} {
     variable last_x
     variable last_y
     variable receive_symbol
-    if { $x != $last_x || $y != $last_y} {
-        pdsend "$receive_symbol .motion $x $y"
+    if { $x != $last_x || $y != $last_y } {
+        pdsend "$receive_symbol .motion $x $y $w $h"
         set last_x $x
         set last_y $y
     }
@@ -38,7 +38,7 @@ proc ::ceammc::cursor::motion {x y} {
 
 proc ::ceammc::cursor::pollmotion {} {
     variable continue_pollmotion
-    motion [winfo pointerx .] [winfo pointery .]
+    motion [winfo pointerx .] [winfo pointery .] [winfo screenwidth .] [winfo screenheight .]
     if {$continue_pollmotion != 0} { after 10 ::ceammc::cursor::pollmotion }
 }
 

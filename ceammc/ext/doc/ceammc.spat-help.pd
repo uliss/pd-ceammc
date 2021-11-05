@@ -49,7 +49,9 @@ harmonics;
 #X text 200 694 GMEM SPAT: 8-outputs spatializer;
 #X obj 30 721 spat.zita6x8~;
 #X text 200 721 spat with 6 inputs sources to 8 channel output;
+#X obj 30 748 spat.zita8~;
+#X text 200 748 8 channel reverb spatializer;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::spat 20 20 0 20 -104026
 -4096 0;
-#X obj 1 748 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 758 library: ceammc;
+#X obj 1 775 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 785 library: ceammc;

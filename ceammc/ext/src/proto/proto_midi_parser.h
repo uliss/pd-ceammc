@@ -16,6 +16,7 @@
 
 #include <cstdint>
 #include <functional>
+#include <initializer_list>
 
 namespace ceammc {
 namespace midi {
@@ -78,6 +79,22 @@ namespace midi {
         struct Result {
             State state;
             Error err;
+
+            const char* errStr() const
+            {
+                switch (err) {
+                case ERROR_BUFFER_OVERFLOW:
+                    return "message buffer overflow";
+                case ERROR_STATUS_BYTE_EXPECTED:
+                    return "status byte expected";
+                case ERROR_UNEXPECTED:
+                    return "unexpected byte";
+                case ERROR_UNKNOWN_STATE:
+                    return "unknown state";
+                default:
+                    return "";
+                }
+            }
         };
 
         static const std::uint16_t BUFSIZE = 1024;
@@ -97,6 +114,7 @@ namespace midi {
         MidiParser();
 
         Result push(Byte byte);
+        Result push(std::initializer_list<Byte> bytes);
 
         void setAfterTouchFn(Byte2Cb cb) { atouch_cb_ = cb; }
         void setControlChangeFn(Byte3Cb cb) { cc_cb_ = cb; }

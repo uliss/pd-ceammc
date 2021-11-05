@@ -12,13 +12,56 @@
  * this file belongs to.
  *****************************************************************************/
 #include "fluid.h"
+#include "ceammc_args.h"
+#include "ceammc_convert.h"
 #include "ceammc_factory.h"
 #include "ceammc_platform.h"
+#include "fmt/format.h"
+#include "proto/proto_midi_cc.h"
 
-#include "../src/sfloader/fluid_sfont.h"
 #include "fluidsynth.h"
+#include "midi/midi_names.h"
+#include "sfloader/fluid_sfont.h"
 
 #define PROP_ERR() LogPdObject(owner(), LOG_ERROR).stream() << errorPrefix()
+
+constexpr const char* DEFAULT_SOUNDFONT = "sf2/WaveSine.sf2";
+constexpr const char* PAN_VALUE_NAME = "pan position";
+constexpr const char* BEND_VALUE_NAME = "pitchbend";
+constexpr const char* BEND_SENS_VALUE_NAME = "pitchbend sensivity";
+constexpr const char* TUNE_CENTS_VALUE_NAME = "tune(cents)";
+constexpr const char* TUNE_SEMITONES_VALUE_NAME = "tune(semitones)";
+constexpr const char* HOLD_VALUE_NAME = "hold pedal";
+constexpr const char* SOSTENUTO_VALUE_NAME = "sostenuto pedal";
+constexpr const char* SOFT_VALUE_NAME = "soft pedal";
+constexpr const char* LEGATO_VALUE_NAME = "legato pedal";
+
+template <int IN_LEFT, int IN_CENTER, int IN_RIGHT>
+t_float pan_to_fluid(t_float v)
+{
+    // note: -500..500 range found in fluid sources: fluid_conv.c
+    constexpr int OUT_LEFT = -500;
+    constexpr int OUT_CENTER = 0;
+    constexpr int OUT_RIGHT = 500;
+
+    return (v <= IN_CENTER)
+        ? convert::lin2lin<t_float, IN_LEFT, IN_CENTER>(v, OUT_LEFT, OUT_CENTER)
+        : convert::lin2lin<t_float, IN_CENTER, IN_RIGHT>(v, OUT_CENTER, OUT_RIGHT);
+}
+
+static int float_to_sint14(t_float f)
+{
+    return (f <= 0)
+        ? convert::lin2lin<t_float, -1, 0>(f, 0x2000, 0)
+        : convert::lin2lin<t_float, 0, 1>(f, 0, 0x1fff);
+}
+
+static int float_to_uint14(t_float f)
+{
+    return (f <= 0)
+        ? convert::lin2lin<t_float, -1, 0>(f, 0, 0x2000)
+        : convert::lin2lin<t_float, 0, 1>(f, 0x2000, 0x3fff);
+}
 
 class FluidSynthProperty : public Property {
 public:
@@ -85,12 +128,6 @@ Fluid::Fluid(const PdArgs& args)
     : SoundExternal(args)
     , synth_(nullptr)
     , sound_font_(&s_)
-    , reverb_room_(nullptr)
-    , reverb_damp_(nullptr)
-    , reverb_width_(nullptr)
-    , reverb_level_(nullptr)
-    , gain_(nullptr)
-    , polyphony_(nullptr)
 {
     createSignalOutlet();
     createSignalOutlet();
@@ -103,9 +140,6 @@ Fluid::Fluid(const PdArgs& args)
 
     // settings:
     fluid_settings_setnum(settings, "synth.midi-channels", 16);
-    fluid_settings_setnum(settings, "synth.polyphony", 256);
-    fluid_settings_setnum(settings, "synth.gain", 0.6);
-    fluid_settings_setnum(settings, "synth.sample-rate", 44100);
 
     // Create fluidsynth instance:
     synth_ = new_fluid_synth(settings);
@@ -123,7 +157,7 @@ Fluid::Fluid(const PdArgs& args)
 
     createCbProperty("@soundfonts", &Fluid::propSoundFonts);
 
-    reverb_room_ = new FluidSynthProperty(
+    auto reverb_room = new FluidSynthProperty(
         "@reverb_room", synth_,
         [](fluid_synth_t* synth) -> t_float {
             return fluid_synth_get_reverb_roomsize(synth);
@@ -131,9 +165,9 @@ Fluid::Fluid(const PdArgs& args)
         [](fluid_synth_t* synth, t_float v) -> bool {
             return fluid_synth_set_reverb_roomsize(synth, v) == FLUID_OK;
         });
-    addProperty(reverb_room_);
+    addProperty(reverb_room);
 
-    reverb_damp_ = new FluidSynthProperty(
+    auto reverb_damp = new FluidSynthProperty(
         "@reverb_damp", synth_,
         [](fluid_synth_t* synth) -> t_float {
             return fluid_synth_get_reverb_damp(synth);
@@ -141,9 +175,9 @@ Fluid::Fluid(const PdArgs& args)
         [](fluid_synth_t* synth, t_float v) -> bool {
             return fluid_synth_set_reverb_damp(synth, v) == FLUID_OK;
         });
-    addProperty(reverb_damp_);
+    addProperty(reverb_damp);
 
-    reverb_width_ = new FluidSynthProperty(
+    auto reverb_width = new FluidSynthProperty(
         "@reverb_width", synth_,
         [](fluid_synth_t* synth) -> t_float {
             return fluid_synth_get_reverb_width(synth);
@@ -151,9 +185,9 @@ Fluid::Fluid(const PdArgs& args)
         [](fluid_synth_t* synth, t_float v) -> bool {
             return fluid_synth_set_reverb_width(synth, v) == FLUID_OK;
         });
-    addProperty(reverb_width_);
+    addProperty(reverb_width);
 
-    reverb_level_ = new FluidSynthProperty(
+    auto reverb_level = new FluidSynthProperty(
         "@reverb_level", synth_,
         [](fluid_synth_t* synth) -> t_float {
             return fluid_synth_get_reverb_level(synth);
@@ -161,9 +195,10 @@ Fluid::Fluid(const PdArgs& args)
         [](fluid_synth_t* synth, t_float v) -> bool {
             return fluid_synth_set_reverb_level(synth, v) == FLUID_OK;
         });
-    addProperty(reverb_level_);
+    addProperty(reverb_level);
 
-    gain_ = new FluidSynthProperty(
+    // @gain
+    auto gain = new FluidSynthProperty(
         "@gain", synth_,
         [](fluid_synth_t* synth) -> t_float {
             return fluid_synth_get_gain(synth);
@@ -173,12 +208,23 @@ Fluid::Fluid(const PdArgs& args)
             return true;
         });
 
-    if (gain_->infoT().setConstraints(PropValueConstraints::CLOSED_RANGE))
-        (void)gain_->infoT().setRangeFloat(0, 10);
+    if (gain->infoT().setConstraints(PropValueConstraints::CLOSED_RANGE))
+        (void)gain->infoT().setRangeFloat(0, 10);
 
-    addProperty(gain_);
+    addProperty(gain);
 
-    polyphony_ = new FluidSynthProperty(
+    // @volume
+    auto volume = new FluidSynthProperty(
+        "@volume", synth_,
+        [](fluid_synth_t* synth) -> t_float { return convert::amp2dbfs(fluid_synth_get_gain(synth)); },
+        [](fluid_synth_t* synth, t_float v) -> bool {
+            fluid_synth_set_gain(synth, convert::dbfs2amp(v));
+            return true;
+        });
+    volume->setUnits(PropValueUnits::DB);
+    addProperty(volume);
+
+    auto polyphony = new FluidSynthProperty(
         "@poly", synth_,
         [](fluid_synth_t* synth) -> t_float {
             return fluid_synth_get_polyphony(synth);
@@ -187,10 +233,10 @@ Fluid::Fluid(const PdArgs& args)
             return fluid_synth_set_polyphony(synth, v) == FLUID_OK;
         });
 
-    if (polyphony_->infoT().setConstraints(PropValueConstraints::CLOSED_RANGE))
-        (void)polyphony_->infoT().setRangeFloat(1, 1024);
+    if (polyphony->infoT().setConstraints(PropValueConstraints::CLOSED_RANGE))
+        (void)polyphony->infoT().setRangeFloat(1, 1024);
 
-    addProperty(polyphony_);
+    addProperty(polyphony);
 
     {
         auto p = new FluidSynthProperty(
@@ -213,6 +259,12 @@ Fluid::Fluid(const PdArgs& args)
 
         addProperty(p);
     }
+
+    createCbIntProperty("@n", [this]() {
+        return (!synth_) ? 0 : fluid_synth_count_midi_channels(synth_);
+    });
+
+    bindMidiParser();
 }
 
 Fluid::~Fluid()
@@ -225,6 +277,15 @@ Fluid::~Fluid()
     delete_fluid_synth(synth_);
 }
 
+void Fluid::initDone()
+{
+    SoundExternal::initDone();
+
+    // load default soundfont
+    if (sound_font_ == &s_)
+        propSetSoundFont(gensym(DEFAULT_SOUNDFONT));
+}
+
 void Fluid::onList(const AtomList& lst)
 {
     m_note(&s_, lst);
@@ -234,12 +295,8 @@ void Fluid::setupDSP(t_signal** sp)
 {
     SoundExternal::setupDSP(sp);
 
-    if (synth_) {
-        fluid_settings_t* s = fluid_synth_get_settings(synth_);
-        if (fluid_settings_setnum(s, "synth.sample-rate", samplerate()) != FLUID_OK) {
-            OBJ_ERR << "can't set samplerate: " << samplerate();
-        }
-    }
+    if (synth_)
+        fluid_synth_set_sample_rate(synth_, samplerate());
 }
 
 bool Fluid::propSetSoundFont(t_symbol* s)
@@ -249,13 +306,15 @@ bool Fluid::propSetSoundFont(t_symbol* s)
         return false;
     }
 
-    std::string filename = findInStdPaths(s->s_name);
+    std::string filename = findInStdPaths((s == gensym("default"))
+            ? DEFAULT_SOUNDFONT
+            : s->s_name);
 
     if (filename.empty()) {
         filename = platform::find_in_exernal_dir(owner(), s->s_name);
 
         if (filename.empty()) {
-            OBJ_ERR << "sound font is not found: " << s;
+            OBJ_ERR << "soundfont is not found: " << s;
             return false;
         }
     }
@@ -288,93 +347,196 @@ AtomList Fluid::propSoundFonts() const
     return res;
 }
 
-void Fluid::m_note(t_symbol* s, const AtomListView& lst)
+void Fluid::m_note(t_symbol* s, const AtomListView& lv)
 {
-    if (synth_ == nullptr)
+    auto res = midiByteValue3(s, "NOTE", "VEL", lv);
+    if (!res.ok)
         return;
 
-    if (lst.size() == 3 && lst[0].isFloat() && lst[1].isFloat() && lst[2].isFloat()) {
-        int chan = lst[0].asInt();
-        int key = lst[1].asInt();
-        int vel = lst[2].asInt();
+    // play on first channel
+    if (res.chan == -1)
+        res.chan = 0;
 
-        fluid_synth_noteon(synth_, chan - 1, key, vel);
-    } else if (lst.size() == 2 && lst[0].isFloat() && lst[1].isFloat()) {
-        int key = lst[0].asInt();
-        int vel = lst[1].asInt();
-        fluid_synth_noteon(synth_, 0, key, vel);
-    } else {
-        METHOD_ERR(s) << "CHAN KEY VEL or KEY VEL expected: " << lst;
-    }
+    auto fn = [&res](fluid_synth_t* synth, int chan, uint8_t val) -> bool {
+        return fluid_synth_noteon(synth, chan, res.n, val) == FLUID_OK;
+    };
+    callFluidChannelFn(s, res.chan, fn, res.value, "note", lv);
 }
 
-void Fluid::m_cc(t_symbol* s, const AtomListView& lst)
+void Fluid::m_cc(t_symbol* s, const AtomListView& lv)
 {
-    if (synth_ == nullptr)
+    const auto res = midiByteValue3(s, "CC", "VAL", lv);
+    if (!res.ok)
         return;
 
-    if (lst.size() == 3 && lst[0].isFloat() && lst[1].isFloat() && lst[2].isFloat()) {
-        int chan = lst[0].asInt();
-        int key = lst[1].asInt();
-        int vel = lst[2].asInt();
-
-        fluid_synth_cc(synth_, chan - 1, key, vel);
-    } else if (lst.size() == 2 && lst[0].isFloat() && lst[1].isFloat()) {
-        int key = lst[0].asInt();
-        int vel = lst[1].asInt();
-        fluid_synth_cc(synth_, 0, key, vel);
-    } else {
-        METHOD_ERR(s) << "CHAN KEY VAL or KEY VAL expected: " << lst;
-    }
+    auto fn = [&res](fluid_synth_t* synth, int chan, uint8_t val) -> bool {
+        return fluid_synth_cc(synth, chan, res.n, val) == FLUID_OK;
+    };
+    callFluidChannelFn(s, res.chan, fn, res.value, "cc", lv);
 }
 
-void Fluid::m_prog(t_symbol* s, const AtomListView& lst)
+void Fluid::m_prog(t_symbol* s, const AtomListView& lv)
 {
-    if (synth_ == nullptr)
+    const auto res = midiByteValue2(s, "PROG", lv, 0x1fff);
+    if (!res.ok)
         return;
 
-    if (lst.size() == 2 && lst[0].isFloat() && lst[1].isFloat()) {
-        int chan = lst[0].asInt();
-        int program = lst[1].asInt();
-        fluid_synth_program_change(synth_, chan - 1, program);
-    } else {
-        METHOD_ERR(s) << "CHAN PROGRAM expected: " << lst;
-    }
+    auto fn = [](fluid_synth_t* synth, int chan, int val) -> bool {
+        return fluid_synth_program_change(synth, chan, val) == FLUID_OK;
+    };
+    callFluidChannelFn(s, res.chan, fn, res.value, "program", lv);
 }
 
-void Fluid::m_bank(t_symbol* s, const AtomListView& lst)
+void Fluid::m_bank(t_symbol* s, const AtomListView& lv)
 {
-    if (synth_ == nullptr)
+    const auto res = midiByteValue2(s, "BANK", lv, 0x1fff);
+    if (!res.ok)
         return;
 
-    if (lst.size() == 2 && lst[0].isFloat() && lst[1].isFloat()) {
-        int chan = lst[0].asInt();
-        int bank = lst[1].asInt();
-        fluid_synth_bank_select(synth_, chan - 1, bank);
-
-        int sf_id;
-        int bank_num;
-        int prog_num;
-
-        fluid_synth_get_program(synth_, chan - 1, &sf_id, &bank_num, &prog_num);
-        fluid_synth_program_change(synth_, chan - 1, prog_num);
-    } else {
-        METHOD_ERR(s) << "CHAN BANK expected: " << lst;
-    }
+    auto fn = [](fluid_synth_t* synth, int chan, int val) -> bool {
+        return fluid_synth_bank_select(synth, chan, val) == FLUID_OK;
+    };
+    callFluidChannelFn(s, res.chan, fn, res.value, "bank", lv);
 }
 
-void Fluid::m_bend(t_symbol* s, const AtomListView& lst)
+void Fluid::setBend(t_symbol* method, int chan, int value, const AtomListView& args)
 {
-    if (synth_ == nullptr)
+    auto fn = [](fluid_synth_t* synth, int chan, int value) -> bool {
+        return fluid_synth_pitch_bend(synth, chan, value) == FLUID_OK;
+    };
+
+    callFluidChannelFn(method, chan, fn, value, BEND_VALUE_NAME, args);
+}
+
+void Fluid::setPan(t_symbol* method, int chan, float fluid_pan_value, const AtomListView& args)
+{
+    auto fn = [](fluid_synth_t* synth, int chan, int value) -> bool {
+        return fluid_synth_set_gen(synth, chan, GEN_PAN, value) == FLUID_OK;
+    };
+
+    callFluidChannelFn(method, chan, fn, fluid_pan_value, PAN_VALUE_NAME, args);
+}
+
+int Fluid::countMidiChannels() const
+{
+    return synth_ ? fluid_synth_count_midi_channels(synth_) : 0;
+}
+
+Fluid::MidiChanValue3 Fluid::midiByteValue3(t_symbol* method,
+    const char* nName,
+    const char* vName,
+    const AtomListView& lv) const
+{
+    int chan = 0;
+    int n = 0;
+    int v = 0;
+
+    if (lv.size() == 3 && lv[0].isInteger() && lv[1].isFloat() && lv[2].isFloat()) {
+        chan = lv[0].asT<int>();
+        n = lv[1].asT<int>();
+        v = lv[2].asT<int>();
+    } else if (lv.size() == 2 && lv[0].isFloat() && lv[1].isFloat()) {
+        n = lv[0].asT<int>();
+        v = lv[1].asT<int>();
+    } else {
+        METHOD_ERR(method) << fmt::format("CHAN[0..16]? {}[0..127] {}[0..127] expected, got: ", nName, vName)
+                           << lv;
+        return { 0, 0, 0, false };
+    }
+
+    if (chan < 0 || chan > countMidiChannels()) {
+        METHOD_ERR(method) << fmt::format(
+            "channel value is out of [0..{}] range: {}", countMidiChannels(), chan);
+
+        return { 0, 0, 0, false };
+    }
+
+    if (n < 0 || n > 0x7f) {
+        METHOD_ERR(method) << fmt::format("{} is out of [0..127] range: {}", nName, n);
+        return { 0, 0, 0, false };
+    }
+
+    if (v < 0 || v > 0x7f) {
+        METHOD_ERR(method) << fmt::format("{} is out of [0..127] range: {}", vName, v);
+        return { 0, 0, 0, false };
+    }
+
+    return { chan - 1, uint8_t(n), uint16_t(v), true };
+}
+
+Fluid::MidiChanValue2 Fluid::midiByteValue2(t_symbol* method,
+    const char* valueName,
+    const AtomListView& lv,
+    int maxValue) const
+{
+    int chan = 0;
+    int val = 0;
+
+    if (lv.size() == 2 && lv[0].isInteger() && lv[1].isFloat()) {
+        chan = lv[0].asT<int>();
+        val = lv[1].asT<int>();
+    } else if (lv.size() == 1 && lv[0].isFloat()) {
+        val = lv[0].asT<int>();
+    } else {
+        METHOD_ERR(method) << fmt::format("CHAN[0..16]? {}[0..127] expected, got: ", valueName)
+                           << lv;
+        return { 0, 0, false };
+    }
+
+    if (chan < 0 || chan > countMidiChannels()) {
+        METHOD_ERR(method) << fmt::format(
+            "channel value is out of [0..{}] range: {}", countMidiChannels(), chan);
+        return { 0, 0, false };
+    }
+
+    if (val < 0 || val > maxValue) {
+        METHOD_ERR(method) << fmt::format("{} is out of [0..{}] range: {}", valueName, maxValue, val);
+        return { 0, 0, false };
+    }
+
+    return { chan - 1, uint16_t(val), true };
+}
+
+void Fluid::m_bend(t_symbol* s, const AtomListView& lv)
+{
+    const auto ch = channelValue<int>(lv);
+    if (!ch.ok) {
+        METHOD_ERR(s) << "(CHANNEL:i)? BEND:i[0..0x3FFF] expected, got: " << lv;
+        return;
+    }
+
+    if (!checkChanValue<int>(s, BEND_VALUE_NAME, ch, 0, 0x3FFF))
         return;
 
-    if (lst.size() == 2 && lst[0].isFloat() && lst[1].isFloat()) {
-        int chan = lst[0].asInt();
-        int val = lst[1].asInt();
-        fluid_synth_pitch_bend(synth_, chan - 1, val);
-    } else {
-        METHOD_ERR(s) << "CHAN VAL expected: " << lst;
+    setBend(s, ch.chan, ch.value, lv);
+}
+
+void Fluid::m_bend_int(t_symbol* s, const AtomListView& lv)
+{
+    const auto ch = channelValue<int>(lv);
+    if (!ch.ok) {
+        METHOD_ERR(s) << "(CHANNEL:i)? BEND:i[-0x2000..0x1FFF] expected, got: " << lv;
+        return;
     }
+
+    if (!checkChanValue<int>(s, BEND_VALUE_NAME, ch, -0x2000, 0x1FFF))
+        return;
+
+    setBend(s, ch.chan, ch.value + 0x2000, lv);
+}
+
+void Fluid::m_bend_float(t_symbol* s, const AtomListView& lv)
+{
+    const auto ch = channelValue<t_float>(lv);
+    if (!ch.ok) {
+        METHOD_ERR(s) << "(CHANNEL:i)? BEND:i[-1..+1] expected, got: " << lv;
+        return;
+    }
+
+    if (!checkChanValue<t_float>(s, BEND_VALUE_NAME, ch, -1, 1))
+        return;
+
+    setBend(s, ch.chan, float_to_uint14(ch.value), lv);
 }
 
 void Fluid::m_gen(t_symbol* s, const AtomListView& lst)
@@ -397,41 +559,348 @@ void Fluid::m_gen(t_symbol* s, const AtomListView& lst)
     }
 }
 
-void Fluid::m_panic(t_symbol* s, const AtomListView& lst)
+void Fluid::m_panic(t_symbol* s, const AtomListView& lv)
 {
-    if (synth_ == nullptr)
-        return;
-
-    fluid_synth_system_reset(synth_);
+    if (synth_)
+        fluid_synth_system_reset(synth_);
 }
 
-void Fluid::m_reset(t_symbol* s, const AtomListView& lst)
+void Fluid::m_reset(t_symbol* s, const AtomListView& lv)
 {
-    if (synth_ == nullptr)
+    if (!synth_)
         return;
 
-    int n = fluid_synth_count_midi_channels(synth_);
+    int chan = lv.intAt(0, 0);
+    if (chan < 0 || chan > countMidiChannels()) {
+        METHOD_ERR(s) << fmt::format("invalid midi channel: {}", chan);
+        return;
+    }
 
-    for (int i = 0; i < n; i++)
-        fluid_synth_reset_basic_channel(synth_, i);
+    auto fn = [](fluid_synth_t* synth, int chan, int) {
+        return fluid_synth_reset_basic_channel(synth, chan) == FLUID_OK;
+    };
+    callFluidChannelFn(s, chan - 1, fn, 0, "reset", lv);
 }
 
-void Fluid::m_notesOff(t_symbol* s, const AtomListView& lst)
+void Fluid::m_notesOff(t_symbol* s, const AtomListView& lv)
 {
-    if (synth_ == nullptr)
+    if (!synth_)
         return;
 
-    int chan = lst.floatAt(0, 0);
-    fluid_synth_all_notes_off(synth_, chan - 1);
+    int chan = lv.intAt(0, 0);
+    if (chan < 0 || chan > countMidiChannels()) {
+        METHOD_ERR(s) << fmt::format("invalid midi channel: {}", chan);
+        return;
+    }
+
+    auto fn = [](fluid_synth_t* synth, int chan, int) {
+        return fluid_synth_all_notes_off(synth, chan) == FLUID_OK;
+    };
+    callFluidChannelFn(s, chan - 1, fn, 0, "notes_off", lv);
 }
 
-void Fluid::m_soundsOff(t_symbol* s, const AtomListView& lst)
+void Fluid::m_soundsOff(t_symbol* s, const AtomListView& lv)
 {
-    if (synth_ == nullptr)
+    if (!synth_)
         return;
 
-    int chan = lst.floatAt(0, 0);
-    fluid_synth_all_sounds_off(synth_, chan - 1);
+    int chan = lv.intAt(0, 0);
+    if (chan < 0 || chan > countMidiChannels()) {
+        METHOD_ERR(s) << fmt::format("invalid midi channel: {}", chan);
+        return;
+    }
+
+    auto fn = [](fluid_synth_t* synth, int chan, int) {
+        return fluid_synth_all_sounds_off(synth, chan) == FLUID_OK;
+    };
+    callFluidChannelFn(s, chan - 1, fn, 0, "sounds_off", lv);
+}
+
+void Fluid::m_sysex(t_symbol* s, const AtomListView& lv)
+{
+    if (!synth_)
+        return;
+
+    const auto N = lv.size();
+    char data[N];
+    for (size_t i = 0; i < N; i++)
+        data[i] = lv[i].asT<int>();
+
+    char small_reply[512];
+    int reply_len = 512;
+
+    auto res = fluid_synth_sysex(synth_, data, N, small_reply, &reply_len, nullptr, 0);
+
+    if (reply_len != 0 && res == FLUID_FAILED) {
+        METHOD_ERR(s) << "length";
+
+        char big_reply[reply_len];
+        auto res = fluid_synth_sysex(synth_, data, N, big_reply, &reply_len, nullptr, 0);
+        if (res == FLUID_OK) {
+            Atom res[reply_len];
+            for (int i = 0; i < reply_len; i++)
+                res[i] = big_reply[i];
+
+            anyTo(0, gensym("sysex"), AtomListView(res, reply_len));
+        }
+    } else if (res == FLUID_OK) {
+        METHOD_ERR(s) << "ok";
+
+        if (reply_len > 0) {
+            Atom res[reply_len];
+            for (int i = 0; i < reply_len; i++)
+                res[i] = small_reply[i];
+
+            anyTo(0, gensym("sysex"), AtomListView(res, reply_len));
+        } else {
+            METHOD_ERR(s) << "no reply: " << reply_len;
+        }
+    } else
+        METHOD_ERR(s) << "sysex message not handled: " << lv;
+}
+
+void Fluid::m_set_bend_sens(t_symbol* s, const AtomListView& lv)
+{
+    const auto ch = channelValue<int>(lv);
+    if (!ch.ok) {
+        METHOD_ERR(s) << "CHAN:i? BEND_SENS:f[0..64] expected, got: " << lv;
+        return;
+    }
+
+    if (!checkChanValue<int>(s, BEND_SENS_VALUE_NAME, ch, 0, 64))
+        return;
+
+    auto fn = [](fluid_synth_t* synth, int chan, int val) {
+        return fluid_synth_pitch_wheel_sens(synth, chan, val) == FLUID_OK;
+    };
+    callFluidChannelFn(s, ch.chan, fn, ch.value, BEND_SENS_VALUE_NAME, lv);
+}
+
+void Fluid::m_tune_cent(t_symbol* s, const AtomListView& lv)
+{
+    const auto ch = channelValue<t_float>(lv);
+    if (!ch.ok) {
+        METHOD_ERR(s) << "CHAN:i? TUNE:f[-100..100.0] expected, got:" << lv;
+        return;
+    }
+
+    if (!checkChanValue<t_float>(s, TUNE_CENTS_VALUE_NAME, ch, -100, 100))
+        return;
+
+    auto fn = [](fluid_synth_t* synth, int chan, t_float value) {
+        return fluid_synth_set_gen(synth, chan, GEN_FINETUNE, value) == FLUID_OK;
+    };
+    callFluidChannelFn(s, ch.chan, fn, ch.value, TUNE_CENTS_VALUE_NAME, lv);
+}
+
+void Fluid::m_tune_semi(t_symbol* s, const AtomListView& lv)
+{
+    const auto ch = channelValue<t_float>(lv);
+    if (!ch.ok) {
+        METHOD_ERR(s) << "CHAN:i? TUNE:f[-64..63.0] expected, got:" << lv;
+        return;
+    }
+
+    if (!checkChanValue<t_float>(s, TUNE_SEMITONES_VALUE_NAME, ch, -64, 63))
+        return;
+
+    auto fn = [](fluid_synth_t* synth, int chan, t_float value) {
+        t_float semi = 0;
+        const t_float cents = std::modf(value, &semi) * 100;
+
+        return fluid_synth_set_gen(synth, chan, GEN_COARSETUNE, semi) == FLUID_OK
+            && fluid_synth_set_gen(synth, chan, GEN_FINETUNE, cents) == FLUID_OK;
+    };
+    callFluidChannelFn(s, ch.chan, fn, ch.value, TUNE_CENTS_VALUE_NAME, lv);
+}
+
+void Fluid::m_tune_octave(t_symbol* s, const AtomListView& lv)
+{
+    static ArgChecker chk("i i f f f f f f f f f f f f");
+
+    if (!synth_)
+        return;
+
+    Error err(this);
+    chk.setOut(err);
+    if (!chk.check(lv))
+        return;
+
+    int tune_bank = lv[0].asInt();
+    int tune_prog = lv[1].asInt();
+    t_symbol* name = gensym("custom tuning");
+    double pitches[12] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+    for (size_t i = 0; i < 12 && (i + 2) < lv.size(); i++)
+        pitches[i] = lv[i + 2].asT<t_float>();
+
+    auto rc = fluid_synth_activate_octave_tuning(synth_, tune_bank, tune_prog, name->s_name, pitches, 1);
+    if (rc != FLUID_OK) {
+        METHOD_ERR(s) << "can't set tuning: " << lv;
+        return;
+    }
+
+    selectTune(tune_bank, tune_prog);
+}
+
+void Fluid::m_tune_select(t_symbol* s, const AtomListView& lv)
+{
+    int bank = lv.intAt(0, 0);
+    int prog = lv.intAt(1, 0);
+
+    selectTune(bank, prog);
+}
+
+void Fluid::m_pan(t_symbol* s, const AtomListView& lv)
+{
+    const auto ch = channelValue<int>(lv);
+    if (!ch.ok) {
+        METHOD_ERR(s) << "(CHAN:i)? PAN:f[0..+0x3fff] expected, got: " << lv;
+        return;
+    }
+
+    if (!checkChanValue<int>(s, PAN_VALUE_NAME, ch, 0, 0x3fff))
+        return;
+
+    setPan(s, ch.chan, pan_to_fluid<0, 0x2000, 0x3fff>(ch.value), lv);
+}
+
+void Fluid::m_pan_float(t_symbol* s, const AtomListView& lv)
+{
+    const auto ch = channelValue<t_float>(lv);
+    if (!ch.ok) {
+        METHOD_ERR(s) << "(CHAN:i)? PAN:f[-1..+1] expected, got: " << lv;
+        return;
+    }
+
+    if (!checkChanValue<t_float>(s, PAN_VALUE_NAME, ch, -1, 1))
+        return;
+
+    setPan(s, ch.chan, pan_to_fluid<-1, 0, 1>(ch.value), lv);
+}
+
+void Fluid::m_pan_int(t_symbol* s, const AtomListView& lv)
+{
+    const auto ch = channelValue<int>(lv);
+    if (!ch.ok) {
+        METHOD_ERR(s) << "(CHAN:i)? PAN:f[-8192..+8191] expected, got: " << lv;
+        return;
+    }
+
+    if (!checkChanValue<int>(s, PAN_VALUE_NAME, ch, -0x2000, 0x1fff))
+        return;
+
+    setPan(s, ch.chan, pan_to_fluid<-0x2000, 0, 0x1fff>(ch.value), lv);
+}
+
+void Fluid::m_hold_pedal(t_symbol* s, const AtomListView& lv)
+{
+    const auto ch = channelValue<int>(lv);
+    if (!ch.ok) {
+        METHOD_ERR(s) << "(CHAN:i)? VAL(0|1) expected, got: " << lv;
+        return;
+    }
+
+    if (!checkChanValue<int>(s, HOLD_VALUE_NAME, ch, 0, 1))
+        return;
+
+    auto fn = [](fluid_synth_t* synth, int chan, bool on) {
+        return fluid_synth_cc(synth, chan, CC_HOLD_PEDAL, on ? 127 : 0) == FLUID_OK;
+    };
+    callFluidChannelFn(s, ch.chan, fn, ch.value, HOLD_VALUE_NAME, lv);
+}
+
+void Fluid::m_sostenuto_pedal(t_symbol* s, const AtomListView& lv)
+{
+    const auto ch = channelValue<int>(lv);
+    if (!ch.ok) {
+        METHOD_ERR(s) << "(CHAN:i)? VAL(0|1) expected, got: " << lv;
+        return;
+    }
+
+    if (!checkChanValue<int>(s, SOSTENUTO_VALUE_NAME, ch, 0, 1))
+        return;
+
+    auto fn = [](fluid_synth_t* synth, int chan, bool on) {
+        return fluid_synth_cc(synth, chan, CC_SOSTENUTO_PEDAL, on ? 127 : 0) == FLUID_OK;
+    };
+    callFluidChannelFn(s, ch.chan, fn, ch.value, SOSTENUTO_VALUE_NAME, lv);
+}
+
+void Fluid::m_soft_pedal(t_symbol* s, const AtomListView& lv)
+{
+    const auto ch = channelValue<int>(lv);
+    if (!ch.ok) {
+        METHOD_ERR(s) << "(CHAN:i)? VAL(0|1) expected, got: " << lv;
+        return;
+    }
+
+    if (!checkChanValue<int>(s, SOFT_VALUE_NAME, ch, 0, 1))
+        return;
+
+    auto fn = [](fluid_synth_t* synth, int chan, bool on) {
+        return fluid_synth_cc(synth, chan, CC_SOFT_PEDAL, on ? 127 : 0) == FLUID_OK;
+    };
+    callFluidChannelFn(s, ch.chan, fn, ch.value, SOFT_VALUE_NAME, lv);
+}
+
+void Fluid::m_legato_pedal(t_symbol* s, const AtomListView& lv)
+{
+    const auto ch = channelValue<int>(lv);
+    if (!ch.ok) {
+        METHOD_ERR(s) << "(CHAN:i)? VAL(0|1) expected, got: " << lv;
+        return;
+    }
+
+    if (!checkChanValue<int>(s, LEGATO_VALUE_NAME, ch, 0, 1))
+        return;
+
+    auto fn = [](fluid_synth_t* synth, int chan, bool on) {
+        return fluid_synth_cc(synth, chan, CC_LEGATO_PEDAL, on ? 127 : 0) == FLUID_OK;
+    };
+    callFluidChannelFn(s, ch.chan, fn, ch.value, LEGATO_VALUE_NAME, lv);
+}
+
+void Fluid::m_midi(t_symbol* s, const AtomListView& lv)
+{
+    for (auto& byte : lv) {
+        if (byte.isFloat()) {
+            auto res = midi_parser_.push(byte.asT<int>());
+            if (res.err != midi::MidiParser::NO_ERROR)
+                METHOD_ERR(s) << res.errStr();
+        }
+    }
+}
+
+void Fluid::m_aftertouch(t_symbol* s, const AtomListView& lv)
+{
+    auto res = midiByteValue2(s, "VEL", lv);
+    if (!res.ok)
+        return;
+
+    // play on first channel
+    if (res.chan == -1)
+        res.chan = 0;
+
+    auto fn = [](fluid_synth_t* synth, int chan, uint8_t val) -> bool {
+        return fluid_synth_channel_pressure(synth, chan, val) == FLUID_OK;
+    };
+    callFluidChannelFn(s, res.chan, fn, res.value, "aftertouch", lv);
+}
+
+void Fluid::m_polytouch(t_symbol* s, const AtomListView& lv)
+{
+    auto res = midiByteValue3(s, "NOTE", "VEL", lv);
+    if (!res.ok)
+        return;
+
+    // play on first channel
+    if (res.chan == -1)
+        res.chan = 0;
+
+    auto fn = [&res](fluid_synth_t* synth, int chan, uint8_t val) -> bool {
+        return fluid_synth_key_pressure(synth, chan, res.n, val) == FLUID_OK;
+    };
+    callFluidChannelFn(s, res.chan, fn, res.value, "polytouch", lv);
 }
 
 void Fluid::dump() const
@@ -489,6 +958,56 @@ void Fluid::dump() const
     OBJ_DBG << "gain: " << fluid_synth_get_gain(synth_);
 }
 
+void Fluid::selectTune(int bank, int prog)
+{
+    if (!synth_)
+        return;
+
+    if (FLUID_OK != fluid_synth_activate_tuning(synth_, 0, bank, prog, 1))
+        OBJ_ERR << "can't select tuning: " << bank << ':' << prog;
+}
+
+void Fluid::bindMidiParser()
+{
+    midi_parser_.setNoteOnFn([this](int chan, int note, int vel) {
+        if (synth_)
+            fluid_synth_noteon(synth_, chan, note, vel);
+    });
+
+    midi_parser_.setNoteOffFn([this](int chan, int note, int) {
+        if (synth_)
+            fluid_synth_noteoff(synth_, chan, note);
+    });
+
+    midi_parser_.setControlChangeFn([this](int chan, int cc, int val) {
+        if (!synth_)
+            return;
+
+        if (FLUID_OK != fluid_synth_cc(synth_, chan, cc, val))
+            OBJ_ERR << "CC failed: " << chan << ' ' << cc << ' ' << val;
+    });
+
+    midi_parser_.setAfterTouchFn([this](int chan, int val) {
+        if (synth_)
+            fluid_synth_channel_pressure(synth_, chan, val);
+    });
+
+    midi_parser_.setPolyTouchFn([this](int chan, int key, int val) {
+        if (synth_)
+            fluid_synth_key_pressure(synth_, chan, key, val);
+    });
+
+    midi_parser_.setProgramChangeFn([this](int chan, int prog) {
+        if (synth_)
+            fluid_synth_program_change(synth_, chan, prog);
+    });
+
+    midi_parser_.setPitchWheelFn([this](int chan, int msb, int lsb) {
+        if (synth_)
+            fluid_synth_pitch_bend(synth_, chan, (msb << 7) | lsb);
+    });
+}
+
 void Fluid::processBlock(const t_sample** in, t_sample** out)
 {
     if (synth_ == nullptr)
@@ -522,10 +1041,34 @@ void setup_misc_fluid()
     obj.addMethod("cc", &Fluid::m_cc);
     obj.addMethod("prog", &Fluid::m_prog);
     obj.addMethod("bank", &Fluid::m_bank);
+    obj.addMethod(M_AFTER_TOUCH, &Fluid::m_aftertouch);
+    obj.addMethod(M_POLY_TOUCH, &Fluid::m_polytouch);
+
     obj.addMethod("bend", &Fluid::m_bend);
+    obj.addMethod("bend:i", &Fluid::m_bend_int);
+    obj.addMethod("bend:f", &Fluid::m_bend_float);
+    obj.addMethod(M_BEND_SENSIVITY, &Fluid::m_set_bend_sens);
+
     obj.addMethod("gen", &Fluid::m_gen);
-    obj.addMethod("panic", &Fluid::m_panic);
+    obj.addMethod(M_PANIC, &Fluid::m_panic);
     obj.addMethod("reset", &Fluid::m_reset);
-    obj.addMethod("notes_off", &Fluid::m_notesOff);
-    obj.addMethod("sounds_off", &Fluid::m_soundsOff);
+    obj.addMethod(M_ALL_NOTES_OFF, &Fluid::m_notesOff);
+    obj.addMethod(M_ALL_SOUND_OFF, &Fluid::m_soundsOff);
+    obj.addMethod("sysex", &Fluid::m_sysex);
+    obj.addMethod("midi", &Fluid::m_midi);
+
+    obj.addMethod(M_TUNE_SELECT, &Fluid::m_tune_select);
+    obj.addMethod(M_TUNE_FINE, &Fluid::m_tune_cent);
+    obj.addMethod(M_TUNE_CENTS, &Fluid::m_tune_cent);
+    obj.addMethod(M_TUNE_SEMITONES, &Fluid::m_tune_semi);
+    obj.addMethod(M_TUNE_OCTAVE, &Fluid::m_tune_octave);
+
+    obj.addMethod("pan", &Fluid::m_pan);
+    obj.addMethod(M_PAN_POSITION_FLOAT, &Fluid::m_pan_float);
+    obj.addMethod(M_PAN_POSITION_INT, &Fluid::m_pan_int);
+
+    obj.addMethod(M_HOLD_PEDAL, &Fluid::m_hold_pedal);
+    obj.addMethod(M_SOSTENUTO_PEDAL, &Fluid::m_sostenuto_pedal);
+    obj.addMethod(M_SOFT_PEDAL, &Fluid::m_soft_pedal);
+    obj.addMethod("legato", &Fluid::m_legato_pedal);
 }

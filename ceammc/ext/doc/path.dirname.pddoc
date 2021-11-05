@@ -19,6 +19,7 @@
         <inlets>
             <inlet>
                 <xinfo on="symbol">outputs directory portion of pathname</xinfo>
+                <xinfo on="data:string">outputs directory portion of pathname</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -40,9 +41,7 @@
 |               |     |
 [path.dirname         ]
 |
-[msg set]
-|
-[ (
+[ui.dt]
 ]]>
             </pdascii>
         </example>

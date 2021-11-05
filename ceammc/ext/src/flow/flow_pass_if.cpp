@@ -81,4 +81,5 @@ void setup_flow_pass_if()
     ObjectFactory<FlowPassIf> obj("flow.pass_if");
     obj.addAlias("pass_if");
     obj.noPropsDispatch();
+    obj.setXletsInfo({ "any: input", "float: 0|1 from predicate" }, { "any: output", "any: output to predicate" });
 }

@@ -1,0 +1,37 @@
+declare name "CEAMMC faust oscillators";
+declare version "0.1";
+
+ma = library("maths.lib");
+ba = library("basics.lib");
+
+lin2lin(x0, x1, y0, y1) = _ : (-(x0)) / (x1 - x0) * (y1 - y0) + y0;
+
+lfo_saw_pos(freq_hz, init_phase, pause_bool) = saw(init_phase, freq_hz)
+with {
+    is_playing = (pause_bool == 0);
+    saw(phase, freq) = (+(phase-phase') : ma.frac) ~ +(freq/ma.SR * is_playing);
+};
+
+lfo_saw(freq_hz, init_phase, pause_bool) = 2.0 * lfo_saw_pos(freq_hz, init_phase, pause_bool) - 1.0;
+
+// pulse
+lfo_pulse_pos(freq, duty, init_phase, pause) = float(lfo_saw_pos(freq, init_phase, pause) <= duty);
+lfo_pulse(freq, duty, init_phase, pause) = 2.0 * lfo_pulse_pos(freq, duty, init_phase, pause) - 1.0;
+
+// square
+lfo_square_pos(freq, init_phase, pause) = lfo_pulse_pos(freq, 0.5, init_phase, pause);
+lfo_square(freq, init_phase, pause) = 2.0 * lfo_square_pos(freq, init_phase, pause) - 1.0;
+
+// triangle
+lfo_tri_pos(freq, init_phase, pause) = 1 - abs(lfo_saw(freq, init_phase, pause));
+lfo_tri(freq, init_phase, pause) = 2.0 * lfo_tri_pos(freq, init_phase, pause) - 1.0;
+
+// sin
+lfo_sin(freq, init_phase, pause) = wave with {
+    wave = sin(lfo_saw_pos(freq, init_phase, pause) * 2 * ma.PI);
+};
+lfo_sin_pos(freq, init_phase, pause) = 0.5 * lfo_sin(freq, init_phase, pause) + 0.5;
+
+invert(toggle) = *((toggle==0)*2 - 1);
+
+invert_pos(toggle) = *((toggle==0)*2 - 1) : +(toggle==1);

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="msg.sched">
+        <title>msg.sched</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>message scheduler</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>msg</category>
+            <keywords>message scheduler</keywords>
+            <since>0.9.4</since>
+            <also>
+                <see>msg.after</see>
+            </also>
+        </meta>
+        <info>
+            <par>First element of input list considered as delay time in milliseconds.</par>
+            <par>Other messages passed 'as is' immidiately.</par>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">immidiately output bang</xinfo>
+                <xinfo on="float">immidiately output float</xinfo>
+                <xinfo on="symbol">immidiately output symbol</xinfo>
+                <xinfo on="list">If first element is a float it considered as delay time in
+                millisecond. If this delay time is &gt;0: output left elements after this delay
+                time. If delay time is &lt;0, output left elements immidiately. If delay time is
+                ==0, output left elements with shortest possible delay (on next scheduler block).
+                If first element not a float, output whole list immidiately.</xinfo>
+                <xinfo on="any">immidiately output any</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="bang">clear scheduled messages</xinfo>
+                <xinfo on="any">reset: clear scheduled messages, flush: output and clear</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>message output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[@freq 100, @gate 1, 400 @freq 800, 600 @freq 200, 750 @gate 0(
+|
+|
+|
+[msg.sched]
+|
+[synth.dubdub~]
+|
+[ui.hgain~]     [ui.dsp~]
+|\
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
