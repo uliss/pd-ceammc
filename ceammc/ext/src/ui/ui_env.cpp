@@ -40,6 +40,7 @@ UIEnv::UIEnv()
     , font_(gensym(FONT_FAMILY), FONT_SIZE_SMALL)
     , cursor_txt_pos_(font_.font(), ColorRGBA::black(), ETEXT_UP, ETEXT_JCENTER)
     , max_env_value_(1)
+    , env_last_time_(0)
     , txt_font(gensym(FONT_FAMILY), FONT_SIZE_SMALL)
     , txt_value0(txt_font.font(), ColorRGBA::black(), ETEXT_UP_LEFT, ETEXT_JLEFT)
     , txt_value1(txt_font.font(), ColorRGBA::black(), ETEXT_DOWN_LEFT, ETEXT_JLEFT)
@@ -82,6 +83,7 @@ UIEnv::UIEnv()
                      return;
 
                  nodes_[idx].fixed_y = !nodes_[idx].fixed_y;
+                 env_.pointAt(idx).toggleFixValue();
                  redrawLayer(envelope_layer_);
              } } });
 
@@ -417,11 +419,11 @@ void UIEnv::onMouseMove(t_object*, const t_pt& pt, long modifiers)
         delete_mode_ = false;
         draw_cursor_cross_ = false;
         draw_cursor_pos_ = (node_idx >= 0);
+        cursor_layer_.invalidate();
 
         if (node_idx >= 0) {
             cursor_pos_.x = nodes_[node_idx].x * z;
             cursor_pos_.y = nodes_[node_idx].y * z;
-            cursor_layer_.invalidate();
         }
     }
 
@@ -431,8 +433,6 @@ void UIEnv::onMouseMove(t_object*, const t_pt& pt, long modifiers)
 void UIEnv::onMouseDrag(t_object*, const t_pt& pt, long mod)
 {
     const float z = zoom();
-
-    UI_DBG << pt.x;
     const float x_norm = pt.x / z;
     const float y_norm = pt.y / z;
 
@@ -444,13 +444,21 @@ void UIEnv::onMouseDrag(t_object*, const t_pt& pt, long mod)
     Node& n = nodes_[idx];
 
     // update coordinates
-    if (!n.fixed_x)
-        n.x = clip<float>(x_norm, 0, width() / z);
+    if (!n.fixed_x) {
+        const auto w_norm = width() / z;
+        if (nodes_.isLastNode(n) && x_norm > w_norm) {
+            env_.back().utime = env_last_time_ * x_norm / w_norm;
+            updateNodes();
+            nodes_.back().select = SelectType::POINT;
+            bg_layer_.invalidate();
+        } else
+            n.x = clip<float>(x_norm, 0, w_norm);
+    }
 
     if (!n.fixed_y)
         n.y = clip<float>(y_norm, 0, height() / z);
 
-    // x-coord
+    // x-coord for any except first and last
     if (nodes_.size() > 1 && idx > 0 && idx < (nodes_.size() - 1)) {
         Node& prev = nodes_[idx - 1];
         Node& next = nodes_[idx + 1];
@@ -468,6 +476,7 @@ void UIEnv::onMouseDrag(t_object*, const t_pt& pt, long mod)
     // no background redraw needed
     envelope_layer_.invalidate();
     cursor_layer_.invalidate();
+
     redraw();
 
     if (output_mode_ == SYM_MODE_ON_DRAG)
@@ -546,6 +555,7 @@ void UIEnv::onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long mod)
         const float z = zoom();
         const float x_norm = pt.x / z;
         const float y_norm = pt.y / z;
+        env_last_time_ = env_.back().utime;
 
         // not a node click
         if (findNearestNode(x_norm, y_norm) < 0) {
@@ -588,8 +598,7 @@ void UIEnv::onMouseUp(t_object* view, const t_pt& pt, long mod)
         outputEnvelope();
 
     const auto idx = findSelectedNodeIdx();
-    // if last node was moved
-    if (idx >= 0 && idx == ((long)nodes_.size() - 1)) {
+    if (nodes_.isLastIdx(idx)) {
         updateNodes();
         redrawAll();
     }
@@ -664,10 +673,8 @@ void UIEnv::updateNodes()
     const float z = zoom();
 
     for (size_t i = 0; i < n; i++) {
-        const bool is_edge = (i == 0);
-
         // using normalized width() and height()
-        nodes_.push_back(Node::fromEnvelope(env_.pointAt(i), total_us, width() / z, height() / z, is_edge));
+        nodes_.push_back(Node::fromEnvelope(env_.pointAt(i), total_us, width() / z, height() / z));
     }
 
     prop_length = total_us / 1000.0;
@@ -688,6 +695,11 @@ void UIEnv::updateEnvelope()
             n.curve);
 
         pt.sigmoid_skew = n.sigmoid_skew;
+
+        if (n.fixed_x)
+            pt.setFixTime();
+        if (n.fixed_y)
+            pt.setFixValue();
 
         env_.insertPoint(pt);
     }
@@ -896,7 +908,7 @@ void setup_ui_env()
     UIEnv::setup();
 }
 
-Node Node::fromEnvelope(const EnvelopePoint& pt, size_t total_us, float w, float h, bool fixed_x)
+Node Node::fromEnvelope(const EnvelopePoint& pt, size_t total_us, float w, float h)
 {
     Node n;
 
@@ -907,8 +919,8 @@ Node Node::fromEnvelope(const EnvelopePoint& pt, size_t total_us, float w, float
     n.type = pt.type;
     n.select = SelectType::NONE;
     n.is_stop = pt.stop;
-    n.fixed_x = fixed_x;
-    n.fixed_y = false;
+    n.fixed_x = pt.fix_pos & EnvelopePoint::FIX_TIME;
+    n.fixed_y = pt.fix_pos & EnvelopePoint::FIX_VALUE;
 
     return n;
 }

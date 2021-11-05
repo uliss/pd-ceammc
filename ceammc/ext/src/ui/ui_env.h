@@ -38,10 +38,14 @@ struct Node {
     {
     }
 
-    static Node fromEnvelope(const EnvelopePoint& pt, size_t total_us, float w, float h, bool fixed_x);
+    static Node fromEnvelope(const EnvelopePoint& pt, size_t total_us, float w, float h);
 };
 
-using NodeList = std::vector<Node>;
+class NodeList : public std::vector<Node> {
+public:
+    bool isLastNode(const Node& n) const { return &n == &back(); }
+    bool isLastIdx(long idx) const { return idx >= 0 && (idx + 1) == static_cast<long>(size()); }
+};
 
 }
 
@@ -57,6 +61,7 @@ class UIEnv : public UIObject {
     UIFont font_;
     UITextLayout cursor_txt_pos_;
     float max_env_value_;
+    float env_last_time_;
     UIFont txt_font;
     UITextLayout txt_value0;
     UITextLayout txt_value1;

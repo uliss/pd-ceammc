@@ -92,6 +92,7 @@
   - ui.link: show @url property in tooltip on mouse over
   - MP3 support added to snd.file on Linux and Windows platforms
   - ui.preset: preset display now is zero-base
+  - ui.env: change env.length by dragging last envelope point left/right
   
 ### Fixed:
 - flow.space: reset message fix - can not use object after reset
