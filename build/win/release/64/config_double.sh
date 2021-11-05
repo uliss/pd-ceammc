@@ -4,7 +4,7 @@ DIR="../../../../.."
 BUILD="Release"
 SUBDIR=$(echo $BUILD | tr '[:upper:]' '[:lower:]')
 ARCH=$(echo $MSYSTEM | cut -c6-)
-TYPE="single"
+TYPE="double"
 ROOT="/opt/local/pd/mingw${ARCH}/${SUBDIR}/${TYPE}"
 
 cmake -G Ninja \
@@ -15,4 +15,5 @@ cmake -G Ninja \
 	-DWITH_FAUST=OFF \
 	-DWITH_EXT_LYONPOTPOURRI=OFF \
 	-DWITH_EXT_FFTEASE=OFF \
+	-DWITH_DOUBLE_PRECISION=ON \
 	$DIR
