@@ -214,28 +214,28 @@ namespace sound {
                 total_read_samples++;
             }
 
-            if (eof) {
-                // process remaining resample data
-                while (true) {
-                    size_t odone = 0;
-                    // indicate end of input with nullptr
-                    error = soxr_process(soxr.get(), nullptr, 0, nullptr, resampled_buf.data(), NUM_CH, &odone);
-                    if (error) {
-                        std::cerr << "[soxr] " << error << "\n";
-                        break;
-                    }
-
-                    if (odone == 0)
-                        break;
-
-                    // write channel data to destination
-                    for (size_t j = 0; j < odone && total_read_samples < max_samples; j++) {
-                        x->w_float = resampled_buf[j * NUM_CH + ch] * gain();
-                        x++;
-                        total_read_samples++;
-                    }
-                }
+            if (eof)
                 break;
+        }
+
+        // process remaining resample data
+        while (true) {
+            size_t odone = 0;
+            // indicate end of input with nullptr
+            error = soxr_process(soxr.get(), nullptr, 0, nullptr, resampled_buf.data(), NUM_CH, &odone);
+            if (error) {
+                std::cerr << "[soxr] " << error << "\n";
+                break;
+            }
+
+            if (odone == 0)
+                break;
+
+            // write channel data to destination
+            for (size_t j = 0; j < odone && total_read_samples < max_samples; j++) {
+                x->w_float = resampled_buf[j * NUM_CH + ch] * gain();
+                x++;
+                total_read_samples++;
             }
         }
 
