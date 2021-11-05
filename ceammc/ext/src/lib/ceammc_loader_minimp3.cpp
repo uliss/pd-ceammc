@@ -116,7 +116,7 @@ namespace sound {
             }
         }
 
-        // copy to destination
+        // copy to destination and apply gain
         const auto g = gain();
         for (size_t i = ch, j = 0; i < readed && i < buffer.size(); i += NUM_CH, j++)
             dest[j].w_float = buffer[i] * g;
@@ -143,10 +143,6 @@ namespace sound {
         //        const int n = channels();
         //        const sf_count_t IN_BUF_SIZE = FRAME_COUNT * n;
         //        float frame_buf[IN_BUF_SIZE];
-
-        //        // move to beginning
-        //        if (handle_.seek(offset, SEEK_SET) == -1)
-        //            return -1;
 
         // resampler init
         soxr_error_t error;
