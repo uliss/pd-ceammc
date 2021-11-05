@@ -49,7 +49,7 @@ if(WITH_LIBSNDFILE)
     if(LIBSNDFILE_FOUND)
         include_directories(${LIBSNDFILE_INCLUDE_DIRS})
         ceammc_add_core_test("ceammc::libsndfile" test_libsndfile)
-        ceammc_add_core_test("ceammc::sound" test_sound)
+        ceammc_add_test_linked(NAME test_sound TITLE "ceammc::sound" SRC test_sound_minimp3.cpp)
     endif()
 endif()
 

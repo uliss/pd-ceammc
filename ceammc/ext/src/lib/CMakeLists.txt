@@ -251,6 +251,10 @@ if(LIBSNDFILE_FOUND)
     target_link_libraries(ceammc_core PUBLIC ${LIBSNDFILE_LIBRARIES})
 endif()
 
+# minimp3
+target_sources(ceammc_core PRIVATE ceammc_loader_minimp3.cpp)
+target_include_directories(ceammc_core PRIVATE ${PROJECT_SOURCE_DIR}/ceammc/extra/minimp3)
+
 # coreaudio backend
 if(APPLE AND CMAKE_CXX_COMPILER_ID MATCHES "Clang")
     target_sources(ceammc_core PRIVATE
