@@ -73,8 +73,10 @@
 |
 [openpanel #p1]
 
-[symbol %CEAMMC%/sin_ch4_44.1k.wav(
-|
+ [symbol %CEAMMC%/sin_ch4_44.1k.wav(
+ |
+ |  [symbol %CEAMMC%/sound/vla-overtones-3.mp3(
+ |  |
 [load $1 to array[1|2] @resize #m1(       [A array1 w=120 h=80]
 |
 [expand_env]
