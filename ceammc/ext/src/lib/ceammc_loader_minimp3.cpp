@@ -243,26 +243,7 @@ namespace sound {
 
     FormatList MiniMp3::supportedFormats()
     {
-        FormatList res;
-
-        res.push_back({ "MP3", "MP3" });
-
-        //        SF_FORMAT_INFO format_info;
-        //        int count;
-        //        sf_command(0, SFC_GET_FORMAT_MAJOR_COUNT, &count, sizeof(int));
-
-        //        for (int k = 0; k < count; k++) {
-        //            format_info.format = k;
-        //            sf_command(0, SFC_GET_FORMAT_MAJOR, &format_info, sizeof(format_info));
-
-        //            std::string finfo(format_info.name);
-        //            std::string::size_type space_pos = finfo.find(' ', 0);
-        //            std::string name = finfo.substr(0, space_pos);
-        //            std::string desc = finfo.substr(space_pos + 0, std::string::npos);
-        //            res.push_back(std::make_pair(name, desc));
-        //        };
-
-        return res;
+        return { { "MP3", "MPEG Layer 3" } };
     }
 }
 }
