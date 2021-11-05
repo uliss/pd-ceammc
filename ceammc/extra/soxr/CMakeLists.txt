@@ -5,4 +5,5 @@ set(BUILD_TESTS OFF CACHE BOOL " " FORCE)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/code/cmake/Modules")
 
+cmake_policy(SET CMP0075 NEW)
 add_subdirectory(code)
