@@ -51,7 +51,7 @@
 	url = https://github.com/Genivia/RE-flex
 [submodule "ceammc/extra/soxr/code"]
 	path = ceammc/extra/soxr/code
-	url = https://git.code.sf.net/p/soxr/code
+	url = https://github.com/uliss/soxr.git 
 [submodule "ceammc/extra/muparser/muparser"]
 	path = ceammc/extra/muparser/muparser
 	url = https://github.com/beltoforion/muparser
