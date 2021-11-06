@@ -1,5 +1,9 @@
 add_executable(test_ext_fx test_fx_base.h)
 
+if(WITH_DOUBLE_PRECISION)
+    add_definitions(-DFAUSTFLOAT=double)
+endif()
+
 target_include_directories(test_ext_fx
     PRIVATE
         "${PROJECT_SOURCE_DIR}/ceammc/ext/src/fx"
