@@ -13,21 +13,36 @@
             <keywords>fx pitchshift rubberband</keywords>
             <since>0.9.4</since>
         </meta>
-        <methods>
-            <method name="reset">reset object state</method>
-        </methods>
+        <arguments>
+            <argument name="PITCH" type="float">transposition in semitones</argument>
+        </arguments>
         <properties>
-            <property name="@window" type="float" units="millisecond" minvalue="10" maxvalue="2000"
-            default="200">the window size</property>
-            <property name="@fade" type="float" units="millisecond" minvalue="0" maxvalue="1000"
-            default="100">crossfade duration</property>
-            <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">proportion
-            of mix between the original (dry) and 'effected' (wet) signals. 0 - dry signal, 1 -
-            wet.</property>
-            <property name="@bypass" type="int" enum="0 1" default="0">if set to 1 - bypass
-            'effected' signal.</property>
-            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
-            processing</property>
+            <property name="@window" type="symbol" enum="standard short long"
+            default="standard">the window size. 'standard' is expected to produce better results than the
+            other window options in most situations. 'short' may result in crisper sound for audio that depends
+            strongly on its timing qualities. 'long' is likely to result in a smoother sound at the expense of
+            clarity and timing</property>
+            <property name="@quality" type="symbol" enum="speed quality consistency"
+            default="speed">method used for pitch shifting. 'speed' may sound less clear than 'quality',
+            especially for large pitch shifts. 'quality' method has a CPU cost approximately proportional to the required frequency shift.
+            'consistency' gives greatest consistency when used to create small variations in pitch around the 1.0-ratio level.
+            Unlike the previous two options, this avoids discontinuities when moving across the 1.0 pitch scale in real-time;
+            it also consumes more CPU than the others in the case where the pitch scale is exactly 1.0.</property>
+            <property name="@transpose" type="float" minvalue="-24" maxvalue="24"
+            default="0">transposition in semitones</property>
+            <property name="@phase" type="int" enum="0 1"
+            default="1">control the adjustment of component frequency phases from one analysis window to the next during non-transient segments.
+            'False' adjust the phase in each frequency bin independently from its neighbours.
+            This usually results in a slightly softer, phasier sound.
+            'True' adjust phases when stretching in such a way as to try to retain the continuity
+            of phase relationships between adjacent frequency bins whose phases are behaving in similar ways</property>
+            <property name="@smooth" type="int" enum="0 1"
+            default="0">control the use of window-presum FFT and time-domain smoothing.
+            If true result in a softer sound with some audible artifacts around sharp transients,
+            but it may be appropriate for longer stretches of some instruments and can mix well with @window short</property>
+            <property name="@scale" type="float" minvalue="0.25" maxvalue="4"
+            default="1">transposition as ratio</property>
+            <property name="@latency" type="float" units="sample" default="1025" readonly="true">object latency</property>
         </properties>
         <inlets>
             <inlet type="audio">

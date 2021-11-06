@@ -108,7 +108,7 @@ AubioPitchshiftTilde::AubioPitchshiftTilde(const PdArgs& args)
         });
         addProperty(smooth_);
 
-        phase_ = new BoolProperty("@phase", false);
+        phase_ = new BoolProperty("@phase", true);
         phase_->setSuccessFn([this](Property*) {
             options_[PHASE] = (phase_->value()) ? "PhaseIndependent" : "PhaseLaminar";
             update();
