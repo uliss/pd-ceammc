@@ -94,11 +94,11 @@
 |
 |          [ui.tab speed quality consistency @size 200 16]
 |          |
-[readsf~]  [@quality $1(
-|          |
-|          |    [F]
-|          |    |.
-[fx.rb_pitchshift~ -7]
+[readsf~]  [@quality $1( [T]
+|          |             |
+|          |    [F]      [@formant $1(
+|          |    |.       |
+[fx.rb_pitchshift~ -7    ]
 |
 [ui.gain~ @size 120 14] [ui.dsp~]
 |\
