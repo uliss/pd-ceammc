@@ -61,6 +61,7 @@ AubioPitchshiftTilde::AubioPitchshiftTilde(const PdArgs& args)
             });
         p->setArgIndex(0);
         p->setFloatCheck(PropValueConstraints::CLOSED_RANGE, -24, 24);
+        p->setUnits(PropValueUnits::SEMITONE);
     };
 
     createCbFloatProperty("@latency",
