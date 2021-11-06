@@ -225,7 +225,7 @@ void AubioPitchshiftTilde::update()
 
     for (auto& kv : options_) {
         if (!opt_string_.empty())
-            opt_string_ += ',';
+            opt_string_ += ':';
 
         opt_string_.append(kv.second);
     }
