@@ -5,9 +5,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Pure\\ Data 0.51.0_ceammc\n"
+"Project-Id-Version: Pure\\ Data 0.51.4_ceammc\n"
 "Report-Msgid-Bugs-To: serge.uliss at gmail.com\n"
-"POT-Creation-Date: 2020-12-14 11:55+0300\n"
+"POT-Creation-Date: 2021-11-06 06:04+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -93,15 +93,17 @@ msgstr ""
 
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 #: ../ceammc/ext/src/spat/hoa_2d_scope.cpp
-#: ../ceammc/ext/src/ui/ui_arrayview.cpp ../ceammc/ext/src/ui/ui_display.cpp
-#: ../ceammc/ext/src/ui/ui_env.cpp ../ceammc/ext/src/ui/ui_gain.cpp
+#: ../ceammc/ext/src/ui/ui_arrayview.cpp ../ceammc/ext/src/ui/ui_button.cpp
+#: ../ceammc/ext/src/ui/ui_display.cpp ../ceammc/ext/src/ui/ui_env.cpp
+#: ../ceammc/ext/src/ui/ui_filter_t.h ../ceammc/ext/src/ui/ui_gain.cpp
 #: ../ceammc/ext/src/ui/ui_gain2.cpp ../ceammc/ext/src/ui/ui_icon.cpp
 #: ../ceammc/ext/src/ui/ui_incdec.cpp ../ceammc/ext/src/ui/ui_keyboard.cpp
 #: ../ceammc/ext/src/ui/ui_link.cpp ../ceammc/ext/src/ui/ui_matrix.cpp
 #: ../ceammc/ext/src/ui/ui_menu.cpp ../ceammc/ext/src/ui/ui_meter.cpp
-#: ../ceammc/ext/src/ui/ui_number.cpp ../ceammc/ext/src/ui/ui_number_tilde.cpp
-#: ../ceammc/ext/src/ui/ui_polar.cpp ../ceammc/ext/src/ui/ui_radio.cpp
-#: ../ceammc/ext/src/ui/ui_scope.cpp ../ceammc/ext/src/ui/ui_toggle.cpp
+#: ../ceammc/ext/src/ui/ui_midi.cpp ../ceammc/ext/src/ui/ui_number.cpp
+#: ../ceammc/ext/src/ui/ui_number_tilde.cpp ../ceammc/ext/src/ui/ui_polar.cpp
+#: ../ceammc/ext/src/ui/ui_radio.cpp ../ceammc/ext/src/ui/ui_scope.cpp
+#: ../ceammc/ext/src/ui/ui_toggle.cpp
 msgid "Main"
 msgstr ""
 
@@ -146,7 +148,7 @@ msgstr ""
 msgid "Ambisonic Order"
 msgstr ""
 
-#: ../ceammc/ext/src/spat/hoa_2d_scope.cpp
+#: ../ceammc/ext/src/spat/hoa_2d_scope.cpp ../ceammc/ext/src/ui/ui_filter_t.h
 msgid "Gain"
 msgstr ""
 
@@ -191,15 +193,24 @@ msgstr ""
 msgid "Wave Color"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_bang.cpp ../ceammc/ext/src/ui/ui_display.cpp
-#: ../ceammc/ext/src/ui/ui_dsp.cpp ../ceammc/ext/src/ui/ui_env.cpp
-#: ../ceammc/ext/src/ui/ui_icon.cpp ../ceammc/ext/src/ui/ui_keyboard.cpp
-#: ../ceammc/ext/src/ui/ui_matrix.cpp ../ceammc/ext/src/ui/ui_menu.cpp
+#: ../ceammc/ext/src/ui/ui_bang.cpp ../ceammc/ext/src/ui/ui_button.cpp
+#: ../ceammc/ext/src/ui/ui_display.cpp ../ceammc/ext/src/ui/ui_dsp.cpp
+#: ../ceammc/ext/src/ui/ui_env.cpp ../ceammc/ext/src/ui/ui_icon.cpp
+#: ../ceammc/ext/src/ui/ui_keyboard.cpp ../ceammc/ext/src/ui/ui_matrix.cpp
+#: ../ceammc/ext/src/ui/ui_menu.cpp ../ceammc/ext/src/ui/ui_midi.cpp
 #: ../ceammc/ext/src/ui/ui_number.cpp ../ceammc/ext/src/ui/ui_preset.cpp
 #: ../ceammc/ext/src/ui/ui_radio.cpp ../ceammc/ext/src/ui/ui_scope.cpp
 #: ../ceammc/ext/src/ui/ui_spectroscope.cpp ../ceammc/ext/src/ui/ui_tab.cpp
 #: ../ceammc/ext/src/ui/ui_toggle.cpp
 msgid "Active Color"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_button.cpp ../ceammc/ext/src/ui/ui_toggle.cpp
+msgid "Off value"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_button.cpp ../ceammc/ext/src/ui/ui_toggle.cpp
+msgid "On value"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_colorpanel.cpp
@@ -238,9 +249,22 @@ msgstr ""
 msgid "Float formatting width"
 msgstr ""
 
+#: ../ceammc/ext/src/ui/ui_display.cpp
+msgid "Float precision"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_display.cpp
+msgid "Hex format width"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_display.cpp
+msgid "Integer in hex format"
+msgstr ""
+
 #: ../ceammc/ext/src/ui/ui_display.cpp ../ceammc/ext/src/ui/ui_label.cpp
-#: ../ceammc/ext/src/ui/ui_menu.cpp ../ceammc/ext/src/ui/ui_preset.cpp
-#: ../ceammc/ext/src/ui/ui_slider.cpp ../ceammc/ext/src/ui/ui_tab.cpp
+#: ../ceammc/ext/src/ui/ui_menu.cpp ../ceammc/ext/src/ui/ui_midi.cpp
+#: ../ceammc/ext/src/ui/ui_preset.cpp ../ceammc/ext/src/ui/ui_slider.cpp
+#: ../ceammc/ext/src/ui/ui_tab.cpp
 msgid "Text Color"
 msgstr ""
 
@@ -260,19 +284,85 @@ msgstr ""
 msgid "Output Mode"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_gain2.cpp
-#: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_rslider.cpp
-#: ../ceammc/ext/src/ui/ui_slider.cpp
+#: ../ceammc/ext/src/ui/ui_filter_t.h
+msgid "Band Pass"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_filter_t.h
+msgid "Filter Type"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_filter_t.h
+msgid "Frequency"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_filter_t.h
+msgid "Grid Color"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_filter_t.h
+msgid "High Pass"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_filter_t.h
+msgid "High Shelf"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_filter_t.h ../ceammc/ext/src/ui/ui_gain.cpp
+#: ../ceammc/ext/src/ui/ui_gain2.cpp ../ceammc/ext/src/ui/ui_knob.cpp
+#: ../ceammc/ext/src/ui/ui_rslider.cpp ../ceammc/ext/src/ui/ui_slider.cpp
 msgid "Knob Color"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_filter_t.h
+msgid "Linear Hz"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_filter_t.h
+msgid "Linear Rad"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_filter_t.h
+msgid "Log"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_filter_t.h
+msgid "Low Pass"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_filter_t.h
+msgid "Low Shelf"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_filter_t.h
+msgid "Notch"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_filter_t.h
+msgid "Peak Eq"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_filter_t.h
+msgid "Plot Color"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_filter_t.h
+msgid "Quality factory"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_filter_t.h ../tcl/dialog_canvas.tcl
+msgid "Scale"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_gain2.cpp
 #: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_slider.cpp
+#: ../ceammc/ext/src/ui/ui_toggle.cpp
 msgid "MIDI channel"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_gain2.cpp
 #: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_slider.cpp
+#: ../ceammc/ext/src/ui/ui_toggle.cpp
 msgid "MIDI control"
 msgstr ""
 
@@ -395,6 +485,10 @@ msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_slider.cpp
 msgid "Scale Mode"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_knob.cpp
+msgid "Show value"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_polar.cpp
@@ -521,6 +615,38 @@ msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_meter.cpp
 msgid "Warm signal color"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_midi.cpp
+msgid "Midi Settings"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_midi.cpp
+msgid "Show Aftertouch (poly)"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_midi.cpp
+msgid "Show Control"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_midi.cpp
+msgid "Show Note On/Off"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_midi.cpp
+msgid "Show Pitch Wheel"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_midi.cpp
+msgid "Show Program"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_midi.cpp
+msgid "Show SysEx"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_midi.cpp
+msgid "Show in hex"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_number.cpp
@@ -720,11 +846,23 @@ msgid "Top Y-value"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_sliders.cpp
+msgid "Auto count"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_sliders.cpp
 msgid "Auto range"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_sliders.cpp
+msgid "Auto range mode"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_sliders.cpp
 msgid "Select color"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_sliders.cpp
+msgid "Show lines"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_sliders.cpp
@@ -775,17 +913,17 @@ msgstr ""
 msgid "Vertical Orientation"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_toggle.cpp
-msgid "Off value"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_toggle.cpp
-msgid "On value"
-msgstr ""
-
 #: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
 #: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl ../tcl/pd_menus.tcl
 msgid "Object"
+msgstr ""
+
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Button Bar"
+msgstr ""
+
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Button Bar Settings"
 msgstr ""
 
 #: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
@@ -806,14 +944,6 @@ msgstr ""
 
 #: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
 msgid "Show"
-msgstr ""
-
-#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
-msgid "Button Bar"
-msgstr ""
-
-#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
-msgid "Button Bar Settings"
 msgstr ""
 
 #: ../ceammc/gui/plugins/patch2svg-plugin.tcl
@@ -989,10 +1119,6 @@ msgstr ""
 
 #: ../tcl/dialog_canvas.tcl
 msgid "Range and size"
-msgstr ""
-
-#: ../tcl/dialog_canvas.tcl
-msgid "Scale"
 msgstr ""
 
 #: ../tcl/dialog_canvas.tcl
