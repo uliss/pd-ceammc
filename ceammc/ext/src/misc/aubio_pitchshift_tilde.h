@@ -32,15 +32,21 @@ public:
         PHASE,
         SMOOTH,
         QUALITY,
-        WINDOW
+        WINDOW,
+        FORMANT,
+        DETECTOR,
+        TRANSIENT
     };
 
 private:
     std::unique_ptr<aubio_pitchshift_t, void (*)(aubio_pitchshift_t*)> impl_;
     SymbolEnumProperty* window_;
     SymbolEnumProperty* quality_;
+    SymbolEnumProperty* detector_;
+    SymbolEnumProperty* transient_;
     BoolProperty* smooth_;
     BoolProperty* phase_;
+    BoolProperty* formant_;
     std::vector<smpl_t> in_, out_;
     t_float scale_, transpose_;
     std::map<OptionType, std::string> options_;

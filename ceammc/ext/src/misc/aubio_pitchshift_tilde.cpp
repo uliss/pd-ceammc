@@ -12,10 +12,22 @@
  * this file belongs to.
  *****************************************************************************/
 #include "aubio_pitchshift_tilde.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 
 #include "aubio/src/aubio.h"
 #include "aubio/src/effects/pitchshift.h"
+
+#define CONSTEXPR_STR_HASH(str)             \
+    constexpr const char* str_##str = #str; \
+    constexpr auto hash_##str = #str##_hash;
+
+CONSTEXPR_STR_HASH(compound)
+CONSTEXPR_STR_HASH(soft)
+CONSTEXPR_STR_HASH(percussive)
+CONSTEXPR_STR_HASH(crisp)
+CONSTEXPR_STR_HASH(mixed)
+CONSTEXPR_STR_HASH(smooth)
 
 constexpr size_t DEFAULT_BLOCK_SIZE = 64;
 
@@ -111,20 +123,55 @@ AubioPitchshiftTilde::AubioPitchshiftTilde(const PdArgs& args)
 
         phase_ = new BoolProperty("@phase", true);
         phase_->setSuccessFn([this](Property*) {
-            options_[PHASE] = (phase_->value()) ? "PhaseIndependent" : "PhaseLaminar";
+            options_[PHASE] = (phase_->value()) ? "PhaseLaminar" : "PhaseIndependent";
             update();
         });
         addProperty(phase_);
 
-        //        else if (strcmp(params[i], "TransientsCrisp") == 0) rboptions |= RubberBandOptionTransientsCrisp;
-        //        else if (strcmp(params[i], "TransientsMixed") == 0) rboptions |= RubberBandOptionTransientsMixed;
-        //        else if (strcmp(params[i], "TransientsSmooth") == 0) rboptions |= RubberBandOptionTransientsSmooth;
-        //        else if (strcmp(params[i], "DetectorCompound") == 0) rboptions |= RubberBandOptionDetectorCompound;
-        //        else if (strcmp(params[i], "DetectorPercussive") == 0) rboptions |= RubberBandOptionDetectorPercussive;
-        //        else if (strcmp(params[i], "DetectorSoft") == 0) rboptions |= RubberBandOptionDetectorSoft;
-        //        else if (strcmp(params[i], "FormantShifted") == 0) rboptions |= RubberBandOptionFormantShifted;
-        //        else if (strcmp(params[i], "FormantPreserved") == 0) rboptions |= RubberBandOptionFormantPreserved;
-        //        auto p = createCbIntProperty("@crips", [this]() {});
+        formant_ = new BoolProperty("@formant", false);
+        formant_->setSuccessFn([this](Property*) {
+            options_[FORMANT] = (formant_->value()) ? "FormantShifted" : "FormantPreserved";
+            update();
+        });
+        addProperty(formant_);
+
+        detector_ = new SymbolEnumProperty("@detector", { str_compound, str_percussive, str_soft });
+        detector_->setSuccessFn([this](Property*) {
+            switch (crc32_hash(detector_->value()->s_name)) {
+            case hash_compound:
+                options_[DETECTOR] = "DetectorCompound";
+                break;
+            case hash_percussive:
+                options_[DETECTOR] = "DetectorPercussive";
+                break;
+            case hash_soft:
+                options_[DETECTOR] = "DetectorSoft";
+            default:
+                break;
+            }
+
+            update();
+        });
+        addProperty(detector_);
+
+        transient_ = new SymbolEnumProperty("@trans", { str_crisp, str_mixed, str_smooth });
+        transient_->setSuccessFn([this](Property*) {
+            switch (crc32_hash(transient_->value()->s_name)) {
+            case hash_crisp:
+                options_[TRANSIENT] = "TransientsCrisp";
+                break;
+            case hash_mixed:
+                options_[TRANSIENT] = "TransientsMixed";
+                break;
+            case hash_smooth:
+                options_[TRANSIENT] = "TransientsSmooth";
+            default:
+                break;
+            }
+
+            update();
+        });
+        addProperty(detector_);
     }
 }
 
