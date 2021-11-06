@@ -171,7 +171,7 @@ AubioPitchshiftTilde::AubioPitchshiftTilde(const PdArgs& args)
 
             update();
         });
-        addProperty(detector_);
+        addProperty(transient_);
     }
 }
 
