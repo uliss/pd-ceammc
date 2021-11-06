@@ -153,7 +153,6 @@ void AubioPitchshiftTilde::processBlock(const t_sample** in, t_sample** out)
     const auto bs = blockSize();
     fvec_t fin, fout;
 
-#if PD_FLOATSIZE == 32
     fin.length = in_.size();
     fin.data = in_.data();
     fout.length = out_.size();
@@ -166,14 +165,6 @@ void AubioPitchshiftTilde::processBlock(const t_sample** in, t_sample** out)
 
     for (size_t i = 0; i < bs; i++)
         out[0][i] = out_[i];
-#else
-    float b0[bs];
-    float b1[bs];
-    fin.length = bs;
-    fin.data = b0;
-    fout.length = bs;
-    fout.data = b1;
-#endif
 }
 
 void AubioPitchshiftTilde::onInlet(size_t n, const AtomListView& lv)

@@ -41,7 +41,7 @@ private:
     SymbolEnumProperty* quality_;
     BoolProperty* smooth_;
     BoolProperty* phase_;
-    std::vector<t_float> in_, out_;
+    std::vector<smpl_t> in_, out_;
     t_float scale_, transpose_;
     std::map<OptionType, std::string> options_;
     std::string opt_string_;
