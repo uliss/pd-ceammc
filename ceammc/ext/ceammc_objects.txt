@@ -921,7 +921,6 @@ prop.split
 prop<-
 prop~>
 proto.firmata
-proto.http
 proto.hui
 proto.midi
 proto.midi.casio
@@ -929,7 +928,6 @@ proto.midi.cc
 proto.midi.sysex
 proto.mpv
 proto.sp.alpaca
-proto.vlc
 proto.xtouch_ext
 rad->phase
 rad->phase~
