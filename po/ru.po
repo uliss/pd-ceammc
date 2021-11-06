@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure Data 0.47.1_ceammc\n"
 "Report-Msgid-Bugs-To: serge.uliss at gmail.com\n"
-"POT-Creation-Date: 2021-11-06 06:04+0300\n"
-"PO-Revision-Date: 2021-11-06 06:23+0300\n"
+"POT-Creation-Date: 2021-11-06 06:29+0300\n"
+"PO-Revision-Date: 2021-11-06 06:30+0300\n"
 "Last-Translator: Serge Poltavski <serge.poltavski@gmail.com>\n"
 "Language-Team: Russian\n"
 "Language: ru\n"
@@ -1465,6 +1465,10 @@ msgstr "Добавить"
 #: ../tcl/dialog_array.tcl
 msgid "Put array into:"
 msgstr "Поместить array в:"
+
+#: ../ceammc/ext/src/ui/ui_filter_t.h
+msgid "Quality factor"
+msgstr "Добротность"
 
 #: ../ceammc/ext/src/ui/ui_filter_t.h
 msgid "Quality factory"
