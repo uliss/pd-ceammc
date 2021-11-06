@@ -21,8 +21,10 @@
         </info>
         <inlets>
             <inlet>
-                <xinfo on="float">calc all coefficients for given order and output them as list</xinfo>
-                <xinfo on="list">N K pair expected. Calc and output only specified coefficient.</xinfo>
+                <xinfo on="float">calc all coefficients for given order and output them as
+                list</xinfo>
+                <xinfo on="list">N K pair expected. Calc and output only specified
+                coefficient.</xinfo>
             </inlet>
         </inlets>
         <outlets>

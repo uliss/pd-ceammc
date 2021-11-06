@@ -23,8 +23,7 @@
             <argument name="PROPS" type="list">properties names</argument>
         </arguments>
         <properties>
-            <property name="@seed" type="int"
-            default="float">random seed</property>
+            <property name="@seed" type="int" default="float">random seed</property>
         </properties>
         <inlets dynamic="true">
             <inlet number="1">

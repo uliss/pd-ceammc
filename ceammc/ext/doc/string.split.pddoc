@@ -21,8 +21,8 @@
             </also>
         </meta>
         <info>
-            <par>Note: by default string or symbol splitted to list of data:String, to
-            get list of Pd symbols use @sym flag</par>
+            <par>Note: by default string or symbol splitted to list of data:String, to get list of
+            Pd symbols use @sym flag</par>
         </info>
         <arguments>
             <argument name="SEP" type="atom">separator. If nonspecified - separate by every char.

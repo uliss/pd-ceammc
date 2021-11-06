@@ -33,7 +33,7 @@
             @min=0, @max=ARG[0]</argument>
         </arguments>
         <methods>
-            <method name="gen">generate list of random floats with specified length
+            <method name="gen">generate list of random floats with specified length 
             <param name="N" type="int" required="true" minvalue="1">list length</param></method>
         </methods>
         <properties>

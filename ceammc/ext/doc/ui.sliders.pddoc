@@ -47,8 +47,8 @@
             default="none">if calculate @min/@max values automatically</property>
             <property name="@show_range" type="int" enum="0 1" default="1">if show slider
             range</property>
-            <property name="@show_lines" type="int" enum="0 1" default="0">if show slider
-            ruler lines</property>
+            <property name="@show_lines" type="int" enum="0 1" default="0">if show slider ruler
+            lines</property>
             <!-- common -->
             <property name="@presetname" type="symbol" default="(null)">preset name for using with
             [ui.preset]</property>
