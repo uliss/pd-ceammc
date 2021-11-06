@@ -37,7 +37,8 @@ end-points of the convolution \, the signals do not overlap completely
 \, N)-min(M \, N)+1). The convolution product is only given for points
 where the signals overlap completely. Values outside the signal boundary
 have no effect. 'same' - output of length max(M \, N). Boundary effects
-are still visible. Type: symbol. Allowed values: valid \, same \, full.;
+are still visible. Type: symbol. Default value: full. Allowed values:
+valid \, same \, full.;
 #X msg 110 653 @same;
 #X text 245 653 alias to @mode same.;
 #X msg 110 682 @valid;

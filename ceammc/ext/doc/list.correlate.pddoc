@@ -23,7 +23,7 @@
         <properties>
             <property name="@a" type="list">first argument</property>
             <property name="@b" type="list">second argument</property>
-            <property name="@mode" type="symbol" enum="valid same full">output mode. 'full' -
+            <property name="@mode" type="symbol" enum="valid same full" default="valid">output mode. 'full' -
             output the cross-correlation at each point of overlap, with an output length of
             (M+N-1). At the end-points of the cross-correlation, the signals do not overlap
             completely, and boundary effects may be seen. 'valid' - output of length
