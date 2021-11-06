@@ -30,8 +30,8 @@
             level. Unlike the previous two options, this avoids discontinuities when moving across
             the 1.0 pitch scale in real-time; it also consumes more CPU than the others in the case
             where the pitch scale is exactly 1.0.</property>
-            <property name="@transpose" type="float" minvalue="-24" maxvalue="24" default="0">
-            transposition in semitones</property>
+            <property name="@transpose" type="float" minvalue="-24" units="semitone" maxvalue="24"
+            default="0">transposition in semitones</property>
             <property name="@phase" type="int" enum="0 1" default="1">control the adjustment of
             component frequency phases from one analysis window to the next during non-transient
             segments. 'False' adjust the phase in each frequency bin independently from its
@@ -45,8 +45,34 @@
             stretches of some instruments and can mix well with @window short</property>
             <property name="@scale" type="float" minvalue="0.25" maxvalue="4" default="1">
             transposition as ratio</property>
+            <property name="@formant" type="int" enum="0 1" default="0">control the handling of
+            formant shape (spectral envelope) when pitch-shifting. If 'true' preserve the spectral
+            envelope of the unshifted signal. This permits shifting the note frequency without so
+            substantially affecting the perceived pitch profile of the voice or instrument. 'False'
+            apply no special formant processing. The spectral envelope will be pitch shifted as
+            normal.</property>
             <property name="@latency" type="float" units="sample" default="1025" readonly="true">
             object latency</property>
+            <property name="@trans" type="symbol" enum="crisp mixed smooth" default="crisp">control
+            the component frequency phase-reset mechanism that may be used at transient points to
+            provide clarity and realism to percussion and other significant transient sounds.
+            'crisp' reset component phases at the peak of each transient (the start of a
+            significant note or percussive event). This usually results in a clear-sounding output;
+            but it is not always consistent, and may cause interruptions in stable sounds present
+            at the same time as transient events. The @detector property can be used to tune this
+            to some extent. 'mixed' reset component phases at the peak of each transient, outside a
+            frequency range typical of musical fundamental frequencies. The results may be more
+            regular for mixed stable and percussive notes than 'crisp', but with a "phasier" sound.
+            The balance may sound very good for certain types of music and fairly bad for others.
+            'smooth' do not reset component phases at any point. The results will be smoother and
+            more regular but may be less clear than with either of the other @trans
+            settings</property>
+            <property name="@detector" type="symbol" enum="compound percussive soft"
+            default="compound">control the type of transient detector used. 'compound' a
+            general-purpose transient detector which is likely to be good for most situations.
+            'precussive' detect percussive transients. 'piano' use an onset detector with less of a
+            bias toward percussive transients. This may give better results with certain material
+            (e.g. relatively monophonic piano music).</property>
         </properties>
         <inlets>
             <inlet type="audio">
