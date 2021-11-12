@@ -35,7 +35,7 @@
             T60</property>
             <property name="@envelope" type="float" minvalue="0.1" maxvalue="3" default="1"
             units="second">amplitude-envelope time-constant going down</property>
-            <property name="@shift" type="float" minvalue="-12" maxvalue="12" default="0"
+            <property name="@shift" type="float" minvalue="-12" maxvalue="12" default="12"
             units="semitone">frequency shifting</property>
             <property name="@depth" type="float" minvalue="0" maxvalue="1" default="0">pitchshift
             modulation amplitude</property>

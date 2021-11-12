@@ -74,7 +74,7 @@ signal in shimmer feedback. Type: float. Default value: 0.5\. Range:
 0\...1\.;
 #X msg 110 1152 @shift;
 #X text 245 1152 Get/Set frequency shifting. Type: float. Units: semitone.
-Default value: 0\. Range: -12\...12\.;
+Default value: 12\. Range: -12\...12\.;
 #X msg 110 1194 @speed;
 #X text 245 1194 Get/Set pitchshift modulation frequency. Type: float.
 Units: Hz. Default value: 0.1\. Range: 0.1\...10\.;
