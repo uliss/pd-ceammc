@@ -152,7 +152,7 @@ with {
         t60dc = hslider("decay_low [unit:sec]", 3, 1, 8, 0.1);
         t60m = hslider("decay_mid [unit:sec]", 2, 1, 8, 0.1);
         f2 = hslider("damp_hf [unit:Hz]", 6000, 1500, 0.49*fsmax, 1);
-        mode = hslider("mode [type:int]",0, -3, 3, 0.05);
+        mode = hslider("mode [type:int]",0, -3, 3, 1);
         shift = hslider("shift [unit:semitone]", 0, -12, +12, 0.1) * 2;
         envelope = hslider("envelope [unit:sec]", 1, 0.1, 3, 0.05);
         control2 = hslider("control", 0.5, 0, 1, 0.05);
