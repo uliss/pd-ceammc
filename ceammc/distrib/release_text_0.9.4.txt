@@ -1,5 +1,50 @@
 # pan 0
 # voice slt
-.say this is minor correction release
-.say main features are:
-.say documentation fixes, proto.mpv control for MPV video player added
+# fx-recho 0
+# fx-ps on 0
+# fx-shimmer 0
+# main 1
+.say Hello!
+.say this is a new release of ceammc library version 0.9.4
+.say new objects are added:
+.say tempo analyzer, array granulator
+.say reverse echo effect
+# fx-recho 1
+.sleep 3000
+.sleep 50
+# fx-recho 0
+.say pitchshift object based on RubberBand library added
+.say it can do transpositions
+.say to higher range
+# fx-ps on 1
+# fx-ps 6
+# main 0
+.say and
+# fx-ps 0
+# main 1
+.say lower range
+# main 0
+# fx-ps -6
+.say shimmer effect added
+# main 1
+# fx-ps 0
+# fx-ps on 0
+.say the test phrase with fx
+# main 0
+# fx-shimmer 1
+.say the test phrase without fx
+# main 1
+# fx-shimmer 0
+.say LFO multioscillator added, it can produce different wave types:
+.sleep 500
+# mosc on 1
+# mosc 0
+.sleep 500
+# mosc 1
+.sleep 500
+# mosc 2
+.sleep 500
+# mosc 3
+.sleep 500
+# mosc on 0
+
