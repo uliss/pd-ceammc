@@ -1,4 +1,8 @@
 declare id "fx.shimmer";
+declare author "thedrgreenthumb";
+declare license "MIT";
+// MIT license
+// https://github.com/thedrgreenthumb/faust
 
 an = library("analyzers.lib");
 ba = library("basics.lib");

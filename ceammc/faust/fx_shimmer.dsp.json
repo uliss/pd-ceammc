@@ -10,6 +10,7 @@
 	"meta": [ 
 		{ "analyzers.lib/name": "Faust Analyzer Library" },
 		{ "analyzers.lib/version": "0.1" },
+		{ "author": "thedrgreenthumb" },
 		{ "basics.lib/name": "Faust Basic Element Library" },
 		{ "basics.lib/version": "0.1" },
 		{ "ceammc_ui.lib/name": "CEAMMC faust default UI elements" },
@@ -35,6 +36,7 @@
 		{ "filters.lib/tf1s:license": "MIT-style STK-4.3 license" },
 		{ "filters.lib/version": "0.3" },
 		{ "id": "fx.shimmer" },
+		{ "license": "MIT" },
 		{ "maths.lib/author": "GRAME" },
 		{ "maths.lib/copyright": "GRAME" },
 		{ "maths.lib/license": "LGPL with exception" },
