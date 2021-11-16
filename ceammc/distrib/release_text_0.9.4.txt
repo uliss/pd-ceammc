@@ -1,12 +1,15 @@
 # pan 0
-# voice slt
+# voice rms
 # fx-recho 0
 # fx-ps on 0
 # fx-shimmer 0
+# dur 0
+# spring vol 0
 # main 1
 .say Hello!
 .say this is a new release of ceammc library version 0.9.4
 .say new objects are added:
+# voice slt
 .say tempo analyzer, array granulator
 .say reverse echo effect
 # fx-recho 1
@@ -16,6 +19,7 @@
 .say pitchshift object based on RubberBand library added
 .say it can do transpositions
 .say to higher range
+# voice rms
 # fx-ps on 1
 # fx-ps 6
 # main 0
@@ -35,16 +39,24 @@
 .say the test phrase without fx
 # main 1
 # fx-shimmer 0
-.say LFO multioscillator added, it can produce different wave types:
-.sleep 500
-# mosc on 1
-# mosc 0
-.sleep 500
-# mosc 1
-.sleep 500
-# mosc 2
-.sleep 500
-# mosc 3
-.sleep 500
-# mosc on 0
+.say music duration syntax to time converter added
+.say you can enter rythm patterns as musicians are used to do:
+.say in terms of beat fractions, using quarter, eight notes etc.
+.sleep 10
+# dur 1
+.sleep 4000
+.say Basic filesystem path functions added: search, normalize and split
+# dur 0
+.say See path split in action:
+# path 1
+.say Spring object added and can be used
+.say to emulate Pitch Wheel behaivor:
+.sleep 1000
+# spring value 0.8
+# spring vol 1
+.sleep 1000
+# spring value 0.1
+.sleep 1000
+.say OK
+# spring vol 0
 

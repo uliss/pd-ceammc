@@ -1,4 +1,4 @@
-#N canvas 685 438 886 417 12;
+#N canvas 624 317 1060 459 12;
 #X obj 32 60 speech.flite~;
 #X obj 32 293 pan~;
 #X obj 32 323 ui.gain2~ @size 116 15 @receive "vol.main" @send "(null)"
@@ -55,7 +55,7 @@
 @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)"
 @label_inner 0 @label_side "top" @label_align "left" @label_valign
 "top" @label_margins 0 0;
-#X obj 157 297 ui.display @size 137 18 @receive "(null)" @send "(null)"
+#X obj 157 297 ui.display @size 74 18 @receive "(null)" @send "(null)"
 @pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
 0.6 1 @label_color 0 0 0 1 @text_color 0 0 0 1 @active_color 0 0.75
 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize
@@ -68,7 +68,22 @@
 #X obj 42 116 s~ \$0-v;
 #X obj 78 161 r main;
 #X obj 32 192 gain~;
-#N canvas 0 23 620 393 fx.recho~ 0;
+#X obj 157 223 r speech;
+#N canvas 0 23 451 290 [fx.shimmer~] 0;
+#X obj 118 76 r~ \$0-v;
+#X obj 118 102 gain~;
+#X obj 192 76 r fx-shimmer;
+#X obj 192 102 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 118 128 fx.shimmer~;
+#X obj 118 154 throw~ \$0-out;
+#X connect 0 0 1 0;
+#X connect 1 0 4 0;
+#X connect 2 0 3 0;
+#X connect 3 0 1 1;
+#X connect 4 0 5 0;
+#X restore 358 97 pd [fx.shimmer~];
+#N canvas 0 23 620 393 [fx.recho~] 0;
 #X obj 205 113 gain~ @db 0;
 #X obj 279 74 r fx-recho;
 #X obj 302 102 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
@@ -81,8 +96,8 @@
 #X connect 1 0 2 0;
 #X connect 4 0 0 0;
 #X connect 5 0 3 0;
-#X restore 358 26 pd fx.recho~;
-#N canvas 0 23 535 385 fx.rb_pitchisft~ 0;
+#X restore 358 26 pd [fx.recho~];
+#N canvas 0 23 535 385 [fx.rb_pitchisft~] 0;
 #X obj 177 128 gain~ @db 0;
 #X obj 290 141 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
@@ -100,24 +115,90 @@
 #X connect 3 1 6 0;
 #X connect 5 0 4 0;
 #X connect 7 0 0 0;
-#X restore 358 62 pd fx.rb_pitchisft~;
-#X obj 157 223 r speech;
-#X obj 358 136 r~ \$0-v;
-#X obj 358 162 gain~;
-#X obj 432 136 r fx-shimmer;
-#X obj 432 162 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X restore 358 62 pd [fx.rb_pitchisft~];
+#N canvas 342 274 403 311 [music.d->t] 0;
+#X obj 52 100 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X obj 358 188 fx.shimmer~;
-#X obj 358 214 throw~ \$0-out;
-#X obj 538 244 throw~ \$0-out;
-#X obj 538 188 gain~;
-#X obj 652 86 r mosc;
-#X obj 652 112 route on;
-#X obj 652 168 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 52 126 metro.pattern;
+#X obj 52 152 click~;
+#X obj 52 178 flt.resonbp~ 1000 100;
+#X obj 158 105 prop.set @pattern;
+#X obj 52 204 throw~ \$0-out;
+#X obj 158 79 music.d->t @seq 0 @bpm 90|4bpm;
+#X obj 52 67 r dur;
+#X obj 158 24 inlet;
+#X obj 158 50 list;
+#X obj 74 242 outlet;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
+#X connect 1 0 10 0;
+#X connect 2 0 3 0;
+#X connect 3 0 5 0;
+#X connect 4 0 1 0;
+#X connect 6 0 4 0;
+#X connect 7 0 0 0;
+#X connect 8 0 9 0;
+#X connect 9 0 6 0;
+#X restore 358 162 pd [music.d->t];
+#X obj 358 354 ui.display @size 299 18 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
+0.6 1 @label_color 0 0 0 1 @text_color 0 0 0 1 @active_color 0 0.75
+1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize
+11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left"
+@label_valign "top" @label_margins 0 0 @display_events 1 @display_type
+1 @auto_size 1 @float_width -1 @hex 0 @hex_width 2;
+#X obj 358 303 canvas.path;
+#X obj 358 328 path.split;
+#X obj 425 378 ui.display @size 183 18 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
+0.6 1 @label_color 0 0 0 1 @text_color 0 0 0 1 @active_color 0 0.75
+1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize
+11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left"
+@label_valign "top" @label_margins 0 0 @display_events 1 @display_type
+1 @auto_size 1 @float_width -1 @hex 0 @hex_width 2;
+#X obj 358 248 r path;
+#X obj 358 274 bang;
+#X obj 358 188 ui.bang @size 15 15 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
+0.6 1 @label_color 0 0 0 1 @active_color 1 0.3399 0.533564 1 @fontname
+"Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label
+"(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign
+"top" @label_margins 0 0;
+#X obj 641 113 spring 0.5 1000 @accel 2;
+#X obj 641 89 ui.slider @size 171 17 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.vsl.0" @mouse_events 1 @background_color
+0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @knob_color
+0 0.75 1 1 @text_color 0 0 0 1 @fontname "Helvetica" @fontweight "normal"
+@fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side
+"top" @label_align "left" @label_valign "top" @label_margins 0 0 @min
+0 @max 1 @mode 0 @scale "linear" @active_scale 0 @midi_channel 0 @midi_control
+0 @midi_pickup 1 @show_value 1 @value_pos "center" @value_precision
+2;
+#X obj 641 37 r spring;
+#N canvas 0 23 415 413 out 1;
+#X obj 119 134 expr $f1*1000;
+#X floatatom 119 160 5 0 0 0 - - -;
+#X obj 119 292 throw~ \$0-out;
+#X obj 119 212 *~ 0.1;
+#X obj 119 186 osc~ 500;
+#X obj 237 111 route vol;
+#X obj 119 71 inlet;
+#X obj 119 248 gain~ 1 @value 0;
+#X obj 237 137 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X floatatom 705 141 5 0 0 0 - - -;
-#X obj 538 162 lfo.mosc~ 250;
-#X obj 538 214 gain~ @db -15;
+#X obj 237 85 r spring;
+#X connect 0 0 1 0;
+#X connect 1 0 4 0;
+#X connect 3 0 7 0;
+#X connect 4 0 3 0;
+#X connect 5 0 8 0;
+#X connect 6 0 0 0;
+#X connect 7 0 2 0;
+#X connect 8 0 7 1;
+#X connect 9 0 5 0;
+#X restore 641 140 pd out;
+#X obj 358 135 loadmsg 4 8 16_. 32 12 12 12;
+#X obj 641 63 route value;
 #X connect 0 0 13 0;
 #X connect 0 0 15 0;
 #X connect 0 1 4 0;
@@ -133,17 +214,16 @@
 #X connect 12 0 1 0;
 #X connect 14 0 15 1;
 #X connect 15 0 1 0;
-#X connect 18 0 10 0;
-#X connect 19 0 20 0;
-#X connect 20 0 23 0;
-#X connect 21 0 22 0;
-#X connect 22 0 20 1;
-#X connect 23 0 24 0;
-#X connect 26 0 32 0;
-#X connect 27 0 28 0;
+#X connect 16 0 10 0;
+#X connect 20 0 27 0;
+#X connect 22 0 23 0;
+#X connect 23 0 21 0;
+#X connect 23 1 24 0;
+#X connect 25 0 26 0;
+#X connect 26 0 22 0;
 #X connect 28 0 29 0;
-#X connect 28 1 30 0;
-#X connect 29 0 26 1;
-#X connect 30 0 31 1;
-#X connect 31 0 26 0;
-#X connect 32 0 25 0;
+#X connect 28 0 31 0;
+#X connect 29 0 28 0;
+#X connect 30 0 33 0;
+#X connect 32 0 20 0;
+#X connect 33 0 29 0;
