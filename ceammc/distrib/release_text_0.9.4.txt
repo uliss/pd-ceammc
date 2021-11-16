@@ -6,57 +6,97 @@
 # dur 0
 # spring vol 0
 # main 1
+
+// INTRO
 .say Hello!
 .say this is a new release of ceammc library version 0.9.4
 .say new objects are added:
 # voice slt
 .say tempo analyzer, array granulator
+
+// REVERSED ECHO
 .say reverse echo effect
 # fx-recho 1
+.say this phase will be echoed backwards
 .sleep 3000
-.sleep 50
 # fx-recho 0
+
+// PITCHSHIFT
 .say pitchshift object based on RubberBand library added
 .say it can do transpositions
-.say to higher range
+// up
 # voice rms
 # fx-ps on 1
 # fx-ps 6
 # main 0
-.say and
+.say to higher range
+// normal
 # fx-ps 0
 # main 1
-.say lower range
+.say and
+// lower
 # main 0
 # fx-ps -6
-.say shimmer effect added
+.say lower range
+// normal
 # main 1
 # fx-ps 0
 # fx-ps on 0
-.say the test phrase with fx
+
+// SHIMMER
+.say shimmer effect added
 # main 0
 # fx-shimmer 1
-.say the test phrase without fx
+.say the test phrase with fx
 # main 1
 # fx-shimmer 0
+.say the test phrase without fx
+
+// MUSIC
 .say music duration syntax to time converter added
 .say you can enter rythm patterns as musicians are used to do:
 .say in terms of beat fractions, using quarter, eight notes etc.
-.sleep 10
 # dur 1
 .sleep 4000
-.say Basic filesystem path functions added: search, normalize and split
 # dur 0
-.say See path split in action:
+.sleep 300
+
+// FILESYSTEM
+.say Basic filesystem path functions added: search, normalize and split
+.say Let's see path split in action:
 # path 1
-.say Spring object added and can be used
-.say to emulate Pitch Wheel behaivor:
-.sleep 1000
+.sleep 300
+
+// SPRING
+.say Spring object added and can be used to emulate Pitch Wheel behaivor:
+.sleep 500
 # spring value 0.8
 # spring vol 1
 .sleep 1000
 # spring value 0.1
 .sleep 1000
-.say OK
 # spring vol 0
+.sleep 300
+
+// SFZ
+.say SFZ soundfont player added
+.say Let's hear
+# sfizz play
+.sleep 1000
+.say then modulate
+# sfizz mod
+.say and quit
+# sfizz stop
+.sleep 300
+
+// BELLS
+.say new physically based modeling bell synthesizers are added from FAUST project
+.say Let's hear carillion
+.sleep 100
+# bells 1
+.sleep 3000
+# bells 0
+.sleep 300
+
+// OTHER
 

@@ -1,7 +1,7 @@
-#N canvas 624 317 1060 459 12;
+#N canvas 628 443 1018 461 12;
 #X obj 32 60 speech.flite~;
 #X obj 32 293 pan~;
-#X obj 32 323 ui.gain2~ @size 116 15 @receive "vol.main" @send "(null)"
+#X obj 32 393 ui.gain2~ @size 116 15 @receive "vol.main" @send "(null)"
 @pinned 0 @presetname "(null)" @mouse_events 0 @background_color 0.93
 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @knob_color
 0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman"
@@ -9,52 +9,58 @@
 "left" @label_valign "top" @label_margins 0 0 @max 0 @min -60 @output_value
 0 @relative 1 @midi_channel 0 @midi_control 0 @midi_pickup 1 @show_range
 1;
-#X obj 32 347 dac~, f 16;
+#X obj 32 417 dac~, f 16;
 #X obj 120 86 s \$0-next;
 #X obj 57 266 r pan;
 #X obj 32 31 r speech;
-#N canvas 113 243 700 500 qlist 0;
+#N canvas 451 409 660 355 qlist 0;
 #X obj 73 257 qlist;
-#X msg 73 179 next;
+#X msg 73 189 next;
 #X obj 73 46 r \$0-next;
 #X obj 73 98 sel 1;
 #X obj 73 72 == 0;
 #X obj 123 72 r sleep;
-#X obj 123 98 t b b f;
 #X msg 123 124 0;
 #X obj 123 150 del 0;
 #X obj 209 46 inlet start;
-#X obj 117 179 loadmsg read release_qlist_0.9.4.txt
+#X obj 247 179 loadmsg read release_qlist_0.9.4.txt
 ;
 #X obj 209 72 t b b;
-#X msg 241 101 rewind;
-#X obj 117 205 msg.after 0 rewind;
+#X obj 247 205 msg.after 0 rewind;
 #X obj 315 305 s vol.main;
 #X obj 315 279 loadmsg @db -6;
+#X obj 123 98 t b b f f;
+#X obj 13 142 r next;
+#X obj 13 168 del 5;
+#X obj 379 44 r #;
+#X text 378 18 do not delete! for control blocks;
+#X msg 241 101 rewind \, next;
 #X connect 1 0 0 0;
 #X connect 2 0 4 0;
 #X connect 3 0 1 0;
 #X connect 4 0 3 0;
-#X connect 5 0 6 0;
-#X connect 6 0 7 0;
-#X connect 6 1 8 0;
-#X connect 6 2 8 1;
-#X connect 7 0 8 1;
-#X connect 8 0 1 0;
+#X connect 5 0 14 0;
+#X connect 6 0 7 1;
+#X connect 7 0 1 0;
+#X connect 8 0 10 0;
 #X connect 9 0 11 0;
-#X connect 10 0 13 0;
-#X connect 11 0 1 0;
-#X connect 11 1 12 0;
-#X connect 12 0 0 0;
-#X connect 13 0 0 0;
-#X connect 15 0 14 0;
+#X connect 10 0 1 0;
+#X connect 10 1 19 0;
+#X connect 11 0 0 0;
+#X connect 13 0 12 0;
+#X connect 14 0 6 0;
+#X connect 14 1 7 0;
+#X connect 14 2 7 1;
+#X connect 15 0 16 0;
+#X connect 16 0 1 0;
+#X connect 19 0 0 0;
 #X restore 230 72 pd qlist;
 #X obj 230 23 ui.bang @size 44 44 @receive "(null)" @send "(null)"
 @pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
-0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @fontname "Helvetica"
-@fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)"
-@label_inner 0 @label_side "top" @label_align "left" @label_valign
-"top" @label_margins 0 0;
+0.6 1 @label_color 1 0.3399 0.533564 1 @active_color 0 0.75 1 1 @fontname
+"Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label
+"PRESS\ TO\ START" @label_inner 0 @label_side "top" @label_align "left"
+@label_valign "top" @label_margins 0 0;
 #X obj 157 297 ui.display @size 74 18 @receive "(null)" @send "(null)"
 @pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
 0.6 1 @label_color 0 0 0 1 @text_color 0 0 0 1 @active_color 0 0.75
@@ -175,7 +181,7 @@
 0 @midi_pickup 1 @show_value 1 @value_pos "center" @value_precision
 2;
 #X obj 641 37 r spring;
-#N canvas 0 23 415 413 out 1;
+#N canvas 0 23 415 413 out 0;
 #X obj 119 134 expr $f1*1000;
 #X floatatom 119 160 5 0 0 0 - - -;
 #X obj 119 292 throw~ \$0-out;
@@ -199,6 +205,75 @@
 #X restore 641 140 pd out;
 #X obj 358 135 loadmsg 4 8 16_. 32 12 12 12;
 #X obj 641 63 route value;
+#X obj 46 326 catch~ \$0-outl;
+#X obj 46 351 catch~ \$0-outr;
+#N canvas 0 22 700 500 [sfizz~] 0;
+#X msg 126 82 note 60 120 \, note 65 120 \, note 47 120;
+#X msg 145 135 notes_off;
+#X msg 226 160 cc 71 \$1;
+#X obj 126 193 sfizz~ sfz/example.sfz;
+#X obj 126 30 r sfizz;
+#X obj 126 56 route play stop mod;
+#X msg 226 109 0 \, 120 5000;
+#X obj 226 135 line 50;
+#X obj 126 279 throw~ \$0-outl;
+#X obj 424 279 throw~ \$0-outr;
+#X obj 126 219 gain~ 2 @db -16 -16, f 43;
+#X connect 0 0 3 0;
+#X connect 1 0 3 0;
+#X connect 2 0 3 0;
+#X connect 3 0 10 0;
+#X connect 3 1 10 1;
+#X connect 4 0 5 0;
+#X connect 5 0 0 0;
+#X connect 5 1 1 0;
+#X connect 5 2 6 0;
+#X connect 6 0 7 0;
+#X connect 7 0 2 0;
+#X connect 10 0 8 0;
+#X connect 10 1 9 0;
+#X restore 641 178 pd [sfizz~];
+#N canvas 219 253 460 574 bells~ 0;
+#X obj 48 186 synth.church_bell~;
+#X obj 81 218 synth.english_bell~;
+#X obj 116 252 synth.french_bell~;
+#X obj 145 289 synth.german_bell~;
+#X obj 163 326 synth.russian_bell~;
+#X obj 183 366 synth.standard_bell~;
+#X obj 81 463 pan.spread~ 6;
+#X obj 81 515 throw~ \$0-outl;
+#X obj 253 515 throw~ \$0-outr;
+#X obj 222 29 r bells;
+#X obj 222 81 t b b;
+#X obj 312 27 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 81 489 gain~ 2 @db -24 -24, f 25;
+#X obj 222 145 flow.demux 7;
+#X obj 254 113 random.i 6;
+#X obj 222 55 metro 120;
+#X connect 0 0 6 0;
+#X connect 1 0 6 1;
+#X connect 2 0 6 2;
+#X connect 3 0 6 3;
+#X connect 4 0 6 4;
+#X connect 5 0 6 5;
+#X connect 6 0 12 0;
+#X connect 6 1 12 1;
+#X connect 9 0 15 0;
+#X connect 10 0 13 0;
+#X connect 10 1 14 0;
+#X connect 11 0 15 0;
+#X connect 12 0 7 0;
+#X connect 12 1 8 0;
+#X connect 13 0 0 0;
+#X connect 13 1 1 0;
+#X connect 13 2 2 0;
+#X connect 13 3 3 0;
+#X connect 13 4 4 0;
+#X connect 13 5 5 0;
+#X connect 14 0 13 1;
+#X connect 15 0 10 0;
+#X restore 641 218 pd bells~;
 #X connect 0 0 13 0;
 #X connect 0 0 15 0;
 #X connect 0 1 4 0;
@@ -227,3 +302,5 @@
 #X connect 30 0 33 0;
 #X connect 32 0 20 0;
 #X connect 33 0 29 0;
+#X connect 34 0 2 0;
+#X connect 35 0 2 1;
