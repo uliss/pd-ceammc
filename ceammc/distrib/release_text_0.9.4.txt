@@ -7,6 +7,9 @@
 
 // INTRO
 .say Hello!
+.sleep 300
+# grain 1
+.sleep 3000
 .say this is a new release of ceammc library version 0.9.4
 .say new objects are added:
 # voice slt
@@ -28,7 +31,7 @@
 // up
 # voice rms
 # fx-ps on 1
-# fx-ps 6
+# fx-ps 12
 # main 0
 .say to higher range
 // normal
@@ -57,7 +60,7 @@
 .say Basic filesystem path functions added: search, normalize and split
 .say Let's see path split in action:
 # path 1
-.sleep 300
+.sleep 700
 
 // SPRING
 .say Spring object added and can be used to emulate Pitch Wheel behaivor:
@@ -77,6 +80,7 @@
 .sleep 1000
 .say then modulate
 # sfizz mod
+.sleep 1000
 .say and quit
 # sfizz stop
 .sleep 300
@@ -97,4 +101,10 @@
 .sleep 3000
 # drums 0
 .sleep 300
+
+// END
+.say The more information can be found at http://github.com/uliss/pure-data
+.say Bye and good patching!
+# grain 1
+
 
