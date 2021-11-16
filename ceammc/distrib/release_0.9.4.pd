@@ -75,33 +75,27 @@
 #X obj 78 161 r main;
 #X obj 32 192 gain~;
 #X obj 157 223 r speech;
-#N canvas 0 23 451 290 [fx.shimmer~] 0;
-#X obj 118 76 r~ \$0-v;
-#X obj 118 102 gain~;
-#X obj 192 76 r fx-shimmer;
-#X obj 192 102 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
-1;
-#X obj 118 128 fx.shimmer~;
-#X obj 118 154 throw~ \$0-out;
-#X connect 0 0 1 0;
-#X connect 1 0 4 0;
-#X connect 2 0 3 0;
-#X connect 3 0 1 1;
-#X connect 4 0 5 0;
-#X restore 358 97 pd [fx.shimmer~];
-#N canvas 0 23 620 393 [fx.recho~] 0;
-#X obj 205 113 gain~ @db 0;
-#X obj 279 74 r fx-recho;
-#X obj 302 102 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
-1;
-#X obj 205 183 throw~ \$0-out;
-#X obj 205 61 r~ \$0-v;
-#X obj 205 147 fx.recho~ 2500 @feedback 0;
-#X connect 0 0 5 0;
-#X connect 1 0 0 1;
-#X connect 1 0 2 0;
-#X connect 4 0 0 0;
+#N canvas 532 414 401 413 [fx.recho~] 0;
+#X obj 82 307 throw~ \$0-out;
+#X obj 82 234 readsf~;
+#X obj 82 172 expand_env;
+#X msg 82 143 symbol %CEAMMC%/guitar1.wav;
+#X msg 82 205 open \$1 120000 \, 1;
+#X obj 82 56 t b f;
+#X obj 114 82 == 0;
+#X msg 114 108 reset \, @bypass \$1;
+#X obj 82 271 fx.recho~ 1000 @feedback 0 @drywet 0.5;
+#X obj 82 30 r fx-recho;
+#X connect 1 0 8 0;
+#X connect 2 0 4 0;
+#X connect 3 0 2 0;
+#X connect 4 0 1 0;
 #X connect 5 0 3 0;
+#X connect 5 1 6 0;
+#X connect 6 0 7 0;
+#X connect 7 0 8 0;
+#X connect 8 0 0 0;
+#X connect 9 0 5 0;
 #X restore 358 26 pd [fx.recho~];
 #N canvas 0 23 535 385 [fx.rb_pitchisft~] 0;
 #X obj 177 128 gain~ @db 0;
@@ -145,7 +139,7 @@
 #X connect 7 0 0 0;
 #X connect 8 0 9 0;
 #X connect 9 0 6 0;
-#X restore 358 162 pd [music.d->t];
+#X restore 358 126 pd [music.d->t];
 #X obj 358 354 ui.display @size 299 18 @receive "(null)" @send "(null)"
 @pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
 0.6 1 @label_color 0 0 0 1 @text_color 0 0 0 1 @active_color 0 0.75
@@ -164,7 +158,7 @@
 1 @auto_size 1 @float_width -1 @hex 0 @hex_width 2;
 #X obj 358 248 r path;
 #X obj 358 274 bang;
-#X obj 358 188 ui.bang @size 15 15 @receive "(null)" @send "(null)"
+#X obj 358 152 ui.bang @size 15 15 @receive "(null)" @send "(null)"
 @pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
 0.6 1 @label_color 0 0 0 1 @active_color 1 0.3399 0.533564 1 @fontname
 "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label
@@ -203,7 +197,7 @@
 #X connect 8 0 7 1;
 #X connect 9 0 5 0;
 #X restore 641 140 pd out;
-#X obj 358 135 loadmsg 4 8 16_. 32 12 12 12;
+#X obj 358 99 loadmsg 4 8 16_. 32 12 12 12;
 #X obj 641 63 route value;
 #X obj 46 326 catch~ \$0-outl;
 #X obj 46 351 catch~ \$0-outr;
@@ -290,17 +284,17 @@
 #X connect 14 0 15 1;
 #X connect 15 0 1 0;
 #X connect 16 0 10 0;
-#X connect 20 0 27 0;
-#X connect 22 0 23 0;
-#X connect 23 0 21 0;
-#X connect 23 1 24 0;
-#X connect 25 0 26 0;
-#X connect 26 0 22 0;
-#X connect 28 0 29 0;
-#X connect 28 0 31 0;
-#X connect 29 0 28 0;
-#X connect 30 0 33 0;
-#X connect 32 0 20 0;
-#X connect 33 0 29 0;
-#X connect 34 0 2 0;
-#X connect 35 0 2 1;
+#X connect 19 0 26 0;
+#X connect 21 0 22 0;
+#X connect 22 0 20 0;
+#X connect 22 1 23 0;
+#X connect 24 0 25 0;
+#X connect 25 0 21 0;
+#X connect 27 0 28 0;
+#X connect 27 0 30 0;
+#X connect 28 0 27 0;
+#X connect 29 0 32 0;
+#X connect 31 0 19 0;
+#X connect 32 0 28 0;
+#X connect 33 0 2 0;
+#X connect 34 0 2 1;

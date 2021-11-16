@@ -1,6 +1,5 @@
 # pan 0
 # voice rms
-# fx-recho 0
 # fx-ps on 0
 # fx-shimmer 0
 # dur 0
@@ -16,10 +15,13 @@
 
 // REVERSED ECHO
 .say reverse echo effect
-# fx-recho 1
-.say this phase will be echoed backwards
-.sleep 3000
+.sleep 500
+.say without fx
 # fx-recho 0
+.sleep 3000
+.say with fx
+# fx-recho 1
+.sleep 3300
 
 // PITCHSHIFT
 .say pitchshift object based on RubberBand library added
@@ -42,15 +44,6 @@
 # main 1
 # fx-ps 0
 # fx-ps on 0
-
-// SHIMMER
-.say shimmer effect added
-# main 0
-# fx-shimmer 1
-.say the test phrase with fx
-# main 1
-# fx-shimmer 0
-.say the test phrase without fx
 
 // MUSIC
 .say music duration syntax to time converter added
