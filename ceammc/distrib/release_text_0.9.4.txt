@@ -1,7 +1,6 @@
 # pan 0
 # voice rms
 # fx-ps on 0
-# fx-shimmer 0
 # dur 0
 # spring vol 0
 # main 1
@@ -91,5 +90,11 @@
 # bells 0
 .sleep 300
 
-// OTHER
+// DRUMS
+.say Kick and snare synthesizers are added from FAUST project
+.sleep 100
+# drums 1
+.sleep 3000
+# drums 0
+.sleep 300
 
