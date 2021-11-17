@@ -4,6 +4,8 @@ BINDIR="@PROJECT_BINARY_DIR@/dist"
 VERSION="@CEAMMC_LIB_VERSION@"
 OBJLIST="@PROJECT_SOURCE_DIR@/ceammc/ext/doc/ceammc_deken_objlist.txt"
 DEKEN="@DEKEN@"
+EXPECT="@EXPECT@"
+EXPECT_LOGIN="@PROJECT_BINARY_DIR@/dist/deken_expect_login"
 
 CEAMMC_LIB_DIR="$BINDIR/ceammc"
 
@@ -16,15 +18,22 @@ fi
 
 cd "$BINDIR"
 
-if [ ! -f ceammc[v@CEAMMC_LIB_VERSION@*.dek ]
+FOUND=$(ls ceammc"["v@CEAMMC_LIB_VERSION@*.dek | wc -l)
+
+if [[ "$FOUND" -ne 1 ]]
 then
     echo "deken file not found: $CEAMMC_LIB_DIR"
     echo "may be you should call make deken_package"
     exit 1
 fi
 
-export DEKEN_USERNAME=anadjarov
-$DEKEN upload --version $VERSION \
-    --objects "${OBJLIST}" \
-    --no-source-error \
-    ceammc[v@CEAMMC_LIB_VERSION@*.dek
+DEKEN_FILE=$(find . -name 'ceammc\[v@CEAMMC_LIB_VERSION@*.dek')
+
+echo "found deken file: $DEKEN_FILE"
+
+echo "loading gpgenv"
+cd "@PROJECT_BINARY_DIR@"
+eval `gpgshell`
+echo "username: $DEKEN_USERNAME"
+cd "$BINDIR"
+$EXPECT_LOGIN "$DEKEN_FILE" "$DEKEN_PASS"

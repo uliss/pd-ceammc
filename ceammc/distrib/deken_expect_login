@@ -1,0 +1,14 @@
+#!/usr/bin/expect
+
+set DEKEN {@DEKEN@}
+set VERSION {@CEAMMC_LIB_VERSION@}
+set OBJLIST {@PROJECT_SOURCE_DIR@/ceammc/ext/doc/ceammc_deken_objlist.txt}
+
+set file  [lindex $argv 0]
+set passw [lindex $argv 1]
+
+spawn $DEKEN upload --version $VERSION --objects $OBJLIST --no-source-error $file
+expect "Please enter password for uploading as 'anadjarov':"
+
+send "$passw\n"
+expect eof

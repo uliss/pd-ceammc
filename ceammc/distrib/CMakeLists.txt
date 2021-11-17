@@ -38,6 +38,7 @@ if(UNIX AND NOT APPLE)
 endif()
 
 find_program(DEKEN deken PATH $ENV{HOME}/bin)
+find_program(EXPECT expect)
 
 if(DEKEN)
     message(STATUS "deken program found: ${DEKEN}. Target `make deken_package` is available")
@@ -46,7 +47,15 @@ if(DEKEN)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/deken_make_package.sh ${DEKEN_MAKE_PACKAGE} @ONLY)
 
     set(DEKEN_UPLOAD_PACKAGE "${PROJECT_BINARY_DIR}/dist/deken_upload_package.sh")
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/deken_upload_package.sh ${DEKEN_UPLOAD_PACKAGE} @ONLY)
+    set(DEKEN_UPLOAD_MANUAL "${PROJECT_BINARY_DIR}/dist/deken_upload_manual.sh")
+    if(EXPECT)
+        message(STATUS "expect program found: ${EXPECT}")
+        configure_file(${CMAKE_CURRENT_SOURCE_DIR}/deken_upload_package_expect.sh ${DEKEN_UPLOAD_PACKAGE} @ONLY)
+        configure_file(${CMAKE_CURRENT_SOURCE_DIR}/deken_upload_package.sh ${DEKEN_UPLOAD_MANUAL} @ONLY)
+        configure_file(${CMAKE_CURRENT_SOURCE_DIR}/deken_expect_login ${PROJECT_BINARY_DIR}/dist/deken_expect_login @ONLY)
+    else()
+        configure_file(${CMAKE_CURRENT_SOURCE_DIR}/deken_upload_package.sh ${DEKEN_UPLOAD_PACKAGE} @ONLY)
+    endif()
 
     add_custom_target(deken_package
         COMMAND ${DEKEN_MAKE_PACKAGE}
@@ -57,7 +66,9 @@ if(DEKEN)
         COMMAND ${DEKEN_UPLOAD_PACKAGE}
         WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/dist"
         DEPENDS deken_package
-        SOURCES deken_upload_package.sh)
+        SOURCES deken_upload_package.sh
+                deken_upload_package_expect.sh
+                deken_expect_login)
 endif()
 
 # documentation check
