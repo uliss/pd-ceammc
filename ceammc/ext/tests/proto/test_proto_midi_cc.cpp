@@ -198,7 +198,7 @@ TEST_CASE("proto.midi.cc", "[externals]")
         REQUIRE(t1.messagesAt(0) == ML {
                     M("volume~", 2, 0x60),
                     M("volume:i", 2, 0x60 << 7),
-                    M("volume:f", 2, float(0x60 << 7) / 0x3FFF),
+                    M("volume:f", 2, t_float(0x60 << 7) / 0x3FFF),
                 });
         t1.clearAll();
 
@@ -206,7 +206,7 @@ TEST_CASE("proto.midi.cc", "[externals]")
         REQUIRE(t1.messagesAt(0) == ML {
                     M("volume.", 2, 0x60),
                     M("volume:i", 2, 0x60 << 7 | 0x60),
-                    M("volume:f", 2, float(0x60 << 7 | 0x60) / 0x3FFF),
+                    M("volume:f", 2, t_float(0x60 << 7 | 0x60) / 0x3FFF),
                 });
         t1.clearAll();
 
@@ -214,7 +214,7 @@ TEST_CASE("proto.midi.cc", "[externals]")
         REQUIRE(t1.messagesAt(0) == ML {
                     M("volume~", 2, 0),
                     M("volume:i", 2, 0x60),
-                    M("volume:f", 2, float(0x60) / 0x3FFF),
+                    M("volume:f", 2, t_float(0x60) / 0x3FFF),
                     M("volume.", 2, 0),
                     M("volume:i", 2, 0),
                     M("volume:f", 2, 0),
@@ -225,7 +225,7 @@ TEST_CASE("proto.midi.cc", "[externals]")
         REQUIRE(t1.messagesAt(0) == ML {
                     M("volume~", 2, 0x7F),
                     M("volume:i", 2, 0x7F << 7),
-                    M("volume:f", 2, float(0x7F << 7) / 0x3FFF),
+                    M("volume:f", 2, t_float(0x7F << 7) / 0x3FFF),
                     M("volume.", 2, 0x7F),
                     M("volume:i", 2, 0x3FFF),
                     M("volume:f", 2, 1),
@@ -273,10 +273,10 @@ TEST_CASE("proto.midi.cc", "[externals]")
     {
         TExt t("proto.midi.cc");
         t << LF(0xB1, CC_VOLUME_COARSE, 0x40);
-        REQUIRE(t.messagesAt(0) == ML { M("volume~", 1, 0x40), M("volume:i", 1, 0x40 << 7), M("volume:f", 1, float(0x40 << 7) / 0x3FFF) });
+        REQUIRE(t.messagesAt(0) == ML { M("volume~", 1, 0x40), M("volume:i", 1, 0x40 << 7), M("volume:f", 1, t_float(0x40 << 7) / 0x3FFF) });
 
         t << LF(0xB1, CC_VOLUME_FINE, 0x7F);
-        REQUIRE(t.messagesAt(0) == ML { M("volume.", 1, 0x7F), M("volume:i", 1, 0x40 << 7 | 0x7F), M("volume:f", 1, float(0x40 << 7 | 0x7F) / 0x3FFF) });
+        REQUIRE(t.messagesAt(0) == ML { M("volume.", 1, 0x7F), M("volume:i", 1, 0x40 << 7 | 0x7F), M("volume:f", 1, t_float(0x40 << 7 | 0x7F) / 0x3FFF) });
 
         t << LF(0xB1, CC_VOLUME_COARSE, 0x7F);
         t << LF(0xB1, CC_VOLUME_FINE, 0x7F);
