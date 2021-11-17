@@ -121,6 +121,7 @@ TEST_CASE("flow.speedlim", "[externals]")
 
     SECTION("do")
     {
+#if PD_FLOATSIZE == 32
         setTestSampleRate(64000);
 
         TExt t("flow.speedlim", 3_ticks);
@@ -165,6 +166,7 @@ TEST_CASE("flow.speedlim", "[externals]")
         t.schedTicks(15);
         t.sendBang(); // pass
         REQUIRE(t.messagesAt(0) == MessageList({ bang, bang }));
+#endif
     }
 
     SECTION("alias")
