@@ -28,15 +28,27 @@ endif()
 find_package(PkgConfig QUIET)
 
 if(WITH_SFIZZ)
-    pkg_search_module(SFIZZ sfizz>=1.0 REQUIRED)
-else()
-    pkg_check_modules(SFIZZ "sfizz")
-endif()
+    cmake_minimum_required(VERSION 3.14)
+    include(FetchContent)
+    set(FETCHCONTENT_QUIET FALSE)
+    set(SFIZZ_AU OFF CACHE INTERNAL "")
+    set(SFIZZ_LV2 OFF CACHE INTERNAL "")
+    set(SFIZZ_LV2_UI OFF CACHE INTERNAL "")
+    set(SFIZZ_VST OFF CACHE INTERNAL "")
+    set(SFIZZ_JACK OFF CACHE INTERNAL "")
+    set(SFIZZ_RENDER OFF CACHE INTERNAL "")
+    set(SFIZZ_SHARED OFF CACHE INTERNAL "")
+    set(SFIZZ_USE_SNDFILE OFF CACHE INTERNAL "")
 
-if(SFIZZ_FOUND)
-    target_include_directories(ceammc_misc PRIVATE ${SFIZZ_INCLUDE_DIRS})
-    target_compile_definitions(ceammc_misc PRIVATE -DWITH_SFIZZ)
-    target_link_libraries(ceammc_misc PUBLIC ${SFIZZ_LIBRARIES})
+    FetchContent_Declare(
+      sfizz
+      URL      https://github.com/sfztools/sfizz/releases/download/1.1.1/sfizz-1.1.1.tar.gz
+      URL_HASH MD5=cc4770c287d52da517a7ae25fd826a3e
+    )
+    FetchContent_MakeAvailable(sfizz)
+
+    target_compile_definitions(ceammc_misc PRIVATE -DWITH_SFIZZ -DSFIZZ_VERSION="1.1.1")
+    target_link_libraries(ceammc_misc PUBLIC sfizz)
     target_sources(ceammc_misc PRIVATE sfizz_tilde.cpp)
 endif()
 
