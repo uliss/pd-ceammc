@@ -69,6 +69,6 @@ TEST_CASE("array.convolve", "[externals]")
         for (size_t i = 0; i < a0->size(); i++)
             res.append(a0->at(i));
 
-        REQUIRE(res == LF(0.25, 0.5, 0.75, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.75, 0.5, 0.25));
+        REQUIRE(res == LX(0.25, 0.5, 0.75, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.75, 0.5, 0.25));
     }
 }
