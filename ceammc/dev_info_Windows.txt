@@ -1,0 +1,3 @@
+dev targets: 
+  * dev_fixdll - fix dll dependencies, copy them into install location
+  * dev_touch_version - touch external info file, to update compilation date/time in load message

@@ -42,10 +42,15 @@ if(WIN32)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/install_external.sh
                    ${PROJECT_BINARY_DIR}/dist/install_external.sh @ONLY)
 
+   add_custom_target(dev_fixdll
+       COMMAND bash -c ${PROJECT_BINARY_DIR}/fix_dll_deps.sh
+       WORKING_DIRECTORY ${PROJECT_BINARY_DIR})
+
     add_custom_target(ceammc_lib
         COMMAND make_lib_win.sh "${PROJECT_BINARY_DIR}/dist"
         SOURCES make_lib_win.sh
-        WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/dist")
+        WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/dist"
+        USES_TERMINAL)
 
     add_custom_target(install_external
         COMMAND install_external.sh
