@@ -32,7 +32,11 @@ if(WITH_SFIZZ)
     target_compile_definitions(ceammc_misc PRIVATE -DWITH_SFIZZ -DSFIZZ_VERSION="1.1.1")
 
     target_include_directories(ceammc_misc PUBLIC ${sfizz_SOURCE_DIR}/src)
-    target_link_libraries(ceammc_misc PRIVATE sfizz_static)
+    if(WIN32)
+        target_link_libraries(ceammc_misc PUBLIC sfizz::shared)
+    else()
+        target_link_libraries(ceammc_misc PRIVATE sfizz_static)
+    endif()
 endif()
 
 if(WITH_MODPLUG)
