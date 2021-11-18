@@ -28,11 +28,10 @@ find_by_dll_ext() {
 
 find_all_dll_deps() {
     # PureData vanilla binaries
-    list_dll @PROJECT_BINARY_DIR@/src/pdsend.exe
-    list_dll @PROJECT_BINARY_DIR@/src/pdreceive.exe
-    list_dll @PROJECT_BINARY_DIR@/src/pd.exe
-    list_dll @PROJECT_BINARY_DIR@/src/pd.dll
-
+    list_dll "@PROJECT_BINARY_DIR@/src/pdsend.exe"
+    list_dll "@PROJECT_BINARY_DIR@/src/pdreceive.exe"
+    list_dll "@PROJECT_BINARY_DIR@/src/pd.exe"
+    list_dll "@PROJECT_BINARY_DIR@/src/pd.dll"
 
     find_by_dll_ext dll
     find_by_dll_ext m_i386
