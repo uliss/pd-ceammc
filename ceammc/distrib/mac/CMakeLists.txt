@@ -1,3 +1,6 @@
+file(GLOB _BUILD_SCRIPTS "*.sh")
+add_custom_target(ceammc_distrib_mac_sources SOURCES ${_BUILD_SCRIPTS})
+
 if(APPLE)
     add_executable(dylibbundler
         macdylibbundler/src/Dependency.cpp
@@ -5,9 +8,6 @@ if(APPLE)
         macdylibbundler/src/main.cpp
         macdylibbundler/src/Settings.cpp
         macdylibbundler/src/Utils.cpp)
-
-    file(GLOB _BUILD_SCRIPTS "*.sh")
-    add_custom_target(ceammc_distrib_mac_sources SOURCES ${_BUILD_SCRIPTS})
 
     if(WITH_DOUBLE_PRECISION)
         set(PD_FLOAT_SIZE 64)
