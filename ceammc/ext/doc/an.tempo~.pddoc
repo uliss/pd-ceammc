@@ -39,7 +39,7 @@
             onset detection function</property>
             <property name="@phase" type="alias">alias to @method phase. Phase Based Method onset
             detection function</property>
-            <property name="@wphase" type="alias">alias to @method phase.Weighted Phase Deviation
+            <property name="@wphase" type="alias">alias to @method phase. Weighted Phase Deviation
             onset detection function</property>
             <property name="@specdiff" type="alias">alias to @method specdiff. Spectral difference
             method onset detection function</property>
@@ -64,8 +64,8 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>bang if onset detected</outlet>
-            <outlet>output time of the latest onset detected in millisecond</outlet>
+            <outlet>float: BPM value</outlet>
+            <outlet>float: detection confidence</outlet>
         </outlets>
         <example>
             <pdascii>
@@ -74,7 +74,9 @@
 |
 [snd.file] [table antmp] [ui.hsl @show_value 1 @min 0.1 @max 2.5]
                          |
+                         |
 [B #a]  [stop(           [@speed $1(
+|       |                |
 |       |                |
 [array.play~ antmp     #b]
 |  |
