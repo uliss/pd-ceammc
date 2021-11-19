@@ -71,11 +71,17 @@ if(WIN32)
         COMMAND bash -c "${PROJECT_BINARY_DIR}/dist/build_all.sh"
         USES_TERMINAL)
 
+    # deploy to github
+    # deploy INNO installer
     set(GIT_RELEASE_TAG "v${CEAMMC_DISTRIB_VERSION}")
     add_custom_target(deploy_github_exe
         COMMAND ${GITHUB_CLI} release upload --clobber ${GIT_RELEASE_TAG} "${PROJECT_BINARY_DIR}/dist/${INNO_INSTALLER_NAME}.exe"
         USES_TERMINAL)
-
+    # deploy external
+    add_custom_target(deploy_github_ext
+        COMMAND ${GITHUB_CLI} release upload --clobber ${GIT_RELEASE_TAG} "${PROJECT_BINARY_DIR}/dist/${CEAMMC_EXTERNAL_NAME}"
+        USES_TERMINAL)
+    add_custom_target(deploy_github DEPENDS deploy_github_exe deploy_github_ext)
 
     add_custom_target(install0
         COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:ceammc_core> "${CMAKE_INSTALL_PREFIX}/${PD_INTERNAL_EXT_INSTALL_PATH}/ceammc"

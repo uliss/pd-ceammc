@@ -8,5 +8,7 @@ dev targets:
   * dev_build_all     - update version, fix dll, fix doc, then build targets: `ceammc_lib`, `inno`
 
 deploy target:
-  * deploy_github_exe - upload PureData installer to github
+  * deploy_github_exe - upload PureData installer to github release
+  * deploy_github_ext - upload external to github release
+  * deploy_github     - upload all artifacts to github release
 
