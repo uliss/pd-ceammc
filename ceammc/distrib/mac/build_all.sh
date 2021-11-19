@@ -9,6 +9,7 @@ build_target() {
 
 rm -f "@PROJECT_BINARY_DIR@/dist/"*.app
 rm -f "@PROJECT_BINARY_DIR@/dist/"*.zip
+rm -f "@PROJECT_BINARY_DIR@/dist/"*.tar.gz
 rm -f "@PROJECT_BINARY_DIR@/dist/"*.dmg
 
 build_target dev_touch_version
