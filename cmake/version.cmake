@@ -30,4 +30,21 @@ if(APPLE)
    endif()
 
    set(CEAMMC_EXTERNAL_NAME "ceammc-${CEAMMC_LIB_VERSION}-macosx-${MACOSX_VERSION}-pd-${PD_TEXT_VERSION_SHORT}-f${PD_FLOAT_SIZE}${MT_SUFFIX}.tar.gz")
+
+elseif(WIN32)
+
+    if(WITH_DOUBLE_PRECISION)
+        set(PD_FLOAT_SIZE 64)
+    else()
+        set(PD_FLOAT_SIZE 32)
+    endif()
+
+    if(WITH_PD_INSTANCE)
+        set(MT_SUFFIX "-mt")
+    else()
+        set(MT_SUFFIX "")
+    endif()
+
+    set(CEAMMC_EXTERNAL_NAME "ceammc-${CEAMMC_LIB_VERSION}-win-pd-${PD_TEXT_VERSION_SHORT}-f${PD_FLOAT_SIZE}${MT_SUFFIX}.zip")
+
 endif()

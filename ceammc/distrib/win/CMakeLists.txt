@@ -1,8 +1,4 @@
-if(WINE_CROSSCOMPILE)
-    set(INSTALLED_BIN_DIR "Z:/${CMAKE_INSTALL_PREFIX}")
-else()
-    set(INSTALLED_BIN_DIR "${CMAKE_INSTALL_PREFIX}")
-endif()
+set(INSTALLED_BIN_DIR "${CMAKE_INSTALL_PREFIX}")
 
 if(WIN32)
     find_program(7Z_EXE
@@ -43,19 +39,13 @@ if(WIN32)
                    ${PROJECT_BINARY_DIR}/dist/install_external.sh @ONLY)
 
    add_custom_target(dev_fixdll
-       COMMAND bash -c ${PROJECT_BINARY_DIR}/fix_dll_deps.sh
-       WORKING_DIRECTORY ${PROJECT_BINARY_DIR})
+       COMMAND bash -c "${PROJECT_BINARY_DIR}/fix_dll_deps.sh")
 
     add_custom_target(ceammc_lib
-        COMMAND make_lib_win.sh "${PROJECT_BINARY_DIR}/dist"
-        SOURCES make_lib_win.sh
-        WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/dist"
-        USES_TERMINAL)
+        COMMAND bash -c "${PROJECT_BINARY_DIR}/dist/make_lib_win.sh '${PROJECT_BINARY_DIR}/dist'")
 
-    add_custom_target(install_external
-        COMMAND install_external.sh
-        SOURCES install_external.sh
-        WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/dist")
+    add_custom_target(dev_ext
+        COMMAND bash -c "${PROJECT_BINARY_DIR}/dist/install_external.sh")
 
     add_custom_target(install0
         COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:ceammc_core> "${CMAKE_INSTALL_PREFIX}/${PD_INTERNAL_EXT_INSTALL_PATH}/ceammc"
@@ -82,7 +72,6 @@ find_program(ISCC_PATH
     NAMES ISCC.exe
     PATHS "$ENV{PROGRAMFILES}/Inno Setup 5"
           "C:/Program Files (x86)/Inno Setup 5"
-          "$ENV{HOME}/.wine/drive_c/Program Files/Inno Setup 5"
           "$ENV{PROGRAMFILES}/Inno Setup 6"
           "C:/Program Files (x86)/Inno Setup 6")
 
@@ -90,16 +79,8 @@ find_program(ISCC_PATH
 if(ISCC_PATH)
     message(STATUS "Inno Setup Installed found: ${ISCC_PATH}")
     message(STATUS "     You could type `make inno` after `make install` to build installer package")
-
-    if(WINE_CROSSCOMPILE)
-        add_custom_target(inno
-            COMMAND wine ${ISCC_PATH} "${CMAKE_BINARY_DIR}/pd.iss"
-        )
-    else()
-        add_custom_target(inno
-            COMMAND ${ISCC_PATH} "${CMAKE_BINARY_DIR}/pd.iss"
-        )
-    endif()
+    add_custom_target(inno
+        COMMAND ${ISCC_PATH} "${CMAKE_BINARY_DIR}/pd.iss")
 endif()
 
 add_subdirectory(homebrew)
@@ -108,10 +89,11 @@ if(WIN32)
     install(DIRECTORY fonts DESTINATION ${CMAKE_INSTALL_PREFIX})
 endif()
 
-add_custom_target(window_installer SOURCES
+add_custom_target(ceammc_distrib_win_sources SOURCES
     fix_dll_deps.sh
     make_lib_win.sh
     win_upload_to_github.sh
     win_fix_pddoc_key_modifiers.sh
+    install_external.sh
     pd.iss
 )
