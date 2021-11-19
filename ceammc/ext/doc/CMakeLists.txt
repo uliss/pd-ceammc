@@ -176,7 +176,8 @@ if(TIDY)
                 "${CMAKE_CURRENT_BINARY_DIR}/$$f" . \;
             echo "Format pddoc file: $$f" \;
         done
-        WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
+        WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+        USES_TERMINAL)
 endif()
 
 
