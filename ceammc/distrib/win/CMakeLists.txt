@@ -39,20 +39,24 @@ if(WIN32)
                    ${PROJECT_BINARY_DIR}/dist/install_external.sh @ONLY)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/remove_external.sh
                    ${PROJECT_BINARY_DIR}/dist/remove_external.sh @ONLY)
-   configure_file(${CMAKE_CURRENT_SOURCE_DIR}/build_all.sh
-                  ${PROJECT_BINARY_DIR}/dist/build_all.sh @ONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/build_all.sh
+                   ${PROJECT_BINARY_DIR}/dist/build_all.sh @ONLY)
 
    add_custom_target(dev_fixdll
-       COMMAND bash -c "${PROJECT_BINARY_DIR}/fix_dll_deps.sh")
+       COMMAND bash -c "${PROJECT_BINARY_DIR}/fix_dll_deps.sh"
+       USES_TERMINAL)
 
    add_custom_target(dev_fixdoc
-       COMMAND bash -c "${PROJECT_BINARY_DIR}/dist/win_fix_pddoc_key_modifiers.sh")
+       COMMAND bash -c "${PROJECT_BINARY_DIR}/dist/win_fix_pddoc_key_modifiers.sh"
+       USES_TERMINAL)
 
     add_custom_target(ceammc_lib
-        COMMAND bash -c "${PROJECT_BINARY_DIR}/dist/make_lib_win.sh '${PROJECT_BINARY_DIR}/dist'")
+        COMMAND bash -c "${PROJECT_BINARY_DIR}/dist/make_lib_win.sh '${PROJECT_BINARY_DIR}/dist'"
+        USES_TERMINAL)
 
     add_custom_target(dev_ext
-        COMMAND bash -c "${PROJECT_BINARY_DIR}/dist/install_external.sh")
+        COMMAND bash -c "${PROJECT_BINARY_DIR}/dist/install_external.sh"
+        USES_TERMINAL)
 
     add_custom_target(dev_rmext
         COMMAND bash -c "${PROJECT_BINARY_DIR}/dist/remove_external.sh")
@@ -60,7 +64,6 @@ if(WIN32)
     add_custom_target(dev_build_all
         COMMAND bash -c "${PROJECT_BINARY_DIR}/dist/build_all.sh"
         USES_TERMINAL)
-#        DEPENDS dev_touch_version all install dev_fixdll dev_fixdoc ceammc_lib inno)
 
     add_custom_target(install0
         COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:ceammc_core> "${CMAKE_INSTALL_PREFIX}/${PD_INTERNAL_EXT_INSTALL_PATH}/ceammc"
@@ -95,7 +98,8 @@ if(ISCC_PATH)
     message(STATUS "Inno Setup Installed found: ${ISCC_PATH}")
     message(STATUS "     You could type `make inno` after `make install` to build installer package")
     add_custom_target(inno
-        COMMAND ${ISCC_PATH} "${CMAKE_BINARY_DIR}/pd.iss")
+        COMMAND ${ISCC_PATH} "${CMAKE_BINARY_DIR}/pd.iss"
+        USES_TERMINAL)
 endif()
 
 add_subdirectory(homebrew)
