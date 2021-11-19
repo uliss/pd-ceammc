@@ -19,13 +19,6 @@ list_dll () {
     done
 }
 
-find_by_dll_ext() {
-    find "@PROJECT_BINARY_DIR@/ceammc/ext" -path '*/tests' -prune -o -name "*.$1" -print | while read dll
-    do
-        list_dll "$dll"
-    done
-}
-
 find_all_dll_deps() {
     # PureData vanilla binaries
     list_dll "@PROJECT_BINARY_DIR@/src/pdsend.exe"
@@ -33,9 +26,13 @@ find_all_dll_deps() {
     list_dll "@PROJECT_BINARY_DIR@/src/pd.exe"
     list_dll "@PROJECT_BINARY_DIR@/src/pd.dll"
 
-    find_by_dll_ext dll
-    find_by_dll_ext m_i386
-    find_by_dll_ext m_amd64
+    find "@PROJECT_BINARY_DIR@/ceammc/ext" -path '*/tests' -prune \
+        -o -name "*\.dll" \
+        -o -name "*\.m_i386" \
+        -o -name "*\.m_amd64" -print | while read dll
+    do
+        list_dll "$dll"
+    done
 }
 
 find_all_dll_deps | sort | uniq | while read dll
