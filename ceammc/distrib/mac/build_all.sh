@@ -7,7 +7,7 @@ build_target() {
     @CMAKE_COMMAND@ --build "@PROJECT_BINARY_DIR@" --target $1
 }
 
-rm -f "@PROJECT_BINARY_DIR@/dist/"*.app
+rm -rf "@PROJECT_BINARY_DIR@/dist/"*.app
 rm -f "@PROJECT_BINARY_DIR@/dist/"*.zip
 rm -f "@PROJECT_BINARY_DIR@/dist/"*.tar.gz
 rm -f "@PROJECT_BINARY_DIR@/dist/"*.dmg
