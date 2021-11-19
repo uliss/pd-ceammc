@@ -9,6 +9,11 @@ if(WIN32)
         message(STATUS "7z found at: ${7Z_EXE}")
     endif()
 
+    find_program(SHA256SUM NAMES sha256sum)
+    if(SHA256SUM)
+        message(STATUS "sha256sum command found: ${SHA256SUM}")
+    endif()
+
     find_program(GITHUB_CLI NAMES gh gh.exe)
     if(GITHUB_CLI)
         message(STATUS "GitHub command line found: ${GITHUB_CLI}")
@@ -45,6 +50,8 @@ if(WIN32)
                    ${PROJECT_BINARY_DIR}/dist/remove_external.sh @ONLY)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/build_all.sh
                    ${PROJECT_BINARY_DIR}/dist/build_all.sh @ONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/calc_checksums.sh
+                   ${PROJECT_BINARY_DIR}/dist/calc_checksums.sh @ONLY)
 
    add_custom_target(dev_fixdll
        COMMAND bash -c "${PROJECT_BINARY_DIR}/fix_dll_deps.sh"
@@ -64,6 +71,10 @@ if(WIN32)
 
     add_custom_target(dev_rmext
         COMMAND bash -c "${PROJECT_BINARY_DIR}/dist/remove_external.sh")
+
+    add_custom_target(dev_sha256
+        COMMAND bash -c "${PROJECT_BINARY_DIR}/dist/calc_checksums.sh"
+        USES_TERMINAL)
 
     add_custom_target(dev_build_all
         COMMAND bash -c "${PROJECT_BINARY_DIR}/dist/build_all.sh"
