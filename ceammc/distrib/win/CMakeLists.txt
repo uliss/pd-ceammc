@@ -39,6 +39,8 @@ if(WIN32)
                    ${PROJECT_BINARY_DIR}/dist/install_external.sh @ONLY)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/remove_external.sh
                    ${PROJECT_BINARY_DIR}/dist/remove_external.sh @ONLY)
+   configure_file(${CMAKE_CURRENT_SOURCE_DIR}/build_all.sh
+                  ${PROJECT_BINARY_DIR}/dist/build_all.sh @ONLY)
 
    add_custom_target(dev_fixdll
        COMMAND bash -c "${PROJECT_BINARY_DIR}/fix_dll_deps.sh")
@@ -54,6 +56,11 @@ if(WIN32)
 
     add_custom_target(dev_rmext
         COMMAND bash -c "${PROJECT_BINARY_DIR}/dist/remove_external.sh")
+
+    add_custom_target(dev_build_all
+        COMMAND bash -c "${PROJECT_BINARY_DIR}/dist/build_all.sh"
+        USES_TERMINAL)
+#        DEPENDS dev_touch_version all install dev_fixdll dev_fixdoc ceammc_lib inno)
 
     add_custom_target(install0
         COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:ceammc_core> "${CMAKE_INSTALL_PREFIX}/${PD_INTERNAL_EXT_INSTALL_PATH}/ceammc"
@@ -103,5 +110,7 @@ add_custom_target(ceammc_distrib_win_sources SOURCES
     win_upload_to_github.sh
     win_fix_pddoc_key_modifiers.sh
     install_external.sh
+    remove_external.sh
+    build_all.sh
     pd.iss
 )
