@@ -1,5 +1,7 @@
 dev targets: 
   * dev_fixdll - fix dll dependencies, copy them into install location
   * dev_fixdoc - replace in doc MacOS Command symbol '⌘' to Control symbol '^'
-  * dev_ext    - build target `ceammc_lib` (external archive) and install it to %USERPROFILE%/Documents/Pd/externals
+  * dev_ext    - build target `ceammc_lib` (external archive) and install it
+                 to %USERPROFILE%/Documents/Pd/externals/${ARCH}
+  * dev_rmext  - remove external installed by previous command
   * dev_touch_version - touch external info file, to update compilation date/time in load message

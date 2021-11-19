@@ -37,6 +37,8 @@ if(WIN32)
                    ${PROJECT_BINARY_DIR}/dist/make_lib_win.sh @ONLY)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/install_external.sh
                    ${PROJECT_BINARY_DIR}/dist/install_external.sh @ONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/remove_external.sh
+                   ${PROJECT_BINARY_DIR}/dist/remove_external.sh @ONLY)
 
    add_custom_target(dev_fixdll
        COMMAND bash -c "${PROJECT_BINARY_DIR}/fix_dll_deps.sh")
@@ -49,6 +51,9 @@ if(WIN32)
 
     add_custom_target(dev_ext
         COMMAND bash -c "${PROJECT_BINARY_DIR}/dist/install_external.sh")
+
+    add_custom_target(dev_rmext
+        COMMAND bash -c "${PROJECT_BINARY_DIR}/dist/remove_external.sh")
 
     add_custom_target(install0
         COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:ceammc_core> "${CMAKE_INSTALL_PREFIX}/${PD_INTERNAL_EXT_INSTALL_PATH}/ceammc"
