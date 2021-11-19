@@ -35,8 +35,6 @@ if(WIN32)
                    ${PROJECT_BINARY_DIR}/dist/pd.iss)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/fix_dll_deps.sh
                    ${PROJECT_BINARY_DIR} @ONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/win_upload_to_github.sh
-                   ${PROJECT_BINARY_DIR} @ONLY)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/win_fix_pddoc_key_modifiers.sh
                    ${PROJECT_BINARY_DIR}/dist/win_fix_pddoc_key_modifiers.sh @ONLY)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/make_lib_win.sh
@@ -129,7 +127,6 @@ endif()
 add_custom_target(ceammc_distrib_win_sources SOURCES
     fix_dll_deps.sh
     make_lib_win.sh
-    win_upload_to_github.sh
     win_fix_pddoc_key_modifiers.sh
     install_external.sh
     remove_external.sh
