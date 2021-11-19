@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 ### Added:
+- new properties:
+  - array.play~: @loop property added for looped playing
 
 ## [0.9.4]
 ### Added:

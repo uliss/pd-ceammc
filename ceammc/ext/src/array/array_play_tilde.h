@@ -48,6 +48,7 @@ class ArrayPlayTilde : public ArraySoundBase {
     FloatProperty* speed_;
     IntEnumProperty* interp_;
     FloatProperty* amp_;
+    BoolProperty* loop_;
     ArrayPositionProperty* begin_;
     ArrayPositionProperty* end_;
     ArrayPositionProperty* cursor_;

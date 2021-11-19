@@ -76,6 +76,7 @@ ArrayPlayTilde::ArrayPlayTilde(const PdArgs& args)
     , speed_(nullptr)
     , interp_(nullptr)
     , amp_(nullptr)
+    , loop_(nullptr)
     , begin_(nullptr)
     , end_(nullptr)
     , cursor_(nullptr)
@@ -85,7 +86,9 @@ ArrayPlayTilde::ArrayPlayTilde(const PdArgs& args)
     , block_counter_(0)
     , state_(STATE_STOPPED)
     , done_([this]() {
-        command(ACT_STOP);
+        if (!loop_->value())
+            command(ACT_STOP);
+
         bangTo(2);
     })
     , cursor_tick_([this]() {
@@ -108,6 +111,9 @@ ArrayPlayTilde::ArrayPlayTilde(const PdArgs& args)
 
     interp_ = new IntEnumProperty("@interp", { INTERP_LIN, INTERP_CUBIC, NO_INTERP });
     addProperty(interp_);
+
+    loop_ = new BoolProperty("@loop", false);
+    addProperty(loop_);
 
     amp_ = new FloatProperty("@amp", 1);
     amp_->checkNonNegative();
@@ -268,98 +274,73 @@ void ArrayPlayTilde::processBlock(const t_sample**, t_sample** out)
         assert(FIRST <= LAST);
         assert(ASIZE > 0);
 
-        if (SPEED > 0) {
-
-            switch (interp_->value()) {
-            case INTERP_LIN: {
-                for (size_t i = 0; i < BS; i++) {
-                    if (pos_ >= FIRST && pos_ <= LAST) { // need to read one sample after read position
-                        if (pos_ <= (LAST - 1))
-                            out[0][i] = AMP * readUnsafe1(pos_);
-                        else
-                            out[0][i] = AMP * readSafe1(pos_);
-
-                        pos_ += SPEED;
-                    } else
-                        return blockLast(i, BS, out[0]);
-                }
-            } break;
-            case INTERP_CUBIC: {
-                for (size_t i = 0; i < BS; i++) {
-                    // need to read one sample before and two samples after read position
-                    if (pos_ >= FIRST && pos_ <= LAST) {
-                        if (pos_ < 1 || pos_ >= (LAST - 2))
-                            out[0][i] = AMP * readSafe3(pos_);
-                        else
-                            out[0][i] = AMP * readUnsafe3(pos_);
-
-                        pos_ += SPEED;
-                    } else
-                        return blockLast(i, BS, out[0]);
-                }
-            } break;
-            case NO_INTERP:
-            default: {
-                for (size_t i = 0; i < BS; i++) {
-                    if (pos_ >= FIRST && pos_ <= LAST) {
-                        out[0][i] = AMP * readUnsafe0(pos_);
-
-                        pos_ += SPEED;
-                    } else
-                        return blockLast(i, BS, out[0]);
-                }
-            } break;
-            }
-
-            blockDone();
-
-        } else if (SPEED < 0) {
-
-            switch (interp_->value()) {
-            case INTERP_LIN: {
-                for (size_t i = 0; i < BS; i++) {
-                    if (pos_ >= FIRST && pos_ <= LAST) {
-                        if (pos_ <= LAST - 1) // need to read one sample after read position
-                            out[0][i] = AMP * readUnsafe1(pos_);
-                        else
-                            out[0][i] = AMP * readSafe1(pos_);
-
-                        pos_ += SPEED;
-                    } else
-                        return blockLast(i, BS, out[0]);
-                }
-            } break;
-            case INTERP_CUBIC: {
-                for (size_t i = 0; i < BS; i++) {
-                    if (pos_ >= FIRST && pos_ <= LAST) {
-                        // need to read one sample before and two samples after read position
-                        if (pos_ < 1 || pos_ > (LAST - 2))
-                            out[0][i] = AMP * readSafe3(pos_);
-                        else
-                            out[0][i] = AMP * readUnsafe3(pos_);
-
-                        pos_ += SPEED;
-                    } else
-                        return blockLast(i, BS, out[0]);
-                }
-            } break;
-            case NO_INTERP:
-            default: {
-                for (size_t i = 0; i < BS; i++) {
-                    if (pos_ >= FIRST && pos_ <= LAST) {
-                        out[0][i] = AMP * readUnsafe0(pos_);
-                        pos_ += SPEED;
-                    } else
-                        return blockLast(i, BS, out[0]);
-                }
-            } break;
-            }
-
-            blockDone();
-
-        } else { // ZERO speed
+        if (SPEED == 0) {
             for (size_t i = 0; i < BS; i++)
                 out[0][i] = 0;
+        } else {
+            const auto loop = loop_->value();
+
+            auto read1 = [](double& pos, double last, double speed, ArraySoundBase* x) -> t_sample {
+                // need to read one sample after read position
+                auto res = (pos < (last - 1)) ? x->readUnsafe1(pos)
+                                              : x->readSafe1(pos);
+                pos += speed;
+                return res;
+            };
+
+            auto read3 = [](double pos, double last, ArraySoundBase* x) -> t_sample {
+                // need to read one sample before and two samples after read position
+                return (pos >= 1 && pos <= (last - 2)) ? x->readUnsafe3(pos)
+                                                       : x->readSafe3(pos);
+            };
+
+            auto resetPos = [](double first, double last, float speed, ClockLambdaFunction& clock) -> double {
+                clock.delay(0);
+                return (speed > 0) ? first : last;
+            };
+
+            switch (interp_->value()) {
+            case INTERP_LIN: {
+                for (size_t i = 0; i < BS; i++) {
+                    if (pos_ >= FIRST && pos_ <= LAST) { // normal reading
+                        out[0][i] = AMP * read1(pos_, LAST, SPEED, this);
+                    } else if (loop) {
+                        pos_ = resetPos(FIRST, LAST, SPEED, done_);
+                        out[0][i] = AMP * read1(pos_, LAST, SPEED, this);
+                    } else
+                        return blockLast(i, BS, out[0]);
+                }
+            } break;
+            case INTERP_CUBIC: {
+                for (size_t i = 0; i < BS; i++) {
+                    if (pos_ >= FIRST && pos_ <= LAST) {
+                    LOOP_CUBIC:
+                        out[0][i] = AMP * read3(pos_, LAST, this);
+                        pos_ += SPEED;
+                    } else if (loop) {
+                        pos_ = resetPos(FIRST, LAST, SPEED, done_);
+                        goto LOOP_CUBIC;
+                    } else
+                        return blockLast(i, BS, out[0]);
+                }
+            } break;
+            case NO_INTERP:
+            default: {
+                for (size_t i = 0; i < BS; i++) {
+                    if (pos_ >= FIRST && pos_ <= LAST) {
+                    LOOP_NO_INTERP:
+                        out[0][i] = AMP * readUnsafe0(pos_);
+                        pos_ += SPEED;
+                    } else if (loop) {
+                        pos_ = resetPos(FIRST, LAST, SPEED, done_);
+                        goto LOOP_NO_INTERP;
+                    } else
+                        return blockLast(i, BS, out[0]);
+                }
+            } break;
+            }
+
+            blockDone();
         }
     }
 }
@@ -439,6 +420,7 @@ void ArrayPlayTilde::command(PlayAction act)
 
 void ArrayPlayTilde::blockLast(size_t i, size_t bs, t_sample* out)
 {
+    // fill with zeroes
     for (; i < bs; i++)
         out[i] = 0;
 

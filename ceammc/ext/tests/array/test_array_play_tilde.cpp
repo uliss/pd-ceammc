@@ -48,6 +48,7 @@ TEST_CASE("array.play~", "[externals]")
         REQUIRE_PROPERTY(t, @cursor_phase, 0);
         REQUIRE_PROPERTY(t, @state, 0);
         REQUIRE_PROPERTY(t, @interp, 1);
+        REQUIRE_PROPERTY(t, @loop, 0.);
     }
 
     SECTION("states")
@@ -256,7 +257,7 @@ TEST_CASE("array.play~", "[externals]")
                 REQUIRE(s0.out[0][i] == 0);
         }
 
-        SECTION("intrerpolation")
+        SECTION("interpolation")
         {
             SECTION("none")
             {
@@ -626,6 +627,45 @@ TEST_CASE("array.play~", "[externals]")
             REQUIRE(t.messageCount(2) == 1);
             REQUIRE(t.lastMessage(2) == Message::makeBang());
             REQUIRE(t.playPos() == 25);
+        }
+
+        SECTION("@loop")
+        {
+            TExt t("array.play~", LA("array_play~1", "@loop", 1, "@speed", 1));
+            REQUIRE_PROPERTY(t, @loop, 1);
+
+            REQUIRE(t.blockSize() == 64);
+            Array arr("array_play~1");
+            REQUIRE(arr.size() == 30);
+
+            TSig s0;
+            TDsp dsp(s0, t);
+
+            t.sendBang();
+            REQUIRE(t.playPos() == 0);
+
+            dsp.processBlock();
+
+            for (size_t i = 0; i < 30; i++)
+                REQUIRE(s0.out[0][i] == i);
+
+            for (size_t i = 30; i < 60; i++)
+                REQUIRE(s0.out[0][i] == (i - 30));
+
+            for (size_t i = 60; i < 64; i++)
+                REQUIRE(s0.out[0][i] == (i - 60));
+
+            REQUIRE(t.playPos() == 4);
+            dsp.processBlock();
+
+            for (size_t i = 0; i < 64; i++)
+                REQUIRE(s0.out[0][i] == (i + 4) % 30);
+
+            sched_tick();
+
+            REQUIRE(t.messageCount(2) == 1);
+            REQUIRE(t.lastMessage(2) == Message::makeBang());
+            REQUIRE(t.playPos() == 12);
         }
     }
 
