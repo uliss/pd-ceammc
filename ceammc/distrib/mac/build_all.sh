@@ -11,8 +11,8 @@ rm -rf "@PROJECT_BINARY_DIR@/dist/"*.app
 rm -f "@PROJECT_BINARY_DIR@/dist/"*.zip
 rm -f "@PROJECT_BINARY_DIR@/dist/"*.tar.gz
 rm -f "@PROJECT_BINARY_DIR@/dist/"*.dmg
-rm -rf "@PROJECT_BINARY_DIR@/ceammc"
-rm -rf "@PROJECT_BINARY_DIR@/pd_ceammc"
+rm -rf "@PROJECT_BINARY_DIR@/dist/ceammc"
+rm -rf "@PROJECT_BINARY_DIR@/dist/pd_ceammc"
 
 build_target dev_touch_version
 build_target all
