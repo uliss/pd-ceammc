@@ -12,3 +12,6 @@ deploy target:
   * deploy_github_ext - upload external to github release
   * deploy_github     - upload all artifacts to github release
 
+deken:
+  * deken_package - build and sign with GPG deken package
+  * deken_upload  - upload to deken repo

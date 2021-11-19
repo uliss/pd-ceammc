@@ -37,43 +37,38 @@ if(UNIX AND NOT APPLE)
 endif()
 
 find_program(DEKEN deken PATH $ENV{HOME}/bin)
-find_program(EXPECT expect)
 
 if(DEKEN)
-    message(STATUS "deken program found: ${DEKEN}. Target `make deken_package` is available")
+    message(STATUS "deken program found: ${DEKEN}. Target `deken_package` is available")
 
     if(WIN32)
-        set(DEKEN_MAKE_PACKAGE bash -c "${PROJECT_BINARY_DIR}/dist/deken_make_package.sh")
+        set(DEKEN_MAKE_PACKAGE   bash -c "${PROJECT_BINARY_DIR}/dist/deken_make_package.sh")
+        set(DEKEN_UPLOAD_PACKAGE bash -c "${PROJECT_BINARY_DIR}/dist/deken_upload_package.sh")
     else()
-        set(DEKEN_MAKE_PACKAGE "${PROJECT_BINARY_DIR}/dist/deken_make_package.sh")
+        set(DEKEN_MAKE_PACKAGE   "${PROJECT_BINARY_DIR}/dist/deken_make_package.sh")
+        set(DEKEN_UPLOAD_PACKAGE "${PROJECT_BINARY_DIR}/dist/deken_upload_package.sh")
     endif()
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/deken_make_package.sh ${DEKEN_MAKE_PACKAGE} @ONLY)
 
-    set(DEKEN_UPLOAD_PACKAGE "${PROJECT_BINARY_DIR}/dist/deken_upload_package.sh")
-    set(DEKEN_UPLOAD_MANUAL "${PROJECT_BINARY_DIR}/dist/deken_upload_manual.sh")
-    if(EXPECT)
-        message(STATUS "expect program found: ${EXPECT}")
-        configure_file(${CMAKE_CURRENT_SOURCE_DIR}/deken_upload_package_expect.sh ${DEKEN_UPLOAD_PACKAGE} @ONLY)
-        configure_file(${CMAKE_CURRENT_SOURCE_DIR}/deken_upload_package.sh ${DEKEN_UPLOAD_MANUAL} @ONLY)
-        configure_file(${CMAKE_CURRENT_SOURCE_DIR}/deken_expect_login ${PROJECT_BINARY_DIR}/dist/deken_expect_login @ONLY)
-    else()
-        configure_file(${CMAKE_CURRENT_SOURCE_DIR}/deken_upload_package.sh ${DEKEN_UPLOAD_PACKAGE} @ONLY)
-    endif()
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/deken_make_package.sh
+        "${PROJECT_BINARY_DIR}/dist/deken_make_package.sh" @ONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/deken_upload_package.sh
+        "${PROJECT_BINARY_DIR}/dist/deken_upload_package.sh" @ONLY)
 
     add_custom_target(deken_package
         COMMAND ${DEKEN_MAKE_PACKAGE}
         WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/dist"
-        SOURCES deken_make_package.sh
         USES_TERMINAL)
 
     add_custom_target(deken_upload
         COMMAND ${DEKEN_UPLOAD_PACKAGE}
         WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/dist"
-        DEPENDS deken_package
-        SOURCES deken_upload_package.sh
-                deken_upload_package_expect.sh
-                deken_expect_login)
+        USES_TERMINAL)
 endif()
+
+# deken scripts
+add_custom_target(ceammc_distrib_deken_sources
+    SOURCES deken_make_package.sh deken_upload_package.sh)
+
 
 # documentation check
 set(DOC_CHECK_SCRIPTS
