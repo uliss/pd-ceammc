@@ -269,7 +269,6 @@ void ArrayPlayTilde::processBlock(const t_sample**, t_sample** out)
         assert(ASIZE > 0);
 
         if (SPEED > 0) {
-            bool done = false;
 
             switch (interp_->value()) {
             case INTERP_LIN: {
@@ -312,10 +311,9 @@ void ArrayPlayTilde::processBlock(const t_sample**, t_sample** out)
             } break;
             }
 
-            blockDone(done);
+            blockDone();
 
         } else if (SPEED < 0) {
-            bool done = false;
 
             switch (interp_->value()) {
             case INTERP_LIN: {
@@ -327,10 +325,8 @@ void ArrayPlayTilde::processBlock(const t_sample**, t_sample** out)
                             out[0][i] = AMP * readSafe1(pos_);
 
                         pos_ += SPEED;
-                    } else {
-                        out[0][i] = 0;
-                        done = true;
-                    }
+                    } else
+                        return blockLast(i, BS, out[0]);
                 }
             } break;
             case INTERP_CUBIC: {
@@ -343,10 +339,8 @@ void ArrayPlayTilde::processBlock(const t_sample**, t_sample** out)
                             out[0][i] = AMP * readUnsafe3(pos_);
 
                         pos_ += SPEED;
-                    } else {
-                        out[0][i] = 0;
-                        done = true;
-                    }
+                    } else
+                        return blockLast(i, BS, out[0]);
                 }
             } break;
             case NO_INTERP:
@@ -355,15 +349,13 @@ void ArrayPlayTilde::processBlock(const t_sample**, t_sample** out)
                     if (pos_ >= FIRST && pos_ <= LAST) {
                         out[0][i] = AMP * readUnsafe0(pos_);
                         pos_ += SPEED;
-                    } else {
-                        out[0][i] = 0;
-                        done = true;
-                    }
+                    } else
+                        return blockLast(i, BS, out[0]);
                 }
             } break;
             }
 
-            blockDone(done);
+            blockDone();
 
         } else { // ZERO speed
             for (size_t i = 0; i < BS; i++)
@@ -453,13 +445,8 @@ void ArrayPlayTilde::blockLast(size_t i, size_t bs, t_sample* out)
     done_.delay(0);
 }
 
-void ArrayPlayTilde::blockDone(bool done)
+void ArrayPlayTilde::blockDone()
 {
-    if (done) {
-        done_.delay(0);
-        return;
-    }
-
     // sync cursor position
     cursor_->setValue(pos_);
     const auto BS = blockSize() ? blockSize() : 64;

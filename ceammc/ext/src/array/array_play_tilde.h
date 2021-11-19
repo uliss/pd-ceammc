@@ -84,7 +84,7 @@ public:
 private:
     void command(PlayAction act);
     void blockLast(size_t i, size_t bs, t_sample* out);
-    void blockDone(bool done);
+    void blockDone();
 
     static FSM fsm_;
 };
