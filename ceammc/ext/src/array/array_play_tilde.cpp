@@ -281,11 +281,8 @@ void ArrayPlayTilde::processBlock(const t_sample**, t_sample** out)
                             out[0][i] = AMP * readSafe1(pos_);
 
                         pos_ += SPEED;
-                    } else {
-                        // stop playing, but fill rest of block with zeroes
-                        out[0][i] = 0;
-                        done = true;
-                    }
+                    } else
+                        return blockLast(i, BS, out[0]);
                 }
             } break;
             case INTERP_CUBIC: {
@@ -298,11 +295,8 @@ void ArrayPlayTilde::processBlock(const t_sample**, t_sample** out)
                             out[0][i] = AMP * readUnsafe3(pos_);
 
                         pos_ += SPEED;
-                    } else {
-                        // stop playing, but fill rest of block with zeroes
-                        out[0][i] = 0;
-                        done = true;
-                    }
+                    } else
+                        return blockLast(i, BS, out[0]);
                 }
             } break;
             case NO_INTERP:
@@ -312,11 +306,8 @@ void ArrayPlayTilde::processBlock(const t_sample**, t_sample** out)
                         out[0][i] = AMP * readUnsafe0(pos_);
 
                         pos_ += SPEED;
-                    } else {
-                        // stop playing, but fill rest of block with zeroes
-                        out[0][i] = 0;
-                        done = true;
-                    }
+                    } else
+                        return blockLast(i, BS, out[0]);
                 }
             } break;
             }
@@ -454,9 +445,17 @@ void ArrayPlayTilde::command(PlayAction act)
     state_ = fsm_[state_][act](this);
 }
 
-void ArrayPlayTilde::blockDone(bool value)
+void ArrayPlayTilde::blockLast(size_t i, size_t bs, t_sample* out)
 {
-    if (value) {
+    for (; i < bs; i++)
+        out[i] = 0;
+
+    done_.delay(0);
+}
+
+void ArrayPlayTilde::blockDone(bool done)
+{
+    if (done) {
         done_.delay(0);
         return;
     }
