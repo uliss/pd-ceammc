@@ -2,7 +2,6 @@ add_subdirectory(win)
 add_subdirectory(mac)
 add_subdirectory(linux)
 add_subdirectory(docker)
-add_subdirectory(bintray)
 
 set(MAKELIB_SCRIPT "")
 
