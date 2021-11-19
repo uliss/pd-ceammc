@@ -32,6 +32,19 @@ if(APPLE)
     configure_file(save_postscript.sh ${PROJECT_BINARY_DIR}/scripts/save_postscript.sh @ONLY)
     configure_file(save_example.sh ${PROJECT_BINARY_DIR}/scripts/save_example.sh @ONLY)
     configure_file(wish_activate.sh ${PROJECT_BINARY_DIR}/scripts/wish_activate.sh @ONLY)
+    configure_file(build_all.sh ${PROJECT_BINARY_DIR}/scripts/build_all.sh @ONLY)
+
+    add_custom_target(ceammc_lib
+        COMMAND ${CMAKE_COMMAND} -E rm -rf ${PROJECT_BINARY_DIR}/dist/pd_ceammc
+        COMMAND ${PROJECT_BINARY_DIR}/dist/make_lib_mac.sh "${PROJECT_BINARY_DIR}/dist"
+        USES_TERMINAL)
+
+    add_custom_target(dev_ext
+        COMMAND ${PROJECT_BINARY_DIR}/dist/install_external.sh
+        DEPENDS ceammc_lib)
+
+    add_custom_target(dev_rmext
+        COMMAND ${CMAKE_COMMAND} -E rm -rf "$ENV{HOME}/Documents/Pd/externals/ceammc")
 
 
     find_program(GITHUB_CLI NAMES gh gh.exe)
@@ -56,5 +69,6 @@ if(APPLE)
     endif()
 
     add_custom_target(dev_build_all
-        DEPENDS dev_touch_version all ceammc_lib dmg)
+        COMMAND ${PROJECT_BINARY_DIR}/scripts/build_all.sh
+        USES_TERMINAL)
 endif()

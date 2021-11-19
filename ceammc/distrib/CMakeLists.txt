@@ -16,19 +16,6 @@ if(APPLE)
 
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/update_cpp_src_from_doc.sh
                    ${PROJECT_BINARY_DIR}/update_cpp_src_from_doc.sh @ONLY)
-
-    add_custom_target(ceammc_lib
-        COMMAND ${CMAKE_COMMAND} -E rm -rf ${PROJECT_BINARY_DIR}/dist/pd_ceammc
-        COMMAND ${PROJECT_BINARY_DIR}/dist/make_lib_mac.sh "${PROJECT_BINARY_DIR}/dist"
-        SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/mac/make_lib_mac.sh)
-
-    add_custom_target(dev_ext
-        COMMAND ${PROJECT_BINARY_DIR}/dist/install_external.sh
-        SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/mac/install_external.sh
-        DEPENDS ceammc_lib)
-
-    add_custom_target(dev_rmext
-        COMMAND ${CMAKE_COMMAND} -E rm -rf "$ENV{HOME}/Documents/Pd/externals/ceammc")
 endif()
 
 if(UNIX AND NOT APPLE)
