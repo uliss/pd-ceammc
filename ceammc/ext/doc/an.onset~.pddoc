@@ -47,7 +47,7 @@
             onset detection function</property>
             <property name="@phase" type="alias">alias to @method phase. Phase Based Method onset
             detection function</property>
-            <property name="@wphase" type="alias">alias to @method phase.Weighted Phase Deviation
+            <property name="@wphase" type="alias">alias to @method phase. Weighted Phase Deviation
             onset detection function</property>
             <property name="@specdiff" type="alias">alias to @method specdiff. Spectral difference
             method onset detection function</property>

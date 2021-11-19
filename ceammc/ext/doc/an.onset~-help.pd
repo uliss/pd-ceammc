@@ -99,7 +99,7 @@ Type: float. Units: ms. Default value: 50\. Min value: 1\.;
 #X text 245 1316 Get/Set peak picking threshold. Type: float. Default
 value: 0.058\.;
 #X msg 110 1358 @wphase;
-#X text 245 1358 alias to @method phase.Weighted Phase Deviation onset
+#X text 245 1358 alias to @method phase. Weighted Phase Deviation onset
 detection function.;
 #X obj 20 1410 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1415 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
