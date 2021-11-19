@@ -155,7 +155,7 @@ install(
 )
 
 if(APPLE)
-    find_program(TIDY tidy PATHS /usr/local/bin /usr/bin
+    find_program(TIDY tidy PATHS /usr/local/bin /opt/local/bin /usr/bin
         NO_DEFAULT_PATH
         NO_CMAKE_ENVIRONMENT_PATH
         NO_SYSTEM_ENVIRONMENT_PATH
