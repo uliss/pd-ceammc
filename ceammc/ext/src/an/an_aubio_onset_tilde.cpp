@@ -231,4 +231,5 @@ void setup_an_onset_tilde()
 {
     SoundExternalFactory<AubioOnsetTilde> obj("an.onset~");
     obj.addMethod("reset", &AubioOnsetTilde::m_reset);
+    obj.setXletsInfo({ "input signal" }, { "bang: on offset detected", "float: latest onset time (ms)" });
 }

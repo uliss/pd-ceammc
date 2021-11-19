@@ -79,7 +79,7 @@
         </inlets>
         <outlets>
             <outlet>bang if onset detected</outlet>
-            <outlet>output time of the latest onset detected in millisecond</outlet>
+            <outlet>float: time of the latest onset detected in millisecond</outlet>
         </outlets>
         <example>
             <pdascii>
@@ -91,6 +91,8 @@
 |   |.    |
 [gain~]   [@method $1, dump(
 |         |
+|         |  [reset(
+|         |  |
 [an.onset~ 2048]             [ui.dsp~]
 |        ^|
 [B]      [F digits=10]
