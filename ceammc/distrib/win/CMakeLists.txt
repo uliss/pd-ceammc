@@ -32,7 +32,7 @@ if(WIN32)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/win_upload_to_github.sh
                    ${CMAKE_BINARY_DIR} @ONLY)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/win_fix_pddoc_key_modifiers.sh
-                   ${CMAKE_BINARY_DIR} @ONLY)
+                   ${CMAKE_BINARY_DIR}/dist/win_fix_pddoc_key_modifiers.sh @ONLY)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/make_lib_win.sh
                    ${PROJECT_BINARY_DIR}/dist/make_lib_win.sh @ONLY)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/install_external.sh
@@ -40,6 +40,9 @@ if(WIN32)
 
    add_custom_target(dev_fixdll
        COMMAND bash -c "${PROJECT_BINARY_DIR}/fix_dll_deps.sh")
+
+   add_custom_target(dev_fixdoc
+       COMMAND bash -c "${PROJECT_BINARY_DIR}/dist/win_fix_pddoc_key_modifiers.sh")
 
     add_custom_target(ceammc_lib
         COMMAND bash -c "${PROJECT_BINARY_DIR}/dist/make_lib_win.sh '${PROJECT_BINARY_DIR}/dist'")
