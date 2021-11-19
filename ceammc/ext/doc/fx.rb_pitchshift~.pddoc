@@ -56,18 +56,14 @@
             <property name="@trans" type="symbol" enum="crisp mixed smooth" default="crisp">control
             the component frequency phase-reset mechanism that may be used at transient points to
             provide clarity and realism to percussion and other significant transient sounds.
-
             'crisp' reset component phases at the peak of each transient (the start of a
             significant note or percussive event). This usually results in a clear-sounding output;
             but it is not always consistent, and may cause interruptions in stable sounds present
             at the same time as transient events. The @detector property can be used to tune this
-            to some extent.
-
-            'mixed' reset component phases at the peak of each transient, outside a
+            to some extent. 'mixed' reset component phases at the peak of each transient, outside a
             frequency range typical of musical fundamental frequencies. The results may be more
             regular for mixed stable and percussive notes than 'crisp', but with a "phasier" sound.
             The balance may sound very good for certain types of music and fairly bad for others.
-
             'smooth' do not reset component phases at any point. The results will be smoother and
             more regular but may be less clear than with either of the other @trans
             settings</property>
