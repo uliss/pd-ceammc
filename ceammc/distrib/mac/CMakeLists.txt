@@ -24,8 +24,6 @@ if(APPLE)
 
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/make_lib_mac.sh
                    ${PROJECT_BINARY_DIR}/dist/make_lib_mac.sh @ONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/github_upload_release.sh
-                   ${PROJECT_BINARY_DIR}/dist/github_upload_release.sh @ONLY)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/install_external.sh
                    ${PROJECT_BINARY_DIR}/dist/install_external.sh @ONLY)
 
