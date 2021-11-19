@@ -42,7 +42,11 @@ find_program(EXPECT expect)
 if(DEKEN)
     message(STATUS "deken program found: ${DEKEN}. Target `make deken_package` is available")
 
-    set(DEKEN_MAKE_PACKAGE "${PROJECT_BINARY_DIR}/dist/deken_make_package.sh")
+    if(WIN32)
+        set(DEKEN_MAKE_PACKAGE bash -c "${PROJECT_BINARY_DIR}/dist/deken_make_package.sh")
+    else()
+        set(DEKEN_MAKE_PACKAGE "${PROJECT_BINARY_DIR}/dist/deken_make_package.sh")
+    endif()
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/deken_make_package.sh ${DEKEN_MAKE_PACKAGE} @ONLY)
 
     set(DEKEN_UPLOAD_PACKAGE "${PROJECT_BINARY_DIR}/dist/deken_upload_package.sh")
@@ -59,7 +63,8 @@ if(DEKEN)
     add_custom_target(deken_package
         COMMAND ${DEKEN_MAKE_PACKAGE}
         WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/dist"
-        SOURCES deken_make_package.sh)
+        SOURCES deken_make_package.sh
+        USES_TERMINAL)
 
     add_custom_target(deken_upload
         COMMAND ${DEKEN_UPLOAD_PACKAGE}
