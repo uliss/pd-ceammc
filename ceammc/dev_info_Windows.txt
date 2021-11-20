@@ -4,6 +4,7 @@ dev targets:
   * dev_ext    - build target `ceammc_lib` (external archive) and install it
                  to %USERPROFILE%/Documents/Pd/externals/${ARCH}
   * dev_rmext  - remove external installed by previous command
+  * dev_sha256 - calc sha256sum in dist/ directory for release files
   * dev_touch_version - touch external info file, to update compilation date/time in load message
   * dev_build_all     - update version, fix dll, fix doc, then build targets: `ceammc_lib`, `inno`
 
