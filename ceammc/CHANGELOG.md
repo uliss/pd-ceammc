@@ -3,7 +3,6 @@
 ## [Unreleased]
 ### Added:
 - new properties:
-  - array.play~: @loop property added for looped playing
 
 ## [0.9.4]
 ### Added:
@@ -51,13 +50,15 @@
   - synth.standard_bell~ added (from Faust lib)
   - synth.tube_bell~: STK TubeBell FM instrument added
 - new properties:
-  - lfo.+saw~, lfo.saw~, lfo.+tri~, lfo.tri~, lfo.+square~, lfo.square~, lfo.+pulse~, lfo.pulse~: @phase and @pause properties added
-  - ui.knob: @show_value property added
-  - string.split: @sym flag added to split to list of Pd symbols
+  - array.play~: @loop property added for looped playing
   - fluid~: @volume property added to set output level in db
-  - system.cursor: @norm property added for cursor coordinates normalization by screen (or window) size
   - hoa.process~: @args property added
+  - lfo.+saw~, lfo.saw~, lfo.+tri~, lfo.tri~, lfo.+square~, lfo.square~, lfo.+pulse~, lfo.pulse~: @phase and @pause properties added
+  - string.split: @sym flag added to split to list of Pd symbols
+  - system.cursor: @norm property added for cursor coordinates normalization by screen (or window) size
+  - ui.knob: @show_value property added
   - ui.sliders: @show_lines to show central line ruler
+  
 - new methods:
   - random.float: [gen N( method added for generating list of random numbers
   - random.int: [gen N( method added for generating list of random numbers
@@ -95,6 +96,7 @@
   - MP3 support added to snd.file on Linux and Windows platforms
   - ui.preset: preset display now is zero-base
   - ui.env: change env.length by dragging last envelope point left/right
+  - ui.hsl: mouse wheel support added (with Shift: change slowly)
 
 ### Fixed:
 - flow.space: reset message fix - can not use object after reset
