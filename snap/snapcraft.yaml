@@ -127,6 +127,7 @@ parts:
             - x11proto-dev
             - lsb-release
             - llvm-dev
+            - librubberband-dev
         stage-packages:
             - libsndfile1
             - libfftw3-single3
@@ -143,3 +144,4 @@ parts:
             - libice6
             - llvm-runtime
             - llvm
+            - librubberband2
