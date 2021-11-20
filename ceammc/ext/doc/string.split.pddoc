@@ -7,7 +7,7 @@
                 <author>Alex Nadzharov</author>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>split string by separator</description>
+            <description>split string or symbol by separator</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>string</category>
@@ -15,6 +15,7 @@
             <since>0.3</since>
             <aliases>
                 <alias>str.split</alias>
+                <alias>symbol.split</alias>
             </aliases>
             <also>
                 <see>string.join</see>
@@ -22,7 +23,7 @@
         </meta>
         <info>
             <par>Note: by default string or symbol splitted to list of data:String, to get list of
-            Pd symbols use @sym flag</par>
+            Pd symbols use @sym flag or use alias [symbol.split]</par>
         </info>
         <arguments>
             <argument name="SEP" type="atom">separator. If nonspecified - separate by every char.

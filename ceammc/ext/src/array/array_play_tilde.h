@@ -48,6 +48,7 @@ class ArrayPlayTilde : public ArraySoundBase {
     FloatProperty* speed_;
     IntEnumProperty* interp_;
     FloatProperty* amp_;
+    BoolProperty* loop_;
     ArrayPositionProperty* begin_;
     ArrayPositionProperty* end_;
     ArrayPositionProperty* cursor_;
@@ -83,7 +84,8 @@ public:
 
 private:
     void command(PlayAction act);
-    void blockDone(bool value);
+    void blockLast(size_t i, size_t bs, t_sample* out);
+    void blockDone();
 
     static FSM fsm_;
 };

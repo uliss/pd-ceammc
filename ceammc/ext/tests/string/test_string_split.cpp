@@ -47,6 +47,7 @@ TEST_CASE("string.split", "[external]")
         REQUIRE_NO_MSG(t);
 
         REQUIRE_PROPERTY(t, @sep, "");
+        REQUIRE_PROPERTY(t, @sym, 0.);
 
         WHEN_SEND_TDATA_TO(0, t, DataTypeString("abcde"));
         REQUIRE(t.hasNewMessages(0));
@@ -125,5 +126,14 @@ TEST_CASE("string.split", "[external]")
 
         t.sendSymbolTo(SYM("..."), 1);
         REQUIRE_PROPERTY(t, @sep, "...");
+    }
+
+    SECTION("@sym")
+    {
+        TExt t("symbol.split", LA("|"));
+        REQUIRE_PROPERTY(t, @sym, 1);
+
+        t << "A|B|C";
+        REQUIRE(t.outputListAt(0) == LA("A", "B", "C"));
     }
 }

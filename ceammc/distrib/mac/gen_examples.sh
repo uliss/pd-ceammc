@@ -26,12 +26,24 @@ esac
 
 mkdir -p "$DEST"
 
-for ex in @PROJECT_BINARY_DIR@/ceammc/ext/doc/examples/*.pd
+echo `pwd`
+
+for ex in @PROJECT_SOURCE_DIR@/ceammc/ext/doc/*.pddoc
 do
     fname=$(basename $ex)
-    echo "processing \"$fname\" ..."
+    echo "processing \"$fname\" ..."  
+    xmllint --nocdata --xpath '//pdascii[not(@id) or @id=main]/text()' $ex > tmp.ascii
+    if [[ $? -ne 0 ]]
+    then
+        echo "no example found in pddoc: $fname"
+        continue
+    fi
+
+    cat tmp.ascii | recode html..ascii > tmp.ascii2
+    mv tmp.ascii2 tmp.ascii
+    pd_ascii2pd --auto --xlet-db "@PROJECT_SOURCE_DIR@/ceammc/ext/doc/ceammc.db" tmp.ascii
     ps="$DEST/${fname%.pd}.ps"
-    $MAKE_POSTSCRIPT $ex $ps
+    $MAKE_POSTSCRIPT tmp.pd $ps
     $MAKE_IMG -$FMT $ps
 done
 

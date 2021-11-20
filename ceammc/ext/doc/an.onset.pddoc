@@ -80,8 +80,10 @@
         <example>
             <pdascii>
 <![CDATA[
-[symbol #s(           [B] [array AONSET w=380 h=100]
-|                     |
+[symbol #s(               [array AONSET w=380 h=100]
+|
+|             [B]
+|             |
 [expand_env]  [openpanel]
 |             |
 [load $1 to AONSET @resize(

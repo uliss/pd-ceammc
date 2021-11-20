@@ -1028,6 +1028,7 @@ sym->ilist
 symbol.equal
 symbol.length
 symbol.num_compare
+symbol.split
 symbol2any
 symbol2intlist
 sync

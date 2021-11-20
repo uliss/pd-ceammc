@@ -264,6 +264,7 @@ if(APPLE)
             ${BUNDLE_FULL_PATH}
             ${DMG_FULL_PATH}
             ${PROJECT_SOURCE_DIR}
+            ${PD_MACOSX_DMG_APP}
         WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
         DEPENDS app)
 endif()

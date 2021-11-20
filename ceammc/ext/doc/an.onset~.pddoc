@@ -47,7 +47,7 @@
             onset detection function</property>
             <property name="@phase" type="alias">alias to @method phase. Phase Based Method onset
             detection function</property>
-            <property name="@wphase" type="alias">alias to @method phase.Weighted Phase Deviation
+            <property name="@wphase" type="alias">alias to @method phase. Weighted Phase Deviation
             onset detection function</property>
             <property name="@specdiff" type="alias">alias to @method specdiff. Spectral difference
             method onset detection function</property>
@@ -79,7 +79,8 @@
         </inlets>
         <outlets>
             <outlet>bang if onset detected</outlet>
-            <outlet>output time of the latest onset detected in millisecond</outlet>
+            <outlet>float: time of the latest onset detected in milliseconds from starting of
+            measuring. You can reset start time with 'reset' message</outlet>
         </outlets>
         <example>
             <pdascii>
@@ -91,6 +92,9 @@
 |   |.    |
 [gain~]   [@method $1, dump(
 |         |
+|         |  [reset(
+|         |  |
+|         |  |
 [an.onset~ 2048]             [ui.dsp~]
 |        ^|
 [B]      [F digits=10]

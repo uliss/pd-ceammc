@@ -1384,7 +1384,7 @@ harmonics;
 #X obj 30 18958 string.replace;
 #X text 200 18958 replace from one substring to another in input string;
 #X obj 30 18985 string.split;
-#X text 200 18985 split string by separator;
+#X text 200 18985 split string or symbol by separator;
 #X obj 30 19012 string.starts_with;
 #X text 200 19012 checks if string starts with specified substring;
 #X obj 30 19039 string.substr;
