@@ -51,7 +51,7 @@
             substantially affecting the perceived pitch profile of the voice or instrument. 'False'
             apply no special formant processing. The spectral envelope will be pitch shifted as
             normal.</property>
-            <property name="@latency" type="float" units="sample" default="1025" readonly="true">
+            <property name="@latency" type="float" units="sample" default="1024" readonly="true">
             object latency</property>
             <property name="@trans" type="symbol" enum="crisp mixed smooth" default="crisp">control
             the component frequency phase-reset mechanism that may be used at transient points to

@@ -45,7 +45,7 @@ envelope will be pitch shifted as normal. Type: int. Default value:
 0\. Allowed values: 0 \, 1\.;
 #X msg 110 743 @latency;
 #X text 245 743 (readonly) Get object latency. Type: float. Units:
-samp. Default value: 1025\.;
+samp. Default value: 1024\.;
 #X msg 110 785 @phase;
 #X text 245 785 Get/Set control the adjustment of component frequency
 phases from one analysis window to the next during non-transient segments.
