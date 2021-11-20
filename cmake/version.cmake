@@ -19,9 +19,10 @@ if(APPLE)
        set(PD_FLOAT_SIZE 32)
    endif()
 
-   set(PD_MACOSX_APP "Pd-${PD_MACOSX_BUNDLE_SUFFIX}-macosx-${MACOSX_VERSION}.app")
-   set(PD_MACOSX_ZIP "Pd-${PD_MACOSX_BUNDLE_SUFFIX}-macosx-${MACOSX_VERSION}.zip")
-   set(PD_MACOSX_DMG "Pd-${PD_MACOSX_BUNDLE_SUFFIX}-macosx-${MACOSX_VERSION}.dmg")
+   set(PD_MACOSX_APP     "Pd-${PD_MACOSX_BUNDLE_SUFFIX}-macosx-${MACOSX_VERSION}.app")
+   set(PD_MACOSX_ZIP     "Pd-${PD_MACOSX_BUNDLE_SUFFIX}-macosx-${MACOSX_VERSION}.zip")
+   set(PD_MACOSX_DMG     "Pd-${PD_MACOSX_BUNDLE_SUFFIX}-macosx-${MACOSX_VERSION}.dmg")
+   set(PD_MACOSX_DMG_APP "Pd-${PD_MACOSX_BUNDLE_SUFFIX}.app") # short name in DMG volume
 
    if(WITH_PD_INSTANCE)
        set(MT_SUFFIX "-mt")

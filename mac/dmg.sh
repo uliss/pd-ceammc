@@ -12,7 +12,6 @@ Visit http://www.gnu.org/licenses/gpl-3.0.txt for more information."
 HELP="Usage:
   $0 [options...] bundle_path"
 
-GIT="/usr/local/bin/git"
 
 ARG_DIR=`pwd`
 ARG_ICON=
@@ -25,15 +24,16 @@ ARG_CODESIGN_ID=
 ARG_ICON_SIZE=72
 
 APP_BUNDLE_PATH=$1
-APP_BUNDLE_NAME=$(basename ${APP_BUNDLE_PATH})
+APP_BUNDLE_NAME=$4
 ARG_VOL_NAME=${APP_BUNDLE_NAME%.app}
 ARG_DMG_PATH="$2"
 SRC_PATH="$3"
 
-if [ $# -eq 3 ]; then
+if [ $# -eq 4 ]; then
         echo "Bundle path is set to ${APP_BUNDLE_PATH}";
         echo "DMG path is set to ${ARG_DMG_PATH}";
         echo "Source path set to ${SRC_PATH}";
+        echo "Bundle name in DMG set to ${APP_BUNDLE_NAME}";
 else
         echo "Error! Bundle path is not specified."
         exit 1;
@@ -99,7 +99,7 @@ fi
 
 echo -n "*** Copying ${APP_BUNDLE_PATH} to the temporary dir... "
 mkdir "$TMP_DIR"
-cp -R "${APP_BUNDLE_PATH}" ${TMP_DIR}/
+cp -R "${APP_BUNDLE_PATH}" ${TMP_DIR}/${APP_BUNDLE_NAME}
 echo "done!"
 
 TMP_INFO_PLIST="${TMP_DIR}/${APP_BUNDLE_NAME}/Contents/Info.plist"
@@ -209,7 +209,7 @@ echo "$APPLESCRIPT" | osascript
 
 echo "done!"
 
-echo "*** Converting tempoprary dmg image in compressed readonly final image... "
+echo "*** Converting temporary dmg image in compressed readonly final image... "
 echo "    * Changing mode and syncing..."
 chmod -Rf go-w /Volumes/"${VOL_NAME}"
 sync
