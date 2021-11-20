@@ -1012,8 +1012,9 @@ string.remove	remove substring from input string
 str.remove	remove substring from input string
 string.replace	replace from one substring to another in input string
 str.replace	replace from one substring to another in input string
-string.split	split string by separator
-str.split	split string by separator
+string.split	split string or symbol by separator
+str.split	split string or symbol by separator
+symbol.split	split string or symbol by separator
 string.starts_with	checks if string starts with specified substring
 str.starts_with	checks if string starts with specified substring
 string.substr	extract substring from input string
