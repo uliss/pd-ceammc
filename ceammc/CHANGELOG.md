@@ -14,14 +14,13 @@
   - conv.edge2bang with (edge->bang alias) added
   - file.size: aync/sync filesize requests
   - flow.float: float pass flow object added
-  - flow.change: any message support added and second inlet for control messages
   - fx.echo2~: stereo echo with ping-pong delay added
   - fx.rb_pitchshift~: pitchshifter based on RubberBand library (via Aubio wrapper, see: https://breakfastquay.com/rubberband/)
   - fx.recho~: reverse echo fx added
   - fx.room~: room reverb added
   - fx.secho~: enchanced version of echo that does not click on delay change  
   - fx.shimmer~: shimmer reverb added
-  - fx.tapiir~: multitap delay with feedback (base on Faust port of Maarten de Boer, seeL https://www.researchgate.net/publication/246433873_TAPIIR_A_SOFTWARE_MULTITAP_DELAY)
+  - fx.tapiir~: multitap delay with feedback (based on Faust port of Maarten de Boer, see: https://www.researchgate.net/publication/246433873_TAPIIR_A_SOFTWARE_MULTITAP_DELAY)
   - lfo.mosc~: LFO oscillator with various waveform and runtime change between them. Sin, saw, square, pulse, triangle and positive variants of above.  
   - list.convolve: list convolution with O^2 complexity (with list.conv alias)
   - list.correlate: list cross-correlation added with O^2 complexity
@@ -80,23 +79,24 @@
   - ui.slider: MIN MAX float creation args added
   - ui.link: URL [TITLE]? creation args added
 - misc:
+  - flow.change: any message support added and second inlet for control messages  
   - flow.space: float to right inlet sets @delay property
-  - WaveSine.sf2: simple sine waveform SF2 soundfont added
-  - waves.sf2: sine, saw, tri, square waveforms SF2 soundfont added
   - fluid~ loads WaveSine.sf2 font by default
   - math.*: any message support, multiply float atoms only
-  - Up/Down key support for ui.number
-  - ui.sliders: locked movemenet added with ALT pressed
-  - ui.sliders: snap to center while dragging with pressed SHIFT
   - random.float: extra inlets added for min and max values
   - random.int: extra inlets added for min and max values
+  - snd.file: MP3 support added on Linux and Windows platforms (MacOs been already supported)
   - string.split: extra inlet added for setting separator
-  - ui.env: second outlet added for getting single value
-  - ui.link: show @url property in tooltip on mouse over
-  - MP3 support added to snd.file on Linux and Windows platforms
-  - ui.preset: preset display now is zero-base
   - ui.env: change env.length by dragging last envelope point left/right
+  - ui.env: second outlet added for getting single value
   - ui.hsl: mouse wheel support added (with Shift: change slowly)
+  - ui.link: show @url property in tooltip on mouse over
+  - ui.number: Up/Down key support 
+  - ui.preset: preset display now is zero-base
+  - ui.sliders: locked movemenet added with ALT pressed
+  - ui.sliders: snap to center while dragging with pressed SHIFT
+  - waves.sf2: sine, saw, tri, square waveforms SF2 soundfont added
+  - WaveSine.sf2: simple sine waveform SF2 soundfont added
 
 ### Fixed:
 - flow.space: reset message fix - can not use object after reset
