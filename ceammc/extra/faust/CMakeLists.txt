@@ -36,7 +36,7 @@ message(STATUS "Found LLVM ${LLVM_PACKAGE_VERSION}")
 message(STATUS "Using LLVMConfig.cmake in: ${LLVM_DIR}")
 
 ## Call the faust cmakelist.txt
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/faust/build)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/faust/build EXCLUDE_FROM_ALL)
 
 add_library(ceammc_faust STATIC ceammc_llvm.cpp)
 target_link_libraries(ceammc_faust PRIVATE staticlib)
