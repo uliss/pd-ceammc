@@ -48,7 +48,7 @@ set_target_properties(fmt PROPERTIES DEBUG_POSTFIX "")
 
 option(RE2_BUILD_TESTING "" OFF)
 set(RE2_BUILD_TESTING OFF CACHE BOOL "" FORCE)
-add_subdirectory(re2)
+add_subdirectory(re2 EXCLUDE_FROM_ALL)
 
 option(HOA_BUILD_TESTS "" OFF)
 set(HOA_BUILD_TESTS OFF CACHE BOOL "" FORCE)
