@@ -6,7 +6,7 @@
 
 #include <boost/algorithm/string/case_conv.hpp>
 #include <boost/algorithm/string/predicate.hpp>
-#include <boost/bind.hpp>
+#include <boost/bind/bind.hpp>
 #include <boost/foreach.hpp>
 #include <pthread.h>
 
@@ -19,6 +19,7 @@
 #include <thread>
 
 using namespace ceammc::platform;
+using namespace boost::placeholders;
 
 namespace ceammc {
 namespace hw {
@@ -80,9 +81,7 @@ namespace hw {
 
     serial::PortInfo ArduinoThread::findDeviceById(const PortList& lst, int vendorId, int productId)
     {
-        using namespace boost::placeholders;
-
-        PortList::const_iterator it = std::find_if(lst.begin(), lst.end(),
+        auto it = std::find_if(lst.begin(), lst.end(),
             boost::bind(hasVendorAndProduct, _1, vendorId, productId));
 
         return it == lst.end() ? serial::PortInfo() : *it;
@@ -90,7 +89,7 @@ namespace hw {
 
     serial::PortInfo ArduinoThread::findDeviceByVendorId(const PortList& lst, int id)
     {
-        PortList::const_iterator it = std::find_if(lst.begin(), lst.end(),
+        auto it = std::find_if(lst.begin(), lst.end(),
             boost::bind(hasVendor, _1, id));
 
         return it == lst.end() ? serial::PortInfo() : *it;
@@ -98,7 +97,7 @@ namespace hw {
 
     serial::PortInfo ArduinoThread::findDeviceBySerialNo(const PortList& lst, const std::string& serialNo)
     {
-        PortList::const_iterator it = std::find_if(lst.begin(), lst.end(),
+        auto it = std::find_if(lst.begin(), lst.end(),
             boost::bind(hasSerial, _1, serialNo));
 
         return it == lst.end() ? serial::PortInfo() : *it;
@@ -152,7 +151,7 @@ namespace hw {
     {
         assert(arduino);
 
-        serial::PortInfo dev = pred(lsfn());
+        auto dev = pred(lsfn());
 
         while (dev.port.empty()) {
             if (arduino->shouldStopThread())
