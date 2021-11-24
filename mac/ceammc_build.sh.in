@@ -422,36 +422,6 @@ cp $SRC_DIR/ceammc/extra/flext/xsample/xsample/pd-ex/* "${BUNDLE_EXTRA}/xsample"
 copy $SRC_DIR/ceammc/extra/flext/xsample/xsample/gpl.txt "${BUNDLE_EXTRA}/xsample"
 copy $SRC_DIR/ceammc/extra/flext/xsample/xsample/license.txt "${BUNDLE_EXTRA}/xsample"
 
-section "Copying LyonPotpourri"
-mkdir -p "${BUNDLE_EXTRA}/lyonpotpourri/sound"
-for ext in $BUILD_DIR/ceammc/extra/lyonpotpourri/*.@(d_fat|d_amd64|d_i386|pd_darwin)
-do
-    copy ${ext} "${BUNDLE_EXTRA}/lyonpotpourri"
-done
-
-for pdhelp in $SRC_DIR/ceammc/extra/lyonpotpourri/*-help.pd
-do
-    copy ${pdhelp} "${BUNDLE_EXTRA}/lyonpotpourri"
-done
-
-copy $SRC_DIR/ceammc/extra/lyonpotpourri/LICENSE.txt "${BUNDLE_EXTRA}/lyonpotpourri"
-cp $SRC_DIR/ceammc/extra/lyonpotpourri/examples/* "${BUNDLE_EXTRA}/lyonpotpourri"
-
-section "Copying FFTease"
-mkdir -p "${BUNDLE_EXTRA}/fftease/sound"
-for ext in $BUILD_DIR/ceammc/extra/fftease/*.@(d_fat|d_amd64|d_i386|pd_darwin)
-do
-    copy ${ext} "${BUNDLE_EXTRA}/fftease"
-done
-
-for pdhelp in $SRC_DIR/ceammc/extra/fftease/fftease/help/*.pd
-do
-    copy ${pdhelp} "${BUNDLE_EXTRA}/fftease"
-done
-
-copy $SRC_DIR/ceammc/extra/fftease/fftease/LICENSE.txt "${BUNDLE_EXTRA}/fftease"
-cp $SRC_DIR/ceammc/extra/fftease/fftease/sound/* "${BUNDLE_EXTRA}/fftease"
-
 # LeapMotion
 if exists $BUILD_DIR/ceammc/extra/flext/leapmotion/leapmotion.@(d_fat|d_amd64|d_i386|pd_darwin)
 then

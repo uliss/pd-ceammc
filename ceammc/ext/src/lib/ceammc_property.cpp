@@ -35,7 +35,7 @@
             PROP_ERR() << "check error, " << err_msg_ << ", got: " << v; \
     }
 
-#define PROP_USED (void)
+#define PROP_USED(x) { const auto r = x; }
 
 namespace ceammc {
 
@@ -313,7 +313,7 @@ bool Property::setFloatCheck(PropValueConstraints type, t_float a, t_float b)
             fmt::format("value >= {} expected", a));
 
         info().setConstraints(type);
-        PROP_USED info().setMinFloat(a);
+        PROP_USED(info().setMinFloat(a));
         return true;
     case PropValueConstraints::GREATER_THEN:
         setFloatCheckFn(
@@ -321,7 +321,7 @@ bool Property::setFloatCheck(PropValueConstraints type, t_float a, t_float b)
             fmt::format("value > {} expected", a));
 
         info().setConstraints(type);
-        PROP_USED info().setMinFloat(a);
+        PROP_USED(info().setMinFloat(a));
         return true;
     case PropValueConstraints::LESS_EQUAL:
         setFloatCheckFn(
@@ -329,7 +329,7 @@ bool Property::setFloatCheck(PropValueConstraints type, t_float a, t_float b)
             fmt::format("value <= {} expected", a));
 
         info().setConstraints(type);
-        PROP_USED info().setMaxFloat(a);
+        PROP_USED(info().setMaxFloat(a));
         return true;
     case PropValueConstraints::LESS_THEN:
         setFloatCheckFn(
@@ -337,7 +337,7 @@ bool Property::setFloatCheck(PropValueConstraints type, t_float a, t_float b)
             fmt::format("value < {} expected", a));
 
         info().setConstraints(type);
-        PROP_USED info().setMaxFloat(a);
+        PROP_USED(info().setMaxFloat(a));
         return true;
     case PropValueConstraints::CLOSED_RANGE:
         setFloatCheckFn(
@@ -345,7 +345,7 @@ bool Property::setFloatCheck(PropValueConstraints type, t_float a, t_float b)
             fmt::format("expected value in [{0} ... {1}] range", a, b));
 
         info().setConstraints(type);
-        PROP_USED info().setRangeFloat(a, b);
+        PROP_USED(info().setRangeFloat(a, b));
         return true;
     case PropValueConstraints::OPEN_RANGE:
         setFloatCheckFn(
@@ -353,7 +353,7 @@ bool Property::setFloatCheck(PropValueConstraints type, t_float a, t_float b)
             fmt::format("expected value in ({0} ... {1}) range", a, b));
 
         info().setConstraints(type);
-        PROP_USED info().setRangeFloat(a, b);
+        PROP_USED(info().setRangeFloat(a, b));
         return true;
     case PropValueConstraints::OPEN_CLOSED_RANGE:
         setFloatCheckFn(
@@ -361,7 +361,7 @@ bool Property::setFloatCheck(PropValueConstraints type, t_float a, t_float b)
             fmt::format("expected value in ({0} ... {1}] range", a, b));
 
         info().setConstraints(type);
-        PROP_USED info().setRangeFloat(a, b);
+        PROP_USED(info().setRangeFloat(a, b));
         return true;
     case PropValueConstraints::CLOSED_OPEN_RANGE:
         setFloatCheckFn(
@@ -369,7 +369,7 @@ bool Property::setFloatCheck(PropValueConstraints type, t_float a, t_float b)
             fmt::format("expected value in [{0} ... {1}) range", a, b));
 
         info().setConstraints(type);
-        PROP_USED info().setRangeFloat(a, b);
+        PROP_USED(info().setRangeFloat(a, b));
         return true;
     case PropValueConstraints::NONE:
         info().setConstraints(type);
@@ -403,7 +403,7 @@ bool Property::setIntCheck(PropValueConstraints type, int a, int b)
             fmt::format("value >= {} expected", a));
 
         info().setConstraints(type);
-        PROP_USED info().setMinInt(a);
+        PROP_USED(info().setMinInt(a));
         return true;
     case PropValueConstraints::GREATER_THEN:
         setIntCheckFn(
@@ -411,7 +411,7 @@ bool Property::setIntCheck(PropValueConstraints type, int a, int b)
             fmt::format("value > {} expected", a));
 
         info().setConstraints(type);
-        PROP_USED info().setMinInt(a);
+        PROP_USED(info().setMinInt(a));
         return true;
     case PropValueConstraints::LESS_EQUAL:
         setIntCheckFn(
@@ -419,7 +419,7 @@ bool Property::setIntCheck(PropValueConstraints type, int a, int b)
             fmt::format("value <= {} expected", a));
 
         info().setConstraints(type);
-        PROP_USED info().setMaxInt(a);
+        PROP_USED(info().setMaxInt(a));
         return true;
     case PropValueConstraints::LESS_THEN:
         setIntCheckFn(
@@ -427,7 +427,7 @@ bool Property::setIntCheck(PropValueConstraints type, int a, int b)
             fmt::format("value < {} expected", a));
 
         info().setConstraints(type);
-        PROP_USED info().setMaxInt(a);
+        PROP_USED(info().setMaxInt(a));
         return true;
     case PropValueConstraints::CLOSED_RANGE:
         setIntCheckFn(
@@ -435,7 +435,7 @@ bool Property::setIntCheck(PropValueConstraints type, int a, int b)
             fmt::format("expected value in [{0} ... {1}] range", a, b));
 
         info().setConstraints(type);
-        PROP_USED info().setRangeInt(a, b);
+        PROP_USED(info().setRangeInt(a, b));
         return true;
     case PropValueConstraints::OPEN_RANGE:
         setIntCheckFn(
@@ -443,7 +443,7 @@ bool Property::setIntCheck(PropValueConstraints type, int a, int b)
             fmt::format("expected value in ({0} ... {1}) range", a, b));
 
         info().setConstraints(type);
-        PROP_USED info().setRangeInt(a, b);
+        PROP_USED(info().setRangeInt(a, b));
         return true;
     case PropValueConstraints::OPEN_CLOSED_RANGE:
         setIntCheckFn(
@@ -451,7 +451,7 @@ bool Property::setIntCheck(PropValueConstraints type, int a, int b)
             fmt::format("expected value in ({0} ... {1}] range", a, b));
 
         info().setConstraints(type);
-        PROP_USED info().setRangeInt(a, b);
+        PROP_USED(info().setRangeInt(a, b));
         return true;
     case PropValueConstraints::CLOSED_OPEN_RANGE:
         setIntCheckFn(
@@ -459,7 +459,7 @@ bool Property::setIntCheck(PropValueConstraints type, int a, int b)
             fmt::format("expected value in [{0} ... {1}) range", a, b));
 
         info().setConstraints(type);
-        PROP_USED info().setRangeInt(a, b);
+        PROP_USED(info().setRangeInt(a, b));
         return true;
     case PropValueConstraints::NONE:
         info().setConstraints(type);
@@ -482,7 +482,7 @@ bool Property::setSymbolEnumCheck(std::initializer_list<t_symbol*> l)
     info_.setConstraints(PropValueConstraints::ENUM);
     info_.clearEnum();
     for (auto s : l)
-        PROP_USED info_.addEnum(s);
+        PROP_USED(info_.addEnum(s));
 
     setSymbolCheckFn([this](t_symbol* s) -> bool { return info_.enumContains(s); });
     return true;
@@ -498,7 +498,7 @@ bool Property::setSymbolEnumCheck(std::initializer_list<const char*> l)
     info_.setConstraints(PropValueConstraints::ENUM);
     info_.clearEnum();
     for (auto s : l)
-        PROP_USED info_.addEnum(gensym(s));
+        PROP_USED(info_.addEnum(gensym(s)));
 
     setSymbolCheckFn([this](t_symbol* s) -> bool { return info_.enumContains(s); });
     return true;
@@ -889,7 +889,7 @@ bool ListProperty::checkMinElementCount(size_t n)
 
     if (res) {
         info().setConstraints(PropValueConstraints::MIN_ELEMENT_COUNT);
-        PROP_USED info().setMinElementCount(n);
+        PROP_USED(info().setMinElementCount(n));
     }
 
     return res;
@@ -907,7 +907,7 @@ bool ListProperty::checkMaxElementCount(size_t n)
 
     if (res) {
         info().setConstraints(PropValueConstraints::MAX_ELEMENT_COUNT);
-        PROP_USED info().setMaxElementCount(n);
+        PROP_USED(info().setMaxElementCount(n));
     }
 
     return res;
@@ -935,7 +935,7 @@ bool ListProperty::checkRangeElementCount(size_t min, size_t max)
 
     if (res) {
         info().setConstraints(PropValueConstraints::RANGE_ELEMENT_COUNT);
-        PROP_USED info().setRangeElementCount(min, max);
+        PROP_USED(info().setRangeElementCount(min, max));
     }
 
     return res;

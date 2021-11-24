@@ -31,6 +31,9 @@ StringSplit::StringSplit(const PdArgs& a)
 
     sym_ = new FlagProperty("@sym");
     addProperty(sym_);
+
+    if (a.creationName == gensym("symbol.split"))
+        sym_->setList(AtomList());
 }
 
 void StringSplit::onSymbol(t_symbol* s)
@@ -76,6 +79,7 @@ void setup_string_split()
     ObjectFactory<StringSplit> obj("string.split");
     obj.processData<DataTypeString>();
     obj.addAlias("str.split");
+    obj.addAlias("symbol.split");
     obj.parseArgsMode(PdArgs::PARSE_UNQUOTE);
     obj.parsePropsMode(PdArgs::PARSE_UNQUOTE);
 

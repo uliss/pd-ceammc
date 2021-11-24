@@ -73,3 +73,35 @@ endif()
 
 set(EXTRA_COMPLETION "extra_objects.txt")
 add_custom_target(_ceammc_extra_misc SOURCES ${EXTRA_COMPLETION})
+
+if(WITH_SFIZZ)
+    cmake_minimum_required(VERSION 3.14)
+
+    include(FetchContent)
+    set(FETCHCONTENT_QUIET FALSE)
+    set(SFIZZ_AU OFF CACHE INTERNAL "")
+    set(SFIZZ_LV2 OFF CACHE INTERNAL "")
+    set(SFIZZ_LV2_UI OFF CACHE INTERNAL "")
+    set(SFIZZ_VST OFF CACHE INTERNAL "")
+    set(SFIZZ_JACK OFF CACHE INTERNAL "")
+    set(SFIZZ_RENDER OFF CACHE INTERNAL "")
+
+    if(WIN32)
+        set(SFIZZ_SHARED ON CACHE INTERNAL "")
+    else()
+        set(SFIZZ_SHARED OFF CACHE INTERNAL "")
+    endif()
+
+    set(SFIZZ_USE_SNDFILE OFF CACHE INTERNAL "")
+
+    FetchContent_Declare(
+      sfizz
+      URL      https://github.com/sfztools/sfizz/releases/download/1.1.1/sfizz-1.1.1.tar.gz
+      URL_HASH MD5=cc4770c287d52da517a7ae25fd826a3e
+    )
+    FetchContent_GetProperties(sfizz)
+    if(NOT sfizz_POPULATED)
+      FetchContent_Populate(sfizz)
+      add_subdirectory(${sfizz_SOURCE_DIR} ${sfizz_BINARY_DIR} EXCLUDE_FROM_ALL)
+    endif()
+endif()

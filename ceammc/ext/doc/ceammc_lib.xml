@@ -1932,7 +1932,7 @@
     <entry name="string.replace" descr="replace from one substring to another in input string" ref_view="object">
       <xi:include href="string.replace.pddoc" parse="xml"/>
     </entry>
-    <entry name="string.split" descr="split string by separator" ref_view="object">
+    <entry name="string.split" descr="split string or symbol by separator" ref_view="object">
       <xi:include href="string.split.pddoc" parse="xml"/>
     </entry>
     <entry name="string.starts_with" descr="checks if string starts with specified substring" ref_view="object">
@@ -2234,6 +2234,7 @@
       <author>Viacheslav Lotsmanov</author>
       <author>Yann Orlarey</author>
       <author>naivesound</author>
+      <author>thedrgreenthumb</author>
     </authors>
     <xi:include href="ceammc_meta.xml" parse="xml"/>
   </meta>

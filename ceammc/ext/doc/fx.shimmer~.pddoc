@@ -4,6 +4,7 @@
         <title>fx.shimmer~</title>
         <meta>
             <authors>
+                <author>thedrgreenthumb</author>
                 <author>Serge Poltavsky</author>
             </authors>
             <description>shimmer reverb effect effect</description>
@@ -34,7 +35,7 @@
             T60</property>
             <property name="@envelope" type="float" minvalue="0.1" maxvalue="3" default="1"
             units="second">amplitude-envelope time-constant going down</property>
-            <property name="@shift" type="float" minvalue="-12" maxvalue="12" default="0"
+            <property name="@shift" type="float" minvalue="-12" maxvalue="12" default="12"
             units="semitone">frequency shifting</property>
             <property name="@depth" type="float" minvalue="0" maxvalue="1" default="0">pitchshift
             modulation amplitude</property>
@@ -77,11 +78,11 @@
 |
 [makenote 127 100]
 *|*
-[pack f f]
-|
-[synth.eguitar~]
-|
-[fx.shimmer~]
+[pack f f]        [ui.hsl -12 12 @show_value 1]
+|                 |
+[synth.eguitar~]  [@shift $1(
+|                 |
+[fx.shimmer~ @shift 12]
 *|*
 [ui.hgain2~]     [ui.dsp~]
 *|*

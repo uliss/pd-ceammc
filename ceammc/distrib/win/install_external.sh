@@ -1,17 +1,15 @@
 #!/bin/sh
 
 BIN_DIR="@PROJECT_BINARY_DIR@"
-VERSION="@CEAMMC_LIB_VERSION@"
 ARCH="@CEAMMC_DISTRIB_ARCH@"
-PRECISION="f@PD_FLOAT_SIZE@"
-PD_VERSION="@PD_TEXT_VERSION_FULL@"
-OUTFILE="ceammc-${VERSION}-win-pd-${PD_VERSION}-${ARCH}-${PRECISION}.zip"
-DEST="${USERPROFILE}/Documents/Pd/externals/${ARCH%-bit}"
+OUTFILE="@CEAMMC_EXTERNAL_NAME@"
+DEST="${USERPROFILE}/Documents/Pd/externals/${ARCH}"
 P7Z_EXE="@7Z_EXE@"
+ZIP_FULL_PATH="${BIN_DIR}/dist/${OUTFILE}"
 
-if [ ! -f "${BIN_DIR}/${OUTFILE}" ]
+if [ ! -f "${ZIP_FULL_PATH}" ]
 then
-    echo "file not found: ${OUTFILE}"
+    echo "file not found: ${ZIP_FULL_PATH}"
     echo 'you have to run `make ceammc_lib` first'
     exit 1
 fi
@@ -25,6 +23,6 @@ then
     mv -f "${DEST}/ceammc" "${DEST}/ceammc.old"
 fi
 
-cd "${BIN_DIR}"
+cd "${BIN_DIR}/dist"
 "${P7Z_EXE}" x "${OUTFILE}" -o"${DEST}"
-echo "Done"
+echo "external installed to '${DEST}'"

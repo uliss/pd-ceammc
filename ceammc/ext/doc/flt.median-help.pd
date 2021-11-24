@@ -2,9 +2,9 @@
 #X declare -lib ceammc;
 #X obj 559 50 cnv 1 206 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 559 50 Median control flow filter;
-#X obj 1 1 cnv 5 765 40 empty empty flt.median~ 20 20 0 20 -104026
+#X obj 1 1 cnv 5 765 40 empty empty flt.median 20 20 0 20 -104026
 -4096 0;
-#X obj 660 11 flt.median~;
+#X obj 668 11 flt.median;
 #X obj 210 80 cnv 1 555 90 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 The main idea of the median filter is to run through
 the signal entry by entry \, replacing each entry with the median of
@@ -50,7 +50,7 @@ Default value: 9\. Range: 1\...128\.;
 #X text 10 32 version:;
 #X text 120 32 0.9.4;
 #X text 10 54 object:;
-#X text 120 54 flt.median~;
+#X text 120 54 flt.median;
 #X text 10 76 category:;
 #X text 120 76 flt;
 #X text 10 98 since:;

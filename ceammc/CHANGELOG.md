@@ -2,6 +2,7 @@
 
 ## [Unreleased]
 ### Added:
+- new properties:
 
 ## [0.9.4]
 ### Added:
@@ -13,14 +14,13 @@
   - conv.edge2bang with (edge->bang alias) added
   - file.size: aync/sync filesize requests
   - flow.float: float pass flow object added
-  - flow.change: any message support added and second inlet for control messages
   - fx.echo2~: stereo echo with ping-pong delay added
   - fx.rb_pitchshift~: pitchshifter based on RubberBand library (via Aubio wrapper, see: https://breakfastquay.com/rubberband/)
   - fx.recho~: reverse echo fx added
   - fx.room~: room reverb added
   - fx.secho~: enchanced version of echo that does not click on delay change  
   - fx.shimmer~: shimmer reverb added
-  - fx.tapiir~: multitap delay with feedback (base on Faust port of Maarten de Boer, seeL https://www.researchgate.net/publication/246433873_TAPIIR_A_SOFTWARE_MULTITAP_DELAY)
+  - fx.tapiir~: multitap delay with feedback (based on Faust port of Maarten de Boer, see: https://www.researchgate.net/publication/246433873_TAPIIR_A_SOFTWARE_MULTITAP_DELAY)
   - lfo.mosc~: LFO oscillator with various waveform and runtime change between them. Sin, saw, square, pulse, triangle and positive variants of above.  
   - list.convolve: list convolution with O^2 complexity (with list.conv alias)
   - list.correlate: list cross-correlation added with O^2 complexity
@@ -49,13 +49,15 @@
   - synth.standard_bell~ added (from Faust lib)
   - synth.tube_bell~: STK TubeBell FM instrument added
 - new properties:
-  - lfo.+saw~, lfo.saw~, lfo.+tri~, lfo.tri~, lfo.+square~, lfo.square~, lfo.+pulse~, lfo.pulse~: @phase and @pause properties added
-  - ui.knob: @show_value property added
-  - string.split: @sym flag added to split to list of Pd symbols
+  - array.play~: @loop property added for looped playing
   - fluid~: @volume property added to set output level in db
-  - system.cursor: @norm property added for cursor coordinates normalization by screen (or window) size
   - hoa.process~: @args property added
+  - lfo.+saw~, lfo.saw~, lfo.+tri~, lfo.tri~, lfo.+square~, lfo.square~, lfo.+pulse~, lfo.pulse~: @phase and @pause properties added
+  - string.split: @sym flag added to split to list of Pd symbols
+  - system.cursor: @norm property added for cursor coordinates normalization by screen (or window) size
+  - ui.knob: @show_value property added
   - ui.sliders: @show_lines to show central line ruler
+  
 - new methods:
   - random.float: [gen N( method added for generating list of random numbers
   - random.int: [gen N( method added for generating list of random numbers
@@ -65,7 +67,7 @@
   - ui.polar: [random( method added and [set random( args support added
   - ui.env: [at( method added to get envelope value at specified position in ms, sec, % and phase
   - lfo.+saw~, lfo.saw~, lfo.+tri~, lfo.tri~, lfo.+square~, lfo.square~, lfo.+pulse~, lfo.pulse~: [reset( method added to reset to initial phase value (@phase)
-  - fluid~: 
+  - fluid~:
     - [pan(: set synth pan normalized to \[-1..+1\] range
     - [hold(: hold (sustain, right) pedal support
     - [sostenuto(: sostenuto (middle) pedal support
@@ -77,23 +79,25 @@
   - ui.slider: MIN MAX float creation args added
   - ui.link: URL [TITLE]? creation args added
 - misc:
+  - flow.change: any message support added and second inlet for control messages  
   - flow.space: float to right inlet sets @delay property
-  - WaveSine.sf2: simple sine waveform SF2 soundfont added
-  - waves.sf2: sine, saw, tri, square waveforms SF2 soundfont added
   - fluid~ loads WaveSine.sf2 font by default
   - math.*: any message support, multiply float atoms only
-  - Up/Down key support for ui.number
-  - ui.sliders: locked movemenet added with ALT pressed
-  - ui.sliders: snap to center while dragging with pressed SHIFT
   - random.float: extra inlets added for min and max values
   - random.int: extra inlets added for min and max values
+  - snd.file: MP3 support added on Linux and Windows platforms (MacOs been already supported)
   - string.split: extra inlet added for setting separator
-  - ui.env: second outlet added for getting single value
-  - ui.link: show @url property in tooltip on mouse over
-  - MP3 support added to snd.file on Linux and Windows platforms
-  - ui.preset: preset display now is zero-base
   - ui.env: change env.length by dragging last envelope point left/right
-  
+  - ui.env: second outlet added for getting single value
+  - ui.hsl: mouse wheel support added (with Shift: change slowly)
+  - ui.link: show @url property in tooltip on mouse over
+  - ui.number: Up/Down key support 
+  - ui.preset: preset display now is zero-base
+  - ui.sliders: locked movemenet added with ALT pressed
+  - ui.sliders: snap to center while dragging with pressed SHIFT
+  - waves.sf2: sine, saw, tri, square waveforms SF2 soundfont added
+  - WaveSine.sf2: simple sine waveform SF2 soundfont added
+
 ### Fixed:
 - flow.space: reset message fix - can not use object after reset
 - ui.midi: fixed missing binding to Program Change and After Touch events
@@ -103,7 +107,7 @@
 ### Changed:
 - fx.looper~: @loop_bang is ON by default
 - fx.zita_rev1~: property typo fixed, @dump_hf changed to @damp_hf
-  
+
 ## [0.9.3]
 ### Added:
 - new objects:
@@ -114,7 +118,7 @@
     to make possible direct connection of ui.aview with array.play~
 - new aliases:
   - str->any and string2any for symbol2any (string support added)
-    
+
 ### Changed:
 - properties:
   - @cursor_ms, @cursor_sec in array.play~ make writeable
@@ -135,9 +139,9 @@
   - flt.c_notch (with notch->biquad alias) biquad calculator added
   - flt.c_pole (with pole->biquad alias) biquad calculator added
   - fx.infrev~ infinite reverb added (port of airwindows Infinity VST OpenSource plugin)
-  - fx.fbank5x1~ filterbank added (5 band, one octave) 
+  - fx.fbank5x1~ filterbank added (5 band, one octave)
   - loadexpr added (supports functions and datatypes)
-  - lang.faust~ external added 
+  - lang.faust~ external added
   - midi.cc added (enhanced version of ctlin)
   - midi.clock added
   - midi.kbd added (computer key to midi note converter)
@@ -155,7 +159,7 @@
   - ui.button added (with ui.btn alias)
   - ui.midi added (display for incoming messages)
   - ui.vkeyboard added (with ui.vk alias for vertical keyboard)
-  - ui.filter~ added 
+  - ui.filter~ added
   - ui.filter added (biquad calculator)
   - ui.faust~ added
 - new aliases:
@@ -164,7 +168,7 @@
   - ui.k alias added for ui.knob
   - ui.vm~ alias added for ui.meter~ (vertical)
   - ui.vsliders alias added for vertical ui.sliders
-  - *ceammc/* prefix added to all global like objects: **ceammc/xfade~**, **ceammc/mix~** etc. 
+  - *ceammc/* prefix added to all global like objects: **ceammc/xfade~**, **ceammc/mix~** etc.
 - mouse:
   - ui.meter~ change orientation by Ctl/Cmd+double-click in edit mode, like ui.radio and ui.slider
 - arguments:
@@ -197,7 +201,7 @@
 - using AtomListView instead of AtomList in UI objects
 - second inlet added to path.ls to set @match property
 - ui.number~ @decimal property renamed to @precision
-- ui.sliders: @auto_range options split into @auto_range and @auto_count 
+- ui.sliders: @auto_range options split into @auto_range and @auto_count
 
 ### Fixed:
 - ui.hgain~/ui.hgain2~ midi bind fixed
@@ -295,10 +299,10 @@
     - ceammc.search added
     - counter object added
 - proto.* updates:
-    - proto.xtouch_ext - Behringer XTouch externder support added 
+    - proto.xtouch_ext - Behringer XTouch externder support added
 - noise.* updates:
     - documentation for a-chaos files added
-    
+
 
 ### Changed:
 - ext_info output format changed.
@@ -909,7 +913,7 @@
 - random.discrete added
 - array.set added
 - array.bpm added (via SoundTouch library: https://www.surina.net/soundtouch/)
-- array.stretch added (time-stretch, pitch-shift and rate-range) 
+- array.stretch added (time-stretch, pitch-shift and rate-range)
 - patch.args added
 - canvas.current added
 - canvas.top added

@@ -19,9 +19,10 @@ if(APPLE)
        set(PD_FLOAT_SIZE 32)
    endif()
 
-   set(PD_MACOSX_APP "Pd-${PD_MACOSX_BUNDLE_SUFFIX}-macosx-${MACOSX_VERSION}.app")
-   set(PD_MACOSX_ZIP "Pd-${PD_MACOSX_BUNDLE_SUFFIX}-macosx-${MACOSX_VERSION}.zip")
-   set(PD_MACOSX_DMG "Pd-${PD_MACOSX_BUNDLE_SUFFIX}-macosx-${MACOSX_VERSION}.dmg")
+   set(PD_MACOSX_APP     "Pd-${PD_MACOSX_BUNDLE_SUFFIX}-macosx-${MACOSX_VERSION}.app")
+   set(PD_MACOSX_ZIP     "Pd-${PD_MACOSX_BUNDLE_SUFFIX}-macosx-${MACOSX_VERSION}.zip")
+   set(PD_MACOSX_DMG     "Pd-${PD_MACOSX_BUNDLE_SUFFIX}-macosx-${MACOSX_VERSION}.dmg")
+   set(PD_MACOSX_DMG_APP "Pd-${PD_MACOSX_BUNDLE_SUFFIX}.app") # short name in DMG volume
 
    if(WITH_PD_INSTANCE)
        set(MT_SUFFIX "-mt")
@@ -30,4 +31,21 @@ if(APPLE)
    endif()
 
    set(CEAMMC_EXTERNAL_NAME "ceammc-${CEAMMC_LIB_VERSION}-macosx-${MACOSX_VERSION}-pd-${PD_TEXT_VERSION_SHORT}-f${PD_FLOAT_SIZE}${MT_SUFFIX}.tar.gz")
+
+elseif(WIN32)
+
+    if(WITH_DOUBLE_PRECISION)
+        set(PD_FLOAT_SIZE 64)
+    else()
+        set(PD_FLOAT_SIZE 32)
+    endif()
+
+    if(WITH_PD_INSTANCE)
+        set(MT_SUFFIX "-mt")
+    else()
+        set(MT_SUFFIX "")
+    endif()
+
+    set(CEAMMC_EXTERNAL_NAME "ceammc-${CEAMMC_LIB_VERSION}-win-pd-${PD_TEXT_VERSION_SHORT}-f${PD_FLOAT_SIZE}${MT_SUFFIX}.zip")
+
 endif()

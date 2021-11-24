@@ -38,11 +38,34 @@ public:
     t_sample value() { return v_; }
     void setValue(t_sample v) { v_ = v; }
 
+    /**
+     * return absolute array position in [0..N) range, where N - array size
+     */
     t_float samples() const;
+
+    /**
+     * return absolute array position in seconds
+     * @param sr
+     */
     t_float seconds(t_float sr) const { return samples() / ((sr == 0) ? 1 : sr); }
+
+    /**
+     * return absolute array position in milliseconds
+     * @param sr
+     */
     t_sample ms(t_float sr) const { return seconds(sr) * 1000; }
+
+    /**
+     * return array phase position in [0..1) range
+     */
     t_sample phase() const;
 
+    /**
+     * set array position in samples
+     * @param pos - relative position (values <0 - offset from the end of the array)
+     * @param check - if true do a range check
+     * @return - if check is false, always return true, if check is true returns result of range check
+     */
     bool setSamples(t_float pos, bool check = true);
     bool setSeconds(t_float pos, t_float sr, bool check = true);
     bool setMs(t_float pos, t_float sr, bool check = true);

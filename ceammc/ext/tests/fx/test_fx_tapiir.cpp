@@ -37,7 +37,7 @@ TEST_CASE("fx.tapiir~", "[externals]")
         REQUIRE_PROPERTY_FLOAT(t, @tap3.delay, 4);
         REQUIRE_PROPERTY_FLOAT(t, @tap4.delay, 5);
         REQUIRE_PROPERTY_FLOAT(t, @tap5.delay, 6);
-        REQUIRE_PROPERTY(t, @delays, LF(1, 2, 3, 4, 5, 6));
+        REQUIRE_PROPERTY_LIST(t, @delays, LF(1, 2, 3, 4, 5, 6));
     }
 
     SECTION("@gains")
@@ -50,14 +50,14 @@ TEST_CASE("fx.tapiir~", "[externals]")
         REQUIRE_PROPERTY_FLOAT(t, @tap3.gain, -4);
         REQUIRE_PROPERTY_FLOAT(t, @tap4.gain, -5);
         REQUIRE_PROPERTY_FLOAT(t, @tap5.gain, -6);
-        REQUIRE_PROPERTY(t, @gains, LF(-1, -2, -3, -4, -5, -6));
+        REQUIRE_PROPERTY_LIST(t, @gains, LF(-1, -2, -3, -4, -5, -6));
     }
 
     SECTION("@outs0")
     {
         TObj t("fx.tapiir~", LA("@outs0", 0.1, 0.2, 0.3, 0.4, 0.5, 0.6));
 
-        REQUIRE_PROPERTY(t, @outs0, LF(0.1, 0.2, 0.3, 0.4, 0.5, 0.6));
+        REQUIRE_PROPERTY_LIST(t, @outs0, LX(0.1, 0.2, 0.3, 0.4, 0.5, 0.6));
 
         REQUIRE_PROPERTY_FLOAT(t, @out0.tap0, 0.1);
         REQUIRE_PROPERTY_FLOAT(t, @out0.tap1, 0.2);
@@ -71,7 +71,7 @@ TEST_CASE("fx.tapiir~", "[externals]")
     {
         TObj t("fx.tapiir~", LA("@outs1", 0.1, 0.2, 0.3, 0.4, 0.5, 0.6));
 
-        REQUIRE_PROPERTY(t, @outs1, LF(0.1, 0.2, 0.3, 0.4, 0.5, 0.6));
+        REQUIRE_PROPERTY_LIST(t, @outs1, LX(0.1, 0.2, 0.3, 0.4, 0.5, 0.6));
 
         REQUIRE_PROPERTY_FLOAT(t, @out1.tap0, 0.1);
         REQUIRE_PROPERTY_FLOAT(t, @out1.tap1, 0.2);
@@ -85,7 +85,7 @@ TEST_CASE("fx.tapiir~", "[externals]")
     {
         TObj t("fx.tapiir~", LA("@fbs0", 0.1, 0.2, 0.3, 0.4, 0.5, 0.6));
 
-        REQUIRE_PROPERTY(t, @fbs0, LF(0.1, 0.2, 0.3, 0.4, 0.5, 0.6));
+        REQUIRE_PROPERTY_LIST(t, @fbs0, LX(0.1, 0.2, 0.3, 0.4, 0.5, 0.6));
 
         REQUIRE_PROPERTY_FLOAT(t, @tap0.fb0, 0.1);
         REQUIRE_PROPERTY_FLOAT(t, @tap0.fb1, 0.2);
@@ -99,7 +99,7 @@ TEST_CASE("fx.tapiir~", "[externals]")
     {
         TObj t("fx.tapiir~", LA("@fbs1", 0.1, 0.2, 0.3, 0.4, 0.5, 0.6));
 
-        REQUIRE_PROPERTY(t, @fbs1, LF(0.1, 0.2, 0.3, 0.4, 0.5, 0.6));
+        REQUIRE_PROPERTY_LIST(t, @fbs1, LX(0.1, 0.2, 0.3, 0.4, 0.5, 0.6));
 
         REQUIRE_PROPERTY_FLOAT(t, @tap1.fb0, 0.1);
         REQUIRE_PROPERTY_FLOAT(t, @tap1.fb1, 0.2);
@@ -113,7 +113,7 @@ TEST_CASE("fx.tapiir~", "[externals]")
     {
         TObj t("fx.tapiir~", LA("@fbs2", 0.1, 0.2, 0.3, 0.4, 0.5, 0.6));
 
-        REQUIRE_PROPERTY(t, @fbs2, LF(0.1, 0.2, 0.3, 0.4, 0.5, 0.6));
+        REQUIRE_PROPERTY_LIST(t, @fbs2, LX(0.1, 0.2, 0.3, 0.4, 0.5, 0.6));
 
         REQUIRE_PROPERTY_FLOAT(t, @tap2.fb0, 0.1);
         REQUIRE_PROPERTY_FLOAT(t, @tap2.fb1, 0.2);
@@ -127,7 +127,7 @@ TEST_CASE("fx.tapiir~", "[externals]")
     {
         TObj t("fx.tapiir~", LA("@fbs3", 0.1, 0.2, 0.3, 0.4, 0.5, 0.6));
 
-        REQUIRE_PROPERTY(t, @fbs3, LF(0.1, 0.2, 0.3, 0.4, 0.5, 0.6));
+        REQUIRE_PROPERTY_LIST(t, @fbs3, LX(0.1, 0.2, 0.3, 0.4, 0.5, 0.6));
 
         REQUIRE_PROPERTY_FLOAT(t, @tap3.fb0, 0.1);
         REQUIRE_PROPERTY_FLOAT(t, @tap3.fb1, 0.2);
@@ -141,7 +141,7 @@ TEST_CASE("fx.tapiir~", "[externals]")
     {
         TObj t("fx.tapiir~", LA("@fbs4", 0.1, 0.2, 0.3, 0.4, 0.5, 0.6));
 
-        REQUIRE_PROPERTY(t, @fbs4, LF(0.1, 0.2, 0.3, 0.4, 0.5, 0.6));
+        REQUIRE_PROPERTY_LIST(t, @fbs4, LX(0.1, 0.2, 0.3, 0.4, 0.5, 0.6));
 
         REQUIRE_PROPERTY_FLOAT(t, @tap4.fb0, 0.1);
         REQUIRE_PROPERTY_FLOAT(t, @tap4.fb1, 0.2);
@@ -155,7 +155,7 @@ TEST_CASE("fx.tapiir~", "[externals]")
     {
         TObj t("fx.tapiir~", LA("@fbs5", 0.1, 0.2, 0.3, 0.4, 0.5, 0.6));
 
-        REQUIRE_PROPERTY(t, @fbs5, LF(0.1, 0.2, 0.3, 0.4, 0.5, 0.6));
+        REQUIRE_PROPERTY_LIST(t, @fbs5, LX(0.1, 0.2, 0.3, 0.4, 0.5, 0.6));
 
         REQUIRE_PROPERTY_FLOAT(t, @tap5.fb0, 0.1);
         REQUIRE_PROPERTY_FLOAT(t, @tap5.fb1, 0.2);
@@ -169,7 +169,7 @@ TEST_CASE("fx.tapiir~", "[externals]")
     {
         TObj t("fx.tapiir~", LA("@ins0", 0.1, 0.2, 0.3, 0.4, 0.5, 0.6));
 
-        REQUIRE_PROPERTY(t, @ins0, LF(0.1, 0.2, 0.3, 0.4, 0.5, 0.6));
+        REQUIRE_PROPERTY_LIST(t, @ins0, LX(0.1, 0.2, 0.3, 0.4, 0.5, 0.6));
 
         REQUIRE_PROPERTY_FLOAT(t, @tap0.in0, 0.1);
         REQUIRE_PROPERTY_FLOAT(t, @tap1.in0, 0.2);
@@ -183,7 +183,7 @@ TEST_CASE("fx.tapiir~", "[externals]")
     {
         TObj t("fx.tapiir~", LA("@ins1", 0.1, 0.2, 0.3, 0.4, 0.5, 0.6));
 
-        REQUIRE_PROPERTY(t, @ins1, LF(0.1, 0.2, 0.3, 0.4, 0.5, 0.6));
+        REQUIRE_PROPERTY_LIST(t, @ins1, LX(0.1, 0.2, 0.3, 0.4, 0.5, 0.6));
 
         REQUIRE_PROPERTY_FLOAT(t, @tap0.in1, 0.1);
         REQUIRE_PROPERTY_FLOAT(t, @tap1.in1, 0.2);

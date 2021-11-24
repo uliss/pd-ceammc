@@ -39,7 +39,7 @@
             onset detection function</property>
             <property name="@phase" type="alias">alias to @method phase. Phase Based Method onset
             detection function</property>
-            <property name="@wphase" type="alias">alias to @method phase.Weighted Phase Deviation
+            <property name="@wphase" type="alias">alias to @method phase. Weighted Phase Deviation
             onset detection function</property>
             <property name="@specdiff" type="alias">alias to @method specdiff. Spectral difference
             method onset detection function</property>
@@ -64,29 +64,40 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>bang if onset detected</outlet>
-            <outlet>output time of the latest onset detected in millisecond</outlet>
+            <outlet>float: BPM value</outlet>
+            <outlet>float: detection confidence</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
 [loadmsg load sound/loop_breakbeat.flac to antmp @resize]
 |
-[snd.file] [table antmp] [ui.hsl @show_value 1 @min 0.1 @max 2.5]
-                         |
-[B #a]  [stop(           [@speed $1(
-|       |                |
-[array.play~ antmp     #b]
-|  |
-|  [an.tempo~]    [ui.dsp~]
+[snd.file]
+
+[table antmp]  [ui.hsl @show_value 1 @min 0.1 @max 2.5]
+               |
+[B #a] [stop(  [@speed $1(      [ui.dsp~]
+|      |       |
+|      |       |
+[array.play~ antmp @loop 1 #b]  [ui.menu #m]
+|  |                            |
+|  |                            [@method $1(
+|  |                            |
+|  [an.tempo~                   ]
 |  |      ^|
 |  [F]    [F]
-|
+|  |
+|  [ui.b]
+|  |
+|  [click~]
+|  |
+|  [flt.resonbp~ 1000 50]
+|  |
 [ui.hgain~]
 |\
 [dac~]
 
-[X b:2->a]
+#m hfc energy complex phase wphase specdiff specflux kl mkl
 ]]>
             </pdascii>
         </example>

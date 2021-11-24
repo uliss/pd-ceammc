@@ -14,10 +14,6 @@ CMAKE="@CMAKE_COMMAND@"
 INSTALL_DIR="@PROJECT_BINARY_DIR@/dist/pd_ceammc"
 CEAMMC_DIR="${OUTDIR}/ceammc"
 
-CURRENT_DATE=$(LANG=C date -u '+%d %h %Y %Z %H:%M:%S')
-GIT_BRANCH=$(git --git-dir '@PROJECT_SOURCE_DIR@/.git' symbolic-ref --short HEAD)
-GIT_COMMIT=$(git --git-dir '@PROJECT_SOURCE_DIR@/.git' describe --tags)
-
 # functions
 
 function section() {
@@ -84,12 +80,6 @@ do
     echo "+ Help: '$help'"
 done
 
-section "fix about.pd"
-gsed  -i \
-    -e "s/%GIT_BRANCH%/$GIT_BRANCH/g" \
-    -e "s/%GIT_COMMIT%/$GIT_COMMIT/g" \
-    -e "s/%BUILD_DATE%/$CURRENT_DATE/g" \
-    "${CEAMMC_DIR}/about.pd"
-
 cd "$OUTDIR"
+section "create ZIP archive"
 tar cfvz "${OUTFILE}" $(basename $CEAMMC_DIR)

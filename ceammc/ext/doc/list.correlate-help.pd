@@ -39,8 +39,8 @@ end-points of the cross-correlation \, the signals do not overlap completely
 \, N)-min(M \, N)+1). The cross-correlation product is only given for
 points where the signals overlap completely. Values outside the signal
 boundary have no effect. 'same' - output of length max(M \, N). Boundary
-effects are still visible. Type: symbol. Allowed values: valid \, same
-\, full.;
+effects are still visible. Type: symbol. Default value: valid. Allowed
+values: valid \, same \, full.;
 #X msg 110 780 @same;
 #X text 245 780 alias to @mode same.;
 #X msg 110 809 @valid;

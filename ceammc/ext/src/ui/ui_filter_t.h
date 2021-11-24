@@ -210,7 +210,7 @@ namespace ui {
             obj.setPropertySave(PROP_FREQ->s_name, false);
 
             obj.addFloatProperty(PROP_Q->s_name,
-                _("Quality factory"), std::sqrt(0.5), &TFilter::prop_q, _("Main"));
+                _("Quality factor"), std::sqrt(0.5), &TFilter::prop_q, _("Main"));
             obj.setPropertySave(PROP_Q->s_name, false);
             obj.setPropertyRange(PROP_Q->s_name, MIN_Q, MAX_Q);
 

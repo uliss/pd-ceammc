@@ -39,6 +39,8 @@
             <event editmode="0" type="left-click">jump to value unless @mode property is on</event>
             <event editmode="0" type="double-click" keys="Shift">toggle MIDI-learn mode (red border
             displayed)</event>
+            <event editmode="true" type="wheel" keys="Cmd">change the knob value (with ⇧ change
+            slowly)</event>
         </mouse>
         <properties>
             <property name="@min" type="float" default="0">minimum slider value</property>

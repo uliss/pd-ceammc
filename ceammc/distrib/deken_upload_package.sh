@@ -23,6 +23,7 @@ then
     exit 1
 fi
 
+export DEKEN_USERNAME=anadjarov
 $DEKEN upload --version $VERSION \
     --objects "${OBJLIST}" \
     --no-source-error \

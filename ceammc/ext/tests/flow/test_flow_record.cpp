@@ -290,6 +290,7 @@ TEST_CASE("flow.record", "[externals]")
 
     SECTION("length")
     {
+#if PD_FLOATSIZE == 32
         TExt t("flow.record", "@auto", 1);
 
         t << 1;
@@ -315,5 +316,6 @@ TEST_CASE("flow.record", "[externals]")
         t.sendMessageTo(Message(SYM("length"), LA("5ms")), 1);
         REQUIRE(t->recLengthMs() == 5);
         REQUIRE(t->events().size() == 1);
+#endif
     }
 }

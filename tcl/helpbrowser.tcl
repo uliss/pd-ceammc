@@ -449,6 +449,11 @@ proc ::helpbrowser::build_references {} {
         # don't add core object references to root column
         if {[string match "*doc/5.reference" $pathdir]} {continue}
 
+        # ceammc begin
+        # don't add ceammc files to root column
+        if {[string match "*extra/ceammc/" $dir]} {continue}
+        # ceannc end
+
         # find stray help patches
         foreach filename [glob -nocomplain -type f -path $dir "*-help.pd"] {
             add_entry helplist $filename

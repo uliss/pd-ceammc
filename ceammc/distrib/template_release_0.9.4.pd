@@ -23,7 +23,7 @@
 #X msg 123 124 0;
 #X obj 123 150 del 0;
 #X obj 209 46 inlet start;
-#X obj 247 179 loadmsg read release_qlist_0.9.4.txt
+#X obj 247 179 loadmsg read release_qlist_@CEAMMC_LIB_VERSION@.txt
 ;
 #X obj 209 72 t b b;
 #X obj 247 205 msg.after 0 rewind;

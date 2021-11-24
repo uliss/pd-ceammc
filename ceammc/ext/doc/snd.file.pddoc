@@ -50,9 +50,10 @@
             list of supported formats</property>
             <property name="@sr" readonly="true" type="list">source file samplerate</property>
             <property name="@filename" readonly="true" type="list">filename</property>
-            <property name="@samples" readonly="true" type="list">list of number of loaded samples into each
-            array</property>
-            <property name="@channels" readonly="true" type="list">list of loaded channels into each array</property>
+            <property name="@samples" readonly="true" type="list">list of number of loaded samples
+            into each array</property>
+            <property name="@channels" readonly="true" type="list">list of loaded channels into
+            each array</property>
             <property name="@smpte_fr" type="float" minvalue="1" maxvalue="99" default="30">SMPTE
             framerate for SMPTE offset calculations</property>
             <property name="@verbose" type="int" enum="0 1" default="0">verbose output to Pd

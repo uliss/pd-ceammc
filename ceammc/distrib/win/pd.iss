@@ -9,7 +9,7 @@
 #define MyAppPublisher "ceammc"
 #define MyAppURL "https://github.com/uliss/pure-data"
 #define MyAppExeName "bin/pd.exe"
-#define MyAppInstallerName "PureData-ceammc-${CEAMMC_DISTRIB_VERSION}-${CEAMMC_DISTRIB_ARCH}-${CEAMMC_PRECISION}-setup"
+#define MyAppInstallerName "${INNO_INSTALLER_NAME}"
 #define AppRoot "${INSTALLED_BIN_DIR}"
 
 [Setup]
@@ -26,7 +26,7 @@ AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
 DefaultDirName={commonpf}\{#MyAppName}
 DisableProgramGroupPage=yes
-OutputDir=inno
+OutputDir=.
 OutputBaseFilename={#MyAppInstallerName}
 Compression=lzma
 SolidCompression=yes

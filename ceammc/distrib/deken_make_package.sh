@@ -15,8 +15,8 @@ then
     exit 1
 fi
 
-cd "@BINDIR@"
-rm -f ceammc[v@CEAMMC_LIB_VERSION@*.dek.txt
+cd "$BINDIR"
+rm -f 'ceammc[v'@CEAMMC_LIB_VERSION@*.dek.txt
 
 $DEKEN package --version $VERSION \
     --objects "${OBJLIST}" \

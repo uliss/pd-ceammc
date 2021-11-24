@@ -225,12 +225,14 @@ t_float ArrayPositionProperty::samples() const
         return 0;
 
     if (v_ >= 0) {
-        if (v_ >= N) {
+
+        if (v_ < N) {
+            return v_;
+        } else {
             PROP_ERR() << fmt::format("value is too big ({}), clipping to max: {}", v_, N - 1);
-            return array_->size();
+            return N - 1;
         }
 
-        return v_;
     } else {
         const auto abs_pos = static_cast<t_float>(N) + v_;
         if (abs_pos < 0) {

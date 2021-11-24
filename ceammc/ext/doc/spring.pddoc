@@ -55,14 +55,12 @@
 
 [loadmsg 0.5]
 |
-[ui.k @mouse_events 1 @show_value 1 #a]
-  |
-  |
-  |
-  [spring 0.5 1000 @accel 2 #b]
-  |                 ^|
-  [F]               [B]
+[ui.k #a] X [spring 0.5 1000 @accel 2 #b]
+            |                 ^|
+            [F]               [B]
+
 [X b->a]
+# a @mouse_events 1 @show_value 1
 ]]>
             </pdascii>
         </example>

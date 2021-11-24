@@ -2,6 +2,10 @@ include(faust)
 include(ceammc_pd.cmake)
 include(cppcheck.cmake)
 
+if(WITH_DOUBLE_PRECISION)
+    add_definitions(-DFAUSTFLOAT=double)
+endif()
+
 # do no use pd macroses in our code
 add_definitions(-DPD_CLASS_DEF)
 
@@ -50,10 +54,6 @@ include_directories(${CMAKE_SOURCE_DIR}/src)
 
 remove_definitions(-DPD_INTERNAL)
 add_definitions(-DPD)
-
-if(WITH_DOUBLE_PRECISION)
-    add_definitions(-DFAUSTFLOAT=double)
-endif()
 
 add_subdirectory(an)
 add_subdirectory(array)

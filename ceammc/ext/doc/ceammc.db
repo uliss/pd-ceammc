@@ -610,7 +610,7 @@ string.length,str.length		.		.
 string.match,str.match		..		.
 string.remove,str.remove		..		.
 string.replace,str.replace		...		.
-string.split,str.split		.		.
+string.split,str.split,symbol.split		.		.
 string.starts_with,str.starts_with		..		.
 string.substr,str.substr		...		.
 string2symbol,ceammc/string2symbol,ceammc/str->sym,str->sym		.		.

@@ -452,7 +452,7 @@ void SfizzTilde::m_soundsOff(t_symbol*, const AtomListView&)
     sfz_.allSoundOff();
 }
 
-void SfizzTilde::m_aftertouch(t_symbol *s, const AtomListView& lv)
+void SfizzTilde::m_aftertouch(t_symbol* s, const AtomListView& lv)
 {
     float val = 0;
 
@@ -471,7 +471,7 @@ void SfizzTilde::m_aftertouch(t_symbol *s, const AtomListView& lv)
     sfz_.hdChannelAftertouch(0, val / 127.0);
 }
 
-void SfizzTilde::m_polytouch(t_symbol *s, const AtomListView& lv)
+void SfizzTilde::m_polytouch(t_symbol* s, const AtomListView& lv)
 {
     int key = 0;
     float vel = 0;
@@ -679,4 +679,8 @@ void setup_misc_sfizz_tilde()
     obj.addMethod(M_SOSTENUTO_PEDAL, &SfizzTilde::m_sostenuto_pedal);
     obj.addMethod(M_SOFT_PEDAL, &SfizzTilde::m_soft_pedal);
     obj.addMethod("legato", &SfizzTilde::m_legato_pedal);
+
+#ifdef SFIZZ_VERSION
+    LIB_DBG << "Sfizz version: " << SFIZZ_VERSION;
+#endif
 }
