@@ -80,6 +80,8 @@ namespace hw {
 
     serial::PortInfo ArduinoThread::findDeviceById(const PortList& lst, int vendorId, int productId)
     {
+        using namespace boost::placeholders;
+
         PortList::const_iterator it = std::find_if(lst.begin(), lst.end(),
             boost::bind(hasVendorAndProduct, _1, vendorId, productId));
 
