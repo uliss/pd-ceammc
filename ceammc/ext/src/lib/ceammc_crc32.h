@@ -1,6 +1,8 @@
 #ifndef CEAMMC_CRC32_H_
 #define CEAMMC_CRC32_H_
 
+#include "m_pd.h"
+
 // based on https://github.com/vladium/static_hash
 // @licence: MIT
 
@@ -127,30 +129,39 @@ inline uint32_t crc32_hash(const char* str)
     return crc;
 }
 
-inline uint32_t crc32_hash(const std::string& str)
+inline uint32_t crc32_hash(const std::string& str) { return crc32_hash(str.data()); }
+
+inline uint32_t crc32_hash(t_symbol* s) { return crc32_hash(s->s_name); }
+
+constexpr bool crc32_check_unique(uint32_t a, uint32_t b) { return a != b; }
+
+constexpr bool crc32_check_unique(uint32_t a, uint32_t b, uint32_t c)
 {
-    return crc32_hash(str.data());
+    return crc32_check_unique(a, b) && a != c && b != c;
 }
 
-constexpr bool check_crc32_unique(uint32_t a, uint32_t b)
+constexpr bool crc32_check_unique(uint32_t a, uint32_t b, uint32_t c, uint32_t d)
 {
-    return a != b;
+    return crc32_check_unique(a, b, c) && a != d && b != d && c != d;
 }
 
-constexpr bool check_crc32_unique(uint32_t a, uint32_t b, uint32_t c)
+constexpr bool crc32_check_unique(uint32_t a, uint32_t b, uint32_t c, uint32_t d, uint32_t e)
 {
-    return check_crc32_unique(a, b) && a != c && b != c;
+    return crc32_check_unique(a, b, c, d) && a != e && b != e && c != e && d != e;
 }
 
-constexpr bool check_crc32_unique(uint32_t a, uint32_t b, uint32_t c, uint32_t d)
+constexpr bool crc32_check_unique(uint32_t a, uint32_t b, uint32_t c, uint32_t d, uint32_t e, uint32_t f)
 {
-    return check_crc32_unique(a, b, c) && a != d && b != d && c != d;
+    return crc32_check_unique(a, b, c, d, e) && a != f && b != f && c != f && d != f && e != f;
 }
 
-constexpr bool check_crc32_unique(uint32_t a, uint32_t b, uint32_t c, uint32_t d, uint32_t e)
-{
-    return check_crc32_unique(a, b, c, d) && a != e && b != e && c != e && d != e;
-}
+#define crc32_assert_unique(...) static_assert(crc32_check_unique(__VA_ARGS__), "hash values are not unique");
+
+#define CEAMMC_DEFINE_STR(name) constexpr const char* str_##name = #name;
+#define CEAMMC_DEFINE_CRC32(name) constexpr const auto hash_##name = #name##_hash;
+#define CEAMMC_DEFINE_HASH(name) \
+    CEAMMC_DEFINE_STR(name)      \
+    CEAMMC_DEFINE_CRC32(name)
 
 }
 
