@@ -66,12 +66,3 @@ add_custom_target(ceammc_extra_files SOURCES CHANGELOG.md cppcheck_suppressions.
 add_custom_target(dev
     COMMAND ${CMAKE_COMMAND} -E cat "${CMAKE_CURRENT_SOURCE_DIR}/dev_info_${CMAKE_SYSTEM_NAME}.txt")
 
-if(APPLE)
-    add_custom_target(dev_run
-        COMMAND ${BUNDLE_FULL_PATH}/Contents/Resources/bin/pd
-        DEPENDS dev_ceammc)
-    add_custom_target(dev_open
-        COMMAND open ${BUNDLE_FULL_PATH}
-        DEPENDS dev_ceammc)
-endif()
-

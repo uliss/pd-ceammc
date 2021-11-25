@@ -39,6 +39,15 @@ if(APPLE)
         COMMAND ${PROJECT_BINARY_DIR}/dist/make_lib_mac.sh "${PROJECT_BINARY_DIR}/dist"
         USES_TERMINAL)
 
+    add_custom_target(dev_run
+        COMMAND ${BUNDLE_FULL_PATH}/Contents/Resources/bin/pd
+        DEPENDS dev_ceammc
+        USES_TERMINAL)
+
+    add_custom_target(dev_open
+        COMMAND open ${BUNDLE_FULL_PATH}
+        DEPENDS dev_ceammc)
+
     add_custom_target(dev_ext
         COMMAND ${PROJECT_BINARY_DIR}/dist/install_external.sh
         DEPENDS ceammc_lib)
