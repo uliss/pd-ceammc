@@ -16,10 +16,13 @@
 
 #include "ceammc_data.h"
 #include "ceammc_object.h"
+#include "ceammc_property_enum.h"
 
 using namespace ceammc;
 
 class ListRange : public BaseObject {
+    SymbolEnumProperty* mode_;
+
 public:
     ListRange(const PdArgs& a);
 

@@ -16,9 +16,6 @@
 
 PD_COMPLETE_TEST_SETUP(ListRange, list, range)
 
-using TExt = TestExtListRange;
-using TObj = TestListRange;
-
 TEST_CASE("list.range", "[externals]")
 {
     pd_test_init();
@@ -26,6 +23,11 @@ TEST_CASE("list.range", "[externals]")
     SECTION("create")
     {
         TObj t("list.range");
+        REQUIRE_PROPERTY(t, @mode, SYM("float"));
+        REQUIRE_PROPERTY(t, @f, 1);
+        REQUIRE_PROPERTY(t, @s, 0.);
+        REQUIRE_PROPERTY(t, @a, 0.);
+
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
     }
@@ -35,9 +37,78 @@ TEST_CASE("list.range", "[externals]")
         TExt t("list.range");
 
         t << L();
-        REQUIRE_THAT(t, !hasOutput(&t));;
+        REQUIRE_THAT(t, !hasOutput(&t));
+
         t << LF(2);
         REQUIRE(t.outputListAt(0) == LX(2, 2));
+
+        t << LF(1, 2, 3);
+        REQUIRE(t.outputListAt(0) == LX(1, 3));
+
+        t << LA(1, 2, 3, "C", "A", "B");
+        REQUIRE(t.outputListAt(0) == LX(1, 3));
+    }
+
+    SECTION("do @mode float")
+    {
+        TExt t("list.range", "@f");
+        REQUIRE_PROPERTY(t, @mode, SYM("float"));
+
+        t << L();
+        REQUIRE_THAT(t, !hasOutput(&t));
+
+        t << LF(2);
+        REQUIRE(t.outputListAt(0) == LX(2, 2));
+
+        t << LA("@a", "PROP", "D");
+        REQUIRE_THAT(t, !hasOutput(&t));
+
+        t << LA("@a", "PROP", "D", 1);
+        REQUIRE(t.outputListAt(0) == LX(1, 1));
+
+        t << LA("@a", 2, "PROP", "D", 1);
+        REQUIRE(t.outputListAt(0) == LX(1, 2));
+    }
+
+    SECTION("do @mode symbol")
+    {
+        TExt t("list.range", "@s");
+        REQUIRE_PROPERTY(t, @mode, SYM("symbol"));
+
+        t << L();
+        REQUIRE_THAT(t, !hasOutput(&t));
+
+        t << LF(2);
+        REQUIRE_THAT(t, !hasOutput(&t));
+
+        t << LA("@a");
+        REQUIRE(t.outputListAt(0) == LA("@a", "@a"));
+
+        t << LA("@a", "@x");
+        REQUIRE(t.outputListAt(0) == LA("@a", "@x"));
+
+        t << LA("@a", "@x", "@c", 123, -1);
+        REQUIRE(t.outputListAt(0) == LA("@a", "@x"));
+    }
+
+    SECTION("do @mode any")
+    {
+        TExt t("list.range", "@a");
+        REQUIRE_PROPERTY(t, @mode, SYM("any"));
+
+        t << L();
+        REQUIRE_THAT(t, !hasOutput(&t));
+
+        t << LF(2);
+        REQUIRE(t.outputListAt(0) == LA(2, 2));
+
+        t << LA("@a");
+        REQUIRE(t.outputListAt(0) == LA("@a", "@a"));
+
+        t << LA("@a", 2);
+        REQUIRE(t.outputListAt(0) == LA(2, "@a"));
+        t << LA(2, "@a", 2);
+        REQUIRE(t.outputListAt(0) == LA(2, "@a"));
     }
 
     SECTION("mlist")
@@ -45,7 +116,7 @@ TEST_CASE("list.range", "[externals]")
         TExt t("list.range");
 
         t.send(MLA());
-        REQUIRE_THAT(t, !hasOutput(&t));;
+        REQUIRE_THAT(t, !hasOutput(&t));
 
         t.send(MLA(200));
         REQUIRE(t.outputListAt(0) == LF(200, 200));
