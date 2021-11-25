@@ -11,16 +11,16 @@ crc32_assert_unique(hash_float, hash_symbol, hash_any);
 
 ListRange::ListRange(const PdArgs& a)
     : BaseObject(a)
-    , mode_(nullptr)
+    , type_(nullptr)
 {
     createOutlet();
 
-    mode_ = new SymbolEnumProperty("@mode", { str_float, str_symbol, str_any });
-    addProperty(mode_);
+    type_ = new SymbolEnumProperty("@type", { str_float, str_symbol, str_any });
+    addProperty(type_);
 
-    addProperty(new SymbolEnumAlias("@f", mode_, gensym(str_float)));
-    addProperty(new SymbolEnumAlias("@s", mode_, gensym(str_symbol)));
-    addProperty(new SymbolEnumAlias("@a", mode_, gensym(str_any)));
+    addProperty(new SymbolEnumAlias("@f", type_, gensym(str_float)));
+    addProperty(new SymbolEnumAlias("@s", type_, gensym(str_symbol)));
+    addProperty(new SymbolEnumAlias("@a", type_, gensym(str_any)));
 }
 
 void ListRange::onList(const AtomList& l)
@@ -30,7 +30,7 @@ void ListRange::onList(const AtomList& l)
 
     Atom min, max;
 
-    const auto hash_mode = crc32_hash(mode_->value());
+    const auto hash_mode = crc32_hash(type_->value());
 
     for (auto& a : l) {
         if (a.isData())
@@ -46,8 +46,6 @@ void ListRange::onList(const AtomList& l)
                 continue;
             break;
         default:
-            if (a.isData())
-                continue;
             break;
         }
 

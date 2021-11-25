@@ -23,7 +23,7 @@ TEST_CASE("list.range", "[externals]")
     SECTION("create")
     {
         TObj t("list.range");
-        REQUIRE_PROPERTY(t, @mode, SYM("float"));
+        REQUIRE_PROPERTY(t, @type, SYM("float"));
         REQUIRE_PROPERTY(t, @f, 1);
         REQUIRE_PROPERTY(t, @s, 0.);
         REQUIRE_PROPERTY(t, @a, 0.);
@@ -49,10 +49,10 @@ TEST_CASE("list.range", "[externals]")
         REQUIRE(t.outputListAt(0) == LX(1, 3));
     }
 
-    SECTION("do @mode float")
+    SECTION("do @type float")
     {
         TExt t("list.range", "@f");
-        REQUIRE_PROPERTY(t, @mode, SYM("float"));
+        REQUIRE_PROPERTY(t, @type, SYM("float"));
 
         t << L();
         REQUIRE_THAT(t, !hasOutput(&t));
@@ -70,10 +70,10 @@ TEST_CASE("list.range", "[externals]")
         REQUIRE(t.outputListAt(0) == LX(1, 2));
     }
 
-    SECTION("do @mode symbol")
+    SECTION("do @type symbol")
     {
         TExt t("list.range", "@s");
-        REQUIRE_PROPERTY(t, @mode, SYM("symbol"));
+        REQUIRE_PROPERTY(t, @type, SYM("symbol"));
 
         t << L();
         REQUIRE_THAT(t, !hasOutput(&t));
@@ -91,10 +91,10 @@ TEST_CASE("list.range", "[externals]")
         REQUIRE(t.outputListAt(0) == LA("@a", "@x"));
     }
 
-    SECTION("do @mode any")
+    SECTION("do @type any")
     {
         TExt t("list.range", "@a");
-        REQUIRE_PROPERTY(t, @mode, SYM("any"));
+        REQUIRE_PROPERTY(t, @type, SYM("any"));
 
         t << L();
         REQUIRE_THAT(t, !hasOutput(&t));

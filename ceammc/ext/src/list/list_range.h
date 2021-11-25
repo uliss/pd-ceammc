@@ -21,7 +21,7 @@
 using namespace ceammc;
 
 class ListRange : public BaseObject {
-    SymbolEnumProperty* mode_;
+    SymbolEnumProperty* type_;
 
 public:
     ListRange(const PdArgs& a);
