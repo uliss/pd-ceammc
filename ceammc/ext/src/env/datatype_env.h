@@ -7,6 +7,7 @@
 #include "ceammc_data.h"
 
 #include <algorithm>
+#include <array>
 #include <cstdint>
 #include <vector>
 
@@ -333,6 +334,17 @@ public:
 
 public:
     static int dataType;
+
+    using setMethod = bool (DataTypeEnv::*)(const AtomListView&);
+
+    struct NamedMethod {
+        uint32_t crc32_hash;
+        setMethod m;
+    };
+
+    using NamedMethodList = std::array<NamedMethod, 11>;
+
+    static const NamedMethodList named_methods;
 };
 
 std::ostream& operator<<(std::ostream& os, const DataTypeEnv& env);

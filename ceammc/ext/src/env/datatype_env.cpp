@@ -1,5 +1,6 @@
 #include "datatype_env.h"
 #include "ceammc_convert.h"
+#include "ceammc_crc32.h"
 #include "ceammc_datastorage.h"
 #include "ceammc_log.h"
 
@@ -9,24 +10,22 @@
 #include <boost/range.hpp>
 #include <unordered_map>
 
-static const char* SYM_ADSR = "adsr";
-static const char* SYM_ASR = "asr";
-static const char* SYM_AR = "ar";
-
-static const char* SYM_EADSR = "eadsr";
-static const char* SYM_EASR = "easr";
-static const char* SYM_EAR = "ear";
-
 static const char* SYM_ENVELOPE_POINT = "EnvelopePoint";
 
-static const char* SYM_CURVE_STEP = "step";
-static const char* SYM_CURVE_LINE = "line";
-static const char* SYM_CURVE_EXP = "exp";
-static const char* SYM_CURVE_SIN2 = "sin2";
-static const char* SYM_CURVE_SIGMOID = "sigmoid";
+CEAMMC_DEFINE_HASH(adsr);
+CEAMMC_DEFINE_HASH(asr);
+CEAMMC_DEFINE_HASH(ar);
+CEAMMC_DEFINE_HASH(eadsr);
+CEAMMC_DEFINE_HASH(easr);
+CEAMMC_DEFINE_HASH(ear);
+CEAMMC_DEFINE_HASH(step)
+CEAMMC_DEFINE_HASH(line)
+CEAMMC_DEFINE_HASH(exp)
+CEAMMC_DEFINE_HASH(sin2)
+CEAMMC_DEFINE_HASH(sigmoid)
 
 static const char* CURVE_TYPES[] = {
-    SYM_CURVE_STEP, SYM_CURVE_LINE, SYM_CURVE_EXP, SYM_CURVE_SIN2, SYM_CURVE_SIGMOID
+    str_step, str_line, str_exp, str_sin2, str_sigmoid
 };
 
 static bool compareByTime(const EnvelopePoint& n0, const EnvelopePoint& n1)
@@ -184,6 +183,20 @@ static const char* to_string(CurveType t)
 
     return "?";
 }
+
+const DataTypeEnv::NamedMethodList DataTypeEnv::named_methods = {
+    NamedMethod { hash_adsr, &DataTypeEnv::setADSR },
+    NamedMethod { hash_ar, &DataTypeEnv::setAR },
+    NamedMethod { hash_asr, &DataTypeEnv::setASR },
+    NamedMethod { hash_eadsr, &DataTypeEnv::setEADSR },
+    NamedMethod { hash_ear, &DataTypeEnv::setEAR },
+    NamedMethod { hash_easr, &DataTypeEnv::setEASR },
+    NamedMethod { hash_exp, &DataTypeEnv::setExponential },
+    NamedMethod { hash_line, &DataTypeEnv::setLine },
+    NamedMethod { hash_sigmoid, &DataTypeEnv::setSigmoid },
+    NamedMethod { hash_sin2, &DataTypeEnv::setSin2 },
+    NamedMethod { hash_step, &DataTypeEnv::setStep },
+};
 
 std::string DataTypeEnv::toString() const
 {
@@ -826,30 +839,13 @@ bool DataTypeEnv::setSigmoid(const AtomListView& lv)
     return true;
 }
 
-struct NameEntry {
-    t_symbol* s;
-    bool (DataTypeEnv::*m)(const AtomListView&);
-};
-
 bool DataTypeEnv::setNamedEnvelope(t_symbol* name, const AtomListView& args)
 {
-    static const NameEntry envs[] = {
-        { gensym(SYM_EADSR), &DataTypeEnv::setEADSR },
-        { gensym(SYM_EASR), &DataTypeEnv::setEASR },
-        { gensym(SYM_EAR), &DataTypeEnv::setEAR },
-        { gensym(SYM_ADSR), &DataTypeEnv::setADSR },
-        { gensym(SYM_ASR), &DataTypeEnv::setASR },
-        { gensym(SYM_AR), &DataTypeEnv::setAR },
-        { gensym(SYM_CURVE_EXP), &DataTypeEnv::setExponential },
-        { gensym(SYM_CURVE_LINE), &DataTypeEnv::setLine },
-        { gensym(SYM_CURVE_SIGMOID), &DataTypeEnv::setSigmoid },
-        { gensym(SYM_CURVE_SIN2), &DataTypeEnv::setSin2 },
-        { gensym(SYM_CURVE_STEP), &DataTypeEnv::setStep },
-    };
+    const auto hash = crc32_hash(name);
 
-    for (const NameEntry& e : envs) {
-        if (e.s == name)
-            return (this->*e.m)(args);
+    for (const auto& n : named_methods) {
+        if (n.crc32_hash == hash)
+            return (this->*n.m)(args);
     }
 
     return false;
@@ -857,14 +853,10 @@ bool DataTypeEnv::setNamedEnvelope(t_symbol* name, const AtomListView& args)
 
 bool DataTypeEnv::isNamedEnvelope(t_symbol* name) const
 {
-    static t_symbol* names[] = {
-        gensym(SYM_AR), gensym(SYM_ASR), gensym(SYM_ADSR),
-        gensym(SYM_EAR), gensym(SYM_EASR), gensym(SYM_EADSR),
-        gensym(SYM_CURVE_EXP), gensym(SYM_CURVE_LINE),
-        gensym(SYM_CURVE_SIGMOID), gensym(SYM_CURVE_SIN2), gensym(SYM_CURVE_STEP)
-    };
+    const auto hash = crc32_hash(name);
 
-    return std::find(std::begin(names), std::end(names), name) != std::end(names);
+    return std::find_if(named_methods.begin(),
+        named_methods.end(), [hash](const NamedMethod& m) { return m.crc32_hash == hash; });
 }
 
 bool DataTypeEnv::hasStopPoints() const
