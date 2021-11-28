@@ -131,6 +131,7 @@ public:
     t_rgba prop_active_color;
     t_rgba prop_line_color;
     t_float prop_length;
+    int prop_normalize;
 };
 
 void setup_ui_env();

@@ -3,6 +3,7 @@
 ## [Unreleased]
 ### Added:
 - new properties:
+  - @norm property added to ui.env to do envelope value normalization on input
 
 ## [0.9.4]
 ### Added:

@@ -13,16 +13,18 @@ static t_rgba DELETE_COLOR = hex_to_rgba("#F00030");
 static t_rgba LINE_SELECTION_COLOR = hex_to_rgba("#AAFFFF");
 static const char* DEFAULT_LINE_COLOR = "0.1 0.1 0.1 1.0";
 static const char* PROP_LENGTH = "length";
+constexpr const char* PROP_NORM = "norm";
 
 static t_symbol* SYM_ADSR;
-static t_symbol* SYM_ASR;
 static t_symbol* SYM_AR;
+static t_symbol* SYM_ASR;
 static t_symbol* SYM_EADSR;
-static t_symbol* SYM_EASR;
 static t_symbol* SYM_EAR;
+static t_symbol* SYM_EASR;
 static t_symbol* SYM_LENGTH;
-static t_symbol* SYM_MODE_ON_MOUSE_UP;
 static t_symbol* SYM_MODE_ON_DRAG;
+static t_symbol* SYM_MODE_ON_MOUSE_UP;
+static t_symbol* SYM_NORM;
 
 using namespace ui;
 
@@ -154,7 +156,11 @@ void UIEnv::onData(const Atom& data)
         return;
     }
 
-    env_ = env->normalize();
+    if (prop_normalize)
+        env_ = env->normalize();
+    else
+        env_ = *env;
+
     updateNodes();
     redrawAll();
     onBang();
@@ -177,7 +183,7 @@ void UIEnv::drawCursor(const t_rect& r)
             char buf[100];
 
             snprintf(buf, sizeof(buf) - 1, "%d(ms) : %0.2f",
-                (int)lin2lin(cursor_pos_.x, 0, width(), 0, prop_length),
+                (int)std::round(lin2lin(cursor_pos_.x, 0, width(), 0, prop_length)),
                 lin2lin(cursor_pos_.y, 0, height(), max_env_value_, 0));
 
             cursor_txt_pos_.setColor(prop_color_border);
@@ -880,6 +886,7 @@ void UIEnv::setup()
     obj.addFloatProperty(PROP_LENGTH, _("Length (ms)"), 400, &UIEnv::prop_length, _("Main"));
     obj.setPropertyMin(PROP_LENGTH, 10);
     obj.setPropertyUnits(gensym(PROP_LENGTH), gensym("msec"));
+    obj.addBoolProperty(PROP_NORM, _("Normalize input"), true, &UIEnv::prop_normalize, _("Main"));
 
     obj.addMenuProperty("output_mode", _("Output Mode"), "mouse_up", &UIEnv::output_mode_, "mouse_up drag", _("Main"));
 
