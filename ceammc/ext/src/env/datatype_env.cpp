@@ -839,7 +839,7 @@ bool DataTypeEnv::setSigmoid(const AtomListView& lv)
     return true;
 }
 
-bool DataTypeEnv::setNamedEnvelope(t_symbol* name, const AtomListView& args)
+bool DataTypeEnv::setNamedEnvelope(const char* name, const AtomListView& args)
 {
     const auto hash = crc32_hash(name);
 
@@ -851,7 +851,7 @@ bool DataTypeEnv::setNamedEnvelope(t_symbol* name, const AtomListView& args)
     return false;
 }
 
-bool DataTypeEnv::isNamedEnvelope(t_symbol* name) const
+bool DataTypeEnv::isNamedEnvelope(const char* name) const
 {
     const auto hash = crc32_hash(name);
 

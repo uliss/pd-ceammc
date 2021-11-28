@@ -15,12 +15,6 @@ static const char* DEFAULT_LINE_COLOR = "0.1 0.1 0.1 1.0";
 static const char* PROP_LENGTH = "length";
 constexpr const char* PROP_NORM = "norm";
 
-static t_symbol* SYM_ADSR;
-static t_symbol* SYM_AR;
-static t_symbol* SYM_ASR;
-static t_symbol* SYM_EADSR;
-static t_symbol* SYM_EAR;
-static t_symbol* SYM_EASR;
 static t_symbol* SYM_LENGTH;
 static t_symbol* SYM_MODE_ON_DRAG;
 static t_symbol* SYM_MODE_ON_MOUSE_UP;
@@ -64,12 +58,12 @@ UIEnv::UIEnv()
     updateNodes();
 
     initPopupMenu("env",
-        { { "ADSR(10 20 30 500)", [this](const t_pt&) { setNamedEnvelope(SYM_ADSR, AtomList { 10, 20, 30, 500 }); } },
-            { "ASR (500 500)", [this](const t_pt&) { setNamedEnvelope(SYM_ASR, AtomList { 500, 500 }); } },
-            { "AR (500 500)", [this](const t_pt&) { setNamedEnvelope(SYM_AR, AtomList { 500, 500 }); } } });
+        { { "ADSR(10 20 30 500)", [this](const t_pt&) { setNamedEnvelope(str_adsr, AtomList { 10, 20, 30, 500 }); } },
+            { "ASR (500 500)", [this](const t_pt&) { setNamedEnvelope(str_asr, AtomList { 500, 500 }); } },
+            { "AR (500 500)", [this](const t_pt&) { setNamedEnvelope(str_ar, AtomList { 500, 500 }); } } });
 
     initPopupMenu("point",
-        { { "toggle stop", [this](const t_pt& pt) {
+        { { "toggle stop", [this](const t_pt& /*pt*/) {
                auto idx = findSelectedNodeIdx();
                // ignore first node too
                if (idx < 1)
@@ -78,7 +72,7 @@ UIEnv::UIEnv()
                nodes_[idx].is_stop = !nodes_[idx].is_stop;
                redrawLayer(envelope_layer_);
            } },
-            { "toggle fixed Y", [this](const t_pt& pt) {
+            { "toggle fixed Y", [this](const t_pt& /*pt*/) {
                  auto idx = findSelectedNodeIdx();
                  // ignore first node too
                  if (idx < 1)
@@ -576,7 +570,7 @@ void UIEnv::onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long mod)
                     nodes_[idx].select = SelectType::LINE;
 
                 for (size_t i = 0; i < nodes_.size(); i++) {
-                    if (i == idx)
+                    if ((long)i == idx)
                         continue;
 
                     nodes_[i].select = SelectType::NONE;
@@ -752,36 +746,6 @@ bool UIEnv::selectNode(size_t idx)
     return num_changes > 0;
 }
 
-void UIEnv::m_adsr(const AtomListView& lv)
-{
-    setNamedEnvelope(SYM_ADSR, lv);
-}
-
-void UIEnv::m_asr(const AtomListView& lv)
-{
-    setNamedEnvelope(SYM_ASR, lv);
-}
-
-void UIEnv::m_ar(const AtomListView& lv)
-{
-    setNamedEnvelope(SYM_AR, lv);
-}
-
-void UIEnv::m_eadsr(const AtomListView& lv)
-{
-    setNamedEnvelope(SYM_EADSR, lv);
-}
-
-void UIEnv::m_easr(const AtomListView& lv)
-{
-    setNamedEnvelope(SYM_EASR, lv);
-}
-
-void UIEnv::m_ear(const AtomListView& lv)
-{
-    setNamedEnvelope(SYM_EAR, lv);
-}
-
 void UIEnv::m_at(const AtomListView& lv)
 {
     using namespace ceammc::parser;
@@ -817,10 +781,10 @@ void UIEnv::m_at(const AtomListView& lv)
     floatTo(1, time_ms);
 }
 
-void UIEnv::setNamedEnvelope(t_symbol* env, const AtomListView& lv)
+void UIEnv::setNamedEnvelope(const char* env, const AtomListView& lv)
 {
     if (!env_.setNamedEnvelope(env, lv)) {
-        UI_ERR << "unknown envelope: " << Atom(env) + lv;
+        UI_ERR << "unknown envelope: " << env << lv;
         return;
     }
 
@@ -890,23 +854,25 @@ void UIEnv::setup()
 
     obj.addMenuProperty("output_mode", _("Output Mode"), "mouse_up", &UIEnv::output_mode_, "mouse_up drag", _("Main"));
 
-    obj.addMethod(SYM_ADSR, &UIEnv::m_adsr);
-    obj.addMethod(SYM_ASR, &UIEnv::m_asr);
-    obj.addMethod(SYM_AR, &UIEnv::m_ar);
-    obj.addMethod(SYM_EADSR, &UIEnv::m_eadsr);
-    obj.addMethod(SYM_EASR, &UIEnv::m_easr);
-    obj.addMethod(SYM_EAR, &UIEnv::m_ear);
+#define ADD_METHOD(name) obj.addMethod(str_##name, &UIEnv::m_##name)
+
+    ADD_METHOD(adsr);
+    ADD_METHOD(ar);
+    ADD_METHOD(asr);
+    ADD_METHOD(eadsr);
+    ADD_METHOD(ear);
+    ADD_METHOD(easr);
+    ADD_METHOD(exp);
+    ADD_METHOD(line);
+    ADD_METHOD(sigmoid);
+    ADD_METHOD(sin2);
+    ADD_METHOD(step);
+
     obj.addMethod(gensym("at"), &UIEnv::m_at);
 }
 
 void setup_ui_env()
 {
-    SYM_ADSR = gensym("adsr");
-    SYM_ASR = gensym("asr");
-    SYM_AR = gensym("ar");
-    SYM_EADSR = gensym("eadsr");
-    SYM_EASR = gensym("easr");
-    SYM_EAR = gensym("ear");
     SYM_LENGTH = gensym("length");
     // keep in sync with @output_mode property!
     SYM_MODE_ON_MOUSE_UP = gensym("mouse_up");

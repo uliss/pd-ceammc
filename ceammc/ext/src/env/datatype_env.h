@@ -275,8 +275,8 @@ public:
     bool setSin2(const AtomListView& lv);
     bool setSigmoid(const AtomListView& lv);
 
-    bool setNamedEnvelope(t_symbol* name, const AtomListView& args);
-    bool isNamedEnvelope(t_symbol* name) const;
+    bool setNamedEnvelope(const char* name, const AtomListView& args);
+    bool isNamedEnvelope(const char* name) const;
 
     DataTypeEnv* clone() const;
 
