@@ -26,17 +26,18 @@
 #X obj 20 403 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 438 @clip;
-#X text 245 438 Get/Set clip cursor XY values to [0\..1] range in normalized
-mode \, to window width/height relative mode \, otherwise to screen
-width/height. Type: int. Default value: 0\. Allowed values: 0 \, 1\.;
+#X text 245 438 Get/Set clip a cursor XY values to the [0\..1] range
+in normalized mode \, to the window width/height relative mode \, otherwise
+to the screen width/height. Type: int. Default value: 0\. Allowed values:
+0 \, 1\.;
 #X msg 110 510 @norm;
 #X text 245 510 Get/Set cursor x/y coordinates normalization by screen
 (or window) width/height. Type: int. Default value: 0\. Allowed values:
 0 \, 1\.;
 #X msg 110 567 @relative;
 #X text 245 567 Get/Set relative output mode: if on output coords relative
-to window \, otherwise output screen coordinates. Type: int. Default
-value: 0\. Allowed values: 0 \, 1\.;
+to the root window \, otherwise output screen coordinates. Type: int.
+Default value: 0\. Allowed values: 0 \, 1\.;
 #X obj 20 634 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 639 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;

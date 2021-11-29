@@ -4,6 +4,10 @@
 ### Added:
 - new properties:
   - @norm property added to ui.env to do envelope value normalization on input
+  - @clip property added to system.cursor to clip cursor XY coords
+
+### Fixed:
+- system.cursor no normalization in subpatch
 
 ## [0.9.4]
 ### Added:
