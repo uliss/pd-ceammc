@@ -110,9 +110,9 @@ void SystemCursor::m_motion(t_symbol* s, const AtomListView& lv)
         const auto w = rel ? wrect.w : lv[2].asT<t_float>();
         const auto h = rel ? wrect.h : lv[3].asT<t_float>();
 
-        if (w && h) {
-            res[0] /= w;
-            res[1] /= h;
+        if (w > 1 && h > 1) {
+            res[0] /= (w - 1);
+            res[1] /= (h - 1);
         }
     }
 
