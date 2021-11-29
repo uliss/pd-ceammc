@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "system_cursor.h"
 #include "ceammc_canvas.h"
+#include "ceammc_convert.h"
 #include "ceammc_factory.h"
 #include "system_cursor.tcl.h"
 
@@ -25,6 +26,14 @@ extern "C" {
 
 constexpr const char* STR_CURSOR_BIND = "#ceammc_cursor_class_receive";
 
+static t_canvas* cursor_canvas_root(t_canvas* cnv)
+{
+    while (cnv && cnv->gl_owner)
+        cnv = cnv->gl_owner;
+
+    return cnv;
+}
+
 int SystemCursor::instances_polling_ = 0;
 
 SystemCursor::SystemCursor(const PdArgs& args)
@@ -32,6 +41,7 @@ SystemCursor::SystemCursor(const PdArgs& args)
     , unbind_([this]() { pd_unbind(&owner()->te_g.g_pd, gensym(STR_CURSOR_BIND)); })
     , relative_(nullptr)
     , normalize_(nullptr)
+    , clip_(nullptr)
     , is_polling_(false)
 {
     createOutlet();
@@ -45,6 +55,9 @@ SystemCursor::SystemCursor(const PdArgs& args)
 
     normalize_ = new BoolProperty("@norm", false);
     addProperty(normalize_);
+
+    clip_ = new BoolProperty("@clip", false);
+    addProperty(clip_);
 }
 
 SystemCursor::~SystemCursor()
@@ -91,31 +104,47 @@ void SystemCursor::m_motion(t_symbol* s, const AtomListView& lv)
     if (!checkArgs(lv, ARG_FLOAT, ARG_FLOAT, ARG_FLOAT, ARG_FLOAT))
         return;
 
-    const auto x = lv[0].asT<t_float>();
-    const auto y = lv[1].asT<t_float>();
-    t_rect wrect { 0, 0, 0, 0 };
-
-    Atom res[2] = { x, y };
+    t_float x = lv[0].asT<t_float>();
+    t_float y = lv[1].asT<t_float>();
+    t_float w = 0;
+    t_float h = 0;
+    t_float clipx = 0;
+    t_float clipy = 0;
 
     if (relative_->value()) {
-        auto cnv = canvas_getrootfor(canvas());
-        wrect = canvas_info_rect(cnv);
-        res[0] -= wrect.x;
-        res[1] -= wrect.y;
+        auto cnv = cursor_canvas_root(canvas());
+        if (!cnv)
+            return;
+
+        auto wrect = canvas_info_rect(cnv);
+        x -= wrect.x;
+        y -= wrect.y;
+        w = wrect.w;
+        h = wrect.h;
+    } else {
+        w = lv[2].asT<t_float>();
+        h = lv[3].asT<t_float>();
     }
 
     if (normalize_->value()) {
-        const bool rel = relative_->value();
-
-        const auto w = rel ? wrect.w : lv[2].asT<t_float>();
-        const auto h = rel ? wrect.h : lv[3].asT<t_float>();
-
         if (w > 1 && h > 1) {
-            res[0] /= (w - 1);
-            res[1] /= (h - 1);
+            x /= (w - 1);
+            y /= (h - 1);
         }
+
+        clipx = 1;
+        clipy = 1;
+    } else {
+        clipx = w - 1;
+        clipy = h - 1;
     }
 
+    if (clip_->value()) {
+        x = clip<t_float>(x, 0, clipx);
+        y = clip<t_float>(y, 0, clipy);
+    }
+
+    const Atom res[2] = { x, y };
     anyTo(0, gensym("motion"), AtomListView(res, 2));
 }
 
@@ -153,6 +182,12 @@ void setup_system_cursor()
     obj.addMethod(".button", &SystemCursor::m_button);
     obj.addMethod(".motion", &SystemCursor::m_motion);
     obj.addMethod(".mousewheel", &SystemCursor::m_wheel);
+
+    obj.setXletsInfo({ "bang: output cursor XY pos\n"
+                       "float: start/stop polling" },
+        { "motion X Y\n"
+          "button BTN STATE\n"
+          "mousewheel DELTA" });
 
     sys_gui(system_cursor_tcl);
     sys_vgui("::ceammc::cursor::setup %s\n", STR_CURSOR_BIND);

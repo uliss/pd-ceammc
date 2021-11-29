@@ -23,6 +23,7 @@ class SystemCursor : public BaseObject {
     ClockLambdaFunction unbind_;
     BoolProperty* relative_;
     BoolProperty* normalize_;
+    BoolProperty* clip_;
     bool is_polling_;
 
 public:

@@ -19,6 +19,8 @@
             on output coords relative to window, otherwise output screen coordinates</property>
             <property name="@norm" type="int" enum="0 1" default="0">cursor x/y coordinates
             normalization by screen (or window) width/height</property>
+            <property name="@clip" type="int" enum="0 1" default="0">clip cursor XY values to [0..1] range in normalized mode,
+            to window width/height relative mode, otherwise to screen width/height</property>
         </properties>
         <inlets>
             <inlet>
@@ -33,13 +35,43 @@
         <example>
             <pdascii>
 <![CDATA[
-[T]          [T]            [T]
-|            |              |
-|  [bang(    [@relative $1( [@norm $1(
-|  |         |              |
-|  |         |              |
-|  |         |              |
-[system.cursor              ]
+[T]       [T]            [T]        [T]
+|         |              |          |
+|  [bang( [@relative $1( [@norm $1( [@clip $1(
+|  |      |              |          |
+|  |      |              |          |
+|  |      |              |          |
+[system.cursor                      ]
+|
+[route motion mousewheel button]
+|        ^|   ^^|
+|        [F]   [route 1 2 3]
+|              |   ^|   ^^|
+|              [T] [T]  [T]
+|
+[ui.dt]
+
+[system.cursor.abs]
+]]>
+            </pdascii>
+            <pdascii id="1">
+<![CDATA[
+[inlet]
+|
+[system.cursor]
+|
+[outlet]
+]]>
+            </pdascii>
+            <pdascii id="abs">
+<![CDATA[
+[T]       [T]            [T]        [T]
+|         |              |          |
+|  [bang( [@relative $1( [@norm $1( [@clip $1(
+|  |      |              |          |
+|  |      |              |          |
+|  |      |              |          |
+[system.cursor.1                    ]
 |
 [route motion mousewheel button]
 |        ^|   ^^|
