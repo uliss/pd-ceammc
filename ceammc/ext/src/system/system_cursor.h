@@ -20,7 +20,7 @@
 using namespace ceammc;
 
 class SystemCursor : public BaseObject {
-    ClockMemberFunction<SystemCursor> clock_;
+    ClockLambdaFunction unbind_;
     BoolProperty* relative_;
     BoolProperty* normalize_;
     bool is_polling_;
@@ -37,7 +37,6 @@ public:
     void m_wheel(t_symbol* s, const AtomListView& lv);
 
 private:
-    void clockTick();
     void checkPolling();
     void startPolling();
     void stopPolling();
