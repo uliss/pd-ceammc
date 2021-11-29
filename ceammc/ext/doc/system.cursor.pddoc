@@ -37,9 +37,9 @@
         <example>
             <pdascii>
 <![CDATA[
-[T]       [T]            [T]        [T]
+[T]       [T]            [T]        [T]         [system.cursor.abs]
 |         |              |          |
-|  [bang( [@relative $1( [@norm $1( [@clip $1(
+|  [bang( [@relative $1( [@norm $1( [@clip $1(  [system.cursor.osc~]
 |  |      |              |          |
 |  |      |              |          |
 |  |      |              |          |
@@ -52,8 +52,6 @@
 |              [T] [T]  [T]
 |
 [ui.dt]
-
-[system.cursor.abs]
 ]]>
             </pdascii>
             <pdascii id="1">
@@ -82,6 +80,25 @@
 |              [T] [T]  [T]
 |
 [ui.dt]
+]]>
+            </pdascii>
+            <pdascii id="osc~">
+<![CDATA[
+[T]
+|
+[system.cursor @norm 1 @clip 1]
+|
+[route motion]
+|
+[lin->lin 0 1 100 5000]
+|
+[unpack f f]
+|       ^|
+[osc~]  [osc~]
+|       |
+[ui.hgain~]
+|\
+[dac~]
 ]]>
             </pdascii>
         </example>
