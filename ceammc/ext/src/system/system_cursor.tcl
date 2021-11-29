@@ -3,7 +3,7 @@ namespace eval ::ceammc::cursor:: {
     variable last_x 0
     variable last_y 0
     variable receive_symbol
-    variable polltime 10
+    variable polltime 30
     variable pollmin 10
     variable pollmax 1000
 }
@@ -16,6 +16,13 @@ proc ::ceammc::cursor::clip { v min max } {
     } else {
         return $v
     }
+}
+
+proc ::ceammc::cursor::setpolltime { pollms } {
+    variable pollmin
+    variable pollmax
+    variable polltime
+    set polltime [clip $pollms $pollmin $pollmax]
 }
 
 # idea from #tcl for a Tcl unbind
