@@ -24,8 +24,8 @@
             <par>Note: if @type = any, numbers are smaller then symbols</par>
         </info>
         <properties>
-            <property name="@type" type="symbol" enum="float symbol any" default="float">
-            type of accepted atoms</property>
+            <property name="@type" type="symbol" enum="float symbol any" default="float">type of
+            accepted atoms</property>
             <property name="@f" type="alias">alias to @type float, accept only floats</property>
             <property name="@s" type="alias">alias to @type symbol, accept only symbols</property>
             <property name="@a" type="alias">alias to @type any, accept all</property>

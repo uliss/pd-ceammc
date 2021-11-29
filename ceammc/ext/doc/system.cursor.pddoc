@@ -19,8 +19,9 @@
             on output coords relative to window, otherwise output screen coordinates</property>
             <property name="@norm" type="int" enum="0 1" default="0">cursor x/y coordinates
             normalization by screen (or window) width/height</property>
-            <property name="@clip" type="int" enum="0 1" default="0">clip cursor XY values to [0..1] range in normalized mode,
-            to window width/height relative mode, otherwise to screen width/height</property>
+            <property name="@clip" type="int" enum="0 1" default="0">clip cursor XY values to
+            [0..1] range in normalized mode, to window width/height relative mode, otherwise to
+            screen width/height</property>
         </properties>
         <inlets>
             <inlet>
