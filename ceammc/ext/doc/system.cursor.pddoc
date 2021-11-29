@@ -101,7 +101,7 @@
 |       ^|
 [osc~]  [osc~]
 |       |
-[ui.hgain~]
+[ui.hgain~]       [ui.dsp~]
 |\
 [dac~]
 ]]>
