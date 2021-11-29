@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "system_cursor.h"
+#include "ceammc_args.h"
 #include "ceammc_canvas.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
@@ -154,6 +155,21 @@ void SystemCursor::m_wheel(t_symbol* s, const AtomListView& lv)
         anyTo(0, gensym("mousewheel"), lv);
 }
 
+void SystemCursor::m_polltime(t_symbol* s, const AtomListView& lv)
+{
+    static ArgChecker chk("f10..1000");
+
+    Error err;
+    chk.setOut(err);
+
+    if (!chk.check(lv))
+        return;
+
+    const int t = lv[0].asFloat();
+    OBJ_DBG << "setting polltime to " << t;
+    sys_vgui("::ceammc::cursor::setpolltime %d\n", t);
+}
+
 void SystemCursor::checkPolling()
 {
     /* if no more objects are listening, stop sending the events */
@@ -182,6 +198,7 @@ void setup_system_cursor()
     obj.addMethod(".button", &SystemCursor::m_button);
     obj.addMethod(".motion", &SystemCursor::m_motion);
     obj.addMethod(".mousewheel", &SystemCursor::m_wheel);
+    obj.addMethod("polltime", &SystemCursor::m_polltime);
 
     obj.setXletsInfo({ "bang: output cursor XY pos\n"
                        "float: start/stop polling" },

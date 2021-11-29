@@ -38,6 +38,8 @@ public:
     void m_motion(t_symbol* s, const AtomListView& lv);
     void m_wheel(t_symbol* s, const AtomListView& lv);
 
+    void m_polltime(t_symbol* s, const AtomListView& lv);
+
 private:
     void checkPolling();
     void startPolling();
