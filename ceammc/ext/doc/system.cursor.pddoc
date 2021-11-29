@@ -24,6 +24,11 @@
             cursor XY values to the [0..1] range in normalized mode, to the window width/height
             relative mode, otherwise to the screen width/height</property>
         </properties>
+        <methods>
+            <method name="polltime">sets global cursor polling time 
+            <param name="T" type="float" units="millisecond" minvalue="10" maxvalue="1000"
+            required="true">polling time</param></method>
+        </methods>
         <inlets>
             <inlet>
                 <xinfo on="bang">output cursor position</xinfo>
