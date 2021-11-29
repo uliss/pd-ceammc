@@ -43,6 +43,7 @@ SystemCursor::SystemCursor(const PdArgs& args)
     , normalize_(nullptr)
     , clip_(nullptr)
     , is_polling_(false)
+    , topcanvas_(cursor_canvas_root(canvas()))
 {
     createOutlet();
 
@@ -112,11 +113,10 @@ void SystemCursor::m_motion(t_symbol* s, const AtomListView& lv)
     t_float clipy = 0;
 
     if (relative_->value()) {
-        auto cnv = cursor_canvas_root(canvas());
-        if (!cnv)
+        if (!topcanvas_)
             return;
 
-        auto wrect = canvas_info_rect(cnv);
+        auto wrect = canvas_info_rect(topcanvas_);
         x -= wrect.x;
         y -= wrect.y;
         w = wrect.w;

@@ -25,6 +25,7 @@ class SystemCursor : public BaseObject {
     BoolProperty* normalize_;
     BoolProperty* clip_;
     bool is_polling_;
+    t_canvas* topcanvas_;
 
 public:
     SystemCursor(const PdArgs& args);
