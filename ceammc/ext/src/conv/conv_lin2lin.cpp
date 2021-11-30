@@ -59,4 +59,6 @@ void setup_conv_lin2lin()
     ObjectFactory<Lin2Lin> obj("conv.lin2lin");
     obj.addAlias("lin->lin");
     obj.addAlias("l->l");
+
+    obj.setXletsInfo({ "float or list" }, { "list" });
 }
