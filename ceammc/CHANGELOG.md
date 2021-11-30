@@ -7,6 +7,8 @@
   - @clip property added to system.cursor to clip cursor XY coords
 - new methods:
   - [polltime( method added to system.cursor to change global polltime
+- misc:
+  - conv.lin2exp: list support added
 
 ### Fixed:
 - system.cursor no normalization in subpatch
