@@ -9,6 +9,7 @@
   - [polltime( method added to system.cursor to change global polltime
 - misc:
   - conv.lin2exp: list support added
+  - conv.lin2curve: list support added
 
 ### Fixed:
 - system.cursor no normalization in subpatch
