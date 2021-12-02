@@ -17,14 +17,9 @@
 #include "ceammc_object.h"
 #include "seq_base.h"
 
-#include <cstdint>
+#include <cstdlib> // for std::abs
 
 class SeqCounter : public BaseObject {
-    enum Direction : uint8_t {
-        DIR_FORWARD = 1,
-        DIR_BACK = 0
-    };
-
 private:
     IntProperty* from_;
     IntProperty* to_;
@@ -32,7 +27,6 @@ private:
     SymbolEnumProperty* mode_;
     int ri_, i_;
     bool done_;
-    Direction dir_;
 
 public:
     SeqCounter(const PdArgs& args);
@@ -46,7 +40,17 @@ private:
     void nextFolded();
     void nextConst();
     void reset();
-    bool shouldRepeat() const;
+
+    inline bool shouldRepeat() const { return !done_ && repeat_->shouldRepeat(ri_); }
+
+    inline int range() const { return to_->value() - from_->value(); }
+    inline int absRange() const { return std::abs(range()); }
+
+    inline int valueAt(int i) const
+    {
+        const int rsign = (0 < range()) - (range() < 0);
+        return from_->value() + (i * rsign);
+    }
 };
 
 void setup_seq_counter();

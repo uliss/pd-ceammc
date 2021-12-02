@@ -19,8 +19,6 @@ CEAMMC_DEFINE_STR(done)
 CEAMMC_DEFINE_HASH(wrap)
 CEAMMC_DEFINE_HASH(fold)
 
-constexpr int R_INFINITE = -1;
-
 SeqCounter::SeqCounter(const PdArgs& args)
     : BaseObject(args)
     , from_(nullptr)
@@ -30,11 +28,10 @@ SeqCounter::SeqCounter(const PdArgs& args)
     , ri_(0)
     , i_(0)
     , done_(false)
-    , dir_(DIR_FORWARD)
 {
     from_ = new IntProperty("@from", 0);
     from_->setArgIndex(0);
-    from_->setSuccessFn([this](Property*) { i_ = from_->value(); });
+    from_->setSuccessFn([this](Property*) { i_ = 0; });
     addProperty(from_);
 
     to_ = new IntProperty("@to", 0);
@@ -65,24 +62,31 @@ SeqCounter::SeqCounter(const PdArgs& args)
 
 void SeqCounter::onBang()
 {
-    const auto IS_CONST = (to_->value() - from_->value()) == 0;
-    const auto mode_hash = crc32_hash(mode_->value());
-
-    if (!IS_CONST && mode_hash == hash_wrap)
-        nextWrapped();
-    else if (!IS_CONST && mode_hash == hash_fold)
-        nextFolded();
-    else
+    if (range() == 0) {
         nextConst();
+    } else {
+        const auto mode_hash = crc32_hash(mode_->value());
+        switch (mode_hash) {
+        case hash_wrap:
+            nextWrapped();
+            break;
+        case hash_fold:
+            nextFolded();
+            break;
+        default:
+            OBJ_ERR << "unknown wrap mode: " << mode_->value();
+            break;
+        }
+    }
 }
 
-void SeqCounter::onInlet(size_t n, const AtomListView& l)
+void SeqCounter::onInlet(size_t n, const AtomListView& lv)
 {
-    if (l.empty())
+    if (lv.empty())
         reset();
 }
 
-void SeqCounter::m_reset(t_symbol*, const AtomListView& lv)
+void SeqCounter::m_reset(t_symbol*, const AtomListView& /*lv*/)
 {
     reset();
 }
@@ -92,31 +96,21 @@ void SeqCounter::nextWrapped()
     if (!shouldRepeat())
         return;
 
-    if (i_ == from_->value())
+    // output repeat counter
+    if (i_ == 0)
         floatTo(1, ri_);
 
-    floatTo(0, i_);
+    floatTo(0, valueAt(i_));
 
-    const auto N = to_->value() - from_->value();
-
-    if (i_ == to_->value()) {
-        const auto nr = repeat_->value();
-
-        if (nr == R_INFINITE || ri_ < nr) {
-            ri_++;
-
-            if (ri_ == nr) { // should stop
-                done_ = true;
-                anyTo(1, gensym(str_done), AtomListView {});
-            } else { // continue: reset counter
-                i_ = from_->value();
-            }
-        }
+    if (i_ < absRange()) {
+        i_++;
     } else {
-        if (N > 0)
-            i_++;
-        else if (N < 0)
-            i_--;
+        if (++ri_ == repeat_->value()) { // should stop
+            done_ = true;
+            anyTo(1, gensym(str_done), AtomListView {});
+        } else { // continue: reset counter
+            i_ = 0;
+        }
     }
 }
 
@@ -125,57 +119,27 @@ void SeqCounter::nextFolded()
     if (!shouldRepeat())
         return;
 
-    const auto RANGE = to_->value() - from_->value();
-    const auto NR = repeat_->value();
-    const auto BEGIN = from_->value();
-    const auto END = to_->value();
+    if (range() == 0)
+        return nextConst();
 
-    int LAST = 0;
-    if (RANGE > 1)
-        LAST = BEGIN + 1;
-    else if (RANGE < -1)
-        LAST = END + 1;
-    else {
-        dir_ = DIR_BACK;
-        LAST = END;
-    }
-
-    // repeat counter
-    if (i_ == BEGIN) {
-        dir_ = DIR_FORWARD;
+    // output repeat counter
+    if (i_ == 0)
         floatTo(1, ri_);
-    }
 
-    // output sequence counter
-    floatTo(0, i_);
+    const auto N = 2 * absRange() - 1;
 
-    // update
-    if (i_ == LAST && dir_ == DIR_BACK) { // last element in folded sequence
-        dir_ = DIR_FORWARD;
+    // output current sequence counter
+    floatTo(0, valueAt(std::min(i_, (N + 1) - i_)));
 
-        if (NR == R_INFINITE || ri_ < NR) {
-            if (++ri_ == NR) { // should stop
-                done_ = true;
-                anyTo(1, gensym(str_done), AtomListView {});
-            }
-        }
-
-        i_ = from_->value();
-    } else if (i_ == to_->value()) { // going down
-        dir_ = DIR_BACK;
-
-        if (RANGE > 0)
-            i_ = to_->value() - 1;
-        else if (RANGE < 0)
-            i_ = to_->value() + 1;
+    if (i_ < N) {
+        i_++;
     } else {
-        const bool up = (RANGE > 0 && dir_) || (RANGE < 0 && !dir_);
-        const bool down = (RANGE > 0 && !dir_) || (RANGE < 0 && dir_);
-
-        if (up)
-            i_++;
-        else if (down)
-            i_--;
+        if (++ri_ >= repeat_->value()) {
+            done_ = true;
+            anyTo(1, gensym(str_done), AtomListView {});
+        } else {
+            i_ = 0;
+        }
     }
 }
 
@@ -196,15 +160,8 @@ void SeqCounter::nextConst()
 void SeqCounter::reset()
 {
     done_ = false;
-    dir_ = DIR_FORWARD;
     ri_ = 0;
-    i_ = from_->value();
-}
-
-bool SeqCounter::shouldRepeat() const
-{
-    const auto n = repeat_->value();
-    return !done_ && (n == R_INFINITE || ri_ < n);
+    i_ = 0;
 }
 
 void setup_seq_counter()
