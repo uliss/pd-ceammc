@@ -1,4 +1,4 @@
-add_library(ceammc_lang STATIC mod_lang.cpp)
+add_library(ceammc_lang STATIC mod_lang.cpp poll_dispatcher.cpp)
 target_include_directories(ceammc_lang
     PRIVATE "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>")
 
@@ -40,5 +40,24 @@ else()
         INTERNAL True
         LIBRARY ceammc
         LINK ceammc_core)
+endif()
+
+pkg_check_modules(LUAJIT lua REQUIRED)
+
+if(LUAJIT_FOUND)
+    target_sources(ceammc_lang PRIVATE lang_luajit.cpp lua_cmd.cpp lua_func.cpp lua_interp.cpp)
+
+    target_include_directories(ceammc_lang
+        PRIVATE
+            ${LUAJIT_INCLUDE_DIRS}
+            ${PROJECT_SOURCE_DIR}/ceammc/extra/readerwriterqueue)
+
+    target_link_libraries(ceammc_lang PUBLIC ${LUAJIT_LIBRARIES})
+    target_compile_options(ceammc_lang PRIVATE ${LUAJIT_CFLAGS_OTHER})
+
+    if(APPLE)
+        target_link_options(ceammc_lang
+            PRIVATE -pagezero_size 10000 -image_base 100000000)
+    endif()
 endif()
 
