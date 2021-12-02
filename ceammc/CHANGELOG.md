@@ -3,8 +3,9 @@
 ## [Unreleased]
 ### Added:
 - new properties:
-  - @norm property added to ui.env to do envelope value normalization on input
   - @clip property added to system.cursor to clip cursor XY coords
+  - @norm property added to ui.env to do envelope value normalization on input
+  - @value property added to seq.counter
 - new methods:
   - [polltime( method added to system.cursor to change global polltime
 - misc:
