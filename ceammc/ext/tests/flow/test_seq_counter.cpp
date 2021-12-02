@@ -31,6 +31,9 @@ TEST_CASE("seq.counter", "[externals]")
             REQUIRE_PROPERTY(t, @from, 0);
             REQUIRE_PROPERTY(t, @to, 0);
             REQUIRE_PROPERTY(t, @r, "inf");
+            REQUIRE_PROPERTY(t, @i, 0.);
+            REQUIRE_PROPERTY(t, @ri, 0.);
+            REQUIRE_PROPERTY(t, @value, 0.);
         }
 
         SECTION("arg0")
@@ -119,10 +122,12 @@ TEST_CASE("seq.counter", "[externals]")
             t.bang();
             REQUIRE(t.messagesAt(0) == ML { M(10) });
             REQUIRE(t.messagesAt(1) == ML { i(0) });
+            REQUIRE_PROPERTY(t, @value, 10);
 
             t.sendBang();
             REQUIRE(t.messagesAt(0) == ML { M(10), M(10) });
             REQUIRE(t.messagesAt(1) == ML { i(0), i(1) });
+            REQUIRE_PROPERTY(t, @value, 10);
 
             t.sendBang();
             REQUIRE(t.messagesAt(0) == ML { M(10), M(10), M(10) });
@@ -140,18 +145,22 @@ TEST_CASE("seq.counter", "[externals]")
         SECTION("positive @r 1")
         {
             TExt t("seq.counter", LA("@from", 10, "@to", 12, "@r", 1));
+            REQUIRE_PROPERTY(t, @value, 10);
 
             t.bang();
             REQUIRE(t.messagesAt(0) == ML { M(10) });
             REQUIRE(t.messagesAt(1) == ML { i(0) });
+            REQUIRE_PROPERTY(t, @value, 11);
 
             t.sendBang();
             REQUIRE(t.messagesAt(0) == ML { M(10), M(11) });
             REQUIRE(t.messagesAt(1) == ML { i(0) });
+            REQUIRE_PROPERTY(t, @value, 12);
 
             t.sendBang();
             REQUIRE(t.messagesAt(0) == ML { M(10), M(11), M(12) });
             REQUIRE(t.messagesAt(1) == ML { i(0), done });
+            REQUIRE_PROPERTY(t, @value, 12);
         }
 
         SECTION("positive @r 2")
@@ -220,18 +229,22 @@ TEST_CASE("seq.counter", "[externals]")
         SECTION("negative @r 2")
         {
             TExt t("seq.counter", LA("@from", 1, "@to", -1, "@r", 2));
+            REQUIRE_PROPERTY(t, @value, 1);
 
             t.bang();
             REQUIRE(t.messagesAt(0) == ML { M(1) });
             REQUIRE(t.messagesAt(1) == ML { i(0) });
+            REQUIRE_PROPERTY(t, @value, 0.);
 
             t.sendBang();
             REQUIRE(t.messagesAt(0) == ML { M(1), M(0.) });
             REQUIRE(t.messagesAt(1) == ML { i(0) });
+            REQUIRE_PROPERTY(t, @value, -1);
 
             t.sendBang();
             REQUIRE(t.messagesAt(0) == ML { M(1), M(0.), M(-1) });
             REQUIRE(t.messagesAt(1) == ML { i(0) });
+            REQUIRE_PROPERTY(t, @value, 1);
 
             t.sendBang();
             REQUIRE(t.messagesAt(0) == ML { M(1), M(0.), M(-1), M(1) });
@@ -267,7 +280,6 @@ TEST_CASE("seq.counter", "[externals]")
 
         SECTION("@fold const")
         {
-
             TExt t("seq.counter", LA("@from", 1, "@to", 1, "@r", 2, "@fold"));
 
             t.bang();
@@ -281,30 +293,33 @@ TEST_CASE("seq.counter", "[externals]")
 
         SECTION("@fold positive")
         {
-
             TExt t("seq.counter", LA("@from", 1, "@to", 2, "@r", 2, "@fold"));
             REQUIRE_PROPERTY(t, @mode, "fold");
+            REQUIRE_PROPERTY(t, @value, 1);
 
             t.bang();
             REQUIRE(t.messagesAt(0) == ML { M(1) });
             REQUIRE(t.messagesAt(1) == ML { i(0) });
+            REQUIRE_PROPERTY(t, @value, 2);
 
             t.sendBang();
             REQUIRE(t.messagesAt(0) == ML { M(1), M(2) });
             REQUIRE(t.messagesAt(1) == ML { i(0) });
+            REQUIRE_PROPERTY(t, @value, 1);
 
             t.sendBang();
             REQUIRE(t.messagesAt(0) == ML { M(1), M(2), M(1) });
             REQUIRE(t.messagesAt(1) == ML { i(0), i(1) });
+            REQUIRE_PROPERTY(t, @value, 2);
 
             t.sendBang();
             REQUIRE(t.messagesAt(0) == ML { M(1), M(2), M(1), M(2) });
             REQUIRE(t.messagesAt(1) == ML { i(0), i(1), done });
+            REQUIRE_PROPERTY(t, @value, 2);
         }
 
         SECTION("@fold positive")
         {
-
             TExt t("seq.counter", LA("@from", 1, "@to", 3, "@r", 2, "@fold"));
             REQUIRE_PROPERTY(t, @mode, "fold");
 
@@ -369,7 +384,6 @@ TEST_CASE("seq.counter", "[externals]")
 
         SECTION("@fold negative")
         {
-
             TExt t("seq.counter", LA("@from", 3, "@to", 1, "@r", 2, "@fold"));
             REQUIRE_PROPERTY(t, @mode, "fold");
 
