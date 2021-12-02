@@ -15,7 +15,7 @@
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 
-CEAMMC_DEFINE_HASH(done)
+CEAMMC_DEFINE_STR(done)
 CEAMMC_DEFINE_HASH(wrap)
 CEAMMC_DEFINE_HASH(fold)
 
