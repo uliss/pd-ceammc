@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "seq_counter.h"
+#include "ceammc_convert.h"
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 
@@ -52,7 +53,16 @@ SeqCounter::SeqCounter(const PdArgs& args)
     addProperty(new AliasProperty<RepeatProperty>("@inf", repeat_, -1));
     addProperty(new AliasProperty<RepeatProperty>("@once", repeat_, 1));
 
-    createCbIntProperty("@i", [this]() -> int { return i_; });
+    createCbIntProperty(
+        "@i", [this]() -> int { return i_; },
+        [this](int val) -> bool {
+            if (crc32_hash(mode_->value()) == hash_fold)
+                i_ = wrapInteger<int>(val, 2 * absRange());
+            else
+                i_ = wrapInteger<int>(val, absRange() + 1);
+
+            return true;
+        });
     createCbIntProperty("@ri", [this]() -> int { return ri_; });
     createCbIntProperty("@value", [this]() -> int { return currentValue(); });
 

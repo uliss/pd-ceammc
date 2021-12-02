@@ -15,6 +15,9 @@
 ### Fixed:
 - system.cursor no normalization in subpatch
 
+### Changes:
+- @i property of seq.counter made writable
+
 ## [0.9.4]
 ### Added:
 - loadmsg - dollar arg support added

@@ -423,5 +423,62 @@ TEST_CASE("seq.counter", "[externals]")
             REQUIRE(t.messagesAt(0) == ML { M(3), M(2), M(1), M(2), M(3), M(2), M(1), M(2) });
             REQUIRE(t.messagesAt(1) == ML { i(0), i(1), done });
         }
+
+        SECTION("@i set")
+        {
+
+#define CHECK_SET_IDX(t, idx, ii, val)           \
+    {                                            \
+        REQUIRE(t->setProperty("@i", LF(idx)));  \
+        REQUIRE_PROPERTY(t, @i, ii);             \
+        REQUIRE_PROPERTY(t, @value, float(val)); \
+    }
+
+            SECTION("wrap")
+            {
+                TExt t("seq.counter", LA("@from", -2, "@to", 2, "@r", 2, "@wrap"));
+
+                CHECK_SET_IDX(t, -5, 0, -2);
+                CHECK_SET_IDX(t, -4, 1, -1);
+                CHECK_SET_IDX(t, -3, 2, 0);
+                CHECK_SET_IDX(t, -2, 3, 1);
+                CHECK_SET_IDX(t, -1, 4, 2);
+                CHECK_SET_IDX(t, 0, 0, -2);
+                CHECK_SET_IDX(t, 1, 1, -1);
+                CHECK_SET_IDX(t, 2, 2, 0);
+                CHECK_SET_IDX(t, 3, 3, 1);
+                CHECK_SET_IDX(t, 4, 4, 2);
+                CHECK_SET_IDX(t, 5, 0, -2);
+                CHECK_SET_IDX(t, 6, 1, -1);
+                CHECK_SET_IDX(t, 7, 2, 0);
+                CHECK_SET_IDX(t, 8, 3, 1);
+                CHECK_SET_IDX(t, 9, 4, 2);
+                CHECK_SET_IDX(t, 10, 0, -2);
+            }
+
+            SECTION("fold")
+            {
+                TExt t("seq.counter", LA("@from", 0., "@to", 3, "@r", 2, "@fold"));
+
+                CHECK_SET_IDX(t, -6, 0, 0);
+                CHECK_SET_IDX(t, -5, 1, 1);
+                CHECK_SET_IDX(t, -4, 2, 2);
+                CHECK_SET_IDX(t, -3, 3, 3);
+                CHECK_SET_IDX(t, -2, 4, 2);
+                CHECK_SET_IDX(t, -1, 5, 1);
+                CHECK_SET_IDX(t, 0, 0, 0);
+                CHECK_SET_IDX(t, 1, 1, 1);
+                CHECK_SET_IDX(t, 2, 2, 2);
+                CHECK_SET_IDX(t, 3, 3, 3);
+                CHECK_SET_IDX(t, 4, 4, 2);
+                CHECK_SET_IDX(t, 5, 5, 1);
+                CHECK_SET_IDX(t, 6, 0, 0);
+                CHECK_SET_IDX(t, 7, 1, 1);
+                CHECK_SET_IDX(t, 8, 2, 2);
+                CHECK_SET_IDX(t, 9, 3, 3);
+                CHECK_SET_IDX(t, 10, 4, 2);
+                CHECK_SET_IDX(t, 11, 5, 1);
+            }
+        }
     }
 }
