@@ -54,6 +54,7 @@ SeqCounter::SeqCounter(const PdArgs& args)
 
     createCbIntProperty("@i", [this]() -> int { return i_; });
     createCbIntProperty("@ri", [this]() -> int { return ri_; });
+    createCbIntProperty("@value", [this]() -> int { return currentValue(); });
 
     createInlet();
     createOutlet();
@@ -65,8 +66,7 @@ void SeqCounter::onBang()
     if (range() == 0) {
         nextConst();
     } else {
-        const auto mode_hash = crc32_hash(mode_->value());
-        switch (mode_hash) {
+        switch (crc32_hash(mode_->value())) {
         case hash_wrap:
             nextWrapped();
             break;
@@ -166,9 +166,8 @@ int SeqCounter::currentValue() const
 {
     const auto R = range();
     const auto rsign = (0 < R) - (R < 0);
-    const auto mode_hash = crc32_hash(mode_->value());
 
-    const auto idx = (mode_hash == hash_fold)
+    const auto idx = (crc32_hash(mode_->value()) == hash_fold)
         ? std::min(i_, (2 * std::abs(R)) - i_)
         : i_;
 
