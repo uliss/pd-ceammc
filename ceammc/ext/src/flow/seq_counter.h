@@ -45,12 +45,7 @@ private:
 
     inline int range() const { return to_->value() - from_->value(); }
     inline int absRange() const { return std::abs(range()); }
-
-    inline int valueAt(int i) const
-    {
-        const int rsign = (0 < range()) - (range() < 0);
-        return from_->value() + (i * rsign);
-    }
+    int currentValue() const;
 };
 
 void setup_seq_counter();

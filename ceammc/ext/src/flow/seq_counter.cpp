@@ -100,7 +100,7 @@ void SeqCounter::nextWrapped()
     if (i_ == 0)
         floatTo(1, ri_);
 
-    floatTo(0, valueAt(i_));
+    floatTo(0, currentValue());
 
     if (i_ < absRange()) {
         i_++;
@@ -126,12 +126,10 @@ void SeqCounter::nextFolded()
     if (i_ == 0)
         floatTo(1, ri_);
 
-    const auto N = 2 * absRange() - 1;
-
     // output current sequence counter
-    floatTo(0, valueAt(std::min(i_, (N + 1) - i_)));
+    floatTo(0, currentValue());
 
-    if (i_ < N) {
+    if (i_ < (2 * absRange() - 1)) {
         i_++;
     } else {
         if (++ri_ >= repeat_->value()) {
@@ -162,6 +160,19 @@ void SeqCounter::reset()
     done_ = false;
     ri_ = 0;
     i_ = 0;
+}
+
+int SeqCounter::currentValue() const
+{
+    const auto R = range();
+    const auto rsign = (0 < R) - (R < 0);
+    const auto mode_hash = crc32_hash(mode_->value());
+
+    const auto idx = (mode_hash == hash_fold)
+        ? std::min(i_, (2 * std::abs(R)) - i_)
+        : i_;
+
+    return from_->value() + (idx * rsign);
 }
 
 void setup_seq_counter()
