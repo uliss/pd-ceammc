@@ -12,11 +12,12 @@
  * this file belongs to.
  *****************************************************************************/
 #include "seq_counter.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 
-static t_symbol* SYM_DONE;
-static t_symbol* SYM_WRAP;
-static t_symbol* SYM_FOLD;
+CEAMMC_DEFINE_HASH(done)
+CEAMMC_DEFINE_HASH(wrap)
+CEAMMC_DEFINE_HASH(fold)
 
 constexpr int R_INFINITE = -1;
 
@@ -45,11 +46,11 @@ SeqCounter::SeqCounter(const PdArgs& args)
     repeat_->setArgIndex(2);
     addProperty(repeat_);
 
-    mode_ = new SymbolEnumProperty("@mode", { SYM_WRAP, SYM_FOLD });
+    mode_ = new SymbolEnumProperty("@mode", { str_wrap, str_fold });
     addProperty(mode_);
 
-    addProperty(new SymbolEnumAlias("@wrap", mode_, SYM_WRAP));
-    addProperty(new SymbolEnumAlias("@fold", mode_, SYM_FOLD));
+    addProperty(new SymbolEnumAlias("@wrap", mode_, gensym(str_wrap)));
+    addProperty(new SymbolEnumAlias("@fold", mode_, gensym(str_fold)));
 
     addProperty(new AliasProperty<RepeatProperty>("@inf", repeat_, -1));
     addProperty(new AliasProperty<RepeatProperty>("@once", repeat_, 1));
@@ -65,10 +66,11 @@ SeqCounter::SeqCounter(const PdArgs& args)
 void SeqCounter::onBang()
 {
     const auto IS_CONST = (to_->value() - from_->value()) == 0;
+    const auto mode_hash = crc32_hash(mode_->value());
 
-    if (!IS_CONST && mode_->value() == SYM_WRAP)
+    if (!IS_CONST && mode_hash == hash_wrap)
         nextWrapped();
-    else if (!IS_CONST && mode_->value() == SYM_FOLD)
+    else if (!IS_CONST && mode_hash == hash_fold)
         nextFolded();
     else
         nextConst();
@@ -105,7 +107,7 @@ void SeqCounter::nextWrapped()
 
             if (ri_ == nr) { // should stop
                 done_ = true;
-                anyTo(1, SYM_DONE, AtomListView {});
+                anyTo(1, gensym(str_done), AtomListView {});
             } else { // continue: reset counter
                 i_ = from_->value();
             }
@@ -154,7 +156,7 @@ void SeqCounter::nextFolded()
         if (NR == R_INFINITE || ri_ < NR) {
             if (++ri_ == NR) { // should stop
                 done_ = true;
-                anyTo(1, SYM_DONE, AtomListView {});
+                anyTo(1, gensym(str_done), AtomListView {});
             }
         }
 
@@ -187,7 +189,7 @@ void SeqCounter::nextConst()
 
     if (ri_ == repeat_->value()) {
         done_ = true;
-        anyTo(1, SYM_DONE, AtomListView {});
+        anyTo(1, gensym(str_done), AtomListView {});
     }
 }
 
@@ -207,10 +209,6 @@ bool SeqCounter::shouldRepeat() const
 
 void setup_seq_counter()
 {
-    SYM_DONE = gensym("done");
-    SYM_WRAP = gensym("wrap");
-    SYM_FOLD = gensym("fold");
-
     ObjectFactory<SeqCounter> obj("seq.counter");
 
     obj.addMethod("reset", &SeqCounter::m_reset);
