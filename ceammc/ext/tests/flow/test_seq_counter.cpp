@@ -434,7 +434,7 @@ TEST_CASE("seq.counter", "[externals]")
         REQUIRE_PROPERTY(t, @value, float(val)); \
     }
 
-            SECTION("wrap")
+            SECTION("@wrap")
             {
                 TExt t("seq.counter", LA("@from", -2, "@to", 2, "@r", 2, "@wrap"));
 
@@ -456,7 +456,7 @@ TEST_CASE("seq.counter", "[externals]")
                 CHECK_SET_IDX(t, 10, 0, -2);
             }
 
-            SECTION("fold")
+            SECTION("@fold")
             {
                 TExt t("seq.counter", LA("@from", 0., "@to", 3, "@r", 2, "@fold"));
 
@@ -478,6 +478,19 @@ TEST_CASE("seq.counter", "[externals]")
                 CHECK_SET_IDX(t, 9, 3, 3);
                 CHECK_SET_IDX(t, 10, 4, 2);
                 CHECK_SET_IDX(t, 11, 5, 1);
+            }
+
+            SECTION("init")
+            {
+                TExt t("seq.counter", LA("@from", 0., "@to", 3, "@r", 2, "@wrap", "@i", -1));
+                REQUIRE_PROPERTY(t, @value, 3);
+                REQUIRE_PROPERTY(t, @i, 3);
+                REQUIRE_PROPERTY(t, @ri, 0);
+
+                t.sendBang();
+                REQUIRE_PROPERTY(t, @value, 0.);
+                REQUIRE_PROPERTY(t, @i, 0);
+                REQUIRE_PROPERTY(t, @ri, 1);
             }
         }
     }
