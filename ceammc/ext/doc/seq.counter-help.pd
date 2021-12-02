@@ -41,10 +41,11 @@
 #X msg 110 404 @fold;
 #X text 245 404 alias to @mode fold.;
 #X msg 110 433 @from;
-#X text 245 433 Get/Set start value. Type: int. Default value: 0\.;
-#X msg 110 462 @i;
-#X text 245 462 (readonly) Get current iteration. Type: int. Default
-value: 0\.;
+#X text 245 433 Get/Set start value. Setting this property resets @i
+to 0\. Type: int. Default value: 0\.;
+#X msg 110 475 @i;
+#X text 245 475 Get/Set current iteration. Type: int. Default value:
+0\.;
 #X msg 110 504 @inf;
 #X text 245 504 alias to @r -1 \, repeats infinitely.;
 #X msg 110 533 @mode;
@@ -59,7 +60,8 @@ Type: int. Default value: -1\. Min value: -1\.;
 #X text 245 646 (readonly) Get current repeat iteration. Type: int.
 Default value: 0\.;
 #X msg 110 688 @to;
-#X text 245 688 Get/Set end value. Type: int. Default value: 0\.;
+#X text 245 688 Get/Set end value (inclusive). Type: int. Default value:
+0\.;
 #X msg 110 717 @wrap;
 #X text 245 717 alias to @mode wrap.;
 #X obj 20 756 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
