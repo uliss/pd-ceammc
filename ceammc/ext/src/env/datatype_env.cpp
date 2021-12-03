@@ -855,8 +855,11 @@ bool DataTypeEnv::isNamedEnvelope(const char* name) const
 {
     const auto hash = crc32_hash(name);
 
-    return std::find_if(named_methods.begin(),
-        named_methods.end(), [hash](const NamedMethod& m) { return m.crc32_hash == hash; });
+    return std::find_if(
+               named_methods.begin(),
+               named_methods.end(),
+               [hash](const NamedMethod& m) { return m.crc32_hash == hash; })
+        != named_methods.end();
 }
 
 bool DataTypeEnv::hasStopPoints() const
