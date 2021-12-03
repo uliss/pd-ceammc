@@ -122,6 +122,7 @@ add_subdirectory(extra)
 add_subdirectory(doc)
 add_subdirectory(mac)
 
+
 if(GETTEXT_FOUND)
     add_subdirectory(po)
 endif()
@@ -130,10 +131,10 @@ if(ENABLE_TESTS)
     enable_testing(true)
 endif()
 
+include(package)
 add_subdirectory(ceammc)
 
 include(summary)
-include(package)
 
 add_custom_target(puredata_changelog SOURCES CHANGELOG.md)
 
