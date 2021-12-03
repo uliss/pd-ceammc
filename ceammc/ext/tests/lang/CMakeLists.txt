@@ -25,3 +25,7 @@ add_test(NAME test_ext_lang
 macro(add_lang_test src)
     target_sources(test_ext_lang PRIVATE "test_lang_${src}.cpp")
 endmacro()
+
+if(WITH_LUAJIT)
+    add_lang_test(luajit)
+endif()
