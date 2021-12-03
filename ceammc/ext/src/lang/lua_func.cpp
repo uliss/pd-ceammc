@@ -81,7 +81,7 @@ namespace lua {
     int lua_output(lua_State* L)
     {
         auto f = luaL_checknumber(L, 1);
-        auto n = luaL_optinteger(L, 2, 0);
+        LuaInt n = luaL_optinteger(L, 2, 0);
 
         lua_getglobal(L, "_obj");
         if (lua_islightuserdata(L, -1) != 1)

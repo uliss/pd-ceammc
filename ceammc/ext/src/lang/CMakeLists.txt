@@ -42,7 +42,7 @@ else()
         LINK ceammc_core)
 endif()
 
-pkg_check_modules(LUAJIT lua)
+pkg_search_module(LUAJIT lua lua5.2 lua5.3)
 
 if(LUAJIT_FOUND)
     target_sources(ceammc_lang PRIVATE lang_luajit.cpp lua_cmd.cpp lua_func.cpp lua_interp.cpp)
@@ -54,6 +54,7 @@ if(LUAJIT_FOUND)
 
     target_link_libraries(ceammc_lang PUBLIC ${LUAJIT_LIBRARIES})
     target_compile_options(ceammc_lang PRIVATE ${LUAJIT_CFLAGS_OTHER})
+    target_compile_definitions(ceammc_lang PRIVATE WITH_LUA)
 
     if(APPLE)
         target_link_options(ceammc_lang
