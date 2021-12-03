@@ -105,3 +105,6 @@ foreach(f ${_RELEASE_FILES})
         PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
 endforeach()
 
+# bashrc function for testing
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/bashrc_tests bashrc_tests @ONLY)
+
