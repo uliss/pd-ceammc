@@ -63,6 +63,13 @@ endif()
 
 add_custom_target(ceammc_extra_files SOURCES CHANGELOG.md cppcheck_suppressions.txt)
 
-add_custom_target(dev
-    COMMAND ${CMAKE_COMMAND} -E cat "${CMAKE_CURRENT_SOURCE_DIR}/dev_info_${CMAKE_SYSTEM_NAME}.txt")
+
+set(DEV_INFO_TXT "${CMAKE_CURRENT_SOURCE_DIR}/dev_info_${CMAKE_SYSTEM_NAME}.txt")
+if(UNIX)
+    add_custom_target(dev
+        COMMAND cat "${DEV_INFO_TXT}")
+else()
+    add_custom_target(dev
+        COMMAND ${CMAKE_COMMAND} -E cat "${DEV_INFO_TXT}")
+endif()
 
