@@ -1,8 +1,10 @@
+# development
 option(WITH_COVERAGE  "Build with coverage and profiling flags" OFF)
 option(WITH_EXPERIMENTAL "Build with experimental objects" OFF)
 option(WITH_BENCHMARK "Build with benchmarks" ON)
 option(WITH_CLANG_TIDY "Build with clang-tidy checks" OFF)
 
+# externals
 option(WITH_TTS_FLITE  "Build with Flite TTS support" ON)
 option(WITH_FLUIDSYNTH "Build with FluidSynth support" ON)
 option(WITH_SFIZZ      "Build with Sfizz support" ON)
@@ -13,6 +15,7 @@ option(WITH_EXT_FFTEASE "Build FFTease externals" OFF)
 option(WITH_EXT_AUTOTUNE "Build autotune external" ON)
 option(WITH_EXT_FLEXT "Build flext externals" ON)
 option(WITH_FAUST "Build faust externals" ON)
+option(WITH_LUAJIT "Build luajit externals" ON)
 option(WITH_PD_INSTANCE "Build with PD_INSTANCE" OFF)
 
 if(UNIX)

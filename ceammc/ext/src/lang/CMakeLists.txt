@@ -42,7 +42,9 @@ else()
         LINK ceammc_core)
 endif()
 
-pkg_search_module(LUAJIT lua lua5.2 lua5.3)
+if(WITH_LUAJIT)
+    pkg_search_module(LUAJIT luajit luajit-5.1 REQUIRED)
+endif()
 
 if(LUAJIT_FOUND)
     target_sources(ceammc_lang PRIVATE lang_luajit.cpp lua_cmd.cpp lua_func.cpp lua_interp.cpp)
