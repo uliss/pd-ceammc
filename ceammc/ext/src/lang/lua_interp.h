@@ -17,7 +17,9 @@
 #include "lua_cmd.h"
 #include "pollthread_object.h"
 
-#include "lua.hpp"
+extern "C" {
+#include "lua.h"
+}
 
 #include <string>
 

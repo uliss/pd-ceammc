@@ -14,6 +14,8 @@
 #include "lua_interp.h"
 #include "lua_func.h"
 
+#include "lua.hpp"
+
 namespace ceammc {
 
 namespace lua {
