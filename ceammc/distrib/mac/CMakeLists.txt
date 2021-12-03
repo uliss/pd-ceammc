@@ -22,6 +22,8 @@ if(APPLE)
     set(BUNDLE_FULL_PATH "${PROJECT_BINARY_DIR}/dist/${BUNDLE}")
     set(PD_BUNDLE_FULL_PATH ${BUNDLE_FULL_PATH}/Contents/Resources/bin/pd)
 
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/make_bundle.sh
+                   ${PROJECT_BINARY_DIR}/dist/make_bundle.sh @ONLY)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/make_lib_mac.sh
                    ${PROJECT_BINARY_DIR}/dist/make_lib_mac.sh @ONLY)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/install_external.sh

@@ -195,7 +195,7 @@ if(APPLE)
     set(BUNDLE ${PD_MACOSX_APP})
     set(BUNDLE_FULL_PATH "${PROJECT_BINARY_DIR}/dist/${BUNDLE}")
     set(DMG_FULL_PATH "${PROJECT_BINARY_DIR}/dist/${PD_MACOSX_DMG}")
-    set(MAKE_BUNDLE_SCRIPT ${PROJECT_BINARY_DIR}/dist/ceammc_build.sh)
+    set(MAKE_BUNDLE_SCRIPT ${PROJECT_BINARY_DIR}/dist/make_bundle.sh)
 
     # copy and substitute variables to Info.plist
     file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/dist)
@@ -229,16 +229,6 @@ if(APPLE)
     add_custom_target(app)
 
     add_custom_command(TARGET app PRE_BUILD
-        COMMAND ${CMAKE_COMMAND}
-            -DPROJECT_SOURCE_DIR="${PROJECT_SOURCE_DIR}"
-            -DPROJECT_BINARY_DIR="${PROJECT_BINARY_DIR}"
-            -DBUNDLE=${BUNDLE_FULL_PATH}
-            -DWISH_APP=${WISH_APP}
-            -DTK_VERSION=${TK_VERSION}
-            -DLEAPMOTION_LIBRARY=${LEAPMOTION_LIBRARY}
-            -DDYLIBBUNDLER="${CMAKE_BINARY_DIR}/ceammc/distrib/mac/dylibbundler"
-            -DCEAMMC_LIB_VERSION=${CEAMMC_LIB_VERSION}
-            -P ${PROJECT_SOURCE_DIR}/cmake/cmake_build_mac.cmake
         COMMAND ${CMAKE_COMMAND} -E rm -rf ${BUNDLE_FULL_PATH}
         COMMAND sh ${MAKE_BUNDLE_SCRIPT}
         COMMAND ${CMAKE_COMMAND}
