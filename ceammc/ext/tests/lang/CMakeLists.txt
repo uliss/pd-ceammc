@@ -28,4 +28,5 @@ endmacro()
 
 if(WITH_LUAJIT)
     add_lang_test(luajit)
+    target_link_libraries(test_ext_lang PRIVATE ${LUAJIT_LINK_LIBRARIES})
 endif()

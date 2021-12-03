@@ -19,6 +19,10 @@
 
 #include <algorithm>
 
+extern "C" {
+#include "luajit.h"
+}
+
 //
 //t_text_define *x = (t_text_define *)z;
 //binbuf_addv(bb, "ssff", &s__X, gensym("obj"),
@@ -248,6 +252,8 @@ static void lua_menu_open(LL* o, t_symbol* name)
 
 void setup_lang_luajit()
 {
+    LIB_DBG << LUAJIT_VERSION;
+
     Dispatcher::instance();
     ObjectFactory<LangLuaJit> obj("lang.lua");
     obj.addMethod("load", &LangLuaJit::m_file);
