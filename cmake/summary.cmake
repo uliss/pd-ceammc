@@ -63,6 +63,7 @@ message(STATUS "       modplug:     ${WITH_MODPLUG} (WITH_MODPLUG=${WITH_MODPLUG
 message(STATUS "       libsndfile:  ${LIBSNDFILE_FOUND}")
 message(STATUS "       LeapMotion:  ${LEAPMOTION_FOUND}")
 message(STATUS "       Faust:       ${WITH_FAUST}")
+message(STATUS "       LuaJIT:      ${WITH_LUAJIT}")
 message(STATUS "       FluidSynth:  ${WITH_FLUIDSYNTH} (WITH_FLUIDSYNTH=${WITH_FLUIDSYNTH})")
 message(STATUS "       Sfizz:       ${WITH_SFIZZ}")
 message(STATUS "       flite:       ${WITH_TTS_FLITE} (WITH_TTS_FLITE=${WITH_TTS_FLITE})")

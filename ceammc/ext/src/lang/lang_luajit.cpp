@@ -248,7 +248,6 @@ static void lua_menu_open(LL* o, t_symbol* name)
 
 void setup_lang_luajit()
 {
-    LIB_DBG << "init";
     Dispatcher::instance();
     ObjectFactory<LangLuaJit> obj("lang.lua");
     obj.addMethod("load", &LangLuaJit::m_file);

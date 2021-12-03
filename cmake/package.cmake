@@ -43,6 +43,7 @@ if(DPKG_FOUND AND NOT WIN32)
   
     include(CheckLSBTypes)
 
+    set(CPACK_DEBIAN_FILE_NAME DEB-DEFAULT)
     set(CPACK_GENERATOR "DEB")
     set(CPACK_PACKAGE_VERSION "${CEAMMC_DISTRIB_VERSION}-${PD_TEXT_VERSION_SHORT}")
     set(CPACK_PACKAGE_FILE_NAME "pd-ceammc-${CPACK_PACKAGE_VERSION}_${LSB_CODENAME}_${LSB_PROCESSOR_ARCH}")
@@ -74,6 +75,10 @@ if(DPKG_FOUND AND NOT WIN32)
 endif()
 
 include(CPack)
+
+if(UNIX AND NOT APPLE)
+    set(LINUX_DEBIAN_PACKAGE_FILE_NAME "pd-ceammc-${CPACK_PACKAGE_VERSION}_${LSB_CODENAME}_${LSB_PROCESSOR_ARCH}.deb")
+endif()
 
 add_custom_target(src-zip
     COMMAND "${CMAKE_SOURCE_DIR}/ceammc/distrib/git-archive-all/git_archive_all.py"
