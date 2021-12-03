@@ -50,7 +50,7 @@ if(LUAJIT_FOUND)
     target_sources(ceammc_lang PRIVATE lang_luajit.cpp lua_cmd.cpp lua_func.cpp lua_interp.cpp)
 
     target_include_directories(ceammc_lang
-        PRIVATE
+        PUBLIC
             ${LUAJIT_INCLUDE_DIRS}
             ${PROJECT_SOURCE_DIR}/ceammc/extra/readerwriterqueue)
 
