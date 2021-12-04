@@ -155,6 +155,10 @@ target_sources(ceammc_core
         lex/parser_props_details.cpp
 )
 
+# ragel files
+file(GLOB RAGEL_SOURCES lex/*.rl)
+add_custom_target(lex_ragel_sources SOURCES ${RAGEL_SOURCES})
+
 if(BISON_FOUND AND FLEX_FOUND)
     add_custom_target(ceammc_argcheck_gen
         COMMAND $<TARGET_FILE:reflex-bin> argcheck.l
