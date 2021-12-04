@@ -11,8 +11,9 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "ui_bang.h"
 #include "ceammc_format.h"
+#include "ui_bang.h"
+
 #include "test_ui.h"
 
 UI_COMPLETE_TEST_SETUP(Bang)
@@ -112,5 +113,21 @@ TEST_CASE("ui.bang", "[ui.bang]")
 
         t << BANG;
         REQUIRE_BANG_WAS_SEND(t, s->s_name);
+    }
+
+    SECTION("receive test")
+    {
+        TestExtBang t("ui.bang", LA("@receive", "r2"));
+
+        pd_bang(gensym("r2")->s_thing);
+        REQUIRE_OUTPUT_BANG(t, 0);
+    }
+
+    SECTION("receive raute test")
+    {
+        TestExtBang t("ui.bang", LA("@receive", "r2-#0"));
+
+        pd_bang(canvas_realizedollar(t->canvas(), gensym("r2-$0"))->s_thing);
+        REQUIRE_OUTPUT_BANG(t, 0);
     }
 }
