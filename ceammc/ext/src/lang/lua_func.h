@@ -20,6 +20,7 @@ namespace ceammc {
 namespace lua {
     int lua_mtof(lua_State* L);
     int lua_output(lua_State* L);
+    int lua_message(lua_State* L);
     int lua_pd_error(lua_State* L);
     int lua_pd_post(lua_State* L);
     int lua_pd_send(lua_State* L);

@@ -25,6 +25,7 @@ namespace lua {
         LUA_CMD_NOP = 0,
         LUA_CMD_ERROR,
         LUA_CMD_OUTPUT,
+        LUA_CMD_MESSAGE,
         LUA_CMD_POST,
         LUA_CMD_SEND,
         LUA_INTERP_EVAL,

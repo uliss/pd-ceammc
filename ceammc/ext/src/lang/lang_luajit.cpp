@@ -231,6 +231,24 @@ void LangLuaJit::processMessage(const lua::LuaCmd& msg)
                 pd_list(dest->s_thing, dest, res.size() - 1, (t_atom*)&res[1].atom());
         }
     } break;
+    case LUA_CMD_MESSAGE: {
+        if (msg.args.size() == 0) {
+            OBJ_ERR << "invalid arguments";
+            break;
+        } else {
+            AtomList res;
+            for (auto& a : msg.args)
+                res.append(boost::apply_visitor(my_visitor(), a));
+
+            const int idx = res.intAt(0, 0);
+            t_symbol* sel = res.symbolAt(1, &s_);
+            if (sel != &s_)
+                anyTo(idx, sel, res.view(2));
+            else
+                OBJ_ERR << "invalid message args: " << res;
+        }
+        break;
+    } break;
     default:
         OBJ_ERR << "unknown command code: " << msg.cmd;
         break;

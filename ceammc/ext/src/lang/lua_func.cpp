@@ -206,6 +206,55 @@ namespace lua {
         return 1;
     }
 
+    static LuaAtomList get_list_table(lua_State* L, int i)
+    {
+        LuaStackGuard sg(L);
+        LuaAtomList res;
+
+        lua_pushnil(L); /* first key */
+        while (lua_next(L, i) != 0) {
+            /* uses 'key' (at index -2) and 'value' (at index -1) */
+            printf("%s - %s\n",
+                lua_typename(L, lua_type(L, -2)),
+                lua_typename(L, lua_type(L, -1)));
+
+            /* removes 'value'; keeps 'key' for next iteration */
+            LuaAtom a;
+            if (lua_get_atom(L, -1, a))
+                res.push_back(a);
+
+            lua_pop(L, 1);
+        }
+
+        return res;
+    }
+
+    static LuaAtomList get_param_as_list(lua_State* L, int i)
+    {
+        LuaStackGuard sg(L);
+        LuaAtomList data;
+
+        switch (lua_type(L, i)) {
+        case LUA_TNUMBER:
+            data.push_back(lua_tonumber(L, i));
+            break;
+        case LUA_TBOOLEAN:
+            data.push_back(LuaAtom(LuaDouble(lua_toboolean(L, i) ? 1 : 0)));
+            break;
+        case LUA_TSTRING:
+            data.push_back(lua_tostring(L, i));
+            break;
+        case LUA_TTABLE: {
+            auto tab = get_list_table(L, i);
+            data.insert(data.end(), tab.begin(), tab.end());
+        } break;
+        default:
+            return data;
+        }
+
+        return data;
+    }
+
     int lua_output(lua_State* L)
     {
         const auto ctx = get_ctx(L);
@@ -222,37 +271,45 @@ namespace lua {
         LuaInt n = luaL_optinteger(L, 2, 0);
         data.push_back(n);
 
-        switch (lua_type(L, 1)) {
-        case LUA_TNUMBER:
-            data.push_back(lua_tonumber(L, 1));
-            break;
-        case LUA_TBOOLEAN:
-            data.push_back(LuaAtom(LuaDouble(lua_toboolean(L, 1) ? 1 : 0)));
-            break;
-        case LUA_TSTRING:
-            data.push_back(lua_tostring(L, 1));
-            break;
-        case LUA_TTABLE: {
-            lua_pushnil(L); /* first key */
-            while (lua_next(L, 1) != 0) {
-                /* uses 'key' (at index -2) and 'value' (at index -1) */
-                printf("%s - %s\n",
-                    lua_typename(L, lua_type(L, -2)),
-                    lua_typename(L, lua_type(L, -1)));
+        const auto args = get_param_as_list(L, 1);
+        data.insert(data.end(), args.begin(), args.end());
 
-                /* removes 'value'; keeps 'key' for next iteration */
-                LuaAtom a;
-                if (lua_get_atom(L, -1, a))
-                    data.push_back(a);
+        if (!ctx.pipe->try_enqueue(LuaCmd(LUA_CMD_OUTPUT, data)))
+            return 0;
 
-                lua_pop(L, 1);
-            }
-        } break;
-        default:
+        if (!Dispatcher::instance().send({ ctx.id, NOTIFY_UPDATE }))
+            return 0;
+
+        return 1;
+    }
+
+    int lua_message(lua_State* L)
+    {
+        const auto ctx = get_ctx(L);
+        const int nargs = lua_gettop(L);
+
+        LuaStackGuard sg(L);
+
+        if (nargs < 1 || nargs > 3) {
+            ctx.pipe->try_enqueue({ LUA_CMD_ERROR, "usage: sel value? outlet?" });
             return 0;
         }
 
-        if (!ctx.pipe->try_enqueue(LuaCmd(LUA_CMD_OUTPUT, data)))
+        LuaAtomList data;
+        LuaInt n = luaL_optinteger(L, 3, 0);
+        data.push_back(n);
+
+        if (!lua_isstring(L, 1)) {
+            ctx.pipe->try_enqueue({ LUA_CMD_ERROR, "first arg should be string" });
+            return 0;
+        }
+
+        data.push_back(lua_tostring(L, 1));
+
+        const auto args = get_param_as_list(L, 2);
+        data.insert(data.end(), args.begin(), args.end());
+
+        if (!ctx.pipe->try_enqueue(LuaCmd(LUA_CMD_MESSAGE, data)))
             return 0;
 
         if (!Dispatcher::instance().send({ ctx.id, NOTIFY_UPDATE }))
