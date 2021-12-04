@@ -155,25 +155,32 @@ namespace lua {
         return 1;
     }
 
+    bool lua_get_atom(lua_State* L, int i, LuaAtom& a)
+    {
+        switch (lua_type(L, i)) {
+        case LUA_TNUMBER:
+            a = lua_tonumber(L, i);
+            return true;
+        case LUA_TSTRING:
+            a = lua_tostring(L, i);
+            return true;
+        case LUA_TBOOLEAN:
+            a = LuaDouble(lua_toboolean(L, i) ? 1 : 0);
+            return true;
+        default:
+            return false;
+        }
+    }
+
     LuaAtomList lua_get_args(lua_State* L)
     {
         const int nargs = lua_gettop(L);
         LuaAtomList res(nargs);
 
         for (int i = 1; i <= nargs; i++) {
-            switch (lua_type(L, 1)) {
-            case LUA_TNUMBER:
-                res.emplace_back(lua_tonumber(L, i));
-                break;
-            case LUA_TSTRING:
-                res.emplace_back(lua_tostring(L, i));
-                break;
-            case LUA_TBOOLEAN:
-                res.push_back(LuaDouble(lua_toboolean(L, i) ? 1 : 0));
-                break;
-            default:
-                break;
-            }
+            LuaAtom a;
+            if (lua_get_atom(L, i, a))
+                res.push_back(a);
         }
 
         return res;
@@ -193,32 +200,62 @@ namespace lua {
         if (!ctx.pipe->try_enqueue({ LUA_CMD_SEND, args }))
             return 0;
 
+        if (!Dispatcher::instance().send({ ctx.id, NOTIFY_UPDATE }))
+            return 0;
+
         return 1;
     }
 
     int lua_output(lua_State* L)
     {
-        auto f = luaL_checknumber(L, 1);
+        const auto ctx = get_ctx(L);
+        const int nargs = lua_gettop(L);
+
+        LuaStackGuard sg(L);
+
+        if (nargs < 1 || nargs > 2) {
+            ctx.pipe->try_enqueue({ LUA_CMD_ERROR, "usage: value outlet?" });
+            return 0;
+        }
+
+        LuaAtomList data;
         LuaInt n = luaL_optinteger(L, 2, 0);
+        data.push_back(n);
 
-        lua_getglobal(L, "_obj");
-        if (lua_islightuserdata(L, -1) != 1)
+        switch (lua_type(L, 1)) {
+        case LUA_TNUMBER:
+            data.push_back(lua_tonumber(L, 1));
+            break;
+        case LUA_TBOOLEAN:
+            data.push_back(LuaAtom(LuaDouble(lua_toboolean(L, 1) ? 1 : 0)));
+            break;
+        case LUA_TSTRING:
+            data.push_back(lua_tostring(L, 1));
+            break;
+        case LUA_TTABLE: {
+            lua_pushnil(L); /* first key */
+            while (lua_next(L, 1) != 0) {
+                /* uses 'key' (at index -2) and 'value' (at index -1) */
+                printf("%s - %s\n",
+                    lua_typename(L, lua_type(L, -2)),
+                    lua_typename(L, lua_type(L, -1)));
+
+                /* removes 'value'; keeps 'key' for next iteration */
+                LuaAtom a;
+                if (lua_get_atom(L, -1, a))
+                    data.push_back(a);
+
+                lua_pop(L, 1);
+            }
+        } break;
+        default:
+            return 0;
+        }
+
+        if (!ctx.pipe->try_enqueue(LuaCmd(LUA_CMD_OUTPUT, data)))
             return 0;
 
-        LuaPipe* pipe = static_cast<LuaPipe*>(lua_touserdata(L, -1));
-        if (!pipe)
-            return 0;
-
-        lua_getglobal(L, "_id");
-        SubscriberId id = luaL_checkinteger(L, -1);
-
-        LuaCmd cmd(LUA_CMD_OUTPUT, n);
-        cmd.appendArg(f);
-
-        if (!pipe->try_enqueue(cmd))
-            return 0;
-
-        if (!Dispatcher::instance().send({ id, NOTIFY_UPDATE }))
+        if (!Dispatcher::instance().send({ ctx.id, NOTIFY_UPDATE }))
             return 0;
 
         return 1;

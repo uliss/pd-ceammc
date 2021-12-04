@@ -57,7 +57,7 @@ namespace lua {
         lua_setglobal(lua_, "pd_error");
 
         lua_pushcfunction(lua_, lua_output);
-        lua_setglobal(lua_, "output_float");
+        lua_setglobal(lua_, "output");
 
         lua_pushcfunction(lua_, lua_sleep);
         lua_setglobal(lua_, "sleep");
