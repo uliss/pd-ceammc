@@ -49,6 +49,14 @@ struct SubscriberInfo {
     NotifiedObject* obj;
 };
 
+class DispatcherImpl {
+public:
+    virtual ~DispatcherImpl() { }
+    virtual bool send(const NotifyMessage& msg) = 0;
+    virtual bool recv(NotifyMessage& msg) = 0;
+    virtual int inSocket() const = 0;
+};
+
 class Dispatcher {
     std::vector<SubscriberInfo> subscribers_;
     int pipe_fd_[2] = { -1, -1 };
