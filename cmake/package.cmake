@@ -40,8 +40,6 @@ if(DPKG_FOUND AND NOT WIN32)
     install(FILES "${CMAKE_SOURCE_DIR}/ceammc/gui/linux/${MIME_FILE}" DESTINATION ${PD_MIME_DIR})
     # Desktop files
     install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${DESKTOP_FILE}" DESTINATION ${PD_DESKTOP_DIR})
-  
-    include(CheckLSBTypes)
 
     set(CPACK_DEBIAN_FILE_NAME DEB-DEFAULT)
     set(CPACK_GENERATOR "DEB")
@@ -75,10 +73,6 @@ if(DPKG_FOUND AND NOT WIN32)
 endif()
 
 include(CPack)
-
-if(UNIX AND NOT APPLE)
-    set(LINUX_DEBIAN_PACKAGE_FILE_NAME "pd-ceammc-${CPACK_PACKAGE_VERSION}_${LSB_CODENAME}_${LSB_PROCESSOR_ARCH}.deb")
-endif()
 
 add_custom_target(src-zip
     COMMAND "${CMAKE_SOURCE_DIR}/ceammc/distrib/git-archive-all/git_archive_all.py"
