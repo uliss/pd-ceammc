@@ -130,4 +130,15 @@ TEST_CASE("ui.bang", "[ui.bang]")
         pd_bang(canvas_realizedollar(t->canvas(), gensym("r2-$0"))->s_thing);
         REQUIRE_OUTPUT_BANG(t, 0);
     }
+
+    SECTION("send/receive loop test")
+    {
+        TestExtBang t("ui.bang", LA("@receive", "r3", "@send", "r3"));
+
+        t.bang();
+        REQUIRE_OUTPUT_BANG(t, 0);
+
+        pd_bang(gensym("r3")->s_thing);
+        REQUIRE_OUTPUT_BANG(t, 0);
+    }
 }

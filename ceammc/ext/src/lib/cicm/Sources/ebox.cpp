@@ -525,7 +525,12 @@ float ebox_getfontsize(t_ebox* x)
 t_pd* ebox_getsender(t_ebox* x)
 {
     if (x->b_send_id && x->b_send_id != s_null) {
-        t_symbol* sname = ceammc_realizeraute(eobj_getcanvas(&x->b_obj), x->b_send_id);
+        if (x->b_send_id == x->b_receive_id) {
+            pd_error(x, "[%s] send/receive loop: @send == @receive == '%s'", eobj_getclassname(&x->b_obj)->s_name, x->b_send_id->s_name);
+            return nullptr;
+        }
+
+        auto sname = ceammc_realizeraute(eobj_getcanvas(&x->b_obj), x->b_send_id);
 
         if (sname && sname->s_thing)
             return sname->s_thing;
