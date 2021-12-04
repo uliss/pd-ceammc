@@ -271,6 +271,7 @@ TEST_CASE("parser_numeric", "[ceammc::ceammc_units]")
         REQUIRE(p.isFloat());
         REQUIRE(p.asFloat() == 1234.5);
 
+#ifndef __FAST_MATH__
         REQUIRE(p.parse("inf"));
         REQUIRE(p.isInfinity());
         REQUIRE(p.asFloat() == std::numeric_limits<double>::infinity());
@@ -282,6 +283,7 @@ TEST_CASE("parser_numeric", "[ceammc::ceammc_units]")
         REQUIRE(p.parse("-inf"));
         REQUIRE(p.isInfinity());
         REQUIRE(std::isinf(p.asFloat()));
+#endif
     }
 
     SECTION("atom")
