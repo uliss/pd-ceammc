@@ -102,4 +102,15 @@ TEST_CASE("ui.bang", "[ui.bang]")
         t.mouseDown(5, 5);
         REQUIRE_BANG_WAS_SEND(t, "r1");
     }
+
+    SECTION("send raute test")
+    {
+        TestExtBang t("ui.bang", LA("@send", "r1-#0"));
+
+        auto s = canvas_realizedollar(t->canvas(), gensym("r1-$0"));
+        t.addListener(s->s_name);
+
+        t << BANG;
+        REQUIRE_BANG_WAS_SEND(t, s->s_name);
+    }
 }

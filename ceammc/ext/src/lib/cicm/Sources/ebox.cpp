@@ -28,6 +28,7 @@
 #include <string>
 #include <tuple>
 
+t_symbol* ceammc_realizeraute(t_canvas* cnv, t_symbol* s);
 std::string ceammc_raute2dollar(const char* s);
 t_symbol* ceammc_dollar2raute(const char* s);
 std::string ceammc_quote_str(const std::string& str, char q = '\'');
@@ -492,8 +493,7 @@ void ebox_free(t_ebox* x)
     eobj_free(&x->b_obj);
     if (x->b_receive_id && x->b_receive_id != s_null) {
         // replace #n => $d
-        t_symbol* sname_dollar = gensym(ceammc_raute2dollar(x->b_receive_id->s_name).c_str());
-        t_symbol* sname = canvas_realizedollar(eobj_getcanvas(&x->b_obj), sname_dollar);
+        t_symbol* sname = ceammc_realizeraute(eobj_getcanvas(&x->b_obj), x->b_receive_id);
         pd_unbind(&x->b_obj.o_obj.te_g.g_pd, sname);
     }
     gfxstub_deleteforkey(x);
@@ -525,8 +525,7 @@ float ebox_getfontsize(t_ebox* x)
 t_pd* ebox_getsender(t_ebox* x)
 {
     if (x->b_send_id && x->b_send_id != s_null) {
-        t_symbol* dollar_sname = gensym(ceammc_raute2dollar(x->b_send_id->s_name).c_str());
-        t_symbol* sname = canvas_realizedollar(eobj_getcanvas(&x->b_obj), dollar_sname);
+        t_symbol* sname = ceammc_realizeraute(eobj_getcanvas(&x->b_obj), x->b_send_id);
 
         if (sname && sname->s_thing)
             return sname->s_thing;
@@ -1299,23 +1298,20 @@ t_pd_err ebox_set_receiveid(t_ebox* x, t_object* /*attr*/, int argc, t_atom* arg
 
         // unbind previous
         if (x->b_receive_id != s_null) {
-            // replace #n => $d
-            t_symbol* sname_dollar = gensym(ceammc_raute2dollar(x->b_receive_id->s_name).c_str());
-            t_symbol* sname = canvas_realizedollar(eobj_getcanvas(&x->b_obj), sname_dollar);
+            // replace #0 => ID
+            t_symbol* sname = ceammc_realizeraute(eobj_getcanvas(&x->b_obj), x->b_receive_id);
             if (sname)
                 pd_unbind(&x->b_obj.o_obj.ob_pd, sname);
         }
 
         // bind new
         x->b_receive_id = new_sym;
-        t_symbol* sname_dollar = gensym(ceammc_raute2dollar(x->b_receive_id->s_name).c_str());
-        t_symbol* sname = canvas_realizedollar(eobj_getcanvas(&x->b_obj), sname_dollar);
+        t_symbol* sname = ceammc_realizeraute(eobj_getcanvas(&x->b_obj), x->b_receive_id);
         pd_bind(&x->b_obj.o_obj.ob_pd, sname);
     } else {
         // unbind
         if (x->b_receive_id != s_null) {
-            t_symbol* sname_dollar = gensym(ceammc_raute2dollar(x->b_receive_id->s_name).c_str());
-            t_symbol* sname = canvas_realizedollar(eobj_getcanvas(&x->b_obj), sname_dollar);
+            t_symbol* sname = ceammc_realizeraute(eobj_getcanvas(&x->b_obj), x->b_receive_id);
             pd_unbind(&x->b_obj.o_obj.ob_pd, sname);
         }
 
@@ -1806,6 +1802,29 @@ t_symbol* ceammc_dollar2raute(const char* s)
     }
 
     return gensym(buf);
+}
+
+t_symbol* ceammc_realizeraute(t_canvas* cnv, t_symbol* s)
+{
+    if (strchr(s->s_name, '#')) {
+        constexpr int MAX_N = 128;
+        char buf[MAX_N + 1];
+
+        const char* a = s->s_name;
+        char* b = buf;
+        int i = 0;
+        for (i = 0; i < MAX_N; i++, a++, b++) {
+            const auto ch = *a;
+            *b = (ch == '#') ? '$' : ch;
+            if (ch == '\0')
+                break;
+        }
+
+        buf[i] = '\0';
+
+        return canvas_realizedollar(cnv, gensym(buf));
+    } else
+        return s;
 }
 
 std::string ceammc_raute2dollar(const char* s)
