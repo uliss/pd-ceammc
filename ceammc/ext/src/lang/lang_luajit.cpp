@@ -220,6 +220,17 @@ void LangLuaJit::processMessage(const lua::LuaCmd& msg)
             OBJ_ERR << boost::get<std::string>(msg.args[0]);
 
         break;
+    case LUA_CMD_SEND: {
+        AtomList res;
+        for (auto& a : msg.args)
+            res.append(boost::apply_visitor(my_visitor(), a));
+
+        if (res.size() > 1 && res[0].isSymbol()) {
+            auto dest = res[0].asT<t_symbol*>();
+            if (dest->s_thing)
+                pd_list(dest->s_thing, dest, res.size() - 1, (t_atom*)&res[1].atom());
+        }
+    } break;
     default:
         OBJ_ERR << "unknown command code: " << msg.cmd;
         break;

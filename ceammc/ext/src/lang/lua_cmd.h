@@ -23,9 +23,10 @@ namespace ceammc {
 namespace lua {
     enum LuaCmdEnum {
         LUA_CMD_NOP = 0,
+        LUA_CMD_ERROR,
         LUA_CMD_OUTPUT,
         LUA_CMD_POST,
-        LUA_CMD_ERROR,
+        LUA_CMD_SEND,
         LUA_INTERP_EVAL,
         LUA_INTERP_LOAD
     };
@@ -43,8 +44,11 @@ namespace lua {
         LuaCmd(LuaCmdEnum cmd_);
         LuaCmd(LuaCmdEnum cmd_, LuaDouble d);
         LuaCmd(LuaCmdEnum cmd_, LuaInt i);
+        LuaCmd(LuaCmdEnum cmd_, LuaString&& s);
         LuaCmd(LuaCmdEnum cmd_, const LuaString& s);
         LuaCmd(LuaCmdEnum cmd_, std::initializer_list<LuaAtom>& a);
+        LuaCmd(LuaCmdEnum cmd_, const LuaAtomList& args);
+        LuaCmd(LuaCmdEnum cmd_, LuaAtomList&& args);
 
         void appendArg(LuaAtom&& a)
         {

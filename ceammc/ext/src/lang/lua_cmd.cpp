@@ -31,9 +31,27 @@ namespace lua {
     {
     }
 
+    LuaCmd::LuaCmd(LuaCmdEnum cmd_, LuaString&& s)
+        : cmd(cmd_)
+        , args { LuaAtom { s } }
+    {
+    }
+
     LuaCmd::LuaCmd(LuaCmdEnum cmd_, std::initializer_list<LuaAtom>& a)
         : cmd(cmd_)
         , args { a }
+    {
+    }
+
+    LuaCmd::LuaCmd(LuaCmdEnum cmd_, const LuaAtomList& args_)
+        : cmd(cmd_)
+        , args(args_)
+    {
+    }
+
+    LuaCmd::LuaCmd(LuaCmdEnum cmd_, LuaAtomList&& args_)
+        : cmd(cmd_)
+        , args(std::move(args_))
     {
     }
 

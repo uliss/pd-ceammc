@@ -65,6 +65,12 @@ namespace lua {
         lua_pushcfunction(lua_, lua_mtof);
         lua_setglobal(lua_, "mtof");
 
+        lua_pushcfunction(lua_, lua_pd_send);
+        lua_setglobal(lua_, "pd_send");
+
+        lua_pushcfunction(lua_, lua_stack_dump);
+        lua_setglobal(lua_, "stack_dump");
+
         lua_pushlightuserdata(lua_, pipe);
         lua_setglobal(lua_, "_obj");
 
