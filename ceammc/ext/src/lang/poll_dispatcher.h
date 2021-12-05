@@ -15,6 +15,7 @@
 #define POLL_DISPATCHER_H
 
 #include <cstdint>
+#include <memory>
 #include <vector>
 
 #include "ceammc_object.h"
@@ -53,17 +54,17 @@ class DispatcherImpl {
 public:
     virtual ~DispatcherImpl() { }
     virtual bool send(const NotifyMessage& msg) = 0;
-    virtual bool recv(NotifyMessage& msg) = 0;
+    virtual bool recv(NotifyMessage& msg, int fd) = 0;
     virtual int inSocket() const = 0;
+    virtual int outSocket() const = 0;
 };
 
 class Dispatcher {
     std::vector<SubscriberInfo> subscribers_;
-    int pipe_fd_[2] = { -1, -1 };
+    std::unique_ptr<DispatcherImpl> impl_;
 
 private:
     Dispatcher();
-    ~Dispatcher();
     Dispatcher(const Dispatcher&) = delete;
     Dispatcher& operator=(const Dispatcher&) = delete;
 
@@ -83,7 +84,6 @@ public:
     void unsubscribe(NotifiedObject* x);
 
     bool send(const NotifyMessage& msg);
-    int readFd() const { return pipe_fd_[0]; }
 };
 
 }

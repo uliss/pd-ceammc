@@ -13,19 +13,11 @@
  *****************************************************************************/
 #include "poll_dispatcher.h"
 #include "ceammc_log.h"
+#include "pipe_dispatcher.h"
+#include "socket_dispatcher.h"
 
 #include <algorithm>
 #include <cstring>
-
-#ifdef HAVE_UNISTD_H
-#include <unistd.h>
-#endif
-
-#ifdef __WIN32__
-#include <Windows.h>
-#define close _close
-#define pipe _pipe
-#endif
 
 extern "C" {
 #include "s_stuff.h" // sys_addpollfn
@@ -36,31 +28,8 @@ extern "C" {
 using namespace ceammc;
 
 Dispatcher::Dispatcher()
+    : impl_(new SocketDispatcherImpl(&Dispatcher::pollFn, this))
 {
-#ifdef __WIN32
-    const auto err = pipe(pipe_fd_, 256, O_BINARY);
-#else
-    const auto err = pipe(pipe_fd_);
-#endif
-
-    if (!err) {
-        sys_addpollfn(pipe_fd_[0], pollFn, this);
-    } else {
-        pipe_fd_[0] = -1;
-        pipe_fd_[1] = -1;
-        LIB_ERR << MSG_PREFIX "can't create pipe: " << strerror(err);
-    }
-}
-
-Dispatcher::~Dispatcher()
-{
-    if (pipe_fd_[0] < 0)
-        return;
-
-    sys_rmpollfn(pipe_fd_[0]);
-
-    close(pipe_fd_[0]);
-    close(pipe_fd_[1]);
 }
 
 bool Dispatcher::notify(SubscriberId id)
@@ -77,15 +46,11 @@ bool Dispatcher::notify(SubscriberId id)
 
 void Dispatcher::pollFn(void* x, int fd)
 {
-    NotifyMessage msg { 0, NOTIFY_NONE };
-    const size_t nbytes = read(fd, &msg, sizeof(msg));
-
-    if (nbytes != sizeof(msg)) {
-        LIB_ERR << MSG_PREFIX "invalid read of size: " << sizeof(msg);
-        return;
-    }
-
     Dispatcher* dp = static_cast<Dispatcher*>(x);
+
+    NotifyMessage msg;
+    if (!dp->impl_->recv(msg, fd))
+        return;
 
     if (!dp->notify(msg.id))
         LIB_ERR << MSG_PREFIX "subscriber not found #" << msg.id;
@@ -108,14 +73,5 @@ void Dispatcher::unsubscribe(NotifiedObject* x)
 
 bool Dispatcher::send(const NotifyMessage& msg)
 {
-    if (pipe_fd_[0] < 0)
-        return false;
-
-    const auto err = write(pipe_fd_[1], &msg, sizeof(msg));
-    if (!err) {
-        LIB_ERR << MSG_PREFIX "can't write to pipe: " << strerror(err) << "\n";
-        return false;
-    }
-
-    return true;
+    return impl_->send(msg);
 }
