@@ -13,15 +13,28 @@
  *****************************************************************************/
 #include "pipe_dispatcher.h"
 #include "ceammc_log.h"
+#include "config.h"
 
 extern "C" {
 #include "s_stuff.h"
 }
 
+#ifdef HAVE_UNISTD_H
+#include <unistd.h>
+#endif
+
+#ifdef __WIN32__
+#include <Windows.h>
+#define pipe _pipe
+#define write _write
+#define read _read
+#endif
+
 namespace ceammc {
 
 PipeDispatcherImpl::PipeDispatcherImpl(PollFn fn, Dispatcher* owner)
 {
+#ifndef __WIN32__
     auto rc = pipe(pipe_);
     if (rc != 0) {
         LIB_ERR << "can't create pipe: " << strerror(errno);
@@ -29,6 +42,7 @@ PipeDispatcherImpl::PipeDispatcherImpl(PollFn fn, Dispatcher* owner)
     }
 
     sys_addpollfn(pipe_[0], fn, owner);
+#endif
 }
 
 PipeDispatcherImpl::~PipeDispatcherImpl()

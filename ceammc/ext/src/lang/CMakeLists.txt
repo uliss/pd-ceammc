@@ -1,6 +1,7 @@
 add_library(ceammc_lang STATIC mod_lang.cpp poll_dispatcher.cpp pipe_dispatcher.cpp socket_dispatcher.cpp)
 target_include_directories(ceammc_lang
-    PRIVATE "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>")
+    PRIVATE "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>"
+            ${PROJECT_BINARY_DIR})
 
 if(WITH_FAUST)
     pd_add_external(NAME "lang.faust~"

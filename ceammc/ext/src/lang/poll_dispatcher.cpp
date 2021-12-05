@@ -13,22 +13,29 @@
  *****************************************************************************/
 #include "poll_dispatcher.h"
 #include "ceammc_log.h"
-#include "pipe_dispatcher.h"
-#include "socket_dispatcher.h"
 
 #include <algorithm>
-#include <cstring>
-
-extern "C" {
-#include "s_stuff.h" // sys_addpollfn
-}
 
 #define MSG_PREFIX "[dispatch] "
 
+#ifdef __WIN32__
+#define USE_SOCKET_DISPATCHER
+#endif
+
 using namespace ceammc;
 
+#ifdef USE_SOCKET_DISPATCHER
+#include "socket_dispatcher.h"
+#else
+#include "pipe_dispatcher.h"
+#endif
+
 Dispatcher::Dispatcher()
+#ifdef USE_SOCKET_DISPATCHER
     : impl_(new SocketDispatcherImpl(&Dispatcher::pollFn, this))
+#else
+    : impl_(new PipeDispatcherImpl(&Dispatcher::pollFn, this))
+#endif
 {
 }
 
