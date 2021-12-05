@@ -175,7 +175,8 @@ namespace lua {
     LuaAtomList lua_get_args(lua_State* L)
     {
         const int nargs = lua_gettop(L);
-        LuaAtomList res(nargs);
+        LuaAtomList res;
+        res.reserve(nargs);
 
         for (int i = 1; i <= nargs; i++) {
             LuaAtom a;

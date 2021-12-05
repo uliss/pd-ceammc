@@ -225,11 +225,12 @@ void LangLuaJit::processMessage(const lua::LuaCmd& msg)
         for (auto& a : msg.args)
             res.append(boost::apply_visitor(my_visitor(), a));
 
-        if (res.size() > 1 && res[0].isSymbol()) {
+        if (res.size() >= 1 && res[0].isSymbol()) {
             auto dest = res[0].asT<t_symbol*>();
             if (dest->s_thing)
-                pd_list(dest->s_thing, dest, res.size() - 1, (t_atom*)&res[1].atom());
-        }
+                pd_list(dest->s_thing, dest, res.size() - 1, res.view(1).toPdData());
+        } else
+            LIB_ERR << "invalid command format: " << res;
     } break;
     case LUA_CMD_MESSAGE: {
         if (msg.args.size() == 0) {
