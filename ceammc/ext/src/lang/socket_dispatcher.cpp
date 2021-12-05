@@ -94,8 +94,9 @@ bool SocketDispatcherImpl::send(const NotifyMessage& msg)
 
     struct sockaddr_in servaddr;
     auto ai = init_local_addr(servaddr, port_);
+    auto data = static_cast<const char*>(static_cast<const void*>(&msg));
 
-    const auto n_bytes = ::sendto(sock_out_, &msg, sizeof(msg), 0, ai.first, ai.second);
+    const auto n_bytes = ::sendto(sock_out_, data, sizeof(msg), 0, ai.first, ai.second);
     if (n_bytes < 0) {
         sys_sockerror("[ceammc:dispatcher] sendto");
         return false;
@@ -105,7 +106,8 @@ bool SocketDispatcherImpl::send(const NotifyMessage& msg)
 
 bool SocketDispatcherImpl::recv(NotifyMessage& msg, int fd)
 {
-    const auto nbytes = ::recvfrom(fd, &msg, sizeof(msg), 0, nullptr, nullptr);
+    auto data = static_cast<char*>(static_cast<void*>(&msg));
+    const auto nbytes = ::recvfrom(fd, data, sizeof(msg), 0, nullptr, nullptr);
 
     if (nbytes != sizeof(msg)) {
         LIB_ERR << "[dispatcher] invalid read of size: " << sizeof(msg);

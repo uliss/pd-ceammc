@@ -16,6 +16,9 @@
 #include "lua_cmd.h"
 #include "pollthread_object.h"
 
+#include <thread>
+#include <chrono>
+
 namespace ceammc {
 namespace lua {
     using LuaPipe = PollThreadQueue<LuaCmd>;
