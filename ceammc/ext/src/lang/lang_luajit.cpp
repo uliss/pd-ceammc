@@ -113,75 +113,75 @@ static void textbuf_close(LL* x)
     //    }
 }
 
-static void testTask(SubscriberId id, lua::LuaCmd cmd, lua::LuaPipe& pipe, const bool* quit)
+static void startLuaEventLoop(LangLuaJit* x, const bool* quit)
 {
-    lua::LuaInterp interp(&pipe, id, quit);
-    interp.run(cmd);
+    while (!*quit) {
+        lua::LuaCmd in_cmd;
+        if (x->inPipe().try_dequeue(in_cmd)) {
+            x->interp().run(in_cmd);
+        }
 
-    std::atomic_thread_fence(std::memory_order_acquire);
-    Dispatcher::instance().send({ id, NOTIFY_UPDATE });
+        if (*quit)
+            break;
+    }
+
     return;
 }
 
 LangLuaJit::LangLuaJit(const PdArgs& args)
     : PollThreadQueueObject<lua::LuaCmd>(args)
-    , interp_cmd_ { lua::LUA_CMD_NOP }
+    , interp_(&result_, subscriberId(), &quit_)
 {
-    //    guiconnect = nullptr;
     createOutlet();
 
     Dispatcher::instance().subscribe(this, subscriberId());
+
+    if (!runTask())
+        OBJ_ERR << "can't start LUA event loop";
 }
 
 void LangLuaJit::onBang()
 {
-    interp_cmd_ = { lua::LUA_CMD_NOP };
-
-    if (!runTask()) {
-        OBJ_ERR << "can't run task";
+    using namespace ceammc::lua;
+    if (!lua_cmd_queue_.enqueue({ LUA_INTERP_BANG, LuaInt(0) })) {
+        OBJ_ERR << "can't send command to LUA interpreter: bang";
         return;
     }
 }
 
 void LangLuaJit::onFloat(t_float f)
 {
-    interp_cmd_ = { lua::LUA_CMD_NOP, f };
+    using namespace ceammc::lua;
 
-    if (!runTask()) {
-        OBJ_ERR << "can't run task";
+    if (!lua_cmd_queue_.enqueue({ LUA_INTERP_FLOAT, LuaAtomList { LuaAtom(LuaInt(0)), LuaAtom(f) } })) {
+        OBJ_ERR << "can't send command to LUA interpreter: float";
         return;
     }
 }
 
 void LangLuaJit::onList(const AtomList& lst)
 {
-    interp_cmd_ = { lua::LUA_INTERP_EVAL, to_string(lst) };
-
-    if (!runTask()) {
-        OBJ_ERR << "can't run task";
-        return;
-    }
 }
 
 PollThreadTaskObject<int>::Future LangLuaJit::createTask()
 {
     quit_ = false;
-    return std::async(std::launch::async, testTask, subscriberId(), interp_cmd_, std::ref(result_), &quit_);
+    return std::async(std::launch::async, startLuaEventLoop, this, &quit_);
 }
 
 class my_visitor : public boost::static_visitor<Atom> {
 public:
-    Atom operator()(int64_t i) const
+    Atom operator()(lua::LuaInt i) const
     {
         return i;
     }
 
-    Atom operator()(double f) const
+    Atom operator()(lua::LuaDouble f) const
     {
         return f;
     }
 
-    Atom operator()(const std::string& str) const
+    Atom operator()(const lua::LuaString& str) const
     {
         return gensym(str.c_str());
     }
@@ -199,7 +199,7 @@ void LangLuaJit::processMessage(const lua::LuaCmd& msg)
         } else {
             AtomList res;
             for (auto& a : msg.args)
-                res.append(boost::apply_visitor(my_visitor(), a));
+                res.append(a.applyVisitor<my_visitor>());
 
             const int idx = res.intAt(0, 0);
             if (res.size() == 1)
@@ -211,19 +211,19 @@ void LangLuaJit::processMessage(const lua::LuaCmd& msg)
         }
         break;
     case LUA_CMD_POST:
-        if (msg.args.size() == 1 && msg.args[0].type() == typeid(LuaString))
-            OBJ_POST << boost::get<std::string>(msg.args[0]);
+        if (msg.args.size() == 1 && msg.args[0].isString())
+            OBJ_POST << msg.args[0].getString();
 
         break;
     case LUA_CMD_ERROR:
-        if (msg.args.size() == 1 && msg.args[0].type() == typeid(LuaString))
-            OBJ_ERR << boost::get<std::string>(msg.args[0]);
+        if (msg.args.size() == 1 && msg.args[0].isString())
+            OBJ_ERR << msg.args[0].getString();
 
         break;
     case LUA_CMD_SEND: {
         AtomList res;
         for (auto& a : msg.args)
-            res.append(boost::apply_visitor(my_visitor(), a));
+            res.append(a.applyVisitor<my_visitor>());
 
         if (res.size() >= 1 && res[0].isSymbol()) {
             auto dest = res[0].asT<t_symbol*>();
@@ -239,7 +239,7 @@ void LangLuaJit::processMessage(const lua::LuaCmd& msg)
         } else {
             AtomList res;
             for (auto& a : msg.args)
-                res.append(boost::apply_visitor(my_visitor(), a));
+                res.append(a.applyVisitor<my_visitor>());
 
             const int idx = res.intAt(0, 0);
             t_symbol* sel = res.symbolAt(1, &s_);
@@ -256,7 +256,7 @@ void LangLuaJit::processMessage(const lua::LuaCmd& msg)
     }
 }
 
-void LangLuaJit::m_file(t_symbol* s, const AtomListView& lv)
+void LangLuaJit::m_load(t_symbol* s, const AtomListView& lv)
 {
     std::string path = to_string(lv);
     const auto full_path = findInStdPaths(path.c_str());
@@ -265,10 +265,19 @@ void LangLuaJit::m_file(t_symbol* s, const AtomListView& lv)
         return;
     }
 
-    interp_cmd_ = { lua::LUA_INTERP_LOAD, full_path };
+    using namespace lua;
+    if (!lua_cmd_queue_.enqueue({ LUA_INTERP_LOAD, full_path })) {
+        METHOD_ERR(s) << "can't send command to LUA interpreter: load";
+        return;
+    }
+}
 
-    if (!runTask()) {
-        OBJ_ERR << "can't run task";
+void LangLuaJit::m_eval(t_symbol* s, const AtomListView& lv)
+{
+    using namespace ceammc::lua;
+
+    if (!lua_cmd_queue_.enqueue({ LUA_INTERP_EVAL, to_string(lv) })) {
+        METHOD_ERR(s) << "can't send command to LUA interpreter: eval";
         return;
     }
 }
@@ -286,7 +295,9 @@ void setup_lang_luajit()
 
     Dispatcher::instance();
     ObjectFactory<LangLuaJit> obj("lang.lua");
-    obj.addMethod("load", &LangLuaJit::m_file);
+    obj.addMethod("load", &LangLuaJit::m_load);
+    obj.addMethod("eval", &LangLuaJit::m_eval);
+
     obj.addMethod("quit", &LangLuaJit::m_quit);
 
     class_addmethod(obj.classPointer(), (t_method)textbuf_open,

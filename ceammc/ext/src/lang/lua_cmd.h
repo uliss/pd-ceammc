@@ -29,13 +29,62 @@ namespace lua {
         LUA_CMD_POST,
         LUA_CMD_SEND,
         LUA_INTERP_EVAL,
-        LUA_INTERP_LOAD
+        LUA_INTERP_LOAD,
+        LUA_INTERP_BANG,
+        LUA_INTERP_FLOAT,
+        LUA_INTERP_SYMBOL,
+        LUA_INTERP_LIST
     };
 
     using LuaInt = int64_t;
     using LuaDouble = double;
     using LuaString = std::string;
-    using LuaAtom = boost::variant<LuaInt, LuaDouble, LuaString>;
+
+    class LuaAtom {
+        boost::variant<LuaInt, LuaDouble, LuaString> val_;
+
+    public:
+        LuaAtom()
+            : val_(LuaInt(0))
+        {
+        }
+
+        explicit LuaAtom(bool b)
+            : val_(LuaInt(b ? 1 : 0))
+        {
+        }
+
+        explicit LuaAtom(LuaInt i)
+            : val_(i)
+        {
+        }
+
+        explicit LuaAtom(LuaDouble d)
+            : val_(d)
+        {
+        }
+
+        explicit LuaAtom(const LuaString& str)
+            : val_(str)
+        {
+        }
+
+        explicit LuaAtom(const char* str)
+            : val_(str)
+        {
+        }
+
+        bool isInt() const { return val_.which() == 0; }
+        bool isDouble() const { return val_.which() == 1; }
+        bool isString() const { return val_.which() == 2; }
+
+        LuaInt getInt() const { return boost::get<LuaInt>(val_); }
+        LuaDouble getDouble() const { return boost::get<LuaDouble>(val_); }
+        LuaString getString() const { return boost::get<LuaString>(val_); }
+
+        template <typename V>
+        typename V::result_type applyVisitor() const { return boost::apply_visitor(V(), val_); }
+    };
 
     using LuaAtomList = std::vector<LuaAtom>;
 

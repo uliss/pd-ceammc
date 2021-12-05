@@ -35,8 +35,7 @@ namespace lua {
         const bool* quit_ { nullptr };
         SubscriberId id_ { 0 };
 
-        LuaInterp(const LuaInterp&)
-            = delete;
+        LuaInterp(const LuaInterp&) = delete;
         LuaInterp& operator=(const LuaInterp&) = delete;
 
     public:

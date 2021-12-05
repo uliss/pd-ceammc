@@ -16,8 +16,8 @@
 #include "lua_cmd.h"
 #include "pollthread_object.h"
 
-#include <thread>
 #include <chrono>
+#include <thread>
 
 namespace ceammc {
 namespace lua {
@@ -162,13 +162,13 @@ namespace lua {
     {
         switch (lua_type(L, i)) {
         case LUA_TNUMBER:
-            a = lua_tonumber(L, i);
+            a = LuaAtom(lua_tonumber(L, i));
             return true;
         case LUA_TSTRING:
-            a = lua_tostring(L, i);
+            a = LuaAtom(lua_tostring(L, i));
             return true;
         case LUA_TBOOLEAN:
-            a = LuaDouble(lua_toboolean(L, i) ? 1 : 0);
+            a = LuaAtom(lua_toboolean(L, i) ? true : false);
             return true;
         default:
             return false;
@@ -240,13 +240,13 @@ namespace lua {
 
         switch (lua_type(L, i)) {
         case LUA_TNUMBER:
-            data.push_back(lua_tonumber(L, i));
+            data.emplace_back(lua_tonumber(L, i));
             break;
         case LUA_TBOOLEAN:
-            data.push_back(LuaAtom(LuaDouble(lua_toboolean(L, i) ? 1 : 0)));
+            data.emplace_back(lua_toboolean(L, i) ? true : false);
             break;
         case LUA_TSTRING:
-            data.push_back(lua_tostring(L, i));
+            data.emplace_back(lua_tostring(L, i));
             break;
         case LUA_TTABLE: {
             auto tab = get_list_table(L, i);
@@ -273,7 +273,7 @@ namespace lua {
 
         LuaAtomList data;
         LuaInt n = luaL_optinteger(L, 2, 0);
-        data.push_back(n);
+        data.emplace_back(n);
 
         const auto args = get_param_as_list(L, 1);
         data.insert(data.end(), args.begin(), args.end());
@@ -301,14 +301,14 @@ namespace lua {
 
         LuaAtomList data;
         LuaInt n = luaL_optinteger(L, 3, 0);
-        data.push_back(n);
+        data.emplace_back(n);
 
         if (!lua_isstring(L, 1)) {
             ctx.pipe->try_enqueue({ LUA_CMD_ERROR, "first arg should be string" });
             return 0;
         }
 
-        data.push_back(lua_tostring(L, 1));
+        data.emplace_back(lua_tostring(L, 1));
 
         const auto args = get_param_as_list(L, 2);
         data.insert(data.end(), args.begin(), args.end());

@@ -14,16 +14,20 @@
 #ifndef LANG_LUAJIT_H
 #define LANG_LUAJIT_H
 
-#include <future>
-
 #include "lua_cmd.h"
+#include "lua_interp.h"
 #include "poll_dispatcher.h"
 #include "pollthread_object.h"
 
+#include "readerwriterqueue.h"
+
 using namespace ceammc;
 
+using LuaCommandQueue = moodycamel::ReaderWriterQueue<lua::LuaCmd>;
+
 class LangLuaJit : public ceammc::PollThreadQueueObject<lua::LuaCmd> {
-    lua::LuaCmd interp_cmd_;
+    lua::LuaInterp interp_;
+    LuaCommandQueue lua_cmd_queue_;
 
 public:
     LangLuaJit(const PdArgs& args);
@@ -35,10 +39,13 @@ public:
     Future createTask() override;
     void processMessage(const lua::LuaCmd& msg) override;
 
-    void m_file(t_symbol* s, const AtomListView& lv);
+    void m_load(t_symbol* s, const AtomListView& lv);
+    void m_eval(t_symbol* s, const AtomListView& lv);
 
-    //    t_guiconnect* guiconnect;
-    //    std::vector<std::string> lines_;
+public:
+    LuaCommandQueue& inPipe() { return lua_cmd_queue_; }
+    LuaCommandQueue& outPipe() { return result_; }
+    lua::LuaInterp& interp() { return interp_; }
 };
 
 void setup_lang_luajit();

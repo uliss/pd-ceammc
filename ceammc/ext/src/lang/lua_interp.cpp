@@ -100,8 +100,8 @@ namespace lua {
 
         switch (cmd.cmd) {
         case LUA_INTERP_EVAL: {
-            if (cmd.args.size() == 1 && cmd.args[0].type() == typeid(LuaString)) {
-                const auto str = boost::get<std::string>(cmd.args[0]);
+            if (cmd.args.size() == 1 && cmd.args[0].isString()) {
+                const auto str = cmd.args[0].getString();
                 std::cerr << "[lua] eval " << str << "\n";
 
                 if (luaL_dostring(lua_, str.c_str()) != LUA_OK) {
@@ -111,8 +111,8 @@ namespace lua {
             }
         } break;
         case LUA_INTERP_LOAD: {
-            if (cmd.args.size() == 1 && cmd.args[0].type() == typeid(LuaString)) {
-                const auto str = boost::get<std::string>(cmd.args[0]);
+            if (cmd.args.size() == 1 && cmd.args[0].isString()) {
+                const auto str = cmd.args[0].getString();
                 std::cerr << "[lua] load " << str << "\n";
 
                 if (luaL_dofile(lua_, str.c_str()) != LUA_OK) {
@@ -121,6 +121,17 @@ namespace lua {
                 }
             } else
                 std::cerr << "invalid arguments: path expected";
+        } break;
+        case LUA_INTERP_BANG: {
+            if (cmd.args.size() == 1 && cmd.args[0].isInt()) {
+                const auto n = cmd.args[0].getInt();
+                std::cerr << "[lua] bang [" << n << "]\n";
+
+//                if (luaL_dostring(lua_, str.c_str()) != LUA_OK) {
+//                    std::cerr << "[lua] " << lua_tostring(lua_, lua_gettop(lua_)) << "\n";
+//                    lua_pop(lua_, lua_gettop(lua_));
+//                }
+            }
         } break;
         case LUA_CMD_NOP: // ignore silently
             break;
