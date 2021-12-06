@@ -31,9 +31,11 @@ layout:
 apps:
     pd-ceammc:
         command: usr/bin/pd.wrapper
+        common-id: com.ceammc.pd
         plugs:
             - alsa
             - pulseaudio # for audio output
+            - jack1
             - home
             - unity7
             - x11
