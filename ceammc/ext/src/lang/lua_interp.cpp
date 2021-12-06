@@ -13,12 +13,24 @@
  *****************************************************************************/
 #include "lua_interp.h"
 #include "lua_func.h"
+#include "lua_stack_guard.h"
 
 #include "lua.hpp"
+
+#define HAS_METHOD(L, name)                        \
+    {                                              \
+        lua_getglobal(L, #name);                   \
+        if (!lua_isfunction(L, -1)) {              \
+            std::cerr << #name ": is undefined\n"; \
+            lua_pop(L, 1);                         \
+            break;                                 \
+        }                                          \
+    }
 
 namespace ceammc {
 
 namespace lua {
+
     static void line_hook_fn(lua_State* L, lua_Debug* ar)
     {
         if (ar->event == LUA_HOOKLINE) {
@@ -41,14 +53,18 @@ namespace lua {
         /* initialize Lua */
         lua_ = luaL_newstate();
 
-        //        luaopen_base(L);
-        //        luaopen_io(L);
-        //        luaopen_string(L);
-        //        luaopen_utf8(L);
-        //        luaopen_table(L);
-        //        luaopen_math(L);
-        //        luaopen_bit32(L);
-        luaL_openlibs(lua_);
+        luaopen_base(lua_);
+        luaopen_math(lua_);
+        luaopen_string(lua_);
+        luaopen_table(lua_);
+
+        luaopen_bit(lua_);
+        luaopen_jit(lua_);
+        // luaopen_io(lua_);
+        // luaopen_os(lua_);
+        // luaopen_package(lua_);
+        // luaopen_debug(lua_);
+        // luaopen_ffi(lua_);
 
         lua_pushcfunction(lua_, lua_pd_post);
         lua_setglobal(lua_, "pd_post");
@@ -98,46 +114,91 @@ namespace lua {
         if (quit_ && *quit_)
             return;
 
-        switch (cmd.cmd) {
-        case LUA_INTERP_EVAL: {
-            if (cmd.args.size() == 1 && cmd.args[0].isString()) {
-                const auto str = cmd.args[0].getString();
-                std::cerr << "[lua] eval " << str << "\n";
+        try {
+            lua::LuaStackGuard sg(lua_, true);
 
-                if (luaL_dostring(lua_, str.c_str()) != LUA_OK) {
-                    std::cerr << "[lua] " << lua_tostring(lua_, lua_gettop(lua_)) << "\n";
-                    lua_pop(lua_, lua_gettop(lua_));
+            switch (cmd.cmd) {
+            case LUA_INTERP_EVAL: {
+                if (cmd.args.size() == 1 && cmd.args[0].isString()) {
+                    const auto str = cmd.args[0].getString();
+                    std::cerr << "[lua] eval " << str << "\n";
+
+                    if (luaL_dostring(lua_, str.c_str()) != LUA_OK) {
+                        std::cerr << "[lua] " << lua_tostring(lua_, lua_gettop(lua_)) << "\n";
+                        lua_pop(lua_, lua_gettop(lua_));
+                    }
                 }
-            }
-        } break;
-        case LUA_INTERP_LOAD: {
-            if (cmd.args.size() == 1 && cmd.args[0].isString()) {
-                const auto str = cmd.args[0].getString();
-                std::cerr << "[lua] load " << str << "\n";
+            } break;
+            case LUA_INTERP_LOAD: {
+                if (cmd.args.size() == 1 && cmd.args[0].isString()) {
+                    const auto str = cmd.args[0].getString();
+                    std::cerr << "[lua] load " << str << "\n";
 
-                if (luaL_dofile(lua_, str.c_str()) != LUA_OK) {
-                    std::cerr << "[lua] " << lua_tostring(lua_, lua_gettop(lua_)) << "\n";
-                    lua_pop(lua_, lua_gettop(lua_));
+                    if (luaL_dofile(lua_, str.c_str()) != LUA_OK) {
+                        std::cerr << "[lua] " << lua_tostring(lua_, lua_gettop(lua_)) << "\n";
+                        lua_pop(lua_, lua_gettop(lua_));
+                    }
+                } else
+                    std::cerr << "invalid arguments: path expected";
+            } break;
+            case LUA_INTERP_BANG: {
+                if (cmd.args.size() == 1 && cmd.args[0].isInt()) {
+                    FunctionCall fn(lua_, 1, "on_bang");
+                    if (!fn)
+                        return;
+
+                    fn << cmd.args[0];
+
+                    fn();
                 }
-            } else
-                std::cerr << "invalid arguments: path expected";
-        } break;
-        case LUA_INTERP_BANG: {
-            if (cmd.args.size() == 1 && cmd.args[0].isInt()) {
-                const auto n = cmd.args[0].getInt();
-                std::cerr << "[lua] bang [" << n << "]\n";
+            } break;
+            case LUA_INTERP_FLOAT: {
+                // args: INLET_IDX FLOAT
+                if (cmd.args.size() == 2 && cmd.args[0].isInt() && cmd.args[1].isDouble()) {
+                    FunctionCall fn(lua_, 2, "on_float");
+                    if (!fn)
+                        return;
 
-//                if (luaL_dostring(lua_, str.c_str()) != LUA_OK) {
-//                    std::cerr << "[lua] " << lua_tostring(lua_, lua_gettop(lua_)) << "\n";
-//                    lua_pop(lua_, lua_gettop(lua_));
-//                }
+                    fn << cmd.args[0];
+                    fn << cmd.args[1];
+
+                    fn();
+                }
+            } break;
+            case LUA_INTERP_SYMBOL: {
+                // args: INLET_IDX SYMBOL
+                if (cmd.args.size() == 2 && cmd.args[0].isInt() && cmd.args[1].isString()) {
+                    FunctionCall fn(lua_, 2, "on_symbol");
+                    if (!fn)
+                        return;
+
+                    fn << cmd.args[0];
+                    fn << cmd.args[1];
+
+                    fn();
+                }
+            } break;
+            case LUA_INTERP_LIST: {
+                // args: INLET_IDX VALUES?...
+                if (cmd.args.size() > 1 && cmd.args[0].isInt()) {
+                    FunctionCall fn(lua_, 2, "on_list");
+                    if (!fn)
+                        return;
+
+                    fn << cmd.args[0];
+                    fn.pushTable(cmd.args.size(), cmd.args.data() + 1);
+
+                    fn();
+                }
+            } break;
+            case LUA_CMD_NOP: // ignore silently
+                break;
+            default:
+                std::cerr << "unsupported command: " << cmd.cmd << "\n";
+                break;
             }
-        } break;
-        case LUA_CMD_NOP: // ignore silently
-            break;
-        default:
-            std::cerr << "unsupported command: " << cmd.cmd << "\n";
-            break;
+        } catch (std::exception& e) {
+            std::cerr << "exception: " << e.what() << std::endl;
         }
     }
 }

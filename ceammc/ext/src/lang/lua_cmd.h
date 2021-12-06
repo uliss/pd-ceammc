@@ -14,6 +14,8 @@
 #ifndef LUA_CMD_H
 #define LUA_CMD_H
 
+#include "m_pd.h"
+
 #include <boost/variant.hpp>
 #include <cstdint>
 #include <string>
@@ -33,7 +35,9 @@ namespace lua {
         LUA_INTERP_BANG,
         LUA_INTERP_FLOAT,
         LUA_INTERP_SYMBOL,
-        LUA_INTERP_LIST
+        LUA_INTERP_LIST,
+        LUA_INTERP_ANY,
+        LUA_INTERP_PROPERTY
     };
 
     using LuaInt = int64_t;
@@ -74,13 +78,18 @@ namespace lua {
         {
         }
 
+        explicit LuaAtom(t_symbol* s)
+            : val_(s->s_name)
+        {
+        }
+
         bool isInt() const { return val_.which() == 0; }
         bool isDouble() const { return val_.which() == 1; }
         bool isString() const { return val_.which() == 2; }
 
         LuaInt getInt() const { return boost::get<LuaInt>(val_); }
         LuaDouble getDouble() const { return boost::get<LuaDouble>(val_); }
-        LuaString getString() const { return boost::get<LuaString>(val_); }
+        const LuaString& getString() const { return boost::get<LuaString>(val_); }
 
         template <typename V>
         typename V::result_type applyVisitor() const { return boost::apply_visitor(V(), val_); }

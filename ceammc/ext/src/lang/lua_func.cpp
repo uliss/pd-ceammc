@@ -14,34 +14,17 @@
 #include "lua_func.h"
 #include "ceammc_convert.h"
 #include "lua_cmd.h"
+#include "lua_stack_guard.h"
 #include "pollthread_object.h"
 
 #include <chrono>
 #include <thread>
 
+constexpr size_t MAX_TABLE_LEN = 256;
+
 namespace ceammc {
 namespace lua {
     using LuaPipe = PollThreadQueue<LuaCmd>;
-
-    class LuaStackGuard {
-        lua_State* state_;
-        int top_;
-
-    public:
-        LuaStackGuard(lua_State* l)
-            : state_(l)
-            , top_(lua_gettop(l))
-        {
-        }
-
-        ~LuaStackGuard()
-        {
-            auto current_top = lua_gettop(state_);
-            if (current_top > top_) {
-                lua_pop(state_, current_top - top_);
-            }
-        }
-    };
 
     int lua_mtof(lua_State* L)
     {
@@ -331,5 +314,170 @@ namespace lua {
         std::this_thread::sleep_for(std::chrono::milliseconds(n));
         return 1;
     }
+
+    FunctionCall::FunctionCall(lua_State* L, int8_t nargs, const std::string& name)
+        : lua_(L)
+        , nargs_(nargs)
+        , npushed_(0)
+        , name_(name)
+    {
+        if (!lua_checkstack(lua_, nargs + 1)) {
+            std::cerr << "no space on stack before calling \"" << name_ << '"' << std::endl;
+            lua_ = nullptr;
+            return;
+        }
+
+        lua_getglobal(L, name_.c_str());
+        if (!lua_isfunction(L, -1)) {
+            std::cerr << "function '" << name_ << "' is undefined" << std::endl;
+            lua_pop(L, 1);
+            lua_ = nullptr;
+            return;
+        }
+    }
+
+    bool FunctionCall::checkArgs() const
+    {
+        if (npushed_ > nargs_) {
+            std::cerr << "too many arguments, expected: " << nargs_ << std::endl;
+            return false;
+        }
+
+        return true;
+    }
+
+    bool FunctionCall::isDefined() const
+    {
+        if (!lua_) {
+            std::cerr << "undefined function: " << name_ << std::endl;
+            return false;
+        }
+
+        return true;
+    }
+
+    FunctionCall& FunctionCall::operator<<(bool v)
+    {
+        if (!isDefined() || !checkArgs())
+            return *this;
+
+        lua_pushboolean(lua_, v);
+        npushed_++;
+
+        return *this;
+    }
+
+    FunctionCall& FunctionCall::operator<<(double v)
+    {
+        if (!isDefined() || !checkArgs())
+            return *this;
+
+        lua_pushnumber(lua_, v);
+        npushed_++;
+
+        return *this;
+    }
+
+    FunctionCall& FunctionCall::operator<<(int64_t v)
+    {
+        if (!isDefined() || !checkArgs())
+            return *this;
+
+        lua_pushinteger(lua_, v);
+        npushed_++;
+
+        return *this;
+    }
+
+    FunctionCall& FunctionCall::operator<<(const char* s)
+    {
+        if (!isDefined() || !checkArgs())
+            return *this;
+
+        lua_pushstring(lua_, s);
+        npushed_++;
+
+        return *this;
+    }
+
+    FunctionCall& FunctionCall::operator<<(const LuaAtom& a)
+    {
+        if (a.isDouble())
+            return this->operator<<(a.getDouble());
+        else if (a.isInt())
+            return this->operator<<(a.getInt());
+        else if (a.isString())
+            return this->operator<<(a.getString().c_str());
+        else {
+            std::cerr << "unsupported LuaAtom type" << std::endl;
+            return *this;
+        }
+    }
+
+    FunctionCall& FunctionCall::pushTable(size_t argc, const LuaAtom* argv)
+    {
+        if (!isDefined())
+            return *this;
+
+        if (argc > MAX_TABLE_LEN) {
+            std::cerr << "list is too long: " << argc << ", max allowed length is: " << MAX_TABLE_LEN << std::endl;
+            return *this;
+        }
+
+        if (!lua_checkstack(lua_, argc)) {
+            std::cerr << "no space for " << argc << " element left on the stack" << std::endl;
+            return *this;
+        }
+
+        // push new table
+        lua_createtable(lua_, argc, 0);
+
+        for (size_t i = 0; i < argc; i++) {
+            // push insert index
+            lua_pushinteger(lua_, i + 1);
+
+            const LuaAtom& a = argv[i];
+
+            if (a.isDouble())
+                lua_pushnumber(lua_, a.getDouble());
+            else if (a.isInt())
+                lua_pushnumber(lua_, a.getInt());
+            else if (a.isString())
+                lua_pushstring(lua_, a.getString().c_str());
+            else {
+                // pop index
+                lua_pop(lua_, 1);
+                continue;
+            }
+
+            lua_settable(lua_, -3);
+        }
+
+        npushed_++;
+
+        return *this;
+    }
+
+    bool FunctionCall::operator()()
+    {
+        if (!isDefined())
+            return false;
+
+        if (npushed_ != nargs_) {
+            std::cerr << "no all arguments pushed for function " << name_ << std::endl;
+            return false;
+        }
+
+        if (lua_pcall(lua_, nargs_, 0, 0) != LUA_OK) {
+            if (lua_isstring(lua_, 1))
+                std::cerr << "error: " << lua_tostring(lua_, -1);
+
+            lua_pop(lua_, 1);
+            return false;
+        }
+
+        return true;
+    }
+
 }
 }

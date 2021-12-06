@@ -143,7 +143,8 @@ LangLuaJit::LangLuaJit(const PdArgs& args)
 void LangLuaJit::onBang()
 {
     using namespace ceammc::lua;
-    if (!lua_cmd_queue_.enqueue({ LUA_INTERP_BANG, LuaInt(0) })) {
+
+    if (!lua_cmd_queue_.try_enqueue({ LUA_INTERP_BANG, LuaInt(0) })) {
         OBJ_ERR << "can't send command to LUA interpreter: bang";
         return;
     }
@@ -153,7 +154,22 @@ void LangLuaJit::onFloat(t_float f)
 {
     using namespace ceammc::lua;
 
-    if (!lua_cmd_queue_.enqueue({ LUA_INTERP_FLOAT, LuaAtomList { LuaAtom(LuaInt(0)), LuaAtom(f) } })) {
+    try {
+
+        if (!lua_cmd_queue_.try_emplace(LUA_INTERP_FLOAT, LuaAtomList { LuaAtom(LuaInt(0)), LuaAtom(f) })) {
+            OBJ_ERR << "can't send command to LUA interpreter: float";
+            return;
+        }
+    } catch (...) {
+        OBJ_ERR << "error";
+    }
+}
+
+void LangLuaJit::onSymbol(t_symbol* s)
+{
+    using namespace ceammc::lua;
+
+    if (!lua_cmd_queue_.try_enqueue({ LUA_INTERP_SYMBOL, LuaAtomList { LuaAtom(LuaInt(0)), LuaAtom(s) } })) {
         OBJ_ERR << "can't send command to LUA interpreter: float";
         return;
     }
@@ -161,6 +177,22 @@ void LangLuaJit::onFloat(t_float f)
 
 void LangLuaJit::onList(const AtomList& lst)
 {
+    using namespace ceammc::lua;
+    LuaAtomList args;
+    args.reserve(lst.size() + 1);
+    args.emplace_back(LuaInt(0));
+    for (size_t i = 0; i < lst.size(); i++) {
+        const auto& a = lst[i];
+        if (a.isFloat())
+            args.emplace_back(LuaDouble(a.asT<t_float>()));
+        else if (a.isSymbol())
+            args.emplace_back(a.asT<t_symbol*>());
+    }
+
+    if (!lua_cmd_queue_.try_enqueue({ LUA_INTERP_LIST, args })) {
+        OBJ_ERR << "can't send command to LUA interpreter: list";
+        return;
+    }
 }
 
 PollThreadTaskObject<int>::Future LangLuaJit::createTask()

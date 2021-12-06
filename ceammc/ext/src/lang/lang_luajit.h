@@ -34,6 +34,7 @@ public:
 
     void onBang() override;
     void onFloat(t_float f) override;
+    void onSymbol(t_symbol* s) override;
     void onList(const AtomList& lst) override;
 
     Future createTask() override;
