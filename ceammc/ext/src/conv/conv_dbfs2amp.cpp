@@ -15,10 +15,11 @@
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 
+constexpr t_float MIN_DBFS = -144;
+
 static t_float dbfs2amp_(t_float v)
 {
-    static const t_float threshold = -144;
-    if (v <= threshold)
+    if (v <= MIN_DBFS)
         return 0;
 
     return convert::dbfs2amp(v);
