@@ -14,6 +14,7 @@
 
 ### Fixed:
 - system.cursor no normalization in subpatch
+- conv.dbfs2amp~: signal version fix
 
 ### Changes:
 - @i property of seq.counter made writable

@@ -59,6 +59,6 @@ void setup_conv_dbfs2amp()
     ObjectFactory<Dbfs2amp> obj1("conv.dbfs2amp");
     obj1.addAlias("dbfs->amp");
 
-    ObjectFactory<Dbfs2amp> obj2("conv.dbfs2amp~");
+    SoundExternalFactory<Dbfs2ampTilde> obj2("conv.dbfs2amp~");
     obj2.addAlias("dbfs->amp~");
 }
