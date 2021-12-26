@@ -56,6 +56,7 @@ add_cell_test(property_symbol)
 
 add_cell_test(args)
 add_cell_test(convert)
+add_cell_test(dsp)
 add_cell_test(fn_list)
 add_cell_test(fn_list2)
 add_cell_test(format)

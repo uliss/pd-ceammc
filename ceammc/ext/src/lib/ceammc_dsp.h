@@ -34,7 +34,7 @@ namespace dsp {
         Delay& operator=(const Delay& d) = delete;
 
     public:
-        explicit Delay(uint32_t maxSize, uint32_t delay)
+        explicit Delay(uint32_t maxSize, uint32_t delay, t_sample init = 0)
             : max_size_(maxSize)
             , in_pos_(0)
             , out_pos_(0)
@@ -44,9 +44,16 @@ namespace dsp {
                 throw std::invalid_argument("non zero value expected");
             } else {
                 data_.reset(new t_sample[max_size_]);
+                fillWith(init);
                 setDelay(delay);
             }
         }
+
+        uint32_t maxSize() const { return max_size_; }
+        uint32_t delay() const { return delay_; }
+
+        void clear() { fillWith(0); }
+        void fillWith(t_sample v) { std::fill(data_.get(), data_.get() + max_size_, v); }
 
         Delay(Delay&& d) noexcept
             : data_(std::move(d.data_))
