@@ -17,11 +17,9 @@
 
 #include <cstdint>
 
-CEAMMC_DEFINE_HASH(click)
 CEAMMC_DEFINE_HASH(count)
 CEAMMC_DEFINE_HASH(rate)
 CEAMMC_DEFINE_HASH(freq)
-CEAMMC_DEFINE_HASH(period)
 
 ZeroCrossingTilde::ZeroCrossingTilde(const PdArgs& args)
     : SoundExternal(args)
@@ -35,8 +33,20 @@ ZeroCrossingTilde::ZeroCrossingTilde(const PdArgs& args)
     buffer_size_->checkClosedRange(1, 1024 * 64);
     addProperty(buffer_size_);
 
-    mode_ = new SymbolEnumProperty("@mode", { str_count, str_rate, str_freq, str_period });
+    mode_ = new SymbolEnumProperty("@mode", { str_count, str_rate, str_freq });
     addProperty(mode_);
+
+    createCbListProperty(
+        "@clock",
+        [this]() -> AtomList {
+            return AtomList(crc32_hash(mode_->value()) == hash_count && buffer_size_->value() == 1 ? 1.0 : 0.0);
+        },
+        [this](const AtomList&) -> bool {
+            mode_->setValue(gensym(str_count));
+            buffer_size_->setValue(1);
+            return true; } //
+        )
+        ->setInitOnly();
 
     createSignalOutlet();
 }
@@ -79,45 +89,41 @@ void ZeroCrossingTilde::processBlock(const t_sample** in, t_sample** out)
         }
 
         break;
-    case hash_period:
 
-        for (size_t i = 0; i < bs; i++) {
-            if (buf_.size() < bufSize) {
-                buf_.push_back(in[0][i]);
-            } else {
-                const auto zn = zeroCrossingCount();
-                out_ = (zn > 0) ? (2000 * buf_.size() / zeroCrossingCount()) / samplerate() : 0;
-                buf_.clear();
-                buf_.push_back(in[0][i]);
-            }
-
-            out[0][i] = out_;
-        }
-
-        break;
     case hash_rate:
 
         for (size_t i = 0; i < bs; i++) {
-            if (buf_.size() < bufSize) {
-                buf_.push_back(in[0][i]);
-            } else {
-                out_ = zeroCrossingCount() / buf_.size();
+            auto v = in[0][i];
+
+            if (buf_.size() < bufSize)
+                buf_.push_back(v);
+
+            // not else(!)
+            if (buf_.size() == bufSize) {
+                auto b = buf_.back();
+                out_ = zeroCrossingCount() / (buf_.size() - 1);
                 buf_.clear();
-                buf_.push_back(in[0][i]);
+                buf_.push_back(b);
             }
 
             out[0][i] = out_;
         }
         break;
+
     case hash_freq:
 
         for (size_t i = 0; i < bs; i++) {
-            if (buf_.size() < bufSize) {
-                buf_.push_back(in[0][i]);
-            } else {
-                out_ = (zeroCrossingCount() / buf_.size()) * nyqfreq;
+            auto v = in[0][i];
+
+            if (buf_.size() < bufSize)
+                buf_.push_back(v);
+
+            // not else(!)
+            if (buf_.size() == bufSize) {
+                auto b = buf_.back();
+                out_ = (zeroCrossingCount() / (buf_.size() - 1)) * nyqfreq;
                 buf_.clear();
-                buf_.push_back(in[0][i]);
+                buf_.push_back(b);
             }
 
             out[0][i] = out_;
@@ -143,5 +149,5 @@ double ZeroCrossingTilde::zeroCrossingCount() const
 void setup_an_zero_tilde()
 {
     SoundExternalFactory<ZeroCrossingTilde> obj("an.zero~");
-    obj.setXletsInfo({ "signal: input" }, { "float: zero crossing rate", "float: zero crossing freq" });
+    obj.setXletsInfo({ "signal: input" }, { "signal: zero crossing count/rate.freq" });
 }
