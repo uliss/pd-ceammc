@@ -60,6 +60,7 @@ list(APPEND BASE_SOURCES
 list(APPEND BASE_SOURCES
     base_click.cpp
     base_dac.cpp
+    base_z_tilde.cpp
     gain.cpp
     matrix.cpp
     mix.cpp

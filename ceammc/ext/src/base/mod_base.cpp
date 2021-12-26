@@ -49,6 +49,7 @@ void setup_base_expand_env();
 void setup_base_msg();
 void setup_base_replace();
 void setup_base_sync();
+void setup_base_z_tilde();
 void setup_is_data();
 void setup_is_file();
 void setup_load_expr();
@@ -90,6 +91,7 @@ void ceammc_base_setup()
     setup_base_sync();
     setup_base_xfade2_tilde();
     setup_base_xfade_tilde();
+    setup_base_z_tilde();
     setup_canvas_current();
     setup_canvas_top();
     setup_ceammc_search();

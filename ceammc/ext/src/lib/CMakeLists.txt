@@ -51,6 +51,7 @@ set(CEAMMC_LIB_SOURCES
     ceammc_convert_pitch.cpp
     ceammc_data.cpp
     ceammc_datastorage.cpp
+    ceammc_dsp.cpp
     ceammc_externals.cpp
     ceammc_factory.h
     ceammc_faust.cpp
