@@ -18,8 +18,10 @@
 #include "ceammc_sound_external.h"
 using namespace ceammc;
 
+constexpr uint32_t BASE_Z_MAX_SIZE = 512;
+
 class BaseZTilde : public SoundExternal {
-    dsp::Delay delay_;
+    dsp::StaticDelay<BASE_Z_MAX_SIZE + 1> delay_;
     IntProperty* z_;
 
 public:

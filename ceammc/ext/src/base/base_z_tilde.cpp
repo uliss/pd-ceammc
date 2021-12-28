@@ -16,15 +16,13 @@
 
 #include <cstdlib>
 
-constexpr uint32_t MAX_SIZE = 512;
-
 BaseZTilde::BaseZTilde(const PdArgs& args)
     : SoundExternal(args)
-    , delay_(MAX_SIZE + 1, 0)
+    , delay_(0)
     , z_(nullptr)
 {
     z_ = new IntProperty("@z", -1);
-    z_->checkClosedRange(0, MAX_SIZE);
+    z_->checkClosedRange(0, BASE_Z_MAX_SIZE);
     z_->setSuccessFn([this](Property*) {
         delay_.setDelay(z_->value());
     });
