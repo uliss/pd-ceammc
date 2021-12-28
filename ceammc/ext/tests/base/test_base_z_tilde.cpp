@@ -57,5 +57,15 @@ TEST_CASE("z~", "[extension]")
         sig.fillInput(0);
         dsp.processBlock();
         REQUIRE(sig.outputStartsWith(0, { 61, 62, 63, 64, 0, 0 }));
+
+        t.sendFloat(0, 1);
+        REQUIRE_PROPERTY_FLOAT(t, @z, 0);
+
+        sig.fillInput([](size_t n) { return n * 2; });
+        dsp.processBlock();
+
+        for (size_t i = 0; i < dsp.BS; i++) {
+            REQUIRE(sig.out[0][i] == i * 2);
+        }
     }
 }

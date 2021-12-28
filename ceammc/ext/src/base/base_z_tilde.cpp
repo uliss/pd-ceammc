@@ -24,7 +24,8 @@ BaseZTilde::BaseZTilde(const PdArgs& args)
     z_ = new IntProperty("@z", 1);
     z_->checkClosedRange(0, BASE_Z_MAX_SIZE);
     z_->setSuccessFn([this](Property*) {
-        delay_.setDelay(z_->value());
+        if (!delay_.setDelay(z_->value()))
+            OBJ_ERR << "delay error";
     });
     z_->setArgIndex(0);
     addProperty(z_);
@@ -35,7 +36,7 @@ BaseZTilde::BaseZTilde(const PdArgs& args)
 
 void BaseZTilde::onInlet(size_t n, const AtomListView& lv)
 {
-    z_->setList(lv);
+    z_->set(lv);
 }
 
 void BaseZTilde::processBlock(const t_sample** in, t_sample** out)
