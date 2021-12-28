@@ -29,7 +29,13 @@ BaseZTilde::BaseZTilde(const PdArgs& args)
     z_->setArgIndex(0);
     addProperty(z_);
 
+    createInlet();
     createSignalOutlet();
+}
+
+void BaseZTilde::onInlet(size_t n, const AtomListView& lv)
+{
+    z_->setList(lv);
 }
 
 void BaseZTilde::processBlock(const t_sample** in, t_sample** out)

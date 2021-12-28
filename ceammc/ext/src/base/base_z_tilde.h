@@ -27,6 +27,7 @@ class BaseZTilde : public SoundExternal {
 public:
     BaseZTilde(const PdArgs& args);
 
+    void onInlet(size_t n, const AtomListView& lv) override;
     void processBlock(const t_sample** in, t_sample** out) override;
 };
 
