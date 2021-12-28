@@ -23,7 +23,7 @@ BaseZTilde::BaseZTilde(const PdArgs& args)
     , delay_(MAX_SIZE + 1, 0)
     , z_(nullptr)
 {
-    z_ = new IntProperty("@z", 1);
+    z_ = new IntProperty("@z", -1);
     z_->checkClosedRange(0, MAX_SIZE);
     z_->setSuccessFn([this](Property*) {
         delay_.setDelay(z_->value());

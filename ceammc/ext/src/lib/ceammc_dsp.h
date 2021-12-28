@@ -23,7 +23,16 @@
 namespace ceammc {
 namespace dsp {
 
-    class Delay {
+    class DelayIface {
+    public:
+        virtual ~DelayIface() { }
+        virtual uint32_t maxSize() const noexcept = 0;
+        virtual uint32_t delay() const noexcept = 0;
+        virtual bool setDelay(uint32_t delay) = 0;
+        virtual t_sample push(t_sample v) noexcept = 0;
+    };
+
+    class Delay : public DelayIface {
         std::unique_ptr<t_sample[]> data_;
         const uint32_t max_size_;
         uint32_t in_pos_;
@@ -49,8 +58,8 @@ namespace dsp {
             }
         }
 
-        uint32_t maxSize() const { return max_size_; }
-        uint32_t delay() const { return delay_; }
+        uint32_t maxSize() const noexcept final { return max_size_; }
+        uint32_t delay() const noexcept final { return delay_; }
 
         void clear() { fillWith(0); }
         void fillWith(t_sample v) { std::fill(data_.get(), data_.get() + max_size_, v); }
@@ -64,7 +73,7 @@ namespace dsp {
         {
         }
 
-        t_sample push(t_sample v) noexcept
+        t_sample push(t_sample v) noexcept final
         {
             data_[in_pos_++] = v;
 
@@ -79,7 +88,7 @@ namespace dsp {
             return out;
         }
 
-        bool setDelay(uint32_t delay) noexcept
+        bool setDelay(uint32_t delay) noexcept final
         {
             if (delay >= max_size_)
                 return false;
