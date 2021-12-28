@@ -30,6 +30,9 @@ namespace dsp {
         virtual uint32_t delay() const noexcept = 0;
         virtual bool setDelay(uint32_t delay) = 0;
         virtual t_sample push(t_sample v) noexcept = 0;
+        virtual void fillWith(t_sample v) noexcept = 0;
+
+        void clear() { fillWith(0); }
     };
 
     class Delay : public DelayIface {
@@ -61,8 +64,7 @@ namespace dsp {
         uint32_t maxSize() const noexcept final { return max_size_; }
         uint32_t delay() const noexcept final { return delay_; }
 
-        void clear() { fillWith(0); }
-        void fillWith(t_sample v) { std::fill(data_.get(), data_.get() + max_size_, v); }
+        void fillWith(t_sample v) noexcept final { std::fill(data_.get(), data_.get() + max_size_, v); }
 
         Delay(Delay&& d) noexcept
             : data_(std::move(d.data_))
@@ -97,6 +99,61 @@ namespace dsp {
                 out_pos_ = in_pos_ - delay;
             else
                 out_pos_ = max_size_ + in_pos_ - delay;
+
+            delay_ = delay;
+            return true;
+        }
+    };
+
+    template <uint32_t N>
+    class StaticDelay : public DelayIface {
+        t_sample data_[N];
+        uint32_t in_pos_;
+        uint32_t out_pos_;
+        uint32_t delay_;
+
+        StaticDelay(const StaticDelay<N>&) = delete;
+        StaticDelay& operator=(const StaticDelay<N>& d) = delete;
+
+    public:
+        explicit StaticDelay(uint32_t delay, t_sample init = 0)
+            : in_pos_(0)
+            , out_pos_(0)
+            , delay_(0)
+        {
+            fillWith(init);
+            setDelay(delay);
+        }
+
+        uint32_t maxSize() const noexcept final { return N; }
+        uint32_t delay() const noexcept final { return delay_; }
+
+        void fillWith(t_sample v) noexcept final { std::fill(data_, data_ + N, v); }
+
+        t_sample push(t_sample v) noexcept final
+        {
+            data_[in_pos_++] = v;
+
+            if (in_pos_ == N)
+                in_pos_ = 0;
+
+            const auto out = data_[out_pos_++];
+
+            if (out_pos_ == N)
+                out_pos_ = 0;
+
+            return out;
+        }
+
+        bool setDelay(uint32_t delay) noexcept final
+        {
+            if (delay >= N)
+                return false;
+
+            if (in_pos_ >= delay)
+                out_pos_ = in_pos_ - delay;
+            else
+                out_pos_ = N + in_pos_ - delay;
 
             delay_ = delay;
             return true;
