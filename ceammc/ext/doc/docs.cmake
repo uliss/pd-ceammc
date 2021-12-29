@@ -707,4 +707,5 @@ set(DOC_FILES
     xfade~
     xfade2~
     xdac~
+    z~
 )

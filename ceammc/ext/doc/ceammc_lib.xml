@@ -161,6 +161,9 @@
     <entry name="xfade~" descr="multi signal crossfade" ref_view="object">
       <xi:include href="xfade~.pddoc" parse="xml"/>
     </entry>
+    <entry name="z~" descr="sample delay" ref_view="object">
+      <xi:include href="z~.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="chaos">
     <entry name="chaos.gbman0" descr="Gingerbreadman map chaotic generator" ref_view="object">

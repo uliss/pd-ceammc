@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="z~">
+        <title>z~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>sample delay</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>base</category>
+            <keywords>delay z</keywords>
+            <since>0.9.5</since>
+            <aliases>
+                <alias>ceammc/z~</alias>
+            </aliases>
+        </meta>
+        <arguments>
+            <argument name="N" type="int" minvalue="0" maxvalue="512">delay length</argument>
+        </arguments>
+        <properties>
+            <property name="@z" type="int" minvalue="0" default="1" maxvalue="512" units="sample">
+           delay length</property>
+        </properties>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+            <inlet type="control">
+                <xinfo on="int">set delay length</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">output signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[bang #a(
+|
+[click~   ]
+|         |
+|         [z~ 1]
+|         |
+[*~ 0.5]  [*~ 0.5]
+|         |
+[plot.response~ 64 #b {i=2,o=3}]
+*|*
+*|*
+[ui.plot~ {i=3} #z]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[ui.dsp~]
+[X a->b:1]
+#z @size 400 200 @xlabels 1 @ylabels 1 @xmin_grid 1 @ymin_ticks 0 @ymaj_ticks 0 @xmin_ticks 0 @ymin -2 @ymax 2 @n 2
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

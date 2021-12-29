@@ -82,6 +82,8 @@ xfade2~	multi stereo-signal crossfade
 ceammc/xfade2~	multi stereo-signal crossfade
 xfade~	multi signal crossfade
 ceammc/xfade~	multi signal crossfade
+z~	sample delay
+ceammc/z~	sample delay
 chaos.gbman0	Gingerbreadman map chaotic generator
 chaos.gbman0~	Gingerbreadman map chaotic generator
 chaos.jong	Peter de Jong attractor

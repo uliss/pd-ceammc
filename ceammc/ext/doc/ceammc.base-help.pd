@@ -40,7 +40,9 @@
 #X text 200 573 multi stereo-signal crossfade;
 #X obj 30 600 xfade~;
 #X text 200 600 multi signal crossfade;
+#X obj 30 627 z~;
+#X text 200 627 sample delay;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::base 20 20 0 20 -104026
 -4096 0;
-#X obj 1 627 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 637 library: ceammc;
+#X obj 1 654 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 664 library: ceammc;
