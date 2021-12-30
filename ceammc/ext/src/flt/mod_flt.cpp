@@ -1,5 +1,6 @@
 #include "mod_flt.h"
 
+void setup_flt_a_weight();
 void setup_flt_apf2biquad();
 void setup_flt_biquad_tilde();
 void setup_flt_bpf12_tilde();
@@ -38,6 +39,7 @@ void setup_flt_resonbp_tilde();
 
 void ceammc_flt_setup()
 {
+    setup_flt_a_weight();
     setup_flt_apf2biquad();
     setup_flt_biquad_tilde();
     setup_flt_bpf12_tilde();
