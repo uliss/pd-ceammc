@@ -16,8 +16,12 @@
 
 #include "m_pd.h"
 
+#include "ceammc_convert.h"
+#include "ceammc_signal.h"
+
 #include <algorithm>
 #include <cstdint>
+#include <iostream>
 #include <memory>
 
 namespace ceammc {
@@ -158,6 +162,38 @@ namespace dsp {
             delay_ = delay;
             return true;
         }
+    };
+
+    namespace curves {
+        double a_weight(double freq);
+    }
+
+    template <typename T, size_t N>
+    class TableFunction {
+        T data_[N];
+        T a_, b_;
+
+        using Fn = double(double);
+
+    public:
+        TableFunction(Fn f, T a, T b)
+            : a_(a)
+            , b_(b)
+        {
+            for (size_t i = 0; i < N; i++)
+                data_[i] = f(convert::lin2lin_clip<T, 0, N - 1>(i, a, b));
+        }
+
+        T at(T x) const
+        {
+            const auto idx = convert::lin2lin_clip<T>(x, a_, b_, 0, N - 1);
+            const size_t idx0 = std::floor(idx);
+            const size_t idx1 = std::ceil(idx);
+            return interpolate::linear<T>(data_[idx0], data_[idx1], idx1 - idx);
+        }
+
+        T min() const { return a_; }
+        T max() const { return b_; }
     };
 }
 }

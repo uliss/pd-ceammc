@@ -12,3 +12,26 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_dsp.h"
+
+#include <cmath>
+
+namespace ceammc {
+
+namespace dsp {
+
+    constexpr long double operator""__2(long double v) { return v * v; }
+
+    double curves::a_weight(double f)
+    {
+        const auto f2 = f * f;
+        const auto f4 = f2 * f2;
+
+        return (12194 * 12194 * f4) / ( //
+                   (f2 + 20.6 * 20.6) //
+                   * std::sqrt((f2 + 107.7 * 107.7) * (f2 + 737.9 * 737.9)) //
+                   * (f2 + 12194 * 12194) //
+               );
+    }
+
+}
+}
