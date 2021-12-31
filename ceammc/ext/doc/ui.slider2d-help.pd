@@ -4,8 +4,9 @@
 #X text 637 50 2D slider widget;
 #X obj 1 1 cnv 5 765 40 empty empty ui.slider2d 20 20 0 20 -104026
 -4096 0;
-#X obj 590 11 ui.s2d;
-#X obj 658 14 ui.link @background_color 0.39216 0.39216 0.39216 @title
+#X obj 587 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ui.s2d] @url ui.slider2d-help.pd;
+#X obj 658 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [ui.slider2d] @url ui.slider2d-help.pd;
 #X obj 210 80 cnv 1 555 35 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 2D sliders widget;

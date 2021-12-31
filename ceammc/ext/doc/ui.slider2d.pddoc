@@ -13,7 +13,7 @@
             <category view="link">ui</category>
             <keywords>ui slider</keywords>
             <aliases>
-                <alias>ui.s2d</alias>
+                <alias view="link">ui.s2d</alias>
             </aliases>
             <since>0.1</since>
             <also>
