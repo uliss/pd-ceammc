@@ -1146,6 +1146,7 @@ ui.slider	counterpart of the vanilla slider
 ui.hsl	counterpart of the vanilla slider
 ui.vsl	counterpart of the vanilla slider
 ui.slider2d	2D slider widget
+ui.s2d	2D slider widget
 ui.sliders	Multiple slider widget
 ui.vsliders	Multiple slider widget
 ui.spectroscope~	Spectroscope GUI object

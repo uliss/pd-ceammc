@@ -695,7 +695,7 @@ ui.radio,ui.radio*,ui.hrd,ui.hrd*,ui.vrd,ui.vrd*		.		.
 ui.rslider,ui.rsl		.		.
 ui.scope~		.		-
 ui.slider,ui.hsl,ui.vsl		.		.
-ui.slider2d		.		.
+ui.slider2d,ui.s2d		.		.
 ui.sliders,ui.vsliders		.		.
 ui.spectroscope~,ui.ssc~		~		-
 ui.tab		.		.

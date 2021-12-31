@@ -11,6 +11,8 @@
 - misc:
   - conv.lin2exp: list support added
   - conv.lin2curve: list support added
+  - ui.slider2d: mouse wheel support added: (move x-axis when Alt pressed)
+  - ui.slider2d alias added: ui.s2d
 
 ### Fixed:
 - system.cursor no normalization in subpatch

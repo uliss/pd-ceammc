@@ -12,6 +12,9 @@
             <library>ceammc</library>
             <category view="link">ui</category>
             <keywords>ui slider</keywords>
+            <aliases>
+                <alias>ui.s2d</alias>
+            </aliases>
             <since>0.1</since>
             <also>
                 <see view="link">ui.slider</see>
@@ -21,6 +24,16 @@
         <info>
             <par>2D sliders widget</par>
         </info>
+        <mouse>
+            <event editmode="false" type="left-click">jump to coord under mouse pointer</event>
+            <event editmode="false" type="right-click">opens popup menu for quick settings of
+            position</event>
+            <event editmode="false" type="drag">change slider coords</event>
+            <event editmode="false" type="wheel">change Y coord</event>
+            <event editmode="false" type="wheel" keys="Shift">change precisely Y coord</event>
+            <event editmode="false" type="wheel" keys="Alt">change X coord</event>
+            <event editmode="false" type="wheel" keys="Alt+Shift">change precisely X coord</event>
+        </mouse>
         <properties>
             <property name="@x_left" type="float" default="-1">leftmost x-value</property>
             <property name="@x_right" type="float" default="1">rightmost x-value</property>
