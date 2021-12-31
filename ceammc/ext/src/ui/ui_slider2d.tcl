@@ -34,7 +34,7 @@ proc slider2d_draw_grid {cnv id w h zoom color_bg} {
     }
 }
 
-proc slider2d_draw_range {cnv id w h zoom show_grid color_txt xl xr yt yb vx vy} {
+proc slider2d_draw_range {cnv id w h zoom show_grid color_txt color_bg xl xr yt yb vx vy} {
     set c [::ceammc::ui::widget_canvas $cnv $id]
     set t [::ceammc::ui::widget_tag $id]
     set ft [slider2d_label_font $zoom]
@@ -58,7 +58,19 @@ proc slider2d_draw_range {cnv id w h zoom show_grid color_txt xl xr yt yb vx vy}
         $c create text [expr $w-$padx] $yc -text $xr -anchor e -justify right -font $ft -fill $color_txt -tag $t
     }
 
-    $c create text [expr $w-$padx] $pady -text "$vx:$vy" -justify right -anchor ne -font $ft -fill $color_txt -tag $t
+    set tid [$c create text [expr $w-$padx] $pady -text "$vx $vy" -justify right -anchor ne -font $ft -fill $color_txt -tag $t]
+
+    # calc bbox for bg rectangle
+    lassign [$c bbox $tid] tx0 ty0 tx1 ty1
+    set rx0 [expr $tx0-$padx]
+    set rx1 [expr $tx1+$padx]
+    set ry0 -1
+    set ry1 [expr $ty1+$padx-1]
+
+    # draw label bg rectangle
+    set rid [$c create rectangle $rx0 $ry0 $rx1 $ry1 \
+        -outline $color_bg -fill $color_bg -width 1 -tags $t]
+    $c raise $tid $rid
 }
 
 proc slider2d_draw_knob {cnv id x y vx vy w h zoom show_grid show_range active} {
@@ -93,7 +105,7 @@ proc slider2d_draw_knob {cnv id x y vx vy w h zoom show_grid show_range active} 
     set knid [$c create rect [expr $x-$sz] [expr $y-$sz] [expr $x+$sz] [expr $y+$sz] \
         -width 1 -outline $color_bd -fill $color_bg -tag $t]
 
-    if {$show_range == 0 } { ceammc_cnv_tooltip $c $knid "tooltip: $vx $vy" }
+    if {$show_range == 0 } { ceammc_cnv_tooltip $c $knid "$vx $vy" }
 }
 
 proc slider2d_update {cnv id x y vx vy w h zoom show_grid show_range mouse_down color_bg color_bd xl xr yt yb} {
@@ -102,7 +114,7 @@ proc slider2d_update {cnv id x y vx vy w h zoom show_grid show_range mouse_down 
     $c delete $t
 
     if { $show_grid == 1 } { slider2d_draw_grid $cnv $id $w $h $zoom $color_bg }
-    if { $show_range == 1 } { slider2d_draw_range $cnv $id $w $h $zoom $show_grid $color_bd $xl $xr $yt $yb $vx $vy }
+    if { $show_range == 1 } { slider2d_draw_range $cnv $id $w $h $zoom $show_grid $color_bd $color_bg $xl $xr $yt $yb $vx $vy }
 
     slider2d_draw_knob $cnv $id $x $y $vx $vy $w $h $zoom $show_grid $show_range $mouse_down
 }
