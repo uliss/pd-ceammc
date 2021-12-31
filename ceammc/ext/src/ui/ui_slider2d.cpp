@@ -24,17 +24,6 @@
 #include "ui_slider2d.h"
 #include "ui_slider2d.tcl.h"
 
-static const float KNOB_MIN_SIZE = 5.f;
-static const float KNOB_MAX_SIZE = 20.f;
-static const float KNOB_RATIO = 0.1f;
-static const float KNOB_BORDER_WIDTH = 1.f;
-static t_rgba KNOB_FILL = hex_to_rgba("#C0C0C0");
-static t_rgba KNOB_BORDER = hex_to_rgba("#707070");
-static t_rgba KNOB_FILL_ACTIVE = hex_to_rgba("#003070");
-static t_rgba KNOB_BORDER_ACTIVE = hex_to_rgba("#00C0FF");
-static t_rgba GUIDE_LINE_COLOR = hex_to_rgba("#00C0F0");
-static const float GUIDE_LINE_WIDTH = 0.5f;
-
 UISlider2D::UISlider2D()
     : prop_x_left(-1)
     , prop_x_right(1)
@@ -42,10 +31,6 @@ UISlider2D::UISlider2D()
     , prop_y_bottom(-1)
     , prop_show_range(1)
     , prop_show_grid(0)
-    , txt_font(gensym(FONT_FAMILY), FONT_SIZE_SMALL)
-    , txt_xrange_(txt_font.font(), ColorRGBA::black(), ETEXT_UP_LEFT, ETEXT_JLEFT)
-    , txt_yrange_(txt_font.font(), ColorRGBA::black(), ETEXT_DOWN_RIGHT, ETEXT_JRIGHT)
-    , knob_layer_(asEBox(), gensym("knob_layer"))
     , x_pos_(convert::lin2lin<float, 0, 1>(0.5, prop_x_left, prop_x_right))
     , y_pos_(convert::lin2lin<float, 0, 1>(0.5, prop_y_top, prop_y_bottom))
     , mouse_down_(false)
@@ -87,9 +72,9 @@ void UISlider2D::paint()
     const int y = std::round(convert::lin2lin<float>(y_pos_, prop_y_top, prop_y_bottom, 0, r.height));
 
     sys_vgui("ui::slider2d_update %s %lx "
-             "%d %d "     // x, y
+             "%d %d " // x, y
              "%.5g %.5g " // value x, y
-             "%d %d %d "  // w, h, z
+             "%d %d %d " // w, h, z
              "%d %d %d "
              "#%6.6x #%6.6x "
              "%.3g %.3g %.3g %.3g\n",
@@ -104,59 +89,7 @@ void UISlider2D::paint()
 
 void UISlider2D::onPropChange(t_symbol* prop_name)
 {
-    updateLabels();
     redrawAll();
-}
-
-void UISlider2D::paintBackground()
-{
-    const t_rect r = rect();
-
-    UIPainter p = bg_layer_.painter(r);
-    if (!p)
-        return;
-
-    if (prop_show_range) {
-        updateLabels();
-
-        txt_xrange_.setColor(prop_color_border);
-        txt_yrange_.setColor(prop_color_border);
-
-        p.drawText(txt_xrange_);
-        p.drawText(txt_yrange_);
-    }
-}
-
-void UISlider2D::paintKnob()
-{
-    const t_rect r = rect();
-    UIPainter p = knob_layer_.painter(r);
-
-    if (p) {
-        const float x = convert::lin2lin_clip<float>(x_pos_, prop_x_left, prop_x_right, 0, r.width);
-        const float y = convert::lin2lin<float>(y_pos_, prop_y_top, prop_y_bottom, 0, r.height);
-
-        // when grid shown - no guide lines are needed
-        if (!prop_show_grid) {
-            // guide lines
-            p.setLineWidth(GUIDE_LINE_WIDTH);
-            p.setColor(GUIDE_LINE_COLOR);
-            p.drawLine(x, 0, x, r.height);
-            p.drawLine(0, y, r.width, y);
-        }
-
-        // knob
-        const float knobsize = clip<float>(KNOB_MIN_SIZE, KNOB_MAX_SIZE,
-            std::min(r.height, r.width) * KNOB_RATIO);
-
-        // knob border
-        p.setLineWidth(KNOB_BORDER_WIDTH);
-        p.setColor(mouse_down_ ? KNOB_FILL_ACTIVE : KNOB_FILL);
-        p.drawRect(x - 0.5f * knobsize, y - 0.5f * knobsize, knobsize, knobsize);
-        p.fillPreserve();
-        p.setColor(mouse_down_ ? KNOB_BORDER_ACTIVE : KNOB_BORDER);
-        p.stroke();
-    }
 }
 
 void UISlider2D::onBang()
@@ -398,13 +331,11 @@ void UISlider2D::setup()
 
 void UISlider2D::redrawKnob()
 {
-    knob_layer_.invalidate();
     redraw();
 }
 
 void UISlider2D::redrawAll()
 {
-    knob_layer_.invalidate();
     bg_layer_.invalidate();
     redraw();
 }
@@ -413,19 +344,6 @@ void UISlider2D::setMouse(t_float x, t_float y)
 {
     x_pos_ = convert::lin2lin_clip<t_float>(x, 0, width(), prop_x_left, prop_x_right);
     y_pos_ = convert::lin2lin_clip<t_float>(y, 0, height(), prop_y_top, prop_y_bottom);
-}
-
-void UISlider2D::updateLabels()
-{
-    char buf[64];
-    snprintf(buf, 64, "X: [%g..%g]", prop_x_left, prop_x_right);
-
-    const float xoff = 2 * zoom();
-    const float yoff = 3 * zoom();
-    txt_xrange_.set(buf, xoff, yoff, 100, 20);
-
-    snprintf(buf, 64, "Y: [%g..%g]", prop_y_top, prop_y_bottom);
-    txt_yrange_.set(buf, width() - xoff, height() - yoff, 100, 20);
 }
 
 void setup_ui_slider2d()
