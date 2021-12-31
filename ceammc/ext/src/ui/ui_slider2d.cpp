@@ -66,14 +66,14 @@ void UISlider2D::okSize(t_rect* newrect)
 
 void UISlider2D::paint()
 {
-    const t_rect r = rect();
+    const auto r = rect();
 
     const int x = std::round(convert::lin2lin_clip<float>(x_pos_, prop_x_left, prop_x_right, 0, r.width));
     const int y = std::round(convert::lin2lin<float>(y_pos_, prop_y_top, prop_y_bottom, 0, r.height));
 
     sys_vgui("ui::slider2d_update %s %lx "
              "%d %d " // x, y
-             "%.5g %.5g " // value x, y
+             "%.3g %.3g " // value x, y
              "%d %d %d " // w, h, z
              "%d %d %d "
              "#%6.6x #%6.6x "
