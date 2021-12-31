@@ -21,9 +21,6 @@
                 <see view="link">ui.polar</see>
             </also>
         </meta>
-        <info>
-            <par>2D sliders widget</par>
-        </info>
         <mouse>
             <event editmode="false" type="left-click">jump to coord under mouse pointer</event>
             <event editmode="false" type="right-click">opens popup menu for quick settings of
@@ -123,7 +120,7 @@
                            |
 [set 0 0(  [move 0.1 -0.1( [@show_grid $1(
 |          |               |
-[ui.slider2d @presetname=s2d-help  ]
+[ui.slider2d               ]
 |
 |
 |
@@ -131,12 +128,7 @@
 |
 |
 |
-[ui.display @display_type 1]
-
-/*[Shift+click] to save, [Alt+click] to remove, [click] to activate*/
-
-
-[ui.preset]
+[ui.dt]
 ]]>
             </pdascii>
         </example>
