@@ -145,10 +145,10 @@ ceammc_create_label_font_bold CICMCategoryFont
 # show tooltips
 if { [catch {package require tooltip} ] } {
     proc ceammc_tooltip {id msg} {}
+    proc ceammc_cnv_tooltip {cnv id msg} {}
 } {
-    proc ceammc_tooltip {id msg} {
-        tooltip::tooltip $id $msg
-    }
+    proc ceammc_tooltip {id msg} { tooltip::tooltip $id $msg }
+    proc ceammc_cnv_tooltip {cnv id msg} { tooltip::tooltip $cnv -item $id $msg }
 }
 
 namespace eval ::ceammc {
