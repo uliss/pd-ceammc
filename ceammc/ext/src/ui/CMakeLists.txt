@@ -60,12 +60,13 @@ add_custom_target(ceammc_ui_tcl_gen
     COMMAND ${TCL_GEN_SCRIPT} ui_icon.tcl
     COMMAND ${TCL_GEN_SCRIPT} ui_keyboard.tcl
     COMMAND ${TCL_GEN_SCRIPT} ui_knob.tcl
+    COMMAND ${TCL_GEN_SCRIPT} ui_link.tcl
     COMMAND ${TCL_GEN_SCRIPT} ui_meter.tcl
     COMMAND ${TCL_GEN_SCRIPT} ui_number_tilde.tcl
     COMMAND ${TCL_GEN_SCRIPT} ui_radio.tcl
+    COMMAND ${TCL_GEN_SCRIPT} ui_slider2d.tcl
     COMMAND ${TCL_GEN_SCRIPT} ui_sliders.tcl
     COMMAND ${TCL_GEN_SCRIPT} ui_toggle.tcl
-    COMMAND ${TCL_GEN_SCRIPT} ui_link.tcl
     SOURCES
         ui_bang.tcl
         ui_button.tcl
@@ -75,11 +76,12 @@ add_custom_target(ceammc_ui_tcl_gen
         ui_icon.tcl
         ui_keyboard.tcl
         ui_knob.tcl
+        ui_link.tcl
         ui_meter.tcl
         ui_number_tilde.tcl
         ui_radio.tcl
+        ui_slider2d.tcl
         ui_sliders.tcl
         ui_toggle.tcl
-        ui_link.tcl
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 )

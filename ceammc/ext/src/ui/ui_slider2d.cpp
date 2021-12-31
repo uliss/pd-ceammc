@@ -22,6 +22,7 @@
 #include "ceammc_preset.h"
 #include "ceammc_ui.h"
 #include "ui_slider2d.h"
+#include "ui_slider2d.tcl.h"
 
 static const float KNOB_MIN_SIZE = 5.f;
 static const float KNOB_MAX_SIZE = 20.f;
@@ -80,8 +81,25 @@ void UISlider2D::okSize(t_rect* newrect)
 
 void UISlider2D::paint()
 {
-    paintBackground();
-    paintKnob();
+    const t_rect r = rect();
+
+    const int x = std::round(convert::lin2lin_clip<float>(x_pos_, prop_x_left, prop_x_right, 0, r.width));
+    const int y = std::round(convert::lin2lin<float>(y_pos_, prop_y_top, prop_y_bottom, 0, r.height));
+
+    sys_vgui("ui::slider2d_update %s %lx "
+             "%d %d "     // x, y
+             "%.5g %.5g " // value x, y
+             "%d %d %d "  // w, h, z
+             "%d %d %d "
+             "#%6.6x #%6.6x "
+             "%.3g %.3g %.3g %.3g\n",
+        asEBox()->b_canvas_id->s_name, asEBox(),
+        x, y,
+        realXValue(), realYValue(),
+        (int)width(), (int)height(), (int)zoom(),
+        prop_show_grid, prop_show_range, mouse_down_ ? 1 : 0,
+        rgba_to_hex_int(prop_color_background), rgba_to_hex_int(prop_color_border),
+        prop_x_left, prop_x_right, prop_y_top, prop_y_bottom);
 }
 
 void UISlider2D::onPropChange(t_symbol* prop_name)
@@ -97,27 +115,6 @@ void UISlider2D::paintBackground()
     UIPainter p = bg_layer_.painter(r);
     if (!p)
         return;
-
-    if (prop_show_grid) {
-        const float X_GRID_STEP = r.width / 10;
-        const float Y_GRID_STEP = r.height / 10;
-
-        // draw center cross
-        p.setLineWidth(3);
-        p.setColor(rgba_addContrast(prop_color_background, 0.1));
-        p.drawLine(5 * X_GRID_STEP, -1, 5 * X_GRID_STEP, r.height + 2);
-        p.drawLine(-1, 5 * Y_GRID_STEP, r.width + 2, 5 * Y_GRID_STEP);
-        p.setLineWidth(1);
-        p.setColor(rgba_addContrast(prop_color_background, -0.1));
-
-        // draw horizontal lines
-        for (int i = 1; i < 10; i++)
-            p.drawLine(i * X_GRID_STEP, -1, i * X_GRID_STEP, r.height + 2);
-
-        // draw vertical lines
-        for (int i = 1; i < 10; i++)
-            p.drawLine(-1, i * Y_GRID_STEP, r.width + 2, i * Y_GRID_STEP);
-    }
 
     if (prop_show_range) {
         updateLabels();
@@ -368,6 +365,7 @@ void UISlider2D::propSetYValue(t_float y)
 void UISlider2D::setup()
 {
     UIObjectFactory<UISlider2D> obj("ui.slider2d");
+    obj.addAlias("ui.s2d");
 
     obj.setDefaultSize(100, 100);
 
@@ -432,5 +430,7 @@ void UISlider2D::updateLabels()
 
 void setup_ui_slider2d()
 {
+    sys_gui(ui_slider2d_tcl);
+
     UISlider2D::setup();
 }
