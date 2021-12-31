@@ -134,6 +134,22 @@ void UISlider2D::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
     output();
 }
 
+void UISlider2D::onMouseWheel(const t_pt& pt, long modifiers, double delta)
+{
+    const float k = (modifiers & EMOD_SHIFT) ? (1 / 128.0) : (6 / 128.0);
+
+    if (modifiers & EMOD_ALT) {
+        const auto x = convert::lin2lin<float>(x_pos_, prop_x_left, prop_x_right, 0, 1) + delta * k;
+        x_pos_ = convert::lin2lin_clip<float>(x, 0, 1, prop_x_left, prop_x_right);
+    } else {
+        const auto y = convert::lin2lin<float>(y_pos_, prop_y_top, prop_y_bottom, 0, 1) + delta * k;
+        y_pos_ = convert::lin2lin_clip<float>(y, 0, 1, prop_y_top, prop_y_bottom);
+    }
+
+    redraw();
+    output();
+}
+
 void UISlider2D::m_set(const AtomListView& lv)
 {
     if (lv.size() != 2) {
@@ -321,7 +337,7 @@ void UISlider2D::setup()
     obj.useList();
     obj.useBang();
 
-    obj.useMouseEvents(UI_MOUSE_UP | UI_MOUSE_DOWN | UI_MOUSE_DRAG);
+    obj.useMouseEvents(UI_MOUSE_UP | UI_MOUSE_DOWN | UI_MOUSE_DRAG | UI_MOUSE_WHEEL);
     obj.outputMouseEvents(MouseEventsOutput::DEFAULT_OFF);
     obj.usePopup();
 
