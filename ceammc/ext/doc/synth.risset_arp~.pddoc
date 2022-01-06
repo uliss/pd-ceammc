@@ -59,7 +59,7 @@
 [synth.risset_arp~  ]                |
 *|*                                  |
 [ui.hgain2~ @size]                   [list.enumerate @from 1]
-|                                    |
+*|*                                  |
 [dac~ #b]                            [list.repack 2]
                                      |
 [ui.dsp~]                            [@harmonic$1 $2(
