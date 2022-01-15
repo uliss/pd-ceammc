@@ -136,7 +136,7 @@ const char* ui_meter_tcl =
 "        meter_create_vlines $id $cnv $w $h $bdcolor\n"
 "        meter_create_vrms $id $cnv $w $h $rms $cold $tepid $warm $hot $over\n"
 "        meter_create_vpeak $id $cnv $w $h $peak $cold $tepid $warm $hot $over\n"
-"        if { $overload } { meter_create_voverload_ $id $cnv $w $h $over }\n"
+"        if { $overload } { meter_create_voverload $id $cnv $w $h $over }\n"
 "    }\n"
 "}\n"
 "}\n"

@@ -158,7 +158,7 @@ proc meter_create {id cnv w h bdcolor cold tepid warm hot over rms peak overload
         meter_create_vlines $id $cnv $w $h $bdcolor
         meter_create_vrms $id $cnv $w $h $rms $cold $tepid $warm $hot $over
         meter_create_vpeak $id $cnv $w $h $peak $cold $tepid $warm $hot $over
-        if { $overload } { meter_create_voverload_ $id $cnv $w $h $over }
+        if { $overload } { meter_create_voverload $id $cnv $w $h $over }
     }
 }
 
