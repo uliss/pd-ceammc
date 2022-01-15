@@ -23,9 +23,8 @@
 static std::unique_ptr<ArgChecker> onlist_chk;
 static std::mt19937 oct_gen;
 
-CEAMMC_DEFINE_HASH(transpose);
+CEAMMC_DEFINE_STR(transpose);
 CEAMMC_DEFINE_HASH(set);
-CEAMMC_DEFINE_HASH(random);
 
 constexpr int MIN_OCT = -11;
 constexpr int MAX_OCT = 11;
@@ -124,14 +123,19 @@ void MidiOctave::onInlet(size_t, const AtomListView& lv)
 
 t_float MidiOctave::octave(t_float note) const
 {
+    note = clip<t_float, 0, 127>(note);
+
     const int oct = random_
         ? std::uniform_int_distribution<int>(a_, b_)(oct_gen)
         : oct_->value();
 
-    note = clip<t_float, 0, 127>(note);
-
-    if (crc32_hash(mode_->value()) == hash_set)
+    switch (crc32_hash(mode_->value())) {
+    case hash_set:
         note = std::fmod(note, 12);
+        break;
+    default:
+        break;
+    }
 
     auto res = note + 12 * oct;
     return (res < 0 || res > 127) ? note : res;

@@ -20,7 +20,7 @@
         <properties>
             <property name="@oct" type="int" minvalue="-11" maxvalue="11" default="0">octave
             transposition</property>
-            <property name="@mode" type="symbol" default="transpose" enum="transpose set">octave
+            <property name="@mode" type="symbol" default="transpose" enum="transpose set random">octave
             mode</property>
             <property name="@set" type="alias">alias to @mode set</property>
             <property name="@transpose" type="alias">alias to @mode transpose</property>
