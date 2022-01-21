@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="midi.split">
+        <title>midi.split</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>midi note splitter</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>midi</category>
+            <keywords>midi note splitter</keywords>
+            <since>0.9.5</since>
+        </meta>
+        <info>
+            <par>Split midi note messages at specified pitch values</par>
+        </info>
+        <arguments>
+            <argument name="NOTES" type="list">list of note values (split points)</argument>
+        </arguments>
+        <properties>
+            <property name="@points" type="list" readonly="true">split points</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="list">NOTE VELOCITY [DUR] list</xinfo>
+            </inlet>
+        </inlets>
+        <outlets dynamic="true">
+            <outlet>transposed NOTE VELOCITY [DUR] list</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[ui.keyboard]
+|
+|
+|
+|
+[midi.split 40 60 80  ]
+|         ^|        ^^
+[ui.dt]    |         |
+           |         |
+           [ui.dt]   |
+                     |
+                     [ui.dt]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 ### Added:
+- new objects:
+  - midi.split: midi note splitter
 - new properties:
   - @clip property added to system.cursor to clip cursor XY coords
   - @norm property added to ui.env to do envelope value normalization on input
