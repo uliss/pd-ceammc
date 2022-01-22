@@ -18,10 +18,10 @@
             <since>0.5</since>
         </meta>
         <arguments>
-            <argument name="PATTERN" type="list">list of time intervals</argument>
+            <argument name="PATTERN" type="list">list of time intervals (in ms)</argument>
         </arguments>
         <properties>
-            <property name="@pattern" type="list">time intervals performed in a loop</property>
+            <property name="@pattern" type="list">time intervals (in ms) performed in a loop</property>
             <property name="@current" type="int" minvalue="0" default="0">current pattern
             index</property>
             <property name="@sync" type="int" enum="0 1" default="0">sync mode - change pattern
