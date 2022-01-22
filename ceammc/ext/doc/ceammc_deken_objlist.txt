@@ -799,6 +799,7 @@ midi.key->str	convert key number to SPN name according to tonality
 midi.oct	midi octave transpose
 midi.prg2str	convert GM Instrument number to name (string or symbol)
 midi.prg->str	convert GM Instrument number to name (string or symbol)
+midi.split	midi note splitter
 midi.sustain	sustain pedal emulation
 midi.sysex	sysex input messages as list
 midi.track	extract track from MidiFile
