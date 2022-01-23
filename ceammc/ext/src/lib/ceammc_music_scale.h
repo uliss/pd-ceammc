@@ -15,6 +15,7 @@
 #define CEAMMC_MUSIC_SCALE_H
 
 #include "ceammc_atomlist.h"
+#include "ceammc_crc32.h"
 
 #include <map>
 #include <string>
@@ -23,26 +24,28 @@ namespace ceammc {
 namespace music {
 
     class Scale {
-        t_symbol* name_;
+        std::string name_;
         std::string full_name_;
         size_t pitches_per_octave_;
         std::vector<t_float> degrees_i_;
         const AtomList degrees_l_;
 
     public:
-        Scale(t_symbol* name, std::initializer_list<t_float> degrees, size_t pitchesPerOctave, const std::string& fullName = "");
+        Scale(const char* name, std::initializer_list<t_float> degrees, size_t pitchesPerOctave, const std::string& fullName = "");
 
-        t_symbol* name() const { return name_; }
+        const std::string& name() const { return name_; }
         const std::string& fullName() const { return full_name_; }
         const AtomList& degrees() const { return degrees_l_; }
         size_t pitchesPerOctave() const { return pitches_per_octave_; }
         size_t size() const { return degrees_i_.size(); }
 
         int degreeToKey(int deg) const;
+
+        const std::vector<t_float>& all() const { return degrees_i_; }
     };
 
     class ScaleLibrary {
-        std::map<t_symbol*, Scale> scales_;
+        std::map<uint32_t, Scale> scales_;
         std::vector<Scale*> all_sorted_;
 
         ScaleLibrary();
@@ -53,12 +56,17 @@ namespace music {
         static ScaleLibrary& instance();
 
     public:
-        bool insert(t_symbol* name, std::initializer_list<t_float> degrees, size_t pitchesPerOctave, const std::string& fullName = "");
+        bool insert(const char* name, std::initializer_list<t_float> degrees, size_t pitchesPerOctave, const std::string& fullName = "");
         const std::vector<Scale*>& all() const { return all_sorted_; }
-        const Scale* find(t_symbol* name) const;
+        const Scale* find(t_symbol* name) const { return findByHash(crc32_hash(name)); }
+        const Scale* find(const char* name) const { return findByHash(crc32_hash(name)); }
+        const Scale* findByHash(uint32_t hash) const;
 
         std::vector<Scale*> findByNumPitches(size_t n) const;
         std::vector<Scale*> findBySize(size_t n) const;
+
+    private:
+        bool insertInternal(const char* name, uint32_t hash, std::initializer_list<t_float> degrees, size_t pitchesPerOctave, const std::string& fullName);
     };
 }
 }

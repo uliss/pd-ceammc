@@ -25,11 +25,11 @@ TEST_CASE("scale", "[ceammc::music]")
     {
         SECTION("chromatic 12")
         {
-            auto ch12 = ScaleLibrary::instance().find(SYM("chromatic"));
+            auto ch12 = ScaleLibrary::instance().find("chromatic");
             REQUIRE(ch12);
             REQUIRE(ch12->size() == 12);
             REQUIRE(ch12->pitchesPerOctave() == 12);
-            REQUIRE(ch12->name() == SYM("chromatic"));
+            REQUIRE(ch12->name() == "chromatic");
             REQUIRE(ch12->degrees() == LF(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11));
 
             for (int i = -100; i < 100; i++)
@@ -38,11 +38,11 @@ TEST_CASE("scale", "[ceammc::music]")
 
         SECTION("chromatic 24")
         {
-            auto ch24 = ScaleLibrary::instance().find(SYM("chromatic24"));
+            auto ch24 = ScaleLibrary::instance().find("chromatic24");
             REQUIRE(ch24);
             REQUIRE(ch24->size() == 24);
             REQUIRE(ch24->pitchesPerOctave() == 24);
-            REQUIRE(ch24->name() == SYM("chromatic24"));
+            REQUIRE(ch24->name() == "chromatic24");
 
             for (int i = -100; i < 100; i++)
                 REQUIRE(ch24->degreeToKey(i) == i);
@@ -50,12 +50,12 @@ TEST_CASE("scale", "[ceammc::music]")
 
         SECTION("major")
         {
-            auto maj = ScaleLibrary::instance().find(SYM("major"));
+            auto maj = ScaleLibrary::instance().find("major");
             REQUIRE(maj);
             REQUIRE(maj->size() == 7);
             REQUIRE(maj->pitchesPerOctave() == 12);
             REQUIRE(maj->degrees() == LF(0, 2, 4, 5, 7, 9, 11));
-            REQUIRE(maj->name() == SYM("major"));
+            REQUIRE(maj->name() == "major");
 
             REQUIRE(maj->degreeToKey(0) == 0);
             REQUIRE(maj->degreeToKey(1) == 2);
@@ -81,15 +81,23 @@ TEST_CASE("scale", "[ceammc::music]")
 
         SECTION("whole")
         {
-            auto whole = ScaleLibrary::instance().find(SYM("whole"));
+            auto whole = ScaleLibrary::instance().find("whole");
             REQUIRE(whole);
             REQUIRE(whole->size() == 6);
             REQUIRE(whole->pitchesPerOctave() == 12);
             REQUIRE(whole->degrees() == LF(0, 2, 4, 6, 8, 10));
-            REQUIRE(whole->name() == SYM("whole"));
+            REQUIRE(whole->name() == "whole");
 
             for (int i = -16; i < 16; i++)
                 REQUIRE(whole->degreeToKey(i) == i * 2);
+        }
+
+        SECTION("all")
+        {
+            for (auto& s : ScaleLibrary::instance().all()) {
+                REQUIRE(ScaleLibrary::instance().find(s->name().c_str()));
+                REQUIRE(ScaleLibrary::instance().find(s->name().c_str())->name() == s->name());
+            }
         }
     }
 }

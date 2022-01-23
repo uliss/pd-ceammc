@@ -12,18 +12,21 @@
  * this file belongs to.
  *****************************************************************************/
 #include "conv_degree2key.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "ceammc_music_scale.h"
 
 #include <ctime>
 #include <random>
 
-constexpr const char* DEFAULT_SCALE = "major";
+CEAMMC_DEFINE_HASH(major)
+
+constexpr const char* DEFAULT_SCALE = str_major;
 
 ConvDegree2Key::ConvDegree2Key(const PdArgs& args)
     : BaseObject(args)
     , scale_(nullptr)
-    , scale_ptr_(music::ScaleLibrary::instance().find(gensym(DEFAULT_SCALE)))
+    , scale_ptr_(music::ScaleLibrary::instance().findByHash(hash_major))
 {
     createOutlet();
 
@@ -31,17 +34,16 @@ ConvDegree2Key::ConvDegree2Key(const PdArgs& args)
         AtomList res;
         auto& l = music::ScaleLibrary::instance().all();
         for (auto s : l)
-            res.append(s->name());
+            res.append(gensym(s->name().c_str()));
 
         return res;
     });
 
-    auto SYM_DEFAULT_SCALE = gensym(DEFAULT_SCALE);
-    scale_ = new SymbolEnumProperty("@scale", SYM_DEFAULT_SCALE);
+    scale_ = new SymbolEnumProperty("@scale", gensym(DEFAULT_SCALE));
     auto& l = music::ScaleLibrary::instance().all();
     for (auto s : l) {
-        if (s->name() != SYM_DEFAULT_SCALE)
-            scale_->appendEnum(s->name());
+        if (s->name() != DEFAULT_SCALE)
+            scale_->appendEnum(gensym(s->name().c_str()));
     }
 
     scale_->setArgIndex(0);
