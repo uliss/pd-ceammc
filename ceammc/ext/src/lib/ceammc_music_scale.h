@@ -42,6 +42,13 @@ namespace music {
         int degreeToKey(int deg) const;
 
         const std::vector<t_float>& all() const { return degrees_i_; }
+
+        /**
+         * check if specified degree is in the scale
+         * @param degree - degree
+         * @return true on success
+         */
+        bool find(t_float degree) const;
     };
 
     class ScaleLibrary {

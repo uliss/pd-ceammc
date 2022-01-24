@@ -57,6 +57,11 @@ namespace music {
         }
     }
 
+    bool Scale::find(t_float degree) const
+    {
+        return std::find(degrees_i_.begin(), degrees_i_.end(), degree) != degrees_i_.end();
+    }
+
     ScaleLibrary::ScaleLibrary()
     {
 #define INSERT_INTERNAL(name, descr, num, ...) insertInternal(name, name##_hash, { __VA_ARGS__ }, num, descr)
