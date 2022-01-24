@@ -14,11 +14,18 @@
 #include "midi_modus.h"
 #include "ceammc_factory.h"
 #include "ceammc_music_scale.h"
+#include "lex/parser_music.h"
 
 #include <algorithm>
 
 CEAMMC_DEFINE_HASH(snap)
 CEAMMC_DEFINE_HASH(skip)
+
+enum {
+    INVALID_PITCH = -1,
+    INVALID_SCALE = -2,
+    SKIP_NOTE = -3
+};
 
 MidiModus::MidiModus(const PdArgs& args)
     : BaseObject(args)
@@ -36,6 +43,9 @@ MidiModus::MidiModus(const PdArgs& args)
     addProperty(prop_scale_);
 
     for (auto& s : music::ScaleLibrary::instance().all()) {
+        if (s->name() == "chromatic")
+            continue;
+
         prop_scale_->appendEnum(gensym(s->name().c_str()));
     }
 
@@ -45,39 +55,61 @@ MidiModus::MidiModus(const PdArgs& args)
 
 void MidiModus::onFloat(t_float f)
 {
-    if (!scale_) {
-        OBJ_ERR << "invalid scale: " << prop_scale_->value();
+    const auto res = mapNote(f);
+    if (res < 0)
+        return;
+
+    floatTo(0, res);
+}
+
+void MidiModus::onList(const AtomList& lst)
+{
+    if (!checkArgs(lst.view(), ARG_BYTE, ARG_BYTE) && !checkArgs(lst.view(), ARG_BYTE, ARG_BYTE, ARG_FLOAT)) {
+        OBJ_ERR << "PITCH VEL [DUR] expected, got: " << lst;
         return;
     }
 
+    const t_float note = mapNote(lst[0].asT<t_float>());
+    if (note < 0)
+        return;
+
+    Atom msg[3] = { note, lst[1] };
+    if (lst.size() == 3)
+        msg[2] = lst[2];
+
+    listTo(0, AtomListView(msg, lst.size()));
+}
+
+t_float MidiModus::mapNote(t_float note) const
+{
+    if (note < 0 || note > 127) {
+        OBJ_ERR << "invalid pitch: " << note;
+        return INVALID_PITCH;
+    }
+
+    if (!scale_) {
+        OBJ_ERR << "invalid scale: " << prop_scale_->value();
+        return INVALID_SCALE;
+    }
+
     const int root = root_.absolutePitch();
-    const t_float step = std::fmod(f + 12 - root, 12);
+    const t_float step = std::fmod(note + 12 - root, 12);
 
     switch (crc32_hash(prop_mode_->value())) {
     case hash_snap: {
-        auto& steps = scale_->all();
-        for (size_t i = 1; i < steps.size(); i++) {
-            auto a = steps[i - 1];
-            auto b = steps[i];
+        t_float degree = 0;
+        if (scale_->findNearest(step, degree))
+            return (root + degree) + (int(note) / 12) * 12;
 
-            if (a == step || b == step)
-                return floatTo(0, f);
-            else if (a < step && step < b) {
-                const int oct = f / 12;
-                const int fstep = (step - a) < (b - step) ? a : b;
-                return floatTo(0, (root + fstep) + oct * 12);
-            }
-        }
         break;
     }
     case hash_skip:
     default:
-        for (auto p : scale_->all()) {
-            if (p == step)
-                return floatTo(0, f);
-        }
+        if (scale_->find(step))
+            return note;
         break;
     }
+    return SKIP_NOTE;
 }
 
 void setup_midi_modus()

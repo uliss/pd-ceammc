@@ -31,6 +31,10 @@ public:
     MidiModus(const PdArgs& args);
 
     void onFloat(t_float f) override;
+    void onList(const AtomList& lst) override;
+
+private:
+    t_float mapNote(t_float note) const;
 };
 
 void setup_midi_modus();
