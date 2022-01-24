@@ -104,14 +104,59 @@ TEST_CASE("scale", "[ceammc::music]")
 
     SECTION("Scale")
     {
-        auto scale = ScaleLibrary::instance().findByHash("chromatic"_hash);
-        REQUIRE(scale);
+        SECTION("find")
+        {
+            auto scale = ScaleLibrary::instance().findByHash("chromatic"_hash);
+            REQUIRE(scale);
 
-        for (int i = 0; i < 12; i++) {
-            REQUIRE(scale->find(i));
+            for (int i = 0; i < 12; i++) {
+                REQUIRE(scale->find(i));
+            }
+
+            REQUIRE_FALSE(scale->find(-1));
+            REQUIRE_FALSE(scale->find(12));
         }
 
-        REQUIRE_FALSE(scale->find(-1));
-        REQUIRE_FALSE(scale->find(12));
+        SECTION("find nearest")
+        {
+            t_float res = 0;
+            auto s0 = ScaleLibrary::instance().findByHash("chromatic"_hash);
+            REQUIRE(s0);
+
+            for (int i = 0; i < 12; i++) {
+                REQUIRE(s0->findNearest(i, res));
+                REQUIRE(i == res);
+            }
+
+            REQUIRE_FALSE(s0->findNearest(-1, res));
+            REQUIRE_FALSE(s0->findNearest(12, res));
+
+            auto maj = ScaleLibrary::instance().findByHash("major"_hash);
+            REQUIRE(maj);
+            REQUIRE(maj->findNearest(0, res));
+            REQUIRE(res == 0);
+            REQUIRE(maj->findNearest(1, res));
+            REQUIRE(res == 2);
+            REQUIRE(maj->findNearest(2, res));
+            REQUIRE(res == 2);
+            REQUIRE(maj->findNearest(3, res));
+            REQUIRE(res == 4);
+            REQUIRE(maj->findNearest(4, res));
+            REQUIRE(res == 4);
+            REQUIRE(maj->findNearest(5, res));
+            REQUIRE(res == 5);
+            REQUIRE(maj->findNearest(6, res));
+            REQUIRE(res == 7);
+            REQUIRE(maj->findNearest(7, res));
+            REQUIRE(res == 7);
+            REQUIRE(maj->findNearest(8, res));
+            REQUIRE(res == 9);
+            REQUIRE(maj->findNearest(9, res));
+            REQUIRE(res == 9);
+            REQUIRE(maj->findNearest(10, res));
+            REQUIRE(res == 11);
+            REQUIRE(maj->findNearest(11, res));
+            REQUIRE(res == 11);
+        }
     }
 }

@@ -62,6 +62,29 @@ namespace music {
         return std::find(degrees_i_.begin(), degrees_i_.end(), degree) != degrees_i_.end();
     }
 
+    bool Scale::findNearest(t_float degree, t_float& result) const
+    {
+        if (degree < 0 || degree >= pitches_per_octave_ || degrees_i_.empty())
+            return false;
+
+        for (size_t i = 1; i < degrees_i_.size(); i++) {
+            auto a = degrees_i_[i - 1];
+            auto b = degrees_i_[i];
+
+            if (a == degree || b == degree) { // exact match
+                result = degree;
+                return true;
+            } else if (a < degree && degree < b) { // between degrees: select closest
+                result = (degree - a) < (b - degree) ? a : b;
+                return true;
+            }
+        }
+
+        // degree > last pitch
+        result = (degree - degrees_i_.back()) < (pitches_per_octave_ - degree) ? degrees_i_.back() : 0;
+        return true;
+    }
+
     ScaleLibrary::ScaleLibrary()
     {
 #define INSERT_INTERNAL(name, descr, num, ...) insertInternal(name, name##_hash, { __VA_ARGS__ }, num, descr)
