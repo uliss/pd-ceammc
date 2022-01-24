@@ -81,7 +81,7 @@ namespace music {
         }
 
         // degree > last pitch
-        result = (degree - degrees_i_.back()) < (pitches_per_octave_ - degree) ? degrees_i_.back() : 0;
+        result = (degree - degrees_i_.back()) <= (pitches_per_octave_ - degree) ? degrees_i_.back() : pitches_per_octave_;
         return true;
     }
 

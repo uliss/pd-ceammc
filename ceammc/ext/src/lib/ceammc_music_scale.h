@@ -53,7 +53,7 @@ namespace music {
         /**
          * find nearest degree to specified
          * @param degree in range [0, pitches_per_octave)
-         * @param result - to write nearest pitch on success
+         * @param result - to write nearest pitch on success, range is [0, pitches_per_octave] (closed!)
          * @return true on sucess, false if given degree is out of scale range
          */
         bool findNearest(t_float degree, t_float& result) const;

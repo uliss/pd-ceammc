@@ -157,6 +157,42 @@ TEST_CASE("scale", "[ceammc::music]")
             REQUIRE(res == 11);
             REQUIRE(maj->findNearest(11, res));
             REQUIRE(res == 11);
+
+            // 0, 2, 4, 7, 9
+            auto pent = ScaleLibrary::instance().findByHash("major_pentatonic"_hash);
+            REQUIRE(pent);
+
+            REQUIRE(pent->findNearest(0, res));
+            REQUIRE(res == 0);
+            REQUIRE(pent->findNearest(1, res));
+            REQUIRE(res == 2);
+            REQUIRE(pent->findNearest(2, res));
+            REQUIRE(res == 2);
+            REQUIRE(pent->findNearest(3, res));
+            REQUIRE(res == 4);
+            REQUIRE(pent->findNearest(4, res));
+            REQUIRE(res == 4);
+            REQUIRE(pent->findNearest(5, res));
+            REQUIRE(res == 4);
+            REQUIRE(pent->findNearest(6, res));
+            REQUIRE(res == 7);
+            REQUIRE(pent->findNearest(7, res));
+            REQUIRE(res == 7);
+            REQUIRE(pent->findNearest(8, res));
+            REQUIRE(res == 9);
+            REQUIRE(pent->findNearest(9, res));
+            REQUIRE(res == 9);
+            REQUIRE(pent->findNearest(10, res));
+            REQUIRE(res == 9);
+            REQUIRE(pent->findNearest(11, res));
+            REQUIRE(res == 12);
+
+            auto min = ScaleLibrary::instance().findByHash("minor"_hash);
+            REQUIRE(min);
+            REQUIRE(min->findNearest(10, res));
+            REQUIRE(res == 10);
+            REQUIRE(min->findNearest(11, res));
+            REQUIRE(res == 10);
         }
     }
 }
