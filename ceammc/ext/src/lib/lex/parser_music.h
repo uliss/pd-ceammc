@@ -208,8 +208,24 @@ namespace parser {
             return (clip<int8_t, MIN_OCTAVE, MAX_OCTAVE>(noct) + 1) * 12 + p + alt + t_float(dev) / 100;
         }
 
+        int pitch() const { return (12 + p + alt) % 12; }
+
         bool isRest() const { return p < 0; }
         bool isAbsOctave() const { return octtype == OCTAVE_ABS; }
+
+        /**
+         * set spn in semitones
+         * @param n - number of semitones from C
+         * @note not MIDI value
+         */
+        void setSemitones(uint8_t n)
+        {
+            dev = 0;
+            oct = n / 12;
+            alt = !(((n % 12) < 5) ^ (n & 1));
+            p = n - alt;
+            note = (p + (p > 4)) >> 1;
+        }
 
         void setAbsOctave(int8_t noct)
         {
@@ -293,6 +309,20 @@ namespace parser {
                 Spn::setNextOctave(p0, p1);
             }
         }
+    };
+
+    class PitchFullMatch {
+        int cs { 0 };
+        Spn spn_;
+
+    public:
+        PitchFullMatch();
+        void reset();
+
+        const Spn& spn() const { return spn_; }
+
+        bool parse(const char* str);
+        bool parse(const Atom& a);
     };
 
     struct Duration {

@@ -2,6 +2,7 @@ set(MIDI_SOURCES
     datatype_midistream.cpp datatype_midistream.h
     datatype_miditrack.cpp datatype_miditrack.h
     midi_common.cpp midi_common.h
+    property_pitch.cpp
 )
 
 macro(ceammc_midi_external name)

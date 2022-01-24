@@ -167,9 +167,17 @@ TEST_CASE("parser_music", "[ceammc::ceammc_units]")
 
             REQUIRE(p.parse("C4"));
             REQUIRE(p.spn().midi() == 60);
+            REQUIRE(p.spn().oct == 4);
+            REQUIRE(p.spn().note == 0);
+            REQUIRE(p.spn().alt == 0);
+            REQUIRE(p.spn().pitch() == 0);
             REQUIRE(!p.spn().isRest());
 
             REQUIRE(p.parse("C#4"));
+            REQUIRE(p.spn().oct == 4);
+            REQUIRE(p.spn().note == 0);
+            REQUIRE(p.spn().alt == 1);
+            REQUIRE(p.spn().pitch() == 1);
             REQUIRE(p.spn().midi() == 61);
 
             REQUIRE(p.parse("C##4"));
@@ -534,5 +542,93 @@ TEST_CASE("parser_music", "[ceammc::ceammc_units]")
             REQUIRE(out[2].ratio() == Approx(3 / 32.0));
             REQUIRE(out[3].ratio() == Approx(0.5));
         }
+    }
+
+    SECTION("pitch")
+    {
+        using namespace ceammc::parser;
+        PitchFullMatch p;
+
+        REQUIRE(p.parse("C"));
+        REQUIRE(p.spn().note == 0);
+        REQUIRE(p.spn().alt == 0);
+        REQUIRE(p.spn().p == 0);
+        REQUIRE(p.spn().oct == 0);
+        REQUIRE(p.spn().octtype == OCTAVE_REL);
+
+        REQUIRE(p.parse("C#"));
+        REQUIRE(p.spn().note == 0);
+        REQUIRE(p.spn().alt == 1);
+        REQUIRE(p.spn().pitch() == 1);
+
+        REQUIRE(p.parse("Db"));
+        REQUIRE(p.spn().note == 1);
+        REQUIRE(p.spn().alt == -1);
+        REQUIRE(p.spn().pitch() == 1);
+
+        REQUIRE(p.parse("Eb"));
+        REQUIRE(p.spn().note == 2);
+        REQUIRE(p.spn().alt == -1);
+        REQUIRE(p.spn().pitch() == 3);
+
+        REQUIRE(p.parse(Atom(0.)));
+        REQUIRE(p.spn().note == 0);
+        REQUIRE(p.spn().alt == 0);
+        REQUIRE(p.spn().pitch() == 0);
+
+        REQUIRE(p.parse(Atom(1)));
+        REQUIRE(p.spn().note == 0);
+        REQUIRE(p.spn().alt == 1);
+        REQUIRE(p.spn().pitch() == 1);
+
+        REQUIRE(p.parse(Atom(2)));
+        REQUIRE(p.spn().note == 1);
+        REQUIRE(p.spn().alt == 0);
+        REQUIRE(p.spn().pitch() == 2);
+
+        REQUIRE(p.parse(Atom(3)));
+        REQUIRE(p.spn().note == 1);
+        REQUIRE(p.spn().alt == 1);
+        REQUIRE(p.spn().pitch() == 3);
+
+        REQUIRE(p.parse(Atom(4)));
+        REQUIRE(p.spn().note == 2);
+        REQUIRE(p.spn().alt == 0);
+        REQUIRE(p.spn().pitch() == 4);
+
+        REQUIRE(p.parse(Atom(5)));
+        REQUIRE(p.spn().alt == 0);
+        REQUIRE(p.spn().note == 3);
+        REQUIRE(p.spn().pitch() == 5);
+
+        REQUIRE(p.parse(Atom(6)));
+        REQUIRE(p.spn().note == 3);
+        REQUIRE(p.spn().alt == 1);
+        REQUIRE(p.spn().pitch() == 6);
+
+        REQUIRE(p.parse(Atom(7)));
+        REQUIRE(p.spn().note == 4);
+        REQUIRE(p.spn().alt == 0);
+        REQUIRE(p.spn().pitch() == 7);
+
+        REQUIRE(p.parse(Atom(8)));
+        REQUIRE(p.spn().note == 4);
+        REQUIRE(p.spn().alt == 1);
+        REQUIRE(p.spn().pitch() == 8);
+
+        REQUIRE(p.parse(Atom(9)));
+        REQUIRE(p.spn().note == 5);
+        REQUIRE(p.spn().alt == 0);
+        REQUIRE(p.spn().pitch() == 9);
+
+        REQUIRE(p.parse(Atom(10)));
+        REQUIRE(p.spn().note == 5);
+        REQUIRE(p.spn().alt == 1);
+        REQUIRE(p.spn().pitch() == 10);
+
+        REQUIRE(p.parse(Atom(11)));
+        REQUIRE(p.spn().note == 6);
+        REQUIRE(p.spn().alt == 0);
+        REQUIRE(p.spn().pitch() == 11);
     }
 }

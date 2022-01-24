@@ -912,6 +912,189 @@ size_t SpnFullMatch::parse(const AtomListView& lv, SmallSpnVec& out)
 
 
 #line 915 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+static const int pitch_start = 1;
+static const int pitch_first_final = 2;
+static const int pitch_error = 0;
+
+static const int pitch_en_main = 1;
+
+
+#line 169 "lex/parser_music.rl"
+
+
+PitchFullMatch::PitchFullMatch()
+{
+    reset();
+}
+
+void PitchFullMatch::reset()
+{
+    spn_ = { };
+}
+
+bool PitchFullMatch::parse(const char* str)
+{
+    const auto len = strlen(str);
+    if (len == 0)
+        return false;
+
+    const char* p = str;
+    const char* pe = p + len;
+    const char* eof = pe;
+    int cat_ = 0;
+    AtomType type_;
+    fsm::SpnData spn;
+
+    reset();
+
+    
+#line 952 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+	{
+	cs = pitch_start;
+	}
+
+#line 197 "lex/parser_music.rl"
+    
+#line 959 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+	{
+	if ( p == pe )
+		goto _test_eof;
+	switch ( cs )
+	{
+case 1:
+	switch( (*p) ) {
+		case 65: goto tr0;
+		case 66: goto tr2;
+		case 72: goto tr2;
+	}
+	if ( 67 <= (*p) && (*p) <= 71 )
+		goto tr3;
+	goto st0;
+st0:
+cs = 0;
+	goto _out;
+tr0:
+#line 81 "lex/ragel_music.rl"
+	{spn.alt = 0; spn.oct = 0; spn.octtype = OCTAVE_REL; spn.dev = 0;}
+#line 41 "lex/ragel_music.rl"
+	{spn.note = 5;}
+	goto st2;
+tr2:
+#line 81 "lex/ragel_music.rl"
+	{spn.alt = 0; spn.oct = 0; spn.octtype = OCTAVE_REL; spn.dev = 0;}
+#line 42 "lex/ragel_music.rl"
+	{spn.note = 6;}
+	goto st2;
+tr3:
+#line 81 "lex/ragel_music.rl"
+	{spn.alt = 0; spn.oct = 0; spn.octtype = OCTAVE_REL; spn.dev = 0;}
+#line 43 "lex/ragel_music.rl"
+	{spn.note = ((*p) - 'C');}
+	goto st2;
+st2:
+	if ( ++p == pe )
+		goto _test_eof2;
+case 2:
+#line 999 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+	switch( (*p) ) {
+		case 35: goto tr4;
+		case 98: goto tr5;
+	}
+	goto st0;
+tr4:
+#line 44 "lex/ragel_music.rl"
+	{spn.pitch = (spn.note * 2) - (spn.note > 2);}
+#line 37 "lex/ragel_music.rl"
+	{spn.alt = 1;}
+	goto st3;
+st3:
+	if ( ++p == pe )
+		goto _test_eof3;
+case 3:
+#line 1015 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+	if ( (*p) == 35 )
+		goto tr6;
+	goto st0;
+tr6:
+#line 38 "lex/ragel_music.rl"
+	{spn.alt = 2;}
+	goto st4;
+tr7:
+#line 40 "lex/ragel_music.rl"
+	{spn.alt = -2;}
+	goto st4;
+st4:
+	if ( ++p == pe )
+		goto _test_eof4;
+case 4:
+#line 1031 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+	goto st0;
+tr5:
+#line 44 "lex/ragel_music.rl"
+	{spn.pitch = (spn.note * 2) - (spn.note > 2);}
+#line 39 "lex/ragel_music.rl"
+	{spn.alt = -1;}
+	goto st5;
+st5:
+	if ( ++p == pe )
+		goto _test_eof5;
+case 5:
+#line 1043 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+	if ( (*p) == 98 )
+		goto tr7;
+	goto st0;
+	}
+	_test_eof2: cs = 2; goto _test_eof; 
+	_test_eof3: cs = 3; goto _test_eof; 
+	_test_eof4: cs = 4; goto _test_eof; 
+	_test_eof5: cs = 5; goto _test_eof; 
+
+	_test_eof: {}
+	if ( p == eof )
+	{
+	switch ( cs ) {
+	case 3: 
+	case 4: 
+	case 5: 
+#line 82 "lex/ragel_music.rl"
+	{cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+	break;
+	case 2: 
+#line 44 "lex/ragel_music.rl"
+	{spn.pitch = (spn.note * 2) - (spn.note > 2);}
+#line 82 "lex/ragel_music.rl"
+	{cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+	break;
+#line 1069 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+	}
+	}
+
+	_out: {}
+	}
+
+#line 198 "lex/parser_music.rl"
+
+    const bool ok = cs >= 2;
+
+    if (ok)
+        spn_ = spn;
+
+    return ok;
+}
+
+bool PitchFullMatch::parse(const Atom& a)
+{
+    if (a.isSymbol())
+        return parse(a.asT<t_symbol*>()->s_name);
+    else if(a.isInteger() && a.asT<int>() >= 0 && a.asT<int>() < 12) {
+        spn_.setSemitones(a.asT<int>());
+        return true;
+    } else
+        return false;
+}
+
+
+#line 1098 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
 static const int notation_start = 1;
 static const int notation_first_final = 15;
 static const int notation_error = 0;
@@ -919,7 +1102,7 @@ static const int notation_error = 0;
 static const int notation_en_main = 1;
 
 
-#line 169 "lex/parser_music.rl"
+#line 224 "lex/parser_music.rl"
 
 
 NotationSingle::NotationSingle()
@@ -950,14 +1133,14 @@ bool NotationSingle::parse(const char* str)
     reset();
 
     
-#line 954 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1137 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
 	{
 	cs = notation_start;
 	}
 
-#line 199 "lex/parser_music.rl"
+#line 254 "lex/parser_music.rl"
     
-#line 961 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1144 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
 	{
 	if ( p == pe )
 		goto _test_eof;
@@ -980,20 +1163,20 @@ st0:
 cs = 0;
 	goto _out;
 tr0:
-#line 135 "lex/ragel_music.rl"
+#line 138 "lex/ragel_music.rl"
 	{ note.repeats = 0; }
-#line 136 "lex/ragel_music.rl"
+#line 139 "lex/ragel_music.rl"
 	{ (note.repeats *= 10) += ((*p) - '0'); }
 	goto st2;
 tr7:
-#line 136 "lex/ragel_music.rl"
+#line 139 "lex/ragel_music.rl"
 	{ (note.repeats *= 10) += ((*p) - '0'); }
 	goto st2;
 st2:
 	if ( ++p == pe )
 		goto _test_eof2;
 case 2:
-#line 997 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1180 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
 	if ( (*p) == 42 )
 		goto st3;
 	if ( 48 <= (*p) && (*p) <= 57 )
@@ -1034,7 +1217,7 @@ st15:
 	if ( ++p == pe )
 		goto _test_eof15;
 case 15:
-#line 1038 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1221 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
 	switch( (*p) ) {
 		case 35: goto tr21;
 		case 40: goto tr22;
@@ -1057,7 +1240,7 @@ st16:
 	if ( ++p == pe )
 		goto _test_eof16;
 case 16:
-#line 1061 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1244 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
 	switch( (*p) ) {
 		case 35: goto tr29;
 		case 40: goto tr30;
@@ -1081,7 +1264,7 @@ st17:
 	if ( ++p == pe )
 		goto _test_eof17;
 case 17:
-#line 1085 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1268 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
 	switch( (*p) ) {
 		case 40: goto tr30;
 		case 45: goto tr31;
@@ -1110,7 +1293,7 @@ st4:
 	if ( ++p == pe )
 		goto _test_eof4;
 case 4:
-#line 1114 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1297 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
 	switch( (*p) ) {
 		case 43: goto tr8;
 		case 45: goto tr8;
@@ -1124,7 +1307,7 @@ st5:
 	if ( ++p == pe )
 		goto _test_eof5;
 case 5:
-#line 1128 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1311 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
 	if ( 48 <= (*p) && (*p) <= 57 )
 		goto tr9;
 	goto st0;
@@ -1136,7 +1319,7 @@ st6:
 	if ( ++p == pe )
 		goto _test_eof6;
 case 6:
-#line 1140 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1323 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
 	if ( (*p) == 99 )
 		goto st8;
 	if ( 48 <= (*p) && (*p) <= 57 )
@@ -1150,7 +1333,7 @@ st7:
 	if ( ++p == pe )
 		goto _test_eof7;
 case 7:
-#line 1154 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1337 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
 	if ( (*p) == 99 )
 		goto st8;
 	goto st0;
@@ -1169,7 +1352,7 @@ st18:
 	if ( ++p == pe )
 		goto _test_eof18;
 case 18:
-#line 1173 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1356 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
 	if ( (*p) == 124 )
 		goto tr36;
 	goto st0;
@@ -1180,7 +1363,7 @@ tr28:
 	{spn.octtype = OCTAVE_REL;}
 #line 78 "lex/ragel_music.rl"
 	{cat_ = CAT_UNIT; type_ = TYPE_SPN;}
-#line 131 "lex/ragel_music.rl"
+#line 134 "lex/ragel_music.rl"
 	{note.num = 1; note.den = 4; note.dots = 0; note.durtype = DURATION_REL;}
 	goto st9;
 tr35:
@@ -1188,13 +1371,13 @@ tr35:
 	{spn.octtype = OCTAVE_REL;}
 #line 78 "lex/ragel_music.rl"
 	{cat_ = CAT_UNIT; type_ = TYPE_SPN;}
-#line 131 "lex/ragel_music.rl"
+#line 134 "lex/ragel_music.rl"
 	{note.num = 1; note.den = 4; note.dots = 0; note.durtype = DURATION_REL;}
 	goto st9;
 tr36:
 #line 78 "lex/ragel_music.rl"
 	{cat_ = CAT_UNIT; type_ = TYPE_SPN;}
-#line 131 "lex/ragel_music.rl"
+#line 134 "lex/ragel_music.rl"
 	{note.num = 1; note.den = 4; note.dots = 0; note.durtype = DURATION_REL;}
 	goto st9;
 tr51:
@@ -1202,18 +1385,18 @@ tr51:
 	{spn.octtype = OCTAVE_ABS;}
 #line 78 "lex/ragel_music.rl"
 	{cat_ = CAT_UNIT; type_ = TYPE_SPN;}
-#line 131 "lex/ragel_music.rl"
+#line 134 "lex/ragel_music.rl"
 	{note.num = 1; note.den = 4; note.dots = 0; note.durtype = DURATION_REL;}
 	goto st9;
 tr62:
-#line 131 "lex/ragel_music.rl"
+#line 134 "lex/ragel_music.rl"
 	{note.num = 1; note.den = 4; note.dots = 0; note.durtype = DURATION_REL;}
 	goto st9;
 st9:
 	if ( ++p == pe )
 		goto _test_eof9;
 case 9:
-#line 1217 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1400 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
 	switch( (*p) ) {
 		case 42: goto st10;
 		case 47: goto st12;
@@ -1229,20 +1412,20 @@ case 10:
 		goto tr16;
 	goto st0;
 tr16:
-#line 102 "lex/ragel_music.rl"
+#line 105 "lex/ragel_music.rl"
 	{ note.num = 0; }
-#line 103 "lex/ragel_music.rl"
+#line 106 "lex/ragel_music.rl"
 	{ (note.num *= 10) += ((*p) - '0'); }
 	goto st19;
 tr38:
-#line 103 "lex/ragel_music.rl"
+#line 106 "lex/ragel_music.rl"
 	{ (note.num *= 10) += ((*p) - '0'); }
 	goto st19;
 st19:
 	if ( ++p == pe )
 		goto _test_eof19;
 case 19:
-#line 1246 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1429 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
 	if ( (*p) == 47 )
 		goto st11;
 	if ( 48 <= (*p) && (*p) <= 57 )
@@ -1256,20 +1439,20 @@ case 11:
 		goto tr17;
 	goto st0;
 tr17:
-#line 104 "lex/ragel_music.rl"
+#line 107 "lex/ragel_music.rl"
 	{ note.den = 0; }
-#line 105 "lex/ragel_music.rl"
+#line 108 "lex/ragel_music.rl"
 	{ (note.den *= 10) += ((*p) - '0'); }
 	goto st20;
 tr39:
-#line 105 "lex/ragel_music.rl"
+#line 108 "lex/ragel_music.rl"
 	{ (note.den *= 10) += ((*p) - '0'); }
 	goto st20;
 st20:
 	if ( ++p == pe )
 		goto _test_eof20;
 case 20:
-#line 1273 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1456 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
 	if ( 48 <= (*p) && (*p) <= 57 )
 		goto tr39;
 	goto st0;
@@ -1281,44 +1464,44 @@ case 12:
 		goto tr18;
 	goto st0;
 tr18:
-#line 104 "lex/ragel_music.rl"
+#line 107 "lex/ragel_music.rl"
 	{ note.den = 0; }
-#line 105 "lex/ragel_music.rl"
+#line 108 "lex/ragel_music.rl"
 	{ (note.den *= 10) += ((*p) - '0'); }
 	goto st21;
 tr40:
-#line 105 "lex/ragel_music.rl"
+#line 108 "lex/ragel_music.rl"
 	{ (note.den *= 10) += ((*p) - '0'); }
 	goto st21;
 st21:
 	if ( ++p == pe )
 		goto _test_eof21;
 case 21:
-#line 1298 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1481 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
 	if ( 48 <= (*p) && (*p) <= 57 )
 		goto tr40;
 	goto st0;
 tr15:
-#line 102 "lex/ragel_music.rl"
-	{ note.num = 0; }
-#line 103 "lex/ragel_music.rl"
-	{ (note.num *= 10) += ((*p) - '0'); }
-#line 104 "lex/ragel_music.rl"
-	{ note.den = 0; }
 #line 105 "lex/ragel_music.rl"
+	{ note.num = 0; }
+#line 106 "lex/ragel_music.rl"
+	{ (note.num *= 10) += ((*p) - '0'); }
+#line 107 "lex/ragel_music.rl"
+	{ note.den = 0; }
+#line 108 "lex/ragel_music.rl"
 	{ (note.den *= 10) += ((*p) - '0'); }
 	goto st22;
 tr43:
-#line 103 "lex/ragel_music.rl"
+#line 106 "lex/ragel_music.rl"
 	{ (note.num *= 10) += ((*p) - '0'); }
-#line 105 "lex/ragel_music.rl"
+#line 108 "lex/ragel_music.rl"
 	{ (note.den *= 10) += ((*p) - '0'); }
 	goto st22;
 st22:
 	if ( ++p == pe )
 		goto _test_eof22;
 case 22:
-#line 1322 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1505 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
 	switch( (*p) ) {
 		case 46: goto tr41;
 		case 47: goto st13;
@@ -1328,9 +1511,9 @@ case 22:
 		goto tr43;
 	goto st0;
 tr41:
-#line 99 "lex/ragel_music.rl"
+#line 102 "lex/ragel_music.rl"
 	{ note.num = 1; }
-#line 82 "lex/ragel_music.rl"
+#line 85 "lex/ragel_music.rl"
 	{
     note.dots++;
     if(note.dots == 1) {
@@ -1346,7 +1529,7 @@ tr41:
 }
 	goto st23;
 tr47:
-#line 82 "lex/ragel_music.rl"
+#line 85 "lex/ragel_music.rl"
 	{
     note.dots++;
     if(note.dots == 1) {
@@ -1365,12 +1548,12 @@ st23:
 	if ( ++p == pe )
 		goto _test_eof23;
 case 23:
-#line 1369 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1552 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
 	if ( (*p) == 46 )
 		goto tr45;
 	goto st0;
 tr45:
-#line 82 "lex/ragel_music.rl"
+#line 85 "lex/ragel_music.rl"
 	{
     note.dots++;
     if(note.dots == 1) {
@@ -1389,12 +1572,12 @@ st24:
 	if ( ++p == pe )
 		goto _test_eof24;
 case 24:
-#line 1393 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1576 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
 	if ( (*p) == 46 )
 		goto tr46;
 	goto st0;
 tr46:
-#line 82 "lex/ragel_music.rl"
+#line 85 "lex/ragel_music.rl"
 	{
     note.dots++;
     if(note.dots == 1) {
@@ -1413,7 +1596,7 @@ st25:
 	if ( ++p == pe )
 		goto _test_eof25;
 case 25:
-#line 1417 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1600 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
 	goto st0;
 st13:
 	if ( ++p == pe )
@@ -1423,20 +1606,20 @@ case 13:
 		goto tr19;
 	goto st0;
 tr19:
-#line 104 "lex/ragel_music.rl"
+#line 107 "lex/ragel_music.rl"
 	{ note.den = 0; }
-#line 105 "lex/ragel_music.rl"
+#line 108 "lex/ragel_music.rl"
 	{ (note.den *= 10) += ((*p) - '0'); }
 	goto st26;
 tr48:
-#line 105 "lex/ragel_music.rl"
+#line 108 "lex/ragel_music.rl"
 	{ (note.den *= 10) += ((*p) - '0'); }
 	goto st26;
 st26:
 	if ( ++p == pe )
 		goto _test_eof26;
 case 26:
-#line 1440 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1623 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
 	switch( (*p) ) {
 		case 46: goto tr47;
 		case 95: goto st27;
@@ -1445,14 +1628,14 @@ case 26:
 		goto tr48;
 	goto st0;
 tr44:
-#line 99 "lex/ragel_music.rl"
+#line 102 "lex/ragel_music.rl"
 	{ note.num = 1; }
 	goto st27;
 st27:
 	if ( ++p == pe )
 		goto _test_eof27;
 case 27:
-#line 1456 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1639 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
 	if ( (*p) == 46 )
 		goto tr47;
 	goto st0;
@@ -1470,7 +1653,7 @@ st14:
 	if ( ++p == pe )
 		goto _test_eof14;
 case 14:
-#line 1474 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1657 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
 	if ( (*p) == 49 )
 		goto tr20;
 	goto st0;
@@ -1496,7 +1679,7 @@ st28:
 	if ( ++p == pe )
 		goto _test_eof28;
 case 28:
-#line 1500 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1683 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
 	switch( (*p) ) {
 		case 40: goto tr50;
 		case 124: goto tr51;
@@ -1524,7 +1707,7 @@ st29:
 	if ( ++p == pe )
 		goto _test_eof29;
 case 29:
-#line 1528 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1711 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
 	switch( (*p) ) {
 		case 40: goto st4;
 		case 94: goto tr53;
@@ -1541,7 +1724,7 @@ st30:
 	if ( ++p == pe )
 		goto _test_eof30;
 case 30:
-#line 1545 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1728 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
 	switch( (*p) ) {
 		case 40: goto st4;
 		case 94: goto tr54;
@@ -1558,7 +1741,7 @@ st31:
 	if ( ++p == pe )
 		goto _test_eof31;
 case 31:
-#line 1562 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1745 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
 	switch( (*p) ) {
 		case 40: goto st4;
 		case 94: goto tr55;
@@ -1575,7 +1758,7 @@ st32:
 	if ( ++p == pe )
 		goto _test_eof32;
 case 32:
-#line 1579 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1762 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
 	switch( (*p) ) {
 		case 40: goto st4;
 		case 94: goto tr56;
@@ -1598,7 +1781,7 @@ st33:
 	if ( ++p == pe )
 		goto _test_eof33;
 case 33:
-#line 1602 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1785 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
 	switch( (*p) ) {
 		case 40: goto st4;
 		case 124: goto tr36;
@@ -1626,7 +1809,7 @@ st34:
 	if ( ++p == pe )
 		goto _test_eof34;
 case 34:
-#line 1630 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1813 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
 	switch( (*p) ) {
 		case 40: goto st4;
 		case 95: goto tr57;
@@ -1643,7 +1826,7 @@ st35:
 	if ( ++p == pe )
 		goto _test_eof35;
 case 35:
-#line 1647 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1830 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
 	switch( (*p) ) {
 		case 40: goto st4;
 		case 95: goto tr58;
@@ -1660,7 +1843,7 @@ st36:
 	if ( ++p == pe )
 		goto _test_eof36;
 case 36:
-#line 1664 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1847 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
 	switch( (*p) ) {
 		case 40: goto st4;
 		case 95: goto tr59;
@@ -1677,7 +1860,7 @@ st37:
 	if ( ++p == pe )
 		goto _test_eof37;
 case 37:
-#line 1681 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1864 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
 	switch( (*p) ) {
 		case 40: goto st4;
 		case 95: goto tr60;
@@ -1694,7 +1877,7 @@ st38:
 	if ( ++p == pe )
 		goto _test_eof38;
 case 38:
-#line 1698 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1881 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
 	switch( (*p) ) {
 		case 40: goto tr30;
 		case 45: goto tr31;
@@ -1707,14 +1890,14 @@ case 38:
 		goto tr32;
 	goto st0;
 tr5:
-#line 128 "lex/ragel_music.rl"
+#line 131 "lex/ragel_music.rl"
 	{note.rest = 1;}
 	goto st39;
 st39:
 	if ( ++p == pe )
 		goto _test_eof39;
 case 39:
-#line 1718 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1901 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
 	if ( (*p) == 124 )
 		goto tr62;
 	goto st0;
@@ -1767,21 +1950,21 @@ case 39:
 	case 25: 
 	case 26: 
 	case 27: 
-#line 97 "lex/ragel_music.rl"
+#line 100 "lex/ragel_music.rl"
 	{ note.durtype = DURATION_ABS; }
-#line 132 "lex/ragel_music.rl"
+#line 135 "lex/ragel_music.rl"
 	{cat_ = CAT_UNIT; type_ = TYPE_SPN;}
 	break;
 	case 20: 
-#line 98 "lex/ragel_music.rl"
+#line 101 "lex/ragel_music.rl"
 	{ note.durtype = DURATION_REL; }
-#line 132 "lex/ragel_music.rl"
+#line 135 "lex/ragel_music.rl"
 	{cat_ = CAT_UNIT; type_ = TYPE_SPN;}
 	break;
 	case 39: 
-#line 131 "lex/ragel_music.rl"
+#line 134 "lex/ragel_music.rl"
 	{note.num = 1; note.den = 4; note.dots = 0; note.durtype = DURATION_REL;}
-#line 132 "lex/ragel_music.rl"
+#line 135 "lex/ragel_music.rl"
 	{cat_ = CAT_UNIT; type_ = TYPE_SPN;}
 	break;
 	case 18: 
@@ -1796,33 +1979,33 @@ case 39:
 	case 37: 
 #line 78 "lex/ragel_music.rl"
 	{cat_ = CAT_UNIT; type_ = TYPE_SPN;}
-#line 131 "lex/ragel_music.rl"
+#line 134 "lex/ragel_music.rl"
 	{note.num = 1; note.den = 4; note.dots = 0; note.durtype = DURATION_REL;}
-#line 132 "lex/ragel_music.rl"
+#line 135 "lex/ragel_music.rl"
 	{cat_ = CAT_UNIT; type_ = TYPE_SPN;}
 	break;
 	case 22: 
-#line 99 "lex/ragel_music.rl"
+#line 102 "lex/ragel_music.rl"
 	{ note.num = 1; }
-#line 97 "lex/ragel_music.rl"
+#line 100 "lex/ragel_music.rl"
 	{ note.durtype = DURATION_ABS; }
-#line 132 "lex/ragel_music.rl"
+#line 135 "lex/ragel_music.rl"
 	{cat_ = CAT_UNIT; type_ = TYPE_SPN;}
 	break;
 	case 21: 
-#line 99 "lex/ragel_music.rl"
+#line 102 "lex/ragel_music.rl"
 	{ note.num = 1; }
-#line 98 "lex/ragel_music.rl"
+#line 101 "lex/ragel_music.rl"
 	{ note.durtype = DURATION_REL; }
-#line 132 "lex/ragel_music.rl"
+#line 135 "lex/ragel_music.rl"
 	{cat_ = CAT_UNIT; type_ = TYPE_SPN;}
 	break;
 	case 19: 
-#line 100 "lex/ragel_music.rl"
+#line 103 "lex/ragel_music.rl"
 	{ note.den = 1; }
-#line 98 "lex/ragel_music.rl"
+#line 101 "lex/ragel_music.rl"
 	{ note.durtype = DURATION_REL; }
-#line 132 "lex/ragel_music.rl"
+#line 135 "lex/ragel_music.rl"
 	{cat_ = CAT_UNIT; type_ = TYPE_SPN;}
 	break;
 	case 28: 
@@ -1830,9 +2013,9 @@ case 39:
 	{spn.octtype = OCTAVE_ABS;}
 #line 78 "lex/ragel_music.rl"
 	{cat_ = CAT_UNIT; type_ = TYPE_SPN;}
-#line 131 "lex/ragel_music.rl"
+#line 134 "lex/ragel_music.rl"
 	{note.num = 1; note.den = 4; note.dots = 0; note.durtype = DURATION_REL;}
-#line 132 "lex/ragel_music.rl"
+#line 135 "lex/ragel_music.rl"
 	{cat_ = CAT_UNIT; type_ = TYPE_SPN;}
 	break;
 	case 16: 
@@ -1842,9 +2025,9 @@ case 39:
 	{spn.octtype = OCTAVE_REL;}
 #line 78 "lex/ragel_music.rl"
 	{cat_ = CAT_UNIT; type_ = TYPE_SPN;}
-#line 131 "lex/ragel_music.rl"
+#line 134 "lex/ragel_music.rl"
 	{note.num = 1; note.den = 4; note.dots = 0; note.durtype = DURATION_REL;}
-#line 132 "lex/ragel_music.rl"
+#line 135 "lex/ragel_music.rl"
 	{cat_ = CAT_UNIT; type_ = TYPE_SPN;}
 	break;
 	case 15: 
@@ -1854,19 +2037,19 @@ case 39:
 	{spn.octtype = OCTAVE_REL;}
 #line 78 "lex/ragel_music.rl"
 	{cat_ = CAT_UNIT; type_ = TYPE_SPN;}
-#line 131 "lex/ragel_music.rl"
+#line 134 "lex/ragel_music.rl"
 	{note.num = 1; note.den = 4; note.dots = 0; note.durtype = DURATION_REL;}
-#line 132 "lex/ragel_music.rl"
+#line 135 "lex/ragel_music.rl"
 	{cat_ = CAT_UNIT; type_ = TYPE_SPN;}
 	break;
-#line 1863 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2046 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
 	}
 	}
 
 	_out: {}
 	}
 
-#line 200 "lex/parser_music.rl"
+#line 255 "lex/parser_music.rl"
 
     const bool ok = cs >= 15;
 
@@ -1905,7 +2088,7 @@ size_t NotationSingle::parse(const AtomListView& lv, NoteVec& out)
 }
 
 
-#line 1909 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2092 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
 static const int duration_start = 1;
 static const int duration_first_final = 4;
 static const int duration_error = 0;
@@ -1913,7 +2096,7 @@ static const int duration_error = 0;
 static const int duration_en_main = 1;
 
 
-#line 243 "lex/parser_music.rl"
+#line 298 "lex/parser_music.rl"
 
 
 DurationFullMatch::DurationFullMatch()
@@ -1942,14 +2125,14 @@ bool DurationFullMatch::parse(const char* str)
     reset();
 
     
-#line 1946 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2129 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
 	{
 	cs = duration_start;
 	}
 
-#line 271 "lex/parser_music.rl"
+#line 326 "lex/parser_music.rl"
     
-#line 1953 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2136 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
 	{
 	if ( p == pe )
 		goto _test_eof;
@@ -1963,26 +2146,26 @@ st0:
 cs = 0;
 	goto _out;
 tr0:
-#line 102 "lex/ragel_music.rl"
-	{ note.num = 0; }
-#line 103 "lex/ragel_music.rl"
-	{ (note.num *= 10) += ((*p) - '0'); }
-#line 104 "lex/ragel_music.rl"
-	{ note.den = 0; }
 #line 105 "lex/ragel_music.rl"
+	{ note.num = 0; }
+#line 106 "lex/ragel_music.rl"
+	{ (note.num *= 10) += ((*p) - '0'); }
+#line 107 "lex/ragel_music.rl"
+	{ note.den = 0; }
+#line 108 "lex/ragel_music.rl"
 	{ (note.den *= 10) += ((*p) - '0'); }
 	goto st4;
 tr7:
-#line 103 "lex/ragel_music.rl"
+#line 106 "lex/ragel_music.rl"
 	{ (note.num *= 10) += ((*p) - '0'); }
-#line 105 "lex/ragel_music.rl"
+#line 108 "lex/ragel_music.rl"
 	{ (note.den *= 10) += ((*p) - '0'); }
 	goto st4;
 st4:
 	if ( ++p == pe )
 		goto _test_eof4;
 case 4:
-#line 1986 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2169 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
 	switch( (*p) ) {
 		case 42: goto st2;
 		case 46: goto tr5;
@@ -1993,36 +2176,36 @@ case 4:
 		goto tr7;
 	goto st0;
 st2:
-#line 101 "lex/ragel_music.rl"
+#line 104 "lex/ragel_music.rl"
 	{ note.repeats = note.num; }
 	if ( ++p == pe )
 		goto _test_eof2;
 case 2:
-#line 2002 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2185 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
 	if ( 49 <= (*p) && (*p) <= 57 )
 		goto tr2;
 	goto st0;
 tr2:
-#line 102 "lex/ragel_music.rl"
-	{ note.num = 0; }
-#line 103 "lex/ragel_music.rl"
-	{ (note.num *= 10) += ((*p) - '0'); }
-#line 104 "lex/ragel_music.rl"
-	{ note.den = 0; }
 #line 105 "lex/ragel_music.rl"
+	{ note.num = 0; }
+#line 106 "lex/ragel_music.rl"
+	{ (note.num *= 10) += ((*p) - '0'); }
+#line 107 "lex/ragel_music.rl"
+	{ note.den = 0; }
+#line 108 "lex/ragel_music.rl"
 	{ (note.den *= 10) += ((*p) - '0'); }
 	goto st5;
 tr9:
-#line 103 "lex/ragel_music.rl"
+#line 106 "lex/ragel_music.rl"
 	{ (note.num *= 10) += ((*p) - '0'); }
-#line 105 "lex/ragel_music.rl"
+#line 108 "lex/ragel_music.rl"
 	{ (note.den *= 10) += ((*p) - '0'); }
 	goto st5;
 st5:
 	if ( ++p == pe )
 		goto _test_eof5;
 case 5:
-#line 2026 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2209 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
 	switch( (*p) ) {
 		case 46: goto tr5;
 		case 47: goto st3;
@@ -2032,9 +2215,9 @@ case 5:
 		goto tr9;
 	goto st0;
 tr5:
-#line 99 "lex/ragel_music.rl"
+#line 102 "lex/ragel_music.rl"
 	{ note.num = 1; }
-#line 82 "lex/ragel_music.rl"
+#line 85 "lex/ragel_music.rl"
 	{
     note.dots++;
     if(note.dots == 1) {
@@ -2050,7 +2233,7 @@ tr5:
 }
 	goto st6;
 tr12:
-#line 82 "lex/ragel_music.rl"
+#line 85 "lex/ragel_music.rl"
 	{
     note.dots++;
     if(note.dots == 1) {
@@ -2069,12 +2252,12 @@ st6:
 	if ( ++p == pe )
 		goto _test_eof6;
 case 6:
-#line 2073 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2256 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
 	if ( (*p) == 46 )
 		goto tr10;
 	goto st0;
 tr10:
-#line 82 "lex/ragel_music.rl"
+#line 85 "lex/ragel_music.rl"
 	{
     note.dots++;
     if(note.dots == 1) {
@@ -2093,12 +2276,12 @@ st7:
 	if ( ++p == pe )
 		goto _test_eof7;
 case 7:
-#line 2097 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2280 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
 	if ( (*p) == 46 )
 		goto tr11;
 	goto st0;
 tr11:
-#line 82 "lex/ragel_music.rl"
+#line 85 "lex/ragel_music.rl"
 	{
     note.dots++;
     if(note.dots == 1) {
@@ -2117,7 +2300,7 @@ st8:
 	if ( ++p == pe )
 		goto _test_eof8;
 case 8:
-#line 2121 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2304 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
 	goto st0;
 st3:
 	if ( ++p == pe )
@@ -2127,20 +2310,20 @@ case 3:
 		goto tr3;
 	goto st0;
 tr3:
-#line 104 "lex/ragel_music.rl"
+#line 107 "lex/ragel_music.rl"
 	{ note.den = 0; }
-#line 105 "lex/ragel_music.rl"
+#line 108 "lex/ragel_music.rl"
 	{ (note.den *= 10) += ((*p) - '0'); }
 	goto st9;
 tr13:
-#line 105 "lex/ragel_music.rl"
+#line 108 "lex/ragel_music.rl"
 	{ (note.den *= 10) += ((*p) - '0'); }
 	goto st9;
 st9:
 	if ( ++p == pe )
 		goto _test_eof9;
 case 9:
-#line 2144 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2327 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
 	switch( (*p) ) {
 		case 46: goto tr12;
 		case 95: goto st10;
@@ -2149,14 +2332,14 @@ case 9:
 		goto tr13;
 	goto st0;
 tr8:
-#line 99 "lex/ragel_music.rl"
+#line 102 "lex/ragel_music.rl"
 	{ note.num = 1; }
 	goto st10;
 st10:
 	if ( ++p == pe )
 		goto _test_eof10;
 case 10:
-#line 2160 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2343 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
 	if ( (*p) == 46 )
 		goto tr12;
 	goto st0;
@@ -2180,24 +2363,24 @@ case 10:
 	case 8: 
 	case 9: 
 	case 10: 
-#line 97 "lex/ragel_music.rl"
+#line 100 "lex/ragel_music.rl"
 	{ note.durtype = DURATION_ABS; }
 	break;
 	case 4: 
 	case 5: 
-#line 99 "lex/ragel_music.rl"
+#line 102 "lex/ragel_music.rl"
 	{ note.num = 1; }
-#line 97 "lex/ragel_music.rl"
+#line 100 "lex/ragel_music.rl"
 	{ note.durtype = DURATION_ABS; }
 	break;
-#line 2194 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2377 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
 	}
 	}
 
 	_out: {}
 	}
 
-#line 272 "lex/parser_music.rl"
+#line 327 "lex/parser_music.rl"
 
     const bool ok = cs >= 4;
 

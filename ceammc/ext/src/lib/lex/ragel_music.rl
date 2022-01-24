@@ -77,6 +77,9 @@ spn = (
       >{spn.alt = 0; spn.oct = 0; spn.octtype = OCTAVE_REL; spn.dev = 0;}
       %{cat_ = CAT_UNIT; type_ = TYPE_SPN;};
 
+pitch = (spn_pitch spn_alt?)
+      >{spn.alt = 0; spn.oct = 0; spn.octtype = OCTAVE_REL; spn.dev = 0;}
+      %{cat_ = CAT_UNIT; type_ = TYPE_SPN;};
 
 # notes
 action note_add_dot {
