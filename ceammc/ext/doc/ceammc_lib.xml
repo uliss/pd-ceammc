@@ -1445,6 +1445,9 @@
     <entry name="midi.key2str" descr="convert key number to SPN name according to tonality" ref_view="object">
       <xi:include href="midi.key2str.pddoc" parse="xml"/>
     </entry>
+    <entry name="midi.modus" descr="midi octave transpose" ref_view="object">
+      <xi:include href="midi.modus.pddoc" parse="xml"/>
+    </entry>
     <entry name="midi.oct" descr="midi octave transpose" ref_view="object">
       <xi:include href="midi.oct.pddoc" parse="xml"/>
     </entry>

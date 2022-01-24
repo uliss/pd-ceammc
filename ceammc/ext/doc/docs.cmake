@@ -472,6 +472,7 @@ set(DOC_FILES
     midi.file
     midi.kbd
     midi.key2str
+    midi.modus
     midi.oct
     midi.prg2str
     midi.split

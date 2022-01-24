@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="midi.modus">
+        <title>midi.modus</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>snap/skip midi pitches according modus</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>midi</category>
+            <keywords>midi modus tonality pitch</keywords>
+            <since>0.9.5</since>
+        </meta>
+        <arguments>
+            <argument name="" type="int" minvalue="-8" maxvalue="8">octave
+            transposition</argument>
+        </arguments>
+        <properties>
+            <property name="@oct" type="int" minvalue="-11" maxvalue="11" default="0">octave
+            transposition</property>
+            <property name="@mode" type="symbol" default="transpose" enum="transpose set">octave
+            mode</property>
+            <property name="@set" type="alias">alias to @mode set</property>
+            <property name="@transpose" type="alias">alias to @mode transpose</property>
+            <property name="@random" type="list">random octave range. Arguments are: MIN
+            MAX.</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="float">note value</xinfo>
+                <xinfo on="list">NOTE VELOCITY [DUR] list</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="float">set @oct value</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>transposed NOTE VELOCITY [DUR] list</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[ui.keyboard]
+|
+|
+|
+|
+|
+[makenote]
+*|*
+[midiout]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

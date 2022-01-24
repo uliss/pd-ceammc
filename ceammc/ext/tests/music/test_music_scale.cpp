@@ -11,6 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
+#include "ceammc_crc32.h"
 #include "ceammc_music_scale.h"
 #include "test_base.h"
 
@@ -99,5 +100,18 @@ TEST_CASE("scale", "[ceammc::music]")
                 REQUIRE(ScaleLibrary::instance().find(s->name().c_str())->name() == s->name());
             }
         }
+    }
+
+    SECTION("Scale")
+    {
+        auto scale = ScaleLibrary::instance().findByHash("chromatic"_hash);
+        REQUIRE(scale);
+
+        for (int i = 0; i < 12; i++) {
+            REQUIRE(scale->find(i));
+        }
+
+        REQUIRE_FALSE(scale->find(-1));
+        REQUIRE_FALSE(scale->find(12));
     }
 }
