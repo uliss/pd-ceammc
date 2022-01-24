@@ -11,32 +11,25 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef MIDI_MODUS_H
-#define MIDI_MODUS_H
+#ifndef PROPERTY_PITCH_H
+#define PROPERTY_PITCH_H
 
-#include "ceammc_music_scale.h"
-#include "ceammc_object.h"
-#include "ceammc_property_enum.h"
-#include "property_pitch.h"
-using namespace ceammc;
+#include "ceammc_music_theory_pitch_class.h"
+#include "ceammc_property.h"
 
-class MidiModus : public BaseObject {
-    const music::Scale* scale_;
+namespace ceammc {
 
-    SymbolEnumProperty* prop_scale_;
-    SymbolEnumProperty* prop_mode_;
-    PropertyPitch* root_;
+class PropertyPitch : public AtomProperty {
+    music::PitchClass pitch_;
 
 public:
-    MidiModus(const PdArgs& args);
+    PropertyPitch(const std::string& name, const music::PitchClass& def = music::PitchClass::C, PropValueAccess access = PropValueAccess::READWRITE);
 
-    void onFloat(t_float f) override;
-    void onList(const AtomList& lst) override;
+    const music::PitchClass& pitch() const { return pitch_; }
 
-private:
-    t_float mapNote(t_float note) const;
+    bool setAtom(const Atom& a) override;
 };
 
-void setup_midi_modus();
+}
 
-#endif // MIDI_MODUS_H
+#endif // PROPERTY_PITCH_H

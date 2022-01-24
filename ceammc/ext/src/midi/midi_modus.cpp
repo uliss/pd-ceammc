@@ -30,9 +30,9 @@ enum {
 MidiModus::MidiModus(const PdArgs& args)
     : BaseObject(args)
     , scale_(music::ScaleLibrary::instance().findByHash("chromatic"_hash))
-    , root_(music::PITCH_NAME_C)
     , prop_scale_(nullptr)
     , prop_mode_(nullptr)
+    , root_(nullptr)
 {
     createOutlet();
 
@@ -40,6 +40,7 @@ MidiModus::MidiModus(const PdArgs& args)
     prop_scale_->setSuccessFn([this](Property*) {
         scale_ = music::ScaleLibrary::instance().find(prop_scale_->value());
     });
+    prop_scale_->setArgIndex(1);
     addProperty(prop_scale_);
 
     for (auto& s : music::ScaleLibrary::instance().all()) {
@@ -51,6 +52,10 @@ MidiModus::MidiModus(const PdArgs& args)
 
     prop_mode_ = new SymbolEnumProperty("@mode", { str_snap, str_skip });
     addProperty(prop_mode_);
+
+    root_ = new PropertyPitch("@root");
+    root_->setArgIndex(0);
+    addProperty(root_);
 }
 
 void MidiModus::onFloat(t_float f)
@@ -92,7 +97,7 @@ t_float MidiModus::mapNote(t_float note) const
         return INVALID_SCALE;
     }
 
-    const int root = root_.absolutePitch();
+    const int root = root_->pitch().absolutePitch();
     const t_float step = std::fmod(note + 12 - root, 12);
 
     switch (crc32_hash(prop_mode_->value())) {
