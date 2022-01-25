@@ -30,7 +30,7 @@ namespace lua {
         LUA_CMD_FLOAT_TO,
         LUA_CMD_SYMBOL_TO,
         LUA_CMD_LIST_TO,
-        LUA_CMD_MESSAGE,
+        LUA_CMD_ANY_TO,
         LUA_CMD_POST,
         LUA_CMD_SEND,
         LUA_INTERP_EVAL,

@@ -85,9 +85,8 @@ namespace lua {
         lua_setglobal(lua_, "symbol_to");
         lua_pushcfunction(lua_, lua_list_to);
         lua_setglobal(lua_, "list_to");
-
-        lua_pushcfunction(lua_, lua_message);
-        lua_setglobal(lua_, "message");
+        lua_pushcfunction(lua_, lua_any_to);
+        lua_setglobal(lua_, "any_to");
 
         lua_pushcfunction(lua_, lua_sleep);
         lua_setglobal(lua_, "sleep");

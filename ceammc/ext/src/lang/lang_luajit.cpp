@@ -254,6 +254,17 @@ void LangLuaJit::processMessage(const lua::LuaCmd& msg)
 
         listTo(n, res.view(1));
     } break;
+    case LUA_CMD_ANY_TO: {
+        const int n = (msg.args.size() < 1) ? 0 : msg.args[0].getInt();
+        const auto sel = (msg.args.size() < 2) ? LuaString("?") : msg.args[1].getString();
+        AtomList res;
+        res.reserve(msg.args.size());
+        for (size_t i = 2; i < msg.args.size(); i++)
+            res.append(msg.args[i].applyVisitor<my_visitor>());
+
+        anyTo(n, gensym(sel.c_str()), res);
+        break;
+    } break;
     case LUA_CMD_POST:
         if (msg.args.size() == 1 && msg.args[0].isString())
             OBJ_POST << msg.args[0].getString();
@@ -275,24 +286,6 @@ void LangLuaJit::processMessage(const lua::LuaCmd& msg)
                 pd_list(dest->s_thing, dest, res.size() - 1, res.view(1).toPdData());
         } else
             LIB_ERR << "invalid command format: " << res;
-    } break;
-    case LUA_CMD_MESSAGE: {
-        if (msg.args.size() == 0) {
-            OBJ_ERR << "invalid arguments";
-            break;
-        } else {
-            AtomList res;
-            for (auto& a : msg.args)
-                res.append(a.applyVisitor<my_visitor>());
-
-            const int idx = res.intAt(0, 0);
-            t_symbol* sel = res.symbolAt(1, &s_);
-            if (sel != &s_)
-                anyTo(idx, sel, res.view(2));
-            else
-                OBJ_ERR << "invalid message args: " << res;
-        }
-        break;
     } break;
     default:
         OBJ_ERR << "unknown command code: " << msg.cmd;

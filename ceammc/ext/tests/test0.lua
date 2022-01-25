@@ -9,10 +9,14 @@ function on_bang(i)
 end
 
 function on_symbol(o,s)
-   symbol_to(i, s .. "+++")
+   symbol_to(0, s .. "+++")
 end
 
 function on_list(o,l)
    for i,v in ipairs(l) do l[i]=v*2 end
-   list_to(i, l)
+   list_to(0, l)
+end
+
+function on_any(i,s,l)
+   any_to(0,s,l)
 end
