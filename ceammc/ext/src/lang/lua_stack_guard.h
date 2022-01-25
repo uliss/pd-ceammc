@@ -41,6 +41,9 @@ namespace lua {
             if (debug_)
                 std::cerr << "[~LuaStackGuard] stack size: " << top_ << std::endl;
 
+            if (!state_)
+                return;
+
             auto current_top = lua_gettop(state_);
             if (current_top > top_) {
                 lua_pop(state_, current_top - top_);

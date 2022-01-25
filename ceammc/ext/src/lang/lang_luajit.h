@@ -27,7 +27,6 @@ using LuaCommandQueue = moodycamel::ReaderWriterQueue<lua::LuaCmd>;
 
 class LangLuaJit : public ceammc::PollThreadQueueObject<lua::LuaCmd> {
     lua::LuaInterp interp_;
-    LuaCommandQueue lua_cmd_queue_;
 
 public:
     LangLuaJit(const PdArgs& args);
@@ -44,8 +43,6 @@ public:
     void m_eval(t_symbol* s, const AtomListView& lv);
 
 public:
-    LuaCommandQueue& inPipe() { return lua_cmd_queue_; }
-    LuaCommandQueue& outPipe() { return result_; }
     lua::LuaInterp& interp() { return interp_; }
 };
 

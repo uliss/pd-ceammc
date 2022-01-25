@@ -118,7 +118,7 @@ static void startLuaEventLoop(LangLuaJit* x, const bool* quit)
     while (!*quit) {
         lua::LuaCmd in_cmd;
         if (x->inPipe().try_dequeue(in_cmd)) {
-            x->interp().run(in_cmd);
+            //            x->interp().run(in_cmd);
         }
 
         if (*quit)
@@ -130,7 +130,7 @@ static void startLuaEventLoop(LangLuaJit* x, const bool* quit)
 
 LangLuaJit::LangLuaJit(const PdArgs& args)
     : PollThreadQueueObject<lua::LuaCmd>(args)
-    , interp_(&result_, subscriberId(), &quit_)
+    , interp_(&outPipe(), subscriberId(), &quit())
 {
     createOutlet();
 
@@ -144,7 +144,7 @@ void LangLuaJit::onBang()
 {
     using namespace ceammc::lua;
 
-    if (!lua_cmd_queue_.try_enqueue({ LUA_INTERP_BANG, LuaInt(0) })) {
+    if (!inPipe().try_enqueue({ LUA_INTERP_BANG, LuaInt(0) })) {
         OBJ_ERR << "can't send command to LUA interpreter: bang";
         return;
     }
@@ -156,7 +156,7 @@ void LangLuaJit::onFloat(t_float f)
 
     try {
 
-        if (!lua_cmd_queue_.try_emplace(LUA_INTERP_FLOAT, LuaAtomList { LuaAtom(LuaInt(0)), LuaAtom(f) })) {
+        if (!inPipe().try_emplace(LUA_INTERP_FLOAT, LuaAtomList { LuaAtom(LuaInt(0)), LuaAtom(f) })) {
             OBJ_ERR << "can't send command to LUA interpreter: float";
             return;
         }
@@ -169,7 +169,7 @@ void LangLuaJit::onSymbol(t_symbol* s)
 {
     using namespace ceammc::lua;
 
-    if (!lua_cmd_queue_.try_enqueue({ LUA_INTERP_SYMBOL, LuaAtomList { LuaAtom(LuaInt(0)), LuaAtom(s) } })) {
+    if (!inPipe().try_enqueue({ LUA_INTERP_SYMBOL, LuaAtomList { LuaAtom(LuaInt(0)), LuaAtom(s) } })) {
         OBJ_ERR << "can't send command to LUA interpreter: float";
         return;
     }
@@ -189,7 +189,7 @@ void LangLuaJit::onList(const AtomList& lst)
             args.emplace_back(a.asT<t_symbol*>());
     }
 
-    if (!lua_cmd_queue_.try_enqueue({ LUA_INTERP_LIST, args })) {
+    if (!inPipe().try_enqueue({ LUA_INTERP_LIST, args })) {
         OBJ_ERR << "can't send command to LUA interpreter: list";
         return;
     }
@@ -197,8 +197,9 @@ void LangLuaJit::onList(const AtomList& lst)
 
 PollThreadTaskObject<int>::Future LangLuaJit::createTask()
 {
-    quit_ = false;
-    return std::async(std::launch::async, startLuaEventLoop, this, &quit_);
+    setQuit(false);
+
+    return std::async(std::launch::async, startLuaEventLoop, this, &quit());
 }
 
 class my_visitor : public boost::static_visitor<Atom> {
@@ -298,7 +299,7 @@ void LangLuaJit::m_load(t_symbol* s, const AtomListView& lv)
     }
 
     using namespace lua;
-    if (!lua_cmd_queue_.enqueue({ LUA_INTERP_LOAD, full_path })) {
+    if (!inPipe().enqueue({ LUA_INTERP_LOAD, full_path })) {
         METHOD_ERR(s) << "can't send command to LUA interpreter: load";
         return;
     }
@@ -308,7 +309,7 @@ void LangLuaJit::m_eval(t_symbol* s, const AtomListView& lv)
 {
     using namespace ceammc::lua;
 
-    if (!lua_cmd_queue_.enqueue({ LUA_INTERP_EVAL, to_string(lv) })) {
+    if (!inPipe().enqueue({ LUA_INTERP_EVAL, to_string(lv) })) {
         METHOD_ERR(s) << "can't send command to LUA interpreter: eval";
         return;
     }

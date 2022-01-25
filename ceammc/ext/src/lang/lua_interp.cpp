@@ -52,6 +52,10 @@ namespace lua {
     {
         /* initialize Lua */
         lua_ = luaL_newstate();
+        if (!lua_) {
+            LIB_ERR << "can't allocate lua interperter";
+            return;
+        }
 
         luaopen_base(lua_);
         luaopen_math(lua_);
@@ -101,12 +105,13 @@ namespace lua {
         lua_setglobal(lua_, "_quit");
 
         // Initialisation code
-        lua_sethook(lua_, &line_hook_fn, LUA_MASKLINE, 0);
+        //        lua_sethook(lua_, &line_hook_fn, LUA_MASKLINE, 0);
     }
 
     LuaInterp::~LuaInterp()
     {
-        lua_close(lua_);
+        if (lua_)
+            lua_close(lua_);
     }
 
     void LuaInterp::run(const LuaCmd& cmd)

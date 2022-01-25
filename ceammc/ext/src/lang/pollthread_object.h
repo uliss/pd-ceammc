@@ -30,9 +30,7 @@ public:
 
 private:
     Future future_;
-
-protected:
-    Result result_;
+    Result task_in_, task_out_;
     bool quit_ { false };
 
 public:
@@ -99,6 +97,14 @@ public:
     }
 
     void m_quit(t_symbol*, const AtomListView&) { quit_ = true; }
+
+    void setQuit(bool value) { quit_ = value; }
+    const bool& quit() const { return quit_; }
+
+    Result& inPipe() { return task_in_; }
+    const Result& inPipe() const { return task_in_; }
+    Result& outPipe() { return task_out_; }
+    const Result& outPipe() const { return task_out_; }
 };
 
 template <typename Msg>
@@ -115,7 +121,7 @@ public:
     void processTask(NotifyEventType /*event*/) override
     {
         Msg msg;
-        while (this->result_.try_dequeue(msg))
+        while (this->outPipe().try_dequeue(msg))
             processMessage(msg);
     }
 
