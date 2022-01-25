@@ -205,4 +205,62 @@ TEST_CASE("midi.modus", "[externals]")
             REQUIRE(t.outputFloatAt(0) == 71);
         }
     }
+
+    SECTION("skip")
+    {
+        SECTION("C chromatic")
+        {
+            TExt t("midi.modus", "C", "chromatic", "@mode", "skip");
+
+            for (int i = 0; i < 127; i++) {
+                t << i;
+                REQUIRE(t.outputFloatAt(0) == i);
+                REQUIRE_FALSE(t.hasOutputAt(1));
+            }
+
+            for (int i = 0; i < 127; i++) {
+                t << LF(float(i), 64);
+                REQUIRE(t.outputListAt(0) == LF(float(i), 64));
+                REQUIRE_FALSE(t.hasOutputAt(1));
+            }
+
+            for (int i = 0; i < 127; i++) {
+                t << LF(float(i), 64, 1000);
+                REQUIRE(t.outputListAt(0) == LF(float(i), 64, 1000));
+                REQUIRE_FALSE(t.hasOutputAt(1));
+            }
+        }
+
+        SECTION("F chromatic")
+        {
+            TExt t("midi.modus", "F", "chromatic", "@mode", "skip");
+
+            for (int i = 0; i < 127; i++) {
+                t << i;
+                REQUIRE(t.outputFloatAt(0) == i);
+                REQUIRE_FALSE(t.hasOutputAt(1));
+            }
+        }
+
+        SECTION("D whole")
+        {
+            TExt t("midi.modus", "D", "whole", "@mode", "skip");
+
+            for (int i = 60; i < 80; i++) {
+                t << i;
+                if (!(i & 1)) {
+                    REQUIRE(t.outputFloatAt(0) == i);
+                } else
+                    REQUIRE(t.outputFloatAt(1) == i);
+            }
+
+            for (int i = 60; i < 80; i++) {
+                t << LF(float(i), 20);
+                if (!(i & 1)) {
+                    REQUIRE(t.outputListAt(0) == LF(float(i), 20));
+                } else
+                    REQUIRE(t.outputListAt(1) == LF(float(i), 20));
+            }
+        }
+    }
 }
