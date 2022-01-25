@@ -200,11 +200,6 @@ namespace lua {
 
         lua_pushnil(L); /* first key */
         while (lua_next(L, i) != 0) {
-            /* uses 'key' (at index -2) and 'value' (at index -1) */
-            printf("%s - %s\n",
-                lua_typename(L, lua_type(L, -2)),
-                lua_typename(L, lua_type(L, -1)));
-
             /* removes 'value'; keeps 'key' for next iteration */
             LuaAtom a;
             if (lua_get_atom(L, -1, a))
@@ -332,6 +327,59 @@ namespace lua {
         const char* str = luaL_optstring(L, 2, "");
 
         if (!ctx.pipe->try_enqueue(LuaCmd(LUA_CMD_SYMBOL_TO, LuaAtomList { LuaAtom { n }, LuaAtom { str } })))
+            return 0;
+
+        if (!Dispatcher::instance().send({ ctx.id, NOTIFY_UPDATE }))
+            return 0;
+
+        return 1;
+    }
+
+    int lua_list_to(lua_State* L)
+    {
+        const auto ctx = get_ctx(L);
+        const auto nargs = lua_gettop(L);
+        const auto targ2 = lua_type(L, 2);
+
+        const bool is_list_arg = (nargs == 2 && targ2 == LUA_TTABLE);
+        const bool is_tuple_arg = (nargs >= 2 && targ2 != LUA_TTABLE);
+
+        if (!is_list_arg && !is_tuple_arg) {
+            ctx.pipe->try_enqueue({ LUA_CMD_ERROR, "usage: list_to(outlet, list? or values?)" });
+            return 0;
+        }
+
+        LuaStackGuard sg(L);
+
+        const LuaInt n = luaL_optinteger(L, 1, 0);
+        LuaAtomList data;
+        data.reserve(nargs);
+        data.emplace_back(n);
+
+        if (is_list_arg) {
+            auto tab = get_list_table(L, 2);
+            data.insert(data.end(), tab.begin(), tab.end());
+        } else if (is_tuple_arg) {
+            data.reserve(nargs);
+
+            for (int i = 2; i <= nargs; i++) {
+                switch (lua_type(L, i)) {
+                case LUA_TNUMBER:
+                    data.emplace_back(lua_tonumber(L, i));
+                    break;
+                case LUA_TBOOLEAN:
+                    data.emplace_back(lua_toboolean(L, i) ? true : false);
+                    break;
+                case LUA_TSTRING:
+                    data.emplace_back(lua_tostring(L, i));
+                    break;
+                default:
+                    continue;
+                }
+            }
+        }
+
+        if (!ctx.pipe->try_enqueue(LuaCmd(LUA_CMD_LIST_TO, data)))
             return 0;
 
         if (!Dispatcher::instance().send({ ctx.id, NOTIFY_UPDATE }))

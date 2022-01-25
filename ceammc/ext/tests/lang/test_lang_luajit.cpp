@@ -56,5 +56,10 @@ TEST_CASE("lang.luajit", "[externals]")
         WAIT(t, 10)
         REQUIRE(t.hasOutputAt(0));
         REQUIRE(t.outputSymbolAt(0) == SYM("test+++"));
+
+        t << LF(1, 2, 3);
+        WAIT(t, 10)
+        REQUIRE(t.hasOutputAt(0));
+        REQUIRE(t.outputListAt(0) == LF(2, 4, 6));
     }
 }

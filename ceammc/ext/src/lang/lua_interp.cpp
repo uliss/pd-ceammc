@@ -83,6 +83,8 @@ namespace lua {
         lua_setglobal(lua_, "float_to");
         lua_pushcfunction(lua_, lua_symbol_to);
         lua_setglobal(lua_, "symbol_to");
+        lua_pushcfunction(lua_, lua_list_to);
+        lua_setglobal(lua_, "list_to");
 
         lua_pushcfunction(lua_, lua_message);
         lua_setglobal(lua_, "message");
@@ -196,7 +198,7 @@ namespace lua {
                         return;
 
                     fn << cmd.args[0];
-                    fn.pushTable(cmd.args.size(), cmd.args.data() + 1);
+                    fn.pushTable(cmd.args.size() - 1, cmd.args.data() + 1);
 
                     fn();
                 }
