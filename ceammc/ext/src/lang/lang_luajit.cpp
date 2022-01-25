@@ -230,24 +230,6 @@ void LangLuaJit::processMessage(const lua::LuaCmd& msg)
     using namespace lua;
 
     switch (msg.cmd) {
-    case LUA_CMD_OUTPUT:
-        if (msg.args.size() == 0) {
-            OBJ_ERR << "invalid arguments";
-            break;
-        } else {
-            AtomList res;
-            for (auto& a : msg.args)
-                res.append(a.applyVisitor<my_visitor>());
-
-            const int idx = res.intAt(0, 0);
-            if (res.size() == 1)
-                bangTo(idx);
-            else if (res.size() == 2)
-                atomTo(idx, res[1]);
-            else
-                listTo(idx, res.view(1));
-        }
-        break;
     case LUA_CMD_BANG_TO: {
         const int n = msg.args.empty() ? 0 : msg.args[0].getInt();
         bangTo(n);

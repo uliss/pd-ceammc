@@ -26,7 +26,6 @@ namespace lua {
     enum LuaCmdEnum {
         LUA_CMD_NOP = 0,
         LUA_CMD_ERROR,
-        LUA_CMD_OUTPUT,
         LUA_CMD_BANG_TO,
         LUA_CMD_FLOAT_TO,
         LUA_CMD_SYMBOL_TO,

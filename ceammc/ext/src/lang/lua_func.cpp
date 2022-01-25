@@ -237,34 +237,6 @@ namespace lua {
         return data;
     }
 
-    int lua_output(lua_State* L)
-    {
-        const auto ctx = get_ctx(L);
-        const int nargs = lua_gettop(L);
-
-        LuaStackGuard sg(L);
-
-        if (nargs < 1 || nargs > 2) {
-            ctx.pipe->try_enqueue({ LUA_CMD_ERROR, "usage: value outlet?" });
-            return 0;
-        }
-
-        LuaAtomList data;
-        LuaInt n = luaL_optinteger(L, 2, 0);
-        data.emplace_back(n);
-
-        const auto args = get_param_as_list(L, 1);
-        data.insert(data.end(), args.begin(), args.end());
-
-        if (!ctx.pipe->try_enqueue(LuaCmd(LUA_CMD_OUTPUT, data)))
-            return 0;
-
-        if (!Dispatcher::instance().send({ ctx.id, NOTIFY_UPDATE }))
-            return 0;
-
-        return 1;
-    }
-
     int lua_bang_to(lua_State* L)
     {
         const auto ctx = get_ctx(L);
