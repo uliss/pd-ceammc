@@ -19,11 +19,37 @@ PD_COMPLETE_TEST_SETUP(LangLuaJit, lang, luajit)
 TEST_CASE("lang.luajit", "[externals]")
 {
     pd_test_init();
+    test::pdPrintToStdError();
 
     SECTION("init")
     {
         TExt t("lang.lua");
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
+    }
+
+    SECTION("test0.lua")
+    {
+
+#define WAIT(t, ms)                                                 \
+    {                                                               \
+        std::this_thread::sleep_for(std::chrono::milliseconds(ms)); \
+        t->processTask(NOTIFY_DONE);                                \
+    }
+
+        TExt t("lang.lua");
+        t.sendMessage("load", TEST_DATA_DIR "/test0.lua");
+
+        WAIT(t, 10)
+
+        t << 25.5;
+        WAIT(t, 10)
+        REQUIRE(t.hasOutputAt(0));
+        REQUIRE(t.outputFloatAt(0) == 51);
+
+        t.bang();
+        WAIT(t, 10)
+        REQUIRE(t.hasOutputAt(0));
+        REQUIRE(t.isOutputBangAt(0));
     }
 }

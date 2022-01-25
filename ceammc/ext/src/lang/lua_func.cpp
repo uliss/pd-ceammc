@@ -270,6 +270,28 @@ namespace lua {
         return 1;
     }
 
+    int lua_bang_to(lua_State* L)
+    {
+        const auto ctx = get_ctx(L);
+        const auto nargs = lua_gettop(L);
+
+        LuaStackGuard sg(L);
+
+        if (nargs > 1) {
+            ctx.pipe->try_enqueue({ LUA_CMD_ERROR, "usage: bang_to(outlet?)" });
+            return 0;
+        }
+
+        const LuaInt n = luaL_optinteger(L, 1, 0);
+        if (!ctx.pipe->try_enqueue(LuaCmd(LUA_CMD_BANG_TO, n)))
+            return 0;
+
+        if (!Dispatcher::instance().send({ ctx.id, NOTIFY_UPDATE }))
+            return 0;
+
+        return 1;
+    }
+
     int lua_message(lua_State* L)
     {
         const auto ctx = get_ctx(L);

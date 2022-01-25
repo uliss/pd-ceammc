@@ -79,6 +79,9 @@ namespace lua {
         lua_pushcfunction(lua_, lua_output);
         lua_setglobal(lua_, "output");
 
+        lua_pushcfunction(lua_, lua_bang_to);
+        lua_setglobal(lua_, "bang_to");
+
         lua_pushcfunction(lua_, lua_message);
         lua_setglobal(lua_, "message");
 

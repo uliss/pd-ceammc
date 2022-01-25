@@ -30,6 +30,7 @@ namespace lua {
     int lua_pd_send(lua_State* L);
     int lua_stack_dump(lua_State* L);
     int lua_sleep(lua_State* L);
+    int lua_bang_to(lua_State* L);
 
     class FunctionCall {
         lua_State* lua_;
