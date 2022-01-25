@@ -42,15 +42,15 @@ TEST_CASE("lang.luajit", "[externals]")
 
         WAIT(t, 10)
 
-        t << 25.5;
-        WAIT(t, 10)
-        REQUIRE(t.hasOutputAt(0));
-        REQUIRE(t.outputFloatAt(0) == 51);
-
         t.bang();
         WAIT(t, 10)
         REQUIRE(t.hasOutputAt(0));
         REQUIRE(t.isOutputBangAt(0));
+
+        t << 25.5;
+        WAIT(t, 10)
+        REQUIRE(t.hasOutputAt(0));
+        REQUIRE(t.outputFloatAt(0) == 51);
 
         t << "test";
         WAIT(t, 10)
