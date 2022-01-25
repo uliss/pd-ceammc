@@ -21,12 +21,6 @@
 CEAMMC_DEFINE_HASH(snap)
 CEAMMC_DEFINE_HASH(skip)
 
-enum {
-    INVALID_PITCH = -1,
-    INVALID_SCALE = -2,
-    SKIP_NOTE = -3
-};
-
 MidiModus::MidiModus(const PdArgs& args)
     : BaseObject(args)
     , scale_(music::ScaleLibrary::instance().findByHash("chromatic"_hash))
@@ -56,36 +50,41 @@ MidiModus::MidiModus(const PdArgs& args)
     root_ = new PropertyPitch("@root");
     root_->setArgIndex(0);
     addProperty(root_);
+
+    createOutlet();
 }
 
 void MidiModus::onFloat(t_float f)
 {
-    const auto res = mapNote(f);
-    if (res < 0)
-        return;
+    t_float res = 0;
 
-    floatTo(0, res);
+    if (mapNote(f, res) == OK)
+        floatTo(0, res);
+    else
+        floatTo(1, f);
 }
 
 void MidiModus::onList(const AtomList& lst)
 {
-    if (!checkArgs(lst.view(), ARG_BYTE, ARG_BYTE) && !checkArgs(lst.view(), ARG_BYTE, ARG_BYTE, ARG_FLOAT)) {
-        OBJ_ERR << "PITCH VEL [DUR] expected, got: " << lst;
+    if (!checkArgs(lst.view(), ARG_BYTE) && !checkArgs(lst.view(), ARG_BYTE, ARG_BYTE) && !checkArgs(lst.view(), ARG_BYTE, ARG_BYTE, ARG_FLOAT)) {
+        OBJ_ERR << "PITCH VEL? [DUR] expected, got: " << lst;
         return;
     }
 
-    const t_float note = mapNote(lst[0].asT<t_float>());
-    if (note < 0)
-        return;
+    t_float res = 0;
+    if (mapNote(lst[0].asT<t_float>(), res) != OK)
+        return listTo(1, lst);
 
-    Atom msg[3] = { note, lst[1] };
-    if (lst.size() == 3)
+    Atom msg[3] = { res };
+    if (lst.size() > 1)
+        msg[1] = lst[1];
+    if (lst.size() > 2)
         msg[2] = lst[2];
 
     listTo(0, AtomListView(msg, lst.size()));
 }
 
-t_float MidiModus::mapNote(t_float note) const
+MidiModus::NoteStatus MidiModus::mapNote(t_float note, t_float& res) const
 {
     if (note < 0 || note > 127) {
         OBJ_ERR << "invalid pitch: " << note;
@@ -103,15 +102,19 @@ t_float MidiModus::mapNote(t_float note) const
     switch (crc32_hash(prop_mode_->value())) {
     case hash_snap: {
         t_float degree = 0;
-        if (scale_->findNearest(step, degree))
-            return (root + degree) + (int(note) / 12) * 12;
+        if (scale_->findNearest(step, degree)) {
+            res = (root + degree) + (int(note) / 12) * 12;
+            return OK;
+        }
 
         break;
     }
     case hash_skip:
     default:
-        if (scale_->find(step))
-            return note;
+        if (scale_->find(step)) {
+            res = note;
+            return OK;
+        }
         break;
     }
     return SKIP_NOTE;
@@ -120,4 +123,8 @@ t_float MidiModus::mapNote(t_float note) const
 void setup_midi_modus()
 {
     ObjectFactory<MidiModus> obj("midi.modus");
+
+    obj.setXletsInfo({ "float: PITCH\n"
+                       "list: PITCH VEL DUR?" },
+        { "float or list: accepted note", "float or list: discarded note" });
 }

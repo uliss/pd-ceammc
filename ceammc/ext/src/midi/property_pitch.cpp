@@ -50,24 +50,26 @@ PropertyPitch::PropertyPitch(const std::string& name, const music::PitchClass& d
     : AtomProperty(name, pitchToAtom(def), access)
     , pitch_(def)
 {
-}
+    if (info().setConstraints(PropValueConstraints::ENUM)) {
+        for (auto& p : music::PitchClass::all) {
+            if (!info().addEnum(pitchToAtom(p)))
+                continue;
+        }
+    }
 
-bool PropertyPitch::setAtom(const Atom& a)
-{
-    parser::PitchFullMatch parser;
+    setAtomCheckFn([this](const Atom& a) -> bool {
+        parser::PitchFullMatch parser;
+        if (!parser.parse(a))
+            return false;
 
-    if (parser.parse(a)) {
         const auto spn = parser.spn();
-
         pitch_.setPitchName(music::PitchName::C + spn.note);
 
         auto alt = music::Alteration::NATURAL;
         alt.alterate(spn.alt);
         pitch_.setAlteration(alt);
-
-        return AtomProperty::setValue(a);
-    } else
-        return false;
+        return true;
+    });
 }
 
 }

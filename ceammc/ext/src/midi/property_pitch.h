@@ -27,7 +27,6 @@ public:
 
     const music::PitchClass& pitch() const { return pitch_; }
 
-    bool setAtom(const Atom& a) override;
 };
 
 }

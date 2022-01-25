@@ -319,7 +319,7 @@ namespace parser {
         PitchFullMatch();
         void reset();
 
-        const Spn& spn() const { return spn_; }
+        const Spn&spn() const { return spn_; }
 
         bool parse(const char* str);
         bool parse(const Atom& a);

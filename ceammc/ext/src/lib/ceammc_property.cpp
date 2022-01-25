@@ -759,17 +759,17 @@ AtomProperty::AtomProperty(const std::string& name, const Atom& def, PropValueAc
     info().setDefault(def);
 }
 
-bool AtomProperty::setList(const AtomListView& lst)
+bool AtomProperty::setList(const AtomListView& lv)
 {
-    if (!emptyCheck(lst))
+    if (!emptyCheck(lv))
         return false;
 
-    if (lst.size() > 1) {
-        PROP_ERR() << "single atom value expected, got: " << lst;
+    if (lv.size() > 1) {
+        PROP_ERR() << "single atom value expected, got: " << lv;
         return false;
     }
 
-    return setValue(lst[0]);
+    return setValue(lv[0]);
 }
 
 AtomList AtomProperty::get() const

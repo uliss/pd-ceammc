@@ -21,6 +21,13 @@
 using namespace ceammc;
 
 class MidiModus : public BaseObject {
+    enum NoteStatus {
+        OK = 0,
+        INVALID_PITCH = -1,
+        INVALID_SCALE = -2,
+        SKIP_NOTE = -3
+    };
+
     const music::Scale* scale_;
 
     SymbolEnumProperty* prop_scale_;
@@ -34,7 +41,7 @@ public:
     void onList(const AtomList& lst) override;
 
 private:
-    t_float mapNote(t_float note) const;
+    NoteStatus mapNote(t_float note, t_float& res) const;
 };
 
 void setup_midi_modus();
