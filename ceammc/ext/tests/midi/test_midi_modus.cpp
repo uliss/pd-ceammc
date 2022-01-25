@@ -42,4 +42,167 @@ TEST_CASE("midi.modus", "[externals]")
         }
     }
 
+    SECTION("snap")
+    {
+        SECTION("C chromatic")
+        {
+            TExt t("midi.modus", "C", "chromatic", "@mode", "snap");
+
+            for (int i = 0; i < 127; i++) {
+                t << i;
+                REQUIRE(t.outputFloatAt(0) == i);
+            }
+
+            for (int i = 0; i < 127; i++) {
+                t << LF(float(i), 64);
+                REQUIRE(t.outputListAt(0) == LF(float(i), 64));
+            }
+
+            for (int i = 0; i < 127; i++) {
+                t << LF(float(i), 64, 1000);
+                REQUIRE(t.outputListAt(0) == LF(float(i), 64, 1000));
+            }
+        }
+
+        SECTION("F chromatic")
+        {
+            TExt t("midi.modus", "F", "chromatic", "@mode", "snap");
+
+            for (int i = 0; i < 127; i++) {
+                t << i;
+                REQUIRE(t.outputFloatAt(0) == i);
+            }
+        }
+
+        SECTION("C whole")
+        {
+            TExt t("midi.modus", "C", "whole", "@mode", "snap");
+
+            t << 60;
+            REQUIRE(t.outputFloatAt(0) == 60);
+            t << 61;
+            REQUIRE(t.outputFloatAt(0) == 62);
+            t << 62;
+            REQUIRE(t.outputFloatAt(0) == 62);
+            t << 63;
+            REQUIRE(t.outputFloatAt(0) == 64);
+            t << 64;
+            REQUIRE(t.outputFloatAt(0) == 64);
+            t << 65;
+            REQUIRE(t.outputFloatAt(0) == 66);
+            t << 66;
+            REQUIRE(t.outputFloatAt(0) == 66);
+            t << 67;
+            REQUIRE(t.outputFloatAt(0) == 68);
+            t << 68;
+            REQUIRE(t.outputFloatAt(0) == 68);
+            t << 69;
+            REQUIRE(t.outputFloatAt(0) == 70);
+            t << 70;
+            REQUIRE(t.outputFloatAt(0) == 70);
+            t << 71;
+            REQUIRE(t.outputFloatAt(0) == 70);
+            t << 72;
+            REQUIRE(t.outputFloatAt(0) == 72);
+        }
+
+        SECTION("D whole")
+        {
+            TExt t("midi.modus", "D", "whole", "@mode", "snap");
+
+            t << 60;
+            REQUIRE(t.outputFloatAt(0) == 60);
+            t << 61;
+            REQUIRE(t.outputFloatAt(0) == 60);
+            t << 62;
+            REQUIRE(t.outputFloatAt(0) == 62);
+            t << 63;
+            REQUIRE(t.outputFloatAt(0) == 64);
+            t << 64;
+            REQUIRE(t.outputFloatAt(0) == 64);
+            t << 65;
+            REQUIRE(t.outputFloatAt(0) == 66);
+            t << 66;
+            REQUIRE(t.outputFloatAt(0) == 66);
+            t << 67;
+            REQUIRE(t.outputFloatAt(0) == 68);
+            t << 68;
+            REQUIRE(t.outputFloatAt(0) == 68);
+            t << 69;
+            REQUIRE(t.outputFloatAt(0) == 70);
+            t << 70;
+            REQUIRE(t.outputFloatAt(0) == 70);
+            t << 71;
+            REQUIRE(t.outputFloatAt(0) == 72);
+            t << 72;
+            REQUIRE(t.outputFloatAt(0) == 72);
+        }
+
+        SECTION("C ritusen")
+        {
+            // 0, 2, 5, 7, 9
+            TExt t("midi.modus", "C", "ritusen", "@mode", "snap");
+
+            t << 60;
+            REQUIRE(t.outputFloatAt(0) == 60);
+            t << 61;
+            REQUIRE(t.outputFloatAt(0) == 62);
+            t << 62;
+            REQUIRE(t.outputFloatAt(0) == 62);
+            t << 63;
+            REQUIRE(t.outputFloatAt(0) == 62);
+            t << 64;
+            REQUIRE(t.outputFloatAt(0) == 65);
+            t << 65;
+            REQUIRE(t.outputFloatAt(0) == 65);
+            t << 66;
+            REQUIRE(t.outputFloatAt(0) == 67);
+            t << 67;
+            REQUIRE(t.outputFloatAt(0) == 67);
+            t << 68;
+            REQUIRE(t.outputFloatAt(0) == 69);
+            t << 69;
+            REQUIRE(t.outputFloatAt(0) == 69);
+            t << 70;
+            REQUIRE(t.outputFloatAt(0) == 69);
+            t << 71;
+            REQUIRE(t.outputFloatAt(0) == 72);
+            t << 72;
+            REQUIRE(t.outputFloatAt(0) == 72);
+        }
+
+        SECTION("D ritusen")
+        {
+            // 0, 2, 5, 7, 9
+            // 2, 4, 7, 9, 11
+            TExt t("midi.modus", "D", "ritusen", "@mode", "snap");
+
+            t << 60;
+            REQUIRE(t.outputFloatAt(0) == 59);
+            t << 61;
+            REQUIRE(t.outputFloatAt(0) == 62);
+            t << 62;
+            REQUIRE(t.outputFloatAt(0) == 62);
+            t << 63;
+            REQUIRE(t.outputFloatAt(0) == 64);
+            t << 64;
+            REQUIRE(t.outputFloatAt(0) == 64);
+            t << 65;
+            REQUIRE(t.outputFloatAt(0) == 64);
+            t << 66;
+            REQUIRE(t.outputFloatAt(0) == 67);
+            t << 67;
+            REQUIRE(t.outputFloatAt(0) == 67);
+            t << 68;
+            REQUIRE(t.outputFloatAt(0) == 69);
+            t << 69;
+            REQUIRE(t.outputFloatAt(0) == 69);
+            t << 70;
+            REQUIRE(t.outputFloatAt(0) == 71);
+            t << 71;
+            REQUIRE(t.outputFloatAt(0) == 71);
+            t << 72;
+            REQUIRE(t.outputFloatAt(0) == 71);
+        }
+    }
 }

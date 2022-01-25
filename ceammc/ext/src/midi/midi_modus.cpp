@@ -98,12 +98,15 @@ MidiModus::NoteStatus MidiModus::mapNote(t_float note, t_float& res) const
 
     const int root = root_->pitch().absolutePitch();
     const t_float step = std::fmod(note + 12 - root, 12);
+    const bool oct_wrap = std::fmod(note, 12) < root;
+    //    OBJ_DBG << "note=" << (int)note << ",root=" << root << ",step=" << step;
 
     switch (crc32_hash(prop_mode_->value())) {
     case hash_snap: {
         t_float degree = 0;
         if (scale_->findNearest(step, degree)) {
-            res = (root + degree) + (int(note) / 12) * 12;
+            const int oct = (static_cast<int>(note) / 12) - oct_wrap;
+            res = degree + root + oct * 12;
             return OK;
         }
 
