@@ -56,14 +56,13 @@ hijaz_desc \, todi \, hex_major7\.;
 #X text 245 909 note value.;
 #X text 150 929 *list*;
 #X text 245 929 NOTE VELOCITY [DUR] list.;
-#X text 110 949 2\.;
-#X text 150 949 *float*;
-#X text 245 949 set @oct value.;
-#X obj 20 979 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 984 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 959 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 964 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 985 1\.;
-#X text 245 985 transposed NOTE VELOCITY [DUR] list.;
+#X text 110 965 1\.;
+#X text 245 965 accepted note or NOTE VELOCITY [DUR] list.;
+#X text 110 985 2\.;
+#X text 245 985 discarded message.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
