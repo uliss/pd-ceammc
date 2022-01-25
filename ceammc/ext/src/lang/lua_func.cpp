@@ -316,6 +316,30 @@ namespace lua {
         return 1;
     }
 
+    int lua_symbol_to(lua_State* L)
+    {
+        const auto ctx = get_ctx(L);
+        const auto nargs = lua_gettop(L);
+
+        if (nargs != 2) {
+            ctx.pipe->try_enqueue({ LUA_CMD_ERROR, "usage: symbol_to(outlet, value)" });
+            return 0;
+        }
+
+        LuaStackGuard sg(L);
+
+        const LuaInt n = luaL_optinteger(L, 1, 0);
+        const char* str = luaL_optstring(L, 2, "");
+
+        if (!ctx.pipe->try_enqueue(LuaCmd(LUA_CMD_SYMBOL_TO, LuaAtomList { LuaAtom { n }, LuaAtom { str } })))
+            return 0;
+
+        if (!Dispatcher::instance().send({ ctx.id, NOTIFY_UPDATE }))
+            return 0;
+
+        return 1;
+    }
+
     int lua_message(lua_State* L)
     {
         const auto ctx = get_ctx(L);

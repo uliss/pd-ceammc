@@ -7,3 +7,7 @@ end
 function on_bang(i)
    bang_to(0)
 end
+
+function on_symbol(o,s)
+   symbol_to(i, s .. "+++")
+end

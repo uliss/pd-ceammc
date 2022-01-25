@@ -29,6 +29,7 @@ namespace lua {
         LUA_CMD_OUTPUT,
         LUA_CMD_BANG_TO,
         LUA_CMD_FLOAT_TO,
+        LUA_CMD_SYMBOL_TO,
         LUA_CMD_MESSAGE,
         LUA_CMD_POST,
         LUA_CMD_SEND,

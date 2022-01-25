@@ -257,6 +257,11 @@ void LangLuaJit::processMessage(const lua::LuaCmd& msg)
         const t_float f = (msg.args.size() < 2) ? 0 : msg.args[1].getDouble();
         floatTo(n, f);
     } break;
+    case LUA_CMD_SYMBOL_TO: {
+        const int n = (msg.args.size() < 1) ? 0 : msg.args[0].getInt();
+        const auto str = (msg.args.size() < 2) ? LuaString() : msg.args[1].getString();
+        symbolTo(n, gensym(str.c_str()));
+    } break;
     case LUA_CMD_POST:
         if (msg.args.size() == 1 && msg.args[0].isString())
             OBJ_POST << msg.args[0].getString();
