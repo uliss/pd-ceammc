@@ -252,6 +252,11 @@ void LangLuaJit::processMessage(const lua::LuaCmd& msg)
         const int n = msg.args.empty() ? 0 : msg.args[0].getInt();
         bangTo(n);
     } break;
+    case LUA_CMD_FLOAT_TO: {
+        const int n = (msg.args.size() < 1) ? 0 : msg.args[0].getInt();
+        const t_float f = (msg.args.size() < 2) ? 0 : msg.args[1].getDouble();
+        floatTo(n, f);
+    } break;
     case LUA_CMD_POST:
         if (msg.args.size() == 1 && msg.args[0].isString())
             OBJ_POST << msg.args[0].getString();
