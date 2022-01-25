@@ -32,6 +32,7 @@ an.onset~
 an.pitchtrack~
 an.rms~
 an.tempo~
+an.zero~
 and
 any->props
 apf->biquad
@@ -56,6 +57,7 @@ array.plot~
 array.p~
 array.r
 array.resample
+array.risset_rythm~
 array.rms
 array.s->p
 array.s2p
@@ -245,6 +247,7 @@ ceammc/window
 ceammc/xdac~
 ceammc/xfade2~
 ceammc/xfade~
+ceammc/z~
 ceammc/||'
 ceammc/~->
 cexp~
@@ -410,6 +413,7 @@ flow.stack
 flow.sync
 flow.sync_pack
 flow.tee~
+flt.a-weight
 flt.biquad~
 flt.bpf12~
 flt.bpf24~
@@ -468,6 +472,7 @@ fx.granulator~
 fx.greyhole~
 fx.infrev~
 fx.looper~
+fx.onset~
 fx.pitchshift_s~
 fx.pitchshift~
 fx.rb_pitchshift~
@@ -476,6 +481,7 @@ fx.room~
 fx.sdelay~
 fx.secho~
 fx.shimmer~
+fx.specdelay~
 fx.tapiir~
 fx.vocoder~
 fx.wahwah~
@@ -538,6 +544,7 @@ is_pointer
 is_symbol
 l->l
 l->l~
+lang.lua
 lfo.+pulse~
 lfo.+saw~
 lfo.+square~
@@ -795,9 +802,11 @@ midi.file
 midi.kbd
 midi.key->str
 midi.key2str
+midi.modus
 midi.oct
 midi.prg->str
 midi.prg2str
+midi.split
 midi.sustain
 midi.sysex
 midi.track
@@ -885,6 +894,7 @@ path.exists
 path.is_dir
 path.ls
 path.lsdir
+path.monitor
 path.norm
 path.normalize
 path.search
@@ -1129,6 +1139,7 @@ ui.radio
 ui.radio*
 ui.rsl
 ui.rslider
+ui.s2d
 ui.scope~
 ui.slider
 ui.slider2d
@@ -1154,6 +1165,7 @@ window
 xdac~
 xfade2~
 xfade~
+z~
 ||'
 ~->
 lang.faust~

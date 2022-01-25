@@ -45,7 +45,7 @@
     {base {
         ceammc.search function function.call gain~ logger matrix~
         metro.pattern metro.random metro.seq mix~ nsig~ obj.props radio spring
-        sync window xdac~ xfade2~ xfade~
+        sync window xdac~ xfade2~ xfade~ z~
     }}
     {chaos {
         chaos.gbman0 chaos.gbman0~ chaos.jong chaos.logistic chaos.std0
@@ -164,8 +164,9 @@
     }}
     {midi {
         midi.cc midi.clock midi.ctl2str midi.event2ctl midi.event2note
-        midi.event2prg midi.file midi.kbd midi.key2str midi.oct midi.prg2str
-        midi.sustain midi.sysex midi.track midi.tuning midi.vramp midi.vrand
+        midi.event2prg midi.file midi.kbd midi.key2str midi.modus midi.oct
+        midi.prg2str midi.split midi.sustain midi.sysex midi.track midi.tuning
+        midi.vramp midi.vrand
     }}
     {misc {
         click~ fluid~ modplug~ sfizz~ speech.flite speech.flite~
