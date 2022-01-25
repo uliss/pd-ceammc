@@ -30,6 +30,7 @@ class LangLuaJit : public ceammc::PollThreadQueueObject<lua::LuaCmd> {
 
 public:
     LangLuaJit(const PdArgs& args);
+    ~LangLuaJit() override;
 
     void onBang() override;
     void onFloat(t_float f) override;

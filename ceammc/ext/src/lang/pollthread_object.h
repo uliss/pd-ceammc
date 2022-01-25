@@ -41,6 +41,11 @@ public:
 
     ~PollThreadTaskObject()
     {
+        finish();
+    }
+
+    void finish()
+    {
         quit_ = true;
 
         Dispatcher::instance().unsubscribe(this);

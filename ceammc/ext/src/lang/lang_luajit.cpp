@@ -118,7 +118,7 @@ static void startLuaEventLoop(LangLuaJit* x, const bool* quit)
     while (!*quit) {
         lua::LuaCmd in_cmd;
         if (x->inPipe().try_dequeue(in_cmd)) {
-            //            x->interp().run(in_cmd);
+            x->interp().run(in_cmd);
         }
 
         if (*quit)
@@ -138,6 +138,11 @@ LangLuaJit::LangLuaJit(const PdArgs& args)
 
     if (!runTask())
         OBJ_ERR << "can't start LUA event loop";
+}
+
+LangLuaJit::~LangLuaJit()
+{
+    finish();
 }
 
 void LangLuaJit::onBang()

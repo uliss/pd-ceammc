@@ -105,7 +105,7 @@ namespace lua {
         lua_setglobal(lua_, "_quit");
 
         // Initialisation code
-        //        lua_sethook(lua_, &line_hook_fn, LUA_MASKLINE, 0);
+        lua_sethook(lua_, &line_hook_fn, LUA_MASKLINE, 0);
     }
 
     LuaInterp::~LuaInterp()
