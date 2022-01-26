@@ -105,18 +105,18 @@ TEST_CASE("lang.luajit", "[externals]")
         WAIT(t, 10)
 
         // send float
-        t.sendMessage("call", LA("test_send_float", "sig1", -0.25));
+        t.sendMessage("call", LA("send_float", "sig1", -0.25));
         WAIT(t, 10)
         REQUIRE(sig1.msg().isFloat());
         REQUIRE(sig1.msg().atomValue().asT<t_float>() == -0.25);
 
         // invalid args
-        t.sendMessage("call", LA("test_send_float", "sig1"));
+        t.sendMessage("call", LA("send_float", "sig1"));
         WAIT(t, 10)
-        t.sendMessage("call", LA("test_send_float"));
+        t.sendMessage("call", LA("send_float"));
         WAIT(t, 10)
         // invalid dest
-        t.sendMessage("call", LA("test_send_float", "????", 3));
+        t.sendMessage("call", LA("send_float", "????", 3));
         WAIT(t, 10)
     }
 }
