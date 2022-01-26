@@ -299,10 +299,20 @@ void LangLuaJit::processMessage(const lua::LuaCmd& msg)
     case LUA_CMD_SEND_BANG: {
         const auto sel = (msg.args.size() < 1) ? LuaString("?") : msg.args[0].getString();
         auto sym = gensym(sel.c_str());
-        if(sym->s_thing)
+        if (sym->s_thing)
             pd_bang(sym->s_thing);
         else
-            OBJ_DBG << "target not found: " << sym->s_name;
+            OBJ_DBG << "send_bang() target not found: " << sym;
+    } break;
+    case LUA_CMD_SEND_FLOAT: {
+        const auto sel = (msg.args.size() < 1) ? LuaString("?") : msg.args[0].getString();
+        const auto val = (msg.args.size() < 2) ? 0 : msg.args[1].getDouble();
+
+        auto sym = gensym(sel.c_str());
+        if (sym->s_thing)
+            pd_float(sym->s_thing, val);
+        else
+            OBJ_DBG << "send_float() target not found: " << sym;
     } break;
     default:
         OBJ_ERR << "unknown command code: " << msg.cmd;

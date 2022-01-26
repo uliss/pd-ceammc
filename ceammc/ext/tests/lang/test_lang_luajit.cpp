@@ -84,14 +84,39 @@ TEST_CASE("lang.luajit", "[externals]")
     SECTION("call")
     {
         ListenerExternal sig0("sig+");
+        ListenerExternal sig1("sig1");
 
         TExt t("lang.lua");
 
         t.sendMessage("load", TEST_DATA_DIR "/test1.lua");
         WAIT(t, 10)
 
+        // ok
         t.sendMessage("call", LA("test_send_bang", "sig+"));
         WAIT(t, 10)
         REQUIRE(sig0.msg().isBang());
+
+        // invalid args
+        t.sendMessage("call", LA("test_send_bang"));
+        WAIT(t, 10)
+
+        // invalid dest
+        t.sendMessage("call", LA("test_send_bang", "????"));
+        WAIT(t, 10)
+
+        // send float
+        t.sendMessage("call", LA("test_send_float", "sig1", -0.25));
+        WAIT(t, 10)
+        REQUIRE(sig1.msg().isFloat());
+        REQUIRE(sig1.msg().atomValue().asT<t_float>() == -0.25);
+
+        // invalid args
+        t.sendMessage("call", LA("test_send_float", "sig1"));
+        WAIT(t, 10)
+        t.sendMessage("call", LA("test_send_float"));
+        WAIT(t, 10)
+        // invalid dest
+        t.sendMessage("call", LA("test_send_float", "????", 3));
+        WAIT(t, 10)
     }
 }
