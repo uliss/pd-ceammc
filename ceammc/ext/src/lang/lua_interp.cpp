@@ -93,6 +93,8 @@ namespace lua {
         lua_setglobal(lua_, "send_bang");
         lua_pushcfunction(lua_, lua_send_float);
         lua_setglobal(lua_, "send_float");
+        lua_pushcfunction(lua_, lua_send_symbol);
+        lua_setglobal(lua_, "send_symbol");
 
         lua_pushcfunction(lua_, lua_sleep);
         lua_setglobal(lua_, "sleep");

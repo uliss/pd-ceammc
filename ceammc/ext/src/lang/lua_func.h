@@ -37,6 +37,7 @@ namespace lua {
     // send
     int lua_send_bang(lua_State* L);
     int lua_send_float(lua_State* L);
+    int lua_send_symbol(lua_State* L);
 
     class FunctionCall {
         lua_State* lua_;

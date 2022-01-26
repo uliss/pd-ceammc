@@ -314,6 +314,16 @@ void LangLuaJit::processMessage(const lua::LuaCmd& msg)
         else
             OBJ_DBG << "send_float() target not found: " << sym;
     } break;
+    case LUA_CMD_SEND_SYMBOL: {
+        const auto sel = (msg.args.size() < 1) ? LuaString("?") : msg.args[0].getString();
+        const auto val = (msg.args.size() < 2) ? "" : msg.args[1].getString();
+
+        auto sym = gensym(sel.c_str());
+        if (sym->s_thing)
+            pd_symbol(sym->s_thing, gensym(val.c_str()));
+        else
+            OBJ_DBG << "send_symbol() target not found: " << sym;
+    } break;
     default:
         OBJ_ERR << "unknown command code: " << msg.cmd;
         break;

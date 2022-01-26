@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "lua_func.h"
 #include "ceammc_convert.h"
+#include "fmt/format.h"
 #include "lua_cmd.h"
 #include "lua_stack_guard.h"
 #include "pollthread_object.h"
@@ -24,7 +25,50 @@ constexpr size_t MAX_TABLE_LEN = 256;
 
 namespace ceammc {
 namespace lua {
+
     using LuaPipe = PollThreadQueue<LuaCmd>;
+
+    struct Context {
+        LuaPipe* pipe;
+        SubscriberId id;
+    };
+
+    static const char* type_to_string(int t)
+    {
+        switch (t) {
+        case LUA_TNONE:
+            return "none";
+        case LUA_TNIL:
+            return "nil";
+        case LUA_TBOOLEAN:
+            return "boolean";
+        case LUA_TLIGHTUSERDATA:
+            return "lightuserdata";
+        case LUA_TNUMBER:
+            return "number";
+        case LUA_TSTRING:
+            return "string";
+        case LUA_TTABLE:
+            return "table";
+        case LUA_TFUNCTION:
+            return "function";
+        case LUA_TUSERDATA:
+            return "userdata";
+        case LUA_TTHREAD:
+            return "thread";
+        default:
+            return "unknown";
+        }
+    }
+
+    static void check_arg_type(const Context& ctx, const char* name, int expected_type, lua_State* lua, int idx)
+    {
+        auto real_type = lua_type(lua, idx);
+        if (real_type != expected_type && ctx.pipe) {
+            ctx.pipe->try_enqueue({ LUA_CMD_ERROR,
+                fmt::format("'{}' expected to be '{}', got '{}'", name, type_to_string(expected_type), type_to_string(real_type)) });
+        }
+    }
 
     int lua_mtof(lua_State* L)
     {
@@ -108,11 +152,6 @@ namespace lua {
 
         pipe->try_enqueue({ LUA_CMD_POST, buf });
     }
-
-    struct Context {
-        LuaPipe* pipe;
-        SubscriberId id;
-    };
 
     Context get_ctx(lua_State* L)
     {
@@ -427,6 +466,7 @@ namespace lua {
 
         if (!lua_isstring(L, 1)) {
             ctx.pipe->try_enqueue({ LUA_CMD_ERROR, "usage: send_bang(dest)" });
+            check_arg_type(ctx, "dest", LUA_TSTRING, L, 1);
             return 0;
         }
 
@@ -451,6 +491,10 @@ namespace lua {
 
         if (!(nargs == 2 && lua_isstring(L, 1) && lua_isnumber(L, 2))) {
             ctx.pipe->try_enqueue({ LUA_CMD_ERROR, "usage: send_float(dest, val)" });
+
+            check_arg_type(ctx, "dest", LUA_TSTRING, L, 1);
+            check_arg_type(ctx, "val", LUA_TNUMBER, L, 2);
+
             return 0;
         }
 
@@ -459,6 +503,35 @@ namespace lua {
         auto val = LuaAtom(luaL_optnumber(L, 2, 0));
 
         if (!ctx.pipe->try_enqueue(LuaCmd(LUA_CMD_SEND_FLOAT, LuaAtomList { dest, val })))
+            return 0;
+
+        if (!Dispatcher::instance().send({ ctx.id, NOTIFY_UPDATE }))
+            return 0;
+
+        return 1;
+    }
+
+    int lua_send_symbol(lua_State* L)
+    {
+        const auto ctx = get_ctx(L);
+        const int nargs = lua_gettop(L);
+
+        LuaStackGuard sg(L);
+
+        if (!(nargs == 2 && lua_isstring(L, 1) && lua_isstring(L, 2))) {
+            ctx.pipe->try_enqueue({ LUA_CMD_ERROR, "usage: send_symbol(dest, val)" });
+
+            check_arg_type(ctx, "dest", LUA_TSTRING, L, 1);
+            check_arg_type(ctx, "val", LUA_TSTRING, L, 2);
+
+            return 0;
+        }
+
+        // destination
+        auto dest = LuaAtom(luaL_optstring(L, 1, ""));
+        auto val = LuaAtom(luaL_optstring(L, 2, ""));
+
+        if (!ctx.pipe->try_enqueue(LuaCmd(LUA_CMD_SEND_SYMBOL, LuaAtomList { dest, val })))
             return 0;
 
         if (!Dispatcher::instance().send({ ctx.id, NOTIFY_UPDATE }))
