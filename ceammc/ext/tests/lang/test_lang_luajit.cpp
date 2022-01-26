@@ -68,4 +68,16 @@ TEST_CASE("lang.luajit", "[externals]")
         REQUIRE(t.hasOutputAt(0));
         REQUIRE(t.outputAnyAt(0) == LA("test+", 1, 2, 3));
     }
+
+    SECTION("eval")
+    {
+        TExt t("lang.lua");
+        t.sendMessage("eval", LA("i = 2"));
+        WAIT(t, 10)
+
+        t.sendMessage("eval", LA("float_to(0, i*40)"));
+        WAIT(t, 10)
+        REQUIRE(t.hasOutputAt(0));
+        REQUIRE(t.outputFloatAt(0) == 80);
+    }
 }
