@@ -419,6 +419,29 @@ namespace lua {
         return 1;
     }
 
+    int lua_send_bang(lua_State* L)
+    {
+        const auto ctx = get_ctx(L);
+
+        LuaStackGuard sg(L);
+
+        if (!lua_isstring(L, 1)) {
+            ctx.pipe->try_enqueue({ LUA_CMD_ERROR, "usage: send_bang(dest)" });
+            return 0;
+        }
+
+        // destination
+        LuaString dest = luaL_optstring(L, 1, "");
+
+        if (!ctx.pipe->try_enqueue(LuaCmd(LUA_CMD_SEND_BANG, dest)))
+            return 0;
+
+        if (!Dispatcher::instance().send({ ctx.id, NOTIFY_UPDATE }))
+            return 0;
+
+        return 1;
+    }
+
     int lua_sleep(lua_State* L)
     {
         auto n = luaL_checkinteger(L, 1);
@@ -577,8 +600,11 @@ namespace lua {
         if (!isDefined())
             return false;
 
-        if (npushed_ != nargs_) {
-            std::cerr << "no all arguments pushed for function " << name_ << std::endl;
+        if (npushed_ < nargs_) {
+            std::cerr << "not all arguments pushed for function " << name_ << ". " << nargs_ << " expected, got: " << npushed_ << std::endl;
+            return false;
+        } else if (npushed_ > nargs_) {
+            std::cerr << "too many arguments pushed for function " << name_ << ". " << nargs_ << " expected, got: " << npushed_ << std::endl;
             return false;
         }
 

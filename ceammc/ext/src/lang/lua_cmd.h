@@ -33,6 +33,7 @@ namespace lua {
         LUA_CMD_ANY_TO,
         LUA_CMD_POST,
         LUA_CMD_SEND,
+        LUA_CMD_SEND_BANG,
         LUA_INTERP_EVAL,
         LUA_INTERP_LOAD,
         LUA_INTERP_BANG,
@@ -40,6 +41,7 @@ namespace lua {
         LUA_INTERP_SYMBOL,
         LUA_INTERP_LIST,
         LUA_INTERP_ANY,
+        LUA_INTERP_CALL,
         LUA_INTERP_PROPERTY
     };
 

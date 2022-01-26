@@ -88,6 +88,10 @@ namespace lua {
         lua_pushcfunction(lua_, lua_any_to);
         lua_setglobal(lua_, "any_to");
 
+        // send
+        lua_pushcfunction(lua_, lua_send_bang);
+        lua_setglobal(lua_, "send_bang");
+
         lua_pushcfunction(lua_, lua_sleep);
         lua_setglobal(lua_, "sleep");
 
@@ -214,7 +218,20 @@ namespace lua {
 
                     fn();
                 } else {
+                }
+            } break;
+            case LUA_INTERP_CALL: {
+                // args: METHOD ARGS?...
+                if (cmd.args.size() >= 1 && cmd.args[0].isString()) {
+                    FunctionCall fn(lua_, cmd.args.size() - 1, cmd.args[0].getString());
+                    if (!fn)
+                        return;
 
+                    for (size_t i = 1; i < cmd.args.size(); i++)
+                        fn << cmd.args[i];
+
+                    fn();
+                } else {
                 }
             } break;
             case LUA_CMD_NOP: // ignore silently

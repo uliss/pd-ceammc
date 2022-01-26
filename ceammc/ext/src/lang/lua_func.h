@@ -34,6 +34,8 @@ namespace lua {
     int lua_float_to(lua_State* L);
     int lua_symbol_to(lua_State* L);
     int lua_list_to(lua_State* L);
+    // send
+    int lua_send_bang(lua_State* L);
 
     class FunctionCall {
         lua_State* lua_;

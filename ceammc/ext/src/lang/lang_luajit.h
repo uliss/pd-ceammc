@@ -43,6 +43,7 @@ public:
 
     void m_load(t_symbol* s, const AtomListView& lv);
     void m_eval(t_symbol* s, const AtomListView& lv);
+    void m_call(t_symbol* s, const AtomListView& lv);
 
 public:
     lua::LuaInterp& interp() { return interp_; }

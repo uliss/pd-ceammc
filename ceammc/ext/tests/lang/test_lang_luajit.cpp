@@ -80,4 +80,18 @@ TEST_CASE("lang.luajit", "[externals]")
         REQUIRE(t.hasOutputAt(0));
         REQUIRE(t.outputFloatAt(0) == 80);
     }
+
+    SECTION("call")
+    {
+        ListenerExternal sig0("sig+");
+
+        TExt t("lang.lua");
+
+        t.sendMessage("load", TEST_DATA_DIR "/test1.lua");
+        WAIT(t, 10)
+
+        t.sendMessage("call", LA("test_send_bang", "sig+"));
+        WAIT(t, 10)
+        REQUIRE(sig0.msg().isBang());
+    }
 }

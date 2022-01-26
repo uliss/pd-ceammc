@@ -296,17 +296,13 @@ void LangLuaJit::processMessage(const lua::LuaCmd& msg)
             OBJ_ERR << msg.args[0].getString();
 
         break;
-    case LUA_CMD_SEND: {
-        AtomList res;
-        for (auto& a : msg.args)
-            res.append(a.applyVisitor<my_visitor>());
-
-        if (res.size() >= 1 && res[0].isSymbol()) {
-            auto dest = res[0].asT<t_symbol*>();
-            if (dest->s_thing)
-                pd_list(dest->s_thing, dest, res.size() - 1, res.view(1).toPdData());
-        } else
-            LIB_ERR << "invalid command format: " << res;
+    case LUA_CMD_SEND_BANG: {
+        const auto sel = (msg.args.size() < 1) ? LuaString("?") : msg.args[0].getString();
+        auto sym = gensym(sel.c_str());
+        if(sym->s_thing)
+            pd_bang(sym->s_thing);
+        else
+            OBJ_DBG << "target not found: " << sym->s_name;
     } break;
     default:
         OBJ_ERR << "unknown command code: " << msg.cmd;
@@ -340,6 +336,32 @@ void LangLuaJit::m_eval(t_symbol* s, const AtomListView& lv)
     }
 }
 
+void LangLuaJit::m_call(t_symbol* s, const AtomListView& lv)
+{
+    using namespace ceammc::lua;
+
+    const bool ok = lv.size() > 0 && lv[0].isSymbol();
+    if (!ok) {
+        METHOD_ERR(s) << "usage: method args???";
+        return;
+    }
+
+    lua::LuaCmd cmd(LUA_INTERP_CALL);
+    for (auto& a : lv) {
+        if (a.isFloat())
+            cmd.appendArg(LuaAtom(a.asT<t_float>()));
+        else if (a.isSymbol())
+            cmd.appendArg(LuaAtom(a.asT<t_symbol*>()));
+        else
+            OBJ_ERR << "unknown atom type: " << (int)a.type();
+    }
+
+    if (!inPipe().enqueue(cmd)) {
+        METHOD_ERR(s) << "can't send command to LUA interpreter: call";
+        return;
+    }
+}
+
 static void lua_menu_open(LL* o, t_symbol* name)
 {
     LIB_ERR << "test";
@@ -353,9 +375,10 @@ void setup_lang_luajit()
 
     Dispatcher::instance();
     ObjectFactory<LangLuaJit> obj("lang.lua");
+
     obj.addMethod("load", &LangLuaJit::m_load);
     obj.addMethod("eval", &LangLuaJit::m_eval);
-
+    obj.addMethod("call", &LangLuaJit::m_call);
     obj.addMethod("quit", &LangLuaJit::m_quit);
 
     class_addmethod(obj.classPointer(), (t_method)textbuf_open,
