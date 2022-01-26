@@ -36,6 +36,7 @@ public:
     void onFloat(t_float f) override;
     void onSymbol(t_symbol* s) override;
     void onList(const AtomList& lst) override;
+    void onAny(t_symbol* sel, const AtomListView& lv) override;
 
     Future createTask() override;
     void processMessage(const lua::LuaCmd& msg) override;

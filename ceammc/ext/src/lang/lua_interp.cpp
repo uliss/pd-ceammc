@@ -202,6 +202,21 @@ namespace lua {
                     fn();
                 }
             } break;
+            case LUA_INTERP_ANY: {
+                // args: SELECTOR VALUES?...
+                if (cmd.args.size() >= 1 && cmd.args[0].isString()) {
+                    FunctionCall fn(lua_, 2, "on_any");
+                    if (!fn)
+                        return;
+
+                    fn << cmd.args[0];
+                    fn.pushTable(cmd.args.size() - 1, cmd.args.data() + 1);
+
+                    fn();
+                } else {
+
+                }
+            } break;
             case LUA_CMD_NOP: // ignore silently
                 break;
             default:

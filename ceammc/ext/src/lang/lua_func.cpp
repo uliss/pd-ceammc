@@ -374,10 +374,10 @@ namespace lua {
             return 0;
         }
 
-        LuaAtomList data;
-
         // target outlet
         LuaInt n = luaL_optinteger(L, 1, 0);
+
+        LuaAtomList data;
         data.reserve(nargs);
         data.emplace_back(n);
 
@@ -386,14 +386,14 @@ namespace lua {
             ctx.pipe->try_enqueue({ LUA_CMD_ERROR, "selector should be the string" });
             return 0;
         }
-        data.emplace_back(lua_tostring(L, 1));
+        data.emplace_back(lua_tostring(L, 2));
 
         // message arguments
         if (is_list_arg) {
-            auto tab = get_list_table(L, 2);
+            auto tab = get_list_table(L, 3);
             data.insert(data.end(), tab.begin(), tab.end());
         } else if (is_tuple_arg) {
-            for (int i = 2; i <= nargs; i++) {
+            for (int i = 3; i <= nargs; i++) {
                 switch (lua_type(L, i)) {
                 case LUA_TNUMBER:
                     data.emplace_back(lua_tonumber(L, i));

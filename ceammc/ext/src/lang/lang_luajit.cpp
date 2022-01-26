@@ -200,6 +200,26 @@ void LangLuaJit::onList(const AtomList& lst)
     }
 }
 
+void LangLuaJit::onAny(t_symbol* sel, const AtomListView& lv)
+{
+    using namespace ceammc::lua;
+    LuaAtomList args;
+    args.reserve(lv.size() + 1);
+    args.emplace_back(sel);
+    for (size_t i = 0; i < lv.size(); i++) {
+        const auto& a = lv[i];
+        if (a.isFloat())
+            args.emplace_back(LuaDouble(a.asT<t_float>()));
+        else if (a.isSymbol())
+            args.emplace_back(a.asT<t_symbol*>());
+    }
+
+    if (!inPipe().try_enqueue({ LUA_INTERP_ANY, args })) {
+        OBJ_ERR << "can't send command to LUA interpreter: any";
+        return;
+    }
+}
+
 PollThreadTaskObject<int>::Future LangLuaJit::createTask()
 {
     setQuit(false);
@@ -257,6 +277,7 @@ void LangLuaJit::processMessage(const lua::LuaCmd& msg)
     case LUA_CMD_ANY_TO: {
         const int n = (msg.args.size() < 1) ? 0 : msg.args[0].getInt();
         const auto sel = (msg.args.size() < 2) ? LuaString("?") : msg.args[1].getString();
+
         AtomList res;
         res.reserve(msg.args.size());
         for (size_t i = 2; i < msg.args.size(); i++)

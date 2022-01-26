@@ -17,6 +17,6 @@ function on_list(o,l)
    list_to(0, l)
 end
 
-function on_any(i,s,l)
-   any_to(0,s,l)
+function on_any(sel,l)
+   any_to(0,sel .. "+",l)
 end

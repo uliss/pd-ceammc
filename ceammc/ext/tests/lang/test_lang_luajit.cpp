@@ -61,5 +61,11 @@ TEST_CASE("lang.luajit", "[externals]")
         WAIT(t, 10)
         REQUIRE(t.hasOutputAt(0));
         REQUIRE(t.outputListAt(0) == LF(2, 4, 6));
+
+        t.clearAll();
+        t.sendMessage("test", LF(1, 2, 3));
+        WAIT(t, 10)
+        REQUIRE(t.hasOutputAt(0));
+        REQUIRE(t.outputAnyAt(0) == LA("test+", 1, 2, 3));
     }
 }
