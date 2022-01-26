@@ -80,3 +80,5 @@ mac/tk*
 mac/embedded
 
 msw/tcltk*
+# vim temp files
+*.swp
