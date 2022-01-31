@@ -365,6 +365,7 @@ TEST_CASE("parser_music", "[ceammc::ceammc_units]")
             REQUIRE(p.note().dur.num == 1);
             REQUIRE(p.note().dur.den == 4);
             REQUIRE(p.note().dur.ratio() == 0.25);
+            REQUIRE(p.note().dur.timeMs() == 1000);
 
             REQUIRE(p.parse("Cb5|2."));
             REQUIRE(p.note().spn.midi() == 71);
@@ -399,10 +400,14 @@ TEST_CASE("parser_music", "[ceammc::ceammc_units]")
             REQUIRE(p.parse("D|1/4"));
             REQUIRE(p.note().dur.num == 1);
             REQUIRE(p.note().dur.den == 4);
+            REQUIRE(p.note().dur.ratio() == 0.25);
+            REQUIRE(p.note().dur.timeMs() == 1000);
 
             REQUIRE(p.parse("D|1/4."));
             REQUIRE(p.note().dur.num == 3);
             REQUIRE(p.note().dur.den == 8);
+            REQUIRE(p.note().dur.ratio() == 0.375);
+            REQUIRE(p.note().dur.timeMs() == 1500);
 
             REQUIRE(p.parse("C(+50c)|5/4"));
             REQUIRE(p.note().spn.midi() == 60.5);
@@ -455,6 +460,8 @@ TEST_CASE("parser_music", "[ceammc::ceammc_units]")
             REQUIRE(p.note().dur.den == 4);
             REQUIRE(p.note().dur.ratio() == 0.25);
             REQUIRE(p.note().dur.timeMs() == 1000);
+            REQUIRE(p.note().dur.timeMs({ 60, 0.25 }) == 1000);
+            REQUIRE(p.note().dur.timeMs({ 120, 0.25 }) == 500);
             REQUIRE(p.note().dur.timeMs({ 60, 0.5 }) == 500);
             REQUIRE(p.note().dur.timeMs({ 60, 1 }) == 250);
             REQUIRE(p.note().dur.timeMs({ 120, 0.25 }) == 500);

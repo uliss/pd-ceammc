@@ -314,7 +314,7 @@ namespace parser {
         PitchFullMatch();
         void reset();
 
-        const Spn&spn() const { return spn_; }
+        const Spn& spn() const { return spn_; }
 
         bool parse(const char* str);
         bool parse(const Atom& a);
@@ -346,7 +346,8 @@ namespace parser {
 
         t_float timeMs(const Bpm& bpm = { 60, 0.25 }) const
         {
-            return bpm.beatPeriodMs() * ratio() / bpm.beatlen;
+            return (num * 60000.0) / (bpm.bpm * bpm.beatlen * den);
+            return bpm.beatPeriodMs() * ratio() * 4;
         }
 
         t_float timeSamp(t_float sr, const Bpm& bpm = { 60, 0.25 }) const
