@@ -17,6 +17,7 @@
   - [reverse( method added to xdac~ to reverse output channels order
   - [shuffle( method added to xdac~ to shuffle output channels
   - [rotate( method added to xdac~ to rotate output channels
+  - [side2circle( method added to xdac~ to change output channel layout
 - misc:
   - conv.lin2exp: list support added
   - conv.lin2curve: list support added
