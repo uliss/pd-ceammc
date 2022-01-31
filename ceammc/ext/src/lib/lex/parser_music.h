@@ -347,12 +347,11 @@ namespace parser {
         t_float timeMs(const Bpm& bpm = { 60, 0.25 }) const
         {
             return (num * 60000.0) / (bpm.bpm * bpm.beatlen * den);
-            return bpm.beatPeriodMs() * ratio() * 4;
         }
 
         t_float timeSamp(t_float sr, const Bpm& bpm = { 60, 0.25 }) const
         {
-            return bpm.beatPeriodSamp(sr) * ratio() * den;
+            return timeMs(bpm) * sr / 1000.0;
         }
 
         bool isAbs() const { return durtype == DURATION_ABS; }
