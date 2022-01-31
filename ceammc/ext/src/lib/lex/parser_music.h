@@ -103,19 +103,14 @@ namespace parser {
         t_float value() const { return bpm; }
         t_float freqHz() const { return value() / 60.0; }
 
-        t_float periodMs(t_float def = 0) const
+        t_float beatPeriodMs(t_float def = 0) const
         {
-            return (bpm > 0) ? 60000.0 / value() : def;
+            return (bpm > 0) ? (60000.0 / bpm) * (beatlen * 4) : def;
         }
 
-        t_float periodSamp(t_float sr, t_float def = 0) const
+        t_float beatPeriodSamp(t_float sr, t_float def = 0) const
         {
             return (bpm > 0) ? sr * 60.0 / value() : def;
-        }
-
-        t_float periodWholeMs(t_float def = 0) const
-        {
-            return (beatlen > 0) ? (periodMs(def) / beatlen) : def;
         }
     };
 
@@ -351,12 +346,12 @@ namespace parser {
 
         t_float timeMs(const Bpm& bpm = { 60, 0.25 }) const
         {
-            return bpm.periodMs() * ratio() / bpm.beatlen;
+            return bpm.beatPeriodMs() * ratio() / bpm.beatlen;
         }
 
         t_float timeSamp(t_float sr, const Bpm& bpm = { 60, 0.25 }) const
         {
-            return bpm.periodSamp(sr) * ratio() * den;
+            return bpm.beatPeriodSamp(sr) * ratio() * den;
         }
 
         bool isAbs() const { return durtype == DURATION_ABS; }

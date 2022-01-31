@@ -33,8 +33,8 @@ TEST_CASE("parser_music", "[ceammc::ceammc_units]")
             REQUIRE(p.bpm().beatlen == 0.25);
             REQUIRE(p.bpm().freqHz() == 2);
             REQUIRE(p.bpm().value() == 120);
-            REQUIRE(p.bpm().periodMs() == 500);
-            REQUIRE(p.bpm().periodSamp(10000) == 5000);
+            REQUIRE(p.bpm().beatPeriodMs() == 500);
+            REQUIRE(p.bpm().beatPeriodSamp(10000) == 5000);
 
             REQUIRE(p.parse("120.5"));
             REQUIRE(p.bpm().bpm == 120.5);
@@ -49,8 +49,8 @@ TEST_CASE("parser_music", "[ceammc::ceammc_units]")
             REQUIRE(p.parse("0"));
             REQUIRE(p.bpm().bpm == 0);
             REQUIRE(p.bpm().beatlen == 0.25);
-            REQUIRE(p.bpm().periodMs() == 0);
-            REQUIRE(p.bpm().periodSamp(44100) == 0);
+            REQUIRE(p.bpm().beatPeriodMs() == 0);
+            REQUIRE(p.bpm().beatPeriodSamp(44100) == 0);
 
             REQUIRE(p.parse("144bpm"));
             REQUIRE(p.bpm().bpm == 144);
@@ -86,8 +86,8 @@ TEST_CASE("parser_music", "[ceammc::ceammc_units]")
 
             REQUIRE(p.parse("0"));
             REQUIRE(p.bpm().freqHz() == 0);
-            REQUIRE(p.bpm().periodMs() == 0);
-            REQUIRE(p.bpm().periodMs(-100) == -100);
+            REQUIRE(p.bpm().beatPeriodMs() == 0);
+            REQUIRE(p.bpm().beatPeriodMs(-100) == -100);
 
             REQUIRE(p.parse("60|4.bpm"));
 
