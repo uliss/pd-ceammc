@@ -27,6 +27,10 @@
         <properties>
             <property name="@channels" type="list" default="1 2">list of mapped channels</property>
         </properties>
+        <methods>
+            <method name="reverse">reverse output channels order</method>
+            <method name="shuffle">shuffle output channels order</method>
+        </methods>
         <inlets dynamic="true">
             <inlet type="audio" number="1">
                 <xinfo>first specified channel</xinfo>
