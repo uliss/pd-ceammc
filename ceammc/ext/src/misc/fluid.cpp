@@ -139,7 +139,7 @@ Fluid::Fluid(const PdArgs& args)
     }
 
     // settings:
-    fluid_settings_setnum(settings, "synth.midi-channels", 16);
+    //    fluid_settings_setnum(settings, "synth.midi-channels", 16);
 
     // Create fluidsynth instance:
     synth_ = new_fluid_synth(settings);
@@ -357,8 +357,12 @@ void Fluid::m_note(t_symbol* s, const AtomListView& lv)
     if (res.chan == -1)
         res.chan = 0;
 
-    auto fn = [&res](fluid_synth_t* synth, int chan, uint8_t val) -> bool {
-        return fluid_synth_noteon(synth, chan, res.n, val) == FLUID_OK;
+    auto fn = [&res](fluid_synth_t* synth, int chan, uint8_t vel) -> bool {
+        if (vel == 0) {
+            fluid_synth_noteoff(synth, chan, res.n);
+            return true;
+        } else
+            return fluid_synth_noteon(synth, chan, res.n, vel) == FLUID_OK;
     };
     callFluidChannelFn(s, res.chan, fn, res.value, "note", lv);
 }
