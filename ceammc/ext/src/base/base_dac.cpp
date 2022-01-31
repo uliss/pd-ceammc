@@ -180,6 +180,21 @@ void BaseDac::m_rotate(t_symbol* s, const AtomListView& lv)
     updateDsp();
 }
 
+void BaseDac::m_side2circle(t_symbol* s, const AtomListView&)
+{
+    const auto N = vec_.size() - (vec_.size() & 0x1);
+
+    for (size_t i = 0; i < N; i++) {
+        if (i < N / 2)
+            vec_[i] = (i * 2) + 1;
+        else
+            vec_[i] = N - (i - (N / 2)) * 2;
+    }
+
+    updateDsp();
+    syncAnnotations();
+}
+
 void BaseDac::updateDsp()
 {
     canvas_update_dsp();
@@ -203,6 +218,7 @@ void setup_base_dac()
     obj.addMethod("shuffle", &BaseDac::m_shuffle);
     obj.addMethod("reverse", &BaseDac::m_reverse);
     obj.addMethod("rotate", &BaseDac::m_rotate);
+    obj.addMethod("side2circle", &BaseDac::m_side2circle);
 
     obj.setDescription("dac~ with channel ranges");
     obj.addAuthor("Serge Poltavsky");

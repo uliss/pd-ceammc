@@ -43,6 +43,7 @@ public:
     void m_shuffle(t_symbol* s, const AtomListView&);
     void m_reverse(t_symbol* s, const AtomListView&);
     void m_rotate(t_symbol* s, const AtomListView& lv);
+    void m_side2circle(t_symbol* s, const AtomListView&);
 
 private:
     void updateDsp();
