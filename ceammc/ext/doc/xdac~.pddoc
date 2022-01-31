@@ -30,6 +30,8 @@
         <methods>
             <method name="reverse">reverse output channels order</method>
             <method name="shuffle">shuffle output channels order</method>
+             <method name="rotate">rotate output channels counter clock wise
+             <param name="N" type="int" required="true">number of rotation steps, can be negative</param></method>
         </methods>
         <inlets dynamic="true">
             <inlet type="audio" number="1">
