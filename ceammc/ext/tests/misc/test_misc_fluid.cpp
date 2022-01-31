@@ -52,4 +52,15 @@ TEST_CASE("misc.fluid~", "[externals]")
         TestExtFluid t("fluid~", LA("@sf", "\"" SF_FILE "\""));
         REQUIRE_PROPERTY(t, @sf, SF_FILE);
     }
+
+    SECTION("note on/off")
+    {
+        TExt t("fluid~", LA("@sf", "\"" SF_FILE "\""));
+
+        t.m_note(SYM("note"), LF(60, 100));
+        t.m_note(SYM("note"), LF(60, 0));
+
+        t.m_note(SYM("note"), LF(1, 60, 100));
+        t.m_note(SYM("note"), LF(1, 60, 0));
+    }
 }
