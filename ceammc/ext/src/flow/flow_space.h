@@ -35,6 +35,7 @@ class FlowSpace : public BaseObject {
 
     ClockLambdaFunction packet_sched_;
     FloatProperty* delay_;
+    FloatProperty* deviation_;
     IntProperty* done_;
     std::list<ClockEntry> pipe_;
     ClockLambdaFunction done_fn_;

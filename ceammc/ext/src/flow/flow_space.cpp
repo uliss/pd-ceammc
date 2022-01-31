@@ -14,10 +14,14 @@
 #include "flow_space.h"
 #include "ceammc_factory.h"
 
+#include <chrono>
+#include <random>
+
 FlowSpace::FlowSpace(const PdArgs& a)
     : BaseObject(a)
     , packet_sched_([this]() { packetSchedule(); })
     , delay_(nullptr)
+    , deviation_(nullptr)
     , done_(nullptr)
     , done_fn_([this]() {
         bangTo(1);
@@ -34,6 +38,10 @@ FlowSpace::FlowSpace(const PdArgs& a)
     delay_->checkMinEq(1);
     delay_->setUnits(PropValueUnits::MSEC);
     addProperty(delay_);
+
+    deviation_ = new FloatProperty("@dev", 0);
+    deviation_->checkClosedRange(0, 1);
+    addProperty(deviation_);
 
     done_ = new IntProperty("@done", 1);
     done_->checkNonNegative();
@@ -53,9 +61,19 @@ void FlowSpace::packetSchedule()
 
                 it->new_one = false;
 
-                if (packet_count_ != 0)
-                    it->clock.delay(packet_count_ * delay_->value());
-                else // exec immidiately
+                if (packet_count_ != 0) {
+                    t_float t = packet_count_ * delay_->value();
+
+                    if (deviation_->value() > 0) {
+                        std::mt19937 dev(std::time(nullptr));
+                        const t_float b = deviation_->value() * 0.49;
+                        const t_float a = -b;
+                        std::uniform_real_distribution<t_float> dist(a, b);
+                        t += (dist(dev) * delay_->value());
+                    }
+
+                    it->clock.delay(t);
+                } else // exec immidiately
                     it->clock.exec();
 
             } else
@@ -70,9 +88,9 @@ void FlowSpace::clockDone()
 {
     if (--num_active_ == 0) {
         const auto n = done_->value();
-        if (n > 0)
+        if (n > 0) {
             done_fn_.delay(n * delay_->value());
-        else
+        } else
             bangTo(1);
     }
 }
