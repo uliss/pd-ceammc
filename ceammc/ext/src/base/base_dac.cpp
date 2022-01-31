@@ -89,6 +89,35 @@ BaseDac::BaseDac(const PdArgs& args)
 
     for (size_t i = 1; i < vec_.size(); i++)
         createSignalInlet();
+
+    createCbListProperty(
+        "@channels",
+        [this]() -> AtomList {
+            AtomList res;
+            res.reserve(vec_.size());
+            for (auto v : vec_)
+                res.append(v);
+
+            return res;
+        },
+        [this](const AtomListView& lv) -> bool {
+            const bool ok = lv.allOf([](const Atom& a) -> bool { return a.isInteger() && a.asT<int>() > 0; });
+            if (!ok) {
+                OBJ_ERR << "list of positive integer channel numbers is expected, got: " << lv;
+                return false;
+            }
+
+            const auto N = std::min(lv.size(), vec_.size());
+            for (size_t i = 0; i < N; i++) {
+                int ch = lv[i].asT<int>();
+                vec_[i] = ch;
+                vec_str_[i] = Descr(ch);
+            }
+
+            canvas_update_dsp();
+
+            return true;
+        });
 }
 
 void BaseDac::processBlock(const t_sample** in, t_sample** out)

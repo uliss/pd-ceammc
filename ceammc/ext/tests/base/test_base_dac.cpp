@@ -28,6 +28,10 @@ TEST_CASE("xdac~", "[extension]")
             TExt t("xdac~");
             REQUIRE(t->numInputChannels() == 2);
             REQUIRE(t->numOutputChannels() == 0);
+            REQUIRE_PROPERTY(t, @channels, LF(1, 2));
+
+            REQUIRE(t->setProperty("@channels", LF(2, 1)));
+            REQUIRE_PROPERTY(t, @channels, LF(2, 1));
         }
 
         SECTION("single")

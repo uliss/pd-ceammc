@@ -24,6 +24,9 @@
             range, that means from X channel to Y (including last one). If not specified - using 1
             and 2 out channels</argument>
         </arguments>
+        <properties>
+            <property name="@channels" type="list" default="1 2">list of mapped channels</property>
+        </properties>
         <inlets dynamic="true">
             <inlet type="audio" number="1">
                 <xinfo>first specified channel</xinfo>
@@ -40,6 +43,32 @@
             <pdascii>
 <![CDATA[
 [xdac~] [xdac~ 1:6] [xdac~ 1:3 5 7:12]
+
+[xdac~.map]
+]]>
+            </pdascii>
+            <pdascii id="map">
+<![CDATA[
+[T]
+|
+[metro 500]
+|
+[T]
+|
+[sel 0 1       ]
+|             ^|
+[click~]      [click~ #b]
+|
+[flt.resonbp~ 1000 40]
+|
+|             [flt.resonbp~ 4000 40 #c]
+|             |.
+[ui.hgain2~    ]  [@channels 2 1(
+| ^|              |
+|  |.             |
+[xdac~ 1 2        ]
+
+[X b->c]
 ]]>
             </pdascii>
         </example>
