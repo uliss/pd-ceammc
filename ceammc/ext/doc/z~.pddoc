@@ -21,7 +21,7 @@
         </arguments>
         <properties>
             <property name="@z" type="int" minvalue="0" default="1" maxvalue="512" units="sample">
-           delay length</property>
+            delay length</property>
         </properties>
         <inlets>
             <inlet type="audio">

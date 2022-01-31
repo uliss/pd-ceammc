@@ -36,8 +36,8 @@
         </arguments>
         <properties>
             <property name="@t" type="float" default="100" minvalue="1" maxvalue="20000"
-            units="millisecond">time between beats. Unit values like 100ms, 240bpm or 60|4bpm also can be
-            used</property>
+            units="millisecond">time between beats. Unit values like 100ms, 240bpm or 60|4bpm also
+            can be used</property>
             <property name="@p" type="list">sequencer pattern in beat duration units</property>
             <property name="@r" type="int" minvalue="-1" default="1">number of whole sequence
             repeats. If -1: repeat infinitely</property>

@@ -19,7 +19,8 @@
             <argument name="REPEATS" type="int">number of repeats</argument>
         </arguments>
         <properties>
-            <property name="@from" type="int" default="0">start value. Setting this property resets @i to 0</property>
+            <property name="@from" type="int" default="0">start value. Setting this property resets
+            @i to 0</property>
             <property name="@to" type="int" default="0">end value (inclusive)</property>
             <property name="@r" type="int" default="-1" minvalue="-1">number of repeats. If -1:
             repeat infinitely.</property>
