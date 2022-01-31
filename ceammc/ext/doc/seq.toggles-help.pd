@@ -87,8 +87,8 @@ infinitely. Type: int. Default value: 1\. Min value: -1\.;
 Default value: 0\. Min value: 0\.;
 #X msg 110 1183 @t;
 #X text 245 1183 Get/Set time between beats. Unit values like 100ms
-or 240bpm also can be used. Type: float. Units: ms. Default value:
-100\. Range: 1\...20000\.;
+\, 240bpm or 60|4bpm also can be used. Type: float. Units: ms. Default
+value: 100\. Range: 1\...20000\.;
 #X obj 20 1250 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1255 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
