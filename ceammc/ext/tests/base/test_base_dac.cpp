@@ -63,4 +63,27 @@ TEST_CASE("xdac~", "[extension]")
         t.call("reverse");
         REQUIRE_PROPERTY(t, @channels, LF(5, 4, 3, 2, 1));
     }
+
+    SECTION("rotate")
+    {
+        TExt t("xdac~", LF(1, 2, 3, 4, 5));
+
+        t.call("rotate");
+        REQUIRE_PROPERTY(t, @channels, LF(1, 2, 3, 4, 5));
+
+        t.call("rotate", LF(0));
+        REQUIRE_PROPERTY(t, @channels, LF(1, 2, 3, 4, 5));
+
+        t.call("rotate", LF(1));
+        REQUIRE_PROPERTY(t, @channels, LF(2, 3, 4, 5, 1));
+
+        t.call("rotate", LF(4));
+        REQUIRE_PROPERTY(t, @channels, LF(1, 2, 3, 4, 5));
+
+        t.call("rotate", LF(5));
+        REQUIRE_PROPERTY(t, @channels, LF(1, 2, 3, 4, 5));
+
+        t.call("rotate", LF(-1));
+        REQUIRE_PROPERTY(t, @channels, LF(5, 1, 2, 3, 4));
+    }
 }

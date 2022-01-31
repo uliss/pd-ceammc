@@ -42,9 +42,11 @@ public:
 
     void m_shuffle(t_symbol* s, const AtomListView&);
     void m_reverse(t_symbol* s, const AtomListView&);
+    void m_rotate(t_symbol* s, const AtomListView& lv);
 
 private:
     void updateDsp();
+    void syncAnnotations();
 };
 
 void setup_base_dac();

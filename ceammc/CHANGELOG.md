@@ -14,7 +14,8 @@
 - new methods:
   - [polltime( method added to system.cursor to change global polltime
   - [reverse( method added to xdac~ to reverse output channels order
-  - [shuffle( methof added to xdac~ to shuffle output channels
+  - [shuffle( method added to xdac~ to shuffle output channels
+  - [rotate( method added to xdac~ to rotate output channels
 - misc:
   - conv.lin2exp: list support added
   - conv.lin2curve: list support added

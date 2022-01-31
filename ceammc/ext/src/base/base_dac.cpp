@@ -159,21 +159,37 @@ void BaseDac::m_shuffle(t_symbol* s, const AtomListView&)
 {
     std::random_shuffle(vec_.begin(), vec_.end());
     updateDsp();
+    syncAnnotations();
 }
 
 void BaseDac::m_reverse(t_symbol* s, const AtomListView&)
 {
     std::reverse(vec_.begin(), vec_.end());
+    std::reverse(vec_str_.begin(), vec_str_.end());
+    updateDsp();
+}
+
+void BaseDac::m_rotate(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_INT, s))
+        return;
+
+    const auto n = size_t(int(vec_.size()) + lv[0].asT<int>()) % vec_.size();
+    std::rotate(vec_.begin(), vec_.begin() + n, vec_.end());
+    std::rotate(vec_str_.begin(), vec_str_.begin() + n, vec_str_.end());
     updateDsp();
 }
 
 void BaseDac::updateDsp()
 {
+    canvas_update_dsp();
+}
+
+void BaseDac::syncAnnotations()
+{
     const auto N = std::min(vec_.size(), vec_str_.size());
     for (size_t i = 0; i < N; i++)
         vec_str_[i] = Descr(vec_[i]);
-
-    canvas_update_dsp();
 }
 
 void setup_base_dac()
@@ -186,6 +202,7 @@ void setup_base_dac()
 
     obj.addMethod("shuffle", &BaseDac::m_shuffle);
     obj.addMethod("reverse", &BaseDac::m_reverse);
+    obj.addMethod("rotate", &BaseDac::m_rotate);
 
     obj.setDescription("dac~ with channel ranges");
     obj.addAuthor("Serge Poltavsky");
