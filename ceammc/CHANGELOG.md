@@ -13,6 +13,8 @@
   - @channels property added to xdac~: live-channel remapping
 - new methods:
   - [polltime( method added to system.cursor to change global polltime
+  - [reverse( method added to xdac~ to reverse output channels order
+  - [shuffle( methof added to xdac~ to shuffle output channels
 - misc:
   - conv.lin2exp: list support added
   - conv.lin2curve: list support added

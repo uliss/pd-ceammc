@@ -55,4 +55,12 @@ TEST_CASE("xdac~", "[extension]")
             REQUIRE(t->numOutputChannels() == 0);
         }
     }
+
+    SECTION("reverse")
+    {
+        TExt t("xdac~", LF(1, 2, 3, 4, 5));
+
+        t.call("reverse");
+        REQUIRE_PROPERTY(t, @channels, LF(5, 4, 3, 2, 1));
+    }
 }

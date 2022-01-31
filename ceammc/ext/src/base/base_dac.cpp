@@ -108,13 +108,10 @@ BaseDac::BaseDac(const PdArgs& args)
             }
 
             const auto N = std::min(lv.size(), vec_.size());
-            for (size_t i = 0; i < N; i++) {
-                int ch = lv[i].asT<int>();
-                vec_[i] = ch;
-                vec_str_[i] = Descr(ch);
-            }
+            for (size_t i = 0; i < N; i++)
+                vec_[i] = lv[i].asT<int>();
 
-            canvas_update_dsp();
+            updateDsp();
 
             return true;
         });
@@ -158,6 +155,27 @@ const char* BaseDac::annotateInlet(size_t n) const
                              : "";
 }
 
+void BaseDac::m_shuffle(t_symbol* s, const AtomListView&)
+{
+    std::random_shuffle(vec_.begin(), vec_.end());
+    updateDsp();
+}
+
+void BaseDac::m_reverse(t_symbol* s, const AtomListView&)
+{
+    std::reverse(vec_.begin(), vec_.end());
+    updateDsp();
+}
+
+void BaseDac::updateDsp()
+{
+    const auto N = std::min(vec_.size(), vec_str_.size());
+    for (size_t i = 0; i < N; i++)
+        vec_str_[i] = Descr(vec_[i]);
+
+    canvas_update_dsp();
+}
+
 void setup_base_dac()
 {
     SoundExternalFactory<BaseDac> obj("xdac~");
@@ -165,6 +183,9 @@ void setup_base_dac()
     obj.parseProps(false);
     obj.parsePosProps(false);
     obj.parseArgsMode(PdArgs::PARSE_COPY);
+
+    obj.addMethod("shuffle", &BaseDac::m_shuffle);
+    obj.addMethod("reverse", &BaseDac::m_reverse);
 
     obj.setDescription("dac~ with channel ranges");
     obj.addAuthor("Serge Poltavsky");
