@@ -1,5 +1,6 @@
 #!/bin/bash
 
+export LLVM_DIR=/opt/local/libexec/llvm-10/lib/cmake/llvm
 cmake -G Ninja \
 	-DCMAKE_CXX_FLAGS=-ffast-math\
 	-DCMAKE_C_FLAGS=-ffast-math \
