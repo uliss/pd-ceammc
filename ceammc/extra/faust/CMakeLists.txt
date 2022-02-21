@@ -31,7 +31,23 @@ endif()
 
 set(INCLUDE_STATIC ON CACHE BOOL "" FORCE)
 set(USE_LLVM_CONFIG OFF CACHE BOOL "" FORCE)
-find_package(LLVM REQUIRED CONFIG)
+
+if(APPLE)
+    find_path(MACPORTS_LLVM
+        NAMES llvm
+        PATHS /opt/local/libexec
+        PATH_SUFFIXES llvm-10/lib/cmake llvm-11/lib/cmake llvm-12/lib/cmake llvm-9.0/lib/cmake
+        NO_DEFAULT_PATH
+        NO_CMAKE_SYSTEM_PATH
+        REQUIRED
+        NO_CACHE)
+
+    set(LLVM_DIR ${MACPORTS_LLVM}/llvm)
+    find_package(LLVM REQUIRED CONFIG)
+else()
+    find_package(LLVM REQUIRED CONFIG)
+endif()
+
 message(STATUS "Found LLVM ${LLVM_PACKAGE_VERSION}")
 message(STATUS "Using LLVMConfig.cmake in: ${LLVM_DIR}")
 

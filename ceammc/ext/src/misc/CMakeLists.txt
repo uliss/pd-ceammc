@@ -3,8 +3,9 @@ macro(ceammc_misc_external mod name)
     ceammc_faust_gen_obj(${mod} ${name})
 endmacro()
 
-ceammc_misc_external(live capture)
 ceammc_misc_external(aubio pitchshift_tilde)
+ceammc_misc_external(live capture)
+ceammc_misc_external(risset glissando)
 
 add_library(ceammc_misc STATIC mod_misc.cpp ${MISC_SOURCES})
 target_compile_definitions(ceammc_misc PRIVATE -DFAUST_MACRO)
