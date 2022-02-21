@@ -60,6 +60,9 @@
     <entry name="array.resample" descr="array resampler" ref_view="object">
       <xi:include href="array.resample.pddoc" parse="xml"/>
     </entry>
+    <entry name="array.risset_rythm~" descr="Risset Rythm: accelerando or ritardando" ref_view="object">
+      <xi:include href="array.risset_rythm~.pddoc" parse="xml"/>
+    </entry>
     <entry name="array.rms" descr="calculates root mean square value for array" ref_view="object">
       <xi:include href="array.rms.pddoc" parse="xml"/>
     </entry>

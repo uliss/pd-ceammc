@@ -19,6 +19,7 @@ set(DOC_FILES
     array.plot
     array.plot~
     array.resample
+    array.risset_rythm~
     array.rms
     array.s2p
     array.set

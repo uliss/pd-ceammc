@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="array.risset_rythm~">
+        <title>array.risset_rythm~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Risset Rythm: accelerando or ritardando</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>array</category>
+            <keywords>array risset rythm</keywords>
+            <since>0.9.5</since>
+        </meta>
+        <properties>
+            <property name="@array" type="symbol" default="">array name</property>
+            <property name="@redraw" type="int" enum="1 0" default="1">redraw after array
+            change</property>
+        </properties>
+        <methods>
+            <method name="fill">fill all array with specified value or pattern 
+            <param name="@from" type="int">fill range begin index. If not specified set to
+            0.</param>
+            <param name="@to" type="int">fill range end index. Can be negative - to address from
+            array end. For example: -1 means till last element (not including). If not specified
+            set to array length.</param>
+            <param name="VAL1" type="float" required="true">value 1</param>
+            <param name="VAL..." type="float">other values..</param></method>
+            <method name="sin">fill all array with sine wave 
+            <param name="T" type="float" minvalue="0" required="true" units="sample">wave period.
+            Should be &gt;0</param>
+            <param name="A" type="float" default="1">amplitude</param>
+            <param name="PHASE" type="float" default="0" minvalue="0" maxvalue="1">phase in 0...1
+            range</param></method>
+            <method name="gauss">fill all array with random value with normal (gauss) distribution 
+            <param name="MEAN" type="float" default="0">mean value</param>
+            <param name="SIGMA" type="float" default="1" minvalue="0">standard
+            deviation</param></method>
+            <method name="uniform">fill all array with random value with uniform distribution 
+            <param name="A" type="float" default="0">min value</param>
+            <param name="B" type="float" default="1">max value</param></method>
+            <method name="pulse">fill all array with pulse wave 
+            <param name="T" type="float" required="true" minvalue="1" units="sample">wave
+            period</param>
+            <param name="A" type="float" default="1">wave amplitude</param>
+            <param name="D" type="float" default="0.5" minvalue="0.001" maxvalue="0.999">duty
+            cycle</param></method>
+            <method name="tri">fill all array with triangle wave 
+            <param name="T" type="float" required="true" minvalue="1" units="sample">wave
+            period</param>
+            <param name="AMP" type="float" default="1">wave amplitude</param></method>
+            <method name="saw">fill all array with saw wave 
+            <param name="T" type="float" required="true" minvalue="1" units="sample">wave
+            period</param>
+            <param name="A" type="float" default="1">wave amplitude</param></method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="symbol">change array name</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>bang on finish</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[loadmsg load %CEAMMC%/guitar1.wav to ARR @resize] [table ARR]
+|
+[expand_env]
+|
+[snd.file]
+
+[T]
+|
+[array.risset_rythm~ ARR]
+|
+[ui.hgain~]       [ui.dsp~]
+|\
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
