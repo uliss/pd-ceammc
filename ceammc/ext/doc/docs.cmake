@@ -578,6 +578,7 @@ set(DOC_FILES
     random.discrete
     replace
     route.float
+    risset.gliss
     rtree.to_list
     samp.time~
     set.contains

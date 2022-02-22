@@ -575,6 +575,7 @@ random.linear		.		.
 random.pw_const		.		.
 random.pw_lin		.		.
 replace,ceammc/replace		...		.
+risset.gliss		.		..
 route.float,route.f		.		..
 rtree.to_list,ceammc/rtree->list,rtree->list		.		.
 samp.time~,samp.t~		~.		.

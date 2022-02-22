@@ -21,6 +21,7 @@ array.plot	array data plotter
 array.plot~	plot signal on specified array
 array.resample	array resampler
 array.r	array resampler
+array.risset_rythm~	Risset Rythm: accelerando or ritardando
 array.rms	calculates root mean square value for array
 array.set	set array content from list
 ceammc/list->array	set array content from list
@@ -813,6 +814,7 @@ fluid~	FluidSynth SoundFont 2 player
 ceammc/fluid~	FluidSynth SoundFont 2 player
 modplug~	MOD file player (using libmodplug)
 ceammc/modplug~	MOD file player (using libmodplug)
+risset.gliss	Sheppard/Risset glissando calculator
 sfizz~	SFZ format sample player
 ceammc/sfizz~	SFZ format sample player
 speech.flite	render speech to array
