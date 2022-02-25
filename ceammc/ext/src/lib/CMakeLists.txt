@@ -70,6 +70,7 @@ set(CEAMMC_LIB_SOURCES
     ceammc_music_theory_pitch_class.cpp
     ceammc_node_external.cpp
     ceammc_numeric.h
+    ceammc_editor_object.cpp
     ceammc_object.cpp
     ceammc_object_info.cpp
     ceammc_output.cpp
