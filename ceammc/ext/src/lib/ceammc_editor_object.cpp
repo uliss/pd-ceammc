@@ -13,8 +13,6 @@
  *****************************************************************************/
 #include "ceammc_editor_object.h"
 
-#include <boost/static_string/static_string.hpp>
-
 extern "C" {
 #include "g_canvas.h"
 }
@@ -30,29 +28,30 @@ EditorObjectImpl::EditorObjectImpl(t_object* owner, const char* name, int w, int
 {
 }
 
-EditorObjectImpl::SyncMode EditorObjectImpl::click(t_canvas* cnv)
+void EditorObjectImpl::open(t_canvas* cnv, const AtomListView& data)
 {
     if (guiconnect_) {
-        sys_vgui("wm deiconify .x%lx\n", xowner());
-        sys_vgui("raise .x%lx\n", xowner());
-        sys_vgui("focus .x%lx.text\n", xowner());
-        return SYNC_NO;
+        sys_vgui("ceammc::texteditor::show .x%lx\n", xowner());
     } else {
-        char buf[40];
-        sys_vgui("pdtk_textwindow_open .x%lx %dx%d {%s} %d\n",
-            xowner(), w_, h_, name_,
-            sys_hostfontsize(glist_getfont(cnv),
-                glist_getzoom(cnv)));
+        const auto z = glist_getzoom(cnv);
+        const auto fsz = sys_hostfontsize(glist_getfont(cnv), z);
+        const auto w = w_ * z;
+        const auto h = h_ * z;
 
+        sys_vgui("ceammc::texteditor::open .x%lx %dx%d {%s} %d\n",
+            xowner(), w, h, name_, fsz);
+
+        char buf[40];
         sprintf(buf, ".x%lx", xowner());
         guiconnect_ = guiconnect_new(&owner_->te_g.g_pd, gensym(buf));
-        return SYNC_YES;
+
+        update(data);
     }
 }
 
 void EditorObjectImpl::close(t_symbol* s, const AtomListView& lv)
 {
-    sys_vgui("pdtk_textwindow_doclose .x%lx\n", xowner());
+    sys_vgui("ceammc::texteditor::doclose .x%lx\n", xowner());
 
     if (guiconnect_) {
         guiconnect_notarget((t_guiconnect*)guiconnect_, 1000);
@@ -62,48 +61,26 @@ void EditorObjectImpl::close(t_symbol* s, const AtomListView& lv)
 
 void EditorObjectImpl::update(const AtomListView& lv)
 {
-    constexpr size_t MAXSTR_LEN = 80;
-    boost::static_string<256> buf;
+    sys_vgui("ceammc::texteditor::clear .x%lx\n", xowner());
 
-    sys_vgui("pdtk_textwindow_clear .x%lx\n", xowner());
     for (auto& a : lv) {
         switch (a.type()) {
         case Atom::SYMBOL: {
             auto s = a.asT<t_symbol*>();
-            const auto len = strlen(s->s_name);
-
-            if (len >= MAXSTR_LEN) {
-                sys_vgui("pdtk_textwindow_append .x%lx {%s\n}\n", xowner(), s->s_name);
-                buf.clear();
-            } else {
-                buf.append(s->s_name);
-                buf.push_back(' ');
-                if (buf.length() >= MAXSTR_LEN) {
-                    sys_vgui("pdtk_textwindow_append .x%lx {%s\n}\n", xowner(), buf.c_str());
-                    buf.clear();
-                }
-            }
+            sys_vgui("ceammc::texteditor::append .x%lx {%s\n}\n", xowner(), s->s_name);
         } break;
         case Atom::FLOAT: {
-            char buf2[32];
-            atom_string(&a.atom(), buf2, sizeof(buf2) - 1);
-            buf.append(buf2);
-            buf.push_back(' ');
-            if (buf.length() >= MAXSTR_LEN) {
-                sys_vgui("pdtk_textwindow_append .x%lx {%s\n}\n", xowner(), buf.c_str());
-                buf.clear();
-            }
+            char buf[32];
+            atom_string(&a.atom(), buf, sizeof(buf) - 1);
+            sys_vgui("ceammc::texteditor::append .x%lx {%s\n}\n", xowner(), buf);
         } break;
         default:
             continue;
         }
     }
 
-    if (!buf.empty()) {
-        sys_vgui("pdtk_textwindow_append .x%lx {%s\n}\n", xowner(), buf.c_str());
-    }
-
-    sys_vgui("pdtk_textwindow_setdirty .x%lx 0\n", xowner());
+    sys_vgui("ceammc::texteditor::highlight .x%lx\n", xowner());
+    sys_vgui("ceammc::texteditor::setdirty .x%lx 0\n", xowner());
 }
 
 }

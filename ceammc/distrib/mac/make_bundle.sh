@@ -144,6 +144,8 @@ cp -R "${WISH_APP}" "${BUNDLE_APP}"
 rsync -a "${SRC_DIR}/ceammc/extra/tcltk/base64" ${BUNDLE_FRAMEWORKS}
 # tklib: tooltip
 rsync -a "${SRC_DIR}/ceammc/extra/tcltk/tooltip" ${BUNDLE_FRAMEWORKS}
+# tklib: ctext
+rsync -a "${SRC_DIR}/ceammc/extra/tcltk/ctext" ${BUNDLE_FRAMEWORKS}
 
 #
 # Info.plist

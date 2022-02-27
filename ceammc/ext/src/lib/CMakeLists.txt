@@ -21,6 +21,9 @@ set(UTF8REWIND_SOURCES
 )
 target_sources(ceammc_core PRIVATE ${UTF8REWIND_SOURCES})
 
+# tcl stuff
+add_subdirectory(tcl)
+
 set(CEAMMC_LIB_SOURCES
     ceammc.h
     ceammc_abstractdata.cpp
@@ -41,6 +44,8 @@ set(CEAMMC_LIB_SOURCES
     lex/data_string.lexer.cpp
     lex/data_string.parser.cpp
     lex/quoted_string.parser.cpp
+    tcl/ceammc_texteditor.h
+    tcl/ceammc_tcl.cpp
     ceammc_array.cpp
     ceammc_atom.cpp
     ceammc_atomlist.cpp

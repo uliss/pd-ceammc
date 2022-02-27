@@ -16,6 +16,7 @@
 #include "ceammc_pd.h"
 #include "ceammc_platform.h"
 #include "lib/ceammc.h"
+#include "tcl/ceammc_tcl.h"
 
 extern "C" {
 #include "g_canvas.h"
@@ -143,6 +144,8 @@ void ceammc_init()
     } else {
         post("[ceammc] distribution: external deken");
     }
+
+    ceammc::ceammc_tcl_init();
 
     if (!ceammc::pd::addPdPrintDataSupport())
         pd_error(nullptr, "can't add datatype printing support to vanilla [print] object");

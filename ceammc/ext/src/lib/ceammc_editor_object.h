@@ -33,7 +33,14 @@ public:
 public:
     EditorObjectImpl(t_object* owner, const char* name = "DATA", int w = 200, int h = 100);
 
-    SyncMode click(t_canvas* cnv);
+    /**
+     * create and open editor TCL window
+     * @param cnv - pointer to onwer canvas
+     * @param data - editor content
+     * @return true on success, false on error
+     */
+    void open(t_canvas* cnv, const AtomListView& data);
+
     void close(t_symbol* sel, const AtomListView& lv);
     void update(const AtomListView& lv);
 
@@ -54,8 +61,7 @@ public:
 
     void onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt) override
     {
-        if (impl_.click(this->canvas()) == EditorObjectImpl::SYNC_YES)
-            this->editorSyncData();
+        impl_.open(this->canvas(), this->getContentForEditor());
     }
 
     virtual void editorAddLine(t_symbol* sel, const AtomListView& lv) = 0;
@@ -63,13 +69,7 @@ public:
 
     void m_close(t_symbol* s, const AtomListView& lv) { impl_.close(s, lv); }
     void m_addline(t_symbol* s, const AtomListView& lv) { this->editorAddLine(s, lv); }
-    void m_notify(t_symbol*, const AtomListView&) { this->editorSyncData(); }
-
-private:
-    void editorSyncData()
-    {
-        impl_.update(this->getContentForEditor());
-    }
+    void m_notify(t_symbol*, const AtomListView&) { impl_.update(this->getContentForEditor()); }
 
 public:
     using ThisType = EditorObject<BaseClass>;
