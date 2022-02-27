@@ -56,6 +56,8 @@ namespace eval texteditor {
             $name.f.text.t configure -highlightcolor $colors(bg)
             $name.f.text.t configure -highlightbackground $colors(bg)
             $name.f.text.l configure -highlightbackground $colors(comment)
+            $name.f.text.t configure -highlightthickness 1
+            $name.f.text.l configure -highlightthickness 1
 
             if { $highlight } {
                 ctext::addHighlightClassWithOnlyCharStart $name.f.text props $colors(cyan) "@"

@@ -19,12 +19,10 @@ extern "C" {
 
 namespace ceammc {
 
-EditorObjectImpl::EditorObjectImpl(t_object* owner, const char* name, int w, int h)
+EditorObjectImpl::EditorObjectImpl(t_object* owner, const char* name)
     : owner_(owner)
     , guiconnect_(nullptr)
     , name_(name)
-    , w_(w)
-    , h_(h)
 {
 }
 
@@ -37,15 +35,16 @@ EditorObjectImpl::~EditorObjectImpl()
     }
 }
 
-void EditorObjectImpl::open(t_canvas* cnv, const AtomListView& data, bool lineNumbers, bool highlightSyntax)
+void EditorObjectImpl::open(t_canvas* cnv, const AtomListView& data, int nchars, int nlines, bool lineNumbers, bool highlightSyntax)
 {
     if (guiconnect_) {
         sys_vgui("ceammc::texteditor::show .x%lx\n", xowner());
     } else {
         const auto z = glist_getzoom(cnv);
-        const auto fsz = sys_hostfontsize(glist_getfont(cnv), z);
-        const auto w = w_ * z;
-        const auto h = h_ * z;
+        const auto ft = glist_getfont(cnv);
+        const auto fsz = sys_hostfontsize(ft, z);
+        const auto w = std::min(800, sys_zoomfontwidth(ft, z, 0) * nchars);
+        const auto h = std::min(600, sys_zoomfontheight(fsz, z, 0) * nlines);
 
         sys_vgui("ceammc::texteditor::open .x%lx %dx%d {%s} %d %d %d\n",
             xowner(), w, h, name_, fsz, (int)lineNumbers, (int)highlightSyntax);

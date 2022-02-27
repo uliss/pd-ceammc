@@ -22,21 +22,22 @@ class EditorObjectImpl {
     t_object* owner_;
     void* guiconnect_;
     const char* name_;
-    int w_, h_;
 
 public:
-    EditorObjectImpl(t_object* owner, const char* name = "DATA", int w = 200, int h = 100);
+    EditorObjectImpl(t_object* owner, const char* name = "DATA");
     ~EditorObjectImpl();
 
     /**
      * create and open editor TCL window
      * @param cnv - pointer to onwer canvas
      * @param data - editor content
+     * @param nchars - line width in chars
+     * @param nlines - number of lines
      * @param lineNumbers - show line numbers
      * @param highlightSyntax - highlight syntax
      * @return true on success, false on error
      */
-    void open(t_canvas* cnv, const AtomListView& data, bool lineNumbers, bool highlightSyntax);
+    void open(t_canvas* cnv, const AtomListView& data, int nchars, int nlines, bool lineNumbers, bool highlightSyntax);
 
     /**
      * close TCL editor and stop GUI listening
@@ -60,9 +61,9 @@ class EditorObject : public BaseClass {
     bool highlight_;
 
 public:
-    EditorObject(const PdArgs& args, const char* name = "DATA", int w = 200, int h = 100)
+    EditorObject(const PdArgs& args, const char* name = "DATA")
         : BaseClass(args)
-        , impl_(this->owner(), name, w, h)
+        , impl_(this->owner(), name)
         , line_nums_(true)
         , highlight_(true)
     {
@@ -70,12 +71,19 @@ public:
 
     void onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt) override
     {
-        impl_.open(this->canvas(), this->getContentForEditor(), line_nums_, highlight_);
+        impl_.open(this->canvas(),
+            this->getContentForEditor(),
+            this->calcEditorChars(),
+            this->calcEditorLines(),
+            line_nums_, highlight_);
     }
 
     virtual void editorClear() = 0;
     virtual void editorAddLine(t_symbol* sel, const AtomListView& lv) = 0;
     virtual AtomListView getContentForEditor() const = 0;
+
+    virtual int calcEditorLines() const { return 20; }
+    virtual int calcEditorChars() const { return 80; }
 
     void m_editor_clear(t_symbol* s, const AtomListView& lv) { this->editorClear(); }
     void m_editor_close(t_symbol* s, const AtomListView& lv) { impl_.close(); }
