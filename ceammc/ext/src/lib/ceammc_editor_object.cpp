@@ -28,6 +28,15 @@ EditorObjectImpl::EditorObjectImpl(t_object* owner, const char* name, int w, int
 {
 }
 
+EditorObjectImpl::~EditorObjectImpl()
+{
+    if (guiconnect_) {
+        sys_vgui("destroy .x%lx\n", xowner());
+        guiconnect_notarget((t_guiconnect*)guiconnect_, 1000);
+        guiconnect_ = nullptr;
+    }
+}
+
 void EditorObjectImpl::open(t_canvas* cnv, const AtomListView& data)
 {
     if (guiconnect_) {
@@ -45,7 +54,7 @@ void EditorObjectImpl::open(t_canvas* cnv, const AtomListView& data)
         sprintf(buf, ".x%lx", xowner());
         guiconnect_ = guiconnect_new(&owner_->te_g.g_pd, gensym(buf));
 
-        update(data);
+        sync(data);
     }
 }
 
@@ -59,7 +68,7 @@ void EditorObjectImpl::close(t_symbol* s, const AtomListView& lv)
     }
 }
 
-void EditorObjectImpl::update(const AtomListView& lv)
+void EditorObjectImpl::sync(const AtomListView& lv)
 {
     sys_vgui("ceammc::texteditor::clear .x%lx\n", xowner());
 

@@ -14,16 +14,22 @@
 #ifndef DATA_LIST_H
 #define DATA_LIST_H
 
+#include "ceammc_editor_object.h"
 #include "datatype_mlist.h"
 #include "list_iface.h"
 
-class DataList : public DataListIFace<BaseObject> {
+class DataList : public EditorObject<DataListIFace<BaseObject>> {
     AtomList list_;
 
 public:
     DataList(const PdArgs& a);
+
     AtomList& list() final { return list_; }
     const AtomList& list() const final { return list_; }
+
+    void editorAddLine(t_symbol* sel, const AtomListView& lv) override;
+    void editorClear() override;
+    AtomListView getContentForEditor() const override;
 };
 
 void setup_data_list();

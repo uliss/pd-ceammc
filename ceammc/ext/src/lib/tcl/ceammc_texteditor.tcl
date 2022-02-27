@@ -122,17 +122,17 @@ namespace eval texteditor {
 
     proc send {name} {
         if {[winfo exists $name]} {
-            pdsend [concat $name clear]
+            pdsend [concat $name .clear]
             for {set i 1} \
              {[$name.f.text compare $i.end < end]} \
                   {incr i 1} {
                 set lin [$name.f.text get $i.0 $i.end]
                 if {$lin != ""} {
                     set lin [string map {"," " \\, " ";" " \\; " "$" "\\$"} $lin]
-                    pdsend [concat $name addline $lin]
+                    pdsend [concat $name .addline $lin]
                 }
             }
-            pdsend [concat $name notify]
+            pdsend [concat $name .sync]
         }
         setdirty $name 0
     }
@@ -147,9 +147,9 @@ namespace eval texteditor {
                 }
                 set answer [tk_messageBox -type yesnocancel -icon question -message [_ "Save changes to \"$title\"?"]]
                 if {$answer == "yes"}    {ceammc::texteditor::send $name}
-                if {$answer != "cancel"} {pdsend [concat $name close]}
+                if {$answer != "cancel"} {pdsend [concat $name .close]}
             } else {
-                pdsend [concat $name close]
+                pdsend [concat $name .close]
             }
         }
     }

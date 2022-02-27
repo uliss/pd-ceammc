@@ -32,6 +32,7 @@ public:
 
 public:
     EditorObjectImpl(t_object* owner, const char* name = "DATA", int w = 200, int h = 100);
+    ~EditorObjectImpl();
 
     /**
      * create and open editor TCL window
@@ -42,7 +43,7 @@ public:
     void open(t_canvas* cnv, const AtomListView& data);
 
     void close(t_symbol* sel, const AtomListView& lv);
-    void update(const AtomListView& lv);
+    void sync(const AtomListView& lv);
 
 private:
     unsigned long xowner() const { return reinterpret_cast<unsigned long>(owner_); }
@@ -64,12 +65,14 @@ public:
         impl_.open(this->canvas(), this->getContentForEditor());
     }
 
+    virtual void editorClear() = 0;
     virtual void editorAddLine(t_symbol* sel, const AtomListView& lv) = 0;
     virtual AtomListView getContentForEditor() const = 0;
 
-    void m_close(t_symbol* s, const AtomListView& lv) { impl_.close(s, lv); }
-    void m_addline(t_symbol* s, const AtomListView& lv) { this->editorAddLine(s, lv); }
-    void m_notify(t_symbol*, const AtomListView&) { impl_.update(this->getContentForEditor()); }
+    void m_editor_clear(t_symbol* s, const AtomListView& lv) { this->editorClear(); }
+    void m_editor_close(t_symbol* s, const AtomListView& lv) { impl_.close(s, lv); }
+    void m_editor_addline(t_symbol* s, const AtomListView& lv) { this->editorAddLine(s, lv); }
+    void m_editor_sync(t_symbol*, const AtomListView&) { impl_.sync(this->getContentForEditor()); }
 
 public:
     using ThisType = EditorObject<BaseClass>;
@@ -78,9 +81,10 @@ public:
     static void registerMethods(Factory& obj)
     {
         obj.useClick();
-        obj.addMethod("close", &ThisType::m_close);
-        obj.addMethod("addline", &ThisType::m_addline);
-        obj.addMethod("notify", &ThisType::m_notify);
+        obj.addMethod(".clear", &ThisType::m_editor_clear);
+        obj.addMethod(".close", &ThisType::m_editor_close);
+        obj.addMethod(".addline", &ThisType::m_editor_addline);
+        obj.addMethod(".sync", &ThisType::m_editor_sync);
     }
 };
 
