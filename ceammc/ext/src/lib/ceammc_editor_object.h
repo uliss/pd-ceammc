@@ -42,8 +42,16 @@ public:
      */
     void open(t_canvas* cnv, const AtomListView& data);
 
-    void close(t_symbol* sel, const AtomListView& lv);
-    void sync(const AtomListView& lv);
+    /**
+     * close TCL editor and stop GUI listening
+     */
+    void close();
+
+    /**
+     * Sync editor with specified data
+     * @param lv
+     */
+    void sync(const AtomListView& data);
 
 private:
     unsigned long xowner() const { return reinterpret_cast<unsigned long>(owner_); }
@@ -70,7 +78,7 @@ public:
     virtual AtomListView getContentForEditor() const = 0;
 
     void m_editor_clear(t_symbol* s, const AtomListView& lv) { this->editorClear(); }
-    void m_editor_close(t_symbol* s, const AtomListView& lv) { impl_.close(s, lv); }
+    void m_editor_close(t_symbol* s, const AtomListView& lv) { impl_.close(); }
     void m_editor_addline(t_symbol* s, const AtomListView& lv) { this->editorAddLine(s, lv); }
     void m_editor_sync(t_symbol*, const AtomListView&) { impl_.sync(this->getContentForEditor()); }
 

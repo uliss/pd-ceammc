@@ -58,7 +58,7 @@ void EditorObjectImpl::open(t_canvas* cnv, const AtomListView& data)
     }
 }
 
-void EditorObjectImpl::close(t_symbol* s, const AtomListView& lv)
+void EditorObjectImpl::close()
 {
     sys_vgui("ceammc::texteditor::doclose .x%lx\n", xowner());
 
@@ -68,11 +68,11 @@ void EditorObjectImpl::close(t_symbol* s, const AtomListView& lv)
     }
 }
 
-void EditorObjectImpl::sync(const AtomListView& lv)
+void EditorObjectImpl::sync(const AtomListView& data)
 {
     sys_vgui("ceammc::texteditor::clear .x%lx\n", xowner());
 
-    for (auto& a : lv) {
+    for (auto& a : data) {
         switch (a.type()) {
         case Atom::SYMBOL: {
             auto s = a.asT<t_symbol*>();
