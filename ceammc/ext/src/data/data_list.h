@@ -30,6 +30,9 @@ public:
     void editorAddLine(t_symbol* sel, const AtomListView& lv) override;
     void editorClear() override;
     AtomListView getContentForEditor() const override;
+
+    int calcEditorLines() const override;
+    int calcEditorChars() const override;
 };
 
 void setup_data_list();

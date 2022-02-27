@@ -1,4 +1,5 @@
 #include "data_list.h"
+#include "ceammc_convert.h"
 #include "ceammc_factory.h"
 #include "datatype_mlist.h"
 
@@ -29,6 +30,15 @@ void DataList::editorClear()
 AtomListView DataList::getContentForEditor() const
 {
     return list();
+}
+int DataList::calcEditorLines() const
+{
+    return clip<int, 8, 32>(list().size());
+}
+
+int DataList::calcEditorChars() const
+{
+    return 20;
 }
 
 void setup_data_list()
