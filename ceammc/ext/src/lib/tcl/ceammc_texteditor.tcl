@@ -94,6 +94,7 @@ namespace eval texteditor {
     proc setdirty {name flag} {
         if {[winfo exists $name]} {
             catch {$name.f.text edit modified $flag}
+            dodirty $name
         }
     }
 
