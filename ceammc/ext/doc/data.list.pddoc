@@ -31,6 +31,8 @@
             <param name="VAL" type="atom" required="true">appended value</param></method>
             <method name="prepend">inserts values to the list beginning 
             <param name="VAL" type="atom" required="true">prepended value</param></method>
+            <method name="front">output first list element</method>
+            <method name="back">output last list element</method>
             <method name="insert">inserts values to the specified position 
             <param name="IDX" type="int" required="true">insert position</param>
             <param name="VAL" type="atom" required="true">value</param></method>
