@@ -205,6 +205,8 @@ public:
         T::createCbBoolProperty("@empty", [this]() { return proto_size() == 0; });
     }
 
+    virtual bool proto_front(Atom& a) const = 0;
+    virtual bool proto_back(Atom& a) const = 0;
     virtual void proto_append(const AtomListView& lst) = 0;
     virtual void proto_prepend(const AtomListView& lst) = 0;
     virtual bool proto_insert(size_t idx, const AtomListView& lst) = 0;
@@ -314,6 +316,20 @@ public:
     void m_choose(t_symbol* /*s*/, const AtomListView& /*lst*/)
     {
         proto_choose();
+    }
+
+    void m_front(t_symbol* /*s*/, const AtomListView& /*lst*/)
+    {
+        Atom a;
+        if (proto_front(a))
+            this->atomTo(0, a);
+    }
+
+    void m_back(t_symbol* /*s*/, const AtomListView& /*lst*/)
+    {
+        Atom a;
+        if (proto_back(a))
+            this->atomTo(0, a);
     }
 };
 
@@ -471,6 +487,12 @@ namespace protocol {
 
             // void proto_choose()
             obj.addMethod("choose", &T::m_choose);
+
+            // bool proto_front(Atom&)
+            obj.addMethod("front", &T::m_front);
+
+            // bool proto_back(Atom&)
+            obj.addMethod("back", &T::m_back);
         }
     };
 

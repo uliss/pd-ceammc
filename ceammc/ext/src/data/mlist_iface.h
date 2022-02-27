@@ -67,6 +67,28 @@ public:
         onBang();
     }
 
+    bool proto_front(Atom& res) const override
+    {
+        if (mlist()->size() > 0) {
+            res = mlist()->at(0);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    bool proto_back(Atom& res) const override
+    {
+        const auto size = mlist()->size();
+
+        if (size > 0) {
+            res = mlist()->at(size - 1);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     void proto_set(const AtomListView& lst) override
     {
         mlist()->setRaw(lst);

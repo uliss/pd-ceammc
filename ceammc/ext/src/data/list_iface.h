@@ -64,6 +64,28 @@ public:
         onList(ml->data());
     }
 
+    bool proto_front(Atom& res) const override
+    {
+        auto a = list().first();
+
+        if (a) {
+            res = *a;
+            return true;
+        } else
+            return false;
+    }
+
+    bool proto_back(Atom& res) const override
+    {
+        auto a = list().last();
+
+        if (a) {
+            res = *a;
+            return true;
+        } else
+            return false;
+    }
+
     void proto_set(const AtomListView& lst) override
     {
         list() = lst;
