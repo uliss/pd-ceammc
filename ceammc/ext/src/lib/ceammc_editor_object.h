@@ -37,7 +37,7 @@ public:
      * @param highlightSyntax - highlight syntax
      * @return true on success, false on error
      */
-    void open(t_canvas* cnv, const AtomListView& data, int nchars, int nlines, bool lineNumbers, bool highlightSyntax);
+    void open(t_canvas* cnv, const AtomListView& data, int x, int y, int nchars, int nlines, bool lineNumbers, bool highlightSyntax);
 
     /**
      * close TCL editor and stop GUI listening
@@ -73,6 +73,7 @@ public:
     {
         impl_.open(this->canvas(),
             this->getContentForEditor(),
+            (int)xpos, (int)ypos,
             this->calcEditorChars(),
             this->calcEditorLines(),
             line_nums_, highlight_);

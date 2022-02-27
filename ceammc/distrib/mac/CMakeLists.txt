@@ -46,6 +46,11 @@ if(APPLE)
         DEPENDS dev_ceammc
         USES_TERMINAL)
 
+    add_custom_target(dev_debug
+        COMMAND ${BUNDLE_FULL_PATH}/Contents/Resources/bin/pd -verbose -d 1
+        DEPENDS dev_ceammc
+        USES_TERMINAL)
+
     add_custom_target(dev_open
         COMMAND open ${BUNDLE_FULL_PATH}
         DEPENDS dev_ceammc)

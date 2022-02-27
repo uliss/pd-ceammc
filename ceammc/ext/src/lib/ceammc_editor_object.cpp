@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_editor_object.h"
+#include "ceammc_canvas.h"
 
 extern "C" {
 #include "g_canvas.h"
@@ -35,7 +36,7 @@ EditorObjectImpl::~EditorObjectImpl()
     }
 }
 
-void EditorObjectImpl::open(t_canvas* cnv, const AtomListView& data, int nchars, int nlines, bool lineNumbers, bool highlightSyntax)
+void EditorObjectImpl::open(t_canvas* cnv, const AtomListView& data, int x, int y, int nchars, int nlines, bool lineNumbers, bool highlightSyntax)
 {
     if (guiconnect_) {
         sys_vgui("ceammc::texteditor::show .x%lx\n", xowner());
@@ -43,11 +44,13 @@ void EditorObjectImpl::open(t_canvas* cnv, const AtomListView& data, int nchars,
         const auto z = glist_getzoom(cnv);
         const auto ft = glist_getfont(cnv);
         const auto fsz = sys_hostfontsize(ft, z);
+        const auto brect = canvas_info_rect(canvas_getrootfor(cnv));
+
         const auto w = std::min(800, sys_zoomfontwidth(ft, z, 0) * nchars);
         const auto h = std::min(600, sys_zoomfontheight(fsz, z, 0) * nlines);
 
-        sys_vgui("ceammc::texteditor::open .x%lx %dx%d {%s} %d %d %d\n",
-            xowner(), w, h, name_, fsz, (int)lineNumbers, (int)highlightSyntax);
+        sys_vgui("ceammc::texteditor::open .x%lx %dx%d+%d+%d {%s} %d %d %d\n",
+            xowner(), w, h, brect.x + x, brect.y + y, name_, fsz, (int)lineNumbers, (int)highlightSyntax);
 
         char buf[40];
         sprintf(buf, ".x%lx", xowner());
