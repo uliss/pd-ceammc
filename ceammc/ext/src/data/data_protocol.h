@@ -205,8 +205,13 @@ public:
         T::createCbBoolProperty("@empty", [this]() { return proto_size() == 0; });
     }
 
-    virtual bool proto_front(Atom& a) const = 0;
+    // get methods
     virtual bool proto_back(Atom& a) const = 0;
+    virtual bool proto_front(Atom& a) const = 0;
+    virtual bool proto_choose(Atom& a) const = 0;
+    virtual size_t proto_size() const = 0;
+
+    // change methods
     virtual void proto_append(const AtomListView& lst) = 0;
     virtual void proto_prepend(const AtomListView& lst) = 0;
     virtual bool proto_insert(size_t idx, const AtomListView& lst) = 0;
@@ -218,8 +223,6 @@ public:
     virtual void proto_sort() = 0;
     virtual void proto_reverse() = 0;
     virtual void proto_shuffle() = 0;
-    virtual size_t proto_size() const = 0;
-    virtual void proto_choose() = 0;
 
     void m_append(t_symbol* /*s*/, const AtomListView& lst)
     {
@@ -315,7 +318,9 @@ public:
 
     void m_choose(t_symbol* /*s*/, const AtomListView& /*lst*/)
     {
-        proto_choose();
+        Atom a;
+        if (proto_choose(a))
+            this->atomTo(0, a);
     }
 
     void m_front(t_symbol* /*s*/, const AtomListView& /*lst*/)

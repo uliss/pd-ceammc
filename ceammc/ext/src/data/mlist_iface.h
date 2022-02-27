@@ -148,17 +148,18 @@ public:
         mlist()->shuffle();
     }
 
-    void proto_choose() override
+    bool proto_choose(Atom& a) const override
     {
         using RandomGenT = std::mt19937;
         static RandomGenT gen(time(0));
 
         auto N = mlist()->size();
         if (N < 1)
-            return;
+            return false;
 
         auto idx = std::uniform_int_distribution<size_t>(0, N - 1)(gen);
-        this->atomTo(0, mlist()->at(idx));
+        a = mlist()->at(idx);
+        return true;
     }
 
     void proto_fill(const Atom& v) override

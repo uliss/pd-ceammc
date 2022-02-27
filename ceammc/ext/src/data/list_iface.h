@@ -150,17 +150,18 @@ public:
         list().fill(v);
     }
 
-    void proto_choose() override
+    bool proto_choose(Atom& res) const override
     {
         using RandomGenT = std::mt19937;
         static RandomGenT gen(time(0));
 
         auto N = list().size();
         if (N < 1)
-            return;
+            return false;
 
         auto idx = std::uniform_int_distribution<size_t>(0, N - 1)(gen);
-        this->atomTo(0, list().at(idx));
+        res = list().at(idx);
+        return true;
     }
 
     void dump() const override
