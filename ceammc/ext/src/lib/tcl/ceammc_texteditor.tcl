@@ -74,14 +74,13 @@ namespace eval texteditor {
 
             bind $name.f.text <$::modifier-Key-s> "ceammc::texteditor::send $name"
             bind $name.f.text <$::modifier-Key-w> "ceammc::texteditor::close $name 1"
-            focus $name.f.text
         }
     }
 
     proc show {name} {
         wm deiconify $name
         raise $name
-        focus $name.f.text
+        focus $name.f.text.t
     }
 
     proc dodirty {name} {
@@ -122,6 +121,7 @@ namespace eval texteditor {
     proc highlight {name} {
         if {[winfo exists $name]} {
             $name.f.text highlight 1.0 end
+            focus $name.f.text.t
         }
     }
 
