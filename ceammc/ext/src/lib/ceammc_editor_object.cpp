@@ -37,7 +37,7 @@ EditorObjectImpl::~EditorObjectImpl()
     }
 }
 
-void EditorObjectImpl::open(t_canvas* cnv, const AtomListView& data)
+void EditorObjectImpl::open(t_canvas* cnv, const AtomListView& data, bool lineNumbers, bool highlightSyntax)
 {
     if (guiconnect_) {
         sys_vgui("ceammc::texteditor::show .x%lx\n", xowner());
@@ -47,8 +47,8 @@ void EditorObjectImpl::open(t_canvas* cnv, const AtomListView& data)
         const auto w = w_ * z;
         const auto h = h_ * z;
 
-        sys_vgui("ceammc::texteditor::open .x%lx %dx%d {%s} %d\n",
-            xowner(), w, h, name_, fsz);
+        sys_vgui("ceammc::texteditor::open .x%lx %dx%d {%s} %d %d %d\n",
+            xowner(), w, h, name_, fsz, (int)lineNumbers, (int)highlightSyntax);
 
         char buf[40];
         sprintf(buf, ".x%lx", xowner());

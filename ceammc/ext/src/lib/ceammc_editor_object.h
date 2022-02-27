@@ -25,12 +25,6 @@ class EditorObjectImpl {
     int w_, h_;
 
 public:
-    enum SyncMode {
-        SYNC_YES,
-        SYNC_NO
-    };
-
-public:
     EditorObjectImpl(t_object* owner, const char* name = "DATA", int w = 200, int h = 100);
     ~EditorObjectImpl();
 
@@ -38,9 +32,11 @@ public:
      * create and open editor TCL window
      * @param cnv - pointer to onwer canvas
      * @param data - editor content
+     * @param lineNumbers - show line numbers
+     * @param highlightSyntax - highlight syntax
      * @return true on success, false on error
      */
-    void open(t_canvas* cnv, const AtomListView& data);
+    void open(t_canvas* cnv, const AtomListView& data, bool lineNumbers, bool highlightSyntax);
 
     /**
      * close TCL editor and stop GUI listening
@@ -60,17 +56,21 @@ private:
 template <typename BaseClass>
 class EditorObject : public BaseClass {
     EditorObjectImpl impl_;
+    bool line_nums_;
+    bool highlight_;
 
 public:
     EditorObject(const PdArgs& args, const char* name = "DATA", int w = 200, int h = 100)
         : BaseClass(args)
         , impl_(this->owner(), name, w, h)
+        , line_nums_(true)
+        , highlight_(true)
     {
     }
 
     void onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt) override
     {
-        impl_.open(this->canvas(), this->getContentForEditor());
+        impl_.open(this->canvas(), this->getContentForEditor(), line_nums_, highlight_);
     }
 
     virtual void editorClear() = 0;
@@ -81,6 +81,26 @@ public:
     void m_editor_close(t_symbol* s, const AtomListView& lv) { impl_.close(); }
     void m_editor_addline(t_symbol* s, const AtomListView& lv) { this->editorAddLine(s, lv); }
     void m_editor_sync(t_symbol*, const AtomListView&) { impl_.sync(this->getContentForEditor()); }
+
+    /**
+     * If show line numbers in editor
+     */
+    bool lineNumbers() const { return line_nums_; }
+
+    /**
+     * Set on/off line numbering in editor
+     */
+    void setLineNumbers(bool value) { line_nums_ = value; }
+
+    /**
+     * If highlight syntax in editor
+     */
+    bool highlight() const { return highlight_; }
+
+    /**
+     * Set on/off syntax highlighting in editor
+     */
+    void setHighlight(bool value) { highlight_ = value; }
 
 public:
     using ThisType = EditorObject<BaseClass>;

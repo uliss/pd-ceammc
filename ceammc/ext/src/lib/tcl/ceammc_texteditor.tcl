@@ -29,7 +29,7 @@ namespace eval texteditor {
         comment #6272a4
     }
 
-    proc open {name geometry title font} {
+    proc open {name geometry title font showlinenum highlight} {
         if {[winfo exists $name]} {
             $name.f.text fastdelete 1.0 end
         } else {
@@ -43,7 +43,7 @@ namespace eval texteditor {
 
             frame $name.f -bg red
             scrollbar $name.f.scroll -command "$name.f.text yview"
-            ctext $name.f.text -linemap 1 -linemapfg $colors(comment) -linemapbg $colors(bg) \
+            ctext $name.f.text -linemap $showlinenum -linemapfg $colors(comment) -linemapbg $colors(bg) \
                 -linemap_markable 0 \
                 -bg $colors(bg) \
                 -fg $colors(fg) \
@@ -57,11 +57,13 @@ namespace eval texteditor {
             $name.f.text.t configure -highlightbackground $colors(bg)
             $name.f.text.l configure -highlightbackground $colors(comment)
 
-            ctext::addHighlightClassWithOnlyCharStart $name.f.text props $colors(cyan) "@"
-            ctext::addHighlightClassForSpecialChars $name.f.text brackets $colors(yellow) {[]()}
-            ctext::addHighlightClassForRegexp $name.f.text numbers $colors(pink) {[-+]?[0-9]+(?:\.[0-9]+)?(?:[eE][-+]?[0-9]+)?}
-            ctext::addHighlightClassForRegexp $name.f.text strings $colors(green) {[\"][^\n\"]+[\"]}
-            ctext::addHighlightClassForRegexp $name.f.text dicts $colors(cyan) {[a-zA-Z]+:}
+            if { $highlight } {
+                ctext::addHighlightClassWithOnlyCharStart $name.f.text props $colors(cyan) "@"
+                ctext::addHighlightClassForSpecialChars $name.f.text brackets $colors(yellow) {[]()}
+                ctext::addHighlightClassForRegexp $name.f.text numbers $colors(pink) {[-+]?[0-9]+(?:\.[0-9]+)?(?:[eE][-+]?[0-9]+)?}
+                ctext::addHighlightClassForRegexp $name.f.text strings $colors(green) {[\"][^\n\"]+[\"]}
+                ctext::addHighlightClassForRegexp $name.f.text dicts $colors(cyan) {[a-zA-Z]+:}
+            }
 
             # layout
             pack $name.f -fill both -expand 1

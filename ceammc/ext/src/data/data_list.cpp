@@ -13,6 +13,8 @@ DataList::DataList(const PdArgs& a)
         [this]() -> AtomList { return list_; },
         [this](const AtomList& l) -> bool { list_ = l; return true; })
         ->setArgIndex(0);
+
+
 }
 
 void DataList::editorAddLine(t_symbol* sel, const AtomListView& lv)
