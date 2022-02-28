@@ -162,6 +162,16 @@ public:
         return true;
     }
 
+    bool proto_at(int idx, Atom& res) const override
+    {
+        const auto N = mlist()->size();
+        if (idx < -N || idx >= N)
+            return false;
+
+        res = mlist()->at(idx < 0 ? N + idx : idx);
+        return true;
+    }
+
     void proto_fill(const Atom& v) override
     {
         std::fill(mlist()->begin(), mlist()->end(), v);

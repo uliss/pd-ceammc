@@ -19,7 +19,7 @@
   - [rotate( method added to xdac~ to rotate output channels
   - [side2circle( method added to xdac~ to change output channel layout
   - [-(, [+(, [@value?( methods added to second inlet of \[flow.count\]
-  - [front(, [back( methods added to data.list/data.mlist
+  - [at(, [front(, [back( methods added to data.list/data.mlist
 - misc:
   - conv.lin2exp: list support added
   - conv.lin2curve: list support added

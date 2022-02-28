@@ -164,6 +164,16 @@ public:
         return true;
     }
 
+    bool proto_at(int idx, Atom& res) const override
+    {
+        const auto a = list().relativeAt(idx);
+        if (a) {
+            res = *a;
+            return true;
+        } else
+            return true;
+    }
+
     void dump() const override
     {
         T::dump();
