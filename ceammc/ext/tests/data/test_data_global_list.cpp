@@ -190,6 +190,51 @@ TEST_CASE("global.list", "[externals]")
         t << BANG;
         REQUIRE(t.outputListAt(0) == LA("C", "A", 1, 2, 4));
 
+        t.call("front");
+        REQUIRE(t.outputSymbolAt(0) == A("C"));
+
+        t.call("back");
+        REQUIRE(t.outputFloatAt(0) == 4);
+
+        t.call("at", -1);
+        REQUIRE(t.outputFloatAt(0) == 4);
+
+        t.call("at", -2);
+        REQUIRE(t.outputFloatAt(0) == 2);
+
+        t.call("at", -3);
+        REQUIRE(t.outputFloatAt(0) == 1);
+
+        t.call("at", -4);
+        REQUIRE(t.outputSymbolAt(0) == A("A"));
+
+        t.call("at", -5);
+        REQUIRE(t.outputSymbolAt(0) == A("C"));
+
+        t.call("at", -6);
+        REQUIRE_FALSE(t.hasOutput());
+
+        t.call("at", 6);
+        REQUIRE_FALSE(t.hasOutput());
+
+        t.call("at", 5);
+        REQUIRE_FALSE(t.hasOutput());
+
+        t.call("at", 4);
+        REQUIRE(t.outputFloatAt(0) == 4);
+
+        t.call("at", 3);
+        REQUIRE(t.outputFloatAt(0) == 2);
+
+        t.call("at", 2);
+        REQUIRE(t.outputFloatAt(0) == 1);
+
+        t.call("at", 1);
+        REQUIRE(t.outputSymbolAt(0) == A("A"));
+
+        t.call("at", 0);
+        REQUIRE(t.outputSymbolAt(0) == A("C"));
+
         t.call("remove", LF(-6));
         REQUIRE_FALSE(t.hasOutput());
         t << BANG;
