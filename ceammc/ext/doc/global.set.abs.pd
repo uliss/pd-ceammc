@@ -1,0 +1,6 @@
+#N canvas 0 0 457 213 12;
+#X msg 20 48 bang;
+#X obj 20 77 global.set s1;
+#X obj 20 106 ui.dt;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
