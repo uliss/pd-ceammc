@@ -26,6 +26,8 @@ public:
 
     AtomList& list() final { return list_; }
     const AtomList& list() const final { return list_; }
+
+    EditorTitleString editorTitle() const final { return "DATA.LIST"; }
 };
 
 void setup_data_list();

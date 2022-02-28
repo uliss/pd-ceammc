@@ -20,10 +20,9 @@ extern "C" {
 
 namespace ceammc {
 
-EditorObjectImpl::EditorObjectImpl(t_object* owner, const char* name)
+EditorObjectImpl::EditorObjectImpl(t_object* owner)
     : owner_(owner)
     , guiconnect_(nullptr)
-    , name_(name)
 {
 }
 
@@ -36,7 +35,7 @@ EditorObjectImpl::~EditorObjectImpl()
     }
 }
 
-void EditorObjectImpl::open(t_canvas* cnv, const AtomListView& data, int x, int y, int nchars, int nlines, bool lineNumbers, bool highlightSyntax)
+void EditorObjectImpl::open(t_canvas* cnv, const AtomListView& data, const EditorTitleString& title, int x, int y, int nchars, int nlines, bool lineNumbers, bool highlightSyntax)
 {
     if (guiconnect_) {
         sys_vgui("ceammc::texteditor::show .x%lx\n", xowner());
@@ -50,7 +49,7 @@ void EditorObjectImpl::open(t_canvas* cnv, const AtomListView& data, int x, int 
         const auto h = std::min(600, sys_zoomfontheight(fsz, z, 0) * nlines);
 
         sys_vgui("ceammc::texteditor::open .x%lx %dx%d+%d+%d {%s} %d %d %d\n",
-            xowner(), w, h, brect.x + x, brect.y + y, name_, fsz, (int)lineNumbers, (int)highlightSyntax);
+            xowner(), w, h, brect.x + x, brect.y + y, title.c_str(), fsz, (int)lineNumbers, (int)highlightSyntax);
 
         char buf[40];
         sprintf(buf, ".x%lx", xowner());

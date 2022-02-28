@@ -22,8 +22,8 @@
 template <typename T>
 class EditorListT : public EditorObject<T> {
 public:
-    EditorListT(const PdArgs& a, const char* name)
-        : EditorObject<T>(a, name)
+    EditorListT(const PdArgs& a)
+        : EditorObject<T>(a)
     {
     }
 
@@ -49,7 +49,7 @@ public:
 
     int calcEditorChars() const override
     {
-        return 20;
+        return 36;
     }
 };
 

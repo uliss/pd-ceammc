@@ -16,15 +16,18 @@
 
 #include "ceammc_object.h"
 
+#include <boost/static_string.hpp>
+
 namespace ceammc {
+
+using EditorTitleString = boost::static_string<32>;
 
 class EditorObjectImpl {
     t_object* owner_;
     void* guiconnect_;
-    const char* name_;
 
 public:
-    EditorObjectImpl(t_object* owner, const char* name = "DATA");
+    EditorObjectImpl(t_object* owner);
     ~EditorObjectImpl();
 
     /**
@@ -37,7 +40,11 @@ public:
      * @param highlightSyntax - highlight syntax
      * @return true on success, false on error
      */
-    void open(t_canvas* cnv, const AtomListView& data, int x, int y, int nchars, int nlines, bool lineNumbers, bool highlightSyntax);
+    void open(t_canvas* cnv, const AtomListView& data,
+        const EditorTitleString& title,
+        int x, int y, int nchars, int nlines,
+        bool lineNumbers,
+        bool highlightSyntax);
 
     /**
      * close TCL editor and stop GUI listening
@@ -61,9 +68,9 @@ class EditorObject : public BaseClass {
     bool highlight_;
 
 public:
-    EditorObject(const PdArgs& args, const char* name = "DATA")
+    EditorObject(const PdArgs& args)
         : BaseClass(args)
-        , impl_(this->owner(), name)
+        , impl_(this->owner())
         , line_nums_(true)
         , highlight_(true)
     {
@@ -73,6 +80,7 @@ public:
     {
         impl_.open(this->canvas(),
             this->getContentForEditor(),
+            this->editorTitle(),
             (int)xpos, (int)ypos,
             this->calcEditorChars(),
             this->calcEditorLines(),
@@ -82,6 +90,7 @@ public:
     virtual void editorClear() = 0;
     virtual void editorAddLine(t_symbol* sel, const AtomListView& lv) = 0;
     virtual AtomListView getContentForEditor() const = 0;
+    virtual EditorTitleString editorTitle() const { return "EDITOR"; }
 
     virtual int calcEditorLines() const { return 20; }
     virtual int calcEditorChars() const { return 80; }

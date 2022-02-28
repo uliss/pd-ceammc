@@ -4,13 +4,20 @@
 #include "datatype_mlist.h"
 
 LocalList::LocalList(const PdArgs& a)
-    : LocalListBase(a, "local.list")
+    : LocalListBase(a)
 {
     createCbListProperty(
         "@value",
         [this]() -> AtomList { return list(); },
         [this](const AtomList& l) -> bool { list() = l; return true; })
         ->setArgIndex(1);
+}
+
+EditorTitleString LocalList::editorTitle() const
+{
+    char buf[32];
+    snprintf(buf, sizeof(buf) - 1, "LOCAL.LIST (%s)", this->id()->s_name);
+    return buf;
 }
 
 void setup_local_list()

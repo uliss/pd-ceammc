@@ -27,6 +27,8 @@ public:
 
     AtomList& list() final { return ref(); }
     const AtomList& list() const final { return ref(); }
+
+    EditorTitleString editorTitle() const final;
 };
 
 void setup_global_list();

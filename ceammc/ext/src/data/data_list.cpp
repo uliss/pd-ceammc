@@ -4,7 +4,7 @@
 #include "datatype_mlist.h"
 
 DataList::DataList(const PdArgs& a)
-    : EditorListT<DataListIFace<BaseObject>>(a, "DATA.LIST")
+    : EditorListT<DataListIFace<BaseObject>>(a)
 {
     createInlet();
     createOutlet();
