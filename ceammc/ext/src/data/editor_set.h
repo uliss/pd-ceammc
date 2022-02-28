@@ -11,8 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef EDITOR_LIST_H
-#define EDITOR_LIST_H
+#ifndef EDITOR_SET_H
+#define EDITOR_SET_H
 
 #include "ceammc_convert.h"
 #include "ceammc_editor_object.h"
@@ -21,9 +21,11 @@
 namespace ceammc {
 
 template <typename T>
-class EditorListT : public EditorObject<T> {
+class EditorSetT : public EditorObject<T> {
+    mutable AtomList cache_;
+
 public:
-    EditorListT(const PdArgs& a)
+    EditorSetT(const PdArgs& a)
         : EditorObject<T>(a)
     {
     }
@@ -31,21 +33,23 @@ public:
     void editorAddLine(t_symbol* sel, const AtomListView& lv) override
     {
         for (auto& a : lv)
-            this->list().append(a);
+            this->data().add(a);
     }
 
     void editorClear() override
     {
-        this->list().clear();
+        this->data().clear();
     }
 
     AtomListView getContentForEditor() const override
     {
-        return this->list();
+        cache_ = this->data().toList();
+        return cache_.view();
     }
+
     int calcEditorLines() const override
     {
-        return clip<int, 8, 32>(this->list().size());
+        return clip<int, 8, 32>(this->data().size());
     }
 
     int calcEditorChars() const override
