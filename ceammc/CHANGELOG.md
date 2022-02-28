@@ -30,6 +30,7 @@
   - local.list
   - global.list
   - data.set
+  - global.set
 
 ### Fixed:
 - system.cursor no normalization in subpatch
