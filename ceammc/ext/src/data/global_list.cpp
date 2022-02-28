@@ -5,6 +5,11 @@
 GlobalList::GlobalList(const PdArgs& a)
     : EditorListT<GlobalListBase>(a, "global.list")
 {
+    createCbListProperty(
+        "@value",
+        [this]() -> AtomList { return list(); },
+        [this](const AtomList& l) -> bool { list() = l; return true; })
+        ->setArgIndex(1);
 }
 
 void setup_global_list()

@@ -24,11 +24,24 @@ TEST_CASE("global.list", "[externals]")
 
     SECTION("construct")
     {
-        TestGlobalList t("global.list");
-        REQUIRE(t.numInlets() == 1);
-        REQUIRE(t.numInlets() == 1);
-        REQUIRE_PROPERTY_FLOAT(t, @size, 0);
-        REQUIRE_PROPERTY_FLOAT(t, @empty, 1);
+        SECTION("default")
+        {
+            TestGlobalList t("global.list");
+            REQUIRE(t.numInlets() == 1);
+            REQUIRE(t.numInlets() == 1);
+            REQUIRE_PROPERTY_FLOAT(t, @size, 0);
+            REQUIRE_PROPERTY_FLOAT(t, @empty, 1);
+        }
+
+        SECTION("args")
+        {
+            TestGlobalList t("global.list", LA("g0", 1, 2, 3));
+            REQUIRE(t.numInlets() == 1);
+            REQUIRE(t.numInlets() == 1);
+            REQUIRE_PROPERTY_FLOAT(t, @size, 3);
+            REQUIRE_PROPERTY_FLOAT(t, @empty, 0);
+            REQUIRE_PROPERTY_LIST(t, @value, LF(1, 2, 3));
+        }
     }
 
     SECTION("do")
