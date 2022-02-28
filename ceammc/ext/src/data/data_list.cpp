@@ -4,7 +4,7 @@
 #include "datatype_mlist.h"
 
 DataList::DataList(const PdArgs& a)
-    : EditorObject<DataListIFace<BaseObject>>(a, "DATA.LIST")
+    : EditorListT<DataListIFace<BaseObject>>(a, "DATA.LIST")
 {
     createInlet();
     createOutlet();
@@ -14,31 +14,6 @@ DataList::DataList(const PdArgs& a)
         [this]() -> AtomList { return list_; },
         [this](const AtomList& l) -> bool { list_ = l; return true; })
         ->setArgIndex(0);
-}
-
-void DataList::editorAddLine(t_symbol* sel, const AtomListView& lv)
-{
-    for (auto& a : lv)
-        list().append(a);
-}
-
-void DataList::editorClear()
-{
-    list().clear();
-}
-
-AtomListView DataList::getContentForEditor() const
-{
-    return list();
-}
-int DataList::calcEditorLines() const
-{
-    return clip<int, 8, 32>(list().size());
-}
-
-int DataList::calcEditorChars() const
-{
-    return 20;
 }
 
 void setup_data_list()

@@ -15,14 +15,16 @@
 #define GLOBAL_LIST_H
 
 #include "datatype_mlist.h"
+#include "editor_list.h"
 #include "global_base.h"
 #include "list_iface.h"
 
-typedef DataListIFace<GlobalBase<AtomList>> GlobalListBase;
+using GlobalListBase = DataListIFace<GlobalBase<AtomList>>;
 
-class GlobalList : public GlobalListBase {
+class GlobalList : public EditorListT<GlobalListBase> {
 public:
     GlobalList(const PdArgs& a);
+
     AtomList& list() final { return ref(); }
     const AtomList& list() const final { return ref(); }
 };
