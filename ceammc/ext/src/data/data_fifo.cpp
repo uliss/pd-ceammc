@@ -24,6 +24,8 @@ DataFifo::DataFifo(const PdArgs& args)
         ->checkNonNegative();
 
     createOutlet();
+
+    setHighlightSyntax(EDITOR_SYNTAX_SELECTOR);
 }
 
 void DataFifo::onBang() { flush(); }

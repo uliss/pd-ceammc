@@ -20,6 +20,19 @@ extern "C" {
 
 namespace ceammc {
 
+static const char* editorSyntaxStr(EditorSyntax s)
+{
+    switch (s) {
+    case EDITOR_SYNTAX_SELECTOR:
+        return "selector";
+    case EDITOR_SYNTAX_DEFAULT:
+        return "default";
+    case EDITOR_SYNTAX_NONE:
+    default:
+        return "none";
+    }
+}
+
 void EditorString::append(t_float t)
 {
     char buf[32];
@@ -76,7 +89,7 @@ EditorObjectImpl::~EditorObjectImpl()
     }
 }
 
-void EditorObjectImpl::open(t_canvas* cnv, const EditorLineList& data, const EditorTitleString& title, int x, int y, int nchars, int nlines, bool lineNumbers, bool highlightSyntax)
+void EditorObjectImpl::open(t_canvas* cnv, const EditorLineList& data, const EditorTitleString& title, int x, int y, int nchars, int nlines, bool lineNumbers, EditorSyntax syntax)
 {
     if (guiconnect_) {
         sys_vgui("ceammc::texteditor::show .x%lx\n", xowner());
@@ -89,8 +102,8 @@ void EditorObjectImpl::open(t_canvas* cnv, const EditorLineList& data, const Edi
         const auto w = std::min(800, sys_zoomfontwidth(ft, z, 0) * nchars);
         const auto h = std::min(600, sys_zoomfontheight(fsz, z, 0) * nlines);
 
-        sys_vgui("ceammc::texteditor::open .x%lx %dx%d+%d+%d {%s} %d %d %d\n",
-            xowner(), w, h, brect.x + x, brect.y + y, title.c_str(), fsz, (int)lineNumbers, (int)highlightSyntax);
+        sys_vgui("ceammc::texteditor::open .x%lx %dx%d+%d+%d {%s} %d %d %s\n",
+            xowner(), w, h, brect.x + x, brect.y + y, title.c_str(), fsz, (int)lineNumbers, editorSyntaxStr(syntax));
 
         char buf[40];
         sprintf(buf, ".x%lx", xowner());

@@ -29,7 +29,7 @@ namespace eval texteditor {
         comment #6272a4
     }
 
-    proc open {name geometry title font showlinenum highlight} {
+    proc open {name geometry title font showlinenum syntax} {
         if {[winfo exists $name]} {
             $name.f.text fastdelete 1.0 end
         } else {
@@ -52,6 +52,7 @@ namespace eval texteditor {
                 -relief flat \
                 -yscrollcommand "$name.f.scroll set"
 
+            # colors
             $name.f.text.t configure -selectbackground $colors(select)
             $name.f.text.t configure -highlightcolor $colors(bg)
             $name.f.text.t configure -highlightbackground $colors(bg)
@@ -59,13 +60,8 @@ namespace eval texteditor {
             $name.f.text.t configure -highlightthickness 1
             $name.f.text.l configure -highlightthickness 1
 
-            if { $highlight } {
-                ctext::addHighlightClassWithOnlyCharStart $name.f.text props $colors(cyan) "@"
-                ctext::addHighlightClassForSpecialChars $name.f.text brackets $colors(yellow) {[]()}
-                ctext::addHighlightClassForRegexp $name.f.text numbers $colors(pink) {[-+]?[0-9]+(?:\.[0-9]+)?(?:[eE][-+]?[0-9]+)?}
-                ctext::addHighlightClassForRegexp $name.f.text strings $colors(green) {[\"][^\n\"]+[\"]}
-                ctext::addHighlightClassForRegexp $name.f.text dicts $colors(cyan) {[a-zA-Z]+:}
-            }
+            # syntax
+            if { $syntax != "none" } { ceammc::texteditor::set_syntax $name.f.text $syntax }
 
             # layout
             pack $name.f -fill both -expand 1
@@ -74,6 +70,27 @@ namespace eval texteditor {
 
             bind $name.f.text <$::modifier-Key-s> "ceammc::texteditor::send $name"
             bind $name.f.text <$::modifier-Key-w> "ceammc::texteditor::close $name 1"
+        }
+    }
+
+    proc set_syntax { w name } {
+        upvar ::ceammc::texteditor::colors colors
+
+        switch $name {
+            "none" -
+            "selector" {
+                ctext::addHighlightClass $w float $colors(purple) { float }
+                ctext::addHighlightClass $w symbol $colors(green) { symbol }
+                ctext::addHighlightClass $w "list" $colors(cyan)  { list }
+                ctext::addHighlightClassForRegexp $w numbers $colors(pink) {[-]?[0-9]+(?:\.[0-9]+)?(?:[eE][-+]?[0-9]+)?}
+            }
+            default {
+                ctext::addHighlightClassWithOnlyCharStart $w props $colors(cyan) "@"
+                ctext::addHighlightClassForSpecialChars $w brackets $colors(yellow) {[]()}
+                ctext::addHighlightClassForRegexp $w numbers $colors(pink) {[-]?[0-9]+(?:\.[0-9]+)?(?:[eE][-+]?[0-9]+)?}
+                ctext::addHighlightClassForRegexp $w strings $colors(green) {[\"][^\n\"]+[\"]}
+                ctext::addHighlightClassForRegexp $w dicts $colors(cyan) {[a-zA-Z]+:}
+            }
         }
     }
 

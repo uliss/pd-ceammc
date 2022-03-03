@@ -53,6 +53,12 @@ public:
     static void dumpMemoryUsage();
 };
 
+enum EditorSyntax {
+    EDITOR_SYNTAX_NONE = 0,
+    EDITOR_SYNTAX_SELECTOR,
+    EDITOR_SYNTAX_DEFAULT
+};
+
 class EditorObjectImpl {
     t_object* owner_;
     void* guiconnect_;
@@ -74,8 +80,7 @@ public:
     void open(t_canvas* cnv, const EditorLineList& data,
         const EditorTitleString& title,
         int x, int y, int nchars, int nlines,
-        bool lineNumbers,
-        bool highlightSyntax);
+        bool lineNumbers, EditorSyntax syntax);
 
     /**
      * close TCL editor and stop GUI listening
@@ -95,15 +100,15 @@ private:
 template <typename BaseClass>
 class EditorObject : public BaseClass {
     EditorObjectImpl impl_;
+    EditorSyntax syntax_;
     bool line_nums_;
-    bool highlight_;
 
 public:
     EditorObject(const PdArgs& args)
         : BaseClass(args)
         , impl_(this->owner())
         , line_nums_(true)
-        , highlight_(true)
+        , syntax_(EDITOR_SYNTAX_DEFAULT)
     {
     }
 
@@ -115,7 +120,7 @@ public:
             (int)xpos, (int)ypos,
             this->calcEditorChars(),
             this->calcEditorLines(),
-            line_nums_, highlight_);
+            line_nums_, syntax_);
     }
 
     virtual void editorClear() = 0;
@@ -142,14 +147,14 @@ public:
     void setLineNumbers(bool value) { line_nums_ = value; }
 
     /**
-     * If highlight syntax in editor
+     * highlight syntax in editor
      */
-    bool highlight() const { return highlight_; }
+    EditorSyntax highlightSyntax() const { return syntax_; }
 
     /**
      * Set on/off syntax highlighting in editor
      */
-    void setHighlight(bool value) { highlight_ = value; }
+    void setHighlightSyntax(EditorSyntax value) { syntax_ = value; }
 
 public:
     using ThisType = EditorObject<BaseClass>;
