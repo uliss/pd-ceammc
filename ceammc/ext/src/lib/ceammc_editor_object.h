@@ -17,10 +17,41 @@
 #include "ceammc_object.h"
 
 #include <boost/static_string.hpp>
+#include <list>
+
+#include "extra/boost_intrusive_pool.hpp"
 
 namespace ceammc {
 
 using EditorTitleString = boost::static_string<32>;
+
+class EditorString : public memorypool::boost_intrusive_pool_item {
+public:
+    boost::static_string<MAXPDSTRING> str;
+
+    EditorString() { }
+    void destroy() final { str.clear(); }
+
+    void append(t_float t);
+    void append(const char* txt);
+    void append(t_symbol* s) { append(s->s_name); }
+    void append(const Atom& a);
+    void append(const AtomList& lst, const char* delim = " ");
+};
+
+using EditorStringPtr = boost::intrusive_ptr<EditorString>;
+using EditorLineList = std::vector<EditorStringPtr>;
+
+class EditorStringPool {
+    EditorStringPool() = delete;
+
+public:
+    using Pool = memorypool::boost_intrusive_pool<EditorString>;
+
+public:
+    static Pool& pool();
+    static void dumpMemoryUsage();
+};
 
 class EditorObjectImpl {
     t_object* owner_;
@@ -40,7 +71,7 @@ public:
      * @param highlightSyntax - highlight syntax
      * @return true on success, false on error
      */
-    void open(t_canvas* cnv, const AtomListView& data,
+    void open(t_canvas* cnv, const EditorLineList& data,
         const EditorTitleString& title,
         int x, int y, int nchars, int nlines,
         bool lineNumbers,
@@ -55,7 +86,7 @@ public:
      * Sync editor with specified data
      * @param lv
      */
-    void sync(const AtomListView& data);
+    void sync(const EditorLineList& list);
 
 private:
     unsigned long xowner() const { return reinterpret_cast<unsigned long>(owner_); }
@@ -89,7 +120,7 @@ public:
 
     virtual void editorClear() = 0;
     virtual void editorAddLine(t_symbol* sel, const AtomListView& lv) = 0;
-    virtual AtomListView getContentForEditor() const = 0;
+    virtual EditorLineList getContentForEditor() const = 0;
     virtual EditorTitleString editorTitle() const { return "EDITOR"; }
 
     virtual int calcEditorLines() const { return 20; }

@@ -39,10 +39,17 @@ public:
         this->list().clear();
     }
 
-    AtomListView getContentForEditor() const override
+    EditorLineList getContentForEditor() const override
     {
-        return this->list();
+        EditorLineList res;
+        for (auto& a : this->list()) {
+            auto str = EditorStringPool::pool().allocate();
+            str->str.append(to_string(a));
+            res.push_back(str);
+        }
+        return res;
     }
+
     int calcEditorLines() const override
     {
         return clip<int, 8, 32>(this->list().size());

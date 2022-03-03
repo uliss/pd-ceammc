@@ -22,7 +22,6 @@ namespace ceammc {
 
 template <typename T>
 class EditorSetT : public EditorObject<T> {
-    mutable AtomList cache_;
 
 public:
     EditorSetT(const PdArgs& a)
@@ -41,10 +40,17 @@ public:
         this->data().clear();
     }
 
-    AtomListView getContentForEditor() const override
+    EditorLineList getContentForEditor() const override
     {
-        cache_ = this->data().toList();
-        return cache_.view();
+        EditorLineList res;
+
+        for (auto a : this->data().toList()) {
+            auto str = EditorStringPool::pool().allocate();
+            str->str.append(to_string(a));
+            res.push_back(str);
+        }
+
+        return res;
     }
 
     int calcEditorLines() const override

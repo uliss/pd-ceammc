@@ -14,13 +14,22 @@
 #include "local_set.h"
 #include "ceammc_factory.h"
 
-LocalDataSet::LocalDataSet(const PdArgs& a)
+LocalSet::LocalSet(const PdArgs& a)
     : LocalSetBase(a)
 {
 }
 
+EditorTitleString LocalSet::editorTitle() const
+{
+    char buf[32];
+    snprintf(buf, sizeof(buf) - 1, "GLOBAL.SET (%s)", this->id()->s_name);
+    return buf;
+}
+
 void setup_local_set()
 {
-    ColectionIFaceFactory<LocalDataSet> obj("local.set");
+    ColectionIFaceFactory<LocalSet> obj("local.set");
     obj.processData<DataTypeSet>();
+
+    LocalSet::registerMethods(obj);
 }

@@ -20,6 +20,47 @@ extern "C" {
 
 namespace ceammc {
 
+void EditorString::append(t_float t)
+{
+    char buf[32];
+    snprintf(buf, sizeof(buf) - 1, "%.7g", t);
+
+    try {
+        str.append(buf);
+    } catch (std::exception& e) {
+        LIB_ERR << e.what();
+    }
+}
+
+void EditorString::append(const char* txt)
+{
+    try {
+        str.append(txt);
+    } catch (std::exception& e) {
+        LIB_ERR << e.what();
+    }
+}
+
+void EditorString::append(const Atom& a)
+{
+    if (a.isFloat())
+        return append(a.asT<t_float>());
+    else if (a.isSymbol())
+        return append(a.asT<t_symbol*>());
+    else
+        LIB_ERR << "unsupported atom type: " << a.type();
+}
+
+void EditorString::append(const AtomList& lst, const char* delim)
+{
+    for (size_t i = 0; i < lst.size(); i++) {
+        if (i > 0)
+            append(delim);
+
+        append(lst[i]);
+    }
+}
+
 EditorObjectImpl::EditorObjectImpl(t_object* owner)
     : owner_(owner)
     , guiconnect_(nullptr)
@@ -35,7 +76,7 @@ EditorObjectImpl::~EditorObjectImpl()
     }
 }
 
-void EditorObjectImpl::open(t_canvas* cnv, const AtomListView& data, const EditorTitleString& title, int x, int y, int nchars, int nlines, bool lineNumbers, bool highlightSyntax)
+void EditorObjectImpl::open(t_canvas* cnv, const EditorLineList& data, const EditorTitleString& title, int x, int y, int nchars, int nlines, bool lineNumbers, bool highlightSyntax)
 {
     if (guiconnect_) {
         sys_vgui("ceammc::texteditor::show .x%lx\n", xowner());
@@ -67,30 +108,36 @@ void EditorObjectImpl::close()
         guiconnect_notarget((t_guiconnect*)guiconnect_, 1000);
         guiconnect_ = nullptr;
     }
+
+    EditorStringPool::dumpMemoryUsage();
 }
 
-void EditorObjectImpl::sync(const AtomListView& data)
+void EditorObjectImpl::sync(const EditorLineList& list)
 {
     sys_vgui("ceammc::texteditor::clear .x%lx\n", xowner());
 
-    for (auto& a : data) {
-        switch (a.type()) {
-        case Atom::SYMBOL: {
-            auto s = a.asT<t_symbol*>();
-            sys_vgui("ceammc::texteditor::append .x%lx {%s\n}\n", xowner(), s->s_name);
-        } break;
-        case Atom::FLOAT: {
-            char buf[32];
-            atom_string(&a.atom(), buf, sizeof(buf) - 1);
-            sys_vgui("ceammc::texteditor::append .x%lx {%s\n}\n", xowner(), buf);
-        } break;
-        default:
-            continue;
-        }
-    }
+    for (auto& str : list)
+        sys_vgui("ceammc::texteditor::append .x%lx {%s\n}\n", xowner(), str->str.c_str());
 
     sys_vgui("ceammc::texteditor::highlight .x%lx\n", xowner());
     sys_vgui("ceammc::texteditor::setdirty .x%lx 0\n", xowner());
+}
+
+EditorStringPool::Pool& EditorStringPool::pool()
+{
+    static Pool instance_(64, 64, 0, memorypool::RECYCLE_METHOD_DESTROY_FUNCTION);
+    return instance_;
+}
+
+void EditorStringPool::dumpMemoryUsage()
+{
+    LIB_DBG << "editor string pool memory usage:\n"
+               "\tsize="
+            << pool().max_size() << "\n"
+                                    "\tinuse="
+            << pool().inuse_count() << "\n"
+                                       "\tunused="
+            << pool().unused_count();
 }
 
 }

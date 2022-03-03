@@ -14,10 +14,9 @@
 #ifndef DATA_FIFO_H
 #define DATA_FIFO_H
 
+#include "ceammc_editor_object.h"
 #include "ceammc_message.h"
 #include "ceammc_object.h"
-
-using namespace ceammc;
 
 #include <list>
 
@@ -25,7 +24,7 @@ using namespace ceammc;
 
 using MessageFifo = std::list<Message>;
 
-class DataFifo : public BaseObject {
+class DataFifo : public EditorObject<BaseObject> {
     MessageFifo fifo_;
     size_t size_;
 
@@ -36,7 +35,7 @@ public:
     void onFloat(t_float v) override;
     void onSymbol(t_symbol* s) override;
     void onList(const AtomList& lst) override;
-    void onAny(t_symbol* s, const AtomListView& lst) override;
+    void onAny(t_symbol* s, const AtomListView& lv) override;
 
     void m_flush(t_symbol*, const AtomListView&);
     void m_clear(t_symbol*, const AtomListView&);
@@ -56,6 +55,14 @@ public:
 
     void resize(size_t sz);
     void dump() const override;
+
+    // editor methods
+    void editorAddLine(t_symbol* sel, const AtomListView& lv) final;
+    void editorClear() final;
+    EditorLineList getContentForEditor() const final;
+    int calcEditorLines() const final;
+    int calcEditorChars() const final;
+    EditorTitleString editorTitle() const final { return "DATA.FIFO"; }
 };
 
 void setup_data_fifo();
