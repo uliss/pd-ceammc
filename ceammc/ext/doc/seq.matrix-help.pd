@@ -10,7 +10,7 @@
 #X obj 184 118 ui.tab inc dec tri;
 #X obj 405 118 ui.dsp~;
 #X msg 184 147 @mode \$1;
-#X obj 50 176 seq.matrix 16 120#4bpm;
+#X obj 50 176 seq.matrix 16 120|8bpm;
 #X obj 290 176 loadmsg random;
 #X obj 50 205 ui.matrix 3 16 @size 257 46;
 #X obj 50 262 route col;
