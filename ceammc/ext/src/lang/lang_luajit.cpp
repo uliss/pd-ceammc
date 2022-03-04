@@ -68,6 +68,8 @@ LangLuaJit::LangLuaJit(const PdArgs& args)
 
     if (!runTask())
         OBJ_ERR << "can't start LUA event loop";
+
+    setHighlightSyntax(EDITOR_SYNTAX_LUA);
 }
 
 LangLuaJit::~LangLuaJit()

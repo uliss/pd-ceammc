@@ -60,6 +60,9 @@ namespace eval texteditor {
             $name.f.text.t configure -highlightthickness 1
             $name.f.text.l configure -highlightthickness 1
 
+            # tabs
+            $name.f.text.t configure -tabs "[expr {3 * [font measure $font 0]}] left" -tabstyle tabular
+
             # syntax
             if { $syntax != "none" } { ceammc::texteditor::set_syntax $name.f.text $syntax }
 
@@ -83,6 +86,15 @@ namespace eval texteditor {
                 ctext::addHighlightClass $w symbol $colors(green) { symbol }
                 ctext::addHighlightClass $w "list" $colors(cyan)  { list }
                 ctext::addHighlightClassForRegexp $w numbers $colors(pink) {[-]?[0-9]+(?:\.[0-9]+)?(?:[eE][-+]?[0-9]+)?}
+            }
+            "lua" {
+                ctext::addHighlightClass $w cond $colors(yellow) { and not or }
+                ctext::addHighlightClass $w func $colors(cyan) { function end }
+                ctext::addHighlightClass $w values $colors(red) { true false nil }
+                ctext::addHighlightClass $w flow $colors(orange) { break do else elseif goto for if in local repeat return then until while }
+                ctext::addHighlightClassForRegexp $w numbers $colors(pink) {[-]?[0-9]+(?:\.[0-9]+)?(?:[eE][-+]?[0-9]+)?}
+                ctext::addHighlightClassForRegexp $w strings $colors(green) {[\"][^\n\"]+[\"]}
+                ctext::addHighlightClassForRegexp $w comment $colors(comment) {--.*}
             }
             default {
                 ctext::addHighlightClassWithOnlyCharStart $w props $colors(cyan) "@"

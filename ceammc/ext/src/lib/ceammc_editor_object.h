@@ -57,6 +57,7 @@ public:
 enum EditorSyntax {
     EDITOR_SYNTAX_NONE = 0,
     EDITOR_SYNTAX_SELECTOR,
+    EDITOR_SYNTAX_LUA,
     EDITOR_SYNTAX_DEFAULT
 };
 

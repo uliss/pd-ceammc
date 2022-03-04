@@ -27,6 +27,8 @@ static const char* editorSyntaxStr(EditorSyntax s)
         return "selector";
     case EDITOR_SYNTAX_DEFAULT:
         return "default";
+    case EDITOR_SYNTAX_LUA:
+        return "lua";
     case EDITOR_SYNTAX_NONE:
     default:
         return "none";
