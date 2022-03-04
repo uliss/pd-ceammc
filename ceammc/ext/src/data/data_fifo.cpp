@@ -103,7 +103,6 @@ void DataFifo::dump() const
 
 void DataFifo::editorAddLine(t_symbol* sel, const AtomListView& lv)
 {
-    OBJ_ERR << lv;
     const auto N = lv.size();
 
     if (N > 0) {
@@ -131,8 +130,6 @@ void DataFifo::editorAddLine(t_symbol* sel, const AtomListView& lv)
             break;
         }
     }
-
-    dump();
 }
 
 void DataFifo::editorClear()

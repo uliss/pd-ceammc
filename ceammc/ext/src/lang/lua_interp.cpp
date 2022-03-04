@@ -238,6 +238,23 @@ namespace lua {
                 } else {
                 }
             } break;
+            case LUA_INTERP_EVAL_BEGIN: {
+                eval_string_.clear();
+            } break;
+            case LUA_INTERP_EVAL_APPEND: {
+                if (cmd.args.size() == 1 && cmd.args[0].isString()) {
+                    eval_string_.append(cmd.args[0].getString());
+                    eval_string_.append("\n");
+                }
+            } break;
+            case LUA_INTERP_EVAL_END: {
+                if (!eval_string_.empty()) {
+                    if (luaL_dostring(lua_, eval_string_.c_str()) != LUA_OK) {
+                        std::cerr << "[lua] " << lua_tostring(lua_, lua_gettop(lua_)) << "\n";
+                        lua_pop(lua_, lua_gettop(lua_));
+                    }
+                }
+            } break;
             case LUA_CMD_NOP: // ignore silently
                 break;
             default:

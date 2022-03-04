@@ -46,7 +46,10 @@ namespace lua {
         LUA_INTERP_LIST,
         LUA_INTERP_ANY,
         LUA_INTERP_CALL,
-        LUA_INTERP_PROPERTY
+        LUA_INTERP_PROPERTY,
+        LUA_INTERP_EVAL_BEGIN,
+        LUA_INTERP_EVAL_APPEND,
+        LUA_INTERP_EVAL_END
     };
 
     using LuaInt = int64_t;

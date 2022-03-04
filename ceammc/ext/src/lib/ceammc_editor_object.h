@@ -37,6 +37,7 @@ public:
     void append(t_symbol* s) { append(s->s_name); }
     void append(const Atom& a);
     void append(const AtomList& lst, const char* delim = " ");
+    void append(const AtomListView& lv, const char* delim = " ");
 };
 
 using EditorStringPtr = boost::intrusive_ptr<EditorString>;

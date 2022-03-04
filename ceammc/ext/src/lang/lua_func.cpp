@@ -540,6 +540,35 @@ namespace lua {
         return 1;
     }
 
+    int lua_send_list(lua_State* L)
+    {
+        const auto ctx = get_ctx(L);
+        const int nargs = lua_gettop(L);
+
+        LuaStackGuard sg(L);
+
+        if (!(nargs == 2 && lua_isstring(L, 1) && lua_istable(L, 2))) {
+            ctx.pipe->try_enqueue({ LUA_CMD_ERROR, "usage: send_symbol(dest, val)" });
+
+            check_arg_type(ctx, "dest", LUA_TSTRING, L, 1);
+            check_arg_type(ctx, "val", LUA_TSTRING, L, 2);
+
+            return 0;
+        }
+
+        // destination
+        auto dest = LuaAtom(luaL_optstring(L, 1, ""));
+        auto val = LuaAtom(luaL_optstring(L, 2, ""));
+
+        if (!ctx.pipe->try_enqueue(LuaCmd(LUA_CMD_SEND_SYMBOL, LuaAtomList { dest, val })))
+            return 0;
+
+        if (!Dispatcher::instance().send({ ctx.id, NOTIFY_UPDATE }))
+            return 0;
+
+        return 1;
+    }
+
     int lua_sleep(lua_State* L)
     {
         auto n = luaL_checkinteger(L, 1);

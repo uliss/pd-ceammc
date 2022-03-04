@@ -74,6 +74,16 @@ void EditorString::append(const AtomList& lst, const char* delim)
     }
 }
 
+void EditorString::append(const AtomListView& lv, const char* delim)
+{
+    for (size_t i = 0; i < lv.size(); i++) {
+        if (i > 0)
+            append(delim);
+
+        append(lv[i]);
+    }
+}
+
 EditorObjectImpl::EditorObjectImpl(t_object* owner)
     : owner_(owner)
     , guiconnect_(nullptr)

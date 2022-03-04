@@ -34,6 +34,7 @@ namespace lua {
         LuaPipe* pipe_ { nullptr };
         const bool* quit_ { nullptr };
         SubscriberId id_ { 0 };
+        std::string eval_string_;
 
         LuaInterp(const LuaInterp&) = delete;
         LuaInterp& operator=(const LuaInterp&) = delete;

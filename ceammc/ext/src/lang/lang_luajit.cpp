@@ -23,95 +23,25 @@ extern "C" {
 #include "luajit.h"
 }
 
-//
-//t_text_define *x = (t_text_define *)z;
-//binbuf_addv(bb, "ssff", &s__X, gensym("obj"),
-//    (float)x->x_ob.te_xpix, (float)x->x_ob.te_ypix);
-//binbuf_addbinbuf(bb, x->x_ob.ob_binbuf);
-//binbuf_addsemi(bb);
-//if (x->x_keep)
-//{
-//    binbuf_addv(bb, "ss", gensym("#A"), gensym("set"));
-//    binbuf_addbinbuf(bb, x->x_binbuf);
-//    binbuf_addsemi(bb);
-//}
-//obj_saveformat(&x->x_ob, bb);
+class AtomLuaVisitor : public boost::static_visitor<Atom> {
+public:
+    Atom operator()(lua::LuaInt i) const
+    {
+        return i;
+    }
+
+    Atom operator()(lua::LuaDouble f) const
+    {
+        return f;
+    }
+
+    Atom operator()(const lua::LuaString& str) const
+    {
+        return gensym(str.c_str());
+    }
+};
 
 using LL = ObjectFactory<LangLuaJit>::ObjectProxy;
-
-static void text_define_save(LL* x, t_binbuf* bb)
-{
-    //    t_text_define *x = (t_text_define *)z;
-    binbuf_addv(bb, "ssff", &s__X, gensym("obj"),
-        (float)x->pd_obj.te_xpix, (float)x->pd_obj.te_ypix);
-    binbuf_addbinbuf(bb, x->pd_obj.te_binbuf);
-    binbuf_addsemi(bb);
-    //        if (x->x_keep)
-    //        {
-    //            binbuf_addv(bb, "ss", gensym("#A"), gensym("set"));
-    //            binbuf_addbinbuf(bb, x->x_binbuf);
-    //            binbuf_addsemi(bb);
-    //        }
-    obj_saveformat(&x->pd_obj, bb);
-}
-
-static void textbuf_senditup(LL* x)
-{
-    //    if (!x->impl->guiconnect)
-    return;
-
-    //    binbuf_gettext(x->b_binbuf, &txt, &ntxt);
-    sys_vgui("pdtk_textwindow_clear .x%lx\n", x);
-    //    for (auto& l : x->impl->lines_) {
-    //        char* j = strchr(txt + i, '\n');
-    //        if (!j)
-    //            j = txt + ntxt;
-    //        sys_vgui("pdtk_textwindow_append .x%lx {%s\n}\n",
-    //            x, l.c_str());
-    //        i = (int)((j - txt) + 1);
-    //    }
-    //    sys_vgui("pdtk_textwindow_setdirty .x%lx 0\n", x);
-    //    t_freebytes(txt, ntxt);
-}
-
-static void textbuf_clear(LL* x)
-{
-    //    x->impl->lines_.clear();
-    textbuf_senditup(x);
-}
-
-static void textbuf_addline(LL* b, t_symbol* s, int argc, t_atom* argv)
-{
-    AtomListView lst(argv, argc);
-    //    b->impl->lines_.push_back(to_string(lst));
-}
-
-static void textbuf_open(LL* x)
-{
-    //    if (x->impl->guiconnect) {
-    //    sys_vgui("wm deiconify .x%lx\n", x);
-    //    sys_vgui("raise .x%lx\n", x);
-    //    sys_vgui("focus .x%lx.text\n", x);
-    //    } else {
-    //        char buf[40];
-    //        sys_vgui("pdtk_textwindow_open .x%lx %dx%d {%s} %d\n",
-    //            x, 600, 340, "LUA",
-    //            sys_hostfontsize(glist_getfont(x->impl->canvas()),
-    //                glist_getzoom(x->impl->canvas())));
-    //        sprintf(buf, ".x%lx", (unsigned long)x);
-    //        x->impl->guiconnect = guiconnect_new(&x->pd_obj.te_g.g_pd, gensym(buf));
-    //        textbuf_senditup(x);
-    //    }
-}
-
-static void textbuf_close(LL* x)
-{
-    //    sys_vgui("pdtk_textwindow_doclose .x%lx\n", x);
-    //    if (x->impl->guiconnect) {
-    //        guiconnect_notarget(x->impl->guiconnect, 1000);
-    //        x->impl->guiconnect = 0;
-    //    }
-}
 
 static void startLuaEventLoop(LangLuaJit* x, const bool* quit)
 {
@@ -129,7 +59,7 @@ static void startLuaEventLoop(LangLuaJit* x, const bool* quit)
 }
 
 LangLuaJit::LangLuaJit(const PdArgs& args)
-    : PollThreadQueueObject<lua::LuaCmd>(args)
+    : LangLuaBase(args)
     , interp_(&outPipe(), subscriberId(), &quit())
 {
     createOutlet();
@@ -183,6 +113,7 @@ void LangLuaJit::onSymbol(t_symbol* s)
 void LangLuaJit::onList(const AtomList& lst)
 {
     using namespace ceammc::lua;
+
     LuaAtomList args;
     args.reserve(lst.size() + 1);
     args.emplace_back(LuaInt(0));
@@ -203,6 +134,7 @@ void LangLuaJit::onList(const AtomList& lst)
 void LangLuaJit::onAny(t_symbol* sel, const AtomListView& lv)
 {
     using namespace ceammc::lua;
+
     LuaAtomList args;
     args.reserve(lv.size() + 1);
     args.emplace_back(sel);
@@ -226,24 +158,6 @@ PollThreadTaskObject<int>::Future LangLuaJit::createTask()
 
     return std::async(std::launch::async, startLuaEventLoop, this, &quit());
 }
-
-class my_visitor : public boost::static_visitor<Atom> {
-public:
-    Atom operator()(lua::LuaInt i) const
-    {
-        return i;
-    }
-
-    Atom operator()(lua::LuaDouble f) const
-    {
-        return f;
-    }
-
-    Atom operator()(const lua::LuaString& str) const
-    {
-        return gensym(str.c_str());
-    }
-};
 
 void LangLuaJit::processMessage(const lua::LuaCmd& msg)
 {
@@ -270,7 +184,7 @@ void LangLuaJit::processMessage(const lua::LuaCmd& msg)
         res.reserve(msg.args.size());
 
         for (auto& a : msg.args)
-            res.append(a.applyVisitor<my_visitor>());
+            res.append(a.applyVisitor<AtomLuaVisitor>());
 
         listTo(n, res.view(1));
     } break;
@@ -281,7 +195,7 @@ void LangLuaJit::processMessage(const lua::LuaCmd& msg)
         AtomList res;
         res.reserve(msg.args.size());
         for (size_t i = 2; i < msg.args.size(); i++)
-            res.append(msg.args[i].applyVisitor<my_visitor>());
+            res.append(msg.args[i].applyVisitor<AtomLuaVisitor>());
 
         anyTo(n, gensym(sel.c_str()), res);
         break;
@@ -382,6 +296,52 @@ void LangLuaJit::m_call(t_symbol* s, const AtomListView& lv)
     }
 }
 
+void LangLuaJit::onSave(t_binbuf* b)
+{
+    OBJ_ERR << "save";
+
+    auto x = this->owner();
+    //    binbuf_addv(b, "ssii", gensym("#X"), gensym("obj"),
+    //        (int)x->te_xpix, (int)x->te_ypix);
+    //    binbuf_addbinbuf(b, x->te_binbuf);
+    //    if (x->te_width)
+    //        binbuf_addv(b, ",si", gensym("f"), (int)x->te_width);
+    //    binbuf_addv(b, ";");
+
+    binbuf_addv(b, "ssii", &s__X, gensym("obj"),
+        (int)x->te_xpix, (int)x->te_ypix);
+    binbuf_addbinbuf(b, x->te_binbuf);
+    binbuf_addsemi(b);
+    binbuf_addv(b, "ss", gensym("#A"), gensym("set"));
+    auto bb = binbuf_new();
+    char txt[] = "1 2 3 4 5 ABC";
+    //    auto n = sizeof(txt);
+    binbuf_text(bb, txt, sizeof(txt) + 1);
+
+    binbuf_addbinbuf(b, bb);
+    binbuf_addsemi(b);
+    obj_saveformat(x, b);
+
+    binbuf_free(bb);
+}
+
+void LangLuaJit::editorClear()
+{
+    script_content_.clear();
+}
+
+void LangLuaJit::editorAddLine(t_symbol* sel, const AtomListView& lv)
+{
+    auto str = EditorStringPool::pool().allocate();
+    str->append(lv);
+    script_content_.push_back(str);
+}
+
+EditorLineList LangLuaJit::getContentForEditor() const
+{
+    return script_content_;
+}
+
 static void lua_menu_open(LL* o, t_symbol* name)
 {
     LIB_ERR << "test";
@@ -389,30 +349,38 @@ static void lua_menu_open(LL* o, t_symbol* name)
     post("open {%s}\n", o->impl->className()->s_name);
 }
 
+template <typename T>
+class SaveFactory : public ObjectFactory<T> {
+public:
+    SaveFactory(const char* name)
+        : ObjectFactory<T>(name)
+    {
+    }
+
+public:
+    using ObjectProxy = typename ObjectFactory<T>::ObjectProxy;
+
+    static void saveFunction(ObjectProxy* p, t_binbuf* b)
+    {
+        p->impl->onSave(b);
+    }
+};
+
 void setup_lang_luajit()
 {
     LIB_DBG << LUAJIT_VERSION;
 
     Dispatcher::instance();
-    ObjectFactory<LangLuaJit> obj("lang.lua");
+    SaveFactory<LangLuaJit> obj("lang.lua");
 
     obj.addMethod("load", &LangLuaJit::m_load);
     obj.addMethod("eval", &LangLuaJit::m_eval);
     obj.addMethod("call", &LangLuaJit::m_call);
     obj.addMethod("quit", &LangLuaJit::m_quit);
 
-    class_addmethod(obj.classPointer(), (t_method)textbuf_open,
-        gensym("click"), A_NULL);
-    //    class_addmethod(obj.classPointer(), (t_method)textbuf_close,
-    //        gensym("close"), A_NULL);
-    class_addmethod(obj.classPointer(), (t_method)textbuf_clear,
-        gensym("clear"), A_NULL);
-    class_addmethod(obj.classPointer(), (t_method)textbuf_addline,
-        gensym("addline"), A_NULL);
-    class_addmethod(obj.classPointer(), (t_method)textbuf_senditup,
-        gensym("notify"), A_NULL, A_NULL);
+    LangLuaJit::registerMethods(obj);
 
     class_addmethod(obj.classPointer(), (t_method)lua_menu_open, gensym("menu-open"), A_NULL);
 
-    class_setsavefn(obj.classPointer(), (t_savefn)text_define_save);
+    class_setsavefn(obj.classPointer(), (t_savefn)SaveFactory<LangLuaJit>::saveFunction);
 }

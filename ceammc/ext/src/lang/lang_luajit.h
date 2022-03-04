@@ -14,6 +14,7 @@
 #ifndef LANG_LUAJIT_H
 #define LANG_LUAJIT_H
 
+#include "ceammc_editor_object.h"
 #include "lua_cmd.h"
 #include "lua_interp.h"
 #include "poll_dispatcher.h"
@@ -25,8 +26,11 @@ using namespace ceammc;
 
 using LuaCommandQueue = moodycamel::ReaderWriterQueue<lua::LuaCmd>;
 
-class LangLuaJit : public ceammc::PollThreadQueueObject<lua::LuaCmd> {
+using LangLuaBase = EditorObject<PollThreadQueueObject<lua::LuaCmd>>;
+
+class LangLuaJit : public LangLuaBase {
     lua::LuaInterp interp_;
+    EditorLineList script_content_;
 
 public:
     LangLuaJit(const PdArgs& args);
@@ -44,6 +48,14 @@ public:
     void m_load(t_symbol* s, const AtomListView& lv);
     void m_eval(t_symbol* s, const AtomListView& lv);
     void m_call(t_symbol* s, const AtomListView& lv);
+
+    void onSave(t_binbuf* b);
+
+public:
+    void editorClear() final;
+    void editorAddLine(t_symbol* sel, const AtomListView& lv) final;
+    EditorLineList getContentForEditor() const final;
+    EditorTitleString editorTitle() const final { return "Lua"; }
 
 public:
     lua::LuaInterp& interp() { return interp_; }
