@@ -137,7 +137,7 @@ namespace eval texteditor {
 
     proc append {name contents} {
         if {[winfo exists $name]} {
-            $name.f.text fastinsert end [string map {{\x7b} "{" {\x7d} "}" {\x2c} "," {\x3b} ";" {\x5c} "\\"} $contents]
+            $name.f.text fastinsert end [string map {{\x7b} "{" {\x7d} "}" {\x2c} "," {\x3b} ";" {\x5c} "\\" {\x09 } "\t"} $contents]
         }
     }
 
@@ -161,8 +161,8 @@ namespace eval texteditor {
              {[$name.f.text compare $i.end < end]} \
                   {incr i 1} {
                 set lin [$name.f.text get $i.0 $i.end]
-                if {$lin != ""} {
-                    set lin [string map {"{" {\\x7b} "}" {\\x7d} "," {\\x2c} ";" {\\x3b} "\\" {\\x5c}} $lin]
+                if {$lin != "" && $lin != "\t"} {
+                    set lin [string map {"{" {\\x7b} "}" {\\x7d} "," {\\x2c} ";" {\\x3b} "\\" {\\x5c} "\t" {\\x09 }} $lin]
                     pdsend [concat $name .addline $lin]
                 }
             }
