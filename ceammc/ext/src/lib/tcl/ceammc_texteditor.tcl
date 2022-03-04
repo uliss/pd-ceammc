@@ -1,4 +1,4 @@
-# Copyright (c) 2002-2012 krzYszcz and others.
+# Copyright (c) 2002-2021 ceammc, krzYszcz and others.
 # For information on usage and redistribution, and for a DISCLAIMER OF ALL
 # WARRANTIES, see the file, "LICENSE.txt," in this distribution.  */
 
@@ -125,7 +125,7 @@ namespace eval texteditor {
 
     proc append {name contents} {
         if {[winfo exists $name]} {
-            $name.f.text fastinsert end $contents
+            $name.f.text fastinsert end [string map {{\x7b} "{" {\x7d} "}" {\x2c} "," {\x3b} ";" {\x5c} "\\"} $contents]
         }
     }
 
@@ -150,7 +150,7 @@ namespace eval texteditor {
                   {incr i 1} {
                 set lin [$name.f.text get $i.0 $i.end]
                 if {$lin != ""} {
-                    set lin [string map {"," " \\, " ";" " \\; " "$" "\\$"} $lin]
+                    set lin [string map {"{" {\\x7b} "}" {\\x7d} "," {\\x2c} ";" {\\x3b} "\\" {\\x5c}} $lin]
                     pdsend [concat $name .addline $lin]
                 }
             }
