@@ -56,9 +56,13 @@ public:
     void editorAddLine(t_symbol* sel, const AtomListView& lv) final;
     EditorLineList getContentForEditor() const final;
     EditorTitleString editorTitle() const final { return "Lua"; }
+    void editorSync() final;
 
 public:
     lua::LuaInterp& interp() { return interp_; }
+
+private:
+    void updateInterpSource();
 };
 
 void setup_lang_luajit();

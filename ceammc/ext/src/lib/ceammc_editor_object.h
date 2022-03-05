@@ -127,6 +127,7 @@ public:
 
     virtual void editorClear() = 0;
     virtual void editorAddLine(t_symbol* sel, const AtomListView& lv) = 0;
+    virtual void editorSync() { impl_.sync(this->getContentForEditor()); }
     virtual EditorLineList getContentForEditor() const = 0;
     virtual EditorTitleString editorTitle() const { return "EDITOR"; }
 
@@ -136,7 +137,7 @@ public:
     void m_editor_clear(t_symbol* s, const AtomListView& lv) { this->editorClear(); }
     void m_editor_close(t_symbol* s, const AtomListView& lv) { impl_.close(); }
     void m_editor_addline(t_symbol* s, const AtomListView& lv) { this->editorAddLine(s, lv); }
-    void m_editor_sync(t_symbol*, const AtomListView&) { impl_.sync(this->getContentForEditor()); }
+    void m_editor_sync(t_symbol*, const AtomListView&) { this->editorSync(); }
 
     /**
      * If show line numbers in editor

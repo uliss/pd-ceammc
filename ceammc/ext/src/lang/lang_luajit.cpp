@@ -344,6 +344,33 @@ EditorLineList LangLuaJit::getContentForEditor() const
     return script_content_;
 }
 
+void LangLuaJit::editorSync()
+{
+    LangLuaBase::editorSync();
+    updateInterpSource();
+}
+
+void LangLuaJit::updateInterpSource()
+{
+    using namespace ceammc::lua;
+    try {
+
+        if (!inPipe().enqueue(LUA_INTERP_EVAL_BEGIN))
+            return;
+
+        for (auto& l : script_content_) {
+            if (!inPipe().enqueue({ LUA_INTERP_EVAL_APPEND, l->str.c_str() }))
+                break;
+        }
+
+        if (!inPipe().enqueue(LUA_INTERP_EVAL_END))
+            return;
+
+    } catch (...) {
+        OBJ_ERR << "error";
+    }
+}
+
 static void lua_menu_open(LL* o, t_symbol* name)
 {
     LIB_ERR << "test";
