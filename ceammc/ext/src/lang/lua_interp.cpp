@@ -17,6 +17,8 @@
 
 #include "lua.hpp"
 
+#include <boost/algorithm/string/replace.hpp>
+
 #define HAS_METHOD(L, name)                        \
     {                                              \
         lua_getglobal(L, #name);                   \
@@ -243,7 +245,10 @@ namespace lua {
             } break;
             case LUA_INTERP_EVAL_APPEND: {
                 if (cmd.args.size() == 1 && cmd.args[0].isString()) {
-                    eval_string_.append(cmd.args[0].getString());
+                    auto str = cmd.args[0].getString();
+                    boost::replace_all(str, "\\x09", "\t");
+
+                    eval_string_.append(str);
                     eval_string_.append("\n");
                 }
             } break;
