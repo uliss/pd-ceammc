@@ -38,6 +38,10 @@ public:
     void append(const Atom& a);
     void append(const AtomList& lst, const char* delim = " ");
     void append(const AtomListView& lv, const char* delim = " ");
+
+    void clear() { str.clear(); }
+    const char* c_str() const { return str.c_str(); }
+    size_t length() const { return str.length(); }
 };
 
 using EditorStringPtr = boost::intrusive_ptr<EditorString>;

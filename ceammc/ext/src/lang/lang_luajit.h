@@ -14,6 +14,7 @@
 #ifndef LANG_LUAJIT_H
 #define LANG_LUAJIT_H
 
+#include "ceammc_containers.h"
 #include "ceammc_editor_object.h"
 #include "lua_cmd.h"
 #include "lua_interp.h"
@@ -21,6 +22,8 @@
 #include "pollthread_object.h"
 
 #include "readerwriterqueue.h"
+
+#include <boost/container/small_vector.hpp>
 
 using namespace ceammc;
 
@@ -30,7 +33,9 @@ using LangLuaBase = EditorObject<PollThreadQueueObject<lua::LuaCmd>>;
 
 class LangLuaJit : public LangLuaBase {
     lua::LuaInterp interp_;
-    EditorLineList script_content_;
+    using FixedAtomList = SmallAtomListN<8>;
+    using FixedEditorList = boost::container::small_vector<FixedAtomList, 48>;
+    FixedEditorList src_;
 
 public:
     LangLuaJit(const PdArgs& args);
@@ -42,12 +47,15 @@ public:
     void onList(const AtomList& lst) override;
     void onAny(t_symbol* sel, const AtomListView& lv) override;
 
+    void dump() const override;
+
     Future createTask() override;
     void processMessage(const lua::LuaCmd& msg) override;
 
     void m_load(t_symbol* s, const AtomListView& lv);
     void m_eval(t_symbol* s, const AtomListView& lv);
     void m_call(t_symbol* s, const AtomListView& lv);
+    void m_restore(t_symbol* s, const AtomListView& lv);
 
     void onSave(t_binbuf* b);
 

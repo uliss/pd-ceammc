@@ -70,6 +70,10 @@ LangLuaJit::LangLuaJit(const PdArgs& args)
         OBJ_ERR << "can't start LUA event loop";
 
     setHighlightSyntax(EDITOR_SYNTAX_LUA);
+
+    auto asym = gensym("#A");
+    asym->s_thing = 0;
+    pd_bind(&owner()->te_g.g_pd, asym);
 }
 
 LangLuaJit::~LangLuaJit()
@@ -152,6 +156,16 @@ void LangLuaJit::onAny(t_symbol* sel, const AtomListView& lv)
         OBJ_ERR << "can't send command to LUA interpreter: any";
         return;
     }
+}
+
+void LangLuaJit::dump() const
+{
+    LangLuaBase::dump();
+
+    Debug os(this);
+    os << "source code: \n";
+    for (auto& l : src_)
+        os << l.view() << "\n";
 }
 
 PollThreadTaskObject<int>::Future LangLuaJit::createTask()
@@ -298,6 +312,19 @@ void LangLuaJit::m_call(t_symbol* s, const AtomListView& lv)
     }
 }
 
+void LangLuaJit::m_restore(t_symbol* s, const AtomListView& lv)
+{
+    if (lv.empty()) {
+        updateInterpSource();
+    } else {
+        src_.push_back({});
+        auto& back = src_.back();
+
+        for (auto& a : lv)
+            back.push_back(a);
+    }
+}
+
 void LangLuaJit::onSave(t_binbuf* b)
 {
     OBJ_ERR << "save";
@@ -314,34 +341,50 @@ void LangLuaJit::onSave(t_binbuf* b)
         (int)x->te_xpix, (int)x->te_ypix);
     binbuf_addbinbuf(b, x->te_binbuf);
     binbuf_addsemi(b);
-    binbuf_addv(b, "ss", gensym("#A"), gensym("set"));
-    auto bb = binbuf_new();
-    char txt[] = "1 2 3 4 5 ABC";
-    //    auto n = sizeof(txt);
-    binbuf_text(bb, txt, sizeof(txt) + 1);
 
-    binbuf_addbinbuf(b, bb);
+    //    auto bb = binbuf_new();
+
+    for (auto& l : src_) {
+        if (l.empty())
+            continue;
+
+        binbuf_addv(b, "ss", gensym("#A"), gensym(".restore"));
+        binbuf_add(b, l.size(), &l.front().atom());
+        binbuf_addsemi(b);
+    }
+
+    binbuf_addv(b, "ss", gensym("#A"), gensym(".restore"));
     binbuf_addsemi(b);
     obj_saveformat(x, b);
-
-    binbuf_free(bb);
 }
 
 void LangLuaJit::editorClear()
 {
-    script_content_.clear();
+    src_.clear();
 }
 
 void LangLuaJit::editorAddLine(t_symbol* sel, const AtomListView& lv)
 {
-    auto str = EditorStringPool::pool().allocate();
-    str->append(lv);
-    script_content_.push_back(str);
+    src_.push_back({});
+    auto& b = src_.back();
+
+    for (auto& a : lv)
+        b.push_back(a);
 }
 
 EditorLineList LangLuaJit::getContentForEditor() const
 {
-    return script_content_;
+    EditorLineList res;
+    for (auto& l : src_) {
+        if (l.empty())
+            continue;
+
+        auto str = EditorStringPool::pool().allocate();
+        str->append(l.view());
+        res.push_back(str);
+    }
+
+    return res;
 }
 
 void LangLuaJit::editorSync()
@@ -358,8 +401,12 @@ void LangLuaJit::updateInterpSource()
         if (!inPipe().enqueue(LUA_INTERP_EVAL_BEGIN))
             return;
 
-        for (auto& l : script_content_) {
-            if (!inPipe().enqueue({ LUA_INTERP_EVAL_APPEND, l->str.c_str() }))
+        auto str = EditorStringPool::pool().allocate();
+
+        for (auto& l : src_) {
+            str->clear();
+            str->append(l.view());
+            if (!inPipe().enqueue({ LUA_INTERP_EVAL_APPEND, str->c_str() }))
                 break;
         }
 
@@ -406,6 +453,7 @@ void setup_lang_luajit()
     obj.addMethod("eval", &LangLuaJit::m_eval);
     obj.addMethod("call", &LangLuaJit::m_call);
     obj.addMethod("quit", &LangLuaJit::m_quit);
+    obj.addMethod(".restore", &LangLuaJit::m_restore);
 
     LangLuaJit::registerMethods(obj);
 

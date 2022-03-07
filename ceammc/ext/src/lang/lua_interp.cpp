@@ -247,6 +247,7 @@ namespace lua {
                 if (cmd.args.size() == 1 && cmd.args[0].isString()) {
                     auto str = cmd.args[0].getString();
                     boost::replace_all(str, "\\x09", "\t");
+                    boost::replace_all(str, "\\x2c", ",");
 
                     eval_string_.append(str);
                     eval_string_.append("\n");
