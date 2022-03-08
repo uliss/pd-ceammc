@@ -16,6 +16,7 @@
 
 #include "ceammc_containers.h"
 #include "ceammc_editor_object.h"
+#include "ceammc_save_object.h"
 #include "lua_cmd.h"
 #include "lua_interp.h"
 #include "poll_dispatcher.h"
@@ -29,7 +30,7 @@ using namespace ceammc;
 
 using LuaCommandQueue = moodycamel::ReaderWriterQueue<lua::LuaCmd>;
 
-using LangLuaBase = EditorObject<PollThreadQueueObject<lua::LuaCmd>>;
+using LangLuaBase = SaveObject<EditorObject<PollThreadQueueObject<lua::LuaCmd>>>;
 
 class LangLuaJit : public LangLuaBase {
     lua::LuaInterp interp_;
@@ -55,9 +56,10 @@ public:
     void m_load(t_symbol* s, const AtomListView& lv);
     void m_eval(t_symbol* s, const AtomListView& lv);
     void m_call(t_symbol* s, const AtomListView& lv);
-    void m_restore(t_symbol* s, const AtomListView& lv);
 
-    void onSave(t_binbuf* b);
+    // save/restore
+    void onRestore(const AtomListView& lv) final;
+    void saveUser(t_binbuf* b) final;
 
 public:
     void editorClear() final;

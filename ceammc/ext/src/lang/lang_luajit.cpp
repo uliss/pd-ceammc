@@ -312,7 +312,7 @@ void LangLuaJit::m_call(t_symbol* s, const AtomListView& lv)
     }
 }
 
-void LangLuaJit::m_restore(t_symbol* s, const AtomListView& lv)
+void LangLuaJit::onRestore(const AtomListView& lv)
 {
     if (lv.empty()) {
         updateInterpSource();
@@ -325,37 +325,22 @@ void LangLuaJit::m_restore(t_symbol* s, const AtomListView& lv)
     }
 }
 
-void LangLuaJit::onSave(t_binbuf* b)
+void LangLuaJit::saveUser(_binbuf* b)
 {
-    OBJ_ERR << "save";
-
-    auto x = this->owner();
-    //    binbuf_addv(b, "ssii", gensym("#X"), gensym("obj"),
-    //        (int)x->te_xpix, (int)x->te_ypix);
-    //    binbuf_addbinbuf(b, x->te_binbuf);
-    //    if (x->te_width)
-    //        binbuf_addv(b, ",si", gensym("f"), (int)x->te_width);
-    //    binbuf_addv(b, ";");
-
-    binbuf_addv(b, "ssii", &s__X, gensym("obj"),
-        (int)x->te_xpix, (int)x->te_ypix);
-    binbuf_addbinbuf(b, x->te_binbuf);
-    binbuf_addsemi(b);
-
-    //    auto bb = binbuf_new();
+    auto symA = gensym("#A");
+    auto symR = gensym(restoreSymbol);
 
     for (auto& l : src_) {
         if (l.empty())
             continue;
 
-        binbuf_addv(b, "ss", gensym("#A"), gensym(".restore"));
+        binbuf_addv(b, "ss", symA, symR);
         binbuf_add(b, l.size(), &l.front().atom());
         binbuf_addsemi(b);
     }
 
-    binbuf_addv(b, "ss", gensym("#A"), gensym(".restore"));
+    binbuf_addv(b, "ss", symA, symR);
     binbuf_addsemi(b);
-    obj_saveformat(x, b);
 }
 
 void LangLuaJit::editorClear()
@@ -418,46 +403,19 @@ void LangLuaJit::updateInterpSource()
     }
 }
 
-static void lua_menu_open(LL* o, t_symbol* name)
-{
-    LIB_ERR << "test";
-
-    post("open {%s}\n", o->impl->className()->s_name);
-}
-
-template <typename T>
-class SaveFactory : public ObjectFactory<T> {
-public:
-    SaveFactory(const char* name)
-        : ObjectFactory<T>(name)
-    {
-    }
-
-public:
-    using ObjectProxy = typename ObjectFactory<T>::ObjectProxy;
-
-    static void saveFunction(ObjectProxy* p, t_binbuf* b)
-    {
-        p->impl->onSave(b);
-    }
-};
-
 void setup_lang_luajit()
 {
     LIB_DBG << LUAJIT_VERSION;
 
     Dispatcher::instance();
-    SaveFactory<LangLuaJit> obj("lang.lua");
+    SaveObjectFactory<ObjectFactory, LangLuaJit> obj("lang.lua");
 
     obj.addMethod("load", &LangLuaJit::m_load);
     obj.addMethod("eval", &LangLuaJit::m_eval);
     obj.addMethod("call", &LangLuaJit::m_call);
     obj.addMethod("quit", &LangLuaJit::m_quit);
-    obj.addMethod(".restore", &LangLuaJit::m_restore);
 
     LangLuaJit::registerMethods(obj);
 
-    class_addmethod(obj.classPointer(), (t_method)lua_menu_open, gensym("menu-open"), A_NULL);
-
-    class_setsavefn(obj.classPointer(), (t_savefn)SaveFactory<LangLuaJit>::saveFunction);
+//    class_addmethod(obj.classPointer(), (t_method)lua_menu_open, gensym("menu-open"), A_NULL);
 }
