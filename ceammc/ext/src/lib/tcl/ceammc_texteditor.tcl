@@ -177,11 +177,11 @@ namespace eval texteditor {
                   {incr i 1} {
                 set lin [$name.f.text get $i.0 $i.end]
                 if {$lin != "" && $lin != "\t"} {
-                    if { $escape_map("esc$name") != 1 } {
-                        set lin [string map {"{" {} "}" {}} $lin]
+                    if { $escape_map("esc$name") } {
+                        set lin [string map {"{" {\\x7b} "}" {\\x7d} "," {\\x2c} ";" {\\x3b} "\\" {\\x5c} "\t" {\\x09 }} $lin]
                         pdsend [concat $name .addline $lin]
                     } else {
-                        set lin [string map {"{" {\\x7b} "}" {\\x7d} "," {\\x2c} ";" {\\x3b} "\\" {\\x5c} "\t" {\\x09 }} $lin]
+                        set lin [string map {"{" {} "}" {}} $lin]
                         pdsend [concat $name .addline $lin]
                     }
                 }

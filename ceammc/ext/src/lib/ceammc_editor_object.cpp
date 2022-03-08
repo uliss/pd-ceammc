@@ -89,7 +89,7 @@ void EditorString::append(const AtomListView& lv, const char* delim)
 EditorObjectImpl::EditorObjectImpl(t_object* owner)
     : owner_(owner)
     , guiconnect_(nullptr)
-    , escape_specs_(true)
+    , escape_specs_(false)
 {
 }
 
