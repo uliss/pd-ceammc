@@ -142,6 +142,7 @@ void EditorObjectImpl::close()
 
 void EditorObjectImpl::sync(const EditorLineList& list)
 {
+    sys_vgui("ceammc::texteditor::setundo .x%lx 0\n", xowner());
     sys_vgui("ceammc::texteditor::clear .x%lx\n", xowner());
 
     for (auto& str : list)
