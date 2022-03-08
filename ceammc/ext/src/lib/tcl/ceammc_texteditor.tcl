@@ -77,6 +77,7 @@ namespace eval texteditor {
             bind $name.f.text <$::modifier-Key-w> "ceammc::texteditor::close $name 1"
 
             bind $name.f.text.t <Tab> "ceammc::texteditor::indent $name.f.text.t"
+            bind $name.f.text.t <Shift-Tab> "ceammc::texteditor::unindent $name.f.text.t"
         }
     }
 
@@ -85,14 +86,32 @@ namespace eval texteditor {
         if { $sel != "" } {
             foreach {b e} $sel {
                 for {set i [$txt index "$b linestart"]} {[$txt compare $i < $e]} {set i [$txt index "$i +1 lines linestart"]} {
-                    ::pdwindow::debug "line: $i\n"
                     $txt insert $i "\t"
                 }
             }
+            $txt highlight "$b linestart" $e
             return -code break
         } else {
             return -code continue
         }
+    }
+
+    proc unindent { txt } {
+        set sel [$txt tag ranges sel]
+        if { $sel != "" } {
+            foreach {b e} $sel {
+                for {set i [$txt index "$b linestart"]} {[$txt compare $i < $e]} {set i [$txt index "$i +1 lines linestart"]} {
+                    set fc [$txt get $i]
+                    if {$fc == "\t" || $fc == " "} { $txt delete $i }
+                }
+            }
+            $txt highlight "$b linestart" $e
+        } else {
+            set i [$txt index "insert linestart"]
+            set fc [$txt get $i]
+            if {$fc == "\t" || $fc == " "} { $txt delete $i }
+        }
+        return -code break
     }
 
     proc set_syntax { w name } {
