@@ -130,6 +130,12 @@ namespace eval texteditor {
         }
     }
 
+    proc setundo {name flag} {
+        if {[winfo exists $name]} {
+            $name.f.text.t configure -undo $flag
+        }
+    }
+
     proc doclose {name} {
         destroy $name
         pdsend [concat $name signoff]

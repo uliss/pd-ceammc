@@ -146,6 +146,7 @@ void EditorObjectImpl::sync(const EditorLineList& list)
 
     sys_vgui("ceammc::texteditor::highlight .x%lx\n", xowner());
     sys_vgui("ceammc::texteditor::setdirty .x%lx 0\n", xowner());
+    sys_vgui("ceammc::texteditor::setundo .x%lx 1\n", xowner());
 }
 
 EditorStringPool::Pool& EditorStringPool::pool()
