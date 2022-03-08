@@ -29,11 +29,13 @@ namespace eval texteditor {
         comment #6272a4
     }
 
+    array set escape_map {}
+
     proc open {name geometry title font showlinenum syntax} {
         if {[winfo exists $name]} {
             $name.f.text fastdelete 1.0 end
         } else {
-            upvar ::ceammc::texteditor::colors colors
+            variable colors
 
             toplevel $name
             wm title $name $title
@@ -77,10 +79,10 @@ namespace eval texteditor {
     }
 
     proc set_syntax { w name } {
-        upvar ::ceammc::texteditor::colors colors
+        variable colors
 
         switch $name {
-            "none" -
+            "none"     {}
             "selector" {
                 ctext::addHighlightClass $w float $colors(purple) { float }
                 ctext::addHighlightClass $w symbol $colors(green) { symbol }
@@ -89,9 +91,10 @@ namespace eval texteditor {
             }
             "lua" {
                 ctext::addHighlightClass $w cond $colors(yellow) { and not or }
-                ctext::addHighlightClass $w func $colors(cyan) { function end }
-                ctext::addHighlightClass $w values $colors(red) { true false nil }
+                ctext::addHighlightClass $w blok $colors(cyan)   { function end }
+                ctext::addHighlightClass $w vars $colors(red)    { true false nil }
                 ctext::addHighlightClass $w flow $colors(orange) { break do else elseif goto for if in local repeat return then until while }
+                ctext::addHighlightClass $w func $colors(purple) { bang_to float_to symbol_to list_to on_bang on_float on_symbol on_list }
                 ctext::addHighlightClassForRegexp $w numbers $colors(pink) {[-]?[0-9]+(?:\.[0-9]+)?(?:[eE][-+]?[0-9]+)?}
                 ctext::addHighlightClassForRegexp $w strings $colors(green) {[\"][^\n\"]+[\"]}
                 ctext::addHighlightClassForRegexp $w comment $colors(comment) {--.*}
@@ -136,6 +139,11 @@ namespace eval texteditor {
         }
     }
 
+    proc set_escape {name {flag 1}} {
+        variable escape_map
+        set escape_map("esc$name") $flag
+    }
+
     proc doclose {name} {
         destroy $name
         pdsend [concat $name signoff]
@@ -161,6 +169,7 @@ namespace eval texteditor {
     }
 
     proc send {name} {
+        variable escape_map
         if {[winfo exists $name]} {
             pdsend [concat $name .clear]
             for {set i 1} \
@@ -168,8 +177,13 @@ namespace eval texteditor {
                   {incr i 1} {
                 set lin [$name.f.text get $i.0 $i.end]
                 if {$lin != "" && $lin != "\t"} {
-                    set lin [string map {"{" {\\x7b} "}" {\\x7d} "," {\\x2c} ";" {\\x3b} "\\" {\\x5c} "\t" {\\x09 }} $lin]
-                    pdsend [concat $name .addline $lin]
+                    if { $escape_map("esc$name") != 1 } {
+                        set lin [string map {"{" {} "}" {}} $lin]
+                        pdsend [concat $name .addline $lin]
+                    } else {
+                        set lin [string map {"{" {\\x7b} "}" {\\x7d} "," {\\x2c} ";" {\\x3b} "\\" {\\x5c} "\t" {\\x09 }} $lin]
+                        pdsend [concat $name .addline $lin]
+                    }
                 }
             }
             pdsend [concat $name .sync]

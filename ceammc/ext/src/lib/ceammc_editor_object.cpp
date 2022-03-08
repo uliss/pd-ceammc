@@ -89,6 +89,7 @@ void EditorString::append(const AtomListView& lv, const char* delim)
 EditorObjectImpl::EditorObjectImpl(t_object* owner)
     : owner_(owner)
     , guiconnect_(nullptr)
+    , escape_specs_(true)
 {
 }
 
@@ -116,6 +117,8 @@ void EditorObjectImpl::open(t_canvas* cnv, const EditorLineList& data, const Edi
 
         sys_vgui("ceammc::texteditor::open .x%lx %dx%d+%d+%d {%s} %d %d %s\n",
             xowner(), w, h, brect.x + x, brect.y + y, title.c_str(), fsz, (int)lineNumbers, editorSyntaxStr(syntax));
+
+        sys_vgui("ceammc::texteditor::set_escape .x%lx %d\n", xowner(), escape_specs_ ? 1 : 0);
 
         char buf[40];
         sprintf(buf, ".x%lx", xowner());
@@ -147,6 +150,11 @@ void EditorObjectImpl::sync(const EditorLineList& list)
     sys_vgui("ceammc::texteditor::highlight .x%lx\n", xowner());
     sys_vgui("ceammc::texteditor::setdirty .x%lx 0\n", xowner());
     sys_vgui("ceammc::texteditor::setundo .x%lx 1\n", xowner());
+}
+
+void EditorObjectImpl::setSpecialSymbolEscape(bool value)
+{
+    escape_specs_ = true;
 }
 
 EditorStringPool::Pool& EditorStringPool::pool()

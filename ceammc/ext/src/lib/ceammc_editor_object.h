@@ -68,6 +68,7 @@ enum EditorSyntax {
 class EditorObjectImpl {
     t_object* owner_;
     void* guiconnect_;
+    bool escape_specs_;
 
 public:
     EditorObjectImpl(t_object* owner);
@@ -98,6 +99,12 @@ public:
      * @param lv
      */
     void sync(const EditorLineList& list);
+
+    /**
+     * Enable/disable special symbols ("\t,;{}") escaping
+     * useful for LUA, for example
+     */
+    void setSpecialSymbolEscape(bool value);
 
 private:
     unsigned long xowner() const { return reinterpret_cast<unsigned long>(owner_); }
@@ -162,6 +169,11 @@ public:
      * Set on/off syntax highlighting in editor
      */
     void setHighlightSyntax(EditorSyntax value) { syntax_ = value; }
+
+    /**
+     * Enable/disable escaping of special chars
+     */
+    void setSpecialSymbolEscape(bool value) { impl_.setSpecialSymbolEscape(value); }
 
 public:
     using ThisType = EditorObject<BaseClass>;

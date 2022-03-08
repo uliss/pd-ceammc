@@ -70,10 +70,7 @@ LangLuaJit::LangLuaJit(const PdArgs& args)
         OBJ_ERR << "can't start LUA event loop";
 
     setHighlightSyntax(EDITOR_SYNTAX_LUA);
-
-    auto asym = gensym("#A");
-    asym->s_thing = 0;
-    pd_bind(&owner()->te_g.g_pd, asym);
+    setSpecialSymbolEscape(true);
 }
 
 LangLuaJit::~LangLuaJit()
@@ -417,5 +414,5 @@ void setup_lang_luajit()
 
     LangLuaJit::registerMethods(obj);
 
-//    class_addmethod(obj.classPointer(), (t_method)lua_menu_open, gensym("menu-open"), A_NULL);
+    //    class_addmethod(obj.classPointer(), (t_method)lua_menu_open, gensym("menu-open"), A_NULL);
 }
