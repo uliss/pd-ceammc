@@ -154,7 +154,7 @@ void EditorObjectImpl::sync(const EditorLineList& list)
 
 void EditorObjectImpl::setSpecialSymbolEscape(bool value)
 {
-    escape_specs_ = true;
+    escape_specs_ = value;
 }
 
 EditorStringPool::Pool& EditorStringPool::pool()
