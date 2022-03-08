@@ -89,7 +89,8 @@ namespace eval texteditor {
                     $txt insert $i "\t"
                 }
             }
-            $txt highlight "$b linestart" $e
+            $txt highlight "$b linestart" "$e lineend"
+            $txt tag add sel "$b linestart" "$e lineend"
             return -code break
         } else {
             return -code continue
@@ -106,6 +107,7 @@ namespace eval texteditor {
                 }
             }
             $txt highlight "$b linestart" $e
+            $txt tag add sel "$b linestart" "$e lineend"
         } else {
             set i [$txt index "insert linestart"]
             set fc [$txt get $i]
