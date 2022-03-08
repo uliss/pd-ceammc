@@ -75,6 +75,23 @@ namespace eval texteditor {
 
             bind $name.f.text <$::modifier-Key-s> "ceammc::texteditor::send $name"
             bind $name.f.text <$::modifier-Key-w> "ceammc::texteditor::close $name 1"
+
+            bind $name.f.text.t <Tab> "ceammc::texteditor::indent $name.f.text.t"
+        }
+    }
+
+    proc indent { txt } {
+        set sel [$txt tag ranges sel]
+        if { $sel != "" } {
+            foreach {b e} $sel {
+                for {set i [$txt index "$b linestart"]} {[$txt compare $i < $e]} {set i [$txt index "$i +1 lines linestart"]} {
+                    ::pdwindow::debug "line: $i\n"
+                    $txt insert $i "\t"
+                }
+            }
+            return -code break
+        } else {
+            return -code continue
         }
     }
 
