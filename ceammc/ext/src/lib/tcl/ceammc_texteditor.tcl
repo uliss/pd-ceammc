@@ -135,7 +135,7 @@ namespace eval texteditor {
                 ctext::addHighlightClass $w func $colors(purple) {
                     pd_error pd_post
                     bang_to float_to symbol_to list_to any_to
-                    send_bang send_float send_symbol
+                    send_bang send_float send_symbol send_list
                     on_bang on_float on_symbol on_list
                 }
                 ctext::addHighlightClassForRegexp $w numbers $colors(pink) {[-]?[0-9]+(?:\.[0-9]+)?(?:[eE][-+]?[0-9]+)?}

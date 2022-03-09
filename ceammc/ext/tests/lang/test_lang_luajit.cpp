@@ -140,5 +140,11 @@ TEST_CASE("lang.luajit", "[externals]")
         // invalid dest
         t.sendMessage("call", LA("send_symbol", "????", 123));
         WAIT(t, 10)
+
+        // send list
+        t.sendMessage("call", LA("send_list", "sig+", 1, 2, 3));
+        WAIT(t, 10)
+        REQUIRE(sig0.msg().isList());
+        REQUIRE(sig0.msg().listValue() == LF(1, 2, 3));
     }
 }

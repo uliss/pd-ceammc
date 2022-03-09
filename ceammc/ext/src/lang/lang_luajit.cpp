@@ -251,6 +251,24 @@ void LangLuaJit::processMessage(const lua::LuaCmd& msg)
         else
             OBJ_DBG << "send_symbol() target not found: " << sym;
     } break;
+    case LUA_CMD_SEND_LIST: {
+        const auto sel = (msg.args.size() < 1) ? LuaString("?") : msg.args[0].getString();
+
+        auto sym = gensym(sel.c_str());
+        if (sym->s_thing) {
+            const auto N = msg.args.size();
+            if (N < 1)
+                return;
+
+            AtomList res;
+            res.reserve(N - 1);
+            for (size_t i = 1; i < N; i++)
+                res.append(msg.args[i].applyVisitor<AtomLuaVisitor>());
+
+            pd_list(sym->s_thing, &s_list, res.size(), res.view().toPdData());
+        } else
+            OBJ_DBG << "send_list() target not found: " << sym;
+    } break;
     default:
         OBJ_ERR << "unknown command code: " << msg.cmd;
         break;

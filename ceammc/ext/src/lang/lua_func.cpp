@@ -543,24 +543,48 @@ namespace lua {
     int lua_send_list(lua_State* L)
     {
         const auto ctx = get_ctx(L);
-        const int nargs = lua_gettop(L);
+        const auto nargs = lua_gettop(L);
+        const auto targ2 = lua_type(L, 2);
+
+        const bool is_list_arg = (nargs == 2 && targ2 == LUA_TTABLE);
+        const bool is_tuple_arg = (nargs >= 2 && targ2 != LUA_TTABLE);
 
         LuaStackGuard sg(L);
 
-        if (!(nargs == 2 && lua_isstring(L, 1) && lua_istable(L, 2))) {
-            ctx.pipe->try_enqueue({ LUA_CMD_ERROR, "usage: send_symbol(dest, val)" });
-
-            check_arg_type(ctx, "dest", LUA_TSTRING, L, 1);
-            check_arg_type(ctx, "val", LUA_TSTRING, L, 2);
-
+        if (!is_list_arg && !is_tuple_arg) {
+            ctx.pipe->try_enqueue({ LUA_CMD_ERROR, "usage: send_list(dest, list? or values?)" });
             return 0;
         }
 
         // destination
         auto dest = LuaAtom(luaL_optstring(L, 1, ""));
-        auto val = LuaAtom(luaL_optstring(L, 2, ""));
 
-        if (!ctx.pipe->try_enqueue(LuaCmd(LUA_CMD_SEND_SYMBOL, LuaAtomList { dest, val })))
+        LuaAtomList data;
+        data.reserve(nargs);
+        data.emplace_back(dest);
+
+        if (is_list_arg) {
+            auto tab = get_list_table(L, 2);
+            data.insert(data.end(), tab.begin(), tab.end());
+        } else if (is_tuple_arg) {
+            for (int i = 2; i <= nargs; i++) {
+                switch (lua_type(L, i)) {
+                case LUA_TNUMBER:
+                    data.emplace_back(lua_tonumber(L, i));
+                    break;
+                case LUA_TBOOLEAN:
+                    data.emplace_back(lua_toboolean(L, i) ? true : false);
+                    break;
+                case LUA_TSTRING:
+                    data.emplace_back(lua_tostring(L, i));
+                    break;
+                default:
+                    continue;
+                }
+            }
+        }
+
+        if (!ctx.pipe->try_enqueue(LuaCmd(LUA_CMD_SEND_LIST, data)))
             return 0;
 
         if (!Dispatcher::instance().send({ ctx.id, NOTIFY_UPDATE }))
