@@ -250,6 +250,10 @@ namespace lua {
                     auto str = cmd.args[0].getString();
                     boost::replace_all(str, "\\x09", "\t");
                     boost::replace_all(str, "\\x2c", ",");
+                    boost::replace_all(str, "\\x7b", "{");
+                    boost::replace_all(str, "\\x7d", "}");
+                    boost::replace_all(str, "\\x3b", ";");
+                    boost::replace_all(str, "\\x5c", "\\");
 
                     eval_string_.append(str);
                     eval_string_.append("\n");
