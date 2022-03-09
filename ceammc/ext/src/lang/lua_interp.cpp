@@ -20,16 +20,6 @@
 
 #include <boost/algorithm/string/replace.hpp>
 
-#define HAS_METHOD(L, name)                        \
-    {                                              \
-        lua_getglobal(L, #name);                   \
-        if (!lua_isfunction(L, -1)) {              \
-            std::cerr << #name ": is undefined\n"; \
-            lua_pop(L, 1);                         \
-            break;                                 \
-        }                                          \
-    }
-
 namespace ceammc {
 
 namespace lua {
