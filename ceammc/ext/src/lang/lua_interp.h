@@ -44,6 +44,9 @@ namespace lua {
         virtual ~LuaInterp();
 
         void run(const LuaCmd& cmd);
+
+    private:
+        void error(const std::string& str);
     };
 
 }

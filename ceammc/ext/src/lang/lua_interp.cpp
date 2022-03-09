@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "lua_interp.h"
+#include "fmt/format.h"
 #include "lua_func.h"
 #include "lua_stack_guard.h"
 
@@ -147,7 +148,7 @@ namespace lua {
                     std::cerr << "[lua] eval " << str << "\n";
 
                     if (luaL_dostring(lua_, str.c_str()) != LUA_OK) {
-                        std::cerr << "[lua] " << lua_tostring(lua_, lua_gettop(lua_)) << "\n";
+                        error(fmt::format("eval error:\n\t{}", lua_tostring(lua_, lua_gettop(lua_))));
                         lua_pop(lua_, lua_gettop(lua_));
                     }
                 }
@@ -262,20 +263,31 @@ namespace lua {
             case LUA_INTERP_EVAL_END: {
                 if (!eval_string_.empty()) {
                     if (luaL_dostring(lua_, eval_string_.c_str()) != LUA_OK) {
-                        std::cerr << "[lua] " << lua_tostring(lua_, lua_gettop(lua_)) << "\n";
+                        error(fmt::format("source error:\n\t{}", lua_tostring(lua_, lua_gettop(lua_))));
                         lua_pop(lua_, lua_gettop(lua_));
                     }
-                }
+                } else
+                    error("empty eval string");
             } break;
             case LUA_CMD_NOP: // ignore silently
                 break;
             default:
-                std::cerr << "unsupported command: " << cmd.cmd << "\n";
+                error(fmt::format("unsupported command: {}", cmd.cmd));
                 break;
             }
         } catch (std::exception& e) {
-            std::cerr << "exception: " << e.what() << std::endl;
+            error(fmt::format("exception: {}", e.what()));
         }
+    }
+
+    void LuaInterp::error(const std::string& str)
+    {
+        std::cerr << str << std::endl;
+
+        if (!pipe_->try_enqueue({ LUA_CMD_ERROR, str }))
+            return;
+
+        Dispatcher::instance().send({ id_, NOTIFY_UPDATE });
     }
 }
 }
