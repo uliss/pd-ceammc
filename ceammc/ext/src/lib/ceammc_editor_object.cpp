@@ -137,7 +137,9 @@ void EditorObjectImpl::close()
         guiconnect_ = nullptr;
     }
 
+#ifndef NDEBUG
     EditorStringPool::dumpMemoryUsage();
+#endif
 }
 
 void EditorObjectImpl::sync(const EditorLineList& list)

@@ -129,10 +129,15 @@ namespace eval texteditor {
             }
             "lua" {
                 ctext::addHighlightClass $w cond $colors(yellow) { and not or }
-                ctext::addHighlightClass $w blok $colors(cyan)   { function end }
+                ctext::addHighlightClass $w blok $colors(cyan)   { function }
                 ctext::addHighlightClass $w vars $colors(red)    { true false nil }
-                ctext::addHighlightClass $w flow $colors(orange) { break do else elseif goto for if in local repeat return then until while }
-                ctext::addHighlightClass $w func $colors(purple) { bang_to float_to symbol_to list_to on_bang on_float on_symbol on_list }
+                ctext::addHighlightClass $w flow $colors(orange) { break do else elseif end goto for if in local repeat return then until while }
+                ctext::addHighlightClass $w func $colors(purple) {
+                    pd_error pd_post
+                    bang_to float_to symbol_to list_to any_to
+                    send_bang send_float send_symbol
+                    on_bang on_float on_symbol on_list
+                }
                 ctext::addHighlightClassForRegexp $w numbers $colors(pink) {[-]?[0-9]+(?:\.[0-9]+)?(?:[eE][-+]?[0-9]+)?}
                 ctext::addHighlightClassForRegexp $w strings $colors(green) {[\"][^\n\"]+[\"]}
                 ctext::addHighlightClassForRegexp $w comment $colors(comment) {--.*}
