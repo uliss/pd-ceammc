@@ -145,25 +145,25 @@ namespace lua {
             case LUA_INTERP_EVAL: {
                 if (cmd.args.size() == 1 && cmd.args[0].isString()) {
                     const auto str = cmd.args[0].getString();
-                    std::cerr << "[lua] eval " << str << "\n";
 
                     if (luaL_dostring(lua_, str.c_str()) != LUA_OK) {
                         error(fmt::format("eval error:\n\t{}", lua_tostring(lua_, lua_gettop(lua_))));
                         lua_pop(lua_, lua_gettop(lua_));
-                    }
+                    } else
+                        log(fmt::format("eval: '{}'", str));
                 }
             } break;
             case LUA_INTERP_LOAD: {
                 if (cmd.args.size() == 1 && cmd.args[0].isString()) {
                     const auto str = cmd.args[0].getString();
-                    std::cerr << "[lua] load " << str << "\n";
 
                     if (luaL_dofile(lua_, str.c_str()) != LUA_OK) {
-                        std::cerr << "[lua] " << lua_tostring(lua_, lua_gettop(lua_)) << "\n";
+                        error(fmt::format("eval error:\n\t{}", lua_tostring(lua_, lua_gettop(lua_))));
                         lua_pop(lua_, lua_gettop(lua_));
-                    }
+                    } else
+                        log(fmt::format("load file: '{}'", str));
                 } else
-                    std::cerr << "invalid arguments: path expected";
+                    error("invalid arguments: path expected");
             } break;
             case LUA_INTERP_BANG: {
                 if (cmd.args.size() == 1 && cmd.args[0].isInt()) {
@@ -285,6 +285,16 @@ namespace lua {
         std::cerr << str << std::endl;
 
         if (!pipe_->try_enqueue({ LUA_CMD_ERROR, str }))
+            return;
+
+        Dispatcher::instance().send({ id_, NOTIFY_UPDATE });
+    }
+
+    void LuaInterp::log(const std::string& str)
+    {
+        std::cerr << "[debug] " << str << std::endl;
+
+        if (!pipe_->try_enqueue({ LUA_CMD_LOG, str }))
             return;
 
         Dispatcher::instance().send({ id_, NOTIFY_UPDATE });

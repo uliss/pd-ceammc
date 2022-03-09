@@ -47,6 +47,7 @@ namespace lua {
 
     private:
         void error(const std::string& str);
+        void log(const std::string& str);
     };
 
 }

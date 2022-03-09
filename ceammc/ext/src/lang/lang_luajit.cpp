@@ -223,6 +223,11 @@ void LangLuaJit::processMessage(const lua::LuaCmd& msg)
             OBJ_ERR << msg.args[0].getString();
 
         break;
+    case LUA_CMD_LOG:
+        if (msg.args.size() == 1 && msg.args[0].isString())
+            OBJ_LOG << msg.args[0].getString();
+
+        break;
     case LUA_CMD_SEND_BANG: {
         const auto sel = (msg.args.size() < 1) ? LuaString("?") : msg.args[0].getString();
         auto sym = gensym(sel.c_str());
