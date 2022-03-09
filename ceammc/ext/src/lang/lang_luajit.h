@@ -19,18 +19,12 @@
 #include "ceammc_save_object.h"
 #include "lua_cmd.h"
 #include "lua_interp.h"
-#include "poll_dispatcher.h"
-#include "pollthread_object.h"
-
-#include "readerwriterqueue.h"
 
 #include <boost/container/small_vector.hpp>
 
 using namespace ceammc;
 
-using LuaCommandQueue = moodycamel::ReaderWriterQueue<lua::LuaCmd>;
-
-using LangLuaBase = SaveObject<EditorObject<PollThreadQueueObject<lua::LuaCmd>>>;
+using LangLuaBase = SaveObject<EditorObject<PollThreadQueueObject<lua::LuaCmd, lua::LuaCommandQueue>>>;
 
 class LangLuaJit : public LangLuaBase {
     lua::LuaInterp interp_;

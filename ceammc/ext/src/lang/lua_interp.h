@@ -26,12 +26,10 @@ extern "C" {
 namespace ceammc {
 
 namespace lua {
-    using LuaPipe = PollThreadQueue<LuaCmd>;
-
     class LuaInterp {
     private:
         lua_State* lua_;
-        LuaPipe* pipe_ { nullptr };
+        LuaCommandQueue* pipe_ { nullptr };
         const bool* quit_ { nullptr };
         SubscriberId id_ { 0 };
         std::string eval_string_;
@@ -40,7 +38,7 @@ namespace lua {
         LuaInterp& operator=(const LuaInterp&) = delete;
 
     public:
-        LuaInterp(LuaPipe* pipe, SubscriberId id, const bool* quit);
+        LuaInterp(LuaCommandQueue* pipe, SubscriberId id, const bool* quit);
         virtual ~LuaInterp();
 
         void run(const LuaCmd& cmd);

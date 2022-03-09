@@ -37,7 +37,7 @@ namespace lua {
         }
     }
 
-    LuaInterp::LuaInterp(LuaPipe* pipe, SubscriberId id, const bool* quit)
+    LuaInterp::LuaInterp(LuaCommandQueue* pipe, SubscriberId id, const bool* quit)
         : lua_(nullptr)
         , pipe_(pipe)
         , quit_(quit)
@@ -273,21 +273,13 @@ namespace lua {
     void LuaInterp::error(const std::string& str)
     {
         std::cerr << str << std::endl;
-
-        if (!pipe_->try_enqueue({ LUA_CMD_ERROR, str }))
-            return;
-
-        Dispatcher::instance().send({ id_, NOTIFY_UPDATE });
+        pipe_->pushError(id_, str);
     }
 
     void LuaInterp::log(const std::string& str)
     {
         std::cerr << "[debug] " << str << std::endl;
-
-        if (!pipe_->try_enqueue({ LUA_CMD_LOG, str }))
-            return;
-
-        Dispatcher::instance().send({ id_, NOTIFY_UPDATE });
+        pipe_->pushLog(id_, str);
     }
 }
 }

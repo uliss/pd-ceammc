@@ -115,11 +115,11 @@ public:
 template <typename Msg>
 using PollThreadQueue = moodycamel::ReaderWriterQueue<Msg>;
 
-template <typename Msg>
-class PollThreadQueueObject : public PollThreadTaskObject<PollThreadQueue<Msg>> {
+template <typename Msg, typename Result = PollThreadQueue<Msg>>
+class PollThreadQueueObject : public PollThreadTaskObject<Result> {
 public:
     PollThreadQueueObject(const PdArgs& args)
-        : PollThreadTaskObject<PollThreadQueue<Msg>>(args)
+        : PollThreadTaskObject<Result>(args)
     {
     }
 

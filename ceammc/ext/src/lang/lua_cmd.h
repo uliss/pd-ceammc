@@ -15,6 +15,8 @@
 #define LUA_CMD_H
 
 #include "m_pd.h"
+#include "poll_dispatcher.h"
+#include "pollthread_object.h"
 
 #include <boost/variant.hpp>
 #include <cstdint>
@@ -129,6 +131,12 @@ namespace lua {
 
         LuaCmdEnum cmd { LUA_CMD_NOP };
         LuaAtomList args;
+    };
+
+    class LuaCommandQueue : public PollThreadQueue<lua::LuaCmd> {
+    public:
+        void pushError(SubscriberId id, const std::string& str);
+        void pushLog(SubscriberId id, const std::string& str);
     };
 }
 }
