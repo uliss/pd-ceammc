@@ -160,6 +160,11 @@ void EditorObjectImpl::setSpecialSymbolEscape(bool value)
     escape_specs_ = value;
 }
 
+void EditorObjectImpl::setDirty(t_canvas* c, bool value)
+{
+    canvas_dirty(c, value ? 1 : 0);
+}
+
 EditorStringPool::Pool& EditorStringPool::pool()
 {
     static Pool instance_(64, 64, 0, memorypool::RECYCLE_METHOD_DESTROY_FUNCTION);

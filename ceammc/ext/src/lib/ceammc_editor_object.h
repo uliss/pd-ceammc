@@ -106,6 +106,11 @@ public:
      */
     void setSpecialSymbolEscape(bool value);
 
+    /**
+     * set owner canvas dirty
+     */
+    void setDirty(t_canvas* c, bool value);
+
 private:
     unsigned long xowner() const { return reinterpret_cast<unsigned long>(owner_); }
 };
@@ -148,7 +153,11 @@ public:
     void m_editor_clear(t_symbol* s, const AtomListView& lv) { this->editorClear(); }
     void m_editor_close(t_symbol* s, const AtomListView& lv) { impl_.close(); }
     void m_editor_addline(t_symbol* s, const AtomListView& lv) { this->editorAddLine(s, lv); }
-    void m_editor_sync(t_symbol*, const AtomListView&) { this->editorSync(); }
+    void m_editor_sync(t_symbol*, const AtomListView&)
+    {
+        impl_.setDirty(this->canvas(), true);
+        this->editorSync();
+    }
 
     /**
      * If show line numbers in editor
