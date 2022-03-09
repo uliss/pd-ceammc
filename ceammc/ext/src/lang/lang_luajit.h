@@ -37,10 +37,14 @@ class LangLuaJit : public LangLuaBase {
     using FixedAtomList = SmallAtomListN<8>;
     using FixedEditorList = boost::container::small_vector<FixedAtomList, 48>;
     FixedEditorList src_;
+    IntProperty* nin_;
+    IntProperty* nout_;
 
 public:
     LangLuaJit(const PdArgs& args);
     ~LangLuaJit() override;
+
+    void initDone() override;
 
     void onBang() override;
     void onFloat(t_float f) override;

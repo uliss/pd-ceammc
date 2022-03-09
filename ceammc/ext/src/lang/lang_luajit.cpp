@@ -61,8 +61,18 @@ static void startLuaEventLoop(LangLuaJit* x, const bool* quit)
 LangLuaJit::LangLuaJit(const PdArgs& args)
     : LangLuaBase(args)
     , interp_(&outPipe(), subscriberId(), &quit())
+    , nin_(nullptr)
+    , nout_(nullptr)
 {
-    createOutlet();
+    nin_ = new IntProperty("@in", 1, PropValueAccess::INITONLY);
+    nin_->checkClosedRange(1, 16);
+    nin_->setArgIndex(0);
+    addProperty(nin_);
+
+    nout_ = new IntProperty("@out", 1, PropValueAccess::INITONLY);
+    nout_->checkClosedRange(1, 16);
+    nout_->setArgIndex(1);
+    addProperty(nout_);
 
     Dispatcher::instance().subscribe(this, subscriberId());
 
@@ -76,6 +86,15 @@ LangLuaJit::LangLuaJit(const PdArgs& args)
 LangLuaJit::~LangLuaJit()
 {
     finish();
+}
+
+void LangLuaJit::initDone()
+{
+    for (int i = 1; i < nin_->value(); i++)
+        createInlet();
+
+    for (int i = 0; i < nout_->value(); i++)
+        createOutlet();
 }
 
 void LangLuaJit::onBang()
