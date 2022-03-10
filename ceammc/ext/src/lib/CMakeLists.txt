@@ -81,6 +81,9 @@ set(CEAMMC_LIB_SOURCES
     ceammc_output.cpp
     ceammc_pd.cpp
     ceammc_platform.cpp
+    ceammc_pipe_dispatcher.cpp
+    ceammc_poll_dispatcher.cpp
+    ceammc_socket_dispatcher.cpp
     ceammc_preset.cpp
     ceammc_property.cpp
     ceammc_property_callback.cpp

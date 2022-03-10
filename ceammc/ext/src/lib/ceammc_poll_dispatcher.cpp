@@ -11,7 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "poll_dispatcher.h"
+#include "ceammc_poll_dispatcher.h"
 #include "ceammc_log.h"
 
 #include <algorithm>
@@ -25,9 +25,9 @@
 using namespace ceammc;
 
 #ifdef USE_SOCKET_DISPATCHER
-#include "socket_dispatcher.h"
+#include "ceammc_socket_dispatcher.h"
 #else
-#include "pipe_dispatcher.h"
+#include "ceammc_pipe_dispatcher.h"
 #endif
 
 Dispatcher::Dispatcher()

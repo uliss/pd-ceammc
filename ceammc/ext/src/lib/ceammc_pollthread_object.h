@@ -17,7 +17,7 @@
 #include <future>
 
 #include "ceammc_log.h"
-#include "poll_dispatcher.h"
+#include "ceammc_poll_dispatcher.h"
 
 #include "readerwriterqueue.h"
 

@@ -11,28 +11,29 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef PIPE_DISPATCHER_H
-#define PIPE_DISPATCHER_H
+#ifndef SOCKET_DISPATCHER_H
+#define SOCKET_DISPATCHER_H
 
-#include "poll_dispatcher.h"
+#include "ceammc_poll_dispatcher.h"
 
 namespace ceammc {
 
-class PipeDispatcherImpl : public DispatcherImpl {
-    int pipe_[2] = { -1, -1 };
+class SocketDispatcherImpl : public DispatcherImpl {
+    int sock_in_ { -1 }, sock_out_ { -1 };
+    int port_ = { 0 };
 
 public:
     using PollFn = void(void*, int);
 
-    PipeDispatcherImpl(PollFn fn, Dispatcher* owner);
-    ~PipeDispatcherImpl();
+    SocketDispatcherImpl(PollFn fn, Dispatcher* owner);
+    ~SocketDispatcherImpl();
 
     bool send(const NotifyMessage& msg) override;
     bool recv(NotifyMessage& msg, int fd) override;
-    int inSocket() const override { return pipe_[0]; }
-    int outSocket() const override { return pipe_[1]; }
+    int inSocket() const override { return sock_in_; }
+    int outSocket() const override { return sock_out_; }
 };
 
 }
 
-#endif // PIPE_DISPATCHER_H
+#endif // SOCKET_DISPATCHER_H

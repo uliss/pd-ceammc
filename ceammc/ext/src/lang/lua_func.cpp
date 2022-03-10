@@ -16,7 +16,7 @@
 #include "fmt/format.h"
 #include "lua_cmd.h"
 #include "lua_stack_guard.h"
-#include "pollthread_object.h"
+#include "ceammc_pollthread_object.h"
 
 #include <chrono>
 #include <thread>

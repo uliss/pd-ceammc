@@ -1,4 +1,4 @@
-add_library(ceammc_lang STATIC mod_lang.cpp poll_dispatcher.cpp pipe_dispatcher.cpp socket_dispatcher.cpp)
+add_library(ceammc_lang STATIC mod_lang.cpp)
 target_include_directories(ceammc_lang
     PRIVATE "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>"
             ${PROJECT_BINARY_DIR})

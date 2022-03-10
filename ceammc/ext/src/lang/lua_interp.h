@@ -14,8 +14,8 @@
 #ifndef LUA_INTERP_H
 #define LUA_INTERP_H
 
+#include "ceammc_pollthread_object.h"
 #include "lua_cmd.h"
-#include "pollthread_object.h"
 
 extern "C" {
 #include "lua.h"
