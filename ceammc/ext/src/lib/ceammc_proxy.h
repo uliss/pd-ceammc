@@ -166,7 +166,7 @@ public:
     using FloatMethodPtr = void (T::*)(int, t_float);
     using SymbolMethodPtr = void (T::*)(int, t_symbol*);
     using ListMethodPtr = void (T::*)(int, const AtomListView&);
-    using AnyMethodPtr = void (T::*)(InletProxy* this_, t_symbol* s, const AtomListView& args);
+    using AnyMethodPtr = void (T::*)(int, t_symbol*, const AtomListView&);
     using MethodPtr = void (T::*)(const AtomListView& args);
     using MethodEntry = std::pair<t_symbol*, MethodPtr>;
     using MethodList = std::vector<MethodEntry>;
@@ -182,8 +182,6 @@ public:
     {
         x_obj = inlet_proxy_class;
     }
-
-    int index() const { return idx_; }
 
     t_pd* target() { return &x_obj; }
 
@@ -219,7 +217,7 @@ public:
     static void on_any(InletProxy* x, t_symbol* s, int argc, t_atom* argv)
     {
         auto obj = x->dest_;
-        (obj->*any_)(x, s, AtomListView(argv, argc));
+        (obj->*any_)(x->idx_, s, AtomListView(argv, argc));
     }
 
     static void on_method(InletProxy* x, t_symbol* s, int argc, t_atom* argv)

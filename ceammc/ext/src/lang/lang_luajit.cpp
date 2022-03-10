@@ -496,8 +496,27 @@ void LangLuaJit::inletList(int id, const AtomListView& lv)
     }
 }
 
-void LangLuaJit::inletAny(LangLuaJit::Inlet* x, t_symbol* s, const AtomListView& lv)
+void LangLuaJit::inletAny(int id, t_symbol* s, const AtomListView& lv)
 {
+    using namespace ceammc::lua;
+
+    const auto N = lv.size();
+    LuaAtomList args;
+    args.reserve(N + 2);
+    args.emplace_back(LuaInt(id));
+    args.emplace_back(s);
+
+    for (auto& a : lv) {
+        if (a.isFloat())
+            args.emplace_back(LuaDouble(a.asT<t_float>()));
+        else if (a.isSymbol())
+            args.emplace_back(a.asT<t_symbol*>());
+    }
+
+    if (!inPipe().try_enqueue({ LUA_INTERP_ANY, args })) {
+        OBJ_ERR << "can't send command to LUA interpreter: any";
+        return;
+    }
 }
 
 void setup_lang_luajit()

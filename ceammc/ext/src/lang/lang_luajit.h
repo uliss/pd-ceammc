@@ -80,7 +80,7 @@ public:
     void inletFloat(int id, t_float f);
     void inletSymbol(int id, t_symbol* s);
     void inletList(int id, const AtomListView& lv);
-    void inletAny(Inlet* x, t_symbol* s, const AtomListView& lv);
+    void inletAny(int id, t_symbol* s, const AtomListView& lv);
 
 private:
     void updateInterpSource();

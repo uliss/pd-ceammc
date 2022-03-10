@@ -35,7 +35,7 @@ public:
 
     const char* annotateInlet(size_t n) const override;
 
-    void proxy_any(Inlet* x, t_symbol* s, const AtomListView& lv);
+    void proxy_any(int idx, t_symbol* s, const AtomListView& lv);
     void proxy_float(t_float f);
 
 public:

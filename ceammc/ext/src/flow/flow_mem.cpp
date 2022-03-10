@@ -52,7 +52,7 @@ void FlowMem::initDone()
     inlets_.reserve(num_->value());
 
     for (int i = 0; i < num_->value(); i++) {
-        inlets_.emplace_back(this);
+        inlets_.emplace_back(this, i);
         inlet_new(owner(), &inlets_.back().x_obj, nullptr, nullptr);
 
         createOutlet();
@@ -89,18 +89,13 @@ void FlowMem::onInlet(size_t, const AtomListView& v)
     }
 }
 
-void FlowMem::proxy_any(InletProxy<FlowMem>* x, t_symbol* s, const AtomListView& v)
+void FlowMem::proxy_any(int id, t_symbol* s, const AtomListView& v)
 {
-    auto it = std::find_if(inlets_.begin(), inlets_.end(), [x](const InletProxy<FlowMem>& i) { return x == &i; });
-    if (it == inlets_.end()) {
-        OBJ_ERR << "invalid inlet";
+    if (id < 0 || id >= mem_.size())
         return;
-    }
 
-    auto idx = std::distance(inlets_.begin(), it);
-    assert(idx >= 0 && idx < mem_.size());
-    mem_[idx] = Message(s, v);
-    mem_ttl_[idx] = ttl_->value();
+    mem_[id] = Message(s, v);
+    mem_ttl_[id] = ttl_->value();
 }
 
 const char* FlowMem::annotateInlet(size_t n) const

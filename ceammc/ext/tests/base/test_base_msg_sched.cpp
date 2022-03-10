@@ -94,7 +94,7 @@ TEST_CASE("msg.sched", "[extension]")
         t.clearAll();
 
         t << LF(10, 1000);
-        t->proxy_bang();
+        t->proxy_bang(-1);
         REQUIRE_FALSE(t.hasOutputAt(0));
         t.schedTicks(100);
         REQUIRE_FALSE(t.hasOutputAt(0));
