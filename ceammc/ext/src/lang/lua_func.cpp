@@ -20,6 +20,7 @@
 
 #include <chrono>
 #include <thread>
+#include <cinttypes>
 
 constexpr size_t MAX_TABLE_LEN = 256;
 
@@ -144,7 +145,7 @@ namespace lua {
             snprintf(buf, sizeof(buf), "%s", "nil");
             break;
         default:
-            snprintf(buf, sizeof(buf), "#%llx", (uint64_t)lua_topointer(L, i));
+            snprintf(buf, sizeof(buf), "#%" PRIx64, (uint64_t)lua_topointer(L, i));
             break;
         }
 

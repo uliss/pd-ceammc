@@ -16,18 +16,32 @@
 
 #include "ceammc_object.h"
 
+#include <boost/version.hpp>
+#if BOOST_VERSION < 107500
+#define _USE_BOOST_BEAST
+#include <boost/beast/core/static_string.hpp>
+#else
 #include <boost/static_string.hpp>
+#endif
 #include <list>
 
 #include "extra/boost_intrusive_pool.hpp"
 
 namespace ceammc {
 
-using EditorTitleString = boost::static_string<32>;
+#ifdef _USE_BOOST_BEAST
+template<size_t N>
+using StaticString = boost::beast::static_string<N>;
+#else
+template<size_t N>
+using StaticString = boost::static_string<N>;
+#endif
+
+using EditorTitleString = StaticString<32>;
 
 class EditorString : public memorypool::boost_intrusive_pool_item {
 public:
-    boost::static_string<MAXPDSTRING> str;
+    StaticString<MAXPDSTRING> str;
 
     EditorString() { }
     void destroy() final { str.clear(); }
