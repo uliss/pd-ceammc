@@ -41,8 +41,6 @@ public:
     }
 };
 
-using LL = ObjectFactory<LangLuaJit>::ObjectProxy;
-
 static void startLuaEventLoop(LangLuaJit* x, const bool* quit)
 {
     while (!*quit) {
