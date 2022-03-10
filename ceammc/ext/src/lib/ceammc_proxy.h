@@ -164,6 +164,8 @@ struct InletProxy {
 public:
     using BangMethodPtr = void (T::*)();
     using FloatMethodPtr = void (T::*)(t_float);
+    using SymbolMethodPtr = void (T::*)(int, t_symbol*);
+    using ListMethodPtr = void (T::*)(int, const AtomListView&);
     using AnyMethodPtr = void (T::*)(InletProxy* this_, t_symbol* s, const AtomListView& args);
     using MethodPtr = void (T::*)(const AtomListView& args);
     using MethodEntry = std::pair<t_symbol*, MethodPtr>;
@@ -171,13 +173,19 @@ public:
 
     t_pd x_obj;
     T* dest_;
+    int idx_;
 
 public:
-    InletProxy(T* dest)
+    InletProxy(T* dest, int idx = -1)
         : dest_(dest)
+        , idx_(idx)
     {
         x_obj = inlet_proxy_class;
     }
+
+    int index() const { return idx_; }
+
+    t_pd* target() { return &x_obj; }
 
     static void init()
     {
@@ -194,6 +202,18 @@ public:
     {
         auto obj = x->dest_;
         (obj->*float_)(f);
+    }
+
+    static void on_symbol(InletProxy* x, t_symbol* s)
+    {
+        auto obj = x->dest_;
+        (obj->*symbol_)(x->idx_, s);
+    }
+
+    static void on_list(InletProxy* x, t_symbol* /*s*/, int argc, t_atom* argv)
+    {
+        auto obj = x->dest_;
+        (obj->*list_)(x->idx_, AtomListView(argv, argc));
     }
 
     static void on_any(InletProxy* x, t_symbol* s, int argc, t_atom* argv)
@@ -226,6 +246,18 @@ public:
         class_doaddfloat(inlet_proxy_class, reinterpret_cast<t_method>(InletProxy::on_float));
     }
 
+    static void set_symbol_callback(SymbolMethodPtr symbol_mem_fn)
+    {
+        symbol_ = symbol_mem_fn;
+        class_addsymbol(inlet_proxy_class, reinterpret_cast<t_method>(InletProxy::on_symbol));
+    }
+
+    static void set_list_callback(ListMethodPtr list_mem_fn)
+    {
+        list_ = list_mem_fn;
+        class_addlist(inlet_proxy_class, reinterpret_cast<t_method>(InletProxy::on_list));
+    }
+
     static void set_any_callback(AnyMethodPtr any_mem_fn)
     {
         any_ = any_mem_fn;
@@ -242,6 +274,8 @@ private:
     static t_class* inlet_proxy_class;
     static BangMethodPtr bang_;
     static FloatMethodPtr float_;
+    static SymbolMethodPtr symbol_;
+    static ListMethodPtr list_;
     static AnyMethodPtr any_;
     static MethodList methods_;
 };
@@ -252,6 +286,10 @@ template <typename T>
 typename InletProxy<T>::BangMethodPtr InletProxy<T>::bang_;
 template <typename T>
 typename InletProxy<T>::FloatMethodPtr InletProxy<T>::float_;
+template <typename T>
+typename InletProxy<T>::SymbolMethodPtr InletProxy<T>::symbol_;
+template <typename T>
+typename InletProxy<T>::ListMethodPtr InletProxy<T>::list_;
 template <typename T>
 typename InletProxy<T>::AnyMethodPtr InletProxy<T>::any_;
 template <typename T>

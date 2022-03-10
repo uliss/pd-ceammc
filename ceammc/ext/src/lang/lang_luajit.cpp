@@ -88,8 +88,12 @@ LangLuaJit::~LangLuaJit()
 
 void LangLuaJit::initDone()
 {
+    //    inlets_.reserve(nin_->value() - 1);
     for (int i = 1; i < nin_->value(); i++)
-        createInlet();
+        inlets_.emplace_back(this, i);
+
+    for (auto& i : inlets_)
+        inlet_new(owner(), i.target(), nullptr, nullptr);
 
     for (int i = 0; i < nout_->value(); i++)
         createOutlet();
@@ -440,6 +444,50 @@ void LangLuaJit::updateInterpSource()
     }
 }
 
+void LangLuaJit::inletBang()
+{
+}
+
+void LangLuaJit::inletFloat(LangLuaJit::Inlet* x, t_float f)
+{
+}
+
+void LangLuaJit::inletSymbol(int id, t_symbol* s)
+{
+    using namespace ceammc::lua;
+
+    if (!inPipe().try_enqueue({ LUA_INTERP_SYMBOL, LuaAtomList { LuaAtom(LuaInt(id)), LuaAtom(s) } })) {
+        OBJ_ERR << "can't send command to LUA interpreter: symbol";
+        return;
+    }
+}
+
+void LangLuaJit::inletList(int id, const AtomListView& lv)
+{
+    using namespace ceammc::lua;
+
+    const auto N = lv.size();
+    LuaAtomList args;
+    args.reserve(N + 1);
+    args.emplace_back(LuaInt(id));
+
+    for (auto& a : lv) {
+        if (a.isFloat())
+            args.emplace_back(LuaDouble(a.asT<t_float>()));
+        else if (a.isSymbol())
+            args.emplace_back(a.asT<t_symbol*>());
+    }
+
+    if (!inPipe().try_enqueue({ LUA_INTERP_LIST, args })) {
+        OBJ_ERR << "can't send command to LUA interpreter: list";
+        return;
+    }
+}
+
+void LangLuaJit::inletAny(LangLuaJit::Inlet* x, t_symbol* s, const AtomListView& lv)
+{
+}
+
 void setup_lang_luajit()
 {
     LIB_DBG << LUAJIT_VERSION;
@@ -453,6 +501,13 @@ void setup_lang_luajit()
     obj.addMethod("quit", &LangLuaJit::m_quit);
 
     LangLuaJit::registerMethods(obj);
+
+    InletProxy<LangLuaJit>::init();
+    InletProxy<LangLuaJit>::set_bang_callback(&LangLuaJit::inletBang);
+    //    InletProxy<LangLuaJit>::set_float_callback(&LangLuaJit::inletFloat);
+    InletProxy<LangLuaJit>::set_symbol_callback(&LangLuaJit::inletSymbol);
+    InletProxy<LangLuaJit>::set_list_callback(&LangLuaJit::inletList);
+    InletProxy<LangLuaJit>::set_any_callback(&LangLuaJit::inletAny);
 
     //    class_addmethod(obj.classPointer(), (t_method)lua_menu_open, gensym("menu-open"), A_NULL);
 }
