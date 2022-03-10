@@ -26,10 +26,8 @@ constexpr size_t MAX_TABLE_LEN = 256;
 namespace ceammc {
 namespace lua {
 
-    using LuaPipe = PollThreadQueue<LuaCmd>;
-
     struct Context {
-        LuaPipe* pipe;
+        LuaCommandQueue* pipe;
         SubscriberId id;
     };
 
@@ -88,7 +86,7 @@ namespace lua {
         if (lua_islightuserdata(L, -1) != 1)
             return 0;
 
-        LuaPipe* pipe = static_cast<LuaPipe*>(lua_touserdata(L, -1));
+        auto* pipe = static_cast<LuaCommandQueue*>(lua_touserdata(L, -1));
         if (!pipe)
             return 0;
 
@@ -112,7 +110,7 @@ namespace lua {
         if (lua_islightuserdata(L, -1) != 1)
             return 0;
 
-        LuaPipe* pipe = static_cast<LuaPipe*>(lua_touserdata(L, -1));
+        auto* pipe = static_cast<LuaCommandQueue*>(lua_touserdata(L, -1));
         if (!pipe)
             return 0;
 
@@ -128,7 +126,7 @@ namespace lua {
         return 1;
     }
 
-    void lua_post_stack_idx(lua_State* L, LuaPipe* pipe, SubscriberId id, int i)
+    void lua_post_stack_idx(lua_State* L, LuaCommandQueue* pipe, SubscriberId id, int i)
     {
         char buf[96];
         snprintf(buf, sizeof(buf), "- %d %s\t", i, luaL_typename(L, i));
@@ -159,7 +157,7 @@ namespace lua {
 
         Context ctx;
         lua_getglobal(L, "_obj");
-        ctx.pipe = static_cast<LuaPipe*>(lua_touserdata(L, -1));
+        ctx.pipe = static_cast<LuaCommandQueue*>(lua_touserdata(L, -1));
 
         lua_getglobal(L, "_id");
         ctx.id = lua_tointeger(L, -1);
@@ -218,7 +216,7 @@ namespace lua {
         const int nargs = lua_gettop(L);
 
         if (nargs == 0) {
-            ctx.pipe->try_enqueue({ LUA_CMD_ERROR, "empty string, usage: pd_send DEST ..." });
+            ctx.pipe->pushError(ctx.id, "empty string, usage: pd_send DEST ...");
             return 0;
         }
 
@@ -284,7 +282,7 @@ namespace lua {
         LuaStackGuard sg(L);
 
         if (nargs != 1) {
-            ctx.pipe->try_enqueue({ LUA_CMD_ERROR, "usage: bang_to(outlet)" });
+            ctx.pipe->pushError(ctx.id, "usage: bang_to(outlet)");
             return 0;
         }
 
@@ -304,7 +302,7 @@ namespace lua {
         const auto nargs = lua_gettop(L);
 
         if (nargs != 2) {
-            ctx.pipe->try_enqueue({ LUA_CMD_ERROR, "usage: float_to(outlet, value)" });
+            ctx.pipe->pushError(ctx.id, "usage: float_to(outlet, value)");
             return 0;
         }
 
@@ -328,7 +326,7 @@ namespace lua {
         const auto nargs = lua_gettop(L);
 
         if (nargs != 2) {
-            ctx.pipe->try_enqueue({ LUA_CMD_ERROR, "usage: symbol_to(outlet, value)" });
+            ctx.pipe->pushError(ctx.id, "usage: symbol_to(outlet, value)");
             return 0;
         }
 
@@ -356,7 +354,7 @@ namespace lua {
         const bool is_tuple_arg = (nargs >= 2 && targ2 != LUA_TTABLE);
 
         if (!is_list_arg && !is_tuple_arg) {
-            ctx.pipe->try_enqueue({ LUA_CMD_ERROR, "usage: list_to(outlet, list? or values?)" });
+            ctx.pipe->pushError(ctx.id, "usage: list_to(outlet, list? or values?)");
             return 0;
         }
 
@@ -409,7 +407,7 @@ namespace lua {
         const bool is_tuple_arg = (nargs >= 2 && targ3 != LUA_TTABLE);
 
         if (!is_list_arg && !is_tuple_arg) {
-            ctx.pipe->try_enqueue({ LUA_CMD_ERROR, "usage: any_to(outlet, sel, list? or values?)" });
+            ctx.pipe->pushError(ctx.id, "usage: any_to(outlet, sel, list? or values?)");
             return 0;
         }
 
@@ -422,7 +420,7 @@ namespace lua {
 
         // message selector
         if (!lua_isstring(L, 2)) {
-            ctx.pipe->try_enqueue({ LUA_CMD_ERROR, "selector should be the string" });
+            ctx.pipe->pushError(ctx.id, "selector should be the string");
             return 0;
         }
         data.emplace_back(lua_tostring(L, 2));
@@ -465,8 +463,8 @@ namespace lua {
         LuaStackGuard sg(L);
 
         if (!lua_isstring(L, 1)) {
-            ctx.pipe->try_enqueue({ LUA_CMD_ERROR, "usage: send_bang(dest)" });
             check_arg_type(ctx, "dest", LUA_TSTRING, L, 1);
+            ctx.pipe->pushError(ctx.id, "usage: send_bang(dest)");
             return 0;
         }
 
@@ -490,11 +488,10 @@ namespace lua {
         LuaStackGuard sg(L);
 
         if (!(nargs == 2 && lua_isstring(L, 1) && lua_isnumber(L, 2))) {
-            ctx.pipe->try_enqueue({ LUA_CMD_ERROR, "usage: send_float(dest, val)" });
-
             check_arg_type(ctx, "dest", LUA_TSTRING, L, 1);
             check_arg_type(ctx, "val", LUA_TNUMBER, L, 2);
 
+            ctx.pipe->pushError(ctx.id, "usage: send_float(dest, val)");
             return 0;
         }
 
@@ -519,11 +516,10 @@ namespace lua {
         LuaStackGuard sg(L);
 
         if (!(nargs == 2 && lua_isstring(L, 1) && lua_isstring(L, 2))) {
-            ctx.pipe->try_enqueue({ LUA_CMD_ERROR, "usage: send_symbol(dest, val)" });
-
             check_arg_type(ctx, "dest", LUA_TSTRING, L, 1);
             check_arg_type(ctx, "val", LUA_TSTRING, L, 2);
 
+            ctx.pipe->pushError(ctx.id, "usage: send_symbol(dest, val)");
             return 0;
         }
 
@@ -552,7 +548,7 @@ namespace lua {
         LuaStackGuard sg(L);
 
         if (!is_list_arg && !is_tuple_arg) {
-            ctx.pipe->try_enqueue({ LUA_CMD_ERROR, "usage: send_list(dest, list? or values?)" });
+            ctx.pipe->pushError(ctx.id, "usage: send_list(dest, list? or values?)");
             return 0;
         }
 
