@@ -73,12 +73,12 @@ void FlowPipe::pop()
     cleanup_.delay(0);
 }
 
-void FlowPipe::proxy_bang()
+void FlowPipe::proxy_bang(int)
 {
     pipe_.clear();
 }
 
-void FlowPipe::proxy_float(t_float f)
+void FlowPipe::proxy_float(int, t_float f)
 {
     delay_->setValue(f);
 }

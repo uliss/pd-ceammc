@@ -86,6 +86,8 @@ public:
     double recStartMs() const { return rec_start_; }
     double recLengthMs() const { return rec_stop_ - rec_start_; }
 
+    void onInletBang(int) { m_bang(); }
+
 public:
     const Events& events() const { return events_; }
 

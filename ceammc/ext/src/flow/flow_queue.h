@@ -43,7 +43,7 @@ class FlowQueue : public BaseObject {
 public:
     struct ControlInlet {
         FlowQueue* pimpl;
-        void on_bang() { pimpl->proxy_pop(); }
+        void on_bang(int) { pimpl->proxy_pop(); }
         void m_pop(const AtomListView&) { pimpl->proxy_pop(); }
         void m_clear(const AtomListView&) { pimpl->proxy_clear(); }
         void m_output(const AtomListView&) { pimpl->proxy_output(); }

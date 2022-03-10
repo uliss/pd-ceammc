@@ -444,12 +444,24 @@ void LangLuaJit::updateInterpSource()
     }
 }
 
-void LangLuaJit::inletBang()
+void LangLuaJit::inletBang(int id)
 {
+    using namespace ceammc::lua;
+
+    if (!inPipe().try_enqueue({ LUA_INTERP_BANG, LuaAtomList { LuaAtom(LuaInt(id)) } })) {
+        OBJ_ERR << "can't send command to LUA interpreter: bang";
+        return;
+    }
 }
 
-void LangLuaJit::inletFloat(LangLuaJit::Inlet* x, t_float f)
+void LangLuaJit::inletFloat(int id, t_float f)
 {
+    using namespace ceammc::lua;
+
+    if (!inPipe().try_enqueue({ LUA_INTERP_FLOAT, LuaAtomList { LuaAtom(LuaInt(id)), LuaAtom(f) } })) {
+        OBJ_ERR << "can't send command to LUA interpreter: float";
+        return;
+    }
 }
 
 void LangLuaJit::inletSymbol(int id, t_symbol* s)
@@ -504,7 +516,7 @@ void setup_lang_luajit()
 
     InletProxy<LangLuaJit>::init();
     InletProxy<LangLuaJit>::set_bang_callback(&LangLuaJit::inletBang);
-    //    InletProxy<LangLuaJit>::set_float_callback(&LangLuaJit::inletFloat);
+    InletProxy<LangLuaJit>::set_float_callback(&LangLuaJit::inletFloat);
     InletProxy<LangLuaJit>::set_symbol_callback(&LangLuaJit::inletSymbol);
     InletProxy<LangLuaJit>::set_list_callback(&LangLuaJit::inletList);
     InletProxy<LangLuaJit>::set_any_callback(&LangLuaJit::inletAny);

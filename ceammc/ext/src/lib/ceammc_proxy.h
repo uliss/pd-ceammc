@@ -162,8 +162,8 @@ t_class* PdListProxy<T>::proxy_class_ = nullptr;
 template <typename T>
 struct InletProxy {
 public:
-    using BangMethodPtr = void (T::*)();
-    using FloatMethodPtr = void (T::*)(t_float);
+    using BangMethodPtr = void (T::*)(int);
+    using FloatMethodPtr = void (T::*)(int, t_float);
     using SymbolMethodPtr = void (T::*)(int, t_symbol*);
     using ListMethodPtr = void (T::*)(int, const AtomListView&);
     using AnyMethodPtr = void (T::*)(InletProxy* this_, t_symbol* s, const AtomListView& args);
@@ -195,13 +195,13 @@ public:
     static void on_bang(InletProxy* x)
     {
         auto obj = x->dest_;
-        (obj->*bang_)();
+        (obj->*bang_)(x->idx_);
     }
 
     static void on_float(InletProxy* x, t_float f)
     {
         auto obj = x->dest_;
-        (obj->*float_)(f);
+        (obj->*float_)(x->idx_, f);
     }
 
     static void on_symbol(InletProxy* x, t_symbol* s)

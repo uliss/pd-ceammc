@@ -445,7 +445,7 @@ void setup_flow_record()
     obj.noPropsDispatch();
 
     FlowRecord::ControlProxy::init();
-    FlowRecord::ControlProxy::set_bang_callback(&FlowRecord::m_bang);
+    FlowRecord::ControlProxy::set_bang_callback(&FlowRecord::onInletBang);
     FlowRecord::ControlProxy::set_method_callback(gensym("play"), &FlowRecord::m_play);
     FlowRecord::ControlProxy::set_method_callback(gensym("stop"), &FlowRecord::m_stop);
     FlowRecord::ControlProxy::set_method_callback(gensym("pause"), &FlowRecord::m_pause);

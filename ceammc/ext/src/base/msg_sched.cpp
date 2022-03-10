@@ -45,7 +45,7 @@ void MsgSched::onList(const AtomList& lst)
         listTo(0, lst);
 }
 
-void MsgSched::proxy_bang()
+void MsgSched::proxy_bang(int)
 {
     queue_.clear();
 }

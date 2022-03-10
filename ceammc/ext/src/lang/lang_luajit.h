@@ -76,8 +76,8 @@ public:
     lua::LuaInterp& interp() { return interp_; }
 
 public:
-    void inletBang();
-    void inletFloat(Inlet* x, t_float f);
+    void inletBang(int id);
+    void inletFloat(int id, t_float f);
     void inletSymbol(int id, t_symbol* s);
     void inletList(int id, const AtomListView& lv);
     void inletAny(Inlet* x, t_symbol* s, const AtomListView& lv);

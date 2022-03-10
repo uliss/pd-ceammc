@@ -159,7 +159,7 @@ void FlowStack::m_flush(const AtomListView&)
     check_empty();
 }
 
-void FlowStack::m_poptop()
+void FlowStack::m_poptop(int)
 {
     if (stack_.empty()) {
         OBJ_ERR << "stack is empty";

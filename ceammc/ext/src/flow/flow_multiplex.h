@@ -9,7 +9,7 @@ class FlowMultiplex : public BaseObject {
 public:
     struct ControlInlet {
         FlowMultiplex* pimpl;
-        void on_float(t_float f) { pimpl->proxy_float(f); }
+        void on_float(int, t_float f) { pimpl->proxy_float(f); }
     };
 
     using Inlet = InletProxy<FlowMultiplex>;

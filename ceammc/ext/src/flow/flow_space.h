@@ -55,8 +55,7 @@ public:
     void m_prop_delay(const AtomListView& lv);
     void m_prop_done(const AtomListView& lv);
 
-
-    void setInterval(t_float f);
+    void setInterval(int, t_float f);
 
 private:
     void packetSchedule();

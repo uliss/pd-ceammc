@@ -40,7 +40,7 @@ public:
     void onList(const AtomList& lst) override;
     void onAny(t_symbol* s, const AtomListView& lv) override { anyTo(0, s, lv); }
 
-    void proxy_bang();
+    void proxy_bang(int);
     void proxy_flush(const AtomListView& lv);
     void proxy_reset(const AtomListView& lv);
 

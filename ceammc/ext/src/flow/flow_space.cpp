@@ -184,7 +184,7 @@ void FlowSpace::m_prop_done(const AtomListView& lv)
     done_->set(lv);
 }
 
-void FlowSpace::setInterval(t_float f)
+void FlowSpace::setInterval(int, t_float f)
 {
     delay_->setValue(f);
 }
