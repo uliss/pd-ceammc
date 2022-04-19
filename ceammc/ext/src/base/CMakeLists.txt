@@ -4,6 +4,7 @@ set(BASE_SOURCES
     base_log.cpp
     base_sync.cpp
     base_spring.cpp
+    base_clone.cpp
     canvas_current.cpp
     canvas_dir.cpp
     canvas_name.cpp
