@@ -22,9 +22,11 @@ namespace util {
     size_t inlet_count(t_object* x);
     t_inlet* inlet_next(t_inlet* x);
     t_object* inlet_owner(t_inlet* x);
-    t_pd* inlet_dest(t_inlet* x);
+    t_pd* inlet_get_dest(t_inlet* x);
+    void inlet_set_dest(t_inlet* x, t_pd* dest);
     t_pd* inlet_object(t_inlet* x);
     bool inlet_is_signal(t_inlet* x);
+    void inlet_set_signal(t_inlet* x, bool v);
 }
 
 class InletIterator {
@@ -35,12 +37,16 @@ public:
     InletIterator(const t_object* obj);
 
     bool isSignal() const;
+    void setSignal(bool v);
     void reset();
     InletIterator& next();
     operator bool();
 
     t_inlet* inlet() { return inlet_; }
-    t_pd* object();
+    t_pd* asObject();
+
+    t_pd* destination();
+    void setDestination(t_pd* dest);
 };
 
 }

@@ -58,7 +58,7 @@ namespace util {
         return x ? x->i_owner : nullptr;
     }
 
-    t_pd* inlet_dest(t_inlet* x)
+    t_pd* inlet_get_dest(t_inlet* x)
     {
         return x ? x->i_dest : nullptr;
     }
@@ -76,6 +76,25 @@ namespace util {
         return x ? &x->i_pd : nullptr;
     }
 
+    void inlet_set_dest(t_inlet* x, t_pd* dest)
+    {
+        if (x)
+            x->i_dest = dest;
+    }
+
+    void inlet_set_signal(t_inlet* x, bool v)
+    {
+        if (x) {
+            if (v) {
+                x->i_symfrom = &s_signal;
+                x->i_un.iu_floatsignalvalue = 0;
+            } else {
+                x->i_symfrom = nullptr;
+                x->i_un.iu_symto = nullptr;
+            }
+        }
+    }
+
 }
 
 InletIterator::InletIterator(const t_object* obj)
@@ -88,6 +107,11 @@ InletIterator::InletIterator(const t_object* obj)
 bool InletIterator::isSignal() const
 {
     return util::inlet_is_signal(inlet_);
+}
+
+void InletIterator::setSignal(bool v)
+{
+    util::inlet_set_signal(inlet_, v);
 }
 
 void InletIterator::reset()
@@ -107,9 +131,19 @@ InletIterator::operator bool()
     return inlet_ != nullptr;
 }
 
-t_pd* InletIterator::object()
+t_pd* InletIterator::asObject()
 {
     return util::inlet_object(inlet());
+}
+
+t_pd* InletIterator::destination()
+{
+    return util::inlet_get_dest(inlet_);
+}
+
+void InletIterator::setDestination(t_pd* dest)
+{
+    util::inlet_set_dest(inlet_, dest);
 }
 
 }
