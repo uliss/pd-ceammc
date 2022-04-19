@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "base_clone.h"
 #include "ceammc_factory.h"
+#include "ceammc_inlet.h"
 #include "fmt/format.h"
 
 constexpr const char* CONTAINTER_NAME = "/CONTAINER/";
@@ -21,6 +22,7 @@ constexpr const char* SYM_CANVAS_RESTORE = "#Z";
 
 extern "C" {
 #include "g_canvas.h"
+#include "m_imp.h"
 }
 
 namespace {
@@ -122,6 +124,36 @@ void canvas_dopaste(t_canvas* x, const t_binbuf* b)
 }
 
 }
+
+class OutletIterator {
+    const t_object* object_;
+    t_outlet* outlet_;
+    t_outconnect* connection_;
+
+public:
+    OutletIterator(const t_object* x)
+        : object_(x)
+        , outlet_(nullptr)
+        , connection_(nullptr)
+    {
+        reset();
+        auto conn = obj_starttraverseoutlet(x, &outlet_, 0);
+        int connected = 0;
+
+        while (conn) {
+            t_object* dest = nullptr;
+            t_inlet* inletp = nullptr;
+            int whichp = 0;
+            conn = obj_nexttraverseoutlet(conn, &dest, &inletp, &whichp);
+        }
+    }
+
+    void reset()
+    {
+        outlet_ = nullptr;
+        connection_ = nullptr;
+    }
+};
 
 CloneInstance::CloneInstance(size_t idx, t_canvas* owner)
     : idx_(idx)
@@ -293,6 +325,91 @@ void BaseClone::updateInstances()
         }
 
         binbuf_free(bb);
+
+        gobj_vis(&owner()->te_g, canvas(), 0);
+        updateInlets();
+        updateOutlets();
+        gobj_vis(&owner()->te_g, canvas(), 1);
+    }
+}
+
+void BaseClone::updateInlets()
+{
+    std::vector<XletType> inlet_types;
+
+    // scan pattern inlets
+    if (pattern_) {
+        auto x = &pattern_->gl_obj;
+        const auto n = obj_ninlets(x);
+        inlet_types.reserve(n > 1 ? n - 1 : 1);
+
+        InletIterator it(x);
+        while (it) {
+            inlet_types.push_back(it.isSignal() ? XLET_AUDIO : XLET_CONTROL);
+            it.next();
+        }
+    }
+
+    const size_t NUM_ISTANCES = num_->value();
+    const size_t NUM_INLETS = inlet_types.size();
+    const auto new_count = NUM_INLETS * NUM_ISTANCES;
+    const auto prev_count = inlets().size();
+
+    // add/remove needed inlets
+    if (prev_count < new_count) {
+        // have to add new inlets
+        for (size_t i = prev_count; i < new_count; i++) {
+            auto in = inlet_new(owner(), nullptr, nullptr, nullptr);
+            inlets().push_back(in);
+        }
+    } else if (prev_count > new_count) {
+        // remove extra inlets
+        while (inlets().size() > new_count) {
+            if (!popInlet())
+                break;
+        }
+    }
+
+    // update inlet destinations
+    for (size_t n = 0; n < NUM_ISTANCES; n++) {
+        // instance canvas
+        auto ci = instances_[n].canvas();
+        auto x = &ci->gl_obj;
+
+        // inlet index
+        size_t idx = n * NUM_INLETS;
+
+        // interate instance inlets
+        InletIterator it(x);
+        while (it) {
+            auto inl = inlets()[idx];
+            util::inlet_set_dest(inl, it.asObject());
+            util::inlet_set_signal(inl, it.isSignal());
+            it.next();
+            idx++;
+        }
+    }
+
+    canvas_fixlinesfor(canvas(), owner());
+}
+
+void BaseClone::updateOutlets()
+{
+    outlet_types_.clear();
+
+    if (pattern_) {
+        auto x = &pattern_->gl_obj;
+        const auto n = obj_noutlets(x);
+        outlet_types_.reserve(n);
+
+        // note: O^2 complexity due lack of pd interface to inner t_outlet struct
+        for (int i = 0; i < n; i++)
+            outlet_types_.push_back(obj_issignaloutlet(x, i) ? XLET_AUDIO : XLET_CONTROL);
+    }
+
+    freeOutlets();
+
+    for (auto t : outlet_types_) {
     }
 }
 
@@ -438,7 +555,7 @@ public:
 
 void setup_base_clone()
 {
-    BaseCloneFactory obj("clone:", 0);
+    BaseCloneFactory obj("clone:", OBJECT_FACTORY_DEFAULT);
     obj.useClick();
 
     obj.addMethod("open", &BaseClone::m_open);

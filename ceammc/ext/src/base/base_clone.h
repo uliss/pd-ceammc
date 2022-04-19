@@ -14,6 +14,7 @@
 #ifndef BASE_CLONE_H
 #define BASE_CLONE_H
 
+#include "ceammc_proxy.h"
 #include "ceammc_sound_external.h"
 using namespace ceammc;
 
@@ -34,6 +35,8 @@ public:
     void open();
 
     size_t index() const { return idx_; }
+    t_canvas* canvas() { return canvas_; }
+    const t_canvas* canvas() const { return canvas_; }
 };
 
 class BaseClone : public SoundExternal {
@@ -42,6 +45,15 @@ class BaseClone : public SoundExternal {
     t_canvas* wrapper_;
     t_canvas* pattern_;
     std::vector<CloneInstance> instances_;
+
+public:
+    enum XletType : uint8_t {
+        XLET_CONTROL,
+        XLET_AUDIO
+    };
+
+private:
+    std::vector<XletType> outlet_types_;
 
 public:
     BaseClone(const PdArgs& args);
@@ -54,7 +66,7 @@ public:
     void processBlock(const t_sample** in, t_sample** out) override;
     void setupDSP(t_signal** sp) final;
 
-    void m_open(t_symbol* s, const AtomListView& lv);
+    void m_open(t_symbol*, const AtomListView& lv);
 
 public:
     virtual void onSave(t_binbuf* b);
@@ -64,6 +76,9 @@ private:
     bool initInstances(const AtomListView& patch_args);
     bool initInstance(size_t idx, const AtomListView& args);
     void updateInstances();
+
+    void updateInlets();
+    void updateOutlets();
 };
 
 void setup_base_clone();
