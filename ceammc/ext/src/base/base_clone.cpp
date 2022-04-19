@@ -114,9 +114,6 @@ void canvas_dopaste(t_canvas* x, const t_binbuf* b)
 
     binbuf_eval(b, 0, 0, 0);
     canvas_resume_dsp(dspstate);
-    //    canvas_dirty(x, 1);
-    //    if (x->gl_mapped)
-    //        sys_vgui("pdtk_canvas_getscroll .x%lx.c\n", x);
     //    if (!sys_noloadbang)
     //        glist_donewloadbangs(x);
     asym->s_thing = bounda;
@@ -125,36 +122,6 @@ void canvas_dopaste(t_canvas* x, const t_binbuf* b)
 }
 
 }
-
-//class OutletIterator {
-//    const t_object* object_;
-//    t_outlet* outlet_;
-//    t_outconnect* connection_;
-
-//public:
-//    OutletIterator(const t_object* x)
-//        : object_(x)
-//        , outlet_(nullptr)
-//        , connection_(nullptr)
-//    {
-//        reset();
-//        auto conn = obj_starttraverseoutlet(x, &outlet_, 0);
-//        int connected = 0;
-
-//        while (conn) {
-//            t_object* dest = nullptr;
-//            t_inlet* inletp = nullptr;
-//            int whichp = 0;
-//            conn = obj_nexttraverseoutlet(conn, &dest, &inletp, &whichp);
-//        }
-//    }
-
-//    void reset()
-//    {
-//        outlet_ = nullptr;
-//        connection_ = nullptr;
-//    }
-//};
 
 CloneInstance::CloneInstance(size_t idx, t_canvas* owner)
     : idx_(idx)
