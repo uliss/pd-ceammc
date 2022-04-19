@@ -16,7 +16,7 @@
 #include "fmt/format.h"
 
 constexpr const char* CONTAINTER_NAME = "/CONTAINER/";
-constexpr const char* PATTERN_NAME = "/clone:/";
+constexpr const char* PATTERN_NAME = "/PATTERN/";
 constexpr const char* SYM_CANVAS_RESTORE = "#Z";
 
 extern "C" {
@@ -38,15 +38,14 @@ void clone_pop_canvas(t_canvas* x, bool show)
 
 t_canvas* clone_create_container(t_canvas* owner)
 {
-    t_atom a[5];
+    t_atom a[6];
     t_symbol* s = gensym(CONTAINTER_NAME);
     SETFLOAT(a, 0);
     SETFLOAT(a + 1, 22);
     SETFLOAT(a + 2, 700);
     SETFLOAT(a + 3, 500);
-    SETFLOAT(a + 4, 12);
-    //        SETSYMBOL(a + 4, s);
-    //        SETFLOAT(a + 5, 1);
+    SETSYMBOL(a + 4, s);
+    SETFLOAT(a + 5, 1);
     auto* c = canvas_new(0, 0, 5, a);
     c->gl_owner = owner;
     clone_pop_canvas(c, false);
@@ -62,7 +61,7 @@ t_canvas* clone_create_pattern(t_canvas* owner)
     SETFLOAT(a + 2, 700);
     SETFLOAT(a + 3, 500);
     SETSYMBOL(a + 4, s);
-    SETFLOAT(a + 5, 1);
+    SETFLOAT(a + 5, 0);
     auto c = canvas_new(0, 0, 6, a);
     c->gl_owner = owner;
     clone_pop_canvas(c, true);
@@ -260,12 +259,13 @@ void BaseClone::onSave(t_binbuf* b)
         auto x = clone_pattern_;
 
         /* have to go to original binbuf to find out how we were named. */
-        binbuf_addv(b, "ssiiiii;", gensym("#N"), gensym("canvas"),
+        binbuf_addv(b, "ssiiiisi;", gensym("#N"), gensym("canvas"),
             (int)(x->gl_screenx1),
             (int)(x->gl_screeny1),
             (int)(x->gl_screenx2 - x->gl_screenx1),
             (int)(x->gl_screeny2 - x->gl_screeny1),
-            12);
+            gensym(PATTERN_NAME),
+            0);
 
         // save objects
         for (auto y = x->gl_list; y != nullptr; y = y->g_next)
@@ -283,7 +283,6 @@ void BaseClone::onSave(t_binbuf* b)
 
         binbuf_addv(b, "ssiis", gensym("#Z"), gensym("restore"),
             (int)obj->te_xpix, (int)obj->te_ypix, gensym(PATTERN_NAME));
-        //    binbuf_addbinbuf(b, obj->te_binbuf);
         binbuf_addv(b, ";");
     }
 
