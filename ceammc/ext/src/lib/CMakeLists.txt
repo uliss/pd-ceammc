@@ -64,6 +64,7 @@ set(CEAMMC_LIB_SOURCES
     ceammc_format.cpp
     ceammc_function.cpp
     ceammc_impl.cpp
+    ceammc_inlet.cpp
     ceammc_json.h
     ceammc_json.cpp
     ceammc_log.cpp
