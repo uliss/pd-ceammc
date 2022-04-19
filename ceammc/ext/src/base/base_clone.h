@@ -52,9 +52,6 @@ public:
         XLET_AUDIO
     };
 
-private:
-    std::vector<XletType> outlet_types_;
-
 public:
     BaseClone(const PdArgs& args);
     ~BaseClone();
