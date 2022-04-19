@@ -36,6 +36,28 @@ void clone_pop_canvas(t_canvas* x, bool show)
     x->gl_loading = 0;
 }
 
+t_binbuf* canvas_docopy(const t_canvas* z)
+{
+    auto x = (t_canvas*)z;
+
+    t_binbuf* b = binbuf_new();
+    for (t_gobj* y = x->gl_list; y; y = y->g_next)
+        gobj_save(y, b);
+
+    t_linetraverser t;
+    linetraverser_start(&t, x);
+
+    while (linetraverser_next(&t)) {
+        int srcno = canvas_getindex(x, &t.tr_ob->ob_g);
+        int sinkno = canvas_getindex(x, &t.tr_ob2->ob_g);
+
+        binbuf_addv(b, "ssiiii;", gensym("#X"), gensym("connect"),
+            srcno, t.tr_outno,
+            sinkno, t.tr_inno);
+    }
+    return (b);
+}
+
 t_canvas* clone_create_container(t_canvas* owner)
 {
     t_atom a[6];
@@ -76,25 +98,104 @@ void clone_bind_restore(t_object* owner)
     pd_bind(&owner->te_g.g_pd, z);
 }
 
+void canvas_dopaste(t_canvas* x, const t_binbuf* b)
+{
+    int dspstate = canvas_suspend_dsp();
+    t_symbol* asym = gensym("#A");
+    /* save and clear bindings to symbols #A, #N, #X; restore when done */
+    t_pd *boundx = s__X.s_thing, *bounda = asym->s_thing,
+         *boundn = s__N.s_thing;
+    asym->s_thing = 0;
+    s__X.s_thing = &x->gl_pd;
+    s__N.s_thing = &pd_canvasmaker;
+
+    binbuf_eval(b, 0, 0, 0);
+    canvas_resume_dsp(dspstate);
+    //    canvas_dirty(x, 1);
+    //    if (x->gl_mapped)
+    //        sys_vgui("pdtk_canvas_getscroll .x%lx.c\n", x);
+    //    if (!sys_noloadbang)
+    //        glist_donewloadbangs(x);
+    asym->s_thing = bounda;
+    s__X.s_thing = boundx;
+    s__N.s_thing = boundn;
+}
+
+}
+
+CloneInstance::CloneInstance(size_t idx, t_canvas* owner)
+    : idx_(idx)
+    , canvas_(nullptr)
+{
+    t_atom a[6];
+    t_symbol* s = gensym(fmt::format("instance({})", idx).c_str());
+    SETFLOAT(a, 0);
+    SETFLOAT(a + 1, 22);
+    SETFLOAT(a + 2, 700);
+    SETFLOAT(a + 3, 500);
+    SETSYMBOL(a + 4, s);
+    SETFLOAT(a + 5, 0);
+    canvas_ = canvas_new(0, 0, 6, a);
+    canvas_->gl_owner = owner;
+    clone_pop_canvas(canvas_, false);
+}
+
+CloneInstance::CloneInstance(CloneInstance&& ci)
+    : idx_(ci.idx_)
+    , canvas_(std::move(ci.canvas_))
+{
+}
+
+CloneInstance::~CloneInstance()
+{
+    if (canvas_) {
+        canvas_free(canvas_);
+        canvas_ = nullptr;
+    }
+}
+
+void CloneInstance::fillWithPattern(const t_binbuf* pattern)
+{
+    if (!canvas_)
+        return;
+
+    clear();
+    canvas_dopaste(canvas_, pattern);
+}
+
+void CloneInstance::loadbang()
+{
+    if (canvas_)
+        canvas_loadbang(canvas_);
+}
+
+void CloneInstance::clear()
+{
+    if (!canvas_)
+        return;
+
+    t_gobj* y = nullptr;
+    while ((y = canvas_->gl_list))
+        glist_delete(canvas_, y);
+}
+
+void CloneInstance::open()
+{
+    if (canvas_)
+        canvas_vis(canvas_, 1);
 }
 
 BaseClone::BaseClone(const PdArgs& args)
     : SoundExternal(args)
     , num_(nullptr)
-    , patch_(nullptr)
     , args_(nullptr)
-    , canvas_cont_(nullptr)
-    , clone_pattern_(nullptr)
+    , wrapper_(nullptr)
+    , pattern_(nullptr)
 {
     args_ = new ListProperty("@args");
     args_->setInitOnly();
-    args_->setArgIndex(2);
+    args_->setArgIndex(1);
     addProperty(args_);
-
-    patch_ = new SymbolProperty("@patch", &s_);
-    patch_->setInitOnly();
-    patch_->setArgIndex(1);
-    addProperty(patch_);
 
     num_ = new IntProperty("@n", 0);
     num_->setInitOnly();
@@ -103,10 +204,10 @@ BaseClone::BaseClone(const PdArgs& args)
     addProperty(num_);
 
     // pattern container
-    canvas_cont_ = clone_create_container(canvas());
+    wrapper_ = clone_create_container(canvas());
 
     if (!isPatchLoading()) {
-        clone_pattern_ = clone_create_pattern(canvas_cont_);
+        pattern_ = clone_create_pattern(wrapper_);
     } else {
         clone_bind_restore(owner());
     }
@@ -114,40 +215,38 @@ BaseClone::BaseClone(const PdArgs& args)
 
 BaseClone::~BaseClone()
 {
-    if (canvas_cont_) {
-        canvas_free(canvas_cont_);
-        canvas_cont_ = nullptr;
+    if (wrapper_) {
+        canvas_free(wrapper_);
+        wrapper_ = nullptr;
+        // clone_pattern_ should be freed automatically
     }
 }
 
 void BaseClone::onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt)
 {
-    if (!canvas_cont_) {
-        OBJ_ERR << "NULL canvas pattern container";
+    if (!wrapper_) {
+        OBJ_ERR << "NULL canvas pattern wrapper";
         return;
     }
 
-    if (!clone_pattern_) {
+    if (!pattern_) {
         OBJ_ERR << "NULL canvas pattern";
         return;
     }
 
     OBJ_LOG << __FUNCTION__;
 
-    canvas_vis(clone_pattern_, 1);
+    canvas_vis(pattern_, 1);
 }
 
 void BaseClone::initDone()
 {
     try {
-        if (patch_->value() == &s_)
-            throw std::invalid_argument("@patch property required");
-
         if (num_->value() < 1)
             throw std::invalid_argument("number of copies required");
 
-        if (!initInstances(patch_->value(), args_->value().view()))
-            throw std::runtime_error(fmt::format("can't load the patch {0}.pd", patch_->value()->s_name));
+        if (!initInstances(args_->value().view()))
+            throw std::runtime_error("can't init instances");
 
         //        allocSignals();
         //        allocInlets();
@@ -163,30 +262,38 @@ void BaseClone::initDone()
     // clock_.delay(5);
 }
 
-bool BaseClone::initInstances(t_symbol* name, const AtomListView& patch_args)
+bool BaseClone::initInstances(const AtomListView& patch_args)
 {
     const size_t NINSTANCE = num_->value();
-    //    instances_.assign(NINSTANCE, ProcessInstance());
+    instances_.reserve(NINSTANCE);
 
-    //    AtomList load_args;
-    //    load_args.append(Atom(SYM_2D));
-    //    load_args.append(Atom(SYM_PLANEWAVES));
-    //    load_args.append(Atom(NINSTANCE)); // number of channels
-    //    load_args.append(Atom()); // channel index
-    //    load_args.append(Atom()); // channel index
-    //    load_args.append(patch_args);
-
-    //    for (size_t i = 0; i < NINSTANCE; i++) {
-    //        load_args[3].setFloat(i, true);
-    //        load_args[4].setFloat(i, true);
-
-    //        if (!instances_[i].init(name, load_args)) {
-    //            instances_.clear();
-    //            return false;
-    //        }
-    //    }
+    for (size_t i = 0; i < NINSTANCE; i++) {
+        if (!initInstance(i, patch_args))
+            return false;
+    }
 
     return true;
+}
+
+bool BaseClone::initInstance(size_t idx, const AtomListView& args)
+{
+    OBJ_LOG << fmt::format("instance {}", idx);
+    instances_.emplace_back(idx, wrapper_);
+    return true;
+}
+
+void BaseClone::updateInstances()
+{
+    if (pattern_) {
+        auto bb = canvas_docopy(pattern_);
+
+        for (auto& i : instances_) {
+            i.fillWithPattern(bb);
+            i.loadbang();
+        }
+
+        binbuf_free(bb);
+    }
 }
 
 void BaseClone::processBlock(const t_sample** in, t_sample** out)
@@ -195,6 +302,20 @@ void BaseClone::processBlock(const t_sample** in, t_sample** out)
 
 void BaseClone::setupDSP(t_signal** sp)
 {
+}
+
+void BaseClone::m_open(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_NATURAL, s))
+        return;
+
+    int n = lv.intAt(0, 0);
+    if (n < 0 || n > instances_.size()) {
+        OBJ_ERR << fmt::format("invalid index: {}", n);
+        return;
+    }
+
+    instances_[n].open();
 }
 
 void BaseClone::onRestore(const AtomListView& lv)
@@ -218,7 +339,7 @@ void BaseClone::onRestore(const AtomListView& lv)
     auto x = (t_canvas*)z;
 
     clone_pop_canvas(x, false);
-    x->gl_owner = canvas_cont_;
+    x->gl_owner = wrapper_;
 
     auto t = &x->gl_obj;
 
@@ -231,14 +352,16 @@ void BaseClone::onRestore(const AtomListView& lv)
     if (lv.size() > 2)
         binbuf_restore(t->te_binbuf, lv.size() - 2, lv.toPdData() + 2);
 
-    glist_add(canvas_cont_, &t->te_g);
+    glist_add(wrapper_, &t->te_g);
 
-    if (clone_pattern_) {
-        canvas_free(clone_pattern_);
-        clone_pattern_ = nullptr;
+    if (pattern_) {
+        canvas_free(pattern_);
+        pattern_ = nullptr;
     }
 
-    clone_pattern_ = x;
+    pattern_ = x;
+
+    updateInstances();
 }
 
 void BaseClone::onSave(t_binbuf* b)
@@ -255,8 +378,8 @@ void BaseClone::onSave(t_binbuf* b)
         binbuf_addv(b, ",si", gensym("f"), (int)obj->te_width);
     binbuf_addv(b, ";");
 
-    if (canvas_cont_ && clone_pattern_) {
-        auto x = clone_pattern_;
+    if (wrapper_ && pattern_) {
+        auto x = pattern_;
 
         /* have to go to original binbuf to find out how we were named. */
         binbuf_addv(b, "ssiiiisi;", gensym("#N"), gensym("canvas"),
@@ -286,6 +409,8 @@ void BaseClone::onSave(t_binbuf* b)
         binbuf_addv(b, ";");
     }
 
+    updateInstances();
+
     //    if (obj->te_width)
     //        binbuf_addv(b, "ssi;",
     //            gensym("#X"), gensym("f"), (int)obj->te_width);
@@ -313,15 +438,8 @@ public:
 
 void setup_base_clone()
 {
-    BaseCloneFactory obj("clone:", OBJECT_FACTORY_NO_DEFAULT_INLET);
-
+    BaseCloneFactory obj("clone:", 0);
     obj.useClick();
 
-    //    obj.addAlias("clone:>");
-
-    //    class_addmethod(obj.classPointer(), (t_method)canvas_setbounds,
-    //        gensym("setbounds"), A_FLOAT, A_FLOAT, A_FLOAT, A_FLOAT, A_NULL);
-
-    //    class_addmethod(obj.classPointer(), (t_method)canvas_rename_method,
-    //        gensym("rename"), A_GIMME, 0);
+    obj.addMethod("open", &BaseClone::m_open);
 }

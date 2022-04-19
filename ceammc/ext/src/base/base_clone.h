@@ -17,12 +17,31 @@
 #include "ceammc_sound_external.h"
 using namespace ceammc;
 
+class CloneInstance {
+    size_t idx_;
+    t_canvas* canvas_;
+
+    CloneInstance(const CloneInstance&) = delete;
+
+public:
+    CloneInstance(size_t idx, t_canvas* owner);
+    CloneInstance(CloneInstance&& ci);
+    ~CloneInstance();
+
+    void fillWithPattern(const t_binbuf* pattern);
+    void loadbang();
+    void clear();
+    void open();
+
+    size_t index() const { return idx_; }
+};
+
 class BaseClone : public SoundExternal {
     IntProperty* num_;
-    SymbolProperty* patch_;
     ListProperty* args_;
-    t_canvas* canvas_cont_;
-    t_canvas* clone_pattern_;
+    t_canvas* wrapper_;
+    t_canvas* pattern_;
+    std::vector<CloneInstance> instances_;
 
 public:
     BaseClone(const PdArgs& args);
@@ -35,12 +54,16 @@ public:
     void processBlock(const t_sample** in, t_sample** out) override;
     void setupDSP(t_signal** sp) final;
 
+    void m_open(t_symbol* s, const AtomListView& lv);
+
 public:
     virtual void onSave(t_binbuf* b);
     virtual void onRestore(const AtomListView& lv);
 
 private:
-    bool initInstances(t_symbol* name, const AtomListView& patch_args);
+    bool initInstances(const AtomListView& patch_args);
+    bool initInstance(size_t idx, const AtomListView& args);
+    void updateInstances();
 };
 
 void setup_base_clone();
