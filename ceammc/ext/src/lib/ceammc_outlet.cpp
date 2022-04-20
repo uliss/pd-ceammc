@@ -77,4 +77,40 @@ void util::outlet_set_signal(t_outlet* x, bool v)
         x->o_sym = v ? &s_signal : &s_list;
 }
 
+ConnectionIterator::ConnectionIterator(const t_object* obj)
+    : obj_(obj)
+    , src_outlet_(nullptr)
+    , conn_(nullptr)
+    , dest_(nullptr)
+    , dest_inlet_(nullptr)
+    , dest_idx_(0)
+{
+    reset();
+}
+
+void ConnectionIterator::reset()
+{
+    src_outlet_ = nullptr;
+    dest_ = nullptr;
+    dest_inlet_ = nullptr;
+    dest_idx_ = 0;
+    conn_ = obj_starttraverseoutlet(obj_, &src_outlet_, 0);
+
+    if (conn_)
+        conn_ = obj_nexttraverseoutlet(conn_, &dest_, &dest_inlet_, &dest_idx_);
+}
+
+ConnectionIterator& ConnectionIterator::next()
+{
+    if (conn_)
+        conn_ = obj_nexttraverseoutlet(conn_, &dest_, &dest_inlet_, &dest_idx_);
+
+    return *this;
+}
+
+bool ConnectionIterator::isSignal() const
+{
+    return util::outlet_is_signal(src_outlet_);
+}
+
 }

@@ -38,6 +38,31 @@ public:
     t_outlet* outlet() { return outlet_; }
 };
 
+class ConnectionIterator {
+    const t_object* obj_;
+    t_outlet* src_outlet_;
+    t_outconnect* conn_;
+    t_object* dest_;
+    t_inlet* dest_inlet_;
+    int dest_idx_;
+
+public:
+    ConnectionIterator(const t_object* obj);
+
+    void reset();
+    ConnectionIterator& next();
+
+    operator bool() { return conn_; }
+
+    t_outlet* srcOutlet() { return src_outlet_; }
+
+    t_object* dest() { return dest_; }
+    t_inlet* destInlet() { return dest_inlet_; }
+    int destIndex() const { return dest_idx_; }
+
+    bool isSignal() const;
+};
+
 }
 
 #endif // CEAMMC_OUTLET_H
