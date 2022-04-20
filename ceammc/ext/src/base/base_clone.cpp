@@ -370,6 +370,10 @@ void BaseClone::updateOutlets()
     proxy_.clear();
     proxy_.reserve(outlets().size());
 
+    // divizion by zero check: in next loop
+    if (outlets().empty() || NUM_PATTERN_OUTLETS == 0)
+        return;
+
     for (size_t i = 0; i < outlets().size(); i++) {
         const auto inst_idx = i / NUM_PATTERN_OUTLETS;
         const auto src_idx = i % NUM_PATTERN_OUTLETS;
@@ -379,6 +383,7 @@ void BaseClone::updateOutlets()
         auto ci = instances_[inst_idx].canvas();
         auto x = &ci->gl_obj;
         obj_connect(x, src_idx, proxy_.back().object(), 0);
+        util::outlet_set_signal(outletAt(i), obj_issignaloutlet(x, src_idx));
     }
 }
 
