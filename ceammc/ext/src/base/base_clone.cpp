@@ -123,9 +123,10 @@ void canvas_dopaste(t_canvas* x, const t_binbuf* b)
 
 }
 
-CloneInstance::CloneInstance(size_t idx, t_canvas* owner)
+CloneInstance::CloneInstance(size_t idx, t_canvas* owner, const AtomListView& args)
     : idx_(idx)
     , canvas_(nullptr)
+    , args_(args)
 {
     t_atom a[6];
     t_symbol* s = gensym(fmt::format("instance({})", idx).c_str());
@@ -143,6 +144,7 @@ CloneInstance::CloneInstance(size_t idx, t_canvas* owner)
 CloneInstance::CloneInstance(CloneInstance&& ci)
     : idx_(ci.idx_)
     , canvas_(std::move(ci.canvas_))
+    , args_(std::move(ci.args_))
 {
 }
 
@@ -257,9 +259,6 @@ void BaseClone::initDone()
         else
             OBJ_LOG << e.what(); // object without args - used in help
     }
-
-    // call loadbang in 5 ticks
-    // clock_.delay(5);
 }
 
 bool BaseClone::initInstances(const AtomListView& patch_args)
@@ -278,7 +277,7 @@ bool BaseClone::initInstances(const AtomListView& patch_args)
 bool BaseClone::initInstance(size_t idx, const AtomListView& args)
 {
     OBJ_LOG << fmt::format("instance {}", idx);
-    instances_.emplace_back(idx, wrapper_);
+    instances_.emplace_back(idx, wrapper_, args);
     return true;
 }
 

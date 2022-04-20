@@ -21,11 +21,12 @@ using namespace ceammc;
 class CloneInstance {
     size_t idx_;
     t_canvas* canvas_;
+    AtomList args_;
 
     CloneInstance(const CloneInstance&) = delete;
 
 public:
-    CloneInstance(size_t idx, t_canvas* owner);
+    CloneInstance(size_t idx, t_canvas* owner, const AtomListView& args);
     CloneInstance(CloneInstance&& ci);
     ~CloneInstance();
 
