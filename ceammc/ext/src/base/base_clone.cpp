@@ -368,23 +368,18 @@ void BaseClone::updateOutlets()
         }
     }
 
-    // update outlet destinations
-    for (size_t n = 0; n < NUM_ISTANCES; n++) {
-        // instance canvas
-        auto ci = instances_[n].canvas();
-        auto x = &ci->gl_obj;
+    proxy_.clear();
+    proxy_.reserve(outlets().size());
 
-        size_t src_idx = 0;
-        // iterate instance outlets
-        OutletIterator it(x);
-        while (it) {
-            auto dest_idx = n * NUM_PATTERN_OUTLETS + src_idx;
-            auto out = outlets()[dest_idx];
-            util::outlet_set_signal(out, it.isSignal());
-            //            obj_connect(x, src_idx, owner(), dest_idx);
-            it.next();
-            src_idx++;
-        }
+    for (size_t i = 0; i < outlets().size(); i++) {
+        const auto inst_idx = i / NUM_PATTERN_OUTLETS;
+        const auto src_idx = i % NUM_PATTERN_OUTLETS;
+
+        proxy_.emplace_back(this, (int)i);
+
+        auto ci = instances_[inst_idx].canvas();
+        auto x = &ci->gl_obj;
+        obj_connect(x, src_idx, proxy_.back().object(), 0);
     }
 }
 
@@ -532,6 +527,5 @@ void setup_base_clone()
 {
     BaseCloneFactory obj("clone:", OBJECT_FACTORY_DEFAULT);
     obj.useClick();
-
     obj.addMethod("open", &BaseClone::m_open);
 }

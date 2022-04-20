@@ -40,17 +40,21 @@ public:
 };
 
 class BaseClone : public SoundExternal {
-    IntProperty* num_;
-    ListProperty* args_;
-    t_canvas* wrapper_;
-    t_canvas* pattern_;
-    std::vector<CloneInstance> instances_;
-
 public:
     enum XletType : uint8_t {
         XLET_CONTROL,
         XLET_AUDIO
     };
+
+    using Proxy = DataProxy<BaseClone, int>;
+
+private:
+    IntProperty* num_;
+    ListProperty* args_;
+    t_canvas* wrapper_;
+    t_canvas* pattern_;
+    std::vector<CloneInstance> instances_;
+    std::vector<Proxy> proxy_;
 
 public:
     BaseClone(const PdArgs& args);
@@ -64,6 +68,12 @@ public:
     void setupDSP(t_signal** sp) final;
 
     void m_open(t_symbol*, const AtomListView& lv);
+
+    void data_proxy_bang(const int& i) { bangTo(i); }
+    void data_proxy_float(const int& i, t_float f) { floatTo(i, f); }
+    void data_proxy_symbol(const int& i, t_symbol* s) { symbolTo(i, s); }
+    void data_proxy_list(const int& i, const AtomListView& lv) { listTo(i, lv); }
+    void data_proxy_any(const int& i, t_symbol* s, const AtomListView& lv) { anyTo(i, s, lv); }
 
 public:
     virtual void onSave(t_binbuf* b);
