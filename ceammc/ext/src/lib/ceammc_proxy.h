@@ -293,6 +293,92 @@ typename InletProxy<T>::AnyMethodPtr InletProxy<T>::any_;
 template <typename T>
 typename InletProxy<T>::MethodList InletProxy<T>::methods_;
 
+template <typename T, typename Data>
+class DataProxy {
+    t_object obj_;
+    Data data_;
+
+public:
+    DataProxy(T* o, const Data& data)
+        : data_(data)
+        , owner_(o)
+    {
+        if (data_proxy_class_ == nullptr)
+            initClass();
+
+        assert(data_proxy_class_);
+
+        t_object* tmp = reinterpret_cast<t_object*>(pd_new(data_proxy_class_));
+        memcpy(&obj_, tmp, sizeof(t_object));
+        pd_free((t_pd*)tmp);
+    }
+
+    void onBang() { (owner_->*bang_method)(data_); }
+    void onFloat(t_float f) { (owner_->*float_method)(data_, f); }
+    void onSymbol(t_symbol* s) { (owner_->*symbol_method)(data_, s); }
+    void onList(const AtomListView& lv) { (owner_->*list_method)(data_, lv); }
+    void onAny(t_symbol* s, const AtomListView& lv) { (owner_->*any_method)(data_, s, lv); }
+
+    t_object* object() { return &obj_; }
+    T* owner() { return owner_; }
+    const Data& data() const { return data_; }
+
+public:
+    static void on_bang(DataProxy* p) { p->onBang(); }
+    static void on_float(DataProxy* p, t_float f) { p->onFloat(f); }
+    static void on_symbol(DataProxy* p, t_symbol* s) { p->onSymbol(s); }
+    static void on_list(DataProxy* p, t_symbol*, int argc, t_atom* argv) { p->onList(AtomListView(argv, argc)); }
+    static void on_any(DataProxy* p, t_symbol* s, int argc, t_atom* argv) { p->onAny(s, AtomListView(argv, argc)); }
+
+    static void initClass()
+    {
+        DataProxy::data_proxy_class_ = class_new(gensym("proxy data"), 0, 0, sizeof(DataProxy), CLASS_PD, A_NULL);
+
+        auto cls = DataProxy::data_proxy_class_;
+        class_addbang(cls, reinterpret_cast<t_method>(DataProxy::on_bang));
+        class_doaddfloat(cls, reinterpret_cast<t_method>(DataProxy::on_float));
+        class_addsymbol(cls, reinterpret_cast<t_method>(DataProxy::on_symbol));
+        class_addlist(cls, reinterpret_cast<t_method>(DataProxy::on_list));
+        class_addanything(cls, reinterpret_cast<t_method>(DataProxy::on_any));
+
+        bang_method = &T::data_proxy_bang;
+        float_method = &T::data_proxy_float;
+        symbol_method = &T::data_proxy_symbol;
+        list_method = &T::data_proxy_list;
+        any_method = &T::data_proxy_any;
+    }
+
+private:
+    T* owner_;
+
+private:
+    static t_class* data_proxy_class_;
+
+    using BangMethod = void (T::*)(const Data&);
+    using FloatMethod = void (T::*)(const Data&, t_float);
+    using SymbolMethod = void (T::*)(const Data&, t_symbol*);
+    using ListMethod = void (T::*)(const Data&, const AtomListView&);
+    using AnyMethod = void (T::*)(const Data&, t_symbol*, const AtomListView&);
+
+    static BangMethod bang_method;
+    static FloatMethod float_method;
+    static SymbolMethod symbol_method;
+    static ListMethod list_method;
+    static AnyMethod any_method;
+};
+
+template <typename T, typename D>
+t_class* DataProxy<T, D>::data_proxy_class_ = nullptr;
+template <typename T, typename D>
+typename DataProxy<T, D>::BangMethod DataProxy<T, D>::bang_method = nullptr;
+template <typename T, typename D>
+typename DataProxy<T, D>::FloatMethod DataProxy<T, D>::float_method = nullptr;
+template <typename T, typename D>
+typename DataProxy<T, D>::SymbolMethod DataProxy<T, D>::symbol_method = nullptr;
+template <typename T, typename D>
+typename DataProxy<T, D>::ListMethod DataProxy<T, D>::list_method = nullptr;
+template <typename T, typename D>
+typename DataProxy<T, D>::AnyMethod DataProxy<T, D>::any_method = nullptr;
 }
 
 #endif // CEAMMC_PROXY_H
