@@ -21,7 +21,6 @@ using namespace ceammc;
 class CloneInstance {
     size_t idx_;
     t_canvas* canvas_;
-    AtomList args_;
 
     CloneInstance(const CloneInstance&) = delete;
 
@@ -69,6 +68,7 @@ public:
     void setupDSP(t_signal** sp) final;
 
     void m_open(t_symbol*, const AtomListView& lv);
+    void m_menu_open(t_symbol*, const AtomListView& lv);
 
     void data_proxy_bang(const int& i) { bangTo(i); }
     void data_proxy_float(const int& i, t_float f) { floatTo(i, f); }

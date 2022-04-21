@@ -126,7 +126,6 @@ void canvas_dopaste(t_canvas* x, const t_binbuf* b)
 CloneInstance::CloneInstance(size_t idx, t_canvas* owner, const AtomListView& args)
     : idx_(idx)
     , canvas_(nullptr)
-    , args_(args)
 {
     t_atom a[6];
     t_symbol* s = gensym(fmt::format("instance({})", idx).c_str());
@@ -136,6 +135,7 @@ CloneInstance::CloneInstance(size_t idx, t_canvas* owner, const AtomListView& ar
     SETFLOAT(a + 3, 500);
     SETSYMBOL(a + 4, s);
     SETFLOAT(a + 5, 0);
+
     canvas_ = canvas_new(0, 0, 6, a);
     canvas_->gl_owner = owner;
     clone_pop_canvas(canvas_, false);
@@ -144,7 +144,6 @@ CloneInstance::CloneInstance(size_t idx, t_canvas* owner, const AtomListView& ar
 CloneInstance::CloneInstance(CloneInstance&& ci)
     : idx_(ci.idx_)
     , canvas_(std::move(ci.canvas_))
-    , args_(std::move(ci.args_))
 {
 }
 
@@ -409,6 +408,11 @@ void BaseClone::m_open(t_symbol* s, const AtomListView& lv)
     instances_[n].open();
 }
 
+void BaseClone::m_menu_open(t_symbol *, const AtomListView &lv)
+{
+    canvas_vis(pattern_, 1);
+}
+
 void BaseClone::onRestore(const AtomListView& lv)
 {
     OBJ_LOG << __FUNCTION__;
@@ -532,4 +536,6 @@ void setup_base_clone()
     BaseCloneFactory obj("clone:", OBJECT_FACTORY_DEFAULT);
     obj.useClick();
     obj.addMethod("open", &BaseClone::m_open);
+
+    obj.addMethod("menu-open", &BaseClone::m_menu_open);
 }
