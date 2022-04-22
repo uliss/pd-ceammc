@@ -76,17 +76,26 @@ public:
     void data_proxy_list(const int& i, const AtomListView& lv) { listTo(i, lv); }
     void data_proxy_any(const int& i, t_symbol* s, const AtomListView& lv) { anyTo(i, s, lv); }
 
+    void storeContent() const;
+    void updateInstances();
+
 public:
-    virtual void onSave(t_binbuf* b);
+    virtual void onSave(t_binbuf* b) const;
     virtual void onRestore(const AtomListView& lv);
 
 private:
     bool initInstances(const AtomListView& patch_args);
     bool initInstance(size_t idx, const AtomListView& args);
-    void updateInstances();
 
     void updateInlets();
     void updateOutlets();
+
+private:
+    // object renaming in Pd is the delete, then create sequence
+    // to support object renaming and do not lose the object pattern content
+    // we have to store the previous content before destroying the object
+    // into this static buffer, restoring it in the object constructor
+    static t_binbuf* old_content_;
 };
 
 void setup_base_clone();

@@ -23,6 +23,7 @@ constexpr const char* SYM_CANVAS_RESTORE = "#Z";
 
 extern "C" {
 #include "g_canvas.h"
+#include "g_ceammc_draw.h"
 #include "m_imp.h"
 }
 
@@ -77,7 +78,7 @@ t_canvas* clone_create_container(t_canvas* owner)
     return c;
 }
 
-t_canvas* clone_create_pattern(t_canvas* owner)
+t_canvas* clone_create_pattern(t_canvas* owner, bool show)
 {
     t_atom a[6];
     t_symbol* s = gensym(PATTERN_NAME);
@@ -89,7 +90,7 @@ t_canvas* clone_create_pattern(t_canvas* owner)
     SETFLOAT(a + 5, 0);
     auto c = canvas_new(0, 0, 6, a);
     c->gl_owner = owner;
-    clone_pop_canvas(c, true);
+    clone_pop_canvas(c, show);
     glist_add(owner, &c->gl_obj.te_g);
     return c;
 }
@@ -119,6 +120,68 @@ void canvas_dopaste(t_canvas* x, const t_binbuf* b)
     asym->s_thing = bounda;
     s__X.s_thing = boundx;
     s__N.s_thing = boundn;
+}
+
+class BaseCloneFactory : public SoundExternalFactory<BaseClone> {
+public:
+    BaseCloneFactory(const char* name, int flags)
+        : SoundExternalFactory<BaseClone>(name, flags)
+    {
+        class_addmethod(this->classPointer(), (t_method)restore_fn, gensym("restore"), A_GIMME, 0);
+        class_setsavefn(this->classPointer(), (t_savefn)save_fn);
+    }
+
+    static void save_fn(ObjectProxy* x, t_binbuf* b)
+    {
+        x->impl->onSave(b);
+        x->impl->updateInstances();
+    }
+
+    static void restore_fn(ObjectProxy* x, t_symbol* /*sel*/, int argc, t_atom* argv)
+    {
+        x->impl->onRestore(AtomListView(argv, argc));
+    }
+};
+
+using MouseFn = void (*)(t_canvas*, t_floatarg, t_floatarg, t_floatarg, t_floatarg);
+
+enum : int {
+    NOMOD = 0,
+    SHIFTMOD = 1,
+    CTRLMOD = 2,
+    ALTMOD = 4,
+    RIGHTCLICK = 8
+};
+
+MouseFn ceammc_old_canvas_mouse_fn = nullptr;
+
+void canvas_new_mouse_fn(t_canvas* x, t_floatarg xpos, t_floatarg ypos,
+    t_floatarg which, t_floatarg mod)
+{
+    if (!x)
+        return;
+
+    const bool runmode = (((int)mod & CTRLMOD) || (!x->gl_edit));
+    const bool rightclick = ((int)mod & RIGHTCLICK);
+
+    if (x->gl_editor && !runmode && !rightclick) {
+        // find first selected BaseClone object
+        auto sel = x->gl_editor->e_selection;
+        while (sel) {
+            auto clone_obj = sel->sel_what;
+            sel = sel->sel_next;
+            if (clone_obj->g_pd == BaseCloneFactory::classPointer()) {
+                auto x = reinterpret_cast<PdObject<BaseClone>*>(clone_obj);
+                // store the object content to restore it in a future
+                x->impl->storeContent();
+                break;
+            }
+        }
+    }
+
+original:
+    if (ceammc_old_canvas_mouse_fn)
+        return ceammc_old_canvas_mouse_fn(x, xpos, ypos, which, mod);
 }
 
 }
@@ -186,6 +249,8 @@ void CloneInstance::open()
         canvas_vis(canvas_, 1);
 }
 
+t_binbuf* BaseClone::old_content_ = nullptr;
+
 BaseClone::BaseClone(const PdArgs& args)
     : SoundExternal(args)
     , num_(nullptr)
@@ -208,7 +273,13 @@ BaseClone::BaseClone(const PdArgs& args)
     wrapper_ = clone_create_container(canvas());
 
     if (!isPatchLoading()) {
-        pattern_ = clone_create_pattern(wrapper_);
+        const bool restore_content = (old_content_ != nullptr);
+        pattern_ = clone_create_pattern(wrapper_, !restore_content);
+        if (restore_content) {
+            canvas_dopaste(pattern_, old_content_);
+            binbuf_free(old_content_);
+            old_content_ = nullptr;
+        }
     } else {
         clone_bind_restore(owner());
     }
@@ -223,7 +294,7 @@ BaseClone::~BaseClone()
     }
 }
 
-void BaseClone::onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt)
+void BaseClone::onClick(t_floatarg /*xpos*/, t_floatarg /*ypos*/, t_floatarg /*shift*/, t_floatarg /*ctrl*/, t_floatarg /*alt*/)
 {
     if (!wrapper_) {
         OBJ_ERR << "NULL canvas pattern wrapper";
@@ -234,8 +305,6 @@ void BaseClone::onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_fl
         OBJ_ERR << "NULL canvas pattern";
         return;
     }
-
-    OBJ_LOG << __FUNCTION__;
 
     canvas_vis(pattern_, 1);
 }
@@ -292,12 +361,18 @@ void BaseClone::updateInstances()
 
         binbuf_free(bb);
 
-        gobj_vis(&owner()->te_g, canvas(), 0);
+        const bool visible = gobj_shouldvis(&owner()->te_g, canvas());
+
+        if (visible)
+            gobj_vis(&owner()->te_g, canvas(), 0);
+
         updateInlets();
         updateOutlets();
-        gobj_vis(&owner()->te_g, canvas(), 1);
 
-        canvas_fixlinesfor(canvas(), owner());
+        if (visible) {
+            gobj_vis(&owner()->te_g, canvas(), 1);
+            canvas_fixlinesfor(canvas(), owner());
+        }
     }
 }
 
@@ -408,14 +483,25 @@ void BaseClone::m_open(t_symbol* s, const AtomListView& lv)
     instances_[n].open();
 }
 
-void BaseClone::m_menu_open(t_symbol *, const AtomListView &lv)
+void BaseClone::m_menu_open(t_symbol*, const AtomListView& /*lv*/)
 {
     canvas_vis(pattern_, 1);
 }
 
+void BaseClone::storeContent() const
+{
+    if (!old_content_)
+        old_content_ = binbuf_new();
+    else
+        binbuf_clear(old_content_);
+
+    if (pattern_)
+        old_content_ = canvas_docopy(pattern_);
+}
+
 void BaseClone::onRestore(const AtomListView& lv)
 {
-    OBJ_LOG << __FUNCTION__;
+    OBJ_LOG << __FUNCTION__ << " " << lv;
 
     auto cnv = gensym("#X");
     if (cnv->s_thing == nullptr) {
@@ -459,7 +545,7 @@ void BaseClone::onRestore(const AtomListView& lv)
     updateInstances();
 }
 
-void BaseClone::onSave(t_binbuf* b)
+void BaseClone::onSave(t_binbuf* b) const
 {
     OBJ_LOG << __FUNCTION__;
 
@@ -504,32 +590,10 @@ void BaseClone::onSave(t_binbuf* b)
         binbuf_addv(b, ";");
     }
 
-    updateInstances();
-
     //    if (obj->te_width)
     //        binbuf_addv(b, "ssi;",
     //            gensym("#X"), gensym("f"), (int)obj->te_width);
 }
-
-class BaseCloneFactory : public SoundExternalFactory<BaseClone> {
-public:
-    BaseCloneFactory(const char* name, int flags)
-        : SoundExternalFactory<BaseClone>(name, flags)
-    {
-        class_addmethod(this->classPointer(), (t_method)restore_fn, gensym("restore"), A_GIMME, 0);
-        class_setsavefn(this->classPointer(), (t_savefn)save_fn);
-    }
-
-    static void save_fn(ObjectProxy* x, t_binbuf* b)
-    {
-        x->impl->onSave(b);
-    }
-
-    static void restore_fn(ObjectProxy* x, t_symbol* /*sel*/, int argc, t_atom* argv)
-    {
-        x->impl->onRestore(AtomListView(argv, argc));
-    }
-};
 
 void setup_base_clone()
 {
@@ -538,4 +602,11 @@ void setup_base_clone()
     obj.addMethod("open", &BaseClone::m_open);
 
     obj.addMethod("menu-open", &BaseClone::m_menu_open);
+
+    // HACK to rename the object without loosing it pattern
+    auto mouse_fn = (MouseFn)zgetfn(&canvas_class, gensym("mouse"));
+    if (mouse_fn != canvas_new_mouse_fn) {
+        ceammc_old_canvas_mouse_fn = mouse_fn;
+        class_addmethod(canvas_class, (t_method)canvas_new_mouse_fn, gensym("mouse"), A_FLOAT, A_FLOAT, A_FLOAT, A_FLOAT, A_NULL);
+    }
 }
