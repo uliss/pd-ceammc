@@ -98,7 +98,7 @@ ProtoWhammy::ProtoWhammy(const PdArgs& args)
 
     active_ = new BoolProperty("@active", true);
     active_->setArgIndexNext(mode_);
-    active_->setSuccessFn([](Property*) { output(); });
+    active_->setSuccessFn([this](Property*) { output(); });
     addProperty(active_);
 }
 
