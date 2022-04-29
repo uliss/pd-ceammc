@@ -110,13 +110,41 @@ void ProtoWhammy::m_toggle(t_symbol*, const AtomListView& lv)
     output();
 }
 
-void ProtoWhammy::m_random(t_symbol*, const AtomListView& lv)
+void ProtoWhammy::m_random(t_symbol* s, const AtomListView& lv)
 {
-    const auto N = midi_classic_map_.size();
+    if (lv.empty()) {
+        const auto N = midi_classic_map_.size();
 
-    std::uniform_int_distribution<size_t> dist(0, N);
-    idx_ = dist(random_gen);
-    active_ = lv.boolAt(0, true);
+        std::uniform_int_distribution<size_t> dist(0, N);
+        idx_ = dist(random_gen);
+        active_ = lv.boolAt(0, true);
+    } else if (lv.isSymbol()) {
+        auto sym_hash = crc32_hash(lv.asT<t_symbol*>());
+        switch (sym_hash) {
+        case "whammy"_hash: {
+            std::uniform_int_distribution<size_t> dist(proto::WHAMMY_MODE_MIN_TRANSPOSE, proto::WHAMMY_MODE_MAX_TRANSPOSE + 1);
+            idx_ = dist(random_gen);
+            active_ = lv.boolAt(0, true);
+        } break;
+        case "harm"_hash: {
+            std::uniform_int_distribution<size_t> dist(proto::WHAMMY_MODE_MIN_HARMONIZER, proto::WHAMMY_MODE_MAX_HARMONIZER + 1);
+            idx_ = dist(random_gen);
+            active_ = lv.boolAt(0, true);
+        } break;
+        case "detune"_hash: {
+            std::uniform_int_distribution<size_t> dist(proto::WHAMMY_MODE_MIN_DETUNE, proto::WHAMMY_MODE_MAX_DETUNE + 1);
+            idx_ = dist(random_gen);
+            active_ = lv.boolAt(0, true);
+        } break;
+        default:
+            METHOD_ERR(s) << "unknown random method: " << s << ", expected 'whammy', 'harm' or 'detune'";
+            return;
+        }
+    } else {
+        METHOD_ERR(s) << "usage: RANDOM_METHOD?";
+        return;
+    }
+
     output();
 }
 
@@ -175,19 +203,30 @@ void ProtoWhammy::m_set(t_symbol* s, const AtomListView& lv)
                          "\t UP DOWN STATE";
         return;
     }
+
     output();
 }
 
 void ProtoWhammy::m_next(t_symbol* s, const AtomListView& lv)
 {
     const auto N = midi_classic_map_.size();
-
     if (N == 0)
         return;
 
-    const int offset = lv.intAt(0, 1) % N;
-    if (offset < 1) {
-        METHOD_ERR(s) << "invalid offset: " << offset;
+    int offset = 0;
+    if (lv.empty()) {
+        offset = 1;
+    } else if (lv.isFloat()) {
+        const int offset = lv.intAt(0, 1) % N;
+        if (offset < 1) {
+            METHOD_ERR(s) << "invalid offset: " << offset;
+            return;
+        }
+    } else if (lv == gensym("random")) {
+        std::uniform_int_distribution<size_t> dist(1, N);
+        offset = dist(random_gen);
+    } else {
+        METHOD_ERR(s) << "usage: INT or random";
         return;
     }
 
@@ -199,13 +238,24 @@ void ProtoWhammy::m_next(t_symbol* s, const AtomListView& lv)
 void ProtoWhammy::m_prev(t_symbol* s, const AtomListView& lv)
 {
     const auto N = midi_classic_map_.size();
-
     if (N == 0)
         return;
 
-    const int offset = lv.intAt(0, 1) % N;
-    if (offset < 1) {
-        METHOD_ERR(s) << "invalid offset: " << offset;
+    int offset = 0;
+
+    if (lv.empty()) {
+        offset = 1;
+    } else if (lv.isFloat()) {
+        const int offset = lv.intAt(0, 1) % N;
+        if (offset < 1) {
+            METHOD_ERR(s) << "invalid offset: " << offset;
+            return;
+        }
+    } else if (lv == gensym("random")) {
+        std::uniform_int_distribution<size_t> dist(1, N);
+        offset = dist(random_gen);
+    } else {
+        METHOD_ERR(s) << "usage: INT or random";
         return;
     }
 
@@ -221,7 +271,7 @@ void ProtoWhammy::output()
 
     int chan = chan_->value();
     int val = active_ ? midi_classic_map_[idx_].active : midi_classic_map_[idx_].bypass;
-    val += (mode_->index() * 42);
+    val += ((mode_->index() * 42) - 1);
 
     floatTo(0, 0xC0 | (chan & 0x7));
     floatTo(0, val & 0x7F);

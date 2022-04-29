@@ -4,7 +4,7 @@
 namespace ceammc {
 namespace proto {
 
-    // NOTE: do not change the order
+    // NOTE: do not change the order!
     enum WhammyMode {
         WHAMMY_MODE_UP_2OCT = 0,
         WHAMMY_MODE_UP_OCT,
@@ -30,6 +30,13 @@ namespace proto {
         WHAMMY_MODE_DOWN_5TH_DOWN_4TH,
         WHAMMY_MODE_DOWN_OCT_UP_OCT,
     };
+
+    constexpr int WHAMMY_MODE_MIN_TRANSPOSE = WHAMMY_MODE_UP_2OCT;
+    constexpr int WHAMMY_MODE_MAX_TRANSPOSE = WHAMMY_MODE_DIVE_BOMB;
+    constexpr int WHAMMY_MODE_MIN_HARMONIZER = WHAMMY_MODE_UP_2ND_UP_3RD;
+    constexpr int WHAMMY_MODE_MAX_HARMONIZER = WHAMMY_MODE_DOWN_OCT_UP_OCT;
+    constexpr int WHAMMY_MODE_MIN_DETUNE = WHAMMY_MODE_DETUNE_DEEP;
+    constexpr int WHAMMY_MODE_MAX_DETUNE = WHAMMY_MODE_DETUNE_SHALLOW;
 
     bool nameToWhammyMode(const char* str, WhammyMode& mode);
 }
