@@ -14,9 +14,18 @@ ceammc_proto_external(midi_cc)
 ceammc_proto_external(midi_sysex)
 ceammc_proto_external(mpv)
 ceammc_proto_external(sp_alpaca)
+ceammc_proto_external(whammy)
 ceammc_proto_external(xtouch_ext)
 
-target_sources(ceammc_proto PRIVATE proto_midi_parser.cpp)
+find_package(RAGEL 6.6)
+
+if(RAGEL_FOUND)
+    RAGEL_TARGET(parser_whammy
+        parser_whammy.rl ${CMAKE_CURRENT_SOURCE_DIR}/parser_whammy.cpp
+        COMPILE_FLAGS "-G2 -s")
+endif()
+
+target_sources(ceammc_proto PRIVATE proto_midi_parser.cpp parser_whammy.cpp)
 target_include_directories(ceammc_proto
     PUBLIC
         ${PROJECT_SOURCE_DIR}/ceammc/extra/readerwriterqueue
