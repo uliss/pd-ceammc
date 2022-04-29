@@ -19,13 +19,15 @@ ceammc_proto_external(xtouch_ext)
 
 find_package(RAGEL 6.6)
 
+target_sources(ceammc_proto PRIVATE parser_whammy.cpp)
+
 if(RAGEL_FOUND)
     RAGEL_TARGET(parser_whammy
         parser_whammy.rl ${CMAKE_CURRENT_SOURCE_DIR}/parser_whammy.cpp
         COMPILE_FLAGS "-G2 -s")
 endif()
 
-target_sources(ceammc_proto PRIVATE proto_midi_parser.cpp parser_whammy.cpp)
+target_sources(ceammc_proto PRIVATE proto_midi_parser.cpp)
 target_include_directories(ceammc_proto
     PUBLIC
         ${PROJECT_SOURCE_DIR}/ceammc/extra/readerwriterqueue

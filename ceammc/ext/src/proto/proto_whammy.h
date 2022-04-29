@@ -38,6 +38,8 @@ public:
 public:
     ProtoWhammy(const PdArgs& args);
 
+    void onBang() override { output(); }
+
     void m_reset(t_symbol*, const AtomListView& lv);
     void m_toggle(t_symbol*, const AtomListView& lv);
     void m_random(t_symbol*, const AtomListView& lv);

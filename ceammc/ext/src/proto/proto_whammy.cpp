@@ -104,12 +104,19 @@ void ProtoWhammy::m_reset(t_symbol*, const AtomListView& lv)
     output();
 }
 
+void ProtoWhammy::m_toggle(t_symbol*, const AtomListView& lv)
+{
+    active_ = !active_;
+    output();
+}
+
 void ProtoWhammy::m_random(t_symbol*, const AtomListView& lv)
 {
     const auto N = midi_classic_map_.size();
 
     std::uniform_int_distribution<size_t> dist(0, N);
     idx_ = dist(random_gen);
+    active_ = lv.boolAt(0, true);
     output();
 }
 
