@@ -274,7 +274,7 @@ void ProtoWhammy::output()
         return;
 
     int chan = chan_->value();
-    int val = active_ ? midi_classic_map_[idx_].active : midi_classic_map_[idx_].bypass;
+    int val = active_->value() ? midi_classic_map_[idx_].active : midi_classic_map_[idx_].bypass;
     val += ((mode_->index() * 42) - 1);
 
     floatTo(0, 0xC0 | (chan & 0x7));
