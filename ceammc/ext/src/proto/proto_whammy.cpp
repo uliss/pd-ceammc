@@ -80,8 +80,8 @@ ProtoWhammy::ProtoWhammy(const PdArgs& args)
     : BaseObject(args)
     , mode_(nullptr)
     , chan_(nullptr)
+    , active_(nullptr)
     , idx_(0)
-    , active_(false)
 {
     createOutlet();
 
@@ -95,18 +95,22 @@ ProtoWhammy::ProtoWhammy(const PdArgs& args)
     chan_ = new IntProperty("@chan", 0);
     chan_->checkClosedRange(0, 15);
     addProperty(chan_);
+
+    active_ = new BoolProperty("@active", true);
+    active_->setArgIndexNext(mode_);
+    addProperty(active_);
 }
 
 void ProtoWhammy::m_reset(t_symbol*, const AtomListView& lv)
 {
-    active_ = false;
+    active_->setValue(false);
     idx_ = 0;
     output();
 }
 
 void ProtoWhammy::m_toggle(t_symbol*, const AtomListView& lv)
 {
-    active_ = !active_;
+    active_->setValue(!active_->value());
     output();
 }
 
@@ -117,29 +121,28 @@ void ProtoWhammy::m_random(t_symbol* s, const AtomListView& lv)
 
         std::uniform_int_distribution<size_t> dist(0, N);
         idx_ = dist(random_gen);
-        active_ = lv.boolAt(0, true);
+        active_->setValue(lv.boolAt(0, true));
     } else if (lv.isSymbol()) {
         auto sym_hash = crc32_hash(lv.asT<t_symbol*>());
         switch (sym_hash) {
         case "whammy"_hash: {
             std::uniform_int_distribution<size_t> dist(proto::WHAMMY_MODE_MIN_TRANSPOSE, proto::WHAMMY_MODE_MAX_TRANSPOSE + 1);
             idx_ = dist(random_gen);
-            active_ = lv.boolAt(0, true);
         } break;
         case "harm"_hash: {
             std::uniform_int_distribution<size_t> dist(proto::WHAMMY_MODE_MIN_HARMONIZER, proto::WHAMMY_MODE_MAX_HARMONIZER + 1);
             idx_ = dist(random_gen);
-            active_ = lv.boolAt(0, true);
         } break;
         case "detune"_hash: {
             std::uniform_int_distribution<size_t> dist(proto::WHAMMY_MODE_MIN_DETUNE, proto::WHAMMY_MODE_MAX_DETUNE + 1);
             idx_ = dist(random_gen);
-            active_ = lv.boolAt(0, true);
         } break;
         default:
             METHOD_ERR(s) << "unknown random method: " << s << ", expected 'whammy', 'harm' or 'detune'";
             return;
         }
+
+        active_->setValue(lv.boolAt(0, true));
     } else {
         METHOD_ERR(s) << "usage: RANDOM_METHOD?";
         return;
@@ -160,7 +163,7 @@ void ProtoWhammy::m_set(t_symbol* s, const AtomListView& lv)
         }
 
         idx_ = i;
-        active_ = lv[1].asBool();
+        active_->setValue(lv[1].asBool());
     } else if (lv.size() == 2 && lv[0].isSymbol() && lv[1].isBool()) {
         auto sym = lv.symbolAt(0, &s_);
         proto::WhammyMode mode;
@@ -175,7 +178,7 @@ void ProtoWhammy::m_set(t_symbol* s, const AtomListView& lv)
         }
 
         idx_ = mode;
-        active_ = lv[1].asBool();
+        active_->setValue(lv[1].asBool());
     } else if (lv.size() == 3 && lv[0].isInteger() && lv[1].isInteger() && lv[2].isBool()) {
         const auto up = lv[0].asInt();
         const auto down = lv[1].asInt();
@@ -195,7 +198,7 @@ void ProtoWhammy::m_set(t_symbol* s, const AtomListView& lv)
         }
 
         idx_ = idx;
-        active_ = lv[2].asBool();
+        active_->setValue(lv[2].asBool());
     } else {
         METHOD_ERR(s) << "usage: \n"
                          "\t IDX STATE\n"

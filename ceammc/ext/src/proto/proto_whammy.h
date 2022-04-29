@@ -52,8 +52,8 @@ public:
 private:
     SymbolEnumProperty* mode_;
     IntProperty* chan_;
+    BoolProperty* active_;
     size_t idx_;
-    bool active_;
     static const MidiMap midi_classic_map_;
 };
 
