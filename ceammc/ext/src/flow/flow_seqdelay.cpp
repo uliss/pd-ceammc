@@ -19,6 +19,7 @@
 #define PROP_TIME "@t"
 #define PROP_BLOCK "@block"
 #define METHOD_DUMP "dump"
+#define METHOD_RESET "reset"
 
 constexpr int INLET_MAIN = 0;
 constexpr int INLET_CTL = 1;
@@ -49,6 +50,8 @@ FlowSeqDelay::FlowSeqDelay(const PdArgs& args)
 
             return res; },
         [this](const AtomListView& lv) {
+            time_.reserve(lv.size());
+
             for (auto& a : lv) {
                 if (a.isFloat() && a.asT<t_float>() >= 0) {
                     time_.push_back(a.asT<t_float>());
@@ -83,6 +86,13 @@ const char* FlowSeqDelay::annotateOutlet(size_t n) const
         return outlet_tooltips_[n].c_str();
 }
 
+void FlowSeqDelay::m_reset(t_symbol* s, const AtomListView& lv)
+{
+    clock_.unset();
+    idx_ = 0;
+    in_process_ = false;
+}
+
 void FlowSeqDelay::on_proxy_any(int idx, t_symbol* s, const AtomListView& lv)
 {
     if (idx == INLET_MAIN) {
@@ -111,6 +121,9 @@ void FlowSeqDelay::on_proxy_any(int idx, t_symbol* s, const AtomListView& lv)
             break;
         case METHOD_DUMP ""_hash:
             dump();
+            break;
+        case METHOD_RESET ""_hash:
+            m_reset(s, lv);
             break;
         default:
             OBJ_ERR << "unknown message: " << Message(s, lv);
@@ -166,4 +179,5 @@ void setup_flow_seqdelay()
     ObjectFactory<FlowSeqDelay> obj("flow.seqdelay", OBJECT_FACTORY_NO_DEFAULT_INLET);
     obj.addAlias("flow.seqdel");
     obj.setInletsInfo({ "input message" });
+    obj.addMethod("reset", &FlowSeqDelay::m_reset);
 }

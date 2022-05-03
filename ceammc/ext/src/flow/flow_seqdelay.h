@@ -36,6 +36,7 @@ public:
     void initDone() override;
     const char* annotateOutlet(size_t n) const final;
 
+    void m_reset(t_symbol* s, const AtomListView& lv);
     void on_proxy_any(int idx, t_symbol* s, const AtomListView& lv);
 
 private:
