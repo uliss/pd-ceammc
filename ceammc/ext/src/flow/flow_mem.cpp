@@ -53,7 +53,7 @@ void FlowMem::initDone()
 
     for (int i = 0; i < num_->value(); i++) {
         inlets_.emplace_back(this, i);
-        inlet_new(owner(), &inlets_.back().x_obj, nullptr, nullptr);
+        inlet_new(owner(), inlets_.back().target(), nullptr, nullptr);
 
         createOutlet();
     }
