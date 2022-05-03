@@ -21,11 +21,12 @@ using namespace ceammc;
 
 class FlowSeqDelay : public BaseObject {
     std::vector<t_float> time_;
+    std::vector<std::string> outlet_tooltips_;
     ClockLambdaFunction clock_;
     Message msg_;
     BoolProperty* block_;
     size_t idx_;
-    bool in_process_;
+    bool in_process_, on_init_;
 
 public:
     FlowSeqDelay(const PdArgs& args);
@@ -37,9 +38,12 @@ public:
     void onList(const AtomList& l) override;
     void onAny(t_symbol* s, const AtomListView& l) override;
 
+    const char* annotateOutlet(size_t n) const final;
+
 private:
     void handleNewMessage();
     bool scheduleNext();
+    void updateOutletTooltips();
 };
 
 void setup_flow_seqdelay();
