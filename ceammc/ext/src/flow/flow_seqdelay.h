@@ -16,6 +16,7 @@
 
 #include "ceammc_clock.h"
 #include "ceammc_object.h"
+#include "ceammc_proxy.h"
 
 using namespace ceammc;
 
@@ -25,20 +26,17 @@ class FlowSeqDelay : public BaseObject {
     ClockLambdaFunction clock_;
     Message msg_;
     BoolProperty* block_;
+    InletProxy<FlowSeqDelay> main_inlet_, ctl_inlet_;
     size_t idx_;
-    bool in_process_, on_init_;
+    bool in_process_;
 
 public:
     FlowSeqDelay(const PdArgs& args);
 
     void initDone() override;
-    void onBang() override;
-    void onFloat(t_float f) override;
-    void onSymbol(t_symbol* s) override;
-    void onList(const AtomList& l) override;
-    void onAny(t_symbol* s, const AtomListView& l) override;
-
     const char* annotateOutlet(size_t n) const final;
+
+    void on_proxy_any(int idx, t_symbol* s, const AtomListView& lv);
 
 private:
     void handleNewMessage();

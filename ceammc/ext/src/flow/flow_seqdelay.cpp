@@ -12,8 +12,16 @@
  * this file belongs to.
  *****************************************************************************/
 #include "flow_seqdelay.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "fmt/format.h"
+
+#define PROP_TIME "@t"
+#define PROP_BLOCK "@block"
+#define METHOD_DUMP "dump"
+
+constexpr int INLET_MAIN = 0;
+constexpr int INLET_CTL = 1;
 
 FlowSeqDelay::FlowSeqDelay(const PdArgs& args)
     : BaseObject(args)
@@ -23,12 +31,16 @@ FlowSeqDelay::FlowSeqDelay(const PdArgs& args)
         while (scheduleNext())
             ;
     })
+    , main_inlet_(this, INLET_MAIN)
+    , ctl_inlet_(this, INLET_CTL)
     , idx_(0)
     , in_process_(false)
-    , on_init_(true)
 {
+    appendInlet(inlet_new(owner(), main_inlet_.target(), nullptr, nullptr));
+    appendInlet(inlet_new(owner(), ctl_inlet_.target(), nullptr, nullptr));
+
     auto prop = createCbListProperty(
-        "@t", [this]() -> AtomList {
+        PROP_TIME, [this]() -> AtomList {
             AtomList res;
             res.reserve(time_.size());
 
@@ -37,29 +49,12 @@ FlowSeqDelay::FlowSeqDelay(const PdArgs& args)
 
             return res; },
         [this](const AtomListView& lv) {
-            if (on_init_) {
-                for (auto& a : lv) {
-                    if (a.isFloat() && a.asT<t_float>() >= 0) {
-                        time_.push_back(a.asT<t_float>());
-                    } else {
-                        OBJ_ERR << "invalid delay value: " << a << ", skipping";
-                        continue;
-                    }
-                }
-            } else {
-                if (lv.size() != time_.size()) {
-                    OBJ_ERR << fmt::format("expected list of delays with size={}, got list with size={}", time_.size(), lv.size());
-                    return false;
-                }
-
-                // expected lv.size() == time_.size()
-                for (size_t i = 0; i < time_.size(); i++) {
-                    auto& a = lv[i];
-                    if (a.isFloat() && a.asT<t_float>() >= 0) {
-                        time_[i] = a.asT<t_float>();
-                    } else {
-                        OBJ_ERR << "invalid delay value: " << a << ", skipping";
-                    }
+            for (auto& a : lv) {
+                if (a.isFloat() && a.asT<t_float>() >= 0) {
+                    time_.push_back(a.asT<t_float>());
+                } else {
+                    OBJ_ERR << "invalid delay value: " << a << ", skipping";
+                    continue;
                 }
             }
 
@@ -70,7 +65,7 @@ FlowSeqDelay::FlowSeqDelay(const PdArgs& args)
     prop->setArgIndex(0);
     prop->setInitOnly();
 
-    block_ = new BoolProperty("@block", false);
+    block_ = new BoolProperty(PROP_BLOCK, false);
     addProperty(block_);
 }
 
@@ -78,58 +73,6 @@ void FlowSeqDelay::initDone()
 {
     for (size_t i = 0; i < time_.size(); i++)
         createOutlet();
-
-    on_init_ = false;
-}
-
-void FlowSeqDelay::onBang()
-{
-    if (block_->value() && in_process_)
-        return;
-
-    in_process_ = block_->value();
-    msg_.setBang();
-    handleNewMessage();
-}
-
-void FlowSeqDelay::onFloat(t_float f)
-{
-    if (block_->value() && in_process_)
-        return;
-
-    in_process_ = block_->value();
-    msg_.setFloat(f);
-    handleNewMessage();
-}
-
-void FlowSeqDelay::onSymbol(t_symbol* s)
-{
-    if (block_->value() && in_process_)
-        return;
-
-    in_process_ = block_->value();
-    msg_.setSymbol(s);
-    handleNewMessage();
-}
-
-void FlowSeqDelay::onList(const AtomList& l)
-{
-    if (block_->value() && in_process_)
-        return;
-
-    in_process_ = block_->value();
-    msg_.setList(l);
-    handleNewMessage();
-}
-
-void FlowSeqDelay::onAny(t_symbol* s, const AtomListView& l)
-{
-    if (block_->value() && in_process_)
-        return;
-
-    in_process_ = block_->value();
-    msg_.setAny(s, l);
-    handleNewMessage();
 }
 
 const char* FlowSeqDelay::annotateOutlet(size_t n) const
@@ -138,6 +81,42 @@ const char* FlowSeqDelay::annotateOutlet(size_t n) const
         return "";
     else
         return outlet_tooltips_[n].c_str();
+}
+
+void FlowSeqDelay::on_proxy_any(int idx, t_symbol* s, const AtomListView& lv)
+{
+    if (idx == INLET_MAIN) {
+        if (block_->value() && in_process_)
+            return;
+
+        in_process_ = block_->value();
+
+        if (s == &s_bang && lv.empty())
+            msg_.setBang();
+        else if (s == &s_float && lv.isFloat())
+            msg_.setFloat(lv.asFloat());
+        else if (s == &s_symbol && lv.isSymbol())
+            msg_.setSymbol(lv.asSymbol());
+        else if (s == &s_list)
+            msg_.setList(lv);
+        else
+            msg_.setAny(s, lv);
+
+        handleNewMessage();
+    } else if (idx == INLET_CTL) {
+
+        switch (crc32_hash(s)) {
+        case PROP_BLOCK ""_hash:
+            setProperty(s, lv);
+            break;
+        case METHOD_DUMP ""_hash:
+            dump();
+            break;
+        default:
+            OBJ_ERR << "unknown message: " << Message(s, lv);
+            break;
+        }
+    }
 }
 
 void FlowSeqDelay::handleNewMessage()
@@ -181,7 +160,10 @@ void FlowSeqDelay::updateOutletTooltips()
 
 void setup_flow_seqdelay()
 {
-    ObjectFactory<FlowSeqDelay> obj("flow.seqdelay");
+    InletProxy<FlowSeqDelay>::init();
+    InletProxy<FlowSeqDelay>::set_any_callback(&FlowSeqDelay::on_proxy_any);
+
+    ObjectFactory<FlowSeqDelay> obj("flow.seqdelay", OBJECT_FACTORY_NO_DEFAULT_INLET);
     obj.addAlias("flow.seqdel");
     obj.setInletsInfo({ "input message" });
 }
