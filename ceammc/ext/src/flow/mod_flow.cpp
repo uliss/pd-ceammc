@@ -32,6 +32,7 @@
 #include "flow_ring.h"
 #include "flow_route.h"
 #include "flow_select.h"
+#include "flow_seqdelay.h"
 #include "flow_speedlim.h"
 #include "flow_split.h"
 #include "flow_stack.h"
@@ -95,6 +96,7 @@ void ceammc_flow_setup()
     setup_flow_reject_if();
     setup_flow_route();
     setup_flow_select();
+    setup_flow_seqdelay();
     setup_flow_space();
     setup_flow_speedlim();
     setup_flow_split();
