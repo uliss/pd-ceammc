@@ -83,7 +83,6 @@ FlowSeqDelay::FlowSeqDelay(const PdArgs& args)
                 clock_.unset();
             }
 
-            updateOutletTooltips();
             return true;
         });
 
@@ -99,14 +98,6 @@ void FlowSeqDelay::initDone()
         createOutlet();
 
     is_init_ = false;
-}
-
-const char* FlowSeqDelay::annotateOutlet(size_t n) const
-{
-    if (n >= outlet_tooltips_.size())
-        return "";
-    else
-        return outlet_tooltips_[n].c_str();
 }
 
 void FlowSeqDelay::m_reset(t_symbol* s, const AtomListView& lv)
@@ -180,21 +171,6 @@ bool FlowSeqDelay::scheduleNext()
     } else {
         clock_.delay(t);
         return false;
-    }
-}
-
-void FlowSeqDelay::updateOutletTooltips()
-{
-    outlet_tooltips_.assign(time_.size(), {});
-
-    t_float sum = 0;
-    for (size_t i = 0; i < time_.size(); i++) {
-        const auto t = time_[i];
-        sum += t;
-        if (sum != t)
-            outlet_tooltips_[i] = fmt::format("delay: {}ms ({}ms total)", t, sum);
-        else
-            outlet_tooltips_[i] = fmt::format("delay: {}ms", t);
     }
 }
 
