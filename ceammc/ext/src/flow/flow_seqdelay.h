@@ -18,6 +18,8 @@
 #include "ceammc_object.h"
 #include "ceammc_proxy.h"
 
+#include <cstdint>
+
 using namespace ceammc;
 
 class FlowSeqDelay : public BaseObject {
@@ -27,8 +29,8 @@ class FlowSeqDelay : public BaseObject {
     Message msg_;
     BoolProperty* block_;
     InletProxy<FlowSeqDelay> main_inlet_, ctl_inlet_;
-    size_t idx_;
-    bool in_process_;
+    std::uint16_t idx_;
+    bool in_process_, is_init_;
 
 public:
     FlowSeqDelay(const PdArgs& args);
