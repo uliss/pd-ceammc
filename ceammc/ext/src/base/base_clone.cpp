@@ -184,6 +184,18 @@ original:
         return ceammc_old_canvas_mouse_fn(x, xpos, ypos, which, mod);
 }
 
+class DspSuspendGuard {
+    const int dsp_state_;
+
+public:
+    DspSuspendGuard()
+        : dsp_state_(canvas_suspend_dsp())
+    {
+    }
+
+    ~DspSuspendGuard() { canvas_resume_dsp(dsp_state_); }
+};
+
 }
 
 CloneInstance::CloneInstance(size_t idx, t_canvas* owner, const AtomListView& args)
@@ -249,14 +261,23 @@ void CloneInstance::open()
         canvas_vis(canvas_, 1);
 }
 
+void CloneInstance::calcDsp()
+{
+    //    canvas_ds
+}
+
 t_binbuf* BaseClone::old_content_ = nullptr;
 
 BaseClone::BaseClone(const PdArgs& args)
-    : SoundExternal(args)
+    : BaseObject(args)
     , num_(nullptr)
     , args_(nullptr)
     , wrapper_(nullptr)
     , pattern_(nullptr)
+    , n_sig_in_(0)
+    , n_sig_out_(0)
+    , block_size_(sys_getblksize())
+    , sample_rate_(sys_getsr())
 {
     args_ = new ListProperty("@args");
     args_->setInitOnly();
@@ -331,6 +352,8 @@ void BaseClone::initDone()
 
 bool BaseClone::initInstances(const AtomListView& patch_args)
 {
+    DspSuspendGuard dsp_guard;
+
     const size_t NINSTANCE = num_->value();
     instances_.reserve(NINSTANCE);
 
@@ -351,6 +374,8 @@ bool BaseClone::initInstance(size_t idx, const AtomListView& args)
 
 void BaseClone::updateInstances()
 {
+    DspSuspendGuard dsp_guard;
+
     if (pattern_) {
         auto bb = canvas_docopy(pattern_);
 
@@ -417,6 +442,8 @@ void BaseClone::updateInlets()
             idx++;
         }
     }
+
+    n_sig_in_ = obj_nsiginlets(&pattern_->gl_obj) * NUM_ISTANCES;
 }
 
 void BaseClone::updateOutlets()
@@ -443,6 +470,7 @@ void BaseClone::updateOutlets()
 
     proxy_.clear();
     proxy_.reserve(outlets().size());
+    n_sig_out_ = 0;
 
     // divizion by zero check: in next loop
     if (outlets().empty() || NUM_PATTERN_OUTLETS == 0)
@@ -457,16 +485,64 @@ void BaseClone::updateOutlets()
         auto ci = instances_[inst_idx].canvas();
         auto x = &ci->gl_obj;
         obj_connect(x, src_idx, proxy_.back().object(), 0);
-        util::outlet_set_signal(outletAt(i), obj_issignaloutlet(x, src_idx));
+
+        // count signal outlets
+        const bool is_sig = obj_issignaloutlet(x, src_idx);
+        if (is_sig) {
+            util::outlet_set_signal(outletAt(i), true);
+            n_sig_out_++;
+        }
     }
+}
+
+void BaseClone::signalInit(t_signal** sp)
+{
+    //    auto old_bs = block_size_;
+    //    auto old_sr = sample_rate_;
+
+    if (n_sig_in_ != 0 || n_sig_out_ != 0) {
+        block_size_ = size_t(sp[0]->s_n);
+        sample_rate_ = size_t(sp[0]->s_sr);
+    } else {
+        block_size_ = 64;
+        sample_rate_ = sys_getsr();
+    }
+
+    //    for (size_t i = 0; i < n_sig_in_; i++)
+    //      in_[i] = sp[i]->s_vec;
+
+    //    for (size_t i = 0; i < n_sig_out_; i++)
+    //        out_[i] = sp[i + n_in_]->s_vec;
+
+    //    if (old_bs != block_size_)
+    //        blockSizeChanged(block_size_);
+
+    //    if (old_sr != sample_rate_)
+    //        samplerateChanged(sample_rate_);
+}
+
+void BaseClone::processBlock()
+{
 }
 
 void BaseClone::processBlock(const t_sample** in, t_sample** out)
 {
+    for (auto& i : instances_) {
+        i.calcDsp();
+    }
 }
 
 void BaseClone::setupDSP(t_signal** sp)
 {
+    signalInit(sp);
+    dsp_add(dspPerform, 1, static_cast<void*>(this));
+
+    OBJ_DBG << fmt::format("{}:\n"
+                           " - block size: {}\n"
+                           " - samplerate: {}\n"
+                           " - inputs:     {}\n"
+                           " - outputs:    {}",
+        __FUNCTION__, block_size_, sample_rate_, n_sig_in_, n_sig_out_);
 }
 
 void BaseClone::m_open(t_symbol* s, const AtomListView& lv)

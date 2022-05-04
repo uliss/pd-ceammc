@@ -18,6 +18,8 @@
 #include "ceammc_sound_external.h"
 using namespace ceammc;
 
+#include <cstdint>
+
 class CloneInstance {
     size_t idx_;
     t_canvas* canvas_;
@@ -34,12 +36,14 @@ public:
     void clear();
     void open();
 
+    void calcDsp();
+
     size_t index() const { return idx_; }
     t_canvas* canvas() { return canvas_; }
     const t_canvas* canvas() const { return canvas_; }
 };
 
-class BaseClone : public SoundExternal {
+class BaseClone : public BaseObject {
 public:
     enum XletType : uint8_t {
         XLET_CONTROL,
@@ -55,6 +59,10 @@ private:
     t_canvas* pattern_;
     std::vector<CloneInstance> instances_;
     std::vector<Proxy> proxy_;
+    std::uint16_t n_sig_in_;
+    std::uint16_t n_sig_out_;
+    std::uint32_t block_size_;
+    t_float sample_rate_;
 
 public:
     BaseClone(const PdArgs& args);
@@ -64,8 +72,8 @@ public:
 
     void initDone() override;
 
-    void processBlock(const t_sample** in, t_sample** out) override;
-    void setupDSP(t_signal** sp) final;
+    void processBlock(const t_sample** in, t_sample** out);
+    void setupDSP(t_signal** sp);
 
     void m_open(t_symbol*, const AtomListView& lv);
     void m_menu_open(t_symbol*, const AtomListView& lv);
@@ -89,6 +97,16 @@ private:
 
     void updateInlets();
     void updateOutlets();
+
+    void signalInit(t_signal** sp);
+    void processBlock();
+
+    inline static t_int* dspPerform(t_int* w)
+    {
+        BaseClone* ext = reinterpret_cast<BaseClone*>(w[1]);
+        ext->processBlock();
+        return (w + 2);
+    }
 
 private:
     // object renaming in Pd is the delete, then create sequence
