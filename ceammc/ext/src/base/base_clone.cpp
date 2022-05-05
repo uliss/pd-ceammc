@@ -58,14 +58,14 @@ void clone_pop_canvas(t_canvas* x, bool show)
     x->gl_loading = 0;
 }
 
-t_canvas* clone_create_container(t_canvas* owner)
+t_canvas* clone_create_container(t_canvas* owner, t_symbol* name)
 {
     t_atom a[6];
     SETFLOAT(a, 0);
     SETFLOAT(a + 1, 22);
     SETFLOAT(a + 2, PATTERN_WINDOW_W);
     SETFLOAT(a + 3, PATTERN_WINDOW_H);
-    SETSYMBOL(a + 4, gensym(CONTAINTER_NAME));
+    SETSYMBOL(a + 4, name);
     SETFLOAT(a + 5, 1);
 
     auto* c = canvas_new(0, 0, 6, a);
@@ -103,7 +103,7 @@ void clone_bind_restore(t_object* owner)
  * get canvas content as binbuf
  * @note caller should free result
  */
-t_binbuf* clone_get_canvas_content(const t_canvas* z)
+t_binbuf* clone_copy_canvas_content(const t_canvas* z)
 {
     auto x = (t_canvas*)z;
     auto b = binbuf_new();
@@ -254,17 +254,7 @@ CloneInstance::CloneInstance(uint16_t idx, t_canvas* owner)
     : idx_(idx)
     , canvas_(nullptr)
 {
-    t_atom a[6];
-    SETFLOAT(a, 0);
-    SETFLOAT(a + 1, 22);
-    SETFLOAT(a + 2, PATTERN_WINDOW_W);
-    SETFLOAT(a + 3, PATTERN_WINDOW_H);
-    SETSYMBOL(a + 4, gensym(fmt::format("instance({})", idx).c_str()));
-    SETFLOAT(a + 5, 0);
-
-    canvas_ = canvas_new(nullptr, nullptr, 6, a);
-    canvas_->gl_owner = owner;
-    clone_pop_canvas(canvas_, false);
+    canvas_ = clone_create_container(owner, gensym(fmt::format("instance({})", idx).c_str()));
 }
 
 CloneInstance::CloneInstance(CloneInstance&& ci)
@@ -332,7 +322,7 @@ BaseClone::BaseClone(const PdArgs& args)
     addProperty(num_);
 
     // pattern container
-    wrapper_ = clone_create_container(canvas());
+    wrapper_ = clone_create_container(canvas(), gensym(CONTAINTER_NAME));
 
     if (!isPatchLoading()) {
         renaming_ = (old_content_ != nullptr);
@@ -419,7 +409,7 @@ void BaseClone::updateInstances()
     DspSuspendGuard dsp_guard;
 
     if (pattern_) {
-        auto bb = clone_get_canvas_content(pattern_);
+        auto bb = clone_copy_canvas_content(pattern_);
 
         for (auto& i : instances_) {
             i.fillWithPattern(bb, instances_.size());
@@ -620,7 +610,7 @@ void BaseClone::storeContent() const
         binbuf_clear(old_content_);
 
     if (pattern_)
-        old_content_ = clone_get_canvas_content(pattern_);
+        old_content_ = clone_copy_canvas_content(pattern_);
 }
 
 void BaseClone::onRestore(const AtomListView& lv)
@@ -671,8 +661,11 @@ void BaseClone::onSave(t_binbuf* b) const
 {
     auto obj = owner();
 
+    auto sym_X = gensym("#X");
+    auto sym_connect = gensym("connect");
+
     // save object
-    binbuf_addv(b, "ssii", gensym("#X"), gensym("obj"),
+    binbuf_addv(b, "ssii", sym_X, gensym("obj"),
         (int)obj->te_xpix, (int)obj->te_ypix);
     binbuf_addbinbuf(b, obj->te_binbuf);
     if (obj->te_width)
@@ -701,7 +694,7 @@ void BaseClone::onSave(t_binbuf* b) const
         while (linetraverser_next(&t)) {
             int srcno = canvas_getindex(x, &t.tr_ob->ob_g);
             int sinkno = canvas_getindex(x, &t.tr_ob2->ob_g);
-            binbuf_addv(b, "ssiiii;", gensym("#X"), gensym("connect"),
+            binbuf_addv(b, "ssiiii;", sym_X, sym_connect,
                 srcno, t.tr_outno, sinkno, t.tr_inno);
         }
 
