@@ -154,9 +154,6 @@ void canvas_dopaste(t_canvas* x, const t_binbuf* b, int ninst, int inst)
         }
     }
 
-    //    if (!sys_noloadbang)
-    //        glist_donewloadbangs(x);
-
     asym->s_thing = bounda;
     s__X.s_thing = boundx;
     s__N.s_thing = boundn;
