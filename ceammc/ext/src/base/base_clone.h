@@ -14,31 +14,51 @@
 #ifndef BASE_CLONE_H
 #define BASE_CLONE_H
 
+#include <cstdint>
+
 #include "ceammc_proxy.h"
 #include "ceammc_sound_external.h"
 using namespace ceammc;
 
-#include <cstdint>
-
 class CloneInstance {
-    size_t idx_;
     t_canvas* canvas_;
+    uint16_t idx_;
 
     CloneInstance(const CloneInstance&) = delete;
+    CloneInstance& operator=(const CloneInstance&) = delete;
 
 public:
-    CloneInstance(size_t idx, t_canvas* owner, const AtomListView& args);
+    /**
+     * Create new instance
+     * @param idx - instance index
+     * @param owner - owner canvas
+     */
+    CloneInstance(uint16_t idx, t_canvas* owner);
     CloneInstance(CloneInstance&& ci);
     ~CloneInstance();
 
-    void fillWithPattern(const t_binbuf* pattern);
+    /**
+     * fill instance with given pattern
+     * @param pattern - content
+     * @param num - total number of instances
+     */
+    void fillWithPattern(const t_binbuf* pattern, int num);
     void loadbang();
+
+    /**
+     * clear instance content
+     */
     void clear();
+
+    /**
+     * open editor window
+     */
     void open();
 
-    void calcDsp();
-
-    size_t index() const { return idx_; }
+    /**
+     * Instance index
+     */
+    uint16_t index() const { return idx_; }
     t_canvas* canvas() { return canvas_; }
     const t_canvas* canvas() const { return canvas_; }
 };
@@ -54,7 +74,6 @@ public:
 
 private:
     IntProperty* num_;
-    ListProperty* args_;
     t_canvas* wrapper_;
     t_canvas* pattern_;
     std::vector<CloneInstance> instances_;
@@ -72,7 +91,6 @@ public:
 
     void initDone() override;
 
-    void processBlock(const t_sample** in, t_sample** out);
     void setupDSP(t_signal** sp);
 
     void m_open(t_symbol*, const AtomListView& lv);
@@ -92,8 +110,8 @@ public:
     virtual void onRestore(const AtomListView& lv);
 
 private:
-    bool initInstances(const AtomListView& patch_args);
-    bool initInstance(size_t idx, const AtomListView& args);
+    bool initInstances();
+    bool initInstance(uint16_t idx);
 
     void updateInlets();
     void updateOutlets();

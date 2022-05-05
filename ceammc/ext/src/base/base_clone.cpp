@@ -20,11 +20,17 @@
 constexpr const char* CONTAINTER_NAME = "/CONTAINER/";
 constexpr const char* PATTERN_NAME = "/PATTERN/";
 constexpr const char* SYM_CANVAS_RESTORE = "#Z";
+constexpr int PATTERN_WINDOW_W = 700;
+constexpr int PATTERN_WINDOW_H = 500;
 
 extern "C" {
 #include "g_canvas.h"
 #include "g_ceammc_draw.h"
 #include "m_imp.h"
+
+void canvas_dodsp(t_canvas* x, int toplevel, t_signal** sp);
+t_signal* signal_newfromcontext(int borrowed);
+void signal_makereusable(t_signal* sig);
 }
 
 namespace {
@@ -102,7 +108,7 @@ void clone_bind_restore(t_object* owner)
     pd_bind(&owner->te_g.g_pd, z);
 }
 
-void canvas_dopaste(t_canvas* x, const t_binbuf* b)
+void canvas_dopaste(t_canvas* x, const t_binbuf* b, int ninst, int inst)
 {
     int dspstate = canvas_suspend_dsp();
     t_symbol* asym = gensym("#A");
@@ -113,10 +119,44 @@ void canvas_dopaste(t_canvas* x, const t_binbuf* b)
     s__X.s_thing = &x->gl_pd;
     s__N.s_thing = &pd_canvasmaker;
 
+    auto n = binbuf_getnatom(b);
+    auto v = binbuf_getvec(b);
+    std::vector<int> nvec, ivec;
+    auto nsym = gensym("$1");
+    auto isym = gensym("$2");
+
+    if (ninst >= 0 && inst >= 0) {
+        for (int i = 0; i < n; i++) {
+            auto a = &v[i];
+            if (a->a_type == A_SYMBOL) {
+                auto s = atom_getsymbol(a);
+                if (s == nsym) {
+                    nvec.push_back(i);
+                    SETFLOAT(a, (t_float)ninst);
+                } else if (s == isym) {
+                    ivec.push_back(i);
+                    SETFLOAT(a, (t_float)inst);
+                }
+            }
+        }
+    }
+
     binbuf_eval(b, 0, 0, 0);
     canvas_resume_dsp(dspstate);
+
+    if (ninst >= 0 && inst >= 0) {
+        for (auto i : nvec) {
+            SETSYMBOL(v + i, nsym);
+        }
+
+        for (auto i : ivec) {
+            SETSYMBOL(v + i, isym);
+        }
+    }
+
     //    if (!sys_noloadbang)
     //        glist_donewloadbangs(x);
+
     asym->s_thing = bounda;
     s__X.s_thing = boundx;
     s__N.s_thing = boundn;
@@ -198,20 +238,19 @@ public:
 
 }
 
-CloneInstance::CloneInstance(size_t idx, t_canvas* owner, const AtomListView& args)
+CloneInstance::CloneInstance(uint16_t idx, t_canvas* owner)
     : idx_(idx)
     , canvas_(nullptr)
 {
     t_atom a[6];
-    t_symbol* s = gensym(fmt::format("instance({})", idx).c_str());
     SETFLOAT(a, 0);
     SETFLOAT(a + 1, 22);
-    SETFLOAT(a + 2, 700);
-    SETFLOAT(a + 3, 500);
-    SETSYMBOL(a + 4, s);
+    SETFLOAT(a + 2, PATTERN_WINDOW_W);
+    SETFLOAT(a + 3, PATTERN_WINDOW_H);
+    SETSYMBOL(a + 4, gensym(fmt::format("instance({})", idx).c_str()));
     SETFLOAT(a + 5, 0);
 
-    canvas_ = canvas_new(0, 0, 6, a);
+    canvas_ = canvas_new(nullptr, nullptr, 6, a);
     canvas_->gl_owner = owner;
     clone_pop_canvas(canvas_, false);
 }
@@ -230,13 +269,13 @@ CloneInstance::~CloneInstance()
     }
 }
 
-void CloneInstance::fillWithPattern(const t_binbuf* pattern)
+void CloneInstance::fillWithPattern(const t_binbuf* pattern, int num)
 {
     if (!canvas_)
         return;
 
     clear();
-    canvas_dopaste(canvas_, pattern);
+    canvas_dopaste(canvas_, pattern, num, (int)idx_);
 }
 
 void CloneInstance::loadbang()
@@ -261,17 +300,11 @@ void CloneInstance::open()
         canvas_vis(canvas_, 1);
 }
 
-void CloneInstance::calcDsp()
-{
-    //    canvas_ds
-}
-
 t_binbuf* BaseClone::old_content_ = nullptr;
 
 BaseClone::BaseClone(const PdArgs& args)
     : BaseObject(args)
     , num_(nullptr)
-    , args_(nullptr)
     , wrapper_(nullptr)
     , pattern_(nullptr)
     , n_sig_in_(0)
@@ -279,11 +312,6 @@ BaseClone::BaseClone(const PdArgs& args)
     , block_size_(sys_getblksize())
     , sample_rate_(sys_getsr())
 {
-    args_ = new ListProperty("@args");
-    args_->setInitOnly();
-    args_->setArgIndex(1);
-    addProperty(args_);
-
     num_ = new IntProperty("@n", 0);
     num_->setInitOnly();
     num_->checkMinEq(0);
@@ -297,7 +325,7 @@ BaseClone::BaseClone(const PdArgs& args)
         const bool restore_content = (old_content_ != nullptr);
         pattern_ = clone_create_pattern(wrapper_, !restore_content);
         if (restore_content) {
-            canvas_dopaste(pattern_, old_content_);
+            canvas_dopaste(pattern_, old_content_, -1, -1);
             binbuf_free(old_content_);
             old_content_ = nullptr;
         }
@@ -336,12 +364,9 @@ void BaseClone::initDone()
         if (num_->value() < 1)
             throw std::invalid_argument("number of copies required");
 
-        if (!initInstances(args_->value().view()))
+        if (!initInstances())
             throw std::runtime_error("can't init instances");
 
-        //        allocSignals();
-        //        allocInlets();
-        //        allocOutlets();
     } catch (std::exception& e) {
         if (!args().empty())
             OBJ_ERR << e.what();
@@ -350,25 +375,24 @@ void BaseClone::initDone()
     }
 }
 
-bool BaseClone::initInstances(const AtomListView& patch_args)
+bool BaseClone::initInstances()
 {
     DspSuspendGuard dsp_guard;
 
-    const size_t NINSTANCE = num_->value();
+    const uint16_t NINSTANCE = num_->value();
     instances_.reserve(NINSTANCE);
 
-    for (size_t i = 0; i < NINSTANCE; i++) {
-        if (!initInstance(i, patch_args))
+    for (uint16_t i = 0; i < NINSTANCE; i++) {
+        if (!initInstance(i))
             return false;
     }
 
     return true;
 }
 
-bool BaseClone::initInstance(size_t idx, const AtomListView& args)
+bool BaseClone::initInstance(uint16_t idx)
 {
-    OBJ_LOG << fmt::format("instance {}", idx);
-    instances_.emplace_back(idx, wrapper_, args);
+    instances_.emplace_back(idx, wrapper_);
     return true;
 }
 
@@ -380,7 +404,7 @@ void BaseClone::updateInstances()
         auto bb = canvas_docopy(pattern_);
 
         for (auto& i : instances_) {
-            i.fillWithPattern(bb);
+            i.fillWithPattern(bb, instances_.size());
             i.loadbang();
         }
 
@@ -497,9 +521,6 @@ void BaseClone::updateOutlets()
 
 void BaseClone::signalInit(t_signal** sp)
 {
-    //    auto old_bs = block_size_;
-    //    auto old_sr = sample_rate_;
-
     if (n_sig_in_ != 0 || n_sig_out_ != 0) {
         block_size_ = size_t(sp[0]->s_n);
         sample_rate_ = size_t(sp[0]->s_sr);
@@ -508,28 +529,37 @@ void BaseClone::signalInit(t_signal** sp)
         sample_rate_ = sys_getsr();
     }
 
-    //    for (size_t i = 0; i < n_sig_in_; i++)
-    //      in_[i] = sp[i]->s_vec;
+    auto sig_in = sp;
+    auto sig_out = sp + n_sig_in_;
 
-    //    for (size_t i = 0; i < n_sig_out_; i++)
-    //        out_[i] = sp[i + n_in_]->s_vec;
+    const size_t NINST = instances_.size();
+    const size_t INST_IN = n_sig_in_ / NINST;
+    const size_t INST_OUT = n_sig_out_ / NINST;
 
-    //    if (old_bs != block_size_)
-    //        blockSizeChanged(block_size_);
+    auto inst_sig_in = (t_signal**)alloca((INST_IN + INST_OUT) * sizeof(t_signal*));
+    auto inst_sig_out = inst_sig_in + INST_IN;
 
-    //    if (old_sr != sample_rate_)
-    //        samplerateChanged(sample_rate_);
+    for (size_t i = 0; i < NINST; i++) {
+        auto& inst = instances_[i];
+
+        for (size_t k = 0; k < INST_IN; k++)
+            inst_sig_in[k] = sig_in[i * INST_IN + k];
+
+        for (size_t k = 0; k < INST_OUT; k++)
+            inst_sig_out[k] = signal_newfromcontext(1);
+
+        canvas_dodsp(inst.canvas(), 0, inst_sig_in);
+
+        for (size_t k = 0; k < INST_OUT; k++) {
+            auto out = sig_out[i * INST_OUT + k];
+            dsp_add_copy(inst_sig_out[k]->s_vec, out->s_vec, out->s_n);
+            //            signal_makereusable(inst_sig_out[k]);
+        }
+    }
 }
 
 void BaseClone::processBlock()
 {
-}
-
-void BaseClone::processBlock(const t_sample** in, t_sample** out)
-{
-    for (auto& i : instances_) {
-        i.calcDsp();
-    }
 }
 
 void BaseClone::setupDSP(t_signal** sp)
@@ -577,8 +607,6 @@ void BaseClone::storeContent() const
 
 void BaseClone::onRestore(const AtomListView& lv)
 {
-    OBJ_LOG << __FUNCTION__ << " " << lv;
-
     auto cnv = gensym("#X");
     if (cnv->s_thing == nullptr) {
         OBJ_ERR << "null canvas";
@@ -623,8 +651,6 @@ void BaseClone::onRestore(const AtomListView& lv)
 
 void BaseClone::onSave(t_binbuf* b) const
 {
-    OBJ_LOG << __FUNCTION__;
-
     auto obj = owner();
 
     // save object
