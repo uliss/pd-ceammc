@@ -114,13 +114,14 @@ t_binbuf* clone_get_canvas_content(const t_canvas* z)
     t_linetraverser t;
     linetraverser_start(&t, x);
 
+    auto sym_X = gensym("#X");
     auto sym_connect = gensym("connect");
 
     while (linetraverser_next(&t)) {
         int srcno = canvas_getindex(x, &t.tr_ob->ob_g);
         int sinkno = canvas_getindex(x, &t.tr_ob2->ob_g);
 
-        binbuf_addv(b, "ssiiii;", s__X, sym_connect,
+        binbuf_addv(b, "ssiiii;", sym_X, sym_connect,
             srcno, t.tr_outno,
             sinkno, t.tr_inno);
     }
