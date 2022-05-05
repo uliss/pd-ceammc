@@ -100,13 +100,11 @@ void clone_bind_restore(t_object* owner)
 }
 
 /**
- * get canvas content as binbuf
- * @note caller should free result
+ * copy canvas content to specified binbuf
  */
-t_binbuf* clone_copy_canvas_content(const t_canvas* z)
+t_binbuf* clone_copy_canvas_content(const t_canvas* z, t_binbuf* b)
 {
     auto x = (t_canvas*)z;
-    auto b = binbuf_new();
 
     for (auto y = x->gl_list; y != nullptr; y = y->g_next)
         gobj_save(y, b);
@@ -409,7 +407,13 @@ void BaseClone::updateInstances()
     DspSuspendGuard dsp_guard;
 
     if (pattern_) {
-        auto bb = clone_copy_canvas_content(pattern_);
+        const bool visible = isVisible();
+
+        if (visible)
+            gobj_vis(&owner()->te_g, canvas(), 0);
+
+        auto bb = binbuf_new();
+        clone_copy_canvas_content(pattern_, bb);
 
         for (auto& i : instances_) {
             i.fillWithPattern(bb, instances_.size());
@@ -417,11 +421,6 @@ void BaseClone::updateInstances()
         }
 
         binbuf_free(bb);
-
-        const bool visible = gobj_shouldvis(&owner()->te_g, canvas());
-
-        if (visible)
-            gobj_vis(&owner()->te_g, canvas(), 0);
 
         updateInlets();
         updateOutlets();
@@ -610,7 +609,7 @@ void BaseClone::storeContent() const
         binbuf_clear(old_content_);
 
     if (pattern_)
-        old_content_ = clone_copy_canvas_content(pattern_);
+        clone_copy_canvas_content(pattern_, old_content_);
 }
 
 void BaseClone::onRestore(const AtomListView& lv)
