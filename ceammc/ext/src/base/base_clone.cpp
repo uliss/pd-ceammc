@@ -35,6 +35,18 @@ void signal_makereusable(t_signal* sig);
 
 namespace {
 
+class DspSuspendGuard {
+    const int dsp_state_;
+
+public:
+    DspSuspendGuard()
+        : dsp_state_(canvas_suspend_dsp())
+    {
+    }
+
+    ~DspSuspendGuard() { canvas_resume_dsp(dsp_state_); }
+};
+
 void clone_pop_canvas(t_canvas* x, bool show)
 {
     if (show)
@@ -46,39 +58,17 @@ void clone_pop_canvas(t_canvas* x, bool show)
     x->gl_loading = 0;
 }
 
-t_binbuf* canvas_docopy(const t_canvas* z)
-{
-    auto x = (t_canvas*)z;
-
-    t_binbuf* b = binbuf_new();
-    for (t_gobj* y = x->gl_list; y; y = y->g_next)
-        gobj_save(y, b);
-
-    t_linetraverser t;
-    linetraverser_start(&t, x);
-
-    while (linetraverser_next(&t)) {
-        int srcno = canvas_getindex(x, &t.tr_ob->ob_g);
-        int sinkno = canvas_getindex(x, &t.tr_ob2->ob_g);
-
-        binbuf_addv(b, "ssiiii;", gensym("#X"), gensym("connect"),
-            srcno, t.tr_outno,
-            sinkno, t.tr_inno);
-    }
-    return (b);
-}
-
 t_canvas* clone_create_container(t_canvas* owner)
 {
     t_atom a[6];
-    t_symbol* s = gensym(CONTAINTER_NAME);
     SETFLOAT(a, 0);
     SETFLOAT(a + 1, 22);
-    SETFLOAT(a + 2, 700);
-    SETFLOAT(a + 3, 500);
-    SETSYMBOL(a + 4, s);
+    SETFLOAT(a + 2, PATTERN_WINDOW_W);
+    SETFLOAT(a + 3, PATTERN_WINDOW_H);
+    SETSYMBOL(a + 4, gensym(CONTAINTER_NAME));
     SETFLOAT(a + 5, 1);
-    auto* c = canvas_new(0, 0, 5, a);
+
+    auto* c = canvas_new(0, 0, 6, a);
     c->gl_owner = owner;
     clone_pop_canvas(c, false);
     return c;
@@ -87,13 +77,14 @@ t_canvas* clone_create_container(t_canvas* owner)
 t_canvas* clone_create_pattern(t_canvas* owner, bool show)
 {
     t_atom a[6];
-    t_symbol* s = gensym(PATTERN_NAME);
+
     SETFLOAT(a, 0);
     SETFLOAT(a + 1, 22);
-    SETFLOAT(a + 2, 700);
-    SETFLOAT(a + 3, 500);
-    SETSYMBOL(a + 4, s);
+    SETFLOAT(a + 2, PATTERN_WINDOW_W);
+    SETFLOAT(a + 3, PATTERN_WINDOW_H);
+    SETSYMBOL(a + 4, gensym(PATTERN_NAME));
     SETFLOAT(a + 5, 0);
+
     auto c = canvas_new(0, 0, 6, a);
     c->gl_owner = owner;
     clone_pop_canvas(c, show);
@@ -108,9 +99,39 @@ void clone_bind_restore(t_object* owner)
     pd_bind(&owner->te_g.g_pd, z);
 }
 
-void canvas_dopaste(t_canvas* x, const t_binbuf* b, int ninst, int inst)
+/**
+ * get canvas content as binbuf
+ * @note caller should free result
+ */
+t_binbuf* clone_get_canvas_content(const t_canvas* z)
 {
-    int dspstate = canvas_suspend_dsp();
+    auto x = (t_canvas*)z;
+    auto b = binbuf_new();
+
+    for (auto y = x->gl_list; y != nullptr; y = y->g_next)
+        gobj_save(y, b);
+
+    t_linetraverser t;
+    linetraverser_start(&t, x);
+
+    auto sym_connect = gensym("connect");
+
+    while (linetraverser_next(&t)) {
+        int srcno = canvas_getindex(x, &t.tr_ob->ob_g);
+        int sinkno = canvas_getindex(x, &t.tr_ob2->ob_g);
+
+        binbuf_addv(b, "ssiiii;", s__X, sym_connect,
+            srcno, t.tr_outno,
+            sinkno, t.tr_inno);
+    }
+
+    return b;
+}
+
+void clone_set_canvas_content(t_canvas* x, const t_binbuf* b, int ninst, int inst)
+{
+    DspSuspendGuard dsp_guard;
+
     t_symbol* asym = gensym("#A");
     /* save and clear bindings to symbols #A, #N, #X; restore when done */
     t_pd *boundx = s__X.s_thing, *bounda = asym->s_thing,
@@ -121,11 +142,16 @@ void canvas_dopaste(t_canvas* x, const t_binbuf* b, int ninst, int inst)
 
     auto n = binbuf_getnatom(b);
     auto v = binbuf_getvec(b);
+    // store replaced atoms
     std::vector<int> nvec, ivec;
+    // placeholder: number of instances
     auto nsym = gensym("$1");
+    // placeholder: instance index
     auto isym = gensym("$2");
 
+    // if ninst < 0 we are in a pattern
     if (ninst >= 0 && inst >= 0) {
+        // replace placeholders
         for (int i = 0; i < n; i++) {
             auto a = &v[i];
             if (a->a_type == A_SYMBOL) {
@@ -142,9 +168,9 @@ void canvas_dopaste(t_canvas* x, const t_binbuf* b, int ninst, int inst)
     }
 
     binbuf_eval(b, 0, 0, 0);
-    canvas_resume_dsp(dspstate);
 
     if (ninst >= 0 && inst >= 0) {
+        // restore placeholders
         for (auto i : nvec) {
             SETSYMBOL(v + i, nsym);
         }
@@ -154,6 +180,7 @@ void canvas_dopaste(t_canvas* x, const t_binbuf* b, int ninst, int inst)
         }
     }
 
+    // restore bindings
     asym->s_thing = bounda;
     s__X.s_thing = boundx;
     s__N.s_thing = boundn;
@@ -216,22 +243,9 @@ void canvas_new_mouse_fn(t_canvas* x, t_floatarg xpos, t_floatarg ypos,
         }
     }
 
-original:
     if (ceammc_old_canvas_mouse_fn)
         return ceammc_old_canvas_mouse_fn(x, xpos, ypos, which, mod);
 }
-
-class DspSuspendGuard {
-    const int dsp_state_;
-
-public:
-    DspSuspendGuard()
-        : dsp_state_(canvas_suspend_dsp())
-    {
-    }
-
-    ~DspSuspendGuard() { canvas_resume_dsp(dsp_state_); }
-};
 
 }
 
@@ -272,7 +286,7 @@ void CloneInstance::fillWithPattern(const t_binbuf* pattern, int num)
         return;
 
     clear();
-    canvas_dopaste(canvas_, pattern, num, (int)idx_);
+    clone_set_canvas_content(canvas_, pattern, num, (int)idx_);
 }
 
 void CloneInstance::loadbang()
@@ -308,6 +322,7 @@ BaseClone::BaseClone(const PdArgs& args)
     , n_sig_out_(0)
     , block_size_(sys_getblksize())
     , sample_rate_(sys_getsr())
+    , renaming_(false)
 {
     num_ = new IntProperty("@n", 0);
     num_->setInitOnly();
@@ -319,10 +334,10 @@ BaseClone::BaseClone(const PdArgs& args)
     wrapper_ = clone_create_container(canvas());
 
     if (!isPatchLoading()) {
-        const bool restore_content = (old_content_ != nullptr);
-        pattern_ = clone_create_pattern(wrapper_, !restore_content);
-        if (restore_content) {
-            canvas_dopaste(pattern_, old_content_, -1, -1);
+        renaming_ = (old_content_ != nullptr);
+        pattern_ = clone_create_pattern(wrapper_, !renaming_);
+        if (renaming_) {
+            clone_set_canvas_content(pattern_, old_content_, -1, -1);
             binbuf_free(old_content_);
             old_content_ = nullptr;
         }
@@ -364,6 +379,11 @@ void BaseClone::initDone()
         if (!initInstances())
             throw std::runtime_error("can't init instances");
 
+        if (renaming_) {
+            updateInstances();
+            renaming_ = false;
+        }
+
     } catch (std::exception& e) {
         if (!args().empty())
             OBJ_ERR << e.what();
@@ -398,7 +418,7 @@ void BaseClone::updateInstances()
     DspSuspendGuard dsp_guard;
 
     if (pattern_) {
-        auto bb = canvas_docopy(pattern_);
+        auto bb = clone_get_canvas_content(pattern_);
 
         for (auto& i : instances_) {
             i.fillWithPattern(bb, instances_.size());
@@ -599,7 +619,7 @@ void BaseClone::storeContent() const
         binbuf_clear(old_content_);
 
     if (pattern_)
-        old_content_ = canvas_docopy(pattern_);
+        old_content_ = clone_get_canvas_content(pattern_);
 }
 
 void BaseClone::onRestore(const AtomListView& lv)

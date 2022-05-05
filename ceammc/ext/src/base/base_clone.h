@@ -82,6 +82,7 @@ private:
     std::uint16_t n_sig_out_;
     std::uint32_t block_size_;
     t_float sample_rate_;
+    bool renaming_;
 
 public:
     BaseClone(const PdArgs& args);
