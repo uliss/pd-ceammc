@@ -154,17 +154,21 @@ if(RAGEL_FOUND)
     RAGEL_TARGET(parser_props
         lex/parser_props.rl ${CMAKE_CURRENT_SOURCE_DIR}/lex/parser_props.cpp
         COMPILE_FLAGS "-G2 -s")
+    RAGEL_TARGET(parser_clone
+        lex/parser_clone.rl ${CMAKE_CURRENT_SOURCE_DIR}/lex/parser_clone.cpp
+        COMPILE_FLAGS "-G2 -s")
 endif()
 
 # ragel generated sources
 target_sources(ceammc_core
     PRIVATE
+        lex/parser_clone.cpp
         lex/parser_color.cpp
         lex/parser_music.cpp
         lex/parser_numeric.cpp
-        lex/parser_units.cpp
         lex/parser_props.cpp
         lex/parser_props_details.cpp
+        lex/parser_units.cpp
 )
 
 # ragel files
