@@ -57,7 +57,7 @@ TEST_CASE("parser_clone", "[ceammc::parser::clone]")
             REQUIRE(msg.args.step == 1);
         }
 
-        SECTION("except")
+        SECTION("random")
         {
             CloneMessage msg;
 
@@ -66,7 +66,7 @@ TEST_CASE("parser_clone", "[ceammc::parser::clone]")
             REQUIRE(msg.args.type == ARG_TYPE_RANDOM);
         }
 
-        SECTION("EQ")
+        SECTION("=")
         {
             CloneMessage msg;
 
@@ -239,6 +239,75 @@ TEST_CASE("parser_clone", "[ceammc::parser::clone]")
             REQUIRE(msg.args.first == 1);
             REQUIRE(msg.args.last == 20);
             REQUIRE(msg.args.step == 3);
+        }
+    }
+
+    SECTION("dsp")
+    {
+        SECTION("set")
+        {
+            SECTION("all")
+            {
+                CloneMessage msg;
+
+                REQUIRE(parse_clone_action("~*", msg));
+                REQUIRE(msg.msg_type == MSG_TYPE_DSP_SET);
+                REQUIRE(msg.args.type == ARG_TYPE_ALL);
+            }
+
+            SECTION("except")
+            {
+                CloneMessage msg;
+
+                REQUIRE(parse_clone_action("~!12", msg));
+                REQUIRE(msg.msg_type == MSG_TYPE_DSP_SET);
+                REQUIRE(msg.args.type == ARG_TYPE_EXCEPT);
+                REQUIRE(msg.args.first == 12);
+                REQUIRE(msg.args.last == -1);
+                REQUIRE(msg.args.step == 1);
+            }
+
+            SECTION("random")
+            {
+                CloneMessage msg;
+
+                REQUIRE(parse_clone_action("~%", msg));
+                REQUIRE(msg.msg_type == MSG_TYPE_DSP_SET);
+                REQUIRE(msg.args.type == ARG_TYPE_RANDOM);
+            }
+        }
+
+        SECTION("toggle")
+        {
+            SECTION("all")
+            {
+                CloneMessage msg;
+
+                REQUIRE(parse_clone_action("^~*", msg));
+                REQUIRE(msg.msg_type == MSG_TYPE_DSP_TOGGLE);
+                REQUIRE(msg.args.type == ARG_TYPE_ALL);
+            }
+
+            SECTION("except")
+            {
+                CloneMessage msg;
+
+                REQUIRE(parse_clone_action("^~!12", msg));
+                REQUIRE(msg.msg_type == MSG_TYPE_DSP_TOGGLE);
+                REQUIRE(msg.args.type == ARG_TYPE_EXCEPT);
+                REQUIRE(msg.args.first == 12);
+                REQUIRE(msg.args.last == -1);
+                REQUIRE(msg.args.step == 1);
+            }
+
+            SECTION("random")
+            {
+                CloneMessage msg;
+
+                REQUIRE(parse_clone_action("^~%", msg));
+                REQUIRE(msg.msg_type == MSG_TYPE_DSP_TOGGLE);
+                REQUIRE(msg.args.type == ARG_TYPE_RANDOM);
+            }
         }
     }
 }
