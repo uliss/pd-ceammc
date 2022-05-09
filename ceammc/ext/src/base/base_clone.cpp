@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "base_clone.h"
 #include "ceammc_factory.h"
+#include "ceammc_format.h"
 #include "ceammc_inlet.h"
 #include "ceammc_outlet.h"
 #include "fmt/format.h"
@@ -658,8 +659,10 @@ void BaseClone::sendToInlet(t_inlet* inlet, const AtomListView& lv)
 void BaseClone::sendToInstance(uint16_t inst, uint16_t inlet, const AtomListView& lv)
 {
     const auto idx = inst * n_instance_in_ + inlet;
-    if (idx < instances_.size())
+    if (idx < inlets().size())
         sendToInlet(inlets()[idx], lv);
+
+    OBJ_LOG << fmt::format("send to {}#{} lv", inst, inlet, to_string(lv));
 }
 
 bool BaseClone::sendToInstanceInlets(int16_t inst, int16_t inlet, const AtomListView& lv)
@@ -687,7 +690,7 @@ void BaseClone::sendGreaterThen(int16_t instance, int16_t inlet, const AtomListV
     const int16_t NINST = instances_.size();
 
     for (uint16_t i = instance; i < NINST; i++)
-        sendToInstanceInlets(instance, inlet, lv);
+        sendToInstanceInlets(i, inlet, lv);
 }
 
 void BaseClone::setupDSP(t_signal** sp)

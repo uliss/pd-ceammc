@@ -23,7 +23,7 @@ static const int clone_target_error = 0;
 static const int clone_target_en_main = 1;
 
 
-#line 50 "lex/parser_clone.rl"
+#line 48 "lex/parser_clone.rl"
 
 
 bool parse_clone_action(const char* str, CloneMessage& res)
@@ -47,7 +47,7 @@ bool parse_clone_action(const char* str, CloneMessage& res)
 	cs = clone_target_start;
 	}
 
-#line 68 "lex/parser_clone.rl"
+#line 66 "lex/parser_clone.rl"
     
 #line 53 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
 	{
@@ -1617,7 +1617,7 @@ case 101:
 	_out: {}
 	}
 
-#line 69 "lex/parser_clone.rl"
+#line 67 "lex/parser_clone.rl"
 
     return cs >= 22;
 }
@@ -1631,7 +1631,7 @@ static const int clone_action_name_error = 0;
 static const int clone_action_name_en_main = 1;
 
 
-#line 84 "lex/parser_clone.rl"
+#line 82 "lex/parser_clone.rl"
 
 
 MessageType parse_clone_message_type(const char* str)
@@ -1653,7 +1653,7 @@ MessageType parse_clone_message_type(const char* str)
 	cs = clone_action_name_start;
 	}
 
-#line 100 "lex/parser_clone.rl"
+#line 98 "lex/parser_clone.rl"
     
 #line 1659 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
 	{
@@ -1686,19 +1686,19 @@ case 3:
 		goto tr5;
 	goto st0;
 tr5:
-#line 77 "lex/parser_clone.rl"
+#line 75 "lex/parser_clone.rl"
 	{ type = MSG_TYPE_DSP_SET; }
 	goto st14;
 tr9:
-#line 79 "lex/parser_clone.rl"
+#line 77 "lex/parser_clone.rl"
 	{ type = MSG_TYPE_SEND; }
 	goto st14;
 tr13:
-#line 80 "lex/parser_clone.rl"
+#line 78 "lex/parser_clone.rl"
 	{ type = MSG_TYPE_SEND_SPREAD; }
 	goto st14;
 tr16:
-#line 78 "lex/parser_clone.rl"
+#line 76 "lex/parser_clone.rl"
 	{ type = MSG_TYPE_DSP_TOGGLE; }
 	goto st14;
 st14:
@@ -1798,7 +1798,7 @@ case 13:
 	_out: {}
 	}
 
-#line 101 "lex/parser_clone.rl"
+#line 99 "lex/parser_clone.rl"
 
     return (cs < 14) ? MSG_TYPE_NONE : type;
 }

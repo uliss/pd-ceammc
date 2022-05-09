@@ -21,31 +21,29 @@ static inline void set_args(CloneMessage& res, ArgumentType type, int16_t first,
     step =  ':' [1-9] ${ step = fc-'0'; } [0-9]{0,4} ${ step = 10*step+(fc-'0'); };
     inlet = '|' [1-9] ${ inlet = fc-'0'; } [0-9]{0,3} ${ inlet = 10*inlet+(fc-'0'); };
 
-    args_all =    ('*' inlet?)           @{ set_args(res, ARG_TYPE_ALL,    -1, -1, 1,    inlet); };
-    args_random = ('?' inlet?)           @{ set_args(res, ARG_TYPE_RANDOM, -1, -1, 1,    inlet); };
-    args_except = ('!' id inlet?)        @{ set_args(res, ARG_TYPE_EXCEPT, id, -1, 1,    inlet); };
-    args_eq =     ('='? id step? inlet?) @{ set_args(res, ARG_TYPE_EQ,     id, -1, step, inlet); };
-    args_gt =     ('>'  id inlet?)       @{ set_args(res, ARG_TYPE_GT,     id, -1, 1,    inlet); };
-    args_ge =     ('>=' id inlet?)       @{ set_args(res, ARG_TYPE_GE,     id, -1, 1,    inlet); };
-    args_lt =     ('<'  id inlet?)       @{ set_args(res, ARG_TYPE_LT,     id, -1, 1,    inlet); };
-    args_le =     ('<=' id inlet?)       @{ set_args(res, ARG_TYPE_LE,     id, -1, 1,    inlet); };
-    args_range =  (id0 '..' id1 step? inlet?)
-                                         @{ set_args(res, ARG_TYPE_RANGE, id0, id1, step, inlet); };
+    target_all =    ('*' inlet?)           @{ set_args(res, ARG_TYPE_ALL,    -1, -1, 1,    inlet); };
+    target_random = ('?' inlet?)           @{ set_args(res, ARG_TYPE_RANDOM, -1, -1, 1,    inlet); };
+    target_except = ('!' id inlet?)        @{ set_args(res, ARG_TYPE_EXCEPT, id, -1, 1,    inlet); };
+    target_eq =     ('='? id step? inlet?) @{ set_args(res, ARG_TYPE_EQ,     id, -1, step, inlet); };
+    target_gt =     ('>'  id inlet?)       @{ set_args(res, ARG_TYPE_GT,     id, -1, 1,    inlet); };
+    target_ge =     ('>=' id inlet?)       @{ set_args(res, ARG_TYPE_GE,     id, -1, 1,    inlet); };
+    target_lt =     ('<'  id inlet?)       @{ set_args(res, ARG_TYPE_LT,     id, -1, 1,    inlet); };
+    target_le =     ('<=' id inlet?)       @{ set_args(res, ARG_TYPE_LE,     id, -1, 1,    inlet); };
+    target_range =  (id0 '..' id1 step? inlet?)
+                                           @{ set_args(res, ARG_TYPE_RANGE, id0, id1, step, inlet); };
 
-    args =
-        args_all
-        | args_random
-        | args_except
-        | args_eq
-        | args_gt
-        | args_ge
-        | args_lt
-        | args_le
-        | args_range;
+    target =
+        target_all
+        | target_random
+        | target_except
+        | target_eq
+        | target_gt
+        | target_ge
+        | target_lt
+        | target_le
+        | target_range;
 
-    act = '#' args;
-
-    main := act;
+    main := '#' target;
     write data;
 }%%
 
