@@ -20,6 +20,8 @@
 #include "lex/parser_clone.h"
 
 #include <boost/container/small_vector.hpp>
+#include <ctime>
+#include <random>
 
 constexpr const char* CONTAINTER_NAME = "/CONTAINER/";
 constexpr const char* PATTERN_NAME = "/PATTERN/";
@@ -690,6 +692,11 @@ void BaseClone::send(const parser::TargetMessage& msg, const AtomListView& lv)
     case TARGET_TYPE_LT:
         sendLessThen(msg.first, msg.inlet, lv);
         break;
+    case TARGET_TYPE_RANDOM: {
+        std::mt19937 dev(time(0));
+        std::uniform_int_distribution<uint16_t> dist(0, instances_.size() - 1);
+        sendToInstanceInlets(dist(dev), msg.inlet, lv);
+    } break;
     default:
         break;
     }
