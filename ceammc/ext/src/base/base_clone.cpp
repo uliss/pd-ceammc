@@ -379,6 +379,7 @@ void BaseClone::onAny(t_symbol* s, const AtomListView& lv)
         if (lv.size() >= 1 && lv[0].isFloat()) {
             msg.first = lv[0].asT<int>();
             msg.type = TARGET_TYPE_ALL;
+            msg.inlet = -1;
             return send(msg, lv.subView(1));
         }
 
@@ -895,11 +896,11 @@ void setup_base_clone()
 {
     BaseCloneFactory obj("clone:", OBJECT_FACTORY_DEFAULT);
     obj.useClick();
-    obj.addMethod("open", &BaseClone::m_open);
 
+    obj.addMethod("open", &BaseClone::m_open);
     obj.addMethod("menu-open", &BaseClone::m_menu_open);
 
-    // HACK to rename the object without loosing it pattern
+    // HACK to rename the object without loosing its pattern
     auto mouse_fn = (MouseFn)zgetfn(&canvas_class, gensym("mouse"));
     if (mouse_fn != canvas_new_mouse_fn) {
         ceammc_old_canvas_mouse_fn = mouse_fn;

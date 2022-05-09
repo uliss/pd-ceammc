@@ -35,11 +35,11 @@ namespace parser {
     };
 
     struct TargetMessage {
-        int16_t first;
-        int16_t last;
-        int16_t step;
-        int8_t inlet;
-        TargetType type;
+        int16_t first { 0 };
+        int16_t last { -1 };
+        int16_t step { 1 };
+        int8_t inlet { -1 };
+        TargetType type { TARGET_TYPE_NONE };
     };
 
     enum CloneMessageType {
