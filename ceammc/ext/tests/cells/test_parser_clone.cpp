@@ -27,287 +27,224 @@ TEST_CASE("parser_clone", "[ceammc::parser::clone]")
         CloneMessage msg;
 
         REQUIRE_FALSE(parse_clone_action("", msg));
-        REQUIRE(msg.msg_type == MSG_TYPE_NONE);
+        REQUIRE(msg.type == ARG_TYPE_NONE);
 
         REQUIRE_FALSE(parse_clone_action("???", msg));
-        REQUIRE(msg.msg_type == MSG_TYPE_NONE);
+        REQUIRE(msg.type == ARG_TYPE_NONE);
     }
 
-    SECTION("send")
+    SECTION("ALL")
     {
+        CloneMessage msg;
 
-        SECTION("ALL")
-        {
-            CloneMessage msg;
+        REQUIRE(parse_clone_action("#*", msg));
+        REQUIRE(msg.type == ARG_TYPE_ALL);
+        REQUIRE(msg.first == -1);
+        REQUIRE(msg.last == -1);
+        REQUIRE(msg.step == 1);
+        REQUIRE(msg.inlet == -1);
 
-            REQUIRE(parse_clone_action("#*", msg));
-            REQUIRE(msg.msg_type == MSG_TYPE_SEND);
-            REQUIRE(msg.args.type == ARG_TYPE_ALL);
-        }
-
-        SECTION("except")
-        {
-            CloneMessage msg;
-
-            REQUIRE(parse_clone_action("#!12", msg));
-            REQUIRE(msg.msg_type == MSG_TYPE_SEND);
-            REQUIRE(msg.args.type == ARG_TYPE_EXCEPT);
-            REQUIRE(msg.args.first == 12);
-            REQUIRE(msg.args.last == -1);
-            REQUIRE(msg.args.step == 1);
-        }
-
-        SECTION("random")
-        {
-            CloneMessage msg;
-
-            REQUIRE(parse_clone_action("#%", msg));
-            REQUIRE(msg.msg_type == MSG_TYPE_SEND);
-            REQUIRE(msg.args.type == ARG_TYPE_RANDOM);
-        }
-
-        SECTION("=")
-        {
-            CloneMessage msg;
-
-            REQUIRE(parse_clone_action("#=1", msg));
-            REQUIRE(msg.msg_type == MSG_TYPE_SEND);
-            REQUIRE(msg.args.type == ARG_TYPE_EQ);
-            REQUIRE(msg.args.first == 1);
-            REQUIRE(msg.args.last == -1);
-            REQUIRE(msg.args.step == 1);
-
-            REQUIRE(parse_clone_action("#=10", msg));
-            REQUIRE(msg.msg_type == MSG_TYPE_SEND);
-            REQUIRE(msg.args.type == ARG_TYPE_EQ);
-            REQUIRE(msg.args.first == 10);
-            REQUIRE(msg.args.last == -1);
-            REQUIRE(msg.args.step == 1);
-
-            REQUIRE(parse_clone_action("#=321", msg));
-            REQUIRE(msg.msg_type == MSG_TYPE_SEND);
-            REQUIRE(msg.args.type == ARG_TYPE_EQ);
-            REQUIRE(msg.args.first == 321);
-            REQUIRE(msg.args.last == -1);
-            REQUIRE(msg.args.step == 1);
-
-            REQUIRE(parse_clone_action("#1234", msg));
-            REQUIRE(msg.msg_type == MSG_TYPE_SEND);
-            REQUIRE(msg.args.type == ARG_TYPE_EQ);
-            REQUIRE(msg.args.first == 1234);
-            REQUIRE(msg.args.last == -1);
-            REQUIRE(msg.args.step == 1);
-        }
-
-        SECTION(">")
-        {
-            CloneMessage msg;
-
-            REQUIRE(parse_clone_action("#>9", msg));
-            REQUIRE(msg.msg_type == MSG_TYPE_SEND);
-            REQUIRE(msg.args.type == ARG_TYPE_GT);
-            REQUIRE(msg.args.first == 9);
-            REQUIRE(msg.args.last == -1);
-            REQUIRE(msg.args.step == 1);
-
-            REQUIRE(parse_clone_action("#>9|3", msg));
-            REQUIRE(msg.msg_type == MSG_TYPE_SEND);
-            REQUIRE(msg.args.type == ARG_TYPE_GT);
-            REQUIRE(msg.args.first == 9);
-            REQUIRE(msg.args.last == -1);
-            REQUIRE(msg.args.step == 3);
-        }
-
-        SECTION(">=")
-        {
-            CloneMessage msg;
-
-            REQUIRE(parse_clone_action("#>=9", msg));
-            REQUIRE(msg.msg_type == MSG_TYPE_SEND);
-            REQUIRE(msg.args.type == ARG_TYPE_GE);
-            REQUIRE(msg.args.first == 9);
-            REQUIRE(msg.args.last == -1);
-            REQUIRE(msg.args.step == 1);
-
-            REQUIRE(parse_clone_action("#>=9|3", msg));
-            REQUIRE(msg.msg_type == MSG_TYPE_SEND);
-            REQUIRE(msg.args.type == ARG_TYPE_GE);
-            REQUIRE(msg.args.first == 9);
-            REQUIRE(msg.args.last == -1);
-            REQUIRE(msg.args.step == 3);
-        }
-
-        SECTION("<=")
-        {
-            CloneMessage msg;
-
-            REQUIRE(parse_clone_action("#<=9", msg));
-            REQUIRE(msg.msg_type == MSG_TYPE_SEND);
-            REQUIRE(msg.args.type == ARG_TYPE_LE);
-            REQUIRE(msg.args.first == 9);
-            REQUIRE(msg.args.last == -1);
-            REQUIRE(msg.args.step == 1);
-
-            REQUIRE(parse_clone_action("#<=9|3", msg));
-            REQUIRE(msg.msg_type == MSG_TYPE_SEND);
-            REQUIRE(msg.args.type == ARG_TYPE_LE);
-            REQUIRE(msg.args.first == 9);
-            REQUIRE(msg.args.last == -1);
-            REQUIRE(msg.args.step == 3);
-        }
-
-        SECTION("<")
-        {
-            CloneMessage msg;
-
-            REQUIRE(parse_clone_action("#<10", msg));
-            REQUIRE(msg.msg_type == MSG_TYPE_SEND);
-            REQUIRE(msg.args.type == ARG_TYPE_LT);
-            REQUIRE(msg.args.first == 10);
-            REQUIRE(msg.args.last == -1);
-            REQUIRE(msg.args.step == 1);
-
-            REQUIRE(parse_clone_action("#<9|3", msg));
-            REQUIRE(msg.msg_type == MSG_TYPE_SEND);
-            REQUIRE(msg.args.type == ARG_TYPE_LT);
-            REQUIRE(msg.args.first == 9);
-            REQUIRE(msg.args.last == -1);
-            REQUIRE(msg.args.step == 3);
-        }
-
-        SECTION("RANGE")
-        {
-            CloneMessage msg;
-
-            REQUIRE(parse_clone_action("#1-2", msg));
-            REQUIRE(msg.msg_type == MSG_TYPE_SEND);
-            REQUIRE(msg.args.type == ARG_TYPE_RANGE);
-            REQUIRE(msg.args.first == 1);
-            REQUIRE(msg.args.last == 2);
-            REQUIRE(msg.args.step == 1);
-
-            REQUIRE(parse_clone_action("#101-204", msg));
-            REQUIRE(msg.msg_type == MSG_TYPE_SEND);
-            REQUIRE(msg.args.type == ARG_TYPE_RANGE);
-            REQUIRE(msg.args.first == 101);
-            REQUIRE(msg.args.last == 204);
-            REQUIRE(msg.args.step == 1);
-
-            REQUIRE(parse_clone_action("#101-204|2", msg));
-            REQUIRE(msg.msg_type == MSG_TYPE_SEND);
-            REQUIRE(msg.args.type == ARG_TYPE_RANGE);
-            REQUIRE(msg.args.first == 101);
-            REQUIRE(msg.args.last == 204);
-            REQUIRE(msg.args.step == 2);
-        }
-
-        SECTION("spread")
-        {
-            CloneMessage msg;
-
-            REQUIRE(parse_clone_action("#<:", msg));
-            REQUIRE(msg.msg_type == MSG_TYPE_SEND);
-            REQUIRE(msg.args.type == ARG_TYPE_SPREAD);
-            REQUIRE(msg.args.first == 1);
-            REQUIRE(msg.args.last == -1);
-            REQUIRE(msg.args.step == 1);
-
-            REQUIRE(parse_clone_action("#<:45", msg));
-            REQUIRE(msg.msg_type == MSG_TYPE_SEND);
-            REQUIRE(msg.args.type == ARG_TYPE_SPREAD);
-            REQUIRE(msg.args.first == 45);
-            REQUIRE(msg.args.last == -1);
-            REQUIRE(msg.args.step == 1);
-
-            REQUIRE(parse_clone_action("#<:11|2", msg));
-            REQUIRE(msg.msg_type == MSG_TYPE_SEND);
-            REQUIRE(msg.args.type == ARG_TYPE_SPREAD);
-            REQUIRE(msg.args.first == 11);
-            REQUIRE(msg.args.last == -1);
-            REQUIRE(msg.args.step == 2);
-
-            REQUIRE(parse_clone_action("#<:1-20", msg));
-            REQUIRE(msg.msg_type == MSG_TYPE_SEND);
-            REQUIRE(msg.args.type == ARG_TYPE_SPREAD);
-            REQUIRE(msg.args.first == 1);
-            REQUIRE(msg.args.last == 20);
-            REQUIRE(msg.args.step == 1);
-
-            REQUIRE(parse_clone_action("#<:1-20|3", msg));
-            REQUIRE(msg.msg_type == MSG_TYPE_SEND);
-            REQUIRE(msg.args.type == ARG_TYPE_SPREAD);
-            REQUIRE(msg.args.first == 1);
-            REQUIRE(msg.args.last == 20);
-            REQUIRE(msg.args.step == 3);
-        }
+        REQUIRE(parse_clone_action("#*|12", msg));
+        REQUIRE(msg.type == ARG_TYPE_ALL);
+        REQUIRE(msg.first == -1);
+        REQUIRE(msg.last == -1);
+        REQUIRE(msg.step == 1);
+        REQUIRE(msg.inlet == 12);
     }
 
-    SECTION("dsp")
+    SECTION("except")
     {
-        SECTION("set")
-        {
-            SECTION("all")
-            {
-                CloneMessage msg;
+        CloneMessage msg;
 
-                REQUIRE(parse_clone_action("~*", msg));
-                REQUIRE(msg.msg_type == MSG_TYPE_DSP_SET);
-                REQUIRE(msg.args.type == ARG_TYPE_ALL);
-            }
+        REQUIRE(parse_clone_action("#!12", msg));
+        REQUIRE(msg.type == ARG_TYPE_EXCEPT);
+        REQUIRE(msg.first == 12);
+        REQUIRE(msg.last == -1);
+        REQUIRE(msg.step == 1);
+        REQUIRE(msg.inlet == -1);
 
-            SECTION("except")
-            {
-                CloneMessage msg;
+        REQUIRE(parse_clone_action("#!12|1", msg));
+        REQUIRE(msg.type == ARG_TYPE_EXCEPT);
+        REQUIRE(msg.first == 12);
+        REQUIRE(msg.last == -1);
+        REQUIRE(msg.step == 1);
+        REQUIRE(msg.inlet == 1);
+    }
 
-                REQUIRE(parse_clone_action("~!12", msg));
-                REQUIRE(msg.msg_type == MSG_TYPE_DSP_SET);
-                REQUIRE(msg.args.type == ARG_TYPE_EXCEPT);
-                REQUIRE(msg.args.first == 12);
-                REQUIRE(msg.args.last == -1);
-                REQUIRE(msg.args.step == 1);
-            }
+    SECTION("random")
+    {
+        CloneMessage msg;
 
-            SECTION("random")
-            {
-                CloneMessage msg;
+        REQUIRE(parse_clone_action("#?", msg));
+        REQUIRE(msg.type == ARG_TYPE_RANDOM);
+        REQUIRE(msg.first == -1);
+        REQUIRE(msg.last == -1);
+        REQUIRE(msg.step == 1);
+        REQUIRE(msg.inlet == -1);
 
-                REQUIRE(parse_clone_action("~%", msg));
-                REQUIRE(msg.msg_type == MSG_TYPE_DSP_SET);
-                REQUIRE(msg.args.type == ARG_TYPE_RANDOM);
-            }
-        }
+        REQUIRE(parse_clone_action("#?|3", msg));
+        REQUIRE(msg.type == ARG_TYPE_RANDOM);
+        REQUIRE(msg.first == -1);
+        REQUIRE(msg.last == -1);
+        REQUIRE(msg.step == 1);
+        REQUIRE(msg.inlet == 3);
+    }
 
-        SECTION("toggle")
-        {
-            SECTION("all")
-            {
-                CloneMessage msg;
+    SECTION("=")
+    {
+        CloneMessage msg;
 
-                REQUIRE(parse_clone_action("^~*", msg));
-                REQUIRE(msg.msg_type == MSG_TYPE_DSP_TOGGLE);
-                REQUIRE(msg.args.type == ARG_TYPE_ALL);
-            }
+        REQUIRE(parse_clone_action("#=1", msg));
+        REQUIRE(msg.type == ARG_TYPE_EQ);
+        REQUIRE(msg.first == 1);
+        REQUIRE(msg.last == -1);
+        REQUIRE(msg.step == 1);
+        REQUIRE(msg.inlet == -1);
 
-            SECTION("except")
-            {
-                CloneMessage msg;
+        REQUIRE(parse_clone_action("#=10", msg));
+        REQUIRE(msg.type == ARG_TYPE_EQ);
+        REQUIRE(msg.first == 10);
+        REQUIRE(msg.last == -1);
+        REQUIRE(msg.step == 1);
+        REQUIRE(msg.inlet == -1);
 
-                REQUIRE(parse_clone_action("^~!12", msg));
-                REQUIRE(msg.msg_type == MSG_TYPE_DSP_TOGGLE);
-                REQUIRE(msg.args.type == ARG_TYPE_EXCEPT);
-                REQUIRE(msg.args.first == 12);
-                REQUIRE(msg.args.last == -1);
-                REQUIRE(msg.args.step == 1);
-            }
+        REQUIRE(parse_clone_action("#=321", msg));
+        REQUIRE(msg.type == ARG_TYPE_EQ);
+        REQUIRE(msg.first == 321);
+        REQUIRE(msg.last == -1);
+        REQUIRE(msg.step == 1);
+        REQUIRE(msg.inlet == -1);
 
-            SECTION("random")
-            {
-                CloneMessage msg;
+        REQUIRE(parse_clone_action("#1234", msg));
+        REQUIRE(msg.type == ARG_TYPE_EQ);
+        REQUIRE(msg.first == 1234);
+        REQUIRE(msg.last == -1);
+        REQUIRE(msg.step == 1);
+        REQUIRE(msg.inlet == -1);
 
-                REQUIRE(parse_clone_action("^~%", msg));
-                REQUIRE(msg.msg_type == MSG_TYPE_DSP_TOGGLE);
-                REQUIRE(msg.args.type == ARG_TYPE_RANDOM);
-            }
-        }
+        REQUIRE(parse_clone_action("#1234|33", msg));
+        REQUIRE(msg.type == ARG_TYPE_EQ);
+        REQUIRE(msg.first == 1234);
+        REQUIRE(msg.last == -1);
+        REQUIRE(msg.step == 1);
+        REQUIRE(msg.inlet == 33);
+    }
+
+    SECTION(">")
+    {
+        CloneMessage msg;
+
+        REQUIRE(parse_clone_action("#>9", msg));
+        REQUIRE(msg.type == ARG_TYPE_GT);
+        REQUIRE(msg.first == 9);
+        REQUIRE(msg.last == -1);
+        REQUIRE(msg.step == 1);
+        REQUIRE(msg.inlet == -1);
+
+        REQUIRE(parse_clone_action("#>9|2", msg));
+        REQUIRE(msg.type == ARG_TYPE_GT);
+        REQUIRE(msg.first == 9);
+        REQUIRE(msg.last == -1);
+        REQUIRE(msg.step == 1);
+        REQUIRE(msg.inlet == 2);
+    }
+
+    SECTION(">=")
+    {
+        CloneMessage msg;
+
+        REQUIRE(parse_clone_action("#>=9", msg));
+        REQUIRE(msg.type == ARG_TYPE_GE);
+        REQUIRE(msg.first == 9);
+        REQUIRE(msg.last == -1);
+        REQUIRE(msg.step == 1);
+        REQUIRE(msg.inlet == -1);
+
+        REQUIRE(parse_clone_action("#>=9|3", msg));
+        REQUIRE(msg.type == ARG_TYPE_GE);
+        REQUIRE(msg.first == 9);
+        REQUIRE(msg.last == -1);
+        REQUIRE(msg.step == 1);
+        REQUIRE(msg.inlet == 3);
+    }
+
+    SECTION("<=")
+    {
+        CloneMessage msg;
+
+        REQUIRE(parse_clone_action("#<=9", msg));
+        REQUIRE(msg.type == ARG_TYPE_LE);
+        REQUIRE(msg.first == 9);
+        REQUIRE(msg.last == -1);
+        REQUIRE(msg.step == 1);
+        REQUIRE(msg.inlet == -1);
+
+        REQUIRE(parse_clone_action("#<=9|11", msg));
+        REQUIRE(msg.type == ARG_TYPE_LE);
+        REQUIRE(msg.first == 9);
+        REQUIRE(msg.last == -1);
+        REQUIRE(msg.step == 1);
+        REQUIRE(msg.inlet == 11);
+    }
+
+    SECTION("<")
+    {
+        CloneMessage msg;
+
+        REQUIRE(parse_clone_action("#<10", msg));
+        REQUIRE(msg.type == ARG_TYPE_LT);
+        REQUIRE(msg.first == 10);
+        REQUIRE(msg.last == -1);
+        REQUIRE(msg.step == 1);
+        REQUIRE(msg.inlet == -1);
+
+        REQUIRE(parse_clone_action("#<9|6", msg));
+        REQUIRE(msg.type == ARG_TYPE_LT);
+        REQUIRE(msg.first == 9);
+        REQUIRE(msg.last == -1);
+        REQUIRE(msg.step == 1);
+        REQUIRE(msg.inlet == 6);
+    }
+
+    SECTION("RANGE")
+    {
+        CloneMessage msg;
+
+        REQUIRE(parse_clone_action("#1..2", msg));
+        REQUIRE(msg.type == ARG_TYPE_RANGE);
+        REQUIRE(msg.first == 1);
+        REQUIRE(msg.last == 2);
+        REQUIRE(msg.step == 1);
+        REQUIRE(msg.inlet == -1);
+
+        REQUIRE(parse_clone_action("#101..204:2", msg));
+        REQUIRE(msg.type == ARG_TYPE_RANGE);
+        REQUIRE(msg.first == 101);
+        REQUIRE(msg.last == 204);
+        REQUIRE(msg.step == 2);
+        REQUIRE(msg.inlet == -1);
+
+        REQUIRE(parse_clone_action("#101..204:3|2", msg));
+        REQUIRE(msg.type == ARG_TYPE_RANGE);
+        REQUIRE(msg.first == 101);
+        REQUIRE(msg.last == 204);
+        REQUIRE(msg.step == 3);
+        REQUIRE(msg.inlet == 2);
+
+        REQUIRE(parse_clone_action("#1..2|99", msg));
+        REQUIRE(msg.type == ARG_TYPE_RANGE);
+        REQUIRE(msg.first == 1);
+        REQUIRE(msg.last == 2);
+        REQUIRE(msg.step == 1);
+        REQUIRE(msg.inlet == 99);
+    }
+
+    SECTION("msg type")
+    {
+        REQUIRE(parse_clone_message_type("") == MSG_TYPE_NONE);
+        REQUIRE(parse_clone_message_type("send") == MSG_TYPE_SEND);
+        REQUIRE(parse_clone_message_type("dsp") == MSG_TYPE_DSP_SET);
+        REQUIRE(parse_clone_message_type("~dsp") == MSG_TYPE_DSP_TOGGLE);
+        REQUIRE(parse_clone_message_type("spread") == MSG_TYPE_SEND_SPREAD);
     }
 }

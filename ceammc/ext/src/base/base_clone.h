@@ -18,6 +18,7 @@
 
 #include "ceammc_proxy.h"
 #include "ceammc_sound_external.h"
+#include "lex/parser_clone.h"
 using namespace ceammc;
 
 class CloneInstance {
@@ -80,6 +81,8 @@ private:
     std::vector<Proxy> proxy_;
     std::uint16_t n_sig_in_;
     std::uint16_t n_sig_out_;
+    std::uint16_t n_instance_in_;
+    std::uint16_t n_instance_out_;
     std::uint32_t block_size_;
     t_float sample_rate_;
     bool renaming_;
@@ -89,6 +92,7 @@ public:
     ~BaseClone();
 
     void onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt) override;
+    void onAny(t_symbol* s, const AtomListView& lv) final;
 
     void initDone() override;
 
@@ -126,6 +130,9 @@ private:
         ext->processBlock();
         return (w + 2);
     }
+
+    void send(const parser::CloneMessage& msg, const AtomListView& lv);
+    void sendToInlet(t_inlet* inlet, const AtomListView& lv);
 
 private:
     // object renaming in Pd is the delete, then create sequence

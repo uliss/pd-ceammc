@@ -16,6 +16,7 @@
 #include "ceammc_inlet.h"
 #include "ceammc_outlet.h"
 #include "fmt/format.h"
+#include "lex/parser_clone.h"
 
 constexpr const char* CONTAINTER_NAME = "/CONTAINER/";
 constexpr const char* PATTERN_NAME = "/PATTERN/";
@@ -31,6 +32,7 @@ extern "C" {
 void canvas_dodsp(t_canvas* x, int toplevel, t_signal** sp);
 t_signal* signal_newfromcontext(int borrowed);
 void signal_makereusable(t_signal* sig);
+void obj_sendinlet(t_object* x, int n, t_symbol* s, int argc, t_atom* argv);
 }
 
 namespace {
@@ -359,6 +361,33 @@ void BaseClone::onClick(t_floatarg /*xpos*/, t_floatarg /*ypos*/, t_floatarg /*s
     canvas_vis(pattern_, 1);
 }
 
+void BaseClone::onAny(t_symbol* s, const AtomListView& lv)
+{
+    using namespace ceammc::parser;
+
+    CloneMessage msg;
+    MessageType type = parse_clone_message_type(s->s_name);
+
+    switch (type) {
+    case MSG_TYPE_SEND:
+        if (lv.size() >= 1 && lv[0].isSymbol() && parse_clone_action(lv[0].asT<t_symbol*>()->s_name, msg))
+            return send(msg, lv.subView(1));
+
+        if (lv.size() >= 1 && lv[0].isFloat()) {
+            msg.first = lv[0].asT<int>();
+            msg.type = ARG_TYPE_ALL;
+            return send(msg, lv.subView(1));
+        }
+
+        break;
+    default:
+        if (s->s_name[0] == '#' && parse_clone_action(s->s_name, msg))
+            return send(msg, lv);
+
+        break;
+    }
+}
+
 void BaseClone::initDone()
 {
     try {
@@ -435,6 +464,8 @@ void BaseClone::updateInstances()
 void BaseClone::updateInlets()
 {
     const size_t NUM_PATTERN_INLETS = pattern_ ? obj_ninlets(&pattern_->gl_obj) : 0;
+    n_instance_in_ = NUM_PATTERN_INLETS;
+
     const size_t NUM_ISTANCES = num_->value();
     const auto new_count = NUM_PATTERN_INLETS * NUM_ISTANCES;
     const auto prev_count = inlets().size();
@@ -480,6 +511,8 @@ void BaseClone::updateInlets()
 void BaseClone::updateOutlets()
 {
     const size_t NUM_PATTERN_OUTLETS = pattern_ ? obj_noutlets(&pattern_->gl_obj) : 0;
+    n_instance_out_ = NUM_PATTERN_OUTLETS;
+
     const size_t NUM_ISTANCES = num_->value();
     const auto new_count = NUM_PATTERN_OUTLETS * NUM_ISTANCES;
     const auto prev_count = outlets().size();
@@ -569,6 +602,67 @@ void BaseClone::processBlock()
 {
 }
 
+void BaseClone::send(const parser::CloneMessage& msg, const AtomListView& lv)
+{
+    using namespace ceammc::parser;
+
+    const size_t NINST = instances_.size();
+
+    switch (msg.type) {
+    case ARG_TYPE_ALL:
+        if (msg.inlet < 0) { // to all inlets
+            for (auto& i : inlets())
+                sendToInlet(i, lv);
+        } else if (msg.inlet <= n_instance_in_) {
+            for (size_t i = 0; i < NINST; i++) {
+                auto idx = i * n_instance_in_ + (msg.inlet - 1);
+                sendToInlet(inlets()[idx], lv);
+            }
+        } else {
+            OBJ_ERR << fmt::format("invalid instance inlet number: {}", (int)msg.inlet);
+        }
+        break;
+    case ARG_TYPE_EXCEPT: {
+        for (size_t i = 0; i < NINST; i++) {
+            if (i == msg.first)
+                continue;
+
+            if (msg.inlet < 0) {
+                for (uint16_t j; j < n_instance_in_; j++) {
+                    auto idx = i * n_instance_in_ + j;
+                    sendToInlet(inlets()[idx], lv);
+                }
+            } else if (msg.inlet <= n_instance_in_) {
+                auto idx = i * n_instance_in_ + (msg.inlet - 1);
+                sendToInlet(inlets()[idx], lv);
+            } else {
+                OBJ_ERR << fmt::format("invalid instance inlet number: {}", (int)msg.inlet);
+            }
+        }
+    } break;
+    }
+}
+
+void BaseClone::sendToInlet(t_inlet* inlet, const AtomListView& lv)
+{
+    auto x = util::inlet_object(inlet);
+
+    if (lv.empty())
+        return pd_bang(x);
+    else if (lv.isFloat())
+        return pd_float(x, lv[0].asT<t_float>());
+    else if (lv.isSymbol())
+        return pd_symbol(x, lv[0].asT<t_symbol*>());
+    else if (lv.size() > 1 && lv[0].isFloat())
+        return pd_list(x, &s_list, lv.size(), lv.toPdData());
+    else if (lv[0].isSymbol()) {
+        auto lv0 = lv.subView(1);
+        return pd_typedmess(x, lv[0].asT<t_symbol*>(), lv.size(), lv.toPdData());
+    } else {
+        OBJ_ERR << "invalid list: " << lv;
+    }
+}
+
 void BaseClone::setupDSP(t_signal** sp)
 {
     signalInit(sp);
@@ -588,7 +682,7 @@ void BaseClone::m_open(t_symbol* s, const AtomListView& lv)
         return;
 
     int n = lv.intAt(0, 0);
-    if (n < 0 || n > instances_.size()) {
+    if (n < 0 || n >= instances_.size()) {
         OBJ_ERR << fmt::format("invalid index: {}", n);
         return;
     }
