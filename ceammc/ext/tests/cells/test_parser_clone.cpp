@@ -50,6 +50,13 @@ TEST_CASE("parser_clone", "[ceammc::parser::clone]")
         REQUIRE(msg.last == -1);
         REQUIRE(msg.step == 1);
         REQUIRE(msg.inlet == 12);
+
+        REQUIRE(parse_clone_action("#*|0", msg));
+        REQUIRE(msg.type == ARG_TYPE_ALL);
+        REQUIRE(msg.first == -1);
+        REQUIRE(msg.last == -1);
+        REQUIRE(msg.step == 1);
+        REQUIRE(msg.inlet == 0);
     }
 
     SECTION("except")
@@ -69,6 +76,13 @@ TEST_CASE("parser_clone", "[ceammc::parser::clone]")
         REQUIRE(msg.last == -1);
         REQUIRE(msg.step == 1);
         REQUIRE(msg.inlet == 1);
+
+        REQUIRE(parse_clone_action("#!0|0", msg));
+        REQUIRE(msg.type == ARG_TYPE_EXCEPT);
+        REQUIRE(msg.first == 0);
+        REQUIRE(msg.last == -1);
+        REQUIRE(msg.step == 1);
+        REQUIRE(msg.inlet == 0);
     }
 
     SECTION("random")

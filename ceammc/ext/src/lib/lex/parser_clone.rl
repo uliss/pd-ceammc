@@ -15,11 +15,14 @@ static inline void set_args(CloneMessage& res, ArgumentType type, int16_t first,
 %%{
     machine clone_target;
 
-    id = [1-9] ${ id = fc-'0'; } [0-9]{0,4} ${ id = 10*id+(fc-'0'); };
+    id =    '0' ${ id = 0; }
+            | ([1-9] ${ id = fc-'0'; } [0-9]{0,4} ${ id = 10*id+(fc-'0'); });
     id0 = id @{ id0 = id; };
     id1 = id @{ id1 = id; };
     step =  ':' [1-9] ${ step = fc-'0'; } [0-9]{0,4} ${ step = 10*step+(fc-'0'); };
-    inlet = '|' [1-9] ${ inlet = fc-'0'; } [0-9]{0,3} ${ inlet = 10*inlet+(fc-'0'); };
+    inlet = '|'
+            ('0'     ${ inlet = 0; }
+            | ([1-9] ${ inlet = fc-'0'; } [0-9]{0,3} ${ inlet = 10*inlet+(fc-'0'); }));
 
     target_all =    ('*' inlet?)           @{ set_args(res, ARG_TYPE_ALL,    -1, -1, 1,    inlet); };
     target_random = ('?' inlet?)           @{ set_args(res, ARG_TYPE_RANDOM, -1, -1, 1,    inlet); };
