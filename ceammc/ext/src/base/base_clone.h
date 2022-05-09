@@ -128,12 +128,14 @@ private:
     void signalInit(t_signal** sp);
 
     void send(const parser::TargetMessage& msg, const AtomListView& lv);
-    void dspSet(const parser::TargetMessage& msg, const AtomListView& lv);
     void sendToInlet(t_inlet* inlet, const AtomListView& lv);
     void sendToInstance(uint16_t inst, uint16_t inlet, const AtomListView& lv);
     bool sendToInstanceInlets(int16_t inst, int16_t inlet, const AtomListView& lv);
 
     void sendGreaterThen(int16_t instance, int16_t inlet, const AtomListView& lv);
+
+    void dspSet(const parser::TargetMessage& msg, const AtomListView& lv);
+    void dspSetInstance(int16_t idx, bool value);
 
 private:
     // object renaming in Pd is the delete, then create sequence

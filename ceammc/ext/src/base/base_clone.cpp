@@ -702,18 +702,36 @@ void BaseClone::dspSet(const parser::TargetMessage& msg, const AtomListView& lv)
 
     } break;
     case TARGET_TYPE_EQ: {
-        auto idx = msg.first;
-        if (idx < 0 || idx >= instances_.size()) {
-            OBJ_ERR << fmt::format("invalid instance: {}", (int)idx);
-            return;
-        }
-
         DspSuspendGuard guard;
-        instances_[idx].dspSet(lv.boolAt(0, false));
+        dspSetInstance(msg.first, lv.boolAt(0, false));
+    } break;
+    case TARGET_TYPE_GT: {
+        DspSuspendGuard guard;
+        const auto v = lv.boolAt(0, false);
+
+        for (size_t i = msg.first + 1; i < instances_.size(); i++)
+            dspSetInstance(i, v);
+    } break;
+    case TARGET_TYPE_GE: {
+        DspSuspendGuard guard;
+        const auto v = lv.boolAt(0, false);
+
+        for (size_t i = msg.first; i < instances_.size(); i++)
+            dspSetInstance(i, v);
     } break;
     default:
         break;
     }
+}
+
+void BaseClone::dspSetInstance(int16_t idx, bool value)
+{
+    if (idx < 0 || idx >= instances_.size()) {
+        OBJ_ERR << fmt::format("invalid instance: {}", (int)idx);
+        return;
+    }
+
+    instances_[idx].dspSet(value);
 }
 
 void BaseClone::sendToInlet(t_inlet* inlet, const AtomListView& lv)
