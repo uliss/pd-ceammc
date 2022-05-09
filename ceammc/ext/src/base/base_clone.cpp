@@ -373,9 +373,13 @@ void BaseClone::onAny(t_symbol* s, const AtomListView& lv)
 
     switch (type) {
     case MSG_TYPE_SEND:
+        // pattern
+        // send #... pattern
         if (lv.size() >= 1 && lv[0].isSymbol() && parse_clone_target(lv[0].asT<t_symbol*>()->s_name, msg))
             return send(msg, lv.subView(1));
 
+        // direct instance index
+        // send N
         if (lv.size() >= 1 && lv[0].isFloat()) {
             msg.first = lv[0].asT<int>();
             msg.type = TARGET_TYPE_ALL;
@@ -385,9 +389,13 @@ void BaseClone::onAny(t_symbol* s, const AtomListView& lv)
 
         break;
     case MSG_TYPE_DSP_SET:
+        // pattern
+        // dsp~ #...
         if (lv.size() >= 1 && lv[0].isSymbol() && parse_clone_target(lv[0].asT<t_symbol*>()->s_name, msg))
             return dspSet(msg, lv.subView(1));
 
+        // direct instance index
+        // dsp~ N
         if (lv.size() >= 1 && lv[0].isFloat()) {
             msg.first = lv[0].asT<int>();
             msg.type = TARGET_TYPE_ALL;
@@ -692,6 +700,16 @@ void BaseClone::dspSet(const parser::TargetMessage& msg, const AtomListView& lv)
         for (auto& i : instances_)
             i.dspSet(lv.boolAt(0, false));
 
+    } break;
+    case TARGET_TYPE_EQ: {
+        auto idx = msg.first;
+        if (idx < 0 || idx >= instances_.size()) {
+            OBJ_ERR << fmt::format("invalid instance: {}", (int)idx);
+            return;
+        }
+
+        DspSuspendGuard guard;
+        instances_[idx].dspSet(lv.boolAt(0, false));
     } break;
     default:
         break;
