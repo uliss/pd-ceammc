@@ -131,7 +131,7 @@ private:
         return (w + 2);
     }
 
-    void send(const parser::CloneMessage& msg, const AtomListView& lv);
+    void send(const parser::TargetMessage& msg, const AtomListView& lv);
     void sendToInlet(t_inlet* inlet, const AtomListView& lv);
     void sendToInstance(uint16_t inst, uint16_t inlet, const AtomListView& lv);
     bool sendToInstanceInlets(int16_t inst, int16_t inlet, const AtomListView& lv);

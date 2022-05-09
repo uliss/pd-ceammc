@@ -6,7 +6,7 @@
 namespace ceammc {
 namespace parser {
 
-static inline void set_args(CloneMessage& res, ArgumentType type, int16_t first, int16_t last, int16_t step, int8_t inlet) {
+static inline void set_args(TargetMessage& res, TargetType type, int16_t first, int16_t last, int16_t step, int8_t inlet) {
     res.first = first;
     res.last = last;
     res.step = step;
@@ -26,11 +26,11 @@ static const int clone_target_en_main = 1;
 #line 51 "lex/parser_clone.rl"
 
 
-bool parse_clone_action(const char* str, CloneMessage& res)
+bool parse_clone_target(const char* str, TargetMessage& res)
 {
     const auto len = strlen(str);
     if (len == 0) {
-        res.type = ARG_TYPE_NONE;
+        res.type = TARGET_TYPE_NONE;
         return false;
     }
 
@@ -91,13 +91,13 @@ tr10:
 #line 18 "lex/parser_clone.rl"
 	{ id = 0; }
 #line 29 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_EXCEPT, id, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_EXCEPT, id, -1, 1,    inlet); }
 	goto st22;
 tr54:
 #line 19 "lex/parser_clone.rl"
 	{ id = 10*id+((*p)-'0'); }
 #line 29 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_EXCEPT, id, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_EXCEPT, id, -1, 1,    inlet); }
 	goto st22;
 st22:
 	if ( ++p == pe )
@@ -120,109 +120,109 @@ tr12:
 #line 24 "lex/parser_clone.rl"
 	{ inlet = 0; }
 #line 29 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_EXCEPT, id, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_EXCEPT, id, -1, 1,    inlet); }
 	goto st23;
 tr14:
 #line 24 "lex/parser_clone.rl"
 	{ inlet = 0; }
 #line 27 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_ALL,    -1, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_ALL,    -1, -1, 1,    inlet); }
 	goto st23;
 tr20:
 #line 24 "lex/parser_clone.rl"
 	{ inlet = 0; }
 #line 36 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_RANGE, id0, id1, step, inlet); }
+	{ set_args(res, TARGET_TYPE_RANGE, id0, id1, step, inlet); }
 	goto st23;
 tr23:
 #line 24 "lex/parser_clone.rl"
 	{ inlet = 0; }
 #line 30 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_EQ,     id, -1, step, inlet); }
+	{ set_args(res, TARGET_TYPE_EQ,     id, -1, step, inlet); }
 	goto st23;
 tr28:
 #line 24 "lex/parser_clone.rl"
 	{ inlet = 0; }
 #line 33 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_LT,     id, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_LT,     id, -1, 1,    inlet); }
 	goto st23;
 tr32:
 #line 24 "lex/parser_clone.rl"
 	{ inlet = 0; }
 #line 34 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_LE,     id, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_LE,     id, -1, 1,    inlet); }
 	goto st23;
 tr39:
 #line 24 "lex/parser_clone.rl"
 	{ inlet = 0; }
 #line 31 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_GT,     id, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_GT,     id, -1, 1,    inlet); }
 	goto st23;
 tr43:
 #line 24 "lex/parser_clone.rl"
 	{ inlet = 0; }
 #line 32 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_GE,     id, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_GE,     id, -1, 1,    inlet); }
 	goto st23;
 tr45:
 #line 24 "lex/parser_clone.rl"
 	{ inlet = 0; }
 #line 28 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_RANDOM, -1, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_RANDOM, -1, -1, 1,    inlet); }
 	goto st23;
 tr50:
 #line 25 "lex/parser_clone.rl"
 	{ inlet = 10*inlet+((*p)-'0'); }
 #line 29 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_EXCEPT, id, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_EXCEPT, id, -1, 1,    inlet); }
 	goto st23;
 tr58:
 #line 25 "lex/parser_clone.rl"
 	{ inlet = 10*inlet+((*p)-'0'); }
 #line 27 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_ALL,    -1, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_ALL,    -1, -1, 1,    inlet); }
 	goto st23;
 tr70:
 #line 25 "lex/parser_clone.rl"
 	{ inlet = 10*inlet+((*p)-'0'); }
 #line 36 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_RANGE, id0, id1, step, inlet); }
+	{ set_args(res, TARGET_TYPE_RANGE, id0, id1, step, inlet); }
 	goto st23;
 tr81:
 #line 25 "lex/parser_clone.rl"
 	{ inlet = 10*inlet+((*p)-'0'); }
 #line 30 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_EQ,     id, -1, step, inlet); }
+	{ set_args(res, TARGET_TYPE_EQ,     id, -1, step, inlet); }
 	goto st23;
 tr89:
 #line 25 "lex/parser_clone.rl"
 	{ inlet = 10*inlet+((*p)-'0'); }
 #line 33 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_LT,     id, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_LT,     id, -1, 1,    inlet); }
 	goto st23;
 tr97:
 #line 25 "lex/parser_clone.rl"
 	{ inlet = 10*inlet+((*p)-'0'); }
 #line 34 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_LE,     id, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_LE,     id, -1, 1,    inlet); }
 	goto st23;
 tr109:
 #line 25 "lex/parser_clone.rl"
 	{ inlet = 10*inlet+((*p)-'0'); }
 #line 31 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_GT,     id, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_GT,     id, -1, 1,    inlet); }
 	goto st23;
 tr117:
 #line 25 "lex/parser_clone.rl"
 	{ inlet = 10*inlet+((*p)-'0'); }
 #line 32 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_GE,     id, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_GE,     id, -1, 1,    inlet); }
 	goto st23;
 tr125:
 #line 25 "lex/parser_clone.rl"
 	{ inlet = 10*inlet+((*p)-'0'); }
 #line 28 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_RANDOM, -1, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_RANDOM, -1, -1, 1,    inlet); }
 	goto st23;
 st23:
 	if ( ++p == pe )
@@ -234,7 +234,7 @@ tr13:
 #line 25 "lex/parser_clone.rl"
 	{ inlet = (*p)-'0'; }
 #line 29 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_EXCEPT, id, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_EXCEPT, id, -1, 1,    inlet); }
 	goto st24;
 st24:
 	if ( ++p == pe )
@@ -248,7 +248,7 @@ tr48:
 #line 25 "lex/parser_clone.rl"
 	{ inlet = 10*inlet+((*p)-'0'); }
 #line 29 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_EXCEPT, id, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_EXCEPT, id, -1, 1,    inlet); }
 	goto st25;
 st25:
 	if ( ++p == pe )
@@ -262,7 +262,7 @@ tr49:
 #line 25 "lex/parser_clone.rl"
 	{ inlet = 10*inlet+((*p)-'0'); }
 #line 29 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_EXCEPT, id, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_EXCEPT, id, -1, 1,    inlet); }
 	goto st26;
 st26:
 	if ( ++p == pe )
@@ -276,7 +276,7 @@ tr11:
 #line 19 "lex/parser_clone.rl"
 	{ id = (*p)-'0'; }
 #line 29 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_EXCEPT, id, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_EXCEPT, id, -1, 1,    inlet); }
 	goto st27;
 st27:
 	if ( ++p == pe )
@@ -292,7 +292,7 @@ tr51:
 #line 19 "lex/parser_clone.rl"
 	{ id = 10*id+((*p)-'0'); }
 #line 29 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_EXCEPT, id, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_EXCEPT, id, -1, 1,    inlet); }
 	goto st28;
 st28:
 	if ( ++p == pe )
@@ -308,7 +308,7 @@ tr52:
 #line 19 "lex/parser_clone.rl"
 	{ id = 10*id+((*p)-'0'); }
 #line 29 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_EXCEPT, id, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_EXCEPT, id, -1, 1,    inlet); }
 	goto st29;
 st29:
 	if ( ++p == pe )
@@ -324,7 +324,7 @@ tr53:
 #line 19 "lex/parser_clone.rl"
 	{ id = 10*id+((*p)-'0'); }
 #line 29 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_EXCEPT, id, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_EXCEPT, id, -1, 1,    inlet); }
 	goto st30;
 st30:
 	if ( ++p == pe )
@@ -338,7 +338,7 @@ case 30:
 	goto st0;
 tr3:
 #line 27 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_ALL,    -1, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_ALL,    -1, -1, 1,    inlet); }
 	goto st31;
 st31:
 	if ( ++p == pe )
@@ -361,7 +361,7 @@ tr15:
 #line 25 "lex/parser_clone.rl"
 	{ inlet = (*p)-'0'; }
 #line 27 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_ALL,    -1, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_ALL,    -1, -1, 1,    inlet); }
 	goto st32;
 st32:
 	if ( ++p == pe )
@@ -375,7 +375,7 @@ tr56:
 #line 25 "lex/parser_clone.rl"
 	{ inlet = 10*inlet+((*p)-'0'); }
 #line 27 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_ALL,    -1, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_ALL,    -1, -1, 1,    inlet); }
 	goto st33;
 st33:
 	if ( ++p == pe )
@@ -389,7 +389,7 @@ tr57:
 #line 25 "lex/parser_clone.rl"
 	{ inlet = 10*inlet+((*p)-'0'); }
 #line 27 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_ALL,    -1, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_ALL,    -1, -1, 1,    inlet); }
 	goto st34;
 st34:
 	if ( ++p == pe )
@@ -403,7 +403,7 @@ tr4:
 #line 18 "lex/parser_clone.rl"
 	{ id = 0; }
 #line 30 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_EQ,     id, -1, step, inlet); }
+	{ set_args(res, TARGET_TYPE_EQ,     id, -1, step, inlet); }
 #line 20 "lex/parser_clone.rl"
 	{ id0 = id; }
 	goto st35;
@@ -411,7 +411,7 @@ tr85:
 #line 19 "lex/parser_clone.rl"
 	{ id = 10*id+((*p)-'0'); }
 #line 30 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_EQ,     id, -1, step, inlet); }
+	{ set_args(res, TARGET_TYPE_EQ,     id, -1, step, inlet); }
 #line 20 "lex/parser_clone.rl"
 	{ id0 = id; }
 	goto st35;
@@ -448,7 +448,7 @@ tr17:
 #line 21 "lex/parser_clone.rl"
 	{ id1 = id; }
 #line 36 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_RANGE, id0, id1, step, inlet); }
+	{ set_args(res, TARGET_TYPE_RANGE, id0, id1, step, inlet); }
 	goto st36;
 tr74:
 #line 19 "lex/parser_clone.rl"
@@ -456,7 +456,7 @@ tr74:
 #line 21 "lex/parser_clone.rl"
 	{ id1 = id; }
 #line 36 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_RANGE, id0, id1, step, inlet); }
+	{ set_args(res, TARGET_TYPE_RANGE, id0, id1, step, inlet); }
 	goto st36;
 st36:
 	if ( ++p == pe )
@@ -479,7 +479,7 @@ tr19:
 #line 22 "lex/parser_clone.rl"
 	{ step = (*p)-'0'; }
 #line 36 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_RANGE, id0, id1, step, inlet); }
+	{ set_args(res, TARGET_TYPE_RANGE, id0, id1, step, inlet); }
 	goto st37;
 st37:
 	if ( ++p == pe )
@@ -495,7 +495,7 @@ tr64:
 #line 22 "lex/parser_clone.rl"
 	{ step = 10*step+((*p)-'0'); }
 #line 36 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_RANGE, id0, id1, step, inlet); }
+	{ set_args(res, TARGET_TYPE_RANGE, id0, id1, step, inlet); }
 	goto st38;
 st38:
 	if ( ++p == pe )
@@ -511,7 +511,7 @@ tr65:
 #line 22 "lex/parser_clone.rl"
 	{ step = 10*step+((*p)-'0'); }
 #line 36 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_RANGE, id0, id1, step, inlet); }
+	{ set_args(res, TARGET_TYPE_RANGE, id0, id1, step, inlet); }
 	goto st39;
 st39:
 	if ( ++p == pe )
@@ -527,7 +527,7 @@ tr66:
 #line 22 "lex/parser_clone.rl"
 	{ step = 10*step+((*p)-'0'); }
 #line 36 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_RANGE, id0, id1, step, inlet); }
+	{ set_args(res, TARGET_TYPE_RANGE, id0, id1, step, inlet); }
 	goto st40;
 st40:
 	if ( ++p == pe )
@@ -543,7 +543,7 @@ tr67:
 #line 22 "lex/parser_clone.rl"
 	{ step = 10*step+((*p)-'0'); }
 #line 36 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_RANGE, id0, id1, step, inlet); }
+	{ set_args(res, TARGET_TYPE_RANGE, id0, id1, step, inlet); }
 	goto st41;
 st41:
 	if ( ++p == pe )
@@ -566,7 +566,7 @@ tr21:
 #line 25 "lex/parser_clone.rl"
 	{ inlet = (*p)-'0'; }
 #line 36 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_RANGE, id0, id1, step, inlet); }
+	{ set_args(res, TARGET_TYPE_RANGE, id0, id1, step, inlet); }
 	goto st42;
 st42:
 	if ( ++p == pe )
@@ -580,7 +580,7 @@ tr68:
 #line 25 "lex/parser_clone.rl"
 	{ inlet = 10*inlet+((*p)-'0'); }
 #line 36 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_RANGE, id0, id1, step, inlet); }
+	{ set_args(res, TARGET_TYPE_RANGE, id0, id1, step, inlet); }
 	goto st43;
 st43:
 	if ( ++p == pe )
@@ -594,7 +594,7 @@ tr69:
 #line 25 "lex/parser_clone.rl"
 	{ inlet = 10*inlet+((*p)-'0'); }
 #line 36 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_RANGE, id0, id1, step, inlet); }
+	{ set_args(res, TARGET_TYPE_RANGE, id0, id1, step, inlet); }
 	goto st44;
 st44:
 	if ( ++p == pe )
@@ -610,7 +610,7 @@ tr18:
 #line 21 "lex/parser_clone.rl"
 	{ id1 = id; }
 #line 36 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_RANGE, id0, id1, step, inlet); }
+	{ set_args(res, TARGET_TYPE_RANGE, id0, id1, step, inlet); }
 	goto st45;
 st45:
 	if ( ++p == pe )
@@ -630,7 +630,7 @@ tr71:
 #line 21 "lex/parser_clone.rl"
 	{ id1 = id; }
 #line 36 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_RANGE, id0, id1, step, inlet); }
+	{ set_args(res, TARGET_TYPE_RANGE, id0, id1, step, inlet); }
 	goto st46;
 st46:
 	if ( ++p == pe )
@@ -650,7 +650,7 @@ tr72:
 #line 21 "lex/parser_clone.rl"
 	{ id1 = id; }
 #line 36 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_RANGE, id0, id1, step, inlet); }
+	{ set_args(res, TARGET_TYPE_RANGE, id0, id1, step, inlet); }
 	goto st47;
 st47:
 	if ( ++p == pe )
@@ -670,7 +670,7 @@ tr73:
 #line 21 "lex/parser_clone.rl"
 	{ id1 = id; }
 #line 36 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_RANGE, id0, id1, step, inlet); }
+	{ set_args(res, TARGET_TYPE_RANGE, id0, id1, step, inlet); }
 	goto st48;
 st48:
 	if ( ++p == pe )
@@ -695,7 +695,7 @@ tr22:
 #line 22 "lex/parser_clone.rl"
 	{ step = (*p)-'0'; }
 #line 30 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_EQ,     id, -1, step, inlet); }
+	{ set_args(res, TARGET_TYPE_EQ,     id, -1, step, inlet); }
 	goto st49;
 st49:
 	if ( ++p == pe )
@@ -711,7 +711,7 @@ tr75:
 #line 22 "lex/parser_clone.rl"
 	{ step = 10*step+((*p)-'0'); }
 #line 30 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_EQ,     id, -1, step, inlet); }
+	{ set_args(res, TARGET_TYPE_EQ,     id, -1, step, inlet); }
 	goto st50;
 st50:
 	if ( ++p == pe )
@@ -727,7 +727,7 @@ tr76:
 #line 22 "lex/parser_clone.rl"
 	{ step = 10*step+((*p)-'0'); }
 #line 30 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_EQ,     id, -1, step, inlet); }
+	{ set_args(res, TARGET_TYPE_EQ,     id, -1, step, inlet); }
 	goto st51;
 st51:
 	if ( ++p == pe )
@@ -743,7 +743,7 @@ tr77:
 #line 22 "lex/parser_clone.rl"
 	{ step = 10*step+((*p)-'0'); }
 #line 30 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_EQ,     id, -1, step, inlet); }
+	{ set_args(res, TARGET_TYPE_EQ,     id, -1, step, inlet); }
 	goto st52;
 st52:
 	if ( ++p == pe )
@@ -759,7 +759,7 @@ tr78:
 #line 22 "lex/parser_clone.rl"
 	{ step = 10*step+((*p)-'0'); }
 #line 30 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_EQ,     id, -1, step, inlet); }
+	{ set_args(res, TARGET_TYPE_EQ,     id, -1, step, inlet); }
 	goto st53;
 st53:
 	if ( ++p == pe )
@@ -782,7 +782,7 @@ tr24:
 #line 25 "lex/parser_clone.rl"
 	{ inlet = (*p)-'0'; }
 #line 30 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_EQ,     id, -1, step, inlet); }
+	{ set_args(res, TARGET_TYPE_EQ,     id, -1, step, inlet); }
 	goto st54;
 st54:
 	if ( ++p == pe )
@@ -796,7 +796,7 @@ tr79:
 #line 25 "lex/parser_clone.rl"
 	{ inlet = 10*inlet+((*p)-'0'); }
 #line 30 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_EQ,     id, -1, step, inlet); }
+	{ set_args(res, TARGET_TYPE_EQ,     id, -1, step, inlet); }
 	goto st55;
 st55:
 	if ( ++p == pe )
@@ -810,7 +810,7 @@ tr80:
 #line 25 "lex/parser_clone.rl"
 	{ inlet = 10*inlet+((*p)-'0'); }
 #line 30 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_EQ,     id, -1, step, inlet); }
+	{ set_args(res, TARGET_TYPE_EQ,     id, -1, step, inlet); }
 	goto st56;
 st56:
 	if ( ++p == pe )
@@ -824,7 +824,7 @@ tr5:
 #line 19 "lex/parser_clone.rl"
 	{ id = (*p)-'0'; }
 #line 30 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_EQ,     id, -1, step, inlet); }
+	{ set_args(res, TARGET_TYPE_EQ,     id, -1, step, inlet); }
 #line 20 "lex/parser_clone.rl"
 	{ id0 = id; }
 	goto st57;
@@ -845,7 +845,7 @@ tr82:
 #line 19 "lex/parser_clone.rl"
 	{ id = 10*id+((*p)-'0'); }
 #line 30 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_EQ,     id, -1, step, inlet); }
+	{ set_args(res, TARGET_TYPE_EQ,     id, -1, step, inlet); }
 #line 20 "lex/parser_clone.rl"
 	{ id0 = id; }
 	goto st58;
@@ -866,7 +866,7 @@ tr83:
 #line 19 "lex/parser_clone.rl"
 	{ id = 10*id+((*p)-'0'); }
 #line 30 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_EQ,     id, -1, step, inlet); }
+	{ set_args(res, TARGET_TYPE_EQ,     id, -1, step, inlet); }
 #line 20 "lex/parser_clone.rl"
 	{ id0 = id; }
 	goto st59;
@@ -887,7 +887,7 @@ tr84:
 #line 19 "lex/parser_clone.rl"
 	{ id = 10*id+((*p)-'0'); }
 #line 30 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_EQ,     id, -1, step, inlet); }
+	{ set_args(res, TARGET_TYPE_EQ,     id, -1, step, inlet); }
 #line 20 "lex/parser_clone.rl"
 	{ id0 = id; }
 	goto st60;
@@ -919,13 +919,13 @@ tr25:
 #line 18 "lex/parser_clone.rl"
 	{ id = 0; }
 #line 33 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_LT,     id, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_LT,     id, -1, 1,    inlet); }
 	goto st61;
 tr93:
 #line 19 "lex/parser_clone.rl"
 	{ id = 10*id+((*p)-'0'); }
 #line 33 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_LT,     id, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_LT,     id, -1, 1,    inlet); }
 	goto st61;
 st61:
 	if ( ++p == pe )
@@ -948,7 +948,7 @@ tr29:
 #line 25 "lex/parser_clone.rl"
 	{ inlet = (*p)-'0'; }
 #line 33 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_LT,     id, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_LT,     id, -1, 1,    inlet); }
 	goto st62;
 st62:
 	if ( ++p == pe )
@@ -962,7 +962,7 @@ tr87:
 #line 25 "lex/parser_clone.rl"
 	{ inlet = 10*inlet+((*p)-'0'); }
 #line 33 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_LT,     id, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_LT,     id, -1, 1,    inlet); }
 	goto st63;
 st63:
 	if ( ++p == pe )
@@ -976,7 +976,7 @@ tr88:
 #line 25 "lex/parser_clone.rl"
 	{ inlet = 10*inlet+((*p)-'0'); }
 #line 33 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_LT,     id, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_LT,     id, -1, 1,    inlet); }
 	goto st64;
 st64:
 	if ( ++p == pe )
@@ -990,7 +990,7 @@ tr26:
 #line 19 "lex/parser_clone.rl"
 	{ id = (*p)-'0'; }
 #line 33 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_LT,     id, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_LT,     id, -1, 1,    inlet); }
 	goto st65;
 st65:
 	if ( ++p == pe )
@@ -1006,7 +1006,7 @@ tr90:
 #line 19 "lex/parser_clone.rl"
 	{ id = 10*id+((*p)-'0'); }
 #line 33 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_LT,     id, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_LT,     id, -1, 1,    inlet); }
 	goto st66;
 st66:
 	if ( ++p == pe )
@@ -1022,7 +1022,7 @@ tr91:
 #line 19 "lex/parser_clone.rl"
 	{ id = 10*id+((*p)-'0'); }
 #line 33 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_LT,     id, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_LT,     id, -1, 1,    inlet); }
 	goto st67;
 st67:
 	if ( ++p == pe )
@@ -1038,7 +1038,7 @@ tr92:
 #line 19 "lex/parser_clone.rl"
 	{ id = 10*id+((*p)-'0'); }
 #line 33 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_LT,     id, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_LT,     id, -1, 1,    inlet); }
 	goto st68;
 st68:
 	if ( ++p == pe )
@@ -1063,13 +1063,13 @@ tr30:
 #line 18 "lex/parser_clone.rl"
 	{ id = 0; }
 #line 34 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_LE,     id, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_LE,     id, -1, 1,    inlet); }
 	goto st69;
 tr101:
 #line 19 "lex/parser_clone.rl"
 	{ id = 10*id+((*p)-'0'); }
 #line 34 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_LE,     id, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_LE,     id, -1, 1,    inlet); }
 	goto st69;
 st69:
 	if ( ++p == pe )
@@ -1092,7 +1092,7 @@ tr33:
 #line 25 "lex/parser_clone.rl"
 	{ inlet = (*p)-'0'; }
 #line 34 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_LE,     id, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_LE,     id, -1, 1,    inlet); }
 	goto st70;
 st70:
 	if ( ++p == pe )
@@ -1106,7 +1106,7 @@ tr95:
 #line 25 "lex/parser_clone.rl"
 	{ inlet = 10*inlet+((*p)-'0'); }
 #line 34 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_LE,     id, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_LE,     id, -1, 1,    inlet); }
 	goto st71;
 st71:
 	if ( ++p == pe )
@@ -1120,7 +1120,7 @@ tr96:
 #line 25 "lex/parser_clone.rl"
 	{ inlet = 10*inlet+((*p)-'0'); }
 #line 34 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_LE,     id, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_LE,     id, -1, 1,    inlet); }
 	goto st72;
 st72:
 	if ( ++p == pe )
@@ -1134,7 +1134,7 @@ tr31:
 #line 19 "lex/parser_clone.rl"
 	{ id = (*p)-'0'; }
 #line 34 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_LE,     id, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_LE,     id, -1, 1,    inlet); }
 	goto st73;
 st73:
 	if ( ++p == pe )
@@ -1150,7 +1150,7 @@ tr98:
 #line 19 "lex/parser_clone.rl"
 	{ id = 10*id+((*p)-'0'); }
 #line 34 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_LE,     id, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_LE,     id, -1, 1,    inlet); }
 	goto st74;
 st74:
 	if ( ++p == pe )
@@ -1166,7 +1166,7 @@ tr99:
 #line 19 "lex/parser_clone.rl"
 	{ id = 10*id+((*p)-'0'); }
 #line 34 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_LE,     id, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_LE,     id, -1, 1,    inlet); }
 	goto st75;
 st75:
 	if ( ++p == pe )
@@ -1182,7 +1182,7 @@ tr100:
 #line 19 "lex/parser_clone.rl"
 	{ id = 10*id+((*p)-'0'); }
 #line 34 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_LE,     id, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_LE,     id, -1, 1,    inlet); }
 	goto st76;
 st76:
 	if ( ++p == pe )
@@ -1207,13 +1207,13 @@ tr34:
 #line 18 "lex/parser_clone.rl"
 	{ id = 0; }
 #line 30 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_EQ,     id, -1, step, inlet); }
+	{ set_args(res, TARGET_TYPE_EQ,     id, -1, step, inlet); }
 	goto st77;
 tr105:
 #line 19 "lex/parser_clone.rl"
 	{ id = 10*id+((*p)-'0'); }
 #line 30 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_EQ,     id, -1, step, inlet); }
+	{ set_args(res, TARGET_TYPE_EQ,     id, -1, step, inlet); }
 	goto st77;
 st77:
 	if ( ++p == pe )
@@ -1229,7 +1229,7 @@ tr35:
 #line 19 "lex/parser_clone.rl"
 	{ id = (*p)-'0'; }
 #line 30 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_EQ,     id, -1, step, inlet); }
+	{ set_args(res, TARGET_TYPE_EQ,     id, -1, step, inlet); }
 	goto st78;
 st78:
 	if ( ++p == pe )
@@ -1247,7 +1247,7 @@ tr102:
 #line 19 "lex/parser_clone.rl"
 	{ id = 10*id+((*p)-'0'); }
 #line 30 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_EQ,     id, -1, step, inlet); }
+	{ set_args(res, TARGET_TYPE_EQ,     id, -1, step, inlet); }
 	goto st79;
 st79:
 	if ( ++p == pe )
@@ -1265,7 +1265,7 @@ tr103:
 #line 19 "lex/parser_clone.rl"
 	{ id = 10*id+((*p)-'0'); }
 #line 30 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_EQ,     id, -1, step, inlet); }
+	{ set_args(res, TARGET_TYPE_EQ,     id, -1, step, inlet); }
 	goto st80;
 st80:
 	if ( ++p == pe )
@@ -1283,7 +1283,7 @@ tr104:
 #line 19 "lex/parser_clone.rl"
 	{ id = 10*id+((*p)-'0'); }
 #line 30 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_EQ,     id, -1, step, inlet); }
+	{ set_args(res, TARGET_TYPE_EQ,     id, -1, step, inlet); }
 	goto st81;
 st81:
 	if ( ++p == pe )
@@ -1312,13 +1312,13 @@ tr36:
 #line 18 "lex/parser_clone.rl"
 	{ id = 0; }
 #line 31 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_GT,     id, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_GT,     id, -1, 1,    inlet); }
 	goto st82;
 tr113:
 #line 19 "lex/parser_clone.rl"
 	{ id = 10*id+((*p)-'0'); }
 #line 31 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_GT,     id, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_GT,     id, -1, 1,    inlet); }
 	goto st82;
 st82:
 	if ( ++p == pe )
@@ -1341,7 +1341,7 @@ tr40:
 #line 25 "lex/parser_clone.rl"
 	{ inlet = (*p)-'0'; }
 #line 31 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_GT,     id, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_GT,     id, -1, 1,    inlet); }
 	goto st83;
 st83:
 	if ( ++p == pe )
@@ -1355,7 +1355,7 @@ tr107:
 #line 25 "lex/parser_clone.rl"
 	{ inlet = 10*inlet+((*p)-'0'); }
 #line 31 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_GT,     id, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_GT,     id, -1, 1,    inlet); }
 	goto st84;
 st84:
 	if ( ++p == pe )
@@ -1369,7 +1369,7 @@ tr108:
 #line 25 "lex/parser_clone.rl"
 	{ inlet = 10*inlet+((*p)-'0'); }
 #line 31 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_GT,     id, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_GT,     id, -1, 1,    inlet); }
 	goto st85;
 st85:
 	if ( ++p == pe )
@@ -1383,7 +1383,7 @@ tr37:
 #line 19 "lex/parser_clone.rl"
 	{ id = (*p)-'0'; }
 #line 31 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_GT,     id, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_GT,     id, -1, 1,    inlet); }
 	goto st86;
 st86:
 	if ( ++p == pe )
@@ -1399,7 +1399,7 @@ tr110:
 #line 19 "lex/parser_clone.rl"
 	{ id = 10*id+((*p)-'0'); }
 #line 31 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_GT,     id, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_GT,     id, -1, 1,    inlet); }
 	goto st87;
 st87:
 	if ( ++p == pe )
@@ -1415,7 +1415,7 @@ tr111:
 #line 19 "lex/parser_clone.rl"
 	{ id = 10*id+((*p)-'0'); }
 #line 31 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_GT,     id, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_GT,     id, -1, 1,    inlet); }
 	goto st88;
 st88:
 	if ( ++p == pe )
@@ -1431,7 +1431,7 @@ tr112:
 #line 19 "lex/parser_clone.rl"
 	{ id = 10*id+((*p)-'0'); }
 #line 31 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_GT,     id, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_GT,     id, -1, 1,    inlet); }
 	goto st89;
 st89:
 	if ( ++p == pe )
@@ -1456,13 +1456,13 @@ tr41:
 #line 18 "lex/parser_clone.rl"
 	{ id = 0; }
 #line 32 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_GE,     id, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_GE,     id, -1, 1,    inlet); }
 	goto st90;
 tr121:
 #line 19 "lex/parser_clone.rl"
 	{ id = 10*id+((*p)-'0'); }
 #line 32 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_GE,     id, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_GE,     id, -1, 1,    inlet); }
 	goto st90;
 st90:
 	if ( ++p == pe )
@@ -1485,7 +1485,7 @@ tr44:
 #line 25 "lex/parser_clone.rl"
 	{ inlet = (*p)-'0'; }
 #line 32 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_GE,     id, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_GE,     id, -1, 1,    inlet); }
 	goto st91;
 st91:
 	if ( ++p == pe )
@@ -1499,7 +1499,7 @@ tr115:
 #line 25 "lex/parser_clone.rl"
 	{ inlet = 10*inlet+((*p)-'0'); }
 #line 32 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_GE,     id, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_GE,     id, -1, 1,    inlet); }
 	goto st92;
 st92:
 	if ( ++p == pe )
@@ -1513,7 +1513,7 @@ tr116:
 #line 25 "lex/parser_clone.rl"
 	{ inlet = 10*inlet+((*p)-'0'); }
 #line 32 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_GE,     id, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_GE,     id, -1, 1,    inlet); }
 	goto st93;
 st93:
 	if ( ++p == pe )
@@ -1527,7 +1527,7 @@ tr42:
 #line 19 "lex/parser_clone.rl"
 	{ id = (*p)-'0'; }
 #line 32 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_GE,     id, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_GE,     id, -1, 1,    inlet); }
 	goto st94;
 st94:
 	if ( ++p == pe )
@@ -1543,7 +1543,7 @@ tr118:
 #line 19 "lex/parser_clone.rl"
 	{ id = 10*id+((*p)-'0'); }
 #line 32 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_GE,     id, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_GE,     id, -1, 1,    inlet); }
 	goto st95;
 st95:
 	if ( ++p == pe )
@@ -1559,7 +1559,7 @@ tr119:
 #line 19 "lex/parser_clone.rl"
 	{ id = 10*id+((*p)-'0'); }
 #line 32 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_GE,     id, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_GE,     id, -1, 1,    inlet); }
 	goto st96;
 st96:
 	if ( ++p == pe )
@@ -1575,7 +1575,7 @@ tr120:
 #line 19 "lex/parser_clone.rl"
 	{ id = 10*id+((*p)-'0'); }
 #line 32 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_GE,     id, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_GE,     id, -1, 1,    inlet); }
 	goto st97;
 st97:
 	if ( ++p == pe )
@@ -1589,7 +1589,7 @@ case 97:
 	goto st0;
 tr9:
 #line 28 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_RANDOM, -1, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_RANDOM, -1, -1, 1,    inlet); }
 	goto st98;
 st98:
 	if ( ++p == pe )
@@ -1612,7 +1612,7 @@ tr46:
 #line 25 "lex/parser_clone.rl"
 	{ inlet = (*p)-'0'; }
 #line 28 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_RANDOM, -1, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_RANDOM, -1, -1, 1,    inlet); }
 	goto st99;
 st99:
 	if ( ++p == pe )
@@ -1626,7 +1626,7 @@ tr123:
 #line 25 "lex/parser_clone.rl"
 	{ inlet = 10*inlet+((*p)-'0'); }
 #line 28 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_RANDOM, -1, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_RANDOM, -1, -1, 1,    inlet); }
 	goto st100;
 st100:
 	if ( ++p == pe )
@@ -1640,7 +1640,7 @@ tr124:
 #line 25 "lex/parser_clone.rl"
 	{ inlet = 10*inlet+((*p)-'0'); }
 #line 28 "lex/parser_clone.rl"
-	{ set_args(res, ARG_TYPE_RANDOM, -1, -1, 1,    inlet); }
+	{ set_args(res, TARGET_TYPE_RANDOM, -1, -1, 1,    inlet); }
 	goto st101;
 st101:
 	if ( ++p == pe )
@@ -1763,17 +1763,17 @@ case 101:
 
 
 #line 1766 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
-static const int clone_action_name_start = 1;
-static const int clone_action_name_first_final = 14;
-static const int clone_action_name_error = 0;
+static const int clone_message_type_start = 1;
+static const int clone_message_type_first_final = 14;
+static const int clone_message_type_error = 0;
 
-static const int clone_action_name_en_main = 1;
+static const int clone_message_type_en_main = 1;
 
 
 #line 85 "lex/parser_clone.rl"
 
 
-MessageType parse_clone_message_type(const char* str)
+CloneMessageType parse_clone_message_type(const char* str)
 {
     const auto len = strlen(str);
     if (len == 0)
@@ -1784,12 +1784,12 @@ MessageType parse_clone_message_type(const char* str)
     const char* pe = p + len;
     const char* eof = pe;
 
-    MessageType type = MSG_TYPE_NONE;
+    auto type = MSG_TYPE_NONE;
 
     
 #line 1791 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
 	{
-	cs = clone_action_name_start;
+	cs = clone_message_type_start;
 	}
 
 #line 101 "lex/parser_clone.rl"

@@ -366,23 +366,23 @@ void BaseClone::onAny(t_symbol* s, const AtomListView& lv)
 {
     using namespace ceammc::parser;
 
-    CloneMessage msg;
-    MessageType type = parse_clone_message_type(s->s_name);
+    TargetMessage msg;
+    CloneMessageType type = parse_clone_message_type(s->s_name);
 
     switch (type) {
     case MSG_TYPE_SEND:
-        if (lv.size() >= 1 && lv[0].isSymbol() && parse_clone_action(lv[0].asT<t_symbol*>()->s_name, msg))
+        if (lv.size() >= 1 && lv[0].isSymbol() && parse_clone_target(lv[0].asT<t_symbol*>()->s_name, msg))
             return send(msg, lv.subView(1));
 
         if (lv.size() >= 1 && lv[0].isFloat()) {
             msg.first = lv[0].asT<int>();
-            msg.type = ARG_TYPE_ALL;
+            msg.type = TARGET_TYPE_ALL;
             return send(msg, lv.subView(1));
         }
 
         break;
     default:
-        if (s->s_name[0] == '#' && parse_clone_action(s->s_name, msg))
+        if (s->s_name[0] == '#' && parse_clone_target(s->s_name, msg))
             return send(msg, lv);
 
         break;
@@ -603,17 +603,17 @@ void BaseClone::processBlock()
 {
 }
 
-void BaseClone::send(const parser::CloneMessage& msg, const AtomListView& lv)
+void BaseClone::send(const parser::TargetMessage& msg, const AtomListView& lv)
 {
     using namespace ceammc::parser;
 
     const size_t NINST = instances_.size();
 
     switch (msg.type) {
-    case ARG_TYPE_ALL:
+    case TARGET_TYPE_ALL:
         sendGreaterThen(0, msg.inlet, lv);
         break;
-    case ARG_TYPE_EXCEPT: {
+    case TARGET_TYPE_EXCEPT: {
         for (size_t i = 0; i < NINST; i++) {
             if (i == msg.first)
                 continue;
@@ -622,13 +622,13 @@ void BaseClone::send(const parser::CloneMessage& msg, const AtomListView& lv)
                 break;
         }
     } break;
-    case ARG_TYPE_EQ:
+    case TARGET_TYPE_EQ:
         sendToInstanceInlets(msg.first, msg.inlet, lv);
         break;
-    case ARG_TYPE_GT:
+    case TARGET_TYPE_GT:
         sendGreaterThen(msg.first, msg.inlet, lv);
         break;
-    case ARG_TYPE_GE:
+    case TARGET_TYPE_GE:
         sendGreaterThen(msg.first + 1, msg.inlet, lv);
         break;
     default:

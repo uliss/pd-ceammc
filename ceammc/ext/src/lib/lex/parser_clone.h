@@ -20,29 +20,29 @@ namespace ceammc {
 
 namespace parser {
 
-    enum ArgumentType : uint8_t {
-        ARG_TYPE_NONE,
-        ARG_TYPE_ALL,
-        ARG_TYPE_EXCEPT,
-        ARG_TYPE_RANDOM,
-        ARG_TYPE_EQ,
-        ARG_TYPE_GT,
-        ARG_TYPE_GE,
-        ARG_TYPE_LT,
-        ARG_TYPE_LE,
-        ARG_TYPE_RANGE,
-        ARG_TYPE_SPREAD
+    enum TargetType : uint8_t {
+        TARGET_TYPE_NONE,
+        TARGET_TYPE_ALL,
+        TARGET_TYPE_EXCEPT,
+        TARGET_TYPE_RANDOM,
+        TARGET_TYPE_EQ,
+        TARGET_TYPE_GT,
+        TARGET_TYPE_GE,
+        TARGET_TYPE_LT,
+        TARGET_TYPE_LE,
+        TARGET_TYPE_RANGE,
+        TARGET_TYPE_SPREAD
     };
 
-    struct CloneMessage {
+    struct TargetMessage {
         int16_t first;
         int16_t last;
         int16_t step;
         int8_t inlet;
-        ArgumentType type;
+        TargetType type;
     };
 
-    enum MessageType {
+    enum CloneMessageType {
         MSG_TYPE_NONE,
         MSG_TYPE_SEND,
         MSG_TYPE_SEND_SPREAD,
@@ -50,8 +50,8 @@ namespace parser {
         MSG_TYPE_DSP_TOGGLE
     };
 
-    bool parse_clone_action(const char* str, CloneMessage& res);
-    MessageType parse_clone_message_type(const char* str);
+    bool parse_clone_target(const char* str, TargetMessage& res);
+    CloneMessageType parse_clone_message_type(const char* str);
 }
 
 }

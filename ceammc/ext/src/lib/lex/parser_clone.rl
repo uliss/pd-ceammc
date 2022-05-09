@@ -4,7 +4,7 @@
 namespace ceammc {
 namespace parser {
 
-static inline void set_args(CloneMessage& res, ArgumentType type, int16_t first, int16_t last, int16_t step, int8_t inlet) {
+static inline void set_args(TargetMessage& res, TargetType type, int16_t first, int16_t last, int16_t step, int8_t inlet) {
     res.first = first;
     res.last = last;
     res.step = step;
@@ -24,16 +24,16 @@ static inline void set_args(CloneMessage& res, ArgumentType type, int16_t first,
             ('0'     ${ inlet = 0; }
             | ([1-9] ${ inlet = fc-'0'; } [0-9]{0,3} ${ inlet = 10*inlet+(fc-'0'); }));
 
-    target_all =    ('*' inlet?)           @{ set_args(res, ARG_TYPE_ALL,    -1, -1, 1,    inlet); };
-    target_random = ('?' inlet?)           @{ set_args(res, ARG_TYPE_RANDOM, -1, -1, 1,    inlet); };
-    target_except = ('!' id inlet?)        @{ set_args(res, ARG_TYPE_EXCEPT, id, -1, 1,    inlet); };
-    target_eq =     ('='? id step? inlet?) @{ set_args(res, ARG_TYPE_EQ,     id, -1, step, inlet); };
-    target_gt =     ('>'  id inlet?)       @{ set_args(res, ARG_TYPE_GT,     id, -1, 1,    inlet); };
-    target_ge =     ('>=' id inlet?)       @{ set_args(res, ARG_TYPE_GE,     id, -1, 1,    inlet); };
-    target_lt =     ('<'  id inlet?)       @{ set_args(res, ARG_TYPE_LT,     id, -1, 1,    inlet); };
-    target_le =     ('<=' id inlet?)       @{ set_args(res, ARG_TYPE_LE,     id, -1, 1,    inlet); };
+    target_all =    ('*' inlet?)           @{ set_args(res, TARGET_TYPE_ALL,    -1, -1, 1,    inlet); };
+    target_random = ('?' inlet?)           @{ set_args(res, TARGET_TYPE_RANDOM, -1, -1, 1,    inlet); };
+    target_except = ('!' id inlet?)        @{ set_args(res, TARGET_TYPE_EXCEPT, id, -1, 1,    inlet); };
+    target_eq =     ('='? id step? inlet?) @{ set_args(res, TARGET_TYPE_EQ,     id, -1, step, inlet); };
+    target_gt =     ('>'  id inlet?)       @{ set_args(res, TARGET_TYPE_GT,     id, -1, 1,    inlet); };
+    target_ge =     ('>=' id inlet?)       @{ set_args(res, TARGET_TYPE_GE,     id, -1, 1,    inlet); };
+    target_lt =     ('<'  id inlet?)       @{ set_args(res, TARGET_TYPE_LT,     id, -1, 1,    inlet); };
+    target_le =     ('<=' id inlet?)       @{ set_args(res, TARGET_TYPE_LE,     id, -1, 1,    inlet); };
     target_range =  (id0 '..' id1 step? inlet?)
-                                           @{ set_args(res, ARG_TYPE_RANGE, id0, id1, step, inlet); };
+                                           @{ set_args(res, TARGET_TYPE_RANGE, id0, id1, step, inlet); };
 
     target =
         target_all
@@ -50,11 +50,11 @@ static inline void set_args(CloneMessage& res, ArgumentType type, int16_t first,
     write data;
 }%%
 
-bool parse_clone_action(const char* str, CloneMessage& res)
+bool parse_clone_target(const char* str, TargetMessage& res)
 {
     const auto len = strlen(str);
     if (len == 0) {
-        res.type = ARG_TYPE_NONE;
+        res.type = TARGET_TYPE_NONE;
         return false;
     }
 
@@ -72,7 +72,7 @@ bool parse_clone_action(const char* str, CloneMessage& res)
 }
 
 %%{
-    machine clone_action_name;
+    machine clone_message_type;
 
     action_name =
         'dsp'       @{ type = MSG_TYPE_DSP_SET; }
@@ -84,7 +84,7 @@ bool parse_clone_action(const char* str, CloneMessage& res)
     write data;
 }%%
 
-MessageType parse_clone_message_type(const char* str)
+CloneMessageType parse_clone_message_type(const char* str)
 {
     const auto len = strlen(str);
     if (len == 0)
@@ -95,7 +95,7 @@ MessageType parse_clone_message_type(const char* str)
     const char* pe = p + len;
     const char* eof = pe;
 
-    MessageType type = MSG_TYPE_NONE;
+    auto type = MSG_TYPE_NONE;
 
     %% write init;
     %% write exec;
