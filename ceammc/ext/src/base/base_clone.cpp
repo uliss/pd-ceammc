@@ -19,6 +19,8 @@
 #include "fmt/format.h"
 #include "lex/parser_clone.h"
 
+#include <boost/container/small_vector.hpp>
+
 constexpr const char* CONTAINTER_NAME = "/CONTAINER/";
 constexpr const char* PATTERN_NAME = "/PATTERN/";
 constexpr const char* SYM_CANVAS_RESTORE = "#Z";
@@ -381,6 +383,17 @@ void BaseClone::onAny(t_symbol* s, const AtomListView& lv)
         }
 
         break;
+    case MSG_TYPE_DSP_SET:
+        if (lv.size() >= 1 && lv[0].isSymbol() && parse_clone_target(lv[0].asT<t_symbol*>()->s_name, msg))
+            return dspSet(msg, lv.subView(1));
+
+        if (lv.size() >= 1 && lv[0].isFloat()) {
+            msg.first = lv[0].asT<int>();
+            msg.type = TARGET_TYPE_ALL;
+            return dspSet(msg, lv.subView(1));
+        }
+
+        break;
     default:
         if (s->s_name[0] == '#' && parse_clone_target(s->s_name, msg))
             return send(msg, lv);
@@ -562,40 +575,71 @@ void BaseClone::updateOutlets()
 
 void BaseClone::signalInit(t_signal** sp)
 {
-    if (n_sig_in_ != 0 || n_sig_out_ != 0) {
-        block_size_ = size_t(sp[0]->s_n);
-        sample_rate_ = size_t(sp[0]->s_sr);
-    } else {
+    using SignalList = boost::container::small_vector<t_signal*, 64>;
+
+    if (n_sig_in_ == 0 && n_sig_out_ == 0) {
         block_size_ = 64;
         sample_rate_ = sys_getsr();
+        return;
     }
 
-    auto sig_in = sp;
-    auto sig_out = sp + n_sig_in_;
+    block_size_ = size_t(sp[0]->s_n);
+    sample_rate_ = size_t(sp[0]->s_sr);
+
+    auto obj_in = sp;
+    auto obj_out = sp + n_sig_in_;
 
     const size_t NINST = instances_.size();
     const size_t INST_IN = n_sig_in_ / NINST;
     const size_t INST_OUT = n_sig_out_ / NINST;
 
-    auto inst_sig_in = (t_signal**)alloca((INST_IN + INST_OUT) * sizeof(t_signal*));
-    auto inst_sig_out = inst_sig_in + INST_IN;
+    // ref counter update
+    for (size_t i = 0; i < n_sig_in_; i++)
+        obj_in[i]->s_refcount += 1;
+
+    // instance in/out signals
+    // need to be allocated as continous block for passing to canvas_dodsp()
+    SignalList inst_sig_in(INST_IN + INST_OUT);
+    auto inst_sig_out = inst_sig_in.data() + INST_IN;
+
+    // object output signals
+    SignalList sig_out(n_sig_out_);
+    for (auto& s : sig_out)
+        s = signal_newfromcontext(0);
 
     for (size_t i = 0; i < NINST; i++) {
         auto& inst = instances_[i];
 
-        for (size_t k = 0; k < INST_IN; k++)
-            inst_sig_in[k] = sig_in[i * INST_IN + k];
+        if (!inst.isDspOn()) {
+            // zero output
+            for (size_t k = 0; k < INST_OUT; k++) {
+                auto out = sig_out[i * n_sig_out_ / NINST + k];
+                dsp_add_zero(out->s_vec, out->s_n);
+            }
+
+            continue;
+        }
+
+        for (size_t k = 0; k < INST_IN; k++) {
+            inst_sig_in[k] = obj_in[i * INST_IN + k];
+        }
 
         for (size_t k = 0; k < INST_OUT; k++)
             inst_sig_out[k] = signal_newfromcontext(1);
 
-        canvas_dodsp(inst.canvas(), 0, inst_sig_in);
+        canvas_dodsp(inst.canvas(), 0, inst_sig_in.data());
 
         for (size_t k = 0; k < INST_OUT; k++) {
-            auto out = sig_out[i * INST_OUT + k];
+            auto out = sig_out[i * n_sig_out_ / NINST + k];
             dsp_add_copy(inst_sig_out[k]->s_vec, out->s_vec, out->s_n);
             //            signal_makereusable(inst_sig_out[k]);
         }
+    }
+
+    /* copy to output signsls */
+    for (size_t i = 0; i < n_sig_out_; i++) {
+        dsp_add_copy(sig_out[i]->s_vec, obj_out[i]->s_vec, sig_out[i]->s_n);
+        signal_makereusable(sig_out[i]);
     }
 }
 
@@ -631,6 +675,23 @@ void BaseClone::send(const parser::TargetMessage& msg, const AtomListView& lv)
     case TARGET_TYPE_GE:
         sendGreaterThen(msg.first + 1, msg.inlet, lv);
         break;
+    default:
+        break;
+    }
+}
+
+void BaseClone::dspSet(const parser::TargetMessage& msg, const AtomListView& lv)
+{
+    using namespace ceammc::parser;
+
+    switch (msg.type) {
+    case TARGET_TYPE_ALL: {
+        DspSuspendGuard guard;
+
+        for (auto& i : instances_)
+            i.dspSet(lv.boolAt(0, false));
+
+    } break;
     default:
         break;
     }

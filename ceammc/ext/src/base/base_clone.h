@@ -24,6 +24,7 @@ using namespace ceammc;
 class CloneInstance {
     t_canvas* canvas_;
     uint16_t idx_;
+    bool dsp_on_ { true };
 
     CloneInstance(const CloneInstance&) = delete;
     CloneInstance& operator=(const CloneInstance&) = delete;
@@ -45,6 +46,9 @@ public:
      */
     void fillWithPattern(const t_binbuf* pattern, int num);
     void loadbang();
+
+    bool isDspOn() const { return dsp_on_; }
+    void dspSet(bool value) { dsp_on_ = value; }
 
     /**
      * clear instance content
@@ -132,6 +136,7 @@ private:
     }
 
     void send(const parser::TargetMessage& msg, const AtomListView& lv);
+    void dspSet(const parser::TargetMessage& msg, const AtomListView& lv);
     void sendToInlet(t_inlet* inlet, const AtomListView& lv);
     void sendToInstance(uint16_t inst, uint16_t inlet, const AtomListView& lv);
     bool sendToInstanceInlets(int16_t inst, int16_t inlet, const AtomListView& lv);
