@@ -664,7 +664,7 @@ void BaseClone::send(const parser::TargetMessage& msg, const AtomListView& lv)
 
     switch (msg.type) {
     case TARGET_TYPE_ALL:
-        sendGreaterThen(0, msg.inlet, lv);
+        sendGreaterEqual(0, msg.inlet, lv);
         break;
     case TARGET_TYPE_EXCEPT: {
         for (size_t i = 0; i < NINST; i++) {
@@ -679,10 +679,16 @@ void BaseClone::send(const parser::TargetMessage& msg, const AtomListView& lv)
         sendToInstanceInlets(msg.first, msg.inlet, lv);
         break;
     case TARGET_TYPE_GT:
-        sendGreaterThen(msg.first, msg.inlet, lv);
+        sendGreaterEqual(msg.first + 1, msg.inlet, lv);
         break;
     case TARGET_TYPE_GE:
-        sendGreaterThen(msg.first + 1, msg.inlet, lv);
+        sendGreaterEqual(msg.first, msg.inlet, lv);
+        break;
+    case TARGET_TYPE_LE:
+        sendLessThen(msg.first + 1, msg.inlet, lv);
+        break;
+    case TARGET_TYPE_LT:
+        sendLessThen(msg.first, msg.inlet, lv);
         break;
     default:
         break;
@@ -783,12 +789,24 @@ bool BaseClone::sendToInstanceInlets(int16_t inst, int16_t inlet, const AtomList
     return true;
 }
 
-void BaseClone::sendGreaterThen(int16_t instance, int16_t inlet, const AtomListView& lv)
+void BaseClone::sendGreaterEqual(int16_t instance, int16_t inlet, const AtomListView& lv)
 {
     const int16_t NINST = instances_.size();
 
-    for (uint16_t i = instance; i < NINST; i++)
-        sendToInstanceInlets(i, inlet, lv);
+    for (uint16_t i = instance; i < NINST; i++) {
+        if (!sendToInstanceInlets(i, inlet, lv))
+            break;
+    }
+}
+
+void BaseClone::sendLessThen(int16_t instance, int16_t inlet, const AtomListView& lv)
+{
+    auto n = std::min<int16_t>(instance, instances_.size());
+
+    while (--n > 0) {
+        if (!sendToInstanceInlets(n, inlet, lv))
+            break;
+    }
 }
 
 void BaseClone::setupDSP(t_signal** sp)
