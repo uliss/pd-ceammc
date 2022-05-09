@@ -133,6 +133,10 @@ private:
 
     void send(const parser::CloneMessage& msg, const AtomListView& lv);
     void sendToInlet(t_inlet* inlet, const AtomListView& lv);
+    void sendToInstance(uint16_t inst, uint16_t inlet, const AtomListView& lv);
+    bool sendToInstanceInlets(int16_t inst, int16_t inlet, const AtomListView& lv);
+
+    void sendGreaterThen(int16_t instance, int16_t inlet, const AtomListView& lv);
 
 private:
     // object renaming in Pd is the delete, then create sequence

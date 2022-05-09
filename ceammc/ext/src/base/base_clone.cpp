@@ -610,36 +610,28 @@ void BaseClone::send(const parser::CloneMessage& msg, const AtomListView& lv)
 
     switch (msg.type) {
     case ARG_TYPE_ALL:
-        if (msg.inlet < 0) { // to all inlets
-            for (auto& i : inlets())
-                sendToInlet(i, lv);
-        } else if (msg.inlet <= n_instance_in_) {
-            for (size_t i = 0; i < NINST; i++) {
-                auto idx = i * n_instance_in_ + (msg.inlet - 1);
-                sendToInlet(inlets()[idx], lv);
-            }
-        } else {
-            OBJ_ERR << fmt::format("invalid instance inlet number: {}", (int)msg.inlet);
-        }
+        sendGreaterThen(0, msg.inlet, lv);
         break;
     case ARG_TYPE_EXCEPT: {
         for (size_t i = 0; i < NINST; i++) {
             if (i == msg.first)
                 continue;
 
-            if (msg.inlet < 0) {
-                for (uint16_t j; j < n_instance_in_; j++) {
-                    auto idx = i * n_instance_in_ + j;
-                    sendToInlet(inlets()[idx], lv);
-                }
-            } else if (msg.inlet <= n_instance_in_) {
-                auto idx = i * n_instance_in_ + (msg.inlet - 1);
-                sendToInlet(inlets()[idx], lv);
-            } else {
-                OBJ_ERR << fmt::format("invalid instance inlet number: {}", (int)msg.inlet);
-            }
+            if (!sendToInstanceInlets(i, msg.inlet, lv))
+                break;
         }
     } break;
+    case ARG_TYPE_EQ:
+        sendToInstanceInlets(msg.first, msg.inlet, lv);
+        break;
+    case ARG_TYPE_GT:
+        sendGreaterThen(msg.first, msg.inlet, lv);
+        break;
+    case ARG_TYPE_GE:
+        sendGreaterThen(msg.first + 1, msg.inlet, lv);
+        break;
+    default:
+        break;
     }
 }
 
@@ -661,6 +653,41 @@ void BaseClone::sendToInlet(t_inlet* inlet, const AtomListView& lv)
     } else {
         OBJ_ERR << "invalid list: " << lv;
     }
+}
+
+void BaseClone::sendToInstance(uint16_t inst, uint16_t inlet, const AtomListView& lv)
+{
+    const auto idx = inst * n_instance_in_ + inlet;
+    if (idx < instances_.size())
+        sendToInlet(inlets()[idx], lv);
+}
+
+bool BaseClone::sendToInstanceInlets(int16_t inst, int16_t inlet, const AtomListView& lv)
+{
+    if (inst < 0 || inst >= (int16_t)instances_.size()) {
+        OBJ_ERR << fmt::format("invalid instance: {}", inst);
+        return false;
+    }
+
+    if (inlet < 0) { // all inlets
+        for (uint16_t i = 0; i < n_instance_in_; i++)
+            sendToInstance(inst, i, lv);
+    } else if (inlet <= n_instance_in_) { // single inlet
+        sendToInstance(inst, inlet, lv);
+    } else {
+        OBJ_ERR << fmt::format("invalid instance inlet: {}", inlet);
+        return false;
+    }
+
+    return true;
+}
+
+void BaseClone::sendGreaterThen(int16_t instance, int16_t inlet, const AtomListView& lv)
+{
+    const int16_t NINST = instances_.size();
+
+    for (uint16_t i = instance; i < NINST; i++)
+        sendToInstanceInlets(instance, inlet, lv);
 }
 
 void BaseClone::setupDSP(t_signal** sp)
