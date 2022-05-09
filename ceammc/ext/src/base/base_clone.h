@@ -126,14 +126,6 @@ private:
     void updateOutlets();
 
     void signalInit(t_signal** sp);
-    void processBlock();
-
-    inline static t_int* dspPerform(t_int* w)
-    {
-        BaseClone* ext = reinterpret_cast<BaseClone*>(w[1]);
-        ext->processBlock();
-        return (w + 2);
-    }
 
     void send(const parser::TargetMessage& msg, const AtomListView& lv);
     void dspSet(const parser::TargetMessage& msg, const AtomListView& lv);

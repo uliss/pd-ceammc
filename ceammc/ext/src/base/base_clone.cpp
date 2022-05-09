@@ -620,31 +620,31 @@ void BaseClone::signalInit(t_signal** sp)
             continue;
         }
 
-        for (size_t k = 0; k < INST_IN; k++) {
+        // copy object input signals to instance signals
+        for (size_t k = 0; k < INST_IN; k++)
             inst_sig_in[k] = obj_in[i * INST_IN + k];
-        }
 
+        // create new instance output signals
         for (size_t k = 0; k < INST_OUT; k++)
             inst_sig_out[k] = signal_newfromcontext(1);
 
+        // build instance DSP graph
         canvas_dodsp(inst.canvas(), 0, inst_sig_in.data());
 
+        // setup DSP functions
         for (size_t k = 0; k < INST_OUT; k++) {
             auto out = sig_out[i * n_sig_out_ / NINST + k];
             dsp_add_copy(inst_sig_out[k]->s_vec, out->s_vec, out->s_n);
+            // ?
             //            signal_makereusable(inst_sig_out[k]);
         }
     }
 
     /* copy to output signsls */
-    for (size_t i = 0; i < n_sig_out_; i++) {
+    for (size_t i = 0; i < sig_out.size(); i++) {
         dsp_add_copy(sig_out[i]->s_vec, obj_out[i]->s_vec, sig_out[i]->s_n);
         signal_makereusable(sig_out[i]);
     }
-}
-
-void BaseClone::processBlock()
-{
 }
 
 void BaseClone::send(const parser::TargetMessage& msg, const AtomListView& lv)
@@ -757,7 +757,6 @@ void BaseClone::sendGreaterThen(int16_t instance, int16_t inlet, const AtomListV
 void BaseClone::setupDSP(t_signal** sp)
 {
     signalInit(sp);
-    dsp_add(dspPerform, 1, static_cast<void*>(this));
 
     OBJ_DBG << fmt::format("{}:\n"
                            " - block size: {}\n"
