@@ -75,8 +75,8 @@ bool parse_clone_target(const char* str, TargetMessage& res)
     machine clone_message_type;
 
     action_name =
-        'dsp'       @{ type = MSG_TYPE_DSP_SET; }
-        | '~dsp'    @{ type = MSG_TYPE_DSP_TOGGLE; }
+        'dsp~'      @{ type = MSG_TYPE_DSP_SET; }
+        | 'dsp^'    @{ type = MSG_TYPE_DSP_TOGGLE; }
         | 'send'    @{ type = MSG_TYPE_SEND; }
         | 'spread'  @{ type = MSG_TYPE_SEND_SPREAD; };
 

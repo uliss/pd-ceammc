@@ -1764,7 +1764,7 @@ case 101:
 
 #line 1766 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
 static const int clone_message_type_start = 1;
-static const int clone_message_type_first_final = 14;
+static const int clone_message_type_first_final = 12;
 static const int clone_message_type_error = 0;
 
 static const int clone_message_type_en_main = 1;
@@ -1803,8 +1803,7 @@ CloneMessageType parse_clone_message_type(const char* str)
 case 1:
 	switch( (*p) ) {
 		case 100: goto st2;
-		case 115: goto st4;
-		case 126: goto st11;
+		case 115: goto st5;
 	}
 	goto st0;
 st0:
@@ -1822,107 +1821,95 @@ st3:
 		goto _test_eof3;
 case 3:
 	if ( (*p) == 112 )
-		goto tr5;
-	goto st0;
-tr5:
-#line 78 "lex/parser_clone.rl"
-	{ type = MSG_TYPE_DSP_SET; }
-	goto st14;
-tr9:
-#line 80 "lex/parser_clone.rl"
-	{ type = MSG_TYPE_SEND; }
-	goto st14;
-tr13:
-#line 81 "lex/parser_clone.rl"
-	{ type = MSG_TYPE_SEND_SPREAD; }
-	goto st14;
-tr16:
-#line 79 "lex/parser_clone.rl"
-	{ type = MSG_TYPE_DSP_TOGGLE; }
-	goto st14;
-st14:
-	if ( ++p == pe )
-		goto _test_eof14;
-case 14:
-#line 1848 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+		goto st4;
 	goto st0;
 st4:
 	if ( ++p == pe )
 		goto _test_eof4;
 case 4:
 	switch( (*p) ) {
-		case 101: goto st5;
-		case 112: goto st7;
+		case 94: goto tr5;
+		case 126: goto tr6;
 	}
+	goto st0;
+tr5:
+#line 79 "lex/parser_clone.rl"
+	{ type = MSG_TYPE_DSP_TOGGLE; }
+	goto st12;
+tr6:
+#line 78 "lex/parser_clone.rl"
+	{ type = MSG_TYPE_DSP_SET; }
+	goto st12;
+tr10:
+#line 80 "lex/parser_clone.rl"
+	{ type = MSG_TYPE_SEND; }
+	goto st12;
+tr14:
+#line 81 "lex/parser_clone.rl"
+	{ type = MSG_TYPE_SEND_SPREAD; }
+	goto st12;
+st12:
+	if ( ++p == pe )
+		goto _test_eof12;
+case 12:
+#line 1856 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
 	goto st0;
 st5:
 	if ( ++p == pe )
 		goto _test_eof5;
 case 5:
-	if ( (*p) == 110 )
-		goto st6;
+	switch( (*p) ) {
+		case 101: goto st6;
+		case 112: goto st8;
+	}
 	goto st0;
 st6:
 	if ( ++p == pe )
 		goto _test_eof6;
 case 6:
-	if ( (*p) == 100 )
-		goto tr9;
+	if ( (*p) == 110 )
+		goto st7;
 	goto st0;
 st7:
 	if ( ++p == pe )
 		goto _test_eof7;
 case 7:
-	if ( (*p) == 114 )
-		goto st8;
+	if ( (*p) == 100 )
+		goto tr10;
 	goto st0;
 st8:
 	if ( ++p == pe )
 		goto _test_eof8;
 case 8:
-	if ( (*p) == 101 )
+	if ( (*p) == 114 )
 		goto st9;
 	goto st0;
 st9:
 	if ( ++p == pe )
 		goto _test_eof9;
 case 9:
-	if ( (*p) == 97 )
+	if ( (*p) == 101 )
 		goto st10;
 	goto st0;
 st10:
 	if ( ++p == pe )
 		goto _test_eof10;
 case 10:
-	if ( (*p) == 100 )
-		goto tr13;
+	if ( (*p) == 97 )
+		goto st11;
 	goto st0;
 st11:
 	if ( ++p == pe )
 		goto _test_eof11;
 case 11:
 	if ( (*p) == 100 )
-		goto st12;
-	goto st0;
-st12:
-	if ( ++p == pe )
-		goto _test_eof12;
-case 12:
-	if ( (*p) == 115 )
-		goto st13;
-	goto st0;
-st13:
-	if ( ++p == pe )
-		goto _test_eof13;
-case 13:
-	if ( (*p) == 112 )
-		goto tr16;
+		goto tr14;
 	goto st0;
 	}
 	_test_eof2: cs = 2; goto _test_eof; 
 	_test_eof3: cs = 3; goto _test_eof; 
-	_test_eof14: cs = 14; goto _test_eof; 
 	_test_eof4: cs = 4; goto _test_eof; 
+	_test_eof12: cs = 12; goto _test_eof; 
 	_test_eof5: cs = 5; goto _test_eof; 
 	_test_eof6: cs = 6; goto _test_eof; 
 	_test_eof7: cs = 7; goto _test_eof; 
@@ -1930,8 +1917,6 @@ case 13:
 	_test_eof9: cs = 9; goto _test_eof; 
 	_test_eof10: cs = 10; goto _test_eof; 
 	_test_eof11: cs = 11; goto _test_eof; 
-	_test_eof12: cs = 12; goto _test_eof; 
-	_test_eof13: cs = 13; goto _test_eof; 
 
 	_test_eof: {}
 	_out: {}
@@ -1939,7 +1924,7 @@ case 13:
 
 #line 102 "lex/parser_clone.rl"
 
-    return (cs < 14) ? MSG_TYPE_NONE : type;
+    return (cs < 12) ? MSG_TYPE_NONE : type;
 }
 
 }
