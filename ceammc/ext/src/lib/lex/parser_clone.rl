@@ -24,14 +24,14 @@ static inline void set_args(TargetMessage& res, TargetType type, int16_t first, 
             ('0'     ${ inlet = 0; }
             | ([1-9] ${ inlet = fc-'0'; } [0-9]{0,3} ${ inlet = 10*inlet+(fc-'0'); }));
 
-    target_all =    ('*' inlet?)           @{ set_args(res, TARGET_TYPE_ALL,    -1, -1, 1,    inlet); };
-    target_random = ('?' inlet?)           @{ set_args(res, TARGET_TYPE_RANDOM, -1, -1, 1,    inlet); };
-    target_except = ('!' id inlet?)        @{ set_args(res, TARGET_TYPE_EXCEPT, id, -1, 1,    inlet); };
-    target_eq =     ('='? id step? inlet?) @{ set_args(res, TARGET_TYPE_EQ,     id, -1, step, inlet); };
-    target_gt =     ('>'  id inlet?)       @{ set_args(res, TARGET_TYPE_GT,     id, -1, 1,    inlet); };
-    target_ge =     ('>=' id inlet?)       @{ set_args(res, TARGET_TYPE_GE,     id, -1, 1,    inlet); };
-    target_lt =     ('<'  id inlet?)       @{ set_args(res, TARGET_TYPE_LT,     id, -1, 1,    inlet); };
-    target_le =     ('<=' id inlet?)       @{ set_args(res, TARGET_TYPE_LE,     id, -1, 1,    inlet); };
+    target_all =    ('*' inlet?)           @{ set_args(res, TARGET_TYPE_ALL,    -1, -1, 1,     inlet); };
+    target_random = ('?' inlet?)           @{ set_args(res, TARGET_TYPE_RANDOM, -1, -1, 1,     inlet); };
+    target_except = ('!' id inlet?)        @{ set_args(res, TARGET_TYPE_EXCEPT, id, -1, 1,     inlet); };
+    target_eq =     ('='? id inlet?)       @{ set_args(res, TARGET_TYPE_EQ,     id, -1, 1,     inlet); };
+    target_gt =     ('>'  id inlet?)       @{ set_args(res, TARGET_TYPE_GT,     id, -1, 1,     inlet); };
+    target_ge =     ('>=' id inlet?)       @{ set_args(res, TARGET_TYPE_GE,     id, -1, 1,     inlet); };
+    target_lt =     ('<'  id inlet?)       @{ set_args(res, TARGET_TYPE_LT,     id, -1, 1,     inlet); };
+    target_le =     ('<=' id inlet?)       @{ set_args(res, TARGET_TYPE_LE,     id, -1, 1,     inlet); };
     target_range =  (id0 '..' id1 step? inlet?)
                                            @{ set_args(res, TARGET_TYPE_RANGE, id0, id1, step, inlet); };
 
