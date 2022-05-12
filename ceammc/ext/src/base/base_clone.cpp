@@ -713,8 +713,6 @@ void BaseClone::send(const parser::TargetMessage& msg, const AtomListView& lv)
             sendToInstanceInlets(i, msg.inlet, lv);
 
     } break;
-    case TARGET_TYPE_SPREAD: {
-    } break;
     default:
         OBJ_ERR << fmt::format("unsupported target type: {:d}", msg.type);
         break;

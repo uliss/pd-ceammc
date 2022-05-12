@@ -30,8 +30,7 @@ namespace parser {
         TARGET_TYPE_GE,
         TARGET_TYPE_LT,
         TARGET_TYPE_LE,
-        TARGET_TYPE_RANGE,
-        TARGET_TYPE_SPREAD
+        TARGET_TYPE_RANGE
     };
 
     struct TargetMessage {
