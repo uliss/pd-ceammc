@@ -20,6 +20,7 @@
 #include "lex/parser_clone.h"
 
 #include <boost/container/small_vector.hpp>
+#include <cassert>
 #include <ctime>
 #include <random>
 
@@ -697,7 +698,25 @@ void BaseClone::send(const parser::TargetMessage& msg, const AtomListView& lv)
         std::uniform_int_distribution<uint16_t> dist(0, instances_.size() - 1);
         sendToInstanceInlets(dist(dev), msg.inlet, lv);
     } break;
+    case TARGET_TYPE_RANGE: {
+        assert(msg.first >= 0);
+        assert(msg.last >= 0);
+        assert(msg.step >= 0);
+
+        if (msg.first >= NINST || msg.last >= NINST) {
+            OBJ_ERR << fmt::format("invalid range: {:d}..{:d}", msg.first, msg.last);
+            return;
+        }
+
+        auto mm = std::minmax(msg.first, msg.last);
+        for (auto i = mm.first; i <= mm.second; i += msg.step)
+            sendToInstanceInlets(i, msg.inlet, lv);
+
+    } break;
+    case TARGET_TYPE_SPREAD: {
+    } break;
     default:
+        OBJ_ERR << fmt::format("unsupported target type: {:d}", msg.type);
         break;
     }
 }
