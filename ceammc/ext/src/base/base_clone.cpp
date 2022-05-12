@@ -20,7 +20,6 @@
 #include "lex/parser_clone.h"
 
 #include <boost/container/small_vector.hpp>
-#include <cassert>
 #include <ctime>
 #include <random>
 
@@ -371,34 +370,19 @@ void BaseClone::onAny(t_symbol* s, const AtomListView& lv)
 {
     using namespace ceammc::parser;
 
-    TargetMessage msg;
-    CloneMessageType type = parse_clone_message_type(s->s_name);
-
-    switch (type) {
+    switch (parse_clone_message_type(s->s_name)) {
     case MSG_TYPE_SEND:
         return m_send(s, lv);
     case MSG_TYPE_DSP_SET:
-        // pattern
-        // dsp~ #...
-        if (lv.size() >= 1 && lv[0].isSymbol() && parse_clone_target(lv[0].asT<t_symbol*>()->s_name, msg))
-            return dspSet(msg, lv.subView(1));
-
-        // direct instance index
-        // dsp~ N
-        if (lv.size() >= 1 && lv[0].isFloat()) {
-            msg.first = lv[0].asT<int>();
-            msg.type = TARGET_TYPE_ALL;
-            return dspSet(msg, lv.subView(1));
-        }
-
-        break;
+        return m_dsp_set(s, lv);
     case MSG_TYPE_DSP_TOGGLE:
-        break;
-    default:
+        return m_dsp_toggle(s, lv);
+    default: {
+        TargetMessage msg;
         if (s->s_name[0] == '#' && parse_clone_target(s->s_name, msg))
             return send(msg, lv);
 
-        break;
+    } break;
     }
 }
 
@@ -681,17 +665,11 @@ void BaseClone::send(const parser::TargetMessage& msg, const AtomListView& lv)
     case TARGET_TYPE_LT:
         sendLessThen(msg.first, msg.inlet, lv);
         break;
-    case TARGET_TYPE_RANDOM: {
-        std::mt19937 dev(time(0));
-        std::uniform_int_distribution<uint16_t> dist(0, instances_.size() - 1);
-        sendToInstanceInlets(dist(dev), msg.inlet, lv);
-    } break;
+    case TARGET_TYPE_RANDOM:
+        sendToInstanceInlets(genRandomInstanceIndex(), msg.inlet, lv);
+        break;
     case TARGET_TYPE_RANGE: {
-        assert(msg.first >= 0);
-        assert(msg.last >= 0);
-        assert(msg.step >= 0);
-
-        if (msg.first >= NINST || msg.last >= NINST) {
+        if (msg.first < 0 || msg.last < 0 || msg.first >= NINST || msg.last >= NINST) {
             OBJ_ERR << fmt::format("invalid range: {:d}..{:d}", msg.first, msg.last);
             return;
         }
@@ -745,11 +723,92 @@ void BaseClone::dspSet(const parser::TargetMessage& msg, const AtomListView& lv)
 void BaseClone::dspSetInstance(int16_t idx, bool value)
 {
     if (idx < 0 || idx >= instances_.size()) {
-        OBJ_ERR << fmt::format("invalid instance: {}", (int)idx);
+        OBJ_ERR << fmt::format("invalid instance: {:d}", idx);
         return;
     }
 
     instances_[idx].dspSet(value);
+}
+
+void BaseClone::dspToggle(const parser::TargetMessage& msg)
+{
+    using namespace ceammc::parser;
+
+    switch (msg.type) {
+    case TARGET_TYPE_ALL: {
+        DspSuspendGuard guard;
+
+        for (auto& i : instances_)
+            i.dspToggle();
+
+    } break;
+    case TARGET_TYPE_EQ: {
+        DspSuspendGuard guard;
+        dspToggleInstance(msg.first);
+    } break;
+    case TARGET_TYPE_GT: {
+        DspSuspendGuard guard;
+
+        for (size_t i = msg.first + 1; i < instances_.size(); i++)
+            dspToggleInstance(i);
+    } break;
+    case TARGET_TYPE_GE: {
+        DspSuspendGuard guard;
+
+        for (size_t i = msg.first; i < instances_.size(); i++)
+            dspToggleInstance(i);
+    } break;
+    case TARGET_TYPE_EXCEPT: {
+        DspSuspendGuard guard;
+
+        for (size_t i = 0; i < instances_.size(); i++) {
+            if (i != msg.first)
+                dspToggleInstance(i);
+        }
+    } break;
+    case TARGET_TYPE_LT: {
+        DspSuspendGuard guard;
+
+        auto i = msg.first;
+        while (--i >= 0)
+            dspToggleInstance(i);
+
+    } break;
+    case TARGET_TYPE_LE: {
+        DspSuspendGuard guard;
+
+        auto i = msg.first + 1;
+        while (--i >= 0)
+            dspToggleInstance(i);
+
+    } break;
+    case TARGET_TYPE_RANDOM: {
+        DspSuspendGuard guard;
+        dspToggleInstance(genRandomInstanceIndex());
+    } break;
+    default:
+        break;
+    }
+}
+
+void BaseClone::dspToggleInstance(int16_t idx)
+{
+    if (idx < 0 || idx >= instances_.size()) {
+        OBJ_ERR << fmt::format("invalid instance: {:d}", idx);
+        return;
+    }
+
+    instances_[idx].dspToggle();
+}
+
+uint16_t BaseClone::genRandomInstanceIndex() const
+{
+    if (instances_.empty())
+        return 0;
+
+    std::mt19937 dev(time(0));
+    std::uniform_int_distribution<uint16_t> dist(0, instances_.size() - 1);
+    return dist(dev);
 }
 
 void BaseClone::sendToInlet(t_inlet* inlet, const AtomListView& lv)
@@ -871,6 +930,54 @@ void BaseClone::m_send(t_symbol* s, const AtomListView& lv)
         msg.inlet = -1;
         return send(msg, lv.subView(1));
     }
+
+    METHOD_ERR(s) << "invalid format: " << lv;
+}
+
+void BaseClone::m_dsp_set(t_symbol* s, const AtomListView& lv)
+{
+    using namespace ceammc::parser;
+
+    TargetMessage msg;
+
+    // pattern
+    // dsp~ #...
+    if (lv.size() >= 1 && lv[0].isSymbol() && parse_clone_target(lv[0].asT<t_symbol*>()->s_name, msg))
+        return dspSet(msg, lv.subView(1));
+
+    // direct instance index
+    // dsp~ N
+    if (lv.size() >= 1 && lv[0].isFloat()) {
+        msg.first = lv[0].asT<int>();
+        msg.type = TARGET_TYPE_ALL;
+        return dspSet(msg, lv.subView(1));
+    }
+
+    METHOD_ERR(s) << "invalid format: " << lv;
+}
+
+void BaseClone::m_dsp_toggle(t_symbol* s, const AtomListView& lv)
+{
+    using namespace ceammc::parser;
+
+    TargetMessage msg;
+
+    // pattern
+    // dsp^ #...
+    if (lv.size() >= 1 && lv[0].isSymbol() && parse_clone_target(lv[0].asT<t_symbol*>()->s_name, msg))
+        return dspToggle(msg);
+
+    // direct instance index
+    // dsp^ N
+    if (lv.size() >= 1 && lv[0].isFloat()) {
+        msg.first = lv[0].asT<int>();
+        msg.type = TARGET_TYPE_ALL;
+        dspToggle(msg);
+    } else if (lv.empty()) {
+        for (auto& i : instances_)
+            i.dspToggle();
+    } else
+        METHOD_ERR(s) << "invalid format: " << lv;
 }
 
 void BaseClone::storeContent() const
@@ -987,6 +1094,7 @@ void setup_base_clone()
     obj.addMethod("open", &BaseClone::m_open);
     obj.addMethod("menu-open", &BaseClone::m_menu_open);
     obj.addMethod("send", &BaseClone::m_send);
+    obj.addMethod("dsp~", &BaseClone::m_dsp_set);
 
     // HACK to rename the object without loosing its pattern
     auto mouse_fn = (MouseFn)zgetfn(&canvas_class, gensym("mouse"));

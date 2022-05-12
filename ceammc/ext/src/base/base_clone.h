@@ -49,6 +49,7 @@ public:
 
     bool isDspOn() const { return dsp_on_; }
     void dspSet(bool value) { dsp_on_ = value; }
+    void dspToggle() { dsp_on_ = !dsp_on_; }
 
     /**
      * clear instance content
@@ -105,6 +106,8 @@ public:
     void m_open(t_symbol*, const AtomListView& lv);
     void m_menu_open(t_symbol*, const AtomListView& lv);
     void m_send(t_symbol* s, const AtomListView& lv);
+    void m_dsp_set(t_symbol* s, const AtomListView& lv);
+    void m_dsp_toggle(t_symbol* s, const AtomListView& lv);
 
     void data_proxy_bang(const int& i) { bangTo(i); }
     void data_proxy_float(const int& i, t_float f) { floatTo(i, f); }
@@ -138,6 +141,11 @@ private:
 
     void dspSet(const parser::TargetMessage& msg, const AtomListView& lv);
     void dspSetInstance(int16_t idx, bool value);
+
+    void dspToggle(const parser::TargetMessage& msg);
+    void dspToggleInstance(int16_t idx);
+
+    uint16_t genRandomInstanceIndex() const;
 
 private:
     // object renaming in Pd is the delete, then create sequence
