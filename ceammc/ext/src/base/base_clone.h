@@ -106,6 +106,7 @@ public:
     void m_open(t_symbol*, const AtomListView& lv);
     void m_menu_open(t_symbol*, const AtomListView& lv);
     void m_send(t_symbol* s, const AtomListView& lv);
+    void m_send_spread(t_symbol* s, const AtomListView& lv);
     void m_dsp_set(t_symbol* s, const AtomListView& lv);
     void m_dsp_toggle(t_symbol* s, const AtomListView& lv);
 

@@ -374,7 +374,7 @@ void BaseClone::onAny(t_symbol* s, const AtomListView& lv)
     case MSG_TYPE_SEND:
         return m_send(s, lv);
     case MSG_TYPE_SEND_SPREAD:
-        return msg_send_spread(s, lv);
+        return m_send_spread(s, lv);
     case MSG_TYPE_DSP_SET:
         return m_dsp_set(s, lv);
     case MSG_TYPE_DSP_TOGGLE:
@@ -1030,6 +1030,29 @@ void BaseClone::m_send(t_symbol* s, const AtomListView& lv)
     METHOD_ERR(s) << "invalid format: " << lv;
 }
 
+void BaseClone::m_send_spread(t_symbol* s, const AtomListView& lv)
+{
+    using namespace ceammc::parser;
+
+    TargetMessage msg;
+
+    // pattern
+    // send #... pattern
+    if (lv.size() >= 1 && lv[0].isSymbol() && parse_clone_target(lv[0].asT<t_symbol*>()->s_name, msg))
+        return sendSpread(msg, lv.subView(1));
+
+    // direct instance index
+    // send N
+    if (lv.size() >= 1 && lv[0].isFloat()) {
+        msg.first = lv[0].asT<int>();
+        msg.type = TARGET_TYPE_ALL;
+        msg.inlet = -1;
+        return sendSpread(msg, lv.subView(1));
+    }
+
+    METHOD_ERR(s) << "invalid format: " << lv;
+}
+
 void BaseClone::m_dsp_set(t_symbol* s, const AtomListView& lv)
 {
     using namespace ceammc::parser;
@@ -1190,6 +1213,7 @@ void setup_base_clone()
     obj.addMethod("open", &BaseClone::m_open);
     obj.addMethod("menu-open", &BaseClone::m_menu_open);
     obj.addMethod("send", &BaseClone::m_send);
+    obj.addMethod("spread", &BaseClone::m_send_spread);
     obj.addMethod("dsp~", &BaseClone::m_dsp_set);
 
     // HACK to rename the object without loosing its pattern
