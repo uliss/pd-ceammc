@@ -376,21 +376,7 @@ void BaseClone::onAny(t_symbol* s, const AtomListView& lv)
 
     switch (type) {
     case MSG_TYPE_SEND:
-        // pattern
-        // send #... pattern
-        if (lv.size() >= 1 && lv[0].isSymbol() && parse_clone_target(lv[0].asT<t_symbol*>()->s_name, msg))
-            return send(msg, lv.subView(1));
-
-        // direct instance index
-        // send N
-        if (lv.size() >= 1 && lv[0].isFloat()) {
-            msg.first = lv[0].asT<int>();
-            msg.type = TARGET_TYPE_ALL;
-            msg.inlet = -1;
-            return send(msg, lv.subView(1));
-        }
-
-        break;
+        return m_send(s, lv);
     case MSG_TYPE_DSP_SET:
         // pattern
         // dsp~ #...
@@ -864,6 +850,27 @@ void BaseClone::m_menu_open(t_symbol*, const AtomListView& /*lv*/)
     canvas_vis(pattern_, 1);
 }
 
+void BaseClone::m_send(t_symbol* s, const AtomListView& lv)
+{
+    using namespace ceammc::parser;
+
+    TargetMessage msg;
+
+    // pattern
+    // send #... pattern
+    if (lv.size() >= 1 && lv[0].isSymbol() && parse_clone_target(lv[0].asT<t_symbol*>()->s_name, msg))
+        return send(msg, lv.subView(1));
+
+    // direct instance index
+    // send N
+    if (lv.size() >= 1 && lv[0].isFloat()) {
+        msg.first = lv[0].asT<int>();
+        msg.type = TARGET_TYPE_ALL;
+        msg.inlet = -1;
+        return send(msg, lv.subView(1));
+    }
+}
+
 void BaseClone::storeContent() const
 {
     if (!old_content_)
@@ -977,6 +984,7 @@ void setup_base_clone()
 
     obj.addMethod("open", &BaseClone::m_open);
     obj.addMethod("menu-open", &BaseClone::m_menu_open);
+    obj.addMethod("send", &BaseClone::m_send);
 
     // HACK to rename the object without loosing its pattern
     auto mouse_fn = (MouseFn)zgetfn(&canvas_class, gensym("mouse"));
