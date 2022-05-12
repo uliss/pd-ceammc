@@ -786,7 +786,23 @@ void BaseClone::dspToggle(const parser::TargetMessage& msg)
         DspSuspendGuard guard;
         dspToggleInstance(genRandomInstanceIndex());
     } break;
+    case TARGET_TYPE_RANGE: {
+        const auto NINST = instances_.size();
+
+        if (msg.first < 0 || msg.last < 0 || msg.first >= NINST || msg.last >= NINST) {
+            OBJ_ERR << fmt::format("invalid range: {:d}..{:d}", msg.first, msg.last);
+            return;
+        }
+
+        DspSuspendGuard guard;
+
+        auto mm = std::minmax(msg.first, msg.last);
+        for (auto i = mm.first; i <= mm.second; i += msg.step)
+            dspToggleInstance(i);
+
+    } break;
     default:
+        OBJ_ERR << fmt::format("unknown target: {:d}", msg.type);
         break;
     }
 }
