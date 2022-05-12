@@ -373,6 +373,8 @@ void BaseClone::onAny(t_symbol* s, const AtomListView& lv)
     switch (parse_clone_message_type(s->s_name)) {
     case MSG_TYPE_SEND:
         return m_send(s, lv);
+    case MSG_TYPE_SEND_SPREAD:
+        return msg_send_spread(s, lv);
     case MSG_TYPE_DSP_SET:
         return m_dsp_set(s, lv);
     case MSG_TYPE_DSP_TOGGLE:
@@ -942,6 +944,35 @@ void BaseClone::sendLessThen(int16_t instance, int16_t inlet, const AtomListView
     while (--n > 0) {
         if (!sendToInstanceInlets(n, inlet, lv))
             break;
+    }
+}
+
+void BaseClone::sendSpread(const parser::TargetMessage& msg, const AtomListView& lv)
+{
+    using namespace ceammc::parser;
+
+    switch (msg.type) {
+    case TARGET_TYPE_ALL: {
+        const auto N = std::min(instances_.size(), lv.size());
+        for (size_t i = 0; i < N; i++) {
+            if (!sendToInstanceInlets(i, msg.inlet, lv.subView(i, 1)))
+                continue;
+        }
+    } break;
+    case TARGET_TYPE_GE: {
+        const auto N = std::min(instances_.size(), lv.size());
+        for (size_t i = msg.first; i < N; i++) {
+            if (!sendToInstanceInlets(i, msg.inlet, lv.subView(i, 1)))
+                continue;
+        }
+    } break;
+    case TARGET_TYPE_GT: {
+        const auto N = std::min(instances_.size(), lv.size());
+        for (size_t i = msg.first + 1; i < N; i++) {
+            if (!sendToInstanceInlets(i, msg.inlet, lv.subView(i, 1)))
+                continue;
+        }
+    } break;
     }
 }
 
