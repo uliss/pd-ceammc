@@ -692,9 +692,10 @@ void BaseClone::dspSet(const parser::TargetMessage& msg, const AtomListView& lv)
     switch (msg.type) {
     case TARGET_TYPE_ALL: {
         DspSuspendGuard guard;
+        const auto v = lv.boolAt(0, false);
 
         for (auto& i : instances_)
-            i.dspSet(lv.boolAt(0, false));
+            i.dspSet(v);
 
     } break;
     case TARGET_TYPE_EQ: {
@@ -715,7 +716,55 @@ void BaseClone::dspSet(const parser::TargetMessage& msg, const AtomListView& lv)
         for (size_t i = msg.first; i < instances_.size(); i++)
             dspSetInstance(i, v);
     } break;
+    case TARGET_TYPE_EXCEPT: {
+        DspSuspendGuard guard;
+        const auto v = lv.boolAt(0, false);
+
+        for (size_t i = 0; i < instances_.size(); i++) {
+            if (i != msg.first)
+                dspSetInstance(i, v);
+        }
+    } break;
+    case TARGET_TYPE_LT: {
+        DspSuspendGuard guard;
+        const auto v = lv.boolAt(0, false);
+
+        auto i = msg.first;
+        while (--i >= 0)
+            dspSetInstance(i, v);
+
+    } break;
+    case TARGET_TYPE_LE: {
+        DspSuspendGuard guard;
+        const auto v = lv.boolAt(0, false);
+
+        auto i = msg.first + 1;
+        while (--i >= 0)
+            dspSetInstance(i, v);
+
+    } break;
+    case TARGET_TYPE_RANDOM: {
+        DspSuspendGuard guard;
+        dspSetInstance(genRandomInstanceIndex(), lv.boolAt(0, false));
+    } break;
+    case TARGET_TYPE_RANGE: {
+        const auto NINST = instances_.size();
+
+        if (msg.first < 0 || msg.last < 0 || msg.first >= NINST || msg.last >= NINST) {
+            OBJ_ERR << fmt::format("invalid range: {:d}..{:d}", msg.first, msg.last);
+            return;
+        }
+
+        DspSuspendGuard guard;
+
+        const auto v = lv.boolAt(0, false);
+        auto mm = std::minmax(msg.first, msg.last);
+        for (auto i = mm.first; i <= mm.second; i += msg.step)
+            dspSetInstance(i, v);
+
+    } break;
     default:
+        OBJ_ERR << fmt::format("unknown target: {:d}", msg.type);
         break;
     }
 }
