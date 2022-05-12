@@ -392,6 +392,8 @@ void BaseClone::onAny(t_symbol* s, const AtomListView& lv)
         }
 
         break;
+    case MSG_TYPE_DSP_TOGGLE:
+        break;
     default:
         if (s->s_name[0] == '#' && parse_clone_target(s->s_name, msg))
             return send(msg, lv);

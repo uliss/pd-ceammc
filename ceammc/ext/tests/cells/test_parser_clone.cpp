@@ -27,10 +27,10 @@ TEST_CASE("parser_clone", "[ceammc::parser::clone]")
         TargetMessage msg;
 
         REQUIRE_FALSE(parse_clone_target("", msg));
-        REQUIRE(msg.type == ARG_TYPE_NONE);
+        REQUIRE(msg.type == TARGET_TYPE_NONE);
 
         REQUIRE_FALSE(parse_clone_target("???", msg));
-        REQUIRE(msg.type == ARG_TYPE_NONE);
+        REQUIRE(msg.type == TARGET_TYPE_NONE);
     }
 
     SECTION("ALL")
@@ -38,21 +38,21 @@ TEST_CASE("parser_clone", "[ceammc::parser::clone]")
         TargetMessage msg;
 
         REQUIRE(parse_clone_target("#*", msg));
-        REQUIRE(msg.type == ARG_TYPE_ALL);
+        REQUIRE(msg.type == TARGET_TYPE_ALL);
         REQUIRE(msg.first == -1);
         REQUIRE(msg.last == -1);
         REQUIRE(msg.step == 1);
         REQUIRE(msg.inlet == -1);
 
         REQUIRE(parse_clone_target("#*|12", msg));
-        REQUIRE(msg.type == ARG_TYPE_ALL);
+        REQUIRE(msg.type == TARGET_TYPE_ALL);
         REQUIRE(msg.first == -1);
         REQUIRE(msg.last == -1);
         REQUIRE(msg.step == 1);
         REQUIRE(msg.inlet == 12);
 
         REQUIRE(parse_clone_target("#*|0", msg));
-        REQUIRE(msg.type == ARG_TYPE_ALL);
+        REQUIRE(msg.type == TARGET_TYPE_ALL);
         REQUIRE(msg.first == -1);
         REQUIRE(msg.last == -1);
         REQUIRE(msg.step == 1);
@@ -64,21 +64,21 @@ TEST_CASE("parser_clone", "[ceammc::parser::clone]")
         TargetMessage msg;
 
         REQUIRE(parse_clone_target("#!12", msg));
-        REQUIRE(msg.type == ARG_TYPE_EXCEPT);
+        REQUIRE(msg.type == TARGET_TYPE_EXCEPT);
         REQUIRE(msg.first == 12);
         REQUIRE(msg.last == -1);
         REQUIRE(msg.step == 1);
         REQUIRE(msg.inlet == -1);
 
         REQUIRE(parse_clone_target("#!12|1", msg));
-        REQUIRE(msg.type == ARG_TYPE_EXCEPT);
+        REQUIRE(msg.type == TARGET_TYPE_EXCEPT);
         REQUIRE(msg.first == 12);
         REQUIRE(msg.last == -1);
         REQUIRE(msg.step == 1);
         REQUIRE(msg.inlet == 1);
 
         REQUIRE(parse_clone_target("#!0|0", msg));
-        REQUIRE(msg.type == ARG_TYPE_EXCEPT);
+        REQUIRE(msg.type == TARGET_TYPE_EXCEPT);
         REQUIRE(msg.first == 0);
         REQUIRE(msg.last == -1);
         REQUIRE(msg.step == 1);
@@ -90,14 +90,14 @@ TEST_CASE("parser_clone", "[ceammc::parser::clone]")
         TargetMessage msg;
 
         REQUIRE(parse_clone_target("#?", msg));
-        REQUIRE(msg.type == ARG_TYPE_RANDOM);
+        REQUIRE(msg.type == TARGET_TYPE_RANDOM);
         REQUIRE(msg.first == -1);
         REQUIRE(msg.last == -1);
         REQUIRE(msg.step == 1);
         REQUIRE(msg.inlet == -1);
 
         REQUIRE(parse_clone_target("#?|3", msg));
-        REQUIRE(msg.type == ARG_TYPE_RANDOM);
+        REQUIRE(msg.type == TARGET_TYPE_RANDOM);
         REQUIRE(msg.first == -1);
         REQUIRE(msg.last == -1);
         REQUIRE(msg.step == 1);
@@ -109,35 +109,35 @@ TEST_CASE("parser_clone", "[ceammc::parser::clone]")
         TargetMessage msg;
 
         REQUIRE(parse_clone_target("#=1", msg));
-        REQUIRE(msg.type == ARG_TYPE_EQ);
+        REQUIRE(msg.type == TARGET_TYPE_EQ);
         REQUIRE(msg.first == 1);
         REQUIRE(msg.last == -1);
         REQUIRE(msg.step == 1);
         REQUIRE(msg.inlet == -1);
 
         REQUIRE(parse_clone_target("#=10", msg));
-        REQUIRE(msg.type == ARG_TYPE_EQ);
+        REQUIRE(msg.type == TARGET_TYPE_EQ);
         REQUIRE(msg.first == 10);
         REQUIRE(msg.last == -1);
         REQUIRE(msg.step == 1);
         REQUIRE(msg.inlet == -1);
 
         REQUIRE(parse_clone_target("#=321", msg));
-        REQUIRE(msg.type == ARG_TYPE_EQ);
+        REQUIRE(msg.type == TARGET_TYPE_EQ);
         REQUIRE(msg.first == 321);
         REQUIRE(msg.last == -1);
         REQUIRE(msg.step == 1);
         REQUIRE(msg.inlet == -1);
 
         REQUIRE(parse_clone_target("#1234", msg));
-        REQUIRE(msg.type == ARG_TYPE_EQ);
+        REQUIRE(msg.type == TARGET_TYPE_EQ);
         REQUIRE(msg.first == 1234);
         REQUIRE(msg.last == -1);
         REQUIRE(msg.step == 1);
         REQUIRE(msg.inlet == -1);
 
         REQUIRE(parse_clone_target("#1234|33", msg));
-        REQUIRE(msg.type == ARG_TYPE_EQ);
+        REQUIRE(msg.type == TARGET_TYPE_EQ);
         REQUIRE(msg.first == 1234);
         REQUIRE(msg.last == -1);
         REQUIRE(msg.step == 1);
@@ -149,14 +149,14 @@ TEST_CASE("parser_clone", "[ceammc::parser::clone]")
         TargetMessage msg;
 
         REQUIRE(parse_clone_target("#>9", msg));
-        REQUIRE(msg.type == ARG_TYPE_GT);
+        REQUIRE(msg.type == TARGET_TYPE_GT);
         REQUIRE(msg.first == 9);
         REQUIRE(msg.last == -1);
         REQUIRE(msg.step == 1);
         REQUIRE(msg.inlet == -1);
 
         REQUIRE(parse_clone_target("#>9|2", msg));
-        REQUIRE(msg.type == ARG_TYPE_GT);
+        REQUIRE(msg.type == TARGET_TYPE_GT);
         REQUIRE(msg.first == 9);
         REQUIRE(msg.last == -1);
         REQUIRE(msg.step == 1);
@@ -168,14 +168,14 @@ TEST_CASE("parser_clone", "[ceammc::parser::clone]")
         TargetMessage msg;
 
         REQUIRE(parse_clone_target("#>=9", msg));
-        REQUIRE(msg.type == ARG_TYPE_GE);
+        REQUIRE(msg.type == TARGET_TYPE_GE);
         REQUIRE(msg.first == 9);
         REQUIRE(msg.last == -1);
         REQUIRE(msg.step == 1);
         REQUIRE(msg.inlet == -1);
 
         REQUIRE(parse_clone_target("#>=9|3", msg));
-        REQUIRE(msg.type == ARG_TYPE_GE);
+        REQUIRE(msg.type == TARGET_TYPE_GE);
         REQUIRE(msg.first == 9);
         REQUIRE(msg.last == -1);
         REQUIRE(msg.step == 1);
@@ -187,14 +187,14 @@ TEST_CASE("parser_clone", "[ceammc::parser::clone]")
         TargetMessage msg;
 
         REQUIRE(parse_clone_target("#<=9", msg));
-        REQUIRE(msg.type == ARG_TYPE_LE);
+        REQUIRE(msg.type == TARGET_TYPE_LE);
         REQUIRE(msg.first == 9);
         REQUIRE(msg.last == -1);
         REQUIRE(msg.step == 1);
         REQUIRE(msg.inlet == -1);
 
         REQUIRE(parse_clone_target("#<=9|11", msg));
-        REQUIRE(msg.type == ARG_TYPE_LE);
+        REQUIRE(msg.type == TARGET_TYPE_LE);
         REQUIRE(msg.first == 9);
         REQUIRE(msg.last == -1);
         REQUIRE(msg.step == 1);
@@ -206,14 +206,14 @@ TEST_CASE("parser_clone", "[ceammc::parser::clone]")
         TargetMessage msg;
 
         REQUIRE(parse_clone_target("#<10", msg));
-        REQUIRE(msg.type == ARG_TYPE_LT);
+        REQUIRE(msg.type == TARGET_TYPE_LT);
         REQUIRE(msg.first == 10);
         REQUIRE(msg.last == -1);
         REQUIRE(msg.step == 1);
         REQUIRE(msg.inlet == -1);
 
         REQUIRE(parse_clone_target("#<9|6", msg));
-        REQUIRE(msg.type == ARG_TYPE_LT);
+        REQUIRE(msg.type == TARGET_TYPE_LT);
         REQUIRE(msg.first == 9);
         REQUIRE(msg.last == -1);
         REQUIRE(msg.step == 1);
@@ -225,28 +225,28 @@ TEST_CASE("parser_clone", "[ceammc::parser::clone]")
         TargetMessage msg;
 
         REQUIRE(parse_clone_target("#1..2", msg));
-        REQUIRE(msg.type == ARG_TYPE_RANGE);
+        REQUIRE(msg.type == TARGET_TYPE_RANGE);
         REQUIRE(msg.first == 1);
         REQUIRE(msg.last == 2);
         REQUIRE(msg.step == 1);
         REQUIRE(msg.inlet == -1);
 
         REQUIRE(parse_clone_target("#101..204:2", msg));
-        REQUIRE(msg.type == ARG_TYPE_RANGE);
+        REQUIRE(msg.type == TARGET_TYPE_RANGE);
         REQUIRE(msg.first == 101);
         REQUIRE(msg.last == 204);
         REQUIRE(msg.step == 2);
         REQUIRE(msg.inlet == -1);
 
         REQUIRE(parse_clone_target("#101..204:3|2", msg));
-        REQUIRE(msg.type == ARG_TYPE_RANGE);
+        REQUIRE(msg.type == TARGET_TYPE_RANGE);
         REQUIRE(msg.first == 101);
         REQUIRE(msg.last == 204);
         REQUIRE(msg.step == 3);
         REQUIRE(msg.inlet == 2);
 
         REQUIRE(parse_clone_target("#1..2|99", msg));
-        REQUIRE(msg.type == ARG_TYPE_RANGE);
+        REQUIRE(msg.type == TARGET_TYPE_RANGE);
         REQUIRE(msg.first == 1);
         REQUIRE(msg.last == 2);
         REQUIRE(msg.step == 1);
@@ -257,8 +257,8 @@ TEST_CASE("parser_clone", "[ceammc::parser::clone]")
     {
         REQUIRE(parse_clone_message_type("") == MSG_TYPE_NONE);
         REQUIRE(parse_clone_message_type("send") == MSG_TYPE_SEND);
-        REQUIRE(parse_clone_message_type("dsp") == MSG_TYPE_DSP_SET);
-        REQUIRE(parse_clone_message_type("~dsp") == MSG_TYPE_DSP_TOGGLE);
+        REQUIRE(parse_clone_message_type("dsp~") == MSG_TYPE_DSP_SET);
+        REQUIRE(parse_clone_message_type("dsp^") == MSG_TYPE_DSP_TOGGLE);
         REQUIRE(parse_clone_message_type("spread") == MSG_TYPE_SEND_SPREAD);
     }
 }
