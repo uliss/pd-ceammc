@@ -46,11 +46,13 @@ namespace parser {
         MSG_TYPE_SEND,
         MSG_TYPE_SEND_SPREAD,
         MSG_TYPE_DSP_SET,
-        MSG_TYPE_DSP_TOGGLE
+        MSG_TYPE_DSP_TOGGLE,
+        MSG_TYPE_DSP_SPREAD
     };
 
     bool parse_clone_target(const char* str, TargetMessage& res);
     CloneMessageType parse_clone_message_type(const char* str);
+    const char* clone_message_to_string(CloneMessageType msg);
 }
 
 }

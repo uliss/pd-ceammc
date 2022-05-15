@@ -257,8 +257,9 @@ TEST_CASE("parser_clone", "[ceammc::parser::clone]")
     {
         REQUIRE(parse_clone_message_type("") == MSG_TYPE_NONE);
         REQUIRE(parse_clone_message_type("send") == MSG_TYPE_SEND);
-        REQUIRE(parse_clone_message_type("dsp~") == MSG_TYPE_DSP_SET);
-        REQUIRE(parse_clone_message_type("dsp^") == MSG_TYPE_DSP_TOGGLE);
-        REQUIRE(parse_clone_message_type("spread") == MSG_TYPE_SEND_SPREAD);
+        REQUIRE(parse_clone_message_type("send:") == MSG_TYPE_SEND_SPREAD);
+        REQUIRE(parse_clone_message_type("dsp=") == MSG_TYPE_DSP_SET);
+        REQUIRE(parse_clone_message_type("dsp~") == MSG_TYPE_DSP_TOGGLE);
+        REQUIRE(parse_clone_message_type("dsp:") == MSG_TYPE_DSP_SPREAD);
     }
 }

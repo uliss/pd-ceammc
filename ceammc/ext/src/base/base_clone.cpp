@@ -1216,6 +1216,10 @@ void BaseClone::m_dsp_toggle(t_symbol* s, const AtomListView& lv)
         METHOD_ERR(s) << "invalid format: " << lv;
 }
 
+void BaseClone::m_dsp_spread(t_symbol* s, const AtomListView& lv)
+{
+}
+
 void BaseClone::storeContent() const
 {
     if (!old_content_)
@@ -1327,12 +1331,15 @@ void setup_base_clone()
     BaseCloneFactory obj("clone:", OBJECT_FACTORY_DEFAULT);
     obj.useClick();
 
+    using namespace ceammc::parser;
+
     obj.addMethod("open", &BaseClone::m_open);
     obj.addMethod("menu-open", &BaseClone::m_menu_open);
-    obj.addMethod("send", &BaseClone::m_send);
-    obj.addMethod("spread", &BaseClone::m_send_spread);
-    obj.addMethod("dsp~", &BaseClone::m_dsp_set);
-    obj.addMethod("dsp^", &BaseClone::m_dsp_toggle);
+    obj.addMethod(clone_message_to_string(MSG_TYPE_SEND), &BaseClone::m_send);
+    obj.addMethod(clone_message_to_string(MSG_TYPE_SEND_SPREAD), &BaseClone::m_send_spread);
+    obj.addMethod(clone_message_to_string(MSG_TYPE_DSP_SET), &BaseClone::m_dsp_set);
+    obj.addMethod(clone_message_to_string(MSG_TYPE_DSP_TOGGLE), &BaseClone::m_dsp_toggle);
+    obj.addMethod(clone_message_to_string(MSG_TYPE_DSP_SPREAD), &BaseClone::m_dsp_spread);
 
     // HACK to rename the object without loosing its pattern
     auto sym_mouse = gensym("mouse");

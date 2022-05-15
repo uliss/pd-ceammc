@@ -1655,16 +1655,28 @@ case 95:
     return cs >= 21;
 }
 
+const char *clone_message_to_string(CloneMessageType msg)
+{
+    switch(msg) {
+        case MSG_TYPE_DSP_SET:      return "dsp=";
+        case MSG_TYPE_DSP_SPREAD:   return "dsp:";
+        case MSG_TYPE_DSP_TOGGLE:   return "dsp~";
+        case MSG_TYPE_SEND:         return "send";
+        case MSG_TYPE_SEND_SPREAD:  return "send:";
+        default: return "";
+    }
+}
 
-#line 1660 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+
+#line 1672 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
 static const int clone_message_type_start = 1;
-static const int clone_message_type_first_final = 12;
+static const int clone_message_type_first_final = 8;
 static const int clone_message_type_error = 0;
 
 static const int clone_message_type_en_main = 1;
 
 
-#line 85 "lex/parser_clone.rl"
+#line 98 "lex/parser_clone.rl"
 
 
 CloneMessageType parse_clone_message_type(const char* str)
@@ -1681,14 +1693,14 @@ CloneMessageType parse_clone_message_type(const char* str)
     auto type = MSG_TYPE_NONE;
 
     
-#line 1685 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1697 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
 	{
 	cs = clone_message_type_start;
 	}
 
-#line 101 "lex/parser_clone.rl"
+#line 114 "lex/parser_clone.rl"
     
-#line 1692 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1704 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
 	{
 	if ( p == pe )
 		goto _test_eof;
@@ -1722,40 +1734,39 @@ st4:
 		goto _test_eof4;
 case 4:
 	switch( (*p) ) {
-		case 94: goto tr5;
-		case 126: goto tr6;
+		case 58: goto tr5;
+		case 61: goto tr6;
+		case 126: goto tr7;
 	}
 	goto st0;
 tr5:
-#line 79 "lex/parser_clone.rl"
-	{ type = MSG_TYPE_DSP_TOGGLE; }
-	goto st12;
+#line 92 "lex/parser_clone.rl"
+	{ type = MSG_TYPE_DSP_SPREAD; }
+	goto st8;
 tr6:
-#line 78 "lex/parser_clone.rl"
+#line 90 "lex/parser_clone.rl"
 	{ type = MSG_TYPE_DSP_SET; }
-	goto st12;
-tr10:
-#line 80 "lex/parser_clone.rl"
-	{ type = MSG_TYPE_SEND; }
-	goto st12;
-tr14:
-#line 81 "lex/parser_clone.rl"
+	goto st8;
+tr7:
+#line 91 "lex/parser_clone.rl"
+	{ type = MSG_TYPE_DSP_TOGGLE; }
+	goto st8;
+tr11:
+#line 94 "lex/parser_clone.rl"
 	{ type = MSG_TYPE_SEND_SPREAD; }
-	goto st12;
-st12:
+	goto st8;
+st8:
 	if ( ++p == pe )
-		goto _test_eof12;
-case 12:
-#line 1750 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+		goto _test_eof8;
+case 8:
+#line 1763 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
 	goto st0;
 st5:
 	if ( ++p == pe )
 		goto _test_eof5;
 case 5:
-	switch( (*p) ) {
-		case 101: goto st6;
-		case 112: goto st8;
-	}
+	if ( (*p) == 101 )
+		goto st6;
 	goto st0;
 st6:
 	if ( ++p == pe )
@@ -1771,54 +1782,35 @@ case 7:
 	if ( (*p) == 100 )
 		goto tr10;
 	goto st0;
-st8:
-	if ( ++p == pe )
-		goto _test_eof8;
-case 8:
-	if ( (*p) == 114 )
-		goto st9;
-	goto st0;
+tr10:
+#line 93 "lex/parser_clone.rl"
+	{ type = MSG_TYPE_SEND; }
+	goto st9;
 st9:
 	if ( ++p == pe )
 		goto _test_eof9;
 case 9:
-	if ( (*p) == 101 )
-		goto st10;
-	goto st0;
-st10:
-	if ( ++p == pe )
-		goto _test_eof10;
-case 10:
-	if ( (*p) == 97 )
-		goto st11;
-	goto st0;
-st11:
-	if ( ++p == pe )
-		goto _test_eof11;
-case 11:
-	if ( (*p) == 100 )
-		goto tr14;
+#line 1794 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+	if ( (*p) == 58 )
+		goto tr11;
 	goto st0;
 	}
 	_test_eof2: cs = 2; goto _test_eof; 
 	_test_eof3: cs = 3; goto _test_eof; 
 	_test_eof4: cs = 4; goto _test_eof; 
-	_test_eof12: cs = 12; goto _test_eof; 
+	_test_eof8: cs = 8; goto _test_eof; 
 	_test_eof5: cs = 5; goto _test_eof; 
 	_test_eof6: cs = 6; goto _test_eof; 
 	_test_eof7: cs = 7; goto _test_eof; 
-	_test_eof8: cs = 8; goto _test_eof; 
 	_test_eof9: cs = 9; goto _test_eof; 
-	_test_eof10: cs = 10; goto _test_eof; 
-	_test_eof11: cs = 11; goto _test_eof; 
 
 	_test_eof: {}
 	_out: {}
 	}
 
-#line 102 "lex/parser_clone.rl"
+#line 115 "lex/parser_clone.rl"
 
-    return (cs < 12) ? MSG_TYPE_NONE : type;
+    return (cs < 8) ? MSG_TYPE_NONE : type;
 }
 
 }

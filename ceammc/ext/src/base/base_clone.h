@@ -109,6 +109,7 @@ public:
     void m_send_spread(t_symbol* s, const AtomListView& lv);
     void m_dsp_set(t_symbol* s, const AtomListView& lv);
     void m_dsp_toggle(t_symbol* s, const AtomListView& lv);
+    void m_dsp_spread(t_symbol* s, const AtomListView& lv);
 
     void data_proxy_bang(const int& i) { bangTo(i); }
     void data_proxy_float(const int& i, t_float f) { floatTo(i, f); }

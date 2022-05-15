@@ -71,14 +71,27 @@ bool parse_clone_target(const char* str, TargetMessage& res)
     return cs >= %%{ write first_final; }%%;
 }
 
+const char *clone_message_to_string(CloneMessageType msg)
+{
+    switch(msg) {
+        case MSG_TYPE_DSP_SET:      return "dsp=";
+        case MSG_TYPE_DSP_SPREAD:   return "dsp:";
+        case MSG_TYPE_DSP_TOGGLE:   return "dsp~";
+        case MSG_TYPE_SEND:         return "send";
+        case MSG_TYPE_SEND_SPREAD:  return "send:";
+        default: return "";
+    }
+}
+
 %%{
     machine clone_message_type;
 
     action_name =
-        'dsp~'      @{ type = MSG_TYPE_DSP_SET; }
-        | 'dsp^'    @{ type = MSG_TYPE_DSP_TOGGLE; }
+        'dsp='      @{ type = MSG_TYPE_DSP_SET; }
+        | 'dsp~'    @{ type = MSG_TYPE_DSP_TOGGLE; }
+        | 'dsp:'    @{ type = MSG_TYPE_DSP_SPREAD; }
         | 'send'    @{ type = MSG_TYPE_SEND; }
-        | 'spread'  @{ type = MSG_TYPE_SEND_SPREAD; };
+        | 'send:'   @{ type = MSG_TYPE_SEND_SPREAD; };
 
     main := action_name;
     write data;
