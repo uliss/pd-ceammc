@@ -150,6 +150,9 @@ private:
 
     uint16_t genRandomInstanceIndex() const;
 
+    bool isValidInstance(int16_t inst) const;
+    bool isValidInlet(int16_t inlet) const;
+
 private:
     // object renaming in Pd is the delete, then create sequence
     // to support object renaming and do not lose the object pattern content

@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "base_clone.h"
+#include "ceammc_convert.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
 #include "ceammc_inlet.h"
@@ -20,6 +21,7 @@
 #include "lex/parser_clone.h"
 
 #include <boost/container/small_vector.hpp>
+#include <cassert>
 #include <ctime>
 #include <random>
 
@@ -878,6 +880,24 @@ uint16_t BaseClone::genRandomInstanceIndex() const
     return dist(dev);
 }
 
+bool BaseClone::isValidInstance(int16_t inst) const
+{
+    if (inst < 0 || inst >= instances_.size()) {
+        OBJ_ERR << fmt::format("invalid instance: {:d}, expected value in [0..{:d}) range", inst, instances_.size());
+        return false;
+    } else
+        return true;
+}
+
+bool BaseClone::isValidInlet(int16_t inlet) const
+{
+    if (inlet >= n_instance_in_) {
+        OBJ_ERR << fmt::format("invalid inlet: {:d}", inlet);
+        return false;
+    } else
+        return true;
+}
+
 void BaseClone::sendToInlet(t_inlet* inlet, const AtomListView& lv)
 {
     auto x = util::inlet_object(inlet);
@@ -901,10 +921,11 @@ void BaseClone::sendToInlet(t_inlet* inlet, const AtomListView& lv)
 void BaseClone::sendToInstance(uint16_t inst, uint16_t inlet, const AtomListView& lv)
 {
     const auto idx = inst * n_instance_in_ + inlet;
-    if (idx < inlets().size())
+    if (idx < inlets().size()) {
         sendToInlet(inlets()[idx], lv);
 
-    OBJ_LOG << fmt::format("send to {}#{} lv", inst, inlet, to_string(lv));
+        OBJ_LOG << fmt::format("send to {}#{} lv", inst, inlet, to_string(lv));
+    }
 }
 
 bool BaseClone::sendToInstanceInlets(int16_t inst, int16_t inlet, const AtomListView& lv)
@@ -941,7 +962,7 @@ void BaseClone::sendLessThen(int16_t instance, int16_t inlet, const AtomListView
 {
     auto n = std::min<int16_t>(instance, instances_.size());
 
-    while (--n > 0) {
+    while (--n >= 0) {
         if (!sendToInstanceInlets(n, inlet, lv))
             break;
     }
@@ -952,26 +973,96 @@ void BaseClone::sendSpread(const parser::TargetMessage& msg, const AtomListView&
     using namespace ceammc::parser;
 
     switch (msg.type) {
-    case TARGET_TYPE_ALL: {
+    case TARGET_TYPE_ALL: { // spread to all instances
         const auto N = std::min(instances_.size(), lv.size());
-        for (size_t i = 0; i < N; i++) {
-            if (!sendToInstanceInlets(i, msg.inlet, lv.subView(i, 1)))
-                continue;
+
+        if (msg.inlet >= n_instance_in_) {
+            OBJ_ERR << fmt::format("invalid inlet: {:d}", msg.inlet);
+            return;
         }
+
+        const auto inlet = clip_min<int16_t, 0>(msg.inlet);
+
+        for (size_t i = 0; i < N; i++)
+            sendToInstance(i, inlet, lv.subView(i, 1));
+
+    } break;
+    case TARGET_TYPE_EQ: { // spread to inlets of specified instance
+        if (!isValidInstance(msg.first) || !isValidInlet(msg.inlet))
+            return;
+
+        const auto inlet = clip_min<int16_t, 0>(msg.inlet);
+        const auto N = std::min<size_t>(n_instance_in_ - inlet, lv.size());
+
+        for (size_t i = 0; i < N; i++)
+            sendToInstance(msg.first, i + inlet, lv.subView(i, 1));
+
+    } break;
+    case TARGET_TYPE_RANDOM: { // spread to inlets of random instance
+        if (!isValidInlet(msg.inlet))
+            return;
+
+        const auto inlet = clip_min<int16_t, 0>(msg.inlet);
+        const auto N = std::min<size_t>(n_instance_in_ - inlet, lv.size());
+
+        for (size_t i = 0; i < N; i++)
+            sendToInstance(genRandomInstanceIndex(), i + inlet, lv.subView(i, 1));
+
+    } break;
+    case TARGET_TYPE_EXCEPT: { // spread to all instances expect one specified
+        if (!isValidInstance(msg.first) || !isValidInlet(msg.inlet))
+            return;
+
+        const auto inlet = clip_min<int16_t, 0>(msg.inlet);
+        const auto N = std::min<size_t>(instances_.size(), lv.size());
+
+        for (size_t i = 0; i < N; i++) {
+            if (i != msg.first)
+                sendToInstance(i, i + inlet, lv.subView(i, 1));
+        }
+
+    } break;
+    case TARGET_TYPE_LT: {
+        if (!isValidInlet(msg.inlet))
+            return;
+
+        const auto inlet = clip_min<int16_t, 0>(msg.inlet);
+        const auto N = std::min(instances_.size(), std::min<size_t>(msg.first, lv.size()));
+
+        for (size_t i = 0; i < N; i++)
+            sendToInstance(i, inlet, lv.subView(i, 1));
+
+    } break;
+    case TARGET_TYPE_LE: {
+        if (!isValidInlet(msg.inlet))
+            return;
+
+        const auto inlet = clip_min<int16_t, 0>(msg.inlet);
+        const auto N = std::min(instances_.size(), std::min<size_t>(msg.first + 1, lv.size()));
+
+        for (size_t i = 0; i < N; i++)
+            sendToInstance(i, inlet, lv.subView(i, 1));
     } break;
     case TARGET_TYPE_GE: {
+        if (!isValidInstance(msg.first) || !isValidInlet(msg.inlet))
+            return;
+
+        const auto inlet = clip_min<int16_t, 0>(msg.inlet);
         const auto N = std::min(instances_.size(), lv.size());
-        for (size_t i = msg.first; i < N; i++) {
-            if (!sendToInstanceInlets(i, msg.inlet, lv.subView(i, 1)))
-                continue;
-        }
+
+        for (size_t i = msg.first; i < N; i++)
+            sendToInstance(i, inlet, lv.subView(i, 1));
+
     } break;
     case TARGET_TYPE_GT: {
+        if (!isValidInstance(msg.first) || !isValidInlet(msg.inlet))
+            return;
+
+        const auto inlet = clip_min<int16_t, 0>(msg.inlet);
         const auto N = std::min(instances_.size(), lv.size());
-        for (size_t i = msg.first + 1; i < N; i++) {
-            if (!sendToInstanceInlets(i, msg.inlet, lv.subView(i, 1)))
-                continue;
-        }
+
+        for (size_t i = msg.first + 1; i < N; i++)
+            sendToInstance(i, inlet, lv.subView(i, 1));
     } break;
     }
 }
