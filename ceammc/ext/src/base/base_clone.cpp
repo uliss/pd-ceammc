@@ -49,6 +49,12 @@ void obj_sendinlet(t_object* x, int n, t_symbol* s, int argc, t_atom* argv);
 
 namespace {
 
+template <typename T>
+T min3(T a, T b, T c)
+{
+    return std::min<T>(a, std::min<T>(b, c));
+}
+
 class DspSuspendGuard {
     const int dsp_state_;
 
@@ -883,17 +889,14 @@ void BaseClone::dspSpread(const parser::TargetMessage& msg, const AtomListView& 
 {
     using namespace ceammc::parser;
 
-    switch (msg.type) {
-    case TARGET_TYPE_ALL: {
+    const auto range = spreadRange(msg, lv);
+    if (range != InstanceRange { 0, 0 }) {
         DspSuspendGuard guard;
 
-        const auto N = std::min(lv.size(), instances_.size());
-        for (size_t i = 0; i < N; i++)
-            dspSetInstance(i, lv.boolAt(i, false));
-    } break;
-    default:
-        break;
-    }
+        for (uint16_t i = range.first; i < range.second; i++)
+            dspSetInstance(i, lv.boolAt(i - range.first, false));
+    } else
+        OBJ_ERR << fmt::format("unsupported target: {:d}", msg.type);
 }
 
 uint16_t BaseClone::genRandomInstanceIndex() const
@@ -934,6 +937,43 @@ bool BaseClone::isValidInlet(int16_t inlet) const
         return false;
     } else
         return true;
+}
+
+BaseClone::InstanceRange BaseClone::spreadRange(const parser::TargetMessage& msg, const AtomListView& lv) const
+{
+    using namespace ceammc::parser;
+
+    switch (msg.type) {
+    case TARGET_TYPE_ALL:
+        return { 0, std::min(numInstances(), lv.size()) };
+    case TARGET_TYPE_GE: {
+        const uint16_t a = clip_min<int16_t, 0>(msg.first);
+        const uint16_t b = std::min<uint16_t>(a + lv.size(), numInstances());
+        return { a, b };
+    }
+    case TARGET_TYPE_GT: {
+        const uint16_t a = clip_min<int16_t, 0>(msg.first) + 1;
+        const uint16_t b = std::min<uint16_t>(a + lv.size(), numInstances());
+        return { a, b };
+    }
+    case TARGET_TYPE_LT: {
+        const uint16_t a = 0;
+        const uint16_t b = min3<uint16_t>(msg.first, lv.size(), numInstances());
+        return { a, b };
+    }
+    case TARGET_TYPE_LE: {
+        const uint16_t a = 0;
+        const uint16_t b = min3<uint16_t>(msg.first + 1, lv.size(), numInstances());
+        return { a, b };
+    }
+    case TARGET_TYPE_RANGE: {
+        const uint16_t a = min3<uint16_t>(clip_min<int16_t, 0>(msg.first), lv.size(), numInstances());
+        const uint16_t b = min3<uint16_t>(clip_min<int16_t, 0>(msg.last), lv.size(), numInstances());
+        return std::minmax(a, b);
+    }
+    default:
+        return { 0, 0 };
+    }
 }
 
 bool BaseClone::changed() const
@@ -1258,12 +1298,12 @@ void BaseClone::m_dsp_spread(t_symbol* s, const AtomListView& lv)
     TargetMessage msg;
 
     // pattern
-    // dsp: #...
+    // dsp: #... VALUES
     if (lv.size() >= 1 && lv[0].isSymbol() && parse_clone_target(lv[0].asT<t_symbol*>()->s_name, msg))
         return dspSpread(msg, lv);
 
     // direct instance index
-    // dsp: N
+    // dsp: N VALUES
     if (lv.size() >= 1 && lv[0].isFloat()) {
         msg.first = lv[0].asT<int>();
         msg.type = TARGET_TYPE_EQ;

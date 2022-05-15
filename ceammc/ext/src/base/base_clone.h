@@ -15,6 +15,7 @@
 #define BASE_CLONE_H
 
 #include <cstdint>
+#include <utility>
 
 #include "ceammc_proxy.h"
 #include "ceammc_sound_external.h"
@@ -155,9 +156,15 @@ private:
 
     uint16_t genRandomInstanceIndex() const;
 
+    /** checks if instance is in [0..NINST) range **/
     bool isValidInstance(int16_t inst) const;
     bool isValidInstanceRange(int16_t a, int16_t b) const;
     bool isValidInlet(int16_t inlet) const;
+
+    size_t numInstances() const { return instances_.size(); }
+
+    using InstanceRange = std::pair<uint16_t, uint16_t>;
+    InstanceRange spreadRange(const parser::TargetMessage& msg, const AtomListView& lv) const;
 
 private:
     // object renaming in Pd is the delete, then create sequence
