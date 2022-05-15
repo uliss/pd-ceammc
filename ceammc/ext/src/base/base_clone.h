@@ -120,6 +120,8 @@ public:
     void storeContent() const;
     void updateInstances();
 
+    bool changed() const;
+
 public:
     virtual void onSave(t_binbuf* b) const;
     virtual void onRestore(const AtomListView& lv);
@@ -148,6 +150,8 @@ private:
 
     void dspToggle(const parser::TargetMessage& msg);
     void dspToggleInstance(int16_t idx);
+
+    void dspSpread(const parser::TargetMessage& msg, const AtomListView& lv);
 
     uint16_t genRandomInstanceIndex() const;
 

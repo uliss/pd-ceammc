@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "base_clone.h"
+#include "ceammc_canvas.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
@@ -30,6 +31,10 @@ constexpr const char* PATTERN_NAME = "/PATTERN/";
 constexpr const char* SYM_CANVAS_RESTORE = "#Z";
 constexpr int PATTERN_WINDOW_W = 700;
 constexpr int PATTERN_WINDOW_H = 500;
+
+#ifndef NDEBUG
+#define CLONE_DEBUG
+#endif
 
 extern "C" {
 #include "g_canvas.h"
@@ -206,7 +211,9 @@ public:
     static void save_fn(ObjectProxy* x, t_binbuf* b)
     {
         x->impl->onSave(b);
-        x->impl->updateInstances();
+
+        if (x->impl->changed())
+            x->impl->updateInstances();
     }
 
     static void restore_fn(ObjectProxy* x, t_symbol* /*sel*/, int argc, t_atom* argv)
@@ -435,6 +442,8 @@ bool BaseClone::initInstance(uint16_t idx)
 
 void BaseClone::updateInstances()
 {
+    OBJ_LOG << __FUNCTION__;
+
     DspSuspendGuard dsp_guard;
 
     if (pattern_) {
@@ -870,6 +879,23 @@ void BaseClone::dspToggleInstance(int16_t idx)
     instances_[idx].dspToggle();
 }
 
+void BaseClone::dspSpread(const parser::TargetMessage& msg, const AtomListView& lv)
+{
+    using namespace ceammc::parser;
+
+    switch (msg.type) {
+    case TARGET_TYPE_ALL: {
+        DspSuspendGuard guard;
+
+        const auto N = std::min(lv.size(), instances_.size());
+        for (size_t i = 0; i < N; i++)
+            dspSetInstance(i, lv.boolAt(i, false));
+    } break;
+    default:
+        break;
+    }
+}
+
 uint16_t BaseClone::genRandomInstanceIndex() const
 {
     if (instances_.empty())
@@ -910,6 +936,11 @@ bool BaseClone::isValidInlet(int16_t inlet) const
         return true;
 }
 
+bool BaseClone::changed() const
+{
+    return canvas_info_is_dirty(canvas());
+}
+
 void BaseClone::sendToInlet(t_inlet* inlet, const AtomListView& lv)
 {
     auto x = util::inlet_object(inlet);
@@ -936,7 +967,9 @@ void BaseClone::sendToInstance(uint16_t inst, uint16_t inlet, const AtomListView
     if (idx < inlets().size()) {
         sendToInlet(inlets()[idx], lv);
 
+#ifdef CLONE_DEBUG
         OBJ_LOG << fmt::format("send to {}#{} lv", inst, inlet, to_string(lv));
+#endif
     }
 }
 
@@ -1097,12 +1130,14 @@ void BaseClone::setupDSP(t_signal** sp)
 {
     signalInit(sp);
 
+#ifdef CLONE_DEBUG
     OBJ_DBG << fmt::format("{}:\n"
                            " - block size: {}\n"
                            " - samplerate: {}\n"
                            " - inputs:     {}\n"
                            " - outputs:    {}",
         __FUNCTION__, block_size_, sample_rate_, n_sig_in_, n_sig_out_);
+#endif
 }
 
 void BaseClone::m_open(t_symbol* s, const AtomListView& lv)
@@ -1139,7 +1174,7 @@ void BaseClone::m_send(t_symbol* s, const AtomListView& lv)
     // send N
     if (lv.size() >= 1 && lv[0].isFloat()) {
         msg.first = lv[0].asT<int>();
-        msg.type = TARGET_TYPE_ALL;
+        msg.type = TARGET_TYPE_EQ;
         msg.inlet = -1;
         return send(msg, lv.subView(1));
     }
@@ -1154,15 +1189,15 @@ void BaseClone::m_send_spread(t_symbol* s, const AtomListView& lv)
     TargetMessage msg;
 
     // pattern
-    // send #... pattern
+    // send: #... pattern
     if (lv.size() >= 1 && lv[0].isSymbol() && parse_clone_target(lv[0].asT<t_symbol*>()->s_name, msg))
         return sendSpread(msg, lv.subView(1));
 
     // direct instance index
-    // send N
+    // send: N
     if (lv.size() >= 1 && lv[0].isFloat()) {
         msg.first = lv[0].asT<int>();
-        msg.type = TARGET_TYPE_ALL;
+        msg.type = TARGET_TYPE_EQ;
         msg.inlet = -1;
         return sendSpread(msg, lv.subView(1));
     }
@@ -1177,15 +1212,15 @@ void BaseClone::m_dsp_set(t_symbol* s, const AtomListView& lv)
     TargetMessage msg;
 
     // pattern
-    // dsp~ #...
+    // dsp= #...
     if (lv.size() >= 1 && lv[0].isSymbol() && parse_clone_target(lv[0].asT<t_symbol*>()->s_name, msg))
         return dspSet(msg, lv.subView(1));
 
     // direct instance index
-    // dsp~ N
+    // dsp= N
     if (lv.size() >= 1 && lv[0].isFloat()) {
         msg.first = lv[0].asT<int>();
-        msg.type = TARGET_TYPE_ALL;
+        msg.type = TARGET_TYPE_EQ;
         return dspSet(msg, lv.subView(1));
     }
 
@@ -1199,15 +1234,15 @@ void BaseClone::m_dsp_toggle(t_symbol* s, const AtomListView& lv)
     TargetMessage msg;
 
     // pattern
-    // dsp^ #...
+    // dsp~ #...
     if (lv.size() >= 1 && lv[0].isSymbol() && parse_clone_target(lv[0].asT<t_symbol*>()->s_name, msg))
         return dspToggle(msg);
 
     // direct instance index
-    // dsp^ N
+    // dsp~ N
     if (lv.size() >= 1 && lv[0].isFloat()) {
         msg.first = lv[0].asT<int>();
-        msg.type = TARGET_TYPE_ALL;
+        msg.type = TARGET_TYPE_EQ;
         dspToggle(msg);
     } else if (lv.empty()) {
         for (auto& i : instances_)
@@ -1218,6 +1253,23 @@ void BaseClone::m_dsp_toggle(t_symbol* s, const AtomListView& lv)
 
 void BaseClone::m_dsp_spread(t_symbol* s, const AtomListView& lv)
 {
+    using namespace ceammc::parser;
+
+    TargetMessage msg;
+
+    // pattern
+    // dsp: #...
+    if (lv.size() >= 1 && lv[0].isSymbol() && parse_clone_target(lv[0].asT<t_symbol*>()->s_name, msg))
+        return dspSpread(msg, lv);
+
+    // direct instance index
+    // dsp: N
+    if (lv.size() >= 1 && lv[0].isFloat()) {
+        msg.first = lv[0].asT<int>();
+        msg.type = TARGET_TYPE_EQ;
+        dspSpread(msg, lv);
+    } else
+        METHOD_ERR(s) << "invalid format: " << lv;
 }
 
 void BaseClone::storeContent() const
