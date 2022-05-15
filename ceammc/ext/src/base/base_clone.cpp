@@ -1332,11 +1332,13 @@ void setup_base_clone()
     obj.addMethod("send", &BaseClone::m_send);
     obj.addMethod("spread", &BaseClone::m_send_spread);
     obj.addMethod("dsp~", &BaseClone::m_dsp_set);
+    obj.addMethod("dsp^", &BaseClone::m_dsp_toggle);
 
     // HACK to rename the object without loosing its pattern
-    auto mouse_fn = (MouseFn)zgetfn(&canvas_class, gensym("mouse"));
+    auto sym_mouse = gensym("mouse");
+    auto mouse_fn = (MouseFn)zgetfn(&canvas_class, sym_mouse);
     if (mouse_fn != canvas_new_mouse_fn) {
         ceammc_old_canvas_mouse_fn = mouse_fn;
-        class_addmethod(canvas_class, (t_method)canvas_new_mouse_fn, gensym("mouse"), A_FLOAT, A_FLOAT, A_FLOAT, A_FLOAT, A_NULL);
+        class_addmethod(canvas_class, (t_method)canvas_new_mouse_fn, sym_mouse, A_FLOAT, A_FLOAT, A_FLOAT, A_FLOAT, A_NULL);
     }
 }
