@@ -151,6 +151,7 @@ private:
     uint16_t genRandomInstanceIndex() const;
 
     bool isValidInstance(int16_t inst) const;
+    bool isValidInstanceRange(int16_t a, int16_t b) const;
     bool isValidInlet(int16_t inlet) const;
 
 private:

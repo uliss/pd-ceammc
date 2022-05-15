@@ -889,6 +889,18 @@ bool BaseClone::isValidInstance(int16_t inst) const
         return true;
 }
 
+bool BaseClone::isValidInstanceRange(int16_t a, int16_t b) const
+{
+    if (a < 0 || a >= instances_.size()) {
+        OBJ_ERR << fmt::format("invalid range start: {:d}, expected value in [0..{:d}) range", a, instances_.size());
+        return false;
+    } else if (b < 0) {
+        OBJ_ERR << fmt::format("invalid range end: {:d}, expected value > 0", b);
+        return false;
+    } else
+        return true;
+}
+
 bool BaseClone::isValidInlet(int16_t inlet) const
 {
     if (inlet >= n_instance_in_) {
@@ -1064,6 +1076,20 @@ void BaseClone::sendSpread(const parser::TargetMessage& msg, const AtomListView&
         for (size_t i = msg.first + 1; i < N; i++)
             sendToInstance(i, inlet, lv.subView(i, 1));
     } break;
+    case TARGET_TYPE_RANGE: {
+        if (!isValidInstanceRange(msg.first, msg.last) || !isValidInlet(msg.inlet))
+            return;
+
+        const auto mm = std::minmax(msg.first, msg.last);
+        const auto inlet = clip_min<int16_t, 0>(msg.inlet);
+        const auto N = std::min<size_t>(mm.second - mm.first, std::min(instances_.size(), lv.size()));
+
+        for (size_t i = 0; i < N; i++)
+            sendToInstance(i + mm.first, inlet, lv.subView(i, 1));
+    } break;
+    default:
+        OBJ_ERR << fmt::format("unknown target: {:d}", msg.type);
+        break;
     }
 }
 
