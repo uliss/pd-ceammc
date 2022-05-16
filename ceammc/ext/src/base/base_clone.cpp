@@ -34,9 +34,9 @@ constexpr const char* SYM_CANVAS_RESTORE = "#Z";
 constexpr int PATTERN_WINDOW_W = 700;
 constexpr int PATTERN_WINDOW_H = 500;
 
-//#ifndef NDEBUG
+#ifndef NDEBUG
 #define CLONE_DEBUG
-//#endif
+#endif
 
 extern "C" {
 #include "g_canvas.h"
@@ -1372,10 +1372,6 @@ void BaseClone::onSave(t_binbuf* b) const
             (int)obj->te_xpix, (int)obj->te_ypix, gensym(PATTERN_NAME));
         binbuf_addv(b, ";");
     }
-
-    //    if (obj->te_width)
-    //        binbuf_addv(b, "ssi;",
-    //            gensym("#X"), gensym("f"), (int)obj->te_width);
 }
 
 void setup_base_clone()
