@@ -32,9 +32,9 @@ constexpr const char* SYM_CANVAS_RESTORE = "#Z";
 constexpr int PATTERN_WINDOW_W = 700;
 constexpr int PATTERN_WINDOW_H = 500;
 
-#ifndef NDEBUG
+//#ifndef NDEBUG
 #define CLONE_DEBUG
-#endif
+//#endif
 
 extern "C" {
 #include "g_canvas.h"
@@ -677,6 +677,9 @@ void BaseClone::dspSet(const parser::TargetMessage& msg, const AtomListView& lv)
     using namespace ceammc::parser;
 
     const auto range = instanceRange(msg);
+
+    OBJ_DBG << fmt::format("{} range: {:d}..{:d}", __FUNCTION__, range.a, range.b);
+
     if (range.valid()) {
         if (range.empty())
             return;
@@ -707,6 +710,10 @@ void BaseClone::dspSetInstance(int16_t idx, bool value)
     }
 
     instances_[idx].dspSet(value);
+
+#ifdef CLONE_DEBUG
+    OBJ_LOG << fmt::format("dsp set {:d}={:d}", idx, value);
+#endif
 }
 
 void BaseClone::dspToggle(const parser::TargetMessage& msg)
@@ -749,6 +756,11 @@ void BaseClone::dspSpread(const parser::TargetMessage& msg, const AtomListView& 
     using namespace ceammc::parser;
 
     const auto range = instanceSpreadRange(msg, lv);
+
+#ifdef CLONE_DEBUG
+    OBJ_DBG << fmt::format("{} range: {:d}..{:d}", __FUNCTION__, range.a, range.b);
+#endif
+
     if (range.valid()) {
         if (range.empty())
             return;
@@ -1212,14 +1224,14 @@ void BaseClone::m_dsp_spread(t_symbol* s, const AtomListView& lv)
     // pattern
     // dsp: #... VALUES
     if (lv.size() >= 1 && lv[0].isSymbol() && parse_clone_target(lv[0].asT<t_symbol*>()->s_name, msg))
-        return dspSpread(msg, lv);
+        return dspSpread(msg, lv.subView(1));
 
     // direct instance index
     // dsp: N VALUES
     if (lv.size() >= 1 && lv[0].isFloat()) {
         msg.first = lv[0].asT<int>();
         msg.target = TARGET_TYPE_EQ;
-        dspSpread(msg, lv);
+        dspSpread(msg, lv.subView(1));
     } else
         METHOD_ERR(s) << "invalid format: " << lv;
 }
