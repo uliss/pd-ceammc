@@ -25,6 +25,7 @@
 #include <boost/functional/hash.hpp>
 #include <cassert>
 #include <ctime>
+#include <memory>
 #include <random>
 
 constexpr const char* CONTAINTER_NAME = "/CONTAINER/";
@@ -220,7 +221,7 @@ void clone_set_canvas_content(t_canvas* x, const t_binbuf* b, int ninst, int ins
     s__N.s_thing = boundn;
 }
 
-std::size_t clone_canvas_hash(const t_binbuf* bb)
+std::size_t clone_binbuf_calc_hash(const t_binbuf* bb)
 {
     size_t hash = 0;
 
@@ -486,7 +487,7 @@ void BaseClone::updateInstances()
 
         BinBufferPtr bb(binbuf_new(), binbuf_free);
         clone_copy_canvas_content(pattern_, bb.get());
-        const auto new_hash = clone_canvas_hash(bb.get());
+        const auto new_hash = clone_binbuf_calc_hash(bb.get());
 
         if (new_hash != pattern_hash_)
             pattern_hash_ = new_hash;
