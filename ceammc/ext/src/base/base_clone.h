@@ -164,7 +164,8 @@ private:
     size_t numInstances() const { return instances_.size(); }
 
     using InstanceRange = std::pair<uint16_t, uint16_t>;
-    InstanceRange spreadRange(const parser::TargetMessage& msg, const AtomListView& lv) const;
+    InstanceRange instanceSpreadRange(const parser::TargetMessage& msg, const AtomListView& lv) const;
+    InstanceRange instanceRange(const parser::TargetMessage& msg) const;
 
 private:
     // object renaming in Pd is the delete, then create sequence
