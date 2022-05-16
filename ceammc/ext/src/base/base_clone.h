@@ -140,9 +140,6 @@ private:
     void sendToInstance(uint16_t inst, uint16_t inlet, const AtomListView& lv);
     bool sendToInstanceInlets(int16_t inst, int16_t inlet, const AtomListView& lv);
 
-    void sendGreaterEqual(int16_t instance, int16_t inlet, const AtomListView& lv);
-    void sendLessThen(int16_t instance, int16_t inlet, const AtomListView& lv);
-
     void sendSpread(const parser::TargetMessage& msg, const AtomListView& lv);
 
     void dspSet(const parser::TargetMessage& msg, const AtomListView& lv);

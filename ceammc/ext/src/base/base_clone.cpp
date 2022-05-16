@@ -654,54 +654,22 @@ void BaseClone::send(const parser::TargetMessage& msg, const AtomListView& lv)
 {
     using namespace ceammc::parser;
 
-    const size_t NINST = instances_.size();
-
-    switch (msg.target) {
-    case TARGET_TYPE_ALL:
-        sendGreaterEqual(0, msg.inlet, lv);
-        break;
-    case TARGET_TYPE_EXCEPT: {
-        for (size_t i = 0; i < NINST; i++) {
-            if (i == msg.first)
-                continue;
-
-            if (!sendToInstanceInlets(i, msg.inlet, lv))
-                break;
-        }
-    } break;
-    case TARGET_TYPE_EQ:
-        sendToInstanceInlets(msg.first, msg.inlet, lv);
-        break;
-    case TARGET_TYPE_GT:
-        sendGreaterEqual(msg.first + 1, msg.inlet, lv);
-        break;
-    case TARGET_TYPE_GE:
-        sendGreaterEqual(msg.first, msg.inlet, lv);
-        break;
-    case TARGET_TYPE_LE:
-        sendLessThen(msg.first + 1, msg.inlet, lv);
-        break;
-    case TARGET_TYPE_LT:
-        sendLessThen(msg.first, msg.inlet, lv);
-        break;
-    case TARGET_TYPE_RANDOM:
-        sendToInstanceInlets(genRandomInstanceIndex(), msg.inlet, lv);
-        break;
-    case TARGET_TYPE_RANGE: {
-        if (msg.first < 0 || msg.last < 0 || msg.first >= NINST || msg.last >= NINST) {
-            OBJ_ERR << fmt::format("invalid range: {:d}..{:d}", msg.first, msg.last);
+    const auto range = instanceRange(msg);
+    if (range.valid()) {
+        if (range.empty())
             return;
-        }
 
-        auto mm = std::minmax(msg.first, msg.last);
-        for (auto i = mm.first; i <= mm.second; i += msg.step)
+        for (auto i = range.a; i < range.b; i += range.step)
             sendToInstanceInlets(i, msg.inlet, lv);
 
-    } break;
-    default:
-        OBJ_ERR << fmt::format("unsupported target type: {:d}", msg.target);
-        break;
-    }
+    } else if (msg.target == TARGET_TYPE_EXCEPT) {
+
+        for (size_t i = 0; i < numInstances(); i++) {
+            if (i != msg.first)
+                sendToInstanceInlets(i, msg.inlet, lv);
+        }
+    } else
+        OBJ_ERR << fmt::format("unsupported target: {:d}", msg.target);
 }
 
 void BaseClone::dspSet(const parser::TargetMessage& msg, const AtomListView& lv)
@@ -995,26 +963,6 @@ bool BaseClone::sendToInstanceInlets(int16_t inst, int16_t inlet, const AtomList
     }
 
     return true;
-}
-
-void BaseClone::sendGreaterEqual(int16_t instance, int16_t inlet, const AtomListView& lv)
-{
-    const int16_t NINST = instances_.size();
-
-    for (uint16_t i = instance; i < NINST; i++) {
-        if (!sendToInstanceInlets(i, inlet, lv))
-            break;
-    }
-}
-
-void BaseClone::sendLessThen(int16_t instance, int16_t inlet, const AtomListView& lv)
-{
-    auto n = std::min<int16_t>(instance, instances_.size());
-
-    while (--n >= 0) {
-        if (!sendToInstanceInlets(n, inlet, lv))
-            break;
-    }
 }
 
 void BaseClone::sendSpread(const parser::TargetMessage& msg, const AtomListView& lv)
