@@ -478,8 +478,6 @@ bool BaseClone::initInstance(uint16_t idx)
 
 void BaseClone::updateInstances()
 {
-    OBJ_LOG << __FUNCTION__;
-
     if (pattern_) {
         const bool visible = isVisible();
 
