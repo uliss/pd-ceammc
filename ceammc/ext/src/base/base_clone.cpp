@@ -164,9 +164,9 @@ void clone_set_canvas_content(t_canvas* x, const t_binbuf* b, int ninst, int ins
     // store replaced atoms
     std::vector<int> nvec, ivec;
     // placeholder: number of instances
-    auto nsym = gensym("$1");
+    auto nsym = gensym("$2");
     // placeholder: instance index
-    auto isym = gensym("$2");
+    auto isym = gensym("$1");
 
     // if ninst < 0 we are in a pattern
     if (ninst >= 0 && inst >= 0) {
@@ -180,7 +180,7 @@ void clone_set_canvas_content(t_canvas* x, const t_binbuf* b, int ninst, int ins
                     SETFLOAT(a, (t_float)ninst);
                 } else if (s == isym) {
                     ivec.push_back(i);
-                    SETFLOAT(a, (t_float)inst);
+                    SETFLOAT(a, (t_float)inst + 1);
                 }
             }
         }
