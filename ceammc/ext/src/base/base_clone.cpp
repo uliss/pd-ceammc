@@ -22,6 +22,7 @@
 #include "lex/parser_clone.h"
 
 #include <boost/container/small_vector.hpp>
+#include <boost/functional/hash.hpp>
 #include <cassert>
 #include <ctime>
 #include <random>
@@ -47,12 +48,28 @@ void signal_makereusable(t_signal* sig);
 void obj_sendinlet(t_object* x, int n, t_symbol* s, int argc, t_atom* argv);
 }
 
+template <typename T>
+using deleted_unique_ptr = std::unique_ptr<T, std::function<void(T*)>>;
+using BinBufferPtr = deleted_unique_ptr<t_binbuf>;
+
 namespace {
 
 template <typename T>
 T min3(T a, T b, T c)
 {
     return std::min<T>(a, std::min<T>(b, c));
+}
+
+size_t atom_hash(const t_atom& a) noexcept
+{
+    std::size_t hash = std::hash<std::uint8_t> {}(a.a_type);
+
+    if (a.a_type == A_SYMBOL)
+        boost::hash_combine(hash, boost::hash_value<t_symbol*>(a.a_w.w_symbol));
+    else
+        boost::hash_combine(hash, boost::hash_value<t_float>(a.a_w.w_float));
+
+    return hash;
 }
 
 class DspSuspendGuard {
@@ -122,7 +139,7 @@ void clone_bind_restore(t_object* owner)
 /**
  * copy canvas content to specified binbuf
  */
-t_binbuf* clone_copy_canvas_content(const t_canvas* z, t_binbuf* b)
+void clone_copy_canvas_content(const t_canvas* z, t_binbuf* b)
 {
     auto x = (t_canvas*)z;
 
@@ -143,8 +160,6 @@ t_binbuf* clone_copy_canvas_content(const t_canvas* z, t_binbuf* b)
             srcno, t.tr_outno,
             sinkno, t.tr_inno);
     }
-
-    return b;
 }
 
 void clone_set_canvas_content(t_canvas* x, const t_binbuf* b, int ninst, int inst)
@@ -203,6 +218,22 @@ void clone_set_canvas_content(t_canvas* x, const t_binbuf* b, int ninst, int ins
     asym->s_thing = bounda;
     s__X.s_thing = boundx;
     s__N.s_thing = boundn;
+}
+
+std::size_t clone_canvas_hash(const t_binbuf* bb)
+{
+    size_t hash = 0;
+
+    if (!bb)
+        return hash;
+
+    const auto n = binbuf_getnatom(bb);
+    const auto a = binbuf_getvec(bb);
+
+    for (int i = 0; i < n; i++)
+        boost::hash_combine(hash, atom_hash(a[n]));
+
+    return hash;
 }
 
 class BaseCloneFactory : public SoundExternalFactory<BaseClone> {
@@ -267,7 +298,6 @@ void canvas_new_mouse_fn(t_canvas* x, t_floatarg xpos, t_floatarg ypos,
     if (ceammc_old_canvas_mouse_fn)
         return ceammc_old_canvas_mouse_fn(x, xpos, ypos, which, mod);
 }
-
 }
 
 CloneInstance::CloneInstance(uint16_t idx, t_canvas* owner)
@@ -333,6 +363,7 @@ BaseClone::BaseClone(const PdArgs& args)
     , n_sig_out_(0)
     , block_size_(sys_getblksize())
     , sample_rate_(sys_getsr())
+    , pattern_hash_(0)
     , renaming_(false)
 {
     num_ = new IntProperty("@n", 0);
@@ -450,23 +481,27 @@ void BaseClone::updateInstances()
 {
     OBJ_LOG << __FUNCTION__;
 
-    DspSuspendGuard dsp_guard;
-
     if (pattern_) {
         const bool visible = isVisible();
+
+        BinBufferPtr bb(binbuf_new(), binbuf_free);
+        clone_copy_canvas_content(pattern_, bb.get());
+        const auto new_hash = clone_canvas_hash(bb.get());
+
+        if (new_hash != pattern_hash_)
+            pattern_hash_ = new_hash;
+        else
+            return;
+
+        DspSuspendGuard dsp_guard;
 
         if (visible)
             gobj_vis(&owner()->te_g, canvas(), 0);
 
-        auto bb = binbuf_new();
-        clone_copy_canvas_content(pattern_, bb);
-
         for (auto& i : instances_) {
-            i.fillWithPattern(bb, instances_.size());
+            i.fillWithPattern(bb.get(), instances_.size());
             i.loadbang();
         }
-
-        binbuf_free(bb);
 
         updateInlets();
         updateOutlets();
@@ -922,7 +957,7 @@ BaseClone::InstanceRange BaseClone::instanceRange(const parser::TargetMessage& m
 
 bool BaseClone::changed() const
 {
-    return canvas_info_is_dirty(canvas());
+    return canvas_info_is_dirty(canvas()) && pattern_ && pattern_->gl_mapped;
 }
 
 void BaseClone::sendToInlet(t_inlet* inlet, const AtomListView& lv)
