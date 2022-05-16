@@ -709,14 +709,14 @@ void BaseClone::dspSet(const parser::TargetMessage& msg, const AtomListView& lv)
     using namespace ceammc::parser;
 
     const auto range = instanceRange(msg);
-    if (range != InstanceRange { 0, 0 }) {
-        if (range.first >= range.second)
+    if (range.valid()) {
+        if (range.empty())
             return;
 
         DspSuspendGuard guard;
         const auto v = lv.boolAt(0, false);
 
-        for (uint16_t i = range.first; i < range.second; i++)
+        for (auto i = range.a; i < range.b; i += range.step)
             dspSetInstance(i, v);
 
     } else if (msg.target == TARGET_TYPE_EXCEPT) {
@@ -746,13 +746,13 @@ void BaseClone::dspToggle(const parser::TargetMessage& msg)
     using namespace ceammc::parser;
 
     const auto range = instanceRange(msg);
-    if (range != InstanceRange { 0, 0 }) {
-        if (range.first >= range.second)
+    if (range.valid()) {
+        if (range.empty())
             return;
 
         DspSuspendGuard guard;
 
-        for (uint16_t i = range.first; i < range.second; i++)
+        for (auto i = range.a; i < range.b; i++)
             dspToggleInstance(i);
 
     } else if (msg.target == TARGET_TYPE_EXCEPT) {
@@ -781,14 +781,14 @@ void BaseClone::dspSpread(const parser::TargetMessage& msg, const AtomListView& 
     using namespace ceammc::parser;
 
     const auto range = instanceSpreadRange(msg, lv);
-    if (range != InstanceRange { 0, 0 }) {
-        if (range.first >= range.second)
+    if (range.valid()) {
+        if (range.empty())
             return;
 
         DspSuspendGuard guard;
 
-        for (uint16_t i = range.first; i < range.second; i++)
-            dspSetInstance(i, lv.boolAt(i - range.first, false));
+        for (auto i = range.a; i < range.b; i++)
+            dspSetInstance(i, lv.boolAt(i - range.a, false));
     } else
         OBJ_ERR << fmt::format("unsupported target: {:d}", msg.target);
 }
@@ -838,16 +838,21 @@ BaseClone::InstanceRange BaseClone::instanceSpreadRange(const parser::TargetMess
     using namespace ceammc::parser;
 
     switch (msg.target) {
-    case TARGET_TYPE_ALL:
-        return { 0, std::min(numInstances(), lv.size()) };
+    case TARGET_TYPE_ALL: {
+        const uint16_t b = std::min(numInstances(), lv.size());
+        return { 0, b };
+    }
     case TARGET_TYPE_EQ:
-        if (msg.first >= 0 && msg.first < numInstances())
-            return { msg.first, msg.first + std::min<uint16_t>(1, lv.size()) };
-        else
-            return { 0, 0 };
+        if (msg.first >= 0 && msg.first < numInstances()) {
+            const uint16_t a = msg.first;
+            const uint16_t b = a + std::min<uint16_t>(1, lv.size());
+            return { a, b };
+        } else
+            return { 0, 0, 0 };
     case TARGET_TYPE_RANDOM: {
         const auto a = genRandomInstanceIndex();
-        return { a, a + std::min<uint16_t>(1, lv.size()) };
+        const uint16_t b = a + std::min<uint16_t>(1, lv.size());
+        return { a, b };
     }
     case TARGET_TYPE_GE: {
         const uint16_t a = clip_min<int16_t, 0>(msg.first);
@@ -872,10 +877,12 @@ BaseClone::InstanceRange BaseClone::instanceSpreadRange(const parser::TargetMess
     case TARGET_TYPE_RANGE: {
         const uint16_t a = min3<uint16_t>(clip_min<int16_t, 0>(msg.first), lv.size(), numInstances());
         const uint16_t b = min3<uint16_t>(clip_min<int16_t, 0>(msg.last), lv.size(), numInstances());
-        return std::minmax(a, b);
+        const uint16_t step = clip_min<int16_t, 0>(msg.step);
+        const auto mm = std::minmax(a, b);
+        return { mm.first, mm.second, step };
     }
     default:
-        return { 0, 0 };
+        return { 0, 0, 0 };
     }
 }
 
@@ -884,24 +891,32 @@ BaseClone::InstanceRange BaseClone::instanceRange(const parser::TargetMessage& m
     using namespace ceammc::parser;
 
     switch (msg.target) {
-    case TARGET_TYPE_ALL:
-        return { 0, numInstances() };
+    case TARGET_TYPE_ALL: {
+        const uint16_t a = 0;
+        const uint16_t b = numInstances();
+        return { a, b };
+    }
     case TARGET_TYPE_EQ:
-        if (msg.first >= 0 && msg.first < numInstances())
-            return { msg.first, msg.first + 1 };
-        else
-            return { 0, 0 };
+        if (msg.first >= 0 && msg.first < numInstances()) {
+            const uint16_t a = msg.first;
+            const uint16_t b = a + 1;
+            return { a, b };
+        } else
+            return { 0, 0, 0 };
     case TARGET_TYPE_RANDOM: {
-        const auto a = genRandomInstanceIndex();
-        return { a, a + 1 };
+        const uint16_t a = genRandomInstanceIndex();
+        const uint16_t b = a + 1;
+        return { a, b };
     }
     case TARGET_TYPE_GE: {
         const uint16_t a = clip_min<int16_t, 0>(msg.first);
-        return { a, numInstances() };
+        const uint16_t b = numInstances();
+        return { a, b };
     }
     case TARGET_TYPE_GT: {
         const uint16_t a = clip_min<int16_t, 0>(msg.first) + 1;
-        return { a, numInstances() };
+        const uint16_t b = numInstances();
+        return { a, b };
     }
     case TARGET_TYPE_LT: {
         const uint16_t a = 0;
@@ -916,10 +931,12 @@ BaseClone::InstanceRange BaseClone::instanceRange(const parser::TargetMessage& m
     case TARGET_TYPE_RANGE: {
         const uint16_t a = std::min<uint16_t>(clip_min<int16_t, 0>(msg.first), numInstances());
         const uint16_t b = std::min<uint16_t>(clip_min<int16_t, 0>(msg.last), numInstances());
-        return std::minmax(a, b);
+        const uint16_t step = clip_min<int16_t, 0>(msg.step);
+        const auto mm = std::minmax(a, b);
+        return { mm.first, mm.second, step };
     }
     default:
-        return { 0, 0 };
+        return { 0, 0, 0 };
     }
 }
 

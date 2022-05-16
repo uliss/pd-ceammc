@@ -15,7 +15,6 @@
 #define BASE_CLONE_H
 
 #include <cstdint>
-#include <utility>
 
 #include "ceammc_proxy.h"
 #include "ceammc_sound_external.h"
@@ -163,7 +162,18 @@ private:
 
     size_t numInstances() const { return instances_.size(); }
 
-    using InstanceRange = std::pair<uint16_t, uint16_t>;
+    struct InstanceRange {
+        std::uint16_t a { 0 }, b { 0 }, step { 1 };
+        InstanceRange(std::uint16_t a_, std::uint16_t b_, std::uint16_t step_ = 1)
+            : a(a_)
+            , b(b_)
+            , step(step_)
+        {
+        }
+        bool empty() const { return a >= b; }
+        bool valid() const { return step > 0; }
+    };
+
     InstanceRange instanceSpreadRange(const parser::TargetMessage& msg, const AtomListView& lv) const;
     InstanceRange instanceRange(const parser::TargetMessage& msg) const;
 
