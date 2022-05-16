@@ -362,8 +362,6 @@ BaseClone::BaseClone(const PdArgs& args)
     , pattern_(nullptr)
     , n_sig_in_(0)
     , n_sig_out_(0)
-    , block_size_(sys_getblksize())
-    , sample_rate_(sys_getsr())
     , pattern_hash_(0)
     , renaming_(false)
 {
@@ -616,14 +614,9 @@ void BaseClone::signalInit(t_signal** sp)
 {
     using SignalList = boost::container::small_vector<t_signal*, 64>;
 
-    if (n_sig_in_ == 0 && n_sig_out_ == 0) {
-        block_size_ = 64;
-        sample_rate_ = sys_getsr();
+    // no audio input/output
+    if (n_sig_in_ == 0 && n_sig_out_ == 0)
         return;
-    }
-
-    block_size_ = size_t(sp[0]->s_n);
-    sample_rate_ = size_t(sp[0]->s_sr);
 
     auto obj_in = sp;
     auto obj_out = sp + n_sig_in_;
@@ -958,7 +951,7 @@ BaseClone::InstanceRange BaseClone::instanceRange(const parser::TargetMessage& m
 
 bool BaseClone::changed() const
 {
-    return canvas_info_is_dirty(canvas()) && pattern_ && pattern_->gl_mapped;
+    return canvas_info_is_dirty(canvas()) && pattern_;
 }
 
 void BaseClone::sendToInlet(t_inlet* inlet, const AtomListView& lv)
@@ -1132,11 +1125,9 @@ void BaseClone::setupDSP(t_signal** sp)
 
 #ifdef CLONE_DEBUG
     OBJ_DBG << fmt::format("{}:\n"
-                           " - block size: {}\n"
-                           " - samplerate: {}\n"
                            " - inputs:     {}\n"
                            " - outputs:    {}",
-        __FUNCTION__, block_size_, sample_rate_, n_sig_in_, n_sig_out_);
+        __FUNCTION__, n_sig_in_, n_sig_out_);
 #endif
 }
 
