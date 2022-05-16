@@ -38,7 +38,7 @@ namespace parser {
         int16_t last { -1 };
         int16_t step { 1 };
         int8_t inlet { -1 };
-        TargetType type { TARGET_TYPE_NONE };
+        TargetType target { TARGET_TYPE_NONE };
     };
 
     enum CloneMessageType {

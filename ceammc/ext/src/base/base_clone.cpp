@@ -656,7 +656,7 @@ void BaseClone::send(const parser::TargetMessage& msg, const AtomListView& lv)
 
     const size_t NINST = instances_.size();
 
-    switch (msg.type) {
+    switch (msg.target) {
     case TARGET_TYPE_ALL:
         sendGreaterEqual(0, msg.inlet, lv);
         break;
@@ -699,7 +699,7 @@ void BaseClone::send(const parser::TargetMessage& msg, const AtomListView& lv)
 
     } break;
     default:
-        OBJ_ERR << fmt::format("unsupported target type: {:d}", msg.type);
+        OBJ_ERR << fmt::format("unsupported target type: {:d}", msg.target);
         break;
     }
 }
@@ -719,7 +719,7 @@ void BaseClone::dspSet(const parser::TargetMessage& msg, const AtomListView& lv)
         for (uint16_t i = range.first; i < range.second; i++)
             dspSetInstance(i, v);
 
-    } else if (msg.type == TARGET_TYPE_EXCEPT) {
+    } else if (msg.target == TARGET_TYPE_EXCEPT) {
         DspSuspendGuard guard;
         const auto v = lv.boolAt(0, false);
 
@@ -728,7 +728,7 @@ void BaseClone::dspSet(const parser::TargetMessage& msg, const AtomListView& lv)
                 dspSetInstance(i, v);
         }
     } else
-        OBJ_ERR << fmt::format("unsupported target: {:d}", msg.type);
+        OBJ_ERR << fmt::format("unsupported target: {:d}", msg.target);
 }
 
 void BaseClone::dspSetInstance(int16_t idx, bool value)
@@ -755,7 +755,7 @@ void BaseClone::dspToggle(const parser::TargetMessage& msg)
         for (uint16_t i = range.first; i < range.second; i++)
             dspToggleInstance(i);
 
-    } else if (msg.type == TARGET_TYPE_EXCEPT) {
+    } else if (msg.target == TARGET_TYPE_EXCEPT) {
         DspSuspendGuard guard;
 
         for (size_t i = 0; i < numInstances(); i++) {
@@ -763,7 +763,7 @@ void BaseClone::dspToggle(const parser::TargetMessage& msg)
                 dspToggleInstance(i);
         }
     } else
-        OBJ_ERR << fmt::format("unsupported target: {:d}", msg.type);
+        OBJ_ERR << fmt::format("unsupported target: {:d}", msg.target);
 }
 
 void BaseClone::dspToggleInstance(int16_t idx)
@@ -790,7 +790,7 @@ void BaseClone::dspSpread(const parser::TargetMessage& msg, const AtomListView& 
         for (uint16_t i = range.first; i < range.second; i++)
             dspSetInstance(i, lv.boolAt(i - range.first, false));
     } else
-        OBJ_ERR << fmt::format("unsupported target: {:d}", msg.type);
+        OBJ_ERR << fmt::format("unsupported target: {:d}", msg.target);
 }
 
 uint16_t BaseClone::genRandomInstanceIndex() const
@@ -837,7 +837,7 @@ BaseClone::InstanceRange BaseClone::instanceSpreadRange(const parser::TargetMess
 {
     using namespace ceammc::parser;
 
-    switch (msg.type) {
+    switch (msg.target) {
     case TARGET_TYPE_ALL:
         return { 0, std::min(numInstances(), lv.size()) };
     case TARGET_TYPE_EQ:
@@ -883,7 +883,7 @@ BaseClone::InstanceRange BaseClone::instanceRange(const parser::TargetMessage& m
 {
     using namespace ceammc::parser;
 
-    switch (msg.type) {
+    switch (msg.target) {
     case TARGET_TYPE_ALL:
         return { 0, numInstances() };
     case TARGET_TYPE_EQ:
@@ -1004,7 +1004,7 @@ void BaseClone::sendSpread(const parser::TargetMessage& msg, const AtomListView&
 {
     using namespace ceammc::parser;
 
-    switch (msg.type) {
+    switch (msg.target) {
     case TARGET_TYPE_ALL: { // spread to all instances
         const auto N = std::min(instances_.size(), lv.size());
 
@@ -1108,7 +1108,7 @@ void BaseClone::sendSpread(const parser::TargetMessage& msg, const AtomListView&
             sendToInstance(i + mm.first, inlet, lv.subView(i, 1));
     } break;
     default:
-        OBJ_ERR << fmt::format("unknown target: {:d}", msg.type);
+        OBJ_ERR << fmt::format("unknown target: {:d}", msg.target);
         break;
     }
 }
@@ -1161,7 +1161,7 @@ void BaseClone::m_send(t_symbol* s, const AtomListView& lv)
     // send N
     if (lv.size() >= 1 && lv[0].isFloat()) {
         msg.first = lv[0].asT<int>();
-        msg.type = TARGET_TYPE_EQ;
+        msg.target = TARGET_TYPE_EQ;
         msg.inlet = -1;
         return send(msg, lv.subView(1));
     }
@@ -1184,7 +1184,7 @@ void BaseClone::m_send_spread(t_symbol* s, const AtomListView& lv)
     // send: N
     if (lv.size() >= 1 && lv[0].isFloat()) {
         msg.first = lv[0].asT<int>();
-        msg.type = TARGET_TYPE_EQ;
+        msg.target = TARGET_TYPE_EQ;
         msg.inlet = -1;
         return sendSpread(msg, lv.subView(1));
     }
@@ -1207,7 +1207,7 @@ void BaseClone::m_dsp_set(t_symbol* s, const AtomListView& lv)
     // dsp= N
     if (lv.size() >= 1 && lv[0].isFloat()) {
         msg.first = lv[0].asT<int>();
-        msg.type = TARGET_TYPE_EQ;
+        msg.target = TARGET_TYPE_EQ;
         return dspSet(msg, lv.subView(1));
     }
 
@@ -1229,7 +1229,7 @@ void BaseClone::m_dsp_toggle(t_symbol* s, const AtomListView& lv)
     // dsp~ N
     if (lv.size() >= 1 && lv[0].isFloat()) {
         msg.first = lv[0].asT<int>();
-        msg.type = TARGET_TYPE_EQ;
+        msg.target = TARGET_TYPE_EQ;
         dspToggle(msg);
     } else if (lv.empty()) {
         for (auto& i : instances_)
@@ -1253,7 +1253,7 @@ void BaseClone::m_dsp_spread(t_symbol* s, const AtomListView& lv)
     // dsp: N VALUES
     if (lv.size() >= 1 && lv[0].isFloat()) {
         msg.first = lv[0].asT<int>();
-        msg.type = TARGET_TYPE_EQ;
+        msg.target = TARGET_TYPE_EQ;
         dspSpread(msg, lv);
     } else
         METHOD_ERR(s) << "invalid format: " << lv;

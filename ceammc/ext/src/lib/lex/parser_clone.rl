@@ -8,7 +8,7 @@ static inline void set_args(TargetMessage& res, TargetType type, int16_t first, 
     res.first = first;
     res.last = last;
     res.step = step;
-    res.type = type;
+    res.target = type;
     res.inlet = inlet;
 }
 
@@ -54,7 +54,7 @@ bool parse_clone_target(const char* str, TargetMessage& res)
 {
     const auto len = strlen(str);
     if (len == 0) {
-        res.type = TARGET_TYPE_NONE;
+        res.target = TARGET_TYPE_NONE;
         return false;
     }
 
