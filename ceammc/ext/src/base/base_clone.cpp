@@ -305,7 +305,7 @@ CloneInstance::CloneInstance(uint16_t idx, t_canvas* owner)
     : idx_(idx)
     , canvas_(nullptr)
 {
-    canvas_ = clone_create_container(owner, gensym(fmt::format("instance({})", idx).c_str()));
+    canvas_ = clone_create_container(owner, gensym(fmt::format("instance({})", idx + 1).c_str()));
 }
 
 CloneInstance::CloneInstance(CloneInstance&& ci)
@@ -534,6 +534,8 @@ void BaseClone::updateInlets()
         }
     }
 
+    n_sig_in_ = 0;
+
     // update inlet destinations
     for (size_t n = 0; n < NUM_ISTANCES; n++) {
         // instance canvas
@@ -546,11 +548,15 @@ void BaseClone::updateInlets()
         // iterate instance inlets
         InletIterator it(x);
         while (it) {
-            auto inl = inlets()[idx];
+            auto inl = inlets()[idx++];
             util::inlet_set_dest(inl, it.asObject());
-            util::inlet_set_signal(inl, it.isSignal());
+
+            const auto is_sig = it.isSignal();
+            util::inlet_set_signal(inl, is_sig);
+            if (is_sig)
+                n_sig_in_++;
+
             it.next();
-            idx++;
         }
     }
 
@@ -601,16 +607,16 @@ void BaseClone::updateOutlets()
 
         // count signal outlets
         const bool is_sig = obj_issignaloutlet(x, src_idx);
-        if (is_sig) {
-            util::outlet_set_signal(outletAt(i), true);
+        util::outlet_set_signal(outletAt(i), is_sig);
+
+        if (is_sig)
             n_sig_out_++;
-        }
     }
 }
 
 void BaseClone::signalInit(t_signal** sp)
 {
-    using SignalList = boost::container::small_vector<t_signal*, 64>;
+    using SignalVector = boost::container::small_vector<t_signal*, 64>;
 
     // no audio input/output
     if (n_sig_in_ == 0 && n_sig_out_ == 0)
@@ -625,17 +631,15 @@ void BaseClone::signalInit(t_signal** sp)
 
     // ref counter update
     for (size_t i = 0; i < n_sig_in_; i++)
-        obj_in[i]->s_refcount += 1;
+        obj_in[i]->s_refcount += 2;
 
-    // instance in/out signals
-    // need to be allocated as continous block for passing to canvas_dodsp()
-    SignalList inst_sig_in(INST_IN + INST_OUT);
-    auto inst_sig_out = inst_sig_in.data() + INST_IN;
-
-    // object output signals
-    SignalList sig_out(n_sig_out_);
+    // create output signals
+    SignalVector sig_out(n_sig_out_);
     for (auto& s : sig_out)
         s = signal_newfromcontext(0);
+
+    // prepare instance in/out signals vector
+    SignalVector inst_sig(INST_IN + INST_OUT);
 
     for (size_t i = 0; i < NINST; i++) {
         auto& inst = instances_[i];
@@ -643,7 +647,7 @@ void BaseClone::signalInit(t_signal** sp)
         if (!inst.isDspOn()) {
             // zero output
             for (size_t k = 0; k < INST_OUT; k++) {
-                auto out = sig_out[i * n_sig_out_ / NINST + k];
+                auto out = sig_out[i * INST_OUT + k];
                 dsp_add_zero(out->s_vec, out->s_n);
             }
 
@@ -651,29 +655,34 @@ void BaseClone::signalInit(t_signal** sp)
         }
 
         // copy object input signals to instance signals
-        for (size_t k = 0; k < INST_IN; k++)
-            inst_sig_in[k] = obj_in[i * INST_IN + k];
+        for (size_t k = 0; k < INST_IN; k++) {
+            inst_sig[k] = obj_in[i * INST_IN + k];
+        }
 
         // create new instance output signals
         for (size_t k = 0; k < INST_OUT; k++)
-            inst_sig_out[k] = signal_newfromcontext(1);
+            inst_sig[INST_IN + k] = signal_newfromcontext(1);
 
         // build instance DSP graph
-        canvas_dodsp(inst.canvas(), 0, inst_sig_in.data());
+        canvas_dodsp(inst.canvas(), 0, inst_sig.data());
 
         // setup DSP functions
         for (size_t k = 0; k < INST_OUT; k++) {
-            auto out = sig_out[i * n_sig_out_ / NINST + k];
-            dsp_add_copy(inst_sig_out[k]->s_vec, out->s_vec, out->s_n);
-            // ?
-            //            signal_makereusable(inst_sig_out[k]);
+            auto out = sig_out[i * INST_OUT + k];
+            // copy to output signals
+            dsp_add_copy(inst_sig[INST_IN + k]->s_vec, out->s_vec, out->s_n);
+            signal_makereusable(inst_sig[INST_IN + k]);
         }
     }
 
-    /* copy to output signsls */
-    for (size_t i = 0; i < sig_out.size(); i++) {
-        dsp_add_copy(sig_out[i]->s_vec, obj_out[i]->s_vec, sig_out[i]->s_n);
-        signal_makereusable(sig_out[i]);
+    /* copy to output signals */
+    {
+        auto x = obj_out;
+        for (auto& s : sig_out) {
+            dsp_add_copy(s->s_vec, (*x++)->s_vec, s->s_n);
+            // free output signals
+            signal_makereusable(s);
+        }
     }
 }
 
