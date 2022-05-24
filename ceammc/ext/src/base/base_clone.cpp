@@ -167,11 +167,13 @@ void clone_set_canvas_content(t_canvas* x, const t_binbuf* b, int ninst, int ins
 {
     DspSuspendGuard dsp_guard;
 
-    t_symbol* asym = gensym("#A");
+    t_symbol* aSym = gensym("#A");
     /* save and clear bindings to symbols #A, #N, #X; restore when done */
-    t_pd *boundx = s__X.s_thing, *bounda = asym->s_thing,
-         *boundn = s__N.s_thing;
-    asym->s_thing = 0;
+    t_pd *boundX = s__X.s_thing,
+         *boundN = s__N.s_thing,
+         *boundA = aSym->s_thing;
+
+    aSym->s_thing = nullptr;
     s__X.s_thing = &x->gl_pd;
     s__N.s_thing = &pd_canvasmaker;
 
@@ -216,9 +218,9 @@ void clone_set_canvas_content(t_canvas* x, const t_binbuf* b, int ninst, int ins
     }
 
     // restore bindings
-    asym->s_thing = bounda;
-    s__X.s_thing = boundx;
-    s__N.s_thing = boundn;
+    aSym->s_thing = boundA;
+    s__X.s_thing = boundX;
+    s__N.s_thing = boundN;
 }
 
 std::size_t clone_binbuf_calc_hash(const t_binbuf* bb)
@@ -390,6 +392,8 @@ BaseClone::BaseClone(const PdArgs& args)
 BaseClone::~BaseClone()
 {
     if (wrapper_) {
+        storeContent();
+
         canvas_free(wrapper_);
         wrapper_ = nullptr;
         // clone_pattern_ should be freed automatically
@@ -1277,8 +1281,9 @@ void BaseClone::storeContent() const
     else
         binbuf_clear(old_content_);
 
-    if (pattern_)
+    if (pattern_) {
         clone_copy_canvas_content(pattern_, old_content_);
+    }
 }
 
 void BaseClone::onRestore(const AtomListView& lv)
