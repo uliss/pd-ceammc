@@ -30,7 +30,7 @@
 
 constexpr const char* CONTAINTER_NAME = "/CONTAINER/";
 constexpr const char* PATTERN_NAME = "/PATTERN/";
-constexpr const char* SYM_CANVAS_RESTORE = "#Z";
+constexpr const char* SYM_CANVAS_RESTORE = "#A";
 constexpr int PATTERN_WINDOW_W = 700;
 constexpr int PATTERN_WINDOW_H = 500;
 
@@ -1366,7 +1366,7 @@ void BaseClone::onSave(t_binbuf* b) const
                 srcno, t.tr_outno, sinkno, t.tr_inno);
         }
 
-        binbuf_addv(b, "ssiis", gensym("#Z"), gensym("restore"),
+        binbuf_addv(b, "ssiis", gensym(SYM_CANVAS_RESTORE), gensym("restore"),
             (int)obj->te_xpix, (int)obj->te_ypix, gensym(PATTERN_NAME));
         binbuf_addv(b, ";");
     }
