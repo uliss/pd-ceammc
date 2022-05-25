@@ -20,9 +20,7 @@
 #include <lo/lo.h>
 #include <lo/lo_cpp.h>
 
-namespace {
-
-struct OscTask {
+struct NetOscSendOscTask {
     std::string host;
     std::string path;
     NetOscSend::MsgPipe* out;
@@ -31,13 +29,15 @@ struct OscTask {
     uint16_t port;
 };
 
+namespace {
+
 class OscSendWorker {
-    using Pipe = moodycamel::ReaderWriterQueue<OscTask>;
+    using Pipe = moodycamel::ReaderWriterQueue<NetOscSendOscTask>;
 
     static bool launchSender(OscSendWorker* w, bool& quit)
     {
         while (!quit) {
-            OscTask task;
+            NetOscSendOscTask task;
             try {
                 while (w->pipe_.try_dequeue(task)) {
                     if (quit)
@@ -85,7 +85,7 @@ public:
         return w;
     }
 
-    bool add(const OscTask& task)
+    bool add(const NetOscSendOscTask& task)
     {
         return pipe_.try_enqueue(task);
     }
@@ -125,12 +125,8 @@ void NetOscSend::m_send(t_symbol* s, const AtomListView& lv)
         return;
     }
 
-    OscTask task;
-    task.host = host_->value()->s_name;
-    task.port = port_->value();
-    task.path = path->s_name;
-    task.id = reinterpret_cast<SubscriberId>(this);
-    task.msg = lo::Message();
+    NetOscSendOscTask task;
+    initTask(task, path->s_name);
 
     for (auto& a : lv.subView(1)) {
         if (a.isSymbol())
@@ -139,7 +135,20 @@ void NetOscSend::m_send(t_symbol* s, const AtomListView& lv)
             task.msg.add_float(a.asFloat());
     }
 
-    task.out = &msg_pipe_;
+    if (!OscSendWorker::instance().add(task))
+        LIB_ERR << "can't add task";
+}
+
+void NetOscSend::m_send_bool(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_SYMBOL, ARG_BOOL)) {
+        METHOD_ERR(s) << "invalid args: OSC_PATH BOOL expected";
+        return;
+    }
+
+    NetOscSendOscTask task;
+    initTask(task, lv[0].asT<t_symbol*>()->s_name);
+    task.msg.add_bool(lv[1].asT<bool>());
 
     if (!OscSendWorker::instance().add(task))
         LIB_ERR << "can't add task";
@@ -166,10 +175,20 @@ bool NetOscSend::notify(NotifyEventType /*code*/)
     return true;
 }
 
+void NetOscSend::initTask(NetOscSendOscTask& task, const char* path)
+{
+    task.host = host_->value()->s_name;
+    task.port = port_->value();
+    task.path = path;
+    task.id = reinterpret_cast<SubscriberId>(this);
+    task.out = &msg_pipe_;
+}
+
 void setup_net_osc()
 {
     LIB_DBG << "liblo version: " << lo::version();
 
     ObjectFactory<NetOscSend> obj("net.osc_send");
     obj.addMethod("send", &NetOscSend::m_send);
+    obj.addMethod("send_bool", &NetOscSend::m_send_bool);
 }

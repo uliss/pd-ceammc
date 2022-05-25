@@ -39,6 +39,8 @@ struct NetOscSendMsg {
 
 using NetOscSendBase = NotifiedObject;
 
+struct NetOscSendOscTask;
+
 class NetOscSend : public NetOscSendBase {
 public:
     using MsgPipe = moodycamel::ReaderWriterQueue<NetOscSendMsg>;
@@ -53,9 +55,13 @@ public:
     ~NetOscSend();
 
     void m_send(t_symbol* s, const AtomListView& lv);
+    void m_send_bool(t_symbol* s, const AtomListView& lv);
 
     void processMessage(const NetOscSendMsg& msg);
     bool notify(NotifyEventType code) final;
+
+private:
+    void initTask(NetOscSendOscTask& task, const char* path);
 };
 
 void setup_net_osc();
