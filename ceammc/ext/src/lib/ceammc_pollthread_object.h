@@ -72,6 +72,7 @@ public:
 
                 switch (st) {
                 case std::future_status::ready:
+                case std::future_status::deferred:
                     future_.get();
                     return true;
                 default:
@@ -81,6 +82,12 @@ public:
             }
 
             future_ = createTask();
+
+            // deferred
+            if (future_.valid() && future_.wait_for(std::chrono::seconds(0)) == std::future_status::deferred) {
+                future_.get();
+                return true;
+            }
         } catch (std::exception& e) {
             OBJ_ERR << e.what();
             return false;
