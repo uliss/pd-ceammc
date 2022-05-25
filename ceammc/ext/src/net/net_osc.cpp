@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "net_osc.h"
 #include "ceammc_factory.h"
+#include "ceammc_format.h"
 
 #include <future>
 #include <thread>
@@ -244,6 +245,22 @@ void NetOscSend::m_send_inf(t_symbol* s, const AtomListView& lv)
         LIB_ERR << "can't add task";
 }
 
+void NetOscSend::m_send_string(t_symbol* s, const AtomListView& lv)
+{
+    const bool ok = lv.size() == 2 && lv[0].isSymbol();
+    if (!ok) {
+        METHOD_ERR(s) << "invalid args: OSC_PATH ATOM expected";
+        return;
+    }
+
+    NetOscSendOscTask task;
+    initTask(task, lv[0].asT<t_symbol*>()->s_name);
+    task.msg.add_string(to_string(lv[1]));
+
+    if (!OscSendWorker::instance().add(task))
+        LIB_ERR << "can't add task";
+}
+
 void NetOscSend::processMessage(const NetOscSendMsg& msg)
 {
     switch (msg.status) {
@@ -287,4 +304,5 @@ void setup_net_osc()
     obj.addMethod("send_double", &NetOscSend::m_send_double);
     obj.addMethod("send_null", &NetOscSend::m_send_null);
     obj.addMethod("send_inf", &NetOscSend::m_send_inf);
+    obj.addMethod("send_string", &NetOscSend::m_send_string);
 }
