@@ -154,6 +154,96 @@ void NetOscSend::m_send_bool(t_symbol* s, const AtomListView& lv)
         LIB_ERR << "can't add task";
 }
 
+void NetOscSend::m_send_i32(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_SYMBOL, ARG_INT)) {
+        METHOD_ERR(s) << "invalid args: OSC_PATH INT expected";
+        return;
+    }
+
+    NetOscSendOscTask task;
+    initTask(task, lv[0].asT<t_symbol*>()->s_name);
+    task.msg.add_int32(lv[1].asT<int>());
+
+    if (!OscSendWorker::instance().add(task))
+        LIB_ERR << "can't add task";
+}
+
+void NetOscSend::m_send_i64(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_SYMBOL, ARG_INT)) {
+        METHOD_ERR(s) << "invalid args: OSC_PATH INT expected";
+        return;
+    }
+
+    NetOscSendOscTask task;
+    initTask(task, lv[0].asT<t_symbol*>()->s_name);
+    task.msg.add_int64(lv[1].asT<t_float>());
+
+    if (!OscSendWorker::instance().add(task))
+        LIB_ERR << "can't add task";
+}
+
+void NetOscSend::m_send_float(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_SYMBOL, ARG_FLOAT)) {
+        METHOD_ERR(s) << "invalid args: OSC_PATH FLOAT expected";
+        return;
+    }
+
+    NetOscSendOscTask task;
+    initTask(task, lv[0].asT<t_symbol*>()->s_name);
+    task.msg.add_float(lv[1].asT<t_float>());
+
+    if (!OscSendWorker::instance().add(task))
+        LIB_ERR << "can't add task";
+}
+
+void NetOscSend::m_send_double(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_SYMBOL, ARG_FLOAT)) {
+        METHOD_ERR(s) << "invalid args: OSC_PATH DOUBLE expected";
+        return;
+    }
+
+    NetOscSendOscTask task;
+    initTask(task, lv[0].asT<t_symbol*>()->s_name);
+    task.msg.add_double(lv[1].asT<t_float>());
+
+    if (!OscSendWorker::instance().add(task))
+        LIB_ERR << "can't add task";
+}
+
+void NetOscSend::m_send_null(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_SYMBOL)) {
+        METHOD_ERR(s) << "invalid args: OSC_PATH expected";
+        return;
+    }
+
+    NetOscSendOscTask task;
+    initTask(task, lv[0].asT<t_symbol*>()->s_name);
+    task.msg.add_nil();
+
+    if (!OscSendWorker::instance().add(task))
+        LIB_ERR << "can't add task";
+}
+
+void NetOscSend::m_send_inf(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_SYMBOL)) {
+        METHOD_ERR(s) << "invalid args: OSC_PATH expected";
+        return;
+    }
+
+    NetOscSendOscTask task;
+    initTask(task, lv[0].asT<t_symbol*>()->s_name);
+    task.msg.add_infinitum();
+
+    if (!OscSendWorker::instance().add(task))
+        LIB_ERR << "can't add task";
+}
+
 void NetOscSend::processMessage(const NetOscSendMsg& msg)
 {
     switch (msg.status) {
@@ -191,4 +281,10 @@ void setup_net_osc()
     ObjectFactory<NetOscSend> obj("net.osc_send");
     obj.addMethod("send", &NetOscSend::m_send);
     obj.addMethod("send_bool", &NetOscSend::m_send_bool);
+    obj.addMethod("send_i32", &NetOscSend::m_send_i32);
+    obj.addMethod("send_i64", &NetOscSend::m_send_i64);
+    obj.addMethod("send_float", &NetOscSend::m_send_float);
+    obj.addMethod("send_double", &NetOscSend::m_send_double);
+    obj.addMethod("send_null", &NetOscSend::m_send_null);
+    obj.addMethod("send_inf", &NetOscSend::m_send_inf);
 }

@@ -56,6 +56,12 @@ public:
 
     void m_send(t_symbol* s, const AtomListView& lv);
     void m_send_bool(t_symbol* s, const AtomListView& lv);
+    void m_send_i32(t_symbol* s, const AtomListView& lv);
+    void m_send_i64(t_symbol* s, const AtomListView& lv);
+    void m_send_float(t_symbol* s, const AtomListView& lv);
+    void m_send_double(t_symbol* s, const AtomListView& lv);
+    void m_send_null(t_symbol* s, const AtomListView& lv);
+    void m_send_inf(t_symbol* s, const AtomListView& lv);
 
     void processMessage(const NetOscSendMsg& msg);
     bool notify(NotifyEventType code) final;
