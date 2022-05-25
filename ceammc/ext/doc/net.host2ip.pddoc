@@ -34,14 +34,16 @@
         <example>
             <pdascii>
 <![CDATA[
-[localhost(
+[localhost( [S digits=16 #a]
 |
 | [symbol bbc.com(
 | |
 | |
-[net.host->ip]
+[net.host->ip #z]
 |
-[ui.d]
+[ui.dt]
+
+[X a->z]
 ]]>
             </pdascii>
         </example>
