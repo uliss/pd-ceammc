@@ -68,7 +68,7 @@ private:
     Dispatcher(const Dispatcher&) = delete;
     Dispatcher& operator=(const Dispatcher&) = delete;
 
-    bool notify(SubscriberId id);
+    bool notify(SubscriberId id, NotifyEventType t);
 
 private:
     static void pollFn(void* x, int fd);
