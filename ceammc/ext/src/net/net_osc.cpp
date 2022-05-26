@@ -12,22 +12,62 @@
  * this file belongs to.
  *****************************************************************************/
 #include "net_osc.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
+#include "fmt/format.h"
+
+#include <boost/container/small_vector.hpp>
+#include <boost/variant.hpp>
 
 #include <future>
-#include <thread>
 
 #include <lo/lo.h>
-#include <lo/lo_cpp.h>
+
+class OscMessage {
+    lo_message message;
+
+public:
+    OscMessage()
+        : message(lo_message_new())
+    {
+        lo_message_incref(message);
+    }
+
+    OscMessage(const OscMessage& m) noexcept
+        : message(m.message)
+    {
+        if (m.message)
+            lo_message_incref(m.message);
+    }
+
+    ~OscMessage() noexcept
+    {
+        if (message)
+            lo_message_free(message);
+    }
+
+    OscMessage& operator=(const OscMessage& m) noexcept
+    {
+        message = m.message;
+        if (message)
+            lo_message_incref(message);
+
+        return *this;
+    }
+
+    lo_message get() const noexcept { return message; }
+};
 
 struct NetOscSendOscTask {
     std::string host;
     std::string path;
     NetOscSend::MsgPipe* out;
-    lo::Message msg;
+    OscMessage m;
     SubscriberId id;
     uint16_t port;
+
+    lo_message msg() const { return m.get(); }
 };
 
 namespace {
@@ -44,14 +84,15 @@ class OscSendWorker {
                     if (quit)
                         break;
 
-                    lo::Address addr(task.host, task.port);
-                    const auto rc = addr.send(task.path, task.msg);
+                    lo_address addr = lo_address_new(task.host.c_str(), fmt::format("{:d}", task.port).c_str());
+                    const auto rc = lo_send_message(addr, task.path.c_str(), task.msg());
                     if (task.out) {
                         if (rc == -1)
-                            task.out->try_enqueue({ NET_OSC_SEND_ERROR, addr.errstr() });
+                            task.out->try_enqueue({ NET_OSC_SEND_ERROR, lo_address_errstr(addr) });
                         else
                             task.out->try_enqueue({ NET_OSC_SEND_OK, {} });
                     }
+                    lo_address_free(addr);
 
                     Dispatcher::instance().send({ task.id, NOTIFY_UPDATE });
                 }
@@ -66,6 +107,7 @@ class OscSendWorker {
     OscSendWorker()
         : quit_(false)
     {
+        LIB_LOG << "launch OSC sender worker process";
         future_ = std::async(std::launch::async, launchSender, this, std::ref(quit_));
     }
 
@@ -131,9 +173,9 @@ void NetOscSend::m_send(t_symbol* s, const AtomListView& lv)
 
     for (auto& a : lv.subView(1)) {
         if (a.isSymbol())
-            task.msg.add_string(a.asSymbol()->s_name);
+            lo_message_add_string(task.msg(), a.asSymbol()->s_name);
         else if (a.isFloat())
-            task.msg.add_float(a.asFloat());
+            lo_message_add_float(task.msg(), a.asFloat());
     }
 
     if (!OscSendWorker::instance().add(task))
@@ -149,7 +191,10 @@ void NetOscSend::m_send_bool(t_symbol* s, const AtomListView& lv)
 
     NetOscSendOscTask task;
     initTask(task, lv[0].asT<t_symbol*>()->s_name);
-    task.msg.add_bool(lv[1].asT<bool>());
+    if (lv[1].asT<bool>())
+        lo_message_add_true(task.msg());
+    else
+        lo_message_add_true(task.msg());
 
     if (!OscSendWorker::instance().add(task))
         LIB_ERR << "can't add task";
@@ -164,7 +209,7 @@ void NetOscSend::m_send_i32(t_symbol* s, const AtomListView& lv)
 
     NetOscSendOscTask task;
     initTask(task, lv[0].asT<t_symbol*>()->s_name);
-    task.msg.add_int32(lv[1].asT<int>());
+    lo_message_add_int32(task.msg(), lv[1].asT<int>());
 
     if (!OscSendWorker::instance().add(task))
         LIB_ERR << "can't add task";
@@ -179,7 +224,7 @@ void NetOscSend::m_send_i64(t_symbol* s, const AtomListView& lv)
 
     NetOscSendOscTask task;
     initTask(task, lv[0].asT<t_symbol*>()->s_name);
-    task.msg.add_int64(lv[1].asT<t_float>());
+    lo_message_add_int64(task.msg(), lv[1].asT<t_float>());
 
     if (!OscSendWorker::instance().add(task))
         LIB_ERR << "can't add task";
@@ -194,7 +239,7 @@ void NetOscSend::m_send_float(t_symbol* s, const AtomListView& lv)
 
     NetOscSendOscTask task;
     initTask(task, lv[0].asT<t_symbol*>()->s_name);
-    task.msg.add_float(lv[1].asT<t_float>());
+    lo_message_add_float(task.msg(), lv[1].asT<t_float>());
 
     if (!OscSendWorker::instance().add(task))
         LIB_ERR << "can't add task";
@@ -209,7 +254,7 @@ void NetOscSend::m_send_double(t_symbol* s, const AtomListView& lv)
 
     NetOscSendOscTask task;
     initTask(task, lv[0].asT<t_symbol*>()->s_name);
-    task.msg.add_double(lv[1].asT<t_float>());
+    lo_message_add_double(task.msg(), lv[1].asT<t_float>());
 
     if (!OscSendWorker::instance().add(task))
         LIB_ERR << "can't add task";
@@ -224,7 +269,7 @@ void NetOscSend::m_send_null(t_symbol* s, const AtomListView& lv)
 
     NetOscSendOscTask task;
     initTask(task, lv[0].asT<t_symbol*>()->s_name);
-    task.msg.add_nil();
+    lo_message_add_nil(task.msg());
 
     if (!OscSendWorker::instance().add(task))
         LIB_ERR << "can't add task";
@@ -239,7 +284,7 @@ void NetOscSend::m_send_inf(t_symbol* s, const AtomListView& lv)
 
     NetOscSendOscTask task;
     initTask(task, lv[0].asT<t_symbol*>()->s_name);
-    task.msg.add_infinitum();
+    lo_message_add_infinitum(task.msg());
 
     if (!OscSendWorker::instance().add(task))
         LIB_ERR << "can't add task";
@@ -255,7 +300,7 @@ void NetOscSend::m_send_string(t_symbol* s, const AtomListView& lv)
 
     NetOscSendOscTask task;
     initTask(task, lv[0].asT<t_symbol*>()->s_name);
-    task.msg.add_string(to_string(lv[1]));
+    lo_message_add_string(task.msg(), to_string(lv[1]).c_str());
 
     if (!OscSendWorker::instance().add(task))
         LIB_ERR << "can't add task";
@@ -293,7 +338,9 @@ void NetOscSend::initTask(NetOscSendOscTask& task, const char* path)
 
 void setup_net_osc()
 {
-    LIB_DBG << "liblo version: " << lo::version();
+    char str[16];
+    lo_version(str, sizeof(str), 0, 0, 0, 0, 0, 0, 0);
+    LIB_DBG << "liblo version: " << str;
 
     ObjectFactory<NetOscSend> obj("net.osc_send");
     obj.addMethod("send", &NetOscSend::m_send);
