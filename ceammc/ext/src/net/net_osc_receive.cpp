@@ -12,27 +12,111 @@
  * this file belongs to.
  *****************************************************************************/
 #include "net_osc_receive.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "fmt/format.h"
 
+#include <cstring>
+
 namespace ceammc {
+
+CEAMMC_DEFINE_HASH(none);
+
+static bool validOscTypeString(const char* str)
+{
+    const char* s = str;
+    char c;
+    while ((c = *s++)) {
+        switch (c) {
+        case LO_FLOAT:
+        case LO_DOUBLE:
+        case LO_INT32:
+        case LO_INT64:
+        case LO_TRUE:
+        case LO_FALSE:
+        case LO_MIDI:
+        case LO_INFINITUM:
+        case LO_NIL:
+        case LO_CHAR:
+        case LO_STRING:
+        case LO_SYMBOL:
+            continue;
+        default:
+            return strcmp(str, str_none) == 0;
+        }
+    }
+
+    return true;
+}
+
+class OscAtomVisitor : public boost::static_visitor<> {
+    AtomList& r_;
+
+public:
+    OscAtomVisitor(AtomList& res)
+        : r_(res)
+    {
+    }
+
+    void operator()(float f) const { r_.append(Atom(f)); }
+    void operator()(double d) const { r_.append(Atom(d)); }
+    void operator()(bool b) const { r_.append(b ? 1 : 0); }
+    void operator()(int32_t i) const { r_.append(i); }
+    void operator()(int64_t h) const { r_.append(h); }
+    void operator()(const std::string& s) const { r_.append(gensym(s.c_str())); }
+    void operator()(char c) const
+    {
+        char buf[2] = { c, '\0' };
+        r_.append(gensym(buf));
+    }
+    void operator()(net::OscMessageSpec spec)
+    {
+        switch (spec) {
+        case net::OscMessageSpec::INF:
+            r_.append(gensym("inf"));
+            break;
+        case net::OscMessageSpec::NIL:
+            r_.append(gensym("null"));
+            break;
+        default:
+            break;
+        }
+    }
+    void operator()(const net::OscMessageMidi& midi)
+    {
+        r_.append(gensym("midi"));
+        for (int i = 0; i < 4; i++)
+            r_.append(midi.data[i]);
+    }
+};
+
 namespace net {
 
     NetOscReceive::NetOscReceive(const PdArgs& args)
         : NotifiedObject(args)
         , server_(nullptr)
         , path_(nullptr)
+        , types_(nullptr)
         , server_ptr_(nullptr)
         , disp_(this)
     {
         createOutlet();
 
         server_ = new SymbolProperty("@server", gensym("default"));
+        server_->setArgIndex(2);
         addProperty(server_);
 
         path_ = new SymbolProperty("@path", &s_);
         path_->setArgIndex(0);
         addProperty(path_);
+
+        types_ = new SymbolProperty("@types", gensym(str_none));
+        types_->setArgIndex(1);
+        types_->setSymbolCheckFn([this](t_symbol* s) -> bool {
+            return validOscTypeString(s->s_name);
+        },
+            "invalid type string");
+        addProperty(types_);
     }
 
     NetOscReceive::~NetOscReceive()
@@ -46,7 +130,9 @@ namespace net {
         auto p = net::OscServerList::instance().findByName("default");
         if (p != nullptr && p->isValid()) {
             server_ptr_ = p;
-            server_ptr_->subscribeMethod(path_->value()->s_name, nullptr, disp_.id(), &pipe_);
+            const char* types = (crc32_hash(types_->value()) == hash_none) ? nullptr
+                                                                           : types_->value()->s_name;
+            server_ptr_->subscribeMethod(path_->value()->s_name, types, disp_.id(), &pipe_);
             LIB_LOG << fmt::format("subscribed to {} at \"{}\"", path_->value()->s_name, server_ptr_->name());
         }
     }
@@ -60,9 +146,8 @@ namespace net {
             break;
         case NOTIFY_UPDATE: {
             OscMessage msg;
-            while (pipe_.try_dequeue(msg)) {
-                OBJ_LOG << "new message readed";
-            }
+            while (pipe_.try_dequeue(msg))
+                processMessage(msg);
         } break;
         default:
             break;
@@ -70,6 +155,17 @@ namespace net {
         return true;
     }
 
+    void NetOscReceive::processMessage(const OscMessage& msg)
+    {
+        AtomList res;
+        res.reserve(msg.size());
+
+        OscAtomVisitor v(res);
+        for (auto& a : msg)
+            a.apply_visitor(v);
+
+        listTo(0, res);
+    }
 }
 }
 

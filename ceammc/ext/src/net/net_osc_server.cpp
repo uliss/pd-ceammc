@@ -90,6 +90,8 @@ namespace net {
                     atom = argv[i]->c;
                     break;
                 }
+
+                msg.push_back(atom);
             }
 
             pipe_->try_enqueue(msg);

@@ -43,6 +43,7 @@ namespace net {
     class NetOscReceive : public NotifiedObject {
         SymbolProperty* server_;
         SymbolProperty* path_;
+        SymbolProperty* types_;
         net::OscServer* server_ptr_;
         DispatcherSubscriber<NetOscReceive> disp_;
         OscMethodPipe pipe_;
@@ -53,6 +54,7 @@ namespace net {
 
         void initDone() override;
         bool notify(NotifyEventType code) final;
+        void processMessage(const OscMessage& msg);
     };
 }
 }
