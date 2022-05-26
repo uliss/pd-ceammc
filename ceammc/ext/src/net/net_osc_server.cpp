@@ -221,10 +221,8 @@ namespace net {
         const auto hash = crc32_hash(path);
 
         auto it = subs_.find(hash);
-        if (it == subs_.end()) {
-            std::cerr << "not found: " << path << "\n";
+        if (it == subs_.end())
             return;
-        }
 
         if (it->second)
             it->second->notifyAll(path, types, argv, argc);
