@@ -194,7 +194,7 @@ void NetOscSend::m_send_bool(t_symbol* s, const AtomListView& lv)
     if (lv[1].asT<bool>())
         lo_message_add_true(task.msg());
     else
-        lo_message_add_true(task.msg());
+        lo_message_add_false(task.msg());
 
     if (!OscSendWorker::instance().add(task))
         LIB_ERR << "can't add task";
