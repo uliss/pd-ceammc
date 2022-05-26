@@ -27,6 +27,7 @@ using SubscriberId = uint64_t;
 enum NotifyEventType {
     NOTIFY_NONE,
     NOTIFY_UPDATE,
+    NOTIFY_SOURCE_REMOVED,
     NOTIFY_DONE
 };
 

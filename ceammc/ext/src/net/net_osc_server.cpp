@@ -136,10 +136,7 @@ namespace net {
     {
         MutexLock g(mutex_);
 
-        std::remove_if(
-            subscribers_.begin(),
-            subscribers_.end(),
-            [id](const OscMethodSubscriber& m) { return m.id() == id; });
+        subscribers_.remove_if([id](const OscMethodSubscriber& m) { return m.id() == id; });
     }
 
     void OscServerSubscriberList::getSubscribers(std::unordered_set<SubscriberId>& s)
@@ -191,7 +188,7 @@ namespace net {
         subs_.clear();
 
         for (auto id : id_set)
-            Dispatcher::instance().send({ id, NOTIFY_DONE });
+            Dispatcher::instance().send({ id, NOTIFY_SOURCE_REMOVED });
 
         LIB_LOG << fmt::format("OSC server destroyed: \"{}\"", name_);
     }

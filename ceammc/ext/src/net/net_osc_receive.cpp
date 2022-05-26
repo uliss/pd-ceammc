@@ -54,13 +54,11 @@ namespace net {
     bool NetOscReceive::notify(NotifyEventType code)
     {
         switch (code) {
-        case NOTIFY_DONE:
+        case NOTIFY_SOURCE_REMOVED:
             OBJ_LOG << "server removed";
             server_ptr_ = nullptr;
             break;
         case NOTIFY_UPDATE: {
-            OBJ_LOG << "new message";
-
             OscMessage msg;
             while (pipe_.try_dequeue(msg)) {
                 OBJ_LOG << "new message readed";
