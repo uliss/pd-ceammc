@@ -72,10 +72,10 @@ namespace net {
                     atom = argv[i]->i64;
                     break;
                 case LO_STRING:
-                    atom = &argv[i]->s;
+                    atom = std::string(&argv[i]->s);
                     break;
                 case LO_SYMBOL:
-                    atom = &argv[i]->S;
+                    atom = std::string(&argv[i]->S);
                     break;
                 case LO_MIDI:
                     atom = OscMessageMidi { argv[i]->m };
