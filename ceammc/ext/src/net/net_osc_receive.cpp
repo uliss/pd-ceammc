@@ -132,8 +132,9 @@ namespace net {
             server_ptr_ = p;
             const char* types = (crc32_hash(types_->value()) == hash_none) ? nullptr
                                                                            : types_->value()->s_name;
+            const char* str_types = types ? types : "";
             server_ptr_->subscribeMethod(path_->value()->s_name, types, disp_.id(), &pipe_);
-            LIB_LOG << fmt::format("subscribed to {} at \"{}\"", path_->value()->s_name, server_ptr_->name());
+            LIB_LOG << fmt::format("subscribed to {} {} at \"{}\"", path_->value()->s_name, str_types, server_ptr_->name());
         }
     }
 
