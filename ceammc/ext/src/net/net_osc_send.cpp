@@ -11,7 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "net_osc.h"
+#include "net_osc_send.h"
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
@@ -336,13 +336,14 @@ void NetOscSend::initTask(NetOscSendOscTask& task, const char* path)
     task.out = &msg_pipe_;
 }
 
-void setup_net_osc()
+void setup_net_osc_send()
 {
     char str[16];
     lo_version(str, sizeof(str), 0, 0, 0, 0, 0, 0, 0);
     LIB_DBG << "liblo version: " << str;
 
-    ObjectFactory<NetOscSend> obj("net.osc_send");
+    ObjectFactory<NetOscSend> obj("net.osc.send");
+    obj.addAlias("net.osc.s");
     obj.addMethod("send", &NetOscSend::m_send);
     obj.addMethod("send_bool", &NetOscSend::m_send_bool);
     obj.addMethod("send_i32", &NetOscSend::m_send_i32);

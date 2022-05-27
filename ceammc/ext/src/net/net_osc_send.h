@@ -11,8 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef NET_OSC_H
-#define NET_OSC_H
+#ifndef NET_OSC_SEND_H
+#define NET_OSC_SEND_H
 
 #ifndef WIN32
 #include <unistd.h>
@@ -71,6 +71,6 @@ private:
     void initTask(NetOscSendOscTask& task, const char* path);
 };
 
-void setup_net_osc();
+void setup_net_osc_send();
 
 #endif // NET_OSC_H
