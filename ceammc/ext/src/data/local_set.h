@@ -15,18 +15,21 @@
 #define LOCAL_SET_H
 
 #include "dataset_iface.h"
+#include "editor_set.h"
 #include "local_base.h"
 
 using namespace ceammc;
 
-typedef DataSetIface<LocalBase<DataTypeSet>> LocalSetBase;
+using LocalSetBase = EditorSetT<DataSetIface<LocalBase<DataTypeSet>>>;
 
-class LocalDataSet : public LocalSetBase {
+class LocalSet : public LocalSetBase {
 public:
-    LocalDataSet(const PdArgs& a);
+    LocalSet(const PdArgs& a);
 
     DataTypeSet& data() final { return ref(); }
     const DataTypeSet& data() const final { return ref(); }
+
+    EditorTitleString editorTitle() const final;
 };
 
 void setup_local_set();

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="flow.record">
+        <title>flow.record</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>flow stream recorder/player</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>flow</category>
+            <keywords>flow record</keywords>
+            <since>0.9</since>
+            <aliases>
+                <alias>flow.rec</alias>
+            </aliases>
+        </meta>
+        <properties>
+            <property name="@r" type="int" minvalue="-1" default="1">number of repeats in play
+            mode. If -1: repeat infinitely</property>
+            <property name="@max" type="int" minvalue="0" default="256" maxvalue="65536">max number
+            of events, if 0: no max size check. If @auto is set - starts playback when max size
+            reached.</property>
+            <property name="@speed" type="float" minvalue="0.015625" default="1" maxvalue="64">play
+            speed</property>
+            <property name="@auto" type="int" enum="0 1" default="0">autostart record on first
+            input atom</property>
+            <property name="@sync" type="int" enum="0 1" default="0">use external bang pulse to
+            sync recorded events with.</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="any">input message</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="bang">sync tick (when @sync 1)</xinfo>
+                <xinfo>[rec (1|0)?( - start (stop) flow record</xinfo>
+                <xinfo>[play (1|0)?( - play (stop) recorded flow</xinfo>
+                <xinfo>[stop (1|0)?( - stop (play) recording</xinfo>
+                <xinfo>[clear( - remove all recorded messages</xinfo>
+                <xinfo>[flush( - output and remove all recorded messages</xinfo>
+                <xinfo>[qlist( - output to qlist object</xinfo>
+                <xinfo>[length FLOAT|time( - resize recorded messages (remove after specified
+                length)</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output message</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[ui.keyboard]
+|
+|
+|
+|
+|     [stop( [play( [clear(
+|     |.     |.     |.
+[flow.record @auto 1 ]
+|
+[msg note]
+|
+| [notesoff(
+| |
+[fluid~]          [ui.dsp~]
+*|*
+[ui.hgain2~]
+*|*
+[dac~]
+
+[flow.record.speed]    [flow.record.qlist]
+
+[flow.record.sync]
+]]>
+            </pdascii>
+            <pdascii id="speed">
+<![CDATA[
+[ui.keyboard 24 60]
+|
+|
+|
+|
+[msg note]
+|
+|  [ui.hsl 0.25 4 @show_value 1]
+|  |
+|  [prop.set @speed] [clear(
+|  |                 |.
+[flow.record @auto 1 @max 8 @r -1]
+|
+| [notesoff(
+| |
+[fluid~]          [ui.dsp~]
+*|*
+[ui.hgain2~]
+*|*
+[dac~]
+]]>
+            </pdascii>
+            <pdascii id="qlist">
+<![CDATA[
+[ui.keyboard 24 60]
+|
+|
+|
+|
+[msg note]
+|
+|  [qlist( [clear(
+|  |.      |.
+[flow.record @auto 1 @max 16]
+|
+|  [clear( [bang(
+|  |       |
+[qlist     ]
+
+[r note]
+|
+[print QLIST]
+]]>
+            </pdascii>
+            <pdascii id="sync">
+<![CDATA[
+[bang(
+|
+[random.i 60 90]
+|
+[mtof]
+|
+[@freq $1(                  [T]  [F]
+|                           |    |.
+|  [stop( [play( [clear(    [metro 200]
+|  |.     |.     |.         |.   |
+[flow.rec @auto 1 @sync 1 @r -1] [B]
+|
+[t b a   ]
+|       ^|
+[click~] |
+|        |
+[flt.resonbp~]
+|\
+[ui.hgain2~]
+*|*
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

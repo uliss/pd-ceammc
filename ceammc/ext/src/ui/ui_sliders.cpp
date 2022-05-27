@@ -116,6 +116,13 @@ void UISliders::paint()
             rgba_to_hex_int(prop_color_label),
             c_min, c_max);
     }
+
+    if (prop_show_lines) {
+        sys_vgui("ui::sliders_draw_lines %s %lx %d %d %d #%6.6x\n",
+            asEBox()->b_canvas_id->s_name, asEBox(),
+            (int)width(), (int)height(), (int)zoom(),
+            rgba_to_hex_int(prop_slider_color));
+    }
 }
 
 void UISliders::paintSliders()
@@ -197,6 +204,31 @@ void UISliders::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, 
     size_t idx = 0;
     t_float val = 0.f;
 
+    // locked movement
+    if (modifiers & EMOD_ALT) {
+        click_phase_ = (is_vertical_)
+            ? convert::lin2lin<t_float>(pt.x, 0, width(), 0, 1)
+            : convert::lin2lin<t_float>(pt.y, 0, height(), 1, 0);
+
+        prev_pos_values_ = pos_values_;
+        return;
+    } else if (modifiers & EMOD_SHIFT) {
+        auto val = sliderPosValueAt(pt);
+        auto* old_val = val.first;
+        auto new_val = val.second;
+        if (old_val) {
+            // crossing middle line
+            if ((*old_val < 0.5 && new_val >= 0.5)
+                || (*old_val == 0.5 && new_val != 0.5)
+                || (*old_val > 0.5 && new_val <= 0.5)) {
+                *old_val = 0.5;
+                outputList();
+                redrawAll();
+                return;
+            }
+        }
+    }
+
     if (is_vertical_) {
         if (pt.y < 0)
             return;
@@ -223,12 +255,50 @@ void UISliders::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
 
 void UISliders::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
 {
-    onMouseDown(view, pt, pt, modifiers);
+    // locked movement
+    if (modifiers & EMOD_ALT) {
+        t_float new_mouse_phase = (is_vertical_)
+            ? convert::lin2lin<t_float>(pt.x, 0, width(), 0, 1)
+            : convert::lin2lin<t_float>(pt.y, 0, height(), 1, 0);
+
+        const t_float delta = new_mouse_phase - click_phase_;
+        const auto mm = std::minmax_element(prev_pos_values_.begin(), prev_pos_values_.end());
+        if (mm.first == prev_pos_values_.end() || *mm.first + delta < 0 || *mm.second + delta > 1)
+            return;
+
+        for (size_t i = 0; i < std::min(prev_pos_values_.size(), pos_values_.size()); i++)
+            pos_values_[i] = prev_pos_values_[i] + delta;
+
+        outputList();
+        redrawAll();
+    } else
+        onMouseDown(view, pt, pt, modifiers);
+}
+
+std::pair<t_float*, t_float> UISliders::sliderPosValueAt(const t_pt& pt)
+{
+    const t_rect r = rect();
+    const int N = pos_values_.size();
+
+    if (is_vertical_) {
+        if (pt.y < 0)
+            return { nullptr, 0 };
+
+        const auto idx = clip<size_t>(floorf(pt.y / r.height * N), 0, N - 1);
+        return { &pos_values_[idx], clip01<t_float>(pt.x / r.width) };
+    } else {
+        if (pt.x < 0)
+            return { nullptr, 0 };
+
+        const auto idx = clip<size_t>(floorf(pt.x / r.width * N), 0, N - 1);
+        return { &pos_values_[idx], clip01<t_float>(1.f - pt.y / r.height) };
+    }
 }
 
 void UISliders::onDblClick(t_object* view, const t_pt& pt, long modifiers)
 {
     t_canvas* c = reinterpret_cast<t_canvas*>(view);
+
     if (c->gl_edit)
         resize(height() / zoom(), width() / zoom());
 }
@@ -661,6 +731,7 @@ void UISliders::setup()
 
     obj.addProperty("show_range", _("Show range"), true, &UISliders::prop_show_range, "Main");
     obj.addProperty("auto_count", _("Auto count"), false, &UISliders::prop_auto_count, "Main");
+    obj.addProperty("show_lines", _("Show lines"), false, &UISliders::prop_show_lines, "Main");
 
     obj.addProperty("range", &UISliders::propRange, 0);
     obj.addProperty("value", &UISliders::propValue, 0);

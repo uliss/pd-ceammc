@@ -64,6 +64,28 @@ public:
         onList(ml->data());
     }
 
+    bool proto_front(Atom& res) const override
+    {
+        auto a = list().first();
+
+        if (a) {
+            res = *a;
+            return true;
+        } else
+            return false;
+    }
+
+    bool proto_back(Atom& res) const override
+    {
+        auto a = list().last();
+
+        if (a) {
+            res = *a;
+            return true;
+        } else
+            return false;
+    }
+
     void proto_set(const AtomListView& lst) override
     {
         list() = lst;
@@ -128,17 +150,28 @@ public:
         list().fill(v);
     }
 
-    void proto_choose() override
+    bool proto_choose(Atom& res) const override
     {
         using RandomGenT = std::mt19937;
         static RandomGenT gen(time(0));
 
         auto N = list().size();
         if (N < 1)
-            return;
+            return false;
 
         auto idx = std::uniform_int_distribution<size_t>(0, N - 1)(gen);
-        this->atomTo(0, list().at(idx));
+        res = list().at(idx);
+        return true;
+    }
+
+    bool proto_at(int idx, Atom& res) const override
+    {
+        const auto a = list().relativeAt(idx);
+        if (a) {
+            res = *a;
+            return true;
+        } else
+            return true;
     }
 
     void dump() const override

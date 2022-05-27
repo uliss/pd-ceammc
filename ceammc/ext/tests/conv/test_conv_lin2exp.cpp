@@ -202,7 +202,7 @@ TEST_CASE("conv.lin2exp", "[externals]")
 
         SECTION("conv")
         {
-            TObj t("conv.lin2lin", LF(-5, 5, 1, 2));
+            TObj t("conv.lin2exp", LF(-5, 5, 1, 2));
             REQUIRE_L2E(t, -5, 1);
             REQUIRE_L2E(t, -4, 1.0717734625363);
             REQUIRE_L2E(t, -3, 1.148698354997);
@@ -215,5 +215,17 @@ TEST_CASE("conv.lin2exp", "[externals]")
             REQUIRE_L2E(t, +4, 1.8660659830736);
             REQUIRE_L2E(t, +5, 2);
         }
+
+        SECTION("list")
+        {
+            TExt t("conv.lin2exp", LF(-5, 5, 1, 2));
+            t << LF(-5, -4, -3, -2, -1, 0);
+            REQUIRE(t.outputListAt(0) == LX(1, 1.0717734625363, 1.148698354997, 1.2311444133449, 1.3195079107729, 1.4142135623731));
+        }
+    }
+
+    SECTION("alias")
+    {
+        TExt t("lin->exp", LF(-5, 5, 1, 2));
     }
 }

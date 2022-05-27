@@ -2,8 +2,8 @@
 author: "Mayank Sanganeria"
 name: "fx.granulator"
 version: "1.0"
-Code generated with Faust 2.30.12 (https://faust.grame.fr)
-Compilation options: -lang cpp -es 1 -scal -ftz 0
+Code generated with Faust 2.37.3 (https://faust.grame.fr)
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __fx_granulator_H__
@@ -220,24 +220,69 @@ class dsp_factory {
     
 };
 
-/**
- * On Intel set FZ (Flush to Zero) and DAZ (Denormals Are Zero)
- * flags to avoid costly denormals.
- */
+// Denormal handling
 
-#ifdef __SSE__
-    #include <xmmintrin.h>
-    #ifdef __SSE2__
-        #define AVOIDDENORMALS _mm_setcsr(_mm_getcsr() | 0x8040)
-    #else
-        #define AVOIDDENORMALS _mm_setcsr(_mm_getcsr() | 0x8000)
-    #endif
-#else
-    #define AVOIDDENORMALS
+#if defined (__SSE__)
+#include <xmmintrin.h>
 #endif
 
+class ScopedNoDenormals
+{
+    private:
+    
+        intptr_t fpsr;
+        
+        void setFpStatusRegister(intptr_t fpsr_aux) noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+           asm volatile("msr fpcr, %0" : : "ri" (fpsr_aux));
+        #elif defined (__SSE__)
+            _mm_setcsr(static_cast<uint32_t>(fpsr_aux));
+        #endif
+        }
+        
+        void getFpStatusRegister() noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+            asm volatile("mrs %0, fpcr" : "=r" (fpsr));
+        #elif defined ( __SSE__)
+            fpsr = static_cast<intptr_t>(_mm_getcsr());
+        #endif
+        }
+    
+    public:
+    
+        ScopedNoDenormals() noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+            intptr_t mask = (1 << 24 /* FZ */);
+        #else
+            #if defined(__SSE__)
+            #if defined(__SSE2__)
+                intptr_t mask = 0x8040;
+            #else
+                intptr_t mask = 0x8000;
+            #endif
+            #else
+                intptr_t mask = 0x0000;
+            #endif
+        #endif
+            getFpStatusRegister();
+            setFpStatusRegister(fpsr | mask);
+        }
+        
+        ~ScopedNoDenormals() noexcept
+        {
+            setFpStatusRegister(fpsr);
+        }
+
+};
+
+#define AVOIDDENORMALS ScopedNoDenormals();
+
 #endif
-/**************************  END  fx_granulator_dsp.h **************************/
+
+/************************** END fx_granulator_dsp.h **************************/
 /************************** BEGIN UI.h **************************/
 /************************************************************************
  FAUST Architecture File
@@ -311,6 +356,9 @@ struct UIReal
     // -- metadata declarations
     
     virtual void declare(REAL* zone, const char* key, const char* val) {}
+    
+    // To be used by LLVM client
+    virtual int sizeOfFAUSTFLOAT() { return sizeof(FAUSTFLOAT); }
 };
 
 struct UI : public UIReal<FAUSTFLOAT>
@@ -516,37 +564,13 @@ class fx_granulatorSIG0 {
 	int getNumOutputsfx_granulatorSIG0() {
 		return 1;
 	}
-	int getInputRatefx_granulatorSIG0(int channel) {
-		int rate;
-		switch ((channel)) {
-			default: {
-				rate = -1;
-				break;
-			}
-		}
-		return rate;
-	}
-	int getOutputRatefx_granulatorSIG0(int channel) {
-		int rate;
-		switch ((channel)) {
-			case 0: {
-				rate = 0;
-				break;
-			}
-			default: {
-				rate = -1;
-				break;
-			}
-		}
-		return rate;
-	}
 	
 	void instanceInitfx_granulatorSIG0(int sample_rate) {
 	}
 	
 	void fillfx_granulatorSIG0(int count, float* table) {
-		for (int i = 0; (i < count); i = (i + 1)) {
-			table[i] = 0.0f;
+		for (int i1 = 0; (i1 < count); i1 = (i1 + 1)) {
+			table[i1] = 0.0f;
 		}
 	}
 
@@ -569,30 +593,6 @@ class fx_granulatorSIG1 {
 	int getNumOutputsfx_granulatorSIG1() {
 		return 1;
 	}
-	int getInputRatefx_granulatorSIG1(int channel) {
-		int rate;
-		switch ((channel)) {
-			default: {
-				rate = -1;
-				break;
-			}
-		}
-		return rate;
-	}
-	int getOutputRatefx_granulatorSIG1(int channel) {
-		int rate;
-		switch ((channel)) {
-			case 0: {
-				rate = 0;
-				break;
-			}
-			default: {
-				rate = -1;
-				break;
-			}
-		}
-		return rate;
-	}
 	
 	void instanceInitfx_granulatorSIG1(int sample_rate) {
 		for (int l8 = 0; (l8 < 2); l8 = (l8 + 1)) {
@@ -601,9 +601,9 @@ class fx_granulatorSIG1 {
 	}
 	
 	void fillfx_granulatorSIG1(int count, float* table) {
-		for (int i = 0; (i < count); i = (i + 1)) {
+		for (int i2 = 0; (i2 < count); i2 = (i2 + 1)) {
 			iRec70[0] = (iRec70[1] + 1);
-			table[i] = (0.5f * (1.0f - std::cos((0.00614192104f * float((iRec70[0] + -1))))));
+			table[i2] = (0.5f * (1.0f - std::cos((0.00614192104f * float((iRec70[0] + -1))))));
 			iRec70[1] = iRec70[0];
 		}
 	}
@@ -633,9 +633,12 @@ class fx_granulator : public fx_granulator_dsp {
 	int iVec0[2];
 	int fSampleRate;
 	float fConst0;
+	float fConst1;
 	FAUSTFLOAT fHslider1;
+	float fConst2;
 	float fRec1[2];
 	int iRec0[2];
+	float fConst3;
 	FAUSTFLOAT fHslider2;
 	float fRec4[2];
 	int iRec3[2];
@@ -774,21 +777,21 @@ class fx_granulator : public fx_granulator_dsp {
 	void metadata(Meta* m) { 
 		m->declare("author", "Mayank Sanganeria");
 		m->declare("basics.lib/name", "Faust Basic Element Library");
-		m->declare("basics.lib/version", "0.1");
+		m->declare("basics.lib/version", "0.2");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
 		m->declare("ceammc.lib/version", "0.1.2");
-		m->declare("compile_options", "-lang cpp -es 1 -scal -ftz 0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0");
 		m->declare("filename", "fx_granulator.dsp");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
-		m->declare("maths.lib/version", "2.3");
+		m->declare("maths.lib/version", "2.5");
 		m->declare("name", "fx.granulator");
 		m->declare("platform.lib/name", "Generic Platform Library");
-		m->declare("platform.lib/version", "0.1");
+		m->declare("platform.lib/version", "0.2");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
-		m->declare("signals.lib/version", "0.0");
+		m->declare("signals.lib/version", "0.1");
 		m->declare("version", "1.0");
 	}
 
@@ -797,38 +800,6 @@ class fx_granulator : public fx_granulator_dsp {
 	}
 	virtual int getNumOutputs() {
 		return 2;
-	}
-	virtual int getInputRate(int channel) {
-		int rate;
-		switch ((channel)) {
-			case 0: {
-				rate = 1;
-				break;
-			}
-			default: {
-				rate = -1;
-				break;
-			}
-		}
-		return rate;
-	}
-	virtual int getOutputRate(int channel) {
-		int rate;
-		switch ((channel)) {
-			case 0: {
-				rate = 1;
-				break;
-			}
-			case 1: {
-				rate = 1;
-				break;
-			}
-			default: {
-				rate = -1;
-				break;
-			}
-		}
-		return rate;
 	}
 	
 	static void classInit(int sample_rate) {
@@ -844,6 +815,9 @@ class fx_granulator : public fx_granulator_dsp {
 		sig0->instanceInitfx_granulatorSIG0(sample_rate);
 		sig0->fillfx_granulatorSIG0(480000, ftbl0);
 		fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
+		fConst1 = (44.0999985f / fConst0);
+		fConst2 = (1.0f - fConst1);
+		fConst3 = (0.0441000015f / fConst0);
 		deletefx_granulatorSIG0(sig0);
 	}
 	
@@ -1279,11 +1253,11 @@ class fx_granulator : public fx_granulator_dsp {
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("fx.granulator");
 		ui_interface->declare(&fHslider1, "unit", "sec");
-		ui_interface->addHorizontalSlider("delay", &fHslider1, 10.0f, 0.5f, 10.0f, 0.100000001f);
+		ui_interface->addHorizontalSlider("delay", &fHslider1, FAUSTFLOAT(10.0f), FAUSTFLOAT(0.5f), FAUSTFLOAT(10.0f), FAUSTFLOAT(0.100000001f));
 		ui_interface->declare(&fHslider0, "type", "int");
-		ui_interface->addHorizontalSlider("density", &fHslider0, 10.0f, 1.0f, 64.0f, 1.0f);
+		ui_interface->addHorizontalSlider("density", &fHslider0, FAUSTFLOAT(10.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(64.0f), FAUSTFLOAT(1.0f));
 		ui_interface->declare(&fHslider2, "unit", "ms");
-		ui_interface->addHorizontalSlider("length", &fHslider2, 100.0f, 10.0f, 500.0f, 0.00999999978f);
+		ui_interface->addHorizontalSlider("length", &fHslider2, FAUSTFLOAT(100.0f), FAUSTFLOAT(10.0f), FAUSTFLOAT(500.0f), FAUSTFLOAT(0.00999999978f));
 		ui_interface->closeBox();
 	}
 	
@@ -1294,8 +1268,8 @@ class fx_granulator : public fx_granulator_dsp {
 		int iSlow0 = int(float(fHslider0));
 		float fSlow1 = (2.0f / float(iSlow0));
 		float fSlow2 = float((0 < iSlow0));
-		float fSlow3 = (0.00100000005f * float(fHslider1));
-		float fSlow4 = (9.99999997e-07f * float(fHslider2));
+		float fSlow3 = (fConst1 * float(fHslider1));
+		float fSlow4 = (fConst3 * float(fHslider2));
 		float fSlow5 = float((2 < iSlow0));
 		float fSlow6 = float((4 < iSlow0));
 		float fSlow7 = float((6 < iSlow0));
@@ -1359,13 +1333,13 @@ class fx_granulator : public fx_granulator_dsp {
 		float fSlow65 = float((59 < iSlow0));
 		float fSlow66 = float((61 < iSlow0));
 		float fSlow67 = float((63 < iSlow0));
-		for (int i = 0; (i < count); i = (i + 1)) {
+		for (int i0 = 0; (i0 < count); i0 = (i0 + 1)) {
 			iVec0[0] = 1;
-			fRec1[0] = (fSlow3 + (0.999000013f * fRec1[1]));
+			fRec1[0] = (fSlow3 + (fConst2 * fRec1[1]));
 			int iTemp0 = int((fConst0 * fRec1[0]));
 			iRec0[0] = ((iRec0[1] + 1) % iTemp0);
-			ftbl0[(iRec0[0] % iTemp0)] = float(input0[i]);
-			fRec4[0] = (fSlow4 + (0.999000013f * fRec4[1]));
+			ftbl0[(iRec0[0] % iTemp0)] = float(input0[i0]);
+			fRec4[0] = (fSlow4 + (fConst2 * fRec4[1]));
 			int iTemp1 = int((fConst0 * fRec4[0]));
 			iRec3[0] = ((iRec3[1] + 1) % iTemp1);
 			int iTemp2 = (1 - iVec0[1]);
@@ -1691,7 +1665,7 @@ class fx_granulator : public fx_granulator_dsp {
 			float fTemp195 = (float(iTemp194) / fTemp70);
 			int iTemp196 = int(fTemp195);
 			iRec131[0] = ((iRec131[1] * (1 - iTemp196)) + (iTemp193 * iTemp196));
-			output0[i] = FAUSTFLOAT((fSlow1 * ((((((((((((((((((((((((((((((((fSlow2 * (ftbl0[((iRec2[0] + iTemp69) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp71))])) + (fSlow5 * (ftbl0[((iRec71[0] + iTemp74) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp75))]))) + (fSlow6 * (ftbl0[((iRec73[0] + iTemp78) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp79))]))) + (fSlow7 * (ftbl0[((iRec75[0] + iTemp82) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp83))]))) + (fSlow8 * (ftbl0[((iRec77[0] + iTemp86) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp87))]))) + (fSlow9 * (ftbl0[((iRec79[0] + iTemp90) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp91))]))) + (fSlow10 * (ftbl0[((iRec81[0] + iTemp94) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp95))]))) + (fSlow11 * (ftbl0[((iRec83[0] + iTemp98) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp99))]))) + (fSlow12 * (ftbl0[((iRec85[0] + iTemp102) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp103))]))) + (fSlow13 * (ftbl0[((iRec87[0] + iTemp106) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp107))]))) + (fSlow14 * (ftbl0[((iRec89[0] + iTemp110) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp111))]))) + (fSlow15 * (ftbl0[((iRec91[0] + iTemp114) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp115))]))) + (fSlow16 * (ftbl0[((iRec93[0] + iTemp118) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp119))]))) + (fSlow17 * (ftbl0[((iRec95[0] + iTemp122) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp123))]))) + (fSlow18 * (ftbl0[((iRec97[0] + iTemp126) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp127))]))) + (fSlow19 * (ftbl0[((iRec99[0] + iTemp130) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp131))]))) + (fSlow20 * (ftbl0[((iRec101[0] + iTemp134) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp135))]))) + (fSlow21 * (ftbl0[((iRec103[0] + iTemp138) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp139))]))) + (fSlow22 * (ftbl0[((iRec105[0] + iTemp142) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp143))]))) + (fSlow23 * (ftbl0[((iRec107[0] + iTemp146) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp147))]))) + (fSlow24 * (ftbl0[((iRec109[0] + iTemp150) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp151))]))) + (fSlow25 * (ftbl0[((iRec111[0] + iTemp154) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp155))]))) + (fSlow26 * (ftbl0[((iRec113[0] + iTemp158) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp159))]))) + (fSlow27 * (ftbl0[((iRec115[0] + iTemp162) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp163))]))) + (fSlow28 * (ftbl0[((iRec117[0] + iTemp166) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp167))]))) + (fSlow29 * (ftbl0[((iRec119[0] + iTemp170) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp171))]))) + (fSlow30 * (ftbl0[((iRec121[0] + iTemp174) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp175))]))) + (fSlow31 * (ftbl0[((iRec123[0] + iTemp178) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp179))]))) + (fSlow32 * (ftbl0[((iRec125[0] + iTemp182) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp183))]))) + (fSlow33 * (ftbl0[((iRec127[0] + iTemp186) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp187))]))) + (fSlow34 * (ftbl0[((iRec129[0] + iTemp190) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp191))]))) + (fSlow35 * (ftbl0[((iRec131[0] + iTemp194) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp195))])))));
+			output0[i0] = FAUSTFLOAT((fSlow1 * ((((((((((((((((((((((((((((((((fSlow2 * (ftbl0[((iRec2[0] + iTemp69) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp71))])) + (fSlow5 * (ftbl0[((iRec71[0] + iTemp74) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp75))]))) + (fSlow6 * (ftbl0[((iRec73[0] + iTemp78) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp79))]))) + (fSlow7 * (ftbl0[((iRec75[0] + iTemp82) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp83))]))) + (fSlow8 * (ftbl0[((iRec77[0] + iTemp86) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp87))]))) + (fSlow9 * (ftbl0[((iRec79[0] + iTemp90) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp91))]))) + (fSlow10 * (ftbl0[((iRec81[0] + iTemp94) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp95))]))) + (fSlow11 * (ftbl0[((iRec83[0] + iTemp98) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp99))]))) + (fSlow12 * (ftbl0[((iRec85[0] + iTemp102) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp103))]))) + (fSlow13 * (ftbl0[((iRec87[0] + iTemp106) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp107))]))) + (fSlow14 * (ftbl0[((iRec89[0] + iTemp110) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp111))]))) + (fSlow15 * (ftbl0[((iRec91[0] + iTemp114) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp115))]))) + (fSlow16 * (ftbl0[((iRec93[0] + iTemp118) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp119))]))) + (fSlow17 * (ftbl0[((iRec95[0] + iTemp122) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp123))]))) + (fSlow18 * (ftbl0[((iRec97[0] + iTemp126) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp127))]))) + (fSlow19 * (ftbl0[((iRec99[0] + iTemp130) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp131))]))) + (fSlow20 * (ftbl0[((iRec101[0] + iTemp134) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp135))]))) + (fSlow21 * (ftbl0[((iRec103[0] + iTemp138) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp139))]))) + (fSlow22 * (ftbl0[((iRec105[0] + iTemp142) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp143))]))) + (fSlow23 * (ftbl0[((iRec107[0] + iTemp146) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp147))]))) + (fSlow24 * (ftbl0[((iRec109[0] + iTemp150) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp151))]))) + (fSlow25 * (ftbl0[((iRec111[0] + iTemp154) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp155))]))) + (fSlow26 * (ftbl0[((iRec113[0] + iTemp158) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp159))]))) + (fSlow27 * (ftbl0[((iRec115[0] + iTemp162) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp163))]))) + (fSlow28 * (ftbl0[((iRec117[0] + iTemp166) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp167))]))) + (fSlow29 * (ftbl0[((iRec119[0] + iTemp170) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp171))]))) + (fSlow30 * (ftbl0[((iRec121[0] + iTemp174) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp175))]))) + (fSlow31 * (ftbl0[((iRec123[0] + iTemp178) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp179))]))) + (fSlow32 * (ftbl0[((iRec125[0] + iTemp182) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp183))]))) + (fSlow33 * (ftbl0[((iRec127[0] + iTemp186) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp187))]))) + (fSlow34 * (ftbl0[((iRec129[0] + iTemp190) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp191))]))) + (fSlow35 * (ftbl0[((iRec131[0] + iTemp194) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp195))])))));
 			int iTemp197 = int((0.5f * (fTemp3 * (1.0f - float(iRec7)))));
 			iRec134[0] = ((iVec0[1] * iRec134[1]) + (iTemp2 * iTemp197));
 			int iTemp198 = ((iRec3[0] + iRec134[0]) % iTemp1);
@@ -1884,7 +1858,7 @@ class fx_granulator : public fx_granulator_dsp {
 			float fTemp323 = (float(iTemp322) / fTemp70);
 			int iTemp324 = int(fTemp323);
 			iRec195[0] = ((iRec195[1] * (1 - iTemp324)) + (iTemp321 * iTemp324));
-			output1[i] = FAUSTFLOAT((fSlow1 * ((((((((((((((((((((((((((((((((fSlow36 * (ftbl0[((iRec133[0] + iTemp198) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp199))])) + (fSlow37 * (ftbl0[((iRec135[0] + iTemp202) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp203))]))) + (fSlow38 * (ftbl0[((iRec137[0] + iTemp206) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp207))]))) + (fSlow39 * (ftbl0[((iRec139[0] + iTemp210) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp211))]))) + (fSlow40 * (ftbl0[((iRec141[0] + iTemp214) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp215))]))) + (fSlow41 * (ftbl0[((iRec143[0] + iTemp218) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp219))]))) + (fSlow42 * (ftbl0[((iRec145[0] + iTemp222) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp223))]))) + (fSlow43 * (ftbl0[((iRec147[0] + iTemp226) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp227))]))) + (fSlow44 * (ftbl0[((iRec149[0] + iTemp230) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp231))]))) + (fSlow45 * (ftbl0[((iRec151[0] + iTemp234) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp235))]))) + (fSlow46 * (ftbl0[((iRec153[0] + iTemp238) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp239))]))) + (fSlow47 * (ftbl0[((iRec155[0] + iTemp242) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp243))]))) + (fSlow48 * (ftbl0[((iRec157[0] + iTemp246) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp247))]))) + (fSlow49 * (ftbl0[((iRec159[0] + iTemp250) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp251))]))) + (fSlow50 * (ftbl0[((iRec161[0] + iTemp254) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp255))]))) + (fSlow51 * (ftbl0[((iRec163[0] + iTemp258) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp259))]))) + (fSlow52 * (ftbl0[((iRec165[0] + iTemp262) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp263))]))) + (fSlow53 * (ftbl0[((iRec167[0] + iTemp266) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp267))]))) + (fSlow54 * (ftbl0[((iRec169[0] + iTemp270) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp271))]))) + (fSlow55 * (ftbl0[((iRec171[0] + iTemp274) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp275))]))) + (fSlow56 * (ftbl0[((iRec173[0] + iTemp278) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp279))]))) + (fSlow57 * (ftbl0[((iRec175[0] + iTemp282) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp283))]))) + (fSlow58 * (ftbl0[((iRec177[0] + iTemp286) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp287))]))) + (fSlow59 * (ftbl0[((iRec179[0] + iTemp290) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp291))]))) + (fSlow60 * (ftbl0[((iRec181[0] + iTemp294) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp295))]))) + (fSlow61 * (ftbl0[((iRec183[0] + iTemp298) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp299))]))) + (fSlow62 * (ftbl0[((iRec185[0] + iTemp302) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp303))]))) + (fSlow63 * (ftbl0[((iRec187[0] + iTemp306) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp307))]))) + (fSlow64 * (ftbl0[((iRec189[0] + iTemp310) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp311))]))) + (fSlow65 * (ftbl0[((iRec191[0] + iTemp314) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp315))]))) + (fSlow66 * (ftbl0[((iRec193[0] + iTemp318) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp319))]))) + (fSlow67 * (ftbl0[((iRec195[0] + iTemp322) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp323))])))));
+			output1[i0] = FAUSTFLOAT((fSlow1 * ((((((((((((((((((((((((((((((((fSlow36 * (ftbl0[((iRec133[0] + iTemp198) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp199))])) + (fSlow37 * (ftbl0[((iRec135[0] + iTemp202) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp203))]))) + (fSlow38 * (ftbl0[((iRec137[0] + iTemp206) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp207))]))) + (fSlow39 * (ftbl0[((iRec139[0] + iTemp210) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp211))]))) + (fSlow40 * (ftbl0[((iRec141[0] + iTemp214) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp215))]))) + (fSlow41 * (ftbl0[((iRec143[0] + iTemp218) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp219))]))) + (fSlow42 * (ftbl0[((iRec145[0] + iTemp222) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp223))]))) + (fSlow43 * (ftbl0[((iRec147[0] + iTemp226) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp227))]))) + (fSlow44 * (ftbl0[((iRec149[0] + iTemp230) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp231))]))) + (fSlow45 * (ftbl0[((iRec151[0] + iTemp234) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp235))]))) + (fSlow46 * (ftbl0[((iRec153[0] + iTemp238) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp239))]))) + (fSlow47 * (ftbl0[((iRec155[0] + iTemp242) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp243))]))) + (fSlow48 * (ftbl0[((iRec157[0] + iTemp246) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp247))]))) + (fSlow49 * (ftbl0[((iRec159[0] + iTemp250) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp251))]))) + (fSlow50 * (ftbl0[((iRec161[0] + iTemp254) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp255))]))) + (fSlow51 * (ftbl0[((iRec163[0] + iTemp258) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp259))]))) + (fSlow52 * (ftbl0[((iRec165[0] + iTemp262) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp263))]))) + (fSlow53 * (ftbl0[((iRec167[0] + iTemp266) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp267))]))) + (fSlow54 * (ftbl0[((iRec169[0] + iTemp270) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp271))]))) + (fSlow55 * (ftbl0[((iRec171[0] + iTemp274) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp275))]))) + (fSlow56 * (ftbl0[((iRec173[0] + iTemp278) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp279))]))) + (fSlow57 * (ftbl0[((iRec175[0] + iTemp282) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp283))]))) + (fSlow58 * (ftbl0[((iRec177[0] + iTemp286) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp287))]))) + (fSlow59 * (ftbl0[((iRec179[0] + iTemp290) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp291))]))) + (fSlow60 * (ftbl0[((iRec181[0] + iTemp294) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp295))]))) + (fSlow61 * (ftbl0[((iRec183[0] + iTemp298) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp299))]))) + (fSlow62 * (ftbl0[((iRec185[0] + iTemp302) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp303))]))) + (fSlow63 * (ftbl0[((iRec187[0] + iTemp306) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp307))]))) + (fSlow64 * (ftbl0[((iRec189[0] + iTemp310) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp311))]))) + (fSlow65 * (ftbl0[((iRec191[0] + iTemp314) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp315))]))) + (fSlow66 * (ftbl0[((iRec193[0] + iTemp318) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp319))]))) + (fSlow67 * (ftbl0[((iRec195[0] + iTemp322) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp323))])))));
 			iVec0[1] = iVec0[0];
 			fRec1[1] = fRec1[0];
 			iRec0[1] = iRec0[0];

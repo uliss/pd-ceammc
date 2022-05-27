@@ -46,6 +46,7 @@
         <inlets>
             <inlet>
                 <xinfo on="float">input value</xinfo>
+                <xinfo on="list">input list</xinfo>
             </inlet>
         </inlets>
         <outlets>

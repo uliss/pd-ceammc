@@ -72,10 +72,10 @@ TEST_CASE("seq.toggles", "[externals]")
             REQUIRE_PROPERTY(t, @length, 99);
         }
 
-        SECTION("@length fixed invalid")
+        SECTION("@length fixed msec")
         {
-            TObj t("seq.toggles", LA("@length", "-99ms"));
-            REQUIRE_PROPERTY(t, @length, "75%");
+            TObj t("seq.toggles", LA("@length", "-10ms"));
+            REQUIRE_PROPERTY(t, @length, -10);
         }
 
         SECTION("@length fixed subtract")
@@ -127,6 +127,7 @@ TEST_CASE("seq.toggles", "[externals]")
         SECTION("single")
         {
             TExt t("seq.t", LA(1, "@t", 100));
+            REQUIRE_PROPERTY(t, @t, 100);
 
             t.sendBang(); // on
             REQUIRE(t.messagesAt(0) == ML { m1 });
@@ -376,5 +377,23 @@ TEST_CASE("seq.toggles", "[externals]")
             REQUIRE(t.messagesAt(0) == ML { m1, m0, m1, m0 });
             REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 2), ed(10), el(1), i(1, 2), ed(20), el(10) });
         }
+    }
+
+    SECTION("bpm")
+    {
+        TExt t("seq.t", LA(1, 2, "@t", "60bpm"));
+        REQUIRE_PROPERTY(t, @t, 1000);
+
+        t->setProperty("@t", A("120bpm"));
+        REQUIRE_PROPERTY(t, @t, 500);
+
+        t->setProperty("@t", A("60|4bpm"));
+        REQUIRE_PROPERTY(t, @t, 1000);
+
+        t->setProperty("@t", A("60|8bpm"));
+        REQUIRE_PROPERTY(t, @t, 500);
+
+        t->setProperty("@t", A("60|1/16bpm"));
+        REQUIRE_PROPERTY(t, @t, 250);
     }
 }

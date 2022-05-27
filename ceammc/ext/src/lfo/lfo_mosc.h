@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "lfo.mosc"
-Code generated with Faust 2.30.12 (https://faust.grame.fr)
-Compilation options: -lang cpp -es 1 -scal -ftz 0
+Code generated with Faust 2.37.3 (https://faust.grame.fr)
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __lfo_mosc_H__
@@ -218,24 +218,69 @@ class dsp_factory {
     
 };
 
-/**
- * On Intel set FZ (Flush to Zero) and DAZ (Denormals Are Zero)
- * flags to avoid costly denormals.
- */
+// Denormal handling
 
-#ifdef __SSE__
-    #include <xmmintrin.h>
-    #ifdef __SSE2__
-        #define AVOIDDENORMALS _mm_setcsr(_mm_getcsr() | 0x8040)
-    #else
-        #define AVOIDDENORMALS _mm_setcsr(_mm_getcsr() | 0x8000)
-    #endif
-#else
-    #define AVOIDDENORMALS
+#if defined (__SSE__)
+#include <xmmintrin.h>
 #endif
 
+class ScopedNoDenormals
+{
+    private:
+    
+        intptr_t fpsr;
+        
+        void setFpStatusRegister(intptr_t fpsr_aux) noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+           asm volatile("msr fpcr, %0" : : "ri" (fpsr_aux));
+        #elif defined (__SSE__)
+            _mm_setcsr(static_cast<uint32_t>(fpsr_aux));
+        #endif
+        }
+        
+        void getFpStatusRegister() noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+            asm volatile("mrs %0, fpcr" : "=r" (fpsr));
+        #elif defined ( __SSE__)
+            fpsr = static_cast<intptr_t>(_mm_getcsr());
+        #endif
+        }
+    
+    public:
+    
+        ScopedNoDenormals() noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+            intptr_t mask = (1 << 24 /* FZ */);
+        #else
+            #if defined(__SSE__)
+            #if defined(__SSE2__)
+                intptr_t mask = 0x8040;
+            #else
+                intptr_t mask = 0x8000;
+            #endif
+            #else
+                intptr_t mask = 0x0000;
+            #endif
+        #endif
+            getFpStatusRegister();
+            setFpStatusRegister(fpsr | mask);
+        }
+        
+        ~ScopedNoDenormals() noexcept
+        {
+            setFpStatusRegister(fpsr);
+        }
+
+};
+
+#define AVOIDDENORMALS ScopedNoDenormals();
+
 #endif
-/**************************  END  lfo_mosc_dsp.h **************************/
+
+/************************** END lfo_mosc_dsp.h **************************/
 /************************** BEGIN UI.h **************************/
 /************************************************************************
  FAUST Architecture File
@@ -309,6 +354,9 @@ struct UIReal
     // -- metadata declarations
     
     virtual void declare(REAL* zone, const char* key, const char* val) {}
+    
+    // To be used by LLVM client
+    virtual int sizeOfFAUSTFLOAT() { return sizeof(FAUSTFLOAT); }
 };
 
 struct UI : public UIReal<FAUSTFLOAT>
@@ -538,19 +586,19 @@ class lfo_mosc : public lfo_mosc_dsp {
 	
 	void metadata(Meta* m) { 
 		m->declare("basics.lib/name", "Faust Basic Element Library");
-		m->declare("basics.lib/version", "0.1");
+		m->declare("basics.lib/version", "0.2");
 		m->declare("ceammc_osc.lib/name", "CEAMMC faust oscillators");
 		m->declare("ceammc_osc.lib/version", "0.1");
-		m->declare("compile_options", "-lang cpp -es 1 -scal -ftz 0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0");
 		m->declare("filename", "lfo_mosc.dsp");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
-		m->declare("maths.lib/version", "2.3");
+		m->declare("maths.lib/version", "2.5");
 		m->declare("name", "lfo.mosc");
 		m->declare("platform.lib/name", "Generic Platform Library");
-		m->declare("platform.lib/version", "0.1");
+		m->declare("platform.lib/version", "0.2");
 		m->declare("routes.lib/name", "Faust Signal Routing Library");
 		m->declare("routes.lib/version", "0.2");
 	}
@@ -560,34 +608,6 @@ class lfo_mosc : public lfo_mosc_dsp {
 	}
 	virtual int getNumOutputs() {
 		return 1;
-	}
-	virtual int getInputRate(int channel) {
-		int rate;
-		switch ((channel)) {
-			case 0: {
-				rate = 1;
-				break;
-			}
-			default: {
-				rate = -1;
-				break;
-			}
-		}
-		return rate;
-	}
-	virtual int getOutputRate(int channel) {
-		int rate;
-		switch ((channel)) {
-			case 0: {
-				rate = 1;
-				break;
-			}
-			default: {
-				rate = -1;
-				break;
-			}
-		}
-		return rate;
 	}
 	
 	static void classInit(int sample_rate) {
@@ -663,10 +683,11 @@ class lfo_mosc : public lfo_mosc_dsp {
 	
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("lfo.mosc");
-		ui_interface->addHorizontalSlider("duty", &fHslider1, 0.5f, 0.0f, 1.0f, 0.00999999978f);
+		ui_interface->addHorizontalSlider("duty", &fHslider1, FAUSTFLOAT(0.5f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.00999999978f));
 		ui_interface->addCheckButton("pause", &fCheckbox0);
-		ui_interface->addHorizontalSlider("phase", &fHslider0, 0.0f, 0.0f, 1.0f, 0.00100000005f);
-		ui_interface->addNumEntry("windex", &fEntry0, 0.0f, 0.0f, 10.0f, 1.0f);
+		ui_interface->addHorizontalSlider("phase", &fHslider0, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.00100000005f));
+		ui_interface->declare(&fEntry0, "type", "int");
+		ui_interface->addNumEntry("windex", &fEntry0, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(9.0f), FAUSTFLOAT(1.0f));
 		ui_interface->closeBox();
 	}
 	
@@ -686,43 +707,52 @@ class lfo_mosc : public lfo_mosc_dsp {
 		float fSlow10 = float((fSlow0 >= 7.0f));
 		float fSlow11 = float((fSlow0 >= 6.0f));
 		float fSlow12 = float((fSlow0 >= 9.0f));
-		for (int i = 0; (i < count); i = (i + 1)) {
+		for (int i0 = 0; (i0 < count); i0 = (i0 + 1)) {
 			float fTemp0 = (fConst1 + fRec0[1]);
 			float fTemp1 = (fRec0[1] - fConst1);
-			fRec0[0] = ((fTemp0 < fSlow1) ? fTemp0 : ((fTemp1 > fSlow1) ? fTemp1 : fSlow1));
+			float fThen1 = ((fTemp1 > fSlow1) ? fTemp1 : fSlow1);
+			fRec0[0] = ((fTemp0 < fSlow1) ? fTemp0 : fThen1);
 			float fTemp2 = (fConst1 + fRec1[1]);
 			float fTemp3 = (fRec1[1] - fConst1);
-			fRec1[0] = ((fTemp2 < fSlow2) ? fTemp2 : ((fTemp3 > fSlow2) ? fTemp3 : fSlow2));
+			float fThen3 = ((fTemp3 > fSlow2) ? fTemp3 : fSlow2);
+			fRec1[0] = ((fTemp2 < fSlow2) ? fTemp2 : fThen3);
 			float fTemp4 = (fConst1 + fRec2[1]);
 			float fTemp5 = (fRec2[1] - fConst1);
-			fRec2[0] = ((fTemp4 < fSlow3) ? fTemp4 : ((fTemp5 > fSlow3) ? fTemp5 : fSlow3));
+			float fThen5 = ((fTemp5 > fSlow3) ? fTemp5 : fSlow3);
+			fRec2[0] = ((fTemp4 < fSlow3) ? fTemp4 : fThen5);
 			float fTemp6 = (fConst1 + fRec3[1]);
 			float fTemp7 = (fRec3[1] - fConst1);
-			fRec3[0] = ((fTemp6 < fSlow4) ? fTemp6 : ((fTemp7 > fSlow4) ? fTemp7 : fSlow4));
+			float fThen7 = ((fTemp7 > fSlow4) ? fTemp7 : fSlow4);
+			fRec3[0] = ((fTemp6 < fSlow4) ? fTemp6 : fThen7);
 			fVec0[0] = fSlow5;
-			float fTemp8 = (fRec4[1] + (fSlow6 * float(input0[i])));
+			float fTemp8 = (fRec4[1] + (fSlow6 * float(input0[i0])));
 			fRec4[0] = (fSlow5 + (fTemp8 - (fVec0[1] + std::floor((fSlow5 + (fTemp8 - fVec0[1]))))));
 			float fTemp9 = std::sin((6.28318548f * fRec4[0]));
 			float fTemp10 = ((2.0f * fRec4[0]) + -1.0f);
 			float fTemp11 = (1.0f - std::fabs(fTemp10));
 			float fTemp12 = (fConst1 + fRec5[1]);
 			float fTemp13 = (fRec5[1] - fConst1);
-			fRec5[0] = ((fTemp12 < fSlow7) ? fTemp12 : ((fTemp13 > fSlow7) ? fTemp13 : fSlow7));
+			float fThen9 = ((fTemp13 > fSlow7) ? fTemp13 : fSlow7);
+			fRec5[0] = ((fTemp12 < fSlow7) ? fTemp12 : fThen9);
 			float fTemp14 = float((fRec4[0] <= 0.5f));
 			float fTemp15 = float((fRec4[0] <= fSlow8));
 			float fTemp16 = (fConst1 + fRec6[1]);
 			float fTemp17 = (fRec6[1] - fConst1);
-			fRec6[0] = ((fTemp16 < fSlow9) ? fTemp16 : ((fTemp17 > fSlow9) ? fTemp17 : fSlow9));
+			float fThen11 = ((fTemp17 > fSlow9) ? fTemp17 : fSlow9);
+			fRec6[0] = ((fTemp16 < fSlow9) ? fTemp16 : fThen11);
 			float fTemp18 = (fConst1 + fRec7[1]);
 			float fTemp19 = (fRec7[1] - fConst1);
-			fRec7[0] = ((fTemp18 < fSlow10) ? fTemp18 : ((fTemp19 > fSlow10) ? fTemp19 : fSlow10));
+			float fThen13 = ((fTemp19 > fSlow10) ? fTemp19 : fSlow10);
+			fRec7[0] = ((fTemp18 < fSlow10) ? fTemp18 : fThen13);
 			float fTemp20 = (fConst1 + fRec8[1]);
 			float fTemp21 = (fRec8[1] - fConst1);
-			fRec8[0] = ((fTemp20 < fSlow11) ? fTemp20 : ((fTemp21 > fSlow11) ? fTemp21 : fSlow11));
+			float fThen15 = ((fTemp21 > fSlow11) ? fTemp21 : fSlow11);
+			fRec8[0] = ((fTemp20 < fSlow11) ? fTemp20 : fThen15);
 			float fTemp22 = (fConst1 + fRec9[1]);
 			float fTemp23 = (fRec9[1] - fConst1);
-			fRec9[0] = ((fTemp22 < fSlow12) ? fTemp22 : ((fTemp23 > fSlow12) ? fTemp23 : fSlow12));
-			output0[i] = FAUSTFLOAT((((1.0f - fRec0[0]) * (((1.0f - fRec1[0]) * (((1.0f - fRec2[0]) * (((1.0f - fRec3[0]) * fTemp9) + (fRec3[0] * fTemp10))) + (fRec2[0] * ((2.0f * fTemp11) + -1.0f)))) + (fRec1[0] * (((1.0f - fRec5[0]) * ((2.0f * fTemp14) + -1.0f)) + (fRec5[0] * ((2.0f * fTemp15) + -1.0f)))))) + (fRec0[0] * (((1.0f - fRec6[0]) * (((1.0f - fRec7[0]) * ((0.5f * ((1.0f - fRec8[0]) * (fTemp9 + 1.0f))) + (fRec4[0] * fRec8[0]))) + (fRec7[0] * fTemp11))) + (fRec6[0] * ((fTemp14 * (1.0f - fRec9[0])) + (fTemp15 * fRec9[0])))))));
+			float fThen17 = ((fTemp23 > fSlow12) ? fTemp23 : fSlow12);
+			fRec9[0] = ((fTemp22 < fSlow12) ? fTemp22 : fThen17);
+			output0[i0] = FAUSTFLOAT((((1.0f - fRec0[0]) * (((1.0f - fRec1[0]) * (((1.0f - fRec2[0]) * (((1.0f - fRec3[0]) * fTemp9) + (fRec3[0] * fTemp10))) + (fRec2[0] * ((2.0f * fTemp11) + -1.0f)))) + (fRec1[0] * (((1.0f - fRec5[0]) * ((2.0f * fTemp14) + -1.0f)) + (fRec5[0] * ((2.0f * fTemp15) + -1.0f)))))) + (fRec0[0] * (((1.0f - fRec6[0]) * (((1.0f - fRec7[0]) * ((0.5f * ((1.0f - fRec8[0]) * (fTemp9 + 1.0f))) + (fRec4[0] * fRec8[0]))) + (fRec7[0] * fTemp11))) + (fRec6[0] * ((fTemp14 * (1.0f - fRec9[0])) + (fTemp15 * fRec9[0])))))));
 			fRec0[1] = fRec0[0];
 			fRec1[1] = fRec1[0];
 			fRec2[1] = fRec2[0];

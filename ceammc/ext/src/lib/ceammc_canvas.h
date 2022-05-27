@@ -82,6 +82,12 @@ const _glist* canvas_root(const _glist* c);
  */
 bool canvas_info_is_abstraction(const _glist* c);
 
+/**
+ * Checks is canvas is modified
+ * @param c - pointer to root canvas
+ */
+bool canvas_info_is_dirty(const _glist* c);
+
 AtomList canvas_info_paths(const _glist* c);
 AtomList canvas_info_args(const _glist* c);
 

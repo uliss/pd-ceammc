@@ -32,20 +32,20 @@
 }
 {ceammc
     {an {
-        an.onset an.onset~ an.pitchtrack~ an.rms~
+        an.onset an.onset~ an.pitchtrack~ an.rms~ an.tempo~
     }}
     {array {
-        array.bpm array.copy array.do array.each array.fill array.hist
-        array.mean array.minmax array.play~ array.plot array.plot~
-        array.resample array.rms array.set array.stddev array.stretch
-        array.sum array.sum2 array.variance array.vplay array.window
-        plot.geomspace~ plot.hist~ plot.linspace~ plot.logspace~
+        array.bpm array.circular~ array.copy array.do array.each array.fill
+        array.grainer~ array.hist array.mean array.minmax array.play~
+        array.plot array.plot~ array.resample array.rms array.set array.stddev
+        array.stretch array.sum array.sum2 array.variance array.vplay
+        array.window plot.geomspace~ plot.hist~ plot.linspace~ plot.logspace~
         plot.response~
     }}
     {base {
         ceammc.search function function.call gain~ logger matrix~
-        metro.pattern metro.random metro.seq mix~ nsig~ obj.props radio sync
-        window xdac~ xfade2~ xfade~
+        metro.pattern metro.random metro.seq mix~ nsig~ obj.props radio spring
+        sync window xdac~ xfade2~ xfade~ z~
     }}
     {chaos {
         chaos.gbman0 chaos.gbman0~ chaos.jong chaos.logistic chaos.std0
@@ -55,12 +55,13 @@
         array.p2s array.s2p conv.amp2dbfs conv.amp2dbfs~ conv.bits2bang
         conv.bits2int conv.bits2note conv.bits2pos conv.bpm2hz conv.bpm2ms
         conv.bpm2sec conv.car2pol conv.cc2amp conv.dbfs2amp conv.dbfs2amp~
-        conv.degree2key conv.hex2int conv.int2bits conv.lin2curve conv.lin2exp
-        conv.lin2lin conv.lin2lin~ conv.list2props conv.midi2freq conv.ms2bpm
-        conv.ms2samp conv.ms2samp~ conv.phase2rad conv.phase2rad~
-        conv.pitch2midi conv.pol2car conv.rad2phase conv.rad2phase~
-        conv.samp2ms conv.samp2ms~ conv.samp2sec conv.sec2bpm conv.sec2samp
-        conv.sec2str conv.sig2float~ conv.str2sec
+        conv.degree2key conv.edge2bang conv.hex2int conv.int2bits
+        conv.lin2curve conv.lin2exp conv.lin2lin conv.lin2lin~ conv.list2props
+        conv.midi2freq conv.ms2bpm conv.ms2samp conv.ms2samp~ conv.phase2rad
+        conv.phase2rad~ conv.pitch2midi conv.pol2car conv.rad2phase
+        conv.rad2phase~ conv.samp2ms conv.samp2ms~ conv.samp2sec conv.sec2bpm
+        conv.sec2samp conv.sec2str conv.sig2float~ conv.str2sec music.dur2time
+        music.voice2midi
     }}
     {data {
         data.copy data.dict data.fifo data.float data.int data.list data.mlist
@@ -81,11 +82,11 @@
     {flow {
         expand_env flow.append flow.change flow.count flow.delay
         flow.demultiplex flow.demultiplex2~ flow.demultiplex~ flow.dollar
-        flow.dup flow.gate flow.greater flow.greater_eq flow.group
+        flow.dup flow.float flow.gate flow.greater flow.greater_eq flow.group
         flow.interval flow.less flow.less_eq flow.list2many flow.match
         flow.mem flow.multiplex flow.multiplex2~ flow.multiplex~ flow.once
-        flow.pack flow.pass flow.pass_if flow.pipe flow.queue flow.reject
-        flow.reject_if flow.ring flow.route flow.select flow.space
+        flow.pack flow.pass flow.pass_if flow.pipe flow.queue flow.record
+        flow.reject flow.reject_if flow.ring flow.route flow.select flow.space
         flow.speedlim flow.split flow.stack flow.sync flow.sync_pack flow.tee~
         replace route.float
     }}
@@ -100,10 +101,11 @@
     }}
     {fx {
         fx.bitdown~ fx.chorus~ fx.distortion1~ fx.distortion2~ fx.distortion3~
-        fx.distortion~ fx.drive~ fx.drone_box~ fx.echo~ fx.flanger~
+        fx.distortion~ fx.drive~ fx.drone_box~ fx.echo2~ fx.echo~ fx.flanger~
         fx.freeverb2~ fx.freeverb~ fx.freqshift~ fx.granulator~ fx.greyhole~
-        fx.infrev~ fx.looper~ fx.pitchshift_s~ fx.pitchshift~ fx.recho~
-        fx.sdelay~ fx.vocoder~ fx.wahwah~ fx.zita_rev1~
+        fx.infrev~ fx.looper~ fx.pitchshift_s~ fx.pitchshift~
+        fx.rb_pitchshift~ fx.recho~ fx.room~ fx.sdelay~ fx.secho~ fx.shimmer~
+        fx.tapiir~ fx.vocoder~ fx.wahwah~ fx.zita_rev1~
     }}
     {global {
         global.dict global.float global.int global.list global.mlist
@@ -122,14 +124,15 @@
     }}
     {list {
         list.^at list.^contains list.^search list.all_of list.any_of
-        list.append list.apply_to list.at list.choice list.contains list.count
-        list.count_if list.delta list.distribution list.do list.each
-        list.enumerate list.equal list.first list.gen list.histogram
-        list.insert list.integrator list.last list.length list.max list.mean
-        list.min list.none_of list.normalize list.pass_if list.prepend
-        list.product list.range list.reduce list.remove list.remove_if
-        list.repack list.repeat list.resample list.resize list.reverse
-        list.rldecode list.rlencode list.rotate list.route list.search
+        list.append list.apply_to list.at list.choice list.contains
+        list.convolve list.correlate list.count list.count_if list.delta
+        list.distribution list.do list.each list.enumerate list.equal
+        list.first list.gen list.histogram list.insert list.integrator
+        list.last list.length list.max list.mean list.min list.none_of
+        list.normalize list.pass_if list.prepend list.product list.range
+        list.reduce list.remove list.remove_if list.repack list.repeat
+        list.resample list.resize list.reverse list.rldecode list.rlencode
+        list.rotate list.route list.rundiff list.runsum list.search
         list.separate list.seq list.set list.shift list.shuffle list.slice
         list.sort list.sort_with list.split list.stretch list.sum list.unique
         list.unpack list.unzip list.walk list.zip
@@ -143,32 +146,33 @@
     {math {
         math.abs math.abs~ math.acos math.acosh math.acosh~ math.acos~
         math.and math.approx math.asin math.asinh math.asinh~ math.asin~
-        math.atan math.atanh math.atanh~ math.atan~ math.cabs~ math.carg~
-        math.cbrt math.cbrt~ math.cdiv~ math.ceil math.ceil~ math.cexp~
-        math.cmul~ math.cos math.cosh math.cosh~ math.cos~ math.div math.e
-        math.erf math.erf~ math.exp math.exp2 math.exp2~ math.expr math.exp~
-        math.floor math.floor~ math.gamma math.gamma~ math.gcd math.inf
-        math.inf~ math.lcm math.lgamma math.lgamma~ math.log math.log10
-        math.log10~ math.log2 math.log2~ math.log~ math.mul math.nan math.nan~
-        math.neg math.or math.pi math.pi~ math.polyeval math.reciprocal
-        math.reciprocal~ math.round math.round~ math.sign math.sin math.sinh
-        math.sinh~ math.sin~ math.sqrt math.sqrt~ math.squared math.squared~
-        math.sync_add math.sync_and math.sync_div math.sync_eq math.sync_ge
-        math.sync_gt math.sync_le math.sync_lshift math.sync_lt math.sync_mod
-        math.sync_mul math.sync_ne math.sync_or math.sync_rshift math.sync_sub
-        math.sync_xor math.tan math.tanh math.tanh~ math.tan~ math.trunc
-        math.trunc~
+        math.atan math.atanh math.atanh~ math.atan~ math.binomial math.cabs~
+        math.carg~ math.cbrt math.cbrt~ math.cdiv~ math.ceil math.ceil~
+        math.cexp~ math.cmul~ math.cos math.cosh math.cosh~ math.cos~ math.div
+        math.e math.erf math.erf~ math.exp math.exp2 math.exp2~ math.expr
+        math.exp~ math.floor math.floor~ math.gamma math.gamma~ math.gcd
+        math.inf math.inf~ math.lcm math.lgamma math.lgamma~ math.log
+        math.log10 math.log10~ math.log2 math.log2~ math.log~ math.mul
+        math.nan math.nan~ math.neg math.or math.pi math.pi~ math.polyeval
+        math.reciprocal math.reciprocal~ math.round math.round~ math.sign
+        math.sin math.sinh math.sinh~ math.sin~ math.sqrt math.sqrt~
+        math.squared math.squared~ math.sync_add math.sync_and math.sync_div
+        math.sync_eq math.sync_ge math.sync_gt math.sync_le math.sync_lshift
+        math.sync_lt math.sync_mod math.sync_mul math.sync_ne math.sync_or
+        math.sync_rshift math.sync_sub math.sync_xor math.tan math.tanh
+        math.tanh~ math.tan~ math.trunc math.trunc~
     }}
     {midi {
         midi.cc midi.clock midi.ctl2str midi.event2ctl midi.event2note
-        midi.event2prg midi.file midi.kbd midi.key2str midi.oct midi.prg2str
-        midi.sustain midi.sysex midi.track midi.tuning midi.vramp midi.vrand
+        midi.event2prg midi.file midi.kbd midi.key2str midi.modus midi.oct
+        midi.prg2str midi.split midi.sustain midi.sysex midi.track midi.tuning
+        midi.vramp midi.vrand
     }}
     {misc {
-        click~ fluid~ modplug~ speech.flite speech.flite~
+        click~ fluid~ modplug~ sfizz~ speech.flite speech.flite~
     }}
     {msg {
-        loadexpr msg msg.after msg.onload
+        loadexpr msg msg.after msg.onload msg.sched
     }}
     {net {
         net.host2ip
@@ -189,7 +193,8 @@
         patch.args patch.deps patch.tree
     }}
     {path {
-        path.basename path.dirname path.exists path.is_dir path.lsdir
+        file.size path.basename path.dirname path.exists path.is_dir
+        path.lsdir path.normalize path.search path.split
     }}
     {predicates {
         is_any is_bang is_data is_dict is_even is_file is_float is_list is_odd
@@ -199,15 +204,19 @@
         preset.float preset.list preset.storage preset.symbol
     }}
     {property {
-        patch.props prop prop.declare prop.get prop.get~ prop.join prop.set
-        prop.split
+        patch.props prop prop.declare prop.get prop.get~ prop.join prop.random
+        prop.set prop.split
     }}
     {proto {
-        proto.firmata proto.midi proto.mpv proto.sp.alpaca proto.xtouch_ext
+        proto.firmata proto.midi proto.midi.cc proto.midi.sysex proto.mpv
+        proto.sp.alpaca proto.xtouch_ext
     }}
     {random {
         random.atom random.discrete random.float random.gauss random.int
         random.linear random.pw_const random.pw_lin
+    }}
+    {samp {
+        samp.time~
     }}
     {seq {
         seq.arp seq.bangs seq.counter seq.life seq.matrix seq.nbangs
@@ -221,7 +230,7 @@
         hoa.2d.projector~ hoa.2d.recomposer~ hoa.2d.rotate~ hoa.2d.wider~
         hoa.@process hoa.in hoa.in~ hoa.out hoa.out~ hoa.process~ hoa.scope~
         pan.cos~ pan.linsig~ pan.lin~ pan.spread~ pan.sqrt~ spat.pan4~
-        spat.pan8~ spat.zita6x8~
+        spat.pan8~ spat.zita6x8~ spat.zita8~
     }}
     {string {
         string string.contains string.ends_with string.equal string.format
@@ -234,10 +243,12 @@
     }}
     {synth {
         synth.bee3~ synth.birds~ synth.church_bell~ synth.dubdub~ synth.dx7~
-        synth.eguitar~ synth.fgrain~ synth.glass_harm~ synth.glitch~
-        synth.harpsichord~ synth.ks~ synth.marimba~ synth.piano~ synth.rhodey~
-        synth.risset_arp~ synth.risset_tone~ synth.russian_bell~
-        synth.shakers~ synth.sitar~ synth.wurley~
+        synth.eguitar~ synth.english_bell~ synth.fgrain~ synth.french_bell~
+        synth.german_bell~ synth.glass_harm~ synth.glitch~ synth.harpsichord~
+        synth.kick~ synth.ks~ synth.marimba~ synth.piano~ synth.rhodey~
+        synth.risset_arp~ synth.risset_bell~ synth.risset_tone~
+        synth.russian_bell~ synth.shakers~ synth.sitar~ synth.snare~
+        synth.standard_bell~ synth.tube_bell~ synth.wurley~
     }}
     {system {
         system.colorpanel system.cursor system.exec system.exit system.getenv
@@ -262,35 +273,8 @@
     {disis
         {disis_munger~}
     }
-    {fftease
-        {fftease/bthresher~ fftease/burrow~ fftease/cavoc27~ fftease/cavoc~ fftease/centerring~
-        fftease/codepend~ fftease/cross~ fftease/dentist~ fftease/disarrain~ fftease/disarray~
-        fftease/drown~ fftease/enrich~ fftease/ether~ fftease/leaker~ fftease/mindwarp~
-        fftease/morphine~ fftease/multyq~ fftease/pileup~ fftease/pvcompand~ fftease/pvgrain~
-        fftease/pvharm~ fftease/pvoc~ fftease/pvtuner~ fftease/pvwarpb~ fftease/pvwarp~
-        fftease/reanimator~ fftease/resent~ fftease/residency_buffer~ fftease/residency~
-        fftease/schmear~ fftease/scrape~ fftease/shapee~ fftease/swinger~ fftease/taint~
-        fftease/thresher~ fftease/vacancy~ fftease/xsyn~}
-    }
     {leapmotion
         {leapmotion}
-    }
-    {lyonpotpourri
-        {lyonpotpourri/adsr~ lyonpotpourri/arrayfilt~ lyonpotpourri/bashfest~ lyonpotpourri/buffet~
-        lyonpotpourri/bvplay~ lyonpotpourri/cartopol~ lyonpotpourri/channel~ lyonpotpourri/chopper~
-        lyonpotpourri/clean_selector~ lyonpotpourri/click2bang~ lyonpotpourri/click2float~
-        lyonpotpourri/clickhold~ lyonpotpourri/click~ lyonpotpourri/convolver~ lyonpotpourri/counter~
-        lyonpotpourri/distortion~ lyonpotpourri/dmach~ lyonpotpourri/dynss~ lyonpotpourri/epluribus~
-        lyonpotpourri/expflam~ lyonpotpourri/flanjah~ lyonpotpourri/function~ lyonpotpourri/granola~
-        lyonpotpourri/granulesf~ lyonpotpourri/granule~ lyonpotpourri/greater~ lyonpotpourri/impulse~
-        lyonpotpourri/kbuffer~ lyonpotpourri/killdc~ lyonpotpourri/latch~ lyonpotpourri/magfreq_analysis~
-        lyonpotpourri/markov~ lyonpotpourri/mask~ lyonpotpourri/npan~ lyonpotpourri/oscil~
-        lyonpotpourri/phasemod~ lyonpotpourri/player~ lyonpotpourri/poltocar~ lyonpotpourri/pulser~
-        lyonpotpourri/quadpan~ lyonpotpourri/rotapan~ lyonpotpourri/rtrig~ lyonpotpourri/samm~
-        lyonpotpourri/sarec~ lyonpotpourri/sel~ lyonpotpourri/shoehorn~
-        lyonpotpourri/sigseq~ lyonpotpourri/splitbank~ lyonpotpourri/splitspec~ lyonpotpourri/squash~
-        lyonpotpourri/stutter~ lyonpotpourri/vdb~ lyonpotpourri/vdp~ lyonpotpourri/vecdex~
-        lyonpotpourri/waveshape~ lyonpotpourri/windowvec~}
     }
     {soundtouch
         {soundtouch~}

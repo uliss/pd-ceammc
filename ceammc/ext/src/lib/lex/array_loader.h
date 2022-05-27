@@ -166,6 +166,8 @@ public:
     const std::vector<std::string>& arrays() const { return arrays_; }
     /** count of samples loaded to each array */
     const std::vector<size_t> loadedSamples() const { return loaded_samples_; }
+    /** list of loaded channels to each array */
+    const std::vector<uint8_t> loadedChannels() const { return loaded_channels_; }
 
     /** add array */
     void addArray(const std::string& name);
@@ -203,6 +205,7 @@ private:
     std::vector<uint8_t> channels_;
 
     std::vector<size_t> loaded_samples_;
+    std::vector<uint8_t> loaded_channels_;
 
     // output
     std::ostream* err_;

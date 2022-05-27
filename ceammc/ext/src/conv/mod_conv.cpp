@@ -2,6 +2,7 @@
 #include "conv_amp2dbfs.h"
 #include "conv_dbfs2amp.h"
 #include "conv_degree2key.h"
+#include "conv_edge2bang.h"
 #include "conv_int2bits.h"
 #include "conv_list2props.h"
 #include "conv_midi2freq.h"
@@ -76,4 +77,5 @@ void ceammc_conv_setup()
     setup_conv_degree2key();
 
     setup_conv_sig2float();
+    setup_conv_edge2bang();
 }

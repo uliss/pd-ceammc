@@ -84,6 +84,8 @@ namespace music {
         unsigned int index() const;
         unsigned int absolutePitch() const;
 
+        char letterName() const;
+
     public:
         static const PitchName C;
         static const PitchName D;

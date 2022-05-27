@@ -16,6 +16,7 @@
 #include "metro_seq.h"
 #include "mix.h"
 #include "msg_after.h"
+#include "msg_sched.h"
 #include "obj_info.h"
 #include "obj_props.h"
 #include "patch_args.h"
@@ -24,6 +25,7 @@
 #include "patch_tree.h"
 #include "prop.h"
 #include "prop_declare.h"
+#include "prop_random.h"
 #include "radio.h"
 #include "xfade2_tilde.h"
 #include "xfade_tilde.h"
@@ -43,10 +45,12 @@ extern "C" void setup_test0x2eexpect();
 void setup_base_canvas_dir();
 void setup_base_canvas_name();
 void setup_base_canvas_path();
+void setup_base_clone();
 void setup_base_expand_env();
 void setup_base_msg();
 void setup_base_replace();
 void setup_base_sync();
+void setup_base_z_tilde();
 void setup_is_data();
 void setup_is_file();
 void setup_load_expr();
@@ -74,6 +78,7 @@ void ceammc_base_setup()
     setup_base_canvas_dir();
     setup_base_canvas_name();
     setup_base_canvas_path();
+    setup_base_clone();
     setup_base_dac();
     setup_base_expand_env();
     setup_base_function();
@@ -88,6 +93,7 @@ void ceammc_base_setup()
     setup_base_sync();
     setup_base_xfade2_tilde();
     setup_base_xfade_tilde();
+    setup_base_z_tilde();
     setup_canvas_current();
     setup_canvas_top();
     setup_ceammc_search();
@@ -101,6 +107,7 @@ void ceammc_base_setup()
     setup_metro_random();
     setup_metro_seq();
     setup_msg_after();
+    setup_msg_sched();
     setup_nsig_tilde();
     setup_obj_info();
     setup_obj_props();
@@ -112,6 +119,7 @@ void ceammc_base_setup()
     setup_prop_get();
     setup_prop_get_tilde();
     setup_prop_join();
+    setup_prop_random();
     setup_prop_set();
     setup_prop_split();
     setup_snd_file();

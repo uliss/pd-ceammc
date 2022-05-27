@@ -1,0 +1,121 @@
+{
+	"name": "fx_room",
+	"filename": "fx_room.dsp",
+	"version": "2.37.3",
+	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0",
+	"library_list": ["/usr/local/share/faust/stdfaust.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/delays.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib","/usr/local/share/faust/filters.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc_ui.lib","/usr/local/share/faust/signals.lib"],
+	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
+	"inputs": 1,
+	"outputs": 1,
+	"meta": [ 
+		{ "author": "thedrgreenthumb" },
+		{ "basics.lib/name": "Faust Basic Element Library" },
+		{ "basics.lib/version": "0.2" },
+		{ "ceammc_ui.lib/name": "CEAMMC faust default UI elements" },
+		{ "ceammc_ui.lib/version": "0.1.2" },
+		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0" },
+		{ "delays.lib/name": "Faust Delay Library" },
+		{ "delays.lib/version": "0.1" },
+		{ "filename": "fx_room.dsp" },
+		{ "filters.lib/fir:author": "Julius O. Smith III" },
+		{ "filters.lib/fir:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/fir:license": "MIT-style STK-4.3 license" },
+		{ "filters.lib/highpass:author": "Julius O. Smith III" },
+		{ "filters.lib/highpass:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/iir:author": "Julius O. Smith III" },
+		{ "filters.lib/iir:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/iir:license": "MIT-style STK-4.3 license" },
+		{ "filters.lib/lowpass0_highpass1": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/lowpass0_highpass1:author": "Julius O. Smith III" },
+		{ "filters.lib/lowpass:author": "Julius O. Smith III" },
+		{ "filters.lib/lowpass:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/lowpass:license": "MIT-style STK-4.3 license" },
+		{ "filters.lib/name": "Faust Filters Library" },
+		{ "filters.lib/pole:author": "Julius O. Smith III" },
+		{ "filters.lib/pole:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/pole:license": "MIT-style STK-4.3 license" },
+		{ "filters.lib/tf2:author": "Julius O. Smith III" },
+		{ "filters.lib/tf2:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/tf2:license": "MIT-style STK-4.3 license" },
+		{ "filters.lib/tf2s:author": "Julius O. Smith III" },
+		{ "filters.lib/tf2s:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/tf2s:license": "MIT-style STK-4.3 license" },
+		{ "filters.lib/version": "0.3" },
+		{ "id": "fx.room" },
+		{ "license": "MIT" },
+		{ "maths.lib/author": "GRAME" },
+		{ "maths.lib/copyright": "GRAME" },
+		{ "maths.lib/license": "LGPL with exception" },
+		{ "maths.lib/name": "Faust Math Library" },
+		{ "maths.lib/version": "2.5" },
+		{ "name": "fx_room" },
+		{ "platform.lib/name": "Generic Platform Library" },
+		{ "platform.lib/version": "0.2" },
+		{ "signals.lib/name": "Faust Signal Routing Library" },
+		{ "signals.lib/version": "0.1" }
+	],
+	"ui": [ 
+		{
+			"type": "vgroup",
+			"label": "fx_room",
+			"items": [ 
+				{
+					"type": "checkbox",
+					"label": "bypass",
+					"address": "/fx_room/bypass"
+				},
+				{
+					"type": "hslider",
+					"label": "drywet",
+					"address": "/fx_room/drywet",
+					"meta": [
+						{ "style": "knob" }
+					],
+					"init": 0.5,
+					"min": 0,
+					"max": 1,
+					"step": 0.01
+				},
+				{
+					"type": "hslider",
+					"label": "fb",
+					"address": "/fx_room/fb",
+					"init": 0.3,
+					"min": 0,
+					"max": 1,
+					"step": 0.05
+				},
+				{
+					"type": "hslider",
+					"label": "hfdamp",
+					"address": "/fx_room/hfdamp",
+					"init": 1,
+					"min": 0,
+					"max": 1,
+					"step": 0.05
+				},
+				{
+					"type": "hslider",
+					"label": "predelay",
+					"address": "/fx_room/predelay",
+					"meta": [
+						{ "unit": "ms" }
+					],
+					"init": 20,
+					"min": 1,
+					"max": 200,
+					"step": 1
+				},
+				{
+					"type": "hslider",
+					"label": "size",
+					"address": "/fx_room/size",
+					"init": 1,
+					"min": 0,
+					"max": 3,
+					"step": 0.05
+				}
+			]
+		}
+	]
+}

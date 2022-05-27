@@ -32,9 +32,7 @@
 |    |
 [math.sign]
 |
-[msg set]
-|
-[ (
+[ui.dt]
 ]]>
             </pdascii>
         </example>

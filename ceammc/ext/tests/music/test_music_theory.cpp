@@ -34,7 +34,7 @@ using namespace ceammc::music;
 
 #define REQUIRE_SCALE(t, m, p1, p2, p3, p4, p5, p6, p7) \
     {                                                   \
-        Scale s = Tonality(PitchClass::t, m).scale();   \
+        PitchList s = Tonality(PitchClass::t, m).scale();   \
         REQUIRE(s[0] == PitchClass::p1);                \
         REQUIRE(s[1] == PitchClass::p2);                \
         REQUIRE(s[2] == PitchClass::p3);                \
@@ -258,7 +258,7 @@ TEST_CASE("MusicTheory", "[ceammc::music]")
     {
         SECTION("major")
         {
-            Scale alt = Tonality(PitchClass::D, MAJOR).alterations();
+            PitchList alt = Tonality(PitchClass::D, MAJOR).alterations();
             REQUIRE(alt.size() == 5);
             REQUIRE(alt[0] == PitchClass::Ds);
             REQUIRE(alt[1] == PitchClass::Es);
@@ -285,7 +285,7 @@ TEST_CASE("MusicTheory", "[ceammc::music]")
 
         SECTION("minor")
         {
-            Scale alt = Tonality(PitchClass::D, MINOR).alterations();
+            PitchList alt = Tonality(PitchClass::D, MINOR).alterations();
             REQUIRE(alt.size() == 5);
             REQUIRE(alt[0] == PitchClass::Ef);
             REQUIRE(alt[1] == PitchClass::Fs);
@@ -315,7 +315,7 @@ TEST_CASE("MusicTheory", "[ceammc::music]")
     {
         SECTION("major")
         {
-            Scale chrom = Tonality(PitchClass::C, MAJOR).chromatic();
+            PitchList chrom = Tonality(PitchClass::C, MAJOR).chromatic();
             REQUIRE(chrom.size() == 12);
             REQUIRE(chrom[0] == PitchClass::C);
             REQUIRE(chrom[1] == PitchClass::Cs);
@@ -363,7 +363,7 @@ TEST_CASE("MusicTheory", "[ceammc::music]")
 
         SECTION("minor")
         {
-            Scale chrom = Tonality(PitchClass::D, MINOR).chromatic();
+            PitchList chrom = Tonality(PitchClass::D, MINOR).chromatic();
             REQUIRE(chrom.size() == 12);
             REQUIRE(chrom[0] == PitchClass::D);
             REQUIRE(chrom[1] == PitchClass::Ef);

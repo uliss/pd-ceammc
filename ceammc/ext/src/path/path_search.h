@@ -20,7 +20,9 @@ using namespace ceammc;
 
 class PathSearch : public PathAsyncBase<std::string> {
     ListProperty* paths_;
-    BoolProperty* recursive_;
+    IntProperty* depth_;
+    BoolProperty* home_;
+    BoolProperty* std_;
     std::atomic_bool search_stop_;
     std::string needle_;
 
@@ -30,6 +32,8 @@ public:
 
     void onSymbol(t_symbol* s) override;
     void onDataT(const StringAtom& a);
+
+    void m_cancel(t_symbol* s, const AtomListView& lv);
 
 private:
     void processResult() override;

@@ -19,13 +19,14 @@
             <argument name="REPEATS" type="int">number of repeats</argument>
         </arguments>
         <properties>
-            <property name="@from" type="int" default="0">start value</property>
-            <property name="@to" type="int" default="0">end value</property>
+            <property name="@from" type="int" default="0">start value. Setting this property resets
+            @i to 0</property>
+            <property name="@to" type="int" default="0">end value (inclusive)</property>
             <property name="@r" type="int" default="-1" minvalue="-1">number of repeats. If -1:
             repeat infinitely.</property>
             <property name="@inf" type="alias">alias to @r -1, repeats infinitely</property>
             <property name="@once" type="alias">alias to @r 1, play once</property>
-            <property name="@i" type="int" readonly="true" default="0">current iteration</property>
+            <property name="@i" type="int" default="0">current iteration</property>
             <property name="@ri" type="int" readonly="true" default="0">current repeat
             iteration</property>
             <property name="@mode" type="symbol" enum="wrap fold" default="wrap">repeat counter

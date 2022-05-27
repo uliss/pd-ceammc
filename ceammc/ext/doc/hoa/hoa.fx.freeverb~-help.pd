@@ -1,116 +1,145 @@
-#N canvas 398 35 797 672 10;
-#X msg 16 341 \; pd dsp 1;
-#X msg 16 376 \; pd dsp 0;
-#X obj 113 134 c.gain~ @size 131 10 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
-@presetname "(null)" @mode 0 @ramp 20 @bgcolor 0.75 0.75 0.75 1 @bdcolor
-0.5 0.5 0.5 1 @kncolor 0.5 0.5 0.5 1;
-#X obj 574 32 hoa.connect;
-#X obj 574 12 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#N canvas 398 35 1045 731 10;
+#X obj 67 615 hoa.help.pub;
+#X obj 418 3 hoa.help.also;
+#X obj 272 94 phasor~ 0.1;
+#X obj 113 94 phasor~ 1;
+#X text 368 401 You can also use it in the planewave domain.;
+#X text 368 367 With diffusion \, the roomsize and the damping value
+;
+#X text 368 377 are mapped depending on the harmonic orders and degrees.
+;
+#X text 368 344 Attrs : wet \, dry \, roomsize \, damp \, diff;
+#X text 7 47 hoa.fx.freeverb~ uses the freeverb reverberation.;
+#X obj 113 133 ui.gain~ @size 120 15 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.hgain~.0" @mouse_events 0 @background_color
+0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @knob_color
+0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman"
+@fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align
+"left" @label_valign "top" @label_margins 0 0 @max 0 @min -60 @output_value
+0 @relative 1 @midi_channel 0 @midi_control 0 @midi_pickup 1 @show_range
+1;
+#X obj 272 116 phase->rad~;
+#X obj 2 20 canvas.name;
+#X obj 2 3 msg.onload;
+#X obj 2 3 hoa.help.header;
+#X obj 565 3 ui.dsp~ @size 42 42 @receive "(null)" @send "(null)" @pinned
+0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color
+0 0 0 1 @active_color 0 0.75 1 1 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner
+0 @label_side "top" @label_align "left" @label_valign "top" @label_margins
+0 0;
+#X obj 113 151 hoa.2d.encoder~ 3, f 27;
+#X obj 113 532 hoa.2d.decoder~ 3 regular 8, f 31;
+#X obj 113 564 xdac~ 1:8, f 31;
+#X obj 113 325 hoa.scope~ @size 190 190 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
+0.6 1 @label_color 0 0 0 1 @ph_color 1 0 0 1 @nh_color 0 0 1 1 @fontname
+"Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label
+"(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign
+"top" @label_margins 0 0 @gain 1 @refresh 100 @order 3 @view 0;
+#X obj 338 157 msg.onload 0;
+#X obj 428 157 msg.onload 1;
+#X obj 528 157 msg.onload 0.5;
+#X obj 639 157 msg.onload 0.75;
+#X obj 639 237 msg.onload 0.75;
+#X obj 338 179 ui.number @size 53 15 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.n.0" @background_color 0.93 0.93 0.93 1 @border_color
+0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @text_color
+0 0 0 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman"
+@fontsize 13 @label "(null)" @label_inner 0 @label_side "top" @label_align
+"left" @label_valign "top" @label_margins 0 0 @min 0 @max 1 @digits
 -1;
-#X obj 2 21 c.patcherinfos;
-#X obj 2 4 loadbang;
-#X obj 2 4 hoa.help.header;
-#X obj 67 616 hoa.help.pub;
-#X obj 418 4 hoa.help.also;
-#X obj 113 325 hoa.2d.scope~ @size 189 189 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
-@order 3 @view 0 @gain 10 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
-0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
-#X obj 113 533 hoa.2d.decoder~ 3 ambisonics 8;
-#X obj 113 565 hoa.dac~ 1:8 -----------------;
-#X obj 113 152 hoa.2d.encoder~ 3 ---------;
-#X obj 272 95 phasor~ 0.1;
-#X obj 113 95 phasor~ 1;
-#X obj 339 179 c.number @size 53 17 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
-@presetname "(null)" @min 0 @max 1 @minmax 0 1 @decimal 6 @bgcolor
-0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 338 158 c.loadmess 0;
-#X obj 429 179 c.number @size 53 17 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
-@presetname "(null)" @min 0 @max 1 @minmax 0 1 @decimal 6 @bgcolor
-0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X msg 429 203 wet \$1;
-#X obj 428 158 c.loadmess 1;
-#X msg 339 203 dry \$1;
-#X obj 272 121 hoa.pi~ 2;
-#X text 368 402 You can also use it in the planewave domain.;
-#X obj 529 179 c.number @size 53 17 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
-@presetname "(null)" @min 0 @max 1 @minmax 0 1 @decimal 6 @bgcolor
-0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X msg 529 203 damp \$1;
-#X obj 528 158 c.loadmess 0.5;
-#X obj 640 179 c.number @size 53 17 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
-@presetname "(null)" @min 0 @max 1 @minmax 0 1 @decimal 6 @bgcolor
-0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 639 158 c.loadmess 0.75;
-#X msg 640 203 roomsize \$1;
-#X text 368 368 With diffusion \, the roomsize and the damping value
-;
-#X text 368 378 are mapped depending on the harmonic orders and degrees.
-;
-#X obj 640 259 c.number @size 53 17 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
-@presetname "(null)" @min 0 @max 1 @minmax 0 1 @decimal 6 @bgcolor
-0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 639 238 c.loadmess 0.75;
-#X text 368 345 Attrs : wet \, dry \, roomsize \, damp \, diff;
-#X obj 113 259 hoa.2d.process~ 3 hoa.fx.freeverb~ harmonics @wet 1
-@dry 0 @roomsize 0.75 @ damp 0.5 @diff 0.75, f 31;
-#X msg 640 282 diff \$1;
-#X text 7 48 hoa.fx.freeverb~ uses the freeverb reverberation.;
-#X connect 2 0 13 0;
-#X connect 4 0 3 0;
-#X connect 5 0 7 0;
-#X connect 6 0 5 0;
-#X connect 11 0 12 0;
-#X connect 11 1 12 1;
-#X connect 11 2 12 2;
-#X connect 11 3 12 3;
-#X connect 11 4 12 4;
-#X connect 11 5 12 5;
-#X connect 11 6 12 6;
-#X connect 11 7 12 7;
-#X connect 13 0 35 0;
-#X connect 13 1 35 1;
-#X connect 13 2 35 2;
-#X connect 13 3 35 3;
-#X connect 13 4 35 4;
-#X connect 13 5 35 5;
-#X connect 13 6 35 6;
-#X connect 14 0 22 1;
-#X connect 15 0 2 0;
-#X connect 16 0 21 0;
-#X connect 17 0 16 0;
-#X connect 18 0 19 0;
-#X connect 19 0 35 7;
-#X connect 20 0 18 0;
-#X connect 21 0 35 7;
-#X connect 22 0 13 1;
+#X msg 338 202 @dry \$1;
+#X msg 428 202 @wet \$1;
+#X obj 428 179 ui.number @size 53 15 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.number.0" @background_color 0.93 0.93 0.93
+1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0
+0.75 1 1 @text_color 0 0 0 1 @fontname "Helvetica" @fontweight "normal"
+@fontslant "roman" @fontsize 13 @label "(null)" @label_inner 0 @label_side
+"top" @label_align "left" @label_valign "top" @label_margins 0 0 @min
+0 @max 1 @digits -1;
+#X obj 528 179 ui.number @size 53 15 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.number.1" @background_color 0.93 0.93 0.93
+1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0
+0.75 1 1 @text_color 0 0 0 1 @fontname "Helvetica" @fontweight "normal"
+@fontslant "roman" @fontsize 13 @label "(null)" @label_inner 0 @label_side
+"top" @label_align "left" @label_valign "top" @label_margins 0 0 @min
+0 @max 1 @digits -1;
+#X obj 639 179 ui.number @size 53 15 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.number.2" @background_color 0.93 0.93 0.93
+1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0
+0.75 1 1 @text_color 0 0 0 1 @fontname "Helvetica" @fontweight "normal"
+@fontslant "roman" @fontsize 13 @label "(null)" @label_inner 0 @label_side
+"top" @label_align "left" @label_valign "top" @label_margins 0 0 @min
+0 @max 0.99 @digits -1;
+#X obj 639 259 ui.number @size 53 15 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.number.3" @background_color 0.93 0.93 0.93
+1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0
+0.75 1 1 @text_color 0 0 0 1 @fontname "Helvetica" @fontweight "normal"
+@fontslant "roman" @fontsize 13 @label "(null)" @label_inner 0 @label_side
+"top" @label_align "left" @label_valign "top" @label_margins 0 0 @min
+0 @max 1 @digits -1;
+#X msg 528 202 @damp \$1;
+#X msg 639 281 @diff \$1;
+#X msg 639 202 @room \$1;
+#X obj 113 258 hoa.process~ 3 hoa.fx.freeverb~ harmonics "@wet" 1 "@dry"
+0 "@room" 0.75 "@damp" 0.5 "@diff" 0.75, f 31;
+#X obj 6 219 ui.radio @size 105 15 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.hrd.0" @mouse_events 0 @background_color
+0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color
+0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman"
+@fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align
+"left" @label_valign "top" @label_margins 0 0 @nitems 7 @mode 0;
+#X msg 6 241 open \$1;
+#X connect 2 0 10 0;
+#X connect 3 0 9 0;
+#X connect 9 0 15 0;
+#X connect 10 0 15 1;
+#X connect 12 0 11 0;
+#X connect 15 0 34 0;
+#X connect 15 1 34 1;
+#X connect 15 2 34 2;
+#X connect 15 3 34 3;
+#X connect 15 4 34 4;
+#X connect 15 5 34 5;
+#X connect 15 6 34 6;
+#X connect 16 0 17 0;
+#X connect 16 1 17 1;
+#X connect 16 2 17 2;
+#X connect 16 3 17 3;
+#X connect 16 4 17 4;
+#X connect 16 5 17 5;
+#X connect 16 6 17 6;
+#X connect 16 7 17 7;
+#X connect 19 0 24 0;
+#X connect 20 0 27 0;
+#X connect 21 0 28 0;
+#X connect 22 0 29 0;
+#X connect 23 0 30 0;
 #X connect 24 0 25 0;
-#X connect 25 0 35 7;
-#X connect 26 0 24 0;
-#X connect 27 0 29 0;
-#X connect 28 0 27 0;
-#X connect 29 0 35 7;
-#X connect 32 0 36 0;
-#X connect 33 0 32 0;
-#X connect 35 0 10 0;
-#X connect 35 0 11 0;
-#X connect 35 1 10 1;
-#X connect 35 1 11 1;
-#X connect 35 2 10 2;
-#X connect 35 2 11 2;
-#X connect 35 3 10 3;
-#X connect 35 3 11 3;
-#X connect 35 4 10 4;
-#X connect 35 4 11 4;
-#X connect 35 5 10 5;
-#X connect 35 5 11 5;
-#X connect 35 6 10 6;
-#X connect 35 6 11 6;
-#X connect 36 0 35 7;
-#X coords 0 672 1 671 100 60 0;
+#X connect 25 0 34 7;
+#X connect 26 0 34 7;
+#X connect 27 0 26 0;
+#X connect 28 0 31 0;
+#X connect 29 0 33 0;
+#X connect 30 0 32 0;
+#X connect 31 0 34 7;
+#X connect 32 0 34 7;
+#X connect 33 0 34 7;
+#X connect 34 0 16 0;
+#X connect 34 0 18 0;
+#X connect 34 1 16 1;
+#X connect 34 1 18 1;
+#X connect 34 2 16 2;
+#X connect 34 2 18 2;
+#X connect 34 3 16 3;
+#X connect 34 3 18 3;
+#X connect 34 4 16 4;
+#X connect 34 4 18 4;
+#X connect 34 5 16 5;
+#X connect 34 5 18 5;
+#X connect 34 6 16 6;
+#X connect 34 6 18 6;
+#X connect 35 0 36 0;
+#X connect 36 0 34 0;
+#X coords 0 731 1 730 100 60 0;

@@ -289,7 +289,7 @@ TEST_CASE("ceammc::platform", "[ceammc::lib]")
             == TEST_DATA_DIR "/snd_mono_48k.wav");
 
         // full path
-        REQUIRE(ceammc::platform::find_in_std_path(cnv->pd_canvas(), TEST_DATA_DIR) == TEST_DATA_DIR);
+        REQUIRE(ceammc::platform::find_in_std_path(cnv->pd_canvas(), TEST_DATA_DIR "/snd_mono_48k.wav") == TEST_DATA_DIR "/snd_mono_48k.wav");
     }
 
     SECTION("strip extension")

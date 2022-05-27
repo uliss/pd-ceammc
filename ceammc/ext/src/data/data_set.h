@@ -16,10 +16,11 @@
 
 #include "dataset_iface.h"
 #include "datatype_set.h"
+#include "editor_set.h"
 
 using namespace ceammc;
 
-using DataSetBase = DataSetIface<BaseObject>;
+using DataSetBase = EditorSetT<DataSetIface<BaseObject>>;
 
 class DataSet : public DataSetBase {
     DataTypeSet set_;
@@ -29,6 +30,8 @@ public:
 
     DataTypeSet& data() final { return set_; }
     const DataTypeSet& data() const final { return set_; }
+
+    EditorTitleString editorTitle() const final { return "DATA.SET"; }
 };
 
 void setup_data_set();

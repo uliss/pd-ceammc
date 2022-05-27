@@ -100,7 +100,7 @@ bool DataTypeSet::contains_any_of(const AtomList& lst) const noexcept
 
 std::string DataTypeSet::toString() const
 {
-    return std::string("Set ") + to_string(toList());
+    return to_string(toList());
 }
 
 int DataTypeSet::type() const noexcept

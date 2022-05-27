@@ -70,7 +70,7 @@
 |   |         |
 |   |         [@mode $1(
 |   |         |
-[seq.matrix 16 120#4bpm] [loadmsg random]
+[seq.matrix 16 120|8bpm] [loadmsg random]
 |                        |
 [ui.matrix 3 16 @size 257 46]
 |

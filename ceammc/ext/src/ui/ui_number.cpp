@@ -167,10 +167,13 @@ void UINumber::onDblClick(t_object* view, const t_pt& pt, long modifiers)
 
 void UINumber::onKey(int k, long modifiers)
 {
+    constexpr int KEY_UP = 0xFF52;
+    constexpr int KEY_DOWN = 0xFF54;
+
     if (edit_mode_ == MODE_DISPLAY) {
-        if (k == '-')
+        if (k == '-' || k == KEY_DOWN)
             onFloat(value_ - 1);
-        else if (k == '+')
+        else if (k == '+' || k == KEY_UP)
             onFloat(value_ + 1);
 
         return;

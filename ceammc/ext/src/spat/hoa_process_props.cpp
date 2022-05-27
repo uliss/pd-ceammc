@@ -14,6 +14,7 @@
 #include "hoa_process_props.h"
 #include "ceammc_canvas.h"
 #include "ceammc_factory.h"
+#include "ceammc_fn_list.h"
 #include "ceammc_format.h"
 #include "datatype_property.h"
 #include "hoa_process.h"
@@ -122,17 +123,19 @@ static bool prop_equal(const char* a, const char* b)
     return true;
 }
 
-bool HoaProcessProps::eachProperty(const AtomList& lst,
+bool HoaProcessProps::eachProperty(const AtomListView& lv,
     std::function<bool(t_symbol*)> is_valid,
-    std::function<void(Property*, t_symbol*, const AtomList&)> inner_process,
-    std::function<void(DataTypeProperty*, const std::string&, const AtomList&)> declared_process)
+    std::function<void(Property*, t_symbol*, const AtomListView&)> inner_process,
+    std::function<void(DataTypeProperty*, const std::string&, const AtomListView&)> declared_process)
 {
     std::vector<t_symbol*> all_declared_keys;
     PropertyStorage::storage().keys(all_declared_keys);
     int cnt = 0; // success count
 
     // split list to list of properties
-    for (auto& args : lst.properties()) {
+    auto prop = list::findProperty(lv);
+    while (!prop.first.empty()) {
+        const auto& args = prop.first;
         assert(args[0].isProperty());
 
         t_symbol* p = args[0].asSymbol();
@@ -145,7 +148,7 @@ bool HoaProcessProps::eachProperty(const AtomList& lst,
         for (auto inner_prop : properties()) {
             // found inner property
             if (prop_equal(inner_prop->name()->s_name, p->s_name)) {
-                inner_process(inner_prop, inner_prop->name(), args.slice(1));
+                inner_process(inner_prop, inner_prop->name(), args.subView(1));
                 cnt++;
                 goto continue_label;
             }
@@ -163,14 +166,14 @@ bool HoaProcessProps::eachProperty(const AtomList& lst,
                 // using slower O(n) string compare instead of quick t_symbol* compare O(1)
                 // to prevent increasing t_symbol table
                 if (full_name != k->s_name)
-                    continue;
+                    continue; // inner continue
 
                 // key found
                 auto prop = PropertyStorage::storage().acquire(k);
                 if (!prop) // but not acquired
                     break; // break inner loop, check other prop request
 
-                declared_process(prop, prop_name, args.slice(1));
+                declared_process(prop, prop_name, args.subView(1));
 
                 PropertyStorage::storage().release(k);
                 cnt++;
@@ -181,13 +184,15 @@ bool HoaProcessProps::eachProperty(const AtomList& lst,
         }
 
     continue_label:
+
+        prop = list::findProperty(prop.second);
         continue;
     }
 
     return cnt > 0;
 }
 
-bool HoaProcessProps::processAnyProps(t_symbol* sel, const AtomListView& lst)
+bool HoaProcessProps::processAnyProps(t_symbol* sel, const AtomListView& lv)
 {
     if (sel->s_name[0] != '@')
         return false;
@@ -196,7 +201,7 @@ bool HoaProcessProps::processAnyProps(t_symbol* sel, const AtomListView& lst)
         AtomList out;
 
         eachProperty(
-            AtomList(sel) + lst,
+            AtomList(sel) + lv,
             [this](t_symbol* s) {
                 if (!isPropQuery(s)) {
                     OBJ_ERR << "property query expected: " << s->s_name;
@@ -204,11 +209,11 @@ bool HoaProcessProps::processAnyProps(t_symbol* sel, const AtomListView& lst)
                 } else
                     return true;
             },
-            [&out](Property* prop, t_symbol* name, const AtomList&) {
+            [&out](Property* prop, t_symbol* name, const AtomListView&) {
                 out.append(name);
                 out.append(prop->get());
             },
-            [&out](DataTypeProperty* prop, const std::string& name, const AtomList&) {
+            [&out](DataTypeProperty* prop, const std::string& name, const AtomListView&) {
                 out.append(gensym(name.c_str()));
                 propToList(prop, out);
             });
@@ -216,7 +221,7 @@ bool HoaProcessProps::processAnyProps(t_symbol* sel, const AtomListView& lst)
         anyTo(0, out);
     } else {
         eachProperty(
-            AtomList(sel) + lst,
+            AtomList(sel) + lv,
             [this](t_symbol* s) {
                 bool ok = Atom(s).isProperty() && !isPropQuery(s);
                 if (!ok) {
@@ -225,8 +230,8 @@ bool HoaProcessProps::processAnyProps(t_symbol* sel, const AtomListView& lst)
                 } else
                     return true;
             },
-            [](Property*, t_symbol*, const AtomList&) {},
-            [this](DataTypeProperty* prop, const std::string&, const AtomList& args) {
+            [](Property*, t_symbol*, const AtomListView&) {},
+            [this](DataTypeProperty* prop, const std::string&, const AtomListView& args) {
                 // per instance args
                 if (args.size() > 1) {
                     switch (prop->propertyType()) {
@@ -238,7 +243,7 @@ bool HoaProcessProps::processAnyProps(t_symbol* sel, const AtomListView& lst)
                         if (idx >= args.size()) {
                             OBJ_ERR << "invalid list size: " << idx << ", index not exists: " << idx;
                         } else {
-                            prop->setFromPdArgs(args.slice(idx, idx + 1));
+                            prop->setFromPdArgs(args.subView(idx, 1));
                         }
                     } break;
                     case PropValueType::LIST:
@@ -286,19 +291,19 @@ void HoaProcessProps::onList(const AtomList& lst)
     atomTo(0, lst[idx]);
 }
 
-HoaProcessPropsData processHoaProps(const AtomList& lst)
+HoaProcessPropsData processHoaProps(const AtomListView& lv)
 {
-    if (lst.size() < 5) {
+    if (lv.size() < 5) {
         std::ostringstream os;
-        os << "at least 5 arguments required: " << lst;
+        os << "at least 5 arguments required: " << lv;
         throw std::runtime_error(os.str());
     }
 
-    auto mode = lst[0].asSymbol();
-    auto type = lst[1].asSymbol();
-    auto order = lst[2];
-    auto idx0 = lst[3];
-    auto idx1 = lst[4];
+    auto mode = lv[0].asSymbol();
+    auto type = lv[1].asSymbol();
+    auto order = lv[2];
+    auto idx0 = lv[3];
+    auto idx1 = lv[4];
 
     if (mode != SYM_2D && mode != SYM_3D) {
         std::ostringstream os;

@@ -195,20 +195,22 @@ if(APPLE)
     set(BUNDLE ${PD_MACOSX_APP})
     set(BUNDLE_FULL_PATH "${PROJECT_BINARY_DIR}/dist/${BUNDLE}")
     set(DMG_FULL_PATH "${PROJECT_BINARY_DIR}/dist/${PD_MACOSX_DMG}")
-    set(MAKE_BUNDLE_SCRIPT ${PROJECT_BINARY_DIR}/dist/ceammc_build.sh)
+    set(MAKE_BUNDLE_SCRIPT ${PROJECT_BINARY_DIR}/dist/make_bundle.sh)
 
     # copy and substitute variables to Info.plist
     file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/dist)
     configure_file(${PROJECT_SOURCE_DIR}/ceammc/gui/Info.plist ${PROJECT_BINARY_DIR}/dist/Info.plist)
 
     # tk versions later then 8.6.8 have problems with russian keyboard shortcuts
-    set(TK_VERSION "8.6.10")
+    set(TK_VERSION "8.6.12")
     set(EMBEDDED_WISH "${PROJECT_SOURCE_DIR}/mac/Wish-${TK_VERSION}.app")
 
     if(EXISTS ${EMBEDDED_WISH})
         set(WISH_APP "${EMBEDDED_WISH}")
     else()
-        message(FATAL_ERROR "TCL not found. You should build embedded Wish.app with build scripts in ./mac durectory")
+        message(FATAL_ERROR "TCL (${TK_VERSION}) not found. You should build embedded Wish.app with build scripts in ${PROJECT_SOURCE_DIR}/mac directory. Run:")
+        message(FATAL_ERROR "   ./tcltk-wish.sh --download ${TK_VERSION}")
+        message(FATAL_ERROR "   ./tcltk-wish.sh --build --leave ${TK_VERSION}")
     endif()
 
     message(STATUS "found Wish.app: ${WISH_APP}")
@@ -227,16 +229,6 @@ if(APPLE)
     add_custom_target(app)
 
     add_custom_command(TARGET app PRE_BUILD
-        COMMAND ${CMAKE_COMMAND}
-            -DPROJECT_SOURCE_DIR="${PROJECT_SOURCE_DIR}"
-            -DPROJECT_BINARY_DIR="${PROJECT_BINARY_DIR}"
-            -DBUNDLE=${BUNDLE_FULL_PATH}
-            -DWISH_APP=${WISH_APP}
-            -DTK_VERSION=${TK_VERSION}
-            -DLEAPMOTION_LIBRARY=${LEAPMOTION_LIBRARY}
-            -DDYLIBBUNDLER="${CMAKE_BINARY_DIR}/ceammc/distrib/mac/dylibbundler"
-            -DCEAMMC_LIB_VERSION=${CEAMMC_LIB_VERSION}
-            -P ${PROJECT_SOURCE_DIR}/cmake/cmake_build_mac.cmake
         COMMAND ${CMAKE_COMMAND} -E rm -rf ${BUNDLE_FULL_PATH}
         COMMAND sh ${MAKE_BUNDLE_SCRIPT}
         COMMAND ${CMAKE_COMMAND}
@@ -262,6 +254,7 @@ if(APPLE)
             ${BUNDLE_FULL_PATH}
             ${DMG_FULL_PATH}
             ${PROJECT_SOURCE_DIR}
+            ${PD_MACOSX_DMG_APP}
         WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
         DEPENDS app)
 endif()

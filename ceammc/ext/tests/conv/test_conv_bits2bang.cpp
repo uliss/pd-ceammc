@@ -121,7 +121,7 @@ TEST_CASE("conv.bits2bang", "[externals]")
 
     SECTION("@poly")
     {
-        auto ml = [](int i) { return Message(AtomList({ i, &s_bang })); };
+        auto ml = [](int i) { return Message(AtomList({ (t_float)i, &s_bang })); };
 
         SECTION("stright")
         {

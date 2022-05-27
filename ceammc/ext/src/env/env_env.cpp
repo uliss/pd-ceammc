@@ -26,8 +26,8 @@ Envelope::Envelope(const PdArgs& args)
 
     t_symbol* method = parsedPosArgs().symbolAt(0, SYM_EMPTY);
 
-    if (env_->isNamedEnvelope(method))
-        env_->setNamedEnvelope(method, parsedPosArgs().slice(1));
+    if (env_->isNamedEnvelope(method->s_name))
+        env_->setNamedEnvelope(method->s_name, parsedPosArgs().slice(1));
     else if (method != SYM_EMPTY) // wrong name
         OBJ_ERR << "unknown arguments: " << parsedPosArgs();
 

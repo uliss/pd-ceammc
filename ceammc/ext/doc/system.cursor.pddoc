@@ -7,7 +7,7 @@
                 <author>Hans-Christoph Steiner</author>
                 <author>Serge Poltavski</author>
             </authors>
-            <description>Output cursor motion, mousewheel and buttonclicks</description>
+            <description>Output cursor motion, mousewheel and button clicks</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>system</category>
@@ -16,8 +16,19 @@
         </meta>
         <properties>
             <property name="@relative" type="int" enum="0 1" default="0">relative output mode: if
-            on output coords relative to window, otherwise output screen coordinates</property>
+            on output coords relative to the root window, otherwise output screen
+            coordinates</property>
+            <property name="@norm" type="int" enum="0 1" default="0">cursor x/y coordinates
+            normalization by screen (or window) width/height</property>
+            <property name="@clip" type="int" enum="0 1" default="0">clip mode. If true clip a
+            cursor XY values to the [0..1] range in normalized mode, to the window width/height
+            relative mode, otherwise to the screen width/height</property>
         </properties>
+        <methods>
+            <method name="polltime">sets global cursor polling time 
+            <param name="T" type="float" units="millisecond" minvalue="10" maxvalue="1000"
+            required="true">polling time</param></method>
+        </methods>
         <inlets>
             <inlet>
                 <xinfo on="bang">output cursor position</xinfo>
@@ -31,17 +42,68 @@
         <example>
             <pdascii>
 <![CDATA[
-[T]             [T]
-|               |
-|  [bang(       [@relative $1(
-|  |            |
-[system.cursor  ]
+[T]       [T]            [T]        [T]         [system.cursor.abs]
+|         |              |          |
+|  [bang( [@relative $1( [@norm $1( [@clip $1(  [system.cursor.osc~]
+|  |      |              |          |
+|  |      |              |          |
+|  |      |              |          |
+[system.cursor                      ]
 |
 [route motion mousewheel button]
-|          ^|   ^^|
-[msg set]  [F]   [route 1 2 3]
-|                |   ^|   ^^|
-[ (              [T] [T]  [T]
+|        ^|   ^^|
+|        [F]   [route 1 2 3]
+|              |   ^|   ^^|
+|              [T] [T]  [T]
+|
+[ui.dt]
+]]>
+            </pdascii>
+            <pdascii id="1">
+<![CDATA[
+[inlet]
+|
+[system.cursor]
+|
+[outlet]
+]]>
+            </pdascii>
+            <pdascii id="abs">
+<![CDATA[
+[T]       [T]            [T]        [T]
+|         |              |          |
+|  [bang( [@relative $1( [@norm $1( [@clip $1(
+|  |      |              |          |
+|  |      |              |          |
+|  |      |              |          |
+[system.cursor.1                    ]
+|
+[route motion mousewheel button]
+|        ^|   ^^|
+|        [F]   [route 1 2 3]
+|              |   ^|   ^^|
+|              [T] [T]  [T]
+|
+[ui.dt]
+]]>
+            </pdascii>
+            <pdascii id="osc~">
+<![CDATA[
+[T]
+|
+[system.cursor @norm 1 @clip 1]
+|
+[route motion]
+|
+[lin->lin 0 1 100 5000]
+|
+[unpack f f]
+|       ^|
+[osc~]  [osc~]
+|       |
+[ui.hgain~]       [ui.dsp~]
+|\
+[dac~]
 ]]>
             </pdascii>
         </example>

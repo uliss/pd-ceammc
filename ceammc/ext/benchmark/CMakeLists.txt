@@ -17,7 +17,7 @@ function(add_benchmark name)
 
     set_property(TARGET bm_${name} APPEND_STRING PROPERTY LINK_FLAGS "${PD_EXTERNAL_LDFLAGS}")
 
-    message(STATUS "Bechmark target added: benchmark_${name}")
+    message(STATUS "Benchmark target added: benchmark_${name}")
 
     set(_REPORT "${BM_HTML_DIR}/benchmark_${name}.html")
     add_custom_target(benchmark_${name}
@@ -31,6 +31,7 @@ add_benchmark(atomlist)
 add_benchmark(control_externals)
 add_benchmark(core)
 add_benchmark(dataptr)
+add_benchmark(grain_expr)
 
 
 # lowlevel tests
@@ -39,6 +40,7 @@ target_link_libraries(bm_lowlevel bm_main puredata-core fmt)
 target_link_libraries(bm_core re2)
 target_include_directories(bm_core PRIVATE $<TARGET_PROPERTY:re2,INCLUDE_DIRECTORIES>)
 target_include_directories(bm_core PRIVATE $<TARGET_PROPERTY:reflex,INCLUDE_DIRECTORIES>)
+target_include_directories(bm_grain_expr PRIVATE ${PROJECT_SOURCE_DIR}/ceammc/ext/src/array)
 
 add_custom_target(benchmark_lowlevel
     COMMAND ${CMAKE_CURRENT_BINARY_DIR}/bm_lowlevel -r html -o "${BM_HTML_DIR}/benchmark_lowlevel.html"

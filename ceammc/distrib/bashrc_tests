@@ -1,0 +1,7 @@
+function ntestm() {
+    cmake --build . --target test_ext_$1 && ./ceammc/ext/tests/test_ext_$1 "${@:2}"
+}
+
+function ntest() {
+    cmake --build . --target test_$1 && ./ceammc/ext/tests/test_$1 "${@:2}"
+}

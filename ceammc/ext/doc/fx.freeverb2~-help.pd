@@ -32,12 +32,12 @@ Schroeder-Moorer filtered-feedback comb-filters for each audio channel
 #X text 110 552 1\.;
 #X text 150 552 float;
 #X obj 246 553 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 552 ROOM: room size. Range: 0\...1;
+#X text 245 552 ROOM: room size. Type: float. Range: 0\...1;
 #X text 110 572 2\.;
 #X text 150 572 float;
 #X obj 246 573 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 572 DRYWET: proportion of mix between the original (dry)
-and 'effected' (wet) signals. Range: 0\...1;
+and 'effected' (wet) signals. Type: float. Range: 0\...1;
 #X obj 20 617 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 622 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -97,13 +97,13 @@ maximum spread. Type: float. Default value: 0.5\. Range: 0\...1\.;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title fx @url ceammc.fx-help.pd;
 #X obj 1 1311 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1314 library: ceammc v0.9.3;
+#X text 10 1314 library: ceammc v0.9.4;
 #N canvas 10 1333 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.3;
+#X text 120 32 0.9.4;
 #X text 10 54 object:;
 #X text 120 54 fx.freeverb2~;
 #X text 10 76 category:;

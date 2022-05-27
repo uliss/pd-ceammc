@@ -1,0 +1,17 @@
+#N canvas 0 0 842 414 12;
+#X msg 20 48 note 1 60 120 \, note 1 65 120 \, note 2 47 120;
+#X msg 39 77 reset;
+#X msg 116 77 reset 1;
+#X msg 212 77 reset 2;
+#X obj 20 106 fluid~;
+#X obj 20 135 ui.hgain2~;
+#X obj 173 135 ui.dsp~;
+#X obj 20 164 dac~;
+#X connect 0 0 4 0;
+#X connect 1 0 4 0;
+#X connect 2 0 4 0;
+#X connect 3 0 4 0;
+#X connect 4 0 5 0;
+#X connect 4 1 5 1;
+#X connect 5 0 7 0;
+#X connect 5 1 7 1;

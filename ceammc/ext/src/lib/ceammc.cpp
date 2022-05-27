@@ -37,6 +37,7 @@ SymbolTable::SymbolTable()
     : s_annotate_fn(gensym(".annotate"))
     , s_propget_fn(gensym(".propget"))
     , s_propset_fn(gensym(".propset"))
+    , s_propfind_fn(gensym(".propfind"))
     , s_is_base_obj_fn(gensym(".is_base?"))
     , s_is_cicm_obj_fn(gensym(".is_cicm?"))
     , s_is_flext_obj_fn(gensym(".is_flext?"))
@@ -126,6 +127,11 @@ void ceammc_class_add_propset_fn(t_class* c, PropertySetFn fn)
     class_addmethod(c, reinterpret_cast<t_method>(fn), SymbolTable::instance().s_propset_fn, A_CANT, A_NULL);
 }
 
+void ceammc_class_add_propfind_fn(t_class* c, PropertyFindFn fn)
+{
+    class_addmethod(c, reinterpret_cast<t_method>(fn), SymbolTable::instance().s_propfind_fn, A_CANT, A_NULL);
+}
+
 PropertyGetFn ceammc_get_propget_fn(t_object* x)
 {
     if (!x)
@@ -140,6 +146,14 @@ PropertySetFn ceammc_get_propset_fn(t_object* x)
         return nullptr;
     else
         return reinterpret_cast<PropertySetFn>(zgetfn(&x->te_g.g_pd, SymbolTable::instance().s_propset_fn));
+}
+
+PropertyFindFn ceammc_get_propfind_fn(t_object* x)
+{
+    if (!x)
+        return nullptr;
+    else
+        return reinterpret_cast<PropertyFindFn>(zgetfn(&x->te_g.g_pd, SymbolTable::instance().s_propfind_fn));
 }
 
 }

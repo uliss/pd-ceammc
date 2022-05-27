@@ -3,19 +3,25 @@ macro(ceammc_misc_external mod name)
     ceammc_faust_gen_obj(${mod} ${name})
 endmacro()
 
+ceammc_misc_external(aubio pitchshift_tilde)
 ceammc_misc_external(live capture)
+ceammc_misc_external(risset glissando)
 
 add_library(ceammc_misc STATIC mod_misc.cpp ${MISC_SOURCES})
 target_compile_definitions(ceammc_misc PRIVATE -DFAUST_MACRO)
-target_include_directories(ceammc_misc PRIVATE ${PROJECT_SOURCE_DIR}/ceammc/extra/aubio)
+target_include_directories(ceammc_misc
+    PRIVATE
+        ${PROJECT_SOURCE_DIR}/ceammc/extra/aubio
+        "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>"
+    PUBLIC
+        ${PROJECT_SOURCE_DIR}/ceammc/ext/src
+)
 
 if(WITH_FLUIDSYNTH)
     target_include_directories(ceammc_misc
         PRIVATE
         ${FLUIDSYNTH_INCLUDES}
-        ${FLUIDSYNTH_INCLUDES}/../src
-        PUBLIC
-        ${PROJECT_SOURCE_DIR}/ceammc/ext/src)
+        ${FLUIDSYNTH_INCLUDES}/../src)
     target_link_libraries(ceammc_misc PUBLIC ${FLUIDSYNTH_LIBRARIES} ceammc_proto)
     target_sources(ceammc_misc PRIVATE fluid.cpp)
 endif()
@@ -33,6 +39,14 @@ if(SFIZZ_FOUND)
     target_compile_definitions(ceammc_misc PRIVATE -DWITH_SFIZZ)
     target_link_libraries(ceammc_misc PUBLIC ${SFIZZ_LIBRARIES})
     target_sources(ceammc_misc PRIVATE sfizz_tilde.cpp)
+    target_compile_definitions(ceammc_misc PRIVATE -DWITH_SFIZZ -DSFIZZ_VERSION="1.1.1")
+
+    target_include_directories(ceammc_misc PUBLIC ${sfizz_SOURCE_DIR}/src)
+    if(WIN32)
+        target_link_libraries(ceammc_misc PUBLIC sfizz::shared)
+    else()
+        target_link_libraries(ceammc_misc PRIVATE sfizz_static)
+    endif()
 endif()
 
 if(WITH_MODPLUG)

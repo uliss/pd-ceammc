@@ -36,7 +36,7 @@ with {
 };
 
 process = snare * amp with {
-    gate = checkbox("gate");
+    gate = checkbox("gate [type:float]");
     trigger = (gate>gate');
 
     // using gate value as amplitude: sample and hold it on gate open

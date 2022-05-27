@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "osc_square"
-Code generated with Faust 2.30.12 (https://faust.grame.fr)
-Compilation options: -lang cpp -es 1 -scal -ftz 0
+Code generated with Faust 2.37.3 (https://faust.grame.fr)
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __osc_square_H__
@@ -218,24 +218,69 @@ class dsp_factory {
     
 };
 
-/**
- * On Intel set FZ (Flush to Zero) and DAZ (Denormals Are Zero)
- * flags to avoid costly denormals.
- */
+// Denormal handling
 
-#ifdef __SSE__
-    #include <xmmintrin.h>
-    #ifdef __SSE2__
-        #define AVOIDDENORMALS _mm_setcsr(_mm_getcsr() | 0x8040)
-    #else
-        #define AVOIDDENORMALS _mm_setcsr(_mm_getcsr() | 0x8000)
-    #endif
-#else
-    #define AVOIDDENORMALS
+#if defined (__SSE__)
+#include <xmmintrin.h>
 #endif
 
+class ScopedNoDenormals
+{
+    private:
+    
+        intptr_t fpsr;
+        
+        void setFpStatusRegister(intptr_t fpsr_aux) noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+           asm volatile("msr fpcr, %0" : : "ri" (fpsr_aux));
+        #elif defined (__SSE__)
+            _mm_setcsr(static_cast<uint32_t>(fpsr_aux));
+        #endif
+        }
+        
+        void getFpStatusRegister() noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+            asm volatile("mrs %0, fpcr" : "=r" (fpsr));
+        #elif defined ( __SSE__)
+            fpsr = static_cast<intptr_t>(_mm_getcsr());
+        #endif
+        }
+    
+    public:
+    
+        ScopedNoDenormals() noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+            intptr_t mask = (1 << 24 /* FZ */);
+        #else
+            #if defined(__SSE__)
+            #if defined(__SSE2__)
+                intptr_t mask = 0x8040;
+            #else
+                intptr_t mask = 0x8000;
+            #endif
+            #else
+                intptr_t mask = 0x0000;
+            #endif
+        #endif
+            getFpStatusRegister();
+            setFpStatusRegister(fpsr | mask);
+        }
+        
+        ~ScopedNoDenormals() noexcept
+        {
+            setFpStatusRegister(fpsr);
+        }
+
+};
+
+#define AVOIDDENORMALS ScopedNoDenormals();
+
 #endif
-/**************************  END  osc_square_dsp.h **************************/
+
+/************************** END osc_square_dsp.h **************************/
 /************************** BEGIN UI.h **************************/
 /************************************************************************
  FAUST Architecture File
@@ -309,6 +354,9 @@ struct UIReal
     // -- metadata declarations
     
     virtual void declare(REAL* zone, const char* key, const char* val) {}
+    
+    // To be used by LLVM client
+    virtual int sizeOfFAUSTFLOAT() { return sizeof(FAUSTFLOAT); }
 };
 
 struct UI : public UIReal<FAUSTFLOAT>
@@ -532,19 +580,19 @@ class osc_square : public osc_square_dsp {
 	
 	void metadata(Meta* m) { 
 		m->declare("basics.lib/name", "Faust Basic Element Library");
-		m->declare("basics.lib/version", "0.1");
-		m->declare("compile_options", "-lang cpp -es 1 -scal -ftz 0");
+		m->declare("basics.lib/version", "0.2");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0");
 		m->declare("filename", "osc_square.dsp");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
-		m->declare("maths.lib/version", "2.3");
+		m->declare("maths.lib/version", "2.5");
 		m->declare("name", "osc_square");
 		m->declare("oscillators.lib/name", "Faust Oscillator Library");
 		m->declare("oscillators.lib/version", "0.1");
 		m->declare("platform.lib/name", "Generic Platform Library");
-		m->declare("platform.lib/version", "0.1");
+		m->declare("platform.lib/version", "0.2");
 	}
 
 	virtual int getNumInputs() {
@@ -552,34 +600,6 @@ class osc_square : public osc_square_dsp {
 	}
 	virtual int getNumOutputs() {
 		return 1;
-	}
-	virtual int getInputRate(int channel) {
-		int rate;
-		switch ((channel)) {
-			case 0: {
-				rate = 1;
-				break;
-			}
-			default: {
-				rate = -1;
-				break;
-			}
-		}
-		return rate;
-	}
-	virtual int getOutputRate(int channel) {
-		int rate;
-		switch ((channel)) {
-			case 0: {
-				rate = 1;
-				break;
-			}
-			default: {
-				rate = -1;
-				break;
-			}
-		}
-		return rate;
 	}
 	
 	static void classInit(int sample_rate) {
@@ -638,8 +658,8 @@ class osc_square : public osc_square_dsp {
 	virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
 		FAUSTFLOAT* input0 = inputs[0];
 		FAUSTFLOAT* output0 = outputs[0];
-		for (int i = 0; (i < count); i = (i + 1)) {
-			float fTemp0 = float(input0[i]);
+		for (int i0 = 0; (i0 < count); i0 = (i0 + 1)) {
+			float fTemp0 = float(input0[i0]);
 			iVec0[0] = 1;
 			float fTemp1 = std::max<float>(fTemp0, 23.4489498f);
 			float fTemp2 = std::max<float>(20.0f, std::fabs(fTemp1));
@@ -652,7 +672,8 @@ class osc_square : public osc_square_dsp {
 			float fTemp6 = std::max<float>(0.0f, std::min<float>(2047.0f, (fConst3 / fTemp1)));
 			int iTemp7 = int(fTemp6);
 			float fTemp8 = std::floor(fTemp6);
-			output0[i] = FAUSTFLOAT(((fTemp0 == 0.0f) ? 0.0f : (fConst1 * ((fTemp5 - (fVec2[((IOTA - iTemp7) & 4095)] * (fTemp8 + (1.0f - fTemp6)))) - ((fTemp6 - fTemp8) * fVec2[((IOTA - (iTemp7 + 1)) & 4095)])))));
+			float fThen0 = (fConst1 * ((fTemp5 - (fVec2[((IOTA - iTemp7) & 4095)] * (fTemp8 + (1.0f - fTemp6)))) - ((fTemp6 - fTemp8) * fVec2[((IOTA - (iTemp7 + 1)) & 4095)])));
+			output0[i0] = FAUSTFLOAT(((fTemp0 == 0.0f) ? 0.0f : fThen0));
 			iVec0[1] = iVec0[0];
 			fRec0[1] = fRec0[0];
 			fVec1[1] = fVec1[0];

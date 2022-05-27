@@ -29,6 +29,7 @@ PD_TCL=$PD_RESOURCES/tcl
 PD_PO=$PD_RESOURCES/po
 PD_CEAMMC=$PD_EXTRA/ceammc
 PD_SF2=$PD_CEAMMC/sf2
+PD_SFZ=$PD_CEAMMC/sfz
 PD_SAMPLES=$PD_CEAMMC/sound
 
 # absolute dir names
@@ -43,6 +44,7 @@ BUNDLE_BIN="${DIST_DIR}/${PD_BIN}"
 BUNDLE_TCL="${DIST_DIR}/${PD_TCL}"
 BUNDLE_CEAMMC="${DIST_DIR}/${PD_CEAMMC}"
 BUNDLE_SF2="${DIST_DIR}/${PD_SF2}"
+BUNDLE_SFZ="${DIST_DIR}/${PD_SFZ}"
 BUNDLE_SAMPLES="${DIST_DIR}/${PD_SAMPLES}"
 BUNDLE_INCLUDE="${DIST_DIR}/${PD_INCLUDE}"
 BUNDLE_COMPLETIONS="${BUNDLE_TCL}/ceammc/custom_completions"
@@ -288,6 +290,13 @@ do
     copy ${sf} "${BUNDLE_SF2}"
 done
 
+section "Copying CEAMMC sfz soundfonts"
+mkdir -p "${BUNDLE_SFZ}"
+for sf in $SRC_CEAMMC/ext/doc/sfz/*
+do
+    copy ${sf} "${BUNDLE_SFZ}"
+done
+
 section "Copying sound samples"
 mkdir -p "${BUNDLE_SAMPLES}"
 for samp in $SRC_CEAMMC/ext/doc/sound/*
@@ -412,36 +421,6 @@ cp $SRC_DIR/ceammc/extra/flext/xsample/xsample/pd/* "${BUNDLE_EXTRA}/xsample"
 cp $SRC_DIR/ceammc/extra/flext/xsample/xsample/pd-ex/* "${BUNDLE_EXTRA}/xsample"
 copy $SRC_DIR/ceammc/extra/flext/xsample/xsample/gpl.txt "${BUNDLE_EXTRA}/xsample"
 copy $SRC_DIR/ceammc/extra/flext/xsample/xsample/license.txt "${BUNDLE_EXTRA}/xsample"
-
-section "Copying LyonPotpourri"
-mkdir -p "${BUNDLE_EXTRA}/lyonpotpourri/sound"
-for ext in $BUILD_DIR/ceammc/extra/lyonpotpourri/*.@(d_fat|d_amd64|d_i386|pd_darwin)
-do
-    copy ${ext} "${BUNDLE_EXTRA}/lyonpotpourri"
-done
-
-for pdhelp in $SRC_DIR/ceammc/extra/lyonpotpourri/*-help.pd
-do
-    copy ${pdhelp} "${BUNDLE_EXTRA}/lyonpotpourri"
-done
-
-copy $SRC_DIR/ceammc/extra/lyonpotpourri/LICENSE.txt "${BUNDLE_EXTRA}/lyonpotpourri"
-cp $SRC_DIR/ceammc/extra/lyonpotpourri/examples/* "${BUNDLE_EXTRA}/lyonpotpourri"
-
-section "Copying FFTease"
-mkdir -p "${BUNDLE_EXTRA}/fftease/sound"
-for ext in $BUILD_DIR/ceammc/extra/fftease/*.@(d_fat|d_amd64|d_i386|pd_darwin)
-do
-    copy ${ext} "${BUNDLE_EXTRA}/fftease"
-done
-
-for pdhelp in $SRC_DIR/ceammc/extra/fftease/fftease/help/*.pd
-do
-    copy ${pdhelp} "${BUNDLE_EXTRA}/fftease"
-done
-
-copy $SRC_DIR/ceammc/extra/fftease/fftease/LICENSE.txt "${BUNDLE_EXTRA}/fftease"
-cp $SRC_DIR/ceammc/extra/fftease/fftease/sound/* "${BUNDLE_EXTRA}/fftease"
 
 # LeapMotion
 if exists $BUILD_DIR/ceammc/extra/flext/leapmotion/leapmotion.@(d_fat|d_amd64|d_i386|pd_darwin)

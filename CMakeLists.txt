@@ -73,6 +73,7 @@ set(CMAKE_CXX_STANDARD 11)
 
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
+include(CheckLSBTypes)
 include(build_options)
 include(ceammc/external_version.cmake)
 include(version)
@@ -122,6 +123,7 @@ add_subdirectory(extra)
 add_subdirectory(doc)
 add_subdirectory(mac)
 
+
 if(GETTEXT_FOUND)
     add_subdirectory(po)
 endif()
@@ -132,8 +134,8 @@ endif()
 
 add_subdirectory(ceammc)
 
-include(summary)
 include(package)
+include(summary)
 
 add_custom_target(puredata_changelog SOURCES CHANGELOG.md)
 

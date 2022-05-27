@@ -211,6 +211,7 @@ TEST_CASE("ceammc_preset", "[PureData]")
 
     SECTION("INF")
     {
+#ifndef __FAST_MATH__
         PresetStorage& s = PresetStorage::instance();
         s.clearAll();
 
@@ -221,6 +222,7 @@ TEST_CASE("ceammc_preset", "[PureData]")
             REQUIRE(s.floatValueAt(gensym("test"), 2) == 0);
             REQUIRE(s.floatValueAt(gensym("test"), 2, -100) == 0);
         }
+#endif
     }
 
     SECTION("preset duplicate")

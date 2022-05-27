@@ -14,26 +14,46 @@
 #ifndef NET_HOST_H
 #define NET_HOST_H
 
+#include "ceammc_platform.h"
+#include "ceammc_pollthread_object.h"
 #include "ceammc_property_enum.h"
-#include "ceammc_thread.h"
 
-using namespace ceammc;
+#include <cstdint>
+#include <string>
 
-class HostTask;
+namespace ceammc {
 
-class NetHost : public ThreadExternal {
+enum HostResultCmd {
+    HOST_RESOLVE_ADDR,
+    HOST_RESOLVE_ERROR,
+    HOST_GET_ADDR
+};
+
+struct HostResult {
+    HostResultCmd cmd;
+    platform::NetAddressType type;
+    std::string data;
+};
+
+using NetHostBase = PollThreadQueueObject<HostResult, PollThreadQueue<HostResult>>;
+
+class NetHost : public NetHostBase {
     SymbolEnumProperty* addr_type_;
+    AtomList result_;
 
 public:
     NetHost(const PdArgs& args);
 
     void onSymbol(t_symbol* s) override;
     void onAny(t_symbol* s, const AtomListView&) override;
-    void onThreadDone(int rc) override;
 
-private:
-    HostTask* task();
+    void processMessage(const HostResult& msg) final;
+    Future createTask() final;
+
+    bool notify(NotifyEventType event) final;
 };
+
+}
 
 void setup_net_host();
 

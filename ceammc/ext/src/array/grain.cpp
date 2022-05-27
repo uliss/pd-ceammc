@@ -14,18 +14,23 @@
 #include "grain.h"
 #include "ceammc_convert.h"
 #include "ceammc_log.h"
+#include "ceammc_sound.h"
 #include "ceammc_window.h"
 
-#include "muParser.h"
+#include "grain_expr_parser.h"
+#include "grain_random.h"
 
 #include <algorithm>
 #include <array>
+#include <boost/pool/object_pool.hpp>
 #include <limits>
 #include <stdexcept>
 
 namespace ceammc {
 
 constexpr size_t WIN_SIZE = 257;
+constexpr double MIN_SPEED = -10;
+constexpr double MAX_SPEED = 10;
 
 static std::array<t_sample, WIN_SIZE + 3> win_triangle = { 0 };
 static std::array<t_sample, WIN_SIZE + 3> win_hann = { 0 };
@@ -40,312 +45,371 @@ static float foldFloat(float x, float max)
     return std::min<float>(max2 - w, w);
 }
 
-static inline t_sample interpLinear(t_sample x0, t_sample x1, t_sample t)
+static const char* panMode2str(GrainPan pan)
 {
-    return x0 + t * (x1 - x0);
+    static const char* txt[3] = { "none", "lin", "sqrt" };
+    return txt[pan];
 }
 
-static t_sample interpCubicHermite(t_sample x0, t_sample x1, t_sample x2, t_sample x3, t_sample t)
+static const char* interp2str(GrainInterp i)
 {
-    const t_sample a = -x0 / 2 + (3 * x1) / 2 - (3 * x2) / 2 + x3 / 2;
-    const t_sample b = x0 - (5 * x1) / 2 + 2 * x2 - x3 / 2;
-    const t_sample c = -x0 / 2 + x2 / 2;
-    const t_sample d = x1;
-
-    return a * t * t * t + b * t * t + c * t + d;
+    static const char* txt[3] = { "none", "lin", "cubic" };
+    return txt[i];
 }
 
 Grain::Grain()
-    : pan_(0)
-    , pan_norm_(0.5)
-    , pan_overflow_(PAN_OVERFLOW_CLIP)
-    , pan_mode_(PAN_MODE_LINEAR)
-    , play_interp_(INTERP_NO)
-    , win_type_(WIN_RECT)
+    : pan_(0.5)
+    , state_(GRAIN_FINISHED)
+    , pan_overflow_(GRAIN_PROP_OVERFLOW_CLIP)
+    , pan_mode_(GRAIN_PAN_LINEAR)
+    , play_interp_(GRAIN_INTERP_NONE)
+    , win_type_(GRAIN_WIN_RECT)
 {
 }
 
-Grain::Grain(size_t array_pos, size_t length, size_t play_pos)
-    : pan_(0)
-    , pan_norm_(0.5)
-    , pan_overflow_(PAN_OVERFLOW_CLIP)
-    , pan_mode_(PAN_MODE_LINEAR)
-    , play_interp_(INTERP_NO)
-    , win_type_(WIN_RECT)
+Grain::Grain(size_t array_pos, size_t length, size_t time_before)
+    : pan_(0.5)
+    , state_(GRAIN_FINISHED)
+    , pan_overflow_(GRAIN_PROP_OVERFLOW_CLIP)
+    , pan_mode_(GRAIN_PAN_LINEAR)
+    , play_interp_(GRAIN_INTERP_NONE)
+    , win_type_(GRAIN_WIN_RECT)
 {
-    array_pos_samp = array_pos;
-    length_samp = length;
-    play_pos_samp = play_pos;
+    src_pos_ = array_pos;
+    length_ = length;
+    time_before_ = time_before;
 }
 
-void Grain::initParserVars(mu::Parser& p)
+bool Grain::matchTag(const std::regex& rx) const
 {
-    p.DefineNameChars("$0123456789_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
-    p.DefineConst("$amp", amplitude());
-    p.DefineConst("$n", play_counter_);
-    p.DefineConst("$pan", pan());
-    p.DefineConst("$speed", speed());
-    p.DefineConst("$sr", sys_getsr());
+    if (tag_ && tag_->s_name[0] != '\0')
+        return std::regex_match(tag_->s_name, rx);
+    else
+        return false;
 }
 
 void Grain::setSpeed(float s)
 {
-    play_speed_ = clip<float>(s, speed_min_, speed_max_);
-}
-
-void Grain::setSpeedRange(float a, float b)
-{
-    auto mm = std::minmax(a, b);
-    speed_min_ = mm.first;
-    speed_max_ = mm.second;
-}
-
-void Grain::setSpeedExpr(const std::string& expr)
-{
-    try {
-        mu::Parser p;
-        initParserVars(p);
-        p.SetExpr(expr);
-        setSpeed(p.Eval());
-    } catch (mu::ParserError& e) {
-        LIB_ERR << "error while evaluting \"" << expr << "\": " << e.GetMsg();
-    }
-}
-
-void Grain::addPan(float pan)
-{
-    setPan(pan_ + pan);
+    play_speed_ = clip<float>(s, MIN_SPEED, MAX_SPEED);
 }
 
 void Grain::setPan(float pan)
 {
-    static const auto onemore = std::nextafter(1.0, std::numeric_limits<float>::max());
-    const float pan_norm = convert::lin2lin<float>(pan, -1, 1, 0, 1);
-
     switch (pan_overflow_) {
-    case PAN_OVERFLOW_WRAP:
-        pan_ = pan;
-        pan_norm_ = wrapFloatMax<float>(pan_norm, onemore);
+    case GRAIN_PROP_OVERFLOW_WRAP:
+        pan_ = wrapFloatMax<float>(pan, 1);
         break;
-    case PAN_OVERFLOW_FOLD:
-        pan_ = pan;
-        pan_norm_ = foldFloat(pan_norm, onemore);
+    case GRAIN_PROP_OVERFLOW_FOLD:
+        pan_ = foldFloat(pan, 1);
         break;
+    case GRAIN_PROP_OVERFLOW_CLIP:
     default:
-        pan_ = pan;
-        pan_norm_ = clip<float>(pan_norm, 0, 1);
+        pan_ = clip<float>(pan, 0, 1);
         break;
     }
 }
 
-void Grain::setPanMode(Grain::PanMode m)
+void Grain::setPanOverflow(GrainPropOverflow po)
+{
+    pan_overflow_ = po;
+}
+
+void Grain::setPanMode(GrainPan m)
 {
     pan_mode_ = m;
 }
 
 void Grain::setAmplitude(float amp)
 {
-    amp_ = clip<float>(amp, amp_min_, amp_max_);
-}
-
-void Grain::setAmplitudeRange(float min, float max)
-{
-    auto mm = std::minmax(min, max);
-    amp_min_ = mm.first;
-    amp_max_ = mm.second;
+    amp_ = clip<float, 0, 256>(amp);
 }
 
 void Grain::start(size_t playPosSamp)
 {
-    play_status = PLAYING;
-
-    if (play_speed_ < 0) {
-        const auto l = lengthInSamples();
-        if (l < 1)
-            play_pos = playPosSamp;
-        else
-            play_pos = playPosSamp + (l - 1);
-    } else
-        play_pos = playPosSamp;
+    state_ = GRAIN_PLAYING;
+    play_pos_ = playPosSamp;
 }
 
-Grain::PlayStatus Grain::done()
+GrainState Grain::done()
 {
-    play_status = FINISHED;
-    play_counter_++;
+    state_ = GRAIN_FINISHED;
+    cnt_repeats_++;
 
-    if (amp_done_)
-        setAmplitude(amp_done_(this));
+    if (ondone_) {
+        double res = amp_;
+        if (ondone_->evalPropAction(*this, GRAIN_PROP_AMP, res))
+            setAmplitude(res);
 
-    if (pan_done_)
-        setPan(pan_done_());
+        res = play_speed_;
+        if (ondone_->evalPropAction(*this, GRAIN_PROP_SPEED, res))
+            setSpeed(res);
 
-    if (speed_done_)
-        setSpeed(speed_done_(this));
+        res = pan_;
+        if (ondone_->evalPropAction(*this, GRAIN_PROP_PAN, res))
+            setPan(res);
 
-    return play_status;
+        res = time_before_;
+        if (ondone_->evalPropAction(*this, GRAIN_PROP_TIME_BEFORE, res))
+            setTimeBefore(std::max<double>(0, res));
+
+        res = time_after_;
+        if (ondone_->evalPropAction(*this, GRAIN_PROP_TIME_AFTER, res))
+            setTimeAfter(std::max<double>(0, res));
+
+        res = length_;
+        if (ondone_->evalPropAction(*this, GRAIN_PROP_LENGTH, res))
+            setLengthInSamples(std::max<double>(10, res));
+
+        res = src_pos_;
+        if (ondone_->evalPropAction(*this, GRAIN_PROP_AT, res))
+            setArrayPosInSamples(std::max<double>(0, res));
+
+        res = repeats_;
+        if (ondone_->evalPropAction(*this, GRAIN_PROP_REPEATS, res))
+            setRepeats(res);
+    }
+
+    play_pos_ = 0;
+    return state_;
 }
 
 std::ostream& operator<<(std::ostream& os, const Grain& g)
 {
-    os << "grain(at=" << g.arrayPosInSamples()
-       << ",len=" << g.lengthInSamples()
-       << ",when=" << g.startInSamples()
-       << ",speed=" << g.speed()
-       << ",pan=" << g.panNorm()
-       << ",panmode=" << g.panMode()
-       << ",amp=" << g.amplitude()
-       << ")";
+    os << "grain(#" << g.id();
+
+    if (g.tag())
+        os << '.' << g.tag()->s_name;
+
+    os << ",@at=" << g.arrayPosInSamples()
+       << ",@l=" << g.lengthInSamples()
+       << ",@d=" << g.durationInSamples()
+       << ",@tb=" << g.timeBefore()
+       << ",@ta=" << g.timeAfter()
+       << ",@amp=" << g.amplitude()
+       << ",@s=" << g.speed()
+       << ",@p=" << g.pan()
+       << ",panmode=" << panMode2str(g.panMode())
+       << ",interp=" << interp2str(g.playInterpolation())
+       << ')';
     return os;
 }
 
-Grain::PlayStatus Grain::process(ArrayIterator in, size_t in_size, t_sample** buf, size_t bs)
+GrainState Grain::process(ArrayIterator in, size_t in_size, t_sample** buf, uint32_t bs, uint32_t sr)
 {
+    constexpr float SLOW_LIMIT = 0.001;
+    constexpr float QUIT_LIMIT = 0.00001;
+
     // invalid
-    if (play_status == FINISHED) {
-        play_status = FINISHED;
-        return playStatus();
+    if (state_ == GRAIN_FINISHED)
+        return state_;
+
+    // optimization: silence before grain
+    const double next_block = play_pos_ + bs;
+    if (next_block < grainStartInSamples()) {
+        play_pos_ = next_block;
+        return state_;
+    }
+
+    const size_t WHOLE_GRAIN_END = time_before_ + length_ + time_after_;
+
+    // optim: silence after grain
+    if (play_pos_ >= grainEndInSamples()) {
+        play_pos_ += bs;
+
+        // should finish
+        if (play_pos_ >= WHOLE_GRAIN_END)
+            return done();
+
+        return state_;
     }
 
     // zero speed or zero amp
-    if (std::fabs(play_speed_) < 0.001 || amp_ < 0.00001)
+    const bool zero_speed = !mods_ && (-SLOW_LIMIT < play_speed_ && play_speed_ < SLOW_LIMIT);
+    const bool zero_amp = amp_ < QUIT_LIMIT && !mods_;
+    if (zero_speed || zero_amp)
         return done();
 
     const auto pan_coeffs = panSample(1);
-    const double step_incr = play_speed_;
+    const double step_incr = std::abs(play_speed_);
 
-    // play forwards
-    if (play_speed_ > 0) {
-        const size_t play_end = startInSamples() + length_samp;
+    // before grain
+    size_t i = 0;
+    if (play_pos_ < time_before_) {
+        i = time_before_ - play_pos_;
+        play_pos_ += i;
+    }
 
-        for (size_t i = 0; i < bs; i++, play_pos += step_incr) {
-            if (play_pos < startInSamples()) {
-                continue;
-            } else if (play_pos >= play_end) {
-                return done();
-            } else
-                play_status = PLAYING;
+    for (; i < bs && play_pos_ < grainEndInSamples(); i++) {
+        // only grain itself expected here, without silence before/after
+        assert(play_pos_ >= grainStartInSamples() && play_pos_ < grainEndInSamples());
 
-            assert(play_pos >= startInSamples() && play_pos < play_end);
-
-            // time position
-            const double rel_play_idx = play_pos - startInSamples();
-            const double abs_play_idx = arrayPosInSamples() + rel_play_idx;
-            if (abs_play_idx >= in_size)
-                return done();
-
-            assert(abs_play_idx >= 0 && abs_play_idx < in_size);
-
-            t_sample value = 0;
-            const auto idx = static_cast<size_t>(abs_play_idx);
-            switch (play_interp_) {
-            case INTERP_LINEAR: {
-                const auto x0 = in[idx];
-                const auto x1 = (idx + 1 >= in_size) ? x0 : in[idx + 1];
-                const double t1 = abs_play_idx - double(idx); // fractional part
-                value = interpLinear(x0, x1, t1);
-            } break;
-            case INTERP_CUBIC: {
-                const auto x0 = (idx < 1) ? in[idx] : in[idx - 1];
-                const auto x1 = in[idx];
-                const auto x2 = (idx + 1 >= in_size) ? x1 : in[idx + 1];
-                const auto x3 = (idx + 2 >= in_size) ? x2 : in[idx + 2];
-                const double t1 = abs_play_idx - double(idx); // fractional part
-                value = interpCubicHermite(x0, x1, x2, x3, t1);
-            } break;
-            case INTERP_NO:
-            default:
-                value = in[idx];
-                break;
-            }
-
-            // apply window
-            if (win_type_ != WIN_RECT) {
-                assert(rel_play_idx >= 0 && rel_play_idx < length_samp);
-
-                const double win_fpos = convert::lin2lin_clip<double>(rel_play_idx, 0, length_samp - 1, 0, WIN_SIZE - 1);
-                const double win_ipos = static_cast<size_t>(win_fpos);
-                const double win_t = win_fpos - static_cast<size_t>(win_ipos); // fractional part
-
-                switch (win_type_) {
-                case WIN_TRIANGLE:
-                    value *= interpLinear(
-                        win_triangle[win_ipos + 0],
-                        win_triangle[win_ipos + 1],
-                        win_t);
-                    break;
-                case WIN_HANN:
-                    value *= interpCubicHermite(
-                        win_hann[win_ipos + 0],
-                        win_hann[win_ipos + 1],
-                        win_hann[win_ipos + 2],
-                        win_hann[win_ipos + 3],
-                        win_t);
-                    break;
-                default:
-                    break;
-                }
-            }
-
-            const auto vamp = value * amp_;
-
-            buf[0][i] += pan_coeffs.first * vamp;
-            buf[1][i] += pan_coeffs.second * vamp;
-        }
-
-        if (play_pos >= play_end)
+        // array play position
+        const double arr_idx = currentArrayPlayPos();
+        if (arr_idx < 0 || arr_idx >= in_size)
             return done();
-    } else {
 
-        for (size_t i = 0; i < bs; i++, play_pos += step_incr) {
-            if (play_pos < startInSamples())
-                return done();
-            else
-                play_status = PLAYING;
+        assert(arr_idx >= 0 && arr_idx < in_size);
 
-            assert(play_pos >= startInSamples());
+        t_sample value = 0;
+        const auto idx = static_cast<size_t>(arr_idx);
 
-            // time position
-            const double t = arrayPosInSamples() + play_pos - startInSamples();
-            if (t >= in_size)
-                return done();
-
-            assert(t >= 0);
-
-            t_sample value = 0;
-            const auto idx = static_cast<size_t>(t);
-            switch (play_interp_) {
-            case INTERP_LINEAR: {
-                const auto x0 = in[idx];
-                const auto x1 = (idx + 1 >= in_size) ? x0 : in[idx + 1];
-                const double t1 = t - double(idx); // fractional part
-                value = interpLinear(x0, x1, t1);
-            } break;
-            case INTERP_CUBIC: {
-                const auto x0 = (idx < 1) ? in[idx] : in[idx - 1];
-                const auto x1 = in[idx];
-                const auto x2 = (idx + 1 >= in_size) ? x1 : in[idx + 1];
-                const auto x3 = (idx + 2 >= in_size) ? x2 : in[idx + 2];
-                const double t1 = t - double(idx); // fractional part
-                value = interpCubicHermite(x0, x1, x2, x3, t1);
-            } break;
-            case INTERP_NO:
-            default:
-                value = in[idx];
-                break;
-            }
-
-            const auto vamp = value * amp_;
-
-            buf[0][i] += pan_coeffs.first * vamp;
-            buf[1][i] += pan_coeffs.second * vamp;
+        switch (play_interp_) {
+        case GRAIN_INTERP_LINEAR: {
+            const auto x0 = in[idx];
+            const auto x1 = (idx + 1 >= in_size) ? x0 : in[idx + 1];
+            const double t1 = arr_idx - double(idx); // fractional part
+            value = interpolate::linear<double>(x0, x1, t1);
+        } break;
+        case GRAIN_INTERP_CUBIC: {
+            const auto x0 = (idx < 1) ? in[idx] : in[idx - 1];
+            const auto x1 = in[idx];
+            const auto x2 = (idx + 1 >= in_size) ? x1 : in[idx + 1];
+            const auto x3 = (idx + 2 >= in_size) ? x2 : in[idx + 2];
+            const double t1 = arr_idx - double(idx); // fractional part
+            value = interpolate::cubic_hermite<double>(x0, x1, x2, x3, t1);
+        } break;
+        case GRAIN_INTERP_NONE:
+        default:
+            value = in[idx];
+            break;
         }
 
-        if (play_pos < startInSamples())
+        // apply window
+        if (win_type_ != GRAIN_WIN_RECT) {
+            const double win_fpos = convert::lin2lin_clip<double>(currentLogicPlayPos(), 0, length_ - 1, 0, WIN_SIZE - 1);
+            const double win_ipos = static_cast<size_t>(win_fpos);
+            const double win_t = win_fpos - static_cast<size_t>(win_ipos); // fractional part
+
+            switch (win_type_) {
+            case GRAIN_WIN_TRI:
+                value *= interpolate::linear<t_sample>(
+                    win_triangle[win_ipos + 0],
+                    win_triangle[win_ipos + 1],
+                    win_t);
+                break;
+            case GRAIN_WIN_HANN:
+                value *= interpolate::linear<t_sample>(
+                    win_hann[win_ipos + 0],
+                    win_hann[win_ipos + 1],
+                    win_t);
+                break;
+            case GRAIN_WIN_TRPZ: {
+                const auto pos = currentLogicPlayPos();
+                const int param = (win_param_ <= 0) ? 512 : win_param_;
+                const auto RAMP_SAMP = std::min<double>(param, length_ * 0.25);
+                if (pos < RAMP_SAMP)
+                    value *= convert::lin2lin_clip<t_sample>(pos, 0, RAMP_SAMP, 0, 1);
+                else if (pos > length_ - RAMP_SAMP - 1)
+                    value *= convert::lin2lin_clip<t_sample>(length_ - pos - 1, 0, RAMP_SAMP, 0, 1);
+            } break;
+            case GRAIN_WIN_LINUP: {
+                const auto pos = currentLogicPlayPos();
+                const int param = (win_param_ <= 0) ? 64 : win_param_;
+                const auto RAMP_DOWN_SAMP = std::min<double>(param, length_ * 0.125);
+                const double ramp_down = length_ - RAMP_DOWN_SAMP - 1;
+                if (pos > ramp_down)
+                    value *= convert::lin2lin_clip<t_sample>(length_ - pos - 1, 0, RAMP_DOWN_SAMP, 0, 1);
+                else
+                    value *= convert::lin2lin_clip<t_sample>(pos, 0, ramp_down, 0, 1);
+            } break;
+            case GRAIN_WIN_LINDOWN: {
+                const auto pos = currentLogicPlayPos();
+                const int param = (win_param_ <= 0) ? 64 : win_param_;
+                const auto RAMP_UP_SAMP = std::min<double>(param, length_ * 0.125);
+                if (pos < RAMP_UP_SAMP)
+                    value *= convert::lin2lin_clip<t_sample>(pos, 0, RAMP_UP_SAMP, 0, 1);
+                else
+                    value *= convert::lin2lin_clip<t_sample>(pos - RAMP_UP_SAMP, RAMP_UP_SAMP, length_ - 1, 1, 0);
+
+            } break;
+            default:
+                break;
+            }
+        }
+
+        if (mods_) {
+            const double t = play_pos_ - time_before_;
+            if (mods_->modAmp())
+                amp_ = mods_->mod(GRAIN_PROP_AMP, sr, t);
+
+            if (mods_->modSpeed())
+                play_speed_ = mods_->mod(GRAIN_PROP_SPEED, sr, t);
+
+            if (mods_->modPan())
+                pan_ = mods_->mod(GRAIN_PROP_PAN, sr, t);
+        }
+
+        // apply amp
+        const auto vamp = value * amp_;
+
+        // apply pan
+        buf[0][i] += pan_coeffs.first * vamp;
+        buf[1][i] += pan_coeffs.second * vamp;
+
+        play_pos_ += step_incr;
+
+        if (play_pos_ >= WHOLE_GRAIN_END)
             return done();
     }
 
-    return PLAYING;
+    if (play_pos_ >= WHOLE_GRAIN_END)
+        return done();
+    else if (play_pos_ >= grainEndInSamples())
+        play_pos_ += (bs - i);
+
+    return GRAIN_PLAYING;
+}
+
+void Grain::setOnDone(GrainPropId id, const ByteCode& bc)
+{
+    if (!ondone_)
+        ondone_.reset(new GrainPropActions);
+
+    ondone_->setAction(id, bc);
+}
+
+void Grain::initByteCodeConst(ByteCode& bc) const
+{
+    bc.setConst(0, amp_);
+    bc.setConst(1, src_pos_);
+    bc.setConst(2, length_);
+    bc.setConst(3, pan_);
+    bc.setConst(4, play_speed_);
+    bc.setConst(5, time_before_);
+    bc.setConst(6, sys_getsr());
+    bc.setConst(7, 64);
+    bc.setConst(8, array_size_);
+    bc.setConst(9, cnt_repeats_);
+    bc.setConst(10, 0);
+    bc.setConst(11, 0);
+    bc.setConst(12, id_);
+    bc.setConst(13, time_after_);
+}
+
+void Grain::setModulation(GrainPropId id, const GrainPropModulator& mod)
+{
+    if (!mods_)
+        mods_.reset(new GrainPropMods);
+
+    switch (id) {
+    case GRAIN_PROP_AMP:
+        mods_->setAmp(mod);
+        break;
+    case GRAIN_PROP_SPEED:
+        mods_->setSpeed(mod);
+        break;
+    case GRAIN_PROP_PAN:
+        mods_->setPan(mod);
+        break;
+    default:
+        LIB_ERR << "unsupported prop to modulate: " << id;
+        break;
+    }
+}
+
+bool Grain::hasModulation(GrainPropId id) const
+{
+    return mods_ && mods_->hasModulation(id);
 }
 
 bool Grain::initWinTables()
@@ -356,4 +420,102 @@ bool Grain::initWinTables()
 
     return true;
 }
+
+static boost::object_pool<GrainPropAct> grain_calc_pool;
+
+GrainPropAct* GrainPropAct::make(const ByteCode& bc)
+{
+    auto res = grain_calc_pool.construct();
+    res->setByteCode(bc);
+    return res;
+}
+
+void GrainPropAct::free(GrainPropAct* act)
+{
+    if (act != nullptr)
+        grain_calc_pool.free(act);
+}
+
+GrainPropActions::~GrainPropActions()
+{
+    for (size_t i = 0; i < NPROPS; i++)
+        GrainPropAct::free(acts[i]);
+}
+
+bool GrainPropActions::evalPropAction(const Grain& grain, GrainPropId id, double& res)
+{
+    auto act = acts[id];
+    if (!act)
+        return false;
+
+    auto& bc = act->byteCode();
+    grain.initByteCodeConst(bc);
+    return bc.eval(res);
+}
+
+void GrainPropActions::setAction(GrainPropId id, const ByteCode& bc)
+{
+    if (!acts[id])
+        acts[id] = GrainPropAct::make(bc);
+    else
+        acts[id]->setByteCode(bc);
+}
+
+void GrainPropActions::removeAction(GrainPropId id)
+{
+    if (acts[id]) {
+        GrainPropAct::free(acts[id]);
+        acts[id] = nullptr;
+    }
+}
+
+double GrainPropMods::mod(GrainPropId prop, double sr, double t)
+{
+    switch (prop) {
+    case GRAIN_PROP_AMP:
+        return amp_.mod(sr, t);
+    case GRAIN_PROP_SPEED:
+        return speed_.mod(sr, t);
+    case GRAIN_PROP_PAN:
+        return pan_.mod(sr, t);
+    default:
+        return t;
+    }
+}
+
+bool GrainPropMods::hasModulation(GrainPropId prop) const
+{
+    switch (prop) {
+    case GRAIN_PROP_AMP:
+    case GRAIN_PROP_SPEED:
+    case GRAIN_PROP_PAN:
+        return true;
+    default:
+        return false;
+    }
+}
+
+double GrainPropModulator::mod(double sr, double t)
+{
+    static const auto two_pi = 2 * std::acos(-1);
+
+    if (freq_ <= 0)
+        return 0;
+
+    switch (mtype_) {
+    case GRAIN_MOD_SIN:
+        return convert::lin2lin<double, -1, 1>(std::sin(two_pi * freq_ * t / sr), min_, max_);
+    case GRAIN_MOD_SAWUP:
+        return convert::lin2lin<double, 0, 1>(std::fmod(freq_ * t / sr, 1), min_, max_);
+    case GRAIN_MOD_SAWDOWN:
+        return convert::lin2lin<double, 0, 1>(1 - std::fmod(freq_ * t / sr, 1), min_, max_);
+    case GRAIN_MOD_SQR:
+        return convert::lin2lin<double, 0, 1>(std::fmod(freq_ * t / sr, 1) >= 0.5 ? 1 : 0, min_, max_);
+    case GRAIN_MOD_TRI:
+        return convert::lin2lin<double, 0, 1>(std::abs(std::fmod(2 * freq_ * t / sr, 2) - 1), min_, max_);
+    default:
+        return 0;
+    }
+}
+
 }

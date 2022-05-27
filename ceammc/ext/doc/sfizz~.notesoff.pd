@@ -1,0 +1,13 @@
+#N canvas 0 0 842 357 12;
+#X msg 20 48 note 60 120 \, note 65 120 \, note 47 120;
+#X msg 39 92 notes_off;
+#X obj 20 120 sfizz~ \#sine;
+#X obj 20 149 ui.hgain2~;
+#X obj 173 149 ui.dsp~;
+#X obj 20 178 dac~;
+#X connect 0 0 2 0;
+#X connect 1 0 2 0;
+#X connect 2 0 3 0;
+#X connect 2 1 3 1;
+#X connect 3 0 5 0;
+#X connect 3 1 5 1;

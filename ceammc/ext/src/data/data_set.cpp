@@ -32,4 +32,6 @@ void setup_data_set()
 {
     ColectionIFaceFactory<DataSet> obj("data.set");
     obj.processData<DataTypeSet>();
+
+    DataSet::registerMethods(obj);
 }

@@ -5,6 +5,6 @@ all=$(xmllint --xpath '//entry[@name]/@name'  @PROJECT_SOURCE_DIR@/ceammc/ext/do
 
 for x in $all
 do
-    echo $x | cut -d= -f2 | tr -d '"'
+    echo $x | cut -d= -f2 | tr -d '"' | sed '/^[[:space:]]*$/d'
 done
 

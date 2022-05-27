@@ -94,7 +94,7 @@ void FlowQueue::initDone()
     inlets_.reserve(N);
     for (size_t i = 0; i < N; i++) {
         queue_.emplace_back(SZ);
-        inlets_.emplace_back(this);
+        inlets_.emplace_back(this, i);
         inlet_new(owner(), &inlets_.back().x_obj, nullptr, nullptr);
         createOutlet();
     }
@@ -102,13 +102,9 @@ void FlowQueue::initDone()
     inlet_new(owner(), &control_.x_obj, nullptr, nullptr);
 }
 
-void FlowQueue::proxy_any(FlowQueue::Inlet* x, t_symbol* s, const AtomListView& v)
+void FlowQueue::proxy_any(int id, t_symbol* s, const AtomListView& v)
 {
-    auto it = std::find_if(inlets_.cbegin(), inlets_.cend(), [x](const Inlet& i) { return &i == x; });
-    if (it == inlets_.cend())
-        return; // should never happen
-
-    auto idx = std::distance(inlets_.cbegin(), it);
+    auto idx = id;
 
     assert(inlets_.size() == queue_.size());
     assert(idx >= 0 && idx < queue_.size());

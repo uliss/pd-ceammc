@@ -34,6 +34,7 @@ hoa.fx.convolve~-help.pd hoa.fx.convolve~ A zero latency convolution reverb' for
 hoa.fx.freeverb~-help.pd hoa.fx.freeverb~ A freeverb reverb' for sound fields.;
 hoa.fx.gain~-help.pd hoa.fx.gain~ A multigain for sound fields.;
 hoa.fx.ringmod~-help.pd hoa.fx.ringmod~ A ring modulation sound field diffuser.;
+hoa.fx.sum~-help.pd hoa.fx.sum~ A summation bus.;
 hoa.fx.mirror~-help.pd hoa.fx.mirror~ A mirror for sound field.;
 hoa.syn.delay~-help.pd hoa.syn.delay~ A delay sound field synthesizer.;
 hoa.syn.grain~-help.pd hoa.syn.grain~ A granular sound field synthesizer.;

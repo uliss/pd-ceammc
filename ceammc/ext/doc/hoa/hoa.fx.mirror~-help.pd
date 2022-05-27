@@ -1,105 +1,116 @@
-#N canvas 247 84 664 684 10;
-#X msg 16 341 \; pd dsp 1;
-#X msg 16 376 \; pd dsp 0;
-#X obj 113 105 hoa.soundgrain;
-#X obj 113 134 c.gain~ @size 131 10 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
-@presetname "(null)" @mode 0 @ramp 20 @bgcolor 0.75 0.75 0.75 1 @bdcolor
-0.5 0.5 0.5 1 @kncolor 0.5 0.5 0.5 1;
-#X obj 574 32 hoa.connect;
-#X obj 574 12 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
--1;
-#X obj 2 21 c.patcherinfos;
-#X obj 2 4 loadbang;
-#X obj 2 4 hoa.help.header;
-#X obj 67 616 hoa.help.pub;
-#X obj 418 4 hoa.help.also;
-#X obj 113 533 hoa.2d.decoder~ 7 ambisonics 16;
-#X obj 113 565 hoa.dac~ 1:16 -----------------;
-#X obj 113 325 hoa.2d.scope~ @size 189 189 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
-@order 7 @view 0 @gain 10 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
-0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
-#X obj 369 209 c.number @size 53 17 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
-@presetname "(null)" @min -1 @max 1 @minmax -1 1 @decimal 6 @bgcolor
-0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X text 7 48 hoa.fx.mirror~ reveals or hides the mirror image of the
+#N canvas 401 139 753 728 10;
+#X obj 133 119 hoa.soundgrain;
+#X obj 87 630 hoa.help.pub;
+#X obj 438 18 hoa.help.also;
+#X text 27 62 hoa.fx.mirror~ reveals or hides the mirror image of the
 sound field.;
-#X obj 113 152 hoa.2d.encoder~ 7 -----------;
-#X obj 368 188 c.loadmess 0;
-#X obj 284 121 hoa.pi~ 0.25;
-#X text 367 242 1 : the orginal sound field;
-#X text 367 262 0 : the orginal and the mirror sound fields;
-#X text 361 282 -1 : the mirror sound field;
-#X obj 113 269 hoa.2d.process~ 7 hoa.fx.mirror~ harmonics, f 31;
-#X connect 2 0 3 0;
-#X connect 3 0 16 0;
-#X connect 5 0 4 0;
-#X connect 6 0 8 0;
-#X connect 7 0 6 0;
-#X connect 11 0 12 0;
-#X connect 11 1 12 1;
-#X connect 11 2 12 2;
-#X connect 11 3 12 3;
-#X connect 11 4 12 4;
-#X connect 11 5 12 5;
-#X connect 11 6 12 6;
-#X connect 11 7 12 7;
-#X connect 11 8 12 8;
-#X connect 11 9 12 9;
-#X connect 11 10 12 10;
-#X connect 11 11 12 11;
-#X connect 11 12 12 12;
-#X connect 11 13 12 13;
-#X connect 11 14 12 14;
-#X connect 11 15 12 15;
-#X connect 14 0 22 15;
-#X connect 16 0 22 0;
-#X connect 16 1 22 1;
-#X connect 16 2 22 2;
-#X connect 16 3 22 3;
-#X connect 16 4 22 4;
-#X connect 16 5 22 5;
-#X connect 16 6 22 6;
-#X connect 16 7 22 7;
-#X connect 16 8 22 8;
-#X connect 16 9 22 9;
-#X connect 16 10 22 10;
-#X connect 16 11 22 11;
-#X connect 16 12 22 12;
-#X connect 16 13 22 13;
-#X connect 16 14 22 14;
-#X connect 17 0 14 0;
-#X connect 18 0 16 1;
-#X connect 22 0 11 0;
-#X connect 22 0 13 0;
-#X connect 22 1 11 1;
-#X connect 22 1 13 1;
-#X connect 22 2 11 2;
-#X connect 22 2 13 2;
-#X connect 22 3 11 3;
-#X connect 22 3 13 3;
-#X connect 22 4 11 4;
-#X connect 22 4 13 4;
-#X connect 22 5 11 5;
-#X connect 22 5 13 5;
-#X connect 22 6 11 6;
-#X connect 22 6 13 6;
-#X connect 22 7 11 7;
-#X connect 22 7 13 7;
-#X connect 22 8 11 8;
-#X connect 22 8 13 8;
-#X connect 22 9 11 9;
-#X connect 22 9 13 9;
-#X connect 22 10 11 10;
-#X connect 22 10 13 10;
-#X connect 22 11 11 11;
-#X connect 22 11 13 11;
-#X connect 22 12 11 12;
-#X connect 22 12 13 12;
-#X connect 22 13 11 13;
-#X connect 22 13 13 13;
-#X connect 22 14 11 14;
-#X connect 22 14 13 14;
-#X coords 0 684 1 683 100 60 0;
+#X text 387 256 1 : the orginal sound field;
+#X text 387 276 0 : the orginal and the mirror sound fields;
+#X text 381 296 -1 : the mirror sound field;
+#X obj 584 18 ui.dsp~ @size 42 42 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
+0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @fontname "Helvetica"
+@fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)"
+@label_inner 0 @label_side "top" @label_align "left" @label_valign
+"top" @label_margins 0 0;
+#X obj 133 579 xdac~ 1:16, f 31;
+#X obj 133 547 hoa.2d.decoder~ 7 regular 16, f 31;
+#X obj 22 40 canvas.name;
+#X obj 22 18 msg.onload;
+#X obj 133 148 ui.gain~ @size 120 15 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.hgain~.0" @mouse_events 0 @background_color
+0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @knob_color
+0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman"
+@fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align
+"left" @label_valign "top" @label_margins 0 0 @max 0 @min -60 @output_value
+0 @relative 1 @midi_channel 0 @midi_control 0 @midi_pickup 1 @show_range
+1;
+#X obj 319 117 lfo.+saw~ 0.25;
+#X obj 319 139 phase->rad~;
+#X obj 133 327 hoa.scope~ @size 190 190 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
+0.6 1 @label_color 0 0 0 1 @ph_color 1 0 0 1 @nh_color 0 0 1 1 @fontname
+"Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label
+"(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign
+"top" @label_margins 0 0 @gain 1 @refresh 100 @order 7 @view 0;
+#X obj 133 166 hoa.2d.encoder~ 7, f 29;
+#X obj 22 18 hoa.help.header;
+#X obj 388 193 ui.number @size 53 15 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.n.0" @background_color 0.93 0.93 0.93 1 @border_color
+0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @text_color
+0 0 0 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman"
+@fontsize 13 @label "(null)" @label_inner 0 @label_side "top" @label_align
+"left" @label_valign "top" @label_margins 0 0 @min -1 @max 1 @digits
+4;
+#X obj 133 283 hoa.process~ 7 hoa.fx.mirror~ harmonics 0.1, f 31;
+#X obj 388 166 msg.onload 0.2;
+#X connect 0 0 12 0;
+#X connect 9 0 8 0;
+#X connect 9 1 8 1;
+#X connect 9 2 8 2;
+#X connect 9 3 8 3;
+#X connect 9 4 8 4;
+#X connect 9 5 8 5;
+#X connect 9 6 8 6;
+#X connect 9 7 8 7;
+#X connect 9 8 8 8;
+#X connect 9 9 8 9;
+#X connect 9 10 8 10;
+#X connect 9 11 8 11;
+#X connect 9 12 8 12;
+#X connect 9 13 8 13;
+#X connect 9 14 8 14;
+#X connect 9 15 8 15;
+#X connect 10 0 17 0;
+#X connect 11 0 10 0;
+#X connect 12 0 16 0;
+#X connect 13 0 14 0;
+#X connect 14 0 16 1;
+#X connect 16 0 19 0;
+#X connect 16 1 19 1;
+#X connect 16 2 19 2;
+#X connect 16 3 19 3;
+#X connect 16 4 19 4;
+#X connect 16 5 19 5;
+#X connect 16 6 19 6;
+#X connect 16 7 19 7;
+#X connect 16 8 19 8;
+#X connect 16 9 19 9;
+#X connect 16 10 19 10;
+#X connect 16 11 19 11;
+#X connect 16 12 19 12;
+#X connect 16 13 19 13;
+#X connect 16 14 19 14;
+#X connect 18 0 19 15;
+#X connect 19 0 9 0;
+#X connect 19 0 15 0;
+#X connect 19 1 9 1;
+#X connect 19 1 15 1;
+#X connect 19 2 9 2;
+#X connect 19 2 15 2;
+#X connect 19 3 9 3;
+#X connect 19 3 15 3;
+#X connect 19 4 9 4;
+#X connect 19 4 15 4;
+#X connect 19 5 9 5;
+#X connect 19 5 15 5;
+#X connect 19 6 9 6;
+#X connect 19 6 15 6;
+#X connect 19 7 9 7;
+#X connect 19 7 15 7;
+#X connect 19 8 9 8;
+#X connect 19 8 15 8;
+#X connect 19 9 9 9;
+#X connect 19 9 15 9;
+#X connect 19 10 9 10;
+#X connect 19 10 15 10;
+#X connect 19 11 9 11;
+#X connect 19 11 15 11;
+#X connect 19 12 9 12;
+#X connect 19 12 15 12;
+#X connect 19 13 9 13;
+#X connect 19 13 15 13;
+#X connect 19 14 9 14;
+#X connect 19 14 15 14;
+#X connect 20 0 18 0;
+#X coords 0 728 1 727 100 60 0;

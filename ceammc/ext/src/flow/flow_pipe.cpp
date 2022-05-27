@@ -73,12 +73,12 @@ void FlowPipe::pop()
     cleanup_.delay(0);
 }
 
-void FlowPipe::proxy_bang()
+void FlowPipe::proxy_bang(int)
 {
     pipe_.clear();
 }
 
-void FlowPipe::proxy_float(t_float f)
+void FlowPipe::proxy_float(int, t_float f)
 {
     delay_->setValue(f);
 }
@@ -100,6 +100,12 @@ void setup_flow_pipe()
 {
     ObjectFactory<FlowPipe> obj("flow.pipe");
     obj.noPropsDispatch();
+
+    obj.setXletsInfo({ "any", "bang: clear pipe\n"
+                              "float: set delay time\n"
+                              "reset: clear pipe\n"
+                              "flush: output all messages and clear" },
+        { "any" });
 
     InletProxy<FlowPipe>::init();
     InletProxy<FlowPipe>::set_bang_callback(&FlowPipe::proxy_bang);

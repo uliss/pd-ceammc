@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="path.search">
+        <title>path.search</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>file search</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>path</category>
+            <keywords>path environment</keywords>
+            <since>0.9.4</since>
+            <also>
+                <see>file.size</see>
+            </also>
+        </meta>
+        <info>
+            <par>Searches file by name in user specified or PureData system paths.</par>
+            <par>Outputs first found file.</par>
+            <par>Search order: 1. user defined paths (@path property), 2. current patch directory,
+            3. PureData system path, 4. home directory.</par>
+            <par>Absolute paths processed before relative.</par>
+            <par>Home directory can be specified with '~' symbol.</par>
+            <par>Note: by default search request is performed asynchronously, so a delay will
+            occured between input and output.</par>
+        </info>
+        <arguments>
+            <argument name="PATHS" type="list">list of paths, can be quoted to handle
+            whitespace.</argument>
+        </arguments>
+        <methods>
+            <method name="cancel">cancel search process</method>
+        </methods>
+        <properties>
+            <property name="@async" type="int" enum="0 1" default="1">perform async search in
+            separate thread</property>
+            <property name="@sync" type="alias">alias to @async 0</property>
+            <property name="@depth" type="int" minvalue="-1" default="0">search recursion depth
+            (-1: infinite)</property>
+            <property name="@paths" type="list">user defined search paths</property>
+            <property name="@home" type="int" enum="0 1" default="1">search in home
+            directory</property>
+            <property name="@std" type="int" enum="0 1" default="1">search in PureData standard
+            directory</property>
+            <property name="@nohome" type="alias">alias to @home 0, do not search in home
+            directory</property>
+            <property name="@nostd" type="alias">alias to @std 0, do not search in standard
+            dirs</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="symbol">filename</xinfo>
+                <xinfo on="data:string">filename</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>symbol: full filename</outlet>
+            <outlet>bang: if not found</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[symbol loop_breakbeat.flac #a(             [path.search.std]
+
+[symbol guitar1.wav(                        [path.search.home]
+|
+|  [S digits=30]
+|  |
+|  |  [@paths sound(/*change search path*/
+|  |  |
+[path.search #z]
+|          ^|
+|          [not found(
+|          |
+[ui.dt @size 500 35 @auto_size 0]
+
+[X a->z]
+]]>
+            </pdascii>
+            <pdascii id="std">
+<![CDATA[
+[guitar1.wav(     [T]
+|                 |
+[symbol]          [@std $1(
+|                 |
+[path.search @std 0]
+|          ^|
+|          [not found(
+|          |
+[ui.dt @size 500 35 @auto_size 0]
+]]>
+            </pdascii>
+            <pdascii id="home">
+<![CDATA[
+/*unix or macos*/
+
+[symbol .bashrc(  [T]
+|                 |
+|                 [@home $1(
+|                 |
+[path.search @home 0]
+|          ^|
+|          [not found(
+|          |
+[ui.dt @size 500 35 @auto_size 0]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

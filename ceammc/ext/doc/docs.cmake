@@ -5,10 +5,12 @@ set(DOC_FILES
     an.rms~
     an.tempo~
     array.bpm
+    array.circular~
     array.copy
     array.do
     array.each
     array.fill
+    array.grainer~
     array.hist
     array.mean
     array.minmax
@@ -17,6 +19,7 @@ set(DOC_FILES
     array.plot
     array.plot~
     array.resample
+    array.risset_rythm~
     array.rms
     array.s2p
     array.set
@@ -55,6 +58,7 @@ set(DOC_FILES
     conv.dbfs2amp~
     conv.degree2key
     conv.int2bits
+    conv.edge2bang
     conv.hex2int
     conv.lin2curve
     conv.lin2exp
@@ -120,6 +124,7 @@ set(DOC_FILES
     env2vline
     vline2env
     expand_env
+    file.size
     flow.append
     flow.change
     flow.count
@@ -148,6 +153,7 @@ set(DOC_FILES
     flow.pass
     flow.pass_if
     flow.pipe
+    flow.record
     flow.reject
     flow.reject_if
     flow.ring
@@ -208,6 +214,7 @@ set(DOC_FILES
     fx.drive~
     fx.drone_box~
     fx.echo~
+    fx.echo2~
     fx.flanger~
     fx.freeverb2~
     fx.freeverb~
@@ -218,8 +225,13 @@ set(DOC_FILES
     fx.looper~
     fx.pitchshift~
     fx.pitchshift_s~
+    fx.rb_pitchshift~
     fx.recho~
+    fx.room~
     fx.sdelay~
+    fx.secho~
+    fx.shimmer~
+    fx.tapiir~
     fx.vocoder~
     fx.wahwah~
     fx.zita_rev1~
@@ -284,6 +296,8 @@ set(DOC_FILES
     list.at
     list.choice
     list.contains
+    list.convolve
+    list.correlate
     list.count
     list.count_if
     list.delta
@@ -320,6 +334,8 @@ set(DOC_FILES
     list.rlencode
     list.rotate
     list.route
+    list.rundiff
+    list.runsum
     list.search
     list.separate
     list.set
@@ -362,6 +378,7 @@ set(DOC_FILES
     math.atan~
     math.atanh
     math.atanh~
+    math.binomial
     math.cabs~
     math.carg~
     math.cbrt
@@ -456,8 +473,10 @@ set(DOC_FILES
     midi.file
     midi.kbd
     midi.key2str
+    midi.modus
     midi.oct
     midi.prg2str
+    midi.split
     midi.sustain
     midi.sysex
     midi.track
@@ -470,6 +489,9 @@ set(DOC_FILES
     msg
     msg.after
     msg.onload
+    msg.sched
+    music.dur2time
+    music.voice2midi
     net.host2ip
     noise.baker
     noise.clifford
@@ -518,6 +540,9 @@ set(DOC_FILES
     path.exists
     path.is_dir
     path.lsdir
+    path.normalize
+    path.search
+    path.split
     plot.hist~
     plot.geomspace~
     plot.linspace~
@@ -532,11 +557,13 @@ set(DOC_FILES
     prop.get
     prop.get~
     prop.join
+    prop.random
     prop.set
     prop.split
     proto.firmata
     proto.midi
     proto.midi.cc
+    proto.midi.sysex
     proto.mpv
     proto.xtouch_ext
     proto.sp.alpaca
@@ -551,7 +578,9 @@ set(DOC_FILES
     random.discrete
     replace
     route.float
+    risset.gliss
     rtree.to_list
+    samp.time~
     set.contains
     set.diff
     set.equal
@@ -572,6 +601,7 @@ set(DOC_FILES
     snd.file
     spat.pan4~
     spat.pan8~
+    spat.zita8~
     spat.zita6x8~
     speech.flite
     speech.flite~
@@ -602,20 +632,27 @@ set(DOC_FILES
     synth.dubdub~
     synth.dx7~
     synth.eguitar~
+    synth.english_bell~
     synth.fgrain~
+    synth.french_bell~
     synth.harpsichord~
+    synth.german_bell~
     synth.glass_harm~
     synth.glitch~
+    synth.kick~
     synth.ks~
     synth.marimba~
     synth.piano~
     synth.rhodey~
     synth.risset_arp~
+    synth.risset_bell~
     synth.risset_tone~
     synth.russian_bell~
+    synth.tube_bell~
     synth.shakers~
     synth.sitar~
     synth.snare~
+    synth.standard_bell~
     synth.wurley~
     system.colorpanel
     system.cursor
@@ -674,4 +711,5 @@ set(DOC_FILES
     xfade~
     xfade2~
     xdac~
+    z~
 )

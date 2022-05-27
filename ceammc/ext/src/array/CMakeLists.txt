@@ -1,7 +1,10 @@
 set(ARRAY_SOURCES
     array_base.cpp
+    byte_code.cpp
     grain.cpp
     grain.h
+    grain_cloud.cpp
+    grain_cloud.h
     grain_random.cpp
     grain_random.h
     plot_linspace_tilde.cpp
@@ -16,6 +19,8 @@ macro(ceammc_array_external name)
 endmacro()
 
 ceammc_array_external(bpm)
+ceammc_array_external(circular_tilde)
+ceammc_array_external(convolve)
 ceammc_array_external(copy)
 ceammc_array_external(do)
 ceammc_array_external(each)
@@ -29,6 +34,7 @@ ceammc_array_external(play_tilde)
 ceammc_array_external(plot)
 ceammc_array_external(plot_tilde)
 ceammc_array_external(resample)
+ceammc_array_external(risset_rythm_tilde)
 ceammc_array_external(rms)
 ceammc_array_external(s2p)
 ceammc_array_external(set)
@@ -41,36 +47,34 @@ ceammc_array_external(vline_play)
 ceammc_array_external(window)
 
 add_library(ceammc_array STATIC mod_array.h mod_array.cpp ${ARRAY_SOURCES})
-target_sources(ceammc_array PRIVATE
-    grainprops.parser.hpp
-    grainprops.parser.cpp
-    grainprops.lexer.h
-    grainprops.lexer.cpp
-)
 
 if(UNIX)
-    target_link_libraries(ceammc_array PRIVATE
-        soxr
-        reflex
-    )
+    target_link_libraries(ceammc_array PRIVATE soxr)
 endif()
 
-if(BISON_FOUND)
-    add_custom_target(ceammc_array_gen
-        COMMAND ${BISON_EXECUTABLE} grain_properties.yy
-        SOURCES grain_properties.yy
-        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+find_package(RAGEL 6.6)
+
+if(RAGEL_FOUND)
+    RAGEL_TARGET(ragel_grain_expr
+        grain_expr.rl ${CMAKE_CURRENT_SOURCE_DIR}/grain_expr_parser.cpp
+        COMPILE_FLAGS "-G2 -s")
+    add_custom_target(lemon_grain_parser
+        COMMAND lemon -s ${CMAKE_CURRENT_SOURCE_DIR}/grain_expr.y
+        COMMAND mv ${CMAKE_CURRENT_SOURCE_DIR}/grain_expr.c ${CMAKE_CURRENT_SOURCE_DIR}/grain_expr_lemon.h
+        COMMAND rm ${CMAKE_CURRENT_SOURCE_DIR}/grain_expr.out)
 endif()
+
+# ragel generated sources
+target_sources(ceammc_array PRIVATE grain_expr_parser.cpp)
 
 target_include_directories(ceammc_array PRIVATE
     "${PROJECT_SOURCE_DIR}/src"
     "$<TARGET_PROPERTY:soundtouch,INCLUDE_DIRECTORIES>"
     "$<TARGET_PROPERTY:soxr,INCLUDE_DIRECTORIES>"
     "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>"
-    "$<TARGET_PROPERTY:muparser,INCLUDE_DIRECTORIES>"
-    "$<TARGET_PROPERTY:reflex,INCLUDE_DIRECTORIES>"
+    ${PROJECT_SOURCE_DIR}/ceammc/extra/aubio/aubio/src
 )
 
 target_link_libraries(ceammc_array PRIVATE
-    soundtouch
+    soundtouch aubio fftconv
 )

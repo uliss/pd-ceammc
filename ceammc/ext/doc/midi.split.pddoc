@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="midi.split">
+        <title>midi.split</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>midi note splitter</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>midi</category>
+            <keywords>midi note splitter</keywords>
+            <since>0.9.5</since>
+        </meta>
+        <info>
+            <par>Split midi note messages at specified pitch values</par>
+        </info>
+        <arguments>
+            <argument name="NOTES" type="list">list of note values (split points)</argument>
+        </arguments>
+        <properties>
+            <property name="@points" type="list" readonly="true">split points. Should be in strict
+            ascending order</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="list">NOTE VELOCITY [DUR] list</xinfo>
+            </inlet>
+        </inlets>
+        <outlets dynamic="true">
+            <outlet number="1">midi pitches that are less than first split point</outlet>
+            <outlet number="...">...</outlet>
+            <outlet number="n">midi pitches that are greater or equal than N-th split point and
+            less then N+1</outlet>
+            <outlet number="n+1">notes that are greater or equal last split point</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[ui.keyboard]
+|
+|
+|
+|
+[midi.split 40 60 80 #x]
+|
+[ui.dt #a]
+
+      [ui.dt #b]
+
+            [ui.dt #c]
+
+                  [ui.dt #d]
+[X x:0->a]
+[X x:1->b]
+[X x:2->c]
+[X x:3->d]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

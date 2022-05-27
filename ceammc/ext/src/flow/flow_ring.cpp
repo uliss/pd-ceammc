@@ -72,7 +72,7 @@ void FlowRing::onAny(t_symbol* s, const AtomListView& lv)
     output();
 }
 
-void FlowRing::proxy_bang()
+void FlowRing::proxy_bang(int)
 {
     output();
 }

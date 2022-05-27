@@ -55,7 +55,7 @@ TlTimeLine::TlTimeLine(const PdArgs& args)
         [this]() -> bool { return tl_.isLoop(); },
         [this](bool v) -> bool { tl_.setLoop(v); return true; });
 
-    createCbSymbolProperty(
+    auto res = createCbSymbolProperty(
         "@mode",
         [this]() -> t_symbol* {
             switch (tl_.mode()) {
@@ -77,6 +77,10 @@ TlTimeLine::TlTimeLine(const PdArgs& args)
 
             return true;
         });
+
+    res->infoT().setConstraints(PropValueConstraints::ENUM);
+    if (!res->infoT().addEnums({ SYM_INF, SYM_FIXED }))
+        OBJ_ERR << "can't set enums";
 }
 
 void TlTimeLine::dump() const

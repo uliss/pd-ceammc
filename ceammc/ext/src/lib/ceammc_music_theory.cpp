@@ -68,17 +68,17 @@ std::string Tonality::name() const
     return res;
 }
 
-const Scale& Tonality::scale() const
+const PitchList& Tonality::scale() const
 {
     return scale_;
 }
 
-const Scale& Tonality::alterations(AlterationDir dir) const
+const PitchList& Tonality::alterations(AlterationDir dir) const
 {
     return dir == ALTERATE_UP ? alt_up_ : alt_down_;
 }
 
-const Scale& Tonality::chromatic(AlterationDir dir) const
+const PitchList& Tonality::chromatic(AlterationDir dir) const
 {
     return dir == ALTERATE_UP ? chrom_up_ : chrom_down_;
 }
@@ -148,7 +148,7 @@ int Tonality::fifthsCircleIndex(const PitchClass& c, HarmonicModus m)
 PitchClass Tonality::correctAlteration(size_t pitch, const Tonality& t, AlterationDir dir)
 {
     pitch %= 12;
-    const Scale& chrom = t.chromatic(dir);
+    const auto& chrom = t.chromatic(dir);
 
     for (size_t i = 0; i < chrom.size(); i++) {
         if (chrom[i].absolutePitch() == pitch)

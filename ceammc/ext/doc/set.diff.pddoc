@@ -40,11 +40,7 @@
 |
 [set.diff 2 4 6]
 |
-[set->list @sort]
-|
-[msg set]
-|
-[ (
+[ui.dt]
 ]]>
             </pdascii>
         </example>

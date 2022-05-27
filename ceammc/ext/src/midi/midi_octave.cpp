@@ -14,6 +14,7 @@
 #include "midi_octave.h"
 #include "ceammc_args.h"
 #include "ceammc_convert.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 
 #include <memory>
@@ -22,9 +23,8 @@
 static std::unique_ptr<ArgChecker> onlist_chk;
 static std::mt19937 oct_gen;
 
-static t_symbol* SYM_TRANSPOSE;
-static t_symbol* SYM_SET;
-static t_symbol* SYM_RANDOM;
+CEAMMC_DEFINE_STR(transpose);
+CEAMMC_DEFINE_HASH(set);
 
 constexpr int MIN_OCT = -11;
 constexpr int MAX_OCT = 11;
@@ -42,10 +42,10 @@ MidiOctave::MidiOctave(const PdArgs& args)
     oct_->checkClosedRange(MIN_OCT, MAX_OCT);
     addProperty(oct_);
 
-    mode_ = new SymbolEnumProperty("@mode", { SYM_TRANSPOSE, SYM_SET });
+    mode_ = new SymbolEnumProperty("@mode", { str_transpose, str_set });
     addProperty(mode_);
-    addProperty(new SymbolEnumAlias("@set", mode_, SYM_SET));
-    addProperty(new SymbolEnumAlias("@transpose", mode_, SYM_TRANSPOSE));
+    addProperty(new SymbolEnumAlias("@set", mode_, gensym(str_set)));
+    addProperty(new SymbolEnumAlias("@transpose", mode_, gensym(str_transpose)));
 
     createCbListProperty(
         "@random",
@@ -123,14 +123,19 @@ void MidiOctave::onInlet(size_t, const AtomListView& lv)
 
 t_float MidiOctave::octave(t_float note) const
 {
+    note = clip<t_float, 0, 127>(note);
+
     const int oct = random_
         ? std::uniform_int_distribution<int>(a_, b_)(oct_gen)
         : oct_->value();
 
-    note = clip<t_float, 0, 127>(note);
-
-    if (mode_->value() == SYM_SET)
+    switch (crc32_hash(mode_->value())) {
+    case hash_set:
         note = std::fmod(note, 12);
+        break;
+    default:
+        break;
+    }
 
     auto res = note + 12 * oct;
     return (res < 0 || res > 127) ? note : res;
@@ -139,10 +144,6 @@ t_float MidiOctave::octave(t_float note) const
 void setup_midi_octave()
 {
     onlist_chk.reset(new ArgChecker("f0..127 f0..127 f?"));
-
-    SYM_TRANSPOSE = gensym("transpose");
-    SYM_SET = gensym("set");
-    SYM_RANDOM = gensym("random");
 
     ObjectFactory<MidiOctave> obj("midi.oct");
     obj.setXletsInfo({ "float: note\n"

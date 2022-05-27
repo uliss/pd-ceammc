@@ -12,7 +12,9 @@
  * this file belongs to.
  *****************************************************************************/
 #include "system_cursor.h"
+#include "ceammc_args.h"
 #include "ceammc_canvas.h"
+#include "ceammc_convert.h"
 #include "ceammc_factory.h"
 #include "system_cursor.tcl.h"
 
@@ -23,15 +25,26 @@ extern "C" {
 #include "m_imp.h"
 }
 
-static t_symbol* SYM_CURSOR_BIND;
+constexpr const char* STR_CURSOR_BIND = "#ceammc_cursor_class_receive";
+
+static t_canvas* cursor_canvas_root(t_canvas* cnv)
+{
+    while (cnv && cnv->gl_owner)
+        cnv = cnv->gl_owner;
+
+    return cnv;
+}
 
 int SystemCursor::instances_polling_ = 0;
 
 SystemCursor::SystemCursor(const PdArgs& args)
     : BaseObject(args)
-    , is_polling_(false)
-    , clock_(this, &SystemCursor::clockTick)
+    , unbind_([this]() { pd_unbind(&owner()->te_g.g_pd, gensym(STR_CURSOR_BIND)); })
     , relative_(nullptr)
+    , normalize_(nullptr)
+    , clip_(nullptr)
+    , is_polling_(false)
+    , topcanvas_(cursor_canvas_root(canvas()))
 {
     createOutlet();
 
@@ -41,6 +54,12 @@ SystemCursor::SystemCursor(const PdArgs& args)
 
     relative_ = new BoolProperty("@relative", false);
     addProperty(relative_);
+
+    normalize_ = new BoolProperty("@norm", false);
+    addProperty(normalize_);
+
+    clip_ = new BoolProperty("@clip", false);
+    addProperty(clip_);
 }
 
 SystemCursor::~SystemCursor()
@@ -49,66 +68,106 @@ SystemCursor::~SystemCursor()
         instances_polling_--;
         checkPolling();
 
-        pd_unbind(&owner()->te_g.g_pd, SYM_CURSOR_BIND);
+        pd_unbind(&owner()->te_g.g_pd, gensym(STR_CURSOR_BIND));
     }
 }
 
 void SystemCursor::onBang()
 {
-    sys_vgui("pdsend \"%s .motion [winfo pointerxy .]\"\n", receive()->s_name);
+    // dedicated motion send request
+    sys_vgui("::ceammc::cursor::motion %s 1\n", receive()->s_name);
 }
 
 void SystemCursor::onFloat(t_float f)
 {
     if (f == 1 && !is_polling_) {
         is_polling_ = true;
-        pd_bind(&owner()->te_g.g_pd, SYM_CURSOR_BIND);
+        // bind to broadcast message
+        pd_bind(&owner()->te_g.g_pd, gensym(STR_CURSOR_BIND));
         startPolling();
     } else if (f == 0 && is_polling_) {
         is_polling_ = false;
         stopPolling();
 
         // when float arrived after mouse click on a toggle
-        // we have to unbind on a next clock tick
-        clock_.delay(0);
+        // we have to unbind from broadcast on a next clock tick
+        unbind_.delay(0);
     }
 }
 
 void SystemCursor::m_button(t_symbol* s, const AtomListView& lv)
 {
-    static t_symbol* SYM = gensym("button");
-
     if (is_polling_)
-        anyTo(0, SYM, lv);
+        anyTo(0, gensym("button"), lv);
 }
 
 void SystemCursor::m_motion(t_symbol* s, const AtomListView& lv)
 {
-    static t_symbol* SYM = gensym("motion");
+    if (!checkArgs(lv, ARG_FLOAT, ARG_FLOAT, ARG_FLOAT, ARG_FLOAT))
+        return;
 
-    if (!relative_->value()) {
-        anyTo(0, SYM, lv);
+    t_float x = lv[0].asT<t_float>();
+    t_float y = lv[1].asT<t_float>();
+    t_float w = 0;
+    t_float h = 0;
+    t_float clipx = 0;
+    t_float clipy = 0;
+
+    if (relative_->value()) {
+        if (!topcanvas_)
+            return;
+
+        auto wrect = canvas_info_rect(topcanvas_);
+        x -= wrect.x;
+        y -= wrect.y;
+        w = wrect.w;
+        h = wrect.h;
     } else {
-        if (checkArgs(lv, ARG_FLOAT, ARG_FLOAT)) {
-            t_canvas* cnv = canvas_getrootfor(canvas());
-            auto r = canvas_info_rect(cnv);
-            Atom res[2] = { lv[0].asFloat() - r.x, lv[1].asFloat() - r.y };
-            anyTo(0, SYM, AtomListView(res, 2));
-        }
+        w = lv[2].asT<t_float>();
+        h = lv[3].asT<t_float>();
     }
+
+    if (normalize_->value()) {
+        if (w > 1 && h > 1) {
+            x /= (w - 1);
+            y /= (h - 1);
+        }
+
+        clipx = 1;
+        clipy = 1;
+    } else {
+        clipx = w - 1;
+        clipy = h - 1;
+    }
+
+    if (clip_->value()) {
+        x = clip<t_float>(x, 0, clipx);
+        y = clip<t_float>(y, 0, clipy);
+    }
+
+    const Atom res[2] = { x, y };
+    anyTo(0, gensym("motion"), AtomListView(res, 2));
 }
 
 void SystemCursor::m_wheel(t_symbol* s, const AtomListView& lv)
 {
-    static t_symbol* SYM = gensym("mousewheel");
-
     if (is_polling_)
-        anyTo(0, SYM, lv);
+        anyTo(0, gensym("mousewheel"), lv);
 }
 
-void SystemCursor::clockTick()
+void SystemCursor::m_polltime(t_symbol* s, const AtomListView& lv)
 {
-    pd_unbind(&owner()->te_g.g_pd, SYM_CURSOR_BIND);
+    static ArgChecker chk("f10..1000");
+
+    Error err;
+    chk.setOut(err);
+
+    if (!chk.check(lv))
+        return;
+
+    const int t = lv[0].asFloat();
+    OBJ_DBG << "setting polltime to " << t;
+    sys_vgui("::ceammc::cursor::setpolltime %d\n", t);
 }
 
 void SystemCursor::checkPolling()
@@ -135,13 +194,18 @@ void SystemCursor::stopPolling()
 
 void setup_system_cursor()
 {
-    SYM_CURSOR_BIND = gensym("#ceammc_cursor_class_receive");
-
     ObjectFactory<SystemCursor> obj("system.cursor");
     obj.addMethod(".button", &SystemCursor::m_button);
     obj.addMethod(".motion", &SystemCursor::m_motion);
     obj.addMethod(".mousewheel", &SystemCursor::m_wheel);
+    obj.addMethod("polltime", &SystemCursor::m_polltime);
+
+    obj.setXletsInfo({ "bang: output cursor XY pos\n"
+                       "float: start/stop polling" },
+        { "motion X Y\n"
+          "button BTN STATE\n"
+          "mousewheel DELTA" });
 
     sys_gui(system_cursor_tcl);
-    sys_vgui("::ceammc::cursor::setup %s\n", SYM_CURSOR_BIND->s_name);
+    sys_vgui("::ceammc::cursor::setup %s\n", STR_CURSOR_BIND);
 }

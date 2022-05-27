@@ -53,6 +53,8 @@ public:
     T& ref() { return data_.ref(); }
     const T& ref() const { return data_.ref(); }
 
+    t_symbol* id() const { return data_.name(); }
+
     size_t refCount() const { return data_.refCount(); }
 
     AtomList m_keys() const

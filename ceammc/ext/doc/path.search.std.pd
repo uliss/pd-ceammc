@@ -1,0 +1,15 @@
+#N canvas 0 0 623 270 12;
+#X msg 20 48 guitar1.wav;
+#X obj 192 48 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 20 77 symbol;
+#X msg 192 77 @std \$1;
+#X obj 20 106 path.search @std 0;
+#X msg 125 135 not found;
+#X obj 20 164 ui.dt @size 500 35 @auto_size 0;
+#X connect 0 0 2 0;
+#X connect 1 0 3 0;
+#X connect 2 0 4 0;
+#X connect 3 0 4 0;
+#X connect 4 1 5 0;
+#X connect 4 0 6 0;
+#X connect 5 0 6 0;

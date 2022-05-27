@@ -24,11 +24,24 @@ TEST_CASE("global.list", "[externals]")
 
     SECTION("construct")
     {
-        TestGlobalList t("global.list");
-        REQUIRE(t.numInlets() == 1);
-        REQUIRE(t.numInlets() == 1);
-        REQUIRE_PROPERTY_FLOAT(t, @size, 0);
-        REQUIRE_PROPERTY_FLOAT(t, @empty, 1);
+        SECTION("default")
+        {
+            TestGlobalList t("global.list");
+            REQUIRE(t.numInlets() == 1);
+            REQUIRE(t.numInlets() == 1);
+            REQUIRE_PROPERTY_FLOAT(t, @size, 0);
+            REQUIRE_PROPERTY_FLOAT(t, @empty, 1);
+        }
+
+        SECTION("args")
+        {
+            TestGlobalList t("global.list", LA("g0", 1, 2, 3));
+            REQUIRE(t.numInlets() == 1);
+            REQUIRE(t.numInlets() == 1);
+            REQUIRE_PROPERTY_FLOAT(t, @size, 3);
+            REQUIRE_PROPERTY_FLOAT(t, @empty, 0);
+            REQUIRE_PROPERTY_LIST(t, @value, LF(1, 2, 3));
+        }
     }
 
     SECTION("do")
@@ -189,6 +202,51 @@ TEST_CASE("global.list", "[externals]")
         REQUIRE_FALSE(t.hasOutput());
         t << BANG;
         REQUIRE(t.outputListAt(0) == LA("C", "A", 1, 2, 4));
+
+        t.call("front");
+        REQUIRE(t.outputSymbolAt(0) == A("C"));
+
+        t.call("back");
+        REQUIRE(t.outputFloatAt(0) == 4);
+
+        t.call("at", -1);
+        REQUIRE(t.outputFloatAt(0) == 4);
+
+        t.call("at", -2);
+        REQUIRE(t.outputFloatAt(0) == 2);
+
+        t.call("at", -3);
+        REQUIRE(t.outputFloatAt(0) == 1);
+
+        t.call("at", -4);
+        REQUIRE(t.outputSymbolAt(0) == A("A"));
+
+        t.call("at", -5);
+        REQUIRE(t.outputSymbolAt(0) == A("C"));
+
+        t.call("at", -6);
+        REQUIRE_FALSE(t.hasOutput());
+
+        t.call("at", 6);
+        REQUIRE_FALSE(t.hasOutput());
+
+        t.call("at", 5);
+        REQUIRE_FALSE(t.hasOutput());
+
+        t.call("at", 4);
+        REQUIRE(t.outputFloatAt(0) == 4);
+
+        t.call("at", 3);
+        REQUIRE(t.outputFloatAt(0) == 2);
+
+        t.call("at", 2);
+        REQUIRE(t.outputFloatAt(0) == 1);
+
+        t.call("at", 1);
+        REQUIRE(t.outputSymbolAt(0) == A("A"));
+
+        t.call("at", 0);
+        REQUIRE(t.outputSymbolAt(0) == A("C"));
 
         t.call("remove", LF(-6));
         REQUIRE_FALSE(t.hasOutput());

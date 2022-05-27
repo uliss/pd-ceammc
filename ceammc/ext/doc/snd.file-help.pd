@@ -11,127 +11,131 @@ into arrays. Various formats are supported. Supports array name patterns.;
 #X obj 50 173 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 50 202 openpanel;
-#X msg 50 231 symbol %CEAMMC%/sin_ch4_44.1k.wav;
-#X msg 50 260 load \$1 to array[1|2] @resize;
+#X msg 59 231 symbol %CEAMMC%/sin_ch4_44.1k.wav;
+#X msg 88 260 symbol %CEAMMC%/sound/vla-overtones-3.mp3;
+#X msg 50 289 load \$1 to array[1|2] @resize;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array array1 100 float 1;
 #A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
 #X coords 0 1 100 -1 120 80 1;
-#X restore 453 260 graph;
-#X obj 50 289 expand_env;
-#X obj 50 332 snd.file;
-#X floatatom 50 360 8 0 0 0 - - -;
+#X restore 453 289 graph;
+#X obj 50 317 expand_env;
+#X obj 50 360 snd.file;
+#X floatatom 50 389 8 0 0 0 - - -;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array array2 100 float 1;
 #A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
 #X coords 0 1 100 -1 120 80 1;
-#X restore 453 360 graph;
-#X text 50 389 play;
-#X msg 50 418 bang;
-#X msg 184 418 stop;
-#X obj 50 461 tabplay~ array1;
-#X obj 242 461 tabplay~ array2;
-#X obj 50 490 ui.hgain2~;
-#X obj 280 490 ui.dsp~;
-#X obj 50 519 dac~;
-#X obj 50 548 snd.file.resample-help;
-#X obj 290 548 snd.file.gain-help;
-#X obj 50 576 snd.file.pattern-help;
-#X obj 290 576 snd.file.position-help;
-#X obj 20 625 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 630 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X restore 453 389 graph;
+#X text 50 418 play;
+#X msg 50 447 bang;
+#X msg 184 447 stop;
+#X obj 50 490 tabplay~ array1;
+#X obj 242 490 tabplay~ array2;
+#X obj 50 519 ui.hgain2~;
+#X obj 280 519 ui.dsp~;
+#X obj 50 548 dac~;
+#X obj 50 576 snd.file.resample-help;
+#X obj 290 576 snd.file.gain-help;
+#X obj 50 605 snd.file.pattern-help;
+#X obj 290 605 snd.file.position-help;
+#X obj 20 654 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 659 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 665 @filename;
-#X text 245 665 (readonly) Get filename. Type: list.;
-#X msg 110 694 @formats;
-#X text 245 694 (readonly) Get list of supported formats. Type: list.
+#X msg 110 694 @channels;
+#X text 245 694 (readonly) Get list of loaded channels into each array.
+Type: list.;
+#X msg 110 736 @filename;
+#X text 245 736 (readonly) Get filename. Type: list.;
+#X msg 110 765 @formats;
+#X text 245 765 (readonly) Get list of supported formats. Type: list.
 Default value: AAC AIFF ALAC AU AVR CAF FLAC HTK IFF MACE3:1 MACE6:1
 MAT4 MAT5 MP3 MP4 MPC OGG PAF PVF RAW RF64 SD2 SDS SF VOC W64 WAV WAVEX
 WVE XI.;
-#X msg 110 766 @samples;
-#X text 245 766 (readonly) Get list of loaded samples to each array.
-Type: list.;
-#X msg 110 808 @smpte_fr;
-#X text 245 808 Get/Set SMPTE framerate for SMPTE offset calculations.
+#X msg 110 837 @samples;
+#X text 245 837 (readonly) Get list of number of loaded samples into
+each array. Type: list.;
+#X msg 110 879 @smpte_fr;
+#X text 245 879 Get/Set SMPTE framerate for SMPTE offset calculations.
 Type: float. Default value: 30\. Range: 1\...99\.;
-#X msg 110 850 @sr;
-#X text 245 850 (readonly) Get source file samplerate. Type: list.;
-#X msg 110 879 @verbose;
-#X text 245 879 Get/Set verbose output to Pd window. Type: int. Default
+#X msg 110 921 @sr;
+#X text 245 921 (readonly) Get source file samplerate. Type: list.;
+#X msg 110 950 @verbose;
+#X text 245 950 Get/Set verbose output to Pd window. Type: int. Default
 value: 0\. Allowed values: 0 \, 1\.;
-#X obj 20 931 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 936 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1002 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1007 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 971 load;
-#X text 245 971 Loads sound file. Outputs info properties and number
+#X msg 110 1042 load;
+#X text 245 1042 Loads sound file. Outputs info properties and number
 of loaded samples after load. Arguments are:;
-#X obj 255 1009 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1009 PATH: path to soundfile. Type: symbol.;
-#X obj 255 1032 cnv 1 105 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1032 to ARRAY_NAME: destination array names or pattern.
+#X obj 255 1080 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1080 PATH: path to soundfile. Type: symbol.;
+#X obj 255 1103 cnv 1 105 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1103 to ARRAY_NAME: destination array names or pattern.
 Array patterns specified in square braces: array_[1-4] means - array_1
 \, array_2 \, array_3 \, array_4\. array_[left|right] means array_left
 and array_right. Type: symbol.;
-#X obj 255 1100 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1100 [@resize]: resize array to fit loaded samples. Type:
+#X obj 255 1171 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1171 [@resize]: resize array to fit loaded samples. Type:
 property.;
-#X obj 255 1138 cnv 1 93 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1138 [@channel N]: specify input channels. Spaces separated
+#X obj 255 1209 cnv 1 93 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1209 [@channel N]: specify input channels. Spaces separated
 list or range x-y. Type: property.;
-#X obj 255 1176 cnv 1 93 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1176 [@normalize]: normalize array after loading. Type:
+#X obj 255 1247 cnv 1 93 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1247 [@normalize]: normalize array after loading. Type:
 property.;
-#X obj 255 1199 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1199 [@gain V]: apply gain to loaded samples \, examples:
+#X obj 255 1270 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1270 [@gain V]: apply gain to loaded samples \, examples:
 +3.1db \, -6db \, 0.5 etc. Type: property.;
-#X obj 255 1237 cnv 1 77 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1237 [@begin X]: specify input file begin position \, by
+#X obj 255 1308 cnv 1 77 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1308 [@begin X]: specify input file begin position \, by
 default in samples \, but you can use other units: 1s \, 10ms \, 00:01.12
 (smpte). To specify value relative to file end you can use $-X syntax.
 Type: property.;
-#X obj 255 1305 cnv 1 62 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1305 [@end X]: specify input file end position \, by default
+#X obj 255 1376 cnv 1 62 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1376 [@end X]: specify input file end position \, by default
 in samples \, but you can use other units: 1s \, 10ms \, 00:01.12 (smpte).
 To specify value relative to file end you can use $-X syntax. Type:
 property.;
-#X obj 255 1373 cnv 1 85 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1373 [@length X]: specify input length \, by default in
+#X obj 255 1444 cnv 1 85 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1444 [@length X]: specify input length \, by default in
 samples \, but you can use other units: 1s \, 10ms \, 00:00:02.00 (smpte).
 Type: property.;
-#X obj 255 1426 cnv 1 131 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1426 [@offset SAMPLES]: offset in samples from beginning
+#X obj 255 1497 cnv 1 131 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1497 [@offset SAMPLES]: offset in samples from beginning
 of file. Deprecated \, use @begin instead. Type: property.;
-#X obj 255 1464 cnv 1 108 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1464 [@resample R?]: if R is not specified - resample from
+#X obj 255 1535 cnv 1 108 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1535 [@resample R?]: if R is not specified - resample from
 file samplerate to current Pd samplerate. But you can manually specify
 R as float value or integer fraction - 44100/48000\. Type: property.;
-#X obj 20 1544 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1549 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1615 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1620 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1550 1\.;
-#X text 245 1550 input inlet.;
-#X obj 20 1580 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1585 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 1621 1\.;
+#X text 245 1621 input inlet.;
+#X obj 20 1651 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1656 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1586 1\.;
-#X text 245 1586 number of loaded samples.;
+#X text 110 1657 1\.;
+#X text 245 1657 number of loaded samples.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title snd @url ceammc.snd-help.pd;
-#X obj 1 1636 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1639 library: ceammc v0.9.3;
-#N canvas 10 1658 400 290 info 0;
+#X obj 1 1707 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1710 library: ceammc v0.9.4;
+#N canvas 10 1729 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.3;
+#X text 120 32 0.9.4;
 #X text 10 54 object:;
 #X text 120 54 snd.file;
 #X text 10 76 category:;
@@ -150,18 +154,19 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1658 pd info;
+#X restore 10 1729 pd info;
 #X connect 6 0 7 0;
-#X connect 8 0 9 0;
-#X connect 9 0 11 0;
-#X connect 11 0 12 0;
+#X connect 8 0 10 0;
+#X connect 9 0 10 0;
+#X connect 10 0 12 0;
 #X connect 12 0 13 0;
-#X connect 16 0 18 0;
-#X connect 17 0 18 0;
-#X connect 18 0 20 0;
-#X connect 19 0 20 1;
-#X connect 20 0 22 0;
-#X connect 20 1 22 1;
-#X connect 16 0 19 0;
+#X connect 13 0 14 0;
 #X connect 17 0 19 0;
-#X connect 7 0 9 0;
+#X connect 18 0 19 0;
+#X connect 19 0 21 0;
+#X connect 20 0 21 1;
+#X connect 21 0 23 0;
+#X connect 21 1 23 1;
+#X connect 17 0 20 0;
+#X connect 18 0 20 0;
+#X connect 7 0 10 0;

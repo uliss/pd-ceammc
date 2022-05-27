@@ -92,12 +92,12 @@ void FlowDelay::onAny(t_symbol* s, const AtomListView& l)
     clock_.delay(delay_->value());
 }
 
-void FlowDelay::proxy_delay(t_float f)
+void FlowDelay::proxy_delay(int i, t_float f)
 {
     delay_->setValue(f);
 }
 
-void FlowDelay::proxy_reset()
+void FlowDelay::proxy_reset(int)
 {
     clock_.unset();
     in_process_ = false;
@@ -105,7 +105,7 @@ void FlowDelay::proxy_reset()
 
 void FlowDelay::proxy_reset(const AtomListView&)
 {
-    proxy_reset();
+    proxy_reset(0);
 }
 
 void FlowDelay::proxy_add(const AtomListView& lv)

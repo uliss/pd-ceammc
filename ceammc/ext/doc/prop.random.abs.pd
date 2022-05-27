@@ -1,0 +1,10 @@
+#N canvas 0 0 527 299 12;
+#X obj 20 48 inlet;
+#X obj 20 77 prop.declare freq @f @min 50 @max 200 @default 50;
+#X obj 20 106 prop @freq;
+#X floatatom 20 135 5 0 0 0 - - -;
+#X obj 20 164 osc~;
+#X obj 20 192 outlet~;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;
+#X connect 4 0 5 0;

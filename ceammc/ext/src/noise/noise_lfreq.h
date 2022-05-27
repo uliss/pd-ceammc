@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "noise.lfreq"
-Code generated with Faust 2.30.12 (https://faust.grame.fr)
-Compilation options: -lang cpp -es 1 -scal -ftz 0
+Code generated with Faust 2.37.3 (https://faust.grame.fr)
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __noise_lfreq_H__
@@ -218,24 +218,69 @@ class dsp_factory {
     
 };
 
-/**
- * On Intel set FZ (Flush to Zero) and DAZ (Denormals Are Zero)
- * flags to avoid costly denormals.
- */
+// Denormal handling
 
-#ifdef __SSE__
-    #include <xmmintrin.h>
-    #ifdef __SSE2__
-        #define AVOIDDENORMALS _mm_setcsr(_mm_getcsr() | 0x8040)
-    #else
-        #define AVOIDDENORMALS _mm_setcsr(_mm_getcsr() | 0x8000)
-    #endif
-#else
-    #define AVOIDDENORMALS
+#if defined (__SSE__)
+#include <xmmintrin.h>
 #endif
 
+class ScopedNoDenormals
+{
+    private:
+    
+        intptr_t fpsr;
+        
+        void setFpStatusRegister(intptr_t fpsr_aux) noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+           asm volatile("msr fpcr, %0" : : "ri" (fpsr_aux));
+        #elif defined (__SSE__)
+            _mm_setcsr(static_cast<uint32_t>(fpsr_aux));
+        #endif
+        }
+        
+        void getFpStatusRegister() noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+            asm volatile("mrs %0, fpcr" : "=r" (fpsr));
+        #elif defined ( __SSE__)
+            fpsr = static_cast<intptr_t>(_mm_getcsr());
+        #endif
+        }
+    
+    public:
+    
+        ScopedNoDenormals() noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+            intptr_t mask = (1 << 24 /* FZ */);
+        #else
+            #if defined(__SSE__)
+            #if defined(__SSE2__)
+                intptr_t mask = 0x8040;
+            #else
+                intptr_t mask = 0x8000;
+            #endif
+            #else
+                intptr_t mask = 0x0000;
+            #endif
+        #endif
+            getFpStatusRegister();
+            setFpStatusRegister(fpsr | mask);
+        }
+        
+        ~ScopedNoDenormals() noexcept
+        {
+            setFpStatusRegister(fpsr);
+        }
+
+};
+
+#define AVOIDDENORMALS ScopedNoDenormals();
+
 #endif
-/**************************  END  noise_lfreq_dsp.h **************************/
+
+/************************** END noise_lfreq_dsp.h **************************/
 /************************** BEGIN UI.h **************************/
 /************************************************************************
  FAUST Architecture File
@@ -309,6 +354,9 @@ struct UIReal
     // -- metadata declarations
     
     virtual void declare(REAL* zone, const char* key, const char* val) {}
+    
+    // To be used by LLVM client
+    virtual int sizeOfFAUSTFLOAT() { return sizeof(FAUSTFLOAT); }
 };
 
 struct UI : public UIReal<FAUSTFLOAT>
@@ -518,25 +566,27 @@ class noise_lfreq : public noise_lfreq_dsp {
 	int iVec0[2];
 	int fSampleRate;
 	float fConst1;
-	FAUSTFLOAT fHslider0;
-	float fRec8[2];
-	float fRec6[2];
-	float fRec7[2];
-	int iRec9[2];
-	float fRec5[2];
 	float fConst2;
+	FAUSTFLOAT fHslider0;
+	float fConst3;
+	float fRec1[2];
+	float fConst4;
+	float fRec7[2];
+	float fRec8[2];
+	int iRec9[2];
+	float fRec6[2];
+	float fRec5[2];
 	float fRec4[2];
 	float fRec3[2];
 	float fRec2[2];
-	float fRec1[2];
 	float fRec0[2];
 	
  public:
 	
 	void metadata(Meta* m) { 
 		m->declare("basics.lib/name", "Faust Basic Element Library");
-		m->declare("basics.lib/version", "0.1");
-		m->declare("compile_options", "-lang cpp -es 1 -scal -ftz 0");
+		m->declare("basics.lib/version", "0.2");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0");
 		m->declare("filename", "noise_lfreq.dsp");
 		m->declare("filters.lib/lowpass0_highpass1", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/lowpass0_highpass1:author", "Julius O. Smith III");
@@ -558,16 +608,16 @@ class noise_lfreq : public noise_lfreq_dsp {
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
-		m->declare("maths.lib/version", "2.3");
+		m->declare("maths.lib/version", "2.5");
 		m->declare("name", "noise.lfreq");
 		m->declare("noises.lib/name", "Faust Noise Generator Library");
-		m->declare("noises.lib/version", "0.0");
+		m->declare("noises.lib/version", "0.1");
 		m->declare("oscillators.lib/name", "Faust Oscillator Library");
 		m->declare("oscillators.lib/version", "0.1");
 		m->declare("platform.lib/name", "Generic Platform Library");
-		m->declare("platform.lib/version", "0.1");
+		m->declare("platform.lib/version", "0.2");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
-		m->declare("signals.lib/version", "0.0");
+		m->declare("signals.lib/version", "0.1");
 	}
 
 	virtual int getNumInputs() {
@@ -576,30 +626,6 @@ class noise_lfreq : public noise_lfreq_dsp {
 	virtual int getNumOutputs() {
 		return 1;
 	}
-	virtual int getInputRate(int channel) {
-		int rate;
-		switch ((channel)) {
-			default: {
-				rate = -1;
-				break;
-			}
-		}
-		return rate;
-	}
-	virtual int getOutputRate(int channel) {
-		int rate;
-		switch ((channel)) {
-			case 0: {
-				rate = 1;
-				break;
-			}
-			default: {
-				rate = -1;
-				break;
-			}
-		}
-		return rate;
-	}
 	
 	static void classInit(int sample_rate) {
 	}
@@ -607,8 +633,10 @@ class noise_lfreq : public noise_lfreq_dsp {
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
 		float fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
-		fConst1 = (6.28318548f / fConst0);
-		fConst2 = (3.14159274f / fConst0);
+		fConst1 = (3.14159274f / fConst0);
+		fConst2 = (44.0999985f / fConst0);
+		fConst3 = (1.0f - fConst2);
+		fConst4 = (6.28318548f / fConst0);
 	}
 	
 	virtual void instanceResetUserInterface() {
@@ -620,31 +648,31 @@ class noise_lfreq : public noise_lfreq_dsp {
 			iVec0[l0] = 0;
 		}
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
-			fRec8[l1] = 0.0f;
+			fRec1[l1] = 0.0f;
 		}
 		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
-			fRec6[l2] = 0.0f;
+			fRec7[l2] = 0.0f;
 		}
 		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
-			fRec7[l3] = 0.0f;
+			fRec8[l3] = 0.0f;
 		}
 		for (int l4 = 0; (l4 < 2); l4 = (l4 + 1)) {
 			iRec9[l4] = 0;
 		}
 		for (int l5 = 0; (l5 < 2); l5 = (l5 + 1)) {
-			fRec5[l5] = 0.0f;
+			fRec6[l5] = 0.0f;
 		}
 		for (int l6 = 0; (l6 < 2); l6 = (l6 + 1)) {
-			fRec4[l6] = 0.0f;
+			fRec5[l6] = 0.0f;
 		}
 		for (int l7 = 0; (l7 < 2); l7 = (l7 + 1)) {
-			fRec3[l7] = 0.0f;
+			fRec4[l7] = 0.0f;
 		}
 		for (int l8 = 0; (l8 < 2); l8 = (l8 + 1)) {
-			fRec2[l8] = 0.0f;
+			fRec3[l8] = 0.0f;
 		}
 		for (int l9 = 0; (l9 < 2); l9 = (l9 + 1)) {
-			fRec1[l9] = 0.0f;
+			fRec2[l9] = 0.0f;
 		}
 		for (int l10 = 0; (l10 < 2); l10 = (l10 + 1)) {
 			fRec0[l10] = 0.0f;
@@ -672,43 +700,43 @@ class noise_lfreq : public noise_lfreq_dsp {
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("noise.lfreq");
 		ui_interface->declare(&fHslider0, "unit", "Hz");
-		ui_interface->addHorizontalSlider("freq", &fHslider0, 1000.0f, 5.0f, 22050.0f, 0.100000001f);
+		ui_interface->addHorizontalSlider("freq", &fHslider0, FAUSTFLOAT(1000.0f), FAUSTFLOAT(5.0f), FAUSTFLOAT(22050.0f), FAUSTFLOAT(0.100000001f));
 		ui_interface->closeBox();
 	}
 	
 	virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
 		FAUSTFLOAT* output0 = outputs[0];
-		float fSlow0 = (0.00100000005f * float(fHslider0));
-		for (int i = 0; (i < count); i = (i + 1)) {
+		float fSlow0 = (fConst2 * float(fHslider0));
+		for (int i0 = 0; (i0 < count); i0 = (i0 + 1)) {
 			iVec0[0] = 1;
-			fRec8[0] = (fSlow0 + (0.999000013f * fRec8[1]));
-			float fTemp0 = (fConst1 * fRec8[0]);
-			float fTemp1 = std::sin(fTemp0);
-			float fTemp2 = std::cos(fTemp0);
-			fRec6[0] = ((fRec7[1] * fTemp1) + (fRec6[1] * fTemp2));
-			fRec7[0] = ((float((1 - iVec0[1])) + (fRec7[1] * fTemp2)) - (fTemp1 * fRec6[1]));
-			int iTemp3 = ((fRec6[1] <= 0.0f) & (fRec6[0] > 0.0f));
+			fRec1[0] = (fSlow0 + (fConst3 * fRec1[1]));
+			float fTemp0 = (1.0f / std::tan((fConst1 * fRec1[0])));
+			float fTemp1 = (1.0f - fTemp0);
+			float fTemp2 = (fConst4 * fRec1[0]);
+			float fTemp3 = std::sin(fTemp2);
+			float fTemp4 = std::cos(fTemp2);
+			fRec7[0] = ((fRec8[1] * fTemp3) + (fRec7[1] * fTemp4));
+			fRec8[0] = ((float((1 - iVec0[1])) + (fRec8[1] * fTemp4)) - (fTemp3 * fRec7[1]));
+			int iTemp5 = ((fRec7[1] <= 0.0f) & (fRec7[0] > 0.0f));
 			iRec9[0] = ((1103515245 * iRec9[1]) + 12345);
-			fRec5[0] = ((fRec5[1] * float((1 - iTemp3))) + (4.65661287e-10f * (float(iRec9[0]) * float(iTemp3))));
-			float fTemp4 = (1.0f / std::tan((fConst2 * fRec8[0])));
-			float fTemp5 = (1.0f - fTemp4);
-			float fTemp6 = (fTemp4 + 1.0f);
-			fRec4[0] = (((fRec5[0] + fRec5[1]) - (fTemp5 * fRec4[1])) / fTemp6);
-			fRec3[0] = (((fRec4[0] + fRec4[1]) - (fTemp5 * fRec3[1])) / fTemp6);
-			fRec2[0] = (((fRec3[0] + fRec3[1]) - (fTemp5 * fRec2[1])) / fTemp6);
-			fRec1[0] = (((fRec2[0] + fRec2[1]) - (fTemp5 * fRec1[1])) / fTemp6);
-			fRec0[0] = (((fRec1[0] + fRec1[1]) - (fRec0[1] * fTemp5)) / fTemp6);
-			output0[i] = FAUSTFLOAT(fRec0[0]);
+			fRec6[0] = ((fRec6[1] * float((1 - iTemp5))) + (4.65661287e-10f * (float(iRec9[0]) * float(iTemp5))));
+			float fTemp6 = (fTemp0 + 1.0f);
+			fRec5[0] = (0.0f - (((fTemp1 * fRec5[1]) - (fRec6[0] + fRec6[1])) / fTemp6));
+			fRec4[0] = (0.0f - (((fTemp1 * fRec4[1]) - (fRec5[0] + fRec5[1])) / fTemp6));
+			fRec3[0] = (0.0f - (((fTemp1 * fRec3[1]) - (fRec4[0] + fRec4[1])) / fTemp6));
+			fRec2[0] = (0.0f - (((fTemp1 * fRec2[1]) - (fRec3[0] + fRec3[1])) / fTemp6));
+			fRec0[0] = (0.0f - (((fRec0[1] * fTemp1) - (fRec2[0] + fRec2[1])) / fTemp6));
+			output0[i0] = FAUSTFLOAT(fRec0[0]);
 			iVec0[1] = iVec0[0];
-			fRec8[1] = fRec8[0];
-			fRec6[1] = fRec6[0];
+			fRec1[1] = fRec1[0];
 			fRec7[1] = fRec7[0];
+			fRec8[1] = fRec8[0];
 			iRec9[1] = iRec9[0];
+			fRec6[1] = fRec6[0];
 			fRec5[1] = fRec5[0];
 			fRec4[1] = fRec4[0];
 			fRec3[1] = fRec3[0];
 			fRec2[1] = fRec2[0];
-			fRec1[1] = fRec1[0];
 			fRec0[1] = fRec0[0];
 		}
 	}

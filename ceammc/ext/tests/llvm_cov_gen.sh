@@ -3,6 +3,7 @@
 COV=$1
 DIR=$2
 
+echo "pwd:           \"`pwd`\""
 echo "llvm-cov:      \"$COV\""
 echo "src directory: \"$DIR\""
 

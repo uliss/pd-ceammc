@@ -1,0 +1,160 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 593 50 cnv 1 172 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 593 50 rubber band pitchshift;
+#X obj 1 1 cnv 5 765 40 empty empty fx.rb_pitchshift~ 20 20 0 20
+-104026 -4096 0;
+#X obj 616 11 fx.rb_pitchshift~;
+#X msg 50 118 open %CEAMMC%/guitar1.wav \, 1;
+#X obj 50 147 expand_env;
+#X obj 155 176 ui.tab speed quality consistency @size 200 16;
+#X obj 50 205 readsf~;
+#X msg 155 205 @quality \$1;
+#X obj 290 205 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X floatatom 203 234 5 0 0 0 - - -;
+#X msg 290 234 @formant \$1;
+#X obj 50 262 fx.rb_pitchshift~ -7;
+#X obj 50 291 ui.gain~ @size 120 14;
+#X obj 280 291 ui.dsp~;
+#X obj 50 320 dac~;
+#X obj 20 369 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 374 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+-49933 0;
+#X text 110 409 1\.;
+#X text 150 409 float;
+#X obj 246 410 cnv 1 46 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 409 PITCH: transposition in semitones. Type: float.;
+#X obj 20 439 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 444 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+-49933 0;
+#X msg 110 479 @detector;
+#X text 245 479 Get/Set control the type of transient detector used.
+'compound' a general-purpose transient detector which is likely to
+be good for most situations. 'precussive' detect percussive transients.
+'piano' use an onset detector with less of a bias toward percussive
+transients. This may give better results with certain material (e.g.
+relatively monophonic piano music). Type: symbol. Default value: compound.
+Allowed values: compound \, percussive \, soft.;
+#X msg 110 611 @formant;
+#X text 245 611 Get/Set control the handling of formant shape (spectral
+envelope) when pitch-shifting. If 'true' preserve the spectral envelope
+of the unshifted signal. This permits shifting the note frequency without
+so substantially affecting the perceived pitch profile of the voice
+or instrument. 'False' apply no special formant processing. The spectral
+envelope will be pitch shifted as normal. Type: int. Default value:
+0\. Allowed values: 0 \, 1\.;
+#X msg 110 743 @latency;
+#X text 245 743 (readonly) Get object latency. Type: float. Units:
+samp. Default value: 1024\.;
+#X msg 110 785 @phase;
+#X text 245 785 Get/Set control the adjustment of component frequency
+phases from one analysis window to the next during non-transient segments.
+'False' adjust the phase in each frequency bin independently from its
+neighbours. This usually results in a slightly softer \, phasier sound.
+'True' adjust phases when stretching in such a way as to try to retain
+the continuity of phase relationships between adjacent frequency bins
+whose phases are behaving in similar ways. Type: int. Default value:
+1\. Allowed values: 0 \, 1\.;
+#X msg 110 932 @quality;
+#X text 245 932 Get/Set method used for pitch shifting. 'speed' may
+sound less clear than 'quality' \, especially for large pitch shifts.
+'quality' method has a CPU cost approximately proportional to the required
+frequency shift. 'consistency' gives greatest consistency when used
+to create small variations in pitch around the 1.0-ratio level. Unlike
+the previous two options \, this avoids discontinuities when moving
+across the 1.0 pitch scale in real-time; it also consumes more CPU
+than the others in the case where the pitch scale is exactly 1.0\.
+Type: symbol. Default value: speed. Allowed values: speed \, quality
+\, consistency.;
+#X msg 110 1125 @scale;
+#X text 245 1125 Get/Set transposition as ratio. Type: float. Default
+value: 1\. Range: 0.25\...4\.;
+#X msg 110 1167 @smooth;
+#X text 245 1167 Get/Set control the use of window-presum FFT and time-domain
+smoothing. If true result in a softer sound with some audible artifacts
+around sharp transients \, but it may be appropriate for longer stretches
+of some instruments and can mix well with @window short. Type: int.
+Default value: 0\. Allowed values: 0 \, 1\.;
+#X msg 110 1269 @trans;
+#X text 245 1269 Get/Set control the component frequency phase-reset
+mechanism that may be used at transient points to provide clarity and
+realism to percussion and other significant transient sounds. 'crisp'
+reset component phases at the peak of each transient (the start of
+a significant note or percussive event). This usually results in a
+clear-sounding output; but it is not always consistent \, and may cause
+interruptions in stable sounds present at the same time as transient
+events. The @detector property can be used to tune this to some extent.
+'mixed' reset component phases at the peak of each transient \, outside
+a frequency range typical of musical fundamental frequencies. The results
+may be more regular for mixed stable and percussive notes than 'crisp'
+\, but with a "phasier" sound. The balance may sound very good for
+certain types of music and fairly bad for others. 'smooth' do not reset
+component phases at any point. The results will be smoother and more
+regular but may be less clear than with either of the other @trans
+settings. Type: symbol. Default value: crisp. Allowed values: crisp
+\, mixed \, smooth.;
+#X msg 110 1582 @transpose;
+#X text 245 1582 Get/Set transposition in semitones. Type: float. Units:
+semitone. Default value: 0\. Range: -24\...24\.;
+#X msg 110 1624 @window;
+#X text 245 1624 Get/Set the window size. 'standard' is expected to
+produce better results than the other window options in most situations.
+'short' may result in crisper sound for audio that depends strongly
+on its timing qualities. 'long' is likely to result in a smoother sound
+at the expense of clarity and timing. Type: symbol. Default value:
+standard. Allowed values: standard \, short \, long.;
+#X obj 20 1751 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1756 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+-49933 0;
+#X text 110 1757 1\.;
+#X text 245 1757 input signal.;
+#X text 110 1777 2\.;
+#X text 245 1777 pitch shift in semitones.;
+#X obj 20 1807 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1812 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+-49933 0;
+#X text 110 1813 1\.;
+#X text 245 1813 output signal.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 115 45 ::;
+#X obj 131 48 ui.link @title fx @url ceammc.fx-help.pd;
+#X obj 1 1863 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1866 library: ceammc v0.9.4;
+#N canvas 10 1885 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 library:;
+#X text 120 10 ceammc;
+#X text 10 32 version:;
+#X text 120 32 0.9.4;
+#X text 10 54 object:;
+#X text 120 54 fx.rb_pitchshift~;
+#X text 10 76 category:;
+#X text 120 76 fx;
+#X text 10 98 since:;
+#X text 120 98 0.9.4;
+#X text 10 120 authors:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 license:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 keywords:;
+#X text 120 164 fx \, pitchshift \, rubberband;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pure-data @url
+https://github.com/uliss/pure-data;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 generated by pddoc;
+#X restore 10 1885 pd info;
+#X connect 4 0 5 0;
+#X connect 5 0 7 0;
+#X connect 6 0 8 0;
+#X connect 9 0 11 0;
+#X connect 7 0 12 0;
+#X connect 8 0 12 0;
+#X connect 10 0 12 1;
+#X connect 11 0 12 0;
+#X connect 12 0 13 0;
+#X connect 13 0 15 0;
+#X connect 13 0 15 1;

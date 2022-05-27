@@ -20,7 +20,7 @@
             </aliases>
         </meta>
         <info>
-            <par>like [loadmsg], but support expression calls ans datatype</par>
+            <par>like [loadmsg], but support expression calls and datatype</par>
             <par>Click on object sends message again</par>
         </info>
         <mouse>

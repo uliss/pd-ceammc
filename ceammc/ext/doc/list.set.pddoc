@@ -45,11 +45,9 @@
 |           |
 |           | [F]    [symbol $$$(
 |           | |.     |..
-[list.set -2 ***       ]
+[list.set -2 ABC       ]
 |
-[msg set]
-|
-[ (
+[ui.dt]
 ]]>
             </pdascii>
         </example>

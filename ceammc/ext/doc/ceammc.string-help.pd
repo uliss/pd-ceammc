@@ -23,7 +23,7 @@
 #X obj 30 359 string.replace;
 #X text 200 359 replace from one substring to another in input string;
 #X obj 30 386 string.split;
-#X text 200 386 split string by separator;
+#X text 200 386 split string or symbol by separator;
 #X obj 30 413 string.starts_with;
 #X text 200 413 checks if string starts with specified substring;
 #X obj 30 440 string.substr;

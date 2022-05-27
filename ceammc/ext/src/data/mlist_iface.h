@@ -67,6 +67,28 @@ public:
         onBang();
     }
 
+    bool proto_front(Atom& res) const override
+    {
+        if (mlist()->size() > 0) {
+            res = mlist()->at(0);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    bool proto_back(Atom& res) const override
+    {
+        const auto size = mlist()->size();
+
+        if (size > 0) {
+            res = mlist()->at(size - 1);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     void proto_set(const AtomListView& lst) override
     {
         mlist()->setRaw(lst);
@@ -126,17 +148,28 @@ public:
         mlist()->shuffle();
     }
 
-    void proto_choose() override
+    bool proto_choose(Atom& a) const override
     {
         using RandomGenT = std::mt19937;
         static RandomGenT gen(time(0));
 
         auto N = mlist()->size();
         if (N < 1)
-            return;
+            return false;
 
         auto idx = std::uniform_int_distribution<size_t>(0, N - 1)(gen);
-        this->atomTo(0, mlist()->at(idx));
+        a = mlist()->at(idx);
+        return true;
+    }
+
+    bool proto_at(int idx, Atom& res) const override
+    {
+        const auto N = mlist()->size();
+        if (idx < -N || idx >= N)
+            return false;
+
+        res = mlist()->at(idx < 0 ? N + idx : idx);
+        return true;
     }
 
     void proto_fill(const Atom& v) override

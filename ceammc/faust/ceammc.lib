@@ -3,6 +3,7 @@ declare version "0.1.2";
 
 ba = library("basics.lib");
 si = library("signals.lib");
+ma = library("maths.lib");
 
 // in puredata 0db = 100db
 db_pd2faust(v) = (v - 100);
@@ -39,3 +40,30 @@ with {
 };
 
 fx_wrap2(bypass, drywet, fx) = _,_ : ba.bypass2(bypass, fx_drywet(si.bus(2), fx, drywet)) : _,_;
+
+// port from guitarix
+// license GPL2+
+envgate(dur, trigger) = trigger : release(int(dur*float(ma.SR))) : >(0.0) with {
+    decay(n,x) = x - (x>0.0)/n;
+    release(n) = + ~ decay(n);
+};
+
+adsr(a, d, s, r, t) = env ~ (_,_) : (!,_) // the 2 'state' signals are fed back
+with {
+    env (p2,y) =
+        (t>0) & (p2|(y>=1)),          // p2 = decay-sustain phase
+        (y + p1*u - (p2&(y>s))*v*y - p3*w*y)	// y  = envelop signal
+        *((p3==0)|(y>=eps)) // cut off tails to prevent denormals
+    with {
+                p1 = (p2==0) & (t>0) & (y<1);         // p1 = attack phase
+                p3 = (t<=0) & (y>0);                  // p3 = release phase
+                // #samples in attack, decay, release, must be >0
+                na = ma.SR*a+(a==0.0); nd = ma.SR*d+(d==0.0); nr = ma.SR*r+(r==0.0);
+                // correct zero sustain level
+                z = s+(s==0.0)*ba.db2linear(-60);
+                // attack, decay and (-60dB) release rates
+                u = 1/na; v = 1-pow(z, 1/nd); w = 1-1/pow(z*ba.db2linear(60), 1/nr);
+                // values below this threshold are considered zero in the release phase
+                eps = ba.db2linear(-120);
+    };
+};

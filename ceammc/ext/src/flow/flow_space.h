@@ -35,6 +35,7 @@ class FlowSpace : public BaseObject {
 
     ClockLambdaFunction packet_sched_;
     FloatProperty* delay_;
+    FloatProperty* deviation_;
     IntProperty* done_;
     std::list<ClockEntry> pipe_;
     ClockLambdaFunction done_fn_;
@@ -54,8 +55,7 @@ public:
     void m_prop_delay(const AtomListView& lv);
     void m_prop_done(const AtomListView& lv);
 
-
-    void setInterval(t_float f);
+    void setInterval(int, t_float f);
 
 private:
     void packetSchedule();

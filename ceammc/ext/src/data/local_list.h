@@ -15,16 +15,20 @@
 #define LOCAL_LIST_H
 
 #include "datatype_mlist.h"
+#include "editor_list.h"
 #include "list_iface.h"
 #include "local_base.h"
 
-typedef DataListIFace<LocalBase<AtomList>> LocalListBase;
+using LocalListBase = EditorListT<DataListIFace<LocalBase<AtomList>>>;
 
 class LocalList : public LocalListBase {
 public:
     LocalList(const PdArgs& a);
+
     AtomList& list() final { return ref(); }
     const AtomList& list() const final { return ref(); }
+
+    EditorTitleString editorTitle() const final;
 };
 
 void setup_local_list();

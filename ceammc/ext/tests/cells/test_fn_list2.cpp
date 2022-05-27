@@ -349,4 +349,39 @@ TEST_CASE("list functions2", "[core]")
         REQUIRE_FLOAT(res[14], -0.9112480);
         REQUIRE_FLOAT(res[15], -0.5723056);
     }
+
+    SECTION("view find props")
+    {
+        Atom pa = A("@a");
+        AtomListView pav(pa);
+        Atom pb = A("@b");
+        AtomListView pbv(pb);
+        AtomList pav1 = LA("@a", 1, 2, 3);
+        AtomList pav2 = LA("NON", "@a", 1, 2, 3);
+        AtomList pav3 = LA(1, 2, 3, "@a", 1, 2, 3);
+        AtomList pav4 = LA(1, 2, 3, "@a", 1, 2, 3, "@b");
+        AtomList pav5 = LA(-1, "@a", 1, 2, 3, "@b", 10, 20, 30);
+        AtomList pav6 = LA(-1, "@a", 1, 2, 3, "@b", 10, 20, 30, "@c", 100);
+        AtomList pbv1 = LA("@b", 10, 20, 30);
+        AtomList pbv2 = LA("@b", 10, 20, 30, "@c", 100);
+        AtomList pcv1 = LA("@c", 100);
+
+        REQUIRE(list::findProperty(L()) == list::ViewSlice {});
+        REQUIRE(list::findProperty(LF(1)) == list::ViewSlice {});
+        REQUIRE(list::findProperty(LF(1, 2, 3)) == list::ViewSlice {});
+        REQUIRE(list::findProperty(LA("ABC")) == list::ViewSlice {});
+        REQUIRE(list::findProperty(pav) == list::ViewSlice { pav, {} });
+        REQUIRE(list::findProperty(pav1) == list::ViewSlice { pav1, {} });
+        REQUIRE(list::findProperty(pav2) == list::ViewSlice { pav1, {} });
+        REQUIRE(list::findProperty(pav3) == list::ViewSlice { pav1, {} });
+        REQUIRE(list::findProperty(pav4) == list::ViewSlice { pav1, pb });
+        REQUIRE(list::findProperty(pav5) == list::ViewSlice { pav1, pbv1 });
+        REQUIRE(list::findProperty(pav6) == list::ViewSlice { pav1, pbv2 });
+
+        auto res = list::findProperty(pav6);
+        while (!res.first.empty()) {
+            REQUIRE((res.first == pav1 || res.first == pbv1 || res.first == pcv1));
+            res = list::findProperty(res.second);
+        }
+    }
 }

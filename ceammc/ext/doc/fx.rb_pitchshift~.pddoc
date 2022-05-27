@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="fx.rb_pitchshift~">
+        <title>fx.rb_pitchshift~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>rubber band pitchshift</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>fx</category>
+            <keywords>fx pitchshift rubberband</keywords>
+            <since>0.9.4</since>
+        </meta>
+        <arguments>
+            <argument name="PITCH" type="float">transposition in semitones</argument>
+        </arguments>
+        <properties>
+            <property name="@window" type="symbol" enum="standard short long" default="standard">
+            the window size. 'standard' is expected to produce better results than the other window
+            options in most situations. 'short' may result in crisper sound for audio that depends
+            strongly on its timing qualities. 'long' is likely to result in a smoother sound at the
+            expense of clarity and timing</property>
+            <property name="@quality" type="symbol" enum="speed quality consistency"
+            default="speed">method used for pitch shifting. 'speed' may sound less clear than
+            'quality', especially for large pitch shifts. 'quality' method has a CPU cost
+            approximately proportional to the required frequency shift. 'consistency' gives
+            greatest consistency when used to create small variations in pitch around the 1.0-ratio
+            level. Unlike the previous two options, this avoids discontinuities when moving across
+            the 1.0 pitch scale in real-time; it also consumes more CPU than the others in the case
+            where the pitch scale is exactly 1.0.</property>
+            <property name="@transpose" type="float" minvalue="-24" units="semitone" maxvalue="24"
+            default="0">transposition in semitones</property>
+            <property name="@phase" type="int" enum="0 1" default="1">control the adjustment of
+            component frequency phases from one analysis window to the next during non-transient
+            segments. 'False' adjust the phase in each frequency bin independently from its
+            neighbours. This usually results in a slightly softer, phasier sound. 'True' adjust
+            phases when stretching in such a way as to try to retain the continuity of phase
+            relationships between adjacent frequency bins whose phases are behaving in similar
+            ways</property>
+            <property name="@smooth" type="int" enum="0 1" default="0">control the use of
+            window-presum FFT and time-domain smoothing. If true result in a softer sound with some
+            audible artifacts around sharp transients, but it may be appropriate for longer
+            stretches of some instruments and can mix well with @window short</property>
+            <property name="@scale" type="float" minvalue="0.25" maxvalue="4" default="1">
+            transposition as ratio</property>
+            <property name="@formant" type="int" enum="0 1" default="0">control the handling of
+            formant shape (spectral envelope) when pitch-shifting. If 'true' preserve the spectral
+            envelope of the unshifted signal. This permits shifting the note frequency without so
+            substantially affecting the perceived pitch profile of the voice or instrument. 'False'
+            apply no special formant processing. The spectral envelope will be pitch shifted as
+            normal.</property>
+            <property name="@latency" type="float" units="sample" default="1024" readonly="true">
+            object latency</property>
+            <property name="@trans" type="symbol" enum="crisp mixed smooth" default="crisp">control
+            the component frequency phase-reset mechanism that may be used at transient points to
+            provide clarity and realism to percussion and other significant transient sounds.
+            'crisp' reset component phases at the peak of each transient (the start of a
+            significant note or percussive event). This usually results in a clear-sounding output;
+            but it is not always consistent, and may cause interruptions in stable sounds present
+            at the same time as transient events. The @detector property can be used to tune this
+            to some extent. 'mixed' reset component phases at the peak of each transient, outside a
+            frequency range typical of musical fundamental frequencies. The results may be more
+            regular for mixed stable and percussive notes than 'crisp', but with a "phasier" sound.
+            The balance may sound very good for certain types of music and fairly bad for others.
+            'smooth' do not reset component phases at any point. The results will be smoother and
+            more regular but may be less clear than with either of the other @trans
+            settings</property>
+            <property name="@detector" type="symbol" enum="compound percussive soft"
+            default="compound">control the type of transient detector used. 'compound' a
+            general-purpose transient detector which is likely to be good for most situations.
+            'precussive' detect percussive transients. 'piano' use an onset detector with less of a
+            bias toward percussive transients. This may give better results with certain material
+            (e.g. relatively monophonic piano music).</property>
+        </properties>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo>pitch shift in semitones</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">output signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[open %CEAMMC%/guitar1.wav, 1(
+|
+[expand_env #a]
+|
+|          [ui.tab speed quality consistency @size 200 16]
+|          |
+[readsf~]  [@quality $1( [T]
+|          |             |
+|          |    [F]      [@formant $1(
+|          |    |.       |
+[fx.rb_pitchshift~ -7    ]
+|
+[ui.gain~ @size 120 14] [ui.dsp~]
+|\
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

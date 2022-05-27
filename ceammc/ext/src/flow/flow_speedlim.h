@@ -22,9 +22,10 @@ public:
     void onAny(t_symbol* s, const AtomListView& lv) override;
     void onData(const Atom& data) override;
 
-    void proxy_float(t_float f) { period_->setValue(f); }
-    void proxy_reset() { proxy_reset({}); }
-    void proxy_reset(const AtomListView&);
+public:
+    void onInletBang(int) { onInletReset({}); }
+    void onInletFloat(int, t_float f) { period_->setValue(f); }
+    void onInletReset(const AtomListView&);
 
     void accept();
     void clock_handler();

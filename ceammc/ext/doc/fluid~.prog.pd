@@ -1,0 +1,18 @@
+#N canvas 0 0 842 414 12;
+#X obj 20 48 ui.keyboard 25 60;
+#X obj 125 120 ui.hrd 5;
+#X text 231 120 different attack and vibrato;
+#X obj 20 149 msg note;
+#X msg 125 149 prog 1 \$1;
+#X obj 20 178 fluid~;
+#X obj 20 207 ui.hgain2~;
+#X obj 173 207 ui.dsp~;
+#X obj 20 235 dac~;
+#X connect 0 0 3 0;
+#X connect 1 0 4 0;
+#X connect 3 0 5 0;
+#X connect 4 0 5 0;
+#X connect 5 0 6 0;
+#X connect 5 1 6 1;
+#X connect 6 0 8 0;
+#X connect 6 1 8 1;

@@ -660,5 +660,27 @@ namespace list {
         return res;
     }
 
+    ViewSlice findProperty(const AtomListView& lv)
+    {
+        ViewSlice res;
+
+        auto prop = std::find_if(lv.begin(), lv.end(), isProperty);
+        if (prop == lv.end()) // no properties in list
+            return res;
+
+        auto next_prop = std::find_if(prop + 1, lv.end(), isProperty);
+
+        auto idx0 = std::distance(lv.begin(), prop);
+        auto len0 = std::distance(prop, next_prop);
+        auto idx1 = std::distance(lv.begin(), next_prop);
+        auto len1 = std::distance(next_prop, lv.end());
+
+        res.first = lv.subView(idx0, len0);
+
+        if (next_prop != lv.end()) // not single property in list
+            res.second = lv.subView(idx1, len1);
+
+        return res;
+    }
 }
 }

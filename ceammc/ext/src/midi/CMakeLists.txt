@@ -2,6 +2,7 @@ set(MIDI_SOURCES
     datatype_midistream.cpp datatype_midistream.h
     datatype_miditrack.cpp datatype_miditrack.h
     midi_common.cpp midi_common.h
+    property_pitch.cpp
 )
 
 macro(ceammc_midi_external name)
@@ -16,8 +17,10 @@ ceammc_midi_external(event_to_ctl)
 ceammc_midi_external(file)
 ceammc_midi_external(kbd)
 ceammc_midi_external(key2str)
+ceammc_midi_external(modus)
 ceammc_midi_external(octave)
 ceammc_midi_external(prg2str)
+ceammc_midi_external(split)
 ceammc_midi_external(str2key)
 ceammc_midi_external(sustain)
 ceammc_midi_external(sysex)

@@ -32,8 +32,14 @@ HoaProcess::HoaProcess(const PdArgs& args)
     , domain_(nullptr)
     , patch_(nullptr)
     , num_(nullptr)
+    , args_(nullptr)
     , clock_(this, &HoaProcess::clockTick)
 {
+    args_ = new ListProperty("@args");
+    args_->setInitOnly();
+    args_->setArgIndex(3);
+    addProperty(args_);
+
     domain_ = new SymbolEnumProperty("@domain", { SYM_HARMONICS, SYM_PLANEWAVES });
     domain_->setInitOnly();
     domain_->setArgIndex(2);
@@ -64,17 +70,12 @@ void HoaProcess::initDone()
                 throw std::invalid_argument("number of planewaves required");
         }
 
-        if (!init())
-            throw std::runtime_error("can't init canvas");
-
-        auto patch_args = args().view(3);
-
         if (domain_->value() == SYM_HARMONICS) {
-            if (!loadHarmonics(patch_->value(), patch_args)) {
+            if (!loadHarmonics(patch_->value(), args_->value().view())) {
                 throw std::runtime_error(fmt::format("can't load the patch {0}.pd", patch_->value()->s_name));
             }
         } else {
-            if (!loadPlaneWaves(patch_->value(), patch_args)) {
+            if (!loadPlaneWaves(patch_->value(), args_->value().view())) {
                 throw std::runtime_error(fmt::format("can't load the patch {0}.pd", patch_->value()->s_name));
             }
         }
@@ -89,21 +90,8 @@ void HoaProcess::initDone()
             OBJ_LOG << e.what(); // object without args - used in help
     }
 
+    // call loadbang in 5 ticks
     clock_.delay(5);
-}
-
-bool HoaProcess::init()
-{
-    //    canvas_ = canvas_new(NULL, gensym(""), 0, NULL);
-    //    if (!canvas_) {
-    //        OBJ_ERR << "can't create canvas";
-    //        return false;
-    //    }
-
-    //    pd_popsym((t_pd*)canvas_);
-    //    canvas_vis(canvas_, 0);
-
-    return true;
 }
 
 void HoaProcess::clockTick()
@@ -562,12 +550,12 @@ void HoaProcess::onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_f
         instances_.front().show();
 }
 
-void HoaProcess::m_open(t_symbol* m, const AtomListView &lst)
+void HoaProcess::m_open(t_symbol* m, const AtomListView& lv)
 {
-    if (!checkArgs(lst, ARG_FLOAT, m))
+    if (!checkArgs(lv, ARG_FLOAT, m))
         return;
 
-    t_float v = lst.floatAt(0, 0);
+    t_float v = lv.floatAt(0, 0);
     size_t idx = 0;
 
     if (v < 0) { // open all
@@ -584,7 +572,7 @@ void HoaProcess::m_open(t_symbol* m, const AtomListView &lst)
     }
 }
 
-void HoaProcess::m_dsp_on(t_symbol* m, const AtomListView& lst)
+void HoaProcess::m_dsp_on(t_symbol* m, const AtomListView& lv)
 {
     static t_symbol* SYM_ALL = gensym("all");
     auto usage = [this, m]() {
@@ -593,21 +581,21 @@ void HoaProcess::m_dsp_on(t_symbol* m, const AtomListView& lst)
                          "\t INST_IDX 1|0 - to switch on/off specified instance";
     };
 
-    if (lst.size() != 2) {
+    if (lv.size() != 2) {
         usage();
         return;
     }
 
-    if (lst.size() == 2 && lst[0].isSymbol() && lst[1].isFloat()) {
-        if (lst[0].asSymbol() == SYM_ALL) {
-            bool v = (lst[1].asInt() != 0);
+    if (lv.size() == 2 && lv[0].isSymbol() && lv[1].isFloat()) {
+        if (lv[0].asSymbol() == SYM_ALL) {
+            bool v = (lv[1].asInt() != 0);
             for (auto& i : instances_)
                 i.dspOn(v);
         } else
             usage();
-    } else if (lst.size() == 2 && lst[0].isFloat() && lst[1].isFloat()) {
-        auto idx = lst[0].asInt();
-        auto v = lst[1].asInt();
+    } else if (lv.size() == 2 && lv[0].isFloat() && lv[1].isFloat()) {
+        auto idx = lv[0].asInt();
+        auto v = lv[1].asInt();
         if (idx < 0 || idx >= instances_.size()) {
             METHOD_ERR(m) << "invalid instance index: " << idx;
             return;

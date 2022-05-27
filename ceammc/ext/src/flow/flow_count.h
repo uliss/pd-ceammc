@@ -41,7 +41,7 @@ public:
     bool processAnyProps(t_symbol* s, const AtomListView&) override;
     void initDone() override;
 
-    void onInletAny(Inlet* inl, t_symbol* s, const AtomListView& lv);
+    void onInletAny(int id, t_symbol* s, const AtomListView& lv);
 
 private:
     void tick();

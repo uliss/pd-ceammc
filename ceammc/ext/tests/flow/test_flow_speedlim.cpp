@@ -78,14 +78,14 @@ TEST_CASE("flow.speedlim", "[externals]")
             WHEN_SEND_BANG_TO(0, t);
             REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
-            t.proxy_reset();
+            t.onInletBang(1);
             WHEN_SEND_BANG_TO(0, t);
             REQUIRE_BANG_AT_OUTLET(0, t);
 
             WHEN_SEND_FLOAT_TO(0, t, 200);
             REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
-            t.proxy_reset();
+            t.onInletBang(1);
             WHEN_SEND_FLOAT_TO(0, t, 200);
             REQUIRE_FLOAT_AT_OUTLET(0, t, 200);
 
@@ -121,9 +121,10 @@ TEST_CASE("flow.speedlim", "[externals]")
 
     SECTION("do")
     {
-        setTestSampleRate(44100);
+#if PD_FLOATSIZE == 32
+        setTestSampleRate(64000);
 
-        TExt t("flow.speedlim", 2_ticks);
+        TExt t("flow.speedlim", 3_ticks);
         REQUIRE_PROPERTY_FLOAT(t, @limit, 3);
         const auto bang = Message::makeBang();
         const auto f0 = Message(100);
@@ -165,6 +166,7 @@ TEST_CASE("flow.speedlim", "[externals]")
         t.schedTicks(15);
         t.sendBang(); // pass
         REQUIRE(t.messagesAt(0) == MessageList({ bang, bang }));
+#endif
     }
 
     SECTION("alias")

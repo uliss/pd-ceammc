@@ -39,6 +39,15 @@ public:
     void onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt) override;
 
     const char* annotateInlet(size_t n) const override;
+
+    void m_shuffle(t_symbol* s, const AtomListView&);
+    void m_reverse(t_symbol* s, const AtomListView&);
+    void m_rotate(t_symbol* s, const AtomListView& lv);
+    void m_side2circle(t_symbol* s, const AtomListView&);
+
+private:
+    void updateDsp();
+    void syncAnnotations();
 };
 
 void setup_base_dac();

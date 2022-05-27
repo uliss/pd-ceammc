@@ -198,6 +198,8 @@ TEST_CASE("Properties2", "[ceammc::properties]")
                     [&]() -> bool { return value; },
                     [&](bool v) -> bool { value = v; return true; });
 
+                REQUIRE(p.infoT().defaultBool() == false);
+
                 REQUIRE(p.isReadWrite());
                 REQUIRE(!p.isInitOnly());
                 REQUIRE(!p.isReadOnly());
@@ -239,6 +241,14 @@ TEST_CASE("Properties2", "[ceammc::properties]")
                 REQUIRE(value == true);
                 REQUIRE(p.setList(AtomList::parseString("~")));
                 REQUIRE(value == false);
+
+                p.infoT().setDefault(false);
+                p.setBool(true);
+                REQUIRE(p.setList(AtomList::parseString("default")));
+                REQUIRE(value == false);
+
+                p.infoT().setDefault(true);
+                REQUIRE(p.setList(AtomList::parseString("default")));
             }
         }
 
@@ -363,9 +373,9 @@ TEST_CASE("Properties2", "[ceammc::properties]")
             REQUIRE(p.set(LF(1.2)));
             REQUIRE(value == 1);
             REQUIRE(p.set(LF(1.9)));
-            REQUIRE(value == 2);
+            REQUIRE(value == 1);
             REQUIRE(p.set(LF(-0.9)));
-            REQUIRE(value == -1);
+            REQUIRE(value == 0);
 
             REQUIRE_FALSE(p.set(L()));
             REQUIRE_FALSE(p.set(LF(1, 2)));

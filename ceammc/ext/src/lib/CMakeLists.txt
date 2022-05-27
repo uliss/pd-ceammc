@@ -21,6 +21,9 @@ set(UTF8REWIND_SOURCES
 )
 target_sources(ceammc_core PRIVATE ${UTF8REWIND_SOURCES})
 
+# tcl stuff
+add_subdirectory(tcl)
+
 set(CEAMMC_LIB_SOURCES
     ceammc.h
     ceammc_abstractdata.cpp
@@ -41,6 +44,8 @@ set(CEAMMC_LIB_SOURCES
     lex/data_string.lexer.cpp
     lex/data_string.parser.cpp
     lex/quoted_string.parser.cpp
+    tcl/ceammc_texteditor.h
+    tcl/ceammc_tcl.cpp
     ceammc_array.cpp
     ceammc_atom.cpp
     ceammc_atomlist.cpp
@@ -51,6 +56,7 @@ set(CEAMMC_LIB_SOURCES
     ceammc_convert_pitch.cpp
     ceammc_data.cpp
     ceammc_datastorage.cpp
+    ceammc_dsp.cpp
     ceammc_externals.cpp
     ceammc_factory.h
     ceammc_faust.cpp
@@ -58,6 +64,8 @@ set(CEAMMC_LIB_SOURCES
     ceammc_format.cpp
     ceammc_function.cpp
     ceammc_impl.cpp
+    ceammc_inlet.cpp
+    ceammc_outlet.cpp
     ceammc_json.h
     ceammc_json.cpp
     ceammc_log.cpp
@@ -69,11 +77,15 @@ set(CEAMMC_LIB_SOURCES
     ceammc_music_theory_pitch_class.cpp
     ceammc_node_external.cpp
     ceammc_numeric.h
+    ceammc_editor_object.cpp
     ceammc_object.cpp
     ceammc_object_info.cpp
     ceammc_output.cpp
     ceammc_pd.cpp
     ceammc_platform.cpp
+    ceammc_pipe_dispatcher.cpp
+    ceammc_poll_dispatcher.cpp
+    ceammc_socket_dispatcher.cpp
     ceammc_preset.cpp
     ceammc_property.cpp
     ceammc_property_callback.cpp
@@ -124,6 +136,45 @@ set(CEAMMC_UI_SRC
 
 target_sources(ceammc_core PRIVATE ${CEAMMC_UI_SRC})
 
+find_package(RAGEL 6.6)
+
+if(RAGEL_FOUND)
+    RAGEL_TARGET(parser_numeric
+        lex/parser_numeric.rl ${CMAKE_CURRENT_SOURCE_DIR}/lex/parser_numeric.cpp
+        COMPILE_FLAGS "-G2 -s")
+    RAGEL_TARGET(parser_color
+        lex/parser_color.rl ${CMAKE_CURRENT_SOURCE_DIR}/lex/parser_color.cpp
+        COMPILE_FLAGS "-G2 -s")
+    RAGEL_TARGET(parser_music
+        lex/parser_music.rl ${CMAKE_CURRENT_SOURCE_DIR}/lex/parser_music.cpp
+        COMPILE_FLAGS "-G2 -s")
+    RAGEL_TARGET(parser_units
+        lex/parser_units.rl ${CMAKE_CURRENT_SOURCE_DIR}/lex/parser_units.cpp
+        COMPILE_FLAGS "-G2 -s")
+    RAGEL_TARGET(parser_props
+        lex/parser_props.rl ${CMAKE_CURRENT_SOURCE_DIR}/lex/parser_props.cpp
+        COMPILE_FLAGS "-G2 -s")
+    RAGEL_TARGET(parser_clone
+        lex/parser_clone.rl ${CMAKE_CURRENT_SOURCE_DIR}/lex/parser_clone.cpp
+        COMPILE_FLAGS "-G2 -s")
+endif()
+
+# ragel generated sources
+target_sources(ceammc_core
+    PRIVATE
+        lex/parser_clone.cpp
+        lex/parser_color.cpp
+        lex/parser_music.cpp
+        lex/parser_numeric.cpp
+        lex/parser_props.cpp
+        lex/parser_props_details.cpp
+        lex/parser_units.cpp
+)
+
+# ragel files
+file(GLOB RAGEL_SOURCES lex/*.rl)
+add_custom_target(lex_ragel_sources SOURCES ${RAGEL_SOURCES})
+
 if(BISON_FOUND AND FLEX_FOUND)
     add_custom_target(ceammc_argcheck_gen
         COMMAND $<TARGET_FILE:reflex-bin> argcheck.l
@@ -147,11 +198,6 @@ if(BISON_FOUND AND FLEX_FOUND)
                 lex/array_loader.y
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lex)
 
-    add_custom_target(ceammc_lexer_fraction
-        COMMAND $<TARGET_FILE:reflex-bin> fraction.l
-        SOURCES lex/fraction.l
-        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lex)
-
     add_custom_target(ceammc_select_gen
         COMMAND $<TARGET_FILE:reflex-bin> select.l
         COMMAND ${BISON_EXECUTABLE} select.y
@@ -162,11 +208,6 @@ if(BISON_FOUND AND FLEX_FOUND)
         COMMAND $<TARGET_FILE:reflex-bin> score.l
         COMMAND ${BISON_EXECUTABLE} score.y
         SOURCES lex/score.l lex/score.y
-        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lex)
-
-    add_custom_target(ceammc_units_gen
-        COMMAND $<TARGET_FILE:reflex-bin> units.l
-        SOURCES lex/units.l
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lex)
 endif()
 
@@ -214,10 +255,8 @@ set(CEAMMC_LOAD_SRC
     lex/array_loader.lexer.cpp
     lex/array_loader.parser.cpp
     lex/array_loader.cpp
-    lex/fraction.lexer.cpp
     lex/select.lexer.cpp
     lex/select.parser.cpp
-    lex/units.lexer.cpp
     lex/score.lexer.cpp
     lex/score.parser.cpp
     array_load_pattern.h
@@ -231,6 +270,10 @@ if(LIBSNDFILE_FOUND)
     target_include_directories(ceammc_core PRIVATE ${LIBSNDFILE_INCLUDE_DIRS})
     target_link_libraries(ceammc_core PUBLIC ${LIBSNDFILE_LIBRARIES})
 endif()
+
+# minimp3
+target_sources(ceammc_core PRIVATE ceammc_loader_minimp3.cpp)
+target_include_directories(ceammc_core PRIVATE ${PROJECT_SOURCE_DIR}/ceammc/extra/minimp3)
 
 # coreaudio backend
 if(APPLE AND CMAKE_CXX_COMPILER_ID MATCHES "Clang")

@@ -10,6 +10,9 @@
 #include "ceammc_log.h"
 #include "ceammc_preset.h"
 
+#include <numeric>
+#include <random>
+
 extern "C" {
 #include "m_imp.h"
 }
@@ -250,25 +253,48 @@ void UISingleValue::onMidiCtrl(const AtomListView& l)
     }
 }
 
-void UISingleValue::m_set(t_float f)
+void UISingleValue::m_set_float(t_float f)
 {
     setValue(f);
     redrawKnob();
 }
 
+void UISingleValue::m_set_random()
+{
+    static std::default_random_engine eng(time(nullptr));
+
+    constexpr t_float dbl_max = std::numeric_limits<t_float>::max();
+
+    std::uniform_real_distribution<t_float> dist(minValue(), std::nextafter(maxValue(), dbl_max));
+
+    const auto f = dist(eng);
+    setValue(f);
+    redrawKnob();
+}
+
+void UISingleValue::m_set(const AtomListView& lv)
+{
+    if (lv.isFloat())
+        m_set_float(lv[0].asT<t_float>());
+    else if (lv.isSymbol() && lv[0].asT<t_symbol*>() == gensym("random"))
+        m_set_random();
+    else
+        UI_ERR << "float value or random expected, got: " << lv;
+}
+
 void UISingleValue::m_plus(t_float f)
 {
-    m_set(value() + f);
+    m_set_float(value() + f);
 }
 
 void UISingleValue::m_minus(t_float f)
 {
-    m_set(value() - f);
+    m_set_float(value() - f);
 }
 
 void UISingleValue::m_mul(t_float f)
 {
-    m_set(value() * f);
+    m_set_float(value() * f);
 }
 
 void UISingleValue::m_div(t_float f)
@@ -278,17 +304,23 @@ void UISingleValue::m_div(t_float f)
         return;
     }
 
-    m_set(value() / f);
+    m_set_float(value() / f);
 }
 
 void UISingleValue::m_increment()
 {
-    m_set(value() + 1);
+    m_set_float(value() + 1);
 }
 
 void UISingleValue::m_decrement()
 {
-    m_set(value() - 1);
+    m_set_float(value() - 1);
+}
+
+void UISingleValue::m_random()
+{
+    m_set_random();
+    output();
 }
 
 void UISingleValue::loadPreset(size_t idx)

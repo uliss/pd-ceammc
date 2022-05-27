@@ -94,12 +94,14 @@ bool ceammc::pd::addPdPrintDataSupport()
 
 std::vector<std::string> pd::currentListOfExternals()
 {
+    if (!pd_objectmaker)
+        return {};
+
     auto mlist = class_methods(pd_objectmaker);
+    if (!mlist)
+        return {};
 
     std::vector<std::string> res;
-    if (!mlist)
-        return res;
-
     res.reserve(pd_objectmaker->c_nmethod);
 
     for (int i = 0; i < pd_objectmaker->c_nmethod; i++)

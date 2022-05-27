@@ -1,13 +1,18 @@
-macro(ceammc_net_external name)
-    list(APPEND NET_SOURCES "net_${name}.cpp")
-endmacro()
+add_library(ceammc_net STATIC mod_net.cpp net_host.cpp)
 
-ceammc_net_external(host)
+# liblo
+find_package(liblo)
+if(LIBLO_FOUND)
+    target_sources(ceammc_net PRIVATE net_osc.cpp net_osc_server.cpp net_osc_receive.cpp)
+    target_include_directories(ceammc_net PUBLIC ${LIBLO_INCLUDE_DIRS})
+    target_link_libraries(ceammc_net PUBLIC ${LIBLO_LIBRARIES})
+endif()
 
-add_library(ceammc_net STATIC mod_net.cpp ${NET_SOURCES})
 target_include_directories(ceammc_net
+    PUBLIC
+        ${PROJECT_SOURCE_DIR}/ceammc/extra/readerwriterqueue # for readerwriterqueue
     PRIVATE
-        ${PROJECT_SOURCE_DIR}/ceammc/extra # for readerwriterqueue
         ${PROJECT_BINARY_DIR} # for config.h
+        "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>"
 )
 

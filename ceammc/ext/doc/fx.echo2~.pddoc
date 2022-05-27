@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="fx.echo2~">
+        <title>fx.echo2~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>stereo echo effect</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>fx</category>
+            <keywords>fx echo stereo delay</keywords>
+            <since>0.9.4</since>
+            <also>
+                <see>fx.echo2~</see>
+                <see>fx.sdelay~</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="time" type="float" minvalue="10" maxvalue="5000" units="millisecond">
+            echo time</argument>
+            <argument name="feedback" type="float" minvalue="0" maxvalue="0.99">feedback
+            coefficient</argument>
+        </arguments>
+        <methods>
+            <method name="reset">reset to initial state</method>
+        </methods>
+        <properties>
+            <property name="@delay" type="float" minvalue="10" maxvalue="5000" units="millisecond"
+            default="500">echo time</property>
+            <property name="@feedback" type="float" minvalue="0" maxvalue="0.99" default="0.3">
+            feedback coefficient</property>
+            <property name="@stereo" type="float" minvalue="0" maxvalue="1" default="1">The stereo
+            parameter controls the amount of stereo spread. For stereo=0 you get a plain delay,
+            without crosstalk between the channels. For stereo=1 you get a pure ping-pong delay
+            where the echos from the left first appear on the right channel and vice
+            versa</property>
+            <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">proportion
+            of mix between the original (dry) and 'effected' (wet) signals. 0 - dry signal, 1 -
+            wet</property>
+            <property name="@bypass" type="int" enum="0 1" default="0">if set to 1 - bypass
+            'effected' signal</property>
+            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
+            processing</property>
+        </properties>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>left input signal</xinfo>
+            </inlet>
+            <inlet type="audio">
+                <xinfo>right input signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">left output signal</outlet>
+            <outlet type="audio">right output signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[open %CEAMMC%/guitar1.wav, 1(
+|
+[expand_env]
+|
+[readsf~]  [ui.hsl @show_value 1]
+|          |
+|          [@stereo $1(
+|          |
+[fx.echo2~ 500 0.3]
+*|*
+[ui.gain2~ @size 120 16]  [ui.dsp~]
+*|*
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

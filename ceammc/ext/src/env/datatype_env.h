@@ -7,6 +7,8 @@
 #include "ceammc_data.h"
 
 #include <algorithm>
+#include <array>
+#include <cstdint>
 #include <vector>
 
 using namespace ceammc;
@@ -50,6 +52,15 @@ struct EnvelopePoint {
     CurveType type;
     bool stop;
 
+    enum FixType : std::uint8_t {
+        FIX_NONE = 0,
+        FIX_TIME = 1 << 0,
+        FIX_VALUE = 1 << 1,
+        FIX_BOTH = FIX_TIME | FIX_VALUE
+    };
+
+    std::uint8_t fix_pos;
+
     EnvelopePoint(size_t time_us, double v, bool stop_node = false, CurveType t = CURVE_LINE, float curve = 0.f)
         : utime(time_us > 0 ? time_us : 0)
         , value(v)
@@ -57,13 +68,19 @@ struct EnvelopePoint {
         , sigmoid_skew(16)
         , type(t)
         , stop(stop_node)
+        , fix_pos(FIX_NONE)
     {
     }
 
-    double timeMs() const
-    {
-        return utime / 1000.0;
-    }
+    double timeMs() const { return utime / 1000.0; }
+    void setFixTime() { fix_pos |= FIX_TIME; }
+    void setFixValue() { fix_pos |= FIX_VALUE; }
+    void setFixNone() { fix_pos = FIX_NONE; }
+    void setFixBoth() { fix_pos = FIX_BOTH; }
+    void toggleFixTime() { fix_pos ^= FIX_TIME; }
+    void toggleFixValue() { fix_pos ^= FIX_VALUE; }
+    void unsetFixTime() { fix_pos &= (~FIX_TIME); }
+    void unsetFixValue() { fix_pos &= (~FIX_VALUE); }
 
     AtomList toList() const;
 };
@@ -243,23 +260,23 @@ public:
         size_t release_us, float release_curve);
 
     // linear envelopes
-    bool setAR(const AtomListView& lst);
-    bool setASR(const AtomListView& lst);
-    bool setADSR(const AtomListView& lst);
+    bool setAR(const AtomListView& lv);
+    bool setASR(const AtomListView& lv);
+    bool setADSR(const AtomListView& lv);
 
     // exponential envelopes
-    bool setEAR(const AtomListView& lst);
-    bool setEASR(const AtomListView& lst);
-    bool setEADSR(const AtomListView& lst);
+    bool setEAR(const AtomListView& lv);
+    bool setEASR(const AtomListView& lv);
+    bool setEADSR(const AtomListView& lv);
 
-    bool setStep(const AtomListView& lst);
-    bool setLine(const AtomListView& lst);
-    bool setExponential(const AtomListView& lst);
-    bool setSin2(const AtomListView& lst);
-    bool setSigmoid(const AtomListView& lst);
+    bool setStep(const AtomListView& lv);
+    bool setLine(const AtomListView& kv);
+    bool setExponential(const AtomListView& lv);
+    bool setSin2(const AtomListView& lv);
+    bool setSigmoid(const AtomListView& lv);
 
-    bool setNamedEnvelope(t_symbol* name, const AtomListView& args);
-    bool isNamedEnvelope(t_symbol* name) const;
+    bool setNamedEnvelope(const char* name, const AtomListView& args);
+    bool isNamedEnvelope(const char* name) const;
 
     DataTypeEnv* clone() const;
 
@@ -317,6 +334,17 @@ public:
 
 public:
     static int dataType;
+
+    using setMethod = bool (DataTypeEnv::*)(const AtomListView&);
+
+    struct NamedMethod {
+        uint32_t crc32_hash;
+        setMethod m;
+    };
+
+    using NamedMethodList = std::array<NamedMethod, 11>;
+
+    static const NamedMethodList named_methods;
 };
 
 std::ostream& operator<<(std::ostream& os, const DataTypeEnv& env);

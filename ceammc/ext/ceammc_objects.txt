@@ -32,11 +32,14 @@ an.onset~
 an.pitchtrack~
 an.rms~
 an.tempo~
+an.zero~
 and
 any->props
 apf->biquad
 approx
 array.bpm
+array.circular~
+array.convolve
 array.copy
 array.do
 array.each
@@ -54,6 +57,7 @@ array.plot~
 array.p~
 array.r
 array.resample
+array.risset_rythm~
 array.rms
 array.s->p
 array.s2p
@@ -132,6 +136,7 @@ ceammc/demux2~
 ceammc/demux~
 ceammc/dict
 ceammc/dict->list
+ceammc/edge->bang
 ceammc/env
 ceammc/env->array
 ceammc/env->vline
@@ -190,7 +195,6 @@ ceammc/pan8~
 ceammc/pan~
 ceammc/pass
 ceammc/pass_if
-ceammc/path
 ceammc/phase->rad
 ceammc/phase->rad~
 ceammc/pi
@@ -221,6 +225,7 @@ ceammc/sfizz~
 ceammc/sig->float~
 ceammc/speedlim
 ceammc/split
+ceammc/spring
 ceammc/str
 ceammc/str->any
 ceammc/str->sec
@@ -242,6 +247,7 @@ ceammc/window
 ceammc/xdac~
 ceammc/xfade2~
 ceammc/xfade~
+ceammc/z~
 ceammc/||'
 ceammc/~->
 cexp~
@@ -267,6 +273,7 @@ conv.cc2amp
 conv.dbfs2amp
 conv.dbfs2amp~
 conv.degree2key
+conv.edge2bang
 conv.hex2int
 conv.int2bits
 conv.lin2curve
@@ -325,6 +332,7 @@ dyn.gate~
 dyn.limit2~
 dyn.limit~
 dyn.softclip~
+edge->bang
 env
 env->array
 env->vline
@@ -364,6 +372,8 @@ flow.demux2~
 flow.demux~
 flow.dollar
 flow.dup
+flow.f
+flow.float
 flow.gate
 flow.greater
 flow.greater_eq
@@ -388,6 +398,8 @@ flow.pass
 flow.pass_if
 flow.pipe
 flow.queue
+flow.rec
+flow.record
 flow.reject
 flow.reject_if
 flow.ring
@@ -401,6 +413,7 @@ flow.stack
 flow.sync
 flow.sync_pack
 flow.tee~
+flt.a-weight
 flt.biquad~
 flt.bpf12~
 flt.bpf24~
@@ -449,6 +462,7 @@ fx.distortion3~
 fx.distortion~
 fx.drive~
 fx.drone_box~
+fx.echo2~
 fx.echo~
 fx.flanger~
 fx.freeverb2~
@@ -458,11 +472,17 @@ fx.granulator~
 fx.greyhole~
 fx.infrev~
 fx.looper~
+fx.onset~
 fx.pitchshift_s~
 fx.pitchshift~
+fx.rb_pitchshift~
 fx.recho~
+fx.room~
 fx.sdelay~
 fx.secho~
+fx.shimmer~
+fx.specdelay~
+fx.tapiir~
 fx.vocoder~
 fx.wahwah~
 fx.zita_rev1~
@@ -524,6 +544,7 @@ is_pointer
 is_symbol
 l->l
 l->l~
+lang.lua
 lfo.+pulse~
 lfo.+saw~
 lfo.+square~
@@ -555,6 +576,9 @@ list.at
 list.average
 list.choice
 list.contains
+list.conv
+list.convolve
+list.correlate
 list.count
 list.count_if
 list.deinterleave
@@ -597,6 +621,8 @@ list.rldecode
 list.rlencode
 list.rotate
 list.route
+list.rundiff
+list.runsum
 list.search
 list.sep
 list.separate
@@ -673,6 +699,7 @@ math.atan
 math.atanh
 math.atanh~
 math.atan~
+math.binomial
 math.cabs~
 math.carg~
 math.cbrt
@@ -714,6 +741,7 @@ math.log~
 math.mul
 math.nan
 math.nan~
+math.nck
 math.neg
 math.or
 math.pi
@@ -774,9 +802,11 @@ midi.file
 midi.kbd
 midi.key->str
 midi.key2str
+midi.modus
 midi.oct
 midi.prg->str
 midi.prg2str
+midi.split
 midi.sustain
 midi.sysex
 midi.track
@@ -794,6 +824,11 @@ ms->samp~
 msg
 msg.after
 msg.onload
+msg.sched
+music.d->t
+music.dur2time
+music.v->m
+music.voice2midi
 mux2~
 mux~
 net.host->ip
@@ -853,14 +888,17 @@ patch.args
 patch.deps
 patch.props
 patch.tree
-path
 path.basename
 path.dirname
 path.exists
 path.is_dir
 path.ls
 path.lsdir
+path.monitor
+path.norm
+path.normalize
 path.search
+path.split
 phase->rad
 phase->rad~
 pi
@@ -887,6 +925,7 @@ prop.declare
 prop.get
 prop.get~
 prop.join
+prop.random
 prop.set
 prop.split
 prop<-
@@ -894,6 +933,7 @@ prop~>
 proto.firmata
 proto.hui
 proto.midi
+proto.midi.casio
 proto.midi.cc
 proto.midi.sysex
 proto.mpv
@@ -913,7 +953,6 @@ random.int
 random.linear
 random.pw_const
 random.pw_lin
-rb.pitchshift~
 reject
 reject_if
 replace
@@ -925,6 +964,8 @@ s->f~
 samp->ms
 samp->ms~
 samp->sec
+samp.time~
+samp.t~
 sec->bpm
 sec->samp
 sec->str
@@ -960,6 +1001,7 @@ speech.flite
 speech.flite~
 speedlim
 split
+spring
 str
 str->any
 str->sec
@@ -996,6 +1038,7 @@ sym->ilist
 symbol.equal
 symbol.length
 symbol.num_compare
+symbol.split
 symbol2any
 symbol2intlist
 sync
@@ -1005,19 +1048,27 @@ synth.church_bell~
 synth.dubdub~
 synth.dx7~
 synth.eguitar~
+synth.english_bell~
 synth.fgrain~
+synth.french_bell~
+synth.german_bell~
 synth.glass_harm~
 synth.glitch~
 synth.harpsichord~
+synth.kick~
 synth.ks~
 synth.marimba~
 synth.piano~
 synth.rhodey~
 synth.risset_arp~
+synth.risset_bell~
 synth.risset_tone~
 synth.russian_bell~
 synth.shakers~
 synth.sitar~
+synth.snare~
+synth.standard_bell~
+synth.tube_bell~
 synth.wurley~
 system.colorpanel
 system.cursor
@@ -1088,6 +1139,7 @@ ui.radio
 ui.radio*
 ui.rsl
 ui.rslider
+ui.s2d
 ui.scope~
 ui.slider
 ui.slider2d
@@ -1113,6 +1165,7 @@ window
 xdac~
 xfade2~
 xfade~
+z~
 ||'
 ~->
 lang.faust~

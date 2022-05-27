@@ -19,8 +19,17 @@ GlobalSet::GlobalSet(const PdArgs& a)
 {
 }
 
+EditorTitleString GlobalSet::editorTitle() const
+{
+    char buf[32];
+    snprintf(buf, sizeof(buf) - 1, "GLOBAL.SET (%s)", this->id()->s_name);
+    return buf;
+}
+
 void setup_global_set()
 {
     ColectionIFaceFactory<GlobalSet> obj("global.set");
     obj.processData<DataTypeSet>();
+
+    GlobalSet::registerMethods(obj);
 }

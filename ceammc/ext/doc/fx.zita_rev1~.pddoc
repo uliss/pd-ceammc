@@ -32,7 +32,7 @@
             will provide the impression of a larger room</property>
             <property name="@freq_low" type="float" minvalue="50" maxvalue="1000" default="200"
             units="herz">Crossover frequency (Hz) separating low and middle frequencies</property>
-            <property name="@dump_hf" type="float" minvalue="1500" maxvalue="47040" default="6000"
+            <property name="@damp_hf" type="float" minvalue="1500" maxvalue="47040" default="6000"
             units="herz">Frequency (Hz) at which the high-frequency T60 is half the middle-band's
             T60</property>
             <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">Ratio

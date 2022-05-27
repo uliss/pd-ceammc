@@ -187,7 +187,7 @@ public:
             METHOD_ERR(s) << "can't remove element at: " << lst;
     }
 
-    void m_clear(t_symbol* /*s*/, const AtomListView& /*lst*/)
+    void m_clear(t_symbol* /*s*/, const AtomListView& /*lv*/)
     {
         proto_clear();
     }
@@ -205,6 +205,14 @@ public:
         T::createCbBoolProperty("@empty", [this]() { return proto_size() == 0; });
     }
 
+    // get methods
+    virtual bool proto_at(int pos, Atom& a) const = 0;
+    virtual bool proto_back(Atom& a) const = 0;
+    virtual bool proto_front(Atom& a) const = 0;
+    virtual bool proto_choose(Atom& a) const = 0;
+    virtual size_t proto_size() const = 0;
+
+    // change methods
     virtual void proto_append(const AtomListView& lst) = 0;
     virtual void proto_prepend(const AtomListView& lst) = 0;
     virtual bool proto_insert(size_t idx, const AtomListView& lst) = 0;
@@ -216,8 +224,6 @@ public:
     virtual void proto_sort() = 0;
     virtual void proto_reverse() = 0;
     virtual void proto_shuffle() = 0;
-    virtual size_t proto_size() const = 0;
-    virtual void proto_choose() = 0;
 
     void m_append(t_symbol* /*s*/, const AtomListView& lst)
     {
@@ -250,7 +256,7 @@ public:
             METHOD_ERR(s) << "can't insert to " << lst[0];
     }
 
-    void m_pop(t_symbol* s, const AtomListView& /*lst*/)
+    void m_pop(t_symbol* s, const AtomListView& /*lv*/)
     {
         if (proto_size() < 1) {
             METHOD_ERR(s) << "empty collection";
@@ -281,7 +287,7 @@ public:
             METHOD_ERR(s) << "can't remove element: " << lst[0];
     }
 
-    void m_clear(t_symbol* /*s*/, const AtomListView& /*lst*/)
+    void m_clear(t_symbol* /*s*/, const AtomListView& /*lv*/)
     {
         proto_clear();
     }
@@ -296,24 +302,59 @@ public:
         proto_fill(lst[0]);
     }
 
-    void m_sort(t_symbol* /*s*/, const AtomListView& /*lst*/)
+    void m_sort(t_symbol* /*s*/, const AtomListView& /*lv*/)
     {
         proto_sort();
     }
 
-    void m_reverse(t_symbol* /*s*/, const AtomListView& /*lst*/)
+    void m_reverse(t_symbol* /*s*/, const AtomListView& /*lv*/)
     {
         proto_reverse();
     }
 
-    void m_shuffle(t_symbol* /*s*/, const AtomListView& /*lst*/)
+    void m_shuffle(t_symbol* /*s*/, const AtomListView& /*lv*/)
     {
         proto_shuffle();
     }
 
-    void m_choose(t_symbol* /*s*/, const AtomListView& /*lst*/)
+    void m_choose(t_symbol* /*s*/, const AtomListView& /*lv*/)
     {
-        proto_choose();
+        Atom a;
+        if (proto_choose(a))
+            this->atomTo(0, a);
+    }
+
+    void m_front(t_symbol* s, const AtomListView& /*lv*/)
+    {
+        Atom a;
+        if (proto_front(a))
+            this->atomTo(0, a);
+        else
+            METHOD_ERR(s) << "empty list";
+    }
+
+    void m_back(t_symbol* s, const AtomListView& /*lv*/)
+    {
+        Atom a;
+        if (proto_back(a))
+            this->atomTo(0, a);
+        else
+            METHOD_ERR(s) << "empty list";
+    }
+
+    void m_at(t_symbol* s, const AtomListView& lv)
+    {
+        const auto N = static_cast<int>(proto_size());
+        const bool ok = lv.isFloat() && lv[0].isInteger() && (lv[0].asT<int>() >= (-N) && lv[0].asT<int>() < N);
+
+        if (!ok) {
+            METHOD_ERR(s) << "abs/relative index expected in [-" << N << "..+" << N << ") range";
+            return;
+        }
+
+        Atom a;
+        if (proto_at(lv[0].asT<int>(), a))
+            this->atomTo(0, a);
     }
 };
 
@@ -471,6 +512,15 @@ namespace protocol {
 
             // void proto_choose()
             obj.addMethod("choose", &T::m_choose);
+
+            // bool proto_front(Atom&)
+            obj.addMethod("front", &T::m_front);
+
+            // bool proto_back(Atom&)
+            obj.addMethod("back", &T::m_back);
+
+            // bool proto_at(int pos, Atom&)
+            obj.addMethod("at", &T::m_at);
         }
     };
 

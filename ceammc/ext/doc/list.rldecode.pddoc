@@ -43,9 +43,9 @@
 <![CDATA[
 [1 2 1 3(    [1 2 3 4(
 |            |.
-[list.rlencode 4 3 2 1]
+[list.rldecode 4 3 2 1]
 |
-[ui.d @display_type 1]
+[ui.dt]
 ]]>
             </pdascii>
         </example>

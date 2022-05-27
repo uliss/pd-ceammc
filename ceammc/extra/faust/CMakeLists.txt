@@ -31,12 +31,28 @@ endif()
 
 set(INCLUDE_STATIC ON CACHE BOOL "" FORCE)
 set(USE_LLVM_CONFIG OFF CACHE BOOL "" FORCE)
-find_package(LLVM REQUIRED CONFIG)
+
+if(APPLE)
+    find_path(MACPORTS_LLVM
+        NAMES llvm
+        PATHS /opt/local/libexec
+        PATH_SUFFIXES llvm-10/lib/cmake llvm-11/lib/cmake llvm-12/lib/cmake llvm-9.0/lib/cmake
+        NO_DEFAULT_PATH
+        NO_CMAKE_SYSTEM_PATH
+        REQUIRED
+        NO_CACHE)
+
+    set(LLVM_DIR ${MACPORTS_LLVM}/llvm)
+    find_package(LLVM REQUIRED CONFIG)
+else()
+    find_package(LLVM REQUIRED CONFIG)
+endif()
+
 message(STATUS "Found LLVM ${LLVM_PACKAGE_VERSION}")
 message(STATUS "Using LLVMConfig.cmake in: ${LLVM_DIR}")
 
 ## Call the faust cmakelist.txt
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/faust/build)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/faust/build EXCLUDE_FROM_ALL)
 
 add_library(ceammc_faust STATIC ceammc_llvm.cpp)
 target_link_libraries(ceammc_faust PRIVATE staticlib)

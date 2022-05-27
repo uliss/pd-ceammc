@@ -89,6 +89,32 @@ BaseDac::BaseDac(const PdArgs& args)
 
     for (size_t i = 1; i < vec_.size(); i++)
         createSignalInlet();
+
+    createCbListProperty(
+        "@channels",
+        [this]() -> AtomList {
+            AtomList res;
+            res.reserve(vec_.size());
+            for (auto v : vec_)
+                res.append(v);
+
+            return res;
+        },
+        [this](const AtomListView& lv) -> bool {
+            const bool ok = lv.allOf([](const Atom& a) -> bool { return a.isInteger() && a.asT<int>() > 0; });
+            if (!ok) {
+                OBJ_ERR << "list of positive integer channel numbers is expected, got: " << lv;
+                return false;
+            }
+
+            const auto N = std::min(lv.size(), vec_.size());
+            for (size_t i = 0; i < N; i++)
+                vec_[i] = lv[i].asT<int>();
+
+            updateDsp();
+
+            return true;
+        });
 }
 
 void BaseDac::processBlock(const t_sample** in, t_sample** out)
@@ -129,6 +155,58 @@ const char* BaseDac::annotateInlet(size_t n) const
                              : "";
 }
 
+void BaseDac::m_shuffle(t_symbol* s, const AtomListView&)
+{
+    std::random_shuffle(vec_.begin(), vec_.end());
+    updateDsp();
+    syncAnnotations();
+}
+
+void BaseDac::m_reverse(t_symbol* s, const AtomListView&)
+{
+    std::reverse(vec_.begin(), vec_.end());
+    std::reverse(vec_str_.begin(), vec_str_.end());
+    updateDsp();
+}
+
+void BaseDac::m_rotate(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_INT, s))
+        return;
+
+    const auto n = size_t(int(vec_.size()) + lv[0].asT<int>()) % vec_.size();
+    std::rotate(vec_.begin(), vec_.begin() + n, vec_.end());
+    std::rotate(vec_str_.begin(), vec_str_.begin() + n, vec_str_.end());
+    updateDsp();
+}
+
+void BaseDac::m_side2circle(t_symbol* s, const AtomListView&)
+{
+    const auto N = vec_.size() - (vec_.size() & 0x1);
+
+    for (size_t i = 0; i < N; i++) {
+        if (i < N / 2)
+            vec_[i] = (i * 2) + 1;
+        else
+            vec_[i] = N - (i - (N / 2)) * 2;
+    }
+
+    updateDsp();
+    syncAnnotations();
+}
+
+void BaseDac::updateDsp()
+{
+    canvas_update_dsp();
+}
+
+void BaseDac::syncAnnotations()
+{
+    const auto N = std::min(vec_.size(), vec_str_.size());
+    for (size_t i = 0; i < N; i++)
+        vec_str_[i] = Descr(vec_[i]);
+}
+
 void setup_base_dac()
 {
     SoundExternalFactory<BaseDac> obj("xdac~");
@@ -136,6 +214,11 @@ void setup_base_dac()
     obj.parseProps(false);
     obj.parsePosProps(false);
     obj.parseArgsMode(PdArgs::PARSE_COPY);
+
+    obj.addMethod("shuffle", &BaseDac::m_shuffle);
+    obj.addMethod("reverse", &BaseDac::m_reverse);
+    obj.addMethod("rotate", &BaseDac::m_rotate);
+    obj.addMethod("side2circle", &BaseDac::m_side2circle);
 
     obj.setDescription("dac~ with channel ranges");
     obj.addAuthor("Serge Poltavsky");

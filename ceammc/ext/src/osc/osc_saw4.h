@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "osc_saw4"
-Code generated with Faust 2.30.12 (https://faust.grame.fr)
-Compilation options: -lang cpp -es 1 -scal -ftz 0
+Code generated with Faust 2.37.3 (https://faust.grame.fr)
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __osc_saw4_H__
@@ -218,24 +218,69 @@ class dsp_factory {
     
 };
 
-/**
- * On Intel set FZ (Flush to Zero) and DAZ (Denormals Are Zero)
- * flags to avoid costly denormals.
- */
+// Denormal handling
 
-#ifdef __SSE__
-    #include <xmmintrin.h>
-    #ifdef __SSE2__
-        #define AVOIDDENORMALS _mm_setcsr(_mm_getcsr() | 0x8040)
-    #else
-        #define AVOIDDENORMALS _mm_setcsr(_mm_getcsr() | 0x8000)
-    #endif
-#else
-    #define AVOIDDENORMALS
+#if defined (__SSE__)
+#include <xmmintrin.h>
 #endif
 
+class ScopedNoDenormals
+{
+    private:
+    
+        intptr_t fpsr;
+        
+        void setFpStatusRegister(intptr_t fpsr_aux) noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+           asm volatile("msr fpcr, %0" : : "ri" (fpsr_aux));
+        #elif defined (__SSE__)
+            _mm_setcsr(static_cast<uint32_t>(fpsr_aux));
+        #endif
+        }
+        
+        void getFpStatusRegister() noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+            asm volatile("mrs %0, fpcr" : "=r" (fpsr));
+        #elif defined ( __SSE__)
+            fpsr = static_cast<intptr_t>(_mm_getcsr());
+        #endif
+        }
+    
+    public:
+    
+        ScopedNoDenormals() noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+            intptr_t mask = (1 << 24 /* FZ */);
+        #else
+            #if defined(__SSE__)
+            #if defined(__SSE2__)
+                intptr_t mask = 0x8040;
+            #else
+                intptr_t mask = 0x8000;
+            #endif
+            #else
+                intptr_t mask = 0x0000;
+            #endif
+        #endif
+            getFpStatusRegister();
+            setFpStatusRegister(fpsr | mask);
+        }
+        
+        ~ScopedNoDenormals() noexcept
+        {
+            setFpStatusRegister(fpsr);
+        }
+
+};
+
+#define AVOIDDENORMALS ScopedNoDenormals();
+
 #endif
-/**************************  END  osc_saw4_dsp.h **************************/
+
+/************************** END osc_saw4_dsp.h **************************/
 /************************** BEGIN UI.h **************************/
 /************************************************************************
  FAUST Architecture File
@@ -309,6 +354,9 @@ struct UIReal
     // -- metadata declarations
     
     virtual void declare(REAL* zone, const char* key, const char* val) {}
+    
+    // To be used by LLVM client
+    virtual int sizeOfFAUSTFLOAT() { return sizeof(FAUSTFLOAT); }
 };
 
 struct UI : public UIReal<FAUSTFLOAT>
@@ -532,28 +580,30 @@ class osc_saw4 : public osc_saw4_dsp {
 	float fVec3[2];
 	int IOTA;
 	float fVec4[8192];
+	float fConst3;
 	FAUSTFLOAT fHslider0;
+	float fConst4;
 	float fRec1[2];
 	
  public:
 	
 	void metadata(Meta* m) { 
 		m->declare("basics.lib/name", "Faust Basic Element Library");
-		m->declare("basics.lib/version", "0.1");
-		m->declare("compile_options", "-lang cpp -es 1 -scal -ftz 0");
+		m->declare("basics.lib/version", "0.2");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0");
 		m->declare("filename", "osc_saw4.dsp");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
-		m->declare("maths.lib/version", "2.3");
+		m->declare("maths.lib/version", "2.5");
 		m->declare("name", "osc_saw4");
 		m->declare("oscillators.lib/name", "Faust Oscillator Library");
 		m->declare("oscillators.lib/version", "0.1");
 		m->declare("platform.lib/name", "Generic Platform Library");
-		m->declare("platform.lib/version", "0.1");
+		m->declare("platform.lib/version", "0.2");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
-		m->declare("signals.lib/version", "0.0");
+		m->declare("signals.lib/version", "0.1");
 	}
 
 	virtual int getNumInputs() {
@@ -561,34 +611,6 @@ class osc_saw4 : public osc_saw4_dsp {
 	}
 	virtual int getNumOutputs() {
 		return 1;
-	}
-	virtual int getInputRate(int channel) {
-		int rate;
-		switch ((channel)) {
-			case 0: {
-				rate = 1;
-				break;
-			}
-			default: {
-				rate = -1;
-				break;
-			}
-		}
-		return rate;
-	}
-	virtual int getOutputRate(int channel) {
-		int rate;
-		switch ((channel)) {
-			case 0: {
-				rate = 1;
-				break;
-			}
-			default: {
-				rate = -1;
-				break;
-			}
-		}
-		return rate;
 	}
 	
 	static void classInit(int sample_rate) {
@@ -599,6 +621,8 @@ class osc_saw4 : public osc_saw4_dsp {
 		fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
 		fConst1 = (0.00520833349f * osc_saw4_faustpower3_f(fConst0));
 		fConst2 = (1.0f / fConst0);
+		fConst3 = (44.0999985f / fConst0);
+		fConst4 = (1.0f - fConst3);
 	}
 	
 	virtual void instanceResetUserInterface() {
@@ -650,16 +674,16 @@ class osc_saw4 : public osc_saw4_dsp {
 	
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("osc_saw4");
-		ui_interface->addHorizontalSlider("phase", &fHslider0, 0.0f, 0.0f, 1.0f, 0.00100000005f);
+		ui_interface->addHorizontalSlider("phase", &fHslider0, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.00100000005f));
 		ui_interface->closeBox();
 	}
 	
 	virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
 		FAUSTFLOAT* input0 = inputs[0];
 		FAUSTFLOAT* output0 = outputs[0];
-		float fSlow0 = (0.00100000005f * float(fHslider0));
-		for (int i = 0; (i < count); i = (i + 1)) {
-			float fTemp0 = float(input0[i]);
+		float fSlow0 = (fConst3 * float(fHslider0));
+		for (int i0 = 0; (i0 < count); i0 = (i0 + 1)) {
+			float fTemp0 = float(input0[i0]);
 			iVec0[0] = 1;
 			float fTemp1 = std::max<float>(20.0f, std::fabs(fTemp0));
 			float fTemp2 = (fRec0[1] + (fConst2 * fTemp1));
@@ -672,8 +696,9 @@ class osc_saw4 : public osc_saw4_dsp {
 			float fTemp6 = ((fTemp5 - fVec2[1]) / fTemp1);
 			fVec3[0] = fTemp6;
 			fVec4[(IOTA & 8191)] = ((float(iVec0[3]) * (fTemp6 - fVec3[1])) / fTemp1);
-			fRec1[0] = (fSlow0 + (0.999000013f * fRec1[1]));
-			output0[i] = FAUSTFLOAT(((fTemp0 == 0.0f) ? 0.0f : (fConst1 * fVec4[((IOTA - std::max<int>(0, std::min<int>(8191, int((fConst0 * (fRec1[0] / fTemp0)))))) & 8191)])));
+			fRec1[0] = (fSlow0 + (fConst4 * fRec1[1]));
+			float fThen0 = (fConst1 * fVec4[((IOTA - std::max<int>(0, std::min<int>(8191, int((fConst0 * (fRec1[0] / fTemp0)))))) & 8191)]);
+			output0[i0] = FAUSTFLOAT(((fTemp0 == 0.0f) ? 0.0f : fThen0));
 			for (int j0 = 3; (j0 > 0); j0 = (j0 - 1)) {
 				iVec0[j0] = iVec0[(j0 - 1)];
 			}

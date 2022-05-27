@@ -5,7 +5,8 @@ add_executable(test_ext_path
 
 target_compile_definitions(test_ext_path
     PRIVATE -DPROJECT_SOURCE_DIR="${PROJECT_SOURCE_DIR}"
-    PRIVATE -DTEST_DIR="${CMAKE_CURRENT_BINARY_DIR}")
+    PRIVATE -DTEST_DIR="${CMAKE_CURRENT_BINARY_DIR}"
+    PRIVATE -DTEST_SRC_DIR="${CMAKE_CURRENT_SOURCE_DIR}")
 
 target_include_directories(test_ext_path
     PRIVATE
@@ -31,4 +32,5 @@ add_path_test(exists)
 add_path_test(is_dir)
 add_path_test(lsdir)
 add_path_test(normalize)
+add_path_test(search)
 add_path_test(split)

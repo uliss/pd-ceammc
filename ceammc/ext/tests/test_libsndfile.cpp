@@ -148,6 +148,27 @@ TEST_CASE("ceammc::libsndfile", "sndfile")
         }
     }
 
+    SECTION("test line stereo @gain")
+    {
+        LibSndFile sf(TEST_DATA_DIR "/test_data1.wav");
+        sf.setGain(0.5);
+        REQUIRE(sf.isOpened());
+        REQUIRE(sf.channels() == 2);
+        REQUIRE(sf.sampleRate() == 44100);
+        REQUIRE(sf.sampleCount() == 441);
+
+        t_word left_buf[1024];
+        t_word right_buf[1024];
+        REQUIRE(sf.read(left_buf, 1024, 0, 0, 1024) == 441);
+        REQUIRE(sf.read(right_buf, 1024, 1, 0, 1024) == 441);
+        REQUIRE(sf.read(right_buf, 1024, 2, 0, 1024) == -1);
+
+        for (int i = 0; i < 441; i++) {
+            REQUIRE(left_buf[i].w_float == Approx(5 * i / 32767.0).epsilon(0.0001));
+            REQUIRE(right_buf[i].w_float == Approx(5 * i / -32767.0).epsilon(0.0001));
+        }
+    }
+
     SECTION("test offset")
     {
         LibSndFile sf(TEST_DATA_DIR "/test_data0.wav");

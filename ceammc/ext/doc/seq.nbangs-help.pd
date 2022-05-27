@@ -25,11 +25,12 @@
 #X text 110 380 1\.;
 #X text 150 380 int;
 #X obj 246 381 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 380 N: number of bangs. Min value: 0;
+#X text 245 380 N: number of bangs. Type: int. Min value: 0;
 #X text 110 400 2\.;
 #X text 150 400 float;
 #X obj 246 401 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 400 T(ms): time interval between bangs. Min value: 1;
+#X text 245 400 T(ms): time interval between bangs. Type: float. Min
+value: 1;
 #X obj 20 430 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 435 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -85,7 +86,7 @@ next.;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title seq @url ceammc.seq-help.pd;
 #X obj 1 1009 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1012 library: ceammc v0.9.3;
+#X text 10 1012 library: ceammc v0.9.4;
 #X text 507 1024 see also:;
 #X obj 581 1024 seq.bangs;
 #X obj 661 1024 seq.toggles;
@@ -94,7 +95,7 @@ next.;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.3;
+#X text 120 32 0.9.4;
 #X text 10 54 object:;
 #X text 120 54 seq.nbangs;
 #X text 10 76 category:;

@@ -31,7 +31,7 @@ struct HoaProcessPropsData {
     long harm_order;
 };
 
-HoaProcessPropsData processHoaProps(const AtomList& lst);
+HoaProcessPropsData processHoaProps(const AtomListView& lv);
 
 class HoaProcessProps : public BaseObject {
     HoaProcessPropsData args_;
@@ -40,17 +40,17 @@ class HoaProcessProps : public BaseObject {
 public:
     HoaProcessProps(const PdArgs& args);
 
-    bool processAnyProps(t_symbol* sel, const AtomListView& lst) override;
+    bool processAnyProps(t_symbol* sel, const AtomListView& lv) override;
     void onBang() override;
     void onFloat(t_float f) override;
     void onSymbol(t_symbol* s) override;
     void onList(const AtomList& lst) override;
 
 private:
-    bool eachProperty(const AtomList& lst,
+    bool eachProperty(const AtomListView& lv,
         std::function<bool(t_symbol*)> is_valid_fn,
-        std::function<void(Property*, t_symbol*, const AtomList&)> inner_process,
-        std::function<void(DataTypeProperty*, const std::string&, const AtomList&)> declared_process);
+        std::function<void(Property*, t_symbol*, const AtomListView&)> inner_process,
+        std::function<void(DataTypeProperty*, const std::string&, const AtomListView&)> declared_process);
 };
 
 void setup_spat_hoa_process_props();

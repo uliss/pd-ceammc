@@ -41,7 +41,7 @@ public:
     bool setInt(int v);
     bool setSymbol(t_symbol* s);
     bool setList(const AtomList& lst);
-    bool setFromPdArgs(const AtomList& lst);
+    bool setFromPdArgs(const AtomListView& lv);
 
     void restoreDefault();
 

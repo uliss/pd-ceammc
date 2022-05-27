@@ -75,6 +75,10 @@ TEST_CASE("proto.midi.cc", "[externals]")
         REQUIRE(t1.messagesAt(0) == ML { M("rpn", 0, 0, (0x1 << 7) | 50) });
         t1.clearAll();
 
+        t0.call("bendsens", 11, 1.5);
+        REQUIRE(t1.messagesAt(0) == ML { M("rpn", 11, 0, (0x1 << 7) | 50) });
+        t1.clearAll();
+
         t0.call("bendsens", 1.75);
         REQUIRE(t1.messagesAt(0) == ML { M("rpn", 0, 0, (0x1 << 7) | 75) });
         t1.clearAll();
@@ -83,58 +87,78 @@ TEST_CASE("proto.midi.cc", "[externals]")
         REQUIRE(t1.messagesAt(0) == ML { M("rpn", 0, 4, 1) });
         t1.clearAll();
 
-        t0.call("tunebank", 35);
-        REQUIRE(t1.messagesAt(0) == ML { M("rpn", 0, 4, 35) });
+        t0.call("tunebank", 3, 35);
+        REQUIRE(t1.messagesAt(0) == ML { M("rpn", 3, 4, 35) });
         t1.clearAll();
 
         t0.call("tuneprog", 35);
         REQUIRE(t1.messagesAt(0) == ML { M("rpn", 0, 3, 35) });
         t1.clearAll();
 
-        t0.call("tunefine", 0);
+        t0.call("tuneprog", 2, 35);
+        REQUIRE(t1.messagesAt(0) == ML { M("rpn", 2, 3, 35) });
+        t1.clearAll();
+
+        t0.call("tune.", 0);
         REQUIRE(t1.messagesAt(0) == ML { M("rpn", 0, 1, 0x2000) });
         t1.clearAll();
 
-        t0.call("tunefine", -50);
+        t0.call("tune.", -50);
         REQUIRE(t1.messagesAt(0) == ML { M("rpn", 0, 1, 0x1000) });
         t1.clearAll();
 
-        t0.call("tunefine", -100);
+        t0.call("tune.", -100);
         REQUIRE(t1.messagesAt(0) == ML { M("rpn", 0, 1, 0) });
         t1.clearAll();
 
-        t0.call("tunefine", 100);
+        t0.call("tune.", 100);
         REQUIRE(t1.messagesAt(0) == ML { M("rpn", 0, 1, 0x3FFF) });
         t1.clearAll();
 
-        t0.call("tunefine", 50);
+        t0.call("tune.", 2, 100);
+        REQUIRE(t1.messagesAt(0) == ML { M("rpn", 2, 1, 0x3FFF) });
+        t1.clearAll();
+
+        t0.call("tune:c", 50);
         REQUIRE(t1.messagesAt(0) == ML { M("rpn", 0, 1, 0x2FFF) });
         t1.clearAll();
 
-        t0.call("tunefine", -15);
+        t0.call("tune:c", 11, 50);
+        REQUIRE(t1.messagesAt(0) == ML { M("rpn", 11, 1, 0x2FFF) });
+        t1.clearAll();
+
+        t0.call("tune:c", -15);
         REQUIRE(t1.messagesAt(0) == ML { M("rpn", 0, 1, 0x2000 - 1229) });
         t1.clearAll();
 
-        t0.call("tunecoarse", 0);
+        t0.call("tune~", 0);
         REQUIRE(t1.messagesAt(0) == ML { M("rpn", 0, 2, 64 << 7) });
         t1.clearAll();
 
-        t0.call("tunecoarse", 5);
+        t0.call("tune~", 5);
         REQUIRE(t1.messagesAt(0) == ML { M("rpn", 0, 2, 69 << 7) });
         t1.clearAll();
 
-        t0.call("tunesemi", 1.5);
+        t0.call("tune~", 3, 5);
+        REQUIRE(t1.messagesAt(0) == ML { M("rpn", 3, 2, 69 << 7) });
+        t1.clearAll();
+
+        t0.call("tune:s", 1.5);
         REQUIRE(t1.messagesAt(0) == ML { M("rpn", 0, 2, 65 << 7), M("rpn", 0, 1, 0x2FFF) });
         t1.clearAll();
 
-        t0.call("tunesemi", -2.5);
+        t0.call("tune:s", -2.5);
         REQUIRE(t1.messagesAt(0) == ML { M("rpn", 0, 2, 62 << 7), M("rpn", 0, 1, 0x1000) });
         t1.clearAll();
 
-        t0.call("tunesemi", -200);
+        t0.call("tune:s", 9, -2.5);
+        REQUIRE(t1.messagesAt(0) == ML { M("rpn", 9, 2, 62 << 7), M("rpn", 9, 1, 0x1000) });
+        t1.clearAll();
+
+        t0.call("tune:s", -200);
         REQUIRE_FALSE(t1.hasOutput());
 
-        t0.call("tunesemi", -10, 16);
+        t0.call("tune:s", -10, 16);
         REQUIRE_FALSE(t1.hasOutput());
 
         t0.call("pan:i", 2, 0x2000);
@@ -170,8 +194,54 @@ TEST_CASE("proto.midi.cc", "[externals]")
                 });
         t1.clearAll();
 
+        t0.call("volume~", 2, 0x60);
+        REQUIRE(t1.messagesAt(0) == ML {
+                    M("volume~", 2, 0x60),
+                    M("volume:i", 2, 0x60 << 7),
+                    M("volume:f", 2, t_float(0x60 << 7) / 0x3FFF),
+                });
+        t1.clearAll();
+
+        t0.call("volume.", 2, 0x60);
+        REQUIRE(t1.messagesAt(0) == ML {
+                    M("volume.", 2, 0x60),
+                    M("volume:i", 2, 0x60 << 7 | 0x60),
+                    M("volume:f", 2, t_float(0x60 << 7 | 0x60) / 0x3FFF),
+                });
+        t1.clearAll();
+
+        t0.call("volume:i", 2, 0);
+        REQUIRE(t1.messagesAt(0) == ML {
+                    M("volume~", 2, 0),
+                    M("volume:i", 2, 0x60),
+                    M("volume:f", 2, t_float(0x60) / 0x3FFF),
+                    M("volume.", 2, 0),
+                    M("volume:i", 2, 0),
+                    M("volume:f", 2, 0),
+                });
+        t1.clearAll();
+
+        t0.call("volume:f", 2, 1);
+        REQUIRE(t1.messagesAt(0) == ML {
+                    M("volume~", 2, 0x7F),
+                    M("volume:i", 2, 0x7F << 7),
+                    M("volume:f", 2, t_float(0x7F << 7) / 0x3FFF),
+                    M("volume.", 2, 0x7F),
+                    M("volume:i", 2, 0x3FFF),
+                    M("volume:f", 2, 1),
+                });
+        t1.clearAll();
+
         t0.call("hold", 0, 0);
         REQUIRE(t1.messagesAt(0) == ML { M("hold", 0, 0) });
+        t1.clearAll();
+
+        t0.call("hold", 0);
+        REQUIRE(t1.messagesAt(0) == ML { M("hold", 0, 0) });
+        t1.clearAll();
+
+        t0.call("hold", 1);
+        REQUIRE(t1.messagesAt(0) == ML { M("hold", 0, 1) });
         t1.clearAll();
 
         t0.call("hold", 2, 1);
@@ -180,6 +250,10 @@ TEST_CASE("proto.midi.cc", "[externals]")
 
         t0.call("sostenuto", 3, 1);
         REQUIRE(t1.messagesAt(0) == ML { M("sostenuto", 3, 1) });
+        t1.clearAll();
+
+        t0.call("portamento", 3, 1);
+        REQUIRE(t1.messagesAt(0) == ML { M("portamento", 3, 1) });
         t1.clearAll();
     }
 
@@ -193,5 +267,19 @@ TEST_CASE("proto.midi.cc", "[externals]")
         t << LF(0xB1, CC_PAN_POSITION_COARSE, 0x7F);
         t << LF(0xB1, CC_PAN_POSITION_FINE, 0x7F);
         REQUIRE(t.messagesAt(0) == ML { M("pan.", 1, 0x7F), M("pan:i", 1, 0x3FFF), M("pan:f", 1, 1) });
+    }
+
+    SECTION("volume")
+    {
+        TExt t("proto.midi.cc");
+        t << LF(0xB1, CC_VOLUME_COARSE, 0x40);
+        REQUIRE(t.messagesAt(0) == ML { M("volume~", 1, 0x40), M("volume:i", 1, 0x40 << 7), M("volume:f", 1, t_float(0x40 << 7) / 0x3FFF) });
+
+        t << LF(0xB1, CC_VOLUME_FINE, 0x7F);
+        REQUIRE(t.messagesAt(0) == ML { M("volume.", 1, 0x7F), M("volume:i", 1, 0x40 << 7 | 0x7F), M("volume:f", 1, t_float(0x40 << 7 | 0x7F) / 0x3FFF) });
+
+        t << LF(0xB1, CC_VOLUME_COARSE, 0x7F);
+        t << LF(0xB1, CC_VOLUME_FINE, 0x7F);
+        REQUIRE(t.messagesAt(0) == ML { M("volume.", 1, 0x7F), M("volume:i", 1, 0x3FFF), M("volume:f", 1, 1) });
     }
 }

@@ -83,7 +83,8 @@ int main(int argc, char* argv[])
     case INF:
         while (true)
             ;
-        break;
+        return 0;
+
     case INF_NO_INT: {
         signal(SIGINT, SIG_IGN);
         while (true)

@@ -34,6 +34,7 @@ class HoaProcess : public SoundExternal {
     SymbolEnumProperty* domain_;
     SymbolProperty* patch_;
     IntProperty* num_;
+    ListProperty* args_;
 
     // used to send loadbang to instances
     ClockMemberFunction<HoaProcess> clock_;
@@ -45,13 +46,12 @@ public:
     void setupDSP(t_signal** sp) final;
 
     void onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt) override;
-    void m_open(t_symbol* m, const AtomListView& lst);
-    void m_dsp_on(t_symbol* m, const AtomListView& lst);
+    void m_open(t_symbol* m, const AtomListView& lv);
+    void m_dsp_on(t_symbol* m, const AtomListView& lv);
 
     void initDone() override;
 
 private:
-    bool init();
     void clockTick();
 
     bool loadHarmonics(t_symbol* name, const AtomListView& patch_args);

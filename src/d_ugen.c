@@ -420,6 +420,7 @@ void signal_makereusable(t_signal *sig)
     {
         if (s5 == sig)
         {
+            post("signal: 0x%lx", sig);
             bug("signal_free 4");
             return;
         }
@@ -793,8 +794,9 @@ static void ugen_doit(t_dspcontext *dc, t_ugenbox *u)
             signal around to send to objects connected to them.  In this
             case we increment the reference count; the corresponding decrement
             is in sig_makereusable(). */
-        if (nofreesigs)
+        if (nofreesigs) {
             (*sig)->s_refcount++;
+        }
         else if (!newrefcount)
             signal_makereusable(*sig);
     }

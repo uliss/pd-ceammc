@@ -67,7 +67,7 @@ void FlowAppend::onAny(t_symbol* s, const AtomListView& lv)
     append();
 }
 
-void FlowAppend::proxy_any(InletProxy<FlowAppend>* /*x*/, t_symbol* s, const AtomListView& v)
+void FlowAppend::proxy_any(int /*x*/, t_symbol* s, const AtomListView& v)
 {
     msg_.setAny(s, v);
 }

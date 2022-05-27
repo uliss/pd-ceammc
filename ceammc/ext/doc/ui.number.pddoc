@@ -21,8 +21,9 @@
             </also>
         </meta>
         <info>
-            <par>Display mode: key '-' and '+' increments value. Mouse drag changes value. Default
-            step is 1/pixel. Holding SHIFT divide step by 100. Holding CTRL multiply by 10.</par>
+            <par>Display mode: keys '-'(Down) and '+'(Up) increment value. Mouse drag changes
+            value. Default step is 1/pixel. Holding SHIFT divide step by 100. Holding CTRL multiply
+            by 10.</par>
             <par>Input mode: Double click to enter new value. Accepted keys: -.0123456789. Press
             ENTER or TAB key to finish. ESCAPE undo input, BACKSPACE removes last character.</par>
         </info>

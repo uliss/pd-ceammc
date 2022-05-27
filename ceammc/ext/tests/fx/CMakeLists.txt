@@ -1,5 +1,9 @@
 add_executable(test_ext_fx test_fx_base.h)
 
+if(WITH_DOUBLE_PRECISION)
+    add_definitions(-DFAUSTFLOAT=double)
+endif()
+
 target_include_directories(test_ext_fx
     PRIVATE
         "${PROJECT_SOURCE_DIR}/ceammc/ext/src/fx"
@@ -20,3 +24,4 @@ function(add_fx_test src)
 endfunction()
 
 add_fx_test(looper)
+add_fx_test(tapiir)

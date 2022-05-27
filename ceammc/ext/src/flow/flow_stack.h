@@ -42,7 +42,7 @@ public:
     void m_clear(const AtomListView&);
     void m_top(const AtomListView&);
     void m_flush(const AtomListView&);
-    void m_poptop();
+    void m_poptop(int);
 
 private:
     void check_empty();

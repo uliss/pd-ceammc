@@ -16,19 +16,13 @@
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 
+#include "midi_names.h"
+
 #include <cmath>
 #include <utility>
 
-constexpr const char* SEL_BANK_SELECT = "bankselect";
-constexpr const char* SEL_MOD_WHEEL_COARSE = "modwheel~";
-constexpr const char* SEL_PAN_POSITION_INT = "pan:i";
-constexpr const char* SEL_PAN_POSITION_FLOAT = "pan:f";
-constexpr const char* SEL_PAN_POSITION_COARSE = "pan~";
-constexpr const char* SEL_PAN_POSITION_FINE = "pan.";
 constexpr const char* SEL_RPN = "rpn";
 constexpr const char* SEL_RPN_RESET = "rpn_reset";
-constexpr const char* SEL_HOLD_PEDAL = "hold";
-constexpr const char* SEL_SOSTENUTO_PEDAL = "sostenuto";
 
 ProtoMidiCC::ProtoMidiCC(const PdArgs& args)
     : BaseObject(args)
@@ -39,6 +33,12 @@ ProtoMidiCC::ProtoMidiCC(const PdArgs& args)
     , pan_pos1_(0)
     , rpn0_(0)
     , rpn1_(0)
+    , banksel0_(0)
+    , banksel1_(0)
+    , vol0_(0)
+    , vol1_(0)
+    , expr0_(0)
+    , expr1_(0)
 {
     createOutlet();
 
@@ -78,152 +78,137 @@ void ProtoMidiCC::onList(const AtomList& lst)
 
 void ProtoMidiCC::m_bend_sens(t_symbol* s, const AtomListView& lv)
 {
-    if (!checkArgs(lv, ARG_FLOAT)) {
-        METHOD_ERR(s) << "sensivity in semitones expected, got: " << lv;
+    int chan = 0;
+    t_float sens = 0;
+
+    if (checkArgs(lv, ARG_INT, ARG_FLOAT)) {
+        chan = lv[0].asT<int>();
+        sens = lv[1].asT<t_float>();
+    } else if (checkArgs(lv, ARG_FLOAT)) {
+        sens = lv[0].asT<t_float>();
+    } else {
+        METHOD_ERR(s) << "CHAN[0..15]? SENS expected, got: " << lv;
         return;
     }
 
-    auto f = lv[0].asT<t_float>();
-    const int semitones = int(f);
-    const int cents = std::round((f - (int)f) * 100);
+    if (!checkChan(chan))
+        return;
+
+    const int semitones = int(sens);
+    const int cents = std::round((sens - (int)sens) * 100);
     if (semitones < 0) {
         METHOD_ERR(s) << "non-negative value expected, got: " << lv;
         return;
     }
 
-    sendCCBegin();
-    sendCC(0, midi::RPNParser::CC_RPN_COARSE, 0);
-    sendCC(0, midi::RPNParser::CC_RPN_FINE, midi::RPNParser::RPN_PITCH_BEND_SENSIVITY);
-    sendCC(0, midi::RPNParser::CC_DATA_ENTRY_COARSE, semitones);
-    sendCC(0, midi::RPNParser::CC_DATA_ENTRY_FINE, cents);
-    sendCCEnd();
+    rpnSend(chan, midi::RPNParser::RPN_PITCH_BEND_SENSIVITY, semitones, cents);
 }
 
 void ProtoMidiCC::m_tune_bank_select(t_symbol* s, const AtomListView& lv)
 {
-    if (!checkArgs(lv, ARG_BYTE, s))
+    const auto data = getCCByte(s, lv);
+    if (data.chan < 0 || data.value < 0 || data.value > 127) {
+        METHOD_ERR(s) << "CHAN[0..15]? TUNE_BANK[0..127] expected, got: " << lv;
+        return;
+    }
+
+    rpnSend(data.chan, midi::RPNParser::RPN_CHANNEL_TUNING_BANK_SELECT, 0, data.value);
+}
+
+void ProtoMidiCC::m_tune_select(t_symbol* s, const AtomListView& lv)
+{
+    int chan = 0;
+    int bank = 0;
+    int prog = 0;
+
+    if (checkArgs(lv, ARG_INT, ARG_INT, ARG_INT)) {
+        chan = lv[0].asT<int>();
+        bank = lv[1].asT<int>();
+        prog = lv[2].asT<int>();
+    } else if (checkArgs(lv, ARG_INT, ARG_INT)) {
+        bank = lv[0].asT<int>();
+        prog = lv[1].asT<int>();
+    } else {
+        METHOD_ERR(s) << "CHAN[0..15]? TUNE_BANK[0..127] TUNE_PROG[0..127] expected, got: " << lv;
+        return;
+    }
+
+    if (!checkChan(chan))
         return;
 
-    sendCCBegin();
-    sendCC(0, midi::RPNParser::CC_RPN_COARSE, 0);
-    sendCC(0, midi::RPNParser::CC_RPN_FINE, midi::RPNParser::RPN_CHANNEL_TUNING_BANK_SELECT);
-    sendCC(0, midi::RPNParser::CC_DATA_ENTRY_COARSE, 0);
-    sendCC(0, midi::RPNParser::CC_DATA_ENTRY_FINE, lv[0].asInt());
-    sendCCEnd();
+    if (bank < 0 || bank > 127) {
+        METHOD_ERR(s) << "invalid tuning bank value: " << bank;
+        return;
+    }
+
+    if (prog < 0 || prog > 127) {
+        METHOD_ERR(s) << "invalid tuning prog value: " << bank;
+        return;
+    }
+
+    rpnSend(chan, midi::RPNParser::RPN_CHANNEL_TUNING_BANK_SELECT, 0, bank);
+    rpnSend(chan, midi::RPNParser::RPN_CHANNEL_TUNING_PROG_CHANGE, 0, prog);
 }
 
 void ProtoMidiCC::m_tune_prog_change(t_symbol* s, const AtomListView& lv)
 {
-    if (!checkArgs(lv, ARG_BYTE, s))
+    const auto data = getCCByte(s, lv);
+    if (data.chan < 0 || data.value < 0 || data.value > 127) {
+        METHOD_ERR(s) << "CHAN[0..15]? TUNE_PROG[0..127] expected, got: " << lv;
         return;
+    }
 
-    sendCCBegin();
-    sendCC(0, midi::RPNParser::CC_RPN_COARSE, 0);
-    sendCC(0, midi::RPNParser::CC_RPN_FINE, midi::RPNParser::RPN_CHANNEL_TUNING_PROG_CHANGE);
-    sendCC(0, midi::RPNParser::CC_DATA_ENTRY_COARSE, 0);
-    sendCC(0, midi::RPNParser::CC_DATA_ENTRY_FINE, lv[0].asInt());
-    sendCCEnd();
+    rpnSend(data.chan, midi::RPNParser::RPN_CHANNEL_TUNING_PROG_CHANGE, 0, data.value);
 }
 
 void ProtoMidiCC::m_tune_fine(t_symbol* s, const AtomListView& lv)
 {
-    if (!checkArgs(lv, ARG_FLOAT, s))
-        return;
+    const auto data = getCCValue(s, lv);
 
-    const float tune = lv[0].asT<t_float>();
-    if (tune < -100 || tune > 100) {
+    if (data.chan < 0 || (data.value < -100 || data.value > 100)) {
         METHOD_ERR(s) << "expected fine tuning (in cents) in [-100..+100] range, got: " << lv;
         return;
     }
 
-    sendTuneFine(tune);
+    sendTuneFine(data.value, data.chan);
 }
 
 void ProtoMidiCC::m_tune_coarse(t_symbol* s, const AtomListView& lv)
 {
-    if (!checkArgs(lv, ARG_INT, s))
-        return;
+    const auto data = getCCValue(s, lv);
 
-    const int tune = lv[0].asT<int>();
-    if (tune < -64 || tune > 63) {
-        METHOD_ERR(s) << "expected coarse tuning (in semitones) in [-64..+63] range, got: " << lv;
+    if (data.chan < 0 || (data.value < -64 || data.value > 63)) {
+        METHOD_ERR(s) << "usage: CHAN[0..15]? TUNE[-64..63], got: " << lv;
         return;
     }
 
-    sendTuneCoarse(tune);
+    sendTuneCoarse(data.value, data.chan);
 }
 
 void ProtoMidiCC::m_tune_semi(t_symbol* s, const AtomListView& lv)
 {
-    static ArgChecker chk("f-64..63 i0..15?");
+    const auto data = getCCValue(s, lv);
 
-    if (!chk.check(lv)) {
-        METHOD_ERR(s) << "usage: TUNE[-64..63] CHAN[0..15]?, got: " << lv;
+    if (data.chan < 0 || (data.value < -64 || data.value > 63)) {
+        METHOD_ERR(s) << "usage: CHAN[0..15]? TUNE[-64..63], got: " << lv;
         return;
     }
 
-    const auto tune = lv.floatAt(0, 0);
-    const int chan = lv.intAt(1, 0);
-
     t_float semi = 0;
-    const t_float cents = std::modf(tune, &semi) * 100;
+    const t_float cents = std::modf(data.value, &semi) * 100;
 
-    sendTuneCoarse(semi, chan);
-    sendTuneFine(cents, chan);
+    sendTuneCoarse(semi, data.chan);
+    sendTuneFine(cents, data.chan);
 }
 
 void ProtoMidiCC::m_pan_fine(t_symbol* s, const AtomListView& lv)
 {
-    auto usage = [&]() { METHOD_ERR(s) << "usage: CHAN VALUE, got: " << lv; };
-
-    if (!checkArgs(lv, ARG_INT, ARG_INT)) {
-        usage();
-        return;
-    }
-
-    const auto chan = lv.intAt(0, 0);
-    const auto value = lv.intAt(1, 0);
-
-    if (!checkChan(chan)) {
-        usage();
-        return;
-    }
-
-    if (!checkByteValue(value)) {
-        usage();
-        return;
-    }
-
-    sendCCBegin();
-    sendCC(chan, CC_PAN_POSITION_FINE, value);
-    sendCCEnd();
+    sendCCbyte(s, lv, CC_PAN_POSITION_FINE);
 }
 
 void ProtoMidiCC::m_pan_coarse(t_symbol* s, const AtomListView& lv)
 {
-    auto usage = [&]() { METHOD_ERR(s) << "usage: CHAN VALUE, got: " << lv; };
-
-    if (!checkArgs(lv, ARG_INT, ARG_INT)) {
-        usage();
-        return;
-    }
-
-    const auto chan = lv.intAt(0, 0);
-    const auto value = lv.intAt(1, 0);
-
-    if (!checkChan(chan)) {
-        usage();
-        return;
-    }
-
-    if (!checkByteValue(value)) {
-        usage();
-        return;
-    }
-
-    sendCCBegin();
-    sendCC(chan, CC_PAN_POSITION_COARSE, value);
-    sendCCEnd();
+    sendCCbyte(s, lv, CC_PAN_POSITION_COARSE);
 }
 
 void ProtoMidiCC::m_pan_float(t_symbol* s, const AtomListView& lv)
@@ -243,120 +228,211 @@ void ProtoMidiCC::m_pan_float(t_symbol* s, const AtomListView& lv)
         return;
     }
 
-    sendCCBegin();
+    ccBegin();
     const auto data = panToBit14(value);
-    sendCC(chan, CC_PAN_POSITION_COARSE, data.first);
-    sendCC(chan, CC_PAN_POSITION_FINE, data.second);
-    sendCCEnd();
+    ccSet(chan, CC_PAN_POSITION_COARSE, data.first);
+    ccSet(chan, CC_PAN_POSITION_FINE, data.second);
+    ccSend();
 }
 
 void ProtoMidiCC::m_pan_int(t_symbol* s, const AtomListView& lv)
 {
-    auto usage = [&]() { METHOD_ERR(s) << "usage: CHAN PAN|(MSB LSB), got: " << lv; };
-
-    int chan = 0;
-    int msb = 0;
-    int lsb = 0;
-
-    if (lv.size() == 2 && lv[0].isInteger() && lv[1].isInteger()) {
-        chan = lv.intAt(0, 0);
-        const int value = lv.intAt(1, 0);
-
-        if (!checkChan(chan)) {
-            usage();
-            return;
-        }
-
-        if (value < 0 || value > 0x3FFF) {
-            METHOD_ERR(s) << "invalid pan value, expected int in [0..0x3FFF] range, got: " << value;
-            usage();
-            return;
-        }
-
-        msb = 0x7F & (value >> 7);
-        lsb = 0x7F & value;
-
-    } else if (lv.size() == 3 && lv[0].isInteger() && lv[1].isInteger() && lv[2].isInteger()) {
-        chan = lv.intAt(0, 0);
-
-        if (!checkChan(chan)) {
-            usage();
-            return;
-        }
-
-        msb = lv.intAt(1, 0);
-        if (!checkByteValue(msb)) {
-            usage();
-            return;
-        }
-
-        lsb = lv.intAt(2, 0);
-        if (!checkByteValue(lsb)) {
-            usage();
-            return;
-        }
-    } else {
-        usage();
+    auto data = getCCInt14(s, lv);
+    if (data.chan < 0)
         return;
-    }
 
-    sendCCBegin();
-    sendCC(chan, CC_PAN_POSITION_COARSE, msb);
-    sendCC(chan, CC_PAN_POSITION_FINE, lsb);
-    sendCCEnd();
+    ccBegin();
+    ccSet14(data.chan, CC_PAN_POSITION_COARSE, CC_PAN_POSITION_FINE, data.value);
+    ccSend();
+}
+
+void ProtoMidiCC::m_banksel_msb(t_symbol* s, const AtomListView& lv)
+{
+    sendCCbyte(s, lv, CC_BANK_SELECT_MSB);
+}
+
+void ProtoMidiCC::m_banksel_lsb(t_symbol* s, const AtomListView& lv)
+{
+    sendCCbyte(s, lv, CC_BANK_SELECT_LSB);
+}
+
+void ProtoMidiCC::m_banksel_int(t_symbol* s, const AtomListView& lv)
+{
+    auto data = getCCInt14(s, lv);
+    if (data.chan < 0)
+        return;
+
+    ccBegin();
+    ccSet14(data.chan, CC_BANK_SELECT_MSB, CC_BANK_SELECT_LSB, data.value);
+    ccSend();
 }
 
 void ProtoMidiCC::m_hold_pedal(t_symbol* s, const AtomListView& lv)
 {
-    auto usage = [&]() { METHOD_ERR(s) << "usage: CHAN VALUE(0|1), got: " << lv; };
-
-    if (!checkArgs(lv, ARG_INT, ARG_BOOL)) {
-        usage();
+    auto data = getCCBool(s, lv);
+    if (data.chan < 0)
         return;
-    }
 
-    int chan = lv[0].asInt();
-    int on = lv[1].asBool();
-
-    if (!checkChan(chan)) {
-        usage();
-        return;
-    }
-
-    sendCCBegin();
-    sendCC(chan, CC_HOLD_PEDAL, on ? 127 : 0);
-    sendCCEnd();
+    ccSend(data.chan, CC_HOLD_PEDAL, data.value);
 }
 
 void ProtoMidiCC::m_sostenuto_pedal(t_symbol* s, const AtomListView& lv)
 {
-    auto usage = [&]() { METHOD_ERR(s) << "usage: CHAN VALUE(0|1), got: " << lv; };
-
-    if (!checkArgs(lv, ARG_INT, ARG_BOOL)) {
-        usage();
+    auto data = getCCBool(s, lv);
+    if (data.chan < 0)
         return;
-    }
 
-    int chan = lv[0].asInt();
-    int on = lv[1].asBool();
-
-    if (!checkChan(chan)) {
-        usage();
-        return;
-    }
-
-    sendCCBegin();
-    sendCC(chan, CC_SOSTENUTO_PEDAL, on ? 127 : 0);
-    sendCCEnd();
+    ccSend(data.chan, CC_SOSTENUTO_PEDAL, data.value);
 }
 
-void ProtoMidiCC::sendCCBegin()
+void ProtoMidiCC::m_all_soundsOff(t_symbol* s, const AtomListView& lv)
+{
+    auto usage = [&]() { METHOD_ERR(s) << "usage: CHAN[0..15]?, got: " << lv; };
+
+    if (lv.size() == 1 || !checkChan(lv[0].asInt())) {
+        usage();
+        return;
+    }
+
+    int chan = lv[0].asInt(-1);
+    if (chan < 0) {
+        for (int i = 0; i < 16; i++)
+            ccSend(i, CC_ALL_SOUND_OFF, 0x7F);
+    } else {
+        ccSend(chan, CC_ALL_SOUND_OFF, 0x7F);
+    }
+}
+
+void ProtoMidiCC::m_volume_coarse(t_symbol* s, const AtomListView& lv)
+{
+    sendCCbyte(s, lv, CC_VOLUME_COARSE);
+}
+
+void ProtoMidiCC::m_volume_fine(t_symbol* s, const AtomListView& lv)
+{
+    sendCCbyte(s, lv, CC_VOLUME_FINE);
+}
+
+void ProtoMidiCC::m_volume_float(t_symbol* s, const AtomListView& lv)
+{
+    auto data = getCCFloat(s, lv, 0, 0x3FFF);
+    if (data.chan < 0)
+        return;
+
+    ccBegin();
+    ccSet14(data.chan, CC_VOLUME_COARSE, CC_VOLUME_FINE, data.value);
+    ccSend();
+}
+
+void ProtoMidiCC::m_volume_int(t_symbol* s, const AtomListView& lv)
+{
+    auto data = getCCInt14(s, lv);
+    if (data.chan < 0)
+        return;
+
+    ccBegin();
+    ccSet14(data.chan, CC_VOLUME_COARSE, CC_VOLUME_FINE, data.value);
+    ccSend();
+}
+
+void ProtoMidiCC::m_portamento_switch(t_symbol* s, const AtomListView& lv)
+{
+    auto data = getCCBool(s, lv);
+    if (data.chan < 0)
+        return;
+
+    ccSend(data.chan, CC_PORTAMENO_SWITCH, data.value);
+}
+
+void ProtoMidiCC::m_mod_fine(t_symbol* s, const AtomListView& lv)
+{
+    sendCCbyte(s, lv, CC_MOD_WHEEL_FINE);
+}
+
+void ProtoMidiCC::m_mod_coarse(t_symbol* s, const AtomListView& lv)
+{
+    sendCCbyte(s, lv, CC_MOD_WHEEL_COARSE);
+}
+
+void ProtoMidiCC::m_mod_float(t_symbol* s, const AtomListView& lv)
+{
+    auto data = getCCFloat(s, lv, 0, 0x3FFF);
+    if (data.chan < 0)
+        return;
+
+    ccBegin();
+    ccSet14(data.chan, CC_MOD_WHEEL_COARSE, CC_MOD_WHEEL_FINE, data.value);
+    ccSend();
+}
+
+void ProtoMidiCC::m_mod_int(t_symbol* s, const AtomListView& lv)
+{
+    auto data = getCCInt14(s, lv);
+    if (data.chan < 0)
+        return;
+
+    ccBegin();
+    ccSet14(data.chan, CC_MOD_WHEEL_COARSE, CC_MOD_WHEEL_FINE, data.value);
+    ccSend();
+}
+
+void ProtoMidiCC::m_exp_fine(t_symbol* s, const AtomListView& lv)
+{
+    sendCCbyte(s, lv, CC_EXPRESSION_FINE);
+}
+
+void ProtoMidiCC::m_exp_coarse(t_symbol* s, const AtomListView& lv)
+{
+    sendCCbyte(s, lv, CC_EXPRESSION_COARSE);
+}
+
+void ProtoMidiCC::m_exp_float(t_symbol* s, const AtomListView& lv)
+{
+    auto data = getCCFloat(s, lv, 0, 0x3FFF);
+    if (data.chan < 0)
+        return;
+
+    ccBegin();
+    ccSet14(data.chan, CC_EXPRESSION_COARSE, CC_EXPRESSION_FINE, data.value);
+    ccSend();
+}
+
+void ProtoMidiCC::m_exp_int(t_symbol* s, const AtomListView& lv)
+{
+    auto data = getCCInt14(s, lv);
+    if (data.chan < 0)
+        return;
+
+    ccBegin();
+    ccSet14(data.chan, CC_EXPRESSION_COARSE, CC_EXPRESSION_FINE, data.value);
+    ccSend();
+}
+
+void ProtoMidiCC::m_all_notesOff(t_symbol* s, const AtomListView& lv)
+{
+    auto usage = [&]() { METHOD_ERR(s) << "usage: CHAN, got: " << lv; };
+
+    if (lv.size() == 1 || !checkChan(lv[0].asInt())) {
+        usage();
+        return;
+    }
+
+    int chan = lv[0].asInt(-1);
+    if (chan < 0) {
+        for (int i = 0; i < 16; i++)
+            ccSend(i, CC_ALL_NOTES_OFF, 0x7F);
+    } else {
+        ccSend(chan, CC_ALL_NOTES_OFF, 0x7F);
+    }
+}
+
+void ProtoMidiCC::ccBegin()
 {
     if (as_list_->value())
         buffer_.clear();
 }
 
-void ProtoMidiCC::sendCCEnd()
+void ProtoMidiCC::ccSend()
 {
     if (as_list_->value()) {
         const auto N = buffer_.size();
@@ -372,11 +448,30 @@ void ProtoMidiCC::sendCCEnd()
 void ProtoMidiCC::onCC(int chan, int cc, int v)
 {
     switch (cc) {
-    case CC_BANK_SELECT:
-        return anyTo(0, gensym(SEL_BANK_SELECT), Atom(v));
-    case CC_MOD_WHEEL_COARSE:
+    case CC_BANK_SELECT_MSB: {
+        banksel0_ = v;
+        handleBankSelectMsb(chan);
+        handleBankSelect(chan);
+        return;
+    }
+    case CC_BANK_SELECT_LSB: {
+        banksel1_ = v;
+        handleBankSelectLsb(chan);
+        handleBankSelect(chan);
+        return;
+    }
+    case CC_MOD_WHEEL_COARSE: {
         mod_wheel0_ = v;
-        return anyTo(0, gensym(SEL_MOD_WHEEL_COARSE), Atom(v));
+        handleModWheelCoarse(chan);
+        handleModWheel(chan);
+        return;
+    }
+    case CC_MOD_WHEEL_FINE: {
+        mod_wheel1_ = v;
+        handleModWheelFine(chan);
+        handleModWheel(chan);
+        return;
+    }
     case CC_PAN_POSITION_COARSE: {
         pan_pos0_ = v;
         handlePanPositionCoarse(chan);
@@ -389,13 +484,49 @@ void ProtoMidiCC::onCC(int chan, int cc, int v)
         handlePanPosition(chan);
         return;
     }
+    case CC_EXPRESSION_COARSE: {
+        expr0_ = v;
+        handleExpressionCoarse(chan);
+        handleExpression(chan);
+        return;
+    }
+    case CC_EXPRESSION_FINE: {
+        expr1_ = v;
+        handleExpressionFine(chan);
+        handleExpression(chan);
+        return;
+    }
     case CC_HOLD_PEDAL: {
         Atom data[2] = { chan, v > 63 };
-        return anyTo(0, gensym(SEL_HOLD_PEDAL), AtomListView(data, 2));
+        return anyTo(0, gensym(M_HOLD_PEDAL), AtomListView(data, 2));
+    }
+    case CC_PORTAMENO_SWITCH: {
+        Atom data[2] = { chan, v > 63 };
+        return anyTo(0, gensym(M_PORTAMENTO_SWITCH), AtomListView(data, 2));
     }
     case CC_SOSTENUTO_PEDAL: {
         Atom data[2] = { chan, v > 63 };
-        return anyTo(0, gensym(SEL_SOSTENUTO_PEDAL), AtomListView(data, 2));
+        return anyTo(0, gensym(M_SOSTENUTO_PEDAL), AtomListView(data, 2));
+    }
+    case CC_ALL_NOTES_OFF: {
+        Atom data(chan);
+        return anyTo(0, gensym(M_ALL_NOTES_OFF), AtomListView(data));
+    }
+    case CC_ALL_SOUND_OFF: {
+        Atom data(chan);
+        return anyTo(0, gensym(M_ALL_SOUND_OFF), AtomListView(data));
+    }
+    case CC_VOLUME_COARSE: {
+        vol0_ = v;
+        handleVolumeCoarse(chan);
+        handleVolume(chan);
+        return;
+    }
+    case CC_VOLUME_FINE: {
+        vol1_ = v;
+        handleVolumeFine(chan);
+        handleVolume(chan);
+        return;
     }
     case CC_RPN_COARSE:
     case CC_RPN_FINE:
@@ -430,7 +561,7 @@ void ProtoMidiCC::onCC(int chan, int cc, int v)
     }
 }
 
-void ProtoMidiCC::sendCC(int chan, int cc, int v)
+void ProtoMidiCC::ccSet(int chan, int cc, int v)
 {
     if (as_list_->value()) {
         buffer_.push_back(0xB0 | (0xF & chan));
@@ -443,50 +574,131 @@ void ProtoMidiCC::sendCC(int chan, int cc, int v)
     }
 }
 
+void ProtoMidiCC::ccSet14(int chan, int cc0, int cc1, int v)
+{
+    ccSet(chan, cc0, 0x7F & (v >> 7));
+    ccSet(chan, cc1, 0x7F & v);
+}
+
+void ProtoMidiCC::handleBankSelectMsb(int chan)
+{
+    const Atom data[2] = { chan, banksel0_ };
+    anyTo(0, gensym(M_BANK_SELECT_MSB), AtomListView(data, 2));
+}
+
+void ProtoMidiCC::handleBankSelectLsb(int chan)
+{
+    const Atom data[2] = { chan, banksel1_ };
+    anyTo(0, gensym(M_BANK_SELECT_LSB), AtomListView(data, 2));
+}
+
+void ProtoMidiCC::handleBankSelect(int chan)
+{
+    const int val14bit = (pan_pos0_ << 7) | pan_pos1_;
+    Atom data[2] = { chan, val14bit };
+    anyTo(0, gensym(M_BANK_SELECT), AtomListView(data, 2));
+}
+
+void ProtoMidiCC::handleVolumeCoarse(int chan)
+{
+    const Atom data[2] = { chan, vol0_ };
+    anyTo(0, gensym(M_CC_VOLUME_COARSE), AtomListView(data, 2));
+}
+
+void ProtoMidiCC::handleVolumeFine(int chan)
+{
+    const Atom data[2] = { chan, vol1_ };
+    anyTo(0, gensym(M_CC_VOLUME_FINE), AtomListView(data, 2));
+}
+
+void ProtoMidiCC::handleVolume(int chan)
+{
+    auto v = (vol0_ << 7) | vol1_;
+    Atom data[2] = { chan, v };
+    anyTo(0, gensym(M_CC_VOLUME_INT), AtomListView(data, 2));
+
+    data[1] = t_float(v) / 0x3FFF;
+    anyTo(0, gensym(M_CC_VOLUME_FLOAT), AtomListView(data, 2));
+}
+
 void ProtoMidiCC::sendTuneFine(float cents, int chan)
 {
     const int val = std::round(convert::lin2lin_clip<t_float>(cents, -100, 100, 0, 0x3FFF));
     const uint16_t msb = 0x7F & (val >> 7);
     const uint16_t lsb = 0x7F & val;
 
-    sendCCBegin();
-    sendCC(chan, midi::RPNParser::CC_RPN_COARSE, 0);
-    sendCC(chan, midi::RPNParser::CC_RPN_FINE, midi::RPNParser::RRN_CHANNEL_TUNING_FINE);
-    sendCC(chan, midi::RPNParser::CC_DATA_ENTRY_COARSE, msb);
-    sendCC(chan, midi::RPNParser::CC_DATA_ENTRY_FINE, lsb);
-    sendCCEnd();
+    rpnSend(chan, midi::RPNParser::RRN_CHANNEL_TUNING_FINE, msb, lsb);
 }
 
 void ProtoMidiCC::sendTuneCoarse(int semi, int chan)
 {
-    sendCCBegin();
-    sendCC(chan, midi::RPNParser::CC_RPN_COARSE, 0);
-    sendCC(chan, midi::RPNParser::CC_RPN_FINE, midi::RPNParser::RRN_CHANNEL_TUNING_COARSE);
-    sendCC(chan, midi::RPNParser::CC_DATA_ENTRY_COARSE, semi + 64);
-    sendCC(chan, midi::RPNParser::CC_DATA_ENTRY_FINE, 0);
-    sendCCEnd();
+    rpnSend(chan, midi::RPNParser::RRN_CHANNEL_TUNING_COARSE, semi + 64, 0);
 }
 
 void ProtoMidiCC::handlePanPositionCoarse(int chan)
 {
     const Atom data[2] = { chan, pan_pos0_ };
-    anyTo(0, gensym(SEL_PAN_POSITION_COARSE), AtomListView(data, 2));
+    anyTo(0, gensym(M_PAN_POSITION_COARSE), AtomListView(data, 2));
 }
 
 void ProtoMidiCC::handlePanPositionFine(int chan)
 {
     const Atom data[2] = { chan, pan_pos1_ };
-    anyTo(0, gensym(SEL_PAN_POSITION_FINE), AtomListView(data, 2));
+    anyTo(0, gensym(M_PAN_POSITION_FINE), AtomListView(data, 2));
 }
 
 void ProtoMidiCC::handlePanPosition(int chan)
 {
     const int val14bit = (pan_pos0_ << 7) | pan_pos1_;
     Atom data[2] = { chan, val14bit };
-    anyTo(0, gensym(SEL_PAN_POSITION_INT), AtomListView(data, 2));
+    anyTo(0, gensym(M_PAN_POSITION_INT), AtomListView(data, 2));
 
     data[1] = bit14ToPan(pan_pos0_, pan_pos1_);
-    anyTo(0, gensym(SEL_PAN_POSITION_FLOAT), AtomListView(data, 2));
+    anyTo(0, gensym(M_PAN_POSITION_FLOAT), AtomListView(data, 2));
+}
+
+void ProtoMidiCC::handleModWheelFine(int chan)
+{
+    const Atom data[2] = { chan, mod_wheel1_ };
+    anyTo(0, gensym(M_MODWHEEL_FINE), AtomListView(data, 2));
+}
+
+void ProtoMidiCC::handleModWheelCoarse(int chan)
+{
+    const Atom data[2] = { chan, mod_wheel0_ };
+    anyTo(0, gensym(M_MODWHEEL_COARSE), AtomListView(data, 2));
+}
+
+void ProtoMidiCC::handleModWheel(int chan)
+{
+    auto v = (mod_wheel0_ << 7) | mod_wheel1_;
+    Atom data[2] = { chan, v };
+    anyTo(0, gensym(M_MODWHEEL_INT), AtomListView(data, 2));
+
+    data[1] = t_float(v) / 0x3FFF;
+    anyTo(0, gensym(M_MODWHEEL_FLOAT), AtomListView(data, 2));
+}
+
+void ProtoMidiCC::handleExpressionFine(int chan)
+{
+    const Atom data[2] = { chan, expr1_ };
+    anyTo(0, gensym(M_EXPRESSION_FINE), AtomListView(data, 2));
+}
+
+void ProtoMidiCC::handleExpressionCoarse(int chan)
+{
+    const Atom data[2] = { chan, expr0_ };
+    anyTo(0, gensym(M_EXPRESSION_COARSE), AtomListView(data, 2));
+}
+
+void ProtoMidiCC::handleExpression(int chan)
+{
+    auto v = (expr0_ << 7) | expr1_;
+    Atom data[2] = { chan, v };
+    anyTo(0, gensym(M_EXPRESSION_INT), AtomListView(data, 2));
+
+    data[1] = t_float(v) / 0x3FFF;
+    anyTo(0, gensym(M_EXPRESSION_FLOAT), AtomListView(data, 2));
 }
 
 bool ProtoMidiCC::checkChan(int chan) const
@@ -505,6 +717,168 @@ bool ProtoMidiCC::checkByteValue(int value) const
         return false;
     } else
         return true;
+}
+
+void ProtoMidiCC::sendCCbyte(t_symbol* s, const AtomListView& lv, uint8_t cc)
+{
+    auto data = getCCByte(s, lv);
+    if (data.chan < 0)
+        return;
+
+    ccSend(data.chan, cc, data.value);
+}
+
+void ProtoMidiCC::ccSend(int chan, int cc, int v)
+{
+    ccBegin();
+    ccSet(chan, cc, v);
+    ccSend();
+}
+
+void ProtoMidiCC::rpnSend(int chan, int rpn, int msb, int lsb)
+{
+    ccBegin();
+    ccSet(chan, CC_RPN_COARSE, 0);
+    ccSet(chan, midi::RPNParser::CC_RPN_FINE, rpn);
+    ccSet(chan, midi::RPNParser::CC_DATA_ENTRY_COARSE, msb);
+    ccSet(chan, midi::RPNParser::CC_DATA_ENTRY_FINE, lsb);
+    ccSend();
+}
+
+ProtoMidiCC::Data2 ProtoMidiCC::getCCBool(t_symbol* s, const AtomListView& lv) const
+{
+    ProtoMidiCC::Data2 res { -1, -1 };
+
+    if (lv.size() == 1 && lv[0].isInteger()) {
+        res.chan = 0;
+        res.value = lv[0].asT<bool>() ? 0x7F : 0;
+    } else if (lv.size() == 2 && lv[0].isInteger() && lv[1].isInteger()) {
+        res.chan = lv[0].asT<int>();
+        res.value = lv[1].asT<bool>() ? 0x7F : 0;
+    } else {
+        METHOD_ERR(s) << "expected CHAN[0..15]? VALUE(0|1), got: " << lv;
+        return res;
+    }
+
+    if (res.chan < 0 || res.chan > 15) {
+        METHOD_ERR(s) << "channel value should be in [0..15] range";
+        return { -1, -1 };
+    }
+
+    return res;
+}
+
+ProtoMidiCC::Data2 ProtoMidiCC::getCCByte(t_symbol* s, const AtomListView& lv) const
+{
+    ProtoMidiCC::Data2 res { -1, -1 };
+
+    if (lv.size() == 1 && lv[0].isInteger()) {
+        res.chan = 0;
+        res.value = lv[0].asT<int>();
+    } else if (lv.size() == 2 && lv[0].isInteger() && lv[1].isInteger()) {
+        res.chan = lv[0].asT<int>();
+        res.value = lv[1].asT<int>();
+    } else {
+        METHOD_ERR(s) << "expected CHAN[0..15]? VALUE[0..127], got: " << lv;
+        return res;
+    }
+
+    if (res.chan < 0 || res.chan > 15) {
+        METHOD_ERR(s) << "channel should be in [0..15] range";
+        return { -1, -1 };
+    }
+
+    if (res.value < 0 || res.value > 127) {
+        METHOD_ERR(s) << "value should be in [0..127] range";
+        return { -1, -1 };
+    }
+
+    return res;
+}
+
+ProtoMidiCC::Data2 ProtoMidiCC::getCCInt14(t_symbol* s, const AtomListView& lv) const
+{
+    ProtoMidiCC::Data2 res { -1, -1 };
+
+    if (lv.size() == 1 && lv[0].isInteger()) {
+        res.chan = 0;
+        res.value = lv[0].asT<int>();
+    } else if (lv.size() == 2 && lv[0].isInteger() && lv[1].isInteger()) {
+        res.chan = lv[0].asT<int>();
+        res.value = lv[1].asT<int>();
+    } else {
+        METHOD_ERR(s) << "expected CHAN[0..15]? VALUE[0..16384], got: " << lv;
+        return res;
+    }
+
+    if (res.chan < 0 || res.chan > 15) {
+        METHOD_ERR(s) << "channel should be in [0..15] range";
+        return { -1, -1 };
+    }
+
+    if (res.value < 0 || res.value > 16384) {
+        METHOD_ERR(s) << "value should be in [0..16384] range";
+        return { -1, -1 };
+    }
+
+    return res;
+}
+
+ProtoMidiCC::FData ProtoMidiCC::getCCValue(t_symbol* s, const AtomListView& lv) const
+{
+    ProtoMidiCC::FData res { -1, -1 };
+
+    t_float value = 0;
+
+    if (lv.size() == 1 && lv[0].isFloat()) {
+        res.chan = 0;
+        value = lv[0].asT<t_float>();
+    } else if (lv.size() == 2 && lv[0].isInteger() && lv[1].isFloat()) {
+        res.chan = lv[0].asT<int>();
+        value = lv[1].asT<t_float>();
+    } else {
+        METHOD_ERR(s) << "expected CHAN[0..15]? VALUE, got: " << lv;
+        return res;
+    }
+
+    if (res.chan < 0 || res.chan > 15) {
+        METHOD_ERR(s) << "channel should be in [0..15] range";
+        return { -1, -1 };
+    }
+
+    res.value = value;
+    return res;
+}
+
+ProtoMidiCC::Data2 ProtoMidiCC::getCCFloat(t_symbol* s, const AtomListView& lv, int from, int to) const
+{
+    ProtoMidiCC::Data2 res { -1, -1 };
+
+    t_float value = 0;
+
+    if (lv.size() == 1 && lv[0].isFloat()) {
+        res.chan = 0;
+        value = lv[0].asT<t_float>();
+    } else if (lv.size() == 2 && lv[0].isInteger() && lv[1].isFloat()) {
+        res.chan = lv[0].asT<int>();
+        value = lv[1].asT<t_float>();
+    } else {
+        METHOD_ERR(s) << "expected CHAN[0..15]? VALUE[0..1], got: " << lv;
+        return res;
+    }
+
+    if (res.chan < 0 || res.chan > 15) {
+        METHOD_ERR(s) << "channel should be in [0..15] range";
+        return { -1, -1 };
+    }
+
+    if (value < 0 || value > 1) {
+        METHOD_ERR(s) << "value should be in [0..1] range";
+        return { -1, -1 };
+    }
+
+    res.value = static_cast<int>(convert::lin2lin<t_float>(value, 0, 1, from, to));
+    return res;
 }
 
 std::pair<uint8_t, uint8_t> ProtoMidiCC::panToBit14(t_float v)
@@ -531,18 +905,48 @@ t_float ProtoMidiCC::bit14ToPan(uint8_t msb, uint8_t lsb)
 void setup_proto_midi_cc()
 {
     ObjectFactory<ProtoMidiCC> obj("proto.midi.cc");
-    obj.addMethod("bendsens", &ProtoMidiCC::m_bend_sens);
-    obj.addMethod("tunebank", &ProtoMidiCC::m_tune_bank_select);
-    obj.addMethod("tuneprog", &ProtoMidiCC::m_tune_prog_change);
-    obj.addMethod("tunefine", &ProtoMidiCC::m_tune_fine);
-    obj.addMethod("tunecoarse", &ProtoMidiCC::m_tune_coarse);
-    obj.addMethod("tunesemi", &ProtoMidiCC::m_tune_semi);
 
-    obj.addMethod(SEL_PAN_POSITION_COARSE, &ProtoMidiCC::m_pan_coarse);
-    obj.addMethod(SEL_PAN_POSITION_FINE, &ProtoMidiCC::m_pan_fine);
-    obj.addMethod(SEL_PAN_POSITION_FLOAT, &ProtoMidiCC::m_pan_float);
-    obj.addMethod(SEL_PAN_POSITION_INT, &ProtoMidiCC::m_pan_int);
+    obj.addMethod(M_TUNE_BANK, &ProtoMidiCC::m_tune_bank_select);
+    obj.addMethod(M_TUNE_PROG, &ProtoMidiCC::m_tune_prog_change);
 
-    obj.addMethod(SEL_HOLD_PEDAL, &ProtoMidiCC::m_hold_pedal);
-    obj.addMethod(SEL_SOSTENUTO_PEDAL, &ProtoMidiCC::m_sostenuto_pedal);
+    obj.addMethod(M_TUNE_SELECT, &ProtoMidiCC::m_tune_select);
+    obj.addMethod(M_TUNE_FINE, &ProtoMidiCC::m_tune_fine);
+    obj.addMethod(M_TUNE_CENTS, &ProtoMidiCC::m_tune_fine);
+    obj.addMethod(M_TUNE_COARSE, &ProtoMidiCC::m_tune_coarse);
+    obj.addMethod(M_TUNE_SEMITONES, &ProtoMidiCC::m_tune_semi);
+
+    obj.addMethod(M_BEND_SENSIVITY, &ProtoMidiCC::m_bend_sens);
+
+    obj.addMethod(M_PAN_POSITION_COARSE, &ProtoMidiCC::m_pan_coarse);
+    obj.addMethod(M_PAN_POSITION_FINE, &ProtoMidiCC::m_pan_fine);
+    obj.addMethod(M_PAN_POSITION_FLOAT, &ProtoMidiCC::m_pan_float);
+    obj.addMethod(M_PAN_POSITION_INT, &ProtoMidiCC::m_pan_int);
+
+    obj.addMethod(M_HOLD_PEDAL, &ProtoMidiCC::m_hold_pedal);
+    obj.addMethod(M_SOSTENUTO_PEDAL, &ProtoMidiCC::m_sostenuto_pedal);
+
+    obj.addMethod(M_BANK_SELECT_MSB, &ProtoMidiCC::m_banksel_msb);
+    obj.addMethod(M_BANK_SELECT_LSB, &ProtoMidiCC::m_banksel_lsb);
+    obj.addMethod(M_BANK_SELECT_INT, &ProtoMidiCC::m_banksel_int);
+    obj.addMethod(M_BANK_SELECT, &ProtoMidiCC::m_banksel_int);
+
+    obj.addMethod(M_ALL_NOTES_OFF, &ProtoMidiCC::m_all_notesOff);
+    obj.addMethod(M_ALL_SOUND_OFF, &ProtoMidiCC::m_all_soundsOff);
+
+    obj.addMethod(M_CC_VOLUME_COARSE, &ProtoMidiCC::m_volume_coarse);
+    obj.addMethod(M_CC_VOLUME_FINE, &ProtoMidiCC::m_volume_fine);
+    obj.addMethod(M_CC_VOLUME_FLOAT, &ProtoMidiCC::m_volume_float);
+    obj.addMethod(M_CC_VOLUME_INT, &ProtoMidiCC::m_volume_int);
+
+    obj.addMethod(M_PORTAMENTO_SWITCH, &ProtoMidiCC::m_portamento_switch);
+
+    obj.addMethod(M_MODWHEEL_COARSE, &ProtoMidiCC::m_mod_coarse);
+    obj.addMethod(M_MODWHEEL_FINE, &ProtoMidiCC::m_mod_fine);
+    obj.addMethod(M_MODWHEEL_FLOAT, &ProtoMidiCC::m_mod_float);
+    obj.addMethod(M_MODWHEEL_INT, &ProtoMidiCC::m_mod_int);
+
+    obj.addMethod(M_EXPRESSION_COARSE, &ProtoMidiCC::m_exp_coarse);
+    obj.addMethod(M_EXPRESSION_FINE, &ProtoMidiCC::m_exp_fine);
+    obj.addMethod(M_EXPRESSION_FLOAT, &ProtoMidiCC::m_exp_float);
+    obj.addMethod(M_EXPRESSION_INT, &ProtoMidiCC::m_exp_int);
 }

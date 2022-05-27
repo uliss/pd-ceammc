@@ -28,11 +28,12 @@
 #X text 110 401 1\.;
 #X text 150 401 int;
 #X obj 246 402 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 401 N: number of multiplexed inputs. Range: 2\...24;
+#X text 245 401 N: number of multiplexed inputs. Type: int. Range:
+2\...24;
 #X text 110 421 2\.;
 #X text 150 421 int;
 #X obj 246 422 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 421 N: default input index. Range: 0\...23;
+#X text 245 421 N: default input index. Type: int. Range: 0\...23;
 #X obj 20 451 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 456 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -60,7 +61,7 @@ Range: 0\...23\.;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title flow @url ceammc.flow-help.pd;
 #X obj 1 675 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 678 library: ceammc v0.9.3;
+#X text 10 678 library: ceammc v0.9.4;
 #X text 550 690 see also:;
 #X obj 624 690 flow.demultiplex;
 #N canvas 10 697 400 290 info 0;
@@ -68,7 +69,7 @@ Range: 0\...23\.;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.3;
+#X text 120 32 0.9.4;
 #X text 10 54 object:;
 #X text 120 54 flow.multiplex;
 #X text 10 76 category:;

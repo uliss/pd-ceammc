@@ -947,7 +947,7 @@ bool PropertyInfo::validate() const
     } else if (isInt()) {
         if (hasStep() && (std::ceil(step_) - step_ != 0)) {
             ok = false;
-            PROP_LOG() << "step should be integer";
+            PROP_LOG() << "step should be integer, got: " << step_;
         }
     } else if (isFloat()) {
         if (hasEnumLimit()) {

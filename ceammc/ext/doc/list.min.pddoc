@@ -58,9 +58,7 @@
 |             |      |
 [list.min @any       ]
 |
-[msg set]
-|
-[ (
+[ui.dt]
 ]]>
             </pdascii>
         </example>

@@ -38,6 +38,7 @@ SndFile::SndFile(const PdArgs& a)
     createCbListProperty("@sr", [this]() -> AtomList { return samplerates_; });
     createCbListProperty("@filename", [this]() -> AtomList { return filenames_; });
     createCbListProperty("@samples", [this]() -> AtomList { return samplecount_; });
+    createCbListProperty("@channels", [this]() -> AtomList { return channels_; });
 
     createCbListProperty("@formats",
         []() -> AtomList {
@@ -132,8 +133,12 @@ void SndFile::m_load(t_symbol* s, const AtomListView& lst)
 
     filenames_.append(gensym((*mfull_path).c_str()));
     samplerates_.append(loader.srcSampleRate());
+
     for (auto& s : loader.loadedSamples())
         samplecount_.append(atomFrom(s));
+
+    for (auto c : loader.loadedChannels())
+        channels_.append(c);
 
     listTo(0, samplecount_);
 }

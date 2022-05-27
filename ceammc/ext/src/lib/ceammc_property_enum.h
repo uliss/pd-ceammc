@@ -121,6 +121,20 @@ public:
         return true;
     }
 
+    size_t index() const { return current_idx_; }
+
+    bool setIndex(size_t idx)
+    {
+        if (idx >= info().enumCount()) {
+            LogPdObject(owner(), LogLevel::LOG_ERROR).stream()
+                << errorPrefix() << "invalid enum index, expecting value in [0.." << numEnums() << "] range, got: " << idx;
+            return false;
+        } else {
+            current_idx_ = idx;
+            return true;
+        }
+    }
+
     long enumIndex(T v) const
     {
         return info().enumValues().findPos(atomFrom(v));

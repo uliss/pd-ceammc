@@ -22,9 +22,11 @@ extern void setup_synth_ks_tilde();
 extern void setup_synth_marimba_tilde();
 extern void setup_synth_piano_tilde();
 extern void setup_synth_risset_arp_tilde();
+extern void setup_synth_risset_bell_tilde();
 extern void setup_synth_risset_tone_tilde();
 extern void setup_synth_russian_bell_tilde();
 extern void setup_synth_snare_tilde();
+extern void setup_synth_kick_tilde();
 extern void setup_synth_standard_bell_tilde();
 extern void setup_synth_tube_bell();
 
@@ -37,6 +39,7 @@ void ceammc_synth_setup()
     setup_synth_shakers();
     setup_synth_sitar();
     setup_synth_wurley();
+    setup_synth_tube_bell();
 
     // faust synth
     setup_synth_birds_tilde();
@@ -53,9 +56,11 @@ void ceammc_synth_setup()
     setup_synth_marimba_tilde();
     setup_synth_piano_tilde();
     setup_synth_risset_arp_tilde();
+    setup_synth_risset_bell_tilde();
     setup_synth_risset_tone_tilde();
     setup_synth_russian_bell_tilde();
     setup_synth_snare_tilde();
+    setup_synth_kick_tilde();
     setup_synth_standard_bell_tilde();
 
     // Glitch

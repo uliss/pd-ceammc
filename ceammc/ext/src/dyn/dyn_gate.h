@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "dyn.gate"
-Code generated with Faust 2.30.12 (https://faust.grame.fr)
-Compilation options: -lang cpp -es 1 -scal -ftz 0
+Code generated with Faust 2.37.3 (https://faust.grame.fr)
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __dyn_gate_H__
@@ -218,24 +218,69 @@ class dsp_factory {
     
 };
 
-/**
- * On Intel set FZ (Flush to Zero) and DAZ (Denormals Are Zero)
- * flags to avoid costly denormals.
- */
+// Denormal handling
 
-#ifdef __SSE__
-    #include <xmmintrin.h>
-    #ifdef __SSE2__
-        #define AVOIDDENORMALS _mm_setcsr(_mm_getcsr() | 0x8040)
-    #else
-        #define AVOIDDENORMALS _mm_setcsr(_mm_getcsr() | 0x8000)
-    #endif
-#else
-    #define AVOIDDENORMALS
+#if defined (__SSE__)
+#include <xmmintrin.h>
 #endif
 
+class ScopedNoDenormals
+{
+    private:
+    
+        intptr_t fpsr;
+        
+        void setFpStatusRegister(intptr_t fpsr_aux) noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+           asm volatile("msr fpcr, %0" : : "ri" (fpsr_aux));
+        #elif defined (__SSE__)
+            _mm_setcsr(static_cast<uint32_t>(fpsr_aux));
+        #endif
+        }
+        
+        void getFpStatusRegister() noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+            asm volatile("mrs %0, fpcr" : "=r" (fpsr));
+        #elif defined ( __SSE__)
+            fpsr = static_cast<intptr_t>(_mm_getcsr());
+        #endif
+        }
+    
+    public:
+    
+        ScopedNoDenormals() noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+            intptr_t mask = (1 << 24 /* FZ */);
+        #else
+            #if defined(__SSE__)
+            #if defined(__SSE2__)
+                intptr_t mask = 0x8040;
+            #else
+                intptr_t mask = 0x8000;
+            #endif
+            #else
+                intptr_t mask = 0x0000;
+            #endif
+        #endif
+            getFpStatusRegister();
+            setFpStatusRegister(fpsr | mask);
+        }
+        
+        ~ScopedNoDenormals() noexcept
+        {
+            setFpStatusRegister(fpsr);
+        }
+
+};
+
+#define AVOIDDENORMALS ScopedNoDenormals();
+
 #endif
-/**************************  END  dyn_gate_dsp.h **************************/
+
+/************************** END dyn_gate_dsp.h **************************/
 /************************** BEGIN UI.h **************************/
 /************************************************************************
  FAUST Architecture File
@@ -309,6 +354,9 @@ struct UIReal
     // -- metadata declarations
     
     virtual void declare(REAL* zone, const char* key, const char* val) {}
+    
+    // To be used by LLVM client
+    virtual int sizeOfFAUSTFLOAT() { return sizeof(FAUSTFLOAT); }
 };
 
 struct UI : public UIReal<FAUSTFLOAT>
@@ -520,10 +568,12 @@ class dyn_gate : public dyn_gate_dsp {
 	int fSampleRate;
 	float fConst1;
 	float fRec3[2];
+	float fConst2;
 	FAUSTFLOAT fVslider2;
+	float fConst3;
 	float fRec4[2];
 	int iVec0[2];
-	float fConst2;
+	float fConst4;
 	FAUSTFLOAT fVslider3;
 	int iRec5[2];
 	float fRec1[2];
@@ -535,23 +585,23 @@ class dyn_gate : public dyn_gate_dsp {
 		m->declare("analyzers.lib/name", "Faust Analyzer Library");
 		m->declare("analyzers.lib/version", "0.1");
 		m->declare("basics.lib/name", "Faust Basic Element Library");
-		m->declare("basics.lib/version", "0.1");
+		m->declare("basics.lib/version", "0.2");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
 		m->declare("ceammc.lib/version", "0.1.2");
-		m->declare("compile_options", "-lang cpp -es 1 -scal -ftz 0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0");
 		m->declare("filename", "dyn_gate.dsp");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
-		m->declare("maths.lib/version", "2.3");
+		m->declare("maths.lib/version", "2.5");
 		m->declare("misceffects.lib/name", "Misc Effects Library");
 		m->declare("misceffects.lib/version", "2.0");
 		m->declare("name", "dyn.gate");
 		m->declare("platform.lib/name", "Generic Platform Library");
-		m->declare("platform.lib/version", "0.1");
+		m->declare("platform.lib/version", "0.2");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
-		m->declare("signals.lib/version", "0.0");
+		m->declare("signals.lib/version", "0.1");
 	}
 
 	virtual int getNumInputs() {
@@ -559,34 +609,6 @@ class dyn_gate : public dyn_gate_dsp {
 	}
 	virtual int getNumOutputs() {
 		return 1;
-	}
-	virtual int getInputRate(int channel) {
-		int rate;
-		switch ((channel)) {
-			case 0: {
-				rate = 1;
-				break;
-			}
-			default: {
-				rate = -1;
-				break;
-			}
-		}
-		return rate;
-	}
-	virtual int getOutputRate(int channel) {
-		int rate;
-		switch ((channel)) {
-			case 0: {
-				rate = 1;
-				break;
-			}
-			default: {
-				rate = -1;
-				break;
-			}
-		}
-		return rate;
 	}
 	
 	static void classInit(int sample_rate) {
@@ -596,7 +618,9 @@ class dyn_gate : public dyn_gate_dsp {
 		fSampleRate = sample_rate;
 		float fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
 		fConst1 = (1.0f / fConst0);
-		fConst2 = (0.00100000005f * fConst0);
+		fConst2 = (44.0999985f / fConst0);
+		fConst3 = (1.0f - fConst2);
+		fConst4 = (0.00100000005f * fConst0);
 	}
 	
 	virtual void instanceResetUserInterface() {
@@ -648,13 +672,13 @@ class dyn_gate : public dyn_gate_dsp {
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("dyn.gate");
 		ui_interface->declare(&fVslider0, "unit", "ms");
-		ui_interface->addVerticalSlider("attack", &fVslider0, 0.100000001f, 0.0f, 500.0f, 0.100000001f);
+		ui_interface->addVerticalSlider("attack", &fVslider0, FAUSTFLOAT(0.100000001f), FAUSTFLOAT(0.0f), FAUSTFLOAT(500.0f), FAUSTFLOAT(0.100000001f));
 		ui_interface->declare(&fVslider3, "unit", "ms");
-		ui_interface->addVerticalSlider("hold", &fVslider3, 100.0f, 1.0f, 500.0f, 0.100000001f);
+		ui_interface->addVerticalSlider("hold", &fVslider3, FAUSTFLOAT(100.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(500.0f), FAUSTFLOAT(0.100000001f));
 		ui_interface->declare(&fVslider1, "unit", "ms");
-		ui_interface->addVerticalSlider("release", &fVslider1, 20.0f, 1.0f, 500.0f, 0.100000001f);
+		ui_interface->addVerticalSlider("release", &fVslider1, FAUSTFLOAT(20.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(500.0f), FAUSTFLOAT(0.100000001f));
 		ui_interface->declare(&fVslider2, "unit", "db");
-		ui_interface->addVerticalSlider("threshold", &fVslider2, 40.0f, 0.0f, 100.0f, 0.100000001f);
+		ui_interface->addVerticalSlider("threshold", &fVslider2, FAUSTFLOAT(40.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(100.0f), FAUSTFLOAT(0.100000001f));
 		ui_interface->closeBox();
 	}
 	
@@ -665,19 +689,22 @@ class dyn_gate : public dyn_gate_dsp {
 		float fSlow1 = (0.00100000005f * float(fVslider1));
 		float fSlow2 = std::min<float>(fSlow0, fSlow1);
 		int iSlow3 = (std::fabs(fSlow2) < 1.1920929e-07f);
-		float fSlow4 = (iSlow3 ? 0.0f : std::exp((0.0f - (fConst1 / (iSlow3 ? 1.0f : fSlow2)))));
+		float fThen1 = std::exp((0.0f - (fConst1 / (iSlow3 ? 1.0f : fSlow2))));
+		float fSlow4 = (iSlow3 ? 0.0f : fThen1);
 		float fSlow5 = (1.0f - fSlow4);
-		float fSlow6 = (0.00100000005f * (float(fVslider2) + -100.0f));
-		int iSlow7 = int((fConst2 * float(fVslider3)));
+		float fSlow6 = (fConst2 * (float(fVslider2) + -100.0f));
+		int iSlow7 = int((fConst4 * float(fVslider3)));
 		int iSlow8 = (std::fabs(fSlow0) < 1.1920929e-07f);
-		float fSlow9 = (iSlow8 ? 0.0f : std::exp((0.0f - (fConst1 / (iSlow8 ? 1.0f : fSlow0)))));
+		float fThen3 = std::exp((0.0f - (fConst1 / (iSlow8 ? 1.0f : fSlow0))));
+		float fSlow9 = (iSlow8 ? 0.0f : fThen3);
 		int iSlow10 = (std::fabs(fSlow1) < 1.1920929e-07f);
-		float fSlow11 = (iSlow10 ? 0.0f : std::exp((0.0f - (fConst1 / (iSlow10 ? 1.0f : fSlow1)))));
-		for (int i = 0; (i < count); i = (i + 1)) {
-			float fTemp0 = float(input0[i]);
+		float fThen5 = std::exp((0.0f - (fConst1 / (iSlow10 ? 1.0f : fSlow1))));
+		float fSlow11 = (iSlow10 ? 0.0f : fThen5);
+		for (int i0 = 0; (i0 < count); i0 = (i0 + 1)) {
+			float fTemp0 = float(input0[i0]);
 			fRec3[0] = ((fRec3[1] * fSlow4) + (std::fabs(fTemp0) * fSlow5));
 			float fRec2 = fRec3[0];
-			fRec4[0] = (fSlow6 + (0.999000013f * fRec4[1]));
+			fRec4[0] = (fSlow6 + (fConst3 * fRec4[1]));
 			int iTemp1 = (fRec2 > std::pow(10.0f, (0.0500000007f * fRec4[0])));
 			iVec0[0] = iTemp1;
 			iRec5[0] = std::max<int>(int((iSlow7 * (iTemp1 < iVec0[1]))), int((iRec5[1] + -1)));
@@ -685,7 +712,7 @@ class dyn_gate : public dyn_gate_dsp {
 			float fTemp3 = ((fRec0[1] > fTemp2) ? fSlow11 : fSlow9);
 			fRec1[0] = ((fRec1[1] * fTemp3) + (fTemp2 * (1.0f - fTemp3)));
 			fRec0[0] = fRec1[0];
-			output0[i] = FAUSTFLOAT((fTemp0 * fRec0[0]));
+			output0[i0] = FAUSTFLOAT((fTemp0 * fRec0[0]));
 			fRec3[1] = fRec3[0];
 			fRec4[1] = fRec4[0];
 			iVec0[1] = iVec0[0];

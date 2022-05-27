@@ -37,8 +37,8 @@ public:
     void onAny(t_symbol* s, const AtomListView& l) override;
 
 public:
-    void proxy_delay(t_float f);
-    void proxy_reset();
+    void proxy_delay(int i, t_float f);
+    void proxy_reset(int);
     void proxy_reset(const AtomListView&);
     void proxy_add(const AtomListView&lv);
     void proxy_sub(const AtomListView&);

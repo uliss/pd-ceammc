@@ -16,6 +16,12 @@
 #include "ceammc_factory.h"
 #include "proto_midi_parser.h"
 
+constexpr const char* MASTER_BALANCE_FLOAT = "mbal:f";
+
+constexpr const char* MASTER_TUNING_COARSE = "mtune~";
+constexpr const char* MASTER_TUNING_FINE = "mtune.";
+constexpr const char* MASTER_TUNING = "mtune";
+
 enum SysExId {
     SYSEX_ID_NON_COMMERCIAL = 0x7D,
     SYSEX_ID_UNIVERSAL_NONRT = 0x7E,
@@ -33,6 +39,7 @@ enum {
     SUBID2_ID_REQUEST = 0x1,
     SUBID2_ID_REPLY = 0x2,
     SUBID2_MASTER_VOLUME = 0x1,
+    SUBID2_MASTER_BALANCE = 0x2,
     SUBID2_MASTER_TUNE_COARSE = 0x4,
     SUBID2_MASTER_TUNE_FINE = 0x3,
     EOX = 0xF7,
@@ -121,7 +128,6 @@ void ProtoMidiSysex::output()
 {
     using ByteList = std::initializer_list<Byte>;
     static const ByteList id_reply { SYSEX, SYSEX_ID_UNIVERSAL_NONRT, SYSEX_DEVICE_BROADCAST, SUBID1_GEN_INFO, SUBID2_ID_REPLY };
-    OBJ_ERR << __FUNCTION__;
 
     if (startsWith(id_reply)) {
         auto pos = id_reply.size();
@@ -172,6 +178,44 @@ bool ProtoMidiSysex::startsWith(std::initializer_list<Byte> l) const
     }
 
     return true;
+}
+
+void ProtoMidiSysex::output_mtune_coarse(int v)
+{
+    const t_float semi = 0x7F & (clip<int, -64, 63>(v) + 64);
+    const t_float msg[8] = {
+        SYSEX,
+        SYSEX_ID_UNIVERSAL_RT,
+        SYSEX_DEVICE_BROADCAST,
+        SUBID1_DEV_CONTROL,
+        SUBID2_MASTER_TUNE_COARSE,
+        0,
+        semi,
+        EOX,
+    };
+
+    for (size_t i = 0; i < 8; i++)
+        floatTo(0, msg[i]);
+}
+
+void ProtoMidiSysex::output_mtune_fine(t_float v)
+{
+    auto f = convert::lin2lin_clip<t_float, -100, 100>(v, 0x000, 0x3fff);
+    const t_float msb = 0x7F & ((int)f >> 7);
+    const t_float lsb = 0x7F & ((int)f);
+    const t_float msg[8] = {
+        SYSEX,
+        SYSEX_ID_UNIVERSAL_RT,
+        SYSEX_DEVICE_BROADCAST,
+        SUBID1_DEV_CONTROL,
+        SUBID2_MASTER_TUNE_FINE,
+        lsb,
+        msb,
+        EOX,
+    };
+
+    for (size_t i = 0; i < 8; i++)
+        floatTo(0, msg[i]);
 }
 
 void ProtoMidiSysex::m_id_request(t_symbol*, const AtomListView&)
@@ -225,45 +269,29 @@ void ProtoMidiSysex::m_mvolume(t_symbol* s, const AtomListView& lv)
         floatTo(0, msg[i]);
 }
 
-void ProtoMidiSysex::m_mtune_coarse(t_symbol* s, const AtomListView& lv)
-{
-    if (!checkArgs(lv, ARG_INT)) {
-        METHOD_ERR(s) << "tuning (in semitones) expected, got: " << lv;
-        return;
-    }
-
-    const t_float semi = 0x7F & (clip<int, -64, 63>(lv[0].asT<int>()) + 64);
-    const t_float msg[8] = {
-        SYSEX,
-        SYSEX_ID_UNIVERSAL_RT,
-        SYSEX_DEVICE_BROADCAST,
-        SUBID1_DEV_CONTROL,
-        SUBID2_MASTER_TUNE_COARSE,
-        0,
-        semi,
-        EOX,
-    };
-
-    for (size_t i = 0; i < 8; i++)
-        floatTo(0, msg[i]);
-}
-
-void ProtoMidiSysex::m_mtune_fine(t_symbol* s, const AtomListView& lv)
+void ProtoMidiSysex::m_mbalance_float(t_symbol* s, const AtomListView& lv)
 {
     if (!checkArgs(lv, ARG_FLOAT)) {
-        METHOD_ERR(s) << "float fine tuning (in cents) expected, got: " << lv;
+        METHOD_ERR(s) << "float balance in [-1..1] range expected, got: " << lv;
         return;
     }
 
-    auto f = convert::lin2lin_clip<t_float, -100, 100>(lv[0].asT<t_float>(), 0x000, 0x3fff);
-    const t_float msb = 0x7F & ((int)f >> 7);
-    const t_float lsb = 0x7F & ((int)f);
+    const auto f = lv[0].asT<t_float>();
+    if (f < -1 || f > 1) {
+        METHOD_ERR(s) << "float balance in [-1..1] range expected, got: " << lv;
+        return;
+    }
+
+    const uint16_t bal = convert::lin2lin<t_float, -1, 1>(f, 0x0000, 0x3fff);
+    const t_float msb = 0x7F & (bal >> 7);
+    const t_float lsb = 0x7F & bal;
+
     const t_float msg[8] = {
         SYSEX,
         SYSEX_ID_UNIVERSAL_RT,
         SYSEX_DEVICE_BROADCAST,
         SUBID1_DEV_CONTROL,
-        SUBID2_MASTER_TUNE_FINE,
+        SUBID2_MASTER_BALANCE,
         lsb,
         msb,
         EOX,
@@ -273,12 +301,52 @@ void ProtoMidiSysex::m_mtune_fine(t_symbol* s, const AtomListView& lv)
         floatTo(0, msg[i]);
 }
 
+void ProtoMidiSysex::m_mtune_coarse(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_INT)) {
+        METHOD_ERR(s) << "tuning (in semitones) expected, got: " << lv;
+        return;
+    }
+
+    output_mtune_coarse(lv[0].asT<int>());
+}
+
+void ProtoMidiSysex::m_mtune(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_FLOAT)) {
+        METHOD_ERR(s) << "tuning (in semitones) expected, got: " << lv;
+        return;
+    }
+
+    const t_float tune = clip<t_float, -64, 63>(lv[0].asFloat());
+
+    t_float coarse = 0;
+    const t_float fine = std::modf(tune, &coarse);
+
+    output_mtune_coarse(coarse);
+    output_mtune_fine(fine * 100);
+}
+
+void ProtoMidiSysex::m_mtune_fine(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_FLOAT)) {
+        METHOD_ERR(s) << "float fine tuning (in cents) expected, got: " << lv;
+        return;
+    }
+
+    output_mtune_fine(lv[0].asT<t_float>());
+}
+
 void setup_proto_midi_sysex()
 {
     ObjectFactory<ProtoMidiSysex> obj("proto.midi.sysex");
     obj.addMethod("id_request", &ProtoMidiSysex::m_id_request);
     obj.addMethod("id_reply", &ProtoMidiSysex::m_id_reply);
+
     obj.addMethod("mvolume", &ProtoMidiSysex::m_mvolume);
-    obj.addMethod("mtune_fine", &ProtoMidiSysex::m_mtune_fine);
-    obj.addMethod("mtune_coarse", &ProtoMidiSysex::m_mtune_coarse);
+    obj.addMethod(MASTER_BALANCE_FLOAT, &ProtoMidiSysex::m_mbalance_float);
+
+    obj.addMethod(MASTER_TUNING_FINE, &ProtoMidiSysex::m_mtune_fine);
+    obj.addMethod(MASTER_TUNING_COARSE, &ProtoMidiSysex::m_mtune_coarse);
+    obj.addMethod(MASTER_TUNING, &ProtoMidiSysex::m_mtune);
 }

@@ -83,6 +83,24 @@ macro(ceammc_external_test external name)
 endmacro()
 
 if(${WITH_COVERAGE})
+    add_custom_target(coverage_clean COMMAND find ${PROJECT_BINARY_DIR} -name '*.gcda' -print0 | xargs -0 rm)
+
+    find_program(LCOV_EXE NAMES lcov PATHS /usr/bin /usr/local/bin)
+    if(LCOV_EXE)
+        add_custom_target(lcov_init COMMAND ${LCOV_EXE} --directory ${PROJECT_BINARY_DIR}/ceammc --capture --initial --output-file ceammc_base.lcov)
+        add_custom_target(lcov_exec
+            COMMAND ${LCOV_EXE} --directory ${PROJECT_BINARY_DIR}/ceammc --capture --output-file ceammc_test.lcov
+            COMMAND ${LCOV_EXE} --remove ceammc_test.lcov '/usr/*' '/Library/*' '/opt*' '/System*'
+                '${PROJECT_SOURCE_DIR}/build*'
+                '${PROJECT_SOURCE_DIR}/ceammc/extra*'
+                --output-file ceammc_filtered.lcov)
+        add_custom_target(lcov_html
+            COMMAND rm -rf ${PROJECT_BINARY_DIR}/lcov
+            COMMAND mkdir  ${PROJECT_BINARY_DIR}/lcov
+            COMMAND genhtml --prefix ${PROJECT_SOURCE_DIR}/ceammc/ext --ignore-errors source ceammc_filtered.lcov
+                --output-directory=${PROJECT_BINARY_DIR}/lcov)
+    endif()
+
     if(APPLE)
         set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} --coverage")
         set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --coverage")
@@ -100,7 +118,8 @@ if(${WITH_COVERAGE})
 
             add_custom_target(coverage
                 COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/llvm_cov_gen.sh
-                    "${LLVM_COV}" "${CMAKE_CURRENT_BINARY_DIR}/../src")
+                    "${LLVM_COV}" "${CMAKE_CURRENT_BINARY_DIR}/../src"
+                    WORKING_DIRECTORY "${PROJECT_BINARY_DIR}")
 
             add_custom_target(coverage_report
                 COMMAND mkdir -p ${CMAKE_BINARY_DIR}/coverage
@@ -109,7 +128,7 @@ if(${WITH_COVERAGE})
                     --exclude-directories "lib/utf8rewind"
                     --exclude-directories "lib/json"
                     --sort-percentage
-#                    --use-gcov-files
+                    --use-gcov-files
 #                    --verbose
                     --object-directory "${CMAKE_BINARY_DIR}"
                     --root "${CMAKE_SOURCE_DIR}/ceammc/ext/src"

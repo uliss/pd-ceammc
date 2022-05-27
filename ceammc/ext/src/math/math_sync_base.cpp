@@ -19,15 +19,17 @@
 
 namespace ceammc {
 
-MathSyncBase::MathSyncBase(FloatBinFn fn, const PdArgs& args)
+MathSyncBase::MathSyncBase(FloatBinFn fn, const PdArgs& args, bool create_int_prop)
     : BaseObject(args)
     , v1_(0)
     , v2_(parsedPosArgs().floatAt(0, 0))
     , fn_(fn)
     , prop_int_(nullptr)
 {
-    prop_int_ = new FlagProperty("@int");
-    addProperty(prop_int_);
+    if (create_int_prop) {
+        prop_int_ = new FlagProperty("@int");
+        addProperty(prop_int_);
+    }
 
     createInlet();
     createOutlet();

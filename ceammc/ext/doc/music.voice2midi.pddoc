@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="music.voice2midi">
+        <title>music.voice2midi</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>convert voice music list of midi pitches</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>conv</category>
+            <keywords>conv music voice</keywords>
+            <since>0.9.4</since>
+            <aliases>
+                <alias>music.v-&gt;m</alias>
+            </aliases>
+        </meta>
+        <info>
+            <par>Basic syntax:</par>
+            <par>- pitch: C, D, E, F, G, A, B</par>
+            <par>- alteration: #, ##, b or bb</par>
+            <par>- octave: -1..9 or ^, _</par>
+            <par>- deviation in cents: (+-NUMc)</par>
+            <par>- duration: |8, |4. or |3/8</par>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo>note list</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>MIDI values</outlet>
+        </outlets>
+        <example>
+            <pdascii id="main">
+<![CDATA[
+[list C|4 D R Eb F# G\(-25c) A|8(
+|
+|
+|
+[music.v->m]
+|
+[ui.dt]
+
+[music.voice2midi.notes] [music.voice2midi.oct]   [music.voice2midi.dur]
+
+[music.voice2midi.alt]   [music.voice2midi.micro]
+]]>
+            </pdascii>
+            <pdascii id="notes">
+<![CDATA[
+[list C D E F G A B(
+|
+[music.v->m]
+|
+[ui.dt]
+]]>
+            </pdascii>
+            <pdascii id="alt">
+<![CDATA[
+[list C C# C## Eb Fbb(
+|
+[music.v->m]
+|
+[ui.dt]
+]]>
+            </pdascii>
+            <pdascii id="dur">
+<![CDATA[
+/*duration as denominator*/
+
+[list C|1 C|2 C|4 C|8 C|16 C|32 C|64 C|128 C|256(
+|
+[music.v->m]
+|
+[ui.dt]
+
+/*duration as ratio*/
+
+[list C|2/3 D|1/16(
+|
+[music.v->m]
+|
+[ui.dt]
+
+/*duration relative*/
+
+[list C|1 D|/2 E F|*2(
+|
+[music.v->m]
+|
+[ui.dt]
+]]>
+            </pdascii>
+            <pdascii id="micro">
+<![CDATA[
+/*deviation in cents: -99..+99 range*/
+
+[list C4\(-10c) C^\(+99c)(
+|
+[music.v->m]
+|
+[ui.dt]
+]]>
+            </pdascii>
+            <pdascii id="oct">
+<![CDATA[
+/*asbolute octave number in -1..9 range, C4=60*/
+
+[list C4 D5 E2 F-1 G9(
+|
+[music.v->m]
+|
+[ui.dt]
+
+/*if octave is ommited, previous note octave is used*/
+
+[list C2 B E F G A7 C D(
+|
+[music.v->m]
+|
+[ui.dt]
+
+/*relative octave changes: ^(up) and _(down)*/
+
+[list C4 E G C^ C_ C__ G^^^(
+|
+[music.v->m]
+|
+[ui.dt]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

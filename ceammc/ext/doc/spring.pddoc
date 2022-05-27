@@ -22,11 +22,19 @@
         </arguments>
         <properties>
             <property name="@value" type="float" default="0">target value</property>
-            <property name="@time" type="float" minvalue="25" maxvalue="2500" default="250"
+            <property name="@time" type="float" minvalue="50" maxvalue="5000" default="500"
             units="millisecond">time to reach target value</property>
-            <property name="@accel" type="float" minvalue="-6" maxvalue="6" default="0">
+            <property name="@accel" type="float" minvalue="-5" maxvalue="5" default="0">
             acceleration factor, 0: means linear motion (no acceleration), &gt;0: begin fast, then
             slow down, &lt;0: begin slow, then speed up</property>
+            <property name="@mouse_down" type="int" minvalue="0" maxvalue="1" default="0">internal
+            state</property>
+            <property name="@mouse_up" type="int" minvalue="0" maxvalue="1" default="0">internal
+            state</property>
+            <property name="@mouse_move" type="int" minvalue="0" maxvalue="1" default="0">internal
+            state</property>
+            <property name="@mouse_drag" type="int" minvalue="0" maxvalue="1" default="0">internal
+            state</property>
         </properties>
         <inlets>
             <inlet>
@@ -47,14 +55,12 @@
 
 [loadmsg 0.5]
 |
-[ui.k @mouse_events 1 @show_value 1 #a]
-|
-|
-|
-[spring 0.5 1000 @accel 2 #b]
-|                 ^|
-[F]               [B]
+[ui.k #a] X [spring 0.5 1000 @accel 2 #b]
+            |                 ^|
+            [F]               [B]
+
 [X b->a]
+# a @mouse_events 1 @show_value 1
 ]]>
             </pdascii>
         </example>

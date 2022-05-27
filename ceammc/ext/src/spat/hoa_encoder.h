@@ -28,6 +28,8 @@ public:
     void processBlock(const t_sample** in, t_sample** out) override;
     void parseProperties() override;
     void blockSizeChanged(size_t bs) override;
+
+    const char* annotateInlet(size_t n) const override;
 };
 
 void setup_spat_hoa_encoder();

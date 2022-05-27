@@ -15,6 +15,8 @@
 #include "file_size.h"
 #include "test_path_base.h"
 
+#include <thread>
+
 PD_COMPLETE_TEST_SETUP(FileSize, file, size)
 
 TEST_CASE("file.size", "[externals]")
@@ -79,11 +81,11 @@ TEST_CASE("file.size", "[externals]")
         t << TEST_DATA_DIR "/test_data0.mp3";
         REQUIRE_FALSE(t.hasOutput());
 
-        t.schedTicks(50);
-        std::this_thread::sleep_for(std::chrono::milliseconds(50));
+        t.schedTicks(100);
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
 
-        t.schedTicks(50);
-        std::this_thread::sleep_for(std::chrono::milliseconds(50));
+        t.schedTicks(100);
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
 
         REQUIRE(t.outputFloatAt(0) == 1252);
     }

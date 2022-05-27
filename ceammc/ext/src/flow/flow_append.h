@@ -36,7 +36,7 @@ public:
     void onList(const AtomList& l) override;
     void onAny(t_symbol* s, const AtomListView& lv) override;
 
-    void proxy_any(InletProxy<FlowAppend>* x, t_symbol* s, const AtomListView& v);
+    void proxy_any(int id, t_symbol* s, const AtomListView& v);
 
 private:
     void append();

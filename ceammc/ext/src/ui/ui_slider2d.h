@@ -29,10 +29,6 @@ class UISlider2D : public UIObject {
     int prop_show_grid;
 
 private:
-    UIFont txt_font;
-    UITextLayout txt_xrange_;
-    UITextLayout txt_yrange_;
-    UILayer knob_layer_;
     t_float x_pos_;
     t_float y_pos_;
     bool mouse_down_;
@@ -43,14 +39,13 @@ public:
     void okSize(t_rect* newrect);
     void paint();
     void onPropChange(t_symbol* prop_name);
-    void paintBackground();
-    void paintKnob();
 
     void onBang();
     void onList(const AtomListView& lv);
     void onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers);
     void onMouseDrag(t_object* view, const t_pt& pt, long modifiers);
     void onMouseUp(t_object* view, const t_pt& pt, long modifiers);
+    void onMouseWheel(const t_pt& pt, long modifiers, double delta);
 
     void m_set(const AtomListView& lv);
     void m_move(const AtomListView& lv);
@@ -81,7 +76,6 @@ public:
     static void setup();
 
     void setMouse(t_float x, t_float y);
-    void updateLabels();
 
 private:
     void redrawKnob();

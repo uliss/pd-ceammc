@@ -34,7 +34,7 @@ public:
     void onList(const AtomList& l) override;
     void onAny(t_symbol* s, const AtomListView& lv) override;
 
-    void proxy_bang();
+    void proxy_bang(int);
     void proxy_get(const AtomListView& lv);
     void proxy_fill(const AtomListView& lv);
 

@@ -39,6 +39,8 @@
             <event editmode="0" type="left-click">jump to value unless @mode property is on</event>
             <event editmode="0" type="double-click" keys="Shift">toggle MIDI-learn mode (red border
             displayed)</event>
+            <event editmode="true" type="wheel" keys="Cmd">change the knob value (with ⇧ change
+            slowly)</event>
         </mouse>
         <properties>
             <property name="@min" type="float" default="0">minimum slider value</property>
@@ -106,7 +108,8 @@
         </properties>
         <methods>
             <method name="set">sets slider value without output 
-            <param name="V" type="float" required="true">new value</param></method>
+            <param name="V" type="atom" required="true">new float value or
+            'random'</param></method>
             <method name="++">increment slider value without output</method>
             <method name="--">decrement slider value without output</method>
             <method name="+">add value to slider without output 
@@ -117,6 +120,7 @@
             <param name="V" type="float" required="true">multiplied value</param></method>
             <method name="/">divide slider value without output 
             <param name="V" type="float" required="true">denominator value</param></method>
+            <method name="random">set slider to random value and output</method>
             <!-- presets -->
             <method name="load">loads specified preset 
             <param type="int" name="IDX" required="true">preset index</param></method>
@@ -147,9 +151,11 @@
 |   |    |         |
 |   |    |         |  [- 5( [+ 10( [* 2( [/ 3(
 |   |    |         |  |     |      |     |
-|   |    |         |  |     |      |     | [++, bang( [--, bang(
-|   |    |         |  |     |      |     | |          |
-[ui.slider @max 127                                   ]
+|   |    |         |  |     |      |     | [++, bang( [--, bang #a(
+|   |    |         |  |     |      |     | |
+|   |    |         |  |     |      |     | | [random(
+|   |    |         |  |     |      |     | | |
+[ui.slider @max 127                        #z]
 |
 |
 |
@@ -159,6 +165,8 @@
 |
 |
 [F]
+
+[X a->z]
 ]]>
             </pdascii>
         </example>

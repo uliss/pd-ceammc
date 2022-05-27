@@ -35,7 +35,7 @@ public:
 
     void onInlet(size_t, const AtomListView& v) override;
 
-    void proxy_any(InletProxy<FlowMem>* x, t_symbol* s, const AtomListView& v);
+    void proxy_any(int id, t_symbol* s, const AtomListView& v);
 
     const char* annotateInlet(size_t n) const override;
     const char* annotateOutlet(size_t n) const override;

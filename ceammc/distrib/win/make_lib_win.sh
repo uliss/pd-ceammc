@@ -6,158 +6,99 @@ then
     exit 1
 fi
 
-OUTDIR="$1/ceammc"
-BASEOUTDIR="ceammc"
-SRCDIR="@PROJECT_SOURCE_DIR@/ceammc"
-BINDIR="@CMAKE_INSTALL_PREFIX@"
-VERSION="@CEAMMC_LIB_VERSION@"
-ARCH="@CEAMMC_DISTRIB_ARCH@"
-PRECISION="f@PD_FLOAT_SIZE@"
-PD_VERSION="@PD_TEXT_VERSION_FULL@"
-OUTFILE="ceammc-${VERSION}-win-pd-${PD_VERSION}-${ARCH}-${PRECISION}.zip"
+OUTDIR="$1"
+INSTALL_EXTRA_DIR="@CMAKE_INSTALL_PREFIX@/extra"
+TMP_CEAMMC_DIR="${OUTDIR}/ceammc"
+OUTFILE="@CEAMMC_EXTERNAL_NAME@"
 P7Z_EXE="@7Z_EXE@"
+OBJDUMP=$(which objdump.exe)
 
-echo "    - source dir:  ${SRCDIR}"
-echo "    - binary dir:  ${BINDIR}"
-echo "    - output dir:  ${OUTDIR}"
-echo "    - version:     ${VERSION}"
-echo "    - output file: ${OUTFILE}"
-echo "    - 7zip: ${P7Z_EXE}"
-
-
-function skip_ext {
-    #skip experimental extensions
-    exp=$(echo $1 | grep -v '/exp' | grep -v '/tl' | grep -v '/test')
-    if [ -z $exp ]
-    then
-        return 1
-    else
-        return 0
-    fi
-}
-
-if [ ! -d "${BINDIR}" ]
+if [ -z $OBJDUMP ]
 then
-    echo "ERROR: directory with installed binaries not exists: ${BINDIR} ..."
+    echo "objdump.exe is not found"
     exit 1
 fi
 
-echo "Making CEAMMC library from build directory: $BINDIR"
-mkdir -p "${OUTDIR}"
-rm -f "${OUTDIR}/*"
+section() {
+    echo
+    echo -e "\033[32m" $1 "...\033[0m"
+}
 
-echo "Copying externals to ${OUTDIR} ..."
-find "${BINDIR}/extra/ceammc" -name *.dll -print0 | while read -r -d '' file
-do
-    cp "$file" "${OUTDIR}"
-    echo "+ Ext:  $(basename $file)"
-done
-
-echo "Copying 64-bit externals to ${OUTDIR} ..."
-find "${BINDIR}/extra/ceammc" -name *.m_amd64 -print0 | while read -r -d '' file
-do
-    cp "$file" "${OUTDIR}"
-    echo "+ Ext:  $(basename $file)"
-done
-
-echo "Copying 32-bit externals to ${OUTDIR} ..."
-find "${BINDIR}/extra/ceammc" -name *.m_i386 -print0 | while read -r -d '' file
-do
-    cp "$file" "${OUTDIR}"
-    echo "+ Ext:  $(basename $file)"
-done
-
-echo "Copying Dll's to ${OUTDIR} ..."
-find "${BINDIR}/bin" -name lib*.dll -print0 | while read -r -d '' file
-do
-    cp "$file" "${OUTDIR}"
-    echo "+ Dll:  $(basename $file)"
-done
-
-rm -f "${OUTDIR}/debug.gensym.dll"
-
-echo "Copying help files to ${OUTDIR} ..."
-find "${SRCDIR}/ext/doc" -name *\\.pd | while read file
-do
-    help=$(basename $file)
-    cat "$file" |
-        sed 's/ceammc\/ceammc-help\.pd/ceammc-help.pd/' |
-        sed 's/\.\.\/index-help\.pd/index-help.pd/' > "${OUTDIR}/${help}"
-    echo "+ Copy: '$help'"
-done
-
-echo "Copying wav files to ${OUTDIR} ..."
-find "${SRCDIR}/ext/doc" -name *\\.wav | while read file
-do
-    cp "$file" "${OUTDIR}"
-    echo "+ WAV:  $(basename $file)"
-done
-
-echo "Copying HOA help files to ${OUTDIR} ..."
-mkdir -p "${OUTDIR}/hoa"
-find "@PROJECT_SOURCE_DIR@/ceammc/ext/doc/hoa" -type f | while read file
-do
-    help=$(basename $file)
-    cp "$file" "${OUTDIR}/hoa"
-    echo "+ HOA:  '$help'"
-done
-
-echo "Copying STK raw files to ${OUTDIR}/stk ..."
-mkdir -p "${OUTDIR}/stk"
-find "${SRCDIR}/extra/stk/stk/rawwaves" -name *\\.raw | while read file
-do
-    cp "$file" "${OUTDIR}/stk/"
-    echo "+ STK:  $(basename $file)"
-done
-
-echo "Copying SF2 files to ${OUTDIR}/sf2 ..."
-mkdir -p "${OUTDIR}/sf2"
-find "${SRCDIR}/extra/sf2" -name *\\.sf2 | while read file
-do
-    cp "$file" "${OUTDIR}/sf2"
-    echo "+ SF2:  $(basename $file)"
-done
-
-echo "Copying UI abstractions files to ${OUTDIR} ..."
-find "${SRCDIR}/ext/abstractions" -name *\\.pd | while read file
-do
-    cp "$file" "${OUTDIR}"
-    echo "+ ABS:  $(basename $file)"
-done
-
-echo "Copying wrapper DLL files to ${OUTDIR} ..."
-find ${SRCDIR}/ext/class-wrapper/modules/* -maxdepth 0 -type d | while read mod
-do
-    m=$(basename $mod)
-    echo "    module: $m"
-    find "${BINDIR}/extra/$m" -type f | while read f
+list_dll () {
+    $OBJDUMP -x $1 | grep 'DLL Name' | awk '{print $3}' | while read dll
     do
-        echo "+ MOD: $(basename $f)"
-        cp "$f" "${OUTDIR}"
+        fname="$MINGW_PREFIX/bin/$dll"
+        if [ -e "$fname" ]
+        then
+            echo "$fname"
+            list_dll "$fname"
+        fi
     done
+}
+
+find_all_dll_deps() {
+    find "${TMP_CEAMMC_DIR}" \
+        -name '*.dll' \
+        -o -name '*.m_amd64' \
+        -o -name '*.m_i386' | while read dll
+    do
+        list_dll "$dll"
+    done
+}
+
+
+echo "    - install dir:  @CMAKE_INSTALL_PREFIX@"
+echo "    - output dir:   ${OUTDIR}"
+echo "    - tmp dir:      ${TMP_CEAMMC_DIR}"
+echo "    - output file:  ${OUTFILE}"
+echo "    - 7zip: ${P7Z_EXE}"
+
+if [ ! -d "@CMAKE_INSTALL_PREFIX@" ]
+then
+    echo "ERROR: directory with installed binaries not found: @CMAKE_INSTALL_PREFIX@ ..."
+    echo "probably your should invoke 'make install'"
+    exit 1
+fi
+
+section "remove temp directory '${TMP_CEAMMC_DIR}'"
+rm -rf "${TMP_CEAMMC_DIR}"
+
+section "copy ceammc"
+cp -R "${INSTALL_EXTRA_DIR}/ceammc" "${TMP_CEAMMC_DIR}"
+
+# modules
+section "copy numeric"
+cp "${INSTALL_EXTRA_DIR}/numeric"/*     "${TMP_CEAMMC_DIR}"
+section "copy matrix"
+cp "${INSTALL_EXTRA_DIR}/matrix"/*      "${TMP_CEAMMC_DIR}"
+section "copy soundtouch"
+cp "${INSTALL_EXTRA_DIR}/soundtouch~"/* "${TMP_CEAMMC_DIR}"
+cp "${INSTALL_EXTRA_DIR}/index-help.pd" "${TMP_CEAMMC_DIR}"
+
+section "fix dlls"
+find_all_dll_deps | sort | uniq | while read dll
+do
+    echo "DLL: $dll"
+    cp -v "$dll" "${TMP_CEAMMC_DIR}"
 done
 
-echo "Copying misc files to ${OUTDIR} ..."
-echo "+ MISC: stargazing.mod"
-cp "${SRCDIR}/ext/doc/stargazing.mod" "${OUTDIR}"
-echo "+ MISC: prs.txt"
-cp "${SRCDIR}/ext/doc/prs.txt" "${OUTDIR}"
-echo "+ MISC: sur_la_planche.glitch"
-cp "${SRCDIR}/ext/doc/sur_la_planche.glitch" "${OUTDIR}"
-echo "+ MISC: system.serial-help.pd"
-cp "${SRCDIR}/extra/comport/system.serial-help.pd" "${OUTDIR}"
+section "fix help files links"
+find "${TMP_CEAMMC_DIR}" -name "*\\.pd" -maxdepth 1 | while read file
+do
+    help=$(basename $file)
+    sed -i \
+        -e 's|ceammc/ceammc-help\.pd|ceammc-help.pd|' \
+        -e 's|\.\./index-help\.pd|index-help.pd|' \
+        -e 's|ceammc/soundtouch-help\.pd|soundtouch-help.pd|' \
+        $file
+    echo "+ Help: '$help'"
+done
 
-echo "Copying Soundtouch files to ${OUTDIR} ..."
-cp "${SRCDIR}/extra/SoundTouch/pd/soundtouch-help.pd" "${OUTDIR}"
-cp "${SRCDIR}/extra/SoundTouch/pd/soundtouch~-help.pd" "${OUTDIR}"
-cat "${OUTDIR}/index-help.pd" | sed 's/ceammc\/soundtouch-help\.pd/soundtouch-help.pd/' > tmp
-mv tmp "${OUTDIR}/index-help.pd"
-
+section "make ZIP archive"
 if [ -x "${P7Z_EXE}" ]
 then
-    cd "${OUTDIR}/.."
-    "${P7Z_EXE}" a "${OUTFILE}" "${BASEOUTDIR}"
-    cp "${OUTFILE}" ..
+    cd "${OUTDIR}"
+    "${P7Z_EXE}" a "${OUTFILE}" ceammc
 else
     echo "7z is not found. Create zip archive manually..."
 fi

@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "flt.eq_peak"
-Code generated with Faust 2.30.12 (https://faust.grame.fr)
-Compilation options: -lang cpp -es 1 -scal -ftz 0
+Code generated with Faust 2.37.3 (https://faust.grame.fr)
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __flt_eq_peak_H__
@@ -218,24 +218,69 @@ class dsp_factory {
     
 };
 
-/**
- * On Intel set FZ (Flush to Zero) and DAZ (Denormals Are Zero)
- * flags to avoid costly denormals.
- */
+// Denormal handling
 
-#ifdef __SSE__
-    #include <xmmintrin.h>
-    #ifdef __SSE2__
-        #define AVOIDDENORMALS _mm_setcsr(_mm_getcsr() | 0x8040)
-    #else
-        #define AVOIDDENORMALS _mm_setcsr(_mm_getcsr() | 0x8000)
-    #endif
-#else
-    #define AVOIDDENORMALS
+#if defined (__SSE__)
+#include <xmmintrin.h>
 #endif
 
+class ScopedNoDenormals
+{
+    private:
+    
+        intptr_t fpsr;
+        
+        void setFpStatusRegister(intptr_t fpsr_aux) noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+           asm volatile("msr fpcr, %0" : : "ri" (fpsr_aux));
+        #elif defined (__SSE__)
+            _mm_setcsr(static_cast<uint32_t>(fpsr_aux));
+        #endif
+        }
+        
+        void getFpStatusRegister() noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+            asm volatile("mrs %0, fpcr" : "=r" (fpsr));
+        #elif defined ( __SSE__)
+            fpsr = static_cast<intptr_t>(_mm_getcsr());
+        #endif
+        }
+    
+    public:
+    
+        ScopedNoDenormals() noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+            intptr_t mask = (1 << 24 /* FZ */);
+        #else
+            #if defined(__SSE__)
+            #if defined(__SSE2__)
+                intptr_t mask = 0x8040;
+            #else
+                intptr_t mask = 0x8000;
+            #endif
+            #else
+                intptr_t mask = 0x0000;
+            #endif
+        #endif
+            getFpStatusRegister();
+            setFpStatusRegister(fpsr | mask);
+        }
+        
+        ~ScopedNoDenormals() noexcept
+        {
+            setFpStatusRegister(fpsr);
+        }
+
+};
+
+#define AVOIDDENORMALS ScopedNoDenormals();
+
 #endif
-/**************************  END  flt_eq_peak_dsp.h **************************/
+
+/************************** END flt_eq_peak_dsp.h **************************/
 /************************** BEGIN UI.h **************************/
 /************************************************************************
  FAUST Architecture File
@@ -309,6 +354,9 @@ struct UIReal
     // -- metadata declarations
     
     virtual void declare(REAL* zone, const char* key, const char* val) {}
+    
+    // To be used by LLVM client
+    virtual int sizeOfFAUSTFLOAT() { return sizeof(FAUSTFLOAT); }
 };
 
 struct UI : public UIReal<FAUSTFLOAT>
@@ -520,23 +568,25 @@ class flt_eq_peak : public flt_eq_peak_dsp {
 	
 	int fSampleRate;
 	float fConst1;
+	float fConst2;
 	FAUSTFLOAT fVslider0;
+	float fConst3;
 	float fRec1[2];
 	FAUSTFLOAT fVslider1;
 	float fRec2[2];
 	FAUSTFLOAT fVslider2;
 	float fRec3[2];
-	float fConst2;
+	float fConst4;
 	float fRec0[3];
 	
  public:
 	
 	void metadata(Meta* m) { 
 		m->declare("basics.lib/name", "Faust Basic Element Library");
-		m->declare("basics.lib/version", "0.1");
+		m->declare("basics.lib/version", "0.2");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
 		m->declare("ceammc_ui.lib/version", "0.1.2");
-		m->declare("compile_options", "-lang cpp -es 1 -scal -ftz 0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0");
 		m->declare("filename", "flt_eq_peak.dsp");
 		m->declare("filters.lib/fir:author", "Julius O. Smith III");
 		m->declare("filters.lib/fir:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -560,12 +610,12 @@ class flt_eq_peak : public flt_eq_peak_dsp {
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
-		m->declare("maths.lib/version", "2.3");
+		m->declare("maths.lib/version", "2.5");
 		m->declare("name", "flt.eq_peak");
 		m->declare("platform.lib/name", "Generic Platform Library");
-		m->declare("platform.lib/version", "0.1");
+		m->declare("platform.lib/version", "0.2");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
-		m->declare("signals.lib/version", "0.0");
+		m->declare("signals.lib/version", "0.1");
 	}
 
 	virtual int getNumInputs() {
@@ -573,34 +623,6 @@ class flt_eq_peak : public flt_eq_peak_dsp {
 	}
 	virtual int getNumOutputs() {
 		return 1;
-	}
-	virtual int getInputRate(int channel) {
-		int rate;
-		switch ((channel)) {
-			case 0: {
-				rate = 1;
-				break;
-			}
-			default: {
-				rate = -1;
-				break;
-			}
-		}
-		return rate;
-	}
-	virtual int getOutputRate(int channel) {
-		int rate;
-		switch ((channel)) {
-			case 0: {
-				rate = 1;
-				break;
-			}
-			default: {
-				rate = -1;
-				break;
-			}
-		}
-		return rate;
 	}
 	
 	static void classInit(int sample_rate) {
@@ -610,7 +632,9 @@ class flt_eq_peak : public flt_eq_peak_dsp {
 		fSampleRate = sample_rate;
 		float fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
 		fConst1 = (3.14159274f / fConst0);
-		fConst2 = (6.28318548f / fConst0);
+		fConst2 = (44.0999985f / fConst0);
+		fConst3 = (1.0f - fConst2);
+		fConst4 = (6.28318548f / fConst0);
 	}
 	
 	virtual void instanceResetUserInterface() {
@@ -655,36 +679,36 @@ class flt_eq_peak : public flt_eq_peak_dsp {
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("flt.eq_peak");
 		ui_interface->declare(&fVslider2, "unit", "Hz");
-		ui_interface->addVerticalSlider("bandwidth", &fVslider2, 100.0f, 1.0f, 5000.0f, 0.100000001f);
+		ui_interface->addVerticalSlider("bandwidth", &fVslider2, FAUSTFLOAT(100.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(5000.0f), FAUSTFLOAT(0.100000001f));
 		ui_interface->declare(&fVslider0, "unit", "Hz");
-		ui_interface->addVerticalSlider("freq", &fVslider0, 1000.0f, 20.0f, 20000.0f, 0.100000001f);
+		ui_interface->addVerticalSlider("freq", &fVslider0, FAUSTFLOAT(1000.0f), FAUSTFLOAT(20.0f), FAUSTFLOAT(20000.0f), FAUSTFLOAT(0.100000001f));
 		ui_interface->declare(&fVslider1, "unit", "db");
-		ui_interface->addVerticalSlider("gain", &fVslider1, 0.0f, -15.0f, 15.0f, 0.100000001f);
+		ui_interface->addVerticalSlider("gain", &fVslider1, FAUSTFLOAT(0.0f), FAUSTFLOAT(-15.0f), FAUSTFLOAT(15.0f), FAUSTFLOAT(0.100000001f));
 		ui_interface->closeBox();
 	}
 	
 	virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
 		FAUSTFLOAT* input0 = inputs[0];
 		FAUSTFLOAT* output0 = outputs[0];
-		float fSlow0 = (0.00100000005f * float(fVslider0));
-		float fSlow1 = (0.00100000005f * float(fVslider1));
-		float fSlow2 = (0.00100000005f * float(fVslider2));
-		for (int i = 0; (i < count); i = (i + 1)) {
-			fRec1[0] = (fSlow0 + (0.999000013f * fRec1[1]));
+		float fSlow0 = (fConst2 * float(fVslider0));
+		float fSlow1 = (fConst2 * float(fVslider1));
+		float fSlow2 = (fConst2 * float(fVslider2));
+		for (int i0 = 0; (i0 < count); i0 = (i0 + 1)) {
+			fRec1[0] = (fSlow0 + (fConst3 * fRec1[1]));
 			float fTemp0 = std::tan((fConst1 * fRec1[0]));
 			float fTemp1 = (1.0f / fTemp0);
-			fRec2[0] = (fSlow1 + (0.999000013f * fRec2[1]));
+			fRec2[0] = (fSlow1 + (fConst3 * fRec2[1]));
 			int iTemp2 = (fRec2[0] > 0.0f);
-			fRec3[0] = (fSlow2 + (0.999000013f * fRec3[1]));
-			float fTemp3 = std::sin((fConst2 * fRec1[0]));
+			fRec3[0] = (fSlow2 + (fConst3 * fRec3[1]));
+			float fTemp3 = std::sin((fConst4 * fRec1[0]));
 			float fTemp4 = (fConst1 * ((fRec3[0] * std::pow(10.0f, (0.0500000007f * std::fabs(fRec2[0])))) / fTemp3));
 			float fTemp5 = (fConst1 * (fRec3[0] / fTemp3));
 			float fTemp6 = (iTemp2 ? fTemp5 : fTemp4);
 			float fTemp7 = (2.0f * (fRec0[1] * (1.0f - (1.0f / flt_eq_peak_faustpower2_f(fTemp0)))));
 			float fTemp8 = (((fTemp1 + fTemp6) / fTemp0) + 1.0f);
-			fRec0[0] = (float(input0[i]) - (((fRec0[2] * (((fTemp1 - fTemp6) / fTemp0) + 1.0f)) + fTemp7) / fTemp8));
+			fRec0[0] = (float(input0[i0]) - (((fRec0[2] * (((fTemp1 - fTemp6) / fTemp0) + 1.0f)) + fTemp7) / fTemp8));
 			float fTemp9 = (iTemp2 ? fTemp4 : fTemp5);
-			output0[i] = FAUSTFLOAT((((fTemp7 + (fRec0[0] * (((fTemp1 + fTemp9) / fTemp0) + 1.0f))) + (fRec0[2] * (((fTemp1 - fTemp9) / fTemp0) + 1.0f))) / fTemp8));
+			output0[i0] = FAUSTFLOAT((((fTemp7 + (fRec0[0] * (((fTemp1 + fTemp9) / fTemp0) + 1.0f))) + (fRec0[2] * (((fTemp1 - fTemp9) / fTemp0) + 1.0f))) / fTemp8));
 			fRec1[1] = fRec1[0];
 			fRec2[1] = fRec2[0];
 			fRec3[1] = fRec3[0];

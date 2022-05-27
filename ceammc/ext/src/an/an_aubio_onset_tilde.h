@@ -15,8 +15,8 @@
 #define AN_AUBIO_ONSET_TILDE_H
 
 #include "aubio_base.h"
-#include "ceammc_property_callback.h"
 #include "ceammc_clock.h"
+#include "ceammc_property_callback.h"
 #include "ceammc_property_enum.h"
 #include "ceammc_sound_external.h"
 
@@ -34,7 +34,8 @@ class AubioOnsetTilde : public SoundExternal {
     int dsp_pos_;
     t_float last_ms_;
 
-    FVecPtr in_, out_;
+    FVecPtr in_;
+    FVec1 out_;
     OnsetPtr onset_;
 
     ClockMemberFunction<AubioOnsetTilde> tick_;

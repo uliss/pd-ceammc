@@ -1,0 +1,18 @@
+#N canvas 0 0 842 357 12;
+#X msg 20 48 note 60 120 \, note 65 120 \, note 47 120;
+#X text 173 77 change modulation;
+#X msg 39 106 notes_off;
+#X obj 173 106 ui.hsl 0 127;
+#X msg 173 135 cc 71 \$1;
+#X obj 20 164 sfizz~ sfz/example.sfz;
+#X obj 20 192 ui.hgain2~;
+#X obj 173 192 ui.dsp~;
+#X obj 20 221 dac~;
+#X connect 3 0 4 0;
+#X connect 0 0 5 0;
+#X connect 2 0 5 0;
+#X connect 4 0 5 0;
+#X connect 5 0 6 0;
+#X connect 5 1 6 1;
+#X connect 6 0 8 0;
+#X connect 6 1 8 1;

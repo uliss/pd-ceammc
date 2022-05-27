@@ -155,7 +155,7 @@ install(
 )
 
 if(APPLE)
-    find_program(TIDY tidy PATHS /usr/local/bin /usr/bin
+    find_program(TIDY tidy PATHS /usr/local/bin /opt/local/bin /usr/bin
         NO_DEFAULT_PATH
         NO_CMAKE_ENVIRONMENT_PATH
         NO_SYSTEM_ENVIRONMENT_PATH
@@ -176,7 +176,8 @@ if(TIDY)
                 "${CMAKE_CURRENT_BINARY_DIR}/$$f" . \;
             echo "Format pddoc file: $$f" \;
         done
-        WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
+        WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+        USES_TERMINAL)
 endif()
 
 
@@ -194,6 +195,7 @@ install(DIRECTORY faust DESTINATION ${DOC_INSTALL_PATH})
 
 add_subdirectory(sound)
 add_subdirectory(sf2)
+add_subdirectory(sfz)
 
 find_program(RSYNC_EXEC rsync)
 

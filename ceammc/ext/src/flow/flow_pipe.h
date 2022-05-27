@@ -41,8 +41,8 @@ public:
     void onAny(t_symbol* s, const AtomListView& lv) override;
 
 public:
-    void proxy_bang();
-    void proxy_float(t_float f);
+    void proxy_bang(int);
+    void proxy_float(int, t_float f);
     void proxy_flush(const AtomListView& v);
     void proxy_reset(const AtomListView& v);
 

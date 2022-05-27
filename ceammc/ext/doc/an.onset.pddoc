@@ -23,7 +23,9 @@
         <arguments>
             <argument name="ARRAY" type="symbol">array name</argument>
             <argument name="BS" type="int" minvalue="64" units="sample">buffer size</argument>
-            <argument name="METHOD" type="symbol" enum="1">overlap of analysis frames</argument>
+            <argument name="METHOD" type="symbol"
+            enum="default hfc energy complex phase wphase specdiff kl mkl specflux">detection
+            method</argument>
             <argument name="HS" type="int" minvalue="0">hop size (by default
             buffer_size/2)</argument>
         </arguments>
@@ -44,7 +46,7 @@
             onset detection function</property>
             <property name="@phase" type="alias">alias to @method phase. Phase Based Method onset
             detection function</property>
-            <property name="@wphase" type="alias">alias to @method phase.Weighted Phase Deviation
+            <property name="@wphase" type="alias">alias to @method phase. Weighted Phase Deviation
             onset detection function</property>
             <property name="@specdiff" type="alias">alias to @method specdiff. Spectral difference
             method onset detection function</property>
@@ -78,8 +80,10 @@
         <example>
             <pdascii>
 <![CDATA[
-[symbol #s(           [B] [array AONSET w=380 h=100]
-|                     |
+[symbol #s(               [array AONSET w=380 h=100]
+|
+|             [B]
+|             |
 [expand_env]  [openpanel]
 |             |
 [load $1 to AONSET @resize(

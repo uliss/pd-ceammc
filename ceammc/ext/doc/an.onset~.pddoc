@@ -22,7 +22,9 @@
         </info>
         <arguments>
             <argument name="BS" type="int" minvalue="64" units="sample">buffer size</argument>
-            <argument name="METHOD" type="symbol" enum="1">overlap of analysis frames</argument>
+            <argument name="METHOD" type="symbol"
+            enum="default hfc energy complex phase wphase specdiff kl mkl specflux">detection
+            method</argument>
             <argument name="HS" type="int" minvalue="0">hop size (by default
             buffer_size/2)</argument>
         </arguments>
@@ -45,7 +47,7 @@
             onset detection function</property>
             <property name="@phase" type="alias">alias to @method phase. Phase Based Method onset
             detection function</property>
-            <property name="@wphase" type="alias">alias to @method phase.Weighted Phase Deviation
+            <property name="@wphase" type="alias">alias to @method phase. Weighted Phase Deviation
             onset detection function</property>
             <property name="@specdiff" type="alias">alias to @method specdiff. Spectral difference
             method onset detection function</property>
@@ -77,7 +79,8 @@
         </inlets>
         <outlets>
             <outlet>bang if onset detected</outlet>
-            <outlet>output time of the latest onset detected in millisecond</outlet>
+            <outlet>float: time of the latest onset detected in milliseconds from starting of
+            measuring. You can reset start time with 'reset' message</outlet>
         </outlets>
         <example>
             <pdascii>
@@ -89,6 +92,9 @@
 |   |.    |
 [gain~]   [@method $1, dump(
 |         |
+|         |  [reset(
+|         |  |
+|         |  |
 [an.onset~ 2048]             [ui.dsp~]
 |        ^|
 [B]      [F digits=10]

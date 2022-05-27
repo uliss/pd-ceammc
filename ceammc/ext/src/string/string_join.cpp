@@ -67,4 +67,6 @@ void setup_string_join()
     ObjectFactory<StringJoin> obj("string.join");
     obj.processData<DataTypeMList>();
     obj.addAlias("str.join");
+
+    obj.setXletsInfo({ "list or data:MList", "symbol: set join symbol" }, { "data:String: result string" });
 }

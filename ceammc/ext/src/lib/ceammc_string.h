@@ -28,6 +28,23 @@ namespace string {
     void utf8_split_by_char(std::vector<std::string>& vec, const char* str);
     void split(std::vector<std::string>& vec, const std::string& str, const char* anysep);
 
+    /**
+     * @brief utf8_insert
+     * @param str - target string
+     * @param pos - negative indexes can be used
+     * @param subj - string to insert
+     * @return new string
+     * @throw std::exception on invalid index
+     */
+    std::string utf8_insert(const char* str, int pos, const char* subj);
+
+    std::string utf8_pop(const char* str);
+    char32_t utf8_choose(const char* str);
+    std::string utf8_reverse(const char* str);
+    std::string utf8_shuffle(const char* str);
+    std::string utf8_sort(const char* str);
+    std::string utf8_remove_at(const char* str, int pos);
+
     bool starts_with(const char* str, const char* prefix);
     bool starts_with(const std::string& str, const std::string& prefix);
 

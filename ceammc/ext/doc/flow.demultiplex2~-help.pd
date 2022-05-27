@@ -30,7 +30,8 @@
 #X text 110 423 1\.;
 #X text 150 423 int;
 #X obj 246 424 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 423 N: number of output stereo-pairs. Range: 2\...8;
+#X text 245 423 N: number of output stereo-pairs. Type: int. Range:
+2\...8;
 #X obj 20 453 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 458 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -67,7 +68,7 @@ Default value: 1 0\.;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title flow @url ceammc.flow-help.pd;
 #X obj 1 777 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 780 library: ceammc v0.9.3;
+#X text 10 780 library: ceammc v0.9.4;
 #X text 411 792 see also:;
 #X obj 485 792 flow.demultiplex~;
 #X obj 624 792 flow.demultiplex;
@@ -76,7 +77,7 @@ Default value: 1 0\.;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.3;
+#X text 120 32 0.9.4;
 #X text 10 54 object:;
 #X text 120 54 flow.demultiplex2~;
 #X text 10 76 category:;

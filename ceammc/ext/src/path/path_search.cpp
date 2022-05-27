@@ -27,88 +27,130 @@ extern "C" {
 #include "filesystem.hpp"
 namespace fs = ghc::filesystem;
 
+constexpr int RECURSIVE_INF = -1;
+static bool search_recursive(int depth) { return depth == RECURSIVE_INF || depth > 0; }
+
+static fs::path searchRecursive(const fs::path& dir, const fs::path& name, int depth, std::atomic_bool& quit)
+{
+    auto it = fs::recursive_directory_iterator(dir);
+    for (auto& entry : it) {
+        if (quit)
+            return {};
+
+        if (depth != RECURSIVE_INF && it.depth() >= depth) {
+            it.disable_recursion_pending();
+            continue;
+        }
+
+        auto st = fs::status(entry);
+        if (!fs::is_directory(st))
+            continue;
+
+        const fs::path fpath = entry / name;
+        if (fs::exists(fpath))
+            return fpath;
+    }
+
+    return {};
+}
+
 static std::string searchFileTask(
     const std::vector<std::string>& user_paths,
     const std::vector<std::string>& sys_paths,
     const std::string& file,
-    bool recursive,
+    int search_depth,
     std::atomic_bool& quit)
 {
+#define CHECK_QUIT()   \
+    {                  \
+        if (quit)      \
+            return {}; \
+    }
+
     std::vector<std::string> relative_user_paths;
 
     for (auto& p : user_paths) {
-        const fs::path user_path(p);
+        CHECK_QUIT()
 
-        if (user_path.is_absolute()) {
-            auto st = fs::status(user_path);
+        const fs::path user_dir(p);
+
+        if (user_dir.is_absolute()) {
+            auto st = fs::status(user_dir);
             // abs search path not found
             if (!fs::is_directory(st))
                 continue;
 
-            const fs::path fpath = user_path / file;
-            std::cerr << "trying user path: " << fpath << "\n";
+            const fs::path fpath = user_dir / file;
+            // std::cerr << "trying user path: " << fpath.generic_string() << "\n";
 
             if (fs::exists(fpath)) {
-                std::cerr << "found in user: " << fpath << "\n";
-                return fpath.string();
-            } else if (recursive) {
-                for (auto& entry : fs::recursive_directory_iterator(user_path)) {
-                    if (quit)
-                        return {};
-
-                    auto st = fs::status(entry);
-                    if (!fs::is_directory(st))
-                        continue;
-
-                    const fs::path fpath = entry / file;
-                    std::cerr << "trying user recursive path: " << fpath << "\n";
-                    if (fs::exists(fpath)) {
-                        std::cerr << "found in user resursive: " << fpath << "\n";
-                        return fpath.string();
-                    }
-                }
+                // std::cerr << "found in user: " << fpath.generic_string() << "\n";
+                return fpath.generic_string();
+            } else if (search_recursive(search_depth)) {
+                auto res = searchRecursive(user_dir, file, search_depth, quit);
+                if (!res.empty())
+                    return res.generic_string();
             }
         } else {
             relative_user_paths.push_back(p);
         }
     }
 
+    CHECK_QUIT()
+
     // search in pd standard paths
     for (const auto& p : sys_paths) {
-        fs::path path(p);
-        if (path.is_absolute()) {
-            // abs search path not found
-            if (!ghc::filesystem::exists(path))
-                continue;
+        CHECK_QUIT()
 
-            path.append(file);
-            std::cerr << "trying standard path: " << path << "\n";
+        fs::path std_dir(p);
 
-            if (ghc::filesystem::exists(path)) {
-                std::cerr << "found in standard: " << path << "\n";
-                return path.string();
-            } else if (relative_user_paths.size() > 0) {
-                for (const auto& rpath : relative_user_paths) {
-                    ghc::filesystem::path path(p);
-                    path.append(rpath);
-                    path.append(file);
+        // only absolute standart paths are supported
+        if (!std_dir.is_absolute() || !fs::exists(std_dir))
+            continue;
 
-                    if (ghc::filesystem::exists(path)) {
-                        std::cerr << "found in relative: " << path << "\n";
-                        return path.string();
-                    }
+        const fs::path fname = std_dir / file;
+        // std::cerr << "trying standard path: " << fname.generic_string() << "\n";
+
+        if (fs::exists(fname)) {
+            // std::cerr << "found in standard: " << fname.generic_string() << "\n";
+            return fname.generic_string();
+        } else if (relative_user_paths.size() > 0) {
+            // search in relative user paths
+            for (const auto& rel_dir : relative_user_paths) {
+                CHECK_QUIT()
+
+                const auto abs_dir = std_dir / rel_dir;
+                const auto fname = abs_dir / file;
+
+                if (fs::exists(fname)) {
+                    // std::cerr << "found in relative: " << fname << "\n";
+                    return fname.generic_string();
+                } else if (search_recursive(search_depth)) {
+                    // recursive search in relative user paths
+                    auto res = searchRecursive(abs_dir, file, search_depth, quit);
+                    if (!res.empty())
+                        return res.generic_string();
                 }
             }
+        } else if (search_recursive(search_depth)) {
+            // recursive search in standard user paths
+            auto res = searchRecursive(std_dir, file, search_depth, quit);
+            if (!res.empty())
+                return res.generic_string();
         }
     }
 
     return {};
+
+#undef CHECK_QUIT
 }
 
 PathSearch::PathSearch(const PdArgs& args)
     : PathAsyncBase(args)
     , paths_(nullptr)
-    , recursive_(nullptr)
+    , depth_(nullptr)
+    , home_(nullptr)
+    , std_(nullptr)
     , search_stop_(false)
 {
     createOutlet();
@@ -118,8 +160,17 @@ PathSearch::PathSearch(const PdArgs& args)
     paths_->setArgIndex(0);
     addProperty(paths_);
 
-    recursive_ = new BoolProperty("@recursive", false);
-    addProperty(recursive_);
+    depth_ = new IntProperty("@depth", 0);
+    depth_->checkMinEq(-1);
+    addProperty(depth_);
+
+    home_ = new BoolProperty("@home", true);
+    addProperty(home_);
+    addProperty(new AliasProperty<BoolProperty>("@nohome", home_, false));
+
+    std_ = new BoolProperty("@std", true);
+    addProperty(std_);
+    addProperty(new AliasProperty<BoolProperty>("@nostd", std_, false));
 }
 
 PathSearch::~PathSearch()
@@ -139,10 +190,15 @@ void PathSearch::onDataT(const StringAtom& a)
     runTask();
 }
 
+void PathSearch::m_cancel(t_symbol* s, const AtomListView& lv)
+{
+    search_stop_ = true;
+}
+
 void PathSearch::processResult()
 {
     if (result().empty()) {
-        OBJ_ERR << "file not found";
+        OBJ_ERR << "file not found: " << needle_;
         bangTo(1);
     } else {
         symbolTo(0, gensym(result().c_str()));
@@ -161,25 +217,30 @@ PathSearch::FutureResult PathSearch::createTask()
     }
 
     std::vector<std::string> sys_paths;
-    if (canvas()) {
-        // patch directory
-        auto cnv_dir = canvas_info_dir(canvas());
-        if (cnv_dir)
-            sys_paths.push_back(cnv_dir->s_name);
 
-        // patch search paths
-        for (auto c : canvas_info_paths(canvas())) {
-            if (c.isSymbol())
-                sys_paths.push_back(c.asT<t_symbol*>()->s_name);
+    if (std_->value()) {
+        if (canvas()) {
+            // patch directory
+            auto cnv_dir = canvas_info_dir(canvas());
+            if (cnv_dir)
+                sys_paths.push_back(fs::path(cnv_dir->s_name).generic_string());
+
+            // patch search paths
+            for (auto c : canvas_info_paths(canvas())) {
+                if (c.isSymbol())
+                    sys_paths.push_back(fs::path(c.asT<t_symbol*>()->s_name).generic_string());
+            }
         }
+
+        // Pd search paths
+        for (auto p = STUFF->st_searchpath; p != nullptr; p = p->nl_next)
+            sys_paths.push_back(fs::path(p->nl_string).generic_string());
     }
 
-    // Pd search paths
-    for (auto p = STUFF->st_searchpath; p != nullptr; p = p->nl_next)
-        sys_paths.push_back(p->nl_string);
-
-    // home directory
-    sys_paths.push_back(platform::home_directory());
+    if (home_->value()) {
+        // home directory
+        sys_paths.push_back(fs::path(platform::home_directory()).generic_string());
+    }
 
     for (auto& s : user_paths)
         OBJ_DBG << "user_paths: " << s;
@@ -188,7 +249,7 @@ PathSearch::FutureResult PathSearch::createTask()
         OBJ_DBG << "sys_paths: " << s;
 
     return std::async(taskLaunchType(),
-        searchFileTask, user_paths, sys_paths, needle_, recursive_->value(), std::ref(search_stop_));
+        searchFileTask, user_paths, sys_paths, needle_, depth_->value(), std::ref(search_stop_));
 }
 
 void setup_path_search()
@@ -197,4 +258,8 @@ void setup_path_search()
     obj.parseArgsMode(PdArgs::PARSE_UNQUOTE);
     obj.parsePosProps(PdArgs::PARSE_UNQUOTE);
     obj.processData<DataTypeString>();
+
+    obj.setXletsInfo({ "symbol: search filename" }, { "symbol: full path to found file", "bang: if not found" });
+
+    obj.addMethod("cancel", &PathSearch::m_cancel);
 }

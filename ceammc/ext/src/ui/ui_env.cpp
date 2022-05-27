@@ -2,6 +2,7 @@
 #include "ceammc_datatypes.h"
 #include "ceammc_preset.h"
 #include "ceammc_ui.h"
+#include "lex/parser_units.h"
 
 #include <boost/range.hpp>
 #include <limits>
@@ -12,16 +13,12 @@ static t_rgba DELETE_COLOR = hex_to_rgba("#F00030");
 static t_rgba LINE_SELECTION_COLOR = hex_to_rgba("#AAFFFF");
 static const char* DEFAULT_LINE_COLOR = "0.1 0.1 0.1 1.0";
 static const char* PROP_LENGTH = "length";
+constexpr const char* PROP_NORM = "norm";
 
-static t_symbol* SYM_ADSR;
-static t_symbol* SYM_ASR;
-static t_symbol* SYM_AR;
-static t_symbol* SYM_EADSR;
-static t_symbol* SYM_EASR;
-static t_symbol* SYM_EAR;
 static t_symbol* SYM_LENGTH;
-static t_symbol* SYM_MODE_ON_MOUSE_UP;
 static t_symbol* SYM_MODE_ON_DRAG;
+static t_symbol* SYM_MODE_ON_MOUSE_UP;
+static t_symbol* SYM_NORM;
 
 using namespace ui;
 
@@ -39,6 +36,7 @@ UIEnv::UIEnv()
     , font_(gensym(FONT_FAMILY), FONT_SIZE_SMALL)
     , cursor_txt_pos_(font_.font(), ColorRGBA::black(), ETEXT_UP, ETEXT_JCENTER)
     , max_env_value_(1)
+    , env_last_time_(0)
     , txt_font(gensym(FONT_FAMILY), FONT_SIZE_SMALL)
     , txt_value0(txt_font.font(), ColorRGBA::black(), ETEXT_UP_LEFT, ETEXT_JLEFT)
     , txt_value1(txt_font.font(), ColorRGBA::black(), ETEXT_DOWN_LEFT, ETEXT_JLEFT)
@@ -54,16 +52,18 @@ UIEnv::UIEnv()
     appendToLayerList(&cursor_layer_);
 
     createOutlet();
+    createOutlet();
+
     env_.setADSR(40 * 1000, 60 * 1000, 0.3, 400 * 1000);
     updateNodes();
 
     initPopupMenu("env",
-        { { "ADSR(10 20 30 500)", [this](const t_pt&) { setNamedEnvelope(SYM_ADSR, AtomList { 10, 20, 30, 500 }); } },
-            { "ASR (500 500)", [this](const t_pt&) { setNamedEnvelope(SYM_ASR, AtomList { 500, 500 }); } },
-            { "AR (500 500)", [this](const t_pt&) { setNamedEnvelope(SYM_AR, AtomList { 500, 500 }); } } });
+        { { "ADSR(10 20 30 500)", [this](const t_pt&) { setNamedEnvelope(str_adsr, AtomList { 10, 20, 30, 500 }); } },
+            { "ASR (500 500)", [this](const t_pt&) { setNamedEnvelope(str_asr, AtomList { 500, 500 }); } },
+            { "AR (500 500)", [this](const t_pt&) { setNamedEnvelope(str_ar, AtomList { 500, 500 }); } } });
 
     initPopupMenu("point",
-        { { "toggle stop", [this](const t_pt& pt) {
+        { { "toggle stop", [this](const t_pt& /*pt*/) {
                auto idx = findSelectedNodeIdx();
                // ignore first node too
                if (idx < 1)
@@ -72,13 +72,14 @@ UIEnv::UIEnv()
                nodes_[idx].is_stop = !nodes_[idx].is_stop;
                redrawLayer(envelope_layer_);
            } },
-            { "toggle fixed Y", [this](const t_pt& pt) {
+            { "toggle fixed Y", [this](const t_pt& /*pt*/) {
                  auto idx = findSelectedNodeIdx();
                  // ignore first node too
                  if (idx < 1)
                      return;
 
                  nodes_[idx].fixed_y = !nodes_[idx].fixed_y;
+                 env_.pointAt(idx).toggleFixValue();
                  redrawLayer(envelope_layer_);
              } } });
 
@@ -149,7 +150,11 @@ void UIEnv::onData(const Atom& data)
         return;
     }
 
-    env_ = env->normalize();
+    if (prop_normalize)
+        env_ = env->normalize();
+    else
+        env_ = *env;
+
     updateNodes();
     redrawAll();
     onBang();
@@ -172,7 +177,7 @@ void UIEnv::drawCursor(const t_rect& r)
             char buf[100];
 
             snprintf(buf, sizeof(buf) - 1, "%d(ms) : %0.2f",
-                (int)lin2lin(cursor_pos_.x, 0, width(), 0, prop_length),
+                (int)std::round(lin2lin(cursor_pos_.x, 0, width(), 0, prop_length)),
                 lin2lin(cursor_pos_.y, 0, height(), max_env_value_, 0));
 
             cursor_txt_pos_.setColor(prop_color_border);
@@ -414,11 +419,11 @@ void UIEnv::onMouseMove(t_object*, const t_pt& pt, long modifiers)
         delete_mode_ = false;
         draw_cursor_cross_ = false;
         draw_cursor_pos_ = (node_idx >= 0);
+        cursor_layer_.invalidate();
 
         if (node_idx >= 0) {
             cursor_pos_.x = nodes_[node_idx].x * z;
             cursor_pos_.y = nodes_[node_idx].y * z;
-            cursor_layer_.invalidate();
         }
     }
 
@@ -439,13 +444,21 @@ void UIEnv::onMouseDrag(t_object*, const t_pt& pt, long mod)
     Node& n = nodes_[idx];
 
     // update coordinates
-    if (!n.fixed_x)
-        n.x = clip<float>(x_norm, 0, width() / z);
+    if (!n.fixed_x) {
+        const auto w_norm = width() / z;
+        if (nodes_.isLastNode(n) && x_norm > w_norm) {
+            env_.back().utime = env_last_time_ * x_norm / w_norm;
+            updateNodes();
+            nodes_.back().select = SelectType::POINT;
+            bg_layer_.invalidate();
+        } else
+            n.x = clip<float>(x_norm, 0, w_norm);
+    }
 
     if (!n.fixed_y)
         n.y = clip<float>(y_norm, 0, height() / z);
 
-    // x-coord
+    // x-coord for any except first and last
     if (nodes_.size() > 1 && idx > 0 && idx < (nodes_.size() - 1)) {
         Node& prev = nodes_[idx - 1];
         Node& next = nodes_[idx + 1];
@@ -463,6 +476,7 @@ void UIEnv::onMouseDrag(t_object*, const t_pt& pt, long mod)
     // no background redraw needed
     envelope_layer_.invalidate();
     cursor_layer_.invalidate();
+
     redraw();
 
     if (output_mode_ == SYM_MODE_ON_DRAG)
@@ -541,6 +555,7 @@ void UIEnv::onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long mod)
         const float z = zoom();
         const float x_norm = pt.x / z;
         const float y_norm = pt.y / z;
+        env_last_time_ = env_.back().utime;
 
         // not a node click
         if (findNearestNode(x_norm, y_norm) < 0) {
@@ -555,7 +570,7 @@ void UIEnv::onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long mod)
                     nodes_[idx].select = SelectType::LINE;
 
                 for (size_t i = 0; i < nodes_.size(); i++) {
-                    if (i == idx)
+                    if ((long)i == idx)
                         continue;
 
                     nodes_[i].select = SelectType::NONE;
@@ -581,6 +596,12 @@ void UIEnv::onMouseUp(t_object* view, const t_pt& pt, long mod)
 {
     if (output_mode_ == SYM_MODE_ON_MOUSE_UP && !isCmdPressed(mod))
         outputEnvelope();
+
+    const auto idx = findSelectedNodeIdx();
+    if (nodes_.isLastIdx(idx)) {
+        updateNodes();
+        redrawAll();
+    }
 }
 
 void UIEnv::onMouseWheel(const t_pt& pt, long mod, float delta)
@@ -652,10 +673,8 @@ void UIEnv::updateNodes()
     const float z = zoom();
 
     for (size_t i = 0; i < n; i++) {
-        bool is_edge = (i == 0) || (i == (n - 1));
-
         // using normalized width() and height()
-        nodes_.push_back(Node::fromEnvelope(env_.pointAt(i), total_us, width() / z, height() / z, is_edge));
+        nodes_.push_back(Node::fromEnvelope(env_.pointAt(i), total_us, width() / z, height() / z));
     }
 
     prop_length = total_us / 1000.0;
@@ -676,6 +695,11 @@ void UIEnv::updateEnvelope()
             n.curve);
 
         pt.sigmoid_skew = n.sigmoid_skew;
+
+        if (n.fixed_x)
+            pt.setFixTime();
+        if (n.fixed_y)
+            pt.setFixValue();
 
         env_.insertPoint(pt);
     }
@@ -722,40 +746,45 @@ bool UIEnv::selectNode(size_t idx)
     return num_changes > 0;
 }
 
-void UIEnv::m_adsr(const AtomListView& lv)
+void UIEnv::m_at(const AtomListView& lv)
 {
-    setNamedEnvelope(SYM_ADSR, lv);
+    using namespace ceammc::parser;
+
+    t_float time_ms = 0;
+    UnitTypeFullMatch p;
+
+    if (lv.size() == 1 && lv[0].isFloat()) {
+        time_ms = env_.valueAtTime(lv[0].asT<t_float>() * 1000.0);
+    } else if (lv.size() == 2 && lv[0].isFloat() && p.parse(lv[1])) {
+        const double length = env_.totalLength();
+        const double val = lv[0].asT<t_float>();
+
+        switch (p.type()) {
+        case TYPE_PHASE:
+            time_ms = env_.valueAtTime(val * length);
+            break;
+        case TYPE_PERCENT:
+            time_ms = env_.valueAtTime(val * (length / 100));
+            break;
+        case TYPE_MSEC:
+            time_ms = env_.valueAtTime(val * 1000.0);
+            break;
+        case TYPE_SEC:
+            time_ms = env_.valueAtTime(val * 1000.0 * 1000.0);
+            break;
+        default:
+            UI_ERR << "supported units are: sec, ms(ec), % and *, unknown got: " << lv[1];
+            return;
+        }
+    }
+
+    floatTo(1, time_ms);
 }
 
-void UIEnv::m_asr(const AtomListView& lv)
-{
-    setNamedEnvelope(SYM_ASR, lv);
-}
-
-void UIEnv::m_ar(const AtomListView& lv)
-{
-    setNamedEnvelope(SYM_AR, lv);
-}
-
-void UIEnv::m_eadsr(const AtomListView& lv)
-{
-    setNamedEnvelope(SYM_EADSR, lv);
-}
-
-void UIEnv::m_easr(const AtomListView& lv)
-{
-    setNamedEnvelope(SYM_EASR, lv);
-}
-
-void UIEnv::m_ear(const AtomListView& lv)
-{
-    setNamedEnvelope(SYM_EAR, lv);
-}
-
-void UIEnv::setNamedEnvelope(t_symbol* env, const AtomListView& lv)
+void UIEnv::setNamedEnvelope(const char* env, const AtomListView& lv)
 {
     if (!env_.setNamedEnvelope(env, lv)) {
-        UI_ERR << "unknown envelope: " << Atom(env) + lv;
+        UI_ERR << "unknown envelope: " << env << lv;
         return;
     }
 
@@ -821,25 +850,29 @@ void UIEnv::setup()
     obj.addFloatProperty(PROP_LENGTH, _("Length (ms)"), 400, &UIEnv::prop_length, _("Main"));
     obj.setPropertyMin(PROP_LENGTH, 10);
     obj.setPropertyUnits(gensym(PROP_LENGTH), gensym("msec"));
+    obj.addBoolProperty(PROP_NORM, _("Normalize input"), true, &UIEnv::prop_normalize, _("Main"));
 
     obj.addMenuProperty("output_mode", _("Output Mode"), "mouse_up", &UIEnv::output_mode_, "mouse_up drag", _("Main"));
 
-    obj.addMethod(SYM_ADSR, &UIEnv::m_adsr);
-    obj.addMethod(SYM_ASR, &UIEnv::m_asr);
-    obj.addMethod(SYM_AR, &UIEnv::m_ar);
-    obj.addMethod(SYM_EADSR, &UIEnv::m_eadsr);
-    obj.addMethod(SYM_EASR, &UIEnv::m_easr);
-    obj.addMethod(SYM_EAR, &UIEnv::m_ear);
+#define ADD_METHOD(name) obj.addMethod(str_##name, &UIEnv::m_##name)
+
+    ADD_METHOD(adsr);
+    ADD_METHOD(ar);
+    ADD_METHOD(asr);
+    ADD_METHOD(eadsr);
+    ADD_METHOD(ear);
+    ADD_METHOD(easr);
+    ADD_METHOD(exp);
+    ADD_METHOD(line);
+    ADD_METHOD(sigmoid);
+    ADD_METHOD(sin2);
+    ADD_METHOD(step);
+
+    obj.addMethod(gensym("at"), &UIEnv::m_at);
 }
 
 void setup_ui_env()
 {
-    SYM_ADSR = gensym("adsr");
-    SYM_ASR = gensym("asr");
-    SYM_AR = gensym("ar");
-    SYM_EADSR = gensym("eadsr");
-    SYM_EASR = gensym("easr");
-    SYM_EAR = gensym("ear");
     SYM_LENGTH = gensym("length");
     // keep in sync with @output_mode property!
     SYM_MODE_ON_MOUSE_UP = gensym("mouse_up");
@@ -848,7 +881,7 @@ void setup_ui_env()
     UIEnv::setup();
 }
 
-Node Node::fromEnvelope(const EnvelopePoint& pt, size_t total_us, float w, float h, bool fixed_x)
+Node Node::fromEnvelope(const EnvelopePoint& pt, size_t total_us, float w, float h)
 {
     Node n;
 
@@ -859,8 +892,8 @@ Node Node::fromEnvelope(const EnvelopePoint& pt, size_t total_us, float w, float
     n.type = pt.type;
     n.select = SelectType::NONE;
     n.is_stop = pt.stop;
-    n.fixed_x = fixed_x;
-    n.fixed_y = false;
+    n.fixed_x = pt.fix_pos & EnvelopePoint::FIX_TIME;
+    n.fixed_y = pt.fix_pos & EnvelopePoint::FIX_VALUE;
 
     return n;
 }

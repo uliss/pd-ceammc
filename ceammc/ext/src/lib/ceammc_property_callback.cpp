@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "ceammc_property_callback.h"
 #include "ceammc_log.h"
+#include "lex/parser_props.h"
 
 #include <cmath>
 
@@ -66,122 +67,114 @@ CallbackProperty::CallbackProperty(const std::string& name, PropertyListGetter g
 {
 }
 
-bool CallbackProperty::setList(const AtomListView& lst)
+bool CallbackProperty::setList(const AtomListView& lv)
 {
-    static auto is_toggle = [](t_symbol* s) {
-        return (s->s_name[0] == '~' || s->s_name[0] == '!') && s->s_name[1] == '\0';
-    };
-
-    static auto is_plus = [](t_symbol* s) { return s->s_name[0] == '+' && s->s_name[1] == '\0'; };
-    static auto is_minus = [](t_symbol* s) { return s->s_name[0] == '-' && s->s_name[1] == '\0'; };
-    static auto is_mul = [](t_symbol* s) { return s->s_name[0] == '*' && s->s_name[1] == '\0'; };
-    static auto is_div = [](t_symbol* s) { return s->s_name[0] == '/' && s->s_name[1] == '\0'; };
-
     switch (setter_.type) {
     case Type::LIST:
-        if (!hasListCb(SETTER) || !checkList(lst))
+        if (!hasListCb(SETTER) || !checkList(lv))
             return false;
 
-        if (!setter_.fn_list(lst)) {
+        if (!setter_.fn_list(lv)) {
             PROP_ERR << "list setter error: " << cb_err_msg_;
             return false;
         } else
             return true;
 
         break;
-    case Type::BOOL:
-        if (lst.isBool())
-            return setBool(lst[0].asBool());
-        else if (lst.isSymbol() && is_toggle(lst[0].asT<t_symbol*>())) {
-            bool v = false;
+    case Type::BOOL: {
+        using namespace parser;
 
-            if (!getBool(v))
-                return false;
-            else
-                return setBool(!v);
-        } else
-            PROP_ERR << "bool value expected (0|1|true|false), got: " << lst;
+        if (!emptyCheck(lv))
+            return false;
 
-        break;
-    case Type::FLOAT:
-        if (lst.isFloat())
-            return setFloat(lst[0].asFloat());
-        else if (lst.size() == 2 && lst[0].isSymbol() && lst[1].isFloat()) {
-            t_float a = 0;
-            if (!getFloat(a))
-                return false;
+        bool res = false;
+        bool prev = false;
+        if (!getBool(prev))
+            return false;
 
-            const auto b = lst[1].asT<t_float>();
-            const auto op = lst[0].asT<t_symbol*>();
-            if (is_plus(op))
-                return setFloat(a + b);
-            else if (is_minus(op))
-                return setFloat(a - b);
-            else if (is_mul(op))
-                return setFloat(a * b);
-            else if (is_div(op)) {
-                if (b == 0) {
-                    PROP_ERR << "division by zero";
-                    return false;
-                } else
-                    return setFloat(a / b);
-            } else {
-                PROP_ERR << "expected +-*/, got: " << lst[0];
-                return false;
-            }
-        } else
-            PROP_ERR << "float value expected, got: " << lst;
+        auto err = bool_prop_calc(prev, info().defaultBool(), lv, res);
+        if (err != PropParseRes::OK) {
+            PROP_ERR << bool_prop_expected() << " expected, got: " << lv;
+            return false;
+        }
 
-        break;
-    case Type::INT:
-        if (lst.isFloat()) {
-            t_float v = lst[0].asFloat();
+        return setBool(res);
+    } break;
+    case Type::FLOAT: {
+        using namespace parser;
 
-            if (!lst.isInteger()) {
-                v = std::round(v);
-                PROP_ERR << "int value expected, got: " << lst << ", rounding to " << v;
-            }
+        if (!emptyCheck(lv))
+            return false;
 
-            return setInt(static_cast<int>(v));
-        } else if (lst.size() == 2 && lst[0].isSymbol() && lst[1].isFloat()) {
-            int a = 0;
-            if (!getInt(a))
-                return false;
+        t_float res = false;
+        t_float value = false;
+        if (!getFloat(value))
+            return false;
 
-            const auto b = lst[1].asT<int>();
-            const auto op = lst[0].asT<t_symbol*>();
-            if (is_plus(op))
-                return setInt(a + b);
-            else if (is_minus(op))
-                return setInt(a - b);
-            else if (is_mul(op))
-                return setInt(a * b);
-            else if (is_div(op)) {
-                if (b == 0) {
-                    PROP_ERR << "division by zero";
-                    return false;
-                } else
-                    return setInt(a / b);
-            } else {
-                PROP_ERR << "expected +-*/, got: " << lst[0];
-                return false;
-            }
-        } else
-            PROP_ERR << "int value expected, got: " << lst;
+        auto rc = numeric_prop_calc<t_float>(value, info(), lv, res);
+        switch (rc) {
+        case PropParseRes::OK:
+            return setFloat(res);
+        case PropParseRes::DIVBYZERO:
+            PROP_ERR << "division by zero: " << lv;
+            return false;
+        case PropParseRes::NORANGE:
+            PROP_ERR << "property without range, can't set random";
+            return false;
+        case PropParseRes::INVALID_RANDOM_ARGS:
+            PROP_ERR << "random [MIN MAX]? expected, got: " << lv;
+            return false;
+        case PropParseRes::UNKNOWN:
+        default:
+            PROP_ERR << float_prop_expected() << " expected, got: " << lv;
+            return false;
+        }
 
-        break;
+    } break;
+    case Type::INT: {
+
+        using namespace parser;
+
+        if (!emptyCheck(lv))
+            return false;
+
+        int res = false;
+        int value = false;
+        if (!getInt(value))
+            return false;
+
+        auto rc = numeric_prop_calc<int>(value, info(), lv, res);
+        switch (rc) {
+        case PropParseRes::OK:
+            return setInt(res);
+        case PropParseRes::DIVBYZERO:
+            PROP_ERR << "division by zero: " << lv;
+            return false;
+        case PropParseRes::NORANGE:
+            PROP_ERR << "property without range, can't set random";
+            return false;
+        case PropParseRes::INVALID_RANDOM_ARGS:
+            PROP_ERR << "random [MIN MAX]? expected, got: " << lv;
+            return false;
+        case PropParseRes::UNKNOWN:
+        default:
+            PROP_ERR << int_prop_expected() << " expected, got: " << lv;
+            return false;
+        }
+
+    } break;
     case Type::SYMBOL:
-        if (lst.isSymbol())
-            return setSymbol(lst[0].asSymbol());
+        if (lv.isSymbol())
+            return setSymbol(lv[0].asSymbol());
         else
-            PROP_ERR << "symbol value expected, got: " << lst;
+            PROP_ERR << "symbol value expected, got: " << lv;
 
         break;
     case Type::ATOM:
-        if (lst.isAtom())
-            return setAtom(lst[0]);
+        if (lv.isAtom())
+            return setAtom(lv[0]);
         else
-            PROP_ERR << "single atom value expected, got: " << lst;
+            PROP_ERR << "single atom value expected, got: " << lv;
         break;
     default:
         PROP_ERR << "unknown property type: " << (int)setter_.type;

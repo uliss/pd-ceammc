@@ -40,8 +40,29 @@ void Lin2Exp::onFloat(t_float value)
     floatTo(0, convert::lin2exp(value, x0, x1, y0, y1));
 }
 
+void Lin2Exp::onList(const AtomList& l)
+{
+    const t_float x0 = in_from();
+    const t_float x1 = in_to();
+    const t_float y0 = out_from();
+    const t_float y1 = out_to();
+
+    auto type = clipType();
+
+    auto fn = [this, x0, x1, y0, y1, type](t_float value) {
+        if (doClip(value, type))
+            return value;
+
+        return convert::lin2exp(value, x0, x1, y0, y1);
+    };
+
+    listTo(0, l.mapFloat(fn));
+}
+
 void setup_conv_lin2exp()
 {
     ObjectFactory<Lin2Exp> obj("conv.lin2exp");
     obj.addAlias("lin->exp");
+
+    obj.setXletsInfo({ "float or list" }, { "list" });
 }

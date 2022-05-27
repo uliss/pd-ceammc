@@ -13,7 +13,7 @@
  *****************************************************************************/
 #include "seq_base.h"
 #include "ceammc_convert.h"
-#include "ceammc_units.h"
+#include "lex/parser_units.h"
 
 #define PROP_ERR() LogPdObject(owner(), LOG_ERROR).stream() << errorPrefix()
 
@@ -271,26 +271,28 @@ bool SeqTimeGrain::setList(const AtomListView& lv)
         return FloatProperty::setList(lv);
     else if (lv.isSymbol()) {
         try {
-            units::UnitParseError err;
-            units::FreqValue v;
+            using namespace parser;
+            UnitsFullMatch p;
 
-            auto res = units::FreqValue::parse(lv);
-            if (res.matchValue(v)) {
+            if (p.parse(lv[0])) {
 
-                switch (v.units()) {
-                case units::FreqValue::MS:
-                    return setValue(v.value());
-                case units::FreqValue::BPM:
-                    return setBpm(v.value());
+                switch (p.type()) {
+                case TYPE_BPM:
+                    return setValue(p.bpm().beatPeriodMs());
+                case TYPE_MSEC:
+                    return setValue(p.value());
+                case TYPE_SEC:
+                    return setValue(p.value() * 1000);
+                case TYPE_HZ:
+                    return setValue(1000 / p.value());
                 default:
                     return false;
                 }
 
-            } else if (res.matchError(err)) {
-                PROP_ERR() << "parse error: " << err.msg;
+            } else  {
+                PROP_ERR() << "parse error";
                 return false;
-            } else
-                return false;
+            }
         } catch (const std::exception& e) {
             PROP_ERR() << "parser error: " << e.what();
             return false;

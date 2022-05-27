@@ -1,0 +1,8 @@
+#N canvas 0 0 572 400 12;
+#X obj 20 48 inlet;
+#X obj 20 77 prop.declare p1 float @min -1 @max 20 @default 4;
+#X obj 20 106 loadbang;
+#X obj 20 135 prop @p1;
+#X floatatom 20 164 5 0 0 0 - - -;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;

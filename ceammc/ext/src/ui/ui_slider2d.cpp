@@ -22,17 +22,7 @@
 #include "ceammc_preset.h"
 #include "ceammc_ui.h"
 #include "ui_slider2d.h"
-
-static const float KNOB_MIN_SIZE = 5.f;
-static const float KNOB_MAX_SIZE = 20.f;
-static const float KNOB_RATIO = 0.1f;
-static const float KNOB_BORDER_WIDTH = 1.f;
-static t_rgba KNOB_FILL = hex_to_rgba("#C0C0C0");
-static t_rgba KNOB_BORDER = hex_to_rgba("#707070");
-static t_rgba KNOB_FILL_ACTIVE = hex_to_rgba("#003070");
-static t_rgba KNOB_BORDER_ACTIVE = hex_to_rgba("#00C0FF");
-static t_rgba GUIDE_LINE_COLOR = hex_to_rgba("#00C0F0");
-static const float GUIDE_LINE_WIDTH = 0.5f;
+#include "ui_slider2d.tcl.h"
 
 UISlider2D::UISlider2D()
     : prop_x_left(-1)
@@ -41,10 +31,6 @@ UISlider2D::UISlider2D()
     , prop_y_bottom(-1)
     , prop_show_range(1)
     , prop_show_grid(0)
-    , txt_font(gensym(FONT_FAMILY), FONT_SIZE_SMALL)
-    , txt_xrange_(txt_font.font(), ColorRGBA::black(), ETEXT_UP_LEFT, ETEXT_JLEFT)
-    , txt_yrange_(txt_font.font(), ColorRGBA::black(), ETEXT_DOWN_RIGHT, ETEXT_JRIGHT)
-    , knob_layer_(asEBox(), gensym("knob_layer"))
     , x_pos_(convert::lin2lin<float, 0, 1>(0.5, prop_x_left, prop_x_right))
     , y_pos_(convert::lin2lin<float, 0, 1>(0.5, prop_y_top, prop_y_bottom))
     , mouse_down_(false)
@@ -80,86 +66,30 @@ void UISlider2D::okSize(t_rect* newrect)
 
 void UISlider2D::paint()
 {
-    paintBackground();
-    paintKnob();
+    const auto r = rect();
+
+    const int x = std::round(convert::lin2lin_clip<float>(x_pos_, prop_x_left, prop_x_right, 0, r.width));
+    const int y = std::round(convert::lin2lin<float>(y_pos_, prop_y_top, prop_y_bottom, 0, r.height));
+
+    sys_vgui("ui::slider2d_update %s %lx "
+             "%d %d " // x, y
+             "%.3g %.3g " // value x, y
+             "%d %d %d " // w, h, z
+             "%d %d %d "
+             "#%6.6x #%6.6x "
+             "%.3g %.3g %.3g %.3g\n",
+        asEBox()->b_canvas_id->s_name, asEBox(),
+        x, y,
+        realXValue(), realYValue(),
+        (int)width(), (int)height(), (int)zoom(),
+        prop_show_grid, prop_show_range, mouse_down_ ? 1 : 0,
+        rgba_to_hex_int(prop_color_background), rgba_to_hex_int(prop_color_border),
+        prop_x_left, prop_x_right, prop_y_top, prop_y_bottom);
 }
 
 void UISlider2D::onPropChange(t_symbol* prop_name)
 {
-    updateLabels();
     redrawAll();
-}
-
-void UISlider2D::paintBackground()
-{
-    const t_rect r = rect();
-
-    UIPainter p = bg_layer_.painter(r);
-    if (!p)
-        return;
-
-    if (prop_show_grid) {
-        const float X_GRID_STEP = r.width / 10;
-        const float Y_GRID_STEP = r.height / 10;
-
-        // draw center cross
-        p.setLineWidth(3);
-        p.setColor(rgba_addContrast(prop_color_background, 0.1));
-        p.drawLine(5 * X_GRID_STEP, -1, 5 * X_GRID_STEP, r.height + 2);
-        p.drawLine(-1, 5 * Y_GRID_STEP, r.width + 2, 5 * Y_GRID_STEP);
-        p.setLineWidth(1);
-        p.setColor(rgba_addContrast(prop_color_background, -0.1));
-
-        // draw horizontal lines
-        for (int i = 1; i < 10; i++)
-            p.drawLine(i * X_GRID_STEP, -1, i * X_GRID_STEP, r.height + 2);
-
-        // draw vertical lines
-        for (int i = 1; i < 10; i++)
-            p.drawLine(-1, i * Y_GRID_STEP, r.width + 2, i * Y_GRID_STEP);
-    }
-
-    if (prop_show_range) {
-        updateLabels();
-
-        txt_xrange_.setColor(prop_color_border);
-        txt_yrange_.setColor(prop_color_border);
-
-        p.drawText(txt_xrange_);
-        p.drawText(txt_yrange_);
-    }
-}
-
-void UISlider2D::paintKnob()
-{
-    const t_rect r = rect();
-    UIPainter p = knob_layer_.painter(r);
-
-    if (p) {
-        const float x = convert::lin2lin_clip<float>(x_pos_, prop_x_left, prop_x_right, 0, r.width);
-        const float y = convert::lin2lin<float>(y_pos_, prop_y_top, prop_y_bottom, 0, r.height);
-
-        // when grid shown - no guide lines are needed
-        if (!prop_show_grid) {
-            // guide lines
-            p.setLineWidth(GUIDE_LINE_WIDTH);
-            p.setColor(GUIDE_LINE_COLOR);
-            p.drawLine(x, 0, x, r.height);
-            p.drawLine(0, y, r.width, y);
-        }
-
-        // knob
-        const float knobsize = clip<float>(KNOB_MIN_SIZE, KNOB_MAX_SIZE,
-            std::min(r.height, r.width) * KNOB_RATIO);
-
-        // knob border
-        p.setLineWidth(KNOB_BORDER_WIDTH);
-        p.setColor(mouse_down_ ? KNOB_FILL_ACTIVE : KNOB_FILL);
-        p.drawRect(x - 0.5f * knobsize, y - 0.5f * knobsize, knobsize, knobsize);
-        p.fillPreserve();
-        p.setColor(mouse_down_ ? KNOB_BORDER_ACTIVE : KNOB_BORDER);
-        p.stroke();
-    }
 }
 
 void UISlider2D::onBang()
@@ -201,6 +131,22 @@ void UISlider2D::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
     mouse_down_ = false;
     setMouse(pt.x, pt.y);
     redrawKnob();
+    output();
+}
+
+void UISlider2D::onMouseWheel(const t_pt& pt, long modifiers, double delta)
+{
+    const float k = (modifiers & EMOD_SHIFT) ? (1 / 128.0) : (6 / 128.0);
+
+    if (modifiers & EMOD_ALT) {
+        const auto x = convert::lin2lin<float>(x_pos_, prop_x_left, prop_x_right, 0, 1) + delta * k;
+        x_pos_ = convert::lin2lin_clip<float>(x, 0, 1, prop_x_left, prop_x_right);
+    } else {
+        const auto y = convert::lin2lin<float>(y_pos_, prop_y_top, prop_y_bottom, 0, 1) + delta * k;
+        y_pos_ = convert::lin2lin_clip<float>(y, 0, 1, prop_y_top, prop_y_bottom);
+    }
+
+    redraw();
     output();
 }
 
@@ -368,6 +314,7 @@ void UISlider2D::propSetYValue(t_float y)
 void UISlider2D::setup()
 {
     UIObjectFactory<UISlider2D> obj("ui.slider2d");
+    obj.addAlias("ui.s2d");
 
     obj.setDefaultSize(100, 100);
 
@@ -390,7 +337,7 @@ void UISlider2D::setup()
     obj.useList();
     obj.useBang();
 
-    obj.useMouseEvents(UI_MOUSE_UP | UI_MOUSE_DOWN | UI_MOUSE_DRAG);
+    obj.useMouseEvents(UI_MOUSE_UP | UI_MOUSE_DOWN | UI_MOUSE_DRAG | UI_MOUSE_WHEEL);
     obj.outputMouseEvents(MouseEventsOutput::DEFAULT_OFF);
     obj.usePopup();
 
@@ -400,13 +347,11 @@ void UISlider2D::setup()
 
 void UISlider2D::redrawKnob()
 {
-    knob_layer_.invalidate();
     redraw();
 }
 
 void UISlider2D::redrawAll()
 {
-    knob_layer_.invalidate();
     bg_layer_.invalidate();
     redraw();
 }
@@ -417,20 +362,9 @@ void UISlider2D::setMouse(t_float x, t_float y)
     y_pos_ = convert::lin2lin_clip<t_float>(y, 0, height(), prop_y_top, prop_y_bottom);
 }
 
-void UISlider2D::updateLabels()
-{
-    char buf[64];
-    snprintf(buf, 64, "X: [%g..%g]", prop_x_left, prop_x_right);
-
-    const float xoff = 2 * zoom();
-    const float yoff = 3 * zoom();
-    txt_xrange_.set(buf, xoff, yoff, 100, 20);
-
-    snprintf(buf, 64, "Y: [%g..%g]", prop_y_top, prop_y_bottom);
-    txt_yrange_.set(buf, width() - xoff, height() - yoff, 100, 20);
-}
-
 void setup_ui_slider2d()
 {
+    sys_gui(ui_slider2d_tcl);
+
     UISlider2D::setup();
 }

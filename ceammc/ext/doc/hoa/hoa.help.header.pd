@@ -19,6 +19,8 @@
 #X obj 388 243 list.at 1;
 #X obj 533 9 inlet;
 #X obj 505 243 list.slice 2;
+#X obj 1 1 cnv 15 43 40 empty empty empty 20 12 0 14 -4032 -66577 0
+;
 #X connect 3 0 6 0;
 #X connect 5 0 1 0;
 #X connect 6 0 9 0;

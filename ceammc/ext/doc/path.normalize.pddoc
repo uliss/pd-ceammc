@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="path.normalize">
+        <title>path.normalize</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>normalize file paths</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>path</category>
+            <keywords>path normalize</keywords>
+            <since>0.9.4</since>
+            <aliases>
+                <alias>path.norm</alias>
+            </aliases>
+            <also>
+                <see>path.split</see>
+            </also>
+        </meta>
+        <info>
+            <par>These conversions are purely lexical. They do not check that the paths exist, do
+            not follow symlinks, and do not access the filesystem at all</par>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo on="symbol">file path</xinfo>
+                <xinfo on="data:string">file path</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>symbol or data:string: normalized path</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[symbol /path///./to/normalize/../file.txt(
+|
+[path.normalize]
+|
+[ui.dt]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

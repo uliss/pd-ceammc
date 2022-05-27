@@ -22,7 +22,7 @@ UISlider::UISlider()
 {
 }
 
-void UISlider::init(t_symbol* name, const AtomListView &args, bool usePresets)
+void UISlider::init(t_symbol* name, const AtomListView& args, bool usePresets)
 {
     UISingleValue::init(name, args, usePresets);
     if (name == gensym("ui.hsl")) {
@@ -117,6 +117,17 @@ void UISlider::onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long m
     }
 }
 
+void UISlider::onMouseWheel(const t_pt& pt, long modifiers, double delta)
+{
+    float k = 0.01;
+    if (modifiers & EMOD_SHIFT)
+        k *= 0.1;
+
+    setKnobPhase(knobPhase() + delta * k);
+    redrawKnob();
+    output();
+}
+
 void UISlider::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
 {
     t_pt pos(pt);
@@ -189,7 +200,7 @@ void UISlider::setup()
     obj.useBang();
     obj.useFloat();
     obj.usePresets();
-    obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_DRAG | UI_MOUSE_DBL_CLICK | UI_MOUSE_UP);
+    obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_DRAG | UI_MOUSE_DBL_CLICK | UI_MOUSE_UP | UI_MOUSE_WHEEL);
     obj.outputMouseEvents(MouseEventsOutput::DEFAULT_OFF);
 
     obj.addMethod("+", &UISingleValue::m_plus);
@@ -199,6 +210,7 @@ void UISlider::setup()
     obj.addMethod("++", &UISingleValue::m_increment);
     obj.addMethod("--", &UISingleValue::m_decrement);
     obj.addMethod("set", &UISingleValue::m_set);
+    obj.addMethod("random", &UISingleValue::m_random);
 
     obj.setDefaultSize(15, 120);
 

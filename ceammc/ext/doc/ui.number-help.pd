@@ -9,9 +9,9 @@
 #X obj 672 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [ui.number] @url ui.number-help.pd;
 #X obj 210 80 cnv 1 555 120 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 Display mode: key '-' and '+' increments value. Mouse
-drag changes value. Default step is 1/pixel. Holding SHIFT divide step
-by 100\. Holding CTRL multiply by 10\.;
+#X text 215 80 Display mode: keys '-'(Down) and '+'(Up) increment value.
+Mouse drag changes value. Default step is 1/pixel. Holding SHIFT divide
+step by 100\. Holding CTRL multiply by 10\.;
 #X text 215 135 Input mode: Double click to enter new value. Accepted
 keys: -.0123456789\. Press ENTER or TAB key to finish. ESCAPE undo
 input \, BACKSPACE removes last character.;
@@ -152,7 +152,7 @@ are:;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
 #X obj 1 1917 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1920 library: ceammc v0.9.3;
+#X text 10 1920 library: ceammc v0.9.4;
 #X text 591 1932 see also:;
 #X obj 665 1935 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.number~] @url ui.number~-help.pd;
@@ -161,7 +161,7 @@ are:;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.3;
+#X text 120 32 0.9.4;
 #X text 10 54 object:;
 #X text 120 54 ui.number;
 #X text 10 76 category:;

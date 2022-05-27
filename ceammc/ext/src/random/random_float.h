@@ -29,6 +29,9 @@ public:
     RandomFloat(const PdArgs& a);
 
     void onBang() override;
+    void onInlet(size_t n, const AtomListView& lv) override;
+
+    void m_gen(t_symbol* s, const AtomListView& lv);
 };
 
 void setup_random_float();

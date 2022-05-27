@@ -51,10 +51,10 @@
 <![CDATA[
 [open %CEAMMC%/guitar1.wav, 1(
 |
-[expand_env]
-|
-[readsf~]
-|
+[expand_env]  [ui.hsl 0 1000]
+|             |
+[readsf~]     [@delay $1(
+|             |
 [fx.echo~ 500 0.8]
 |
 [ui.gain~ @size 120 16]  [ui.dsp~]

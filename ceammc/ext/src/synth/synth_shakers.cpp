@@ -108,8 +108,12 @@ public:
     {
         info().setConstraints(PropValueConstraints::ENUM);
         info().clearEnum();
-        for (auto s : MACRO_SHAKER_NAMES)
-            info().addEnum(gensym(s));
+        for (auto s : MACRO_SHAKER_NAMES) {
+            if(!info().addEnum(gensym(s))) {
+                LIB_ERR << "[@type] can't add enum value: " << s;
+                continue;
+            }
+        }
     }
 
     Atom propType() const

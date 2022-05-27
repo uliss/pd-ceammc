@@ -56,7 +56,7 @@ close_list \)
 open_dict  \[
 close_dict \]
 
-symbol0    [a-zA-Z_.@#0-9/%]
+symbol0    [a-zA-Z_.@#0-9/%-]
 symbol_    [^:\(\)\[\]\"\\\` ]
 symbol     {symbol0} {symbol_}*
 

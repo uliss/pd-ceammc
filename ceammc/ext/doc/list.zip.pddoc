@@ -61,9 +61,7 @@
 |  |        |. |       |..  |       |
 [list.zip                     3 @min]
 |
-[msg set]
-|
-[ (
+[ui.dt]
 ]]>
             </pdascii>
         </example>

@@ -15,11 +15,12 @@
 #define GLOBAL_SET_H
 
 #include "dataset_iface.h"
+#include "editor_set.h"
 #include "global_base.h"
 
 using namespace ceammc;
 
-typedef DataSetIface<GlobalBase<DataTypeSet>> GlobalSetBase;
+using GlobalSetBase = EditorSetT<DataSetIface<GlobalBase<DataTypeSet>>>;
 
 class GlobalSet : public GlobalSetBase {
 public:
@@ -27,6 +28,8 @@ public:
 
     DataTypeSet& data() final { return ref(); }
     const DataTypeSet& data() const final { return ref(); }
+
+    EditorTitleString editorTitle() const final;
 };
 
 void setup_global_set();

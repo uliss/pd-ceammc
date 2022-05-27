@@ -504,4 +504,10 @@ pd::CanvasTree& pd::CanvasTree::operator=(pd::CanvasTree&& t)
     std::swap(*this, t);
     return *this;
 }
+
+bool canvas_info_is_dirty(const _glist* c)
+{
+    return c == nullptr ? false : c->gl_dirty;
+}
+
 }

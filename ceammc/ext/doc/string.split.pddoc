@@ -7,7 +7,7 @@
                 <author>Alex Nadzharov</author>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>split string by separator</description>
+            <description>split string or symbol by separator</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>string</category>
@@ -15,25 +15,32 @@
             <since>0.3</since>
             <aliases>
                 <alias>str.split</alias>
+                <alias>symbol.split</alias>
             </aliases>
             <also>
                 <see>string.join</see>
             </also>
         </meta>
+        <info>
+            <par>Note: by default string or symbol splitted to list of data:String, to get list of
+            Pd symbols use @sym flag or use alias [symbol.split]</par>
+        </info>
         <arguments>
             <argument name="SEP" type="atom">separator. If nonspecified - separate by every char.
             To separate by space - use " " argument</argument>
         </arguments>
         <properties>
             <property name="@sep" type="symbol">separator</property>
+            <property name="@sym" type="flag">flag to output as list of Pd symbols</property>
         </properties>
         <inlets>
             <inlet>
-                <xinfo>Input string</xinfo>
+                <xinfo on="symbol">input symbol</xinfo>
+                <xinfo on="data:string">input symbol</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>list of strings</outlet>
+            <outlet>list of data:Strings or symbols</outlet>
         </outlets>
         <example>
             <pdascii>
@@ -47,6 +54,17 @@
 [string.join " "]   [string.join "*"]   [string.join "-"]
 |                   |                   |
 [ui.dt]             [ui.dt]             [ui.dt]
+
+
+/*Pd symbol split*/
+
+[symbol A/B/C(
+|
+[string.split / @sym]
+|
+[unpack s s s ]
+|     ^|    ^^|
+[S]   [S]   [S]
 ]]>
             </pdascii>
         </example>

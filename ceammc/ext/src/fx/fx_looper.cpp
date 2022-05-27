@@ -96,7 +96,7 @@ FxLooper::FxLooper(const PdArgs& args)
     capacity_sec_->setUnitsSec();
     addProperty(capacity_sec_);
 
-    loop_bang_ = new BoolProperty("@loop_bang", false);
+    loop_bang_ = new BoolProperty("@loop_bang", true);
     addProperty(loop_bang_);
 
     loop_smooth_ms_ = new FloatProperty("@loop_smooth", 10);

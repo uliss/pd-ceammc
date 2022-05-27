@@ -22,3 +22,4 @@ function(add_an_test src)
 endfunction()
 
 add_an_test(onset)
+add_an_test(zero_tilde)

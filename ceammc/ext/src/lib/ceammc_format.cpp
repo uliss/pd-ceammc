@@ -230,15 +230,14 @@ std::string format(const std::string& fmt, const AtomList& l)
 
     for (auto& a : l) {
         if (a.isSymbol())
-            fmt_args.push_back(fmt::internal::make_arg<ctx>(a.asSymbol()->s_name));
+            fmt_args.push_back(fmt::detail::make_arg<ctx>(a.asSymbol()->s_name));
         else if (a.isInteger())
-            fmt_args.push_back(fmt::internal::make_arg<ctx>(a.asInt()));
+            fmt_args.push_back(fmt::detail::make_arg<ctx>(a.asInt()));
         else if (a.isFloat())
-            fmt_args.push_back(fmt::internal::make_arg<ctx>(a.asFloat()));
+            fmt_args.push_back(fmt::detail::make_arg<ctx>(a.asFloat()));
     }
 
-    return fmt::vformat(format_str,
-        fmt::basic_format_args<ctx>(fmt_args.data(), fmt_args.size()));
+    return fmt::vformat(format_str, fmt::basic_format_args<ctx>(fmt_args.data(), fmt_args.size()));
 }
 
 } // namespace ceammc

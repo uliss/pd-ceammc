@@ -23,20 +23,18 @@ class UILink : public UIObject {
     t_symbol* prop_url;
     t_symbol* prop_title;
     t_symbol* canvas_dir_;
-    UITextLayout link_text_;
-    bool hover_;
+    t_symbol* rid_;
 
 public:
     UILink();
+    ~UILink();
 
-    void okSize(t_rect* newrect);
     void paint();
-    void setDrawParams(t_edrawparams* params);
-    void onPropChange(t_symbol* prop_name);
+    void m_resize(const AtomListView& lv);
 
+    void init(t_symbol* name, const AtomListView& args, bool usePresets);
+    void setDrawParams(t_edrawparams* params);
     void onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers);
-    void onMouseEnter(t_object* view, const t_pt& pt, long modifiers);
-    void onMouseLeave(t_object* view, const t_pt& pt, long modifiers);
 
     AtomList p_title() const;
     void p_setTitle(const AtomListView& lv);

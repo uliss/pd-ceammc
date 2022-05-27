@@ -17,8 +17,11 @@
 
 #include <boost/algorithm/string.hpp>
 #include <boost/scoped_array.hpp>
+#include <codecvt>
 #include <cstdlib>
 #include <iostream>
+#include <locale>
+#include <random>
 
 // list of escapes
 //  `" -> "
@@ -354,4 +357,99 @@ void ceammc::string::split(std::vector<std::string>& vec, const std::string& str
     vec.erase(
         std::remove_if(vec.begin(), vec.end(), [](const std::string& s) { return s.empty(); }),
         vec.end());
+}
+
+std::string ceammc::string::utf8_insert(const char* str, int pos, const char* subj)
+{
+    using codec = std::codecvt_utf8<char32_t>;
+    using converter = std::wstring_convert<codec, char32_t>;
+
+    std::u32string s0 = converter().from_bytes(str);
+    std::u32string s1 = converter().from_bytes(subj);
+    const int len0 = s0.length();
+    // negative index support
+    if (pos < 0)
+        pos += len0 + 1;
+
+    if (std::abs(pos) <= len0) {
+        s0.insert(pos, s1);
+        return converter().to_bytes(s0);
+    } else
+        throw std::out_of_range("invalid insert index: " + std::to_string(pos));
+}
+
+std::string ceammc::string::utf8_pop(const char* str)
+{
+    using codec = std::codecvt_utf8<char32_t>;
+    using converter = std::wstring_convert<codec, char32_t>;
+
+    std::u32string s32 = converter().from_bytes(str);
+    if (s32.empty())
+        return {};
+
+    s32.pop_back();
+    return converter().to_bytes(s32);
+}
+
+char32_t ceammc::string::utf8_choose(const char* str)
+{
+    static std::random_device rd;
+
+    using codec = std::codecvt_utf8<char32_t>;
+    using converter = std::wstring_convert<codec, char32_t>;
+
+    std::u32string s32 = converter().from_bytes(str);
+
+    if (s32.length() == 0)
+        return -1;
+
+    std::mt19937 rng(rd());
+    std::uniform_int_distribution<int> uni(0, s32.length() - 1);
+
+    return s32[uni(rng)];
+}
+
+std::string ceammc::string::utf8_reverse(const char* str)
+{
+    using codec = std::codecvt_utf8<char32_t>;
+    using converter = std::wstring_convert<codec, char32_t>;
+
+    std::u32string s32 = converter().from_bytes(str);
+    std::reverse(s32.begin(), s32.end());
+    return converter().to_bytes(s32);
+}
+
+std::string ceammc::string::utf8_shuffle(const char* str)
+{
+    using codec = std::codecvt_utf8<char32_t>;
+    using converter = std::wstring_convert<codec, char32_t>;
+
+    std::u32string s32 = converter().from_bytes(str);
+    std::random_shuffle(s32.begin(), s32.end());
+    return converter().to_bytes(s32);
+}
+
+std::string ceammc::string::utf8_sort(const char* str)
+{
+    using codec = std::codecvt_utf8<char32_t>;
+    using converter = std::wstring_convert<codec, char32_t>;
+
+    std::u32string s32 = converter().from_bytes(str);
+    std::sort(s32.begin(), s32.end());
+    return converter().to_bytes(s32);
+}
+
+std::string ceammc::string::utf8_remove_at(const char* str, int pos)
+{
+    using codec = std::codecvt_utf8<char32_t>;
+    using converter = std::wstring_convert<codec, char32_t>;
+
+    std::u32string s32 = converter().from_bytes(str);
+
+    if(pos >= s32.length() || (pos < -s32.length())) {
+
+    }
+    s32.erase(pos);
+    std::sort(s32.begin(), s32.end());
+    return converter().to_bytes(s32);
 }

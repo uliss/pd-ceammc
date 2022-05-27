@@ -55,9 +55,7 @@
 |            |.
 [list.rotate 1 #r]
 |
-[msg set]
-|
-[ (
+[ui.dt]
 
 [X r->l:1]
 ]]>

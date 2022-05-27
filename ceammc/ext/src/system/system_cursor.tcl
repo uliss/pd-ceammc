@@ -3,6 +3,26 @@ namespace eval ::ceammc::cursor:: {
     variable last_x 0
     variable last_y 0
     variable receive_symbol
+    variable polltime 30
+    variable pollmin 10
+    variable pollmax 1000
+}
+
+proc ::ceammc::cursor::clip { v min max } {
+    if { $v < $min } {
+        return $min
+    } elseif { $v > $max } {
+        return $max
+    } else {
+        return $v
+    }
+}
+
+proc ::ceammc::cursor::setpolltime { pollms } {
+    variable pollmin
+    variable pollmax
+    variable polltime
+    set polltime [clip $pollms $pollmin $pollmax]
 }
 
 # idea from #tcl for a Tcl unbind
@@ -25,25 +45,37 @@ proc ::ceammc::cursor::mousewheel {delta} {
     pdsend "$receive_symbol .mousewheel $delta"
 } 
 
-proc ::ceammc::cursor::motion {x y} {
+proc ::ceammc::cursor::motion {dest {force 1}} {
     variable last_x
     variable last_y
-    variable receive_symbol
-    if { $x != $last_x || $y != $last_y} {
-        pdsend "$receive_symbol .motion $x $y"
-        set last_x $x
-        set last_y $y
+
+    set px [winfo pointerx .]
+    set py [winfo pointery .]
+    set sw [winfo screenwidth .]
+    set sh [winfo screenheight .]
+
+    if { $force || $px != $last_x || $py != $last_y } {
+        pdsend "$dest .motion $px $py $sw $sh"
+        set last_x $px
+        set last_y $py
     }
 }
 
 proc ::ceammc::cursor::pollmotion {} {
     variable continue_pollmotion
-    motion [winfo pointerx .] [winfo pointery .]
-    if {$continue_pollmotion != 0} { after 10 ::ceammc::cursor::pollmotion }
+    variable polltime
+    variable receive_symbol
+
+    motion $receive_symbol 0
+    if {$continue_pollmotion != 0} { after $polltime ::ceammc::cursor::pollmotion }
 }
 
-proc ::ceammc::cursor::startpolling {} {
+proc ::ceammc::cursor::startpolling {{pollms 0}} {
     variable continue_pollmotion 1
+    variable pollmin
+    variable pollmax
+    variable polltime
+    set polltime [clip $pollms $pollmin $pollmax]
     pollmotion 
     bind all <ButtonPress> {+::ceammc::cursor::button %b 1}
     bind all <ButtonRelease> {+::ceammc::cursor::button %b 0}
@@ -57,7 +89,6 @@ proc ::ceammc::cursor::stoppolling {} {
     ::ceammc::cursor::unbind all <MouseWheel> {::ceammc::cursor::mousewheel %D}
 }
 
-# in Pd 0.43, the internal proc changed from 'pd' to 'pdsend'
 proc ::ceammc::cursor::setup {symbol} {
     variable receive_symbol $symbol
 }

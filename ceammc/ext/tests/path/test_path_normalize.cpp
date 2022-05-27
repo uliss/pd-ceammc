@@ -50,10 +50,10 @@ TEST_CASE("path.normalize", "[externals]")
         REQUIRE(t.outputSymbolAt(0) == SYM(".."));
 
         t << "../../";
-        REQUIRE(t.outputSymbolAt(0) == SYM("../.."));
+        REQUIRE(t.outputSymbolAt(0)->s_name == std::string("../.."));
 
         t << "A/B/../C";
-        REQUIRE(t.outputSymbolAt(0) == SYM("A/C"));
+        REQUIRE(t.outputSymbolAt(0)->s_name == std::string("A/C"));
     }
 
     SECTION("string")

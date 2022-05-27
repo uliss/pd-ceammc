@@ -52,6 +52,14 @@ void HoaEncoder::blockSizeChanged(size_t bs)
     signals_.resize(encoder_->getNumberOfHarmonics() * bs);
 }
 
+const char* HoaEncoder::annotateInlet(size_t n) const
+{
+    if (n == 0)
+        return "input signal";
+    else
+        return "angle in radians (ccv)";
+}
+
 void setup_spat_hoa_encoder()
 {
     SoundExternalFactory<HoaEncoder> obj("hoa.2d.encoder~");

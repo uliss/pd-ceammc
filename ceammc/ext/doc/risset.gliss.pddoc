@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="risset.gliss">
+        <title>risset.gliss</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Sheppard/Risset glissando calculator</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>misc</category>
+            <keywords>misc risset glissando</keywords>
+            <since>0.9.5</since>
+        </meta>
+        <mouse>
+            <event editmode="false" type="left-click">opens audio properties dialog</event>
+        </mouse>
+        <arguments>
+            <argument name="OUTS" type="list">list of output channels: single channel number or X:Y
+            range, that means from X channel to Y (including last one). If not specified - using 1
+            and 2 out channels</argument>
+        </arguments>
+        <properties>
+            <property name="@channels" type="list" default="1 2">list of mapped channels</property>
+        </properties>
+        <methods>
+            <method name="reverse">reverse output channels order</method>
+            <method name="shuffle">shuffle output channels order</method>
+            <method name="side2circle">map left/right side pairs to counter clockwise
+            layout</method>
+            <method name="rotate">rotate output channels counter clockwise 
+            <param name="N" type="int" required="true">number of rotation steps, can be
+            negative</param></method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="float">glissando phase</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>list of midi pitches</outlet>
+            <outlet>list of amplitudes</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[0, 1 10000(
+|
+[line 0 20]
+|
+[risset.gliss 60]       [ui.hrd 5]
+|          ^|           |
+[msg \#:0] [msg \#:0]   [open $1(
+|.         |..          |
+[hoa.process~ 5 risset.gliss.osc~ planewaves {i:3,o:5}]
+*|*
+[ui.hgain~]          [ui.dsp~]
+|\
+[dac~ 1 2]
+]]>
+            </pdascii>
+            <pdascii id="osc~">
+<![CDATA[
+[hoa.in 1] [hoa.in 2]
+|      |   | |
+[mtof] [F] | [F]
+|          |
+[osc~]     |
+|          |.
+[*~         ]
+|
+[hoa.out~ {i=1}]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

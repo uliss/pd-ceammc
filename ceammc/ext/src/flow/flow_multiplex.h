@@ -9,7 +9,7 @@ class FlowMultiplex : public BaseObject {
 public:
     struct ControlInlet {
         FlowMultiplex* pimpl;
-        void on_float(t_float f) { pimpl->proxy_float(f); }
+        void on_float(int, t_float f) { pimpl->proxy_float(f); }
     };
 
     using Inlet = InletProxy<FlowMultiplex>;
@@ -35,7 +35,7 @@ public:
 
     const char* annotateInlet(size_t n) const override;
 
-    void proxy_any(Inlet* x, t_symbol* s, const AtomListView& lv);
+    void proxy_any(int idx, t_symbol* s, const AtomListView& lv);
     void proxy_float(t_float f);
 
 public:

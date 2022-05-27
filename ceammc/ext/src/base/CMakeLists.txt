@@ -4,6 +4,7 @@ set(BASE_SOURCES
     base_log.cpp
     base_sync.cpp
     base_spring.cpp
+    base_clone.cpp
     canvas_current.cpp
     canvas_dir.cpp
     canvas_name.cpp
@@ -20,6 +21,7 @@ set(BASE_SOURCES
     metro_seq.cpp
     msg.cpp
     msg_after.cpp
+    msg_sched.cpp
     obj_info.cpp
     obj_props.cpp
     patch_args.cpp
@@ -31,6 +33,7 @@ set(BASE_SOURCES
     prop_get.cpp
     prop_get_tilde.cpp
     prop_join.cpp
+    prop_random.cpp
     prop_set.cpp
     prop_split.cpp
     radio.cpp
@@ -58,6 +61,7 @@ list(APPEND BASE_SOURCES
 list(APPEND BASE_SOURCES
     base_click.cpp
     base_dac.cpp
+    base_z_tilde.cpp
     gain.cpp
     matrix.cpp
     mix.cpp

@@ -15,10 +15,11 @@
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 
+constexpr t_float MIN_DBFS = -144;
+
 static t_float dbfs2amp_(t_float v)
 {
-    static const t_float threshold = -144;
-    if (v <= threshold)
+    if (v <= MIN_DBFS)
         return 0;
 
     return convert::dbfs2amp(v);
@@ -59,6 +60,6 @@ void setup_conv_dbfs2amp()
     ObjectFactory<Dbfs2amp> obj1("conv.dbfs2amp");
     obj1.addAlias("dbfs->amp");
 
-    ObjectFactory<Dbfs2amp> obj2("conv.dbfs2amp~");
+    SoundExternalFactory<Dbfs2ampTilde> obj2("conv.dbfs2amp~");
     obj2.addAlias("dbfs->amp~");
 }

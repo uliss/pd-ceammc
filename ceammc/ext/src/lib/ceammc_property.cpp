@@ -12,8 +12,10 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_property.h"
+#include "ceammc_crc32.h"
 #include "ceammc_format.h"
 #include "ceammc_log.h"
+#include "lex/parser_props.h"
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wsign-conversion"
@@ -23,6 +25,8 @@
 #include <algorithm>
 #include <cctype>
 #include <cmath>
+#include <ctime>
+#include <random>
 
 #define PROP_ERR() LogPdObject(owner(), LOG_ERROR).stream() << errorPrefix()
 #define PROP_CHECK_ERR(v)                                                \
@@ -31,7 +35,7 @@
             PROP_ERR() << "check error, " << err_msg_ << ", got: " << v; \
     }
 
-#define PROP_USED (void)
+#define PROP_USED(x) { const auto r = x; }
 
 namespace ceammc {
 
@@ -309,7 +313,7 @@ bool Property::setFloatCheck(PropValueConstraints type, t_float a, t_float b)
             fmt::format("value >= {} expected", a));
 
         info().setConstraints(type);
-        PROP_USED info().setMinFloat(a);
+        PROP_USED(info().setMinFloat(a));
         return true;
     case PropValueConstraints::GREATER_THEN:
         setFloatCheckFn(
@@ -317,7 +321,7 @@ bool Property::setFloatCheck(PropValueConstraints type, t_float a, t_float b)
             fmt::format("value > {} expected", a));
 
         info().setConstraints(type);
-        PROP_USED info().setMinFloat(a);
+        PROP_USED(info().setMinFloat(a));
         return true;
     case PropValueConstraints::LESS_EQUAL:
         setFloatCheckFn(
@@ -325,7 +329,7 @@ bool Property::setFloatCheck(PropValueConstraints type, t_float a, t_float b)
             fmt::format("value <= {} expected", a));
 
         info().setConstraints(type);
-        PROP_USED info().setMaxFloat(a);
+        PROP_USED(info().setMaxFloat(a));
         return true;
     case PropValueConstraints::LESS_THEN:
         setFloatCheckFn(
@@ -333,7 +337,7 @@ bool Property::setFloatCheck(PropValueConstraints type, t_float a, t_float b)
             fmt::format("value < {} expected", a));
 
         info().setConstraints(type);
-        PROP_USED info().setMaxFloat(a);
+        PROP_USED(info().setMaxFloat(a));
         return true;
     case PropValueConstraints::CLOSED_RANGE:
         setFloatCheckFn(
@@ -341,7 +345,7 @@ bool Property::setFloatCheck(PropValueConstraints type, t_float a, t_float b)
             fmt::format("expected value in [{0} ... {1}] range", a, b));
 
         info().setConstraints(type);
-        PROP_USED info().setRangeFloat(a, b);
+        PROP_USED(info().setRangeFloat(a, b));
         return true;
     case PropValueConstraints::OPEN_RANGE:
         setFloatCheckFn(
@@ -349,7 +353,7 @@ bool Property::setFloatCheck(PropValueConstraints type, t_float a, t_float b)
             fmt::format("expected value in ({0} ... {1}) range", a, b));
 
         info().setConstraints(type);
-        PROP_USED info().setRangeFloat(a, b);
+        PROP_USED(info().setRangeFloat(a, b));
         return true;
     case PropValueConstraints::OPEN_CLOSED_RANGE:
         setFloatCheckFn(
@@ -357,7 +361,7 @@ bool Property::setFloatCheck(PropValueConstraints type, t_float a, t_float b)
             fmt::format("expected value in ({0} ... {1}] range", a, b));
 
         info().setConstraints(type);
-        PROP_USED info().setRangeFloat(a, b);
+        PROP_USED(info().setRangeFloat(a, b));
         return true;
     case PropValueConstraints::CLOSED_OPEN_RANGE:
         setFloatCheckFn(
@@ -365,7 +369,7 @@ bool Property::setFloatCheck(PropValueConstraints type, t_float a, t_float b)
             fmt::format("expected value in [{0} ... {1}) range", a, b));
 
         info().setConstraints(type);
-        PROP_USED info().setRangeFloat(a, b);
+        PROP_USED(info().setRangeFloat(a, b));
         return true;
     case PropValueConstraints::NONE:
         info().setConstraints(type);
@@ -399,7 +403,7 @@ bool Property::setIntCheck(PropValueConstraints type, int a, int b)
             fmt::format("value >= {} expected", a));
 
         info().setConstraints(type);
-        PROP_USED info().setMinInt(a);
+        PROP_USED(info().setMinInt(a));
         return true;
     case PropValueConstraints::GREATER_THEN:
         setIntCheckFn(
@@ -407,7 +411,7 @@ bool Property::setIntCheck(PropValueConstraints type, int a, int b)
             fmt::format("value > {} expected", a));
 
         info().setConstraints(type);
-        PROP_USED info().setMinInt(a);
+        PROP_USED(info().setMinInt(a));
         return true;
     case PropValueConstraints::LESS_EQUAL:
         setIntCheckFn(
@@ -415,7 +419,7 @@ bool Property::setIntCheck(PropValueConstraints type, int a, int b)
             fmt::format("value <= {} expected", a));
 
         info().setConstraints(type);
-        PROP_USED info().setMaxInt(a);
+        PROP_USED(info().setMaxInt(a));
         return true;
     case PropValueConstraints::LESS_THEN:
         setIntCheckFn(
@@ -423,7 +427,7 @@ bool Property::setIntCheck(PropValueConstraints type, int a, int b)
             fmt::format("value < {} expected", a));
 
         info().setConstraints(type);
-        PROP_USED info().setMaxInt(a);
+        PROP_USED(info().setMaxInt(a));
         return true;
     case PropValueConstraints::CLOSED_RANGE:
         setIntCheckFn(
@@ -431,7 +435,7 @@ bool Property::setIntCheck(PropValueConstraints type, int a, int b)
             fmt::format("expected value in [{0} ... {1}] range", a, b));
 
         info().setConstraints(type);
-        PROP_USED info().setRangeInt(a, b);
+        PROP_USED(info().setRangeInt(a, b));
         return true;
     case PropValueConstraints::OPEN_RANGE:
         setIntCheckFn(
@@ -439,7 +443,7 @@ bool Property::setIntCheck(PropValueConstraints type, int a, int b)
             fmt::format("expected value in ({0} ... {1}) range", a, b));
 
         info().setConstraints(type);
-        PROP_USED info().setRangeInt(a, b);
+        PROP_USED(info().setRangeInt(a, b));
         return true;
     case PropValueConstraints::OPEN_CLOSED_RANGE:
         setIntCheckFn(
@@ -447,7 +451,7 @@ bool Property::setIntCheck(PropValueConstraints type, int a, int b)
             fmt::format("expected value in ({0} ... {1}] range", a, b));
 
         info().setConstraints(type);
-        PROP_USED info().setRangeInt(a, b);
+        PROP_USED(info().setRangeInt(a, b));
         return true;
     case PropValueConstraints::CLOSED_OPEN_RANGE:
         setIntCheckFn(
@@ -455,7 +459,7 @@ bool Property::setIntCheck(PropValueConstraints type, int a, int b)
             fmt::format("expected value in [{0} ... {1}) range", a, b));
 
         info().setConstraints(type);
-        PROP_USED info().setRangeInt(a, b);
+        PROP_USED(info().setRangeInt(a, b));
         return true;
     case PropValueConstraints::NONE:
         info().setConstraints(type);
@@ -478,7 +482,7 @@ bool Property::setSymbolEnumCheck(std::initializer_list<t_symbol*> l)
     info_.setConstraints(PropValueConstraints::ENUM);
     info_.clearEnum();
     for (auto s : l)
-        info_.addEnum(s);
+        PROP_USED(info_.addEnum(s));
 
     setSymbolCheckFn([this](t_symbol* s) -> bool { return info_.enumContains(s); });
     return true;
@@ -494,7 +498,7 @@ bool Property::setSymbolEnumCheck(std::initializer_list<const char*> l)
     info_.setConstraints(PropValueConstraints::ENUM);
     info_.clearEnum();
     for (auto s : l)
-        info_.addEnum(gensym(s));
+        PROP_USED(info_.addEnum(gensym(s)));
 
     setSymbolCheckFn([this](t_symbol* s) -> bool { return info_.enumContains(s); });
     return true;
@@ -755,17 +759,17 @@ AtomProperty::AtomProperty(const std::string& name, const Atom& def, PropValueAc
     info().setDefault(def);
 }
 
-bool AtomProperty::setList(const AtomListView& lst)
+bool AtomProperty::setList(const AtomListView& lv)
 {
-    if (!emptyCheck(lst))
+    if (!emptyCheck(lv))
         return false;
 
-    if (lst.size() > 1) {
-        PROP_ERR() << "single atom value expected, got: " << lst;
+    if (lv.size() > 1) {
+        PROP_ERR() << "single atom value expected, got: " << lv;
         return false;
     }
 
-    return setValue(lst[0]);
+    return setValue(lv[0]);
 }
 
 AtomList AtomProperty::get() const
@@ -885,7 +889,7 @@ bool ListProperty::checkMinElementCount(size_t n)
 
     if (res) {
         info().setConstraints(PropValueConstraints::MIN_ELEMENT_COUNT);
-        PROP_USED info().setMinElementCount(n);
+        PROP_USED(info().setMinElementCount(n));
     }
 
     return res;
@@ -903,7 +907,7 @@ bool ListProperty::checkMaxElementCount(size_t n)
 
     if (res) {
         info().setConstraints(PropValueConstraints::MAX_ELEMENT_COUNT);
-        PROP_USED info().setMaxElementCount(n);
+        PROP_USED(info().setMaxElementCount(n));
     }
 
     return res;
@@ -931,7 +935,7 @@ bool ListProperty::checkRangeElementCount(size_t min, size_t max)
 
     if (res) {
         info().setConstraints(PropValueConstraints::RANGE_ELEMENT_COUNT);
-        PROP_USED info().setRangeElementCount(min, max);
+        PROP_USED(info().setRangeElementCount(min, max));
     }
 
     return res;
@@ -1007,34 +1011,35 @@ AtomList FloatProperty::get() const
     return { v_ };
 }
 
-bool FloatProperty::setList(const AtomListView& lst)
+static inline bool is_op(const char* sym, char op)
 {
-    if (!emptyCheck(lst))
+    return sym[0] == op && sym[1] == '\0';
+}
+
+bool FloatProperty::setList(const AtomListView& lv)
+{
+    if (!emptyCheck(lv))
         return false;
 
-    if (lst.size() == 1)
-        return setValue(lst[0]);
-    else if (lst.size() == 2 && lst[0].isSymbol() && lst[1].isFloat()) {
-        const auto val = lst[1].asT<t_float>();
-        const auto op = lst[0].asT<t_symbol*>()->s_name;
-        if (op[0] == '+' && op[1] == '\0')
-            return setValue(value() + val);
-        else if (op[0] == '-' && op[1] == '\0')
-            return setValue(value() - val);
-        else if (op[0] == '*' && op[1] == '\0')
-            return setValue(value() * val);
-        else if (op[0] == '/' && op[1] == '\0') {
-            if (val == 0) {
-                PROP_ERR() << "division by zero";
-                return false;
-            } else
-                return setValue(value() / val);
-        } else {
-            PROP_ERR() << "expected +-*/, got: " << lst[0];
-            return false;
-        }
-    } else {
-        PROP_ERR() << "float value expected, got: " << lst;
+    using namespace parser;
+
+    t_float res = 0;
+    auto rc = numeric_prop_calc<t_float>(value(), info(), lv, res);
+    switch (rc) {
+    case PropParseRes::OK:
+        return setValue(res);
+    case PropParseRes::DIVBYZERO:
+        PROP_ERR() << "division by zero: " << lv;
+        return false;
+    case PropParseRes::NORANGE:
+        PROP_ERR() << "property without range, can't set random";
+        return false;
+    case PropParseRes::INVALID_RANDOM_ARGS:
+        PROP_ERR() << "random [MIN MAX]? expected, got: " << lv;
+        return false;
+    case PropParseRes::UNKNOWN:
+    default:
+        PROP_ERR() << float_prop_expected() << " expected, got: " << lv;
         return false;
     }
 }
@@ -1091,17 +1096,17 @@ AtomList BoolProperty::get() const
     return AtomList({ v_ ? 1.f : 0.f });
 }
 
-bool BoolProperty::setList(const AtomListView& lst)
+bool BoolProperty::setList(const AtomListView& lv)
 {
-    if (!emptyCheck(lst))
+    if (!emptyCheck(lv))
         return false;
 
-    if (lst.size() != 1) {
-        PROP_ERR() << "bool value (0|1|true|false) expected, got: " << lst;
+    if (lv.size() != 1) {
+        PROP_ERR() << "bool value (0|1|true|false|~|!|random) expected, got: " << lv;
         return false;
     }
 
-    return setValue(lst[0]);
+    return setValue(lv[0]);
 }
 
 bool BoolProperty::setBool(bool b)
@@ -1123,44 +1128,19 @@ bool BoolProperty::setValue(bool v)
 
 bool BoolProperty::setValue(const Atom& a)
 {
-    static t_symbol* SYM_TRUE = gensym("true");
-    static t_symbol* SYM_FALSE = gensym("false");
+    using namespace parser;
 
-    auto is_toggle = [](t_symbol* s) {
-        return (s->s_name[0] == '~' || s->s_name[0] == '!') && s->s_name[1] == '\0';
-    };
+    static std::random_device rnd;
 
-    if (a.isFloat()) {
-        v_ = (a.asInt(0) == 0) ? false : true;
-        return true;
-    } else if (a.isSymbol()) {
-        t_symbol* s = a.asSymbol();
-
-        // fast check symbol
-        if (s == SYM_TRUE) {
-            v_ = true;
-            return true;
-        } else if (s == SYM_FALSE) {
-            v_ = false;
-            return true;
-        } else if (is_toggle(s)) {
-            v_ = !v_;
-            return true;
-        } else { // slow check string
-            std::string str(s->s_name);
-            std::transform(str.begin(), str.end(), str.begin(), ::tolower);
-
-            if (str == "true") {
-                v_ = true;
-                return true;
-            } else if (str == "false") {
-                v_ = false;
-                return true;
-            }
-        }
+    bool res = false;
+    auto err = bool_prop_calc(v_, info().defaultBool(), AtomListView(a), res);
+    if (err != PropParseRes::OK) {
+        PROP_ERR() << bool_prop_expected() << " expected, got: " << a;
+        return false;
     }
 
-    return false;
+    v_ = res;
+    return true;
 }
 
 bool BoolProperty::defaultValue() const
@@ -1175,36 +1155,34 @@ IntProperty::IntProperty(const std::string& name, int init, PropValueAccess acce
     info().setDefault(init);
 }
 
-bool IntProperty::setList(const AtomListView& lst)
+bool IntProperty::setList(const AtomListView& lv)
 {
-    if (!emptyCheck(lst))
+    if (!emptyCheck(lv))
         return false;
 
-    if (lst.size() == 1)
-        return setValue(lst[0]);
-    else if (lst.size() == 2 && lst[0].isSymbol() && lst[1].isFloat()) {
-        const auto val = lst[1].asT<int>();
-        const auto op = lst[0].asT<t_symbol*>()->s_name;
-        if (op[0] == '+' && op[1] == '\0')
-            return setValue(value() + val);
-        else if (op[0] == '-' && op[1] == '\0')
-            return setValue(value() - val);
-        else if (op[0] == '*' && op[1] == '\0')
-            return setValue(value() * val);
-        else if (op[0] == '/' && op[1] == '\0') {
-            if (val == 0) {
-                PROP_ERR() << "division by zero";
-                return false;
-            } else
-                return setValue(value() / val);
-        } else {
-            PROP_ERR() << "expected +-*/, got: " << lst[0];
-            return false;
-        }
-    } else {
-        PROP_ERR() << "integer value expected, got " << lst;
+    using namespace parser;
+
+    int res = 0;
+    auto rc = numeric_prop_calc<int>(value(), info(), lv, res);
+    switch (rc) {
+    case PropParseRes::OK:
+        return setValue(res);
+    case PropParseRes::DIVBYZERO:
+        PROP_ERR() << "division by zero: " << lv;
+        return false;
+    case PropParseRes::NORANGE:
+        PROP_ERR() << "property without range, can't set random";
+        return false;
+    case PropParseRes::INVALID_RANDOM_ARGS:
+        PROP_ERR() << "random [MIN MAX]? expected, got: " << lv;
+        return false;
+    case PropParseRes::UNKNOWN:
+    default:
+        PROP_ERR() << int_prop_expected() << " expected, got: " << lv;
         return false;
     }
+
+    return false;
 }
 
 bool IntProperty::setInt(int v)
@@ -1286,13 +1264,13 @@ bool SizeTProperty::setList(const AtomListView& lst)
     else if (lst.size() == 2 && lst[0].isSymbol() && lst[1].isFloat()) {
         const auto val = lst[1].asT<int>();
         const auto op = lst[0].asT<t_symbol*>()->s_name;
-        if (op[0] == '+' && op[1] == '\0')
+        if (is_op(op, '+'))
             return setValue(value() + val);
-        else if (op[0] == '-' && op[1] == '\0')
+        else if (is_op(op, '-'))
             return setValue(value() - val);
-        else if (op[0] == '*' && op[1] == '\0')
+        else if (is_op(op, '*'))
             return setValue(value() * val);
-        else if (op[0] == '/' && op[1] == '\0') {
+        else if (is_op(op, '/')) {
             if (val == 0) {
                 PROP_ERR() << "division by zero";
                 return false;

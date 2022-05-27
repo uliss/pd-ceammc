@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="synth.tube_bell~">
+        <title>synth.tube_bell~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>STK tubular bell (orchestral chime) FM synthesis instrument</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>synth</category>
+            <keywords>tubular stk bell</keywords>
+            <since>0.9.4</since>
+        </meta>
+        <info>
+            <par>This class implements two simple FM Pairs summed together, also referred to as
+            algorithm 5 of the TX81Z</par>
+        </info>
+        <arguments>
+            <argument name="FREQ" type="float" units="herz">main frequency</argument>
+        </arguments>
+        <properties>
+            <property name="@freq" type="float" minvalue="0" maxvalue="10000" default="220"
+            units="herz">frequency</property>
+            <property name="@pitch" type="float" minvalue="36" maxvalue="84" default="57">midi
+            pitch</property>
+            <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">play trigger
+            - 1: on, 0: off</property>
+            <property name="@mod" type="int" minvalue="0" maxvalue="127" default="0">modulator
+            index one</property>
+            <property name="@xfade" type="int" minvalue="0" maxvalue="127" default="0">crossfade of
+            outputs</property>
+            <property name="@lfo_speed" type="int" minvalue="0" maxvalue="127" default="0">LFO
+            speed in Hz</property>
+            <property name="@lfo_depth" type="int" minvalue="0" maxvalue="127" default="0">LFO
+            delth</property>
+            <property name="@adsr" type="int" minvalue="0" maxvalue="127" default="0">ADSR 2 &amp;
+            4 Target</property>
+        </properties>
+        <methods>
+            <method name="note">note on/off message 
+            <param name="NOTE" type="float" required="true">midi note</param>
+            <param name="VEL" type="float" minvalue="0" maxvalue="127" required="true">
+            velocity</param></method>
+            <method name="cc">control change message 
+            <param name="CTL" type="int" required="true">control number</param>
+            <param name="VAL" type="float" required="true">value</param></method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="list">NOTE VEL</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">synth output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[ui.keyboard]
+|
+|
+|
+|
+|
+[list.apply_to 1]X[> 0]
+|
+[@pitch $1, @gate $2(
+|
+|  [F]        [F]
+|  |          |
+|  [@mod $1(  [@xfade $1(
+|  |          |
+[synth.tube_bell~ #x]
+|
+[ui.hgain~]   [ui.dsp~]
+|\
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

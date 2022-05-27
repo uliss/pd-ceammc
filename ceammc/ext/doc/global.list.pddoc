@@ -22,18 +22,25 @@
         </info>
         <arguments>
             <argument name="ID" type="symbol">object ID</argument>
+            <argument name="ARGS" type="list">initial values</argument>
         </arguments>
         <properties>
             <property name="@empty" readonly="true" enum="0 1" type="int" default="1">1 if list is
             empty, otherwise 0</property>
             <property name="@size" readonly="true" minvalue="0" type="int" default="0">number of
             elements in list</property>
+            <property name="@value" type="list">current value</property>
         </properties>
         <methods>
             <method name="append">adds values to the end of the list 
             <param name="VAL" type="atom" required="true">appended value</param></method>
             <method name="prepend">inserts values to the list beginning 
             <param name="VAL" type="atom" required="true">prepended value</param></method>
+            <method name="front">output first list element</method>
+            <method name="back">output last list element</method>
+            <method name="at">outputs atom at the specified position 
+            <param name="IDX" type="int" required="true">position (negative indexes are supported:
+            -1 means last element)</param></method>
             <method name="insert">inserts values to the specified position 
             <param name="IDX" type="int" required="true">insert position</param>
             <param name="VAL" type="atom" required="true">value</param></method>
@@ -69,13 +76,22 @@
 <![CDATA[
 [list a b c(  [set 3 2 1(
 |             |
-|  [1 2 3(    |            [bng]
+|  [1 2 3(    |            [B]
 |  |          |            |
 [global.list id]           [global.list id]
 |                          |
-[msg set]                  [msg set]
-|                          |
-[ (                        [ (
+[ui.dt]                    [ui.dt]
+
+[global.list.pd]
+]]>
+            </pdascii>
+            <pdascii id="pd">
+<![CDATA[
+[B]
+|
+[global.list id]
+|
+[ui.dt]
 ]]>
             </pdascii>
         </example>

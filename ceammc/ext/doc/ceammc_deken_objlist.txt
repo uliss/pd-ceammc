@@ -6,10 +6,12 @@ helmholtz~	pitch tracker
 an.rms~	root mean square with moving-average algorithm.
 an.tempo~	tempo detector
 array.bpm	BPM calculator
+array.circular~	circular buffer for arrays
 array.copy	copy samples from one array to another
 array.do	iterate and modify array content via side-chain
 array.each	process each array elements via side-chain
 array.fill	fill array with single value or pattern
+array.grainer~	array granulator
 array.hist	calculates array histogram
 array.mean	calculates array arithmetic mean value
 array.minmax	find array min and max element value
@@ -19,6 +21,7 @@ array.plot	array data plotter
 array.plot~	plot signal on specified array
 array.resample	array resampler
 array.r	array resampler
+array.risset_rythm~	Risset Rythm: accelerando or ritardando
 array.rms	calculates root mean square value for array
 array.set	set array content from list
 ceammc/list->array	set array content from list
@@ -80,6 +83,8 @@ xfade2~	multi stereo-signal crossfade
 ceammc/xfade2~	multi stereo-signal crossfade
 xfade~	multi signal crossfade
 ceammc/xfade~	multi signal crossfade
+z~	sample delay
+ceammc/z~	sample delay
 chaos.gbman0	Gingerbreadman map chaotic generator
 chaos.gbman0~	Gingerbreadman map chaotic generator
 chaos.jong	Peter de Jong attractor
@@ -136,6 +141,9 @@ dbfs->amp~	convert decibel full scale to amplitude
 conv.degree2key	convert scale degree to key
 ceammc/degree->key	convert scale degree to key
 degree->key	convert scale degree to key
+conv.edge2bang	edge detector for numeric stream
+ceammc/edge->bang	edge detector for numeric stream
+edge->bang	edge detector for numeric stream
 conv.hex2int	hex symbol to int value
 ceammc/hex->int	hex symbol to int value
 hex->int	hex symbol to int value
@@ -221,6 +229,10 @@ s->f~	convert signal to floats
 conv.str2sec	converts formatted time to float value in seconds
 ceammc/str->sec	converts formatted time to float value in seconds
 str->sec	converts formatted time to float value in seconds
+music.dur2time	convert duration list to time
+music.d->t	convert duration list to time
+music.voice2midi	convert voice music list of midi pitches
+music.v->m	convert voice music list of midi pitches
 data.copy	make copy for any data types: MList, Set etc...
 data.dict	dictionary container: store values by key
 ceammc/dict	dictionary container: store values by key
@@ -364,6 +376,8 @@ ceammc/pass_if	pass values that accepted by predicate object
 pass_if	pass values that accepted by predicate object
 flow.pipe	enhanced version on vanilla pipe object
 flow.queue	multi-channel control flow sync queue (or FIFO)
+flow.record	flow stream recorder/player
+flow.rec	flow stream recorder/player
 flow.reject	reject specified values
 ceammc/reject	reject specified values
 reject	reject specified values
@@ -450,6 +464,7 @@ fx.distortion3~	simple distortion #3 from Guitarix effects set
 fx.distortion~	cubic nonlinearity distortion
 fx.drive~	Guitarix drive effect
 fx.drone_box~	mono sympathetic resonance generator
+fx.echo2~	stereo echo effect
 fx.echo~	simple echo effect
 fx.flanger~	mono flanging effect
 fx.freeverb2~	freeverb2 - stereo version of freeverb
@@ -461,8 +476,13 @@ fx.infrev~	port of Infinity VST plugin from airwindows
 fx.looper~	One track looper
 fx.pitchshift_s~	signal version of fx.pitchshift~
 fx.pitchshift~	simple pitch shifter based on 2 delay lines
+fx.rb_pitchshift~	rubber band pitchshift
 fx.recho~	reversed echo effect
+fx.room~	Gardners room emulation algorithms
 fx.sdelay~	smooth delay with a feedback control
+fx.secho~	enchanced echo effect that does not click on delay change
+fx.shimmer~	shimmer reverb effect effect
+fx.tapiir~	multi-tap delay
 fx.vocoder~	very simple vocoder where the spectrum of the modulation signal is analyzed using a 32-band filter bank
 fx.wahwah~	digitized CryBaby wah pedal
 fx.zita_rev1~	Zita stereo reverb
@@ -502,6 +522,9 @@ list.apply_to	modifies list value at specified position, filtering it via extern
 list.at	outputs list element(s) at specified index(es)
 list.choice	outputs random element from list
 list.contains	checks if input list contains specified atoms
+list.convolve	convolution for lists
+list.conv	convolution for lists
+list.correlate	list cross-correlation
 list.count	output the number of items that equal to specified value
 list.count_if	output the number of items that satisfy to external predicate
 list.delta	returns the difference between the current list of floats and the previous one.
@@ -548,6 +571,8 @@ list.rotate	rotates list
 list.<<	rotates list
 list.>>	rotates list
 list.route	acts like [route] but for lists
+list.rundiff	running difference
+list.runsum	running sum
 list.search	search specified items in input list
 list.separate	sends list elements one by one separately
 list.sep	sends list elements one by one separately
@@ -596,6 +621,8 @@ math.atan	arc tangent function
 math.atanh	inverse hyperbolic tangent function
 math.atanh~	hyperbolic arc tangent for signals
 math.atan~	arc tangent for signals
+math.binomial	binomial coefficient calculator
+math.nck	binomial coefficient calculator
 math.cabs~	magnitude of a complex signals
 ceammc/cabs~	magnitude of a complex signals
 cabs~	magnitude of a complex signals
@@ -770,9 +797,11 @@ midi.file	standard midi file SMF reader and writer
 midi.kbd	computer keyboard midi
 midi.key2str	convert key number to SPN name according to tonality
 midi.key->str	convert key number to SPN name according to tonality
+midi.modus	snap/skip midi pitches according modus
 midi.oct	midi octave transpose
 midi.prg2str	convert GM Instrument number to name (string or symbol)
 midi.prg->str	convert GM Instrument number to name (string or symbol)
+midi.split	midi note splitter
 midi.sustain	sustain pedal emulation
 midi.sysex	sysex input messages as list
 midi.track	extract track from MidiFile
@@ -785,6 +814,7 @@ fluid~	FluidSynth SoundFont 2 player
 ceammc/fluid~	FluidSynth SoundFont 2 player
 modplug~	MOD file player (using libmodplug)
 ceammc/modplug~	MOD file player (using libmodplug)
+risset.gliss	Sheppard/Risset glissando calculator
 sfizz~	SFZ format sample player
 ceammc/sfizz~	SFZ format sample player
 speech.flite	render speech to array
@@ -801,6 +831,7 @@ msg.after	send specified message after incoming message
 msg.onload	send message when patch loads
 ceammc/loadmsg	send message when patch loads
 loadmsg	send message when patch loads
+msg.sched	message scheduler
 net.host2ip	returns IP address by DNS name
 net.host->ip	returns IP address by DNS name
 noise.baker	Part of a-chaos library
@@ -842,12 +873,17 @@ canvas.top	verbose information about top-level canvas
 patch.args	Get patch or subpatch arguments
 patch.deps	patch dependencies: used objects and abstractions
 patch.tree	patch tree
+file.size	output file size
 path.basename	outputs filename portion of pathname
 path.dirname	outputs directory portion of pathname
 path.exists	checks if given path exists
 path.is_dir	check if path is directory
 path.lsdir	list directory contents
 path.ls	list directory contents
+path.normalize	normalize file paths
+path.norm	normalize file paths
+path.search	file search
+path.split	file path split
 is_any	checks if input data has *any* type
 is_bang	checks if input data has *bang* type
 is_data	checks if input data has *data* type
@@ -880,14 +916,16 @@ prop~>	Property extractor from sound stream
 @~>	Property extractor from sound stream
 prop.join	join property to main data flow
 prop<-	join property to main data flow
-prop.set	set object property
-p.set	set object property
+prop.random	property randomizer
+prop.set	set property for connected object/subpatch/abstraction
+p.set	set property for connected object/subpatch/abstraction
 prop.split	separate properties from dataflow
 prop->	separate properties from dataflow
 @->	separate properties from dataflow
 proto.firmata	Firmata Arduino protocol support
 proto.midi	raw midi encoder/parser
 proto.midi.cc	raw midi CC encoder/parser
+proto.midi.sysex	raw midi SYSex encoder/parser
 proto.mpv	mpv video player control
 proto.sp.alpaca	protocol parser for Arduino-based CEAMMC footswitch
 proto.xtouch_ext	Behringer XTouch Extender XMidi protocol
@@ -902,6 +940,8 @@ random.i	uniform random integer generator in specified range
 random.linear	random linear distribution
 random.pw_const	piecewise constant random distribution
 random.pw_lin	piecewise linear random distribution
+samp.time~	sample counter
+samp.t~	sample counter
 seq.arp	sequence arpeggiator
 seq.bangs	bang sequencer
 seq.b	bang sequencer
@@ -955,6 +995,7 @@ spat.pan8~	GMEM SPAT: 8-outputs spatializer
 ceammc/pan8~	GMEM SPAT: 8-outputs spatializer
 pan8~	GMEM SPAT: 8-outputs spatializer
 spat.zita6x8~	spat with 6 inputs sources to 8 channel output
+spat.zita8~	8 channel reverb spatializer
 string	string constructor
 ceammc/string	string constructor
 ceammc/str	string constructor
@@ -977,8 +1018,9 @@ string.remove	remove substring from input string
 str.remove	remove substring from input string
 string.replace	replace from one substring to another in input string
 str.replace	replace from one substring to another in input string
-string.split	split string by separator
-str.split	split string by separator
+string.split	split string or symbol by separator
+str.split	split string or symbol by separator
+symbol.split	split string or symbol by separator
 string.starts_with	checks if string starts with specified substring
 str.starts_with	checks if string starts with specified substring
 string.substr	extract substring from input string
@@ -993,8 +1035,11 @@ symbol.num_compare	numeric symbol compare
 symbol2any	converts symbol or string to message
 ceammc/symbol2any	converts symbol or string to message
 ceammc/sym->any	converts symbol or string to message
+ceammc/str->any	converts symbol or string to message
+ceammc/string2any	converts symbol or string to message
 sym->any	converts symbol or string to message
 str->any	converts symbol or string to message
+string2any	converts symbol or string to message
 symbol2intlist	converts symbol to list of character codes
 ceammc/symbol2intlist	converts symbol to list of character codes
 ceammc/sym->ilist	converts symbol to list of character codes
@@ -1005,23 +1050,30 @@ synth.church_bell~	generic church bell modal model
 synth.dubdub~	simple synth based on a sawtooth wave filtered by a resonant lowpass
 synth.dx7~	FAUST dx7 implementation
 synth.eguitar~	simple electric guitar model with steel strings
+synth.english_bell~	english church bell modal model
 synth.fgrain~	file granulator from STK
+synth.french_bell~	french church bell modal model
+synth.german_bell~	german church bell modal model
 synth.glass_harm~	nonlinear banded waveguide modeled Glass Harmonica
 synth.glitch~	Glitch synthesizer by naivesound
 synth.harpsichord~	waveguide commuted harpsichord
+synth.kick~	low-kick synth from Guitarix project
 synth.ks~	Karplus-Strong string
 synth.marimba~	simple marimba physical model implementing a single tone bar connected to tube
 synth.piano~	waveguide commuted piano
 synth.rhodey~	STK Fender Rhodes electric piano FM synthesis instrument
 synth.risset_arp~	Jean Claude Risset's harmonic arpeggio effect
+synth.risset_bell~	Jean Claude Risset's bell synth
 synth.risset_tone~	Jean Claude Risset's endless glissando
 synth.russian_bell~	russian church bell modal model
 synth.shakers~	various percussion sounds from STK library
 synth.sitar~	STK sitar
 synth.snare~	Snare drum synth from Guitarix project
+synth.standard_bell~	german church bell modal model
+synth.tube_bell~	STK tubular bell (orchestral chime) FM synthesis instrument
 synth.wurley~	Wurlitzer electric piano FM synthesis instrument
 system.colorpanel	System color panel dialog popup
-system.cursor	Output cursor motion, mousewheel and buttonclicks
+system.cursor	Output cursor motion, mousewheel and button clicks
 system.exec	run external command in separate process
 system.exit	quit PureData
 system.getenv	Get system environment variables
@@ -1098,6 +1150,7 @@ ui.slider	counterpart of the vanilla slider
 ui.hsl	counterpart of the vanilla slider
 ui.vsl	counterpart of the vanilla slider
 ui.slider2d	2D slider widget
+ui.s2d	2D slider widget
 ui.sliders	Multiple slider widget
 ui.vsliders	Multiple slider widget
 ui.spectroscope~	Spectroscope GUI object

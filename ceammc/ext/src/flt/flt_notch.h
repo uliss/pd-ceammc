@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "flt.notch"
-Code generated with Faust 2.30.12 (https://faust.grame.fr)
-Compilation options: -lang cpp -es 1 -scal -ftz 0
+Code generated with Faust 2.37.3 (https://faust.grame.fr)
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __flt_notch_H__
@@ -218,24 +218,69 @@ class dsp_factory {
     
 };
 
-/**
- * On Intel set FZ (Flush to Zero) and DAZ (Denormals Are Zero)
- * flags to avoid costly denormals.
- */
+// Denormal handling
 
-#ifdef __SSE__
-    #include <xmmintrin.h>
-    #ifdef __SSE2__
-        #define AVOIDDENORMALS _mm_setcsr(_mm_getcsr() | 0x8040)
-    #else
-        #define AVOIDDENORMALS _mm_setcsr(_mm_getcsr() | 0x8000)
-    #endif
-#else
-    #define AVOIDDENORMALS
+#if defined (__SSE__)
+#include <xmmintrin.h>
 #endif
 
+class ScopedNoDenormals
+{
+    private:
+    
+        intptr_t fpsr;
+        
+        void setFpStatusRegister(intptr_t fpsr_aux) noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+           asm volatile("msr fpcr, %0" : : "ri" (fpsr_aux));
+        #elif defined (__SSE__)
+            _mm_setcsr(static_cast<uint32_t>(fpsr_aux));
+        #endif
+        }
+        
+        void getFpStatusRegister() noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+            asm volatile("mrs %0, fpcr" : "=r" (fpsr));
+        #elif defined ( __SSE__)
+            fpsr = static_cast<intptr_t>(_mm_getcsr());
+        #endif
+        }
+    
+    public:
+    
+        ScopedNoDenormals() noexcept
+        {
+        #if defined (__arm64__) || defined (__aarch64__)
+            intptr_t mask = (1 << 24 /* FZ */);
+        #else
+            #if defined(__SSE__)
+            #if defined(__SSE2__)
+                intptr_t mask = 0x8040;
+            #else
+                intptr_t mask = 0x8000;
+            #endif
+            #else
+                intptr_t mask = 0x0000;
+            #endif
+        #endif
+            getFpStatusRegister();
+            setFpStatusRegister(fpsr | mask);
+        }
+        
+        ~ScopedNoDenormals() noexcept
+        {
+            setFpStatusRegister(fpsr);
+        }
+
+};
+
+#define AVOIDDENORMALS ScopedNoDenormals();
+
 #endif
-/**************************  END  flt_notch_dsp.h **************************/
+
+/************************** END flt_notch_dsp.h **************************/
 /************************** BEGIN UI.h **************************/
 /************************************************************************
  FAUST Architecture File
@@ -309,6 +354,9 @@ struct UIReal
     // -- metadata declarations
     
     virtual void declare(REAL* zone, const char* key, const char* val) {}
+    
+    // To be used by LLVM client
+    virtual int sizeOfFAUSTFLOAT() { return sizeof(FAUSTFLOAT); }
 };
 
 struct UI : public UIReal<FAUSTFLOAT>
@@ -520,9 +568,11 @@ class flt_notch : public flt_notch_dsp {
 	
 	int fSampleRate;
 	float fConst1;
-	FAUSTFLOAT fVslider0;
-	float fRec1[2];
 	float fConst2;
+	FAUSTFLOAT fVslider0;
+	float fConst3;
+	float fRec1[2];
+	float fConst4;
 	FAUSTFLOAT fVslider1;
 	float fRec2[2];
 	float fRec0[3];
@@ -532,7 +582,7 @@ class flt_notch : public flt_notch_dsp {
 	void metadata(Meta* m) { 
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
 		m->declare("ceammc_ui.lib/version", "0.1.2");
-		m->declare("compile_options", "-lang cpp -es 1 -scal -ftz 0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0");
 		m->declare("filename", "flt_notch.dsp");
 		m->declare("filters.lib/fir:author", "Julius O. Smith III");
 		m->declare("filters.lib/fir:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -553,12 +603,12 @@ class flt_notch : public flt_notch_dsp {
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
-		m->declare("maths.lib/version", "2.3");
+		m->declare("maths.lib/version", "2.5");
 		m->declare("name", "flt.notch");
 		m->declare("platform.lib/name", "Generic Platform Library");
-		m->declare("platform.lib/version", "0.1");
+		m->declare("platform.lib/version", "0.2");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
-		m->declare("signals.lib/version", "0.0");
+		m->declare("signals.lib/version", "0.1");
 	}
 
 	virtual int getNumInputs() {
@@ -566,34 +616,6 @@ class flt_notch : public flt_notch_dsp {
 	}
 	virtual int getNumOutputs() {
 		return 1;
-	}
-	virtual int getInputRate(int channel) {
-		int rate;
-		switch ((channel)) {
-			case 0: {
-				rate = 1;
-				break;
-			}
-			default: {
-				rate = -1;
-				break;
-			}
-		}
-		return rate;
-	}
-	virtual int getOutputRate(int channel) {
-		int rate;
-		switch ((channel)) {
-			case 0: {
-				rate = 1;
-				break;
-			}
-			default: {
-				rate = -1;
-				break;
-			}
-		}
-		return rate;
 	}
 	
 	static void classInit(int sample_rate) {
@@ -603,7 +625,9 @@ class flt_notch : public flt_notch_dsp {
 		fSampleRate = sample_rate;
 		float fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
 		fConst1 = (1.57079637f / fConst0);
-		fConst2 = (6.28318548f / fConst0);
+		fConst2 = (44.0999985f / fConst0);
+		fConst3 = (1.0f - fConst2);
+		fConst4 = (6.28318548f / fConst0);
 	}
 	
 	virtual void instanceResetUserInterface() {
@@ -644,27 +668,27 @@ class flt_notch : public flt_notch_dsp {
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("flt.notch");
 		ui_interface->declare(&fVslider1, "unit", "Hz");
-		ui_interface->addVerticalSlider("freq", &fVslider1, 1000.0f, 20.0f, 20000.0f, 0.100000001f);
+		ui_interface->addVerticalSlider("freq", &fVslider1, FAUSTFLOAT(1000.0f), FAUSTFLOAT(20.0f), FAUSTFLOAT(20000.0f), FAUSTFLOAT(0.100000001f));
 		ui_interface->declare(&fVslider0, "unit", "Hz");
-		ui_interface->addVerticalSlider("width", &fVslider0, 50.0f, 1.0f, 10000.0f, 0.100000001f);
+		ui_interface->addVerticalSlider("width", &fVslider0, FAUSTFLOAT(50.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(10000.0f), FAUSTFLOAT(0.100000001f));
 		ui_interface->closeBox();
 	}
 	
 	virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
 		FAUSTFLOAT* input0 = inputs[0];
 		FAUSTFLOAT* output0 = outputs[0];
-		float fSlow0 = (0.00100000005f * float(fVslider0));
-		float fSlow1 = (0.00100000005f * float(fVslider1));
-		for (int i = 0; (i < count); i = (i + 1)) {
-			fRec1[0] = (fSlow0 + (0.999000013f * fRec1[1]));
+		float fSlow0 = (fConst2 * float(fVslider0));
+		float fSlow1 = (fConst2 * float(fVslider1));
+		for (int i0 = 0; (i0 < count); i0 = (i0 + 1)) {
+			fRec1[0] = (fSlow0 + (fConst3 * fRec1[1]));
 			float fTemp0 = (fConst1 * fRec1[0]);
 			float fTemp1 = flt_notch_faustpower2_f((1.0f - fTemp0));
 			float fTemp2 = flt_notch_faustpower2_f((fTemp0 + 1.0f));
 			float fTemp3 = ((fTemp1 / fTemp2) + 1.0f);
-			fRec2[0] = (fSlow1 + (0.999000013f * fRec2[1]));
-			float fTemp4 = (fRec0[1] * (0.0f - (fTemp3 * std::cos((fConst2 * fRec2[0])))));
-			fRec0[0] = (float(input0[i]) - (fTemp4 + ((fTemp1 * fRec0[2]) / fTemp2)));
-			output0[i] = FAUSTFLOAT((fTemp4 + (0.5f * (fTemp3 * (fRec0[0] + fRec0[2])))));
+			fRec2[0] = (fSlow1 + (fConst3 * fRec2[1]));
+			float fTemp4 = (fRec0[1] * (0.0f - (fTemp3 * std::cos((fConst4 * fRec2[0])))));
+			fRec0[0] = (float(input0[i0]) - (fTemp4 + ((fTemp1 * fRec0[2]) / fTemp2)));
+			output0[i0] = FAUSTFLOAT((fTemp4 + (0.5f * (fTemp3 * (fRec0[0] + fRec0[2])))));
 			fRec1[1] = fRec1[0];
 			fRec2[1] = fRec2[0];
 			fRec0[2] = fRec0[1];

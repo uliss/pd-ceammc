@@ -152,12 +152,11 @@ void AubioOnsetTilde::initDone()
     });
 
     in_.reset(new_fvec(hop_size_->value()));
-    out_.reset(new_fvec(1));
 }
 
 void AubioOnsetTilde::processBlock(const t_sample** in, t_sample** /*out*/)
 {
-    if (!in_ || !out_ || !onset_ || !active_)
+    if (!in_ || !onset_ || !active_)
         return;
 
     const auto BS = blockSize();
@@ -169,8 +168,8 @@ void AubioOnsetTilde::processBlock(const t_sample** in, t_sample** /*out*/)
             dsp_pos_++;
         } else {
             /* block loop */
-            aubio_onset_do(onset_.get(), in_.get(), out_.get());
-            if (fvec_get_sample(out_.get(), 0) > 0) {
+            aubio_onset_do(onset_.get(), in_.get(), &out_.vec());
+            if (out_.value() > 0) {
                 last_ms_ = aubio_onset_get_last_ms(onset_.get());
                 tick_.delay(0);
             }
@@ -231,4 +230,5 @@ void setup_an_onset_tilde()
 {
     SoundExternalFactory<AubioOnsetTilde> obj("an.onset~");
     obj.addMethod("reset", &AubioOnsetTilde::m_reset);
+    obj.setXletsInfo({ "input signal" }, { "bang: if onset detected", "float: latest onset time (ms)" });
 }

@@ -16,6 +16,7 @@
 #include "ceammc_pd.h"
 #include "ceammc_platform.h"
 #include "lib/ceammc.h"
+#include "tcl/ceammc_tcl.h"
 
 extern "C" {
 #include "g_canvas.h"
@@ -40,6 +41,7 @@ extern "C" {
 #include "math/mod_math.h"
 #include "midi/mod_midi.h"
 #include "misc/mod_misc.h"
+#include "music/mod_music.h"
 #include "net/mod_net.h"
 #include "noise/mod_noise.h"
 #include "osc/mod_osc.h"
@@ -47,6 +49,7 @@ extern "C" {
 #include "preset/mod_preset.h"
 #include "proto/mod_proto.h"
 #include "random/mod_random.h"
+#include "samp/mod_samp.h"
 #include "spat/mod_spat.h"
 #include "string/mod_string.h"
 #include "synth/mod_synth.h"
@@ -142,6 +145,8 @@ void ceammc_init()
         post("[ceammc] distribution: external deken");
     }
 
+    ceammc::ceammc_tcl_init();
+
     if (!ceammc::pd::addPdPrintDataSupport())
         pd_error(nullptr, "can't add datatype printing support to vanilla [print] object");
 
@@ -174,6 +179,7 @@ void ceammc_init()
     ceammc_math_setup();
     ceammc_midi_setup();
     ceammc_misc_setup();
+    ceammc_music_setup();
     ceammc_net_setup();
     ceammc_noise_setup();
     ceammc_preset_setup();
@@ -181,6 +187,7 @@ void ceammc_init()
     ceammc_proto_setup();
     ceammc_osc_setup();
     ceammc_random_setup();
+    ceammc_samp_setup();
     ceammc_spat_setup();
     ceammc_string_setup();
     ceammc_synth_setup();

@@ -43,13 +43,7 @@ bool SymbolEnumProperty::setList(const AtomListView& lv)
     if (lv.isSymbol())
         return setValue(lv[0].asT<t_symbol*>());
     else if (lv.isInteger()) {
-        auto idx = lv[0].asT<int>();
-        if (idx < 0 || idx >= (int)numEnums()) {
-            PROP_ERR() << fmt::format("invalid enum index, expecting value in [{}..{}] range, got: {}",
-                0, numEnums() - 1, idx);
-            return false;
-        } else
-            return setValue(info().enumValues()[idx].asT<t_symbol*>());
+        return setIndex(lv[0].asT<int>());
     } else {
         PROP_ERR() << "symbol or enum index expected, got: " << lv;
         return false;

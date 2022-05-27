@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="path.split">
+        <title>path.split</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>file path split</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>path</category>
+            <keywords>path environment</keywords>
+            <since>0.9.4</since>
+            <also>
+                <see>file.size</see>
+            </also>
+        </meta>
+        <info>
+            <par>Split filename to dirname and basename.</par>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo on="symbol">filename</xinfo>
+                <xinfo on="data:string">filename</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>symbol: dirname</outlet>
+            <outlet>symbol: basename</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[symbol /path/to/the/file.txt(
+|
+[path.split]
+|        ^|
+|        [ui.dt]
+|
+[ui.dt]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
