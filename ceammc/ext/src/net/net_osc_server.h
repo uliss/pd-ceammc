@@ -17,6 +17,7 @@
 #include <cstdint>
 #include <cstring>
 #include <forward_list>
+#include <list>
 #include <memory>
 #include <mutex>
 #include <string>
@@ -127,16 +128,19 @@ namespace net {
         MethodSubscriberMap subs_;
         lo_server_thread lo_;
 
+        OscServer(const OscServer&) = delete;
+        OscServer& operator=(const OscServer&) = delete;
+
     public:
         OscServer(const char* name, int port);
         OscServer(const char* name, const char* url);
+        OscServer(OscServer&& srv);
         ~OscServer();
 
         const std::string& name() const { return name_; }
         uint32_t nameHash() const { return name_hash_; }
 
-        void start();
-        void stop();
+        void start(bool value);
         bool isValid() const;
 
         // called from worker thread
@@ -158,11 +162,11 @@ namespace net {
     };
 
     class OscServerList {
-        std::forward_list<OscServer> servers_;
+        using OscServerPtr = std::unique_ptr<OscServer>;
+        using Entry = std::pair<OscServerPtr, int>;
+        std::list<Entry> servers_;
 
-        OscServerList()
-        {
-        }
+        OscServerList();
 
     public:
         static OscServerList& instance();
@@ -173,8 +177,13 @@ namespace net {
         OscServer* createByUrl(const char* name, const char* url);
         OscServer* createByPort(const char* name, int port);
 
-        void start(const char* name);
-        void stop(const char* name);
+        void start(const char* name, bool value);
+
+        void addRef(const char* name);
+        void unRef(const char* name);
+
+    private:
+        OscServer* addToList(OscServerPtr&& osc);
     };
 
     class OscUrlProperty : public AtomProperty {
@@ -201,6 +210,7 @@ namespace net {
 
     public:
         NetOscServer(const PdArgs& args);
+        ~NetOscServer();
 
         void initDone() final;
         void m_start(t_symbol* s, const AtomListView& lv);

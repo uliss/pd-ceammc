@@ -224,40 +224,37 @@ namespace net {
             OscServerLogger::instance().print(fmt::format("Server created: \"{}\" at {}", name_, hostname()).c_str());
     }
 
+    OscServer::OscServer(OscServer&& srv)
+        : name_(std::move(srv.name_))
+        , name_hash_(std::move(srv.name_hash_))
+        , lo_(std::move(srv.lo_))
+    {
+    }
+
     OscServer::~OscServer()
     {
-        if (lo_)
+        const auto host = hostname();
+
+        if (lo_) {
             lo_server_thread_free(lo_);
+            lo_ = nullptr;
+        }
 
-        std::unordered_set<SubscriberId> id_set;
-
-        for (auto& s : subs_)
-            s.second->getSubscribers(id_set);
-
-        subs_.clear();
-
-        for (auto id : id_set)
-            Dispatcher::instance().send({ id, NOTIFY_SOURCE_REMOVED });
-
-        LIB_LOG << fmt::format("OSC server destroyed: \"{}\"", name_);
+        LIB_LOG << fmt::format("[osc] Server destroyed: \"{}\" at {}", name_, host);
     }
 
-    void OscServer::start()
+    void OscServer::start(bool value)
     {
         if (!lo_)
             return;
 
-        auto rc = lo_server_thread_start(lo_);
-        LIB_LOG << fmt::format("OSC server started: \"{}\" [{}]", name_, rc);
-    }
-
-    void OscServer::stop()
-    {
-        if (!lo_)
-            return;
-
-        auto rc = lo_server_thread_stop(lo_);
-        LIB_LOG << fmt::format("OSC server stopped: \"{}\" [{}]", name_, rc);
+        if (value) {
+            auto rc = lo_server_thread_start(lo_);
+            LIB_LOG << fmt::format("OSC server started: \"{}\" [{}]", name_, rc);
+        } else {
+            auto rc = lo_server_thread_stop(lo_);
+            LIB_LOG << fmt::format("OSC server stopped: \"{}\" [{}]", name_, rc);
+        }
     }
 
     bool OscServer::isValid() const
@@ -412,6 +409,10 @@ namespace net {
         }
     }
 
+    OscServerList::OscServerList()
+    {
+    }
+
     OscServerList& OscServerList::instance()
     {
         static OscServerList m;
@@ -425,39 +426,71 @@ namespace net {
         // assuming that list of OSC servers if not long,
         // so doing linear search
         for (auto& s : servers_) {
-            if (s.nameHash() == hash)
-                return &s;
+            if (s.first && s.first->nameHash() == hash)
+                return s.first.get();
         }
 
         return nullptr;
     }
 
+    OscServer* OscServerList::addToList(OscServerPtr&& osc)
+    {
+        if (osc && osc->isValid()) {
+            servers_.push_front({ std::move(osc), 0 });
+            return servers_.front().first.get();
+        } else
+            return nullptr;
+    }
+
     OscServer* OscServerList::createByUrl(const char* name, const char* url)
     {
-        const auto hash = crc32_hash(name);
-        for (auto& s : servers_) {
-            if (s.nameHash() == hash) {
-                LIB_ERR << fmt::format("server already exists: \"{}\"", name);
-                return nullptr;
-            }
+        if (findByName(name)) {
+            LIB_ERR << fmt::format("server already exists: \"{}\"", name);
+            return nullptr;
         }
 
-        servers_.emplace_front(name, url);
-        return &servers_.front();
+        return addToList(OscServerPtr { new OscServer(name, url) });
     }
 
     OscServer* OscServerList::createByPort(const char* name, int port)
     {
-        const auto hash = crc32_hash(name);
-        for (auto& s : servers_) {
-            if (s.nameHash() == hash) {
-                LIB_ERR << fmt::format("server already exists: \"{}\"", name);
-                return nullptr;
-            }
+        if (findByName(name)) {
+            LIB_ERR << fmt::format("server already exists: \"{}\"", name);
+            return nullptr;
         }
 
-        servers_.emplace_front(name, port);
-        return &servers_.front();
+        return addToList(OscServerPtr { new OscServer(name, port) });
+    }
+
+    void OscServerList::start(const char* name, bool value)
+    {
+        auto osc = findByName(name);
+        if (osc)
+            osc->start(value);
+    }
+
+    void OscServerList::addRef(const char* name)
+    {
+        const auto hash = crc32_hash(name);
+        for (auto& s : servers_) {
+            if (s.first->nameHash() == hash) {
+                s.second++;
+                break;
+            }
+        }
+    }
+
+    void OscServerList::unRef(const char* name)
+    {
+        const auto hash = crc32_hash(name);
+        for (auto it = servers_.begin(); it != servers_.end(); ++it) {
+            if (it->first->nameHash() == hash) {
+                if (--(it->second) <= 0)
+                    servers_.erase(it);
+
+                return;
+            }
+        }
     }
 
     NetOscServer::NetOscServer(const PdArgs& args)
@@ -485,6 +518,11 @@ namespace net {
         addProperty(dump_);
     }
 
+    NetOscServer::~NetOscServer()
+    {
+        OscServerList::instance().unRef(name_->value()->s_name);
+    }
+
     void NetOscServer::initDone()
     {
         auto name = name_->value()->s_name;
@@ -493,7 +531,7 @@ namespace net {
         auto& srv_list = OscServerList::instance();
 
         auto osc = srv_list.findByName(name);
-        if (!osc) {
+        if (osc == nullptr) {
             t_float port = 0;
             t_symbol* str_url = &s_;
 
@@ -507,8 +545,10 @@ namespace net {
 
         if (!osc || !osc->isValid())
             LIB_ERR << fmt::format("can't create server '{}': {}", name, to_string(url));
-        else
+        else {
             osc->setDumpAll(dump_->value());
+            srv_list.addRef(name);
+        }
     }
 
     void NetOscServer::m_start(t_symbol* s, const AtomListView& lv)
@@ -524,9 +564,7 @@ namespace net {
             return;
         }
 
-        auto osc = OscServerList::instance().findByName(name_->value());
-        if (osc && osc->isValid())
-            value ? osc->start() : osc->stop();
+        OscServerList::instance().start(name_->value()->s_name, value);
     }
 
     void NetOscServer::m_stop(t_symbol* s, const AtomListView& lv)
@@ -542,9 +580,7 @@ namespace net {
             return;
         }
 
-        auto osc = OscServerList::instance().findByName(name_->value());
-        if (osc && osc->isValid())
-            value ? osc->stop() : osc->start();
+        OscServerList::instance().start(name_->value()->s_name, !value);
     }
 
     void OscUrlProperty::parseUrl(const Atom& url)
@@ -609,8 +645,9 @@ void setup_net_osc_server()
     obj.addMethod("stop", &net::NetOscServer::m_stop);
 
     auto osc = net::OscServerList::instance().createByPort("default", 7000);
-    if (osc && osc->isValid())
-        osc->start();
-    else
+    if (osc && osc->isValid()) {
+        net::OscServerList::instance().addRef("default");
+        osc->start(true);
+    } else
         LIB_LOG << "can't start server";
 }
