@@ -128,7 +128,7 @@ namespace net {
         lo_server_thread lo_;
 
     public:
-        OscServer(const char* name, int port, int proto);
+        OscServer(const char* name, int port);
         OscServer(const char* name, const char* url);
         ~OscServer();
 
@@ -169,8 +169,8 @@ namespace net {
 
         OscServer* findByName(const char* name);
 
-        OscServer* createUdp(const char* name, int port);
-        OscServer* create(const char* name, const char* url);
+        OscServer* createByUrl(const char* name, const char* url);
+        OscServer* createByPort(const char* name, int port);
     };
 
     class OscUrlProperty : public SymbolProperty {
@@ -190,18 +190,16 @@ namespace net {
         void parseUrl(const char* url);
     };
 
-    class NetOscServer : public BaseObject, public NotifiedObject {
+    class NetOscServer : public BaseObject {
         SymbolProperty* name_;
         OscUrlProperty* url_;
         OscServer* server_;
+        BoolProperty* dump_;
 
     public:
         NetOscServer(const PdArgs& args);
-        ~NetOscServer();
 
         void initDone() final;
-
-        bool notify(NotifyEventType code) override;
     };
 }
 }

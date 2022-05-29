@@ -176,10 +176,4 @@ void setup_net_osc_receive()
 
     ObjectFactory<net::NetOscReceive> obj("net.osc.receive");
     obj.addAlias("net.osc.r");
-
-    auto osc = net::OscServerList::instance().createUdp("default", 7001);
-    if (osc && osc->isValid())
-        osc->start();
-    else
-        LIB_LOG << "can't start server";
 }

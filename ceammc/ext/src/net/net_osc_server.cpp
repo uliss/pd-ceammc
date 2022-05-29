@@ -199,11 +199,16 @@ namespace net {
         Dispatcher::instance().send({ id(), NOTIFY_UPDATE });
     }
 
-    OscServer::OscServer(const char* name, int port, int proto)
+    OscServer::OscServer(const char* name, int port)
         : name_(name)
         , name_hash_(crc32_hash(name_))
-        , lo_(lo_server_thread_new_with_proto(fmt::format("{}", port).c_str(), proto, errorHandler))
+        , lo_(nullptr)
     {
+        if (port <= 0)
+            lo_ = lo_server_thread_new(nullptr, errorHandler);
+        else
+            lo_ = lo_server_thread_new(fmt::format("{}", port).c_str(), errorHandler);
+
         if (lo_)
             OscServerLogger::instance().print(fmt::format("Server created: \"{}\" at {}", name_, hostname()).c_str());
     }
@@ -384,21 +389,7 @@ namespace net {
         return nullptr;
     }
 
-    OscServer* OscServerList::createUdp(const char* name, int port)
-    {
-        const auto hash = crc32_hash(name);
-        for (auto& s : servers_) {
-            if (s.nameHash() == hash) {
-                LIB_ERR << fmt::format("server already exists: \"{}\"", name);
-                return nullptr;
-            }
-        }
-
-        servers_.emplace_front(name, port, LO_UDP);
-        return &servers_.front();
-    }
-
-    OscServer* OscServerList::create(const char* name, const char* url)
+    OscServer* OscServerList::createByUrl(const char* name, const char* url)
     {
         const auto hash = crc32_hash(name);
         for (auto& s : servers_) {
@@ -409,6 +400,20 @@ namespace net {
         }
 
         servers_.emplace_front(name, url);
+        return &servers_.front();
+    }
+
+    OscServer* OscServerList::createByPort(const char* name, int port)
+    {
+        const auto hash = crc32_hash(name);
+        for (auto& s : servers_) {
+            if (s.nameHash() == hash) {
+                LIB_ERR << fmt::format("server already exists: \"{}\"", name);
+                return nullptr;
+            }
+        }
+
+        servers_.emplace_front(name, port);
         return &servers_.front();
     }
 
@@ -427,13 +432,6 @@ namespace net {
         url_ = new OscUrlProperty("@url", &s_, PropValueAccess::INITONLY);
         url_->setArgIndex(1);
         addProperty(url_);
-
-        Dispatcher::instance().subscribe(this, reinterpret_cast<SubscriberId>(this));
-    }
-
-    NetOscServer::~NetOscServer()
-    {
-        Dispatcher::instance().unsubscribe(this);
     }
 
     void NetOscServer::initDone()
@@ -444,16 +442,15 @@ namespace net {
         auto& srv_list = OscServerList::instance();
 
         server_ = srv_list.findByName(name);
-        if (!server_)
-            server_ = srv_list.create(name, (url_->value() == &s_) ? nullptr : url);
+        if (!server_) {
+            if (url_->value() == &s_)
+                server_ = srv_list.createByPort(name, 0);
+            else
+                server_ = srv_list.createByUrl(name, url);
+        }
 
         if (!server_ || !server_->isValid())
             LIB_ERR << fmt::format("can't create server '{}': {}", name, url);
-    }
-
-    bool NetOscServer::notify(NotifyEventType /*code*/)
-    {
-        return true;
     }
 
     void OscUrlProperty::parseUrl(const char* url)
@@ -502,4 +499,10 @@ void setup_net_osc_server()
 
     obj.parseArgsMode(PdArgs::PARSE_UNQUOTE);
     obj.parsePropsMode(PdArgs::PARSE_UNQUOTE);
+
+    auto osc = net::OscServerList::instance().createByPort("default", 7000);
+    if (osc && osc->isValid())
+        osc->start();
+    else
+        LIB_LOG << "can't start server";
 }
