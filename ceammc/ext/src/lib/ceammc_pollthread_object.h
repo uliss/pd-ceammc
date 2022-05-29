@@ -24,7 +24,7 @@
 namespace ceammc {
 
 template <class Result>
-class PollThreadTaskObject : public NotifiedObject {
+class PollThreadTaskObject : public BaseObject, public NotifiedObject {
 public:
     using Future = std::future<void>;
 
@@ -35,7 +35,7 @@ private:
 
 public:
     PollThreadTaskObject(const PdArgs& args)
-        : NotifiedObject(args)
+        : BaseObject(args)
     {
     }
 

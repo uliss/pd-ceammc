@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "net_osc_server.h"
 #include "ceammc_crc32.h"
+#include "ceammc_factory.h"
 #include "fmt/format.h"
 
 #include <algorithm>
@@ -22,21 +23,6 @@ using MutexLock = std::lock_guard<std::mutex>;
 
 namespace ceammc {
 namespace net {
-
-    int generic_handler(const char* path, const char* types, lo_arg** argv,
-        int argc, void* data, void* user_data)
-    {
-        printf("path: <%s>\n", path);
-        for (int i = 0; i < argc; i++) {
-            printf("arg %d '%c' ", i, types[i]);
-            lo_arg_pp((lo_type)types[i], argv[i]);
-            printf("\n");
-        }
-        printf("\n");
-        fflush(stdout);
-
-        return 1;
-    }
 
     OscMethodSubscriber::OscMethodSubscriber(SubscriberId id, OscMethodPipe* pipe)
         : id_(id)
@@ -163,18 +149,72 @@ namespace net {
         }
     }
 
-    OscServer::OscServer(const std::string& name, int port, int proto)
+    OscServerLogger::OscServerLogger()
+    {
+        Dispatcher::instance().subscribe(this, id());
+    }
+
+    OscServerLogger::~OscServerLogger()
+    {
+        Dispatcher::instance().unsubscribe(this);
+    }
+
+    OscServerLogger& OscServerLogger::instance()
+    {
+        static OscServerLogger log;
+        return log;
+    }
+
+    bool OscServerLogger::notify(NotifyEventType /*code*/)
+    {
+        LogEntry log_msg;
+
+        while (err_pipe_.try_dequeue(log_msg)) {
+            switch (log_msg.first) {
+            case LOG_POST:
+                LIB_POST << "[osc] " << log_msg.second.c_str();
+                break;
+            case LOG_ERROR:
+            default:
+                LIB_ERR << "[osc error] " << log_msg.second.c_str();
+                break;
+            }
+        }
+
+        return true;
+    }
+
+    void OscServerLogger::error(int errNo, const char* msg, const char* where)
+    {
+        LogString str = (where == nullptr)
+            ? fmt::format("error #{}: '{}'", errNo, msg).c_str()
+            : fmt::format("error #{}: '{}' at {}", errNo, msg, where).c_str();
+        err_pipe_.enqueue({ LOG_ERROR, str });
+        Dispatcher::instance().send({ id(), NOTIFY_UPDATE });
+    }
+
+    void OscServerLogger::print(const char* str)
+    {
+        err_pipe_.enqueue({ LOG_POST, str });
+        Dispatcher::instance().send({ id(), NOTIFY_UPDATE });
+    }
+
+    OscServer::OscServer(const char* name, int port, int proto)
         : name_(name)
         , name_hash_(crc32_hash(name_))
-        , lo_(lo_server_thread_new_with_proto(fmt::format("{}", port).c_str(), proto,
-              [](int num, const char* msg, const char* where) {
-                  std::cerr << fmt::format("[osc error] {}\n", msg);
-              }))
+        , lo_(lo_server_thread_new_with_proto(fmt::format("{}", port).c_str(), proto, errorHandler))
     {
-        LIB_LOG << fmt::format("OSC server created: \"{}\" {}://{}", name_, protoToStr(proto), port);
-
         if (lo_)
-            lo_server_thread_add_method(lo_, NULL, NULL, generic_handler, NULL);
+            OscServerLogger::instance().print(fmt::format("Server created: \"{}\" at {}", name_, hostname()).c_str());
+    }
+
+    OscServer::OscServer(const char* name, const char* url)
+        : name_(name)
+        , name_hash_(crc32_hash(name_))
+        , lo_(lo_server_thread_new_from_url(url, errorHandler))
+    {
+        if (lo_)
+            OscServerLogger::instance().print(fmt::format("Server created: \"{}\" at {}", name_, hostname()).c_str());
     }
 
     OscServer::~OscServer()
@@ -210,7 +250,7 @@ namespace net {
             return;
 
         auto rc = lo_server_thread_stop(lo_);
-        LIB_LOG << fmt::format("OSC server stopped: \"{}\"", name_);
+        LIB_LOG << fmt::format("OSC server stopped: \"{}\" [{}]", name_, rc);
     }
 
     bool OscServer::isValid() const
@@ -253,6 +293,56 @@ namespace net {
         }
     }
 
+    std::string OscServer::hostname() const
+    {
+        if (lo_) {
+            auto url = lo_server_thread_get_url(lo_);
+            std::string res(url);
+            free(url);
+            return res;
+        } else
+            return {};
+    }
+
+    int OscServer::port() const
+    {
+        if (lo_)
+            return lo_server_thread_get_port(lo_);
+        else
+            return -1;
+    }
+
+    void OscServer::setDumpAll(bool value)
+    {
+        if (!lo_)
+            return;
+
+        if (value)
+            lo_server_thread_add_method(lo_, nullptr, nullptr, &logHandler, nullptr);
+        else
+            lo_server_thread_del_method(lo_, nullptr, nullptr);
+    }
+
+    void OscServer::errorHandler(int num, const char* msg, const char* where)
+    {
+        OscServerLogger::instance().error(num, msg, where);
+    }
+
+    int OscServer::logHandler(const char* path, const char* types, lo_arg** argv,
+        int argc, void* data, void* user_data)
+    {
+        printf("path: <%s>\n", path);
+        for (int i = 0; i < argc; i++) {
+            printf("arg %d '%c' ", i, types[i]);
+            lo_arg_pp((lo_type)types[i], argv[i]);
+            printf("\n");
+        }
+        printf("\n");
+        fflush(stdout);
+
+        return 1;
+    }
+
     void OscServer::subscribeMethod(const char* path, const char* types, SubscriberId id, OscMethodPipe* pipe)
     {
         const auto hash = crc32_hash(path);
@@ -265,7 +355,7 @@ namespace net {
         }
 
         if (lo_) {
-            auto fn = [](const char* path, const char* types, lo_arg** argv, int argc, void* data, void* user_data) -> int {
+            auto fn = [](const char* path, const char* types, lo_arg** argv, int argc, void* /*data*/, void* user_data) -> int {
                 OscServer* s = static_cast<OscServer*>(user_data);
                 if (s)
                     s->onMessage(path, types, argv, argc);
@@ -308,6 +398,108 @@ namespace net {
         return &servers_.front();
     }
 
+    OscServer* OscServerList::create(const char* name, const char* url)
+    {
+        const auto hash = crc32_hash(name);
+        for (auto& s : servers_) {
+            if (s.nameHash() == hash) {
+                LIB_ERR << fmt::format("server already exists: \"{}\"", name);
+                return nullptr;
+            }
+        }
+
+        servers_.emplace_front(name, url);
+        return &servers_.front();
+    }
+
+    NetOscServer::NetOscServer(const PdArgs& args)
+        : BaseObject(args)
+        , name_(nullptr)
+        , url_(nullptr)
+        , server_(nullptr)
+    {
+        createOutlet();
+
+        name_ = new SymbolProperty("@name", gensym("default"), PropValueAccess::INITONLY);
+        name_->setArgIndex(0);
+        addProperty(name_);
+
+        url_ = new OscUrlProperty("@url", &s_, PropValueAccess::INITONLY);
+        url_->setArgIndex(1);
+        addProperty(url_);
+
+        Dispatcher::instance().subscribe(this, reinterpret_cast<SubscriberId>(this));
+    }
+
+    NetOscServer::~NetOscServer()
+    {
+        Dispatcher::instance().unsubscribe(this);
+    }
+
+    void NetOscServer::initDone()
+    {
+        auto name = name_->value()->s_name;
+        auto url = url_->value()->s_name;
+
+        auto& srv_list = OscServerList::instance();
+
+        server_ = srv_list.findByName(name);
+        if (!server_)
+            server_ = srv_list.create(name, (url_->value() == &s_) ? nullptr : url);
+
+        if (!server_ || !server_->isValid())
+            LIB_ERR << fmt::format("can't create server '{}': {}", name, url);
+    }
+
+    bool NetOscServer::notify(NotifyEventType /*code*/)
+    {
+        return true;
+    }
+
+    void OscUrlProperty::parseUrl(const char* url)
+    {
+        auto host = lo_url_get_hostname(url);
+        if (host) {
+            host_ = gensym(host);
+            free(host);
+        } else
+            host_ = &s_;
+
+        auto port = lo_url_get_port(url);
+        if (port) {
+            port_ = gensym(port);
+            free(port);
+        } else
+            port_ = &s_;
+
+        auto proto = lo_url_get_protocol(url);
+        if (proto) {
+            proto_ = gensym(proto);
+            free(proto);
+        } else
+            proto_ = &s_;
+    }
+
+    OscUrlProperty::OscUrlProperty(const std::string& name, t_symbol* def, PropValueAccess ro)
+        : SymbolProperty(name, def, ro)
+        , host_(&s_)
+        , port_(&s_)
+        , proto_(&s_)
+    {
+        parseUrl(def->s_name);
+        setSuccessFn([this](Property*) { parseUrl(value()->s_name); });
+    }
+
 }
 
+}
+
+void setup_net_osc_server()
+{
+    using namespace ceammc;
+
+    ObjectFactory<net::NetOscServer> obj("net.osc.server");
+
+    obj.parseArgsMode(PdArgs::PARSE_UNQUOTE);
+    obj.parsePropsMode(PdArgs::PARSE_UNQUOTE);
 }

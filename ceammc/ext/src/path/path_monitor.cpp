@@ -127,7 +127,7 @@ public:
 };
 
 PathMonitor::PathMonitor(const PdArgs& args)
-    : NotifiedObject(args)
+    : BaseObject(args)
     , path_(nullptr)
 {
     createOutlet();

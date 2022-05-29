@@ -36,13 +36,11 @@ struct NotifyMessage {
     NotifyEventType event;
 };
 
-class NotifiedObject : public BaseObject {
+/**
+ * Notify interface
+ */
+class NotifiedObject {
 public:
-    NotifiedObject(const PdArgs& args)
-        : BaseObject(args)
-    {
-    }
-
     virtual bool notify(NotifyEventType code) = 0;
 };
 

@@ -24,6 +24,7 @@
 #include <unordered_set>
 
 #include <boost/container/small_vector.hpp>
+#include <boost/static_string.hpp>
 #include <boost/variant.hpp>
 #include <lo/lo.h>
 
@@ -92,6 +93,30 @@ namespace net {
         void getSubscribers(std::unordered_set<SubscriberId>& s);
     };
 
+    class OscServerLogger : public NotifiedObject {
+        using LogString = boost::static_string<80>;
+        using LogEntry = std::pair<LogLevel, LogString>;
+        using LogPipe = moodycamel::ReaderWriterQueue<LogEntry>;
+
+        LogPipe err_pipe_;
+
+        OscServerLogger();
+        ~OscServerLogger();
+
+        OscServerLogger(const OscServerLogger&) = delete;
+        OscServerLogger(OscServerLogger&&) = delete;
+        OscServerLogger& operator=(const OscServerLogger&) = delete;
+        OscServerLogger& operator=(OscServerLogger&&) = delete;
+
+    public:
+        static OscServerLogger& instance();
+
+        bool notify(NotifyEventType code) final;
+        SubscriberId id() const { return reinterpret_cast<SubscriberId>(this); }
+        void error(int errNo, const char* msg, const char* where);
+        void print(const char* str);
+    };
+
     class OscServer {
         using SubscriberListPtr = std::unique_ptr<OscServerSubscriberList>;
         using MethodSubscriberMap = std::unordered_map<OscMethodHash, SubscriberListPtr>;
@@ -103,7 +128,8 @@ namespace net {
         lo_server_thread lo_;
 
     public:
-        OscServer(const std::string& name, int port, int proto);
+        OscServer(const char* name, int port, int proto);
+        OscServer(const char* name, const char* url);
         ~OscServer();
 
         const std::string& name() const { return name_; }
@@ -120,6 +146,15 @@ namespace net {
         void subscribeMethod(const char* path, const char* types, SubscriberId id, OscMethodPipe* pipe);
         void unsubscribeMethod(const char* path, const char* types, SubscriberId id);
         void unsubscribeAll(SubscriberId id);
+
+        std::string hostname() const;
+        int port() const;
+
+        void setDumpAll(bool value);
+
+    private:
+        static void errorHandler(int num, const char* msg, const char* where);
+        static int logHandler(const char* path, const char* types, lo_arg** argv, int argc, void* data, void* user_data);
     };
 
     class OscServerList {
@@ -135,14 +170,42 @@ namespace net {
         OscServer* findByName(const char* name);
 
         OscServer* createUdp(const char* name, int port);
+        OscServer* create(const char* name, const char* url);
     };
 
+    class OscUrlProperty : public SymbolProperty {
+        t_symbol* host_;
+        t_symbol* port_;
+        t_symbol* proto_;
+
+    public:
+        OscUrlProperty(const std::string& name, t_symbol* def = &s_, PropValueAccess ro = PropValueAccess::READWRITE);
+
+        t_symbol* host() const { return host_; }
+        t_symbol* port() const { return port_; }
+        t_symbol* proto() const { return proto_; }
+        t_symbol* url() const { return value(); }
+
+    private:
+        void parseUrl(const char* url);
+    };
+
+    class NetOscServer : public BaseObject, public NotifiedObject {
+        SymbolProperty* name_;
+        OscUrlProperty* url_;
+        OscServer* server_;
+
+    public:
+        NetOscServer(const PdArgs& args);
+        ~NetOscServer();
+
+        void initDone() final;
+
+        bool notify(NotifyEventType code) override;
+    };
 }
 }
 
-class net_osc_server {
-public:
-    net_osc_server();
-};
+void setup_net_osc_server();
 
 #endif // NET_OSC_SERVER_H

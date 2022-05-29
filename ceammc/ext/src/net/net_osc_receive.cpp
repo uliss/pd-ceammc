@@ -93,7 +93,7 @@ public:
 namespace net {
 
     NetOscReceive::NetOscReceive(const PdArgs& args)
-        : NotifiedObject(args)
+        : BaseObject(args)
         , server_(nullptr)
         , path_(nullptr)
         , types_(nullptr)

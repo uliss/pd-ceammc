@@ -137,7 +137,7 @@ public:
 }
 
 NetOscSend::NetOscSend(const PdArgs& args)
-    : NetOscSendBase(args)
+    : BaseObject(args)
     , host_(nullptr)
     , port_(nullptr)
 {

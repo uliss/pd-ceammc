@@ -40,7 +40,7 @@ namespace net {
         SubscriberId id() const { return reinterpret_cast<SubscriberId>(ptr_); }
     };
 
-    class NetOscReceive : public NotifiedObject {
+    class NetOscReceive : public BaseObject, public NotifiedObject {
         SymbolProperty* server_;
         SymbolProperty* path_;
         SymbolProperty* types_;

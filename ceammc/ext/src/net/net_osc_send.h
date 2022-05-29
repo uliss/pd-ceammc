@@ -37,11 +37,9 @@ struct NetOscSendMsg {
     std::string error_msg;
 };
 
-using NetOscSendBase = NotifiedObject;
-
 struct NetOscSendOscTask;
 
-class NetOscSend : public NetOscSendBase {
+class NetOscSend : public BaseObject, public NotifiedObject {
 public:
     using MsgPipe = moodycamel::ReaderWriterQueue<NetOscSendMsg>;
 
