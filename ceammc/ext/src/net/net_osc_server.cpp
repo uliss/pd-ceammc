@@ -508,7 +508,7 @@ namespace net {
         if (!osc || !osc->isValid())
             LIB_ERR << fmt::format("can't create server '{}': {}", name, to_string(url));
         else
-            osc->setDumpAll(true);
+            osc->setDumpAll(dump_->value());
     }
 
     void NetOscServer::m_start(t_symbol* s, const AtomListView& lv)

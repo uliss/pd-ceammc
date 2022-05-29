@@ -127,14 +127,14 @@ namespace net {
 
     void NetOscReceive::initDone()
     {
-        auto osc = net::OscServerList::instance().findByName(server_->name());
+        auto osc = net::OscServerList::instance().findByName(server_->value());
         if (osc != nullptr && osc->isValid()) {
             const char* types = (crc32_hash(types_->value()) == hash_none) ? nullptr
                                                                            : types_->value()->s_name;
-            const char* str_types = types ? types : "";
             osc->subscribeMethod(path_->value()->s_name, types, disp_.id(), &pipe_);
-            LIB_LOG << fmt::format("subscribed to {} '{}' at \"{}\"", path_->value()->s_name, str_types, osc->name());
-        }
+            LIB_LOG << fmt::format("subscribed to {} at \"{}\"", path_->value()->s_name, osc->name());
+        } else
+            LIB_LOG << fmt::format("can't subscribe to {} '{}'", path_->value()->s_name, server_->value()->s_name);
     }
 
     bool NetOscReceive::notify(NotifyEventType code)
