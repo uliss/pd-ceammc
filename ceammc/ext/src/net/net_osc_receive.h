@@ -44,7 +44,6 @@ namespace net {
         SymbolProperty* server_;
         SymbolProperty* path_;
         SymbolProperty* types_;
-        net::OscServer* server_ptr_;
         DispatcherSubscriber<NetOscReceive> disp_;
         OscMethodPipe pipe_;
 

@@ -14,6 +14,7 @@
 #include "net_osc_server.h"
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
+#include "ceammc_format.h"
 #include "fmt/format.h"
 
 #include <algorithm>
@@ -204,9 +205,10 @@ namespace net {
         , name_hash_(crc32_hash(name_))
         , lo_(nullptr)
     {
-        if (port <= 0)
+        if (port <= 0) {
+            // create at free system port
             lo_ = lo_server_thread_new(nullptr, errorHandler);
-        else
+        } else
             lo_ = lo_server_thread_new(fmt::format("{}", port).c_str(), errorHandler);
 
         if (lo_)
@@ -336,14 +338,53 @@ namespace net {
     int OscServer::logHandler(const char* path, const char* types, lo_arg** argv,
         int argc, void* data, void* user_data)
     {
-        printf("path: <%s>\n", path);
+        std::string str = fmt::format("{} '{}'", path, types);
         for (int i = 0; i < argc; i++) {
-            printf("arg %d '%c' ", i, types[i]);
-            lo_arg_pp((lo_type)types[i], argv[i]);
-            printf("\n");
+            auto a = argv[i];
+            switch (types[i]) {
+            case LO_FLOAT:
+                str += fmt::format(" {}", a->f);
+                break;
+            case LO_DOUBLE:
+                str += fmt::format(" {}", a->d);
+                break;
+            case LO_STRING:
+                str += fmt::format(" \"{}\"", &a->s);
+                break;
+            case LO_CHAR:
+                str += fmt::format(" '{}'", a->c);
+                break;
+            case LO_SYMBOL:
+                str += fmt::format(" \"{}\"", &a->S);
+                break;
+            case LO_INT32:
+                str += fmt::format(" {}", a->i);
+                break;
+            case LO_INT64:
+                str += fmt::format(" {}", a->h);
+                break;
+            case LO_TRUE:
+                str += " #true";
+                break;
+            case LO_FALSE:
+                str += " #false";
+                break;
+            case LO_INFINITUM:
+                str += " #inf";
+                break;
+            case LO_NIL:
+                str += " #null";
+                break;
+            case LO_MIDI:
+                str += fmt::format(" MIDI({:02X} {:02X} {:02X} {:02X})", a->m[0], a->m[1], a->m[2], a->m[3]);
+                break;
+            default:
+                str += " ??";
+                break;
+            }
         }
-        printf("\n");
-        fflush(stdout);
+
+        OscServerLogger::instance().print(str.c_str());
 
         return 1;
     }
@@ -381,6 +422,8 @@ namespace net {
     {
         const auto hash = crc32_hash(name);
 
+        // assuming that list of OSC servers if not long,
+        // so doing linear search
         for (auto& s : servers_) {
             if (s.nameHash() == hash)
                 return &s;
@@ -421,7 +464,7 @@ namespace net {
         : BaseObject(args)
         , name_(nullptr)
         , url_(nullptr)
-        , server_(nullptr)
+        , dump_(nullptr)
     {
         createOutlet();
 
@@ -432,63 +475,124 @@ namespace net {
         url_ = new OscUrlProperty("@url", &s_, PropValueAccess::INITONLY);
         url_->setArgIndex(1);
         addProperty(url_);
+
+        dump_ = new BoolProperty("@dump", false);
+        dump_->setSuccessFn([this](Property*) {
+            auto osc = OscServerList::instance().findByName(name_->value());
+            if (osc)
+                osc->setDumpAll(dump_->value());
+        });
+        addProperty(dump_);
     }
 
     void NetOscServer::initDone()
     {
         auto name = name_->value()->s_name;
-        auto url = url_->value()->s_name;
+        auto url = url_->value();
 
         auto& srv_list = OscServerList::instance();
 
-        server_ = srv_list.findByName(name);
-        if (!server_) {
-            if (url_->value() == &s_)
-                server_ = srv_list.createByPort(name, 0);
+        auto osc = srv_list.findByName(name);
+        if (!osc) {
+            t_float port = 0;
+            t_symbol* str_url = &s_;
+
+            if (url.getFloat(&port))
+                osc = srv_list.createByPort(name, port);
+            else if (url.getSymbol(&str_url))
+                osc = srv_list.createByUrl(name, str_url->s_name);
             else
-                server_ = srv_list.createByUrl(name, url);
+                osc = srv_list.createByPort(name, 0);
         }
 
-        if (!server_ || !server_->isValid())
-            LIB_ERR << fmt::format("can't create server '{}': {}", name, url);
+        if (!osc || !osc->isValid())
+            LIB_ERR << fmt::format("can't create server '{}': {}", name, to_string(url));
+        else
+            osc->setDumpAll(true);
     }
 
-    void OscUrlProperty::parseUrl(const char* url)
+    void NetOscServer::m_start(t_symbol* s, const AtomListView& lv)
     {
-        auto host = lo_url_get_hostname(url);
-        if (host) {
-            host_ = gensym(host);
-            free(host);
-        } else
-            host_ = &s_;
+        bool value = false;
 
-        auto port = lo_url_get_port(url);
-        if (port) {
-            port_ = gensym(port);
-            free(port);
-        } else
-            port_ = &s_;
+        if (lv.empty())
+            value = true;
+        else if (lv.isBool())
+            value = lv[0].asT<bool>();
+        else {
+            METHOD_ERR(s) << "bool value expected, got: " << lv;
+            return;
+        }
 
-        auto proto = lo_url_get_protocol(url);
-        if (proto) {
-            proto_ = gensym(proto);
-            free(proto);
+        auto osc = OscServerList::instance().findByName(name_->value());
+        if (osc && osc->isValid())
+            value ? osc->start() : osc->stop();
+    }
+
+    void NetOscServer::m_stop(t_symbol* s, const AtomListView& lv)
+    {
+        bool value = false;
+
+        if (lv.empty())
+            value = true;
+        else if (lv.isBool())
+            value = lv[0].asT<bool>();
+        else {
+            METHOD_ERR(s) << "bool value expected, got: " << lv;
+            return;
+        }
+
+        auto osc = OscServerList::instance().findByName(name_->value());
+        if (osc && osc->isValid())
+            value ? osc->stop() : osc->start();
+    }
+
+    void OscUrlProperty::parseUrl(const Atom& url)
+    {
+        if (url.isSymbol()) {
+            auto s = url.asT<t_symbol*>()->s_name;
+            auto host = lo_url_get_hostname(s);
+            if (host) {
+                host_ = gensym(host);
+                free(host);
+            } else
+                host_ = &s_;
+
+            auto port = lo_url_get_port(s);
+            if (port) {
+                port_ = gensym(port);
+                free(port);
+            } else
+                port_ = &s_;
+
+            auto proto = lo_url_get_protocol(s);
+            if (proto) {
+                proto_ = gensym(proto);
+                free(proto);
+            } else
+                proto_ = &s_;
+        } else if (url.isInteger()) {
+            constexpr int MIN_PORT = 1024;
+            constexpr int MAX_PORT = std::numeric_limits<std::int16_t>::max();
+            int port = url.asT<int>();
+            if (port <= MIN_PORT || port > MAX_PORT) {
+                LIB_ERR << fmt::format("[@{}] invalid port value: {}, expected to be in {}..{} range", name()->s_name, port, MIN_PORT, MAX_PORT);
+                return;
+            }
         } else
-            proto_ = &s_;
+            LIB_ERR << "OSC url or port number expected";
     }
 
     OscUrlProperty::OscUrlProperty(const std::string& name, t_symbol* def, PropValueAccess ro)
-        : SymbolProperty(name, def, ro)
+        : AtomProperty(name, def, ro)
         , host_(&s_)
         , port_(&s_)
         , proto_(&s_)
     {
-        parseUrl(def->s_name);
-        setSuccessFn([this](Property*) { parseUrl(value()->s_name); });
+        parseUrl(def);
+        setSuccessFn([this](Property*) { parseUrl(value()); });
     }
-
 }
-
 }
 
 void setup_net_osc_server()
@@ -496,9 +600,13 @@ void setup_net_osc_server()
     using namespace ceammc;
 
     ObjectFactory<net::NetOscServer> obj("net.osc.server");
+    obj.addAlias("net.osc");
 
     obj.parseArgsMode(PdArgs::PARSE_UNQUOTE);
     obj.parsePropsMode(PdArgs::PARSE_UNQUOTE);
+
+    obj.addMethod("start", &net::NetOscServer::m_start);
+    obj.addMethod("stop", &net::NetOscServer::m_stop);
 
     auto osc = net::OscServerList::instance().createByPort("default", 7000);
     if (osc && osc->isValid())

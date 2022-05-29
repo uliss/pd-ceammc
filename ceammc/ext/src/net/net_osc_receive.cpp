@@ -97,13 +97,12 @@ namespace net {
         , server_(nullptr)
         , path_(nullptr)
         , types_(nullptr)
-        , server_ptr_(nullptr)
         , disp_(this)
     {
         createOutlet();
 
         server_ = new SymbolProperty("@server", gensym("default"));
-        server_->setArgIndex(2);
+        server_->setArgIndex(1);
         addProperty(server_);
 
         path_ = new SymbolProperty("@path", &s_);
@@ -111,7 +110,7 @@ namespace net {
         addProperty(path_);
 
         types_ = new SymbolProperty("@types", gensym(str_none));
-        types_->setArgIndex(1);
+        types_->setArgIndex(2);
         types_->setSymbolCheckFn([this](t_symbol* s) -> bool {
             return validOscTypeString(s->s_name);
         },
@@ -121,30 +120,26 @@ namespace net {
 
     NetOscReceive::~NetOscReceive()
     {
-        if (server_ptr_)
-            server_ptr_->unsubscribeAll(disp_.id());
+        auto osc = OscServerList::instance().findByName(server_->value());
+        if (osc)
+            osc->unsubscribeAll(disp_.id());
     }
 
     void NetOscReceive::initDone()
     {
-        auto p = net::OscServerList::instance().findByName("default");
-        if (p != nullptr && p->isValid()) {
-            server_ptr_ = p;
+        auto osc = net::OscServerList::instance().findByName(server_->name());
+        if (osc != nullptr && osc->isValid()) {
             const char* types = (crc32_hash(types_->value()) == hash_none) ? nullptr
                                                                            : types_->value()->s_name;
             const char* str_types = types ? types : "";
-            server_ptr_->subscribeMethod(path_->value()->s_name, types, disp_.id(), &pipe_);
-            LIB_LOG << fmt::format("subscribed to {} {} at \"{}\"", path_->value()->s_name, str_types, server_ptr_->name());
+            osc->subscribeMethod(path_->value()->s_name, types, disp_.id(), &pipe_);
+            LIB_LOG << fmt::format("subscribed to {} '{}' at \"{}\"", path_->value()->s_name, str_types, osc->name());
         }
     }
 
     bool NetOscReceive::notify(NotifyEventType code)
     {
         switch (code) {
-        case NOTIFY_SOURCE_REMOVED:
-            OBJ_LOG << "server removed";
-            server_ptr_ = nullptr;
-            break;
         case NOTIFY_UPDATE: {
             OscMessage msg;
             while (pipe_.try_dequeue(msg))

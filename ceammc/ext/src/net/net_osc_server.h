@@ -167,13 +167,17 @@ namespace net {
     public:
         static OscServerList& instance();
 
+        OscServer* findByName(t_symbol* name) { return findByName(name->s_name); }
         OscServer* findByName(const char* name);
 
         OscServer* createByUrl(const char* name, const char* url);
         OscServer* createByPort(const char* name, int port);
+
+        void start(const char* name);
+        void stop(const char* name);
     };
 
-    class OscUrlProperty : public SymbolProperty {
+    class OscUrlProperty : public AtomProperty {
         t_symbol* host_;
         t_symbol* port_;
         t_symbol* proto_;
@@ -184,22 +188,23 @@ namespace net {
         t_symbol* host() const { return host_; }
         t_symbol* port() const { return port_; }
         t_symbol* proto() const { return proto_; }
-        t_symbol* url() const { return value(); }
+        const Atom& url() const { return value(); }
 
     private:
-        void parseUrl(const char* url);
+        void parseUrl(const Atom& url);
     };
 
     class NetOscServer : public BaseObject {
         SymbolProperty* name_;
         OscUrlProperty* url_;
-        OscServer* server_;
         BoolProperty* dump_;
 
     public:
         NetOscServer(const PdArgs& args);
 
         void initDone() final;
+        void m_start(t_symbol* s, const AtomListView& lv);
+        void m_stop(t_symbol* s, const AtomListView& lv);
     };
 }
 }
