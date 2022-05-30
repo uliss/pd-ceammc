@@ -207,6 +207,19 @@ void ProtoInscore::m_color(t_symbol* s, const AtomListView& lv)
     }
 }
 
+void ProtoInscore::m_alpha(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_SYMBOL, ARG_FLOAT, s))
+        return;
+
+    AtomArray<4> args;
+    args[0] = make_obj_msg(scene_->value(), lv[0]);
+    args[1] = gensym("sf");
+    args[2] = gensym("alpha");
+    args[3] = lv[1];
+    anyTo(0, gensym(SEND_TYPED), toView(args));
+}
+
 void setup_proto_inscore()
 {
     ObjectFactory<ProtoInscore> obj("proto.inscore");
@@ -224,4 +237,5 @@ void setup_proto_inscore()
     obj.addMethod("dscale", &ProtoInscore::m_dscale);
 
     obj.addMethod("color", &ProtoInscore::m_color);
+    obj.addMethod("alpha", &ProtoInscore::m_alpha);
 }
