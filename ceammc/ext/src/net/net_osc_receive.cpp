@@ -117,6 +117,8 @@ namespace net {
         },
             "invalid type string");
         addProperty(types_);
+
+        bindReceive(gensym(OscServerList::DISPATCHER));
     }
 
     NetOscReceive::~NetOscReceive()
@@ -163,6 +165,19 @@ namespace net {
 
         outletAtomList(outletAt(0), res, true);
     }
+
+    void NetOscReceive::updateServer(t_symbol* name, const AtomListView& lv)
+    {
+        if (lv != server_->value())
+            return;
+
+        auto osc = net::OscServerList::instance().findByName(server_->value());
+        if (osc != nullptr && osc->isValid()) {
+            const char* types = (crc32_hash(types_->value()) == hash_none) ? nullptr
+                                                                           : types_->value()->s_name;
+            osc->subscribeMethod(path_->value()->s_name, types, disp_.id(), &pipe_);
+        }
+    }
 }
 }
 
@@ -172,4 +187,6 @@ void setup_net_osc_receive()
 
     ObjectFactory<net::NetOscReceive> obj("net.osc.receive");
     obj.addAlias("net.osc.r");
+
+    obj.addMethod(net::OscServerList::METHOD_UPDATE, &net::NetOscReceive::updateServer);
 }

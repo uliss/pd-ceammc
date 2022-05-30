@@ -54,6 +54,9 @@ namespace net {
         void initDone() override;
         bool notify(NotifyEventType code) final;
         void processMessage(const OscMessage& msg);
+
+    public:
+        void updateServer(t_symbol* name, const AtomListView& lv);
     };
 }
 }

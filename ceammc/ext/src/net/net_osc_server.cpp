@@ -437,7 +437,18 @@ namespace net {
     {
         if (osc && osc->isValid()) {
             servers_.push_front({ std::move(osc), 0 });
-            return servers_.front().first.get();
+
+            auto res = servers_.front().first.get();
+
+            auto x = gensym(DISPATCHER);
+            auto s = gensym(METHOD_UPDATE);
+            if (x->s_thing) {
+                t_atom a;
+                SETSYMBOL(&a, gensym(res->name().c_str()));
+                pd_typedmess(x->s_thing, s, 1, &a);
+            }
+
+            return res;
         } else
             return nullptr;
     }

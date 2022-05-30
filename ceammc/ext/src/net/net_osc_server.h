@@ -184,6 +184,10 @@ namespace net {
 
     private:
         OscServer* addToList(OscServerPtr&& osc);
+
+    public:
+        static constexpr const char* DISPATCHER = "#osc";
+        static constexpr const char* METHOD_UPDATE = "update";
     };
 
     class OscUrlProperty : public AtomProperty {
