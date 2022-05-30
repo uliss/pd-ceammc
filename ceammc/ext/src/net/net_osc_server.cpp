@@ -335,15 +335,15 @@ namespace net {
     int OscServer::logHandler(const char* path, const char* types, lo_arg** argv,
         int argc, void* data, void* user_data)
     {
-        std::string str = fmt::format("{} '{}'", path, types);
+        std::string str = fmt::format("{}", path);
         for (int i = 0; i < argc; i++) {
             auto a = argv[i];
             switch (types[i]) {
             case LO_FLOAT:
-                str += fmt::format(" {}", a->f);
+                str += fmt::format(" {}_f", a->f);
                 break;
             case LO_DOUBLE:
-                str += fmt::format(" {}", a->d);
+                str += fmt::format(" {}_d", a->d);
                 break;
             case LO_STRING:
                 str += fmt::format(" \"{}\"", &a->s);
@@ -355,10 +355,10 @@ namespace net {
                 str += fmt::format(" \"{}\"", &a->S);
                 break;
             case LO_INT32:
-                str += fmt::format(" {}", a->i);
+                str += fmt::format(" {}_i", a->i);
                 break;
             case LO_INT64:
-                str += fmt::format(" {}", a->h);
+                str += fmt::format(" {}_l", a->h);
                 break;
             case LO_TRUE:
                 str += " #true";
@@ -373,7 +373,7 @@ namespace net {
                 str += " #null";
                 break;
             case LO_MIDI:
-                str += fmt::format(" MIDI({:02X} {:02X} {:02X} {:02X})", a->m[0], a->m[1], a->m[2], a->m[3]);
+                str += fmt::format(" midi({:02X} {:02X} {:02X} {:02X})", a->m[0], a->m[1], a->m[2], a->m[3]);
                 break;
             default:
                 str += " ??";

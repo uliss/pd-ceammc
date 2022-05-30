@@ -14,6 +14,7 @@
 #include "net_osc_receive.h"
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
+#include "ceammc_output.h"
 #include "fmt/format.h"
 
 #include <cstring>
@@ -160,7 +161,7 @@ namespace net {
         for (auto& a : msg)
             a.apply_visitor(v);
 
-        listTo(0, res);
+        outletAtomList(outletAt(0), res, true);
     }
 }
 }
