@@ -306,6 +306,95 @@ void NetOscSend::m_send_string(t_symbol* s, const AtomListView& lv)
         LIB_ERR << "can't add task";
 }
 
+static inline char atom_arg_type(const Atom& a)
+{
+    switch (a.type()) {
+    case Atom::FLOAT:
+        return 'f';
+    case Atom::SYMBOL:
+        return 's';
+    default:
+        return '?';
+    }
+}
+
+void NetOscSend::m_send_typed(t_symbol* s, const AtomListView& lv)
+{
+    const bool ok = lv.empty()
+        || (lv.size() >= 2 && lv[0].isSymbol());
+
+    if (!ok) {
+        METHOD_ERR(s) << "usage: [TYPES ARGS...]?";
+        return;
+    }
+
+    NetOscSendOscTask task;
+    initTask(task, lv[0].asT<t_symbol*>()->s_name);
+
+    if (!lv.empty()) {
+        auto types = lv[0].asT<t_symbol*>()->s_name;
+        const auto num_types = strlen(types);
+        const auto num_args = lv.size() - 1;
+        if (num_types != num_args) {
+            METHOD_ERR(s) << fmt::format("number of types mismatch number of arguments: {}!={}", num_types, num_args);
+            return;
+        }
+
+        for (size_t i = 0; i < num_types; i++) {
+            const auto t = types[i];
+            const auto& a = lv[i + 1];
+            switch (t) {
+            case LO_FLOAT:
+                if (!a.isFloat()) {
+                    METHOD_ERR(s) << fmt::format("argument type mismatch: '{}'!='{}'", t, atom_arg_type(a));
+                    break;
+                } else
+                    lo_message_add_float(task.msg(), a.asT<t_float>());
+                break;
+            case LO_DOUBLE:
+                if (!a.isFloat()) {
+                    METHOD_ERR(s) << fmt::format("argument type mismatch: '{}'!='{}'", t, atom_arg_type(a));
+                    break;
+                } else
+                    lo_message_add_double(task.msg(), a.asT<t_float>());
+                break;
+            case LO_INT32:
+                if (!a.isFloat()) {
+                    METHOD_ERR(s) << fmt::format("argument type mismatch: '{}'!='{}'", t, atom_arg_type(a));
+                    break;
+                } else
+                    lo_message_add_int32(task.msg(), a.asT<t_float>());
+                break;
+            case LO_INT64:
+                if (!a.isFloat()) {
+                    METHOD_ERR(s) << fmt::format("argument type mismatch: '{}'!='{}'", t, atom_arg_type(a));
+                    break;
+                } else
+                    lo_message_add_int64(task.msg(), a.asT<t_float>());
+                break;
+            case LO_STRING:
+                if (!a.isSymbol())
+                    lo_message_add_string(task.msg(), to_string(a).c_str());
+                else
+                    lo_message_add_string(task.msg(), a.asT<t_symbol*>()->s_name);
+                break;
+            case LO_SYMBOL:
+                if (!a.isSymbol())
+                    lo_message_add_symbol(task.msg(), to_string(a).c_str());
+                else
+                    lo_message_add_symbol(task.msg(), a.asT<t_symbol*>()->s_name);
+                break;
+            default:
+                METHOD_ERR(s) << fmt::format("unknown argument type: '{}'", t);
+                break;
+            }
+        }
+    }
+
+    if (!OscSendWorker::instance().add(task))
+        LIB_ERR << "can't add task";
+}
+
 void NetOscSend::processMessage(const NetOscSendMsg& msg)
 {
     switch (msg.status) {

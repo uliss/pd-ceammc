@@ -594,6 +594,11 @@ namespace net {
         OscServerList::instance().start(name_->value()->s_name, !value);
     }
 
+    void NetOscServer::dump() const
+    {
+        BaseObject::dump();
+    }
+
     void OscUrlProperty::parseUrl(const Atom& url)
     {
         if (url.isSymbol()) {
@@ -654,11 +659,4 @@ void setup_net_osc_server()
 
     obj.addMethod("start", &net::NetOscServer::m_start);
     obj.addMethod("stop", &net::NetOscServer::m_stop);
-
-    auto osc = net::OscServerList::instance().createByPort("default", 7000);
-    if (osc && osc->isValid()) {
-        net::OscServerList::instance().addRef("default");
-        osc->start(true);
-    } else
-        LIB_LOG << "can't start server";
 }

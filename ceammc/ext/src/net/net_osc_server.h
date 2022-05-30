@@ -219,6 +219,8 @@ namespace net {
         void initDone() final;
         void m_start(t_symbol* s, const AtomListView& lv);
         void m_stop(t_symbol* s, const AtomListView& lv);
+
+        void dump() const override;
     };
 }
 }
