@@ -320,21 +320,23 @@ static inline char atom_arg_type(const Atom& a)
 
 void NetOscSend::m_send_typed(t_symbol* s, const AtomListView& lv)
 {
-    const bool ok = lv.empty()
-        || (lv.size() >= 2 && lv[0].isSymbol());
+    const bool ok = (lv.size() == 1 && lv[0].isSymbol())
+        || (lv.size() >= 3 && lv[0].isSymbol() && lv[1].isSymbol());
 
     if (!ok) {
-        METHOD_ERR(s) << "usage: [TYPES ARGS...]?";
+        METHOD_ERR(s) << "usage: PATH [TYPES ARGS...]?";
         return;
     }
 
     NetOscSendOscTask task;
-    initTask(task, lv[0].asT<t_symbol*>()->s_name);
+    auto path = lv[0].asT<t_symbol*>()->s_name;
+    initTask(task, path);
 
-    if (!lv.empty()) {
-        auto types = lv[0].asT<t_symbol*>()->s_name;
+    if (lv.size() >= 3) {
+        const auto types = lv[1].asT<t_symbol*>()->s_name;
         const auto num_types = strlen(types);
-        const auto num_args = lv.size() - 1;
+        const auto num_args = lv.size() - 2;
+
         if (num_types != num_args) {
             METHOD_ERR(s) << fmt::format("number of types mismatch number of arguments: {}!={}", num_types, num_args);
             return;
@@ -342,7 +344,7 @@ void NetOscSend::m_send_typed(t_symbol* s, const AtomListView& lv)
 
         for (size_t i = 0; i < num_types; i++) {
             const auto t = types[i];
-            const auto& a = lv[i + 1];
+            const auto& a = lv[i + 2];
             switch (t) {
             case LO_FLOAT:
                 if (!a.isFloat()) {
@@ -442,4 +444,5 @@ void setup_net_osc_send()
     obj.addMethod("send_null", &NetOscSend::m_send_null);
     obj.addMethod("send_inf", &NetOscSend::m_send_inf);
     obj.addMethod("send_string", &NetOscSend::m_send_string);
+    obj.addMethod("send_typed", &NetOscSend::m_send_typed);
 }
