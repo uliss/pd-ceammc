@@ -35,7 +35,8 @@ public:
     void m_dy(t_symbol* s, const AtomListView& lv);
     void m_dz(t_symbol* s, const AtomListView& lv);
     void m_dscale(t_symbol* s, const AtomListView& lv);
-    void m_dangle(t_symbol* s, const AtomListView& lv);
+
+    void m_color(t_symbol* s, const AtomListView& lv);
 };
 
 void setup_proto_inscore();

@@ -82,7 +82,7 @@ void ProtoInscore::m_x(t_symbol* s, const AtomListView& lv)
 
 void ProtoInscore::m_y(t_symbol* s, const AtomListView& lv)
 {
-    if (!checkArgs(lv, ARG_FLOAT, s))
+    if (!checkArgs(lv, ARG_SYMBOL, ARG_FLOAT, s))
         return;
 
     AtomArray<4> args;
@@ -95,7 +95,7 @@ void ProtoInscore::m_y(t_symbol* s, const AtomListView& lv)
 
 void ProtoInscore::m_z(t_symbol* s, const AtomListView& lv)
 {
-    if (!checkArgs(lv, ARG_FLOAT, s))
+    if (!checkArgs(lv, ARG_SYMBOL, ARG_FLOAT, s))
         return;
 
     AtomArray<4> args;
@@ -108,7 +108,7 @@ void ProtoInscore::m_z(t_symbol* s, const AtomListView& lv)
 
 void ProtoInscore::m_angle(t_symbol* s, const AtomListView& lv)
 {
-    if (!checkArgs(lv, ARG_FLOAT, s))
+    if (!checkArgs(lv, ARG_SYMBOL, ARG_FLOAT, s))
         return;
 
     AtomArray<4> args;
@@ -121,7 +121,7 @@ void ProtoInscore::m_angle(t_symbol* s, const AtomListView& lv)
 
 void ProtoInscore::m_scale(t_symbol* s, const AtomListView& lv)
 {
-    if (!checkArgs(lv, ARG_FLOAT, s))
+    if (!checkArgs(lv, ARG_SYMBOL, ARG_FLOAT, s))
         return;
 
     AtomArray<4> args;
@@ -147,7 +147,7 @@ void ProtoInscore::m_dx(t_symbol* s, const AtomListView& lv)
 
 void ProtoInscore::m_dy(t_symbol* s, const AtomListView& lv)
 {
-    if (!checkArgs(lv, ARG_FLOAT, s))
+    if (!checkArgs(lv, ARG_SYMBOL, ARG_FLOAT, s))
         return;
 
     AtomArray<4> args;
@@ -160,7 +160,7 @@ void ProtoInscore::m_dy(t_symbol* s, const AtomListView& lv)
 
 void ProtoInscore::m_dz(t_symbol* s, const AtomListView& lv)
 {
-    if (!checkArgs(lv, ARG_FLOAT, s))
+    if (!checkArgs(lv, ARG_SYMBOL, ARG_FLOAT, s))
         return;
 
     AtomArray<4> args;
@@ -171,22 +171,9 @@ void ProtoInscore::m_dz(t_symbol* s, const AtomListView& lv)
     anyTo(0, gensym(SEND_TYPED), toView(args));
 }
 
-void ProtoInscore::m_dangle(t_symbol* s, const AtomListView& lv)
-{
-    if (!checkArgs(lv, ARG_FLOAT, s))
-        return;
-
-    AtomArray<4> args;
-    args[0] = make_obj_msg(scene_->value(), lv[0]);
-    args[1] = gensym("sf");
-    args[2] = gensym("dangle");
-    args[3] = lv[1];
-    anyTo(0, gensym(SEND_TYPED), toView(args));
-}
-
 void ProtoInscore::m_dscale(t_symbol* s, const AtomListView& lv)
 {
-    if (!checkArgs(lv, ARG_FLOAT, s))
+    if (!checkArgs(lv, ARG_SYMBOL, ARG_FLOAT, s))
         return;
 
     AtomArray<4> args;
@@ -195,6 +182,29 @@ void ProtoInscore::m_dscale(t_symbol* s, const AtomListView& lv)
     args[2] = gensym("dscale");
     args[3] = lv[1];
     anyTo(0, gensym(SEND_TYPED), toView(args));
+}
+
+void ProtoInscore::m_color(t_symbol* s, const AtomListView& lv)
+{
+    if (checkArgs(lv, ARG_SYMBOL, ARG_FLOAT, ARG_FLOAT, ARG_FLOAT)) {
+        AtomArray<6> args;
+        args[0] = make_obj_msg(scene_->value(), lv[0]);
+        args[1] = gensym("sfff");
+        args[2] = gensym("color");
+        args[3] = lv[1];
+        args[4] = lv[2];
+        args[5] = lv[3];
+        anyTo(0, gensym(SEND_TYPED), toView(args));
+    } else if (checkArgs(lv, ARG_SYMBOL, ARG_SYMBOL)) {
+        AtomArray<4> args;
+        args[0] = make_obj_msg(scene_->value(), lv[0]);
+        args[1] = gensym("ss");
+        args[2] = gensym("color");
+        args[3] = lv[1];
+        anyTo(0, gensym(SEND_TYPED), toView(args));
+    } else {
+        METHOD_ERR(s) << "invalid arguments";
+    }
 }
 
 void setup_proto_inscore()
@@ -211,6 +221,7 @@ void setup_proto_inscore()
     obj.addMethod("dx", &ProtoInscore::m_dx);
     obj.addMethod("dy", &ProtoInscore::m_dy);
     obj.addMethod("dz", &ProtoInscore::m_dz);
-    obj.addMethod("dangle", &ProtoInscore::m_dangle);
     obj.addMethod("dscale", &ProtoInscore::m_dscale);
+
+    obj.addMethod("color", &ProtoInscore::m_color);
 }
