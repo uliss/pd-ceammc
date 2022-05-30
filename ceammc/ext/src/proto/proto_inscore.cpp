@@ -17,21 +17,36 @@
 #include "fmt/format.h"
 
 #include <array>
+#include <boost/container/small_vector.hpp>
+#include <boost/static_string.hpp>
 
 template <size_t N>
 using AtomArray = std::array<Atom, N>;
 
+using AtomSmallArray = boost::container::small_vector<Atom, 8>;
+
+template <size_t N = 256>
+using StaticString = boost::static_string<N>;
+
 constexpr const char* SEND_FLOAT = "send_float";
 constexpr const char* SEND_TYPED = "send_typed";
+constexpr const char* SEND_AUTO_TYPED = "send";
 
 namespace {
 
 t_symbol* make_obj_msg(int i, const char* objName)
 {
-    if (i <= 0)
-        return gensym(fmt::format("/ITL/scene/{}", objName).c_str());
-    else
-        return gensym(fmt::format("/ITL/scene{}/{}", i, objName).c_str());
+    StaticString<64> res("/ITL/scene");
+    if (i > 0) {
+        char buf[32];
+        sprintf(buf, "%i", i);
+        res += buf;
+    }
+
+    res += '/';
+    res += objName;
+
+    return gensym(res.c_str());
 }
 
 t_symbol* make_obj_msg(int i, t_symbol* objName)
@@ -44,8 +59,38 @@ t_symbol* make_obj_msg(int i, const Atom& a)
     return make_obj_msg(i, a.isSymbol() ? a.asT<t_symbol*>()->s_name : to_string(a).c_str());
 }
 
+t_symbol* make_string(const AtomListView& lv)
+{
+    StaticString<256> res;
+    try {
+        for (auto& a : lv) {
+            if (a.isSymbol()) {
+                res += a.asT<t_symbol*>()->s_name;
+            } else if (a.isFloat()) {
+                char buf[32];
+                sprintf(buf, "%g", a.asT<t_float>());
+                res += buf;
+            }
+
+            res += ' ';
+        }
+    } catch (std::exception& e) {
+        LIB_ERR << "[inscore] " << e.what();
+    }
+
+    if (!lv.empty() && !res.empty())
+        res.pop_back();
+
+    return gensym(res.data());
+}
+
 template <size_t N>
 AtomListView toView(const AtomArray<N>& args)
+{
+    return AtomListView(&args.data()->atom(), args.size());
+}
+
+AtomListView toView(const AtomSmallArray& args)
 {
     return AtomListView(&args.data()->atom(), args.size());
 }
@@ -65,6 +110,21 @@ ProtoInscore::ProtoInscore(const PdArgs& args)
 
 void ProtoInscore::m_text(t_symbol* s, const AtomListView& lv)
 {
+    const bool ok = lv.size() >= 1 && lv[0].isSymbol();
+    if (!ok) {
+        METHOD_ERR(s) << "usage: OBJECT_NAME args...";
+        return;
+    }
+
+    AtomSmallArray args;
+    args.push_back(make_obj_msg(scene_->value(), lv[0]));
+    args.push_back(gensym("set"));
+    args.push_back(gensym("txt"));
+
+    for (auto& a : lv.subView(1))
+        args.push_back(a);
+
+    anyTo(0, gensym(SEND_AUTO_TYPED), toView(args));
 }
 
 void ProtoInscore::m_x(t_symbol* s, const AtomListView& lv)
@@ -220,10 +280,60 @@ void ProtoInscore::m_alpha(t_symbol* s, const AtomListView& lv)
     anyTo(0, gensym(SEND_TYPED), toView(args));
 }
 
+void ProtoInscore::m_gmn(t_symbol* s, const AtomListView& lv)
+{
+    const bool ok = lv.size() > 1 && lv[0].isSymbol();
+    if (!ok) {
+        METHOD_ERR(s) << "usage: OBJ_NAME GUIDO_NOTATION...";
+        return;
+    }
+
+    AtomArray<5> args;
+    args[0] = make_obj_msg(scene_->value(), lv[0]);
+    args[1] = gensym("sss");
+    args[2] = gensym("set");
+    args[3] = gensym("gmn");
+    args[4] = make_string(lv.subView(1));
+    anyTo(0, gensym(SEND_TYPED), toView(args));
+}
+
+void ProtoInscore::m_rect(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_SYMBOL, ARG_FLOAT, ARG_FLOAT)) {
+        METHOD_ERR(s) << "usage: OBJ_NAME WIDTH HEIGHT";
+        return;
+    }
+
+    AtomArray<6> args;
+    args[0] = make_obj_msg(scene_->value(), lv[0]);
+    args[1] = gensym("ssff");
+    args[2] = gensym("set");
+    args[3] = gensym("rect");
+    args[4] = lv[1];
+    args[5] = lv[2];
+    anyTo(0, gensym(SEND_TYPED), toView(args));
+}
+
+void ProtoInscore::m_ellipse(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_SYMBOL, ARG_FLOAT, ARG_FLOAT)) {
+        METHOD_ERR(s) << "usage: OBJ_NAME WIDTH HEIGHT";
+        return;
+    }
+
+    AtomArray<6> args;
+    args[0] = make_obj_msg(scene_->value(), lv[0]);
+    args[1] = gensym("ssff");
+    args[2] = gensym("set");
+    args[3] = gensym("ellipse");
+    args[4] = lv[1];
+    args[5] = lv[2];
+    anyTo(0, gensym(SEND_TYPED), toView(args));
+}
+
 void setup_proto_inscore()
 {
     ObjectFactory<ProtoInscore> obj("proto.inscore");
-    obj.addMethod("text", &ProtoInscore::m_text);
 
     obj.addMethod("x", &ProtoInscore::m_x);
     obj.addMethod("y", &ProtoInscore::m_y);
@@ -238,4 +348,10 @@ void setup_proto_inscore()
 
     obj.addMethod("color", &ProtoInscore::m_color);
     obj.addMethod("alpha", &ProtoInscore::m_alpha);
+
+    obj.addMethod("text", &ProtoInscore::m_text);
+    obj.addMethod("gmn", &ProtoInscore::m_gmn);
+
+    obj.addMethod("rect", &ProtoInscore::m_rect);
+    obj.addMethod("ellipse", &ProtoInscore::m_ellipse);
 }

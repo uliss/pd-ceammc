@@ -4,6 +4,7 @@
 #include "proto_sp_alpaca.h"
 #include "proto_whammy.h"
 
+void setup_proto_inscore();
 void setup_proto_midi();
 void setup_proto_midi_casio();
 void setup_proto_midi_cc();
@@ -15,6 +16,7 @@ void ceammc_proto_setup()
 {
     setup_proto_firmata();
     setup_proto_hui();
+    setup_proto_inscore();
     setup_proto_midi();
     setup_proto_midi_casio();
     setup_proto_midi_cc();
