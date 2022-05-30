@@ -24,8 +24,12 @@ public:
     ProtoInscore(const PdArgs& args);
 
     void m_text(t_symbol* s, const AtomListView& lv);
+
     void m_x(t_symbol* s, const AtomListView& lv);
     void m_y(t_symbol* s, const AtomListView& lv);
+    void m_z(t_symbol* s, const AtomListView& lv);
+    void m_scale(t_symbol* s, const AtomListView& lv);
+    void m_angle(t_symbol* s, const AtomListView& lv);
 };
 
 void setup_proto_inscore();

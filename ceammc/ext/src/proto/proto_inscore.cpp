@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "proto_inscore.h"
 #include "ceammc_factory.h"
+#include "ceammc_format.h"
 #include "fmt/format.h"
 
 #include <array>
@@ -21,15 +22,26 @@ template <size_t N>
 using AtomArray = std::array<Atom, N>;
 
 constexpr const char* SEND_FLOAT = "send_float";
+constexpr const char* SEND_TYPED = "send_typed";
 
 namespace {
 
-t_symbol* make_scene_msg(int i)
+t_symbol* make_obj_msg(int i, const char* objName)
 {
     if (i <= 0)
-        return gensym("/ITL/scene");
+        return gensym(fmt::format("/ITL/scene/{}", objName).c_str());
     else
-        return gensym(fmt::format("/ITL/scene{}", i).c_str());
+        return gensym(fmt::format("/ITL/scene{}/{}", i, objName).c_str());
+}
+
+t_symbol* make_obj_msg(int i, t_symbol* objName)
+{
+    return make_obj_msg(i, objName->s_name);
+}
+
+t_symbol* make_obj_msg(int i, const Atom& a)
+{
+    return make_obj_msg(i, a.isSymbol() ? a.asT<t_symbol*>()->s_name : to_string(a).c_str());
 }
 
 template <size_t N>
@@ -57,13 +69,15 @@ void ProtoInscore::m_text(t_symbol* s, const AtomListView& lv)
 
 void ProtoInscore::m_x(t_symbol* s, const AtomListView& lv)
 {
-    if (!checkArgs(lv, ARG_FLOAT, s))
+    if (!checkArgs(lv, ARG_SYMBOL, ARG_FLOAT, s))
         return;
 
-    AtomArray<2> args;
-    args[0] = gensym("x");
-    args[1] = lv[0];
-    anyTo(0, gensym(SEND_FLOAT), toView(args));
+    AtomArray<4> args;
+    args[0] = make_obj_msg(scene_->value(), lv[0]);
+    args[1] = gensym("sf");
+    args[2] = gensym("x");
+    args[3] = lv[1];
+    anyTo(0, gensym(SEND_TYPED), toView(args));
 }
 
 void ProtoInscore::m_y(t_symbol* s, const AtomListView& lv)
@@ -71,10 +85,51 @@ void ProtoInscore::m_y(t_symbol* s, const AtomListView& lv)
     if (!checkArgs(lv, ARG_FLOAT, s))
         return;
 
-    AtomArray<2> args;
-    args[0] = gensym("y");
-    args[1] = lv[0];
-    anyTo(0, gensym(SEND_FLOAT), toView(args));
+    AtomArray<4> args;
+    args[0] = make_obj_msg(scene_->value(), lv[0]);
+    args[1] = gensym("sf");
+    args[2] = gensym("y");
+    args[3] = lv[1];
+    anyTo(0, gensym(SEND_TYPED), toView(args));
+}
+
+void ProtoInscore::m_z(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_FLOAT, s))
+        return;
+
+    AtomArray<4> args;
+    args[0] = make_obj_msg(scene_->value(), lv[0]);
+    args[1] = gensym("sf");
+    args[2] = gensym("z");
+    args[3] = lv[1];
+    anyTo(0, gensym(SEND_TYPED), toView(args));
+}
+
+void ProtoInscore::m_angle(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_FLOAT, s))
+        return;
+
+    AtomArray<4> args;
+    args[0] = make_obj_msg(scene_->value(), lv[0]);
+    args[1] = gensym("sf");
+    args[2] = gensym("angle");
+    args[3] = lv[1];
+    anyTo(0, gensym(SEND_TYPED), toView(args));
+}
+
+void ProtoInscore::m_scale(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_FLOAT, s))
+        return;
+
+    AtomArray<4> args;
+    args[0] = make_obj_msg(scene_->value(), lv[0]);
+    args[1] = gensym("sf");
+    args[2] = gensym("scale");
+    args[3] = lv[1];
+    anyTo(0, gensym(SEND_TYPED), toView(args));
 }
 
 void setup_proto_inscore()
@@ -84,4 +139,7 @@ void setup_proto_inscore()
 
     obj.addMethod("x", &ProtoInscore::m_x);
     obj.addMethod("y", &ProtoInscore::m_y);
+    obj.addMethod("z", &ProtoInscore::m_z);
+    obj.addMethod("angle", &ProtoInscore::m_angle);
+    obj.addMethod("scale", &ProtoInscore::m_scale);
 }
