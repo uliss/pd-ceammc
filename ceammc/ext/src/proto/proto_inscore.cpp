@@ -184,11 +184,40 @@ void ProtoInscore::m_scale(t_symbol* s, const AtomListView& lv)
     if (!checkArgs(lv, ARG_SYMBOL, ARG_FLOAT, s))
         return;
 
-    AtomArray<4> args;
-    args[0] = make_obj_msg(scene_->value(), lv[0]);
-    args[1] = gensym("sf");
-    args[2] = gensym("scale");
-    args[3] = lv[1];
+    AtomArray<4> args {
+        make_obj_msg(scene_->value(), lv[0]),
+        gensym("sf"),
+        gensym("scale"),
+        lv[1],
+    };
+    anyTo(0, gensym(SEND_TYPED), toView(args));
+}
+
+void ProtoInscore::m_width(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_SYMBOL, ARG_FLOAT, s))
+        return;
+
+    AtomArray<4> args {
+        make_obj_msg(scene_->value(), lv[0]),
+        gensym("sf"),
+        gensym("width"),
+        lv[1],
+    };
+    anyTo(0, gensym(SEND_TYPED), toView(args));
+}
+
+void ProtoInscore::m_height(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_SYMBOL, ARG_FLOAT, s))
+        return;
+
+    AtomArray<4> args {
+        make_obj_msg(scene_->value(), lv[0]),
+        gensym("sf"),
+        gensym("height"),
+        lv[1],
+    };
     anyTo(0, gensym(SEND_TYPED), toView(args));
 }
 
@@ -340,6 +369,8 @@ void setup_proto_inscore()
     obj.addMethod("z", &ProtoInscore::m_z);
     obj.addMethod("angle", &ProtoInscore::m_angle);
     obj.addMethod("scale", &ProtoInscore::m_scale);
+    obj.addMethod("width", &ProtoInscore::m_angle);
+    obj.addMethod("height", &ProtoInscore::m_scale);
 
     obj.addMethod("dx", &ProtoInscore::m_dx);
     obj.addMethod("dy", &ProtoInscore::m_dy);
