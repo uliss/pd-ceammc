@@ -47,6 +47,8 @@ public:
 
     void m_fontSize(t_symbol* s, const AtomListView& lv);
     void m_fontWeight(t_symbol* s, const AtomListView& lv);
+
+    void m_del(t_symbol* s, const AtomListView& lv);
 };
 
 void setup_proto_inscore();

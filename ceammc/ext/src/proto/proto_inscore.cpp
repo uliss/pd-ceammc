@@ -426,6 +426,21 @@ void ProtoInscore::m_fontWeight(t_symbol* s, const AtomListView& lv)
     anyTo(0, gensym(SEND_TYPED), toView(args));
 }
 
+void ProtoInscore::m_del(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_SYMBOL)) {
+        METHOD_ERR(s) << "usage: OBJ_NAME";
+        return;
+    }
+
+    AtomArray<2> args {
+        make_obj_msg(scene_->value(), lv[0]),
+        gensym("del"),
+    };
+
+    anyTo(0, gensym(SEND_AUTO_TYPED), toView(args));
+}
+
 void setup_proto_inscore()
 {
     ObjectFactory<ProtoInscore> obj("proto.inscore");
@@ -454,4 +469,6 @@ void setup_proto_inscore()
 
     obj.addMethod("fontSize", &ProtoInscore::m_fontSize);
     obj.addMethod("fontWeight", &ProtoInscore::m_fontWeight);
+
+    obj.addMethod("del", &ProtoInscore::m_del);
 }
