@@ -37,7 +37,7 @@ static const char* PITCH_TABLE[NAMING_SCHEME_ALL][PITCH_NUM] = {
     { "До", "Ре", "Ми", "Фа", "Соль", "Ля", "Си" }, // russian
     { "C", "D", "E", "F", "G", "A", "B" }, // SPN
     { "C", "D", "E", "F", "G", "A", "B" }, // SPN
-    { "C", "D", "E", "F", "G", "A", "B" }, // Guido
+    { "c", "d", "e", "f", "g", "a", "b" }, // Guido
     { "C", "D", "E", "F", "G", "A", "B" } // ABC
 };
 
