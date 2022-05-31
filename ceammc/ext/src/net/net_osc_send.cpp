@@ -130,7 +130,7 @@ public:
 
     bool add(const NetOscSendOscTask& task)
     {
-        return pipe_.try_enqueue(task);
+        return pipe_.enqueue(task);
     }
 };
 
