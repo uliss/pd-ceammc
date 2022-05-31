@@ -79,13 +79,13 @@ ConvNote2Guido::GuidoNote ConvNote2Guido::guidoNote(size_t midiPitch, int dur, i
 
     char buf[16];
 
-    if (dur > 0) {
-        sprintf(buf, "%d", oct);
-        res.append(buf);
-    }
+    sprintf(buf, "%d", oct);
+    res += buf;
 
-    sprintf(buf, "/%d", dur);
-    res.append(buf);
+    if (dur > 0) {
+        sprintf(buf, "/%d", dur);
+        res += buf;
+    }
 
     if (dots-- > 0)
         res.push_back('.');
