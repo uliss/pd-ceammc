@@ -274,6 +274,34 @@ void ProtoInscore::m_dscale(t_symbol* s, const AtomListView& lv)
     anyTo(0, gensym(SEND_TYPED), toView(args));
 }
 
+void ProtoInscore::m_xorigin(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_SYMBOL, ARG_FLOAT, s))
+        return;
+
+    AtomArray<4> args {
+        make_obj_msg(scene_->value(), lv[0]),
+        gensym("sf"),
+        gensym("xorigin"),
+        lv[1],
+    };
+    anyTo(0, gensym(SEND_TYPED), toView(args));
+}
+
+void ProtoInscore::m_yorigin(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_SYMBOL, ARG_FLOAT, s))
+        return;
+
+    AtomArray<4> args {
+        make_obj_msg(scene_->value(), lv[0]),
+        gensym("sf"),
+        gensym("yorigin"),
+        lv[1],
+    };
+    anyTo(0, gensym(SEND_TYPED), toView(args));
+}
+
 void ProtoInscore::m_color(t_symbol* s, const AtomListView& lv)
 {
     if (checkArgs(lv, ARG_SYMBOL, ARG_FLOAT, ARG_FLOAT, ARG_FLOAT)) {
@@ -473,6 +501,9 @@ void setup_proto_inscore()
     obj.addMethod("dy", &ProtoInscore::m_dy);
     obj.addMethod("dz", &ProtoInscore::m_dz);
     obj.addMethod("dscale", &ProtoInscore::m_dscale);
+
+    obj.addMethod("xorigin", &ProtoInscore::m_xorigin);
+    obj.addMethod("yorigin", &ProtoInscore::m_yorigin);
 
     obj.addMethod("color", &ProtoInscore::m_color);
     obj.addMethod("alpha", &ProtoInscore::m_alpha);
