@@ -369,8 +369,8 @@ void setup_proto_inscore()
     obj.addMethod("z", &ProtoInscore::m_z);
     obj.addMethod("angle", &ProtoInscore::m_angle);
     obj.addMethod("scale", &ProtoInscore::m_scale);
-    obj.addMethod("width", &ProtoInscore::m_angle);
-    obj.addMethod("height", &ProtoInscore::m_scale);
+    obj.addMethod("width", &ProtoInscore::m_width);
+    obj.addMethod("height", &ProtoInscore::m_height);
 
     obj.addMethod("dx", &ProtoInscore::m_dx);
     obj.addMethod("dy", &ProtoInscore::m_dy);
