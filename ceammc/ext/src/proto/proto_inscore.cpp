@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "proto_inscore.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
 #include "fmt/format.h"
@@ -360,6 +361,71 @@ void ProtoInscore::m_ellipse(t_symbol* s, const AtomListView& lv)
     anyTo(0, gensym(SEND_TYPED), toView(args));
 }
 
+void ProtoInscore::m_fontSize(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_SYMBOL, ARG_FLOAT)) {
+        METHOD_ERR(s) << "usage: OBJ_NAME SIZE";
+        return;
+    }
+
+    constexpr int MIN_SIZE = 2;
+    constexpr int MAX_SIZE = 1024;
+    const auto sz = lv[1].asT<t_float>();
+    if (sz < MIN_SIZE || sz > MAX_SIZE) {
+        METHOD_ERR(s) << fmt::format("font size expected to be in {}..{} range, got: {}", MIN_SIZE, MAX_SIZE, sz);
+        return;
+    }
+
+    AtomArray<4> args {
+        make_obj_msg(scene_->value(), lv[0]),
+        gensym("si"),
+        gensym("fontSize"),
+        sz,
+    };
+
+    anyTo(0, gensym(SEND_TYPED), toView(args));
+}
+
+void ProtoInscore::m_fontWeight(t_symbol* s, const AtomListView& lv)
+{
+    CEAMMC_DEFINE_HASH(light);
+    CEAMMC_DEFINE_HASH(demibold);
+    CEAMMC_DEFINE_HASH(normal);
+    CEAMMC_DEFINE_HASH(bold);
+    CEAMMC_DEFINE_HASH(black);
+
+    auto valid_values = [=]() {
+        return fmt::format("{}|{}|{}|{}|{}", str_light, str_demibold, str_normal, str_bold, str_black);
+    };
+
+    if (!checkArgs(lv, ARG_SYMBOL, ARG_SYMBOL)) {
+        METHOD_ERR(s) << fmt::format("usage: OBJ_NAME {}", valid_values());
+        return;
+    }
+
+    auto w = lv[1].asT<t_symbol*>();
+    switch (crc32_hash(w)) {
+    case hash_light:
+    case hash_demibold:
+    case hash_normal:
+    case hash_bold:
+    case hash_black:
+        break;
+    default:
+        METHOD_ERR(s) << fmt::format("invalid value: {}, expected: {}", w->s_name, valid_values());
+        return;
+    }
+
+    AtomArray<4> args {
+        make_obj_msg(scene_->value(), lv[0]),
+        gensym("ss"),
+        gensym("fontWeight"),
+        w,
+    };
+
+    anyTo(0, gensym(SEND_TYPED), toView(args));
+}
+
 void setup_proto_inscore()
 {
     ObjectFactory<ProtoInscore> obj("proto.inscore");
@@ -385,4 +451,7 @@ void setup_proto_inscore()
 
     obj.addMethod("rect", &ProtoInscore::m_rect);
     obj.addMethod("ellipse", &ProtoInscore::m_ellipse);
+
+    obj.addMethod("fontSize", &ProtoInscore::m_fontSize);
+    obj.addMethod("fontWeight", &ProtoInscore::m_fontWeight);
 }

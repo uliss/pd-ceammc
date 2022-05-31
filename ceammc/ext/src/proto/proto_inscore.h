@@ -44,6 +44,9 @@ public:
     void m_gmn(t_symbol* s, const AtomListView& lv);
     void m_rect(t_symbol* s, const AtomListView& lv);
     void m_ellipse(t_symbol* s, const AtomListView& lv);
+
+    void m_fontSize(t_symbol* s, const AtomListView& lv);
+    void m_fontWeight(t_symbol* s, const AtomListView& lv);
 };
 
 void setup_proto_inscore();
