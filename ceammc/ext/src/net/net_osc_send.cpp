@@ -75,14 +75,14 @@ namespace {
 class OscSendWorker {
     using Pipe = moodycamel::ReaderWriterQueue<NetOscSendOscTask>;
 
-    static bool launchSender(OscSendWorker* w, bool& quit)
+    static bool launchSender(OscSendWorker* w, const bool& quit)
     {
         while (!quit) {
             NetOscSendOscTask task;
             try {
                 while (w->pipe_.try_dequeue(task)) {
                     if (quit)
-                        break;
+                        return true;
 
                     lo_address addr = lo_address_new(task.host.c_str(), fmt::format("{:d}", task.port).c_str());
                     const auto rc = lo_send_message(addr, task.path.c_str(), task.msg());
@@ -113,7 +113,7 @@ class OscSendWorker {
 
     ~OscSendWorker()
     {
-        quit_ = false;
+        quit_ = true;
         future_.wait();
     }
 
