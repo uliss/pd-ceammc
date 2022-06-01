@@ -26,16 +26,14 @@ public:
         setProperty(gensym("@gate"), Atom(0.f));
     }
 
-    void onInlet(size_t, const AtomList& l)
+    void onInlet(size_t, const AtomListView& lv) override
     {
-        bool ok = !l.empty() && l[0].isFloat();
-        if (!ok) {
-            OBJ_ERR << "1 or 0 expected: " << l;
+        if (!checkArgs(lv, ARG_BOOL)) {
+            OBJ_ERR << "1 or 0 expected: " << lv;
             return;
         }
 
-        t_float f = l[0].asFloat();
-        setProperty(gensym("@gate"), Atom(f == 0.f ? 0.f : 1));
+        setProperty(gensym("@gate"), Atom(lv.asT<bool>()));
     }
 };
 
@@ -45,4 +43,6 @@ void setup_live_capture_tilde()
     obj.addMethod("reset", &LiveCapture::m_reset);
     obj.addMethod("record", &LiveCapture::m_record);
     obj.addMethod("stop", &LiveCapture::m_stop);
+
+    obj.setXletsInfo({ "input signal", "float: 1|0 to start|stop record" }, { "recorded signal" });
 }
