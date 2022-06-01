@@ -164,9 +164,9 @@ public:
         return dict()->write(path);
     }
 
-    bool proto_choose(Atom& res) const override
+    bool proto_choose(Atom& key) const override
     {
-        return false;
+        return dict()->choose(key);
     }
 
     bool proto_read(const std::string& path) override

@@ -184,6 +184,8 @@ public:
     bool read(const std::string& path);
     bool write(const std::string& path) const;
 
+    bool choose(Atom& key) const noexcept;
+
 public:
     /**
      * Creates dict from list, splitting it by step

@@ -20,7 +20,8 @@
   - [side2circle( method added to xdac~ to change output channel layout
   - [-(, [+(, [@value?( methods added to second inlet of \[flow.count\]
   - [at(, [front(, [back( methods added to data.list/data.mlist
-  - [choose( method added to get random element from \[data.set\]
+  - [choose( method added to get random element from \[data.set\], \[local.set\] and \[global.set\]
+  - [choose( method added to get random element from \[data.dict\], \[local.dict\] and \[global.dict\]
 - misc:
   - conv.lin2exp: list support added
   - conv.lin2curve: list support added

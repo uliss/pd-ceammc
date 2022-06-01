@@ -43,7 +43,7 @@ Default value: 0\. Min value: 0\.;
 #X obj 255 575 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 575 VAL: added values. Type: list.;
 #X msg 110 600 choose;
-#X text 245 600 choose random element in list and output it.;
+#X text 245 600 choose random element and output it.;
 #X msg 110 627 clear;
 #X text 245 627 removes all set elements.;
 #X msg 110 654 remove;

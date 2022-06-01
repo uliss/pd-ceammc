@@ -35,7 +35,7 @@
             <param name="VAL" type="list" required="true">elements</param></method>
             <method name="set">sets new set content without output 
             <param name="LIST" type="list" required="true">new set content</param></method>
-            <method name="choose">choose random element in list and output it</method>
+            <method name="choose">choose random element and output it</method>
         </methods>
         <inlets>
             <inlet>
