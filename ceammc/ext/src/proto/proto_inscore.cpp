@@ -85,6 +85,33 @@ t_symbol* make_string(const AtomListView& lv)
     return gensym(res.data());
 }
 
+t_symbol* make_chord(const AtomListView& lv)
+{
+    StaticString<256> res("{");
+    try {
+        for (auto& a : lv) {
+            if (a.isSymbol()) {
+                res += a.asT<t_symbol*>()->s_name;
+            } else if (a.isFloat()) {
+                char buf[32];
+                sprintf(buf, "%g", a.asT<t_float>());
+                res += buf;
+            }
+
+            res += ',';
+        }
+    } catch (std::exception& e) {
+        LIB_ERR << "[inscore] " << e.what();
+    }
+
+    if (!lv.empty() && !res.empty())
+        res.back() = '}';
+    else
+        res.clear();
+
+    return gensym(res.data());
+}
+
 template <size_t N>
 AtomListView toView(const AtomArray<N>& args)
 {
@@ -355,6 +382,58 @@ void ProtoInscore::m_gmn(t_symbol* s, const AtomListView& lv)
     anyTo(0, gensym(SEND_TYPED), toView(args));
 }
 
+void ProtoInscore::m_gmnstream(t_symbol* s, const AtomListView& lv)
+{
+    const bool ok = lv.size() > 1 && lv[0].isSymbol();
+    if (!ok) {
+        METHOD_ERR(s) << "usage: OBJ_NAME GUIDO_NOTATION...";
+        return;
+    }
+
+    AtomArray<5> args {
+        make_obj_msg(scene_->value(), lv[0]),
+        gensym("sss"),
+        gensym("set"),
+        gensym("gmnstream"),
+        make_string(lv.subView(1)),
+    };
+    anyTo(0, gensym(SEND_TYPED), toView(args));
+}
+
+void ProtoInscore::m_write_chord(t_symbol* s, const AtomListView& lv)
+{
+    const bool ok = lv.size() > 1 && lv[0].isSymbol();
+    if (!ok) {
+        METHOD_ERR(s) << "usage: OBJ_NAME NOTES...";
+        return;
+    }
+
+    AtomArray<4> args {
+        make_obj_msg(scene_->value(), lv[0]),
+        gensym("ss"),
+        gensym("write"),
+        make_chord(lv.subView(1)),
+    };
+    anyTo(0, gensym(SEND_TYPED), toView(args));
+}
+
+void ProtoInscore::m_write(t_symbol* s, const AtomListView& lv)
+{
+    const bool ok = lv.size() > 1 && lv[0].isSymbol();
+    if (!ok) {
+        METHOD_ERR(s) << "usage: OBJ_NAME GUIDO_NOTATION...";
+        return;
+    }
+
+    AtomArray<4> args {
+        make_obj_msg(scene_->value(), lv[0]),
+        gensym("ss"),
+        gensym("write"),
+        make_string(lv.subView(1)),
+    };
+    anyTo(0, gensym(SEND_TYPED), toView(args));
+}
+
 void ProtoInscore::m_rect(t_symbol* s, const AtomListView& lv)
 {
     if (!checkArgs(lv, ARG_SYMBOL, ARG_FLOAT, ARG_FLOAT)) {
@@ -510,6 +589,7 @@ void setup_proto_inscore()
 
     obj.addMethod("text", &ProtoInscore::m_text);
     obj.addMethod("gmn", &ProtoInscore::m_gmn);
+    obj.addMethod("gmn<<", &ProtoInscore::m_gmnstream);
 
     obj.addMethod("rect", &ProtoInscore::m_rect);
     obj.addMethod("ellipse", &ProtoInscore::m_ellipse);
@@ -519,4 +599,7 @@ void setup_proto_inscore()
 
     obj.addMethod("show", &ProtoInscore::m_show);
     obj.addMethod("del", &ProtoInscore::m_del);
+
+    obj.addMethod("write", &ProtoInscore::m_write);
+    obj.addMethod("write_chord", &ProtoInscore::m_write_chord);
 }

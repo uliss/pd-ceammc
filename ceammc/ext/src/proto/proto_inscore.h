@@ -45,6 +45,9 @@ public:
     void m_alpha(t_symbol* s, const AtomListView& lv);
 
     void m_gmn(t_symbol* s, const AtomListView& lv);
+    void m_gmnstream(t_symbol* s, const AtomListView& lv);
+    void m_write_chord(t_symbol* s, const AtomListView& lv);
+    void m_write(t_symbol* s, const AtomListView& lv);
     void m_rect(t_symbol* s, const AtomListView& lv);
     void m_ellipse(t_symbol* s, const AtomListView& lv);
 
