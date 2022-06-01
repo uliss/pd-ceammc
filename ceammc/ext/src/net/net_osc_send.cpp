@@ -75,7 +75,7 @@ namespace {
 class OscSendWorker {
     using Pipe = moodycamel::ReaderWriterQueue<NetOscSendOscTask>;
 
-    static bool launchSender(OscSendWorker* w, const bool& quit)
+    static bool launchSender(OscSendWorker* w, const std::atomic_bool& quit)
     {
         while (!quit) {
             NetOscSendOscTask task;
@@ -119,7 +119,7 @@ class OscSendWorker {
 
     Pipe pipe_;
     std::future<bool> future_;
-    bool quit_;
+    std::atomic_bool quit_;
 
 public:
     static OscSendWorker& instance()
