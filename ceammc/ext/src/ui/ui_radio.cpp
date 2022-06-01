@@ -10,7 +10,6 @@
 
 constexpr int DEFAULT_CELL_SIZE = 15;
 constexpr int MAX_ITEMS = 128;
-static t_symbol* SYM_PROP_NITEMS;
 
 void setup_ui_radio()
 {
@@ -78,6 +77,7 @@ void UIRadio::init(t_symbol* name, const AtomListView& args, bool usePresets)
         // no @size property:
         // should calc size from @nitems
         if (!prop_size_found) {
+            auto SYM_PROP_NITEMS = gensym("@nitems");
             const size_t N = args.size();
             for (size_t i = 0; i < N; i++) {
                 const auto& a = args[i];
@@ -433,20 +433,15 @@ void UIRadio::okSize(t_rect* newrect)
 {
     assert(prop_nitems_ > 0);
 
-    //    if (isPatchLoading()) {
-    //        newrect->height = pd_clip_min(newrect->height, 8);
-    //        newrect->width = pd_clip_min(newrect->width, 8);
-    //    } else {
     if (isVertical()) {
-        const int box_size = pd_clip_min(static_cast<int>(newrect->height / prop_nitems_), 8);
+        const int box_size = std::round(pd_clip_min(newrect->height / prop_nitems_, 8));
         newrect->height = prop_nitems_ * box_size;
         newrect->width = box_size;
     } else {
-        const int box_size = pd_clip_min(static_cast<int>(newrect->width / prop_nitems_), 8);
+        const int box_size = std::round(pd_clip_min(newrect->width / prop_nitems_, 8));
         newrect->width = prop_nitems_ * box_size;
         newrect->height = box_size;
     }
-    //    }
 }
 
 void UIRadio::redrawAll()
@@ -470,8 +465,6 @@ void UIRadio::onPropChange(t_symbol* prop_name)
 void UIRadio::setup()
 {
     sys_vgui(ui_radio_tcl);
-
-    SYM_PROP_NITEMS = gensym("@nitems");
 
     UIObjectFactory<UIRadio> obj("ui.radio");
     obj.addAlias("ui.hrd");
