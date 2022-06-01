@@ -18,6 +18,9 @@
 #include "data_protocol.h"
 #include "datatype_set.h"
 
+#include <ctime>
+#include <random>
+
 using namespace ceammc;
 
 template <class T>
@@ -84,6 +87,11 @@ public:
     void proto_set(const AtomListView& lst) override
     {
         data() = DataTypeSet(lst);
+    }
+
+    bool proto_choose(Atom& res) const override
+    {
+        return data().choose(res);
     }
 
 public:

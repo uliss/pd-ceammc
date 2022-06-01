@@ -20,6 +20,7 @@
   - [side2circle( method added to xdac~ to change output channel layout
   - [-(, [+(, [@value?( methods added to second inlet of \[flow.count\]
   - [at(, [front(, [back( methods added to data.list/data.mlist
+  - [choose( method added to get random element from \[data.set\]
 - misc:
   - conv.lin2exp: list support added
   - conv.lin2curve: list support added
