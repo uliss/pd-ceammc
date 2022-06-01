@@ -844,7 +844,7 @@ TEST_CASE("MusicTheory::PitchClass", "[ceammc::music]")
 
     SECTION("to_string")
     {
-        REQUIRE_TO_STR(Cs, "C#", NAMING_SCHEME_GUIDO);
+        REQUIRE_TO_STR(Cs, "c#", NAMING_SCHEME_GUIDO);
         REQUIRE_TO_STR(Cs, "C sharp", NAMING_SCHEME_ENGLISH);
         REQUIRE_TO_STR(Cs, "C#", NAMING_SCHEME_SPN);
 
@@ -881,11 +881,11 @@ TEST_CASE("MusicTheory::PitchClass", "[ceammc::music]")
         REQUIRE_TO_STR(Fs, "^F", NAMING_SCHEME_ABC);
         REQUIRE_TO_STR(Fss, "^^F", NAMING_SCHEME_ABC);
 
-        REQUIRE_TO_STR(F, "F", NAMING_SCHEME_GUIDO);
-        REQUIRE_TO_STR(Ff, "F&", NAMING_SCHEME_GUIDO);
-        REQUIRE_TO_STR(Fff, "F&&", NAMING_SCHEME_GUIDO);
-        REQUIRE_TO_STR(Fs, "F#", NAMING_SCHEME_GUIDO);
-        REQUIRE_TO_STR(Fss, "F##", NAMING_SCHEME_GUIDO);
+        REQUIRE_TO_STR(F, "f", NAMING_SCHEME_GUIDO);
+        REQUIRE_TO_STR(Ff, "f&", NAMING_SCHEME_GUIDO);
+        REQUIRE_TO_STR(Fff, "f&&", NAMING_SCHEME_GUIDO);
+        REQUIRE_TO_STR(Fs, "f#", NAMING_SCHEME_GUIDO);
+        REQUIRE_TO_STR(Fss, "f##", NAMING_SCHEME_GUIDO);
 
         REQUIRE_TO_STR(F, "F", NAMING_SCHEME_SPN);
         REQUIRE_TO_STR(Ff, "Fb", NAMING_SCHEME_SPN);
