@@ -85,8 +85,7 @@ public:
         }
 
         const auto v = lv[0].asT<t_float>();
-        if (v >= 0) {
-            dsp_->instanceClear();
+        if (v > 0) {
             prop_gate_->setValue(v, true);
             clockReset();
         } else {
