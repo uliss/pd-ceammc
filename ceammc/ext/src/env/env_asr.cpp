@@ -84,13 +84,7 @@ public:
             return;
         }
 
-        const auto v = lv[0].asT<t_float>();
-        if (v > 0) {
-            prop_gate_->setValue(v, true);
-            clockReset();
-        } else {
-            prop_gate_->setValue(0, true);
-        }
+        sendGate(lv[0].asT<t_float>());
     }
 
     void m_reset(t_symbol*, const AtomListView&)
