@@ -367,9 +367,9 @@ BaseClone::BaseClone(const PdArgs& args)
     , pattern_hash_(0)
     , renaming_(false)
 {
-    num_ = new IntProperty("@n", 0);
+    num_ = new IntProperty("@n", 1);
     num_->setInitOnly();
-    num_->checkMinEq(0);
+    num_->checkMinEq(1);
     num_->setArgIndex(0);
     addProperty(num_);
 
