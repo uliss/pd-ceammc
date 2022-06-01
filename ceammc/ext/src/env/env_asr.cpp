@@ -79,18 +79,18 @@ public:
 
     void onInlet(size_t n, const AtomListView& lv) final
     {
-        if (!checkArgs(lv, ARG_BOOL)) {
-            OBJ_ERR << "bool value expected, got: " << lv;
+        if (!checkArgs(lv, ARG_FLOAT)) {
+            OBJ_ERR << "float value expected, got: " << lv;
             return;
         }
 
-        const auto on = lv[0].asT<bool>();
-        if (on) {
+        const auto v = lv[0].asT<t_float>();
+        if (v >= 0) {
             dsp_->instanceClear();
-            prop_gate_->setValue(1);
+            prop_gate_->setValue(v, true);
             clockReset();
         } else {
-            prop_gate_->setValue(0);
+            prop_gate_->setValue(0, true);
         }
     }
 
@@ -135,6 +135,6 @@ void setup_env_asr_tilde()
     obj.addMethod("reset", &EnvAsr::m_reset);
 
     obj.setXletsInfo(
-        { "signal: input", "float: 1|0 to start or stop envelope" },
+        { "signal: input", "float: start (if >0) or stop(if =0) envelope" },
         { "signal: output", "float: 1 on attack done, 0 on release done" });
 }
