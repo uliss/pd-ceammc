@@ -837,10 +837,8 @@ void UIMatrix::loadPreset(size_t idx)
         }
     }
 
-    if (isVisible()) {
-        eraseCells();
-        createCells();
-    }
+    drawActiveCells();
+    outputAllCells();
 }
 
 void UIMatrix::storePreset(size_t idx)
