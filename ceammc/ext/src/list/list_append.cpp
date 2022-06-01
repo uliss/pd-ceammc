@@ -50,9 +50,9 @@ void ListAppend::onData(const Atom& d)
     onList(d);
 }
 
-void ListAppend::onInlet(size_t n, const AtomListView& lst)
+void ListAppend::onInlet(size_t n, const AtomListView& lv)
 {
-    lst_->set(lst);
+    lst_->set(lv);
 }
 
 void setup_list_append()
@@ -61,4 +61,6 @@ void setup_list_append()
     obj.processData<DataTypeMList>();
     obj.useDefaultPdFloatFn();
     obj.useDefaultPdSymbolFn();
+
+    obj.setXletsInfo({ "list: input list", "atom or list: set appended value" }, { "list: output" });
 }
