@@ -110,7 +110,7 @@ dyn.limit~		~		~
 dyn.softclip~		~		~
 env.adsr~		~		~.
 env.ar~		~		~.
-env.asr~		~		~.
+env.asr~		~.		~.
 env.concat		..		.
 env.follow~		~		~
 env.mix		...		.
