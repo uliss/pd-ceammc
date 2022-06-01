@@ -47,7 +47,7 @@ TEST_CASE("env.asr~", "[externals]")
         PROPERTY_REQUEST(t, "@asr", 4, 90, 5);
         t.clearAll();
 
-        REQUIRE(t.numInlets() == 1);
+        REQUIRE(t.numInlets() == 2);
         REQUIRE(t.numOutlets() == 2);
 
         t.sendMessage(SYM("@attack"), LA(10));

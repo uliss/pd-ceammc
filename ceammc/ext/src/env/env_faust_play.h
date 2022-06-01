@@ -46,17 +46,16 @@ public:
         sendGate(1);
     }
 
-private:
-
+protected:
     void sendReset()
     {
-        static t_symbol* SYM_RESET = gensym("reset");
+        auto SYM_RESET = gensym("reset");
         pd_typedmess(&(this->owner()->te_g.g_pd), SYM_RESET, 0, nullptr);
     }
 
     void sendGate(bool on)
     {
-        static t_symbol* SYM_PROP_GATE2 = gensym("@gate");
+        auto SYM_PROP_GATE2 = gensym("@gate");
 
         // send @gate message
         t_atom v;
