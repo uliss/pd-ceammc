@@ -44,5 +44,5 @@ void setup_live_capture_tilde()
     obj.addMethod("record", &LiveCapture::m_record);
     obj.addMethod("stop", &LiveCapture::m_stop);
 
-    obj.setXletsInfo({ "input signal", "float: 1|0 to start|stop record" }, { "recorded signal" });
+    obj.setXletsInfo({ "signal: input\nmethods: @gate, start, stop", "float: 1|0 to start or stop recording" }, { "signal: recorded loop" });
 }
