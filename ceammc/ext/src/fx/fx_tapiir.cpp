@@ -1,5 +1,6 @@
 #include "fx_tapiir.h"
 #include "ceammc_args.h"
+#include "ceammc_convert.h"
 #include "ceammc_factory.h"
 #include "ceammc_units.h"
 #include "fx_tapiir_priv.h"
@@ -203,6 +204,54 @@ FxTapiir::FxTapiir(const PdArgs& args)
     createTapFbProp<5>();
 }
 
+void FxTapiir::m_random(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_SYMBOL, ARG_FLOAT, ARG_FLOAT)) {
+        METHOD_ERR(s) << "expected: fb|gains|inputs|outputs|delays MIN MAX";
+        return;
+    }
+
+    std::mt19937 dev(time(nullptr));
+    auto sel = lv[0].asSymbol();
+
+    if (sel == gensym("delays")) {
+        auto min = clip_min<t_float>(lv[1].asFloat(), 0);
+        auto max = clip_min<t_float>(lv[2].asFloat(), 0);
+
+        std::uniform_real_distribution<t_float> dist(min, max);
+        for (auto p : tap_delays_)
+            p->setValue(dist(dev), true);
+    } else if (sel == gensym("fb")) {
+        auto min = clip<t_float>(lv[1].asFloat(), 0, 0.999);
+        auto max = clip<t_float>(lv[2].asFloat(), 0, 0.999);
+
+        std::uniform_real_distribution<t_float> dist(min, max);
+        for (auto p : tap_fb_)
+            p->setValue(dist(dev), true);
+    } else if (sel == gensym("inputs")) {
+        auto min = clip<t_float>(lv[1].asFloat(), 0, 0.999);
+        auto max = clip<t_float>(lv[2].asFloat(), 0, 0.999);
+
+        std::uniform_real_distribution<t_float> dist(min, max);
+        for (auto p : tap_inputs_)
+            p->setValue(dist(dev), true);
+    } else if (sel == gensym("gains")) {
+        auto min = clip<t_float>(lv[1].asFloat(), -60, 0);
+        auto max = clip<t_float>(lv[2].asFloat(), -60, 0);
+
+        std::uniform_real_distribution<t_float> dist(min, max);
+        for (auto p : tap_gains_)
+            p->setValue(dist(dev), true);
+    } else if (sel == gensym("outputs")) {
+        auto min = clip<t_float>(lv[1].asFloat(), 0, 0.999);
+        auto max = clip<t_float>(lv[2].asFloat(), 0, 0.999);
+
+        std::uniform_real_distribution<t_float> dist(min, max);
+        for (auto p : tap_outputs_)
+            p->setValue(dist(dev), true);
+    }
+}
+
 void FxTapiir::getTapFb(size_t tapn, AtomList& res)
 {
     for (size_t i = 0; i < std::min(tap_fb_.size(), NUM_TAPS); i++) {
@@ -254,4 +303,5 @@ void setup_fx_tapiir_tilde()
 {
     SoundExternalFactory<FxTapiir> obj("fx.tapiir~");
     obj.addMethod("reset", &FxTapiir::m_reset);
+    obj.addMethod("random", &FxTapiir::m_random);
 }

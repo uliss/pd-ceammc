@@ -16,6 +16,11 @@
         </meta>
         <methods>
             <method name="reset">reset to initial state</method>
+            <method name="random">randomize values
+            <param name="TYPE" type="symbol" enum="delays fb inputs outputs gains" required="true">group name.
+            If 'delays' - randomize @delays properties, if 'fb' - randomize @fb* properties.</param>
+            <param name="MIN" type="float" minvalue="0">minimal value</param>
+            <param name="MAX" type="float" minvalue="0">maximum value</param></method>
         </methods>
         <properties>
             <property name="@delays" type="list" default="0 0 0 0 0 0" units="millisecond">list of
