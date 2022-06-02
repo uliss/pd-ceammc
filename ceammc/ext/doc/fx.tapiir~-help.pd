@@ -11,330 +11,332 @@
 #X msg 414 147 list 8_ 16 8_ 16 8_ 16;
 #X obj 50 176 flt.resonbp~ 1000 50;
 #X obj 414 176 music.d->t @bpm 60 1;
-#X obj 78 205 flt.resonbp~ 2000 50;
+#X obj 78 205 flt.resonbp~ 1700 50;
 #X obj 88 234 ui.sliders 6 @size 84 50 @min 0 @max 1;
 #X obj 251 234 ui.sliders 6 @size 84 50 @min 0 @max 1;
 #X obj 414 234 ui.sliders 6 @size 84 50 @min 50 @max 1000;
 #X obj 88 291 m @outs0;
 #X obj 251 291 m @outs1;
 #X obj 414 291 m @delays;
-#X obj 50 334 fx.tapiir~ @out0.in0 1 @out1.in1 1;
-#X obj 50 363 ui.hgain2~;
-#X obj 203 363 ui.dsp~;
-#X obj 50 392 dac~;
-#X obj 20 441 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 446 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X msg 88 320 reset;
+#X msg 414 320 random delays 200 3000 \, random fb 0.1 0.2;
+#X obj 50 378 fx.tapiir~ @out0.in0 1 @out1.in1 1;
+#X obj 50 406 ui.hgain2~;
+#X obj 414 406 ui.dsp~;
+#X obj 50 435 dac~;
+#X obj 20 484 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 489 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 481 @active;
-#X text 245 481 Get/Set on/off dsp processing. Type: int. Default value:
+#X msg 110 524 @active;
+#X text 245 524 Get/Set on/off dsp processing. Type: int. Default value:
 1\. Allowed values: 0 \, 1\.;
-#X msg 110 523 @delays;
-#X text 245 523 Get/Set list of all tap delays. Type: list. Units:
+#X msg 110 566 @delays;
+#X text 245 566 Get/Set list of all tap delays. Type: list. Units:
 ms. Default value: 0 0 0 0 0 0\.;
-#X msg 110 565 @fbs0;
-#X text 245 565 Get/Set list of all feedbacks to tap0\. Type: list.
+#X msg 110 608 @fbs0;
+#X text 245 608 Get/Set list of all feedbacks to tap0\. Type: list.
 Default value: 0 0 0 0 0 0\. Range: 0\...1\.;
-#X msg 110 607 @fbs1;
-#X text 245 607 Get/Set list of all feedbacks to tap1\. Type: list.
+#X msg 110 650 @fbs1;
+#X text 245 650 Get/Set list of all feedbacks to tap1\. Type: list.
 Default value: 0 0 0 0 0 0\. Range: 0\...1\.;
-#X msg 110 649 @fbs2;
-#X text 245 649 Get/Set list of all feedbacks to tap2\. Type: list.
+#X msg 110 692 @fbs2;
+#X text 245 692 Get/Set list of all feedbacks to tap2\. Type: list.
 Default value: 0 0 0 0 0 0\. Range: 0\...1\.;
-#X msg 110 691 @fbs3;
-#X text 245 691 Get/Set list of all feedbacks to tap3\. Type: list.
+#X msg 110 734 @fbs3;
+#X text 245 734 Get/Set list of all feedbacks to tap3\. Type: list.
 Default value: 0 0 0 0 0 0\. Range: 0\...1\.;
-#X msg 110 733 @fbs4;
-#X text 245 733 Get/Set list of all feedbacks to tap4\. Type: list.
+#X msg 110 776 @fbs4;
+#X text 245 776 Get/Set list of all feedbacks to tap4\. Type: list.
 Default value: 0 0 0 0 0 0\. Range: 0\...1\.;
-#X msg 110 775 @fbs5;
-#X text 245 775 Get/Set list of all feedbacks to tap5\. Type: list.
+#X msg 110 818 @fbs5;
+#X text 245 818 Get/Set list of all feedbacks to tap5\. Type: list.
 Default value: 0 0 0 0 0 0\. Range: 0\...1\.;
-#X msg 110 817 @gains;
-#X text 245 817 Get/Set list of all tap gains. Type: list. Units: db.
+#X msg 110 860 @gains;
+#X text 245 860 Get/Set list of all tap gains. Type: list. Units: db.
 Default value: 0 0 0 0 0 0\.;
-#X msg 110 859 @ins0;
-#X text 245 859 Get/Set list of all taps left channel input levels.
+#X msg 110 902 @ins0;
+#X text 245 902 Get/Set list of all taps left channel input levels.
 Type: list. Default value: 1 1 1 1 1 1\. Range: 0\...1\.;
-#X msg 110 901 @ins1;
-#X text 245 901 Get/Set list of all taps right channel input levels.
+#X msg 110 944 @ins1;
+#X text 245 944 Get/Set list of all taps right channel input levels.
 Type: list. Default value: 1 1 1 1 1 1\. Range: 0\...1\.;
-#X msg 110 943 @out0.gain;
-#X text 245 943 Get/Set left channel output gain. Type: float. Units:
+#X msg 110 986 @out0.gain;
+#X text 245 986 Get/Set left channel output gain. Type: float. Units:
 db. Default value: 0\. Range: -60\...0\.;
-#X msg 110 985 @out0.in0;
-#X text 245 985 Get/Set input left channel level to left output. Type:
+#X msg 110 1028 @out0.in0;
+#X text 245 1028 Get/Set input left channel level to left output. Type:
 float. Default value: 0\. Range: 0\...1\.;
-#X msg 110 1027 @out0.in1;
-#X text 245 1027 Get/Set input right channel level to left output.
+#X msg 110 1070 @out0.in1;
+#X text 245 1070 Get/Set input right channel level to left output.
 Type: float. Default value: 0\. Range: 0\...1\.;
-#X msg 110 1069 @out0.tap0;
-#X text 245 1069 Get/Set tap 0 output level to left channel. Type:
+#X msg 110 1112 @out0.tap0;
+#X text 245 1112 Get/Set tap 0 output level to left channel. Type:
 float. Default value: 0\. Range: 0\...1\.;
-#X msg 110 1111 @out0.tap1;
-#X text 245 1111 Get/Set tap 1 output level to left channel. Type:
+#X msg 110 1154 @out0.tap1;
+#X text 245 1154 Get/Set tap 1 output level to left channel. Type:
 float. Default value: 0\. Range: 0\...1\.;
-#X msg 110 1153 @out0.tap2;
-#X text 245 1153 Get/Set tap 2 output level to left channel. Type:
+#X msg 110 1196 @out0.tap2;
+#X text 245 1196 Get/Set tap 2 output level to left channel. Type:
 float. Default value: 0\. Range: 0\...1\.;
-#X msg 110 1195 @out0.tap3;
-#X text 245 1195 Get/Set tap 3 output level to left channel. Type:
+#X msg 110 1238 @out0.tap3;
+#X text 245 1238 Get/Set tap 3 output level to left channel. Type:
 float. Default value: 0\. Range: 0\...1\.;
-#X msg 110 1237 @out0.tap4;
-#X text 245 1237 Get/Set tap 4 output level to left channel. Type:
+#X msg 110 1280 @out0.tap4;
+#X text 245 1280 Get/Set tap 4 output level to left channel. Type:
 float. Default value: 0\. Range: 0\...1\.;
-#X msg 110 1279 @out0.tap5;
-#X text 245 1279 Get/Set tap 5 output level to left channel. Type:
+#X msg 110 1322 @out0.tap5;
+#X text 245 1322 Get/Set tap 5 output level to left channel. Type:
 float. Default value: 0\. Range: 0\...1\.;
-#X msg 110 1321 @out1.gain;
-#X text 245 1321 Get/Set right channel output gain. Type: float. Units:
+#X msg 110 1364 @out1.gain;
+#X text 245 1364 Get/Set right channel output gain. Type: float. Units:
 db. Default value: 0\. Range: -60\...0\.;
-#X msg 110 1363 @out1.in0;
-#X text 245 1363 Get/Set input left channel level to right output.
+#X msg 110 1406 @out1.in0;
+#X text 245 1406 Get/Set input left channel level to right output.
 Type: float. Default value: 0\. Range: 0\...1\.;
-#X msg 110 1405 @out1.in1;
-#X text 245 1405 Get/Set input right channel level to right output.
+#X msg 110 1448 @out1.in1;
+#X text 245 1448 Get/Set input right channel level to right output.
 Type: float. Default value: 0\. Range: 0\...1\.;
-#X msg 110 1447 @out1.tap0;
-#X text 245 1447 Get/Set tap 0 output level to right channel. Type:
+#X msg 110 1490 @out1.tap0;
+#X text 245 1490 Get/Set tap 0 output level to right channel. Type:
 float. Default value: 0\. Range: 0\...1\.;
-#X msg 110 1489 @out1.tap1;
-#X text 245 1489 Get/Set tap 1 output level to right channel. Type:
+#X msg 110 1532 @out1.tap1;
+#X text 245 1532 Get/Set tap 1 output level to right channel. Type:
 float. Default value: 0\. Range: 0\...1\.;
-#X msg 110 1531 @out1.tap2;
-#X text 245 1531 Get/Set tap 2 output level to right channel. Type:
+#X msg 110 1574 @out1.tap2;
+#X text 245 1574 Get/Set tap 2 output level to right channel. Type:
 float. Default value: 0\. Range: 0\...1\.;
-#X msg 110 1573 @out1.tap3;
-#X text 245 1573 Get/Set tap 3 output level to right channel. Type:
+#X msg 110 1616 @out1.tap3;
+#X text 245 1616 Get/Set tap 3 output level to right channel. Type:
 float. Default value: 0\. Range: 0\...1\.;
-#X msg 110 1615 @out1.tap4;
-#X text 245 1615 Get/Set tap 4 output level to right channel. Type:
+#X msg 110 1658 @out1.tap4;
+#X text 245 1658 Get/Set tap 4 output level to right channel. Type:
 float. Default value: 0\. Range: 0\...1\.;
-#X msg 110 1657 @out1.tap5;
-#X text 245 1657 Get/Set tap 5 output level to right channel. Type:
+#X msg 110 1700 @out1.tap5;
+#X text 245 1700 Get/Set tap 5 output level to right channel. Type:
 float. Default value: 0\. Range: 0\...1\.;
-#X msg 110 1699 @outs0;
-#X text 245 1699 Get/Set list of all tap output levels to left channel.
+#X msg 110 1742 @outs0;
+#X text 245 1742 Get/Set list of all tap output levels to left channel.
 Type: list. Default value: 0 0 0 0 0 0\. Range: 0\...1\.;
-#X msg 110 1741 @outs1;
-#X text 245 1741 Get/Set list of all tap output levels to right channel.
+#X msg 110 1784 @outs1;
+#X text 245 1784 Get/Set list of all tap output levels to right channel.
 Type: list. Default value: 0 0 0 0 0 0\. Range: 0\...1\.;
-#X msg 110 1783 @tap0.delay;
-#X text 245 1783 Get/Set tap0 delay time. Type: float. Units: ms. Default
+#X msg 110 1826 @tap0.delay;
+#X text 245 1826 Get/Set tap0 delay time. Type: float. Units: ms. Default
 value: 0\. Range: 0\...5000\.;
-#X msg 110 1825 @tap0.fb0;
-#X text 245 1825 Get/Set tap0 feedback to tap0\. Type: float. Default
+#X msg 110 1868 @tap0.fb0;
+#X text 245 1868 Get/Set tap0 feedback to tap0\. Type: float. Default
 value: 0\. Range: 0\...1\.;
-#X msg 110 1867 @tap0.fb1;
-#X text 245 1867 Get/Set tap1 feedback to tap0\. Type: float. Default
+#X msg 110 1910 @tap0.fb1;
+#X text 245 1910 Get/Set tap1 feedback to tap0\. Type: float. Default
 value: 0\. Range: 0\...1\.;
-#X msg 110 1909 @tap0.fb2;
-#X text 245 1909 Get/Set tap2 feedback to tap0\. Type: float. Default
+#X msg 110 1952 @tap0.fb2;
+#X text 245 1952 Get/Set tap2 feedback to tap0\. Type: float. Default
 value: 0\. Range: 0\...1\.;
-#X msg 110 1951 @tap0.fb3;
-#X text 245 1951 Get/Set tap3 feedback to tap0\. Type: float. Default
+#X msg 110 1994 @tap0.fb3;
+#X text 245 1994 Get/Set tap3 feedback to tap0\. Type: float. Default
 value: 0\. Range: 0\...1\.;
-#X msg 110 1993 @tap0.fb4;
-#X text 245 1993 Get/Set tap4 feedback to tap0\. Type: float. Default
+#X msg 110 2036 @tap0.fb4;
+#X text 245 2036 Get/Set tap4 feedback to tap0\. Type: float. Default
 value: 0\. Range: 0\...1\.;
-#X msg 110 2035 @tap0.fb5;
-#X text 245 2035 Get/Set tap5 feedback to tap0\. Type: float. Default
+#X msg 110 2078 @tap0.fb5;
+#X text 245 2078 Get/Set tap5 feedback to tap0\. Type: float. Default
 value: 0\. Range: 0\...1\.;
-#X msg 110 2077 @tap0.gain;
-#X text 245 2077 Get/Set tap0 common level. Type: float. Units: db.
+#X msg 110 2120 @tap0.gain;
+#X text 245 2120 Get/Set tap0 common level. Type: float. Units: db.
 Default value: 0\. Range: -60\...0\.;
-#X msg 110 2119 @tap0.in0;
-#X text 245 2119 Get/Set left input level to tap0\. Type: float. Default
+#X msg 110 2162 @tap0.in0;
+#X text 245 2162 Get/Set left input level to tap0\. Type: float. Default
 value: 1\. Range: 0\...1\.;
-#X msg 110 2161 @tap0.in1;
-#X text 245 2161 Get/Set right input level to tap0\. Type: float. Default
+#X msg 110 2204 @tap0.in1;
+#X text 245 2204 Get/Set right input level to tap0\. Type: float. Default
 value: 1\. Range: 0\...1\.;
-#X msg 110 2203 @tap1.delay;
-#X text 245 2203 Get/Set tap1 delay time. Type: float. Units: ms. Default
+#X msg 110 2246 @tap1.delay;
+#X text 245 2246 Get/Set tap1 delay time. Type: float. Units: ms. Default
 value: 0\. Range: 0\...5000\.;
-#X msg 110 2245 @tap1.fb0;
-#X text 245 2245 Get/Set tap0 feedback to tap1\. Type: float. Default
+#X msg 110 2288 @tap1.fb0;
+#X text 245 2288 Get/Set tap0 feedback to tap1\. Type: float. Default
 value: 0\. Range: 0\...1\.;
-#X msg 110 2287 @tap1.fb1;
-#X text 245 2287 Get/Set tap1 feedback to tap1\. Type: float. Default
+#X msg 110 2330 @tap1.fb1;
+#X text 245 2330 Get/Set tap1 feedback to tap1\. Type: float. Default
 value: 0\. Range: 0\...1\.;
-#X msg 110 2329 @tap1.fb2;
-#X text 245 2329 Get/Set tap2 feedback to tap1\. Type: float. Default
+#X msg 110 2372 @tap1.fb2;
+#X text 245 2372 Get/Set tap2 feedback to tap1\. Type: float. Default
 value: 0\. Range: 0\...1\.;
-#X msg 110 2371 @tap1.fb3;
-#X text 245 2371 Get/Set tap3 feedback to tap1\. Type: float. Default
+#X msg 110 2414 @tap1.fb3;
+#X text 245 2414 Get/Set tap3 feedback to tap1\. Type: float. Default
 value: 0\. Range: 0\...1\.;
-#X msg 110 2413 @tap1.fb4;
-#X text 245 2413 Get/Set tap4 feedback to tap1\. Type: float. Default
+#X msg 110 2456 @tap1.fb4;
+#X text 245 2456 Get/Set tap4 feedback to tap1\. Type: float. Default
 value: 0\. Range: 0\...1\.;
-#X msg 110 2455 @tap1.fb5;
-#X text 245 2455 Get/Set tap5 feedback to tap1\. Type: float. Default
+#X msg 110 2498 @tap1.fb5;
+#X text 245 2498 Get/Set tap5 feedback to tap1\. Type: float. Default
 value: 0\. Range: 0\...1\.;
-#X msg 110 2497 @tap1.gain;
-#X text 245 2497 Get/Set tap1 common level. Type: float. Units: db.
+#X msg 110 2540 @tap1.gain;
+#X text 245 2540 Get/Set tap1 common level. Type: float. Units: db.
 Default value: 0\. Range: -60\...0\.;
-#X msg 110 2539 @tap1.in0;
-#X text 245 2539 Get/Set left input level to tap1\. Type: float. Default
+#X msg 110 2582 @tap1.in0;
+#X text 245 2582 Get/Set left input level to tap1\. Type: float. Default
 value: 1\. Range: 0\...1\.;
-#X msg 110 2581 @tap1.in1;
-#X text 245 2581 Get/Set right input level to tap1\. Type: float. Default
+#X msg 110 2624 @tap1.in1;
+#X text 245 2624 Get/Set right input level to tap1\. Type: float. Default
 value: 1\. Range: 0\...1\.;
-#X msg 110 2623 @tap2.delay;
-#X text 245 2623 Get/Set tap2 delay time. Type: float. Units: ms. Default
+#X msg 110 2666 @tap2.delay;
+#X text 245 2666 Get/Set tap2 delay time. Type: float. Units: ms. Default
 value: 0\. Range: 0\...5000\.;
-#X msg 110 2665 @tap2.fb0;
-#X text 245 2665 Get/Set tap0 feedback to tap2\. Type: float. Default
+#X msg 110 2708 @tap2.fb0;
+#X text 245 2708 Get/Set tap0 feedback to tap2\. Type: float. Default
 value: 0\. Range: 0\...1\.;
-#X msg 110 2707 @tap2.fb1;
-#X text 245 2707 Get/Set tap1 feedback to tap2\. Type: float. Default
+#X msg 110 2750 @tap2.fb1;
+#X text 245 2750 Get/Set tap1 feedback to tap2\. Type: float. Default
 value: 0\. Range: 0\...1\.;
-#X msg 110 2749 @tap2.fb2;
-#X text 245 2749 Get/Set tap2 feedback to tap2\. Type: float. Default
+#X msg 110 2792 @tap2.fb2;
+#X text 245 2792 Get/Set tap2 feedback to tap2\. Type: float. Default
 value: 0\. Range: 0\...1\.;
-#X msg 110 2791 @tap2.fb3;
-#X text 245 2791 Get/Set tap3 feedback to tap2\. Type: float. Default
+#X msg 110 2834 @tap2.fb3;
+#X text 245 2834 Get/Set tap3 feedback to tap2\. Type: float. Default
 value: 0\. Range: 0\...1\.;
-#X msg 110 2833 @tap2.fb4;
-#X text 245 2833 Get/Set tap4 feedback to tap2\. Type: float. Default
+#X msg 110 2876 @tap2.fb4;
+#X text 245 2876 Get/Set tap4 feedback to tap2\. Type: float. Default
 value: 0\. Range: 0\...1\.;
-#X msg 110 2875 @tap2.fb5;
-#X text 245 2875 Get/Set tap5 feedback to tap2\. Type: float. Default
+#X msg 110 2918 @tap2.fb5;
+#X text 245 2918 Get/Set tap5 feedback to tap2\. Type: float. Default
 value: 0\. Range: 0\...1\.;
-#X msg 110 2917 @tap2.gain;
-#X text 245 2917 Get/Set tap2 common level. Type: float. Units: db.
+#X msg 110 2960 @tap2.gain;
+#X text 245 2960 Get/Set tap2 common level. Type: float. Units: db.
 Default value: 0\. Range: -60\...0\.;
-#X msg 110 2959 @tap2.in0;
-#X text 245 2959 Get/Set left input level to tap2\. Type: float. Default
+#X msg 110 3002 @tap2.in0;
+#X text 245 3002 Get/Set left input level to tap2\. Type: float. Default
 value: 1\. Range: 0\...1\.;
-#X msg 110 3001 @tap2.in1;
-#X text 245 3001 Get/Set right input level to tap2\. Type: float. Default
+#X msg 110 3044 @tap2.in1;
+#X text 245 3044 Get/Set right input level to tap2\. Type: float. Default
 value: 1\. Range: 0\...1\.;
-#X msg 110 3043 @tap3.delay;
-#X text 245 3043 Get/Set tap3 delay time. Type: float. Units: ms. Default
+#X msg 110 3086 @tap3.delay;
+#X text 245 3086 Get/Set tap3 delay time. Type: float. Units: ms. Default
 value: 0\. Range: 0\...5000\.;
-#X msg 110 3085 @tap3.fb0;
-#X text 245 3085 Get/Set tap0 feedback to tap3\. Type: float. Default
+#X msg 110 3128 @tap3.fb0;
+#X text 245 3128 Get/Set tap0 feedback to tap3\. Type: float. Default
 value: 0\. Range: 0\...1\.;
-#X msg 110 3127 @tap3.fb1;
-#X text 245 3127 Get/Set tap1 feedback to tap3\. Type: float. Default
+#X msg 110 3170 @tap3.fb1;
+#X text 245 3170 Get/Set tap1 feedback to tap3\. Type: float. Default
 value: 0\. Range: 0\...1\.;
-#X msg 110 3169 @tap3.fb2;
-#X text 245 3169 Get/Set tap2 feedback to tap3\. Type: float. Default
+#X msg 110 3212 @tap3.fb2;
+#X text 245 3212 Get/Set tap2 feedback to tap3\. Type: float. Default
 value: 0\. Range: 0\...1\.;
-#X msg 110 3211 @tap3.fb3;
-#X text 245 3211 Get/Set tap3 feedback to tap3\. Type: float. Default
+#X msg 110 3254 @tap3.fb3;
+#X text 245 3254 Get/Set tap3 feedback to tap3\. Type: float. Default
 value: 0\. Range: 0\...1\.;
-#X msg 110 3253 @tap3.fb4;
-#X text 245 3253 Get/Set tap4 feedback to tap3\. Type: float. Default
+#X msg 110 3296 @tap3.fb4;
+#X text 245 3296 Get/Set tap4 feedback to tap3\. Type: float. Default
 value: 0\. Range: 0\...1\.;
-#X msg 110 3295 @tap3.fb5;
-#X text 245 3295 Get/Set tap5 feedback to tap3\. Type: float. Default
+#X msg 110 3338 @tap3.fb5;
+#X text 245 3338 Get/Set tap5 feedback to tap3\. Type: float. Default
 value: 0\. Range: 0\...1\.;
-#X msg 110 3337 @tap3.gain;
-#X text 245 3337 Get/Set tap3 common level. Type: float. Units: db.
+#X msg 110 3380 @tap3.gain;
+#X text 245 3380 Get/Set tap3 common level. Type: float. Units: db.
 Default value: 0\. Range: -60\...0\.;
-#X msg 110 3379 @tap3.in0;
-#X text 245 3379 Get/Set left input level to tap3\. Type: float. Default
+#X msg 110 3422 @tap3.in0;
+#X text 245 3422 Get/Set left input level to tap3\. Type: float. Default
 value: 1\. Range: 0\...1\.;
-#X msg 110 3421 @tap3.in1;
-#X text 245 3421 Get/Set right input level to tap3\. Type: float. Default
+#X msg 110 3464 @tap3.in1;
+#X text 245 3464 Get/Set right input level to tap3\. Type: float. Default
 value: 1\. Range: 0\...1\.;
-#X msg 110 3463 @tap4.delay;
-#X text 245 3463 Get/Set tap4 delay time. Type: float. Units: ms. Default
+#X msg 110 3506 @tap4.delay;
+#X text 245 3506 Get/Set tap4 delay time. Type: float. Units: ms. Default
 value: 0\. Range: 0\...5000\.;
-#X msg 110 3505 @tap4.fb0;
-#X text 245 3505 Get/Set tap0 feedback to tap4\. Type: float. Default
+#X msg 110 3548 @tap4.fb0;
+#X text 245 3548 Get/Set tap0 feedback to tap4\. Type: float. Default
 value: 0\. Range: 0\...1\.;
-#X msg 110 3547 @tap4.fb1;
-#X text 245 3547 Get/Set tap1 feedback to tap4\. Type: float. Default
+#X msg 110 3590 @tap4.fb1;
+#X text 245 3590 Get/Set tap1 feedback to tap4\. Type: float. Default
 value: 0\. Range: 0\...1\.;
-#X msg 110 3589 @tap4.fb2;
-#X text 245 3589 Get/Set tap2 feedback to tap4\. Type: float. Default
+#X msg 110 3632 @tap4.fb2;
+#X text 245 3632 Get/Set tap2 feedback to tap4\. Type: float. Default
 value: 0\. Range: 0\...1\.;
-#X msg 110 3631 @tap4.fb3;
-#X text 245 3631 Get/Set tap3 feedback to tap4\. Type: float. Default
+#X msg 110 3674 @tap4.fb3;
+#X text 245 3674 Get/Set tap3 feedback to tap4\. Type: float. Default
 value: 0\. Range: 0\...1\.;
-#X msg 110 3673 @tap4.fb4;
-#X text 245 3673 Get/Set tap4 feedback to tap4\. Type: float. Default
+#X msg 110 3716 @tap4.fb4;
+#X text 245 3716 Get/Set tap4 feedback to tap4\. Type: float. Default
 value: 0\. Range: 0\...1\.;
-#X msg 110 3715 @tap4.fb5;
-#X text 245 3715 Get/Set tap5 feedback to tap4\. Type: float. Default
+#X msg 110 3758 @tap4.fb5;
+#X text 245 3758 Get/Set tap5 feedback to tap4\. Type: float. Default
 value: 0\. Range: 0\...1\.;
-#X msg 110 3757 @tap4.gain;
-#X text 245 3757 Get/Set tap4 common level. Type: float. Units: db.
+#X msg 110 3800 @tap4.gain;
+#X text 245 3800 Get/Set tap4 common level. Type: float. Units: db.
 Default value: 0\. Range: -60\...0\.;
-#X msg 110 3799 @tap4.in0;
-#X text 245 3799 Get/Set left input level to tap4\. Type: float. Default
+#X msg 110 3842 @tap4.in0;
+#X text 245 3842 Get/Set left input level to tap4\. Type: float. Default
 value: 1\. Range: 0\...1\.;
-#X msg 110 3841 @tap4.in1;
-#X text 245 3841 Get/Set right input level to tap4\. Type: float. Default
+#X msg 110 3884 @tap4.in1;
+#X text 245 3884 Get/Set right input level to tap4\. Type: float. Default
 value: 1\. Range: 0\...1\.;
-#X msg 110 3883 @tap5.delay;
-#X text 245 3883 Get/Set tap5 delay time. Type: float. Units: ms. Default
+#X msg 110 3926 @tap5.delay;
+#X text 245 3926 Get/Set tap5 delay time. Type: float. Units: ms. Default
 value: 0\. Range: 0\...5000\.;
-#X msg 110 3925 @tap5.fb0;
-#X text 245 3925 Get/Set tap0 feedback to tap5\. Type: float. Default
+#X msg 110 3968 @tap5.fb0;
+#X text 245 3968 Get/Set tap0 feedback to tap5\. Type: float. Default
 value: 0\. Range: 0\...1\.;
-#X msg 110 3967 @tap5.fb1;
-#X text 245 3967 Get/Set tap1 feedback to tap5\. Type: float. Default
+#X msg 110 4010 @tap5.fb1;
+#X text 245 4010 Get/Set tap1 feedback to tap5\. Type: float. Default
 value: 0\. Range: 0\...1\.;
-#X msg 110 4009 @tap5.fb2;
-#X text 245 4009 Get/Set tap2 feedback to tap5\. Type: float. Default
+#X msg 110 4052 @tap5.fb2;
+#X text 245 4052 Get/Set tap2 feedback to tap5\. Type: float. Default
 value: 0\. Range: 0\...1\.;
-#X msg 110 4051 @tap5.fb3;
-#X text 245 4051 Get/Set tap3 feedback to tap5\. Type: float. Default
+#X msg 110 4094 @tap5.fb3;
+#X text 245 4094 Get/Set tap3 feedback to tap5\. Type: float. Default
 value: 0\. Range: 0\...1\.;
-#X msg 110 4093 @tap5.fb4;
-#X text 245 4093 Get/Set tap4 feedback to tap5\. Type: float. Default
+#X msg 110 4136 @tap5.fb4;
+#X text 245 4136 Get/Set tap4 feedback to tap5\. Type: float. Default
 value: 0\. Range: 0\...1\.;
-#X msg 110 4135 @tap5.fb5;
-#X text 245 4135 Get/Set tap5 feedback to tap5\. Type: float. Default
+#X msg 110 4178 @tap5.fb5;
+#X text 245 4178 Get/Set tap5 feedback to tap5\. Type: float. Default
 value: 0\. Range: 0\...1\.;
-#X msg 110 4177 @tap5.gain;
-#X text 245 4177 Get/Set tap5 common level. Type: float. Units: db.
+#X msg 110 4220 @tap5.gain;
+#X text 245 4220 Get/Set tap5 common level. Type: float. Units: db.
 Default value: 0\. Range: -60\...0\.;
-#X msg 110 4219 @tap5.in0;
-#X text 245 4219 Get/Set left input level to tap5\. Type: float. Default
+#X msg 110 4262 @tap5.in0;
+#X text 245 4262 Get/Set left input level to tap5\. Type: float. Default
 value: 1\. Range: 0\...1\.;
-#X msg 110 4261 @tap5.in1;
-#X text 245 4261 Get/Set right input level to tap5\. Type: float. Default
+#X msg 110 4304 @tap5.in1;
+#X text 245 4304 Get/Set right input level to tap5\. Type: float. Default
 value: 1\. Range: 0\...1\.;
-#X obj 20 4313 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 4318 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 4356 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 4361 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 4353 random;
-#X text 245 4353 randomize values. Arguments are:;
-#X obj 255 4376 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4376 TYPE: group name. If 'delays' - randomize @delays
+#X msg 110 4396 random;
+#X text 245 4396 randomize values. Arguments are:;
+#X obj 255 4419 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4419 TYPE: group name. If 'delays' - randomize @delays
 properties \, if 'fb' - randomize @fb* properties. Type: symbol. Allowed
 values: delays \, fb \, inputs \, outputs \, gains.;
-#X obj 255 4429 cnv 1 39 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4429 [MIN]: minimal value. Type: float. Min value: 0\.;
-#X obj 255 4452 cnv 1 39 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4452 [MAX]: maximum value. Type: float. Min value: 0\.;
-#X msg 110 4477 reset;
-#X text 245 4477 reset to initial state.;
-#X obj 20 4514 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 4519 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X obj 255 4472 cnv 1 39 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4472 [MIN]: minimal value. Type: float. Min value: 0\.;
+#X obj 255 4495 cnv 1 39 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4495 [MAX]: maximum value. Type: float. Min value: 0\.;
+#X msg 110 4520 reset;
+#X text 245 4520 reset to initial state.;
+#X obj 20 4557 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 4562 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 4520 1\.;
-#X text 245 4520 left in channel.;
-#X text 110 4540 2\.;
-#X text 245 4540 right in channel.;
-#X obj 20 4570 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 4575 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 4563 1\.;
+#X text 245 4563 left in channel.;
+#X text 110 4583 2\.;
+#X text 245 4583 right in channel.;
+#X obj 20 4613 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 4618 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 4576 1\.;
-#X text 245 4576 left out channel.;
-#X text 110 4596 2\.;
-#X text 245 4596 right out channel.;
+#X text 110 4619 1\.;
+#X text 245 4619 left out channel.;
+#X text 110 4639 2\.;
+#X text 245 4639 right out channel.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 4646 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 4649 library: ceammc v0.9.4;
-#N canvas 10 4668 400 290 info 0;
+#X obj 1 4689 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 4692 library: ceammc v0.9.4;
+#N canvas 10 4711 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -358,21 +360,23 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 4668 pd info;
+#X restore 10 4711 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 7 0;
 #X connect 6 0 8 0;
 #X connect 8 0 12 0;
 #X connect 10 0 13 0;
 #X connect 12 0 15 0;
-#X connect 7 0 16 0;
-#X connect 16 0 17 0;
-#X connect 16 1 17 1;
-#X connect 17 0 19 0;
-#X connect 17 1 19 1;
-#X connect 15 0 16 0;
-#X connect 13 0 16 0;
+#X connect 7 0 18 0;
+#X connect 16 0 18 0;
+#X connect 18 0 19 0;
+#X connect 18 1 19 1;
+#X connect 19 0 21 0;
+#X connect 19 1 21 1;
+#X connect 15 0 18 0;
+#X connect 13 0 18 0;
 #X connect 11 0 14 0;
-#X connect 14 0 16 0;
-#X connect 9 0 16 1;
+#X connect 14 0 18 0;
+#X connect 17 0 18 0;
+#X connect 9 0 18 1;
 #X connect 5 0 9 0;

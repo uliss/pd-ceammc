@@ -248,23 +248,27 @@
 |   |                                 |
 |   [m #o3]          [m #o5]          [m @delays #o1]
 |
-|
+|   [reset(                           [random delays 200 3000, random fb 0.1 0.2 #o6(
+|   |
+|   |
+|   |
 [fx.tapiir~ #z]
 *|*
-[ui.hgain2~]    [ui.dsp~]
+[ui.hgain2~]                          [ui.dsp~]
 *|*
 [dac~]
 [X o1->z]
 [X o3->z]
 [X o4->o5]
 [X o5->z]
+[X o6->z]
 [X f1->z:1]
 [X c0->f1]
 #o0 6 @size 84 50 @min 50 @max 1000
 #o2 6 @size 84 50 @min 0 @max 1
 #o4 6 @size 84 50 @min 0 @max 1
 #f0 1000 50
-#f1 2000 50
+#f1 1700 50
 #o3 @outs0
 #o5 @outs1
 #z @out0.in0 1 @out1.in1 1
