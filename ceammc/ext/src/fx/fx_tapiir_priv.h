@@ -37,6 +37,7 @@ public:
     FxTapiir(const PdArgs& args);
 
     void m_random(t_symbol* s, const AtomListView& lv);
+    void m_pingpong(t_symbol* s, const AtomListView& lv);
 
 private:
     void initTapGroupProps();

@@ -252,6 +252,81 @@ void FxTapiir::m_random(t_symbol* s, const AtomListView& lv)
     }
 }
 
+void FxTapiir::m_pingpong(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_FLOAT, ARG_FLOAT)) {
+        METHOD_ERR(s) << "usage: DELAY FEEDBACK" << lv;
+        return;
+    }
+
+    const auto ms = lv[0].asT<t_float>();
+    if (ms < 0) {
+        METHOD_ERR(s) << "invalid delays value: " << ms;
+        return;
+    }
+
+    const auto fb = lv[1].asT<t_float>();
+    if (fb < 0 || fb > 1) {
+        METHOD_ERR(s) << "invalid feedback value: " << fb;
+        return;
+    }
+
+    // set delays
+    for (auto p : tap_delays_)
+        p->setValue(0);
+
+    tap_delays_[0]->setValue(ms);
+    tap_delays_[1]->setValue(ms);
+
+    // set inputs
+    for (size_t i = 0; i < NUM_CHAN; i++) {
+        for (size_t t = 0; t < NUM_TAPS; t++) {
+            auto idx = i * NUM_TAPS + t; // see initTapGroupProps()
+            if (idx > tap_inputs_.size())
+                continue;
+
+            if (t == 0 && i == 0)
+                tap_inputs_[idx]->setValue(1);
+            else if (t == 1 && i == 1)
+                tap_inputs_[idx]->setValue(1);
+            else
+                tap_inputs_[idx]->setValue(0);
+        }
+    }
+
+    // set feedbacks
+    for (size_t fbi = 0; fbi < NUM_TAPS; fbi++) {
+        for (size_t ti = 0; ti < NUM_TAPS; ti++) {
+            auto idx = ti * NUM_TAPS + fbi; // see initTapGroupProps()
+            if (idx > tap_fb_.size())
+                continue;
+
+            if (ti == 0 && fbi == 1)
+                tap_fb_[idx]->setValue(fb);
+            else if (ti == 1 && fbi == 0)
+                tap_fb_[idx]->setValue(fb);
+            else
+                tap_fb_[idx]->setValue(0);
+        }
+    }
+
+    // set outputs
+    for (size_t oi = 0; oi < NUM_CHAN; oi++) {
+        for (size_t ti = 0; ti < NUM_TAPS; ti++) {
+            auto idx = oi * NUM_TAPS + ti; // see initTapGroupProps()
+            if (idx > tap_outputs_.size())
+                continue;
+
+            if (ti == 0 && oi == 0)
+                tap_outputs_[idx]->setValue(1);
+            else if (ti == 1 && oi == 1)
+                tap_outputs_[idx]->setValue(1);
+            else
+                tap_outputs_[idx]->setValue(0);
+        }
+    }
+}
+
 void FxTapiir::getTapFb(size_t tapn, AtomList& res)
 {
     for (size_t i = 0; i < std::min(tap_fb_.size(), NUM_TAPS); i++) {
@@ -304,4 +379,5 @@ void setup_fx_tapiir_tilde()
     SoundExternalFactory<FxTapiir> obj("fx.tapiir~");
     obj.addMethod("reset", &FxTapiir::m_reset);
     obj.addMethod("random", &FxTapiir::m_random);
+    obj.addMethod("pingping", &FxTapiir::m_pingpong);
 }
