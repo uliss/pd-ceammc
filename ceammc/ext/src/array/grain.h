@@ -64,6 +64,7 @@ enum GrainWindowType : uint8_t {
 
 enum GrainState : uint8_t {
     GRAIN_FINISHED,
+    GRAIN_PAUSE,
     GRAIN_PLAYING,
 };
 
@@ -204,7 +205,7 @@ private:
     uint16_t id_ = { 0 };
 
     ///< flags
-    GrainState state_ : 1;
+    GrainState state_ : 2;
     GrainPropOverflow pan_overflow_ : 2;
     GrainPan pan_mode_ : 2;
     GrainInterp play_interp_ : 2;
@@ -346,14 +347,14 @@ public:
 
     void initByteCodeConst(ByteCode& bc) const;
 
-    bool canBePlayed() const { return (repeats_ == -1) || (cnt_repeats_ < repeats_); }
+    inline bool canBePlayed() const { return (repeats_ == -1) || (cnt_repeats_ < repeats_); }
 
     void setModulation(GrainPropId id, const GrainPropModulator& mod);
     bool hasModulation(GrainPropId id) const;
 
 private:
-    bool beforeGrain() const { return play_pos_ < time_before_; }
-    bool afterGrain() const { return play_pos_ >= double(time_before_ + length_); }
+    inline bool beforeGrain() const { return play_pos_ < time_before_; }
+    inline bool afterGrain() const { return play_pos_ >= double(time_before_ + length_); }
 
 public:
     static bool initWinTables();

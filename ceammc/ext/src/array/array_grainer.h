@@ -48,6 +48,7 @@ public:
     void m_grain(t_symbol* s, const AtomListView& lv);
     void m_onsets(t_symbol* s, const AtomListView& lv);
     void m_set(t_symbol* s, const AtomListView& lv);
+    void m_pause(t_symbol* s, const AtomListView& lv);
 
     const GrainCloud& cloud() const { return cloud_; }
 
