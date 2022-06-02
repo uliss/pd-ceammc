@@ -234,11 +234,11 @@
         <example>
             <pdascii>
 <![CDATA[
-[B]
+[B]                                   [list 2 4_ 4 8_ 8 16_ 16 #o7(
 |
-[click~ #c0]                          [list 8_ 16 8_ 16 8_ 16(
+[click~ #c0]                          [list 4_ 8 4_ 8 4_ 8(
 |                                     |
-[flt.resonbp~ #f0]                    [music.d->t @bpm 60 1 {i=1,o=1}]
+[flt.resonbp~ #f0]                    [music.d->t @bpm 120 1 {i=1,o=1} #o8]
 |                                     |
 |  [flt.resonbp~ #f1]                 |
 |                                     |
@@ -248,10 +248,10 @@
 |   |                                 |
 |   [m #o3]          [m #o5]          [m @delays #o1]
 |
-|   [reset(                           [random delays 200 3000, random fb 0.1 0.2 #o6(
-|   |
-|   |
-|   |
+|   [reset(  [dump(                   [random delays 200 3000, random fb 0.1 0.2 #o6(
+|   |        |
+|   |        |
+|   |        |
 [fx.tapiir~ #z]
 *|*
 [ui.hgain2~]                          [ui.dsp~]
@@ -262,6 +262,7 @@
 [X o4->o5]
 [X o5->z]
 [X o6->z]
+[X o7->o8]
 [X f1->z:1]
 [X c0->f1]
 #o0 6 @size 84 50 @min 50 @max 1000
