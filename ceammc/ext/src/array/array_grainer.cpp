@@ -81,7 +81,7 @@ ArrayGrainer::ArrayGrainer(const PdArgs& args)
 
 void ArrayGrainer::setupDSP(t_signal** sp)
 {
-    if (!array_.open(array_name_->value())) {
+    if (array_name_->value() != &s_ && !array_.open(array_name_->value())) {
         OBJ_ERR << "can't open array: " << array_name_->value();
         dsp_add_zero(sp[0]->s_vec, sp[0]->s_n);
         return;

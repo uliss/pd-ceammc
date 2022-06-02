@@ -94,8 +94,10 @@
 |
 |
 |
-| [clear(
-| |
+|         [T]
+|         |
+| [clear( [pause * $1(
+| |       |
 [array.grainer~ agr0]  [ui.dsp~]
 *|*
 [ui.hgain2~]
