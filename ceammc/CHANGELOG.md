@@ -6,6 +6,7 @@
   - midi.split: midi note splitter
   - midi.modus: snap/skip midi pitches according to selected modus
   - z~: sample delay added
+  - route.random: random router added (with route.r alias) 
 - new properties:
   - @clip property added to system.cursor to clip cursor XY coords
   - @norm property added to ui.env to do envelope value normalization on input
