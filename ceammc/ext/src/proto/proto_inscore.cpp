@@ -112,6 +112,34 @@ t_symbol* make_chord(const AtomListView& lv)
     return gensym(res.data());
 }
 
+t_symbol* make_cluster(const AtomListView& lv)
+{
+    StaticString<256> res("\\cluster({");
+    try {
+        for (auto& a : lv) {
+            if (a.isSymbol()) {
+                res += a.asT<t_symbol*>()->s_name;
+            } else if (a.isFloat()) {
+                char buf[32];
+                sprintf(buf, "%g", a.asT<t_float>());
+                res += buf;
+            }
+
+            res += ',';
+        }
+    } catch (std::exception& e) {
+        LIB_ERR << "[inscore] " << e.what();
+    }
+
+    if (!lv.empty() && !res.empty()) {
+        res.pop_back();
+        res += "})";
+    } else
+        res.clear();
+
+    return gensym(res.data());
+}
+
 template <size_t N>
 AtomListView toView(const AtomArray<N>& args)
 {
@@ -564,6 +592,26 @@ void ProtoInscore::m_del(t_symbol* s, const AtomListView& lv)
     anyTo(0, gensym(SEND_AUTO_TYPED), toView(args));
 }
 
+void ProtoInscore::m_make_chord(t_symbol* s, const AtomListView& lv)
+{
+    if (lv.empty()) {
+        METHOD_ERR(s) << "usage: NOTES...";
+        return;
+    }
+
+    symbolTo(0, make_chord(lv));
+}
+
+void ProtoInscore::m_make_cluster(t_symbol* s, const AtomListView& lv)
+{
+    if (lv.empty()) {
+        METHOD_ERR(s) << "usage: NOTES...";
+        return;
+    }
+
+    symbolTo(0, make_cluster(lv));
+}
+
 void setup_proto_inscore()
 {
     ObjectFactory<ProtoInscore> obj("proto.inscore");
@@ -602,4 +650,7 @@ void setup_proto_inscore()
 
     obj.addMethod("write", &ProtoInscore::m_write);
     obj.addMethod("write_chord", &ProtoInscore::m_write_chord);
+
+    obj.addMethod("make_chord", &ProtoInscore::m_make_chord);
+    obj.addMethod("make_cluster", &ProtoInscore::m_make_cluster);
 }

@@ -56,6 +56,9 @@ public:
 
     void m_show(t_symbol* s, const AtomListView& lv);
     void m_del(t_symbol* s, const AtomListView& lv);
+
+    void m_make_chord(t_symbol* s, const AtomListView& lv);
+    void m_make_cluster(t_symbol* s, const AtomListView& lv);
 };
 
 void setup_proto_inscore();
