@@ -40,7 +40,7 @@ void RouteRandom::initDone()
     if (seed_->value() != 0)
         rnd_dev_.seed(seed_->value());
 
-    dist_ = Distribution(0, n_->value());
+    dist_ = Distribution(0, n_->value() - 1);
 
     for (int i = 0; i < n_->value(); i++)
         createOutlet();
