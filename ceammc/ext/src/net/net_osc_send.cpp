@@ -99,13 +99,12 @@ class OscSendWorker {
 
                     Dispatcher::instance().send({ task.id, NOTIFY_UPDATE });
                 }
+
+                UniqueLock lock(m);
+                notified.wait_for(lock, std::chrono::milliseconds(5000));
+
             } catch (std::exception& e) {
                 std::cerr << "exception: " << e.what();
-            }
-
-            {
-                UniqueLock lock(m);
-                notified.wait_for(lock, std::chrono::milliseconds(100));
             }
         }
 
