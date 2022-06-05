@@ -22,6 +22,8 @@
 #include "lua_interp.h"
 
 #include <boost/container/small_vector.hpp>
+#include <condition_variable>
+#include <mutex>
 
 using namespace ceammc;
 
@@ -39,6 +41,8 @@ private:
     IntProperty* nin_;
     IntProperty* nout_;
     std::vector<Inlet> inlets_;
+    std::condition_variable notify_;
+    std::mutex mtx_;
 
 public:
     LangLuaJit(const PdArgs& args);
