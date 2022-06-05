@@ -20,7 +20,9 @@
 #include <boost/container/small_vector.hpp>
 #include <boost/variant.hpp>
 
+#include <condition_variable>
 #include <future>
+#include <mutex>
 
 #include <lo/lo.h>
 
@@ -73,13 +75,14 @@ struct NetOscSendOscTask {
 namespace {
 
 class OscSendWorker {
+    using UniqueLock = std::unique_lock<std::mutex>;
     using Pipe = moodycamel::ReaderWriterQueue<NetOscSendOscTask>;
 
-    static bool launchSender(OscSendWorker* w, const std::atomic_bool& quit)
+    static bool launchSender(OscSendWorker* w, const std::atomic_bool& quit, std::condition_variable& notified, std::mutex& m)
     {
         while (!quit) {
-            NetOscSendOscTask task;
             try {
+                NetOscSendOscTask task;
                 while (w->pipe_.try_dequeue(task)) {
                     if (quit)
                         return true;
@@ -99,6 +102,11 @@ class OscSendWorker {
             } catch (std::exception& e) {
                 std::cerr << "exception: " << e.what();
             }
+
+            {
+                UniqueLock lock(m);
+                notified.wait_for(lock, std::chrono::milliseconds(100));
+            }
         }
 
         return true;
@@ -108,7 +116,7 @@ class OscSendWorker {
         : quit_(false)
     {
         LIB_LOG << "launch OSC sender worker process";
-        future_ = std::async(std::launch::async, launchSender, this, std::ref(quit_));
+        future_ = std::async(std::launch::async, launchSender, this, std::ref(quit_), std::ref(notify_), std::ref(mtx_));
     }
 
     ~OscSendWorker()
@@ -120,6 +128,8 @@ class OscSendWorker {
     Pipe pipe_;
     std::future<bool> future_;
     std::atomic_bool quit_;
+    std::mutex mtx_;
+    std::condition_variable notify_;
 
 public:
     static OscSendWorker& instance()
@@ -130,7 +140,17 @@ public:
 
     bool add(const NetOscSendOscTask& task)
     {
-        return pipe_.enqueue(task);
+        auto ok = pipe_.enqueue(task);
+        if (ok) {
+            {
+                // seems that this is needed to miss awaiking of worker thread
+                UniqueLock lock(mtx_);
+            }
+
+            notify_.notify_one();
+        }
+
+        return ok;
     }
 };
 
