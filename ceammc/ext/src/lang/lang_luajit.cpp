@@ -41,15 +41,15 @@ public:
     }
 };
 
-static void startLuaEventLoop(LangLuaJit* x, const bool* quit)
+static void startLuaEventLoop(LangLuaJit* x, const std::atomic_bool& quit)
 {
-    while (!*quit) {
-        lua::LuaCmd in_cmd;
-        if (x->inPipe().try_dequeue(in_cmd)) {
-            x->interp().run(in_cmd);
-        }
+    lua::LuaCmd in_cmd;
 
-        if (*quit)
+    while (!quit) {
+        if (x->inPipe().try_dequeue(in_cmd))
+            x->interp().run(in_cmd);
+
+        if (quit)
             break;
     }
 
@@ -190,7 +190,7 @@ PollThreadTaskObject<int>::Future LangLuaJit::createTask()
 {
     setQuit(false);
 
-    return std::async(std::launch::async, startLuaEventLoop, this, &quit());
+    return std::async(std::launch::async, startLuaEventLoop, this, std::ref(quit()));
 }
 
 void LangLuaJit::processMessage(const lua::LuaCmd& msg)
