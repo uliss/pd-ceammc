@@ -114,7 +114,7 @@ public:
 
 class OscSendWorker {
     using UniqueLock = std::unique_lock<std::mutex>;
-    using Pipe = moodycamel::ReaderWriterQueue<NetOscSendOscTask>;
+    using Pipe = moodycamel::ReaderWriterQueue<NetOscSendOscTask, 64>;
 
     static bool launchSender(OscSendWorker* w, const std::atomic_bool& quit, std::condition_variable& notified, std::mutex& m)
     {
@@ -154,7 +154,8 @@ class OscSendWorker {
     }
 
     OscSendWorker()
-        : quit_(false)
+        : pipe_(64)
+        , quit_(false)
     {
         LIB_LOG << "launch OSC sender worker process";
         future_ = std::async(std::launch::async, launchSender, this, std::ref(quit_), std::ref(notify_), std::ref(mtx_));
