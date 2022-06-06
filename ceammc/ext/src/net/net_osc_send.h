@@ -26,31 +26,14 @@
 
 using namespace ceammc;
 
-enum NetOscCmdStatus : std::int8_t {
-    NET_OSC_SEND_ERROR,
-    NET_OSC_SEND_OK,
-    NET_OSC_SEND_REQUEST,
-};
-
-struct NetOscSendMsg {
-    NetOscCmdStatus status;
-    std::string error_msg;
-};
-
 struct NetOscSendOscTask;
 
-class NetOscSend : public BaseObject, public NotifiedObject {
-public:
-    using MsgPipe = moodycamel::ReaderWriterQueue<NetOscSendMsg>;
-
-private:
+class NetOscSend : public BaseObject {
     SymbolProperty* host_;
     IntProperty* port_;
-    MsgPipe msg_pipe_;
 
 public:
     NetOscSend(const PdArgs& args);
-    ~NetOscSend();
 
     void m_send(t_symbol* s, const AtomListView& lv);
     void m_send_bool(t_symbol* s, const AtomListView& lv);
@@ -62,9 +45,6 @@ public:
     void m_send_inf(t_symbol* s, const AtomListView& lv);
     void m_send_string(t_symbol* s, const AtomListView& lv);
     void m_send_typed(t_symbol* s, const AtomListView& lv);
-
-    void processMessage(const NetOscSendMsg& msg);
-    bool notify(NotifyEventType code) final;
 
 private:
     void initTask(NetOscSendOscTask& task, const char* path);

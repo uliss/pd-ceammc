@@ -64,7 +64,6 @@ public:
 struct NetOscSendOscTask {
     std::string host;
     std::string path;
-    NetOscSend::MsgPipe* out;
     OscMessage m;
     SubscriberId id;
     uint16_t port;
@@ -74,12 +73,53 @@ struct NetOscSendOscTask {
 
 namespace {
 
+class ThreadLogger : public NotifiedObject {
+    std::mutex mtx_;
+    std::list<std::string> msg_;
+
+public:
+    ThreadLogger()
+    {
+        Dispatcher::instance().subscribe(this, id());
+    }
+
+    ~ThreadLogger()
+    {
+        Dispatcher::instance().unsubscribe(this);
+    }
+
+    SubscriberId id() const { return reinterpret_cast<SubscriberId>(this); }
+
+    bool notify(NotifyEventType /*code*/) final
+    {
+        std::lock_guard<std::mutex> g(mtx_);
+        while (!msg_.empty()) {
+            LIB_ERR << msg_.front();
+            msg_.pop_front();
+        }
+
+        return true;
+    }
+
+    void error(const std::string& msg)
+    {
+        {
+            std::lock_guard<std::mutex> g(mtx_);
+            msg_.push_back(fmt::format("[osc] [error] {}", msg));
+        }
+
+        Dispatcher::instance().send({ id(), NOTIFY_UPDATE });
+    }
+};
+
 class OscSendWorker {
     using UniqueLock = std::unique_lock<std::mutex>;
     using Pipe = moodycamel::ReaderWriterQueue<NetOscSendOscTask>;
 
     static bool launchSender(OscSendWorker* w, const std::atomic_bool& quit, std::condition_variable& notified, std::mutex& m)
     {
+        ThreadLogger logger;
+
         while (!quit) {
             try {
                 NetOscSendOscTask task;
@@ -89,15 +129,13 @@ class OscSendWorker {
 
                     lo_address addr = lo_address_new(task.host.c_str(), fmt::format("{:d}", task.port).c_str());
                     const auto rc = lo_send_message(addr, task.path.c_str(), task.msg());
-                    if (task.out) {
-                        if (rc == -1)
-                            task.out->try_enqueue({ NET_OSC_SEND_ERROR, lo_address_errstr(addr) });
-                        else
-                            task.out->try_enqueue({ NET_OSC_SEND_OK, {} });
+                    if (rc == -1) {
+                        auto url = lo_address_get_url(addr);
+                        logger.error(fmt::format("{} - `{}`", lo_address_errstr(addr), url));
+                        free(url);
                     }
-                    lo_address_free(addr);
 
-                    Dispatcher::instance().send({ task.id, NOTIFY_UPDATE });
+                    lo_address_free(addr);
                 }
 
                 UniqueLock lock(m);
@@ -125,7 +163,7 @@ class OscSendWorker {
     ~OscSendWorker()
     {
         quit_ = true;
-        future_.wait();
+        future_.get();
     }
 
     Pipe pipe_;
@@ -161,8 +199,6 @@ NetOscSend::NetOscSend(const PdArgs& args)
     , host_(nullptr)
     , port_(nullptr)
 {
-    Dispatcher::instance().subscribe(this, reinterpret_cast<SubscriberId>(this));
-
     host_ = new SymbolProperty("@host", &s_);
     host_->setArgIndex(0);
     addProperty(host_);
@@ -172,11 +208,6 @@ NetOscSend::NetOscSend(const PdArgs& args)
     addProperty(port_);
 
     createOutlet();
-}
-
-NetOscSend::~NetOscSend()
-{
-    Dispatcher::instance().unsubscribe(this);
 }
 
 void NetOscSend::m_send(t_symbol* s, const AtomListView& lv)
@@ -417,34 +448,12 @@ void NetOscSend::m_send_typed(t_symbol* s, const AtomListView& lv)
         LIB_ERR << "can't add task";
 }
 
-void NetOscSend::processMessage(const NetOscSendMsg& msg)
-{
-    switch (msg.status) {
-    case NET_OSC_SEND_OK:
-        break;
-    case NET_OSC_SEND_ERROR:
-    default:
-        OBJ_ERR << msg.error_msg;
-        break;
-    }
-}
-
-bool NetOscSend::notify(NotifyEventType /*code*/)
-{
-    NetOscSendMsg msg;
-    while (msg_pipe_.try_dequeue(msg))
-        processMessage(msg);
-
-    return true;
-}
-
 void NetOscSend::initTask(NetOscSendOscTask& task, const char* path)
 {
     task.host = host_->value()->s_name;
     task.port = port_->value();
     task.path = path;
     task.id = reinterpret_cast<SubscriberId>(this);
-    task.out = &msg_pipe_;
 }
 
 void setup_net_osc_send()
