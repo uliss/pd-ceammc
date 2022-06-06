@@ -43,7 +43,7 @@ UIGain::UIGain()
     , is_horizontal_(false)
     , prop_relative_mode(0)
     , prop_midi_chn(0)
-    , prop_midi_ctl(0)
+    , prop_midi_ctl(-1)
     , prop_pickup_midi(0)
     , control_state_(NORMAL)
     , pick_value_state_(PICK_VALUE_START)
@@ -538,8 +538,8 @@ void UIGain::setup()
 
     obj.addProperty("midi_channel", _("MIDI channel"), 0, &UIGain::prop_midi_chn, "MIDI");
     obj.setPropertyRange("midi_channel", 0, 16);
-    obj.addProperty("midi_control", _("MIDI control"), 0, &UIGain::prop_midi_ctl, "MIDI");
-    obj.setPropertyRange("midi_control", 0, 128);
+    obj.addProperty("midi_control", _("MIDI control"), 1, &UIGain::prop_midi_ctl, "MIDI");
+    obj.setPropertyRange("midi_control", -1, 127);
     obj.addProperty("midi_pickup", _("MIDI pickup"), true, &UIGain::prop_pickup_midi, "MIDI");
 
     obj.setDefaultSize(15, 120);

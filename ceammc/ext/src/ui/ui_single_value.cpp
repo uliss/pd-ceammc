@@ -29,8 +29,7 @@ using namespace ceammc;
 
 static t_symbol* midi_ctl_sym()
 {
-    static t_symbol* sym = gensym("#ctlin");
-    return sym;
+    return gensym("#ctlin");
 }
 
 UISingleValue::UISingleValue()
@@ -43,7 +42,7 @@ UISingleValue::UISingleValue()
     , prop_min(0)
     , prop_max(1)
     , prop_midi_chn(0)
-    , prop_midi_ctl(0)
+    , prop_midi_ctl(-1)
     , prop_pickup_midi(0)
     , prop_show_value(0)
     , prop_scale(SYM_LINEAR)
@@ -363,7 +362,7 @@ void UISingleValue::startListenMidi()
 {
     listen_midi_ctrl_ = true;
     midi_proxy_.bind(midi_ctl_sym());
-    LIB_DBG << "move MIDI control to bind";
+    LIB_POST << "move MIDI control to bind";
 
     asEBox()->b_boxparameters.d_bordercolor = BIND_MIDI_COLOR;
     asEBox()->b_ready_to_draw = true;
