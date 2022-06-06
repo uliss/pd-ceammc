@@ -122,7 +122,7 @@ void UISingleValue::init(t_symbol* name, const AtomListView& args, bool usePrese
 {
     UIObject::init(name, args, usePresets);
 
-    if (prop_midi_chn > 0 || prop_midi_ctl > 0)
+    if (prop_midi_chn > 0 || prop_midi_ctl >= 0)
         midi_proxy_.bind(midi_ctl_sym());
 
     // process min positional args
@@ -142,7 +142,7 @@ void UISingleValue::onPropChange(t_symbol* prop_name)
     UIObject::onPropChange(prop_name);
 
     if (prop_name == gensym("midi_control")) {
-        if (prop_midi_ctl != 0) {
+        if (prop_midi_ctl >= 0) {
             // info
             std::ostringstream ss;
             ss << "binded to MIDI ctl #"
@@ -199,7 +199,7 @@ void UISingleValue::onMidiCtrl(const AtomListView& l)
         prop_midi_ctl = CTL_NUM;
     } else {
         // skip all
-        if (prop_midi_ctl == 0)
+        if (prop_midi_ctl < 0)
             return;
 
         // skip others

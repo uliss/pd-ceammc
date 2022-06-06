@@ -26,7 +26,7 @@ TEST_CASE("ui.knob", "[ui.knob]")
         TestKnob t("ui.knob");
         REQUIRE(t->numOutlets() == 1);
         REQUIRE(t->midiChannel() == 0);
-        REQUIRE(t->midiControl() == 0);
+        REQUIRE(t->midiControl() == -1);
         REQUIRE(t->knobPhase() == 0);
         REQUIRE(t->value() == 0);
 
@@ -62,7 +62,7 @@ TEST_CASE("ui.knob", "[ui.knob]")
         REQUIRE(t->getProperty(gensym("midi_channel"), f));
         REQUIRE(f == 0);
         REQUIRE(t->getProperty(gensym("midi_control"), f));
-        REQUIRE(f == 0);
+        REQUIRE(f == -1);
         REQUIRE(t->getProperty(gensym("midi_pickup"), f));
         REQUIRE(f == 1);
         REQUIRE_FALSE(t->getProperty(gensym("size"), f));
