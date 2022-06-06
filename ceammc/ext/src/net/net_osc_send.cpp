@@ -101,7 +101,11 @@ class OscSendWorker {
                 }
 
                 UniqueLock lock(m);
-                notified.wait_for(lock, std::chrono::milliseconds(5000));
+                // if a signal from the main thread occures here
+                // we can miss this signal and have to wait 100ms or until next send
+                // so we have to lock sending of signal notification to prevent
+                // spourious delays in OSC sending
+                notified.wait_for(lock, std::chrono::milliseconds(100));
 
             } catch (std::exception& e) {
                 std::cerr << "exception: " << e.what();
@@ -141,11 +145,8 @@ public:
     {
         auto ok = pipe_.enqueue(task);
         if (ok) {
-            {
-                // seems that this is needed to miss awaiking of worker thread
-                UniqueLock lock(mtx_);
-            }
-
+            // @see comments in worker function
+            UniqueLock lock(mtx_);
             notify_.notify_one();
         }
 
