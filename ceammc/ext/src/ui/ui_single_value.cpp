@@ -25,6 +25,10 @@ static t_symbol* SYM_MAX;
 static t_symbol* SYM_LINEAR;
 static t_symbol* SYM_LOG;
 
+constexpr int MIDI_CTL_NONE = -1;
+constexpr int MIDI_CTL_MIN = 0;
+constexpr int MIDI_CTL_MAX = 127;
+
 using namespace ceammc;
 
 static t_symbol* midi_ctl_sym()
@@ -42,7 +46,7 @@ UISingleValue::UISingleValue()
     , prop_min(0)
     , prop_max(1)
     , prop_midi_chn(0)
-    , prop_midi_ctl(-1)
+    , prop_midi_ctl(MIDI_CTL_NONE)
     , prop_pickup_midi(0)
     , prop_show_value(0)
     , prop_scale(SYM_LINEAR)
@@ -122,7 +126,7 @@ void UISingleValue::init(t_symbol* name, const AtomListView& args, bool usePrese
 {
     UIObject::init(name, args, usePresets);
 
-    if (prop_midi_chn > 0 || prop_midi_ctl >= 0)
+    if (prop_midi_chn > 0 || prop_midi_ctl >= MIDI_CTL_MIN)
         midi_proxy_.bind(midi_ctl_sym());
 
     // process min positional args
@@ -142,7 +146,7 @@ void UISingleValue::onPropChange(t_symbol* prop_name)
     UIObject::onPropChange(prop_name);
 
     if (prop_name == gensym("midi_control")) {
-        if (prop_midi_ctl >= 0) {
+        if (prop_midi_ctl != MIDI_CTL_NONE) {
             // info
             std::ostringstream ss;
             ss << "binded to MIDI ctl #"
@@ -199,7 +203,7 @@ void UISingleValue::onMidiCtrl(const AtomListView& l)
         prop_midi_ctl = CTL_NUM;
     } else {
         // skip all
-        if (prop_midi_ctl < 0)
+        if (prop_midi_ctl == MIDI_CTL_NONE)
             return;
 
         // skip others
