@@ -36,6 +36,7 @@ add_subdirectory(sf2)
 add_subdirectory(soxr)
 add_subdirectory(stk)
 add_subdirectory(subprocess)
+add_subdirectory(httplib)
 
 if(WITH_FAUST)
     add_subdirectory(faust)
