@@ -106,3 +106,6 @@ if(WITH_SFIZZ)
       add_subdirectory(${sfizz_SOURCE_DIR} ${sfizz_BINARY_DIR} EXCLUDE_FROM_ALL)
     endif()
 endif()
+
+add_library(readerwriterqueue INTERFACE)
+target_include_directories(readerwriterqueue INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/readerwriterqueue)
