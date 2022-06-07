@@ -35,6 +35,7 @@
 #include "ui_spectroscope.h"
 #include "ui_tab.h"
 #include "ui_toggle.h"
+#include "ui_touchosc.h"
 
 void setup_ui_filter();
 void setup_ui_filter_tilde();
@@ -78,4 +79,5 @@ void ceammc_ui_setup()
     setup_ui_spectroscope();
     setup_ui_tab();
     setup_ui_toggle();
+    setup_ui_touchosc();
 }
