@@ -49,6 +49,9 @@ ceammc_ui_extension(touchosc)
 add_library(ceammc_ui STATIC mod_ui.cpp ${UI_SOURCES})
 
 target_link_libraries(ceammc_ui ceammc_env http_lib readerwriterqueue)
+target_include_directories(ceammc_ui
+    PRIVATE
+        "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>")
 
 set(TCL_GEN_SCRIPT ${PROJECT_SOURCE_DIR}/ceammc/scripts/filecontent_to_cxx_header.sh)
 

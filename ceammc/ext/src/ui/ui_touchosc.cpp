@@ -14,6 +14,7 @@
 #include "ui_touchosc.h"
 #include "ceammc_factory.h"
 
+#include "fmt/format.h"
 #include "httplib.h"
 
 #include <chrono>
@@ -92,8 +93,12 @@ class TouchOscHttpServer {
     httplib::Server http_;
     std::future<bool> rc_;
     Logger log_;
+    std::string content_;
+    std::string filename_;
+    std::mutex content_mtx_;
 
     TouchOscHttpServer()
+        : filename_("PdUI.touchosc")
     {
         using namespace httplib;
 
@@ -101,22 +106,26 @@ class TouchOscHttpServer {
             log_.error(e.what());
         });
 
+        content_ = R"(<?xml version="1.0" encoding="UTF-8"?>
+<layout version="17" mode="0" orientation="horizontal">
+<tabpage name="MQ==" scalef="0.0" scalet="1.0" li_t="" li_c="gray" li_s="14" li_o="false" li_b="false" la_t="" la_c="gray" la_s="14" la_o="false" la_b="false" >
+</tabpage>
+</layout>)";
+
         http_.Get("/", [this](const Request&, Response& res) {
             log_.debug("GET /");
-            res.set_content("Hello World!", "text/plain");
 
-            //            res.set_content_provider(
-            //                "text/plain", // Content type
-            //                [&](size_t offset, DataSink& sink) {
-            //                    if (/* there is still data */) {
-            //                        std::vector<char> data;
-            //                        // prepare data...
-            //                        sink.write(data.data(), data.size());
-            //                    } else {
-            //                        sink.done(); // No more data
-            //                    }
-            //                    return true; // return 'false' if you want to cancel the process.
-            //                });
+            std::string xml;
+
+            {
+                // make a thread local copy
+                std::lock_guard<std::mutex> lock(content_mtx_);
+                xml = content_;
+            }
+
+            res.set_content(xml, "application/touchosc");
+            res.set_header("Content-Disposition",
+                fmt::format(R"(attachment; filename="PdUI.touchosc")", filename_));
         });
     }
 
@@ -130,6 +139,12 @@ public:
     {
         static TouchOscHttpServer srv;
         return srv;
+    }
+
+    void setContent(const std::string& str)
+    {
+        std::lock_guard<std::mutex> lock(content_mtx_);
+        content_ = str;
     }
 
     void start(bool value)
