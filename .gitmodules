@@ -61,3 +61,6 @@
 [submodule "ceammc/extra/faust/faust"]
 	path = ceammc/extra/faust/faust
 	url = https://github.com/grame-cncm/faust.git
+[submodule "ceammc/extra/httplib/cpp-httplib"]
+	path = ceammc/extra/httplib/cpp-httplib
+	url = https://github.com/yhirose/cpp-httplib.git
