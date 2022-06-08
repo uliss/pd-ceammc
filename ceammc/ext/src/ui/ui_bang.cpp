@@ -15,6 +15,8 @@
 #include "ceammc_ui.h"
 #include "ui_bang.tcl.h"
 
+namespace ceammc {
+
 UIBang::UIBang()
     : clock_([this]() { if(active_) deactivate(); })
     , active_(false)
@@ -87,7 +89,9 @@ void UIBang::setup()
     obj.useAny();
 }
 
+}
+
 void setup_ui_bang()
 {
-    UIBang::setup();
+    ceammc::UIBang::setup();
 }

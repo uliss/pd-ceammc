@@ -11,6 +11,8 @@ static t_symbol* midi_ctl_sym()
 
 static t_rgba BIND_MIDI_COLOR = hex_to_rgba("#FF3377");
 
+namespace ceammc {
+
 UIToggle::UIToggle()
     : midi_proxy_(this, &UIToggle::onMidiCtrl)
     , listen_midi_ctrl_(false)
@@ -97,7 +99,7 @@ void UIToggle::onDblClick(t_object* x, const t_pt& pt, long mod)
         stopListenMidi();
 }
 
-void UIToggle::onPropChange(t_symbol *prop_name)
+void UIToggle::onPropChange(t_symbol* prop_name)
 {
     UIObject::onPropChange(prop_name);
 
@@ -218,7 +220,9 @@ void UIToggle::setup()
     obj.setPropertyRange("midi_control", -1, 127);
 }
 
+}
+
 void setup_ui_toggle()
 {
-    UIToggle::setup();
+    ceammc::UIToggle::setup();
 }

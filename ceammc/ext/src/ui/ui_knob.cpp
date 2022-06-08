@@ -27,7 +27,7 @@ constexpr int MIDI_CTL_NONE = -1;
 constexpr int MIDI_CTL_MIN = 0;
 constexpr int MIDI_CTL_MAX = 127;
 
-using namespace ceammc;
+namespace ceammc {
 
 UIKnob::UIKnob()
     : show_range_(0)
@@ -152,6 +152,8 @@ void UIKnob::setup()
     obj.addProperty("value", &UISingleValue::value, &UISingleValue::setValue);
 }
 
+}
+
 void setup_ui_knob()
 {
     sys_gui(ui_knob_tcl);
@@ -166,5 +168,5 @@ void setup_ui_knob()
     SYM_POPUP_LINEAR = gensym("popup_lin");
     SYM_POPUP_LOG = gensym("popup_log");
 
-    UIKnob::setup();
+    ceammc::UIKnob::setup();
 }

@@ -17,7 +17,7 @@
 #include "ceammc_clock.h"
 #include "ceammc_ui_object.h"
 
-using namespace ceammc;
+namespace ceammc {
 
 class UIBang : public UIObject {
     ClockLambdaFunction clock_;
@@ -43,6 +43,8 @@ private:
 public:
     static void setup();
 };
+
+}
 
 void setup_ui_bang();
 

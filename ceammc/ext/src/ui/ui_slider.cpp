@@ -10,6 +10,8 @@ constexpr int MIDI_CTL_NONE = -1;
 constexpr int MIDI_CTL_MIN = 0;
 constexpr int MIDI_CTL_MAX = 127;
 
+namespace ceammc {
+
 UISlider::UISlider()
     : is_horizontal_(false)
     , knob_phase_prev_(0)
@@ -240,7 +242,9 @@ void UISlider::setup()
     obj.addProperty("value", &UISingleValue::value, &UISingleValue::setValue);
 }
 
+}
+
 void setup_ui_slider()
 {
-    UISlider::setup();
+    ceammc::UISlider::setup();
 }
