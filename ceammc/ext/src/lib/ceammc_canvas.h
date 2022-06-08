@@ -129,12 +129,20 @@ struct t_rect {
  */
 t_rect canvas_info_rect(const _glist* c);
 
+using CanvasClassPredicate = std::function<bool(const _glist*, const t_object*)>;
 /**
  * Returns canvas object tree
  * @param c - pointer to canvas
  * @return tree
  */
-std::unique_ptr<pd::CanvasTree> canvas_info_tree(const _glist* c);
+std::unique_ptr<pd::CanvasTree> canvas_info_tree(const _glist* c, CanvasClassPredicate pred = {});
+
+/**
+ * Returns canvas object satisfied to predicate
+ * @param c - pointer to canvas
+ * @return vector of pointers
+ */
+std::vector<t_object*> canvas_find(const _glist* c, CanvasClassPredicate pred);
 
 class BaseObject;
 typedef std::shared_ptr<Array> ArrayPtr;
