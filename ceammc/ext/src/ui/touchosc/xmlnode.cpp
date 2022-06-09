@@ -14,10 +14,25 @@
 #include "xmlnode.h"
 #include "fmt/format.h"
 
+#include <boost/algorithm/string.hpp>
+#include <boost/archive/iterators/base64_from_binary.hpp>
+#include <boost/archive/iterators/binary_from_base64.hpp>
+#include <boost/archive/iterators/transform_width.hpp>
+
 namespace ceammc {
 namespace touchosc {
-    XmlNode::XmlNode(const std::string& name)
-        : name_(name)
+
+    std::string base64_encode(const std::string& str)
+    {
+        using namespace boost::archive::iterators;
+        using It = base64_from_binary<transform_width<std::string::const_iterator, 6, 8>>;
+
+        auto tmp = std::string(It(std::begin(str)), It(std::end(str)));
+        return tmp.append((3 - str.size() % 3) % 3, '=');
+    }
+
+    XmlNode::XmlNode(const std::string& tag)
+        : tag_(tag)
     {
     }
 
@@ -49,15 +64,29 @@ namespace touchosc {
 
     std::ostream& operator<<(std::ostream& os, const XmlNode& node)
     {
-        os << fmt::format("<{}", node.name());
+        os << fmt::format("<{}", node.tag());
         // print attrs
         for (auto& a : node.attrs())
             os << fmt::format(" {}=\"{}\"", a.first, a.second);
 
         os << '>';
 
-        os << fmt::format("</{}>", node.name());
+        os << fmt::format("</{}>", node.tag());
         return os;
+    }
+
+    std::ostream& operator<<(std::ostream& os, const OscAttributes& attr)
+    {
+        os << fmt::format("osc_cs=\"{}\" scalef=\"{:f}\" scalet=\"{:f}\"",
+            base64_encode(attr.path()), attr.from(), attr.to());
+        return os;
+    }
+
+    OscAttributes::OscAttributes(const std::string& path, float from, float to)
+        : path_(path)
+        , from_(from)
+        , to_(to)
+    {
     }
 
 }

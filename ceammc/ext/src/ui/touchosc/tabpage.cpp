@@ -12,13 +12,31 @@
  * this file belongs to.
  *****************************************************************************/
 #include "tabpage.h"
+#include "fmt/format.h"
+
+#include <cstdlib>
 
 namespace ceammc {
 namespace touchosc {
 
-    TabPage::TabPage()
+    TabPage::TabPage(const std::string& name)
         : XmlNode("tabpage")
+        , name_(name)
+        , osc_(fmt::format("/{}", name_))
     {
+        setName(name);
+    }
+
+    void TabPage::setName(const std::string& name)
+    {
+        name_ = name;
+        setAttribute("name", base64_encode(name));
+    }
+
+    void TabPage::setLabel(const std::string& name)
+    {
+        name_ = name;
+        setAttribute("la_t", base64_encode(name));
     }
 }
 }

@@ -15,9 +15,50 @@
 
 namespace ceammc {
 namespace touchosc {
-    Control::Control()
+    Control::Control(const std::string& type, int w, int h, int x, int y)
         : XmlNode("control")
+        , osc_("")
+        , type_(type)
     {
+        setX(x);
+        setY(y);
+        setWidth(w);
+        setHeight(h);
+        setColor(Color::GREY);
+
+        setAttribute("type", type_);
+    }
+
+    void Control::setX(int x)
+    {
+        x_ = x;
+        setAttribute("x", std::to_string(x_));
+    }
+
+    void Control::setY(int y)
+    {
+        y_ = y;
+        setAttribute("x", std::to_string(y_));
+    }
+
+    void Control::setWidth(int w)
+    {
+        w_ = w;
+        setAttribute("w", std::to_string(w_));
+    }
+
+    void Control::setHeight(int h)
+    {
+        h_ = h;
+        setAttribute("h", std::to_string(h_));
+    }
+
+    void Control::setColor(Color c)
+    {
+        static const char* colors[] = { "red", "green", "blue", "yellow", "purple", "grey", "orange", "brown", "pink" };
+
+        color_ = c;
+        setAttribute("color", colors[static_cast<int>(color_)]);
     }
 }
 }

@@ -11,31 +11,20 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef TABPAGE_H
-#define TABPAGE_H
+#ifndef PUSHBUTTON_H
+#define PUSHBUTTON_H
 
-#include "xmlnode.h"
+#include "control.h"
 
 namespace ceammc {
 namespace touchosc {
 
-    class TabPage : public XmlNode {
-        std::string name_, label_;
-        OscAttributes osc_;
-
+    class PushButton : public Control {
     public:
-        TabPage(const std::string& name);
-
-        const std::string& name() const { return name_; }
-        void setName(const std::string& name);
-        const std::string& label() const { return label_; }
-        void setLabel(const std::string& label);
-
-        OscAttributes& osc() { return osc_; }
-        const OscAttributes& osc() const { return osc_; }
+        PushButton(int x, int y, int w = 45, int h = 45);
     };
 
 }
 }
 
-#endif // TABPAGE_H
+#endif // PUSHBUTTON_H

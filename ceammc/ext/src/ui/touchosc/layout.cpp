@@ -89,5 +89,15 @@ namespace touchosc {
         orient_ = orient;
         setAttribute("orientation", orient_ == LAYOUT_VERTICAL ? "horizontal" : "vertical");
     }
+
+    int Layout::width() const
+    {
+        return (orient_ == LAYOUT_VERTICAL) ? width_ : height_;
+    }
+
+    int Layout::height() const
+    {
+        return (orient_ == LAYOUT_VERTICAL) ? height_ : width_;
+    }
 }
 }

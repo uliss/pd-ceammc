@@ -15,6 +15,7 @@
 #define LAYOUT_H
 
 #include <memory>
+#include <utility>
 #include <vector>
 
 #include "tabpage.h"
@@ -57,6 +58,10 @@ namespace touchosc {
 
         LayoutOrientation orientation() const { return orient_; }
         void setOrientation(LayoutOrientation orient);
+
+        int width() const;
+        int height() const;
+        std::pair<int, int> size() const { return { width(), height() }; }
     };
 }
 }

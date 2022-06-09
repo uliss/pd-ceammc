@@ -20,8 +20,31 @@ namespace ceammc {
 namespace touchosc {
 
     class Control : public XmlNode {
+        int x_, y_, w_, h_;
+        Color color_;
+        OscAttributes osc_;
+        const std::string type_;
+
     public:
-        Control();
+        Control(const std::string& type, int w, int h, int x, int y);
+
+        OscAttributes& osc() { return osc_; }
+        const OscAttributes& osc() const { return osc_; }
+
+        int x() const { return x_; }
+        int y() const { return y_; }
+        int width() const { return w_; }
+        int height() const { return h_; }
+
+        void setX(int x);
+        void setY(int y);
+        void setWidth(int w);
+        void setHeight(int h);
+
+        Color color() const { return color_; }
+        void setColor(Color c);
+
+        const std::string& type() const { return type_; }
     };
 }
 }
