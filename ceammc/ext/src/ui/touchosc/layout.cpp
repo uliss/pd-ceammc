@@ -13,6 +13,8 @@
  *****************************************************************************/
 #include "layout.h"
 
+#include <sstream>
+
 namespace ceammc {
 namespace touchosc {
     Layout::Layout()
@@ -113,6 +115,13 @@ namespace touchosc {
         os << R"(<?xml version="1.0" encoding="UTF-8"?>)";
         os << static_cast<const XmlNode&>(l);
         return os;
+    }
+
+    std::string to_string(const Layout& l)
+    {
+        std::ostringstream str;
+        str << l;
+        return str.str();
     }
 
 }

@@ -69,6 +69,7 @@ namespace touchosc {
     };
 
     std::ostream& operator<<(std::ostream& os, const Layout& l);
+    std::string to_string(const Layout& l);
 }
 }
 

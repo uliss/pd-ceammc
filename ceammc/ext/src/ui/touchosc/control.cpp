@@ -85,15 +85,15 @@ namespace touchosc {
         };
 
         const static rgb colors[COLOR_MAX] {
-            { 0, 0, 0 },
-            { 0, 0, 0 },
-            { 0, 0, 0 },
-            { 0, 0, 0 },
-            { 0, 0, 0 },
-            { 0, 0, 0 },
-            { 0, 0, 0 },
-            { 0, 0, 0 },
-            { 0, 0, 0 },
+            { 109, 22, 20 },
+            { 25, 89, 33 },
+            { 15, 45, 40 },
+            { 56, 56, 20 },
+            { 56, 38, 61 },
+            { 51, 51, 51 },
+            { 117, 58, 20 },
+            { 56, 40, 2 },
+            { 102, 2, 94 },
         };
 
         auto color_distance = [](const rgb c0, const rgb c1) -> int {
@@ -118,7 +118,7 @@ namespace touchosc {
             }
         }
 
-        if (color_idx >= 0)
+        if (color_idx >= 0 && color_idx < COLOR_MAX)
             setColor(static_cast<Color>(color_idx));
     }
 }
