@@ -99,5 +99,21 @@ namespace touchosc {
     {
         return (orient_ == LAYOUT_VERTICAL) ? height_ : width_;
     }
+
+    std::ostream& Layout::printContent(std::ostream& os) const
+    {
+        for (auto& t : tabs_)
+            os << *t;
+
+        return os;
+    }
+
+    std::ostream& operator<<(std::ostream& os, const Layout& l)
+    {
+        os << R"(<?xml version="1.0" encoding="UTF-8"?>)";
+        os << static_cast<const XmlNode&>(l);
+        return os;
+    }
+
 }
 }

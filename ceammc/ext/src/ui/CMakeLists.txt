@@ -50,7 +50,7 @@ ceammc_ui_external(touchosc)
 
 add_library(ceammc_ui STATIC mod_ui.cpp ${UI_SOURCES})
 
-target_link_libraries(ceammc_ui ceammc_env http_lib readerwriterqueue)
+target_link_libraries(ceammc_ui ceammc_env http_lib readerwriterqueue touchosc)
 target_include_directories(ceammc_ui
     PRIVATE
         "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>")

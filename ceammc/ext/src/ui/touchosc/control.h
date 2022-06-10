@@ -24,9 +24,10 @@ namespace touchosc {
         Color color_;
         OscAttributes osc_;
         const std::string type_;
+        const std::string& name_;
 
     public:
-        Control(const std::string& type, int w, int h, int x, int y);
+        Control(const std::string& name, const std::string& type, int w, int h, int x, int y);
 
         OscAttributes& osc() { return osc_; }
         const OscAttributes& osc() const { return osc_; }
@@ -40,11 +41,15 @@ namespace touchosc {
         void setY(int y);
         void setWidth(int w);
         void setHeight(int h);
+        void setPos(int x, int y);
+        void setSize(int w, int h);
 
         Color color() const { return color_; }
         void setColor(Color c);
+        void setColor(float r, float g, float b);
 
         const std::string& type() const { return type_; }
+        const std::string& name() const { return name_; }
     };
 }
 }

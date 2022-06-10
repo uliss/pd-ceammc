@@ -22,16 +22,17 @@ namespace ceammc {
 namespace touchosc {
     using XmlAttributes = std::map<std::string, std::string>;
 
-    enum class Color {
-        RED,
-        GREEN,
-        BLUE,
-        YELLOW,
-        PURPLE,
-        GREY,
-        ORANGE,
-        BROWN,
-        PINK,
+    enum Color {
+        COLOR_RED,
+        COLOR_GREEN,
+        COLOR_BLUE,
+        COLOR_YELLOW,
+        COLOR_PURPLE,
+        COLOR_GREY,
+        COLOR_ORANGE,
+        COLOR_BROWN,
+        COLOR_PINK,
+        COLOR_MAX
     };
 
     class OscAttributes {
@@ -53,9 +54,14 @@ namespace touchosc {
 
     public:
         XmlNode(const std::string& tag);
+        virtual ~XmlNode();
 
         const std::string& tag() const { return tag_; }
         const XmlAttributes& attrs() const { return attrs_; }
+        virtual std::ostream& printOpenTag(std::ostream& os) const;
+        virtual std::ostream& printContent(std::ostream& os) const;
+        virtual std::ostream& printCloseTag(std::ostream& os) const;
+        virtual std::ostream& printAttributes(std::ostream& os) const;
 
     protected:
         bool hasAttribute(const std::string& key) const;

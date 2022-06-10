@@ -36,6 +36,36 @@ namespace touchosc {
     {
     }
 
+    XmlNode::~XmlNode()
+    {
+    }
+
+    std::ostream& XmlNode::printOpenTag(std::ostream& os) const
+    {
+        os << fmt::format("<{}", tag_);
+        printAttributes(os) << '>';
+        return os;
+    }
+
+    std::ostream& XmlNode::printContent(std::ostream& os) const
+    {
+        return os;
+    }
+
+    std::ostream& XmlNode::printCloseTag(std::ostream& os) const
+    {
+        os << fmt::format("</{}>", tag_);
+        return os;
+    }
+
+    std::ostream& XmlNode::printAttributes(std::ostream& os) const
+    {
+        for (auto& a : attrs_)
+            os << fmt::format(" {}=\"{}\"", a.first, a.second);
+
+        return os;
+    }
+
     bool XmlNode::hasAttribute(const std::string& key) const
     {
         return attrs_.find(key) != attrs_.end();
@@ -64,14 +94,9 @@ namespace touchosc {
 
     std::ostream& operator<<(std::ostream& os, const XmlNode& node)
     {
-        os << fmt::format("<{}", node.tag());
-        // print attrs
-        for (auto& a : node.attrs())
-            os << fmt::format(" {}=\"{}\"", a.first, a.second);
-
-        os << '>';
-
-        os << fmt::format("</{}>", node.tag());
+        node.printOpenTag(os);
+        node.printContent(os);
+        node.printCloseTag(os);
         return os;
     }
 

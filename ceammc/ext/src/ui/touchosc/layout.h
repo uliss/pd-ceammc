@@ -62,7 +62,13 @@ namespace touchosc {
         int width() const;
         int height() const;
         std::pair<int, int> size() const { return { width(), height() }; }
+
+        const TabVec& tabs() const { return tabs_; }
+
+        std::ostream& printContent(std::ostream& os) const;
     };
+
+    std::ostream& operator<<(std::ostream& os, const Layout& l);
 }
 }
 

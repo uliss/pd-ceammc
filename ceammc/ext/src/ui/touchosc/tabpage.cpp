@@ -38,5 +38,25 @@ namespace touchosc {
         name_ = name;
         setAttribute("la_t", base64_encode(name));
     }
+
+    std::ostream& TabPage::printAttributes(std::ostream& os) const
+    {
+        XmlNode::printAttributes(os);
+        os << ' ' << osc_;
+        return os;
+    }
+
+    std::ostream& TabPage::printContent(std::ostream& os) const
+    {
+        for (auto& c : controls_)
+            os << *c;
+
+        return os;
+    }
+
+    void TabPage::append(ControlPtr&& ctl)
+    {
+        controls_.push_back(std::move(ctl));
+    }
 }
 }

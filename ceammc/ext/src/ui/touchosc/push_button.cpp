@@ -16,8 +16,8 @@
 namespace ceammc {
 namespace touchosc {
 
-    PushButton::PushButton(int x, int y, int w, int h)
-        : Control("push", x, y, w, h)
+    PushButton::PushButton(const std::string& name, int x, int y, int w, int h)
+        : Control(name, "push", x, y, w, h)
     {
         setAttribute("local_off", "false");
         setAttribute("sp", "true");

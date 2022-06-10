@@ -14,14 +14,22 @@
 #ifndef TABPAGE_H
 #define TABPAGE_H
 
+#include "control.h"
 #include "xmlnode.h"
+
+#include <memory>
+#include <vector>
 
 namespace ceammc {
 namespace touchosc {
 
+    using ControlPtr = std::unique_ptr<Control>;
+    using ControlVec = std::vector<ControlPtr>;
+
     class TabPage : public XmlNode {
         std::string name_, label_;
         OscAttributes osc_;
+        ControlVec controls_;
 
     public:
         TabPage(const std::string& name);
@@ -33,6 +41,12 @@ namespace touchosc {
 
         OscAttributes& osc() { return osc_; }
         const OscAttributes& osc() const { return osc_; }
+
+        std::ostream& printAttributes(std::ostream& os) const override;
+        std::ostream& printContent(std::ostream& os) const override;
+
+        void append(ControlPtr&& ctl);
+        const ControlVec& controls() const { return controls_; }
     };
 
 }

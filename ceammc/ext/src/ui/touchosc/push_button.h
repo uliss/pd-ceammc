@@ -21,7 +21,7 @@ namespace touchosc {
 
     class PushButton : public Control {
     public:
-        PushButton(int x, int y, int w = 45, int h = 45);
+        PushButton(const std::string& name, int x = 10, int y = 10, int w = 45, int h = 45);
     };
 
 }
