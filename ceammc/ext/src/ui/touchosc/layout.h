@@ -52,6 +52,7 @@ namespace touchosc {
         Layout();
 
         void append(TabPagePtr&& ptr);
+        void clear();
 
         LayoutMode mode() const { return mode_; }
         void setLayoutMode(LayoutMode mode, int w = 0, int h = 0);
@@ -66,6 +67,8 @@ namespace touchosc {
         const TabVec& tabs() const { return tabs_; }
 
         std::ostream& printContent(std::ostream& os) const;
+
+        bool saveToFile(const std::string& path);
     };
 
     std::ostream& operator<<(std::ostream& os, const Layout& l);

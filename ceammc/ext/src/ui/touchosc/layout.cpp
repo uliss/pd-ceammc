@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "layout.h"
+#include "miniz.h"
 
 #include <sstream>
 
@@ -28,6 +29,11 @@ namespace touchosc {
     void Layout::append(TabPagePtr&& ptr)
     {
         tabs_.push_back(std::move(ptr));
+    }
+
+    void Layout::clear()
+    {
+        tabs_.clear();
     }
 
     void Layout::setLayoutMode(LayoutMode mode, int w, int h)
@@ -108,6 +114,31 @@ namespace touchosc {
             os << *t;
 
         return os;
+    }
+
+    bool Layout::saveToFile(const std::string& path)
+    {
+        //        LIB_LOG << "miniz version: " << MZ_VERSION;
+
+        std::ostringstream ss;
+        ss << *this;
+        const auto str = ss.str();
+        const char* comment = "TouchOSC interface";
+
+        // Add a new file to the archive. Note this is an IN-PLACE operation, so if it fails your archive is probably hosed (its central directory may not be complete) but it should be recoverable using zip -F or -FF. So use caution with this guy.
+        // A more robust way to add a file to an archive would be to read it into memory, perform the operation, then write a new archive out to a temp file and then delete/rename the files.
+        // Or, write a new archive to disk to a temp file, then delete/rename the files. For this test this API is fine.
+        auto status = mz_zip_add_mem_to_archive_file_in_place(path.c_str(),
+            "index.xml",
+            str.data(), str.size() + 1,
+            comment, strlen(comment), MZ_BEST_SPEED);
+
+        if (!status) {
+            printf("mz_zip_add_mem_to_archive_file_in_place failed!\n");
+            return false;
+        }
+
+        return true;
     }
 
     std::ostream& operator<<(std::ostream& os, const Layout& l)

@@ -15,6 +15,7 @@
 #include "ceammc_base64.h"
 #include "ceammc_canvas.h"
 #include "ceammc_factory.h"
+#include "ceammc_platform.h"
 
 #include "fmt/format.h"
 #include "httplib.h"
@@ -192,6 +193,7 @@ public:
 UiTouchOsc::UiTouchOsc(const PdArgs& args)
     : BaseObject(args)
     , server_(nullptr)
+    , layout_(new touchosc::Layout())
 {
     server_ = new BoolProperty("@server", false);
     server_->setSuccessFn([this](Property*) {
@@ -252,9 +254,9 @@ void UiTouchOsc::m_auto(t_symbol* s, const AtomListView& lv)
 
     const int scene = 1;
 
-    Layout l;
-    l.append(TabPagePtr(new TabPage(fmt::format("{}", scene))));
-    auto& page = l.tabs().back();
+    layout_->clear();
+    layout_->append(TabPagePtr(new TabPage(fmt::format("{}", scene))));
+    auto& page = layout_->tabs().back();
 
     int btn_cnt = 1;
 
@@ -283,9 +285,54 @@ void UiTouchOsc::m_auto(t_symbol* s, const AtomListView& lv)
 
     page->layout();
 
-    xml_content_ = to_string(l);
+    xml_content_ = to_string(*layout_);
 
     LIB_DBG << xml_content_;
+}
+
+void UiTouchOsc::m_save(t_symbol* s, const AtomListView& lv)
+{
+    if (lv.empty()) {
+        METHOD_ERR(s) << "file name expected";
+        return;
+    }
+
+    const auto spath = to_string(lv);
+    const auto path = spath.c_str();
+
+    if (isAbsolutePath(path)) {
+        if (platform::path_exists(path)) {
+            if (!platform::remove(path)) {
+                METHOD_ERR(s) << "can't overwrite " << path;
+                return;
+            }
+        }
+
+        if (layout_) {
+            if (!layout_->saveToFile(path)) {
+                METHOD_ERR(s) << "can't save to: " << path;
+                return;
+            } else
+                METHOD_LOG(s) << "faved to " << path;
+        }
+    } else {
+        auto full_path = platform::make_abs_filepath_with_canvas(rootCanvas(), spath);
+
+        if (platform::path_exists(full_path.c_str())) {
+            if (!platform::remove(full_path.c_str())) {
+                METHOD_ERR(s) << "can't overwrite " << full_path;
+                return;
+            }
+        }
+
+        if (layout_) {
+            if (!layout_->saveToFile(full_path)) {
+                METHOD_ERR(s) << "can't save to: " << full_path;
+                return;
+            } else
+                METHOD_LOG(s) << "faved to " << full_path;
+        }
+    }
 }
 }
 
@@ -294,4 +341,5 @@ void setup_ui_touchosc()
     using namespace ceammc;
     ObjectFactory<UiTouchOsc> obj("ui.touchosc");
     obj.addMethod("auto", &UiTouchOsc::m_auto);
+    obj.addMethod("save", &UiTouchOsc::m_save);
 }

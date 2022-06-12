@@ -5,3 +5,5 @@ target_include_directories(touchosc
     PRIVATE
         "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>")
 
+target_link_libraries(touchosc PRIVATE miniz)
+
