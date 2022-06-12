@@ -16,10 +16,12 @@
 
 #include "ceammc_object.h"
 #include "ceammc_pollthread_object.h"
-using namespace ceammc;
+
+namespace ceammc {
 
 class UiTouchOsc : public BaseObject {
     BoolProperty* server_;
+    std::string xml_content_;
 
 public:
     UiTouchOsc(const PdArgs& args);
@@ -27,6 +29,8 @@ public:
 
     void m_auto(t_symbol* s, const AtomListView& lv);
 };
+
+}
 
 void setup_ui_touchosc();
 

@@ -47,6 +47,8 @@ namespace touchosc {
 
         void append(ControlPtr&& ctl);
         const ControlVec& controls() const { return controls_; }
+
+        void layout();
     };
 
 }

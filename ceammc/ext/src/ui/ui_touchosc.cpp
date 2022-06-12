@@ -12,6 +12,8 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ui_touchosc.h"
+#include "ceammc_base64.h"
+#include "ceammc_canvas.h"
 #include "ceammc_factory.h"
 
 #include "fmt/format.h"
@@ -23,10 +25,21 @@
 #include <thread>
 #include <utility>
 
+#include "ceammc_ui.h"
+#include "ui_bang.h"
+#include "ui_knob.h"
+#include "ui_slider.h"
+#include "ui_toggle.h"
+
+#include "touchosc/layout.h"
+#include "touchosc/push_button.h"
+
 using MutexLock = std::lock_guard<std::mutex>;
 
 #define TOUCH_OSC_LOG_PREFIX "[touchosc] "
 constexpr int TOUCH_OSC_HTTP_PORT = 9658;
+
+namespace ceammc {
 
 class Logger : public NotifiedObject {
     std::list<std::pair<NotifyEventType, std::string>> messages_;
@@ -106,26 +119,22 @@ class TouchOscHttpServer {
             log_.error(e.what());
         });
 
-        content_ = R"(<?xml version="1.0" encoding="UTF-8"?>
-<layout version="17" mode="0" orientation="horizontal">
-<tabpage name="MQ==" scalef="0.0" scalet="1.0" li_t="" li_c="gray" li_s="14" li_o="false" li_b="false" la_t="" la_c="gray" la_s="14" la_o="false" la_b="false" >
-</tabpage>
-</layout>)";
-
         http_.Get("/", [this](const Request&, Response& res) {
             log_.debug("GET /");
 
             std::string xml;
+            std::string fname;
 
             {
                 // make a thread local copy
                 std::lock_guard<std::mutex> lock(content_mtx_);
                 xml = content_;
+                fname = filename_;
             }
 
             res.set_content(xml, "application/touchosc");
             res.set_header("Content-Disposition",
-                fmt::format(R"(attachment; filename="PdUI.touchosc")", filename_));
+                fmt::format(R"(attachment; filename="PdUI.touchosc")", fname));
         });
     }
 
@@ -145,6 +154,11 @@ public:
     {
         std::lock_guard<std::mutex> lock(content_mtx_);
         content_ = str;
+    }
+
+    void setFilename(const std::string& name)
+    {
+        filename_ = fmt::format("{}.touchosc", name);
     }
 
     void start(bool value)
@@ -182,6 +196,12 @@ UiTouchOsc::UiTouchOsc(const PdArgs& args)
     server_ = new BoolProperty("@server", false);
     server_->setSuccessFn([this](Property*) {
         TouchOscHttpServer::instance().start(server_->value());
+        auto root = rootCanvas();
+        if (root) {
+            auto name = canvas_info_name(root);
+            TouchOscHttpServer::instance().setFilename(name->s_name);
+            TouchOscHttpServer::instance().setContent(xml_content_);
+        }
     });
     addProperty(server_);
 }
@@ -192,10 +212,86 @@ UiTouchOsc::~UiTouchOsc()
 
 void UiTouchOsc::m_auto(t_symbol* s, const AtomListView& lv)
 {
+    auto cnv = canvas();
+    if (!cnv) {
+        return;
+    }
+
+    const auto cbng = &UIObjectFactory<UIBang>::pd_class->c_class;
+    const auto ctgl = &UIObjectFactory<UIToggle>::pd_class->c_class;
+    const auto cknob = &UIObjectFactory<UIKnob>::pd_class->c_class;
+    const auto csl = &UIObjectFactory<UISlider>::pd_class->c_class;
+
+    enum UIType {
+        UI_BANG,
+        UI_TOGGLE,
+        UI_KNOB,
+        UI_SLIDER
+    };
+
+    std::vector<std::pair<UIType, UIObject*>> res;
+
+    for (auto x = cnv->gl_list; x != nullptr; x = x->g_next) {
+        auto cls = x->g_pd;
+        auto pdobj = pd_checkobject(&cls);
+        // skip non-patchable objects
+        if (!pdobj)
+            continue;
+
+        if (cbng == cls)
+            res.emplace_back(UI_BANG, (UIObject*)x);
+        else if (ctgl == cls)
+            res.emplace_back(UI_TOGGLE, (UIObject*)x);
+        else if (cknob == cls)
+            res.emplace_back(UI_KNOB, (UIObject*)x);
+        else if (csl == cls)
+            res.emplace_back(UI_SLIDER, (UIObject*)x);
+    }
+
+    using namespace touchosc;
+
+    const int scene = 1;
+
+    Layout l;
+    l.append(TabPagePtr(new TabPage(fmt::format("{}", scene))));
+    auto& page = l.tabs().back();
+
+    int btn_cnt = 1;
+
+    for (auto ux : res) {
+        switch (ux.first) {
+        case UI_BANG: {
+            METHOD_DBG(s) << "bang found";
+            auto bng = static_cast<UIBang*>(ux.second);
+            auto name = fmt::format("btn{}", btn_cnt);
+            auto osc = fmt::format("/{}/btn{}", page->name(), btn_cnt);
+
+            ControlPtr ctl { new PushButton(name) };
+            ctl->osc().setPath(osc);
+            ctl->setPos(bng->x(), bng->y());
+            ctl->setSize(bng->width(), bng->height());
+            ctl->setColor(
+                bng->prop_color_background.red,
+                bng->prop_color_background.green,
+                bng->prop_color_background.blue);
+
+            page->append(std::move(ctl));
+            btn_cnt++;
+        } break;
+        }
+    }
+
+    page->layout();
+
+    xml_content_ = to_string(l);
+
+    LIB_DBG << xml_content_;
+}
 }
 
 void setup_ui_touchosc()
 {
+    using namespace ceammc;
     ObjectFactory<UiTouchOsc> obj("ui.touchosc");
     obj.addMethod("auto", &UiTouchOsc::m_auto);
 }

@@ -58,5 +58,34 @@ namespace touchosc {
     {
         controls_.push_back(std::move(ctl));
     }
+
+    void TabPage::layout()
+    {
+        int min_x = std::numeric_limits<int>::max();
+        int min_y = std::numeric_limits<int>::max();
+        int min_w = std::numeric_limits<int>::max();
+        int min_h = std::numeric_limits<int>::max();
+
+        // find padding
+        for (auto& c : controls_) {
+            if (min_x > c->x())
+                min_x = c->x();
+
+            if (min_y > c->y())
+                min_y = c->y();
+
+            if (min_h > c->height())
+                min_h = c->height();
+
+            if (min_w < c->width())
+                min_w = c->width();
+        }
+
+        // remove extra padding
+        for (auto& c : controls_) {
+            c->setX(c->x() - min_x);
+            c->setY(c->y() - min_y);
+        }
+    }
 }
 }
