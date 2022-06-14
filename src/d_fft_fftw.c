@@ -10,6 +10,10 @@
 #include <fftw3.h>
 
 int ilog2(int n);
+// ceammc
+void pd_globallock();
+void pd_globalunlock();
+// ceammc
 
 #define MINFFT 0
 #define MAXFFT 30
@@ -250,4 +254,3 @@ void pd_fft(t_float *buf, int npoints, int inverse)
     for (i = 0, fz = (float *)(p->out); i < 2 * npoints; i++)
         buf[i] = *fz++;
 }
-
