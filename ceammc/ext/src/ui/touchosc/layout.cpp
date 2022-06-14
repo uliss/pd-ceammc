@@ -130,7 +130,7 @@ namespace touchosc {
         // Or, write a new archive to disk to a temp file, then delete/rename the files. For this test this API is fine.
         auto status = mz_zip_add_mem_to_archive_file_in_place(path.c_str(),
             "index.xml",
-            str.data(), str.size() + 1,
+            str.data(), str.size(),
             comment, strlen(comment), MZ_BEST_SPEED);
 
         if (!status) {
@@ -144,7 +144,9 @@ namespace touchosc {
     std::ostream& operator<<(std::ostream& os, const Layout& l)
     {
         os << R"(<?xml version="1.0" encoding="UTF-8"?>)";
+        os << '\n';
         os << static_cast<const XmlNode&>(l);
+        os << '\n';
         return os;
     }
 

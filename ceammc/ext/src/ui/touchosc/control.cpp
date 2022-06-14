@@ -43,7 +43,7 @@ namespace touchosc {
     void Control::setY(int y)
     {
         y_ = y;
-        setAttribute("x", std::to_string(y_));
+        setAttribute("y", std::to_string(y_));
     }
 
     void Control::setPos(int x, int y)
