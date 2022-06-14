@@ -281,12 +281,18 @@ if(APPLE AND CMAKE_CXX_COMPILER_ID MATCHES "Clang")
         ceammc_loader_coreaudio.cpp
         ceammc_loader_coreaudio_impl.m)
 
-    find_library(FOUNDATION_LIBRARY Foundation)
-    find_library(AUDIOTOOLBOX_LIBRARY AudioToolBox)
     find_library(QUICKTIME_LIBRARY QuickTime)
     find_library(APP_SERVICES_LIBRARY ApplicationServices)
 
-    target_link_libraries(ceammc_core PRIVATE ${FOUNDATION_LIBRARY} ${AUDIOTOOLBOX_LIBRARY})
+    find_library(FOUNDATION_LIBRARY Foundation)
+    if(FOUNDATION_LIBRARY)
+        target_link_libraries(ceammc_core PRIVATE ${FOUNDATION_LIBRARY})
+    endif()
+
+    find_library(AUDIOTOOLBOX_LIBRARY AudioToolBox)
+    if(AUDIOTOOLBOX_LIBRARY)
+        target_link_libraries(ceammc_core PRIVATE ${AUDIOTOOLBOX_LIBRARY})
+    endif()
 endif()
 
 # install
