@@ -3,13 +3,9 @@
 #include "ceammc_ui.h"
 #include "ui_toggle.tcl.h"
 
-static t_symbol* midi_ctl_sym()
-{
-    static t_symbol* sym = gensym("#ctlin");
-    return sym;
-}
+constexpr const char* SYM_CTLIN = "#ctlin";
 
-static t_rgba BIND_MIDI_COLOR = hex_to_rgba("#FF3377");
+const t_rgba BIND_MIDI_COLOR = hex_to_rgba("#FF3377");
 
 namespace ceammc {
 
@@ -29,7 +25,7 @@ UIToggle::UIToggle()
 void UIToggle::startListenMidi()
 {
     listen_midi_ctrl_ = true;
-    midi_proxy_.bind(midi_ctl_sym());
+    midi_proxy_.bind(SYM_CTLIN);
     LIB_DBG << "move MIDI control to bind";
 
     asEBox()->b_boxparameters.d_bordercolor = BIND_MIDI_COLOR;
@@ -115,7 +111,7 @@ void UIToggle::onPropChange(t_symbol* prop_name)
                 ss << prop_midi_chn;
 
             UI_DBG << ss.str();
-            midi_proxy_.bind(midi_ctl_sym());
+            midi_proxy_.bind(SYM_CTLIN);
         } else
             midi_proxy_.unbind();
     }
