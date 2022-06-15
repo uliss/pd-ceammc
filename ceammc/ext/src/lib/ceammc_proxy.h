@@ -39,7 +39,7 @@ public:
         unbind();
     }
 
-    void bin(const char* name) { bind(gensym(name)); }
+    void bind(const char* name) { bind(gensym(name)); }
 
     void bind(t_symbol* name)
     {
