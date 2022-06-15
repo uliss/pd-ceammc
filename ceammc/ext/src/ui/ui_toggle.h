@@ -4,7 +4,7 @@
 #include "ceammc_proxy.h"
 #include "ceammc_ui_object.h"
 
-using namespace ceammc;
+namespace ceammc {
 
 class UIToggle : public UIObject {
     PdListProxy<UIToggle> midi_proxy_;
@@ -49,6 +49,8 @@ private:
     void startListenMidi();
     void stopListenMidi();
 };
+
+}
 
 void setup_ui_toggle();
 

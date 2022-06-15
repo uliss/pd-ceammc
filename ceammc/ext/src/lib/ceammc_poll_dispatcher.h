@@ -28,7 +28,11 @@ enum NotifyEventType {
     NOTIFY_NONE,
     NOTIFY_UPDATE,
     NOTIFY_SOURCE_REMOVED,
-    NOTIFY_DONE
+    NOTIFY_DONE,
+    NOTIFY_LOG_ERROR,
+    NOTIFY_LOG_POST,
+    NOTIFY_LOG_DEBUG,
+    NOTIFY_LOG_LOG
 };
 
 struct NotifyMessage {
@@ -36,13 +40,11 @@ struct NotifyMessage {
     NotifyEventType event;
 };
 
-class NotifiedObject : public BaseObject {
+/**
+ * Notify interface
+ */
+class NotifiedObject {
 public:
-    NotifiedObject(const PdArgs& args)
-        : BaseObject(args)
-    {
-    }
-
     virtual bool notify(NotifyEventType code) = 0;
 };
 

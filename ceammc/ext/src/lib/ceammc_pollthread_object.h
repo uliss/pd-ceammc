@@ -14,6 +14,7 @@
 #ifndef POLLTHREAD_OBJECT_H
 #define POLLTHREAD_OBJECT_H
 
+#include <atomic>
 #include <future>
 
 #include "ceammc_log.h"
@@ -24,18 +25,18 @@
 namespace ceammc {
 
 template <class Result>
-class PollThreadTaskObject : public NotifiedObject {
+class PollThreadTaskObject : public BaseObject, public NotifiedObject {
 public:
     using Future = std::future<void>;
 
 private:
     Future future_;
     Result task_in_, task_out_;
-    bool quit_ { false };
+    std::atomic_bool quit_ { false };
 
 public:
     PollThreadTaskObject(const PdArgs& args)
-        : NotifiedObject(args)
+        : BaseObject(args)
     {
     }
 
@@ -111,7 +112,7 @@ public:
     void m_quit(t_symbol*, const AtomListView&) { quit_ = true; }
 
     void setQuit(bool value) { quit_ = value; }
-    const bool& quit() const { return quit_; }
+    const std::atomic_bool& quit() const { return quit_; }
 
     Result& inPipe() { return task_in_; }
     const Result& inPipe() const { return task_in_; }

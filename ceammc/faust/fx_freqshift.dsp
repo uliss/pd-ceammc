@@ -1,4 +1,4 @@
-declare name "frequency shifter";
+declare name "fx.freqshift";
 ma = library("maths.lib");
 
 f2smp(freq) = (ma.SR, freq : /);

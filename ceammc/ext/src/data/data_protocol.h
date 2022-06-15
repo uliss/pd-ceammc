@@ -170,6 +170,7 @@ public:
     virtual bool proto_remove(const AtomListView& lst) = 0;
     virtual void proto_clear() = 0;
     virtual size_t proto_size() const = 0;
+    virtual bool proto_choose(Atom& a) const = 0;
 
     void m_add(t_symbol* s, const AtomListView& lst)
     {
@@ -190,6 +191,13 @@ public:
     void m_clear(t_symbol* /*s*/, const AtomListView& /*lv*/)
     {
         proto_clear();
+    }
+
+    void m_choose(t_symbol* /*s*/, const AtomListView& /*lv*/)
+    {
+        Atom a;
+        if (proto_choose(a))
+            this->atomTo(0, a);
     }
 };
 
@@ -471,6 +479,9 @@ namespace protocol {
 
             // void proto_clear()
             obj.addMethod("clear", &T::m_clear);
+
+            // void proto_choose(Atom&)
+            obj.addMethod("choose", &T::m_choose);
         }
     };
 

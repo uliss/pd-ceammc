@@ -23,8 +23,11 @@ static t_symbol* SYM_POPUP_LOG;
 
 constexpr int KNOB_MIN_SIZE = 20;
 static t_rgba BIND_MIDI_COLOR = hex_to_rgba("#FF3377");
+constexpr int MIDI_CTL_NONE = -1;
+constexpr int MIDI_CTL_MIN = 0;
+constexpr int MIDI_CTL_MAX = 127;
 
-using namespace ceammc;
+namespace ceammc {
 
 UIKnob::UIKnob()
     : show_range_(0)
@@ -142,11 +145,13 @@ void UIKnob::setup()
     obj.addBoolProperty("active_scale", _("Draw active scale"), false, &UIKnob::draw_active_scale_);
     obj.addIntProperty("midi_channel", _("MIDI channel"), 0, &UISingleValue::prop_midi_chn, "MIDI");
     obj.setPropertyRange("midi_channel", 0, 16);
-    obj.addIntProperty("midi_control", _("MIDI control"), 0, &UISingleValue::prop_midi_ctl, "MIDI");
-    obj.setPropertyRange("midi_control", 0, 128);
+    obj.addIntProperty("midi_control", _("MIDI control"), MIDI_CTL_NONE, &UISingleValue::prop_midi_ctl, "MIDI");
+    obj.setPropertyRange("midi_control", MIDI_CTL_NONE, MIDI_CTL_MAX);
     obj.addBoolProperty("midi_pickup", _("MIDI pickup"), true, &UISingleValue::prop_pickup_midi, "MIDI");
 
     obj.addProperty("value", &UISingleValue::value, &UISingleValue::setValue);
+}
+
 }
 
 void setup_ui_knob()
@@ -163,5 +168,5 @@ void setup_ui_knob()
     SYM_POPUP_LINEAR = gensym("popup_lin");
     SYM_POPUP_LOG = gensym("popup_log");
 
-    UIKnob::setup();
+    ceammc::UIKnob::setup();
 }

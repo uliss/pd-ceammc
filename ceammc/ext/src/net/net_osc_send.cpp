@@ -11,7 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "net_osc.h"
+#include "net_osc_send.h"
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
@@ -20,7 +20,9 @@
 #include <boost/container/small_vector.hpp>
 #include <boost/variant.hpp>
 
+#include <condition_variable>
 #include <future>
+#include <mutex>
 
 #include <lo/lo.h>
 
@@ -62,7 +64,6 @@ public:
 struct NetOscSendOscTask {
     std::string host;
     std::string path;
-    NetOscSend::MsgPipe* out;
     OscMessage m;
     SubscriberId id;
     uint16_t port;
@@ -72,30 +73,78 @@ struct NetOscSendOscTask {
 
 namespace {
 
-class OscSendWorker {
-    using Pipe = moodycamel::ReaderWriterQueue<NetOscSendOscTask>;
+class ThreadLogger : public NotifiedObject {
+    std::mutex mtx_;
+    std::list<std::string> msg_;
 
-    static bool launchSender(OscSendWorker* w, bool& quit)
+public:
+    ThreadLogger()
     {
+        Dispatcher::instance().subscribe(this, id());
+    }
+
+    ~ThreadLogger()
+    {
+        Dispatcher::instance().unsubscribe(this);
+    }
+
+    SubscriberId id() const { return reinterpret_cast<SubscriberId>(this); }
+
+    bool notify(NotifyEventType /*code*/) final
+    {
+        std::lock_guard<std::mutex> g(mtx_);
+        while (!msg_.empty()) {
+            LIB_ERR << msg_.front();
+            msg_.pop_front();
+        }
+
+        return true;
+    }
+
+    void error(const std::string& msg)
+    {
+        {
+            std::lock_guard<std::mutex> g(mtx_);
+            msg_.push_back(fmt::format("[osc] [error] {}", msg));
+        }
+
+        Dispatcher::instance().send({ id(), NOTIFY_UPDATE });
+    }
+};
+
+class OscSendWorker {
+    using UniqueLock = std::unique_lock<std::mutex>;
+    using Pipe = moodycamel::ReaderWriterQueue<NetOscSendOscTask, 64>;
+
+    static bool launchSender(OscSendWorker* w, const std::atomic_bool& quit, std::condition_variable& notified, std::mutex& m)
+    {
+        ThreadLogger logger;
+
         while (!quit) {
-            NetOscSendOscTask task;
             try {
+                NetOscSendOscTask task;
                 while (w->pipe_.try_dequeue(task)) {
                     if (quit)
-                        break;
+                        return true;
 
                     lo_address addr = lo_address_new(task.host.c_str(), fmt::format("{:d}", task.port).c_str());
                     const auto rc = lo_send_message(addr, task.path.c_str(), task.msg());
-                    if (task.out) {
-                        if (rc == -1)
-                            task.out->try_enqueue({ NET_OSC_SEND_ERROR, lo_address_errstr(addr) });
-                        else
-                            task.out->try_enqueue({ NET_OSC_SEND_OK, {} });
+                    if (rc == -1) {
+                        auto url = lo_address_get_url(addr);
+                        logger.error(fmt::format("{} - `{}`", lo_address_errstr(addr), url));
+                        free(url);
                     }
-                    lo_address_free(addr);
 
-                    Dispatcher::instance().send({ task.id, NOTIFY_UPDATE });
+                    lo_address_free(addr);
                 }
+
+                UniqueLock lock(m);
+                // if a signal from the main thread occures here
+                // we can miss this signal and have to wait 100ms or until next send
+                // so we have to lock sending of signal notification to prevent
+                // spourious delays in OSC sending
+                notified.wait_for(lock, std::chrono::milliseconds(100));
+
             } catch (std::exception& e) {
                 std::cerr << "exception: " << e.what();
             }
@@ -105,21 +154,24 @@ class OscSendWorker {
     }
 
     OscSendWorker()
-        : quit_(false)
+        : pipe_(64)
+        , quit_(false)
     {
         LIB_LOG << "launch OSC sender worker process";
-        future_ = std::async(std::launch::async, launchSender, this, std::ref(quit_));
+        future_ = std::async(std::launch::async, launchSender, this, std::ref(quit_), std::ref(notify_), std::ref(mtx_));
     }
 
     ~OscSendWorker()
     {
-        quit_ = false;
-        future_.wait();
+        quit_ = true;
+        future_.get();
     }
 
     Pipe pipe_;
     std::future<bool> future_;
-    bool quit_;
+    std::atomic_bool quit_;
+    std::mutex mtx_;
+    std::condition_variable notify_;
 
 public:
     static OscSendWorker& instance()
@@ -130,19 +182,24 @@ public:
 
     bool add(const NetOscSendOscTask& task)
     {
-        return pipe_.try_enqueue(task);
+        auto ok = pipe_.enqueue(task);
+        if (ok) {
+            // @see comments in worker function
+            UniqueLock lock(mtx_);
+            notify_.notify_one();
+        }
+
+        return ok;
     }
 };
 
 }
 
 NetOscSend::NetOscSend(const PdArgs& args)
-    : NetOscSendBase(args)
+    : BaseObject(args)
     , host_(nullptr)
     , port_(nullptr)
 {
-    Dispatcher::instance().subscribe(this, reinterpret_cast<SubscriberId>(this));
-
     host_ = new SymbolProperty("@host", &s_);
     host_->setArgIndex(0);
     addProperty(host_);
@@ -152,11 +209,6 @@ NetOscSend::NetOscSend(const PdArgs& args)
     addProperty(port_);
 
     createOutlet();
-}
-
-NetOscSend::~NetOscSend()
-{
-    Dispatcher::instance().unsubscribe(this);
 }
 
 void NetOscSend::m_send(t_symbol* s, const AtomListView& lv)
@@ -306,25 +358,95 @@ void NetOscSend::m_send_string(t_symbol* s, const AtomListView& lv)
         LIB_ERR << "can't add task";
 }
 
-void NetOscSend::processMessage(const NetOscSendMsg& msg)
+static inline char atom_arg_type(const Atom& a)
 {
-    switch (msg.status) {
-    case NET_OSC_SEND_OK:
-        break;
-    case NET_OSC_SEND_ERROR:
+    switch (a.type()) {
+    case Atom::FLOAT:
+        return 'f';
+    case Atom::SYMBOL:
+        return 's';
     default:
-        OBJ_ERR << msg.error_msg;
-        break;
+        return '?';
     }
 }
 
-bool NetOscSend::notify(NotifyEventType /*code*/)
+void NetOscSend::m_send_typed(t_symbol* s, const AtomListView& lv)
 {
-    NetOscSendMsg msg;
-    while (msg_pipe_.try_dequeue(msg))
-        processMessage(msg);
+    const bool ok = (lv.size() == 1 && lv[0].isSymbol())
+        || (lv.size() >= 3 && lv[0].isSymbol() && lv[1].isSymbol());
 
-    return true;
+    if (!ok) {
+        METHOD_ERR(s) << "usage: PATH [TYPES ARGS...]?";
+        return;
+    }
+
+    NetOscSendOscTask task;
+    auto path = lv[0].asT<t_symbol*>()->s_name;
+    initTask(task, path);
+
+    if (lv.size() >= 3) {
+        const auto types = lv[1].asT<t_symbol*>()->s_name;
+        const auto num_types = strlen(types);
+        const auto num_args = lv.size() - 2;
+
+        if (num_types != num_args) {
+            METHOD_ERR(s) << fmt::format("number of types mismatch number of arguments: {}!={}", num_types, num_args);
+            return;
+        }
+
+        for (size_t i = 0; i < num_types; i++) {
+            const auto t = types[i];
+            const auto& a = lv[i + 2];
+            switch (t) {
+            case LO_FLOAT:
+                if (!a.isFloat()) {
+                    METHOD_ERR(s) << fmt::format("argument type mismatch: '{}'!='{}'", t, atom_arg_type(a));
+                    break;
+                } else
+                    lo_message_add_float(task.msg(), a.asT<t_float>());
+                break;
+            case LO_DOUBLE:
+                if (!a.isFloat()) {
+                    METHOD_ERR(s) << fmt::format("argument type mismatch: '{}'!='{}'", t, atom_arg_type(a));
+                    break;
+                } else
+                    lo_message_add_double(task.msg(), a.asT<t_float>());
+                break;
+            case LO_INT32:
+                if (!a.isFloat()) {
+                    METHOD_ERR(s) << fmt::format("argument type mismatch: '{}'!='{}'", t, atom_arg_type(a));
+                    break;
+                } else
+                    lo_message_add_int32(task.msg(), a.asT<t_float>());
+                break;
+            case LO_INT64:
+                if (!a.isFloat()) {
+                    METHOD_ERR(s) << fmt::format("argument type mismatch: '{}'!='{}'", t, atom_arg_type(a));
+                    break;
+                } else
+                    lo_message_add_int64(task.msg(), a.asT<t_float>());
+                break;
+            case LO_STRING:
+                if (!a.isSymbol())
+                    lo_message_add_string(task.msg(), to_string(a).c_str());
+                else
+                    lo_message_add_string(task.msg(), a.asT<t_symbol*>()->s_name);
+                break;
+            case LO_SYMBOL:
+                if (!a.isSymbol())
+                    lo_message_add_symbol(task.msg(), to_string(a).c_str());
+                else
+                    lo_message_add_symbol(task.msg(), a.asT<t_symbol*>()->s_name);
+                break;
+            default:
+                METHOD_ERR(s) << fmt::format("unknown argument type: '{}'", t);
+                break;
+            }
+        }
+    }
+
+    if (!OscSendWorker::instance().add(task))
+        LIB_ERR << "can't add task";
 }
 
 void NetOscSend::initTask(NetOscSendOscTask& task, const char* path)
@@ -333,16 +455,16 @@ void NetOscSend::initTask(NetOscSendOscTask& task, const char* path)
     task.port = port_->value();
     task.path = path;
     task.id = reinterpret_cast<SubscriberId>(this);
-    task.out = &msg_pipe_;
 }
 
-void setup_net_osc()
+void setup_net_osc_send()
 {
     char str[16];
     lo_version(str, sizeof(str), 0, 0, 0, 0, 0, 0, 0);
     LIB_DBG << "liblo version: " << str;
 
-    ObjectFactory<NetOscSend> obj("net.osc_send");
+    ObjectFactory<NetOscSend> obj("net.osc.send");
+    obj.addAlias("net.osc.s");
     obj.addMethod("send", &NetOscSend::m_send);
     obj.addMethod("send_bool", &NetOscSend::m_send_bool);
     obj.addMethod("send_i32", &NetOscSend::m_send_i32);
@@ -352,4 +474,5 @@ void setup_net_osc()
     obj.addMethod("send_null", &NetOscSend::m_send_null);
     obj.addMethod("send_inf", &NetOscSend::m_send_inf);
     obj.addMethod("send_string", &NetOscSend::m_send_string);
+    obj.addMethod("send_typed", &NetOscSend::m_send_typed);
 }

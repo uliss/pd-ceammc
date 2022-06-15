@@ -1,6 +1,7 @@
 set(FLOW_SOURCES mod_flow.h mod_flow.cpp
     conway_life.cpp
     route_float.cpp
+    route_random.cpp
     seq_arp.cpp
     seq_bangs.cpp
     seq_base.cpp

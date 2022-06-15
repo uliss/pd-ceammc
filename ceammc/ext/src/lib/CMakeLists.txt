@@ -50,6 +50,7 @@ set(CEAMMC_LIB_SOURCES
     ceammc_atom.cpp
     ceammc_atomlist.cpp
     ceammc_atomlist_view.cpp
+    ceammc_base64.cpp
     ceammc_canvas.cpp
     ceammc_control.cpp
     ceammc_convert.cpp

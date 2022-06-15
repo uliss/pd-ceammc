@@ -11,8 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef NET_OSC_H
-#define NET_OSC_H
+#ifndef NET_OSC_SEND_H
+#define NET_OSC_SEND_H
 
 #ifndef WIN32
 #include <unistd.h>
@@ -26,33 +26,14 @@
 
 using namespace ceammc;
 
-enum NetOscCmdStatus : std::int8_t {
-    NET_OSC_SEND_ERROR,
-    NET_OSC_SEND_OK,
-    NET_OSC_SEND_REQUEST,
-};
-
-struct NetOscSendMsg {
-    NetOscCmdStatus status;
-    std::string error_msg;
-};
-
-using NetOscSendBase = NotifiedObject;
-
 struct NetOscSendOscTask;
 
-class NetOscSend : public NetOscSendBase {
-public:
-    using MsgPipe = moodycamel::ReaderWriterQueue<NetOscSendMsg>;
-
-private:
+class NetOscSend : public BaseObject {
     SymbolProperty* host_;
     IntProperty* port_;
-    MsgPipe msg_pipe_;
 
 public:
     NetOscSend(const PdArgs& args);
-    ~NetOscSend();
 
     void m_send(t_symbol* s, const AtomListView& lv);
     void m_send_bool(t_symbol* s, const AtomListView& lv);
@@ -63,14 +44,12 @@ public:
     void m_send_null(t_symbol* s, const AtomListView& lv);
     void m_send_inf(t_symbol* s, const AtomListView& lv);
     void m_send_string(t_symbol* s, const AtomListView& lv);
-
-    void processMessage(const NetOscSendMsg& msg);
-    bool notify(NotifyEventType code) final;
+    void m_send_typed(t_symbol* s, const AtomListView& lv);
 
 private:
     void initTask(NetOscSendOscTask& task, const char* path);
 };
 
-void setup_net_osc();
+void setup_net_osc_send();
 
 #endif // NET_OSC_H

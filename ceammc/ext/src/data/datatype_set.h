@@ -80,6 +80,9 @@ public:
      */
     bool contains_any_of(const AtomList& lst) const noexcept;
 
+    /** choose random element from set */
+    bool choose(Atom& res) const noexcept;
+
     std::string toString() const;
     int type() const noexcept;
     bool isEqual(const AbstractData* d) const noexcept;

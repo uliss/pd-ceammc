@@ -19,6 +19,8 @@
 
 #include <algorithm>
 #include <boost/functional/hash.hpp>
+#include <ctime>
+#include <random>
 
 namespace {
 
@@ -96,6 +98,23 @@ bool DataTypeSet::contains_any_of(const AtomList& lst) const noexcept
     }
 
     return false;
+}
+
+bool DataTypeSet::choose(Atom& res) const noexcept
+{
+    auto N = data_.size();
+    if (N < 1)
+        return false;
+
+    std::mt19937 gen(time(0));
+    const auto offset = std::uniform_int_distribution<size_t>(0, N - 1)(gen);
+    auto it = data_.begin();
+
+    for (size_t i = 0; i < offset; i++)
+        ++it;
+
+    res = *it;
+    return true;
 }
 
 std::string DataTypeSet::toString() const

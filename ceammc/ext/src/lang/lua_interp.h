@@ -30,7 +30,7 @@ namespace lua {
     private:
         lua_State* lua_;
         LuaCommandQueue* pipe_ { nullptr };
-        const bool* quit_ { nullptr };
+        const std::atomic_bool* quit_;
         SubscriberId id_ { 0 };
         std::string eval_string_;
 
@@ -38,7 +38,7 @@ namespace lua {
         LuaInterp& operator=(const LuaInterp&) = delete;
 
     public:
-        LuaInterp(LuaCommandQueue* pipe, SubscriberId id, const bool* quit);
+        LuaInterp(LuaCommandQueue* pipe, SubscriberId id, const std::atomic_bool* quit);
         virtual ~LuaInterp();
 
         void run(const LuaCmd& cmd);

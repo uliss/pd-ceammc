@@ -15,23 +15,25 @@
 #include "ceammc_factory.h"
 #include "datatype_mlist.h"
 
+#include <boost/container/small_vector.hpp>
+
+using SmallAtomList = boost::container::small_vector<Atom, 16>;
+
 ListPrepend::ListPrepend(const PdArgs& args)
     : BaseObject(args)
-    , lst_(args.args)
+    , lst_(nullptr)
 {
+    lst_ = new ListProperty("@value");
+    lst_->setArgIndex(0);
+    addProperty(lst_);
     createInlet();
     createOutlet();
-}
-
-void ListPrepend::parseProperties()
-{
-    // empty
 }
 
 void ListPrepend::onBang()
 {
     // bang processed as empty list
-    listTo(0, lst_);
+    listTo(0, lst_->value());
 }
 
 void ListPrepend::onFloat(t_float f)
@@ -46,7 +48,14 @@ void ListPrepend::onSymbol(t_symbol* s)
 
 void ListPrepend::onList(const AtomList& lst)
 {
-    listTo(0, lst_ + lst);
+    SmallAtomList res;
+    for (auto& a : lst_->value())
+        res.push_back(a);
+
+    for (auto& a : lst)
+        res.push_back(a);
+
+    listTo(0, AtomListView(&res.front(), res.size()));
 }
 
 void ListPrepend::onData(const Atom& d)
@@ -58,13 +67,13 @@ void ListPrepend::onDataT(const MListAtom& ml)
 {
     MListAtom res(ml);
     res.detachData();
-    res->prepend(lst_);
+    res->prepend(lst_->value());
     atomTo(0, res);
 }
 
 void ListPrepend::onInlet(size_t n, const AtomListView& lst)
 {
-    lst_ = lst;
+    lst_->setValue(lst);
 }
 
 void setup_list_prepend()

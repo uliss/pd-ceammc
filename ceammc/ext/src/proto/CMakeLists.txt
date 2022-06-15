@@ -8,6 +8,7 @@ endfunction()
 
 ceammc_proto_external(firmata)
 ceammc_proto_external(hui)
+ceammc_proto_external(inscore)
 ceammc_proto_external(midi)
 ceammc_proto_external(midi_casio)
 ceammc_proto_external(midi_cc)
@@ -34,5 +35,6 @@ target_include_directories(ceammc_proto
     PRIVATE
         ${PROJECT_BINARY_DIR} # for config.h
         ${CMAKE_CURRENT_SOURCE_DIR}/../midi
+        "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>"
 )
 target_link_libraries(ceammc_proto PRIVATE proto_firmata)

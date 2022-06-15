@@ -27,8 +27,8 @@ static t_symbol* SYM_OUTPUT_ALL_CELLS;
 static const int CELL_MARGIN = 0;
 
 namespace {
-    auto random_seed = std::chrono::system_clock::now().time_since_epoch().count();
-    std::default_random_engine random_gen(random_seed);
+auto random_seed = std::chrono::system_clock::now().time_since_epoch().count();
+std::default_random_engine random_gen(random_seed);
 }
 
 UIMatrix::UIMatrix()
@@ -836,6 +836,9 @@ void UIMatrix::loadPreset(size_t idx)
             setCell(ri, wi * NBITS + bi, v);
         }
     }
+
+    drawActiveCells();
+    outputAllCells();
 }
 
 void UIMatrix::storePreset(size_t idx)

@@ -5,7 +5,7 @@
 #include "ceammc_proxy.h"
 #include "ceammc_ui_object.h"
 
-using namespace ceammc;
+namespace ceammc {
 
 class UISingleValue : public UIObject {
     PdListProxy<UISingleValue> midi_proxy_;
@@ -87,5 +87,7 @@ protected:
 private:
     void setValueLin(t_float v);
 };
+
+}
 
 #endif // UI_SINGLE_VALUE_H

@@ -19,5 +19,10 @@ function(add_net_test src)
     target_sources(test_ext_net PRIVATE "test_net_${src}.cpp")
 endfunction()
 
+# liblo
+find_package(liblo)
+if(LIBLO_FOUND)
+    target_sources(test_ext_net PRIVATE test_net_osc_server.cpp)
+endif()
 
 add_net_test(host)

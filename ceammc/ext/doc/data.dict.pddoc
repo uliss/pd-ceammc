@@ -39,6 +39,7 @@
             <method name="clear">removes all dict values. No output</method>
             <method name="get_key">get entry from dictionary 
             <param name="KEY" type="symbol" required="true">entry key</param></method>
+            <method name="choose">choose random key and output it</method>
             <method name="set_key">change entry in dictionary. If it's not exists, do nothing. 
             <param name="KEY" type="symbol" required="true">key</param>
             <param name="VAL" type="list" required="true">single value or list</param></method>

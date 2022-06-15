@@ -43,7 +43,7 @@
 |   |    [str test1]   |    [str ANOTHER STRING]
 |   |    |             |    |
 |   |    |             |    |.
-[list.prepend @prop ABC       ]
+[list.prepend "@prop" ABC       ]
 |
 [ui.display @display_type 1]
 ]]>

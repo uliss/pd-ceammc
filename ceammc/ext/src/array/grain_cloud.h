@@ -75,6 +75,10 @@ public:
     void removeById(int id);
     void removeByTag(t_symbol* tag);
 
+    void pauseAll(bool value);
+    void pauseById(int id, bool value);
+    void pauseByTag(t_symbol* tag, bool value);
+
     void alignGrain(Grain* g, const std::vector<size_t>& onsets);
     void alignAll(const std::vector<size_t>& onsets);
     void alignById(int id, const std::vector<size_t>& onsets);

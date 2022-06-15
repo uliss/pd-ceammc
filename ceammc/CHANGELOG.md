@@ -6,6 +6,7 @@
   - midi.split: midi note splitter
   - midi.modus: snap/skip midi pitches according to selected modus
   - z~: sample delay added
+  - route.random: random router added (with route.r alias) 
 - new properties:
   - @clip property added to system.cursor to clip cursor XY coords
   - @norm property added to ui.env to do envelope value normalization on input
@@ -20,11 +21,15 @@
   - [side2circle( method added to xdac~ to change output channel layout
   - [-(, [+(, [@value?( methods added to second inlet of \[flow.count\]
   - [at(, [front(, [back( methods added to data.list/data.mlist
+  - [choose( method added to get random element from \[data.set\], \[local.set\] and \[global.set\]
+  - [choose( method added to get random element from \[data.dict\], \[local.dict\] and \[global.dict\]
+  - [pause( method added to \[array.grainer~\]
 - misc:
   - conv.lin2exp: list support added
   - conv.lin2curve: list support added
   - ui.slider2d: mouse wheel support added: (move x-axis when Alt pressed)
   - ui.slider2d alias added: ui.s2d
+  - env.asr~: second inlet added for gate control
 - TCL editor added for objects:
   - data.list
   - local.list

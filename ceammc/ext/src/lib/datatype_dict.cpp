@@ -24,7 +24,9 @@
 #include "fmt/format.h"
 #include "json/json.hpp"
 
+#include <ctime>
 #include <fstream>
+#include <random>
 
 namespace ceammc {
 
@@ -416,6 +418,23 @@ bool DataTypeDict::write(const std::string& path) const
         return false;
 
     ofs << *res;
+    return true;
+}
+
+bool DataTypeDict::choose(Atom& key) const noexcept
+{
+    if (dict_.empty())
+        return false;
+
+    const auto N = dict_.size();
+    std::mt19937 gen(time(0));
+    const auto offset = std::uniform_int_distribution<size_t>(0, N - 1)(gen);
+    auto it = dict_.begin();
+
+    for (size_t i = 0; i < offset; i++)
+        ++it;
+
+    key = it->first;
     return true;
 }
 

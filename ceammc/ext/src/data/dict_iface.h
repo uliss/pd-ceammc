@@ -164,6 +164,11 @@ public:
         return dict()->write(path);
     }
 
+    bool proto_choose(Atom& key) const override
+    {
+        return dict()->choose(key);
+    }
+
     bool proto_read(const std::string& path) override
     {
         dict().detachData();

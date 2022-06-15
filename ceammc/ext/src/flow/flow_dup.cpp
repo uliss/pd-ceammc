@@ -66,4 +66,6 @@ void setup_flow_dup()
 {
     ObjectFactory<FlowDup> obj("flow.dup");
     obj.noPropsDispatch();
+
+    obj.setXletsInfo({ "input messages", "int: number of repeats for each message" }, { "output messages" });
 }
