@@ -30,9 +30,10 @@ constexpr float XTICK_MAJ = 6;
 constexpr float XTICK_MIN = 3;
 constexpr float XGRID_AVOID = 10;
 
-static t_symbol* SYM_YAUTO;
-static t_symbol* SYM_YMIN;
-static t_symbol* SYM_YMAX;
+constexpr const char* SYM_BARS = "bars";
+constexpr const char* SYM_YAUTO= "yauto";
+constexpr const char* SYM_YMIN = "ymin";
+constexpr const char* SYM_YMAX = "ymax";
 
 constexpr float BTN_SIZE = 12;
 constexpr float BTN_PAD = 2;
@@ -380,9 +381,7 @@ public:
 
     void setDrawStyle(t_symbol* s)
     {
-        static t_symbol* SYM_BAR = gensym("bars");
-
-        if (s == SYM_BAR)
+        if (s == gensym(SYM_BARS))
             pen_fsm_ = pen_bars_fsm_;
         else
             pen_fsm_ = pen_lines_fsm_;
@@ -402,7 +401,6 @@ private:
 void UIPlotTilde::drawPlot()
 {
     static Fsm fsm;
-    static t_symbol* SYM_BAR = gensym("bars");
 
     const t_rect r = rect();
     UIPainter p = plot_layer_.painter(r);
@@ -418,7 +416,7 @@ void UIPlotTilde::drawPlot()
 
     float wd1 = wd;
     float xoff1 = xoff;
-    if (prop_draw_mode_ == SYM_BAR) {
+    if (prop_draw_mode_ == gensym(SYM_BARS)) {
         auto bw0 = std::round(wd / buffers_[0].size());
         auto bw1 = int(bw0) - 2;
         if (bw1 < 1)
@@ -1322,9 +1320,9 @@ void UIPlotTilde::setup()
     obj.useBang();
     obj.useMouseEvents(UI_MOUSE_DOWN);
 
-    obj.addBoolProperty(SYM_YAUTO->s_name, _("Auto Y-range"), 0, &UIPlotTilde::yauto_, _("Bounds"));
-    obj.addFloatProperty(SYM_YMIN->s_name, _("Minimum Y-value"), -1, &UIPlotTilde::ymin_, _("Bounds"));
-    obj.addFloatProperty(SYM_YMAX->s_name, _("Maximum Y-value"), 1, &UIPlotTilde::ymax_, _("Bounds"));
+    obj.addBoolProperty(SYM_YAUTO, _("Auto Y-range"), 0, &UIPlotTilde::yauto_, _("Bounds"));
+    obj.addFloatProperty(SYM_YMIN, _("Minimum Y-value"), -1, &UIPlotTilde::ymin_, _("Bounds"));
+    obj.addFloatProperty(SYM_YMAX, _("Maximum Y-value"), 1, &UIPlotTilde::ymax_, _("Bounds"));
     obj.addBoolProperty("xmaj_ticks", _("Major ticks on x-axis"), 1, &UIPlotTilde::xmaj_ticks_, _("Bounds"));
     obj.addBoolProperty("xmin_ticks", _("Minor ticks on x-axis"), 1, &UIPlotTilde::xmin_ticks_, _("Bounds"));
     obj.addBoolProperty("xmaj_grid", _("Major grid on x-axis"), 1, &UIPlotTilde::xmaj_grid_, _("Bounds"));
@@ -1353,9 +1351,5 @@ void UIPlotTilde::setup()
 
 void setup_ui_plot_tilde()
 {
-    SYM_YAUTO = gensym("yauto");
-    SYM_YMIN = gensym("ymin");
-    SYM_YMAX = gensym("ymax");
-
     UIPlotTilde::setup();
 }
