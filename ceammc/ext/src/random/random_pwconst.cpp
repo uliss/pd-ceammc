@@ -78,7 +78,7 @@ bool RandomPWConst::set(const AtomList& data)
         return false;
     }
 
-    if (std::count_if(w.begin(), w.end(), std::bind2nd(std::less<t_float>(), 0))) {
+    if (std::count_if(w.begin(), w.end(), [](t_float x) -> bool { return x < 0; })) {
         OBJ_ERR << "negative weights are found: " << w;
         return false;
     }
