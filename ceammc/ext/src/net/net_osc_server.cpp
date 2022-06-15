@@ -623,14 +623,21 @@ namespace net {
                 free(proto);
             } else
                 proto_ = &s_;
+
+            if(port_ == host_)
+                port_ = &s_;
         } else if (url.isInteger()) {
             constexpr int MIN_PORT = 1024;
             constexpr int MAX_PORT = std::numeric_limits<std::int16_t>::max();
-            int port = url.asT<int>();
+            const int port = url.asT<int>();
             if (port <= MIN_PORT || port > MAX_PORT) {
                 LIB_ERR << fmt::format("[@{}] invalid port value: {}, expected to be in {}..{} range", name()->s_name, port, MIN_PORT, MAX_PORT);
                 return;
             }
+
+            port_ = gensym(fmt::format("{:d}", port).c_str());
+            proto_ = &s_;
+            host_ = &s_;
         } else
             LIB_ERR << "OSC url or port number expected";
     }

@@ -14,10 +14,16 @@
 #include "net_osc_server.h"
 #include "test_base.h"
 #include "test_external.h"
+#include "ceammc_format.h"
 
 using namespace ceammc::net;
 
 PD_COMPLETE_TEST_SETUP(NetOscServer, net, osc_server)
+
+Atom operator ""_a (long double f) { return Atom(f); }
+Atom operator ""_a (const char* s, size_t) { return Atom(gensym(s)); }
+std::string operator ""_str   (const char* s, size_t) { return std::string(s); }
+t_symbol*   operator ""_sym (const char* s, size_t) { return gensym(s); }
 
 TEST_CASE("net.osc.server", "[externals]")
 {
@@ -25,21 +31,31 @@ TEST_CASE("net.osc.server", "[externals]")
 
     SECTION("property")
     {
-        OscUrlProperty prop("url", gensym("osc.udp://:8080"));
-        REQUIRE(prop.name() == S("url"));
-        REQUIRE(prop.host() == &s_);
-        REQUIRE(prop.port() == gensym("8080"));
-        REQUIRE(prop.proto() == gensym("udp"));
+        OscUrlProperty prop("url", SYM("osc.udp://:8080"));
+        REQUIRE(prop.name() == "url"_sym);
+        REQUIRE(prop.host() == ""_sym);
+        REQUIRE(prop.port() == "8080"_sym);
+        REQUIRE(prop.proto() == "udp"_sym);
 
-        REQUIRE(prop.set(LA("osc.tcp://localhost:1234")));
-        REQUIRE(prop.host() == gensym("localhost"));
-        REQUIRE(prop.port() == gensym("1234"));
-        REQUIRE(prop.proto() == gensym("tcp"));
+        REQUIRE(prop.set(LF(5432)));
+        REQUIRE(prop.host() == ""_sym);
+        REQUIRE(prop.port() == "5432"_sym);
+        REQUIRE(prop.proto() == ""_sym);
+
+        REQUIRE(prop.set(LA("osc://localhost:9123")));
+        REQUIRE(prop.host() == "localhost"_sym);
+        REQUIRE(prop.port() == "9123"_sym);
+        REQUIRE(prop.proto()->s_name == "udp"_str);
 
         REQUIRE(prop.set(LA("osc.tcp://localhost")));
-        REQUIRE(prop.host() == gensym("localhost"));
-        REQUIRE(prop.port() == &s_);
-        REQUIRE(prop.proto() == gensym("tcp"));
+        REQUIRE(prop.host() == "localhost"_sym);
+        REQUIRE(prop.port()->s_name == ""_str);
+        REQUIRE(prop.proto() == "tcp"_sym);
+
+        REQUIRE(prop.set(LA("osc.tcp://localhost:")));
+        REQUIRE(prop.host() == "localhost"_sym);
+        REQUIRE(prop.port() == ""_sym);
+        REQUIRE(prop.proto() == "tcp"_sym);
     }
 
     SECTION("construct")
