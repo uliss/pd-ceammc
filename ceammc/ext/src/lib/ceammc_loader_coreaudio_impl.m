@@ -14,7 +14,7 @@
 
 #include "ceammc_loader_coreaudio_impl.h"
 
-#include <AudioToolBox/AudioToolbox.h>
+#include <AudioToolbox/AudioToolbox.h>
 #include <CoreFoundation/CoreFoundation.h>
 
 #include <ctype.h>
@@ -304,7 +304,7 @@ int64_t ceammc_coreaudio_load(const char* path, size_t channel, size_t offset, s
             for (UInt32 i = 0; i < frameCount && (frameIdx < count) && (frameIdx < max_samples); i++) {
                 buf[frameIdx].w_float = data[audioOutFmt.mChannelsPerFrame * i + channel] * gain;
                 frameIdx++;
-            } 
+            }
         }
     }
 
