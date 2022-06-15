@@ -137,6 +137,8 @@ void LangLuaJit::onBang()
 {
     using namespace lua;
 
+    WorkerNotifyOne n(mtx_, notify_);
+
     if (!inPipe().enqueue({ LUA_INTERP_BANG, LuaInt(0) })) {
         OBJ_ERR << "can't send command to LUA interpreter: bang";
         return;
