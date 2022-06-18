@@ -6,6 +6,20 @@
 
 static inline SpeechRhvoiceTilde* toThis(void* x) { return static_cast<SpeechRhvoiceTilde*>(x); }
 
+class SynthFloatProperty : public FloatProperty {
+    using ValType = typeof(RHVoice_synth_params::absolute_pitch);
+    ValType* v_;
+
+public:
+    SynthFloatProperty(const char* name, ValType* v)
+        : FloatProperty(name, *v, PropValueAccess::READWRITE)
+        , v_(v)
+    {
+        setSuccessFn([this](Property*) { *v_ = value(); });
+        setFloatCheckFn([](t_float v) -> bool { return v >= -1 && v <= 1; });
+    }
+};
+
 SpeechRhvoiceTilde::SpeechRhvoiceTilde(const PdArgs& args)
     : SoundExternal(args)
     , tts_(nullptr, &RHVoice_delete_tts_engine)
@@ -58,6 +72,10 @@ SpeechRhvoiceTilde::SpeechRhvoiceTilde(const PdArgs& args)
     synth_params_.capitals_mode = RHVoice_capitals_default;
     synth_params_.punctuation_mode = RHVoice_punctuation_default;
     synth_params_.flags = 0;
+
+    addProperty(new SynthFloatProperty("@rate", &synth_params_.absolute_rate));
+    addProperty(new SynthFloatProperty("@pitch", &synth_params_.absolute_pitch));
+    addProperty(new SynthFloatProperty("@volume", &synth_params_.absolute_volume));
 
     tts_.reset(RHVoice_new_tts_engine(&params_));
 
@@ -160,5 +178,5 @@ void setup_speech_rhvoice_tilde()
     SoundExternalFactory<SpeechRhvoiceTilde> obj("speech.rhvoice~", OBJECT_FACTORY_DEFAULT);
     obj.addAlias("rhvoice~");
 
-    LIB_POST << fmt::format("RHVoice {}", RHVoice_get_version());
+    LIB_POST << fmt::format("RHVoice version: {}", RHVoice_get_version());
 }
