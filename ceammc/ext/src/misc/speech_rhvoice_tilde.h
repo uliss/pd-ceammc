@@ -36,6 +36,7 @@ public:
     ~SpeechRhvoiceTilde();
 
     void onSymbol(t_symbol* s) override;
+    void onList(const AtomList& lst) override;
     void processBlock(const t_sample** in, t_sample** out) final;
 
     void m_stop(t_symbol* s, const AtomListView& lv);

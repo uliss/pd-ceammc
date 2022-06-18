@@ -5,6 +5,8 @@
 #include "RHVoice.h"
 #include "soxr.h"
 
+#include <boost/static_string.hpp>
+
 #define RHVOICE_DEBUG 1
 
 static inline SpeechRhvoiceTilde* toThis(void* x) { return static_cast<SpeechRhvoiceTilde*>(x); }
@@ -147,6 +149,32 @@ void SpeechRhvoiceTilde::onSymbol(t_symbol* s)
     }
 
     txt_queue_.emplace(s->s_name);
+}
+
+void SpeechRhvoiceTilde::onList(const AtomList& lst)
+{
+    if (lst.empty()) {
+        OBJ_ERR << "empty list";
+        return;
+    }
+
+    using StaticString = boost::static_string<1024>;
+    StaticString str;
+
+    for (auto& a : lst) {
+        if (a.isInteger()) {
+            fmt::format_to(std::back_inserter(str), "{} ", a.asT<int>());
+        } else if (a.isFloat()) {
+            fmt::format_to(std::back_inserter(str), "{} ", a.asT<t_float>());
+        } else if (a.isSymbol()) {
+            fmt::format_to(std::back_inserter(str), "{} ", a.asT<t_symbol*>()->s_name);
+        }
+    }
+
+    if (str.size() > 0)
+        str.pop_back();
+
+    txt_queue_.emplace(str.c_str(), str.size());
 }
 
 void SpeechRhvoiceTilde::processBlock(const t_sample** in, t_sample** out)
