@@ -9,9 +9,10 @@ static inline SpeechRhvoiceTilde* toThis(void* x) { return static_cast<SpeechRhv
 SpeechRhvoiceTilde::SpeechRhvoiceTilde(const PdArgs& args)
     : SoundExternal(args)
     , tts_(nullptr, &RHVoice_delete_tts_engine)
+    , done_(false)
 {
-    params_.data_path = "";
-    params_.config_path = "";
+    params_.data_path = "/Users/serge/.local/share/RHVoice";
+    params_.config_path = "/Users/serge/.local/etc/RHVoice";
     params_.resource_paths = nullptr;
     params_.options = RHVoice_preload_voices;
     params_.callbacks.done =
@@ -46,9 +47,67 @@ SpeechRhvoiceTilde::SpeechRhvoiceTilde(const PdArgs& args)
         return toThis(obj)->onDsp(data, n);
     };
 
+    synth_params_.voice_profile = "anna";
+    synth_params_.absolute_pitch = 0;
+    synth_params_.absolute_rate = 0;
+    synth_params_.absolute_volume = 1;
+    synth_params_.relative_rate = 1;
+    synth_params_.relative_volume = 1;
+    synth_params_.relative_pitch = 1;
+    synth_params_.punctuation_list = nullptr;
+    synth_params_.capitals_mode = RHVoice_capitals_default;
+    synth_params_.punctuation_mode = RHVoice_punctuation_default;
+    synth_params_.flags = 0;
+
     tts_.reset(RHVoice_new_tts_engine(&params_));
 
+    auto nprofiles = RHVoice_get_number_of_voice_profiles(tts_.get());
+    auto profiles = RHVoice_get_voice_profiles(tts_.get());
+    OBJ_DBG << "number of profiles: " << nprofiles;
+    for (int i = 0; i < nprofiles; i++) {
+        OBJ_DBG << "\t-" << profiles[i];
+    }
+
+    auto nvocies = RHVoice_get_number_of_voices(tts_.get());
+    auto voices = RHVoice_get_voices(tts_.get());
+    OBJ_DBG << "number of voices: " << nvocies;
+    for (int i = 0; i < nprofiles; i++) {
+        OBJ_DBG << "\t-" << voices[i].name;
+    }
+
+    proc_ = std::async(
+        std::launch::async,
+        [this]() {
+            while (!done_) {
+                std::string txt;
+                if (txt_queue_.try_dequeue(txt)) {
+                    auto msg = RHVoice_new_message(
+                        tts_.get(),
+                        txt.c_str(),
+                        txt.size(),
+                        RHVoice_message_text,
+                        &synth_params_,
+                        this);
+
+                    auto rc = RHVoice_speak(msg);
+                    std::cerr << "speak: " << txt << " - " << rc << "\n";
+                    RHVoice_delete_message(msg);
+                }
+            }
+        });
+
     createSignalOutlet();
+}
+
+SpeechRhvoiceTilde::~SpeechRhvoiceTilde()
+{
+    done_ = true;
+    proc_.get();
+}
+
+void SpeechRhvoiceTilde::onSymbol(t_symbol* s)
+{
+    txt_queue_.emplace(s->s_name);
 }
 
 void SpeechRhvoiceTilde::processBlock(const t_sample** in, t_sample** out)
@@ -66,7 +125,6 @@ void SpeechRhvoiceTilde::processBlock(const t_sample** in, t_sample** out)
 
 void SpeechRhvoiceTilde::onDone()
 {
-
 }
 
 void SpeechRhvoiceTilde::onWordStart(unsigned int pos, unsigned int length)
@@ -94,7 +152,7 @@ int SpeechRhvoiceTilde::onDsp(const short* data, unsigned int n)
     for (int i = 0; i < n; i++)
         queue_.enqueue(data[i]);
 
-    return 1;
+    return !done_;
 }
 
 void setup_speech_rhvoice_tilde()
