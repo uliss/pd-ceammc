@@ -41,17 +41,26 @@ else()
 
     find_library(RHVOICE_LIBRARY
         NAMES "RHVoice"
+        PATH_SUFFIXES "lib" "lib64"
+        PATHS
+            $ENV{HOME}/.local)
+
+    find_library(RHVOICE_LIBRARY_CORE
+        NAMES "RHVoice_core"
+        PATH_SUFFIXES "lib" "lib64"
         PATHS
             $ENV{HOME}/.local)
 
 endif()
 
 include(FindPackageHandleStandardArgs)
-find_package_handle_standard_args(RHVoice DEFAULT_MSG RHVOICE_INCLUDE_DIR RHVOICE_LIBRARY)
+find_package_handle_standard_args(RHVoice DEFAULT_MSG RHVOICE_INCLUDE_DIR RHVOICE_LIBRARY RHVOICE_LIBRARY_CORE)
 
 if(RHVoice_FOUND)
     set(RHVOICE_INCLUDE_DIRS ${RHVOICE_INCLUDE_DIR})
-    set(RHVOICE_LIBRARIES    ${RHVOICE_LIBRARY})
+    set(RHVOICE_LIBRARIES ${RHVOICE_LIBRARY} ${RHVOICE_LIBRARY_CORE})
+
+    message(STATUS "Found RHVoice: ${RHVOICE_LIBRARY}")
 endif()
 
 mark_as_advanced(RHVOICE_INCLUDE_DIRS RHVOICE_LIBRARIES)

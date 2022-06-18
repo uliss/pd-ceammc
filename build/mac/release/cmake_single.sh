@@ -10,6 +10,7 @@ cmake -G Ninja \
 	-DARCH=x86_64 \
 	-DLEAPMOTION_ROOT=~/work/src/LeapSDK \
 	-DENABLE_TESTS=ON \
+	-DWITH_TTS_RHVOICE=ON \
 	-DWITH_BENCHMARK=ON\
 	../../../..
 
