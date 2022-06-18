@@ -178,21 +178,26 @@ void SpeechRhvoiceTilde::onList(const AtomList& lst)
         return;
     }
 
-    using StaticString = boost::static_string<1024>;
+    constexpr int MAX_STRING_LEN = 1024;
+    using StaticString = boost::static_string<MAX_STRING_LEN>;
     StaticString str;
 
-    for (auto& a : lst) {
-        if (a.isInteger()) {
-            fmt::format_to(std::back_inserter(str), "{} ", a.asT<int>());
-        } else if (a.isFloat()) {
-            fmt::format_to(std::back_inserter(str), "{} ", a.asT<t_float>());
-        } else if (a.isSymbol()) {
-            fmt::format_to(std::back_inserter(str), "{} ", a.asT<t_symbol*>()->s_name);
+    try {
+        for (auto& a : lst) {
+            if (a.isInteger()) {
+                fmt::format_to(std::back_inserter(str), "{} ", a.asT<int>());
+            } else if (a.isFloat()) {
+                fmt::format_to(std::back_inserter(str), "{} ", a.asT<t_float>());
+            } else if (a.isSymbol()) {
+                fmt::format_to(std::back_inserter(str), "{} ", a.asT<t_symbol*>()->s_name);
+            }
         }
+    } catch (std::length_error& e) {
+        OBJ_ERR << fmt::format("result string is too long: {}, extra characters will be trimmed", MAX_STRING_LEN);
     }
 
     // remove last space
-    if (str.size() > 0)
+    if (str.size() > 0 || str.back() == ' ')
         str.pop_back();
 
     txt_queue_.emplace(str.c_str(), str.size());
