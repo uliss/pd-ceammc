@@ -23,6 +23,7 @@ class SpeechRhvoiceTilde : public SoundExternal {
     std::future<void> proc_;
     std::atomic_bool done_;
     AtomList voices_;
+    int voice_sr_;
 
 public:
     SpeechRhvoiceTilde(const PdArgs& args);

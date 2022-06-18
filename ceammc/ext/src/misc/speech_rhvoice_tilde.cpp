@@ -3,6 +3,7 @@
 #include "fmt/format.h"
 
 #include "RHVoice.h"
+#include "soxr.h"
 
 static inline SpeechRhvoiceTilde* toThis(void* x) { return static_cast<SpeechRhvoiceTilde*>(x); }
 
@@ -24,6 +25,7 @@ SpeechRhvoiceTilde::SpeechRhvoiceTilde(const PdArgs& args)
     : SoundExternal(args)
     , tts_(nullptr, &RHVoice_delete_tts_engine)
     , done_(false)
+    , voice_sr_(0)
 {
     params_.data_path = "/Users/serge/.local/share/RHVoice";
     params_.config_path = "/Users/serge/.local/etc/RHVoice";
@@ -171,6 +173,7 @@ void SpeechRhvoiceTilde::onSentenceEnd(unsigned int pos, unsigned int length)
 
 void SpeechRhvoiceTilde::onSampleRate(int sr)
 {
+    voice_sr_ = sr;
 }
 
 int SpeechRhvoiceTilde::onDsp(const short* data, unsigned int n)
