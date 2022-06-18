@@ -2,6 +2,7 @@
 #define SPEECH_RHVOICE_TILDE_H
 
 #include <atomic>
+#include <condition_variable>
 #include <future>
 #include <memory>
 #include <mutex>
@@ -18,6 +19,20 @@ using TxtQueue = moodycamel::ReaderWriterQueue<std::string>;
 typedef struct soxr* soxr_t;
 using SoxR = std::unique_ptr<soxr, void (*)(soxr_t)>;
 
+class ThreadNofity {
+    std::condition_variable notify_;
+    std::mutex mtx_;
+    using Lock = std::unique_lock<std::mutex>;
+
+public:
+    ThreadNofity();
+
+    // called from main thread
+    void notifyOne();
+    // called from warker thread
+    void waitFor(int ms = 100);
+};
+
 class SpeechRhvoiceTilde : public SoundExternal {
     TtsEngine tts_;
     RHVoice_init_params params_;
@@ -25,11 +40,12 @@ class SpeechRhvoiceTilde : public SoundExternal {
     TtsQueue queue_;
     TxtQueue txt_queue_;
     std::future<void> proc_;
-    std::atomic_bool done_;
+    std::atomic_bool quit_;
     AtomList voices_;
     int voice_sr_;
     SoxR soxr_;
     std::mutex soxr_mtx_;
+    ThreadNofity notify_;
 
 public:
     SpeechRhvoiceTilde(const PdArgs& args);

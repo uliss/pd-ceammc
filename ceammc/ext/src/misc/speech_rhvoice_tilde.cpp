@@ -6,10 +6,27 @@
 #include "soxr.h"
 
 #include <boost/static_string.hpp>
+#include <chrono>
 
 #define RHVOICE_DEBUG 1
 
 static inline SpeechRhvoiceTilde* toThis(void* x) { return static_cast<SpeechRhvoiceTilde*>(x); }
+
+ThreadNofity::ThreadNofity()
+{
+}
+
+void ThreadNofity::notifyOne()
+{
+    Lock lock(mtx_);
+    notify_.notify_one();
+}
+
+void ThreadNofity::waitFor(int ms)
+{
+    Lock lock(mtx_);
+    notify_.wait_for(lock, std::chrono::milliseconds(ms));
+}
 
 class SynthFloatProperty : public FloatProperty {
     using ValType = typeof(RHVoice_synth_params::absolute_pitch);
@@ -28,7 +45,7 @@ public:
 SpeechRhvoiceTilde::SpeechRhvoiceTilde(const PdArgs& args)
     : SoundExternal(args)
     , tts_(nullptr, &RHVoice_delete_tts_engine)
-    , done_(false)
+    , quit_(false)
     , voice_sr_(0)
     , soxr_(nullptr, soxr_delete)
     , txt_queue_(512)
@@ -112,7 +129,7 @@ SpeechRhvoiceTilde::SpeechRhvoiceTilde(const PdArgs& args)
     proc_ = std::async(
         std::launch::async,
         [this]() {
-            while (!done_) {
+            while (!quit_) {
                 std::string txt;
                 if (txt_queue_.try_dequeue(txt)) {
                     auto msg = RHVoice_new_message(
@@ -129,6 +146,8 @@ SpeechRhvoiceTilde::SpeechRhvoiceTilde(const PdArgs& args)
 #endif
                     RHVoice_delete_message(msg);
                 }
+
+                notify_.waitFor(100);
             }
         });
 
@@ -137,7 +156,7 @@ SpeechRhvoiceTilde::SpeechRhvoiceTilde(const PdArgs& args)
 
 SpeechRhvoiceTilde::~SpeechRhvoiceTilde()
 {
-    done_ = true;
+    quit_ = true;
     proc_.get();
 }
 
@@ -149,6 +168,7 @@ void SpeechRhvoiceTilde::onSymbol(t_symbol* s)
     }
 
     txt_queue_.emplace(s->s_name);
+    notify_.notifyOne();
 }
 
 void SpeechRhvoiceTilde::onList(const AtomList& lst)
@@ -171,10 +191,12 @@ void SpeechRhvoiceTilde::onList(const AtomList& lst)
         }
     }
 
+    // remove last space
     if (str.size() > 0)
         str.pop_back();
 
     txt_queue_.emplace(str.c_str(), str.size());
+    notify_.notifyOne();
 }
 
 void SpeechRhvoiceTilde::processBlock(const t_sample** in, t_sample** out)
@@ -192,7 +214,6 @@ void SpeechRhvoiceTilde::processBlock(const t_sample** in, t_sample** out)
 
 void SpeechRhvoiceTilde::m_stop(t_symbol* s, const AtomListView& lv)
 {
-    done_ = true;
 }
 
 void SpeechRhvoiceTilde::onDone()
@@ -233,7 +254,7 @@ int SpeechRhvoiceTilde::onDsp(const short* data, unsigned int n)
 
     constexpr int RHVOICE_STOP = 0;
     constexpr int RHVOICE_CONTINUE = 1;
-    if (done_)
+    if (quit_)
         return RHVOICE_STOP;
 
     if (!soxr_) {
@@ -249,6 +270,9 @@ int SpeechRhvoiceTilde::onDsp(const short* data, unsigned int n)
     int in_left = n;
 
     while (true) {
+        if (quit_)
+            return RHVOICE_STOP;
+
         const short* in_buf = data + in_done_total;
         size_t in_done = 0;
         size_t out_done = 0;
@@ -274,7 +298,7 @@ int SpeechRhvoiceTilde::onDsp(const short* data, unsigned int n)
             break;
     }
 
-    return done_ ? RHVOICE_STOP : RHVOICE_CONTINUE;
+    return quit_ ? RHVOICE_STOP : RHVOICE_CONTINUE;
 }
 
 bool SpeechRhvoiceTilde::soxrInit()
