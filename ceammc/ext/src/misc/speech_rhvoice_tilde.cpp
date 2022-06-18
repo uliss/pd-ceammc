@@ -61,7 +61,7 @@ SpeechRhvoiceTilde::SpeechRhvoiceTilde(const PdArgs& args)
         return toThis(obj)->onDsp(data, n);
     };
 
-    synth_params_.voice_profile = "anna";
+    synth_params_.voice_profile = "Anna";
     synth_params_.absolute_pitch = 0;
     synth_params_.absolute_rate = 0;
     synth_params_.absolute_volume = 1;
@@ -86,12 +86,20 @@ SpeechRhvoiceTilde::SpeechRhvoiceTilde(const PdArgs& args)
         OBJ_DBG << "\t-" << profiles[i];
     }
 
-    auto nvocies = RHVoice_get_number_of_voices(tts_.get());
+    auto nvoices = RHVoice_get_number_of_voices(tts_.get());
     auto voices = RHVoice_get_voices(tts_.get());
-    OBJ_DBG << "number of voices: " << nvocies;
-    for (int i = 0; i < nprofiles; i++) {
-        OBJ_DBG << "\t-" << voices[i].name;
-    }
+    for (int i = 0; i < nvoices; i++)
+        voices_.append(gensym(voices[i].name));
+
+    OBJ_DBG << "voices: " << voices_;
+
+    auto voice_prop = addProperty(new SymbolProperty("@voice", gensym("Anna")));
+    voice_prop->setSymbolCheckFn(
+        [this](t_symbol* v) { return voices_.contains(v); },
+        "invalid voice name");
+    voice_prop->setSuccessFn([this](Property* p) {
+        synth_params_.voice_profile = static_cast<SymbolProperty*>(p)->value()->s_name;
+    });
 
     proc_ = std::async(
         std::launch::async,
