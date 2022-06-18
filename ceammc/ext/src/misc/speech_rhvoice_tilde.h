@@ -4,6 +4,7 @@
 #include <atomic>
 #include <future>
 #include <memory>
+#include <mutex>
 
 #include "RHVoice.h"
 #include "ceammc_sound_external.h"
@@ -11,8 +12,11 @@
 using namespace ceammc;
 
 using TtsEngine = std::unique_ptr<RHVoice_tts_engine_struct, void (*)(RHVoice_tts_engine)>;
-using TtsQueue = moodycamel::ReaderWriterQueue<short>;
+using TtsQueue = moodycamel::ReaderWriterQueue<float>;
 using TxtQueue = moodycamel::ReaderWriterQueue<std::string>;
+
+typedef struct soxr* soxr_t;
+using SoxR = std::unique_ptr<soxr, void (*)(soxr_t)>;
 
 class SpeechRhvoiceTilde : public SoundExternal {
     TtsEngine tts_;
@@ -24,6 +28,8 @@ class SpeechRhvoiceTilde : public SoundExternal {
     std::atomic_bool done_;
     AtomList voices_;
     int voice_sr_;
+    SoxR soxr_;
+    std::mutex soxr_mtx_;
 
 public:
     SpeechRhvoiceTilde(const PdArgs& args);
@@ -31,6 +37,8 @@ public:
 
     void onSymbol(t_symbol* s) override;
     void processBlock(const t_sample** in, t_sample** out) final;
+
+    void m_stop(t_symbol* s, const AtomListView& lv);
 
 private:
     void onDone();
@@ -40,6 +48,8 @@ private:
     void onSentenceEnd(unsigned int pos, unsigned int length);
     void onSampleRate(int sr);
     int onDsp(const short* data, unsigned int n);
+
+    bool soxrInit();
 };
 
 void setup_speech_rhvoice_tilde();

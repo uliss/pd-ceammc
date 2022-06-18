@@ -5,6 +5,8 @@
 #include "RHVoice.h"
 #include "soxr.h"
 
+#define RHVOICE_DEBUG 1
+
 static inline SpeechRhvoiceTilde* toThis(void* x) { return static_cast<SpeechRhvoiceTilde*>(x); }
 
 class SynthFloatProperty : public FloatProperty {
@@ -26,6 +28,8 @@ SpeechRhvoiceTilde::SpeechRhvoiceTilde(const PdArgs& args)
     , tts_(nullptr, &RHVoice_delete_tts_engine)
     , done_(false)
     , voice_sr_(0)
+    , soxr_(nullptr, soxr_delete)
+    , txt_queue_(512)
 {
     params_.data_path = "/Users/serge/.local/share/RHVoice";
     params_.config_path = "/Users/serge/.local/etc/RHVoice";
@@ -143,12 +147,17 @@ void SpeechRhvoiceTilde::processBlock(const t_sample** in, t_sample** out)
     const auto BS = blockSize();
 
     for (size_t i = 0; i < BS; i++) {
-        short s = 0;
+        t_sample s = 0;
         if (queue_.try_dequeue(s)) {
-            out[0][i] = t_sample(s) / t_sample(std::numeric_limits<decltype(s)>::max());
+            out[0][i] = s;
         } else
             out[0][i] = 0;
     }
+}
+
+void SpeechRhvoiceTilde::m_stop(t_symbol* s, const AtomListView& lv)
+{
+    done_ = true;
 }
 
 void SpeechRhvoiceTilde::onDone()
@@ -173,21 +182,88 @@ void SpeechRhvoiceTilde::onSentenceEnd(unsigned int pos, unsigned int length)
 
 void SpeechRhvoiceTilde::onSampleRate(int sr)
 {
-    voice_sr_ = sr;
+    if (voice_sr_ != sr) {
+        voice_sr_ = sr;
+        soxrInit();
+
+#if RHVOICE_DEBUG
+        std::cerr << fmt::format("[{}] SR={}\n", __FUNCTION__, sr) << std::flush;
+#endif
+    }
 }
 
 int SpeechRhvoiceTilde::onDsp(const short* data, unsigned int n)
 {
-    for (int i = 0; i < n; i++)
-        queue_.enqueue(data[i]);
+    static_assert(std::is_same<short, int16_t>::value, "");
+
+    constexpr int RHVOICE_STOP = 0;
+    if (done_)
+        return RHVOICE_STOP;
+
+    if (!soxr_) {
+        // try to init samplerate converter
+        if (!soxrInit())
+            return RHVOICE_STOP;
+    }
+
+    constexpr int BUF_SIZE = 2048;
+    float out_buf[BUF_SIZE];
+
+    size_t out_done = 0;
+    int in_done_total = 0;
+    int in_left = n;
+
+    while (true) {
+        const short* in_buf = data + in_done_total;
+        size_t in_done = 0;
+        soxr_error_t no_err = 0;
+
+        {
+            std::unique_lock<std::mutex> lock(soxr_mtx_);
+            no_err = soxr_process(soxr_.get(), in_buf, in_left, &in_done, out_buf, BUF_SIZE, &out_done);
+        }
+
+        if (no_err != 0) {
+            std::cerr << fmt::format("[{}] error: {}\n", __FUNCTION__, soxr_strerror(no_err));
+            break;
+        }
+
+        in_left -= in_done;
+        in_done_total += in_done;
+
+        if (out_done != 0) {
+            for (size_t i = 0; i < out_done; i++)
+                queue_.enqueue(out_buf[i]);
+        } else
+            break;
+    }
 
     return !done_;
+}
+
+bool SpeechRhvoiceTilde::soxrInit()
+{
+    auto io = soxr_io_spec(SOXR_INT16, SOXR_FLOAT32);
+    auto q = soxr_quality_spec(SOXR_QQ, 0);
+    soxr_error_t no_err = 0;
+
+    {
+        std::unique_lock<std::mutex> lock(soxr_mtx_);
+        soxr_.reset(soxr_create(voice_sr_, samplerate(), 1, &no_err, &io, &q, nullptr));
+    }
+
+    if (no_err != 0 || !soxr_) {
+        std::cerr << fmt::format("{} error: {}\n", __FUNCTION__, soxr_strerror(no_err));
+        return false;
+    } else
+        return true;
 }
 
 void setup_speech_rhvoice_tilde()
 {
     SoundExternalFactory<SpeechRhvoiceTilde> obj("speech.rhvoice~", OBJECT_FACTORY_DEFAULT);
     obj.addAlias("rhvoice~");
+    obj.addMethod("stop", &SpeechRhvoiceTilde::m_stop);
 
     LIB_POST << fmt::format("RHVoice version: {}", RHVoice_get_version());
 }
