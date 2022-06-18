@@ -122,7 +122,9 @@ SpeechRhvoiceTilde::SpeechRhvoiceTilde(const PdArgs& args)
                         this);
 
                     auto rc = RHVoice_speak(msg);
-                    std::cerr << "speak: " << txt << " - " << rc << "\n";
+#if RHVOICE_DEBUG
+                    std::cerr << fmt::format("speak '{}':  {}\n", txt, rc);
+#endif
                     RHVoice_delete_message(msg);
                 }
             }
@@ -139,6 +141,11 @@ SpeechRhvoiceTilde::~SpeechRhvoiceTilde()
 
 void SpeechRhvoiceTilde::onSymbol(t_symbol* s)
 {
+    if (s == &s_) {
+        OBJ_ERR << "empty symbol";
+        return;
+    }
+
     txt_queue_.emplace(s->s_name);
 }
 
@@ -197,6 +204,7 @@ int SpeechRhvoiceTilde::onDsp(const short* data, unsigned int n)
     static_assert(std::is_same<short, int16_t>::value, "");
 
     constexpr int RHVOICE_STOP = 0;
+    constexpr int RHVOICE_CONTINUE = 1;
     if (done_)
         return RHVOICE_STOP;
 
@@ -209,13 +217,13 @@ int SpeechRhvoiceTilde::onDsp(const short* data, unsigned int n)
     constexpr int BUF_SIZE = 2048;
     float out_buf[BUF_SIZE];
 
-    size_t out_done = 0;
     int in_done_total = 0;
     int in_left = n;
 
     while (true) {
         const short* in_buf = data + in_done_total;
         size_t in_done = 0;
+        size_t out_done = 0;
         soxr_error_t no_err = 0;
 
         {
@@ -238,7 +246,7 @@ int SpeechRhvoiceTilde::onDsp(const short* data, unsigned int n)
             break;
     }
 
-    return !done_;
+    return done_ ? RHVOICE_STOP : RHVOICE_CONTINUE;
 }
 
 bool SpeechRhvoiceTilde::soxrInit()
