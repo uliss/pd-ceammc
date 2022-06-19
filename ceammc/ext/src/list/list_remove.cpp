@@ -44,8 +44,14 @@ void ListRemove::setRemoveList(const AtomList& lst)
     auto l = list::uniqueSorted(lst);
     idx_.clear();
     idx_.reserve(l.size());
-    for (auto& el : l)
-        idx_.push_back(el.asInt());
+    for (auto& a : l) {
+        if (!a.isInteger()) {
+            OBJ_ERR << "element index expected, got: '" << a << "', skipping";
+            continue;
+        }
+
+        idx_.push_back(a.asInt());
+    }
 }
 
 void ListRemove::onInlet(size_t, const AtomListView& lst)
