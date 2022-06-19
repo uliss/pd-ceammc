@@ -134,6 +134,11 @@ void SpeechRhvoiceTilde::samplerateChanged(size_t sr)
     soxrInit();
 }
 
+bool SpeechRhvoiceTilde::notify(NotifyEventType code)
+{
+
+}
+
 void SpeechRhvoiceTilde::m_stop(t_symbol* s, const AtomListView& lv)
 {
     stop_ = true;
@@ -149,6 +154,12 @@ void SpeechRhvoiceTilde::m_stop(t_symbol* s, const AtomListView& lv)
 
 void SpeechRhvoiceTilde::onDone()
 {
+    std::cerr << "done\n";
+}
+
+void SpeechRhvoiceTilde::onWordStart(int pos, int len)
+{
+    std::cerr << fmt::format("word start: {} {}\n", pos, len);
 }
 
 void SpeechRhvoiceTilde::onSampleRate(int sr)
@@ -238,6 +249,8 @@ void SpeechRhvoiceTilde::initEngineParams()
     engine_params_.options = RHVoice_preload_voices;
     engine_params_.callbacks.done =
         [](void* obj) { toThis(obj)->onDone(); };
+    engine_params_.callbacks.word_starts =
+        [](unsigned int pos, unsigned int len, void* obj) -> int { toThis(obj)->onWordStart(pos, len); return 1; };
     engine_params_.callbacks.play_audio = nullptr;
     engine_params_.callbacks.process_mark = nullptr;
     engine_params_.callbacks.set_sample_rate = [](int sr, void* obj) -> int {

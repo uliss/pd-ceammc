@@ -8,6 +8,7 @@
 #include <mutex>
 
 #include "RHVoice.h"
+#include "ceammc_poll_dispatcher.h"
 #include "ceammc_sound_external.h"
 #include "readerwriterqueue.h"
 using namespace ceammc;
@@ -34,7 +35,7 @@ public:
     void waitFor(int ms = 100);
 };
 
-class SpeechRhvoiceTilde : public SoundExternal {
+class SpeechRhvoiceTilde : public SoundExternal, public NotifiedObject {
     TtsEngine tts_;
     RHVoice_init_params engine_params_;
     RHVoice_synth_params synth_params_;
@@ -57,10 +58,13 @@ public:
     void processBlock(const t_sample** in, t_sample** out) final;
     void samplerateChanged(size_t sr) final;
 
+    bool notify(NotifyEventType code) final;
+
     void m_stop(t_symbol* s, const AtomListView& lv);
 
 private:
     void onDone();
+    void onWordStart(int pos, int len);
     void onSampleRate(int sr);
     int onDsp(const short* data, unsigned int n);
 
