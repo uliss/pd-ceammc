@@ -62,12 +62,16 @@ SpeechRhvoiceTilde::SpeechRhvoiceTilde(const PdArgs& args)
     initProperties();
 
     initWorker();
+
+    Dispatcher::instance().subscribe(this, reinterpret_cast<SubscriberId>(this));
 }
 
 SpeechRhvoiceTilde::~SpeechRhvoiceTilde()
 {
     quit_ = true;
     proc_.get();
+
+    Dispatcher::instance().unsubscribe(this);
 }
 
 void SpeechRhvoiceTilde::onSymbol(t_symbol* s)
@@ -136,7 +140,8 @@ void SpeechRhvoiceTilde::samplerateChanged(size_t sr)
 
 bool SpeechRhvoiceTilde::notify(NotifyEventType code)
 {
-
+    OBJ_DBG << "notify";
+    return true;
 }
 
 void SpeechRhvoiceTilde::m_stop(t_symbol* s, const AtomListView& lv)
@@ -154,11 +159,13 @@ void SpeechRhvoiceTilde::m_stop(t_symbol* s, const AtomListView& lv)
 
 void SpeechRhvoiceTilde::onDone()
 {
+    Dispatcher::instance().send({ reinterpret_cast<SubscriberId>(this), NOTIFY_UPDATE });
     std::cerr << "done\n";
 }
 
 void SpeechRhvoiceTilde::onWordStart(int pos, int len)
 {
+    Dispatcher::instance().send({ reinterpret_cast<SubscriberId>(this), NOTIFY_UPDATE });
     std::cerr << fmt::format("word start: {} {}\n", pos, len);
 }
 
