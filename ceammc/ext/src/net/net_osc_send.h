@@ -21,7 +21,7 @@
 #include <cstdarg>
 #include <cstdint>
 
-#include "ceammc_poll_dispatcher.h"
+#include "ceammc_object.h"
 #include "readerwriterqueue.h"
 
 using namespace ceammc;

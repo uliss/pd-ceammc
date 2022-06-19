@@ -29,7 +29,11 @@
 #include <boost/variant.hpp>
 #include <lo/lo.h>
 
+#include "ceammc_atom.h"
+#include "ceammc_log.h"
+#include "ceammc_object.h"
 #include "ceammc_poll_dispatcher.h"
+#include "ceammc_property.h"
 #include "readerwriterqueue.h"
 
 namespace ceammc {

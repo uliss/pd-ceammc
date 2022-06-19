@@ -16,6 +16,7 @@
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
 #include "fmt/format.h"
+#include "ceammc_thread.h"
 
 #include <algorithm>
 #include <unordered_set>

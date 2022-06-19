@@ -15,6 +15,7 @@
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
+#include "ceammc_poll_dispatcher.h"
 #include "ceammc_thread.h"
 #include "fmt/format.h"
 
@@ -73,47 +74,9 @@ struct NetOscSendOscTask {
 
 namespace {
 
-class ThreadLogger : public NotifiedObject {
-    std::mutex mtx_;
-    std::list<std::string> msg_;
-
-public:
-    ThreadLogger()
-    {
-        Dispatcher::instance().subscribe(this, id());
-    }
-
-    ~ThreadLogger()
-    {
-        Dispatcher::instance().unsubscribe(this);
-    }
-
-    SubscriberId id() const { return reinterpret_cast<SubscriberId>(this); }
-
-    bool notify(NotifyEventType /*code*/) final
-    {
-        std::lock_guard<std::mutex> g(mtx_);
-        while (!msg_.empty()) {
-            LIB_ERR << msg_.front();
-            msg_.pop_front();
-        }
-
-        return true;
-    }
-
-    void error(const std::string& msg)
-    {
-        {
-            std::lock_guard<std::mutex> g(mtx_);
-            msg_.push_back(fmt::format("[osc] [error] {}", msg));
-        }
-
-        Dispatcher::instance().send({ id(), NOTIFY_UPDATE });
-    }
-};
-
 class OscSendWorker {
     using Pipe = moodycamel::ReaderWriterQueue<NetOscSendOscTask, 64>;
+    ThreadPdLogger logger_;
 
     OscSendWorker()
         : pipe_(64)
@@ -124,8 +87,6 @@ class OscSendWorker {
         future_ = std::async(
             std::launch::async,
             [this]() {
-                ThreadLogger logger;
-
                 while (!quit_) {
                     try {
                         NetOscSendOscTask task;
@@ -137,7 +98,7 @@ class OscSendWorker {
                             const auto rc = lo_send_message(addr, task.path.c_str(), task.msg());
                             if (rc == -1) {
                                 auto url = lo_address_get_url(addr);
-                                logger.error(fmt::format("{} - `{}`", lo_address_errstr(addr), url));
+                                logger_.error(fmt::format("{} - `{}`", lo_address_errstr(addr), url));
                                 free(url);
                             }
 
