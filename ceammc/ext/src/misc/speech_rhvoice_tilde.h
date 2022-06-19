@@ -38,7 +38,8 @@ public:
 class SpeechRhvoiceTilde : public SoundExternal, public NotifiedObject {
     using TtsEngine = std::unique_ptr<RHVoice_tts_engine_struct, void (*)(RHVoice_tts_engine)>;
     using TtsQueue = moodycamel::ReaderWriterQueue<float, TtsQueueSize>;
-    using TxtQueue = moodycamel::ReaderWriterQueue<std::string>;
+    using Msg = std::pair<std::string, RHVoice_synth_params>;
+    using TxtQueue = moodycamel::ReaderWriterQueue<Msg>;
 
 private:
     TtsEngine tts_;

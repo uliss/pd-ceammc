@@ -115,7 +115,7 @@ void SpeechRhvoiceTilde::onSymbol(t_symbol* s)
     }
 
     stop_ = false;
-    txt_queue_.emplace(s->s_name);
+    txt_queue_.emplace(s->s_name, synth_params_);
     notify_.notifyOne();
 }
 
@@ -149,7 +149,7 @@ void SpeechRhvoiceTilde::onList(const AtomList& lst)
         str.pop_back();
 
     stop_ = false;
-    txt_queue_.emplace(str.c_str(), str.size());
+    txt_queue_.enqueue({ { str.c_str(), str.size() }, synth_params_ });
     notify_.notifyOne();
 }
 
@@ -192,8 +192,8 @@ void SpeechRhvoiceTilde::m_stop(t_symbol* s, const AtomListView& lv)
     while (dsp_queue_.try_dequeue(samp))
         ;
 
-    std::string str;
-    while (txt_queue_.try_dequeue(str))
+    Msg msg;
+    while (txt_queue_.try_dequeue(msg))
         ;
 }
 
@@ -345,19 +345,19 @@ void SpeechRhvoiceTilde::initWorker()
         std::launch::async,
         [this]() {
             while (!quit_) {
-                std::string txt;
+                Msg txt;
                 if (txt_queue_.try_dequeue(txt)) {
                     auto msg = RHVoice_new_message(
                         tts_.get(),
-                        txt.c_str(),
-                        txt.size(),
+                        txt.first.c_str(),
+                        txt.first.size(),
                         RHVoice_message_text,
-                        &synth_params_,
+                        &txt.second,
                         this);
 
                     auto rc = RHVoice_speak(msg);
 #if RHVOICE_DEBUG
-                    std::cerr << fmt::format("speak '{}':  {}\n", txt, rc);
+                    std::cerr << fmt::format("speak '{}':  {}\n", txt.first, rc);
 #endif
                     RHVoice_delete_message(msg);
                 }
