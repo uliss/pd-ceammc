@@ -18,7 +18,7 @@
 #include "ceammc_property_enum.h"
 #include "ceammc_sound_external.h"
 
-#include "readerwriterqueue/readerwriterqueue.h"
+#include "readerwriterqueue.h"
 
 #include <atomic>
 #include <future>

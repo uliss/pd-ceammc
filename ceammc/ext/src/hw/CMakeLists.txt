@@ -1,14 +1,8 @@
 add_subdirectory(arduino)
-include_directories(${PROJECT_BINARY_DIR}/ceammc/extra/libusb)
-include_directories(${CMAKE_SOURCE_DIR}/ceammc/extra/serial/serial/include)
-include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra/SMSLib)
-include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra) # for readerwriterqueue
 
-macro(ceammc_hw_external name)
+function(ceammc_hw_external name)
     list(APPEND HW_SOURCES "hw_${name}.cpp")
-endmacro()
-
-set(HW_LINK_LIBRARIES)
+endfunction()
 
 # Sudden motion sensor on macbook's
 if(APPLE)
@@ -46,11 +40,13 @@ ceammc_hw_external(serial)
 #endif()
 
 add_library(ceammc_hw STATIC mod_hw.cpp ${HW_SOURCES})
-target_link_libraries(ceammc_hw hw_arduino ${HW_LINK_LIBRARIES})
 target_include_directories(ceammc_hw
     PRIVATE
         ${PROJECT_BINARY_DIR} # for config.h
+        ${PROJECT_SOURCE_DIR}/ceammc/extra/SMSLib
 )
+
+target_link_libraries(ceammc_hw PRIVATE serial readerwriterqueue hw_arduino)
 
 #if(WITH_EXPERIMENTAL)
 #    add_definitions(-DWITH_LIBUSB_01)

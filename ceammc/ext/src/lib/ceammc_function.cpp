@@ -19,7 +19,7 @@
 #include "ceammc_platform.h"
 #include "ceammc_rtree.h"
 #include "fmt/format.h"
-#include "muparser/muparser/include/muParser.h"
+#include "muParser.h"
 
 #include <algorithm>
 #include <cmath>

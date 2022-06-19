@@ -3,7 +3,6 @@ add_library(ceammc_core SHARED ceammc.cpp)
 target_include_directories(ceammc_core PRIVATE ${CMAKE_BINARY_DIR}) # for config.h
 target_include_directories(ceammc_core PRIVATE
     ${PROJECT_SOURCE_DIR}/src # m_pd.h
-    ${PROJECT_SOURCE_DIR}/ceammc/extra
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/utf8rewind
 )
@@ -223,6 +222,7 @@ endif()
 target_link_libraries(ceammc_core PRIVATE re2)
 target_link_libraries(ceammc_core PRIVATE reflex)
 target_link_libraries(ceammc_core PRIVATE muparser)
+target_link_libraries(ceammc_core PRIVATE readerwriterqueue)
 #target_link_libraries(ceammc_core PRIVATE ${Boost_FILESYSTEM_LIBRARY} ${Boost_SYSTEM_LIBRARY})
 #target_link_libraries(ceammc_core PRIVATE puredata-core)
 

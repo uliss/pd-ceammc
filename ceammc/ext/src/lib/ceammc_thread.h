@@ -16,7 +16,7 @@
 #include "ceammc_object.h"
 #include "ceammc_pollfd.h"
 
-#include "readerwriterqueue/readerwriterqueue.h"
+#include "readerwriterqueue.h"
 
 namespace ceammc {
 
@@ -45,7 +45,8 @@ public:
 
     // called from main thread
     void notifyOne();
-    // called from warker thread
+    void notifyAll();
+    // called from worker thread
     void waitFor(int ms = 100);
 };
 
