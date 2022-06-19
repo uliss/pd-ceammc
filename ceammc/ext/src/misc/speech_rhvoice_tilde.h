@@ -9,8 +9,8 @@
 #include "RHVoice.h"
 #include "ceammc_poll_dispatcher.h"
 #include "ceammc_sound_external.h"
-#include "readerwriterqueue.h"
 #include "ceammc_thread.h"
+#include "readerwriterqueue.h"
 using namespace ceammc;
 
 constexpr size_t TtsQueueSize = 2048;
@@ -18,8 +18,25 @@ using TtsEngine = std::unique_ptr<RHVoice_tts_engine_struct, void (*)(RHVoice_tt
 using TtsQueue = moodycamel::ReaderWriterQueue<float, TtsQueueSize>;
 using TxtQueue = moodycamel::ReaderWriterQueue<std::string>;
 
-typedef struct soxr* soxr_t;
-using SoxR = std::unique_ptr<soxr, void (*)(soxr_t)>;
+class Resampler {
+    typedef struct soxr* soxr_t;
+    typedef char const* soxr_error_t;
+    using SoxR = std::unique_ptr<soxr, void (*)(soxr_t)>;
+    using Lock = std::lock_guard<std::mutex>;
+    SoxR soxr_;
+    std::mutex mtx_;
+    float in_rate_, out_rate_;
+
+public:
+    Resampler();
+
+    bool valid() const { return soxr_.get(); }
+
+    bool setRates(float inRate, float outRate);
+    bool setInRate(float inRate);
+    bool setOutRate(float outRate);
+    soxr_error_t process(const short* in, size_t ilen, size_t* idone, float* out, size_t olen, size_t* odone);
+};
 
 class SpeechRhvoiceTilde : public SoundExternal, public NotifiedObject {
     TtsEngine tts_;
@@ -31,7 +48,7 @@ class SpeechRhvoiceTilde : public SoundExternal, public NotifiedObject {
     std::atomic_bool quit_, stop_;
     AtomList voices_;
     int voice_sr_;
-    SoxR soxr_;
+    Resampler soxr_;
     std::mutex soxr_mtx_;
     ThreadNotify notify_;
 
@@ -49,16 +66,16 @@ public:
     void m_stop(t_symbol* s, const AtomListView& lv);
 
 private:
+    // called from worker thread
     void onDone();
     void onWordStart(int pos, int len);
-    void onSampleRate(int sr);
+    void onTtsSampleRate(int sr);
     int onDsp(const short* data, unsigned int n);
 
     void initEngineParams();
     void initSynthParams();
     void initProperties();
     void initWorker();
-    bool soxrInit();
 };
 
 void setup_speech_rhvoice_tilde();

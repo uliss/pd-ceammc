@@ -26,13 +26,63 @@ public:
     }
 };
 
+Resampler::Resampler()
+    : soxr_(nullptr, soxr_delete)
+    , in_rate_(0)
+    , out_rate_(0)
+{
+}
+
+bool Resampler::setRates(float inRate, float outRate)
+{
+    if (!soxr_ || in_rate_ != inRate || out_rate_ != outRate) {
+        in_rate_ = inRate;
+        out_rate_ = outRate;
+
+        auto io = soxr_io_spec(SOXR_INT16, SOXR_FLOAT32);
+        auto q = soxr_quality_spec(SOXR_QQ, 0);
+        soxr_error_t no_err = 0;
+
+        {
+            Lock lock(mtx_);
+            soxr_.reset(soxr_create(in_rate_, out_rate_, 1, &no_err, &io, &q, nullptr));
+        }
+
+        if (no_err != 0 || !soxr_) {
+            std::cerr << fmt::format("{} error: {}\n", __FUNCTION__, soxr_strerror(no_err));
+            return false;
+        } else
+            return true;
+    }
+
+    return true;
+}
+
+bool Resampler::setInRate(float inRate)
+{
+    return setRates(inRate, out_rate_);
+}
+
+bool Resampler::setOutRate(float outRate)
+{
+    return setRates(in_rate_, outRate);
+}
+
+soxr_error_t Resampler::process(const short* in, size_t ilen, size_t* idone, float* out, size_t olen, size_t* odone)
+{
+    if (!soxr_)
+        return "soxr init error";
+
+    Lock lock(mtx_);
+    return soxr_process(soxr_.get(), in, ilen, idone, out, olen, odone);
+}
+
 SpeechRhvoiceTilde::SpeechRhvoiceTilde(const PdArgs& args)
     : SoundExternal(args)
     , tts_(nullptr, &RHVoice_delete_tts_engine)
     , quit_(false)
     , stop_(false)
     , voice_sr_(0)
-    , soxr_(nullptr, soxr_delete)
     , dsp_queue_(TtsQueueSize)
     , txt_queue_(16)
 {
@@ -119,7 +169,7 @@ void SpeechRhvoiceTilde::processBlock(const t_sample** in, t_sample** out)
 
 void SpeechRhvoiceTilde::samplerateChanged(size_t sr)
 {
-    soxrInit();
+    soxr_.setOutRate(sr);
 }
 
 bool SpeechRhvoiceTilde::notify(NotifyEventType code)
@@ -159,11 +209,11 @@ void SpeechRhvoiceTilde::onWordStart(int pos, int len)
     std::cerr << fmt::format("word start: {} {}\n", pos, len);
 }
 
-void SpeechRhvoiceTilde::onSampleRate(int sr)
+void SpeechRhvoiceTilde::onTtsSampleRate(int sr)
 {
     if (voice_sr_ != sr) {
         voice_sr_ = sr;
-        soxrInit();
+        soxr_.setRates(sr, samplerate());
 
 #if RHVOICE_DEBUG
         std::cerr << fmt::format("[{}] SR={}\n", __FUNCTION__, sr) << std::flush;
@@ -179,12 +229,6 @@ int SpeechRhvoiceTilde::onDsp(const short* data, unsigned int n)
     constexpr int RHVOICE_CONTINUE = 1;
     if (quit_)
         return RHVOICE_STOP;
-
-    if (!soxr_) {
-        // try to init samplerate converter
-        if (!soxrInit())
-            return RHVOICE_STOP;
-    }
 
     constexpr int BUF_SIZE = 2048;
     float out_buf[BUF_SIZE];
@@ -202,12 +246,8 @@ int SpeechRhvoiceTilde::onDsp(const short* data, unsigned int n)
         const short* in_buf = data + in_done_total;
         size_t in_done = 0;
         size_t out_done = 0;
-        soxr_error_t no_err = 0;
 
-        {
-            std::unique_lock<std::mutex> lock(soxr_mtx_);
-            no_err = soxr_process(soxr_.get(), in_buf, in_left, &in_done, out_buf, BUF_SIZE, &out_done);
-        }
+        auto no_err = soxr_.process(in_buf, in_left, &in_done, out_buf, BUF_SIZE, &out_done);
 
         if (no_err != 0) {
             std::cerr << fmt::format("[{}] error: {}\n", __FUNCTION__, soxr_strerror(no_err));
@@ -251,7 +291,7 @@ void SpeechRhvoiceTilde::initEngineParams()
     engine_params_.callbacks.play_audio = nullptr;
     engine_params_.callbacks.process_mark = nullptr;
     engine_params_.callbacks.set_sample_rate = [](int sr, void* obj) -> int {
-        toThis(obj)->onSampleRate(sr);
+        toThis(obj)->onTtsSampleRate(sr);
         return 1;
     };
     engine_params_.callbacks.play_speech = [](const short* data, unsigned int n, void* obj) -> int {
@@ -334,24 +374,6 @@ void SpeechRhvoiceTilde::initWorker()
                 notify_.waitFor(250);
             }
         });
-}
-
-bool SpeechRhvoiceTilde::soxrInit()
-{
-    auto io = soxr_io_spec(SOXR_INT16, SOXR_FLOAT32);
-    auto q = soxr_quality_spec(SOXR_QQ, 0);
-    soxr_error_t no_err = 0;
-
-    {
-        std::unique_lock<std::mutex> lock(soxr_mtx_);
-        soxr_.reset(soxr_create(voice_sr_, samplerate(), 1, &no_err, &io, &q, nullptr));
-    }
-
-    if (no_err != 0 || !soxr_) {
-        std::cerr << fmt::format("{} error: {}\n", __FUNCTION__, soxr_strerror(no_err));
-        return false;
-    } else
-        return true;
 }
 
 void setup_speech_rhvoice_tilde()
