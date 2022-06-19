@@ -50,108 +50,16 @@ SpeechRhvoiceTilde::SpeechRhvoiceTilde(const PdArgs& args)
     , soxr_(nullptr, soxr_delete)
     , txt_queue_(512)
 {
-    params_.data_path = "/Users/serge/.local/share/RHVoice";
-    params_.config_path = "/Users/serge/.local/etc/RHVoice";
-    params_.resource_paths = nullptr;
-    params_.options = RHVoice_preload_voices;
-    params_.callbacks.done =
-        [](void* obj) { toThis(obj)->onDone(); };
-    params_.callbacks.word_starts =
-        [](unsigned int pos, unsigned int length, void* obj) -> int {
-        toThis(obj)->onWordStart(pos, length);
-        return 1;
-    };
-    params_.callbacks.word_ends =
-        [](unsigned int pos, unsigned int length, void* obj) -> int {
-        toThis(obj)->onWordEnd(pos, length);
-        return 1;
-    };
-    params_.callbacks.sentence_starts =
-        [](unsigned int pos, unsigned int length, void* obj) -> int {
-        toThis(obj)->onSentenceStart(pos, length);
-        return 1;
-    };
-    params_.callbacks.sentence_ends =
-        [](unsigned int pos, unsigned int length, void* obj) -> int {
-        toThis(obj)->onSentenceEnd(pos, length);
-        return 1;
-    };
-    params_.callbacks.play_audio = nullptr;
-    params_.callbacks.process_mark = nullptr;
-    params_.callbacks.set_sample_rate = [](int sr, void* obj) -> int {
-        toThis(obj)->onSampleRate(sr);
-        return 1;
-    };
-    params_.callbacks.play_speech = [](const short* data, unsigned int n, void* obj) -> int {
-        return toThis(obj)->onDsp(data, n);
-    };
-
-    synth_params_.voice_profile = "Anna";
-    synth_params_.absolute_pitch = 0;
-    synth_params_.absolute_rate = 0;
-    synth_params_.absolute_volume = 1;
-    synth_params_.relative_rate = 1;
-    synth_params_.relative_volume = 1;
-    synth_params_.relative_pitch = 1;
-    synth_params_.punctuation_list = nullptr;
-    synth_params_.capitals_mode = RHVoice_capitals_default;
-    synth_params_.punctuation_mode = RHVoice_punctuation_default;
-    synth_params_.flags = 0;
-
-    addProperty(new SynthFloatProperty("@rate", &synth_params_.absolute_rate));
-    addProperty(new SynthFloatProperty("@pitch", &synth_params_.absolute_pitch));
-    addProperty(new SynthFloatProperty("@volume", &synth_params_.absolute_volume));
-
-    tts_.reset(RHVoice_new_tts_engine(&params_));
-
-    auto nprofiles = RHVoice_get_number_of_voice_profiles(tts_.get());
-    auto profiles = RHVoice_get_voice_profiles(tts_.get());
-    OBJ_DBG << "number of profiles: " << nprofiles;
-    for (int i = 0; i < nprofiles; i++) {
-        OBJ_DBG << "\t-" << profiles[i];
-    }
-
-    auto nvoices = RHVoice_get_number_of_voices(tts_.get());
-    auto voices = RHVoice_get_voices(tts_.get());
-    for (int i = 0; i < nvoices; i++)
-        voices_.append(gensym(voices[i].name));
-
-    OBJ_DBG << "voices: " << voices_;
-
-    auto voice_prop = addProperty(new SymbolProperty("@voice", gensym("Anna")));
-    voice_prop->setSymbolCheckFn(
-        [this](t_symbol* v) { return voices_.contains(v); },
-        "invalid voice name");
-    voice_prop->setSuccessFn([this](Property* p) {
-        synth_params_.voice_profile = static_cast<SymbolProperty*>(p)->value()->s_name;
-    });
-
-    proc_ = std::async(
-        std::launch::async,
-        [this]() {
-            while (!quit_) {
-                std::string txt;
-                if (txt_queue_.try_dequeue(txt)) {
-                    auto msg = RHVoice_new_message(
-                        tts_.get(),
-                        txt.c_str(),
-                        txt.size(),
-                        RHVoice_message_text,
-                        &synth_params_,
-                        this);
-
-                    auto rc = RHVoice_speak(msg);
-#if RHVOICE_DEBUG
-                    std::cerr << fmt::format("speak '{}':  {}\n", txt, rc);
-#endif
-                    RHVoice_delete_message(msg);
-                }
-
-                notify_.waitFor(100);
-            }
-        });
-
     createSignalOutlet();
+    createOutlet();
+
+    initEngineParams();
+    tts_.reset(RHVoice_new_tts_engine(&engine_params_));
+
+    initSynthParams();
+    initProperties();
+
+    initWorker();
 }
 
 SpeechRhvoiceTilde::~SpeechRhvoiceTilde()
@@ -225,22 +133,6 @@ void SpeechRhvoiceTilde::onDone()
 {
 }
 
-void SpeechRhvoiceTilde::onWordStart(unsigned int pos, unsigned int length)
-{
-}
-
-void SpeechRhvoiceTilde::onWordEnd(unsigned int pos, unsigned int length)
-{
-}
-
-void SpeechRhvoiceTilde::onSentenceStart(unsigned int pos, unsigned int length)
-{
-}
-
-void SpeechRhvoiceTilde::onSentenceEnd(unsigned int pos, unsigned int length)
-{
-}
-
 void SpeechRhvoiceTilde::onSampleRate(int sr)
 {
     if (voice_sr_ != sr) {
@@ -304,6 +196,98 @@ int SpeechRhvoiceTilde::onDsp(const short* data, unsigned int n)
     }
 
     return quit_ ? RHVOICE_STOP : RHVOICE_CONTINUE;
+}
+
+void SpeechRhvoiceTilde::initEngineParams()
+{
+    memset(&engine_params_, 0, sizeof(engine_params_));
+    engine_params_.data_path = "/Users/serge/.local/share/RHVoice";
+    engine_params_.config_path = "/Users/serge/.local/etc/RHVoice";
+    engine_params_.resource_paths = nullptr;
+    engine_params_.options = RHVoice_preload_voices;
+    engine_params_.callbacks.done =
+        [](void* obj) { toThis(obj)->onDone(); };
+    engine_params_.callbacks.play_audio = nullptr;
+    engine_params_.callbacks.process_mark = nullptr;
+    engine_params_.callbacks.set_sample_rate = [](int sr, void* obj) -> int {
+        toThis(obj)->onSampleRate(sr);
+        return 1;
+    };
+    engine_params_.callbacks.play_speech = [](const short* data, unsigned int n, void* obj) -> int {
+        return toThis(obj)->onDsp(data, n);
+    };
+}
+
+void SpeechRhvoiceTilde::initSynthParams()
+{
+    synth_params_.voice_profile = "Anna";
+    synth_params_.absolute_pitch = 0;
+    synth_params_.absolute_rate = 0;
+    synth_params_.absolute_volume = 1;
+    synth_params_.relative_rate = 1;
+    synth_params_.relative_volume = 1;
+    synth_params_.relative_pitch = 1;
+    synth_params_.punctuation_list = nullptr;
+    synth_params_.capitals_mode = RHVoice_capitals_default;
+    synth_params_.punctuation_mode = RHVoice_punctuation_default;
+    synth_params_.flags = 0;
+}
+
+void SpeechRhvoiceTilde::initProperties()
+{
+    addProperty(new SynthFloatProperty("@rate", &synth_params_.absolute_rate));
+    addProperty(new SynthFloatProperty("@pitch", &synth_params_.absolute_pitch));
+    addProperty(new SynthFloatProperty("@volume", &synth_params_.absolute_volume));
+
+    auto nprofiles = RHVoice_get_number_of_voice_profiles(tts_.get());
+    auto profiles = RHVoice_get_voice_profiles(tts_.get());
+    OBJ_DBG << "number of profiles: " << nprofiles;
+    for (int i = 0; i < nprofiles; i++) {
+        OBJ_DBG << "\t-" << profiles[i];
+    }
+
+    auto nvoices = RHVoice_get_number_of_voices(tts_.get());
+    auto voices = RHVoice_get_voices(tts_.get());
+    for (int i = 0; i < nvoices; i++)
+        voices_.append(gensym(voices[i].name));
+
+    OBJ_DBG << "voices: " << voices_;
+
+    auto voice_prop = addProperty(new SymbolProperty("@voice", gensym("Anna")));
+    voice_prop->setSymbolCheckFn(
+        [this](t_symbol* v) { return voices_.contains(v); },
+        "invalid voice name");
+    voice_prop->setSuccessFn([this](Property* p) {
+        synth_params_.voice_profile = static_cast<SymbolProperty*>(p)->value()->s_name;
+    });
+}
+
+void SpeechRhvoiceTilde::initWorker()
+{
+    proc_ = std::async(
+        std::launch::async,
+        [this]() {
+            while (!quit_) {
+                std::string txt;
+                if (txt_queue_.try_dequeue(txt)) {
+                    auto msg = RHVoice_new_message(
+                        tts_.get(),
+                        txt.c_str(),
+                        txt.size(),
+                        RHVoice_message_text,
+                        &synth_params_,
+                        this);
+
+                    auto rc = RHVoice_speak(msg);
+#if RHVOICE_DEBUG
+                    std::cerr << fmt::format("speak '{}':  {}\n", txt, rc);
+#endif
+                    RHVoice_delete_message(msg);
+                }
+
+                notify_.waitFor(250);
+            }
+        });
 }
 
 bool SpeechRhvoiceTilde::soxrInit()

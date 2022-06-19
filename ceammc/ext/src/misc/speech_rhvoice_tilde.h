@@ -35,7 +35,7 @@ public:
 
 class SpeechRhvoiceTilde : public SoundExternal {
     TtsEngine tts_;
-    RHVoice_init_params params_;
+    RHVoice_init_params engine_params_;
     RHVoice_synth_params synth_params_;
     TtsQueue queue_;
     TxtQueue txt_queue_;
@@ -59,13 +59,13 @@ public:
 
 private:
     void onDone();
-    void onWordStart(unsigned int pos, unsigned int length);
-    void onWordEnd(unsigned int pos, unsigned int length);
-    void onSentenceStart(unsigned int pos, unsigned int length);
-    void onSentenceEnd(unsigned int pos, unsigned int length);
     void onSampleRate(int sr);
     int onDsp(const short* data, unsigned int n);
 
+    void initEngineParams();
+    void initSynthParams();
+    void initProperties();
+    void initWorker();
     bool soxrInit();
 };
 
