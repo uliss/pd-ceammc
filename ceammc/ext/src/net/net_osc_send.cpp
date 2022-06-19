@@ -164,7 +164,7 @@ class OscSendWorker {
     Pipe pipe_;
     std::future<bool> future_;
     std::atomic_bool quit_;
-    ThreadNofity notify_;
+    ThreadNotify notify_;
 
 public:
     static OscSendWorker& instance()

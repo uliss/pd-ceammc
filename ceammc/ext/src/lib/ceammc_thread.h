@@ -30,18 +30,18 @@ enum ThreadProto {
 
 class ThreadExternalBase;
 
-class ThreadNofity {
+class ThreadNotify {
     std::condition_variable notify_;
     std::mutex mtx_;
     using Lock = std::unique_lock<std::mutex>;
 
-    ThreadNofity(const ThreadNofity&) = delete;
-    ThreadNofity(ThreadNofity&&) = delete;
-    ThreadNofity& operator=(const ThreadNofity&) = delete;
-    ThreadNofity& operator=(ThreadNofity&&) = delete;
+    ThreadNotify(const ThreadNotify&) = delete;
+    ThreadNotify(ThreadNotify&&) = delete;
+    ThreadNotify& operator=(const ThreadNotify&) = delete;
+    ThreadNotify& operator=(ThreadNotify&&) = delete;
 
 public:
-    ThreadNofity();
+    ThreadNotify();
 
     // called from main thread
     void notifyOne();

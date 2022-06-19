@@ -33,7 +33,7 @@ class SpeechRhvoiceTilde : public SoundExternal, public NotifiedObject {
     int voice_sr_;
     SoxR soxr_;
     std::mutex soxr_mtx_;
-    ThreadNofity notify_;
+    ThreadNotify notify_;
 
 public:
     SpeechRhvoiceTilde(const PdArgs& args);

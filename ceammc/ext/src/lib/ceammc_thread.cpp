@@ -9,23 +9,23 @@
 
 using namespace ceammc;
 
-ThreadNofity::ThreadNofity()
+ThreadNotify::ThreadNotify()
 {
 }
 
-void ThreadNofity::notifyOne()
+void ThreadNotify::notifyOne()
 {
     Lock lock(mtx_);
     notify_.notify_one();
 }
 
-void ThreadNofity::notifyAll()
+void ThreadNotify::notifyAll()
 {
     Lock lock(mtx_);
     notify_.notify_all();
 }
 
-void ThreadNofity::waitFor(int ms)
+void ThreadNotify::waitFor(int ms)
 {
     Lock lock(mtx_);
     notify_.wait_for(lock, std::chrono::milliseconds(ms));
