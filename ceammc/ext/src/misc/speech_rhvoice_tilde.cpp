@@ -169,7 +169,7 @@ void SpeechRhvoiceTilde::processBlock(const t_sample** in, t_sample** out)
 
 void SpeechRhvoiceTilde::samplerateChanged(size_t sr)
 {
-    soxr_.setOutRate(sr);
+    resampler_.setOutRate(sr);
 }
 
 bool SpeechRhvoiceTilde::notify(NotifyEventType code)
@@ -213,7 +213,7 @@ void SpeechRhvoiceTilde::onTtsSampleRate(int sr)
 {
     if (voice_sr_ != sr) {
         voice_sr_ = sr;
-        soxr_.setRates(sr, samplerate());
+        resampler_.setRates(sr, samplerate());
 
 #if RHVOICE_DEBUG
         std::cerr << fmt::format("[{}] SR={}\n", __FUNCTION__, sr) << std::flush;
@@ -247,7 +247,7 @@ int SpeechRhvoiceTilde::onDsp(const short* data, unsigned int n)
         size_t in_done = 0;
         size_t out_done = 0;
 
-        auto no_err = soxr_.process(in_buf, in_left, &in_done, out_buf, BUF_SIZE, &out_done);
+        auto no_err = resampler_.process(in_buf, in_left, &in_done, out_buf, BUF_SIZE, &out_done);
 
         if (no_err != 0) {
             std::cerr << fmt::format("[{}] error: {}\n", __FUNCTION__, soxr_strerror(no_err));
