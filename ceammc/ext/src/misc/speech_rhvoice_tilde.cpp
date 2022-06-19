@@ -124,7 +124,14 @@ void SpeechRhvoiceTilde::samplerateChanged(size_t sr)
 
 bool SpeechRhvoiceTilde::notify(NotifyEventType code)
 {
-    OBJ_DBG << "notify";
+    switch (code) {
+    case NOTIFY_DONE:
+        symbolTo(1, gensym("done"));
+        break;
+    default:
+        return true;
+    }
+
     return true;
 }
 
@@ -143,8 +150,7 @@ void SpeechRhvoiceTilde::m_stop(t_symbol* s, const AtomListView& lv)
 
 void SpeechRhvoiceTilde::onDone()
 {
-    Dispatcher::instance().send({ reinterpret_cast<SubscriberId>(this), NOTIFY_UPDATE });
-    std::cerr << "done\n";
+    Dispatcher::instance().send({ reinterpret_cast<SubscriberId>(this), NOTIFY_DONE });
 }
 
 void SpeechRhvoiceTilde::onWordStart(int pos, int len)
@@ -353,6 +359,8 @@ void setup_speech_rhvoice_tilde()
     SoundExternalFactory<SpeechRhvoiceTilde> obj("speech.rhvoice~", OBJECT_FACTORY_DEFAULT);
     obj.addAlias("rhvoice~");
     obj.addMethod("stop", &SpeechRhvoiceTilde::m_stop);
+
+    obj.setXletsInfo({ "symbol: speak symbol" }, { "signal: tts output", "'done' when done" });
 
     LIB_POST << fmt::format("RHVoice version: {}", RHVoice_get_version());
 }
