@@ -39,6 +39,12 @@ TEST_CASE("list.remove", "[externals]")
             TExt t("list.remove", LF(1, 2, 2, 3, 4, 4, 1));
             REQUIRE_PROPERTY_LIST(t, @indexes, LF(1, 2, 3, 4));
         }
+
+        SECTION("invalid")
+        {
+            TExt t("list.remove", LA(1, 2, "A", "B", 3));
+            REQUIRE_PROPERTY_LIST(t, @indexes, LF(1, 2, 3));
+        }
     }
 
     SECTION("do")
