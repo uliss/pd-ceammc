@@ -14,9 +14,6 @@
 using namespace ceammc;
 
 constexpr size_t TtsQueueSize = 2048;
-using TtsEngine = std::unique_ptr<RHVoice_tts_engine_struct, void (*)(RHVoice_tts_engine)>;
-using TtsQueue = moodycamel::ReaderWriterQueue<float, TtsQueueSize>;
-using TxtQueue = moodycamel::ReaderWriterQueue<std::string>;
 
 class Resampler {
     typedef struct soxr* soxr_t;
@@ -39,6 +36,11 @@ public:
 };
 
 class SpeechRhvoiceTilde : public SoundExternal, public NotifiedObject {
+    using TtsEngine = std::unique_ptr<RHVoice_tts_engine_struct, void (*)(RHVoice_tts_engine)>;
+    using TtsQueue = moodycamel::ReaderWriterQueue<float, TtsQueueSize>;
+    using TxtQueue = moodycamel::ReaderWriterQueue<std::string>;
+
+private:
     TtsEngine tts_;
     RHVoice_init_params engine_params_;
     RHVoice_synth_params synth_params_;
