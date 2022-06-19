@@ -37,7 +37,7 @@ class SpeechRhvoiceTilde : public SoundExternal {
     TtsEngine tts_;
     RHVoice_init_params engine_params_;
     RHVoice_synth_params synth_params_;
-    TtsQueue queue_;
+    TtsQueue dsp_queue_;
     TxtQueue txt_queue_;
     std::future<void> proc_;
     std::atomic_bool quit_;

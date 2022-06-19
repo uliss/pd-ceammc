@@ -118,7 +118,7 @@ void SpeechRhvoiceTilde::processBlock(const t_sample** in, t_sample** out)
 
     for (size_t i = 0; i < BS; i++) {
         t_sample s = 0;
-        if (queue_.try_dequeue(s)) {
+        if (dsp_queue_.try_dequeue(s)) {
             out[0][i] = s;
         } else
             out[0][i] = 0;
@@ -190,7 +190,7 @@ int SpeechRhvoiceTilde::onDsp(const short* data, unsigned int n)
 
         if (out_done != 0) {
             for (size_t i = 0; i < out_done; i++)
-                queue_.enqueue(out_buf[i]);
+                dsp_queue_.enqueue(out_buf[i]);
         } else
             break;
     }
