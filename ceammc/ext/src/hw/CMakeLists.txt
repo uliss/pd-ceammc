@@ -43,7 +43,6 @@ add_library(ceammc_hw STATIC mod_hw.cpp ${HW_SOURCES})
 target_include_directories(ceammc_hw
     PRIVATE
         ${PROJECT_BINARY_DIR} # for config.h
-        ${PROJECT_SOURCE_DIR}/ceammc/extra/SMSLib
 )
 
 target_link_libraries(ceammc_hw PRIVATE serial readerwriterqueue hw_arduino)
