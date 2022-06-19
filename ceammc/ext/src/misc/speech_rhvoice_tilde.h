@@ -2,7 +2,6 @@
 #define SPEECH_RHVOICE_TILDE_H
 
 #include <atomic>
-#include <condition_variable>
 #include <future>
 #include <memory>
 #include <mutex>
@@ -11,6 +10,7 @@
 #include "ceammc_poll_dispatcher.h"
 #include "ceammc_sound_external.h"
 #include "readerwriterqueue.h"
+#include "ceammc_thread.h"
 using namespace ceammc;
 
 constexpr size_t TtsQueueSize = 2048;
@@ -20,20 +20,6 @@ using TxtQueue = moodycamel::ReaderWriterQueue<std::string>;
 
 typedef struct soxr* soxr_t;
 using SoxR = std::unique_ptr<soxr, void (*)(soxr_t)>;
-
-class ThreadNofity {
-    std::condition_variable notify_;
-    std::mutex mtx_;
-    using Lock = std::unique_lock<std::mutex>;
-
-public:
-    ThreadNofity();
-
-    // called from main thread
-    void notifyOne();
-    // called from warker thread
-    void waitFor(int ms = 100);
-};
 
 class SpeechRhvoiceTilde : public SoundExternal, public NotifiedObject {
     TtsEngine tts_;

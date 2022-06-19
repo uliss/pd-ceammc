@@ -2,8 +2,10 @@
 #define CEAMMC_THREAD_H
 
 #include <atomic>
+#include <condition_variable>
 #include <future>
 #include <memory>
+#include <mutex>
 
 #include "config.h"
 #ifdef HAVE_PTHREAD_H
@@ -27,6 +29,25 @@ enum ThreadProto {
 };
 
 class ThreadExternalBase;
+
+class ThreadNofity {
+    std::condition_variable notify_;
+    std::mutex mtx_;
+    using Lock = std::unique_lock<std::mutex>;
+
+    ThreadNofity(const ThreadNofity&) = delete;
+    ThreadNofity(ThreadNofity&&) = delete;
+    ThreadNofity& operator=(const ThreadNofity&) = delete;
+    ThreadNofity& operator=(ThreadNofity&&) = delete;
+
+public:
+    ThreadNofity();
+
+    // called from main thread
+    void notifyOne();
+    // called from warker thread
+    void waitFor(int ms = 100);
+};
 
 namespace thread {
     class Lock {

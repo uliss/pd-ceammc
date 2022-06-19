@@ -9,6 +9,22 @@
 
 using namespace ceammc;
 
+ThreadNofity::ThreadNofity()
+{
+}
+
+void ThreadNofity::notifyOne()
+{
+    Lock lock(mtx_);
+    notify_.notify_one();
+}
+
+void ThreadNofity::waitFor(int ms)
+{
+    Lock lock(mtx_);
+    notify_.wait_for(lock, std::chrono::milliseconds(ms));
+}
+
 ceammc::thread::Lock::Lock(pthread_mutex_t& m)
     : m_(m)
 {

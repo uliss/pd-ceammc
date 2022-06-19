@@ -12,22 +12,6 @@
 
 static inline SpeechRhvoiceTilde* toThis(void* x) { return static_cast<SpeechRhvoiceTilde*>(x); }
 
-ThreadNofity::ThreadNofity()
-{
-}
-
-void ThreadNofity::notifyOne()
-{
-    Lock lock(mtx_);
-    notify_.notify_one();
-}
-
-void ThreadNofity::waitFor(int ms)
-{
-    Lock lock(mtx_);
-    notify_.wait_for(lock, std::chrono::milliseconds(ms));
-}
-
 class SynthFloatProperty : public FloatProperty {
     using ValType = typeof(RHVoice_synth_params::absolute_pitch);
     ValType* v_;
