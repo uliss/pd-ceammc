@@ -12,8 +12,9 @@
 #include "readerwriterqueue.h"
 using namespace ceammc;
 
+constexpr size_t TtsQueueSize = 2048;
 using TtsEngine = std::unique_ptr<RHVoice_tts_engine_struct, void (*)(RHVoice_tts_engine)>;
-using TtsQueue = moodycamel::ReaderWriterQueue<float>;
+using TtsQueue = moodycamel::ReaderWriterQueue<float, TtsQueueSize>;
 using TxtQueue = moodycamel::ReaderWriterQueue<std::string>;
 
 typedef struct soxr* soxr_t;
@@ -54,6 +55,7 @@ public:
     void onSymbol(t_symbol* s) override;
     void onList(const AtomList& lst) override;
     void processBlock(const t_sample** in, t_sample** out) final;
+    void samplerateChanged(size_t sr) final;
 
     void m_stop(t_symbol* s, const AtomListView& lv);
 

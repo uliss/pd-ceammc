@@ -49,7 +49,8 @@ SpeechRhvoiceTilde::SpeechRhvoiceTilde(const PdArgs& args)
     , stop_(false)
     , voice_sr_(0)
     , soxr_(nullptr, soxr_delete)
-    , txt_queue_(512)
+    , dsp_queue_(TtsQueueSize)
+    , txt_queue_(16)
 {
     createSignalOutlet();
     createOutlet();
@@ -128,6 +129,11 @@ void SpeechRhvoiceTilde::processBlock(const t_sample** in, t_sample** out)
     }
 }
 
+void SpeechRhvoiceTilde::samplerateChanged(size_t sr)
+{
+    soxrInit();
+}
+
 void SpeechRhvoiceTilde::m_stop(t_symbol* s, const AtomListView& lv)
 {
     stop_ = true;
@@ -204,8 +210,18 @@ int SpeechRhvoiceTilde::onDsp(const short* data, unsigned int n)
         in_done_total += in_done;
 
         if (out_done != 0) {
-            for (size_t i = 0; i < out_done; i++)
-                dsp_queue_.enqueue(out_buf[i]);
+            const auto wait_ms = (1000 * TtsQueueSize) / samplerate();
+            for (size_t i = 0; i < out_done; i++) {
+                while (!dsp_queue_.try_enqueue(out_buf[i])) {
+                    std::this_thread::sleep_for(std::chrono::milliseconds(wait_ms));
+
+                    if (stop_)
+                        break;
+
+                    if (quit_)
+                        return RHVOICE_STOP;
+                }
+            }
         } else
             break;
     }
