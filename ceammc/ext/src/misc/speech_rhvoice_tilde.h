@@ -47,7 +47,6 @@ class SpeechRhvoiceTilde : public SoundExternal, public NotifiedObject {
     std::future<void> proc_;
     std::atomic_bool quit_, stop_;
     AtomList voices_;
-    int voice_sr_;
     Resampler resampler_;
     ThreadNotify notify_;
 

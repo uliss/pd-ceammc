@@ -82,7 +82,6 @@ SpeechRhvoiceTilde::SpeechRhvoiceTilde(const PdArgs& args)
     , tts_(nullptr, &RHVoice_delete_tts_engine)
     , quit_(false)
     , stop_(false)
-    , voice_sr_(0)
     , dsp_queue_(TtsQueueSize)
     , txt_queue_(16)
 {
@@ -211,14 +210,11 @@ void SpeechRhvoiceTilde::onWordStart(int pos, int len)
 
 void SpeechRhvoiceTilde::onTtsSampleRate(int sr)
 {
-    if (voice_sr_ != sr) {
-        voice_sr_ = sr;
-        resampler_.setRates(sr, samplerate());
+    resampler_.setRates(sr, samplerate());
 
 #if RHVOICE_DEBUG
-        std::cerr << fmt::format("[{}] SR={}\n", __FUNCTION__, sr) << std::flush;
+    std::cerr << fmt::format("[{}] SR={}\n", __FUNCTION__, sr) << std::flush;
 #endif
-    }
 }
 
 int SpeechRhvoiceTilde::onDsp(const short* data, unsigned int n)
