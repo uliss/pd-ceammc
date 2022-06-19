@@ -40,7 +40,7 @@ class SpeechRhvoiceTilde : public SoundExternal {
     TtsQueue dsp_queue_;
     TxtQueue txt_queue_;
     std::future<void> proc_;
-    std::atomic_bool quit_;
+    std::atomic_bool quit_, stop_;
     AtomList voices_;
     int voice_sr_;
     SoxR soxr_;

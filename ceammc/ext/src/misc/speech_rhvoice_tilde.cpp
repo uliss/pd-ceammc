@@ -46,6 +46,7 @@ SpeechRhvoiceTilde::SpeechRhvoiceTilde(const PdArgs& args)
     : SoundExternal(args)
     , tts_(nullptr, &RHVoice_delete_tts_engine)
     , quit_(false)
+    , stop_(false)
     , voice_sr_(0)
     , soxr_(nullptr, soxr_delete)
     , txt_queue_(512)
@@ -75,6 +76,7 @@ void SpeechRhvoiceTilde::onSymbol(t_symbol* s)
         return;
     }
 
+    stop_ = false;
     txt_queue_.emplace(s->s_name);
     notify_.notifyOne();
 }
@@ -108,6 +110,7 @@ void SpeechRhvoiceTilde::onList(const AtomList& lst)
     if (str.size() > 0 || str.back() == ' ')
         str.pop_back();
 
+    stop_ = false;
     txt_queue_.emplace(str.c_str(), str.size());
     notify_.notifyOne();
 }
@@ -127,6 +130,15 @@ void SpeechRhvoiceTilde::processBlock(const t_sample** in, t_sample** out)
 
 void SpeechRhvoiceTilde::m_stop(t_symbol* s, const AtomListView& lv)
 {
+    stop_ = true;
+
+    float samp;
+    while (dsp_queue_.try_dequeue(samp))
+        ;
+
+    std::string str;
+    while (txt_queue_.try_dequeue(str))
+        ;
 }
 
 void SpeechRhvoiceTilde::onDone()
@@ -169,6 +181,9 @@ int SpeechRhvoiceTilde::onDsp(const short* data, unsigned int n)
     while (true) {
         if (quit_)
             return RHVOICE_STOP;
+
+        if (stop_)
+            break;
 
         const short* in_buf = data + in_done_total;
         size_t in_done = 0;
@@ -283,6 +298,11 @@ void SpeechRhvoiceTilde::initWorker()
                     std::cerr << fmt::format("speak '{}':  {}\n", txt, rc);
 #endif
                     RHVoice_delete_message(msg);
+                }
+
+                if (stop_) {
+                    while (txt_queue_.try_dequeue(txt))
+                        ;
                 }
 
                 notify_.waitFor(250);
