@@ -36,7 +36,7 @@ enum Status {
     ERR_SYNTH
 };
 
-static int do_speech_synth(rw_queue& queue,
+static int do_speech_synth(TtsQueue& queue,
     const std::atomic_bool& run_flag,
     int SR,
     const std::string& voice,

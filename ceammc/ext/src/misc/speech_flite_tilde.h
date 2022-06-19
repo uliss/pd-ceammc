@@ -28,14 +28,14 @@
 
 using namespace ceammc;
 
-using rw_queue = moodycamel::ReaderWriterQueue<float, 2048>;
+using TtsQueue = moodycamel::ReaderWriterQueue<float, 2048>;
 
 class SpeechFilteTilde : public SoundExternal {
     SymbolEnumProperty* voice_name_;
     FloatProperty* speed_;
     FloatProperty* pitch_;
     std::future<int> running_;
-    rw_queue queue_;
+    TtsQueue queue_;
     std::atomic_bool run_;
     std::queue<std::string> sentences_;
     ClockLambdaFunction clock_;
