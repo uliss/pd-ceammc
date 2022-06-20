@@ -47,7 +47,7 @@ if(WITH_LUAJIT)
     pkg_search_module(LUAJIT luajit luajit-5.1 REQUIRED)
 endif()
 
-if(LUAJIT_FOUND)
+if(WITH_LUAJIT AND LUAJIT_FOUND)
     target_sources(ceammc_lang PRIVATE lang_luajit.cpp lua_cmd.cpp lua_func.cpp lua_interp.cpp)
     target_include_directories(ceammc_lang BEFORE PUBLIC ${LUAJIT_INCLUDE_DIRS})
 
