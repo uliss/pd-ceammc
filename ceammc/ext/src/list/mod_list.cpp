@@ -30,6 +30,7 @@ void setup_list_mean();
 void setup_list_min();
 void setup_list_none_of();
 void setup_list_normalize();
+void setup_list_pass();
 void setup_list_pass_if();
 void setup_list_prepend();
 void setup_list_product();
@@ -99,6 +100,7 @@ void ceammc_list_setup()
     setup_list_min();
     setup_list_none_of();
     setup_list_normalize();
+    setup_list_pass();
     setup_list_pass_if();
     setup_list_prepend();
     setup_list_product();
