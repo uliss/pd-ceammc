@@ -541,6 +541,7 @@ list.integrator	returns the sum of the previously stored list and the current on
 list.last	output last list element
 list.length	output the number of atoms in the list
 list.size	output the number of atoms in the list
+list.map	map list values by specified dictionary
 list.max	output largest element in the list
 list.mean	calculates average of list of floats
 list.average	calculates average of list of floats

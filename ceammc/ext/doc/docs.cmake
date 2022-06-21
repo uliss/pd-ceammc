@@ -313,6 +313,7 @@ set(DOC_FILES
     list.integrator
     list.last
     list.length
+    list.map
     list.max
     list.mean
     list.min

@@ -976,6 +976,9 @@
     <entry name="list.length" descr="output the number of atoms in the list" ref_view="object">
       <xi:include href="list.length.pddoc" parse="xml"/>
     </entry>
+    <entry name="list.map" descr="map list values by specified dictionary" ref_view="object">
+      <xi:include href="list.map.pddoc" parse="xml"/>
+    </entry>
     <entry name="list.max" descr="output largest element in the list" ref_view="object">
       <xi:include href="list.max.pddoc" parse="xml"/>
     </entry>
