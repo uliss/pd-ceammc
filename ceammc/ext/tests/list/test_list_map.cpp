@@ -95,4 +95,32 @@ TEST_CASE("list.map", "[externals]")
         t << "C";
         REQUIRE(!t.hasOutput());
     }
+
+    SECTION("list")
+    {
+        TExt t("list.map");
+
+        // empty dict
+        t << LF(1, 2, 3, 4, 5);
+        REQUIRE(t.hasOutput());
+        REQUIRE(t.outputListAt(0) == L());
+
+        t.sendListTo(AtomList::parseString("[1: one 2: two 3: three 4: four 5: five]"), 1);
+
+        t << L();
+        REQUIRE(t.hasOutput());
+        REQUIRE(t.outputListAt(0) == L());
+
+        t << LF(1);
+        REQUIRE(t.hasOutput());
+        REQUIRE(t.outputListAt(0) == LA("one"));
+
+        t << LF(0);
+        REQUIRE(t.hasOutput());
+        REQUIRE(t.outputListAt(0) == L());
+
+        t << LF(3, 2, 1, 0, 1, 2, 3);
+        REQUIRE(t.hasOutput());
+        REQUIRE(t.outputListAt(0) == LA("three", "two", "one", "one", "two", "three"));
+    }
 }
