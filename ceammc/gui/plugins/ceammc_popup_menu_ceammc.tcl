@@ -96,14 +96,15 @@
         list.convolve list.correlate list.count list.count_if list.delta
         list.distribution list.do list.each list.enumerate list.equal
         list.first list.gen list.histogram list.insert list.integrator
-        list.last list.length list.max list.mean list.min list.none_of
-        list.normalize list.pass list.pass_if list.prepend list.product
-        list.range list.reduce list.remove list.remove_if list.repack
-        list.repeat list.resample list.resize list.reverse list.rldecode
-        list.rlencode list.rotate list.route list.rundiff list.runsum
-        list.search list.separate list.seq list.set list.shift list.shuffle
-        list.slice list.sort list.sort_with list.split list.stretch list.sum
-        list.unique list.unpack list.unzip list.walk list.zip
+        list.last list.length list.map list.max list.mean list.min
+        list.none_of list.normalize list.pass list.pass_if list.prepend
+        list.product list.range list.reduce list.reject list.remove
+        list.remove_if list.repack list.repeat list.resample list.resize
+        list.reverse list.rldecode list.rlencode list.rotate list.route
+        list.rundiff list.runsum list.search list.separate list.seq list.set
+        list.shift list.shuffle list.slice list.sort list.sort_with list.split
+        list.stretch list.sum list.unique list.unpack list.unzip list.walk
+        list.zip
     }}
     {live {
         live.capture~

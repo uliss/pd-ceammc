@@ -600,6 +600,7 @@ list.integrator
 list.interleave
 list.last
 list.length
+list.map
 list.max
 list.mean
 list.min
@@ -613,6 +614,7 @@ list.product
 list.r
 list.range
 list.reduce
+list.reject
 list.remove
 list.remove_if
 list.repack
