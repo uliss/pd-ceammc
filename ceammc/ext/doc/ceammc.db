@@ -322,6 +322,7 @@ list.prepend		..		.
 list.product		.		.
 list.range,list.minmax		.		.
 list.reduce,list.foldl		..		..
+list.reject		..		.
 list.remove		..		.
 list.remove_if		..		..
 list.repack		.		..

@@ -324,6 +324,7 @@ set(DOC_FILES
     list.product
     list.range
     list.reduce
+    list.reject
     list.remove
     list.remove_if
     list.repack

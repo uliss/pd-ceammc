@@ -556,6 +556,7 @@ list.range	output list smallest and largest value
 list.minmax	output list smallest and largest value
 list.reduce	apply function of two arguments cumulatively to the list
 list.foldl	apply function of two arguments cumulatively to the list
+list.reject	remove specified element from list
 list.remove	remove list element(s) at specified positions
 list.remove_if	remove elements by predicate
 list.repack	repack list to specified size
