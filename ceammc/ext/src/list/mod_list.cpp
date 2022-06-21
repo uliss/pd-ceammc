@@ -36,6 +36,7 @@ void setup_list_prepend();
 void setup_list_product();
 void setup_list_range();
 void setup_list_reduce();
+void setup_list_reject();
 void setup_list_remove();
 void setup_list_remove_if();
 void setup_list_repack();
@@ -106,6 +107,7 @@ void ceammc_list_setup()
     setup_list_product();
     setup_list_range();
     setup_list_reduce();
+    setup_list_reject();
     setup_list_remove();
     setup_list_remove_if();
     setup_list_repack();
