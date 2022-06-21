@@ -11,25 +11,30 @@
 #X obj 50 176 list.pass A B C 1 2 3;
 #X obj 50 205 ui.dt;
 #X obj 20 254 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 259 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
-0;
-#X text 110 260 1\.;
-#X text 150 260 *float*;
-#X text 245 260 input float.;
-#X text 150 280 *symbol*;
-#X text 245 280 input symbol.;
-#X text 150 300 *list*;
-#X text 245 300 input list.;
-#X text 150 320 *data:mlist*;
-#X text 245 320 input mlist.;
-#X text 110 340 2\.;
-#X text 150 340 *list*;
-#X text 245 340 set passed values.;
-#X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 375 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 259 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X text 110 376 1\.;
-#X text 245 376 output list with passed elements.;
+#X msg 110 294 @args;
+#X text 245 294 Get/Set list of passed value. Type: list.;
+#X obj 20 333 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 338 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+0;
+#X text 110 339 1\.;
+#X text 150 339 *float*;
+#X text 245 339 input float.;
+#X text 150 359 *symbol*;
+#X text 245 359 input symbol.;
+#X text 150 379 *list*;
+#X text 245 379 input list.;
+#X text 150 399 *data:mlist*;
+#X text 245 399 input mlist.;
+#X text 110 419 2\.;
+#X text 150 419 *list*;
+#X text 245 419 set passed values.;
+#X obj 20 449 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 454 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+-49933 0;
+#X text 110 455 1\.;
+#X text 245 455 output list with passed elements.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

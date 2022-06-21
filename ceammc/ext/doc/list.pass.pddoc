@@ -16,6 +16,9 @@
                 <see>list.pass_if</see>
             </also>
         </meta>
+        <properties>
+            <property name="@args" type="list">list of passed value</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo on="float">input float</xinfo>
