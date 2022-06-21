@@ -1,6 +1,7 @@
 #include "list_pass.h"
 #include "ceammc_factory.h"
 #include "ceammc_fn_list.h"
+#include "datatype_mlist.h"
 
 constexpr size_t BIN_SEARCH_SIZE = 16;
 
@@ -52,6 +53,19 @@ void ListPass::onInlet(size_t n, const AtomListView& lv)
     args_->set(lv);
 }
 
+void ListPass::onDataT(const MListAtom& ml)
+{
+    MListAtom res;
+    res->reserve(ml->size());
+
+    for (auto& a : *ml) {
+        if (contains(a))
+            res->append(a);
+    }
+
+    atomTo(0, res);
+}
+
 bool ListPass::contains(const Atom& a) const
 {
     auto& l = args_->value();
@@ -65,5 +79,7 @@ bool ListPass::contains(const Atom& a) const
 void setup_list_pass()
 {
     ObjectFactory<ListPass> obj("list.pass");
-    obj.setXletsInfo({ "float, symbol or list", "list: set passed values" }, { "list: with passed values" });
+    obj.processData<DataTypeMList>();
+
+    obj.setXletsInfo({ "float, symbol, list or Mlist", "list: set passed values" }, { "list: with passed values" });
 }

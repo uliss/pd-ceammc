@@ -1,8 +1,7 @@
 #ifndef LIST_PASS_H
 #define LIST_PASS_H
 
-#include <unordered_set>
-
+#include "ceammc_data.h"
 #include "ceammc_object.h"
 using namespace ceammc;
 
@@ -16,6 +15,8 @@ public:
     void onSymbol(t_symbol* s) override;
     void onList(const AtomList& lst) override;
     void onInlet(size_t n, const AtomListView& lv) override;
+
+    void onDataT(const MListAtom& ml);
 
 private:
     bool contains(const Atom& a) const;

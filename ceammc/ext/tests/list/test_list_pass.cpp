@@ -87,4 +87,17 @@ TEST_CASE("list.pass", "[externals]")
         t << LA("A", "B", "C", 1, 2, 3, 2, 1, "A");
         REQUIRE(t.outputListAt(0) == LA("A", 1, 1, "A"));
     }
+
+    SECTION("mlist")
+    {
+        TExt t("list.pass", LF(1, 2));
+
+        t.send(MLA());
+        REQUIRE(t.hasOutput());
+        REQUIRE(t.outputAtomAt(0) == MLA());
+
+        t.send(MLA(3, 2, 1));
+        REQUIRE(t.hasOutput());
+        REQUIRE(t.outputAtomAt(0) == MLA(2, 1));
+    }
 }
