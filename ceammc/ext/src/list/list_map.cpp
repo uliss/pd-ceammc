@@ -14,6 +14,21 @@ ListMap::ListMap(const PdArgs& args)
     else
         OBJ_ERR << "dict expected, got: " << d;
 
+    createCbListProperty(
+        "@dict",
+        [this]() -> AtomList { return dict_; },
+        [this](const AtomList& lst) -> bool {
+            if (lst.isA<DataTypeDict>()) {
+                dict_ = DictAtom(lst[0]);
+                return true;
+            } else if (!dict_->fromString(to_string(lst))) {
+                OBJ_ERR << "dict expected, got: " << lst;
+                return false;
+            }
+
+            return true;
+        });
+
     createInlet();
     createOutlet();
 }
@@ -75,9 +90,14 @@ void ListMap::onList(const AtomList& lst)
 
 void ListMap::onInlet(size_t n, const AtomListView& lv)
 {
+    if (lv.isA<DataTypeDict>()) {
+        dict_ = DictAtom(lv[0]);
+    }
 }
 
 void setup_list_map()
 {
     ObjectFactory<ListMap> obj("list.map");
+
+    obj.setXletsInfo({ "float, symbol, list", "dict: set mapping" }, { "list: mapped list" });
 }

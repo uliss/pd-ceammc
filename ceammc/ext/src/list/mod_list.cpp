@@ -25,6 +25,7 @@ void setup_list_insert();
 void setup_list_integrator();
 void setup_list_last();
 void setup_list_length();
+void setup_list_map();
 void setup_list_max();
 void setup_list_mean();
 void setup_list_min();
@@ -96,6 +97,7 @@ void ceammc_list_setup()
     setup_list_integrator();
     setup_list_last();
     setup_list_length();
+    setup_list_map();
     setup_list_max();
     setup_list_mean();
     setup_list_min();
