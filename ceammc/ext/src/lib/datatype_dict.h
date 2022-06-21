@@ -186,6 +186,8 @@ public:
 
     bool choose(Atom& key) const noexcept;
 
+    const_iterator find(t_symbol* key) const { return dict_.find(key); }
+
 public:
     /**
      * Creates dict from list, splitting it by step
