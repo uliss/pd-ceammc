@@ -38,6 +38,8 @@
   - data.set
   - global.set
   - local.set
+- marked as deprecated:
+  - alias 'list.filter' (use list.pass_if instead)
 
 ### Fixed:
 - system.cursor no normalization in subpatch
