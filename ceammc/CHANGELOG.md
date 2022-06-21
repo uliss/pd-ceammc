@@ -40,8 +40,6 @@
   - data.set
   - global.set
   - local.set
-- marked as deprecated:
-  - alias 'list.filter' (use list.pass_if instead)
 
 ### Fixed:
 - system.cursor no normalization in subpatch
@@ -49,6 +47,9 @@
 
 ### Changes:
 - @i property of seq.counter made writable
+
+### Deprecated:
+- alias 'list.filter' (use list.pass_if instead)
 
 ## [0.9.4]
 ### Added:
