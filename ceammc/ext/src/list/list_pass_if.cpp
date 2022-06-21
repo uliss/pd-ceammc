@@ -68,7 +68,6 @@ void ListPassIf::onDataT(const MListAtom& ml)
 void setup_list_pass_if()
 {
     ObjectFactory<ListPassIf> obj("list.pass_if");
-    obj.addAlias("list.filter");
     DEPRECATED_ALIAS(obj, "list.filter");
 
     obj.useDefaultPdFloatFn();

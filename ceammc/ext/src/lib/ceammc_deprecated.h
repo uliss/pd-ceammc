@@ -21,7 +21,11 @@ public:
 
 using Deprecated = SingletonMeyers<DeprecatedImpl>;
 
-#define DEPRECATED_ALIAS(obj, name) Deprecated::instance().addAlias(obj.className(), gensym(name))
+#define DEPRECATED_ALIAS(obj, name)                                     \
+    {                                                                   \
+        obj.addAlias(name);                                             \
+        Deprecated::instance().addAlias(obj.className(), gensym(name)); \
+    }
 
 }
 
