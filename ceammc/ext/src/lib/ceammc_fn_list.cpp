@@ -448,9 +448,9 @@ namespace list {
         return res;
     }
 
-    AtomList uniqueSorted(const AtomList& l)
+    AtomList uniqueSorted(const AtomListView& lv)
     {
-        AtomList res(l);
+        AtomList res(lv);
         res.sort();
 
         auto last = std::unique(res.begin(), res.end(),

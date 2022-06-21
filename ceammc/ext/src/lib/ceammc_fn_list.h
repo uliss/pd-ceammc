@@ -15,6 +15,7 @@
 #define CEAMMC_EXT_LIST_H
 
 #include "ceammc_atomlist.h"
+#include "ceammc_atomlist_view.h"
 
 #include <utility>
 #include <vector>
@@ -124,7 +125,7 @@ namespace list {
     // preserves element order but not suitable for data atoms
     AtomList uniqueStable(const AtomList& l);
     // suitable for data atoms, but returns sorted output
-    AtomList uniqueSorted(const AtomList& l);
+    AtomList uniqueSorted(const AtomListView& lv);
     AtomList shift(const AtomList& l, t_float off);
     AtomList stretch(const AtomList& l, size_t sz);
 
