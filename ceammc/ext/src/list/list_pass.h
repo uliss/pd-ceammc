@@ -15,7 +15,7 @@ public:
     void onFloat(t_float f) override;
     void onSymbol(t_symbol* s) override;
     void onList(const AtomList& lst) override;
-    void onInlet(size_t n, const AtomListView& lv) const;
+    void onInlet(size_t n, const AtomListView& lv) override;
 
 private:
     bool contains(const Atom& a) const;

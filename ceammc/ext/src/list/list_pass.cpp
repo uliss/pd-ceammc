@@ -1,7 +1,8 @@
 #include "list_pass.h"
 #include "ceammc_factory.h"
+#include "ceammc_fn_list.h"
 
-constexpr size_t BIN_SEARCH_SIZE = 20;
+constexpr size_t BIN_SEARCH_SIZE = 16;
 
 ListPass::ListPass(const PdArgs& args)
     : BaseObject(args)
@@ -12,10 +13,11 @@ ListPass::ListPass(const PdArgs& args)
 
     args_ = new ListProperty("@args");
     args_->setArgIndex(0);
-    args_->setSuccessFn([](Property* p) {
-        auto& l = static_cast<ListProperty*>(p)->value();
-        if (l.size() >= BIN_SEARCH_SIZE)
-            l.sort();
+    args_->setSuccessFn([this](Property* p) {
+        const auto old_size = args_->value().size();
+        args_->setValue(list::uniqueSorted(args_->value()));
+        if (old_size != args_->value().size())
+            OBJ_ERR << "duplicates in pass list, fixed";
     });
     addProperty(args_);
 }
@@ -45,7 +47,7 @@ void ListPass::onList(const AtomList& lst)
     listTo(0, res);
 }
 
-void ListPass::onInlet(size_t n, const AtomListView& lv) const
+void ListPass::onInlet(size_t n, const AtomListView& lv)
 {
     args_->set(lv);
 }
