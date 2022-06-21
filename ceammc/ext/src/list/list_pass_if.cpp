@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "list_pass_if.h"
+#include "ceammc_deprecated.h"
 #include "ceammc_factory.h"
 #include "datatype_mlist.h"
 
@@ -78,6 +79,7 @@ void setup_list_pass_if()
     obj.setCategory("list");
     obj.setSinceVersion(0, 3);
 
-    ListPassIf::setInletsInfo(obj.classPointer(), { "list or Mlist", "int: 1 or 0 from predicate" });
-    ListPassIf::setOutletsInfo(obj.classPointer(), { "list or Mlist", "atom: to predicate" });
+    obj.setXletsInfo({ "list or Mlist", "int: 1 or 0 from predicate" }, { "list or Mlist", "atom: to predicate" });
+
+    Deprecated::instance().addAlias(obj.className(), gensym("list.filter"));
 }

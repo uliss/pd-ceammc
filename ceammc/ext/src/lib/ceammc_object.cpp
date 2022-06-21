@@ -15,6 +15,7 @@
 #include "ceammc_convert.h"
 #include "ceammc_data.h"
 #include "ceammc_datatypes.h"
+#include "ceammc_deprecated.h"
 #include "ceammc_format.h"
 #include "ceammc_log.h"
 #include "ceammc_object_info.h"
@@ -573,6 +574,8 @@ BaseObject::BaseObject(const PdArgs& args)
 {
     if (pd_.parseArgs)
         parsePosArgs(pd_.parseArgsMode);
+
+    Deprecated::instance().checkAlias(args.className, args.creationName);
 }
 
 BaseObject::~BaseObject()

@@ -135,16 +135,18 @@ private:
 };
 
 template <typename T>
-class SingletonMeyers {
+class SingletonMeyers : public T {
 public:
-    static T& instance()
+    static SingletonMeyers<T>& instance()
     {
-        static T instance_;
+        static SingletonMeyers<T> instance_;
         return instance_;
     }
 
     SingletonMeyers(const SingletonMeyers&) = delete;
+    SingletonMeyers(SingletonMeyers&&) = delete;
     SingletonMeyers& operator=(const SingletonMeyers&) = delete;
+    SingletonMeyers& operator=(SingletonMeyers&&) = delete;
 
 protected:
     SingletonMeyers() { }
