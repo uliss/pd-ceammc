@@ -318,6 +318,7 @@ set(DOC_FILES
     list.min
     list.none_of
     list.normalize
+    list.pass
     list.pass_if
     list.prepend
     list.product

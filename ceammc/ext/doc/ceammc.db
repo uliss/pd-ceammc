@@ -316,6 +316,7 @@ list.mean,list.average		.		.
 list.min		.		.
 list.none_of		..		..
 list.normalize		.		.
+list.pass		..		.
 list.pass_if,list.filter		..		..
 list.prepend		..		.
 list.product		.		.

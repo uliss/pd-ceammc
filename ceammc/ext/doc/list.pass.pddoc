@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="list.pass">
+        <title>list.pass</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>leave in list only specified elements</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>list</category>
+            <keywords>list pass filter</keywords>
+            <since>0.9.5</since>
+            <also>
+                <see>list.pass_if</see>
+            </also>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="float">input float</xinfo>
+                <xinfo on="symbol">input symbol</xinfo>
+                <xinfo on="list">input list</xinfo>
+                <xinfo on="data:mlist">input mlist</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="list">set passed values</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output list with passed elements</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]   [S digits=16]
+|     |
+|     [symbol2any]
+|     |
+[list.pass A B C 1 2 3]
+|
+[ui.dt]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

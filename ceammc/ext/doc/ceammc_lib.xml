@@ -991,6 +991,9 @@
     <entry name="list.normalize" descr="normalizes float list values to get their sum = 1.0" ref_view="object">
       <xi:include href="list.normalize.pddoc" parse="xml"/>
     </entry>
+    <entry name="list.pass" descr="leave in list only specified elements" ref_view="object">
+      <xi:include href="list.pass.pddoc" parse="xml"/>
+    </entry>
     <entry name="list.pass_if" descr="leave only elements accepted by predicate" ref_view="object">
       <xi:include href="list.pass_if.pddoc" parse="xml"/>
     </entry>

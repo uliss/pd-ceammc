@@ -547,6 +547,7 @@ list.average	calculates average of list of floats
 list.min	returns smallest element in the list
 list.none_of	checks if none of list atoms is accepted by predicate
 list.normalize	normalizes float list values to get their sum = 1.0
+list.pass	leave in list only specified elements
 list.pass_if	leave only elements accepted by predicate
 list.filter	leave only elements accepted by predicate
 list.prepend	prepend atom or list before input list
