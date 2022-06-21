@@ -11,7 +11,7 @@ ListMap::ListMap(const PdArgs& args)
     auto& d = parsedPosArgs();
     if (d.isA<DataTypeDict>())
         dict_ = DictAtom(d[0]);
-    else
+    else if (!d.empty())
         OBJ_ERR << "dict expected, got: " << d;
 
     createCbListProperty(
@@ -35,8 +35,8 @@ ListMap::ListMap(const PdArgs& args)
 
 void ListMap::onFloat(t_float f)
 {
-    if (!math::is_integer(f)) {
-        OBJ_ERR << fmt::format("only integer or symbol keys are supported, got: {}", f);
+    if (!math::is_integer<t_float>(f)) {
+        OBJ_ERR << fmt::format("invalid key: {}, only integer or symbol keys are supported", f);
         return;
     }
 
@@ -90,14 +90,15 @@ void ListMap::onList(const AtomList& lst)
 
 void ListMap::onInlet(size_t n, const AtomListView& lv)
 {
-    if (lv.isA<DataTypeDict>()) {
+    if (lv.isA<DataTypeDict>())
         dict_ = DictAtom(lv[0]);
-    }
+    else if (!dict_->fromString(to_string(lv)))
+        OBJ_ERR << fmt::format("Dict expected, got: {}", to_string(lv));
 }
 
 void setup_list_map()
 {
     ObjectFactory<ListMap> obj("list.map");
 
-    obj.setXletsInfo({ "float, symbol, list", "dict: set mapping" }, { "list: mapped list" });
+    obj.setXletsInfo({ "float, symbol, list", "dict: set mapping data" }, { "list" });
 }
