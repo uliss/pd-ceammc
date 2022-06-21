@@ -21,6 +21,8 @@ public:
 
 using Deprecated = SingletonMeyers<DeprecatedImpl>;
 
+#define DEPRECATED_ALIAS(obj, name) Deprecated::instance().addAlias(obj.className(), gensym(name))
+
 }
 
 #endif // CEAMMC_DEPRECATED_H

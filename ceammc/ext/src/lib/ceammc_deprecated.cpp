@@ -29,8 +29,8 @@ bool DeprecatedImpl::checkAlias(t_symbol* className, t_symbol* alias) const
 
     auto it = std::find(l.begin(), l.end(), alias);
     if (it != l.end()) {
-        LIB_ERR << fmt::format("[{}] alias '{}' is deprecated, in future versions it will be removed",
-            className->s_name, alias->s_name);
+        LIB_ERR << fmt::format("'{}' is a deprecated alias for [{}] object, in future versions this alias will be removed",
+            alias->s_name, className->s_name);
         return false;
     }
 

@@ -69,6 +69,8 @@ void setup_list_pass_if()
 {
     ObjectFactory<ListPassIf> obj("list.pass_if");
     obj.addAlias("list.filter");
+    DEPRECATED_ALIAS(obj, "list.filter");
+
     obj.useDefaultPdFloatFn();
 
     obj.processData<DataTypeMList>();
@@ -80,6 +82,4 @@ void setup_list_pass_if()
     obj.setSinceVersion(0, 3);
 
     obj.setXletsInfo({ "list or Mlist", "int: 1 or 0 from predicate" }, { "list or Mlist", "atom: to predicate" });
-
-    Deprecated::instance().addAlias(obj.className(), gensym("list.filter"));
 }
