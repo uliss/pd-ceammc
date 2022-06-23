@@ -14,14 +14,17 @@
 #include "random_atom.h"
 #include "ceammc_factory.h"
 #include "ceammc_fn_list.h"
+#include "fmt/format.h"
 
 #include <cassert>
+#include <limits>
 
 RandomAtom::RandomAtom(const PdArgs& args)
     : BaseObject(args)
     , atoms_(nullptr)
-    , wsum_(0)
     , seed_(nullptr)
+    , wsum_(0)
+    , last_idx_(std::numeric_limits<size_t>::max())
 {
     atoms_ = new ListProperty("@a");
     atoms_->setArgIndex(0);
@@ -72,25 +75,50 @@ RandomAtom::RandomAtom(const PdArgs& args)
     seed_->setSuccessFn([this](Property* p) { gen_.setSeed(seed_->value()); });
     addProperty(seed_);
 
+    nonrep_ = new BoolProperty("@nonrep", false);
+    addProperty(nonrep_);
+
+    createInlet();
     createOutlet();
 }
 
 void RandomAtom::onBang()
 {
-    if (atoms_->value().empty()) {
-        OBJ_ERR << "empty list";
-        return;
-    }
+    const auto N = atoms_->value().size();
+    const auto NONREP = nonrep_->value();
 
     size_t idx = 0;
 
-    if (wsum_ == 0) {
-        std::uniform_int_distribution<size_t> dist(0, atoms_->value().size() - 1);
-        idx = dist(gen_.get());
-    } else
-        idx = dist_(gen_.get());
+    if (NONREP) {
+        if (N < 2) {
+            OBJ_ERR << fmt::format("not enough elements for non-repeating random reneration: {}", N);
+            return;
+        }
 
-    assert(idx < atoms_->value().size());
+        std::uniform_int_distribution<size_t> dist(0, N - 1);
+        auto idx = dist(gen_.get());
+        int max_tries = 512;
+        // generate new index not equal to previous
+        while (last_idx_ == idx && max_tries-- > 0)
+            idx = dist(gen_.get());
+
+        // update last index
+        last_idx_ = idx;
+
+    } else {
+        if (N == 0) {
+            OBJ_ERR << "empty atom list";
+            return;
+        }
+
+        if (wsum_ == 0) {
+            std::uniform_int_distribution<size_t> dist(0, N - 1);
+            auto s = sizeof(dist);
+            idx = dist(gen_.get());
+        } else
+            idx = dist_(gen_.get());
+    }
+
     atomTo(0, atoms_->value()[idx]);
 }
 
@@ -98,4 +126,5 @@ void setup_random_atom()
 {
     ObjectFactory<RandomAtom> obj("random.atom");
     obj.addAlias("random.a");
+    obj.setXletsInfo({ "bang", "list: set list to choose from" }, { "atom: random element from list" });
 }

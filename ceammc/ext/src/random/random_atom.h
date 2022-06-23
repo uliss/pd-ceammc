@@ -21,11 +21,13 @@ using namespace ceammc;
 
 class RandomAtom : public BaseObject {
     ListProperty* atoms_;
+    SizeTProperty* seed_;
+    BoolProperty* nonrep_;
     std::vector<t_float> weights_;
     t_float wsum_;
     RandomGen gen_;
-    SizeTProperty* seed_;
     std::discrete_distribution<size_t> dist_;
+    std::size_t last_idx_;
 
 public:
     RandomAtom(const PdArgs& args);

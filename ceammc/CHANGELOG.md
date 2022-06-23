@@ -16,6 +16,7 @@
   - @value property added to seq.counter
   - @dev property added to flow.space: to set deviation
   - @channels property added to xdac~: live-channel remapping
+  - @nonrep property added to random.atom to generate non equal adjacent elements
 - new methods:
   - [polltime( method added to system.cursor to change global polltime
   - [reverse( method added to xdac~ to reverse output channels order
@@ -33,6 +34,7 @@
   - ui.slider2d: mouse wheel support added: (move x-axis when Alt pressed)
   - ui.slider2d alias added: ui.s2d
   - env.asr~: second inlet added for gate control
+  - second inlet added to random.atom to set list to choose from
 - TCL editor added for objects:
   - data.list
   - local.list
