@@ -39,8 +39,8 @@ RandomAtom::RandomAtom(const PdArgs& args)
 
             return res;
         },
-        [this](const AtomList& l) -> bool {
-            if (l.size() > atoms_->value().size()) {
+        [this](const AtomListView& lv) -> bool {
+            if (lv.size() > atoms_->value().size()) {
                 OBJ_ERR << "number of weights exceed number of atoms";
                 return false;
             }
@@ -48,10 +48,15 @@ RandomAtom::RandomAtom(const PdArgs& args)
             weights_.clear();
             weights_.assign(atoms_->value().size(), 0);
 
-            assert(l.size() <= atoms_->value().size());
+            if (lv.empty()) {
+                wsum_ = 0;
+                return true;
+            }
+
+            assert(lv.size() <= atoms_->value().size());
 
             int idx = 0;
-            for (auto& a : l) {
+            for (auto& a : lv) {
                 auto w = a.asFloat(-1);
                 if (w < 0) {
                     OBJ_ERR << "invalid weight value: " << a << ", using 0 instead";
