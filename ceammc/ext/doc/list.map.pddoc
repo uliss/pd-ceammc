@@ -28,13 +28,14 @@
                 <xinfo on="float">input float, no output if not in dict</xinfo>
                 <xinfo on="symbol">input symbol, no output if not in dict</xinfo>
                 <xinfo on="list">input list, output always at least empty list</xinfo>
+                <xinfo on="data:mlist">input list, output always at least empty list</xinfo>
             </inlet>
             <inlet>
                 <xinfo on="data:dict">set mapping dictionary</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>mapped list</outlet>
+            <outlet>list or data:mlist mapped list</outlet>
         </outlets>
         <example>
             <pdascii>

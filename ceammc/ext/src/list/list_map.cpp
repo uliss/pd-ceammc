@@ -127,5 +127,5 @@ void setup_list_map()
     ObjectFactory<ListMap> obj("list.map");
     obj.processData<DataTypeMList>();
 
-    obj.setXletsInfo({ "float, symbol, list", "dict: set mapping data" }, { "list" });
+    obj.setXletsInfo({ "float, symbol, list or Mlist", "dict: set mapping data" }, { "list or Mlist" });
 }
