@@ -123,4 +123,25 @@ TEST_CASE("list.map", "[externals]")
         REQUIRE(t.hasOutput());
         REQUIRE(t.outputListAt(0) == LA("three", "two", "one", "one", "two", "three"));
     }
+
+    SECTION("mlist")
+    {
+        TExt t("list.map", "[1: one 2: two 3: three 4: four 5: five]");
+
+        t << MLA();
+        REQUIRE(t.hasOutput());
+        REQUIRE(t.outputListAt(0) == MLA());
+
+        t << MLA(1);
+        REQUIRE(t.hasOutput());
+        REQUIRE(t.outputListAt(0) == MLA("one"));
+
+        t << MLA(0);
+        REQUIRE(t.hasOutput());
+        REQUIRE(t.outputListAt(0) == MLA());
+
+        t << MLA(3, 2, 1, 0, 1, 2, 3);
+        REQUIRE(t.hasOutput());
+        REQUIRE(t.outputListAt(0) == MLA("three", "two", "one", "one", "two", "three"));
+    }
 }

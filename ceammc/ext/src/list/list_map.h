@@ -16,6 +16,8 @@ public:
     void onSymbol(t_symbol* s) override;
     void onList(const AtomList& lst) override;
     void onInlet(size_t n, const AtomListView& lv) override;
+
+    void onDataT(const MListAtom& ma);
 };
 
 void setup_list_map();

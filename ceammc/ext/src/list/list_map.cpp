@@ -3,6 +3,7 @@
 #include "ceammc_format.h"
 #include "ceammc_numeric.h"
 #include "datatype_dict.h"
+#include "datatype_mlist.h"
 #include "fmt/format.h"
 
 ListMap::ListMap(const PdArgs& args)
@@ -96,9 +97,35 @@ void ListMap::onInlet(size_t n, const AtomListView& lv)
         OBJ_ERR << fmt::format("Dict expected, got: {}", to_string(lv));
 }
 
+void ListMap::onDataT(const MListAtom& ma)
+{
+    MListAtom res;
+    auto& d = *dict_;
+    auto end_it = d.end();
+
+    for (auto& a : *ma) {
+        t_symbol* key = nullptr;
+        if (a.isSymbol())
+            key = a.asT<t_symbol*>();
+        else if (a.isInteger())
+            key = gensym(fmt::format("{}", a.asT<int>()).c_str());
+        else {
+            OBJ_ERR << fmt::format("skipping atom {} - only symbol or integer keys are allowed", to_string(a));
+            continue;
+        }
+
+        auto it = d.find(key);
+        if (it != end_it)
+            res->append(it->second);
+    }
+
+    atomTo(0, res);
+}
+
 void setup_list_map()
 {
     ObjectFactory<ListMap> obj("list.map");
+    obj.processData<DataTypeMList>();
 
     obj.setXletsInfo({ "float, symbol, list", "dict: set mapping data" }, { "list" });
 }
