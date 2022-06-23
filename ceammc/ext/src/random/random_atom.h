@@ -32,6 +32,8 @@ class RandomAtom : public BaseObject {
 public:
     RandomAtom(const PdArgs& args);
     void onBang() override;
+
+    void onInlet(size_t n, const AtomListView& lv) override;
 };
 
 void setup_random_atom();

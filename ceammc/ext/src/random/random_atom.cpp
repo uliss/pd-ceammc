@@ -96,8 +96,8 @@ void RandomAtom::onBang()
         }
 
         std::uniform_int_distribution<size_t> dist(0, N - 1);
-        auto idx = dist(gen_.get());
-        int max_tries = 512;
+        idx = dist(gen_.get());
+        int max_tries = 1024;
         // generate new index not equal to previous
         while (last_idx_ == idx && max_tries-- > 0)
             idx = dist(gen_.get());
@@ -120,6 +120,17 @@ void RandomAtom::onBang()
     }
 
     atomTo(0, atoms_->value()[idx]);
+}
+
+void RandomAtom::onInlet(size_t n, const AtomListView& lv)
+{
+    if (atoms_->set(lv)) {
+        if (!weights_.empty()) {
+            OBJ_DBG << "clearing atoms weights";
+            wsum_ = 0;
+            weights_.clear();
+        }
+    }
 }
 
 void setup_random_atom()
