@@ -17,23 +17,34 @@
 #include "ceammc_object.h"
 #include "rnd_gen.h"
 
+#include <cstdint>
+
 using namespace ceammc;
 
 class RandomAtom : public BaseObject {
+    using UniformDist = std::uniform_int_distribution<uint32_t>;
+    using DiscreteDist = std::discrete_distribution<uint32_t>;
+
+private:
     ListProperty* atoms_;
     SizeTProperty* seed_;
     BoolProperty* nonrep_;
     std::vector<t_float> weights_;
-    t_float wsum_;
     RandomGen gen_;
-    std::discrete_distribution<size_t> dist_;
-    std::size_t last_idx_;
+    DiscreteDist discrete_;
+    UniformDist uniform_;
+    uint32_t last_idx_;
+    bool is_uniform_;
 
 public:
     RandomAtom(const PdArgs& args);
     void onBang() override;
 
     void onInlet(size_t n, const AtomListView& lv) override;
+
+private:
+    uint32_t genIndex();
+    void updateUniformDistrib();
 };
 
 void setup_random_atom();

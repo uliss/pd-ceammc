@@ -23,8 +23,8 @@ RandomAtom::RandomAtom(const PdArgs& args)
     : BaseObject(args)
     , atoms_(nullptr)
     , seed_(nullptr)
-    , wsum_(0)
-    , last_idx_(std::numeric_limits<size_t>::max())
+    , last_idx_(std::numeric_limits<uint32_t>::max())
+    , is_uniform_(true)
 {
     atoms_ = new ListProperty("@a");
     atoms_->setArgIndex(0);
@@ -40,20 +40,21 @@ RandomAtom::RandomAtom(const PdArgs& args)
             return res;
         },
         [this](const AtomListView& lv) -> bool {
-            if (lv.size() > atoms_->value().size()) {
-                OBJ_ERR << "number of weights exceed number of atoms";
+            const auto NA = atoms_->value().size();
+            const auto NW = lv.size();
+            if (NW > NA) {
+                OBJ_ERR << fmt::format("number of weights is greater then number of atoms: {}>{}", NW, NA);
                 return false;
             }
 
             weights_.clear();
-            weights_.assign(atoms_->value().size(), 0);
+            weights_.assign(NA, 0);
 
-            if (lv.empty()) {
-                wsum_ = 0;
+            // empty weights: use uniform distribution
+            if (NW == 0) {
+                is_uniform_ = true;
                 return true;
             }
-
-            assert(lv.size() <= atoms_->value().size());
 
             int idx = 0;
             for (auto& a : lv) {
@@ -66,13 +67,13 @@ RandomAtom::RandomAtom(const PdArgs& args)
                 weights_[idx++] = w;
             }
 
-            wsum_ = std::accumulate(weights_.begin(), weights_.end(), t_float(0));
-            if (wsum_ == 0) {
+            if (std::accumulate(weights_.begin(), weights_.end(), t_float(0)) == 0) {
                 OBJ_ERR << "weights sum is equal 0";
                 return false;
             }
 
-            dist_ = std::discrete_distribution<size_t>(weights_.begin(), weights_.end());
+            discrete_ = DiscreteDist(weights_.begin(), weights_.end());
+            is_uniform_ = false;
             return true;
         });
 
@@ -100,12 +101,12 @@ void RandomAtom::onBang()
             return;
         }
 
-        std::uniform_int_distribution<size_t> dist(0, N - 1);
-        idx = dist(gen_.get());
-        int max_tries = 1024;
+        updateUniformDistrib();
+        idx = genIndex();
+        int max_tries = 512;
         // generate new index not equal to previous
         while (last_idx_ == idx && max_tries-- > 0)
-            idx = dist(gen_.get());
+            idx = genIndex();
 
         // update last index
         last_idx_ = idx;
@@ -116,12 +117,8 @@ void RandomAtom::onBang()
             return;
         }
 
-        if (wsum_ == 0) {
-            std::uniform_int_distribution<size_t> dist(0, N - 1);
-            auto s = sizeof(dist);
-            idx = dist(gen_.get());
-        } else
-            idx = dist_(gen_.get());
+        updateUniformDistrib();
+        idx = genIndex();
     }
 
     atomTo(0, atoms_->value()[idx]);
@@ -130,12 +127,25 @@ void RandomAtom::onBang()
 void RandomAtom::onInlet(size_t n, const AtomListView& lv)
 {
     if (atoms_->set(lv)) {
-        if (!weights_.empty()) {
-            OBJ_DBG << "clearing atoms weights";
-            wsum_ = 0;
+        if (!is_uniform_) {
+            OBJ_DBG << "clearing atoms weights, using uniform distribution";
+            is_uniform_ = true;
             weights_.clear();
         }
     }
+}
+
+uint32_t RandomAtom::genIndex()
+{
+    if (is_uniform_)
+        return uniform_(gen_.get());
+    else
+        return discrete_(gen_.get());
+}
+
+void RandomAtom::updateUniformDistrib()
+{
+    uniform_ = UniformDist(0, atoms_->value().size() - 1);
 }
 
 void setup_random_atom()
