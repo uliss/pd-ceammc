@@ -15,9 +15,10 @@
 #define DATA_MLIST_H
 
 #include "ceammc_data.h"
+#include "editor_data.h"
 #include "mlist_iface.h"
 
-using DataMListBase = DataMListIFace<BaseObject>;
+using DataMListBase = EditorDataT<DataMListIFace<BaseObject>, DataTypeMList>;
 
 class DataMList : public DataMListBase {
     MListAtom mlist_;
@@ -25,8 +26,11 @@ class DataMList : public DataMListBase {
 public:
     DataMList(const PdArgs& args);
 
-    MListAtom& mlist() { return mlist_; }
-    const MListAtom& mlist() const { return mlist_; }
+    const DataTypeMList& editorData() const final { return *mlist_; }
+    DataTypeMList& editorData() final { return *mlist_; }
+
+    MListAtom& mlist() final { return mlist_; }
+    const MListAtom& mlist() const final { return mlist_; }
 };
 
 void setup_data_mlist();

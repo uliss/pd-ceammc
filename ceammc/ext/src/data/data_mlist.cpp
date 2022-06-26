@@ -19,7 +19,7 @@
 DataMList::DataMList(const PdArgs& args)
     : DataMListBase(args)
 {
-    mlist()->setParsed(args.args);
+    mlist_->setParsed(args.args);
 
     createOutlet();
 }
@@ -31,4 +31,6 @@ void setup_data_mlist()
     obj.addAlias("ml");
     obj.processData<DataTypeMList>();
     obj.noArgsAndPropsParse();
+
+    DataMList::registerMethods(obj);
 }
