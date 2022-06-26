@@ -35,6 +35,15 @@ static const char* editorSyntaxStr(EditorSyntax s)
     }
 }
 
+void EditorString::append(char ch)
+{
+    try {
+        str.push_back(ch);
+    } catch (std::exception& e) {
+        LIB_ERR << e.what();
+    }
+}
+
 void EditorString::append(t_float t)
 {
     char buf[32];
@@ -84,6 +93,12 @@ void EditorString::append(const AtomListView& lv, const char* delim)
 
         append(lv[i]);
     }
+}
+
+void EditorString::pop()
+{
+    if (str.size() > 0)
+        str.pop_back();
 }
 
 EditorObjectImpl::EditorObjectImpl(t_object* owner)

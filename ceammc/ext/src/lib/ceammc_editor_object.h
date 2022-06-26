@@ -32,12 +32,14 @@ public:
     EditorString() { }
     void destroy() final { str.clear(); }
 
+    void append(char ch);
     void append(t_float t);
     void append(const char* txt);
     void append(t_symbol* s) { append(s->s_name); }
     void append(const Atom& a);
     void append(const AtomList& lst, const char* delim = " ");
     void append(const AtomListView& lv, const char* delim = " ");
+    void pop();
 
     void clear() { str.clear(); }
     const char* c_str() const { return str.c_str(); }
