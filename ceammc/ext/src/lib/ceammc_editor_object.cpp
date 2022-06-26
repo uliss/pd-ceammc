@@ -101,6 +101,12 @@ void EditorString::pop()
         str.pop_back();
 }
 
+void EditorString::trim()
+{
+    while (str.size() > 0 && str.back() == ' ')
+        str.pop_back();
+}
+
 EditorObjectImpl::EditorObjectImpl(t_object* owner)
     : owner_(owner)
     , guiconnect_(nullptr)

@@ -44,6 +44,9 @@ public:
     void clear() { str.clear(); }
     const char* c_str() const { return str.c_str(); }
     size_t length() const { return str.length(); }
+    char back() const { return str.back(); }
+
+    void trim();
 };
 
 using EditorStringPtr = boost::intrusive_ptr<EditorString>;
