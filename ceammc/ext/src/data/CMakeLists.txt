@@ -1,4 +1,4 @@
-set(DATA_SOURCES datatype_set.cpp dict_base.cpp)
+set(DATA_SOURCES datatype_set.cpp dict_base.cpp editor_data.cpp)
 
 macro(ceammc_data_external mod name)
     list(APPEND DATA_SOURCES "${mod}_${name}.cpp")
