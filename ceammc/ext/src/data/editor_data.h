@@ -6,6 +6,7 @@
 #include "ceammc_datatypes.h"
 #include "ceammc_editor_object.h"
 #include "ceammc_object.h"
+#include "datatype_dict.h"
 #include "datatype_mlist.h"
 
 namespace ceammc {
@@ -41,6 +42,35 @@ public:
     {
         lines_.clear();
         editorData().clear();
+    }
+
+    void appendDict(EditorLineList& res, const DataTypeDict& dict, int indentLevel) const
+    {
+        const bool single_line = true;
+
+        if (single_line) {
+            const auto nspaces_0 = indentLevel * 4;
+            auto str = EditorStringPool::pool().allocate();
+
+            str->append(std::string(nspaces_0, ' ').c_str());
+            str->append('[');
+            int i = 0;
+
+            for (auto& kv : dict) {
+                if (i++ > 0)
+                    str->append(' ');
+
+                str->append(kv.first->s_name);
+                str->append(':');
+                str->append(' ');
+
+                str->append(kv.second);
+            }
+
+            str->append(']');
+
+            res.push_back(str);
+        }
     }
 
     void appendMList(EditorLineList& res, const DataTypeMList& lst, int indentLevel) const
@@ -87,14 +117,16 @@ public:
                 auto str = EditorStringPool::pool().allocate();
                 str->append(indent_1.c_str());
 
-                if (a.isFloat())
+                if (a.isFloat()) {
                     str->append(a.asT<t_float>());
-                else if (a.isSymbol())
+                    res.push_back(str);
+                } else if (a.isSymbol()) {
                     str->append(a.asT<t_symbol*>());
-                else if (a.isDataType(DataTypeMList::dataType))
+                    res.push_back(str);
+                } else if (a.isDataType(DataTypeMList::dataType))
                     appendMList(res, *a.asDataT<DataTypeMList>(), indentLevel + 1);
-
-                res.push_back(str);
+                else if (a.isDataType(DataTypeDict::dataType))
+                    appendDict(res, *a.asDataT<DataTypeDict>(), indentLevel + 1);
             }
 
             res.push_back(s_cb);
