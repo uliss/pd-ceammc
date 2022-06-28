@@ -40,6 +40,13 @@ public:
     void append(const Atom& a);
     void append(const AtomList& lst, const char* delim = " ");
     void append(const AtomListView& lv, const char* delim = " ");
+
+    void appendQuoted(const std::string& txt) { appendQuoted(txt.c_str()); }
+    void appendQuoted(t_symbol* s) { appendQuoted(s->s_name); }
+    void appendQuoted(const char* txt);
+    void appendQuoted(const Atom& a);
+    void appendQuoted(const AtomListView& lv, const char* delim = " ");
+
     void pop();
 
     void clear() { str.clear(); }

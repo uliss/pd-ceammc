@@ -95,6 +95,46 @@ void EditorString::append(const AtomListView& lv, const char* delim)
     }
 }
 
+void EditorString::appendQuoted(const char* txt)
+{
+    try {
+        str.append(1, '"');
+        const auto N = strlen(txt);
+        for (size_t i = 0; i < N; i++) {
+            auto c = txt[i];
+            if (c == '"') {
+                str.append(1, '\\');
+                str.append(1, '"');
+            } else if (c == '\\') {
+                str.append(2, '\\');
+            } else
+                str.append(1, c);
+        }
+
+        str.append(1, '"');
+    } catch (std::exception& e) {
+        LIB_ERR << e.what();
+    }
+}
+
+void EditorString::appendQuoted(const Atom& a)
+{
+    if (a.isFloat())
+        return append(a.asT<t_float>());
+    else if (a.isSymbol())
+        return appendQuoted(a.asT<t_symbol*>()->s_name);
+}
+
+void EditorString::appendQuoted(const AtomListView& lv, const char* delim)
+{
+    for (size_t i = 0; i < lv.size(); i++) {
+        if (i > 0)
+            append(delim);
+
+        appendQuoted(lv[i]);
+    }
+}
+
 void EditorString::pop()
 {
     if (str.size() > 0)
