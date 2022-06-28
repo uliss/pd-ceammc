@@ -146,7 +146,7 @@ namespace eval texteditor {
                 ctext::addHighlightClassWithOnlyCharStart $w props $colors(cyan) "@"
                 ctext::addHighlightClassForSpecialChars $w brackets $colors(yellow) {[]()}
                 ctext::addHighlightClassForRegexp $w numbers $colors(pink) {[-]?[0-9]+(?:\.[0-9]+)?(?:[eE][-+]?[0-9]+)?}
-                ctext::addHighlightClassForRegexp $w strings $colors(green) {[\"][^\n\"]+[\"]}
+                ctext::addHighlightClassForRegexp $w strings $colors(green) {[\"]([^\n\"]||`\")+[\"]}
                 ctext::addHighlightClassForRegexp $w dicts $colors(cyan) {[a-zA-Z]+:}
             }
         }
