@@ -34,6 +34,7 @@ public:
 
     void append(char ch);
     void append(t_float t);
+    void append(const std::string& txt) { append(txt.c_str()); }
     void append(const char* txt);
     void append(t_symbol* s) { append(s->s_name); }
     void append(const Atom& a);
