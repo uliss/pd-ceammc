@@ -65,4 +65,23 @@ std::string AbstractData::typeName() const noexcept
     return DataStorage::instance().nameByType(type());
 }
 
+std::string AbstractData::toListConstructor() const noexcept
+{
+    return fmt::format("{}({})", typeName(), toString());
+}
+
+std::string AbstractData::toDictConstructor() const noexcept
+{
+     return fmt::format("{}[{}]", typeName(), toString());
+}
+
+bool AbstractData::canInitWithList() const noexcept
+{
+    return DataStorage::instance().fromListFunction(typeName()) != nullptr;
+}
+
+bool AbstractData::canInitWithDict() const noexcept
+{
+    return DataStorage::instance().fromDictFunction(typeName()) != nullptr;
+}
 }

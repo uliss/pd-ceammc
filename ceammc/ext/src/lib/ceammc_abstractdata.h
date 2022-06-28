@@ -86,6 +86,12 @@ public:
      */
     template <class T>
     T* cloneT() const;
+
+    virtual std::string toListConstructor() const noexcept;
+    virtual std::string toDictConstructor() const noexcept;
+
+    virtual bool canInitWithList() const noexcept;
+    virtual bool canInitWithDict() const noexcept;
 };
 
 template <class T>
