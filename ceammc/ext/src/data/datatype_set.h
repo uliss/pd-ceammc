@@ -31,6 +31,10 @@ private:
     DataSet data_;
 
 public:
+    using iterator = DataSet::iterator;
+    using const_iterator = DataSet::const_iterator;
+
+public:
     DataTypeSet();
     DataTypeSet(const Atom& a);
     DataTypeSet(const AtomList& l);
@@ -92,9 +96,14 @@ public:
     bool operator!=(const DataTypeSet& s) const noexcept { return !operator==(s); }
 
     /**
-      * Assign set
-      */
+     * Assign set
+     */
     void operator=(const DataTypeSet& s);
+
+    iterator begin() noexcept { return data_.begin(); }
+    const_iterator begin() const noexcept { return data_.begin(); }
+    iterator end() noexcept { return data_.end(); }
+    const_iterator end() const noexcept { return data_.end(); }
 
 public:
     static const int dataType;
