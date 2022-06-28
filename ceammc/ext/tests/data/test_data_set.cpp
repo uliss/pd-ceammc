@@ -35,6 +35,9 @@ TEST_CASE("data.set", "[externals]")
             DSet s;
             REQUIRE(s.size() == 0);
             REQUIRE(!s.contains(1.5));
+
+            REQUIRE(s.canInitWithList());
+            REQUIRE(!s.canInitWithDict());
         }
 
         SECTION("operate")
