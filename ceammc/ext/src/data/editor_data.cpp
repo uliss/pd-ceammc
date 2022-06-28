@@ -1,18 +1,81 @@
 #include "editor_data.h"
+#include "ceammc_object.h"
+#include "datatype_dict.h"
+#include "datatype_mlist.h"
+#include "datatype_set.h"
+#include "datatype_string.h"
 
 namespace ceammc {
 
+namespace {
+    bool isSimpleList(const AtomListView& lv)
+    {
+        return lv.allOf([](const Atom& a) { return !a.isData(); });
+    }
+
+    void appendIndent(EditorStringPtr& str, int level)
+    {
+        str->append(std::string(level * 4, ' '));
+    }
+
+    void appendIndent(EditorLineList& res, const char* txt, int level)
+    {
+        auto str = EditorStringPool::pool().allocate();
+        appendIndent(str, level);
+        str->append(txt);
+        res.push_back(str);
+    }
+
+    void appendIndent(EditorLineList& res, char ch, int level)
+    {
+        auto str = EditorStringPool::pool().allocate();
+        appendIndent(str, level);
+        str->append(ch);
+        res.push_back(str);
+    }
+}
+
+void editorAppend(EditorLineList& res, const AbstractData* d, int indentLevel)
+{
+    auto str = EditorStringPool::pool().allocate();
+    appendIndent(str, indentLevel);
+
+    if (d->canInitWithList()) {
+        str->append(d->toListConstructor());
+        res.push_back(str);
+    } else if (d->canInitWithDict()) {
+        str->append(d->toDictConstructor());
+        res.push_back(str);
+    }
+}
+
+void editorAppend(EditorLineList& res, const AtomListView& lv, int indentLevel)
+{
+    for (auto& a : lv) {
+        auto str = EditorStringPool::pool().allocate();
+        appendIndent(str, indentLevel);
+
+        if (!a.isData())
+            str->appendQuoted(a);
+        else if (a.isDataType(DataTypeMList::dataType))
+            editorAppend(res, *a.asDataT<DataTypeMList>(), indentLevel + 1);
+        else if (a.isDataType(DataTypeDict::dataType))
+            editorAppend(res, *a.asDataT<DataTypeDict>(), indentLevel + 1);
+        else if (a.isData())
+            editorAppend(res, a.asData(), indentLevel + 1);
+    }
+}
+
 void editorAppend(EditorLineList& res, const DataTypeDict& dict, int indentLevel)
 {
-    //        const bool simple_content = std::all_of(dict.begin(), dict.end(), [](const Atom& a) { return !a.isData(); });
+    //    const bool simple_content = std::all_of(dict.begin(), dict.end(), [](const Atom& a) { return !a.isData(); });
 
     const bool single_line = dict.size() < 2;
 
     if (single_line) {
-        const auto nspaces_0 = indentLevel * 4;
         auto str = EditorStringPool::pool().allocate();
 
-        str->append(std::string(nspaces_0, ' ').c_str());
+        appendIndent(str, indentLevel);
         str->append('[');
         int i = 0;
 
@@ -24,107 +87,100 @@ void editorAppend(EditorLineList& res, const DataTypeDict& dict, int indentLevel
             str->append(':');
             str->append(' ');
 
-            str->append(kv.second);
+            str->appendQuoted(kv.second.view());
         }
 
-        str->trim();
+        if (dict.size() == 0) // empty dict [ ]
+            str->append(' ');
+        else
+            str->trim();
+
         str->append(']');
 
         res.push_back(str);
     } else {
-        auto s_ob = EditorStringPool::pool().allocate();
-        auto s_cb = EditorStringPool::pool().allocate();
-        const auto nspaces_0 = indentLevel * 4;
-        const auto nspaces_1 = (indentLevel + 1) * 4;
-        const std::string indent_0 = std::string(nspaces_0, ' ');
-        const std::string indent_1 = std::string(nspaces_1, ' ');
 
-        s_ob->append(indent_0.c_str());
-        s_ob->append('[');
-        s_cb->append(indent_0.c_str());
-        s_cb->append(']');
-
-        res.push_back(s_ob);
+        appendIndent(res, '[', indentLevel);
 
         for (auto& kv : dict) {
             auto str = EditorStringPool::pool().allocate();
-            str->append(indent_1.c_str());
+            appendIndent(str, indentLevel + 1);
 
             str->append(kv.first->s_name);
             str->append(':');
             str->append(' ');
 
             auto& l = kv.second;
-            const bool simple_content = std::all_of(l.begin(), l.end(), [](const Atom& a) { return !a.isData(); });
 
-            if (simple_content) {
+            // simple list is one liner
+            if (isSimpleList(l.view())) {
                 for (auto& a : l) {
-                    str->append(a);
+                    str->appendQuoted(a);
                     str->append(' ');
                 }
 
-                str->trim();
+                if (!l.empty())
+                    str->trim();
+
                 res.push_back(str);
+            } else {
+                res.push_back(str);
+                editorAppend(res, l.view(), indentLevel + 1);
             }
         }
 
-        res.push_back(s_cb);
+        appendIndent(res, ']', indentLevel);
     }
 }
 
 void editorAppend(EditorLineList& res, const DataTypeMList& lst, int indentLevel)
 {
-    const bool simple_content = std::all_of(lst.begin(), lst.end(), [](const Atom& a) { return !a.isData(); });
+    const bool simple_content = isSimpleList(lst.data().view());
     const bool single_line = simple_content && lst.size() < 7;
 
     if (single_line) {
-        const auto nspaces_0 = indentLevel * 4;
         auto str = EditorStringPool::pool().allocate();
 
-        str->append(std::string(nspaces_0, ' ').c_str());
-        str->append("(");
+        appendIndent(str, indentLevel);
+        str->append('(');
 
         for (auto& a : lst) {
-            str->append(a);
+            str->appendQuoted(a);
             str->append(' ');
         }
 
-        str->trim();
-        str->append(")");
+        if (lst.empty()) // empty mlist: ( )
+            str->append(' ');
+        else
+            str->trim();
+
+        str->append(')');
 
         res.push_back(str);
     } else {
-        auto s_ob = EditorStringPool::pool().allocate();
-        auto s_cb = EditorStringPool::pool().allocate();
-        const auto nspaces_0 = indentLevel * 4;
-        const auto nspaces_1 = (indentLevel + 1) * 4;
-        const std::string indent_0 = std::string(nspaces_0, ' ');
-        const std::string indent_1 = std::string(nspaces_1, ' ');
 
-        s_ob->append(indent_0.c_str());
-        s_ob->append("(");
-        s_cb->append(indent_0.c_str());
-        s_cb->append(")");
+        appendIndent(res, '(', indentLevel);
 
-        res.push_back(s_ob);
-
+        // each value on separate line
         for (const Atom& a : lst) {
             auto str = EditorStringPool::pool().allocate();
-            str->append(indent_1.c_str());
+            appendIndent(str, indentLevel + 1);
 
             if (a.isFloat()) {
                 str->append(a.asT<t_float>());
                 res.push_back(str);
             } else if (a.isSymbol()) {
-                str->append(a.asT<t_symbol*>());
+                str->appendQuoted(a);
                 res.push_back(str);
             } else if (a.isDataType(DataTypeMList::dataType))
                 editorAppend(res, *a.asDataT<DataTypeMList>(), indentLevel + 1);
             else if (a.isDataType(DataTypeDict::dataType))
                 editorAppend(res, *a.asDataT<DataTypeDict>(), indentLevel + 1);
+            else if (a.isData())
+                editorAppend(res, a.asData(), indentLevel + 1);
         }
 
-        res.push_back(s_cb);
+        appendIndent(res, ')', indentLevel);
     }
 }
 }

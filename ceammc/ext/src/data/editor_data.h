@@ -3,17 +3,16 @@
 
 #include "ceammc_abstractdata.h"
 #include "ceammc_convert.h"
+#include "ceammc_data.h"
 #include "ceammc_datatypes.h"
 #include "ceammc_editor_object.h"
-#include "ceammc_object.h"
-#include "datatype_dict.h"
-#include "datatype_mlist.h"
 
 namespace ceammc {
 
+void editorAppend(EditorLineList& res, const AtomListView& lv, int indentLevel);
+void editorAppend(EditorLineList& res, const AbstractData* d, int indentLevel);
 void editorAppend(EditorLineList& res, const DataTypeDict& dict, int indentLevel);
 void editorAppend(EditorLineList& res, const DataTypeMList& mlist, int indentLevel);
-
 
 template <typename T, typename Data>
 class EditorDataT : public EditorObject<T> {
@@ -47,7 +46,6 @@ public:
         lines_.clear();
         editorData().clear();
     }
-
 
     EditorLineList getContentForEditor() const override
     {
