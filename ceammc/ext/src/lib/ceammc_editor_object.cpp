@@ -103,10 +103,10 @@ void EditorString::appendQuoted(const char* txt)
         for (size_t i = 0; i < N; i++) {
             auto c = txt[i];
             if (c == '"') {
-                str.append(1, '\\');
+                str.append(1, '`');
                 str.append(1, '"');
-            } else if (c == '\\') {
-                str.append(2, '\\');
+            } else if (c == '`') {
+                str.append(2, '`');
             } else
                 str.append(1, c);
         }
