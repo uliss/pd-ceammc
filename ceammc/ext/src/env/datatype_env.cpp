@@ -26,8 +26,17 @@ CEAMMC_DEFINE_HASH(exp)
 CEAMMC_DEFINE_HASH(sin2)
 CEAMMC_DEFINE_HASH(sigmoid)
 
+CEAMMC_DEFINE_HASH(all)
+CEAMMC_DEFINE_HASH(none)
+CEAMMC_DEFINE_HASH(time)
+CEAMMC_DEFINE_HASH(value)
+
 static const char* CURVE_TYPES[] = {
     str_step, str_line, str_exp, str_sin2, str_sigmoid
+};
+
+static const char* FIX_TYPES[] = {
+    str_none, str_all, str_time, str_value
 };
 
 static bool compareByTime(const EnvelopePoint& n0, const EnvelopePoint& n1)
@@ -159,6 +168,40 @@ static bool isValidSustain(const Atom& p)
 
 namespace {
 
+const char* fixToStr(uint8_t f)
+{
+    switch (f) {
+    case EnvelopePoint::FIX_TIME:
+        return str_time;
+    case EnvelopePoint::FIX_VALUE:
+        return str_value;
+    case EnvelopePoint::FIX_BOTH:
+        return str_all;
+    case EnvelopePoint::FIX_NONE:
+    default:
+        return str_none;
+    }
+}
+
+void symbolToFix(t_symbol* s, std::uint8_t& fix)
+{
+    switch (crc32_hash(s)) {
+    case hash_time:
+        fix = EnvelopePoint::FIX_TIME;
+        break;
+    case hash_value:
+        fix = EnvelopePoint::FIX_VALUE;
+        break;
+    case hash_all:
+        fix = EnvelopePoint::FIX_BOTH;
+        break;
+    case hash_none:
+    default:
+        fix = EnvelopePoint::FIX_NONE;
+        break;
+    }
+}
+
 void exportPoint(const EnvelopePoint& pt, std::string& res)
 {
     constexpr const char* indent = "";
@@ -167,11 +210,13 @@ void exportPoint(const EnvelopePoint& pt, std::string& res)
                        "{0:>6}value: {2}\n"
                        "{0:>6}type:  {3}\n",
         indent, pt.timeMs(), pt.value, CURVE_TYPES[pt.type]);
-    if (pt.type != CURVE_LINE) {
-        res += fmt::format("{0:>6}curve: {}\n", indent, pt.data);
-        res += fmt::format("{0:>6}skew:  {}\n", indent, pt.sigmoid_skew);
-    }
-    res += fmt::format("{:>6}stop: {}]\n", indent, pt.stop ? 1 : 0);
+    if (pt.type != CURVE_LINE || pt.type != CURVE_STEP)
+        res += fmt::format("{0:>6}curve: {1}\n", indent,
+            (pt.type == CURVE_SIGMOID) ? pt.sigmoid_skew : pt.data);
+
+    if (pt.fix_pos != EnvelopePoint::FIX_NONE)
+        res += fmt::format("{0:>6}fix:   {1}\n", indent, fixToStr(pt.fix_pos));
+    res += fmt::format("{0:>6}stop: {1}]\n", indent, pt.stop ? 1 : 0);
 }
 
 EnvelopePoint pointFromDict(const DataTypeDict& dict)
@@ -200,6 +245,9 @@ EnvelopePoint pointFromDict(const DataTypeDict& dict)
         case "skew"_hash:
             pt.sigmoid_skew = val.floatAt(0, 0);
             break;
+        case "fix"_hash:
+            symbolToFix(val.symbolAt(0, gensym(str_none)), pt.fix_pos);
+            break;
         default:
             LIB_ERR << fmt::format("[{}] invalid key '{}'", TYPE_NAME, key->s_name);
             break;
@@ -218,14 +266,23 @@ Atom createEnv(const Dict& dict)
         const auto& val = kv.second;
 
         switch (crc32_hash(key)) {
-        case "adsr"_hash:
+        case hash_adsr:
             res->setADSR(val);
             return res;
-        case "asr"_hash:
+        case hash_asr:
             res->setASR(val);
             return res;
-        case "ar"_hash:
+        case hash_ar:
             res->setAR(val);
+            return res;
+        case hash_step:
+            res->setStep(val);
+            return res;
+        case hash_line:
+            res->setLine(val);
+            return res;
+        case hash_ear:
+            res->setEAR(val);
             return res;
         case "points"_hash: {
             for (auto& a : val) {
@@ -764,10 +821,10 @@ bool DataTypeEnv::setEADSR(const AtomListView& lst)
     return true;
 }
 
-bool DataTypeEnv::setStep(const AtomListView& lst)
+bool DataTypeEnv::setStep(const AtomListView& lv)
 {
     // check args
-    if (lst.size() % 2 != 1) {
+    if (lv.size() % 2 != 1) {
         LIB_ERR << "Usage: step VAL_0 LEN_0 VAL_1 [LEN_1 VAL_2] ...";
         return false;
     }
@@ -776,13 +833,13 @@ bool DataTypeEnv::setStep(const AtomListView& lst)
     points_.clear();
 
     // insert start point
-    points_.push_back(EnvelopePoint(0, lst[0].asFloat(), false, CURVE_STEP));
+    points_.push_back(EnvelopePoint(0, lv[0].asFloat(), false, CURVE_STEP));
 
     t_float offset_ms = 0;
 
     // inserts remaining
-    for (size_t i = 1; i < (lst.size() - 1); i += 2) {
-        t_float time_ms = lst[i].asFloat() * 1000;
+    for (size_t i = 1; i < (lv.size() - 1); i += 2) {
+        t_float time_ms = lv[i].asFloat() * 1000;
 
         if (time_ms < 1) {
             LIB_ERR << "invalid segment, skipping...";
@@ -790,16 +847,16 @@ bool DataTypeEnv::setStep(const AtomListView& lst)
         }
 
         offset_ms += time_ms;
-        points_.push_back(EnvelopePoint(offset_ms, lst[i + 1].asFloat(), false, CURVE_STEP));
+        points_.push_back(EnvelopePoint(offset_ms, lv[i + 1].asFloat(), false, CURVE_STEP));
     }
 
     return true;
 }
 
-bool DataTypeEnv::setLine(const AtomListView& lst)
+bool DataTypeEnv::setLine(const AtomListView& lv)
 {
     // check args
-    if (lst.size() % 2 != 1) {
+    if (lv.size() % 2 != 1) {
         LIB_ERR << "Usage: line VAL_0 LEN_0 VAL_1 [LEN_1 VAL_2] ...";
         return false;
     }
@@ -808,13 +865,13 @@ bool DataTypeEnv::setLine(const AtomListView& lst)
     points_.clear();
 
     // insert start point
-    points_.push_back(EnvelopePoint(0, lst[0].asFloat(), false, CURVE_LINE));
+    points_.push_back(EnvelopePoint(0, lv[0].asFloat(), false, CURVE_LINE));
 
     t_float offset_us = 0;
 
     // inserts remaining
-    for (size_t i = 1; i < (lst.size() - 1); i += 2) {
-        t_float time_us = lst[i].asFloat() * 1000;
+    for (size_t i = 1; i < (lv.size() - 1); i += 2) {
+        t_float time_us = lv[i].asFloat() * 1000;
 
         if (time_us < 1) {
             LIB_ERR << "invalid segment, skipping...";
@@ -822,7 +879,7 @@ bool DataTypeEnv::setLine(const AtomListView& lst)
         }
 
         offset_us += time_us;
-        points_.push_back(EnvelopePoint(offset_us, lst[i + 1].asFloat(), false, CURVE_LINE));
+        points_.push_back(EnvelopePoint(offset_us, lv[i + 1].asFloat(), false, CURVE_LINE));
     }
 
     return true;
@@ -1194,29 +1251,34 @@ std::string DataTypeEnv::toDictConstructor() const noexcept
 {
     std::string res;
 
-    if (checkAR()) {
-        const auto A = points_[1].timeMs();
-        const auto R = points_[2].timeMs() - A;
-        res = fmt::format("{}[ar: {} {}]", TYPE_NAME, A, R);
-    } else if (checkASR()) {
-        const auto A = points_[1].timeMs();
-        const auto R = points_[2].timeMs() - A;
-        res = fmt::format("{}[asr: {} {}]", TYPE_NAME, A, R);
-    } else if (checkADSR()) {
-        const auto A = points_[1].timeMs();
-        const auto D = points_[2].timeMs() - A;
-        const auto S = points_[2].value * 100;
-        const auto R = points_[3].timeMs() - (A + D);
-        res = fmt::format("{}[adsr: {} {} {} {}]", TYPE_NAME, A, D, S, R);
-    } else if (!points_.empty()) {
-        res = fmt::format("{}[points: \n", TYPE_NAME);
-        const char* indent = "";
-        for (auto& pt : points_)
-            exportPoint(pt, res);
+    try {
+        if (checkAR()) {
+            const auto A = points_[1].timeMs();
+            const auto R = points_[2].timeMs() - A;
+            res = fmt::format("{}[ar: {} {}]", TYPE_NAME, A, R);
+        } else if (checkASR()) {
+            const auto A = points_[1].timeMs();
+            const auto R = points_[2].timeMs() - A;
+            res = fmt::format("{}[asr: {} {}]", TYPE_NAME, A, R);
+        } else if (checkADSR()) {
+            const auto A = points_[1].timeMs();
+            const auto D = points_[2].timeMs() - A;
+            const auto S = points_[2].value * 100;
+            const auto R = points_[3].timeMs() - (A + D);
+            res = fmt::format("{}[adsr: {} {} {} {}]", TYPE_NAME, A, D, S, R);
+        } else if (!points_.empty()) {
+            res = fmt::format("{}[points: \n", TYPE_NAME);
+            const char* indent = "";
+            for (auto& pt : points_)
+                exportPoint(pt, res);
 
-        res += ']';
-    } else
-        res = fmt::format("{}[ ]", TYPE_NAME);
+            res += ']';
+        } else
+            res = fmt::format("{}[ ]", TYPE_NAME);
+
+    } catch (std::exception& e) {
+        LIB_ERR << e.what();
+    }
 
     return res;
 }

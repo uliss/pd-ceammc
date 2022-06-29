@@ -270,7 +270,7 @@ public:
     bool setEADSR(const AtomListView& lv);
 
     bool setStep(const AtomListView& lv);
-    bool setLine(const AtomListView& kv);
+    bool setLine(const AtomListView& lv);
     bool setExponential(const AtomListView& lv);
     bool setSin2(const AtomListView& lv);
     bool setSigmoid(const AtomListView& lv);
