@@ -229,15 +229,9 @@ Atom createEnv(const Dict& dict)
             return res;
         case "points"_hash: {
             for (auto& a : val) {
-                auto ml = a.asD<DataTypeMList>();
-                if (!ml)
-                    continue;
-
-                for (auto& a : *ml) {
-                    auto dict = a.asDataT<DataTypeDict>();
-                    if (dict)
-                        res->insertPoint(pointFromDict(*dict));
-                }
+                auto dict = a.asDataT<DataTypeDict>();
+                if (dict)
+                    res->insertPoint(pointFromDict(*dict));
             }
         } break;
         default:
