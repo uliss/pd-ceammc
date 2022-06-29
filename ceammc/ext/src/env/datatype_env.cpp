@@ -159,18 +159,49 @@ static bool isValidSustain(const Atom& p)
 
 namespace {
 
+void exportPoint(const EnvelopePoint& pt, std::string& res)
+{
+    constexpr const char* indent = "";
+
+    res += fmt::format("{0:>5}[time:  {1}\n"
+                       "{0:>6}value: {2}\n"
+                       "{0:>6}type:  {3}\n",
+        indent, pt.timeMs(), pt.value, CURVE_TYPES[pt.type]);
+    if (pt.type != CURVE_LINE) {
+        res += fmt::format("{0:>6}curve: {}\n", indent, pt.data);
+        res += fmt::format("{0:>6}skew:  {}\n", indent, pt.sigmoid_skew);
+    }
+    res += fmt::format("{:>6}stop: {}]\n", indent, pt.stop ? 1 : 0);
+}
+
 EnvelopePoint pointFromDict(const DataTypeDict& dict)
 {
     EnvelopePoint pt { 0, 0 };
 
     for (auto& kv : dict) {
+        const auto key = kv.first;
         const auto& val = kv.second;
-        switch (crc32_hash(kv.first)) {
+        switch (crc32_hash(key)) {
         case "time"_hash:
             pt.utime = val.floatAt(0, 0) * 1000;
             break;
         case "value"_hash:
             pt.value = val.floatAt(0, 0);
+            break;
+        case "type"_hash:
+            symbol2curve(val.symbolAt(0, gensym(str_line)), pt.type);
+            break;
+        case "stop"_hash:
+            pt.stop = val.boolAt(0, false);
+            break;
+        case "curve"_hash:
+            pt.data = val.floatAt(0, 0);
+            break;
+        case "skew"_hash:
+            pt.sigmoid_skew = val.floatAt(0, 0);
+            break;
+        default:
+            LIB_ERR << fmt::format("[{}] invalid key '{}'", TYPE_NAME, key->s_name);
             break;
         }
     }
@@ -1125,21 +1156,12 @@ std::string DataTypeEnv::toDictConstructor() const noexcept
         const auto D = points_[2].timeMs() - A;
         const auto S = points_[2].value * 100;
         const auto R = points_[3].timeMs() - (A + D);
-        res = fmt::format("{}[ar: {} {} {} {}]", TYPE_NAME, A, D, S, R);
+        res = fmt::format("{}[adsr: {} {} {} {}]", TYPE_NAME, A, D, S, R);
     } else if (!points_.empty()) {
         res = fmt::format("{}[points: \n", TYPE_NAME);
         const char* indent = "";
-        for (auto& pt : points_) {
-            res += fmt::format("{0:>5}[time:  {1}\n"
-                               "{0:>6}value: {2}\n"
-                               "{0:>6}type:  {3}\n",
-                indent, pt.timeMs(), pt.value, CURVE_TYPES[pt.type]);
-            if (pt.type != CURVE_LINE) {
-                res += fmt::format("{0:>6}curve: {}\n", indent, pt.data);
-                res += fmt::format("{0:>6}skew:  {}\n", indent, pt.sigmoid_skew);
-            }
-            res += fmt::format("{:>6}stop: {}]\n", indent, pt.stop ? 1 : 0);
-        }
+        for (auto& pt : points_)
+            exportPoint(pt, res);
 
         res += ']';
     } else
