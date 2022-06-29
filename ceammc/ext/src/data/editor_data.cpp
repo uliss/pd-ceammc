@@ -44,8 +44,20 @@ void editorAppend(EditorLineList& res, const AbstractData* d, int indentLevel)
         str->append(d->toListConstructor());
         res.push_back(str);
     } else if (d->canInitWithDict()) {
-        str->append(d->toDictConstructor());
-        res.push_back(str);
+        auto dict_str = d->toDictConstructor();
+        for (size_t i = 0; i < dict_str.length(); i++) {
+            const auto c = dict_str[i];
+            if (c == '\n') {
+                res.push_back(str);
+                str = EditorStringPool::pool().allocate();
+                appendIndent(str, indentLevel);
+            } else {
+                str->append(c);
+            }
+        }
+
+        if (str->length() > 0)
+            res.push_back(str);
     }
 }
 
