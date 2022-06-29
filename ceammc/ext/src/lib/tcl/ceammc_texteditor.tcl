@@ -78,6 +78,8 @@ namespace eval texteditor {
 
             bind $name.f.text.t <Tab> "ceammc::texteditor::indent $name.f.text.t"
             bind $name.f.text.t <Shift-Tab> "ceammc::texteditor::unindent $name.f.text.t"
+            bind $name.f.text.t <$::modifier-Key-z> "catch {$name.f.text.t edit undo}; break"
+            bind $name.f.text.t <$::modifier-Shift-Key-Z> "catch {$name.f.text.t edit redo}; break"
         }
     }
 
