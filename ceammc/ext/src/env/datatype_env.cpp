@@ -1137,15 +1137,72 @@ bool DataTypeEnv::isADSR(bool checkVal) const
     return true;
 }
 
+bool DataTypeEnv::checkAR() const
+{
+    return points_.size() == 3
+        && (points_[0].utime == 0
+            && points_[0].value == 0
+            && points_[0].stop == false
+            && points_[0].type == CURVE_LINE
+            && points_[0].fix_pos == EnvelopePoint::FIX_BOTH)
+        && (points_[1].value == 1
+            && points_[1].stop == false
+            && points_[1].type == CURVE_LINE)
+        && (points_[2].value == 0
+            && points_[2].stop == false
+            && points_[2].type == CURVE_LINE
+            && points_[2].fix_pos == EnvelopePoint::FIX_VALUE);
+}
+
+bool DataTypeEnv::checkASR() const
+{
+    return points_.size() == 3
+        && (points_[0].utime == 0
+            && points_[0].value == 0
+            && points_[0].stop == false
+            && points_[0].type == CURVE_LINE
+            && points_[0].fix_pos == EnvelopePoint::FIX_BOTH)
+        && (points_[1].value == 1
+            && points_[1].stop == true
+            && points_[1].type == CURVE_LINE)
+        && (points_[2].value == 0
+            && points_[2].stop == false
+            && points_[2].type == CURVE_LINE
+            && points_[2].fix_pos == EnvelopePoint::FIX_VALUE);
+}
+
+bool DataTypeEnv::checkADSR() const
+{
+    return points_.size() == 4
+        && (points_[0].utime == 0
+            && points_[0].value == 0
+            && points_[0].stop == false
+            && points_[0].type == CURVE_LINE
+            && points_[0].fix_pos == EnvelopePoint::FIX_BOTH)
+        && (points_[1].value == 1
+            && points_[1].stop == false
+            && points_[1].type == CURVE_LINE)
+        && (points_[2].stop == true
+            && points_[2].type == CURVE_LINE)
+        && (points_[3].value == 0
+            && points_[3].stop == false
+            && points_[3].type == CURVE_LINE
+            && points_[3].fix_pos == EnvelopePoint::FIX_VALUE);
+}
+
 std::string DataTypeEnv::toDictConstructor() const noexcept
 {
     std::string res;
 
-    if (isAR(true)) {
+    if (checkAR()) {
         const auto A = points_[1].timeMs();
         const auto R = points_[2].timeMs() - A;
         res = fmt::format("{}[ar: {} {}]", TYPE_NAME, A, R);
-    } else if (isADSR(true)) {
+    } else if (checkASR()) {
+        const auto A = points_[1].timeMs();
+        const auto R = points_[2].timeMs() - A;
+        res = fmt::format("{}[asr: {} {}]", TYPE_NAME, A, R);
+    } else if (checkADSR()) {
         const auto A = points_[1].timeMs();
         const auto D = points_[2].timeMs() - A;
         const auto S = points_[2].value * 100;

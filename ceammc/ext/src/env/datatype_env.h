@@ -332,6 +332,13 @@ public:
      */
     bool isADSR(bool checkVal = false) const;
 
+    /**
+     * Check if envelope is strict AR envelope
+     */
+    bool checkAR() const;
+    bool checkASR() const;
+    bool checkADSR() const;
+
     std::string toDictConstructor() const noexcept override;
 
 public:
