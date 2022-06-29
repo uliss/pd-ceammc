@@ -3,14 +3,16 @@
 #include "ceammc_crc32.h"
 #include "ceammc_datastorage.h"
 #include "ceammc_log.h"
-
-#include "../string/tinyformat.h"
+#include "datatype_dict.h"
+#include "datatype_mlist.h"
+#include "fmt/format.h"
 
 #include <algorithm>
 #include <boost/range.hpp>
 #include <unordered_map>
 
-static const char* SYM_ENVELOPE_POINT = "EnvelopePoint";
+constexpr const char* SYM_ENVELOPE_POINT = "EnvelopePoint";
+constexpr const char* TYPE_NAME = "Env";
 
 CEAMMC_DEFINE_HASH(adsr);
 CEAMMC_DEFINE_HASH(asr);
@@ -155,7 +157,69 @@ static bool isValidSustain(const Atom& p)
         }                                                    \
     }
 
-int DataTypeEnv::dataType = DataStorage::instance().registerNewType("Env");
+namespace {
+
+EnvelopePoint pointFromDict(const DataTypeDict& dict)
+{
+    EnvelopePoint pt { 0, 0 };
+
+    for (auto& kv : dict) {
+        const auto& val = kv.second;
+        switch (crc32_hash(kv.first)) {
+        case "time"_hash:
+            pt.utime = val.floatAt(0, 0) * 1000;
+            break;
+        case "value"_hash:
+            pt.value = val.floatAt(0, 0);
+            break;
+        }
+    }
+
+    return pt;
+}
+
+Atom createEnv(const Dict& dict)
+{
+    EnvAtom res;
+
+    for (auto& kv : dict) {
+        const auto key = kv.first;
+        const auto& val = kv.second;
+
+        switch (crc32_hash(key)) {
+        case "adsr"_hash:
+            res->setADSR(val);
+            return res;
+        case "asr"_hash:
+            res->setASR(val);
+            return res;
+        case "ar"_hash:
+            res->setAR(val);
+            return res;
+        case "points"_hash: {
+            for (auto& a : val) {
+                auto ml = a.asD<DataTypeMList>();
+                if (!ml)
+                    continue;
+
+                for (auto& a : *ml) {
+                    auto dict = a.asDataT<DataTypeDict>();
+                    if (dict)
+                        res->insertPoint(pointFromDict(*dict));
+                }
+            }
+        } break;
+        default:
+            LIB_ERR << fmt::format("invalid key: '{}'", key);
+            break;
+        }
+    }
+
+    return res;
+}
+}
+
+int DataTypeEnv::dataType = DataStorage::instance().registerNewType(TYPE_NAME, nullptr, createEnv);
 
 DataTypeEnv::DataTypeEnv()
 {
@@ -201,9 +265,10 @@ const DataTypeEnv::NamedMethodList DataTypeEnv::named_methods = {
 std::string DataTypeEnv::toString() const
 {
     std::string res("Envelope:\n");
+    res.reserve(48 * points_.size());
 
     for (size_t i = 0; i < points_.size(); i++) {
-        res += tfm::format("    %c point: % 8g(ms) % 8g %s\n",
+        res += fmt::format("    {:c} point: {: 8g}(ms) {: 8g} {}\n",
             points_[i].stop ? '*' : ' ',
             points_[i].utime / 1000.f,
             points_[i].value,
@@ -1045,6 +1110,36 @@ bool DataTypeEnv::isADSR(bool checkVal) const
     }
 
     return true;
+}
+
+std::string DataTypeEnv::toDictConstructor() const noexcept
+{
+    std::string res;
+
+    if (isAR(true)) {
+        auto t0 = points_[1].timeMs();
+        auto t1 = points_[2].timeMs();
+        res = fmt::format("{}[ar: {} {}]", TYPE_NAME, t0, t0 + t1);
+    } else if (!points_.empty()) {
+        res = fmt::format("{}[points: \n", TYPE_NAME);
+        const char* indent = "";
+        for (auto& pt : points_) {
+            res += fmt::format("{0:>5}[time:  {1}\n"
+                               "{0:>6}value: {2}\n"
+                               "{0:>6}type:  {3}\n",
+                indent, pt.timeMs(), pt.value, CURVE_TYPES[pt.type]);
+            if (pt.type != CURVE_LINE) {
+                res += fmt::format("{0:>6}curve: {}\n", indent, pt.data);
+                res += fmt::format("{0:>6}skew:  {}\n", indent, pt.sigmoid_skew);
+            }
+            res += fmt::format("{:>6}stop: {}]\n", indent, pt.stop ? 1 : 0);
+        }
+
+        res += ']';
+    } else
+        res = fmt::format("{}[ ]", TYPE_NAME);
+
+    return res;
 }
 
 bool operator==(const EnvelopePoint& p0, const EnvelopePoint& p1)

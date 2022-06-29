@@ -122,9 +122,9 @@ public:
     DataTypeEnv& operator=(const DataTypeEnv& env);
     DataTypeEnv& operator=(DataTypeEnv&& env);
 
-    int type() const noexcept;
-    std::string toString() const;
-    bool isEqual(const AbstractData* d) const noexcept;
+    int type() const noexcept override;
+    std::string toString() const override;
+    bool isEqual(const AbstractData* d) const noexcept override;
 
     iterator begin();
     iterator end();
@@ -176,8 +176,8 @@ public:
     void scaleTime(double factor);
 
     /**
-      * Scales all envelope values by specified factor
-      */
+     * Scales all envelope values by specified factor
+     */
     void scaleValue(double factor);
 
     /**
@@ -278,7 +278,7 @@ public:
     bool setNamedEnvelope(const char* name, const AtomListView& args);
     bool isNamedEnvelope(const char* name) const;
 
-    DataTypeEnv* clone() const;
+    DataTypeEnv* clone() const override;
 
     /**
      * Render envelope to fit output range (end-begin)
@@ -331,6 +331,8 @@ public:
      * @return true on success
      */
     bool isADSR(bool checkVal = false) const;
+
+    std::string toDictConstructor() const noexcept override;
 
 public:
     static int dataType;
