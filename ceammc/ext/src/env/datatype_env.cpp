@@ -1117,9 +1117,15 @@ std::string DataTypeEnv::toDictConstructor() const noexcept
     std::string res;
 
     if (isAR(true)) {
-        auto t0 = points_[1].timeMs();
-        auto t1 = points_[2].timeMs();
-        res = fmt::format("{}[ar: {} {}]", TYPE_NAME, t0, t0 + t1);
+        const auto A = points_[1].timeMs();
+        const auto R = points_[2].timeMs() - A;
+        res = fmt::format("{}[ar: {} {}]", TYPE_NAME, A, R);
+    } else if (isADSR(true)) {
+        const auto A = points_[1].timeMs();
+        const auto D = points_[2].timeMs() - A;
+        const auto S = points_[2].value * 100;
+        const auto R = points_[3].timeMs() - (A + D);
+        res = fmt::format("{}[ar: {} {} {} {}]", TYPE_NAME, A, D, S, R);
     } else if (!points_.empty()) {
         res = fmt::format("{}[points: \n", TYPE_NAME);
         const char* indent = "";
