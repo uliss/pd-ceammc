@@ -248,6 +248,14 @@ TEST_CASE("DataTypeEnv", "[ceammc::DataTypeEnv]")
         REQUIRE(env.hasPointAtTime(10 * 1000));
         REQUIRE(env.hasPointAtTime(30 * 1000));
         REQUIRE(!env.hasStopPoints());
+
+        REQUIRE(env.isAR());
+        REQUIRE(env.isAR(true));
+        REQUIRE_FALSE(env.isADSR());
+        REQUIRE_FALSE(env.isADSR(true));
+        REQUIRE_FALSE(env.checkASR());
+        REQUIRE(env.checkAR());
+        REQUIRE_FALSE(env.checkADSR());
     }
 
     SECTION("setASR")
@@ -271,6 +279,14 @@ TEST_CASE("DataTypeEnv", "[ceammc::DataTypeEnv]")
         REQUIRE(env.hasPointAtTime(0));
         REQUIRE(env.hasPointAtTime(10 * 1000));
         REQUIRE(env.hasPointAtTime(30 * 1000));
+
+        REQUIRE(env.isAR());
+        REQUIRE(env.isAR(true));
+        REQUIRE_FALSE(env.isADSR());
+        REQUIRE_FALSE(env.isADSR(true));
+        REQUIRE(env.checkASR());
+        REQUIRE_FALSE(env.checkAR());
+        REQUIRE_FALSE(env.checkADSR());
     }
 
     SECTION("setADSR")
@@ -290,8 +306,13 @@ TEST_CASE("DataTypeEnv", "[ceammc::DataTypeEnv]")
         REQUIRE(env.hasPointAtTime(100 * 1000));
         REQUIRE(env.hasStopPoints());
 
+        REQUIRE(env.isADSR());
+        REQUIRE(env.isADSR(true));
         REQUIRE_FALSE(env.isAR());
         REQUIRE_FALSE(env.isAR(true));
+        REQUIRE(env.checkADSR());
+        REQUIRE_FALSE(env.checkASR());
+        REQUIRE_FALSE(env.checkAR());
     }
 
     SECTION("render")
