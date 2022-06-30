@@ -16,6 +16,7 @@
 #include "ceammc_datastorage.h"
 #include "ceammc_format.h"
 #include "ceammc_log.h"
+#include "fmt/format.h"
 
 #include <algorithm>
 #include <boost/functional/hash.hpp>
@@ -123,7 +124,19 @@ bool DataTypeSet::choose(Atom& res) const noexcept
 
 std::string DataTypeSet::toString() const
 {
-    return to_string(toList());
+    std::string res = "Set(";
+    for (auto& a : data_) {
+        res += to_string(a);
+        res += ' ';
+    }
+
+    // replace trailing space with closing braces
+    if (data_.size() > 0)
+        res.back() = ')';
+    else
+        res += ')';
+
+    return res;
 }
 
 int DataTypeSet::type() const noexcept
