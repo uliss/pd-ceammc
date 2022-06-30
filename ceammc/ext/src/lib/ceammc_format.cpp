@@ -29,7 +29,9 @@ namespace ceammc {
 
 std::string to_string(const Atom& a)
 {
-    if (a.isSymbol())
+    if (a.isFloat())
+        return fmt::format("{:g}", a.asT<t_float>());
+    else if (a.isSymbol())
         return std::string(a.asSymbol()->s_name);
     else if (a.isData())
         return a.asData()->toString();
