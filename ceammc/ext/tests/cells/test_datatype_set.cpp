@@ -12,8 +12,9 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_data.h"
-#include "datatype_set.h"
 #include "datatype_mlist.h"
+#include "datatype_set.h"
+#include "datatype_string.h"
 #include "test_common.h"
 
 #include <boost/optional/optional_io.hpp>
@@ -31,6 +32,20 @@ TEST_CASE("DataTypeSet", "[core]")
             REQUIRE(s.size() == 0);
             REQUIRE(s.toList() == L());
             REQUIRE(s.toString() == "Set()");
+        }
+
+        SECTION("args")
+        {
+            Set s(1, 2, 3, 4, 5, 4, 3, 2, 1);
+            REQUIRE(s.size() == 5);
+            REQUIRE(s.toList(true) == LF(1, 2, 3, 4, 5));
+        }
+
+        SECTION("list")
+        {
+            Set s(LF(1, 2, 3, 4, 5, 4, 3, 2, 1));
+            REQUIRE(s.size() == 5);
+            REQUIRE(s.toList(true) == LF(1, 2, 3, 4, 5));
         }
     }
 
@@ -52,99 +67,81 @@ TEST_CASE("DataTypeSet", "[core]")
         REQUIRE(s1.isEqual(&s0));
     }
 
-//    SECTION("clone")
-//    {
-//        Set d0;
-//        d0.add("key0", A("value0"));
-//        d0.add("key1", A("value1"));
+    SECTION("clone")
+    {
+        Set s0;
+        s0.add(A("value0"));
+        s0.add(A("value1"));
 
-//        Set* d1 = d0.cloneT<Set>();
-//        REQUIRE(*d1 == d0);
-//        REQUIRE(d1->size() == 2);
-//        delete d1;
-//    }
+        Set* s1 = s0.cloneT<Set>();
+        REQUIRE(*s1 == s0);
+        REQUIRE(s1->size() == 2);
+        delete s1;
+    }
 
-//    SECTION("add")
-//    {
-//        Set d0;
-//        d0.add("none", Atom());
-//        d0.add("s0", A("string"));
-//        d0.add("s1", A("a string"));
-//        d0.add("f0", -10);
-//        d0.add("f1", 1234.5);
-//        d0.add("int_data", Atom(new IntData(100)));
-//        d0.add("str_data", Atom(new DataTypeString("string with spaces")));
-//        d0.add("l0", L());
-//        d0.add("l1", LF(1));
-//        d0.add("l2", LA("a", "b"));
+    SECTION("add")
+    {
+        Set s;
+        s.add(A(1.5));
+        s.add(A(1.5));
+        s.add(A(1.5));
 
-//        CHECK(d0.contains("none"));
-//        CHECK(d0.contains("s0"));
-//        CHECK(d0.contains("s1"));
-//        CHECK(d0.contains("f1"));
-//        CHECK(d0.contains("f1"));
-//        CHECK(d0.contains("l0"));
-//        CHECK(d0.contains("l1"));
-//        CHECK(d0.contains("l2"));
-//        CHECK(d0.contains("int_data"));
-//        CHECK(d0.contains("str_data"));
-//    }
+        REQUIRE(s.size() == 1);
+        REQUIRE(s.contains(A(1.5)));
 
-//    SECTION("remove")
-//    {
-//        Set d0;
+        s.add(A("ABC"));
+        REQUIRE(s.size() == 2);
+        REQUIRE(s.contains(A(1.5)));
+        REQUIRE(s.contains(A("ABC")));
+        REQUIRE_FALSE(s.contains(A("AB")));
 
-//        REQUIRE_FALSE(d0.remove("test"));
+        s.clear();
+        REQUIRE(s.size() == 0);
 
-//        d0.insert("string", A("string"));
-//        d0.insert("float", 123);
+        s.add(Atom());
+        REQUIRE(s.size() == 1);
+        REQUIRE(s.contains(Atom()));
+        REQUIRE(s.toString() == "Set(NONE)");
 
-//        REQUIRE(d0.contains("string"));
-//        REQUIRE(d0.contains("float"));
+        s.clear();
+        s.add(LF(1, 2, 3));
+        s.add(LF(1, 2, 3, 4));
+        REQUIRE(s.size() == 4);
+        REQUIRE(s.contains(1));
+        REQUIRE(s.contains(2));
+        REQUIRE(s.contains(3));
+        REQUIRE(s.contains(4));
+        REQUIRE_FALSE(s.contains(5));
 
-//        REQUIRE(d0.remove("string"));
-//        REQUIRE_FALSE(d0.contains("string"));
-//        REQUIRE(d0.contains("float"));
+        s.clear();
+        s.add(MListAtom(1, 2, 3));
+        REQUIRE(s.toString() == "Set((1 2 3))");
+        REQUIRE_FALSE(s.contains(A(1)));
+        REQUIRE_FALSE(s.contains(A(2)));
+        REQUIRE_FALSE(s.contains(A(3)));
+        REQUIRE_FALSE(s.contains(MListAtom()));
+        REQUIRE_FALSE(s.contains(MListAtom(1, 2)));
+        REQUIRE_FALSE(s.contains(MListAtom(1, 2, 4)));
+        REQUIRE(s.contains(MListAtom(1, 2, 3)));
+    }
 
-//        REQUIRE(d0.remove("float"));
-//        REQUIRE_FALSE(d0.contains("float"));
+    SECTION("remove")
+    {
+        Set s;
 
-//        REQUIRE_FALSE(d0.remove("float"));
-//    }
+        REQUIRE_FALSE(s.remove(A("not-exists")));
 
-//    SECTION("fromList")
-//    {
-//        REQUIRE(Atom() == Atom());
-//        REQUIRE(Dict::fromList(LF(1, 2, 3, 4), 0) == Dict());
-//        REQUIRE(Dict::fromList(LA("a", "b", "c"), 1) == Dict("[a: null b: null c: null]"));
-//        REQUIRE(Dict::fromList(LA("a", "b", "c", "d"), 2) == Dict("[a: b c: d]"));
-//    }
+        s.add(A(100));
+        REQUIRE(s.remove(A(100)));
+        REQUIRE(s.size() == 0);
+    }
 
-//    SECTION("removeIf")
-//    {
-//        Set d("[a: 1 b: 2 c: 3]");
-//        d.removeIf([](const Atom& k) { return k == A("a"); });
-//        REQUIRE(d == Dict("[c: 3 b: 2]"));
-//    }
+    SECTION("parse")
+    {
+        using MSet = Set::MaybeSet;
 
-//    SECTION("fromString")
-//    {
-//        Set d;
-//        REQUIRE(d.fromString("[]"));
-//        REQUIRE(d.size() == 0);
-//        REQUIRE(d.fromString("[a: 12]"));
-//        REQUIRE(d.size() == 1);
-//        REQUIRE(d.keys() == LA("a"));
-//        REQUIRE(d.at("a") == LF(12));
-
-//        REQUIRE(d.fromString("[@a: 12]"));
-//        REQUIRE(d.size() == 1);
-//        REQUIRE(d.keys() == LA("@a"));
-//        REQUIRE(d.at("@a") == LF(12));
-
-//        REQUIRE(d.fromString("[@a: 12 @b: 15]"));
-//        REQUIRE(d.size() == 2);
-//        REQUIRE(d.at("@a") == LF(12));
-//        REQUIRE(d.at("@b") == LF(15));
-//    }
+        REQUIRE(Set::parse("Set(  ") == MSet {});
+        REQUIRE(Set::parse("Set( ) ") == MSet { Set() });
+        REQUIRE(Set::parse("Set(1 2 3)") == MSet { Set(1, 2, 3) });
+    }
 }

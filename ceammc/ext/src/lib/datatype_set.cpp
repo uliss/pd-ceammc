@@ -31,6 +31,21 @@ Atom newFromList(const AtomList& lst)
 {
     return new DataTypeSet(lst);
 }
+
+size_t hash_value(const Atom& a) noexcept
+{
+    size_t res = a.type();
+
+    if (a.isFloat())
+        boost::hash_combine(res, boost::hash_value(a.asFloat()));
+    else if (a.isSymbol())
+        boost::hash_combine(res, boost::hash_value(a.asSymbol()));
+    else if (a.isData())
+        boost::hash_combine(res, boost::hash_value(a.dataType()));
+
+    return res;
+}
+
 }
 
 namespace ceammc {
@@ -38,15 +53,18 @@ namespace ceammc {
 const int DataTypeSet::dataType = DataStorage::instance().registerNewType("Set", newFromList);
 
 DataTypeSet::DataTypeSet()
+    : data_(0, hash_value)
 {
 }
 
 DataTypeSet::DataTypeSet(const Atom& a)
+    : data_(0, hash_value)
 {
     add(a);
 }
 
 DataTypeSet::DataTypeSet(const AtomList& l)
+    : data_(0, hash_value)
 {
     add(l);
 }
@@ -63,20 +81,20 @@ void DataTypeSet::add(const Atom& a)
     data_.insert(a);
 }
 
-void DataTypeSet::add(const AtomList& l)
+void DataTypeSet::add(const AtomListView& lv)
 {
-    for (auto& x : l)
+    for (auto& x : lv)
         add(x);
 }
 
-void DataTypeSet::remove(const Atom& a)
+bool DataTypeSet::remove(const Atom& a)
 {
-    data_.erase(a);
+    return data_.erase(a);
 }
 
-void DataTypeSet::remove(const AtomList& l)
+void DataTypeSet::remove(const AtomListView& lv)
 {
-    for (auto& x : l)
+    for (auto& x : lv)
         remove(x);
 }
 
@@ -95,9 +113,9 @@ bool DataTypeSet::contains(const Atom& a) const noexcept
     return data_.find(a) != data_.end();
 }
 
-bool DataTypeSet::contains_any_of(const AtomList& lst) const noexcept
+bool DataTypeSet::contains_any_of(const AtomListView& lv) const noexcept
 {
-    for (auto& a : lst) {
+    for (auto& a : lv) {
         if (contains(a))
             return true;
     }
@@ -276,20 +294,10 @@ DataTypeSet::MaybeSet DataTypeSet::parse(const std::string& str)
     return *parse_result.result().asD<DataTypeSet>();
 }
 
-size_t hash_value(const Atom& a) noexcept
+std::ostream& operator<<(std::ostream& os, const DataTypeSet& set)
 {
-    size_t res = a.type();
-
-    if (a.isFloat())
-        boost::hash_combine(res, boost::hash_value(a.asFloat()));
-    else if (a.isSymbol())
-        boost::hash_combine(res, boost::hash_value(a.asSymbol()));
-    else if (a.isData()) {
-        boost::hash_combine(res, boost::hash_value(a.dataType()));
-        boost::hash_combine(res, boost::hash_value(a.asData()));
-    }
-
-    return res;
+    os << set.toString();
+    return os;
 }
 
 }

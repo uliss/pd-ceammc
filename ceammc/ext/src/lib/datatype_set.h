@@ -19,7 +19,8 @@
 #include "ceammc_data.h"
 #include "ceammc_maybe.h"
 
-#include <set>
+#include <iosfwd>
+#include <unordered_set>
 
 namespace ceammc {
 
@@ -28,7 +29,7 @@ using SetAtom = DataAtom<DataTypeSet>;
 
 class DataTypeSet : public AbstractData {
 private:
-    using DataSet = std::set<Atom>;
+    using DataSet = std::unordered_set<Atom, size_t (*)(const Atom&)>;
     DataSet data_;
 
 public:
@@ -53,17 +54,22 @@ public:
      * Add element to set
      */
     void add(const Atom& a);
-    void add(const AtomList& l);
+
+    /**
+     * Add all list elements to set
+     */
+    void add(const AtomListView& lv);
 
     /**
      * Remove element from set
+     * @return true if element was deleted, otherwise false
      */
-    void remove(const Atom& a);
+    bool remove(const Atom& a);
 
     /**
      * Removes all list elements from set
      */
-    void remove(const AtomList& l);
+    void remove(const AtomListView& lv);
 
     /**
      * Removes all elements from set
@@ -83,7 +89,7 @@ public:
     /**
      * Returns true if set contains at least *one* of given values
      */
-    bool contains_any_of(const AtomList& lst) const noexcept;
+    bool contains_any_of(const AtomListView& lv) const noexcept;
 
     /** choose random element from set */
     bool choose(Atom& res) const noexcept;
@@ -149,7 +155,7 @@ public:
     static MaybeSet parse(const std::string& str);
 };
 
-size_t hash_value(const Atom& a) noexcept;
+std::ostream& operator<<(std::ostream& os, const DataTypeSet& set);
 
 }
 
