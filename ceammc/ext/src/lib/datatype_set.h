@@ -17,10 +17,11 @@
 #include "ceammc_abstractdata.h"
 #include "ceammc_atomlist.h"
 #include "ceammc_data.h"
+#include "ceammc_maybe.h"
 
 #include <set>
 
-using namespace ceammc;
+namespace ceammc {
 
 class DataTypeSet;
 using SetAtom = DataAtom<DataTypeSet>;
@@ -139,8 +140,17 @@ public:
      * @param s1 - second set
      */
     static DataTypeSet sym_difference(const DataTypeSet& s0, const DataTypeSet& s1);
+
+public:
+    using MaybeSet = Maybe<DataTypeSet>;
+
+public:
+    static MaybeSet parse(const AtomListView& lv);
+    static MaybeSet parse(const std::string& str);
 };
 
 size_t hash_value(const Atom& a) noexcept;
+
+}
 
 #endif // DATATYPE_SET_H

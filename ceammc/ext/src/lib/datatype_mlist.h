@@ -213,8 +213,8 @@ public:
 
 public:
     static int dataType;
-    static MaybeList parse(const AtomList& lst);
-    static MaybeList parse(const std::string& lst);
+    static MaybeList parse(const AtomListView& lv);
+    static MaybeList parse(const std::string& str);
 };
 
 std::ostream& operator<<(std::ostream& os, const DataTypeMList& d);

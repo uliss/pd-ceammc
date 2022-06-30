@@ -105,6 +105,7 @@ set(CEAMMC_LIB_SOURCES
     datatype_dict.cpp
     datatype_mlist.cpp
     datatype_property.cpp
+    datatype_set.cpp
     datatype_string.cpp
 )
 

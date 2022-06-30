@@ -243,14 +243,14 @@ bool DataTypeMList::contains(const DataTypeMList& l) const
     return it != data_.end();
 }
 
-DataTypeMList::MaybeList DataTypeMList::parse(const AtomList& lst)
+DataTypeMList::MaybeList DataTypeMList::parse(const AtomListView& lv)
 {
-    if (lst.anyOf(isData)) {
+    if (lv.anyOf(isData)) {
         LIB_ERR << "only core atom types allowed for parsing....";
-        return DataTypeMList();
+        return DataTypeMList {};
     }
 
-    return parse(to_string(lst, " "));
+    return parse(to_string(lv, " "));
 }
 
 DataTypeMList::MaybeList DataTypeMList::parse(const std::string& str)

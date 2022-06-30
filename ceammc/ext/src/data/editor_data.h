@@ -11,8 +11,6 @@ namespace ceammc {
 
 void editorAppend(EditorLineList& res, const AtomListView& lv, int indentLevel);
 void editorAppend(EditorLineList& res, const AbstractData* d, int indentLevel);
-void editorAppend(EditorLineList& res, const DataTypeDict& dict, int indentLevel);
-void editorAppend(EditorLineList& res, const DataTypeMList& mlist, int indentLevel);
 
 template <typename T, typename Data>
 class EditorDataT : public EditorObject<T> {
@@ -50,7 +48,7 @@ public:
     EditorLineList getContentForEditor() const override
     {
         EditorLineList res;
-        editorAppend(res, editorData(), 0);
+        editorAppend(res, &editorData(), 0);
         return res;
     }
 

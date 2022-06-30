@@ -24,11 +24,15 @@
 
 namespace {
 
+using namespace ceammc;
+
 Atom newFromList(const AtomList& lst)
 {
     return new DataTypeSet(lst);
 }
 }
+
+namespace ceammc {
 
 const int DataTypeSet::dataType = DataStorage::instance().registerNewType("Set", newFromList);
 
@@ -228,6 +232,37 @@ DataTypeSet::DataTypeSet(const DataTypeSet& ds)
 {
 }
 
+DataTypeSet::MaybeSet DataTypeSet::parse(const AtomListView& lv)
+{
+    if (lv.anyOf(isData)) {
+        LIB_ERR << "only core atom types allowed for parsing....";
+        return DataTypeSet {};
+    }
+
+    return parse(to_string(lv, " "));
+}
+
+DataTypeSet::MaybeSet DataTypeSet::parse(const std::string& str)
+{
+    auto pos = str.find("Set(");
+
+    if (str.empty() || pos == std::string::npos)
+        return {};
+
+    auto parse_result = parseDataString(str);
+    if (!parse_result) {
+        LIB_ERR << "parse error: " << parse_result.err();
+        return {};
+    }
+
+    if (!parse_result.result().isA<DataTypeSet>()) {
+        LIB_ERR << "not a Set: " << str;
+        return {};
+    }
+
+    return *parse_result.result().asD<DataTypeSet>();
+}
+
 size_t hash_value(const Atom& a) noexcept
 {
     size_t res = a.type();
@@ -242,4 +277,6 @@ size_t hash_value(const Atom& a) noexcept
     }
 
     return res;
+}
+
 }

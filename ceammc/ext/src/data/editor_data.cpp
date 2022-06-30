@@ -8,6 +8,9 @@
 namespace ceammc {
 
 namespace {
+    void editorAppend(EditorLineList& res, const DataTypeMList& lst, int indentLevel);
+    void editorAppend(EditorLineList& res, const DataTypeDict& dict, int indentLevel);
+
     bool isSimpleList(const AtomListView& lv)
     {
         return lv.allOf([](const Atom& a) { return !a.isData(); });
@@ -33,31 +36,156 @@ namespace {
         str->append(ch);
         res.push_back(str);
     }
+
+    void editorAppend(EditorLineList& res, const DataTypeMList& lst, int indentLevel)
+    {
+        const bool simple_content = isSimpleList(lst.data().view());
+        const bool single_line = simple_content && lst.size() < 7;
+
+        if (single_line) {
+            auto str = EditorStringPool::pool().allocate();
+
+            appendIndent(str, indentLevel);
+            str->append('(');
+
+            for (auto& a : lst) {
+                str->appendQuoted(a);
+                str->append(' ');
+            }
+
+            if (lst.empty()) // empty mlist: ( )
+                str->append(' ');
+            else
+                str->trim();
+
+            str->append(')');
+
+            res.push_back(str);
+        } else {
+
+            appendIndent(res, '(', indentLevel);
+
+            // each value on separate line
+            for (const Atom& a : lst) {
+                auto str = EditorStringPool::pool().allocate();
+                appendIndent(str, indentLevel + 1);
+
+                if (a.isFloat()) {
+                    str->append(a.asT<t_float>());
+                    res.push_back(str);
+                } else if (a.isSymbol()) {
+                    str->appendQuoted(a);
+                    res.push_back(str);
+                } else if (a.isDataType(DataTypeMList::dataType))
+                    editorAppend(res, *a.asDataT<DataTypeMList>(), indentLevel + 1);
+                else if (a.isDataType(DataTypeDict::dataType))
+                    editorAppend(res, *a.asDataT<DataTypeDict>(), indentLevel + 1);
+                else if (a.isData())
+                    editorAppend(res, a.asData(), indentLevel + 1);
+            }
+
+            appendIndent(res, ')', indentLevel);
+        }
+    }
+
+    void editorAppend(EditorLineList& res, const DataTypeDict& dict, int indentLevel)
+    {
+        const bool single_line = dict.size() < 2;
+
+        if (single_line) {
+            auto str = EditorStringPool::pool().allocate();
+
+            appendIndent(str, indentLevel);
+            str->append('[');
+            int i = 0;
+
+            for (auto& kv : dict) {
+                if (i++ > 0)
+                    str->append(' ');
+
+                str->append(kv.first->s_name);
+                str->append(':');
+                str->append(' ');
+
+                str->appendQuoted(kv.second.view());
+            }
+
+            if (dict.size() == 0) // empty dict [ ]
+                str->append(' ');
+            else
+                str->trim();
+
+            str->append(']');
+
+            res.push_back(str);
+        } else {
+
+            appendIndent(res, '[', indentLevel);
+
+            for (auto& kv : dict) {
+                auto str = EditorStringPool::pool().allocate();
+                appendIndent(str, indentLevel + 1);
+
+                str->append(kv.first->s_name);
+                str->append(':');
+                str->append(' ');
+
+                auto& l = kv.second;
+
+                // simple list is one liner
+                if (isSimpleList(l.view())) {
+                    for (auto& a : l) {
+                        str->appendQuoted(a);
+                        str->append(' ');
+                    }
+
+                    if (!l.empty())
+                        str->trim();
+
+                    res.push_back(str);
+                } else {
+                    res.push_back(str);
+                    editorAppend(res, l.view(), indentLevel + 1);
+                }
+            }
+
+            appendIndent(res, ']', indentLevel);
+        }
+    }
 }
 
 void editorAppend(EditorLineList& res, const AbstractData* d, int indentLevel)
 {
-    auto str = EditorStringPool::pool().allocate();
-    appendIndent(str, indentLevel);
+    if (!d)
+        return;
 
-    if (d->canInitWithList()) {
-        str->append(d->toListConstructor());
-        res.push_back(str);
-    } else if (d->canInitWithDict()) {
-        auto dict_str = d->toDictConstructor();
-        for (size_t i = 0; i < dict_str.length(); i++) {
-            const auto c = dict_str[i];
-            if (c == '\n') {
-                res.push_back(str);
-                str = EditorStringPool::pool().allocate();
-                appendIndent(str, indentLevel);
-            } else {
-                str->append(c);
-            }
-        }
+    if (d->type() == DataTypeMList::dataType)
+        return editorAppend(res, static_cast<const DataTypeMList&>(*d), indentLevel);
+    else if (d->type() == DataTypeDict::dataType)
+        return editorAppend(res, static_cast<const DataTypeDict&>(*d), indentLevel);
+    else {
+        auto str = EditorStringPool::pool().allocate();
+        appendIndent(str, indentLevel);
 
-        if (str->length() > 0)
+        if (d->canInitWithList()) {
+            str->append(d->toListConstructor());
             res.push_back(str);
+        } else if (d->canInitWithDict()) {
+            auto dict_str = d->toDictConstructor();
+            for (size_t i = 0; i < dict_str.length(); i++) {
+                const auto c = dict_str[i];
+                if (c == '\n') {
+                    res.push_back(str);
+                    str = EditorStringPool::pool().allocate();
+                    appendIndent(str, indentLevel);
+                } else {
+                    str->append(c);
+                }
+            }
+
+            if (str->length() > 0)
+                res.push_back(str);
+        }
     }
 }
 
@@ -67,132 +195,11 @@ void editorAppend(EditorLineList& res, const AtomListView& lv, int indentLevel)
         auto str = EditorStringPool::pool().allocate();
         appendIndent(str, indentLevel);
 
-        if (!a.isData())
-            str->appendQuoted(a);
-        else if (a.isDataType(DataTypeMList::dataType))
-            editorAppend(res, *a.asDataT<DataTypeMList>(), indentLevel + 1);
-        else if (a.isDataType(DataTypeDict::dataType))
-            editorAppend(res, *a.asDataT<DataTypeDict>(), indentLevel + 1);
-        else if (a.isData())
+        if (a.isData())
             editorAppend(res, a.asData(), indentLevel + 1);
-    }
-}
-
-void editorAppend(EditorLineList& res, const DataTypeDict& dict, int indentLevel)
-{
-    //    const bool simple_content = std::all_of(dict.begin(), dict.end(), [](const Atom& a) { return !a.isData(); });
-
-    const bool single_line = dict.size() < 2;
-
-    if (single_line) {
-        auto str = EditorStringPool::pool().allocate();
-
-        appendIndent(str, indentLevel);
-        str->append('[');
-        int i = 0;
-
-        for (auto& kv : dict) {
-            if (i++ > 0)
-                str->append(' ');
-
-            str->append(kv.first->s_name);
-            str->append(':');
-            str->append(' ');
-
-            str->appendQuoted(kv.second.view());
-        }
-
-        if (dict.size() == 0) // empty dict [ ]
-            str->append(' ');
         else
-            str->trim();
-
-        str->append(']');
-
-        res.push_back(str);
-    } else {
-
-        appendIndent(res, '[', indentLevel);
-
-        for (auto& kv : dict) {
-            auto str = EditorStringPool::pool().allocate();
-            appendIndent(str, indentLevel + 1);
-
-            str->append(kv.first->s_name);
-            str->append(':');
-            str->append(' ');
-
-            auto& l = kv.second;
-
-            // simple list is one liner
-            if (isSimpleList(l.view())) {
-                for (auto& a : l) {
-                    str->appendQuoted(a);
-                    str->append(' ');
-                }
-
-                if (!l.empty())
-                    str->trim();
-
-                res.push_back(str);
-            } else {
-                res.push_back(str);
-                editorAppend(res, l.view(), indentLevel + 1);
-            }
-        }
-
-        appendIndent(res, ']', indentLevel);
-    }
-}
-
-void editorAppend(EditorLineList& res, const DataTypeMList& lst, int indentLevel)
-{
-    const bool simple_content = isSimpleList(lst.data().view());
-    const bool single_line = simple_content && lst.size() < 7;
-
-    if (single_line) {
-        auto str = EditorStringPool::pool().allocate();
-
-        appendIndent(str, indentLevel);
-        str->append('(');
-
-        for (auto& a : lst) {
             str->appendQuoted(a);
-            str->append(' ');
-        }
-
-        if (lst.empty()) // empty mlist: ( )
-            str->append(' ');
-        else
-            str->trim();
-
-        str->append(')');
-
-        res.push_back(str);
-    } else {
-
-        appendIndent(res, '(', indentLevel);
-
-        // each value on separate line
-        for (const Atom& a : lst) {
-            auto str = EditorStringPool::pool().allocate();
-            appendIndent(str, indentLevel + 1);
-
-            if (a.isFloat()) {
-                str->append(a.asT<t_float>());
-                res.push_back(str);
-            } else if (a.isSymbol()) {
-                str->appendQuoted(a);
-                res.push_back(str);
-            } else if (a.isDataType(DataTypeMList::dataType))
-                editorAppend(res, *a.asDataT<DataTypeMList>(), indentLevel + 1);
-            else if (a.isDataType(DataTypeDict::dataType))
-                editorAppend(res, *a.asDataT<DataTypeDict>(), indentLevel + 1);
-            else if (a.isData())
-                editorAppend(res, a.asData(), indentLevel + 1);
-        }
-
-        appendIndent(res, ')', indentLevel);
     }
 }
+
 }
