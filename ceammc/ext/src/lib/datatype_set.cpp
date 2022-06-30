@@ -23,6 +23,8 @@
 #include <ctime>
 #include <random>
 
+constexpr const char* TYPE_NAME = "Set";
+
 namespace {
 
 using namespace ceammc;
@@ -50,7 +52,7 @@ size_t hash_value(const Atom& a) noexcept
 
 namespace ceammc {
 
-const int DataTypeSet::dataType = DataStorage::instance().registerNewType("Set", newFromList);
+const int DataTypeSet::dataType = DataStorage::instance().registerNewType(TYPE_NAME, newFromList);
 
 DataTypeSet::DataTypeSet()
     : data_(0, hash_value)
@@ -142,17 +144,15 @@ bool DataTypeSet::choose(Atom& res) const noexcept
 
 std::string DataTypeSet::toString() const
 {
-    std::string res = "Set(";
+    std::string res;
     for (auto& a : data_) {
         res += to_string(a);
         res += ' ';
     }
 
-    // replace trailing space with closing braces
+    // remove trailing space with closing braces
     if (data_.size() > 0)
-        res.back() = ')';
-    else
-        res += ')';
+        res.pop_back();
 
     return res;
 }
@@ -267,17 +267,21 @@ DataTypeSet::MaybeSet DataTypeSet::parse(const AtomListView& lv)
 {
     if (lv.anyOf(isData)) {
         LIB_ERR << "only core atom types allowed for parsing....";
-        return DataTypeSet {};
+        return {};
     }
 
-    return parse(to_string(lv, " "));
+    if (lv.empty())
+        return {};
+
+    if (lv[0].isSymbol() && strstr(lv[0].asT<t_symbol*>()->s_name, TYPE_NAME))
+        return parse(to_string(lv, " "));
+    else
+        return DataTypeSet { lv };
 }
 
 DataTypeSet::MaybeSet DataTypeSet::parse(const std::string& str)
 {
-    auto pos = str.find("Set(");
-
-    if (str.empty() || pos == std::string::npos)
+    if (str.empty())
         return {};
 
     auto parse_result = parseDataString(str);
@@ -292,6 +296,11 @@ DataTypeSet::MaybeSet DataTypeSet::parse(const std::string& str)
     }
 
     return *parse_result.result().asD<DataTypeSet>();
+}
+
+std::string DataTypeSet::toListConstructor() const noexcept
+{
+    return fmt::format("{}({})", TYPE_NAME, toString());
 }
 
 std::ostream& operator<<(std::ostream& os, const DataTypeSet& set)

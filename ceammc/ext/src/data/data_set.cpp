@@ -17,13 +17,11 @@
 DataSet::DataSet(const PdArgs& a)
     : DataSetBase(a)
 {
-    auto p = createCbListProperty(
-        "@value",
-        [this]() -> AtomList { return set_.toList(); },
-        [this](const AtomList& l) -> bool { set_ = DataTypeSet(l); return true; });
-
-    p->setArgIndex(0);
-    p->setInitOnly();
+    if (a.args.size() > 0) {
+        auto set = DataTypeSet::parse(args().view());
+        if (set)
+            set_ = *set;
+    }
 
     createOutlet();
 }

@@ -31,7 +31,16 @@ TEST_CASE("DataTypeSet", "[core]")
             Set s;
             REQUIRE(s.size() == 0);
             REQUIRE(s.toList() == L());
-            REQUIRE(s.toString() == "Set()");
+            REQUIRE(s.toString() == "");
+        }
+
+        SECTION("arg")
+        {
+            Set s("ABC");
+            REQUIRE(s.size() == 1);
+            REQUIRE(s.toList() == LA("ABC"));
+            REQUIRE(s.toString() == "ABC");
+            REQUIRE(s.toListConstructor() == "Set(ABC)");
         }
 
         SECTION("args")
@@ -101,7 +110,7 @@ TEST_CASE("DataTypeSet", "[core]")
         s.add(Atom());
         REQUIRE(s.size() == 1);
         REQUIRE(s.contains(Atom()));
-        REQUIRE(s.toString() == "Set(NONE)");
+        REQUIRE(s.toString() == "NONE");
 
         s.clear();
         s.add(LF(1, 2, 3));
@@ -115,7 +124,7 @@ TEST_CASE("DataTypeSet", "[core]")
 
         s.clear();
         s.add(MListAtom(1, 2, 3));
-        REQUIRE(s.toString() == "Set((1 2 3))");
+        REQUIRE(s.toString() == "(1 2 3)");
         REQUIRE_FALSE(s.contains(A(1)));
         REQUIRE_FALSE(s.contains(A(2)));
         REQUIRE_FALSE(s.contains(A(3)));
@@ -143,5 +152,18 @@ TEST_CASE("DataTypeSet", "[core]")
         REQUIRE(Set::parse("Set(  ") == MSet {});
         REQUIRE(Set::parse("Set( ) ") == MSet { Set() });
         REQUIRE(Set::parse("Set(1 2 3)") == MSet { Set(1, 2, 3) });
+
+        REQUIRE(Set::parse("") == MSet {});
+        REQUIRE(Set::parse(L()) == MSet {});
+        REQUIRE(Set::parse(LA("Set(", 1, 2, 3, ")")) == MSet { Set(1, 2, 3) });
+        REQUIRE(Set::parse(LF(1, 2, 3)) == MSet { Set(1, 2, 3) });
+    }
+
+    SECTION("export")
+    {
+        Set s("A");
+        REQUIRE(s.toList(true) == LA("A"));
+        REQUIRE(s.toString() == "A");
+        REQUIRE(s.toListConstructor() == "Set(A)");
     }
 }

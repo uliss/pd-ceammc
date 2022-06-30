@@ -67,12 +67,12 @@ std::string AbstractData::typeName() const noexcept
 
 std::string AbstractData::toListConstructor() const noexcept
 {
-    return fmt::format("{}({})", typeName(), toString());
+    return fmt::format("{}", typeName(), toString());
 }
 
 std::string AbstractData::toDictConstructor() const noexcept
 {
-     return fmt::format("{}[{}]", typeName(), toString());
+     return fmt::format("{}", typeName(), toString());
 }
 
 bool AbstractData::canInitWithList() const noexcept

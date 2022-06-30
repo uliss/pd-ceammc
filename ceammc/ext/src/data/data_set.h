@@ -32,7 +32,7 @@ public:
     DataTypeSet& data() final { return set_; }
     const DataTypeSet& data() const final { return set_; }
 
-    EditorTitleString editorTitle() const final { return "DATA.SET"; }
+    EditorTitleString editorTitle() const final { return "data::Set"; }
 
     DataTypeSet& editorData() final { return set_; }
     const DataTypeSet& editorData() const final { return set_; }

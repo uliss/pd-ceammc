@@ -112,6 +112,8 @@ public:
     iterator end() noexcept { return data_.end(); }
     const_iterator end() const noexcept { return data_.end(); }
 
+    std::string toListConstructor() const noexcept final;
+
 public:
     static const int dataType;
 
