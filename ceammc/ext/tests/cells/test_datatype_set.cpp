@@ -48,6 +48,7 @@ TEST_CASE("DataTypeSet", "[core]")
             Set s(1, 2, 3, 4, 5, 4, 3, 2, 1);
             REQUIRE(s.size() == 5);
             REQUIRE(s.toList(true) == LF(1, 2, 3, 4, 5));
+            REQUIRE(s.toListConstructor() == "Set(1 2 3 4 5)");
         }
 
         SECTION("list")
