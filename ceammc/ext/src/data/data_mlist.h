@@ -31,6 +31,8 @@ public:
 
     MListAtom& mlist() final { return mlist_; }
     const MListAtom& mlist() const final { return mlist_; }
+
+    EditorTitleString editorTitle() const final { return "MList"; }
 };
 
 void setup_data_mlist();
