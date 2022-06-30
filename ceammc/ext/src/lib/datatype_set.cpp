@@ -144,17 +144,7 @@ bool DataTypeSet::choose(Atom& res) const noexcept
 
 std::string DataTypeSet::toString() const
 {
-    std::string res;
-    for (auto& a : data_) {
-        res += to_string(a);
-        res += ' ';
-    }
-
-    // remove trailing space with closing braces
-    if (data_.size() > 0)
-        res.pop_back();
-
-    return res;
+    return to_string(toList(true));
 }
 
 int DataTypeSet::type() const noexcept

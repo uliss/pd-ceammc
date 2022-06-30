@@ -60,12 +60,13 @@ std::string to_string(const AtomListView v, const std::string& separator)
 
 std::string to_string(const AtomList& l, const std::string& separator)
 {
-    if (l.empty())
-        return "";
-
     std::string res;
+
+    if (l.empty())
+        return res;
+
     for (size_t i = 0; i < l.size(); i++) {
-        if (i != 0)
+        if (i > 0)
             res += separator;
 
         res += to_string(l[i]);
