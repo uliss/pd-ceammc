@@ -35,6 +35,8 @@ std::string to_string(const Atom& a)
         return std::string(a.asSymbol()->s_name);
     else if (a.isData())
         return a.asData()->toString();
+    else if (a.isNone())
+        return "null";
     else {
         std::ostringstream ss;
         ss << a;

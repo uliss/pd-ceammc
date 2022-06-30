@@ -111,7 +111,7 @@ TEST_CASE("DataTypeSet", "[core]")
         s.add(Atom());
         REQUIRE(s.size() == 1);
         REQUIRE(s.contains(Atom()));
-        REQUIRE(s.toString() == "NONE");
+        REQUIRE(s.toString() == "null");
 
         s.clear();
         s.add(LF(1, 2, 3));
