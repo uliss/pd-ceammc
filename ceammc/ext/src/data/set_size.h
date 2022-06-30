@@ -17,6 +17,8 @@
 #include "ceammc_object.h"
 #include "datatype_set.h"
 
+using namespace ceammc;
+
 class SetSize : public BaseObject {
 public:
     SetSize(const PdArgs& a);
