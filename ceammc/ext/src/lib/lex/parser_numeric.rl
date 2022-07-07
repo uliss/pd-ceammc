@@ -81,29 +81,29 @@ bool NumericFullMatch::parse(const char* str)
     const char* p = str;
     const char* pe = p + len;
     const char* eof = pe;
-    int cat_ = 0;
-    AtomType type_;
-    NumericRagelData num_;
+
+    DECLARE_RAGEL_COMMON_VARS;
+    DECLARE_RAGEL_NUMERIC_VARS;
 
     reset();
 
     %% write init;
     %% write exec;
 
-    switch(type_) {
+    switch(ragel_type) {
     case TYPE_PHASE:
     case TYPE_PERCENT:
     case TYPE_FLOAT:
-        res_.f = num_.fval;
+        res_.f = ragel_num.getFloat();
         break;
     case TYPE_INT:
     case TYPE_HEX:
     case TYPE_BIN:
-        res_.i0 = num_.ival;
+        res_.i0 = ragel_num.getInteger();
         break;
     case TYPE_RATIO:
-        res_.i0 = num_.inum;
-        res_.i1 = num_.iden;
+        res_.i0 = ragel_num.ratio.num;
+        res_.i1 = ragel_num.ratio.den;
         break;
     case TYPE_INF:
         res_.f = std::numeric_limits<typeof(res_.f)>::infinity();
@@ -112,7 +112,7 @@ bool NumericFullMatch::parse(const char* str)
         break;
     }
 
-    res_.t = type_;
+    res_.t = ragel_type;
 
     return cs >= %%{ write first_final; }%%;
 }
@@ -206,9 +206,9 @@ bool NumericMatchSome::parseSingle(const char* str, const char*& endptr)
     const char* p = str;
     const char* pe = p + len;
     const char* eof = pe;
-    int cat_ = 0;
-    AtomType type_;
-    NumericRagelData num_;
+
+    DECLARE_RAGEL_COMMON_VARS;
+    DECLARE_RAGEL_NUMERIC_VARS;
 
     bool ok = false;
 
@@ -218,23 +218,23 @@ bool NumericMatchSome::parseSingle(const char* str, const char*& endptr)
     ok = cs >= %%{ write first_final; }%%;
 
     if(ok) {
-        switch(type_) {
+        switch(ragel_type) {
         case TYPE_PHASE:
         case TYPE_PERCENT:
         case TYPE_FLOAT:
             res_.push_back({});
-            res_.back().f = num_.fval;
+            res_.back().f = ragel_num.getFloat();
             break;
         case TYPE_INT:
         case TYPE_HEX:
         case TYPE_BIN:
             res_.push_back({});
-            res_.back().i0 = num_.ival;
+            res_.back().i0 = ragel_num.getInteger();
             break;
         case TYPE_RATIO:
             res_.push_back({});
-            res_.back().i0 = num_.inum;
-            res_.back().i1 = num_.iden;
+            res_.back().i0 = ragel_num.ratio.num;
+            res_.back().i1 = ragel_num.ratio.den;
             break;
         case TYPE_INF:
             res_.push_back({});
@@ -245,7 +245,7 @@ bool NumericMatchSome::parseSingle(const char* str, const char*& endptr)
             break;
         }
 
-        res_.back().t = type_;
+        res_.back().t = ragel_type;
     }
 
     endptr = p;

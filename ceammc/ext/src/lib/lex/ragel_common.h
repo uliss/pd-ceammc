@@ -54,6 +54,12 @@ namespace parser {
         TYPE_SMPTE,
     };
 
+#ifndef DECLARE_RAGEL_COMMON_VARS
+#define DECLARE_RAGEL_COMMON_VARS       \
+    AtomType ragel_type = TYPE_UNKNOWN; \
+    AtomCategory ragel_cat = CAT_UNKNOWN
+#endif
+
     template <typename T>
     class ArrayViewT {
         T* ptr_;
