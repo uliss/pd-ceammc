@@ -29,109 +29,44 @@
 
 # pragma once
 # include <cstring>
-# include <cstdint>
-# include <cassert>
+# include <boost/pool/object_pool.hpp>
 # include "m_pd.h"
 # include "ceammc_atomlist.h"
+# include "ceammc_containers.h"
 
-template<size_t N>
-class t_small_atom_list {
-    using SizeT = uint16_t;
-    t_atom atoms_[N];
-    t_atom *heap_;
-    SizeT size_;
-    SizeT capacity_;
-public:
-    void init() { size_ = 0; heap_ = nullptr; capacity_ = N; }
-    void free() {
-        if (heap_) {
-            delete[] heap_;
-            heap_ = nullptr;
-            size_ = 0;
-        } else {
-            size_ = 0;
-        }
-    }
+using namespace ceammc;
+using namespace ceammc::parser;
 
-    SizeT size() const { return size_; }
-    SizeT capacity() const { return capacity_; }
+using SmallList = ceammc::SmallAtomListN<8>;
+using SmallListPool = boost::object_pool<SmallList>;
+using Parser = ceammc::parser::LemonDataStringParser;
 
-    void push(const t_atom& a) {
-        if (size_ < N) {
-            atoms_[size_++] = a;
-            capacity_--;
-        } else if (size_ == N) {
-            heap_ = new t_atom[N*2];
-            for (SizeT i = 0; i < N; i++)
-                heap_[i] = atoms_[i];
-
-            heap_[size_++] = a;
-            capacity_ = N*2 - size_;
-        } else {
-            if (size_ < capacity_) {
-                heap_[size_++] = a;
-                capacity_--;
-            } else {
-                auto new_cap = size_ * 2;
-                auto new_heap = new t_atom[new_cap];
-                for (SizeT i = 0; i < size_; i++)
-                    new_heap[i] = heap_[i];
-
-                std::swap(heap_, new_heap);
-                delete[] new_heap;
-                heap_[size_++] = a;
-                capacity_ = new_cap - 1;
-            }
-        }
-    }
-
-    const t_atom* begin() const { return heap_ ? heap_ : atoms_; }
-    const t_atom* end() const   { return begin() + size_; }
-
-    void move(t_small_atom_list<N>& l) {
-        free();
-        if (l.heap_) {
-            heap_ = std::move(l.heap_);
-            size_ = std::move(l.size_);
-            capacity_ = std::move(l.capacity_);
-        } else {
-            for (SizeT i = 0; i < N; i++)
-                atoms_[i] = l.atoms_[i];
-
-            size_ = std::move(l.size_);
-            capacity_ = std::move(l.capacity_);
-        }
-    }
-};
-
-struct data_string_token {
+struct token {
     t_atom atom;
-    t_small_atom_list<8> atom_list;
+    SmallList* list;
 
-    data_string_token() = default;
+    token() = default;
 
-    data_string_token(double v) {
+    token(double v) {
         SETFLOAT(&atom, v);
-        atom_list.init();
+        list = nullptr;
     }
 
-    data_string_token(const char* s) {
+    token(const char* s) {
         SETSYMBOL(&atom, gensym(s));
-        atom_list.init();
+        list = nullptr;
     }
 };
 
 namespace {
-void list_call(data_string_token& res, const data_string_token& fn, data_string_token& args);
-void list_concat_atom(data_string_token& a, data_string_token& b, const data_string_token& c);
-void list_init(data_string_token& tok);
-void list_move(data_string_token& a, data_string_token& b);
-void list_move_append(data_string_token& a, data_string_token& b);
-void list_push_atom(data_string_token& a, const data_string_token& b);
-void list_set_atom(data_string_token& a, const data_string_token& b);
+void list_init(Parser* p, token& tok);
+void list_call(token& res, const token& fn, token& args);
+void list_assign(token& a, token& b);
+void list_append(token& a, token& b);
+void list_push_atom(token& a, const token& b);
 }
 
-#line 135 "lemon_data_string.c"
+#line 70 "lemon_data_string.c"
 /**************** End of %include directives **********************************/
 /* These constants specify the various numeric values for terminal symbols.
 ***************** Begin token definitions *************************************/
@@ -206,7 +141,7 @@ void list_set_atom(data_string_token& a, const data_string_token& b);
 #define YYCODETYPE unsigned char
 #define YYNOCODE 18
 #define YYACTIONTYPE unsigned char
-#define lemon_data_string_parserTOKENTYPE data_string_token
+#define lemon_data_string_parserTOKENTYPE token
 typedef union {
   int yyinit;
   lemon_data_string_parserTOKENTYPE yy0;
@@ -226,7 +161,7 @@ typedef union {
 #define lemon_data_string_parserCTX_STORE
 #define YYNSTATE             11
 #define YYNRULE              19
-#define YYNRULE_WITH_ACTION  14
+#define YYNRULE_WITH_ACTION  9
 #define YYNTOKEN             10
 #define YY_MAX_SHIFT         10
 #define YY_MIN_SHIFTREDUCE   23
@@ -304,11 +239,11 @@ typedef union {
 *********** Begin parsing tables **********************************************/
 #define YY_ACTTAB_COUNT (49)
 static const YYACTIONTYPE yy_action[] = {
- /*     0 */    43,   10,   48,   49,   56,    3,   55,    6,   37,   47,
- /*    10 */    38,   39,   40,   41,    9,   37,    2,   38,   39,   40,
- /*    20 */    41,    9,   37,    1,   38,   39,   40,   41,    2,   37,
- /*    30 */     2,   38,   39,   40,   41,   48,   49,    8,    5,   48,
- /*    40 */    49,   54,    4,   47,   24,   45,   44,   55,    7,
+ /*     0 */    43,   10,   48,    3,   10,    3,    6,    6,   32,   47,
+ /*    10 */    33,   34,   35,   36,    9,   32,    2,   33,   34,   35,
+ /*    20 */    36,    9,   32,    1,   33,   34,   35,   36,    2,   32,
+ /*    30 */     2,   33,   34,   35,   36,   48,    5,    8,    5,   48,
+ /*    40 */     4,   52,    4,   47,   24,   45,   44,    7,    7,
 };
 static const YYCODETYPE yy_lookahead[] = {
  /*     0 */    10,   11,   12,   13,   14,   15,   16,   17,    1,   12,
@@ -332,7 +267,7 @@ static const signed char yy_reduce_ofst[] = {
  /*     0 */   -10,   23,   27,   31,   -3,   -3,   25,   25,
 };
 static const YYACTIONTYPE yy_default[] = {
- /*     0 */    51,   51,   53,   50,   52,   50,   57,   58,   42,   42,
+ /*     0 */    49,   49,   51,   60,   50,   60,   63,   53,   42,   42,
  /*    10 */    42,
 };
 /********** End of lemon-generated parsing tables *****************************/
@@ -470,21 +405,21 @@ static const char *const yyRuleName[] = {
  /*   1 */ "function_call ::= FUNC_LIST_CALL LIST_OPEN atom_list LIST_CLOSE",
  /*   2 */ "atom_list_nz ::= atom_list_nz atom",
  /*   3 */ "atom_list_nz ::= atom",
- /*   4 */ "atom_list_nz ::= function_call",
- /*   5 */ "atom_list ::= atom_list_nz",
- /*   6 */ "atom_list ::=",
- /*   7 */ "property ::= PROPERTY atom_list_nz",
- /*   8 */ "property ::= PROPERTY",
- /*   9 */ "prop_list ::= prop_list property",
- /*  10 */ "prop_list ::= property",
- /*  11 */ "args ::= atom_list",
- /*  12 */ "args ::= prop_list",
- /*  13 */ "args ::= atom_list_nz prop_list",
- /*  14 */ "atom ::= FLOAT",
- /*  15 */ "atom ::= SYMBOL",
- /*  16 */ "atom ::= NULL",
- /*  17 */ "atom ::= DICT_OPEN",
- /*  18 */ "atom ::= DICT_CLOSE",
+ /*   4 */ "atom_list ::=",
+ /*   5 */ "property ::= PROPERTY atom_list_nz",
+ /*   6 */ "property ::= PROPERTY",
+ /*   7 */ "prop_list ::= prop_list property",
+ /*   8 */ "args ::= atom_list_nz prop_list",
+ /*   9 */ "atom ::= FLOAT",
+ /*  10 */ "atom ::= SYMBOL",
+ /*  11 */ "atom ::= NULL",
+ /*  12 */ "atom ::= DICT_OPEN",
+ /*  13 */ "atom ::= DICT_CLOSE",
+ /*  14 */ "atom_list_nz ::= function_call",
+ /*  15 */ "atom_list ::= atom_list_nz",
+ /*  16 */ "prop_list ::= property",
+ /*  17 */ "args ::= atom_list",
+ /*  18 */ "args ::= prop_list",
 };
 #endif /* NDEBUG */
 
@@ -825,11 +760,11 @@ static void yyStackOverflow(yyParser *yypParser){
    /* Here code is inserted which will execute if the parser
    ** stack every overflows */
 /******** Begin %stack_overflow code ******************************************/
-#line 124 "lemon_data_string.y"
+#line 59 "lemon_data_string.y"
 
     std::cerr << "stack overflow\n";
 //    p->setErrorMsg("stack overflow");
-#line 832 "lemon_data_string.c"
+#line 767 "lemon_data_string.c"
 /******** End %stack_overflow code ********************************************/
    lemon_data_string_parserARG_STORE /* Suppress warning about unused %extra_argument var */
    lemon_data_string_parserCTX_STORE
@@ -905,21 +840,21 @@ static const YYCODETYPE yyRuleInfoLhs[] = {
     13,  /* (1) function_call ::= FUNC_LIST_CALL LIST_OPEN atom_list LIST_CLOSE */
     15,  /* (2) atom_list_nz ::= atom_list_nz atom */
     15,  /* (3) atom_list_nz ::= atom */
-    15,  /* (4) atom_list_nz ::= function_call */
-    14,  /* (5) atom_list ::= atom_list_nz */
-    14,  /* (6) atom_list ::= */
-    16,  /* (7) property ::= PROPERTY atom_list_nz */
-    16,  /* (8) property ::= PROPERTY */
-    17,  /* (9) prop_list ::= prop_list property */
-    17,  /* (10) prop_list ::= property */
-    11,  /* (11) args ::= atom_list */
-    11,  /* (12) args ::= prop_list */
-    11,  /* (13) args ::= atom_list_nz prop_list */
-    12,  /* (14) atom ::= FLOAT */
-    12,  /* (15) atom ::= SYMBOL */
-    12,  /* (16) atom ::= NULL */
-    12,  /* (17) atom ::= DICT_OPEN */
-    12,  /* (18) atom ::= DICT_CLOSE */
+    14,  /* (4) atom_list ::= */
+    16,  /* (5) property ::= PROPERTY atom_list_nz */
+    16,  /* (6) property ::= PROPERTY */
+    17,  /* (7) prop_list ::= prop_list property */
+    11,  /* (8) args ::= atom_list_nz prop_list */
+    12,  /* (9) atom ::= FLOAT */
+    12,  /* (10) atom ::= SYMBOL */
+    12,  /* (11) atom ::= NULL */
+    12,  /* (12) atom ::= DICT_OPEN */
+    12,  /* (13) atom ::= DICT_CLOSE */
+    15,  /* (14) atom_list_nz ::= function_call */
+    14,  /* (15) atom_list ::= atom_list_nz */
+    17,  /* (16) prop_list ::= property */
+    11,  /* (17) args ::= atom_list */
+    11,  /* (18) args ::= prop_list */
 };
 
 /* For rule J, yyRuleInfoNRhs[J] contains the negative of the number
@@ -929,21 +864,21 @@ static const signed char yyRuleInfoNRhs[] = {
    -4,  /* (1) function_call ::= FUNC_LIST_CALL LIST_OPEN atom_list LIST_CLOSE */
    -2,  /* (2) atom_list_nz ::= atom_list_nz atom */
    -1,  /* (3) atom_list_nz ::= atom */
-   -1,  /* (4) atom_list_nz ::= function_call */
-   -1,  /* (5) atom_list ::= atom_list_nz */
-    0,  /* (6) atom_list ::= */
-   -2,  /* (7) property ::= PROPERTY atom_list_nz */
-   -1,  /* (8) property ::= PROPERTY */
-   -2,  /* (9) prop_list ::= prop_list property */
-   -1,  /* (10) prop_list ::= property */
-   -1,  /* (11) args ::= atom_list */
-   -1,  /* (12) args ::= prop_list */
-   -2,  /* (13) args ::= atom_list_nz prop_list */
-   -1,  /* (14) atom ::= FLOAT */
-   -1,  /* (15) atom ::= SYMBOL */
-   -1,  /* (16) atom ::= NULL */
-   -1,  /* (17) atom ::= DICT_OPEN */
-   -1,  /* (18) atom ::= DICT_CLOSE */
+    0,  /* (4) atom_list ::= */
+   -2,  /* (5) property ::= PROPERTY atom_list_nz */
+   -1,  /* (6) property ::= PROPERTY */
+   -2,  /* (7) prop_list ::= prop_list property */
+   -2,  /* (8) args ::= atom_list_nz prop_list */
+   -1,  /* (9) atom ::= FLOAT */
+   -1,  /* (10) atom ::= SYMBOL */
+   -1,  /* (11) atom ::= NULL */
+   -1,  /* (12) atom ::= DICT_OPEN */
+   -1,  /* (13) atom ::= DICT_CLOSE */
+   -1,  /* (14) atom_list_nz ::= function_call */
+   -1,  /* (15) atom_list ::= atom_list_nz */
+   -1,  /* (16) prop_list ::= property */
+   -1,  /* (17) args ::= atom_list */
+   -1,  /* (18) args ::= prop_list */
 };
 
 static void yy_accept(yyParser*);  /* Forward Declaration */
@@ -986,68 +921,63 @@ static YYACTIONTYPE yy_reduce(
 /********** Begin reduce actions **********************************************/
         YYMINORTYPE yylhsminor;
       case 0: /* program ::= args */
-#line 131 "lemon_data_string.y"
+#line 66 "lemon_data_string.y"
 {
-    for (auto& a: yymsp[0].minor.yy0.atom_list) {
-        p->pPushListAtom(a);
+    for (auto& a: *yymsp[0].minor.yy0.list) {
+        p->pPushListAtom(a.atom());
 //        std::cerr << a << "\n";
     }
 }
-#line 996 "lemon_data_string.c"
+#line 931 "lemon_data_string.c"
         break;
       case 1: /* function_call ::= FUNC_LIST_CALL LIST_OPEN atom_list LIST_CLOSE */
-#line 144 "lemon_data_string.y"
-{ list_call(yylhsminor.yy0, yymsp[-3].minor.yy0, yymsp[-1].minor.yy0); }
-#line 1001 "lemon_data_string.c"
+#line 79 "lemon_data_string.y"
+{ list_init(p, yylhsminor.yy0); list_call(yylhsminor.yy0, yymsp[-3].minor.yy0, yymsp[-1].minor.yy0); }
+#line 936 "lemon_data_string.c"
   yymsp[-3].minor.yy0 = yylhsminor.yy0;
         break;
       case 2: /* atom_list_nz ::= atom_list_nz atom */
-#line 146 "lemon_data_string.y"
-{ list_concat_atom(yylhsminor.yy0, yymsp[-1].minor.yy0, yymsp[0].minor.yy0); }
-#line 1007 "lemon_data_string.c"
+#line 81 "lemon_data_string.y"
+{ list_assign(yylhsminor.yy0, yymsp[-1].minor.yy0); list_push_atom(yylhsminor.yy0, yymsp[0].minor.yy0); }
+#line 942 "lemon_data_string.c"
   yymsp[-1].minor.yy0 = yylhsminor.yy0;
         break;
       case 3: /* atom_list_nz ::= atom */
-      case 8: /* property ::= PROPERTY */ yytestcase(yyruleno==8);
-#line 147 "lemon_data_string.y"
-{ list_set_atom(yylhsminor.yy0, yymsp[0].minor.yy0); }
-#line 1014 "lemon_data_string.c"
+      case 6: /* property ::= PROPERTY */ yytestcase(yyruleno==6);
+#line 82 "lemon_data_string.y"
+{ list_init(p, yylhsminor.yy0); list_push_atom(yylhsminor.yy0, yymsp[0].minor.yy0); }
+#line 949 "lemon_data_string.c"
   yymsp[0].minor.yy0 = yylhsminor.yy0;
         break;
-      case 4: /* atom_list_nz ::= function_call */
-      case 5: /* atom_list ::= atom_list_nz */ yytestcase(yyruleno==5);
-      case 10: /* prop_list ::= property */ yytestcase(yyruleno==10);
-      case 11: /* args ::= atom_list */ yytestcase(yyruleno==11);
-      case 12: /* args ::= prop_list */ yytestcase(yyruleno==12);
-#line 148 "lemon_data_string.y"
-{ list_move(yylhsminor.yy0, yymsp[0].minor.yy0); }
-#line 1024 "lemon_data_string.c"
-  yymsp[0].minor.yy0 = yylhsminor.yy0;
+      case 4: /* atom_list ::= */
+#line 86 "lemon_data_string.y"
+{ list_init(p, yymsp[1].minor.yy0); }
+#line 955 "lemon_data_string.c"
         break;
-      case 6: /* atom_list ::= */
-#line 151 "lemon_data_string.y"
-{ list_init(yymsp[1].minor.yy0); }
-#line 1030 "lemon_data_string.c"
-        break;
-      case 7: /* property ::= PROPERTY atom_list_nz */
-#line 153 "lemon_data_string.y"
-{ list_init(yylhsminor.yy0); list_push_atom(yylhsminor.yy0, yymsp[-1].minor.yy0); list_move_append(yylhsminor.yy0, yymsp[0].minor.yy0); }
-#line 1035 "lemon_data_string.c"
+      case 5: /* property ::= PROPERTY atom_list_nz */
+#line 88 "lemon_data_string.y"
+{ list_init(p, yylhsminor.yy0); list_push_atom(yylhsminor.yy0, yymsp[-1].minor.yy0); list_append(yylhsminor.yy0, yymsp[0].minor.yy0); }
+#line 960 "lemon_data_string.c"
   yymsp[-1].minor.yy0 = yylhsminor.yy0;
         break;
-      case 9: /* prop_list ::= prop_list property */
-      case 13: /* args ::= atom_list_nz prop_list */ yytestcase(yyruleno==13);
-#line 156 "lemon_data_string.y"
-{ list_init(yylhsminor.yy0); list_move_append(yylhsminor.yy0, yymsp[-1].minor.yy0); list_move_append(yylhsminor.yy0, yymsp[0].minor.yy0); }
-#line 1042 "lemon_data_string.c"
+      case 7: /* prop_list ::= prop_list property */
+      case 8: /* args ::= atom_list_nz prop_list */ yytestcase(yyruleno==8);
+#line 91 "lemon_data_string.y"
+{ list_init(p, yylhsminor.yy0); list_append(yylhsminor.yy0, yymsp[-1].minor.yy0); list_append(yylhsminor.yy0, yymsp[0].minor.yy0); }
+#line 967 "lemon_data_string.c"
   yymsp[-1].minor.yy0 = yylhsminor.yy0;
         break;
       default:
-      /* (14) atom ::= FLOAT */ yytestcase(yyruleno==14);
-      /* (15) atom ::= SYMBOL */ yytestcase(yyruleno==15);
-      /* (16) atom ::= NULL */ yytestcase(yyruleno==16);
-      /* (17) atom ::= DICT_OPEN */ yytestcase(yyruleno==17);
-      /* (18) atom ::= DICT_CLOSE */ yytestcase(yyruleno==18);
+      /* (9) atom ::= FLOAT */ yytestcase(yyruleno==9);
+      /* (10) atom ::= SYMBOL */ yytestcase(yyruleno==10);
+      /* (11) atom ::= NULL */ yytestcase(yyruleno==11);
+      /* (12) atom ::= DICT_OPEN */ yytestcase(yyruleno==12);
+      /* (13) atom ::= DICT_CLOSE */ yytestcase(yyruleno==13);
+      /* (14) atom_list_nz ::= function_call (OPTIMIZED OUT) */ assert(yyruleno!=14);
+      /* (15) atom_list ::= atom_list_nz */ yytestcase(yyruleno==15);
+      /* (16) prop_list ::= property (OPTIMIZED OUT) */ assert(yyruleno!=16);
+      /* (17) args ::= atom_list (OPTIMIZED OUT) */ assert(yyruleno!=17);
+      /* (18) args ::= prop_list */ yytestcase(yyruleno==18);
         break;
 /********** End reduce actions ************************************************/
   };
@@ -1089,11 +1019,11 @@ static void yy_parse_failed(
   /* Here code is inserted which will be executed whenever the
   ** parser fails */
 /************ Begin %parse_failure code ***************************************/
-#line 119 "lemon_data_string.y"
+#line 54 "lemon_data_string.y"
 
     std::cerr << "parse failure\n";
     p->setErrorMsg("parse failure");
-#line 1096 "lemon_data_string.c"
+#line 1026 "lemon_data_string.c"
 /************ End %parse_failure code *****************************************/
   lemon_data_string_parserARG_STORE /* Suppress warning about unused %extra_argument variable */
   lemon_data_string_parserCTX_STORE
@@ -1137,9 +1067,9 @@ static void yy_accept(
   /* Here code is inserted which will be executed whenever the
   ** parser accepts */
 /*********** Begin %parse_accept code *****************************************/
-#line 117 "lemon_data_string.y"
+#line 52 "lemon_data_string.y"
  
-#line 1142 "lemon_data_string.c"
+#line 1072 "lemon_data_string.c"
 /*********** End %parse_accept code *******************************************/
   lemon_data_string_parserARG_STORE /* Suppress warning about unused %extra_argument variable */
   lemon_data_string_parserCTX_STORE
@@ -1390,56 +1320,38 @@ int lemon_data_string_parserFallback(int iToken){
   return 0;
 #endif
 }
-#line 164 "lemon_data_string.y"
+#line 99 "lemon_data_string.y"
 
 # include "ceammc_function.h"
 
 namespace {
     using namespace ceammc;
 
-    void list_init(data_string_token& tok) {
-        tok.atom_list.init();
+    void list_init(Parser* p, token& tok) {
+        tok.list = p->pool().construct();
     }
 
-    void list_move(data_string_token& a, data_string_token& b) {
-        a.atom_list.init();
-        a.atom_list.move(b.atom_list);
+    void list_assign(token& a, token& b) {
+        a.list = b.list;
     }
 
-    void list_set_atom(data_string_token& a, const data_string_token& b) {
-        std::cerr << "SetAtom: " << atom_getsymbol(&b.atom)->s_name << "\n";
-        a.atom_list.init();
-        a.atom_list.push(b.atom);
-    }
-
-    void list_call(data_string_token& res, const data_string_token& fn, data_string_token& args) {
-        std::cerr << "call function: " << atom_getsymbol(&fn.atom)->s_name << "\n";
+    void list_call(token& res, const token& fn, token& args) {
         auto fname = atom_getsymbol(&fn.atom);
-        ceammc::AtomListView args_view(args.atom_list.begin(), args.atom_list.size());
-        auto fn_result = ceammc::BuiltinFunctionMap::instance().call(fname, args_view);
-        res.atom_list.init();
-        for(auto& a: fn_result)
-            res.atom_list.push(a.atom());
+        auto fn_result = BuiltinFunctionMap::instance().call(fname, args.list->view());
 
-        args.atom_list.free();
+        for (auto& a: fn_result)
+            res.list->push_back(a);
     }
 
-    void list_concat_atom(data_string_token& a, data_string_token& b, const data_string_token& c) {
-        a.atom_list.init();
-        a.atom_list.move(b.atom_list);
-        a.atom_list.push(c.atom);
+    void list_append(token& a, token& b) {
+        a.list->reserve(a.list->size() + b.list->size());
+
+        for (auto& x: *b.list)
+            a.list->push_back(x);
     }
 
-    void list_move_append(data_string_token& a, data_string_token& b) {
-        for (auto& x: b.atom_list)
-            a.atom_list.push(x);
-
-        b.atom_list.free();
-    }
-
-    void list_push_atom(data_string_token& a, const data_string_token& b) {
-        std::cerr << "PushAtom: " << atom_getsymbol(&b.atom)->s_name << "\n";
-        a.atom_list.push(b.atom);
+    void list_push_atom(token& a, const token& b) {
+        a.list->push_back(b.atom);
     }
 }
-#line 1445 "lemon_data_string.c"
+#line 1357 "lemon_data_string.c"

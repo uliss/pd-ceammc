@@ -1,9 +1,14 @@
 #ifndef LEMON_DATA_STRING_PARSER_H
 #define LEMON_DATA_STRING_PARSER_H
 
+#include <boost/pool/object_pool.hpp>
 #include <cstddef>
 
 #include "ceammc_atomlist.h"
+#include "ceammc_containers.h"
+
+using SmallList = ceammc::SmallAtomListN<8>;
+using SmallListPool = boost::object_pool<SmallList>;
 
 namespace ceammc {
 namespace parser {
@@ -30,8 +35,11 @@ namespace parser {
 
         void setErrorMsg(const char* msg);
 
+        SmallListPool& pool() { return pool_; }
+        const SmallListPool& pool() const { return pool_; }
+
     public:
-        constexpr static size_t PARSER_SIZE = 512* 16;
+        constexpr static size_t PARSER_SIZE = 512 * 16;
 
     private:
         void reset();
@@ -43,6 +51,7 @@ namespace parser {
         bool parse_ok_;
         AtomList res_;
         AtomList prop_;
+        SmallListPool pool_;
     };
 
 }
