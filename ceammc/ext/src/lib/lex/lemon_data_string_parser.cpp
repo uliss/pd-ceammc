@@ -2229,6 +2229,16 @@ namespace ceammc {
 			parse_ok_ = false;
 		}
 		
+		void LemonDataStringParser::stackOverflow()
+		{
+			setErrorMsg("stack overflow");
+		}
+		
+		void LemonDataStringParser::parseFailure()
+		{
+			setErrorMsg("parse failure");
+		}
+		
 		
 	}
 }

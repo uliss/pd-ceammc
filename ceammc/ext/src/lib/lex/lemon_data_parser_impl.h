@@ -760,11 +760,10 @@ static void yyStackOverflow(yyParser *yypParser){
    /* Here code is inserted which will execute if the parser
    ** stack every overflows */
 /******** Begin %stack_overflow code ******************************************/
-#line 58 "lemon_data_string.y"
+#line 57 "lemon_data_string.y"
 
-    std::cerr << "stack overflow\n";
-//    p->setErrorMsg("stack overflow");
-#line 767 "lemon_data_string.c"
+    p->stackOverflow();
+#line 766 "lemon_data_string.c"
 /******** End %stack_overflow code ********************************************/
    lemon_data_string_parserARG_STORE /* Suppress warning about unused %extra_argument var */
    lemon_data_string_parserCTX_STORE
@@ -921,48 +920,48 @@ static YYACTIONTYPE yy_reduce(
 /********** Begin reduce actions **********************************************/
         YYMINORTYPE yylhsminor;
       case 0: /* program ::= args */
-#line 65 "lemon_data_string.y"
+#line 64 "lemon_data_string.y"
 {
     for (auto& a: *yymsp[0].minor.yy0.list)
         p->pPushListAtom(a.atom());
 }
-#line 929 "lemon_data_string.c"
+#line 928 "lemon_data_string.c"
         break;
       case 1: /* function_call ::= FUNC_LIST_CALL LIST_OPEN atom_list LIST_CLOSE */
-#line 76 "lemon_data_string.y"
+#line 75 "lemon_data_string.y"
 { list_init(p, yylhsminor.yy0); list_call(yylhsminor.yy0, yymsp[-3].minor.yy0, yymsp[-1].minor.yy0); }
-#line 934 "lemon_data_string.c"
+#line 933 "lemon_data_string.c"
   yymsp[-3].minor.yy0 = yylhsminor.yy0;
         break;
       case 2: /* atom_list_nz ::= atom_list_nz atom */
-#line 78 "lemon_data_string.y"
+#line 77 "lemon_data_string.y"
 { list_assign(yylhsminor.yy0, yymsp[-1].minor.yy0); list_push_atom(yylhsminor.yy0, yymsp[0].minor.yy0); }
-#line 940 "lemon_data_string.c"
+#line 939 "lemon_data_string.c"
   yymsp[-1].minor.yy0 = yylhsminor.yy0;
         break;
       case 3: /* atom_list_nz ::= atom */
       case 6: /* property ::= PROPERTY */ yytestcase(yyruleno==6);
-#line 79 "lemon_data_string.y"
+#line 78 "lemon_data_string.y"
 { list_init(p, yylhsminor.yy0); list_push_atom(yylhsminor.yy0, yymsp[0].minor.yy0); }
-#line 947 "lemon_data_string.c"
+#line 946 "lemon_data_string.c"
   yymsp[0].minor.yy0 = yylhsminor.yy0;
         break;
       case 4: /* atom_list ::= */
-#line 83 "lemon_data_string.y"
+#line 82 "lemon_data_string.y"
 { list_init(p, yymsp[1].minor.yy0); }
-#line 953 "lemon_data_string.c"
+#line 952 "lemon_data_string.c"
         break;
       case 5: /* property ::= PROPERTY atom_list_nz */
-#line 85 "lemon_data_string.y"
+#line 84 "lemon_data_string.y"
 { list_init(p, yylhsminor.yy0); list_push_atom(yylhsminor.yy0, yymsp[-1].minor.yy0); list_append(yylhsminor.yy0, yymsp[0].minor.yy0); }
-#line 958 "lemon_data_string.c"
+#line 957 "lemon_data_string.c"
   yymsp[-1].minor.yy0 = yylhsminor.yy0;
         break;
       case 7: /* prop_list ::= prop_list property */
       case 8: /* args ::= atom_list_nz prop_list */ yytestcase(yyruleno==8);
-#line 88 "lemon_data_string.y"
+#line 87 "lemon_data_string.y"
 { list_init(p, yylhsminor.yy0); list_append(yylhsminor.yy0, yymsp[-1].minor.yy0); list_append(yylhsminor.yy0, yymsp[0].minor.yy0); }
-#line 965 "lemon_data_string.c"
+#line 964 "lemon_data_string.c"
   yymsp[-1].minor.yy0 = yylhsminor.yy0;
         break;
       default:
@@ -1019,9 +1018,8 @@ static void yy_parse_failed(
 /************ Begin %parse_failure code ***************************************/
 #line 53 "lemon_data_string.y"
 
-    std::cerr << "parse failure\n";
-    p->setErrorMsg("parse failure");
-#line 1024 "lemon_data_string.c"
+    p->parseFailure();
+#line 1022 "lemon_data_string.c"
 /************ End %parse_failure code *****************************************/
   lemon_data_string_parserARG_STORE /* Suppress warning about unused %extra_argument variable */
   lemon_data_string_parserCTX_STORE
@@ -1067,7 +1065,7 @@ static void yy_accept(
 /*********** Begin %parse_accept code *****************************************/
 #line 51 "lemon_data_string.y"
  
-#line 1070 "lemon_data_string.c"
+#line 1068 "lemon_data_string.c"
 /*********** End %parse_accept code *******************************************/
   lemon_data_string_parserARG_STORE /* Suppress warning about unused %extra_argument variable */
   lemon_data_string_parserCTX_STORE
@@ -1318,7 +1316,7 @@ int lemon_data_string_parserFallback(int iToken){
   return 0;
 #endif
 }
-#line 96 "lemon_data_string.y"
+#line 95 "lemon_data_string.y"
 
 # include "ceammc_function.h"
 
@@ -1352,4 +1350,4 @@ namespace {
         a.list->push_back(b.atom);
     }
 }
-#line 1355 "lemon_data_string.c"
+#line 1353 "lemon_data_string.c"

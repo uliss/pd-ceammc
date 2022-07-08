@@ -34,6 +34,8 @@ namespace parser {
         const AtomList& result() const { return res_; }
 
         void setErrorMsg(const char* msg);
+        void parseFailure();
+        void stackOverflow();
 
         SmallListPool& pool() { return pool_; }
         const SmallListPool& pool() const { return pool_; }

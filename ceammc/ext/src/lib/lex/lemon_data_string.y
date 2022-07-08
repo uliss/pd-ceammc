@@ -51,16 +51,15 @@ namespace {
 %parse_accept { }
 
 %parse_failure {
-    std::cerr << "parse failure\n";
-    p->setErrorMsg("parse failure");
+    p->parseFailure();
 }
 
 %stack_overflow {
-    std::cerr << "stack overflow\n";
-//    p->setErrorMsg("stack overflow");
+    p->stackOverflow();
 }
 
 %stack_size 20
+
 program ::= args(A).
 {
     for (auto& a: *A.list)
