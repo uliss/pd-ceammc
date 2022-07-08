@@ -81,5 +81,22 @@ NumericPropOp parse_numeric_prop_op(const char* str)
         return NumericPropOp::UNKNOWN;
 }
 
+%%{
+    machine property;
+
+    add = '+'  %{ type = NumericPropOp::ADD; };
+    sub = '-'  %{ type = NumericPropOp::SUB; };
+    mul = '*'  %{ type = NumericPropOp::MUL; };
+    div = '/'  %{ type = NumericPropOp::DIV; };
+    mod = '%'  %{ type = NumericPropOp::MOD; };
+    random = 'random'           %{ type = NumericPropOp::RANDOM; };
+    default = ('def'|'default') %{ type = NumericPropOp::DEFAULT; };
+    numeric = random | default | add | sub | mul | div | mod;
+
+    main := numeric;
+    write data;
+}%%
+
+
 }
 }

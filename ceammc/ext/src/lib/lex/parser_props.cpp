@@ -1321,5 +1321,18 @@ namespace ceammc {
 				return NumericPropOp::UNKNOWN;
 		}
 		
+		
+#line 1326 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.cpp"
+		static const int property_start = 1;
+		static const int property_first_final = 12;
+		static const int property_error = 0;
+		
+		static const int property_en_main = 1;
+		
+		
+#line 98 "lex/parser_props.rl"
+		
+		
+		
 	}
 }
