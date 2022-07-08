@@ -30,7 +30,7 @@
 # pragma once
 # include <cstring>
 # include <boost/pool/object_pool.hpp>
-# include "m_pd.h"
+
 # include "ceammc_atomlist.h"
 # include "ceammc_containers.h"
 
@@ -59,11 +59,11 @@ struct token {
 };
 
 namespace {
-void list_init(Parser* p, token& tok);
-void list_call(token& res, const token& fn, token& args);
-void list_assign(token& a, token& b);
-void list_append(token& a, token& b);
-void list_push_atom(token& a, const token& b);
+    void list_init(Parser* p, token& tok);
+    void list_call(token& res, const token& fn, token& args);
+    void list_assign(token& a, token& b);
+    void list_append(token& a, token& b);
+    void list_push_atom(token& a, const token& b);
 }
 
 #line 70 "lemon_data_string.c"
@@ -760,7 +760,7 @@ static void yyStackOverflow(yyParser *yypParser){
    /* Here code is inserted which will execute if the parser
    ** stack every overflows */
 /******** Begin %stack_overflow code ******************************************/
-#line 59 "lemon_data_string.y"
+#line 58 "lemon_data_string.y"
 
     std::cerr << "stack overflow\n";
 //    p->setErrorMsg("stack overflow");
@@ -921,50 +921,48 @@ static YYACTIONTYPE yy_reduce(
 /********** Begin reduce actions **********************************************/
         YYMINORTYPE yylhsminor;
       case 0: /* program ::= args */
-#line 66 "lemon_data_string.y"
+#line 65 "lemon_data_string.y"
 {
-    for (auto& a: *yymsp[0].minor.yy0.list) {
+    for (auto& a: *yymsp[0].minor.yy0.list)
         p->pPushListAtom(a.atom());
-//        std::cerr << a << "\n";
-    }
 }
-#line 931 "lemon_data_string.c"
+#line 929 "lemon_data_string.c"
         break;
       case 1: /* function_call ::= FUNC_LIST_CALL LIST_OPEN atom_list LIST_CLOSE */
-#line 79 "lemon_data_string.y"
+#line 76 "lemon_data_string.y"
 { list_init(p, yylhsminor.yy0); list_call(yylhsminor.yy0, yymsp[-3].minor.yy0, yymsp[-1].minor.yy0); }
-#line 936 "lemon_data_string.c"
+#line 934 "lemon_data_string.c"
   yymsp[-3].minor.yy0 = yylhsminor.yy0;
         break;
       case 2: /* atom_list_nz ::= atom_list_nz atom */
-#line 81 "lemon_data_string.y"
+#line 78 "lemon_data_string.y"
 { list_assign(yylhsminor.yy0, yymsp[-1].minor.yy0); list_push_atom(yylhsminor.yy0, yymsp[0].minor.yy0); }
-#line 942 "lemon_data_string.c"
+#line 940 "lemon_data_string.c"
   yymsp[-1].minor.yy0 = yylhsminor.yy0;
         break;
       case 3: /* atom_list_nz ::= atom */
       case 6: /* property ::= PROPERTY */ yytestcase(yyruleno==6);
-#line 82 "lemon_data_string.y"
+#line 79 "lemon_data_string.y"
 { list_init(p, yylhsminor.yy0); list_push_atom(yylhsminor.yy0, yymsp[0].minor.yy0); }
-#line 949 "lemon_data_string.c"
+#line 947 "lemon_data_string.c"
   yymsp[0].minor.yy0 = yylhsminor.yy0;
         break;
       case 4: /* atom_list ::= */
-#line 86 "lemon_data_string.y"
+#line 83 "lemon_data_string.y"
 { list_init(p, yymsp[1].minor.yy0); }
-#line 955 "lemon_data_string.c"
+#line 953 "lemon_data_string.c"
         break;
       case 5: /* property ::= PROPERTY atom_list_nz */
-#line 88 "lemon_data_string.y"
+#line 85 "lemon_data_string.y"
 { list_init(p, yylhsminor.yy0); list_push_atom(yylhsminor.yy0, yymsp[-1].minor.yy0); list_append(yylhsminor.yy0, yymsp[0].minor.yy0); }
-#line 960 "lemon_data_string.c"
+#line 958 "lemon_data_string.c"
   yymsp[-1].minor.yy0 = yylhsminor.yy0;
         break;
       case 7: /* prop_list ::= prop_list property */
       case 8: /* args ::= atom_list_nz prop_list */ yytestcase(yyruleno==8);
-#line 91 "lemon_data_string.y"
+#line 88 "lemon_data_string.y"
 { list_init(p, yylhsminor.yy0); list_append(yylhsminor.yy0, yymsp[-1].minor.yy0); list_append(yylhsminor.yy0, yymsp[0].minor.yy0); }
-#line 967 "lemon_data_string.c"
+#line 965 "lemon_data_string.c"
   yymsp[-1].minor.yy0 = yylhsminor.yy0;
         break;
       default:
@@ -1019,11 +1017,11 @@ static void yy_parse_failed(
   /* Here code is inserted which will be executed whenever the
   ** parser fails */
 /************ Begin %parse_failure code ***************************************/
-#line 54 "lemon_data_string.y"
+#line 53 "lemon_data_string.y"
 
     std::cerr << "parse failure\n";
     p->setErrorMsg("parse failure");
-#line 1026 "lemon_data_string.c"
+#line 1024 "lemon_data_string.c"
 /************ End %parse_failure code *****************************************/
   lemon_data_string_parserARG_STORE /* Suppress warning about unused %extra_argument variable */
   lemon_data_string_parserCTX_STORE
@@ -1067,9 +1065,9 @@ static void yy_accept(
   /* Here code is inserted which will be executed whenever the
   ** parser accepts */
 /*********** Begin %parse_accept code *****************************************/
-#line 52 "lemon_data_string.y"
+#line 51 "lemon_data_string.y"
  
-#line 1072 "lemon_data_string.c"
+#line 1070 "lemon_data_string.c"
 /*********** End %parse_accept code *******************************************/
   lemon_data_string_parserARG_STORE /* Suppress warning about unused %extra_argument variable */
   lemon_data_string_parserCTX_STORE
@@ -1320,7 +1318,7 @@ int lemon_data_string_parserFallback(int iToken){
   return 0;
 #endif
 }
-#line 99 "lemon_data_string.y"
+#line 96 "lemon_data_string.y"
 
 # include "ceammc_function.h"
 
@@ -1354,4 +1352,4 @@ namespace {
         a.list->push_back(b.atom);
     }
 }
-#line 1357 "lemon_data_string.c"
+#line 1355 "lemon_data_string.c"

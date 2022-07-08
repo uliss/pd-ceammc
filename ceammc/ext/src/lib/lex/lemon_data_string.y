@@ -6,7 +6,7 @@
 # pragma once
 # include <cstring>
 # include <boost/pool/object_pool.hpp>
-# include "m_pd.h"
+
 # include "ceammc_atomlist.h"
 # include "ceammc_containers.h"
 
@@ -35,11 +35,11 @@ struct token {
 };
 
 namespace {
-void list_init(Parser* p, token& tok);
-void list_call(token& res, const token& fn, token& args);
-void list_assign(token& a, token& b);
-void list_append(token& a, token& b);
-void list_push_atom(token& a, const token& b);
+    void list_init(Parser* p, token& tok);
+    void list_call(token& res, const token& fn, token& args);
+    void list_assign(token& a, token& b);
+    void list_append(token& a, token& b);
+    void list_push_atom(token& a, const token& b);
 }
 
 }
@@ -47,7 +47,6 @@ void list_push_atom(token& a, const token& b);
 %token_type {token}
 
 %left FLOAT LIST_CLOSE.
-//%right PROPERTY.
 
 %parse_accept { }
 
@@ -64,10 +63,8 @@ void list_push_atom(token& a, const token& b);
 %stack_size 20
 program ::= args(A).
 {
-    for (auto& a: *A.list) {
+    for (auto& a: *A.list)
         p->pPushListAtom(a.atom());
-//        std::cerr << a << "\n";
-    }
 }
 
 atom        ::= FLOAT.
