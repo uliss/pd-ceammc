@@ -50,17 +50,15 @@ uint8_t xchar2digit(char c)
     false          = "false";
     tok_space      = space+;
     tok_null       = "null";
-    tok_lpar       = "(";
+    tok_lpar       = "(" space**;
     tok_rpar       = ")";
-    tok_lbr        = "[";
+    tok_lbr        = "[" space**;
     tok_rbr        = "]";
     tok_squote     = "'";
     tok_dquote     = '"';
     func_call_list = [a-z][a-z_0-9]* '(';
     data_call_list = [A-Z][a-zA-Z]*  '(';
     data_call_dict = [A-Z][a-zA-Z]*  '[';
-    # data_call_str  = [A-Z][a-zA-Z]*  '"';
-    # dict_key       = [a-z_0-9?]+;
     float          = num_float | num_int | num_bin | num_hex | num_ratio;
 
     tok_all = true
@@ -85,7 +83,7 @@ uint8_t xchar2digit(char c)
     str_semicolon = str_escape ':';
 
     # NOTE: changes empty_str
-    sqstring := |*
+    scan_sqstring := |*
         ^(str_escape | tok_squote) =>   { ragel_string += fc;   };
         str_escape tok_squote      =>   { ragel_string += '\''; };
         str_space                  =>   { ragel_string += ' '; };
@@ -96,7 +94,7 @@ uint8_t xchar2digit(char c)
     *|;
 
     # NOTE: changes empty_str
-    dqstring := |*
+    scan_dqstring := |*
         ^(str_escape | tok_dquote) =>   { ragel_string += fc;  };
         str_escape tok_dquote      =>   { ragel_string += '"'; };
         str_space                  =>   { ragel_string += ' '; };
@@ -106,7 +104,15 @@ uint8_t xchar2digit(char c)
         tok_dquote                 =>   { pushSymbolToken(TK_SYMBOL, &(*ragel_string.begin()), (&*ragel_string.end())); fret; };
     *|;
 
-    token := |*
+    dict_key_id   = [a-z_0-9?]+;
+    dict_key      = dict_key_id | ('"' [a-z_0-9?]+ '"') | ("'" [a-z_0-9?]+ "'");
+    scan_dict := |*
+        space** dict_key ':' space** => { pushToken(TK_DICT_KEY); };
+        tok_space                    => { pushToken(TK_SPACE); };
+        tok_rbr                      => { pushToken(TK_DICT_CLOSE); fret; };
+    *|;
+
+    scan_token := |*
         true      => { pushFloat(1); };
         false     => { pushFloat(0); };
         tok_null  => { pushToken(TK_NULL); };
@@ -114,8 +120,8 @@ uint8_t xchar2digit(char c)
         tok_rpar  => { pushToken(TK_LIST_CLOSE); };
         tok_lbr   => { pushToken(TK_DICT_OPEN); };
         tok_rbr   => { pushToken(TK_DICT_CLOSE); };
-        tok_dquote => { ragel_string.clear(); fcall dqstring; };
-        tok_squote => { ragel_string.clear(); fcall sqstring; };
+        tok_dquote => { ragel_string.clear(); fcall scan_dqstring; };
+        tok_squote => { ragel_string.clear(); fcall scan_sqstring; };
 
         float     => {
             switch(ragel_type) {
@@ -152,6 +158,7 @@ uint8_t xchar2digit(char c)
         data_call_dict => {
             pushSymbolToken(TK_DATA_NAME, ts, te-1);
             pushToken(TK_DICT_OPEN);
+            fcall scan_dict;
         };
 
         tok_space =>      { pushToken(TK_SPACE); fret; };
@@ -159,7 +166,7 @@ uint8_t xchar2digit(char c)
         other  => { pushSymbolToken(TK_SYMBOL, ts, te); };
     *|;
 
-    main := space** ((any-space) >{ fhold; fcall token; } space**)*;
+    main := space** ((any-space) >{ fhold; fcall scan_token; } space**)*;
 }%%
 
 # include <cstring>

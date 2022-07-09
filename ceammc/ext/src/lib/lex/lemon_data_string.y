@@ -45,6 +45,7 @@ namespace {
     void lpush(token& a, const token& b);
     void data_list(token& res, const token& name, const token& args);
     void data_dict(token& res, const token& name, const token& args);
+    void data_empty_dict(token& res, const token& name);
 }
 
 }
@@ -82,10 +83,21 @@ atom         ::= SYMBOL.
 atom         ::= NULL.
 atom         ::= data.
 
-data         ::= DICT_OPEN zlist DICT_CLOSE.
+pair         ::= DICT_KEY.
+pair         ::= DICT_KEY list.
+
+pair_list    ::= pair.
+pair_list    ::= pair_list pair.
+
+data         ::= DICT_OPEN DICT_CLOSE.
+data         ::= DICT_OPEN pair_list DICT_CLOSE.
 data         ::= LIST_OPEN zlist LIST_CLOSE.
-data(A)      ::= DATA_NAME(B) LIST_OPEN zlist(C) LIST_CLOSE.{ linit(p, A); data_list(A, B, C); }
-data(A)      ::= DATA_NAME(B) DICT_OPEN zlist(C) DICT_CLOSE.{ linit(p, A); data_dict(A, B, C); }
+data(A)      ::= DATA_NAME(B) LIST_OPEN zlist(C) LIST_CLOSE.    { linit(p, A); data_list(A, B, C); }
+data(A)      ::= DATA_NAME(B) DICT_OPEN pair_list(C) DICT_CLOSE.{ linit(p, A); data_dict(A, B, C); }
+data(A)      ::= DATA_NAME(B) DICT_OPEN SPACE DICT_CLOSE.{ linit(p, A); data_empty_dict(A, B); }
+data(A)      ::= DATA_NAME(B) DICT_OPEN DICT_CLOSE.{ linit(p, A); data_empty_dict(A, B); }
+
+
 
 func_call(A) ::= FUNC_LIST_CALL(B) LIST_OPEN zlist(C) LIST_CLOSE. { linit(p, A); lcall(A, B, C); }
 
@@ -115,6 +127,20 @@ namespace {
         }
 
         res.list->push_back(fn(args.list->view()));
+        res.atom = res.list->at(0).atom();
+    }
+
+    void data_empty_dict(token& res, const token& name) {
+        auto data_name = atom_getsymbol(&name.atom)->s_name;
+        auto fn = DataStorage::instance().fromDictFunction(data_name);
+        if(!fn) {
+            LIB_ERR << fmt::format("datatype '{}'[] not found", data_name);
+            res.list->clear();
+            res.atom = Atom().atom();
+            return;
+        }
+
+        res.list->push_back(fn({}));
         res.atom = res.list->at(0).atom();
     }
 
