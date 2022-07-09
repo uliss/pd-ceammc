@@ -434,7 +434,7 @@ namespace ceammc {
 #line 86 "lex/lemon_data_string_parser.rl"
 						{te = p+1;{
 #line 86 "lex/lemon_data_string_parser.rl"
-								ragel_string += (( (*( p)))); }
+								ragel_string += (( (*( p))));   }
 						}}
 					
 #line 441 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
@@ -555,7 +555,7 @@ namespace ceammc {
 #line 95 "lex/lemon_data_string_parser.rl"
 						{te = p+1;{
 #line 95 "lex/lemon_data_string_parser.rl"
-								ragel_string += (( (*( p)))); }
+								ragel_string += (( (*( p))));  }
 						}}
 					
 #line 562 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"

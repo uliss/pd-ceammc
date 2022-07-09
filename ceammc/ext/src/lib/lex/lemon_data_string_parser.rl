@@ -83,7 +83,7 @@ uint8_t xchar2digit(char c)
 
     # NOTE: changes empty_str
     sqstring := |*
-        ^(str_escape | tok_squote) =>   { ragel_string += fc; };
+        ^(str_escape | tok_squote) =>   { ragel_string += fc;   };
         str_escape tok_squote      =>   { ragel_string += '\''; };
         str_escape space           =>   { ragel_string += ' '; };
         str_escape str_escape      =>   { ragel_string += '`'; };
@@ -92,7 +92,7 @@ uint8_t xchar2digit(char c)
 
     # NOTE: changes empty_str
     dqstring := |*
-        ^(str_escape | tok_dquote) =>   { ragel_string += fc; };
+        ^(str_escape | tok_dquote) =>   { ragel_string += fc;  };
         str_escape tok_dquote      =>   { ragel_string += '"'; };
         str_escape space           =>   { ragel_string += ' '; };
         str_escape str_escape      =>   { ragel_string += '`'; };
