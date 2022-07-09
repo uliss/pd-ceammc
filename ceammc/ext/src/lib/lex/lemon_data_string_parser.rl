@@ -80,12 +80,17 @@ uint8_t xchar2digit(char c)
     other = (any+) -- tok_all;
 
     str_escape = '`';
+    str_space = str_escape ' ';
+    str_comma = str_escape '.';
+    str_semicolon = str_escape ':';
 
     # NOTE: changes empty_str
     sqstring := |*
         ^(str_escape | tok_squote) =>   { ragel_string += fc;   };
         str_escape tok_squote      =>   { ragel_string += '\''; };
-        str_escape space           =>   { ragel_string += ' '; };
+        str_space                  =>   { ragel_string += ' '; };
+        str_comma                  =>   { ragel_string += ','; };
+        str_semicolon              =>   { ragel_string += ';'; };
         str_escape str_escape      =>   { ragel_string += '`'; };
         tok_squote                 =>   { pushSymbolToken(TK_SYMBOL, &(*ragel_string.begin()), (&*ragel_string.end())); fret; };
     *|;
@@ -94,7 +99,9 @@ uint8_t xchar2digit(char c)
     dqstring := |*
         ^(str_escape | tok_dquote) =>   { ragel_string += fc;  };
         str_escape tok_dquote      =>   { ragel_string += '"'; };
-        str_escape space           =>   { ragel_string += ' '; };
+        str_space                  =>   { ragel_string += ' '; };
+        str_comma                  =>   { ragel_string += ','; };
+        str_semicolon              =>   { ragel_string += ';'; };
         str_escape str_escape      =>   { ragel_string += '`'; };
         tok_dquote                 =>   { pushSymbolToken(TK_SYMBOL, &(*ragel_string.begin()), (&*ragel_string.end())); fret; };
     *|;
