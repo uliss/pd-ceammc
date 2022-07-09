@@ -236,8 +236,15 @@ bool LemonDataStringParser::doParse(const char* data)
     // for quoted string parser
     boost::static_string<512> ragel_string;
 
+    try {
+
     %% write init;
     %% write exec;
+
+    } catch(std::exception& e) {
+        setErrorMsg(e.what());
+        return false;
+    }
 
     if (cs < %%{ write first_final; }%%) {
         char buf[32] = "";
