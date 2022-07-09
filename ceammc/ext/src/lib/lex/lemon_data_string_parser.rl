@@ -3,6 +3,7 @@
 # include "parser_numeric.h"
 
 # include <cstdint>
+# include <boost/static_string.hpp>
 
 # ifdef NDEBUG
 # undef NDEBUG
@@ -233,8 +234,7 @@ bool LemonDataStringParser::doParse(const char* data)
     DECLARE_RAGEL_NUMERIC_VARS;
 
     // for quoted string parser
-    std::string ragel_string;
-    ragel_string.reserve(256);
+    boost::static_string<512> ragel_string;
 
     %% write init;
     %% write exec;
