@@ -9,6 +9,9 @@
 
 # include "ceammc_atomlist.h"
 # include "ceammc_containers.h"
+# include "ceammc_datastorage.h"
+# include "ceammc_log.h"
+# include "fmt/format.h"
 
 using namespace ceammc;
 using namespace ceammc::parser;
@@ -35,23 +38,31 @@ struct token {
 };
 
 namespace {
-    void list_init(Parser* p, token& tok);
-    void list_call(token& res, const token& fn, token& args);
-    void list_assign(token& a, token& b);
-    void list_append(token& a, token& b);
-    void list_push_atom(token& a, const token& b);
+    void linit(Parser* p, token& tok);
+    void lcall(token& res, const token& fn, token& args);
+    void lassign(token& a, token& b);
+    void lappend(token& a, token& b);
+    void lpush(token& a, const token& b);
+    void data_list(token& res, const token& name, const token& args);
+    void data_dict(token& res, const token& name, const token& args);
 }
 
 }
 
 %token_type {token}
 
-%left FLOAT LIST_CLOSE.
-
-%parse_accept { }
+%parse_accept {
+    p->parseAccept();
+}
 
 %parse_failure {
     p->parseFailure();
+    for (int i = 0; i < YYNTOKEN; i++) {
+        int a = yy_find_shift_action((YYCODETYPE)i, yypParser->yytos->stateno);
+        if (a < (YYNSTATE + YYNRULE)) {
+            std::cerr << "possible token: " << yyTokenName[i] << "\n";
+        }
+    }
 }
 
 %stack_overflow {
@@ -60,37 +71,32 @@ namespace {
 
 %stack_size 20
 
-program ::= args(A).
+program ::= zlist(A).
 {
     for (auto& a: *A.list)
         p->pPushListAtom(a.atom());
 }
 
-atom        ::= FLOAT.
-atom        ::= SYMBOL.
-atom        ::= NULL.
-atom        ::= DICT_OPEN.
-atom        ::= DICT_CLOSE.
+atom         ::= FLOAT.
+atom         ::= SYMBOL.
+atom         ::= NULL.
+atom         ::= data.
 
-function_call(A) ::= FUNC_LIST_CALL(B) LIST_OPEN atom_list(C) LIST_CLOSE. { list_init(p, A); list_call(A, B, C); }
+data         ::= DICT_OPEN zlist DICT_CLOSE.
+data         ::= LIST_OPEN zlist LIST_CLOSE.
+data(A)      ::= DATA_NAME(B) LIST_OPEN zlist(C) LIST_CLOSE.{ linit(p, A); data_list(A, B, C); }
+data(A)      ::= DATA_NAME(B) DICT_OPEN zlist(C) DICT_CLOSE.{ linit(p, A); data_dict(A, B, C); }
 
-atom_list_nz(A)  ::= atom_list_nz(B) atom(C).        { list_assign(A, B); list_push_atom(A, C); }
-atom_list_nz(A)  ::= atom(B).                        { list_init(p, A); list_push_atom(A, B); }
-atom_list_nz     ::= function_call.
+func_call(A) ::= FUNC_LIST_CALL(B) LIST_OPEN zlist(C) LIST_CLOSE. { linit(p, A); lcall(A, B, C); }
 
-atom_list        ::= atom_list_nz.
-atom_list(A)     ::= .                               { list_init(p, A); }
+latom(A)     ::= atom(B).                                   { linit(p, A); lpush(A, B); }
+latom(A)     ::= func_call(B).                              { lassign(A, B); }
 
-property(A)      ::= PROPERTY(B) atom_list_nz(C).    { list_init(p, A); list_push_atom(A, B); list_append(A, C); }
-property(A)      ::= PROPERTY(B).                    { list_init(p, A); list_push_atom(A, B); }
+list(A)      ::= list(B) SPACE latom(C).                    { lassign(A, B); lappend(A, C); }
+list(A)      ::= latom(B).                                  { lassign(A, B); }
 
-prop_list(A)     ::= prop_list(B) property(C).       { list_init(p, A); list_append(A, B); list_append(A, C); }
-prop_list        ::= property.
-
-
-args             ::= atom_list.
-args             ::= prop_list.
-args(A)          ::= atom_list_nz(B) prop_list(C).   { list_init(p, A); list_append(A, B); list_append(A, C); }
+zlist(A)     ::= list(B).                                   { lassign(A, B); }
+zlist(A)     ::= .                                          { linit(p, A); }
 
 %code {
 # include "ceammc_function.h"
@@ -98,30 +104,61 @@ args(A)          ::= atom_list_nz(B) prop_list(C).   { list_init(p, A); list_app
 namespace {
     using namespace ceammc;
 
-    void list_init(Parser* p, token& tok) {
+    void data_list(token& res, const token& name, const token& args) {
+        auto data_name = atom_getsymbol(&name.atom)->s_name;
+        auto fn = DataStorage::instance().fromListFunction(data_name);
+        if(!fn) {
+            LIB_ERR << fmt::format("datatype '{}'() not found", data_name);
+            res.list->clear();
+            res.atom = Atom().atom();
+            return;
+        }
+
+        res.list->push_back(fn(args.list->view()));
+        res.atom = res.list->at(0).atom();
+    }
+
+    void data_dict(token& res, const token& name, const token& args) {
+        auto data_name = atom_getsymbol(&name.atom)->s_name;
+        auto fn = DataStorage::instance().fromDictFunction(data_name);
+        if(!fn) {
+            LIB_ERR << fmt::format("datatype '{}'[] not found", data_name);
+            res.list->clear();
+            res.atom = Atom().atom();
+            return;
+        }
+
+//        res.list->push_back(fn(args.list->view()));
+//        res.atom = res.list->at(0).atom();
+    }
+
+    void linit(Parser* p, token& tok) {
         tok.list = p->pool().construct();
     }
 
-    void list_assign(token& a, token& b) {
+    void lassign(token& a, token& b) {
         a.list = b.list;
+//        std::cerr << "- assign: " <<  b.list->view() << "\n";
     }
 
-    void list_call(token& res, const token& fn, token& args) {
+    void lcall(token& res, const token& fn, token& args) {
         auto fname = atom_getsymbol(&fn.atom);
         auto fn_result = BuiltinFunctionMap::instance().call(fname, args.list->view());
+//        std::cerr << "args: " <<  args.list->size() << "\n";
+        std::cerr << "fn result: " << fn_result << "\n";
 
         for (auto& a: fn_result)
             res.list->push_back(a);
     }
 
-    void list_append(token& a, token& b) {
+    void lappend(token& a, token& b) {
         a.list->reserve(a.list->size() + b.list->size());
 
         for (auto& x: *b.list)
             a.list->push_back(x);
     }
 
-    void list_push_atom(token& a, const token& b) {
+    void lpush(token& a, const token& b) {
         a.list->push_back(b.atom);
     }
 }

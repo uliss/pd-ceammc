@@ -11,6 +11,8 @@
 
 namespace {
 
+constexpr auto TK_EOF = 0;
+
 uint8_t xchar2digit(char c)
 {
     switch (c) {
@@ -43,67 +45,113 @@ uint8_t xchar2digit(char c)
     machine lemon_data_string_lexer;
     include numeric_common "ragel_numeric.rl";
 
-    action on_fn_list_call_init { ts = fpc; }
-    action on_fn_list_call_done {
-        pushSymbolToken(TK_FUNC_LIST_CALL, ts, fpc-1);
-        pushToken(TK_LIST_OPEN);
-    }
-    action on_prop_init { ts = fpc; }
-    action on_prop_done {
-        pushSymbolToken(TK_PROPERTY, ts, fpc);
-    }
-    action on_float_done {
-        switch(ragel_type) {
-        case TYPE_FLOAT:
-            pushDouble(ragel_num.getFloat());
-            break;
-        case TYPE_INT:
-        case TYPE_BIN:
-        case TYPE_HEX:
-            pushDouble(ragel_num.getInteger());
-            break;
-        case TYPE_RATIO:
-            pushDouble(ragel_num.getRatioAsFloat());
-            break;
-        default:
-            break;
-        }
-    }
-    action on_token_done {
-        token_float = 0; ragel_num = {}; ragel_cat = CAT_UNKNOWN; ragel_type = TYPE_UNKNOWN;
-    }
-
-    property       = '@' [a-z_0-9?]+;
+    true           = "true";
+    false          = "false";
+    tok_space      = space+;
+    tok_null       = "null";
+    tok_lpar       = "(";
+    tok_rpar       = ")";
+    tok_lbr        = "[";
+    tok_rbr        = "]";
+    tok_squote     = "'";
+    tok_dquote     = '"';
     func_call_list = [a-z][a-z_0-9]* '(';
     data_call_list = [A-Z][a-zA-Z]*  '(';
     data_call_dict = [A-Z][a-zA-Z]*  '[';
-    data_call_str  = [A-Z][a-zA-Z]*  '"';
-    dict_key       = [a-z_0-9?]+;
+    # data_call_str  = [A-Z][a-zA-Z]*  '"';
+    # dict_key       = [a-z_0-9?]+;
     float          = num_float | num_int | num_bin | num_hex | num_ratio;
 
-    token = (
-        space+
-        | "true"            % { pushDouble(1); }
-        | "false"           % { pushDouble(0); }
-        | "null"            % { pushToken(TK_NULL); }
-        | "("               % { pushToken(TK_LIST_OPEN);  }
-        | ")"               % { pushToken(TK_LIST_CLOSE); }
-        | "["               % { pushToken(TK_DICT_OPEN);  }
-        | "]"               % { pushToken(TK_DICT_CLOSE); }
-        | float
-                % on_float_done
-        | property
-                >on_prop_init
-                %on_prop_done
+    tok_all = true
+        | false
+        | tok_space
+        | tok_null
+        | tok_lpar
+        | tok_rpar
+        | tok_lbr
+        | tok_dquote
+        | tok_squote
         | func_call_list
-                >on_fn_list_call_init
-                %on_fn_list_call_done
+        | data_call_list
+        | data_call_dict
+        | float;
 
-    ) % on_token_done;
+    other = (any+) -- tok_all;
 
-    main := space* token (space+ token)* space*
-    0 @{ pushToken(0); fbreak; }
-    ;
+    str_escape = '`';
+
+    # NOTE: changes empty_str
+    sqstring := |*
+        ^(str_escape | tok_squote) =>   { ragel_string += fc; };
+        str_escape tok_squote      =>   { ragel_string += '\''; };
+        str_escape space           =>   { ragel_string += ' '; };
+        str_escape str_escape      =>   { ragel_string += '`'; };
+        tok_squote                 =>   { pushSymbolToken(TK_SYMBOL, &(*ragel_string.begin()), (&*ragel_string.end())); fret; };
+    *|;
+
+    # NOTE: changes empty_str
+    dqstring := |*
+        ^(str_escape | tok_dquote) =>   { ragel_string += fc; };
+        str_escape tok_dquote      =>   { ragel_string += '"'; };
+        str_escape space           =>   { ragel_string += ' '; };
+        str_escape str_escape      =>   { ragel_string += '`'; };
+        tok_dquote                 =>   { pushSymbolToken(TK_SYMBOL, &(*ragel_string.begin()), (&*ragel_string.end())); fret; };
+    *|;
+
+    token := |*
+        true      => { pushFloat(1); };
+        false     => { pushFloat(0); };
+        tok_null  => { pushToken(TK_NULL); };
+        tok_lpar  => { pushToken(TK_LIST_OPEN); };
+        tok_rpar  => { pushToken(TK_LIST_CLOSE); };
+        tok_lbr   => { pushToken(TK_DICT_OPEN); };
+        tok_rbr   => { pushToken(TK_DICT_CLOSE); };
+        tok_dquote => { ragel_string.clear(); fcall dqstring; };
+        tok_squote => { ragel_string.clear(); fcall sqstring; };
+
+        float     => {
+            switch(ragel_type) {
+            case TYPE_FLOAT:
+                pushFloat(ragel_num.getFloat());
+                break;
+            case TYPE_INT:
+            case TYPE_BIN:
+            case TYPE_HEX:
+                pushFloat(ragel_num.getInteger());
+                break;
+            case TYPE_RATIO:
+                pushFloat(ragel_num.getRatioAsFloat());
+                break;
+            default:
+                break;
+            }
+
+            ragel_num = {};
+            ragel_cat = CAT_UNKNOWN;
+            ragel_type = TYPE_UNKNOWN;
+        };
+
+        func_call_list => {
+            pushSymbolToken(TK_FUNC_LIST_CALL, ts, te-1);
+            pushToken(TK_LIST_OPEN);
+        };
+
+        data_call_list => {
+            pushSymbolToken(TK_DATA_NAME, ts, te-1);
+            pushToken(TK_LIST_OPEN);
+        };
+
+        data_call_dict => {
+            pushSymbolToken(TK_DATA_NAME, ts, te-1);
+            pushToken(TK_DICT_OPEN);
+        };
+
+        tok_space =>      { pushToken(TK_SPACE); fret; };
+
+        other  => { pushSymbolToken(TK_SYMBOL, ts, te); };
+    *|;
+
+    main := space** ((any-space) >{ fhold; fcall token; } space**)*;
 }%%
 
 # include <cstring>
@@ -129,13 +177,11 @@ LemonDataStringParser::~LemonDataStringParser()
 
 void LemonDataStringParser::pushToken(int token)
 {
-    std::cerr << __FUNCTION__ << ' ' << token << '\n';
     lemon_data_string_parser(parser(), token, {}, this);
 }
 
-void LemonDataStringParser::pushDouble(double val)
+void LemonDataStringParser::pushFloat(double val)
 {
-    std::cerr << __FUNCTION__ << " TK_FLOAT " << val << '\n';
     lemon_data_string_parser(parser(), TK_FLOAT, val, this);
 }
 
@@ -147,7 +193,6 @@ void LemonDataStringParser::pushSymbolToken(int token, const char* begin, const 
         parser_buf_[i] = begin[i];
 
     parser_buf_[N] = 0;
-    std::cerr << __FUNCTION__ << " token '" << parser_buf_ << "'\n";
     lemon_data_string_parser(parser(), token, parser_buf_, this);
 }
 
@@ -167,9 +212,11 @@ bool LemonDataStringParser::parse(const char* str)
 
 bool LemonDataStringParser::doParse(const char* data)
 {
+    // null string pointer
     if (data == nullptr)
         return false;
 
+    // empty string
     if (data[0] == '\0')
         return true;
 
@@ -178,27 +225,34 @@ bool LemonDataStringParser::doParse(const char* data)
     const char* ts = 0;
     const char* te = 0;
     const char* p = data;
-    parse_ok_ = true;
-
-    t_float token_float = 0;
+    const char* pe = data + strlen(data);
+    const char* eof = pe;
+    parse_ok_ = false;
 
     DECLARE_RAGEL_COMMON_VARS;
     DECLARE_RAGEL_NUMERIC_VARS;
 
+    // for quoted string parser
+    std::string ragel_string;
+    ragel_string.reserve(256);
+
     %% write init;
-    %% write exec noend;
+    %% write exec;
 
     if (cs < %%{ write first_final; }%%) {
         char buf[32] = "";
-        snprintf(buf, sizeof(buf)-1, "unknown token: '%s'", p);
+        snprintf(buf, sizeof(buf)-1, "unknown token: '%s'", ts);
         setErrorMsg(buf);
         return false;
     } else {
+        pushToken(0);
+        return parse_ok_;
         if (!parse_ok_) {
             pushToken(0);
             return false;
-        } else
+        } else {
             return true;
+        }
     }
 }
 

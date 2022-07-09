@@ -80,7 +80,7 @@
     # no actions
     num_sign = '-' | '+';
     num_b = [01]+;
-    num_i = '0' | ([1-9] [0-9]*);
+    num_i = '0' | ([1-9] [0-9]**);
     num_x = [0-9A-Fa-f]+;
     num_bpre = '0b';
     num_xpre = '0x';

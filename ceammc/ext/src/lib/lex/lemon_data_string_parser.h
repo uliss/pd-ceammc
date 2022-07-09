@@ -25,7 +25,7 @@ namespace parser {
 
         void pushToken(int token);
         void pushSymbolToken(int token, const char* begin, const char* end);
-        void pushDouble(double val);
+        void pushFloat(double val);
 
         void pPushProp(t_symbol* name);
         void pPushPropAtom(const t_atom& a);
@@ -35,6 +35,7 @@ namespace parser {
 
         void setErrorMsg(const char* msg);
         void parseFailure();
+        void parseAccept() { parse_ok_ = true; }
         void stackOverflow();
 
         SmallListPool& pool() { return pool_; }
@@ -54,6 +55,9 @@ namespace parser {
         AtomList res_;
         AtomList prop_;
         SmallListPool pool_;
+        // ragel fsm
+        int top;
+        int stack[8];
     };
 
 }
