@@ -63,7 +63,7 @@ namespace parser {
         SmallListPool pool_;
         // ragel fsm
         int top;
-        int stack[8];
+        int stack[16];
     };
 
 }

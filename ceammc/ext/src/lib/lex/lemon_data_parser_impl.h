@@ -1416,8 +1416,8 @@ namespace {
             return;
         }
 
-//        res.list->push_back(fn(args.list->view()));
-//        res.atom = res.list->at(0).atom();
+        res.list->push_back(fn({}));
+        res.atom = res.list->at(0).atom();
     }
 
     void linit(Parser* p, token& tok) {

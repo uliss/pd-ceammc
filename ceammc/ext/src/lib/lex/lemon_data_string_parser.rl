@@ -75,8 +75,6 @@ uint8_t xchar2digit(char c)
         | data_call_dict
         | float;
 
-    other = (any+) -- tok_all;
-
     str_escape = '`';
     str_space = str_escape ' ';
     str_comma = str_escape '.';
@@ -105,34 +103,48 @@ uint8_t xchar2digit(char c)
     *|;
 
     dict_key_id   = [a-z_0-9?]+;
-    dict_key      = dict_key_id | ('"' [a-z_0-9?]+ '"') | ("'" [a-z_0-9?]+ "'");
+    dict_key0     = dict_key_id | ('"' [a-z_0-9?]+ '"') | ("'" [a-z_0-9?]+ "'");
+    dict_key      = space** dict_key0 ':' space**;
+    scan_dict_other = (any+) -- (tok_all | dict_key);
     scan_dict := |*
-        true      => { pushFloat(1); };
-        false     => { pushFloat(0); };
-        tok_null  => { pushToken(TK_NULL); };
-        tok_lpar  => { pushToken(TK_LIST_OPEN); };
-        tok_rpar  => { pushToken(TK_LIST_CLOSE); };
-        tok_lbr   => { pushToken(TK_DICT_OPEN); };
-        tok_rbr   => { pushToken(TK_DICT_CLOSE); };
+        true       => { pushFloat(1); };
+        false      => { pushFloat(0); };
+        tok_null   => { pushToken(TK_NULL); };
+        tok_lpar   => { pushToken(TK_LIST_OPEN); };
+        tok_rpar   => { pushToken(TK_LIST_CLOSE); };
+        tok_lbr    => { pushToken(TK_DICT_OPEN); };
+        tok_rbr    => { pushToken(TK_DICT_CLOSE); };
         tok_dquote => { ragel_string.clear(); fcall scan_dqstring; };
         tok_squote => { ragel_string.clear(); fcall scan_sqstring; };
-        space** dict_key ':' space** => { pushToken(TK_DICT_KEY); };
+
+        float      => {
+            onFloat(ragel_cat, ragel_type, ragel_num);
+            ragel_num = {};
+            ragel_cat = CAT_UNKNOWN;
+            ragel_type = TYPE_UNKNOWN;
+        };
+
+        dict_key                     => { pushToken(TK_DICT_KEY); };
         tok_space                    => { pushToken(TK_SPACE); };
+        scan_dict_other              => { pushSymbolToken(TK_SYMBOL, ts, te); };
+
+        # return token
         tok_rbr                      => { pushToken(TK_DICT_CLOSE); fret; };
     *|;
 
+    scan_token_other = (any+) -- tok_all;
     scan_token := |*
-        true      => { pushFloat(1); };
-        false     => { pushFloat(0); };
-        tok_null  => { pushToken(TK_NULL); };
-        tok_lpar  => { pushToken(TK_LIST_OPEN); };
-        tok_rpar  => { pushToken(TK_LIST_CLOSE); };
-        tok_lbr   => { pushToken(TK_DICT_OPEN); };
-        tok_rbr   => { pushToken(TK_DICT_CLOSE); };
+        true       => { pushFloat(1); };
+        false      => { pushFloat(0); };
+        tok_null   => { pushToken(TK_NULL); };
+        tok_lpar   => { pushToken(TK_LIST_OPEN); };
+        tok_rpar   => { pushToken(TK_LIST_CLOSE); };
+        tok_lbr    => { pushToken(TK_DICT_OPEN); };
+        tok_rbr    => { pushToken(TK_DICT_CLOSE); };
         tok_dquote => { ragel_string.clear(); fcall scan_dqstring; };
         tok_squote => { ragel_string.clear(); fcall scan_sqstring; };
 
-        float     => {
+        float      => {
             onFloat(ragel_cat, ragel_type, ragel_num);
             ragel_num = {};
             ragel_cat = CAT_UNKNOWN;
@@ -155,9 +167,9 @@ uint8_t xchar2digit(char c)
             fcall scan_dict;
         };
 
-        tok_space =>      { pushToken(TK_SPACE); fret; };
-
-        other     =>      { pushSymbolToken(TK_SYMBOL, ts, te); };
+        scan_token_other => { pushSymbolToken(TK_SYMBOL, ts, te); };
+        # return token
+        tok_space        => { pushToken(TK_SPACE); fret; };
     *|;
 
     main := space** ((any-space) >{ fhold; fcall scan_token; } space**)*;
