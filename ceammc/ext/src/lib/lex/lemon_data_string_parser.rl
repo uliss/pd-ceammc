@@ -46,6 +46,20 @@ uint8_t xchar2digit(char c)
     machine lemon_data_string_lexer;
     include numeric_common "ragel_numeric.rl";
 
+    # actions
+    action on_true  { pushFloat(1); }
+    action on_false { pushFloat(0); }
+    action on_null  { pushToken(TK_NULL); }
+    action on_space { pushToken(TK_SPACE); }
+    action on_float {
+        onFloat(ragel_cat, ragel_type, ragel_num);
+        ragel_num = {};
+        ragel_cat = CAT_UNKNOWN;
+        ragel_type = TYPE_UNKNOWN;
+    }
+    action on_double_quote { ragel_string.clear(); fcall scan_dqstring; }
+    action on_single_quote { ragel_string.clear(); fcall scan_sqstring; }
+
     true           = "#true";
     false          = "#false";
     tok_space      = space+;
@@ -106,23 +120,19 @@ uint8_t xchar2digit(char c)
     dict_key0     = dict_key_id | ('"' [a-z_0-9?]+ '"') | ("'" [a-z_0-9?]+ "'");
     dict_key      = space** dict_key0 ':' space**;
     scan_dict_other = (any+) -- (tok_all | dict_key);
+
     scan_dict := |*
-        true       => { pushFloat(1); };
-        false      => { pushFloat(0); };
-        tok_null   => { pushToken(TK_NULL); };
+        true       => on_true;
+        false      => on_false;
+        tok_null   => on_null;
         tok_lpar   => { pushToken(TK_LIST_OPEN); };
         tok_rpar   => { pushToken(TK_LIST_CLOSE); };
         tok_lbr    => { pushToken(TK_DICT_OPEN); };
-        tok_rbr    => { pushToken(TK_DICT_CLOSE); };
-        tok_dquote => { ragel_string.clear(); fcall scan_dqstring; };
-        tok_squote => { ragel_string.clear(); fcall scan_sqstring; };
+        tok_rbr    => { pushToken(TK_DICT_CLOSE); fcall scan_dict; };
+        tok_dquote => on_double_quote;
+        tok_squote => on_single_quote;
 
-        float      => {
-            onFloat(ragel_cat, ragel_type, ragel_num);
-            ragel_num = {};
-            ragel_cat = CAT_UNKNOWN;
-            ragel_type = TYPE_UNKNOWN;
-        };
+        float      => on_float;
 
         func_call_list => {
             pushSymbolToken(TK_FUNC_LIST_CALL, ts, te-1);
@@ -148,24 +158,19 @@ uint8_t xchar2digit(char c)
         tok_rbr                      => { pushToken(TK_DICT_CLOSE); fret; };
     *|;
 
-    scan_token_other = (any+) -- tok_all;
+    scan_token_other = ((any+) -- (tok_all - (true|false|tok_null|float)));
     scan_token := |*
-        true       => { pushFloat(1); };
-        false      => { pushFloat(0); };
-        tok_null   => { pushToken(TK_NULL); };
+        true       => on_true;
+        false      => on_false;
+        tok_null   => on_null;
         tok_lpar   => { pushToken(TK_LIST_OPEN); };
         tok_rpar   => { pushToken(TK_LIST_CLOSE); };
-        tok_lbr    => { pushToken(TK_DICT_OPEN); };
+        tok_lbr    => { pushToken(TK_DICT_OPEN); fcall scan_dict; };
         tok_rbr    => { pushToken(TK_DICT_CLOSE); };
-        tok_dquote => { ragel_string.clear(); fcall scan_dqstring; };
-        tok_squote => { ragel_string.clear(); fcall scan_sqstring; };
+        tok_dquote => on_double_quote;
+        tok_squote => on_single_quote;
 
-        float      => {
-            onFloat(ragel_cat, ragel_type, ragel_num);
-            ragel_num = {};
-            ragel_cat = CAT_UNKNOWN;
-            ragel_type = TYPE_UNKNOWN;
-        };
+        float      => on_float;
 
         func_call_list => {
             pushSymbolToken(TK_FUNC_LIST_CALL, ts, te-1);
@@ -264,7 +269,7 @@ bool LemonDataStringParser::doParse(const char* data)
     const char* p = data;
     const char* pe = data + strlen(data);
     const char* eof = pe;
-    parse_ok_ = false;
+    parse_ok_ = true;
 
     DECLARE_RAGEL_COMMON_VARS;
     DECLARE_RAGEL_NUMERIC_VARS;
@@ -278,7 +283,7 @@ bool LemonDataStringParser::doParse(const char* data)
     %% write exec;
 
     } catch(std::exception& e) {
-        setErrorMsg(e.what());
+        LIB_ERR << e.what();
         return false;
     }
 
@@ -288,14 +293,10 @@ bool LemonDataStringParser::doParse(const char* data)
         setErrorMsg(buf);
         return false;
     } else {
-        pushToken(0);
-        return parse_ok_;
-        if (!parse_ok_) {
+        if (parse_ok_)
             pushToken(0);
-            return false;
-        } else {
-            return true;
-        }
+
+        return parse_ok_;
     }
 }
 
@@ -325,9 +326,9 @@ void LemonDataStringParser::pPushListAtom(const t_atom& a)
 
 void LemonDataStringParser::setErrorMsg(const char* msg)
 {
-    snprintf(err_buf_, sizeof(err_buf_)-1, "%s", msg);
-    std::cerr << msg << "\n";
+    LIB_ERR << msg;
     parse_ok_ = false;
+    throw std::runtime_error(msg);
 }
 
 void LemonDataStringParser::stackOverflow()

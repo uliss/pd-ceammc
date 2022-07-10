@@ -27,6 +27,12 @@ namespace {
         REQUIRE(p.result() == res);      \
     }
 
+#define REQUIRE_NO_PARSE_STR(str)        \
+    {                                    \
+        parser::LemonDataStringParser p; \
+        REQUIRE_FALSE(p.parse(str));     \
+    }
+
 }
 
 TEST_CASE("datastring3", "[ceammc::data]")
@@ -36,6 +42,10 @@ TEST_CASE("datastring3", "[ceammc::data]")
     SECTION("init")
     {
         REQUIRE_PARSE_STR("abc", LA("abc"));
+        REQUIRE_PARSE_STR("100ms", LA("100ms"));
+        REQUIRE_PARSE_STR("the1/0", LA("the1/0"));
+        REQUIRE_PARSE_STR("http://ceammc.com", LA("http://ceammc.com"));
+//        REQUIRE_NO_PARSE_STR("abc[0]");
         REQUIRE_PARSE_STR("абвгд жзйк", LA("абвгд", "жзйк"));
         REQUIRE_PARSE_STR("a b c", LA("a", "b", "c"));
         REQUIRE_PARSE_STR("'a b c'", LA("a b c"));
