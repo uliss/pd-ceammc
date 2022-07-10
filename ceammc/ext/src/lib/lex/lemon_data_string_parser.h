@@ -6,12 +6,17 @@
 
 #include "ceammc_atomlist.h"
 #include "ceammc_containers.h"
+#include "ragel_common.h"
 
 using SmallList = ceammc::SmallAtomListN<8>;
 using SmallListPool = boost::object_pool<SmallList>;
 
 namespace ceammc {
 namespace parser {
+
+    namespace fsm {
+        class NumericData;
+    }
 
     class LemonDataStringParser {
     public:
@@ -46,6 +51,7 @@ namespace parser {
 
     private:
         void reset();
+        void onFloat(AtomCategory cat, AtomType type, const fsm::NumericData& num);
 
     private:
         char parser_data_[PARSER_SIZE]; ///< parser is on the stack to avoid dynamic alloc

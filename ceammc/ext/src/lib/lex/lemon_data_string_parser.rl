@@ -107,6 +107,15 @@ uint8_t xchar2digit(char c)
     dict_key_id   = [a-z_0-9?]+;
     dict_key      = dict_key_id | ('"' [a-z_0-9?]+ '"') | ("'" [a-z_0-9?]+ "'");
     scan_dict := |*
+        true      => { pushFloat(1); };
+        false     => { pushFloat(0); };
+        tok_null  => { pushToken(TK_NULL); };
+        tok_lpar  => { pushToken(TK_LIST_OPEN); };
+        tok_rpar  => { pushToken(TK_LIST_CLOSE); };
+        tok_lbr   => { pushToken(TK_DICT_OPEN); };
+        tok_rbr   => { pushToken(TK_DICT_CLOSE); };
+        tok_dquote => { ragel_string.clear(); fcall scan_dqstring; };
+        tok_squote => { ragel_string.clear(); fcall scan_sqstring; };
         space** dict_key ':' space** => { pushToken(TK_DICT_KEY); };
         tok_space                    => { pushToken(TK_SPACE); };
         tok_rbr                      => { pushToken(TK_DICT_CLOSE); fret; };
@@ -124,22 +133,7 @@ uint8_t xchar2digit(char c)
         tok_squote => { ragel_string.clear(); fcall scan_sqstring; };
 
         float     => {
-            switch(ragel_type) {
-            case TYPE_FLOAT:
-                pushFloat(ragel_num.getFloat());
-                break;
-            case TYPE_INT:
-            case TYPE_BIN:
-            case TYPE_HEX:
-                pushFloat(ragel_num.getInteger());
-                break;
-            case TYPE_RATIO:
-                pushFloat(ragel_num.getRatioAsFloat());
-                break;
-            default:
-                break;
-            }
-
+            onFloat(ragel_cat, ragel_type, ragel_num);
             ragel_num = {};
             ragel_cat = CAT_UNKNOWN;
             ragel_type = TYPE_UNKNOWN;
@@ -163,7 +157,7 @@ uint8_t xchar2digit(char c)
 
         tok_space =>      { pushToken(TK_SPACE); fret; };
 
-        other  => { pushSymbolToken(TK_SYMBOL, ts, te); };
+        other     =>      { pushSymbolToken(TK_SYMBOL, ts, te); };
     *|;
 
     main := space** ((any-space) >{ fhold; fcall scan_token; } space**)*;
@@ -316,6 +310,21 @@ void LemonDataStringParser::stackOverflow()
 void LemonDataStringParser::parseFailure()
 {
     setErrorMsg("parse failure");
+}
+
+void LemonDataStringParser::onFloat(AtomCategory cat, AtomType type, const fsm::NumericData& num) {
+    switch(type) {
+    case TYPE_FLOAT:
+        return pushFloat(num.getFloat());
+    case TYPE_INT:
+    case TYPE_BIN:
+    case TYPE_HEX:
+        return pushFloat(num.getInteger());
+    case TYPE_RATIO:
+        return pushFloat(num.getRatioAsFloat());
+    default:
+        break;
+    }
 }
 
 
