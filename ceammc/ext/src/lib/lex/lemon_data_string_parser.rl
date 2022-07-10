@@ -51,9 +51,9 @@ uint8_t xchar2digit(char c)
     tok_space      = space+;
     tok_null       = "null";
     tok_lpar       = "(" space**;
-    tok_rpar       = ")";
+    tok_rpar       = space** ")";
     tok_lbr        = "[" space**;
-    tok_rbr        = "]";
+    tok_rbr        = space** "]";
     tok_squote     = "'";
     tok_dquote     = '"';
     func_call_list = [a-z][a-z_0-9]* '(';
@@ -122,6 +122,22 @@ uint8_t xchar2digit(char c)
             ragel_num = {};
             ragel_cat = CAT_UNKNOWN;
             ragel_type = TYPE_UNKNOWN;
+        };
+
+        func_call_list => {
+            pushSymbolToken(TK_FUNC_LIST_CALL, ts, te-1);
+            pushToken(TK_LIST_OPEN);
+        };
+
+        data_call_list => {
+            pushSymbolToken(TK_DATA_NAME, ts, te-1);
+            pushToken(TK_LIST_OPEN);
+        };
+
+        data_call_dict => {
+            pushSymbolToken(TK_DATA_NAME, ts, te-1);
+            pushToken(TK_DICT_OPEN);
+            fcall scan_dict;
         };
 
         dict_key                     => { pushToken(TK_DICT_KEY); };
