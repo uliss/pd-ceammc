@@ -46,10 +46,10 @@ uint8_t xchar2digit(char c)
     machine lemon_data_string_lexer;
     include numeric_common "ragel_numeric.rl";
 
-    true           = "true";
-    false          = "false";
+    true           = "#true";
+    false          = "#false";
     tok_space      = space+;
-    tok_null       = "null";
+    tok_null       = "#null";
     tok_lpar       = "(" space**;
     tok_rpar       = space** ")";
     tok_lbr        = "[" space**;

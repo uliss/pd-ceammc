@@ -56,10 +56,11 @@ TEST_CASE("datastring3", "[ceammc::data]")
         REQUIRE_PARSE_STR("@a", LA("@a"));
         REQUIRE_PARSE_STR("@a 1", LA("@a", 1));
         REQUIRE_PARSE_STR("@a 1 2", LA("@a", 1, 2));
-        REQUIRE_PARSE_STR("true", LF(1));
-        REQUIRE_PARSE_STR("false", LF(0));
+        REQUIRE_PARSE_STR("#true", LF(1));
+        REQUIRE_PARSE_STR("non-true", LA("non-true"));
+        REQUIRE_PARSE_STR("#false", LF(0));
         REQUIRE_PARSE_STR("1 2", LF(1, 2));
-        REQUIRE_PARSE_STR("false true", LF(0, 1));
+        REQUIRE_PARSE_STR("#false #true", LF(0, 1));
         REQUIRE_PARSE_STR("@a 1", LA("@a", 1));
         REQUIRE_PARSE_STR("@a 1 2 3", LA("@a", 1, 2, 3));
         REQUIRE_PARSE_STR("@a 1 2 3 @b", LA("@a", 1, 2, 3, "@b"));
@@ -71,11 +72,11 @@ TEST_CASE("datastring3", "[ceammc::data]")
 
         REQUIRE_PARSE_STR("", L());
         REQUIRE_PARSE_STR("   ", L());
-        REQUIRE_PARSE_STR("null", LA(Atom()));
-        REQUIRE_PARSE_STR("null null", LA(Atom(), Atom()));
-        REQUIRE_PARSE_STR("      true", LF(1));
-        REQUIRE_PARSE_STR("false", LF(0));
-        REQUIRE_PARSE_STR("false true false true", LF(0, 1, 0, 1));
+        REQUIRE_PARSE_STR("#null", LA(Atom()));
+        REQUIRE_PARSE_STR("#null #null", LA(Atom(), Atom()));
+        REQUIRE_PARSE_STR("      #true", LF(1));
+        REQUIRE_PARSE_STR("#false", LF(0));
+        REQUIRE_PARSE_STR("#false #true #false #true", LF(0, 1, 0, 1));
         REQUIRE_PARSE_STR("0", LF(0));
         REQUIRE_PARSE_STR("+0", LF(0));
         REQUIRE_PARSE_STR("-0", LF(0));
