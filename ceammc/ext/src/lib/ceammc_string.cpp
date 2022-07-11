@@ -14,9 +14,10 @@
 #include "ceammc_string.h"
 #include "re2/re2.h"
 #include "utf8rewind/utf8rewind.h"
+#include "lex/parser_strings.h"
 
 #include <boost/algorithm/string.hpp>
-#include <boost/scoped_array.hpp>
+#include <boost/container/small_vector.hpp>
 #include <codecvt>
 #include <cstdlib>
 #include <iostream>
@@ -32,7 +33,24 @@
 //  `@ -> @
 
 static re2::RE2 re_double_quoted("\"(([^`\"]|`[`\"./:()@])*)\"");
-static re2::RE2 re_double_quoted_end("([^`\"]|`[`\"./:()@])*\"");
+
+constexpr auto CHAR_ESCAPE = '`';
+constexpr auto CHAR_DQUOTE = '"';
+constexpr auto CHAR_COMMA = ',';
+constexpr auto CHAR_DOT = '.';
+constexpr auto CHAR_BRACE_OPEN = '(';
+constexpr auto CHAR_BRACE_CLOSE = ')';
+constexpr auto CHAR_CURLY_OPEN = '{';
+constexpr auto CHAR_CURLY_CLOSE = '}';
+constexpr auto CHAR_SLASH = '/';
+constexpr auto CHAR_BACKSLASH = '\\';
+constexpr auto CHAR_SPACE = ' ';
+constexpr auto CHAR_COLON = ':';
+constexpr auto CHAR_SEMICOLON = ';';
+constexpr auto CHAR_AT = '@';
+
+using SmallString = boost::container::small_vector<char, 32>;
+using SmallWString = boost::container::small_vector<unicode_t, 32>;
 
 size_t ceammc::string::utf8_strlen(const char* str) noexcept
 {
@@ -41,59 +59,59 @@ size_t ceammc::string::utf8_strlen(const char* str) noexcept
 
 std::string ceammc::string::utf8_to_upper(const char* str)
 {
-    size_t input_size = strlen(str);
+    auto input_size = strlen(str);
     int32_t errors = 0;
 
-    size_t converted_size = utf8toupper(str, input_size, NULL, 0, UTF8_LOCALE_DEFAULT, &errors);
+    auto converted_size = utf8toupper(str, input_size, NULL, 0, UTF8_LOCALE_DEFAULT, &errors);
     if (converted_size == 0 || errors != UTF8_ERR_NONE)
-        return std::string();
+        return {};
 
-    boost::scoped_array<char> converted(new char[converted_size + 1]);
+    SmallString converted(converted_size + 1);
 
-    converted_size = utf8toupper(str, input_size, converted.get(), converted_size, UTF8_LOCALE_DEFAULT, &errors);
+    converted_size = utf8toupper(str, input_size, converted.data(), converted_size, UTF8_LOCALE_DEFAULT, &errors);
     if (converted_size == 0 || errors != UTF8_ERR_NONE)
-        return std::string();
+        return {};
 
-    return std::string(converted.get(), converted_size);
+    return std::string(converted.data(), converted_size);
 }
 
 std::string ceammc::string::utf8_to_lower(const char* str)
 {
-    size_t input_size = strlen(str);
+    auto input_size = strlen(str);
     int32_t errors = 0;
 
-    size_t converted_size = utf8tolower(str, input_size, NULL, 0, UTF8_LOCALE_DEFAULT, &errors);
+    auto converted_size = utf8tolower(str, input_size, NULL, 0, UTF8_LOCALE_DEFAULT, &errors);
     if (converted_size == 0 || errors != UTF8_ERR_NONE)
-        return std::string();
+        return {};
 
-    boost::scoped_array<char> converted(new char[converted_size + 1]);
+    SmallString converted(converted_size + 1);
 
-    converted_size = utf8tolower(str, input_size, converted.get(), converted_size, UTF8_LOCALE_DEFAULT, &errors);
+    converted_size = utf8tolower(str, input_size, converted.data(), converted_size, UTF8_LOCALE_DEFAULT, &errors);
     if (converted_size == 0 || errors != UTF8_ERR_NONE)
-        return std::string();
+        return {};
 
-    return std::string(converted.get(), converted_size);
+    return std::string(converted.data(), converted_size);
 }
 
 std::string ceammc::string::utf8_substr(const char* str, int from, size_t len)
 {
     int32_t errors = 0;
-    const size_t N = utf8len(str);
+    const auto N = utf8len(str);
 
     if (len == 0)
-        return std::string();
+        return {};
 
     // check range
     // positive position
     if (from >= 0 && from >= N)
-        return std::string();
+        return {};
 
     // negative position
     if (from < 0) {
         if (-from <= int(N))
             from += N;
         else
-            return std::string();
+            return {};
     }
 
     // clip
@@ -103,21 +121,21 @@ std::string ceammc::string::utf8_substr(const char* str, int from, size_t len)
     assert(from < N);
     assert(len <= N);
 
-    boost::scoped_array<unicode_t> wide(new unicode_t[N]);
-    boost::scoped_array<char> narrow(new char[strlen(str)]);
+    SmallWString wide(N);
+    SmallString narrow(strlen(str));
 
-    size_t converted_size = utf8toutf32(str, strlen(str),
-        wide.get(), N * sizeof(unicode_t), &errors);
+    auto converted_size = utf8toutf32(str, strlen(str),
+        wide.data(), N * sizeof(unicode_t), &errors);
 
     if (converted_size == 0 || errors != UTF8_ERR_NONE)
-        return std::string();
+        return {};
 
-    converted_size = utf32toutf8(wide.get() + from, len * sizeof(unicode_t),
-        narrow.get(), strlen(str), &errors);
+    converted_size = utf32toutf8(wide.data() + from, len * sizeof(unicode_t),
+        narrow.data(), strlen(str), &errors);
     if (converted_size == 0 || errors != UTF8_ERR_NONE)
-        return std::string();
+        return {};
 
-    return std::string(narrow.get(), converted_size);
+    return std::string(narrow.data(), converted_size);
 }
 
 void ceammc::string::utf8_split_by_char(std::vector<std::string>& vec, const char* str)
@@ -213,6 +231,50 @@ std::string ceammc::string::escape_for_json(const std::string& str)
     return res;
 }
 
+std::string ceammc::string::pd_string_escape(const char* str)
+{
+    const auto N = strlen(str);
+    std::string res;
+    res.reserve(N + 4);
+
+    for (size_t i = 0; i < N; i++) {
+        auto c = str[i];
+        switch (c) {
+        case CHAR_ESCAPE:
+        case CHAR_DQUOTE:
+        case CHAR_AT:
+            res += CHAR_ESCAPE;
+            res += c;
+            break;
+        case CHAR_COMMA:
+            res += CHAR_ESCAPE;
+            res += CHAR_DOT;
+            break;
+        case CHAR_CURLY_OPEN:
+            res += CHAR_ESCAPE;
+            res += CHAR_BRACE_OPEN;
+            break;
+        case CHAR_CURLY_CLOSE:
+            res += CHAR_ESCAPE;
+            res += CHAR_BRACE_CLOSE;
+            break;
+        case CHAR_BACKSLASH:
+            res += CHAR_ESCAPE;
+            res += CHAR_SLASH;
+            break;
+        case CHAR_SEMICOLON:
+            res += CHAR_ESCAPE;
+            res += CHAR_COLON;
+            break;
+        default:
+            res += c;
+            break;
+        }
+    }
+
+    return res;
+}
+
 std::string ceammc::string::pd_string_unescape(const std::string& str)
 {
     if (str.size() < 2)
@@ -287,33 +349,7 @@ bool ceammc::string::pd_string_parse(const std::string& str, std::string& out)
 
 bool ceammc::string::is_pd_string(const char* str)
 {
-    if (!str[0])
-        return false;
-
-    if (str[0] != '"')
-        return false;
-
-    const size_t N = strlen(str);
-    if (N < 2)
-        return false;
-
-    if (str[N - 1] != '"')
-        return false;
-
-    return re2::RE2::FullMatch(str, re_double_quoted);
-}
-
-bool ceammc::string::pd_string_end_quote(const char* str)
-{
-    const size_t N = strlen(str);
-
-    if (N < 1)
-        return false;
-
-    if (str[N - 1] != '"')
-        return false;
-
-    return re2::RE2::FullMatch(str, re_double_quoted_end);
+    return is_quoted_string(str);
 }
 
 std::string ceammc::string::remove_all(const std::string& input, const std::string& search)
@@ -446,8 +482,7 @@ std::string ceammc::string::utf8_remove_at(const char* str, int pos)
 
     std::u32string s32 = converter().from_bytes(str);
 
-    if(pos >= s32.length() || (pos < -s32.length())) {
-
+    if (pos >= s32.length() || (pos < -s32.length())) {
     }
     s32.erase(pos);
     std::sort(s32.begin(), s32.end());

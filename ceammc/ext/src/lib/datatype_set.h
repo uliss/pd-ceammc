@@ -17,7 +17,6 @@
 #include "ceammc_abstractdata.h"
 #include "ceammc_atomlist.h"
 #include "ceammc_data.h"
-#include "ceammc_maybe.h"
 
 #include <iosfwd>
 #include <unordered_set>
@@ -94,11 +93,15 @@ public:
     /** choose random element from set */
     bool choose(Atom& res) const noexcept;
 
-    std::string toString() const;
-    int type() const noexcept;
+    /** pure virtual implementations*/
+    DataTypeId type() const noexcept;
     bool isEqual(const AbstractData* d) const noexcept;
     AtomList toList(bool sorted = false) const;
     AbstractData* clone() const;
+    std::string toListStringContent() const noexcept final;
+    std::string toDictStringContent() const noexcept final;
+    bool set(const AbstractData* d) noexcept;
+
     bool operator==(const DataTypeSet& s) const noexcept;
     bool operator!=(const DataTypeSet& s) const noexcept { return !operator==(s); }
 
@@ -112,10 +115,11 @@ public:
     iterator end() noexcept { return data_.end(); }
     const_iterator end() const noexcept { return data_.end(); }
 
-    std::string toListConstructor() const noexcept final;
+public:
+    static bool looksLikeCtor(const AtomListView& lv) noexcept;
 
 public:
-    static const int dataType;
+    static const DataTypeId dataType;
 
     /**
      * Set intersection
@@ -148,13 +152,6 @@ public:
      * @param s1 - second set
      */
     static DataTypeSet sym_difference(const DataTypeSet& s0, const DataTypeSet& s1);
-
-public:
-    using MaybeSet = Maybe<DataTypeSet>;
-
-public:
-    static MaybeSet parse(const AtomListView& lv);
-    static MaybeSet parse(const std::string& str);
 };
 
 std::ostream& operator<<(std::ostream& os, const DataTypeSet& set);

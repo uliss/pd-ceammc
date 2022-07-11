@@ -112,30 +112,30 @@ atom         ::= data.
 pair(A)      ::= DICT_KEY(B).               { pinit(p, A, B); }
 pair(A)      ::= DICT_KEY(B) list(C).       { pinit(p, A, B); pappend(A, C); }
 
-pair_list(A) ::= pair(B).                   { plinit(p, A); plappend(A, B); }
+pair_list(A) ::= pair(B).                   { plinit(p, A);   plappend(A, B); }
 pair_list(A) ::= pair_list(B) pair(C).      { plassign(A, B); plappend(A, C); }
 
 // list based
-data(A)      ::= LIST_OPEN zlist(B) LIST_CLOSE.                 { linit(p, A); mlist(A, B); }
-data(A)      ::= DATA_NAME(B) LIST_OPEN zlist(C) LIST_CLOSE.    { linit(p, A); data_list(A, B, C); }
+data(A)      ::= LIST_OPEN zlist(B) LIST_CLOSE.                   { linit(p, A); mlist(A, B); }
+data(A)      ::= DATA_NAME(B) LIST_OPEN zlist(C) LIST_CLOSE.      { linit(p, A); data_list(A, B, C); }
 
 // dict based
-data(A)      ::= DICT_OPEN DICT_CLOSE.                          { dinit(p, A); }
-data(A)      ::= DICT_OPEN pair_list(B) DICT_CLOSE.             { dinit(p, A); dappend(A, B); }
-data(A)      ::= DATA_NAME(B) DICT_OPEN pair_list(C) DICT_CLOSE.{ linit(p, A); data_dict(A, B, C); }
-data(A)      ::= DATA_NAME(B) DICT_OPEN DICT_CLOSE.             { linit(p, A); data_empty_dict(A, B); }
+data(A)      ::= DICT_OPEN DICT_CLOSE.                            { dinit(p, A); }
+data(A)      ::= DICT_OPEN pair_list(B) DICT_CLOSE.               { dinit(p, A); dappend(A, B); }
+data(A)      ::= DATA_NAME(B) DICT_OPEN pair_list(C) DICT_CLOSE.  { linit(p, A); data_dict(A, B, C); }
+data(A)      ::= DATA_NAME(B) DICT_OPEN DICT_CLOSE.               { linit(p, A); data_empty_dict(A, B); }
 
 
 func_call(A) ::= FUNC_LIST_CALL(B) LIST_OPEN zlist(C) LIST_CLOSE. { linit(p, A); lcall(A, B, C); }
 
-latom(A)     ::= atom(B).                                   { linit(p, A); lpush(A, B); }
-latom(A)     ::= func_call(B).                              { lassign(A, B); }
+latom(A)     ::= atom(B).                                         { linit(p, A); lpush(A, B); }
+latom(A)     ::= func_call(B).                                    { lassign(A, B); }
 
-list(A)      ::= list(B) SPACE latom(C).                    { lassign(A, B); lappend(A, C); }
-list(A)      ::= latom(B).                                  { lassign(A, B); }
+list(A)      ::= list(B) SPACE latom(C).                          { lassign(A, B); lappend(A, C); }
+list(A)      ::= latom(B).                                        { lassign(A, B); }
 
-zlist(A)     ::= list(B).                                   { lassign(A, B); }
-zlist(A)     ::= .                                          { linit(p, A); }
+zlist(A)     ::= list(B).                                         { lassign(A, B); }
+zlist(A)     ::= .                                                { linit(p, A);   }
 
 %code {
 # include "ceammc_function.h"
@@ -144,45 +144,76 @@ namespace {
     using namespace ceammc;
 
     void data_list(token& res, const token& name, const token& args) {
+        if (!res.list) return;
+
         auto data_name = atom_getsymbol(&name.atom)->s_name;
         auto fn = DataStorage::instance().fromListFunction(data_name);
+
+        auto& l = *res.list;
         if(!fn) {
             LIB_ERR << fmt::format("datatype '{}'() not found", data_name);
-            res.list->clear();
+            l.clear();
             res.atom = Atom().atom();
             return;
         }
 
-        res.list->push_back(fn(args.list->view()));
-        res.atom = res.list->at(0).atom();
+        l.push_back(fn(args.list ? args.list->view() : AtomListView()));
+        res.atom = l.front().atom();
     }
 
     void data_empty_dict(token& res, const token& name) {
+        if (!res.list) return;
+
         auto data_name = atom_getsymbol(&name.atom)->s_name;
         auto fn = DataStorage::instance().fromDictFunction(data_name);
+
+        auto& l = *res.list;
         if(!fn) {
             LIB_ERR << fmt::format("datatype '{}'[] not found", data_name);
-            res.list->clear();
+            l.clear();
             res.atom = Atom().atom();
             return;
         }
 
-        res.list->push_back(fn({}));
-        res.atom = res.list->at(0).atom();
+        l.push_back(fn(DictAtom()));
+        res.atom = l.front().atom();
     }
 
-    void data_dict(token& res, const token& name, const token& args) {
+    void data_dict(token& res, const token& name, const token& plist) {
+        if (!res.list) return;
         auto data_name = atom_getsymbol(&name.atom)->s_name;
         auto fn = DataStorage::instance().fromDictFunction(data_name);
+
+        auto& l = *res.list;
         if(!fn) {
             LIB_ERR << fmt::format("datatype '{}'[] not found", data_name);
-            res.list->clear();
+            l.clear();
             res.atom = Atom().atom();
             return;
         }
 
-        res.list->push_back(fn({}));
-        res.atom = res.list->at(0).atom();
+        DictAtom dict;
+
+        const bool ok_plist = plist.list && !plist.list->empty();
+        if (ok_plist) {
+            const auto& l = *plist.list;
+
+            for (size_t i = 0; (i + 1) < l.size(); i += 2) {
+                const auto& k = l[i];
+                if (!k.isSymbol()) continue;
+                auto key = k.asT<t_symbol*>();
+
+                auto pv = toSmallList(l[i+1]);
+                if (pv && !pv->empty())
+                    dict->insert(key, pv->view());
+                else
+                    dict->insert(key, AtomListView());
+            }
+
+        }
+
+        l.push_back(fn(dict));
+        res.atom = l.front().atom();
     }
 
     void linit(Parser* p, token& tok) {
@@ -191,12 +222,14 @@ namespace {
 
     void lassign(token& a, token& b) {
         a.list = b.list;
-//        std::cerr << "- assign: " <<  b.list->view() << "\n";
     }
 
     void lcall(token& res, const token& fn, token& args) {
-        auto fname = atom_getsymbol(&fn.atom);
-        auto fn_result = BuiltinFunctionMap::instance().call(fname, args.list->view());
+        if (!args.list) return;
+        Atom a(fn.atom);
+        if (!a.isSymbol()) return;
+
+        auto fn_result = BuiltinFunctionMap::instance().call(a.asT<t_symbol*>(), args.list->view());
 
         for (auto& a: fn_result)
             res.list->push_back(a);

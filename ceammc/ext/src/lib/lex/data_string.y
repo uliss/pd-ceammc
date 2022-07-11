@@ -16,6 +16,7 @@
 %code requires{
     # include <memory>
     # include <vector>
+    # include <utility>
 
     # include "ceammc_atomlist.h"
     # include "ceammc_datastorage.h"
@@ -25,6 +26,9 @@
         class DataStringLexer;
     }
     }
+
+    using DictPair = std::pair<t_symbol*, ceammc::AtomList>;
+    using PairList = std::vector<DictPair>;
 
 # ifndef YY_NULLPTR
 #   define YY_NULLPTR nullptr
@@ -54,69 +58,58 @@
     # include "datatype_string.h"
     # include "fmt/format.h"
 
-    static ceammc::Atom createDataDict(const ceammc::Dict& v) {
-        using namespace ceammc;
+    using namespace ceammc;
 
-        auto dict = new DataTypeDict;
+    static ceammc::Atom createDataDict(const PairList& v) {
 
-        if(v.empty())
-            return dict;
+        DictAtom dict;
 
-        for(auto& kv: v) {
-            auto key = gensym(kv.first.c_str());
-            auto& val = kv.second;
-
-            if(val.isA<void>())
-                dict->insert(key, AtomList());
-            else if(val.isA<Atom>())
-                dict->insert(key, val.asT<Atom>());
-            else
-                dict->insert(key, val);
-        }
+        for (auto& kv: v)
+            dict->insert(kv.first, kv.second.view());
 
         return dict;
     }
 
     // create t_symbol* Atom with unescaped string
-    static ceammc::Atom createSimpleString(const std::string& str) {
-        return gensym(ceammc::string::pd_string_unescape(str).c_str());
+    static Atom createSimpleString(const std::string& str) {
+        return gensym(string::pd_string_unescape(str).c_str());
     }
 
     // create Atom with DataTypeString
-    static inline ceammc::Atom createDataString(const std::string& str) {
-        return new ceammc::DataTypeString(ceammc::string::pd_string_unescape(str).c_str());
+    static inline Atom createDataString(const std::string& str) {
+        return new DataTypeString(string::pd_string_unescape(str).c_str());
     }
 
-    static inline ceammc::Atom createDataList(const ceammc::AtomList& l) {
-        return new ceammc::DataTypeMList(l);
+    static inline Atom createDataList(const AtomList& l) {
+        return new DataTypeMList(l);
     }
 
-    static inline ceammc::AtomList callFunction(const std::string& name, const ceammc::AtomList& args) {
-        return ceammc::BuiltinFunctionMap::instance().call(gensym(name.c_str()), args);
+    static inline ceammc::AtomList callFunction(const std::string& name, const AtomList& args) {
+        return BuiltinFunctionMap::instance().call(gensym(name.c_str()), args);
     }
 
-    static inline ceammc::Atom createFromList(const std::string& name, const ceammc::AtomList& args) {
-        using namespace ceammc;
-
+    static inline Atom createFromList(const char* name, const AtomList& args) {
         auto fn = DataStorage::instance().fromListFunction(name);
         if(!fn) {
-            LIB_ERR << fmt::format("datatype {} not found", name);
+            LIB_ERR << fmt::format("datatype '{}' not found", name);
             return Atom();
         }
 
         return fn(args);
     }
 
-    static inline ceammc::Atom createFromDict(const std::string& name, const ceammc::Dict& v) {
-        using namespace ceammc;
-
+    static inline Atom createFromDict(const char* name, const PairList& plist) {
         auto fn = DataStorage::instance().fromDictFunction(name);
         if(fn == nullptr) {
-            LIB_ERR << fmt::format("can't create type {} from dict", name);
+            LIB_ERR << fmt::format("can't create type '{}' from dict", name);
             return Atom();
         }
 
-        return fn(v);
+        DictAtom dict;
+        for (auto& kv: plist)
+            dict->insert(kv.first, kv.second.view());
+
+        return fn(dict);
     }
 
     # undef yylex
@@ -141,8 +134,8 @@
 
 %nterm <ceammc::Atom>         atom data
 %nterm <ceammc::AtomList>     atom_list function_call expr
-%nterm <ceammc::DictEntry>    pair
-%nterm <ceammc::Dict>         pair_list
+%nterm <DictPair>             pair
+%nterm <PairList>             pair_list
 
 
 %start expr
@@ -150,27 +143,27 @@
 %%
 
 atom
-    : NULL                    { $$ = ceammc::Atom(); }
-    | COMMA                   { $$ = ceammc::Atom(gensym(",")); }
-    | FLOAT                   { $$ = ceammc::Atom($1); }
-    | SYMBOL                  { $$ = ceammc::Atom(gensym($1)); }
+    : NULL                    { $$ = Atom(); }
+    | COMMA                   { $$ = Atom(gensym(",")); }
+    | FLOAT                   { $$ = Atom($1); }
+    | SYMBOL                  { $$ = Atom(gensym($1)); }
     | STRING                  { $$ = createSimpleString($1); }
     | DATA_TYPE_STRING STRING { $$ = createDataString($2); }
     | data
     ;
 
 atom_list
-    : %empty           { $$ = ceammc::AtomList(); }
-    | atom_list atom   { $$.append($1); $$.append($2); }
+    : %empty                  { $$ = AtomList(); }
+    | atom_list atom          { $$.append($1); $$.append($2); }
     | atom_list function_call { $$.append($1); $$.append($2); }
     ;
 
 pair
-    : KEY atom_list   { $$ = { $1, $2 }; }
+    : KEY atom_list   { $$ = { gensym($1.c_str()), $2 }; }
     ;
 
 pair_list
-    : %empty         { $$ = Dict(); }
+    : %empty         { $$ = PairList(); }
     | pair_list pair { $$.insert($$.end(), $1.begin(), $1.end()); $$.push_back($2); }
     ;
 
@@ -180,9 +173,9 @@ function_call
 
 data
     : OPEN_DICT_BRACKET pair_list CLOSE_DICT_BRACKET             { $$ = createDataDict($2); }
-    | DATA_TYPE OPEN_DICT_BRACKET pair_list CLOSE_DICT_BRACKET   { $$ = createFromDict($1, $3); }
+    | DATA_TYPE OPEN_DICT_BRACKET pair_list CLOSE_DICT_BRACKET   { $$ = createFromDict($1.c_str(), $3); }
     | OPEN_LIST_BRACKET atom_list CLOSE_LIST_BRACKET             { $$ = createDataList($2); }
-    | DATA_TYPE OPEN_LIST_BRACKET atom_list CLOSE_LIST_BRACKET   { $$ = createFromList($1, $3); }
+    | DATA_TYPE OPEN_LIST_BRACKET atom_list CLOSE_LIST_BRACKET   { $$ = createFromList($1.c_str(), $3); }
     ;
 
 expr

@@ -101,8 +101,8 @@ namespace string {
     bool pd_string_parse(const std::string& str, std::string& out);
     bool pd_string_match(const std::string& str, std::string& matched);
     bool is_pd_string(const char* str);
-    bool pd_string_end_quote(const char* str);
     std::string pd_string_unescape(const std::string& str);
+    std::string pd_string_escape(const char* str);
 
     std::string escape_for_json(const std::string& str);
 }

@@ -78,12 +78,12 @@ bool Property::set(const AtomListView& lst)
     return res;
 }
 
-bool Property::setInit(const AtomListView& view)
+bool Property::setInit(const AtomListView& lv)
 {
     if (!initCheck())
         return false;
 
-    auto res = setList(view);
+    auto res = setList(lv);
     if (res && ok_fn_ptr_ && *ok_fn_ptr_)
         (*ok_fn_ptr_)(this);
 
@@ -1254,16 +1254,16 @@ SizeTProperty::SizeTProperty(const std::string& n, size_t init, PropValueAccess 
     info().setDefault(int(init));
 }
 
-bool SizeTProperty::setList(const AtomListView& lst)
+bool SizeTProperty::setList(const AtomListView& lv)
 {
-    if (!emptyCheck(lst))
+    if (!emptyCheck(lv))
         return false;
 
-    if (lst.size() == 1)
-        return setValue(lst[0]);
-    else if (lst.size() == 2 && lst[0].isSymbol() && lst[1].isFloat()) {
-        const auto val = lst[1].asT<int>();
-        const auto op = lst[0].asT<t_symbol*>()->s_name;
+    if (lv.size() == 1)
+        return setValue(lv[0]);
+    else if (lv.size() == 2 && lv[0].isSymbol() && lv[1].isFloat()) {
+        const auto val = lv[1].asT<int>();
+        const auto op = lv[0].asT<t_symbol*>()->s_name;
         if (is_op(op, '+'))
             return setValue(value() + val);
         else if (is_op(op, '-'))
@@ -1277,11 +1277,11 @@ bool SizeTProperty::setList(const AtomListView& lst)
             } else
                 return setValue(value() / val);
         } else {
-            PROP_ERR() << "expected +-*/, got: " << lst[0];
+            PROP_ERR() << "expected +-*/, got: " << lv[0];
             return false;
         }
     } else {
-        PROP_ERR() << "unsigned value expected, got " << lst;
+        PROP_ERR() << "unsigned value expected, got " << lv;
         return false;
     }
 }
@@ -1389,17 +1389,17 @@ AtomList SymbolProperty::get() const
     return Atom(value_);
 }
 
-bool SymbolProperty::setList(const AtomListView& lst)
+bool SymbolProperty::setList(const AtomListView& lv)
 {
-    if (!emptyCheck(lst))
+    if (!emptyCheck(lv))
         return false;
 
-    if (lst.size() != 1) {
-        PROP_ERR() << "symbol expected, got " << lst;
+    if (lv.size() != 1) {
+        PROP_ERR() << "symbol expected, got " << lv;
         return false;
     }
 
-    return setValue(lst[0]);
+    return setValue(lv[0]);
 }
 
 bool SymbolProperty::setSymbol(t_symbol* s)

@@ -27,7 +27,13 @@ namespace ceammc {
 template <size_t N = 4>
 class SmallAtomListN : public boost::container::small_vector<Atom, N> {
 public:
-    AtomListView view() const { return AtomListView(&this->front(), this->size()); }
+    AtomListView view() const
+    {
+        if (this->empty())
+            return {};
+        else
+            return { &this->front(), this->size() };
+    }
 };
 
 template <size_t N = 4>

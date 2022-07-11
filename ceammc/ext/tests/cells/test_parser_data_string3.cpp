@@ -142,6 +142,8 @@ TEST_CASE("datastring3", "[ceammc::data]")
         REQUIRE_PARSE_STR("(1)", MListAtom(1));
         REQUIRE_PARSE_STR("(1 2)", MListAtom(1, 2));
         REQUIRE_PARSE_STR("(1 2 ())", MListAtom(1, 2, MListAtom()));
+        REQUIRE_PARSE_STR("(1 2 [])", MListAtom(1, 2, DictAtom()));
+        REQUIRE_PARSE_STR("(1 2 [a: 'hello !'])", MListAtom(1, 2, DictAtom("[a: \"hello !\"]")));
         REQUIRE_PARSE_STR("(1 (2 3 (4 5 6)))", MListAtom(1, MListAtom(2, 3, MListAtom(4, 5, 6))));
 
         REQUIRE_PARSE_STR("[]", DictAtom());
@@ -156,11 +158,10 @@ TEST_CASE("datastring3", "[ceammc::data]")
         REQUIRE_PARSE_STR("[proto: http://]", DictAtom("[proto: http: \"//\"]"));
         REQUIRE_PARSE_STR("[proto: \"http://\"]", DictAtom("[proto: \"http://\"]"));
 
-
-//        REQUIRE_PARSE_STR("Dict[]", DictAtom());
-//        REQUIRE_PARSE_STR("Dict[   ]", DictAtom());
-//        REQUIRE_PARSE_STR("Dict[a:]", DictAtom("[a:]"));
-//        REQUIRE_PARSE_STR("Dict[a: b: c: 1 2 3]", DictAtom("[a:]"));
-        //        REQUIRE_PARSE_STR("1 symbol", LA(1, "symbol"));
+        REQUIRE_PARSE_STR("Dict[]", DictAtom());
+        REQUIRE_PARSE_STR("Dict[   ]", DictAtom());
+        REQUIRE_PARSE_STR("Dict[a:]", DictAtom("[a:]"));
+        REQUIRE_PARSE_STR("Dict[a: b: c: 1 2 3]", DictAtom("[b: a: c: 1 2 3]"));
+        REQUIRE_PARSE_STR("1 symbol", LA(1, "symbol"));
     }
 }

@@ -1,4 +1,4 @@
-// A Bison parser, made by GNU Bison 3.7.6.
+// A Bison parser, made by GNU Bison 3.8.2.
 
 // Skeleton interface for Bison LALR(1) parsers in C++
 
@@ -49,6 +49,7 @@
 
     # include <memory>
     # include <vector>
+    # include <utility>
 
     # include "ceammc_atomlist.h"
     # include "ceammc_datastorage.h"
@@ -59,11 +60,14 @@
     }
     }
 
+    using DictPair = std::pair<t_symbol*, ceammc::AtomList>;
+    using PairList = std::vector<DictPair>;
+
 # ifndef YY_NULLPTR
 #   define YY_NULLPTR nullptr
 # endif
 
-#line 67 "data_string.parser.hpp"
+#line 71 "data_string.parser.hpp"
 
 
 # include <cstdlib> // std::abort
@@ -134,12 +138,18 @@
 # define YY_USE(E) /* empty */
 #endif
 
-#if defined __GNUC__ && ! defined __ICC && 407 <= __GNUC__ * 100 + __GNUC_MINOR__
 /* Suppress an incorrect diagnostic about yylval being uninitialized.  */
-# define YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN                            \
+#if defined __GNUC__ && ! defined __ICC && 406 <= __GNUC__ * 100 + __GNUC_MINOR__
+# if __GNUC__ * 100 + __GNUC_MINOR__ < 407
+#  define YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN                           \
+    _Pragma ("GCC diagnostic push")                                     \
+    _Pragma ("GCC diagnostic ignored \"-Wuninitialized\"")
+# else
+#  define YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN                           \
     _Pragma ("GCC diagnostic push")                                     \
     _Pragma ("GCC diagnostic ignored \"-Wuninitialized\"")              \
     _Pragma ("GCC diagnostic ignored \"-Wmaybe-uninitialized\"")
+# endif
 # define YY_IGNORE_MAYBE_UNINITIALIZED_END      \
     _Pragma ("GCC diagnostic pop")
 #else
@@ -193,7 +203,7 @@
 
 #line 8 "data_string.y"
 namespace ceammc { namespace ds {
-#line 197 "data_string.parser.hpp"
+#line 207 "data_string.parser.hpp"
 
 
 
@@ -202,39 +212,44 @@ namespace ceammc { namespace ds {
   class DataStringParser
   {
   public:
-#ifndef YYSTYPE
+#ifdef YYSTYPE
+# ifdef __GNUC__
+#  pragma GCC message "bison: do not #define YYSTYPE in C++, use %define api.value.type"
+# endif
+    typedef YYSTYPE value_type;
+#else
   /// A buffer to store and retrieve objects.
   ///
   /// Sort of a variant, but does not keep track of the nature
   /// of the stored data, since that knowledge is available
   /// via the current parser state.
-  class semantic_type
+  class value_type
   {
   public:
     /// Type of *this.
-    typedef semantic_type self_type;
+    typedef value_type self_type;
 
     /// Empty construction.
-    semantic_type () YY_NOEXCEPT
-      : yybuffer_ ()
+    value_type () YY_NOEXCEPT
+      : yyraw_ ()
     {}
 
     /// Construct and fill.
     template <typename T>
-    semantic_type (YY_RVREF (T) t)
+    value_type (YY_RVREF (T) t)
     {
       new (yyas_<T> ()) T (YY_MOVE (t));
     }
 
 #if 201103L <= YY_CPLUSPLUS
     /// Non copyable.
-    semantic_type (const self_type&) = delete;
+    value_type (const self_type&) = delete;
     /// Non copyable.
     self_type& operator= (const self_type&) = delete;
 #endif
 
     /// Destruction, allowed only if empty.
-    ~semantic_type () YY_NOEXCEPT
+    ~value_type () YY_NOEXCEPT
     {}
 
 # if 201103L <= YY_CPLUSPLUS
@@ -358,7 +373,7 @@ namespace ceammc { namespace ds {
   private:
 #if YY_CPLUSPLUS < 201103L
     /// Non copyable.
-    semantic_type (const self_type&);
+    value_type (const self_type&);
     /// Non copyable.
     self_type& operator= (const self_type&);
 #endif
@@ -368,7 +383,7 @@ namespace ceammc { namespace ds {
     T*
     yyas_ () YY_NOEXCEPT
     {
-      void *yyp = yybuffer_.yyraw;
+      void *yyp = yyraw_;
       return static_cast<T*> (yyp);
      }
 
@@ -377,27 +392,27 @@ namespace ceammc { namespace ds {
     const T*
     yyas_ () const YY_NOEXCEPT
     {
-      const void *yyp = yybuffer_.yyraw;
+      const void *yyp = yyraw_;
       return static_cast<const T*> (yyp);
      }
 
     /// An auxiliary type to compute the largest semantic type.
     union union_type
     {
+      // pair
+      char dummy1[sizeof (DictPair)];
+
+      // pair_list
+      char dummy2[sizeof (PairList)];
+
       // atom
       // data
-      char dummy1[sizeof (ceammc::Atom)];
+      char dummy3[sizeof (ceammc::Atom)];
 
       // atom_list
       // function_call
       // expr
-      char dummy2[sizeof (ceammc::AtomList)];
-
-      // pair_list
-      char dummy3[sizeof (ceammc::Dict)];
-
-      // pair
-      char dummy4[sizeof (ceammc::DictEntry)];
+      char dummy4[sizeof (ceammc::AtomList)];
 
       // SYMBOL
       char dummy5[sizeof (const char*)];
@@ -419,15 +434,16 @@ namespace ceammc { namespace ds {
     union
     {
       /// Strongest alignment constraints.
-      long double yyalign_me;
+      long double yyalign_me_;
       /// A buffer large enough to store any of the semantic values.
-      char yyraw[size];
-    } yybuffer_;
+      char yyraw_[size];
+    };
   };
 
-#else
-    typedef YYSTYPE semantic_type;
 #endif
+    /// Backward compatibility (Bison 3.8).
+    typedef value_type semantic_type;
+
     /// Symbol locations.
     typedef location location_type;
 
@@ -478,7 +494,7 @@ namespace ceammc { namespace ds {
     };
 
     /// Token kind, as returned by yylex.
-    typedef token::yytokentype token_kind_type;
+    typedef token::token_kind_type token_kind_type;
 
     /// Backward compatibility alias (Bison 3.6).
     typedef token_kind_type token_type;
@@ -537,7 +553,7 @@ namespace ceammc { namespace ds {
       typedef Base super_type;
 
       /// Default constructor.
-      basic_symbol ()
+      basic_symbol () YY_NOEXCEPT
         : value ()
         , location ()
       {}
@@ -551,6 +567,14 @@ namespace ceammc { namespace ds {
       {
         switch (this->kind ())
     {
+      case symbol_kind::S_pair: // pair
+        value.move< DictPair > (std::move (that.value));
+        break;
+
+      case symbol_kind::S_pair_list: // pair_list
+        value.move< PairList > (std::move (that.value));
+        break;
+
       case symbol_kind::S_atom: // atom
       case symbol_kind::S_data: // data
         value.move< ceammc::Atom > (std::move (that.value));
@@ -560,14 +584,6 @@ namespace ceammc { namespace ds {
       case symbol_kind::S_function_call: // function_call
       case symbol_kind::S_expr: // expr
         value.move< ceammc::AtomList > (std::move (that.value));
-        break;
-
-      case symbol_kind::S_pair_list: // pair_list
-        value.move< ceammc::Dict > (std::move (that.value));
-        break;
-
-      case symbol_kind::S_pair: // pair
-        value.move< ceammc::DictEntry > (std::move (that.value));
         break;
 
       case symbol_kind::S_SYMBOL: // SYMBOL
@@ -609,6 +625,34 @@ namespace ceammc { namespace ds {
 #endif
 
 #if 201103L <= YY_CPLUSPLUS
+      basic_symbol (typename Base::kind_type t, DictPair&& v, location_type&& l)
+        : Base (t)
+        , value (std::move (v))
+        , location (std::move (l))
+      {}
+#else
+      basic_symbol (typename Base::kind_type t, const DictPair& v, const location_type& l)
+        : Base (t)
+        , value (v)
+        , location (l)
+      {}
+#endif
+
+#if 201103L <= YY_CPLUSPLUS
+      basic_symbol (typename Base::kind_type t, PairList&& v, location_type&& l)
+        : Base (t)
+        , value (std::move (v))
+        , location (std::move (l))
+      {}
+#else
+      basic_symbol (typename Base::kind_type t, const PairList& v, const location_type& l)
+        : Base (t)
+        , value (v)
+        , location (l)
+      {}
+#endif
+
+#if 201103L <= YY_CPLUSPLUS
       basic_symbol (typename Base::kind_type t, ceammc::Atom&& v, location_type&& l)
         : Base (t)
         , value (std::move (v))
@@ -630,34 +674,6 @@ namespace ceammc { namespace ds {
       {}
 #else
       basic_symbol (typename Base::kind_type t, const ceammc::AtomList& v, const location_type& l)
-        : Base (t)
-        , value (v)
-        , location (l)
-      {}
-#endif
-
-#if 201103L <= YY_CPLUSPLUS
-      basic_symbol (typename Base::kind_type t, ceammc::Dict&& v, location_type&& l)
-        : Base (t)
-        , value (std::move (v))
-        , location (std::move (l))
-      {}
-#else
-      basic_symbol (typename Base::kind_type t, const ceammc::Dict& v, const location_type& l)
-        : Base (t)
-        , value (v)
-        , location (l)
-      {}
-#endif
-
-#if 201103L <= YY_CPLUSPLUS
-      basic_symbol (typename Base::kind_type t, ceammc::DictEntry&& v, location_type&& l)
-        : Base (t)
-        , value (std::move (v))
-        , location (std::move (l))
-      {}
-#else
-      basic_symbol (typename Base::kind_type t, const ceammc::DictEntry& v, const location_type& l)
         : Base (t)
         , value (v)
         , location (l)
@@ -712,6 +728,8 @@ namespace ceammc { namespace ds {
         clear ();
       }
 
+
+
       /// Destroy contents, and record that is empty.
       void clear () YY_NOEXCEPT
       {
@@ -728,6 +746,14 @@ namespace ceammc { namespace ds {
         // Value type destructor.
 switch (yykind)
     {
+      case symbol_kind::S_pair: // pair
+        value.template destroy< DictPair > ();
+        break;
+
+      case symbol_kind::S_pair_list: // pair_list
+        value.template destroy< PairList > ();
+        break;
+
       case symbol_kind::S_atom: // atom
       case symbol_kind::S_data: // data
         value.template destroy< ceammc::Atom > ();
@@ -737,14 +763,6 @@ switch (yykind)
       case symbol_kind::S_function_call: // function_call
       case symbol_kind::S_expr: // expr
         value.template destroy< ceammc::AtomList > ();
-        break;
-
-      case symbol_kind::S_pair_list: // pair_list
-        value.template destroy< ceammc::Dict > ();
-        break;
-
-      case symbol_kind::S_pair: // pair
-        value.template destroy< ceammc::DictEntry > ();
         break;
 
       case symbol_kind::S_SYMBOL: // SYMBOL
@@ -785,7 +803,7 @@ switch (yykind)
       void move (basic_symbol& s);
 
       /// The semantic value.
-      semantic_type value;
+      value_type value;
 
       /// The location.
       location_type location;
@@ -800,22 +818,24 @@ switch (yykind)
     /// Type access provider for token (enum) based symbols.
     struct by_kind
     {
-      /// Default constructor.
-      by_kind ();
-
-#if 201103L <= YY_CPLUSPLUS
-      /// Move constructor.
-      by_kind (by_kind&& that);
-#endif
-
-      /// Copy constructor.
-      by_kind (const by_kind& that);
-
       /// The symbol kind as needed by the constructor.
       typedef token_kind_type kind_type;
 
+      /// Default constructor.
+      by_kind () YY_NOEXCEPT;
+
+#if 201103L <= YY_CPLUSPLUS
+      /// Move constructor.
+      by_kind (by_kind&& that) YY_NOEXCEPT;
+#endif
+
+      /// Copy constructor.
+      by_kind (const by_kind& that) YY_NOEXCEPT;
+
       /// Constructor from (external) token numbers.
-      by_kind (kind_type t);
+      by_kind (kind_type t) YY_NOEXCEPT;
+
+
 
       /// Record that this symbol is empty.
       void clear () YY_NOEXCEPT;
@@ -845,39 +865,39 @@ switch (yykind)
       typedef basic_symbol<by_kind> super_type;
 
       /// Empty symbol.
-      symbol_type () {}
+      symbol_type () YY_NOEXCEPT {}
 
       /// Constructor for valueless symbols, and symbols from each type.
 #if 201103L <= YY_CPLUSPLUS
       symbol_type (int tok, location_type l)
-        : super_type(token_type (tok), std::move (l))
+        : super_type (token_kind_type (tok), std::move (l))
 #else
       symbol_type (int tok, const location_type& l)
-        : super_type(token_type (tok), l)
+        : super_type (token_kind_type (tok), l)
 #endif
       {}
 #if 201103L <= YY_CPLUSPLUS
       symbol_type (int tok, const char* v, location_type l)
-        : super_type(token_type (tok), std::move (v), std::move (l))
+        : super_type (token_kind_type (tok), std::move (v), std::move (l))
 #else
       symbol_type (int tok, const const char*& v, const location_type& l)
-        : super_type(token_type (tok), v, l)
+        : super_type (token_kind_type (tok), v, l)
 #endif
       {}
 #if 201103L <= YY_CPLUSPLUS
       symbol_type (int tok, double v, location_type l)
-        : super_type(token_type (tok), std::move (v), std::move (l))
+        : super_type (token_kind_type (tok), std::move (v), std::move (l))
 #else
       symbol_type (int tok, const double& v, const location_type& l)
-        : super_type(token_type (tok), v, l)
+        : super_type (token_kind_type (tok), v, l)
 #endif
       {}
 #if 201103L <= YY_CPLUSPLUS
       symbol_type (int tok, std::string v, location_type l)
-        : super_type(token_type (tok), std::move (v), std::move (l))
+        : super_type (token_kind_type (tok), std::move (v), std::move (l))
 #else
       symbol_type (int tok, const std::string& v, const location_type& l)
-        : super_type(token_type (tok), v, l)
+        : super_type (token_kind_type (tok), v, l)
 #endif
       {}
     };
@@ -927,7 +947,7 @@ switch (yykind)
     /// YYSYMBOL.  No bounds checking.
     static std::string symbol_name (symbol_kind_type yysymbol);
 
-    // Implementation of make_symbol for each symbol type.
+    // Implementation of make_symbol for each token kind.
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
@@ -1229,19 +1249,19 @@ switch (yykind)
 
     /// Whether the given \c yypact_ value indicates a defaulted state.
     /// \param yyvalue   the value to check
-    static bool yy_pact_value_is_default_ (int yyvalue);
+    static bool yy_pact_value_is_default_ (int yyvalue) YY_NOEXCEPT;
 
     /// Whether the given \c yytable_ value indicates a syntax error.
     /// \param yyvalue   the value to check
-    static bool yy_table_value_is_error_ (int yyvalue);
+    static bool yy_table_value_is_error_ (int yyvalue) YY_NOEXCEPT;
 
     static const signed char yypact_ninf_;
     static const signed char yytable_ninf_;
 
     /// Convert a scanner token kind \a t to a symbol kind.
     /// In theory \a t should be a token_kind_type, but character literals
-    /// are valid, yet not members of the token_type enum.
-    static symbol_kind_type yytranslate_ (int t);
+    /// are valid, yet not members of the token_kind_type enum.
+    static symbol_kind_type yytranslate_ (int t) YY_NOEXCEPT;
 
     /// Convert the symbol name \a n to a form suitable for a diagnostic.
     static std::string yytnamerr_ (const char *yystr);
@@ -1273,14 +1293,14 @@ switch (yykind)
 
     static const signed char yycheck_[];
 
-    // YYSTOS[STATE-NUM] -- The (internal number of the) accessing
-    // symbol of state STATE-NUM.
+    // YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
+    // state STATE-NUM.
     static const signed char yystos_[];
 
-    // YYR1[YYN] -- Symbol number of symbol that rule YYN derives.
+    // YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.
     static const signed char yyr1_[];
 
-    // YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.
+    // YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.
     static const signed char yyr2_[];
 
 
@@ -1379,7 +1399,7 @@ switch (yykind)
       typedef typename S::size_type size_type;
       typedef typename std::ptrdiff_t index_type;
 
-      stack (size_type n = 200)
+      stack (size_type n = 200) YY_NOEXCEPT
         : seq_ (n)
       {}
 
@@ -1458,7 +1478,7 @@ switch (yykind)
       class slice
       {
       public:
-        slice (const stack& stack, index_type range)
+        slice (const stack& stack, index_type range) YY_NOEXCEPT
           : stack_ (stack)
           , range_ (range)
         {}
@@ -1508,7 +1528,7 @@ switch (yykind)
     void yypush_ (const char* m, state_type s, YY_MOVE_REF (symbol_type) sym);
 
     /// Pop \a n symbols from the stack.
-    void yypop_ (int n = 1);
+    void yypop_ (int n = 1) YY_NOEXCEPT;
 
     /// Constants.
     enum
@@ -1527,7 +1547,7 @@ switch (yykind)
 
   inline
   DataStringParser::symbol_kind_type
-  DataStringParser::yytranslate_ (int t)
+  DataStringParser::yytranslate_ (int t) YY_NOEXCEPT
   {
     // YYTRANSLATE[TOKEN-NUM] -- Symbol number corresponding to
     // TOKEN-NUM as returned by yylex.
@@ -1570,7 +1590,7 @@ switch (yykind)
     if (t <= 0)
       return symbol_kind::S_YYEOF;
     else if (t <= code_max)
-      return YY_CAST (symbol_kind_type, translate_table[t]);
+      return static_cast <symbol_kind_type> (translate_table[t]);
     else
       return symbol_kind::S_YYUNDEF;
   }
@@ -1584,6 +1604,14 @@ switch (yykind)
   {
     switch (this->kind ())
     {
+      case symbol_kind::S_pair: // pair
+        value.copy< DictPair > (YY_MOVE (that.value));
+        break;
+
+      case symbol_kind::S_pair_list: // pair_list
+        value.copy< PairList > (YY_MOVE (that.value));
+        break;
+
       case symbol_kind::S_atom: // atom
       case symbol_kind::S_data: // data
         value.copy< ceammc::Atom > (YY_MOVE (that.value));
@@ -1593,14 +1621,6 @@ switch (yykind)
       case symbol_kind::S_function_call: // function_call
       case symbol_kind::S_expr: // expr
         value.copy< ceammc::AtomList > (YY_MOVE (that.value));
-        break;
-
-      case symbol_kind::S_pair_list: // pair_list
-        value.copy< ceammc::Dict > (YY_MOVE (that.value));
-        break;
-
-      case symbol_kind::S_pair: // pair
-        value.copy< ceammc::DictEntry > (YY_MOVE (that.value));
         break;
 
       case symbol_kind::S_SYMBOL: // SYMBOL
@@ -1626,12 +1646,14 @@ switch (yykind)
 
 
 
+
   template <typename Base>
   DataStringParser::symbol_kind_type
   DataStringParser::basic_symbol<Base>::type_get () const YY_NOEXCEPT
   {
     return this->kind ();
   }
+
 
   template <typename Base>
   bool
@@ -1647,6 +1669,14 @@ switch (yykind)
     super_type::move (s);
     switch (this->kind ())
     {
+      case symbol_kind::S_pair: // pair
+        value.move< DictPair > (YY_MOVE (s.value));
+        break;
+
+      case symbol_kind::S_pair_list: // pair_list
+        value.move< PairList > (YY_MOVE (s.value));
+        break;
+
       case symbol_kind::S_atom: // atom
       case symbol_kind::S_data: // data
         value.move< ceammc::Atom > (YY_MOVE (s.value));
@@ -1656,14 +1686,6 @@ switch (yykind)
       case symbol_kind::S_function_call: // function_call
       case symbol_kind::S_expr: // expr
         value.move< ceammc::AtomList > (YY_MOVE (s.value));
-        break;
-
-      case symbol_kind::S_pair_list: // pair_list
-        value.move< ceammc::Dict > (YY_MOVE (s.value));
-        break;
-
-      case symbol_kind::S_pair: // pair
-        value.move< ceammc::DictEntry > (YY_MOVE (s.value));
         break;
 
       case symbol_kind::S_SYMBOL: // SYMBOL
@@ -1690,13 +1712,13 @@ switch (yykind)
 
   // by_kind.
   inline
-  DataStringParser::by_kind::by_kind ()
+  DataStringParser::by_kind::by_kind () YY_NOEXCEPT
     : kind_ (symbol_kind::S_YYEMPTY)
   {}
 
 #if 201103L <= YY_CPLUSPLUS
   inline
-  DataStringParser::by_kind::by_kind (by_kind&& that)
+  DataStringParser::by_kind::by_kind (by_kind&& that) YY_NOEXCEPT
     : kind_ (that.kind_)
   {
     that.clear ();
@@ -1704,14 +1726,16 @@ switch (yykind)
 #endif
 
   inline
-  DataStringParser::by_kind::by_kind (const by_kind& that)
+  DataStringParser::by_kind::by_kind (const by_kind& that) YY_NOEXCEPT
     : kind_ (that.kind_)
   {}
 
   inline
-  DataStringParser::by_kind::by_kind (token_kind_type t)
+  DataStringParser::by_kind::by_kind (token_kind_type t) YY_NOEXCEPT
     : kind_ (yytranslate_ (t))
   {}
+
+
 
   inline
   void
@@ -1735,6 +1759,7 @@ switch (yykind)
     return kind_;
   }
 
+
   inline
   DataStringParser::symbol_kind_type
   DataStringParser::by_kind::type_get () const YY_NOEXCEPT
@@ -1742,9 +1767,10 @@ switch (yykind)
     return this->kind ();
   }
 
+
 #line 8 "data_string.y"
 } } // ceammc::ds
-#line 1748 "data_string.parser.hpp"
+#line 1774 "data_string.parser.hpp"
 
 
 

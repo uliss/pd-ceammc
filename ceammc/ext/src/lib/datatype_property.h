@@ -26,7 +26,7 @@ public:
     DataTypeProperty(t_symbol* name);
     DataTypeProperty(const DataTypeProperty& p);
 
-    int type() const noexcept override;
+    DataTypeId type() const noexcept override;
     DataTypeProperty* clone() const override;
     std::string toString() const override;
 
@@ -34,13 +34,13 @@ public:
     void setTypeInt(int def = 0);
     void setTypeBool(bool def);
     void setTypeSymbol(t_symbol* def);
-    void setTypeList(const AtomList& def);
+    void setTypeList(const AtomListView& def);
 
     bool setBool(bool v);
     bool setFloat(t_float f);
     bool setInt(int v);
     bool setSymbol(t_symbol* s);
-    bool setList(const AtomList& lst);
+    bool setList(const AtomListView& lv);
     bool setFromPdArgs(const AtomListView& lv);
 
     void restoreDefault();
@@ -76,8 +76,13 @@ public:
 
     PropertyInfo info() const;
 
+    std::string toListStringContent() const final;
+    std::string toDictStringContent() const final;
+    bool set(const AbstractData* d) noexcept final;
+
+
 public:
-    static const int dataType;
+    static const DataTypeId dataType;
 
 private:
     void updateAll();

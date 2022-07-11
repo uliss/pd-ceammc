@@ -92,14 +92,21 @@ public:
     /**
      * Polynorphic data type
      */
-    int type() const noexcept final;
+    DataTypeId type() const noexcept final;
 
     /**
      * Polymorphic string value
      */
     std::string toString() const override;
 
-    std::string valueToJsonString() const override;
+    /**
+     * Output as JSON string
+     */
+    std::string toJsonString() const final;
+
+    std::string toListStringContent() const final;
+    std::string toDictStringContent() const final;
+    bool set(const AbstractData* d) noexcept final;
 
     /**
      * Polymorphics equality check
@@ -156,8 +163,8 @@ public:
      */
     void insert(const char* key, const Atom& atom) { insert(gensym(key), atom); }
     void insert(t_symbol* key, const Atom& atom) { dict_[key] = atom; }
-    void insert(const char* key, const AtomList& value) { insert(gensym(key), value); }
-    void insert(t_symbol* key, const AtomList& value) { dict_[key] = value; }
+    void insert(const char* key, const AtomListView& value) { insert(gensym(key), value); }
+    void insert(t_symbol* key, const AtomListView& value) { dict_[key] = value; }
 
     /**
      * Remove dict entries by key predicate
@@ -176,30 +183,34 @@ public:
      */
     void clear() noexcept { dict_.clear(); }
 
-    bool fromString(const std::string& str);
-
     MaybeString toJSON(int indent = -1) const;
     bool fromJSON(const std::string& str);
 
     bool read(const std::string& path);
     bool write(const std::string& path) const;
 
+    /**
+     * Randomly choose key from dict
+     * @param key - destination to write random element
+     * @return true on success, false on error
+     */
     bool choose(Atom& key) const noexcept;
 
     const_iterator find(t_symbol* key) const { return dict_.find(key); }
+    const_iterator find(const char* key) const { return dict_.find(gensym(key)); }
 
 public:
     /**
      * Creates dict from list, splitting it by step
      * @param step - should be >0
      */
-    static DataTypeDict fromList(const AtomList& l, size_t step = 2);
+    static DataTypeDict fromList(const AtomListView& lv, size_t step = 2);
 
     DictMap& innerData() { return dict_; }
     const DictMap& innerData() const { return dict_; }
 
 public:
-    static const int dataType;
+    static const DataTypeId dataType;
 };
 
 std::ostream& operator<<(std::ostream& os, const DataTypeDict& dict);

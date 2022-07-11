@@ -991,7 +991,7 @@ static YYACTIONTYPE yy_reduce(
         break;
       case 3: /* pair_list ::= pair */
 #line 115 "lemon_data_string.y"
-{ plinit(p, yylhsminor.yy0); plappend(yylhsminor.yy0, yymsp[0].minor.yy0); }
+{ plinit(p, yylhsminor.yy0);   plappend(yylhsminor.yy0, yymsp[0].minor.yy0); }
 #line 995 "lemon_data_string.c"
   yymsp[0].minor.yy0 = yylhsminor.yy0;
         break;
@@ -1062,7 +1062,7 @@ static YYACTIONTYPE yy_reduce(
         break;
       case 17: /* zlist ::= */
 #line 138 "lemon_data_string.y"
-{ linit(p, yymsp[1].minor.yy0); }
+{ linit(p, yymsp[1].minor.yy0);   }
 #line 1066 "lemon_data_string.c"
         break;
       default:
@@ -1426,45 +1426,76 @@ namespace {
     using namespace ceammc;
 
     void data_list(token& res, const token& name, const token& args) {
+        if (!res.list) return;
+
         auto data_name = atom_getsymbol(&name.atom)->s_name;
         auto fn = DataStorage::instance().fromListFunction(data_name);
+
+        auto& l = *res.list;
         if(!fn) {
             LIB_ERR << fmt::format("datatype '{}'() not found", data_name);
-            res.list->clear();
+            l.clear();
             res.atom = Atom().atom();
             return;
         }
 
-        res.list->push_back(fn(args.list->view()));
-        res.atom = res.list->at(0).atom();
+        l.push_back(fn(args.list ? args.list->view() : AtomListView()));
+        res.atom = l.front().atom();
     }
 
     void data_empty_dict(token& res, const token& name) {
+        if (!res.list) return;
+
         auto data_name = atom_getsymbol(&name.atom)->s_name;
         auto fn = DataStorage::instance().fromDictFunction(data_name);
+
+        auto& l = *res.list;
         if(!fn) {
             LIB_ERR << fmt::format("datatype '{}'[] not found", data_name);
-            res.list->clear();
+            l.clear();
             res.atom = Atom().atom();
             return;
         }
 
-        res.list->push_back(fn({}));
-        res.atom = res.list->at(0).atom();
+        l.push_back(fn(DictAtom()));
+        res.atom = l.front().atom();
     }
 
-    void data_dict(token& res, const token& name, const token& args) {
+    void data_dict(token& res, const token& name, const token& plist) {
+        if (!res.list) return;
         auto data_name = atom_getsymbol(&name.atom)->s_name;
         auto fn = DataStorage::instance().fromDictFunction(data_name);
+
+        auto& l = *res.list;
         if(!fn) {
             LIB_ERR << fmt::format("datatype '{}'[] not found", data_name);
-            res.list->clear();
+            l.clear();
             res.atom = Atom().atom();
             return;
         }
 
-        res.list->push_back(fn({}));
-        res.atom = res.list->at(0).atom();
+        DictAtom dict;
+
+        const bool ok_plist = plist.list && !plist.list->empty();
+        if (ok_plist) {
+            const auto& l = *plist.list;
+
+            for (size_t i = 0; (i + 1) < l.size(); i += 2) {
+                const auto& k = l[i];
+                if (!k.isSymbol()) continue;
+                auto key = k.asT<t_symbol*>();
+
+                auto pv = toSmallList(l[i+1]);
+                if (pv && !pv->empty())
+                    dict->insert(key, pv->view());
+                else
+                    dict->insert(key, AtomListView());
+            }
+
+        }
+
+        l.push_back(fn(dict));
+        res.atom = l.front().atom();
     }
 
     void linit(Parser* p, token& tok) {
@@ -1473,12 +1504,14 @@ namespace {
 
     void lassign(token& a, token& b) {
         a.list = b.list;
-//        std::cerr << "- assign: " <<  b.list->view() << "\n";
     }
 
     void lcall(token& res, const token& fn, token& args) {
-        auto fname = atom_getsymbol(&fn.atom);
-        auto fn_result = BuiltinFunctionMap::instance().call(fname, args.list->view());
+        if (!args.list) return;
+        Atom a(fn.atom);
+        if (!a.isSymbol()) return;
+
+        auto fn_result = BuiltinFunctionMap::instance().call(a.asT<t_symbol*>(), args.list->view());
 
         for (auto& a: fn_result)
             res.list->push_back(a);
@@ -1559,4 +1592,4 @@ namespace {
         }
     }
 }
-#line 1562 "lemon_data_string.c"
+#line 1595 "lemon_data_string.c"

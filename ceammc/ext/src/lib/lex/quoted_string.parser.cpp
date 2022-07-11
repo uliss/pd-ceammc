@@ -1,4 +1,4 @@
-// A Bison parser, made by GNU Bison 3.7.6.
+// A Bison parser, made by GNU Bison 3.8.2.
 
 // Skeleton implementation for Bison LALR(1) parsers in C++
 
@@ -142,9 +142,9 @@ namespace ceammc {
   QuotedAtomListParser::syntax_error::~syntax_error () YY_NOEXCEPT YY_NOTHROW
   {}
 
-  /*---------------.
-  | symbol kinds.  |
-  `---------------*/
+  /*---------.
+  | symbol.  |
+  `---------*/
 
   // basic_symbol.
   template <typename Base>
@@ -162,10 +162,11 @@ namespace ceammc {
   {}
 
   template <typename Base>
-  QuotedAtomListParser::basic_symbol<Base>::basic_symbol (typename Base::kind_type t, YY_RVREF (semantic_type) v)
+  QuotedAtomListParser::basic_symbol<Base>::basic_symbol (typename Base::kind_type t, YY_RVREF (value_type) v)
     : Base (t)
     , value (YY_MOVE (v))
   {}
+
 
   template <typename Base>
   QuotedAtomListParser::symbol_kind_type
@@ -173,6 +174,7 @@ namespace ceammc {
   {
     return this->kind ();
   }
+
 
   template <typename Base>
   bool
@@ -190,25 +192,27 @@ namespace ceammc {
   }
 
   // by_kind.
-  QuotedAtomListParser::by_kind::by_kind ()
+  QuotedAtomListParser::by_kind::by_kind () YY_NOEXCEPT
     : kind_ (symbol_kind::S_YYEMPTY)
   {}
 
 #if 201103L <= YY_CPLUSPLUS
-  QuotedAtomListParser::by_kind::by_kind (by_kind&& that)
+  QuotedAtomListParser::by_kind::by_kind (by_kind&& that) YY_NOEXCEPT
     : kind_ (that.kind_)
   {
     that.clear ();
   }
 #endif
 
-  QuotedAtomListParser::by_kind::by_kind (const by_kind& that)
+  QuotedAtomListParser::by_kind::by_kind (const by_kind& that) YY_NOEXCEPT
     : kind_ (that.kind_)
   {}
 
-  QuotedAtomListParser::by_kind::by_kind (token_kind_type t)
+  QuotedAtomListParser::by_kind::by_kind (token_kind_type t) YY_NOEXCEPT
     : kind_ (yytranslate_ (t))
   {}
+
+
 
   void
   QuotedAtomListParser::by_kind::clear () YY_NOEXCEPT
@@ -229,11 +233,13 @@ namespace ceammc {
     return kind_;
   }
 
+
   QuotedAtomListParser::symbol_kind_type
   QuotedAtomListParser::by_kind::type_get () const YY_NOEXCEPT
   {
     return this->kind ();
   }
+
 
 
   // by_state.
@@ -361,7 +367,7 @@ namespace ceammc {
   }
 
   void
-  QuotedAtomListParser::yypop_ (int n)
+  QuotedAtomListParser::yypop_ (int n) YY_NOEXCEPT
   {
     yystack_.pop (n);
   }
@@ -404,13 +410,13 @@ namespace ceammc {
   }
 
   bool
-  QuotedAtomListParser::yy_pact_value_is_default_ (int yyvalue)
+  QuotedAtomListParser::yy_pact_value_is_default_ (int yyvalue) YY_NOEXCEPT
   {
     return yyvalue == yypact_ninf_;
   }
 
   bool
-  QuotedAtomListParser::yy_table_value_is_error_ (int yyvalue)
+  QuotedAtomListParser::yy_table_value_is_error_ (int yyvalue) YY_NOEXCEPT
   {
     return yyvalue == yytable_ninf_;
   }
@@ -574,83 +580,83 @@ namespace ceammc {
   case 2: // SIMPLE_ATOM_LIST: SIMPLE_ATOM
 #line 59 "quoted_string.y"
                                    { yylhs.value.start = lexer.idx(); yylhs.value.end = lexer.idx(); }
-#line 578 "quoted_string.parser.cpp"
+#line 584 "quoted_string.parser.cpp"
     break;
 
   case 3: // SIMPLE_ATOM_LIST: SIMPLE_ATOM_LIST SIMPLE_ATOM
 #line 60 "quoted_string.y"
                                    { yylhs.value.start = yystack_[1].value.start; yylhs.value.end = lexer.idx(); }
-#line 584 "quoted_string.parser.cpp"
+#line 590 "quoted_string.parser.cpp"
     break;
 
   case 4: // DQB: DOUBLE_QUOTE_BEGIN
 #line 64 "quoted_string.y"
                          { yylhs.value.start = lexer.idx(); }
-#line 590 "quoted_string.parser.cpp"
+#line 596 "quoted_string.parser.cpp"
     break;
 
   case 5: // DQB: DOUBLE_QUOTE
 #line 65 "quoted_string.y"
                          { yylhs.value.start = lexer.idx(); yylhs.value.end = lexer.idx(); }
-#line 596 "quoted_string.parser.cpp"
+#line 602 "quoted_string.parser.cpp"
     break;
 
   case 6: // DQE: DOUBLE_QUOTE_END
 #line 69 "quoted_string.y"
                          { yylhs.value.end = lexer.idx(); }
-#line 602 "quoted_string.parser.cpp"
+#line 608 "quoted_string.parser.cpp"
     break;
 
   case 7: // DQE: DOUBLE_QUOTE
 #line 70 "quoted_string.y"
                          { yylhs.value.start = lexer.idx(); yylhs.value.end = lexer.idx(); }
-#line 608 "quoted_string.parser.cpp"
+#line 614 "quoted_string.parser.cpp"
     break;
 
   case 8: // DOUBLE_QUOTED_STRING: DQB DQE
 #line 74 "quoted_string.y"
                                { yylhs.value.start = yystack_[1].value.start; yylhs.value.end = yystack_[0].value.end; }
-#line 614 "quoted_string.parser.cpp"
+#line 620 "quoted_string.parser.cpp"
     break;
 
   case 9: // DOUBLE_QUOTED_STRING: DQB SIMPLE_ATOM_LIST DQE
 #line 75 "quoted_string.y"
                                { yylhs.value.start = yystack_[2].value.start; yylhs.value.end = yystack_[0].value.end; }
-#line 620 "quoted_string.parser.cpp"
+#line 626 "quoted_string.parser.cpp"
     break;
 
   case 10: // ATOMLIST: QUOTED_ATOM
 #line 79 "quoted_string.y"
                            { yylhs.value.start = lexer.idx(); yylhs.value.end = lexer.idx(); yylhs.value.quoted = true; }
-#line 626 "quoted_string.parser.cpp"
+#line 632 "quoted_string.parser.cpp"
     break;
 
   case 11: // ATOMLIST: QUOTED_PROPERTY
 #line 80 "quoted_string.y"
                            { yylhs.value.start = lexer.idx(); yylhs.value.end = lexer.idx(); yylhs.value.quoted = true; yylhs.value.quoted_property = true; }
-#line 632 "quoted_string.parser.cpp"
+#line 638 "quoted_string.parser.cpp"
     break;
 
   case 12: // ATOMLIST: DOUBLE_QUOTED_STRING
 #line 81 "quoted_string.y"
                            { yylhs.value = yystack_[0].value; yylhs.value.quoted = 1; }
-#line 638 "quoted_string.parser.cpp"
+#line 644 "quoted_string.parser.cpp"
     break;
 
   case 13: // ATOMLIST: SIMPLE_ATOM_LIST
 #line 82 "quoted_string.y"
                            { yylhs.value = yystack_[0].value; }
-#line 644 "quoted_string.parser.cpp"
+#line 650 "quoted_string.parser.cpp"
     break;
 
   case 15: // EXPR: EXPR ATOMLIST
 #line 87 "quoted_string.y"
                     { lexer.pushRange(yystack_[0].value); }
-#line 650 "quoted_string.parser.cpp"
+#line 656 "quoted_string.parser.cpp"
     break;
 
 
-#line 654 "quoted_string.parser.cpp"
+#line 660 "quoted_string.parser.cpp"
 
             default:
               break;
@@ -884,16 +890,16 @@ namespace ceammc {
     // Actual number of expected tokens
     int yycount = 0;
 
-    int yyn = yypact_[+yyparser_.yystack_[0].state];
+    const int yyn = yypact_[+yyparser_.yystack_[0].state];
     if (!yy_pact_value_is_default_ (yyn))
       {
         /* Start YYX at -YYN if negative to avoid negative indexes in
            YYCHECK.  In other words, skip the first -YYN actions for
            this state because they are default actions.  */
-        int yyxbegin = yyn < 0 ? -yyn : 0;
+        const int yyxbegin = yyn < 0 ? -yyn : 0;
         // Stay within bounds of both yycheck and yytname.
-        int yychecklim = yylast_ - yyn + 1;
-        int yyxend = yychecklim < YYNTOKENS ? yychecklim : YYNTOKENS;
+        const int yychecklim = yylast_ - yyn + 1;
+        const int yyxend = yychecklim < YYNTOKENS ? yychecklim : YYNTOKENS;
         for (int yyx = yyxbegin; yyx < yyxend; ++yyx)
           if (yycheck_[yyx + yyn] == yyx && yyx != symbol_kind::S_YYerror
               && !yy_table_value_is_error_ (yytable_[yyx + yyn]))
@@ -911,6 +917,9 @@ namespace ceammc {
       yyarg[0] = symbol_kind::S_YYEMPTY;
     return yycount;
   }
+
+
+
 
 
 
@@ -1111,7 +1120,7 @@ namespace ceammc {
 #endif // YYDEBUG
 
   QuotedAtomListParser::symbol_kind_type
-  QuotedAtomListParser::yytranslate_ (int t)
+  QuotedAtomListParser::yytranslate_ (int t) YY_NOEXCEPT
   {
     // YYTRANSLATE[TOKEN-NUM] -- Symbol number corresponding to
     // TOKEN-NUM as returned by yylex.
@@ -1153,14 +1162,14 @@ namespace ceammc {
     if (t <= 0)
       return symbol_kind::S_YYEOF;
     else if (t <= code_max)
-      return YY_CAST (symbol_kind_type, translate_table[t]);
+      return static_cast <symbol_kind_type> (translate_table[t]);
     else
       return symbol_kind::S_YYUNDEF;
   }
 
 #line 7 "quoted_string.y"
 } // ceammc
-#line 1164 "quoted_string.parser.cpp"
+#line 1173 "quoted_string.parser.cpp"
 
 #line 90 "quoted_string.y"
 

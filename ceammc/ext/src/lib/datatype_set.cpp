@@ -19,6 +19,7 @@
 #include "fmt/format.h"
 
 #include <algorithm>
+#include <boost/algorithm/string/predicate.hpp>
 #include <boost/functional/hash.hpp>
 #include <ctime>
 #include <random>
@@ -29,9 +30,9 @@ namespace {
 
 using namespace ceammc;
 
-Atom newFromList(const AtomList& lst)
+Atom newFromList(const AtomListView& lv)
 {
-    return new DataTypeSet(lst);
+    return new DataTypeSet(lv);
 }
 
 size_t hash_value(const Atom& a) noexcept
@@ -52,7 +53,7 @@ size_t hash_value(const Atom& a) noexcept
 
 namespace ceammc {
 
-const int DataTypeSet::dataType = DataStorage::instance().registerNewType(TYPE_NAME, newFromList);
+const DataTypeId DataTypeSet::dataType = DataStorage::instance().registerNewType(TYPE_NAME, newFromList);
 
 DataTypeSet::DataTypeSet()
     : data_(0, hash_value)
@@ -142,12 +143,7 @@ bool DataTypeSet::choose(Atom& res) const noexcept
     return true;
 }
 
-std::string DataTypeSet::toString() const
-{
-    return to_string(toList(true));
-}
-
-int DataTypeSet::type() const noexcept
+DataTypeId DataTypeSet::type() const noexcept
 {
     return dataType;
 }
@@ -253,44 +249,28 @@ DataTypeSet::DataTypeSet(const DataTypeSet& ds)
 {
 }
 
-DataTypeSet::MaybeSet DataTypeSet::parse(const AtomListView& lv)
+std::string DataTypeSet::toListStringContent() const noexcept
 {
-    if (lv.anyOf(isData)) {
-        LIB_ERR << "only core atom types allowed for parsing....";
-        return {};
-    }
-
-    if (lv.empty())
-        return {};
-
-    if (lv[0].isSymbol() && strstr(lv[0].asT<t_symbol*>()->s_name, TYPE_NAME))
-        return parse(to_string(lv, " "));
-    else
-        return DataTypeSet { lv };
+    return to_string(toList(true));
 }
 
-DataTypeSet::MaybeSet DataTypeSet::parse(const std::string& str)
+std::string DataTypeSet::toDictStringContent() const noexcept
 {
-    if (str.empty())
-        return {};
-
-    auto parse_result = parseDataString(str);
-    if (!parse_result) {
-        LIB_ERR << "parse error: " << parse_result.err();
-        return {};
-    }
-
-    if (!parse_result.result().isA<DataTypeSet>()) {
-        LIB_ERR << "not a Set: " << str;
-        return {};
-    }
-
-    return *parse_result.result().asD<DataTypeSet>();
+    return fmt::format("value: {}", toListStringContent());
 }
 
-std::string DataTypeSet::toListConstructor() const noexcept
+bool DataTypeSet::set(const AbstractData* d) noexcept
 {
-    return fmt::format("{}({})", TYPE_NAME, toString());
+    return setDataT<DataTypeSet>(d);
+}
+
+bool DataTypeSet::looksLikeCtor(const AtomListView& lv) noexcept
+{
+    if (lv.empty() || !lv[0].isSymbol())
+        return false;
+
+    auto name = lv[0].asT<t_symbol*>()->s_name;
+    return boost::starts_with(name, TYPE_NAME);
 }
 
 std::ostream& operator<<(std::ostream& os, const DataTypeSet& set)
