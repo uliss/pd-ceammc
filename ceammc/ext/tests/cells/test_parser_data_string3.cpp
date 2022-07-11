@@ -132,6 +132,7 @@ TEST_CASE("datastring3", "[ceammc::data]")
         REQUIRE_PARSE_STR("MList(1 2)", MListAtom(1, 2));
 
         REQUIRE_PARSE_STR("()", MListAtom());
+        REQUIRE_PARSE_STR("( )", MListAtom());
         REQUIRE_PARSE_STR("(1)", MListAtom(1));
         REQUIRE_PARSE_STR("(1 2)", MListAtom(1, 2));
         REQUIRE_PARSE_STR("(1 2 ())", MListAtom(1, 2, MListAtom()));
