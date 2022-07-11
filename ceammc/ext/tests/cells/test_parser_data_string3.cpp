@@ -168,10 +168,10 @@ TEST_CASE("datastring3", "[ceammc::data]")
 
     SECTION("env vars")
     {
-        platform::set_env("VAR", "100");
-        REQUIRE_PARSE_STR("'%VAR%'", LA("100"));
-        REQUIRE_PARSE_STR("'%VAR%/test'", LA("100/test"));
-        REQUIRE_PARSE_STR("'test:%VAR%'", LA("test:100"));
+        platform::set_env("VAR4", "100");
+        REQUIRE_PARSE_STR("'%VAR4%'", LA("100"));
+        REQUIRE_PARSE_STR("'%VAR4%/test'", LA("100/test"));
+        REQUIRE_PARSE_STR("'test:%VAR4%'", LA("test:100"));
         REQUIRE_PARSE_STR("'test:%VAR?%'", LA("test:%VAR?%"));
 
         platform::set_env("MY_HOME", "/home/ceammc");
