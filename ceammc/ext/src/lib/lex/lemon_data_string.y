@@ -13,6 +13,7 @@
 # include "ceammc_datastorage.h"
 # include "ceammc_log.h"
 # include "datatype_mlist.h"
+# include "datatype_dict.h"
 # include "fmt/format.h"
 
 using namespace ceammc;
@@ -49,6 +50,28 @@ namespace {
     void data_dict(token& res, const token& name, const token& args);
     void data_empty_dict(token& res, const token& name);
     void mlist(token& res, const token& args);
+    // dict key/value pair
+    void pinit(Parser* p, token& tok, const token& name);
+    void pappend(token& tok, const token& lst);
+    // pair list
+    void plinit(Parser* p, token& tok);
+    void plassign(token& a, token& b);
+    void plappend(token& tok, token& pair);
+    // dict init
+    void dinit(Parser* p, token& tok);
+    void dappend(token& dict, const token& pair);
+
+    const SmallList* toSmallList(const Atom& a) {
+        const auto& v = reinterpret_cast<const t_atom&>(a.atom());
+        return reinterpret_cast<const SmallList*>(v.a_w.w_array);
+    }
+
+    Atom fromSmallList(SmallList* l) {
+        t_atom a;
+        a.a_w.w_array =reinterpret_cast<t_array*>(l);
+        a.a_type = A_NULL;
+        return a;
+    }
 }
 
 }
@@ -86,19 +109,21 @@ atom         ::= SYMBOL.
 atom         ::= NULL.
 atom         ::= data.
 
-pair         ::= DICT_KEY.
-pair         ::= DICT_KEY list.
+pair(A)      ::= DICT_KEY(B).               { pinit(p, A, B); }
+pair(A)      ::= DICT_KEY(B) list(C).       { pinit(p, A, B); pappend(A, C); }
 
-pair_list    ::= pair.
-pair_list    ::= pair_list pair.
+pair_list(A) ::= pair(B).                   { plinit(p, A); plappend(A, B); }
+pair_list(A) ::= pair_list(B) pair(C).      { plassign(A, B); plappend(A, C); }
 
-data         ::= DICT_OPEN DICT_CLOSE.
-data         ::= DICT_OPEN pair_list DICT_CLOSE.
+// list based
 data(A)      ::= LIST_OPEN zlist(B) LIST_CLOSE.                 { linit(p, A); mlist(A, B); }
 data(A)      ::= DATA_NAME(B) LIST_OPEN zlist(C) LIST_CLOSE.    { linit(p, A); data_list(A, B, C); }
+
+// dict based
+data(A)      ::= DICT_OPEN DICT_CLOSE.                          { dinit(p, A); }
+data(A)      ::= DICT_OPEN pair_list(B) DICT_CLOSE.             { dinit(p, A); dappend(A, B); }
 data(A)      ::= DATA_NAME(B) DICT_OPEN pair_list(C) DICT_CLOSE.{ linit(p, A); data_dict(A, B, C); }
 data(A)      ::= DATA_NAME(B) DICT_OPEN DICT_CLOSE.             { linit(p, A); data_empty_dict(A, B); }
-
 
 
 func_call(A) ::= FUNC_LIST_CALL(B) LIST_OPEN zlist(C) LIST_CLOSE. { linit(p, A); lcall(A, B, C); }
@@ -161,7 +186,7 @@ namespace {
     }
 
     void linit(Parser* p, token& tok) {
-        tok.list = p->pool().construct();
+        tok.list = p->makeList();
     }
 
     void lassign(token& a, token& b) {
@@ -191,6 +216,66 @@ namespace {
     void mlist(token& res, const token& args) {
         res.list->push_back(MListAtom(args.list->view()));
         res.atom = res.list->at(0).atom();
+    }
+
+    // pair
+    void pinit(Parser* p, token& tok, const token& name) {
+        tok.atom = name.atom;
+        tok.list = p->makeList();
+    }
+
+    void pappend(token& p, const token& args) {
+        if (!args.list) return;
+
+        for (auto& a: *args.list)
+            p.list->push_back(a);
+    }
+
+    // pairlist
+    void plinit(Parser* p, token& tok) {
+        tok.list = p->makeList();
+    }
+
+    void plappend(token& pl, token& pair) {
+        // push key
+        pl.list->push_back(pair.atom);
+        // push value
+        pl.list->push_back(fromSmallList(pair.list));
+    }
+
+    void plassign(token& a, token& b) {
+        a.list = b.list;
+        a.atom = b.atom;
+    }
+
+    // dict
+    void dinit(Parser* p, token& d) {
+        d.list = p->makeList();
+        d.list->push_back(DictAtom());
+        d.atom = d.list->front().atom();
+    }
+
+    void dappend(token& dict, const token& plist) {
+        const bool invalid_dict = !dict.list || dict.list->empty();
+        if (invalid_dict) return;
+        const bool invalid_plist = !plist.list || plist.list->empty();
+        if (invalid_plist) return;
+        const auto& atom = dict.list->front();
+        if (!atom.isA<DataTypeDict>()) return;
+        auto pdict = const_cast<DataTypeDict*>(atom.asDataT<DataTypeDict>());
+        if (!pdict) return;
+
+        const auto& l = *plist.list;
+
+        for (size_t i = 0; (i + 1) < l.size(); i += 2) {
+            const auto& k = l[i];
+            auto pv = toSmallList(l[i+1]);
+            AtomListView args;
+            if (pv && !pv->empty())
+                args = pv->view();
+
+            pdict->insert(k.asT<t_symbol*>(), args);
+        }
     }
 }
 }

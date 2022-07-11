@@ -2,10 +2,10 @@
 #define TK_SYMBOL                           2
 #define TK_NULL                             3
 #define TK_DICT_KEY                         4
-#define TK_DICT_OPEN                        5
-#define TK_DICT_CLOSE                       6
-#define TK_LIST_OPEN                        7
-#define TK_LIST_CLOSE                       8
-#define TK_DATA_NAME                        9
+#define TK_LIST_OPEN                        5
+#define TK_LIST_CLOSE                       6
+#define TK_DATA_NAME                        7
+#define TK_DICT_OPEN                        8
+#define TK_DICT_CLOSE                       9
 #define TK_FUNC_LIST_CALL                  10
 #define TK_SPACE                           11

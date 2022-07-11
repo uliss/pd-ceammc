@@ -45,6 +45,7 @@ namespace parser {
 
         SmallListPool& pool() { return pool_; }
         const SmallListPool& pool() const { return pool_; }
+        SmallList* makeList() { return pool_.construct(); }
 
     public:
         constexpr static size_t PARSER_SIZE = 512 * 16;

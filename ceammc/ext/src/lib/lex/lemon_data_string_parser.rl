@@ -81,6 +81,13 @@ uint8_t xchar2digit(char c)
         fcall scan_dict;
     }
     action on_dict_start { pushToken(TK_DICT_OPEN); }
+    action on_dict_key {
+        // skip trailing whitespaces
+        auto te0 = te;
+        while(*(--te0) == ' ') ;
+        pushSymbolToken(TK_DICT_KEY, ts, te0);
+    }
+
     action on_other { pushSymbolToken(TK_SYMBOL, ts, te); }
 
     true           = "#true";
@@ -161,7 +168,7 @@ uint8_t xchar2digit(char c)
         data_call_list => on_data_list;
         data_call_dict => on_data_dict;
 
-        dict_key         => { pushToken(TK_DICT_KEY); };
+        dict_key         => on_dict_key;
         tok_space        => { pushToken(TK_SPACE); };
         scan_dict_other  => on_other;
 
@@ -176,7 +183,7 @@ uint8_t xchar2digit(char c)
         tok_null   => on_null;
         tok_lpar   => on_lpar;
         tok_rpar   => on_rpar;
-        tok_lbr    => { fcall scan_dict; };
+        tok_lbr    => { pushToken(TK_DICT_OPEN); fcall scan_dict; };
         tok_dquote => on_double_quote;
         tok_squote => on_single_quote;
 
