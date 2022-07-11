@@ -32,16 +32,18 @@ public:
     bool isEqual(const AbstractData* d) const noexcept override;
     bool isLess(const AbstractData* d) const noexcept override;
 
-    std::string toString() const override;
-    std::string valueToJsonString() const override;
-    int type() const noexcept override;
+    std::string toJsonString() const override;
+    ceammc::DataTypeId type() const noexcept override;
     IntData* clone() const override;
-
-    static void init();
+    std::string toListStringContent() const override;
+    std::string toDictStringContent() const override;
+    bool set(const AbstractData* d) noexcept override;
 
     bool operator==(const IntData& d) const noexcept;
 
 public:
+    static void init();
+
     static int dataType;
     static int constructor_called;
     static int destructor_called;
@@ -60,9 +62,11 @@ public:
     void setValue(const std::string& v);
     bool isEqual(const AbstractData* d) const noexcept override;
 
-    std::string toString() const override;
-    int type() const noexcept override;
+    ceammc::DataTypeId type() const noexcept override;
     StrData* clone() const override;
+    std::string toListStringContent() const override { return v_; }
+    std::string toDictStringContent() const override;
+    bool set(const AbstractData* d) noexcept override;
 
     bool operator==(const StrData& d) const noexcept;
 
