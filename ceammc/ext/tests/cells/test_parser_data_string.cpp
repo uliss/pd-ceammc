@@ -162,7 +162,7 @@ TEST_CASE("DataStringParser", "[core]")
         REQUIRE(parse("String(a b c)") == LA(new DS("a b c")));
         REQUIRE(parse("String(a)") == LA(new DS("a")));
         REQUIRE(parse("String(\"a string\")") == LA(new DS("a string")));
-        REQUIRE(parse("String(IntData(1000))") == LA(new DS("1000")));
+        REQUIRE(parse("String(IntData(1000))") == LA(new DS("IntData(1000)")));
         REQUIRE(parse("String([a: b])") == LA(new DS("[a: b]")));
         REQUIRE(parse("String(())") == LA(new DS("()")));
         REQUIRE(parse("String((a b))") == LA(new DS("(a b)")));

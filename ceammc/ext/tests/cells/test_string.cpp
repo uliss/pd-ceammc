@@ -13,7 +13,10 @@
  *****************************************************************************/
 
 #include "catch.hpp"
+#include "ceammc_atomlist.h"
 #include "ceammc_string.h"
+#include "lex/parser_strings.h"
+#include "test_common.h"
 
 #include <cstring>
 
@@ -343,20 +346,52 @@ TEST_CASE("ceammc_string", "[PureData]")
 
     SECTION("is_pd_string")
     {
-        REQUIRE_FALSE(is_pd_string(""));
-        REQUIRE_FALSE(is_pd_string("\""));
-        REQUIRE_FALSE(is_pd_string("abc"));
-        REQUIRE_FALSE(is_pd_string("123"));
-        REQUIRE_FALSE(is_pd_string("\"123"));
-        REQUIRE_FALSE(is_pd_string("123\""));
-        REQUIRE_FALSE(is_pd_string("\"`\""));
+        REQUIRE_FALSE(is_quoted_string((char*)0));
+        REQUIRE_FALSE(is_quoted_string((t_symbol*)0));
+        REQUIRE_FALSE(is_quoted_string(""));
+        REQUIRE_FALSE(is_quoted_string("\""));
+        REQUIRE_FALSE(is_quoted_string("abc"));
+        REQUIRE_FALSE(is_quoted_string("123"));
+        REQUIRE_FALSE(is_quoted_string("\"123"));
+        REQUIRE_FALSE(is_quoted_string("123\""));
+        REQUIRE_FALSE(is_quoted_string("\"`\""));
 
-        REQUIRE(is_pd_string("\"\""));
-        REQUIRE(is_pd_string("\" \""));
-        REQUIRE(is_pd_string("\"123\""));
-        REQUIRE(is_pd_string("\"a b\""));
-        REQUIRE(is_pd_string("\"a``\""));
-        REQUIRE(is_pd_string("\"`\" asb `\"\""));
-        REQUIRE(is_pd_string("\"```\"`/`:`.\""));
+        REQUIRE(is_quoted_string("\"\""));
+        REQUIRE(is_quoted_string("\" \""));
+        REQUIRE(is_quoted_string("\"123\""));
+        REQUIRE(is_quoted_string("\"a b\""));
+        REQUIRE(is_quoted_string("\"А Б В Г Д\""));
+        REQUIRE(is_quoted_string("\"👽👾🤖🎃\""));
+        REQUIRE(is_quoted_string("\"a``\""));
+        REQUIRE(is_quoted_string("\"`\" asb `\"\""));
+        REQUIRE(is_quoted_string("\"```\"`/`:`.\""));
+
+        REQUIRE_FALSE(is_quoted_string(L()));
+        REQUIRE_FALSE(is_quoted_string(LF(1)));
+        REQUIRE_FALSE(is_quoted_string(LF(1, 2)));
+        REQUIRE_FALSE(is_quoted_string(LA("A")));
+        REQUIRE(is_quoted_string(LA("\"\"")));
+        REQUIRE(is_quoted_string(LA("\"a b c\"")));
+        REQUIRE(is_quoted_string(AtomList::parseString("\"a\"")));
+        REQUIRE(is_quoted_string(AtomList::parseString("\"a b c\"")));
+        REQUIRE_FALSE(is_quoted_string(AtomList::parseString("\"a b c")));
+        REQUIRE_FALSE(is_quoted_string(AtomList::parseString("a b c\"")));
+    }
+
+    SECTION("data_string_end")
+    {
+        REQUIRE_FALSE(quoted_string_end((char*)nullptr));
+        REQUIRE_FALSE(quoted_string_end((t_symbol*)nullptr));
+        REQUIRE_FALSE(quoted_string_end(""));
+        REQUIRE_FALSE(quoted_string_end("`"));
+        REQUIRE_FALSE(quoted_string_end("``"));
+        REQUIRE_FALSE(quoted_string_end("`\""));
+        REQUIRE(quoted_string_end("\""));
+        REQUIRE(quoted_string_end("abcd\""));
+        REQUIRE(quoted_string_end("abcd@\""));
+        REQUIRE(quoted_string_end("abcd`@\""));
+        REQUIRE(quoted_string_end("абвгд\""));
+        REQUIRE(quoted_string_end("`.``(`)\""));
+        REQUIRE(quoted_string_end("``\""));
     }
 }

@@ -329,13 +329,13 @@ TEST_CASE("DataTypeString", "[core]")
 
     SECTION("json")
     {
-        REQUIRE(DSTR("simple").valueToJsonString() == "\"simple\"");
-        REQUIRE(DSTR("a b c").valueToJsonString() == "\"a b c\"");
-        REQUIRE(DSTR("a\nb").valueToJsonString() == "\"a\\nb\"");
-        REQUIRE(DSTR("a\tb").valueToJsonString() == "\"a\\tb\"");
-        REQUIRE(DSTR(R"( a\b )").valueToJsonString() == R"(" a\\b ")");
-        REQUIRE(DSTR(R"( a"b )").valueToJsonString() == R"(" a\"b ")");
-        REQUIRE(DSTR(R"( a\"b )").valueToJsonString() == R"(" a\\\"b ")");
+        REQUIRE(DSTR("simple").toJsonString() == "\"simple\"");
+        REQUIRE(DSTR("a b c").toJsonString() == "\"a b c\"");
+        REQUIRE(DSTR("a\nb").toJsonString() == "\"a\\nb\"");
+        REQUIRE(DSTR("a\tb").toJsonString() == "\"a\\tb\"");
+        REQUIRE(DSTR(R"( a\b )").toJsonString() == R"(" a\\b ")");
+        REQUIRE(DSTR(R"( a"b )").toJsonString() == R"(" a\"b ")");
+        REQUIRE(DSTR(R"( a\"b )").toJsonString() == R"(" a\\\"b ")");
     }
 
     SECTION("StringAtom")
@@ -364,14 +364,23 @@ TEST_CASE("DataTypeString", "[core]")
 
     SECTION("to_string")
     {
-        CHECK(to_string(StringAtom("spaceless")) == "spaceless");
-        CHECK(to_string(StringAtom("")) == "");
-        CHECK(to_string(StringAtom(" ")) == " ");
-        CHECK(to_string(StringAtom("with spaces")) == "with spaces");
+        CHECK(to_string(StringAtom("spaceless")) == "String(\"spaceless\")");
+        CHECK(to_string(StringAtom("")) == "String()");
+        CHECK(to_string(StringAtom(" ")) == "String(\" \")");
+        CHECK(to_string(StringAtom("with spaces")) == "String(\"with spaces\")");
+        CHECK(to_string(StringAtom("with 'single quotes'")) == "String(\"with 'single quotes'\")");
+        CHECK(to_string(StringAtom(R"(with "double quotes")")) == R"(String("with `"double quotes`""))");
+        CHECK(to_string(StringAtom(R"(with,commas)")) == R"(String("with`.commas"))");
+        CHECK(to_string(StringAtom(R"(with;semicolon)")) == R"(String("with`:semicolon"))");
+        CHECK(to_string(StringAtom(R"(with:)")) == R"(String("with:"))");
+        CHECK(to_string(StringAtom(R"(with {} braces)")) == R"(String("with `(`) braces"))");
+        CHECK(to_string(StringAtom(R"(with @at)")) == R"(String("with `@at"))");
+        CHECK(to_string(StringAtom(R"(with ``)")) == R"(String("with ````"))");
+        CHECK(to_string(StringAtom(R"(with \ slash)")) == R"(String("with `/ slash"))");
 
-        REQUIRE(StringAtom("a b").asData()->toString() == "a b");
-        REQUIRE(Atom(new DataTypeString("a b c")).asData()->toString() == "a b c");
-        REQUIRE(to_string(Atom(new DataTypeString("a b c"))) == "a b c");
+        REQUIRE(StringAtom("a b").asData()->toString() == "String(\"a b\")");
+        REQUIRE(Atom(new DataTypeString("a b c")).asData()->toString() == "String(\"a b c\")");
+        REQUIRE(to_string(Atom(new DataTypeString("a b c"))) == "String(\"a b c\")");
     }
 
     SECTION("create via factory")
@@ -394,5 +403,8 @@ TEST_CASE("DataTypeString", "[core]")
     SECTION("parse")
     {
         REQUIRE(parseDataString("S\"a b c\"") == StringAtom("a b c"));
+        REQUIRE(parseDataString("String(a b c)") == StringAtom("a b c"));
+        REQUIRE(parseDataString("String(\"a b c\")") == StringAtom("a b c"));
+        REQUIRE(parseDataString("String(\"a b\" c)") == StringAtom("a b c"));
     }
 }

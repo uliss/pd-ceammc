@@ -55,15 +55,15 @@ namespace ceammc {
 		
 		
 #line 58 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
-		static const int lemon_data_string_lexer_start = 57;
-		static const int lemon_data_string_lexer_first_final = 57;
+		static const int lemon_data_string_lexer_start = 41;
+		static const int lemon_data_string_lexer_first_final = 41;
 		static const int lemon_data_string_lexer_error = 0;
 		
-		static const int lemon_data_string_lexer_en_scan_sqstring = 58;
-		static const int lemon_data_string_lexer_en_scan_dqstring = 60;
-		static const int lemon_data_string_lexer_en_scan_dict = 62;
-		static const int lemon_data_string_lexer_en_scan_token = 104;
-		static const int lemon_data_string_lexer_en_main = 57;
+		static const int lemon_data_string_lexer_en_scan_sqstring = 42;
+		static const int lemon_data_string_lexer_en_scan_dqstring = 44;
+		static const int lemon_data_string_lexer_en_scan_dict = 46;
+		static const int lemon_data_string_lexer_en_scan_token = 88;
+		static const int lemon_data_string_lexer_en_main = 41;
 		
 		
 #line 239 "lex/lemon_data_string_parser.rl"
@@ -166,9 +166,9 @@ namespace ceammc {
 					
 					_again: {}
 					switch ( cs ) {
-						case 57: goto _st57;
-						case 58: goto _st58;
-						case 59: goto _st59;
+						case 41: goto _st41;
+						case 42: goto _st42;
+						case 43: goto _st43;
 						case 1: goto _st1;
 						case 2: goto _st2;
 						case 3: goto _st3;
@@ -186,6 +186,9 @@ namespace ceammc {
 						case 15: goto _st15;
 						case 16: goto _st16;
 						case 17: goto _st17;
+						case 0: goto _st0;
+						case 44: goto _st44;
+						case 45: goto _st45;
 						case 18: goto _st18;
 						case 19: goto _st19;
 						case 20: goto _st20;
@@ -194,9 +197,6 @@ namespace ceammc {
 						case 23: goto _st23;
 						case 24: goto _st24;
 						case 25: goto _st25;
-						case 0: goto _st0;
-						case 60: goto _st60;
-						case 61: goto _st61;
 						case 26: goto _st26;
 						case 27: goto _st27;
 						case 28: goto _st28;
@@ -206,33 +206,33 @@ namespace ceammc {
 						case 32: goto _st32;
 						case 33: goto _st33;
 						case 34: goto _st34;
-						case 35: goto _st35;
-						case 36: goto _st36;
-						case 37: goto _st37;
-						case 38: goto _st38;
-						case 39: goto _st39;
-						case 40: goto _st40;
-						case 41: goto _st41;
-						case 42: goto _st42;
-						case 43: goto _st43;
-						case 44: goto _st44;
-						case 45: goto _st45;
 						case 46: goto _st46;
 						case 47: goto _st47;
 						case 48: goto _st48;
 						case 49: goto _st49;
+						case 35: goto _st35;
+						case 36: goto _st36;
+						case 37: goto _st37;
 						case 50: goto _st50;
+						case 38: goto _st38;
+						case 39: goto _st39;
+						case 40: goto _st40;
+						case 51: goto _st51;
+						case 52: goto _st52;
+						case 53: goto _st53;
+						case 54: goto _st54;
+						case 55: goto _st55;
+						case 56: goto _st56;
+						case 57: goto _st57;
+						case 58: goto _st58;
+						case 59: goto _st59;
+						case 60: goto _st60;
+						case 61: goto _st61;
 						case 62: goto _st62;
 						case 63: goto _st63;
 						case 64: goto _st64;
 						case 65: goto _st65;
-						case 51: goto _st51;
-						case 52: goto _st52;
-						case 53: goto _st53;
 						case 66: goto _st66;
-						case 54: goto _st54;
-						case 55: goto _st55;
-						case 56: goto _st56;
 						case 67: goto _st67;
 						case 68: goto _st68;
 						case 69: goto _st69;
@@ -287,32 +287,16 @@ namespace ceammc {
 						case 118: goto _st118;
 						case 119: goto _st119;
 						case 120: goto _st120;
-						case 121: goto _st121;
-						case 122: goto _st122;
-						case 123: goto _st123;
-						case 124: goto _st124;
-						case 125: goto _st125;
-						case 126: goto _st126;
-						case 127: goto _st127;
-						case 128: goto _st128;
-						case 129: goto _st129;
-						case 130: goto _st130;
-						case 131: goto _st131;
-						case 132: goto _st132;
-						case 133: goto _st133;
-						case 134: goto _st134;
-						case 135: goto _st135;
-						case 136: goto _st136;
 					}
 					
 					_resume: {}
 					switch ( cs ) {
-						case 57:
-						goto st_case_57;
-						case 58:
-						goto st_case_58;
-						case 59:
-						goto st_case_59;
+						case 41:
+						goto st_case_41;
+						case 42:
+						goto st_case_42;
+						case 43:
+						goto st_case_43;
 						case 1:
 						goto st_case_1;
 						case 2:
@@ -347,6 +331,12 @@ namespace ceammc {
 						goto st_case_16;
 						case 17:
 						goto st_case_17;
+						case 0:
+						goto st_case_0;
+						case 44:
+						goto st_case_44;
+						case 45:
+						goto st_case_45;
 						case 18:
 						goto st_case_18;
 						case 19:
@@ -363,12 +353,6 @@ namespace ceammc {
 						goto st_case_24;
 						case 25:
 						goto st_case_25;
-						case 0:
-						goto st_case_0;
-						case 60:
-						goto st_case_60;
-						case 61:
-						goto st_case_61;
 						case 26:
 						goto st_case_26;
 						case 27:
@@ -387,28 +371,6 @@ namespace ceammc {
 						goto st_case_33;
 						case 34:
 						goto st_case_34;
-						case 35:
-						goto st_case_35;
-						case 36:
-						goto st_case_36;
-						case 37:
-						goto st_case_37;
-						case 38:
-						goto st_case_38;
-						case 39:
-						goto st_case_39;
-						case 40:
-						goto st_case_40;
-						case 41:
-						goto st_case_41;
-						case 42:
-						goto st_case_42;
-						case 43:
-						goto st_case_43;
-						case 44:
-						goto st_case_44;
-						case 45:
-						goto st_case_45;
 						case 46:
 						goto st_case_46;
 						case 47:
@@ -417,8 +379,42 @@ namespace ceammc {
 						goto st_case_48;
 						case 49:
 						goto st_case_49;
+						case 35:
+						goto st_case_35;
+						case 36:
+						goto st_case_36;
+						case 37:
+						goto st_case_37;
 						case 50:
 						goto st_case_50;
+						case 38:
+						goto st_case_38;
+						case 39:
+						goto st_case_39;
+						case 40:
+						goto st_case_40;
+						case 51:
+						goto st_case_51;
+						case 52:
+						goto st_case_52;
+						case 53:
+						goto st_case_53;
+						case 54:
+						goto st_case_54;
+						case 55:
+						goto st_case_55;
+						case 56:
+						goto st_case_56;
+						case 57:
+						goto st_case_57;
+						case 58:
+						goto st_case_58;
+						case 59:
+						goto st_case_59;
+						case 60:
+						goto st_case_60;
+						case 61:
+						goto st_case_61;
 						case 62:
 						goto st_case_62;
 						case 63:
@@ -427,20 +423,8 @@ namespace ceammc {
 						goto st_case_64;
 						case 65:
 						goto st_case_65;
-						case 51:
-						goto st_case_51;
-						case 52:
-						goto st_case_52;
-						case 53:
-						goto st_case_53;
 						case 66:
 						goto st_case_66;
-						case 54:
-						goto st_case_54;
-						case 55:
-						goto st_case_55;
-						case 56:
-						goto st_case_56;
 						case 67:
 						goto st_case_67;
 						case 68:
@@ -549,51 +533,19 @@ namespace ceammc {
 						goto st_case_119;
 						case 120:
 						goto st_case_120;
-						case 121:
-						goto st_case_121;
-						case 122:
-						goto st_case_122;
-						case 123:
-						goto st_case_123;
-						case 124:
-						goto st_case_124;
-						case 125:
-						goto st_case_125;
-						case 126:
-						goto st_case_126;
-						case 127:
-						goto st_case_127;
-						case 128:
-						goto st_case_128;
-						case 129:
-						goto st_case_129;
-						case 130:
-						goto st_case_130;
-						case 131:
-						goto st_case_131;
-						case 132:
-						goto st_case_132;
-						case 133:
-						goto st_case_133;
-						case 134:
-						goto st_case_134;
-						case 135:
-						goto st_case_135;
-						case 136:
-						goto st_case_136;
 					}
 					goto st_out;
-					_ctr71:
+					_ctr55:
 					{
 #line 231 "lex/lemon_data_string_parser.rl"
-						{p = p - 1; } {stack[top] = 57; top+= 1; goto _st104;}}
+						{p = p - 1; } {stack[top] = 41; top+= 1; goto _st88;}}
 					
-#line 592 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 544 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st57;
-					_st57:
+					goto _st41;
+					_st41:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -602,20 +554,20 @@ namespace ceammc {
 #line 1 "NONE"
 						{ts = 0;}}
 					
-#line 606 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 558 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
 					p+= 1;
 					if ( p == pe )
-						goto _test_eof57;
-					st_case_57:
+						goto _test_eof41;
+					st_case_41:
 					if ( ( (*( p))) == 32 ) {
-						goto _st57;
+						goto _st41;
 					}
 					if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-						goto _st57;
+						goto _st41;
 					}
 					{
-						goto _ctr71;
+						goto _ctr55;
 					}
 					_ctr1:
 					{
@@ -626,9 +578,9 @@ namespace ceammc {
 								ragel_string += (( (*( p))));   }
 						}}
 					
-#line 630 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 582 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st58;
+					goto _st42;
 					_ctr2:
 					{
 #line 91 "lex/lemon_data_string_parser.rl"
@@ -661,10 +613,10 @@ namespace ceammc {
 							}
 						}}
 					
-#line 665 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 617 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st58;
-					_ctr27:
+					goto _st42;
+					_ctr19:
 					{
 #line 163 "lex/lemon_data_string_parser.rl"
 						{te = p+1;{
@@ -672,10 +624,10 @@ namespace ceammc {
 								ragel_string += ' '; }
 						}}
 					
-#line 676 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 628 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st58;
-					_ctr28:
+					goto _st42;
+					_ctr20:
 					{
 #line 162 "lex/lemon_data_string_parser.rl"
 						{te = p+1;{
@@ -683,10 +635,10 @@ namespace ceammc {
 								ragel_string += '\''; }
 						}}
 					
-#line 687 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 639 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st58;
-					_ctr29:
+					goto _st42;
+					_ctr21:
 					{
 #line 164 "lex/lemon_data_string_parser.rl"
 						{te = p+1;{
@@ -694,10 +646,10 @@ namespace ceammc {
 								ragel_string += ','; }
 						}}
 					
-#line 698 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 650 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st58;
-					_ctr30:
+					goto _st42;
+					_ctr22:
 					{
 #line 165 "lex/lemon_data_string_parser.rl"
 						{te = p+1;{
@@ -705,10 +657,10 @@ namespace ceammc {
 								ragel_string += ';'; }
 						}}
 					
-#line 709 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 661 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st58;
-					_ctr31:
+					goto _st42;
+					_ctr23:
 					{
 #line 166 "lex/lemon_data_string_parser.rl"
 						{te = p+1;{
@@ -716,10 +668,10 @@ namespace ceammc {
 								ragel_string += '`'; }
 						}}
 					
-#line 720 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 672 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st58;
-					_ctr73:
+					goto _st42;
+					_ctr57:
 					{
 #line 161 "lex/lemon_data_string_parser.rl"
 						{te = p+1;{
@@ -727,10 +679,10 @@ namespace ceammc {
 								ragel_string += (( (*( p))));   }
 						}}
 					
-#line 731 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 683 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st58;
-					_ctr75:
+					goto _st42;
+					_ctr59:
 					{
 #line 157 "lex/lemon_data_string_parser.rl"
 						{te = p+1;{
@@ -738,10 +690,10 @@ namespace ceammc {
 								pushSymbolToken(TK_SYMBOL, &(*ragel_string.begin()), (&*ragel_string.end())); {top -= 1;cs = stack[top];goto _again;} }
 						}}
 					
-#line 742 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 694 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st58;
-					_ctr76:
+					goto _st42;
+					_ctr60:
 					{
 #line 161 "lex/lemon_data_string_parser.rl"
 						{te = p;p = p - 1;{
@@ -749,12 +701,12 @@ namespace ceammc {
 								ragel_string += (( (*( p))));   }
 						}}
 					
-#line 753 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 705 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st58;
-					_st58:
+					goto _st42;
+					_st42:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -763,51 +715,51 @@ namespace ceammc {
 #line 1 "NONE"
 						{ts = 0;}}
 					
-#line 767 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 719 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
 					p+= 1;
 					if ( p == pe )
-						goto _test_eof58;
-					st_case_58:
+						goto _test_eof42;
+					st_case_42:
 					{
 #line 1 "NONE"
 						{ts = p;}}
 					
-#line 777 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 729 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
 					switch( ( (*( p))) ) {
 						case 37: {
-							goto _ctr74;
+							goto _ctr58;
 						}
 						case 39: {
-							goto _ctr75;
+							goto _ctr59;
 						}
 						case 96: {
-							goto _st25;
+							goto _st17;
 						}
 					}
 					{
-						goto _ctr73;
+						goto _ctr57;
 					}
-					_ctr74:
+					_ctr58:
 					{
 #line 1 "NONE"
 						{te = p+1;}}
 					
-#line 798 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 750 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st59;
-					_st59:
+					goto _st43;
+					_st43:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
 					}
 					p+= 1;
 					if ( p == pe )
-						goto _test_eof59;
-					st_case_59:
+						goto _test_eof43;
+					st_case_43:
 					if ( ( (*( p))) == 95 ) {
 						goto _st1;
 					}
@@ -819,11 +771,11 @@ namespace ceammc {
 						goto _st1;
 					}
 					{
-						goto _ctr76;
+						goto _ctr60;
 					}
 					_st1:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -852,7 +804,7 @@ namespace ceammc {
 					}
 					_st2:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -881,7 +833,7 @@ namespace ceammc {
 					}
 					_st3:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -910,7 +862,7 @@ namespace ceammc {
 					}
 					_st4:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -939,7 +891,7 @@ namespace ceammc {
 					}
 					_st5:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -968,7 +920,7 @@ namespace ceammc {
 					}
 					_st6:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -997,7 +949,7 @@ namespace ceammc {
 					}
 					_st7:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -1026,7 +978,7 @@ namespace ceammc {
 					}
 					_st8:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -1055,7 +1007,7 @@ namespace ceammc {
 					}
 					_st9:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -1084,7 +1036,7 @@ namespace ceammc {
 					}
 					_st10:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -1113,7 +1065,7 @@ namespace ceammc {
 					}
 					_st11:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -1142,7 +1094,7 @@ namespace ceammc {
 					}
 					_st12:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -1171,7 +1123,7 @@ namespace ceammc {
 					}
 					_st13:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -1200,7 +1152,7 @@ namespace ceammc {
 					}
 					_st14:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -1229,7 +1181,7 @@ namespace ceammc {
 					}
 					_st15:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -1258,7 +1210,7 @@ namespace ceammc {
 					}
 					_st16:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -1267,27 +1219,15 @@ namespace ceammc {
 					if ( p == pe )
 						goto _test_eof16;
 					st_case_16:
-					switch( ( (*( p))) ) {
-						case 37: {
-							goto _ctr2;
-						}
-						case 95: {
-							goto _st17;
-						}
-					}
-					if ( ( (*( p))) > 57 ) {
-						if ( 65 <= ( (*( p))) && ( (*( p))) <= 90 ) {
-							goto _st17;
-						}
-					} else if ( ( (*( p))) >= 48 ) {
-						goto _st17;
+					if ( ( (*( p))) == 37 ) {
+						goto _ctr2;
 					}
 					{
 						goto _ctr1;
 					}
 					_st17:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -1297,240 +1237,20 @@ namespace ceammc {
 						goto _test_eof17;
 					st_case_17:
 					switch( ( (*( p))) ) {
-						case 37: {
-							goto _ctr2;
-						}
-						case 95: {
-							goto _st18;
-						}
-					}
-					if ( ( (*( p))) > 57 ) {
-						if ( 65 <= ( (*( p))) && ( (*( p))) <= 90 ) {
-							goto _st18;
-						}
-					} else if ( ( (*( p))) >= 48 ) {
-						goto _st18;
-					}
-					{
-						goto _ctr1;
-					}
-					_st18:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof18;
-					st_case_18:
-					switch( ( (*( p))) ) {
-						case 37: {
-							goto _ctr2;
-						}
-						case 95: {
-							goto _st19;
-						}
-					}
-					if ( ( (*( p))) > 57 ) {
-						if ( 65 <= ( (*( p))) && ( (*( p))) <= 90 ) {
-							goto _st19;
-						}
-					} else if ( ( (*( p))) >= 48 ) {
-						goto _st19;
-					}
-					{
-						goto _ctr1;
-					}
-					_st19:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof19;
-					st_case_19:
-					switch( ( (*( p))) ) {
-						case 37: {
-							goto _ctr2;
-						}
-						case 95: {
-							goto _st20;
-						}
-					}
-					if ( ( (*( p))) > 57 ) {
-						if ( 65 <= ( (*( p))) && ( (*( p))) <= 90 ) {
-							goto _st20;
-						}
-					} else if ( ( (*( p))) >= 48 ) {
-						goto _st20;
-					}
-					{
-						goto _ctr1;
-					}
-					_st20:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof20;
-					st_case_20:
-					switch( ( (*( p))) ) {
-						case 37: {
-							goto _ctr2;
-						}
-						case 95: {
-							goto _st21;
-						}
-					}
-					if ( ( (*( p))) > 57 ) {
-						if ( 65 <= ( (*( p))) && ( (*( p))) <= 90 ) {
-							goto _st21;
-						}
-					} else if ( ( (*( p))) >= 48 ) {
-						goto _st21;
-					}
-					{
-						goto _ctr1;
-					}
-					_st21:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof21;
-					st_case_21:
-					switch( ( (*( p))) ) {
-						case 37: {
-							goto _ctr2;
-						}
-						case 95: {
-							goto _st22;
-						}
-					}
-					if ( ( (*( p))) > 57 ) {
-						if ( 65 <= ( (*( p))) && ( (*( p))) <= 90 ) {
-							goto _st22;
-						}
-					} else if ( ( (*( p))) >= 48 ) {
-						goto _st22;
-					}
-					{
-						goto _ctr1;
-					}
-					_st22:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof22;
-					st_case_22:
-					switch( ( (*( p))) ) {
-						case 37: {
-							goto _ctr2;
-						}
-						case 95: {
-							goto _st23;
-						}
-					}
-					if ( ( (*( p))) > 57 ) {
-						if ( 65 <= ( (*( p))) && ( (*( p))) <= 90 ) {
-							goto _st23;
-						}
-					} else if ( ( (*( p))) >= 48 ) {
-						goto _st23;
-					}
-					{
-						goto _ctr1;
-					}
-					_st23:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof23;
-					st_case_23:
-					switch( ( (*( p))) ) {
-						case 37: {
-							goto _ctr2;
-						}
-						case 95: {
-							goto _st24;
-						}
-					}
-					if ( ( (*( p))) > 57 ) {
-						if ( 65 <= ( (*( p))) && ( (*( p))) <= 90 ) {
-							goto _st24;
-						}
-					} else if ( ( (*( p))) >= 48 ) {
-						goto _st24;
-					}
-					{
-						goto _ctr1;
-					}
-					_st24:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof24;
-					st_case_24:
-					if ( ( (*( p))) == 37 ) {
-						goto _ctr2;
-					}
-					{
-						goto _ctr1;
-					}
-					_st25:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof25;
-					st_case_25:
-					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr27;
+							goto _ctr19;
 						}
 						case 39: {
-							goto _ctr28;
+							goto _ctr20;
 						}
 						case 46: {
-							goto _ctr29;
+							goto _ctr21;
 						}
 						case 58: {
-							goto _ctr30;
+							goto _ctr22;
 						}
 						case 96: {
-							goto _ctr31;
+							goto _ctr23;
 						}
 					}
 					{
@@ -1540,7 +1260,7 @@ namespace ceammc {
 					_st0:
 					cs = 0;
 					goto _pop;
-					_ctr32:
+					_ctr24:
 					{
 #line 173 "lex/lemon_data_string_parser.rl"
 						{p = ((te))-1;
@@ -1549,10 +1269,10 @@ namespace ceammc {
 								ragel_string += (( (*( p))));  }
 						}}
 					
-#line 1553 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 1273 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st60;
-					_ctr33:
+					goto _st44;
+					_ctr25:
 					{
 #line 91 "lex/lemon_data_string_parser.rl"
 						{te = p+1;{
@@ -1584,10 +1304,10 @@ namespace ceammc {
 							}
 						}}
 					
-#line 1588 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 1308 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st60;
-					_ctr58:
+					goto _st44;
+					_ctr42:
 					{
 #line 175 "lex/lemon_data_string_parser.rl"
 						{te = p+1;{
@@ -1595,10 +1315,10 @@ namespace ceammc {
 								ragel_string += ' '; }
 						}}
 					
-#line 1599 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 1319 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st60;
-					_ctr59:
+					goto _st44;
+					_ctr43:
 					{
 #line 174 "lex/lemon_data_string_parser.rl"
 						{te = p+1;{
@@ -1606,10 +1326,10 @@ namespace ceammc {
 								ragel_string += '"'; }
 						}}
 					
-#line 1610 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 1330 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st60;
-					_ctr60:
+					goto _st44;
+					_ctr44:
 					{
 #line 176 "lex/lemon_data_string_parser.rl"
 						{te = p+1;{
@@ -1617,10 +1337,10 @@ namespace ceammc {
 								ragel_string += ','; }
 						}}
 					
-#line 1621 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 1341 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st60;
-					_ctr61:
+					goto _st44;
+					_ctr45:
 					{
 #line 177 "lex/lemon_data_string_parser.rl"
 						{te = p+1;{
@@ -1628,10 +1348,10 @@ namespace ceammc {
 								ragel_string += ';'; }
 						}}
 					
-#line 1632 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 1352 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st60;
-					_ctr62:
+					goto _st44;
+					_ctr46:
 					{
 #line 178 "lex/lemon_data_string_parser.rl"
 						{te = p+1;{
@@ -1639,10 +1359,10 @@ namespace ceammc {
 								ragel_string += '`'; }
 						}}
 					
-#line 1643 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 1363 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st60;
-					_ctr79:
+					goto _st44;
+					_ctr63:
 					{
 #line 173 "lex/lemon_data_string_parser.rl"
 						{te = p+1;{
@@ -1650,10 +1370,10 @@ namespace ceammc {
 								ragel_string += (( (*( p))));  }
 						}}
 					
-#line 1654 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 1374 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st60;
-					_ctr80:
+					goto _st44;
+					_ctr64:
 					{
 #line 157 "lex/lemon_data_string_parser.rl"
 						{te = p+1;{
@@ -1661,10 +1381,10 @@ namespace ceammc {
 								pushSymbolToken(TK_SYMBOL, &(*ragel_string.begin()), (&*ragel_string.end())); {top -= 1;cs = stack[top];goto _again;} }
 						}}
 					
-#line 1665 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 1385 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st60;
-					_ctr82:
+					goto _st44;
+					_ctr66:
 					{
 #line 173 "lex/lemon_data_string_parser.rl"
 						{te = p;p = p - 1;{
@@ -1672,12 +1392,12 @@ namespace ceammc {
 								ragel_string += (( (*( p))));  }
 						}}
 					
-#line 1676 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 1396 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st60;
-					_st60:
+					goto _st44;
+					_st44:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -1686,53 +1406,285 @@ namespace ceammc {
 #line 1 "NONE"
 						{ts = 0;}}
 					
-#line 1690 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 1410 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
 					p+= 1;
 					if ( p == pe )
-						goto _test_eof60;
-					st_case_60:
+						goto _test_eof44;
+					st_case_44:
 					{
 #line 1 "NONE"
 						{ts = p;}}
 					
-#line 1700 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 1420 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
 					switch( ( (*( p))) ) {
 						case 34: {
-							goto _ctr80;
+							goto _ctr64;
 						}
 						case 37: {
-							goto _ctr81;
+							goto _ctr65;
 						}
 						case 96: {
-							goto _st50;
+							goto _st34;
 						}
 					}
 					{
-						goto _ctr79;
+						goto _ctr63;
 					}
-					_ctr81:
+					_ctr65:
 					{
 #line 1 "NONE"
 						{te = p+1;}}
 					
-#line 1721 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 1441 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st61;
-					_st61:
+					goto _st45;
+					_st45:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
 					}
 					p+= 1;
 					if ( p == pe )
-						goto _test_eof61;
-					st_case_61:
+						goto _test_eof45;
+					st_case_45:
 					if ( ( (*( p))) == 95 ) {
-						goto _st26;
+						goto _st18;
+					}
+					if ( ( (*( p))) > 57 ) {
+						if ( 65 <= ( (*( p))) && ( (*( p))) <= 90 ) {
+							goto _st18;
+						}
+					} else if ( ( (*( p))) >= 48 ) {
+						goto _st18;
+					}
+					{
+						goto _ctr66;
+					}
+					_st18:
+					if ( p == eof ) {
+						if ( cs >= 41 )
+							goto _out;
+						else
+							goto _pop;
+					}
+					p+= 1;
+					if ( p == pe )
+						goto _test_eof18;
+					st_case_18:
+					switch( ( (*( p))) ) {
+						case 37: {
+							goto _ctr25;
+						}
+						case 95: {
+							goto _st19;
+						}
+					}
+					if ( ( (*( p))) > 57 ) {
+						if ( 65 <= ( (*( p))) && ( (*( p))) <= 90 ) {
+							goto _st19;
+						}
+					} else if ( ( (*( p))) >= 48 ) {
+						goto _st19;
+					}
+					{
+						goto _ctr24;
+					}
+					_st19:
+					if ( p == eof ) {
+						if ( cs >= 41 )
+							goto _out;
+						else
+							goto _pop;
+					}
+					p+= 1;
+					if ( p == pe )
+						goto _test_eof19;
+					st_case_19:
+					switch( ( (*( p))) ) {
+						case 37: {
+							goto _ctr25;
+						}
+						case 95: {
+							goto _st20;
+						}
+					}
+					if ( ( (*( p))) > 57 ) {
+						if ( 65 <= ( (*( p))) && ( (*( p))) <= 90 ) {
+							goto _st20;
+						}
+					} else if ( ( (*( p))) >= 48 ) {
+						goto _st20;
+					}
+					{
+						goto _ctr24;
+					}
+					_st20:
+					if ( p == eof ) {
+						if ( cs >= 41 )
+							goto _out;
+						else
+							goto _pop;
+					}
+					p+= 1;
+					if ( p == pe )
+						goto _test_eof20;
+					st_case_20:
+					switch( ( (*( p))) ) {
+						case 37: {
+							goto _ctr25;
+						}
+						case 95: {
+							goto _st21;
+						}
+					}
+					if ( ( (*( p))) > 57 ) {
+						if ( 65 <= ( (*( p))) && ( (*( p))) <= 90 ) {
+							goto _st21;
+						}
+					} else if ( ( (*( p))) >= 48 ) {
+						goto _st21;
+					}
+					{
+						goto _ctr24;
+					}
+					_st21:
+					if ( p == eof ) {
+						if ( cs >= 41 )
+							goto _out;
+						else
+							goto _pop;
+					}
+					p+= 1;
+					if ( p == pe )
+						goto _test_eof21;
+					st_case_21:
+					switch( ( (*( p))) ) {
+						case 37: {
+							goto _ctr25;
+						}
+						case 95: {
+							goto _st22;
+						}
+					}
+					if ( ( (*( p))) > 57 ) {
+						if ( 65 <= ( (*( p))) && ( (*( p))) <= 90 ) {
+							goto _st22;
+						}
+					} else if ( ( (*( p))) >= 48 ) {
+						goto _st22;
+					}
+					{
+						goto _ctr24;
+					}
+					_st22:
+					if ( p == eof ) {
+						if ( cs >= 41 )
+							goto _out;
+						else
+							goto _pop;
+					}
+					p+= 1;
+					if ( p == pe )
+						goto _test_eof22;
+					st_case_22:
+					switch( ( (*( p))) ) {
+						case 37: {
+							goto _ctr25;
+						}
+						case 95: {
+							goto _st23;
+						}
+					}
+					if ( ( (*( p))) > 57 ) {
+						if ( 65 <= ( (*( p))) && ( (*( p))) <= 90 ) {
+							goto _st23;
+						}
+					} else if ( ( (*( p))) >= 48 ) {
+						goto _st23;
+					}
+					{
+						goto _ctr24;
+					}
+					_st23:
+					if ( p == eof ) {
+						if ( cs >= 41 )
+							goto _out;
+						else
+							goto _pop;
+					}
+					p+= 1;
+					if ( p == pe )
+						goto _test_eof23;
+					st_case_23:
+					switch( ( (*( p))) ) {
+						case 37: {
+							goto _ctr25;
+						}
+						case 95: {
+							goto _st24;
+						}
+					}
+					if ( ( (*( p))) > 57 ) {
+						if ( 65 <= ( (*( p))) && ( (*( p))) <= 90 ) {
+							goto _st24;
+						}
+					} else if ( ( (*( p))) >= 48 ) {
+						goto _st24;
+					}
+					{
+						goto _ctr24;
+					}
+					_st24:
+					if ( p == eof ) {
+						if ( cs >= 41 )
+							goto _out;
+						else
+							goto _pop;
+					}
+					p+= 1;
+					if ( p == pe )
+						goto _test_eof24;
+					st_case_24:
+					switch( ( (*( p))) ) {
+						case 37: {
+							goto _ctr25;
+						}
+						case 95: {
+							goto _st25;
+						}
+					}
+					if ( ( (*( p))) > 57 ) {
+						if ( 65 <= ( (*( p))) && ( (*( p))) <= 90 ) {
+							goto _st25;
+						}
+					} else if ( ( (*( p))) >= 48 ) {
+						goto _st25;
+					}
+					{
+						goto _ctr24;
+					}
+					_st25:
+					if ( p == eof ) {
+						if ( cs >= 41 )
+							goto _out;
+						else
+							goto _pop;
+					}
+					p+= 1;
+					if ( p == pe )
+						goto _test_eof25;
+					st_case_25:
+					switch( ( (*( p))) ) {
+						case 37: {
+							goto _ctr25;
+						}
+						case 95: {
+							goto _st26;
+						}
 					}
 					if ( ( (*( p))) > 57 ) {
 						if ( 65 <= ( (*( p))) && ( (*( p))) <= 90 ) {
@@ -1742,11 +1694,11 @@ namespace ceammc {
 						goto _st26;
 					}
 					{
-						goto _ctr82;
+						goto _ctr24;
 					}
 					_st26:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -1757,7 +1709,7 @@ namespace ceammc {
 					st_case_26:
 					switch( ( (*( p))) ) {
 						case 37: {
-							goto _ctr33;
+							goto _ctr25;
 						}
 						case 95: {
 							goto _st27;
@@ -1771,11 +1723,11 @@ namespace ceammc {
 						goto _st27;
 					}
 					{
-						goto _ctr32;
+						goto _ctr24;
 					}
 					_st27:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -1786,7 +1738,7 @@ namespace ceammc {
 					st_case_27:
 					switch( ( (*( p))) ) {
 						case 37: {
-							goto _ctr33;
+							goto _ctr25;
 						}
 						case 95: {
 							goto _st28;
@@ -1800,11 +1752,11 @@ namespace ceammc {
 						goto _st28;
 					}
 					{
-						goto _ctr32;
+						goto _ctr24;
 					}
 					_st28:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -1815,7 +1767,7 @@ namespace ceammc {
 					st_case_28:
 					switch( ( (*( p))) ) {
 						case 37: {
-							goto _ctr33;
+							goto _ctr25;
 						}
 						case 95: {
 							goto _st29;
@@ -1829,11 +1781,11 @@ namespace ceammc {
 						goto _st29;
 					}
 					{
-						goto _ctr32;
+						goto _ctr24;
 					}
 					_st29:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -1844,7 +1796,7 @@ namespace ceammc {
 					st_case_29:
 					switch( ( (*( p))) ) {
 						case 37: {
-							goto _ctr33;
+							goto _ctr25;
 						}
 						case 95: {
 							goto _st30;
@@ -1858,11 +1810,11 @@ namespace ceammc {
 						goto _st30;
 					}
 					{
-						goto _ctr32;
+						goto _ctr24;
 					}
 					_st30:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -1873,7 +1825,7 @@ namespace ceammc {
 					st_case_30:
 					switch( ( (*( p))) ) {
 						case 37: {
-							goto _ctr33;
+							goto _ctr25;
 						}
 						case 95: {
 							goto _st31;
@@ -1887,11 +1839,11 @@ namespace ceammc {
 						goto _st31;
 					}
 					{
-						goto _ctr32;
+						goto _ctr24;
 					}
 					_st31:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -1902,7 +1854,7 @@ namespace ceammc {
 					st_case_31:
 					switch( ( (*( p))) ) {
 						case 37: {
-							goto _ctr33;
+							goto _ctr25;
 						}
 						case 95: {
 							goto _st32;
@@ -1916,11 +1868,11 @@ namespace ceammc {
 						goto _st32;
 					}
 					{
-						goto _ctr32;
+						goto _ctr24;
 					}
 					_st32:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -1931,7 +1883,7 @@ namespace ceammc {
 					st_case_32:
 					switch( ( (*( p))) ) {
 						case 37: {
-							goto _ctr33;
+							goto _ctr25;
 						}
 						case 95: {
 							goto _st33;
@@ -1945,11 +1897,11 @@ namespace ceammc {
 						goto _st33;
 					}
 					{
-						goto _ctr32;
+						goto _ctr24;
 					}
 					_st33:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -1958,27 +1910,15 @@ namespace ceammc {
 					if ( p == pe )
 						goto _test_eof33;
 					st_case_33:
-					switch( ( (*( p))) ) {
-						case 37: {
-							goto _ctr33;
-						}
-						case 95: {
-							goto _st34;
-						}
-					}
-					if ( ( (*( p))) > 57 ) {
-						if ( 65 <= ( (*( p))) && ( (*( p))) <= 90 ) {
-							goto _st34;
-						}
-					} else if ( ( (*( p))) >= 48 ) {
-						goto _st34;
+					if ( ( (*( p))) == 37 ) {
+						goto _ctr25;
 					}
 					{
-						goto _ctr32;
+						goto _ctr24;
 					}
 					_st34:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -1988,478 +1928,26 @@ namespace ceammc {
 						goto _test_eof34;
 					st_case_34:
 					switch( ( (*( p))) ) {
-						case 37: {
-							goto _ctr33;
-						}
-						case 95: {
-							goto _st35;
-						}
-					}
-					if ( ( (*( p))) > 57 ) {
-						if ( 65 <= ( (*( p))) && ( (*( p))) <= 90 ) {
-							goto _st35;
-						}
-					} else if ( ( (*( p))) >= 48 ) {
-						goto _st35;
-					}
-					{
-						goto _ctr32;
-					}
-					_st35:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof35;
-					st_case_35:
-					switch( ( (*( p))) ) {
-						case 37: {
-							goto _ctr33;
-						}
-						case 95: {
-							goto _st36;
-						}
-					}
-					if ( ( (*( p))) > 57 ) {
-						if ( 65 <= ( (*( p))) && ( (*( p))) <= 90 ) {
-							goto _st36;
-						}
-					} else if ( ( (*( p))) >= 48 ) {
-						goto _st36;
-					}
-					{
-						goto _ctr32;
-					}
-					_st36:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof36;
-					st_case_36:
-					switch( ( (*( p))) ) {
-						case 37: {
-							goto _ctr33;
-						}
-						case 95: {
-							goto _st37;
-						}
-					}
-					if ( ( (*( p))) > 57 ) {
-						if ( 65 <= ( (*( p))) && ( (*( p))) <= 90 ) {
-							goto _st37;
-						}
-					} else if ( ( (*( p))) >= 48 ) {
-						goto _st37;
-					}
-					{
-						goto _ctr32;
-					}
-					_st37:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof37;
-					st_case_37:
-					switch( ( (*( p))) ) {
-						case 37: {
-							goto _ctr33;
-						}
-						case 95: {
-							goto _st38;
-						}
-					}
-					if ( ( (*( p))) > 57 ) {
-						if ( 65 <= ( (*( p))) && ( (*( p))) <= 90 ) {
-							goto _st38;
-						}
-					} else if ( ( (*( p))) >= 48 ) {
-						goto _st38;
-					}
-					{
-						goto _ctr32;
-					}
-					_st38:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof38;
-					st_case_38:
-					switch( ( (*( p))) ) {
-						case 37: {
-							goto _ctr33;
-						}
-						case 95: {
-							goto _st39;
-						}
-					}
-					if ( ( (*( p))) > 57 ) {
-						if ( 65 <= ( (*( p))) && ( (*( p))) <= 90 ) {
-							goto _st39;
-						}
-					} else if ( ( (*( p))) >= 48 ) {
-						goto _st39;
-					}
-					{
-						goto _ctr32;
-					}
-					_st39:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof39;
-					st_case_39:
-					switch( ( (*( p))) ) {
-						case 37: {
-							goto _ctr33;
-						}
-						case 95: {
-							goto _st40;
-						}
-					}
-					if ( ( (*( p))) > 57 ) {
-						if ( 65 <= ( (*( p))) && ( (*( p))) <= 90 ) {
-							goto _st40;
-						}
-					} else if ( ( (*( p))) >= 48 ) {
-						goto _st40;
-					}
-					{
-						goto _ctr32;
-					}
-					_st40:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof40;
-					st_case_40:
-					switch( ( (*( p))) ) {
-						case 37: {
-							goto _ctr33;
-						}
-						case 95: {
-							goto _st41;
-						}
-					}
-					if ( ( (*( p))) > 57 ) {
-						if ( 65 <= ( (*( p))) && ( (*( p))) <= 90 ) {
-							goto _st41;
-						}
-					} else if ( ( (*( p))) >= 48 ) {
-						goto _st41;
-					}
-					{
-						goto _ctr32;
-					}
-					_st41:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof41;
-					st_case_41:
-					switch( ( (*( p))) ) {
-						case 37: {
-							goto _ctr33;
-						}
-						case 95: {
-							goto _st42;
-						}
-					}
-					if ( ( (*( p))) > 57 ) {
-						if ( 65 <= ( (*( p))) && ( (*( p))) <= 90 ) {
-							goto _st42;
-						}
-					} else if ( ( (*( p))) >= 48 ) {
-						goto _st42;
-					}
-					{
-						goto _ctr32;
-					}
-					_st42:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof42;
-					st_case_42:
-					switch( ( (*( p))) ) {
-						case 37: {
-							goto _ctr33;
-						}
-						case 95: {
-							goto _st43;
-						}
-					}
-					if ( ( (*( p))) > 57 ) {
-						if ( 65 <= ( (*( p))) && ( (*( p))) <= 90 ) {
-							goto _st43;
-						}
-					} else if ( ( (*( p))) >= 48 ) {
-						goto _st43;
-					}
-					{
-						goto _ctr32;
-					}
-					_st43:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof43;
-					st_case_43:
-					switch( ( (*( p))) ) {
-						case 37: {
-							goto _ctr33;
-						}
-						case 95: {
-							goto _st44;
-						}
-					}
-					if ( ( (*( p))) > 57 ) {
-						if ( 65 <= ( (*( p))) && ( (*( p))) <= 90 ) {
-							goto _st44;
-						}
-					} else if ( ( (*( p))) >= 48 ) {
-						goto _st44;
-					}
-					{
-						goto _ctr32;
-					}
-					_st44:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof44;
-					st_case_44:
-					switch( ( (*( p))) ) {
-						case 37: {
-							goto _ctr33;
-						}
-						case 95: {
-							goto _st45;
-						}
-					}
-					if ( ( (*( p))) > 57 ) {
-						if ( 65 <= ( (*( p))) && ( (*( p))) <= 90 ) {
-							goto _st45;
-						}
-					} else if ( ( (*( p))) >= 48 ) {
-						goto _st45;
-					}
-					{
-						goto _ctr32;
-					}
-					_st45:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof45;
-					st_case_45:
-					switch( ( (*( p))) ) {
-						case 37: {
-							goto _ctr33;
-						}
-						case 95: {
-							goto _st46;
-						}
-					}
-					if ( ( (*( p))) > 57 ) {
-						if ( 65 <= ( (*( p))) && ( (*( p))) <= 90 ) {
-							goto _st46;
-						}
-					} else if ( ( (*( p))) >= 48 ) {
-						goto _st46;
-					}
-					{
-						goto _ctr32;
-					}
-					_st46:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof46;
-					st_case_46:
-					switch( ( (*( p))) ) {
-						case 37: {
-							goto _ctr33;
-						}
-						case 95: {
-							goto _st47;
-						}
-					}
-					if ( ( (*( p))) > 57 ) {
-						if ( 65 <= ( (*( p))) && ( (*( p))) <= 90 ) {
-							goto _st47;
-						}
-					} else if ( ( (*( p))) >= 48 ) {
-						goto _st47;
-					}
-					{
-						goto _ctr32;
-					}
-					_st47:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof47;
-					st_case_47:
-					switch( ( (*( p))) ) {
-						case 37: {
-							goto _ctr33;
-						}
-						case 95: {
-							goto _st48;
-						}
-					}
-					if ( ( (*( p))) > 57 ) {
-						if ( 65 <= ( (*( p))) && ( (*( p))) <= 90 ) {
-							goto _st48;
-						}
-					} else if ( ( (*( p))) >= 48 ) {
-						goto _st48;
-					}
-					{
-						goto _ctr32;
-					}
-					_st48:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof48;
-					st_case_48:
-					switch( ( (*( p))) ) {
-						case 37: {
-							goto _ctr33;
-						}
-						case 95: {
-							goto _st49;
-						}
-					}
-					if ( ( (*( p))) > 57 ) {
-						if ( 65 <= ( (*( p))) && ( (*( p))) <= 90 ) {
-							goto _st49;
-						}
-					} else if ( ( (*( p))) >= 48 ) {
-						goto _st49;
-					}
-					{
-						goto _ctr32;
-					}
-					_st49:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof49;
-					st_case_49:
-					if ( ( (*( p))) == 37 ) {
-						goto _ctr33;
-					}
-					{
-						goto _ctr32;
-					}
-					_st50:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof50;
-					st_case_50:
-					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr58;
+							goto _ctr42;
 						}
 						case 34: {
-							goto _ctr59;
+							goto _ctr43;
 						}
 						case 46: {
-							goto _ctr60;
+							goto _ctr44;
 						}
 						case 58: {
-							goto _ctr61;
+							goto _ctr45;
 						}
 						case 96: {
-							goto _ctr62;
+							goto _ctr46;
 						}
 					}
 					{
 						goto _st0;
 					}
-					_ctr63:
+					_ctr47:
 					{
 #line 204 "lex/lemon_data_string_parser.rl"
 						{p = ((te))-1;
@@ -2468,10 +1956,10 @@ namespace ceammc {
 								pushToken(TK_SPACE); }
 						}}
 					
-#line 2472 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 1960 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st62;
-					_ctr65:
+					goto _st46;
+					_ctr49:
 					{
 #line 1 "NONE"
 						{switch( act ) {
@@ -2500,14 +1988,14 @@ namespace ceammc {
 									p = ((te))-1;
 									{
 #line 63 "lex/lemon_data_string_parser.rl"
-										ragel_string.clear(); {stack[top] = 62; top+= 1; goto _st60;}}
+										ragel_string.clear(); {stack[top] = 46; top+= 1; goto _st44;}}
 									break; 
 								}
 								case 24:  {
 									p = ((te))-1;
 									{
 #line 64 "lex/lemon_data_string_parser.rl"
-										ragel_string.clear(); {stack[top] = 62; top+= 1; goto _st58;}}
+										ragel_string.clear(); {stack[top] = 46; top+= 1; goto _st42;}}
 									break; 
 								}
 								case 30:  {
@@ -2527,10 +2015,10 @@ namespace ceammc {
 							}}
 					}
 					
-#line 2531 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 2019 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st62;
-					_ctr91:
+					goto _st46;
+					_ctr75:
 					{
 #line 56 "lex/lemon_data_string_parser.rl"
 						{te = p+1;{
@@ -2538,10 +2026,10 @@ namespace ceammc {
 								pushToken(TK_LIST_CLOSE); }
 						}}
 					
-#line 2542 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 2030 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st62;
-					_ctr98:
+					goto _st46;
+					_ctr82:
 					{
 #line 208 "lex/lemon_data_string_parser.rl"
 						{te = p+1;{
@@ -2549,10 +2037,10 @@ namespace ceammc {
 								pushToken(TK_DICT_CLOSE); {top -= 1;cs = stack[top];goto _again;} }
 						}}
 					
-#line 2553 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 2041 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st62;
-					_ctr100:
+					goto _st46;
+					_ctr84:
 					{
 #line 117 "lex/lemon_data_string_parser.rl"
 						{te = p;p = p - 1;{
@@ -2560,10 +2048,10 @@ namespace ceammc {
 								pushSymbolToken(TK_SYMBOL, ts, te); }
 						}}
 					
-#line 2564 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 2052 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st62;
-					_ctr102:
+					goto _st46;
+					_ctr86:
 					{
 #line 204 "lex/lemon_data_string_parser.rl"
 						{te = p;p = p - 1;{
@@ -2571,10 +2059,10 @@ namespace ceammc {
 								pushToken(TK_SPACE); }
 						}}
 					
-#line 2575 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 2063 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st62;
-					_ctr105:
+					goto _st46;
+					_ctr89:
 					{
 #line 85 "lex/lemon_data_string_parser.rl"
 						{te = p;p = p - 1;{
@@ -2587,32 +2075,32 @@ namespace ceammc {
 							}
 						}}
 					
-#line 2591 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 2079 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st62;
-					_ctr106:
+					goto _st46;
+					_ctr90:
 					{
 #line 63 "lex/lemon_data_string_parser.rl"
 						{te = p;p = p - 1;{
 #line 63 "lex/lemon_data_string_parser.rl"
-								ragel_string.clear(); {stack[top] = 62; top+= 1; goto _st60;}}
+								ragel_string.clear(); {stack[top] = 46; top+= 1; goto _st44;}}
 						}}
 					
-#line 2602 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 2090 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st62;
-					_ctr120:
+					goto _st46;
+					_ctr104:
 					{
 #line 64 "lex/lemon_data_string_parser.rl"
 						{te = p;p = p - 1;{
 #line 64 "lex/lemon_data_string_parser.rl"
-								ragel_string.clear(); {stack[top] = 62; top+= 1; goto _st58;}}
+								ragel_string.clear(); {stack[top] = 46; top+= 1; goto _st42;}}
 						}}
 					
-#line 2613 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 2101 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st62;
-					_ctr121:
+					goto _st46;
+					_ctr105:
 					{
 #line 55 "lex/lemon_data_string_parser.rl"
 						{te = p;p = p - 1;{
@@ -2620,10 +2108,10 @@ namespace ceammc {
 								pushToken(TK_LIST_OPEN); }
 						}}
 					
-#line 2624 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 2112 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st62;
-					_ctr124:
+					goto _st46;
+					_ctr108:
 					{
 #line 30 "lex/ragel_numeric.rl"
 						
@@ -2632,7 +2120,7 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 2636 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 2124 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 57 "lex/lemon_data_string_parser.rl"
@@ -2646,10 +2134,10 @@ namespace ceammc {
 							}
 						}}
 					
-#line 2650 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 2138 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st62;
-					_ctr130:
+					goto _st46;
+					_ctr114:
 					{
 #line 58 "lex/ragel_numeric.rl"
 						
@@ -2659,7 +2147,7 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 2663 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 2151 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 57 "lex/lemon_data_string_parser.rl"
@@ -2673,10 +2161,10 @@ namespace ceammc {
 							}
 						}}
 					
-#line 2677 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 2165 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st62;
-					_ctr135:
+					goto _st46;
+					_ctr119:
 					{
 #line 44 "lex/ragel_numeric.rl"
 						
@@ -2685,7 +2173,7 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 2689 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 2177 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 57 "lex/lemon_data_string_parser.rl"
@@ -2699,10 +2187,10 @@ namespace ceammc {
 							}
 						}}
 					
-#line 2703 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 2191 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st62;
-					_ctr143:
+					goto _st46;
+					_ctr127:
 					{
 #line 24 "lex/ragel_numeric.rl"
 						
@@ -2710,7 +2198,7 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 2714 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 2202 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 57 "lex/lemon_data_string_parser.rl"
@@ -2724,10 +2212,10 @@ namespace ceammc {
 							}
 						}}
 					
-#line 2728 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 2216 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st62;
-					_ctr149:
+					goto _st46;
+					_ctr133:
 					{
 #line 37 "lex/ragel_numeric.rl"
 						
@@ -2735,7 +2223,7 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 2739 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 2227 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 57 "lex/lemon_data_string_parser.rl"
@@ -2749,10 +2237,10 @@ namespace ceammc {
 							}
 						}}
 					
-#line 2753 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 2241 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st62;
-					_ctr156:
+					goto _st46;
+					_ctr140:
 					{
 #line 79 "lex/lemon_data_string_parser.rl"
 						{te = p+1;{
@@ -2760,13 +2248,13 @@ namespace ceammc {
 								
 								pushSymbolToken(TK_DATA_NAME, ts, te-1);
 								pushToken(TK_DICT_OPEN);
-								{stack[top] = 62; top+= 1; goto _st62;}}
+								{stack[top] = 46; top+= 1; goto _st46;}}
 						}}
 					
-#line 2767 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 2255 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st62;
-					_ctr158:
+					goto _st46;
+					_ctr142:
 					{
 #line 72 "lex/lemon_data_string_parser.rl"
 						{te = p;p = p - 1;{
@@ -2780,10 +2268,10 @@ namespace ceammc {
 							}
 						}}
 					
-#line 2784 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 2272 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st62;
-					_ctr159:
+					goto _st46;
+					_ctr143:
 					{
 #line 84 "lex/lemon_data_string_parser.rl"
 						{te = p;p = p - 1;{
@@ -2791,10 +2279,10 @@ namespace ceammc {
 								pushToken(TK_DICT_OPEN); }
 						}}
 					
-#line 2795 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 2283 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st62;
-					_ctr161:
+					goto _st46;
+					_ctr145:
 					{
 #line 65 "lex/lemon_data_string_parser.rl"
 						{te = p;p = p - 1;{
@@ -2808,12 +2296,12 @@ namespace ceammc {
 							}
 						}}
 					
-#line 2812 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 2300 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st62;
-					_st62:
+					goto _st46;
+					_st46:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -2822,78 +2310,78 @@ namespace ceammc {
 #line 1 "NONE"
 						{ts = 0;}}
 					
-#line 2826 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 2314 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
 					p+= 1;
 					if ( p == pe )
-						goto _test_eof62;
-					st_case_62:
+						goto _test_eof46;
+					st_case_46:
 					{
 #line 1 "NONE"
 						{ts = p;}}
 					
-#line 2836 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 2324 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr86;
+							goto _ctr70;
 						}
 						case 34: {
-							goto _ctr87;
+							goto _ctr71;
 						}
 						case 35: {
-							goto _st68;
+							goto _st52;
 						}
 						case 39: {
-							goto _ctr89;
+							goto _ctr73;
 						}
 						case 40: {
-							goto _st80;
+							goto _st64;
 						}
 						case 41: {
-							goto _ctr91;
+							goto _ctr75;
 						}
 						case 43: {
-							goto _ctr92;
+							goto _ctr76;
 						}
 						case 45: {
-							goto _ctr92;
+							goto _ctr76;
 						}
 						case 48: {
-							goto _ctr93;
+							goto _ctr77;
 						}
 						case 63: {
-							goto _st90;
+							goto _st74;
 						}
 						case 91: {
-							goto _st101;
+							goto _st85;
 						}
 						case 93: {
-							goto _ctr98;
+							goto _ctr82;
 						}
 						case 95: {
-							goto _st90;
+							goto _st74;
 						}
 					}
 					if ( ( (*( p))) < 49 ) {
 						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-							goto _ctr86;
+							goto _ctr70;
 						}
 					} else if ( ( (*( p))) > 57 ) {
 						if ( ( (*( p))) > 90 ) {
 							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _st102;
+								goto _st86;
 							}
 						} else if ( ( (*( p))) >= 65 ) {
-							goto _st98;
+							goto _st82;
 						}
 					} else {
-						goto _ctr94;
+						goto _ctr78;
 					}
 					{
-						goto _st63;
+						goto _st47;
 					}
-					_ctr125:
+					_ctr109:
 					{
 #line 30 "lex/ragel_numeric.rl"
 						
@@ -2902,10 +2390,10 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 2906 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 2394 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st63;
-					_ctr131:
+					goto _st47;
+					_ctr115:
 					{
 #line 58 "lex/ragel_numeric.rl"
 						
@@ -2915,10 +2403,10 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 2919 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 2407 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st63;
-					_ctr136:
+					goto _st47;
+					_ctr120:
 					{
 #line 44 "lex/ragel_numeric.rl"
 						
@@ -2927,10 +2415,10 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 2931 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 2419 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st63;
-					_ctr144:
+					goto _st47;
+					_ctr128:
 					{
 #line 24 "lex/ragel_numeric.rl"
 						
@@ -2938,10 +2426,10 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 2942 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 2430 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st63;
-					_ctr150:
+					goto _st47;
+					_ctr134:
 					{
 #line 37 "lex/ragel_numeric.rl"
 						
@@ -2949,120 +2437,120 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 2953 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 2441 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st63;
-					_st63:
+					goto _st47;
+					_st47:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
 					}
 					p+= 1;
 					if ( p == pe )
-						goto _test_eof63;
-					st_case_63:
+						goto _test_eof47;
+					st_case_47:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr100;
+							goto _ctr84;
 						}
 						case 34: {
-							goto _ctr100;
+							goto _ctr84;
 						}
 						case 63: {
-							goto _ctr101;
+							goto _ctr85;
 						}
 						case 91: {
-							goto _ctr100;
+							goto _ctr84;
 						}
 						case 93: {
-							goto _ctr100;
+							goto _ctr84;
 						}
 						case 95: {
-							goto _ctr101;
+							goto _ctr85;
 						}
 					}
 					if ( ( (*( p))) < 39 ) {
 						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-							goto _ctr100;
+							goto _ctr84;
 						}
 					} else if ( ( (*( p))) > 41 ) {
 						if ( ( (*( p))) > 57 ) {
 							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _ctr101;
+								goto _ctr85;
 							}
 						} else if ( ( (*( p))) >= 48 ) {
-							goto _ctr101;
+							goto _ctr85;
 						}
 					} else {
-						goto _ctr100;
+						goto _ctr84;
 					}
 					{
-						goto _st63;
+						goto _st47;
 					}
-					_ctr101:
+					_ctr85:
 					{
 #line 1 "NONE"
 						{te = p+1;}}
 					
-#line 3010 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 2498 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 117 "lex/lemon_data_string_parser.rl"
 						{act = 31;}}
 					
-#line 3016 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 2504 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st64;
-					_ctr113:
+					goto _st48;
+					_ctr97:
 					{
 #line 1 "NONE"
 						{te = p+1;}}
 					
-#line 3024 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 2512 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 52 "lex/lemon_data_string_parser.rl"
 						{act = 18;}}
 					
-#line 3030 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 2518 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st64;
-					_ctr116:
+					goto _st48;
+					_ctr100:
 					{
 #line 1 "NONE"
 						{te = p+1;}}
 					
-#line 3038 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 2526 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 53 "lex/lemon_data_string_parser.rl"
 						{act = 19;}}
 					
-#line 3044 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 2532 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st64;
-					_ctr119:
+					goto _st48;
+					_ctr103:
 					{
 #line 1 "NONE"
 						{te = p+1;}}
 					
-#line 3052 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 2540 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 51 "lex/lemon_data_string_parser.rl"
 						{act = 17;}}
 					
-#line 3058 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 2546 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st64;
-					_ctr128:
+					goto _st48;
+					_ctr112:
 					{
 #line 1 "NONE"
 						{te = p+1;}}
 					
-#line 3066 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 2554 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 30 "lex/ragel_numeric.rl"
@@ -3072,21 +2560,21 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 3076 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 2564 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 117 "lex/lemon_data_string_parser.rl"
 						{act = 31;}}
 					
-#line 3082 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 2570 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st64;
-					_ctr132:
+					goto _st48;
+					_ctr116:
 					{
 #line 1 "NONE"
 						{te = p+1;}}
 					
-#line 3090 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 2578 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 58 "lex/ragel_numeric.rl"
@@ -3097,21 +2585,21 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 3101 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 2589 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 117 "lex/lemon_data_string_parser.rl"
 						{act = 31;}}
 					
-#line 3107 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 2595 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st64;
-					_ctr137:
+					goto _st48;
+					_ctr121:
 					{
 #line 1 "NONE"
 						{te = p+1;}}
 					
-#line 3115 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 2603 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 44 "lex/ragel_numeric.rl"
@@ -3121,21 +2609,21 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 3125 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 2613 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 117 "lex/lemon_data_string_parser.rl"
 						{act = 31;}}
 					
-#line 3131 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 2619 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st64;
-					_ctr154:
+					goto _st48;
+					_ctr138:
 					{
 #line 1 "NONE"
 						{te = p+1;}}
 					
-#line 3139 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 2627 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 37 "lex/ragel_numeric.rl"
@@ -3144,132 +2632,371 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 3148 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 2636 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 117 "lex/lemon_data_string_parser.rl"
 						{act = 31;}}
 					
-#line 3154 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 2642 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st64;
-					_st64:
+					goto _st48;
+					_st48:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
 					}
 					p+= 1;
 					if ( p == pe )
-						goto _test_eof64;
-					st_case_64:
+						goto _test_eof48;
+					st_case_48:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr65;
+							goto _ctr49;
 						}
 						case 34: {
-							goto _ctr65;
+							goto _ctr49;
 						}
 						case 58: {
-							goto _ctr65;
+							goto _ctr49;
 						}
 						case 63: {
-							goto _ctr101;
+							goto _ctr85;
 						}
 						case 91: {
-							goto _ctr65;
+							goto _ctr49;
 						}
 						case 93: {
-							goto _ctr65;
+							goto _ctr49;
 						}
 						case 95: {
-							goto _ctr101;
+							goto _ctr85;
 						}
 					}
 					if ( ( (*( p))) < 39 ) {
 						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-							goto _ctr65;
+							goto _ctr49;
 						}
 					} else if ( ( (*( p))) > 41 ) {
 						if ( ( (*( p))) > 57 ) {
 							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _ctr101;
+								goto _ctr85;
 							}
 						} else if ( ( (*( p))) >= 48 ) {
-							goto _ctr101;
+							goto _ctr85;
 						}
 					} else {
-						goto _ctr65;
+						goto _ctr49;
 					}
 					{
-						goto _st63;
+						goto _st47;
 					}
-					_ctr86:
+					_ctr70:
 					{
 #line 1 "NONE"
 						{te = p+1;}}
 					
-#line 3214 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 2702 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 204 "lex/lemon_data_string_parser.rl"
 						{act = 30;}}
 					
-#line 3220 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 2708 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st65;
-					_st65:
+					goto _st49;
+					_st49:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
 					}
 					p+= 1;
 					if ( p == pe )
-						goto _test_eof65;
-					st_case_65:
+						goto _test_eof49;
+					st_case_49:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr86;
+							goto _ctr70;
 						}
 						case 34: {
-							goto _st51;
+							goto _st35;
 						}
 						case 39: {
-							goto _st54;
+							goto _st38;
 						}
 						case 41: {
-							goto _ctr91;
+							goto _ctr75;
 						}
 						case 63: {
-							goto _st56;
+							goto _st40;
 						}
 						case 93: {
-							goto _ctr98;
+							goto _ctr82;
 						}
 						case 95: {
-							goto _st56;
+							goto _st40;
 						}
 					}
 					if ( ( (*( p))) < 48 ) {
 						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-							goto _ctr86;
+							goto _ctr70;
 						}
 					} else if ( ( (*( p))) > 57 ) {
 						if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-							goto _st56;
+							goto _st40;
 						}
 					} else {
-						goto _st56;
+						goto _st40;
 					}
 					{
-						goto _ctr102;
+						goto _ctr86;
 					}
+					_st35:
+					if ( p == eof ) {
+						if ( cs >= 41 )
+							goto _out;
+						else
+							goto _pop;
+					}
+					p+= 1;
+					if ( p == pe )
+						goto _test_eof35;
+					st_case_35:
+					switch( ( (*( p))) ) {
+						case 63: {
+							goto _st36;
+						}
+						case 95: {
+							goto _st36;
+						}
+					}
+					if ( ( (*( p))) > 57 ) {
+						if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
+							goto _st36;
+						}
+					} else if ( ( (*( p))) >= 48 ) {
+						goto _st36;
+					}
+					{
+						goto _ctr47;
+					}
+					_st36:
+					if ( p == eof ) {
+						if ( cs >= 41 )
+							goto _out;
+						else
+							goto _pop;
+					}
+					p+= 1;
+					if ( p == pe )
+						goto _test_eof36;
+					st_case_36:
+					switch( ( (*( p))) ) {
+						case 34: {
+							goto _st37;
+						}
+						case 63: {
+							goto _st36;
+						}
+						case 95: {
+							goto _st36;
+						}
+					}
+					if ( ( (*( p))) > 57 ) {
+						if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
+							goto _st36;
+						}
+					} else if ( ( (*( p))) >= 48 ) {
+						goto _st36;
+					}
+					{
+						goto _ctr49;
+					}
+					_st37:
+					if ( p == eof ) {
+						if ( cs >= 41 )
+							goto _out;
+						else
+							goto _pop;
+					}
+					p+= 1;
+					if ( p == pe )
+						goto _test_eof37;
+					st_case_37:
+					if ( ( (*( p))) == 58 ) {
+						goto _st50;
+					}
+					{
+						goto _ctr49;
+					}
+					_ctr123:
+					{
+#line 30 "lex/ragel_numeric.rl"
+						
+						ragel_num.vint *= ragel_num.sign;
+						ragel_type = TYPE_INT;
+						ragel_cat  = CAT_NUMBER;
+					}
+					
+#line 2846 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+					
+					goto _st50;
+					_ctr130:
+					{
+#line 24 "lex/ragel_numeric.rl"
+						
+						ragel_type = TYPE_BIN;
+						ragel_cat  = CAT_NUMBER;
+					}
+					
+#line 2857 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+					
+					goto _st50;
+					_ctr135:
+					{
+#line 37 "lex/ragel_numeric.rl"
+						
+						ragel_type = TYPE_HEX;
+						ragel_cat  = CAT_NUMBER;
+					}
+					
+#line 2868 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+					
+					goto _st50;
+					_st50:
+					if ( p == eof ) {
+						if ( cs >= 41 )
+							goto _out;
+						else
+							goto _pop;
+					}
+					p+= 1;
+					if ( p == pe )
+						goto _test_eof50;
+					st_case_50:
+					if ( ( (*( p))) == 32 ) {
+						goto _st50;
+					}
+					if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
+						goto _st50;
+					}
+					{
+						goto _ctr89;
+					}
+					_st38:
+					if ( p == eof ) {
+						if ( cs >= 41 )
+							goto _out;
+						else
+							goto _pop;
+					}
+					p+= 1;
+					if ( p == pe )
+						goto _test_eof38;
+					st_case_38:
+					switch( ( (*( p))) ) {
+						case 63: {
+							goto _st39;
+						}
+						case 95: {
+							goto _st39;
+						}
+					}
+					if ( ( (*( p))) > 57 ) {
+						if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
+							goto _st39;
+						}
+					} else if ( ( (*( p))) >= 48 ) {
+						goto _st39;
+					}
+					{
+						goto _ctr47;
+					}
+					_st39:
+					if ( p == eof ) {
+						if ( cs >= 41 )
+							goto _out;
+						else
+							goto _pop;
+					}
+					p+= 1;
+					if ( p == pe )
+						goto _test_eof39;
+					st_case_39:
+					switch( ( (*( p))) ) {
+						case 39: {
+							goto _st37;
+						}
+						case 63: {
+							goto _st39;
+						}
+						case 95: {
+							goto _st39;
+						}
+					}
+					if ( ( (*( p))) > 57 ) {
+						if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
+							goto _st39;
+						}
+					} else if ( ( (*( p))) >= 48 ) {
+						goto _st39;
+					}
+					{
+						goto _ctr49;
+					}
+					_st40:
+					if ( p == eof ) {
+						if ( cs >= 41 )
+							goto _out;
+						else
+							goto _pop;
+					}
+					p+= 1;
+					if ( p == pe )
+						goto _test_eof40;
+					st_case_40:
+					switch( ( (*( p))) ) {
+						case 58: {
+							goto _st50;
+						}
+						case 63: {
+							goto _st40;
+						}
+						case 95: {
+							goto _st40;
+						}
+					}
+					if ( ( (*( p))) > 57 ) {
+						if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
+							goto _st40;
+						}
+					} else if ( ( (*( p))) >= 48 ) {
+						goto _st40;
+					}
+					{
+						goto _ctr47;
+					}
+					_ctr71:
+					{
+#line 1 "NONE"
+						{te = p+1;}}
+					
+#line 2989 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+					
+					{
+#line 63 "lex/lemon_data_string_parser.rl"
+						{act = 23;}}
+					
+#line 2995 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+					
+					goto _st51;
 					_st51:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -3280,25 +3007,25 @@ namespace ceammc {
 					st_case_51:
 					switch( ( (*( p))) ) {
 						case 63: {
-							goto _st52;
+							goto _st36;
 						}
 						case 95: {
-							goto _st52;
+							goto _st36;
 						}
 					}
 					if ( ( (*( p))) > 57 ) {
 						if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-							goto _st52;
+							goto _st36;
 						}
 					} else if ( ( (*( p))) >= 48 ) {
-						goto _st52;
+						goto _st36;
 					}
 					{
-						goto _ctr63;
+						goto _ctr90;
 					}
 					_st52:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -3308,29 +3035,55 @@ namespace ceammc {
 						goto _test_eof52;
 					st_case_52:
 					switch( ( (*( p))) ) {
+						case 32: {
+							goto _ctr84;
+						}
 						case 34: {
-							goto _st53;
+							goto _ctr84;
 						}
 						case 63: {
-							goto _st52;
+							goto _ctr85;
+						}
+						case 91: {
+							goto _ctr84;
+						}
+						case 93: {
+							goto _ctr84;
 						}
 						case 95: {
-							goto _st52;
+							goto _ctr85;
+						}
+						case 102: {
+							goto _st53;
+						}
+						case 110: {
+							goto _st57;
+						}
+						case 116: {
+							goto _st60;
 						}
 					}
-					if ( ( (*( p))) > 57 ) {
-						if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-							goto _st52;
+					if ( ( (*( p))) < 39 ) {
+						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
+							goto _ctr84;
 						}
-					} else if ( ( (*( p))) >= 48 ) {
-						goto _st52;
+					} else if ( ( (*( p))) > 41 ) {
+						if ( ( (*( p))) > 57 ) {
+							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
+								goto _ctr85;
+							}
+						} else if ( ( (*( p))) >= 48 ) {
+							goto _ctr85;
+						}
+					} else {
+						goto _ctr84;
 					}
 					{
-						goto _ctr65;
+						goto _st47;
 					}
 					_st53:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -3339,69 +3092,53 @@ namespace ceammc {
 					if ( p == pe )
 						goto _test_eof53;
 					st_case_53:
-					if ( ( (*( p))) == 58 ) {
-						goto _st66;
+					switch( ( (*( p))) ) {
+						case 32: {
+							goto _ctr84;
+						}
+						case 34: {
+							goto _ctr84;
+						}
+						case 58: {
+							goto _ctr84;
+						}
+						case 63: {
+							goto _ctr85;
+						}
+						case 91: {
+							goto _ctr84;
+						}
+						case 93: {
+							goto _ctr84;
+						}
+						case 95: {
+							goto _ctr85;
+						}
+						case 97: {
+							goto _st54;
+						}
+					}
+					if ( ( (*( p))) < 39 ) {
+						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
+							goto _ctr84;
+						}
+					} else if ( ( (*( p))) > 41 ) {
+						if ( ( (*( p))) > 57 ) {
+							if ( 98 <= ( (*( p))) && ( (*( p))) <= 122 ) {
+								goto _ctr85;
+							}
+						} else if ( ( (*( p))) >= 48 ) {
+							goto _ctr85;
+						}
+					} else {
+						goto _ctr84;
 					}
 					{
-						goto _ctr65;
-					}
-					_ctr139:
-					{
-#line 30 "lex/ragel_numeric.rl"
-						
-						ragel_num.vint *= ragel_num.sign;
-						ragel_type = TYPE_INT;
-						ragel_cat  = CAT_NUMBER;
-					}
-					
-#line 3358 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
-					
-					goto _st66;
-					_ctr146:
-					{
-#line 24 "lex/ragel_numeric.rl"
-						
-						ragel_type = TYPE_BIN;
-						ragel_cat  = CAT_NUMBER;
-					}
-					
-#line 3369 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
-					
-					goto _st66;
-					_ctr151:
-					{
-#line 37 "lex/ragel_numeric.rl"
-						
-						ragel_type = TYPE_HEX;
-						ragel_cat  = CAT_NUMBER;
-					}
-					
-#line 3380 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
-					
-					goto _st66;
-					_st66:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof66;
-					st_case_66:
-					if ( ( (*( p))) == 32 ) {
-						goto _st66;
-					}
-					if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-						goto _st66;
-					}
-					{
-						goto _ctr105;
+						goto _st47;
 					}
 					_st54:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -3411,26 +3148,52 @@ namespace ceammc {
 						goto _test_eof54;
 					st_case_54:
 					switch( ( (*( p))) ) {
+						case 32: {
+							goto _ctr84;
+						}
+						case 34: {
+							goto _ctr84;
+						}
+						case 58: {
+							goto _ctr84;
+						}
 						case 63: {
-							goto _st55;
+							goto _ctr85;
+						}
+						case 91: {
+							goto _ctr84;
+						}
+						case 93: {
+							goto _ctr84;
 						}
 						case 95: {
+							goto _ctr85;
+						}
+						case 108: {
 							goto _st55;
 						}
 					}
-					if ( ( (*( p))) > 57 ) {
-						if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-							goto _st55;
+					if ( ( (*( p))) < 39 ) {
+						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
+							goto _ctr84;
 						}
-					} else if ( ( (*( p))) >= 48 ) {
-						goto _st55;
+					} else if ( ( (*( p))) > 41 ) {
+						if ( ( (*( p))) > 57 ) {
+							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
+								goto _ctr85;
+							}
+						} else if ( ( (*( p))) >= 48 ) {
+							goto _ctr85;
+						}
+					} else {
+						goto _ctr84;
 					}
 					{
-						goto _ctr63;
+						goto _st47;
 					}
 					_st55:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -3440,29 +3203,52 @@ namespace ceammc {
 						goto _test_eof55;
 					st_case_55:
 					switch( ( (*( p))) ) {
-						case 39: {
-							goto _st53;
+						case 32: {
+							goto _ctr84;
+						}
+						case 34: {
+							goto _ctr84;
+						}
+						case 58: {
+							goto _ctr84;
 						}
 						case 63: {
-							goto _st55;
+							goto _ctr85;
+						}
+						case 91: {
+							goto _ctr84;
+						}
+						case 93: {
+							goto _ctr84;
 						}
 						case 95: {
-							goto _st55;
+							goto _ctr85;
+						}
+						case 115: {
+							goto _st56;
 						}
 					}
-					if ( ( (*( p))) > 57 ) {
-						if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-							goto _st55;
+					if ( ( (*( p))) < 39 ) {
+						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
+							goto _ctr84;
 						}
-					} else if ( ( (*( p))) >= 48 ) {
-						goto _st55;
+					} else if ( ( (*( p))) > 41 ) {
+						if ( ( (*( p))) > 57 ) {
+							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
+								goto _ctr85;
+							}
+						} else if ( ( (*( p))) >= 48 ) {
+							goto _ctr85;
+						}
+					} else {
+						goto _ctr84;
 					}
 					{
-						goto _ctr65;
+						goto _st47;
 					}
 					_st56:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -3472,43 +3258,598 @@ namespace ceammc {
 						goto _test_eof56;
 					st_case_56:
 					switch( ( (*( p))) ) {
+						case 32: {
+							goto _ctr84;
+						}
+						case 34: {
+							goto _ctr84;
+						}
 						case 58: {
-							goto _st66;
+							goto _ctr84;
 						}
 						case 63: {
-							goto _st56;
+							goto _ctr85;
+						}
+						case 91: {
+							goto _ctr84;
+						}
+						case 93: {
+							goto _ctr84;
 						}
 						case 95: {
-							goto _st56;
+							goto _ctr85;
+						}
+						case 101: {
+							goto _ctr97;
 						}
 					}
-					if ( ( (*( p))) > 57 ) {
-						if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-							goto _st56;
+					if ( ( (*( p))) < 39 ) {
+						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
+							goto _ctr84;
 						}
-					} else if ( ( (*( p))) >= 48 ) {
-						goto _st56;
+					} else if ( ( (*( p))) > 41 ) {
+						if ( ( (*( p))) > 57 ) {
+							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
+								goto _ctr85;
+							}
+						} else if ( ( (*( p))) >= 48 ) {
+							goto _ctr85;
+						}
+					} else {
+						goto _ctr84;
 					}
 					{
-						goto _ctr63;
+						goto _st47;
 					}
-					_ctr87:
+					_st57:
+					if ( p == eof ) {
+						if ( cs >= 41 )
+							goto _out;
+						else
+							goto _pop;
+					}
+					p+= 1;
+					if ( p == pe )
+						goto _test_eof57;
+					st_case_57:
+					switch( ( (*( p))) ) {
+						case 32: {
+							goto _ctr84;
+						}
+						case 34: {
+							goto _ctr84;
+						}
+						case 58: {
+							goto _ctr84;
+						}
+						case 63: {
+							goto _ctr85;
+						}
+						case 91: {
+							goto _ctr84;
+						}
+						case 93: {
+							goto _ctr84;
+						}
+						case 95: {
+							goto _ctr85;
+						}
+						case 117: {
+							goto _st58;
+						}
+					}
+					if ( ( (*( p))) < 39 ) {
+						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
+							goto _ctr84;
+						}
+					} else if ( ( (*( p))) > 41 ) {
+						if ( ( (*( p))) > 57 ) {
+							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
+								goto _ctr85;
+							}
+						} else if ( ( (*( p))) >= 48 ) {
+							goto _ctr85;
+						}
+					} else {
+						goto _ctr84;
+					}
+					{
+						goto _st47;
+					}
+					_st58:
+					if ( p == eof ) {
+						if ( cs >= 41 )
+							goto _out;
+						else
+							goto _pop;
+					}
+					p+= 1;
+					if ( p == pe )
+						goto _test_eof58;
+					st_case_58:
+					switch( ( (*( p))) ) {
+						case 32: {
+							goto _ctr84;
+						}
+						case 34: {
+							goto _ctr84;
+						}
+						case 58: {
+							goto _ctr84;
+						}
+						case 63: {
+							goto _ctr85;
+						}
+						case 91: {
+							goto _ctr84;
+						}
+						case 93: {
+							goto _ctr84;
+						}
+						case 95: {
+							goto _ctr85;
+						}
+						case 108: {
+							goto _st59;
+						}
+					}
+					if ( ( (*( p))) < 39 ) {
+						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
+							goto _ctr84;
+						}
+					} else if ( ( (*( p))) > 41 ) {
+						if ( ( (*( p))) > 57 ) {
+							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
+								goto _ctr85;
+							}
+						} else if ( ( (*( p))) >= 48 ) {
+							goto _ctr85;
+						}
+					} else {
+						goto _ctr84;
+					}
+					{
+						goto _st47;
+					}
+					_st59:
+					if ( p == eof ) {
+						if ( cs >= 41 )
+							goto _out;
+						else
+							goto _pop;
+					}
+					p+= 1;
+					if ( p == pe )
+						goto _test_eof59;
+					st_case_59:
+					switch( ( (*( p))) ) {
+						case 32: {
+							goto _ctr84;
+						}
+						case 34: {
+							goto _ctr84;
+						}
+						case 58: {
+							goto _ctr84;
+						}
+						case 63: {
+							goto _ctr85;
+						}
+						case 91: {
+							goto _ctr84;
+						}
+						case 93: {
+							goto _ctr84;
+						}
+						case 95: {
+							goto _ctr85;
+						}
+						case 108: {
+							goto _ctr100;
+						}
+					}
+					if ( ( (*( p))) < 39 ) {
+						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
+							goto _ctr84;
+						}
+					} else if ( ( (*( p))) > 41 ) {
+						if ( ( (*( p))) > 57 ) {
+							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
+								goto _ctr85;
+							}
+						} else if ( ( (*( p))) >= 48 ) {
+							goto _ctr85;
+						}
+					} else {
+						goto _ctr84;
+					}
+					{
+						goto _st47;
+					}
+					_st60:
+					if ( p == eof ) {
+						if ( cs >= 41 )
+							goto _out;
+						else
+							goto _pop;
+					}
+					p+= 1;
+					if ( p == pe )
+						goto _test_eof60;
+					st_case_60:
+					switch( ( (*( p))) ) {
+						case 32: {
+							goto _ctr84;
+						}
+						case 34: {
+							goto _ctr84;
+						}
+						case 58: {
+							goto _ctr84;
+						}
+						case 63: {
+							goto _ctr85;
+						}
+						case 91: {
+							goto _ctr84;
+						}
+						case 93: {
+							goto _ctr84;
+						}
+						case 95: {
+							goto _ctr85;
+						}
+						case 114: {
+							goto _st61;
+						}
+					}
+					if ( ( (*( p))) < 39 ) {
+						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
+							goto _ctr84;
+						}
+					} else if ( ( (*( p))) > 41 ) {
+						if ( ( (*( p))) > 57 ) {
+							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
+								goto _ctr85;
+							}
+						} else if ( ( (*( p))) >= 48 ) {
+							goto _ctr85;
+						}
+					} else {
+						goto _ctr84;
+					}
+					{
+						goto _st47;
+					}
+					_st61:
+					if ( p == eof ) {
+						if ( cs >= 41 )
+							goto _out;
+						else
+							goto _pop;
+					}
+					p+= 1;
+					if ( p == pe )
+						goto _test_eof61;
+					st_case_61:
+					switch( ( (*( p))) ) {
+						case 32: {
+							goto _ctr84;
+						}
+						case 34: {
+							goto _ctr84;
+						}
+						case 58: {
+							goto _ctr84;
+						}
+						case 63: {
+							goto _ctr85;
+						}
+						case 91: {
+							goto _ctr84;
+						}
+						case 93: {
+							goto _ctr84;
+						}
+						case 95: {
+							goto _ctr85;
+						}
+						case 117: {
+							goto _st62;
+						}
+					}
+					if ( ( (*( p))) < 39 ) {
+						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
+							goto _ctr84;
+						}
+					} else if ( ( (*( p))) > 41 ) {
+						if ( ( (*( p))) > 57 ) {
+							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
+								goto _ctr85;
+							}
+						} else if ( ( (*( p))) >= 48 ) {
+							goto _ctr85;
+						}
+					} else {
+						goto _ctr84;
+					}
+					{
+						goto _st47;
+					}
+					_st62:
+					if ( p == eof ) {
+						if ( cs >= 41 )
+							goto _out;
+						else
+							goto _pop;
+					}
+					p+= 1;
+					if ( p == pe )
+						goto _test_eof62;
+					st_case_62:
+					switch( ( (*( p))) ) {
+						case 32: {
+							goto _ctr84;
+						}
+						case 34: {
+							goto _ctr84;
+						}
+						case 58: {
+							goto _ctr84;
+						}
+						case 63: {
+							goto _ctr85;
+						}
+						case 91: {
+							goto _ctr84;
+						}
+						case 93: {
+							goto _ctr84;
+						}
+						case 95: {
+							goto _ctr85;
+						}
+						case 101: {
+							goto _ctr103;
+						}
+					}
+					if ( ( (*( p))) < 39 ) {
+						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
+							goto _ctr84;
+						}
+					} else if ( ( (*( p))) > 41 ) {
+						if ( ( (*( p))) > 57 ) {
+							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
+								goto _ctr85;
+							}
+						} else if ( ( (*( p))) >= 48 ) {
+							goto _ctr85;
+						}
+					} else {
+						goto _ctr84;
+					}
+					{
+						goto _st47;
+					}
+					_ctr73:
 					{
 #line 1 "NONE"
 						{te = p+1;}}
 					
-#line 3501 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 3640 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
 					{
-#line 63 "lex/lemon_data_string_parser.rl"
-						{act = 23;}}
+#line 64 "lex/lemon_data_string_parser.rl"
+						{act = 24;}}
 					
-#line 3507 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 3646 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+					
+					goto _st63;
+					_st63:
+					if ( p == eof ) {
+						if ( cs >= 41 )
+							goto _out;
+						else
+							goto _pop;
+					}
+					p+= 1;
+					if ( p == pe )
+						goto _test_eof63;
+					st_case_63:
+					switch( ( (*( p))) ) {
+						case 63: {
+							goto _st39;
+						}
+						case 95: {
+							goto _st39;
+						}
+					}
+					if ( ( (*( p))) > 57 ) {
+						if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
+							goto _st39;
+						}
+					} else if ( ( (*( p))) >= 48 ) {
+						goto _st39;
+					}
+					{
+						goto _ctr104;
+					}
+					_st64:
+					if ( p == eof ) {
+						if ( cs >= 41 )
+							goto _out;
+						else
+							goto _pop;
+					}
+					p+= 1;
+					if ( p == pe )
+						goto _test_eof64;
+					st_case_64:
+					if ( ( (*( p))) == 32 ) {
+						goto _st64;
+					}
+					if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
+						goto _st64;
+					}
+					{
+						goto _ctr105;
+					}
+					_ctr76:
+					{
+#line 21 "lex/ragel_numeric.rl"
+						ragel_num.sign = ((( (*( p))))=='-') ? -1 : 1; }
+					
+#line 3703 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+					
+					goto _st65;
+					_st65:
+					if ( p == eof ) {
+						if ( cs >= 41 )
+							goto _out;
+						else
+							goto _pop;
+					}
+					p+= 1;
+					if ( p == pe )
+						goto _test_eof65;
+					st_case_65:
+					switch( ( (*( p))) ) {
+						case 32: {
+							goto _ctr84;
+						}
+						case 34: {
+							goto _ctr84;
+						}
+						case 48: {
+							goto _ctr106;
+						}
+						case 63: {
+							goto _ctr85;
+						}
+						case 91: {
+							goto _ctr84;
+						}
+						case 93: {
+							goto _ctr84;
+						}
+						case 95: {
+							goto _ctr85;
+						}
+					}
+					if ( ( (*( p))) < 39 ) {
+						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
+							goto _ctr84;
+						}
+					} else if ( ( (*( p))) > 41 ) {
+						if ( ( (*( p))) > 57 ) {
+							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
+								goto _ctr85;
+							}
+						} else if ( ( (*( p))) >= 49 ) {
+							goto _ctr107;
+						}
+					} else {
+						goto _ctr84;
+					}
+					{
+						goto _st47;
+					}
+					_ctr106:
+					{
+#line 29 "lex/ragel_numeric.rl"
+						(ragel_num.vint *= 10) += ((( (*( p))))-'0'); }
+					
+#line 3763 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+					
+					{
+#line 42 "lex/ragel_numeric.rl"
+						(ragel_num.ratio.num *= 10) += ((( (*( p))))-'0'); }
+					
+#line 3769 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+					
+					goto _st66;
+					_st66:
+					if ( p == eof ) {
+						if ( cs >= 41 )
+							goto _out;
+						else
+							goto _pop;
+					}
+					p+= 1;
+					if ( p == pe )
+						goto _test_eof66;
+					st_case_66:
+					switch( ( (*( p))) ) {
+						case 32: {
+							goto _ctr108;
+						}
+						case 34: {
+							goto _ctr108;
+						}
+						case 46: {
+							goto _ctr110;
+						}
+						case 47: {
+							goto _st69;
+						}
+						case 58: {
+							goto _ctr108;
+						}
+						case 63: {
+							goto _ctr112;
+						}
+						case 91: {
+							goto _ctr108;
+						}
+						case 93: {
+							goto _ctr108;
+						}
+						case 95: {
+							goto _ctr112;
+						}
+					}
+					if ( ( (*( p))) < 39 ) {
+						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
+							goto _ctr108;
+						}
+					} else if ( ( (*( p))) > 41 ) {
+						if ( ( (*( p))) > 57 ) {
+							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
+								goto _ctr112;
+							}
+						} else if ( ( (*( p))) >= 48 ) {
+							goto _ctr112;
+						}
+					} else {
+						goto _ctr108;
+					}
+					{
+						goto _ctr109;
+					}
+					_ctr110:
+					{
+#line 30 "lex/ragel_numeric.rl"
+						
+						ragel_num.vint *= ragel_num.sign;
+						ragel_type = TYPE_INT;
+						ragel_cat  = CAT_NUMBER;
+					}
+					
+#line 3839 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+					
+					{
+#line 50 "lex/ragel_numeric.rl"
+						
+						ragel_num.ratio.num = 0;
+						ragel_num.ratio.den = 1;
+					}
+					
+#line 3848 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
 					goto _st67;
 					_st67:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -3518,26 +3859,57 @@ namespace ceammc {
 						goto _test_eof67;
 					st_case_67:
 					switch( ( (*( p))) ) {
+						case 32: {
+							goto _ctr84;
+						}
+						case 34: {
+							goto _ctr84;
+						}
 						case 63: {
-							goto _st52;
+							goto _ctr85;
+						}
+						case 91: {
+							goto _ctr84;
+						}
+						case 93: {
+							goto _ctr84;
 						}
 						case 95: {
-							goto _st52;
+							goto _ctr85;
 						}
 					}
-					if ( ( (*( p))) > 57 ) {
-						if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-							goto _st52;
+					if ( ( (*( p))) < 39 ) {
+						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
+							goto _ctr84;
 						}
-					} else if ( ( (*( p))) >= 48 ) {
-						goto _st52;
+					} else if ( ( (*( p))) > 41 ) {
+						if ( ( (*( p))) > 57 ) {
+							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
+								goto _ctr85;
+							}
+						} else if ( ( (*( p))) >= 48 ) {
+							goto _ctr113;
+						}
+					} else {
+						goto _ctr84;
 					}
 					{
-						goto _ctr106;
+						goto _st47;
 					}
+					_ctr113:
+					{
+#line 54 "lex/ragel_numeric.rl"
+						
+						(ragel_num.ratio.num *= 10) += ((( (*( p)))) - '0');
+						ragel_num.ratio.den *= 10;
+					}
+					
+#line 3908 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+					
+					goto _st68;
 					_st68:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -3548,54 +3920,48 @@ namespace ceammc {
 					st_case_68:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr100;
+							goto _ctr114;
 						}
 						case 34: {
-							goto _ctr100;
+							goto _ctr114;
+						}
+						case 58: {
+							goto _ctr114;
 						}
 						case 63: {
-							goto _ctr101;
+							goto _ctr116;
 						}
 						case 91: {
-							goto _ctr100;
+							goto _ctr114;
 						}
 						case 93: {
-							goto _ctr100;
+							goto _ctr114;
 						}
 						case 95: {
-							goto _ctr101;
-						}
-						case 102: {
-							goto _st69;
-						}
-						case 110: {
-							goto _st73;
-						}
-						case 116: {
-							goto _st76;
+							goto _ctr116;
 						}
 					}
 					if ( ( (*( p))) < 39 ) {
 						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-							goto _ctr100;
+							goto _ctr114;
 						}
 					} else if ( ( (*( p))) > 41 ) {
 						if ( ( (*( p))) > 57 ) {
 							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _ctr101;
+								goto _ctr116;
 							}
 						} else if ( ( (*( p))) >= 48 ) {
-							goto _ctr101;
+							goto _ctr113;
 						}
 					} else {
-						goto _ctr100;
+						goto _ctr114;
 					}
 					{
-						goto _st63;
+						goto _ctr115;
 					}
 					_st69:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -3606,51 +3972,56 @@ namespace ceammc {
 					st_case_69:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr100;
+							goto _ctr84;
 						}
 						case 34: {
-							goto _ctr100;
+							goto _ctr84;
 						}
-						case 58: {
-							goto _ctr100;
+						case 48: {
+							goto _ctr117;
 						}
 						case 63: {
-							goto _ctr101;
+							goto _ctr85;
 						}
 						case 91: {
-							goto _ctr100;
+							goto _ctr84;
 						}
 						case 93: {
-							goto _ctr100;
+							goto _ctr84;
 						}
 						case 95: {
-							goto _ctr101;
-						}
-						case 97: {
-							goto _st70;
+							goto _ctr85;
 						}
 					}
 					if ( ( (*( p))) < 39 ) {
 						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-							goto _ctr100;
+							goto _ctr84;
 						}
 					} else if ( ( (*( p))) > 41 ) {
 						if ( ( (*( p))) > 57 ) {
-							if ( 98 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _ctr101;
+							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
+								goto _ctr85;
 							}
-						} else if ( ( (*( p))) >= 48 ) {
-							goto _ctr101;
+						} else if ( ( (*( p))) >= 49 ) {
+							goto _ctr118;
 						}
 					} else {
-						goto _ctr100;
+						goto _ctr84;
 					}
 					{
-						goto _st63;
+						goto _st47;
 					}
+					_ctr117:
+					{
+#line 43 "lex/ragel_numeric.rl"
+						(ragel_num.ratio.den *= 10) += ((( (*( p))))-'0'); }
+					
+#line 4020 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+					
+					goto _st70;
 					_st70:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -3661,51 +4032,56 @@ namespace ceammc {
 					st_case_70:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr100;
+							goto _ctr119;
 						}
 						case 34: {
-							goto _ctr100;
+							goto _ctr119;
 						}
 						case 58: {
-							goto _ctr100;
+							goto _ctr119;
 						}
 						case 63: {
-							goto _ctr101;
+							goto _ctr121;
 						}
 						case 91: {
-							goto _ctr100;
+							goto _ctr119;
 						}
 						case 93: {
-							goto _ctr100;
+							goto _ctr119;
 						}
 						case 95: {
-							goto _ctr101;
-						}
-						case 108: {
-							goto _st71;
+							goto _ctr121;
 						}
 					}
 					if ( ( (*( p))) < 39 ) {
 						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-							goto _ctr100;
+							goto _ctr119;
 						}
 					} else if ( ( (*( p))) > 41 ) {
 						if ( ( (*( p))) > 57 ) {
 							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _ctr101;
+								goto _ctr121;
 							}
 						} else if ( ( (*( p))) >= 48 ) {
-							goto _ctr101;
+							goto _ctr121;
 						}
 					} else {
-						goto _ctr100;
+						goto _ctr119;
 					}
 					{
-						goto _st63;
+						goto _ctr120;
 					}
+					_ctr118:
+					{
+#line 43 "lex/ragel_numeric.rl"
+						(ragel_num.ratio.den *= 10) += ((( (*( p))))-'0'); }
+					
+#line 4080 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+					
+					goto _st71;
 					_st71:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -3716,51 +4092,62 @@ namespace ceammc {
 					st_case_71:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr100;
+							goto _ctr119;
 						}
 						case 34: {
-							goto _ctr100;
+							goto _ctr119;
 						}
 						case 58: {
-							goto _ctr100;
+							goto _ctr119;
 						}
 						case 63: {
-							goto _ctr101;
+							goto _ctr121;
 						}
 						case 91: {
-							goto _ctr100;
+							goto _ctr119;
 						}
 						case 93: {
-							goto _ctr100;
+							goto _ctr119;
 						}
 						case 95: {
-							goto _ctr101;
-						}
-						case 115: {
-							goto _st72;
+							goto _ctr121;
 						}
 					}
 					if ( ( (*( p))) < 39 ) {
 						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-							goto _ctr100;
+							goto _ctr119;
 						}
 					} else if ( ( (*( p))) > 41 ) {
 						if ( ( (*( p))) > 57 ) {
 							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _ctr101;
+								goto _ctr121;
 							}
 						} else if ( ( (*( p))) >= 48 ) {
-							goto _ctr101;
+							goto _ctr118;
 						}
 					} else {
-						goto _ctr100;
+						goto _ctr119;
 					}
 					{
-						goto _st63;
+						goto _ctr120;
 					}
+					_ctr107:
+					{
+#line 29 "lex/ragel_numeric.rl"
+						(ragel_num.vint *= 10) += ((( (*( p))))-'0'); }
+					
+#line 4140 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+					
+					{
+#line 42 "lex/ragel_numeric.rl"
+						(ragel_num.ratio.num *= 10) += ((( (*( p))))-'0'); }
+					
+#line 4146 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+					
+					goto _st72;
 					_st72:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -3771,51 +4158,68 @@ namespace ceammc {
 					st_case_72:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr100;
+							goto _ctr108;
 						}
 						case 34: {
-							goto _ctr100;
+							goto _ctr108;
+						}
+						case 46: {
+							goto _ctr110;
+						}
+						case 47: {
+							goto _st69;
 						}
 						case 58: {
-							goto _ctr100;
+							goto _ctr108;
 						}
 						case 63: {
-							goto _ctr101;
+							goto _ctr112;
 						}
 						case 91: {
-							goto _ctr100;
+							goto _ctr108;
 						}
 						case 93: {
-							goto _ctr100;
+							goto _ctr108;
 						}
 						case 95: {
-							goto _ctr101;
-						}
-						case 101: {
-							goto _ctr113;
+							goto _ctr112;
 						}
 					}
 					if ( ( (*( p))) < 39 ) {
 						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-							goto _ctr100;
+							goto _ctr108;
 						}
 					} else if ( ( (*( p))) > 41 ) {
 						if ( ( (*( p))) > 57 ) {
 							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _ctr101;
+								goto _ctr112;
 							}
 						} else if ( ( (*( p))) >= 48 ) {
-							goto _ctr101;
+							goto _ctr107;
 						}
 					} else {
-						goto _ctr100;
+						goto _ctr108;
 					}
 					{
-						goto _st63;
+						goto _ctr109;
 					}
+					_ctr77:
+					{
+#line 29 "lex/ragel_numeric.rl"
+						(ragel_num.vint *= 10) += ((( (*( p))))-'0'); }
+					
+#line 4212 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+					
+					{
+#line 42 "lex/ragel_numeric.rl"
+						(ragel_num.ratio.num *= 10) += ((( (*( p))))-'0'); }
+					
+#line 4218 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+					
+					goto _st73;
 					_st73:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -3826,51 +4230,94 @@ namespace ceammc {
 					st_case_73:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr100;
+							goto _ctr108;
 						}
 						case 34: {
-							goto _ctr100;
+							goto _ctr108;
+						}
+						case 46: {
+							goto _ctr110;
+						}
+						case 47: {
+							goto _st69;
 						}
 						case 58: {
-							goto _ctr100;
+							goto _ctr123;
 						}
 						case 63: {
-							goto _ctr101;
+							goto _ctr122;
 						}
 						case 91: {
-							goto _ctr100;
+							goto _ctr108;
 						}
 						case 93: {
-							goto _ctr100;
+							goto _ctr108;
 						}
 						case 95: {
-							goto _ctr101;
+							goto _ctr122;
 						}
-						case 117: {
-							goto _st74;
+						case 98: {
+							goto _st75;
+						}
+						case 120: {
+							goto _st77;
 						}
 					}
 					if ( ( (*( p))) < 39 ) {
 						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-							goto _ctr100;
+							goto _ctr108;
 						}
 					} else if ( ( (*( p))) > 41 ) {
 						if ( ( (*( p))) > 57 ) {
 							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _ctr101;
+								goto _ctr122;
 							}
 						} else if ( ( (*( p))) >= 48 ) {
-							goto _ctr101;
+							goto _ctr122;
 						}
 					} else {
-						goto _ctr100;
+						goto _ctr108;
 					}
 					{
-						goto _st63;
+						goto _ctr109;
 					}
+					_ctr122:
+					{
+#line 30 "lex/ragel_numeric.rl"
+						
+						ragel_num.vint *= ragel_num.sign;
+						ragel_type = TYPE_INT;
+						ragel_cat  = CAT_NUMBER;
+					}
+					
+#line 4294 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+					
+					goto _st74;
+					_ctr129:
+					{
+#line 24 "lex/ragel_numeric.rl"
+						
+						ragel_type = TYPE_BIN;
+						ragel_cat  = CAT_NUMBER;
+					}
+					
+#line 4305 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+					
+					goto _st74;
+					_ctr136:
+					{
+#line 37 "lex/ragel_numeric.rl"
+						
+						ragel_type = TYPE_HEX;
+						ragel_cat  = CAT_NUMBER;
+					}
+					
+#line 4316 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+					
+					goto _st74;
 					_st74:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -3881,51 +4328,48 @@ namespace ceammc {
 					st_case_74:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr100;
+							goto _ctr84;
 						}
 						case 34: {
-							goto _ctr100;
+							goto _ctr84;
 						}
 						case 58: {
-							goto _ctr100;
+							goto _st50;
 						}
 						case 63: {
-							goto _ctr101;
+							goto _st74;
 						}
 						case 91: {
-							goto _ctr100;
+							goto _ctr84;
 						}
 						case 93: {
-							goto _ctr100;
+							goto _ctr84;
 						}
 						case 95: {
-							goto _ctr101;
-						}
-						case 108: {
-							goto _st75;
+							goto _st74;
 						}
 					}
 					if ( ( (*( p))) < 39 ) {
 						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-							goto _ctr100;
+							goto _ctr84;
 						}
 					} else if ( ( (*( p))) > 41 ) {
 						if ( ( (*( p))) > 57 ) {
 							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _ctr101;
+								goto _st74;
 							}
 						} else if ( ( (*( p))) >= 48 ) {
-							goto _ctr101;
+							goto _st74;
 						}
 					} else {
-						goto _ctr100;
+						goto _ctr84;
 					}
 					{
-						goto _st63;
+						goto _st47;
 					}
 					_st75:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -3936,51 +4380,60 @@ namespace ceammc {
 					st_case_75:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr100;
+							goto _ctr84;
 						}
 						case 34: {
-							goto _ctr100;
+							goto _ctr84;
 						}
 						case 58: {
-							goto _ctr100;
+							goto _st50;
 						}
 						case 63: {
-							goto _ctr101;
+							goto _st74;
 						}
 						case 91: {
-							goto _ctr100;
+							goto _ctr84;
 						}
 						case 93: {
-							goto _ctr100;
+							goto _ctr84;
 						}
 						case 95: {
-							goto _ctr101;
-						}
-						case 108: {
-							goto _ctr116;
+							goto _st74;
 						}
 					}
-					if ( ( (*( p))) < 39 ) {
-						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-							goto _ctr100;
+					if ( ( (*( p))) < 48 ) {
+						if ( ( (*( p))) > 13 ) {
+							if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
+								goto _ctr84;
+							}
+						} else if ( ( (*( p))) >= 9 ) {
+							goto _ctr84;
 						}
-					} else if ( ( (*( p))) > 41 ) {
+					} else if ( ( (*( p))) > 49 ) {
 						if ( ( (*( p))) > 57 ) {
 							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _ctr101;
+								goto _st74;
 							}
-						} else if ( ( (*( p))) >= 48 ) {
-							goto _ctr101;
+						} else {
+							goto _st74;
 						}
 					} else {
-						goto _ctr100;
+						goto _ctr126;
 					}
 					{
-						goto _st63;
+						goto _st47;
 					}
+					_ctr126:
+					{
+#line 23 "lex/ragel_numeric.rl"
+						(ragel_num.vint <<= 1) |= ((( (*( p))))=='1'); }
+					
+#line 4432 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+					
+					goto _st76;
 					_st76:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -3991,51 +4444,52 @@ namespace ceammc {
 					st_case_76:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr100;
+							goto _ctr127;
 						}
 						case 34: {
-							goto _ctr100;
+							goto _ctr127;
 						}
 						case 58: {
-							goto _ctr100;
+							goto _ctr130;
 						}
 						case 63: {
-							goto _ctr101;
+							goto _ctr129;
 						}
 						case 91: {
-							goto _ctr100;
+							goto _ctr127;
 						}
 						case 93: {
-							goto _ctr100;
+							goto _ctr127;
 						}
 						case 95: {
-							goto _ctr101;
-						}
-						case 114: {
-							goto _st77;
+							goto _ctr129;
 						}
 					}
-					if ( ( (*( p))) < 39 ) {
-						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-							goto _ctr100;
+					if ( ( (*( p))) < 48 ) {
+						if ( ( (*( p))) > 13 ) {
+							if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
+								goto _ctr127;
+							}
+						} else if ( ( (*( p))) >= 9 ) {
+							goto _ctr127;
 						}
-					} else if ( ( (*( p))) > 41 ) {
+					} else if ( ( (*( p))) > 49 ) {
 						if ( ( (*( p))) > 57 ) {
 							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _ctr101;
+								goto _ctr129;
 							}
-						} else if ( ( (*( p))) >= 48 ) {
-							goto _ctr101;
+						} else {
+							goto _ctr129;
 						}
 					} else {
-						goto _ctr100;
+						goto _ctr126;
 					}
 					{
-						goto _st63;
+						goto _ctr128;
 					}
 					_st77:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -4046,51 +4500,64 @@ namespace ceammc {
 					st_case_77:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr100;
+							goto _ctr84;
 						}
 						case 34: {
-							goto _ctr100;
+							goto _ctr84;
 						}
 						case 58: {
-							goto _ctr100;
+							goto _st50;
 						}
 						case 63: {
-							goto _ctr101;
+							goto _st74;
 						}
 						case 91: {
-							goto _ctr100;
+							goto _ctr84;
 						}
 						case 93: {
-							goto _ctr100;
+							goto _ctr84;
 						}
 						case 95: {
-							goto _ctr101;
-						}
-						case 117: {
-							goto _st78;
+							goto _st74;
 						}
 					}
-					if ( ( (*( p))) < 39 ) {
-						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-							goto _ctr100;
-						}
-					} else if ( ( (*( p))) > 41 ) {
-						if ( ( (*( p))) > 57 ) {
-							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _ctr101;
+					if ( ( (*( p))) < 48 ) {
+						if ( ( (*( p))) > 13 ) {
+							if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
+								goto _ctr84;
 							}
-						} else if ( ( (*( p))) >= 48 ) {
-							goto _ctr101;
+						} else if ( ( (*( p))) >= 9 ) {
+							goto _ctr84;
+						}
+					} else if ( ( (*( p))) > 57 ) {
+						if ( ( (*( p))) < 97 ) {
+							if ( 65 <= ( (*( p))) && ( (*( p))) <= 70 ) {
+								goto _ctr132;
+							}
+						} else if ( ( (*( p))) > 102 ) {
+							if ( ( (*( p))) <= 122 ) {
+								goto _st74;
+							}
+						} else {
+							goto _ctr131;
 						}
 					} else {
-						goto _ctr100;
+						goto _ctr131;
 					}
 					{
-						goto _st63;
+						goto _st47;
 					}
+					_ctr131:
+					{
+#line 36 "lex/ragel_numeric.rl"
+						(ragel_num.vint <<= 4) |= xchar2digit((( (*( p))))); }
+					
+#line 4556 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+					
+					goto _st78;
 					_st78:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -4101,65 +4568,64 @@ namespace ceammc {
 					st_case_78:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr100;
+							goto _ctr133;
 						}
 						case 34: {
-							goto _ctr100;
+							goto _ctr133;
 						}
 						case 58: {
-							goto _ctr100;
+							goto _ctr135;
 						}
 						case 63: {
-							goto _ctr101;
+							goto _ctr136;
 						}
 						case 91: {
-							goto _ctr100;
+							goto _ctr133;
 						}
 						case 93: {
-							goto _ctr100;
+							goto _ctr133;
 						}
 						case 95: {
-							goto _ctr101;
-						}
-						case 101: {
-							goto _ctr119;
+							goto _ctr136;
 						}
 					}
-					if ( ( (*( p))) < 39 ) {
-						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-							goto _ctr100;
-						}
-					} else if ( ( (*( p))) > 41 ) {
-						if ( ( (*( p))) > 57 ) {
-							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _ctr101;
+					if ( ( (*( p))) < 48 ) {
+						if ( ( (*( p))) > 13 ) {
+							if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
+								goto _ctr133;
 							}
-						} else if ( ( (*( p))) >= 48 ) {
-							goto _ctr101;
+						} else if ( ( (*( p))) >= 9 ) {
+							goto _ctr133;
+						}
+					} else if ( ( (*( p))) > 57 ) {
+						if ( ( (*( p))) < 97 ) {
+							if ( 65 <= ( (*( p))) && ( (*( p))) <= 70 ) {
+								goto _ctr132;
+							}
+						} else if ( ( (*( p))) > 102 ) {
+							if ( ( (*( p))) <= 122 ) {
+								goto _ctr136;
+							}
+						} else {
+							goto _ctr131;
 						}
 					} else {
-						goto _ctr100;
+						goto _ctr131;
 					}
 					{
-						goto _st63;
+						goto _ctr134;
 					}
-					_ctr89:
+					_ctr132:
 					{
-#line 1 "NONE"
-						{te = p+1;}}
+#line 36 "lex/ragel_numeric.rl"
+						(ragel_num.vint <<= 4) |= xchar2digit((( (*( p))))); }
 					
-#line 4152 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
-					
-					{
-#line 64 "lex/lemon_data_string_parser.rl"
-						{act = 24;}}
-					
-#line 4158 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 4624 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
 					goto _st79;
 					_st79:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -4169,26 +4635,62 @@ namespace ceammc {
 						goto _test_eof79;
 					st_case_79:
 					switch( ( (*( p))) ) {
+						case 32: {
+							goto _ctr133;
+						}
+						case 34: {
+							goto _ctr133;
+						}
 						case 63: {
-							goto _st55;
+							goto _ctr138;
+						}
+						case 91: {
+							goto _ctr133;
+						}
+						case 93: {
+							goto _ctr133;
 						}
 						case 95: {
-							goto _st55;
+							goto _ctr138;
 						}
 					}
-					if ( ( (*( p))) > 57 ) {
-						if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-							goto _st55;
+					if ( ( (*( p))) < 48 ) {
+						if ( ( (*( p))) > 13 ) {
+							if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
+								goto _ctr133;
+							}
+						} else if ( ( (*( p))) >= 9 ) {
+							goto _ctr133;
 						}
-					} else if ( ( (*( p))) >= 48 ) {
-						goto _st55;
+					} else if ( ( (*( p))) > 57 ) {
+						if ( ( (*( p))) < 97 ) {
+							if ( 65 <= ( (*( p))) && ( (*( p))) <= 70 ) {
+								goto _ctr132;
+							}
+						} else if ( ( (*( p))) > 102 ) {
+							if ( ( (*( p))) <= 122 ) {
+								goto _ctr138;
+							}
+						} else {
+							goto _ctr137;
+						}
+					} else {
+						goto _ctr137;
 					}
 					{
-						goto _ctr120;
+						goto _ctr134;
 					}
+					_ctr137:
+					{
+#line 36 "lex/ragel_numeric.rl"
+						(ragel_num.vint <<= 4) |= xchar2digit((( (*( p))))); }
+					
+#line 4689 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+					
+					goto _st80;
 					_st80:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -4197,26 +4699,72 @@ namespace ceammc {
 					if ( p == pe )
 						goto _test_eof80;
 					st_case_80:
-					if ( ( (*( p))) == 32 ) {
-						goto _st80;
+					switch( ( (*( p))) ) {
+						case 32: {
+							goto _ctr133;
+						}
+						case 34: {
+							goto _ctr133;
+						}
+						case 58: {
+							goto _ctr133;
+						}
+						case 63: {
+							goto _ctr138;
+						}
+						case 91: {
+							goto _ctr133;
+						}
+						case 93: {
+							goto _ctr133;
+						}
+						case 95: {
+							goto _ctr138;
+						}
 					}
-					if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-						goto _st80;
+					if ( ( (*( p))) < 48 ) {
+						if ( ( (*( p))) > 13 ) {
+							if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
+								goto _ctr133;
+							}
+						} else if ( ( (*( p))) >= 9 ) {
+							goto _ctr133;
+						}
+					} else if ( ( (*( p))) > 57 ) {
+						if ( ( (*( p))) < 97 ) {
+							if ( 65 <= ( (*( p))) && ( (*( p))) <= 70 ) {
+								goto _ctr132;
+							}
+						} else if ( ( (*( p))) > 102 ) {
+							if ( ( (*( p))) <= 122 ) {
+								goto _ctr138;
+							}
+						} else {
+							goto _ctr137;
+						}
+					} else {
+						goto _ctr137;
 					}
 					{
-						goto _ctr121;
+						goto _ctr134;
 					}
-					_ctr92:
+					_ctr78:
 					{
-#line 21 "lex/ragel_numeric.rl"
-						ragel_num.sign = ((( (*( p))))=='-') ? -1 : 1; }
+#line 29 "lex/ragel_numeric.rl"
+						(ragel_num.vint *= 10) += ((( (*( p))))-'0'); }
 					
-#line 4215 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 4757 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+					
+					{
+#line 42 "lex/ragel_numeric.rl"
+						(ragel_num.ratio.num *= 10) += ((( (*( p))))-'0'); }
+					
+#line 4763 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
 					goto _st81;
 					_st81:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -4227,62 +4775,54 @@ namespace ceammc {
 					st_case_81:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr100;
+							goto _ctr108;
 						}
 						case 34: {
-							goto _ctr100;
+							goto _ctr108;
 						}
-						case 48: {
-							goto _ctr122;
+						case 46: {
+							goto _ctr110;
+						}
+						case 47: {
+							goto _st69;
+						}
+						case 58: {
+							goto _ctr123;
 						}
 						case 63: {
-							goto _ctr101;
+							goto _ctr122;
 						}
 						case 91: {
-							goto _ctr100;
+							goto _ctr108;
 						}
 						case 93: {
-							goto _ctr100;
+							goto _ctr108;
 						}
 						case 95: {
-							goto _ctr101;
+							goto _ctr122;
 						}
 					}
 					if ( ( (*( p))) < 39 ) {
 						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-							goto _ctr100;
+							goto _ctr108;
 						}
 					} else if ( ( (*( p))) > 41 ) {
 						if ( ( (*( p))) > 57 ) {
 							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _ctr101;
+								goto _ctr122;
 							}
-						} else if ( ( (*( p))) >= 49 ) {
-							goto _ctr123;
+						} else if ( ( (*( p))) >= 48 ) {
+							goto _ctr78;
 						}
 					} else {
-						goto _ctr100;
+						goto _ctr108;
 					}
 					{
-						goto _st63;
+						goto _ctr109;
 					}
-					_ctr122:
-					{
-#line 29 "lex/ragel_numeric.rl"
-						(ragel_num.vint *= 10) += ((( (*( p))))-'0'); }
-					
-#line 4275 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
-					
-					{
-#line 42 "lex/ragel_numeric.rl"
-						(ragel_num.ratio.num *= 10) += ((( (*( p))))-'0'); }
-					
-#line 4281 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
-					
-					goto _st82;
 					_st82:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -4293,75 +4833,52 @@ namespace ceammc {
 					st_case_82:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr124;
+							goto _ctr84;
 						}
 						case 34: {
-							goto _ctr124;
+							goto _ctr84;
 						}
-						case 46: {
-							goto _ctr126;
-						}
-						case 47: {
-							goto _st85;
-						}
-						case 58: {
-							goto _ctr124;
+						case 40: {
+							goto _st83;
 						}
 						case 63: {
-							goto _ctr128;
+							goto _ctr85;
 						}
 						case 91: {
-							goto _ctr124;
+							goto _ctr140;
 						}
 						case 93: {
-							goto _ctr124;
+							goto _ctr84;
 						}
 						case 95: {
-							goto _ctr128;
+							goto _ctr85;
 						}
 					}
-					if ( ( (*( p))) < 39 ) {
-						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-							goto _ctr124;
-						}
-					} else if ( ( (*( p))) > 41 ) {
-						if ( ( (*( p))) > 57 ) {
-							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _ctr128;
+					if ( ( (*( p))) < 48 ) {
+						if ( ( (*( p))) > 13 ) {
+							if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
+								goto _ctr84;
 							}
-						} else if ( ( (*( p))) >= 48 ) {
-							goto _ctr128;
+						} else if ( ( (*( p))) >= 9 ) {
+							goto _ctr84;
+						}
+					} else if ( ( (*( p))) > 57 ) {
+						if ( ( (*( p))) > 90 ) {
+							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
+								goto _st84;
+							}
+						} else if ( ( (*( p))) >= 65 ) {
+							goto _st82;
 						}
 					} else {
-						goto _ctr124;
+						goto _ctr85;
 					}
 					{
-						goto _ctr125;
+						goto _st47;
 					}
-					_ctr126:
-					{
-#line 30 "lex/ragel_numeric.rl"
-						
-						ragel_num.vint *= ragel_num.sign;
-						ragel_type = TYPE_INT;
-						ragel_cat  = CAT_NUMBER;
-					}
-					
-#line 4351 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
-					
-					{
-#line 50 "lex/ragel_numeric.rl"
-						
-						ragel_num.ratio.num = 0;
-						ragel_num.ratio.den = 1;
-					}
-					
-#line 4360 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
-					
-					goto _st83;
 					_st83:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -4370,58 +4887,18 @@ namespace ceammc {
 					if ( p == pe )
 						goto _test_eof83;
 					st_case_83:
-					switch( ( (*( p))) ) {
-						case 32: {
-							goto _ctr100;
-						}
-						case 34: {
-							goto _ctr100;
-						}
-						case 63: {
-							goto _ctr101;
-						}
-						case 91: {
-							goto _ctr100;
-						}
-						case 93: {
-							goto _ctr100;
-						}
-						case 95: {
-							goto _ctr101;
-						}
+					if ( ( (*( p))) == 32 ) {
+						goto _st83;
 					}
-					if ( ( (*( p))) < 39 ) {
-						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-							goto _ctr100;
-						}
-					} else if ( ( (*( p))) > 41 ) {
-						if ( ( (*( p))) > 57 ) {
-							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _ctr101;
-							}
-						} else if ( ( (*( p))) >= 48 ) {
-							goto _ctr129;
-						}
-					} else {
-						goto _ctr100;
+					if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
+						goto _st83;
 					}
 					{
-						goto _st63;
+						goto _ctr142;
 					}
-					_ctr129:
-					{
-#line 54 "lex/ragel_numeric.rl"
-						
-						(ragel_num.ratio.num *= 10) += ((( (*( p)))) - '0');
-						ragel_num.ratio.den *= 10;
-					}
-					
-#line 4420 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
-					
-					goto _st84;
 					_st84:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -4432,48 +4909,55 @@ namespace ceammc {
 					st_case_84:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr130;
+							goto _ctr84;
 						}
 						case 34: {
-							goto _ctr130;
+							goto _ctr84;
+						}
+						case 40: {
+							goto _st83;
 						}
 						case 58: {
-							goto _ctr130;
+							goto _ctr84;
 						}
 						case 63: {
-							goto _ctr132;
+							goto _ctr85;
 						}
 						case 91: {
-							goto _ctr130;
+							goto _ctr140;
 						}
 						case 93: {
-							goto _ctr130;
+							goto _ctr84;
 						}
 						case 95: {
-							goto _ctr132;
+							goto _ctr85;
 						}
 					}
-					if ( ( (*( p))) < 39 ) {
-						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-							goto _ctr130;
-						}
-					} else if ( ( (*( p))) > 41 ) {
-						if ( ( (*( p))) > 57 ) {
-							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _ctr132;
+					if ( ( (*( p))) < 48 ) {
+						if ( ( (*( p))) > 13 ) {
+							if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
+								goto _ctr84;
 							}
-						} else if ( ( (*( p))) >= 48 ) {
-							goto _ctr129;
+						} else if ( ( (*( p))) >= 9 ) {
+							goto _ctr84;
+						}
+					} else if ( ( (*( p))) > 57 ) {
+						if ( ( (*( p))) > 90 ) {
+							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
+								goto _st84;
+							}
+						} else if ( ( (*( p))) >= 65 ) {
+							goto _st82;
 						}
 					} else {
-						goto _ctr130;
+						goto _ctr85;
 					}
 					{
-						goto _ctr131;
+						goto _st47;
 					}
 					_st85:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -4482,58 +4966,18 @@ namespace ceammc {
 					if ( p == pe )
 						goto _test_eof85;
 					st_case_85:
-					switch( ( (*( p))) ) {
-						case 32: {
-							goto _ctr100;
-						}
-						case 34: {
-							goto _ctr100;
-						}
-						case 48: {
-							goto _ctr133;
-						}
-						case 63: {
-							goto _ctr101;
-						}
-						case 91: {
-							goto _ctr100;
-						}
-						case 93: {
-							goto _ctr100;
-						}
-						case 95: {
-							goto _ctr101;
-						}
+					if ( ( (*( p))) == 32 ) {
+						goto _st85;
 					}
-					if ( ( (*( p))) < 39 ) {
-						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-							goto _ctr100;
-						}
-					} else if ( ( (*( p))) > 41 ) {
-						if ( ( (*( p))) > 57 ) {
-							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _ctr101;
-							}
-						} else if ( ( (*( p))) >= 49 ) {
-							goto _ctr134;
-						}
-					} else {
-						goto _ctr100;
+					if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
+						goto _st85;
 					}
 					{
-						goto _st63;
+						goto _ctr143;
 					}
-					_ctr133:
-					{
-#line 43 "lex/ragel_numeric.rl"
-						(ragel_num.ratio.den *= 10) += ((( (*( p))))-'0'); }
-					
-#line 4532 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
-					
-					goto _st86;
 					_st86:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -4544,56 +4988,51 @@ namespace ceammc {
 					st_case_86:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr135;
+							goto _ctr84;
 						}
 						case 34: {
-							goto _ctr135;
+							goto _ctr84;
+						}
+						case 40: {
+							goto _st87;
 						}
 						case 58: {
-							goto _ctr135;
+							goto _st50;
 						}
 						case 63: {
-							goto _ctr137;
+							goto _st74;
 						}
 						case 91: {
-							goto _ctr135;
+							goto _ctr84;
 						}
 						case 93: {
-							goto _ctr135;
+							goto _ctr84;
 						}
 						case 95: {
-							goto _ctr137;
+							goto _st86;
 						}
 					}
 					if ( ( (*( p))) < 39 ) {
 						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-							goto _ctr135;
+							goto _ctr84;
 						}
 					} else if ( ( (*( p))) > 41 ) {
 						if ( ( (*( p))) > 57 ) {
 							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _ctr137;
+								goto _st86;
 							}
 						} else if ( ( (*( p))) >= 48 ) {
-							goto _ctr137;
+							goto _st86;
 						}
 					} else {
-						goto _ctr135;
+						goto _ctr84;
 					}
 					{
-						goto _ctr136;
+						goto _st47;
 					}
-					_ctr134:
-					{
-#line 43 "lex/ragel_numeric.rl"
-						(ragel_num.ratio.den *= 10) += ((( (*( p))))-'0'); }
-					
-#line 4592 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
-					
-					goto _st87;
 					_st87:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -4602,989 +5041,38 @@ namespace ceammc {
 					if ( p == pe )
 						goto _test_eof87;
 					st_case_87:
-					switch( ( (*( p))) ) {
-						case 32: {
-							goto _ctr135;
-						}
-						case 34: {
-							goto _ctr135;
-						}
-						case 58: {
-							goto _ctr135;
-						}
-						case 63: {
-							goto _ctr137;
-						}
-						case 91: {
-							goto _ctr135;
-						}
-						case 93: {
-							goto _ctr135;
-						}
-						case 95: {
-							goto _ctr137;
-						}
+					if ( ( (*( p))) == 32 ) {
+						goto _st87;
 					}
-					if ( ( (*( p))) < 39 ) {
-						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-							goto _ctr135;
-						}
-					} else if ( ( (*( p))) > 41 ) {
-						if ( ( (*( p))) > 57 ) {
-							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _ctr137;
-							}
-						} else if ( ( (*( p))) >= 48 ) {
-							goto _ctr134;
-						}
-					} else {
-						goto _ctr135;
+					if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
+						goto _st87;
 					}
 					{
-						goto _ctr136;
+						goto _ctr145;
 					}
-					_ctr123:
+					_ctr149:
 					{
-#line 29 "lex/ragel_numeric.rl"
-						(ragel_num.vint *= 10) += ((( (*( p))))-'0'); }
+#line 63 "lex/lemon_data_string_parser.rl"
+						{te = p+1;{
+#line 63 "lex/lemon_data_string_parser.rl"
+								ragel_string.clear(); {stack[top] = 88; top+= 1; goto _st44;}}
+						}}
 					
-#line 4652 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
-					
-					{
-#line 42 "lex/ragel_numeric.rl"
-						(ragel_num.ratio.num *= 10) += ((( (*( p))))-'0'); }
-					
-#line 4658 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 5062 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
 					goto _st88;
-					_st88:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof88;
-					st_case_88:
-					switch( ( (*( p))) ) {
-						case 32: {
-							goto _ctr124;
-						}
-						case 34: {
-							goto _ctr124;
-						}
-						case 46: {
-							goto _ctr126;
-						}
-						case 47: {
-							goto _st85;
-						}
-						case 58: {
-							goto _ctr124;
-						}
-						case 63: {
-							goto _ctr128;
-						}
-						case 91: {
-							goto _ctr124;
-						}
-						case 93: {
-							goto _ctr124;
-						}
-						case 95: {
-							goto _ctr128;
-						}
-					}
-					if ( ( (*( p))) < 39 ) {
-						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-							goto _ctr124;
-						}
-					} else if ( ( (*( p))) > 41 ) {
-						if ( ( (*( p))) > 57 ) {
-							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _ctr128;
-							}
-						} else if ( ( (*( p))) >= 48 ) {
-							goto _ctr123;
-						}
-					} else {
-						goto _ctr124;
-					}
+					_ctr151:
 					{
-						goto _ctr125;
-					}
-					_ctr93:
-					{
-#line 29 "lex/ragel_numeric.rl"
-						(ragel_num.vint *= 10) += ((( (*( p))))-'0'); }
+#line 64 "lex/lemon_data_string_parser.rl"
+						{te = p+1;{
+#line 64 "lex/lemon_data_string_parser.rl"
+								ragel_string.clear(); {stack[top] = 88; top+= 1; goto _st42;}}
+						}}
 					
-#line 4724 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 5073 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					{
-#line 42 "lex/ragel_numeric.rl"
-						(ragel_num.ratio.num *= 10) += ((( (*( p))))-'0'); }
-					
-#line 4730 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
-					
-					goto _st89;
-					_st89:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof89;
-					st_case_89:
-					switch( ( (*( p))) ) {
-						case 32: {
-							goto _ctr124;
-						}
-						case 34: {
-							goto _ctr124;
-						}
-						case 46: {
-							goto _ctr126;
-						}
-						case 47: {
-							goto _st85;
-						}
-						case 58: {
-							goto _ctr139;
-						}
-						case 63: {
-							goto _ctr138;
-						}
-						case 91: {
-							goto _ctr124;
-						}
-						case 93: {
-							goto _ctr124;
-						}
-						case 95: {
-							goto _ctr138;
-						}
-						case 98: {
-							goto _st91;
-						}
-						case 120: {
-							goto _st93;
-						}
-					}
-					if ( ( (*( p))) < 39 ) {
-						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-							goto _ctr124;
-						}
-					} else if ( ( (*( p))) > 41 ) {
-						if ( ( (*( p))) > 57 ) {
-							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _ctr138;
-							}
-						} else if ( ( (*( p))) >= 48 ) {
-							goto _ctr138;
-						}
-					} else {
-						goto _ctr124;
-					}
-					{
-						goto _ctr125;
-					}
-					_ctr138:
-					{
-#line 30 "lex/ragel_numeric.rl"
-						
-						ragel_num.vint *= ragel_num.sign;
-						ragel_type = TYPE_INT;
-						ragel_cat  = CAT_NUMBER;
-					}
-					
-#line 4806 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
-					
-					goto _st90;
-					_ctr145:
-					{
-#line 24 "lex/ragel_numeric.rl"
-						
-						ragel_type = TYPE_BIN;
-						ragel_cat  = CAT_NUMBER;
-					}
-					
-#line 4817 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
-					
-					goto _st90;
-					_ctr152:
-					{
-#line 37 "lex/ragel_numeric.rl"
-						
-						ragel_type = TYPE_HEX;
-						ragel_cat  = CAT_NUMBER;
-					}
-					
-#line 4828 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
-					
-					goto _st90;
-					_st90:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof90;
-					st_case_90:
-					switch( ( (*( p))) ) {
-						case 32: {
-							goto _ctr100;
-						}
-						case 34: {
-							goto _ctr100;
-						}
-						case 58: {
-							goto _st66;
-						}
-						case 63: {
-							goto _st90;
-						}
-						case 91: {
-							goto _ctr100;
-						}
-						case 93: {
-							goto _ctr100;
-						}
-						case 95: {
-							goto _st90;
-						}
-					}
-					if ( ( (*( p))) < 39 ) {
-						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-							goto _ctr100;
-						}
-					} else if ( ( (*( p))) > 41 ) {
-						if ( ( (*( p))) > 57 ) {
-							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _st90;
-							}
-						} else if ( ( (*( p))) >= 48 ) {
-							goto _st90;
-						}
-					} else {
-						goto _ctr100;
-					}
-					{
-						goto _st63;
-					}
-					_st91:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof91;
-					st_case_91:
-					switch( ( (*( p))) ) {
-						case 32: {
-							goto _ctr100;
-						}
-						case 34: {
-							goto _ctr100;
-						}
-						case 58: {
-							goto _st66;
-						}
-						case 63: {
-							goto _st90;
-						}
-						case 91: {
-							goto _ctr100;
-						}
-						case 93: {
-							goto _ctr100;
-						}
-						case 95: {
-							goto _st90;
-						}
-					}
-					if ( ( (*( p))) < 48 ) {
-						if ( ( (*( p))) > 13 ) {
-							if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-								goto _ctr100;
-							}
-						} else if ( ( (*( p))) >= 9 ) {
-							goto _ctr100;
-						}
-					} else if ( ( (*( p))) > 49 ) {
-						if ( ( (*( p))) > 57 ) {
-							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _st90;
-							}
-						} else {
-							goto _st90;
-						}
-					} else {
-						goto _ctr142;
-					}
-					{
-						goto _st63;
-					}
-					_ctr142:
-					{
-#line 23 "lex/ragel_numeric.rl"
-						(ragel_num.vint <<= 1) |= ((( (*( p))))=='1'); }
-					
-#line 4944 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
-					
-					goto _st92;
-					_st92:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof92;
-					st_case_92:
-					switch( ( (*( p))) ) {
-						case 32: {
-							goto _ctr143;
-						}
-						case 34: {
-							goto _ctr143;
-						}
-						case 58: {
-							goto _ctr146;
-						}
-						case 63: {
-							goto _ctr145;
-						}
-						case 91: {
-							goto _ctr143;
-						}
-						case 93: {
-							goto _ctr143;
-						}
-						case 95: {
-							goto _ctr145;
-						}
-					}
-					if ( ( (*( p))) < 48 ) {
-						if ( ( (*( p))) > 13 ) {
-							if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-								goto _ctr143;
-							}
-						} else if ( ( (*( p))) >= 9 ) {
-							goto _ctr143;
-						}
-					} else if ( ( (*( p))) > 49 ) {
-						if ( ( (*( p))) > 57 ) {
-							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _ctr145;
-							}
-						} else {
-							goto _ctr145;
-						}
-					} else {
-						goto _ctr142;
-					}
-					{
-						goto _ctr144;
-					}
-					_st93:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof93;
-					st_case_93:
-					switch( ( (*( p))) ) {
-						case 32: {
-							goto _ctr100;
-						}
-						case 34: {
-							goto _ctr100;
-						}
-						case 58: {
-							goto _st66;
-						}
-						case 63: {
-							goto _st90;
-						}
-						case 91: {
-							goto _ctr100;
-						}
-						case 93: {
-							goto _ctr100;
-						}
-						case 95: {
-							goto _st90;
-						}
-					}
-					if ( ( (*( p))) < 48 ) {
-						if ( ( (*( p))) > 13 ) {
-							if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-								goto _ctr100;
-							}
-						} else if ( ( (*( p))) >= 9 ) {
-							goto _ctr100;
-						}
-					} else if ( ( (*( p))) > 57 ) {
-						if ( ( (*( p))) < 97 ) {
-							if ( 65 <= ( (*( p))) && ( (*( p))) <= 70 ) {
-								goto _ctr148;
-							}
-						} else if ( ( (*( p))) > 102 ) {
-							if ( ( (*( p))) <= 122 ) {
-								goto _st90;
-							}
-						} else {
-							goto _ctr147;
-						}
-					} else {
-						goto _ctr147;
-					}
-					{
-						goto _st63;
-					}
-					_ctr147:
-					{
-#line 36 "lex/ragel_numeric.rl"
-						(ragel_num.vint <<= 4) |= xchar2digit((( (*( p))))); }
-					
-#line 5068 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
-					
-					goto _st94;
-					_st94:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof94;
-					st_case_94:
-					switch( ( (*( p))) ) {
-						case 32: {
-							goto _ctr149;
-						}
-						case 34: {
-							goto _ctr149;
-						}
-						case 58: {
-							goto _ctr151;
-						}
-						case 63: {
-							goto _ctr152;
-						}
-						case 91: {
-							goto _ctr149;
-						}
-						case 93: {
-							goto _ctr149;
-						}
-						case 95: {
-							goto _ctr152;
-						}
-					}
-					if ( ( (*( p))) < 48 ) {
-						if ( ( (*( p))) > 13 ) {
-							if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-								goto _ctr149;
-							}
-						} else if ( ( (*( p))) >= 9 ) {
-							goto _ctr149;
-						}
-					} else if ( ( (*( p))) > 57 ) {
-						if ( ( (*( p))) < 97 ) {
-							if ( 65 <= ( (*( p))) && ( (*( p))) <= 70 ) {
-								goto _ctr148;
-							}
-						} else if ( ( (*( p))) > 102 ) {
-							if ( ( (*( p))) <= 122 ) {
-								goto _ctr152;
-							}
-						} else {
-							goto _ctr147;
-						}
-					} else {
-						goto _ctr147;
-					}
-					{
-						goto _ctr150;
-					}
-					_ctr148:
-					{
-#line 36 "lex/ragel_numeric.rl"
-						(ragel_num.vint <<= 4) |= xchar2digit((( (*( p))))); }
-					
-#line 5136 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
-					
-					goto _st95;
-					_st95:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof95;
-					st_case_95:
-					switch( ( (*( p))) ) {
-						case 32: {
-							goto _ctr149;
-						}
-						case 34: {
-							goto _ctr149;
-						}
-						case 63: {
-							goto _ctr154;
-						}
-						case 91: {
-							goto _ctr149;
-						}
-						case 93: {
-							goto _ctr149;
-						}
-						case 95: {
-							goto _ctr154;
-						}
-					}
-					if ( ( (*( p))) < 48 ) {
-						if ( ( (*( p))) > 13 ) {
-							if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-								goto _ctr149;
-							}
-						} else if ( ( (*( p))) >= 9 ) {
-							goto _ctr149;
-						}
-					} else if ( ( (*( p))) > 57 ) {
-						if ( ( (*( p))) < 97 ) {
-							if ( 65 <= ( (*( p))) && ( (*( p))) <= 70 ) {
-								goto _ctr148;
-							}
-						} else if ( ( (*( p))) > 102 ) {
-							if ( ( (*( p))) <= 122 ) {
-								goto _ctr154;
-							}
-						} else {
-							goto _ctr153;
-						}
-					} else {
-						goto _ctr153;
-					}
-					{
-						goto _ctr150;
-					}
+					goto _st88;
 					_ctr153:
-					{
-#line 36 "lex/ragel_numeric.rl"
-						(ragel_num.vint <<= 4) |= xchar2digit((( (*( p))))); }
-					
-#line 5201 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
-					
-					goto _st96;
-					_st96:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof96;
-					st_case_96:
-					switch( ( (*( p))) ) {
-						case 32: {
-							goto _ctr149;
-						}
-						case 34: {
-							goto _ctr149;
-						}
-						case 58: {
-							goto _ctr149;
-						}
-						case 63: {
-							goto _ctr154;
-						}
-						case 91: {
-							goto _ctr149;
-						}
-						case 93: {
-							goto _ctr149;
-						}
-						case 95: {
-							goto _ctr154;
-						}
-					}
-					if ( ( (*( p))) < 48 ) {
-						if ( ( (*( p))) > 13 ) {
-							if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-								goto _ctr149;
-							}
-						} else if ( ( (*( p))) >= 9 ) {
-							goto _ctr149;
-						}
-					} else if ( ( (*( p))) > 57 ) {
-						if ( ( (*( p))) < 97 ) {
-							if ( 65 <= ( (*( p))) && ( (*( p))) <= 70 ) {
-								goto _ctr148;
-							}
-						} else if ( ( (*( p))) > 102 ) {
-							if ( ( (*( p))) <= 122 ) {
-								goto _ctr154;
-							}
-						} else {
-							goto _ctr153;
-						}
-					} else {
-						goto _ctr153;
-					}
-					{
-						goto _ctr150;
-					}
-					_ctr94:
-					{
-#line 29 "lex/ragel_numeric.rl"
-						(ragel_num.vint *= 10) += ((( (*( p))))-'0'); }
-					
-#line 5269 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
-					
-					{
-#line 42 "lex/ragel_numeric.rl"
-						(ragel_num.ratio.num *= 10) += ((( (*( p))))-'0'); }
-					
-#line 5275 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
-					
-					goto _st97;
-					_st97:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof97;
-					st_case_97:
-					switch( ( (*( p))) ) {
-						case 32: {
-							goto _ctr124;
-						}
-						case 34: {
-							goto _ctr124;
-						}
-						case 46: {
-							goto _ctr126;
-						}
-						case 47: {
-							goto _st85;
-						}
-						case 58: {
-							goto _ctr139;
-						}
-						case 63: {
-							goto _ctr138;
-						}
-						case 91: {
-							goto _ctr124;
-						}
-						case 93: {
-							goto _ctr124;
-						}
-						case 95: {
-							goto _ctr138;
-						}
-					}
-					if ( ( (*( p))) < 39 ) {
-						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-							goto _ctr124;
-						}
-					} else if ( ( (*( p))) > 41 ) {
-						if ( ( (*( p))) > 57 ) {
-							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _ctr138;
-							}
-						} else if ( ( (*( p))) >= 48 ) {
-							goto _ctr94;
-						}
-					} else {
-						goto _ctr124;
-					}
-					{
-						goto _ctr125;
-					}
-					_st98:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof98;
-					st_case_98:
-					switch( ( (*( p))) ) {
-						case 32: {
-							goto _ctr100;
-						}
-						case 34: {
-							goto _ctr100;
-						}
-						case 40: {
-							goto _st99;
-						}
-						case 63: {
-							goto _ctr101;
-						}
-						case 91: {
-							goto _ctr156;
-						}
-						case 93: {
-							goto _ctr100;
-						}
-						case 95: {
-							goto _ctr101;
-						}
-					}
-					if ( ( (*( p))) < 48 ) {
-						if ( ( (*( p))) > 13 ) {
-							if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-								goto _ctr100;
-							}
-						} else if ( ( (*( p))) >= 9 ) {
-							goto _ctr100;
-						}
-					} else if ( ( (*( p))) > 57 ) {
-						if ( ( (*( p))) > 90 ) {
-							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _st100;
-							}
-						} else if ( ( (*( p))) >= 65 ) {
-							goto _st98;
-						}
-					} else {
-						goto _ctr101;
-					}
-					{
-						goto _st63;
-					}
-					_st99:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof99;
-					st_case_99:
-					if ( ( (*( p))) == 32 ) {
-						goto _st99;
-					}
-					if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-						goto _st99;
-					}
-					{
-						goto _ctr158;
-					}
-					_st100:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof100;
-					st_case_100:
-					switch( ( (*( p))) ) {
-						case 32: {
-							goto _ctr100;
-						}
-						case 34: {
-							goto _ctr100;
-						}
-						case 40: {
-							goto _st99;
-						}
-						case 58: {
-							goto _ctr100;
-						}
-						case 63: {
-							goto _ctr101;
-						}
-						case 91: {
-							goto _ctr156;
-						}
-						case 93: {
-							goto _ctr100;
-						}
-						case 95: {
-							goto _ctr101;
-						}
-					}
-					if ( ( (*( p))) < 48 ) {
-						if ( ( (*( p))) > 13 ) {
-							if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-								goto _ctr100;
-							}
-						} else if ( ( (*( p))) >= 9 ) {
-							goto _ctr100;
-						}
-					} else if ( ( (*( p))) > 57 ) {
-						if ( ( (*( p))) > 90 ) {
-							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _st100;
-							}
-						} else if ( ( (*( p))) >= 65 ) {
-							goto _st98;
-						}
-					} else {
-						goto _ctr101;
-					}
-					{
-						goto _st63;
-					}
-					_st101:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof101;
-					st_case_101:
-					if ( ( (*( p))) == 32 ) {
-						goto _st101;
-					}
-					if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-						goto _st101;
-					}
-					{
-						goto _ctr159;
-					}
-					_st102:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof102;
-					st_case_102:
-					switch( ( (*( p))) ) {
-						case 32: {
-							goto _ctr100;
-						}
-						case 34: {
-							goto _ctr100;
-						}
-						case 40: {
-							goto _st103;
-						}
-						case 58: {
-							goto _st66;
-						}
-						case 63: {
-							goto _st90;
-						}
-						case 91: {
-							goto _ctr100;
-						}
-						case 93: {
-							goto _ctr100;
-						}
-						case 95: {
-							goto _st102;
-						}
-					}
-					if ( ( (*( p))) < 39 ) {
-						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-							goto _ctr100;
-						}
-					} else if ( ( (*( p))) > 41 ) {
-						if ( ( (*( p))) > 57 ) {
-							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _st102;
-							}
-						} else if ( ( (*( p))) >= 48 ) {
-							goto _st102;
-						}
-					} else {
-						goto _ctr100;
-					}
-					{
-						goto _st63;
-					}
-					_st103:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof103;
-					st_case_103:
-					if ( ( (*( p))) == 32 ) {
-						goto _st103;
-					}
-					if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-						goto _st103;
-					}
-					{
-						goto _ctr161;
-					}
-					_ctr165:
-					{
-#line 63 "lex/lemon_data_string_parser.rl"
-						{te = p+1;{
-#line 63 "lex/lemon_data_string_parser.rl"
-								ragel_string.clear(); {stack[top] = 104; top+= 1; goto _st60;}}
-						}}
-					
-#line 5574 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
-					
-					goto _st104;
-					_ctr167:
-					{
-#line 64 "lex/lemon_data_string_parser.rl"
-						{te = p+1;{
-#line 64 "lex/lemon_data_string_parser.rl"
-								ragel_string.clear(); {stack[top] = 104; top+= 1; goto _st58;}}
-						}}
-					
-#line 5585 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
-					
-					goto _st104;
-					_ctr169:
 					{
 #line 56 "lex/lemon_data_string_parser.rl"
 						{te = p+1;{
@@ -5592,10 +5080,10 @@ namespace ceammc {
 								pushToken(TK_LIST_CLOSE); }
 						}}
 					
-#line 5596 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 5084 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st104;
-					_ctr176:
+					goto _st88;
+					_ctr160:
 					{
 #line 1 "NONE"
 						{switch( act ) {
@@ -5630,10 +5118,10 @@ namespace ceammc {
 							}}
 					}
 					
-#line 5634 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 5122 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st104;
-					_ctr177:
+					goto _st88;
+					_ctr161:
 					{
 #line 228 "lex/lemon_data_string_parser.rl"
 						{te = p;p = p - 1;{
@@ -5641,10 +5129,10 @@ namespace ceammc {
 								pushToken(TK_SPACE); {top -= 1;cs = stack[top];goto _again;} }
 						}}
 					
-#line 5645 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 5133 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st104;
-					_ctr178:
+					goto _st88;
+					_ctr162:
 					{
 #line 117 "lex/lemon_data_string_parser.rl"
 						{te = p;p = p - 1;{
@@ -5652,10 +5140,10 @@ namespace ceammc {
 								pushSymbolToken(TK_SYMBOL, ts, te); }
 						}}
 					
-#line 5656 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 5144 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st104;
-					_ctr192:
+					goto _st88;
+					_ctr176:
 					{
 #line 55 "lex/lemon_data_string_parser.rl"
 						{te = p;p = p - 1;{
@@ -5663,10 +5151,10 @@ namespace ceammc {
 								pushToken(TK_LIST_OPEN); }
 						}}
 					
-#line 5667 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 5155 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st104;
-					_ctr194:
+					goto _st88;
+					_ctr178:
 					{
 #line 30 "lex/ragel_numeric.rl"
 						
@@ -5675,7 +5163,7 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 5679 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 5167 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 57 "lex/lemon_data_string_parser.rl"
@@ -5689,10 +5177,10 @@ namespace ceammc {
 							}
 						}}
 					
-#line 5693 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 5181 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st104;
-					_ctr199:
+					goto _st88;
+					_ctr183:
 					{
 #line 58 "lex/ragel_numeric.rl"
 						
@@ -5702,7 +5190,7 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 5706 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 5194 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 57 "lex/lemon_data_string_parser.rl"
@@ -5716,10 +5204,10 @@ namespace ceammc {
 							}
 						}}
 					
-#line 5720 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 5208 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st104;
-					_ctr203:
+					goto _st88;
+					_ctr187:
 					{
 #line 44 "lex/ragel_numeric.rl"
 						
@@ -5728,7 +5216,7 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 5732 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 5220 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 57 "lex/lemon_data_string_parser.rl"
@@ -5742,10 +5230,10 @@ namespace ceammc {
 							}
 						}}
 					
-#line 5746 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 5234 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st104;
-					_ctr208:
+					goto _st88;
+					_ctr192:
 					{
 #line 24 "lex/ragel_numeric.rl"
 						
@@ -5753,7 +5241,7 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 5757 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 5245 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 57 "lex/lemon_data_string_parser.rl"
@@ -5767,10 +5255,10 @@ namespace ceammc {
 							}
 						}}
 					
-#line 5771 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 5259 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st104;
-					_ctr211:
+					goto _st88;
+					_ctr195:
 					{
 #line 37 "lex/ragel_numeric.rl"
 						
@@ -5778,7 +5266,7 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 5782 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 5270 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 57 "lex/lemon_data_string_parser.rl"
@@ -5792,10 +5280,10 @@ namespace ceammc {
 							}
 						}}
 					
-#line 5796 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 5284 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st104;
-					_ctr214:
+					goto _st88;
+					_ctr198:
 					{
 #line 79 "lex/lemon_data_string_parser.rl"
 						{te = p+1;{
@@ -5803,13 +5291,13 @@ namespace ceammc {
 								
 								pushSymbolToken(TK_DATA_NAME, ts, te-1);
 								pushToken(TK_DICT_OPEN);
-								{stack[top] = 104; top+= 1; goto _st62;}}
+								{stack[top] = 88; top+= 1; goto _st46;}}
 						}}
 					
-#line 5810 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 5298 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st104;
-					_ctr215:
+					goto _st88;
+					_ctr199:
 					{
 #line 72 "lex/lemon_data_string_parser.rl"
 						{te = p;p = p - 1;{
@@ -5823,21 +5311,21 @@ namespace ceammc {
 							}
 						}}
 					
-#line 5827 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 5315 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st104;
-					_ctr216:
+					goto _st88;
+					_ctr200:
 					{
 #line 217 "lex/lemon_data_string_parser.rl"
 						{te = p;p = p - 1;{
 #line 217 "lex/lemon_data_string_parser.rl"
-								pushToken(TK_DICT_OPEN); {stack[top] = 104; top+= 1; goto _st62;}}
+								pushToken(TK_DICT_OPEN); {stack[top] = 88; top+= 1; goto _st46;}}
 						}}
 					
-#line 5838 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 5326 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st104;
-					_ctr218:
+					goto _st88;
+					_ctr202:
 					{
 #line 65 "lex/lemon_data_string_parser.rl"
 						{te = p;p = p - 1;{
@@ -5851,12 +5339,12 @@ namespace ceammc {
 							}
 						}}
 					
-#line 5855 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 5343 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st104;
-					_st104:
+					goto _st88;
+					_st88:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -5865,130 +5353,130 @@ namespace ceammc {
 #line 1 "NONE"
 						{ts = 0;}}
 					
-#line 5869 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 5357 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
 					p+= 1;
 					if ( p == pe )
-						goto _test_eof104;
-					st_case_104:
+						goto _test_eof88;
+					st_case_88:
 					{
 #line 1 "NONE"
 						{ts = p;}}
 					
-#line 5879 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 5367 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _st106;
+							goto _st90;
 						}
 						case 34: {
-							goto _ctr165;
+							goto _ctr149;
 						}
 						case 35: {
-							goto _st107;
+							goto _st91;
 						}
 						case 39: {
-							goto _ctr167;
+							goto _ctr151;
 						}
 						case 40: {
-							goto _st118;
+							goto _st102;
 						}
 						case 41: {
-							goto _ctr169;
+							goto _ctr153;
 						}
 						case 43: {
-							goto _ctr170;
+							goto _ctr154;
 						}
 						case 45: {
-							goto _ctr170;
+							goto _ctr154;
 						}
 						case 48: {
-							goto _ctr171;
+							goto _ctr155;
 						}
 						case 91: {
-							goto _st134;
+							goto _st118;
 						}
 					}
 					if ( ( (*( p))) < 49 ) {
 						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-							goto _st106;
+							goto _st90;
 						}
 					} else if ( ( (*( p))) > 57 ) {
 						if ( ( (*( p))) > 90 ) {
 							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _st135;
+								goto _st119;
 							}
 						} else if ( ( (*( p))) >= 65 ) {
-							goto _st132;
+							goto _st116;
 						}
 					} else {
-						goto _ctr172;
+						goto _ctr156;
 					}
 					{
-						goto _ctr163;
+						goto _ctr147;
 					}
-					_ctr163:
+					_ctr147:
 					{
 #line 1 "NONE"
 						{te = p+1;}}
 					
-#line 5936 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 5424 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 117 "lex/lemon_data_string_parser.rl"
 						{act = 45;}}
 					
-#line 5942 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 5430 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st105;
-					_ctr185:
+					goto _st89;
+					_ctr169:
 					{
 #line 1 "NONE"
 						{te = p+1;}}
 					
-#line 5950 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 5438 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 52 "lex/lemon_data_string_parser.rl"
 						{act = 34;}}
 					
-#line 5956 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 5444 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st105;
-					_ctr188:
+					goto _st89;
+					_ctr172:
 					{
 #line 1 "NONE"
 						{te = p+1;}}
 					
-#line 5964 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 5452 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 53 "lex/lemon_data_string_parser.rl"
 						{act = 35;}}
 					
-#line 5970 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 5458 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st105;
-					_ctr191:
+					goto _st89;
+					_ctr175:
 					{
 #line 1 "NONE"
 						{te = p+1;}}
 					
-#line 5978 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 5466 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 51 "lex/lemon_data_string_parser.rl"
 						{act = 33;}}
 					
-#line 5984 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 5472 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st105;
-					_ctr195:
+					goto _st89;
+					_ctr179:
 					{
 #line 1 "NONE"
 						{te = p+1;}}
 					
-#line 5992 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 5480 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 30 "lex/ragel_numeric.rl"
@@ -5998,21 +5486,21 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 6002 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 5490 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 117 "lex/lemon_data_string_parser.rl"
 						{act = 45;}}
 					
-#line 6008 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 5496 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st105;
-					_ctr200:
+					goto _st89;
+					_ctr184:
 					{
 #line 1 "NONE"
 						{te = p+1;}}
 					
-#line 6016 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 5504 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 58 "lex/ragel_numeric.rl"
@@ -6023,21 +5511,21 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 6027 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 5515 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 117 "lex/lemon_data_string_parser.rl"
 						{act = 45;}}
 					
-#line 6033 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 5521 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st105;
-					_ctr204:
+					goto _st89;
+					_ctr188:
 					{
 #line 1 "NONE"
 						{te = p+1;}}
 					
-#line 6041 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 5529 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 44 "lex/ragel_numeric.rl"
@@ -6047,21 +5535,21 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 6051 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 5539 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 117 "lex/lemon_data_string_parser.rl"
 						{act = 45;}}
 					
-#line 6057 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 5545 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st105;
-					_ctr209:
+					goto _st89;
+					_ctr193:
 					{
 #line 1 "NONE"
 						{te = p+1;}}
 					
-#line 6065 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 5553 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 24 "lex/ragel_numeric.rl"
@@ -6070,21 +5558,21 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 6074 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 5562 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 117 "lex/lemon_data_string_parser.rl"
 						{act = 45;}}
 					
-#line 6080 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 5568 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
-					goto _st105;
-					_ctr212:
+					goto _st89;
+					_ctr196:
 					{
 #line 1 "NONE"
 						{te = p+1;}}
 					
-#line 6088 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 5576 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 37 "lex/ragel_numeric.rl"
@@ -6093,18 +5581,606 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 6097 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 5585 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 117 "lex/lemon_data_string_parser.rl"
 						{act = 45;}}
 					
-#line 6103 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 5591 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+					
+					goto _st89;
+					_st89:
+					if ( p == eof ) {
+						if ( cs >= 41 )
+							goto _out;
+						else
+							goto _pop;
+					}
+					p+= 1;
+					if ( p == pe )
+						goto _test_eof89;
+					st_case_89:
+					switch( ( (*( p))) ) {
+						case 32: {
+							goto _ctr160;
+						}
+						case 34: {
+							goto _ctr160;
+						}
+						case 91: {
+							goto _ctr160;
+						}
+					}
+					if ( ( (*( p))) > 13 ) {
+						if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
+							goto _ctr160;
+						}
+					} else if ( ( (*( p))) >= 9 ) {
+						goto _ctr160;
+					}
+					{
+						goto _ctr147;
+					}
+					_st90:
+					if ( p == eof ) {
+						if ( cs >= 41 )
+							goto _out;
+						else
+							goto _pop;
+					}
+					p+= 1;
+					if ( p == pe )
+						goto _test_eof90;
+					st_case_90:
+					switch( ( (*( p))) ) {
+						case 32: {
+							goto _st90;
+						}
+						case 41: {
+							goto _ctr153;
+						}
+					}
+					if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
+						goto _st90;
+					}
+					{
+						goto _ctr161;
+					}
+					_st91:
+					if ( p == eof ) {
+						if ( cs >= 41 )
+							goto _out;
+						else
+							goto _pop;
+					}
+					p+= 1;
+					if ( p == pe )
+						goto _test_eof91;
+					st_case_91:
+					switch( ( (*( p))) ) {
+						case 32: {
+							goto _ctr162;
+						}
+						case 34: {
+							goto _ctr162;
+						}
+						case 91: {
+							goto _ctr162;
+						}
+						case 102: {
+							goto _st92;
+						}
+						case 110: {
+							goto _st96;
+						}
+						case 116: {
+							goto _st99;
+						}
+					}
+					if ( ( (*( p))) > 13 ) {
+						if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
+							goto _ctr162;
+						}
+					} else if ( ( (*( p))) >= 9 ) {
+						goto _ctr162;
+					}
+					{
+						goto _ctr147;
+					}
+					_st92:
+					if ( p == eof ) {
+						if ( cs >= 41 )
+							goto _out;
+						else
+							goto _pop;
+					}
+					p+= 1;
+					if ( p == pe )
+						goto _test_eof92;
+					st_case_92:
+					switch( ( (*( p))) ) {
+						case 32: {
+							goto _ctr162;
+						}
+						case 34: {
+							goto _ctr162;
+						}
+						case 91: {
+							goto _ctr162;
+						}
+						case 97: {
+							goto _st93;
+						}
+					}
+					if ( ( (*( p))) > 13 ) {
+						if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
+							goto _ctr162;
+						}
+					} else if ( ( (*( p))) >= 9 ) {
+						goto _ctr162;
+					}
+					{
+						goto _ctr147;
+					}
+					_st93:
+					if ( p == eof ) {
+						if ( cs >= 41 )
+							goto _out;
+						else
+							goto _pop;
+					}
+					p+= 1;
+					if ( p == pe )
+						goto _test_eof93;
+					st_case_93:
+					switch( ( (*( p))) ) {
+						case 32: {
+							goto _ctr162;
+						}
+						case 34: {
+							goto _ctr162;
+						}
+						case 91: {
+							goto _ctr162;
+						}
+						case 108: {
+							goto _st94;
+						}
+					}
+					if ( ( (*( p))) > 13 ) {
+						if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
+							goto _ctr162;
+						}
+					} else if ( ( (*( p))) >= 9 ) {
+						goto _ctr162;
+					}
+					{
+						goto _ctr147;
+					}
+					_st94:
+					if ( p == eof ) {
+						if ( cs >= 41 )
+							goto _out;
+						else
+							goto _pop;
+					}
+					p+= 1;
+					if ( p == pe )
+						goto _test_eof94;
+					st_case_94:
+					switch( ( (*( p))) ) {
+						case 32: {
+							goto _ctr162;
+						}
+						case 34: {
+							goto _ctr162;
+						}
+						case 91: {
+							goto _ctr162;
+						}
+						case 115: {
+							goto _st95;
+						}
+					}
+					if ( ( (*( p))) > 13 ) {
+						if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
+							goto _ctr162;
+						}
+					} else if ( ( (*( p))) >= 9 ) {
+						goto _ctr162;
+					}
+					{
+						goto _ctr147;
+					}
+					_st95:
+					if ( p == eof ) {
+						if ( cs >= 41 )
+							goto _out;
+						else
+							goto _pop;
+					}
+					p+= 1;
+					if ( p == pe )
+						goto _test_eof95;
+					st_case_95:
+					switch( ( (*( p))) ) {
+						case 32: {
+							goto _ctr162;
+						}
+						case 34: {
+							goto _ctr162;
+						}
+						case 91: {
+							goto _ctr162;
+						}
+						case 101: {
+							goto _ctr169;
+						}
+					}
+					if ( ( (*( p))) > 13 ) {
+						if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
+							goto _ctr162;
+						}
+					} else if ( ( (*( p))) >= 9 ) {
+						goto _ctr162;
+					}
+					{
+						goto _ctr147;
+					}
+					_st96:
+					if ( p == eof ) {
+						if ( cs >= 41 )
+							goto _out;
+						else
+							goto _pop;
+					}
+					p+= 1;
+					if ( p == pe )
+						goto _test_eof96;
+					st_case_96:
+					switch( ( (*( p))) ) {
+						case 32: {
+							goto _ctr162;
+						}
+						case 34: {
+							goto _ctr162;
+						}
+						case 91: {
+							goto _ctr162;
+						}
+						case 117: {
+							goto _st97;
+						}
+					}
+					if ( ( (*( p))) > 13 ) {
+						if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
+							goto _ctr162;
+						}
+					} else if ( ( (*( p))) >= 9 ) {
+						goto _ctr162;
+					}
+					{
+						goto _ctr147;
+					}
+					_st97:
+					if ( p == eof ) {
+						if ( cs >= 41 )
+							goto _out;
+						else
+							goto _pop;
+					}
+					p+= 1;
+					if ( p == pe )
+						goto _test_eof97;
+					st_case_97:
+					switch( ( (*( p))) ) {
+						case 32: {
+							goto _ctr162;
+						}
+						case 34: {
+							goto _ctr162;
+						}
+						case 91: {
+							goto _ctr162;
+						}
+						case 108: {
+							goto _st98;
+						}
+					}
+					if ( ( (*( p))) > 13 ) {
+						if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
+							goto _ctr162;
+						}
+					} else if ( ( (*( p))) >= 9 ) {
+						goto _ctr162;
+					}
+					{
+						goto _ctr147;
+					}
+					_st98:
+					if ( p == eof ) {
+						if ( cs >= 41 )
+							goto _out;
+						else
+							goto _pop;
+					}
+					p+= 1;
+					if ( p == pe )
+						goto _test_eof98;
+					st_case_98:
+					switch( ( (*( p))) ) {
+						case 32: {
+							goto _ctr162;
+						}
+						case 34: {
+							goto _ctr162;
+						}
+						case 91: {
+							goto _ctr162;
+						}
+						case 108: {
+							goto _ctr172;
+						}
+					}
+					if ( ( (*( p))) > 13 ) {
+						if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
+							goto _ctr162;
+						}
+					} else if ( ( (*( p))) >= 9 ) {
+						goto _ctr162;
+					}
+					{
+						goto _ctr147;
+					}
+					_st99:
+					if ( p == eof ) {
+						if ( cs >= 41 )
+							goto _out;
+						else
+							goto _pop;
+					}
+					p+= 1;
+					if ( p == pe )
+						goto _test_eof99;
+					st_case_99:
+					switch( ( (*( p))) ) {
+						case 32: {
+							goto _ctr162;
+						}
+						case 34: {
+							goto _ctr162;
+						}
+						case 91: {
+							goto _ctr162;
+						}
+						case 114: {
+							goto _st100;
+						}
+					}
+					if ( ( (*( p))) > 13 ) {
+						if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
+							goto _ctr162;
+						}
+					} else if ( ( (*( p))) >= 9 ) {
+						goto _ctr162;
+					}
+					{
+						goto _ctr147;
+					}
+					_st100:
+					if ( p == eof ) {
+						if ( cs >= 41 )
+							goto _out;
+						else
+							goto _pop;
+					}
+					p+= 1;
+					if ( p == pe )
+						goto _test_eof100;
+					st_case_100:
+					switch( ( (*( p))) ) {
+						case 32: {
+							goto _ctr162;
+						}
+						case 34: {
+							goto _ctr162;
+						}
+						case 91: {
+							goto _ctr162;
+						}
+						case 117: {
+							goto _st101;
+						}
+					}
+					if ( ( (*( p))) > 13 ) {
+						if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
+							goto _ctr162;
+						}
+					} else if ( ( (*( p))) >= 9 ) {
+						goto _ctr162;
+					}
+					{
+						goto _ctr147;
+					}
+					_st101:
+					if ( p == eof ) {
+						if ( cs >= 41 )
+							goto _out;
+						else
+							goto _pop;
+					}
+					p+= 1;
+					if ( p == pe )
+						goto _test_eof101;
+					st_case_101:
+					switch( ( (*( p))) ) {
+						case 32: {
+							goto _ctr162;
+						}
+						case 34: {
+							goto _ctr162;
+						}
+						case 91: {
+							goto _ctr162;
+						}
+						case 101: {
+							goto _ctr175;
+						}
+					}
+					if ( ( (*( p))) > 13 ) {
+						if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
+							goto _ctr162;
+						}
+					} else if ( ( (*( p))) >= 9 ) {
+						goto _ctr162;
+					}
+					{
+						goto _ctr147;
+					}
+					_st102:
+					if ( p == eof ) {
+						if ( cs >= 41 )
+							goto _out;
+						else
+							goto _pop;
+					}
+					p+= 1;
+					if ( p == pe )
+						goto _test_eof102;
+					st_case_102:
+					if ( ( (*( p))) == 32 ) {
+						goto _st102;
+					}
+					if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
+						goto _st102;
+					}
+					{
+						goto _ctr176;
+					}
+					_ctr154:
+					{
+#line 21 "lex/ragel_numeric.rl"
+						ragel_num.sign = ((( (*( p))))=='-') ? -1 : 1; }
+					
+#line 6067 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+					
+					goto _st103;
+					_st103:
+					if ( p == eof ) {
+						if ( cs >= 41 )
+							goto _out;
+						else
+							goto _pop;
+					}
+					p+= 1;
+					if ( p == pe )
+						goto _test_eof103;
+					st_case_103:
+					switch( ( (*( p))) ) {
+						case 32: {
+							goto _ctr162;
+						}
+						case 34: {
+							goto _ctr162;
+						}
+						case 48: {
+							goto _ctr177;
+						}
+						case 91: {
+							goto _ctr162;
+						}
+					}
+					if ( ( (*( p))) < 39 ) {
+						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
+							goto _ctr162;
+						}
+					} else if ( ( (*( p))) > 41 ) {
+						if ( 49 <= ( (*( p))) && ( (*( p))) <= 57 ) {
+							goto _ctr156;
+						}
+					} else {
+						goto _ctr162;
+					}
+					{
+						goto _ctr147;
+					}
+					_ctr177:
+					{
+#line 29 "lex/ragel_numeric.rl"
+						(ragel_num.vint *= 10) += ((( (*( p))))-'0'); }
+					
+#line 6114 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+					
+					{
+#line 42 "lex/ragel_numeric.rl"
+						(ragel_num.ratio.num *= 10) += ((( (*( p))))-'0'); }
+					
+#line 6120 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+					
+					goto _st104;
+					_st104:
+					if ( p == eof ) {
+						if ( cs >= 41 )
+							goto _out;
+						else
+							goto _pop;
+					}
+					p+= 1;
+					if ( p == pe )
+						goto _test_eof104;
+					st_case_104:
+					switch( ( (*( p))) ) {
+						case 32: {
+							goto _ctr178;
+						}
+						case 34: {
+							goto _ctr178;
+						}
+						case 46: {
+							goto _ctr180;
+						}
+						case 47: {
+							goto _st107;
+						}
+						case 91: {
+							goto _ctr178;
+						}
+					}
+					if ( ( (*( p))) > 13 ) {
+						if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
+							goto _ctr178;
+						}
+					} else if ( ( (*( p))) >= 9 ) {
+						goto _ctr178;
+					}
+					{
+						goto _ctr179;
+					}
+					_ctr180:
+					{
+#line 30 "lex/ragel_numeric.rl"
+						
+						ragel_num.vint *= ragel_num.sign;
+						ragel_type = TYPE_INT;
+						ragel_cat  = CAT_NUMBER;
+					}
+					
+#line 6170 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+					
+					{
+#line 50 "lex/ragel_numeric.rl"
+						
+						ragel_num.ratio.num = 0;
+						ragel_num.ratio.den = 1;
+					}
+					
+#line 6179 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 					
 					goto _st105;
 					_st105:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -6115,28 +6191,43 @@ namespace ceammc {
 					st_case_105:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr176;
+							goto _ctr162;
 						}
 						case 34: {
-							goto _ctr176;
+							goto _ctr162;
 						}
 						case 91: {
-							goto _ctr176;
+							goto _ctr162;
 						}
 					}
-					if ( ( (*( p))) > 13 ) {
-						if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-							goto _ctr176;
+					if ( ( (*( p))) < 39 ) {
+						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
+							goto _ctr162;
 						}
-					} else if ( ( (*( p))) >= 9 ) {
-						goto _ctr176;
+					} else if ( ( (*( p))) > 41 ) {
+						if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
+							goto _ctr182;
+						}
+					} else {
+						goto _ctr162;
 					}
 					{
-						goto _ctr163;
+						goto _ctr147;
 					}
+					_ctr182:
+					{
+#line 54 "lex/ragel_numeric.rl"
+						
+						(ragel_num.ratio.num *= 10) += ((( (*( p)))) - '0');
+						ragel_num.ratio.den *= 10;
+					}
+					
+#line 6226 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+					
+					goto _st106;
 					_st106:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -6147,21 +6238,32 @@ namespace ceammc {
 					st_case_106:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _st106;
+							goto _ctr183;
 						}
-						case 41: {
-							goto _ctr169;
+						case 34: {
+							goto _ctr183;
+						}
+						case 91: {
+							goto _ctr183;
 						}
 					}
-					if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-						goto _st106;
+					if ( ( (*( p))) < 39 ) {
+						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
+							goto _ctr183;
+						}
+					} else if ( ( (*( p))) > 41 ) {
+						if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
+							goto _ctr182;
+						}
+					} else {
+						goto _ctr183;
 					}
 					{
-						goto _ctr177;
+						goto _ctr184;
 					}
 					_st107:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -6172,37 +6274,43 @@ namespace ceammc {
 					st_case_107:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr178;
+							goto _ctr162;
 						}
 						case 34: {
-							goto _ctr178;
+							goto _ctr162;
+						}
+						case 48: {
+							goto _ctr185;
 						}
 						case 91: {
-							goto _ctr178;
-						}
-						case 102: {
-							goto _st108;
-						}
-						case 110: {
-							goto _st112;
-						}
-						case 116: {
-							goto _st115;
+							goto _ctr162;
 						}
 					}
-					if ( ( (*( p))) > 13 ) {
-						if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-							goto _ctr178;
+					if ( ( (*( p))) < 39 ) {
+						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
+							goto _ctr162;
 						}
-					} else if ( ( (*( p))) >= 9 ) {
-						goto _ctr178;
+					} else if ( ( (*( p))) > 41 ) {
+						if ( 49 <= ( (*( p))) && ( (*( p))) <= 57 ) {
+							goto _ctr186;
+						}
+					} else {
+						goto _ctr162;
 					}
 					{
-						goto _ctr163;
+						goto _ctr147;
 					}
+					_ctr185:
+					{
+#line 43 "lex/ragel_numeric.rl"
+						(ragel_num.ratio.den *= 10) += ((( (*( p))))-'0'); }
+					
+#line 6309 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+					
+					goto _st108;
 					_st108:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -6213,31 +6321,36 @@ namespace ceammc {
 					st_case_108:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr178;
+							goto _ctr187;
 						}
 						case 34: {
-							goto _ctr178;
+							goto _ctr187;
 						}
 						case 91: {
-							goto _ctr178;
-						}
-						case 97: {
-							goto _st109;
+							goto _ctr187;
 						}
 					}
 					if ( ( (*( p))) > 13 ) {
 						if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-							goto _ctr178;
+							goto _ctr187;
 						}
 					} else if ( ( (*( p))) >= 9 ) {
-						goto _ctr178;
+						goto _ctr187;
 					}
 					{
-						goto _ctr163;
+						goto _ctr188;
 					}
+					_ctr186:
+					{
+#line 43 "lex/ragel_numeric.rl"
+						(ragel_num.ratio.den *= 10) += ((( (*( p))))-'0'); }
+					
+#line 6349 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+					
+					goto _st109;
 					_st109:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -6248,31 +6361,46 @@ namespace ceammc {
 					st_case_109:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr178;
+							goto _ctr187;
 						}
 						case 34: {
-							goto _ctr178;
+							goto _ctr187;
 						}
 						case 91: {
-							goto _ctr178;
-						}
-						case 108: {
-							goto _st110;
+							goto _ctr187;
 						}
 					}
-					if ( ( (*( p))) > 13 ) {
-						if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-							goto _ctr178;
+					if ( ( (*( p))) < 39 ) {
+						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
+							goto _ctr187;
 						}
-					} else if ( ( (*( p))) >= 9 ) {
-						goto _ctr178;
+					} else if ( ( (*( p))) > 41 ) {
+						if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
+							goto _ctr186;
+						}
+					} else {
+						goto _ctr187;
 					}
 					{
-						goto _ctr163;
+						goto _ctr188;
 					}
+					_ctr156:
+					{
+#line 29 "lex/ragel_numeric.rl"
+						(ragel_num.vint *= 10) += ((( (*( p))))-'0'); }
+					
+#line 6393 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+					
+					{
+#line 42 "lex/ragel_numeric.rl"
+						(ragel_num.ratio.num *= 10) += ((( (*( p))))-'0'); }
+					
+#line 6399 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+					
+					goto _st110;
 					_st110:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -6288,26 +6416,47 @@ namespace ceammc {
 						case 34: {
 							goto _ctr178;
 						}
+						case 46: {
+							goto _ctr180;
+						}
+						case 47: {
+							goto _st107;
+						}
 						case 91: {
 							goto _ctr178;
 						}
-						case 115: {
-							goto _st111;
-						}
 					}
-					if ( ( (*( p))) > 13 ) {
-						if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
+					if ( ( (*( p))) < 39 ) {
+						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
 							goto _ctr178;
 						}
-					} else if ( ( (*( p))) >= 9 ) {
+					} else if ( ( (*( p))) > 41 ) {
+						if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
+							goto _ctr156;
+						}
+					} else {
 						goto _ctr178;
 					}
 					{
-						goto _ctr163;
+						goto _ctr179;
 					}
+					_ctr155:
+					{
+#line 29 "lex/ragel_numeric.rl"
+						(ragel_num.vint *= 10) += ((( (*( p))))-'0'); }
+					
+#line 6449 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+					
+					{
+#line 42 "lex/ragel_numeric.rl"
+						(ragel_num.ratio.num *= 10) += ((( (*( p))))-'0'); }
+					
+#line 6455 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+					
+					goto _st111;
 					_st111:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -6323,80 +6472,19 @@ namespace ceammc {
 						case 34: {
 							goto _ctr178;
 						}
-						case 91: {
-							goto _ctr178;
+						case 46: {
+							goto _ctr180;
 						}
-						case 101: {
-							goto _ctr185;
-						}
-					}
-					if ( ( (*( p))) > 13 ) {
-						if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-							goto _ctr178;
-						}
-					} else if ( ( (*( p))) >= 9 ) {
-						goto _ctr178;
-					}
-					{
-						goto _ctr163;
-					}
-					_st112:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof112;
-					st_case_112:
-					switch( ( (*( p))) ) {
-						case 32: {
-							goto _ctr178;
-						}
-						case 34: {
-							goto _ctr178;
+						case 47: {
+							goto _st107;
 						}
 						case 91: {
 							goto _ctr178;
 						}
-						case 117: {
-							goto _st113;
+						case 98: {
+							goto _st112;
 						}
-					}
-					if ( ( (*( p))) > 13 ) {
-						if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-							goto _ctr178;
-						}
-					} else if ( ( (*( p))) >= 9 ) {
-						goto _ctr178;
-					}
-					{
-						goto _ctr163;
-					}
-					_st113:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof113;
-					st_case_113:
-					switch( ( (*( p))) ) {
-						case 32: {
-							goto _ctr178;
-						}
-						case 34: {
-							goto _ctr178;
-						}
-						case 91: {
-							goto _ctr178;
-						}
-						case 108: {
+						case 120: {
 							goto _st114;
 						}
 					}
@@ -6408,11 +6496,91 @@ namespace ceammc {
 						goto _ctr178;
 					}
 					{
-						goto _ctr163;
+						goto _ctr179;
+					}
+					_st112:
+					if ( p == eof ) {
+						if ( cs >= 41 )
+							goto _out;
+						else
+							goto _pop;
+					}
+					p+= 1;
+					if ( p == pe )
+						goto _test_eof112;
+					st_case_112:
+					switch( ( (*( p))) ) {
+						case 32: {
+							goto _ctr162;
+						}
+						case 34: {
+							goto _ctr162;
+						}
+						case 91: {
+							goto _ctr162;
+						}
+					}
+					if ( ( (*( p))) < 39 ) {
+						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
+							goto _ctr162;
+						}
+					} else if ( ( (*( p))) > 41 ) {
+						if ( 48 <= ( (*( p))) && ( (*( p))) <= 49 ) {
+							goto _ctr191;
+						}
+					} else {
+						goto _ctr162;
+					}
+					{
+						goto _ctr147;
+					}
+					_ctr191:
+					{
+#line 23 "lex/ragel_numeric.rl"
+						(ragel_num.vint <<= 1) |= ((( (*( p))))=='1'); }
+					
+#line 6543 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+					
+					goto _st113;
+					_st113:
+					if ( p == eof ) {
+						if ( cs >= 41 )
+							goto _out;
+						else
+							goto _pop;
+					}
+					p+= 1;
+					if ( p == pe )
+						goto _test_eof113;
+					st_case_113:
+					switch( ( (*( p))) ) {
+						case 32: {
+							goto _ctr192;
+						}
+						case 34: {
+							goto _ctr192;
+						}
+						case 91: {
+							goto _ctr192;
+						}
+					}
+					if ( ( (*( p))) < 39 ) {
+						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
+							goto _ctr192;
+						}
+					} else if ( ( (*( p))) > 41 ) {
+						if ( 48 <= ( (*( p))) && ( (*( p))) <= 49 ) {
+							goto _ctr191;
+						}
+					} else {
+						goto _ctr192;
+					}
+					{
+						goto _ctr193;
 					}
 					_st114:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -6423,31 +6591,48 @@ namespace ceammc {
 					st_case_114:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr178;
+							goto _ctr162;
 						}
 						case 34: {
-							goto _ctr178;
+							goto _ctr162;
 						}
 						case 91: {
-							goto _ctr178;
-						}
-						case 108: {
-							goto _ctr188;
+							goto _ctr162;
 						}
 					}
-					if ( ( (*( p))) > 13 ) {
-						if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-							goto _ctr178;
+					if ( ( (*( p))) < 48 ) {
+						if ( ( (*( p))) > 13 ) {
+							if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
+								goto _ctr162;
+							}
+						} else if ( ( (*( p))) >= 9 ) {
+							goto _ctr162;
 						}
-					} else if ( ( (*( p))) >= 9 ) {
-						goto _ctr178;
+					} else if ( ( (*( p))) > 57 ) {
+						if ( ( (*( p))) > 70 ) {
+							if ( 97 <= ( (*( p))) && ( (*( p))) <= 102 ) {
+								goto _ctr194;
+							}
+						} else if ( ( (*( p))) >= 65 ) {
+							goto _ctr194;
+						}
+					} else {
+						goto _ctr194;
 					}
 					{
-						goto _ctr163;
+						goto _ctr147;
 					}
+					_ctr194:
+					{
+#line 36 "lex/ragel_numeric.rl"
+						(ragel_num.vint <<= 4) |= xchar2digit((( (*( p))))); }
+					
+#line 6631 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+					
+					goto _st115;
 					_st115:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -6458,31 +6643,40 @@ namespace ceammc {
 					st_case_115:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr178;
+							goto _ctr195;
 						}
 						case 34: {
-							goto _ctr178;
+							goto _ctr195;
 						}
 						case 91: {
-							goto _ctr178;
-						}
-						case 114: {
-							goto _st116;
+							goto _ctr195;
 						}
 					}
-					if ( ( (*( p))) > 13 ) {
-						if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-							goto _ctr178;
+					if ( ( (*( p))) < 48 ) {
+						if ( ( (*( p))) > 13 ) {
+							if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
+								goto _ctr195;
+							}
+						} else if ( ( (*( p))) >= 9 ) {
+							goto _ctr195;
 						}
-					} else if ( ( (*( p))) >= 9 ) {
-						goto _ctr178;
+					} else if ( ( (*( p))) > 57 ) {
+						if ( ( (*( p))) > 70 ) {
+							if ( 97 <= ( (*( p))) && ( (*( p))) <= 102 ) {
+								goto _ctr194;
+							}
+						} else if ( ( (*( p))) >= 65 ) {
+							goto _ctr194;
+						}
+					} else {
+						goto _ctr194;
 					}
 					{
-						goto _ctr163;
+						goto _ctr196;
 					}
 					_st116:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -6493,31 +6687,39 @@ namespace ceammc {
 					st_case_116:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr178;
+							goto _ctr162;
 						}
 						case 34: {
-							goto _ctr178;
+							goto _ctr162;
 						}
-						case 91: {
-							goto _ctr178;
-						}
-						case 117: {
+						case 40: {
 							goto _st117;
 						}
-					}
-					if ( ( (*( p))) > 13 ) {
-						if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-							goto _ctr178;
+						case 91: {
+							goto _ctr198;
 						}
-					} else if ( ( (*( p))) >= 9 ) {
-						goto _ctr178;
+					}
+					if ( ( (*( p))) < 39 ) {
+						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
+							goto _ctr162;
+						}
+					} else if ( ( (*( p))) > 41 ) {
+						if ( ( (*( p))) > 90 ) {
+							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
+								goto _st116;
+							}
+						} else if ( ( (*( p))) >= 65 ) {
+							goto _st116;
+						}
+					} else {
+						goto _ctr162;
 					}
 					{
-						goto _ctr163;
+						goto _ctr147;
 					}
 					_st117:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -6526,33 +6728,18 @@ namespace ceammc {
 					if ( p == pe )
 						goto _test_eof117;
 					st_case_117:
-					switch( ( (*( p))) ) {
-						case 32: {
-							goto _ctr178;
-						}
-						case 34: {
-							goto _ctr178;
-						}
-						case 91: {
-							goto _ctr178;
-						}
-						case 101: {
-							goto _ctr191;
-						}
+					if ( ( (*( p))) == 32 ) {
+						goto _st117;
 					}
-					if ( ( (*( p))) > 13 ) {
-						if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-							goto _ctr178;
-						}
-					} else if ( ( (*( p))) >= 9 ) {
-						goto _ctr178;
+					if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
+						goto _st117;
 					}
 					{
-						goto _ctr163;
+						goto _ctr199;
 					}
 					_st118:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -6568,19 +6755,11 @@ namespace ceammc {
 						goto _st118;
 					}
 					{
-						goto _ctr192;
+						goto _ctr200;
 					}
-					_ctr170:
-					{
-#line 21 "lex/ragel_numeric.rl"
-						ragel_num.sign = ((( (*( p))))=='-') ? -1 : 1; }
-					
-#line 6579 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
-					
-					goto _st119;
 					_st119:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -6591,49 +6770,42 @@ namespace ceammc {
 					st_case_119:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr178;
+							goto _ctr162;
 						}
 						case 34: {
-							goto _ctr178;
+							goto _ctr162;
 						}
-						case 48: {
-							goto _ctr193;
+						case 40: {
+							goto _st120;
 						}
 						case 91: {
-							goto _ctr178;
+							goto _ctr162;
+						}
+						case 95: {
+							goto _st119;
 						}
 					}
 					if ( ( (*( p))) < 39 ) {
 						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-							goto _ctr178;
+							goto _ctr162;
 						}
 					} else if ( ( (*( p))) > 41 ) {
-						if ( 49 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-							goto _ctr172;
+						if ( ( (*( p))) > 57 ) {
+							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
+								goto _st119;
+							}
+						} else if ( ( (*( p))) >= 48 ) {
+							goto _st119;
 						}
 					} else {
-						goto _ctr178;
+						goto _ctr162;
 					}
 					{
-						goto _ctr163;
+						goto _ctr147;
 					}
-					_ctr193:
-					{
-#line 29 "lex/ragel_numeric.rl"
-						(ragel_num.vint *= 10) += ((( (*( p))))-'0'); }
-					
-#line 6626 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
-					
-					{
-#line 42 "lex/ragel_numeric.rl"
-						(ragel_num.ratio.num *= 10) += ((( (*( p))))-'0'); }
-					
-#line 6632 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
-					
-					goto _st120;
 					_st120:
 					if ( p == eof ) {
-						if ( cs >= 57 )
+						if ( cs >= 41 )
 							goto _out;
 						else
 							goto _pop;
@@ -6642,703 +6814,19 @@ namespace ceammc {
 					if ( p == pe )
 						goto _test_eof120;
 					st_case_120:
-					switch( ( (*( p))) ) {
-						case 32: {
-							goto _ctr194;
-						}
-						case 34: {
-							goto _ctr194;
-						}
-						case 46: {
-							goto _ctr196;
-						}
-						case 47: {
-							goto _st123;
-						}
-						case 91: {
-							goto _ctr194;
-						}
-					}
-					if ( ( (*( p))) > 13 ) {
-						if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-							goto _ctr194;
-						}
-					} else if ( ( (*( p))) >= 9 ) {
-						goto _ctr194;
-					}
-					{
-						goto _ctr195;
-					}
-					_ctr196:
-					{
-#line 30 "lex/ragel_numeric.rl"
-						
-						ragel_num.vint *= ragel_num.sign;
-						ragel_type = TYPE_INT;
-						ragel_cat  = CAT_NUMBER;
-					}
-					
-#line 6682 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
-					
-					{
-#line 50 "lex/ragel_numeric.rl"
-						
-						ragel_num.ratio.num = 0;
-						ragel_num.ratio.den = 1;
-					}
-					
-#line 6691 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
-					
-					goto _st121;
-					_st121:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof121;
-					st_case_121:
-					switch( ( (*( p))) ) {
-						case 32: {
-							goto _ctr178;
-						}
-						case 34: {
-							goto _ctr178;
-						}
-						case 91: {
-							goto _ctr178;
-						}
-					}
-					if ( ( (*( p))) < 39 ) {
-						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-							goto _ctr178;
-						}
-					} else if ( ( (*( p))) > 41 ) {
-						if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-							goto _ctr198;
-						}
-					} else {
-						goto _ctr178;
-					}
-					{
-						goto _ctr163;
-					}
-					_ctr198:
-					{
-#line 54 "lex/ragel_numeric.rl"
-						
-						(ragel_num.ratio.num *= 10) += ((( (*( p)))) - '0');
-						ragel_num.ratio.den *= 10;
-					}
-					
-#line 6738 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
-					
-					goto _st122;
-					_st122:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof122;
-					st_case_122:
-					switch( ( (*( p))) ) {
-						case 32: {
-							goto _ctr199;
-						}
-						case 34: {
-							goto _ctr199;
-						}
-						case 91: {
-							goto _ctr199;
-						}
-					}
-					if ( ( (*( p))) < 39 ) {
-						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-							goto _ctr199;
-						}
-					} else if ( ( (*( p))) > 41 ) {
-						if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-							goto _ctr198;
-						}
-					} else {
-						goto _ctr199;
-					}
-					{
-						goto _ctr200;
-					}
-					_st123:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof123;
-					st_case_123:
-					switch( ( (*( p))) ) {
-						case 32: {
-							goto _ctr178;
-						}
-						case 34: {
-							goto _ctr178;
-						}
-						case 48: {
-							goto _ctr201;
-						}
-						case 91: {
-							goto _ctr178;
-						}
-					}
-					if ( ( (*( p))) < 39 ) {
-						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-							goto _ctr178;
-						}
-					} else if ( ( (*( p))) > 41 ) {
-						if ( 49 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-							goto _ctr202;
-						}
-					} else {
-						goto _ctr178;
-					}
-					{
-						goto _ctr163;
-					}
-					_ctr201:
-					{
-#line 43 "lex/ragel_numeric.rl"
-						(ragel_num.ratio.den *= 10) += ((( (*( p))))-'0'); }
-					
-#line 6821 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
-					
-					goto _st124;
-					_st124:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof124;
-					st_case_124:
-					switch( ( (*( p))) ) {
-						case 32: {
-							goto _ctr203;
-						}
-						case 34: {
-							goto _ctr203;
-						}
-						case 91: {
-							goto _ctr203;
-						}
-					}
-					if ( ( (*( p))) > 13 ) {
-						if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-							goto _ctr203;
-						}
-					} else if ( ( (*( p))) >= 9 ) {
-						goto _ctr203;
-					}
-					{
-						goto _ctr204;
-					}
-					_ctr202:
-					{
-#line 43 "lex/ragel_numeric.rl"
-						(ragel_num.ratio.den *= 10) += ((( (*( p))))-'0'); }
-					
-#line 6861 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
-					
-					goto _st125;
-					_st125:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof125;
-					st_case_125:
-					switch( ( (*( p))) ) {
-						case 32: {
-							goto _ctr203;
-						}
-						case 34: {
-							goto _ctr203;
-						}
-						case 91: {
-							goto _ctr203;
-						}
-					}
-					if ( ( (*( p))) < 39 ) {
-						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-							goto _ctr203;
-						}
-					} else if ( ( (*( p))) > 41 ) {
-						if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-							goto _ctr202;
-						}
-					} else {
-						goto _ctr203;
-					}
-					{
-						goto _ctr204;
-					}
-					_ctr172:
-					{
-#line 29 "lex/ragel_numeric.rl"
-						(ragel_num.vint *= 10) += ((( (*( p))))-'0'); }
-					
-#line 6905 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
-					
-					{
-#line 42 "lex/ragel_numeric.rl"
-						(ragel_num.ratio.num *= 10) += ((( (*( p))))-'0'); }
-					
-#line 6911 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
-					
-					goto _st126;
-					_st126:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof126;
-					st_case_126:
-					switch( ( (*( p))) ) {
-						case 32: {
-							goto _ctr194;
-						}
-						case 34: {
-							goto _ctr194;
-						}
-						case 46: {
-							goto _ctr196;
-						}
-						case 47: {
-							goto _st123;
-						}
-						case 91: {
-							goto _ctr194;
-						}
-					}
-					if ( ( (*( p))) < 39 ) {
-						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-							goto _ctr194;
-						}
-					} else if ( ( (*( p))) > 41 ) {
-						if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-							goto _ctr172;
-						}
-					} else {
-						goto _ctr194;
-					}
-					{
-						goto _ctr195;
-					}
-					_ctr171:
-					{
-#line 29 "lex/ragel_numeric.rl"
-						(ragel_num.vint *= 10) += ((( (*( p))))-'0'); }
-					
-#line 6961 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
-					
-					{
-#line 42 "lex/ragel_numeric.rl"
-						(ragel_num.ratio.num *= 10) += ((( (*( p))))-'0'); }
-					
-#line 6967 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
-					
-					goto _st127;
-					_st127:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof127;
-					st_case_127:
-					switch( ( (*( p))) ) {
-						case 32: {
-							goto _ctr194;
-						}
-						case 34: {
-							goto _ctr194;
-						}
-						case 46: {
-							goto _ctr196;
-						}
-						case 47: {
-							goto _st123;
-						}
-						case 91: {
-							goto _ctr194;
-						}
-						case 98: {
-							goto _st128;
-						}
-						case 120: {
-							goto _st130;
-						}
-					}
-					if ( ( (*( p))) > 13 ) {
-						if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-							goto _ctr194;
-						}
-					} else if ( ( (*( p))) >= 9 ) {
-						goto _ctr194;
-					}
-					{
-						goto _ctr195;
-					}
-					_st128:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof128;
-					st_case_128:
-					switch( ( (*( p))) ) {
-						case 32: {
-							goto _ctr178;
-						}
-						case 34: {
-							goto _ctr178;
-						}
-						case 91: {
-							goto _ctr178;
-						}
-					}
-					if ( ( (*( p))) < 39 ) {
-						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-							goto _ctr178;
-						}
-					} else if ( ( (*( p))) > 41 ) {
-						if ( 48 <= ( (*( p))) && ( (*( p))) <= 49 ) {
-							goto _ctr207;
-						}
-					} else {
-						goto _ctr178;
-					}
-					{
-						goto _ctr163;
-					}
-					_ctr207:
-					{
-#line 23 "lex/ragel_numeric.rl"
-						(ragel_num.vint <<= 1) |= ((( (*( p))))=='1'); }
-					
-#line 7055 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
-					
-					goto _st129;
-					_st129:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof129;
-					st_case_129:
-					switch( ( (*( p))) ) {
-						case 32: {
-							goto _ctr208;
-						}
-						case 34: {
-							goto _ctr208;
-						}
-						case 91: {
-							goto _ctr208;
-						}
-					}
-					if ( ( (*( p))) < 39 ) {
-						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-							goto _ctr208;
-						}
-					} else if ( ( (*( p))) > 41 ) {
-						if ( 48 <= ( (*( p))) && ( (*( p))) <= 49 ) {
-							goto _ctr207;
-						}
-					} else {
-						goto _ctr208;
-					}
-					{
-						goto _ctr209;
-					}
-					_st130:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof130;
-					st_case_130:
-					switch( ( (*( p))) ) {
-						case 32: {
-							goto _ctr178;
-						}
-						case 34: {
-							goto _ctr178;
-						}
-						case 91: {
-							goto _ctr178;
-						}
-					}
-					if ( ( (*( p))) < 48 ) {
-						if ( ( (*( p))) > 13 ) {
-							if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-								goto _ctr178;
-							}
-						} else if ( ( (*( p))) >= 9 ) {
-							goto _ctr178;
-						}
-					} else if ( ( (*( p))) > 57 ) {
-						if ( ( (*( p))) > 70 ) {
-							if ( 97 <= ( (*( p))) && ( (*( p))) <= 102 ) {
-								goto _ctr210;
-							}
-						} else if ( ( (*( p))) >= 65 ) {
-							goto _ctr210;
-						}
-					} else {
-						goto _ctr210;
-					}
-					{
-						goto _ctr163;
-					}
-					_ctr210:
-					{
-#line 36 "lex/ragel_numeric.rl"
-						(ragel_num.vint <<= 4) |= xchar2digit((( (*( p))))); }
-					
-#line 7143 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
-					
-					goto _st131;
-					_st131:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof131;
-					st_case_131:
-					switch( ( (*( p))) ) {
-						case 32: {
-							goto _ctr211;
-						}
-						case 34: {
-							goto _ctr211;
-						}
-						case 91: {
-							goto _ctr211;
-						}
-					}
-					if ( ( (*( p))) < 48 ) {
-						if ( ( (*( p))) > 13 ) {
-							if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-								goto _ctr211;
-							}
-						} else if ( ( (*( p))) >= 9 ) {
-							goto _ctr211;
-						}
-					} else if ( ( (*( p))) > 57 ) {
-						if ( ( (*( p))) > 70 ) {
-							if ( 97 <= ( (*( p))) && ( (*( p))) <= 102 ) {
-								goto _ctr210;
-							}
-						} else if ( ( (*( p))) >= 65 ) {
-							goto _ctr210;
-						}
-					} else {
-						goto _ctr210;
-					}
-					{
-						goto _ctr212;
-					}
-					_st132:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof132;
-					st_case_132:
-					switch( ( (*( p))) ) {
-						case 32: {
-							goto _ctr178;
-						}
-						case 34: {
-							goto _ctr178;
-						}
-						case 40: {
-							goto _st133;
-						}
-						case 91: {
-							goto _ctr214;
-						}
-					}
-					if ( ( (*( p))) < 39 ) {
-						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-							goto _ctr178;
-						}
-					} else if ( ( (*( p))) > 41 ) {
-						if ( ( (*( p))) > 90 ) {
-							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _st132;
-							}
-						} else if ( ( (*( p))) >= 65 ) {
-							goto _st132;
-						}
-					} else {
-						goto _ctr178;
-					}
-					{
-						goto _ctr163;
-					}
-					_st133:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof133;
-					st_case_133:
 					if ( ( (*( p))) == 32 ) {
-						goto _st133;
+						goto _st120;
 					}
 					if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-						goto _st133;
+						goto _st120;
 					}
 					{
-						goto _ctr215;
-					}
-					_st134:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof134;
-					st_case_134:
-					if ( ( (*( p))) == 32 ) {
-						goto _st134;
-					}
-					if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-						goto _st134;
-					}
-					{
-						goto _ctr216;
-					}
-					_st135:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof135;
-					st_case_135:
-					switch( ( (*( p))) ) {
-						case 32: {
-							goto _ctr178;
-						}
-						case 34: {
-							goto _ctr178;
-						}
-						case 40: {
-							goto _st136;
-						}
-						case 91: {
-							goto _ctr178;
-						}
-						case 95: {
-							goto _st135;
-						}
-					}
-					if ( ( (*( p))) < 39 ) {
-						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-							goto _ctr178;
-						}
-					} else if ( ( (*( p))) > 41 ) {
-						if ( ( (*( p))) > 57 ) {
-							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _st135;
-							}
-						} else if ( ( (*( p))) >= 48 ) {
-							goto _st135;
-						}
-					} else {
-						goto _ctr178;
-					}
-					{
-						goto _ctr163;
-					}
-					_st136:
-					if ( p == eof ) {
-						if ( cs >= 57 )
-							goto _out;
-						else
-							goto _pop;
-					}
-					p+= 1;
-					if ( p == pe )
-						goto _test_eof136;
-					st_case_136:
-					if ( ( (*( p))) == 32 ) {
-						goto _st136;
-					}
-					if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-						goto _st136;
-					}
-					{
-						goto _ctr218;
+						goto _ctr202;
 					}
 					st_out:
-					_test_eof57: cs = 57; goto _test_eof; 
-					_test_eof58: cs = 58; goto _test_eof; 
-					_test_eof59: cs = 59; goto _test_eof; 
+					_test_eof41: cs = 41; goto _test_eof; 
+					_test_eof42: cs = 42; goto _test_eof; 
+					_test_eof43: cs = 43; goto _test_eof; 
 					_test_eof1: cs = 1; goto _test_eof; 
 					_test_eof2: cs = 2; goto _test_eof; 
 					_test_eof3: cs = 3; goto _test_eof; 
@@ -7356,6 +6844,8 @@ namespace ceammc {
 					_test_eof15: cs = 15; goto _test_eof; 
 					_test_eof16: cs = 16; goto _test_eof; 
 					_test_eof17: cs = 17; goto _test_eof; 
+					_test_eof44: cs = 44; goto _test_eof; 
+					_test_eof45: cs = 45; goto _test_eof; 
 					_test_eof18: cs = 18; goto _test_eof; 
 					_test_eof19: cs = 19; goto _test_eof; 
 					_test_eof20: cs = 20; goto _test_eof; 
@@ -7364,8 +6854,6 @@ namespace ceammc {
 					_test_eof23: cs = 23; goto _test_eof; 
 					_test_eof24: cs = 24; goto _test_eof; 
 					_test_eof25: cs = 25; goto _test_eof; 
-					_test_eof60: cs = 60; goto _test_eof; 
-					_test_eof61: cs = 61; goto _test_eof; 
 					_test_eof26: cs = 26; goto _test_eof; 
 					_test_eof27: cs = 27; goto _test_eof; 
 					_test_eof28: cs = 28; goto _test_eof; 
@@ -7375,33 +6863,33 @@ namespace ceammc {
 					_test_eof32: cs = 32; goto _test_eof; 
 					_test_eof33: cs = 33; goto _test_eof; 
 					_test_eof34: cs = 34; goto _test_eof; 
-					_test_eof35: cs = 35; goto _test_eof; 
-					_test_eof36: cs = 36; goto _test_eof; 
-					_test_eof37: cs = 37; goto _test_eof; 
-					_test_eof38: cs = 38; goto _test_eof; 
-					_test_eof39: cs = 39; goto _test_eof; 
-					_test_eof40: cs = 40; goto _test_eof; 
-					_test_eof41: cs = 41; goto _test_eof; 
-					_test_eof42: cs = 42; goto _test_eof; 
-					_test_eof43: cs = 43; goto _test_eof; 
-					_test_eof44: cs = 44; goto _test_eof; 
-					_test_eof45: cs = 45; goto _test_eof; 
 					_test_eof46: cs = 46; goto _test_eof; 
 					_test_eof47: cs = 47; goto _test_eof; 
 					_test_eof48: cs = 48; goto _test_eof; 
 					_test_eof49: cs = 49; goto _test_eof; 
+					_test_eof35: cs = 35; goto _test_eof; 
+					_test_eof36: cs = 36; goto _test_eof; 
+					_test_eof37: cs = 37; goto _test_eof; 
 					_test_eof50: cs = 50; goto _test_eof; 
+					_test_eof38: cs = 38; goto _test_eof; 
+					_test_eof39: cs = 39; goto _test_eof; 
+					_test_eof40: cs = 40; goto _test_eof; 
+					_test_eof51: cs = 51; goto _test_eof; 
+					_test_eof52: cs = 52; goto _test_eof; 
+					_test_eof53: cs = 53; goto _test_eof; 
+					_test_eof54: cs = 54; goto _test_eof; 
+					_test_eof55: cs = 55; goto _test_eof; 
+					_test_eof56: cs = 56; goto _test_eof; 
+					_test_eof57: cs = 57; goto _test_eof; 
+					_test_eof58: cs = 58; goto _test_eof; 
+					_test_eof59: cs = 59; goto _test_eof; 
+					_test_eof60: cs = 60; goto _test_eof; 
+					_test_eof61: cs = 61; goto _test_eof; 
 					_test_eof62: cs = 62; goto _test_eof; 
 					_test_eof63: cs = 63; goto _test_eof; 
 					_test_eof64: cs = 64; goto _test_eof; 
 					_test_eof65: cs = 65; goto _test_eof; 
-					_test_eof51: cs = 51; goto _test_eof; 
-					_test_eof52: cs = 52; goto _test_eof; 
-					_test_eof53: cs = 53; goto _test_eof; 
 					_test_eof66: cs = 66; goto _test_eof; 
-					_test_eof54: cs = 54; goto _test_eof; 
-					_test_eof55: cs = 55; goto _test_eof; 
-					_test_eof56: cs = 56; goto _test_eof; 
 					_test_eof67: cs = 67; goto _test_eof; 
 					_test_eof68: cs = 68; goto _test_eof; 
 					_test_eof69: cs = 69; goto _test_eof; 
@@ -7456,39 +6944,23 @@ namespace ceammc {
 					_test_eof118: cs = 118; goto _test_eof; 
 					_test_eof119: cs = 119; goto _test_eof; 
 					_test_eof120: cs = 120; goto _test_eof; 
-					_test_eof121: cs = 121; goto _test_eof; 
-					_test_eof122: cs = 122; goto _test_eof; 
-					_test_eof123: cs = 123; goto _test_eof; 
-					_test_eof124: cs = 124; goto _test_eof; 
-					_test_eof125: cs = 125; goto _test_eof; 
-					_test_eof126: cs = 126; goto _test_eof; 
-					_test_eof127: cs = 127; goto _test_eof; 
-					_test_eof128: cs = 128; goto _test_eof; 
-					_test_eof129: cs = 129; goto _test_eof; 
-					_test_eof130: cs = 130; goto _test_eof; 
-					_test_eof131: cs = 131; goto _test_eof; 
-					_test_eof132: cs = 132; goto _test_eof; 
-					_test_eof133: cs = 133; goto _test_eof; 
-					_test_eof134: cs = 134; goto _test_eof; 
-					_test_eof135: cs = 135; goto _test_eof; 
-					_test_eof136: cs = 136; goto _test_eof; 
 					
 					_test_eof: {}
 					if ( p == eof ) {
 						switch ( cs ) {
-							case 57: {
+							case 41: {
 								break;
 							}
-							case 58: {
+							case 42: {
 								{
 #line 1 "NONE"
 									{ts = p;}}
 								
-#line 7488 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+#line 6960 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
 								
 								break;
 							}
-							case 59: {
+							case 43: {
 								break;
 							}
 							case 1: {
@@ -7542,6 +7014,21 @@ namespace ceammc {
 							case 17: {
 								break;
 							}
+							case 0: {
+								break;
+							}
+							case 44: {
+								{
+#line 1 "NONE"
+									{ts = p;}}
+								
+#line 7026 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+								
+								break;
+							}
+							case 45: {
+								break;
+							}
 							case 18: {
 								break;
 							}
@@ -7564,21 +7051,6 @@ namespace ceammc {
 								break;
 							}
 							case 25: {
-								break;
-							}
-							case 0: {
-								break;
-							}
-							case 60: {
-								{
-#line 1 "NONE"
-									{ts = p;}}
-								
-#line 7578 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
-								
-								break;
-							}
-							case 61: {
 								break;
 							}
 							case 26: {
@@ -7608,40 +7080,13 @@ namespace ceammc {
 							case 34: {
 								break;
 							}
-							case 35: {
-								break;
-							}
-							case 36: {
-								break;
-							}
-							case 37: {
-								break;
-							}
-							case 38: {
-								break;
-							}
-							case 39: {
-								break;
-							}
-							case 40: {
-								break;
-							}
-							case 41: {
-								break;
-							}
-							case 42: {
-								break;
-							}
-							case 43: {
-								break;
-							}
-							case 44: {
-								break;
-							}
-							case 45: {
-								break;
-							}
 							case 46: {
+								{
+#line 1 "NONE"
+									{ts = p;}}
+								
+#line 7089 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+								
 								break;
 							}
 							case 47: {
@@ -7653,25 +7098,25 @@ namespace ceammc {
 							case 49: {
 								break;
 							}
+							case 35: {
+								break;
+							}
+							case 36: {
+								break;
+							}
+							case 37: {
+								break;
+							}
 							case 50: {
 								break;
 							}
-							case 62: {
-								{
-#line 1 "NONE"
-									{ts = p;}}
-								
-#line 7665 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
-								
+							case 38: {
 								break;
 							}
-							case 63: {
+							case 39: {
 								break;
 							}
-							case 64: {
-								break;
-							}
-							case 65: {
+							case 40: {
 								break;
 							}
 							case 51: {
@@ -7683,9 +7128,6 @@ namespace ceammc {
 							case 53: {
 								break;
 							}
-							case 66: {
-								break;
-							}
 							case 54: {
 								break;
 							}
@@ -7693,6 +7135,36 @@ namespace ceammc {
 								break;
 							}
 							case 56: {
+								break;
+							}
+							case 57: {
+								break;
+							}
+							case 58: {
+								break;
+							}
+							case 59: {
+								break;
+							}
+							case 60: {
+								break;
+							}
+							case 61: {
+								break;
+							}
+							case 62: {
+								break;
+							}
+							case 63: {
+								break;
+							}
+							case 64: {
+								break;
+							}
+							case 65: {
+								break;
+							}
+							case 66: {
 								break;
 							}
 							case 67: {
@@ -7759,6 +7231,12 @@ namespace ceammc {
 								break;
 							}
 							case 88: {
+								{
+#line 1 "NONE"
+									{ts = p;}}
+								
+#line 7239 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+								
 								break;
 							}
 							case 89: {
@@ -7807,12 +7285,6 @@ namespace ceammc {
 								break;
 							}
 							case 104: {
-								{
-#line 1 "NONE"
-									{ts = p;}}
-								
-#line 7815 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
-								
 								break;
 							}
 							case 105: {
@@ -7863,62 +7335,14 @@ namespace ceammc {
 							case 120: {
 								break;
 							}
-							case 121: {
-								break;
-							}
-							case 122: {
-								break;
-							}
-							case 123: {
-								break;
-							}
-							case 124: {
-								break;
-							}
-							case 125: {
-								break;
-							}
-							case 126: {
-								break;
-							}
-							case 127: {
-								break;
-							}
-							case 128: {
-								break;
-							}
-							case 129: {
-								break;
-							}
-							case 130: {
-								break;
-							}
-							case 131: {
-								break;
-							}
-							case 132: {
-								break;
-							}
-							case 133: {
-								break;
-							}
-							case 134: {
-								break;
-							}
-							case 135: {
-								break;
-							}
-							case 136: {
-								break;
-							}
 						}
 						switch ( cs ) {
 						}
 						switch ( cs ) {
-							case 57:
-							goto _st57;case 58:
-							goto _st58;case 59:
-							goto _ctr76;case 1:
+							case 41:
+							goto _st41;case 42:
+							goto _st42;case 43:
+							goto _ctr60;case 1:
 							goto _ctr1;case 2:
 							goto _ctr1;case 3:
 							goto _ctr1;case 4:
@@ -7935,127 +7359,111 @@ namespace ceammc {
 							goto _ctr1;case 15:
 							goto _ctr1;case 16:
 							goto _ctr1;case 17:
-							goto _ctr1;case 18:
-							goto _ctr1;case 19:
-							goto _ctr1;case 20:
-							goto _ctr1;case 21:
-							goto _ctr1;case 22:
-							goto _ctr1;case 23:
-							goto _ctr1;case 24:
-							goto _ctr1;case 25:
-							goto _st25;case 0:
-							goto _st0;case 60:
-							goto _st60;case 61:
-							goto _ctr82;case 26:
-							goto _ctr32;case 27:
-							goto _ctr32;case 28:
-							goto _ctr32;case 29:
-							goto _ctr32;case 30:
-							goto _ctr32;case 31:
-							goto _ctr32;case 32:
-							goto _ctr32;case 33:
-							goto _ctr32;case 34:
-							goto _ctr32;case 35:
-							goto _ctr32;case 36:
-							goto _ctr32;case 37:
-							goto _ctr32;case 38:
-							goto _ctr32;case 39:
-							goto _ctr32;case 40:
-							goto _ctr32;case 41:
-							goto _ctr32;case 42:
-							goto _ctr32;case 43:
-							goto _ctr32;case 44:
-							goto _ctr32;case 45:
-							goto _ctr32;case 46:
-							goto _ctr32;case 47:
-							goto _ctr32;case 48:
-							goto _ctr32;case 49:
-							goto _ctr32;case 50:
-							goto _st50;case 62:
-							goto _st62;case 63:
-							goto _ctr100;case 64:
-							goto _ctr65;case 65:
-							goto _ctr102;case 51:
-							goto _ctr63;case 52:
-							goto _ctr65;case 53:
-							goto _ctr65;case 66:
-							goto _ctr105;case 54:
-							goto _ctr63;case 55:
-							goto _ctr65;case 56:
-							goto _ctr63;case 67:
-							goto _ctr106;case 68:
-							goto _ctr100;case 69:
-							goto _ctr100;case 70:
-							goto _ctr100;case 71:
-							goto _ctr100;case 72:
-							goto _ctr100;case 73:
-							goto _ctr100;case 74:
-							goto _ctr100;case 75:
-							goto _ctr100;case 76:
-							goto _ctr100;case 77:
-							goto _ctr100;case 78:
-							goto _ctr100;case 79:
-							goto _ctr120;case 80:
-							goto _ctr121;case 81:
-							goto _ctr100;case 82:
-							goto _ctr124;case 83:
-							goto _ctr100;case 84:
-							goto _ctr130;case 85:
-							goto _ctr100;case 86:
-							goto _ctr135;case 87:
-							goto _ctr135;case 88:
-							goto _ctr124;case 89:
-							goto _ctr124;case 90:
-							goto _ctr100;case 91:
-							goto _ctr100;case 92:
-							goto _ctr143;case 93:
-							goto _ctr100;case 94:
-							goto _ctr149;case 95:
-							goto _ctr149;case 96:
-							goto _ctr149;case 97:
-							goto _ctr124;case 98:
-							goto _ctr100;case 99:
-							goto _ctr158;case 100:
-							goto _ctr100;case 101:
-							goto _ctr159;case 102:
-							goto _ctr100;case 103:
-							goto _ctr161;case 104:
-							goto _st104;case 105:
-							goto _ctr176;case 106:
-							goto _ctr177;case 107:
-							goto _ctr178;case 108:
-							goto _ctr178;case 109:
-							goto _ctr178;case 110:
+							goto _st17;case 0:
+							goto _st0;case 44:
+							goto _st44;case 45:
+							goto _ctr66;case 18:
+							goto _ctr24;case 19:
+							goto _ctr24;case 20:
+							goto _ctr24;case 21:
+							goto _ctr24;case 22:
+							goto _ctr24;case 23:
+							goto _ctr24;case 24:
+							goto _ctr24;case 25:
+							goto _ctr24;case 26:
+							goto _ctr24;case 27:
+							goto _ctr24;case 28:
+							goto _ctr24;case 29:
+							goto _ctr24;case 30:
+							goto _ctr24;case 31:
+							goto _ctr24;case 32:
+							goto _ctr24;case 33:
+							goto _ctr24;case 34:
+							goto _st34;case 46:
+							goto _st46;case 47:
+							goto _ctr84;case 48:
+							goto _ctr49;case 49:
+							goto _ctr86;case 35:
+							goto _ctr47;case 36:
+							goto _ctr49;case 37:
+							goto _ctr49;case 50:
+							goto _ctr89;case 38:
+							goto _ctr47;case 39:
+							goto _ctr49;case 40:
+							goto _ctr47;case 51:
+							goto _ctr90;case 52:
+							goto _ctr84;case 53:
+							goto _ctr84;case 54:
+							goto _ctr84;case 55:
+							goto _ctr84;case 56:
+							goto _ctr84;case 57:
+							goto _ctr84;case 58:
+							goto _ctr84;case 59:
+							goto _ctr84;case 60:
+							goto _ctr84;case 61:
+							goto _ctr84;case 62:
+							goto _ctr84;case 63:
+							goto _ctr104;case 64:
+							goto _ctr105;case 65:
+							goto _ctr84;case 66:
+							goto _ctr108;case 67:
+							goto _ctr84;case 68:
+							goto _ctr114;case 69:
+							goto _ctr84;case 70:
+							goto _ctr119;case 71:
+							goto _ctr119;case 72:
+							goto _ctr108;case 73:
+							goto _ctr108;case 74:
+							goto _ctr84;case 75:
+							goto _ctr84;case 76:
+							goto _ctr127;case 77:
+							goto _ctr84;case 78:
+							goto _ctr133;case 79:
+							goto _ctr133;case 80:
+							goto _ctr133;case 81:
+							goto _ctr108;case 82:
+							goto _ctr84;case 83:
+							goto _ctr142;case 84:
+							goto _ctr84;case 85:
+							goto _ctr143;case 86:
+							goto _ctr84;case 87:
+							goto _ctr145;case 88:
+							goto _st88;case 89:
+							goto _ctr160;case 90:
+							goto _ctr161;case 91:
+							goto _ctr162;case 92:
+							goto _ctr162;case 93:
+							goto _ctr162;case 94:
+							goto _ctr162;case 95:
+							goto _ctr162;case 96:
+							goto _ctr162;case 97:
+							goto _ctr162;case 98:
+							goto _ctr162;case 99:
+							goto _ctr162;case 100:
+							goto _ctr162;case 101:
+							goto _ctr162;case 102:
+							goto _ctr176;case 103:
+							goto _ctr162;case 104:
+							goto _ctr178;case 105:
+							goto _ctr162;case 106:
+							goto _ctr183;case 107:
+							goto _ctr162;case 108:
+							goto _ctr187;case 109:
+							goto _ctr187;case 110:
 							goto _ctr178;case 111:
 							goto _ctr178;case 112:
-							goto _ctr178;case 113:
-							goto _ctr178;case 114:
-							goto _ctr178;case 115:
-							goto _ctr178;case 116:
-							goto _ctr178;case 117:
-							goto _ctr178;case 118:
-							goto _ctr192;case 119:
-							goto _ctr178;case 120:
-							goto _ctr194;case 121:
-							goto _ctr178;case 122:
-							goto _ctr199;case 123:
-							goto _ctr178;case 124:
-							goto _ctr203;case 125:
-							goto _ctr203;case 126:
-							goto _ctr194;case 127:
-							goto _ctr194;case 128:
-							goto _ctr178;case 129:
-							goto _ctr208;case 130:
-							goto _ctr178;case 131:
-							goto _ctr211;case 132:
-							goto _ctr178;case 133:
-							goto _ctr215;case 134:
-							goto _ctr216;case 135:
-							goto _ctr178;case 136:
-							goto _ctr218;	}
+							goto _ctr162;case 113:
+							goto _ctr192;case 114:
+							goto _ctr162;case 115:
+							goto _ctr195;case 116:
+							goto _ctr162;case 117:
+							goto _ctr199;case 118:
+							goto _ctr200;case 119:
+							goto _ctr162;case 120:
+							goto _ctr202;	}
 					}
 					
-					if ( cs >= 57 )
+					if ( cs >= 41 )
 						goto _out; _pop: {}
 					_out: {}
 				}
@@ -8069,8 +7477,8 @@ namespace ceammc {
 			}
 			
 			if (cs < 
-#line 8073 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
-			57
+#line 7481 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/lemon_data_string_parser.cpp"
+			41
 #line 325 "lex/lemon_data_string_parser.rl"
 			) {
 				char buf[32] = "";

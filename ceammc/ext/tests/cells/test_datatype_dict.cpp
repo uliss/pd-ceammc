@@ -34,6 +34,8 @@ TEST_CASE("DataTypeDict", "[core]")
             REQUIRE(d.keys().empty());
             REQUIRE(d.flattenToList().empty());
             REQUIRE(d.toString() == "[]");
+            REQUIRE(d.toListStringContent() == "");
+            REQUIRE(d.toListString() == "Dict()");
         }
 
         SECTION("[]")
@@ -323,7 +325,7 @@ TEST_CASE("DataTypeDict", "[core]")
     {
         REQUIRE(Atom() == Atom());
         REQUIRE(Dict::fromList(LF(1, 2, 3, 4), 0) == Dict());
-        REQUIRE(Dict::fromList(LA("a", "b", "c"), 1) == Dict("[a: null b: null c: null]"));
+        REQUIRE(Dict::fromList(LA("a", "b", "c"), 1) == Dict("[a: b: c:]"));
         REQUIRE(Dict::fromList(LA("a", "b", "c", "d"), 2) == Dict("[a: b c: d]"));
     }
 
@@ -334,24 +336,26 @@ TEST_CASE("DataTypeDict", "[core]")
         REQUIRE(d == Dict("[c: 3 b: 2]"));
     }
 
-    SECTION("fromString")
+    SECTION("fromDataString")
     {
         Dict d;
-        REQUIRE(d.fromString("[]"));
+        REQUIRE(d.setFromDataString("[]"));
         REQUIRE(d.size() == 0);
-        REQUIRE(d.fromString("[a: 12]"));
+        REQUIRE(d.setFromDataString("[a: 12]"));
         REQUIRE(d.size() == 1);
         REQUIRE(d.keys() == LA("a"));
         REQUIRE(d.at("a") == LF(12));
 
-        REQUIRE(d.fromString("[@a: 12]"));
+        REQUIRE(d.setFromDataString("[@a: 12]"));
         REQUIRE(d.size() == 1);
         REQUIRE(d.keys() == LA("@a"));
         REQUIRE(d.at("@a") == LF(12));
 
-        REQUIRE(d.fromString("[@a: 12 @b: 15]"));
+        REQUIRE(d.setFromDataString("[@a: 12 @b: 15]"));
         REQUIRE(d.size() == 2);
         REQUIRE(d.at("@a") == LF(12));
         REQUIRE(d.at("@b") == LF(15));
+
+        REQUIRE(d.setFromDataString("Dict[a:]"));
     }
 }

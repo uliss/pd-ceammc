@@ -151,7 +151,7 @@ uint8_t xchar2digit(char c)
     str_space = str_escape ' ';
     str_comma = str_escape '.';
     str_semicolon = str_escape ':';
-    str_envvar    = '%' [A-Z_0-9]{1,24} '%';
+    str_envvar    = '%' [A-Z_0-9]{1,16} '%';
 
 
     action on_quote_end  { pushSymbolToken(TK_SYMBOL, &(*ragel_string.begin()), (&*ragel_string.end())); fret; }

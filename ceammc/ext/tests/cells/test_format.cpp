@@ -55,8 +55,8 @@ TEST_CASE("format", "[ceammc::format]")
         REQUIRE_ESCAPED("a b c", "\"a b c\"");
         REQUIRE_ESCAPED("a b    c", "\"a b    c\"");
         REQUIRE_ESCAPED("there's a table", "\"there's a table\"");
-        REQUIRE_ESCAPED(new IntData(123), "123");
-        REQUIRE_ESCAPED(new StrData("test string with spaces and q`otes"), "test string with spaces and q`otes");
+        REQUIRE_ESCAPED(new IntData(123), "IntData(123)");
+        REQUIRE_ESCAPED(new StrData("test string with spaces and q`otes"), "StrData(test string with spaces and q`otes)");
         REQUIRE_ESCAPED("many ````", "\"many ````\"");
         REQUIRE_ESCAPED("many '''''", "\"many '''''\"");
         REQUIRE_ESCAPED("many \"\"\"\"", "\"many `\"`\"`\"`\"\"");
