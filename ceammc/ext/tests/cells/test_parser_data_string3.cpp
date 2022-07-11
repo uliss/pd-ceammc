@@ -45,7 +45,7 @@ TEST_CASE("datastring3", "[ceammc::data]")
         REQUIRE_PARSE_STR("100ms", LA("100ms"));
         REQUIRE_PARSE_STR("the1/0", LA("the1/0"));
         REQUIRE_PARSE_STR("http://ceammc.com", LA("http://ceammc.com"));
-//        REQUIRE_NO_PARSE_STR("abc[0]");
+        //        REQUIRE_NO_PARSE_STR("abc[0]");
         REQUIRE_PARSE_STR("абвгд жзйк", LA("абвгд", "жзйк"));
         REQUIRE_PARSE_STR("a b c", LA("a", "b", "c"));
         REQUIRE_PARSE_STR("'a b c'", LA("a b c"));
@@ -90,6 +90,7 @@ TEST_CASE("datastring3", "[ceammc::data]")
         REQUIRE_PARSE_STR("0", LF(0));
         REQUIRE_PARSE_STR("+0", LF(0));
         REQUIRE_PARSE_STR("-0", LF(0));
+        REQUIRE_PARSE_STR("l0", LA("l0"));
         REQUIRE_PARSE_STR("+1", LF(1));
         REQUIRE_PARSE_STR("-1", LF(-1));
         REQUIRE_PARSE_STR("-42", LF(-42));
@@ -129,7 +130,13 @@ TEST_CASE("datastring3", "[ceammc::data]")
         REQUIRE_PARSE_STR("MList()", MListAtom());
         REQUIRE_PARSE_STR("MList(1)", MListAtom(1));
         REQUIRE_PARSE_STR("MList(1 2)", MListAtom(1, 2));
-//        REQUIRE_PARSE_STR("Dict[]", DictAtom());
+
+        REQUIRE_PARSE_STR("()", MListAtom());
+        REQUIRE_PARSE_STR("(1)", MListAtom(1));
+        REQUIRE_PARSE_STR("(1 2)", MListAtom(1, 2));
+        REQUIRE_PARSE_STR("(1 2 ())", MListAtom(1, 2, MListAtom()));
+        REQUIRE_PARSE_STR("(1 (2 3 (4 5 6)))", MListAtom(1, MListAtom(2, 3, MListAtom(4, 5, 6))));
+        //        REQUIRE_PARSE_STR("Dict[]", DictAtom());
         REQUIRE_PARSE_STR("Dict[   ]", DictAtom());
         REQUIRE_PARSE_STR("Dict[a: b: c: 1 2 3]", DictAtom("[a:]"));
         //        REQUIRE_PARSE_STR("1 symbol", LA(1, "symbol"));

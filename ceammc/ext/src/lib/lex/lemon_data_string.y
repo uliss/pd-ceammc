@@ -9,8 +9,10 @@
 
 # include "ceammc_atomlist.h"
 # include "ceammc_containers.h"
+# include "ceammc_data.h"
 # include "ceammc_datastorage.h"
 # include "ceammc_log.h"
+# include "datatype_mlist.h"
 # include "fmt/format.h"
 
 using namespace ceammc;
@@ -46,6 +48,7 @@ namespace {
     void data_list(token& res, const token& name, const token& args);
     void data_dict(token& res, const token& name, const token& args);
     void data_empty_dict(token& res, const token& name);
+    void mlist(token& res, const token& args);
 }
 
 }
@@ -91,7 +94,7 @@ pair_list    ::= pair_list pair.
 
 data         ::= DICT_OPEN DICT_CLOSE.
 data         ::= DICT_OPEN pair_list DICT_CLOSE.
-data         ::= LIST_OPEN zlist LIST_CLOSE.
+data(A)      ::= LIST_OPEN zlist(B) LIST_CLOSE.                 { linit(p, A); mlist(A, B); }
 data(A)      ::= DATA_NAME(B) LIST_OPEN zlist(C) LIST_CLOSE.    { linit(p, A); data_list(A, B, C); }
 data(A)      ::= DATA_NAME(B) DICT_OPEN pair_list(C) DICT_CLOSE.{ linit(p, A); data_dict(A, B, C); }
 data(A)      ::= DATA_NAME(B) DICT_OPEN SPACE DICT_CLOSE.{ linit(p, A); data_empty_dict(A, B); }
@@ -186,6 +189,11 @@ namespace {
 
     void lpush(token& a, const token& b) {
         a.list->push_back(b.atom);
+    }
+
+    void mlist(token& res, const token& args) {
+        res.list->push_back(MListAtom(args.list->view()));
+        res.atom = res.list->at(0).atom();
     }
 }
 }
