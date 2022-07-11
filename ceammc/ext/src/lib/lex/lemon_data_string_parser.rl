@@ -114,6 +114,9 @@ uint8_t xchar2digit(char c)
             ragel_string.append(ts, te - ts);
     }
 
+    action on_data_sqstring { pushToken(TK_STRING); ragel_string.clear(); fcall scan_sqstring; }
+    action on_data_dqstring { pushToken(TK_STRING); ragel_string.clear(); fcall scan_dqstring; }
+
     action on_other { pushSymbolToken(TK_SYMBOL, ts, te); }
 
     true           = "#true";
@@ -129,6 +132,8 @@ uint8_t xchar2digit(char c)
     func_call_list = [a-z][a-z_0-9]* '(' space*;
     data_call_list = [A-Z][a-zA-Z]*  '(' space*;
     data_call_dict = [A-Z][a-zA-Z]*  '[';
+    data_sqstring  = "S'";
+    data_dqstring  = 'S"';
     float          = num_float | num_int | num_bin | num_hex | num_ratio;
 
     tok_all = true
@@ -140,6 +145,8 @@ uint8_t xchar2digit(char c)
         | tok_lbr
         | tok_dquote
         | tok_squote
+        | data_sqstring
+        | data_dqstring
         | func_call_list
         | data_call_list
         | data_call_dict
@@ -199,6 +206,8 @@ uint8_t xchar2digit(char c)
         func_call_list => on_fn_call;
         data_call_list => on_data_list;
         data_call_dict => on_data_dict;
+        data_sqstring  => on_data_sqstring;
+        data_dqstring  => on_data_dqstring;
 
         dict_key         => on_dict_key;
         tok_space        => { pushToken(TK_SPACE); };
@@ -222,6 +231,8 @@ uint8_t xchar2digit(char c)
         func_call_list   => on_fn_call;
         data_call_list   => on_data_list;
         data_call_dict   => on_data_dict;
+        data_sqstring  => on_data_sqstring;
+        data_dqstring  => on_data_dqstring;
 
         tok_other        => on_other;
         # return token

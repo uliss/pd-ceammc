@@ -15,6 +15,7 @@
 #include "ceammc_platform.h"
 #include "datatype_dict.h"
 #include "datatype_mlist.h"
+#include "datatype_string.h"
 #include "lex/lemon_data_string_parser.h"
 #include "test_base.h"
 
@@ -176,5 +177,16 @@ TEST_CASE("datastring3", "[ceammc::data]")
 
         platform::set_env("MY_HOME", "/home/ceammc");
         REQUIRE_PARSE_STR("\"%MY_HOME%/doc/my.wav\"", LA("/home/ceammc/doc/my.wav"));
+    }
+
+    SECTION("String()")
+    {
+        REQUIRE_PARSE_STR("S''", StringAtom(""));
+        REQUIRE_PARSE_STR("S\"\"", StringAtom(""));
+        REQUIRE_PARSE_STR("S' '", StringAtom(" "));
+        REQUIRE_PARSE_STR("S'   '", StringAtom("   "));
+        REQUIRE_PARSE_STR("S'String()'", StringAtom("String()"));
+        REQUIRE_PARSE_STR("S\"String()\"", StringAtom("String()"));
+        REQUIRE_PARSE_STR("S'%MY_HOME%'", StringAtom("/home/ceammc"));
     }
 }

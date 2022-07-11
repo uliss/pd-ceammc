@@ -38,6 +38,7 @@
 # include "ceammc_log.h"
 # include "datatype_mlist.h"
 # include "datatype_dict.h"
+# include "datatype_string.h"
 # include "fmt/format.h"
 
 using namespace ceammc;
@@ -65,6 +66,7 @@ struct token {
 };
 
 namespace {
+    void string(Parser* p, token& tok, const token& str);
     void linit(Parser* p, token& tok);
     void lcall(token& res, const token& fn, token& args);
     void lassign(token& a, token& b);
@@ -98,7 +100,7 @@ namespace {
     }
 }
 
-#line 102 "lemon_data_string.c"
+#line 104 "lemon_data_string.c"
 /**************** End of %include directives **********************************/
 /* These constants specify the various numeric values for terminal symbols.
 ***************** Begin token definitions *************************************/
@@ -106,14 +108,15 @@ namespace {
 #define TK_FLOAT                           1
 #define TK_SYMBOL                          2
 #define TK_NULL                            3
-#define TK_DICT_KEY                        4
-#define TK_LIST_OPEN                       5
-#define TK_LIST_CLOSE                      6
-#define TK_DATA_NAME                       7
-#define TK_DICT_OPEN                       8
-#define TK_DICT_CLOSE                      9
-#define TK_FUNC_LIST_CALL                 10
-#define TK_SPACE                          11
+#define TK_STRING                          4
+#define TK_DICT_KEY                        5
+#define TK_LIST_OPEN                       6
+#define TK_LIST_CLOSE                      7
+#define TK_DATA_NAME                       8
+#define TK_DICT_OPEN                       9
+#define TK_DICT_CLOSE                     10
+#define TK_FUNC_LIST_CALL                 11
+#define TK_SPACE                          12
 #endif
 /**************** End token definitions ***************************************/
 
@@ -173,7 +176,7 @@ namespace {
 #endif
 /************* Begin control #defines *****************************************/
 #define YYCODETYPE unsigned char
-#define YYNOCODE 21
+#define YYNOCODE 22
 #define YYACTIONTYPE unsigned char
 #define lemon_data_string_parserTOKENTYPE token
 typedef union {
@@ -193,18 +196,18 @@ typedef union {
 #define lemon_data_string_parserCTX_PARAM
 #define lemon_data_string_parserCTX_FETCH
 #define lemon_data_string_parserCTX_STORE
-#define YYNSTATE             18
-#define YYNRULE              22
-#define YYNRULE_WITH_ACTION  18
-#define YYNTOKEN             12
-#define YY_MAX_SHIFT         17
-#define YY_MIN_SHIFTREDUCE   35
-#define YY_MAX_SHIFTREDUCE   56
-#define YY_ERROR_ACTION      57
-#define YY_ACCEPT_ACTION     58
-#define YY_NO_ACTION         59
-#define YY_MIN_REDUCE        60
-#define YY_MAX_REDUCE        81
+#define YYNSTATE             19
+#define YYNRULE              23
+#define YYNRULE_WITH_ACTION  19
+#define YYNTOKEN             13
+#define YY_MAX_SHIFT         18
+#define YY_MIN_SHIFTREDUCE   37
+#define YY_MAX_SHIFTREDUCE   59
+#define YY_ERROR_ACTION      60
+#define YY_ACCEPT_ACTION     61
+#define YY_NO_ACTION         62
+#define YY_MIN_REDUCE        63
+#define YY_MAX_REDUCE        85
 /************* End control #defines *******************************************/
 #define YY_NLOOKAHEAD ((int)(sizeof(yy_lookahead)/sizeof(yy_lookahead[0])))
 
@@ -271,42 +274,43 @@ typedef union {
 **  yy_default[]       Default action for each state.
 **
 *********** Begin parsing tables **********************************************/
-#define YY_ACTTAB_COUNT (65)
+#define YY_ACTTAB_COUNT (70)
 static const YYACTIONTYPE yy_action[] = {
- /*     0 */    64,   53,   54,   55,   63,    3,    8,   10,    7,   46,
- /*    10 */    13,   58,   17,   72,   72,    4,   11,    5,   73,   75,
- /*    20 */    45,   12,   72,   72,    4,   11,    1,   73,   75,   42,
- /*    30 */    15,   72,   72,    4,   11,   60,   73,   75,   44,   16,
- /*    40 */    72,   72,   59,   11,   41,   73,   75,   72,   72,   59,
- /*    50 */    14,    4,   73,   75,   72,   72,   43,   40,    2,   73,
- /*    60 */    74,    6,   63,   59,    9,
+ /*     0 */    68,   56,   57,   58,   17,   67,    3,    8,   10,    7,
+ /*    10 */    49,   13,   61,   18,   76,   76,    5,   11,    1,   77,
+ /*    20 */    79,   12,   76,   76,   44,   11,   43,   77,   79,   15,
+ /*    30 */    76,   76,   62,   11,   38,   77,   79,   16,   76,   76,
+ /*    40 */    63,   11,   62,   77,   79,   76,   76,   62,   14,    4,
+ /*    50 */    77,   79,   76,   76,   48,    4,   62,   77,   78,   67,
+ /*    60 */    45,    9,    2,    4,    4,    6,   62,   62,   47,   46,
 };
 static const YYCODETYPE yy_lookahead[] = {
- /*     0 */    16,    1,    2,    3,   16,    5,   18,    7,    8,    6,
- /*    10 */    10,   12,   13,   14,   15,    4,   17,   11,   19,   20,
- /*    20 */     9,   13,   14,   15,    4,   17,    5,   19,   20,    9,
- /*    30 */    13,   14,   15,    4,   17,    0,   19,   20,    9,   13,
- /*    40 */    14,   15,   21,   17,    6,   19,   20,   14,   15,   21,
- /*    50 */    17,    4,   19,   20,   14,   15,    9,    6,    5,   19,
- /*    60 */    20,    8,   16,   21,   18,   21,   21,   21,   21,   21,
- /*    70 */    21,   12,   12,   12,   12,   12,   12,
+ /*     0 */    17,    1,    2,    3,    4,   17,    6,   19,    8,    9,
+ /*    10 */     7,   11,   13,   14,   15,   16,   12,   18,    6,   20,
+ /*    20 */    21,   14,   15,   16,    7,   18,    7,   20,   21,   14,
+ /*    30 */    15,   16,   22,   18,    2,   20,   21,   14,   15,   16,
+ /*    40 */     0,   18,   22,   20,   21,   15,   16,   22,   18,    5,
+ /*    50 */    20,   21,   15,   16,   10,    5,   22,   20,   21,   17,
+ /*    60 */    10,   19,    6,    5,    5,    9,   22,   22,   10,   10,
+ /*    70 */    22,   22,   22,   22,   22,   22,   22,   22,   13,   13,
+ /*    80 */    13,   13,   13,
 };
-#define YY_SHIFT_COUNT    (17)
+#define YY_SHIFT_COUNT    (18)
 #define YY_SHIFT_MIN      (0)
-#define YY_SHIFT_MAX      (53)
+#define YY_SHIFT_MAX      (59)
 static const unsigned char yy_shift_ofst[] = {
- /*     0 */     0,    0,    0,    0,    0,    0,   11,   20,   29,   47,
- /*    10 */    53,    6,    3,   21,    6,   38,   51,   35,
+ /*     0 */     0,    0,    0,    0,    0,    0,   44,   50,   58,   59,
+ /*    10 */    56,    4,    3,   12,    4,   17,   19,   32,   40,
 };
 #define YY_REDUCE_COUNT (9)
-#define YY_REDUCE_MIN   (-16)
-#define YY_REDUCE_MAX   (46)
+#define YY_REDUCE_MIN   (-17)
+#define YY_REDUCE_MAX   (42)
 static const signed char yy_reduce_ofst[] = {
- /*     0 */    -1,    8,   17,   26,   33,   40,  -12,   46,  -16,  -16,
+ /*     0 */    -1,    7,   15,   23,   30,   37,  -12,   42,  -17,  -17,
 };
 static const YYACTIONTYPE yy_default[] = {
- /*     0 */    77,   77,   77,   77,   61,   57,   57,   57,   57,   57,
- /*    10 */    57,   76,   57,   57,   62,   57,   57,   57,
+ /*     0 */    81,   81,   81,   81,   65,   60,   60,   60,   60,   60,
+ /*    10 */    60,   80,   60,   60,   66,   60,   60,   60,   60,
 };
 /********** End of lemon-generated parsing tables *****************************/
 
@@ -418,23 +422,24 @@ static const char *const yyTokenName[] = {
   /*    1 */ "FLOAT",
   /*    2 */ "SYMBOL",
   /*    3 */ "NULL",
-  /*    4 */ "DICT_KEY",
-  /*    5 */ "LIST_OPEN",
-  /*    6 */ "LIST_CLOSE",
-  /*    7 */ "DATA_NAME",
-  /*    8 */ "DICT_OPEN",
-  /*    9 */ "DICT_CLOSE",
-  /*   10 */ "FUNC_LIST_CALL",
-  /*   11 */ "SPACE",
-  /*   12 */ "program",
-  /*   13 */ "zlist",
-  /*   14 */ "atom",
-  /*   15 */ "data",
-  /*   16 */ "pair",
-  /*   17 */ "list",
-  /*   18 */ "pair_list",
-  /*   19 */ "func_call",
-  /*   20 */ "latom",
+  /*    4 */ "STRING",
+  /*    5 */ "DICT_KEY",
+  /*    6 */ "LIST_OPEN",
+  /*    7 */ "LIST_CLOSE",
+  /*    8 */ "DATA_NAME",
+  /*    9 */ "DICT_OPEN",
+  /*   10 */ "DICT_CLOSE",
+  /*   11 */ "FUNC_LIST_CALL",
+  /*   12 */ "SPACE",
+  /*   13 */ "program",
+  /*   14 */ "zlist",
+  /*   15 */ "atom",
+  /*   16 */ "data",
+  /*   17 */ "pair",
+  /*   18 */ "list",
+  /*   19 */ "pair_list",
+  /*   20 */ "func_call",
+  /*   21 */ "latom",
 };
 #endif /* defined(YYCOVERAGE) || !defined(NDEBUG) */
 
@@ -443,27 +448,28 @@ static const char *const yyTokenName[] = {
 */
 static const char *const yyRuleName[] = {
  /*   0 */ "program ::= zlist",
- /*   1 */ "pair ::= DICT_KEY",
- /*   2 */ "pair ::= DICT_KEY list",
- /*   3 */ "pair_list ::= pair",
- /*   4 */ "pair_list ::= pair_list pair",
- /*   5 */ "data ::= LIST_OPEN zlist LIST_CLOSE",
- /*   6 */ "data ::= DATA_NAME LIST_OPEN zlist LIST_CLOSE",
- /*   7 */ "data ::= DICT_OPEN DICT_CLOSE",
- /*   8 */ "data ::= DICT_OPEN pair_list DICT_CLOSE",
- /*   9 */ "data ::= DATA_NAME DICT_OPEN pair_list DICT_CLOSE",
- /*  10 */ "data ::= DATA_NAME DICT_OPEN DICT_CLOSE",
- /*  11 */ "func_call ::= FUNC_LIST_CALL LIST_OPEN zlist LIST_CLOSE",
- /*  12 */ "latom ::= atom",
- /*  13 */ "latom ::= func_call",
- /*  14 */ "list ::= list SPACE latom",
- /*  15 */ "list ::= latom",
- /*  16 */ "zlist ::= list",
- /*  17 */ "zlist ::=",
- /*  18 */ "atom ::= FLOAT",
- /*  19 */ "atom ::= SYMBOL",
- /*  20 */ "atom ::= NULL",
- /*  21 */ "atom ::= data",
+ /*   1 */ "atom ::= STRING SYMBOL",
+ /*   2 */ "pair ::= DICT_KEY",
+ /*   3 */ "pair ::= DICT_KEY list",
+ /*   4 */ "pair_list ::= pair",
+ /*   5 */ "pair_list ::= pair_list pair",
+ /*   6 */ "data ::= LIST_OPEN zlist LIST_CLOSE",
+ /*   7 */ "data ::= DATA_NAME LIST_OPEN zlist LIST_CLOSE",
+ /*   8 */ "data ::= DICT_OPEN DICT_CLOSE",
+ /*   9 */ "data ::= DICT_OPEN pair_list DICT_CLOSE",
+ /*  10 */ "data ::= DATA_NAME DICT_OPEN pair_list DICT_CLOSE",
+ /*  11 */ "data ::= DATA_NAME DICT_OPEN DICT_CLOSE",
+ /*  12 */ "func_call ::= FUNC_LIST_CALL LIST_OPEN zlist LIST_CLOSE",
+ /*  13 */ "latom ::= atom",
+ /*  14 */ "latom ::= func_call",
+ /*  15 */ "list ::= list SPACE latom",
+ /*  16 */ "list ::= latom",
+ /*  17 */ "zlist ::= list",
+ /*  18 */ "zlist ::=",
+ /*  19 */ "atom ::= FLOAT",
+ /*  20 */ "atom ::= SYMBOL",
+ /*  21 */ "atom ::= NULL",
+ /*  22 */ "atom ::= data",
 };
 #endif /* NDEBUG */
 
@@ -804,10 +810,10 @@ static void yyStackOverflow(yyParser *yypParser){
    /* Here code is inserted which will execute if the parser
    ** stack every overflows */
 /******** Begin %stack_overflow code ******************************************/
-#line 95 "lemon_data_string.y"
+#line 97 "lemon_data_string.y"
 
     p->stackOverflow();
-#line 810 "lemon_data_string.c"
+#line 816 "lemon_data_string.c"
 /******** End %stack_overflow code ********************************************/
    lemon_data_string_parserARG_STORE /* Suppress warning about unused %extra_argument var */
    lemon_data_string_parserCTX_STORE
@@ -879,55 +885,57 @@ static void yy_shift(
 /* For rule J, yyRuleInfoLhs[J] contains the symbol on the left-hand side
 ** of that rule */
 static const YYCODETYPE yyRuleInfoLhs[] = {
-    12,  /* (0) program ::= zlist */
-    16,  /* (1) pair ::= DICT_KEY */
-    16,  /* (2) pair ::= DICT_KEY list */
-    18,  /* (3) pair_list ::= pair */
-    18,  /* (4) pair_list ::= pair_list pair */
-    15,  /* (5) data ::= LIST_OPEN zlist LIST_CLOSE */
-    15,  /* (6) data ::= DATA_NAME LIST_OPEN zlist LIST_CLOSE */
-    15,  /* (7) data ::= DICT_OPEN DICT_CLOSE */
-    15,  /* (8) data ::= DICT_OPEN pair_list DICT_CLOSE */
-    15,  /* (9) data ::= DATA_NAME DICT_OPEN pair_list DICT_CLOSE */
-    15,  /* (10) data ::= DATA_NAME DICT_OPEN DICT_CLOSE */
-    19,  /* (11) func_call ::= FUNC_LIST_CALL LIST_OPEN zlist LIST_CLOSE */
-    20,  /* (12) latom ::= atom */
-    20,  /* (13) latom ::= func_call */
-    17,  /* (14) list ::= list SPACE latom */
-    17,  /* (15) list ::= latom */
-    13,  /* (16) zlist ::= list */
-    13,  /* (17) zlist ::= */
-    14,  /* (18) atom ::= FLOAT */
-    14,  /* (19) atom ::= SYMBOL */
-    14,  /* (20) atom ::= NULL */
-    14,  /* (21) atom ::= data */
+    13,  /* (0) program ::= zlist */
+    15,  /* (1) atom ::= STRING SYMBOL */
+    17,  /* (2) pair ::= DICT_KEY */
+    17,  /* (3) pair ::= DICT_KEY list */
+    19,  /* (4) pair_list ::= pair */
+    19,  /* (5) pair_list ::= pair_list pair */
+    16,  /* (6) data ::= LIST_OPEN zlist LIST_CLOSE */
+    16,  /* (7) data ::= DATA_NAME LIST_OPEN zlist LIST_CLOSE */
+    16,  /* (8) data ::= DICT_OPEN DICT_CLOSE */
+    16,  /* (9) data ::= DICT_OPEN pair_list DICT_CLOSE */
+    16,  /* (10) data ::= DATA_NAME DICT_OPEN pair_list DICT_CLOSE */
+    16,  /* (11) data ::= DATA_NAME DICT_OPEN DICT_CLOSE */
+    20,  /* (12) func_call ::= FUNC_LIST_CALL LIST_OPEN zlist LIST_CLOSE */
+    21,  /* (13) latom ::= atom */
+    21,  /* (14) latom ::= func_call */
+    18,  /* (15) list ::= list SPACE latom */
+    18,  /* (16) list ::= latom */
+    14,  /* (17) zlist ::= list */
+    14,  /* (18) zlist ::= */
+    15,  /* (19) atom ::= FLOAT */
+    15,  /* (20) atom ::= SYMBOL */
+    15,  /* (21) atom ::= NULL */
+    15,  /* (22) atom ::= data */
 };
 
 /* For rule J, yyRuleInfoNRhs[J] contains the negative of the number
 ** of symbols on the right-hand side of that rule. */
 static const signed char yyRuleInfoNRhs[] = {
    -1,  /* (0) program ::= zlist */
-   -1,  /* (1) pair ::= DICT_KEY */
-   -2,  /* (2) pair ::= DICT_KEY list */
-   -1,  /* (3) pair_list ::= pair */
-   -2,  /* (4) pair_list ::= pair_list pair */
-   -3,  /* (5) data ::= LIST_OPEN zlist LIST_CLOSE */
-   -4,  /* (6) data ::= DATA_NAME LIST_OPEN zlist LIST_CLOSE */
-   -2,  /* (7) data ::= DICT_OPEN DICT_CLOSE */
-   -3,  /* (8) data ::= DICT_OPEN pair_list DICT_CLOSE */
-   -4,  /* (9) data ::= DATA_NAME DICT_OPEN pair_list DICT_CLOSE */
-   -3,  /* (10) data ::= DATA_NAME DICT_OPEN DICT_CLOSE */
-   -4,  /* (11) func_call ::= FUNC_LIST_CALL LIST_OPEN zlist LIST_CLOSE */
-   -1,  /* (12) latom ::= atom */
-   -1,  /* (13) latom ::= func_call */
-   -3,  /* (14) list ::= list SPACE latom */
-   -1,  /* (15) list ::= latom */
-   -1,  /* (16) zlist ::= list */
-    0,  /* (17) zlist ::= */
-   -1,  /* (18) atom ::= FLOAT */
-   -1,  /* (19) atom ::= SYMBOL */
-   -1,  /* (20) atom ::= NULL */
-   -1,  /* (21) atom ::= data */
+   -2,  /* (1) atom ::= STRING SYMBOL */
+   -1,  /* (2) pair ::= DICT_KEY */
+   -2,  /* (3) pair ::= DICT_KEY list */
+   -1,  /* (4) pair_list ::= pair */
+   -2,  /* (5) pair_list ::= pair_list pair */
+   -3,  /* (6) data ::= LIST_OPEN zlist LIST_CLOSE */
+   -4,  /* (7) data ::= DATA_NAME LIST_OPEN zlist LIST_CLOSE */
+   -2,  /* (8) data ::= DICT_OPEN DICT_CLOSE */
+   -3,  /* (9) data ::= DICT_OPEN pair_list DICT_CLOSE */
+   -4,  /* (10) data ::= DATA_NAME DICT_OPEN pair_list DICT_CLOSE */
+   -3,  /* (11) data ::= DATA_NAME DICT_OPEN DICT_CLOSE */
+   -4,  /* (12) func_call ::= FUNC_LIST_CALL LIST_OPEN zlist LIST_CLOSE */
+   -1,  /* (13) latom ::= atom */
+   -1,  /* (14) latom ::= func_call */
+   -3,  /* (15) list ::= list SPACE latom */
+   -1,  /* (16) list ::= latom */
+   -1,  /* (17) zlist ::= list */
+    0,  /* (18) zlist ::= */
+   -1,  /* (19) atom ::= FLOAT */
+   -1,  /* (20) atom ::= SYMBOL */
+   -1,  /* (21) atom ::= NULL */
+   -1,  /* (22) atom ::= data */
 };
 
 static void yy_accept(yyParser*);  /* Forward Declaration */
@@ -970,106 +978,111 @@ static YYACTIONTYPE yy_reduce(
 /********** Begin reduce actions **********************************************/
         YYMINORTYPE yylhsminor;
       case 0: /* program ::= zlist */
-#line 102 "lemon_data_string.y"
+#line 104 "lemon_data_string.y"
 {
     for (auto& a: *yymsp[0].minor.yy0.list)
         p->pPushListAtom(a.atom());
 }
-#line 978 "lemon_data_string.c"
+#line 986 "lemon_data_string.c"
         break;
-      case 1: /* pair ::= DICT_KEY */
-#line 112 "lemon_data_string.y"
-{ pinit(p, yylhsminor.yy0, yymsp[0].minor.yy0); }
-#line 983 "lemon_data_string.c"
-  yymsp[0].minor.yy0 = yylhsminor.yy0;
-        break;
-      case 2: /* pair ::= DICT_KEY list */
+      case 1: /* atom ::= STRING SYMBOL */
 #line 113 "lemon_data_string.y"
-{ pinit(p, yylhsminor.yy0, yymsp[-1].minor.yy0); pappend(yylhsminor.yy0, yymsp[0].minor.yy0); }
-#line 989 "lemon_data_string.c"
-  yymsp[-1].minor.yy0 = yylhsminor.yy0;
+{ string(p, yymsp[-1].minor.yy0, yymsp[0].minor.yy0); }
+#line 991 "lemon_data_string.c"
         break;
-      case 3: /* pair_list ::= pair */
+      case 2: /* pair ::= DICT_KEY */
 #line 115 "lemon_data_string.y"
-{ plinit(p, yylhsminor.yy0);   plappend(yylhsminor.yy0, yymsp[0].minor.yy0); }
-#line 995 "lemon_data_string.c"
+{ pinit(p, yylhsminor.yy0, yymsp[0].minor.yy0); }
+#line 996 "lemon_data_string.c"
   yymsp[0].minor.yy0 = yylhsminor.yy0;
         break;
-      case 4: /* pair_list ::= pair_list pair */
+      case 3: /* pair ::= DICT_KEY list */
 #line 116 "lemon_data_string.y"
-{ plassign(yylhsminor.yy0, yymsp[-1].minor.yy0); plappend(yylhsminor.yy0, yymsp[0].minor.yy0); }
-#line 1001 "lemon_data_string.c"
+{ pinit(p, yylhsminor.yy0, yymsp[-1].minor.yy0); pappend(yylhsminor.yy0, yymsp[0].minor.yy0); }
+#line 1002 "lemon_data_string.c"
   yymsp[-1].minor.yy0 = yylhsminor.yy0;
         break;
-      case 5: /* data ::= LIST_OPEN zlist LIST_CLOSE */
+      case 4: /* pair_list ::= pair */
+#line 118 "lemon_data_string.y"
+{ plinit(p, yylhsminor.yy0);   plappend(yylhsminor.yy0, yymsp[0].minor.yy0); }
+#line 1008 "lemon_data_string.c"
+  yymsp[0].minor.yy0 = yylhsminor.yy0;
+        break;
+      case 5: /* pair_list ::= pair_list pair */
 #line 119 "lemon_data_string.y"
+{ plassign(yylhsminor.yy0, yymsp[-1].minor.yy0); plappend(yylhsminor.yy0, yymsp[0].minor.yy0); }
+#line 1014 "lemon_data_string.c"
+  yymsp[-1].minor.yy0 = yylhsminor.yy0;
+        break;
+      case 6: /* data ::= LIST_OPEN zlist LIST_CLOSE */
+#line 122 "lemon_data_string.y"
 { linit(p, yymsp[-2].minor.yy0); mlist(yymsp[-2].minor.yy0, yymsp[-1].minor.yy0); }
-#line 1007 "lemon_data_string.c"
+#line 1020 "lemon_data_string.c"
         break;
-      case 6: /* data ::= DATA_NAME LIST_OPEN zlist LIST_CLOSE */
-#line 120 "lemon_data_string.y"
-{ linit(p, yylhsminor.yy0); data_list(yylhsminor.yy0, yymsp[-3].minor.yy0, yymsp[-1].minor.yy0); }
-#line 1012 "lemon_data_string.c"
-  yymsp[-3].minor.yy0 = yylhsminor.yy0;
-        break;
-      case 7: /* data ::= DICT_OPEN DICT_CLOSE */
+      case 7: /* data ::= DATA_NAME LIST_OPEN zlist LIST_CLOSE */
 #line 123 "lemon_data_string.y"
-{ dinit(p, yymsp[-1].minor.yy0); }
-#line 1018 "lemon_data_string.c"
-        break;
-      case 8: /* data ::= DICT_OPEN pair_list DICT_CLOSE */
-#line 124 "lemon_data_string.y"
-{ dinit(p, yymsp[-2].minor.yy0); dappend(yymsp[-2].minor.yy0, yymsp[-1].minor.yy0); }
-#line 1023 "lemon_data_string.c"
-        break;
-      case 9: /* data ::= DATA_NAME DICT_OPEN pair_list DICT_CLOSE */
-#line 125 "lemon_data_string.y"
-{ linit(p, yylhsminor.yy0); data_dict(yylhsminor.yy0, yymsp[-3].minor.yy0, yymsp[-1].minor.yy0); }
-#line 1028 "lemon_data_string.c"
+{ linit(p, yylhsminor.yy0); data_list(yylhsminor.yy0, yymsp[-3].minor.yy0, yymsp[-1].minor.yy0); }
+#line 1025 "lemon_data_string.c"
   yymsp[-3].minor.yy0 = yylhsminor.yy0;
         break;
-      case 10: /* data ::= DATA_NAME DICT_OPEN DICT_CLOSE */
+      case 8: /* data ::= DICT_OPEN DICT_CLOSE */
 #line 126 "lemon_data_string.y"
-{ linit(p, yylhsminor.yy0); data_empty_dict(yylhsminor.yy0, yymsp[-2].minor.yy0); }
-#line 1034 "lemon_data_string.c"
-  yymsp[-2].minor.yy0 = yylhsminor.yy0;
+{ dinit(p, yymsp[-1].minor.yy0); }
+#line 1031 "lemon_data_string.c"
         break;
-      case 11: /* func_call ::= FUNC_LIST_CALL LIST_OPEN zlist LIST_CLOSE */
-#line 129 "lemon_data_string.y"
-{ linit(p, yylhsminor.yy0); lcall(yylhsminor.yy0, yymsp[-3].minor.yy0, yymsp[-1].minor.yy0); }
-#line 1040 "lemon_data_string.c"
+      case 9: /* data ::= DICT_OPEN pair_list DICT_CLOSE */
+#line 127 "lemon_data_string.y"
+{ dinit(p, yymsp[-2].minor.yy0); dappend(yymsp[-2].minor.yy0, yymsp[-1].minor.yy0); }
+#line 1036 "lemon_data_string.c"
+        break;
+      case 10: /* data ::= DATA_NAME DICT_OPEN pair_list DICT_CLOSE */
+#line 128 "lemon_data_string.y"
+{ linit(p, yylhsminor.yy0); data_dict(yylhsminor.yy0, yymsp[-3].minor.yy0, yymsp[-1].minor.yy0); }
+#line 1041 "lemon_data_string.c"
   yymsp[-3].minor.yy0 = yylhsminor.yy0;
         break;
-      case 12: /* latom ::= atom */
-#line 131 "lemon_data_string.y"
-{ linit(p, yylhsminor.yy0); lpush(yylhsminor.yy0, yymsp[0].minor.yy0); }
-#line 1046 "lemon_data_string.c"
-  yymsp[0].minor.yy0 = yylhsminor.yy0;
-        break;
-      case 13: /* latom ::= func_call */
-      case 15: /* list ::= latom */ yytestcase(yyruleno==15);
-      case 16: /* zlist ::= list */ yytestcase(yyruleno==16);
-#line 132 "lemon_data_string.y"
-{ lassign(yylhsminor.yy0, yymsp[0].minor.yy0); }
-#line 1054 "lemon_data_string.c"
-  yymsp[0].minor.yy0 = yylhsminor.yy0;
-        break;
-      case 14: /* list ::= list SPACE latom */
-#line 134 "lemon_data_string.y"
-{ lassign(yylhsminor.yy0, yymsp[-2].minor.yy0); lappend(yylhsminor.yy0, yymsp[0].minor.yy0); }
-#line 1060 "lemon_data_string.c"
+      case 11: /* data ::= DATA_NAME DICT_OPEN DICT_CLOSE */
+#line 129 "lemon_data_string.y"
+{ linit(p, yylhsminor.yy0); data_empty_dict(yylhsminor.yy0, yymsp[-2].minor.yy0); }
+#line 1047 "lemon_data_string.c"
   yymsp[-2].minor.yy0 = yylhsminor.yy0;
         break;
-      case 17: /* zlist ::= */
-#line 138 "lemon_data_string.y"
+      case 12: /* func_call ::= FUNC_LIST_CALL LIST_OPEN zlist LIST_CLOSE */
+#line 132 "lemon_data_string.y"
+{ linit(p, yylhsminor.yy0); lcall(yylhsminor.yy0, yymsp[-3].minor.yy0, yymsp[-1].minor.yy0); }
+#line 1053 "lemon_data_string.c"
+  yymsp[-3].minor.yy0 = yylhsminor.yy0;
+        break;
+      case 13: /* latom ::= atom */
+#line 134 "lemon_data_string.y"
+{ linit(p, yylhsminor.yy0); lpush(yylhsminor.yy0, yymsp[0].minor.yy0); }
+#line 1059 "lemon_data_string.c"
+  yymsp[0].minor.yy0 = yylhsminor.yy0;
+        break;
+      case 14: /* latom ::= func_call */
+      case 16: /* list ::= latom */ yytestcase(yyruleno==16);
+      case 17: /* zlist ::= list */ yytestcase(yyruleno==17);
+#line 135 "lemon_data_string.y"
+{ lassign(yylhsminor.yy0, yymsp[0].minor.yy0); }
+#line 1067 "lemon_data_string.c"
+  yymsp[0].minor.yy0 = yylhsminor.yy0;
+        break;
+      case 15: /* list ::= list SPACE latom */
+#line 137 "lemon_data_string.y"
+{ lassign(yylhsminor.yy0, yymsp[-2].minor.yy0); lappend(yylhsminor.yy0, yymsp[0].minor.yy0); }
+#line 1073 "lemon_data_string.c"
+  yymsp[-2].minor.yy0 = yylhsminor.yy0;
+        break;
+      case 18: /* zlist ::= */
+#line 141 "lemon_data_string.y"
 { linit(p, yymsp[1].minor.yy0);   }
-#line 1066 "lemon_data_string.c"
+#line 1079 "lemon_data_string.c"
         break;
       default:
-      /* (18) atom ::= FLOAT */ yytestcase(yyruleno==18);
-      /* (19) atom ::= SYMBOL */ yytestcase(yyruleno==19);
-      /* (20) atom ::= NULL */ yytestcase(yyruleno==20);
-      /* (21) atom ::= data (OPTIMIZED OUT) */ assert(yyruleno!=21);
+      /* (19) atom ::= FLOAT */ yytestcase(yyruleno==19);
+      /* (20) atom ::= SYMBOL */ yytestcase(yyruleno==20);
+      /* (21) atom ::= NULL */ yytestcase(yyruleno==21);
+      /* (22) atom ::= data (OPTIMIZED OUT) */ assert(yyruleno!=22);
         break;
 /********** End reduce actions ************************************************/
   };
@@ -1111,7 +1124,7 @@ static void yy_parse_failed(
   /* Here code is inserted which will be executed whenever the
   ** parser fails */
 /************ Begin %parse_failure code ***************************************/
-#line 85 "lemon_data_string.y"
+#line 87 "lemon_data_string.y"
 
     p->parseFailure();
     for (int i = 0; i < YYNTOKEN; i++) {
@@ -1120,7 +1133,7 @@ static void yy_parse_failed(
             std::cerr << "possible token: " << yyTokenName[i] << "\n";
         }
     }
-#line 1123 "lemon_data_string.c"
+#line 1136 "lemon_data_string.c"
 /************ End %parse_failure code *****************************************/
   lemon_data_string_parserARG_STORE /* Suppress warning about unused %extra_argument variable */
   lemon_data_string_parserCTX_STORE
@@ -1164,10 +1177,10 @@ static void yy_accept(
   /* Here code is inserted which will be executed whenever the
   ** parser accepts */
 /*********** Begin %parse_accept code *****************************************/
-#line 81 "lemon_data_string.y"
+#line 83 "lemon_data_string.y"
 
     p->parseAccept();
-#line 1170 "lemon_data_string.c"
+#line 1183 "lemon_data_string.c"
 /*********** End %parse_accept code *******************************************/
   lemon_data_string_parserARG_STORE /* Suppress warning about unused %extra_argument variable */
   lemon_data_string_parserCTX_STORE
@@ -1418,7 +1431,7 @@ int lemon_data_string_parserFallback(int iToken){
   return 0;
 #endif
 }
-#line 140 "lemon_data_string.y"
+#line 143 "lemon_data_string.y"
 
 # include "ceammc_function.h"
 
@@ -1591,5 +1604,17 @@ namespace {
                 pdict->insert(k.asT<t_symbol*>(), AtomListView());
         }
     }
+
+    // string
+    void string(Parser* p, token& tok, const token& str) {
+        tok.list = p->makeList();
+        Atom satom(str.atom);
+        if (satom.isSymbol())
+            tok.list->push_back(StringAtom(satom.asT<t_symbol*>()->s_name));
+        else
+            tok.list->push_back(StringAtom(""));
+
+        tok.atom = tok.list->front().atom();
+    }
 }
-#line 1595 "lemon_data_string.c"
+#line 1620 "lemon_data_string.c"

@@ -14,6 +14,7 @@
 # include "ceammc_log.h"
 # include "datatype_mlist.h"
 # include "datatype_dict.h"
+# include "datatype_string.h"
 # include "fmt/format.h"
 
 using namespace ceammc;
@@ -41,6 +42,7 @@ struct token {
 };
 
 namespace {
+    void string(Parser* p, token& tok, const token& str);
     void linit(Parser* p, token& tok);
     void lcall(token& res, const token& fn, token& args);
     void lassign(token& a, token& b);
@@ -108,6 +110,7 @@ atom         ::= FLOAT.
 atom         ::= SYMBOL.
 atom         ::= NULL.
 atom         ::= data.
+atom(A)      ::= STRING SYMBOL(B).          { string(p, A, B); }
 
 pair(A)      ::= DICT_KEY(B).               { pinit(p, A, B); }
 pair(A)      ::= DICT_KEY(B) list(C).       { pinit(p, A, B); pappend(A, C); }
@@ -308,6 +311,18 @@ namespace {
             else
                 pdict->insert(k.asT<t_symbol*>(), AtomListView());
         }
+    }
+
+    // string
+    void string(Parser* p, token& tok, const token& str) {
+        tok.list = p->makeList();
+        Atom satom(str.atom);
+        if (satom.isSymbol())
+            tok.list->push_back(StringAtom(satom.asT<t_symbol*>()->s_name));
+        else
+            tok.list->push_back(StringAtom(""));
+
+        tok.atom = tok.list->front().atom();
     }
 }
 }
