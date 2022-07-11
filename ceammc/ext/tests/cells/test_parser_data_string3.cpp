@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "catch.hpp"
+#include "ceammc_platform.h"
 #include "datatype_dict.h"
 #include "datatype_mlist.h"
 #include "lex/lemon_data_string_parser.h"
@@ -163,5 +164,14 @@ TEST_CASE("datastring3", "[ceammc::data]")
         REQUIRE_PARSE_STR("Dict[a:]", DictAtom("[a:]"));
         REQUIRE_PARSE_STR("Dict[a: b: c: 1 2 3]", DictAtom("[b: a: c: 1 2 3]"));
         REQUIRE_PARSE_STR("1 symbol", LA(1, "symbol"));
+    }
+
+    SECTION("env vars")
+    {
+        platform::set_env("VAR", "100");
+        REQUIRE_PARSE_STR("'%VAR%'", LA("100"));
+        REQUIRE_PARSE_STR("'%VAR%/test'", LA("100/test"));
+        REQUIRE_PARSE_STR("'test:%VAR%'", LA("test:100"));
+        REQUIRE_PARSE_STR("'test:%VAR?%'", LA("test:%VAR?%"));
     }
 }

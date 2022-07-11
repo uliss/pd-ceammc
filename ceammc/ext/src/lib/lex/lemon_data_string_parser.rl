@@ -3,6 +3,7 @@
 # include "parser_numeric.h"
 
 # include <cstdint>
+# include <cstdlib>
 # include <boost/static_string.hpp>
 
 # ifdef NDEBUG
@@ -87,6 +88,31 @@ uint8_t xchar2digit(char c)
         while(*(--te0) == ' ') ;
         pushSymbolToken(TK_DICT_KEY, ts, te0);
     }
+    action on_env_variable {
+        constexpr int BS = sizeof(parser_buf_) - 1;
+        const auto N = std::min<int>(BS, (te - ts) - 2);
+        for (int i = 0; i < N; i++)
+            parser_buf_[i] = ts[i+1];
+
+        parser_buf_[N] = 0;
+        auto env = std::getenv(parser_buf_);
+
+        if (env) {
+            for (int i = 0; i < 256; i++) {
+                bool break_loop = false;
+                auto ch = env[i];
+                switch (ch) {
+                case '\'': ragel_string += '`'; ragel_string += '\''; break;
+                case '"':  ragel_string += '`'; ragel_string += '"'; break;
+                case '\0': break_loop = true; break;
+                default:   ragel_string += ch; break;
+                }
+
+                if (break_loop) break;
+            }
+        } else
+            ragel_string.append(ts, te - ts);
+    }
 
     action on_other { pushSymbolToken(TK_SYMBOL, ts, te); }
 
@@ -125,6 +151,8 @@ uint8_t xchar2digit(char c)
     str_space = str_escape ' ';
     str_comma = str_escape '.';
     str_semicolon = str_escape ':';
+    str_envvar    = '%' [A-Z_0-9]{1,24} '%';
+
 
     action on_quote_end  { pushSymbolToken(TK_SYMBOL, &(*ragel_string.begin()), (&*ragel_string.end())); fret; }
 
@@ -136,6 +164,7 @@ uint8_t xchar2digit(char c)
         str_comma                  => { ragel_string += ','; };
         str_semicolon              => { ragel_string += ';'; };
         str_escape str_escape      => { ragel_string += '`'; };
+        str_envvar                 => on_env_variable;
         tok_squote                 => on_quote_end;
     *|;
 
@@ -147,6 +176,7 @@ uint8_t xchar2digit(char c)
         str_comma                  => { ragel_string += ','; };
         str_semicolon              => { ragel_string += ';'; };
         str_escape str_escape      => { ragel_string += '`'; };
+        str_envvar                 => on_env_variable;
         tok_dquote                 => on_quote_end;
     *|;
 
