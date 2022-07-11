@@ -173,5 +173,8 @@ TEST_CASE("datastring3", "[ceammc::data]")
         REQUIRE_PARSE_STR("'%VAR%/test'", LA("100/test"));
         REQUIRE_PARSE_STR("'test:%VAR%'", LA("test:100"));
         REQUIRE_PARSE_STR("'test:%VAR?%'", LA("test:%VAR?%"));
+
+        platform::set_env("MY_HOME", "/home/ceammc");
+        platform::set_env("\"%MY_HOME%/doc/my.wav\"", "/home/ceammc/doc/my.wav");
     }
 }
