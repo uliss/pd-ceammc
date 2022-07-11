@@ -131,11 +131,11 @@ TEST_CASE("data.set", "[externals]")
                 DSet a0;
                 a0.add(1);
 
-                REQUIRE(a0.toString() == "1");
+                REQUIRE(a0.toString() == "Set(1)");
 
                 a0.remove(1);
                 a0.add(S("ABC"));
-                REQUIRE(a0.toString() == "ABC");
+                REQUIRE(a0.toString() == "Set(ABC)");
             }
 
             SECTION("data")
@@ -143,7 +143,7 @@ TEST_CASE("data.set", "[externals]")
                 DSet a0;
                 a0.add(IntA(100));
 
-                REQUIRE(a0.toString() == "100");
+                REQUIRE(a0.toString() == "Set(IntData(100))");
             }
         }
 
