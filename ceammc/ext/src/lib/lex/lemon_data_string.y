@@ -270,11 +270,10 @@ namespace {
         for (size_t i = 0; (i + 1) < l.size(); i += 2) {
             const auto& k = l[i];
             auto pv = toSmallList(l[i+1]);
-            AtomListView args;
             if (pv && !pv->empty())
-                args = pv->view();
-
-            pdict->insert(k.asT<t_symbol*>(), args);
+                pdict->insert(k.asT<t_symbol*>(), pv->view());
+            else
+                pdict->insert(k.asT<t_symbol*>(), AtomListView());
         }
     }
 }

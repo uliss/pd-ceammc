@@ -43,6 +43,7 @@ TEST_CASE("datastring3", "[ceammc::data]")
     {
         REQUIRE_PARSE_STR("abc", LA("abc"));
         REQUIRE_PARSE_STR("100ms", LA("100ms"));
+        REQUIRE_PARSE_STR("top100", LA("top100"));
         REQUIRE_PARSE_STR("the1/0", LA("the1/0"));
         REQUIRE_PARSE_STR("http://ceammc.com", LA("http://ceammc.com"));
         //        REQUIRE_NO_PARSE_STR("abc[0]");
@@ -112,6 +113,8 @@ TEST_CASE("datastring3", "[ceammc::data]")
         REQUIRE_PARSE_STR("@abc 1 2", LA("@abc", 1, 2));
         REQUIRE_PARSE_STR("@abc 1 2 @b", LA("@abc", 1, 2, "@b"));
         REQUIRE_PARSE_STR("@a 1 @c", LA("@a", 1, "@c"));
+        REQUIRE_PARSE_STR("@a top100 @c", LA("@a", "top100", "@c"));
+        REQUIRE_PARSE_STR("@a a:b @c", LA("@a", "a:b", "@c"));
 
         REQUIRE_PARSE_STR("1 2 3 @a", LA(1, 2, 3, "@a"));
         REQUIRE_PARSE_STR("1 2 3 @a 1", LA(1, 2, 3, "@a", 1));
@@ -145,7 +148,14 @@ TEST_CASE("datastring3", "[ceammc::data]")
         REQUIRE_PARSE_STR("[   ]", DictAtom());
         REQUIRE_PARSE_STR("[a:]", DictAtom("[a:]"));
         REQUIRE_PARSE_STR("[a:1]", DictAtom("[a: 1]"));
-        REQUIRE_PARSE_STR("[a:abc]", DictAtom("[a: abc]"));
+        REQUIRE_PARSE_STR("[a:  1  ]", DictAtom("[a: 1]"));
+        REQUIRE_PARSE_STR("[a: 1 2 3 ]", DictAtom("[a: 1 2 3]"));
+        REQUIRE_PARSE_STR("[a: a100]", DictAtom("[a: a100]"));
+        REQUIRE_PARSE_STR("[a: reverse(1 2 3)]", DictAtom("[a: 3 2 1]"));
+        REQUIRE_PARSE_STR("[ a: reverse( 1 2 3 ) ]", DictAtom("[a: 3 2 1]"));
+        REQUIRE_PARSE_STR("[proto: http://]", DictAtom("[proto: http: \"//\"]"));
+        REQUIRE_PARSE_STR("[proto: \"http://\"]", DictAtom("[proto: \"http://\"]"));
+
 
 //        REQUIRE_PARSE_STR("Dict[]", DictAtom());
 //        REQUIRE_PARSE_STR("Dict[   ]", DictAtom());

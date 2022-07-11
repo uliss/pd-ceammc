@@ -119,6 +119,8 @@ uint8_t xchar2digit(char c)
         | data_call_dict
         | float;
 
+    tok_other = ((any+) -- (tok_all - (true|false|tok_null|float)));
+
     str_escape = '`';
     str_space = str_escape ' ';
     str_comma = str_escape '.';
@@ -151,7 +153,7 @@ uint8_t xchar2digit(char c)
     dict_key_id   = [a-z_0-9?]+;
     dict_key0     = dict_key_id | ('"' [a-z_0-9?]+ '"') | ("'" [a-z_0-9?]+ "'");
     dict_key      = space** dict_key0 ':' space**;
-    scan_dict_other = (any+) -- (tok_all | dict_key | tok_rbr | tok_space);
+    scan_dict_other = tok_other -- (dict_key | tok_rbr | tok_space);
 
     scan_dict := |*
         true       => on_true;
@@ -176,7 +178,6 @@ uint8_t xchar2digit(char c)
         tok_rbr          => { pushToken(TK_DICT_CLOSE); fret; };
     *|;
 
-    scan_token_other = ((any+) -- (tok_all - (true|false|tok_null|float)));
     scan_token := |*
         true       => on_true;
         false      => on_false;
@@ -192,7 +193,7 @@ uint8_t xchar2digit(char c)
         data_call_list   => on_data_list;
         data_call_dict   => on_data_dict;
 
-        scan_token_other => on_other;
+        tok_other        => on_other;
         # return token
         tok_space        => { pushToken(TK_SPACE); fret; };
     *|;
