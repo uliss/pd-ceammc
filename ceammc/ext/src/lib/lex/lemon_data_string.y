@@ -97,8 +97,7 @@ data         ::= DICT_OPEN pair_list DICT_CLOSE.
 data(A)      ::= LIST_OPEN zlist(B) LIST_CLOSE.                 { linit(p, A); mlist(A, B); }
 data(A)      ::= DATA_NAME(B) LIST_OPEN zlist(C) LIST_CLOSE.    { linit(p, A); data_list(A, B, C); }
 data(A)      ::= DATA_NAME(B) DICT_OPEN pair_list(C) DICT_CLOSE.{ linit(p, A); data_dict(A, B, C); }
-data(A)      ::= DATA_NAME(B) DICT_OPEN SPACE DICT_CLOSE.{ linit(p, A); data_empty_dict(A, B); }
-data(A)      ::= DATA_NAME(B) DICT_OPEN DICT_CLOSE.{ linit(p, A); data_empty_dict(A, B); }
+data(A)      ::= DATA_NAME(B) DICT_OPEN DICT_CLOSE.             { linit(p, A); data_empty_dict(A, B); }
 
 
 
@@ -173,8 +172,6 @@ namespace {
     void lcall(token& res, const token& fn, token& args) {
         auto fname = atom_getsymbol(&fn.atom);
         auto fn_result = BuiltinFunctionMap::instance().call(fname, args.list->view());
-//        std::cerr << "args: " <<  args.list->size() << "\n";
-        std::cerr << "fn result: " << fn_result << "\n";
 
         for (auto& a: fn_result)
             res.list->push_back(a);

@@ -7,5 +7,5 @@
 #define TK_LIST_OPEN                        7
 #define TK_LIST_CLOSE                       8
 #define TK_DATA_NAME                        9
-#define TK_SPACE                           10
-#define TK_FUNC_LIST_CALL                  11
+#define TK_FUNC_LIST_CALL                  10
+#define TK_SPACE                           11

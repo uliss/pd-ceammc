@@ -124,12 +124,15 @@ TEST_CASE("datastring3", "[ceammc::data]")
         REQUIRE_PARSE_STR("reverse(1 2) reverse(100 200)", LF(2, 1, 200, 100));
         REQUIRE_PARSE_STR("reverse(reverse(1 2) reverse(3 4))", LF(3, 4, 1, 2));
         REQUIRE_PARSE_STR("@prop reverse(1 2 3)", LA("@prop", 3, 2, 1));
+        REQUIRE_PARSE_STR("@prop reverse(    1 2 3   )", LA("@prop", 3, 2, 1));
         REQUIRE_PARSE_STR("pi() @pi", LAX(3.14159, "@pi"));
         REQUIRE_PARSE_STR("pi( ) @pi", LAX(3.14159, "@pi"));
 
         REQUIRE_PARSE_STR("MList()", MListAtom());
+        REQUIRE_PARSE_STR("MList( )", MListAtom());
         REQUIRE_PARSE_STR("MList(1)", MListAtom(1));
         REQUIRE_PARSE_STR("MList(1 2)", MListAtom(1, 2));
+        REQUIRE_PARSE_STR("MList( 1 2 3 )", MListAtom(1, 2, 3));
 
         REQUIRE_PARSE_STR("()", MListAtom());
         REQUIRE_PARSE_STR("( )", MListAtom());

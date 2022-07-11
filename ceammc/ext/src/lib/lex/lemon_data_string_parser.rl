@@ -62,11 +62,17 @@ uint8_t xchar2digit(char c)
     action on_double_quote { ragel_string.clear(); fcall scan_dqstring; }
     action on_single_quote { ragel_string.clear(); fcall scan_sqstring; }
     action on_fn_call {
-        pushSymbolToken(TK_FUNC_LIST_CALL, ts, te-1);
+        // skip trailing whitespaces
+        auto te0 = te;
+        while(*(--te0) == ' ') ;
+        pushSymbolToken(TK_FUNC_LIST_CALL, ts, te0);
         pushToken(TK_LIST_OPEN);
     }
     action on_data_list  {
-        pushSymbolToken(TK_DATA_NAME, ts, te-1);
+        // skip trailing whitespaces
+        auto te0 = te;
+        while(*(--te0) == ' ') ;
+        pushSymbolToken(TK_DATA_NAME, ts, te0);
         pushToken(TK_LIST_OPEN);
     }
     action on_data_dict {
@@ -87,8 +93,8 @@ uint8_t xchar2digit(char c)
     tok_rbr        = space** "]";
     tok_squote     = "'";
     tok_dquote     = '"';
-    func_call_list = [a-z][a-z_0-9]* '(';
-    data_call_list = [A-Z][a-zA-Z]*  '(';
+    func_call_list = [a-z][a-z_0-9]* '(' space*;
+    data_call_list = [A-Z][a-zA-Z]*  '(' space*;
     data_call_dict = [A-Z][a-zA-Z]*  '[';
     float          = num_float | num_int | num_bin | num_hex | num_ratio;
 
