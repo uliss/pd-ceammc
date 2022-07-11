@@ -79,11 +79,11 @@ TEST_CASE("DataTypeMList", "[core]")
     {
         using MA = MListAtom;
 
-#define REQUIRE_PARSE_STR(a, b)                   \
-    {                                             \
-        auto ml = ML::parse(std::string(a));      \
-        REQUIRE(ml);                              \
-        REQUIRE(*ML::parse(std::string(a)) == b); \
+#define REQUIRE_PARSE_STR(a, b)                         \
+    {                                                   \
+        MA ma;                                          \
+        REQUIRE(ma->setFromDataString(std::string(a))); \
+        REQUIRE(*ma == b);                              \
     }
 
         REQUIRE_PARSE_STR("()", ML());
@@ -128,18 +128,22 @@ TEST_CASE("DataTypeMList", "[core]")
     {
         using MA = MListAtom;
 
-        REQUIRE(ML().valueToJsonString() == "[]");
-        REQUIRE(ML(1).valueToJsonString() == "[1]");
-        REQUIRE(ML(1, "abc").valueToJsonString() == "[1,\"abc\"]");
-        REQUIRE(ML(1, "abc", Atom()).valueToJsonString() == "[1,\"abc\",null]");
-        REQUIRE(ML(1, "abc", Atom(), MA(3, 2, 1)).valueToJsonString() == "[1,\"abc\",null,[3,2,1]]");
+        REQUIRE(ML().toJsonString() == "[]");
+        REQUIRE(ML(1).toJsonString() == "[1]");
+        REQUIRE(ML(1, "abc").toJsonString() == "[1,\"abc\"]");
+        REQUIRE(ML(1, "abc", Atom()).toJsonString() == "[1,\"abc\",null]");
+        REQUIRE(ML(1, "abc", Atom(), MA(3, 2, 1)).toJsonString() == "[1,\"abc\",null,[3,2,1]]");
     }
 
     SECTION("parse<->parse")
     {
         ML ml;
 
-#define REQUIRE_PARSE(a, b) REQUIRE(ML::parse(AtomList::parseString(a)).value().toString() == b);
+#define REQUIRE_PARSE(a, b)               \
+    {                                     \
+        REQUIRE(ml.setFromDataString(a)); \
+        REQUIRE(ml.toString() == b);      \
+    }
 
         REQUIRE_PARSE(" (   )", "()");
         REQUIRE_PARSE(" (1 2()   abc)", "(1 2 () abc)");
@@ -148,11 +152,11 @@ TEST_CASE("DataTypeMList", "[core]")
 
     SECTION("flatten")
     {
-#define REQUIRE_FLATTEN(src, result)                         \
-    {                                                        \
-        auto lst = DataTypeMList::parse(LA(src));            \
-        REQUIRE(lst);                                        \
-        REQUIRE(lst.value().flatten().toString() == result); \
+#define REQUIRE_FLATTEN(src, result)                \
+    {                                               \
+        ML ml;                                      \
+        REQUIRE(ml.setFromDataString(src));         \
+        REQUIRE(ml.flatten().toString() == result); \
     }
 
         REQUIRE_FLATTEN("()", "()");
