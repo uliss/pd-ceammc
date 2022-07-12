@@ -830,7 +830,7 @@ static void yyStackOverflow(yyParser *yypParser){
    /* Here code is inserted which will execute if the parser
    ** stack every overflows */
 /******** Begin %stack_overflow code ******************************************/
-#line 101 "lemon_data_string.y"
+#line 103 "lemon_data_string.y"
 
     p->stackOverflow();
 #line 836 "lemon_data_string.c"
@@ -1006,7 +1006,7 @@ static YYACTIONTYPE yy_reduce(
 /********** Begin reduce actions **********************************************/
         YYMINORTYPE yylhsminor;
       case 0: /* program ::= zlist */
-#line 108 "lemon_data_string.y"
+#line 110 "lemon_data_string.y"
 {
     for (auto& a: *yymsp[0].minor.yy0.list)
         p->pPushListAtom(a.atom());
@@ -1014,97 +1014,97 @@ static YYACTIONTYPE yy_reduce(
 #line 1014 "lemon_data_string.c"
         break;
       case 1: /* atom ::= STRING SYMBOL */
-#line 117 "lemon_data_string.y"
+#line 119 "lemon_data_string.y"
 { string(p, yymsp[-1].minor.yy0, yymsp[0].minor.yy0); }
 #line 1019 "lemon_data_string.c"
         break;
       case 2: /* pair ::= DICT_KEY */
-#line 119 "lemon_data_string.y"
+#line 121 "lemon_data_string.y"
 { pinit(p, yylhsminor.yy0, yymsp[0].minor.yy0); }
 #line 1024 "lemon_data_string.c"
   yymsp[0].minor.yy0 = yylhsminor.yy0;
         break;
       case 3: /* pair ::= DICT_KEY list */
-#line 120 "lemon_data_string.y"
+#line 122 "lemon_data_string.y"
 { pinit(p, yylhsminor.yy0, yymsp[-1].minor.yy0); pappend(yylhsminor.yy0, yymsp[0].minor.yy0); }
 #line 1030 "lemon_data_string.c"
   yymsp[-1].minor.yy0 = yylhsminor.yy0;
         break;
       case 4: /* pair_list ::= pair */
-#line 122 "lemon_data_string.y"
+#line 124 "lemon_data_string.y"
 { plinit(p, yylhsminor.yy0);   plappend(yylhsminor.yy0, yymsp[0].minor.yy0); }
 #line 1036 "lemon_data_string.c"
   yymsp[0].minor.yy0 = yylhsminor.yy0;
         break;
       case 5: /* pair_list ::= pair_list pair */
-#line 123 "lemon_data_string.y"
+#line 125 "lemon_data_string.y"
 { passign(yylhsminor.yy0, yymsp[-1].minor.yy0); plappend(yylhsminor.yy0, yymsp[0].minor.yy0); }
 #line 1042 "lemon_data_string.c"
   yymsp[-1].minor.yy0 = yylhsminor.yy0;
         break;
       case 6: /* data ::= LIST_OPEN zlist LIST_CLOSE */
-#line 126 "lemon_data_string.y"
+#line 128 "lemon_data_string.y"
 { linit(p, yymsp[-2].minor.yy0); mlist(yymsp[-2].minor.yy0, yymsp[-1].minor.yy0); }
 #line 1048 "lemon_data_string.c"
         break;
       case 7: /* data ::= DATA_NAME LIST_OPEN zlist LIST_CLOSE */
-#line 127 "lemon_data_string.y"
+#line 129 "lemon_data_string.y"
 { linit(p, yylhsminor.yy0); data_list(yylhsminor.yy0, yymsp[-3].minor.yy0, yymsp[-1].minor.yy0); }
 #line 1053 "lemon_data_string.c"
   yymsp[-3].minor.yy0 = yylhsminor.yy0;
         break;
       case 8: /* data ::= DICT_OPEN DICT_CLOSE */
-#line 130 "lemon_data_string.y"
+#line 132 "lemon_data_string.y"
 { dinit(p, yymsp[-1].minor.yy0); }
 #line 1059 "lemon_data_string.c"
         break;
       case 9: /* data ::= DICT_OPEN pair_list DICT_CLOSE */
-#line 131 "lemon_data_string.y"
+#line 133 "lemon_data_string.y"
 { dinit(p, yymsp[-2].minor.yy0); dappend(yymsp[-2].minor.yy0, yymsp[-1].minor.yy0); }
 #line 1064 "lemon_data_string.c"
         break;
       case 10: /* data ::= DATA_NAME DICT_OPEN pair_list DICT_CLOSE */
-#line 132 "lemon_data_string.y"
+#line 134 "lemon_data_string.y"
 { linit(p, yylhsminor.yy0); data_dict(yylhsminor.yy0, yymsp[-3].minor.yy0, yymsp[-1].minor.yy0); }
 #line 1069 "lemon_data_string.c"
   yymsp[-3].minor.yy0 = yylhsminor.yy0;
         break;
       case 11: /* data ::= DATA_NAME DICT_OPEN DICT_CLOSE */
-#line 133 "lemon_data_string.y"
+#line 135 "lemon_data_string.y"
 { linit(p, yylhsminor.yy0); data_empty_dict(yylhsminor.yy0, yymsp[-2].minor.yy0); }
 #line 1075 "lemon_data_string.c"
   yymsp[-2].minor.yy0 = yylhsminor.yy0;
         break;
       case 12: /* matrix_row ::= LIST_OPEN list LIST_CLOSE */
-#line 136 "lemon_data_string.y"
+#line 138 "lemon_data_string.y"
 { assign(yymsp[-2].minor.yy0, yymsp[-1].minor.yy0); }
 #line 1081 "lemon_data_string.c"
         break;
       case 13: /* matrix_rows ::= matrix_row */
-#line 137 "lemon_data_string.y"
+#line 139 "lemon_data_string.y"
 { mtxinit(p, yylhsminor.yy0); mtxappend(yylhsminor.yy0, yymsp[0].minor.yy0); }
 #line 1086 "lemon_data_string.c"
   yymsp[0].minor.yy0 = yylhsminor.yy0;
         break;
       case 14: /* matrix_rows ::= matrix_rows matrix_row */
-#line 138 "lemon_data_string.y"
+#line 140 "lemon_data_string.y"
 { assign(yylhsminor.yy0, yymsp[-1].minor.yy0);  mtxappend(yylhsminor.yy0, yymsp[0].minor.yy0); }
 #line 1092 "lemon_data_string.c"
   yymsp[-1].minor.yy0 = yylhsminor.yy0;
         break;
       case 15: /* data ::= MATRIX FLOAT FLOAT matrix_rows MATRIX_CLOSE */
-#line 139 "lemon_data_string.y"
+#line 141 "lemon_data_string.y"
 { matrix(yymsp[-4].minor.yy0, yymsp[-3].minor.yy0, yymsp[-2].minor.yy0, yymsp[-1].minor.yy0); }
 #line 1098 "lemon_data_string.c"
         break;
       case 16: /* func_call ::= FUNC_LIST_CALL LIST_OPEN zlist LIST_CLOSE */
-#line 142 "lemon_data_string.y"
+#line 144 "lemon_data_string.y"
 { linit(p, yylhsminor.yy0); lcall(yylhsminor.yy0, yymsp[-3].minor.yy0, yymsp[-1].minor.yy0); }
 #line 1103 "lemon_data_string.c"
   yymsp[-3].minor.yy0 = yylhsminor.yy0;
         break;
       case 17: /* latom ::= atom */
-#line 144 "lemon_data_string.y"
+#line 146 "lemon_data_string.y"
 { linit(p, yylhsminor.yy0); lpush(yylhsminor.yy0, yymsp[0].minor.yy0); }
 #line 1109 "lemon_data_string.c"
   yymsp[0].minor.yy0 = yylhsminor.yy0;
@@ -1112,19 +1112,19 @@ static YYACTIONTYPE yy_reduce(
       case 18: /* latom ::= func_call */
       case 20: /* list ::= latom */ yytestcase(yyruleno==20);
       case 21: /* zlist ::= list */ yytestcase(yyruleno==21);
-#line 145 "lemon_data_string.y"
+#line 147 "lemon_data_string.y"
 { assign(yylhsminor.yy0, yymsp[0].minor.yy0); }
 #line 1117 "lemon_data_string.c"
   yymsp[0].minor.yy0 = yylhsminor.yy0;
         break;
       case 19: /* list ::= list SPACE latom */
-#line 147 "lemon_data_string.y"
+#line 149 "lemon_data_string.y"
 { assign(yylhsminor.yy0, yymsp[-2].minor.yy0); lappend(yylhsminor.yy0, yymsp[0].minor.yy0); }
 #line 1123 "lemon_data_string.c"
   yymsp[-2].minor.yy0 = yylhsminor.yy0;
         break;
       case 22: /* zlist ::= */
-#line 151 "lemon_data_string.y"
+#line 153 "lemon_data_string.y"
 { linit(p, yymsp[1].minor.yy0);   }
 #line 1129 "lemon_data_string.c"
         break;
@@ -1177,13 +1177,15 @@ static void yy_parse_failed(
 #line 91 "lemon_data_string.y"
 
     p->parseFailure();
+# ifndef NDEBUG
     for (int i = 0; i < YYNTOKEN; i++) {
         int a = yy_find_shift_action((YYCODETYPE)i, yypParser->yytos->stateno);
         if (a < (YYNSTATE + YYNRULE)) {
             std::cerr << "possible token: " << yyTokenName[i] << "\n";
         }
     }
-#line 1186 "lemon_data_string.c"
+# endif
+#line 1188 "lemon_data_string.c"
 /************ End %parse_failure code *****************************************/
   lemon_data_string_parserARG_STORE /* Suppress warning about unused %extra_argument variable */
   lemon_data_string_parserCTX_STORE
@@ -1230,7 +1232,7 @@ static void yy_accept(
 #line 87 "lemon_data_string.y"
 
     p->parseAccept();
-#line 1233 "lemon_data_string.c"
+#line 1235 "lemon_data_string.c"
 /*********** End %parse_accept code *******************************************/
   lemon_data_string_parserARG_STORE /* Suppress warning about unused %extra_argument variable */
   lemon_data_string_parserCTX_STORE
@@ -1481,7 +1483,7 @@ int lemon_data_string_parserFallback(int iToken){
   return 0;
 #endif
 }
-#line 153 "lemon_data_string.y"
+#line 155 "lemon_data_string.y"
 
 # include "ceammc_function.h"
 
@@ -1683,4 +1685,4 @@ namespace {
     }
 
 }
-#line 1686 "lemon_data_string.c"
+#line 1688 "lemon_data_string.c"

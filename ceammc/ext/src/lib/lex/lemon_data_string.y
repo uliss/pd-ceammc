@@ -90,12 +90,14 @@ namespace {
 
 %parse_failure {
     p->parseFailure();
+# ifndef NDEBUG
     for (int i = 0; i < YYNTOKEN; i++) {
         int a = yy_find_shift_action((YYCODETYPE)i, yypParser->yytos->stateno);
         if (a < (YYNSTATE + YYNRULE)) {
             std::cerr << "possible token: " << yyTokenName[i] << "\n";
         }
     }
+# endif
 }
 
 %stack_overflow {

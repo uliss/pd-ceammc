@@ -6,9 +6,6 @@
 # include <cstdlib>
 # include <boost/static_string.hpp>
 
-# ifdef NDEBUG
-# undef NDEBUG
-# endif
 # include "lemon_data_parser_impl.h"
 
 %%{
@@ -250,7 +247,10 @@ LemonDataStringParser::LemonDataStringParser()
 {
     reset();
     lemon_data_string_parserInit(parser_data_);
+
+# ifndef NDEBUG
     lemon_data_string_parserTrace(stderr, (char*)"\t> ");
+# endif
 }
 
 LemonDataStringParser::~LemonDataStringParser()
@@ -283,7 +283,9 @@ bool LemonDataStringParser::parse(const char* str)
 {
     reset();
 
+# ifndef NDEBUG
     std::cerr << "parse: '" << str << "'\n";
+# endif
 
     if (!doParse(str)) {
         std::cerr << "parse error: '" << str << "'\n";
