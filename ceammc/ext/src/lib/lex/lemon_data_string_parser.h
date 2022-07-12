@@ -32,11 +32,9 @@ namespace parser {
         void pushSymbolToken(int token, const char* begin, const char* end);
         void pushFloat(double val);
 
-        void pPushProp(t_symbol* name);
-        void pPushPropAtom(const t_atom& a);
         void pPushListAtom(const t_atom& a);
 
-        const AtomList& result() const { return res_; }
+        AtomListView result() const { return res_.view(); }
 
         void setErrorMsg(const char* msg);
         void parseFailure();
@@ -48,7 +46,7 @@ namespace parser {
         SmallList* makeList() { return pool_.construct(); }
 
     public:
-        constexpr static size_t PARSER_SIZE = 512 * 16;
+        constexpr static size_t PARSER_SIZE = 1024;
 
     private:
         void reset();
@@ -59,8 +57,7 @@ namespace parser {
         char parser_buf_[256];
         char err_buf_[64];
         bool parse_ok_;
-        AtomList res_;
-        AtomList prop_;
+        SmallList res_;
         SmallListPool pool_;
         // ragel fsm
         int top;

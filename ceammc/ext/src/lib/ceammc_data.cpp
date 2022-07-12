@@ -14,16 +14,50 @@
 #include "ceammc_data.h"
 #include "ceammc_datastorage.h"
 #include "ceammc_format.h"
-#include "ceammc_json.h"
 #include "ceammc_log.h"
-#include "lex/data_string.lexer.h"
-#include "lex/data_string.parser.hpp"
+#include "fmt/format.h"
+#include "lex/lemon_data_string_parser.h"
 
 #include <algorithm>
-
-using namespace ceammc::ds;
+#include <boost/static_string.hpp>
 
 namespace ceammc {
+
+template <typename T>
+inline void appendAtom(T& str, const Atom& a)
+{
+    if (a.isSymbol())
+        str += a.asT<t_symbol*>()->s_name;
+    else if (a.isFloat())
+        str += fmt::format("{:g}");
+    else if (a.isData())
+        str += a.asData()->toString();
+    else if (a.isNone())
+        str += "#null";
+    else if (a.isComma())
+        str += ", ";
+    else if (a.isSemicolon())
+        str += "; ";
+    else
+        LIB_ERR << fmt::format("[{}] unknown atom for parsing: ", __FUNCTION__) << a;
+
+    str += ' ';
+}
+
+template <typename T>
+inline DataParseResult parseString(T& str, const AtomListView& lv)
+{
+    for (auto& a : lv)
+        appendAtom(str, a);
+
+    if (str.empty())
+        return DataParseResult(AtomList());
+
+    // remove trailing space
+    str.pop_back();
+
+    return parseDataString(str.c_str());
+}
 
 DataParseResult parseDataList(const AtomList& lst) noexcept
 {
@@ -35,7 +69,8 @@ DataParseResult parseDataList(const AtomListView& view) noexcept
     if (view.isNull() || view.empty())
         return DataParseResult(AtomList());
 
-    // do not parse floats or booleans
+    // do not parse single floats, booleans or data
+    // return as is
     if (view.isFloat() || view.isBool() || view.isData())
         return DataParseResult(view);
 
@@ -44,33 +79,37 @@ DataParseResult parseDataList(const AtomListView& view) noexcept
     if (std::all_of(view.begin(), view.end(), &isFloat))
         return DataParseResult(view);
 
-    auto str = to_string(view, " ");
-    if (str.empty())
-        return DataParseResult(AtomList());
-
-    return parseDataString(str);
+    // Try to reduce std::string memory allocations:
+    // first try using on-stack static string.
+    // The logic is: for long strins parsing time is will be also longer then
+    // string alloc/decallocations
+    try {
+        boost::static_string<512> str;
+        return parseString(str, view);
+    } catch (std::exception& e) {
+        // string is rather long, using slower method
+        std::string str;
+        str.reserve(1024);
+        return parseString(str, view);
+    }
 }
 
-DataParseResult parseDataString(const std::string& str) noexcept
+DataParseResult parseDataString(const char* str) noexcept
 {
-    if (str.empty())
+    if (!str || str[0] == '\0')
         return DataParseResult(AtomList());
 
     try {
-        std::ostringstream ss;
-
-        AtomList res;
-        DataStringLexer lex(str);
-        lex.out(ss);
-        DataStringParser p(lex, res);
-
-        if (p.parse() != 0)
-            return DataParseResult(ss.str());
-
-        if (!res.empty() && res[0].isNone())
+        parser::LemonDataStringParser p;
+        if (!p.parse(str))
             return DataParseResult("parse error");
 
-        return DataParseResult(std::move(res));
+        auto res = p.result();
+
+        if (res.empty())
+            return DataParseResult("parse error");
+        else
+            return DataParseResult(res);
 
     } catch (std::exception& e) {
         return DataParseResult(e.what());

@@ -22,11 +22,11 @@
 using namespace ceammc;
 
 namespace {
-#define REQUIRE_PARSE_STR(str, res)      \
-    {                                    \
-        parser::LemonDataStringParser p; \
-        REQUIRE(p.parse(str));           \
-        REQUIRE(p.result() == res);      \
+#define REQUIRE_PARSE_STR(str, res)           \
+    {                                         \
+        parser::LemonDataStringParser p;      \
+        REQUIRE(p.parse(str));                \
+        REQUIRE(AtomList(p.result()) == res); \
     }
 
 #define REQUIRE_NO_PARSE_STR(str)        \
@@ -152,6 +152,7 @@ TEST_CASE("datastring3", "[ceammc::data]")
         REQUIRE_PARSE_STR("[   ]", DictAtom());
         REQUIRE_PARSE_STR("[a:]", DictAtom("[a:]"));
         REQUIRE_PARSE_STR("[a:1]", DictAtom("[a: 1]"));
+        REQUIRE_PARSE_STR("[a: [b:2]]", DictAtom("[a: [b: 2]]"));
         REQUIRE_PARSE_STR("[a:  1  ]", DictAtom("[a: 1]"));
         REQUIRE_PARSE_STR("[a: 1 2 3 ]", DictAtom("[a: 1 2 3]"));
         REQUIRE_PARSE_STR("[a: a100]", DictAtom("[a: a100]"));

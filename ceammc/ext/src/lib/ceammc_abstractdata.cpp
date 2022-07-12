@@ -126,7 +126,7 @@ bool AbstractData::canInitWithDict() const noexcept
 
 bool AbstractData::parse(const std::string& str, int dataType, Atom& res)
 {
-    auto p = parseDataString(str);
+    auto p = parseDataString(str.c_str());
     if (!p) {
         LIB_ERR << fmt::format("[{}] can't parse string '{}': {}", findTypeName(dataType).c_str(), str, p.err());
         return false;

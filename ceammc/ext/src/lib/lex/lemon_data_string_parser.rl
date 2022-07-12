@@ -49,12 +49,15 @@
         pushToken(TK_DICT_OPEN);
         fcall scan_dict;
     }
-    action on_dict_start { pushToken(TK_DICT_OPEN); }
+    action on_dict_start { pushToken(TK_DICT_OPEN); fcall scan_dict; }
     action on_dict_key {
+        // skip starting whitespaces
+        auto ts0 = ts;
+        while(*ts0 == ' ') ++ts0;
         // skip trailing whitespaces
         auto te0 = te;
         while(*(--te0) == ' ') ;
-        pushSymbolToken(TK_DICT_KEY, ts, te0);
+        pushSymbolToken(TK_DICT_KEY, ts0, te0);
     }
     action on_env_variable {
         constexpr int BS = sizeof(parser_buf_) - 1;
@@ -177,7 +180,7 @@
         tok_rbr   => { pushToken(TK_MATRIX_CLOSE); fret; };
     *|;
 
-    dict_key_id   = [a-z_0-9?]+;
+    dict_key_id   = [a-zA-Z_0-9?@]+;
     dict_key0     = dict_key_id | ('"' [a-z_0-9?]+ '"') | ("'" [a-z_0-9?]+ "'");
     dict_key      = space** dict_key0 ':' space**;
     scan_dict_other = tok_other -- (dict_key | tok_rbr | tok_space);
@@ -231,7 +234,7 @@
         tok_space      => { pushToken(TK_SPACE); fret; };
     *|;
 
-    main := space** ((any-space) >{ fhold; fcall scan_token; } space**)*;
+    main := ((any) >{ fhold; fcall scan_token; } space**)*;
 }%%
 
 # include <cstring>
@@ -300,13 +303,24 @@ bool LemonDataStringParser::doParse(const char* data)
     if (data[0] == '\0')
         return true;
 
+    // ragel state
     int cs;
+    // ragel action
     int act;
+    // scanner match begin/end
     const char* ts = 0;
     const char* te = 0;
+    // text start
     const char* p = data;
-    const char* pe = data + strlen(data);
+    // remove initial spaces
+    while (*p == ' ') p++;
+    // text end
+    const char* pe = p + strlen(p);
+    // remove last spaces
+    while (pe != p && *(pe-1) == ' ') --pe;
+    // EOF
     const char* eof = pe;
+
     parse_ok_ = true;
 
     DECLARE_RAGEL_COMMON_VARS;
@@ -347,22 +361,11 @@ void LemonDataStringParser::reset()
     err_buf_[0] = '\0';
     parse_ok_ = true;
     res_.clear();
-    prop_.clear();
-}
-
-void LemonDataStringParser::pPushProp(t_symbol* name)
-{
-    prop_.insert(0, name);
-}
-
-void LemonDataStringParser::pPushPropAtom(const t_atom& a)
-{
-    prop_.append(a);
 }
 
 void LemonDataStringParser::pPushListAtom(const t_atom& a)
 {
-    res_.append(a);
+    res_.push_back(a);
 }
 
 void LemonDataStringParser::setErrorMsg(const char* msg)

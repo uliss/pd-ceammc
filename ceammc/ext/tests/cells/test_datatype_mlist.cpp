@@ -87,25 +87,28 @@ TEST_CASE("DataTypeMList", "[core]")
     }
 
         REQUIRE_PARSE_STR("()", ML());
-        REQUIRE_PARSE_STR("() ", ML());
+        REQUIRE_PARSE_STR("   ()", ML());
+        REQUIRE_PARSE_STR("()    ", ML());
         REQUIRE_PARSE_STR(" () ", ML());
         REQUIRE_PARSE_STR(" ( )", ML());
         REQUIRE_PARSE_STR("         ( )", ML());
         REQUIRE_PARSE_STR("(() () ())", ML(MA(), MA(), MA()));
-        REQUIRE_PARSE_STR("(()()())", ML(MA(), MA(), MA()));
         REQUIRE_PARSE_STR("(a)", ML("a"));
         REQUIRE_PARSE_STR("(a )", ML("a"));
         REQUIRE_PARSE_STR("( a)", ML("a"));
         REQUIRE_PARSE_STR("( a )", ML("a"));
+        REQUIRE_PARSE_STR("(@abc:1 )", ML("@abc:1"));
+        REQUIRE_PARSE_STR("(:200)", ML(":200"));
         REQUIRE_PARSE_STR("( a b c d    )", ML("a", "b", "c", "d"));
         REQUIRE_PARSE_STR(u8"(\"русские\"     \"буквы\")", ML("русские", "буквы"));
-        REQUIRE_PARSE_STR("(1 2 3(a () 124) )", ML(1, 2, 3, MA("a", MA(), 124)));
+        REQUIRE_PARSE_STR("(1 2 3 (a () 124) )", ML(1, 2, 3, MA("a", MA(), 124)));
 #if PD_FLOATSIZE == 32
-        REQUIRE_PARSE_STR("(1 2 3(pi() 124) )", ML(1, 2, 3, MA(3.1415926, 124)));
-        REQUIRE_PARSE_STR("(1 2 3( pi() 124 ) )", ML(1, 2, 3, MA(3.1415926, 124)));
+        REQUIRE_PARSE_STR("(1 2 3 (pi() 124) )", ML(1, 2, 3, MA(3.1415926, 124)));
+        REQUIRE_PARSE_STR("(1 2 3 ( pi() 124 ) )", ML(1, 2, 3, MA(3.1415926, 124)));
 #endif
         REQUIRE_PARSE_STR("((a) (b))", ML(MA("a"), MA("b")));
-        REQUIRE_PARSE_STR("((a)(b))", ML(MA("a"), MA("b")));
+        REQUIRE_PARSE_STR("('()')", ML(A("()")));
+        REQUIRE_PARSE_STR("((a) (b))", ML(MA("a"), MA("b")));
         REQUIRE_PARSE_STR("(\"``\")", ML("`"));
         REQUIRE_PARSE_STR("(\"\")", ML(""));
         REQUIRE_PARSE_STR("(\"abc\")", ML("abc"));
@@ -145,9 +148,16 @@ TEST_CASE("DataTypeMList", "[core]")
         REQUIRE(ml.toString() == b);      \
     }
 
-        REQUIRE_PARSE(" (   )", "()");
-        REQUIRE_PARSE(" (1 2()   abc)", "(1 2 () abc)");
+        REQUIRE_PARSE("()", "()");
+        REQUIRE_PARSE("( )", "()");
+        REQUIRE_PARSE(" ( ) ", "()");
+        REQUIRE_PARSE(" () ", "()");
+        REQUIRE_PARSE("( 1 )", "(1)");
+        REQUIRE_PARSE(" ( 1 ) ", "(1)");
+        REQUIRE_PARSE(" ( \"dog's\" ) ", "(dog's)");
+        REQUIRE_PARSE(" (1 2 ()   abc)", "(1 2 () abc)");
         REQUIRE_PARSE(" ( \"abc\" ()   )", "(abc ())");
+        REQUIRE_PARSE(" ( 'abc' ()   )", "(abc ())");
     }
 
     SECTION("flatten")
