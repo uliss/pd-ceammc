@@ -46,7 +46,7 @@ namespace parser {
         SmallList* makeList() { return pool_.construct(); }
 
     public:
-        constexpr static size_t PARSER_SIZE = 1024;
+        constexpr static size_t PARSER_SIZE = 1096;
 
     private:
         void reset();
