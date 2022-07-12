@@ -9,7 +9,7 @@ namespace ceammc {
 	namespace parser {
 		
 		
-#line 13 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.cpp"
+#line 13 "lex/parser_props.cpp"
 		static const int bool_prop_start = 1;
 		static const int bool_prop_first_final = 19;
 		static const int bool_prop_error = 0;
@@ -33,7 +33,7 @@ namespace ceammc {
 			BoolPropOp type = BoolPropOp::UNKNOWN;
 			
 			
-#line 37 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.cpp"
+#line 37 "lex/parser_props.cpp"
 			{
 				cs = (int)bool_prop_start;
 			}
@@ -41,7 +41,7 @@ namespace ceammc {
 #line 36 "lex/parser_props.rl"
 			
 			
-#line 45 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.cpp"
+#line 45 "lex/parser_props.cpp"
 			{
 				if ( p == pe )
 					goto _test_eof;
@@ -147,7 +147,7 @@ namespace ceammc {
 #line 16 "lex/parser_props.rl"
 					type = BoolPropOp::INVERT; }
 				
-#line 151 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.cpp"
+#line 151 "lex/parser_props.cpp"
 				
 				goto _st19;
 				_st19:
@@ -237,7 +237,7 @@ namespace ceammc {
 #line 14 "lex/parser_props.rl"
 					type = BoolPropOp::FALSE; }
 				
-#line 241 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.cpp"
+#line 241 "lex/parser_props.cpp"
 				
 				goto _st20;
 				_st20:
@@ -310,7 +310,7 @@ namespace ceammc {
 #line 13 "lex/parser_props.rl"
 					type = BoolPropOp::TRUE; }
 				
-#line 314 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.cpp"
+#line 314 "lex/parser_props.cpp"
 				
 				goto _st21;
 				_st21:
@@ -366,7 +366,7 @@ namespace ceammc {
 #line 17 "lex/parser_props.rl"
 					type = BoolPropOp::DEFAULT; }
 				
-#line 370 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.cpp"
+#line 370 "lex/parser_props.cpp"
 				
 				goto _st22;
 				_st22:
@@ -442,7 +442,7 @@ namespace ceammc {
 #line 17 "lex/parser_props.rl"
 					type = BoolPropOp::DEFAULT; }
 				
-#line 446 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.cpp"
+#line 446 "lex/parser_props.cpp"
 				
 				goto _st23;
 				_st23:
@@ -549,7 +549,7 @@ namespace ceammc {
 #line 15 "lex/parser_props.rl"
 					type = BoolPropOp::RANDOM; }
 				
-#line 553 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.cpp"
+#line 553 "lex/parser_props.cpp"
 				
 				goto _st24;
 				_st24:
@@ -711,7 +711,7 @@ namespace ceammc {
 			
 			
 			const bool ok = cs >= 
-#line 715 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.cpp"
+#line 715 "lex/parser_props.cpp"
 			19
 #line 39 "lex/parser_props.rl"
 			;
@@ -722,7 +722,7 @@ namespace ceammc {
 		}
 		
 		
-#line 726 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.cpp"
+#line 726 "lex/parser_props.cpp"
 		static const int numeric_prop_start = 1;
 		static const int numeric_prop_first_final = 12;
 		static const int numeric_prop_error = 0;
@@ -746,7 +746,7 @@ namespace ceammc {
 			NumericPropOp type = NumericPropOp::UNKNOWN;
 			
 			
-#line 750 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.cpp"
+#line 750 "lex/parser_props.cpp"
 			{
 				cs = (int)numeric_prop_start;
 			}
@@ -754,7 +754,7 @@ namespace ceammc {
 #line 74 "lex/parser_props.rl"
 			
 			
-#line 758 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.cpp"
+#line 758 "lex/parser_props.cpp"
 			{
 				if ( p == pe )
 					goto _test_eof;
@@ -847,7 +847,7 @@ namespace ceammc {
 #line 53 "lex/parser_props.rl"
 					type = NumericPropOp::MOD; }
 				
-#line 851 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.cpp"
+#line 851 "lex/parser_props.cpp"
 				
 				goto _st12;
 				_st12:
@@ -869,7 +869,7 @@ namespace ceammc {
 #line 51 "lex/parser_props.rl"
 					type = NumericPropOp::MUL; }
 				
-#line 873 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.cpp"
+#line 873 "lex/parser_props.cpp"
 				
 				goto _st13;
 				_st13:
@@ -891,7 +891,7 @@ namespace ceammc {
 #line 49 "lex/parser_props.rl"
 					type = NumericPropOp::ADD; }
 				
-#line 895 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.cpp"
+#line 895 "lex/parser_props.cpp"
 				
 				goto _st14;
 				_st14:
@@ -913,7 +913,7 @@ namespace ceammc {
 #line 50 "lex/parser_props.rl"
 					type = NumericPropOp::SUB; }
 				
-#line 917 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.cpp"
+#line 917 "lex/parser_props.cpp"
 				
 				goto _st15;
 				_st15:
@@ -935,7 +935,7 @@ namespace ceammc {
 #line 52 "lex/parser_props.rl"
 					type = NumericPropOp::DIV; }
 				
-#line 939 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.cpp"
+#line 939 "lex/parser_props.cpp"
 				
 				goto _st16;
 				_st16:
@@ -991,7 +991,7 @@ namespace ceammc {
 #line 55 "lex/parser_props.rl"
 					type = NumericPropOp::DEFAULT; }
 				
-#line 995 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.cpp"
+#line 995 "lex/parser_props.cpp"
 				
 				goto _st17;
 				_st17:
@@ -1067,7 +1067,7 @@ namespace ceammc {
 #line 55 "lex/parser_props.rl"
 					type = NumericPropOp::DEFAULT; }
 				
-#line 1071 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.cpp"
+#line 1071 "lex/parser_props.cpp"
 				
 				goto _st18;
 				_st18:
@@ -1174,7 +1174,7 @@ namespace ceammc {
 #line 54 "lex/parser_props.rl"
 					type = NumericPropOp::RANDOM; }
 				
-#line 1178 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.cpp"
+#line 1178 "lex/parser_props.cpp"
 				
 				goto _st19;
 				_st19:
@@ -1311,7 +1311,7 @@ namespace ceammc {
 			
 			
 			const bool ok = cs >= 
-#line 1315 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.cpp"
+#line 1315 "lex/parser_props.cpp"
 			12
 #line 77 "lex/parser_props.rl"
 			;
@@ -1322,7 +1322,7 @@ namespace ceammc {
 		}
 		
 		
-#line 1326 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_props.cpp"
+#line 1326 "lex/parser_props.cpp"
 		static const int property_start = 1;
 		static const int property_first_final = 12;
 		static const int property_error = 0;

@@ -14,7 +14,7 @@ namespace ceammc {
 		}
 		
 		
-#line 18 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 18 "lex/parser_clone.cpp"
 		static const int clone_target_start = 1;
 		static const int clone_target_first_final = 21;
 		static const int clone_target_error = 0;
@@ -41,7 +41,7 @@ namespace ceammc {
 			int16_t id = 0, id0 = 1, id1 = -1, step = 1, inlet = -1;
 			
 			
-#line 45 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 45 "lex/parser_clone.cpp"
 			{
 				cs = (int)clone_target_start;
 			}
@@ -49,7 +49,7 @@ namespace ceammc {
 #line 68 "lex/parser_clone.rl"
 			
 			
-#line 53 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 53 "lex/parser_clone.cpp"
 			{
 				if ( p == pe )
 					goto _test_eof;
@@ -315,13 +315,13 @@ namespace ceammc {
 #line 18 "lex/parser_clone.rl"
 					id = 0; }
 				
-#line 319 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 319 "lex/parser_clone.cpp"
 				
 				{
 #line 29 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_EXCEPT, id, -1, 1,     inlet); }
 				
-#line 325 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 325 "lex/parser_clone.cpp"
 				
 				goto _st21;
 				_ctr73:
@@ -329,13 +329,13 @@ namespace ceammc {
 #line 19 "lex/parser_clone.rl"
 					id = 10*id+((( (*( p))))-'0'); }
 				
-#line 333 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 333 "lex/parser_clone.cpp"
 				
 				{
 #line 29 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_EXCEPT, id, -1, 1,     inlet); }
 				
-#line 339 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 339 "lex/parser_clone.cpp"
 				
 				goto _st21;
 				_st21:
@@ -368,13 +368,13 @@ namespace ceammc {
 #line 24 "lex/parser_clone.rl"
 					inlet = 0; }
 				
-#line 372 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 372 "lex/parser_clone.cpp"
 				
 				{
 #line 29 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_EXCEPT, id, -1, 1,     inlet); }
 				
-#line 378 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 378 "lex/parser_clone.cpp"
 				
 				goto _st22;
 				_ctr17:
@@ -382,13 +382,13 @@ namespace ceammc {
 #line 24 "lex/parser_clone.rl"
 					inlet = 0; }
 				
-#line 386 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 386 "lex/parser_clone.cpp"
 				
 				{
 #line 27 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_ALL,    -1, -1, 1,     inlet); }
 				
-#line 392 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 392 "lex/parser_clone.cpp"
 				
 				goto _st22;
 				_ctr26:
@@ -396,13 +396,13 @@ namespace ceammc {
 #line 24 "lex/parser_clone.rl"
 					inlet = 0; }
 				
-#line 400 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 400 "lex/parser_clone.cpp"
 				
 				{
 #line 36 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_RANGE, id0, id1, step, inlet); }
 				
-#line 406 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 406 "lex/parser_clone.cpp"
 				
 				goto _st22;
 				_ctr29:
@@ -410,13 +410,13 @@ namespace ceammc {
 #line 24 "lex/parser_clone.rl"
 					inlet = 0; }
 				
-#line 414 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 414 "lex/parser_clone.cpp"
 				
 				{
 #line 30 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_EQ,     id, -1, 1,     inlet); }
 				
-#line 420 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 420 "lex/parser_clone.cpp"
 				
 				goto _st22;
 				_ctr35:
@@ -424,13 +424,13 @@ namespace ceammc {
 #line 24 "lex/parser_clone.rl"
 					inlet = 0; }
 				
-#line 428 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 428 "lex/parser_clone.cpp"
 				
 				{
 #line 33 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_LT,     id, -1, 1,     inlet); }
 				
-#line 434 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 434 "lex/parser_clone.cpp"
 				
 				goto _st22;
 				_ctr40:
@@ -438,13 +438,13 @@ namespace ceammc {
 #line 24 "lex/parser_clone.rl"
 					inlet = 0; }
 				
-#line 442 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 442 "lex/parser_clone.cpp"
 				
 				{
 #line 34 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_LE,     id, -1, 1,     inlet); }
 				
-#line 448 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 448 "lex/parser_clone.cpp"
 				
 				goto _st22;
 				_ctr48:
@@ -452,13 +452,13 @@ namespace ceammc {
 #line 24 "lex/parser_clone.rl"
 					inlet = 0; }
 				
-#line 456 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 456 "lex/parser_clone.cpp"
 				
 				{
 #line 31 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_GT,     id, -1, 1,     inlet); }
 				
-#line 462 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 462 "lex/parser_clone.cpp"
 				
 				goto _st22;
 				_ctr53:
@@ -466,13 +466,13 @@ namespace ceammc {
 #line 24 "lex/parser_clone.rl"
 					inlet = 0; }
 				
-#line 470 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 470 "lex/parser_clone.cpp"
 				
 				{
 #line 32 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_GE,     id, -1, 1,     inlet); }
 				
-#line 476 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 476 "lex/parser_clone.cpp"
 				
 				goto _st22;
 				_ctr56:
@@ -480,13 +480,13 @@ namespace ceammc {
 #line 24 "lex/parser_clone.rl"
 					inlet = 0; }
 				
-#line 484 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 484 "lex/parser_clone.cpp"
 				
 				{
 #line 28 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_RANDOM, -1, -1, 1,     inlet); }
 				
-#line 490 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 490 "lex/parser_clone.cpp"
 				
 				goto _st22;
 				_ctr65:
@@ -494,13 +494,13 @@ namespace ceammc {
 #line 25 "lex/parser_clone.rl"
 					inlet = 10*inlet+((( (*( p))))-'0'); }
 				
-#line 498 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 498 "lex/parser_clone.cpp"
 				
 				{
 #line 29 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_EXCEPT, id, -1, 1,     inlet); }
 				
-#line 504 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 504 "lex/parser_clone.cpp"
 				
 				goto _st22;
 				_ctr80:
@@ -508,13 +508,13 @@ namespace ceammc {
 #line 25 "lex/parser_clone.rl"
 					inlet = 10*inlet+((( (*( p))))-'0'); }
 				
-#line 512 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 512 "lex/parser_clone.cpp"
 				
 				{
 #line 27 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_ALL,    -1, -1, 1,     inlet); }
 				
-#line 518 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 518 "lex/parser_clone.cpp"
 				
 				goto _st22;
 				_ctr97:
@@ -522,13 +522,13 @@ namespace ceammc {
 #line 25 "lex/parser_clone.rl"
 					inlet = 10*inlet+((( (*( p))))-'0'); }
 				
-#line 526 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 526 "lex/parser_clone.cpp"
 				
 				{
 #line 36 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_RANGE, id0, id1, step, inlet); }
 				
-#line 532 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 532 "lex/parser_clone.cpp"
 				
 				goto _st22;
 				_ctr111:
@@ -536,13 +536,13 @@ namespace ceammc {
 #line 25 "lex/parser_clone.rl"
 					inlet = 10*inlet+((( (*( p))))-'0'); }
 				
-#line 540 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 540 "lex/parser_clone.cpp"
 				
 				{
 #line 30 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_EQ,     id, -1, 1,     inlet); }
 				
-#line 546 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 546 "lex/parser_clone.cpp"
 				
 				goto _st22;
 				_ctr126:
@@ -550,13 +550,13 @@ namespace ceammc {
 #line 25 "lex/parser_clone.rl"
 					inlet = 10*inlet+((( (*( p))))-'0'); }
 				
-#line 554 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 554 "lex/parser_clone.cpp"
 				
 				{
 #line 33 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_LT,     id, -1, 1,     inlet); }
 				
-#line 560 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 560 "lex/parser_clone.cpp"
 				
 				goto _st22;
 				_ctr141:
@@ -564,13 +564,13 @@ namespace ceammc {
 #line 25 "lex/parser_clone.rl"
 					inlet = 10*inlet+((( (*( p))))-'0'); }
 				
-#line 568 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 568 "lex/parser_clone.cpp"
 				
 				{
 #line 34 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_LE,     id, -1, 1,     inlet); }
 				
-#line 574 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 574 "lex/parser_clone.cpp"
 				
 				goto _st22;
 				_ctr165:
@@ -578,13 +578,13 @@ namespace ceammc {
 #line 25 "lex/parser_clone.rl"
 					inlet = 10*inlet+((( (*( p))))-'0'); }
 				
-#line 582 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 582 "lex/parser_clone.cpp"
 				
 				{
 #line 31 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_GT,     id, -1, 1,     inlet); }
 				
-#line 588 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 588 "lex/parser_clone.cpp"
 				
 				goto _st22;
 				_ctr180:
@@ -592,13 +592,13 @@ namespace ceammc {
 #line 25 "lex/parser_clone.rl"
 					inlet = 10*inlet+((( (*( p))))-'0'); }
 				
-#line 596 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 596 "lex/parser_clone.cpp"
 				
 				{
 #line 32 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_GE,     id, -1, 1,     inlet); }
 				
-#line 602 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 602 "lex/parser_clone.cpp"
 				
 				goto _st22;
 				_ctr195:
@@ -606,13 +606,13 @@ namespace ceammc {
 #line 25 "lex/parser_clone.rl"
 					inlet = 10*inlet+((( (*( p))))-'0'); }
 				
-#line 610 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 610 "lex/parser_clone.cpp"
 				
 				{
 #line 28 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_RANDOM, -1, -1, 1,     inlet); }
 				
-#line 616 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 616 "lex/parser_clone.cpp"
 				
 				goto _st22;
 				_st22:
@@ -628,13 +628,13 @@ namespace ceammc {
 #line 25 "lex/parser_clone.rl"
 					inlet = (( (*( p))))-'0'; }
 				
-#line 632 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 632 "lex/parser_clone.cpp"
 				
 				{
 #line 29 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_EXCEPT, id, -1, 1,     inlet); }
 				
-#line 638 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 638 "lex/parser_clone.cpp"
 				
 				goto _st23;
 				_st23:
@@ -653,13 +653,13 @@ namespace ceammc {
 #line 25 "lex/parser_clone.rl"
 					inlet = 10*inlet+((( (*( p))))-'0'); }
 				
-#line 657 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 657 "lex/parser_clone.cpp"
 				
 				{
 #line 29 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_EXCEPT, id, -1, 1,     inlet); }
 				
-#line 663 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 663 "lex/parser_clone.cpp"
 				
 				goto _st24;
 				_st24:
@@ -678,13 +678,13 @@ namespace ceammc {
 #line 25 "lex/parser_clone.rl"
 					inlet = 10*inlet+((( (*( p))))-'0'); }
 				
-#line 682 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 682 "lex/parser_clone.cpp"
 				
 				{
 #line 29 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_EXCEPT, id, -1, 1,     inlet); }
 				
-#line 688 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 688 "lex/parser_clone.cpp"
 				
 				goto _st25;
 				_st25:
@@ -703,13 +703,13 @@ namespace ceammc {
 #line 19 "lex/parser_clone.rl"
 					id = (( (*( p))))-'0'; }
 				
-#line 707 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 707 "lex/parser_clone.cpp"
 				
 				{
 #line 29 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_EXCEPT, id, -1, 1,     inlet); }
 				
-#line 713 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 713 "lex/parser_clone.cpp"
 				
 				goto _st26;
 				_st26:
@@ -731,13 +731,13 @@ namespace ceammc {
 #line 19 "lex/parser_clone.rl"
 					id = 10*id+((( (*( p))))-'0'); }
 				
-#line 735 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 735 "lex/parser_clone.cpp"
 				
 				{
 #line 29 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_EXCEPT, id, -1, 1,     inlet); }
 				
-#line 741 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 741 "lex/parser_clone.cpp"
 				
 				goto _st27;
 				_st27:
@@ -759,13 +759,13 @@ namespace ceammc {
 #line 19 "lex/parser_clone.rl"
 					id = 10*id+((( (*( p))))-'0'); }
 				
-#line 763 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 763 "lex/parser_clone.cpp"
 				
 				{
 #line 29 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_EXCEPT, id, -1, 1,     inlet); }
 				
-#line 769 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 769 "lex/parser_clone.cpp"
 				
 				goto _st28;
 				_st28:
@@ -787,13 +787,13 @@ namespace ceammc {
 #line 19 "lex/parser_clone.rl"
 					id = 10*id+((( (*( p))))-'0'); }
 				
-#line 791 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 791 "lex/parser_clone.cpp"
 				
 				{
 #line 29 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_EXCEPT, id, -1, 1,     inlet); }
 				
-#line 797 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 797 "lex/parser_clone.cpp"
 				
 				goto _st29;
 				_st29:
@@ -815,7 +815,7 @@ namespace ceammc {
 #line 27 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_ALL,    -1, -1, 1,     inlet); }
 				
-#line 819 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 819 "lex/parser_clone.cpp"
 				
 				goto _st30;
 				_st30:
@@ -848,13 +848,13 @@ namespace ceammc {
 #line 25 "lex/parser_clone.rl"
 					inlet = (( (*( p))))-'0'; }
 				
-#line 852 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 852 "lex/parser_clone.cpp"
 				
 				{
 #line 27 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_ALL,    -1, -1, 1,     inlet); }
 				
-#line 858 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 858 "lex/parser_clone.cpp"
 				
 				goto _st31;
 				_st31:
@@ -873,13 +873,13 @@ namespace ceammc {
 #line 25 "lex/parser_clone.rl"
 					inlet = 10*inlet+((( (*( p))))-'0'); }
 				
-#line 877 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 877 "lex/parser_clone.cpp"
 				
 				{
 #line 27 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_ALL,    -1, -1, 1,     inlet); }
 				
-#line 883 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 883 "lex/parser_clone.cpp"
 				
 				goto _st32;
 				_st32:
@@ -898,13 +898,13 @@ namespace ceammc {
 #line 25 "lex/parser_clone.rl"
 					inlet = 10*inlet+((( (*( p))))-'0'); }
 				
-#line 902 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 902 "lex/parser_clone.cpp"
 				
 				{
 #line 27 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_ALL,    -1, -1, 1,     inlet); }
 				
-#line 908 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 908 "lex/parser_clone.cpp"
 				
 				goto _st33;
 				_st33:
@@ -923,19 +923,19 @@ namespace ceammc {
 #line 18 "lex/parser_clone.rl"
 					id = 0; }
 				
-#line 927 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 927 "lex/parser_clone.cpp"
 				
 				{
 #line 30 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_EQ,     id, -1, 1,     inlet); }
 				
-#line 933 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 933 "lex/parser_clone.cpp"
 				
 				{
 #line 20 "lex/parser_clone.rl"
 					id0 = id; }
 				
-#line 939 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 939 "lex/parser_clone.cpp"
 				
 				goto _st34;
 				_ctr119:
@@ -943,19 +943,19 @@ namespace ceammc {
 #line 19 "lex/parser_clone.rl"
 					id = 10*id+((( (*( p))))-'0'); }
 				
-#line 947 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 947 "lex/parser_clone.cpp"
 				
 				{
 #line 30 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_EQ,     id, -1, 1,     inlet); }
 				
-#line 953 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 953 "lex/parser_clone.cpp"
 				
 				{
 #line 20 "lex/parser_clone.rl"
 					id0 = id; }
 				
-#line 959 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 959 "lex/parser_clone.cpp"
 				
 				goto _st34;
 				_st34:
@@ -1004,19 +1004,19 @@ namespace ceammc {
 #line 18 "lex/parser_clone.rl"
 					id = 0; }
 				
-#line 1008 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1008 "lex/parser_clone.cpp"
 				
 				{
 #line 21 "lex/parser_clone.rl"
 					id1 = id; }
 				
-#line 1014 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1014 "lex/parser_clone.cpp"
 				
 				{
 #line 36 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_RANGE, id0, id1, step, inlet); }
 				
-#line 1020 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1020 "lex/parser_clone.cpp"
 				
 				goto _st35;
 				_ctr105:
@@ -1024,19 +1024,19 @@ namespace ceammc {
 #line 19 "lex/parser_clone.rl"
 					id = 10*id+((( (*( p))))-'0'); }
 				
-#line 1028 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1028 "lex/parser_clone.cpp"
 				
 				{
 #line 21 "lex/parser_clone.rl"
 					id1 = id; }
 				
-#line 1034 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1034 "lex/parser_clone.cpp"
 				
 				{
 #line 36 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_RANGE, id0, id1, step, inlet); }
 				
-#line 1040 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1040 "lex/parser_clone.cpp"
 				
 				goto _st35;
 				_st35:
@@ -1071,13 +1071,13 @@ namespace ceammc {
 #line 22 "lex/parser_clone.rl"
 					step = (( (*( p))))-'0'; }
 				
-#line 1075 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1075 "lex/parser_clone.cpp"
 				
 				{
 #line 36 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_RANGE, id0, id1, step, inlet); }
 				
-#line 1081 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1081 "lex/parser_clone.cpp"
 				
 				goto _st36;
 				_st36:
@@ -1099,13 +1099,13 @@ namespace ceammc {
 #line 22 "lex/parser_clone.rl"
 					step = 10*step+((( (*( p))))-'0'); }
 				
-#line 1103 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1103 "lex/parser_clone.cpp"
 				
 				{
 #line 36 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_RANGE, id0, id1, step, inlet); }
 				
-#line 1109 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1109 "lex/parser_clone.cpp"
 				
 				goto _st37;
 				_st37:
@@ -1127,13 +1127,13 @@ namespace ceammc {
 #line 22 "lex/parser_clone.rl"
 					step = 10*step+((( (*( p))))-'0'); }
 				
-#line 1131 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1131 "lex/parser_clone.cpp"
 				
 				{
 #line 36 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_RANGE, id0, id1, step, inlet); }
 				
-#line 1137 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1137 "lex/parser_clone.cpp"
 				
 				goto _st38;
 				_st38:
@@ -1155,13 +1155,13 @@ namespace ceammc {
 #line 22 "lex/parser_clone.rl"
 					step = 10*step+((( (*( p))))-'0'); }
 				
-#line 1159 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1159 "lex/parser_clone.cpp"
 				
 				{
 #line 36 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_RANGE, id0, id1, step, inlet); }
 				
-#line 1165 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1165 "lex/parser_clone.cpp"
 				
 				goto _st39;
 				_st39:
@@ -1183,13 +1183,13 @@ namespace ceammc {
 #line 22 "lex/parser_clone.rl"
 					step = 10*step+((( (*( p))))-'0'); }
 				
-#line 1187 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1187 "lex/parser_clone.cpp"
 				
 				{
 #line 36 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_RANGE, id0, id1, step, inlet); }
 				
-#line 1193 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1193 "lex/parser_clone.cpp"
 				
 				goto _st40;
 				_st40:
@@ -1222,13 +1222,13 @@ namespace ceammc {
 #line 25 "lex/parser_clone.rl"
 					inlet = (( (*( p))))-'0'; }
 				
-#line 1226 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1226 "lex/parser_clone.cpp"
 				
 				{
 #line 36 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_RANGE, id0, id1, step, inlet); }
 				
-#line 1232 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1232 "lex/parser_clone.cpp"
 				
 				goto _st41;
 				_st41:
@@ -1247,13 +1247,13 @@ namespace ceammc {
 #line 25 "lex/parser_clone.rl"
 					inlet = 10*inlet+((( (*( p))))-'0'); }
 				
-#line 1251 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1251 "lex/parser_clone.cpp"
 				
 				{
 #line 36 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_RANGE, id0, id1, step, inlet); }
 				
-#line 1257 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1257 "lex/parser_clone.cpp"
 				
 				goto _st42;
 				_st42:
@@ -1272,13 +1272,13 @@ namespace ceammc {
 #line 25 "lex/parser_clone.rl"
 					inlet = 10*inlet+((( (*( p))))-'0'); }
 				
-#line 1276 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1276 "lex/parser_clone.cpp"
 				
 				{
 #line 36 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_RANGE, id0, id1, step, inlet); }
 				
-#line 1282 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1282 "lex/parser_clone.cpp"
 				
 				goto _st43;
 				_st43:
@@ -1297,19 +1297,19 @@ namespace ceammc {
 #line 19 "lex/parser_clone.rl"
 					id = (( (*( p))))-'0'; }
 				
-#line 1301 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1301 "lex/parser_clone.cpp"
 				
 				{
 #line 21 "lex/parser_clone.rl"
 					id1 = id; }
 				
-#line 1307 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1307 "lex/parser_clone.cpp"
 				
 				{
 #line 36 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_RANGE, id0, id1, step, inlet); }
 				
-#line 1313 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1313 "lex/parser_clone.cpp"
 				
 				goto _st44;
 				_st44:
@@ -1336,19 +1336,19 @@ namespace ceammc {
 #line 19 "lex/parser_clone.rl"
 					id = 10*id+((( (*( p))))-'0'); }
 				
-#line 1340 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1340 "lex/parser_clone.cpp"
 				
 				{
 #line 21 "lex/parser_clone.rl"
 					id1 = id; }
 				
-#line 1346 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1346 "lex/parser_clone.cpp"
 				
 				{
 #line 36 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_RANGE, id0, id1, step, inlet); }
 				
-#line 1352 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1352 "lex/parser_clone.cpp"
 				
 				goto _st45;
 				_st45:
@@ -1375,19 +1375,19 @@ namespace ceammc {
 #line 19 "lex/parser_clone.rl"
 					id = 10*id+((( (*( p))))-'0'); }
 				
-#line 1379 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1379 "lex/parser_clone.cpp"
 				
 				{
 #line 21 "lex/parser_clone.rl"
 					id1 = id; }
 				
-#line 1385 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1385 "lex/parser_clone.cpp"
 				
 				{
 #line 36 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_RANGE, id0, id1, step, inlet); }
 				
-#line 1391 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1391 "lex/parser_clone.cpp"
 				
 				goto _st46;
 				_st46:
@@ -1414,19 +1414,19 @@ namespace ceammc {
 #line 19 "lex/parser_clone.rl"
 					id = 10*id+((( (*( p))))-'0'); }
 				
-#line 1418 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1418 "lex/parser_clone.cpp"
 				
 				{
 #line 21 "lex/parser_clone.rl"
 					id1 = id; }
 				
-#line 1424 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1424 "lex/parser_clone.cpp"
 				
 				{
 #line 36 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_RANGE, id0, id1, step, inlet); }
 				
-#line 1430 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1430 "lex/parser_clone.cpp"
 				
 				goto _st47;
 				_st47:
@@ -1467,13 +1467,13 @@ namespace ceammc {
 #line 25 "lex/parser_clone.rl"
 					inlet = (( (*( p))))-'0'; }
 				
-#line 1471 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1471 "lex/parser_clone.cpp"
 				
 				{
 #line 30 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_EQ,     id, -1, 1,     inlet); }
 				
-#line 1477 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1477 "lex/parser_clone.cpp"
 				
 				goto _st48;
 				_st48:
@@ -1492,13 +1492,13 @@ namespace ceammc {
 #line 25 "lex/parser_clone.rl"
 					inlet = 10*inlet+((( (*( p))))-'0'); }
 				
-#line 1496 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1496 "lex/parser_clone.cpp"
 				
 				{
 #line 30 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_EQ,     id, -1, 1,     inlet); }
 				
-#line 1502 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1502 "lex/parser_clone.cpp"
 				
 				goto _st49;
 				_st49:
@@ -1517,13 +1517,13 @@ namespace ceammc {
 #line 25 "lex/parser_clone.rl"
 					inlet = 10*inlet+((( (*( p))))-'0'); }
 				
-#line 1521 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1521 "lex/parser_clone.cpp"
 				
 				{
 #line 30 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_EQ,     id, -1, 1,     inlet); }
 				
-#line 1527 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1527 "lex/parser_clone.cpp"
 				
 				goto _st50;
 				_st50:
@@ -1542,19 +1542,19 @@ namespace ceammc {
 #line 19 "lex/parser_clone.rl"
 					id = (( (*( p))))-'0'; }
 				
-#line 1546 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1546 "lex/parser_clone.cpp"
 				
 				{
 #line 30 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_EQ,     id, -1, 1,     inlet); }
 				
-#line 1552 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1552 "lex/parser_clone.cpp"
 				
 				{
 #line 20 "lex/parser_clone.rl"
 					id0 = id; }
 				
-#line 1558 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1558 "lex/parser_clone.cpp"
 				
 				goto _st51;
 				_st51:
@@ -1581,19 +1581,19 @@ namespace ceammc {
 #line 19 "lex/parser_clone.rl"
 					id = 10*id+((( (*( p))))-'0'); }
 				
-#line 1585 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1585 "lex/parser_clone.cpp"
 				
 				{
 #line 30 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_EQ,     id, -1, 1,     inlet); }
 				
-#line 1591 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1591 "lex/parser_clone.cpp"
 				
 				{
 #line 20 "lex/parser_clone.rl"
 					id0 = id; }
 				
-#line 1597 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1597 "lex/parser_clone.cpp"
 				
 				goto _st52;
 				_st52:
@@ -1620,19 +1620,19 @@ namespace ceammc {
 #line 19 "lex/parser_clone.rl"
 					id = 10*id+((( (*( p))))-'0'); }
 				
-#line 1624 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1624 "lex/parser_clone.cpp"
 				
 				{
 #line 30 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_EQ,     id, -1, 1,     inlet); }
 				
-#line 1630 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1630 "lex/parser_clone.cpp"
 				
 				{
 #line 20 "lex/parser_clone.rl"
 					id0 = id; }
 				
-#line 1636 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1636 "lex/parser_clone.cpp"
 				
 				goto _st53;
 				_st53:
@@ -1659,19 +1659,19 @@ namespace ceammc {
 #line 19 "lex/parser_clone.rl"
 					id = 10*id+((( (*( p))))-'0'); }
 				
-#line 1663 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1663 "lex/parser_clone.cpp"
 				
 				{
 #line 30 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_EQ,     id, -1, 1,     inlet); }
 				
-#line 1669 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1669 "lex/parser_clone.cpp"
 				
 				{
 #line 20 "lex/parser_clone.rl"
 					id0 = id; }
 				
-#line 1675 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1675 "lex/parser_clone.cpp"
 				
 				goto _st54;
 				_st54:
@@ -1717,13 +1717,13 @@ namespace ceammc {
 #line 18 "lex/parser_clone.rl"
 					id = 0; }
 				
-#line 1721 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1721 "lex/parser_clone.cpp"
 				
 				{
 #line 33 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_LT,     id, -1, 1,     inlet); }
 				
-#line 1727 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1727 "lex/parser_clone.cpp"
 				
 				goto _st55;
 				_ctr134:
@@ -1731,13 +1731,13 @@ namespace ceammc {
 #line 19 "lex/parser_clone.rl"
 					id = 10*id+((( (*( p))))-'0'); }
 				
-#line 1735 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1735 "lex/parser_clone.cpp"
 				
 				{
 #line 33 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_LT,     id, -1, 1,     inlet); }
 				
-#line 1741 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1741 "lex/parser_clone.cpp"
 				
 				goto _st55;
 				_st55:
@@ -1770,13 +1770,13 @@ namespace ceammc {
 #line 25 "lex/parser_clone.rl"
 					inlet = (( (*( p))))-'0'; }
 				
-#line 1774 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1774 "lex/parser_clone.cpp"
 				
 				{
 #line 33 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_LT,     id, -1, 1,     inlet); }
 				
-#line 1780 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1780 "lex/parser_clone.cpp"
 				
 				goto _st56;
 				_st56:
@@ -1795,13 +1795,13 @@ namespace ceammc {
 #line 25 "lex/parser_clone.rl"
 					inlet = 10*inlet+((( (*( p))))-'0'); }
 				
-#line 1799 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1799 "lex/parser_clone.cpp"
 				
 				{
 #line 33 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_LT,     id, -1, 1,     inlet); }
 				
-#line 1805 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1805 "lex/parser_clone.cpp"
 				
 				goto _st57;
 				_st57:
@@ -1820,13 +1820,13 @@ namespace ceammc {
 #line 25 "lex/parser_clone.rl"
 					inlet = 10*inlet+((( (*( p))))-'0'); }
 				
-#line 1824 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1824 "lex/parser_clone.cpp"
 				
 				{
 #line 33 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_LT,     id, -1, 1,     inlet); }
 				
-#line 1830 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1830 "lex/parser_clone.cpp"
 				
 				goto _st58;
 				_st58:
@@ -1845,13 +1845,13 @@ namespace ceammc {
 #line 19 "lex/parser_clone.rl"
 					id = (( (*( p))))-'0'; }
 				
-#line 1849 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1849 "lex/parser_clone.cpp"
 				
 				{
 #line 33 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_LT,     id, -1, 1,     inlet); }
 				
-#line 1855 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1855 "lex/parser_clone.cpp"
 				
 				goto _st59;
 				_st59:
@@ -1873,13 +1873,13 @@ namespace ceammc {
 #line 19 "lex/parser_clone.rl"
 					id = 10*id+((( (*( p))))-'0'); }
 				
-#line 1877 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1877 "lex/parser_clone.cpp"
 				
 				{
 #line 33 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_LT,     id, -1, 1,     inlet); }
 				
-#line 1883 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1883 "lex/parser_clone.cpp"
 				
 				goto _st60;
 				_st60:
@@ -1901,13 +1901,13 @@ namespace ceammc {
 #line 19 "lex/parser_clone.rl"
 					id = 10*id+((( (*( p))))-'0'); }
 				
-#line 1905 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1905 "lex/parser_clone.cpp"
 				
 				{
 #line 33 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_LT,     id, -1, 1,     inlet); }
 				
-#line 1911 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1911 "lex/parser_clone.cpp"
 				
 				goto _st61;
 				_st61:
@@ -1929,13 +1929,13 @@ namespace ceammc {
 #line 19 "lex/parser_clone.rl"
 					id = 10*id+((( (*( p))))-'0'); }
 				
-#line 1933 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1933 "lex/parser_clone.cpp"
 				
 				{
 #line 33 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_LT,     id, -1, 1,     inlet); }
 				
-#line 1939 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1939 "lex/parser_clone.cpp"
 				
 				goto _st62;
 				_st62:
@@ -1971,13 +1971,13 @@ namespace ceammc {
 #line 18 "lex/parser_clone.rl"
 					id = 0; }
 				
-#line 1975 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1975 "lex/parser_clone.cpp"
 				
 				{
 #line 34 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_LE,     id, -1, 1,     inlet); }
 				
-#line 1981 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1981 "lex/parser_clone.cpp"
 				
 				goto _st63;
 				_ctr149:
@@ -1985,13 +1985,13 @@ namespace ceammc {
 #line 19 "lex/parser_clone.rl"
 					id = 10*id+((( (*( p))))-'0'); }
 				
-#line 1989 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1989 "lex/parser_clone.cpp"
 				
 				{
 #line 34 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_LE,     id, -1, 1,     inlet); }
 				
-#line 1995 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 1995 "lex/parser_clone.cpp"
 				
 				goto _st63;
 				_st63:
@@ -2024,13 +2024,13 @@ namespace ceammc {
 #line 25 "lex/parser_clone.rl"
 					inlet = (( (*( p))))-'0'; }
 				
-#line 2028 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2028 "lex/parser_clone.cpp"
 				
 				{
 #line 34 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_LE,     id, -1, 1,     inlet); }
 				
-#line 2034 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2034 "lex/parser_clone.cpp"
 				
 				goto _st64;
 				_st64:
@@ -2049,13 +2049,13 @@ namespace ceammc {
 #line 25 "lex/parser_clone.rl"
 					inlet = 10*inlet+((( (*( p))))-'0'); }
 				
-#line 2053 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2053 "lex/parser_clone.cpp"
 				
 				{
 #line 34 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_LE,     id, -1, 1,     inlet); }
 				
-#line 2059 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2059 "lex/parser_clone.cpp"
 				
 				goto _st65;
 				_st65:
@@ -2074,13 +2074,13 @@ namespace ceammc {
 #line 25 "lex/parser_clone.rl"
 					inlet = 10*inlet+((( (*( p))))-'0'); }
 				
-#line 2078 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2078 "lex/parser_clone.cpp"
 				
 				{
 #line 34 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_LE,     id, -1, 1,     inlet); }
 				
-#line 2084 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2084 "lex/parser_clone.cpp"
 				
 				goto _st66;
 				_st66:
@@ -2099,13 +2099,13 @@ namespace ceammc {
 #line 19 "lex/parser_clone.rl"
 					id = (( (*( p))))-'0'; }
 				
-#line 2103 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2103 "lex/parser_clone.cpp"
 				
 				{
 #line 34 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_LE,     id, -1, 1,     inlet); }
 				
-#line 2109 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2109 "lex/parser_clone.cpp"
 				
 				goto _st67;
 				_st67:
@@ -2127,13 +2127,13 @@ namespace ceammc {
 #line 19 "lex/parser_clone.rl"
 					id = 10*id+((( (*( p))))-'0'); }
 				
-#line 2131 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2131 "lex/parser_clone.cpp"
 				
 				{
 #line 34 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_LE,     id, -1, 1,     inlet); }
 				
-#line 2137 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2137 "lex/parser_clone.cpp"
 				
 				goto _st68;
 				_st68:
@@ -2155,13 +2155,13 @@ namespace ceammc {
 #line 19 "lex/parser_clone.rl"
 					id = 10*id+((( (*( p))))-'0'); }
 				
-#line 2159 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2159 "lex/parser_clone.cpp"
 				
 				{
 #line 34 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_LE,     id, -1, 1,     inlet); }
 				
-#line 2165 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2165 "lex/parser_clone.cpp"
 				
 				goto _st69;
 				_st69:
@@ -2183,13 +2183,13 @@ namespace ceammc {
 #line 19 "lex/parser_clone.rl"
 					id = 10*id+((( (*( p))))-'0'); }
 				
-#line 2187 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2187 "lex/parser_clone.cpp"
 				
 				{
 #line 34 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_LE,     id, -1, 1,     inlet); }
 				
-#line 2193 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2193 "lex/parser_clone.cpp"
 				
 				goto _st70;
 				_st70:
@@ -2225,13 +2225,13 @@ namespace ceammc {
 #line 18 "lex/parser_clone.rl"
 					id = 0; }
 				
-#line 2229 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2229 "lex/parser_clone.cpp"
 				
 				{
 #line 30 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_EQ,     id, -1, 1,     inlet); }
 				
-#line 2235 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2235 "lex/parser_clone.cpp"
 				
 				goto _st71;
 				_ctr158:
@@ -2239,13 +2239,13 @@ namespace ceammc {
 #line 19 "lex/parser_clone.rl"
 					id = 10*id+((( (*( p))))-'0'); }
 				
-#line 2243 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2243 "lex/parser_clone.cpp"
 				
 				{
 #line 30 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_EQ,     id, -1, 1,     inlet); }
 				
-#line 2249 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2249 "lex/parser_clone.cpp"
 				
 				goto _st71;
 				_st71:
@@ -2264,13 +2264,13 @@ namespace ceammc {
 #line 19 "lex/parser_clone.rl"
 					id = (( (*( p))))-'0'; }
 				
-#line 2268 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2268 "lex/parser_clone.cpp"
 				
 				{
 #line 30 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_EQ,     id, -1, 1,     inlet); }
 				
-#line 2274 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2274 "lex/parser_clone.cpp"
 				
 				goto _st72;
 				_st72:
@@ -2292,13 +2292,13 @@ namespace ceammc {
 #line 19 "lex/parser_clone.rl"
 					id = 10*id+((( (*( p))))-'0'); }
 				
-#line 2296 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2296 "lex/parser_clone.cpp"
 				
 				{
 #line 30 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_EQ,     id, -1, 1,     inlet); }
 				
-#line 2302 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2302 "lex/parser_clone.cpp"
 				
 				goto _st73;
 				_st73:
@@ -2320,13 +2320,13 @@ namespace ceammc {
 #line 19 "lex/parser_clone.rl"
 					id = 10*id+((( (*( p))))-'0'); }
 				
-#line 2324 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2324 "lex/parser_clone.cpp"
 				
 				{
 #line 30 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_EQ,     id, -1, 1,     inlet); }
 				
-#line 2330 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2330 "lex/parser_clone.cpp"
 				
 				goto _st74;
 				_st74:
@@ -2348,13 +2348,13 @@ namespace ceammc {
 #line 19 "lex/parser_clone.rl"
 					id = 10*id+((( (*( p))))-'0'); }
 				
-#line 2352 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2352 "lex/parser_clone.cpp"
 				
 				{
 #line 30 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_EQ,     id, -1, 1,     inlet); }
 				
-#line 2358 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2358 "lex/parser_clone.cpp"
 				
 				goto _st75;
 				_st75:
@@ -2395,13 +2395,13 @@ namespace ceammc {
 #line 18 "lex/parser_clone.rl"
 					id = 0; }
 				
-#line 2399 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2399 "lex/parser_clone.cpp"
 				
 				{
 #line 31 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_GT,     id, -1, 1,     inlet); }
 				
-#line 2405 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2405 "lex/parser_clone.cpp"
 				
 				goto _st76;
 				_ctr173:
@@ -2409,13 +2409,13 @@ namespace ceammc {
 #line 19 "lex/parser_clone.rl"
 					id = 10*id+((( (*( p))))-'0'); }
 				
-#line 2413 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2413 "lex/parser_clone.cpp"
 				
 				{
 #line 31 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_GT,     id, -1, 1,     inlet); }
 				
-#line 2419 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2419 "lex/parser_clone.cpp"
 				
 				goto _st76;
 				_st76:
@@ -2448,13 +2448,13 @@ namespace ceammc {
 #line 25 "lex/parser_clone.rl"
 					inlet = (( (*( p))))-'0'; }
 				
-#line 2452 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2452 "lex/parser_clone.cpp"
 				
 				{
 #line 31 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_GT,     id, -1, 1,     inlet); }
 				
-#line 2458 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2458 "lex/parser_clone.cpp"
 				
 				goto _st77;
 				_st77:
@@ -2473,13 +2473,13 @@ namespace ceammc {
 #line 25 "lex/parser_clone.rl"
 					inlet = 10*inlet+((( (*( p))))-'0'); }
 				
-#line 2477 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2477 "lex/parser_clone.cpp"
 				
 				{
 #line 31 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_GT,     id, -1, 1,     inlet); }
 				
-#line 2483 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2483 "lex/parser_clone.cpp"
 				
 				goto _st78;
 				_st78:
@@ -2498,13 +2498,13 @@ namespace ceammc {
 #line 25 "lex/parser_clone.rl"
 					inlet = 10*inlet+((( (*( p))))-'0'); }
 				
-#line 2502 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2502 "lex/parser_clone.cpp"
 				
 				{
 #line 31 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_GT,     id, -1, 1,     inlet); }
 				
-#line 2508 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2508 "lex/parser_clone.cpp"
 				
 				goto _st79;
 				_st79:
@@ -2523,13 +2523,13 @@ namespace ceammc {
 #line 19 "lex/parser_clone.rl"
 					id = (( (*( p))))-'0'; }
 				
-#line 2527 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2527 "lex/parser_clone.cpp"
 				
 				{
 #line 31 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_GT,     id, -1, 1,     inlet); }
 				
-#line 2533 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2533 "lex/parser_clone.cpp"
 				
 				goto _st80;
 				_st80:
@@ -2551,13 +2551,13 @@ namespace ceammc {
 #line 19 "lex/parser_clone.rl"
 					id = 10*id+((( (*( p))))-'0'); }
 				
-#line 2555 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2555 "lex/parser_clone.cpp"
 				
 				{
 #line 31 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_GT,     id, -1, 1,     inlet); }
 				
-#line 2561 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2561 "lex/parser_clone.cpp"
 				
 				goto _st81;
 				_st81:
@@ -2579,13 +2579,13 @@ namespace ceammc {
 #line 19 "lex/parser_clone.rl"
 					id = 10*id+((( (*( p))))-'0'); }
 				
-#line 2583 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2583 "lex/parser_clone.cpp"
 				
 				{
 #line 31 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_GT,     id, -1, 1,     inlet); }
 				
-#line 2589 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2589 "lex/parser_clone.cpp"
 				
 				goto _st82;
 				_st82:
@@ -2607,13 +2607,13 @@ namespace ceammc {
 #line 19 "lex/parser_clone.rl"
 					id = 10*id+((( (*( p))))-'0'); }
 				
-#line 2611 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2611 "lex/parser_clone.cpp"
 				
 				{
 #line 31 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_GT,     id, -1, 1,     inlet); }
 				
-#line 2617 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2617 "lex/parser_clone.cpp"
 				
 				goto _st83;
 				_st83:
@@ -2649,13 +2649,13 @@ namespace ceammc {
 #line 18 "lex/parser_clone.rl"
 					id = 0; }
 				
-#line 2653 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2653 "lex/parser_clone.cpp"
 				
 				{
 #line 32 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_GE,     id, -1, 1,     inlet); }
 				
-#line 2659 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2659 "lex/parser_clone.cpp"
 				
 				goto _st84;
 				_ctr188:
@@ -2663,13 +2663,13 @@ namespace ceammc {
 #line 19 "lex/parser_clone.rl"
 					id = 10*id+((( (*( p))))-'0'); }
 				
-#line 2667 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2667 "lex/parser_clone.cpp"
 				
 				{
 #line 32 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_GE,     id, -1, 1,     inlet); }
 				
-#line 2673 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2673 "lex/parser_clone.cpp"
 				
 				goto _st84;
 				_st84:
@@ -2702,13 +2702,13 @@ namespace ceammc {
 #line 25 "lex/parser_clone.rl"
 					inlet = (( (*( p))))-'0'; }
 				
-#line 2706 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2706 "lex/parser_clone.cpp"
 				
 				{
 #line 32 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_GE,     id, -1, 1,     inlet); }
 				
-#line 2712 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2712 "lex/parser_clone.cpp"
 				
 				goto _st85;
 				_st85:
@@ -2727,13 +2727,13 @@ namespace ceammc {
 #line 25 "lex/parser_clone.rl"
 					inlet = 10*inlet+((( (*( p))))-'0'); }
 				
-#line 2731 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2731 "lex/parser_clone.cpp"
 				
 				{
 #line 32 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_GE,     id, -1, 1,     inlet); }
 				
-#line 2737 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2737 "lex/parser_clone.cpp"
 				
 				goto _st86;
 				_st86:
@@ -2752,13 +2752,13 @@ namespace ceammc {
 #line 25 "lex/parser_clone.rl"
 					inlet = 10*inlet+((( (*( p))))-'0'); }
 				
-#line 2756 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2756 "lex/parser_clone.cpp"
 				
 				{
 #line 32 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_GE,     id, -1, 1,     inlet); }
 				
-#line 2762 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2762 "lex/parser_clone.cpp"
 				
 				goto _st87;
 				_st87:
@@ -2777,13 +2777,13 @@ namespace ceammc {
 #line 19 "lex/parser_clone.rl"
 					id = (( (*( p))))-'0'; }
 				
-#line 2781 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2781 "lex/parser_clone.cpp"
 				
 				{
 #line 32 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_GE,     id, -1, 1,     inlet); }
 				
-#line 2787 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2787 "lex/parser_clone.cpp"
 				
 				goto _st88;
 				_st88:
@@ -2805,13 +2805,13 @@ namespace ceammc {
 #line 19 "lex/parser_clone.rl"
 					id = 10*id+((( (*( p))))-'0'); }
 				
-#line 2809 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2809 "lex/parser_clone.cpp"
 				
 				{
 #line 32 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_GE,     id, -1, 1,     inlet); }
 				
-#line 2815 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2815 "lex/parser_clone.cpp"
 				
 				goto _st89;
 				_st89:
@@ -2833,13 +2833,13 @@ namespace ceammc {
 #line 19 "lex/parser_clone.rl"
 					id = 10*id+((( (*( p))))-'0'); }
 				
-#line 2837 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2837 "lex/parser_clone.cpp"
 				
 				{
 #line 32 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_GE,     id, -1, 1,     inlet); }
 				
-#line 2843 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2843 "lex/parser_clone.cpp"
 				
 				goto _st90;
 				_st90:
@@ -2861,13 +2861,13 @@ namespace ceammc {
 #line 19 "lex/parser_clone.rl"
 					id = 10*id+((( (*( p))))-'0'); }
 				
-#line 2865 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2865 "lex/parser_clone.cpp"
 				
 				{
 #line 32 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_GE,     id, -1, 1,     inlet); }
 				
-#line 2871 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2871 "lex/parser_clone.cpp"
 				
 				goto _st91;
 				_st91:
@@ -2889,7 +2889,7 @@ namespace ceammc {
 #line 28 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_RANDOM, -1, -1, 1,     inlet); }
 				
-#line 2893 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2893 "lex/parser_clone.cpp"
 				
 				goto _st92;
 				_st92:
@@ -2922,13 +2922,13 @@ namespace ceammc {
 #line 25 "lex/parser_clone.rl"
 					inlet = (( (*( p))))-'0'; }
 				
-#line 2926 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2926 "lex/parser_clone.cpp"
 				
 				{
 #line 28 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_RANDOM, -1, -1, 1,     inlet); }
 				
-#line 2932 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2932 "lex/parser_clone.cpp"
 				
 				goto _st93;
 				_st93:
@@ -2947,13 +2947,13 @@ namespace ceammc {
 #line 25 "lex/parser_clone.rl"
 					inlet = 10*inlet+((( (*( p))))-'0'); }
 				
-#line 2951 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2951 "lex/parser_clone.cpp"
 				
 				{
 #line 28 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_RANDOM, -1, -1, 1,     inlet); }
 				
-#line 2957 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2957 "lex/parser_clone.cpp"
 				
 				goto _st94;
 				_st94:
@@ -2972,13 +2972,13 @@ namespace ceammc {
 #line 25 "lex/parser_clone.rl"
 					inlet = 10*inlet+((( (*( p))))-'0'); }
 				
-#line 2976 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2976 "lex/parser_clone.cpp"
 				
 				{
 #line 28 "lex/parser_clone.rl"
 					set_args(res, TARGET_TYPE_RANDOM, -1, -1, 1,     inlet); }
 				
-#line 2982 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 2982 "lex/parser_clone.cpp"
 				
 				goto _st95;
 				_st95:
@@ -3099,7 +3099,7 @@ namespace ceammc {
 			
 			
 			return cs >= 
-#line 3103 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 3103 "lex/parser_clone.cpp"
 			21
 #line 71 "lex/parser_clone.rl"
 			;
@@ -3118,7 +3118,7 @@ namespace ceammc {
 		}
 		
 		
-#line 3122 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 3122 "lex/parser_clone.cpp"
 		static const int clone_message_type_start = 1;
 		static const int clone_message_type_first_final = 8;
 		static const int clone_message_type_error = 0;
@@ -3143,7 +3143,7 @@ namespace ceammc {
 			auto type = MSG_TYPE_NONE;
 			
 			
-#line 3147 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 3147 "lex/parser_clone.cpp"
 			{
 				cs = (int)clone_message_type_start;
 			}
@@ -3151,7 +3151,7 @@ namespace ceammc {
 #line 113 "lex/parser_clone.rl"
 			
 			
-#line 3155 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 3155 "lex/parser_clone.cpp"
 			{
 				if ( p == pe )
 					goto _test_eof;
@@ -3243,7 +3243,7 @@ namespace ceammc {
 #line 92 "lex/parser_clone.rl"
 					type = MSG_TYPE_DSP_SPREAD; }
 				
-#line 3247 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 3247 "lex/parser_clone.cpp"
 				
 				goto _st8;
 				_ctr7:
@@ -3251,7 +3251,7 @@ namespace ceammc {
 #line 90 "lex/parser_clone.rl"
 					type = MSG_TYPE_DSP_SET; }
 				
-#line 3255 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 3255 "lex/parser_clone.cpp"
 				
 				goto _st8;
 				_ctr8:
@@ -3259,7 +3259,7 @@ namespace ceammc {
 #line 91 "lex/parser_clone.rl"
 					type = MSG_TYPE_DSP_TOGGLE; }
 				
-#line 3263 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 3263 "lex/parser_clone.cpp"
 				
 				goto _st8;
 				_ctr14:
@@ -3267,7 +3267,7 @@ namespace ceammc {
 #line 94 "lex/parser_clone.rl"
 					type = MSG_TYPE_SEND_SPREAD; }
 				
-#line 3271 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 3271 "lex/parser_clone.cpp"
 				
 				goto _st8;
 				_st8:
@@ -3316,7 +3316,7 @@ namespace ceammc {
 #line 93 "lex/parser_clone.rl"
 					type = MSG_TYPE_SEND; }
 				
-#line 3320 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 3320 "lex/parser_clone.cpp"
 				
 				goto _st9;
 				_st9:
@@ -3351,7 +3351,7 @@ namespace ceammc {
 			
 			
 			return (cs < 
-#line 3355 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_clone.cpp"
+#line 3355 "lex/parser_clone.cpp"
 			8
 #line 116 "lex/parser_clone.rl"
 			) ? MSG_TYPE_NONE : type;

@@ -3,7 +3,7 @@
 # include "ceammc_format.h"
 
 
-#line 7 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_strings.cpp"
+#line 7 "lex/parser_strings.cpp"
 static const int quoted_string_end_start = 1;
 static const int quoted_string_end_first_final = 4;
 static const int quoted_string_end_error = 0;
@@ -43,7 +43,7 @@ namespace ceammc {
 			const char* p = str;
 			
 			
-#line 47 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_strings.cpp"
+#line 47 "lex/parser_strings.cpp"
 			{
 				cs = (int)quoted_string_end_start;
 			}
@@ -51,7 +51,7 @@ namespace ceammc {
 #line 44 "lex/parser_strings.rl"
 			
 			
-#line 55 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_strings.cpp"
+#line 55 "lex/parser_strings.cpp"
 			{
 				switch ( cs ) {
 					case 1:
@@ -101,7 +101,7 @@ namespace ceammc {
 #line 12 "lex/parser_strings.rl"
 					{p+= 1; cs = 4; goto _out;} }
 				
-#line 105 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_strings.cpp"
+#line 105 "lex/parser_strings.cpp"
 				
 				goto _st4;
 				_st4:
@@ -113,11 +113,11 @@ namespace ceammc {
 				_st3:
 				p += 1;
 				st_case_3:
-				if ( 0 <= ( (*( p))) ) {
-					goto _st1;
+				if ( ( (*( p))) <= -1 ) {
+					goto _st0;
 				}
 				{
-					goto _st0;
+					goto _st1;
 				}
 				st_out:
 				_test_eof1: cs = 1; goto _test_eof; 
@@ -135,14 +135,14 @@ namespace ceammc {
 			
 			
 			return (cs >= 
-#line 139 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_strings.cpp"
+#line 139 "lex/parser_strings.cpp"
 			4
 #line 47 "lex/parser_strings.rl"
 			);
 		}
 		
 		
-#line 146 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_strings.cpp"
+#line 146 "lex/parser_strings.cpp"
 		static const int quoted_string_start = 1;
 		static const int quoted_string_first_final = 5;
 		static const int quoted_string_error = 0;
@@ -186,7 +186,7 @@ namespace ceammc {
 			const char* p = str;
 			
 			
-#line 190 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_strings.cpp"
+#line 190 "lex/parser_strings.cpp"
 			{
 				cs = (int)quoted_string_start;
 			}
@@ -194,7 +194,7 @@ namespace ceammc {
 #line 92 "lex/parser_strings.rl"
 			
 			
-#line 198 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_strings.cpp"
+#line 198 "lex/parser_strings.cpp"
 			{
 				switch ( cs ) {
 					case 1:
@@ -254,7 +254,7 @@ namespace ceammc {
 #line 56 "lex/parser_strings.rl"
 					{p+= 1; cs = 5; goto _out;} }
 				
-#line 258 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_strings.cpp"
+#line 258 "lex/parser_strings.cpp"
 				
 				goto _st5;
 				_st5:
@@ -289,7 +289,7 @@ namespace ceammc {
 			
 			
 			return (cs >= 
-#line 293 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_strings.cpp"
+#line 293 "lex/parser_strings.cpp"
 			5
 #line 95 "lex/parser_strings.rl"
 			);

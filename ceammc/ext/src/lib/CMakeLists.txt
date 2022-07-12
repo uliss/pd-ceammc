@@ -144,28 +144,28 @@ find_package(RAGEL 6.6)
 
 if(RAGEL_FOUND)
     RAGEL_TARGET(parser_numeric
-        lex/parser_numeric.rl ${CMAKE_CURRENT_SOURCE_DIR}/lex/parser_numeric.cpp
+        lex/parser_numeric.rl lex/parser_numeric.cpp
         COMPILE_FLAGS "-G2 -s")
     RAGEL_TARGET(parser_color
-        lex/parser_color.rl ${CMAKE_CURRENT_SOURCE_DIR}/lex/parser_color.cpp
+        lex/parser_color.rl lex/parser_color.cpp
         COMPILE_FLAGS "-G2 -s")
     RAGEL_TARGET(parser_music
-        lex/parser_music.rl ${CMAKE_CURRENT_SOURCE_DIR}/lex/parser_music.cpp
+        lex/parser_music.rl lex/parser_music.cpp
         COMPILE_FLAGS "-G2 -s")
     RAGEL_TARGET(parser_units
-        lex/parser_units.rl ${CMAKE_CURRENT_SOURCE_DIR}/lex/parser_units.cpp
+        lex/parser_units.rl lex/parser_units.cpp
         COMPILE_FLAGS "-G2 -s")
     RAGEL_TARGET(parser_props
-        lex/parser_props.rl ${CMAKE_CURRENT_SOURCE_DIR}/lex/parser_props.cpp
+        lex/parser_props.rl lex/parser_props.cpp
         COMPILE_FLAGS "-G2 -s")
     RAGEL_TARGET(parser_clone
-        lex/parser_clone.rl ${CMAKE_CURRENT_SOURCE_DIR}/lex/parser_clone.cpp
+        lex/parser_clone.rl lex/parser_clone.cpp
         COMPILE_FLAGS "-G2 -s")
     RAGEL_TARGET(parser_strings
-        lex/parser_strings.rl ${CMAKE_CURRENT_SOURCE_DIR}/lex/parser_strings.cpp
+        lex/parser_strings.rl lex/parser_strings.cpp
         COMPILE_FLAGS "-G2 -s")
     RAGEL_TARGET(lemon_data_string_parser
-        lex/lemon_data_string_parser.rl ${CMAKE_CURRENT_SOURCE_DIR}/lex/lemon_data_string_parser.cpp
+        lex/lemon_data_string_parser.rl lex/lemon_data_string_parser.cpp
         COMPILE_FLAGS "-G2 -s")
 
     add_custom_target(lemon_data_parser

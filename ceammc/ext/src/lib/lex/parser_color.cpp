@@ -8,7 +8,7 @@ namespace ceammc {
 	namespace parser {
 		
 		
-#line 12 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_color.cpp"
+#line 12 "lex/parser_color.cpp"
 		static const int color_start = 1;
 		static const int color_first_final = 8;
 		static const int color_error = 0;
@@ -53,7 +53,7 @@ namespace ceammc {
 			reset();
 			
 			
-#line 57 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_color.cpp"
+#line 57 "lex/parser_color.cpp"
 			{
 				cs = (int)color_start;
 			}
@@ -61,7 +61,7 @@ namespace ceammc {
 #line 50 "lex/parser_color.rl"
 			
 			
-#line 65 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_color.cpp"
+#line 65 "lex/parser_color.cpp"
 			{
 				if ( p == pe )
 					goto _test_eof;
@@ -137,13 +137,13 @@ namespace ceammc {
 #line 5 "lex/ragel_color.rl"
 					color.x = xchar2digit((( (*( p))))); }
 				
-#line 141 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_color.cpp"
+#line 141 "lex/parser_color.cpp"
 				
 				{
 #line 6 "lex/ragel_color.rl"
 					(color.x *= 16) += xchar2digit((( (*( p))))); }
 				
-#line 147 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_color.cpp"
+#line 147 "lex/parser_color.cpp"
 				
 				goto _st3;
 				_st3:
@@ -176,7 +176,7 @@ namespace ceammc {
 #line 6 "lex/ragel_color.rl"
 					(color.x *= 16) += xchar2digit((( (*( p))))); }
 				
-#line 180 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_color.cpp"
+#line 180 "lex/parser_color.cpp"
 				
 				goto _st4;
 				_st4:
@@ -209,19 +209,19 @@ namespace ceammc {
 #line 11 "lex/ragel_color.rl"
 					color.r = color.x;}
 				
-#line 213 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_color.cpp"
+#line 213 "lex/parser_color.cpp"
 				
 				{
 #line 5 "lex/ragel_color.rl"
 					color.x = xchar2digit((( (*( p))))); }
 				
-#line 219 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_color.cpp"
+#line 219 "lex/parser_color.cpp"
 				
 				{
 #line 6 "lex/ragel_color.rl"
 					(color.x *= 16) += xchar2digit((( (*( p))))); }
 				
-#line 225 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_color.cpp"
+#line 225 "lex/parser_color.cpp"
 				
 				goto _st5;
 				_st5:
@@ -254,7 +254,7 @@ namespace ceammc {
 #line 6 "lex/ragel_color.rl"
 					(color.x *= 16) += xchar2digit((( (*( p))))); }
 				
-#line 258 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_color.cpp"
+#line 258 "lex/parser_color.cpp"
 				
 				goto _st6;
 				_st6:
@@ -287,19 +287,19 @@ namespace ceammc {
 #line 12 "lex/ragel_color.rl"
 					color.g = color.x;}
 				
-#line 291 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_color.cpp"
+#line 291 "lex/parser_color.cpp"
 				
 				{
 #line 5 "lex/ragel_color.rl"
 					color.x = xchar2digit((( (*( p))))); }
 				
-#line 297 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_color.cpp"
+#line 297 "lex/parser_color.cpp"
 				
 				{
 #line 6 "lex/ragel_color.rl"
 					(color.x *= 16) += xchar2digit((( (*( p))))); }
 				
-#line 303 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_color.cpp"
+#line 303 "lex/parser_color.cpp"
 				
 				goto _st7;
 				_st7:
@@ -332,7 +332,7 @@ namespace ceammc {
 #line 6 "lex/ragel_color.rl"
 					(color.x *= 16) += xchar2digit((( (*( p))))); }
 				
-#line 336 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_color.cpp"
+#line 336 "lex/parser_color.cpp"
 				
 				goto _st8;
 				_ctr14:
@@ -340,13 +340,13 @@ namespace ceammc {
 #line 13 "lex/ragel_color.rl"
 					color.b = color.x;}
 				
-#line 344 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_color.cpp"
+#line 344 "lex/parser_color.cpp"
 				
 				{
 #line 14 "lex/ragel_color.rl"
 					cat_ = CAT_COLOR; type_ = TYPE_HEX; }
 				
-#line 350 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_color.cpp"
+#line 350 "lex/parser_color.cpp"
 				
 				goto _st8;
 				_st8:
@@ -428,7 +428,7 @@ namespace ceammc {
 			
 			
 			const auto ok = cs >= 
-#line 432 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_color.cpp"
+#line 432 "lex/parser_color.cpp"
 			8
 #line 53 "lex/parser_color.rl"
 			;

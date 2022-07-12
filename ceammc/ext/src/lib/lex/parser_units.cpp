@@ -9,7 +9,7 @@ namespace ceammc {
 	namespace parser {
 		
 		
-#line 13 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 13 "lex/parser_units.cpp"
 		static const int units_full_start = 1;
 		static const int units_full_first_final = 48;
 		static const int units_full_error = 0;
@@ -75,7 +75,7 @@ namespace ceammc {
 			reset();
 			
 			
-#line 79 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 79 "lex/parser_units.cpp"
 			{
 				cs = (int)units_full_start;
 			}
@@ -83,7 +83,7 @@ namespace ceammc {
 #line 72 "lex/parser_units.rl"
 			
 			
-#line 87 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 87 "lex/parser_units.cpp"
 			{
 				if ( p == pe )
 					goto _test_eof;
@@ -336,13 +336,13 @@ namespace ceammc {
 #line 8 "lex/ragel_units.rl"
 					ragel_type = TYPE_UNKNOWN; ragel_cat = CAT_UNKNOWN; }
 				
-#line 340 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 340 "lex/parser_units.cpp"
 				
 				{
 #line 70 "lex/ragel_units.rl"
 					pos_ = POSITION_ABS;}
 				
-#line 346 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 346 "lex/parser_units.cpp"
 				
 				goto _st2;
 				_st2:
@@ -382,31 +382,31 @@ namespace ceammc {
 #line 8 "lex/ragel_units.rl"
 					ragel_type = TYPE_UNKNOWN; ragel_cat = CAT_UNKNOWN; }
 				
-#line 386 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 386 "lex/parser_units.cpp"
 				
 				{
 #line 70 "lex/ragel_units.rl"
 					pos_ = POSITION_ABS;}
 				
-#line 392 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 392 "lex/parser_units.cpp"
 				
 				{
 #line 21 "lex/ragel_numeric.rl"
 					ragel_num.sign = ((( (*( p))))=='-') ? -1 : 1; }
 				
-#line 398 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 398 "lex/parser_units.cpp"
 				
 				{
 #line 61 "lex/ragel_units.rl"
 					smpte.np = 0;}
 				
-#line 404 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 404 "lex/parser_units.cpp"
 				
 				{
 #line 56 "lex/ragel_units.rl"
 					smpte.sign = ((( (*( p))))=='-')?-1:1;}
 				
-#line 410 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 410 "lex/parser_units.cpp"
 				
 				goto _st3;
 				_ctr10:
@@ -414,25 +414,25 @@ namespace ceammc {
 #line 64 "lex/ragel_units.rl"
 					pos_ = POSITION_END;}
 				
-#line 418 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 418 "lex/parser_units.cpp"
 				
 				{
 #line 21 "lex/ragel_numeric.rl"
 					ragel_num.sign = ((( (*( p))))=='-') ? -1 : 1; }
 				
-#line 424 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 424 "lex/parser_units.cpp"
 				
 				{
 #line 61 "lex/ragel_units.rl"
 					smpte.np = 0;}
 				
-#line 430 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 430 "lex/parser_units.cpp"
 				
 				{
 #line 56 "lex/ragel_units.rl"
 					smpte.sign = ((( (*( p))))=='-')?-1:1;}
 				
-#line 436 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 436 "lex/parser_units.cpp"
 				
 				goto _st3;
 				_ctr88:
@@ -440,25 +440,25 @@ namespace ceammc {
 #line 65 "lex/ragel_units.rl"
 					pos_ = POSITION_CURRENT;}
 				
-#line 444 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 444 "lex/parser_units.cpp"
 				
 				{
 #line 21 "lex/ragel_numeric.rl"
 					ragel_num.sign = ((( (*( p))))=='-') ? -1 : 1; }
 				
-#line 450 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 450 "lex/parser_units.cpp"
 				
 				{
 #line 61 "lex/ragel_units.rl"
 					smpte.np = 0;}
 				
-#line 456 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 456 "lex/parser_units.cpp"
 				
 				{
 #line 56 "lex/ragel_units.rl"
 					smpte.sign = ((( (*( p))))=='-')?-1:1;}
 				
-#line 462 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 462 "lex/parser_units.cpp"
 				
 				goto _st3;
 				_st3:
@@ -490,37 +490,37 @@ namespace ceammc {
 #line 64 "lex/ragel_units.rl"
 					pos_ = POSITION_END;}
 				
-#line 494 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 494 "lex/parser_units.cpp"
 				
 				{
 #line 29 "lex/ragel_numeric.rl"
 					(ragel_num.vint *= 10) += ((( (*( p))))-'0'); }
 				
-#line 500 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 500 "lex/parser_units.cpp"
 				
 				{
 #line 42 "lex/ragel_numeric.rl"
 					(ragel_num.ratio.num *= 10) += ((( (*( p))))-'0'); }
 				
-#line 506 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 506 "lex/parser_units.cpp"
 				
 				{
 #line 61 "lex/ragel_units.rl"
 					smpte.np = 0;}
 				
-#line 512 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 512 "lex/parser_units.cpp"
 				
 				{
 #line 49 "lex/ragel_units.rl"
 					smpte.hour = 0; smpte.np++;}
 				
-#line 518 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 518 "lex/parser_units.cpp"
 				
 				{
 #line 49 "lex/ragel_units.rl"
 					(smpte.hour *= 10) += ((( (*( p)))) - '0');}
 				
-#line 524 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 524 "lex/parser_units.cpp"
 				
 				goto _st48;
 				_ctr15:
@@ -528,25 +528,25 @@ namespace ceammc {
 #line 29 "lex/ragel_numeric.rl"
 					(ragel_num.vint *= 10) += ((( (*( p))))-'0'); }
 				
-#line 532 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 532 "lex/parser_units.cpp"
 				
 				{
 #line 42 "lex/ragel_numeric.rl"
 					(ragel_num.ratio.num *= 10) += ((( (*( p))))-'0'); }
 				
-#line 538 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 538 "lex/parser_units.cpp"
 				
 				{
 #line 49 "lex/ragel_units.rl"
 					smpte.hour = 0; smpte.np++;}
 				
-#line 544 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 544 "lex/parser_units.cpp"
 				
 				{
 #line 49 "lex/ragel_units.rl"
 					(smpte.hour *= 10) += ((( (*( p)))) - '0');}
 				
-#line 550 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 550 "lex/parser_units.cpp"
 				
 				goto _st48;
 				_ctr89:
@@ -554,37 +554,37 @@ namespace ceammc {
 #line 65 "lex/ragel_units.rl"
 					pos_ = POSITION_CURRENT;}
 				
-#line 558 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 558 "lex/parser_units.cpp"
 				
 				{
 #line 29 "lex/ragel_numeric.rl"
 					(ragel_num.vint *= 10) += ((( (*( p))))-'0'); }
 				
-#line 564 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 564 "lex/parser_units.cpp"
 				
 				{
 #line 42 "lex/ragel_numeric.rl"
 					(ragel_num.ratio.num *= 10) += ((( (*( p))))-'0'); }
 				
-#line 570 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 570 "lex/parser_units.cpp"
 				
 				{
 #line 61 "lex/ragel_units.rl"
 					smpte.np = 0;}
 				
-#line 576 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 576 "lex/parser_units.cpp"
 				
 				{
 #line 49 "lex/ragel_units.rl"
 					smpte.hour = 0; smpte.np++;}
 				
-#line 582 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 582 "lex/parser_units.cpp"
 				
 				{
 #line 49 "lex/ragel_units.rl"
 					(smpte.hour *= 10) += ((( (*( p)))) - '0');}
 				
-#line 588 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 588 "lex/parser_units.cpp"
 				
 				goto _st48;
 				_ctr94:
@@ -596,19 +596,19 @@ namespace ceammc {
 					ragel_cat  = CAT_NUMBER;
 				}
 				
-#line 600 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 600 "lex/parser_units.cpp"
 				
 				{
 #line 7 "lex/ragel_units.rl"
 					ragel_num.vdouble = ragel_num.vint; }
 				
-#line 606 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 606 "lex/parser_units.cpp"
 				
 				{
 #line 9 "lex/ragel_units.rl"
 					ragel_cat = CAT_UNIT; }
 				
-#line 612 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 612 "lex/parser_units.cpp"
 				
 				goto _st48;
 				_st48:
@@ -678,19 +678,19 @@ namespace ceammc {
 					ragel_cat  = CAT_NUMBER;
 				}
 				
-#line 682 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 682 "lex/parser_units.cpp"
 				
 				{
 #line 7 "lex/ragel_units.rl"
 					ragel_num.vdouble = ragel_num.vint; }
 				
-#line 688 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 688 "lex/parser_units.cpp"
 				
 				{
 #line 108 "lex/ragel_numeric.rl"
 					ragel_num.vdouble = ragel_num.vint;}
 				
-#line 694 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 694 "lex/parser_units.cpp"
 				
 				goto _st49;
 				_ctr108:
@@ -698,7 +698,7 @@ namespace ceammc {
 #line 25 "lex/ragel_units.rl"
 					ragel_type = TYPE_PERCENT;}
 				
-#line 702 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 702 "lex/parser_units.cpp"
 				
 				{
 #line 70 "lex/ragel_numeric.rl"
@@ -707,19 +707,19 @@ namespace ceammc {
 					ragel_cat = CAT_NUMBER;
 				}
 				
-#line 711 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 711 "lex/parser_units.cpp"
 				
 				{
 #line 72 "lex/ragel_units.rl"
 					ragel_type = TYPE_PERCENT;}
 				
-#line 717 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 717 "lex/parser_units.cpp"
 				
 				{
 #line 9 "lex/ragel_units.rl"
 					ragel_cat = CAT_UNIT; }
 				
-#line 723 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 723 "lex/parser_units.cpp"
 				
 				goto _st49;
 				_ctr111:
@@ -732,7 +732,7 @@ namespace ceammc {
 					ragel_cat  = CAT_NUMBER;
 				}
 				
-#line 736 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 736 "lex/parser_units.cpp"
 				
 				goto _st49;
 				_st49:
@@ -758,19 +758,19 @@ namespace ceammc {
 					ragel_cat  = CAT_NUMBER;
 				}
 				
-#line 762 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 762 "lex/parser_units.cpp"
 				
 				{
 #line 7 "lex/ragel_units.rl"
 					ragel_num.vdouble = ragel_num.vint; }
 				
-#line 768 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 768 "lex/parser_units.cpp"
 				
 				{
 #line 113 "lex/ragel_numeric.rl"
 					ragel_num.vdouble = ragel_num.vint;}
 				
-#line 774 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 774 "lex/parser_units.cpp"
 				
 				goto _st50;
 				_ctr109:
@@ -778,7 +778,7 @@ namespace ceammc {
 #line 27 "lex/ragel_units.rl"
 					ragel_type = TYPE_PHASE;}
 				
-#line 782 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 782 "lex/parser_units.cpp"
 				
 				{
 #line 75 "lex/ragel_numeric.rl"
@@ -787,19 +787,19 @@ namespace ceammc {
 					ragel_cat = CAT_NUMBER;
 				}
 				
-#line 791 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 791 "lex/parser_units.cpp"
 				
 				{
 #line 73 "lex/ragel_units.rl"
 					ragel_type = TYPE_PHASE;}
 				
-#line 797 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 797 "lex/parser_units.cpp"
 				
 				{
 #line 9 "lex/ragel_units.rl"
 					ragel_cat = CAT_UNIT; }
 				
-#line 803 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 803 "lex/parser_units.cpp"
 				
 				goto _st50;
 				_ctr112:
@@ -812,7 +812,7 @@ namespace ceammc {
 					ragel_cat  = CAT_NUMBER;
 				}
 				
-#line 816 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 816 "lex/parser_units.cpp"
 				
 				goto _st50;
 				_st50:
@@ -838,7 +838,7 @@ namespace ceammc {
 					ragel_cat  = CAT_NUMBER;
 				}
 				
-#line 842 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 842 "lex/parser_units.cpp"
 				
 				{
 #line 50 "lex/ragel_numeric.rl"
@@ -847,7 +847,7 @@ namespace ceammc {
 					ragel_num.ratio.den = 1;
 				}
 				
-#line 851 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 851 "lex/parser_units.cpp"
 				
 				goto _st4;
 				_st4:
@@ -875,7 +875,7 @@ namespace ceammc {
 					ragel_num.ratio.den *= 10;
 				}
 				
-#line 879 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 879 "lex/parser_units.cpp"
 				
 				goto _st51;
 				_ctr110:
@@ -888,13 +888,13 @@ namespace ceammc {
 					ragel_cat  = CAT_NUMBER;
 				}
 				
-#line 892 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 892 "lex/parser_units.cpp"
 				
 				{
 #line 9 "lex/ragel_units.rl"
 					ragel_cat = CAT_UNIT; }
 				
-#line 898 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 898 "lex/parser_units.cpp"
 				
 				goto _st51;
 				_st51:
@@ -958,13 +958,13 @@ namespace ceammc {
 					ragel_cat  = CAT_NUMBER;
 				}
 				
-#line 962 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 962 "lex/parser_units.cpp"
 				
 				{
 #line 7 "lex/ragel_units.rl"
 					ragel_num.vdouble = ragel_num.vint; }
 				
-#line 968 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 968 "lex/parser_units.cpp"
 				
 				goto _st5;
 				_ctr113:
@@ -977,7 +977,7 @@ namespace ceammc {
 					ragel_cat  = CAT_NUMBER;
 				}
 				
-#line 981 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 981 "lex/parser_units.cpp"
 				
 				goto _st5;
 				_st5:
@@ -1002,13 +1002,13 @@ namespace ceammc {
 #line 13 "lex/ragel_units.rl"
 					ragel_type = TYPE_HZ;}
 				
-#line 1006 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 1006 "lex/parser_units.cpp"
 				
 				{
 #line 9 "lex/ragel_units.rl"
 					ragel_cat = CAT_UNIT; }
 				
-#line 1012 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 1012 "lex/parser_units.cpp"
 				
 				goto _st52;
 				_st52:
@@ -1034,25 +1034,25 @@ namespace ceammc {
 					ragel_cat  = CAT_NUMBER;
 				}
 				
-#line 1038 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 1038 "lex/parser_units.cpp"
 				
 				{
 #line 7 "lex/ragel_units.rl"
 					ragel_num.vdouble = ragel_num.vint; }
 				
-#line 1044 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 1044 "lex/parser_units.cpp"
 				
 				{
 #line 108 "lex/ragel_numeric.rl"
 					ragel_num.vdouble = ragel_num.vint;}
 				
-#line 1050 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 1050 "lex/parser_units.cpp"
 				
 				{
 #line 113 "lex/ragel_numeric.rl"
 					ragel_num.vdouble = ragel_num.vint;}
 				
-#line 1056 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 1056 "lex/parser_units.cpp"
 				
 				goto _st53;
 				_ctr114:
@@ -1065,7 +1065,7 @@ namespace ceammc {
 					ragel_cat  = CAT_NUMBER;
 				}
 				
-#line 1069 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 1069 "lex/parser_units.cpp"
 				
 				goto _st53;
 				_ctr123:
@@ -1073,7 +1073,7 @@ namespace ceammc {
 #line 9 "lex/ragel_units.rl"
 					ragel_cat = CAT_UNIT; }
 				
-#line 1077 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 1077 "lex/parser_units.cpp"
 				
 				goto _st53;
 				_st53:
@@ -1127,13 +1127,13 @@ namespace ceammc {
 #line 27 "lex/ragel_units.rl"
 					ragel_type = TYPE_PHASE;}
 				
-#line 1131 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 1131 "lex/parser_units.cpp"
 				
 				{
 #line 9 "lex/ragel_units.rl"
 					ragel_cat = CAT_UNIT; }
 				
-#line 1137 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 1137 "lex/parser_units.cpp"
 				
 				goto _st54;
 				_st54:
@@ -1159,13 +1159,13 @@ namespace ceammc {
 					ragel_cat  = CAT_NUMBER;
 				}
 				
-#line 1163 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 1163 "lex/parser_units.cpp"
 				
 				{
 #line 7 "lex/ragel_units.rl"
 					ragel_num.vdouble = ragel_num.vint; }
 				
-#line 1169 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 1169 "lex/parser_units.cpp"
 				
 				goto _st55;
 				_ctr115:
@@ -1178,7 +1178,7 @@ namespace ceammc {
 					ragel_cat  = CAT_NUMBER;
 				}
 				
-#line 1182 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 1182 "lex/parser_units.cpp"
 				
 				goto _st55;
 				_ctr132:
@@ -1186,13 +1186,13 @@ namespace ceammc {
 #line 23 "lex/ragel_units.rl"
 					ragel_type = TYPE_CENT;}
 				
-#line 1190 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 1190 "lex/parser_units.cpp"
 				
 				{
 #line 9 "lex/ragel_units.rl"
 					ragel_cat = CAT_UNIT; }
 				
-#line 1196 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 1196 "lex/parser_units.cpp"
 				
 				goto _st55;
 				_st55:
@@ -1251,13 +1251,13 @@ namespace ceammc {
 #line 23 "lex/ragel_units.rl"
 					ragel_type = TYPE_CENT;}
 				
-#line 1255 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 1255 "lex/parser_units.cpp"
 				
 				{
 #line 9 "lex/ragel_units.rl"
 					ragel_cat = CAT_UNIT; }
 				
-#line 1261 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 1261 "lex/parser_units.cpp"
 				
 				goto _st56;
 				_st56:
@@ -1283,13 +1283,13 @@ namespace ceammc {
 					ragel_cat  = CAT_NUMBER;
 				}
 				
-#line 1287 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 1287 "lex/parser_units.cpp"
 				
 				{
 #line 7 "lex/ragel_units.rl"
 					ragel_num.vdouble = ragel_num.vint; }
 				
-#line 1293 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 1293 "lex/parser_units.cpp"
 				
 				goto _st57;
 				_ctr116:
@@ -1302,7 +1302,7 @@ namespace ceammc {
 					ragel_cat  = CAT_NUMBER;
 				}
 				
-#line 1306 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 1306 "lex/parser_units.cpp"
 				
 				goto _st57;
 				_ctr134:
@@ -1310,13 +1310,13 @@ namespace ceammc {
 #line 18 "lex/ragel_units.rl"
 					ragel_type = TYPE_DAY;}
 				
-#line 1314 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 1314 "lex/parser_units.cpp"
 				
 				{
 #line 9 "lex/ragel_units.rl"
 					ragel_cat = CAT_UNIT; }
 				
-#line 1320 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 1320 "lex/parser_units.cpp"
 				
 				goto _st57;
 				_st57:
@@ -1366,13 +1366,13 @@ namespace ceammc {
 #line 18 "lex/ragel_units.rl"
 					ragel_type = TYPE_DAY;}
 				
-#line 1370 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 1370 "lex/parser_units.cpp"
 				
 				{
 #line 9 "lex/ragel_units.rl"
 					ragel_cat = CAT_UNIT; }
 				
-#line 1376 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 1376 "lex/parser_units.cpp"
 				
 				goto _st58;
 				_st58:
@@ -1394,13 +1394,13 @@ namespace ceammc {
 #line 17 "lex/ragel_units.rl"
 					ragel_type = TYPE_DB;}
 				
-#line 1398 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 1398 "lex/parser_units.cpp"
 				
 				{
 #line 9 "lex/ragel_units.rl"
 					ragel_cat = CAT_UNIT; }
 				
-#line 1404 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 1404 "lex/parser_units.cpp"
 				
 				goto _st59;
 				_st59:
@@ -1442,13 +1442,13 @@ namespace ceammc {
 #line 17 "lex/ragel_units.rl"
 					ragel_type = TYPE_DB;}
 				
-#line 1446 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 1446 "lex/parser_units.cpp"
 				
 				{
 #line 9 "lex/ragel_units.rl"
 					ragel_cat = CAT_UNIT; }
 				
-#line 1452 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 1452 "lex/parser_units.cpp"
 				
 				goto _st60;
 				_st60:
@@ -1487,13 +1487,13 @@ namespace ceammc {
 #line 16 "lex/ragel_units.rl"
 					ragel_type = TYPE_DEGREE;}
 				
-#line 1491 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 1491 "lex/parser_units.cpp"
 				
 				{
 #line 9 "lex/ragel_units.rl"
 					ragel_cat = CAT_UNIT; }
 				
-#line 1497 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 1497 "lex/parser_units.cpp"
 				
 				goto _st61;
 				_st61:
@@ -1519,13 +1519,13 @@ namespace ceammc {
 					ragel_cat  = CAT_NUMBER;
 				}
 				
-#line 1523 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 1523 "lex/parser_units.cpp"
 				
 				{
 #line 7 "lex/ragel_units.rl"
 					ragel_num.vdouble = ragel_num.vint; }
 				
-#line 1529 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 1529 "lex/parser_units.cpp"
 				
 				goto _st62;
 				_ctr117:
@@ -1538,7 +1538,7 @@ namespace ceammc {
 					ragel_cat  = CAT_NUMBER;
 				}
 				
-#line 1542 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 1542 "lex/parser_units.cpp"
 				
 				goto _st62;
 				_ctr140:
@@ -1546,13 +1546,13 @@ namespace ceammc {
 #line 19 "lex/ragel_units.rl"
 					ragel_type = TYPE_HOUR;}
 				
-#line 1550 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 1550 "lex/parser_units.cpp"
 				
 				{
 #line 9 "lex/ragel_units.rl"
 					ragel_cat = CAT_UNIT; }
 				
-#line 1556 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 1556 "lex/parser_units.cpp"
 				
 				goto _st62;
 				_st62:
@@ -1616,13 +1616,13 @@ namespace ceammc {
 #line 19 "lex/ragel_units.rl"
 					ragel_type = TYPE_HOUR;}
 				
-#line 1620 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 1620 "lex/parser_units.cpp"
 				
 				{
 #line 9 "lex/ragel_units.rl"
 					ragel_cat = CAT_UNIT; }
 				
-#line 1626 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 1626 "lex/parser_units.cpp"
 				
 				goto _st63;
 				_st63:
@@ -1648,13 +1648,13 @@ namespace ceammc {
 					ragel_cat  = CAT_NUMBER;
 				}
 				
-#line 1652 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 1652 "lex/parser_units.cpp"
 				
 				{
 #line 7 "lex/ragel_units.rl"
 					ragel_num.vdouble = ragel_num.vint; }
 				
-#line 1658 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 1658 "lex/parser_units.cpp"
 				
 				goto _st64;
 				_ctr118:
@@ -1667,7 +1667,7 @@ namespace ceammc {
 					ragel_cat  = CAT_NUMBER;
 				}
 				
-#line 1671 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 1671 "lex/parser_units.cpp"
 				
 				goto _st64;
 				_ctr142:
@@ -1675,13 +1675,13 @@ namespace ceammc {
 #line 20 "lex/ragel_units.rl"
 					ragel_type = TYPE_MIN;}
 				
-#line 1679 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 1679 "lex/parser_units.cpp"
 				
 				{
 #line 9 "lex/ragel_units.rl"
 					ragel_cat = CAT_UNIT; }
 				
-#line 1685 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 1685 "lex/parser_units.cpp"
 				
 				goto _st64;
 				_st64:
@@ -1728,13 +1728,13 @@ namespace ceammc {
 #line 20 "lex/ragel_units.rl"
 					ragel_type = TYPE_MIN;}
 				
-#line 1732 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 1732 "lex/parser_units.cpp"
 				
 				{
 #line 9 "lex/ragel_units.rl"
 					ragel_cat = CAT_UNIT; }
 				
-#line 1738 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 1738 "lex/parser_units.cpp"
 				
 				goto _st65;
 				_st65:
@@ -1756,13 +1756,13 @@ namespace ceammc {
 #line 22 "lex/ragel_units.rl"
 					ragel_type = TYPE_MSEC;}
 				
-#line 1760 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 1760 "lex/parser_units.cpp"
 				
 				{
 #line 9 "lex/ragel_units.rl"
 					ragel_cat = CAT_UNIT; }
 				
-#line 1766 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 1766 "lex/parser_units.cpp"
 				
 				goto _st66;
 				_st66:
@@ -1804,13 +1804,13 @@ namespace ceammc {
 #line 22 "lex/ragel_units.rl"
 					ragel_type = TYPE_MSEC;}
 				
-#line 1808 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 1808 "lex/parser_units.cpp"
 				
 				{
 #line 9 "lex/ragel_units.rl"
 					ragel_cat = CAT_UNIT; }
 				
-#line 1814 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 1814 "lex/parser_units.cpp"
 				
 				goto _st67;
 				_st67:
@@ -1836,19 +1836,19 @@ namespace ceammc {
 					ragel_cat  = CAT_NUMBER;
 				}
 				
-#line 1840 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 1840 "lex/parser_units.cpp"
 				
 				{
 #line 7 "lex/ragel_units.rl"
 					ragel_num.vdouble = ragel_num.vint; }
 				
-#line 1846 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 1846 "lex/parser_units.cpp"
 				
 				{
 #line 113 "lex/ragel_numeric.rl"
 					ragel_num.vdouble = ragel_num.vint;}
 				
-#line 1852 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 1852 "lex/parser_units.cpp"
 				
 				goto _st15;
 				_ctr119:
@@ -1861,7 +1861,7 @@ namespace ceammc {
 					ragel_cat  = CAT_NUMBER;
 				}
 				
-#line 1865 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 1865 "lex/parser_units.cpp"
 				
 				goto _st15;
 				_st15:
@@ -1925,13 +1925,13 @@ namespace ceammc {
 #line 26 "lex/ragel_units.rl"
 					ragel_type = TYPE_PERCENT;}
 				
-#line 1929 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 1929 "lex/parser_units.cpp"
 				
 				{
 #line 9 "lex/ragel_units.rl"
 					ragel_cat = CAT_UNIT; }
 				
-#line 1935 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 1935 "lex/parser_units.cpp"
 				
 				goto _st68;
 				_st68:
@@ -1990,13 +1990,13 @@ namespace ceammc {
 #line 26 "lex/ragel_units.rl"
 					ragel_type = TYPE_PERCENT;}
 				
-#line 1994 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 1994 "lex/parser_units.cpp"
 				
 				{
 #line 9 "lex/ragel_units.rl"
 					ragel_cat = CAT_UNIT; }
 				
-#line 2000 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 2000 "lex/parser_units.cpp"
 				
 				goto _st69;
 				_st69:
@@ -2069,7 +2069,7 @@ namespace ceammc {
 #line 28 "lex/ragel_units.rl"
 					ragel_type = TYPE_PHASE;}
 				
-#line 2073 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 2073 "lex/parser_units.cpp"
 				
 				{
 #line 75 "lex/ragel_numeric.rl"
@@ -2078,19 +2078,19 @@ namespace ceammc {
 					ragel_cat = CAT_NUMBER;
 				}
 				
-#line 2082 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 2082 "lex/parser_units.cpp"
 				
 				{
 #line 73 "lex/ragel_units.rl"
 					ragel_type = TYPE_PHASE;}
 				
-#line 2088 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 2088 "lex/parser_units.cpp"
 				
 				{
 #line 9 "lex/ragel_units.rl"
 					ragel_cat = CAT_UNIT; }
 				
-#line 2094 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 2094 "lex/parser_units.cpp"
 				
 				goto _st70;
 				_st70:
@@ -2116,13 +2116,13 @@ namespace ceammc {
 					ragel_cat  = CAT_NUMBER;
 				}
 				
-#line 2120 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 2120 "lex/parser_units.cpp"
 				
 				{
 #line 7 "lex/ragel_units.rl"
 					ragel_num.vdouble = ragel_num.vint; }
 				
-#line 2126 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 2126 "lex/parser_units.cpp"
 				
 				goto _st23;
 				_ctr120:
@@ -2135,7 +2135,7 @@ namespace ceammc {
 					ragel_cat  = CAT_NUMBER;
 				}
 				
-#line 2139 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 2139 "lex/parser_units.cpp"
 				
 				goto _st23;
 				_st23:
@@ -2177,13 +2177,13 @@ namespace ceammc {
 #line 15 "lex/ragel_units.rl"
 					ragel_type = TYPE_RADIAN;}
 				
-#line 2181 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 2181 "lex/parser_units.cpp"
 				
 				{
 #line 9 "lex/ragel_units.rl"
 					ragel_cat = CAT_UNIT; }
 				
-#line 2187 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 2187 "lex/parser_units.cpp"
 				
 				goto _st71;
 				_st71:
@@ -2209,13 +2209,13 @@ namespace ceammc {
 					ragel_cat  = CAT_NUMBER;
 				}
 				
-#line 2213 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 2213 "lex/parser_units.cpp"
 				
 				{
 #line 7 "lex/ragel_units.rl"
 					ragel_num.vdouble = ragel_num.vint; }
 				
-#line 2219 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 2219 "lex/parser_units.cpp"
 				
 				goto _st72;
 				_ctr121:
@@ -2228,7 +2228,7 @@ namespace ceammc {
 					ragel_cat  = CAT_NUMBER;
 				}
 				
-#line 2232 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 2232 "lex/parser_units.cpp"
 				
 				goto _st72;
 				_ctr151:
@@ -2236,13 +2236,13 @@ namespace ceammc {
 #line 21 "lex/ragel_units.rl"
 					ragel_type = TYPE_SEC;}
 				
-#line 2240 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 2240 "lex/parser_units.cpp"
 				
 				{
 #line 9 "lex/ragel_units.rl"
 					ragel_cat = CAT_UNIT; }
 				
-#line 2246 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 2246 "lex/parser_units.cpp"
 				
 				goto _st72;
 				_st72:
@@ -2272,13 +2272,13 @@ namespace ceammc {
 #line 14 "lex/ragel_units.rl"
 					ragel_type = TYPE_SAMP;}
 				
-#line 2276 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 2276 "lex/parser_units.cpp"
 				
 				{
 #line 9 "lex/ragel_units.rl"
 					ragel_cat = CAT_UNIT; }
 				
-#line 2282 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 2282 "lex/parser_units.cpp"
 				
 				goto _st73;
 				_st73:
@@ -2320,13 +2320,13 @@ namespace ceammc {
 #line 14 "lex/ragel_units.rl"
 					ragel_type = TYPE_SAMP;}
 				
-#line 2324 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 2324 "lex/parser_units.cpp"
 				
 				{
 #line 9 "lex/ragel_units.rl"
 					ragel_cat = CAT_UNIT; }
 				
-#line 2330 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 2330 "lex/parser_units.cpp"
 				
 				goto _st74;
 				_st74:
@@ -2370,13 +2370,13 @@ namespace ceammc {
 #line 21 "lex/ragel_units.rl"
 					ragel_type = TYPE_SEC;}
 				
-#line 2374 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 2374 "lex/parser_units.cpp"
 				
 				{
 #line 9 "lex/ragel_units.rl"
 					ragel_cat = CAT_UNIT; }
 				
-#line 2380 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 2380 "lex/parser_units.cpp"
 				
 				goto _st75;
 				_st75:
@@ -2415,13 +2415,13 @@ namespace ceammc {
 #line 24 "lex/ragel_units.rl"
 					ragel_type = TYPE_SEMITONE;}
 				
-#line 2419 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 2419 "lex/parser_units.cpp"
 				
 				{
 #line 9 "lex/ragel_units.rl"
 					ragel_cat = CAT_UNIT; }
 				
-#line 2425 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 2425 "lex/parser_units.cpp"
 				
 				goto _st76;
 				_st76:
@@ -2497,13 +2497,13 @@ namespace ceammc {
 #line 24 "lex/ragel_units.rl"
 					ragel_type = TYPE_SEMITONE;}
 				
-#line 2501 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 2501 "lex/parser_units.cpp"
 				
 				{
 #line 9 "lex/ragel_units.rl"
 					ragel_cat = CAT_UNIT; }
 				
-#line 2507 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 2507 "lex/parser_units.cpp"
 				
 				goto _st77;
 				_st77:
@@ -2545,7 +2545,7 @@ namespace ceammc {
 #line 43 "lex/ragel_numeric.rl"
 					(ragel_num.ratio.den *= 10) += ((( (*( p))))-'0'); }
 				
-#line 2549 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 2549 "lex/parser_units.cpp"
 				
 				goto _st78;
 				_ctr158:
@@ -2557,19 +2557,19 @@ namespace ceammc {
 					ragel_cat  = CAT_NUMBER;
 				}
 				
-#line 2561 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 2561 "lex/parser_units.cpp"
 				
 				{
 #line 74 "lex/ragel_units.rl"
 					ragel_type = TYPE_RATIO;}
 				
-#line 2567 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 2567 "lex/parser_units.cpp"
 				
 				{
 #line 9 "lex/ragel_units.rl"
 					ragel_cat = CAT_UNIT; }
 				
-#line 2573 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 2573 "lex/parser_units.cpp"
 				
 				goto _st78;
 				_st78:
@@ -2591,7 +2591,7 @@ namespace ceammc {
 #line 43 "lex/ragel_numeric.rl"
 					(ragel_num.ratio.den *= 10) += ((( (*( p))))-'0'); }
 				
-#line 2595 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 2595 "lex/parser_units.cpp"
 				
 				goto _st79;
 				_ctr159:
@@ -2603,19 +2603,19 @@ namespace ceammc {
 					ragel_cat  = CAT_NUMBER;
 				}
 				
-#line 2607 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 2607 "lex/parser_units.cpp"
 				
 				{
 #line 74 "lex/ragel_units.rl"
 					ragel_type = TYPE_RATIO;}
 				
-#line 2613 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 2613 "lex/parser_units.cpp"
 				
 				{
 #line 9 "lex/ragel_units.rl"
 					ragel_cat = CAT_UNIT; }
 				
-#line 2619 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 2619 "lex/parser_units.cpp"
 				
 				goto _st79;
 				_st79:
@@ -2640,7 +2640,7 @@ namespace ceammc {
 #line 49 "lex/ragel_units.rl"
 					(smpte.hour *= 10) += ((( (*( p)))) - '0');}
 				
-#line 2644 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 2644 "lex/parser_units.cpp"
 				
 				goto _st32;
 				_st32:
@@ -2682,13 +2682,13 @@ namespace ceammc {
 #line 50 "lex/ragel_units.rl"
 					smpte.min = 0; smpte.np++;}
 				
-#line 2686 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 2686 "lex/parser_units.cpp"
 				
 				{
 #line 50 "lex/ragel_units.rl"
 					(smpte.min *= 10) += ((( (*( p)))) - '0');}
 				
-#line 2692 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 2692 "lex/parser_units.cpp"
 				
 				goto _st34;
 				_st34:
@@ -2713,7 +2713,7 @@ namespace ceammc {
 #line 50 "lex/ragel_units.rl"
 					(smpte.min *= 10) += ((( (*( p)))) - '0');}
 				
-#line 2717 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 2717 "lex/parser_units.cpp"
 				
 				goto _st80;
 				_ctr160:
@@ -2733,13 +2733,13 @@ namespace ceammc {
 					}
 				}
 				
-#line 2737 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 2737 "lex/parser_units.cpp"
 				
 				{
 #line 9 "lex/ragel_units.rl"
 					ragel_cat = CAT_UNIT; }
 				
-#line 2743 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 2743 "lex/parser_units.cpp"
 				
 				goto _st80;
 				_st80:
@@ -2786,13 +2786,13 @@ namespace ceammc {
 #line 52 "lex/ragel_units.rl"
 					smpte.frame = 0;}
 				
-#line 2790 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 2790 "lex/parser_units.cpp"
 				
 				{
 #line 52 "lex/ragel_units.rl"
 					(smpte.frame *= 10) += ((( (*( p)))) - '0');}
 				
-#line 2796 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 2796 "lex/parser_units.cpp"
 				
 				goto _st81;
 				_ctr161:
@@ -2812,13 +2812,13 @@ namespace ceammc {
 					}
 				}
 				
-#line 2816 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 2816 "lex/parser_units.cpp"
 				
 				{
 #line 9 "lex/ragel_units.rl"
 					ragel_cat = CAT_UNIT; }
 				
-#line 2822 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 2822 "lex/parser_units.cpp"
 				
 				goto _st81;
 				_st81:
@@ -2855,13 +2855,13 @@ namespace ceammc {
 					}
 				}
 				
-#line 2859 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 2859 "lex/parser_units.cpp"
 				
 				{
 #line 9 "lex/ragel_units.rl"
 					ragel_cat = CAT_UNIT; }
 				
-#line 2865 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 2865 "lex/parser_units.cpp"
 				
 				goto _st82;
 				_ctr162:
@@ -2869,7 +2869,7 @@ namespace ceammc {
 #line 52 "lex/ragel_units.rl"
 					(smpte.frame *= 10) += ((( (*( p)))) - '0');}
 				
-#line 2873 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 2873 "lex/parser_units.cpp"
 				
 				goto _st82;
 				_st82:
@@ -2908,13 +2908,13 @@ namespace ceammc {
 #line 51 "lex/ragel_units.rl"
 					smpte.sec = 0; smpte.np++;}
 				
-#line 2912 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 2912 "lex/parser_units.cpp"
 				
 				{
 #line 51 "lex/ragel_units.rl"
 					(smpte.sec *= 10) += ((( (*( p)))) - '0');}
 				
-#line 2918 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 2918 "lex/parser_units.cpp"
 				
 				goto _st37;
 				_st37:
@@ -2939,7 +2939,7 @@ namespace ceammc {
 #line 51 "lex/ragel_units.rl"
 					(smpte.sec *= 10) += ((( (*( p)))) - '0');}
 				
-#line 2943 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 2943 "lex/parser_units.cpp"
 				
 				goto _st83;
 				_ctr164:
@@ -2959,13 +2959,13 @@ namespace ceammc {
 					}
 				}
 				
-#line 2963 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 2963 "lex/parser_units.cpp"
 				
 				{
 #line 9 "lex/ragel_units.rl"
 					ragel_cat = CAT_UNIT; }
 				
-#line 2969 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 2969 "lex/parser_units.cpp"
 				
 				goto _st83;
 				_st83:
@@ -2990,37 +2990,37 @@ namespace ceammc {
 #line 64 "lex/ragel_units.rl"
 					pos_ = POSITION_END;}
 				
-#line 2994 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 2994 "lex/parser_units.cpp"
 				
 				{
 #line 29 "lex/ragel_numeric.rl"
 					(ragel_num.vint *= 10) += ((( (*( p))))-'0'); }
 				
-#line 3000 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3000 "lex/parser_units.cpp"
 				
 				{
 #line 42 "lex/ragel_numeric.rl"
 					(ragel_num.ratio.num *= 10) += ((( (*( p))))-'0'); }
 				
-#line 3006 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3006 "lex/parser_units.cpp"
 				
 				{
 #line 61 "lex/ragel_units.rl"
 					smpte.np = 0;}
 				
-#line 3012 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3012 "lex/parser_units.cpp"
 				
 				{
 #line 49 "lex/ragel_units.rl"
 					smpte.hour = 0; smpte.np++;}
 				
-#line 3018 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3018 "lex/parser_units.cpp"
 				
 				{
 #line 49 "lex/ragel_units.rl"
 					(smpte.hour *= 10) += ((( (*( p)))) - '0');}
 				
-#line 3024 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3024 "lex/parser_units.cpp"
 				
 				goto _st84;
 				_ctr16:
@@ -3028,25 +3028,25 @@ namespace ceammc {
 #line 29 "lex/ragel_numeric.rl"
 					(ragel_num.vint *= 10) += ((( (*( p))))-'0'); }
 				
-#line 3032 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3032 "lex/parser_units.cpp"
 				
 				{
 #line 42 "lex/ragel_numeric.rl"
 					(ragel_num.ratio.num *= 10) += ((( (*( p))))-'0'); }
 				
-#line 3038 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3038 "lex/parser_units.cpp"
 				
 				{
 #line 49 "lex/ragel_units.rl"
 					smpte.hour = 0; smpte.np++;}
 				
-#line 3044 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3044 "lex/parser_units.cpp"
 				
 				{
 #line 49 "lex/ragel_units.rl"
 					(smpte.hour *= 10) += ((( (*( p)))) - '0');}
 				
-#line 3050 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3050 "lex/parser_units.cpp"
 				
 				goto _st84;
 				_ctr90:
@@ -3054,37 +3054,37 @@ namespace ceammc {
 #line 65 "lex/ragel_units.rl"
 					pos_ = POSITION_CURRENT;}
 				
-#line 3058 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3058 "lex/parser_units.cpp"
 				
 				{
 #line 29 "lex/ragel_numeric.rl"
 					(ragel_num.vint *= 10) += ((( (*( p))))-'0'); }
 				
-#line 3064 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3064 "lex/parser_units.cpp"
 				
 				{
 #line 42 "lex/ragel_numeric.rl"
 					(ragel_num.ratio.num *= 10) += ((( (*( p))))-'0'); }
 				
-#line 3070 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3070 "lex/parser_units.cpp"
 				
 				{
 #line 61 "lex/ragel_units.rl"
 					smpte.np = 0;}
 				
-#line 3076 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3076 "lex/parser_units.cpp"
 				
 				{
 #line 49 "lex/ragel_units.rl"
 					smpte.hour = 0; smpte.np++;}
 				
-#line 3082 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3082 "lex/parser_units.cpp"
 				
 				{
 #line 49 "lex/ragel_units.rl"
 					(smpte.hour *= 10) += ((( (*( p)))) - '0');}
 				
-#line 3088 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3088 "lex/parser_units.cpp"
 				
 				goto _st84;
 				_ctr165:
@@ -3096,19 +3096,19 @@ namespace ceammc {
 					ragel_cat  = CAT_NUMBER;
 				}
 				
-#line 3100 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3100 "lex/parser_units.cpp"
 				
 				{
 #line 7 "lex/ragel_units.rl"
 					ragel_num.vdouble = ragel_num.vint; }
 				
-#line 3106 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3106 "lex/parser_units.cpp"
 				
 				{
 #line 9 "lex/ragel_units.rl"
 					ragel_cat = CAT_UNIT; }
 				
-#line 3112 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3112 "lex/parser_units.cpp"
 				
 				goto _st84;
 				_st84:
@@ -3178,19 +3178,19 @@ namespace ceammc {
 					ragel_cat  = CAT_NUMBER;
 				}
 				
-#line 3182 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3182 "lex/parser_units.cpp"
 				
 				{
 #line 7 "lex/ragel_units.rl"
 					ragel_num.vdouble = ragel_num.vint; }
 				
-#line 3188 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3188 "lex/parser_units.cpp"
 				
 				{
 #line 9 "lex/ragel_units.rl"
 					ragel_cat = CAT_UNIT; }
 				
-#line 3194 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3194 "lex/parser_units.cpp"
 				
 				goto _st85;
 				_ctr166:
@@ -3198,19 +3198,19 @@ namespace ceammc {
 #line 29 "lex/ragel_numeric.rl"
 					(ragel_num.vint *= 10) += ((( (*( p))))-'0'); }
 				
-#line 3202 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3202 "lex/parser_units.cpp"
 				
 				{
 #line 42 "lex/ragel_numeric.rl"
 					(ragel_num.ratio.num *= 10) += ((( (*( p))))-'0'); }
 				
-#line 3208 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3208 "lex/parser_units.cpp"
 				
 				{
 #line 49 "lex/ragel_units.rl"
 					(smpte.hour *= 10) += ((( (*( p)))) - '0');}
 				
-#line 3214 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3214 "lex/parser_units.cpp"
 				
 				goto _st85;
 				_st85:
@@ -3279,19 +3279,19 @@ namespace ceammc {
 #line 64 "lex/ragel_units.rl"
 					pos_ = POSITION_END;}
 				
-#line 3283 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3283 "lex/parser_units.cpp"
 				
 				{
 #line 29 "lex/ragel_numeric.rl"
 					(ragel_num.vint *= 10) += ((( (*( p))))-'0'); }
 				
-#line 3289 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3289 "lex/parser_units.cpp"
 				
 				{
 #line 42 "lex/ragel_numeric.rl"
 					(ragel_num.ratio.num *= 10) += ((( (*( p))))-'0'); }
 				
-#line 3295 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3295 "lex/parser_units.cpp"
 				
 				goto _st86;
 				_ctr17:
@@ -3299,13 +3299,13 @@ namespace ceammc {
 #line 29 "lex/ragel_numeric.rl"
 					(ragel_num.vint *= 10) += ((( (*( p))))-'0'); }
 				
-#line 3303 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3303 "lex/parser_units.cpp"
 				
 				{
 #line 42 "lex/ragel_numeric.rl"
 					(ragel_num.ratio.num *= 10) += ((( (*( p))))-'0'); }
 				
-#line 3309 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3309 "lex/parser_units.cpp"
 				
 				goto _st86;
 				_ctr91:
@@ -3313,19 +3313,19 @@ namespace ceammc {
 #line 65 "lex/ragel_units.rl"
 					pos_ = POSITION_CURRENT;}
 				
-#line 3317 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3317 "lex/parser_units.cpp"
 				
 				{
 #line 29 "lex/ragel_numeric.rl"
 					(ragel_num.vint *= 10) += ((( (*( p))))-'0'); }
 				
-#line 3323 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3323 "lex/parser_units.cpp"
 				
 				{
 #line 42 "lex/ragel_numeric.rl"
 					(ragel_num.ratio.num *= 10) += ((( (*( p))))-'0'); }
 				
-#line 3329 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3329 "lex/parser_units.cpp"
 				
 				goto _st86;
 				_ctr168:
@@ -3337,19 +3337,19 @@ namespace ceammc {
 					ragel_cat  = CAT_NUMBER;
 				}
 				
-#line 3341 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3341 "lex/parser_units.cpp"
 				
 				{
 #line 7 "lex/ragel_units.rl"
 					ragel_num.vdouble = ragel_num.vint; }
 				
-#line 3347 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3347 "lex/parser_units.cpp"
 				
 				{
 #line 9 "lex/ragel_units.rl"
 					ragel_cat = CAT_UNIT; }
 				
-#line 3353 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3353 "lex/parser_units.cpp"
 				
 				goto _st86;
 				_st86:
@@ -3415,55 +3415,55 @@ namespace ceammc {
 #line 8 "lex/ragel_units.rl"
 					ragel_type = TYPE_UNKNOWN; ragel_cat = CAT_UNKNOWN; }
 				
-#line 3419 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3419 "lex/parser_units.cpp"
 				
 				{
 #line 70 "lex/ragel_units.rl"
 					pos_ = POSITION_ABS;}
 				
-#line 3425 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3425 "lex/parser_units.cpp"
 				
 				{
 #line 29 "lex/ragel_numeric.rl"
 					(ragel_num.vint *= 10) += ((( (*( p))))-'0'); }
 				
-#line 3431 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3431 "lex/parser_units.cpp"
 				
 				{
 #line 42 "lex/ragel_numeric.rl"
 					(ragel_num.ratio.num *= 10) += ((( (*( p))))-'0'); }
 				
-#line 3437 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3437 "lex/parser_units.cpp"
 				
 				{
 #line 61 "lex/ragel_units.rl"
 					smpte.np = 0;}
 				
-#line 3443 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3443 "lex/parser_units.cpp"
 				
 				{
 #line 49 "lex/ragel_units.rl"
 					smpte.hour = 0; smpte.np++;}
 				
-#line 3449 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3449 "lex/parser_units.cpp"
 				
 				{
 #line 49 "lex/ragel_units.rl"
 					(smpte.hour *= 10) += ((( (*( p)))) - '0');}
 				
-#line 3455 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3455 "lex/parser_units.cpp"
 				
 				{
 #line 9 "lex/ragel_music.rl"
 					bpm.dur_num = 1; bpm.dur_den = 4; }
 				
-#line 3461 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3461 "lex/parser_units.cpp"
 				
 				{
 #line 6 "lex/ragel_music.rl"
 					(bpm.ival *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 3467 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3467 "lex/parser_units.cpp"
 				
 				goto _st87;
 				_ctr169:
@@ -3475,25 +3475,25 @@ namespace ceammc {
 					ragel_cat  = CAT_NUMBER;
 				}
 				
-#line 3479 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3479 "lex/parser_units.cpp"
 				
 				{
 #line 7 "lex/ragel_units.rl"
 					ragel_num.vdouble = ragel_num.vint; }
 				
-#line 3485 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3485 "lex/parser_units.cpp"
 				
 				{
 #line 10 "lex/ragel_music.rl"
 					ragel_cat = CAT_UNIT; ragel_type = TYPE_BPM; }
 				
-#line 3491 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3491 "lex/parser_units.cpp"
 				
 				{
 #line 9 "lex/ragel_units.rl"
 					ragel_cat = CAT_UNIT; }
 				
-#line 3497 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3497 "lex/parser_units.cpp"
 				
 				goto _st87;
 				_st87:
@@ -3569,7 +3569,7 @@ namespace ceammc {
 					ragel_cat  = CAT_NUMBER;
 				}
 				
-#line 3573 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3573 "lex/parser_units.cpp"
 				
 				{
 #line 50 "lex/ragel_numeric.rl"
@@ -3578,7 +3578,7 @@ namespace ceammc {
 					ragel_num.ratio.den = 1;
 				}
 				
-#line 3582 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3582 "lex/parser_units.cpp"
 				
 				goto _st38;
 				_st38:
@@ -3606,13 +3606,13 @@ namespace ceammc {
 					ragel_num.ratio.den *= 10;
 				}
 				
-#line 3610 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3610 "lex/parser_units.cpp"
 				
 				{
 #line 7 "lex/ragel_music.rl"
 					(bpm.fnum *= 10) += ((( (*( p)))) - '0'); bpm.fden *= 10; }
 				
-#line 3616 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3616 "lex/parser_units.cpp"
 				
 				goto _st88;
 				_ctr172:
@@ -3625,19 +3625,19 @@ namespace ceammc {
 					ragel_cat  = CAT_NUMBER;
 				}
 				
-#line 3629 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3629 "lex/parser_units.cpp"
 				
 				{
 #line 10 "lex/ragel_music.rl"
 					ragel_cat = CAT_UNIT; ragel_type = TYPE_BPM; }
 				
-#line 3635 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3635 "lex/parser_units.cpp"
 				
 				{
 #line 9 "lex/ragel_units.rl"
 					ragel_cat = CAT_UNIT; }
 				
-#line 3641 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3641 "lex/parser_units.cpp"
 				
 				goto _st88;
 				_st88:
@@ -3707,25 +3707,25 @@ namespace ceammc {
 					ragel_cat  = CAT_NUMBER;
 				}
 				
-#line 3711 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3711 "lex/parser_units.cpp"
 				
 				{
 #line 7 "lex/ragel_units.rl"
 					ragel_num.vdouble = ragel_num.vint; }
 				
-#line 3717 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3717 "lex/parser_units.cpp"
 				
 				{
 #line 108 "lex/ragel_numeric.rl"
 					ragel_num.vdouble = ragel_num.vint;}
 				
-#line 3723 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3723 "lex/parser_units.cpp"
 				
 				{
 #line 113 "lex/ragel_numeric.rl"
 					ragel_num.vdouble = ragel_num.vint;}
 				
-#line 3729 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3729 "lex/parser_units.cpp"
 				
 				goto _st89;
 				_ctr173:
@@ -3738,7 +3738,7 @@ namespace ceammc {
 					ragel_cat  = CAT_NUMBER;
 				}
 				
-#line 3742 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3742 "lex/parser_units.cpp"
 				
 				goto _st89;
 				_ctr174:
@@ -3746,13 +3746,13 @@ namespace ceammc {
 #line 10 "lex/ragel_music.rl"
 					ragel_cat = CAT_UNIT; ragel_type = TYPE_BPM; }
 				
-#line 3750 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3750 "lex/parser_units.cpp"
 				
 				{
 #line 9 "lex/ragel_units.rl"
 					ragel_cat = CAT_UNIT; }
 				
-#line 3756 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3756 "lex/parser_units.cpp"
 				
 				goto _st89;
 				_st89:
@@ -3809,7 +3809,7 @@ namespace ceammc {
 #line 24 "lex/ragel_music.rl"
 					bpm.dur_num = 1;}
 				
-#line 3813 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3813 "lex/parser_units.cpp"
 				
 				goto _st39;
 				_st39:
@@ -3851,13 +3851,13 @@ namespace ceammc {
 #line 10 "lex/ragel_music.rl"
 					ragel_cat = CAT_UNIT; ragel_type = TYPE_BPM; }
 				
-#line 3855 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3855 "lex/parser_units.cpp"
 				
 				{
 #line 9 "lex/ragel_units.rl"
 					ragel_cat = CAT_UNIT; }
 				
-#line 3861 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3861 "lex/parser_units.cpp"
 				
 				goto _st90;
 				_st90:
@@ -3896,25 +3896,25 @@ namespace ceammc {
 #line 11 "lex/ragel_music.rl"
 					bpm.dur_num = 0; }
 				
-#line 3900 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3900 "lex/parser_units.cpp"
 				
 				{
 #line 12 "lex/ragel_music.rl"
 					(bpm.dur_num *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 3906 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3906 "lex/parser_units.cpp"
 				
 				{
 #line 13 "lex/ragel_music.rl"
 					bpm.dur_den = 0;}
 				
-#line 3912 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3912 "lex/parser_units.cpp"
 				
 				{
 #line 14 "lex/ragel_music.rl"
 					(bpm.dur_den *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 3918 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3918 "lex/parser_units.cpp"
 				
 				goto _st91;
 				_ctr176:
@@ -3922,19 +3922,19 @@ namespace ceammc {
 #line 24 "lex/ragel_music.rl"
 					bpm.dur_num = 1;}
 				
-#line 3926 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3926 "lex/parser_units.cpp"
 				
 				{
 #line 10 "lex/ragel_music.rl"
 					ragel_cat = CAT_UNIT; ragel_type = TYPE_BPM; }
 				
-#line 3932 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3932 "lex/parser_units.cpp"
 				
 				{
 #line 9 "lex/ragel_units.rl"
 					ragel_cat = CAT_UNIT; }
 				
-#line 3938 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3938 "lex/parser_units.cpp"
 				
 				goto _st91;
 				_ctr178:
@@ -3942,13 +3942,13 @@ namespace ceammc {
 #line 12 "lex/ragel_music.rl"
 					(bpm.dur_num *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 3946 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3946 "lex/parser_units.cpp"
 				
 				{
 #line 14 "lex/ragel_music.rl"
 					(bpm.dur_den *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 3952 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3952 "lex/parser_units.cpp"
 				
 				goto _st91;
 				_st91:
@@ -3987,13 +3987,13 @@ namespace ceammc {
 #line 10 "lex/ragel_music.rl"
 					ragel_cat = CAT_UNIT; ragel_type = TYPE_BPM; }
 				
-#line 3991 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3991 "lex/parser_units.cpp"
 				
 				{
 #line 9 "lex/ragel_units.rl"
 					ragel_cat = CAT_UNIT; }
 				
-#line 3997 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 3997 "lex/parser_units.cpp"
 				
 				goto _st92;
 				_ctr177:
@@ -4001,13 +4001,13 @@ namespace ceammc {
 #line 24 "lex/ragel_music.rl"
 					bpm.dur_num = 1;}
 				
-#line 4005 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 4005 "lex/parser_units.cpp"
 				
 				{
 #line 8 "lex/ragel_music.rl"
 					bpm.dur_num *= 3; bpm.dur_den *= 2; }
 				
-#line 4011 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 4011 "lex/parser_units.cpp"
 				
 				goto _st92;
 				_ctr185:
@@ -4015,7 +4015,7 @@ namespace ceammc {
 #line 8 "lex/ragel_music.rl"
 					bpm.dur_num *= 3; bpm.dur_den *= 2; }
 				
-#line 4019 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 4019 "lex/parser_units.cpp"
 				
 				goto _st92;
 				_st92:
@@ -4045,13 +4045,13 @@ namespace ceammc {
 #line 10 "lex/ragel_music.rl"
 					ragel_cat = CAT_UNIT; ragel_type = TYPE_BPM; }
 				
-#line 4049 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 4049 "lex/parser_units.cpp"
 				
 				{
 #line 9 "lex/ragel_units.rl"
 					ragel_cat = CAT_UNIT; }
 				
-#line 4055 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 4055 "lex/parser_units.cpp"
 				
 				goto _st93;
 				_ctr179:
@@ -4059,7 +4059,7 @@ namespace ceammc {
 #line 24 "lex/ragel_music.rl"
 					bpm.dur_num = 1;}
 				
-#line 4063 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 4063 "lex/parser_units.cpp"
 				
 				goto _st93;
 				_st93:
@@ -4101,13 +4101,13 @@ namespace ceammc {
 #line 13 "lex/ragel_music.rl"
 					bpm.dur_den = 0;}
 				
-#line 4105 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 4105 "lex/parser_units.cpp"
 				
 				{
 #line 14 "lex/ragel_music.rl"
 					(bpm.dur_den *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 4111 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 4111 "lex/parser_units.cpp"
 				
 				goto _st94;
 				_ctr184:
@@ -4115,13 +4115,13 @@ namespace ceammc {
 #line 10 "lex/ragel_music.rl"
 					ragel_cat = CAT_UNIT; ragel_type = TYPE_BPM; }
 				
-#line 4119 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 4119 "lex/parser_units.cpp"
 				
 				{
 #line 9 "lex/ragel_units.rl"
 					ragel_cat = CAT_UNIT; }
 				
-#line 4125 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 4125 "lex/parser_units.cpp"
 				
 				goto _st94;
 				_ctr186:
@@ -4129,7 +4129,7 @@ namespace ceammc {
 #line 14 "lex/ragel_music.rl"
 					(bpm.dur_den *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 4133 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 4133 "lex/parser_units.cpp"
 				
 				goto _st94;
 				_st94:
@@ -4165,55 +4165,55 @@ namespace ceammc {
 #line 8 "lex/ragel_units.rl"
 					ragel_type = TYPE_UNKNOWN; ragel_cat = CAT_UNKNOWN; }
 				
-#line 4169 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 4169 "lex/parser_units.cpp"
 				
 				{
 #line 70 "lex/ragel_units.rl"
 					pos_ = POSITION_ABS;}
 				
-#line 4175 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 4175 "lex/parser_units.cpp"
 				
 				{
 #line 29 "lex/ragel_numeric.rl"
 					(ragel_num.vint *= 10) += ((( (*( p))))-'0'); }
 				
-#line 4181 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 4181 "lex/parser_units.cpp"
 				
 				{
 #line 42 "lex/ragel_numeric.rl"
 					(ragel_num.ratio.num *= 10) += ((( (*( p))))-'0'); }
 				
-#line 4187 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 4187 "lex/parser_units.cpp"
 				
 				{
 #line 61 "lex/ragel_units.rl"
 					smpte.np = 0;}
 				
-#line 4193 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 4193 "lex/parser_units.cpp"
 				
 				{
 #line 49 "lex/ragel_units.rl"
 					smpte.hour = 0; smpte.np++;}
 				
-#line 4199 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 4199 "lex/parser_units.cpp"
 				
 				{
 #line 49 "lex/ragel_units.rl"
 					(smpte.hour *= 10) += ((( (*( p)))) - '0');}
 				
-#line 4205 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 4205 "lex/parser_units.cpp"
 				
 				{
 #line 9 "lex/ragel_music.rl"
 					bpm.dur_num = 1; bpm.dur_den = 4; }
 				
-#line 4211 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 4211 "lex/parser_units.cpp"
 				
 				{
 #line 6 "lex/ragel_music.rl"
 					(bpm.ival *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 4217 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 4217 "lex/parser_units.cpp"
 				
 				goto _st95;
 				_ctr187:
@@ -4225,25 +4225,25 @@ namespace ceammc {
 					ragel_cat  = CAT_NUMBER;
 				}
 				
-#line 4229 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 4229 "lex/parser_units.cpp"
 				
 				{
 #line 7 "lex/ragel_units.rl"
 					ragel_num.vdouble = ragel_num.vint; }
 				
-#line 4235 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 4235 "lex/parser_units.cpp"
 				
 				{
 #line 10 "lex/ragel_music.rl"
 					ragel_cat = CAT_UNIT; ragel_type = TYPE_BPM; }
 				
-#line 4241 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 4241 "lex/parser_units.cpp"
 				
 				{
 #line 9 "lex/ragel_units.rl"
 					ragel_cat = CAT_UNIT; }
 				
-#line 4247 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 4247 "lex/parser_units.cpp"
 				
 				goto _st95;
 				_st95:
@@ -4319,25 +4319,25 @@ namespace ceammc {
 					ragel_cat  = CAT_NUMBER;
 				}
 				
-#line 4323 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 4323 "lex/parser_units.cpp"
 				
 				{
 #line 7 "lex/ragel_units.rl"
 					ragel_num.vdouble = ragel_num.vint; }
 				
-#line 4329 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 4329 "lex/parser_units.cpp"
 				
 				{
 #line 10 "lex/ragel_music.rl"
 					ragel_cat = CAT_UNIT; ragel_type = TYPE_BPM; }
 				
-#line 4335 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 4335 "lex/parser_units.cpp"
 				
 				{
 #line 9 "lex/ragel_units.rl"
 					ragel_cat = CAT_UNIT; }
 				
-#line 4341 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 4341 "lex/parser_units.cpp"
 				
 				goto _st96;
 				_ctr188:
@@ -4345,25 +4345,25 @@ namespace ceammc {
 #line 29 "lex/ragel_numeric.rl"
 					(ragel_num.vint *= 10) += ((( (*( p))))-'0'); }
 				
-#line 4349 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 4349 "lex/parser_units.cpp"
 				
 				{
 #line 42 "lex/ragel_numeric.rl"
 					(ragel_num.ratio.num *= 10) += ((( (*( p))))-'0'); }
 				
-#line 4355 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 4355 "lex/parser_units.cpp"
 				
 				{
 #line 49 "lex/ragel_units.rl"
 					(smpte.hour *= 10) += ((( (*( p)))) - '0');}
 				
-#line 4361 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 4361 "lex/parser_units.cpp"
 				
 				{
 #line 6 "lex/ragel_music.rl"
 					(bpm.ival *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 4367 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 4367 "lex/parser_units.cpp"
 				
 				goto _st96;
 				_st96:
@@ -4438,37 +4438,37 @@ namespace ceammc {
 #line 8 "lex/ragel_units.rl"
 					ragel_type = TYPE_UNKNOWN; ragel_cat = CAT_UNKNOWN; }
 				
-#line 4442 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 4442 "lex/parser_units.cpp"
 				
 				{
 #line 70 "lex/ragel_units.rl"
 					pos_ = POSITION_ABS;}
 				
-#line 4448 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 4448 "lex/parser_units.cpp"
 				
 				{
 #line 29 "lex/ragel_numeric.rl"
 					(ragel_num.vint *= 10) += ((( (*( p))))-'0'); }
 				
-#line 4454 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 4454 "lex/parser_units.cpp"
 				
 				{
 #line 42 "lex/ragel_numeric.rl"
 					(ragel_num.ratio.num *= 10) += ((( (*( p))))-'0'); }
 				
-#line 4460 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 4460 "lex/parser_units.cpp"
 				
 				{
 #line 9 "lex/ragel_music.rl"
 					bpm.dur_num = 1; bpm.dur_den = 4; }
 				
-#line 4466 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 4466 "lex/parser_units.cpp"
 				
 				{
 #line 6 "lex/ragel_music.rl"
 					(bpm.ival *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 4472 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 4472 "lex/parser_units.cpp"
 				
 				goto _st97;
 				_ctr191:
@@ -4480,25 +4480,25 @@ namespace ceammc {
 					ragel_cat  = CAT_NUMBER;
 				}
 				
-#line 4484 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 4484 "lex/parser_units.cpp"
 				
 				{
 #line 7 "lex/ragel_units.rl"
 					ragel_num.vdouble = ragel_num.vint; }
 				
-#line 4490 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 4490 "lex/parser_units.cpp"
 				
 				{
 #line 10 "lex/ragel_music.rl"
 					ragel_cat = CAT_UNIT; ragel_type = TYPE_BPM; }
 				
-#line 4496 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 4496 "lex/parser_units.cpp"
 				
 				{
 #line 9 "lex/ragel_units.rl"
 					ragel_cat = CAT_UNIT; }
 				
-#line 4502 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 4502 "lex/parser_units.cpp"
 				
 				goto _st97;
 				_ctr190:
@@ -4506,19 +4506,19 @@ namespace ceammc {
 #line 29 "lex/ragel_numeric.rl"
 					(ragel_num.vint *= 10) += ((( (*( p))))-'0'); }
 				
-#line 4510 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 4510 "lex/parser_units.cpp"
 				
 				{
 #line 42 "lex/ragel_numeric.rl"
 					(ragel_num.ratio.num *= 10) += ((( (*( p))))-'0'); }
 				
-#line 4516 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 4516 "lex/parser_units.cpp"
 				
 				{
 #line 6 "lex/ragel_music.rl"
 					(bpm.ival *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 4522 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 4522 "lex/parser_units.cpp"
 				
 				goto _st97;
 				_st97:
@@ -4590,13 +4590,13 @@ namespace ceammc {
 #line 8 "lex/ragel_units.rl"
 					ragel_type = TYPE_UNKNOWN; ragel_cat = CAT_UNKNOWN; }
 				
-#line 4594 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 4594 "lex/parser_units.cpp"
 				
 				{
 #line 70 "lex/ragel_units.rl"
 					pos_ = POSITION_ABS;}
 				
-#line 4600 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 4600 "lex/parser_units.cpp"
 				
 				goto _st43;
 				_st43:
@@ -4670,13 +4670,13 @@ namespace ceammc {
 #line 8 "lex/ragel_units.rl"
 					ragel_type = TYPE_UNKNOWN; ragel_cat = CAT_UNKNOWN; }
 				
-#line 4674 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 4674 "lex/parser_units.cpp"
 				
 				{
 #line 70 "lex/ragel_units.rl"
 					pos_ = POSITION_ABS;}
 				
-#line 4680 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 4680 "lex/parser_units.cpp"
 				
 				goto _st46;
 				_st46:
@@ -5223,7 +5223,7 @@ namespace ceammc {
 			
 			
 			const bool ok = cs >= 
-#line 5227 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 5227 "lex/parser_units.cpp"
 			48
 #line 75 "lex/parser_units.rl"
 			;
@@ -5274,7 +5274,7 @@ namespace ceammc {
 		}
 		
 		
-#line 5278 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 5278 "lex/parser_units.cpp"
 		static const int units_type_start = 1;
 		static const int units_type_first_final = 28;
 		static const int units_type_error = 0;
@@ -5298,7 +5298,7 @@ namespace ceammc {
 			const char* eof = pe;
 			
 			
-#line 5302 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 5302 "lex/parser_units.cpp"
 			{
 				cs = (int)units_type_start;
 			}
@@ -5306,7 +5306,7 @@ namespace ceammc {
 #line 142 "lex/parser_units.rl"
 			
 			
-#line 5310 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 5310 "lex/parser_units.cpp"
 			{
 				if ( p == pe )
 					goto _test_eof;
@@ -5476,7 +5476,7 @@ namespace ceammc {
 #line 25 "lex/ragel_units.rl"
 					ragel_type = TYPE_PERCENT;}
 				
-#line 5480 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 5480 "lex/parser_units.cpp"
 				
 				goto _st28;
 				_st28:
@@ -5498,7 +5498,7 @@ namespace ceammc {
 #line 27 "lex/ragel_units.rl"
 					ragel_type = TYPE_PHASE;}
 				
-#line 5502 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 5502 "lex/parser_units.cpp"
 				
 				goto _st29;
 				_st29:
@@ -5537,7 +5537,7 @@ namespace ceammc {
 #line 13 "lex/ragel_units.rl"
 					ragel_type = TYPE_HZ;}
 				
-#line 5541 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 5541 "lex/parser_units.cpp"
 				
 				goto _st30;
 				_st30:
@@ -5559,7 +5559,7 @@ namespace ceammc {
 #line 23 "lex/ragel_units.rl"
 					ragel_type = TYPE_CENT;}
 				
-#line 5563 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 5563 "lex/parser_units.cpp"
 				
 				goto _st31;
 				_st31:
@@ -5618,7 +5618,7 @@ namespace ceammc {
 #line 23 "lex/ragel_units.rl"
 					ragel_type = TYPE_CENT;}
 				
-#line 5622 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 5622 "lex/parser_units.cpp"
 				
 				goto _st32;
 				_st32:
@@ -5640,7 +5640,7 @@ namespace ceammc {
 #line 18 "lex/ragel_units.rl"
 					ragel_type = TYPE_DAY;}
 				
-#line 5644 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 5644 "lex/parser_units.cpp"
 				
 				goto _st33;
 				_st33:
@@ -5690,7 +5690,7 @@ namespace ceammc {
 #line 18 "lex/ragel_units.rl"
 					ragel_type = TYPE_DAY;}
 				
-#line 5694 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 5694 "lex/parser_units.cpp"
 				
 				goto _st34;
 				_st34:
@@ -5712,7 +5712,7 @@ namespace ceammc {
 #line 17 "lex/ragel_units.rl"
 					ragel_type = TYPE_DB;}
 				
-#line 5716 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 5716 "lex/parser_units.cpp"
 				
 				goto _st35;
 				_st35:
@@ -5754,7 +5754,7 @@ namespace ceammc {
 #line 17 "lex/ragel_units.rl"
 					ragel_type = TYPE_DB;}
 				
-#line 5758 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 5758 "lex/parser_units.cpp"
 				
 				goto _st36;
 				_st36:
@@ -5793,7 +5793,7 @@ namespace ceammc {
 #line 16 "lex/ragel_units.rl"
 					ragel_type = TYPE_DEGREE;}
 				
-#line 5797 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 5797 "lex/parser_units.cpp"
 				
 				goto _st37;
 				_st37:
@@ -5815,7 +5815,7 @@ namespace ceammc {
 #line 19 "lex/ragel_units.rl"
 					ragel_type = TYPE_HOUR;}
 				
-#line 5819 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 5819 "lex/parser_units.cpp"
 				
 				goto _st38;
 				_st38:
@@ -5879,7 +5879,7 @@ namespace ceammc {
 #line 19 "lex/ragel_units.rl"
 					ragel_type = TYPE_HOUR;}
 				
-#line 5883 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 5883 "lex/parser_units.cpp"
 				
 				goto _st39;
 				_st39:
@@ -5901,7 +5901,7 @@ namespace ceammc {
 #line 20 "lex/ragel_units.rl"
 					ragel_type = TYPE_MIN;}
 				
-#line 5905 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 5905 "lex/parser_units.cpp"
 				
 				goto _st40;
 				_st40:
@@ -5948,7 +5948,7 @@ namespace ceammc {
 #line 20 "lex/ragel_units.rl"
 					ragel_type = TYPE_MIN;}
 				
-#line 5952 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 5952 "lex/parser_units.cpp"
 				
 				goto _st41;
 				_st41:
@@ -5970,7 +5970,7 @@ namespace ceammc {
 #line 22 "lex/ragel_units.rl"
 					ragel_type = TYPE_MSEC;}
 				
-#line 5974 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 5974 "lex/parser_units.cpp"
 				
 				goto _st42;
 				_st42:
@@ -6012,7 +6012,7 @@ namespace ceammc {
 #line 22 "lex/ragel_units.rl"
 					ragel_type = TYPE_MSEC;}
 				
-#line 6016 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 6016 "lex/parser_units.cpp"
 				
 				goto _st43;
 				_st43:
@@ -6090,7 +6090,7 @@ namespace ceammc {
 #line 26 "lex/ragel_units.rl"
 					ragel_type = TYPE_PERCENT;}
 				
-#line 6094 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 6094 "lex/parser_units.cpp"
 				
 				goto _st44;
 				_st44:
@@ -6149,7 +6149,7 @@ namespace ceammc {
 #line 26 "lex/ragel_units.rl"
 					ragel_type = TYPE_PERCENT;}
 				
-#line 6153 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 6153 "lex/parser_units.cpp"
 				
 				goto _st45;
 				_st45:
@@ -6222,7 +6222,7 @@ namespace ceammc {
 #line 28 "lex/ragel_units.rl"
 					ragel_type = TYPE_PHASE;}
 				
-#line 6226 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 6226 "lex/parser_units.cpp"
 				
 				goto _st46;
 				_st46:
@@ -6278,7 +6278,7 @@ namespace ceammc {
 #line 15 "lex/ragel_units.rl"
 					ragel_type = TYPE_RADIAN;}
 				
-#line 6282 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 6282 "lex/parser_units.cpp"
 				
 				goto _st47;
 				_st47:
@@ -6300,7 +6300,7 @@ namespace ceammc {
 #line 21 "lex/ragel_units.rl"
 					ragel_type = TYPE_SEC;}
 				
-#line 6304 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 6304 "lex/parser_units.cpp"
 				
 				goto _st48;
 				_st48:
@@ -6330,7 +6330,7 @@ namespace ceammc {
 #line 14 "lex/ragel_units.rl"
 					ragel_type = TYPE_SAMP;}
 				
-#line 6334 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 6334 "lex/parser_units.cpp"
 				
 				goto _st49;
 				_st49:
@@ -6372,7 +6372,7 @@ namespace ceammc {
 #line 14 "lex/ragel_units.rl"
 					ragel_type = TYPE_SAMP;}
 				
-#line 6376 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 6376 "lex/parser_units.cpp"
 				
 				goto _st50;
 				_st50:
@@ -6416,7 +6416,7 @@ namespace ceammc {
 #line 21 "lex/ragel_units.rl"
 					ragel_type = TYPE_SEC;}
 				
-#line 6420 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 6420 "lex/parser_units.cpp"
 				
 				goto _st51;
 				_st51:
@@ -6455,7 +6455,7 @@ namespace ceammc {
 #line 24 "lex/ragel_units.rl"
 					ragel_type = TYPE_SEMITONE;}
 				
-#line 6459 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 6459 "lex/parser_units.cpp"
 				
 				goto _st52;
 				_st52:
@@ -6531,7 +6531,7 @@ namespace ceammc {
 #line 24 "lex/ragel_units.rl"
 					ragel_type = TYPE_SEMITONE;}
 				
-#line 6535 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 6535 "lex/parser_units.cpp"
 				
 				goto _st53;
 				_st53:
@@ -6838,7 +6838,7 @@ namespace ceammc {
 			
 			
 			return cs >= 
-#line 6842 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_units.cpp"
+#line 6842 "lex/parser_units.cpp"
 			28
 #line 145 "lex/parser_units.rl"
 			;
