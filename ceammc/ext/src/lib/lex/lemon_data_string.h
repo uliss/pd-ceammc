@@ -8,5 +8,7 @@
 #define TK_DATA_NAME                        8
 #define TK_DICT_OPEN                        9
 #define TK_DICT_CLOSE                      10
-#define TK_FUNC_LIST_CALL                  11
-#define TK_SPACE                           12
+#define TK_MATRIX                          11
+#define TK_MATRIX_CLOSE                    12
+#define TK_FUNC_LIST_CALL                  13
+#define TK_SPACE                           14

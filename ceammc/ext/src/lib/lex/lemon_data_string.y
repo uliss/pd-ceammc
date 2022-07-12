@@ -45,7 +45,7 @@ namespace {
     void string(Parser* p, token& tok, const token& str);
     void linit(Parser* p, token& tok);
     void lcall(token& res, const token& fn, token& args);
-    void lassign(token& a, token& b);
+    void assign(token& a, token& b);
     void lappend(token& a, token& b);
     void lpush(token& a, const token& b);
     void data_list(token& res, const token& name, const token& args);
@@ -57,11 +57,15 @@ namespace {
     void pappend(token& tok, const token& lst);
     // pair list
     void plinit(Parser* p, token& tok);
-    void plassign(token& a, token& b);
+    void passign(token& a, token& b);
     void plappend(token& tok, token& pair);
     // dict init
     void dinit(Parser* p, token& tok);
     void dappend(token& dict, const token& pair);
+    // matrices
+    void mtxinit(Parser* p, token& m);
+    void mtxappend(token& m, const token& r);
+    void matrix(token& m, const token& nrows, const token& ncols, const token& rows);
 
     const SmallList* toSmallList(const Atom& a) {
         const auto& v = reinterpret_cast<const t_atom&>(a.atom());
@@ -70,7 +74,7 @@ namespace {
 
     Atom fromSmallList(SmallList* l) {
         t_atom a;
-        a.a_w.w_array =reinterpret_cast<t_array*>(l);
+        a.a_w.w_array = reinterpret_cast<t_array*>(l);
         a.a_type = A_NULL;
         return a;
     }
@@ -116,7 +120,7 @@ pair(A)      ::= DICT_KEY(B).               { pinit(p, A, B); }
 pair(A)      ::= DICT_KEY(B) list(C).       { pinit(p, A, B); pappend(A, C); }
 
 pair_list(A) ::= pair(B).                   { plinit(p, A);   plappend(A, B); }
-pair_list(A) ::= pair_list(B) pair(C).      { plassign(A, B); plappend(A, C); }
+pair_list(A) ::= pair_list(B) pair(C).      { passign(A, B); plappend(A, C); }
 
 // list based
 data(A)      ::= LIST_OPEN zlist(B) LIST_CLOSE.                   { linit(p, A); mlist(A, B); }
@@ -128,16 +132,22 @@ data(A)      ::= DICT_OPEN pair_list(B) DICT_CLOSE.               { dinit(p, A);
 data(A)      ::= DATA_NAME(B) DICT_OPEN pair_list(C) DICT_CLOSE.  { linit(p, A); data_dict(A, B, C); }
 data(A)      ::= DATA_NAME(B) DICT_OPEN DICT_CLOSE.               { linit(p, A); data_empty_dict(A, B); }
 
+// matrix
+matrix_row(A)  ::= LIST_OPEN list(B) LIST_CLOSE.                         { assign(A, B); }
+matrix_rows(A) ::= matrix_row(B).                                        { mtxinit(p, A); mtxappend(A, B); }
+matrix_rows(A) ::= matrix_rows(B) matrix_row(C).                         { assign(A, B);  mtxappend(A, C); }
+data(A)        ::= MATRIX FLOAT(R) FLOAT(C) matrix_rows(D) MATRIX_CLOSE. { matrix(A, R, C, D); }
+
 
 func_call(A) ::= FUNC_LIST_CALL(B) LIST_OPEN zlist(C) LIST_CLOSE. { linit(p, A); lcall(A, B, C); }
 
 latom(A)     ::= atom(B).                                         { linit(p, A); lpush(A, B); }
-latom(A)     ::= func_call(B).                                    { lassign(A, B); }
+latom(A)     ::= func_call(B).                                    { assign(A, B); }
 
-list(A)      ::= list(B) SPACE latom(C).                          { lassign(A, B); lappend(A, C); }
-list(A)      ::= latom(B).                                        { lassign(A, B); }
+list(A)      ::= list(B) SPACE latom(C).                          { assign(A, B); lappend(A, C); }
+list(A)      ::= latom(B).                                        { assign(A, B); }
 
-zlist(A)     ::= list(B).                                         { lassign(A, B); }
+zlist(A)     ::= list(B).                                         { assign(A, B); }
 zlist(A)     ::= .                                                { linit(p, A);   }
 
 %code {
@@ -223,7 +233,7 @@ namespace {
         tok.list = p->makeList();
     }
 
-    void lassign(token& a, token& b) {
+    void assign(token& a, token& b) {
         a.list = b.list;
     }
 
@@ -279,7 +289,7 @@ namespace {
         pl.list->push_back(fromSmallList(pair.list));
     }
 
-    void plassign(token& a, token& b) {
+    void passign(token& a, token& b) {
         a.list = b.list;
         a.atom = b.atom;
     }
@@ -324,5 +334,21 @@ namespace {
 
         tok.atom = tok.list->front().atom();
     }
+
+    // matrices
+    void mtxinit(Parser* p, token& m) {
+        m.list = p->makeList();
+    }
+
+    void mtxappend(token& m, const token& row) {
+        if (!m.list || !row.list) return;
+        m.list->push_back(fromSmallList(row.list));
+    }
+
+    void matrix(token& m, const token& nrows, const token& ncols, const token& rows) {
+        m.atom = Atom().atom();
+        printf("Matrix %dx%d\n", (int)nrows.atom.a_w.w_float, (int)ncols.atom.a_w.w_float);
+    }
+
 }
 }

@@ -11,38 +11,6 @@
 # endif
 # include "lemon_data_parser_impl.h"
 
-namespace {
-
-constexpr auto TK_EOF = 0;
-
-uint8_t xchar2digit(char c)
-{
-    switch (c) {
-    case '0':
-    case '1':
-    case '2':
-    case '3':
-    case '4':
-    case '5':
-    case '6':
-    case '7':
-    case '8':
-    case '9':
-        return c - '0';
-    case 'A':
-    case 'B':
-    case 'C':
-    case 'D':
-    case 'E':
-    case 'F':
-        return c - 'A' + 10;
-    default:
-        return c - 'a' + 10;
-    }
-}
-
-}
-
 %%{
     machine lemon_data_string_lexer;
     include numeric_common "ragel_numeric.rl";
@@ -134,6 +102,13 @@ uint8_t xchar2digit(char c)
     data_call_dict = [A-Z][a-zA-Z]*  '[';
     data_sqstring  = "S'";
     data_dqstring  = 'S"';
+    # matrix syntax:
+    # #[(1 ...3) (2...)]
+    # #M:N[(1 ...3) (2...)]
+    matrix_cols    = [1-9] @{ ragel_mtx_cols = fc - '0'; } [0-9]? @{ (ragel_mtx_cols *= 10) += (fc - '0'); };
+    matrix_rows    = [1-9] @{ ragel_mtx_rows = fc - '0'; } [0-9]? @{ (ragel_mtx_rows *= 10) += (fc - '0'); };
+    matrix_delim   = ':';
+    data_matrix    = '#' (matrix_rows matrix_delim matrix_cols)? '[';
     float          = num_float | num_int | num_bin | num_hex | num_ratio;
 
     tok_all = true
@@ -147,6 +122,7 @@ uint8_t xchar2digit(char c)
         | tok_squote
         | data_sqstring
         | data_dqstring
+        | data_matrix
         | func_call_list
         | data_call_list
         | data_call_dict
@@ -154,12 +130,11 @@ uint8_t xchar2digit(char c)
 
     tok_other = ((any+) -- (tok_all - (true|false|tok_null|float)));
 
-    str_escape = '`';
-    str_space = str_escape ' ';
-    str_comma = str_escape '.';
+    str_escape    = '`';
+    str_space     = str_escape ' ';
+    str_comma     = str_escape '.';
     str_semicolon = str_escape ':';
     str_envvar    = '%' [A-Z_0-9]{1,16} '%';
-
 
     action on_quote_end  { pushSymbolToken(TK_SYMBOL, &(*ragel_string.begin()), (&*ragel_string.end())); fret; }
 
@@ -187,6 +162,21 @@ uint8_t xchar2digit(char c)
         tok_dquote                 => on_quote_end;
     *|;
 
+    action on_data_matrix {
+        pushToken(TK_MATRIX);
+        pushFloat(ragel_mtx_rows);
+        pushFloat(ragel_mtx_cols);
+        fcall scan_matrix;
+    }
+
+    scan_matrix := |*
+        float     => on_float;
+        tok_lpar  => on_lpar;
+        tok_rpar  => on_rpar;
+        tok_space => {};
+        tok_rbr   => { pushToken(TK_MATRIX_CLOSE); fret; };
+    *|;
+
     dict_key_id   = [a-z_0-9?]+;
     dict_key0     = dict_key_id | ('"' [a-z_0-9?]+ '"') | ("'" [a-z_0-9?]+ "'");
     dict_key      = space** dict_key0 ':' space**;
@@ -208,6 +198,7 @@ uint8_t xchar2digit(char c)
         data_call_dict => on_data_dict;
         data_sqstring  => on_data_sqstring;
         data_dqstring  => on_data_dqstring;
+        data_matrix    => on_data_matrix;
 
         dict_key         => on_dict_key;
         tok_space        => { pushToken(TK_SPACE); };
@@ -227,16 +218,17 @@ uint8_t xchar2digit(char c)
         tok_dquote => on_double_quote;
         tok_squote => on_single_quote;
 
-        float            => on_float;
-        func_call_list   => on_fn_call;
-        data_call_list   => on_data_list;
-        data_call_dict   => on_data_dict;
+        float          => on_float;
+        func_call_list => on_fn_call;
+        data_call_list => on_data_list;
+        data_call_dict => on_data_dict;
         data_sqstring  => on_data_sqstring;
         data_dqstring  => on_data_dqstring;
+        data_matrix    => on_data_matrix;
 
-        tok_other        => on_other;
+        tok_other      => on_other;
         # return token
-        tok_space        => { pushToken(TK_SPACE); fret; };
+        tok_space      => { pushToken(TK_SPACE); fret; };
     *|;
 
     main := space** ((any-space) >{ fhold; fcall scan_token; } space**)*;
@@ -322,6 +314,9 @@ bool LemonDataStringParser::doParse(const char* data)
 
     // for quoted string parser
     boost::static_string<512> ragel_string;
+    // for matrices
+    int ragel_mtx_cols = 0;
+    int ragel_mtx_rows = 0;
 
     try {
 
