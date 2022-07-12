@@ -100,7 +100,7 @@ bool is_quoted_string(const char* str) {
     include string_common "ragel_strings.rl";
 
     # zero string version
-    main := (any - (all_escapes|0))* 0 @{ fbreak; };
+    main := (^(all_escapes|0))* 0 @{ fbreak; };
     write data;
 }%%
 
@@ -115,6 +115,49 @@ bool string_need_quotes(const char* str) {
     %% write exec noend;
 
     return (cs < %%{ write first_final; }%%);
+}
+
+%%{
+    machine escape_and_quote;
+    include string_common "ragel_strings.rl";
+
+    # zero string version
+    esc_all =
+        (str_escape      >{ rl_str += '`';   rl_str += '`'; } |
+        str_dquote       >{ rl_str += '`';   rl_str += '"'; } |
+        str_space        >{ rl_str += '\\';  rl_str += ' '; } |
+        str_comma        >{ rl_str += '\\';  rl_str += ','; } |
+        str_semicolon    >{ rl_str += '\\';  rl_str += ';'; } |
+        str_backslash    >{ rl_str += '`';   rl_str += '/'; })
+        % { rl_esc_count++; };
+
+    other = (any - (esc_all|0)) >{ rl_str += fc; };
+
+    main := (esc_all | other)* 0 @{ fbreak; };
+    write data;
+}%%
+
+
+bool escape_and_quote(const char* str, std::string& out)
+{
+    if (str == nullptr || str[0] == '\0') {
+        out = "\"\"";
+        return true;
+    }
+
+    int cs = 0;
+    const char* p = str;
+    // const char* eof = p + strlen(p);
+    std::string& rl_str = out;
+    int rl_esc_count = 0;
+
+    rl_str += '"';
+
+    %% write init;
+    %% write exec noend;
+
+    rl_str += '"';
+    return rl_esc_count > 0;
 }
 
 }

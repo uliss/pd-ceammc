@@ -411,4 +411,38 @@ TEST_CASE("ceammc_string", "[PureData]")
         REQUIRE(string_need_quotes("there's"));
         REQUIRE(string_need_quotes("the space"));
     }
+
+    SECTION("escape_and_quote")
+    {
+#define REQUIRE_ESCAPE_AND_QUOTE(s, res)   \
+    {                                      \
+        std::string str;                   \
+        REQUIRE(escape_and_quote(s, str)); \
+        REQUIRE(str == res);               \
+    }
+
+#define REQUIRE_NO_ESCAPE_AND_QUOTE(s, res)    \
+    {                                          \
+        std::string str;                       \
+        CHECK_FALSE(escape_and_quote(s, str)); \
+        REQUIRE(str == res);                   \
+    }
+
+        REQUIRE(AtomList::parseString("\\ \\ ") == A("  "));
+        REQUIRE(AtomList::parseString("\\\\") == A("\\"));
+        REQUIRE(AtomList::parseString("\\,") == A(","));
+        REQUIRE(AtomList::parseString("\\;") == A(";"));
+        REQUIRE(AtomList::parseString("   ").empty());
+        REQUIRE(AtomList::parseString(",") == Atom::comma());
+        REQUIRE(AtomList::parseString(";") == Atom::semicolon());
+
+        REQUIRE_ESCAPE_AND_QUOTE("", "\"\"");
+        REQUIRE_ESCAPE_AND_QUOTE(" ", "\"\\ \"");
+        REQUIRE_ESCAPE_AND_QUOTE("   ", "\"\\ \\ \\ \"");
+        REQUIRE_ESCAPE_AND_QUOTE("a,b,c;", "\"a\\,b\\,c\\;\"");
+        REQUIRE_ESCAPE_AND_QUOTE(R"("quotes")", R"("`"quotes`"")");
+        REQUIRE_NO_ESCAPE_AND_QUOTE(R"(abc)", R"("abc")");
+        REQUIRE_NO_ESCAPE_AND_QUOTE(R"(1)", R"("1")");
+        REQUIRE_ESCAPE_AND_QUOTE(R"(`abc`)", R"("``abc``")");
+    }
 }
