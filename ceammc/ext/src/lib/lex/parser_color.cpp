@@ -7,34 +7,8 @@
 namespace ceammc {
 	namespace parser {
 		
-		static uint8_t xchar2digit(char c)
-		{
-			switch (c) {
-				case '0':
-				case '1':
-				case '2':
-				case '3':
-				case '4':
-				case '5':
-				case '6':
-				case '7':
-				case '8':
-				case '9':
-				return c - '0';
-				case 'A':
-				case 'B':
-				case 'C':
-				case 'D':
-				case 'E':
-				case 'F':
-				return c - 'A' + 10;
-				default:
-				return c - 'a' + 10;
-			}
-		}
 		
-		
-#line 38 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_color.cpp"
+#line 12 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_color.cpp"
 		static const int color_start = 1;
 		static const int color_first_final = 8;
 		static const int color_error = 0;
@@ -42,7 +16,7 @@ namespace ceammc {
 		static const int color_en_main = 1;
 		
 		
-#line 41 "lex/parser_color.rl"
+#line 15 "lex/parser_color.rl"
 		
 		
 		RgbHexFullMatch::RgbHexFullMatch()
@@ -79,15 +53,15 @@ namespace ceammc {
 			reset();
 			
 			
-#line 83 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_color.cpp"
+#line 57 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_color.cpp"
 			{
 				cs = (int)color_start;
 			}
 			
-#line 76 "lex/parser_color.rl"
+#line 50 "lex/parser_color.rl"
 			
 			
-#line 91 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_color.cpp"
+#line 65 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_color.cpp"
 			{
 				if ( p == pe )
 					goto _test_eof;
@@ -163,13 +137,13 @@ namespace ceammc {
 #line 5 "lex/ragel_color.rl"
 					color.x = xchar2digit((( (*( p))))); }
 				
-#line 167 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_color.cpp"
+#line 141 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_color.cpp"
 				
 				{
 #line 6 "lex/ragel_color.rl"
 					(color.x *= 16) += xchar2digit((( (*( p))))); }
 				
-#line 173 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_color.cpp"
+#line 147 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_color.cpp"
 				
 				goto _st3;
 				_st3:
@@ -202,7 +176,7 @@ namespace ceammc {
 #line 6 "lex/ragel_color.rl"
 					(color.x *= 16) += xchar2digit((( (*( p))))); }
 				
-#line 206 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_color.cpp"
+#line 180 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_color.cpp"
 				
 				goto _st4;
 				_st4:
@@ -235,19 +209,19 @@ namespace ceammc {
 #line 11 "lex/ragel_color.rl"
 					color.r = color.x;}
 				
-#line 239 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_color.cpp"
+#line 213 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_color.cpp"
 				
 				{
 #line 5 "lex/ragel_color.rl"
 					color.x = xchar2digit((( (*( p))))); }
 				
-#line 245 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_color.cpp"
+#line 219 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_color.cpp"
 				
 				{
 #line 6 "lex/ragel_color.rl"
 					(color.x *= 16) += xchar2digit((( (*( p))))); }
 				
-#line 251 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_color.cpp"
+#line 225 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_color.cpp"
 				
 				goto _st5;
 				_st5:
@@ -280,7 +254,7 @@ namespace ceammc {
 #line 6 "lex/ragel_color.rl"
 					(color.x *= 16) += xchar2digit((( (*( p))))); }
 				
-#line 284 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_color.cpp"
+#line 258 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_color.cpp"
 				
 				goto _st6;
 				_st6:
@@ -313,19 +287,19 @@ namespace ceammc {
 #line 12 "lex/ragel_color.rl"
 					color.g = color.x;}
 				
-#line 317 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_color.cpp"
+#line 291 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_color.cpp"
 				
 				{
 #line 5 "lex/ragel_color.rl"
 					color.x = xchar2digit((( (*( p))))); }
 				
-#line 323 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_color.cpp"
+#line 297 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_color.cpp"
 				
 				{
 #line 6 "lex/ragel_color.rl"
 					(color.x *= 16) += xchar2digit((( (*( p))))); }
 				
-#line 329 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_color.cpp"
+#line 303 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_color.cpp"
 				
 				goto _st7;
 				_st7:
@@ -358,7 +332,7 @@ namespace ceammc {
 #line 6 "lex/ragel_color.rl"
 					(color.x *= 16) += xchar2digit((( (*( p))))); }
 				
-#line 362 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_color.cpp"
+#line 336 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_color.cpp"
 				
 				goto _st8;
 				_ctr14:
@@ -366,13 +340,13 @@ namespace ceammc {
 #line 13 "lex/ragel_color.rl"
 					color.b = color.x;}
 				
-#line 370 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_color.cpp"
+#line 344 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_color.cpp"
 				
 				{
 #line 14 "lex/ragel_color.rl"
 					cat_ = CAT_COLOR; type_ = TYPE_HEX; }
 				
-#line 376 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_color.cpp"
+#line 350 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_color.cpp"
 				
 				goto _st8;
 				_st8:
@@ -450,13 +424,13 @@ namespace ceammc {
 				_out: {}
 			}
 			
-#line 77 "lex/parser_color.rl"
+#line 51 "lex/parser_color.rl"
 			
 			
 			const auto ok = cs >= 
-#line 458 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_color.cpp"
+#line 432 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_color.cpp"
 			8
-#line 79 "lex/parser_color.rl"
+#line 53 "lex/parser_color.rl"
 			;
 			if(ok) {
 				color_.r = color.r;

@@ -189,4 +189,12 @@ TEST_CASE("datastring3", "[ceammc::data]")
         REQUIRE_PARSE_STR("S\"String()\"", StringAtom("String()"));
         REQUIRE_PARSE_STR("S'%MY_HOME%'", StringAtom("/home/ceammc"));
     }
+
+    SECTION("Matrix")
+    {
+        REQUIRE_PARSE_STR("#[(1 0/2 +0.25) (-0 0xFF 0) (0 0 1)]", Atom());
+        REQUIRE_PARSE_STR("#[(1 0 0) (0 1 0) (0 0 1)]", Atom());
+        REQUIRE_PARSE_STR("#3:4[(1 2) (3 4)]", Atom());
+        REQUIRE_PARSE_STR("#10:11[(1 2) (3 4)]", Atom());
+    }
 }
