@@ -1,5 +1,6 @@
 # include "parser_strings.h"
 # include "ceammc_format.h"
+# include "fmt/format.h"
 
 %%{
     machine quoted_string_end;
@@ -182,8 +183,10 @@ int escape_and_quote(const char* str, char* buf, size_t buf_len)
 {
     #define append_buf(c) { if (rl_n-- > 1) *(rl_buf++) = c; else rl_overflow = true; }
 
-    if (!buf || buf_len < 3)
+    if (!buf || buf_len < 3) {
+        std::cerr << fmt::format("invalid buffer {} ({} bytes)\n", (void*)buf, buf_len);
         return -1;
+    }
 
     if (str == nullptr || str[0] == '\0') {
         buf[0] = '"';
@@ -207,6 +210,7 @@ int escape_and_quote(const char* str, char* buf, size_t buf_len)
     append_buf('"');
 
     if (rl_overflow) {
+        std::cerr << fmt::format("buffer ({} bytes) overflow while quoting string: {}\n", buf_len, str);
         buf[0] = 0;
         return -2;
     } else {
