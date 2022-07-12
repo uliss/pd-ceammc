@@ -85,10 +85,10 @@ bool AbstractData::setFromAtom(const Atom& a)
     if (dt == type()) {
         return set(a.asData());
     } else if (dt != 0) {
-        LIB_ERR << fmt::format("[{}] unexpected datatype: '{}'", findTypeName(dt).c_str());
+        LIB_ERR << fmt::format("unexpected datatype: '{}'", findTypeName(dt).c_str());
         return false;
     } else {
-        LIB_ERR << fmt::format("[{}] expected data, got '{}'", to_string(a));
+        LIB_ERR << fmt::format("expected data, got '{}'", to_string(a));
         return false;
     }
 }

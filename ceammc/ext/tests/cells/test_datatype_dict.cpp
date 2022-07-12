@@ -359,8 +359,13 @@ TEST_CASE("DataTypeDict", "[core]")
         REQUIRE(d.setFromDataString("[@ABC: абвгд]"));
         REQUIRE(d.size() == 1);
         REQUIRE(d.at("@ABC") == LA("абвгд"));
-//        REQUIRE(d.at("@ABC") == LA("абвгд"));
 
         REQUIRE(d.setFromDataString("Dict[a:]"));
+        REQUIRE(d.size() == 1);
+        REQUIRE(d.at("a") == L());
+
+        REQUIRE(d.setFromDataString("Dict[123: 4]"));
+        REQUIRE(d.size() == 1);
+        REQUIRE(d.at("123") == LF(4));
     }
 }

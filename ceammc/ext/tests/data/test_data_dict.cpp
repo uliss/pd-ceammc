@@ -84,7 +84,7 @@ TEST_CASE("data.dict", "[externals]")
 
         SECTION("nesting")
         {
-            DataTypeDict t("[a: ([b: c d][e: f])]");
+            DataTypeDict t("[a: ([b: c d] [e: f])]");
             REQUIRE(t.size() == 1);
             REQUIRE(t.contains("a"));
             REQUIRE(*t.toJSON(-1) == "{\"a\":[{\"b\":[\"c\",\"d\"]},{\"e\":\"f\"}]}");

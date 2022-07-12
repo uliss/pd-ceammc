@@ -24,31 +24,26 @@
 namespace ceammc {
 
 template <typename T>
-inline void appendAtom(T& str, const Atom& a)
-{
-    if (a.isSymbol())
-        str += a.asT<t_symbol*>()->s_name;
-    else if (a.isFloat())
-        str += fmt::format("{:g}");
-    else if (a.isData())
-        str += a.asData()->toString();
-    else if (a.isNone())
-        str += "#null";
-    else if (a.isComma())
-        str += ", ";
-    else if (a.isSemicolon())
-        str += "; ";
-    else
-        LIB_ERR << fmt::format("[{}] unknown atom for parsing: ", __FUNCTION__) << a;
-
-    str += ' ';
-}
-
-template <typename T>
 inline DataParseResult parseString(T& str, const AtomListView& lv)
 {
-    for (auto& a : lv)
-        appendAtom(str, a);
+    for (auto& a : lv) {
+        if (a.isSymbol())
+            str += a.asT<t_symbol*>()->s_name;
+        else if (a.isFloat())
+            fmt::format_to(std::back_inserter(str), FMT_STRING("{:g}"), a.asT<t_float>());
+        else if (a.isData())
+            str += a.asData()->toString();
+        else if (a.isNone())
+            str += "#null";
+        else if (a.isComma())
+            str += ", ";
+        else if (a.isSemicolon())
+            str += "; ";
+        else
+            LIB_ERR << fmt::format("[{}] unknown atom for parsing: ", __FUNCTION__) << a;
+
+        str += ' ';
+    }
 
     if (str.empty())
         return DataParseResult(AtomList());

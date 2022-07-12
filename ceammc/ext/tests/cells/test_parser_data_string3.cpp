@@ -155,6 +155,8 @@ TEST_CASE("datastring3", "[ceammc::data]")
         REQUIRE_PARSE_STR("[a: [b:2]]", DictAtom("[a: [b: 2]]"));
         REQUIRE_PARSE_STR("[a:  1  ]", DictAtom("[a: 1]"));
         REQUIRE_PARSE_STR("[a: 1 2 3 ]", DictAtom("[a: 1 2 3]"));
+        REQUIRE_PARSE_STR("[a1: 2 3 4]", DictAtom("[a1: 2 3 4]"));
+        REQUIRE_PARSE_STR("[1: 2 3 4]", DictAtom("[1: 2 3 4]"));
         REQUIRE_PARSE_STR("[a: a100]", DictAtom("[a: a100]"));
         REQUIRE_PARSE_STR("[a: reverse(1 2 3)]", DictAtom("[a: 3 2 1]"));
         REQUIRE_PARSE_STR("[ a: reverse( 1 2 3 ) ]", DictAtom("[a: 3 2 1]"));

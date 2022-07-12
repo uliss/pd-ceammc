@@ -109,7 +109,7 @@
     matrix_rows    = [1-9] @{ ragel_mtx_rows = fc - '0'; } [0-9]? @{ (ragel_mtx_rows *= 10) += (fc - '0'); };
     matrix_delim   = ':';
     data_matrix    = '#' (matrix_rows matrix_delim matrix_cols)? '[';
-    float          = num_float | num_int | num_bin | num_hex | num_ratio;
+    float          = (num_float | num_int | num_bin | num_hex | num_ratio) >{ ragel_num = {}; };
 
     tok_all = true
         | false
@@ -265,6 +265,10 @@ void LemonDataStringParser::pushToken(int token)
 
 void LemonDataStringParser::pushFloat(double val)
 {
+# ifndef NDEBUG
+    std::cerr << __FUNCTION__ << ' ' << val << std::endl;
+# endif
+
     lemon_data_string_parser(parser(), TK_FLOAT, val, this);
 }
 
