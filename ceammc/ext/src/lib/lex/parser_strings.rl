@@ -137,7 +137,6 @@ bool string_need_quotes(const char* str) {
     write data;
 }%%
 
-
 bool escape_and_quote(const char* str, std::string& out)
 {
     if (str == nullptr || str[0] == '\0') {
@@ -147,7 +146,6 @@ bool escape_and_quote(const char* str, std::string& out)
 
     int cs = 0;
     const char* p = str;
-    // const char* eof = p + strlen(p);
     std::string& rl_str = out;
     int rl_esc_count = 0;
 
@@ -158,6 +156,63 @@ bool escape_and_quote(const char* str, std::string& out)
 
     rl_str += '"';
     return rl_esc_count > 0;
+}
+
+%%{
+    machine escape_and_quote_buf;
+    include string_common "ragel_strings.rl";
+
+    # zero string version
+    esc_all =
+        (str_escape      >{ append_buf('`');   append_buf('`'); } |
+        str_dquote       >{ append_buf('`');   append_buf('"'); } |
+        str_space        >{ append_buf('\\');  append_buf(' '); } |
+        str_comma        >{ append_buf('\\');  append_buf(','); } |
+        str_semicolon    >{ append_buf('\\');  append_buf(';'); } |
+        str_backslash    >{ append_buf('`');   append_buf('/'); })
+        % { rl_esc_n++; };
+
+    other = (any - (esc_all|0)) >{ append_buf(fc); };
+
+    main := (esc_all | other)* 0 @{ fbreak; };
+    write data;
+}%%
+
+int escape_and_quote(const char* str, char* buf, size_t buf_len)
+{
+    #define append_buf(c) { if (rl_n-- > 1) *(rl_buf++) = c; else rl_overflow = true; }
+
+    if (!buf || buf_len < 3)
+        return -1;
+
+    if (str == nullptr || str[0] == '\0') {
+        buf[0] = '"';
+        buf[1] = '"';
+        buf[2] = 0;
+        return 2;
+    }
+
+    int cs = 0;
+    const char* p = str;
+    char* rl_buf = buf;
+    size_t rl_n = buf_len;
+    size_t rl_esc_n = 0;
+    bool rl_overflow = false;
+
+    append_buf('"');
+
+    %% write init;
+    %% write exec noend;
+
+    append_buf('"');
+
+    if (rl_overflow) {
+        buf[0] = 0;
+        return -2;
+    } else {
+        *rl_buf = 0;
+        return buf_len - rl_n;
+   }
 }
 
 }

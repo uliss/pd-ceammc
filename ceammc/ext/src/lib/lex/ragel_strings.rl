@@ -18,7 +18,6 @@
 
     esc_escape    = str_escape str_escape;
     esc_space     = str_escape str_space;
-    esc_squote    = str_escape str_squote;
     esc_dquote    = str_escape str_dquote;
     esc_comma     = str_escape '.';
     esc_semicolon = str_escape ':';
@@ -27,7 +26,6 @@
 
     all_escapes =
         str_escape |
-        str_squote |
         str_dquote |
         str_space |
         str_comma |

@@ -402,13 +402,14 @@ TEST_CASE("ceammc_string", "[PureData]")
         REQUIRE_FALSE(string_need_quotes("a"));
         REQUIRE_FALSE(string_need_quotes("1"));
         REQUIRE_FALSE(string_need_quotes("abc"));
-        REQUIRE(string_need_quotes("'"));
+        REQUIRE_FALSE(string_need_quotes("'"));
         REQUIRE(string_need_quotes(" "));
         REQUIRE(string_need_quotes(","));
         REQUIRE(string_need_quotes(";"));
         REQUIRE(string_need_quotes("\\"));
         REQUIRE(string_need_quotes("\""));
-        REQUIRE(string_need_quotes("there's"));
+        REQUIRE_FALSE(string_need_quotes("there's"));
+        REQUIRE(string_need_quotes("there\"s"));
         REQUIRE(string_need_quotes("the space"));
     }
 
@@ -444,5 +445,28 @@ TEST_CASE("ceammc_string", "[PureData]")
         REQUIRE_NO_ESCAPE_AND_QUOTE(R"(abc)", R"("abc")");
         REQUIRE_NO_ESCAPE_AND_QUOTE(R"(1)", R"("1")");
         REQUIRE_ESCAPE_AND_QUOTE(R"(`abc`)", R"("``abc``")");
+    }
+
+    SECTION("escape_and_quote buf")
+    {
+        char buf[5];
+        REQUIRE(escape_and_quote(nullptr, buf, 0) == -1);
+        REQUIRE(escape_and_quote(nullptr, nullptr, sizeof(buf)) == -1);
+        REQUIRE(escape_and_quote(nullptr, buf, sizeof(buf)) == 2);
+        REQUIRE(buf == std::string("\"\""));
+        REQUIRE(escape_and_quote("", buf, sizeof(buf)) == 2);
+        REQUIRE(buf == std::string("\"\""));
+        REQUIRE(escape_and_quote("a", buf, sizeof(buf)) == 3);
+        REQUIRE(buf == std::string("\"a\""));
+        REQUIRE(escape_and_quote("ab", buf, sizeof(buf)) == 4);
+        REQUIRE(buf == std::string("\"ab\""));
+        REQUIRE(escape_and_quote("abc", buf, sizeof(buf)) == -2);
+        REQUIRE(escape_and_quote("abcd", buf, sizeof(buf)) == -2);
+        REQUIRE(escape_and_quote(" ", buf, sizeof(buf)) == 4);
+        REQUIRE(buf == std::string("\"\\ \""));
+        REQUIRE(escape_and_quote(",", buf, sizeof(buf)) == 4);
+        REQUIRE(buf == std::string("\"\\,\""));
+        REQUIRE(escape_and_quote(";", buf, sizeof(buf)) == 4);
+        REQUIRE(buf == std::string("\"\\;\""));
     }
 }
