@@ -415,18 +415,11 @@ TEST_CASE("ceammc_string", "[PureData]")
 
     SECTION("escape_and_quote")
     {
-#define REQUIRE_ESCAPE_AND_QUOTE(s, res)   \
-    {                                      \
-        std::string str;                   \
-        REQUIRE(escape_and_quote(s, str)); \
-        REQUIRE(str == res);               \
-    }
-
-#define REQUIRE_NO_ESCAPE_AND_QUOTE(s, res)    \
-    {                                          \
-        std::string str;                       \
-        CHECK_FALSE(escape_and_quote(s, str)); \
-        REQUIRE(str == res);                   \
+#define REQUIRE_ESCAPE_AND_QUOTE(s, res) \
+    {                                    \
+        std::string str;                 \
+        escape_and_quote(s, str);        \
+        REQUIRE(str == res);             \
     }
 
         REQUIRE(AtomList::parseString("\\ \\ ") == A("  "));
@@ -436,14 +429,17 @@ TEST_CASE("ceammc_string", "[PureData]")
         REQUIRE(AtomList::parseString("   ").empty());
         REQUIRE(AtomList::parseString(",") == Atom::comma());
         REQUIRE(AtomList::parseString(";") == Atom::semicolon());
+        REQUIRE(AtomList::parseString("$0")[0].atom().a_type == A_DOLLAR);
 
         REQUIRE_ESCAPE_AND_QUOTE("", "\"\"");
         REQUIRE_ESCAPE_AND_QUOTE(" ", "\"\\ \"");
         REQUIRE_ESCAPE_AND_QUOTE("   ", "\"\\ \\ \\ \"");
         REQUIRE_ESCAPE_AND_QUOTE("a,b,c;", "\"a\\,b\\,c\\;\"");
         REQUIRE_ESCAPE_AND_QUOTE(R"("quotes")", R"("`"quotes`"")");
-        REQUIRE_NO_ESCAPE_AND_QUOTE(R"(abc)", R"("abc")");
-        REQUIRE_NO_ESCAPE_AND_QUOTE(R"(1)", R"("1")");
+        REQUIRE_ESCAPE_AND_QUOTE("fn()", "\"fn()\"");
+        REQUIRE_ESCAPE_AND_QUOTE("Dict[]", R"("Dict[]")");
+        REQUIRE_ESCAPE_AND_QUOTE(R"(abc)", R"("abc")");
+        REQUIRE_ESCAPE_AND_QUOTE(R"(1)", R"("1")");
         REQUIRE_ESCAPE_AND_QUOTE(R"(`abc`)", R"("``abc``")");
     }
 
@@ -468,5 +464,84 @@ TEST_CASE("ceammc_string", "[PureData]")
         REQUIRE(buf == std::string("\"\\,\""));
         REQUIRE(escape_and_quote(";", buf, sizeof(buf)) == 4);
         REQUIRE(buf == std::string("\"\\;\""));
+    }
+
+    SECTION("raw_list_to_string")
+    {
+        SECTION("std::string")
+        {
+#define REQUIRE_STR(lst, s1)                 \
+    {                                        \
+        std::string str;                     \
+        raw_list_to_string(lst.view(), str); \
+        REQUIRE(str == s1);                  \
+    }
+
+            REQUIRE_STR(L(), "");
+            REQUIRE_STR(LF(1), "1");
+            REQUIRE_STR(LF(1234.25), "1234.25");
+            REQUIRE_STR(LF(1, 2, -3), "1 2 -3");
+            REQUIRE_STR(AtomList::parseString(" a  b  c "), "a b c");
+            REQUIRE_STR(AtomList::parseString("1,2,3;"), "1, 2, 3;");
+            REQUIRE_STR(LA(Atom()), "#null");
+            REQUIRE_STR(LA(Atom(), "ABC"), "#null ABC");
+        }
+
+        SECTION("StaticString")
+        {
+#define REQUIRE_STATIC_STR(lst, s1)                     \
+            {                                           \
+            string::StaticString str;                   \
+                    raw_list_to_string(lst.view(), str);\
+                    REQUIRE(str == s1);                 \
+            }
+
+            REQUIRE_STATIC_STR(L(), "");
+            REQUIRE_STATIC_STR(LF(1), "1");
+            REQUIRE_STATIC_STR(LF(1234.25), "1234.25");
+            REQUIRE_STATIC_STR(LF(1, 2, -3), "1 2 -3");
+            REQUIRE_STATIC_STR(AtomList::parseString(" a  b  c "), "a b c");
+            REQUIRE_STATIC_STR(AtomList::parseString("1,2,3;"), "1, 2, 3;");
+            REQUIRE_STATIC_STR(LA(Atom()), "#null");
+            REQUIRE_STATIC_STR(LA(Atom(), "ABC"), "#null ABC");
+        }
+
+        SECTION("SmallString")
+        {
+#define REQUIRE_SMALL_STR(lst, s1)                      \
+            {                                           \
+                    string::SmallString str;            \
+                    raw_list_to_string(lst.view(), str);\
+                    REQUIRE(std::string(str.data(), str.size()) == s1); \
+            }
+
+            REQUIRE_SMALL_STR(L(), "");
+            REQUIRE_SMALL_STR(LF(1), "1");
+            REQUIRE_SMALL_STR(LF(1234.25), "1234.25");
+            REQUIRE_SMALL_STR(LF(1, 2, -3), "1 2 -3");
+            REQUIRE_SMALL_STR(AtomList::parseString(" a  b  c "), "a b c");
+            REQUIRE_SMALL_STR(AtomList::parseString("1,2,3;"), "1, 2, 3;");
+            REQUIRE_SMALL_STR(LA(Atom()), "#null");
+            REQUIRE_SMALL_STR(LA(Atom(), "ABC"), "#null ABC");
+        }
+
+        SECTION("MediumString")
+        {
+#define REQUIRE_MEDIUM_STR(lst, s1)                     \
+            {                                           \
+                    string::MediumString str;           \
+                    raw_list_to_string(lst.view(), str);\
+                    REQUIRE(std::string(str.data(), str.size()) == s1); \
+            }
+
+            REQUIRE_MEDIUM_STR(L(), "");
+            REQUIRE_MEDIUM_STR(LF(1), "1");
+            REQUIRE_MEDIUM_STR(LF(1234.25), "1234.25");
+            REQUIRE_MEDIUM_STR(LF(1, 2, -3), "1 2 -3");
+            REQUIRE_MEDIUM_STR(AtomList::parseString(" a  b  c "), "a b c");
+            REQUIRE_MEDIUM_STR(AtomList::parseString("1,2,3;"), "1, 2, 3;");
+            REQUIRE_MEDIUM_STR(LA(Atom()), "#null");
+            REQUIRE_MEDIUM_STR(LA(Atom(), "ABC"), "#null ABC");
+        }
     }
 }

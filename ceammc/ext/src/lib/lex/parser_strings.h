@@ -26,7 +26,7 @@ namespace string {
     bool string_need_quotes(const char* str);
 
     int escape_and_quote(const char* str, char* buf, size_t buf_len);
-    bool escape_and_quote(const char* str, std::string& out);
+    void escape_and_quote(const char* str, std::string& out);
 }
 }
 

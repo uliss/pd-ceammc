@@ -133,7 +133,7 @@
 
     scan_sqstring := |*
         ^(str_escape | str_squote) => { ragel_string += fc;   };
-        esc_squote                 => { ragel_string += '\''; };
+        "`'"                       => { ragel_string += '\''; };
         esc_space                  => { ragel_string += ' '; };
         esc_comma                  => { ragel_string += ','; };
         esc_semicolon              => { ragel_string += ';'; };
@@ -145,7 +145,7 @@
 
     scan_dqstring := |*
         ^(str_escape | str_dquote) => { ragel_string += fc;  };
-        esc_dquote                 => { ragel_string += '"'; };
+        '`"'                       => { ragel_string += '"'; };
         esc_space                  => { ragel_string += ' '; };
         esc_comma                  => { ragel_string += ','; };
         esc_semicolon              => { ragel_string += ';'; };

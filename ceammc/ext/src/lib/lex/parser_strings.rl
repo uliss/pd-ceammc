@@ -124,13 +124,12 @@ bool string_need_quotes(const char* str) {
 
     # zero string version
     esc_all =
-        (str_escape      >{ rl_str += '`';   rl_str += '`'; } |
+        str_escape       >{ rl_str += '`';   rl_str += '`'; } |
         str_dquote       >{ rl_str += '`';   rl_str += '"'; } |
         str_space        >{ rl_str += '\\';  rl_str += ' '; } |
         str_comma        >{ rl_str += '\\';  rl_str += ','; } |
         str_semicolon    >{ rl_str += '\\';  rl_str += ';'; } |
-        str_backslash    >{ rl_str += '`';   rl_str += '/'; })
-        % { rl_esc_count++; };
+        str_backslash    >{ rl_str += '`';   rl_str += '/'; };
 
     other = (any - (esc_all|0)) >{ rl_str += fc; };
 
@@ -138,17 +137,16 @@ bool string_need_quotes(const char* str) {
     write data;
 }%%
 
-bool escape_and_quote(const char* str, std::string& out)
+void escape_and_quote(const char* str, std::string& out)
 {
     if (str == nullptr || str[0] == '\0') {
         out = "\"\"";
-        return true;
+        return;
     }
 
     int cs = 0;
     const char* p = str;
     std::string& rl_str = out;
-    int rl_esc_count = 0;
 
     rl_str += '"';
 
@@ -156,7 +154,6 @@ bool escape_and_quote(const char* str, std::string& out)
     %% write exec noend;
 
     rl_str += '"';
-    return rl_esc_count > 0;
 }
 
 %%{
@@ -170,8 +167,7 @@ bool escape_and_quote(const char* str, std::string& out)
         str_space        >{ append_buf('\\');  append_buf(' '); } |
         str_comma        >{ append_buf('\\');  append_buf(','); } |
         str_semicolon    >{ append_buf('\\');  append_buf(';'); } |
-        str_backslash    >{ append_buf('`');   append_buf('/'); })
-        % { rl_esc_n++; };
+        str_backslash    >{ append_buf('`');   append_buf('/'); });
 
     other = (any - (esc_all|0)) >{ append_buf(fc); };
 
@@ -184,7 +180,7 @@ int escape_and_quote(const char* str, char* buf, size_t buf_len)
     #define append_buf(c) { if (rl_n-- > 1) *(rl_buf++) = c; else rl_overflow = true; }
 
     if (!buf || buf_len < 3) {
-        std::cerr << fmt::format("invalid buffer {} ({} bytes)\n", (void*)buf, buf_len);
+        std::cerr << fmt::format("[{}] invalid buffer {} ({} bytes)\n", __FUNCTION__, (void*)buf, buf_len);
         return -1;
     }
 
@@ -199,7 +195,6 @@ int escape_and_quote(const char* str, char* buf, size_t buf_len)
     const char* p = str;
     char* rl_buf = buf;
     size_t rl_n = buf_len;
-    size_t rl_esc_n = 0;
     bool rl_overflow = false;
 
     append_buf('"');
@@ -210,7 +205,7 @@ int escape_and_quote(const char* str, char* buf, size_t buf_len)
     append_buf('"');
 
     if (rl_overflow) {
-        std::cerr << fmt::format("buffer ({} bytes) overflow while quoting string: {}\n", buf_len, str);
+        std::cerr << fmt::format("[{}] buffer ({} bytes) overflow while quoting string: {}\n", __FUNCTION__, buf_len, str);
         buf[0] = 0;
         return -2;
     } else {

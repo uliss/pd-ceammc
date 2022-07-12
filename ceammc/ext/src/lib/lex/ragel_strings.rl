@@ -13,6 +13,8 @@
     str_comma     = ',';
     str_semicolon = ';';
     str_backslash = '\\';
+    str_lpar      = '(';
+    str_lbrac     = '[';
 
     str_envvar    = '%' [A-Z_0-9]{1,16} '%';
 
@@ -30,5 +32,7 @@
         str_space |
         str_comma |
         str_semicolon |
+        str_lpar |
+        str_lbrac |
         str_backslash;
 }%%
