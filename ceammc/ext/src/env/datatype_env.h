@@ -122,7 +122,7 @@ public:
     DataTypeEnv& operator=(const DataTypeEnv& env);
     DataTypeEnv& operator=(DataTypeEnv&& env);
 
-    int type() const noexcept override;
+    DataTypeId type() const noexcept override;
     std::string toString() const override;
     bool isEqual(const AbstractData* d) const noexcept override;
 
@@ -298,11 +298,6 @@ public:
     DataTypeEnv& operator+=(const DataTypeEnv& env);
 
     /**
-     * Create new envelope from raw list content
-     */
-    static DataTypeEnv fromListView(const AtomListView& lv);
-
-    /**
      * Saves envelope to raw list data for usage in e.g. in preset system
      */
     AtomList toList() const;
@@ -339,10 +334,12 @@ public:
     bool checkASR() const;
     bool checkADSR() const;
 
-    std::string toDictConstructor() const noexcept override;
+    std::string toListStringContent() const noexcept final;
+    std::string toDictStringContent() const noexcept final;
+    bool set(const AbstractData* d) noexcept final;
 
 public:
-    static int dataType;
+    static DataTypeId dataType;
 
     using setMethod = bool (DataTypeEnv::*)(const AtomListView&);
 

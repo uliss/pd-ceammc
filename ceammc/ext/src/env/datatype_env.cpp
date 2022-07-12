@@ -257,11 +257,11 @@ EnvelopePoint pointFromDict(const DataTypeDict& dict)
     return pt;
 }
 
-Atom createEnv(const Dict& dict)
+Atom createEnv(const DictAtom& dict)
 {
     EnvAtom res;
 
-    for (auto& kv : dict) {
+    for (auto& kv : *dict) {
         const auto key = kv.first;
         const auto& val = kv.second;
 
@@ -292,7 +292,7 @@ Atom createEnv(const Dict& dict)
             }
         } break;
         default:
-            LIB_ERR << fmt::format("invalid key: '{}'", key);
+            LIB_ERR << fmt::format("invalid key: '{}'", key->s_name);
             break;
         }
     }
@@ -301,7 +301,7 @@ Atom createEnv(const Dict& dict)
 }
 }
 
-int DataTypeEnv::dataType = DataStorage::instance().registerNewType(TYPE_NAME, nullptr, createEnv);
+DataTypeId DataTypeEnv::dataType = DataStorage::instance().registerNewType(TYPE_NAME, nullptr, createEnv);
 
 DataTypeEnv::DataTypeEnv()
 {
@@ -317,7 +317,7 @@ DataTypeEnv::DataTypeEnv(DataTypeEnv&& env)
 {
 }
 
-int DataTypeEnv::type() const noexcept
+DataTypeId DataTypeEnv::type() const noexcept
 {
     return dataType;
 }
@@ -1076,37 +1076,6 @@ DataTypeEnv& DataTypeEnv::operator=(DataTypeEnv&& env)
     return *this;
 }
 
-DataTypeEnv DataTypeEnv::fromListView(const AtomListView& lv)
-{
-    DataTypeEnv env;
-
-    if (lv.size() % 7 != 0)
-        return env;
-
-    size_t n = lv.size() / 7;
-    for (size_t i = 0; i < n; i++) {
-
-        if (lv[i * 7].asSymbol() != gensym(SYM_ENVELOPE_POINT)) {
-            LIB_ERR << "invalid preset data: " << lv;
-            return env;
-        }
-
-        size_t tm = lv[i * 7 + 1].asFloat();
-        float value = lv[i * 7 + 2].asFloat();
-        float curve_data = lv[i * 7 + 3].asFloat();
-        float sigmoid_data = lv[i * 7 + 4].asFloat();
-        CurveType t = static_cast<CurveType>(lv[i * 7 + 5].asInt());
-        bool stop = lv[i * 7 + 6].asFloat();
-
-        EnvelopePoint pt(tm, value, stop, t, curve_data);
-        pt.sigmoid_skew = sigmoid_data;
-
-        env.points_.push_back(pt);
-    }
-
-    return env;
-}
-
 AtomList DataTypeEnv::toList() const
 {
     AtomList res;
@@ -1247,7 +1216,12 @@ bool DataTypeEnv::checkADSR() const
             && points_[3].fix_pos == EnvelopePoint::FIX_VALUE);
 }
 
-std::string DataTypeEnv::toDictConstructor() const noexcept
+std::string DataTypeEnv::toListStringContent() const noexcept
+{
+    return " ";
+}
+
+std::string DataTypeEnv::toDictStringContent() const noexcept
 {
     std::string res;
 
@@ -1255,32 +1229,34 @@ std::string DataTypeEnv::toDictConstructor() const noexcept
         if (checkAR()) {
             const auto A = points_[1].timeMs();
             const auto R = points_[2].timeMs() - A;
-            res = fmt::format("{}[ar: {} {}]", TYPE_NAME, A, R);
+            res = fmt::format("ar: {} {}", A, R);
         } else if (checkASR()) {
             const auto A = points_[1].timeMs();
             const auto R = points_[2].timeMs() - A;
-            res = fmt::format("{}[asr: {} {}]", TYPE_NAME, A, R);
+            res = fmt::format("asr: {} {}", A, R);
         } else if (checkADSR()) {
             const auto A = points_[1].timeMs();
             const auto D = points_[2].timeMs() - A;
             const auto S = points_[2].value * 100;
             const auto R = points_[3].timeMs() - (A + D);
-            res = fmt::format("{}[adsr: {} {} {} {}]", TYPE_NAME, A, D, S, R);
+            res = fmt::format("adsr: {} {} {} {}", A, D, S, R);
         } else if (!points_.empty()) {
-            res = fmt::format("{}[points: \n", TYPE_NAME);
+            res = fmt::format("points: \n");
             const char* indent = "";
             for (auto& pt : points_)
                 exportPoint(pt, res);
-
-            res += ']';
         } else
-            res = fmt::format("{}[ ]", TYPE_NAME);
-
+            res = " ";
     } catch (std::exception& e) {
         LIB_ERR << e.what();
     }
 
     return res;
+}
+
+bool DataTypeEnv::set(const AbstractData* d) noexcept
+{
+    return setDataT<DataTypeEnv>(d);
 }
 
 bool operator==(const EnvelopePoint& p0, const EnvelopePoint& p1)
