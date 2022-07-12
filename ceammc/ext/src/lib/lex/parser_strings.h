@@ -22,6 +22,8 @@ namespace string {
     bool is_quoted_string(t_symbol* s);
     bool is_quoted_string(const std::string& str);
     bool is_quoted_string(const AtomListView& lv);
+
+    bool string_need_quotes(const char* str);
 }
 }
 

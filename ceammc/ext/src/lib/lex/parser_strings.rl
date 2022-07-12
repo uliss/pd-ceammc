@@ -95,5 +95,27 @@ bool is_quoted_string(const char* str) {
     return (cs >= %%{ write first_final; }%%);
 }
 
+%%{
+    machine need_quotes;
+    include string_common "ragel_strings.rl";
+
+    # zero string version
+    main := (any - (all_escapes|0))* 0 @{ fbreak; };
+    write data;
+}%%
+
+bool string_need_quotes(const char* str) {
+    if (str == nullptr || str[0] == '\0')
+        return false;
+
+    int cs = 0;
+    const char* p = str;
+
+    %% write init;
+    %% write exec noend;
+
+    return (cs < %%{ write first_final; }%%);
+}
+
 }
 }

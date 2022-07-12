@@ -394,4 +394,21 @@ TEST_CASE("ceammc_string", "[PureData]")
         REQUIRE(quoted_string_end("`.``(`)\""));
         REQUIRE(quoted_string_end("``\""));
     }
+
+    SECTION("string_need_quotes")
+    {
+        REQUIRE_FALSE(string_need_quotes((char*)nullptr));
+        REQUIRE_FALSE(string_need_quotes(""));
+        REQUIRE_FALSE(string_need_quotes("a"));
+        REQUIRE_FALSE(string_need_quotes("1"));
+        REQUIRE_FALSE(string_need_quotes("abc"));
+        REQUIRE(string_need_quotes("'"));
+        REQUIRE(string_need_quotes(" "));
+        REQUIRE(string_need_quotes(","));
+        REQUIRE(string_need_quotes(";"));
+        REQUIRE(string_need_quotes("\\"));
+        REQUIRE(string_need_quotes("\""));
+        REQUIRE(string_need_quotes("there's"));
+        REQUIRE(string_need_quotes("the space"));
+    }
 }

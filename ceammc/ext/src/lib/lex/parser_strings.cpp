@@ -113,11 +113,11 @@ namespace ceammc {
 				_st3:
 				p += 1;
 				st_case_3:
-				if ( 0 <= ( (*( p))) ) {
-					goto _st1;
+				if ( ( (*( p))) <= -1 ) {
+					goto _st0;
 				}
 				{
-					goto _st0;
+					goto _st1;
 				}
 				st_out:
 				_test_eof1: cs = 1; goto _test_eof; 
@@ -266,11 +266,11 @@ namespace ceammc {
 				_st4:
 				p += 1;
 				st_case_4:
-				if ( 0 <= ( (*( p))) ) {
-					goto _st2;
+				if ( ( (*( p))) <= -1 ) {
+					goto _st0;
 				}
 				{
-					goto _st0;
+					goto _st2;
 				}
 				st_out:
 				_test_eof1: cs = 1; goto _test_eof; 
@@ -292,6 +292,115 @@ namespace ceammc {
 #line 293 "lex/parser_strings.cpp"
 			5
 #line 95 "lex/parser_strings.rl"
+			);
+		}
+		
+		
+#line 300 "lex/parser_strings.cpp"
+		static const int need_quotes_start = 1;
+		static const int need_quotes_first_final = 2;
+		static const int need_quotes_error = 0;
+		
+		static const int need_quotes_en_main = 1;
+		
+		
+#line 105 "lex/parser_strings.rl"
+		
+		
+		bool string_need_quotes(const char* str) {
+			if (str == nullptr || str[0] == '\0')
+				return false;
+			
+			int cs = 0;
+			const char* p = str;
+			
+			
+#line 319 "lex/parser_strings.cpp"
+			{
+				cs = (int)need_quotes_start;
+			}
+			
+#line 114 "lex/parser_strings.rl"
+			
+			
+#line 327 "lex/parser_strings.cpp"
+			{
+				switch ( cs ) {
+					case 1:
+					goto st_case_1;
+					case 2:
+					goto st_case_2;
+					case 0:
+					goto st_case_0;
+				}
+				goto st_out;
+				_st1:
+				p += 1;
+				st_case_1:
+				switch( ( (*( p))) ) {
+					case 0: {
+						goto _ctr2;
+					}
+					case 32: {
+						goto _st0;
+					}
+					case 34: {
+						goto _st0;
+					}
+					case 39: {
+						goto _st0;
+					}
+					case 44: {
+						goto _st0;
+					}
+					case 59: {
+						goto _st0;
+					}
+					case 92: {
+						goto _st0;
+					}
+					case 96: {
+						goto _st0;
+					}
+				}
+				{
+					goto _st1;
+				}
+				_ctr2:
+				{
+#line 103 "lex/parser_strings.rl"
+					{p+= 1; cs = 2; goto _out;} }
+				
+#line 375 "lex/parser_strings.cpp"
+				
+				goto _st2;
+				_st2:
+				p += 1;
+				st_case_2:
+				{
+					goto _st0;
+				}
+				st_case_0:
+				_st0:
+				cs = 0;
+				goto _pop;
+				st_out:
+				_test_eof1: cs = 1; goto _test_eof; 
+				_test_eof2: cs = 2; goto _test_eof; 
+				
+				_test_eof: {}
+				if ( cs >= 2 )
+					goto _out; _pop: {}
+				_out: {}
+			}
+			
+#line 115 "lex/parser_strings.rl"
+			
+			
+			return (cs < 
+#line 402 "lex/parser_strings.cpp"
+			2
+#line 117 "lex/parser_strings.rl"
 			);
 		}
 		
