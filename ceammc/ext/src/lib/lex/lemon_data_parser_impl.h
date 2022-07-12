@@ -190,7 +190,7 @@ typedef union {
   lemon_data_string_parserTOKENTYPE yy0;
 } YYMINORTYPE;
 #ifndef YYSTACKDEPTH
-#define YYSTACKDEPTH 20
+#define YYSTACKDEPTH 32
 #endif
 #define lemon_data_string_parserARG_SDECL ceammc::parser::LemonDataStringParser *p;
 #define lemon_data_string_parserARG_PDECL ,ceammc::parser::LemonDataStringParser *p

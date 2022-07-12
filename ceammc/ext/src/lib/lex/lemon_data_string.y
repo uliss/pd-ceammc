@@ -102,7 +102,7 @@ namespace {
     p->stackOverflow();
 }
 
-%stack_size 20
+%stack_size 32
 
 program ::= zlist(A).
 {
