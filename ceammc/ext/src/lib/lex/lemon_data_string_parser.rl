@@ -11,6 +11,7 @@
 %%{
     machine lemon_data_string_lexer;
     include numeric_common "ragel_numeric.rl";
+    include string_common  "ragel_strings.rl";
 
     # actions
     action on_true  { pushFloat(1); }
@@ -95,8 +96,6 @@
     tok_rpar       = space** ")";
     tok_lbr        = "[" space**;
     tok_rbr        = space** "]";
-    tok_squote     = "'";
-    tok_dquote     = '"';
     func_call_list = [a-z][a-z_0-9]* '(' space*;
     data_call_list = [A-Z][a-zA-Z]*  '(' space*;
     data_call_dict = [A-Z][a-zA-Z]*  '[';
@@ -118,8 +117,8 @@
         | tok_lpar
         | tok_rpar
         | tok_lbr
-        | tok_dquote
-        | tok_squote
+        | str_dquote
+        | str_squote
         | data_sqstring
         | data_dqstring
         | data_matrix
@@ -130,36 +129,30 @@
 
     tok_other = ((any+) -- (tok_all - (true|false|tok_null|float)));
 
-    str_escape    = '`';
-    str_space     = str_escape ' ';
-    str_comma     = str_escape '.';
-    str_semicolon = str_escape ':';
-    str_envvar    = '%' [A-Z_0-9]{1,16} '%';
-
     action on_quote_end  { pushSymbolToken(TK_SYMBOL, &(*ragel_string.begin()), (&*ragel_string.end())); fret; }
 
-    # NOTE: changes empty_str
     scan_sqstring := |*
-        ^(str_escape | tok_squote) => { ragel_string += fc;   };
-        str_escape tok_squote      => { ragel_string += '\''; };
-        str_space                  => { ragel_string += ' '; };
-        str_comma                  => { ragel_string += ','; };
-        str_semicolon              => { ragel_string += ';'; };
-        str_escape str_escape      => { ragel_string += '`'; };
+        ^(str_escape | str_squote) => { ragel_string += fc;   };
+        esc_squote                 => { ragel_string += '\''; };
+        esc_space                  => { ragel_string += ' '; };
+        esc_comma                  => { ragel_string += ','; };
+        esc_semicolon              => { ragel_string += ';'; };
+        esc_escape                 => { ragel_string += '`'; };
+        esc_slash                  => { ragel_string += '\\'; };
         str_envvar                 => on_env_variable;
-        tok_squote                 => on_quote_end;
+        str_squote                 => on_quote_end;
     *|;
 
-    # NOTE: changes empty_str
     scan_dqstring := |*
-        ^(str_escape | tok_dquote) => { ragel_string += fc;  };
-        str_escape tok_dquote      => { ragel_string += '"'; };
-        str_space                  => { ragel_string += ' '; };
-        str_comma                  => { ragel_string += ','; };
-        str_semicolon              => { ragel_string += ';'; };
-        str_escape str_escape      => { ragel_string += '`'; };
+        ^(str_escape | str_dquote) => { ragel_string += fc;  };
+        esc_dquote                 => { ragel_string += '"'; };
+        esc_space                  => { ragel_string += ' '; };
+        esc_comma                  => { ragel_string += ','; };
+        esc_semicolon              => { ragel_string += ';'; };
+        esc_escape                 => { ragel_string += '`'; };
+        esc_slash                  => { ragel_string += '\\'; };
         str_envvar                 => on_env_variable;
-        tok_dquote                 => on_quote_end;
+        str_dquote                 => on_quote_end;
     *|;
 
     action on_data_matrix {
@@ -189,8 +182,8 @@
         tok_lpar   => on_lpar;
         tok_rpar   => on_rpar;
         tok_lbr    => on_dict_start;
-        tok_dquote => on_double_quote;
-        tok_squote => on_single_quote;
+        str_dquote => on_double_quote;
+        str_squote => on_single_quote;
 
         float          => on_float;
         func_call_list => on_fn_call;
@@ -215,8 +208,8 @@
         tok_lpar   => on_lpar;
         tok_rpar   => on_rpar;
         tok_lbr    => { pushToken(TK_DICT_OPEN); fcall scan_dict; };
-        tok_dquote => on_double_quote;
-        tok_squote => on_single_quote;
+        str_dquote => on_double_quote;
+        str_squote => on_single_quote;
 
         float          => on_float;
         func_call_list => on_fn_call;

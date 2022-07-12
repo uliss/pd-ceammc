@@ -48,7 +48,7 @@ bool quoted_string_end(const char* str) {
 }
 
 %%{
-    machine quoted_string;
+    machine is_quoted_string;
     include string_common "ragel_strings.rl";
 
     # zero string version

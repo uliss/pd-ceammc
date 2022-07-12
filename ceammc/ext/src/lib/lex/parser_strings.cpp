@@ -143,11 +143,11 @@ namespace ceammc {
 		
 		
 #line 146 "lex/parser_strings.cpp"
-		static const int quoted_string_start = 1;
-		static const int quoted_string_first_final = 5;
-		static const int quoted_string_error = 0;
+		static const int is_quoted_string_start = 1;
+		static const int is_quoted_string_first_final = 5;
+		static const int is_quoted_string_error = 0;
 		
-		static const int quoted_string_en_main = 1;
+		static const int is_quoted_string_en_main = 1;
 		
 		
 #line 58 "lex/parser_strings.rl"
@@ -188,7 +188,7 @@ namespace ceammc {
 			
 #line 190 "lex/parser_strings.cpp"
 			{
-				cs = (int)quoted_string_start;
+				cs = (int)is_quoted_string_start;
 			}
 			
 #line 92 "lex/parser_strings.rl"

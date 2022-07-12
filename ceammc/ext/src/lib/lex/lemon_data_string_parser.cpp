@@ -10,7 +10,7 @@
 # include "lemon_data_parser_impl.h"
 
 
-#line 235 "lex/lemon_data_string_parser.rl"
+#line 228 "lex/lemon_data_string_parser.rl"
 
 
 # include <cstring>
@@ -32,7 +32,7 @@ namespace ceammc {
 		static const int lemon_data_string_lexer_en_main = 49;
 		
 		
-#line 242 "lex/lemon_data_string_parser.rl"
+#line 235 "lex/lemon_data_string_parser.rl"
 		
 		
 		static_assert(LemonDataStringParser::PARSER_SIZE >= sizeof(yyParser), "");
@@ -146,7 +146,7 @@ namespace ceammc {
 					act = 0;
 				}
 				
-#line 345 "lex/lemon_data_string_parser.rl"
+#line 338 "lex/lemon_data_string_parser.rl"
 				
 				
 #line 153 "lex/lemon_data_string_parser.cpp"
@@ -622,9 +622,9 @@ namespace ceammc {
 						goto st_case_152;
 					}
 					goto st_out;
-					_ctr68:
+					_ctr70:
 					{
-#line 234 "lex/lemon_data_string_parser.rl"
+#line 227 "lex/lemon_data_string_parser.rl"
 						{p = p - 1; } {stack[top] = 49; top+= 1; goto _st109;}}
 					
 #line 631 "lex/lemon_data_string_parser.cpp"
@@ -648,14 +648,14 @@ namespace ceammc {
 						goto _test_eof49;
 					st_case_49:
 					{
-						goto _ctr68;
+						goto _ctr70;
 					}
 					_ctr1:
 					{
-#line 143 "lex/lemon_data_string_parser.rl"
+#line 135 "lex/lemon_data_string_parser.rl"
 						{p = ((te))-1;
 							{
-#line 143 "lex/lemon_data_string_parser.rl"
+#line 135 "lex/lemon_data_string_parser.rl"
 								ragel_string += (( (*( p))));   }
 						}}
 					
@@ -664,9 +664,9 @@ namespace ceammc {
 					goto _st50;
 					_ctr2:
 					{
-#line 59 "lex/lemon_data_string_parser.rl"
+#line 60 "lex/lemon_data_string_parser.rl"
 						{te = p+1;{
-#line 59 "lex/lemon_data_string_parser.rl"
+#line 60 "lex/lemon_data_string_parser.rl"
 								
 								constexpr int BS = sizeof(parser_buf_) - 1;
 								const auto N = std::min<int>(BS, (te - ts) - 2);
@@ -699,9 +699,9 @@ namespace ceammc {
 					goto _st50;
 					_ctr19:
 					{
-#line 145 "lex/lemon_data_string_parser.rl"
+#line 137 "lex/lemon_data_string_parser.rl"
 						{te = p+1;{
-#line 145 "lex/lemon_data_string_parser.rl"
+#line 137 "lex/lemon_data_string_parser.rl"
 								ragel_string += ' '; }
 						}}
 					
@@ -710,9 +710,9 @@ namespace ceammc {
 					goto _st50;
 					_ctr20:
 					{
-#line 144 "lex/lemon_data_string_parser.rl"
+#line 136 "lex/lemon_data_string_parser.rl"
 						{te = p+1;{
-#line 144 "lex/lemon_data_string_parser.rl"
+#line 136 "lex/lemon_data_string_parser.rl"
 								ragel_string += '\''; }
 						}}
 					
@@ -721,9 +721,9 @@ namespace ceammc {
 					goto _st50;
 					_ctr21:
 					{
-#line 146 "lex/lemon_data_string_parser.rl"
+#line 138 "lex/lemon_data_string_parser.rl"
 						{te = p+1;{
-#line 146 "lex/lemon_data_string_parser.rl"
+#line 138 "lex/lemon_data_string_parser.rl"
 								ragel_string += ','; }
 						}}
 					
@@ -732,10 +732,10 @@ namespace ceammc {
 					goto _st50;
 					_ctr22:
 					{
-#line 147 "lex/lemon_data_string_parser.rl"
+#line 141 "lex/lemon_data_string_parser.rl"
 						{te = p+1;{
-#line 147 "lex/lemon_data_string_parser.rl"
-								ragel_string += ';'; }
+#line 141 "lex/lemon_data_string_parser.rl"
+								ragel_string += '\\'; }
 						}}
 					
 #line 742 "lex/lemon_data_string_parser.cpp"
@@ -743,21 +743,21 @@ namespace ceammc {
 					goto _st50;
 					_ctr23:
 					{
-#line 148 "lex/lemon_data_string_parser.rl"
+#line 139 "lex/lemon_data_string_parser.rl"
 						{te = p+1;{
-#line 148 "lex/lemon_data_string_parser.rl"
-								ragel_string += '`'; }
+#line 139 "lex/lemon_data_string_parser.rl"
+								ragel_string += ';'; }
 						}}
 					
 #line 753 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st50;
-					_ctr70:
+					_ctr24:
 					{
-#line 143 "lex/lemon_data_string_parser.rl"
+#line 140 "lex/lemon_data_string_parser.rl"
 						{te = p+1;{
-#line 143 "lex/lemon_data_string_parser.rl"
-								ragel_string += (( (*( p))));   }
+#line 140 "lex/lemon_data_string_parser.rl"
+								ragel_string += '`'; }
 						}}
 					
 #line 764 "lex/lemon_data_string_parser.cpp"
@@ -765,24 +765,35 @@ namespace ceammc {
 					goto _st50;
 					_ctr72:
 					{
-#line 139 "lex/lemon_data_string_parser.rl"
+#line 135 "lex/lemon_data_string_parser.rl"
 						{te = p+1;{
-#line 139 "lex/lemon_data_string_parser.rl"
-								pushSymbolToken(TK_SYMBOL, &(*ragel_string.begin()), (&*ragel_string.end())); {top -= 1;cs = stack[top];goto _again;} }
+#line 135 "lex/lemon_data_string_parser.rl"
+								ragel_string += (( (*( p))));   }
 						}}
 					
 #line 775 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st50;
-					_ctr73:
+					_ctr74:
 					{
-#line 143 "lex/lemon_data_string_parser.rl"
-						{te = p;p = p - 1;{
-#line 143 "lex/lemon_data_string_parser.rl"
-								ragel_string += (( (*( p))));   }
+#line 132 "lex/lemon_data_string_parser.rl"
+						{te = p+1;{
+#line 132 "lex/lemon_data_string_parser.rl"
+								pushSymbolToken(TK_SYMBOL, &(*ragel_string.begin()), (&*ragel_string.end())); {top -= 1;cs = stack[top];goto _again;} }
 						}}
 					
 #line 786 "lex/lemon_data_string_parser.cpp"
+					
+					goto _st50;
+					_ctr75:
+					{
+#line 135 "lex/lemon_data_string_parser.rl"
+						{te = p;p = p - 1;{
+#line 135 "lex/lemon_data_string_parser.rl"
+								ragel_string += (( (*( p))));   }
+						}}
+					
+#line 797 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st50;
 					_st50:
@@ -796,7 +807,7 @@ namespace ceammc {
 #line 1 "NONE"
 						{ts = 0;}}
 					
-#line 800 "lex/lemon_data_string_parser.cpp"
+#line 811 "lex/lemon_data_string_parser.cpp"
 					
 					p+= 1;
 					if ( p == pe )
@@ -806,28 +817,28 @@ namespace ceammc {
 #line 1 "NONE"
 						{ts = p;}}
 					
-#line 810 "lex/lemon_data_string_parser.cpp"
+#line 821 "lex/lemon_data_string_parser.cpp"
 					
 					switch( ( (*( p))) ) {
 						case 37: {
-							goto _ctr71;
+							goto _ctr73;
 						}
 						case 39: {
-							goto _ctr72;
+							goto _ctr74;
 						}
 						case 96: {
 							goto _st17;
 						}
 					}
 					{
-						goto _ctr70;
+						goto _ctr72;
 					}
-					_ctr71:
+					_ctr73:
 					{
 #line 1 "NONE"
 						{te = p+1;}}
 					
-#line 831 "lex/lemon_data_string_parser.cpp"
+#line 842 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st51;
 					_st51:
@@ -852,7 +863,7 @@ namespace ceammc {
 						goto _st1;
 					}
 					{
-						goto _ctr73;
+						goto _ctr75;
 					}
 					_st1:
 					if ( p == eof ) {
@@ -1327,11 +1338,14 @@ namespace ceammc {
 						case 46: {
 							goto _ctr21;
 						}
-						case 58: {
+						case 47: {
 							goto _ctr22;
 						}
-						case 96: {
+						case 58: {
 							goto _ctr23;
+						}
+						case 96: {
+							goto _ctr24;
 						}
 					}
 					{
@@ -1341,23 +1355,23 @@ namespace ceammc {
 					_st0:
 					cs = 0;
 					goto _pop;
-					_ctr24:
+					_ctr25:
 					{
-#line 155 "lex/lemon_data_string_parser.rl"
+#line 147 "lex/lemon_data_string_parser.rl"
 						{p = ((te))-1;
 							{
-#line 155 "lex/lemon_data_string_parser.rl"
+#line 147 "lex/lemon_data_string_parser.rl"
 								ragel_string += (( (*( p))));  }
 						}}
 					
-#line 1354 "lex/lemon_data_string_parser.cpp"
+#line 1368 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st52;
-					_ctr25:
+					_ctr26:
 					{
-#line 59 "lex/lemon_data_string_parser.rl"
+#line 60 "lex/lemon_data_string_parser.rl"
 						{te = p+1;{
-#line 59 "lex/lemon_data_string_parser.rl"
+#line 60 "lex/lemon_data_string_parser.rl"
 								
 								constexpr int BS = sizeof(parser_buf_) - 1;
 								const auto N = std::min<int>(BS, (te - ts) - 2);
@@ -1385,95 +1399,106 @@ namespace ceammc {
 							}
 						}}
 					
-#line 1389 "lex/lemon_data_string_parser.cpp"
-					
-					goto _st52;
-					_ctr42:
-					{
-#line 157 "lex/lemon_data_string_parser.rl"
-						{te = p+1;{
-#line 157 "lex/lemon_data_string_parser.rl"
-								ragel_string += ' '; }
-						}}
-					
-#line 1400 "lex/lemon_data_string_parser.cpp"
+#line 1403 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st52;
 					_ctr43:
 					{
-#line 156 "lex/lemon_data_string_parser.rl"
+#line 149 "lex/lemon_data_string_parser.rl"
 						{te = p+1;{
-#line 156 "lex/lemon_data_string_parser.rl"
-								ragel_string += '"'; }
+#line 149 "lex/lemon_data_string_parser.rl"
+								ragel_string += ' '; }
 						}}
 					
-#line 1411 "lex/lemon_data_string_parser.cpp"
+#line 1414 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st52;
 					_ctr44:
 					{
-#line 158 "lex/lemon_data_string_parser.rl"
+#line 148 "lex/lemon_data_string_parser.rl"
 						{te = p+1;{
-#line 158 "lex/lemon_data_string_parser.rl"
-								ragel_string += ','; }
+#line 148 "lex/lemon_data_string_parser.rl"
+								ragel_string += '"'; }
 						}}
 					
-#line 1422 "lex/lemon_data_string_parser.cpp"
+#line 1425 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st52;
 					_ctr45:
 					{
-#line 159 "lex/lemon_data_string_parser.rl"
+#line 150 "lex/lemon_data_string_parser.rl"
 						{te = p+1;{
-#line 159 "lex/lemon_data_string_parser.rl"
-								ragel_string += ';'; }
+#line 150 "lex/lemon_data_string_parser.rl"
+								ragel_string += ','; }
 						}}
 					
-#line 1433 "lex/lemon_data_string_parser.cpp"
+#line 1436 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st52;
 					_ctr46:
 					{
-#line 160 "lex/lemon_data_string_parser.rl"
+#line 153 "lex/lemon_data_string_parser.rl"
 						{te = p+1;{
-#line 160 "lex/lemon_data_string_parser.rl"
+#line 153 "lex/lemon_data_string_parser.rl"
+								ragel_string += '\\'; }
+						}}
+					
+#line 1447 "lex/lemon_data_string_parser.cpp"
+					
+					goto _st52;
+					_ctr47:
+					{
+#line 151 "lex/lemon_data_string_parser.rl"
+						{te = p+1;{
+#line 151 "lex/lemon_data_string_parser.rl"
+								ragel_string += ';'; }
+						}}
+					
+#line 1458 "lex/lemon_data_string_parser.cpp"
+					
+					goto _st52;
+					_ctr48:
+					{
+#line 152 "lex/lemon_data_string_parser.rl"
+						{te = p+1;{
+#line 152 "lex/lemon_data_string_parser.rl"
 								ragel_string += '`'; }
 						}}
 					
-#line 1444 "lex/lemon_data_string_parser.cpp"
+#line 1469 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st52;
-					_ctr76:
+					_ctr78:
 					{
-#line 155 "lex/lemon_data_string_parser.rl"
+#line 147 "lex/lemon_data_string_parser.rl"
 						{te = p+1;{
-#line 155 "lex/lemon_data_string_parser.rl"
+#line 147 "lex/lemon_data_string_parser.rl"
 								ragel_string += (( (*( p))));  }
 						}}
 					
-#line 1455 "lex/lemon_data_string_parser.cpp"
-					
-					goto _st52;
-					_ctr77:
-					{
-#line 139 "lex/lemon_data_string_parser.rl"
-						{te = p+1;{
-#line 139 "lex/lemon_data_string_parser.rl"
-								pushSymbolToken(TK_SYMBOL, &(*ragel_string.begin()), (&*ragel_string.end())); {top -= 1;cs = stack[top];goto _again;} }
-						}}
-					
-#line 1466 "lex/lemon_data_string_parser.cpp"
+#line 1480 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st52;
 					_ctr79:
 					{
-#line 155 "lex/lemon_data_string_parser.rl"
+#line 132 "lex/lemon_data_string_parser.rl"
+						{te = p+1;{
+#line 132 "lex/lemon_data_string_parser.rl"
+								pushSymbolToken(TK_SYMBOL, &(*ragel_string.begin()), (&*ragel_string.end())); {top -= 1;cs = stack[top];goto _again;} }
+						}}
+					
+#line 1491 "lex/lemon_data_string_parser.cpp"
+					
+					goto _st52;
+					_ctr81:
+					{
+#line 147 "lex/lemon_data_string_parser.rl"
 						{te = p;p = p - 1;{
-#line 155 "lex/lemon_data_string_parser.rl"
+#line 147 "lex/lemon_data_string_parser.rl"
 								ragel_string += (( (*( p))));  }
 						}}
 					
-#line 1477 "lex/lemon_data_string_parser.cpp"
+#line 1502 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st52;
 					_st52:
@@ -1487,7 +1512,7 @@ namespace ceammc {
 #line 1 "NONE"
 						{ts = 0;}}
 					
-#line 1491 "lex/lemon_data_string_parser.cpp"
+#line 1516 "lex/lemon_data_string_parser.cpp"
 					
 					p+= 1;
 					if ( p == pe )
@@ -1497,28 +1522,28 @@ namespace ceammc {
 #line 1 "NONE"
 						{ts = p;}}
 					
-#line 1501 "lex/lemon_data_string_parser.cpp"
+#line 1526 "lex/lemon_data_string_parser.cpp"
 					
 					switch( ( (*( p))) ) {
 						case 34: {
-							goto _ctr77;
+							goto _ctr79;
 						}
 						case 37: {
-							goto _ctr78;
+							goto _ctr80;
 						}
 						case 96: {
 							goto _st34;
 						}
 					}
 					{
-						goto _ctr76;
+						goto _ctr78;
 					}
-					_ctr78:
+					_ctr80:
 					{
 #line 1 "NONE"
 						{te = p+1;}}
 					
-#line 1522 "lex/lemon_data_string_parser.cpp"
+#line 1547 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st53;
 					_st53:
@@ -1543,7 +1568,7 @@ namespace ceammc {
 						goto _st18;
 					}
 					{
-						goto _ctr79;
+						goto _ctr81;
 					}
 					_st18:
 					if ( p == eof ) {
@@ -1558,7 +1583,7 @@ namespace ceammc {
 					st_case_18:
 					switch( ( (*( p))) ) {
 						case 37: {
-							goto _ctr25;
+							goto _ctr26;
 						}
 						case 95: {
 							goto _st19;
@@ -1572,7 +1597,7 @@ namespace ceammc {
 						goto _st19;
 					}
 					{
-						goto _ctr24;
+						goto _ctr25;
 					}
 					_st19:
 					if ( p == eof ) {
@@ -1587,7 +1612,7 @@ namespace ceammc {
 					st_case_19:
 					switch( ( (*( p))) ) {
 						case 37: {
-							goto _ctr25;
+							goto _ctr26;
 						}
 						case 95: {
 							goto _st20;
@@ -1601,7 +1626,7 @@ namespace ceammc {
 						goto _st20;
 					}
 					{
-						goto _ctr24;
+						goto _ctr25;
 					}
 					_st20:
 					if ( p == eof ) {
@@ -1616,7 +1641,7 @@ namespace ceammc {
 					st_case_20:
 					switch( ( (*( p))) ) {
 						case 37: {
-							goto _ctr25;
+							goto _ctr26;
 						}
 						case 95: {
 							goto _st21;
@@ -1630,7 +1655,7 @@ namespace ceammc {
 						goto _st21;
 					}
 					{
-						goto _ctr24;
+						goto _ctr25;
 					}
 					_st21:
 					if ( p == eof ) {
@@ -1645,7 +1670,7 @@ namespace ceammc {
 					st_case_21:
 					switch( ( (*( p))) ) {
 						case 37: {
-							goto _ctr25;
+							goto _ctr26;
 						}
 						case 95: {
 							goto _st22;
@@ -1659,7 +1684,7 @@ namespace ceammc {
 						goto _st22;
 					}
 					{
-						goto _ctr24;
+						goto _ctr25;
 					}
 					_st22:
 					if ( p == eof ) {
@@ -1674,7 +1699,7 @@ namespace ceammc {
 					st_case_22:
 					switch( ( (*( p))) ) {
 						case 37: {
-							goto _ctr25;
+							goto _ctr26;
 						}
 						case 95: {
 							goto _st23;
@@ -1688,7 +1713,7 @@ namespace ceammc {
 						goto _st23;
 					}
 					{
-						goto _ctr24;
+						goto _ctr25;
 					}
 					_st23:
 					if ( p == eof ) {
@@ -1703,7 +1728,7 @@ namespace ceammc {
 					st_case_23:
 					switch( ( (*( p))) ) {
 						case 37: {
-							goto _ctr25;
+							goto _ctr26;
 						}
 						case 95: {
 							goto _st24;
@@ -1717,7 +1742,7 @@ namespace ceammc {
 						goto _st24;
 					}
 					{
-						goto _ctr24;
+						goto _ctr25;
 					}
 					_st24:
 					if ( p == eof ) {
@@ -1732,7 +1757,7 @@ namespace ceammc {
 					st_case_24:
 					switch( ( (*( p))) ) {
 						case 37: {
-							goto _ctr25;
+							goto _ctr26;
 						}
 						case 95: {
 							goto _st25;
@@ -1746,7 +1771,7 @@ namespace ceammc {
 						goto _st25;
 					}
 					{
-						goto _ctr24;
+						goto _ctr25;
 					}
 					_st25:
 					if ( p == eof ) {
@@ -1761,7 +1786,7 @@ namespace ceammc {
 					st_case_25:
 					switch( ( (*( p))) ) {
 						case 37: {
-							goto _ctr25;
+							goto _ctr26;
 						}
 						case 95: {
 							goto _st26;
@@ -1775,7 +1800,7 @@ namespace ceammc {
 						goto _st26;
 					}
 					{
-						goto _ctr24;
+						goto _ctr25;
 					}
 					_st26:
 					if ( p == eof ) {
@@ -1790,7 +1815,7 @@ namespace ceammc {
 					st_case_26:
 					switch( ( (*( p))) ) {
 						case 37: {
-							goto _ctr25;
+							goto _ctr26;
 						}
 						case 95: {
 							goto _st27;
@@ -1804,7 +1829,7 @@ namespace ceammc {
 						goto _st27;
 					}
 					{
-						goto _ctr24;
+						goto _ctr25;
 					}
 					_st27:
 					if ( p == eof ) {
@@ -1819,7 +1844,7 @@ namespace ceammc {
 					st_case_27:
 					switch( ( (*( p))) ) {
 						case 37: {
-							goto _ctr25;
+							goto _ctr26;
 						}
 						case 95: {
 							goto _st28;
@@ -1833,7 +1858,7 @@ namespace ceammc {
 						goto _st28;
 					}
 					{
-						goto _ctr24;
+						goto _ctr25;
 					}
 					_st28:
 					if ( p == eof ) {
@@ -1848,7 +1873,7 @@ namespace ceammc {
 					st_case_28:
 					switch( ( (*( p))) ) {
 						case 37: {
-							goto _ctr25;
+							goto _ctr26;
 						}
 						case 95: {
 							goto _st29;
@@ -1862,7 +1887,7 @@ namespace ceammc {
 						goto _st29;
 					}
 					{
-						goto _ctr24;
+						goto _ctr25;
 					}
 					_st29:
 					if ( p == eof ) {
@@ -1877,7 +1902,7 @@ namespace ceammc {
 					st_case_29:
 					switch( ( (*( p))) ) {
 						case 37: {
-							goto _ctr25;
+							goto _ctr26;
 						}
 						case 95: {
 							goto _st30;
@@ -1891,7 +1916,7 @@ namespace ceammc {
 						goto _st30;
 					}
 					{
-						goto _ctr24;
+						goto _ctr25;
 					}
 					_st30:
 					if ( p == eof ) {
@@ -1906,7 +1931,7 @@ namespace ceammc {
 					st_case_30:
 					switch( ( (*( p))) ) {
 						case 37: {
-							goto _ctr25;
+							goto _ctr26;
 						}
 						case 95: {
 							goto _st31;
@@ -1920,7 +1945,7 @@ namespace ceammc {
 						goto _st31;
 					}
 					{
-						goto _ctr24;
+						goto _ctr25;
 					}
 					_st31:
 					if ( p == eof ) {
@@ -1935,7 +1960,7 @@ namespace ceammc {
 					st_case_31:
 					switch( ( (*( p))) ) {
 						case 37: {
-							goto _ctr25;
+							goto _ctr26;
 						}
 						case 95: {
 							goto _st32;
@@ -1949,7 +1974,7 @@ namespace ceammc {
 						goto _st32;
 					}
 					{
-						goto _ctr24;
+						goto _ctr25;
 					}
 					_st32:
 					if ( p == eof ) {
@@ -1964,7 +1989,7 @@ namespace ceammc {
 					st_case_32:
 					switch( ( (*( p))) ) {
 						case 37: {
-							goto _ctr25;
+							goto _ctr26;
 						}
 						case 95: {
 							goto _st33;
@@ -1978,7 +2003,7 @@ namespace ceammc {
 						goto _st33;
 					}
 					{
-						goto _ctr24;
+						goto _ctr25;
 					}
 					_st33:
 					if ( p == eof ) {
@@ -1992,10 +2017,10 @@ namespace ceammc {
 						goto _test_eof33;
 					st_case_33:
 					if ( ( (*( p))) == 37 ) {
-						goto _ctr25;
+						goto _ctr26;
 					}
 					{
-						goto _ctr24;
+						goto _ctr25;
 					}
 					_st34:
 					if ( p == eof ) {
@@ -2010,30 +2035,33 @@ namespace ceammc {
 					st_case_34:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr42;
-						}
-						case 34: {
 							goto _ctr43;
 						}
-						case 46: {
+						case 34: {
 							goto _ctr44;
 						}
-						case 58: {
+						case 46: {
 							goto _ctr45;
 						}
-						case 96: {
+						case 47: {
 							goto _ctr46;
+						}
+						case 58: {
+							goto _ctr47;
+						}
+						case 96: {
+							goto _ctr48;
 						}
 					}
 					{
 						goto _st0;
 					}
-					_ctr50:
+					_ctr52:
 					{
-#line 22 "lex/lemon_data_string_parser.rl"
+#line 23 "lex/lemon_data_string_parser.rl"
 						{p = ((te))-1;
 							{
-#line 22 "lex/lemon_data_string_parser.rl"
+#line 23 "lex/lemon_data_string_parser.rl"
 								
 								onFloat(ragel_cat, ragel_type, ragel_num);
 								ragel_num = {};
@@ -2042,51 +2070,51 @@ namespace ceammc {
 							}
 						}}
 					
-#line 2046 "lex/lemon_data_string_parser.cpp"
+#line 2074 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st54;
-					_ctr84:
+					_ctr86:
 					{
-#line 21 "lex/lemon_data_string_parser.rl"
+#line 22 "lex/lemon_data_string_parser.rl"
 						{te = p+1;{
-#line 21 "lex/lemon_data_string_parser.rl"
+#line 22 "lex/lemon_data_string_parser.rl"
 								pushToken(TK_LIST_CLOSE); }
 						}}
 					
-#line 2057 "lex/lemon_data_string_parser.cpp"
-					
-					goto _st54;
-					_ctr88:
-					{
-#line 177 "lex/lemon_data_string_parser.rl"
-						{te = p+1;{
-#line 177 "lex/lemon_data_string_parser.rl"
-								pushToken(TK_MATRIX_CLOSE); {top -= 1;cs = stack[top];goto _again;} }
-						}}
-					
-#line 2068 "lex/lemon_data_string_parser.cpp"
-					
-					goto _st54;
-					_ctr89:
-					{
-#line 176 "lex/lemon_data_string_parser.rl"
-						{te = p;p = p - 1;}}
-					
-#line 2076 "lex/lemon_data_string_parser.cpp"
+#line 2085 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st54;
 					_ctr90:
 					{
-#line 20 "lex/lemon_data_string_parser.rl"
-						{te = p;p = p - 1;{
-#line 20 "lex/lemon_data_string_parser.rl"
-								pushToken(TK_LIST_OPEN); }
+#line 170 "lex/lemon_data_string_parser.rl"
+						{te = p+1;{
+#line 170 "lex/lemon_data_string_parser.rl"
+								pushToken(TK_MATRIX_CLOSE); {top -= 1;cs = stack[top];goto _again;} }
 						}}
 					
-#line 2087 "lex/lemon_data_string_parser.cpp"
+#line 2096 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st54;
 					_ctr91:
+					{
+#line 169 "lex/lemon_data_string_parser.rl"
+						{te = p;p = p - 1;}}
+					
+#line 2104 "lex/lemon_data_string_parser.cpp"
+					
+					goto _st54;
+					_ctr92:
+					{
+#line 21 "lex/lemon_data_string_parser.rl"
+						{te = p;p = p - 1;{
+#line 21 "lex/lemon_data_string_parser.rl"
+								pushToken(TK_LIST_OPEN); }
+						}}
+					
+#line 2115 "lex/lemon_data_string_parser.cpp"
+					
+					goto _st54;
+					_ctr93:
 					{
 #line 30 "lex/ragel_numeric.rl"
 						
@@ -2095,12 +2123,12 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 2099 "lex/lemon_data_string_parser.cpp"
+#line 2127 "lex/lemon_data_string_parser.cpp"
 					
 					{
-#line 22 "lex/lemon_data_string_parser.rl"
+#line 23 "lex/lemon_data_string_parser.rl"
 						{te = p;p = p - 1;{
-#line 22 "lex/lemon_data_string_parser.rl"
+#line 23 "lex/lemon_data_string_parser.rl"
 								
 								onFloat(ragel_cat, ragel_type, ragel_num);
 								ragel_num = {};
@@ -2109,10 +2137,10 @@ namespace ceammc {
 							}
 						}}
 					
-#line 2113 "lex/lemon_data_string_parser.cpp"
+#line 2141 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st54;
-					_ctr94:
+					_ctr96:
 					{
 #line 58 "lex/ragel_numeric.rl"
 						
@@ -2122,12 +2150,12 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 2126 "lex/lemon_data_string_parser.cpp"
+#line 2154 "lex/lemon_data_string_parser.cpp"
 					
 					{
-#line 22 "lex/lemon_data_string_parser.rl"
+#line 23 "lex/lemon_data_string_parser.rl"
 						{te = p;p = p - 1;{
-#line 22 "lex/lemon_data_string_parser.rl"
+#line 23 "lex/lemon_data_string_parser.rl"
 								
 								onFloat(ragel_cat, ragel_type, ragel_num);
 								ragel_num = {};
@@ -2136,10 +2164,10 @@ namespace ceammc {
 							}
 						}}
 					
-#line 2140 "lex/lemon_data_string_parser.cpp"
+#line 2168 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st54;
-					_ctr95:
+					_ctr97:
 					{
 #line 44 "lex/ragel_numeric.rl"
 						
@@ -2148,12 +2176,12 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 2152 "lex/lemon_data_string_parser.cpp"
+#line 2180 "lex/lemon_data_string_parser.cpp"
 					
 					{
-#line 22 "lex/lemon_data_string_parser.rl"
+#line 23 "lex/lemon_data_string_parser.rl"
 						{te = p;p = p - 1;{
-#line 22 "lex/lemon_data_string_parser.rl"
+#line 23 "lex/lemon_data_string_parser.rl"
 								
 								onFloat(ragel_cat, ragel_type, ragel_num);
 								ragel_num = {};
@@ -2162,10 +2190,10 @@ namespace ceammc {
 							}
 						}}
 					
-#line 2166 "lex/lemon_data_string_parser.cpp"
+#line 2194 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st54;
-					_ctr98:
+					_ctr100:
 					{
 #line 24 "lex/ragel_numeric.rl"
 						
@@ -2173,12 +2201,12 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 2177 "lex/lemon_data_string_parser.cpp"
+#line 2205 "lex/lemon_data_string_parser.cpp"
 					
 					{
-#line 22 "lex/lemon_data_string_parser.rl"
+#line 23 "lex/lemon_data_string_parser.rl"
 						{te = p;p = p - 1;{
-#line 22 "lex/lemon_data_string_parser.rl"
+#line 23 "lex/lemon_data_string_parser.rl"
 								
 								onFloat(ragel_cat, ragel_type, ragel_num);
 								ragel_num = {};
@@ -2187,10 +2215,10 @@ namespace ceammc {
 							}
 						}}
 					
-#line 2191 "lex/lemon_data_string_parser.cpp"
+#line 2219 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st54;
-					_ctr99:
+					_ctr101:
 					{
 #line 37 "lex/ragel_numeric.rl"
 						
@@ -2198,12 +2226,12 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 2202 "lex/lemon_data_string_parser.cpp"
+#line 2230 "lex/lemon_data_string_parser.cpp"
 					
 					{
-#line 22 "lex/lemon_data_string_parser.rl"
+#line 23 "lex/lemon_data_string_parser.rl"
 						{te = p;p = p - 1;{
-#line 22 "lex/lemon_data_string_parser.rl"
+#line 23 "lex/lemon_data_string_parser.rl"
 								
 								onFloat(ragel_cat, ragel_type, ragel_num);
 								ragel_num = {};
@@ -2212,7 +2240,7 @@ namespace ceammc {
 							}
 						}}
 					
-#line 2216 "lex/lemon_data_string_parser.cpp"
+#line 2244 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st54;
 					_st54:
@@ -2226,7 +2254,7 @@ namespace ceammc {
 #line 1 "NONE"
 						{ts = 0;}}
 					
-#line 2230 "lex/lemon_data_string_parser.cpp"
+#line 2258 "lex/lemon_data_string_parser.cpp"
 					
 					p+= 1;
 					if ( p == pe )
@@ -2236,7 +2264,7 @@ namespace ceammc {
 #line 1 "NONE"
 						{ts = p;}}
 					
-#line 2240 "lex/lemon_data_string_parser.cpp"
+#line 2268 "lex/lemon_data_string_parser.cpp"
 					
 					switch( ( (*( p))) ) {
 						case 32: {
@@ -2246,24 +2274,24 @@ namespace ceammc {
 							goto _st56;
 						}
 						case 41: {
-							goto _ctr84;
-						}
-						case 43: {
-							goto _ctr85;
-						}
-						case 45: {
-							goto _ctr85;
-						}
-						case 48: {
 							goto _ctr86;
 						}
-						case 93: {
+						case 43: {
+							goto _ctr87;
+						}
+						case 45: {
+							goto _ctr87;
+						}
+						case 48: {
 							goto _ctr88;
+						}
+						case 93: {
+							goto _ctr90;
 						}
 					}
 					if ( ( (*( p))) > 13 ) {
 						if ( 49 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-							goto _ctr87;
+							goto _ctr89;
 						}
 					} else if ( ( (*( p))) >= 9 ) {
 						goto _st55;
@@ -2287,17 +2315,17 @@ namespace ceammc {
 							goto _st55;
 						}
 						case 41: {
-							goto _ctr84;
+							goto _ctr86;
 						}
 						case 93: {
-							goto _ctr88;
+							goto _ctr90;
 						}
 					}
 					if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
 						goto _st55;
 					}
 					{
-						goto _ctr89;
+						goto _ctr91;
 					}
 					_st56:
 					if ( p == eof ) {
@@ -2317,20 +2345,20 @@ namespace ceammc {
 						goto _st56;
 					}
 					{
-						goto _ctr90;
+						goto _ctr92;
 					}
-					_ctr85:
+					_ctr87:
 					{
-#line 112 "lex/lemon_data_string_parser.rl"
+#line 111 "lex/lemon_data_string_parser.rl"
 						ragel_num = {}; }
 					
-#line 2328 "lex/lemon_data_string_parser.cpp"
+#line 2356 "lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 21 "lex/ragel_numeric.rl"
 						ragel_num.sign = ((( (*( p))))=='-') ? -1 : 1; }
 					
-#line 2334 "lex/lemon_data_string_parser.cpp"
+#line 2362 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st35;
 					_st35:
@@ -2345,32 +2373,32 @@ namespace ceammc {
 						goto _test_eof35;
 					st_case_35:
 					if ( ( (*( p))) == 48 ) {
-						goto _ctr48;
+						goto _ctr50;
 					}
 					if ( 49 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-						goto _ctr49;
+						goto _ctr51;
 					}
 					{
 						goto _st0;
 					}
-					_ctr48:
+					_ctr50:
 					{
 #line 1 "NONE"
 						{te = p+1;}}
 					
-#line 2362 "lex/lemon_data_string_parser.cpp"
+#line 2390 "lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 29 "lex/ragel_numeric.rl"
 						(ragel_num.vint *= 10) += ((( (*( p))))-'0'); }
 					
-#line 2368 "lex/lemon_data_string_parser.cpp"
+#line 2396 "lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 42 "lex/ragel_numeric.rl"
 						(ragel_num.ratio.num *= 10) += ((( (*( p))))-'0'); }
 					
-#line 2374 "lex/lemon_data_string_parser.cpp"
+#line 2402 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st57;
 					_st57:
@@ -2386,16 +2414,16 @@ namespace ceammc {
 					st_case_57:
 					switch( ( (*( p))) ) {
 						case 46: {
-							goto _ctr92;
+							goto _ctr94;
 						}
 						case 47: {
 							goto _st37;
 						}
 					}
 					{
-						goto _ctr91;
+						goto _ctr93;
 					}
-					_ctr92:
+					_ctr94:
 					{
 #line 30 "lex/ragel_numeric.rl"
 						
@@ -2404,7 +2432,7 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 2408 "lex/lemon_data_string_parser.cpp"
+#line 2436 "lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 50 "lex/ragel_numeric.rl"
@@ -2413,7 +2441,7 @@ namespace ceammc {
 						ragel_num.ratio.den = 1;
 					}
 					
-#line 2417 "lex/lemon_data_string_parser.cpp"
+#line 2445 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st36;
 					_st36:
@@ -2428,12 +2456,12 @@ namespace ceammc {
 						goto _test_eof36;
 					st_case_36:
 					if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-						goto _ctr51;
+						goto _ctr53;
 					}
 					{
-						goto _ctr50;
+						goto _ctr52;
 					}
-					_ctr51:
+					_ctr53:
 					{
 #line 54 "lex/ragel_numeric.rl"
 						
@@ -2441,7 +2469,7 @@ namespace ceammc {
 						ragel_num.ratio.den *= 10;
 					}
 					
-#line 2445 "lex/lemon_data_string_parser.cpp"
+#line 2473 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st58;
 					_st58:
@@ -2456,10 +2484,10 @@ namespace ceammc {
 						goto _test_eof58;
 					st_case_58:
 					if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-						goto _ctr51;
+						goto _ctr53;
 					}
 					{
-						goto _ctr94;
+						goto _ctr96;
 					}
 					_st37:
 					if ( p == eof ) {
@@ -2473,20 +2501,20 @@ namespace ceammc {
 						goto _test_eof37;
 					st_case_37:
 					if ( ( (*( p))) == 48 ) {
-						goto _ctr52;
+						goto _ctr54;
 					}
 					if ( 49 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-						goto _ctr53;
+						goto _ctr55;
 					}
 					{
-						goto _ctr50;
+						goto _ctr52;
 					}
-					_ctr52:
+					_ctr54:
 					{
 #line 43 "lex/ragel_numeric.rl"
 						(ragel_num.ratio.den *= 10) += ((( (*( p))))-'0'); }
 					
-#line 2490 "lex/lemon_data_string_parser.cpp"
+#line 2518 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st59;
 					_st59:
@@ -2501,14 +2529,14 @@ namespace ceammc {
 						goto _test_eof59;
 					st_case_59:
 					{
-						goto _ctr95;
+						goto _ctr97;
 					}
-					_ctr53:
+					_ctr55:
 					{
 #line 43 "lex/ragel_numeric.rl"
 						(ragel_num.ratio.den *= 10) += ((( (*( p))))-'0'); }
 					
-#line 2512 "lex/lemon_data_string_parser.cpp"
+#line 2540 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st60;
 					_st60:
@@ -2523,55 +2551,55 @@ namespace ceammc {
 						goto _test_eof60;
 					st_case_60:
 					if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-						goto _ctr53;
+						goto _ctr55;
 					}
 					{
-						goto _ctr95;
+						goto _ctr97;
 					}
-					_ctr49:
+					_ctr51:
 					{
 #line 1 "NONE"
 						{te = p+1;}}
 					
-#line 2537 "lex/lemon_data_string_parser.cpp"
+#line 2565 "lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 29 "lex/ragel_numeric.rl"
 						(ragel_num.vint *= 10) += ((( (*( p))))-'0'); }
 					
-#line 2543 "lex/lemon_data_string_parser.cpp"
+#line 2571 "lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 42 "lex/ragel_numeric.rl"
 						(ragel_num.ratio.num *= 10) += ((( (*( p))))-'0'); }
 					
-#line 2549 "lex/lemon_data_string_parser.cpp"
+#line 2577 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st61;
-					_ctr87:
+					_ctr89:
 					{
 #line 1 "NONE"
 						{te = p+1;}}
 					
-#line 2557 "lex/lemon_data_string_parser.cpp"
+#line 2585 "lex/lemon_data_string_parser.cpp"
 					
 					{
-#line 112 "lex/lemon_data_string_parser.rl"
+#line 111 "lex/lemon_data_string_parser.rl"
 						ragel_num = {}; }
 					
-#line 2563 "lex/lemon_data_string_parser.cpp"
+#line 2591 "lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 29 "lex/ragel_numeric.rl"
 						(ragel_num.vint *= 10) += ((( (*( p))))-'0'); }
 					
-#line 2569 "lex/lemon_data_string_parser.cpp"
+#line 2597 "lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 42 "lex/ragel_numeric.rl"
 						(ragel_num.ratio.num *= 10) += ((( (*( p))))-'0'); }
 					
-#line 2575 "lex/lemon_data_string_parser.cpp"
+#line 2603 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st61;
 					_st61:
@@ -2587,42 +2615,42 @@ namespace ceammc {
 					st_case_61:
 					switch( ( (*( p))) ) {
 						case 46: {
-							goto _ctr92;
+							goto _ctr94;
 						}
 						case 47: {
 							goto _st37;
 						}
 					}
 					if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-						goto _ctr49;
+						goto _ctr51;
 					}
 					{
-						goto _ctr91;
+						goto _ctr93;
 					}
-					_ctr86:
+					_ctr88:
 					{
 #line 1 "NONE"
 						{te = p+1;}}
 					
-#line 2608 "lex/lemon_data_string_parser.cpp"
+#line 2636 "lex/lemon_data_string_parser.cpp"
 					
 					{
-#line 112 "lex/lemon_data_string_parser.rl"
+#line 111 "lex/lemon_data_string_parser.rl"
 						ragel_num = {}; }
 					
-#line 2614 "lex/lemon_data_string_parser.cpp"
+#line 2642 "lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 29 "lex/ragel_numeric.rl"
 						(ragel_num.vint *= 10) += ((( (*( p))))-'0'); }
 					
-#line 2620 "lex/lemon_data_string_parser.cpp"
+#line 2648 "lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 42 "lex/ragel_numeric.rl"
 						(ragel_num.ratio.num *= 10) += ((( (*( p))))-'0'); }
 					
-#line 2626 "lex/lemon_data_string_parser.cpp"
+#line 2654 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st62;
 					_st62:
@@ -2638,7 +2666,7 @@ namespace ceammc {
 					st_case_62:
 					switch( ( (*( p))) ) {
 						case 46: {
-							goto _ctr92;
+							goto _ctr94;
 						}
 						case 47: {
 							goto _st37;
@@ -2651,7 +2679,7 @@ namespace ceammc {
 						}
 					}
 					{
-						goto _ctr91;
+						goto _ctr93;
 					}
 					_st38:
 					if ( p == eof ) {
@@ -2665,17 +2693,17 @@ namespace ceammc {
 						goto _test_eof38;
 					st_case_38:
 					if ( 48 <= ( (*( p))) && ( (*( p))) <= 49 ) {
-						goto _ctr54;
+						goto _ctr56;
 					}
 					{
-						goto _ctr50;
+						goto _ctr52;
 					}
-					_ctr54:
+					_ctr56:
 					{
 #line 23 "lex/ragel_numeric.rl"
 						(ragel_num.vint <<= 1) |= ((( (*( p))))=='1'); }
 					
-#line 2679 "lex/lemon_data_string_parser.cpp"
+#line 2707 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st63;
 					_st63:
@@ -2690,10 +2718,10 @@ namespace ceammc {
 						goto _test_eof63;
 					st_case_63:
 					if ( 48 <= ( (*( p))) && ( (*( p))) <= 49 ) {
-						goto _ctr54;
+						goto _ctr56;
 					}
 					{
-						goto _ctr98;
+						goto _ctr100;
 					}
 					_st39:
 					if ( p == eof ) {
@@ -2708,24 +2736,24 @@ namespace ceammc {
 					st_case_39:
 					if ( ( (*( p))) < 65 ) {
 						if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-							goto _ctr55;
+							goto _ctr57;
 						}
 					} else if ( ( (*( p))) > 70 ) {
 						if ( 97 <= ( (*( p))) && ( (*( p))) <= 102 ) {
-							goto _ctr55;
+							goto _ctr57;
 						}
 					} else {
-						goto _ctr55;
+						goto _ctr57;
 					}
 					{
-						goto _ctr50;
+						goto _ctr52;
 					}
-					_ctr55:
+					_ctr57:
 					{
 #line 36 "lex/ragel_numeric.rl"
 						(ragel_num.vint <<= 4) |= xchar2digit((( (*( p))))); }
 					
-#line 2729 "lex/lemon_data_string_parser.cpp"
+#line 2757 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st64;
 					_st64:
@@ -2741,106 +2769,106 @@ namespace ceammc {
 					st_case_64:
 					if ( ( (*( p))) < 65 ) {
 						if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-							goto _ctr55;
+							goto _ctr57;
 						}
 					} else if ( ( (*( p))) > 70 ) {
 						if ( 97 <= ( (*( p))) && ( (*( p))) <= 102 ) {
-							goto _ctr55;
+							goto _ctr57;
 						}
 					} else {
-						goto _ctr55;
+						goto _ctr57;
 					}
 					{
-						goto _ctr99;
+						goto _ctr101;
 					}
-					_ctr56:
+					_ctr58:
 					{
-#line 204 "lex/lemon_data_string_parser.rl"
+#line 197 "lex/lemon_data_string_parser.rl"
 						{p = ((te))-1;
 							{
-#line 204 "lex/lemon_data_string_parser.rl"
+#line 197 "lex/lemon_data_string_parser.rl"
 								pushToken(TK_SPACE); }
 						}}
 					
-#line 2766 "lex/lemon_data_string_parser.cpp"
+#line 2794 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st65;
-					_ctr58:
+					_ctr60:
 					{
 #line 1 "NONE"
 						{switch( act ) {
-								case 22:  {
-									p = ((te))-1;
-									{
-#line 16 "lex/lemon_data_string_parser.rl"
-										pushFloat(1); }
-									break; 
-								}
-								case 23:  {
-									p = ((te))-1;
-									{
-#line 17 "lex/lemon_data_string_parser.rl"
-										pushFloat(0); }
-									break; 
-								}
 								case 24:  {
 									p = ((te))-1;
 									{
+#line 17 "lex/lemon_data_string_parser.rl"
+										pushFloat(1); }
+									break; 
+								}
+								case 25:  {
+									p = ((te))-1;
+									{
 #line 18 "lex/lemon_data_string_parser.rl"
+										pushFloat(0); }
+									break; 
+								}
+								case 26:  {
+									p = ((te))-1;
+									{
+#line 19 "lex/lemon_data_string_parser.rl"
 										pushToken(TK_NULL); }
 									break; 
 								}
-								case 28:  {
-									p = ((te))-1;
-									{
-#line 28 "lex/lemon_data_string_parser.rl"
-										ragel_string.clear(); {stack[top] = 65; top+= 1; goto _st52;}}
-									break; 
-								}
-								case 29:  {
+								case 30:  {
 									p = ((te))-1;
 									{
 #line 29 "lex/lemon_data_string_parser.rl"
+										ragel_string.clear(); {stack[top] = 65; top+= 1; goto _st52;}}
+									break; 
+								}
+								case 31:  {
+									p = ((te))-1;
+									{
+#line 30 "lex/lemon_data_string_parser.rl"
 										ragel_string.clear(); {stack[top] = 65; top+= 1; goto _st50;}}
 									break; 
 								}
-								case 38:  {
+								case 40:  {
 									p = ((te))-1;
 									{
-#line 204 "lex/lemon_data_string_parser.rl"
+#line 197 "lex/lemon_data_string_parser.rl"
 										pushToken(TK_SPACE); }
 									break; 
 								}
-								case 39:  {
+								case 41:  {
 									p = ((te))-1;
 									{
-#line 88 "lex/lemon_data_string_parser.rl"
+#line 89 "lex/lemon_data_string_parser.rl"
 										pushSymbolToken(TK_SYMBOL, ts, te); }
 									break; 
 								}
 							}}
 					}
 					
-#line 2825 "lex/lemon_data_string_parser.cpp"
+#line 2853 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st65;
-					_ctr63:
+					_ctr65:
 					{
-#line 88 "lex/lemon_data_string_parser.rl"
+#line 89 "lex/lemon_data_string_parser.rl"
 						{p = ((te))-1;
 							{
-#line 88 "lex/lemon_data_string_parser.rl"
+#line 89 "lex/lemon_data_string_parser.rl"
 								pushSymbolToken(TK_SYMBOL, ts, te); }
 						}}
 					
-#line 2837 "lex/lemon_data_string_parser.cpp"
+#line 2865 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st65;
-					_ctr66:
+					_ctr68:
 					{
-#line 165 "lex/lemon_data_string_parser.rl"
+#line 158 "lex/lemon_data_string_parser.rl"
 						{te = p+1;{
-#line 165 "lex/lemon_data_string_parser.rl"
+#line 158 "lex/lemon_data_string_parser.rl"
 								
 								pushToken(TK_MATRIX);
 								pushFloat(ragel_mtx_rows);
@@ -2848,58 +2876,58 @@ namespace ceammc {
 								{stack[top] = 65; top+= 1; goto _st54;}}
 						}}
 					
-#line 2852 "lex/lemon_data_string_parser.cpp"
+#line 2880 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st65;
-					_ctr107:
+					_ctr109:
 					{
-#line 21 "lex/lemon_data_string_parser.rl"
+#line 22 "lex/lemon_data_string_parser.rl"
 						{te = p+1;{
-#line 21 "lex/lemon_data_string_parser.rl"
+#line 22 "lex/lemon_data_string_parser.rl"
 								pushToken(TK_LIST_CLOSE); }
 						}}
 					
-#line 2863 "lex/lemon_data_string_parser.cpp"
-					
-					goto _st65;
-					_ctr115:
-					{
-#line 208 "lex/lemon_data_string_parser.rl"
-						{te = p+1;{
-#line 208 "lex/lemon_data_string_parser.rl"
-								pushToken(TK_DICT_CLOSE); {top -= 1;cs = stack[top];goto _again;} }
-						}}
-					
-#line 2874 "lex/lemon_data_string_parser.cpp"
+#line 2891 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st65;
 					_ctr117:
 					{
-#line 88 "lex/lemon_data_string_parser.rl"
+#line 201 "lex/lemon_data_string_parser.rl"
+						{te = p+1;{
+#line 201 "lex/lemon_data_string_parser.rl"
+								pushToken(TK_DICT_CLOSE); {top -= 1;cs = stack[top];goto _again;} }
+						}}
+					
+#line 2902 "lex/lemon_data_string_parser.cpp"
+					
+					goto _st65;
+					_ctr119:
+					{
+#line 89 "lex/lemon_data_string_parser.rl"
 						{te = p;p = p - 1;{
-#line 88 "lex/lemon_data_string_parser.rl"
+#line 89 "lex/lemon_data_string_parser.rl"
 								pushSymbolToken(TK_SYMBOL, ts, te); }
 						}}
 					
-#line 2885 "lex/lemon_data_string_parser.cpp"
+#line 2913 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st65;
-					_ctr122:
+					_ctr124:
 					{
-#line 204 "lex/lemon_data_string_parser.rl"
+#line 197 "lex/lemon_data_string_parser.rl"
 						{te = p;p = p - 1;{
-#line 204 "lex/lemon_data_string_parser.rl"
+#line 197 "lex/lemon_data_string_parser.rl"
 								pushToken(TK_SPACE); }
 						}}
 					
-#line 2896 "lex/lemon_data_string_parser.cpp"
+#line 2924 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st65;
-					_ctr125:
+					_ctr127:
 					{
-#line 50 "lex/lemon_data_string_parser.rl"
+#line 51 "lex/lemon_data_string_parser.rl"
 						{te = p;p = p - 1;{
-#line 50 "lex/lemon_data_string_parser.rl"
+#line 51 "lex/lemon_data_string_parser.rl"
 								
 								// skip starting whitespaces
 								auto ts0 = ts;
@@ -2911,43 +2939,43 @@ namespace ceammc {
 							}
 						}}
 					
-#line 2915 "lex/lemon_data_string_parser.cpp"
+#line 2943 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st65;
-					_ctr126:
+					_ctr128:
 					{
-#line 28 "lex/lemon_data_string_parser.rl"
+#line 29 "lex/lemon_data_string_parser.rl"
 						{te = p;p = p - 1;{
-#line 28 "lex/lemon_data_string_parser.rl"
+#line 29 "lex/lemon_data_string_parser.rl"
 								ragel_string.clear(); {stack[top] = 65; top+= 1; goto _st52;}}
 						}}
 					
-#line 2926 "lex/lemon_data_string_parser.cpp"
+#line 2954 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st65;
-					_ctr143:
+					_ctr145:
 					{
-#line 29 "lex/lemon_data_string_parser.rl"
+#line 30 "lex/lemon_data_string_parser.rl"
 						{te = p;p = p - 1;{
-#line 29 "lex/lemon_data_string_parser.rl"
+#line 30 "lex/lemon_data_string_parser.rl"
 								ragel_string.clear(); {stack[top] = 65; top+= 1; goto _st50;}}
 						}}
 					
-#line 2937 "lex/lemon_data_string_parser.cpp"
+#line 2965 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st65;
-					_ctr144:
+					_ctr146:
 					{
-#line 20 "lex/lemon_data_string_parser.rl"
+#line 21 "lex/lemon_data_string_parser.rl"
 						{te = p;p = p - 1;{
-#line 20 "lex/lemon_data_string_parser.rl"
+#line 21 "lex/lemon_data_string_parser.rl"
 								pushToken(TK_LIST_OPEN); }
 						}}
 					
-#line 2948 "lex/lemon_data_string_parser.cpp"
+#line 2976 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st65;
-					_ctr147:
+					_ctr149:
 					{
 #line 30 "lex/ragel_numeric.rl"
 						
@@ -2956,12 +2984,12 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 2960 "lex/lemon_data_string_parser.cpp"
+#line 2988 "lex/lemon_data_string_parser.cpp"
 					
 					{
-#line 22 "lex/lemon_data_string_parser.rl"
+#line 23 "lex/lemon_data_string_parser.rl"
 						{te = p;p = p - 1;{
-#line 22 "lex/lemon_data_string_parser.rl"
+#line 23 "lex/lemon_data_string_parser.rl"
 								
 								onFloat(ragel_cat, ragel_type, ragel_num);
 								ragel_num = {};
@@ -2970,10 +2998,10 @@ namespace ceammc {
 							}
 						}}
 					
-#line 2974 "lex/lemon_data_string_parser.cpp"
+#line 3002 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st65;
-					_ctr154:
+					_ctr156:
 					{
 #line 58 "lex/ragel_numeric.rl"
 						
@@ -2983,12 +3011,12 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 2987 "lex/lemon_data_string_parser.cpp"
+#line 3015 "lex/lemon_data_string_parser.cpp"
 					
 					{
-#line 22 "lex/lemon_data_string_parser.rl"
+#line 23 "lex/lemon_data_string_parser.rl"
 						{te = p;p = p - 1;{
-#line 22 "lex/lemon_data_string_parser.rl"
+#line 23 "lex/lemon_data_string_parser.rl"
 								
 								onFloat(ragel_cat, ragel_type, ragel_num);
 								ragel_num = {};
@@ -2997,10 +3025,10 @@ namespace ceammc {
 							}
 						}}
 					
-#line 3001 "lex/lemon_data_string_parser.cpp"
+#line 3029 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st65;
-					_ctr160:
+					_ctr162:
 					{
 #line 44 "lex/ragel_numeric.rl"
 						
@@ -3009,12 +3037,12 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 3013 "lex/lemon_data_string_parser.cpp"
+#line 3041 "lex/lemon_data_string_parser.cpp"
 					
 					{
-#line 22 "lex/lemon_data_string_parser.rl"
+#line 23 "lex/lemon_data_string_parser.rl"
 						{te = p;p = p - 1;{
-#line 22 "lex/lemon_data_string_parser.rl"
+#line 23 "lex/lemon_data_string_parser.rl"
 								
 								onFloat(ragel_cat, ragel_type, ragel_num);
 								ragel_num = {};
@@ -3023,10 +3051,10 @@ namespace ceammc {
 							}
 						}}
 					
-#line 3027 "lex/lemon_data_string_parser.cpp"
+#line 3055 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st65;
-					_ctr169:
+					_ctr171:
 					{
 #line 24 "lex/ragel_numeric.rl"
 						
@@ -3034,12 +3062,12 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 3038 "lex/lemon_data_string_parser.cpp"
+#line 3066 "lex/lemon_data_string_parser.cpp"
 					
 					{
-#line 22 "lex/lemon_data_string_parser.rl"
+#line 23 "lex/lemon_data_string_parser.rl"
 						{te = p;p = p - 1;{
-#line 22 "lex/lemon_data_string_parser.rl"
+#line 23 "lex/lemon_data_string_parser.rl"
 								
 								onFloat(ragel_cat, ragel_type, ragel_num);
 								ragel_num = {};
@@ -3048,10 +3076,10 @@ namespace ceammc {
 							}
 						}}
 					
-#line 3052 "lex/lemon_data_string_parser.cpp"
+#line 3080 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st65;
-					_ctr175:
+					_ctr177:
 					{
 #line 37 "lex/ragel_numeric.rl"
 						
@@ -3059,12 +3087,12 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 3063 "lex/lemon_data_string_parser.cpp"
+#line 3091 "lex/lemon_data_string_parser.cpp"
 					
 					{
-#line 22 "lex/lemon_data_string_parser.rl"
+#line 23 "lex/lemon_data_string_parser.rl"
 						{te = p;p = p - 1;{
-#line 22 "lex/lemon_data_string_parser.rl"
+#line 23 "lex/lemon_data_string_parser.rl"
 								
 								onFloat(ragel_cat, ragel_type, ragel_num);
 								ragel_num = {};
@@ -3073,28 +3101,28 @@ namespace ceammc {
 							}
 						}}
 					
-#line 3077 "lex/lemon_data_string_parser.cpp"
+#line 3105 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st65;
-					_ctr182:
+					_ctr184:
 					{
-#line 44 "lex/lemon_data_string_parser.rl"
+#line 45 "lex/lemon_data_string_parser.rl"
 						{te = p+1;{
-#line 44 "lex/lemon_data_string_parser.rl"
+#line 45 "lex/lemon_data_string_parser.rl"
 								
 								pushSymbolToken(TK_DATA_NAME, ts, te-1);
 								pushToken(TK_DICT_OPEN);
 								{stack[top] = 65; top+= 1; goto _st65;}}
 						}}
 					
-#line 3091 "lex/lemon_data_string_parser.cpp"
+#line 3119 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st65;
-					_ctr183:
+					_ctr185:
 					{
-#line 37 "lex/lemon_data_string_parser.rl"
+#line 38 "lex/lemon_data_string_parser.rl"
 						{te = p;p = p - 1;{
-#line 37 "lex/lemon_data_string_parser.rl"
+#line 38 "lex/lemon_data_string_parser.rl"
 								
 								// skip trailing whitespaces
 								auto te0 = te;
@@ -3104,47 +3132,47 @@ namespace ceammc {
 							}
 						}}
 					
-#line 3108 "lex/lemon_data_string_parser.cpp"
-					
-					goto _st65;
-					_ctr184:
-					{
-#line 86 "lex/lemon_data_string_parser.rl"
-						{te = p+1;{
-#line 86 "lex/lemon_data_string_parser.rl"
-								pushToken(TK_STRING); ragel_string.clear(); {stack[top] = 65; top+= 1; goto _st52;}}
-						}}
-					
-#line 3119 "lex/lemon_data_string_parser.cpp"
-					
-					goto _st65;
-					_ctr185:
-					{
-#line 85 "lex/lemon_data_string_parser.rl"
-						{te = p+1;{
-#line 85 "lex/lemon_data_string_parser.rl"
-								pushToken(TK_STRING); ragel_string.clear(); {stack[top] = 65; top+= 1; goto _st50;}}
-						}}
-					
-#line 3130 "lex/lemon_data_string_parser.cpp"
+#line 3136 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st65;
 					_ctr186:
 					{
-#line 49 "lex/lemon_data_string_parser.rl"
-						{te = p;p = p - 1;{
-#line 49 "lex/lemon_data_string_parser.rl"
-								pushToken(TK_DICT_OPEN); {stack[top] = 65; top+= 1; goto _st65;}}
+#line 87 "lex/lemon_data_string_parser.rl"
+						{te = p+1;{
+#line 87 "lex/lemon_data_string_parser.rl"
+								pushToken(TK_STRING); ragel_string.clear(); {stack[top] = 65; top+= 1; goto _st52;}}
 						}}
 					
-#line 3141 "lex/lemon_data_string_parser.cpp"
+#line 3147 "lex/lemon_data_string_parser.cpp"
+					
+					goto _st65;
+					_ctr187:
+					{
+#line 86 "lex/lemon_data_string_parser.rl"
+						{te = p+1;{
+#line 86 "lex/lemon_data_string_parser.rl"
+								pushToken(TK_STRING); ragel_string.clear(); {stack[top] = 65; top+= 1; goto _st50;}}
+						}}
+					
+#line 3158 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st65;
 					_ctr188:
 					{
-#line 30 "lex/lemon_data_string_parser.rl"
+#line 50 "lex/lemon_data_string_parser.rl"
 						{te = p;p = p - 1;{
-#line 30 "lex/lemon_data_string_parser.rl"
+#line 50 "lex/lemon_data_string_parser.rl"
+								pushToken(TK_DICT_OPEN); {stack[top] = 65; top+= 1; goto _st65;}}
+						}}
+					
+#line 3169 "lex/lemon_data_string_parser.cpp"
+					
+					goto _st65;
+					_ctr190:
+					{
+#line 31 "lex/lemon_data_string_parser.rl"
+						{te = p;p = p - 1;{
+#line 31 "lex/lemon_data_string_parser.rl"
 								
 								// skip trailing whitespaces
 								auto te0 = te;
@@ -3154,7 +3182,7 @@ namespace ceammc {
 							}
 						}}
 					
-#line 3158 "lex/lemon_data_string_parser.cpp"
+#line 3186 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st65;
 					_st65:
@@ -3168,7 +3196,7 @@ namespace ceammc {
 #line 1 "NONE"
 						{ts = 0;}}
 					
-#line 3172 "lex/lemon_data_string_parser.cpp"
+#line 3200 "lex/lemon_data_string_parser.cpp"
 					
 					p+= 1;
 					if ( p == pe )
@@ -3178,35 +3206,35 @@ namespace ceammc {
 #line 1 "NONE"
 						{ts = p;}}
 					
-#line 3182 "lex/lemon_data_string_parser.cpp"
+#line 3210 "lex/lemon_data_string_parser.cpp"
 					
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr102;
+							goto _ctr104;
 						}
 						case 34: {
-							goto _ctr103;
+							goto _ctr105;
 						}
 						case 35: {
 							goto _st73;
 						}
 						case 39: {
-							goto _ctr105;
+							goto _ctr107;
 						}
 						case 40: {
 							goto _st87;
 						}
 						case 41: {
-							goto _ctr107;
+							goto _ctr109;
 						}
 						case 43: {
-							goto _ctr108;
+							goto _ctr110;
 						}
 						case 45: {
-							goto _ctr108;
+							goto _ctr110;
 						}
 						case 48: {
-							goto _ctr109;
+							goto _ctr111;
 						}
 						case 83: {
 							goto _st105;
@@ -3215,7 +3243,7 @@ namespace ceammc {
 							goto _st106;
 						}
 						case 93: {
-							goto _ctr115;
+							goto _ctr117;
 						}
 						case 95: {
 							goto _st97;
@@ -3224,10 +3252,10 @@ namespace ceammc {
 					if ( ( (*( p))) < 63 ) {
 						if ( ( (*( p))) > 13 ) {
 							if ( 49 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-								goto _ctr110;
+								goto _ctr112;
 							}
 						} else if ( ( (*( p))) >= 9 ) {
-							goto _ctr102;
+							goto _ctr104;
 						}
 					} else if ( ( (*( p))) > 64 ) {
 						if ( ( (*( p))) > 90 ) {
@@ -3243,7 +3271,7 @@ namespace ceammc {
 					{
 						goto _st66;
 					}
-					_ctr148:
+					_ctr150:
 					{
 #line 30 "lex/ragel_numeric.rl"
 						
@@ -3252,10 +3280,10 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 3256 "lex/lemon_data_string_parser.cpp"
+#line 3284 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st66;
-					_ctr155:
+					_ctr157:
 					{
 #line 58 "lex/ragel_numeric.rl"
 						
@@ -3265,10 +3293,10 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 3269 "lex/lemon_data_string_parser.cpp"
+#line 3297 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st66;
-					_ctr161:
+					_ctr163:
 					{
 #line 44 "lex/ragel_numeric.rl"
 						
@@ -3277,10 +3305,10 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 3281 "lex/lemon_data_string_parser.cpp"
+#line 3309 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st66;
-					_ctr170:
+					_ctr172:
 					{
 #line 24 "lex/ragel_numeric.rl"
 						
@@ -3288,10 +3316,10 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 3292 "lex/lemon_data_string_parser.cpp"
+#line 3320 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st66;
-					_ctr176:
+					_ctr178:
 					{
 #line 37 "lex/ragel_numeric.rl"
 						
@@ -3299,7 +3327,7 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 3303 "lex/lemon_data_string_parser.cpp"
+#line 3331 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st66;
 					_st66:
@@ -3315,47 +3343,47 @@ namespace ceammc {
 					st_case_66:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 34: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 35: {
 							goto _st67;
 						}
 						case 91: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 93: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 95: {
-							goto _ctr119;
+							goto _ctr121;
 						}
 					}
 					if ( ( (*( p))) < 48 ) {
 						if ( ( (*( p))) > 13 ) {
 							if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-								goto _ctr117;
+								goto _ctr119;
 							}
 						} else if ( ( (*( p))) >= 9 ) {
-							goto _ctr117;
+							goto _ctr119;
 						}
 					} else if ( ( (*( p))) > 57 ) {
 						if ( ( (*( p))) > 90 ) {
 							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _ctr119;
+								goto _ctr121;
 							}
 						} else if ( ( (*( p))) >= 63 ) {
-							goto _ctr119;
+							goto _ctr121;
 						}
 					} else {
-						goto _ctr119;
+						goto _ctr121;
 					}
 					{
 						goto _st66;
 					}
-					_ctr149:
+					_ctr151:
 					{
 #line 30 "lex/ragel_numeric.rl"
 						
@@ -3364,10 +3392,10 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 3368 "lex/lemon_data_string_parser.cpp"
+#line 3396 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st67;
-					_ctr156:
+					_ctr158:
 					{
 #line 58 "lex/ragel_numeric.rl"
 						
@@ -3377,10 +3405,10 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 3381 "lex/lemon_data_string_parser.cpp"
+#line 3409 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st67;
-					_ctr162:
+					_ctr164:
 					{
 #line 44 "lex/ragel_numeric.rl"
 						
@@ -3389,10 +3417,10 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 3393 "lex/lemon_data_string_parser.cpp"
+#line 3421 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st67;
-					_ctr171:
+					_ctr173:
 					{
 #line 24 "lex/ragel_numeric.rl"
 						
@@ -3400,10 +3428,10 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 3404 "lex/lemon_data_string_parser.cpp"
+#line 3432 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st67;
-					_ctr177:
+					_ctr179:
 					{
 #line 37 "lex/ragel_numeric.rl"
 						
@@ -3411,7 +3439,7 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 3415 "lex/lemon_data_string_parser.cpp"
+#line 3443 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st67;
 					_st67:
@@ -3427,112 +3455,84 @@ namespace ceammc {
 					st_case_67:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 34: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 35: {
 							goto _st67;
 						}
 						case 48: {
-							goto _ctr119;
+							goto _ctr121;
 						}
 						case 91: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 93: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 95: {
-							goto _ctr119;
+							goto _ctr121;
 						}
 					}
 					if ( ( (*( p))) < 49 ) {
 						if ( ( (*( p))) > 13 ) {
 							if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-								goto _ctr117;
+								goto _ctr119;
 							}
 						} else if ( ( (*( p))) >= 9 ) {
-							goto _ctr117;
+							goto _ctr119;
 						}
 					} else if ( ( (*( p))) > 57 ) {
 						if ( ( (*( p))) > 90 ) {
 							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _ctr119;
+								goto _ctr121;
 							}
 						} else if ( ( (*( p))) >= 63 ) {
-							goto _ctr119;
+							goto _ctr121;
 						}
 					} else {
-						goto _ctr120;
+						goto _ctr122;
 					}
 					{
 						goto _st66;
 					}
-					_ctr119:
-					{
-#line 1 "NONE"
-						{te = p+1;}}
-					
-#line 3479 "lex/lemon_data_string_parser.cpp"
-					
-					{
-#line 88 "lex/lemon_data_string_parser.rl"
-						{act = 39;}}
-					
-#line 3485 "lex/lemon_data_string_parser.cpp"
-					
-					goto _st68;
 					_ctr121:
 					{
 #line 1 "NONE"
 						{te = p+1;}}
 					
-#line 3493 "lex/lemon_data_string_parser.cpp"
+#line 3507 "lex/lemon_data_string_parser.cpp"
 					
 					{
-#line 109 "lex/lemon_data_string_parser.rl"
-						(ragel_mtx_rows *= 10) += ((( (*( p)))) - '0'); }
-					
-#line 3499 "lex/lemon_data_string_parser.cpp"
-					
-					{
-#line 88 "lex/lemon_data_string_parser.rl"
-						{act = 39;}}
-					
-#line 3505 "lex/lemon_data_string_parser.cpp"
-					
-					goto _st68;
-					_ctr136:
-					{
-#line 1 "NONE"
-						{te = p+1;}}
+#line 89 "lex/lemon_data_string_parser.rl"
+						{act = 41;}}
 					
 #line 3513 "lex/lemon_data_string_parser.cpp"
 					
-					{
-#line 17 "lex/lemon_data_string_parser.rl"
-						{act = 23;}}
-					
-#line 3519 "lex/lemon_data_string_parser.cpp"
-					
 					goto _st68;
-					_ctr139:
+					_ctr123:
 					{
 #line 1 "NONE"
 						{te = p+1;}}
+					
+#line 3521 "lex/lemon_data_string_parser.cpp"
+					
+					{
+#line 108 "lex/lemon_data_string_parser.rl"
+						(ragel_mtx_rows *= 10) += ((( (*( p)))) - '0'); }
 					
 #line 3527 "lex/lemon_data_string_parser.cpp"
 					
 					{
-#line 18 "lex/lemon_data_string_parser.rl"
-						{act = 24;}}
+#line 89 "lex/lemon_data_string_parser.rl"
+						{act = 41;}}
 					
 #line 3533 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st68;
-					_ctr142:
+					_ctr138:
 					{
 #line 1 "NONE"
 						{te = p+1;}}
@@ -3540,18 +3540,46 @@ namespace ceammc {
 #line 3541 "lex/lemon_data_string_parser.cpp"
 					
 					{
-#line 16 "lex/lemon_data_string_parser.rl"
-						{act = 22;}}
+#line 18 "lex/lemon_data_string_parser.rl"
+						{act = 25;}}
 					
 #line 3547 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st68;
-					_ctr152:
+					_ctr141:
 					{
 #line 1 "NONE"
 						{te = p+1;}}
 					
 #line 3555 "lex/lemon_data_string_parser.cpp"
+					
+					{
+#line 19 "lex/lemon_data_string_parser.rl"
+						{act = 26;}}
+					
+#line 3561 "lex/lemon_data_string_parser.cpp"
+					
+					goto _st68;
+					_ctr144:
+					{
+#line 1 "NONE"
+						{te = p+1;}}
+					
+#line 3569 "lex/lemon_data_string_parser.cpp"
+					
+					{
+#line 17 "lex/lemon_data_string_parser.rl"
+						{act = 24;}}
+					
+#line 3575 "lex/lemon_data_string_parser.cpp"
+					
+					goto _st68;
+					_ctr154:
+					{
+#line 1 "NONE"
+						{te = p+1;}}
+					
+#line 3583 "lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 30 "lex/ragel_numeric.rl"
@@ -3561,21 +3589,21 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 3565 "lex/lemon_data_string_parser.cpp"
+#line 3593 "lex/lemon_data_string_parser.cpp"
 					
 					{
-#line 88 "lex/lemon_data_string_parser.rl"
-						{act = 39;}}
+#line 89 "lex/lemon_data_string_parser.rl"
+						{act = 41;}}
 					
-#line 3571 "lex/lemon_data_string_parser.cpp"
+#line 3599 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st68;
-					_ctr157:
+					_ctr159:
 					{
 #line 1 "NONE"
 						{te = p+1;}}
 					
-#line 3579 "lex/lemon_data_string_parser.cpp"
+#line 3607 "lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 58 "lex/ragel_numeric.rl"
@@ -3586,21 +3614,21 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 3590 "lex/lemon_data_string_parser.cpp"
+#line 3618 "lex/lemon_data_string_parser.cpp"
 					
 					{
-#line 88 "lex/lemon_data_string_parser.rl"
-						{act = 39;}}
+#line 89 "lex/lemon_data_string_parser.rl"
+						{act = 41;}}
 					
-#line 3596 "lex/lemon_data_string_parser.cpp"
+#line 3624 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st68;
-					_ctr163:
+					_ctr165:
 					{
 #line 1 "NONE"
 						{te = p+1;}}
 					
-#line 3604 "lex/lemon_data_string_parser.cpp"
+#line 3632 "lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 44 "lex/ragel_numeric.rl"
@@ -3610,13 +3638,13 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 3614 "lex/lemon_data_string_parser.cpp"
+#line 3642 "lex/lemon_data_string_parser.cpp"
 					
 					{
-#line 88 "lex/lemon_data_string_parser.rl"
-						{act = 39;}}
+#line 89 "lex/lemon_data_string_parser.rl"
+						{act = 41;}}
 					
-#line 3620 "lex/lemon_data_string_parser.cpp"
+#line 3648 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st68;
 					_st68:
@@ -3632,55 +3660,55 @@ namespace ceammc {
 					st_case_68:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr58;
+							goto _ctr60;
 						}
 						case 34: {
-							goto _ctr58;
+							goto _ctr60;
 						}
 						case 35: {
 							goto _st67;
 						}
 						case 58: {
-							goto _ctr58;
+							goto _ctr60;
 						}
 						case 91: {
-							goto _ctr58;
+							goto _ctr60;
 						}
 						case 93: {
-							goto _ctr58;
+							goto _ctr60;
 						}
 						case 95: {
-							goto _ctr119;
+							goto _ctr121;
 						}
 					}
 					if ( ( (*( p))) < 48 ) {
 						if ( ( (*( p))) > 13 ) {
 							if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-								goto _ctr58;
+								goto _ctr60;
 							}
 						} else if ( ( (*( p))) >= 9 ) {
-							goto _ctr58;
+							goto _ctr60;
 						}
 					} else if ( ( (*( p))) > 57 ) {
 						if ( ( (*( p))) > 90 ) {
 							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _ctr119;
+								goto _ctr121;
 							}
 						} else if ( ( (*( p))) >= 63 ) {
-							goto _ctr119;
+							goto _ctr121;
 						}
 					} else {
-						goto _ctr119;
+						goto _ctr121;
 					}
 					{
 						goto _st66;
 					}
-					_ctr120:
+					_ctr122:
 					{
-#line 109 "lex/lemon_data_string_parser.rl"
+#line 108 "lex/lemon_data_string_parser.rl"
 						ragel_mtx_rows = (( (*( p)))) - '0'; }
 					
-#line 3684 "lex/lemon_data_string_parser.cpp"
+#line 3712 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st69;
 					_st69:
@@ -3696,61 +3724,61 @@ namespace ceammc {
 					st_case_69:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 34: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 35: {
 							goto _st67;
 						}
 						case 58: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 91: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 93: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 95: {
-							goto _ctr119;
+							goto _ctr121;
 						}
 					}
 					if ( ( (*( p))) < 48 ) {
 						if ( ( (*( p))) > 13 ) {
 							if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-								goto _ctr117;
+								goto _ctr119;
 							}
 						} else if ( ( (*( p))) >= 9 ) {
-							goto _ctr117;
+							goto _ctr119;
 						}
 					} else if ( ( (*( p))) > 57 ) {
 						if ( ( (*( p))) > 90 ) {
 							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _ctr119;
+								goto _ctr121;
 							}
 						} else if ( ( (*( p))) >= 63 ) {
-							goto _ctr119;
+							goto _ctr121;
 						}
 					} else {
-						goto _ctr121;
+						goto _ctr123;
 					}
 					{
 						goto _st66;
 					}
-					_ctr102:
+					_ctr104:
 					{
 #line 1 "NONE"
 						{te = p+1;}}
 					
-#line 3748 "lex/lemon_data_string_parser.cpp"
+#line 3776 "lex/lemon_data_string_parser.cpp"
 					
 					{
-#line 204 "lex/lemon_data_string_parser.rl"
-						{act = 38;}}
+#line 197 "lex/lemon_data_string_parser.rl"
+						{act = 40;}}
 					
-#line 3754 "lex/lemon_data_string_parser.cpp"
+#line 3782 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st70;
 					_st70:
@@ -3766,7 +3794,7 @@ namespace ceammc {
 					st_case_70:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr102;
+							goto _ctr104;
 						}
 						case 34: {
 							goto _st40;
@@ -3775,10 +3803,10 @@ namespace ceammc {
 							goto _st43;
 						}
 						case 41: {
-							goto _ctr107;
+							goto _ctr109;
 						}
 						case 93: {
-							goto _ctr115;
+							goto _ctr117;
 						}
 						case 95: {
 							goto _st45;
@@ -3786,7 +3814,7 @@ namespace ceammc {
 					}
 					if ( ( (*( p))) < 48 ) {
 						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-							goto _ctr102;
+							goto _ctr104;
 						}
 					} else if ( ( (*( p))) > 57 ) {
 						if ( ( (*( p))) > 90 ) {
@@ -3800,7 +3828,7 @@ namespace ceammc {
 						goto _st45;
 					}
 					{
-						goto _ctr122;
+						goto _ctr124;
 					}
 					_st40:
 					if ( p == eof ) {
@@ -3829,7 +3857,7 @@ namespace ceammc {
 						goto _st41;
 					}
 					{
-						goto _ctr56;
+						goto _ctr58;
 					}
 					_st41:
 					if ( p == eof ) {
@@ -3861,7 +3889,7 @@ namespace ceammc {
 						goto _st41;
 					}
 					{
-						goto _ctr58;
+						goto _ctr60;
 					}
 					_st42:
 					if ( p == eof ) {
@@ -3878,9 +3906,9 @@ namespace ceammc {
 						goto _st71;
 					}
 					{
-						goto _ctr58;
+						goto _ctr60;
 					}
-					_ctr165:
+					_ctr167:
 					{
 #line 30 "lex/ragel_numeric.rl"
 						
@@ -3889,10 +3917,10 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 3893 "lex/lemon_data_string_parser.cpp"
+#line 3921 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st71;
-					_ctr173:
+					_ctr175:
 					{
 #line 24 "lex/ragel_numeric.rl"
 						
@@ -3900,10 +3928,10 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 3904 "lex/lemon_data_string_parser.cpp"
+#line 3932 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st71;
-					_ctr178:
+					_ctr180:
 					{
 #line 37 "lex/ragel_numeric.rl"
 						
@@ -3911,7 +3939,7 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 3915 "lex/lemon_data_string_parser.cpp"
+#line 3943 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st71;
 					_st71:
@@ -3932,7 +3960,7 @@ namespace ceammc {
 						goto _st71;
 					}
 					{
-						goto _ctr125;
+						goto _ctr127;
 					}
 					_st43:
 					if ( p == eof ) {
@@ -3961,7 +3989,7 @@ namespace ceammc {
 						goto _st44;
 					}
 					{
-						goto _ctr56;
+						goto _ctr58;
 					}
 					_st44:
 					if ( p == eof ) {
@@ -3993,7 +4021,7 @@ namespace ceammc {
 						goto _st44;
 					}
 					{
-						goto _ctr58;
+						goto _ctr60;
 					}
 					_st45:
 					if ( p == eof ) {
@@ -4026,20 +4054,20 @@ namespace ceammc {
 						goto _st45;
 					}
 					{
-						goto _ctr56;
+						goto _ctr58;
 					}
-					_ctr103:
+					_ctr105:
 					{
 #line 1 "NONE"
 						{te = p+1;}}
 					
-#line 4037 "lex/lemon_data_string_parser.cpp"
+#line 4065 "lex/lemon_data_string_parser.cpp"
 					
 					{
-#line 28 "lex/lemon_data_string_parser.rl"
-						{act = 28;}}
+#line 29 "lex/lemon_data_string_parser.rl"
+						{act = 30;}}
 					
-#line 4043 "lex/lemon_data_string_parser.cpp"
+#line 4071 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st72;
 					_st72:
@@ -4069,7 +4097,7 @@ namespace ceammc {
 						goto _st41;
 					}
 					{
-						goto _ctr126;
+						goto _ctr128;
 					}
 					_st73:
 					if ( p == eof ) {
@@ -4084,25 +4112,25 @@ namespace ceammc {
 					st_case_73:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 34: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 35: {
 							goto _st67;
 						}
 						case 48: {
-							goto _ctr119;
+							goto _ctr121;
 						}
 						case 91: {
-							goto _ctr66;
+							goto _ctr68;
 						}
 						case 93: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 95: {
-							goto _ctr119;
+							goto _ctr121;
 						}
 						case 102: {
 							goto _st76;
@@ -4117,37 +4145,37 @@ namespace ceammc {
 					if ( ( (*( p))) < 49 ) {
 						if ( ( (*( p))) > 13 ) {
 							if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-								goto _ctr117;
+								goto _ctr119;
 							}
 						} else if ( ( (*( p))) >= 9 ) {
-							goto _ctr117;
+							goto _ctr119;
 						}
 					} else if ( ( (*( p))) > 57 ) {
 						if ( ( (*( p))) > 90 ) {
 							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _ctr119;
+								goto _ctr121;
 							}
 						} else if ( ( (*( p))) >= 63 ) {
-							goto _ctr119;
+							goto _ctr121;
 						}
 					} else {
-						goto _ctr127;
+						goto _ctr129;
 					}
 					{
 						goto _st66;
 					}
-					_ctr127:
+					_ctr129:
 					{
 #line 1 "NONE"
 						{te = p+1;}}
 					
-#line 4145 "lex/lemon_data_string_parser.cpp"
+#line 4173 "lex/lemon_data_string_parser.cpp"
 					
 					{
-#line 109 "lex/lemon_data_string_parser.rl"
+#line 108 "lex/lemon_data_string_parser.rl"
 						ragel_mtx_rows = (( (*( p)))) - '0'; }
 					
-#line 4151 "lex/lemon_data_string_parser.cpp"
+#line 4179 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st74;
 					_st74:
@@ -4163,10 +4191,10 @@ namespace ceammc {
 					st_case_74:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 34: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 35: {
 							goto _st67;
@@ -4175,49 +4203,49 @@ namespace ceammc {
 							goto _st46;
 						}
 						case 91: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 93: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 95: {
-							goto _ctr119;
+							goto _ctr121;
 						}
 					}
 					if ( ( (*( p))) < 48 ) {
 						if ( ( (*( p))) > 13 ) {
 							if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-								goto _ctr117;
+								goto _ctr119;
 							}
 						} else if ( ( (*( p))) >= 9 ) {
-							goto _ctr117;
+							goto _ctr119;
 						}
 					} else if ( ( (*( p))) > 57 ) {
 						if ( ( (*( p))) > 90 ) {
 							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _ctr119;
+								goto _ctr121;
 							}
 						} else if ( ( (*( p))) >= 63 ) {
-							goto _ctr119;
+							goto _ctr121;
 						}
 					} else {
-						goto _ctr131;
+						goto _ctr133;
 					}
 					{
 						goto _st66;
 					}
-					_ctr131:
+					_ctr133:
 					{
 #line 1 "NONE"
 						{te = p+1;}}
 					
-#line 4215 "lex/lemon_data_string_parser.cpp"
+#line 4243 "lex/lemon_data_string_parser.cpp"
 					
 					{
-#line 109 "lex/lemon_data_string_parser.rl"
+#line 108 "lex/lemon_data_string_parser.rl"
 						(ragel_mtx_rows *= 10) += ((( (*( p)))) - '0'); }
 					
-#line 4221 "lex/lemon_data_string_parser.cpp"
+#line 4249 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st75;
 					_st75:
@@ -4233,10 +4261,10 @@ namespace ceammc {
 					st_case_75:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 34: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 35: {
 							goto _st67;
@@ -4245,33 +4273,33 @@ namespace ceammc {
 							goto _st46;
 						}
 						case 91: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 93: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 95: {
-							goto _ctr119;
+							goto _ctr121;
 						}
 					}
 					if ( ( (*( p))) < 48 ) {
 						if ( ( (*( p))) > 13 ) {
 							if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-								goto _ctr117;
+								goto _ctr119;
 							}
 						} else if ( ( (*( p))) >= 9 ) {
-							goto _ctr117;
+							goto _ctr119;
 						}
 					} else if ( ( (*( p))) > 57 ) {
 						if ( ( (*( p))) > 90 ) {
 							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _ctr119;
+								goto _ctr121;
 							}
 						} else if ( ( (*( p))) >= 63 ) {
-							goto _ctr119;
+							goto _ctr121;
 						}
 					} else {
-						goto _ctr119;
+						goto _ctr121;
 					}
 					{
 						goto _st66;
@@ -4288,17 +4316,17 @@ namespace ceammc {
 						goto _test_eof46;
 					st_case_46:
 					if ( 49 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-						goto _ctr64;
+						goto _ctr66;
 					}
 					{
-						goto _ctr63;
+						goto _ctr65;
 					}
-					_ctr64:
+					_ctr66:
 					{
-#line 108 "lex/lemon_data_string_parser.rl"
+#line 107 "lex/lemon_data_string_parser.rl"
 						ragel_mtx_cols = (( (*( p)))) - '0'; }
 					
-#line 4302 "lex/lemon_data_string_parser.cpp"
+#line 4330 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st47;
 					_st47:
@@ -4313,20 +4341,20 @@ namespace ceammc {
 						goto _test_eof47;
 					st_case_47:
 					if ( ( (*( p))) == 91 ) {
-						goto _ctr66;
+						goto _ctr68;
 					}
 					if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
+						goto _ctr67;
+					}
+					{
 						goto _ctr65;
 					}
+					_ctr67:
 					{
-						goto _ctr63;
-					}
-					_ctr65:
-					{
-#line 108 "lex/lemon_data_string_parser.rl"
+#line 107 "lex/lemon_data_string_parser.rl"
 						(ragel_mtx_cols *= 10) += ((( (*( p)))) - '0'); }
 					
-#line 4330 "lex/lemon_data_string_parser.cpp"
+#line 4358 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st48;
 					_st48:
@@ -4341,10 +4369,10 @@ namespace ceammc {
 						goto _test_eof48;
 					st_case_48:
 					if ( ( (*( p))) == 91 ) {
-						goto _ctr66;
+						goto _ctr68;
 					}
 					{
-						goto _ctr63;
+						goto _ctr65;
 					}
 					_st76:
 					if ( p == eof ) {
@@ -4359,25 +4387,25 @@ namespace ceammc {
 					st_case_76:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 34: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 35: {
 							goto _st67;
 						}
 						case 58: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 91: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 93: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 95: {
-							goto _ctr119;
+							goto _ctr121;
 						}
 						case 97: {
 							goto _st77;
@@ -4386,21 +4414,21 @@ namespace ceammc {
 					if ( ( (*( p))) < 48 ) {
 						if ( ( (*( p))) > 13 ) {
 							if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-								goto _ctr117;
+								goto _ctr119;
 							}
 						} else if ( ( (*( p))) >= 9 ) {
-							goto _ctr117;
+							goto _ctr119;
 						}
 					} else if ( ( (*( p))) > 57 ) {
 						if ( ( (*( p))) > 90 ) {
 							if ( 98 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _ctr119;
+								goto _ctr121;
 							}
 						} else if ( ( (*( p))) >= 63 ) {
-							goto _ctr119;
+							goto _ctr121;
 						}
 					} else {
-						goto _ctr119;
+						goto _ctr121;
 					}
 					{
 						goto _st66;
@@ -4418,25 +4446,25 @@ namespace ceammc {
 					st_case_77:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 34: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 35: {
 							goto _st67;
 						}
 						case 58: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 91: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 93: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 95: {
-							goto _ctr119;
+							goto _ctr121;
 						}
 						case 108: {
 							goto _st78;
@@ -4445,21 +4473,21 @@ namespace ceammc {
 					if ( ( (*( p))) < 48 ) {
 						if ( ( (*( p))) > 13 ) {
 							if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-								goto _ctr117;
+								goto _ctr119;
 							}
 						} else if ( ( (*( p))) >= 9 ) {
-							goto _ctr117;
+							goto _ctr119;
 						}
 					} else if ( ( (*( p))) > 57 ) {
 						if ( ( (*( p))) > 90 ) {
 							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _ctr119;
+								goto _ctr121;
 							}
 						} else if ( ( (*( p))) >= 63 ) {
-							goto _ctr119;
+							goto _ctr121;
 						}
 					} else {
-						goto _ctr119;
+						goto _ctr121;
 					}
 					{
 						goto _st66;
@@ -4477,25 +4505,25 @@ namespace ceammc {
 					st_case_78:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 34: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 35: {
 							goto _st67;
 						}
 						case 58: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 91: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 93: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 95: {
-							goto _ctr119;
+							goto _ctr121;
 						}
 						case 115: {
 							goto _st79;
@@ -4504,21 +4532,21 @@ namespace ceammc {
 					if ( ( (*( p))) < 48 ) {
 						if ( ( (*( p))) > 13 ) {
 							if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-								goto _ctr117;
+								goto _ctr119;
 							}
 						} else if ( ( (*( p))) >= 9 ) {
-							goto _ctr117;
+							goto _ctr119;
 						}
 					} else if ( ( (*( p))) > 57 ) {
 						if ( ( (*( p))) > 90 ) {
 							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _ctr119;
+								goto _ctr121;
 							}
 						} else if ( ( (*( p))) >= 63 ) {
-							goto _ctr119;
+							goto _ctr121;
 						}
 					} else {
-						goto _ctr119;
+						goto _ctr121;
 					}
 					{
 						goto _st66;
@@ -4536,48 +4564,48 @@ namespace ceammc {
 					st_case_79:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 34: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 35: {
 							goto _st67;
 						}
 						case 58: {
-							goto _ctr117;
-						}
-						case 91: {
-							goto _ctr117;
-						}
-						case 93: {
-							goto _ctr117;
-						}
-						case 95: {
 							goto _ctr119;
 						}
+						case 91: {
+							goto _ctr119;
+						}
+						case 93: {
+							goto _ctr119;
+						}
+						case 95: {
+							goto _ctr121;
+						}
 						case 101: {
-							goto _ctr136;
+							goto _ctr138;
 						}
 					}
 					if ( ( (*( p))) < 48 ) {
 						if ( ( (*( p))) > 13 ) {
 							if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-								goto _ctr117;
+								goto _ctr119;
 							}
 						} else if ( ( (*( p))) >= 9 ) {
-							goto _ctr117;
+							goto _ctr119;
 						}
 					} else if ( ( (*( p))) > 57 ) {
 						if ( ( (*( p))) > 90 ) {
 							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _ctr119;
+								goto _ctr121;
 							}
 						} else if ( ( (*( p))) >= 63 ) {
-							goto _ctr119;
+							goto _ctr121;
 						}
 					} else {
-						goto _ctr119;
+						goto _ctr121;
 					}
 					{
 						goto _st66;
@@ -4595,25 +4623,25 @@ namespace ceammc {
 					st_case_80:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 34: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 35: {
 							goto _st67;
 						}
 						case 58: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 91: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 93: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 95: {
-							goto _ctr119;
+							goto _ctr121;
 						}
 						case 117: {
 							goto _st81;
@@ -4622,21 +4650,21 @@ namespace ceammc {
 					if ( ( (*( p))) < 48 ) {
 						if ( ( (*( p))) > 13 ) {
 							if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-								goto _ctr117;
+								goto _ctr119;
 							}
 						} else if ( ( (*( p))) >= 9 ) {
-							goto _ctr117;
+							goto _ctr119;
 						}
 					} else if ( ( (*( p))) > 57 ) {
 						if ( ( (*( p))) > 90 ) {
 							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _ctr119;
+								goto _ctr121;
 							}
 						} else if ( ( (*( p))) >= 63 ) {
-							goto _ctr119;
+							goto _ctr121;
 						}
 					} else {
-						goto _ctr119;
+						goto _ctr121;
 					}
 					{
 						goto _st66;
@@ -4654,25 +4682,25 @@ namespace ceammc {
 					st_case_81:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 34: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 35: {
 							goto _st67;
 						}
 						case 58: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 91: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 93: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 95: {
-							goto _ctr119;
+							goto _ctr121;
 						}
 						case 108: {
 							goto _st82;
@@ -4681,21 +4709,21 @@ namespace ceammc {
 					if ( ( (*( p))) < 48 ) {
 						if ( ( (*( p))) > 13 ) {
 							if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-								goto _ctr117;
+								goto _ctr119;
 							}
 						} else if ( ( (*( p))) >= 9 ) {
-							goto _ctr117;
+							goto _ctr119;
 						}
 					} else if ( ( (*( p))) > 57 ) {
 						if ( ( (*( p))) > 90 ) {
 							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _ctr119;
+								goto _ctr121;
 							}
 						} else if ( ( (*( p))) >= 63 ) {
-							goto _ctr119;
+							goto _ctr121;
 						}
 					} else {
-						goto _ctr119;
+						goto _ctr121;
 					}
 					{
 						goto _st66;
@@ -4713,48 +4741,48 @@ namespace ceammc {
 					st_case_82:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 34: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 35: {
 							goto _st67;
 						}
 						case 58: {
-							goto _ctr117;
-						}
-						case 91: {
-							goto _ctr117;
-						}
-						case 93: {
-							goto _ctr117;
-						}
-						case 95: {
 							goto _ctr119;
 						}
+						case 91: {
+							goto _ctr119;
+						}
+						case 93: {
+							goto _ctr119;
+						}
+						case 95: {
+							goto _ctr121;
+						}
 						case 108: {
-							goto _ctr139;
+							goto _ctr141;
 						}
 					}
 					if ( ( (*( p))) < 48 ) {
 						if ( ( (*( p))) > 13 ) {
 							if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-								goto _ctr117;
+								goto _ctr119;
 							}
 						} else if ( ( (*( p))) >= 9 ) {
-							goto _ctr117;
+							goto _ctr119;
 						}
 					} else if ( ( (*( p))) > 57 ) {
 						if ( ( (*( p))) > 90 ) {
 							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _ctr119;
+								goto _ctr121;
 							}
 						} else if ( ( (*( p))) >= 63 ) {
-							goto _ctr119;
+							goto _ctr121;
 						}
 					} else {
-						goto _ctr119;
+						goto _ctr121;
 					}
 					{
 						goto _st66;
@@ -4772,25 +4800,25 @@ namespace ceammc {
 					st_case_83:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 34: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 35: {
 							goto _st67;
 						}
 						case 58: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 91: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 93: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 95: {
-							goto _ctr119;
+							goto _ctr121;
 						}
 						case 114: {
 							goto _st84;
@@ -4799,21 +4827,21 @@ namespace ceammc {
 					if ( ( (*( p))) < 48 ) {
 						if ( ( (*( p))) > 13 ) {
 							if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-								goto _ctr117;
+								goto _ctr119;
 							}
 						} else if ( ( (*( p))) >= 9 ) {
-							goto _ctr117;
+							goto _ctr119;
 						}
 					} else if ( ( (*( p))) > 57 ) {
 						if ( ( (*( p))) > 90 ) {
 							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _ctr119;
+								goto _ctr121;
 							}
 						} else if ( ( (*( p))) >= 63 ) {
-							goto _ctr119;
+							goto _ctr121;
 						}
 					} else {
-						goto _ctr119;
+						goto _ctr121;
 					}
 					{
 						goto _st66;
@@ -4831,25 +4859,25 @@ namespace ceammc {
 					st_case_84:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 34: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 35: {
 							goto _st67;
 						}
 						case 58: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 91: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 93: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 95: {
-							goto _ctr119;
+							goto _ctr121;
 						}
 						case 117: {
 							goto _st85;
@@ -4858,21 +4886,21 @@ namespace ceammc {
 					if ( ( (*( p))) < 48 ) {
 						if ( ( (*( p))) > 13 ) {
 							if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-								goto _ctr117;
+								goto _ctr119;
 							}
 						} else if ( ( (*( p))) >= 9 ) {
-							goto _ctr117;
+							goto _ctr119;
 						}
 					} else if ( ( (*( p))) > 57 ) {
 						if ( ( (*( p))) > 90 ) {
 							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _ctr119;
+								goto _ctr121;
 							}
 						} else if ( ( (*( p))) >= 63 ) {
-							goto _ctr119;
+							goto _ctr121;
 						}
 					} else {
-						goto _ctr119;
+						goto _ctr121;
 					}
 					{
 						goto _st66;
@@ -4890,64 +4918,64 @@ namespace ceammc {
 					st_case_85:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 34: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 35: {
 							goto _st67;
 						}
 						case 58: {
-							goto _ctr117;
-						}
-						case 91: {
-							goto _ctr117;
-						}
-						case 93: {
-							goto _ctr117;
-						}
-						case 95: {
 							goto _ctr119;
 						}
+						case 91: {
+							goto _ctr119;
+						}
+						case 93: {
+							goto _ctr119;
+						}
+						case 95: {
+							goto _ctr121;
+						}
 						case 101: {
-							goto _ctr142;
+							goto _ctr144;
 						}
 					}
 					if ( ( (*( p))) < 48 ) {
 						if ( ( (*( p))) > 13 ) {
 							if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-								goto _ctr117;
+								goto _ctr119;
 							}
 						} else if ( ( (*( p))) >= 9 ) {
-							goto _ctr117;
+							goto _ctr119;
 						}
 					} else if ( ( (*( p))) > 57 ) {
 						if ( ( (*( p))) > 90 ) {
 							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _ctr119;
+								goto _ctr121;
 							}
 						} else if ( ( (*( p))) >= 63 ) {
-							goto _ctr119;
+							goto _ctr121;
 						}
 					} else {
-						goto _ctr119;
+						goto _ctr121;
 					}
 					{
 						goto _st66;
 					}
-					_ctr105:
+					_ctr107:
 					{
 #line 1 "NONE"
 						{te = p+1;}}
 					
-#line 4945 "lex/lemon_data_string_parser.cpp"
+#line 4973 "lex/lemon_data_string_parser.cpp"
 					
 					{
-#line 29 "lex/lemon_data_string_parser.rl"
-						{act = 29;}}
+#line 30 "lex/lemon_data_string_parser.rl"
+						{act = 31;}}
 					
-#line 4951 "lex/lemon_data_string_parser.cpp"
+#line 4979 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st86;
 					_st86:
@@ -4977,7 +5005,7 @@ namespace ceammc {
 						goto _st44;
 					}
 					{
-						goto _ctr143;
+						goto _ctr145;
 					}
 					_st87:
 					if ( p == eof ) {
@@ -4997,20 +5025,20 @@ namespace ceammc {
 						goto _st87;
 					}
 					{
-						goto _ctr144;
+						goto _ctr146;
 					}
-					_ctr108:
+					_ctr110:
 					{
-#line 112 "lex/lemon_data_string_parser.rl"
+#line 111 "lex/lemon_data_string_parser.rl"
 						ragel_num = {}; }
 					
-#line 5008 "lex/lemon_data_string_parser.cpp"
+#line 5036 "lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 21 "lex/ragel_numeric.rl"
 						ragel_num.sign = ((( (*( p))))=='-') ? -1 : 1; }
 					
-#line 5014 "lex/lemon_data_string_parser.cpp"
+#line 5042 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st88;
 					_st88:
@@ -5026,61 +5054,61 @@ namespace ceammc {
 					st_case_88:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 34: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 35: {
 							goto _st67;
 						}
 						case 48: {
-							goto _ctr145;
+							goto _ctr147;
 						}
 						case 91: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 93: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 95: {
-							goto _ctr119;
+							goto _ctr121;
 						}
 					}
 					if ( ( (*( p))) < 49 ) {
 						if ( ( (*( p))) > 13 ) {
 							if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-								goto _ctr117;
+								goto _ctr119;
 							}
 						} else if ( ( (*( p))) >= 9 ) {
-							goto _ctr117;
+							goto _ctr119;
 						}
 					} else if ( ( (*( p))) > 57 ) {
 						if ( ( (*( p))) > 90 ) {
 							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _ctr119;
+								goto _ctr121;
 							}
 						} else if ( ( (*( p))) >= 63 ) {
-							goto _ctr119;
+							goto _ctr121;
 						}
 					} else {
-						goto _ctr146;
+						goto _ctr148;
 					}
 					{
 						goto _st66;
 					}
-					_ctr145:
+					_ctr147:
 					{
 #line 29 "lex/ragel_numeric.rl"
 						(ragel_num.vint *= 10) += ((( (*( p))))-'0'); }
 					
-#line 5078 "lex/lemon_data_string_parser.cpp"
+#line 5106 "lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 42 "lex/ragel_numeric.rl"
 						(ragel_num.ratio.num *= 10) += ((( (*( p))))-'0'); }
 					
-#line 5084 "lex/lemon_data_string_parser.cpp"
+#line 5112 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st89;
 					_st89:
@@ -5096,56 +5124,56 @@ namespace ceammc {
 					st_case_89:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr147;
-						}
-						case 34: {
-							goto _ctr147;
-						}
-						case 35: {
 							goto _ctr149;
 						}
+						case 34: {
+							goto _ctr149;
+						}
+						case 35: {
+							goto _ctr151;
+						}
 						case 46: {
-							goto _ctr150;
+							goto _ctr152;
 						}
 						case 47: {
 							goto _st92;
 						}
 						case 58: {
-							goto _ctr147;
+							goto _ctr149;
 						}
 						case 91: {
-							goto _ctr147;
+							goto _ctr149;
 						}
 						case 93: {
-							goto _ctr147;
+							goto _ctr149;
 						}
 						case 95: {
-							goto _ctr152;
+							goto _ctr154;
 						}
 					}
 					if ( ( (*( p))) < 48 ) {
 						if ( ( (*( p))) > 13 ) {
 							if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-								goto _ctr147;
+								goto _ctr149;
 							}
 						} else if ( ( (*( p))) >= 9 ) {
-							goto _ctr147;
+							goto _ctr149;
 						}
 					} else if ( ( (*( p))) > 57 ) {
 						if ( ( (*( p))) > 90 ) {
 							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _ctr152;
+								goto _ctr154;
 							}
 						} else if ( ( (*( p))) >= 63 ) {
-							goto _ctr152;
+							goto _ctr154;
 						}
 					} else {
-						goto _ctr152;
+						goto _ctr154;
 					}
 					{
-						goto _ctr148;
+						goto _ctr150;
 					}
-					_ctr150:
+					_ctr152:
 					{
 #line 30 "lex/ragel_numeric.rl"
 						
@@ -5154,7 +5182,7 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 5158 "lex/lemon_data_string_parser.cpp"
+#line 5186 "lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 50 "lex/ragel_numeric.rl"
@@ -5163,7 +5191,7 @@ namespace ceammc {
 						ragel_num.ratio.den = 1;
 					}
 					
-#line 5167 "lex/lemon_data_string_parser.cpp"
+#line 5195 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st90;
 					_st90:
@@ -5179,47 +5207,47 @@ namespace ceammc {
 					st_case_90:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 34: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 35: {
 							goto _st67;
 						}
 						case 91: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 93: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 95: {
-							goto _ctr119;
+							goto _ctr121;
 						}
 					}
 					if ( ( (*( p))) < 48 ) {
 						if ( ( (*( p))) > 13 ) {
 							if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-								goto _ctr117;
+								goto _ctr119;
 							}
 						} else if ( ( (*( p))) >= 9 ) {
-							goto _ctr117;
+							goto _ctr119;
 						}
 					} else if ( ( (*( p))) > 57 ) {
 						if ( ( (*( p))) > 90 ) {
 							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _ctr119;
+								goto _ctr121;
 							}
 						} else if ( ( (*( p))) >= 63 ) {
-							goto _ctr119;
+							goto _ctr121;
 						}
 					} else {
-						goto _ctr153;
+						goto _ctr155;
 					}
 					{
 						goto _st66;
 					}
-					_ctr153:
+					_ctr155:
 					{
 #line 54 "lex/ragel_numeric.rl"
 						
@@ -5227,7 +5255,7 @@ namespace ceammc {
 						ragel_num.ratio.den *= 10;
 					}
 					
-#line 5231 "lex/lemon_data_string_parser.cpp"
+#line 5259 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st91;
 					_st91:
@@ -5243,48 +5271,48 @@ namespace ceammc {
 					st_case_91:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr154;
-						}
-						case 34: {
-							goto _ctr154;
-						}
-						case 35: {
 							goto _ctr156;
 						}
+						case 34: {
+							goto _ctr156;
+						}
+						case 35: {
+							goto _ctr158;
+						}
 						case 58: {
-							goto _ctr154;
+							goto _ctr156;
 						}
 						case 91: {
-							goto _ctr154;
+							goto _ctr156;
 						}
 						case 93: {
-							goto _ctr154;
+							goto _ctr156;
 						}
 						case 95: {
-							goto _ctr157;
+							goto _ctr159;
 						}
 					}
 					if ( ( (*( p))) < 48 ) {
 						if ( ( (*( p))) > 13 ) {
 							if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-								goto _ctr154;
+								goto _ctr156;
 							}
 						} else if ( ( (*( p))) >= 9 ) {
-							goto _ctr154;
+							goto _ctr156;
 						}
 					} else if ( ( (*( p))) > 57 ) {
 						if ( ( (*( p))) > 90 ) {
 							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _ctr157;
+								goto _ctr159;
 							}
 						} else if ( ( (*( p))) >= 63 ) {
-							goto _ctr157;
+							goto _ctr159;
 						}
 					} else {
-						goto _ctr153;
+						goto _ctr155;
 					}
 					{
-						goto _ctr155;
+						goto _ctr157;
 					}
 					_st92:
 					if ( p == eof ) {
@@ -5299,55 +5327,55 @@ namespace ceammc {
 					st_case_92:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 34: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 35: {
 							goto _st67;
 						}
 						case 48: {
-							goto _ctr158;
+							goto _ctr160;
 						}
 						case 91: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 93: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 95: {
-							goto _ctr119;
+							goto _ctr121;
 						}
 					}
 					if ( ( (*( p))) < 49 ) {
 						if ( ( (*( p))) > 13 ) {
 							if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-								goto _ctr117;
+								goto _ctr119;
 							}
 						} else if ( ( (*( p))) >= 9 ) {
-							goto _ctr117;
+							goto _ctr119;
 						}
 					} else if ( ( (*( p))) > 57 ) {
 						if ( ( (*( p))) > 90 ) {
 							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _ctr119;
+								goto _ctr121;
 							}
 						} else if ( ( (*( p))) >= 63 ) {
-							goto _ctr119;
+							goto _ctr121;
 						}
 					} else {
-						goto _ctr159;
+						goto _ctr161;
 					}
 					{
 						goto _st66;
 					}
-					_ctr158:
+					_ctr160:
 					{
 #line 43 "lex/ragel_numeric.rl"
 						(ragel_num.ratio.den *= 10) += ((( (*( p))))-'0'); }
 					
-#line 5351 "lex/lemon_data_string_parser.cpp"
+#line 5379 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st93;
 					_st93:
@@ -5363,55 +5391,55 @@ namespace ceammc {
 					st_case_93:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr160;
-						}
-						case 34: {
-							goto _ctr160;
-						}
-						case 35: {
 							goto _ctr162;
 						}
+						case 34: {
+							goto _ctr162;
+						}
+						case 35: {
+							goto _ctr164;
+						}
 						case 58: {
-							goto _ctr160;
+							goto _ctr162;
 						}
 						case 91: {
-							goto _ctr160;
+							goto _ctr162;
 						}
 						case 93: {
-							goto _ctr160;
+							goto _ctr162;
 						}
 						case 95: {
-							goto _ctr163;
+							goto _ctr165;
 						}
 					}
 					if ( ( (*( p))) < 48 ) {
 						if ( ( (*( p))) > 13 ) {
 							if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-								goto _ctr160;
+								goto _ctr162;
 							}
 						} else if ( ( (*( p))) >= 9 ) {
-							goto _ctr160;
+							goto _ctr162;
 						}
 					} else if ( ( (*( p))) > 57 ) {
 						if ( ( (*( p))) > 90 ) {
 							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _ctr163;
+								goto _ctr165;
 							}
 						} else if ( ( (*( p))) >= 63 ) {
-							goto _ctr163;
+							goto _ctr165;
 						}
 					} else {
-						goto _ctr163;
+						goto _ctr165;
 					}
 					{
-						goto _ctr161;
+						goto _ctr163;
 					}
-					_ctr159:
+					_ctr161:
 					{
 #line 43 "lex/ragel_numeric.rl"
 						(ragel_num.ratio.den *= 10) += ((( (*( p))))-'0'); }
 					
-#line 5415 "lex/lemon_data_string_parser.cpp"
+#line 5443 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st94;
 					_st94:
@@ -5427,61 +5455,61 @@ namespace ceammc {
 					st_case_94:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr160;
-						}
-						case 34: {
-							goto _ctr160;
-						}
-						case 35: {
 							goto _ctr162;
 						}
+						case 34: {
+							goto _ctr162;
+						}
+						case 35: {
+							goto _ctr164;
+						}
 						case 58: {
-							goto _ctr160;
+							goto _ctr162;
 						}
 						case 91: {
-							goto _ctr160;
+							goto _ctr162;
 						}
 						case 93: {
-							goto _ctr160;
+							goto _ctr162;
 						}
 						case 95: {
-							goto _ctr163;
+							goto _ctr165;
 						}
 					}
 					if ( ( (*( p))) < 48 ) {
 						if ( ( (*( p))) > 13 ) {
 							if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-								goto _ctr160;
+								goto _ctr162;
 							}
 						} else if ( ( (*( p))) >= 9 ) {
-							goto _ctr160;
+							goto _ctr162;
 						}
 					} else if ( ( (*( p))) > 57 ) {
 						if ( ( (*( p))) > 90 ) {
 							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _ctr163;
+								goto _ctr165;
 							}
 						} else if ( ( (*( p))) >= 63 ) {
-							goto _ctr163;
+							goto _ctr165;
 						}
 					} else {
-						goto _ctr159;
-					}
-					{
 						goto _ctr161;
 					}
-					_ctr146:
+					{
+						goto _ctr163;
+					}
+					_ctr148:
 					{
 #line 29 "lex/ragel_numeric.rl"
 						(ragel_num.vint *= 10) += ((( (*( p))))-'0'); }
 					
-#line 5479 "lex/lemon_data_string_parser.cpp"
+#line 5507 "lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 42 "lex/ragel_numeric.rl"
 						(ragel_num.ratio.num *= 10) += ((( (*( p))))-'0'); }
 					
-#line 5485 "lex/lemon_data_string_parser.cpp"
+#line 5513 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st95;
 					_st95:
@@ -5497,73 +5525,73 @@ namespace ceammc {
 					st_case_95:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr147;
-						}
-						case 34: {
-							goto _ctr147;
-						}
-						case 35: {
 							goto _ctr149;
 						}
+						case 34: {
+							goto _ctr149;
+						}
+						case 35: {
+							goto _ctr151;
+						}
 						case 46: {
-							goto _ctr150;
+							goto _ctr152;
 						}
 						case 47: {
 							goto _st92;
 						}
 						case 58: {
-							goto _ctr147;
+							goto _ctr149;
 						}
 						case 91: {
-							goto _ctr147;
+							goto _ctr149;
 						}
 						case 93: {
-							goto _ctr147;
+							goto _ctr149;
 						}
 						case 95: {
-							goto _ctr152;
+							goto _ctr154;
 						}
 					}
 					if ( ( (*( p))) < 48 ) {
 						if ( ( (*( p))) > 13 ) {
 							if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-								goto _ctr147;
+								goto _ctr149;
 							}
 						} else if ( ( (*( p))) >= 9 ) {
-							goto _ctr147;
+							goto _ctr149;
 						}
 					} else if ( ( (*( p))) > 57 ) {
 						if ( ( (*( p))) > 90 ) {
 							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _ctr152;
+								goto _ctr154;
 							}
 						} else if ( ( (*( p))) >= 63 ) {
-							goto _ctr152;
+							goto _ctr154;
 						}
 					} else {
-						goto _ctr146;
-					}
-					{
 						goto _ctr148;
 					}
-					_ctr109:
 					{
-#line 112 "lex/lemon_data_string_parser.rl"
+						goto _ctr150;
+					}
+					_ctr111:
+					{
+#line 111 "lex/lemon_data_string_parser.rl"
 						ragel_num = {}; }
 					
-#line 5555 "lex/lemon_data_string_parser.cpp"
+#line 5583 "lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 29 "lex/ragel_numeric.rl"
 						(ragel_num.vint *= 10) += ((( (*( p))))-'0'); }
 					
-#line 5561 "lex/lemon_data_string_parser.cpp"
+#line 5589 "lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 42 "lex/ragel_numeric.rl"
 						(ragel_num.ratio.num *= 10) += ((( (*( p))))-'0'); }
 					
-#line 5567 "lex/lemon_data_string_parser.cpp"
+#line 5595 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st96;
 					_st96:
@@ -5579,31 +5607,31 @@ namespace ceammc {
 					st_case_96:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr147;
-						}
-						case 34: {
-							goto _ctr147;
-						}
-						case 35: {
 							goto _ctr149;
 						}
+						case 34: {
+							goto _ctr149;
+						}
+						case 35: {
+							goto _ctr151;
+						}
 						case 46: {
-							goto _ctr150;
+							goto _ctr152;
 						}
 						case 47: {
 							goto _st92;
 						}
 						case 58: {
-							goto _ctr165;
+							goto _ctr167;
 						}
 						case 91: {
-							goto _ctr147;
+							goto _ctr149;
 						}
 						case 93: {
-							goto _ctr147;
+							goto _ctr149;
 						}
 						case 95: {
-							goto _ctr164;
+							goto _ctr166;
 						}
 						case 98: {
 							goto _st98;
@@ -5615,26 +5643,26 @@ namespace ceammc {
 					if ( ( (*( p))) < 48 ) {
 						if ( ( (*( p))) > 13 ) {
 							if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-								goto _ctr147;
+								goto _ctr149;
 							}
 						} else if ( ( (*( p))) >= 9 ) {
-							goto _ctr147;
+							goto _ctr149;
 						}
 					} else if ( ( (*( p))) > 57 ) {
 						if ( ( (*( p))) > 90 ) {
 							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _ctr164;
+								goto _ctr166;
 							}
 						} else if ( ( (*( p))) >= 63 ) {
-							goto _ctr164;
+							goto _ctr166;
 						}
 					} else {
-						goto _ctr164;
+						goto _ctr166;
 					}
 					{
-						goto _ctr148;
+						goto _ctr150;
 					}
-					_ctr164:
+					_ctr166:
 					{
 #line 30 "lex/ragel_numeric.rl"
 						
@@ -5643,10 +5671,10 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 5647 "lex/lemon_data_string_parser.cpp"
+#line 5675 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st97;
-					_ctr172:
+					_ctr174:
 					{
 #line 24 "lex/ragel_numeric.rl"
 						
@@ -5654,10 +5682,10 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 5658 "lex/lemon_data_string_parser.cpp"
+#line 5686 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st97;
-					_ctr179:
+					_ctr181:
 					{
 #line 37 "lex/ragel_numeric.rl"
 						
@@ -5665,7 +5693,7 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 5669 "lex/lemon_data_string_parser.cpp"
+#line 5697 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st97;
 					_st97:
@@ -5681,10 +5709,10 @@ namespace ceammc {
 					st_case_97:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 34: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 35: {
 							goto _st67;
@@ -5693,10 +5721,10 @@ namespace ceammc {
 							goto _st71;
 						}
 						case 91: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 93: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 95: {
 							goto _st97;
@@ -5705,10 +5733,10 @@ namespace ceammc {
 					if ( ( (*( p))) < 48 ) {
 						if ( ( (*( p))) > 13 ) {
 							if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-								goto _ctr117;
+								goto _ctr119;
 							}
 						} else if ( ( (*( p))) >= 9 ) {
-							goto _ctr117;
+							goto _ctr119;
 						}
 					} else if ( ( (*( p))) > 57 ) {
 						if ( ( (*( p))) > 90 ) {
@@ -5737,10 +5765,10 @@ namespace ceammc {
 					st_case_98:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 34: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 35: {
 							goto _st67;
@@ -5749,10 +5777,10 @@ namespace ceammc {
 							goto _st71;
 						}
 						case 91: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 93: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 95: {
 							goto _st97;
@@ -5761,10 +5789,10 @@ namespace ceammc {
 					if ( ( (*( p))) < 48 ) {
 						if ( ( (*( p))) > 13 ) {
 							if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-								goto _ctr117;
+								goto _ctr119;
 							}
 						} else if ( ( (*( p))) >= 9 ) {
-							goto _ctr117;
+							goto _ctr119;
 						}
 					} else if ( ( (*( p))) > 49 ) {
 						if ( ( (*( p))) < 63 ) {
@@ -5779,17 +5807,17 @@ namespace ceammc {
 							goto _st97;
 						}
 					} else {
-						goto _ctr168;
+						goto _ctr170;
 					}
 					{
 						goto _st66;
 					}
-					_ctr168:
+					_ctr170:
 					{
 #line 23 "lex/ragel_numeric.rl"
 						(ragel_num.vint <<= 1) |= ((( (*( p))))=='1'); }
 					
-#line 5793 "lex/lemon_data_string_parser.cpp"
+#line 5821 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st99;
 					_st99:
@@ -5805,52 +5833,52 @@ namespace ceammc {
 					st_case_99:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr169;
-						}
-						case 34: {
-							goto _ctr169;
-						}
-						case 35: {
 							goto _ctr171;
 						}
-						case 58: {
+						case 34: {
+							goto _ctr171;
+						}
+						case 35: {
 							goto _ctr173;
 						}
+						case 58: {
+							goto _ctr175;
+						}
 						case 91: {
-							goto _ctr169;
+							goto _ctr171;
 						}
 						case 93: {
-							goto _ctr169;
+							goto _ctr171;
 						}
 						case 95: {
-							goto _ctr172;
+							goto _ctr174;
 						}
 					}
 					if ( ( (*( p))) < 48 ) {
 						if ( ( (*( p))) > 13 ) {
 							if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-								goto _ctr169;
+								goto _ctr171;
 							}
 						} else if ( ( (*( p))) >= 9 ) {
-							goto _ctr169;
+							goto _ctr171;
 						}
 					} else if ( ( (*( p))) > 49 ) {
 						if ( ( (*( p))) < 63 ) {
 							if ( ( (*( p))) <= 57 ) {
-								goto _ctr172;
+								goto _ctr174;
 							}
 						} else if ( ( (*( p))) > 90 ) {
 							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _ctr172;
+								goto _ctr174;
 							}
 						} else {
-							goto _ctr172;
+							goto _ctr174;
 						}
 					} else {
-						goto _ctr168;
+						goto _ctr170;
 					}
 					{
-						goto _ctr170;
+						goto _ctr172;
 					}
 					_st100:
 					if ( p == eof ) {
@@ -5865,10 +5893,10 @@ namespace ceammc {
 					st_case_100:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 34: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 35: {
 							goto _st67;
@@ -5877,10 +5905,10 @@ namespace ceammc {
 							goto _st71;
 						}
 						case 91: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 93: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 95: {
 							goto _st97;
@@ -5889,19 +5917,19 @@ namespace ceammc {
 					if ( ( (*( p))) < 63 ) {
 						if ( ( (*( p))) < 39 ) {
 							if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-								goto _ctr117;
+								goto _ctr119;
 							}
 						} else if ( ( (*( p))) > 41 ) {
 							if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-								goto _ctr174;
+								goto _ctr176;
 							}
 						} else {
-							goto _ctr117;
+							goto _ctr119;
 						}
 					} else if ( ( (*( p))) > 64 ) {
 						if ( ( (*( p))) < 71 ) {
 							{
-								goto _ctr174;
+								goto _ctr176;
 							}
 						} else if ( ( (*( p))) > 90 ) {
 							if ( ( (*( p))) > 102 ) {
@@ -5909,7 +5937,7 @@ namespace ceammc {
 									goto _st97;
 								}
 							} else if ( ( (*( p))) >= 97 ) {
-								goto _ctr174;
+								goto _ctr176;
 							}
 						} else {
 							goto _st97;
@@ -5920,12 +5948,12 @@ namespace ceammc {
 					{
 						goto _st66;
 					}
-					_ctr174:
+					_ctr176:
 					{
 #line 36 "lex/ragel_numeric.rl"
 						(ragel_num.vint <<= 4) |= xchar2digit((( (*( p))))); }
 					
-#line 5929 "lex/lemon_data_string_parser.cpp"
+#line 5957 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st101;
 					_st101:
@@ -5941,93 +5969,93 @@ namespace ceammc {
 					st_case_101:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr175;
-						}
-						case 34: {
-							goto _ctr175;
-						}
-						case 35: {
 							goto _ctr177;
 						}
+						case 34: {
+							goto _ctr177;
+						}
+						case 35: {
+							goto _ctr179;
+						}
 						case 58: {
-							goto _ctr178;
+							goto _ctr180;
 						}
 						case 91: {
-							goto _ctr175;
+							goto _ctr177;
 						}
 						case 93: {
-							goto _ctr175;
+							goto _ctr177;
 						}
 						case 95: {
-							goto _ctr179;
+							goto _ctr181;
 						}
 					}
 					if ( ( (*( p))) < 63 ) {
 						if ( ( (*( p))) < 39 ) {
 							if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-								goto _ctr175;
+								goto _ctr177;
 							}
 						} else if ( ( (*( p))) > 41 ) {
 							if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-								goto _ctr174;
+								goto _ctr176;
 							}
 						} else {
-							goto _ctr175;
+							goto _ctr177;
 						}
 					} else if ( ( (*( p))) > 64 ) {
 						if ( ( (*( p))) < 71 ) {
 							{
-								goto _ctr174;
+								goto _ctr176;
 							}
 						} else if ( ( (*( p))) > 90 ) {
 							if ( ( (*( p))) > 102 ) {
 								if ( ( (*( p))) <= 122 ) {
-									goto _ctr179;
+									goto _ctr181;
 								}
 							} else if ( ( (*( p))) >= 97 ) {
-								goto _ctr174;
+								goto _ctr176;
 							}
 						} else {
-							goto _ctr179;
+							goto _ctr181;
 						}
 					} else {
-						goto _ctr179;
+						goto _ctr181;
 					}
 					{
-						goto _ctr176;
+						goto _ctr178;
 					}
-					_ctr110:
+					_ctr112:
 					{
-#line 112 "lex/lemon_data_string_parser.rl"
+#line 111 "lex/lemon_data_string_parser.rl"
 						ragel_num = {}; }
 					
-#line 6005 "lex/lemon_data_string_parser.cpp"
+#line 6033 "lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 29 "lex/ragel_numeric.rl"
 						(ragel_num.vint *= 10) += ((( (*( p))))-'0'); }
 					
-#line 6011 "lex/lemon_data_string_parser.cpp"
+#line 6039 "lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 42 "lex/ragel_numeric.rl"
 						(ragel_num.ratio.num *= 10) += ((( (*( p))))-'0'); }
 					
-#line 6017 "lex/lemon_data_string_parser.cpp"
+#line 6045 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st102;
-					_ctr180:
+					_ctr182:
 					{
 #line 29 "lex/ragel_numeric.rl"
 						(ragel_num.vint *= 10) += ((( (*( p))))-'0'); }
 					
-#line 6025 "lex/lemon_data_string_parser.cpp"
+#line 6053 "lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 42 "lex/ragel_numeric.rl"
 						(ragel_num.ratio.num *= 10) += ((( (*( p))))-'0'); }
 					
-#line 6031 "lex/lemon_data_string_parser.cpp"
+#line 6059 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st102;
 					_st102:
@@ -6043,54 +6071,54 @@ namespace ceammc {
 					st_case_102:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr147;
-						}
-						case 34: {
-							goto _ctr147;
-						}
-						case 35: {
 							goto _ctr149;
 						}
+						case 34: {
+							goto _ctr149;
+						}
+						case 35: {
+							goto _ctr151;
+						}
 						case 46: {
-							goto _ctr150;
+							goto _ctr152;
 						}
 						case 47: {
 							goto _st92;
 						}
 						case 58: {
-							goto _ctr165;
+							goto _ctr167;
 						}
 						case 91: {
-							goto _ctr147;
+							goto _ctr149;
 						}
 						case 93: {
-							goto _ctr147;
+							goto _ctr149;
 						}
 						case 95: {
-							goto _ctr164;
+							goto _ctr166;
 						}
 					}
 					if ( ( (*( p))) < 48 ) {
 						if ( ( (*( p))) > 13 ) {
 							if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-								goto _ctr147;
+								goto _ctr149;
 							}
 						} else if ( ( (*( p))) >= 9 ) {
-							goto _ctr147;
+							goto _ctr149;
 						}
 					} else if ( ( (*( p))) > 57 ) {
 						if ( ( (*( p))) > 90 ) {
 							if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-								goto _ctr164;
+								goto _ctr166;
 							}
 						} else if ( ( (*( p))) >= 63 ) {
-							goto _ctr164;
+							goto _ctr166;
 						}
 					} else {
-						goto _ctr180;
+						goto _ctr182;
 					}
 					{
-						goto _ctr148;
+						goto _ctr150;
 					}
 					_st103:
 					if ( p == eof ) {
@@ -6105,10 +6133,10 @@ namespace ceammc {
 					st_case_103:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 34: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 35: {
 							goto _st67;
@@ -6120,10 +6148,10 @@ namespace ceammc {
 							goto _st71;
 						}
 						case 91: {
-							goto _ctr182;
+							goto _ctr184;
 						}
 						case 93: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 95: {
 							goto _st97;
@@ -6132,10 +6160,10 @@ namespace ceammc {
 					if ( ( (*( p))) < 48 ) {
 						if ( ( (*( p))) > 13 ) {
 							if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-								goto _ctr117;
+								goto _ctr119;
 							}
 						} else if ( ( (*( p))) >= 9 ) {
-							goto _ctr117;
+							goto _ctr119;
 						}
 					} else if ( ( (*( p))) > 57 ) {
 						if ( ( (*( p))) < 65 ) {
@@ -6173,7 +6201,7 @@ namespace ceammc {
 						goto _st104;
 					}
 					{
-						goto _ctr183;
+						goto _ctr185;
 					}
 					_st105:
 					if ( p == eof ) {
@@ -6188,31 +6216,31 @@ namespace ceammc {
 					st_case_105:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 34: {
-							goto _ctr184;
+							goto _ctr186;
 						}
 						case 35: {
 							goto _st67;
 						}
 						case 39: {
-							goto _ctr185;
+							goto _ctr187;
 						}
 						case 40: {
 							goto _st104;
 						}
 						case 41: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 58: {
 							goto _st71;
 						}
 						case 91: {
-							goto _ctr182;
+							goto _ctr184;
 						}
 						case 93: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 95: {
 							goto _st97;
@@ -6224,7 +6252,7 @@ namespace ceammc {
 								goto _st97;
 							}
 						} else if ( ( (*( p))) >= 9 ) {
-							goto _ctr117;
+							goto _ctr119;
 						}
 					} else if ( ( (*( p))) > 64 ) {
 						if ( ( (*( p))) > 90 ) {
@@ -6258,7 +6286,7 @@ namespace ceammc {
 						goto _st106;
 					}
 					{
-						goto _ctr186;
+						goto _ctr188;
 					}
 					_st107:
 					if ( p == eof ) {
@@ -6273,10 +6301,10 @@ namespace ceammc {
 					st_case_107:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 34: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 35: {
 							goto _st67;
@@ -6288,10 +6316,10 @@ namespace ceammc {
 							goto _st71;
 						}
 						case 91: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 93: {
-							goto _ctr117;
+							goto _ctr119;
 						}
 						case 95: {
 							goto _st107;
@@ -6300,10 +6328,10 @@ namespace ceammc {
 					if ( ( (*( p))) < 48 ) {
 						if ( ( (*( p))) > 13 ) {
 							if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-								goto _ctr117;
+								goto _ctr119;
 							}
 						} else if ( ( (*( p))) >= 9 ) {
-							goto _ctr117;
+							goto _ctr119;
 						}
 					} else if ( ( (*( p))) > 57 ) {
 						if ( ( (*( p))) > 90 ) {
@@ -6337,106 +6365,106 @@ namespace ceammc {
 						goto _st108;
 					}
 					{
-						goto _ctr188;
+						goto _ctr190;
 					}
-					_ctr192:
-					{
-#line 28 "lex/lemon_data_string_parser.rl"
-						{te = p+1;{
-#line 28 "lex/lemon_data_string_parser.rl"
-								ragel_string.clear(); {stack[top] = 109; top+= 1; goto _st52;}}
-						}}
-					
-#line 6351 "lex/lemon_data_string_parser.cpp"
-					
-					goto _st109;
 					_ctr194:
 					{
 #line 29 "lex/lemon_data_string_parser.rl"
 						{te = p+1;{
 #line 29 "lex/lemon_data_string_parser.rl"
-								ragel_string.clear(); {stack[top] = 109; top+= 1; goto _st50;}}
+								ragel_string.clear(); {stack[top] = 109; top+= 1; goto _st52;}}
 						}}
 					
-#line 6362 "lex/lemon_data_string_parser.cpp"
+#line 6379 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st109;
 					_ctr196:
 					{
-#line 21 "lex/lemon_data_string_parser.rl"
+#line 30 "lex/lemon_data_string_parser.rl"
 						{te = p+1;{
-#line 21 "lex/lemon_data_string_parser.rl"
+#line 30 "lex/lemon_data_string_parser.rl"
+								ragel_string.clear(); {stack[top] = 109; top+= 1; goto _st50;}}
+						}}
+					
+#line 6390 "lex/lemon_data_string_parser.cpp"
+					
+					goto _st109;
+					_ctr198:
+					{
+#line 22 "lex/lemon_data_string_parser.rl"
+						{te = p+1;{
+#line 22 "lex/lemon_data_string_parser.rl"
 								pushToken(TK_LIST_CLOSE); }
 						}}
 					
-#line 6373 "lex/lemon_data_string_parser.cpp"
+#line 6401 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st109;
-					_ctr204:
+					_ctr206:
 					{
 #line 1 "NONE"
 						{switch( act ) {
-								case 41:  {
-									p = ((te))-1;
-									{
-#line 16 "lex/lemon_data_string_parser.rl"
-										pushFloat(1); }
-									break; 
-								}
-								case 42:  {
-									p = ((te))-1;
-									{
-#line 17 "lex/lemon_data_string_parser.rl"
-										pushFloat(0); }
-									break; 
-								}
 								case 43:  {
 									p = ((te))-1;
 									{
+#line 17 "lex/lemon_data_string_parser.rl"
+										pushFloat(1); }
+									break; 
+								}
+								case 44:  {
+									p = ((te))-1;
+									{
 #line 18 "lex/lemon_data_string_parser.rl"
+										pushFloat(0); }
+									break; 
+								}
+								case 45:  {
+									p = ((te))-1;
+									{
+#line 19 "lex/lemon_data_string_parser.rl"
 										pushToken(TK_NULL); }
 									break; 
 								}
-								case 56:  {
+								case 58:  {
 									p = ((te))-1;
 									{
-#line 88 "lex/lemon_data_string_parser.rl"
+#line 89 "lex/lemon_data_string_parser.rl"
 										pushSymbolToken(TK_SYMBOL, ts, te); }
 									break; 
 								}
 							}}
 					}
 					
-#line 6411 "lex/lemon_data_string_parser.cpp"
+#line 6439 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st109;
-					_ctr206:
+					_ctr208:
 					{
-#line 88 "lex/lemon_data_string_parser.rl"
+#line 89 "lex/lemon_data_string_parser.rl"
 						{te = p;p = p - 1;{
-#line 88 "lex/lemon_data_string_parser.rl"
+#line 89 "lex/lemon_data_string_parser.rl"
 								pushSymbolToken(TK_SYMBOL, ts, te); }
 						}}
 					
-#line 6422 "lex/lemon_data_string_parser.cpp"
-					
-					goto _st109;
-					_ctr212:
-					{
-#line 231 "lex/lemon_data_string_parser.rl"
-						{te = p;p = p - 1;{
-#line 231 "lex/lemon_data_string_parser.rl"
-								pushToken(TK_SPACE); {top -= 1;cs = stack[top];goto _again;} }
-						}}
-					
-#line 6433 "lex/lemon_data_string_parser.cpp"
+#line 6450 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st109;
 					_ctr214:
 					{
-#line 165 "lex/lemon_data_string_parser.rl"
+#line 224 "lex/lemon_data_string_parser.rl"
+						{te = p;p = p - 1;{
+#line 224 "lex/lemon_data_string_parser.rl"
+								pushToken(TK_SPACE); {top -= 1;cs = stack[top];goto _again;} }
+						}}
+					
+#line 6461 "lex/lemon_data_string_parser.cpp"
+					
+					goto _st109;
+					_ctr216:
+					{
+#line 158 "lex/lemon_data_string_parser.rl"
 						{te = p+1;{
-#line 165 "lex/lemon_data_string_parser.rl"
+#line 158 "lex/lemon_data_string_parser.rl"
 								
 								pushToken(TK_MATRIX);
 								pushFloat(ragel_mtx_rows);
@@ -6444,21 +6472,21 @@ namespace ceammc {
 								{stack[top] = 109; top+= 1; goto _st54;}}
 						}}
 					
-#line 6448 "lex/lemon_data_string_parser.cpp"
+#line 6476 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st109;
-					_ctr232:
+					_ctr234:
 					{
-#line 20 "lex/lemon_data_string_parser.rl"
+#line 21 "lex/lemon_data_string_parser.rl"
 						{te = p;p = p - 1;{
-#line 20 "lex/lemon_data_string_parser.rl"
+#line 21 "lex/lemon_data_string_parser.rl"
 								pushToken(TK_LIST_OPEN); }
 						}}
 					
-#line 6459 "lex/lemon_data_string_parser.cpp"
+#line 6487 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st109;
-					_ctr235:
+					_ctr237:
 					{
 #line 30 "lex/ragel_numeric.rl"
 						
@@ -6467,12 +6495,12 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 6471 "lex/lemon_data_string_parser.cpp"
+#line 6499 "lex/lemon_data_string_parser.cpp"
 					
 					{
-#line 22 "lex/lemon_data_string_parser.rl"
+#line 23 "lex/lemon_data_string_parser.rl"
 						{te = p;p = p - 1;{
-#line 22 "lex/lemon_data_string_parser.rl"
+#line 23 "lex/lemon_data_string_parser.rl"
 								
 								onFloat(ragel_cat, ragel_type, ragel_num);
 								ragel_num = {};
@@ -6481,10 +6509,10 @@ namespace ceammc {
 							}
 						}}
 					
-#line 6485 "lex/lemon_data_string_parser.cpp"
+#line 6513 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st109;
-					_ctr241:
+					_ctr243:
 					{
 #line 58 "lex/ragel_numeric.rl"
 						
@@ -6494,12 +6522,12 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 6498 "lex/lemon_data_string_parser.cpp"
+#line 6526 "lex/lemon_data_string_parser.cpp"
 					
 					{
-#line 22 "lex/lemon_data_string_parser.rl"
+#line 23 "lex/lemon_data_string_parser.rl"
 						{te = p;p = p - 1;{
-#line 22 "lex/lemon_data_string_parser.rl"
+#line 23 "lex/lemon_data_string_parser.rl"
 								
 								onFloat(ragel_cat, ragel_type, ragel_num);
 								ragel_num = {};
@@ -6508,10 +6536,10 @@ namespace ceammc {
 							}
 						}}
 					
-#line 6512 "lex/lemon_data_string_parser.cpp"
+#line 6540 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st109;
-					_ctr246:
+					_ctr248:
 					{
 #line 44 "lex/ragel_numeric.rl"
 						
@@ -6520,12 +6548,12 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 6524 "lex/lemon_data_string_parser.cpp"
+#line 6552 "lex/lemon_data_string_parser.cpp"
 					
 					{
-#line 22 "lex/lemon_data_string_parser.rl"
+#line 23 "lex/lemon_data_string_parser.rl"
 						{te = p;p = p - 1;{
-#line 22 "lex/lemon_data_string_parser.rl"
+#line 23 "lex/lemon_data_string_parser.rl"
 								
 								onFloat(ragel_cat, ragel_type, ragel_num);
 								ragel_num = {};
@@ -6534,10 +6562,10 @@ namespace ceammc {
 							}
 						}}
 					
-#line 6538 "lex/lemon_data_string_parser.cpp"
+#line 6566 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st109;
-					_ctr252:
+					_ctr254:
 					{
 #line 24 "lex/ragel_numeric.rl"
 						
@@ -6545,12 +6573,12 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 6549 "lex/lemon_data_string_parser.cpp"
+#line 6577 "lex/lemon_data_string_parser.cpp"
 					
 					{
-#line 22 "lex/lemon_data_string_parser.rl"
+#line 23 "lex/lemon_data_string_parser.rl"
 						{te = p;p = p - 1;{
-#line 22 "lex/lemon_data_string_parser.rl"
+#line 23 "lex/lemon_data_string_parser.rl"
 								
 								onFloat(ragel_cat, ragel_type, ragel_num);
 								ragel_num = {};
@@ -6559,10 +6587,10 @@ namespace ceammc {
 							}
 						}}
 					
-#line 6563 "lex/lemon_data_string_parser.cpp"
+#line 6591 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st109;
-					_ctr256:
+					_ctr258:
 					{
 #line 37 "lex/ragel_numeric.rl"
 						
@@ -6570,12 +6598,12 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 6574 "lex/lemon_data_string_parser.cpp"
+#line 6602 "lex/lemon_data_string_parser.cpp"
 					
 					{
-#line 22 "lex/lemon_data_string_parser.rl"
+#line 23 "lex/lemon_data_string_parser.rl"
 						{te = p;p = p - 1;{
-#line 22 "lex/lemon_data_string_parser.rl"
+#line 23 "lex/lemon_data_string_parser.rl"
 								
 								onFloat(ragel_cat, ragel_type, ragel_num);
 								ragel_num = {};
@@ -6584,28 +6612,28 @@ namespace ceammc {
 							}
 						}}
 					
-#line 6588 "lex/lemon_data_string_parser.cpp"
+#line 6616 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st109;
-					_ctr260:
+					_ctr262:
 					{
-#line 44 "lex/lemon_data_string_parser.rl"
+#line 45 "lex/lemon_data_string_parser.rl"
 						{te = p+1;{
-#line 44 "lex/lemon_data_string_parser.rl"
+#line 45 "lex/lemon_data_string_parser.rl"
 								
 								pushSymbolToken(TK_DATA_NAME, ts, te-1);
 								pushToken(TK_DICT_OPEN);
 								{stack[top] = 109; top+= 1; goto _st65;}}
 						}}
 					
-#line 6602 "lex/lemon_data_string_parser.cpp"
+#line 6630 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st109;
-					_ctr261:
+					_ctr263:
 					{
-#line 37 "lex/lemon_data_string_parser.rl"
+#line 38 "lex/lemon_data_string_parser.rl"
 						{te = p;p = p - 1;{
-#line 37 "lex/lemon_data_string_parser.rl"
+#line 38 "lex/lemon_data_string_parser.rl"
 								
 								// skip trailing whitespaces
 								auto te0 = te;
@@ -6615,47 +6643,47 @@ namespace ceammc {
 							}
 						}}
 					
-#line 6619 "lex/lemon_data_string_parser.cpp"
-					
-					goto _st109;
-					_ctr262:
-					{
-#line 86 "lex/lemon_data_string_parser.rl"
-						{te = p+1;{
-#line 86 "lex/lemon_data_string_parser.rl"
-								pushToken(TK_STRING); ragel_string.clear(); {stack[top] = 109; top+= 1; goto _st52;}}
-						}}
-					
-#line 6630 "lex/lemon_data_string_parser.cpp"
-					
-					goto _st109;
-					_ctr263:
-					{
-#line 85 "lex/lemon_data_string_parser.rl"
-						{te = p+1;{
-#line 85 "lex/lemon_data_string_parser.rl"
-								pushToken(TK_STRING); ragel_string.clear(); {stack[top] = 109; top+= 1; goto _st50;}}
-						}}
-					
-#line 6641 "lex/lemon_data_string_parser.cpp"
+#line 6647 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st109;
 					_ctr264:
 					{
-#line 217 "lex/lemon_data_string_parser.rl"
-						{te = p;p = p - 1;{
-#line 217 "lex/lemon_data_string_parser.rl"
-								pushToken(TK_DICT_OPEN); {stack[top] = 109; top+= 1; goto _st65;}}
+#line 87 "lex/lemon_data_string_parser.rl"
+						{te = p+1;{
+#line 87 "lex/lemon_data_string_parser.rl"
+								pushToken(TK_STRING); ragel_string.clear(); {stack[top] = 109; top+= 1; goto _st52;}}
 						}}
 					
-#line 6652 "lex/lemon_data_string_parser.cpp"
+#line 6658 "lex/lemon_data_string_parser.cpp"
+					
+					goto _st109;
+					_ctr265:
+					{
+#line 86 "lex/lemon_data_string_parser.rl"
+						{te = p+1;{
+#line 86 "lex/lemon_data_string_parser.rl"
+								pushToken(TK_STRING); ragel_string.clear(); {stack[top] = 109; top+= 1; goto _st50;}}
+						}}
+					
+#line 6669 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st109;
 					_ctr266:
 					{
-#line 30 "lex/lemon_data_string_parser.rl"
+#line 210 "lex/lemon_data_string_parser.rl"
 						{te = p;p = p - 1;{
-#line 30 "lex/lemon_data_string_parser.rl"
+#line 210 "lex/lemon_data_string_parser.rl"
+								pushToken(TK_DICT_OPEN); {stack[top] = 109; top+= 1; goto _st65;}}
+						}}
+					
+#line 6680 "lex/lemon_data_string_parser.cpp"
+					
+					goto _st109;
+					_ctr268:
+					{
+#line 31 "lex/lemon_data_string_parser.rl"
+						{te = p;p = p - 1;{
+#line 31 "lex/lemon_data_string_parser.rl"
 								
 								// skip trailing whitespaces
 								auto te0 = te;
@@ -6665,7 +6693,7 @@ namespace ceammc {
 							}
 						}}
 					
-#line 6669 "lex/lemon_data_string_parser.cpp"
+#line 6697 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st109;
 					_st109:
@@ -6679,7 +6707,7 @@ namespace ceammc {
 #line 1 "NONE"
 						{ts = 0;}}
 					
-#line 6683 "lex/lemon_data_string_parser.cpp"
+#line 6711 "lex/lemon_data_string_parser.cpp"
 					
 					p+= 1;
 					if ( p == pe )
@@ -6689,35 +6717,35 @@ namespace ceammc {
 #line 1 "NONE"
 						{ts = p;}}
 					
-#line 6693 "lex/lemon_data_string_parser.cpp"
+#line 6721 "lex/lemon_data_string_parser.cpp"
 					
 					switch( ( (*( p))) ) {
 						case 32: {
 							goto _st116;
 						}
 						case 34: {
-							goto _ctr192;
+							goto _ctr194;
 						}
 						case 35: {
 							goto _st117;
 						}
 						case 39: {
-							goto _ctr194;
+							goto _ctr196;
 						}
 						case 40: {
 							goto _st133;
 						}
 						case 41: {
-							goto _ctr196;
+							goto _ctr198;
 						}
 						case 43: {
-							goto _ctr197;
+							goto _ctr199;
 						}
 						case 45: {
-							goto _ctr197;
+							goto _ctr199;
 						}
 						case 48: {
-							goto _ctr198;
+							goto _ctr200;
 						}
 						case 83: {
 							goto _st149;
@@ -6739,74 +6767,46 @@ namespace ceammc {
 							goto _st147;
 						}
 					} else {
-						goto _ctr199;
+						goto _ctr201;
 					}
 					{
-						goto _ctr190;
+						goto _ctr192;
 					}
-					_ctr190:
+					_ctr192:
 					{
 #line 1 "NONE"
 						{te = p+1;}}
 					
-#line 6753 "lex/lemon_data_string_parser.cpp"
+#line 6781 "lex/lemon_data_string_parser.cpp"
 					
 					{
-#line 88 "lex/lemon_data_string_parser.rl"
-						{act = 56;}}
-					
-#line 6759 "lex/lemon_data_string_parser.cpp"
-					
-					goto _st110;
-					_ctr211:
-					{
-#line 1 "NONE"
-						{te = p+1;}}
-					
-#line 6767 "lex/lemon_data_string_parser.cpp"
-					
-					{
-#line 108 "lex/lemon_data_string_parser.rl"
-						(ragel_mtx_cols *= 10) += ((( (*( p)))) - '0'); }
-					
-#line 6773 "lex/lemon_data_string_parser.cpp"
-					
-					{
-#line 88 "lex/lemon_data_string_parser.rl"
-						{act = 56;}}
-					
-#line 6779 "lex/lemon_data_string_parser.cpp"
-					
-					goto _st110;
-					_ctr225:
-					{
-#line 1 "NONE"
-						{te = p+1;}}
+#line 89 "lex/lemon_data_string_parser.rl"
+						{act = 58;}}
 					
 #line 6787 "lex/lemon_data_string_parser.cpp"
 					
-					{
-#line 17 "lex/lemon_data_string_parser.rl"
-						{act = 42;}}
-					
-#line 6793 "lex/lemon_data_string_parser.cpp"
-					
 					goto _st110;
-					_ctr228:
+					_ctr213:
 					{
 #line 1 "NONE"
 						{te = p+1;}}
+					
+#line 6795 "lex/lemon_data_string_parser.cpp"
+					
+					{
+#line 107 "lex/lemon_data_string_parser.rl"
+						(ragel_mtx_cols *= 10) += ((( (*( p)))) - '0'); }
 					
 #line 6801 "lex/lemon_data_string_parser.cpp"
 					
 					{
-#line 18 "lex/lemon_data_string_parser.rl"
-						{act = 43;}}
+#line 89 "lex/lemon_data_string_parser.rl"
+						{act = 58;}}
 					
 #line 6807 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st110;
-					_ctr231:
+					_ctr227:
 					{
 #line 1 "NONE"
 						{te = p+1;}}
@@ -6814,18 +6814,46 @@ namespace ceammc {
 #line 6815 "lex/lemon_data_string_parser.cpp"
 					
 					{
-#line 16 "lex/lemon_data_string_parser.rl"
-						{act = 41;}}
+#line 18 "lex/lemon_data_string_parser.rl"
+						{act = 44;}}
 					
 #line 6821 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st110;
-					_ctr236:
+					_ctr230:
 					{
 #line 1 "NONE"
 						{te = p+1;}}
 					
 #line 6829 "lex/lemon_data_string_parser.cpp"
+					
+					{
+#line 19 "lex/lemon_data_string_parser.rl"
+						{act = 45;}}
+					
+#line 6835 "lex/lemon_data_string_parser.cpp"
+					
+					goto _st110;
+					_ctr233:
+					{
+#line 1 "NONE"
+						{te = p+1;}}
+					
+#line 6843 "lex/lemon_data_string_parser.cpp"
+					
+					{
+#line 17 "lex/lemon_data_string_parser.rl"
+						{act = 43;}}
+					
+#line 6849 "lex/lemon_data_string_parser.cpp"
+					
+					goto _st110;
+					_ctr238:
+					{
+#line 1 "NONE"
+						{te = p+1;}}
+					
+#line 6857 "lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 30 "lex/ragel_numeric.rl"
@@ -6835,21 +6863,21 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 6839 "lex/lemon_data_string_parser.cpp"
+#line 6867 "lex/lemon_data_string_parser.cpp"
 					
 					{
-#line 88 "lex/lemon_data_string_parser.rl"
-						{act = 56;}}
+#line 89 "lex/lemon_data_string_parser.rl"
+						{act = 58;}}
 					
-#line 6845 "lex/lemon_data_string_parser.cpp"
+#line 6873 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st110;
-					_ctr242:
+					_ctr244:
 					{
 #line 1 "NONE"
 						{te = p+1;}}
 					
-#line 6853 "lex/lemon_data_string_parser.cpp"
+#line 6881 "lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 58 "lex/ragel_numeric.rl"
@@ -6860,21 +6888,21 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 6864 "lex/lemon_data_string_parser.cpp"
+#line 6892 "lex/lemon_data_string_parser.cpp"
 					
 					{
-#line 88 "lex/lemon_data_string_parser.rl"
-						{act = 56;}}
+#line 89 "lex/lemon_data_string_parser.rl"
+						{act = 58;}}
 					
-#line 6870 "lex/lemon_data_string_parser.cpp"
+#line 6898 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st110;
-					_ctr247:
+					_ctr249:
 					{
 #line 1 "NONE"
 						{te = p+1;}}
 					
-#line 6878 "lex/lemon_data_string_parser.cpp"
+#line 6906 "lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 44 "lex/ragel_numeric.rl"
@@ -6884,21 +6912,21 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 6888 "lex/lemon_data_string_parser.cpp"
+#line 6916 "lex/lemon_data_string_parser.cpp"
 					
 					{
-#line 88 "lex/lemon_data_string_parser.rl"
-						{act = 56;}}
+#line 89 "lex/lemon_data_string_parser.rl"
+						{act = 58;}}
 					
-#line 6894 "lex/lemon_data_string_parser.cpp"
+#line 6922 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st110;
-					_ctr253:
+					_ctr255:
 					{
 #line 1 "NONE"
 						{te = p+1;}}
 					
-#line 6902 "lex/lemon_data_string_parser.cpp"
+#line 6930 "lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 24 "lex/ragel_numeric.rl"
@@ -6907,21 +6935,21 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 6911 "lex/lemon_data_string_parser.cpp"
+#line 6939 "lex/lemon_data_string_parser.cpp"
 					
 					{
-#line 88 "lex/lemon_data_string_parser.rl"
-						{act = 56;}}
+#line 89 "lex/lemon_data_string_parser.rl"
+						{act = 58;}}
 					
-#line 6917 "lex/lemon_data_string_parser.cpp"
+#line 6945 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st110;
-					_ctr257:
+					_ctr259:
 					{
 #line 1 "NONE"
 						{te = p+1;}}
 					
-#line 6925 "lex/lemon_data_string_parser.cpp"
+#line 6953 "lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 37 "lex/ragel_numeric.rl"
@@ -6930,13 +6958,13 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 6934 "lex/lemon_data_string_parser.cpp"
+#line 6962 "lex/lemon_data_string_parser.cpp"
 					
 					{
-#line 88 "lex/lemon_data_string_parser.rl"
-						{act = 56;}}
+#line 89 "lex/lemon_data_string_parser.rl"
+						{act = 58;}}
 					
-#line 6940 "lex/lemon_data_string_parser.cpp"
+#line 6968 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st110;
 					_st110:
@@ -6952,29 +6980,29 @@ namespace ceammc {
 					st_case_110:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr204;
+							goto _ctr206;
 						}
 						case 34: {
-							goto _ctr204;
+							goto _ctr206;
 						}
 						case 35: {
 							goto _st111;
 						}
 						case 91: {
-							goto _ctr204;
+							goto _ctr206;
 						}
 					}
 					if ( ( (*( p))) > 13 ) {
 						if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-							goto _ctr204;
+							goto _ctr206;
 						}
 					} else if ( ( (*( p))) >= 9 ) {
-						goto _ctr204;
+						goto _ctr206;
 					}
 					{
-						goto _ctr190;
+						goto _ctr192;
 					}
-					_ctr237:
+					_ctr239:
 					{
 #line 30 "lex/ragel_numeric.rl"
 						
@@ -6983,10 +7011,10 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 6987 "lex/lemon_data_string_parser.cpp"
+#line 7015 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st111;
-					_ctr243:
+					_ctr245:
 					{
 #line 58 "lex/ragel_numeric.rl"
 						
@@ -6996,10 +7024,10 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 7000 "lex/lemon_data_string_parser.cpp"
+#line 7028 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st111;
-					_ctr248:
+					_ctr250:
 					{
 #line 44 "lex/ragel_numeric.rl"
 						
@@ -7008,10 +7036,10 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 7012 "lex/lemon_data_string_parser.cpp"
+#line 7040 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st111;
-					_ctr254:
+					_ctr256:
 					{
 #line 24 "lex/ragel_numeric.rl"
 						
@@ -7019,10 +7047,10 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 7023 "lex/lemon_data_string_parser.cpp"
+#line 7051 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st111;
-					_ctr258:
+					_ctr260:
 					{
 #line 37 "lex/ragel_numeric.rl"
 						
@@ -7030,7 +7058,7 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 7034 "lex/lemon_data_string_parser.cpp"
+#line 7062 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st111;
 					_st111:
@@ -7046,38 +7074,38 @@ namespace ceammc {
 					st_case_111:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 34: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 35: {
 							goto _st111;
 						}
 						case 91: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 					}
 					if ( ( (*( p))) < 39 ) {
 						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-							goto _ctr206;
+							goto _ctr208;
 						}
 					} else if ( ( (*( p))) > 41 ) {
 						if ( 49 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-							goto _ctr207;
+							goto _ctr209;
 						}
 					} else {
-						goto _ctr206;
+						goto _ctr208;
 					}
 					{
-						goto _ctr190;
+						goto _ctr192;
 					}
-					_ctr207:
+					_ctr209:
 					{
-#line 109 "lex/lemon_data_string_parser.rl"
+#line 108 "lex/lemon_data_string_parser.rl"
 						ragel_mtx_rows = (( (*( p)))) - '0'; }
 					
-#line 7081 "lex/lemon_data_string_parser.cpp"
+#line 7109 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st112;
 					_st112:
@@ -7093,10 +7121,10 @@ namespace ceammc {
 					st_case_112:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 34: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 35: {
 							goto _st111;
@@ -7105,29 +7133,29 @@ namespace ceammc {
 							goto _st114;
 						}
 						case 91: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 					}
 					if ( ( (*( p))) < 39 ) {
 						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-							goto _ctr206;
+							goto _ctr208;
 						}
 					} else if ( ( (*( p))) > 41 ) {
 						if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-							goto _ctr208;
+							goto _ctr210;
 						}
 					} else {
-						goto _ctr206;
+						goto _ctr208;
 					}
 					{
-						goto _ctr190;
+						goto _ctr192;
 					}
-					_ctr208:
+					_ctr210:
 					{
-#line 109 "lex/lemon_data_string_parser.rl"
+#line 108 "lex/lemon_data_string_parser.rl"
 						(ragel_mtx_rows *= 10) += ((( (*( p)))) - '0'); }
 					
-#line 7131 "lex/lemon_data_string_parser.cpp"
+#line 7159 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st113;
 					_st113:
@@ -7143,10 +7171,10 @@ namespace ceammc {
 					st_case_113:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 34: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 35: {
 							goto _st111;
@@ -7155,18 +7183,18 @@ namespace ceammc {
 							goto _st114;
 						}
 						case 91: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 					}
 					if ( ( (*( p))) > 13 ) {
 						if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-							goto _ctr206;
+							goto _ctr208;
 						}
 					} else if ( ( (*( p))) >= 9 ) {
-						goto _ctr206;
+						goto _ctr208;
 					}
 					{
-						goto _ctr190;
+						goto _ctr192;
 					}
 					_st114:
 					if ( p == eof ) {
@@ -7181,38 +7209,38 @@ namespace ceammc {
 					st_case_114:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 34: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 35: {
 							goto _st111;
 						}
 						case 91: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 					}
 					if ( ( (*( p))) < 39 ) {
 						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-							goto _ctr206;
+							goto _ctr208;
 						}
 					} else if ( ( (*( p))) > 41 ) {
 						if ( 49 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-							goto _ctr210;
+							goto _ctr212;
 						}
 					} else {
-						goto _ctr206;
+						goto _ctr208;
 					}
 					{
-						goto _ctr190;
+						goto _ctr192;
 					}
-					_ctr210:
+					_ctr212:
 					{
-#line 108 "lex/lemon_data_string_parser.rl"
+#line 107 "lex/lemon_data_string_parser.rl"
 						ragel_mtx_cols = (( (*( p)))) - '0'; }
 					
-#line 7216 "lex/lemon_data_string_parser.cpp"
+#line 7244 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st115;
 					_st115:
@@ -7228,31 +7256,31 @@ namespace ceammc {
 					st_case_115:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 34: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 35: {
 							goto _st111;
 						}
 						case 91: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 					}
 					if ( ( (*( p))) < 39 ) {
 						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-							goto _ctr206;
+							goto _ctr208;
 						}
 					} else if ( ( (*( p))) > 41 ) {
 						if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-							goto _ctr211;
+							goto _ctr213;
 						}
 					} else {
-						goto _ctr206;
+						goto _ctr208;
 					}
 					{
-						goto _ctr190;
+						goto _ctr192;
 					}
 					_st116:
 					if ( p == eof ) {
@@ -7270,14 +7298,14 @@ namespace ceammc {
 							goto _st116;
 						}
 						case 41: {
-							goto _ctr196;
+							goto _ctr198;
 						}
 					}
 					if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
 						goto _st116;
 					}
 					{
-						goto _ctr212;
+						goto _ctr214;
 					}
 					_st117:
 					if ( p == eof ) {
@@ -7292,16 +7320,16 @@ namespace ceammc {
 					st_case_117:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 34: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 35: {
 							goto _st111;
 						}
 						case 91: {
-							goto _ctr214;
+							goto _ctr216;
 						}
 						case 102: {
 							goto _st123;
@@ -7315,24 +7343,24 @@ namespace ceammc {
 					}
 					if ( ( (*( p))) < 39 ) {
 						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-							goto _ctr206;
+							goto _ctr208;
 						}
 					} else if ( ( (*( p))) > 41 ) {
 						if ( 49 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-							goto _ctr213;
+							goto _ctr215;
 						}
 					} else {
-						goto _ctr206;
+						goto _ctr208;
 					}
 					{
-						goto _ctr190;
+						goto _ctr192;
 					}
-					_ctr213:
+					_ctr215:
 					{
-#line 109 "lex/lemon_data_string_parser.rl"
+#line 108 "lex/lemon_data_string_parser.rl"
 						ragel_mtx_rows = (( (*( p)))) - '0'; }
 					
-#line 7336 "lex/lemon_data_string_parser.cpp"
+#line 7364 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st118;
 					_st118:
@@ -7348,10 +7376,10 @@ namespace ceammc {
 					st_case_118:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 34: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 35: {
 							goto _st111;
@@ -7360,29 +7388,29 @@ namespace ceammc {
 							goto _st120;
 						}
 						case 91: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 					}
 					if ( ( (*( p))) < 39 ) {
 						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-							goto _ctr206;
+							goto _ctr208;
 						}
 					} else if ( ( (*( p))) > 41 ) {
 						if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-							goto _ctr218;
+							goto _ctr220;
 						}
 					} else {
-						goto _ctr206;
+						goto _ctr208;
 					}
 					{
-						goto _ctr190;
+						goto _ctr192;
 					}
-					_ctr218:
+					_ctr220:
 					{
-#line 109 "lex/lemon_data_string_parser.rl"
+#line 108 "lex/lemon_data_string_parser.rl"
 						(ragel_mtx_rows *= 10) += ((( (*( p)))) - '0'); }
 					
-#line 7386 "lex/lemon_data_string_parser.cpp"
+#line 7414 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st119;
 					_st119:
@@ -7398,10 +7426,10 @@ namespace ceammc {
 					st_case_119:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 34: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 35: {
 							goto _st111;
@@ -7410,18 +7438,18 @@ namespace ceammc {
 							goto _st120;
 						}
 						case 91: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 					}
 					if ( ( (*( p))) > 13 ) {
 						if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-							goto _ctr206;
+							goto _ctr208;
 						}
 					} else if ( ( (*( p))) >= 9 ) {
-						goto _ctr206;
+						goto _ctr208;
 					}
 					{
-						goto _ctr190;
+						goto _ctr192;
 					}
 					_st120:
 					if ( p == eof ) {
@@ -7436,38 +7464,38 @@ namespace ceammc {
 					st_case_120:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 34: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 35: {
 							goto _st111;
 						}
 						case 91: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 					}
 					if ( ( (*( p))) < 39 ) {
 						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-							goto _ctr206;
+							goto _ctr208;
 						}
 					} else if ( ( (*( p))) > 41 ) {
 						if ( 49 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-							goto _ctr220;
+							goto _ctr222;
 						}
 					} else {
-						goto _ctr206;
+						goto _ctr208;
 					}
 					{
-						goto _ctr190;
+						goto _ctr192;
 					}
-					_ctr220:
+					_ctr222:
 					{
-#line 108 "lex/lemon_data_string_parser.rl"
+#line 107 "lex/lemon_data_string_parser.rl"
 						ragel_mtx_cols = (( (*( p)))) - '0'; }
 					
-#line 7471 "lex/lemon_data_string_parser.cpp"
+#line 7499 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st121;
 					_st121:
@@ -7483,38 +7511,38 @@ namespace ceammc {
 					st_case_121:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 34: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 35: {
 							goto _st111;
 						}
 						case 91: {
-							goto _ctr214;
+							goto _ctr216;
 						}
 					}
 					if ( ( (*( p))) < 39 ) {
 						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-							goto _ctr206;
+							goto _ctr208;
 						}
 					} else if ( ( (*( p))) > 41 ) {
 						if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-							goto _ctr221;
+							goto _ctr223;
 						}
 					} else {
-						goto _ctr206;
+						goto _ctr208;
 					}
 					{
-						goto _ctr190;
+						goto _ctr192;
 					}
-					_ctr221:
+					_ctr223:
 					{
-#line 108 "lex/lemon_data_string_parser.rl"
+#line 107 "lex/lemon_data_string_parser.rl"
 						(ragel_mtx_cols *= 10) += ((( (*( p)))) - '0'); }
 					
-#line 7518 "lex/lemon_data_string_parser.cpp"
+#line 7546 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st122;
 					_st122:
@@ -7530,27 +7558,27 @@ namespace ceammc {
 					st_case_122:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 34: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 35: {
 							goto _st111;
 						}
 						case 91: {
-							goto _ctr214;
+							goto _ctr216;
 						}
 					}
 					if ( ( (*( p))) > 13 ) {
 						if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-							goto _ctr206;
+							goto _ctr208;
 						}
 					} else if ( ( (*( p))) >= 9 ) {
-						goto _ctr206;
+						goto _ctr208;
 					}
 					{
-						goto _ctr190;
+						goto _ctr192;
 					}
 					_st123:
 					if ( p == eof ) {
@@ -7565,16 +7593,16 @@ namespace ceammc {
 					st_case_123:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 34: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 35: {
 							goto _st111;
 						}
 						case 91: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 97: {
 							goto _st124;
@@ -7582,13 +7610,13 @@ namespace ceammc {
 					}
 					if ( ( (*( p))) > 13 ) {
 						if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-							goto _ctr206;
+							goto _ctr208;
 						}
 					} else if ( ( (*( p))) >= 9 ) {
-						goto _ctr206;
+						goto _ctr208;
 					}
 					{
-						goto _ctr190;
+						goto _ctr192;
 					}
 					_st124:
 					if ( p == eof ) {
@@ -7603,16 +7631,16 @@ namespace ceammc {
 					st_case_124:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 34: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 35: {
 							goto _st111;
 						}
 						case 91: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 108: {
 							goto _st125;
@@ -7620,13 +7648,13 @@ namespace ceammc {
 					}
 					if ( ( (*( p))) > 13 ) {
 						if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-							goto _ctr206;
+							goto _ctr208;
 						}
 					} else if ( ( (*( p))) >= 9 ) {
-						goto _ctr206;
+						goto _ctr208;
 					}
 					{
-						goto _ctr190;
+						goto _ctr192;
 					}
 					_st125:
 					if ( p == eof ) {
@@ -7641,16 +7669,16 @@ namespace ceammc {
 					st_case_125:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 34: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 35: {
 							goto _st111;
 						}
 						case 91: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 115: {
 							goto _st126;
@@ -7658,13 +7686,13 @@ namespace ceammc {
 					}
 					if ( ( (*( p))) > 13 ) {
 						if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-							goto _ctr206;
+							goto _ctr208;
 						}
 					} else if ( ( (*( p))) >= 9 ) {
-						goto _ctr206;
+						goto _ctr208;
 					}
 					{
-						goto _ctr190;
+						goto _ctr192;
 					}
 					_st126:
 					if ( p == eof ) {
@@ -7679,30 +7707,30 @@ namespace ceammc {
 					st_case_126:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 34: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 35: {
 							goto _st111;
 						}
 						case 91: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 101: {
-							goto _ctr225;
+							goto _ctr227;
 						}
 					}
 					if ( ( (*( p))) > 13 ) {
 						if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-							goto _ctr206;
+							goto _ctr208;
 						}
 					} else if ( ( (*( p))) >= 9 ) {
-						goto _ctr206;
+						goto _ctr208;
 					}
 					{
-						goto _ctr190;
+						goto _ctr192;
 					}
 					_st127:
 					if ( p == eof ) {
@@ -7717,16 +7745,16 @@ namespace ceammc {
 					st_case_127:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 34: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 35: {
 							goto _st111;
 						}
 						case 91: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 117: {
 							goto _st128;
@@ -7734,13 +7762,13 @@ namespace ceammc {
 					}
 					if ( ( (*( p))) > 13 ) {
 						if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-							goto _ctr206;
+							goto _ctr208;
 						}
 					} else if ( ( (*( p))) >= 9 ) {
-						goto _ctr206;
+						goto _ctr208;
 					}
 					{
-						goto _ctr190;
+						goto _ctr192;
 					}
 					_st128:
 					if ( p == eof ) {
@@ -7755,16 +7783,16 @@ namespace ceammc {
 					st_case_128:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 34: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 35: {
 							goto _st111;
 						}
 						case 91: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 108: {
 							goto _st129;
@@ -7772,13 +7800,13 @@ namespace ceammc {
 					}
 					if ( ( (*( p))) > 13 ) {
 						if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-							goto _ctr206;
+							goto _ctr208;
 						}
 					} else if ( ( (*( p))) >= 9 ) {
-						goto _ctr206;
+						goto _ctr208;
 					}
 					{
-						goto _ctr190;
+						goto _ctr192;
 					}
 					_st129:
 					if ( p == eof ) {
@@ -7793,30 +7821,30 @@ namespace ceammc {
 					st_case_129:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 34: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 35: {
 							goto _st111;
 						}
 						case 91: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 108: {
-							goto _ctr228;
+							goto _ctr230;
 						}
 					}
 					if ( ( (*( p))) > 13 ) {
 						if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-							goto _ctr206;
+							goto _ctr208;
 						}
 					} else if ( ( (*( p))) >= 9 ) {
-						goto _ctr206;
+						goto _ctr208;
 					}
 					{
-						goto _ctr190;
+						goto _ctr192;
 					}
 					_st130:
 					if ( p == eof ) {
@@ -7831,16 +7859,16 @@ namespace ceammc {
 					st_case_130:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 34: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 35: {
 							goto _st111;
 						}
 						case 91: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 114: {
 							goto _st131;
@@ -7848,13 +7876,13 @@ namespace ceammc {
 					}
 					if ( ( (*( p))) > 13 ) {
 						if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-							goto _ctr206;
+							goto _ctr208;
 						}
 					} else if ( ( (*( p))) >= 9 ) {
-						goto _ctr206;
+						goto _ctr208;
 					}
 					{
-						goto _ctr190;
+						goto _ctr192;
 					}
 					_st131:
 					if ( p == eof ) {
@@ -7869,16 +7897,16 @@ namespace ceammc {
 					st_case_131:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 34: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 35: {
 							goto _st111;
 						}
 						case 91: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 117: {
 							goto _st132;
@@ -7886,13 +7914,13 @@ namespace ceammc {
 					}
 					if ( ( (*( p))) > 13 ) {
 						if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-							goto _ctr206;
+							goto _ctr208;
 						}
 					} else if ( ( (*( p))) >= 9 ) {
-						goto _ctr206;
+						goto _ctr208;
 					}
 					{
-						goto _ctr190;
+						goto _ctr192;
 					}
 					_st132:
 					if ( p == eof ) {
@@ -7907,30 +7935,30 @@ namespace ceammc {
 					st_case_132:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 34: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 35: {
 							goto _st111;
 						}
 						case 91: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 101: {
-							goto _ctr231;
+							goto _ctr233;
 						}
 					}
 					if ( ( (*( p))) > 13 ) {
 						if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-							goto _ctr206;
+							goto _ctr208;
 						}
 					} else if ( ( (*( p))) >= 9 ) {
-						goto _ctr206;
+						goto _ctr208;
 					}
 					{
-						goto _ctr190;
+						goto _ctr192;
 					}
 					_st133:
 					if ( p == eof ) {
@@ -7950,20 +7978,20 @@ namespace ceammc {
 						goto _st133;
 					}
 					{
-						goto _ctr232;
+						goto _ctr234;
 					}
-					_ctr197:
+					_ctr199:
 					{
-#line 112 "lex/lemon_data_string_parser.rl"
+#line 111 "lex/lemon_data_string_parser.rl"
 						ragel_num = {}; }
 					
-#line 7961 "lex/lemon_data_string_parser.cpp"
+#line 7989 "lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 21 "lex/ragel_numeric.rl"
 						ragel_num.sign = ((( (*( p))))=='-') ? -1 : 1; }
 					
-#line 7967 "lex/lemon_data_string_parser.cpp"
+#line 7995 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st134;
 					_st134:
@@ -7979,47 +8007,47 @@ namespace ceammc {
 					st_case_134:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 34: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 35: {
 							goto _st111;
 						}
 						case 48: {
-							goto _ctr233;
+							goto _ctr235;
 						}
 						case 91: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 					}
 					if ( ( (*( p))) < 39 ) {
 						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-							goto _ctr206;
+							goto _ctr208;
 						}
 					} else if ( ( (*( p))) > 41 ) {
 						if ( 49 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-							goto _ctr234;
+							goto _ctr236;
 						}
 					} else {
-						goto _ctr206;
+						goto _ctr208;
 					}
 					{
-						goto _ctr190;
+						goto _ctr192;
 					}
-					_ctr233:
+					_ctr235:
 					{
 #line 29 "lex/ragel_numeric.rl"
 						(ragel_num.vint *= 10) += ((( (*( p))))-'0'); }
 					
-#line 8017 "lex/lemon_data_string_parser.cpp"
+#line 8045 "lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 42 "lex/ragel_numeric.rl"
 						(ragel_num.ratio.num *= 10) += ((( (*( p))))-'0'); }
 					
-#line 8023 "lex/lemon_data_string_parser.cpp"
+#line 8051 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st135;
 					_st135:
@@ -8035,35 +8063,35 @@ namespace ceammc {
 					st_case_135:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr235;
-						}
-						case 34: {
-							goto _ctr235;
-						}
-						case 35: {
 							goto _ctr237;
 						}
+						case 34: {
+							goto _ctr237;
+						}
+						case 35: {
+							goto _ctr239;
+						}
 						case 46: {
-							goto _ctr238;
+							goto _ctr240;
 						}
 						case 47: {
 							goto _st138;
 						}
 						case 91: {
-							goto _ctr235;
+							goto _ctr237;
 						}
 					}
 					if ( ( (*( p))) > 13 ) {
 						if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-							goto _ctr235;
+							goto _ctr237;
 						}
 					} else if ( ( (*( p))) >= 9 ) {
-						goto _ctr235;
+						goto _ctr237;
 					}
 					{
-						goto _ctr236;
+						goto _ctr238;
 					}
-					_ctr238:
+					_ctr240:
 					{
 #line 30 "lex/ragel_numeric.rl"
 						
@@ -8072,7 +8100,7 @@ namespace ceammc {
 						ragel_cat  = CAT_NUMBER;
 					}
 					
-#line 8076 "lex/lemon_data_string_parser.cpp"
+#line 8104 "lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 50 "lex/ragel_numeric.rl"
@@ -8081,7 +8109,7 @@ namespace ceammc {
 						ragel_num.ratio.den = 1;
 					}
 					
-#line 8085 "lex/lemon_data_string_parser.cpp"
+#line 8113 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st136;
 					_st136:
@@ -8097,33 +8125,33 @@ namespace ceammc {
 					st_case_136:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 34: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 35: {
 							goto _st111;
 						}
 						case 91: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 					}
 					if ( ( (*( p))) < 39 ) {
 						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-							goto _ctr206;
+							goto _ctr208;
 						}
 					} else if ( ( (*( p))) > 41 ) {
 						if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-							goto _ctr240;
+							goto _ctr242;
 						}
 					} else {
-						goto _ctr206;
+						goto _ctr208;
 					}
 					{
-						goto _ctr190;
+						goto _ctr192;
 					}
-					_ctr240:
+					_ctr242:
 					{
 #line 54 "lex/ragel_numeric.rl"
 						
@@ -8131,7 +8159,7 @@ namespace ceammc {
 						ragel_num.ratio.den *= 10;
 					}
 					
-#line 8135 "lex/lemon_data_string_parser.cpp"
+#line 8163 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st137;
 					_st137:
@@ -8147,31 +8175,31 @@ namespace ceammc {
 					st_case_137:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr241;
-						}
-						case 34: {
-							goto _ctr241;
-						}
-						case 35: {
 							goto _ctr243;
 						}
+						case 34: {
+							goto _ctr243;
+						}
+						case 35: {
+							goto _ctr245;
+						}
 						case 91: {
-							goto _ctr241;
+							goto _ctr243;
 						}
 					}
 					if ( ( (*( p))) < 39 ) {
 						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-							goto _ctr241;
+							goto _ctr243;
 						}
 					} else if ( ( (*( p))) > 41 ) {
 						if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-							goto _ctr240;
+							goto _ctr242;
 						}
 					} else {
-						goto _ctr241;
+						goto _ctr243;
 					}
 					{
-						goto _ctr242;
+						goto _ctr244;
 					}
 					_st138:
 					if ( p == eof ) {
@@ -8186,41 +8214,41 @@ namespace ceammc {
 					st_case_138:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 34: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 35: {
 							goto _st111;
 						}
 						case 48: {
-							goto _ctr244;
+							goto _ctr246;
 						}
 						case 91: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 					}
 					if ( ( (*( p))) < 39 ) {
 						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-							goto _ctr206;
+							goto _ctr208;
 						}
 					} else if ( ( (*( p))) > 41 ) {
 						if ( 49 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-							goto _ctr245;
+							goto _ctr247;
 						}
 					} else {
-						goto _ctr206;
+						goto _ctr208;
 					}
 					{
-						goto _ctr190;
+						goto _ctr192;
 					}
-					_ctr244:
+					_ctr246:
 					{
 #line 43 "lex/ragel_numeric.rl"
 						(ragel_num.ratio.den *= 10) += ((( (*( p))))-'0'); }
 					
-#line 8224 "lex/lemon_data_string_parser.cpp"
+#line 8252 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st139;
 					_st139:
@@ -8236,34 +8264,34 @@ namespace ceammc {
 					st_case_139:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr246;
-						}
-						case 34: {
-							goto _ctr246;
-						}
-						case 35: {
 							goto _ctr248;
 						}
+						case 34: {
+							goto _ctr248;
+						}
+						case 35: {
+							goto _ctr250;
+						}
 						case 91: {
-							goto _ctr246;
+							goto _ctr248;
 						}
 					}
 					if ( ( (*( p))) > 13 ) {
 						if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-							goto _ctr246;
+							goto _ctr248;
 						}
 					} else if ( ( (*( p))) >= 9 ) {
-						goto _ctr246;
+						goto _ctr248;
 					}
 					{
-						goto _ctr247;
+						goto _ctr249;
 					}
-					_ctr245:
+					_ctr247:
 					{
 #line 43 "lex/ragel_numeric.rl"
 						(ragel_num.ratio.den *= 10) += ((( (*( p))))-'0'); }
 					
-#line 8267 "lex/lemon_data_string_parser.cpp"
+#line 8295 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st140;
 					_st140:
@@ -8279,64 +8307,64 @@ namespace ceammc {
 					st_case_140:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr246;
-						}
-						case 34: {
-							goto _ctr246;
-						}
-						case 35: {
 							goto _ctr248;
 						}
+						case 34: {
+							goto _ctr248;
+						}
+						case 35: {
+							goto _ctr250;
+						}
 						case 91: {
-							goto _ctr246;
+							goto _ctr248;
 						}
 					}
 					if ( ( (*( p))) < 39 ) {
 						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-							goto _ctr246;
+							goto _ctr248;
 						}
 					} else if ( ( (*( p))) > 41 ) {
 						if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-							goto _ctr245;
+							goto _ctr247;
 						}
 					} else {
-						goto _ctr246;
+						goto _ctr248;
 					}
 					{
-						goto _ctr247;
+						goto _ctr249;
 					}
-					_ctr199:
+					_ctr201:
 					{
-#line 112 "lex/lemon_data_string_parser.rl"
+#line 111 "lex/lemon_data_string_parser.rl"
 						ragel_num = {}; }
 					
-#line 8314 "lex/lemon_data_string_parser.cpp"
+#line 8342 "lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 29 "lex/ragel_numeric.rl"
 						(ragel_num.vint *= 10) += ((( (*( p))))-'0'); }
 					
-#line 8320 "lex/lemon_data_string_parser.cpp"
+#line 8348 "lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 42 "lex/ragel_numeric.rl"
 						(ragel_num.ratio.num *= 10) += ((( (*( p))))-'0'); }
 					
-#line 8326 "lex/lemon_data_string_parser.cpp"
+#line 8354 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st141;
-					_ctr234:
+					_ctr236:
 					{
 #line 29 "lex/ragel_numeric.rl"
 						(ragel_num.vint *= 10) += ((( (*( p))))-'0'); }
 					
-#line 8334 "lex/lemon_data_string_parser.cpp"
+#line 8362 "lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 42 "lex/ragel_numeric.rl"
 						(ragel_num.ratio.num *= 10) += ((( (*( p))))-'0'); }
 					
-#line 8340 "lex/lemon_data_string_parser.cpp"
+#line 8368 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st141;
 					_st141:
@@ -8352,56 +8380,56 @@ namespace ceammc {
 					st_case_141:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr235;
-						}
-						case 34: {
-							goto _ctr235;
-						}
-						case 35: {
 							goto _ctr237;
 						}
+						case 34: {
+							goto _ctr237;
+						}
+						case 35: {
+							goto _ctr239;
+						}
 						case 46: {
-							goto _ctr238;
+							goto _ctr240;
 						}
 						case 47: {
 							goto _st138;
 						}
 						case 91: {
-							goto _ctr235;
+							goto _ctr237;
 						}
 					}
 					if ( ( (*( p))) < 39 ) {
 						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-							goto _ctr235;
+							goto _ctr237;
 						}
 					} else if ( ( (*( p))) > 41 ) {
 						if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-							goto _ctr234;
+							goto _ctr236;
 						}
 					} else {
-						goto _ctr235;
+						goto _ctr237;
 					}
 					{
-						goto _ctr236;
+						goto _ctr238;
 					}
-					_ctr198:
+					_ctr200:
 					{
-#line 112 "lex/lemon_data_string_parser.rl"
+#line 111 "lex/lemon_data_string_parser.rl"
 						ragel_num = {}; }
 					
-#line 8393 "lex/lemon_data_string_parser.cpp"
+#line 8421 "lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 29 "lex/ragel_numeric.rl"
 						(ragel_num.vint *= 10) += ((( (*( p))))-'0'); }
 					
-#line 8399 "lex/lemon_data_string_parser.cpp"
+#line 8427 "lex/lemon_data_string_parser.cpp"
 					
 					{
 #line 42 "lex/ragel_numeric.rl"
 						(ragel_num.ratio.num *= 10) += ((( (*( p))))-'0'); }
 					
-#line 8405 "lex/lemon_data_string_parser.cpp"
+#line 8433 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st142;
 					_st142:
@@ -8417,22 +8445,22 @@ namespace ceammc {
 					st_case_142:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr235;
-						}
-						case 34: {
-							goto _ctr235;
-						}
-						case 35: {
 							goto _ctr237;
 						}
+						case 34: {
+							goto _ctr237;
+						}
+						case 35: {
+							goto _ctr239;
+						}
 						case 46: {
-							goto _ctr238;
+							goto _ctr240;
 						}
 						case 47: {
 							goto _st138;
 						}
 						case 91: {
-							goto _ctr235;
+							goto _ctr237;
 						}
 						case 98: {
 							goto _st143;
@@ -8443,13 +8471,13 @@ namespace ceammc {
 					}
 					if ( ( (*( p))) > 13 ) {
 						if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-							goto _ctr235;
+							goto _ctr237;
 						}
 					} else if ( ( (*( p))) >= 9 ) {
-						goto _ctr235;
+						goto _ctr237;
 					}
 					{
-						goto _ctr236;
+						goto _ctr238;
 					}
 					_st143:
 					if ( p == eof ) {
@@ -8464,38 +8492,38 @@ namespace ceammc {
 					st_case_143:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 34: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 35: {
 							goto _st111;
 						}
 						case 91: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 					}
 					if ( ( (*( p))) < 39 ) {
 						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-							goto _ctr206;
+							goto _ctr208;
 						}
 					} else if ( ( (*( p))) > 41 ) {
 						if ( 48 <= ( (*( p))) && ( (*( p))) <= 49 ) {
-							goto _ctr251;
+							goto _ctr253;
 						}
 					} else {
-						goto _ctr206;
+						goto _ctr208;
 					}
 					{
-						goto _ctr190;
+						goto _ctr192;
 					}
-					_ctr251:
+					_ctr253:
 					{
 #line 23 "lex/ragel_numeric.rl"
 						(ragel_num.vint <<= 1) |= ((( (*( p))))=='1'); }
 					
-#line 8499 "lex/lemon_data_string_parser.cpp"
+#line 8527 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st144;
 					_st144:
@@ -8511,31 +8539,31 @@ namespace ceammc {
 					st_case_144:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr252;
-						}
-						case 34: {
-							goto _ctr252;
-						}
-						case 35: {
 							goto _ctr254;
 						}
+						case 34: {
+							goto _ctr254;
+						}
+						case 35: {
+							goto _ctr256;
+						}
 						case 91: {
-							goto _ctr252;
+							goto _ctr254;
 						}
 					}
 					if ( ( (*( p))) < 39 ) {
 						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-							goto _ctr252;
+							goto _ctr254;
 						}
 					} else if ( ( (*( p))) > 41 ) {
 						if ( 48 <= ( (*( p))) && ( (*( p))) <= 49 ) {
-							goto _ctr251;
+							goto _ctr253;
 						}
 					} else {
-						goto _ctr252;
+						goto _ctr254;
 					}
 					{
-						goto _ctr253;
+						goto _ctr255;
 					}
 					_st145:
 					if ( p == eof ) {
@@ -8550,46 +8578,46 @@ namespace ceammc {
 					st_case_145:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 34: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 35: {
 							goto _st111;
 						}
 						case 91: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 					}
 					if ( ( (*( p))) < 48 ) {
 						if ( ( (*( p))) > 13 ) {
 							if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-								goto _ctr206;
+								goto _ctr208;
 							}
 						} else if ( ( (*( p))) >= 9 ) {
-							goto _ctr206;
+							goto _ctr208;
 						}
 					} else if ( ( (*( p))) > 57 ) {
 						if ( ( (*( p))) > 70 ) {
 							if ( 97 <= ( (*( p))) && ( (*( p))) <= 102 ) {
-								goto _ctr255;
+								goto _ctr257;
 							}
 						} else if ( ( (*( p))) >= 65 ) {
-							goto _ctr255;
+							goto _ctr257;
 						}
 					} else {
-						goto _ctr255;
+						goto _ctr257;
 					}
 					{
-						goto _ctr190;
+						goto _ctr192;
 					}
-					_ctr255:
+					_ctr257:
 					{
 #line 36 "lex/ragel_numeric.rl"
 						(ragel_num.vint <<= 4) |= xchar2digit((( (*( p))))); }
 					
-#line 8593 "lex/lemon_data_string_parser.cpp"
+#line 8621 "lex/lemon_data_string_parser.cpp"
 					
 					goto _st146;
 					_st146:
@@ -8605,39 +8633,39 @@ namespace ceammc {
 					st_case_146:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr256;
-						}
-						case 34: {
-							goto _ctr256;
-						}
-						case 35: {
 							goto _ctr258;
 						}
+						case 34: {
+							goto _ctr258;
+						}
+						case 35: {
+							goto _ctr260;
+						}
 						case 91: {
-							goto _ctr256;
+							goto _ctr258;
 						}
 					}
 					if ( ( (*( p))) < 48 ) {
 						if ( ( (*( p))) > 13 ) {
 							if ( 39 <= ( (*( p))) && ( (*( p))) <= 41 ) {
-								goto _ctr256;
+								goto _ctr258;
 							}
 						} else if ( ( (*( p))) >= 9 ) {
-							goto _ctr256;
+							goto _ctr258;
 						}
 					} else if ( ( (*( p))) > 57 ) {
 						if ( ( (*( p))) > 70 ) {
 							if ( 97 <= ( (*( p))) && ( (*( p))) <= 102 ) {
-								goto _ctr255;
+								goto _ctr257;
 							}
 						} else if ( ( (*( p))) >= 65 ) {
-							goto _ctr255;
+							goto _ctr257;
 						}
 					} else {
-						goto _ctr255;
+						goto _ctr257;
 					}
 					{
-						goto _ctr257;
+						goto _ctr259;
 					}
 					_st147:
 					if ( p == eof ) {
@@ -8652,10 +8680,10 @@ namespace ceammc {
 					st_case_147:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 34: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 35: {
 							goto _st111;
@@ -8664,12 +8692,12 @@ namespace ceammc {
 							goto _st148;
 						}
 						case 91: {
-							goto _ctr260;
+							goto _ctr262;
 						}
 					}
 					if ( ( (*( p))) < 39 ) {
 						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-							goto _ctr206;
+							goto _ctr208;
 						}
 					} else if ( ( (*( p))) > 41 ) {
 						if ( ( (*( p))) > 90 ) {
@@ -8680,10 +8708,10 @@ namespace ceammc {
 							goto _st147;
 						}
 					} else {
-						goto _ctr206;
+						goto _ctr208;
 					}
 					{
-						goto _ctr190;
+						goto _ctr192;
 					}
 					_st148:
 					if ( p == eof ) {
@@ -8703,7 +8731,7 @@ namespace ceammc {
 						goto _st148;
 					}
 					{
-						goto _ctr261;
+						goto _ctr263;
 					}
 					_st149:
 					if ( p == eof ) {
@@ -8718,30 +8746,30 @@ namespace ceammc {
 					st_case_149:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 34: {
-							goto _ctr262;
+							goto _ctr264;
 						}
 						case 35: {
 							goto _st111;
 						}
 						case 39: {
-							goto _ctr263;
+							goto _ctr265;
 						}
 						case 40: {
 							goto _st148;
 						}
 						case 41: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 91: {
-							goto _ctr260;
+							goto _ctr262;
 						}
 					}
 					if ( ( (*( p))) < 65 ) {
 						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-							goto _ctr206;
+							goto _ctr208;
 						}
 					} else if ( ( (*( p))) > 90 ) {
 						if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
@@ -8751,7 +8779,7 @@ namespace ceammc {
 						goto _st147;
 					}
 					{
-						goto _ctr190;
+						goto _ctr192;
 					}
 					_st150:
 					if ( p == eof ) {
@@ -8771,7 +8799,7 @@ namespace ceammc {
 						goto _st150;
 					}
 					{
-						goto _ctr264;
+						goto _ctr266;
 					}
 					_st151:
 					if ( p == eof ) {
@@ -8786,10 +8814,10 @@ namespace ceammc {
 					st_case_151:
 					switch( ( (*( p))) ) {
 						case 32: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 34: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 35: {
 							goto _st111;
@@ -8798,7 +8826,7 @@ namespace ceammc {
 							goto _st152;
 						}
 						case 91: {
-							goto _ctr206;
+							goto _ctr208;
 						}
 						case 95: {
 							goto _st151;
@@ -8806,7 +8834,7 @@ namespace ceammc {
 					}
 					if ( ( (*( p))) < 39 ) {
 						if ( 9 <= ( (*( p))) && ( (*( p))) <= 13 ) {
-							goto _ctr206;
+							goto _ctr208;
 						}
 					} else if ( ( (*( p))) > 41 ) {
 						if ( ( (*( p))) > 57 ) {
@@ -8817,10 +8845,10 @@ namespace ceammc {
 							goto _st151;
 						}
 					} else {
-						goto _ctr206;
+						goto _ctr208;
 					}
 					{
-						goto _ctr190;
+						goto _ctr192;
 					}
 					_st152:
 					if ( p == eof ) {
@@ -8840,7 +8868,7 @@ namespace ceammc {
 						goto _st152;
 					}
 					{
-						goto _ctr266;
+						goto _ctr268;
 					}
 					st_out:
 					_test_eof49: cs = 49; goto _test_eof; 
@@ -9007,7 +9035,7 @@ namespace ceammc {
 #line 1 "NONE"
 									{ts = p;}}
 								
-#line 9011 "lex/lemon_data_string_parser.cpp"
+#line 9039 "lex/lemon_data_string_parser.cpp"
 								
 								break;
 							}
@@ -9073,7 +9101,7 @@ namespace ceammc {
 #line 1 "NONE"
 									{ts = p;}}
 								
-#line 9077 "lex/lemon_data_string_parser.cpp"
+#line 9105 "lex/lemon_data_string_parser.cpp"
 								
 								break;
 							}
@@ -9136,7 +9164,7 @@ namespace ceammc {
 #line 1 "NONE"
 									{ts = p;}}
 								
-#line 9140 "lex/lemon_data_string_parser.cpp"
+#line 9168 "lex/lemon_data_string_parser.cpp"
 								
 								break;
 							}
@@ -9190,7 +9218,7 @@ namespace ceammc {
 #line 1 "NONE"
 									{ts = p;}}
 								
-#line 9194 "lex/lemon_data_string_parser.cpp"
+#line 9222 "lex/lemon_data_string_parser.cpp"
 								
 								break;
 							}
@@ -9355,7 +9383,7 @@ namespace ceammc {
 #line 1 "NONE"
 									{ts = p;}}
 								
-#line 9359 "lex/lemon_data_string_parser.cpp"
+#line 9387 "lex/lemon_data_string_parser.cpp"
 								
 								break;
 							}
@@ -9495,7 +9523,7 @@ namespace ceammc {
 							case 49:
 							goto _st49;case 50:
 							goto _st50;case 51:
-							goto _ctr73;case 1:
+							goto _ctr75;case 1:
 							goto _ctr1;case 2:
 							goto _ctr1;case 3:
 							goto _ctr1;case 4:
@@ -9515,137 +9543,137 @@ namespace ceammc {
 							goto _st17;case 0:
 							goto _st0;case 52:
 							goto _st52;case 53:
-							goto _ctr79;case 18:
-							goto _ctr24;case 19:
-							goto _ctr24;case 20:
-							goto _ctr24;case 21:
-							goto _ctr24;case 22:
-							goto _ctr24;case 23:
-							goto _ctr24;case 24:
-							goto _ctr24;case 25:
-							goto _ctr24;case 26:
-							goto _ctr24;case 27:
-							goto _ctr24;case 28:
-							goto _ctr24;case 29:
-							goto _ctr24;case 30:
-							goto _ctr24;case 31:
-							goto _ctr24;case 32:
-							goto _ctr24;case 33:
-							goto _ctr24;case 34:
+							goto _ctr81;case 18:
+							goto _ctr25;case 19:
+							goto _ctr25;case 20:
+							goto _ctr25;case 21:
+							goto _ctr25;case 22:
+							goto _ctr25;case 23:
+							goto _ctr25;case 24:
+							goto _ctr25;case 25:
+							goto _ctr25;case 26:
+							goto _ctr25;case 27:
+							goto _ctr25;case 28:
+							goto _ctr25;case 29:
+							goto _ctr25;case 30:
+							goto _ctr25;case 31:
+							goto _ctr25;case 32:
+							goto _ctr25;case 33:
+							goto _ctr25;case 34:
 							goto _st34;case 54:
 							goto _st54;case 55:
-							goto _ctr89;case 56:
-							goto _ctr90;case 35:
+							goto _ctr91;case 56:
+							goto _ctr92;case 35:
 							goto _st35;case 57:
-							goto _ctr91;case 36:
-							goto _ctr50;case 58:
-							goto _ctr94;case 37:
-							goto _ctr50;case 59:
-							goto _ctr95;case 60:
-							goto _ctr95;case 61:
-							goto _ctr91;case 62:
-							goto _ctr91;case 38:
-							goto _ctr50;case 63:
-							goto _ctr98;case 39:
-							goto _ctr50;case 64:
-							goto _ctr99;case 65:
+							goto _ctr93;case 36:
+							goto _ctr52;case 58:
+							goto _ctr96;case 37:
+							goto _ctr52;case 59:
+							goto _ctr97;case 60:
+							goto _ctr97;case 61:
+							goto _ctr93;case 62:
+							goto _ctr93;case 38:
+							goto _ctr52;case 63:
+							goto _ctr100;case 39:
+							goto _ctr52;case 64:
+							goto _ctr101;case 65:
 							goto _st65;case 66:
-							goto _ctr117;case 67:
-							goto _ctr117;case 68:
-							goto _ctr58;case 69:
-							goto _ctr117;case 70:
-							goto _ctr122;case 40:
-							goto _ctr56;case 41:
-							goto _ctr58;case 42:
-							goto _ctr58;case 71:
-							goto _ctr125;case 43:
-							goto _ctr56;case 44:
-							goto _ctr58;case 45:
-							goto _ctr56;case 72:
-							goto _ctr126;case 73:
-							goto _ctr117;case 74:
-							goto _ctr117;case 75:
-							goto _ctr117;case 46:
-							goto _ctr63;case 47:
-							goto _ctr63;case 48:
-							goto _ctr63;case 76:
-							goto _ctr117;case 77:
-							goto _ctr117;case 78:
-							goto _ctr117;case 79:
-							goto _ctr117;case 80:
-							goto _ctr117;case 81:
-							goto _ctr117;case 82:
-							goto _ctr117;case 83:
-							goto _ctr117;case 84:
-							goto _ctr117;case 85:
-							goto _ctr117;case 86:
-							goto _ctr143;case 87:
-							goto _ctr144;case 88:
-							goto _ctr117;case 89:
-							goto _ctr147;case 90:
-							goto _ctr117;case 91:
-							goto _ctr154;case 92:
-							goto _ctr117;case 93:
-							goto _ctr160;case 94:
-							goto _ctr160;case 95:
-							goto _ctr147;case 96:
-							goto _ctr147;case 97:
-							goto _ctr117;case 98:
-							goto _ctr117;case 99:
-							goto _ctr169;case 100:
-							goto _ctr117;case 101:
-							goto _ctr175;case 102:
-							goto _ctr147;case 103:
-							goto _ctr117;case 104:
-							goto _ctr183;case 105:
-							goto _ctr117;case 106:
-							goto _ctr186;case 107:
-							goto _ctr117;case 108:
-							goto _ctr188;case 109:
+							goto _ctr119;case 67:
+							goto _ctr119;case 68:
+							goto _ctr60;case 69:
+							goto _ctr119;case 70:
+							goto _ctr124;case 40:
+							goto _ctr58;case 41:
+							goto _ctr60;case 42:
+							goto _ctr60;case 71:
+							goto _ctr127;case 43:
+							goto _ctr58;case 44:
+							goto _ctr60;case 45:
+							goto _ctr58;case 72:
+							goto _ctr128;case 73:
+							goto _ctr119;case 74:
+							goto _ctr119;case 75:
+							goto _ctr119;case 46:
+							goto _ctr65;case 47:
+							goto _ctr65;case 48:
+							goto _ctr65;case 76:
+							goto _ctr119;case 77:
+							goto _ctr119;case 78:
+							goto _ctr119;case 79:
+							goto _ctr119;case 80:
+							goto _ctr119;case 81:
+							goto _ctr119;case 82:
+							goto _ctr119;case 83:
+							goto _ctr119;case 84:
+							goto _ctr119;case 85:
+							goto _ctr119;case 86:
+							goto _ctr145;case 87:
+							goto _ctr146;case 88:
+							goto _ctr119;case 89:
+							goto _ctr149;case 90:
+							goto _ctr119;case 91:
+							goto _ctr156;case 92:
+							goto _ctr119;case 93:
+							goto _ctr162;case 94:
+							goto _ctr162;case 95:
+							goto _ctr149;case 96:
+							goto _ctr149;case 97:
+							goto _ctr119;case 98:
+							goto _ctr119;case 99:
+							goto _ctr171;case 100:
+							goto _ctr119;case 101:
+							goto _ctr177;case 102:
+							goto _ctr149;case 103:
+							goto _ctr119;case 104:
+							goto _ctr185;case 105:
+							goto _ctr119;case 106:
+							goto _ctr188;case 107:
+							goto _ctr119;case 108:
+							goto _ctr190;case 109:
 							goto _st109;case 110:
-							goto _ctr204;case 111:
-							goto _ctr206;case 112:
-							goto _ctr206;case 113:
-							goto _ctr206;case 114:
-							goto _ctr206;case 115:
-							goto _ctr206;case 116:
-							goto _ctr212;case 117:
-							goto _ctr206;case 118:
-							goto _ctr206;case 119:
-							goto _ctr206;case 120:
-							goto _ctr206;case 121:
-							goto _ctr206;case 122:
-							goto _ctr206;case 123:
-							goto _ctr206;case 124:
-							goto _ctr206;case 125:
-							goto _ctr206;case 126:
-							goto _ctr206;case 127:
-							goto _ctr206;case 128:
-							goto _ctr206;case 129:
-							goto _ctr206;case 130:
-							goto _ctr206;case 131:
-							goto _ctr206;case 132:
-							goto _ctr206;case 133:
-							goto _ctr232;case 134:
-							goto _ctr206;case 135:
-							goto _ctr235;case 136:
-							goto _ctr206;case 137:
-							goto _ctr241;case 138:
-							goto _ctr206;case 139:
-							goto _ctr246;case 140:
-							goto _ctr246;case 141:
-							goto _ctr235;case 142:
-							goto _ctr235;case 143:
-							goto _ctr206;case 144:
-							goto _ctr252;case 145:
-							goto _ctr206;case 146:
-							goto _ctr256;case 147:
-							goto _ctr206;case 148:
-							goto _ctr261;case 149:
-							goto _ctr206;case 150:
-							goto _ctr264;case 151:
-							goto _ctr206;case 152:
-							goto _ctr266;	}
+							goto _ctr206;case 111:
+							goto _ctr208;case 112:
+							goto _ctr208;case 113:
+							goto _ctr208;case 114:
+							goto _ctr208;case 115:
+							goto _ctr208;case 116:
+							goto _ctr214;case 117:
+							goto _ctr208;case 118:
+							goto _ctr208;case 119:
+							goto _ctr208;case 120:
+							goto _ctr208;case 121:
+							goto _ctr208;case 122:
+							goto _ctr208;case 123:
+							goto _ctr208;case 124:
+							goto _ctr208;case 125:
+							goto _ctr208;case 126:
+							goto _ctr208;case 127:
+							goto _ctr208;case 128:
+							goto _ctr208;case 129:
+							goto _ctr208;case 130:
+							goto _ctr208;case 131:
+							goto _ctr208;case 132:
+							goto _ctr208;case 133:
+							goto _ctr234;case 134:
+							goto _ctr208;case 135:
+							goto _ctr237;case 136:
+							goto _ctr208;case 137:
+							goto _ctr243;case 138:
+							goto _ctr208;case 139:
+							goto _ctr248;case 140:
+							goto _ctr248;case 141:
+							goto _ctr237;case 142:
+							goto _ctr237;case 143:
+							goto _ctr208;case 144:
+							goto _ctr254;case 145:
+							goto _ctr208;case 146:
+							goto _ctr258;case 147:
+							goto _ctr208;case 148:
+							goto _ctr263;case 149:
+							goto _ctr208;case 150:
+							goto _ctr266;case 151:
+							goto _ctr208;case 152:
+							goto _ctr268;	}
 					}
 					
 					if ( cs >= 49 )
@@ -9653,7 +9681,7 @@ namespace ceammc {
 					_out: {}
 				}
 				
-#line 346 "lex/lemon_data_string_parser.rl"
+#line 339 "lex/lemon_data_string_parser.rl"
 				
 				
 			} catch(std::exception& e) {
@@ -9662,9 +9690,9 @@ namespace ceammc {
 			}
 			
 			if (cs < 
-#line 9666 "lex/lemon_data_string_parser.cpp"
+#line 9694 "lex/lemon_data_string_parser.cpp"
 			49
-#line 353 "lex/lemon_data_string_parser.rl"
+#line 346 "lex/lemon_data_string_parser.rl"
 			) {
 				char buf[32] = "";
 				snprintf(buf, sizeof(buf)-1, "unknown token: '%s'", ts);
