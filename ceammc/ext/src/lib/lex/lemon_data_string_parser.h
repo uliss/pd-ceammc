@@ -59,9 +59,6 @@ namespace parser {
         bool parse_ok_;
         SmallList res_;
         SmallListPool pool_;
-        // ragel fsm
-        int top;
-        int stack[16];
     };
 
 }

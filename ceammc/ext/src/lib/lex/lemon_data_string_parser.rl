@@ -307,6 +307,8 @@ bool LemonDataStringParser::doParse(const char* data)
     int cs;
     // ragel action
     int act;
+    int top;
+    int stack[16];
     // scanner match begin/end
     const char* ts = 0;
     const char* te = 0;
