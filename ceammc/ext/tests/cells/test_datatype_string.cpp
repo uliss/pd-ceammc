@@ -366,21 +366,21 @@ TEST_CASE("DataTypeString", "[core]")
     {
         CHECK(to_string(StringAtom("spaceless")) == "String(\"spaceless\")");
         CHECK(to_string(StringAtom("")) == "String()");
-        CHECK(to_string(StringAtom(" ")) == "String(\" \")");
-        CHECK(to_string(StringAtom("with spaces")) == "String(\"with spaces\")");
-        CHECK(to_string(StringAtom("with 'single quotes'")) == "String(\"with 'single quotes'\")");
-        CHECK(to_string(StringAtom(R"(with "double quotes")")) == R"(String("with `"double quotes`""))");
-        CHECK(to_string(StringAtom(R"(with,commas)")) == R"(String("with`.commas"))");
-        CHECK(to_string(StringAtom(R"(with;semicolon)")) == R"(String("with`:semicolon"))");
+        CHECK(to_string(StringAtom(" ")) == "String(\"\\ \")");
+        CHECK(to_string(StringAtom("with spaces")) == "String(\"with\\ spaces\")");
+        CHECK(to_string(StringAtom("with 'single quotes'")) == "String(\"with\\ 'single\\ quotes'\")");
+        CHECK(to_string(StringAtom(R"(with "double quotes")")) == R"(String("with\ `"double\ quotes`""))");
+        CHECK(to_string(StringAtom(R"(with,commas)")) == R"(String("with\,commas"))");
+        CHECK(to_string(StringAtom(R"(with;semicolon)")) == R"(String("with\;semicolon"))");
         CHECK(to_string(StringAtom(R"(with:)")) == R"(String("with:"))");
-        CHECK(to_string(StringAtom(R"(with {} braces)")) == R"(String("with `(`) braces"))");
-        CHECK(to_string(StringAtom(R"(with @at)")) == R"(String("with `@at"))");
-        CHECK(to_string(StringAtom(R"(with ``)")) == R"(String("with ````"))");
-        CHECK(to_string(StringAtom(R"(with \ slash)")) == R"(String("with `/ slash"))");
+        CHECK(to_string(StringAtom(R"(with {} braces)")) == R"(String("with\ {}\ braces"))");
+        CHECK(to_string(StringAtom(R"(with @at)")) == R"(String("with\ @at"))");
+        CHECK(to_string(StringAtom(R"(with ``)")) == R"(String("with\ ````"))");
+        CHECK(to_string(StringAtom(R"(with \ slash)")) == R"(String("with\ `/\ slash"))");
 
-        REQUIRE(StringAtom("a b").asData()->toString() == "String(\"a b\")");
-        REQUIRE(Atom(new DataTypeString("a b c")).asData()->toString() == "String(\"a b c\")");
-        REQUIRE(to_string(Atom(new DataTypeString("a b c"))) == "String(\"a b c\")");
+        REQUIRE(StringAtom("a b").asData()->toString() == "String(\"a\\ b\")");
+        REQUIRE(Atom(new DataTypeString("a b c")).asData()->toString() == "String(\"a\\ b\\ c\")");
+        REQUIRE(to_string(Atom(new DataTypeString("a b c"))) == "String(\"a\\ b\\ c\")");
     }
 
     SECTION("create via factory")

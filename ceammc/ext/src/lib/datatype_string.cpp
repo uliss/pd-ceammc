@@ -18,6 +18,7 @@
 #include "ceammc_log.h"
 #include "ceammc_string.h"
 #include "fmt/format.h"
+#include "lex/parser_strings.h"
 
 #include <algorithm>
 #include <iostream>
@@ -132,7 +133,9 @@ std::string DataTypeString::toJsonString() const
 
 std::string DataTypeString::toListStringContent() const
 {
-    return fmt::format("\"{}\"", string::pd_string_escape(str_.c_str()));
+    string::SmallString str;
+    string::escape_and_quote(str_.c_str(), str);
+    return std::string(str.data(), str.size());
 }
 
 std::string DataTypeString::toDictStringContent() const
