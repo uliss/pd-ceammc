@@ -49,7 +49,11 @@ namespace path {
         /**
          * Polymorphic data type
          */
-        int type() const noexcept final;
+        DataTypeId type() const noexcept final;
+
+        std::string toListStringContent() const final;
+        std::string toDictStringContent() const final;
+        bool set(const AbstractData* d) noexcept final;
 
         /**
          * Polymorphic string value
@@ -94,7 +98,7 @@ namespace path {
         static DataTypePath find(const DataTypePath& dir, const std::string& filename, int max_iters = -1);
 
     public:
-        static const int dataType;
+        static const DataTypeId dataType;
     };
 
 }

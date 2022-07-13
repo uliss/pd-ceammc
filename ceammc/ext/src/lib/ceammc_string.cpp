@@ -494,27 +494,52 @@ namespace string {
     }
 
     template <typename T>
-    static bool atom_to_string(const Atom& a, T& out) noexcept
+    static bool atom_to_string(const Atom& a, T& out)
+    {
+        auto t = a.atom().a_type;
+        switch (t) {
+        case A_NULL: {
+            constexpr const char s[] = "#null";
+            out.insert(out.end(), s, s + sizeof(s) - 1);
+        } break;
+        case A_FLOAT:
+            // this expected to be faster then using atom_string (sprintf by nonius tests)
+            fmt::format_to(std::back_inserter(out), "{:g}", a.asT<t_float>());
+            break;
+        default: {
+            char buf[MAXPDSTRING];
+            atom_string(&a.atom(), buf, sizeof(buf) - 1);
+            out.insert(out.end(), buf, buf + strlen(buf));
+        } break;
+        }
+
+        return true;
+    }
+
+    bool raw_atom_to_string(const Atom& a, StaticString& out) noexcept
     {
         try {
-            auto t = a.atom().a_type;
-            switch (t) {
-            case A_NULL: {
-                constexpr const char s[] = "#null";
-                out.insert(out.end(), s, s + sizeof(s) - 1);
-            } break;
-            case A_FLOAT:
-                // this expected to be faster then using atom_string (sprintf by nonius tests)
-                fmt::format_to(std::back_inserter(out), "{:g}", a.asT<t_float>());
-                break;
-            default: {
-                char buf[MAXPDSTRING];
-                atom_string(&a.atom(), buf, sizeof(buf) - 1);
-                out.insert(out.end(), buf, buf + strlen(buf));
-            } break;
-            }
+            return atom_to_string(a, out);
+        } catch (std::exception& e) {
+            LIB_ERR << fmt::format("[{}] error: '{}'", __FUNCTION__, e.what());
+            return false;
+        }
+    }
 
-            return true;
+    bool raw_atom_to_string(const Atom& a, SmallString& out) noexcept
+    {
+        try {
+            return atom_to_string(a, out);
+        } catch (std::exception& e) {
+            LIB_ERR << fmt::format("[{}] error: '{}'", __FUNCTION__, e.what());
+            return false;
+        }
+    }
+
+    bool raw_atom_to_string(const Atom& a, MediumString& out) noexcept
+    {
+        try {
+            return atom_to_string(a, out);
         } catch (std::exception& e) {
             LIB_ERR << fmt::format("[{}] error: '{}'", __FUNCTION__, e.what());
             return false;
@@ -524,36 +549,26 @@ namespace string {
     template <typename T>
     static bool to_stringT(const AtomListView& lv, T& out) noexcept
     {
-        for (auto& a : lv) {
-            // remove space before ,
-            if ((a.isComma() || a.isSemicolon()) && !out.empty() && out.back() == ' ')
+        try {
+            for (auto& a : lv) {
+                // remove space before ,
+                if ((a.isComma() || a.isSemicolon()) && !out.empty() && out.back() == ' ')
+                    out.pop_back();
+
+                if (atom_to_string(a, out))
+                    out.push_back(' ');
+                else
+                    break;
+            }
+
+            if (!out.empty() && out.back() == ' ')
                 out.pop_back();
 
-            if (atom_to_string(a, out))
-                out.push_back(' ');
-            else
-                break;
+            return true;
+        } catch (std::exception& e) {
+            LIB_ERR << fmt::format("[{}] error: '{}'", __FUNCTION__, e.what());
+            return false;
         }
-
-        if (!out.empty() && out.back() == ' ')
-            out.pop_back();
-
-        return true;
-    }
-
-    bool raw_atom_to_string(const Atom& a, StaticString& out)
-    {
-        return atom_to_string(a, out);
-    }
-
-    void raw_atom_to_string(const Atom& a, SmallString& out)
-    {
-        atom_to_string(a, out);
-    }
-
-    void raw_atom_to_string(const Atom& a, MediumString& out)
-    {
-        atom_to_string(a, out);
     }
 
     bool raw_list_to_string(const AtomListView& lv, StaticString& out)

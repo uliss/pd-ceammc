@@ -121,19 +121,19 @@ namespace string {
      * to given static string buffer
      * @return true on success, false on error
      */
-    bool raw_atom_to_string(const Atom& a, StaticString& out);
+    bool raw_atom_to_string(const Atom& a, StaticString& out) noexcept;
 
     /**
      * Write raw atom (only core Pd atoms: floats, symbols, commas, semicolons etc.)
      * to given small string preallocated buffer
      */
-    void raw_atom_to_string(const Atom& a, SmallString& out);
+    bool raw_atom_to_string(const Atom& a, SmallString& out) noexcept;
 
     /**
      * Write raw atom (only core Pd atoms: floats, symbols, commas, semicolons etc.)
      * to given small string preallocated buffer
      */
-    void raw_atom_to_string(const Atom& a, MediumString& out);
+    bool raw_atom_to_string(const Atom& a, MediumString& out) noexcept;
 
     /**
      * Write raw atomlist (only core Pd types: floats, symbols, commas, semicolons etc.)

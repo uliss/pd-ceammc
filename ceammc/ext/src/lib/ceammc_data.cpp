@@ -15,44 +15,13 @@
 #include "ceammc_datastorage.h"
 #include "ceammc_format.h"
 #include "ceammc_log.h"
+#include "ceammc_string.h"
 #include "fmt/format.h"
 #include "lex/lemon_data_string_parser.h"
 
 #include <algorithm>
-#include <boost/static_string.hpp>
 
 namespace ceammc {
-
-template <typename T>
-inline DataParseResult parseString(T& str, const AtomListView& lv)
-{
-    for (auto& a : lv) {
-        if (a.isSymbol())
-            str += a.asT<t_symbol*>()->s_name;
-        else if (a.isFloat())
-            fmt::format_to(std::back_inserter(str), FMT_STRING("{:g}"), a.asT<t_float>());
-        else if (a.isData())
-            str += a.asData()->toString();
-        else if (a.isNone())
-            str += "#null";
-        else if (a.isComma())
-            str += ", ";
-        else if (a.isSemicolon())
-            str += "; ";
-        else
-            LIB_ERR << fmt::format("[{}] unknown atom for parsing: ", __FUNCTION__) << a;
-
-        str += ' ';
-    }
-
-    if (str.empty())
-        return DataParseResult(AtomList());
-
-    // remove trailing space
-    str.pop_back();
-
-    return parseDataString(str.c_str());
-}
 
 DataParseResult parseDataList(const AtomList& lst) noexcept
 {
@@ -74,18 +43,20 @@ DataParseResult parseDataList(const AtomListView& view) noexcept
     if (std::all_of(view.begin(), view.end(), &isFloat))
         return DataParseResult(view);
 
-    // Try to reduce std::string memory allocations:
+    // Try to reduce memory allocations:
     // first try using on-stack static string.
-    // The logic is: for long strins parsing time is will be also longer then
-    // string alloc/decallocations
-    try {
-        boost::static_string<512> str;
-        return parseString(str, view);
-    } catch (std::exception& e) {
+    // The logic is: for long strings parsing time is will be also longer then
+    // string alloc/deallocations
+    string::StaticString str;
+    if (string::raw_list_to_string(view, str)) {
+        return parseDataString(str.c_str());
+    } else {
         // string is rather long, using slower method
-        std::string str;
-        str.reserve(1024);
-        return parseString(str, view);
+        string::MediumString str;
+        string::raw_list_to_string(view, str);
+        // put zero string terminator
+        str.push_back('\0');
+        return parseDataString(str.data());
     }
 }
 
