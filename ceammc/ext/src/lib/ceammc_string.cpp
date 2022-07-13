@@ -501,30 +501,17 @@ namespace string {
             switch (t) {
             case A_NULL: {
                 constexpr const char s[] = "#null";
-                std::copy(s, s + sizeof(s) - 1, std::back_inserter(out));
+                out.insert(out.end(), s, s + sizeof(s) - 1);
             } break;
             case A_FLOAT:
+                // this expected to be faster then using atom_string (sprintf by nonius tests)
                 fmt::format_to(std::back_inserter(out), "{:g}", a.asT<t_float>());
                 break;
-            case A_SYMBOL: {
-                auto s = a.asT<t_symbol*>()->s_name;
-                std::copy(s, s + strlen(s), std::back_inserter(out));
+            default: {
+                char buf[MAXPDSTRING];
+                atom_string(&a.atom(), buf, sizeof(buf) - 1);
+                out.insert(out.end(), buf, buf + strlen(buf));
             } break;
-            case A_COMMA:
-                if (!out.empty() && out.back() == ' ')
-                    out.back() = ',';
-                else
-                    out.push_back(',');
-                break;
-            case A_SEMI:
-                if (!out.empty() && out.back() == ' ')
-                    out.back() = ';';
-                else
-                    out.push_back(';');
-                break;
-            default:
-                LIB_ERR << fmt::format("[{}] unknown atom type: '{}'", __FUNCTION__, t);
-                return false;
             }
 
             return true;
@@ -538,6 +525,10 @@ namespace string {
     static bool to_stringT(const AtomListView& lv, T& out) noexcept
     {
         for (auto& a : lv) {
+            // remove space before ,
+            if ((a.isComma() || a.isSemicolon()) && !out.empty() && out.back() == ' ')
+                out.pop_back();
+
             if (atom_to_string(a, out))
                 out.push_back(' ');
             else
@@ -581,93 +572,107 @@ namespace string {
     }
 
     template <typename T>
-    static bool parsed_atom_to_string_t(const Atom& a, T& out) noexcept
+    static bool parsed_atom_to_string_t(const Atom& a, T& out)
+    {
+        if (a.isFloat()) {
+            fmt::format_to(std::back_inserter(out), "{:g}", a.asT<t_float>());
+        } else if (a.isSymbol()) {
+            auto s = a.asT<t_symbol*>()->s_name;
+            SmallString str;
+            // always output quoted string
+            // num_esc - number of escaped chars
+            auto num_esc = escape_and_quote(s, str);
+
+            if (s[0] != '\0' && num_esc == 0 && str.size() >= 2) {
+                // do not use quotes for non empty string without escaped chars
+                out.insert(out.end(), str.begin() + 1, str.end() - 1);
+            } else if (s[0] == '\0' || num_esc > 0) { // have escaped chars or empty string
+                out.insert(out.end(), str.begin(), str.end());
+            } else
+                LIB_ERR << fmt::format("[{}] quoted and escape error: {}", __FUNCTION__, s);
+        } else if (a.isNone()) {
+            constexpr const char s[] = "#null";
+            out.insert(out.end(), s, s + sizeof(s) - 1);
+        } else if (a.isData()) {
+            auto str = a.asData()->toString();
+            out.insert(out.end(), str.begin(), str.end());
+        } else {
+            return false;
+        }
+
+        return true;
+    }
+
+    template <typename T>
+    static bool parsed_list_to_string_t(const AtomListView& lv, T& out) noexcept
     {
         try {
-            if (a.isFloat()) {
-                fmt::format_to(std::back_inserter(out), "{:g}", a.asT<t_float>());
-            } else if (a.isSymbol()) {
-                auto s = a.asT<t_symbol*>()->s_name;
-                SmallString str;
-                auto num_esc = escape_and_quote(s, str);
-                if (num_esc == 0 && str.size() >= 2)
-                    out.insert(out.end(), str.begin() + 1, str.end() - 1);
-                else if (num_esc > 0)
-                    out.insert(out.end(), str.begin(), str.end());
+            for (auto& a : lv) {
+                if (parsed_atom_to_string_t<T>(a, out))
+                    out.push_back(' ');
                 else
-                    LIB_ERR << fmt::format("[{}] quoted and escape error: {}", __FUNCTION__, s);
-            } else if (a.isNone()) {
-                constexpr const char s[] = "#null";
-                std::copy(s, s + sizeof(s) - 1, std::back_inserter(out));
-            } else if (a.isData()) {
-                auto str = a.asData()->toString();
-                std::copy(str.begin(), str.end(), std::back_inserter(out));
-            } else {
-                return false;
+                    break;
             }
 
+            if (!out.empty() && out.back() == ' ')
+                out.pop_back();
+
             return true;
+
         } catch (std::exception& e) {
             LIB_ERR << fmt::format("[{}] error: '{}'", __FUNCTION__, e.what());
             return false;
         }
     }
 
-    template <typename T>
-    static bool parsed_list_to_string_t(const AtomListView& lv, T& out) noexcept
+    bool parsed_atom_to_string(const Atom& a, StaticString& out) noexcept
     {
-        for (auto& a : lv) {
-            if (parsed_atom_to_string_t<T>(a, out))
-                out.push_back(' ');
-            else
-                break;
+        try {
+            return parsed_atom_to_string_t(a, out);
+        } catch (std::exception& e) {
+            LIB_ERR << fmt::format("[{}] error: '{}'", __FUNCTION__, e.what());
+            return false;
         }
-
-        if (!out.empty() && out.back() == ' ')
-            out.pop_back();
-
-        return true;
     }
 
-    bool parsed_atom_to_string(const Atom& a, StaticString& out)
+    bool parsed_atom_to_string(const Atom& a, SmallString& out) noexcept
     {
-        return parsed_atom_to_string_t(a, out);
+        try {
+            return parsed_atom_to_string_t(a, out);
+        } catch (std::exception& e) {
+            LIB_ERR << fmt::format("[{}] error: '{}'", __FUNCTION__, e.what());
+            return false;
+        }
     }
 
-    void parsed_atom_to_string(const Atom& a, SmallString& out)
+    bool parsed_atom_to_string(const Atom& a, MediumString& out) noexcept
     {
-        parsed_atom_to_string_t(a, out);
+        try {
+            return parsed_atom_to_string_t(a, out);
+        } catch (std::exception& e) {
+            LIB_ERR << fmt::format("[{}] error: '{}'", __FUNCTION__, e.what());
+            return false;
+        }
     }
 
-    void parsed_atom_to_string(const Atom& a, MediumString& out)
-    {
-        parsed_atom_to_string_t(a, out);
-    }
-
-    bool parsed_list_to_string(const AtomListView& lv, StaticString& out)
+    bool parsed_list_to_string(const AtomListView& lv, StaticString& out) noexcept
     {
         return parsed_list_to_string_t(lv, out);
     }
 
-    void parsed_list_to_string(const AtomListView& lv, SmallString& out)
+    bool parsed_list_to_string(const AtomListView& lv, SmallString& out) noexcept
     {
-        parsed_list_to_string_t(lv, out);
+        return parsed_list_to_string_t(lv, out);
     }
 
-    void parsed_list_to_string(const AtomListView& lv, MediumString& out)
+    bool parsed_list_to_string(const AtomListView& lv, MediumString& out) noexcept
     {
-        parsed_list_to_string_t(lv, out);
+        return parsed_list_to_string_t(lv, out);
     }
 
-    void parsed_atom_to_raw_list(const Atom& a, AtomList& out)
+    bool parsed_atom_to_raw_string(const Atom& a, StaticString& out) noexcept
     {
-        SmallString str;
-        parsed_atom_to_string(a, str);
-
-        t_binbuf* b = binbuf_new();
-        binbuf_text(b, str.data(), str.size());
-        out = AtomList(binbuf_getnatom(b), binbuf_getvec(b));
-        binbuf_free(b);
     }
+
 }
 }

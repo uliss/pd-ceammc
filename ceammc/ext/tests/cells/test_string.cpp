@@ -417,11 +417,11 @@ TEST_CASE("ceammc_string", "[PureData]")
 
     SECTION("escape_and_quote")
     {
-#define REQUIRE_ESCAPE_AND_QUOTE(s, res) \
-    {                                    \
-        StaticString str;                \
-        escape_and_quote(s, str);        \
-        REQUIRE(str == res);             \
+#define REQUIRE_ESCAPE_AND_QUOTE(s, res, n)                               \
+    {                                                                     \
+        StaticString str;                                                  \
+        REQUIRE(n == escape_and_quote(s, str));                           \
+        REQUIRE(std::string(str.data(), str.data() + str.size()) == res); \
     }
 
         REQUIRE(AtomList::parseString("\\ \\ ") == A("  "));
@@ -433,16 +433,16 @@ TEST_CASE("ceammc_string", "[PureData]")
         REQUIRE(AtomList::parseString(";") == Atom::semicolon());
         REQUIRE(AtomList::parseString("$0")[0].atom().a_type == A_DOLLAR);
 
-        REQUIRE_ESCAPE_AND_QUOTE("", "\"\"");
-        REQUIRE_ESCAPE_AND_QUOTE(" ", "\"\\ \"");
-        REQUIRE_ESCAPE_AND_QUOTE("   ", "\"\\ \\ \\ \"");
-        REQUIRE_ESCAPE_AND_QUOTE("a,b,c;", "\"a\\,b\\,c\\;\"");
-        REQUIRE_ESCAPE_AND_QUOTE(R"("quotes")", R"("`"quotes`"")");
-        REQUIRE_ESCAPE_AND_QUOTE("fn()", "\"fn()\"");
-        REQUIRE_ESCAPE_AND_QUOTE("Dict[]", R"("Dict[]")");
-        REQUIRE_ESCAPE_AND_QUOTE(R"(abc)", R"("abc")");
-        REQUIRE_ESCAPE_AND_QUOTE(R"(1)", R"("1")");
-        REQUIRE_ESCAPE_AND_QUOTE(R"(`abc`)", R"("``abc``")");
+        REQUIRE_ESCAPE_AND_QUOTE("", "\"\"", 0);
+        REQUIRE_ESCAPE_AND_QUOTE(" ", "\" \"", 1);
+        REQUIRE_ESCAPE_AND_QUOTE("  ", "\"  \"", 2);
+        REQUIRE_ESCAPE_AND_QUOTE("a,b,c;", "\"a,b,c;\"", 3);
+        REQUIRE_ESCAPE_AND_QUOTE(R"("quotes")", R"("`"quotes`"")", 2);
+        REQUIRE_ESCAPE_AND_QUOTE("fn()", "\"fn()\"", 1);
+        REQUIRE_ESCAPE_AND_QUOTE("Dict[]", R"("Dict[]")", 1);
+        REQUIRE_ESCAPE_AND_QUOTE(R"(abc)", R"("abc")", 0);
+        REQUIRE_ESCAPE_AND_QUOTE(R"(1)", R"("1")", 0);
+        REQUIRE_ESCAPE_AND_QUOTE(R"(`abc`)", R"("``abc``")", 2);
     }
 
     SECTION("raw_list_to_string")
@@ -507,7 +507,7 @@ TEST_CASE("ceammc_string", "[PureData]")
 
     SECTION("parsed_atom_to_string")
     {
-        SECTION("std::string")
+        SECTION("SmallString")
         {
 #define REQUIRE_ATOM_STR(a, str)                             \
     {                                                        \
@@ -520,26 +520,37 @@ TEST_CASE("ceammc_string", "[PureData]")
             using StrA = DataAtom<StrData>;
 
             REQUIRE_ATOM_STR(Atom(), "#null");
+            REQUIRE_ATOM_STR(A(""), "\"\"");
             REQUIRE_ATOM_STR(A(-12.5), "-12.5");
             REQUIRE_ATOM_STR(A("ABC"), "ABC");
             REQUIRE_ATOM_STR(A("pi()"), "\"pi()\"");
-            REQUIRE_ATOM_STR(A("A B C"), "\"A\\ B\\ C\"");
+            REQUIRE_ATOM_STR(A("A B C"), "\"A B C\"");
             REQUIRE_ATOM_STR(A("(())"), "\"(())\"");
-            REQUIRE_ATOM_STR(A(";"), "\"\\;\"");
-            REQUIRE_ATOM_STR(A(","), "\"\\,\"");
-            REQUIRE_ATOM_STR(A(" "), "\"\\ \"");
+            REQUIRE_ATOM_STR(A(";"), "\";\"");
+            REQUIRE_ATOM_STR(A(","), "\",\"");
+            REQUIRE_ATOM_STR(A(" "), "\" \"");
             REQUIRE_ATOM_STR(A("`"), "\"``\"");
             REQUIRE_ATOM_STR(A("\""), "\"`\"\"");
             REQUIRE_ATOM_STR(A("#true"), "\"#true\"");
             REQUIRE_ATOM_STR(A("#false"), "\"#false\"");
             REQUIRE_ATOM_STR(A("#null"), "\"#null\"");
-            REQUIRE_ATOM_STR(A("[a: 1]"), "\"[a:\\ 1]\"");
+            REQUIRE_ATOM_STR(A("[a: 1]"), "\"[a: 1]\"");
             REQUIRE_ATOM_STR(IntA(100), "IntData(100)");
             REQUIRE_ATOM_STR(StrA("100"), "StrData(100)");
             REQUIRE_ATOM_STR(StrA("1 2 3"), "StrData(1 2 3)");
             REQUIRE_ATOM_STR(MListAtom(LF(1, 2, 3)), "(1 2 3)");
             REQUIRE_ATOM_STR(MListAtom(LA("A", "B", "C")), "(A B C)");
-            REQUIRE_ATOM_STR(MListAtom(LA("A B C")), "(\"A\\ B\\ C\")");
+            REQUIRE_ATOM_STR(MListAtom(LA("A B C")), "(\"A B C\")");
         }
+    }
+
+    SECTION("parsed_atom_to_raw_string")
+    {
+#define REQUIRE_ATOM_TO_RAW_STRING(a, str) \
+    {                                      \
+        StaticString buf;                  \
+        parsed_atom_to_raw_string(a, out); \
+        REQUIRE(out == str);               \
+    }
     }
 }
