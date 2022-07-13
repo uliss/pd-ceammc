@@ -32,14 +32,14 @@ TEST_CASE("dict.reject", "[externals]")
 
         SECTION("args")
         {
-            TExt t("dict.reject", "a", "\"b", "a\"", "\"@c\"");
+            TExt t("dict.reject", LP("a \"b a\" \"@c\""));
             REQUIRE_PROPERTY(t, @keys, "a", "b a", "@c");
         }
 
         SECTION("@keys")
         {
-            TExt t("dict.reject", "@keys", "a", "\"a b\"", "\"@c\"");
-            REQUIRE_PROPERTY(t, @keys, "a", "a b", "@c");
+            TExt t("dict.reject", LP("@keys a \"b a\" \"@c\""));
+            REQUIRE_PROPERTY(t, @keys, "a", "b a", "@c");
         }
     }
 
