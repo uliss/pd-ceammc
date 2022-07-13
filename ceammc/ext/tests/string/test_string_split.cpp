@@ -52,7 +52,7 @@ TEST_CASE("string.split", "[external]")
         WHEN_SEND_TDATA_TO(0, t, DataTypeString("abcde"));
         REQUIRE(t.hasNewMessages(0));
         REQUIRE(t.lastMessage(0).isList());
-        REQUIRE(to_string(t.lastMessage(0).listValue()) == "a b c d e");
+        REQUIRE(to_string(t.lastMessage(0).listValue()) == "S\"a\" S\"b\" S\"c\" S\"d\" S\"e\"");
     }
 
     SECTION("data")
@@ -63,12 +63,12 @@ TEST_CASE("string.split", "[external]")
         t << StringAtom("ab:cde:");
         REQUIRE(t.hasNewMessages(0));
         REQUIRE(t.lastMessage(0).isList());
-        REQUIRE(to_string(t.lastMessage(0).listValue()) == "ab cde");
+        REQUIRE(to_string(t.lastMessage(0).listValue()) == "S\"ab\" S\"cde\"");
 
         t << StringAtom("ab:cde:");
         REQUIRE(t.hasNewMessages(0));
         REQUIRE(t.lastMessage(0).isList());
-        REQUIRE(to_string(t.lastMessage(0).listValue()) == "ab cde");
+        REQUIRE(to_string(t.lastMessage(0).listValue()) == "S\"ab\" S\"cde\"");
     }
 
     SECTION("symbol")
@@ -78,7 +78,7 @@ TEST_CASE("string.split", "[external]")
 
         REQUIRE(t.hasNewMessages(0));
         REQUIRE(t.lastMessage(0).isList());
-        REQUIRE(to_string(t.lastMessage(0).listValue()) == "A B C");
+        REQUIRE(to_string(t.lastMessage(0).listValue()) == "S\"A\" S\"B\" S\"C\"");
     }
 
     SECTION("create")
