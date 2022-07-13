@@ -31,9 +31,9 @@ public:
     void onList(const AtomList& l) override;
     void onData(const Atom& d) override;
 
-    void m_append(t_symbol*, const AtomListView& lst);
-    void m_set(t_symbol*, const AtomListView& lst);
-    void m_clear(t_symbol*, const AtomListView& lst);
+    void m_append(t_symbol*, const AtomListView& lv);
+    void m_set(t_symbol*, const AtomListView& lv);
+    void m_clear(t_symbol*, const AtomListView& lv);
 };
 
 void setup_string_str();

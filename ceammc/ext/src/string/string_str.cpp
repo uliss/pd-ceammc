@@ -58,14 +58,20 @@ void StringStr::onData(const Atom& d)
     onBang();
 }
 
-void StringStr::m_append(t_symbol*, const AtomListView& lst)
+void StringStr::m_append(t_symbol*, const AtomListView& lv)
 {
-    str_ += to_string(lst);
+    if (lv.isA<DataTypeString>())
+        str_ += lv[0].asD<DataTypeString>()->str();
+    else
+        str_ += to_string(lv);
 }
 
-void StringStr::m_set(t_symbol*, const AtomListView& lst)
+void StringStr::m_set(t_symbol*, const AtomListView& lv)
 {
-    str_ = to_string(lst);
+    if (lv.isA<DataTypeString>())
+        str_ = lv[0].asD<DataTypeString>()->str();
+    else
+        str_ = to_string(lv);
 }
 
 void StringStr::m_clear(t_symbol*, const AtomListView&)
