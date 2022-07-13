@@ -27,9 +27,8 @@ public:
 
     void editorSync() override
     {
-        auto mdata = editorData().parse(lines_);
-        if (mdata)
-            editorData() = *mdata;
+        if (!editorData().setFromDataList(lines_))
+            return;
 
         EditorObject<T>::editorSync();
     }

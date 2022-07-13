@@ -48,15 +48,15 @@ public:
         onBang();
     }
 
-    void onAny(t_symbol* s, const AtomListView& lst) override
+    void onAny(t_symbol* s, const AtomListView& lv) override
     {
-        Message msg(s, lst);
+        Message msg(s, lv);
         if (s->s_name[0] != '\(') {
             OBJ_ERR << "opening parenthesis expected: " << to_string(msg);
             return;
         }
 
-        mlist()->setParsed(msg.anyValue());
+        mlist()->setFromDataList(msg.anyValue());
     }
 
     void onDataT(const MListAtom& ml)
@@ -89,9 +89,9 @@ public:
         }
     }
 
-    void proto_set(const AtomListView& lst) override
+    void proto_set(const AtomListView& lv) override
     {
-        mlist()->setRaw(lst);
+        mlist()->setRaw(lv);
     }
 
     void proto_clear() override
@@ -99,19 +99,19 @@ public:
         mlist()->clear();
     }
 
-    void proto_append(const AtomListView& lst) override
+    void proto_append(const AtomListView& lv) override
     {
-        mlist()->append(lst);
+        mlist()->append(lv);
     }
 
-    void proto_prepend(const AtomListView& lst) override
+    void proto_prepend(const AtomListView& lv) override
     {
-        mlist()->prepend(lst);
+        mlist()->prepend(lv);
     }
 
-    bool proto_insert(size_t idx, const AtomListView& lst) override
+    bool proto_insert(size_t idx, const AtomListView& lv) override
     {
-        return mlist()->insert(idx, lst);
+        return mlist()->insert(idx, lv);
     }
 
     bool proto_pop() override

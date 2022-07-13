@@ -17,11 +17,10 @@
 DataSet::DataSet(const PdArgs& a)
     : DataSetBase(a)
 {
-    if (a.args.size() > 0) {
-        auto set = DataTypeSet::parse(args().view());
-        if (set)
-            set_ = *set;
-    }
+    if (set_.looksLikeCtor(a.args))
+        set_.setFromDataList(a.args);
+    else
+        set_ = DataTypeSet(a.args);
 
     createOutlet();
 }

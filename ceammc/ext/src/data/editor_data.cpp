@@ -168,10 +168,10 @@ void editorAppend(EditorLineList& res, const AbstractData* d, int indentLevel)
         appendIndent(str, indentLevel);
 
         if (d->canInitWithList()) {
-            str->append(d->toListConstructor());
+            str->append(d->toListString());
             res.push_back(str);
         } else if (d->canInitWithDict()) {
-            auto dict_str = d->toDictConstructor();
+            auto dict_str = d->toDictString();
             for (size_t i = 0; i < dict_str.length(); i++) {
                 const auto c = dict_str[i];
                 if (c == '\n') {

@@ -32,7 +32,7 @@ void DictBase::onAny(t_symbol* s, const AtomListView& lst)
     }
 
     DictAtom dict;
-    if (dict->fromString(str))
+    if (dict->setFromDataString(str))
         onDataT(dict);
     else
         LIB_ERR << "not a dict: " << str;

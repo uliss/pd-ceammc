@@ -53,16 +53,16 @@ public:
         *dict() = DataTypeDict::fromList(args, 2);
     }
 
-    void onAny(t_symbol* s, const AtomListView& args) override
+    void onAny(t_symbol* s, const AtomListView& lv) override
     {
         std::string str(s->s_name);
         str += ' ';
-        str += to_string(args, " ");
+        str += to_string(lv, " ");
 
         dict().detachData();
 
-        if (!dict()->fromString(str)) {
-            OBJ_ERR << "parse error: " << s << args;
+        if (!dict()->setFromDataString(str)) {
+            OBJ_ERR << "parse error: " << s << lv;
             return;
         }
     }
@@ -87,39 +87,39 @@ public:
             this->listTo(0, dict()->at(k));
     }
 
-    void m_set_key(t_symbol* s, const AtomListView& lst)
+    void m_set_key(t_symbol* s, const AtomListView& lv)
     {
-        if (lst.empty() || !lst[0].isSymbol()) {
+        if (lv.empty() || !lv[0].isSymbol()) {
             METHOD_ERR(s) << "key expected";
             METHOD_ERR(s) << "usage: " << s << " KEY [VALUES...]";
             return;
         }
 
-        auto key = lst[0].asSymbol();
+        auto key = lv[0].asSymbol();
 
         if (!dict()->contains(key)) {
-            METHOD_ERR(s) << "key not found: " << lst[0];
+            METHOD_ERR(s) << "key not found: " << lv[0];
             return;
         }
 
         dict().detachData();
-        dict()->at(key) = lst.subView(1);
+        dict()->at(key) = lv.subView(1);
     }
 
-    void proto_add(const AtomListView& lst) override
+    void proto_add(const AtomListView& lv) override
     {
-        if (lst.empty() || !lst[0].isSymbol()) {
+        if (lv.empty() || !lv[0].isSymbol()) {
             OBJ_ERR << "Usage: add KEY [VALUES...]";
             return;
         }
 
         dict().detachData();
-        auto key = lst[0].asSymbol();
+        auto key = lv[0].asSymbol();
 
-        if (lst.size() == 2)
-            dict()->insert(key, lst[1]);
+        if (lv.size() == 2)
+            dict()->insert(key, lv[1]);
         else
-            dict()->insert(key, lst.subView(1));
+            dict()->insert(key, lv.subView(1));
     }
 
     void proto_clear() override
@@ -128,23 +128,23 @@ public:
         dict()->clear();
     }
 
-    void proto_set(const AtomListView& lst) override
+    void proto_set(const AtomListView& lv) override
     {
         dict().detachData();
-        dict()->fromString(to_string(lst, " "));
+        dict()->setFromDataList(lv);
     }
 
-    bool proto_remove(const AtomListView& lst) override
+    bool proto_remove(const AtomListView& lv) override
     {
-        if (lst.empty() || !lst.anyOf(isSymbol)) {
-            OBJ_ERR << "key list expected, got: " << lst;
+        if (lv.empty() || !lv.anyOf(isSymbol)) {
+            OBJ_ERR << "key list expected, got: " << lv;
             return false;
         }
 
         bool res = true;
         dict().detachData();
 
-        for (auto& el : lst) {
+        for (auto& el : lv) {
             if (!dict()->remove(el.asSymbol())) {
                 res = false;
                 OBJ_ERR << "key not found: " << el;

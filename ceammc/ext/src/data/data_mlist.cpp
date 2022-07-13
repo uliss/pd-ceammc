@@ -19,7 +19,7 @@
 DataMList::DataMList(const PdArgs& args)
     : DataMListBase(args)
 {
-    mlist_->setParsed(args.args);
+    mlist_->setFromDataList(args.args);
 
     createOutlet();
 }
