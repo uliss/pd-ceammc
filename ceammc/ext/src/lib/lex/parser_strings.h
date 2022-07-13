@@ -30,10 +30,10 @@ namespace string {
 
     bool string_need_quotes(const char* str);
 
-    void escape_and_quote(const char* str, std::string& out);
-    bool escape_and_quote(const char* str, StaticString& out);
-    void escape_and_quote(const char* str, SmallString& out);
-    void escape_and_quote(const char* str, MediumString& out);
+    int escape_and_quote(const char* str, std::string& out);
+    int escape_and_quote(const char* str, StaticString& out);
+    int escape_and_quote(const char* str, SmallString& out);
+    int escape_and_quote(const char* str, MediumString& out);
 }
 }
 

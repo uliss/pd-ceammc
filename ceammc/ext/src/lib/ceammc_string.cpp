@@ -602,7 +602,14 @@ namespace string {
                 fmt::format_to(std::back_inserter(out), "{:g}", a.asT<t_float>());
             } else if (a.isSymbol()) {
                 auto s = a.asT<t_symbol*>()->s_name;
-                escape_and_quote(s, out);
+                SmallString str;
+                auto num_esc = escape_and_quote(s, str);
+                if (num_esc == 0 && str.size() >= 2)
+                    out.insert(out.end(), str.begin() + 1, str.end() - 1);
+                else if(num_esc > 0)
+                    out.insert(out.end(), str.begin(), str.end());
+                else
+                    LIB_ERR << fmt::format("[{}] quoted and escape error: {}", __FUNCTION__, s);
             } else if (a.isNone()) {
                 constexpr const char s[] = "#null";
                 std::copy(s, s + sizeof(s) - 1, std::back_inserter(out));

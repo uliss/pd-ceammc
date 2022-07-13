@@ -540,7 +540,7 @@ TEST_CASE("ceammc_string", "[PureData]")
 
             REQUIRE_ATOM_STR(Atom(), "#null");
             REQUIRE_ATOM_STR(A(-12.5), "-12.5");
-            REQUIRE_ATOM_STR(A("ABC"), "\"ABC\"");
+            REQUIRE_ATOM_STR(A("ABC"), "ABC");
             REQUIRE_ATOM_STR(A("pi()"), "\"pi()\"");
             REQUIRE_ATOM_STR(A("A B C"), "\"A\\ B\\ C\"");
             REQUIRE_ATOM_STR(A("(())"), "\"(())\"");
@@ -557,7 +557,7 @@ TEST_CASE("ceammc_string", "[PureData]")
             REQUIRE_ATOM_STR(StrA("100"), "StrData(100)");
             REQUIRE_ATOM_STR(StrA("1 2 3"), "StrData(1 2 3)");
             REQUIRE_ATOM_STR(MListAtom(LF(1, 2, 3)), "(1 2 3)");
-            REQUIRE_ATOM_STR(MListAtom(LA("A", "B", "C")), "(\"A\" \"B\" \"C\")");
+            REQUIRE_ATOM_STR(MListAtom(LA("A", "B", "C")), "(A B C)");
             REQUIRE_ATOM_STR(MListAtom(LA("A B C")), "(\"A\\ B\\ C\")");
         }
     }

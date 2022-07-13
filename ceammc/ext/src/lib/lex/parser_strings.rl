@@ -124,13 +124,20 @@ bool string_need_quotes(const char* str) {
     include string_common "ragel_strings.rl";
 
     # zero string version
-    esc_all =
+    esc_all = (
         str_escape       >{ out.push_back('`');   out.push_back('`'); } |
         str_dquote       >{ out.push_back('`');   out.push_back('"'); } |
         str_space        >{ out.push_back('\\');  out.push_back(' '); } |
         str_comma        >{ out.push_back('\\');  out.push_back(','); } |
         str_semicolon    >{ out.push_back('\\');  out.push_back(';'); } |
-        str_backslash    >{ out.push_back('`');   out.push_back('/'); };
+        str_backslash    >{ out.push_back('`');   out.push_back('/'); } |
+        str_lpar         >{ out.push_back('('); } |
+        str_lbrac        >{ out.push_back('['); } |
+        ':'              >{ out.push_back(':'); } |
+        '@'              >{ out.push_back('@'); } |
+        '%'              >{ out.push_back('%'); } |
+        '#'              >{ out.push_back('#'); }
+    ) % { rl_esc_count++; };
 
     other = (any - (esc_all|0)) >{ out.push_back(fc); };
 
@@ -139,17 +146,18 @@ bool string_need_quotes(const char* str) {
 }%%
 
 template <typename T>
-static bool escape_and_quote_t(const char* str, T& out) noexcept
+static int escape_and_quote_t(const char* str, T& out) noexcept
 {
     try {
         if (str == nullptr || str[0] == '\0') {
             out.push_back('"');
             out.push_back('"');
-            return true;
+            return 0;
         }
 
         int cs = 0;
         const char* p = str;
+        int rl_esc_count = 0;
 
         out.push_back('"');
 
@@ -157,31 +165,32 @@ static bool escape_and_quote_t(const char* str, T& out) noexcept
         %% write exec noend;
 
         out.push_back('"');
-        return true;
+        return rl_esc_count;
     } catch(std::exception& e) {
         LIB_ERR << fmt::format("[{}] error '{}'", __FUNCTION__, e.what());
-        return false;
+        return -1;
     }
 }
 
-void escape_and_quote(const char* str, std::string& out)
+int escape_and_quote(const char* str, std::string& out)
 {
     MediumString buf;
-    escape_and_quote_t(str, buf);
+    auto n = escape_and_quote_t(str, buf);
     out.assign(buf.data(), buf.size());
+    return n;
 }
 
-void escape_and_quote(const char* str, SmallString& out)
+int escape_and_quote(const char* str, SmallString& out)
 {
-    escape_and_quote_t(str, out);
+    return escape_and_quote_t(str, out);
 }
 
-void escape_and_quote(const char* str, MediumString& out)
+int  escape_and_quote(const char* str, MediumString& out)
 {
-    escape_and_quote_t(str, out);
+    return escape_and_quote_t(str, out);
 }
 
-bool escape_and_quote(const char* str, StaticString& out)
+int escape_and_quote(const char* str, StaticString& out)
 {
     return escape_and_quote_t(str, out);
 }
