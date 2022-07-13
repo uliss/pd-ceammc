@@ -14,13 +14,11 @@
 #ifndef CEAMMC_STRING_H
 #define CEAMMC_STRING_H
 
-#include "m_pd.h"
+#include "ceammc_string_types.h"
 
 #include <cstddef>
 #include <string>
 #include <vector>
-#include <boost/static_string.hpp>
-#include <boost/container/small_vector.hpp>
 
 namespace ceammc {
 
@@ -29,9 +27,6 @@ class AtomList;
 class AtomListView;
 
 namespace string {
-    using StaticString = boost::static_string<MAXPDSTRING>;
-    using SmallString = boost::container::small_vector<char, 31>;
-    using MediumString = boost::container::small_vector<char, 255>;
 
     // utf-8 functions
     size_t utf8_strlen(const char* str) noexcept;
@@ -122,35 +117,23 @@ namespace string {
 
     /// prepare atoms list for parsing
     /**
-     * Write raw atom (only core Pd types: floats, symbols, commas, semicolons etc.)
-     * to given output string
-     */
-    void raw_atom_to_string(const Atom& a, std::string& out);
-
-    /**
-     * Write raw atom (only core Pd types: floats, symbols, commas, semicolons etc.)
+     * Write raw atom (only core Pd atoms: floats, symbols, commas, semicolons etc.)
      * to given static string buffer
      * @return true on success, false on error
      */
     bool raw_atom_to_string(const Atom& a, StaticString& out);
 
     /**
-     * Write raw atom (only core Pd types: floats, symbols, commas, semicolons etc.)
+     * Write raw atom (only core Pd atoms: floats, symbols, commas, semicolons etc.)
      * to given small string preallocated buffer
      */
     void raw_atom_to_string(const Atom& a, SmallString& out);
 
     /**
-     * Write raw atom (only core Pd types: floats, symbols, commas, semicolons etc.)
+     * Write raw atom (only core Pd atoms: floats, symbols, commas, semicolons etc.)
      * to given small string preallocated buffer
      */
     void raw_atom_to_string(const Atom& a, MediumString& out);
-
-    /**
-     * Write raw atomlist (only core Pd types: floats, symbols, commas, semicolons etc.)
-     * to given output string
-     */
-    void raw_list_to_string(const AtomListView& lv, std::string& out);
 
     /**
      * Write raw atomlist (only core Pd types: floats, symbols, commas, semicolons etc.)
@@ -174,13 +157,6 @@ namespace string {
     /// output parsed data
     /**
      * Write parsed atom (can contain only null, float, symbol or data atoms)
-     * to given string
-     * @note strings are quoted and escaped
-     */
-    void parsed_atom_to_string(const Atom& a, std::string& out);
-
-    /**
-     * Write parsed atom (can contain only null, float, symbol or data atoms)
      * to given static buffer string
      * @note strings are quoted and escaped
      * @return true on success, false on error
@@ -200,13 +176,6 @@ namespace string {
      * @note strings are quoted and escaped
      */
     void parsed_atom_to_string(const Atom& a, MediumString& out);
-
-    /**
-     * Write parsed atomlist (can contain only null, float, symbol or data atoms)
-     * to given string
-     * @note strings are quoted and escaped
-     */
-    void parsed_list_to_string(const AtomListView& lv, std::string& out);
 
     /**
      * Write parsed atomlist (can contain only null, float, symbol or data atoms)

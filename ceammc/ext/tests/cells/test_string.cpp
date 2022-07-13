@@ -419,7 +419,7 @@ TEST_CASE("ceammc_string", "[PureData]")
     {
 #define REQUIRE_ESCAPE_AND_QUOTE(s, res) \
     {                                    \
-        std::string str;                 \
+        StaticString str;                \
         escape_and_quote(s, str);        \
         REQUIRE(str == res);             \
     }
@@ -447,25 +447,6 @@ TEST_CASE("ceammc_string", "[PureData]")
 
     SECTION("raw_list_to_string")
     {
-        SECTION("std::string")
-        {
-#define REQUIRE_STR(lst, s1)                 \
-    {                                        \
-        std::string str;                     \
-        raw_list_to_string(lst.view(), str); \
-        REQUIRE(str == s1);                  \
-    }
-
-            REQUIRE_STR(L(), "");
-            REQUIRE_STR(LF(1), "1");
-            REQUIRE_STR(LF(1234.25), "1234.25");
-            REQUIRE_STR(LF(1, 2, -3), "1 2 -3");
-            REQUIRE_STR(AtomList::parseString(" a  b  c "), "a b c");
-            REQUIRE_STR(AtomList::parseString("1,2,3;"), "1, 2, 3;");
-            REQUIRE_STR(LA(Atom()), "#null");
-            REQUIRE_STR(LA(Atom(), "ABC"), "#null ABC");
-        }
-
         SECTION("StaticString")
         {
 #define REQUIRE_STATIC_STR(lst, s1)          \
@@ -528,11 +509,11 @@ TEST_CASE("ceammc_string", "[PureData]")
     {
         SECTION("std::string")
         {
-#define REQUIRE_ATOM_STR(a, str)       \
-    {                                  \
-        std::string buf;               \
-        parsed_atom_to_string(a, buf); \
-        REQUIRE(buf == str);           \
+#define REQUIRE_ATOM_STR(a, str)                             \
+    {                                                        \
+        SmallString buf;                                     \
+        parsed_atom_to_string(a, buf);                       \
+        REQUIRE(std::string(buf.data(), buf.size()) == str); \
     }
 
             using IntA = DataAtom<IntData>;

@@ -2,16 +2,12 @@
 #define PARSER_STRINGS_H
 
 #include "ceammc_atomlist_view.h"
+#include "ceammc_string_types.h"
 
-#include <boost/container/small_vector.hpp>
-#include <boost/static_string.hpp>
 #include <string>
 
 namespace ceammc {
 namespace string {
-    using StaticString = boost::static_string<MAXPDSTRING>;
-    using SmallString = boost::container::small_vector<char, 31>;
-    using MediumString = boost::container::small_vector<char, 255>;
 
     /**
      * Checks if given string is matched to quoted string end
@@ -30,7 +26,12 @@ namespace string {
 
     bool string_need_quotes(const char* str);
 
-    int escape_and_quote(const char* str, std::string& out);
+    /**
+     * Escapes special symbol in string and adds outer double quotes
+     * @param str - source string (with spaces, commas, semicolons etc.)
+     * @param out - string buffer to append data
+     * @return number of escaped charactes or -1 on error
+     */
     int escape_and_quote(const char* str, StaticString& out);
     int escape_and_quote(const char* str, SmallString& out);
     int escape_and_quote(const char* str, MediumString& out);

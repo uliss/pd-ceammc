@@ -550,13 +550,6 @@ namespace string {
         return true;
     }
 
-    void raw_atom_to_string(const Atom& a, std::string& out)
-    {
-        MediumString str;
-        atom_to_string(a, str);
-        out.assign(str.data(), str.size());
-    }
-
     bool raw_atom_to_string(const Atom& a, StaticString& out)
     {
         return atom_to_string(a, out);
@@ -570,13 +563,6 @@ namespace string {
     void raw_atom_to_string(const Atom& a, MediumString& out)
     {
         atom_to_string(a, out);
-    }
-
-    void raw_list_to_string(const AtomListView& lv, std::string& out)
-    {
-        MediumString str;
-        to_stringT(lv, str);
-        out.assign(str.data(), str.size());
     }
 
     bool raw_list_to_string(const AtomListView& lv, StaticString& out)
@@ -606,7 +592,7 @@ namespace string {
                 auto num_esc = escape_and_quote(s, str);
                 if (num_esc == 0 && str.size() >= 2)
                     out.insert(out.end(), str.begin() + 1, str.end() - 1);
-                else if(num_esc > 0)
+                else if (num_esc > 0)
                     out.insert(out.end(), str.begin(), str.end());
                 else
                     LIB_ERR << fmt::format("[{}] quoted and escape error: {}", __FUNCTION__, s);
@@ -643,13 +629,6 @@ namespace string {
         return true;
     }
 
-    void parsed_atom_to_string(const Atom& a, std::string& out)
-    {
-        SmallString str;
-        parsed_atom_to_string_t(a, str);
-        out.assign(str.data(), str.size());
-    }
-
     bool parsed_atom_to_string(const Atom& a, StaticString& out)
     {
         return parsed_atom_to_string_t(a, out);
@@ -663,13 +642,6 @@ namespace string {
     void parsed_atom_to_string(const Atom& a, MediumString& out)
     {
         parsed_atom_to_string_t(a, out);
-    }
-
-    void parsed_list_to_string(const AtomListView& lv, std::string& out)
-    {
-        MediumString str;
-        parsed_list_to_string_t(lv, str);
-        out.assign(str.data(), str.size());
     }
 
     bool parsed_list_to_string(const AtomListView& lv, StaticString& out)

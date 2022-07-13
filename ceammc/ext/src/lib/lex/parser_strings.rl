@@ -172,14 +172,6 @@ static int escape_and_quote_t(const char* str, T& out) noexcept
     }
 }
 
-int escape_and_quote(const char* str, std::string& out)
-{
-    MediumString buf;
-    auto n = escape_and_quote_t(str, buf);
-    out.assign(buf.data(), buf.size());
-    return n;
-}
-
 int escape_and_quote(const char* str, SmallString& out)
 {
     return escape_and_quote_t(str, out);
