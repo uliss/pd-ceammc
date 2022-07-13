@@ -151,9 +151,13 @@ bool DataTypeString::set(const AbstractData* d) noexcept
 std::string DataTypeString::toString() const
 {
     if (str_.empty())
-        return "String()";
-    else
-        return AbstractData::toString();
+        return "S\"\"";
+    else {
+        string::MediumString str;
+        str.push_back('S');
+        string::escape_and_quote(str_.c_str(), str);
+        return std::string(str.data(), str.size());
+    }
 }
 
 void DataTypeString::set(t_symbol* s)

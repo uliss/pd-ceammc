@@ -364,23 +364,23 @@ TEST_CASE("DataTypeString", "[core]")
 
     SECTION("to_string")
     {
-        CHECK(to_string(StringAtom("spaceless")) == "String(\"spaceless\")");
-        CHECK(to_string(StringAtom("")) == "String()");
-        CHECK(to_string(StringAtom(" ")) == "String(\"\\ \")");
-        CHECK(to_string(StringAtom("with spaces")) == "String(\"with\\ spaces\")");
-        CHECK(to_string(StringAtom("with 'single quotes'")) == "String(\"with\\ 'single\\ quotes'\")");
-        CHECK(to_string(StringAtom(R"(with "double quotes")")) == R"(String("with\ `"double\ quotes`""))");
-        CHECK(to_string(StringAtom(R"(with,commas)")) == R"(String("with\,commas"))");
-        CHECK(to_string(StringAtom(R"(with;semicolon)")) == R"(String("with\;semicolon"))");
-        CHECK(to_string(StringAtom(R"(with:)")) == R"(String("with:"))");
-        CHECK(to_string(StringAtom(R"(with {} braces)")) == R"(String("with\ {}\ braces"))");
-        CHECK(to_string(StringAtom(R"(with @at)")) == R"(String("with\ @at"))");
-        CHECK(to_string(StringAtom(R"(with ``)")) == R"(String("with\ ````"))");
-        CHECK(to_string(StringAtom(R"(with \ slash)")) == R"(String("with\ `/\ slash"))");
+        CHECK(to_string(StringAtom("spaceless")) == "S\"spaceless\"");
+        CHECK(to_string(StringAtom("")) == "S\"\"");
+        CHECK(to_string(StringAtom(" ")) == "S\"\\ \"");
+        CHECK(to_string(StringAtom("with spaces")) == "S\"with\\ spaces\"");
+        CHECK(to_string(StringAtom("with 'single quotes'")) == "S\"with\\ 'single\\ quotes'\"");
+        CHECK(to_string(StringAtom(R"(with "double quotes")")) == R"(S"with\ `"double\ quotes`"")");
+        CHECK(to_string(StringAtom(R"(with,commas)")) == R"(S"with\,commas")");
+        CHECK(to_string(StringAtom(R"(with;semicolon)")) == R"(S"with\;semicolon")");
+        CHECK(to_string(StringAtom(R"(with:)")) == R"(S"with:")");
+        CHECK(to_string(StringAtom(R"(with {} braces)")) == R"(S"with\ {}\ braces")");
+        CHECK(to_string(StringAtom(R"(with @at)")) == R"(S"with\ @at")");
+        CHECK(to_string(StringAtom(R"(with ``)")) == R"(S"with\ ````")");
+        CHECK(to_string(StringAtom(R"(with \ slash)")) == R"(S"with\ `/\ slash")");
 
-        REQUIRE(StringAtom("a b").asData()->toString() == "String(\"a\\ b\")");
-        REQUIRE(Atom(new DataTypeString("a b c")).asData()->toString() == "String(\"a\\ b\\ c\")");
-        REQUIRE(to_string(Atom(new DataTypeString("a b c"))) == "String(\"a\\ b\\ c\")");
+        REQUIRE(StringAtom("a b").asData()->toString() == "S\"a\\ b\"");
+        REQUIRE(Atom(new DataTypeString("a b c")).asData()->toString() == "S\"a\\ b\\ c\"");
+        REQUIRE(to_string(Atom(new DataTypeString("a b c"))) == "S\"a\\ b\\ c\"");
     }
 
     SECTION("create via factory")

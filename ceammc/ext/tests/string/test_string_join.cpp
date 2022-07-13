@@ -60,10 +60,10 @@ TEST_CASE("string.join", "[external]")
 
             // data
             t.sendList(LA(100, new IntData(2000)));
-            REQUIRE_STRING(t, "1002000");
+            REQUIRE_STRING(t, "100IntData(2000)");
 
             t.sendList(LA(new IntData(1000), new IntData(2000)));
-            REQUIRE_STRING(t, "10002000");
+            REQUIRE_STRING(t, "IntData(1000)IntData(2000)");
         }
 
         SECTION("empty string")
