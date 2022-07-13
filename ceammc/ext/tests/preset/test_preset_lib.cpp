@@ -131,7 +131,7 @@ TEST_CASE("ceammc_preset", "[PureData]")
         REQUIRE_FALSE(platform::path_exists("./presets.txt"));
 
         s.setFloatValueAt(gensym("F"), 0, -1024);
-        s.setSymbolValueAt(gensym("SYM"), 0, gensym("some string"));
+        s.setSymbolValueAt(gensym("SYM"), 0, gensym("some string    with spaces, and ;"));
         s.setSymbolValueAt(gensym("SYM2"), 0, gensym("a,a"));
         s.setListValueAt(gensym("LST"), 0, LA(1, 2, 3, "a", "b", "c"));
         s.setAnyValueAt(gensym("ANY"), 0, gensym("sample"), LF(1, 3));
@@ -145,7 +145,7 @@ TEST_CASE("ceammc_preset", "[PureData]")
         REQUIRE(s.keys().size() == 5);
         REQUIRE(s.hasPreset(gensym("F")));
         REQUIRE(s.floatValueAt(gensym("F"), 0) == -1024);
-        REQUIRE(s.symbolValueAt(gensym("SYM"), 0, &s_)->s_name == std::string("some string"));
+        REQUIRE(s.symbolValueAt(gensym("SYM"), 0, &s_)->s_name == std::string("some string    with spaces, and ;"));
         REQUIRE(s.symbolValueAt(gensym("SYM2"), 0, &s_)->s_name == std::string("a,a"));
         REQUIRE(s.listValueAt(gensym("LST"), 0) == LA(1, 2, 3, "a", "b", "c"));
         REQUIRE(s.anyValueAt(gensym("ANY"), 0) == LA("sample", 1, 3));
