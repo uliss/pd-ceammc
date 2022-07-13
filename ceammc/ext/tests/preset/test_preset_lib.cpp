@@ -133,7 +133,7 @@ TEST_CASE("ceammc_preset", "[PureData]")
         s.setFloatValueAt(gensym("F"), 0, -1024);
         s.setSymbolValueAt(gensym("SYM"), 0, gensym("some string    with spaces, and ;"));
         s.setSymbolValueAt(gensym("SYM2"), 0, gensym("a,a"));
-        s.setListValueAt(gensym("LST"), 0, LA(1, 2, 3, "a", "b", "c"));
+        s.setListValueAt(gensym("LST"), 0, LA(1, 2, 3, "a", "b", "c", "d, e, f;"));
         s.setAnyValueAt(gensym("ANY"), 0, gensym("sample"), LF(1, 3));
 
         REQUIRE(s.keys().size() == 5);
@@ -147,7 +147,7 @@ TEST_CASE("ceammc_preset", "[PureData]")
         REQUIRE(s.floatValueAt(gensym("F"), 0) == -1024);
         REQUIRE(s.symbolValueAt(gensym("SYM"), 0, &s_)->s_name == std::string("some string    with spaces, and ;"));
         REQUIRE(s.symbolValueAt(gensym("SYM2"), 0, &s_)->s_name == std::string("a,a"));
-        REQUIRE(s.listValueAt(gensym("LST"), 0) == LA(1, 2, 3, "a", "b", "c"));
+        REQUIRE(s.listValueAt(gensym("LST"), 0) == LA(1, 2, 3, "a", "b", "c", "d, e, f;"));
         REQUIRE(s.anyValueAt(gensym("ANY"), 0) == LA("sample", 1, 3));
 
         s.clearAll();

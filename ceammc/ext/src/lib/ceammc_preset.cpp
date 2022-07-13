@@ -205,11 +205,7 @@ bool PresetStorage::write(const char* path) const
             if (ptr->hasFloatAt(i))
                 binbuf_addv(content, "sf", &s_float, ptr->floatAt(i));
             else if (ptr->hasSymbolAt(i)) {
-                t_atom a;
-                SETSYMBOL(&a, ptr->symbolAt(i));
-                char buf[MAXPDSTRING];
-                atom_string(&a, buf, sizeof(buf) - 1);
-                binbuf_addv(content, "ss", &s_symbol, gensym(buf));
+                binbuf_addv(content, "ss", &s_symbol, ptr->symbolAt(i));
             } else if (ptr->hasListAt(i)) {
                 auto lv = ptr->listAt(i);
                 binbuf_addv(content, "s", &s_list);
@@ -298,12 +294,7 @@ bool PresetStorage::read(const char* path)
             if (sel == &s_float) {
                 setFloatValueAt(name, index, line[3].asFloat());
             } else if (sel == &s_symbol) {
-                binbuf_clear(bb_sym.get());
-                binbuf_restore(bb_sym.get(), 1, &line[3].atom());
-                if (binbuf_getnatom(bb_sym.get()) == 1) {
-                    Atom a(*binbuf_getvec(bb_sym.get()));
-                    setSymbolValueAt(name, index, a.asSymbol());
-                }
+                setSymbolValueAt(name, index, line[3].asSymbol());
             } else {
                 auto lv = line.view().subView(3);
                 if (!lv.empty() && lv.back().isSemicolon())
