@@ -172,7 +172,7 @@ TEST_CASE("DataTypeMList", "[core]")
         REQUIRE_FLATTEN("()", "()");
         REQUIRE_FLATTEN("(1 2 3)", "(1 2 3)");
         REQUIRE_FLATTEN("(a b c)", "(a b c)");
-        REQUIRE_FLATTEN("(\"a string\")", "(\"a\\ string\")");
+        REQUIRE_FLATTEN("(\"a string\")", "(\"a string\")");
         REQUIRE_FLATTEN("(())", "()");
         REQUIRE_FLATTEN("((())(())((((((((()))))))))()())", "()");
         REQUIRE_FLATTEN("((((((123))))))", "(123)");
