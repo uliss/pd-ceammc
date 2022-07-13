@@ -1,5 +1,6 @@
 # include "parser_strings.h"
 # include "ceammc_format.h"
+# include "ceammc_log.h"
 # include "fmt/format.h"
 
 %%{
@@ -124,94 +125,65 @@ bool string_need_quotes(const char* str) {
 
     # zero string version
     esc_all =
-        str_escape       >{ rl_str += '`';   rl_str += '`'; } |
-        str_dquote       >{ rl_str += '`';   rl_str += '"'; } |
-        str_space        >{ rl_str += '\\';  rl_str += ' '; } |
-        str_comma        >{ rl_str += '\\';  rl_str += ','; } |
-        str_semicolon    >{ rl_str += '\\';  rl_str += ';'; } |
-        str_backslash    >{ rl_str += '`';   rl_str += '/'; };
+        str_escape       >{ out.push_back('`');   out.push_back('`'); } |
+        str_dquote       >{ out.push_back('`');   out.push_back('"'); } |
+        str_space        >{ out.push_back('\\');  out.push_back(' '); } |
+        str_comma        >{ out.push_back('\\');  out.push_back(','); } |
+        str_semicolon    >{ out.push_back('\\');  out.push_back(';'); } |
+        str_backslash    >{ out.push_back('`');   out.push_back('/'); };
 
-    other = (any - (esc_all|0)) >{ rl_str += fc; };
+    other = (any - (esc_all|0)) >{ out.push_back(fc); };
 
     main := (esc_all | other)* 0 @{ fbreak; };
     write data;
 }%%
+
+template <typename T>
+static bool escape_and_quote_t(const char* str, T& out) noexcept
+{
+    try {
+        if (str == nullptr || str[0] == '\0') {
+            out.push_back('"');
+            out.push_back('"');
+            return true;
+        }
+
+        int cs = 0;
+        const char* p = str;
+
+        out.push_back('"');
+
+        %% write init;
+        %% write exec noend;
+
+        out.push_back('"');
+        return true;
+    } catch(std::exception& e) {
+        LIB_ERR << fmt::format("[{}] error '{}'", __FUNCTION__, e.what());
+        return false;
+    }
+}
 
 void escape_and_quote(const char* str, std::string& out)
 {
-    if (str == nullptr || str[0] == '\0') {
-        out = "\"\"";
-        return;
-    }
-
-    int cs = 0;
-    const char* p = str;
-    std::string& rl_str = out;
-
-    rl_str += '"';
-
-    %% write init;
-    %% write exec noend;
-
-    rl_str += '"';
+    MediumString buf;
+    escape_and_quote_t(str, buf);
+    out.assign(buf.data(), buf.size());
 }
 
-%%{
-    machine escape_and_quote_buf;
-    include string_common "ragel_strings.rl";
-
-    # zero string version
-    esc_all =
-        (str_escape      >{ append_buf('`');   append_buf('`'); } |
-        str_dquote       >{ append_buf('`');   append_buf('"'); } |
-        str_space        >{ append_buf('\\');  append_buf(' '); } |
-        str_comma        >{ append_buf('\\');  append_buf(','); } |
-        str_semicolon    >{ append_buf('\\');  append_buf(';'); } |
-        str_backslash    >{ append_buf('`');   append_buf('/'); });
-
-    other = (any - (esc_all|0)) >{ append_buf(fc); };
-
-    main := (esc_all | other)* 0 @{ fbreak; };
-    write data;
-}%%
-
-int escape_and_quote(const char* str, char* buf, size_t buf_len)
+void escape_and_quote(const char* str, SmallString& out)
 {
-    #define append_buf(c) { if (rl_n-- > 1) *(rl_buf++) = c; else rl_overflow = true; }
+    escape_and_quote_t(str, out);
+}
 
-    if (!buf || buf_len < 3) {
-        std::cerr << fmt::format("[{}] invalid buffer {} ({} bytes)\n", __FUNCTION__, (void*)buf, buf_len);
-        return -1;
-    }
+void escape_and_quote(const char* str, MediumString& out)
+{
+    escape_and_quote_t(str, out);
+}
 
-    if (str == nullptr || str[0] == '\0') {
-        buf[0] = '"';
-        buf[1] = '"';
-        buf[2] = 0;
-        return 2;
-    }
-
-    int cs = 0;
-    const char* p = str;
-    char* rl_buf = buf;
-    size_t rl_n = buf_len;
-    bool rl_overflow = false;
-
-    append_buf('"');
-
-    %% write init;
-    %% write exec noend;
-
-    append_buf('"');
-
-    if (rl_overflow) {
-        std::cerr << fmt::format("[{}] buffer ({} bytes) overflow while quoting string: {}\n", __FUNCTION__, buf_len, str);
-        buf[0] = 0;
-        return -2;
-    } else {
-        *rl_buf = 0;
-        return buf_len - rl_n;
-   }
+bool escape_and_quote(const char* str, StaticString& out)
+{
+    return escape_and_quote_t(str, out);
 }
 
 }

@@ -3,10 +3,15 @@
 
 #include "ceammc_atomlist_view.h"
 
+#include <boost/container/small_vector.hpp>
+#include <boost/static_string.hpp>
 #include <string>
 
 namespace ceammc {
 namespace string {
+    using StaticString = boost::static_string<MAXPDSTRING>;
+    using SmallString = boost::container::small_vector<char, 31>;
+    using MediumString = boost::container::small_vector<char, 255>;
 
     /**
      * Checks if given string is matched to quoted string end
@@ -25,8 +30,10 @@ namespace string {
 
     bool string_need_quotes(const char* str);
 
-    int escape_and_quote(const char* str, char* buf, size_t buf_len);
     void escape_and_quote(const char* str, std::string& out);
+    bool escape_and_quote(const char* str, StaticString& out);
+    void escape_and_quote(const char* str, SmallString& out);
+    void escape_and_quote(const char* str, MediumString& out);
 }
 }
 

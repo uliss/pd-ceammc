@@ -17,6 +17,7 @@
 #include "ceammc_format.h"
 #include "ceammc_json.h"
 #include "ceammc_log.h"
+#include "ceammc_string.h"
 #include "fmt/format.h"
 
 #include <algorithm>
@@ -98,16 +99,20 @@ std::string DataTypeMList::toJsonString() const
 
 std::string DataTypeMList::toListStringContent() const noexcept
 {
-    std::string res;
+    string::MediumString res;
+    string::SmallString str;
 
     for (size_t i = 0; i < data_.size(); i++) {
         if (i > 0)
-            res += ' ';
+            res.push_back(' ');
 
-        res += to_string_quoted(data_[i]);
+
+        string::parsed_atom_to_string(data_[i], str);
+        res.insert(res.end(), str.begin(), str.end());
+        str.clear();
     }
 
-    return res;
+    return std::string(res.data(), res.size());
 }
 
 std::string DataTypeMList::toDictStringContent() const noexcept

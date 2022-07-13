@@ -11,12 +11,14 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-
 #include "catch.hpp"
 #include "ceammc_atomlist.h"
+#include "ceammc_data.h"
 #include "ceammc_string.h"
+#include "datatype_mlist.h"
 #include "lex/parser_strings.h"
 #include "test_common.h"
+#include "test_datatypes.h"
 
 #include <cstring>
 
@@ -443,29 +445,6 @@ TEST_CASE("ceammc_string", "[PureData]")
         REQUIRE_ESCAPE_AND_QUOTE(R"(`abc`)", R"("``abc``")");
     }
 
-    SECTION("escape_and_quote buf")
-    {
-        char buf[5];
-        REQUIRE(escape_and_quote(nullptr, buf, 0) == -1);
-        REQUIRE(escape_and_quote(nullptr, nullptr, sizeof(buf)) == -1);
-        REQUIRE(escape_and_quote(nullptr, buf, sizeof(buf)) == 2);
-        REQUIRE(buf == std::string("\"\""));
-        REQUIRE(escape_and_quote("", buf, sizeof(buf)) == 2);
-        REQUIRE(buf == std::string("\"\""));
-        REQUIRE(escape_and_quote("a", buf, sizeof(buf)) == 3);
-        REQUIRE(buf == std::string("\"a\""));
-        REQUIRE(escape_and_quote("ab", buf, sizeof(buf)) == 4);
-        REQUIRE(buf == std::string("\"ab\""));
-        REQUIRE(escape_and_quote("abc", buf, sizeof(buf)) == -2);
-        REQUIRE(escape_and_quote("abcd", buf, sizeof(buf)) == -2);
-        REQUIRE(escape_and_quote(" ", buf, sizeof(buf)) == 4);
-        REQUIRE(buf == std::string("\"\\ \""));
-        REQUIRE(escape_and_quote(",", buf, sizeof(buf)) == 4);
-        REQUIRE(buf == std::string("\"\\,\""));
-        REQUIRE(escape_and_quote(";", buf, sizeof(buf)) == 4);
-        REQUIRE(buf == std::string("\"\\;\""));
-    }
-
     SECTION("raw_list_to_string")
     {
         SECTION("std::string")
@@ -489,12 +468,12 @@ TEST_CASE("ceammc_string", "[PureData]")
 
         SECTION("StaticString")
         {
-#define REQUIRE_STATIC_STR(lst, s1)                     \
-            {                                           \
-            string::StaticString str;                   \
-                    raw_list_to_string(lst.view(), str);\
-                    REQUIRE(str == s1);                 \
-            }
+#define REQUIRE_STATIC_STR(lst, s1)          \
+    {                                        \
+        string::StaticString str;            \
+        raw_list_to_string(lst.view(), str); \
+        REQUIRE(str == s1);                  \
+    }
 
             REQUIRE_STATIC_STR(L(), "");
             REQUIRE_STATIC_STR(LF(1), "1");
@@ -508,12 +487,12 @@ TEST_CASE("ceammc_string", "[PureData]")
 
         SECTION("SmallString")
         {
-#define REQUIRE_SMALL_STR(lst, s1)                      \
-            {                                           \
-                    string::SmallString str;            \
-                    raw_list_to_string(lst.view(), str);\
-                    REQUIRE(std::string(str.data(), str.size()) == s1); \
-            }
+#define REQUIRE_SMALL_STR(lst, s1)                          \
+    {                                                       \
+        string::SmallString str;                            \
+        raw_list_to_string(lst.view(), str);                \
+        REQUIRE(std::string(str.data(), str.size()) == s1); \
+    }
 
             REQUIRE_SMALL_STR(L(), "");
             REQUIRE_SMALL_STR(LF(1), "1");
@@ -527,12 +506,12 @@ TEST_CASE("ceammc_string", "[PureData]")
 
         SECTION("MediumString")
         {
-#define REQUIRE_MEDIUM_STR(lst, s1)                     \
-            {                                           \
-                    string::MediumString str;           \
-                    raw_list_to_string(lst.view(), str);\
-                    REQUIRE(std::string(str.data(), str.size()) == s1); \
-            }
+#define REQUIRE_MEDIUM_STR(lst, s1)                         \
+    {                                                       \
+        string::MediumString str;                           \
+        raw_list_to_string(lst.view(), str);                \
+        REQUIRE(std::string(str.data(), str.size()) == s1); \
+    }
 
             REQUIRE_MEDIUM_STR(L(), "");
             REQUIRE_MEDIUM_STR(LF(1), "1");
@@ -542,6 +521,44 @@ TEST_CASE("ceammc_string", "[PureData]")
             REQUIRE_MEDIUM_STR(AtomList::parseString("1,2,3;"), "1, 2, 3;");
             REQUIRE_MEDIUM_STR(LA(Atom()), "#null");
             REQUIRE_MEDIUM_STR(LA(Atom(), "ABC"), "#null ABC");
+        }
+    }
+
+    SECTION("parsed_atom_to_string")
+    {
+        SECTION("std::string")
+        {
+#define REQUIRE_ATOM_STR(a, str)       \
+    {                                  \
+        std::string buf;               \
+        parsed_atom_to_string(a, buf); \
+        REQUIRE(buf == str);           \
+    }
+
+            using IntA = DataAtom<IntData>;
+            using StrA = DataAtom<StrData>;
+
+            REQUIRE_ATOM_STR(Atom(), "#null");
+            REQUIRE_ATOM_STR(A(-12.5), "-12.5");
+            REQUIRE_ATOM_STR(A("ABC"), "\"ABC\"");
+            REQUIRE_ATOM_STR(A("pi()"), "\"pi()\"");
+            REQUIRE_ATOM_STR(A("A B C"), "\"A\\ B\\ C\"");
+            REQUIRE_ATOM_STR(A("(())"), "\"(())\"");
+            REQUIRE_ATOM_STR(A(";"), "\"\\;\"");
+            REQUIRE_ATOM_STR(A(","), "\"\\,\"");
+            REQUIRE_ATOM_STR(A(" "), "\"\\ \"");
+            REQUIRE_ATOM_STR(A("`"), "\"``\"");
+            REQUIRE_ATOM_STR(A("\""), "\"`\"\"");
+            REQUIRE_ATOM_STR(A("#true"), "\"#true\"");
+            REQUIRE_ATOM_STR(A("#false"), "\"#false\"");
+            REQUIRE_ATOM_STR(A("#null"), "\"#null\"");
+            REQUIRE_ATOM_STR(A("[a: 1]"), "\"[a:\\ 1]\"");
+            REQUIRE_ATOM_STR(IntA(100), "IntData(100)");
+            REQUIRE_ATOM_STR(StrA("100"), "StrData(100)");
+            REQUIRE_ATOM_STR(StrA("1 2 3"), "StrData(1 2 3)");
+            REQUIRE_ATOM_STR(MListAtom(LF(1, 2, 3)), "(1 2 3)");
+            REQUIRE_ATOM_STR(MListAtom(LA("A", "B", "C")), "(\"A\" \"B\" \"C\")");
+            REQUIRE_ATOM_STR(MListAtom(LA("A B C")), "(\"A\\ B\\ C\")");
         }
     }
 }
