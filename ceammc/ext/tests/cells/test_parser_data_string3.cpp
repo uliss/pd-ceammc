@@ -51,16 +51,16 @@ TEST_CASE("datastring3", "[ceammc::data]")
         //        REQUIRE_NO_PARSE_STR("abc[0]");
         REQUIRE_PARSE_STR("абвгд жзйк", LA("абвгд", "жзйк"));
         REQUIRE_PARSE_STR("a b c", LA("a", "b", "c"));
-        REQUIRE_PARSE_STR("'a b c'", LA("a b c"));
-        REQUIRE_PARSE_STR("' '", LA(" "));
-        REQUIRE_PARSE_STR("'` '", LA(" "));
-        REQUIRE_PARSE_STR("' ` '", LA("  "));
-        REQUIRE_PARSE_STR("''", LA(""));
-        REQUIRE_PARSE_STR("'`.'", LA(","));
-        REQUIRE_PARSE_STR("'`:``'", LA(";`"));
-        REQUIRE_PARSE_STR("'(1 2 3)'", LA("(1 2 3)"));
-        REQUIRE_PARSE_STR("'a' 'b' 'c d'", LA("a", "b", "c d"));
-        REQUIRE_PARSE_STR("'I`'m'", LA("I'm"));
+        REQUIRE_PARSE_STR("'a b c'", LP("'a b c'"));
+        REQUIRE_PARSE_STR("\"a b c\"", LA("a b c"));
+        REQUIRE_PARSE_STR("' '", LP("' '"));
+        REQUIRE_PARSE_STR("\" \"", LA(" "));
+        REQUIRE_PARSE_STR("\"\"", LA(""));
+        REQUIRE_PARSE_STR("\",\"", LA(","));
+        REQUIRE_PARSE_STR("\";\"", LA(";"));
+        REQUIRE_PARSE_STR("\"(1 2 3)\"", LA("(1 2 3)"));
+        REQUIRE_PARSE_STR("\"a\" \"b\" \"c d\"", LA("a", "b", "c d"));
+        REQUIRE_PARSE_STR("\"I`\"m\"", LA("I\"m"));
         REQUIRE_PARSE_STR("\"a b c\"", LA("a b c"));
         REQUIRE_PARSE_STR("\" \"", LA(" "));
         REQUIRE_PARSE_STR("\"\"", LA(""));
@@ -145,7 +145,7 @@ TEST_CASE("datastring3", "[ceammc::data]")
         REQUIRE_PARSE_STR("(1 2)", MListAtom(1, 2));
         REQUIRE_PARSE_STR("(1 2 ())", MListAtom(1, 2, MListAtom()));
         REQUIRE_PARSE_STR("(1 2 [])", MListAtom(1, 2, DictAtom()));
-        REQUIRE_PARSE_STR("(1 2 [a: 'hello !'])", MListAtom(1, 2, DictAtom("[a: \"hello !\"]")));
+        REQUIRE_PARSE_STR("(1 2 [a: \"hello !\"])", MListAtom(1, 2, DictAtom("[a: \"hello !\"]")));
         REQUIRE_PARSE_STR("(1 (2 3 (4 5 6)))", MListAtom(1, MListAtom(2, 3, MListAtom(4, 5, 6))));
 
         REQUIRE_PARSE_STR("[]", DictAtom());
@@ -173,24 +173,24 @@ TEST_CASE("datastring3", "[ceammc::data]")
     SECTION("env vars")
     {
         platform::set_env("VAR4", "100");
-        REQUIRE_PARSE_STR("'%VAR4%'", LA("100"));
-        REQUIRE_PARSE_STR("'%VAR4%/test'", LA("100/test"));
-        REQUIRE_PARSE_STR("'test:%VAR4%'", LA("test:100"));
-        REQUIRE_PARSE_STR("'test:%VAR?%'", LA("test:%VAR?%"));
-
         platform::set_env("MY_HOME", "/home/ceammc");
+
+        REQUIRE_PARSE_STR("\"%VAR4%\"", LA("100"));
+        REQUIRE_PARSE_STR("\"%VAR4%/test\"", LA("100/test"));
+        REQUIRE_PARSE_STR("\"test:%VAR4%\"", LA("test:100"));
+        REQUIRE_PARSE_STR("\"test:%VAR?%\"", LA("test:%VAR?%"));
         REQUIRE_PARSE_STR("\"%MY_HOME%/doc/my.wav\"", LA("/home/ceammc/doc/my.wav"));
     }
 
     SECTION("String()")
     {
-        REQUIRE_PARSE_STR("S''", StringAtom(""));
+        platform::set_env("MY_HOME", "/home/ceammc");
+
         REQUIRE_PARSE_STR("S\"\"", StringAtom(""));
-        REQUIRE_PARSE_STR("S' '", StringAtom(" "));
-        REQUIRE_PARSE_STR("S'   '", StringAtom("   "));
-        REQUIRE_PARSE_STR("S'String()'", StringAtom("String()"));
+        REQUIRE_PARSE_STR("S\" \"", StringAtom(" "));
+        REQUIRE_PARSE_STR("S\"   \"", StringAtom("   "));
         REQUIRE_PARSE_STR("S\"String()\"", StringAtom("String()"));
-        REQUIRE_PARSE_STR("S'%MY_HOME%'", StringAtom("/home/ceammc"));
+        REQUIRE_PARSE_STR("S\"%MY_HOME%\"", StringAtom("/home/ceammc"));
     }
 
     SECTION("Matrix")

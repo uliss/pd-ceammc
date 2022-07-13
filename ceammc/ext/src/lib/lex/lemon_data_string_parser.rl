@@ -27,7 +27,6 @@
         ragel_type = TYPE_UNKNOWN;
     }
     action on_double_quote { ragel_string.clear(); fcall scan_dqstring; }
-    action on_single_quote { ragel_string.clear(); fcall scan_sqstring; }
     action on_fn_call {
         // skip trailing whitespaces
         auto te0 = te;
@@ -83,7 +82,6 @@
             ragel_string.append(ts, te - ts);
     }
 
-    action on_data_sqstring { pushToken(TK_STRING); ragel_string.clear(); fcall scan_sqstring; }
     action on_data_dqstring { pushToken(TK_STRING); ragel_string.clear(); fcall scan_dqstring; }
 
     action on_other { pushSymbolToken(TK_SYMBOL, ts, te); }
@@ -99,7 +97,6 @@
     func_call_list = [a-z][a-z_0-9]* '(' space*;
     data_call_list = [A-Z][a-zA-Z]*  '(' space*;
     data_call_dict = [A-Z][a-zA-Z]*  '[';
-    data_sqstring  = "S'";
     data_dqstring  = 'S"';
     # matrix syntax:
     # #[(1 ...3) (2...)]
@@ -118,8 +115,6 @@
         | tok_rpar
         | tok_lbr
         | str_dquote
-        | str_squote
-        | data_sqstring
         | data_dqstring
         | data_matrix
         | func_call_list
@@ -131,24 +126,9 @@
 
     action on_quote_end  { pushSymbolToken(TK_SYMBOL, &(*ragel_string.begin()), (&*ragel_string.end())); fret; }
 
-    scan_sqstring := |*
-        ^(str_escape | str_squote) => { ragel_string += fc;   };
-        "`'"                       => { ragel_string += '\''; };
-        esc_space                  => { ragel_string += ' '; };
-        esc_comma                  => { ragel_string += ','; };
-        esc_semicolon              => { ragel_string += ';'; };
-        esc_escape                 => { ragel_string += '`'; };
-        esc_slash                  => { ragel_string += '\\'; };
-        str_envvar                 => on_env_variable;
-        str_squote                 => on_quote_end;
-    *|;
-
     scan_dqstring := |*
         ^(str_escape | str_dquote) => { ragel_string += fc;  };
         '`"'                       => { ragel_string += '"'; };
-        esc_space                  => { ragel_string += ' '; };
-        esc_comma                  => { ragel_string += ','; };
-        esc_semicolon              => { ragel_string += ';'; };
         esc_escape                 => { ragel_string += '`'; };
         esc_slash                  => { ragel_string += '\\'; };
         str_envvar                 => on_env_variable;
@@ -183,13 +163,11 @@
         tok_rpar   => on_rpar;
         tok_lbr    => on_dict_start;
         str_dquote => on_double_quote;
-        str_squote => on_single_quote;
 
         float          => on_float;
         func_call_list => on_fn_call;
         data_call_list => on_data_list;
         data_call_dict => on_data_dict;
-        data_sqstring  => on_data_sqstring;
         data_dqstring  => on_data_dqstring;
         data_matrix    => on_data_matrix;
 
@@ -209,13 +187,11 @@
         tok_rpar   => on_rpar;
         tok_lbr    => { pushToken(TK_DICT_OPEN); fcall scan_dict; };
         str_dquote => on_double_quote;
-        str_squote => on_single_quote;
 
         float          => on_float;
         func_call_list => on_fn_call;
         data_call_list => on_data_list;
         data_call_dict => on_data_dict;
-        data_sqstring  => on_data_sqstring;
         data_dqstring  => on_data_dqstring;
         data_matrix    => on_data_matrix;
 

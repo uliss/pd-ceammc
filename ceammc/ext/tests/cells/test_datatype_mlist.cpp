@@ -107,7 +107,7 @@ TEST_CASE("DataTypeMList", "[core]")
         REQUIRE_PARSE_STR("(1 2 3 ( pi() 124 ) )", ML(1, 2, 3, MA(3.1415926, 124)));
 #endif
         REQUIRE_PARSE_STR("((a) (b))", ML(MA("a"), MA("b")));
-        REQUIRE_PARSE_STR("('()')", ML(A("()")));
+        REQUIRE_PARSE_STR("(\"()\")", ML(A("()")));
         REQUIRE_PARSE_STR("((a) (b))", ML(MA("a"), MA("b")));
         REQUIRE_PARSE_STR("(\"``\")", ML("`"));
         REQUIRE_PARSE_STR("(\"\")", ML(""));
@@ -157,7 +157,7 @@ TEST_CASE("DataTypeMList", "[core]")
         REQUIRE_PARSE(" ( \"dog's\" ) ", "(dog's)");
         REQUIRE_PARSE(" (1 2 ()   abc)", "(1 2 () abc)");
         REQUIRE_PARSE(" ( \"abc\" ()   )", "(abc ())");
-        REQUIRE_PARSE(" ( 'abc' ()   )", "(abc ())");
+        REQUIRE_PARSE(" ( 'abc' ()   )", "('abc' ())");
     }
 
     SECTION("flatten")
