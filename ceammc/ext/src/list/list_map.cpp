@@ -18,12 +18,12 @@ ListMap::ListMap(const PdArgs& args)
     createCbListProperty(
         "@dict",
         [this]() -> AtomList { return dict_; },
-        [this](const AtomList& lst) -> bool {
-            if (lst.isA<DataTypeDict>()) {
-                dict_ = DictAtom(lst[0]);
+        [this](const AtomListView& lv) -> bool {
+            if (lv.isA<DataTypeDict>()) {
+                dict_ = DictAtom(lv[0]);
                 return true;
-            } else if (!dict_->fromString(to_string(lst))) {
-                OBJ_ERR << "dict expected, got: " << lst;
+            } else if (!dict_->setFromDataList(lv)) {
+                OBJ_ERR << "dict expected, got: " << lv;
                 return false;
             }
 
@@ -93,7 +93,7 @@ void ListMap::onInlet(size_t n, const AtomListView& lv)
 {
     if (lv.isA<DataTypeDict>())
         dict_ = DictAtom(lv[0]);
-    else if (!dict_->fromString(to_string(lv)))
+    else if (!dict_->setFromDataList(lv))
         OBJ_ERR << fmt::format("Dict expected, got: {}", to_string(lv));
 }
 

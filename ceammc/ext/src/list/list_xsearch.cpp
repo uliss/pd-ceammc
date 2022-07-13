@@ -31,8 +31,8 @@ ListXSearch::ListXSearch(const PdArgs& args)
         [this](const AtomList& l) -> bool {
             if (l.isData() && !l.isA<DataTypeMList>()) {
                 OBJ_ERR << fmt::format(
-                    "invalid datatype {}, only data.mlist is supported",
-                    l.first()->asData()->typeName());
+                    "invalid datatype '{}', only data.mlist is supported",
+                    l.first()->asData()->typeName().c_str());
 
                 return false;
             }

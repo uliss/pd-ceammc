@@ -25,8 +25,9 @@ ListXContains::ListXContains(const PdArgs& args)
 
     createCbListProperty(
         "@value",
-        [this]() -> AtomList { return lst_; },
-        [this](const AtomList& l) -> bool { onInlet(1, l); return true; })
+        [this]() -> AtomList {
+            OBJ_DBG << lst_; return lst_; },
+        [this](const AtomListView& lv) -> bool { onInlet(1, lv); return true; })
         ->setArgIndex(0);
 }
 
@@ -80,14 +81,14 @@ void ListXContains::onData(const Atom& d)
     }
 }
 
-void ListXContains::onInlet(size_t n, const AtomListView& lst)
+void ListXContains::onInlet(size_t n, const AtomListView& lv)
 {
-    if (lst.isData() && !lst.isA<DataTypeMList>()) {
-        OBJ_ERR << fmt::format("invalid datatype {}, only data.mlist is supported", lst[0].asData()->typeName());
+    if (lv.isData() && !lv.isA<DataTypeMList>()) {
+        OBJ_ERR << fmt::format("invalid datatype '{}', only data.mlist is supported", lv[0].asData()->typeName().c_str());
         return;
     }
 
-    lst_ = lst;
+    lst_ = lv;
 }
 
 void setup_list_xcontains()

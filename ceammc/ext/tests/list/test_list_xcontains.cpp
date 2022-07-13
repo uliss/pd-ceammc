@@ -17,6 +17,8 @@
 
 PD_COMPLETE_TEST_SETUP(ListXContains, list, xcontains)
 
+using MA = MListAtom;
+
 TEST_CASE("list.^contains", "[externals]")
 {
     pd_test_init();
@@ -45,8 +47,12 @@ TEST_CASE("list.^contains", "[externals]")
 
         SECTION("args mlist")
         {
-            TObj t("list.^contains", AtomList::parseString("(1 2 3 (4 5 6))"));
-            REQUIRE_PROPERTY(t, @value, MListAtom(*DataTypeMList::parse("( 1 2 3 ( 4 5 6 ) )")));
+            auto args = AtomList::parseString("(1 2 3 (4 5 6))");
+            TObj t("list.^contains", args);
+
+            MA ma;
+            REQUIRE(ma->setFromDataList(args));
+            REQUIRE_PROPERTY(t, @value, ma);
         }
 
         SECTION("args props")
