@@ -41,7 +41,7 @@ TEST_CASE("DataTypeSet", "[core]")
             REQUIRE(s.toList() == LA("ABC"));
             REQUIRE(s.toString() == "Set(ABC)");
             REQUIRE(s.toListString() == "Set(ABC)");
-            REQUIRE(s.toDictString() == "Set[value: ABC]");
+            REQUIRE(s.toDictString() == "Set[items: ABC]");
         }
 
         SECTION("args")
@@ -50,7 +50,7 @@ TEST_CASE("DataTypeSet", "[core]")
             REQUIRE(s.size() == 5);
             REQUIRE(s.toList(true) == LF(1, 2, 3, 4, 5));
             REQUIRE(s.toListString() == "Set(1 2 3 4 5)");
-            REQUIRE(s.toDictString() == "Set[value: 1 2 3 4 5]");
+            REQUIRE(s.toDictString() == "Set[items: 1 2 3 4 5]");
         }
 
         SECTION("list")
@@ -113,7 +113,7 @@ TEST_CASE("DataTypeSet", "[core]")
         s.add(Atom());
         REQUIRE(s.size() == 1);
         REQUIRE(s.contains(Atom()));
-        REQUIRE(s.toString() == "Set(null)");
+        REQUIRE(s.toString() == "Set(#null)");
 
         s.clear();
         s.add(LF(1, 2, 3));
@@ -170,5 +170,66 @@ TEST_CASE("DataTypeSet", "[core]")
         REQUIRE(s.toList(true) == LA("A"));
         REQUIRE(s.toString() == "Set(A)");
         REQUIRE(s.toListString() == "Set(A)");
+        REQUIRE(s.toDictString() == "Set[items: A]");
+
+        REQUIRE(s.toString() == "Set(A)");
+        REQUIRE(s.toListString() == "Set(A)");
+        REQUIRE(s.toDictString() == "Set[items: A]");
+    }
+
+    SECTION("to string export")
+    {
+        using MA = MListAtom;
+        SECTION("toListStringContent")
+        {
+            CHECK(Set("").toListStringContent() == "\"\"");
+            CHECK(Set(" ").toListStringContent() == "\" \"");
+            CHECK(Set(123).toListStringContent() == "123");
+            CHECK(Set("abc").toListStringContent() == "abc");
+            CHECK(Set("a b c").toListStringContent() == "\"a b c\"");
+            CHECK(Set("'single quotes'").toListStringContent() == "\"'single quotes'\"");
+            CHECK(Set("\"double quotes\"").toListStringContent() == "\"`\"double quotes`\"\"");
+            CHECK(Set(3, 2, 1).toListStringContent() == "1 2 3");
+            CHECK(Set(MA("1", "2", "3")).toListStringContent() == "(1 2 3)");
+        }
+
+        SECTION("toListString")
+        {
+            CHECK(Set("").toListString() == "Set(\"\")");
+            CHECK(Set(" ").toListString() == "Set(\" \")");
+            CHECK(Set(123).toListString() == "Set(123)");
+            CHECK(Set("abc").toListString() == "Set(abc)");
+            CHECK(Set("a b c").toListString() == "Set(\"a b c\")");
+            CHECK(Set("'single quotes'").toListString() == "Set(\"'single quotes'\")");
+            CHECK(Set("\"double quotes\"").toListString() == "Set(\"`\"double quotes`\"\")");
+            CHECK(Set(3, 2, 1).toListString() == "Set(1 2 3)");
+            CHECK(Set(MA("1", "2", "3")).toListString() == "Set((1 2 3))");
+        }
+
+        SECTION("toString")
+        {
+            CHECK(Set("").toString() == "Set(\"\")");
+            CHECK(Set(" ").toString() == "Set(\" \")");
+            CHECK(Set(123).toString() == "Set(123)");
+            CHECK(Set("abc").toString() == "Set(abc)");
+            CHECK(Set("a b c").toString() == "Set(\"a b c\")");
+            CHECK(Set("'single quotes'").toString() == "Set(\"'single quotes'\")");
+            CHECK(Set("\"double quotes\"").toString() == "Set(\"`\"double quotes`\"\")");
+            CHECK(Set(3, 2, 1).toString() == "Set(1 2 3)");
+            CHECK(Set(MA("1", "2", "3")).toString() == "Set((1 2 3))");
+        }
+
+        SECTION("toDictString")
+        {
+            CHECK(Set("").toDictString() == "Set[items: \"\"]");
+            CHECK(Set(" ").toDictString() == "Set[items: \" \"]");
+            CHECK(Set(123).toDictString() == "Set[items: 123]");
+            CHECK(Set("abc").toDictString() == "Set[items: abc]");
+            CHECK(Set("a b c").toDictString() == "Set[items: \"a b c\"]");
+            CHECK(Set("'single quotes'").toDictString() == "Set[items: \"'single quotes'\"]");
+            CHECK(Set("\"double quotes\"").toDictString() == "Set[items: \"`\"double quotes`\"\"]");
+            CHECK(Set(3, 2, 1).toDictString() == "Set[items: 1 2 3]");
+            CHECK(Set(MA("1", "2", "3")).toDictString() == "Set[items: (1 2 3)]");
+        }
     }
 }

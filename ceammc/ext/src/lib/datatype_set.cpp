@@ -13,7 +13,9 @@
  *****************************************************************************/
 #include "datatype_set.h"
 #include "ceammc_abstractdata.h"
+#include "ceammc_containers.h"
 #include "ceammc_datastorage.h"
+#include "ceammc_string.h"
 #include "ceammc_format.h"
 #include "ceammc_log.h"
 #include "fmt/format.h"
@@ -251,12 +253,20 @@ DataTypeSet::DataTypeSet(const DataTypeSet& ds)
 
 std::string DataTypeSet::toListStringContent() const noexcept
 {
-    return to_string(toList(true));
+    SmallAtomListN<16> lst;
+    for (auto& a : data_)
+        lst.push_back(a);
+
+    std::sort(lst.begin(), lst.end());
+
+    string::MediumString str;
+    string::parsed_list_to_string(lst.view(), str);
+    return std::string(str.data(), str.size());
 }
 
 std::string DataTypeSet::toDictStringContent() const noexcept
 {
-    return fmt::format("value: {}", toListStringContent());
+    return fmt::format("items: {}", toListStringContent());
 }
 
 bool DataTypeSet::set(const AbstractData* d) noexcept
