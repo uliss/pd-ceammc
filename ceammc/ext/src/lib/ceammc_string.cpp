@@ -687,6 +687,7 @@ namespace string {
 
     bool parsed_atom_to_raw_string(const Atom& a, StaticString& out) noexcept
     {
+        return false;
     }
 
 }

@@ -115,11 +115,11 @@ namespace ceammc {
 				_st3:
 				p += 1;
 				st_case_3:
-				if ( 0 <= ( (*( p))) ) {
-					goto _st1;
+				if ( ( (*( p))) <= -1 ) {
+					goto _st0;
 				}
 				{
-					goto _st0;
+					goto _st1;
 				}
 				st_out:
 				_test_eof1: cs = 1; goto _test_eof; 
@@ -268,11 +268,11 @@ namespace ceammc {
 				_st4:
 				p += 1;
 				st_case_4:
-				if ( ( (*( p))) <= -1 ) {
-					goto _st0;
+				if ( 0 <= ( (*( p))) ) {
+					goto _st2;
 				}
 				{
-					goto _st2;
+					goto _st0;
 				}
 				st_out:
 				_test_eof1: cs = 1; goto _test_eof; 

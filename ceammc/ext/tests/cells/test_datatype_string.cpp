@@ -383,6 +383,56 @@ TEST_CASE("DataTypeString", "[core]")
         REQUIRE(to_string(Atom(new DataTypeString("a b c"))) == "S\"a b c\"");
     }
 
+    SECTION("toListStringContent")
+    {
+        using SA = StringAtom;
+        CHECK(SA("")->toListStringContent() == "\"\"");
+        CHECK(SA(" ")->toListStringContent() == "\" \"");
+        CHECK(SA("a, b, c;")->toListStringContent() == "\"a, b, c;\"");
+        CHECK(SA("'single quotes'")->toListStringContent() == "\"'single quotes'\"");
+        CHECK(SA("\"double quotes\"")->toListStringContent() == "\"`\"double quotes`\"\"");
+    }
+
+    SECTION("toListString")
+    {
+        using SA = StringAtom;
+        CHECK(SA("")->toListString() == "String(\"\")");
+        CHECK(SA(" ")->toListString() == "String(\" \")");
+        CHECK(SA("a, b, c;")->toListString() == "String(\"a, b, c;\")");
+        CHECK(SA("'single quotes'")->toListString() == "String(\"'single quotes'\")");
+        CHECK(SA("\"double quotes\"")->toListString() == "String(\"`\"double quotes`\"\")");
+    }
+
+    SECTION("toString")
+    {
+        using SA = StringAtom;
+        CHECK(SA("")->toString() == "S\"\"");
+        CHECK(SA(" ")->toString() == "S\" \"");
+        CHECK(SA("a, b, c;")->toString() == "S\"a, b, c;\"");
+        CHECK(SA("'single quotes'")->toString() == "S\"'single quotes'\"");
+        CHECK(SA("\"double quotes\"")->toString() == "S\"`\"double quotes`\"\"");
+    }
+
+    SECTION("toDictString")
+    {
+        using SA = StringAtom;
+        CHECK(SA("")->toDictString() == "String[value: \"\"]");
+        CHECK(SA(" ")->toDictString() == "String[value: \" \"]");
+        CHECK(SA("a, b, c;")->toDictString() == "String[value: \"a, b, c;\"]");
+        CHECK(SA("'single quotes'")->toDictString() == "String[value: \"'single quotes'\"]");
+        CHECK(SA("\"double quotes\"")->toDictString() == "String[value: \"`\"double quotes`\"\"]");
+    }
+
+    SECTION("toDictStringContent")
+    {
+        using SA = StringAtom;
+        CHECK(SA("")->toDictStringContent() == "value: \"\"");
+        CHECK(SA(" ")->toDictStringContent() == "value: \" \"");
+        CHECK(SA("a, b, c;")->toDictStringContent() == "value: \"a, b, c;\"");
+        CHECK(SA("'single quotes'")->toDictStringContent() == "value: \"'single quotes'\"");
+        CHECK(SA("\"double quotes\"")->toDictStringContent() == "value: \"`\"double quotes`\"\"");
+    }
+
     SECTION("create via factory")
     {
         auto fn = DataStorage::instance().fromListFunction("String");

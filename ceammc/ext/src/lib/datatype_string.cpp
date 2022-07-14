@@ -140,7 +140,10 @@ std::string DataTypeString::toListStringContent() const
 
 std::string DataTypeString::toDictStringContent() const
 {
-    return fmt::format("value: \"{}\"", string::escape_for_json(str_));
+    string::SmallString str;
+    string::escape_and_quote(str_.c_str(), str);
+    str.push_back('\0');
+    return fmt::format("value: {}", str.data());
 }
 
 bool DataTypeString::set(const AbstractData* d) noexcept

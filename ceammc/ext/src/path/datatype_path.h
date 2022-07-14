@@ -55,12 +55,7 @@ namespace path {
         std::string toDictStringContent() const final;
         bool set(const AbstractData* d) noexcept final;
 
-        /**
-         * Polymorphic string value
-         */
-        std::string toString() const override;
-
-        std::string valueToJsonString() const override;
+        std::string toJsonString() const override;
 
         /**
          * Polymorphics equality check
