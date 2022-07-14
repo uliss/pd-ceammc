@@ -15,6 +15,8 @@
 #include "ceammc_atomlist.h"
 #include "ceammc_datastorage.h"
 #include "ceammc_format.h"
+#include "ceammc_string.h"
+#include "fmt/format.h"
 
 #include "filesystem.hpp"
 
