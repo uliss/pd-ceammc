@@ -113,7 +113,36 @@ std::string DataTypeDict::toJsonString() const
 
 std::string DataTypeDict::toListStringContent() const
 {
-    return {};
+    string::MediumString res;
+    string::SmallString buf;
+
+    for (auto& kv : dict_) {
+        auto k = kv.first->s_name;
+        buf.insert(buf.end(), k, k + strlen(k));
+        buf.push_back(' ');
+        buf.push_back('(');
+
+        for (auto& atom : kv.second) {
+            string::parsed_atom_to_string(atom, buf);
+            buf.push_back(' ');
+        }
+
+        // replace traling space to closing bracket
+        if (buf.size() > 0 && buf.back() == ' ')
+            buf.back() = ')';
+        else
+            buf.push_back(')');
+
+        buf.push_back(' ');
+        res.insert(res.end(), buf.data(), buf.data() + buf.size());
+        buf.clear();
+    }
+
+    // remove last space
+    if (res.size() > 0)
+        res.pop_back();
+
+    return std::string(res.data(), res.size());
 }
 
 std::string DataTypeDict::toDictStringContent() const
