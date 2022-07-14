@@ -127,7 +127,7 @@ bool string_need_quotes(const char* str) {
     esc_all = (
         str_escape       >{ out.push_back('`');   out.push_back('`'); } |
         str_dquote       >{ out.push_back('`');   out.push_back('"'); } |
-        str_backslash    >{ out.push_back('`');   out.push_back('/'); } |
+        str_backslash    >{ out.push_back('\\'); } |
         str_space        >{ out.push_back(' '); } |
         str_comma        >{ out.push_back(','); } |
         str_semicolon    >{ out.push_back(';'); } |

@@ -654,7 +654,7 @@ namespace ceammc {
 					_ctr15:
 					{
 #line 130 "lex/parser_strings.rl"
-						out.push_back('`');   out.push_back('/'); }
+						out.push_back('\\'); }
 					
 #line 660 "lex/parser_strings.cpp"
 					
@@ -838,7 +838,7 @@ namespace ceammc {
 					
 					{
 #line 130 "lex/parser_strings.rl"
-						out.push_back('`');   out.push_back('/'); }
+						out.push_back('\\'); }
 					
 #line 844 "lex/parser_strings.cpp"
 					
