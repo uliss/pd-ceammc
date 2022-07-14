@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "ceammc_editor_object.h"
 #include "ceammc_canvas.h"
+#include "fmt/format.h"
 
 extern "C" {
 #include "g_canvas.h"
@@ -46,11 +47,8 @@ void EditorString::append(char ch)
 
 void EditorString::append(t_float t)
 {
-    char buf[32];
-    snprintf(buf, sizeof(buf) - 1, "%.7g", t);
-
     try {
-        str.append(buf);
+        fmt::format_to(std::back_inserter(str), "{:g}", t);
     } catch (std::exception& e) {
         LIB_ERR << e.what();
     }
@@ -73,16 +71,6 @@ void EditorString::append(const Atom& a)
         return append(a.asT<t_symbol*>());
     else
         LIB_ERR << "unsupported atom type: " << a.type();
-}
-
-void EditorString::append(const AtomList& lst, const char* delim)
-{
-    for (size_t i = 0; i < lst.size(); i++) {
-        if (i > 0)
-            append(delim);
-
-        append(lst[i]);
-    }
 }
 
 void EditorString::append(const AtomListView& lv, const char* delim)

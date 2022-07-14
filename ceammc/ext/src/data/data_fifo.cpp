@@ -159,14 +159,14 @@ EditorLineList DataFifo::getContentForEditor() const
         case Message::LIST: {
             EditorStringPtr str = EditorStringPool::pool().allocate();
             str->append("list ");
-            str->append(m.listValue());
+            str->append(m.listValue().view());
             res.push_back(str);
         } break;
         default: {
             EditorStringPtr str = EditorStringPool::pool().allocate();
             str->append(m.atomValue());
             str->append(" ");
-            str->append(m.listValue());
+            str->append(m.listValue().view());
             res.push_back(str);
         } break;
         }
