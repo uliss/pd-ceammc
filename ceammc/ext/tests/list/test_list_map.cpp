@@ -35,13 +35,13 @@ TEST_CASE("list.map", "[externals]")
 
         SECTION("args")
         {
-            TObj t("list.map", AtomList::parseString("[a: 1 2 3 b: A B C d: e: (1 2 3)]"));
+            TObj t("list.map", LP("[a: 1 2 3 b: A B C d: e: (1 2 3)]"));
             REQUIRE_PROPERTY_LIST(t, @dict, DA("[a: 1 2 3 b: A B C d: e: (1 2 3)]"));
         }
 
         SECTION("@dict")
         {
-            TObj t("list.map", AtomList::parseString("@dict [1: abc 2: def]"));
+            TObj t("list.map", LP("@dict [1: abc 2: def]"));
             REQUIRE_PROPERTY_LIST(t, @dict, DA("[1: abc 2: def]"));
         }
     }
@@ -58,7 +58,7 @@ TEST_CASE("list.map", "[externals]")
         t << 3;
         REQUIRE(!t.hasOutput());
 
-        t.sendListTo(AtomList::parseString("[2: 1 2 3: 1 2 3]"), 1);
+        t.sendListTo(LP("[2: 1 2 3: 1 2 3]"), 1);
         REQUIRE_PROPERTY(t, @dict, DA("[2: 1 2 3: 1 2 3]"));
 
         t << 1;
@@ -84,7 +84,7 @@ TEST_CASE("list.map", "[externals]")
         t << "C";
         REQUIRE(!t.hasOutput());
 
-        t.sendMessage(SYM("@dict"), AtomList::parseString("[A: 1 2 B: \"with spaces\"]"));
+        t.sendMessage(SYM("@dict"), LP("[A: 1 2 B: \"with spaces\"]"));
         REQUIRE_PROPERTY(t, @dict, DA("[A: 1 2 B: \"with spaces\"]"));
 
         t << "A";
@@ -105,7 +105,7 @@ TEST_CASE("list.map", "[externals]")
         REQUIRE(t.hasOutput());
         REQUIRE(t.outputListAt(0) == L());
 
-        t.sendListTo(AtomList::parseString("[1: one 2: two 3: three 4: four 5: five]"), 1);
+        t.sendListTo(LP("[1: one 2: two 3: three 4: four 5: five]"), 1);
 
         t << L();
         REQUIRE(t.hasOutput());
@@ -126,7 +126,7 @@ TEST_CASE("list.map", "[externals]")
 
     SECTION("mlist")
     {
-        TExt t("list.map", "[1: one 2: two 3: three 4: four 5: five]");
+        TExt t("list.map", LP("[1: one 2: two 3: three 4: four 5: five]"));
 
         t << MLA();
         REQUIRE(t.hasOutput());

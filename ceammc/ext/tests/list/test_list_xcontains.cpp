@@ -41,13 +41,13 @@ TEST_CASE("list.^contains", "[externals]")
 
         SECTION("spaces and quotes")
         {
-            TObj t("list.^contains", LA("\"a b c\""));
+            TObj t("list.^contains", LP("\"a b c\""));
             REQUIRE_PROPERTY(t, @value, "a b c");
         }
 
         SECTION("args mlist")
         {
-            auto args = AtomList::parseString("(1 2 3 (4 5 6))");
+            auto args = LP("(1 2 3 (4 5 6))");
             TObj t("list.^contains", args);
 
             MA ma;
@@ -57,7 +57,7 @@ TEST_CASE("list.^contains", "[externals]")
 
         SECTION("args props")
         {
-            TObj t("list.^contains", AtomList::parseString("\"@b\" \"@c\""));
+            TObj t("list.^contains", LP("\"@b\" \"@c\""));
             REQUIRE_PROPERTY(t, @value, LA("@b", "@c"));
         }
     }
