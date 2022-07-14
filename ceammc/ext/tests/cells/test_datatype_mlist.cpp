@@ -290,6 +290,8 @@ TEST_CASE("DataTypeMList", "[core]")
 
     SECTION("toString")
     {
+        using MA = MListAtom;
+
         SECTION("toListStringContent")
         {
             CHECK(ML().toListStringContent() == "");
@@ -299,6 +301,7 @@ TEST_CASE("DataTypeMList", "[core]")
             CHECK(ML("'single quotes'").toListStringContent() == "\"'single quotes'\"");
             CHECK(ML("\"double quotes\"").toListStringContent() == "\"`\"double quotes`\"\"");
             CHECK(ML(1, 2, 3).toListStringContent() == "1 2 3");
+            CHECK(ML("a", "b c", MA(1, 2, 3)).toListStringContent() == "a \"b c\" (1 2 3)");
         }
 
         SECTION("toListString")
@@ -310,6 +313,7 @@ TEST_CASE("DataTypeMList", "[core]")
             CHECK(ML("'single quotes'").toListString() == "MList(\"'single quotes'\")");
             CHECK(ML("\"double quotes\"").toListString() == "MList(\"`\"double quotes`\"\")");
             CHECK(ML(1, 2, 3).toListString() == "MList(1 2 3)");
+            CHECK(ML("a", "b c", MA(1, 2, 3)).toListString() == "MList(a \"b c\" (1 2 3))");
         }
 
         SECTION("toString")
@@ -321,6 +325,7 @@ TEST_CASE("DataTypeMList", "[core]")
             CHECK(ML("'single quotes'").toString() == "(\"'single quotes'\")");
             CHECK(ML("\"double quotes\"").toString() == "(\"`\"double quotes`\"\")");
             CHECK(ML(1, 2, 3).toString() == "(1 2 3)");
+            CHECK(ML("a", "b c", MA(1, 2, 3)).toString() == "(a \"b c\" (1 2 3))");
         }
 
         SECTION("toDictString")
@@ -332,6 +337,7 @@ TEST_CASE("DataTypeMList", "[core]")
             CHECK(ML("'single quotes'").toDictString() == "MList[items: \"'single quotes'\"]");
             CHECK(ML("\"double quotes\"").toDictString() == "MList[items: \"`\"double quotes`\"\"]");
             CHECK(ML(1, 2, 3).toDictString() == "MList[items: 1 2 3]");
+            CHECK(ML("a", "b c", MA(1, 2, 3)).toDictString() == "MList[items: a \"b c\" (1 2 3)]");
         }
 
         SECTION("toDictStringContent")
@@ -343,6 +349,7 @@ TEST_CASE("DataTypeMList", "[core]")
             CHECK(ML("'single quotes'").toDictStringContent() == "items: \"'single quotes'\"");
             CHECK(ML("\"double quotes\"").toDictStringContent() == "items: \"`\"double quotes`\"\"");
             CHECK(ML(1, 2, 3).toDictStringContent() == "items: 1 2 3");
+            CHECK(ML("a", "b c", MA(1, 2, 3)).toDictStringContent() == "items: a \"b c\" (1 2 3)");
         }
     }
 }
