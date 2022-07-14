@@ -72,7 +72,7 @@ public:
         return "IntPair";
     }
 
-    Result setFromList(const AtomList& l) override
+    Result setFromList(const AtomListView& l) override
     {
         if (l.size() != 2)
             return error("v0 v1 expected");

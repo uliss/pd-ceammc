@@ -50,7 +50,7 @@ public:
         return ok();
     }
 
-    Result setFromList(const ceammc::AtomList& l) override
+    Result setFromList(const ceammc::AtomListView& l) override
     {
         if (l.isFloat()) {
             v_ = static_cast<decltype(v_)>(l[0].asFloat());
