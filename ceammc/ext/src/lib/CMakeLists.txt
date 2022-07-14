@@ -170,7 +170,7 @@ if(RAGEL_FOUND)
 
     add_custom_target(lemon_data_parser
         COMMAND $<TARGET_FILE:lemon> -s -q lemon_data_string.y
-        COMMAND mv lemon_data_string.c lemon_data_parser_impl.h
+        COMMAND mv lemon_data_string.c lemon_data_parser_impl.cpp
         SOURCES lex/lemon_data_string.y
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lex
     )
@@ -187,6 +187,8 @@ target_sources(ceammc_core
         lex/parser_props_details.cpp
         lex/parser_units.cpp
         lex/parser_strings.cpp
+        lex/lemon_data_parser_impl.h
+        lex/lemon_data_parser_impl.cpp
         lex/lemon_data_string_parser.h
         lex/lemon_data_string_parser.cpp
 )

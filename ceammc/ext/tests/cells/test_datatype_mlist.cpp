@@ -174,7 +174,7 @@ TEST_CASE("DataTypeMList", "[core]")
         REQUIRE_FLATTEN("(a b c)", "(a b c)");
         REQUIRE_FLATTEN("(\"a string\")", "(\"a string\")");
         REQUIRE_FLATTEN("(())", "()");
-        REQUIRE_FLATTEN("((())(())((((((((()))))))))()())", "()");
+        REQUIRE_FLATTEN("((()) (()) ((((((((())))))))) () ())", "()");
         REQUIRE_FLATTEN("((((((123))))))", "(123)");
         REQUIRE_FLATTEN("(1 2 () (3) ((4 5 6)))", "(1 2 3 4 5 6)");
     }
@@ -369,5 +369,18 @@ TEST_CASE("DataTypeMList", "[core]")
             CHECK(ML(1, 2, 3).toDictStringContent() == "items: 1 2 3");
             CHECK(ML("a", "b c", MA(1, 2, 3)).toDictStringContent() == "items: a \"b c\" (1 2 3)");
         }
+    }
+
+    SECTION("parse errors")
+    {
+        Atom res;
+        CHECK_FALSE(ML::parse(LP("123"), ML::dataType, res));
+        CHECK_FALSE(ML::parse(LP("ABC"), ML::dataType, res));
+        CHECK(ML::parse(LP("()"), ML::dataType, res));
+        CHECK_FALSE(ML::parse(LP("() 1"), ML::dataType, res));
+        CHECK_FALSE(ML::parse(LP("1 ()"), ML::dataType, res));
+        CHECK_FALSE(ML::parse(LP("[]"), ML::dataType, res));
+        CHECK_FALSE(ML::parse(LP("(    1 2 3"), ML::dataType, res));
+        CHECK_FALSE(ML::parse(LP("(    1 2 3))"), ML::dataType, res));
     }
 }

@@ -23,23 +23,29 @@ namespace parser {
         LemonDataStringParser();
         ~LemonDataStringParser();
 
-        bool parse(const char* str);
-        bool doParse(const char* data);
+        /**
+         * Parse specified string
+         * @param str - C-string to parse
+         * @return true on success, false on error
+         */
+        bool parse(const char* str) noexcept;
 
-        inline void* parser() { return parser_data_; }
+        /**
+         * Returns error string if it occured while parsing
+         */
+        const std::string errorString() const { return error_; }
 
-        void pushToken(int token);
-        void pushSymbolToken(int token, const char* begin, const char* end);
-        void pushFloat(double val);
+        /**
+         * Return parsing result
+         */
+        AtomListView result() const { return res_ ? res_->view() : AtomListView(); }
 
-        void pPushListAtom(const t_atom& a);
+        /// functions for lemon parser
+        void setResult(SmallList* res) { res_ = res; }
 
-        AtomListView result() const { return res_.view(); }
-
-        void setErrorMsg(const char* msg);
-        void parseFailure();
-        void parseAccept() { parse_ok_ = true; }
-        void stackOverflow();
+        void onParseFailure();
+        void onParseAccept() { parse_ok_ = true; }
+        void onStackOverflow();
 
         SmallListPool& pool() { return pool_; }
         const SmallListPool& pool() const { return pool_; }
@@ -49,16 +55,20 @@ namespace parser {
         constexpr static size_t PARSER_SIZE = 1096;
 
     private:
+        inline void* parser() { return parser_data_; }
         void reset();
         void onFloat(AtomCategory cat, AtomType type, const fsm::NumericData& num);
+        void pushToken(int token);
+        void pushSymbolToken(int token, const char* begin, const char* end);
+        void pushFloat(double val);
 
     private:
         char parser_data_[PARSER_SIZE]; ///< parser is on the stack to avoid dynamic alloc
         char parser_buf_[256];
-        char err_buf_[64];
         bool parse_ok_;
-        SmallList res_;
+        SmallList* res_;
         SmallListPool pool_;
+        std::string error_;
     };
 
 }

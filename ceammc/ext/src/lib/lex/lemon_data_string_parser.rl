@@ -1,9 +1,10 @@
 # include "lemon_data_string_parser.h"
+# include "ceammc_log.h"
 # include "lemon_data_string.h"
 # include "parser_numeric.h"
+# include "fmt/format.h"
 
 # include <cstdint>
-# include <cstdlib>
 # include <boost/static_string.hpp>
 
 # include "lemon_data_parser_impl.h"
@@ -146,7 +147,7 @@
         float     => on_float;
         tok_lpar  => on_lpar;
         tok_rpar  => on_rpar;
-        tok_space => {};
+        tok_space => { pushToken(TK_SPACE); };
         tok_rbr   => { pushToken(TK_MATRIX_CLOSE); fret; };
     *|;
 
@@ -210,9 +211,8 @@ namespace parser {
 
 %% write data;
 
-static_assert(LemonDataStringParser::PARSER_SIZE >= sizeof(yyParser), "");
-
 LemonDataStringParser::LemonDataStringParser()
+    : res_(nullptr)
 {
     reset();
     lemon_data_string_parserInit(parser_data_);
@@ -229,7 +229,7 @@ LemonDataStringParser::~LemonDataStringParser()
 
 void LemonDataStringParser::pushToken(int token)
 {
-    lemon_data_string_parser(parser(), token, {}, this);
+    lemon_data_string_parser_token(parser(), token, this);
 }
 
 void LemonDataStringParser::pushFloat(double val)
@@ -238,7 +238,7 @@ void LemonDataStringParser::pushFloat(double val)
     std::cerr << __FUNCTION__ << ' ' << val << std::endl;
 # endif
 
-    lemon_data_string_parser(parser(), TK_FLOAT, val, this);
+    lemon_data_string_parser_float(parser(), TK_FLOAT, val, this);
 }
 
 void LemonDataStringParser::pushSymbolToken(int token, const char* begin, const char* end)
@@ -249,38 +249,29 @@ void LemonDataStringParser::pushSymbolToken(int token, const char* begin, const 
         parser_buf_[i] = begin[i];
 
     parser_buf_[N] = 0;
-    lemon_data_string_parser(parser(), token, parser_buf_, this);
+    lemon_data_string_parser_str(parser(), token, parser_buf_, this);
 }
 
-bool LemonDataStringParser::parse(const char* str)
+bool LemonDataStringParser::parse(const char* data) noexcept
 {
-    reset();
-
 # ifndef NDEBUG
-    std::cerr << "parse: '" << str << "'\n";
+    LIB_LOG << fmt::format("[data] parse: {}", data);
 # endif
 
-    if (!doParse(str)) {
-        std::cerr << "parse error: '" << str << "'\n";
+    reset();
+
+    // null string pointer
+    if (data == nullptr) {
+        error_ = "[data] parse: null string pointer given";
         return false;
     }
-
-    return true;
-}
-
-bool LemonDataStringParser::doParse(const char* data)
-{
-    // null string pointer
-    if (data == nullptr)
-        return false;
 
     // empty string
     if (data[0] == '\0')
         return true;
 
-    // ragel state
+    // ragel vars
     int cs;
-    // ragel action
     int act;
     int top;
     int stack[16];
@@ -298,8 +289,6 @@ bool LemonDataStringParser::doParse(const char* data)
     // EOF
     const char* eof = pe;
 
-    parse_ok_ = true;
-
     DECLARE_RAGEL_COMMON_VARS;
     DECLARE_RAGEL_NUMERIC_VARS;
 
@@ -315,14 +304,17 @@ bool LemonDataStringParser::doParse(const char* data)
     %% write exec;
 
     } catch(std::exception& e) {
-        LIB_ERR << e.what();
+        // can be thrown on static buffer overflows etc.
+        fmt::format_to(std::back_inserter(error_), "[data] parse exception: '{}'", e.what());
         return false;
     }
 
     if (cs < %%{ write first_final; }%%) {
-        char buf[32] = "";
-        snprintf(buf, sizeof(buf)-1, "unknown token: '%s'", ts);
-        setErrorMsg(buf);
+        std::string tok_name;
+        if (ts && te)
+            tok_name.append(ts, te);
+
+        fmt::format_to(std::back_inserter(error_), "[data] lexer failed on '{}', unknown token: '{}'", data, tok_name);
         return false;
     } else {
         if (parse_ok_)
@@ -334,32 +326,22 @@ bool LemonDataStringParser::doParse(const char* data)
 
 void LemonDataStringParser::reset()
 {
-    // clean error message
-    err_buf_[0] = '\0';
     parse_ok_ = true;
-    res_.clear();
+    if (res_)
+        res_->clear();
+    error_.clear();
 }
 
-void LemonDataStringParser::pPushListAtom(const t_atom& a)
+void LemonDataStringParser::onStackOverflow()
 {
-    res_.push_back(a);
-}
-
-void LemonDataStringParser::setErrorMsg(const char* msg)
-{
-    LIB_ERR << msg;
     parse_ok_ = false;
-    throw std::runtime_error(msg);
+    fmt::format_to(std::back_inserter(error_), "[data] parse: stack overflow");
 }
 
-void LemonDataStringParser::stackOverflow()
+void LemonDataStringParser::onParseFailure()
 {
-    setErrorMsg("stack overflow");
-}
-
-void LemonDataStringParser::parseFailure()
-{
-    setErrorMsg("parse failure");
+    parse_ok_ = false;
+    fmt::format_to(std::back_inserter(error_), "[data] parse failed");
 }
 
 void LemonDataStringParser::onFloat(AtomCategory cat, AtomType type, const fsm::NumericData& num) {

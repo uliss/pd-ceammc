@@ -27,8 +27,10 @@ public:
 
     void editorSync() override
     {
-        if (!editorData().setFromDataList(lines_))
+        if (!editorData().setFromDataList(lines_)) {
+            OBJ_ERR << "can't set data: " << lines_;
             return;
+        }
 
         EditorObject<T>::editorSync();
     }

@@ -86,6 +86,7 @@ void EditorString::append(const AtomListView& lv, const char* delim)
 void EditorString::appendQuoted(const char* txt)
 {
     try {
+
         str.append(1, '"');
         const auto N = strlen(txt);
         for (size_t i = 0; i < N; i++) {

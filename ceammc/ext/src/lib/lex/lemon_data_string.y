@@ -3,19 +3,23 @@
 %extra_argument {ceammc::parser::LemonDataStringParser *p}
 
 %include {
-# pragma once
+# include <cassert>
 # include <cstring>
 # include <boost/pool/object_pool.hpp>
+
+# include "lemon_data_parser_impl.h"
+# include "lemon_data_string_parser.h"
 
 # include "ceammc_atomlist.h"
 # include "ceammc_containers.h"
 # include "ceammc_data.h"
 # include "ceammc_datastorage.h"
-# include "ceammc_log.h"
-# include "datatype_mlist.h"
 # include "datatype_dict.h"
+# include "datatype_mlist.h"
 # include "datatype_string.h"
 # include "fmt/format.h"
+
+# define YYCOVERAGE
 
 using namespace ceammc;
 using namespace ceammc::parser;
@@ -84,33 +88,25 @@ namespace {
 
 %token_type {token}
 
-%parse_accept {
-    p->parseAccept();
-}
-
 %parse_failure {
-    p->parseFailure();
-# ifndef NDEBUG
+    p->onParseFailure();
+//# ifndef NDEBUG
     for (int i = 0; i < YYNTOKEN; i++) {
         int a = yy_find_shift_action((YYCODETYPE)i, yypParser->yytos->stateno);
         if (a < (YYNSTATE + YYNRULE)) {
             std::cerr << "possible token: " << yyTokenName[i] << "\n";
         }
     }
-# endif
+//# endif
 }
 
-%stack_overflow {
-    p->stackOverflow();
-}
+%parse_accept   { p->onParseAccept(); }
+%stack_overflow { p->onStackOverflow(); }
 
 %stack_size 32
 
-program ::= zlist(A).
-{
-    for (auto& a: *A.list)
-        p->pPushListAtom(a.atom());
-}
+program      ::= zlist(A).                  { p->setResult(A.list); }
+program      ::= error.
 
 atom         ::= FLOAT.
 atom         ::= SYMBOL.
@@ -137,9 +133,8 @@ data(A)      ::= DATA_NAME(B) DICT_OPEN DICT_CLOSE.               { linit(p, A);
 // matrix
 matrix_row(A)  ::= LIST_OPEN list(B) LIST_CLOSE.                         { assign(A, B); }
 matrix_rows(A) ::= matrix_row(B).                                        { mtxinit(p, A); mtxappend(A, B); }
-matrix_rows(A) ::= matrix_rows(B) matrix_row(C).                         { assign(A, B);  mtxappend(A, C); }
+matrix_rows(A) ::= matrix_rows(B) SPACE matrix_row(C).                   { assign(A, B);  mtxappend(A, C); }
 data(A)        ::= MATRIX FLOAT(R) FLOAT(C) matrix_rows(D) MATRIX_CLOSE. { matrix(A, R, C, D); }
-
 
 func_call(A) ::= FUNC_LIST_CALL(B) LIST_OPEN zlist(C) LIST_CLOSE. { linit(p, A); lcall(A, B, C); }
 
@@ -353,4 +348,19 @@ namespace {
     }
 
 }
+
+void lemon_data_string_parser_float(void* parser, int tok, double value, Parser* p) {
+    lemon_data_string_parser(parser, tok, token{value}, p);
+}
+
+void lemon_data_string_parser_str(void* parser, int tok, const char* value, Parser* p) {
+    lemon_data_string_parser(parser, tok, token{value}, p);
+}
+
+void lemon_data_string_parser_token(void* parser, int tok, Parser* p) {
+    lemon_data_string_parser(parser, tok, {}, p);
+}
+
+static_assert(Parser::PARSER_SIZE >= sizeof(yyParser), "");
+
 }
