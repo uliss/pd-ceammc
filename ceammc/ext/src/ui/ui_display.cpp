@@ -209,9 +209,15 @@ void UIDisplay::setMessage(UIMessageType t, t_symbol* s, const AtomListView& lv)
             appendFloatToText(a.asT<t_float>());
         else if (a.isSymbol())
             msg_txt_ += a.asT<t_symbol*>()->s_name;
-        else if (a.isData())
-            msg_txt_ += a.asData()->toString();
-        else
+        else if (a.isData()) {
+            auto d = a.asData();
+            if (d->canInitWithList())
+                msg_txt_ += d->toListStringContent();
+            else if (d->canInitWithDict())
+                msg_txt_ += d->toDictStringContent();
+            else
+                msg_txt_ += a.asData()->toString();
+        } else
             msg_txt_ += to_string(a);
     }
 }
