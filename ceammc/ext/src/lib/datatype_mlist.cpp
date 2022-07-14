@@ -117,7 +117,7 @@ std::string DataTypeMList::toListStringContent() const noexcept
 
 std::string DataTypeMList::toDictStringContent() const noexcept
 {
-    return fmt::format("value: {}", toListStringContent());
+    return fmt::format("items: {}", toListStringContent());
 }
 
 bool DataTypeMList::set(const AbstractData* d) noexcept

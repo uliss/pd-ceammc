@@ -287,4 +287,62 @@ TEST_CASE("DataTypeMList", "[core]")
             REQUIRE(ML(1, 2, 3, 4).contains(ML(2, 3)));
         }
     }
+
+    SECTION("toString")
+    {
+        SECTION("toListStringContent")
+        {
+            CHECK(ML().toListStringContent() == "");
+            CHECK(ML("").toListStringContent() == "\"\"");
+            CHECK(ML(" ").toListStringContent() == "\" \"");
+            CHECK(ML("a, b, c;").toListStringContent() == "\"a, b, c;\"");
+            CHECK(ML("'single quotes'").toListStringContent() == "\"'single quotes'\"");
+            CHECK(ML("\"double quotes\"").toListStringContent() == "\"`\"double quotes`\"\"");
+            CHECK(ML(1, 2, 3).toListStringContent() == "1 2 3");
+        }
+
+        SECTION("toListString")
+        {
+            CHECK(ML().toListString() == "MList()");
+            CHECK(ML("").toListString() == "MList(\"\")");
+            CHECK(ML(" ").toListString() == "MList(\" \")");
+            CHECK(ML("a, b, c;").toListString() == "MList(\"a, b, c;\")");
+            CHECK(ML("'single quotes'").toListString() == "MList(\"'single quotes'\")");
+            CHECK(ML("\"double quotes\"").toListString() == "MList(\"`\"double quotes`\"\")");
+            CHECK(ML(1, 2, 3).toListString() == "MList(1 2 3)");
+        }
+
+        SECTION("toString")
+        {
+            CHECK(ML().toString() == "()");
+            CHECK(ML("").toString() == "(\"\")");
+            CHECK(ML(" ").toString() == "(\" \")");
+            CHECK(ML("a, b, c;").toString() == "(\"a, b, c;\")");
+            CHECK(ML("'single quotes'").toString() == "(\"'single quotes'\")");
+            CHECK(ML("\"double quotes\"").toString() == "(\"`\"double quotes`\"\")");
+            CHECK(ML(1, 2, 3).toString() == "(1 2 3)");
+        }
+
+        SECTION("toDictString")
+        {
+            CHECK(ML().toDictString() == "MList[items: ]");
+            CHECK(ML("").toDictString() == "MList[items: \"\"]");
+            CHECK(ML(" ").toDictString() == "MList[items: \" \"]");
+            CHECK(ML("a, b, c;").toDictString() == "MList[items: \"a, b, c;\"]");
+            CHECK(ML("'single quotes'").toDictString() == "MList[items: \"'single quotes'\"]");
+            CHECK(ML("\"double quotes\"").toDictString() == "MList[items: \"`\"double quotes`\"\"]");
+            CHECK(ML(1, 2, 3).toDictString() == "MList[items: 1 2 3]");
+        }
+
+        SECTION("toDictStringContent")
+        {
+            CHECK(ML().toDictStringContent() == "items: ");
+            CHECK(ML("").toDictStringContent() == "items: \"\"");
+            CHECK(ML(" ").toDictStringContent() == "items: \" \"");
+            CHECK(ML("a, b, c;").toDictStringContent() == "items: \"a, b, c;\"");
+            CHECK(ML("'single quotes'").toDictStringContent() == "items: \"'single quotes'\"");
+            CHECK(ML("\"double quotes\"").toDictStringContent() == "items: \"`\"double quotes`\"\"");
+            CHECK(ML(1, 2, 3).toDictStringContent() == "items: 1 2 3");
+        }
+    }
 }
