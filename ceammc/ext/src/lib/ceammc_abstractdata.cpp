@@ -62,8 +62,7 @@ bool AbstractData::setFromDataString(const std::string& str)
     Atom data;
 
     if (parse(str, type(), data)) {
-        set(data.asData());
-        return true;
+        return set(data.asData());
     } else
         return false;
 }
@@ -73,8 +72,7 @@ bool AbstractData::setFromDataList(const AtomListView& lv)
     Atom data;
 
     if (parse(lv, type(), data)) {
-        set(data.asData());
-        return true;
+        return set(data.asData());
     } else
         return false;
 }
