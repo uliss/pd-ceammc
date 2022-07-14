@@ -19,6 +19,7 @@
 #include "ceammc_json.h"
 #include "ceammc_log.h"
 #include "ceammc_output.h"
+#include "ceammc_string.h"
 #include "datatype_mlist.h"
 #include "datatype_string.h"
 #include "fmt/format.h"
@@ -117,25 +118,29 @@ std::string DataTypeDict::toListStringContent() const
 
 std::string DataTypeDict::toDictStringContent() const
 {
-    std::string res;
+    string::MediumString res;
+    string::SmallString buf;
 
     for (auto& kv : dict_) {
-        res += to_string_quoted(kv.first);
-        res += ':';
+        auto k = kv.first->s_name;
+        buf.insert(buf.end(), k, k + strlen(k));
+        buf.push_back(':');
 
         for (auto& atom : kv.second) {
-            res += ' ';
-            res += to_string_quoted(atom);
+            buf.push_back(' ');
+            string::parsed_atom_to_string(atom, buf);
         }
 
-        res += ' ';
+        buf.push_back(' ');
+        res.insert(res.end(), buf.data(), buf.data() + buf.size());
+        buf.clear();
     }
 
     // remove last space
     if (res.size() > 0)
         res.pop_back();
 
-    return res;
+    return std::string(res.data(), res.size());
 }
 
 bool DataTypeDict::set(const AbstractData* d) noexcept

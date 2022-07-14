@@ -417,32 +417,34 @@ TEST_CASE("ceammc_string", "[PureData]")
 
     SECTION("escape_and_quote")
     {
-#define REQUIRE_ESCAPE_AND_QUOTE(s, res, n)                               \
+#define CHECK_ESCAPE_AND_QUOTE(s, res, n)                               \
     {                                                                     \
         StaticString str;                                                  \
-        REQUIRE(n == escape_and_quote(s, str));                           \
-        REQUIRE(std::string(str.data(), str.data() + str.size()) == res); \
+        CHECK(n == escape_and_quote(s, str));                           \
+        CHECK(std::string(str.data(), str.data() + str.size()) == res); \
     }
 
-        REQUIRE(AtomList::parseString("\\ \\ ") == A("  "));
-        REQUIRE(AtomList::parseString("\\\\") == A("\\"));
-        REQUIRE(AtomList::parseString("\\,") == A(","));
-        REQUIRE(AtomList::parseString("\\;") == A(";"));
-        REQUIRE(AtomList::parseString("   ").empty());
-        REQUIRE(AtomList::parseString(",") == Atom::comma());
-        REQUIRE(AtomList::parseString(";") == Atom::semicolon());
-        REQUIRE(AtomList::parseString("$0")[0].atom().a_type == A_DOLLAR);
+        CHECK(AtomList::parseString("\\ \\ ") == A("  "));
+        CHECK(AtomList::parseString("\\\\") == A("\\"));
+        CHECK(AtomList::parseString("\\,") == A(","));
+        CHECK(AtomList::parseString("\\;") == A(";"));
+        CHECK(AtomList::parseString("   ").empty());
+        CHECK(AtomList::parseString(",") == Atom::comma());
+        CHECK(AtomList::parseString(";") == Atom::semicolon());
+        CHECK(AtomList::parseString("$0")[0].atom().a_type == A_DOLLAR);
 
-        REQUIRE_ESCAPE_AND_QUOTE("", "\"\"", 0);
-        REQUIRE_ESCAPE_AND_QUOTE(" ", "\" \"", 1);
-        REQUIRE_ESCAPE_AND_QUOTE("  ", "\"  \"", 2);
-        REQUIRE_ESCAPE_AND_QUOTE("a,b,c;", "\"a,b,c;\"", 3);
-        REQUIRE_ESCAPE_AND_QUOTE(R"("quotes")", R"("`"quotes`"")", 2);
-        REQUIRE_ESCAPE_AND_QUOTE("fn()", "\"fn()\"", 1);
-        REQUIRE_ESCAPE_AND_QUOTE("Dict[]", R"("Dict[]")", 1);
-        REQUIRE_ESCAPE_AND_QUOTE(R"(abc)", R"("abc")", 0);
-        REQUIRE_ESCAPE_AND_QUOTE(R"(1)", R"("1")", 0);
-        REQUIRE_ESCAPE_AND_QUOTE(R"(`abc`)", R"("``abc``")", 2);
+        CHECK_ESCAPE_AND_QUOTE("", "\"\"", 0);
+        CHECK_ESCAPE_AND_QUOTE(" ", "\" \"", 1);
+        CHECK_ESCAPE_AND_QUOTE("  ", "\"  \"", 2);
+        CHECK_ESCAPE_AND_QUOTE("a,b,c;", "\"a,b,c;\"", 3);
+        CHECK_ESCAPE_AND_QUOTE(R"("quotes")", R"("`"quotes`"")", 2);
+        CHECK_ESCAPE_AND_QUOTE("fn()", "\"fn()\"", 2);
+        CHECK_ESCAPE_AND_QUOTE("#true", "\"#true\"", 1);
+        CHECK_ESCAPE_AND_QUOTE(" @,:;#%", "\" @,:;#%\"", 7);
+        CHECK_ESCAPE_AND_QUOTE("Dict[]", R"("Dict[]")", 2);
+        CHECK_ESCAPE_AND_QUOTE(R"(abc)", R"("abc")", 0);
+        CHECK_ESCAPE_AND_QUOTE(R"(1)", R"("1")", 0);
+        CHECK_ESCAPE_AND_QUOTE(R"(`abc`)", R"("``abc``")", 2);
     }
 
     SECTION("raw_list_to_string")
