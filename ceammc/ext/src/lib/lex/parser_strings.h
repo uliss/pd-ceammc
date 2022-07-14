@@ -35,6 +35,22 @@ namespace string {
     int escape_and_quote(const char* str, StaticString& out);
     int escape_and_quote(const char* str, SmallString& out);
     int escape_and_quote(const char* str, MediumString& out);
+
+    template <typename T>
+    bool escape_and_quote(const Atom& a, T& out)
+    {
+        if (a.isSymbol()) {
+            return escape_and_quote(a.asT<t_symbol*>()->s_name, out) > 0 || a.asT<t_symbol*>()->s_name[0] == '\0';
+        } else if (a.isSemicolon()) {
+            return escape_and_quote(";", out) > 0;
+        } else if (a.isComma()) {
+            return escape_and_quote(",", out) > 0;
+        } else
+            return false;
+    }
+
+    void escape_and_quote(Atom& a);
+    Atom escape_and_quote(const Atom& a);
 }
 }
 

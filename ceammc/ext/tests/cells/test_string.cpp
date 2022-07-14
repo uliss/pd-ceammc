@@ -555,4 +555,43 @@ TEST_CASE("ceammc_string", "[PureData]")
         REQUIRE(out == str);               \
     }
     }
+
+    SECTION("escape_and_quote") {
+        Atom a;
+        a.setComma();
+
+        escape_and_quote(a);
+        REQUIRE(a == A(R"(",")"));
+        escape_and_quote(a);
+        REQUIRE(a == A(R"("`",`"")"));
+
+        a.setSemicolon();
+        escape_and_quote(a);
+        REQUIRE(a == A(R"(";")"));
+
+        a = A("");
+        escape_and_quote(a);
+        REQUIRE(a == A(R"("")"));
+
+        a = A(" ");
+        escape_and_quote(a);
+        REQUIRE(a == A(R"(" ")"));
+
+        a = A("   ");
+        escape_and_quote(a);
+        REQUIRE(a == A(R"("   ")"));
+
+        REQUIRE(escape_and_quote(A("")) == A("\"\""));
+        REQUIRE(escape_and_quote(A(&s_)) == A("\"\""));
+        REQUIRE(escape_and_quote(A("#")) == A("\"#\""));
+        REQUIRE(escape_and_quote(A("%")) == A("\"%\""));
+        REQUIRE(escape_and_quote(A(":")) == A("\":\""));
+        REQUIRE(escape_and_quote(A("@prop")) == A(R"("@prop")"));
+        REQUIRE(escape_and_quote(A("abc")) == A("abc"));
+        REQUIRE(escape_and_quote(A("a b c")) == A(R"("a b c")"));
+        REQUIRE(escape_and_quote(A("[")) == A(R"("[")"));
+        REQUIRE(escape_and_quote(A("]")) == A(R"("]")"));
+        REQUIRE(escape_and_quote(A("(")) == A(R"("(")"));
+        REQUIRE(escape_and_quote(A(")")) == A("\")\""));
+    }
 }

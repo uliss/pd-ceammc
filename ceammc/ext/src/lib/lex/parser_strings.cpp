@@ -268,11 +268,11 @@ namespace ceammc {
 				_st4:
 				p += 1;
 				st_case_4:
-				if ( 0 <= ( (*( p))) ) {
-					goto _st2;
+				if ( ( (*( p))) <= -1 ) {
+					goto _st0;
 				}
 				{
-					goto _st0;
+					goto _st2;
 				}
 				st_out:
 				_test_eof1: cs = 1; goto _test_eof; 
@@ -960,6 +960,30 @@ namespace ceammc {
 		int escape_and_quote(const char* str, StaticString& out)
 		{
 			return escape_and_quote_t(str, out);
+		}
+		
+		void escape_and_quote(Atom& a)
+		{
+			if (a.isSymbol() || a.isComma() || a.isSemicolon()) {
+				SmallString out;
+				if (escape_and_quote(a, out)) {
+					out.push_back(0);
+					a = gensym(out.data());
+				}
+			}
+		}
+		
+		Atom escape_and_quote(const Atom& a)
+		{
+			if (a.isSymbol() || a.isComma() || a.isSemicolon()) {
+				SmallString out;
+				if (escape_and_quote(a, out)) {
+					out.push_back(0);
+					return gensym(out.data());
+				}
+			}
+			
+			return a;
 		}
 		
 	}
