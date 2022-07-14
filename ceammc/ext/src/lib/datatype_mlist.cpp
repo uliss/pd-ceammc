@@ -106,7 +106,6 @@ std::string DataTypeMList::toListStringContent() const noexcept
         if (i > 0)
             res.push_back(' ');
 
-
         string::parsed_atom_to_string(data_[i], str);
         res.insert(res.end(), str.begin(), str.end());
         str.clear();

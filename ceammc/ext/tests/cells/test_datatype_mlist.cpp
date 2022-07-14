@@ -326,6 +326,24 @@ TEST_CASE("DataTypeMList", "[core]")
             CHECK(ML("\"double quotes\"").toString() == "(\"`\"double quotes`\"\")");
             CHECK(ML(1, 2, 3).toString() == "(1 2 3)");
             CHECK(ML("a", "b c", MA(1, 2, 3)).toString() == "(a \"b c\" (1 2 3))");
+            CHECK(ML("a", "@b", "c").toString() == "(a \"@b\" c)");
+            CHECK(ML("a", "b@", "c").toString() == "(a \"b@\" c)");
+            CHECK(ML("a", ":b", "c").toString() == "(a \":b\" c)");
+            CHECK(ML("a", "b:", "c").toString() == "(a \"b:\" c)");
+            CHECK(ML("a", "#b", "c").toString() == "(a \"#b\" c)");
+            CHECK(ML("a", "b#", "c").toString() == "(a \"b#\" c)");
+            CHECK(ML("a", ",b", "c").toString() == "(a \",b\" c)");
+            CHECK(ML("a", "b,", "c").toString() == "(a \"b,\" c)");
+            CHECK(ML("a", ";b", "c").toString() == "(a \";b\" c)");
+            CHECK(ML("a", "b;", "c").toString() == "(a \"b;\" c)");
+            CHECK(ML("a", "%b", "c").toString() == "(a \"%b\" c)");
+            CHECK(ML("a", "b%", "c").toString() == "(a \"b%\" c)");
+            CHECK(ML("a", "[b", "c").toString() == "(a \"[b\" c)");
+            CHECK(ML("a", "b[", "c").toString() == "(a \"b[\" c)");
+            CHECK(ML("a", "]b", "c").toString() == "(a \"]b\" c)");
+            CHECK(ML("a", "b]", "c").toString() == "(a \"b]\" c)");
+            CHECK(ML("a", ")b", "c").toString() == "(a \")b\" c)");
+            CHECK(ML("a", "b)", "c").toString() == "(a \"b)\" c)");
         }
 
         SECTION("toDictString")

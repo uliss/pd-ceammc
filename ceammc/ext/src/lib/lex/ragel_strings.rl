@@ -14,7 +14,9 @@
     str_semicolon = ';';
     str_backslash = '\\';
     str_lpar      = '(';
+    str_rpar      = ')';
     str_lbrac     = '[';
+    str_rbrac     = ']';
 
     str_envvar    = '%' [A-Z_0-9]{1,16} '%';
 

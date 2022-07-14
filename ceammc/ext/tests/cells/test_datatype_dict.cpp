@@ -368,4 +368,50 @@ TEST_CASE("DataTypeDict", "[core]")
         REQUIRE(d.size() == 1);
         REQUIRE(d.at("123") == LF(4));
     }
+
+    SECTION("toString")
+    {
+#define CHECK_TO_DSC(src_str, res_str)               \
+    {                                                \
+        DataTypeDict d;                              \
+        d.setFromDataString(src_str);                \
+        REQUIRE(d.toDictStringContent() == res_str); \
+    }
+
+        SECTION("toListStringContent")
+        {
+        }
+
+        SECTION("toListString")
+        {
+        }
+
+        SECTION("toString")
+        {
+        }
+
+        SECTION("toDictString")
+        {
+        }
+
+        SECTION("toDictStringContent")
+        {
+            CHECK_TO_DSC("", "");
+            CHECK_TO_DSC(" ", "");
+            CHECK_TO_DSC("Dict[a:]", "a:");
+            CHECK_TO_DSC("Dict[a: 1]", "a: 1");
+            CHECK_TO_DSC("Dict[a: -0.25]", "a: -0.25");
+            CHECK_TO_DSC("Dict[a: 1/4]", "a: 0.25");
+            CHECK_TO_DSC("Dict[a: 0xFF]", "a: 255");
+            CHECK_TO_DSC("Dict[a: 0b0101]", "a: 5");
+            CHECK_TO_DSC("Dict[a: 1 2 3]", "a: 1 2 3");
+            CHECK_TO_DSC("Dict[a: A B C]", "a: A B C");
+            CHECK_TO_DSC("Dict[a: \"A B C\"]", "a: \"A B C\"");
+            CHECK_TO_DSC("Dict[a: \"`\"A B C`\"\"]", "a: \"`\"A B C`\"\"");
+            CHECK_TO_DSC("Dict[a: MList(1 2 3)]", "a: (1 2 3)");
+            CHECK_TO_DSC("Dict[a: S\"1 2 3\"]", "a: S\"1 2 3\"");
+            CHECK_TO_DSC("Dict[a: String(\"``a\")]", "a: S\"``a\"");
+            CHECK_TO_DSC("Dict[a: @a]", "a: \"@a\"");
+        }
+    }
 }

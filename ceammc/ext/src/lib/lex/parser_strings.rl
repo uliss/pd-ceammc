@@ -132,7 +132,9 @@ bool string_need_quotes(const char* str) {
         str_comma        >{ out.push_back(','); } |
         str_semicolon    >{ out.push_back(';'); } |
         str_lpar         >{ out.push_back('('); } |
+        str_rpar         >{ out.push_back(')'); } |
         str_lbrac        >{ out.push_back('['); } |
+        str_rbrac        >{ out.push_back(']'); } |
         ':'              >{ out.push_back(':'); } |
         '@'              >{ out.push_back('@'); } |
         '%'              >{ out.push_back('%'); } |
