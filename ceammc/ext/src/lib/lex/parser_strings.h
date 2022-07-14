@@ -50,9 +50,30 @@ namespace string {
             return false;
     }
 
+    /**
+     * Escape and quote symbol atoms, commas and semicolons
+     * @param a - atom to escape
+     */
     void escape_and_quote(Atom& a);
+
+    /**
+     * Escape and quote symbol atoms, commas and semicolons
+     * @param a - atom to escape
+     * @return new escaped atom
+     */
     Atom escape_and_quote(const Atom& a);
+
+    /**
+     * Escape and quote symbol atoms, commas and semicolons in given list
+     * @param lst - list to escape
+     */
     void escape_and_quote(AtomList& lst);
+
+    /**
+     * Escape and quote symbol atoms, commas and semicolons in given list
+     * @param lst - list to escape
+     * @return new escaped list
+     */
     AtomList escape_and_quote(const AtomListView& lv);
 }
 }
