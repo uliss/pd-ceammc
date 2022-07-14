@@ -376,7 +376,7 @@ TEST_CASE("DataTypeString", "[core]")
         CHECK(to_string(StringAtom(R"(with {} braces)")) == R"(S"with {} braces")");
         CHECK(to_string(StringAtom(R"(with @at)")) == R"(S"with @at")");
         CHECK(to_string(StringAtom(R"(with ``)")) == R"(S"with ````")");
-        CHECK(to_string(StringAtom(R"(with \ slash)")) == R"(S"with `/ slash")");
+        CHECK(to_string(StringAtom(R"(with \ slash)")) == R"(S"with \ slash")");
 
         REQUIRE(StringAtom("a b").asData()->toString() == "S\"a b\"");
         REQUIRE(Atom(new DataTypeString("a b c")).asData()->toString() == "S\"a b c\"");
