@@ -228,7 +228,7 @@ TEST_CASE("DataTypeProperty", "[ceammc::DataTypeProperty]")
     SECTION("list")
     {
         DataTypeProperty l1(SYM("l1"));
-        l1.setTypeList(LX(1, 2, 3));
+        l1.setTypeList(LF(1, 2, 3));
 
         REQUIRE(l1.propertyType() == PropValueType::LIST);
 
