@@ -551,7 +551,7 @@ namespace string {
     {
         try {
             for (auto& a : lv) {
-                // remove space before ,
+                // remove space before ',' or ';'
                 if ((a.isComma() || a.isSemicolon()) && !out.empty() && out.back() == ' ')
                     out.pop_back();
 
@@ -611,6 +611,10 @@ namespace string {
         } else if (a.isData()) {
             auto str = a.asData()->toString();
             out.insert(out.end(), str.begin(), str.end());
+        } else if (a.isComma()) {
+            out.push_back(',');
+        } else if (a.isSemicolon()) {
+            out.push_back(';');
         } else {
             return false;
         }
@@ -623,6 +627,10 @@ namespace string {
     {
         try {
             for (auto& a : lv) {
+                // remove space before ',' or ';'
+                if ((a.isComma() || a.isSemicolon()) && !out.empty() && out.back() == ' ')
+                    out.pop_back();
+
                 if (parsed_atom_to_string_t<T>(a, out))
                     out.push_back(' ');
                 else
