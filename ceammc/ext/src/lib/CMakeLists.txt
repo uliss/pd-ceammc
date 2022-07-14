@@ -187,6 +187,7 @@ target_sources(ceammc_core
         lex/parser_props_details.cpp
         lex/parser_units.cpp
         lex/parser_strings.cpp
+        lex/lemon_data_string_parser.h
         lex/lemon_data_string_parser.cpp
 )
 
