@@ -101,29 +101,29 @@ std::string DataIFace::findFileName(const std::string& path)
         return ceammc::platform::pd_user_directory() + "/" + path2;
 }
 
-Result DataIFace::setFromPd(const ceammc::AtomList& lst)
+Result DataIFace::setFromPd(const ceammc::AtomListView& lv)
 {
-    if (lst.empty())
+    if (lv.empty())
         return error("empty list");
 
     // try float first
-    if (lst.isFloat()) {
-        auto st = setFromFloat(lst[0].asFloat());
+    if (lv.isFloat()) {
+        auto st = setFromFloat(lv[0].asFloat());
         // ok or error
         if (st.code() != NOT_SUPPORTED)
             return st;
     }
 
     // try symbol second
-    if (lst.isSymbol()) {
-        auto st = setFromSymbol(lst[0].asSymbol());
+    if (lv.isSymbol()) {
+        auto st = setFromSymbol(lv[0].asSymbol());
         // ok or error
         if (st.code() != NOT_SUPPORTED)
             return st;
     }
 
     // try list
-    return setFromList(lst);
+    return setFromList(lv);
 }
 
 DataIFace::DataIFace()
