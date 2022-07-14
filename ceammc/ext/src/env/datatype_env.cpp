@@ -11,7 +11,6 @@
 #include <boost/range.hpp>
 #include <unordered_map>
 
-constexpr const char* SYM_ENVELOPE_POINT = "EnvelopePoint";
 constexpr const char* TYPE_NAME = "Env";
 
 CEAMMC_DEFINE_HASH(adsr);
@@ -206,8 +205,8 @@ void exportPoint(const EnvelopePoint& pt, std::string& res)
 {
     constexpr const char* indent = "";
 
-    res += fmt::format("{0:>5}[time:  {1}\n"
-                       "{0:>6}value: {2}\n"
+    res += fmt::format("{0:>5}[time:  {1:.7g}\n"
+                       "{0:>6}value: {2:.7g}\n"
                        "{0:>6}type:  {3}\n",
         indent, pt.timeMs(), pt.value, CURVE_TYPES[pt.type]);
     if (pt.type != CURVE_LINE || pt.type != CURVE_STEP)
@@ -492,7 +491,7 @@ void DataTypeEnv::shiftTime(long time_us)
         points_[i].utime += time_us;
 }
 
-void DataTypeEnv::scaleTime(double factor)
+void DataTypeEnv::scaleTime(float factor)
 {
     if (factor < 0)
         return;
@@ -501,7 +500,7 @@ void DataTypeEnv::scaleTime(double factor)
         points_[i].utime = round(factor * points_[i].utime);
 }
 
-void DataTypeEnv::scaleValue(double factor)
+void DataTypeEnv::scaleValue(float factor)
 {
     for (size_t i = 0; i < points_.size(); i++)
         points_[i].value *= factor;
@@ -637,7 +636,7 @@ void DataTypeEnv::clear()
     points_.clear();
 }
 
-void DataTypeEnv::setAR(size_t attack_us, size_t release_us, double value)
+void DataTypeEnv::setAR(size_t attack_us, size_t release_us, float value)
 {
     clear();
     points_.push_back(EnvelopePoint(0, 0, false, CURVE_LINE));
@@ -1076,16 +1075,6 @@ DataTypeEnv& DataTypeEnv::operator=(DataTypeEnv&& env)
     return *this;
 }
 
-AtomList DataTypeEnv::toList() const
-{
-    AtomList res;
-
-    for (size_t i = 0; i < points_.size(); i++)
-        res.append(points_[i].toList());
-
-    return res;
-}
-
 void DataTypeEnv::sort()
 {
     std::stable_sort(points_.begin(), points_.end(), compareByTime);
@@ -1229,17 +1218,17 @@ std::string DataTypeEnv::toDictStringContent() const noexcept
         if (checkAR()) {
             const auto A = points_[1].timeMs();
             const auto R = points_[2].timeMs() - A;
-            res = fmt::format("ar: {} {}", A, R);
+            res = fmt::format("ar: {:.3g} {:.3g}", A, R);
         } else if (checkASR()) {
             const auto A = points_[1].timeMs();
             const auto R = points_[2].timeMs() - A;
-            res = fmt::format("asr: {} {}", A, R);
+            res = fmt::format("asr: {:.3g} {:.3g}", A, R);
         } else if (checkADSR()) {
             const auto A = points_[1].timeMs();
             const auto D = points_[2].timeMs() - A;
             const auto S = points_[2].value * 100;
             const auto R = points_[3].timeMs() - (A + D);
-            res = fmt::format("adsr: {} {} {} {}", A, D, S, R);
+            res = fmt::format("adsr: {:.3g} {:.3g} {:.3g} {:.3g}", A, D, S, R);
         } else if (!points_.empty()) {
             res = fmt::format("points: \n");
             const char* indent = "";
@@ -1273,22 +1262,6 @@ std::ostream& operator<<(std::ostream& os, const DataTypeEnv& env)
 {
     os << env.toString();
     return os;
-}
-
-AtomList EnvelopePoint::toList() const
-{
-    AtomList res;
-    res.fill(Atom(), 7);
-
-    res[0].setSymbol(gensym(SYM_ENVELOPE_POINT), true);
-    res[1] = Atom(utime);
-    res[2] = Atom(value);
-    res[3] = Atom(data);
-    res[4] = Atom(sigmoid_skew);
-    res[5] = Atom(type);
-    res[6] = Atom(stop);
-
-    return res;
 }
 
 bool symbol2curve(t_symbol* s, CurveType& t)

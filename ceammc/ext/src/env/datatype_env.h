@@ -14,7 +14,7 @@
 using namespace ceammc;
 
 /* @note when add new type you have to update render functions and to_string function */
-enum CurveType {
+enum CurveType : std::uint8_t {
     CURVE_STEP = 0,
     CURVE_LINE = 1,
     CURVE_EXP = 2,
@@ -45,13 +45,6 @@ t_symbol* curve2symbol(CurveType t);
 bool isValidCurve(t_symbol* s);
 
 struct EnvelopePoint {
-    size_t utime;
-    double value;
-    float data;
-    float sigmoid_skew;
-    CurveType type;
-    bool stop;
-
     enum FixType : std::uint8_t {
         FIX_NONE = 0,
         FIX_TIME = 1 << 0,
@@ -59,9 +52,16 @@ struct EnvelopePoint {
         FIX_BOTH = FIX_TIME | FIX_VALUE
     };
 
+public:
+    std::uint64_t utime;
+    float value;
+    float data;
+    float sigmoid_skew;
+    CurveType type;
+    bool stop;
     std::uint8_t fix_pos;
 
-    EnvelopePoint(size_t time_us, double v, bool stop_node = false, CurveType t = CURVE_LINE, float curve = 0.f)
+    EnvelopePoint(size_t time_us, float v, bool stop_node = false, CurveType t = CURVE_LINE, float curve = 0.f)
         : utime(time_us > 0 ? time_us : 0)
         , value(v)
         , data(curve)
@@ -81,8 +81,6 @@ struct EnvelopePoint {
     void toggleFixValue() { fix_pos ^= FIX_VALUE; }
     void unsetFixTime() { fix_pos &= (~FIX_TIME); }
     void unsetFixValue() { fix_pos &= (~FIX_VALUE); }
-
-    AtomList toList() const;
 };
 
 /**
@@ -173,12 +171,12 @@ public:
     /**
      * Scales all envelope points time by specified factor.
      */
-    void scaleTime(double factor);
+    void scaleTime(float factor);
 
     /**
      * Scales all envelope values by specified factor
      */
-    void scaleValue(double factor);
+    void scaleValue(float factor);
 
     /**
      * Returns new envelope in which point values are normalized to range [0-1] and
@@ -249,7 +247,7 @@ public:
      */
     void clear();
 
-    void setAR(size_t attack_us, size_t release_us, double value = 1);
+    void setAR(size_t attack_us, size_t release_us, float value = 1);
     void setEAR(size_t attack_us, float attack_curve, size_t release_us, float release_curve);
     void setASR(size_t attack_us, size_t release_us, double value = 1);
     void setEASR(size_t attack_us, float attack_curve, size_t release_us, float release_curve);
@@ -296,11 +294,6 @@ public:
      * Concatenates another envelope
      */
     DataTypeEnv& operator+=(const DataTypeEnv& env);
-
-    /**
-     * Saves envelope to raw list data for usage in e.g. in preset system
-     */
-    AtomList toList() const;
 
     /**
      * Sorts points in envelope

@@ -85,16 +85,16 @@ TEST_CASE("DataTypeEnv", "[ceammc::DataTypeEnv]")
             REQUIRE(env.valueAtTime(0) == 0);
             REQUIRE(env.valueAtTime(100) == 0);
 
-            env.insertPoint(EnvelopePoint(1, 0.1, false, CURVE_STEP));
+            env.insertPoint(EnvelopePoint(1, 0.25, false, CURVE_STEP));
             REQUIRE(env.valueAtTime(0) == 0);
-            REQUIRE(env.valueAtTime(1) == 0.1);
+            REQUIRE(env.valueAtTime(1) == 0.25);
             REQUIRE(env.valueAtTime(2) == 0);
 
             env.insertPoint(EnvelopePoint(20, 1, false, CURVE_STEP));
 
             REQUIRE(env.valueAtTime(0) == 0);
             for (int i = 1; i < 20; i++)
-                REQUIRE(env.valueAtTime(i) == 0.1);
+                REQUIRE(env.valueAtTime(i) == 0.25);
 
             REQUIRE(env.valueAtTime(20) == 1);
             REQUIRE(env.valueAtTime(21) == 0);
@@ -581,42 +581,6 @@ TEST_CASE("DataTypeEnv", "[ceammc::DataTypeEnv]")
         REQUIRE(env.toString() == ss.str());
     }
 
-    SECTION("toList")
-    {
-        DataTypeEnv env;
-        REQUIRE(env.toList() == L());
-        env.setASR(10, 20, -10);
-
-        REQUIRE(DataTypeEnv::fromListView(env.toList()) == env);
-
-        AtomList lst;
-        lst.append(S("EnvelopePoint"));
-        lst.append(0.f);
-        lst.append(0.f);
-        lst.append(0.f);
-        lst.append(16);
-        lst.append(1);
-        lst.append(0.f);
-
-        lst.append(S("EnvelopePoint"));
-        lst.append(10);
-        lst.append(-10);
-        lst.append(0.f);
-        lst.append(16);
-        lst.append(1);
-        lst.append(1);
-
-        lst.append(S("EnvelopePoint"));
-        lst.append(30);
-        lst.append(0.f);
-        lst.append(0.f);
-        lst.append(16);
-        lst.append(1);
-        lst.append(0.f);
-
-        REQUIRE(env.toList() == lst);
-    }
-
     SECTION("named envelope")
     {
         DataTypeEnv e;
@@ -671,19 +635,6 @@ TEST_CASE("DataTypeEnv", "[ceammc::DataTypeEnv]")
             REQUIRE(e.numStopPoints() == 1);
             REQUIRE_FALSE(e.isAR());
         }
-    }
-
-    SECTION("fromList")
-    {
-        REQUIRE(DataTypeEnv::fromListView(L()).empty());
-        REQUIRE(DataTypeEnv::fromListView(LF(1, 2)).empty());
-        REQUIRE(DataTypeEnv::fromListView(LA("Not an EnvelopePoint", 1, 1, 1, 1, 1, 1)).empty());
-        REQUIRE(DataTypeEnv::fromListView(LA("EnvelopePoint", 1, 1, 1, 1, 1, 1)).numPoints() == 1);
-
-        DataTypeEnv env = DataTypeEnv::fromListView(LA("EnvelopePoint", 1, 100, 1, 1, 1, 1));
-        REQUIRE(env.hasPointAtTime(1));
-        REQUIRE(env.valueAtTime(1) == 100);
-        REQUIRE(env.pointAt(0).type == CURVE_LINE);
     }
 
     SECTION("normalize")
