@@ -1,6 +1,7 @@
 #ifndef PARSER_STRINGS_H
 #define PARSER_STRINGS_H
 
+#include "ceammc_atomlist.h"
 #include "ceammc_atomlist_view.h"
 #include "ceammc_string_types.h"
 
@@ -51,6 +52,8 @@ namespace string {
 
     void escape_and_quote(Atom& a);
     Atom escape_and_quote(const Atom& a);
+    void escape_and_quote(AtomList& lst);
+    AtomList escape_and_quote(const AtomListView& lv);
 }
 }
 

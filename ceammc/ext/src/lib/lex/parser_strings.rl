@@ -214,5 +214,21 @@ Atom escape_and_quote(const Atom& a)
     return a;
 }
 
+void escape_and_quote(AtomList& lst)
+{
+    for (auto& a: lst)
+        escape_and_quote(a);
+}
+
+AtomList escape_and_quote(const AtomListView& lv)
+{
+    AtomList res;
+    res.reserve(lv.size());
+    for (auto& a: lv)
+        res.append(escape_and_quote(a));
+
+    return res;
+}
+
 }
 }

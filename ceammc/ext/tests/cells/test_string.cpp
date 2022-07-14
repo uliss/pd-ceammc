@@ -418,8 +418,8 @@ TEST_CASE("ceammc_string", "[PureData]")
     SECTION("escape_and_quote")
     {
 #define CHECK_ESCAPE_AND_QUOTE(s, res, n)                               \
-    {                                                                     \
-        StaticString str;                                                  \
+    {                                                                   \
+        StaticString str;                                               \
         CHECK(n == escape_and_quote(s, str));                           \
         CHECK(std::string(str.data(), str.data() + str.size()) == res); \
     }
@@ -556,7 +556,8 @@ TEST_CASE("ceammc_string", "[PureData]")
     }
     }
 
-    SECTION("escape_and_quote") {
+    SECTION("escape_and_quote")
+    {
         Atom a;
         a.setComma();
 
@@ -593,5 +594,9 @@ TEST_CASE("ceammc_string", "[PureData]")
         REQUIRE(escape_and_quote(A("]")) == A(R"("]")"));
         REQUIRE(escape_and_quote(A("(")) == A(R"("(")"));
         REQUIRE(escape_and_quote(A(")")) == A("\")\""));
+
+        REQUIRE(escape_and_quote(L()) == L());
+        REQUIRE(escape_and_quote(LF(1, 2, 3)) == LF(1, 2, 3));
+        REQUIRE(escape_and_quote(LA(1, "B", "C D", Atom::semicolon())) == LA(1, "B", "\"C D\"", "\";\""));
     }
 }
