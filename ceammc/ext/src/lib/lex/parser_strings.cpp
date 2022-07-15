@@ -1005,13 +1005,14 @@ namespace ceammc {
 		
 #line 1007 "lex/parser_strings.cpp"
 		static const int unquote_and_unescape_start = 1;
-		static const int unquote_and_unescape_first_final = 6;
+		static const int unquote_and_unescape_first_final = 8;
 		static const int unquote_and_unescape_error = 0;
 		
+		static const int unquote_and_unescape_en_envvar = 6;
 		static const int unquote_and_unescape_en_main = 1;
 		
 		
-#line 246 "lex/parser_strings.rl"
+#line 270 "lex/parser_strings.rl"
 		
 		
 		template <typename T>
@@ -1022,20 +1023,42 @@ namespace ceammc {
 					return -1;
 				
 				int cs = 0;
+				int top = 0;
+				int stack[2];
 				const char* p = str;
+				const char* eof = p + strlen(p);
 				T& rl_string = out;
+				std::string rl_envvar;
 				
 				
-#line 1030 "lex/parser_strings.cpp"
+#line 1035 "lex/parser_strings.cpp"
 				{
 					cs = (int)unquote_and_unescape_start;
+					top = 0;
 				}
 				
-#line 259 "lex/parser_strings.rl"
+#line 287 "lex/parser_strings.rl"
 				
 				
-#line 1038 "lex/parser_strings.cpp"
+#line 1044 "lex/parser_strings.cpp"
 				{
+					goto _resume;
+					
+					_again: {}
+					switch ( cs ) {
+						case 1: goto _st1;
+						case 0: goto _st0;
+						case 2: goto _st2;
+						case 3: goto _st3;
+						case 8: goto _st8;
+						case 4: goto _st4;
+						case 5: goto _st5;
+						case 6: goto _st6;
+						case 7: goto _st7;
+						case 9: goto _st9;
+					}
+					
+					_resume: {}
 					switch ( cs ) {
 						case 1:
 						goto st_case_1;
@@ -1045,14 +1068,27 @@ namespace ceammc {
 						goto st_case_2;
 						case 3:
 						goto st_case_3;
-						case 6:
-						goto st_case_6;
+						case 8:
+						goto st_case_8;
 						case 4:
 						goto st_case_4;
 						case 5:
 						goto st_case_5;
+						case 6:
+						goto st_case_6;
+						case 7:
+						goto st_case_7;
+						case 9:
+						goto st_case_9;
 					}
 					goto st_out;
+					_st1:
+					if ( p == eof ) {
+						if ( cs >= 8 )
+							goto _out;
+						else
+							goto _pop;
+					}
 					p += 1;
 					st_case_1:
 					switch( ( (*( p))) ) {
@@ -1066,35 +1102,70 @@ namespace ceammc {
 					{
 						goto _st0;
 					}
+					_ctr13:
+					{
+#line 247 "lex/parser_strings.rl"
+						
+						rl_string.push_back('%');
+						rl_string.insert(rl_string.end(), rl_envvar.begin(), rl_envvar.end());
+						{p = p - 1; }
+						{top -= 1;cs = stack[top];goto _again;}
+					}
+					
+#line 1116 "lex/parser_strings.cpp"
+					
+					goto _st0;
 					st_case_0:
 					_st0:
 					cs = 0;
 					goto _pop;
 					_ctr4:
 					{
-#line 239 "lex/parser_strings.rl"
+#line 263 "lex/parser_strings.rl"
 						rl_string.push_back((( (*( p))))); }
 					
-#line 1079 "lex/parser_strings.cpp"
+#line 1128 "lex/parser_strings.cpp"
 					
 					goto _st2;
-					_ctr8:
+					_ctr6:
 					{
-#line 238 "lex/parser_strings.rl"
-						rl_string.push_back('"'); }
+#line 262 "lex/parser_strings.rl"
+						{stack[top] = 2; top+= 1; goto _st6;}}
 					
-#line 1087 "lex/parser_strings.cpp"
+#line 1136 "lex/parser_strings.cpp"
 					
 					goto _st2;
 					_ctr9:
 					{
-#line 237 "lex/parser_strings.rl"
+#line 260 "lex/parser_strings.rl"
+						rl_string.push_back('"'); }
+					
+#line 1144 "lex/parser_strings.cpp"
+					
+					goto _st2;
+					_ctr10:
+					{
+#line 261 "lex/parser_strings.rl"
+						rl_string.push_back('%'); }
+					
+#line 1152 "lex/parser_strings.cpp"
+					
+					goto _st2;
+					_ctr11:
+					{
+#line 259 "lex/parser_strings.rl"
 						rl_string.push_back('`'); }
 					
-#line 1095 "lex/parser_strings.cpp"
+#line 1160 "lex/parser_strings.cpp"
 					
 					goto _st2;
 					_st2:
+					if ( p == eof ) {
+						if ( cs >= 8 )
+							goto _out;
+						else
+							goto _pop;
+					}
 					p += 1;
 					st_case_2:
 					switch( ( (*( p))) ) {
@@ -1104,6 +1175,9 @@ namespace ceammc {
 						case 34: {
 							goto _st3;
 						}
+						case 37: {
+							goto _ctr6;
+						}
 						case 96: {
 							goto _st4;
 						}
@@ -1112,43 +1186,70 @@ namespace ceammc {
 						goto _ctr4;
 					}
 					_st3:
+					if ( p == eof ) {
+						if ( cs >= 8 )
+							goto _out;
+						else
+							goto _pop;
+					}
 					p += 1;
 					st_case_3:
 					if ( ( (*( p))) == 0 ) {
-						goto _ctr7;
+						goto _ctr8;
 					}
 					{
 						goto _st0;
 					}
-					_ctr7:
+					_ctr8:
 					{
-#line 244 "lex/parser_strings.rl"
-						{p+= 1; cs = 6; goto _out;} }
+#line 268 "lex/parser_strings.rl"
+						{p+= 1; cs = 8; goto _out;} }
 					
-#line 1129 "lex/parser_strings.cpp"
+#line 1209 "lex/parser_strings.cpp"
 					
-					goto _st6;
-					_st6:
+					goto _st8;
+					_st8:
+					if ( p == eof ) {
+						if ( cs >= 8 )
+							goto _out;
+						else
+							goto _pop;
+					}
 					p += 1;
-					st_case_6:
+					st_case_8:
 					{
 						goto _st0;
 					}
 					_st4:
+					if ( p == eof ) {
+						if ( cs >= 8 )
+							goto _out;
+						else
+							goto _pop;
+					}
 					p += 1;
 					st_case_4:
 					switch( ( (*( p))) ) {
 						case 34: {
-							goto _ctr8;
+							goto _ctr9;
+						}
+						case 37: {
+							goto _ctr10;
 						}
 						case 96: {
-							goto _ctr9;
+							goto _ctr11;
 						}
 					}
 					{
 						goto _st0;
 					}
 					_st5:
+					if ( p == eof ) {
+						if ( cs >= 8 )
+							goto _out;
+						else
+							goto _pop;
+					}
 					p += 1;
 					st_case_5:
 					if ( ( (*( p))) == 34 ) {
@@ -1157,27 +1258,190 @@ namespace ceammc {
 					{
 						goto _st0;
 					}
+					_ctr12:
+					{
+#line 247 "lex/parser_strings.rl"
+						
+						rl_string.push_back('%');
+						rl_string.insert(rl_string.end(), rl_envvar.begin(), rl_envvar.end());
+						{p = p - 1; }
+						{top -= 1;cs = stack[top];goto _again;}
+					}
+					
+#line 1272 "lex/parser_strings.cpp"
+					
+					goto _st6;
+					_st6:
+					if ( p == eof ) {
+						if ( cs >= 8 )
+							goto _out;
+						else
+							goto _pop;
+					}
+					p += 1;
+					st_case_6:
+					if ( ( (*( p))) == 95 ) {
+						goto _ctr14;
+					}
+					if ( ( (*( p))) > 57 ) {
+						if ( 65 <= ( (*( p))) && ( (*( p))) <= 90 ) {
+							goto _ctr14;
+						}
+					} else if ( ( (*( p))) >= 48 ) {
+						goto _ctr14;
+					}
+					{
+						goto _ctr13;
+					}
+					_ctr15:
+					{
+#line 247 "lex/parser_strings.rl"
+						
+						rl_string.push_back('%');
+						rl_string.insert(rl_string.end(), rl_envvar.begin(), rl_envvar.end());
+						{p = p - 1; }
+						{top -= 1;cs = stack[top];goto _again;}
+					}
+					
+#line 1307 "lex/parser_strings.cpp"
+					
+					goto _st7;
+					_ctr14:
+					{
+#line 254 "lex/parser_strings.rl"
+						rl_envvar += (( (*( p)))); }
+					
+#line 1315 "lex/parser_strings.cpp"
+					
+					goto _st7;
+					_st7:
+					if ( p == eof ) {
+						if ( cs >= 8 )
+							goto _out;
+						else
+							goto _pop;
+					}
+					p += 1;
+					st_case_7:
+					switch( ( (*( p))) ) {
+						case 37: {
+							goto _ctr16;
+						}
+						case 95: {
+							goto _ctr14;
+						}
+					}
+					if ( ( (*( p))) > 57 ) {
+						if ( 65 <= ( (*( p))) && ( (*( p))) <= 90 ) {
+							goto _ctr14;
+						}
+					} else if ( ( (*( p))) >= 48 ) {
+						goto _ctr14;
+					}
+					{
+						goto _ctr13;
+					}
+					_ctr16:
+					{
+#line 237 "lex/parser_strings.rl"
+						
+						auto env = std::getenv(rl_envvar.c_str());
+						if (env)
+						rl_string.insert(rl_string.end(), env, env + strlen(env));
+						else
+						rl_string.insert(rl_string.end(), rl_envvar.begin(), rl_envvar.end());
+						
+						{top -= 1;cs = stack[top];goto _again;}
+					}
+					
+#line 1358 "lex/parser_strings.cpp"
+					
+					goto _st9;
+					_st9:
+					if ( p == eof ) {
+						if ( cs >= 8 )
+							goto _out;
+						else
+							goto _pop;
+					}
+					p += 1;
+					st_case_9:
+					{
+						goto _st0;
+					}
 					st_out:
 					_test_eof1: cs = 1; goto _test_eof; 
 					_test_eof2: cs = 2; goto _test_eof; 
 					_test_eof3: cs = 3; goto _test_eof; 
-					_test_eof6: cs = 6; goto _test_eof; 
+					_test_eof8: cs = 8; goto _test_eof; 
 					_test_eof4: cs = 4; goto _test_eof; 
 					_test_eof5: cs = 5; goto _test_eof; 
+					_test_eof6: cs = 6; goto _test_eof; 
+					_test_eof7: cs = 7; goto _test_eof; 
+					_test_eof9: cs = 9; goto _test_eof; 
 					
 					_test_eof: {}
-					if ( cs >= 6 )
+					if ( p == eof ) {
+						switch ( cs ) {
+							case 1: {
+								break;
+							}
+							case 0: {
+								break;
+							}
+							case 2: {
+								break;
+							}
+							case 3: {
+								break;
+							}
+							case 8: {
+								break;
+							}
+							case 4: {
+								break;
+							}
+							case 5: {
+								break;
+							}
+							case 6: {
+								break;
+							}
+							case 7: {
+								break;
+							}
+							case 9: {
+								break;
+							}
+						}
+						switch ( cs ) {
+						}
+						switch ( cs ) {
+							case 1:
+							goto _st1;case 0:
+							goto _st0;case 2:
+							goto _st2;case 3:
+							goto _st3;case 8:
+							goto _st8;case 4:
+							goto _st4;case 5:
+							goto _st5;case 6:
+							goto _ctr12;case 7:
+							goto _ctr15;case 9:
+							goto _st9;	}
+					}
+					
+					if ( cs >= 8 )
 						goto _out; _pop: {}
 					_out: {}
 				}
 				
-#line 260 "lex/parser_strings.rl"
+#line 288 "lex/parser_strings.rl"
 				
 				
 				if (cs < 
-#line 1179 "lex/parser_strings.cpp"
-				6
-#line 262 "lex/parser_strings.rl"
+#line 1443 "lex/parser_strings.cpp"
+				8
+#line 290 "lex/parser_strings.rl"
 				)
 				return 0;
 				else

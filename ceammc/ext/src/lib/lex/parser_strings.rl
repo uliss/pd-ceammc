@@ -234,11 +234,35 @@ AtomList escape_and_quote(const AtomListView& lv)
     machine unquote_and_unescape;
     include string_common "ragel_strings.rl";
 
-    esc_tick = '``'     @{ rl_string.push_back('`'); };
-    esc_dblq = '`"'     @{ rl_string.push_back('"'); };
-    char = ([^`"] - 0)  @{ rl_string.push_back(fc); };
-    escaped_char = char | esc_tick | esc_dblq;
-    string = 'S'? '"' escaped_char* '"';
+    action on_envvar_done {
+        auto env = std::getenv(rl_envvar.c_str());
+        if (env)
+            rl_string.insert(rl_string.end(), env, env + strlen(env));
+        else
+            rl_string.insert(rl_string.end(), rl_envvar.begin(), rl_envvar.end());
+
+        fret;
+    }
+
+    action on_envvar_err {
+        rl_string.push_back('%');
+        rl_string.insert(rl_string.end(), rl_envvar.begin(), rl_envvar.end());
+        fhold;
+        fret;
+    }
+
+    envvar       := ([A-Z_0-9]+ ${ rl_envvar += fc; }
+                    '%' @on_envvar_done)
+                    @lerr(on_envvar_err);
+
+
+    esc_tick     = '``'            @{ rl_string.push_back('`'); };
+    esc_dblq     = '`"'            @{ rl_string.push_back('"'); };
+    esc_perc     = '`%'            @{ rl_string.push_back('%'); };
+    str_perc     = '%'             @{ fcall envvar; };
+    char         = [^`"%]          @{ rl_string.push_back(fc); };
+    esc_char     = str_perc | char | esc_tick | esc_dblq | esc_perc;
+    string       = 'S'? '"' (esc_char-0)* '"';
 
     # zero string version
     main := string 0 @{ fbreak; };
@@ -253,8 +277,12 @@ static int unquote_and_unescape_t(const char* str, T& out) noexcept
             return -1;
 
         int cs = 0;
+        int top = 0;
+        int stack[2];
         const char* p = str;
+        const char* eof = p + strlen(p);
         T& rl_string = out;
+        std::string rl_envvar;
 
         %% write init;
         %% write exec noend;

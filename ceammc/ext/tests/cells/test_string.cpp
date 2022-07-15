@@ -14,6 +14,7 @@
 #include "catch.hpp"
 #include "ceammc_atomlist.h"
 #include "ceammc_data.h"
+#include "ceammc_platform.h"
 #include "ceammc_string.h"
 #include "datatype_mlist.h"
 #include "lex/parser_strings.h"
@@ -620,11 +621,27 @@ TEST_CASE("ceammc_string", "[PureData]")
         REQUIRE(unquote_and_unescape(A("S\"a b c\"")) == A("a b c"));
         REQUIRE(unquote_and_unescape(A("S\"``abc``\"")) == A("`abc`"));
         REQUIRE(unquote_and_unescape(A("S\"`\"abc`\"\"")) == A("\"abc\""));
-        REQUIRE(unquote_and_unescape(A("\"%HOME%\"")) == A("%HOME%"));
-        REQUIRE(unquote_and_unescape(A("\"%HOME%\"")) == A("%HOME%"));
         REQUIRE(unquote_and_unescape(A("abc\"")) == A("abc\""));
         REQUIRE(unquote_and_unescape(A("\"abc")) == A("\"abc"));
         REQUIRE(unquote_and_unescape(A("S\"abc")) == A("S\"abc"));
         REQUIRE(unquote_and_unescape(A("R\"abc\"")) == A("R\"abc\""));
+
+        platform::set_env("STR", "#PLACEHOLDER#");
+        REQUIRE(unquote_and_unescape(A("\"%STR%\"")) == A("#PLACEHOLDER#"));
+        REQUIRE(unquote_and_unescape(A("\"1 2 3 %STR%\"")) == A("1 2 3 #PLACEHOLDER#"));
+        REQUIRE(unquote_and_unescape(A("\"%STR% 1 2 3\"")) == A("#PLACEHOLDER# 1 2 3"));
+        REQUIRE(unquote_and_unescape(A("\"1 2 3 %STR% 1 2 3\"")) == A("1 2 3 #PLACEHOLDER# 1 2 3"));
+        REQUIRE(unquote_and_unescape(A("\"100% abc\"")) == A("100% abc"));
+        REQUIRE(unquote_and_unescape(A("\"100%\"")) == A("100%"));
+        REQUIRE(unquote_and_unescape(A("\"`%100\"")) == A("%100"));
+        REQUIRE(unquote_and_unescape(A("\"abc%def\"")) == A("abc%def"));
+        REQUIRE(unquote_and_unescape(A("\"a%def\"")) == A("a%def"));
+        REQUIRE(unquote_and_unescape(A("\"%def\"")) == A("%def"));
+        REQUIRE(unquote_and_unescape(A("\"%\"")) == A("%"));
+        REQUIRE(unquote_and_unescape(A("\"%d\"")) == A("%d"));
+        REQUIRE(unquote_and_unescape(A("\"%D\"")) == A("%D"));
+        REQUIRE(unquote_and_unescape(A("\"%HOME\"")) == A("%HOME"));
+        REQUIRE(unquote_and_unescape(A("\"100% 200% 300%\"")) == A("100% 200% 300%"));
+
     }
 }
