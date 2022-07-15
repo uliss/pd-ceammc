@@ -178,23 +178,29 @@ namespace string {
     bool parsed_atom_to_string(const Atom& a, MediumString& out) noexcept;
 
     /**
-     * Write parsed atomlist (can contain data atoms)
-     * to given static string buffer
+     * @brief Write parsed atomlist (can contain data atoms) to string
+     * The result string can be parsed and converted back to origin list.
+     * @param lv - input list
+     * @param out - static string buffer
      * @note symbols are quoted if needed and `, " chars are escaped with `
      * @return true on success, false on error
      */
     bool parsed_list_to_string(const AtomListView& lv, StaticString& out) noexcept;
 
     /**
-     * Write parsed atomlist (can contain data atoms)
-     * to given small preallocated string buffer
+     * @brief Write parsed atomlist (can contain data atoms) to string
+     * The result string can be parsed and converted back to origin list.
+     * @param lv - input list
+     * @param out - small preallocated string buffer (no zero termination)
      * @note symbols are quoted if needed and `, " chars are escaped with `
      */
     bool parsed_list_to_string(const AtomListView& lv, SmallString& out) noexcept;
 
     /**
-     * Write parsed atomlist (can contain data atoms)
-     * to given medium preallocated string buffer
+     * @brief Write parsed atomlist (can contain data atoms) to string.
+     * The result string can be parsed and converted back to origin list.
+     * @param lv - input list
+     * @param out - small preallocated string buffer (no zero termination)
      * @note symbols are quoted if needed and `, " chars are escaped with `
      */
     bool parsed_list_to_string(const AtomListView& lv, MediumString& out) noexcept;
