@@ -1,5 +1,6 @@
 #include "editor_data.h"
 #include "ceammc_object.h"
+#include "ceammc_string.h"
 #include "datatype_dict.h"
 #include "datatype_mlist.h"
 #include "datatype_set.h"
@@ -37,10 +38,10 @@ namespace {
         res.push_back(str);
     }
 
-    void editorAppend(EditorLineList& res, const DataTypeMList& lst, int indentLevel)
+    void editorAppend(EditorLineList& res, const DataTypeMList& ml, int indentLevel)
     {
-        const bool simple_content = isSimpleList(lst.data().view());
-        const bool single_line = simple_content && lst.size() < 7;
+        const bool simple_content = isSimpleList(ml.data().view());
+        const bool single_line = simple_content && ml.size() < 7;
 
         if (single_line) {
             auto str = EditorStringPool::pool().allocate();
@@ -48,12 +49,16 @@ namespace {
             appendIndent(str, indentLevel);
             str->append('(');
 
-            for (auto& a : lst) {
-                str->appendQuoted(a);
+            string::SmallString buf;
+            for (auto& a: ml) {
+                string::parsed_atom_to_string(a, buf);
+                buf.push_back(0);
+                str->append(buf.data());
+                buf.clear();
                 str->append(' ');
             }
 
-            if (lst.empty()) // empty mlist: ( )
+            if (ml.empty()) // empty mlist: ( )
                 str->append(' ');
             else
                 str->trim();
@@ -66,7 +71,7 @@ namespace {
             appendIndent(res, '(', indentLevel);
 
             // each value on separate line
-            for (const Atom& a : lst) {
+            for (const Atom& a : ml) {
                 auto str = EditorStringPool::pool().allocate();
                 appendIndent(str, indentLevel + 1);
 
