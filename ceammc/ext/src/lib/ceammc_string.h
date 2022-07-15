@@ -156,56 +156,48 @@ namespace string {
 
     /// output parsed data
     /**
-     * Write parsed atom (can contain only null, float, symbol or data atoms)
+     * Write parsed atom (can contain data atoms)
      * to given static buffer string
-     * @note strings are quoted and escaped
+     * @note symbols are quoted if needed and `, " chars are escaped with `
      * @return true on success, false on error
      */
     bool parsed_atom_to_string(const Atom& a, StaticString& out) noexcept;
 
     /**
-     * Write parsed atom (can contain only null, float, symbol or data atoms)
+     * Write parsed atom (can contain data atoms)
      * to given preallocated small string
-     * @note strings are quoted and escaped
+     * @note symbols are quoted if needed and `, " chars are escaped with `
      */
     bool parsed_atom_to_string(const Atom& a, SmallString& out) noexcept;
 
     /**
-     * Write parsed atom (can contain only null, float, symbol or data atoms)
+     * Write parsed atom (can contain data atoms)
      * to given preallocated medium string
-     * @note strings are quoted and escaped
+     * @note symbols are quoted if needed and `, " chars are escaped with `
      */
     bool parsed_atom_to_string(const Atom& a, MediumString& out) noexcept;
 
     /**
-     * Write parsed atomlist (can contain only null, float, symbol or data atoms)
+     * Write parsed atomlist (can contain data atoms)
      * to given static string buffer
-     * @note strings are quoted and escaped
+     * @note symbols are quoted if needed and `, " chars are escaped with `
      * @return true on success, false on error
      */
     bool parsed_list_to_string(const AtomListView& lv, StaticString& out) noexcept;
 
     /**
-     * Write parsed atomlist (can contain only null, float, symbol or data atoms)
+     * Write parsed atomlist (can contain data atoms)
      * to given small preallocated string buffer
-     * @note strings are quoted and escaped
+     * @note symbols are quoted if needed and `, " chars are escaped with `
      */
     bool parsed_list_to_string(const AtomListView& lv, SmallString& out) noexcept;
 
     /**
-     * Write parsed atomlist (can contain only null, float, symbol or data atoms)
+     * Write parsed atomlist (can contain data atoms)
      * to given medium preallocated string buffer
-     * @note strings are quoted and escaped
+     * @note symbols are quoted if needed and `, " chars are escaped with `
      */
     bool parsed_list_to_string(const AtomListView& lv, MediumString& out) noexcept;
-
-    /**
-     * Write parsed atom (can contain only null, float, symbol or data atoms)
-     * to given static buffer string
-     * @note strings are quoted and escaped
-     * @return true on success, false on error
-     */
-    bool parsed_atom_to_raw_string(const Atom& a, StaticString& out) noexcept;
 }
 }
 
