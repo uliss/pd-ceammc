@@ -75,6 +75,22 @@ namespace string {
      * @return new escaped list
      */
     AtomList escape_and_quote(const AtomListView& lv);
+
+    int unquote_and_unescape(const char* str, StaticString& out);
+    int unquote_and_unescape(const char* str, SmallString& out);
+    int unquote_and_unescape(const char* str, MediumString& out);
+
+    template <typename T>
+    bool unquote_and_unescape(const Atom& a, T& out)
+    {
+        if (!a.isSymbol())
+            return false;
+        else
+            return unquote_and_unescape(a.asT<t_symbol*>()->s_name, out);
+    }
+
+    bool unquote_and_unescape(Atom& a);
+    Atom unquote_and_unescape(const Atom& a);
 }
 }
 

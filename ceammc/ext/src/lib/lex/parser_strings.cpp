@@ -115,11 +115,11 @@ namespace ceammc {
 				_st3:
 				p += 1;
 				st_case_3:
-				if ( 0 <= ( (*( p))) ) {
-					goto _st1;
+				if ( ( (*( p))) <= -1 ) {
+					goto _st0;
 				}
 				{
-					goto _st0;
+					goto _st1;
 				}
 				st_out:
 				_test_eof1: cs = 1; goto _test_eof; 
@@ -999,6 +999,235 @@ namespace ceammc {
 			for (auto& a: lv)
 			res.append(escape_and_quote(a));
 			
+			return res;
+		}
+		
+		
+#line 1007 "lex/parser_strings.cpp"
+		static const int unquote_and_unescape_start = 1;
+		static const int unquote_and_unescape_first_final = 6;
+		static const int unquote_and_unescape_error = 0;
+		
+		static const int unquote_and_unescape_en_main = 1;
+		
+		
+#line 246 "lex/parser_strings.rl"
+		
+		
+		template <typename T>
+		static int unquote_and_unescape_t(const char* str, T& out) noexcept
+		{
+			try {
+				if (str == nullptr || str[0] == '\0')
+					return -1;
+				
+				int cs = 0;
+				const char* p = str;
+				T& rl_string = out;
+				
+				
+#line 1030 "lex/parser_strings.cpp"
+				{
+					cs = (int)unquote_and_unescape_start;
+				}
+				
+#line 259 "lex/parser_strings.rl"
+				
+				
+#line 1038 "lex/parser_strings.cpp"
+				{
+					switch ( cs ) {
+						case 1:
+						goto st_case_1;
+						case 0:
+						goto st_case_0;
+						case 2:
+						goto st_case_2;
+						case 3:
+						goto st_case_3;
+						case 6:
+						goto st_case_6;
+						case 4:
+						goto st_case_4;
+						case 5:
+						goto st_case_5;
+					}
+					goto st_out;
+					p += 1;
+					st_case_1:
+					switch( ( (*( p))) ) {
+						case 34: {
+							goto _st2;
+						}
+						case 83: {
+							goto _st5;
+						}
+					}
+					{
+						goto _st0;
+					}
+					st_case_0:
+					_st0:
+					cs = 0;
+					goto _pop;
+					_ctr4:
+					{
+#line 239 "lex/parser_strings.rl"
+						rl_string.push_back((( (*( p))))); }
+					
+#line 1079 "lex/parser_strings.cpp"
+					
+					goto _st2;
+					_ctr8:
+					{
+#line 238 "lex/parser_strings.rl"
+						rl_string.push_back('"'); }
+					
+#line 1087 "lex/parser_strings.cpp"
+					
+					goto _st2;
+					_ctr9:
+					{
+#line 237 "lex/parser_strings.rl"
+						rl_string.push_back('`'); }
+					
+#line 1095 "lex/parser_strings.cpp"
+					
+					goto _st2;
+					_st2:
+					p += 1;
+					st_case_2:
+					switch( ( (*( p))) ) {
+						case 0: {
+							goto _st0;
+						}
+						case 34: {
+							goto _st3;
+						}
+						case 96: {
+							goto _st4;
+						}
+					}
+					{
+						goto _ctr4;
+					}
+					_st3:
+					p += 1;
+					st_case_3:
+					if ( ( (*( p))) == 0 ) {
+						goto _ctr7;
+					}
+					{
+						goto _st0;
+					}
+					_ctr7:
+					{
+#line 244 "lex/parser_strings.rl"
+						{p+= 1; cs = 6; goto _out;} }
+					
+#line 1129 "lex/parser_strings.cpp"
+					
+					goto _st6;
+					_st6:
+					p += 1;
+					st_case_6:
+					{
+						goto _st0;
+					}
+					_st4:
+					p += 1;
+					st_case_4:
+					switch( ( (*( p))) ) {
+						case 34: {
+							goto _ctr8;
+						}
+						case 96: {
+							goto _ctr9;
+						}
+					}
+					{
+						goto _st0;
+					}
+					_st5:
+					p += 1;
+					st_case_5:
+					if ( ( (*( p))) == 34 ) {
+						goto _st2;
+					}
+					{
+						goto _st0;
+					}
+					st_out:
+					_test_eof1: cs = 1; goto _test_eof; 
+					_test_eof2: cs = 2; goto _test_eof; 
+					_test_eof3: cs = 3; goto _test_eof; 
+					_test_eof6: cs = 6; goto _test_eof; 
+					_test_eof4: cs = 4; goto _test_eof; 
+					_test_eof5: cs = 5; goto _test_eof; 
+					
+					_test_eof: {}
+					if ( cs >= 6 )
+						goto _out; _pop: {}
+					_out: {}
+				}
+				
+#line 260 "lex/parser_strings.rl"
+				
+				
+				if (cs < 
+#line 1179 "lex/parser_strings.cpp"
+				6
+#line 262 "lex/parser_strings.rl"
+				)
+				return 0;
+				else
+					return 1;
+				
+			} catch(std::exception& e) {
+				LIB_ERR << fmt::format("[{}] error '{}'", __FUNCTION__, e.what());
+				return -1;
+			}
+		}
+		
+		int unquote_and_unescape(const char* str, StaticString& out)
+		{
+			return unquote_and_unescape_t(str, out);
+		}
+		
+		int unquote_and_unescape(const char* str, SmallString& out)
+		{
+			return unquote_and_unescape_t(str, out);
+		}
+		
+		int unquote_and_unescape(const char* str, MediumString& out)
+		{
+			return unquote_and_unescape_t(str, out);
+		}
+		
+		bool unquote_and_unescape(Atom& a)
+		{
+			if (!a.isSymbol())
+				return false;
+			else {
+				SmallString str;
+				auto rc = unquote_and_unescape_t(a.asT<t_symbol*>()->s_name, str);
+				if (rc > 0) {
+					str.push_back(0);
+					a = gensym(str.data());
+					return true;
+				} else if (rc == 0) {
+					return false;
+				} else {
+					a = &s_;
+					return true;
+				}
+			}
+		}
+		
+		Atom unquote_and_unescape(const Atom& a)
+		{
+			Atom res = a;
+			unquote_and_unescape(res);
 			return res;
 		}
 		

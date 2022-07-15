@@ -599,4 +599,32 @@ TEST_CASE("ceammc_string", "[PureData]")
         REQUIRE(escape_and_quote(LF(1, 2, 3)) == LF(1, 2, 3));
         REQUIRE(escape_and_quote(LA(1, "B", "C D", Atom::semicolon())) == LA(1, "B", "\"C D\"", "\";\""));
     }
+
+    SECTION("unquote_and_unescape")
+    {
+        REQUIRE(unquote_and_unescape(Atom()) == Atom());
+        REQUIRE(unquote_and_unescape(A(100)) == A(100));
+        REQUIRE(unquote_and_unescape(Atom::comma()) == Atom::comma());
+        REQUIRE(unquote_and_unescape(Atom::semicolon()) == Atom::semicolon());
+        REQUIRE(unquote_and_unescape(A("")) == A(""));
+        REQUIRE(unquote_and_unescape(A(&s_)) == A(&s_));
+        REQUIRE(unquote_and_unescape(A(" ")) == A(" "));
+        REQUIRE(unquote_and_unescape(A("A B C")) == A("A B C"));
+        REQUIRE(unquote_and_unescape(A("\"\"")) == A(""));
+        REQUIRE(unquote_and_unescape(A("\" \"")) == A(" "));
+        REQUIRE(unquote_and_unescape(A("\"a b c\"")) == A("a b c"));
+        REQUIRE(unquote_and_unescape(A("\"``abc``\"")) == A("`abc`"));
+        REQUIRE(unquote_and_unescape(A("\"`\"abc`\"\"")) == A("\"abc\""));
+        REQUIRE(unquote_and_unescape(A("S\"\"")) == A(""));
+        REQUIRE(unquote_and_unescape(A("S\" \"")) == A(" "));
+        REQUIRE(unquote_and_unescape(A("S\"a b c\"")) == A("a b c"));
+        REQUIRE(unquote_and_unescape(A("S\"``abc``\"")) == A("`abc`"));
+        REQUIRE(unquote_and_unescape(A("S\"`\"abc`\"\"")) == A("\"abc\""));
+        REQUIRE(unquote_and_unescape(A("\"%HOME%\"")) == A("%HOME%"));
+        REQUIRE(unquote_and_unescape(A("\"%HOME%\"")) == A("%HOME%"));
+        REQUIRE(unquote_and_unescape(A("abc\"")) == A("abc\""));
+        REQUIRE(unquote_and_unescape(A("\"abc")) == A("\"abc"));
+        REQUIRE(unquote_and_unescape(A("S\"abc")) == A("S\"abc"));
+        REQUIRE(unquote_and_unescape(A("R\"abc\"")) == A("R\"abc\""));
+    }
 }

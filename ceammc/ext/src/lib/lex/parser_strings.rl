@@ -230,5 +230,87 @@ AtomList escape_and_quote(const AtomListView& lv)
     return res;
 }
 
+%%{
+    machine unquote_and_unescape;
+    include string_common "ragel_strings.rl";
+
+    esc_tick = '``'     @{ rl_string.push_back('`'); };
+    esc_dblq = '`"'     @{ rl_string.push_back('"'); };
+    char = ([^`"] - 0)  @{ rl_string.push_back(fc); };
+    escaped_char = char | esc_tick | esc_dblq;
+    string = 'S'? '"' escaped_char* '"';
+
+    # zero string version
+    main := string 0 @{ fbreak; };
+    write data;
+}%%
+
+template <typename T>
+static int unquote_and_unescape_t(const char* str, T& out) noexcept
+{
+    try {
+        if (str == nullptr || str[0] == '\0')
+            return -1;
+
+        int cs = 0;
+        const char* p = str;
+        T& rl_string = out;
+
+        %% write init;
+        %% write exec noend;
+
+        if (cs < %%{ write first_final; }%%)
+            return 0;
+        else
+            return 1;
+
+    } catch(std::exception& e) {
+        LIB_ERR << fmt::format("[{}] error '{}'", __FUNCTION__, e.what());
+        return -1;
+    }
+}
+
+int unquote_and_unescape(const char* str, StaticString& out)
+{
+    return unquote_and_unescape_t(str, out);
+}
+
+int unquote_and_unescape(const char* str, SmallString& out)
+{
+    return unquote_and_unescape_t(str, out);
+}
+
+int unquote_and_unescape(const char* str, MediumString& out)
+{
+    return unquote_and_unescape_t(str, out);
+}
+
+bool unquote_and_unescape(Atom& a)
+{
+    if (!a.isSymbol())
+        return false;
+    else {
+        SmallString str;
+        auto rc = unquote_and_unescape_t(a.asT<t_symbol*>()->s_name, str);
+        if (rc > 0) {
+            str.push_back(0);
+            a = gensym(str.data());
+            return true;
+        } else if (rc == 0) {
+            return false;
+        } else {
+            a = &s_;
+            return true;
+        }
+    }
+}
+
+Atom unquote_and_unescape(const Atom& a)
+{
+    Atom res = a;
+    unquote_and_unescape(res);
+    return res;
+}
+
 }
 }
