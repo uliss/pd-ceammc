@@ -91,6 +91,7 @@ namespace string {
 
     bool unquote_and_unescape(Atom& a);
     Atom unquote_and_unescape(const Atom& a);
+    t_symbol* unquote_and_unescape(t_symbol* s);
 }
 }
 

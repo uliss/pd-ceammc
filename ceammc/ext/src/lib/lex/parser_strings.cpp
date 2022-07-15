@@ -115,11 +115,11 @@ namespace ceammc {
 				_st3:
 				p += 1;
 				st_case_3:
-				if ( ( (*( p))) <= -1 ) {
-					goto _st0;
+				if ( 0 <= ( (*( p))) ) {
+					goto _st1;
 				}
 				{
-					goto _st1;
+					goto _st0;
 				}
 				st_out:
 				_test_eof1: cs = 1; goto _test_eof; 
@@ -1493,6 +1493,16 @@ namespace ceammc {
 			Atom res = a;
 			unquote_and_unescape(res);
 			return res;
+		}
+		
+		t_symbol* unquote_and_unescape(t_symbol* s)
+		{
+			SmallString str;
+			if (unquote_and_unescape(s->s_name, str) > 0) {
+				str.push_back(0);
+				return gensym(str.data());
+			} else
+			return s;
 		}
 		
 	}

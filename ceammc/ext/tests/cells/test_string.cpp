@@ -433,6 +433,14 @@ TEST_CASE("ceammc_string", "[PureData]")
         CHECK(AtomList::parseString(",") == Atom::comma());
         CHECK(AtomList::parseString(";") == Atom::semicolon());
         CHECK(AtomList::parseString("$0")[0].atom().a_type == A_DOLLAR);
+        CHECK(AtomList::parseString("$9")[0].atom().a_type == A_DOLLAR);
+        CHECK(AtomList::parseString("$10")[0].atom().a_type == A_DOLLAR);
+        CHECK(AtomList::parseString("abc-$0")[0].atom().a_type == A_DOLLSYM);
+        CHECK(AtomList::parseString("\\$10") == A("$10"));
+        CHECK(AtomList::parseString("\\$0") == A("$0"));
+        CHECK(AtomList::parseString("\\$") == A("$"));
+
+        CHECK(AtomList::parseString("A $") == LA("A", "$"));
 
         CHECK_ESCAPE_AND_QUOTE("", "\"\"", 0);
         CHECK_ESCAPE_AND_QUOTE(" ", "\" \"", 1);
@@ -643,5 +651,9 @@ TEST_CASE("ceammc_string", "[PureData]")
         REQUIRE(unquote_and_unescape(A("\"%HOME\"")) == A("%HOME"));
         REQUIRE(unquote_and_unescape(A("\"100% 200% 300%\"")) == A("100% 200% 300%"));
 
+        REQUIRE(unquote_and_unescape(&s_) == &s_);
+        REQUIRE(unquote_and_unescape(SYM("\"\"")) == &s_);
+        REQUIRE(unquote_and_unescape(SYM("abc")) == SYM("abc"));
+        REQUIRE(unquote_and_unescape(SYM("\"abc\"")) == SYM("abc"));
     }
 }

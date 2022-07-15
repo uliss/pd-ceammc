@@ -340,5 +340,15 @@ Atom unquote_and_unescape(const Atom& a)
     return res;
 }
 
+t_symbol* unquote_and_unescape(t_symbol* s)
+{
+    SmallString str;
+    if (unquote_and_unescape(s->s_name, str) > 0) {
+        str.push_back(0);
+        return gensym(str.data());
+    } else
+        return s;
+}
+
 }
 }
