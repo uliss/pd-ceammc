@@ -68,7 +68,7 @@ DataParseResult parseDataString(const char* str) noexcept
     try {
         parser::LemonDataStringParser p;
         if (!p.parse(str))
-            return DataParseResult("parse error");
+            return DataParseResult(p.errorString());
 
         auto res = p.result();
 
