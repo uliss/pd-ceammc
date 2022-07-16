@@ -131,7 +131,6 @@
         ^(str_escape | str_dquote) => { ragel_string += fc;  };
         '`"'                       => { ragel_string += '"'; };
         esc_escape                 => { ragel_string += '`'; };
-        esc_slash                  => { ragel_string += '\\'; };
         str_envvar                 => on_env_variable;
         str_dquote                 => on_quote_end;
     *|;

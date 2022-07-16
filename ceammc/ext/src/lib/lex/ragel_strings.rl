@@ -27,9 +27,6 @@
     esc_escape    = str_escape str_escape;
     esc_space     = str_escape str_space;
     esc_dquote    = str_escape str_dquote;
-    esc_comma     = str_escape '.';
-    esc_semicolon = str_escape ':';
-    esc_slash     = str_escape '/';
     esc_at        = str_escape '@';
 
     all_escapes =
