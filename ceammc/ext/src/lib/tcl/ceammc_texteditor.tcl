@@ -236,7 +236,7 @@ namespace eval texteditor {
                 if {$lin != "" && $lin != "\t"} {
                     switch $escape_map("esc$name") {
                         lua     {
-                            set lin [string map {"{" {\\x7b} "}" {\\x7d} "," {\\x2c} ";" {\\x3b} "\\" {\\x5c} "\t" {\\x09 }} $lin]
+                            set lin [string map {"{" {\\x7b} "}" {\\x7d} "," {\\x2c} ";" {\\x3b} "\\" {\\x5c} "\t" {\\x09 } "\ \ " { \  }} $lin]
                             pdsend [concat $name .addline $lin]
                         }
                         data    {
