@@ -17,6 +17,7 @@
 #include "ceammc_string_types.h"
 
 #include <cstddef>
+#include <iosfwd>
 #include <string>
 #include <vector>
 
@@ -115,95 +116,235 @@ namespace string {
 
     std::string escape_for_json(const std::string& str);
 
-    /// prepare atoms list for parsing
     /**
-     * Write raw atom (only core Pd atoms: floats, symbols, commas, semicolons etc.)
-     * to given static string buffer
-     * @return true on success, false on error
+     * @brief Append atom as string to static string buffer
+     * @note only theese atom types are supportd:
+     *  - A_FLOAT   => float string
+     *  - A_SYMBOL  => characters ' ,;$' are escaped with backslash
+     *  - A_COMMA   => ','
+     *  - A_SEMI    => ';'
+     *  - A_POINTER => '(pointer)'
+     *  - A_DOLLAR  => '$N'
+     *  - A_DOLLSYM => dollar symbol string
+     * @param a   - input atom
+     * @param out - output static string buffer
+     * @return true on success, false on error (on buffer overflow for ex.)
+     * @see atom_string() function from "m_pd.h"
      */
     bool raw_atom_to_string(const Atom& a, StaticString& out) noexcept;
 
     /**
-     * Write raw atom (only core Pd atoms: floats, symbols, commas, semicolons etc.)
-     * to given small string preallocated buffer
+     * @brief Append atom as string to a small preallocated string buffer
+     * @note only theese atom types are supportd:
+     *  - A_FLOAT   => float string
+     *  - A_SYMBOL  => characters ' ,;$' are escaped with backslash
+     *  - A_COMMA   => ','
+     *  - A_SEMI    => ';'
+     *  - A_POINTER => '(pointer)'
+     *  - A_DOLLAR  => '$N'
+     *  - A_DOLLSYM => dollar symbol string
+     * @param a   - input atom
+     * @param out - output small string
+     * @return true on success, false on error (on buffer overflow for ex.)
      */
     bool raw_atom_to_string(const Atom& a, SmallString& out) noexcept;
 
     /**
-     * Write raw atom (only core Pd atoms: floats, symbols, commas, semicolons etc.)
-     * to given small string preallocated buffer
+     * @brief Append atom as string to a medium preallocated string buffer
+     * @note only theese atom types are supportd:
+     *  - A_FLOAT   => float string
+     *  - A_SYMBOL  => characters ' ,;$' are escaped with backslash
+     *  - A_COMMA   => ','
+     *  - A_SEMI    => ';'
+     *  - A_POINTER => '(pointer)'
+     *  - A_DOLLAR  => '$N'
+     *  - A_DOLLSYM => dollar symbol string
+     * @param a   - input atom
+     * @param out - output medium string
+     * @return true on success, false on error (on buffer overflow for ex.)
      */
     bool raw_atom_to_string(const Atom& a, MediumString& out) noexcept;
 
     /**
-     * Write raw atomlist (only core Pd types: floats, symbols, commas, semicolons etc.)
-     * to given output string with small preallocated size
+     * @brief Append atomlist as string to a small preallocated string buffer
+     * @note only theese atom types are supportd:
+     *  - A_FLOAT   => float string
+     *  - A_SYMBOL  => characters ' ,;$' are escaped with backslash
+     *  - A_COMMA   => ','
+     *  - A_SEMI    => ';'
+     *  - A_POINTER => '(pointer)'
+     *  - A_DOLLAR  => '$N'
+     *  - A_DOLLSYM => dollar symbol string
+     * @param lv  - input atomlist
+     * @param out - output medium string
+     * @return true on success, false on error
      */
     void raw_list_to_string(const AtomListView& lv, SmallString& out);
 
     /**
-     * Write raw atomlist (only core Pd types: floats, symbols, commas, semicolons etc.)
-     * to given  output string with medium preallocated size
+     * @brief Append atomlist as string to a medium preallocated string buffer
+     * @note only theese atom types are supportd:
+     *  - A_FLOAT   => float string
+     *  - A_SYMBOL  => characters ' ,;$' are escaped with backslash
+     *  - A_COMMA   => ','
+     *  - A_SEMI    => ';'
+     *  - A_POINTER => '(pointer)'
+     *  - A_DOLLAR  => '$N'
+     *  - A_DOLLSYM => dollar symbol string
+     * @param lv  - input atomlist
+     * @param out - output medium string
+     * @return true on success, false on error
      */
     void raw_list_to_string(const AtomListView& lv, MediumString& out);
 
     /**
-     * Write raw atomlist (only core Pd types: floats, symbols, commas, semicolons etc.)
-     * to given static buffer string
-     * @return true on success, false on error
+     * @brief Append atomlist as string to a static string buffer
+     * @note only theese atom types are supportd:
+     *  - A_FLOAT   => float string
+     *  - A_SYMBOL  => characters ' ,;$' are escaped with backslash
+     *  - A_COMMA   => ','
+     *  - A_SEMI    => ';'
+     *  - A_POINTER => '(pointer)'
+     *  - A_DOLLAR  => '$N'
+     *  - A_DOLLSYM => dollar symbol string
+     * @param lv  - input atomlist
+     * @param out - output medium string
+     * @return true on success, false on error (on buffer overflow for ex.)
      */
     bool raw_list_to_string(const AtomListView& lv, StaticString& out);
 
-    /// output parsed data
     /**
-     * Write parsed atom (can contain data atoms)
-     * to given static buffer string
-     * @note symbols are quoted if needed and `, " chars are escaped with `
-     * @return true on success, false on error
+     * @brief Append atom as string to a static string buffer
+     * @note only theese atom types are supportd:
+     *  - A_NONE    => #null
+     *  - A_FLOAT   => float string
+     *  - A_SYMBOL  => if contains ' #@,;:()[]' quoted with double quotes
+     *  - A_COMMA   => ','
+     *  - A_SEMI    => ';'
+     *  - A_DOLLSYM => "dollar symbol string"
+     *  - DATA TYPE => uses data->toString()
+     * @param lv  - input atomlist
+     * @param out - output medium string
+     * @return true on success, false on error (on buffer overflow for ex.)
      */
     bool parsed_atom_to_string(const Atom& a, StaticString& out) noexcept;
 
     /**
-     * Write parsed atom (can contain data atoms)
-     * to given preallocated small string
-     * @note symbols are quoted if needed and `, " chars are escaped with `
+     * @brief Append atom as string to a small string buffer
+     * @note only theese atom types are supportd:
+     *  - A_NONE    => #null
+     *  - A_FLOAT   => float string
+     *  - A_SYMBOL  => if contains ' #@,;:()[]' quoted with double quotes
+     *  - A_COMMA   => ','
+     *  - A_SEMI    => ';'
+     *  - A_DOLLSYM => "dollar symbol string"
+     *  - DATA TYPE => uses data->toString()
+     * @param lv  - input atomlist
+     * @param out - output medium string
+     * @return true on success, false on error
      */
     bool parsed_atom_to_string(const Atom& a, SmallString& out) noexcept;
 
     /**
-     * Write parsed atom (can contain data atoms)
-     * to given preallocated medium string
-     * @note symbols are quoted if needed and `, " chars are escaped with `
+     * @brief Append atom as string to a medium string buffer
+     * @note only theese atom types are supportd:
+     *  - A_NONE    => #null
+     *  - A_FLOAT   => float string
+     *  - A_SYMBOL  => if contains ' #@,;:()[]' quoted with double quotes
+     *  - A_COMMA   => ','
+     *  - A_SEMI    => ';'
+     *  - A_DOLLSYM => "dollar symbol string"
+     *  - DATA TYPE => uses data->toString()
+     * @param lv  - input atomlist
+     * @param out - output medium string
+     * @return true on success, false on error
      */
     bool parsed_atom_to_string(const Atom& a, MediumString& out) noexcept;
 
     /**
-     * @brief Write parsed atomlist (can contain data atoms) to string
-     * The result string can be parsed and converted back to origin list.
-     * @param lv - input list
-     * @param out - static string buffer
-     * @note symbols are quoted if needed and `, " chars are escaped with `
+     * @brief Append atomlist as string to a static string buffer
+     * @note only theese atom types are supportd:
+     *  - A_NONE    => #null
+     *  - A_FLOAT   => float string
+     *  - A_SYMBOL  => if contains ' #@,;:()[]' quoted with double quotes
+     *  - A_COMMA   => ','
+     *  - A_SEMI    => ';'
+     *  - A_DOLLSYM => "dollar symbol string"
+     *  - DATA TYPE => uses data->toString()
+     * @param lv  - input atomlist
+     * @param out - output medium string
      * @return true on success, false on error
      */
     bool parsed_list_to_string(const AtomListView& lv, StaticString& out) noexcept;
 
     /**
-     * @brief Write parsed atomlist (can contain data atoms) to string
-     * The result string can be parsed and converted back to origin list.
-     * @param lv - input list
-     * @param out - small preallocated string buffer (no zero termination)
-     * @note symbols are quoted if needed and `, " chars are escaped with `
+     * @brief Append atom as string to a small string buffer
+     * @note only theese atom types are supportd:
+     *  - A_NONE    => #null
+     *  - A_FLOAT   => float string
+     *  - A_SYMBOL  => if contains ' #@,;:()[]' quoted with double quotes
+     *  - A_COMMA   => ','
+     *  - A_SEMI    => ';'
+     *  - A_DOLLSYM => "dollar symbol string"
+     *  - DATA TYPE => uses data->toString()
+     * @param lv  - input atomlist
+     * @param out - output medium string
+     * @return true on success, false on error
      */
     bool parsed_list_to_string(const AtomListView& lv, SmallString& out) noexcept;
 
     /**
-     * @brief Write parsed atomlist (can contain data atoms) to string.
-     * The result string can be parsed and converted back to origin list.
-     * @param lv - input list
-     * @param out - small preallocated string buffer (no zero termination)
-     * @note symbols are quoted if needed and `, " chars are escaped with `
+     * @brief Append atom as string to a medium string buffer
+     * @note only theese atom types are supportd:
+     *  - A_NONE    => #null
+     *  - A_FLOAT   => float string
+     *  - A_SYMBOL  => if contains ' #@,;:()[]' quoted with double quotes
+     *  - A_COMMA   => ','
+     *  - A_SEMI    => ';'
+     *  - A_DOLLSYM => "dollar symbol string"
+     *  - DATA TYPE => uses data->toString()
+     * @param lv  - input atomlist
+     * @param out - output medium string
+     * @return true on success, false on error
      */
     bool parsed_list_to_string(const AtomListView& lv, MediumString& out) noexcept;
+
+    /**
+     * @brief Simple convertion of atom to string: no quotes, no escapes, no data parsing
+     * @param a   - atom to convert
+     * @param out - append to result to this static string
+     * @return true on success, false on error (on buffer overflow, for ex.)
+     */
+    bool atom_to_string(const Atom& a, StaticString& out) noexcept;
+
+    /**
+     * @brief Simple convertion of atom to string: no quotes, no escapes, no data parsing
+     * @param a   - atom to convert
+     * @param out - append to result to this small string buffer
+     * @return true on success, false on error
+     */
+    bool atom_to_string(const Atom& a, SmallString& out) noexcept;
+
+    /**
+     * @brief Simple convertion of atom to string: no quotes, no escapes, no data parsing
+     * @param a   - atom to convert
+     * @param out - append to result to this medium string buffer
+     * @return true on success, false on error
+     */
+    bool atom_to_string(const Atom& a, MediumString& out) noexcept;
+
+    /**
+     * @brief Simple convertion of atomlist to string: no quotes, no escapes, no data parsing
+     * @param a   - atom to convert
+     * @param out - append to result to this medium string buffer
+     * @return true on success, false on error
+     */
+    bool list_to_string(const AtomListView& lv, MediumString& out) noexcept;
+
+    /**
+     * Output atomlist to given stream with type annotated info
+     */
+    std::ostream& list_to_stream_typed(const AtomListView& lv, std::ostream& os);
 }
 }
 

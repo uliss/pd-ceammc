@@ -473,8 +473,8 @@ TEST_CASE("ceammc_string", "[PureData]")
             REQUIRE_STATIC_STR(LF(1, 2, -3), "1 2 -3");
             REQUIRE_STATIC_STR(AtomList::parseString(" a  b  c "), "a b c");
             REQUIRE_STATIC_STR(AtomList::parseString("1,2,3;"), "1, 2, 3;");
-            REQUIRE_STATIC_STR(LA(Atom()), "#null");
-            REQUIRE_STATIC_STR(LA(Atom(), "ABC"), "#null ABC");
+            REQUIRE_STATIC_STR(LA(Atom()), "");
+            REQUIRE_STATIC_STR(LA(Atom(), "ABC"), " ABC");
         }
 
         SECTION("SmallString")
@@ -492,8 +492,8 @@ TEST_CASE("ceammc_string", "[PureData]")
             REQUIRE_SMALL_STR(LF(1, 2, -3), "1 2 -3");
             REQUIRE_SMALL_STR(AtomList::parseString(" a  b  c "), "a b c");
             REQUIRE_SMALL_STR(AtomList::parseString("1,2,3;"), "1, 2, 3;");
-            REQUIRE_SMALL_STR(LA(Atom()), "#null");
-            REQUIRE_SMALL_STR(LA(Atom(), "ABC"), "#null ABC");
+            REQUIRE_SMALL_STR(LA(Atom()), "");
+            REQUIRE_SMALL_STR(LA(Atom(), "ABC"), " ABC");
         }
 
         SECTION("MediumString")
@@ -511,8 +511,8 @@ TEST_CASE("ceammc_string", "[PureData]")
             REQUIRE_MEDIUM_STR(LF(1, 2, -3), "1 2 -3");
             REQUIRE_MEDIUM_STR(AtomList::parseString(" a  b  c "), "a b c");
             REQUIRE_MEDIUM_STR(AtomList::parseString("1,2,3;"), "1, 2, 3;");
-            REQUIRE_MEDIUM_STR(LA(Atom()), "#null");
-            REQUIRE_MEDIUM_STR(LA(Atom(), "ABC"), "#null ABC");
+            REQUIRE_MEDIUM_STR(LA(Atom()), "");
+            REQUIRE_MEDIUM_STR(LA(Atom(), "ABC"), " ABC");
         }
     }
 

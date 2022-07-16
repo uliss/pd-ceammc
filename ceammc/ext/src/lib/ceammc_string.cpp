@@ -494,14 +494,12 @@ namespace string {
     }
 
     template <typename T>
-    static bool atom_to_string(const Atom& a, T& out)
+    static bool raw_atom_to_string_t(const Atom& a, T& out)
     {
         auto t = a.atom().a_type;
         switch (t) {
-        case A_NULL: {
-            constexpr const char s[] = "#null";
-            out.insert(out.end(), s, s + sizeof(s) - 1);
-        } break;
+        case A_NULL:
+            break;
         case A_FLOAT:
             // this expected to be faster then using atom_string (sprintf by nonius tests)
             fmt::format_to(std::back_inserter(out), "{:g}", a.asT<t_float>());
@@ -519,7 +517,7 @@ namespace string {
     bool raw_atom_to_string(const Atom& a, StaticString& out) noexcept
     {
         try {
-            return atom_to_string(a, out);
+            return raw_atom_to_string_t(a, out);
         } catch (std::exception& e) {
             LIB_ERR << fmt::format("[{}] error: '{}'", __FUNCTION__, e.what());
             return false;
@@ -529,7 +527,7 @@ namespace string {
     bool raw_atom_to_string(const Atom& a, SmallString& out) noexcept
     {
         try {
-            return atom_to_string(a, out);
+            return raw_atom_to_string_t(a, out);
         } catch (std::exception& e) {
             LIB_ERR << fmt::format("[{}] error: '{}'", __FUNCTION__, e.what());
             return false;
@@ -539,7 +537,7 @@ namespace string {
     bool raw_atom_to_string(const Atom& a, MediumString& out) noexcept
     {
         try {
-            return atom_to_string(a, out);
+            return raw_atom_to_string_t(a, out);
         } catch (std::exception& e) {
             LIB_ERR << fmt::format("[{}] error: '{}'", __FUNCTION__, e.what());
             return false;
@@ -547,7 +545,7 @@ namespace string {
     }
 
     template <typename T>
-    static bool to_stringT(const AtomListView& lv, T& out) noexcept
+    static bool raw_list_to_string_t(const AtomListView& lv, T& out) noexcept
     {
         try {
             for (auto& a : lv) {
@@ -555,10 +553,8 @@ namespace string {
                 if ((a.isComma() || a.isSemicolon()) && !out.empty() && out.back() == ' ')
                     out.pop_back();
 
-                if (atom_to_string(a, out))
+                if (raw_atom_to_string_t(a, out))
                     out.push_back(' ');
-                else
-                    break;
             }
 
             if (!out.empty() && out.back() == ' ')
@@ -573,17 +569,17 @@ namespace string {
 
     bool raw_list_to_string(const AtomListView& lv, StaticString& out)
     {
-        return to_stringT(lv, out);
+        return raw_list_to_string_t(lv, out);
     }
 
     void raw_list_to_string(const AtomListView& lv, SmallString& out)
     {
-        to_stringT(lv, out);
+        raw_list_to_string_t(lv, out);
     }
 
     void raw_list_to_string(const AtomListView& lv, MediumString& out)
     {
-        to_stringT(lv, out);
+        raw_list_to_string_t(lv, out);
     }
 
     template <typename T>
@@ -615,6 +611,8 @@ namespace string {
             out.push_back(',');
         } else if (a.isSemicolon()) {
             out.push_back(';');
+        } else if (a.atom().a_type == A_DOLLSYM) {
+            fmt::format_to(std::back_inserter(out), "\"{}\"", a.asT<t_symbol*>()->s_name);
         } else {
             return false;
         }
@@ -633,8 +631,6 @@ namespace string {
 
                 if (parsed_atom_to_string_t<T>(a, out))
                     out.push_back(' ');
-                else
-                    break;
             }
 
             if (!out.empty() && out.back() == ' ')
@@ -691,6 +687,118 @@ namespace string {
     bool parsed_list_to_string(const AtomListView& lv, MediumString& out) noexcept
     {
         return parsed_list_to_string_t(lv, out);
+    }
+
+    template <typename T>
+    bool atom_to_string_t(const Atom& a, T& out) noexcept
+    try {
+
+        switch (a.atom().a_type) {
+        case A_FLOAT:
+            fmt::format_to(std::back_inserter(out), "{:g}", a.asT<t_float>());
+            break;
+        case A_SYMBOL: {
+            auto s = a.asT<t_symbol*>()->s_name;
+            out.insert(out.end(), s, s + strlen(s));
+        } break;
+        case A_COMMA:
+            out.push_back(',');
+            break;
+        case A_SEMI:
+            out.push_back(';');
+            break;
+        case A_DOLLAR:
+            out.push_back('$');
+            out.push_back(a.atom().a_w.w_index + '0');
+            break;
+        case A_DOLLSYM:
+            fmt::format_to(std::back_inserter(out), "{}", a.asT<t_symbol*>()->s_name);
+            break;
+        case A_NULL: {
+            const char snull[] = "#null";
+            out.insert(out.end(), snull, snull + sizeof(snull) - 1);
+        } break;
+        default:
+            if (a.isData())
+                parsed_atom_to_string(a, out);
+            break;
+        }
+
+        return true;
+    } catch (std::exception& e) {
+        LIB_ERR << fmt::format("[{}] error: '{}'", __FUNCTION__, e.what());
+        return false;
+    }
+
+    bool atom_to_string(const Atom& a, StaticString& out) noexcept
+    {
+        return atom_to_string_t(a, out);
+    }
+
+    bool atom_to_string(const Atom& a, SmallString& out) noexcept
+    {
+        return atom_to_string_t(a, out);
+    }
+
+    bool atom_to_string(const Atom& a, MediumString& out) noexcept
+    {
+        return atom_to_string_t(a, out);
+    }
+
+    bool list_to_string(const AtomListView& lv, MediumString& out) noexcept
+    {
+        Log log;
+        list_to_stream_typed(lv, log);
+
+        for (auto& a : lv) {
+            if (atom_to_string_t(a, out))
+                out.push_back(' ');
+        }
+
+        if (out.size() > 0 && out.back() == ' ')
+            out.pop_back();
+
+        return true;
+    }
+
+    std::ostream& list_to_stream_typed(const AtomListView& lv, std::ostream& os)
+    {
+        os << "AtomList: [\n";
+
+        for (auto& a : lv) {
+            switch (a.atom().a_type) {
+            case A_NULL:
+                os << "\t#N\n";
+                break;
+            case A_FLOAT:
+                os << "\t#F (" << a.asFloat() << ")\n";
+                break;
+            case A_SYMBOL:
+                os << "\t#S (" << a.asSymbol()->s_name << ")\n";
+                break;
+            case A_COMMA:
+                os << "\t#COMMA\n";
+                break;
+            case A_SEMI:
+                os << "\t#SEMI\n";
+                break;
+            case A_DOLLAR:
+                os << "\t#DOLLAR (" << a.atom().a_w.w_index << ")\n";
+                break;
+            case A_DOLLSYM:
+                os << "\t#DOLLSYM (" << a.asT<t_symbol*>() << ")\n";
+                break;
+            case A_POINTER:
+                os << "\t#PTR\n";
+                break;
+            default:
+                os << "\t???\n";
+                break;
+            }
+        }
+
+        os << "]\n";
+        return os;
     }
 
 }
