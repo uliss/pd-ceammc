@@ -241,8 +241,7 @@ namespace eval texteditor {
                         }
                         data    {
                             set lin [string map {"," {\,} ";" {\;} {$} {\$} "\ \ " { \  }} $lin]
-                            # using string format to preserve spaces
-                            pdsend [format "$name .addline %s" $lin]
+                            pdsend [concat $name .addline $lin]
                         }
                         default {
                             set lin [string map {"{" {} "}" {}} $lin]
