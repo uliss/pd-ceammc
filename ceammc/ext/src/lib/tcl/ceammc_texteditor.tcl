@@ -202,10 +202,21 @@ namespace eval texteditor {
         if {[winfo exists $name]} {
             switch $escape_map("esc$name") {
                 lua     {
-                    $name.f.text fastinsert end [string map {{\x7b} "{" {\x7d} "}" {\x2c} "," {\x3b} ";" {\x5c} "\\" {\x09 } "\t"} $contents]
+                    $name.f.text fastinsert end [string map {
+                        {\x7b} "{"
+                        {\x7d} "}"
+                        {\x2c} ","
+                        {\x3b} ";"
+                        {\x5c} "\\"
+                        {\x09 } "\t"
+                    } $contents]
                 }
                 data    {
-                    $name.f.text fastinsert end [string map {{\$} {$} {\,} "," {\;} ";"} $contents]
+                    $name.f.text fastinsert end [string map {
+                        {\$} {$}
+                        {\,} ","
+                        {\;} ";"
+                    } $contents]
                 }
                 default {
                     $name.f.text fastinsert end $contents
@@ -236,15 +247,32 @@ namespace eval texteditor {
                 if {$lin != "" && $lin != "\t"} {
                     switch $escape_map("esc$name") {
                         lua     {
-                            set lin [string map {"{" {\\x7b} "}" {\\x7d} "," {\\x2c} ";" {\\x3b} "\\" {\\x5c} "\t" {\\x09 } "\ \ " { \  }} $lin]
+                            set lin [string map {
+                                "{"  {\\x7b}
+                                "}"  {\\x7d}
+                                ","  {\\x2c}
+                                ";"  {\\x3b}
+                                "\\" {\\x5c}
+                                "\t" {\\x09 }
+                                "\ \ " { \  }
+                            } $lin]
                             pdsend [concat $name .addline $lin]
                         }
                         data    {
-                            set lin [string map {"," {\,} ";" {\;} {$} {\$} "\ \ " { \  }} $lin]
+                            set lin [string map {
+                                "," {\,}
+                                ";" {\;}
+                                {$} {\$}
+                                "\ \ " { \  }
+                                "{" {`(}
+                                "}" {`)}
+                            } $lin]
                             pdsend [concat $name .addline $lin]
                         }
                         default {
-                            set lin [string map {"{" {} "}" {}} $lin]
+                            set lin [string map {
+                                "{" {} "}" {}
+                            } $lin]
                             pdsend [concat $name .addline $lin]
                         }
                     }
