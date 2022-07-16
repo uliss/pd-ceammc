@@ -17,6 +17,8 @@
 DataSet::DataSet(const PdArgs& a)
     : DataSetBase(a)
 {
+    setSpecialSymbolEscape(EDITOR_ESC_MODE_DATA);
+
     if (set_.looksLikeCtor(a.args))
         set_.setFromDataList(a.args);
     else
