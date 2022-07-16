@@ -135,10 +135,10 @@ bool string_need_quotes(const char* str) {
         str_rpar         >{ out.push_back(')'); } |
         str_lbrac        >{ out.push_back('['); } |
         str_rbrac        >{ out.push_back(']'); } |
-        ':'              >{ out.push_back(':'); } |
-        '@'              >{ out.push_back('@'); } |
-        '%'              >{ out.push_back('%'); } |
-        '#'              >{ out.push_back('#'); }
+        str_colon        >{ out.push_back(':'); } |
+        str_at           >{ out.push_back('@'); } |
+        str_perc         >{ out.push_back('%'); } |
+        str_hash         >{ out.push_back('#'); }
     ) % { rl_esc_count++; };
 
     other = (any - (esc_all|0)) >{ out.push_back(fc); };
@@ -255,13 +255,12 @@ AtomList escape_and_quote(const AtomListView& lv)
                     '%' @on_envvar_done)
                     @lerr(on_envvar_err);
 
-
     esc_tick     = '``'            @{ rl_string.push_back('`'); };
     esc_dblq     = '`"'            @{ rl_string.push_back('"'); };
     esc_perc     = '`%'            @{ rl_string.push_back('%'); };
-    str_perc     = '%'             @{ fcall envvar; };
+    perc         = '%'             @{ fcall envvar; };
     char         = [^`"%]          @{ rl_string.push_back(fc); };
-    esc_char     = str_perc | char | esc_tick | esc_dblq | esc_perc;
+    esc_char     = perc | char | esc_tick | esc_dblq | esc_perc;
     string       = 'S'? '"' (esc_char-0)* '"';
 
     # zero string version

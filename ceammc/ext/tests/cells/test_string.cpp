@@ -414,6 +414,14 @@ TEST_CASE("ceammc_string", "[PureData]")
         REQUIRE_FALSE(string_need_quotes("there's"));
         REQUIRE(string_need_quotes("there\"s"));
         REQUIRE(string_need_quotes("the space"));
+        REQUIRE(string_need_quotes(":"));
+        REQUIRE(string_need_quotes("#"));
+        REQUIRE(string_need_quotes("@"));
+        REQUIRE(string_need_quotes("("));
+        REQUIRE(string_need_quotes(")"));
+        REQUIRE(string_need_quotes("["));
+        REQUIRE(string_need_quotes("]"));
+        REQUIRE(string_need_quotes("%"));
     }
 
     SECTION("escape_and_quote")
@@ -603,6 +611,7 @@ TEST_CASE("ceammc_string", "[PureData]")
         REQUIRE(escape_and_quote(A("]")) == A(R"("]")"));
         REQUIRE(escape_and_quote(A("(")) == A(R"("(")"));
         REQUIRE(escape_and_quote(A(")")) == A("\")\""));
+        REQUIRE(escape_and_quote(A("\\")) == A("\"\\\""));
 
         REQUIRE(escape_and_quote(L()) == L());
         REQUIRE(escape_and_quote(LF(1, 2, 3)) == LF(1, 2, 3));

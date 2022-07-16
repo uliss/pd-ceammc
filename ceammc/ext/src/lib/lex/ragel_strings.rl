@@ -17,6 +17,10 @@
     str_rpar      = ')';
     str_lbrac     = '[';
     str_rbrac     = ']';
+    str_colon     = ':';
+    str_at        = '@';
+    str_perc      = '%';
+    str_hash      = '#';
 
     str_envvar    = '%' [A-Z_0-9]{1,16} '%';
 
@@ -35,6 +39,12 @@
         str_comma |
         str_semicolon |
         str_lpar |
+        str_rpar |
         str_lbrac |
+        str_rbrac |
+        str_colon |
+        str_at |
+        str_perc |
+        str_hash |
         str_backslash;
 }%%
