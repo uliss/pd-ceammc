@@ -6,6 +6,8 @@
 #include "ceammc_data.h"
 #include "ceammc_datatypes.h"
 #include "ceammc_editor_object.h"
+#include "ceammc_format.h"
+#include "ceammc_string.h"
 
 namespace ceammc {
 
@@ -27,7 +29,12 @@ public:
 
     void editorSync() override
     {
-        if (!editorData().setFromDataList(lines_)) {
+        string::MediumString buf;
+        if (!string::list_to_string(lines_, buf))
+            return;
+
+        buf.push_back('\0');
+        if (!editorData().setFromDataString(buf.data())) {
             OBJ_ERR << "can't set data: " << lines_;
             return;
         }

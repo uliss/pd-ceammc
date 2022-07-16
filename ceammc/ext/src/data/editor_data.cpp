@@ -47,23 +47,11 @@ namespace {
             auto str = EditorStringPool::pool().allocate();
 
             appendIndent(str, indentLevel);
-            str->append('(');
 
-            string::SmallString buf;
-            for (auto& a: ml) {
-                string::parsed_atom_to_string(a, buf);
-                buf.push_back(0);
-                str->append(buf.data());
-                buf.clear();
-                str->append(' ');
-            }
-
-            if (ml.empty()) // empty mlist: ( )
-                str->append(' ');
+            if (ml.empty())
+                str->append("( )");
             else
-                str->trim();
-
-            str->append(')');
+                str->append(ml.toString());
 
             res.push_back(str);
         } else {
@@ -101,26 +89,10 @@ namespace {
             auto str = EditorStringPool::pool().allocate();
 
             appendIndent(str, indentLevel);
-            str->append('[');
-            int i = 0;
-
-            for (auto& kv : dict) {
-                if (i++ > 0)
-                    str->append(' ');
-
-                str->append(kv.first->s_name);
-                str->append(':');
-                str->append(' ');
-
-                str->appendQuoted(kv.second.view());
-            }
-
-            if (dict.size() == 0) // empty dict [ ]
-                str->append(' ');
+            if (dict.size() == 0)
+                str->append("[ ]");
             else
-                str->trim();
-
-            str->append(']');
+                str->append(dict.toString());
 
             res.push_back(str);
         } else {
