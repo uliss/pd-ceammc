@@ -66,7 +66,7 @@ LangLuaJit::LangLuaJit(const PdArgs& args)
         OBJ_ERR << "can't start LUA event loop";
 
     setHighlightSyntax(EDITOR_SYNTAX_LUA);
-    setSpecialSymbolEscape(true);
+    setSpecialSymbolEscape(EDITOR_ESC_MODE_LUA);
 }
 
 LangLuaJit::~LangLuaJit()

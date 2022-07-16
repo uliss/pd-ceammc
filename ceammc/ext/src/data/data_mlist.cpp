@@ -19,6 +19,7 @@
 DataMList::DataMList(const PdArgs& args)
     : DataMListBase(args)
 {
+    setSpecialSymbolEscape(EDITOR_ESC_MODE_DATA);
     mlist_->setFromDataList(args.args);
 
     createOutlet();

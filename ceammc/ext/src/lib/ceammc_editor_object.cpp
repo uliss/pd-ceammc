@@ -21,18 +21,33 @@ extern "C" {
 
 namespace ceammc {
 
-static const char* editorSyntaxStr(EditorSyntax s)
-{
-    switch (s) {
-    case EDITOR_SYNTAX_SELECTOR:
-        return "selector";
-    case EDITOR_SYNTAX_DEFAULT:
-        return "default";
-    case EDITOR_SYNTAX_LUA:
-        return "lua";
-    case EDITOR_SYNTAX_NONE:
-    default:
-        return "none";
+namespace {
+    const char* editorSyntaxStr(EditorSyntax s)
+    {
+        switch (s) {
+        case EDITOR_SYNTAX_SELECTOR:
+            return "selector";
+        case EDITOR_SYNTAX_DEFAULT:
+            return "default";
+        case EDITOR_SYNTAX_LUA:
+            return "lua";
+        case EDITOR_SYNTAX_NONE:
+        default:
+            return "none";
+        }
+    }
+
+    const char* escapeMode(EditorEscapeMode m)
+    {
+        switch (m) {
+        case EDITOR_ESC_MODE_LUA:
+            return "lua";
+        case EDITOR_ESC_MODE_DATA:
+            return "data";
+        case EDITOR_ESC_MODE_DEFAULT:
+        default:
+            return "default";
+        }
     }
 }
 
@@ -139,7 +154,7 @@ void EditorString::trim()
 EditorObjectImpl::EditorObjectImpl(t_object* owner)
     : owner_(owner)
     , guiconnect_(nullptr)
-    , escape_specs_(false)
+    , esc_mode_(EDITOR_ESC_MODE_DEFAULT)
 {
 }
 
@@ -168,7 +183,7 @@ void EditorObjectImpl::open(t_canvas* cnv, const EditorLineList& data, const Edi
         sys_vgui("ceammc::texteditor::open .x%lx %dx%d+%d+%d {%s} %d %d %s\n",
             xowner(), w, h, brect.x + x, brect.y + y, title.c_str(), fsz, (int)lineNumbers, editorSyntaxStr(syntax));
 
-        sys_vgui("ceammc::texteditor::set_escape .x%lx %d\n", xowner(), escape_specs_ ? 1 : 0);
+        sys_vgui("ceammc::texteditor::set_escape .x%lx %s\n", xowner(), escapeMode(esc_mode_));
 
         char buf[40];
         sprintf(buf, ".x%lx", xowner());
@@ -205,9 +220,9 @@ void EditorObjectImpl::sync(const EditorLineList& list)
     sys_vgui("ceammc::texteditor::setundo .x%lx 1\n", xowner());
 }
 
-void EditorObjectImpl::setSpecialSymbolEscape(bool value)
+void EditorObjectImpl::setSpecialSymbolEscape(EditorEscapeMode mode)
 {
-    escape_specs_ = value;
+    esc_mode_ = mode;
 }
 
 void EditorObjectImpl::setDirty(t_canvas* c, bool value)

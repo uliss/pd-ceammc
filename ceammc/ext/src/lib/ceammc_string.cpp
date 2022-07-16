@@ -747,9 +747,6 @@ namespace string {
 
     bool list_to_string(const AtomListView& lv, MediumString& out) noexcept
     {
-        Log log;
-        list_to_stream_typed(lv, log);
-
         for (auto& a : lv) {
             if (atom_to_string_t(a, out))
                 out.push_back(' ');

@@ -146,10 +146,13 @@ namespace eval texteditor {
             }
             default {
                 ctext::addHighlightClassWithOnlyCharStart $w props $colors(cyan) "@"
+                ctext::addHighlightClassWithOnlyCharStart $w props $colors(cyan) "\$"
                 ctext::addHighlightClassForSpecialChars $w brackets $colors(yellow) {[]()}
-                ctext::addHighlightClassForRegexp $w numbers $colors(pink) {[-]?[0-9]+(?:\.[0-9]+)?(?:[eE][-+]?[0-9]+)?}
-                ctext::addHighlightClassForRegexp $w strings $colors(green) {[\"]([^\n\"]||`\")+[\"]}
                 ctext::addHighlightClassForRegexp $w dicts $colors(cyan) {[a-zA-Z]+:}
+                ctext::addHighlightClassForRegexp $w numbers $colors(pink) {[-]?[0-9]+(?:\.[0-9]+)?(?:[eE][-+]?[0-9]+)?}
+                ctext::addHighlightClassForRegexp $w strings $colors(green) {[\"]([^\n`\"]||`\"|``)+[\"]}
+                ctext::addHighlightClass $w esc_ticks $colors(red)  {``}
+                ctext::addHighlightClass $w esc_dblq  $colors(red)  {`\"}
             }
         }
     }
@@ -184,9 +187,9 @@ namespace eval texteditor {
         }
     }
 
-    proc set_escape {name {flag 1}} {
+    proc set_escape {name mode} {
         variable escape_map
-        set escape_map("esc$name") $flag
+        set escape_map("esc$name") "$mode"
     }
 
     proc doclose {name} {
@@ -195,8 +198,19 @@ namespace eval texteditor {
     }
 
     proc append {name contents} {
+        variable escape_map
         if {[winfo exists $name]} {
-            $name.f.text fastinsert end [string map {{\x7b} "{" {\x7d} "}" {\x2c} "," {\x3b} ";" {\x5c} "\\" {\x09 } "\t"} $contents]
+            switch $escape_map("esc$name") {
+                lua     {
+                    $name.f.text fastinsert end [string map {{\x7b} "{" {\x7d} "}" {\x2c} "," {\x3b} ";" {\x5c} "\\" {\x09 } "\t"} $contents]
+                }
+                data    {
+                    $name.f.text fastinsert end [string map {{\$} {$} {\,} "," {\;} ";"} $contents]
+                }
+                default {
+                    $name.f.text fastinsert end $contents
+                }
+            }
         }
     }
 
@@ -217,17 +231,23 @@ namespace eval texteditor {
         variable escape_map
         if {[winfo exists $name]} {
             pdsend [concat $name .clear]
-            for {set i 1} \
-             {[$name.f.text compare $i.end < end]} \
-                  {incr i 1} {
+            for {set i 1} {[$name.f.text compare $i.end < end]} {incr i 1} {
                 set lin [$name.f.text get $i.0 $i.end]
                 if {$lin != "" && $lin != "\t"} {
-                    if { $escape_map("esc$name") } {
-                        set lin [string map {"{" {\\x7b} "}" {\\x7d} "," {\\x2c} ";" {\\x3b} "\\" {\\x5c} "\t" {\\x09 }} $lin]
-                        pdsend [concat $name .addline $lin]
-                    } else {
-                        set lin [string map {"{" {} "}" {}} $lin]
-                        pdsend [concat $name .addline $lin]
+                    switch $escape_map("esc$name") {
+                        lua     {
+                            set lin [string map {"{" {\\x7b} "}" {\\x7d} "," {\\x2c} ";" {\\x3b} "\\" {\\x5c} "\t" {\\x09 }} $lin]
+                            pdsend [concat $name .addline $lin]
+                        }
+                        data    {
+                            set lin [string map {"," {\,} ";" {\;} {$} {\$} "\ \ " { \  }} $lin]
+                            # using string format to preserve spaces
+                            pdsend [format "$name .addline %s" $lin]
+                        }
+                        default {
+                            set lin [string map {"{" {} "}" {}} $lin]
+                            pdsend [concat $name .addline $lin]
+                        }
                     }
                 }
             }

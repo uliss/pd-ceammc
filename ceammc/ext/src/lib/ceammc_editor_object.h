@@ -77,10 +77,16 @@ enum EditorSyntax {
     EDITOR_SYNTAX_DEFAULT
 };
 
+enum EditorEscapeMode {
+    EDITOR_ESC_MODE_DEFAULT = 0,
+    EDITOR_ESC_MODE_LUA,
+    EDITOR_ESC_MODE_DATA
+};
+
 class EditorObjectImpl {
     t_object* owner_;
     void* guiconnect_;
-    bool escape_specs_;
+    EditorEscapeMode esc_mode_;
 
 public:
     EditorObjectImpl(t_object* owner);
@@ -116,7 +122,7 @@ public:
      * Enable/disable special symbols ("\t,;{}") escaping
      * useful for LUA, for example
      */
-    void setSpecialSymbolEscape(bool value);
+    void setSpecialSymbolEscape(EditorEscapeMode mode);
 
     /**
      * set owner canvas dirty
@@ -194,7 +200,7 @@ public:
     /**
      * Enable/disable escaping of special chars
      */
-    void setSpecialSymbolEscape(bool value) { impl_.setSpecialSymbolEscape(value); }
+    void setSpecialSymbolEscape(EditorEscapeMode mode) { impl_.setSpecialSymbolEscape(mode); }
 
 public:
     using ThisType = EditorObject<BaseClass>;
