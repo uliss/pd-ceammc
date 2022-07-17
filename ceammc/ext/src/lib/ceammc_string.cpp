@@ -351,11 +351,6 @@ namespace string {
             return false;
     }
 
-    bool is_pd_string(const char* str)
-    {
-        return is_quoted_string(str);
-    }
-
     std::string remove_all(const std::string& input, const std::string& search)
     {
         return boost::algorithm::erase_all_copy(input, search);

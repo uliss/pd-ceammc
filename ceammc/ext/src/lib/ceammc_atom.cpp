@@ -291,7 +291,7 @@ bool Atom::isQuoted() const
     if (a_type != A_SYMBOL)
         return false;
     else
-        return string::is_pd_string(a_w.w_symbol->s_name);
+        return string::is_quoted_string(a_w.w_symbol->s_name);
 }
 
 bool Atom::beginQuote() const
