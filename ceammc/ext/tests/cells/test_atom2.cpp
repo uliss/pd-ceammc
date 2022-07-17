@@ -388,7 +388,7 @@ TEST_CASE("Atom2", "[core]")
         REQUIRE(!A("`\"").endQuote());
         REQUIRE(A("\"").endQuote());
         REQUIRE(A("abc\"").endQuote());
-        REQUIRE(A("abc```````/`.`:``\"").endQuote());
+        REQUIRE(A("abc``\"").endQuote());
         REQUIRE(!A("\"\"").endQuote());
     }
 

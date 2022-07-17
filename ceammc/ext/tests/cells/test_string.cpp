@@ -367,7 +367,7 @@ TEST_CASE("ceammc_string", "[PureData]")
         REQUIRE(is_quoted_string("\"👽👾🤖🎃\""));
         REQUIRE(is_quoted_string("\"a``\""));
         REQUIRE(is_quoted_string("\"`\" asb `\"\""));
-        REQUIRE(is_quoted_string("\"```\"`/`:`.\""));
+        REQUIRE(is_quoted_string("\"```(`)\""));
 
         REQUIRE_FALSE(is_quoted_string(L()));
         REQUIRE_FALSE(is_quoted_string(LF(1)));
@@ -392,9 +392,9 @@ TEST_CASE("ceammc_string", "[PureData]")
         REQUIRE(quoted_string_end("\""));
         REQUIRE(quoted_string_end("abcd\""));
         REQUIRE(quoted_string_end("abcd@\""));
-        REQUIRE(quoted_string_end("abcd`@\""));
+        REQUIRE(quoted_string_end("abcd@``\""));
         REQUIRE(quoted_string_end("абвгд\""));
-        REQUIRE(quoted_string_end("`.``(`)\""));
+        REQUIRE(quoted_string_end("```(`)\""));
         REQUIRE(quoted_string_end("``\""));
     }
 
@@ -612,6 +612,9 @@ TEST_CASE("ceammc_string", "[PureData]")
         REQUIRE(escape_and_quote(A("(")) == A(R"("(")"));
         REQUIRE(escape_and_quote(A(")")) == A("\")\""));
         REQUIRE(escape_and_quote(A("\\")) == A("\"\\\""));
+        REQUIRE(escape_and_quote(A("`")) == A("\"``\""));
+        REQUIRE(escape_and_quote(A("\"")) == A("\"`\"\""));
+        REQUIRE(escape_and_quote(A("{}")) == A("\"`(`)\""));
 
         REQUIRE(escape_and_quote(L()) == L());
         REQUIRE(escape_and_quote(LF(1, 2, 3)) == LF(1, 2, 3));
@@ -633,11 +636,15 @@ TEST_CASE("ceammc_string", "[PureData]")
         REQUIRE(unquote_and_unescape(A("\"a b c\"")) == A("a b c"));
         REQUIRE(unquote_and_unescape(A("\"``abc``\"")) == A("`abc`"));
         REQUIRE(unquote_and_unescape(A("\"`\"abc`\"\"")) == A("\"abc\""));
+        REQUIRE(unquote_and_unescape(A("\"`(`)\"")) == A("{}"));
+        REQUIRE(unquote_and_unescape(A("\"``\"")) == A("`"));
+        REQUIRE(unquote_and_unescape(A("\"`\"\"")) == A("\""));
         REQUIRE(unquote_and_unescape(A("S\"\"")) == A(""));
         REQUIRE(unquote_and_unescape(A("S\" \"")) == A(" "));
         REQUIRE(unquote_and_unescape(A("S\"a b c\"")) == A("a b c"));
         REQUIRE(unquote_and_unescape(A("S\"``abc``\"")) == A("`abc`"));
         REQUIRE(unquote_and_unescape(A("S\"`\"abc`\"\"")) == A("\"abc\""));
+        REQUIRE(unquote_and_unescape(A("S\"`(`)\"")) == A("{}"));
         REQUIRE(unquote_and_unescape(A("abc\"")) == A("abc\""));
         REQUIRE(unquote_and_unescape(A("\"abc")) == A("\"abc"));
         REQUIRE(unquote_and_unescape(A("S\"abc")) == A("S\"abc"));

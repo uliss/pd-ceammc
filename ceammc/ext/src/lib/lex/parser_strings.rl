@@ -127,6 +127,8 @@ bool string_need_quotes(const char* str) {
     esc_all = (
         str_escape       >{ out.push_back('`');   out.push_back('`'); } |
         str_dquote       >{ out.push_back('`');   out.push_back('"'); } |
+        str_lcurly       >{ out.push_back('`');   out.push_back('('); } |
+        str_rcurly       >{ out.push_back('`');   out.push_back(')'); } |
         str_backslash    >{ out.push_back('\\'); } |
         str_space        >{ out.push_back(' '); } |
         str_comma        >{ out.push_back(','); } |
@@ -259,8 +261,10 @@ AtomList escape_and_quote(const AtomListView& lv)
     esc_dblq     = '`"'            @{ rl_string.push_back('"'); };
     esc_perc     = '`%'            @{ rl_string.push_back('%'); };
     perc         = '%'             @{ fcall envvar; };
+    lcurly       = esc_lcurly      @{ rl_string.push_back('{'); };
+    rcurly       = esc_rcurly      @{ rl_string.push_back('}'); };
     char         = [^`"%]          @{ rl_string.push_back(fc); };
-    esc_char     = perc | char | esc_tick | esc_dblq | esc_perc;
+    esc_char     = lcurly | rcurly | perc | char | esc_tick | esc_dblq | esc_perc;
     string       = 'S'? '"' (esc_char-0)* '"';
 
     # zero string version

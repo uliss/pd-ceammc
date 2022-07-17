@@ -115,11 +115,19 @@ namespace ceammc {
 				_st3:
 				p += 1;
 				st_case_3:
-				if ( ( (*( p))) <= -1 ) {
-					goto _st0;
+				switch( ( (*( p))) ) {
+					case 34: {
+						goto _st1;
+					}
+					case 96: {
+						goto _st1;
+					}
+				}
+				if ( 40 <= ( (*( p))) && ( (*( p))) <= 41 ) {
+					goto _st1;
 				}
 				{
-					goto _st1;
+					goto _st0;
 				}
 				st_out:
 				_test_eof1: cs = 1; goto _test_eof; 
@@ -137,14 +145,14 @@ namespace ceammc {
 			
 			
 			return (cs >= 
-#line 141 "lex/parser_strings.cpp"
+#line 149 "lex/parser_strings.cpp"
 			4
 #line 49 "lex/parser_strings.rl"
 			);
 		}
 		
 		
-#line 148 "lex/parser_strings.cpp"
+#line 156 "lex/parser_strings.cpp"
 		static const int is_quoted_string_start = 1;
 		static const int is_quoted_string_first_final = 5;
 		static const int is_quoted_string_error = 0;
@@ -188,7 +196,7 @@ namespace ceammc {
 			const char* p = str;
 			
 			
-#line 192 "lex/parser_strings.cpp"
+#line 200 "lex/parser_strings.cpp"
 			{
 				cs = (int)is_quoted_string_start;
 			}
@@ -196,7 +204,7 @@ namespace ceammc {
 #line 94 "lex/parser_strings.rl"
 			
 			
-#line 200 "lex/parser_strings.cpp"
+#line 208 "lex/parser_strings.cpp"
 			{
 				switch ( cs ) {
 					case 1:
@@ -256,7 +264,7 @@ namespace ceammc {
 #line 58 "lex/parser_strings.rl"
 					{p+= 1; cs = 5; goto _out;} }
 				
-#line 260 "lex/parser_strings.cpp"
+#line 268 "lex/parser_strings.cpp"
 				
 				goto _st5;
 				_st5:
@@ -268,7 +276,15 @@ namespace ceammc {
 				_st4:
 				p += 1;
 				st_case_4:
-				if ( 0 <= ( (*( p))) ) {
+				switch( ( (*( p))) ) {
+					case 34: {
+						goto _st2;
+					}
+					case 96: {
+						goto _st2;
+					}
+				}
+				if ( 40 <= ( (*( p))) && ( (*( p))) <= 41 ) {
 					goto _st2;
 				}
 				{
@@ -291,14 +307,14 @@ namespace ceammc {
 			
 			
 			return (cs >= 
-#line 295 "lex/parser_strings.cpp"
+#line 311 "lex/parser_strings.cpp"
 			5
 #line 97 "lex/parser_strings.rl"
 			);
 		}
 		
 		
-#line 302 "lex/parser_strings.cpp"
+#line 318 "lex/parser_strings.cpp"
 		static const int need_quotes_start = 1;
 		static const int need_quotes_first_final = 2;
 		static const int need_quotes_error = 0;
@@ -317,7 +333,7 @@ namespace ceammc {
 			const char* p = str;
 			
 			
-#line 321 "lex/parser_strings.cpp"
+#line 337 "lex/parser_strings.cpp"
 			{
 				cs = (int)need_quotes_start;
 			}
@@ -325,7 +341,7 @@ namespace ceammc {
 #line 116 "lex/parser_strings.rl"
 			
 			
-#line 329 "lex/parser_strings.cpp"
+#line 345 "lex/parser_strings.cpp"
 			{
 				switch ( cs ) {
 					case 1:
@@ -382,7 +398,7 @@ namespace ceammc {
 #line 105 "lex/parser_strings.rl"
 					{p+= 1; cs = 2; goto _out;} }
 				
-#line 386 "lex/parser_strings.cpp"
+#line 402 "lex/parser_strings.cpp"
 				
 				goto _st2;
 				_st2:
@@ -409,14 +425,14 @@ namespace ceammc {
 			
 			
 			return (cs < 
-#line 413 "lex/parser_strings.cpp"
+#line 429 "lex/parser_strings.cpp"
 			2
 #line 119 "lex/parser_strings.rl"
 			);
 		}
 		
 		
-#line 420 "lex/parser_strings.cpp"
+#line 436 "lex/parser_strings.cpp"
 		static const int escape_and_quote_start = 1;
 		static const int escape_and_quote_first_final = 3;
 		static const int escape_and_quote_error = 0;
@@ -424,7 +440,7 @@ namespace ceammc {
 		static const int escape_and_quote_en_main = 1;
 		
 		
-#line 148 "lex/parser_strings.rl"
+#line 150 "lex/parser_strings.rl"
 		
 		
 		template <typename T>
@@ -444,15 +460,15 @@ namespace ceammc {
 				out.push_back('"');
 				
 				
-#line 448 "lex/parser_strings.cpp"
+#line 464 "lex/parser_strings.cpp"
 				{
 					cs = (int)escape_and_quote_start;
 				}
 				
-#line 166 "lex/parser_strings.rl"
+#line 168 "lex/parser_strings.rl"
 				
 				
-#line 456 "lex/parser_strings.cpp"
+#line 472 "lex/parser_strings.cpp"
 				{
 					switch ( cs ) {
 						case 1:
@@ -467,24 +483,24 @@ namespace ceammc {
 					goto st_out;
 					_ctr2:
 					{
-#line 144 "lex/parser_strings.rl"
+#line 146 "lex/parser_strings.rl"
 						out.push_back((( (*( p))))); }
 					
-#line 474 "lex/parser_strings.cpp"
+#line 490 "lex/parser_strings.cpp"
 					
 					goto _st1;
-					_ctr19:
-					{
-#line 142 "lex/parser_strings.rl"
-						rl_esc_count++; }
-					
-#line 482 "lex/parser_strings.cpp"
-					
+					_ctr21:
 					{
 #line 144 "lex/parser_strings.rl"
+						rl_esc_count++; }
+					
+#line 498 "lex/parser_strings.cpp"
+					
+					{
+#line 146 "lex/parser_strings.rl"
 						out.push_back((( (*( p))))); }
 					
-#line 488 "lex/parser_strings.cpp"
+#line 504 "lex/parser_strings.cpp"
 					
 					goto _st1;
 					_st1:
@@ -536,30 +552,36 @@ namespace ceammc {
 						case 96: {
 							goto _ctr17;
 						}
+						case 123: {
+							goto _ctr18;
+						}
+						case 125: {
+							goto _ctr19;
+						}
 					}
 					{
 						goto _ctr2;
 					}
 					_ctr3:
 					{
-#line 146 "lex/parser_strings.rl"
+#line 148 "lex/parser_strings.rl"
 						{p+= 1; cs = 3; goto _out;} }
 					
-#line 549 "lex/parser_strings.cpp"
+#line 571 "lex/parser_strings.cpp"
 					
 					goto _st3;
-					_ctr20:
+					_ctr22:
 					{
-#line 142 "lex/parser_strings.rl"
+#line 144 "lex/parser_strings.rl"
 						rl_esc_count++; }
 					
-#line 557 "lex/parser_strings.cpp"
+#line 579 "lex/parser_strings.cpp"
 					
 					{
-#line 146 "lex/parser_strings.rl"
+#line 148 "lex/parser_strings.rl"
 						{p+= 1; cs = 3; goto _out;} }
 					
-#line 563 "lex/parser_strings.cpp"
+#line 585 "lex/parser_strings.cpp"
 					
 					goto _st3;
 					_st3:
@@ -574,10 +596,10 @@ namespace ceammc {
 					goto _pop;
 					_ctr4:
 					{
-#line 131 "lex/parser_strings.rl"
+#line 133 "lex/parser_strings.rl"
 						out.push_back(' '); }
 					
-#line 581 "lex/parser_strings.cpp"
+#line 603 "lex/parser_strings.cpp"
 					
 					goto _st2;
 					_ctr5:
@@ -585,95 +607,95 @@ namespace ceammc {
 #line 129 "lex/parser_strings.rl"
 						out.push_back('`');   out.push_back('"'); }
 					
-#line 589 "lex/parser_strings.cpp"
+#line 611 "lex/parser_strings.cpp"
 					
 					goto _st2;
 					_ctr6:
 					{
-#line 141 "lex/parser_strings.rl"
+#line 143 "lex/parser_strings.rl"
 						out.push_back('#'); }
 					
-#line 597 "lex/parser_strings.cpp"
+#line 619 "lex/parser_strings.cpp"
 					
 					goto _st2;
 					_ctr7:
 					{
-#line 140 "lex/parser_strings.rl"
+#line 142 "lex/parser_strings.rl"
 						out.push_back('%'); }
 					
-#line 605 "lex/parser_strings.cpp"
+#line 627 "lex/parser_strings.cpp"
 					
 					goto _st2;
 					_ctr8:
 					{
-#line 134 "lex/parser_strings.rl"
+#line 136 "lex/parser_strings.rl"
 						out.push_back('('); }
 					
-#line 613 "lex/parser_strings.cpp"
+#line 635 "lex/parser_strings.cpp"
 					
 					goto _st2;
 					_ctr9:
 					{
-#line 135 "lex/parser_strings.rl"
+#line 137 "lex/parser_strings.rl"
 						out.push_back(')'); }
 					
-#line 621 "lex/parser_strings.cpp"
+#line 643 "lex/parser_strings.cpp"
 					
 					goto _st2;
 					_ctr10:
 					{
-#line 132 "lex/parser_strings.rl"
+#line 134 "lex/parser_strings.rl"
 						out.push_back(','); }
 					
-#line 629 "lex/parser_strings.cpp"
+#line 651 "lex/parser_strings.cpp"
 					
 					goto _st2;
 					_ctr11:
 					{
-#line 138 "lex/parser_strings.rl"
+#line 140 "lex/parser_strings.rl"
 						out.push_back(':'); }
 					
-#line 637 "lex/parser_strings.cpp"
+#line 659 "lex/parser_strings.cpp"
 					
 					goto _st2;
 					_ctr12:
 					{
-#line 133 "lex/parser_strings.rl"
+#line 135 "lex/parser_strings.rl"
 						out.push_back(';'); }
 					
-#line 645 "lex/parser_strings.cpp"
+#line 667 "lex/parser_strings.cpp"
 					
 					goto _st2;
 					_ctr13:
 					{
-#line 139 "lex/parser_strings.rl"
+#line 141 "lex/parser_strings.rl"
 						out.push_back('@'); }
 					
-#line 653 "lex/parser_strings.cpp"
+#line 675 "lex/parser_strings.cpp"
 					
 					goto _st2;
 					_ctr14:
 					{
-#line 136 "lex/parser_strings.rl"
+#line 138 "lex/parser_strings.rl"
 						out.push_back('['); }
 					
-#line 661 "lex/parser_strings.cpp"
+#line 683 "lex/parser_strings.cpp"
 					
 					goto _st2;
 					_ctr15:
 					{
-#line 130 "lex/parser_strings.rl"
+#line 132 "lex/parser_strings.rl"
 						out.push_back('\\'); }
 					
-#line 669 "lex/parser_strings.cpp"
+#line 691 "lex/parser_strings.cpp"
 					
 					goto _st2;
 					_ctr16:
 					{
-#line 137 "lex/parser_strings.rl"
+#line 139 "lex/parser_strings.rl"
 						out.push_back(']'); }
 					
-#line 677 "lex/parser_strings.cpp"
+#line 699 "lex/parser_strings.cpp"
 					
 					goto _st2;
 					_ctr17:
@@ -681,203 +703,247 @@ namespace ceammc {
 #line 128 "lex/parser_strings.rl"
 						out.push_back('`');   out.push_back('`'); }
 					
-#line 685 "lex/parser_strings.cpp"
+#line 707 "lex/parser_strings.cpp"
 					
 					goto _st2;
-					_ctr21:
+					_ctr18:
 					{
-#line 142 "lex/parser_strings.rl"
-						rl_esc_count++; }
+#line 130 "lex/parser_strings.rl"
+						out.push_back('`');   out.push_back('('); }
 					
-#line 693 "lex/parser_strings.cpp"
+#line 715 "lex/parser_strings.cpp"
 					
+					goto _st2;
+					_ctr19:
 					{
 #line 131 "lex/parser_strings.rl"
-						out.push_back(' '); }
+						out.push_back('`');   out.push_back(')'); }
 					
-#line 699 "lex/parser_strings.cpp"
+#line 723 "lex/parser_strings.cpp"
 					
 					goto _st2;
-					_ctr22:
+					_ctr23:
 					{
-#line 142 "lex/parser_strings.rl"
+#line 144 "lex/parser_strings.rl"
 						rl_esc_count++; }
 					
-#line 707 "lex/parser_strings.cpp"
+#line 731 "lex/parser_strings.cpp"
+					
+					{
+#line 133 "lex/parser_strings.rl"
+						out.push_back(' '); }
+					
+#line 737 "lex/parser_strings.cpp"
+					
+					goto _st2;
+					_ctr24:
+					{
+#line 144 "lex/parser_strings.rl"
+						rl_esc_count++; }
+					
+#line 745 "lex/parser_strings.cpp"
 					
 					{
 #line 129 "lex/parser_strings.rl"
 						out.push_back('`');   out.push_back('"'); }
 					
-#line 713 "lex/parser_strings.cpp"
-					
-					goto _st2;
-					_ctr23:
-					{
-#line 142 "lex/parser_strings.rl"
-						rl_esc_count++; }
-					
-#line 721 "lex/parser_strings.cpp"
-					
-					{
-#line 141 "lex/parser_strings.rl"
-						out.push_back('#'); }
-					
-#line 727 "lex/parser_strings.cpp"
-					
-					goto _st2;
-					_ctr24:
-					{
-#line 142 "lex/parser_strings.rl"
-						rl_esc_count++; }
-					
-#line 735 "lex/parser_strings.cpp"
-					
-					{
-#line 140 "lex/parser_strings.rl"
-						out.push_back('%'); }
-					
-#line 741 "lex/parser_strings.cpp"
+#line 751 "lex/parser_strings.cpp"
 					
 					goto _st2;
 					_ctr25:
 					{
-#line 142 "lex/parser_strings.rl"
+#line 144 "lex/parser_strings.rl"
 						rl_esc_count++; }
 					
-#line 749 "lex/parser_strings.cpp"
+#line 759 "lex/parser_strings.cpp"
 					
 					{
-#line 134 "lex/parser_strings.rl"
-						out.push_back('('); }
+#line 143 "lex/parser_strings.rl"
+						out.push_back('#'); }
 					
-#line 755 "lex/parser_strings.cpp"
+#line 765 "lex/parser_strings.cpp"
 					
 					goto _st2;
 					_ctr26:
 					{
-#line 142 "lex/parser_strings.rl"
+#line 144 "lex/parser_strings.rl"
 						rl_esc_count++; }
 					
-#line 763 "lex/parser_strings.cpp"
+#line 773 "lex/parser_strings.cpp"
 					
 					{
-#line 135 "lex/parser_strings.rl"
-						out.push_back(')'); }
+#line 142 "lex/parser_strings.rl"
+						out.push_back('%'); }
 					
-#line 769 "lex/parser_strings.cpp"
+#line 779 "lex/parser_strings.cpp"
 					
 					goto _st2;
 					_ctr27:
 					{
-#line 142 "lex/parser_strings.rl"
+#line 144 "lex/parser_strings.rl"
 						rl_esc_count++; }
 					
-#line 777 "lex/parser_strings.cpp"
+#line 787 "lex/parser_strings.cpp"
 					
 					{
-#line 132 "lex/parser_strings.rl"
-						out.push_back(','); }
+#line 136 "lex/parser_strings.rl"
+						out.push_back('('); }
 					
-#line 783 "lex/parser_strings.cpp"
+#line 793 "lex/parser_strings.cpp"
 					
 					goto _st2;
 					_ctr28:
 					{
-#line 142 "lex/parser_strings.rl"
+#line 144 "lex/parser_strings.rl"
 						rl_esc_count++; }
 					
-#line 791 "lex/parser_strings.cpp"
+#line 801 "lex/parser_strings.cpp"
 					
 					{
-#line 138 "lex/parser_strings.rl"
-						out.push_back(':'); }
+#line 137 "lex/parser_strings.rl"
+						out.push_back(')'); }
 					
-#line 797 "lex/parser_strings.cpp"
+#line 807 "lex/parser_strings.cpp"
 					
 					goto _st2;
 					_ctr29:
 					{
-#line 142 "lex/parser_strings.rl"
+#line 144 "lex/parser_strings.rl"
 						rl_esc_count++; }
 					
-#line 805 "lex/parser_strings.cpp"
+#line 815 "lex/parser_strings.cpp"
 					
 					{
-#line 133 "lex/parser_strings.rl"
-						out.push_back(';'); }
+#line 134 "lex/parser_strings.rl"
+						out.push_back(','); }
 					
-#line 811 "lex/parser_strings.cpp"
+#line 821 "lex/parser_strings.cpp"
 					
 					goto _st2;
 					_ctr30:
 					{
-#line 142 "lex/parser_strings.rl"
+#line 144 "lex/parser_strings.rl"
 						rl_esc_count++; }
 					
-#line 819 "lex/parser_strings.cpp"
+#line 829 "lex/parser_strings.cpp"
 					
 					{
-#line 139 "lex/parser_strings.rl"
-						out.push_back('@'); }
+#line 140 "lex/parser_strings.rl"
+						out.push_back(':'); }
 					
-#line 825 "lex/parser_strings.cpp"
+#line 835 "lex/parser_strings.cpp"
 					
 					goto _st2;
 					_ctr31:
 					{
-#line 142 "lex/parser_strings.rl"
+#line 144 "lex/parser_strings.rl"
 						rl_esc_count++; }
 					
-#line 833 "lex/parser_strings.cpp"
+#line 843 "lex/parser_strings.cpp"
 					
 					{
-#line 136 "lex/parser_strings.rl"
-						out.push_back('['); }
+#line 135 "lex/parser_strings.rl"
+						out.push_back(';'); }
 					
-#line 839 "lex/parser_strings.cpp"
+#line 849 "lex/parser_strings.cpp"
 					
 					goto _st2;
 					_ctr32:
 					{
-#line 142 "lex/parser_strings.rl"
+#line 144 "lex/parser_strings.rl"
 						rl_esc_count++; }
 					
-#line 847 "lex/parser_strings.cpp"
+#line 857 "lex/parser_strings.cpp"
 					
 					{
-#line 130 "lex/parser_strings.rl"
-						out.push_back('\\'); }
+#line 141 "lex/parser_strings.rl"
+						out.push_back('@'); }
 					
-#line 853 "lex/parser_strings.cpp"
+#line 863 "lex/parser_strings.cpp"
 					
 					goto _st2;
 					_ctr33:
 					{
-#line 142 "lex/parser_strings.rl"
+#line 144 "lex/parser_strings.rl"
 						rl_esc_count++; }
 					
-#line 861 "lex/parser_strings.cpp"
+#line 871 "lex/parser_strings.cpp"
 					
 					{
-#line 137 "lex/parser_strings.rl"
-						out.push_back(']'); }
+#line 138 "lex/parser_strings.rl"
+						out.push_back('['); }
 					
-#line 867 "lex/parser_strings.cpp"
+#line 877 "lex/parser_strings.cpp"
 					
 					goto _st2;
 					_ctr34:
 					{
-#line 142 "lex/parser_strings.rl"
+#line 144 "lex/parser_strings.rl"
 						rl_esc_count++; }
 					
-#line 875 "lex/parser_strings.cpp"
+#line 885 "lex/parser_strings.cpp"
+					
+					{
+#line 132 "lex/parser_strings.rl"
+						out.push_back('\\'); }
+					
+#line 891 "lex/parser_strings.cpp"
+					
+					goto _st2;
+					_ctr35:
+					{
+#line 144 "lex/parser_strings.rl"
+						rl_esc_count++; }
+					
+#line 899 "lex/parser_strings.cpp"
+					
+					{
+#line 139 "lex/parser_strings.rl"
+						out.push_back(']'); }
+					
+#line 905 "lex/parser_strings.cpp"
+					
+					goto _st2;
+					_ctr36:
+					{
+#line 144 "lex/parser_strings.rl"
+						rl_esc_count++; }
+					
+#line 913 "lex/parser_strings.cpp"
 					
 					{
 #line 128 "lex/parser_strings.rl"
 						out.push_back('`');   out.push_back('`'); }
 					
-#line 881 "lex/parser_strings.cpp"
+#line 919 "lex/parser_strings.cpp"
+					
+					goto _st2;
+					_ctr37:
+					{
+#line 144 "lex/parser_strings.rl"
+						rl_esc_count++; }
+					
+#line 927 "lex/parser_strings.cpp"
+					
+					{
+#line 130 "lex/parser_strings.rl"
+						out.push_back('`');   out.push_back('('); }
+					
+#line 933 "lex/parser_strings.cpp"
+					
+					goto _st2;
+					_ctr38:
+					{
+#line 144 "lex/parser_strings.rl"
+						rl_esc_count++; }
+					
+#line 941 "lex/parser_strings.cpp"
+					
+					{
+#line 131 "lex/parser_strings.rl"
+						out.push_back('`');   out.push_back(')'); }
+					
+#line 947 "lex/parser_strings.cpp"
 					
 					goto _st2;
 					_st2:
@@ -885,53 +951,59 @@ namespace ceammc {
 					st_case_2:
 					switch( ( (*( p))) ) {
 						case 0: {
-							goto _ctr20;
-						}
-						case 32: {
-							goto _ctr21;
-						}
-						case 34: {
 							goto _ctr22;
 						}
-						case 35: {
+						case 32: {
 							goto _ctr23;
 						}
-						case 37: {
+						case 34: {
 							goto _ctr24;
 						}
-						case 40: {
+						case 35: {
 							goto _ctr25;
 						}
-						case 41: {
+						case 37: {
 							goto _ctr26;
 						}
-						case 44: {
+						case 40: {
 							goto _ctr27;
 						}
-						case 58: {
+						case 41: {
 							goto _ctr28;
 						}
-						case 59: {
+						case 44: {
 							goto _ctr29;
 						}
-						case 64: {
+						case 58: {
 							goto _ctr30;
 						}
-						case 91: {
+						case 59: {
 							goto _ctr31;
 						}
-						case 92: {
+						case 64: {
 							goto _ctr32;
 						}
-						case 93: {
+						case 91: {
 							goto _ctr33;
 						}
-						case 96: {
+						case 92: {
 							goto _ctr34;
+						}
+						case 93: {
+							goto _ctr35;
+						}
+						case 96: {
+							goto _ctr36;
+						}
+						case 123: {
+							goto _ctr37;
+						}
+						case 125: {
+							goto _ctr38;
 						}
 					}
 					{
-						goto _ctr19;
+						goto _ctr21;
 					}
 					st_out:
 					_test_eof1: cs = 1; goto _test_eof; 
@@ -944,7 +1016,7 @@ namespace ceammc {
 					_out: {}
 				}
 				
-#line 167 "lex/parser_strings.rl"
+#line 169 "lex/parser_strings.rl"
 				
 				
 				out.push_back('"');
@@ -1012,7 +1084,7 @@ namespace ceammc {
 		}
 		
 		
-#line 1016 "lex/parser_strings.cpp"
+#line 1088 "lex/parser_strings.cpp"
 		static const int unquote_and_unescape_start = 1;
 		static const int unquote_and_unescape_first_final = 8;
 		static const int unquote_and_unescape_error = 0;
@@ -1021,7 +1093,7 @@ namespace ceammc {
 		static const int unquote_and_unescape_en_main = 1;
 		
 		
-#line 269 "lex/parser_strings.rl"
+#line 273 "lex/parser_strings.rl"
 		
 		
 		template <typename T>
@@ -1040,16 +1112,16 @@ namespace ceammc {
 				std::string rl_envvar;
 				
 				
-#line 1044 "lex/parser_strings.cpp"
+#line 1116 "lex/parser_strings.cpp"
 				{
 					cs = (int)unquote_and_unescape_start;
 					top = 0;
 				}
 				
-#line 286 "lex/parser_strings.rl"
+#line 290 "lex/parser_strings.rl"
 				
 				
-#line 1053 "lex/parser_strings.cpp"
+#line 1125 "lex/parser_strings.cpp"
 				{
 					goto _resume;
 					
@@ -1111,9 +1183,9 @@ namespace ceammc {
 					{
 						goto _st0;
 					}
-					_ctr13:
+					_ctr15:
 					{
-#line 247 "lex/parser_strings.rl"
+#line 249 "lex/parser_strings.rl"
 						
 						rl_string.push_back('%');
 						rl_string.insert(rl_string.end(), rl_envvar.begin(), rl_envvar.end());
@@ -1121,7 +1193,7 @@ namespace ceammc {
 						{top -= 1;cs = stack[top];goto _again;}
 					}
 					
-#line 1125 "lex/parser_strings.cpp"
+#line 1197 "lex/parser_strings.cpp"
 					
 					goto _st0;
 					st_case_0:
@@ -1130,42 +1202,58 @@ namespace ceammc {
 					goto _pop;
 					_ctr4:
 					{
-#line 262 "lex/parser_strings.rl"
+#line 266 "lex/parser_strings.rl"
 						rl_string.push_back((( (*( p))))); }
 					
-#line 1137 "lex/parser_strings.cpp"
+#line 1209 "lex/parser_strings.cpp"
 					
 					goto _st2;
 					_ctr6:
 					{
-#line 261 "lex/parser_strings.rl"
+#line 263 "lex/parser_strings.rl"
 						{stack[top] = 2; top+= 1; goto _st6;}}
 					
-#line 1145 "lex/parser_strings.cpp"
+#line 1217 "lex/parser_strings.cpp"
 					
 					goto _st2;
 					_ctr9:
 					{
-#line 259 "lex/parser_strings.rl"
+#line 261 "lex/parser_strings.rl"
 						rl_string.push_back('"'); }
 					
-#line 1153 "lex/parser_strings.cpp"
+#line 1225 "lex/parser_strings.cpp"
 					
 					goto _st2;
 					_ctr10:
 					{
-#line 260 "lex/parser_strings.rl"
+#line 262 "lex/parser_strings.rl"
 						rl_string.push_back('%'); }
 					
-#line 1161 "lex/parser_strings.cpp"
+#line 1233 "lex/parser_strings.cpp"
 					
 					goto _st2;
 					_ctr11:
 					{
-#line 258 "lex/parser_strings.rl"
+#line 264 "lex/parser_strings.rl"
+						rl_string.push_back('{'); }
+						
+#line 1241 "lex/parser_strings.cpp"
+						
+						goto _st2;
+						_ctr12:
+						{
+#line 265 "lex/parser_strings.rl"
+							rl_string.push_back('}'); }
+					
+#line 1249 "lex/parser_strings.cpp"
+					
+					goto _st2;
+					_ctr13:
+					{
+#line 260 "lex/parser_strings.rl"
 						rl_string.push_back('`'); }
 					
-#line 1169 "lex/parser_strings.cpp"
+#line 1257 "lex/parser_strings.cpp"
 					
 					goto _st2;
 					_st2:
@@ -1211,10 +1299,10 @@ namespace ceammc {
 					}
 					_ctr8:
 					{
-#line 267 "lex/parser_strings.rl"
+#line 271 "lex/parser_strings.rl"
 						{p+= 1; cs = 8; goto _out;} }
 					
-#line 1218 "lex/parser_strings.cpp"
+#line 1306 "lex/parser_strings.cpp"
 					
 					goto _st8;
 					_st8:
@@ -1245,8 +1333,14 @@ namespace ceammc {
 						case 37: {
 							goto _ctr10;
 						}
-						case 96: {
+						case 40: {
 							goto _ctr11;
+						}
+						case 41: {
+							goto _ctr12;
+						}
+						case 96: {
+							goto _ctr13;
 						}
 					}
 					{
@@ -1267,9 +1361,9 @@ namespace ceammc {
 					{
 						goto _st0;
 					}
-					_ctr12:
+					_ctr14:
 					{
-#line 247 "lex/parser_strings.rl"
+#line 249 "lex/parser_strings.rl"
 						
 						rl_string.push_back('%');
 						rl_string.insert(rl_string.end(), rl_envvar.begin(), rl_envvar.end());
@@ -1277,7 +1371,7 @@ namespace ceammc {
 						{top -= 1;cs = stack[top];goto _again;}
 					}
 					
-#line 1281 "lex/parser_strings.cpp"
+#line 1375 "lex/parser_strings.cpp"
 					
 					goto _st6;
 					_st6:
@@ -1290,21 +1384,21 @@ namespace ceammc {
 					p += 1;
 					st_case_6:
 					if ( ( (*( p))) == 95 ) {
-						goto _ctr14;
+						goto _ctr16;
 					}
 					if ( ( (*( p))) > 57 ) {
 						if ( 65 <= ( (*( p))) && ( (*( p))) <= 90 ) {
-							goto _ctr14;
+							goto _ctr16;
 						}
 					} else if ( ( (*( p))) >= 48 ) {
-						goto _ctr14;
+						goto _ctr16;
 					}
 					{
-						goto _ctr13;
+						goto _ctr15;
 					}
-					_ctr15:
+					_ctr17:
 					{
-#line 247 "lex/parser_strings.rl"
+#line 249 "lex/parser_strings.rl"
 						
 						rl_string.push_back('%');
 						rl_string.insert(rl_string.end(), rl_envvar.begin(), rl_envvar.end());
@@ -1312,15 +1406,15 @@ namespace ceammc {
 						{top -= 1;cs = stack[top];goto _again;}
 					}
 					
-#line 1316 "lex/parser_strings.cpp"
+#line 1410 "lex/parser_strings.cpp"
 					
 					goto _st7;
-					_ctr14:
+					_ctr16:
 					{
-#line 254 "lex/parser_strings.rl"
+#line 256 "lex/parser_strings.rl"
 						rl_envvar += (( (*( p)))); }
 					
-#line 1324 "lex/parser_strings.cpp"
+#line 1418 "lex/parser_strings.cpp"
 					
 					goto _st7;
 					_st7:
@@ -1334,25 +1428,25 @@ namespace ceammc {
 					st_case_7:
 					switch( ( (*( p))) ) {
 						case 37: {
-							goto _ctr16;
+							goto _ctr18;
 						}
 						case 95: {
-							goto _ctr14;
+							goto _ctr16;
 						}
 					}
 					if ( ( (*( p))) > 57 ) {
 						if ( 65 <= ( (*( p))) && ( (*( p))) <= 90 ) {
-							goto _ctr14;
+							goto _ctr16;
 						}
 					} else if ( ( (*( p))) >= 48 ) {
-						goto _ctr14;
+						goto _ctr16;
 					}
 					{
-						goto _ctr13;
+						goto _ctr15;
 					}
-					_ctr16:
+					_ctr18:
 					{
-#line 237 "lex/parser_strings.rl"
+#line 239 "lex/parser_strings.rl"
 						
 						auto env = std::getenv(rl_envvar.c_str());
 						if (env)
@@ -1363,7 +1457,7 @@ namespace ceammc {
 						{top -= 1;cs = stack[top];goto _again;}
 					}
 					
-#line 1367 "lex/parser_strings.cpp"
+#line 1461 "lex/parser_strings.cpp"
 					
 					goto _st9;
 					_st9:
@@ -1434,8 +1528,8 @@ namespace ceammc {
 							goto _st8;case 4:
 							goto _st4;case 5:
 							goto _st5;case 6:
-							goto _ctr12;case 7:
-							goto _ctr15;case 9:
+							goto _ctr14;case 7:
+							goto _ctr17;case 9:
 							goto _st9;	}
 					}
 					
@@ -1444,13 +1538,13 @@ namespace ceammc {
 					_out: {}
 				}
 				
-#line 287 "lex/parser_strings.rl"
+#line 291 "lex/parser_strings.rl"
 				
 				
 				if (cs < 
-#line 1452 "lex/parser_strings.cpp"
+#line 1546 "lex/parser_strings.cpp"
 				8
-#line 289 "lex/parser_strings.rl"
+#line 293 "lex/parser_strings.rl"
 				)
 				return 0;
 				else

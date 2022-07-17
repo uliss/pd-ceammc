@@ -1,7 +1,7 @@
 %%{
     machine string_common;
 
-    normal_symbol = ('`' ascii) | [^`"];
+    normal_symbol = [^`"] | '``' | '`"' | '`(' | '`)';
     normal_symbol_nz = normal_symbol - 0;
 
     string_ends = normal_symbol* '"';
@@ -17,6 +17,8 @@
     str_rpar      = ')';
     str_lbrac     = '[';
     str_rbrac     = ']';
+    str_lcurly    = '{';
+    str_rcurly    = '}';
     str_colon     = ':';
     str_at        = '@';
     str_perc      = '%';
@@ -27,6 +29,8 @@
     esc_escape    = str_escape str_escape;
     esc_space     = str_escape str_space;
     esc_dquote    = str_escape str_dquote;
+    esc_lcurly    = str_escape '(';
+    esc_rcurly    = str_escape ')';
     esc_at        = str_escape '@';
 
     all_escapes =
