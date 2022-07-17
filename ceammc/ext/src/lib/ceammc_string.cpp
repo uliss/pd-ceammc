@@ -236,49 +236,6 @@ namespace string {
         return res;
     }
 
-    std::string pd_string_escape(const char* str)
-    {
-        const auto N = strlen(str);
-        std::string res;
-        res.reserve(N + 4);
-
-        for (size_t i = 0; i < N; i++) {
-            auto c = str[i];
-            switch (c) {
-            case CHAR_ESCAPE:
-            case CHAR_DQUOTE:
-                res += CHAR_ESCAPE;
-                res += c;
-                break;
-            case CHAR_COMMA:
-                res += CHAR_ESCAPE;
-                res += CHAR_DOT;
-                break;
-            case CHAR_CURLY_OPEN:
-                res += CHAR_ESCAPE;
-                res += CHAR_BRACE_OPEN;
-                break;
-            case CHAR_CURLY_CLOSE:
-                res += CHAR_ESCAPE;
-                res += CHAR_BRACE_CLOSE;
-                break;
-            case CHAR_BACKSLASH:
-                res += CHAR_ESCAPE;
-                res += CHAR_SLASH;
-                break;
-            case CHAR_SEMICOLON:
-                res += CHAR_ESCAPE;
-                res += CHAR_COLON;
-                break;
-            default:
-                res += c;
-                break;
-            }
-        }
-
-        return res;
-    }
-
     std::string pd_string_unescape(const std::string& str)
     {
         if (str.size() < 2)
