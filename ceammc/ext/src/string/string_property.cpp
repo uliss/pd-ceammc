@@ -15,6 +15,7 @@
 #include "ceammc_format.h"
 #include "ceammc_log.h"
 #include "ceammc_string.h"
+#include "lex/parser_strings.h"
 
 namespace ceammc {
 
@@ -47,30 +48,30 @@ bool StringProperty::setSymbol(t_symbol* s)
     return true;
 }
 
-bool StringProperty::setList(const AtomListView& lst)
+bool StringProperty::setList(const AtomListView& lv)
 {
-    if (!emptyCheck(lst))
+    if (!emptyCheck(lv))
         return false;
 
-    if (lst.isFloat()) {
-        str_->set(to_string(lst));
+    if (lv.isFloat()) {
+        str_->set(to_string(lv));
         return true;
-    } else if (lst.isData()) {
-        auto dptr = lst.asD<DataTypeString>();
+    } else if (lv.isData()) {
+        auto dptr = lv.asD<DataTypeString>();
         if (dptr) {
             str_ = StringAtom(*dptr);
             return true;
         } else {
-            LogPdObject(nullptr, LOG_ERROR).stream() << errorPrefix() << "not a string data: " << lst;
+            LogPdObject(nullptr, LOG_ERROR).stream() << errorPrefix() << "not a string data: " << lv;
             return false;
         }
-    } else if (lst.size() > 0) {
-        std::string res;
-        const std::string str_lst = to_string(lst);
-        if (string::pd_string_parse(str_lst, res)) {
-            str_->set(res);
+    } else if (lv.size() > 0) {
+        string::SmallString buf;
+        const std::string str_lst = to_string(lv);
+        if (string::unquote_and_unescape(str_lst.c_str(), buf)) {
+            str_->set({ buf.data(), buf.size() });
             return true;
-        } else if (lst.size() == 1) {
+        } else if (lv.size() == 1) {
             str_->set(str_lst);
             return true;
         } else {
@@ -78,7 +79,7 @@ bool StringProperty::setList(const AtomListView& lst)
             return false;
         }
     } else {
-        LogPdObject(nullptr, LOG_ERROR).stream() << errorPrefix() << "unknown data: " << lst;
+        LogPdObject(nullptr, LOG_ERROR).stream() << errorPrefix() << "unknown data: " << lv;
         return false;
     }
 }

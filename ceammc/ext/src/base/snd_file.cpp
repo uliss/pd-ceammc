@@ -8,6 +8,7 @@
 #include "ceammc_string.h"
 #include "fmt/format.h"
 #include "lex/array_loader.h"
+#include "lex/parser_strings.h"
 
 #include "config.h"
 
@@ -186,7 +187,9 @@ bool SndFile::extractLoadArgs(const AtomListView& lst, std::string& fname, std::
     fname = to_string(lst.subView(0, array_opt_pos), " ");
     // parse end escapes quotes
     // check for "quoted path with spaces"
-    string::pd_string_parse(fname, fname);
+    string::MediumString buf;
+    if (string::unquote_and_unescape(fname.c_str(), buf))
+        fname.assign(buf.data(), buf.size());
 
     array_opts = to_string(lst.subView(array_opt_pos), " ");
     return true;
