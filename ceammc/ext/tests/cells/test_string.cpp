@@ -286,25 +286,20 @@ TEST_CASE("ceammc_string", "[PureData]")
 
     SECTION("pd_string_match")
     {
-        std::string str;
-        REQUIRE(pd_string_match("\"\"", str));
-        REQUIRE(str == "");
-        REQUIRE(pd_string_match("\" \"", str));
-        REQUIRE(str == " ");
-        REQUIRE(pd_string_match("\"wasn`\"t\"", str));
-        REQUIRE(str == "wasn`\"t");
-        REQUIRE(pd_string_match("\"`\"a b c`\"\"", str));
-        REQUIRE(str == "`\"a b c`\"");
-        REQUIRE_FALSE(pd_string_match(R"("""")", str));
-        REQUIRE(pd_string_match(R"("`"`"")", str));
-        REQUIRE(pd_string_match(R"("`.")", str));
-        REQUIRE(pd_string_match(R"("`:")", str));
-        REQUIRE(pd_string_match(R"("`(")", str));
-        REQUIRE(pd_string_match(R"("`/")", str));
-        REQUIRE(pd_string_match(R"("``")", str));
-        REQUIRE_FALSE(pd_string_match(R"("```")", str));
-        REQUIRE_FALSE(pd_string_match(R"("`n")", str));
-        REQUIRE_FALSE(pd_string_match(R"("`"``"")", str));
+        REQUIRE(is_quoted_string("\"\""));
+        REQUIRE(is_quoted_string("\" \""));
+        REQUIRE(is_quoted_string("\"wasn`\"t\""));
+        REQUIRE(is_quoted_string("\"`\"a b c`\"\""));
+        REQUIRE_FALSE(is_quoted_string(R"("""")"));
+        REQUIRE(is_quoted_string(R"("`"`"")"));
+        REQUIRE_FALSE(is_quoted_string(R"("`.")"));
+        REQUIRE_FALSE(is_quoted_string(R"("`:")"));
+        REQUIRE(is_quoted_string(R"("`(")"));
+        REQUIRE_FALSE(is_quoted_string(R"("`/")"));
+        REQUIRE(is_quoted_string(R"("``")"));
+        REQUIRE_FALSE(is_quoted_string(R"("```")"));
+        REQUIRE_FALSE(is_quoted_string(R"("`n")"));
+        REQUIRE_FALSE(is_quoted_string(R"("`"``"")"));
     }
 
     SECTION("pd_string_unescape")
