@@ -91,53 +91,7 @@ std::string to_string(const Message& m, const std::string& separator)
         return {};
 }
 
-std::string to_string_quoted(const Atom& a)
-{
-    if (a.isSymbol())
-        return to_string_quoted(a.asSymbol()->s_name);
-    else
-        return to_string(a);
-}
 
-std::string to_string_quoted(const std::string& str)
-{
-    if (str.empty())
-        return "\"\"";
-
-    static const char SINGLE_QUOTE = '"';
-    static const char ESCAPE = '`';
-
-    // no spaces -> no quotes
-    if (std::string::npos == str.find(' ', 0))
-        return str;
-
-    std::string res;
-    res.reserve(str.size() + 2);
-    res += SINGLE_QUOTE;
-
-    // no inner quotes -> just outer quotes
-    if (std::string::npos == str.find(SINGLE_QUOTE, 0)) {
-        res += str;
-    } else {
-        std::string escaped;
-        escaped.reserve(str.size() + 1);
-
-        for (size_t i = 0; i < str.size(); i++) {
-            char c = str[i];
-
-            if (c == SINGLE_QUOTE) {
-                escaped += ESCAPE;
-                escaped += SINGLE_QUOTE;
-            } else
-                escaped += c;
-        }
-
-        res += escaped;
-    }
-
-    res += SINGLE_QUOTE;
-    return res;
-}
 
 std::string quote(const std::string& str, char q)
 {

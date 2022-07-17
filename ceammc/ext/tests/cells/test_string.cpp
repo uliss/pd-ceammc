@@ -284,7 +284,7 @@ TEST_CASE("ceammc_string", "[PureData]")
         REQUIRE_FALSE(contains("вапьты", "абв"));
     }
 
-    SECTION("pd_string_match")
+    SECTION("is_quoted_string")
     {
         REQUIRE(is_quoted_string("\"\""));
         REQUIRE(is_quoted_string("\" \""));
@@ -323,23 +323,21 @@ TEST_CASE("ceammc_string", "[PureData]")
 
     SECTION("pd_string_parse")
     {
-        std::string str;
-        REQUIRE_FALSE(pd_string_parse("''", str));
-        REQUIRE(pd_string_parse("\"\"", str));
+        StaticString str;
+        REQUIRE_FALSE(unquote_and_unescape("''", str));
+        REQUIRE(unquote_and_unescape("\"\"", str));
         REQUIRE(str == "");
-        REQUIRE_FALSE(pd_string_parse("' '", str));
-        REQUIRE(pd_string_parse("\" \"", str));
+        str.clear();
+        REQUIRE_FALSE(unquote_and_unescape("' '", str));
+        REQUIRE(unquote_and_unescape("\" \"", str));
         REQUIRE(str == " ");
-        REQUIRE_FALSE(pd_string_parse("wasn't", str));
-        REQUIRE(pd_string_parse("\"wasn't\"", str));
+        str.clear();
+        REQUIRE_FALSE(unquote_and_unescape(R"(wasn't)", str));
+        REQUIRE(unquote_and_unescape(R"("wasn't")", str));
         REQUIRE(str == "wasn't");
-        REQUIRE(pd_string_parse("\"a`.b`.c\"", str));
-        REQUIRE(str == "a,b,c");
-
-        // check self-reference passing
-        std::string sp("\" \"");
-        REQUIRE(pd_string_parse(sp, sp));
-        REQUIRE(sp == " ");
+        str.clear();
+        REQUIRE(unquote_and_unescape("\"a`(b`)c\"", str));
+        REQUIRE(str == "a{b}c");
     }
 
     SECTION("is_pd_string")
@@ -644,6 +642,8 @@ TEST_CASE("ceammc_string", "[PureData]")
         REQUIRE(unquote_and_unescape(A("\"abc")) == A("\"abc"));
         REQUIRE(unquote_and_unescape(A("S\"abc")) == A("S\"abc"));
         REQUIRE(unquote_and_unescape(A("R\"abc\"")) == A("R\"abc\""));
+        REQUIRE(unquote_and_unescape(A("wasn't")) == A("wasn't"));
+        REQUIRE(unquote_and_unescape(A("\"wasn't\"")) == A("wasn't"));
 
         platform::set_env("STR", "#PLACEHOLDER#");
         REQUIRE(unquote_and_unescape(A("\"%STR%\"")) == A("#PLACEHOLDER#"));

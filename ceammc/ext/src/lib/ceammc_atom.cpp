@@ -279,16 +279,17 @@ Atom Atom::parseQuoted() const
     if (a_w.w_symbol->s_name[0] == '"' && a_w.w_symbol->s_name[1] == '@')
         return *this;
 
-    std::string m;
-    if (string::pd_string_parse(a_w.w_symbol->s_name, m))
-        return gensym(m.c_str());
-    else
+    string::SmallString buf;
+    if (string::unquote_and_unescape(a_w.w_symbol->s_name, buf)) {
+        buf.push_back('\0');
+        return gensym(buf.data());
+    } else
         return *this;
 }
 
 bool Atom::isQuoted() const
 {
-    if (a_type != A_SYMBOL)
+    if (a_type != A_SYMBOL && a_type != A_DOLLSYM)
         return false;
     else
         return string::is_quoted_string(a_w.w_symbol->s_name);
@@ -296,7 +297,7 @@ bool Atom::isQuoted() const
 
 bool Atom::beginQuote() const
 {
-    if (a_type != A_SYMBOL)
+    if (a_type != A_SYMBOL && a_type != A_DOLLSYM)
         return false;
 
     return a_w.w_symbol->s_name[0] == '"';
@@ -304,7 +305,7 @@ bool Atom::beginQuote() const
 
 bool Atom::endQuote() const
 {
-    if (a_type != A_SYMBOL)
+    if (a_type != A_SYMBOL && a_type != A_DOLLSYM)
         return false;
 
     return string::quoted_string_end(a_w.w_symbol->s_name);
