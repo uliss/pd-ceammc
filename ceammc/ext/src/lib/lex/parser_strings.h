@@ -76,6 +76,20 @@ namespace string {
      */
     AtomList escape_and_quote(const AtomListView& lv);
 
+    /**
+     * Appends to buffer unquoted string (in "..." or S"..." form), substitute escaped chars
+     * and expand environment %VARS%.
+     * If env %VAR% was not found, output as row string: '%VAR%'.
+     * @note if input string was not quoted, output is not specified and should be used
+     *
+     * '``' => '`'
+     * '`"' => '"'
+     * '`(' => '{'
+     * '`)' => '}'
+     * @param str - input string
+     * @param out - output static buffer
+     * @return -1 on error, 0 - if no unquoting was done, 1 - string was unquoted
+     */
     int unquote_and_unescape(const char* str, StaticString& out);
     int unquote_and_unescape(const char* str, SmallString& out);
     int unquote_and_unescape(const char* str, MediumString& out);

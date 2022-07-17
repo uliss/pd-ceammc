@@ -1100,8 +1100,10 @@ namespace ceammc {
 		static int unquote_and_unescape_t(const char* str, T& out) noexcept
 		{
 			try {
-				if (str == nullptr || str[0] == '\0')
+				if (str == nullptr)
 					return -1;
+				else if(str[0] == '\0')
+					return 0;
 				
 				int cs = 0;
 				int top = 0;
@@ -1112,16 +1114,16 @@ namespace ceammc {
 				std::string rl_envvar;
 				
 				
-#line 1116 "lex/parser_strings.cpp"
+#line 1118 "lex/parser_strings.cpp"
 				{
 					cs = (int)unquote_and_unescape_start;
 					top = 0;
 				}
 				
-#line 290 "lex/parser_strings.rl"
+#line 292 "lex/parser_strings.rl"
 				
 				
-#line 1125 "lex/parser_strings.cpp"
+#line 1127 "lex/parser_strings.cpp"
 				{
 					goto _resume;
 					
@@ -1193,7 +1195,7 @@ namespace ceammc {
 						{top -= 1;cs = stack[top];goto _again;}
 					}
 					
-#line 1197 "lex/parser_strings.cpp"
+#line 1199 "lex/parser_strings.cpp"
 					
 					goto _st0;
 					st_case_0:
@@ -1205,7 +1207,7 @@ namespace ceammc {
 #line 266 "lex/parser_strings.rl"
 						rl_string.push_back((( (*( p))))); }
 					
-#line 1209 "lex/parser_strings.cpp"
+#line 1211 "lex/parser_strings.cpp"
 					
 					goto _st2;
 					_ctr6:
@@ -1213,7 +1215,7 @@ namespace ceammc {
 #line 263 "lex/parser_strings.rl"
 						{stack[top] = 2; top+= 1; goto _st6;}}
 					
-#line 1217 "lex/parser_strings.cpp"
+#line 1219 "lex/parser_strings.cpp"
 					
 					goto _st2;
 					_ctr9:
@@ -1221,7 +1223,7 @@ namespace ceammc {
 #line 261 "lex/parser_strings.rl"
 						rl_string.push_back('"'); }
 					
-#line 1225 "lex/parser_strings.cpp"
+#line 1227 "lex/parser_strings.cpp"
 					
 					goto _st2;
 					_ctr10:
@@ -1229,7 +1231,7 @@ namespace ceammc {
 #line 262 "lex/parser_strings.rl"
 						rl_string.push_back('%'); }
 					
-#line 1233 "lex/parser_strings.cpp"
+#line 1235 "lex/parser_strings.cpp"
 					
 					goto _st2;
 					_ctr11:
@@ -1237,7 +1239,7 @@ namespace ceammc {
 #line 264 "lex/parser_strings.rl"
 						rl_string.push_back('{'); }
 						
-#line 1241 "lex/parser_strings.cpp"
+#line 1243 "lex/parser_strings.cpp"
 						
 						goto _st2;
 						_ctr12:
@@ -1245,7 +1247,7 @@ namespace ceammc {
 #line 265 "lex/parser_strings.rl"
 							rl_string.push_back('}'); }
 					
-#line 1249 "lex/parser_strings.cpp"
+#line 1251 "lex/parser_strings.cpp"
 					
 					goto _st2;
 					_ctr13:
@@ -1253,7 +1255,7 @@ namespace ceammc {
 #line 260 "lex/parser_strings.rl"
 						rl_string.push_back('`'); }
 					
-#line 1257 "lex/parser_strings.cpp"
+#line 1259 "lex/parser_strings.cpp"
 					
 					goto _st2;
 					_st2:
@@ -1302,7 +1304,7 @@ namespace ceammc {
 #line 271 "lex/parser_strings.rl"
 						{p+= 1; cs = 8; goto _out;} }
 					
-#line 1306 "lex/parser_strings.cpp"
+#line 1308 "lex/parser_strings.cpp"
 					
 					goto _st8;
 					_st8:
@@ -1371,7 +1373,7 @@ namespace ceammc {
 						{top -= 1;cs = stack[top];goto _again;}
 					}
 					
-#line 1375 "lex/parser_strings.cpp"
+#line 1377 "lex/parser_strings.cpp"
 					
 					goto _st6;
 					_st6:
@@ -1406,7 +1408,7 @@ namespace ceammc {
 						{top -= 1;cs = stack[top];goto _again;}
 					}
 					
-#line 1410 "lex/parser_strings.cpp"
+#line 1412 "lex/parser_strings.cpp"
 					
 					goto _st7;
 					_ctr16:
@@ -1414,7 +1416,7 @@ namespace ceammc {
 #line 256 "lex/parser_strings.rl"
 						rl_envvar += (( (*( p)))); }
 					
-#line 1418 "lex/parser_strings.cpp"
+#line 1420 "lex/parser_strings.cpp"
 					
 					goto _st7;
 					_st7:
@@ -1457,7 +1459,7 @@ namespace ceammc {
 						{top -= 1;cs = stack[top];goto _again;}
 					}
 					
-#line 1461 "lex/parser_strings.cpp"
+#line 1463 "lex/parser_strings.cpp"
 					
 					goto _st9;
 					_st9:
@@ -1538,13 +1540,13 @@ namespace ceammc {
 					_out: {}
 				}
 				
-#line 291 "lex/parser_strings.rl"
+#line 293 "lex/parser_strings.rl"
 				
 				
 				if (cs < 
-#line 1546 "lex/parser_strings.cpp"
+#line 1548 "lex/parser_strings.cpp"
 				8
-#line 293 "lex/parser_strings.rl"
+#line 295 "lex/parser_strings.rl"
 				)
 				return 0;
 				else
@@ -1600,7 +1602,8 @@ namespace ceammc {
 		
 		t_symbol* unquote_and_unescape(t_symbol* s)
 		{
-			SmallString str;
+			if (s == nullptr) return &s_;
+				SmallString str;
 			if (unquote_and_unescape(s->s_name, str) > 0) {
 				str.push_back(0);
 				return gensym(str.data());

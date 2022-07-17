@@ -19,6 +19,7 @@
 #include "ceammc_message.h"
 #include "ceammc_string.h"
 #include "fmt/format.h"
+#include "lex/parser_strings.h"
 
 #include <algorithm>
 #include <iomanip>
@@ -91,8 +92,6 @@ std::string to_string(const Message& m, const std::string& separator)
         return {};
 }
 
-
-
 std::string quote(const std::string& str, char q)
 {
     std::string res;
@@ -137,16 +136,16 @@ std::string to_json_string(const Atom& a)
     }
 }
 
-std::string to_json_string(const AtomList& l)
+std::string to_json_string(const AtomListView& lv)
 {
     std::string res;
     res.push_back('[');
 
-    for (size_t i = 0; i < l.size(); i++) {
+    for (size_t i = 0; i < lv.size(); i++) {
         if (i > 0)
             res += ", ";
 
-        res += to_json_string(l[i]);
+        res += to_json_string(lv[i]);
     }
 
     res.push_back(']');
@@ -155,23 +154,32 @@ std::string to_json_string(const AtomList& l)
 
 std::string parse_quoted(const Atom& a)
 {
-    auto res = to_string(a);
-    string::pd_string_parse(res, res);
-    return res;
-}
-
-std::string parse_quoted(const AtomList& l)
-{
-    auto res = to_string(l, " ");
-    string::pd_string_parse(res, res);
-    return res;
+    using namespace string;
+    SmallString str;
+    if (atom_to_string(a, str)) {
+        str.push_back('\0');
+        SmallString out;
+        if (unquote_and_unescape(str.data(), out)) {
+            return std::string(out.data(), out.size());
+        } else
+            return std::string(str.data(), str.size() - 1);
+    } else
+        return {};
 }
 
 std::string parse_quoted(const AtomListView& v)
 {
-    auto res = to_string(v, " ");
-    string::pd_string_parse(res, res);
-    return res;
+    using namespace string;
+    MediumString str;
+    if (list_to_string(v, str)) {
+        str.push_back('\0');
+        MediumString out;
+        if (unquote_and_unescape(str.data(), out))
+            return std::string(out.data(), out.size());
+        else
+            return std::string(str.data(), str.size() - 1);
+    } else
+        return {};
 }
 
 std::string format(const std::string& fmt, const AtomList& l)

@@ -616,6 +616,18 @@ TEST_CASE("ceammc_string", "[PureData]")
 
     SECTION("unquote_and_unescape")
     {
+        StaticString buf;
+        REQUIRE(unquote_and_unescape((char*)0, buf) == -1);
+        REQUIRE(unquote_and_unescape("", buf) == 0);
+        REQUIRE(unquote_and_unescape("abc", buf) == 0);
+        REQUIRE(unquote_and_unescape(" ", buf) == 0);
+        REQUIRE(unquote_and_unescape("\"\"", buf) == 1);
+        REQUIRE(buf == "");
+        REQUIRE(unquote_and_unescape("\" \"", buf) == 1);
+        REQUIRE(buf == " ");
+        REQUIRE(unquote_and_unescape("\"``\"", buf) == 1);
+        REQUIRE(buf == " `");
+
         REQUIRE(unquote_and_unescape(Atom()) == Atom());
         REQUIRE(unquote_and_unescape(A(100)) == A(100));
         REQUIRE(unquote_and_unescape(Atom::comma()) == Atom::comma());
@@ -662,6 +674,7 @@ TEST_CASE("ceammc_string", "[PureData]")
         REQUIRE(unquote_and_unescape(A("\"%HOME\"")) == A("%HOME"));
         REQUIRE(unquote_and_unescape(A("\"100% 200% 300%\"")) == A("100% 200% 300%"));
 
+        REQUIRE(unquote_and_unescape((t_symbol*)nullptr) == &s_);
         REQUIRE(unquote_and_unescape(&s_) == &s_);
         REQUIRE(unquote_and_unescape(SYM("\"\"")) == &s_);
         REQUIRE(unquote_and_unescape(SYM("abc")) == SYM("abc"));

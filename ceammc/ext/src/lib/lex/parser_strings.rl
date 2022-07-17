@@ -276,8 +276,10 @@ template <typename T>
 static int unquote_and_unescape_t(const char* str, T& out) noexcept
 {
     try {
-        if (str == nullptr || str[0] == '\0')
+        if (str == nullptr)
             return -1;
+        else if(str[0] == '\0')
+            return 0;
 
         int cs = 0;
         int top = 0;
@@ -345,6 +347,7 @@ Atom unquote_and_unescape(const Atom& a)
 
 t_symbol* unquote_and_unescape(t_symbol* s)
 {
+    if (s == nullptr) return &s_;
     SmallString str;
     if (unquote_and_unescape(s->s_name, str) > 0) {
         str.push_back(0);
