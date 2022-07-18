@@ -69,15 +69,15 @@ TEST_CASE("DataStringParser", "[core]")
         REQUIRE(parse("\" \"") == LA(" "));
         REQUIRE(parse("\"") == L());
         REQUIRE(parse("\"`\"\"") == LA("\""));
-        REQUIRE(parse("`") == L());
+        REQUIRE(parse("`") == LA("`"));
         REQUIRE(parse("\"``\"") == LA("`"));
         REQUIRE(parse("\"\"") == LA(""));
         REQUIRE(parse("\"абвгд©®\"") == LA("абвгд©®"));
         REQUIRE(parse("[") == L());
         REQUIRE(parse("\"[\"") == LA("["));
-        REQUIRE(parse("]") == L());
+        REQUIRE(parse("]") == LA("]"));
         REQUIRE(parse("\"]\"") == LA("]"));
-        REQUIRE(parse("a: b") == L());
+        REQUIRE(parse("a: b") == LA("a:", "b"));
         REQUIRE(parse("toomany!@#$%^&*,:{}") == L());
         REQUIRE(parse("\"toomany!@#$%^&*,:{}\"") == LA("toomany!@#$%^&*,:{}"));
     }
