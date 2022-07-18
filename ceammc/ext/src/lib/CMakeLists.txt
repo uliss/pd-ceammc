@@ -42,8 +42,6 @@ set(CEAMMC_LIB_SOURCES
     args/arg_is_float.cpp
     args/arg_is_int.cpp
     args/arg_is_symbol.cpp
-    lex/data_string.lexer.cpp
-    lex/data_string.parser.cpp
     lex/quoted_string.parser.cpp
     tcl/ceammc_texteditor.h
     tcl/ceammc_tcl.cpp
@@ -203,15 +201,6 @@ if(BISON_FOUND AND FLEX_FOUND)
         COMMAND ${BISON_EXECUTABLE} argcheck.yy
         SOURCES args/argcheck.l args/argcheck.yy
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/args)
-
-    add_custom_target(ceammc_parser_gen
-        COMMAND $<TARGET_FILE:reflex-bin> data_string.l
-        COMMAND ${BISON_EXECUTABLE} data_string.y
-        COMMAND ${BISON_EXECUTABLE} quoted_string.y
-        SOURCES lex/data_string.l
-                lex/data_string.y
-                lex/quoted_string.y
-        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lex)
 
     add_custom_target(ceammc_arrayloader_gen
         COMMAND $<TARGET_FILE:reflex-bin> array_loader.l

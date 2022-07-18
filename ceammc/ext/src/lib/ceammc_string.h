@@ -93,25 +93,15 @@ namespace string {
      */
     std::string replace_last(const std::string& input, const std::string& from, const std::string& to);
 
-    // pd-string is single quoted or double quoted string
-    //   with ` as escape symbol.
-    // - `" -> "
-    // - `` -> `
-    // - `/ -> \
-    // - `. -> ,
-    // - `: -> ;
-
-    /**
-     * Try to parse pd-string
-     * @param str - pdstring
-     * @param out - writted parsed and unescaped string
-     * @return true if pd-string given, false on error
-     */
-    bool pd_string_parse(const std::string& str, std::string& out);
-    bool pd_string_match(const std::string& str, std::string& matched);
-    std::string pd_string_unescape(const std::string& str);
-
     std::string escape_for_json(const std::string& str);
+
+    /// ceammc-string is a double quoted string
+    ///   with ` as escape symbol.
+    /// - `" -> "
+    /// - `` -> `
+    /// - `( -> {
+    /// - `) -> }
+    ///
 
     /**
      * @brief Append atom as string to static string buffer

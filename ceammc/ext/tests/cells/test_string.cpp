@@ -302,25 +302,6 @@ TEST_CASE("ceammc_string", "[PureData]")
         REQUIRE_FALSE(is_quoted_string(R"("`"``"")"));
     }
 
-    SECTION("pd_string_unescape")
-    {
-        REQUIRE(pd_string_unescape("") == "");
-        REQUIRE(pd_string_unescape(" ") == " ");
-        REQUIRE(pd_string_unescape("wasn't") == "wasn't");
-        REQUIRE(pd_string_unescape("`\"") == "\"");
-        REQUIRE(pd_string_unescape("`'") == "'");
-        REQUIRE(pd_string_unescape("``'") == "`'");
-        REQUIRE(pd_string_unescape("``") == "`");
-        REQUIRE(pd_string_unescape("````") == "``");
-        REQUIRE(pd_string_unescape("`(") == "{");
-        REQUIRE(pd_string_unescape("`)") == "}");
-        REQUIRE(pd_string_unescape("`.") == ",");
-        REQUIRE(pd_string_unescape("`:") == ";");
-        REQUIRE(pd_string_unescape("'") == "'");
-        REQUIRE(pd_string_unescape("'") == "'");
-        REQUIRE(pd_string_unescape(" `\" ") == " \" ");
-    }
-
     SECTION("pd_string_parse")
     {
         StaticString str;

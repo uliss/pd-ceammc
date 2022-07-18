@@ -17,7 +17,6 @@
 #include "ceammc_log.h"
 #include "fmt/format.h"
 #include "lex/parser_strings.h"
-#include "re2/re2.h"
 #include "utf8rewind/utf8rewind.h"
 
 #include <boost/algorithm/string.hpp>
@@ -30,27 +29,8 @@
 // list of escapes
 //  `" -> "
 //  `` -> `
-//  `/ -> \
-//  `. -> ,
-//  `: -> ;
-//  `@ -> @
-
-static re2::RE2 re_double_quoted("\"(([^`\"]|`[`\"./:()@])*)\"");
-
-constexpr auto CHAR_ESCAPE = '`';
-constexpr auto CHAR_DQUOTE = '"';
-constexpr auto CHAR_COMMA = ',';
-constexpr auto CHAR_DOT = '.';
-constexpr auto CHAR_BRACE_OPEN = '(';
-constexpr auto CHAR_BRACE_CLOSE = ')';
-constexpr auto CHAR_CURLY_OPEN = '{';
-constexpr auto CHAR_CURLY_CLOSE = '}';
-constexpr auto CHAR_SLASH = '/';
-constexpr auto CHAR_BACKSLASH = '\\';
-constexpr auto CHAR_SPACE = ' ';
-constexpr auto CHAR_COLON = ':';
-constexpr auto CHAR_SEMICOLON = ';';
-constexpr auto CHAR_AT = '@';
+//  `( -> {
+//  `) -> }
 
 using SmallWString = boost::container::small_vector<unicode_t, 32>;
 
@@ -234,78 +214,6 @@ namespace string {
         }
 
         return res;
-    }
-
-    std::string pd_string_unescape(const std::string& str)
-    {
-        if (str.size() < 2)
-            return str;
-
-        std::string res;
-        res.reserve(str.size());
-
-        for (size_t i = 0; i < str.size(); i++) {
-            auto* c = &str[i];
-            if (*c != '`')
-                res.push_back(*c);
-            else {
-                switch (*(c + 1)) {
-                case '"':
-                    res.push_back('"');
-                    i++;
-                    break;
-                case '`':
-                    res.push_back('`');
-                    i++;
-                    break;
-                case '(':
-                    res.push_back('{');
-                    i++;
-                    break;
-                case ')':
-                    res.push_back('}');
-                    i++;
-                    break;
-                case '.':
-                    res.push_back(',');
-                    i++;
-                    break;
-                case ':':
-                    res.push_back(';');
-                    i++;
-                    break;
-                case '/':
-                    res.push_back('\\');
-                    i++;
-                    break;
-                case '@':
-                    res.push_back('@');
-                    i++;
-                    break;
-                default:
-                    break;
-                }
-            }
-        }
-
-        return res;
-    }
-
-    bool pd_string_match(const std::string& str, std::string& matched)
-    {
-        if (str.empty() || str[0] != '"')
-            return false;
-
-        return re2::RE2::FullMatch(str, re_double_quoted, &matched);
-    }
-
-    bool pd_string_parse(const std::string& str, std::string& out)
-    {
-        if (pd_string_match(str, out)) {
-            out = pd_string_unescape(out);
-            return true;
-        } else
-            return false;
     }
 
     std::string remove_all(const std::string& input, const std::string& search)

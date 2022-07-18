@@ -718,7 +718,7 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
 
                 SECTION("3 quoted")
                 {
-                    TestExtEXT_C t("ext.c", 0xBEEF, 10, "\"a space\"");
+                    TestExtEXT_C t("ext.c", LP("0xBEEF 10 \"a space\""));
                     REQUIRE_PROPERTY(t, @c, 0xBEEF);
                     REQUIRE_PROPERTY(t, @d, 10);
                     REQUIRE_PROPERTY(t, @s, "a space");
@@ -728,7 +728,7 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
 
                 SECTION("3 quoted")
                 {
-                    TestExtEXT_C t("ext.c", 0xBEEF, 10, "\"quoted", "string\"");
+                    TestExtEXT_C t("ext.c", LP("0xBEEF 10 \"quoted string\""));
                     REQUIRE_PROPERTY(t, @c, 0xBEEF);
                     REQUIRE_PROPERTY(t, @d, 10);
                     REQUIRE_PROPERTY(t, @s, "quoted string");
