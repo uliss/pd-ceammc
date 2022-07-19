@@ -119,6 +119,13 @@ namespace string {
     Atom parse_ceammc_quoted_string(const Atom& a);
 
     AtomList parse_ceammc_quoted_string(const AtomListView& lv);
+
+    /**
+     * Checks is atomlist contains atoms with starting or ending double quote
+     * @return true if contains start/end/both quoted atoms
+     * @note this is a quick check, to decide should we do the quote-string parsing or not
+     */
+    bool maybe_ceammc_quoted_string(const AtomListView& lv);
 }
 }
 

@@ -392,5 +392,15 @@ AtomList parse_ceammc_quoted_string(const AtomListView& lv)
     return res;
 }
 
+bool maybe_ceammc_quoted_string(const AtomListView& lv)
+{
+    for (auto& a: lv) {
+        if (a.beginQuote() || a.endQuote() || a.isQuoted())
+            return true;
+    }
+
+    return false;
+}
+
 }
 }
