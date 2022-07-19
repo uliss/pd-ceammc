@@ -103,9 +103,22 @@ namespace string {
             return unquote_and_unescape(a.asT<t_symbol*>()->s_name, out);
     }
 
-    bool unquote_and_unescape(Atom& a);
-    Atom unquote_and_unescape(const Atom& a);
-    t_symbol* unquote_and_unescape(t_symbol* s);
+    /**
+     * Parse quoted ceammc string: unquote and unescape if needed, otherwise return unchanged
+     * @param s - symbol to string
+     * @return - parsed or untouched symbol
+     */
+    t_symbol* parse_ceammc_quoted_string(t_symbol* s);
+
+    /**
+     * Parse quoted ceammc string in atom
+     * if atom is not a ceammc string return original atom
+     * @param a - atom
+     * @return - parsed or untouched atom
+     */
+    Atom parse_ceammc_quoted_string(const Atom& a);
+
+    AtomList parse_ceammc_quoted_string(const AtomListView& lv);
 }
 }
 

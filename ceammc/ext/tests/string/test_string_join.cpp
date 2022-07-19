@@ -35,7 +35,7 @@ TEST_CASE("string.join", "[external]")
     {
         SECTION("empty")
         {
-            TestExtStringJoin t("string.join");
+            TExt t("string.join");
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY(t, @sep, "");
@@ -68,7 +68,7 @@ TEST_CASE("string.join", "[external]")
 
         SECTION("empty string")
         {
-            TestExtStringJoin t("string.join", LA("\"\""));
+            TExt t("string.join", LA("\"\""));
             REQUIRE_PROPERTY_LIST(t, @sep, LA(&s_));
             t.sendList(LF(1, 2, 3));
             REQUIRE_STRING(t, "123");
@@ -76,7 +76,7 @@ TEST_CASE("string.join", "[external]")
 
         SECTION("space")
         {
-            TestExtStringJoin t("string.join", LA("\"", "\""));
+            TExt t("string.join", LA("\"", "\""));
             REQUIRE_PROPERTY_LIST(t, @sep, LA(" "));
             t.sendList(LF(1, 2, 3));
             REQUIRE_STRING(t, "1 2 3");
@@ -84,7 +84,7 @@ TEST_CASE("string.join", "[external]")
 
         SECTION("space")
         {
-            TestExtStringJoin t("string.join", LP("\" \""));
+            TExt t("string.join", LP("\" \""));
             REQUIRE_PROPERTY_LIST(t, @sep, LA(" "));
             t.sendList(LF(1, 2, 3));
             REQUIRE_STRING(t, "1 2 3");
@@ -92,7 +92,7 @@ TEST_CASE("string.join", "[external]")
 
         SECTION(",")
         {
-            TestExtStringJoin t("string.join", LP("\"\\,\""));
+            TExt t("string.join", LP("\"\\,\""));
             REQUIRE_PROPERTY_LIST(t, @sep, LA("\\,"));
             t.sendList(LF(1, 2, 3));
             REQUIRE_STRING(t, "1\\,2\\,3");
@@ -100,7 +100,7 @@ TEST_CASE("string.join", "[external]")
 
         SECTION(",")
         {
-            TestExtStringJoin t("string.join", LP("\"\\, \""));
+            TExt t("string.join", LP("\"\\, \""));
             REQUIRE_PROPERTY_LIST(t, @sep, LA("\\, "));
             t.sendList(LF(1, 2, 3));
             REQUIRE_STRING(t, "1\\, 2\\, 3");
@@ -108,7 +108,7 @@ TEST_CASE("string.join", "[external]")
 
         SECTION(";")
         {
-            TestExtStringJoin t("string.join", LA("\"\\;\""));
+            TExt t("string.join", LP("\"\\;\""));
             REQUIRE_PROPERTY_LIST(t, @sep, LA("\\;"));
             t.sendList(LF(1, 2, 3));
             REQUIRE_STRING(t, "1\\;2\\;3");
@@ -116,7 +116,7 @@ TEST_CASE("string.join", "[external]")
 
         SECTION("@sep")
         {
-            TestExtStringJoin t("string.join", LA("@sep", "."));
+            TExt t("string.join", LA("@sep", "."));
             REQUIRE_PROPERTY_LIST(t, @sep, LA("."));
             t.sendList(LF(1, 2, 3));
             REQUIRE_STRING(t, "1.2.3");
@@ -125,7 +125,7 @@ TEST_CASE("string.join", "[external]")
 
     SECTION("@sep")
     {
-        TestExtStringJoin t("string.join");
+        TExt t("string.join");
 
         REQUIRE_PROPERTY_LIST(t, @sep, LA(""));
         t.sendList(LF(1, 2, 3));
@@ -146,7 +146,7 @@ TEST_CASE("string.join", "[external]")
 
     SECTION("mlist")
     {
-        TestExtStringJoin t("string.join", "\":\"");
+        TExt t("string.join", "\":\"");
 
         t.sendList(MLA(1, 2, 3));
         REQUIRE_STRING(t, "1:2:3");

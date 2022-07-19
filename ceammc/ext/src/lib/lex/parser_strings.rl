@@ -1,6 +1,8 @@
 # include "parser_strings.h"
+# include "ceammc_containers.h"
 # include "ceammc_format.h"
 # include "ceammc_log.h"
+# include "ceammc_string.h"
 # include "fmt/format.h"
 
 %%{
@@ -318,34 +320,7 @@ int unquote_and_unescape(const char* str, MediumString& out)
     return unquote_and_unescape_t(str, out);
 }
 
-bool unquote_and_unescape(Atom& a)
-{
-    if (!a.isSymbol())
-        return false;
-    else {
-        SmallString str;
-        auto rc = unquote_and_unescape_t(a.asT<t_symbol*>()->s_name, str);
-        if (rc > 0) {
-            str.push_back(0);
-            a = gensym(str.data());
-            return true;
-        } else if (rc == 0) {
-            return false;
-        } else {
-            a = &s_;
-            return true;
-        }
-    }
-}
-
-Atom unquote_and_unescape(const Atom& a)
-{
-    Atom res = a;
-    unquote_and_unescape(res);
-    return res;
-}
-
-t_symbol* unquote_and_unescape(t_symbol* s)
+t_symbol* parse_ceammc_quoted_string(t_symbol* s)
 {
     if (s == nullptr) return &s_;
     SmallString str;
@@ -354,6 +329,67 @@ t_symbol* unquote_and_unescape(t_symbol* s)
         return gensym(str.data());
     } else
         return s;
+}
+
+Atom parse_ceammc_quoted_string(const Atom& a)
+{
+    switch(a.atom().a_type) {
+    case A_SYMBOL:
+    case A_DOLLSYM:
+        return parse_ceammc_quoted_string(a.asT<t_symbol*>());
+    default:
+        return a;
+    }
+}
+
+AtomList parse_ceammc_quoted_string(const AtomListView& lv)
+{
+    AtomList res;
+    res.reserve(lv.size());
+
+    bool in_string = false;
+
+    SmallAtomListN<8> str_atoms;
+
+    for (auto& a: lv) {
+        if (a.isQuoted() && !in_string)
+            res.append(parse_ceammc_quoted_string(a));
+        else if (a.beginQuote()) {
+            in_string = true;
+            str_atoms.push_back(a);
+        } else if (a.endQuote()) {
+            str_atoms.push_back(a);
+            MediumString buf;
+            for (auto& a: str_atoms) {
+                atom_to_string(a, buf);
+                buf.push_back(' ');
+            }
+
+            // remove trailing space
+            if (buf.size() > 0 && buf.back() == ' ')
+                buf.pop_back();
+
+            // make zero-terminated string
+            buf.push_back('\0');
+
+            // unquoted and unescape
+            MediumString str;
+            if (unquote_and_unescape(buf.data(), str)) {
+                str.push_back('\0');
+                auto sym = gensym(str.data());
+                res.append(sym);
+            }
+
+            str_atoms.clear();
+            in_string = false;
+        } else if (in_string) {
+            str_atoms.push_back(a);
+        } else {
+            res.append(a);
+        }
+    }
+
+    return res;
 }
 
 }

@@ -20,12 +20,12 @@ PD_COMPLETE_TEST_SETUP(StringStr, string, str)
 
 using namespace ceammc;
 
-#define REQUIRE_STRING(obj, cstr)                         \
-    {                                                     \
-        REQUIRE(obj.hasOutputAt(0));                      \
-        REQUIRE(t.outputAtomAt(0).isA<DataTypeString>()); \
-        REQUIRE(to_string(t.outputAtomAt(0)) == cstr);    \
-        t.clearAll();                                     \
+#define REQUIRE_STRING(obj, cstr)                                        \
+    {                                                                    \
+        REQUIRE(obj.hasOutputAt(0));                                     \
+        REQUIRE(t.outputAtomAt(0).isA<DataTypeString>());                \
+        REQUIRE(t.outputAtomAt(0).asD<DataTypeString>()->str() == cstr); \
+        t.clearAll();                                                    \
     }
 
 #define NO_DATA(t) REQUIRE_FALSE(t.hasOutputAt(0));
@@ -43,7 +43,7 @@ TEST_CASE("string", "[external]")
             REQUIRE(t.numOutlets() == 1);
 
             t.bang();
-            REQUIRE_STRING(t, "S\"\"");
+            REQUIRE_STRING(t, "");
 
             t->dump();
         }
@@ -52,21 +52,21 @@ TEST_CASE("string", "[external]")
         {
             TExt t("str", LF(111));
             t.bang();
-            REQUIRE_STRING(t, "S\"111\"");
+            REQUIRE_STRING(t, "111");
         }
 
         SECTION("list args")
         {
-            TExt t("string", LA("\"1", 2, "?\""));
+            TExt t("string", LP("\"1 2 ? `` `\" `( `)\""));
             t.bang();
-            REQUIRE_STRING(t, "S\"1\\ 2\\ ?\"");
+            REQUIRE_STRING(t, "1 2 ? ` \" { }");
         }
 
         SECTION("list args")
         {
             TExt t("string", LF(1, 2, 3));
             t.bang();
-            REQUIRE_STRING(t, "S\"1\\ 2\\ 3\"");
+            REQUIRE_STRING(t, "1 2 3");
         }
     }
 
@@ -74,20 +74,32 @@ TEST_CASE("string", "[external]")
     {
         TExt t("string");
         t.sendFloat(-200);
-        REQUIRE_STRING(t, "S\"-200\"");
+        REQUIRE_STRING(t, "-200");
 
         t.sendFloat(10.5);
-        REQUIRE_STRING(t, "S\"10.5\"");
+        REQUIRE_STRING(t, "10.5");
     }
 
     SECTION("onSymbol")
     {
         TExt t("string");
         t.sendSymbol("ABC");
-        REQUIRE_STRING(t, "S\"ABC\"");
+        REQUIRE_STRING(t, "ABC");
 
         t.sendSymbol("XYZ");
-        REQUIRE_STRING(t, "S\"XYZ\"");
+        REQUIRE_STRING(t, "XYZ");
+
+        t.sendSymbol("\"X Y Z\"");
+        REQUIRE_STRING(t, "X Y Z");
+
+        t.sendSymbol("\"X`` Y Z\"");
+        REQUIRE_STRING(t, "X` Y Z");
+
+        t.sendSymbol("S\"X`(Y Z`)\"");
+        REQUIRE_STRING(t, "X{Y Z}");
+
+        t.sendSymbol("S\"X`( Y Z `)\"");
+        REQUIRE_STRING(t, "X{ Y Z }");
     }
 
     SECTION("onData")
@@ -95,7 +107,10 @@ TEST_CASE("string", "[external]")
         TExt t("string");
 
         t.sendList(new DataTypeString("test string"));
-        REQUIRE_STRING(t, "S\"test\\ string\"");
+        REQUIRE_STRING(t, "test string");
+
+        t.sendList(new IntData(100));
+        REQUIRE_STRING(t, "IntData(100)");
     }
 
     SECTION("onList")
@@ -103,7 +118,13 @@ TEST_CASE("string", "[external]")
         TExt t("string");
 
         t.sendList(1, 2, 3);
-        REQUIRE_STRING(t, "S\"1\\ 2\\ 3\"");
+        REQUIRE_STRING(t, "1 2 3");
+
+        t.sendList("A", "B C", "\"`(`)\"");
+        REQUIRE_STRING(t, "A B C {}");
+
+        t.sendList("A", "B C", "\"`(", 200, "`)\"");
+        REQUIRE_STRING(t, "A B C { 200 }");
 
         t.sendList(1, StringAtom("a b c"), 3);
         REQUIRE_STRING(t, "1 a b c 3");
@@ -116,7 +137,7 @@ TEST_CASE("string", "[external]")
     {
         TExt t("string", LA("\"a", "b\""));
         t.bang();
-        REQUIRE_STRING(t, "S\"a\\ b\"");
+        REQUIRE_STRING(t, "a b");
 
         t.call("clear");
         NO_DATA(t);
@@ -124,32 +145,39 @@ TEST_CASE("string", "[external]")
         REQUIRE_STRING(t, "");
 
         t.sendSymbol("ABC");
-        REQUIRE_STRING(t, "S\"ABC\"");
+        REQUIRE_STRING(t, "ABC");
+
+        t.sendSymbol("A B C");
+        REQUIRE_STRING(t, "A B C");
     }
 
     SECTION("set")
     {
         TExt t("string", LA("a", "b"));
         t.bang();
-        REQUIRE_STRING(t, "String(\"a b\")");
+        REQUIRE_STRING(t, "a b");
 
         t.call("set", LA("a"));
         NO_DATA(t);
         t.bang();
-        REQUIRE_STRING(t, "String(\"a\")");
+        REQUIRE_STRING(t, "a");
 
         t.call("set", "a", "b");
         NO_DATA(t);
         t.bang();
-        REQUIRE_STRING(t, "String(\"a b\")");
+        REQUIRE_STRING(t, "a b");
+
+        t.call("set", LP("a b \"c d `( `)\""));
+        t.bang();
+        REQUIRE_STRING(t, "a b c d { }");
 
         t.call("set", "a", "b", new StrData("STRING"));
         t.bang();
-        REQUIRE_STRING(t, "String(\"a b StrData(STRING)\")");
+        REQUIRE_STRING(t, "a b StrData(STRING)");
 
         t.call("set", "a", "b", new DataTypeString("STRING"), new IntData(1000));
         t.bang();
-        REQUIRE_STRING(t, "String(\"a b STRING IntData(1000)\")");
+        REQUIRE_STRING(t, "a b STRING IntData(1000)");
     }
 
     SECTION("append")
@@ -157,27 +185,31 @@ TEST_CASE("string", "[external]")
         TExt t("string");
 
         t.bang();
-        REQUIRE_STRING(t, "S\"\"");
+        REQUIRE_STRING(t, "");
 
         t.call("append");
         NO_DATA(t);
         t.bang();
-        REQUIRE_STRING(t, "S\"\"");
+        REQUIRE_STRING(t, "");
 
         t.call("append", 1000);
         t.bang();
-        REQUIRE_STRING(t, "S\"1000\"");
+        REQUIRE_STRING(t, "1000");
 
         t.call("append", 2000);
         t.bang();
-        REQUIRE_STRING(t, "S\"10002000\"");
+        REQUIRE_STRING(t, "10002000");
 
         t.call("append", "a", "b");
         t.bang();
-        REQUIRE_STRING(t, "S\"10002000a\\ b\"");
+        REQUIRE_STRING(t, "10002000a b");
 
         t.call("append", new DataTypeString("STRING"));
         t.bang();
-        REQUIRE_STRING(t, "S\"10002000a\\ bSTRING\"");
+        REQUIRE_STRING(t, "10002000a bSTRING");
+
+        t.call("append", LP("\"c d `( `)\""));
+        t.bang();
+        REQUIRE_STRING(t, "10002000a bSTRINGc d { }");
     }
 }
