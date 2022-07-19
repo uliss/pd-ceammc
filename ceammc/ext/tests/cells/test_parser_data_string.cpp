@@ -78,7 +78,7 @@ TEST_CASE("DataStringParser", "[core]")
         REQUIRE(parse("]") == LA("]"));
         REQUIRE(parse("\"]\"") == LA("]"));
         REQUIRE(parse("a: b") == LA("a:", "b"));
-        REQUIRE(parse("toomany!@#$%^&*,:{}") == L());
+        REQUIRE(parse("toomany!@#$%^&*,:{}") == LA("toomany!@#$%^&*,:{}"));
         REQUIRE(parse("\"toomany!@#$%^&*,:{}\"") == LA("toomany!@#$%^&*,:{}"));
     }
 
@@ -95,7 +95,7 @@ TEST_CASE("DataStringParser", "[core]")
     SECTION("base sequence")
     {
         REQUIRE(parse("1 2 3") == LF(1, 2, 3));
-        REQUIRE(parse("a \"a space\" -2 3.5 true false null")
+        REQUIRE(parse("a \"a space\" -2 3.5 #true #false #null")
             == LA("a", "a space", -2, 3.5, 1, 0.f, Atom()));
 
         // mixed syntax
@@ -283,9 +283,9 @@ TEST_CASE("DataStringParser", "[core]")
         REQUIRE(parse("rtree(1 (1))") == LF(1));
         REQUIRE(parse("rtree(1 (1 1))") == LF(0.5, 0.5));
         REQUIRE(parse("rtree(2 (1 1))") == LF(1, 1));
-        REQUIRE(parse("rtree(2 (1 1(1 1)))") == LF(1, 0.5, 0.5));
+        REQUIRE(parse("rtree(2 (1 1 (1 1)))") == LF(1, 0.5, 0.5));
         REQUIRE(parse("rtree(1 (1 1 2))") == LF(0.25, 0.25, 0.5));
-        REQUIRE(parse("rtree(1 (1 1 2( 2 1 1)))") == LF(0.25, 0.25, 0.25, 0.125, 0.125));
+        REQUIRE(parse("rtree(1 (1 1 2 (2 1 1)))") == LF(0.25, 0.25, 0.25, 0.125, 0.125));
     }
 
     SECTION("euclid()")
