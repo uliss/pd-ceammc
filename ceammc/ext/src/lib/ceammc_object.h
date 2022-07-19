@@ -200,10 +200,10 @@ public:
      * Method args checking
      */
     bool checkArg(const Atom& atom, ArgumentType type, int pos = -1) const;
-    bool checkArgs(const AtomListView& lst, ArgumentType a1, t_symbol* method = 0) const;
-    bool checkArgs(const AtomListView& lst, ArgumentType a1, ArgumentType a2, t_symbol* method = 0) const;
-    bool checkArgs(const AtomListView& lst, ArgumentType a1, ArgumentType a2, ArgumentType a3, t_symbol* method = 0) const;
-    bool checkArgs(const AtomListView& lst, ArgumentType a1, ArgumentType a2, ArgumentType a3, ArgumentType a4, t_symbol* method = 0) const;
+    bool checkArgs(const AtomListView& lv, ArgumentType a1, t_symbol* method = 0) const;
+    bool checkArgs(const AtomListView& lv, ArgumentType a1, ArgumentType a2, t_symbol* method = 0) const;
+    bool checkArgs(const AtomListView& lv, ArgumentType a1, ArgumentType a2, ArgumentType a3, t_symbol* method = 0) const;
+    bool checkArgs(const AtomListView& lv, ArgumentType a1, ArgumentType a2, ArgumentType a3, ArgumentType a4, t_symbol* method = 0) const;
 
     /**
      * Returns object class name

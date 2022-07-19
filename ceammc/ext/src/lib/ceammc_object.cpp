@@ -903,10 +903,10 @@ static const char* to_string(BaseObject::ArgumentType a)
     return names[a];
 }
 
-bool BaseObject::checkArgs(const AtomListView& lst, ArgumentType a1, t_symbol* method) const
+bool BaseObject::checkArgs(const AtomListView& lv, ArgumentType a1, t_symbol* method) const
 {
-    if (lst.size() < 1
-        || !checkArg(lst[0], a1, 0)) {
+    if (lv.size() < 1
+        || !checkArg(lv[0], a1, 0)) {
 
         if (method)
             OBJ_ERR << "Usage: " << method->s_name << " " << to_string(a1);
@@ -917,12 +917,12 @@ bool BaseObject::checkArgs(const AtomListView& lst, ArgumentType a1, t_symbol* m
     return true;
 }
 
-bool BaseObject::checkArgs(const AtomListView& lst, BaseObject::ArgumentType a1,
+bool BaseObject::checkArgs(const AtomListView& lv, BaseObject::ArgumentType a1,
     BaseObject::ArgumentType a2, t_symbol* method) const
 {
-    if (lst.size() < 2
-        || !checkArg(lst[0], a1, 0)
-        || !checkArg(lst[1], a2, 1)) {
+    if (lv.size() < 2
+        || !checkArg(lv[0], a1, 0)
+        || !checkArg(lv[1], a2, 1)) {
 
         if (method)
             OBJ_ERR << "Usage: " << method->s_name
@@ -935,13 +935,13 @@ bool BaseObject::checkArgs(const AtomListView& lst, BaseObject::ArgumentType a1,
     return true;
 }
 
-bool BaseObject::checkArgs(const AtomListView& lst, BaseObject::ArgumentType a1,
+bool BaseObject::checkArgs(const AtomListView& lv, BaseObject::ArgumentType a1,
     BaseObject::ArgumentType a2, BaseObject::ArgumentType a3, t_symbol* method) const
 {
-    if (lst.size() < 3
-        || !checkArg(lst[0], a1, 0)
-        || !checkArg(lst[1], a2, 1)
-        || !checkArg(lst[2], a3, 2)) {
+    if (lv.size() < 3
+        || !checkArg(lv[0], a1, 0)
+        || !checkArg(lv[1], a2, 1)
+        || !checkArg(lv[2], a3, 2)) {
 
         if (method)
             OBJ_ERR << "Usage: " << method->s_name
@@ -955,16 +955,16 @@ bool BaseObject::checkArgs(const AtomListView& lst, BaseObject::ArgumentType a1,
     return true;
 }
 
-bool BaseObject::checkArgs(const AtomListView& lst, BaseObject::ArgumentType a1,
+bool BaseObject::checkArgs(const AtomListView& lv, BaseObject::ArgumentType a1,
     BaseObject::ArgumentType a2, BaseObject::ArgumentType a3,
     BaseObject::ArgumentType a4, t_symbol* method) const
 {
 
-    if (lst.size() < 4
-        || !checkArg(lst[0], a1, 0)
-        || !checkArg(lst[1], a2, 1)
-        || !checkArg(lst[2], a3, 2)
-        || !checkArg(lst[3], a4, 3)) {
+    if (lv.size() < 4
+        || !checkArg(lv[0], a1, 0)
+        || !checkArg(lv[1], a2, 1)
+        || !checkArg(lv[2], a3, 2)
+        || !checkArg(lv[3], a4, 3)) {
 
         if (method)
             OBJ_ERR << "Usage: " << method->s_name
