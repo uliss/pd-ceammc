@@ -69,12 +69,12 @@ Property::Property(const PropertyInfo& info, PropValueAccess access)
     info_.setAccess(access);
 }
 
-bool Property::set(const AtomListView& lst)
+bool Property::set(const AtomListView& lv)
 {
     if (!writeCheck())
         return false;
 
-    auto res = setList(lst);
+    auto res = setList(lv);
     if (res && ok_fn_ptr_ && *ok_fn_ptr_)
         (*ok_fn_ptr_)(this);
 
