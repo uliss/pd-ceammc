@@ -389,6 +389,13 @@ AtomList parse_ceammc_quoted_string(const AtomListView& lv)
         }
     }
 
+    // non-balanced quotes
+    if (str_atoms.size() > 0)  {
+        LIB_LOG << "non-balanced quotes: " << lv;
+        for (auto& a: str_atoms)
+            res.append(a);
+    }
+
     return res;
 }
 

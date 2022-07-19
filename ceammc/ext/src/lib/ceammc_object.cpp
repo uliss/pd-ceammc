@@ -25,6 +25,7 @@
 #include "ceammc_property_enum.h"
 #include "datatype_string.h"
 #include "fmt/format.h"
+#include "lex/parser_strings.h"
 
 #include <cstdarg>
 #include <cstring>
@@ -679,13 +680,22 @@ bool BaseObject::parseProperty(Property* p, const AtomListView& props, PdArgs::P
                             return true;
                         }
                     } break;
-                    case PdArgs::PARSE_UNQUOTE:
-                        if (!p->setInit(v.parseQuoted().view())) {
-                            OBJ_ERR << "can't set property: " << name->s_name;
-                            return false;
-                        } else
-                            return true;
-                        break;
+                    case PdArgs::PARSE_UNQUOTE: {
+                        if (string::maybe_ceammc_quoted_string(v)) {
+                            auto unquoted = string::parse_ceammc_quoted_string(v);
+                            if (!p->setInit(unquoted.view())) {
+                                OBJ_ERR << fmt::format("can't set property: '{}'", name->s_name);
+                                return false;
+                            } else
+                                return true;
+                        } else { // no quoted atoms
+                            if (!p->setInit(v)) {
+                                OBJ_ERR << fmt::format("can't set property: '{}'", name->s_name);
+                                return false;
+                            } else
+                                return true;
+                        }
+                    } break;
                     default:
 
                         if (!p->setInit(v)) {
@@ -782,9 +792,12 @@ void BaseObject::parsePosArgs(PdArgs::ParseMode mode)
     case PdArgs::PARSE_COPY:
         pos_args_parsed_ = args;
         break;
-    case PdArgs::PARSE_UNQUOTE:
-        pos_args_parsed_ = args.parseQuoted();
-        break;
+    case PdArgs::PARSE_UNQUOTE: {
+        if (string::maybe_ceammc_quoted_string(args))
+            pos_args_parsed_ = string::parse_ceammc_quoted_string(args);
+        else
+            pos_args_parsed_ = args;
+    } break;
     case PdArgs::PARSE_EXPR: {
         auto parse_result = parseDataList(args);
         if (parse_result) { // parse ok
