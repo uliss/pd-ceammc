@@ -593,15 +593,6 @@ public:
     bool operator!=(const AtomListView& x) const noexcept { return !operator==(x); }
 
     /**
-     * Parse raw atomlist with double-quoted elements and returns values without quotes
-     * @example in ["a, b", 1, 2] list elements "a and b"
-     * joined to single atom -> 'a b' (without quotes and with space between)
-     * This syntax allows easily define symbols with spaces
-     * @return unmodified list, if it is not quoted
-     */
-    AtomList parseQuoted(bool quote_properties = false) const;
-
-    /**
      * Construct AtomList from string, as do Pd
      * @example string 'a b 1 2 3' -> list [a b 1 2 3], where a and b symbols, 1-3 floats
      */

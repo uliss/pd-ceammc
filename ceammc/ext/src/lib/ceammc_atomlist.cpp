@@ -25,9 +25,6 @@
 #include <iterator>
 #include <string>
 
-#include "lex/quoted_atomlist_lexer.h"
-#include "lex/quoted_string.parser.hpp"
-
 namespace ceammc {
 
 using ElementAccessFn = const Atom* (AtomList::*)(int)const;
@@ -886,11 +883,6 @@ bool AtomList::operator==(const AtomListView& x) const noexcept
     }
 
     return true;
-}
-
-AtomList AtomList::parseQuoted(bool quote_properties) const
-{
-    return view().parseQuoted(quote_properties);
 }
 
 AtomList AtomList::parseString(const char* str)

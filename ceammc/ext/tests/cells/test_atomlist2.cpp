@@ -903,56 +903,6 @@ TEST_CASE("AtomList2", "[ceammc::AtomList]")
         }
     }
 
-    SECTION("parseQuoted")
-    {
-
-#define REQUIRE_PARSED(str, lst) REQUIRE(AtomList::parseString(str).parseQuoted() == lst)
-
-        REQUIRE(to_string(LA("\" \"")) == "\" \"");
-        REQUIRE(parse_quoted(LA("\" \"")) == " ");
-
-        REQUIRE_PARSED("\" \"", LA(" "));
-        REQUIRE_PARSED("abc", LA("abc"));
-        REQUIRE_PARSED("a b c", LA("a", "b", "c"));
-        REQUIRE_PARSED("\"abc\"", LA("abc"));
-        REQUIRE_PARSED("'abc'", LA("'abc'"));
-        REQUIRE_PARSED("\" abc \"", LA(" abc "));
-        REQUIRE_PARSED("\" abc\"", LA(" abc"));
-
-        REQUIRE_PARSED("\"abc \"", LA("abc "));
-        REQUIRE_PARSED("\"a b c\" \"a b\"", LA("a b c", "a b"));
-        REQUIRE_PARSED("\"a b c\" 1 2 \"f\" \"a b\"", LA("a b c", 1, 2, "f", "a b"));
-        REQUIRE_PARSED("1 2 3", LF(1, 2, 3));
-        REQUIRE_PARSED("\"a b c\" \"d e f\"", LA("a b c", "d e f"));
-        REQUIRE_PARSED("\"a b c\" 1 2 \"d e f\"", LA("a b c", 1, 2, "d e f"));
-        REQUIRE_PARSED("\" 1 2 3\" 10 20", LA(" 1 2 3", 10, 20));
-        REQUIRE_PARSED("\" 1 2 3 \" 10 20", LA(" 1 2 3 ", 10, 20));
-        REQUIRE_PARSED("\"1 2 3 \" 10 20", LA("1 2 3 ", 10, 20));
-        REQUIRE_PARSED("\" \" \" \"", LA(" ", " "));
-        REQUIRE_PARSED("\" \" \" a b c \"", LA(" ", " a b c "));
-
-        REQUIRE_PARSED("\"`\"\"", LA("\""));
-        // no quotes
-        REQUIRE_PARSED("don't", LA("don't"));
-        // no quotes
-        REQUIRE_PARSED("don`'t", LA("don`'t"));
-        REQUIRE_PARSED("\"don`\"t\"", LA("don\"t"));
-        REQUIRE_PARSED("\"don't\"", LA("don't"));
-        REQUIRE_PARSED("\"a `\" b\"", LA("a \" b"));
-
-        REQUIRE_PARSED("\" ' \"", LA(" ' "));
-        REQUIRE_PARSED("\" `\" \"", LA(" \" "));
-
-        REQUIRE_PARSED("\"@prop?\"", LA("@prop?"));
-
-        REQUIRE(L().parseQuoted() == AtomList());
-
-        REQUIRE(LA("\"@prop?\"").parseQuoted(true) == LA("\"@prop?\""));
-        REQUIRE(LA("\"@prop\"").parseQuoted(true) == LA("\"@prop\""));
-        REQUIRE(LA("\"@prop?\"").parseQuoted(false) == LA("@prop?"));
-        REQUIRE(LA("\"@prop?\"").parseQuoted(false) == LA("@prop?"));
-    }
-
     SECTION("template create")
     {
         AtomList l(true, 2, 2.5, 1.5f, gensym("ABC"), "def", std::string(" "), new IntData(100));

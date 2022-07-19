@@ -42,7 +42,6 @@ set(CEAMMC_LIB_SOURCES
     args/arg_is_float.cpp
     args/arg_is_int.cpp
     args/arg_is_symbol.cpp
-    lex/quoted_string.parser.cpp
     tcl/ceammc_texteditor.h
     tcl/ceammc_tcl.cpp
     ceammc_array.cpp

@@ -190,68 +190,6 @@ TEST_CASE("AtomListView", "core")
         REQUIRE_FALSE(AtomListView().contains(A(100)));
     }
 
-    SECTION("parse quoted")
-    {
-
-#define REQUIRE_ALV_EQ(l0, l1, p)               \
-    {                                           \
-        AtomList l = l0;                        \
-        REQUIRE(l.view().parseQuoted(p) == l1); \
-    }
-
-        // empty
-        REQUIRE_ALV_EQ(L(), L(), false);
-        REQUIRE_ALV_EQ(L(), L(), true);
-
-        // normal atoms
-        REQUIRE_ALV_EQ(LA(1, 2, 3, "A"), LA(1, 2, 3, "A"), false);
-        REQUIRE_ALV_EQ(LA(1, 2, 3, "A"), LA(1, 2, 3, "A"), true);
-
-        // normal atoms
-        REQUIRE_ALV_EQ(LA(1, "'A"), LA(1, "'A"), false);
-        REQUIRE_ALV_EQ(LA(1, "'A"), LA(1, "'A"), true);
-
-        // normal atoms
-        REQUIRE_ALV_EQ(LA(1, "'A'"), LA(1, "'A'"), false);
-        REQUIRE_ALV_EQ(LA(1, "'A'"), LA(1, "'A'"), true);
-
-        // normal atoms
-        REQUIRE_ALV_EQ(LA(1, "A'"), LA(1, "A'"), false);
-        REQUIRE_ALV_EQ(LA(1, "A'"), LA(1, "A'"), true);
-
-        // unbalanced quotes
-        REQUIRE_ALV_EQ(LA(1, "A\""), LA(1, "A\""), false);
-        REQUIRE_ALV_EQ(LA(1, "A\""), LA(1, "A\""), true);
-
-        // unbalanced quotes
-        REQUIRE_ALV_EQ(LA(1, "\"A"), LA(1, "\"A"), false);
-        REQUIRE_ALV_EQ(LA(1, "\"A"), LA(1, "\"A"), true);
-
-        // simple quotes
-        REQUIRE_ALV_EQ(LA(1, "\"A\"", 2), LA(1, "A", 2), false);
-        REQUIRE_ALV_EQ(LA(1, "\"A\"", 2), LA(1, "A", 2), true);
-
-        // simple quotes
-        REQUIRE_ALV_EQ(LA(1, "\"A", "B\"", 2), LA(1, "A B", 2), false);
-        REQUIRE_ALV_EQ(LA(1, "\"A", "B\"", 2), LA(1, "A B", 2), true);
-
-        // inner quotes
-        REQUIRE_ALV_EQ(LA(1, "\"A`\"", "B\"", 2), LA(1, "A\" B", 2), false);
-        REQUIRE_ALV_EQ(LA(1, "\"A`\"", "B\"", 2), LA(1, "A\" B", 2), true);
-
-        // props
-        REQUIRE_ALV_EQ(LA(1, "@abc", 2), LA(1, "@abc", 2), false);
-        REQUIRE_ALV_EQ(LA(1, "@abc", 2).view(), LA(1, "@abc", 2), true);
-
-        // props
-        REQUIRE_ALV_EQ(LA(1, "@abc", "\"@def\""), LA(1, "@abc", "@def"), false);
-        REQUIRE_ALV_EQ(LA(1, "@abc", "\"@def\"").view(), LA(1, "@abc", "\"@def\""), true);
-
-        // props
-        REQUIRE_ALV_EQ(LA(1, "@abc", "\"@d", "e\""), LA(1, "@abc", "@d e"), false);
-        REQUIRE_ALV_EQ(LA(1, "@abc", "\"@d", "e\"").view(), LA(1, "@abc", "@d e"), true);
-    }
-
     SECTION("allOf")
     {
 

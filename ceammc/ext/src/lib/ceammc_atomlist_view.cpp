@@ -17,9 +17,6 @@
 #include "ceammc_log.h"
 #include "ceammc_numeric.h"
 
-#include "lex/quoted_atomlist_lexer.h"
-#include "lex/quoted_string.parser.hpp"
-
 #include <cmath>
 #include <functional>
 
@@ -268,22 +265,6 @@ bool AtomListView::contains(const Atom& a) const
         return false;
 
     return std::find(data_, data_ + n_, a) != (data_ + n_);
-}
-
-AtomList AtomListView::parseQuoted(bool quoted_props) const
-{
-    if (empty())
-        return {};
-
-    QuotedAtomListLexer lex(*this, quoted_props);
-    QuotedAtomListParser parser(lex);
-
-    if (parser.parse() != 0) {
-        LIB_ERR << "parse error";
-        return AtomList(*this);
-    }
-
-    return lex.result();
 }
 
 bool AtomListView::allOf(std::function<bool(const Atom&)> pred) const

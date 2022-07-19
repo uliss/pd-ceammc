@@ -274,13 +274,6 @@ public:
     bool contains(const Atom& a) const;
 
     /**
-     * Returns list with unquoted atoms
-     * @param quoted_props - if true leaves quoted properties quoted if false - unquoed all atoms
-     * @return unquoted list
-     */
-    AtomList parseQuoted(bool quoted_props = false) const;
-
-    /**
      * Check if all atoms satisfies to predicate
      * @param pred - predicate function
      * @return true if for all atoms predicate returns true
