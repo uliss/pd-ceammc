@@ -21,7 +21,7 @@
 using namespace ceammc;
 
 class StringStr : public BaseObject {
-    std::string str_;
+    DataTypeString str_;
 
 public:
     StringStr(const PdArgs& a);
