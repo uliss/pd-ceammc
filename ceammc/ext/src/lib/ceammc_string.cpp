@@ -605,6 +605,19 @@ namespace string {
         return atom_to_string_t(a, out);
     }
 
+    bool list_to_string(const AtomListView& lv, SmallString& out) noexcept
+    {
+        for (auto& a : lv) {
+            if (atom_to_string_t(a, out))
+                out.push_back(' ');
+        }
+
+        if (out.size() > 0 && out.back() == ' ')
+            out.pop_back();
+
+        return true;
+    }
+
     bool list_to_string(const AtomListView& lv, MediumString& out) noexcept
     {
         for (auto& a : lv) {

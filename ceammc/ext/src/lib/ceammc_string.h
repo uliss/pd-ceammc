@@ -323,6 +323,14 @@ namespace string {
     /**
      * @brief Simple convertion of atomlist to string: no quotes, no escapes, no data parsing
      * @param a   - atom to convert
+     * @param out - append to result to this small string buffer
+     * @return true on success, false on error
+     */
+    bool list_to_string(const AtomListView& lv, SmallString& out) noexcept;
+
+    /**
+     * @brief Simple convertion of atomlist to string: no quotes, no escapes, no data parsing
+     * @param a   - atom to convert
      * @param out - append to result to this medium string buffer
      * @return true on success, false on error
      */
