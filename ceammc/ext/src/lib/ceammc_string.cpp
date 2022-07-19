@@ -586,7 +586,7 @@ namespace string {
 
         return true;
     } catch (std::exception& e) {
-        LIB_ERR << fmt::format("[{}] error: '{}'", __FUNCTION__, e.what());
+        std::cerr << fmt::format("[{}] error: '{}'\n", __FUNCTION__, e.what());
         return false;
     }
 
@@ -605,10 +605,17 @@ namespace string {
         return atom_to_string_t(a, out);
     }
 
-    bool list_to_string(const AtomListView& lv, SmallString& out) noexcept
-    {
+    template <typename T>
+    static bool list_to_string_t(const AtomListView& lv, T& out) noexcept
+    try {
         for (auto& a : lv) {
-            if (atom_to_string_t(a, out))
+            const bool no_space = a.isComma() || a.isSemicolon();
+
+            // remove space before ',' or ';'
+            if (no_space && !out.empty() && out.back() == ' ')
+                out.pop_back();
+
+            if (atom_to_string_t<T>(a, out) && !no_space)
                 out.push_back(' ');
         }
 
@@ -616,19 +623,25 @@ namespace string {
             out.pop_back();
 
         return true;
+
+    } catch (std::exception& e) {
+        std::cerr << fmt::format("[{}] exception: '{}'\n", __FUNCTION__, e.what());
+        return false;
+    }
+
+    bool list_to_string(const AtomListView& lv, SmallString& out) noexcept
+    {
+        return list_to_string_t(lv, out);
     }
 
     bool list_to_string(const AtomListView& lv, MediumString& out) noexcept
     {
-        for (auto& a : lv) {
-            if (atom_to_string_t(a, out))
-                out.push_back(' ');
-        }
+        return list_to_string_t(lv, out);
+    }
 
-        if (out.size() > 0 && out.back() == ' ')
-            out.pop_back();
-
-        return true;
+    bool list_to_string(const AtomListView& lv, StaticString& out) noexcept
+    {
+        return list_to_string_t(lv, out);
     }
 
     std::ostream& list_to_stream_typed(const AtomListView& lv, std::ostream& os)

@@ -26,11 +26,16 @@ StringJoin::StringJoin(const PdArgs& a)
     createInlet();
     createOutlet();
 
-    addProperty(new SymbolProperty("@sep", &s_))
-        ->setSuccessFn([this](Property* p) {
-            sep_.setFromQuotedList(p->get());
-        });
-    property("@sep")->setArgIndex(0);
+    createCbListProperty(
+        "@sep",
+        [this]() -> AtomList { return Atom(gensym(sep_.str().c_str())); },
+        [this](const AtomListView& lv) -> bool {
+            LIB_ERR << lv;
+            sep_.setFromQuotedList(lv);
+            LIB_ERR << " sep: '" << sep_.str() << "'";
+            return true;
+        })
+        ->setArgIndex(0);
 }
 
 void StringJoin::onBang()

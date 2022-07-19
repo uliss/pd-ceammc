@@ -93,14 +93,14 @@ TEST_CASE("string.join", "[external]")
         SECTION(",")
         {
             TExt t("string.join", LP("\"\\,\""));
-            REQUIRE_PROPERTY_LIST(t, @sep, LA("\\,"));
+            REQUIRE_PROPERTY_LIST(t, @sep, LA(","));
             t.sendList(LF(1, 2, 3));
-            REQUIRE_STRING(t, "1\\,2\\,3");
+            REQUIRE_STRING(t, "1,2,3");
         }
 
         SECTION(",")
         {
-            TExt t("string.join", LP("\", \""));
+            TExt t("string.join", LP("\"\\,\\ \""));
             REQUIRE_PROPERTY_LIST(t, @sep, LA(", "));
             t.sendList(LF(1, 2, 3));
             REQUIRE_STRING(t, "1, 2, 3");
@@ -109,9 +109,9 @@ TEST_CASE("string.join", "[external]")
         SECTION(";")
         {
             TExt t("string.join", LP("\"\\;\""));
-            REQUIRE_PROPERTY_LIST(t, @sep, LA("\\;"));
+            REQUIRE_PROPERTY_LIST(t, @sep, LA(";"));
             t.sendList(LF(1, 2, 3));
-            REQUIRE_STRING(t, "1\\;2\\;3");
+            REQUIRE_STRING(t, "1;2;3");
         }
 
         SECTION("@sep")
@@ -137,11 +137,14 @@ TEST_CASE("string.join", "[external]")
         t.sendList(LF(1, 2, 3));
         REQUIRE_STRING(t, "1|2|3");
 
-        t->setProperty("@sep", LA("\"", "\""));
-        REQUIRE_PROPERTY(t, @sep, "|");
+        t->setProperty("@sep", LP("\" \""));
+        REQUIRE_PROPERTY(t, @sep, " ");
 
-        t.sendListTo(LA("'`'", "`''"), 1);
-        REQUIRE_PROPERTY(t, @sep, "|");
+        t->setProperty("@sep", LP("\"\\;\""));
+        REQUIRE_PROPERTY(t, @sep, ";");
+
+        t->setProperty("@sep", LP("\\ "));
+        REQUIRE_PROPERTY(t, @sep, " ");
     }
 
     SECTION("mlist")

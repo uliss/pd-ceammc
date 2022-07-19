@@ -674,6 +674,10 @@ TEST_CASE("ceammc_string", "[PureData]")
         REQUIRE(parse_ceammc_quoted_string(LF(1)) == LF(1));
         REQUIRE(parse_ceammc_quoted_string(LF(1, 2, 3)) == LF(1, 2, 3));
         REQUIRE(parse_ceammc_quoted_string(LA("A")) == LA("A"));
+        REQUIRE(parse_ceammc_quoted_string(LA("")) == LA(""));
+        REQUIRE(parse_ceammc_quoted_string(LA("\"\"")) == LA(""));
+        REQUIRE(parse_ceammc_quoted_string(LA("\" \"")) == LA(" "));
+        REQUIRE(parse_ceammc_quoted_string(LP("\" \"")) == LA(" "));
         REQUIRE(parse_ceammc_quoted_string(LA("A", "B")) == LA("A", "B"));
         REQUIRE(parse_ceammc_quoted_string(LA("\"``A B C``\"")) == LA("`A B C`"));
         REQUIRE(parse_ceammc_quoted_string(LA("\"$0-abc\"")) == LA("$0-abc"));

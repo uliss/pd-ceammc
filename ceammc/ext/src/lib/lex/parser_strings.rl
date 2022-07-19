@@ -354,7 +354,7 @@ AtomList parse_ceammc_quoted_string(const AtomListView& lv)
     for (auto& a: lv) {
         if (a.isQuoted() && !in_string)
             res.append(parse_ceammc_quoted_string(a));
-        else if (a.beginQuote()) {
+        else if (a.beginQuote() && !in_string) {
             in_string = true;
             str_atoms.push_back(a);
         } else if (a.endQuote()) {

@@ -48,12 +48,12 @@ DataParseResult parseDataList(const AtomListView& view) noexcept
     // The logic is: for long strings parsing time is will be also longer then
     // string alloc/deallocations
     string::StaticString str;
-    if (string::raw_list_to_string(view, str)) {
+    if (string::list_to_string(view, str)) {
         return parseDataString(str.c_str());
     } else {
         // string is rather long, using slower method
         string::MediumString str;
-        string::raw_list_to_string(view, str);
+        string::list_to_string(view, str);
         // put zero string terminator
         str.push_back('\0');
         return parseDataString(str.data());
