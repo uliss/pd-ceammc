@@ -46,7 +46,7 @@ struct token {
 };
 
 namespace {
-    void string(Parser* p, token& tok, const token& str);
+    void dstring(Parser* p, token& tok, const token& str);
     void linit(Parser* p, token& tok);
     void lcall(token& res, const token& fn, token& args);
     void assign(token& a, token& b);
@@ -112,7 +112,7 @@ atom         ::= FLOAT.
 atom         ::= SYMBOL.
 atom         ::= NULL.
 atom         ::= data.
-atom(A)      ::= STRING SYMBOL(B).          { string(p, A, B); }
+atom(A)      ::= STRING SYMBOL(B).          { dstring(p, A, B); }
 
 pair(A)      ::= DICT_KEY(B).               { pinit(p, A, B); }
 pair(A)      ::= DICT_KEY(B) list(C).       { pinit(p, A, B); pappend(A, C); }
@@ -321,7 +321,7 @@ namespace {
     }
 
     // string
-    void string(Parser* p, token& tok, const token& str) {
+    void dstring(Parser* p, token& tok, const token& str) {
         tok.list = p->makeList();
         Atom satom(str.atom);
         if (satom.isSymbol())

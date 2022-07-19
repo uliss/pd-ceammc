@@ -70,7 +70,7 @@ struct token {
 };
 
 namespace {
-    void string(Parser* p, token& tok, const token& str);
+    void dstring(Parser* p, token& tok, const token& str);
     void linit(Parser* p, token& tok);
     void lcall(token& res, const token& fn, token& args);
     void assign(token& a, token& b);
@@ -1023,7 +1023,7 @@ static YYACTIONTYPE yy_reduce(
         break;
       case 1: /* atom ::= STRING SYMBOL */
 #line 115 "lemon_data_string.y"
-{ string(p, yymsp[-1].minor.yy0, yymsp[0].minor.yy0); }
+{ dstring(p, yymsp[-1].minor.yy0, yymsp[0].minor.yy0); }
 #line 1027 "lemon_data_string.c"
         break;
       case 2: /* pair ::= DICT_KEY */
@@ -1666,7 +1666,7 @@ namespace {
     }
 
     // string
-    void string(Parser* p, token& tok, const token& str) {
+    void dstring(Parser* p, token& tok, const token& str) {
         tok.list = p->makeList();
         Atom satom(str.atom);
         if (satom.isSymbol())
