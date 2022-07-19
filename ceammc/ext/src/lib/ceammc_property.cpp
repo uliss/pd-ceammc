@@ -35,7 +35,10 @@
             PROP_ERR() << "check error, " << err_msg_ << ", got: " << v; \
     }
 
-#define PROP_USED(x) { const auto r = x; }
+#define PROP_USED(x)      \
+    {                     \
+        const auto r = x; \
+    }
 
 namespace ceammc {
 
@@ -624,7 +627,8 @@ bool Property::checkFloat(t_float v) const
         }
     }
 
-    if (!std::isnormal(v) && v != 0) {
+    const auto ft = std::fpclassify(v);
+    if (!(ft == FP_NORMAL || ft == FP_ZERO)) {
         PROP_ERR() << "ignore denormal value: " << v;
         return false;
     }

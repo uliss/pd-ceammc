@@ -292,8 +292,12 @@ TEST_CASE("FloatProperty", "[core]")
         REQUIRE_FALSE(p.setList(LF(std::numeric_limits<t_float>::quiet_NaN())));
         REQUIRE(p.value() == 0.5);
 
-        REQUIRE_FALSE(p.setList(LF(std::numeric_limits<t_float>::min() / 2)));
-        REQUIRE(p.value() == 0.5);
+        if (std::numeric_limits<t_float>::has_denorm == std::denorm_present) {
+            const auto denorm_min = std::numeric_limits<t_float>::denorm_min();
+            REQUIRE(std::fpclassify(denorm_min) == FP_SUBNORMAL);
+            REQUIRE_FALSE(p.setList(LF(denorm_min)));
+            REQUIRE(p.value() == 0.5);
+        }
 #endif
     }
 }
