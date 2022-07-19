@@ -121,6 +121,45 @@ DataTypeId DataTypeString::type() const noexcept
     return dataType;
 }
 
+void DataTypeString::setFromQuotedList(const AtomListView& lv)
+{
+    string::MediumString res;
+    quotedListToString(lv, res);
+    str_.assign(res.data(), res.size());
+}
+
+void DataTypeString::appendFromQuotedList(const AtomListView& lv)
+{
+    string::MediumString res;
+    quotedListToString(lv, res);
+    str_.append(res.data(), res.size());
+}
+
+void DataTypeString::quotedListToString(const AtomListView& lv, string::MediumString& res)
+{
+    auto astr = [](const Atom& a, string::MediumString& res) {
+        if (a.isA<DataTypeString>()) {
+            auto& str = a.asD<DataTypeString>()->str();
+            res.insert(res.end(), str.begin(), str.end());
+            res.push_back(' ');
+        } else if (string::atom_to_string(a, res)) {
+            res.push_back(' ');
+        }
+    };
+
+    if (string::maybe_ceammc_quoted_string(lv)) {
+        auto unquoted = string::parse_ceammc_quoted_string(lv);
+        for (auto& a : unquoted)
+            astr(a, res);
+    } else {
+        for (auto& a : lv)
+            astr(a, res);
+    }
+
+    if (res.size() > 0 && res.back() == ' ')
+        res.pop_back();
+}
+
 DataTypeString* DataTypeString::clone() const
 {
     return new DataTypeString(str_);
@@ -171,6 +210,11 @@ void DataTypeString::set(t_symbol* s)
 void DataTypeString::set(const std::string& s)
 {
     str_ = s;
+}
+
+void DataTypeString::append(const std::string& str)
+{
+    str_.append(str);
 }
 
 void DataTypeString::split(std::vector<std::string>& res, const std::string& sep) const

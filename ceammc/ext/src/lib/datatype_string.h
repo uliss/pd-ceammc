@@ -16,6 +16,7 @@
 
 #include "ceammc_abstractdata.h"
 #include "ceammc_atomlist.h"
+#include "ceammc_string_types.h"
 
 #include <iostream>
 #include <string>
@@ -107,6 +108,11 @@ public:
     void set(const std::string& s);
 
     /**
+     * Append string to existing string
+     */
+    void append(const std::string& str);
+
+    /**
      * Makes empty
      */
     void clear() noexcept;
@@ -177,6 +183,12 @@ public:
     DataTypeString substr(int from, size_t len) const;
 
     DataTypeId type() const noexcept final;
+
+    void setFromQuotedList(const AtomListView& lv);
+    void appendFromQuotedList(const AtomListView& lv);
+
+public:
+    static void quotedListToString(const AtomListView& lv, string::MediumString& str);
 
 public:
     static const DataTypeId dataType;
