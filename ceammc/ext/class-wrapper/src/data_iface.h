@@ -45,16 +45,13 @@ public:
     Result(const std::string& errMsg, int code = 1);
     Result();
 
-    operator bool() const
-    {
-        return rc_ == 0;
-    }
+    operator bool() const { return rc_ == 0; }
 
     /**
      * check for success
      * @return true if no error
      */
-    bool isOk() const;
+    bool isOk() const { return rc_ == 0; }
 
     /**
      * check for error
@@ -67,7 +64,7 @@ public:
     /**
      * result code
      */
-    int code() const;
+    int code() const { return rc_; }
 };
 
 /**

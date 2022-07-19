@@ -42,16 +42,6 @@ Result::Result()
 {
 }
 
-bool Result::isOk() const
-{
-    return rc_ == 0;
-}
-
-int Result::code() const
-{
-    return rc_;
-}
-
 bool Result::error(std::string* msg, int* code) const
 {
     if (rc_ == 0)

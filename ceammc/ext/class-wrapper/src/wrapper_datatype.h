@@ -95,7 +95,7 @@ public:
     std::string toJsonString() const final { return value_.toJsonString(); }
 
     std::string toListStringContent() const override { return value_.toString(); }
-    std::string toDictStringContent() const override { return " "; }
+    std::string toDictStringContent() const override { return "value: " + value_.toString(); }
     bool set(const AbstractData* d) noexcept override { return setWrapperData(d); }
 
     /**
