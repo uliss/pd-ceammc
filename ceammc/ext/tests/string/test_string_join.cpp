@@ -100,10 +100,10 @@ TEST_CASE("string.join", "[external]")
 
         SECTION(",")
         {
-            TExt t("string.join", LP("\"\\, \""));
-            REQUIRE_PROPERTY_LIST(t, @sep, LA("\\, "));
+            TExt t("string.join", LP("\", \""));
+            REQUIRE_PROPERTY_LIST(t, @sep, LA(", "));
             t.sendList(LF(1, 2, 3));
-            REQUIRE_STRING(t, "1\\, 2\\, 3");
+            REQUIRE_STRING(t, "1, 2, 3");
         }
 
         SECTION(";")

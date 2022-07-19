@@ -95,10 +95,10 @@ TEST_CASE("string", "[external]")
         t.sendSymbol("\"X`` Y Z\"");
         REQUIRE_STRING(t, "X` Y Z");
 
-        t.sendSymbol("S\"X`(Y Z`)\"");
+        t.sendSymbol("\"X`(Y Z`)\"");
         REQUIRE_STRING(t, "X{Y Z}");
 
-        t.sendSymbol("S\"X`( Y Z `)\"");
+        t.sendSymbol("\"X`( Y Z `)\"");
         REQUIRE_STRING(t, "X{ Y Z }");
     }
 
