@@ -30,28 +30,15 @@ CEAMMC_DEFINE_HASH(none)
 CEAMMC_DEFINE_HASH(time)
 CEAMMC_DEFINE_HASH(value)
 
-static const char* CURVE_TYPES[] = {
+namespace {
+
+const char* CURVE_TYPES[] = {
     str_step, str_line, str_exp, str_sin2, str_sigmoid
 };
 
-static const char* FIX_TYPES[] = {
+const char* FIX_TYPES[] = {
     str_none, str_all, str_time, str_value
 };
-
-static bool compareByTime(const EnvelopePoint& n0, const EnvelopePoint& n1)
-{
-    return n0.utime < n1.utime;
-}
-
-static bool compareByValue(const EnvelopePoint& n0, const EnvelopePoint& n1)
-{
-    return n0.value < n1.value;
-}
-
-static bool has_stop(const EnvelopePoint& n)
-{
-    return n.stop;
-}
 
 struct find_by_time {
     size_t t;
@@ -63,7 +50,22 @@ struct find_by_time {
     bool operator()(const EnvelopePoint& n) { return n.utime == t; }
 };
 
-static bool isValidAttack(const Atom& p)
+bool compareByTime(const EnvelopePoint& n0, const EnvelopePoint& n1)
+{
+    return n0.utime < n1.utime;
+}
+
+bool compareByValue(const EnvelopePoint& n0, const EnvelopePoint& n1)
+{
+    return n0.value < n1.value;
+}
+
+bool has_stop(const EnvelopePoint& n)
+{
+    return n.stop;
+}
+
+bool isValidAttack(const Atom& p)
 {
     if (!p.isFloat() || p.asFloat() < 0) {
         LIB_ERR << "invalid attack time: " << p;
@@ -73,7 +75,7 @@ static bool isValidAttack(const Atom& p)
     return true;
 }
 
-static bool isValidDecay(const Atom& p)
+bool isValidDecay(const Atom& p)
 {
     if (!p.isFloat() || p.asFloat() < 0) {
         LIB_ERR << "invalid decay time: " << p;
@@ -83,7 +85,7 @@ static bool isValidDecay(const Atom& p)
     return true;
 }
 
-static bool isValidRelease(const Atom& p)
+bool isValidRelease(const Atom& p)
 {
     if (!p.isFloat() || p.asFloat() < 0) {
         LIB_ERR << "invalid release time: " << p;
@@ -93,7 +95,7 @@ static bool isValidRelease(const Atom& p)
     return true;
 }
 
-static bool isValidSustain(const Atom& p)
+bool isValidSustain(const Atom& p)
 {
     if (!p.isFloat() || p.asFloat() < 0 || p.asFloat() > 100) {
         LIB_ERR << "invalid sustain level value: " << p;
@@ -164,8 +166,6 @@ static bool isValidSustain(const Atom& p)
             return false;                                    \
         }                                                    \
     }
-
-namespace {
 
 const char* fixToStr(uint8_t f)
 {
