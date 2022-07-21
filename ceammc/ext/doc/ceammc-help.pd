@@ -1390,7 +1390,7 @@ harmonics;
 #X obj 30 19039 string.format;
 #X text 200 19039 formats string like printf.;
 #X obj 30 19066 string.join;
-#X text 200 19066 joins (concatenates) strings with separator;
+#X text 200 19066 joins (concatenates) list to string with separator;
 #X obj 30 19093 string.length;
 #X text 200 19093 number of characters in string (unicode supported);
 #X obj 30 19120 string.match;

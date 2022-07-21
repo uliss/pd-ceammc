@@ -7,7 +7,7 @@
                 <author>Alex Nadzharov</author>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>joins (concatenates) strings with separator</description>
+            <description>joins (concatenates) list to string with separator</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>string</category>
@@ -42,13 +42,11 @@
         <example>
             <pdascii>
 <![CDATA[
-[bang(
+[list A B C 1 2 3(
 |
-[string TEST]
-|
-[string.split]  [symbol .(
-|               |.
-[string.join " " ]
+|               [symbol ":::"( [symbol ""(
+|               |.             |.
+[string.join _                  ]
 |
 [ui.dt]
 ]]>

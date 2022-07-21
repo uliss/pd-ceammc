@@ -1941,7 +1941,7 @@
     <entry name="string.format" descr="formats string like printf." ref_view="object">
       <xi:include href="string.format.pddoc" parse="xml"/>
     </entry>
-    <entry name="string.join" descr="joins (concatenates) strings with separator" ref_view="object">
+    <entry name="string.join" descr="joins (concatenates) list to string with separator" ref_view="object">
       <xi:include href="string.join.pddoc" parse="xml"/>
     </entry>
     <entry name="string.length" descr="number of characters in string (unicode supported)" ref_view="object">

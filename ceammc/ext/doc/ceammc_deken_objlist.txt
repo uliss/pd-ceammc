@@ -1011,8 +1011,8 @@ string.equal	check strings or symbols for equality
 str.equal	check strings or symbols for equality
 string.format	formats string like printf.
 str.format	formats string like printf.
-string.join	joins (concatenates) strings with separator
-str.join	joins (concatenates) strings with separator
+string.join	joins (concatenates) list to string with separator
+str.join	joins (concatenates) list to string with separator
 string.length	number of characters in string (unicode supported)
 str.length	number of characters in string (unicode supported)
 string.match	check if string match regular expression
