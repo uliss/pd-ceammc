@@ -99,19 +99,9 @@ std::string DataTypeMList::toJsonString() const
 
 std::string DataTypeMList::toListStringContent() const noexcept
 {
-    string::MediumString res;
-    string::SmallString str;
-
-    for (size_t i = 0; i < data_.size(); i++) {
-        if (i > 0)
-            res.push_back(' ');
-
-        string::parsed_atom_to_string(data_[i], str);
-        res.insert(res.end(), str.begin(), str.end());
-        str.clear();
-    }
-
-    return std::string(res.data(), res.size());
+    string::MediumString str;
+    string::parsed_list_to_string(data_.view(), str);
+    return std::string(str.data(), str.size());
 }
 
 std::string DataTypeMList::toDictStringContent() const noexcept

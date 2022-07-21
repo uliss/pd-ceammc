@@ -14,10 +14,10 @@
 #include "data_dict.h"
 
 DataDict::DataDict(const PdArgs& args)
-    : DictIFace<BaseObject>(args)
+    : DataDictBase(args)
 {
-    if (args.args.size() > 0)
-        dict_->setFromDataList(args.args);
+    setSpecialSymbolEscape(EDITOR_ESC_MODE_DATA);
+    dict_->setFromDataList(args.args);
 
     createOutlet();
 }
@@ -30,4 +30,6 @@ void setup_data_dict()
     obj.setXletsInfo({ "bang: output\n"
                        "methods: add, clear, get_key, set_key, remove, set, read, write" },
         { "data: dict" });
+
+    DataDict::registerMethods(obj);
 }

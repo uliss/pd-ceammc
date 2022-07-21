@@ -9,7 +9,7 @@
 namespace ceammc {
 
 namespace {
-    void editorAppend(EditorLineList& res, const DataTypeMList& lst, int indentLevel);
+    void editorAppend(EditorLineList& res, const DataTypeMList& ml, int indentLevel);
     void editorAppend(EditorLineList& res, const DataTypeDict& dict, int indentLevel);
 
     bool isSimpleList(const AtomListView& lv)
@@ -60,21 +60,20 @@ namespace {
 
             // each value on separate line
             for (const Atom& a : ml) {
-                auto str = EditorStringPool::pool().allocate();
-                appendIndent(str, indentLevel + 1);
+                if (a.isA<DataTypeMList>()) {
+                    editorAppend(res, *a.asD<DataTypeMList>(), indentLevel + 1);
+                } else if (a.isA<DataTypeDict>()) {
+                    editorAppend(res, *a.asD<DataTypeDict>(), indentLevel + 1);
+                } else {
+                    auto str = EditorStringPool::pool().allocate();
+                    appendIndent(str, indentLevel + 1);
 
-                if (a.isFloat()) {
-                    str->append(a.asT<t_float>());
+                    string::SmallString buf;
+                    if (string::parsed_atom_to_string(a, buf))
+                        str->append(buf.data(), buf.size());
+
                     res.push_back(str);
-                } else if (a.isSymbol()) {
-                    str->appendQuoted(a);
-                    res.push_back(str);
-                } else if (a.isDataType(DataTypeMList::dataType))
-                    editorAppend(res, *a.asDataT<DataTypeMList>(), indentLevel + 1);
-                else if (a.isDataType(DataTypeDict::dataType))
-                    editorAppend(res, *a.asDataT<DataTypeDict>(), indentLevel + 1);
-                else if (a.isData())
-                    editorAppend(res, a.asData(), indentLevel + 1);
+                }
             }
 
             appendIndent(res, ')', indentLevel);

@@ -15,16 +15,24 @@
 #define DATA_DICT_H
 
 #include "dict_iface.h"
+#include "editor_data.h"
 
 using namespace ceammc;
 
-class DataDict : public DictIFace<BaseObject> {
+using DataDictBase = EditorDataT<DictIFace<BaseObject>, DataTypeDict>;
+
+class DataDict : public DataDictBase {
     DictAtom dict_;
 
 public:
     DataDict(const PdArgs& args);
-    const DictAtom& dict() const override { return dict_; }
-    DictAtom& dict() override { return dict_; }
+    const DictAtom& dict() const final { return dict_; }
+    DictAtom& dict() final { return dict_; }
+
+    const DataTypeDict& editorData() const final { return *dict_; }
+    DataTypeDict& editorData() final { return *dict_; }
+
+    EditorTitleString editorTitle() const final { return "Dict"; }
 };
 
 void setup_data_dict();

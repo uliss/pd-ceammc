@@ -39,6 +39,7 @@ public:
     void append(t_symbol* s) { append(s->s_name); }
     void append(const Atom& a);
     void append(const AtomListView& lv, const char* delim = " ");
+    void append(const char* txt, size_t len);
 
     void appendQuoted(const std::string& txt) { appendQuoted(txt.c_str()); }
     void appendQuoted(t_symbol* s) { appendQuoted(s->s_name); }

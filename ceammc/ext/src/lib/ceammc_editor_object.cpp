@@ -78,6 +78,15 @@ void EditorString::append(const char* txt)
     }
 }
 
+void EditorString::append(const char* txt, size_t len)
+{
+    try {
+        str.append(txt, len);
+    } catch (std::exception& e) {
+        LIB_ERR << e.what();
+    }
+}
+
 void EditorString::append(const Atom& a)
 {
     if (a.isFloat())
