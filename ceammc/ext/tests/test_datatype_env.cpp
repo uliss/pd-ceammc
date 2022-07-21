@@ -572,8 +572,10 @@ TEST_CASE("DataTypeEnv", "[ceammc::DataTypeEnv]")
     {
         DataTypeEnv env;
         env.insertPoint(EnvelopePoint(0, 0, false, CURVE_EXP));
-        REQUIRE(env.toString() == "Envelope:\n"
-                                  "      point:        0(ms)        0 exp\n");
+        REQUIRE(env.toString() ==
+R"(Env[points:
+   [time: 0 value: 0 type: exp curve: 0 stop: 0]
+])");
 
         std::ostringstream ss;
         ss << env;

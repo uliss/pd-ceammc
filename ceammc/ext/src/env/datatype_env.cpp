@@ -203,19 +203,16 @@ void symbolToFix(t_symbol* s, std::uint8_t& fix)
 
 void exportPoint(const EnvelopePoint& pt, std::string& res)
 {
-    constexpr const char* indent = "";
-
-    res += fmt::format("{0:>5}[time:  {1:.7g}\n"
-                       "{0:>6}value: {2:.7g}\n"
-                       "{0:>6}type:  {3}\n",
-        indent, pt.timeMs(), pt.value, CURVE_TYPES[pt.type]);
+    auto str = std::back_inserter(res);
+    fmt::format_to(str, "    [time: {0:.7g} value: {1:.7g} type: {2}",
+        pt.timeMs(), pt.value, CURVE_TYPES[pt.type]);
     if (pt.type != CURVE_LINE || pt.type != CURVE_STEP)
-        res += fmt::format("{0:>6}curve: {1}\n", indent,
+        fmt::format_to(str, " curve: {}",
             (pt.type == CURVE_SIGMOID) ? pt.sigmoid_skew : pt.data);
 
     if (pt.fix_pos != EnvelopePoint::FIX_NONE)
-        res += fmt::format("{0:>6}fix:   {1}\n", indent, fixToStr(pt.fix_pos));
-    res += fmt::format("{0:>6}stop: {1}]\n", indent, pt.stop ? 1 : 0);
+        fmt::format_to(str, " fix: {}", fixToStr(pt.fix_pos));
+    fmt::format_to(str, " stop: {}]", pt.stop ? 1 : 0);
 }
 
 EnvelopePoint pointFromDict(const DataTypeDict& dict)
@@ -1219,10 +1216,12 @@ std::string DataTypeEnv::toDictStringContent() const noexcept
             const auto R = points_[3].timeMs() - (A + D);
             res = fmt::format("adsr: {:.3g} {:.3g} {:.3g} {:.3g}", A, D, S, R);
         } else if (!points_.empty()) {
-            res = fmt::format("points: \n");
-            const char* indent = "";
-            for (auto& pt : points_)
+            res = fmt::format("points:\n");
+            for (auto& pt : points_) {
                 exportPoint(pt, res);
+                res.push_back('\n');
+            }
+
         } else
             res = " ";
     } catch (std::exception& e) {
