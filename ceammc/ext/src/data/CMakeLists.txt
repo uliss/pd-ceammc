@@ -51,3 +51,6 @@ ceammc_data_external(local mlist)
 ceammc_data_external(local set)
 
 ceammc_data_external(rtree to_list)
+
+target_include_directories(ceammc_data PRIVATE "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>")
+

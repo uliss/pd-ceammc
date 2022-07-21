@@ -13,14 +13,39 @@
  *****************************************************************************/
 #include "global_dict.h"
 #include "ceammc_factory.h"
+#include "fmt/core.h"
 
 GlobalDict::GlobalDict(const PdArgs& args)
     : GlobalDictBase(args)
 {
+    setSpecialSymbolEscape(EDITOR_ESC_MODE_DATA);
+}
+
+EditorTitleString GlobalDict::editorTitle() const
+{
+    EditorTitleString res;
+
+    // string buffer overflow check
+    try {
+        fmt::format_to(std::back_inserter(res), "global Dict ({})", id()->s_name);
+        return res;
+    } catch (std::exception& e) {
+        if (res.size() >= (res.max_size() - 1)) {
+            res.resize(res.max_size() - 5);
+            res.append("...)");
+        }
+        return res;
+    }
 }
 
 void setup_global_dict()
 {
     DictIFaceFactory<GlobalDict> obj("global.dict");
     obj.addAlias("global.json");
+
+    obj.setXletsInfo({ "bang: output\n"
+                       "methods: add, clear, get_key, set_key, remove, set, read, write" },
+        { "data: dict" });
+
+    GlobalDict::registerMethods(obj);
 }
