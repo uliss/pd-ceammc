@@ -27,6 +27,9 @@
             <par>Nested lists: (1 2 3 (nested liat values))</par>
             <par>Symbols with spaces: ("single item list")</par>
         </info>
+        <mouse>
+            <event editmode="false" type="left-click">open data editor</event>
+        </mouse>
         <arguments>
             <argument name="X" type="any">initial list values in (). For example: (1 2 3 (1 2)
             4)</argument>
