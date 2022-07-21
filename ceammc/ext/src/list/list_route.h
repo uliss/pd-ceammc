@@ -19,7 +19,7 @@ public:
 
     void onFloat(t_float f) override;
     void onSymbol(t_symbol* s) override;
-    void onList(const AtomList& lst) override;
+    void onList(const AtomListView& lv) override;
 
     int outletIndex(const Atom& a) const;
     const char* annotateOutlet(size_t n) const final;

@@ -24,7 +24,7 @@ class DictFromList : public BaseObject {
 public:
     DictFromList(const PdArgs& args);
 
-    void onList(const AtomList& l) override;
+    void onList(const AtomListView& lv) override;
     void onDataT(const MListAtom& ml);
 };
 

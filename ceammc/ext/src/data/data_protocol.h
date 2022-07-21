@@ -33,9 +33,9 @@ public:
         static_assert(std::is_base_of<BaseObject, T>::value, "need to be ancestor of BaseObject");
     }
 
-    void m_set(t_symbol* /*s*/, const AtomListView& lst)
+    void m_set(t_symbol* /*s*/, const AtomListView& lv)
     {
-        proto_set(lst);
+        proto_set(lv);
     }
 
     virtual void proto_set(const AtomListView&) = 0;
@@ -62,24 +62,24 @@ public:
         onBang();
     }
 
-    void onList(const AtomList& l) override
+    void onList(const AtomListView& lv) override
     {
-        if (l.empty()) {
+        if (lv.empty()) {
             OBJ_ERR << "empty list";
             return;
         }
 
-        if (!l[0].isFloat()) {
-            OBJ_ERR << "non a number: " << l[0];
+        if (!lv[0].isFloat()) {
+            OBJ_ERR << "non a number: " << lv[0];
             return;
         }
 
-        onFloat(l[0].asFloat());
+        onFloat(lv[0].asT<t_float>());
     }
 
-    void onInlet(size_t /*n*/, const AtomListView& lst) override
+    void onInlet(size_t /*n*/, const AtomListView& lv) override
     {
-        proto_set(lst);
+        proto_set(lv);
     }
 
     AtomList propValue() const
@@ -87,44 +87,44 @@ public:
         return Atom(value());
     }
 
-    void m_plus(t_symbol* s, const AtomListView& lst)
+    void m_plus(t_symbol* s, const AtomListView& lv)
     {
-        if (!T::checkArgs(lst, T::ARG_FLOAT) || lst.size() != 1) {
-            METHOD_ERR(s) << "single numeric argument expected: " << lst;
+        if (!T::checkArgs(lv, T::ARG_FLOAT) || lv.size() != 1) {
+            METHOD_ERR(s) << "single numeric argument expected: " << lv;
             return;
         }
 
-        value() += NumType(lst[0].asFloat());
+        value() += NumType(lv[0].asT<t_float>());
     }
 
-    void m_minus(t_symbol* s, const AtomListView& lst)
+    void m_minus(t_symbol* s, const AtomListView& lv)
     {
-        if (!T::checkArgs(lst, T::ARG_FLOAT) || lst.size() != 1) {
-            METHOD_ERR(s) << "single numeric argument expected: " << lst;
+        if (!T::checkArgs(lv, T::ARG_FLOAT) || lv.size() != 1) {
+            METHOD_ERR(s) << "single numeric argument expected: " << lv;
             return;
         }
 
-        value() -= NumType(lst[0].asFloat());
+        value() -= NumType(lv[0].asFloat());
     }
 
-    void m_mul(t_symbol* s, const AtomListView& lst)
+    void m_mul(t_symbol* s, const AtomListView& lv)
     {
-        if (!T::checkArgs(lst, T::ARG_FLOAT) || lst.size() != 1) {
-            METHOD_ERR(s) << "single numeric argument expected: " << lst;
+        if (!T::checkArgs(lv, T::ARG_FLOAT) || lv.size() != 1) {
+            METHOD_ERR(s) << "single numeric argument expected: " << lv;
             return;
         }
 
-        value() *= NumType(lst[0].asFloat());
+        value() *= NumType(lv[0].asFloat());
     }
 
-    void m_div(t_symbol* s, const AtomListView& lst)
+    void m_div(t_symbol* s, const AtomListView& lv)
     {
-        if (!T::checkArgs(lst, T::ARG_FLOAT) || lst.size() != 1) {
-            METHOD_ERR(s) << "single numeric argument expected: " << lst;
+        if (!T::checkArgs(lv, T::ARG_FLOAT) || lv.size() != 1) {
+            METHOD_ERR(s) << "single numeric argument expected: " << lv;
             return;
         }
 
-        t_float v = lst[0].asFloat();
+        t_float v = lv[0].asFloat();
         if (std::equal_to<t_float>()(v, 0)) {
             METHOD_ERR(s) << "division by zero";
             return;
@@ -133,24 +133,24 @@ public:
         value() /= NumType(v);
     }
 
-    void m_set(t_symbol* /*s*/, const AtomListView& lst)
+    void m_set(t_symbol* /*s*/, const AtomListView& lv)
     {
-        proto_set(lst);
+        proto_set(lv);
     }
 
     virtual NumType& value() = 0;
     virtual const NumType& value() const = 0;
 
-    void proto_set(const AtomListView& lst) override
+    void proto_set(const AtomListView& lv) override
     {
         static t_symbol* SYM_SET = gensym("set");
 
-        if (!T::checkArgs(lst, T::ARG_FLOAT)) {
-            METHOD_ERR(SYM_SET) << "numeric argument expected: " << lst;
+        if (!T::checkArgs(lv, T::ARG_FLOAT)) {
+            METHOD_ERR(SYM_SET) << "numeric argument expected: " << lv;
             return;
         }
 
-        value() = static_cast<NumType>(lst[0].asFloat());
+        value() = static_cast<NumType>(lv[0].asFloat());
     }
 };
 
@@ -166,26 +166,26 @@ public:
         T::createCbBoolProperty("@empty", [this]() { return proto_size() == 0; });
     }
 
-    virtual void proto_add(const AtomListView& lst) = 0;
-    virtual bool proto_remove(const AtomListView& lst) = 0;
+    virtual void proto_add(const AtomListView& lv) = 0;
+    virtual bool proto_remove(const AtomListView& lv) = 0;
     virtual void proto_clear() = 0;
     virtual size_t proto_size() const = 0;
     virtual bool proto_choose(Atom& a) const = 0;
 
-    void m_add(t_symbol* s, const AtomListView& lst)
+    void m_add(t_symbol* s, const AtomListView& lv)
     {
-        if (lst.empty()) {
+        if (lv.empty()) {
             METHOD_ERR(s) << "empty list";
             return;
         }
 
-        proto_add(lst);
+        proto_add(lv);
     }
 
-    void m_remove(t_symbol* s, const AtomListView& lst)
+    void m_remove(t_symbol* s, const AtomListView& lv)
     {
-        if (!proto_remove(lst))
-            METHOD_ERR(s) << "can't remove element at: " << lst;
+        if (!proto_remove(lv))
+            METHOD_ERR(s) << "can't remove element at: " << lv;
     }
 
     void m_clear(t_symbol* /*s*/, const AtomListView& /*lv*/)
@@ -221,9 +221,9 @@ public:
     virtual size_t proto_size() const = 0;
 
     // change methods
-    virtual void proto_append(const AtomListView& lst) = 0;
-    virtual void proto_prepend(const AtomListView& lst) = 0;
-    virtual bool proto_insert(size_t idx, const AtomListView& lst) = 0;
+    virtual void proto_append(const AtomListView& lv) = 0;
+    virtual void proto_prepend(const AtomListView& lv) = 0;
+    virtual bool proto_insert(size_t idx, const AtomListView& lv) = 0;
     virtual bool proto_pop() = 0;
     virtual bool proto_removeAt(size_t idx) = 0;
     virtual void proto_clear() = 0;
@@ -233,35 +233,35 @@ public:
     virtual void proto_reverse() = 0;
     virtual void proto_shuffle() = 0;
 
-    void m_append(t_symbol* /*s*/, const AtomListView& lst)
+    void m_append(t_symbol* /*s*/, const AtomListView& lv)
     {
-        proto_append(lst);
+        proto_append(lv);
     }
 
-    void m_prepend(t_symbol* /*s*/, const AtomListView& lst)
+    void m_prepend(t_symbol* /*s*/, const AtomListView& lv)
     {
-        proto_prepend(lst);
+        proto_prepend(lv);
     }
 
-    void m_insert(t_symbol* s, const AtomListView& lst)
+    void m_insert(t_symbol* s, const AtomListView& lv)
     {
-        if (lst.size() < 2) {
+        if (lv.size() < 2) {
             METHOD_ERR(s) << "POS ARG expected";
             return;
         }
 
         const size_t N = proto_size();
-        int idx = lst[0].asInt();
+        int idx = lv[0].asInt();
         if (idx < 0)
             idx += N;
 
         if (idx > N || idx < 0) {
-            METHOD_ERR(s) << "invalid position: " << lst[0];
+            METHOD_ERR(s) << "invalid position: " << lv[0];
             return;
         }
 
-        if (!proto_insert(idx, lst.subView(1)))
-            METHOD_ERR(s) << "can't insert to " << lst[0];
+        if (!proto_insert(idx, lv.subView(1)))
+            METHOD_ERR(s) << "can't insert to " << lv[0];
     }
 
     void m_pop(t_symbol* s, const AtomListView& /*lv*/)
@@ -274,25 +274,25 @@ public:
         proto_pop();
     }
 
-    void m_removeAt(t_symbol* s, const AtomListView& lst)
+    void m_removeAt(t_symbol* s, const AtomListView& lv)
     {
-        if (!T::checkArgs(lst, T::ARG_INT)) {
+        if (!T::checkArgs(lv, T::ARG_INT)) {
             METHOD_ERR(s) << "POS expected";
             return;
         }
 
         const int N = proto_size();
-        int idx = lst[0].asInt();
+        int idx = lv[0].asInt();
         if (idx < 0)
             idx += N;
 
         if (idx >= N || idx < 0) {
-            METHOD_ERR(s) << "invalid position: " << lst[0];
+            METHOD_ERR(s) << "invalid position: " << lv[0];
             return;
         }
 
         if (!proto_removeAt(idx))
-            METHOD_ERR(s) << "can't remove element: " << lst[0];
+            METHOD_ERR(s) << "can't remove element: " << lv[0];
     }
 
     void m_clear(t_symbol* /*s*/, const AtomListView& /*lv*/)
@@ -300,14 +300,14 @@ public:
         proto_clear();
     }
 
-    void m_fill(t_symbol* s, const AtomListView& lst)
+    void m_fill(t_symbol* s, const AtomListView& lv)
     {
-        if (lst.empty()) {
+        if (lv.empty()) {
             METHOD_ERR(s) << "fill value is required";
             return;
         }
 
-        proto_fill(lst[0]);
+        proto_fill(lv[0]);
     }
 
     void m_sort(t_symbol* /*s*/, const AtomListView& /*lv*/)
@@ -491,13 +491,13 @@ namespace protocol {
         SeqCollection(Factory<T>& obj)
             : Base<Factory, T>(obj)
         {
-            // void proto_append(const AtomList& lst)
+            // void proto_append(const AtomList& lv)
             obj.addMethod("append", &T::m_append);
 
-            // void proto_append(const AtomList& lst)
+            // void proto_append(const AtomList& lv)
             obj.addMethod("prepend", &T::m_prepend);
 
-            // bool proto_insert(int idx, const AtomList& lst)
+            // bool proto_insert(int idx, const AtomList& lv)
             obj.addMethod("insert", &T::m_insert);
 
             // bool proto_pop()

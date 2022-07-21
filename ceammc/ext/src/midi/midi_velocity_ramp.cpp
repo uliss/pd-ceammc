@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "midi_velocity_ramp.h"
+#include "ceammc_containers.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 
@@ -50,19 +51,19 @@ MidiVelocityRamp::MidiVelocityRamp(const PdArgs& args)
 void MidiVelocityRamp::onFloat(t_float v)
 {
     if (v > 0)
-        onList({ v, 127 });
+        onList(StaticAtomList<2> { v, 127 }.view());
     else
-        onList({ -v, 0. });
+        onList(StaticAtomList<2> { -v, 0. }.view());
 }
 
-void MidiVelocityRamp::onList(const AtomList& lst)
+void MidiVelocityRamp::onList(const AtomListView& lv)
 {
-    if (lst.size() < 1 || lst.size() > 2) {
-        OBJ_ERR << "NOTE [VELOCITY] is expected, got: " << lst;
+    if (lv.size() < 1 || lv.size() > 2) {
+        OBJ_ERR << "NOTE [VELOCITY] is expected, got: " << lv;
         return;
     }
 
-    AtomList note(lst);
+    AtomList note(lv);
     note.resizeClip(2);
 
     if (note.intAt(1, 0) == 0)

@@ -12,7 +12,7 @@ DataList::DataList(const PdArgs& a)
     createCbListProperty(
         "@value",
         [this]() -> AtomList { return list_; },
-        [this](const AtomList& l) -> bool { list_ = l; return true; })
+        [this](const AtomListView& lv) -> bool { list_ = lv; return true; })
         ->setArgIndex(0);
 }
 

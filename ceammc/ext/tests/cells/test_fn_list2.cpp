@@ -194,34 +194,36 @@ TEST_CASE("list functions2", "[core]")
 
     SECTION("shift")
     {
+        using AL = AtomList;
         // invalid
-        REQUIRE(list::stretch({}, 2) == L());
-        REQUIRE(list::stretch({ 1, 2, 3, 4 }, 0) == L());
-        REQUIRE(list::stretch({ 1, 2, 3, 4 }, 1) == L());
+        REQUIRE(list::stretch(AL {}, 2) == L());
+        REQUIRE(list::stretch(AL { 1, 2, 3, 4 }, 0) == L());
+        REQUIRE(list::stretch(AL { 1, 2, 3, 4 }, 1) == L());
 
         //  integer
-        REQUIRE(list::stretch({ 1 }, 4) == LX({ 1, 1, 1, 1 }));
-        REQUIRE(list::stretch({ 1, 2 }, 3) == LX({ 1, 1.5, 2 }));
-        REQUIRE(list::stretch({ 1, 2, 3, 4 }, 4) == AtomList({ 1, 2, 3, 4 }));
-        REQUIRE(list::stretch({ 1, 2, 3, 4 }, 2) == LX({ 1, 4 }));
-        REQUIRE(list::stretch({ 1, 2, 3, 4 }, 7) == LX({ 1, 1.5, 2, 2.5, 3, 3.5, 4 }));
-        REQUIRE(list::stretch({ 1, 2, 3, 4 }, 3) == LX({ 1, 2.5, 4 }));
+        REQUIRE(list::stretch(AL { 1 }, 4) == LX({ 1, 1, 1, 1 }));
+        REQUIRE(list::stretch(AL { 1, 2 }, 3) == LX({ 1, 1.5, 2 }));
+        REQUIRE(list::stretch(AL { 1, 2, 3, 4 }, 4) == AtomList({ 1, 2, 3, 4 }));
+        REQUIRE(list::stretch(AL { 1, 2, 3, 4 }, 2) == LX({ 1, 4 }));
+        REQUIRE(list::stretch(AL { 1, 2, 3, 4 }, 7) == LX({ 1, 1.5, 2, 2.5, 3, 3.5, 4 }));
+        REQUIRE(list::stretch(AL { 1, 2, 3, 4 }, 3) == LX({ 1, 2.5, 4 }));
     }
 
     SECTION("rleEncode")
     {
-        typedef std::vector<std::pair<Atom, size_t>> RLE;
+        using AL = AtomList;
+        using RLE = std::vector<std::pair<Atom, size_t>>;
 
-        REQUIRE(list::rleEncode({}) == RLE());
-        REQUIRE(list::rleEncode({ 1 }) == RLE({ { Atom(1), 1 } }));
-        REQUIRE(list::rleEncode({ 1 }) == RLE({ { Atom(1), 1 } }));
-        REQUIRE(list::rleEncode({ 1, 1 }) == RLE({ { Atom(1), 2 } }));
-        REQUIRE(list::rleEncode({ 1, 1, 1 }) == RLE({ { Atom(1), 3 } }));
-        REQUIRE(list::rleEncode({ 1, 2 }) == RLE({ { Atom(1), 1 }, { Atom(2), 1 } }));
-        REQUIRE(list::rleEncode({ 1, 1, 2 }) == RLE({ { Atom(1), 2 }, { Atom(2), 1 } }));
-        REQUIRE(list::rleEncode({ 1, 2, 2 }) == RLE({ { Atom(1), 1 }, { Atom(2), 2 } }));
-        REQUIRE(list::rleEncode({ 1, 1, 2, 2 }) == RLE({ { Atom(1), 2 }, { Atom(2), 2 } }));
-        REQUIRE(list::rleEncode({ 1, 1, 2, 1 }) == RLE({ { Atom(1), 2 }, { Atom(2), 1 }, { Atom(1), 1 } }));
+        REQUIRE(list::rleEncode(AL {}) == RLE());
+        REQUIRE(list::rleEncode(AL { 1 }) == RLE({ { Atom(1), 1 } }));
+        REQUIRE(list::rleEncode(AL { 1 }) == RLE({ { Atom(1), 1 } }));
+        REQUIRE(list::rleEncode(AL { 1, 1 }) == RLE({ { Atom(1), 2 } }));
+        REQUIRE(list::rleEncode(AL { 1, 1, 1 }) == RLE({ { Atom(1), 3 } }));
+        REQUIRE(list::rleEncode(AL { 1, 2 }) == RLE({ { Atom(1), 1 }, { Atom(2), 1 } }));
+        REQUIRE(list::rleEncode(AL { 1, 1, 2 }) == RLE({ { Atom(1), 2 }, { Atom(2), 1 } }));
+        REQUIRE(list::rleEncode(AL { 1, 2, 2 }) == RLE({ { Atom(1), 1 }, { Atom(2), 2 } }));
+        REQUIRE(list::rleEncode(AL { 1, 1, 2, 2 }) == RLE({ { Atom(1), 2 }, { Atom(2), 2 } }));
+        REQUIRE(list::rleEncode(AL { 1, 1, 2, 1 }) == RLE({ { Atom(1), 2 }, { Atom(2), 1 }, { Atom(1), 1 } }));
     }
 
     SECTION("rleDecode")

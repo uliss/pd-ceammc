@@ -23,7 +23,7 @@ class ListCount : public ListBase {
 
 public:
     ListCount(const PdArgs& a);
-    void onList(const AtomList& l) override;
+    void onList(const AtomListView& lv) override;
     void onInlet(size_t n, const AtomListView& l) override;
 };
 

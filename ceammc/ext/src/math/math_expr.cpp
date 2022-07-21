@@ -25,8 +25,8 @@ MathExpr::MathExpr(const PdArgs& args)
     createCbListProperty(
         "@expr",
         [this]() -> AtomList { return Atom(gensym(expr_.c_str())); },
-        [this](const AtomList& l) -> bool {
-            expr_ = to_string(l, "");
+        [this](const AtomListView& lv) -> bool {
+            expr_ = to_string(lv, "");
             updateAST();
             return true;
         })
@@ -64,12 +64,12 @@ void MathExpr::onFloat(t_float v)
     floatTo(0, res);
 }
 
-void MathExpr::onInlet(size_t n, const AtomListView& lst)
+void MathExpr::onInlet(size_t n, const AtomListView& lv)
 {
-    setProperty("@expr", lst);
+    setProperty("@expr", lv);
 }
 
-void MathExpr::onList(const AtomList& lst)
+void MathExpr::onList(const AtomListView& lv)
 {
     using namespace ceammc::math;
 
@@ -85,9 +85,9 @@ void MathExpr::onList(const AtomList& lst)
 
     //  bind vars
     ast_->clearVars();
-    auto NVARS = std::min<size_t>(10, lst.size());
+    auto NVARS = std::min<size_t>(10, lv.size());
     for (size_t i = 0; i < NVARS; i++)
-        ast_->bindVar(i, lst[i].asFloat());
+        ast_->bindVar(i, lv[i].asFloat());
 
     math_float_t res = 0;
     if (!ast_->eval(&res)) {

@@ -31,9 +31,9 @@ void ListRepeat::onSymbol(t_symbol* s)
     onList(Atom(s));
 }
 
-void ListRepeat::onList(const AtomList& l)
+void ListRepeat::onList(const AtomListView& lv)
 {
-    listTo(0, list::repeat(l, times_->value()));
+    listTo(0, list::repeat(lv, times_->value()));
 }
 
 void ListRepeat::onData(const Atom& d)

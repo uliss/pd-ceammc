@@ -208,7 +208,7 @@ namespace net {
         const Atom& url() const { return value(); }
 
     private:
-        void parseUrl(const Atom& url);
+        bool parseUrl(const Atom& url);
     };
 
     class NetOscServer : public BaseObject {

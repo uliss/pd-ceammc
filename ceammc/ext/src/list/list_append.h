@@ -25,7 +25,7 @@ public:
     ListAppend(const PdArgs& args);
 
     void onBang() override;
-    void onList(const AtomList& lst) override;
+    void onList(const AtomListView& lv) override;
     void onData(const Atom& d) override;
     void onDataT(const MListAtom& d);
     void onInlet(size_t n, const AtomListView& lv) override;

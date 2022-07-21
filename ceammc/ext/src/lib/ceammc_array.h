@@ -223,7 +223,7 @@ public:
      * @param l - list of values
      * @return true on success, false on error
      */
-    bool set(const AtomList& l);
+    bool set(const AtomListView& lv);
 
     /**
      * @brief set array content with initializer list

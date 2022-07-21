@@ -48,8 +48,8 @@ public:
     MathSyncBase(FloatBinFn fn, const PdArgs& args, bool create_int_prop = true);
     void onBang() final;
     void onFloat(t_float f) final;
-    void onInlet(size_t n, const AtomListView& lst) final;
-    void onList(const AtomList& lst) final;
+    void onInlet(size_t n, const AtomListView& lv) final;
+    void onList(const AtomListView& lv) final;
 };
 
 class MathSyncBool : public BaseObject {
@@ -61,8 +61,8 @@ public:
     MathSyncBool(BoolBinFn fn, const PdArgs& args);
     void onBang() final;
     void onFloat(t_float f) final;
-    void onInlet(size_t n, const AtomListView& lst) final;
-    void onList(const AtomList& lst) final;
+    void onInlet(size_t n, const AtomListView& lv) final;
+    void onList(const AtomListView& lv) final;
 
 private:
     bool checkBool(t_float f) const;

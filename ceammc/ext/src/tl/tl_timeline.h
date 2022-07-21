@@ -35,16 +35,16 @@ public:
     void eventStart();
     void eventEnd();
 
-    void m_add(t_symbol* s, const AtomListView& lst);
-    void m_remove(t_symbol* s, const AtomListView& lst);
-    void m_clear(t_symbol* s, const AtomListView& lst);
+    void m_add(t_symbol* s, const AtomListView& lv);
+    void m_remove(t_symbol* s, const AtomListView& lv);
+    void m_clear(t_symbol* s, const AtomListView& lv);
 
-    void m_start(t_symbol* s, const AtomListView& lst);
-    void m_stop(t_symbol* s, const AtomListView& lst);
-    void m_pause(t_symbol* s, const AtomListView& lst);
-    void m_reset(t_symbol* s, const AtomListView& lst);
-    void m_to_event(t_symbol* s, const AtomListView& lst);
-    void m_to_time(t_symbol* s, const AtomListView& lst);
+    void m_start(t_symbol* s, const AtomListView& lv);
+    void m_stop(t_symbol* s, const AtomListView& lv);
+    void m_pause(t_symbol* s, const AtomListView& lv);
+    void m_reset(t_symbol* s, const AtomListView& lv);
+    void m_to_event(t_symbol* s, const AtomListView& lv);
+    void m_to_time(t_symbol* s, const AtomListView& lv);
 
     AtomList propNumEvents() const;
     AtomList propCurrentTime() const;

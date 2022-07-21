@@ -55,12 +55,12 @@ FlowRoute::FlowRoute(const PdArgs& args)
     createOutlet();
 }
 
-void FlowRoute::onList(const AtomList& lst)
+void FlowRoute::onList(const AtomListView& lv)
 {
-    if (lst.empty())
+    if (lv.empty())
         return;
 
-    auto& atom = lst[0];
+    auto& atom = lv[0];
 
     // iterate from end
     for (size_t i = n_; i > 0; i--) {
@@ -69,16 +69,16 @@ void FlowRoute::onList(const AtomList& lst)
 
         if (atom == r.sel) {
             if (r.keep)
-                listTo(IDX, lst);
+                listTo(IDX, lv);
             else
-                listTo(IDX, lst.view(1));
+                listTo(IDX, lv.subView(1));
 
             return;
         }
     }
 
     // no match
-    listTo(n_, lst);
+    listTo(n_, lv);
 }
 
 void FlowRoute::onAny(t_symbol* s, const AtomListView& lv)

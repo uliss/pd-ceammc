@@ -1,4 +1,5 @@
 #include "list_pass.h"
+#include "ceammc_containers.h"
 #include "ceammc_factory.h"
 #include "ceammc_fn_list.h"
 #include "datatype_mlist.h"
@@ -35,17 +36,17 @@ void ListPass::onSymbol(t_symbol* s)
         symbolTo(0, s);
 }
 
-void ListPass::onList(const AtomList& lst)
+void ListPass::onList(const AtomListView& lv)
 {
-    AtomList res;
-    res.reserve(lst.size());
+    SmallAtomList res;
+    res.reserve(lv.size());
 
-    for (auto& a : lst) {
+    for (auto& a : lv) {
         if (contains(a))
-            res.append(a);
+            res.push_back(a);
     }
 
-    listTo(0, res);
+    listTo(0, res.view());
 }
 
 void ListPass::onInlet(size_t n, const AtomListView& lv)

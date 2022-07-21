@@ -40,8 +40,8 @@ public:
     void onBang() override;
     void onFloat(t_float f) override;
     void onSymbol(t_symbol* s) override;
-    void onList(const AtomList& l) override;
-    void onInlet(size_t n, const AtomListView& l) override;
+    void onList(const AtomListView& lv) override;
+    void onInlet(size_t n, const AtomListView&) override;
     void play();
 
     void messageTo(size_t n, const Message& msg) final;

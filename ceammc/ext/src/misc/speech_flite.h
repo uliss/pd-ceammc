@@ -40,7 +40,7 @@ public:
 
     void onFloat(t_float v) override;
     void onSymbol(t_symbol* s) override;
-    void onList(const AtomList& lst) override;
+    void onList(const AtomListView& lv) override;
     void onDataT(const StringAtom& str);
 
 private:

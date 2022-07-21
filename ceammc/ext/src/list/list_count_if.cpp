@@ -17,12 +17,12 @@ void ListCountIf::onBang()
     floatTo(0, static_cast<float>(count_));
 }
 
-void ListCountIf::onList(const AtomList& lst)
+void ListCountIf::onList(const AtomListView& lv)
 {
     count_ = 0;
 
     auto out = outletAt(1);
-    for (auto& a : lst)
+    for (auto& a : lv)
         outletAtom(out, a);
 
     onBang();

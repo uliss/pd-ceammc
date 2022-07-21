@@ -79,27 +79,27 @@ void Matrix::setupDSP(t_signal** in)
         b.resize(BS, 0);
 }
 
-void Matrix::m_cell(t_symbol* s, const AtomListView& lst)
+void Matrix::m_cell(t_symbol* s, const AtomListView& lv)
 {
-    if (!checkArgs(lst, ARG_NATURAL, ARG_NATURAL, ARG_NATURAL, s))
+    if (!checkArgs(lv, ARG_NATURAL, ARG_NATURAL, ARG_NATURAL, s))
         return;
 
-    int cell_row = lst.intAt(0, -1);
-    int cell_col = lst.intAt(1, -1);
-    int cell_val = lst.intAt(2, -1);
+    int cell_row = lv.intAt(0, -1);
+    int cell_col = lv.intAt(1, -1);
+    int cell_val = lv.intAt(2, -1);
 
     if (cell_row < 0 || cell_row >= nouts_) {
-        OBJ_ERR << "invalid cell row: " << lst[0];
+        OBJ_ERR << "invalid cell row: " << lv[0];
         return;
     }
 
     if (cell_col < 0 || cell_col >= nins_) {
-        OBJ_ERR << "invalid cell column: " << lst[1];
+        OBJ_ERR << "invalid cell column: " << lv[1];
         return;
     }
 
     if (cell_val < 0) {
-        OBJ_ERR << "invalid cell value: " << lst[2];
+        OBJ_ERR << "invalid cell value: " << lv[2];
         return;
     }
 

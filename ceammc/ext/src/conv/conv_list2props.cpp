@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "conv_list2props.h"
+#include "ceammc_containers.h"
 #include "ceammc_factory.h"
 
 ConvList2Props::ConvList2Props(const PdArgs& args)
@@ -21,31 +22,48 @@ ConvList2Props::ConvList2Props(const PdArgs& args)
     createOutlet();
 }
 
-void ConvList2Props::onList(const AtomList& lst)
+void ConvList2Props::onList(const AtomListView& lv)
 {
-    AtomList non_props;
-    for (auto& a : lst) {
+    SmallAtomList non_props;
+    for (auto& a : lv) {
         if (a.isProperty())
             break;
 
-        non_props.append(a);
+        non_props.push_back(a);
     }
 
-    listTo(1, non_props);
+    listTo(1, non_props.view());
 
-    auto props = lst.properties();
-    for (auto& l : props)
-        anyTo(0, l);
+    SmallAtomList props;
+    bool on_prop = false;
+    for (auto& a : lv) {
+        if (a.isProperty()) {
+            if (on_prop) {
+                anyTo(0, props.view());
+                props.clear();
+                props.push_back(a);
+            } else {
+                props.push_back(a);
+                on_prop = true;
+            }
+        } else if (on_prop)
+            props.push_back(a);
+    }
+
+    // output last property
+    if (!props.empty())
+        anyTo(0, props.view());
 }
 
-void ConvList2Props::onAny(t_symbol* s, const AtomListView& lst)
+void ConvList2Props::onAny(t_symbol* s, const AtomListView& lv)
 {
-    AtomList lprop(s);
-    lprop.append(lst);
-    onList(lprop);
+    SmallAtomList res { s };
+    res.reserve(lv.size() + 1);
+    res.insert(res.end(), lv.begin(), lv.end());
+    onList(res.view());
 }
 
-bool ConvList2Props::processAnyProps(t_symbol* sel, const AtomListView& lst)
+bool ConvList2Props::processAnyProps(t_symbol* sel, const AtomListView&)
 {
     return false;
 }

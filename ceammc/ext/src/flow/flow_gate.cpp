@@ -36,12 +36,12 @@ void FlowGate::onSymbol(t_symbol* s)
     symbolTo(0, s);
 }
 
-void FlowGate::onList(const AtomList& l)
+void FlowGate::onList(const AtomListView& lv)
 {
     if (!state_->value())
         return;
 
-    listTo(0, l);
+    listTo(0, lv);
 }
 
 void FlowGate::onAny(t_symbol* s, const AtomListView& lv)
@@ -60,15 +60,15 @@ void FlowGate::onData(const Atom& data)
     atomTo(0, data);
 }
 
-void FlowGate::onInlet(size_t n, const AtomListView& l)
+void FlowGate::onInlet(size_t n, const AtomListView& lv)
 {
     if (n != 1)
         return;
 
-    state_->set(l);
+    state_->set(lv);
 }
 
-bool FlowGate::processAnyProps(t_symbol* s, const AtomListView& l)
+bool FlowGate::processAnyProps(t_symbol* s, const AtomListView&)
 {
     return false;
 }

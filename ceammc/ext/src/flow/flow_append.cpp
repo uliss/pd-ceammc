@@ -55,9 +55,9 @@ void FlowAppend::onSymbol(t_symbol* s)
     append();
 }
 
-void FlowAppend::onList(const AtomList& l)
+void FlowAppend::onList(const AtomListView& lv)
 {
-    listTo(0, l);
+    listTo(0, lv);
     append();
 }
 

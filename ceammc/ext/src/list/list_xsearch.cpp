@@ -28,16 +28,16 @@ ListXSearch::ListXSearch(const PdArgs& args)
     createCbListProperty(
         "@value",
         [this]() -> AtomList { return lst_; },
-        [this](const AtomList& l) -> bool {
-            if (l.isData() && !l.isA<DataTypeMList>()) {
+        [this](const AtomListView& lv) -> bool {
+            if (lv.isData() && !lv.isA<DataTypeMList>()) {
                 OBJ_ERR << fmt::format(
                     "invalid datatype '{}', only data.mlist is supported",
-                    l.first()->asData()->typeName().c_str());
+                    lv.front().asData()->typeName().c_str());
 
                 return false;
             }
 
-            lst_ = l;
+            lst_ = lv;
             return true;
         });
 
@@ -57,12 +57,12 @@ void ListXSearch::onSymbol(t_symbol* s)
     search(Atom(s));
 }
 
-void ListXSearch::onList(const AtomList& lst)
+void ListXSearch::onList(const AtomListView& lv)
 {
-    if (lst.empty())
+    if (lv.empty())
         return;
 
-    search(lst[0]);
+    search(lv[0]);
 }
 
 void ListXSearch::onData(const Atom& a)
@@ -70,9 +70,9 @@ void ListXSearch::onData(const Atom& a)
     search(a);
 }
 
-void ListXSearch::onInlet(size_t n, const AtomListView& lst)
+void ListXSearch::onInlet(size_t n, const AtomListView& lv)
 {
-    property("@value")->set(lst);
+    property("@value")->set(lv);
 }
 
 void ListXSearch::search(const Atom& a)

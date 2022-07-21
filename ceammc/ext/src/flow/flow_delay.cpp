@@ -72,13 +72,13 @@ void FlowDelay::onSymbol(t_symbol* s)
     clock_.delay(delay_->value());
 }
 
-void FlowDelay::onList(const AtomList& l)
+void FlowDelay::onList(const AtomListView& lv)
 {
     if (block_->value() && in_process_)
         return;
 
     in_process_ = block_->value();
-    last_msg_.setList(l);
+    last_msg_.setList(lv);
     clock_.delay(delay_->value());
 }
 

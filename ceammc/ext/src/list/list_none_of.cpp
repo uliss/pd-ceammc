@@ -24,29 +24,29 @@ ListNoneOf::ListNoneOf(const PdArgs& a)
     createOutlet();
 }
 
-void ListNoneOf::onList(const AtomList& l)
+void ListNoneOf::onList(const AtomListView& lv)
 {
-    if (l.empty())
+    if (lv.empty())
         return floatTo(0, 1);
 
     none_ = true;
 
-    for (size_t i = 0; i < l.size(); i++) {
+    for (auto& a : lv) {
         if (!none_)
             break;
 
-        atomTo(1, l[i]);
+        atomTo(1, a);
     }
 
-    floatTo(0, none_ ? 1 : 0);
+    boolTo(0, none_);
 }
 
-void ListNoneOf::onInlet(size_t n, const AtomListView& l)
+void ListNoneOf::onInlet(size_t n, const AtomListView& lv)
 {
-    if (n != 1 || l.empty())
+    if (n != 1 || lv.empty())
         return;
 
-    if (l[0].asInt(0) != 0)
+    if (lv[0].asInt(0) != 0)
         none_ = false;
 }
 
@@ -57,7 +57,7 @@ void setup_list_none_of()
 
     obj.setDescription("checks if none of list atoms is accepted by predicate");
     obj.addAuthor("Serge Poltavsky");
-    obj.setKeywords({"list", "predicate", "none"});
+    obj.setKeywords({ "list", "predicate", "none" });
     obj.setCategory("list");
     obj.setSinceVersion(0, 1);
 

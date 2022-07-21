@@ -35,22 +35,22 @@ void ConvBits2Int::onFloat(t_float f)
         OBJ_ERR << "0 or 1 value expected, got: " << f;
 }
 
-void ConvBits2Int::onList(const AtomList& lst)
+void ConvBits2Int::onList(const AtomListView& lv)
 {
     uint64_t res = 0;
 
     if (reversed_->value()) {
-        for (size_t i = 0; i < lst.size(); i++) {
-            const auto v = lst[i].asInt(-1);
+        for (size_t i = 0; i < lv.size(); i++) {
+            const auto v = lv[i].asInt(-1);
             if (v == 1)
                 res |= (0x1 << i);
             else if (v != 0)
-                OBJ_ERR << "0 or 1 expected, got: " << lst[i] << ", ignoring";
+                OBJ_ERR << "0 or 1 expected, got: " << lv[i] << ", ignoring";
         }
     } else {
-        const size_t N = lst.size();
-        for (size_t i = 0; i < lst.size(); i++) {
-            const auto& a = lst[N - (i + 1)];
+        const size_t N = lv.size();
+        for (size_t i = 0; i < lv.size(); i++) {
+            const auto& a = lv[N - (i + 1)];
             const auto v = a.asInt(-1);
             if (v == 1)
                 res |= (0x1 << i);

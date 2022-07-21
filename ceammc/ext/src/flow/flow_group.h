@@ -26,9 +26,9 @@ public:
     FlowGroup(const PdArgs& a);
     void onFloat(t_float v) override;
     void onSymbol(t_symbol* s) override;
-    void onList(const AtomList& l) override;
+    void onList(const AtomListView& lv) override;
     void onData(const Atom& d) override;
-    void onInlet(size_t, const AtomListView& l) override;
+    void onInlet(size_t, const AtomListView& lv) override;
 
     void m_flush(t_symbol*, const AtomListView&);
     void m_clear(t_symbol*, const AtomListView &);

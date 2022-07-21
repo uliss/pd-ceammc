@@ -111,16 +111,13 @@ public:
 
     /** overloaded */
     void bangTo(size_t n) override;
-    void listTo(size_t n, const AtomList& lst) override;
     void listTo(size_t n, const AtomListView& v) override;
     void symbolTo(size_t n, t_symbol* s) override;
     void floatTo(size_t n, t_float f) override;
     void atomTo(size_t n, const Atom& a) override;
-    void anyTo(size_t n, const AtomList& lst) override;
-    void anyTo(size_t n, const AtomListView& lst) override;
+    void anyTo(size_t n, const AtomListView& lv) override;
     void anyTo(size_t n, t_symbol* sel, const Atom& a) override;
-    void anyTo(size_t n, t_symbol* sel, const AtomList& lst) override;
-    void anyTo(size_t n, t_symbol* sel, const AtomListView& lst) override;
+    void anyTo(size_t n, t_symbol* sel, const AtomListView& lv) override;
     void messageTo(size_t n, const Message& m) override;
 
     /** messages methods */
@@ -476,12 +473,6 @@ void TestExternal<T>::bangTo(size_t n)
 }
 
 template <class T>
-void TestExternal<T>::listTo(size_t n, const AtomList& lst)
-{
-    msg_[n].push_back(Message(lst));
-}
-
-template <class T>
 void TestExternal<T>::listTo(size_t n, const AtomListView& v)
 {
     msg_[n].push_back(Message(v));
@@ -509,15 +500,9 @@ void TestExternal<T>::atomTo(size_t n, const Atom& a)
 }
 
 template <class T>
-void TestExternal<T>::anyTo(size_t n, const AtomList& lst)
+void TestExternal<T>::anyTo(size_t n, const AtomListView& lv)
 {
-    msg_[n].push_back(Message(lst.at(0).asSymbol(), lst.slice(1)));
-}
-
-template <class T>
-void TestExternal<T>::anyTo(size_t n, const AtomListView& lst)
-{
-    msg_[n].push_back(Message(lst.at(0).asSymbol(), lst.subView(1)));
+    msg_[n].push_back(Message(lv.at(0).asSymbol(), lv.subView(1)));
 }
 
 template <class T>
@@ -527,15 +512,9 @@ void TestExternal<T>::anyTo(size_t n, t_symbol* sel, const Atom& a)
 }
 
 template <class T>
-void TestExternal<T>::anyTo(size_t n, t_symbol* sel, const AtomList& lst)
+void TestExternal<T>::anyTo(size_t n, t_symbol* sel, const AtomListView& lv)
 {
-    msg_[n].push_back(Message(sel, lst));
-}
-
-template <class T>
-void TestExternal<T>::anyTo(size_t n, t_symbol* sel, const AtomListView& lst)
-{
-    msg_[n].push_back(Message(sel, lst));
+    msg_[n].push_back(Message(sel, lv));
 }
 
 template <class T>

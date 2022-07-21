@@ -64,24 +64,24 @@ void MidiModus::onFloat(t_float f)
         floatTo(1, f);
 }
 
-void MidiModus::onList(const AtomList& lst)
+void MidiModus::onList(const AtomListView& lv)
 {
-    if (!checkArgs(lst.view(), ARG_BYTE) && !checkArgs(lst.view(), ARG_BYTE, ARG_BYTE) && !checkArgs(lst.view(), ARG_BYTE, ARG_BYTE, ARG_FLOAT)) {
-        OBJ_ERR << "PITCH VEL? [DUR] expected, got: " << lst;
+    if (!checkArgs(lv, ARG_BYTE) && !checkArgs(lv, ARG_BYTE, ARG_BYTE) && !checkArgs(lv, ARG_BYTE, ARG_BYTE, ARG_FLOAT)) {
+        OBJ_ERR << "PITCH VEL? [DUR] expected, got: " << lv;
         return;
     }
 
     t_float res = 0;
-    if (mapNote(lst[0].asT<t_float>(), res) != OK)
-        return listTo(1, lst);
+    if (mapNote(lv[0].asT<t_float>(), res) != OK)
+        return listTo(1, lv);
 
     Atom msg[3] = { res };
-    if (lst.size() > 1)
-        msg[1] = lst[1];
-    if (lst.size() > 2)
-        msg[2] = lst[2];
+    if (lv.size() > 1)
+        msg[1] = lv[1];
+    if (lv.size() > 2)
+        msg[2] = lv[2];
 
-    listTo(0, AtomListView(msg, lst.size()));
+    listTo(0, AtomListView(msg, lv.size()));
 }
 
 MidiModus::NoteStatus MidiModus::mapNote(t_float note, t_float& res) const

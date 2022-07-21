@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "conv_lin2curve.h"
+#include "ceammc_containers.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 
@@ -47,7 +48,7 @@ void Lin2Curve::onFloat(t_float value)
     floatTo(0, convert::lin2curve(value, x0, x1, y0, y1, curve));
 }
 
-void Lin2Curve::onList(const AtomList& l)
+void Lin2Curve::onList(const AtomListView& lv)
 {
     const t_float x0 = in_from();
     const t_float x1 = in_to();
@@ -64,7 +65,10 @@ void Lin2Curve::onList(const AtomList& l)
         return convert::lin2curve(value, x0, x1, y0, y1, curve);
     };
 
-    listTo(0, l.mapFloat(fn));
+    SmallAtomList res;
+    res.reserve(lv.size());
+    lv.mapFloat(fn, res);
+    listTo(0, res.view());
 }
 
 void setup_conv_lin2curve()

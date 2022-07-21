@@ -13,17 +13,17 @@ ListEqual::ListEqual(const PdArgs& a)
     addProperty(pattern_);
 }
 
-void ListEqual::onInlet(size_t n, const AtomListView& lst)
+void ListEqual::onInlet(size_t n, const AtomListView& lv)
 {
     if (n != 1)
         return;
 
-    pattern_->set(lst);
+    pattern_->set(lv);
 }
 
-void ListEqual::onList(const AtomList& lst)
+void ListEqual::onList(const AtomListView& lv)
 {
-    floatTo(0, lst == pattern_->value() ? 1 : 0);
+    boolTo(0, lv == pattern_->value());
 }
 
 void setup_list_equal()

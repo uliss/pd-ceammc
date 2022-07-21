@@ -236,14 +236,14 @@ void Array::fillWith(FloatValueGenerator gen)
     std::generate(begin(), end(), [&n, gen]() { return gen(n++); });
 }
 
-bool Array::set(const AtomList& l)
+bool Array::set(const AtomListView& lv)
 {
-    if (!resize(l.size()))
+    if (!resize(lv.size()))
         return false;
 
-    const size_t N = std::min(size(), l.size());
+    const size_t N = std::min(size(), lv.size());
     for (size_t i = 0; i < N; i++)
-        data_[i].w_float = l[i].asFloat();
+        data_[i].w_float = lv[i].asFloat();
 
     return true;
 }

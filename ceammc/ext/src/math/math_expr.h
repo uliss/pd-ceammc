@@ -37,8 +37,8 @@ public:
     ~MathExpr();
 
     void onFloat(t_float v) override;
-    void onInlet(size_t n, const AtomListView& lst) override;
-    void onList(const AtomList& lst) override;
+    void onInlet(size_t n, const AtomListView& lv) override;
+    void onList(const AtomListView& lv) override;
 
 private:
     void updateAST();

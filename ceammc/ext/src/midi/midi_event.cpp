@@ -1,30 +1,38 @@
 #include "midi_event.h"
-#include "MidiEvent.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
+#include "fmt/core.h"
 
-XMidiEvent::XMidiEvent(const AtomList& l)
-    : valid_(false)
-    , raw_(l)
-    , event_(new MidiEvent())
+CEAMMC_DEFINE_HASH(MidiEvent);
+
+#include "MidiEvent.h"
+
+// for std::unique_ptr
+XMidiEvent::~XMidiEvent() = default;
+
+XMidiEvent::XMidiEvent(const AtomListView& lv)
+    : event_(new MidiEvent())
     , duration_(0)
     , track_(0)
+    , valid_(false)
 {
-    parse(l);
+    parse(lv);
 }
 
-bool XMidiEvent::parse(const AtomListView& l)
+bool XMidiEvent::parse(const AtomListView& lv)
 {
-    valid_ = (l.size() >= 5);
+    valid_ = (lv.size() >= 5);
 
     if (valid_) {
         std::vector<uchar> v;
+        v.reserve(lv.size() - 3);
 
-        for (size_t i = 3; i < l.size(); i++)
-            v.push_back(l[i].asInt());
+        for (size_t i = 3; i < lv.size(); i++)
+            v.push_back(lv[i].asInt());
 
-        *event_.get() = MidiEvent(l[0].asInt(), l[1].asInt(), v);
-        track_ = l[1].asInt();
-        duration_ = l[2].asFloat();
+        *event_.get() = MidiEvent(lv[0].asInt(), lv[1].asInt(), v);
+        track_ = lv[1].asInt();
+        duration_ = lv[2].asFloat();
     }
 
     return valid_;
@@ -83,10 +91,8 @@ BaseMidiEventExternal::BaseMidiEventExternal(const PdArgs& a)
 
 void BaseMidiEventExternal::onAny(t_symbol* s, const AtomListView& args)
 {
-    static t_symbol* SYM_MIDI_EVENT = gensym("MidiEvent");
-
-    if (s != SYM_MIDI_EVENT) {
-        OBJ_ERR << "MidiEvent expected: " << s->s_name;
+    if (crc32_hash(s) != hash_MidiEvent) {
+        OBJ_ERR << fmt::format("{} expected, got: '{}'", str_MidiEvent, s->s_name);
         return;
     }
 

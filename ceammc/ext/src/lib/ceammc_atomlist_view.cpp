@@ -282,6 +282,77 @@ bool AtomListView::noneOf(std::function<bool(const Atom&)> pred) const
     return std::none_of(begin(), end(), pred);
 }
 
+MaybeFloat AtomListView::sum() const noexcept
+{
+    return reduceFloat(0, [](t_float a, t_float b) { return a + b; });
+}
+
+MaybeFloat AtomListView::product() const noexcept
+{
+    return reduceFloat(1, [](t_float a, t_float b) { return a * b; });
+}
+
+MaybeFloat AtomListView::reduceFloat(t_float init, std::function<t_float(t_float, t_float)> fn) const
+{
+    t_float accum = init;
+    size_t n = 0;
+
+    for (size_t i = 0; i < n_; i++) {
+        auto& el = data_[i];
+        if (el.isFloat()) {
+            accum = fn(accum, el.asFloat());
+            n++;
+        }
+    }
+
+    return (n > 0) ? MaybeFloat(accum) : boost::none;
+}
+
+const Atom* AtomListView::relativeAt(int pos) const
+{
+    auto idx = relativeIndex<int>(pos, n_);
+    if (idx < 0)
+        return nullptr;
+
+    return data_ + static_cast<size_t>(idx);
+}
+
+const Atom* AtomListView::clipAt(int pos) const
+{
+    if (n_ == 0)
+        return nullptr;
+
+    auto idx = static_cast<size_t>(clip<long>(pos, 0, long(n_ - 1)));
+    return data_ + idx;
+}
+
+const Atom* AtomListView::wrapAt(int pos) const
+{
+    if (n_ == 0)
+        return nullptr;
+
+    return data_ + wrapInteger<long>(pos, n_);
+}
+
+const Atom* AtomListView::foldAt(int pos) const
+{
+    if (n_ == 0)
+        return nullptr;
+
+    return data_ + foldInteger<long>(pos, n_);
+}
+
+bool AtomListView::range(Atom& min, Atom& max) const noexcept
+{
+    if (!n_ || !data_)
+        return false;
+
+    auto res = std::minmax_element(begin(), end());
+    min = *res.first;
+    max = *res.second;
+    return true;
+}
+
 std::ostream& operator<<(std::ostream& os, const AtomListView& l)
 {
     os << "( ";

@@ -53,7 +53,7 @@ public:
 
     bool setFloatRange(t_float min, t_float max);
     bool setIntRange(int min, int max);
-    bool setEnumValues(const AtomList& lst);
+    bool setEnumValues(const AtomListView& lv);
 
     bool isFloat() const { return type_ == PropValueType::FLOAT; }
     bool isInt() const { return type_ == PropValueType::INTEGER; }

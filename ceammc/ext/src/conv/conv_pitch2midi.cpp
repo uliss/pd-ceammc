@@ -39,12 +39,12 @@ void PitchToMIDI::onSymbol(t_symbol* p)
     convert(p->s_name);
 }
 
-void PitchToMIDI::onList(const AtomList& lst)
+void PitchToMIDI::onList(const AtomListView& lv)
 {
-    Atom res[lst.size()];
+    Atom res[lv.size()];
     int n = 0;
 
-    for (auto& a : lst) {
+    for (auto& a : lv) {
         if (!a.isSymbol())
             continue;
 

@@ -30,7 +30,7 @@ public:
     void onBang() override;
     void onFloat(t_float f) override;
     void onSymbol(t_symbol* s) override;
-    void onList(const AtomList& l) override;
+    void onList(const AtomListView& lv) override;
 
     std::vector<Message>& result();
     const std::vector<Message>& result() const;

@@ -15,7 +15,7 @@
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 
-static t_symbol* SYM_CTLIN;
+constexpr const char* STR_CTLIN = "#ctlin";
 
 MidiCC::MidiCC(const PdArgs& args)
     : BaseObject(args)
@@ -47,14 +47,14 @@ MidiCC::MidiCC(const PdArgs& args)
     curve_ = new FloatProperty("@curve", 0);
     addProperty(curve_);
 
-    bindReceive(SYM_CTLIN);
+    bindReceive(gensym(STR_CTLIN));
 }
 
-void MidiCC::onList(const AtomList& l)
+void MidiCC::onList(const AtomListView& lv)
 {
-    const auto cc = l.intAt(0, 0);
-    const auto val = l.floatAt(1, 0);
-    const auto chan = l.intAt(2, 0);
+    const auto cc = lv.intAt(0, 0);
+    const auto val = lv.floatAt(1, 0);
+    const auto chan = lv.intAt(2, 0);
 
     if (cc_->value() >= 0 && cc_->value() != cc)
         return;
@@ -73,7 +73,5 @@ void MidiCC::onList(const AtomList& l)
 
 void setup_midi_cc()
 {
-    SYM_CTLIN = gensym("#ctlin");
-
     ObjectFactory<MidiCC> obj("midi.cc");
 }

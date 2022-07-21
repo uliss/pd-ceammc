@@ -34,7 +34,7 @@ public:
 
     bool propSetFile(t_symbol* fname);
 
-    void m_open(t_symbol* s, const AtomListView& lst);
+    void m_open(t_symbol* s, const AtomListView& lv);
     void m_reset(t_symbol* s, const AtomListView&);
 };
 

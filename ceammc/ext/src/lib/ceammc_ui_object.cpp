@@ -640,9 +640,9 @@ bool UIObjectImpl::getProperty(t_symbol* name, AtomList& lst) const
     return false;
 }
 
-bool UIObjectImpl::setProperty(t_symbol* name, const AtomListView& lst)
+bool UIObjectImpl::setProperty(t_symbol* name, const AtomListView& lv)
 {
-    return eclass_attr_setter(asPdObject(), name, lst.size(), lst.toPdData());
+    return eclass_attr_setter(asPdObject(), name, lv.size(), lv.toPdData());
 }
 
 static AtomList sym_to_list(t_symbol* sym)

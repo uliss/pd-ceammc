@@ -1,4 +1,5 @@
 #include "list_reject.h"
+#include "ceammc_containers.h"
 #include "ceammc_factory.h"
 #include "ceammc_fn_list.h"
 #include "datatype_mlist.h"
@@ -35,17 +36,17 @@ void ListReject::onSymbol(t_symbol* s)
         symbolTo(0, s);
 }
 
-void ListReject::onList(const AtomList& lst)
+void ListReject::onList(const AtomListView& lv)
 {
-    AtomList res;
-    res.reserve(lst.size());
+    AtomList32 res;
+    res.reserve(lv.size());
 
-    for (auto& a : lst) {
+    for (auto& a : lv) {
         if (!contains(a))
-            res.append(a);
+            res.push_back(a);
     }
 
-    listTo(0, res);
+    listTo(0, res.view());
 }
 
 void ListReject::onInlet(size_t n, const AtomListView& lv)

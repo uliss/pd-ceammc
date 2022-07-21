@@ -43,13 +43,13 @@ void FlowPass::onSymbol(t_symbol* s)
         symbolTo(0, s);
 }
 
-void FlowPass::onList(const AtomList& l)
+void FlowPass::onList(const AtomListView& lv)
 {
-    if (l.empty())
+    if (lv.empty())
         return bangTo(0);
 
-    if (pass_list_->value().contains(l[0]))
-        listTo(0, l);
+    if (pass_list_->value().contains(lv[0]))
+        listTo(0, lv);
 }
 
 void FlowPass::onAny(t_symbol* s, const AtomListView& lv)

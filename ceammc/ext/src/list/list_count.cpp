@@ -3,6 +3,8 @@
 #include "ceammc_log.h"
 #include "datatype_mlist.h"
 
+#include <algorithm>
+
 ListCount::ListCount(const PdArgs& a)
     : ListBase(a)
     , pattern_(nullptr)
@@ -15,9 +17,10 @@ ListCount::ListCount(const PdArgs& a)
     addProperty(pattern_);
 }
 
-void ListCount::onList(const AtomList& l)
+void ListCount::onList(const AtomListView& lv)
 {
-    floatTo(0, l.count(pattern_->value()));
+    auto c = std::count(lv.begin(), lv.end(), pattern_->value());
+    floatTo(0, c);
 }
 
 void ListCount::onInlet(size_t n, const AtomListView& l)

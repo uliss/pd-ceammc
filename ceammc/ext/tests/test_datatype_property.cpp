@@ -83,7 +83,7 @@ TEST_CASE("DataTypeProperty", "[ceammc::DataTypeProperty]")
         REQUIRE(f1.getFloat(f1_));
         REQUIRE(f1_ == 0.f);
 
-        REQUIRE_FALSE(f1.setEnumValues(LX(1, 2)));
+        REQUIRE_FALSE(f1.setEnumValues(LF(1, 2)));
         REQUIRE_FALSE(f1.setIntRange(1, 2));
         REQUIRE(f1.setFloatRange(10, 20));
         f1.restoreDefault();

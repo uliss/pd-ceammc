@@ -16,8 +16,6 @@
 #include "ceammc_factory.h"
 #include "datatype_mlist.h"
 
-using SmallAtomList = SmallAtomListN<16>;
-
 ListPrepend::ListPrepend(const PdArgs& args)
     : BaseObject(args)
     , lst_(nullptr)
@@ -37,7 +35,7 @@ void ListPrepend::onBang()
 
 void ListPrepend::onFloat(t_float f)
 {
-    SmallAtomList res;
+    AtomList32 res;
     res.reserve(lst_->value().size() + 1);
 
     for (auto& a : lst_->value())
@@ -59,14 +57,15 @@ void ListPrepend::onSymbol(t_symbol* s)
     listTo(0, res.view());
 }
 
-void ListPrepend::onList(const AtomList& lst)
+void ListPrepend::onList(const AtomListView& lv)
 {
-    SmallAtomList res;
-    res.reserve(lst_->value().size() + lst.size());
+    AtomList32 res;
+
+    res.reserve(lst_->value().size() + lv.size());
     for (auto& a : lst_->value())
         res.push_back(a);
 
-    for (auto& a : lst)
+    for (auto& a : lv)
         res.push_back(a);
 
     listTo(0, res.view());

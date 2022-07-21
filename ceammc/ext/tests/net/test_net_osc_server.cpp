@@ -40,7 +40,7 @@ TEST_CASE("net.osc.server", "[externals]")
         REQUIRE(prop.set(LF(5432)));
         REQUIRE(prop.host() == ""_sym);
         REQUIRE(prop.port() == "5432"_sym);
-        REQUIRE(prop.proto() == ""_sym);
+        REQUIRE(prop.proto() == "udp"_sym);
 
         REQUIRE(prop.set(LA("osc://localhost:9123")));
         REQUIRE(prop.host() == "localhost"_sym);
@@ -52,10 +52,8 @@ TEST_CASE("net.osc.server", "[externals]")
         REQUIRE(prop.port()->s_name == ""_str);
         REQUIRE(prop.proto() == "tcp"_sym);
 
-        REQUIRE(prop.set(LA("osc.tcp://localhost:")));
-        REQUIRE(prop.host() == "localhost"_sym);
-        REQUIRE(prop.port() == ""_sym);
-        REQUIRE(prop.proto() == "tcp"_sym);
+        REQUIRE_FALSE(prop.set(LA("osc.ftp://localhost")));
+        REQUIRE_FALSE(prop.set(LA("http://localhost")));
     }
 
     SECTION("construct")

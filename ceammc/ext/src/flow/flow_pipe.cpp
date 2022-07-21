@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "flow_pipe.h"
 #include "ceammc_factory.h"
+#include "ceammc_containers.h"
 
 FlowPipe::FlowPipe(const PdArgs& a)
     : BaseObject(a)
@@ -54,17 +55,23 @@ void FlowPipe::onSymbol(t_symbol* s)
     pipe_.front().delay(delay_->value());
 }
 
-void FlowPipe::onList(const AtomList& l)
+void FlowPipe::onList(const AtomListView& lv)
 {
-    pipe_.emplace_front([this, l]() { listTo(0, l); pop(); });
+    // make a copy for lambda capture
+    AtomList16 l;
+    l.insert_back(lv);
+
+    pipe_.emplace_front([this, l]() { listTo(0, l.view()); pop(); });
     pipe_.front().delay(delay_->value());
 }
 
 void FlowPipe::onAny(t_symbol* s, const AtomListView& lv)
 {
-    AtomList l(lv); // for lambda capture
+    // make a copy for lambda capture
+    AtomList16 l;
+    l.insert_back(lv);
 
-    pipe_.emplace_front([this, s, l]() { anyTo(0, s, l); pop(); });
+    pipe_.emplace_front([this, s, l]() { anyTo(0, s, l.view()); pop(); });
     pipe_.front().delay(delay_->value());
 }
 

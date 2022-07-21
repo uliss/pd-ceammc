@@ -32,7 +32,9 @@ ceammc_midi_external(vrand)
 add_library(ceammc_midi STATIC mod_midi.cpp ${MIDI_SOURCES})
 target_include_directories(ceammc_midi
     PRIVATE
-        ${PROJECT_SOURCE_DIR}/ceammc/extra/midifile)
+        ${PROJECT_SOURCE_DIR}/ceammc/extra/midifile
+        "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>"
+)
 
 target_link_libraries(ceammc_midi midifile)
 

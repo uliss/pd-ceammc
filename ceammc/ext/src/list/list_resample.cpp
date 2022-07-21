@@ -29,11 +29,11 @@ ListResample::ListResample(const PdArgs& a)
     createOutlet();
 }
 
-void ListResample::onList(const AtomList& lst)
+void ListResample::onList(const AtomListView& lv)
 {
     AtomList res;
 
-    if (!list::resample(lst, res, ratio_->value())) {
+    if (!list::resample(lv, res, ratio_->value())) {
         OBJ_ERR << "resample error";
         return;
     }
@@ -41,9 +41,9 @@ void ListResample::onList(const AtomList& lst)
     listTo(0, res);
 }
 
-void ListResample::onInlet(size_t n, const AtomListView& lst)
+void ListResample::onInlet(size_t n, const AtomListView& lv)
 {
-    ratio_->set(lst);
+    ratio_->set(lv);
 }
 
 void ListResample::onDataT(const MListAtom& ml)

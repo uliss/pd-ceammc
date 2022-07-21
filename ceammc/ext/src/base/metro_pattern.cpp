@@ -25,7 +25,7 @@ MetroPattern::MetroPattern(const PdArgs& args)
 
     createCbListProperty(
         "@pattern", [this]() -> AtomList { return pattern_; },
-        [this](const AtomList& lst) -> bool { return p_set_pattern(lst); })
+        [this](const AtomListView& lv) -> bool { return p_set_pattern(lv); })
         ->setArgIndex(0);
 }
 
@@ -38,10 +38,10 @@ void MetroPattern::onFloat(t_float on)
         clock_.unset();
 }
 
-bool MetroPattern::p_set_pattern(const AtomList& l)
+bool MetroPattern::p_set_pattern(const AtomListView& lv)
 {
-    if (l.empty() || (!l.allOf(validTime))) {
-        OBJ_ERR << "invalid pattern: " << l;
+    if (lv.empty() || (!lv.allOf(validTime))) {
+        OBJ_ERR << "invalid pattern: " << lv;
         return false;
     }
 
@@ -49,15 +49,15 @@ bool MetroPattern::p_set_pattern(const AtomList& l)
         // defer pattern update
         sync_update_ = true;
         // save to pattern to temp list
-        new_pattern_ = l;
+        new_pattern_ = lv;
 
         // only set pattern if empty main pattern list
         if (pattern_.empty())
-            pattern_ = l;
+            pattern_ = lv;
     } else {
-        pattern_ = l;
+        pattern_ = lv;
         // keep in sync - to handle @sync property change while running
-        new_pattern_ = l;
+        new_pattern_ = lv;
     }
 
     return true;

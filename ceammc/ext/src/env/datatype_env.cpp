@@ -774,48 +774,48 @@ bool DataTypeEnv::setEAR(const AtomListView& lv)
     return true;
 }
 
-bool DataTypeEnv::setEASR(const AtomListView& lst)
+bool DataTypeEnv::setEASR(const AtomListView& lv)
 {
     static const char* usage = "Usage: EASR attack(ms) attack_curve release(ms) release_curve";
 
-    if (lst.size() != 4) {
+    if (lv.size() != 4) {
         LIB_ERR << usage;
         return false;
     }
 
-    VALIDATE_ATTACK(lst, 0, usage);
-    VALIDATE_ATTACK_CURVE(lst, 1, usage);
-    VALIDATE_RELEASE(lst, 2, usage);
-    VALIDATE_RELEASE_CURVE(lst, 3, usage);
+    VALIDATE_ATTACK(lv, 0, usage);
+    VALIDATE_ATTACK_CURVE(lv, 1, usage);
+    VALIDATE_RELEASE(lv, 2, usage);
+    VALIDATE_RELEASE_CURVE(lv, 3, usage);
 
-    setEASR(lst[0].asFloat() * 1000, lst[1].asFloat(), lst[2].asFloat() * 1000, lst[3].asFloat());
+    setEASR(lv[0].asFloat() * 1000, lv[1].asFloat(), lv[2].asFloat() * 1000, lv[3].asFloat());
 
     return true;
 }
 
-bool DataTypeEnv::setEADSR(const AtomListView& lst)
+bool DataTypeEnv::setEADSR(const AtomListView& lv)
 {
     static const char* usage = "Usage: EADSR attack(ms) attack_curve "
                                "decay(ms) decay_curve sustain_level "
                                "release(ms) release_curve";
 
-    if (lst.size() != 7) {
+    if (lv.size() != 7) {
         LIB_ERR << usage;
         return false;
     }
 
-    VALIDATE_ATTACK(lst, 0, usage);
-    VALIDATE_ATTACK_CURVE(lst, 1, usage);
-    VALIDATE_DECAY(lst, 2, usage);
-    VALIDATE_DECAY_CURVE(lst, 3, usage);
-    VALIDATE_SUSTAIN(lst, 4, usage);
-    VALIDATE_RELEASE(lst, 5, usage);
-    VALIDATE_RELEASE_CURVE(lst, 6, usage);
+    VALIDATE_ATTACK(lv, 0, usage);
+    VALIDATE_ATTACK_CURVE(lv, 1, usage);
+    VALIDATE_DECAY(lv, 2, usage);
+    VALIDATE_DECAY_CURVE(lv, 3, usage);
+    VALIDATE_SUSTAIN(lv, 4, usage);
+    VALIDATE_RELEASE(lv, 5, usage);
+    VALIDATE_RELEASE_CURVE(lv, 6, usage);
 
-    setEADSR(lst[0].asFloat() * 1000, lst[1].asFloat(),
-        lst[2].asFloat() * 1000, lst[3].asFloat(),
-        lst[4].asFloat() / 100,
-        lst[5].asFloat() * 1000, lst[6].asFloat());
+    setEADSR(lv[0].asFloat() * 1000, lv[1].asFloat(),
+        lv[2].asFloat() * 1000, lv[3].asFloat(),
+        lv[4].asFloat() / 100,
+        lv[5].asFloat() * 1000, lv[6].asFloat());
 
     return true;
 }

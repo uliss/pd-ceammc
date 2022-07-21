@@ -68,10 +68,16 @@ DataTypeSet::DataTypeSet(const Atom& a)
     add(a);
 }
 
-DataTypeSet::DataTypeSet(const AtomList& l)
+DataTypeSet::DataTypeSet(const AtomListView& lv)
     : data_(0, hash_value)
 {
-    add(l);
+    add(lv);
+}
+
+DataTypeSet::DataTypeSet(const AtomList& lst)
+    : data_(0, hash_value)
+{
+    add(lst.view());
 }
 
 DataTypeSet::DataTypeSet(DataTypeSet&& ds) noexcept

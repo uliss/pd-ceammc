@@ -316,20 +316,20 @@ TEST_CASE("ui.sliders", "[ui.sliders]")
 #define CLICK(t, x0, y0) t.mouseDown(x0, y0)
 
         CLICK(t, 10, 50);
-        REQUIRE_OUTPUT_LIST(t, 0, LF(0.5) + AtomList::zeroes(7));
+        REQUIRE_OUTPUT_LIST(t, 0, LF(0.5, 0, 0, 0, 0, 0, 0, 0));
 
         CLICK(t, 20, 75);
-        REQUIRE_OUTPUT_LIST(t, 0, LF(0.5f, 0.25f) + AtomList::zeroes(6));
+        REQUIRE_OUTPUT_LIST(t, 0, LF(0.5f, 0.25f, 0, 0, 0, 0, 0, 0));
 
         TestExtSliders t_vert("ui.sliders");
         t_vert->resize(100, 160);
         REQUIRE_UI_LIST_PROPERTY(t_vert, "size", LF(100, 160));
 
         CLICK(t_vert, 50, 10);
-        REQUIRE_OUTPUT_LIST(t_vert, 0, LF(0.5) + AtomList::zeroes(7));
+        REQUIRE_OUTPUT_LIST(t_vert, 0, LF(0.5, 0, 0, 0, 0, 0, 0, 0));
 
         CLICK(t_vert, 10, 150);
-        REQUIRE_OUTPUT_LIST(t_vert, 0, LF(0.5) + AtomList::zeroes(6) + LF(0.1f));
+        REQUIRE_OUTPUT_LIST(t_vert, 0, LF(0.5, 0, 0, 0, 0, 0, 0, 0.1f));
     }
 
     SECTION("set sliders")
@@ -350,7 +350,7 @@ TEST_CASE("ui.sliders", "[ui.sliders]")
 
         t.call("set", LA("slider", 1, 0.375));
         REQUIRE_NO_OUTPUT(t);
-        REQUIRE_UI_LIST_PROPERTY(t, "value", LF(0, 0.375) + AtomList::zeroes(6));
+        REQUIRE_UI_LIST_PROPERTY(t, "value", LF(0, 0.375, 0, 0, 0, 0, 0, 0));
     }
 
     SECTION("operator")

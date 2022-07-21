@@ -20,9 +20,9 @@ SetSize::SetSize(const PdArgs& a)
     createOutlet();
 }
 
-void SetSize::onList(const AtomList& l)
+void SetSize::onList(const AtomListView& lv)
 {
-    onDataT(SetAtom(l));
+    onDataT(SetAtom(lv));
 }
 
 void SetSize::onDataT(const SetAtom& set)

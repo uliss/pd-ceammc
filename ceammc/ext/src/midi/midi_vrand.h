@@ -32,7 +32,7 @@ public:
     MidiVRrand(const PdArgs& args);
 
     void onFloat(t_float note) override;
-    void onList(const AtomList& lst) override;
+    void onList(const AtomListView& lv) override;
 
 private:
     t_float generate();

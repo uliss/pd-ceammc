@@ -28,7 +28,7 @@ public:
     ConvNote2Guido(const PdArgs& args);
 
     void onFloat(t_float f) final;
-    void onList(const AtomList& lst) override;
+    void onList(const AtomListView& lv) override;
 
 public:
     GuidoNote guidoNote(size_t midiPitch, int dur = -1, int dots = 0) const;

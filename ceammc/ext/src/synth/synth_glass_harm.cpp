@@ -32,8 +32,6 @@ public:
 
 void setup_synth_glass_harm_tilde()
 {
-    SynthGlassHarm::initSymTab();
-
     SoundExternalFactory<SynthGlassHarm> obj("synth.glass_harm~", OBJECT_FACTORY_DEFAULT);
     obj.addMethod("reset", &SynthGlassHarm::m_reset);
     obj.addMethod("note", &SynthGlassHarm::m_note);

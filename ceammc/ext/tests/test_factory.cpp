@@ -48,9 +48,9 @@ public:
         f = v;
     }
 
-    void onList(const AtomList& lst) override
+    void onList(const AtomListView& lv) override
     {
-        l = lst;
+        l = lv;
     }
 
     void parseProperties() override

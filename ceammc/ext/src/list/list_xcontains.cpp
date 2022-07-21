@@ -51,18 +51,18 @@ void ListXContains::onSymbol(t_symbol* s)
     }
 }
 
-void ListXContains::onList(const AtomList& lst)
+void ListXContains::onList(const AtomListView& lv)
 {
-    if (lst.size() < 1) {
+    if (lv.size() < 1) {
         boolTo(0, false);
         return;
     }
 
     if (lst_.isA<DataTypeMList>()) {
         auto haystack = lst_.asD<DataTypeMList>();
-        boolTo(0, haystack->contains(lst[0]));
+        boolTo(0, haystack->contains(lv[0]));
     } else {
-        boolTo(0, lst_.contains(lst));
+        boolTo(0, lst_.contains(lv));
     }
 }
 

@@ -13,9 +13,9 @@ void ListProduct::onFloat(t_float f)
     floatTo(0, f);
 }
 
-void ListProduct::onList(const AtomList& lst)
+void ListProduct::onList(const AtomListView& lv)
 {
-    auto p = lst.product();
+    auto p = lv.product();
     if (p == boost::none)
         return;
 

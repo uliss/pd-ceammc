@@ -34,7 +34,7 @@ void DataFifo::onFloat(t_float v) { add(Atom(v)); }
 
 void DataFifo::onSymbol(t_symbol* s) { add(Atom(s)); }
 
-void DataFifo::onList(const AtomList& lst) { add(lst); }
+void DataFifo::onList(const AtomListView& lv) { add(lv); }
 
 void DataFifo::onAny(t_symbol* s, const AtomListView& lv) { add(Message(s, lv)); }
 

@@ -125,9 +125,9 @@ void SpeechFilteTilde::onSymbol(t_symbol* s)
     checkSynth();
 }
 
-void SpeechFilteTilde::onList(const AtomList& lst)
+void SpeechFilteTilde::onList(const AtomListView& lv)
 {
-    sentences_.emplace(to_string(lst));
+    sentences_.emplace(to_string(lv));
     checkSynth();
 }
 

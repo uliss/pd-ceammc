@@ -61,9 +61,9 @@ void RouteRandom::onSymbol(t_symbol* s)
     symbolTo(genOutletIdx(), s);
 }
 
-void RouteRandom::onList(const AtomList& lst)
+void RouteRandom::onList(const AtomListView& lv)
 {
-    listTo(genOutletIdx(), lst);
+    listTo(genOutletIdx(), lv);
 }
 
 void RouteRandom::onAny(t_symbol* s, const AtomListView& lv)

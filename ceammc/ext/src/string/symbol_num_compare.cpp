@@ -41,13 +41,13 @@ void SymbolNumCompare::onSymbol(t_symbol* s)
     floatTo(0, int(s1 < s2));
 }
 
-void SymbolNumCompare::onList(const AtomList& lst)
+void SymbolNumCompare::onList(const AtomListView& lv)
 {
-    if (!checkArgs(lst, ARG_SYMBOL, ARG_SYMBOL))
+    if (!checkArgs(lv, ARG_SYMBOL, ARG_SYMBOL))
         return;
 
-    cmp_with_ = lst[1].asSymbol();
-    onSymbol(lst[0].asSymbol());
+    cmp_with_ = lv[1].asSymbol();
+    onSymbol(lv[0].asSymbol());
 }
 
 int SymbolNumCompare::numPart(t_symbol* s)

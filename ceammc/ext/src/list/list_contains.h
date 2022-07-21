@@ -39,10 +39,10 @@ class ListContains : public BaseObject {
 public:
     ListContains(const PdArgs& args);
 
-    void onList(const AtomList& lst) override;
+    void onList(const AtomListView& lv) override;
     void onDataT(const MListAtom& ml);
 
-    void onInlet(size_t n, const AtomListView& lst) override;
+    void onInlet(size_t n, const AtomListView& lv) override;
 };
 
 void setup_list_contains();

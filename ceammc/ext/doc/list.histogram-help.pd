@@ -29,7 +29,7 @@ number of bins;
 -49933 0;
 #X msg 110 420 @bins;
 #X text 245 420 Get/Set number of histogram bins. Type: int. Default
-value: 100\. Min value: 2\.;
+value: 100\. Range: 2\...1024\.;
 #X obj 20 472 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 477 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;

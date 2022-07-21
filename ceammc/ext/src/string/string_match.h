@@ -36,14 +36,14 @@ public:
 
     void onSymbol(t_symbol* s) override;
     void onDataT(const StringAtom& str);
-    void onInlet(size_t n, const AtomListView& l) override;
+    void onInlet(size_t n, const AtomListView& lv) override;
 
     void update(const std::string& re);
 
 private:
     void doMatch(const char* str);
     AtomList propRe2() const;
-    bool propSetRe2(const AtomList& lst);
+    bool propSetRe2(const AtomListView& lv);
 };
 
 void setup_string_match();

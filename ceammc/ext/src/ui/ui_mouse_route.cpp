@@ -107,10 +107,10 @@ void UIMouseRoute::onSymbol(t_symbol* s)
         symbolTo(index_, s);
 }
 
-void UIMouseRoute::onList(const AtomList& l)
+void UIMouseRoute::onList(const AtomListView& lv)
 {
     if (index_ >= 0)
-        listTo(index_, l);
+        listTo(index_, lv);
 }
 
 void UIMouseRoute::onAny(t_symbol* s, const AtomListView& lv)

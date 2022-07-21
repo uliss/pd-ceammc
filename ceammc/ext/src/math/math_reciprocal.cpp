@@ -1,3 +1,4 @@
+#include "ceammc_containers.h"
 #include "ceammc_factory.h"
 #include "ceammc_object.h"
 #include "ceammc_sound_external.h"
@@ -24,9 +25,11 @@ public:
         floatTo(0, do_reciprocal(f));
     }
 
-    void onList(const AtomList& lst) final
+    void onList(const AtomListView& lv) final
     {
-        listTo(0, lst.mapFloat(do_reciprocal));
+        SmallAtomList res;
+        lv.mapFloat(do_reciprocal, res);
+        listTo(0, res.view());
     }
 };
 

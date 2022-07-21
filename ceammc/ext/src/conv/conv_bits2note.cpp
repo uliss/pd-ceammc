@@ -51,18 +51,18 @@ void ConvBits2Note::initDone()
     }
 }
 
-void ConvBits2Note::onList(const AtomList& lst)
+void ConvBits2Note::onList(const AtomListView& lv)
 {
     const size_t N = keys_->value().size();
-    if (lst.size() != N) {
-        OBJ_ERR << "length of input list should be equal " << N << ", got: " << lst;
+    if (lv.size() != N) {
+        OBJ_ERR << "length of input list should be equal " << N << ", got: " << lv;
         return;
     }
 
     for (size_t i = 0; i < N; i++) {
         const t_float key = keys_->value()[i].asFloat(0);
 
-        const auto& a = lst[i];
+        const auto& a = lv[i];
         const bool bit_on = a.isFloat() && a.asT<t_float>() != 0;
 
         processNote(i, key, bit_on);

@@ -22,7 +22,7 @@ RandomPwLinear::RandomPwLinear(const PdArgs& a)
     createCbListProperty(
         "@v",
         [this]() -> AtomList { return values_; },
-        [this](const AtomList& l) -> bool { return set(l); })
+        [this](const AtomListView& lv) -> bool { return set(lv); })
         ->setArgIndex(0);
 
     createCbListProperty("@bounds", [this]() { return vector2list(bounds_); });
@@ -46,13 +46,13 @@ void RandomPwLinear::onBang()
     floatTo(0, dist(gen_.get()));
 }
 
-void RandomPwLinear::onList(const AtomList& w)
+void RandomPwLinear::onList(const AtomListView& w)
 {
     if (set(w))
         onBang();
 }
 
-bool RandomPwLinear::set(const AtomList& data)
+bool RandomPwLinear::set(const AtomListView& data)
 {
     if (data.size() % 2 != 0) {
         OBJ_ERR << "expected even number of arguments: boundary0, weight0, boundary1, weight1 etc...";
@@ -98,7 +98,7 @@ void setup_random_pw_lin()
     obj.setSinceVersion(0, 4);
 
     RandomPwLinear::setInletsInfo(obj.classPointer(), { "bang: output new random\n"
-                                                       "list: set new distribution values and output\n"
-                                                       "args: b0 w0 b1 w1..." });
+                                                        "list: set new distribution values and output\n"
+                                                        "args: b0 w0 b1 w1..." });
     RandomPwLinear::setOutletsInfo(obj.classPointer(), { "float: piecewise linear distributed random" });
 }

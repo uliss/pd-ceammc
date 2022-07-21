@@ -25,10 +25,11 @@ public:
         addProperty(group_size_);
     }
 
-    void onList(const AtomList& l)
+    void onList(const AtomListView& lv)
     {
         const size_t step = clip<size_t>(group_size_->value(), MIN_GROUP_SIZE, MAX_GROUP_SIZE);
 
+        AtomList l(lv);
         for (size_t i = 0; i < l.size(); i += step) {
             listTo(0, l.slice(i, i + step - 1, 1));
         }

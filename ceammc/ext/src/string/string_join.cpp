@@ -55,18 +55,18 @@ void StringJoin::onData(const Atom& d)
     onBang();
 }
 
-void StringJoin::onList(const AtomList& l)
+void StringJoin::onList(const AtomListView& lv)
 {
     string::MediumString res;
-    join(l.view(), res);
+    join(lv, res);
     str_.set({ res.data(), res.size() });
 
     onBang();
 }
 
-void StringJoin::onInlet(size_t n, const AtomListView& l)
+void StringJoin::onInlet(size_t n, const AtomListView& lv)
 {
-    property("@sep")->set(l);
+    property("@sep")->set(lv);
 }
 
 void StringJoin::onDataT(const MListAtom& ml)

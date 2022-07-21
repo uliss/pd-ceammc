@@ -29,8 +29,8 @@ public:
     void onBang() override;
     void onSymbol(t_symbol* s) override;
     void onData(const Atom& d) override;
-    void onList(const AtomList& l) override;
-    void onInlet(size_t n, const AtomListView& l) override;
+    void onList(const AtomListView& lv) override;
+    void onInlet(size_t n, const AtomListView& lv) override;
 
     void onDataT(const MListAtom& ml);
 

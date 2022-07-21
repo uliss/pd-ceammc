@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "hoa_process_props.h"
 #include "ceammc_canvas.h"
+#include "ceammc_containers.h"
 #include "ceammc_factory.h"
 #include "ceammc_fn_list.h"
 #include "ceammc_format.h"
@@ -197,11 +198,14 @@ bool HoaProcessProps::processAnyProps(t_symbol* sel, const AtomListView& lv)
     if (sel->s_name[0] != '@')
         return false;
 
+    SmallAtomList res { sel };
+    res.insert(res.end(), lv.begin(), lv.end());
+
     if (isPropQuery(sel)) {
         AtomList out;
 
         eachProperty(
-            AtomList(sel) + lv,
+            res.view(),
             [this](t_symbol* s) {
                 if (!isPropQuery(s)) {
                     OBJ_ERR << "property query expected: " << s->s_name;
@@ -221,7 +225,7 @@ bool HoaProcessProps::processAnyProps(t_symbol* sel, const AtomListView& lv)
         anyTo(0, out);
     } else {
         eachProperty(
-            AtomList(sel) + lv,
+            res.view(),
             [this](t_symbol* s) {
                 bool ok = Atom(s).isProperty() && !isPropQuery(s);
                 if (!ok) {
@@ -275,20 +279,20 @@ void HoaProcessProps::onSymbol(t_symbol* s)
     symbolTo(0, s);
 }
 
-void HoaProcessProps::onList(const AtomList& lst)
+void HoaProcessProps::onList(const AtomListView& lv)
 {
-    if (lst.size() != args_.total) {
-        OBJ_ERR << "invalid list size: " << lst.size() << ", expected: " << args_.total;
+    if (lv.size() != args_.total) {
+        OBJ_ERR << "invalid list size: " << lv.size() << ", expected: " << args_.total;
         return;
     }
 
     auto idx = args_.index;
-    if (idx >= lst.size()) {
+    if (idx >= lv.size()) {
         OBJ_ERR << "invalid index: " << idx;
         return;
     }
 
-    atomTo(0, lst[idx]);
+    atomTo(0, lv[idx]);
 }
 
 HoaProcessPropsData processHoaProps(const AtomListView& lv)

@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../env/datatype_env.h"
-#include "../lib/ceammc_datatypes.h"
+#include "ceammc_datatypes.h"
 
 #include "test_base.h"
 
@@ -420,7 +420,7 @@ TEST_CASE("DataTypeEnv", "[ceammc::DataTypeEnv]")
             REQUIRE(env.nextStopIdx(2) == -1);
 
             // 7-point envelope
-            env.setLine(LA(1, 20, 2, 20, 3, 20, 4) + LA(20, 5, 20, 6, 20, 7));
+            env.setLine(AtomList(1, 20, 2, 20, 3, 20, 4, 20, 5, 20, 6, 20, 7));
             env.pointAt(0).stop = true;
 
             REQUIRE(env.nextStopIdx(0) == 6);
@@ -789,7 +789,7 @@ TEST_CASE("DataTypeEnv", "[ceammc::DataTypeEnv]")
         REQUIRE(e.pointAt(1).type == CURVE_EXP);
         REQUIRE(e.pointAt(1).data == 0);
 
-        REQUIRE(e.setExponential(LF(0.1f, 10, -2) + LA(0.9, 20, -4, 0.2f)));
+        REQUIRE(e.setExponential(LF(0.1f, 10, -2, 0.9, 20, -4, 0.2f)));
         REQUIRE(e.numPoints() == 3);
         REQUIRE(e.pointAt(0).timeMs() == 0);
         REQUIRE(e.pointAt(1).timeMs() == 10);

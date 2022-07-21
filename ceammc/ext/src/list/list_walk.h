@@ -34,15 +34,15 @@ public:
 
     void onBang() override;
     void onFloat(t_float v) override;
-    void onList(const AtomList& l) override;
+    void onList(const AtomListView& lv) override;
 
     void m_current(t_symbol*, const AtomListView&);
-    void m_next(t_symbol*, const AtomListView& l);
-    void m_prev(t_symbol*, const AtomListView& l);
+    void m_next(t_symbol*, const AtomListView& lv);
+    void m_prev(t_symbol*, const AtomListView& lv);
     void m_reset(t_symbol*, const AtomListView&);
 
     AtomList p_index() const;
-    void p_set_index(const AtomList& l);
+    void p_set_index(const AtomListView& lv);
 
 private:
     void next(int step = 1);

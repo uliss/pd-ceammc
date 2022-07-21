@@ -35,7 +35,7 @@ public:
     void onBang() final;
     void onFloat(t_float f) final;
     void onSymbol(t_symbol* s) final;
-    void onList(const AtomList& lst) final;
+    void onList(const AtomListView& lv) final;
     void onAny(t_symbol* s, const AtomListView& lv) override;
 
 private:

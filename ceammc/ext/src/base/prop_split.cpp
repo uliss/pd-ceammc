@@ -39,7 +39,7 @@ static inline void prop_split_output(t_prop_split* x, t_symbol* s, const AtomLis
     if (outlet == x->all_prop) // not matched
         outlet_anything(outlet, s, (int)args.size(), args.toPdData());
     else
-        outletAtomListView(outlet, args, true);
+        outletAtomList(outlet, args, true);
 }
 
 static void prop_split_dump(t_prop_split* x)

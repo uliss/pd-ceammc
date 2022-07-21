@@ -44,13 +44,13 @@ void FunctionCall::onFloat(t_float f)
     outputResult(fn);
 }
 
-void FunctionCall::onList(const AtomList& lst)
+void FunctionCall::onList(const AtomListView& lv)
 {
     Function* fn = getFunc();
     if (!fn)
         return;
 
-    fn->onList(lst);
+    fn->onList(lv);
     outputResult(fn);
 }
 

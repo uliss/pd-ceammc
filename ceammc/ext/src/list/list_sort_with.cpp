@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "list_sort_with.h"
+#include "ceammc_containers.h"
 #include "ceammc_factory.h"
 #include "datatype_mlist.h"
 
@@ -26,22 +27,25 @@ ListSortWith::ListSortWith(const PdArgs& a)
     createOutlet();
 }
 
-void ListSortWith::onList(const AtomList& l)
+void ListSortWith::onList(const AtomListView& lv)
 {
-    if (l.size() < 2) {
-        listTo(0, l);
+    if (lv.size() < 2) {
+        listTo(0, lv);
         return;
     }
 
     less_ = true;
 
-    AtomList res(l);
+    AtomList64 res;
+    res.insert_back(lv);
+
     std::sort(res.begin(), res.end(), [this](const Atom& a0, const Atom& a1) {
-        this->listTo(1, AtomList(a0, a1));
+        StaticAtomList<2> msg { a0, a1 };
+        listTo(1, msg.view());
         return !this->less_;
     });
 
-    listTo(0, res);
+    listTo(0, res.view());
 }
 
 void ListSortWith::onInlet(size_t n, const AtomListView& l)
@@ -66,7 +70,8 @@ void ListSortWith::onDataT(const MListAtom& ml)
     MListAtom res(*ml);
     std::sort(res->begin(), res->end(),
         [this](const Atom& a0, const Atom& a1) {
-            this->listTo(1, { a0, a1 });
+            StaticAtomList<2> msg { a0, a1 };
+            listTo(1, msg.view());
             return !this->less_;
         });
 

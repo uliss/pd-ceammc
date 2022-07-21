@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "gain.h"
+#include "ceammc_containers.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 #include "ceammc_property_callback.h"
@@ -61,21 +62,21 @@ Gain::Gain(const PdArgs& args)
     addProperty(smooth_);
 }
 
-void Gain::onInlet(size_t n, const AtomListView& lst)
+void Gain::onInlet(size_t n, const AtomListView& lv)
 {
-    if (!checkArgs(lst, ARG_FLOAT))
+    if (!checkArgs(lv, ARG_FLOAT))
         return;
 
-    t_float v = lst[0].asFloat();
+    t_float v = lv[0].asFloat();
     for (size_t i = 0; i < gain_.size(); i++)
         gain_[i].setTargetValue(v);
 }
 
-void Gain::onList(const AtomList& lst)
+void Gain::onList(const AtomListView& lv)
 {
-    const size_t N = std::min(lst.size(), gain_.size());
+    const size_t N = std::min(lv.size(), gain_.size());
     for (size_t i = 0; i < N; i++)
-        gain_[i].setTargetValue(lst[i].asFloat());
+        gain_[i].setTargetValue(lv[i].asFloat());
 }
 
 void Gain::processBlock(const t_sample** in, t_sample** out)
@@ -115,7 +116,9 @@ void Gain::setupDSP(t_signal** sp)
 
 AtomList Gain::propDb() const
 {
-    return propGain().mapFloat(toDb);
+    AtomList res;
+    propGain().view().mapFloat(toDb, res);
+    return res;
 }
 
 AtomList Gain::propGain() const
@@ -129,27 +132,29 @@ AtomList Gain::propGain() const
     return res;
 }
 
-void Gain::propSetDb(const AtomList& lst)
+void Gain::propSetDb(const AtomListView& lv)
 {
-    propSetGain(lst.mapFloat(fromDb));
+    SmallAtomList res;
+    lv.mapFloat(fromDb, res);
+    propSetGain(res.view());
 }
 
-void Gain::propSetGain(const AtomList& lst)
+void Gain::propSetGain(const AtomListView& lv)
 {
-    const size_t N = std::min<size_t>(lst.size(), gain_.size());
+    const size_t N = std::min<size_t>(lv.size(), gain_.size());
 
     for (size_t i = 0; i < N; i++) {
-        t_float v = std::max<t_float>(0, lst[i].asFloat());
+        t_float v = std::max<t_float>(0, lv[i].asFloat());
         gain_[i].setTargetValue(v);
     }
 }
 
-void Gain::m_plus(t_symbol* s, const AtomListView& lst)
+void Gain::m_plus(t_symbol* s, const AtomListView& lv)
 {
-    const size_t N = std::min<size_t>(gain_.size(), lst.size());
+    const size_t N = std::min<size_t>(gain_.size(), lv.size());
 
     for (size_t i = 0; i < N; i++) {
-        t_float new_gain = gain_[i].target() + lst[i].asFloat();
+        t_float new_gain = gain_[i].target() + lv[i].asFloat();
         gain_[i].setTargetValue(std::max<t_float>(0, new_gain));
     }
 }
@@ -159,53 +164,56 @@ static Atom negate(const Atom& a)
     return a.isFloat() ? -a.asFloat() : a;
 }
 
-void Gain::m_minus(t_symbol* s, const AtomListView& lst)
+void Gain::m_minus(t_symbol* s, const AtomListView& lv)
 {
-    auto neg = AtomList(lst).map(negate);
-    m_plus(s, neg.view());
+    SmallAtomList res;
+    lv.map(negate, res);
+    m_plus(s, res.view());
 }
 
-void Gain::m_plusDb(t_symbol* s, const AtomListView& lst)
+void Gain::m_plusDb(t_symbol* s, const AtomListView& lv)
 {
-    const size_t N = std::min<size_t>(gain_.size(), lst.size());
+    const size_t N = std::min<size_t>(gain_.size(), lv.size());
 
     for (size_t i = 0; i < N; i++) {
-        t_float new_gain = gain_[i].target() * fromDb(lst[i].asFloat());
+        t_float new_gain = gain_[i].target() * fromDb(lv[i].asFloat());
         gain_[i].setTargetValue(std::max<t_float>(0, new_gain));
     }
 }
 
-void Gain::m_minusDb(t_symbol* s, const AtomListView& lst)
+void Gain::m_minusDb(t_symbol* s, const AtomListView& lv)
 {
-    auto neg = AtomList(lst).map(negate);
-    m_plusDb(s, neg.view());
+    SmallAtomList res;
+    lv.map(negate, res);
+    m_plusDb(s, res.view());
 }
 
-void Gain::m_plusAll(t_symbol* s, const AtomListView& lst)
+void Gain::m_plusAll(t_symbol* s, const AtomListView& lv)
 {
-    t_float v = lst.floatAt(0, 0);
+    t_float v = lv.floatAt(0, 0);
     for (size_t i = 0; i < gain_.size(); i++) {
         t_float new_gain = gain_[i].target() + v;
         gain_[i].setTargetValue(std::max<t_float>(0, new_gain));
     }
 }
 
-void Gain::m_minusAll(t_symbol* s, const AtomListView& lst)
+void Gain::m_minusAll(t_symbol* s, const AtomListView& lv)
 {
-    auto neg = AtomList(lst).map(negate);
-    m_plusAll(s, neg.view());
+    SmallAtomList res;
+    lv.map(negate, res);
+    m_plusAll(s, res.view());
 }
 
-void Gain::m_set(t_symbol* s, const AtomListView& lst)
+void Gain::m_set(t_symbol* s, const AtomListView& lv)
 {
-    t_float v = lst.floatAt(0, 0);
+    t_float v = lv.floatAt(0, 0);
     for (size_t i = 0; i < gain_.size(); i++)
         gain_[i].setTargetValue(std::max<t_float>(0, v));
 }
 
-void Gain::m_setDb(t_symbol* s, const AtomListView& lst)
+void Gain::m_setDb(t_symbol* s, const AtomListView& lv)
 {
-    t_float v = lst.floatAt(0, 0);
+    t_float v = lv.floatAt(0, 0);
     for (size_t i = 0; i < gain_.size(); i++)
         gain_[i].setTargetValue(std::max<t_float>(0, fromDb(v)));
 }

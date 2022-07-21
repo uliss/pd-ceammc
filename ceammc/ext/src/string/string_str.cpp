@@ -50,9 +50,9 @@ void StringStr::onSymbol(t_symbol* s)
     onBang();
 }
 
-void StringStr::onList(const AtomList& l)
+void StringStr::onList(const AtomListView& lv)
 {
-    str_.setFromQuotedList(l.view());
+    str_.setFromQuotedList(lv);
     onBang();
 }
 

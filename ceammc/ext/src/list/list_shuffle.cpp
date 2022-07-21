@@ -1,6 +1,13 @@
 #include "list_shuffle.h"
+#include "ceammc_containers.h"
 #include "ceammc_factory.h"
 #include "datatype_mlist.h"
+
+#include <algorithm>
+#include <ctime>
+#include <random>
+
+static std::mt19937 gen(std::time(nullptr));
 
 ListShuffle::ListShuffle(const PdArgs& args)
     : BaseObject(args)
@@ -8,11 +15,12 @@ ListShuffle::ListShuffle(const PdArgs& args)
     createOutlet();
 }
 
-void ListShuffle::onList(const AtomList& lst)
+void ListShuffle::onList(const AtomListView& lv)
 {
-    AtomList res(lst);
-    res.shuffle();
-    listTo(0, res);
+    AtomList32 res;
+    res.insert_back(lv);
+    std::shuffle(res.begin(), res.end(), gen);
+    listTo(0, res.view());
 }
 
 void ListShuffle::onDataT(const MListAtom& ml)

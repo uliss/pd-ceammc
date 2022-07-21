@@ -37,7 +37,7 @@ public:
     void onBang() override { bangTo(0); }
     void onSymbol(t_symbol* s) override { symbolTo(0, s); }
     void onFloat(t_float f) override { floatTo(0, f); }
-    void onList(const AtomList& lst) override;
+    void onList(const AtomListView& lv) override;
     void onAny(t_symbol* s, const AtomListView& lv) override { anyTo(0, s, lv); }
 
     void proxy_bang(int);

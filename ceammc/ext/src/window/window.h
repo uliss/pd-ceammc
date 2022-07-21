@@ -29,7 +29,7 @@ public:
     Window(const PdArgs& a);
     void onBang() override;
     void onFloat(t_float v) override;
-    void onList(const AtomList& l) override;
+    void onList(const AtomListView& lv) override;
     bool setWindowFunc(t_symbol* name);
     WindowFuncPtr windowFunc();
 

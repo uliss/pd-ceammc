@@ -28,7 +28,7 @@ FltFreqZTilde::FltFreqZTilde(const PdArgs& args)
     createSignalOutlet();
 
     cb_ = new ListProperty("@b", { 1 });
-    cb_->setListCheckFn([](const AtomList& l) -> bool { return l.size() > 0 && l.allOf(isFloat); }, "invalid list");
+    cb_->setListCheckFn([](const AtomListView& lv) -> bool { return lv.size() > 0 && lv.allOf(isFloat); }, "invalid list");
     cb_->setSuccessFn([this](Property*) {
         kb_.clear();
         kb_.reserve(cb_->value().size());
@@ -40,7 +40,7 @@ FltFreqZTilde::FltFreqZTilde(const PdArgs& args)
     addProperty(cb_);
 
     ca_ = new ListProperty("@a");
-    ca_->setListCheckFn([](const AtomList& l) -> bool { return l.empty() || l.allOf(isFloat); }, "invalid list");
+    ca_->setListCheckFn([](const AtomListView& lv) -> bool { return lv.empty() || lv.allOf(isFloat); }, "invalid list");
     ca_->setSuccessFn([this](Property*) {
         ka_.clear();
         ka_.reserve(ca_->value().size() + 1);

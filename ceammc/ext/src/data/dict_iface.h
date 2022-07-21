@@ -42,7 +42,7 @@ public:
         this->atomTo(0, dict());
     }
 
-    void onList(const AtomList& args) override
+    void onList(const AtomListView& args) override
     {
         if (args.size() % 2 != 0) {
             OBJ_ERR << "list of key-value pairs expected: " << args;

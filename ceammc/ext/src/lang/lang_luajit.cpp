@@ -119,15 +119,15 @@ void LangLuaJit::onSymbol(t_symbol* s)
     notify_.notifyOne();
 }
 
-void LangLuaJit::onList(const AtomList& lst)
+void LangLuaJit::onList(const AtomListView& lv)
 {
     using namespace lua;
 
     LuaAtomList args;
-    args.reserve(lst.size() + 1);
+    args.reserve(lv.size() + 1);
     args.emplace_back(LuaInt(0));
-    for (size_t i = 0; i < lst.size(); i++) {
-        const auto& a = lst[i];
+    for (size_t i = 0; i < lv.size(); i++) {
+        const auto& a = lv[i];
         if (a.isFloat())
             args.emplace_back(LuaDouble(a.asT<t_float>()));
         else if (a.isSymbol())

@@ -58,7 +58,7 @@ public:
     ~SpeechRhvoiceTilde();
 
     void onSymbol(t_symbol* s) override;
-    void onList(const AtomList& lst) override;
+    void onList(const AtomListView& lv) override;
     void processBlock(const t_sample** in, t_sample** out) final;
     void samplerateChanged(size_t sr) final;
 

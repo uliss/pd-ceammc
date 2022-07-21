@@ -22,7 +22,7 @@ RandomPWConst::RandomPWConst(const PdArgs& a)
     createCbListProperty(
         "@v",
         [this]() -> AtomList { return values_; },
-        [this](const AtomList& l) -> bool { return set(l); })
+        [this](const AtomListView& lv) -> bool { return set(lv); })
         ->setArgIndex(0);
 
     createCbListProperty("@bounds", [this]() { return vector2list(bounds_); });
@@ -46,13 +46,13 @@ void RandomPWConst::onBang()
     floatTo(0, dist(gen_.get()));
 }
 
-void RandomPWConst::onList(const AtomList& v)
+void RandomPWConst::onList(const AtomListView& lv)
 {
-    if (set(v))
+    if (set(lv))
         onBang();
 }
 
-bool RandomPWConst::set(const AtomList& data)
+bool RandomPWConst::set(const AtomListView& data)
 {
     if (data.size() % 2 == 0) {
         OBJ_ERR << "expected odd number of arguments: boundary0, weight0, boundary1 etc...";

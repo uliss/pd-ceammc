@@ -1,5 +1,6 @@
 #include "speech_rhvoice_tilde.h"
 #include "ceammc_factory.h"
+#include "ceammc_string_types.h"
 #include "fmt/format.h"
 
 #include "RHVoice.h"
@@ -119,19 +120,17 @@ void SpeechRhvoiceTilde::onSymbol(t_symbol* s)
     notify_.notifyOne();
 }
 
-void SpeechRhvoiceTilde::onList(const AtomList& lst)
+void SpeechRhvoiceTilde::onList(const AtomListView& lv)
 {
-    if (lst.empty()) {
+    if (lv.empty()) {
         OBJ_ERR << "empty list";
         return;
     }
 
-    constexpr int MAX_STRING_LEN = 1024;
-    using StaticString = boost::static_string<MAX_STRING_LEN>;
-    StaticString str;
+    string::StaticString str;
 
     try {
-        for (auto& a : lst) {
+        for (auto& a : lv) {
             if (a.isInteger()) {
                 fmt::format_to(std::back_inserter(str), "{} ", a.asT<int>());
             } else if (a.isFloat()) {
@@ -141,7 +140,7 @@ void SpeechRhvoiceTilde::onList(const AtomList& lst)
             }
         }
     } catch (std::length_error& e) {
-        OBJ_ERR << fmt::format("result string is too long: {}, extra characters will be trimmed", MAX_STRING_LEN);
+        OBJ_ERR << fmt::format("result string is too long: {}, extra characters will be trimmed", str.max_size());
     }
 
     // remove last space

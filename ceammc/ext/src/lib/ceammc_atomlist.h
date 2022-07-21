@@ -18,7 +18,6 @@
 #include "ceammc_atomlist_view.h"
 
 #include <boost/iterator/filter_iterator.hpp>
-#include <boost/optional.hpp>
 #include <deque>
 #include <functional>
 #include <initializer_list>
@@ -28,15 +27,8 @@
 
 namespace ceammc {
 
-typedef boost::optional<t_float> MaybeFloat;
-
 typedef std::vector<t_float> FloatList;
 typedef Atom (*AtomGenerator)();
-
-enum class AtomListMapType {
-    FILTER,
-    KEEP
-};
 
 class AtomList {
 public:
@@ -101,6 +93,7 @@ public:
     const_reverse_iterator rend() const { return atoms_.rend(); }
     const_reverse_iterator crbegin() { return atoms_.crbegin(); }
     const_reverse_iterator crend() const { return atoms_.crend(); }
+    void push_back(const Atom& a) { atoms_.push_back(a); }
 
     atom_filter_iterator begin_atom_filter(AtomPredicate pred) { return atom_filter_iterator(pred, begin(), end()); }
     atom_filter_iterator end_atom_filter() { return atom_filter_iterator(nullptr, end(), end()); }
@@ -238,57 +231,6 @@ public:
     bool hasProperty(const char* name) const noexcept { return hasProperty(gensym(name)); }
 
     /**
-     * New list with mapped atom values
-     * @param fn - atom map function
-     * @return new list
-     */
-    AtomList map(const AtomMapFunction& fn) const;
-
-    /**
-     * New list with mapped float values
-     * @param fn - function
-     * @param t - AtomListMapType::KEEP - non-float values are left untouched,
-     *            if AtomListMapType::FILTER - non-float values are removed
-     * @return new list
-     */
-    AtomList mapFloat(const FloatMapFunction& fn, AtomListMapType t = AtomListMapType::KEEP) const;
-
-    /**
-     * New list with mapped symbol values
-     * @param fn - function
-     * @param t - AtomListMapType::KEEP - non-symbol values are left untouched,
-     *            if AtomListMapType::FILTER - non-symbol values are removed
-     * @return new list
-     */
-    AtomList mapSymbol(const SymbolMapFunction& fn, AtomListMapType t = AtomListMapType::KEEP) const;
-
-    /**
-     * Returns new list with values for which atom predicate returns true
-     */
-    AtomList filtered(const AtomPredicate& fn) const;
-
-    /**
-     * Returns new list with values for which float predicate returns true
-     */
-    AtomList filteredFloat(const FloatPredicate& pred) const;
-
-    /**
-     * Returns new list with values for which symbol predicate returns true
-     */
-    AtomList filteredSymbol(const SymbolPredicate& pred) const;
-
-    /**
-     * Reduce to t_float
-     * @param init - init value
-     * @param fn - reduce function
-     * @return - result, or boost::none if no floats in list
-     */
-    MaybeFloat reduceFloat(t_float init, std::function<t_float(t_float, t_float)> fn) const;
-
-    template <typename T>
-    T reduce(T init, std::function<T(const Atom&, const Atom&)> fn) const;
-
-    /**
      * Returns sublist from specified position
      * @param start - start position (may be relative)
      * @param end - end position (may be relative)
@@ -418,12 +360,12 @@ public:
     /**
      * Returns sum of floats in list or boost::none if empty
      */
-    MaybeFloat sum() const noexcept;
+    MaybeFloat sum() const noexcept { return view().sum(); }
 
     /**
      * Returns product of floats in list or boost::none if empty
      */
-    MaybeFloat product() const noexcept;
+    MaybeFloat product() const noexcept { return view().product(); }
 
     /**
      * Checks if atom is in list
@@ -619,21 +561,6 @@ template <>
 inline AtomList AtomList::asT<AtomList>() const
 {
     return *this;
-}
-
-AtomList operator+(const AtomList& l1, const AtomList& l2);
-AtomList operator+(const AtomList& l, const Atom& a);
-AtomList operator+(const Atom& a, const AtomList& l);
-
-template <typename T>
-T AtomList::reduce(T init, std::function<T(const Atom&, const Atom&)> fn) const
-{
-    T accum(init);
-
-    for (auto& el : atoms_)
-        accum = fn(accum, el);
-
-    return accum;
 }
 
 std::ostream& operator<<(std::ostream& os, const AtomList& l);

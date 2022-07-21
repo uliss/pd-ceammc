@@ -9,10 +9,10 @@ class ArraySet : public ArrayMod {
 public:
     ArraySet(const PdArgs& a);
     void onSymbol(t_symbol* s) override;
-    void onList(const AtomList& values) override;
-    void set(const AtomList& v);
+    void onList(const AtomListView& lv) override;
+    void set(const AtomListView& lv);
 };
 
-extern "C" void setup_array0x2eset();
+void setup_array_set();
 
 #endif // ARRAY_SET_H

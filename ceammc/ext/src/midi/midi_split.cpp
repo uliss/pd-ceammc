@@ -70,22 +70,22 @@ const char* MidiSplit::annotateOutlet(size_t n) const
     return split_tooltips_[n].c_str();
 }
 
-void MidiSplit::onList(const AtomList& lst)
+void MidiSplit::onList(const AtomListView& lv)
 {
-    if (!onlist_chk->check(lst.view())) {
-        OBJ_ERR << "PITCH VEL [DUR] expected, got: " << lst;
+    if (!onlist_chk->check(lv)) {
+        OBJ_ERR << "PITCH VEL [DUR] expected, got: " << lv;
         return;
     }
 
-    const auto pitch = lst[0].asT<t_float>();
+    const auto pitch = lv[0].asT<t_float>();
 
     // optimization
     if (split_points_.empty() || pitch >= split_points_.back())
-        return listTo(split_points_.size(), lst);
+        return listTo(split_points_.size(), lv);
 
     for (size_t i = 0; i < split_points_.size(); i++) {
         if (pitch < split_points_[i])
-            return listTo(i, lst);
+            return listTo(i, lv);
     }
 }
 

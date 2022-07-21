@@ -194,7 +194,23 @@ SerialPort::SerialPort(const PdArgs& args)
     port_->setArgIndex(1);
     addProperty(port_);
 
-    baud_rate_ = new IntEnumProperty("@rate", { 57600, 110, 300, 600, 1200, 2400, 4800, 9600, 14400, 19200, 38400, 56000, 115200, 128000, 256000 });
+    baud_rate_ = new IntEnumProperty("@rate", {
+                                                  57600,
+                                                  110,
+                                                  300,
+                                                  600,
+                                                  1200,
+                                                  2400,
+                                                  4800,
+                                                  9600,
+                                                  14400,
+                                                  19200,
+                                                  38400,
+                                                  56000,
+                                                  115200,
+                                                  128000,
+                                                  256000,
+                                              });
     baud_rate_->setArgIndex(0);
     addProperty(baud_rate_);
 
@@ -214,10 +230,10 @@ void SerialPort::onFloat(t_float f)
     pipe_in_->enqueue(static_cast<uint8_t>(f));
 }
 
-void SerialPort::onList(const AtomList& l)
+void SerialPort::onList(const AtomListView& lv)
 {
     // TODO check for connected
-    for (auto& a : l)
+    for (auto& a : lv)
         pipe_in_->enqueue(a.asFloat());
 }
 

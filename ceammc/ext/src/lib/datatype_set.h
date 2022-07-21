@@ -38,7 +38,8 @@ public:
 public:
     DataTypeSet();
     DataTypeSet(const Atom& a);
-    DataTypeSet(const AtomList& l);
+    explicit DataTypeSet(const AtomListView& lv);
+    explicit DataTypeSet(const AtomList& lst);
     DataTypeSet(DataTypeSet&& ds) noexcept;
     DataTypeSet(const DataTypeSet& ds);
     ~DataTypeSet() noexcept;

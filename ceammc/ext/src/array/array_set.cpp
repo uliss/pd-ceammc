@@ -15,42 +15,42 @@ void ArraySet::onSymbol(t_symbol* s)
     setArray(s);
 }
 
-void ArraySet::onList(const AtomList& values)
+void ArraySet::onList(const AtomListView& lv)
 {
-    if (values.empty()) {
+    if (lv.empty()) {
         OBJ_ERR << "empty list is given";
         return;
     }
 
     if (normalize_->value()) {
         AtomList norm;
-        if (!list::normalizeByRange(values, norm)) {
+        if (!list::normalizeByRange(lv, norm)) {
             OBJ_ERR << "normalization error";
             return;
         }
 
-        set(norm);
+        set(norm.view());
     } else
-        set(values);
+        set(lv);
 }
 
-void ArraySet::set(const AtomList& v)
+void ArraySet::set(const AtomListView& lv)
 {
     if (!checkArray())
         return;
 
-    if (!array_.resize(v.size())) {
+    if (!array_.resize(lv.size())) {
         OBJ_ERR << "can't resize array: " << array_.name();
         return;
     }
 
-    for (size_t i = 0; i < v.size(); i++)
-        array_[i] = v[i].asFloat();
+    for (size_t i = 0; i < lv.size(); i++)
+        array_[i] = lv[i].asFloat();
 
     array_.redraw();
 }
 
-extern "C" void setup_array0x2eset()
+void setup_array_set()
 {
     ObjectFactory<ArraySet> obj("array.set");
     obj.addAlias("list->array");

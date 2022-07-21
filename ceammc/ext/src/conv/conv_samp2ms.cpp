@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "conv_samp2ms.h"
+#include "ceammc_containers.h"
 #include "ceammc_factory.h"
 
 SampleToMs::SampleToMs(const PdArgs& a)
@@ -25,9 +26,14 @@ void SampleToMs::onFloat(t_float v)
     floatTo(0, (v * 1000) / sys_getsr());
 }
 
-void SampleToMs::onList(const AtomList& lst)
+void SampleToMs::onList(const AtomListView& lv)
 {
-    listTo(0, (lst * 1000) / sys_getsr());
+    SmallAtomList res;
+    res.reserve(lv.size());
+    for (auto& a : lv)
+        res.push_back((a * 1000) / sys_getsr());
+
+    listTo(0, res.view());
 }
 
 SampleToMsTilde::SampleToMsTilde(const PdArgs& a)

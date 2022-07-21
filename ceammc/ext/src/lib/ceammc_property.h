@@ -196,7 +196,7 @@ protected:
     bool checkAtom(const Atom& a) const;
     bool checkFloat(t_float v) const;
     bool checkInt(int v) const;
-    bool checkList(const AtomListView& l) const;
+    bool checkList(const AtomListView& lv) const;
     bool checkSymbol(t_symbol* s) const;
     bool emptyCheck(const AtomListView& v) const;
     bool initCheck() const;
@@ -408,7 +408,7 @@ public:
     ListProperty(const std::string& name, const AtomList& init = AtomList(), PropValueAccess access = PropValueAccess::READWRITE);
 
     AtomList get() const override;
-    bool setList(const AtomListView& l) override;
+    bool setList(const AtomListView& lv) override;
     bool getList(AtomList& l) const override;
 
     inline const AtomList& value() const { return lst_; }

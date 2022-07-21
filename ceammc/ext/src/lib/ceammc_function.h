@@ -25,7 +25,7 @@ class Parser;
 
 namespace ceammc {
 
-using BuiltinFunction = std::function<AtomList(const AtomList& args)>;
+using BuiltinFunction = std::function<AtomList(const AtomListView& args)>;
 
 class BuiltinFunctionMap {
     using FnPair = std::pair<t_symbol*, BuiltinFunction>;
@@ -42,7 +42,7 @@ class BuiltinFunctionMap {
 public:
     static BuiltinFunctionMap& instance();
 
-    AtomList call(t_symbol* name, const AtomList& args) const;
+    AtomList call(t_symbol* name, const AtomListView& args) const;
     bool exists(t_symbol* name) const;
 
     bool registerFn(t_symbol* name, BuiltinFunction fn);

@@ -340,8 +340,8 @@ TEST_CASE("env->vline", "[externals]")
     {
         EnvAtom env;
         REQUIRE_FALSE(env->setExponential(L()));
-        REQUIRE_FALSE(env->setExponential(LA(0.1, 16, -3) + LA(0.7, 16, -3)));
-        REQUIRE(env->setExponential(LA(0.1, 16, -2) + LA(0.7, 20, -2) + LA(0.2, 60, -3, 0.f)));
+        REQUIRE_FALSE(env->setExponential(LF(0.1, 16, -3, 0.7, 16, -3)));
+        REQUIRE(env->setExponential(LF(0.1, 16, -2, 0.7, 20, -2, 0.2, 60, -3, 0.f)));
         REQUIRE(env->numPoints() == 4);
 
         TObj t("env->vline");
@@ -491,7 +491,7 @@ TEST_CASE("env->vline", "[externals]")
         EnvAtom env;
         REQUIRE_FALSE(env->setSigmoid(L()));
         REQUIRE_FALSE(env->setSigmoid(LA(0.1, 2)));
-        REQUIRE(env->setSigmoid(LA(0.1, 20, 0.f) + LF(1, 25, 1) + LA(0.2, 40, 1) + LA(0.1, 6, -1, 0.f)));
+        REQUIRE(env->setSigmoid(LA(0.1, 20, 0.f, 1, 25, 1, 0.2, 40, 1, 0.1, 6, -1, 0.f)));
         REQUIRE(env->numPoints() == 5);
 
         TObj t("env->vline");

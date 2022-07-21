@@ -134,9 +134,9 @@ void FlowRecord::onSymbol(t_symbol* s)
         MessagePool::instance().deleteElement(msg);
 }
 
-void FlowRecord::onList(const AtomList& lst)
+void FlowRecord::onList(const AtomListView& lv)
 {
-    auto msg = MessagePool::instance().newElement(lst.view());
+    auto msg = MessagePool::instance().newElement(lv);
 
     if (!appendMessage(msg))
         MessagePool::instance().deleteElement(msg);

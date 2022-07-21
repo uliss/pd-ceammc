@@ -51,14 +51,14 @@ public:
         return faust_env_adsr_tilde::processAnyProps(sel, lv);
     }
 
-    void onList(const AtomList& l) override
+    void onList(const AtomListView& lv) override
     {
-        if (!checkArgs(l, ARG_FLOAT, ARG_FLOAT, ARG_FLOAT, ARG_FLOAT)) {
-            OBJ_ERR << "ATTACK DECAY SUSTAIN RELEASE values expected: " << l;
+        if (!checkArgs(lv, ARG_FLOAT, ARG_FLOAT, ARG_FLOAT, ARG_FLOAT)) {
+            OBJ_ERR << "ATTACK DECAY SUSTAIN RELEASE values expected: " << lv;
             return;
         }
 
-        if (!set(l[0].asFloat(), l[1].asFloat(), l[2].asFloat(), l[3].asFloat()))
+        if (!set(lv[0].asFloat(), lv[1].asFloat(), lv[2].asFloat(), lv[3].asFloat()))
             OBJ_ERR << "can't set envelope";
     }
 

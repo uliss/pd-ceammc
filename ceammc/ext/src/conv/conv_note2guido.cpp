@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "conv_note2guido.h"
+#include "ceammc_containers.h"
 #include "ceammc_factory.h"
 #include "ceammc_music_theory.h"
 #include "ceammc_music_theory_pitch_class.h"
@@ -26,7 +27,7 @@ ConvNote2Guido::ConvNote2Guido(const PdArgs& args)
         gensym("_"),
         gensym("c"),
         gensym("d"),
-        gensym(("e")),
+        gensym("e"),
         gensym("f"),
         gensym("g"),
         gensym("a"),
@@ -45,9 +46,9 @@ void ConvNote2Guido::onFloat(t_float f)
     symbolTo(0, gensym(n.c_str()));
 }
 
-void ConvNote2Guido::onList(const AtomList& lv)
+void ConvNote2Guido::onList(const AtomListView& lv)
 {
-    if (!checkArgs(lv.view(), ARG_FLOAT, ARG_FLOAT)) {
+    if (!checkArgs(lv, ARG_FLOAT, ARG_FLOAT)) {
         OBJ_ERR << "expected: PITCH DURATION, git: " << lv;
         return;
     }

@@ -40,7 +40,7 @@ public:
 
     void initDone() override;
 
-    void onList(const AtomList& lst) final;
+    void onList(const AtomListView& lv) final;
 
     void setupDSP(t_signal** sp) final;
     void processBlock(const t_sample** in, t_sample** out) final;
@@ -53,7 +53,7 @@ public:
     void m_cc(t_symbol* s, const AtomListView& lv);
     void m_prog(t_symbol* s, const AtomListView& lv);
     void m_bank(t_symbol* s, const AtomListView& lv);
-    void m_gen(t_symbol* s, const AtomListView& lst);
+    void m_gen(t_symbol* s, const AtomListView& lv);
     void m_panic(t_symbol* s, const AtomListView& lv);
     void m_reset(t_symbol* s, const AtomListView& lv);
     void m_notesOff(t_symbol* s, const AtomListView& lv);

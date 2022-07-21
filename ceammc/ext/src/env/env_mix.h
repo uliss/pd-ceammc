@@ -12,7 +12,7 @@ class EnvMix : public BaseObject {
 public:
     EnvMix(const PdArgs& args);
     void onFloat(t_float v) override;
-    void onInlet(size_t n, const AtomListView& lst) override;
+    void onInlet(size_t n, const AtomListView& lv) override;
 
     void dump() const override;
 };

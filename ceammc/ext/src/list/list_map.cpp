@@ -1,4 +1,5 @@
 #include "list_map.h"
+#include "ceammc_containers.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
 #include "ceammc_numeric.h"
@@ -58,19 +59,20 @@ void ListMap::onSymbol(t_symbol* s)
     listTo(0, it->second);
 }
 
-void ListMap::onList(const AtomList& lst)
+void ListMap::onList(const AtomListView& lv)
 {
     if (!dict_) {
         OBJ_ERR << "empty dict";
         return;
     }
 
-    AtomList res;
-    res.reserve(lst.size());
+    SmallAtomListN<32> res;
+    res.reserve(lv.size());
+
     auto& d = *dict_;
     auto end_it = d.end();
 
-    for (auto& a : lst) {
+    for (auto& a : lv) {
         t_symbol* key = nullptr;
         if (a.isSymbol())
             key = a.asT<t_symbol*>();
@@ -83,10 +85,10 @@ void ListMap::onList(const AtomList& lst)
 
         auto it = d.find(key);
         if (it != end_it)
-            res.append(it->second);
+            res.insert_back(it->second);
     }
 
-    listTo(0, res);
+    listTo(0, res.view());
 }
 
 void ListMap::onInlet(size_t n, const AtomListView& lv)

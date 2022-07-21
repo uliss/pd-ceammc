@@ -58,9 +58,9 @@ void FlowMultiplex::onSymbol(t_symbol* s)
     symbolTo(0, s);
 }
 
-void FlowMultiplex::onList(const AtomList& l)
+void FlowMultiplex::onList(const AtomListView& lv)
 {
-    onInlet(0, l);
+    onInlet(0, lv);
 }
 
 void FlowMultiplex::onAny(t_symbol* sel, const AtomListView& lv)

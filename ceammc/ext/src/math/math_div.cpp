@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "math_div.h"
+#include "ceammc_containers.h"
 #include "ceammc_factory.h"
 
 MathDiv::MathDiv(const PdArgs& args)
@@ -35,12 +36,17 @@ void MathDiv::onFloat(t_float f)
     floatTo(0, f / div_->value());
 }
 
-void MathDiv::onList(const AtomList& lst)
+void MathDiv::onList(const AtomListView& lv)
 {
     if (!zeroCheck())
         return;
 
-    listTo(0, lst / div_->value());
+    SmallAtomList res;
+    res.reserve(lv.size());
+    for (auto& a : lv)
+        res.push_back(a / div_->value());
+
+    listTo(0, res.view());
 }
 
 bool MathDiv::zeroCheck() const
@@ -54,9 +60,9 @@ bool MathDiv::zeroCheck() const
     return true;
 }
 
-void MathDiv::onInlet(const size_t /*n*/, const AtomListView& lst)
+void MathDiv::onInlet(const size_t /*n*/, const AtomListView& lv)
 {
-    div_->set(lst);
+    div_->set(lv);
 }
 
 void setup_math_div()

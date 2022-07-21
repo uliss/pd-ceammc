@@ -71,7 +71,7 @@ public:
     void initDone() override;
 
     void onFloat(t_float f) override;
-    void onList(const AtomList& lst) override;
+    void onList(const AtomListView& lv) override;
 
     void m_bend_sens(t_symbol* s, const AtomListView& lv);
     void m_tune_bank_select(t_symbol* s, const AtomListView& lv);

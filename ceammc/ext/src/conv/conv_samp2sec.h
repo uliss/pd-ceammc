@@ -22,7 +22,7 @@ class SampleToSec : public BaseObject {
 public:
     SampleToSec(const PdArgs& a);
     void onFloat(t_float v) override;
-    void onList(const AtomList& lst) override;
+    void onList(const AtomListView& lv) override;
 };
 
 #endif // CONV_SAMP2SEC_H

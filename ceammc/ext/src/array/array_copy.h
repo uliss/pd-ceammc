@@ -40,8 +40,8 @@ class ArrayCopy : public BaseObject {
 
 public:
     ArrayCopy(const PdArgs& a);
-    void onList(const AtomList& l) override;
-    void m_copy(t_symbol*, const AtomListView& lst);
+    void onList(const AtomListView& lv) override;
+    void m_copy(t_symbol*, const AtomListView& lv);
 
 private:
     void copy(t_symbol* src, t_symbol* dest);

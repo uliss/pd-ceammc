@@ -30,13 +30,13 @@ class ListApplyTo : public BaseObject {
 public:
     ListApplyTo(const PdArgs& args);
 
-    void onList(const AtomList&) override;
-    void onInlet(size_t n, const AtomListView&) override;
+    void onList(const AtomListView&) override;
+    void onInlet(size_t n, const AtomListView& lv) override;
     void onDataT(const MListAtom& ml);
 
 private:
-    void setIndexes(const AtomList& lst);
-    void loopProcess(const AtomList& v);
+    void setIndexes(const AtomListView& lv);
+    void loopProcess(const AtomListView& lv);
     void normalizeIndexes(size_t N);
 };
 

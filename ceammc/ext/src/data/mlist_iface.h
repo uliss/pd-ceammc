@@ -42,9 +42,9 @@ public:
         onBang();
     }
 
-    void onList(const AtomList& lst) override
+    void onList(const AtomListView& lv) override
     {
-        mlist()->setRaw(lst);
+        mlist()->setRaw(lv);
         onBang();
     }
 

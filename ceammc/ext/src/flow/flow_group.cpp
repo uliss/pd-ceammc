@@ -42,11 +42,11 @@ void FlowGroup::onSymbol(t_symbol* s)
     atoms_.append(s);
 }
 
-void FlowGroup::onList(const AtomList& l)
+void FlowGroup::onList(const AtomListView& lv)
 {
-    for (size_t i = 0; i < l.size(); i++) {
+    for (auto& a : lv) {
         checkFull();
-        atoms_.append(l[i]);
+        atoms_.append(a);
     }
 }
 
@@ -56,9 +56,9 @@ void FlowGroup::onData(const Atom& d)
     atoms_.append(d);
 }
 
-void FlowGroup::onInlet(size_t, const AtomListView& l)
+void FlowGroup::onInlet(size_t, const AtomListView& lv)
 {
-    group_size_->set(l);
+    group_size_->set(lv);
 }
 
 void FlowGroup::m_flush(t_symbol*, const AtomListView&)

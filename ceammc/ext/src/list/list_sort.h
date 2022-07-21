@@ -22,7 +22,7 @@ class ListSort : public BaseObject {
 public:
     ListSort(const PdArgs& args);
 
-    void onList(const AtomList& lst) override;
+    void onList(const AtomListView& lv) override;
     void onDataT(const MListAtom& ml);
 };
 

@@ -7,8 +7,6 @@ using SynthDx7 = SynthWithFreq<faust_synth_dx7_tilde>;
 
 void setup_synth_dx7_tilde()
 {
-    SynthDx7::initSymTab();
-
     SoundExternalFactory<SynthDx7> obj("synth.dx7~", OBJECT_FACTORY_DEFAULT);
     obj.addMethod("note", &SynthDx7::m_note);
 }

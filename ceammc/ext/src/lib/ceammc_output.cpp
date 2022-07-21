@@ -32,30 +32,7 @@ bool outletAtom(t_outlet* o, const Atom& a)
         return false;
 }
 
-bool outletAtomList(t_outlet* o, const AtomList& l, bool simplifyType)
-{
-    if (!o) {
-        LIB_DBG << "ERROR! NULL outlet pointer: " << __FUNCTION__;
-        return false;
-    }
-
-    if (simplifyType) {
-        if (l.isBang())
-            outlet_bang(o);
-        else if (l.isFloat())
-            outlet_float(o, l[0].asFloat());
-        else if (l.isSymbol())
-            outlet_symbol(o, l[0].asSymbol());
-        else
-            outlet_list(o, &s_list, static_cast<int>(l.size()), l.toPdData());
-    } else {
-        outlet_list(o, &s_list, static_cast<int>(l.size()), l.toPdData());
-    }
-
-    return true;
-}
-
-bool outletAtomListView(t_outlet* o, const AtomListView& v, bool simplifyType)
+bool outletAtomList(t_outlet* o, const AtomListView& v, bool simplifyType)
 {
     if (!o) {
         LIB_DBG << "ERROR! NULL outlet pointer: " << __FUNCTION__;
@@ -90,34 +67,12 @@ bool outletAny(t_outlet* o, t_symbol* s, const Atom& a)
     return true;
 }
 
-bool outletAny(t_outlet* o, t_symbol* s, const AtomList& l)
-{
-    outlet_anything(o, s, static_cast<int>(l.size()), l.toPdData());
-    return true;
-}
-
 bool outletAny(_outlet* o, t_symbol* s, const AtomListView& v)
 {
     outlet_anything(o, s,
         static_cast<int>(v.size()),
         const_cast<t_atom*>(v.toPdData()));
 
-    return true;
-}
-
-bool outletAny(t_outlet* o, const AtomList& l)
-{
-    if (l.size() < 1)
-        return false;
-
-    // check for valid selector
-    if (!l.first()->isSymbol())
-        return false;
-
-    outlet_anything(o,
-        l.first()->asSymbol(),
-        static_cast<int>(l.size() - 1),
-        l.size() == 1 ? nullptr : l.toPdData() + 1);
     return true;
 }
 

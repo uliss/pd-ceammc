@@ -38,14 +38,14 @@ NSigTilde::NSigTilde(const PdArgs& args)
             res.append(Atom(f));
 
         return res; },
-        [this](const AtomList& lst) -> bool {
+        [this](const AtomListView& lv) -> bool {
             updateSamples();
-            if (lst.size() > samp_.size())
-                OBJ_ERR << "extra list values are ignored: " << lst.slice(samp_.size());
+            if (lv.size() > samp_.size())
+                OBJ_ERR << "extra list values are ignored: " << lv.subView(samp_.size());
 
-            const size_t N = std::min(samp_.size(), lst.size());
+            const size_t N = std::min(samp_.size(), lv.size());
             for (size_t i = 0; i < N; i++)
-                samp_[i] = lst[i].asFloat();
+                samp_[i] = lv[i].asFloat();
 
             return true;
         });
@@ -70,15 +70,15 @@ void NSigTilde::onFloat(t_float v)
     samp_[0] = v;
 }
 
-void NSigTilde::onInlet(size_t n, const AtomListView& l)
+void NSigTilde::onInlet(size_t n, const AtomListView& lv)
 {
     updateSamples();
-    samp_[n] = l.floatAt(0, 0);
+    samp_[n] = lv.floatAt(0, 0);
 }
 
-void NSigTilde::onList(const AtomList& lst)
+void NSigTilde::onList(const AtomListView& lv)
 {
-    setProperty("@values", lst);
+    setProperty("@values", lv);
 }
 
 void NSigTilde::processBlock(const t_sample** in, t_sample** out)

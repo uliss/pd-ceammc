@@ -241,7 +241,7 @@ public:
     void fixLines();
 
     /**
-     * Outputs all properties name
+     * Outputs all properties name to Pd window
      * @example on message [@*?( outputs message [@* @prop1 @prop2 etc..(
      */
     void queryPropNames();
@@ -252,7 +252,7 @@ public:
     virtual void onBang();
     virtual void onFloat(t_float);
     virtual void onSymbol(t_symbol*);
-    virtual void onList(const AtomList&);
+    virtual void onList(const AtomListView&);
     virtual void onData(const Atom&);
     virtual void onAny(t_symbol* s, const AtomListView&);
 
@@ -375,15 +375,15 @@ public:
      * Creates callback property
      */
     template <class T>
-    Property* createCbProperty(const std::string& name,
+    Property* createCbProperty(const char* name,
         AtomList (T::*getter)() const,
-        void (T::*setter)(const AtomList&) = nullptr)
+        void (T::*setter)(const AtomListView&) = nullptr)
     {
         return createCbListProperty(
             name,
             [this, getter]() -> AtomList { return (static_cast<T*>(this)->*getter)(); },
-            setter ? [this, setter](const AtomList& l) -> bool {
-                (static_cast<T*>(this)->*setter)(l);
+            setter ? [this, setter](const AtomListView& lv) -> bool {
+                (static_cast<T*>(this)->*setter)(lv);
                 return true;
             }
                    : PropertyListSetter());
@@ -393,7 +393,7 @@ public:
      * Create callback float property
      * @return pointer to created prperty
      */
-    Property* createCbFloatProperty(const std::string& name,
+    Property* createCbFloatProperty(const char* name,
         PropertyFloatGetter g,
         PropertyFloatSetter s = nullptr);
 
@@ -401,7 +401,7 @@ public:
      * Create callback int property
      * @return pointer to created prperty
      */
-    Property* createCbIntProperty(const std::string& name,
+    Property* createCbIntProperty(const char* name,
         PropertyIntGetter g,
         PropertyIntSetter s = nullptr);
 
@@ -409,7 +409,7 @@ public:
      * Create callback bool property
      * @return pointer to created prperty
      */
-    Property* createCbBoolProperty(const std::string& name,
+    Property* createCbBoolProperty(const char* name,
         PropertyBoolGetter g,
         PropertyBoolSetter s = nullptr);
 
@@ -417,7 +417,7 @@ public:
      * Create callback symbol property
      * @return pointer to created prperty
      */
-    Property* createCbSymbolProperty(const std::string& name,
+    Property* createCbSymbolProperty(const char* name,
         PropertySymbolGetter g,
         PropertySymbolSetter s = nullptr);
 
@@ -425,7 +425,7 @@ public:
      * Create callback atom property
      * @return pointer to created prperty
      */
-    Property* createCbAtomProperty(const std::string& name,
+    Property* createCbAtomProperty(const char* name,
         PropertyAtomGetter g,
         PropertyAtomSetter s = nullptr);
 
@@ -433,7 +433,7 @@ public:
      * Create callback list property
      * @return pointer to created prperty
      */
-    Property* createCbListProperty(const std::string& name,
+    Property* createCbListProperty(const char* name,
         PropertyListGetter g,
         PropertyListSetter s = nullptr);
 
@@ -503,18 +503,11 @@ public:
     virtual void symbolTo(size_t n, t_symbol* s);
 
     /**
-     * Outputs list to specified outlet
-     * @param n - outlet number
-     * @param l - list value
-     */
-    virtual void listTo(size_t n, const AtomList& l);
-
-    /**
      * Outputs list view to specified outlet
      * @param n - outlet number
      * @param v - listview
      */
-    virtual void listTo(size_t n, const AtomListView& v);
+    virtual void listTo(size_t n, const AtomListView& lv);
 
     /**
      * Outputs message to specified outlet
@@ -523,11 +516,9 @@ public:
      */
     virtual void messageTo(size_t n, const Message& msg);
 
-    virtual void anyTo(size_t n, const AtomList& l);
-    virtual void anyTo(size_t n, const AtomListView& l);
+    virtual void anyTo(size_t n, const AtomListView& lv);
     virtual void anyTo(size_t n, t_symbol* s, const Atom& a);
-    virtual void anyTo(size_t n, t_symbol* s, const AtomList& l);
-    virtual void anyTo(size_t n, t_symbol* s, const AtomListView& l);
+    virtual void anyTo(size_t n, t_symbol* s, const AtomListView& lv);
 
     /**
      * main secondary inlets dispatcher
@@ -536,7 +527,7 @@ public:
      * @return true -  if message was dispatched to inlet and should not be processed anymore
      *         false - if not valid inlet message and should be processed further
      */
-    virtual bool processAnyInlets(t_symbol* sel, const AtomListView& lst);
+    virtual bool processAnyInlets(t_symbol* sel, const AtomListView& lv);
 
     /**
      * Used internally to get/set properties:
@@ -550,7 +541,7 @@ public:
      *
      * @note override this method for custom property processing
      */
-    virtual bool processAnyProps(t_symbol* sel, const AtomListView& lst);
+    virtual bool processAnyProps(t_symbol* sel, const AtomListView& lv);
 
     /**
      * Various load(close)bang dispatcher

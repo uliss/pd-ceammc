@@ -72,16 +72,16 @@ public:
         return "IntPair";
     }
 
-    Result setFromList(const AtomListView& l) override
+    Result setFromList(const AtomListView& lv) override
     {
-        if (l.size() != 2)
+        if (lv.size() != 2)
             return error("v0 v1 expected");
 
-        if (!(l[0].isFloat() && l[1].isFloat()))
+        if (!(lv[0].isFloat() && lv[1].isFloat()))
             return error("float arguments required");
 
-        v0_ = l[0].asFloat();
-        v1_ = l[1].asFloat();
+        v0_ = lv[0].asFloat();
+        v1_ = lv[1].asFloat();
 
         return ok();
     }

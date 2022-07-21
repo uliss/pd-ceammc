@@ -1,4 +1,5 @@
 #include "conv_midi2freq.h"
+#include "ceammc_containers.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 #include "ceammc_music_temperament.h"
@@ -61,21 +62,12 @@ void Midi2Freq::onFloat(t_float f)
         floatTo(0, music::to_freq(f, to_temp(prop_temperament_->value()), base_a_->value()));
 }
 
-void Midi2Freq::onList(const AtomList& lst)
+void Midi2Freq::onList(const AtomListView& lv)
 {
-    AtomList res(lst);
+    SmallAtomList res;
     const auto A_BASE = base_a_->value();
-
-    for (auto& el : res) {
-        if (!el.isFloat()) {
-            el.setFloat(0, true);
-            continue;
-        }
-
-        el.setFloat(convert::midi2freq(el.asFloat(), A_BASE));
-    }
-
-    listTo(0, res);
+    lv.mapFloat([A_BASE](t_float f) { return convert::midi2freq(f, A_BASE); }, res);
+    listTo(0, res.view());
 }
 
 void setup_conv_midi2freq()

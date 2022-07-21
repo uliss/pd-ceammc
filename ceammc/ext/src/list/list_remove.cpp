@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "list_remove.h"
+#include "ceammc_containers.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 #include "ceammc_fn_list.h"
@@ -32,16 +33,16 @@ ListRemove::ListRemove(const PdArgs& args)
 
             return res;
         },
-        [this](const AtomList& l) -> bool {
-            setRemoveList(l);
+        [this](const AtomListView& lv) -> bool {
+            setRemoveList(lv);
             return true;
         })
         ->setArgIndex(0);
 }
 
-void ListRemove::setRemoveList(const AtomList& lst)
+void ListRemove::setRemoveList(const AtomListView& lv)
 {
-    auto l = list::uniqueSorted(lst);
+    auto l = list::uniqueSorted(lv);
     idx_.clear();
     idx_.reserve(l.size());
     for (auto& a : l) {
@@ -54,15 +55,15 @@ void ListRemove::setRemoveList(const AtomList& lst)
     }
 }
 
-void ListRemove::onInlet(size_t, const AtomListView& lst)
+void ListRemove::onInlet(size_t, const AtomListView& lv)
 {
-    setRemoveList(lst);
+    setRemoveList(lv);
 }
 
-void ListRemove::onList(const AtomList& lst)
+void ListRemove::onList(const AtomListView& lv)
 {
-    size_t N = lst.size();
-    AtomList res;
+    size_t N = lv.size();
+    AtomList32 res;
     res.reserve(N);
 
     precalcIndexes(N);
@@ -72,10 +73,10 @@ void ListRemove::onList(const AtomList& lst)
         if (it != calc_idx_.end())
             continue;
 
-        res.append(lst[i]);
+        res.push_back(lv[i]);
     }
 
-    listTo(0, res);
+    listTo(0, res.view());
 }
 
 void ListRemove::onDataT(const MListAtom& ml)

@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "list_xat.h"
+#include "ceammc_containers.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 #include "ceammc_property_enum.h"
@@ -33,7 +34,7 @@ ListXAt::ListXAt(const PdArgs& args)
     createCbListProperty(
         "@value",
         [this]() -> AtomList { return list_; },
-        [this](const AtomList& l) -> bool { list_ = l; return true; })
+        [this](const AtomListView& lv) -> bool { list_ = lv; return true; })
         ->setArgIndex(0);
 
     def_ = new AtomProperty("@default", Atom());
@@ -60,23 +61,23 @@ void ListXAt::onFloat(t_float f)
         OBJ_ERR << "element not found at: " << f;
 }
 
-void ListXAt::onList(const AtomList& lst)
+void ListXAt::onList(const AtomListView& lv)
 {
-    AtomList res;
-    res.reserve(lst.size());
+    AtomList32 res;
+    res.reserve(lv.size());
 
-    for (auto& el : lst) {
+    for (auto& el : lv) {
         auto atom = at(el.asInt(std::numeric_limits<int>::max()));
 
         if (atom)
-            res.append(*atom);
+            res.push_back(*atom);
         else if (!def_->value().isNone())
-            res.append(def_->value());
+            res.push_back(def_->value());
         else
             OBJ_ERR << "element not found at: " << el;
     }
 
-    listTo(0, res);
+    listTo(0, res.view());
 }
 
 void ListXAt::onInlet(size_t n, const AtomListView& lst)

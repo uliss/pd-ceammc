@@ -13,13 +13,10 @@ class RandomDiscrete : public BaseObject {
 public:
     RandomDiscrete(const PdArgs& a);
     void onBang() override;
-    void onList(const AtomList& l) override;
-
-    AtomList propWeights() const;
-    void setPropWeights(const AtomList& l);
+    void onList(const AtomListView& lv) override;
 
 private:
-    bool set(const AtomList& l);
+    bool set(const AtomListView& lv);
 };
 
 void setup_random_discrete();
