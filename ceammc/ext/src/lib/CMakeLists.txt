@@ -96,6 +96,7 @@ set(CEAMMC_LIB_SOURCES
     ceammc_score.cpp
     ceammc_sound_external.cpp
     ceammc_string.cpp
+    ceammc_string_split.cpp
     ceammc_thread.cpp
     ceammc_timeline.cpp
     ceammc_transport.cpp

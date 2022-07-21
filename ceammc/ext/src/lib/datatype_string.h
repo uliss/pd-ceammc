@@ -16,6 +16,7 @@
 
 #include "ceammc_abstractdata.h"
 #include "ceammc_atomlist.h"
+#include "ceammc_string_split.h"
 #include "ceammc_string_types.h"
 
 #include <iostream>
@@ -42,6 +43,10 @@ public:
      * Creates from string
      */
     DataTypeString(const std::string& str);
+    DataTypeString(std::string&& str)
+        : str_(std::move(str))
+    {
+    }
 
     /**
      * Creates from atom
@@ -120,7 +125,7 @@ public:
     /**
      * Split current string to vector of string by given separator
      */
-    void split(std::vector<std::string>& res, const std::string& sep = "") const;
+    void split(string::StringSplitResult& res, const char* sep = "") const;
 
     // operators
     bool operator==(const DataTypeString& s) const noexcept { return str_ == s.str_; }
@@ -194,8 +199,8 @@ public:
     static const DataTypeId dataType;
 
 private:
-    void splitEveryChar(std::vector<std::string>& res) const;
-    void splitBySep(std::vector<std::string>& res, const std::string& sep) const;
+    void splitEveryChar(string::StringSplitResult& res) const;
+    void splitBySep(string::StringSplitResult& res, const char* sep) const;
 };
 
 std::ostream& operator<<(std::ostream& os, const DataTypeString& d);

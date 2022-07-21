@@ -217,9 +217,11 @@ void DataTypeString::append(const std::string& str)
     str_.append(str);
 }
 
-void DataTypeString::split(std::vector<std::string>& res, const std::string& sep) const
+void DataTypeString::split(string::StringSplitResult& res, const char* sep) const
 {
-    if (sep.empty())
+    res.clear();
+
+    if (sep == 0 || sep[0] == '\0')
         splitEveryChar(res);
     else
         splitBySep(res, sep);
@@ -301,14 +303,14 @@ bool DataTypeString::isLess(const AbstractData* d) const noexcept
     return str_ < (d->as<DataTypeString>()->str_);
 }
 
-void DataTypeString::splitEveryChar(std::vector<std::string>& res) const
+void DataTypeString::splitEveryChar(string::StringSplitResult& res) const
 {
-    string::utf8_split_by_char(res, str_.c_str());
+    string::split_every_char(res, str_.c_str());
 }
 
-void DataTypeString::splitBySep(std::vector<std::string>& res, const std::string& sep) const
+void DataTypeString::splitBySep(string::StringSplitResult& res, const char* sep) const
 {
-    string::split(res, str_, sep.c_str());
+    string::split_by_sep(res, string::StringView(str_.c_str()), sep);
 }
 
 std::ostream& operator<<(std::ostream& os, const DataTypeString& d)
