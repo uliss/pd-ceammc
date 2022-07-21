@@ -343,22 +343,6 @@ const DataTypeEnv::NamedMethodList DataTypeEnv::named_methods = {
     NamedMethod { hash_step, &DataTypeEnv::setStep },
 };
 
-std::string DataTypeEnv::toString() const
-{
-    std::string res("Envelope:\n");
-    res.reserve(48 * points_.size());
-
-    for (size_t i = 0; i < points_.size(); i++) {
-        res += fmt::format("    {:c} point: {: 8g}(ms) {: 8g} {}\n",
-            points_[i].stop ? '*' : ' ',
-            points_[i].utime / 1000.f,
-            points_[i].value,
-            to_string(points_[i].type));
-    }
-
-    return res;
-}
-
 bool DataTypeEnv::isEqual(const AbstractData* d) const noexcept
 {
     if (d->type() != dataType)
@@ -1203,6 +1187,11 @@ bool DataTypeEnv::checkADSR() const
             && points_[3].stop == false
             && points_[3].type == CURVE_LINE
             && points_[3].fix_pos == EnvelopePoint::FIX_VALUE);
+}
+
+std::string DataTypeEnv::toString() const noexcept
+{
+    return toDictString();
 }
 
 std::string DataTypeEnv::toListStringContent() const noexcept

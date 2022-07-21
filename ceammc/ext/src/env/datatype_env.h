@@ -8,6 +8,7 @@
 
 #include <algorithm>
 #include <array>
+#include <boost/container/small_vector.hpp>
 #include <cstdint>
 #include <vector>
 
@@ -92,20 +93,19 @@ public:
 bool operator==(const EnvelopePoint& p0, const EnvelopePoint& p1);
 
 /**
- * Calculate time interval between points (signed) in millieseconds
+ * Calculate time interval between points (signed) in milliseconds
  * @param p0
  * @param p1
  * @return
  */
-static double intervalMs(const EnvelopePoint& p0, const EnvelopePoint& p1)
+static inline double intervalMs(const EnvelopePoint& p0, const EnvelopePoint& p1)
 {
     return double(p0.utime - p1.utime) / 1000.0;
 }
 
-typedef std::vector<EnvelopePoint> PointList;
-
 class DataTypeEnv;
 using EnvAtom = DataAtom<DataTypeEnv>;
+using PointList = boost::container::small_vector<EnvelopePoint, 4>;
 
 class DataTypeEnv : public AbstractData {
     PointList points_;
@@ -121,7 +121,6 @@ public:
     DataTypeEnv& operator=(DataTypeEnv&& env);
 
     DataTypeId type() const noexcept override;
-    std::string toString() const override;
     bool isEqual(const AbstractData* d) const noexcept override;
 
     iterator begin();
@@ -327,6 +326,7 @@ public:
     bool checkASR() const;
     bool checkADSR() const;
 
+    std::string toString() const noexcept final;
     std::string toListStringContent() const noexcept final;
     std::string toDictStringContent() const noexcept final;
     bool set(const AbstractData* d) noexcept final;
