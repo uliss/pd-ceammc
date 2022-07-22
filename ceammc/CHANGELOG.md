@@ -6,12 +6,17 @@
   - midi.split: midi note splitter
   - midi.modus: snap/skip midi pitches according to selected modus
   - z~: sample delay added
+  - route.random: random router added (with route.r alias) 
+  - list.pass: leave only specified atoms in list
+  - list.reject: reject specified atoms in list
+  - list.map: list value mapping object added
 - new properties:
   - @clip property added to system.cursor to clip cursor XY coords
   - @norm property added to ui.env to do envelope value normalization on input
   - @value property added to seq.counter
   - @dev property added to flow.space: to set deviation
   - @channels property added to xdac~: live-channel remapping
+  - @nonrep property added to random.atom to generate non equal adjacent elements
 - new methods:
   - [polltime( method added to system.cursor to change global polltime
   - [reverse( method added to xdac~ to reverse output channels order
@@ -20,11 +25,16 @@
   - [side2circle( method added to xdac~ to change output channel layout
   - [-(, [+(, [@value?( methods added to second inlet of \[flow.count\]
   - [at(, [front(, [back( methods added to data.list/data.mlist
+  - [choose( method added to get random element from \[data.set\], \[local.set\] and \[global.set\]
+  - [choose( method added to get random element from \[data.dict\], \[local.dict\] and \[global.dict\]
+  - [pause( method added to \[array.grainer~\]
 - misc:
   - conv.lin2exp: list support added
   - conv.lin2curve: list support added
   - ui.slider2d: mouse wheel support added: (move x-axis when Alt pressed)
   - ui.slider2d alias added: ui.s2d
+  - env.asr~: second inlet added for gate control
+  - second inlet added to random.atom to set list to choose from
 - TCL editor added for objects:
   - data.list
   - local.list
@@ -39,6 +49,9 @@
 
 ### Changes:
 - @i property of seq.counter made writable
+
+### Deprecated:
+- alias 'list.filter' (use list.pass_if instead)
 
 ## [0.9.4]
 ### Added:

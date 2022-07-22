@@ -45,18 +45,18 @@ public:
         onList(AtomList(s));
     }
 
-    void onList(const AtomList& l) override
+    void onList(const AtomListView& lv) override
     {
-        list() = l;
+        list() = lv;
         onBang();
     }
 
-    void onInlet(size_t n, const AtomListView& l) override
+    void onInlet(size_t n, const AtomListView& lv) override
     {
         if (n != 1)
             return;
 
-        list() = l;
+        list() = lv;
     }
 
     void onDataT(const MListAtom& ml)
@@ -86,9 +86,9 @@ public:
             return false;
     }
 
-    void proto_set(const AtomListView& lst) override
+    void proto_set(const AtomListView& lv) override
     {
-        list() = lst;
+        list() = lv;
     }
 
     void proto_clear() override
@@ -96,19 +96,19 @@ public:
         list().clear();
     }
 
-    void proto_append(const AtomListView& lst) override
+    void proto_append(const AtomListView& lv) override
     {
-        list().append(lst);
+        list().append(lv);
     }
 
-    void proto_prepend(const AtomListView& lst) override
+    void proto_prepend(const AtomListView& lv) override
     {
-        list().insert(0, lst);
+        list().insert(0, lv);
     }
 
-    bool proto_insert(size_t idx, const AtomListView& lst) override
+    bool proto_insert(size_t idx, const AtomListView& lv) override
     {
-        return list().insert(idx, lst);
+        return list().insert(idx, lv);
     }
 
     bool proto_pop() override

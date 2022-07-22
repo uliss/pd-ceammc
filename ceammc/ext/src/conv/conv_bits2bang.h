@@ -26,7 +26,7 @@ public:
     ConvBits2Bang(const PdArgs& args);
     void initDone() override;
 
-    void onList(const AtomList& lst) override;
+    void onList(const AtomListView& lv) override;
 
     const char* annotateOutlet(size_t n) const final;
 };

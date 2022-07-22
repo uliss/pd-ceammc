@@ -29,14 +29,14 @@ void SymbolEqual::onSymbol(t_symbol* s)
     floatTo(0, s == pattern_);
 }
 
-void SymbolEqual::onList(const AtomList& l)
+void SymbolEqual::onList(const AtomListView& lv)
 {
-    if (l.size() < 1)
+    if (lv.size() < 1)
         return;
 
-    t_symbol* s = l[0].asSymbol();
-    if (l.size() > 1) {
-        if (!l[1].getSymbol(&pattern_))
+    t_symbol* s = lv[0].asSymbol();
+    if (lv.size() > 1) {
+        if (!lv[1].getSymbol(&pattern_))
             pattern_ = 0;
     }
 

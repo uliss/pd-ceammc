@@ -407,7 +407,15 @@ TEST_CASE("array_grain", "[externals]")
             REQUIRE(g.timeBefore() == 54);
 
             GrainRandom::seed(0);
+            REQUIRE(p.parse(AtomList::parseString("@tb rand(0..100)")));
+            REQUIRE(g.timeBefore() == 54);
+
+            GrainRandom::seed(0);
             REQUIRE(p.parse(AtomList::parseString("@tb rand(0s\\,1sec)")));
+            REQUIRE(g.timeBefore() == 26343);
+
+            GrainRandom::seed(0);
+            REQUIRE(p.parse(AtomList::parseString("@tb rand(0s..1sec)")));
             REQUIRE(g.timeBefore() == 26343);
         }
 

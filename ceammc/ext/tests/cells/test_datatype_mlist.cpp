@@ -79,33 +79,36 @@ TEST_CASE("DataTypeMList", "[core]")
     {
         using MA = MListAtom;
 
-#define REQUIRE_PARSE_STR(a, b)                   \
-    {                                             \
-        auto ml = ML::parse(std::string(a));      \
-        REQUIRE(ml);                              \
-        REQUIRE(*ML::parse(std::string(a)) == b); \
+#define REQUIRE_PARSE_STR(a, b)                         \
+    {                                                   \
+        MA ma;                                          \
+        REQUIRE(ma->setFromDataString(std::string(a))); \
+        REQUIRE(*ma == b);                              \
     }
 
         REQUIRE_PARSE_STR("()", ML());
-        REQUIRE_PARSE_STR("() ", ML());
+        REQUIRE_PARSE_STR("   ()", ML());
+        REQUIRE_PARSE_STR("()    ", ML());
         REQUIRE_PARSE_STR(" () ", ML());
         REQUIRE_PARSE_STR(" ( )", ML());
         REQUIRE_PARSE_STR("         ( )", ML());
         REQUIRE_PARSE_STR("(() () ())", ML(MA(), MA(), MA()));
-        REQUIRE_PARSE_STR("(()()())", ML(MA(), MA(), MA()));
         REQUIRE_PARSE_STR("(a)", ML("a"));
         REQUIRE_PARSE_STR("(a )", ML("a"));
         REQUIRE_PARSE_STR("( a)", ML("a"));
         REQUIRE_PARSE_STR("( a )", ML("a"));
+        REQUIRE_PARSE_STR("(@abc:1 )", ML("@abc:1"));
+        REQUIRE_PARSE_STR("(:200)", ML(":200"));
         REQUIRE_PARSE_STR("( a b c d    )", ML("a", "b", "c", "d"));
         REQUIRE_PARSE_STR(u8"(\"русские\"     \"буквы\")", ML("русские", "буквы"));
-        REQUIRE_PARSE_STR("(1 2 3(a () 124) )", ML(1, 2, 3, MA("a", MA(), 124)));
+        REQUIRE_PARSE_STR("(1 2 3 (a () 124) )", ML(1, 2, 3, MA("a", MA(), 124)));
 #if PD_FLOATSIZE == 32
-        REQUIRE_PARSE_STR("(1 2 3(pi() 124) )", ML(1, 2, 3, MA(3.1415926, 124)));
-        REQUIRE_PARSE_STR("(1 2 3( pi() 124 ) )", ML(1, 2, 3, MA(3.1415926, 124)));
+        REQUIRE_PARSE_STR("(1 2 3 (pi() 124) )", ML(1, 2, 3, MA(3.1415926, 124)));
+        REQUIRE_PARSE_STR("(1 2 3 ( pi() 124 ) )", ML(1, 2, 3, MA(3.1415926, 124)));
 #endif
         REQUIRE_PARSE_STR("((a) (b))", ML(MA("a"), MA("b")));
-        REQUIRE_PARSE_STR("((a)(b))", ML(MA("a"), MA("b")));
+        REQUIRE_PARSE_STR("(\"()\")", ML(A("()")));
+        REQUIRE_PARSE_STR("((a) (b))", ML(MA("a"), MA("b")));
         REQUIRE_PARSE_STR("(\"``\")", ML("`"));
         REQUIRE_PARSE_STR("(\"\")", ML(""));
         REQUIRE_PARSE_STR("(\"abc\")", ML("abc"));
@@ -128,31 +131,42 @@ TEST_CASE("DataTypeMList", "[core]")
     {
         using MA = MListAtom;
 
-        REQUIRE(ML().valueToJsonString() == "[]");
-        REQUIRE(ML(1).valueToJsonString() == "[1]");
-        REQUIRE(ML(1, "abc").valueToJsonString() == "[1,\"abc\"]");
-        REQUIRE(ML(1, "abc", Atom()).valueToJsonString() == "[1,\"abc\",null]");
-        REQUIRE(ML(1, "abc", Atom(), MA(3, 2, 1)).valueToJsonString() == "[1,\"abc\",null,[3,2,1]]");
+        REQUIRE(ML().toJsonString() == "[]");
+        REQUIRE(ML(1).toJsonString() == "[1]");
+        REQUIRE(ML(1, "abc").toJsonString() == "[1,\"abc\"]");
+        REQUIRE(ML(1, "abc", Atom()).toJsonString() == "[1,\"abc\",null]");
+        REQUIRE(ML(1, "abc", Atom(), MA(3, 2, 1)).toJsonString() == "[1,\"abc\",null,[3,2,1]]");
     }
 
     SECTION("parse<->parse")
     {
         ML ml;
 
-#define REQUIRE_PARSE(a, b) REQUIRE(ML::parse(AtomList::parseString(a)).value().toString() == b);
+#define REQUIRE_PARSE(a, b)               \
+    {                                     \
+        REQUIRE(ml.setFromDataString(a)); \
+        REQUIRE(ml.toString() == b);      \
+    }
 
-        REQUIRE_PARSE(" (   )", "()");
-        REQUIRE_PARSE(" (1 2()   abc)", "(1 2 () abc)");
+        REQUIRE_PARSE("()", "()");
+        REQUIRE_PARSE("( )", "()");
+        REQUIRE_PARSE(" ( ) ", "()");
+        REQUIRE_PARSE(" () ", "()");
+        REQUIRE_PARSE("( 1 )", "(1)");
+        REQUIRE_PARSE(" ( 1 ) ", "(1)");
+        REQUIRE_PARSE(" ( \"dog's\" ) ", "(dog's)");
+        REQUIRE_PARSE(" (1 2 ()   abc)", "(1 2 () abc)");
         REQUIRE_PARSE(" ( \"abc\" ()   )", "(abc ())");
+        REQUIRE_PARSE(" ( 'abc' ()   )", "('abc' ())");
     }
 
     SECTION("flatten")
     {
-#define REQUIRE_FLATTEN(src, result)                         \
-    {                                                        \
-        auto lst = DataTypeMList::parse(LA(src));            \
-        REQUIRE(lst);                                        \
-        REQUIRE(lst.value().flatten().toString() == result); \
+#define REQUIRE_FLATTEN(src, result)                \
+    {                                               \
+        ML ml;                                      \
+        REQUIRE(ml.setFromDataString(src));         \
+        REQUIRE(ml.flatten().toString() == result); \
     }
 
         REQUIRE_FLATTEN("()", "()");
@@ -160,7 +174,7 @@ TEST_CASE("DataTypeMList", "[core]")
         REQUIRE_FLATTEN("(a b c)", "(a b c)");
         REQUIRE_FLATTEN("(\"a string\")", "(\"a string\")");
         REQUIRE_FLATTEN("(())", "()");
-        REQUIRE_FLATTEN("((())(())((((((((()))))))))()())", "()");
+        REQUIRE_FLATTEN("((()) (()) ((((((((())))))))) () ())", "()");
         REQUIRE_FLATTEN("((((((123))))))", "(123)");
         REQUIRE_FLATTEN("(1 2 () (3) ((4 5 6)))", "(1 2 3 4 5 6)");
     }
@@ -272,5 +286,101 @@ TEST_CASE("DataTypeMList", "[core]")
             REQUIRE(!ML(1, 2, MListAtom(3, 4, 5), 6, 7).contains(ML(MListAtom(3, 4))));
             REQUIRE(ML(1, 2, 3, 4).contains(ML(2, 3)));
         }
+    }
+
+    SECTION("toString")
+    {
+        using MA = MListAtom;
+
+        SECTION("toListStringContent")
+        {
+            CHECK(ML().toListStringContent() == "");
+            CHECK(ML("").toListStringContent() == "\"\"");
+            CHECK(ML(" ").toListStringContent() == "\" \"");
+            CHECK(ML("a, b, c;").toListStringContent() == "\"a, b, c;\"");
+            CHECK(ML("'single quotes'").toListStringContent() == "\"'single quotes'\"");
+            CHECK(ML("\"double quotes\"").toListStringContent() == "\"`\"double quotes`\"\"");
+            CHECK(ML(1, 2, 3).toListStringContent() == "1 2 3");
+            CHECK(ML("a", "b c", MA(1, 2, 3)).toListStringContent() == "a \"b c\" (1 2 3)");
+        }
+
+        SECTION("toListString")
+        {
+            CHECK(ML().toListString() == "MList()");
+            CHECK(ML("").toListString() == "MList(\"\")");
+            CHECK(ML(" ").toListString() == "MList(\" \")");
+            CHECK(ML("a, b, c;").toListString() == "MList(\"a, b, c;\")");
+            CHECK(ML("'single quotes'").toListString() == "MList(\"'single quotes'\")");
+            CHECK(ML("\"double quotes\"").toListString() == "MList(\"`\"double quotes`\"\")");
+            CHECK(ML(1, 2, 3).toListString() == "MList(1 2 3)");
+            CHECK(ML("a", "b c", MA(1, 2, 3)).toListString() == "MList(a \"b c\" (1 2 3))");
+        }
+
+        SECTION("toString")
+        {
+            CHECK(ML().toString() == "()");
+            CHECK(ML("").toString() == "(\"\")");
+            CHECK(ML(" ").toString() == "(\" \")");
+            CHECK(ML("a, b, c;").toString() == "(\"a, b, c;\")");
+            CHECK(ML("'single quotes'").toString() == "(\"'single quotes'\")");
+            CHECK(ML("\"double quotes\"").toString() == "(\"`\"double quotes`\"\")");
+            CHECK(ML(1, 2, 3).toString() == "(1 2 3)");
+            CHECK(ML("a", "b c", MA(1, 2, 3)).toString() == "(a \"b c\" (1 2 3))");
+            CHECK(ML("a", "@b", "c").toString() == "(a \"@b\" c)");
+            CHECK(ML("a", "b@", "c").toString() == "(a \"b@\" c)");
+            CHECK(ML("a", ":b", "c").toString() == "(a \":b\" c)");
+            CHECK(ML("a", "b:", "c").toString() == "(a \"b:\" c)");
+            CHECK(ML("a", "#b", "c").toString() == "(a \"#b\" c)");
+            CHECK(ML("a", "b#", "c").toString() == "(a \"b#\" c)");
+            CHECK(ML("a", ",b", "c").toString() == "(a \",b\" c)");
+            CHECK(ML("a", "b,", "c").toString() == "(a \"b,\" c)");
+            CHECK(ML("a", ";b", "c").toString() == "(a \";b\" c)");
+            CHECK(ML("a", "b;", "c").toString() == "(a \"b;\" c)");
+            CHECK(ML("a", "%b", "c").toString() == "(a \"%b\" c)");
+            CHECK(ML("a", "b%", "c").toString() == "(a \"b%\" c)");
+            CHECK(ML("a", "[b", "c").toString() == "(a \"[b\" c)");
+            CHECK(ML("a", "b[", "c").toString() == "(a \"b[\" c)");
+            CHECK(ML("a", "]b", "c").toString() == "(a \"]b\" c)");
+            CHECK(ML("a", "b]", "c").toString() == "(a \"b]\" c)");
+            CHECK(ML("a", ")b", "c").toString() == "(a \")b\" c)");
+            CHECK(ML("a", "b)", "c").toString() == "(a \"b)\" c)");
+        }
+
+        SECTION("toDictString")
+        {
+            CHECK(ML().toDictString() == "MList[items: ]");
+            CHECK(ML("").toDictString() == "MList[items: \"\"]");
+            CHECK(ML(" ").toDictString() == "MList[items: \" \"]");
+            CHECK(ML("a, b, c;").toDictString() == "MList[items: \"a, b, c;\"]");
+            CHECK(ML("'single quotes'").toDictString() == "MList[items: \"'single quotes'\"]");
+            CHECK(ML("\"double quotes\"").toDictString() == "MList[items: \"`\"double quotes`\"\"]");
+            CHECK(ML(1, 2, 3).toDictString() == "MList[items: 1 2 3]");
+            CHECK(ML("a", "b c", MA(1, 2, 3)).toDictString() == "MList[items: a \"b c\" (1 2 3)]");
+        }
+
+        SECTION("toDictStringContent")
+        {
+            CHECK(ML().toDictStringContent() == "items: ");
+            CHECK(ML("").toDictStringContent() == "items: \"\"");
+            CHECK(ML(" ").toDictStringContent() == "items: \" \"");
+            CHECK(ML("a, b, c;").toDictStringContent() == "items: \"a, b, c;\"");
+            CHECK(ML("'single quotes'").toDictStringContent() == "items: \"'single quotes'\"");
+            CHECK(ML("\"double quotes\"").toDictStringContent() == "items: \"`\"double quotes`\"\"");
+            CHECK(ML(1, 2, 3).toDictStringContent() == "items: 1 2 3");
+            CHECK(ML("a", "b c", MA(1, 2, 3)).toDictStringContent() == "items: a \"b c\" (1 2 3)");
+        }
+    }
+
+    SECTION("parse errors")
+    {
+        Atom res;
+        CHECK_FALSE(ML::parse(LP("123"), ML::dataType, res));
+        CHECK_FALSE(ML::parse(LP("ABC"), ML::dataType, res));
+        CHECK(ML::parse(LP("()"), ML::dataType, res));
+        CHECK_FALSE(ML::parse(LP("() 1"), ML::dataType, res));
+        CHECK_FALSE(ML::parse(LP("1 ()"), ML::dataType, res));
+        CHECK_FALSE(ML::parse(LP("[]"), ML::dataType, res));
+        CHECK_FALSE(ML::parse(LP("(    1 2 3"), ML::dataType, res));
+        CHECK_FALSE(ML::parse(LP("(    1 2 3))"), ML::dataType, res));
     }
 }

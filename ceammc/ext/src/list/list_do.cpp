@@ -1,4 +1,5 @@
 #include "list_do.h"
+#include "ceammc_containers.h"
 #include "ceammc_factory.h"
 #include "datatype_mlist.h"
 
@@ -10,18 +11,19 @@ ListDo::ListDo(const PdArgs& a)
     createOutlet();
 }
 
-void ListDo::onList(const AtomList& l)
+void ListDo::onList(const AtomListView& lv)
 {
     mapped_list_.clear();
 
-    for (size_t i = 0; i < l.size(); i += 1) {
-        AtomList ll(l[i]);
-        ll.append(i);
-        ll.append(l.size());
-        listTo(1, ll);
+    StaticAtomList<3> chunk { 0., 0., 0. };
+    for (size_t i = 0; i < lv.size(); i++) {
+        chunk[0] = lv[i];
+        chunk[1] = i;
+        chunk[2] = lv.size();
+        listTo(1, chunk.view());
     }
 
-    listTo(0, mapped_list_);
+    listTo(0, mapped_list_.view());
 }
 
 void ListDo::onInlet(size_t n, const AtomListView& l)

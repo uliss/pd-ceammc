@@ -27,8 +27,11 @@ def signal_handler(sig, frame):
 
 signal.signal(signal.SIGINT, signal_handler)
 
+
 def read_all_externals():
-    return list(filter(lambda x: len(x), subprocess.check_output([EXT_LIST], stderr=subprocess.DEVNULL).decode().split('\n')))
+    return list(filter(lambda x: len(x),
+                subprocess.check_output([EXT_LIST],
+                stderr=subprocess.DEVNULL).decode().split('\n')))
 
 
 def read_methods(name):
@@ -44,8 +47,9 @@ def read_methods(name):
             args.append(SPECIAL_OBJ[name])
 
         return set(filter(valid_method,
-            subprocess.check_output(args, stderr=subprocess.DEVNULL,
-                                    env={"RAWWAVES": STK_RAWWAVES_PATH}).decode().split('\n')))
+                          subprocess.check_output(args,
+                                                  stderr=subprocess.DEVNULL,
+                                                  env={"RAWWAVES": STK_RAWWAVES_PATH}).decode().split('\n')))
     except(subprocess.CalledProcessError):
         cprint(f"[{name}] can't get methods", "red")
         return set()
@@ -365,9 +369,13 @@ if __name__ == '__main__':
                     cprint(f"DOC [{ext_name}] no enum for attribute \"{p}\" (in external)", 'magenta')
 
     if args.spell:
-        import jamspell
-        corrector = jamspell.TSpellCorrector()
+        try:
+            import jamspell
+            corrector = jamspell.TSpellCorrector()
 
-        corrector.LoadLangModel('ceammc.bin')
-        cprint(f"checking [{ext_name}] ...", "blue")
-        check_spell(root)
+            corrector.LoadLangModel('ceammc.bin')
+            cprint(f"checking [{ext_name}] ...", "blue")
+            check_spell(root)
+        except ModuleNotFoundError as e:
+            cprint(f"{e} ...", "red")
+            pass

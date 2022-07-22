@@ -49,14 +49,13 @@ namespace path {
         /**
          * Polymorphic data type
          */
-        int type() const noexcept final;
+        DataTypeId type() const noexcept final;
 
-        /**
-         * Polymorphic string value
-         */
-        std::string toString() const override;
+        std::string toListStringContent() const final;
+        std::string toDictStringContent() const final;
+        bool set(const AbstractData* d) noexcept final;
 
-        std::string valueToJsonString() const override;
+        std::string toJsonString() const override;
 
         /**
          * Polymorphics equality check
@@ -94,7 +93,7 @@ namespace path {
         static DataTypePath find(const DataTypePath& dir, const std::string& filename, int max_iters = -1);
 
     public:
-        static const int dataType;
+        static const DataTypeId dataType;
     };
 
 }

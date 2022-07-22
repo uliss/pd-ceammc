@@ -33,16 +33,16 @@ public:
         }
     }
 
-    void onList(const AtomList& lst) override
+    void onList(const AtomListView& lv) override
     {
         t_float gain = 1;
         t_float dur = 4;
 
-        if (lst.size() == 2 && lst[0].isFloat() && lst[1].isFloat()) {
-            gain = lst[0].asT<t_float>();
-            dur = lst[1].asT<t_float>();
-        } else if (lst.size() == 1 && lst[0].isFloat()) {
-            gain = lst[0].asT<t_float>();
+        if (lv.size() == 2 && lv[0].isFloat() && lv[1].isFloat()) {
+            gain = lv[0].asT<t_float>();
+            dur = lv[1].asT<t_float>();
+        } else if (lv.size() == 1 && lv[0].isFloat()) {
+            gain = lv[0].asT<t_float>();
         } else {
             OBJ_ERR << "usage: GAIN(0..1] DUR?";
             return;

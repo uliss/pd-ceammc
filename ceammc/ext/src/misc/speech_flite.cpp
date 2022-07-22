@@ -74,9 +74,9 @@ void SpeechFlite::onSymbol(t_symbol* s)
     synth(s->s_name);
 }
 
-void SpeechFlite::onList(const AtomList& lst)
+void SpeechFlite::onList(const AtomListView& lv)
 {
-    synth(to_string(lst).c_str());
+    synth(to_string(lv).c_str());
 }
 
 void SpeechFlite::onDataT(const StringAtom& dptr)

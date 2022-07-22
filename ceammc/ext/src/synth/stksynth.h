@@ -20,7 +20,7 @@ public:
     void setupDSP(t_signal** sp) override;
     void processBlock(const t_sample**, t_sample** out) override;
 
-    void m_cc(t_symbol* s, const AtomListView& lst);
+    void m_cc(t_symbol* s, const AtomListView& lv);
     void controlChange(int n, t_float val);
 
     template <class T>
@@ -37,7 +37,7 @@ class StkSynth : public StkBase {
 public:
     StkSynth(const PdArgs& args, stk::Instrmnt* instr);
 
-    void onList(const AtomList& lst) override;
+    void onList(const AtomListView& lv) override;
     bool propSetGate(t_float f);
 
     void m_note(t_symbol* s, const AtomListView& lv);
@@ -66,12 +66,12 @@ public:
         return Atom(value_);
     }
 
-    bool setList(const AtomListView& lst) override
+    bool setList(const AtomListView& lv) override
     {
-        if (lst.empty())
+        if (lv.empty())
             return false;
 
-        value_ = lst[0].asFloat();
+        value_ = lv[0].asFloat();
         synth_.controlChange(channel_, value_);
         return true;
     }

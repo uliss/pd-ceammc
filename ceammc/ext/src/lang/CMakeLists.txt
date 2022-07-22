@@ -47,12 +47,11 @@ if(WITH_LUAJIT)
     pkg_search_module(LUAJIT luajit luajit-5.1 REQUIRED)
 endif()
 
-if(LUAJIT_FOUND)
+if(WITH_LUAJIT AND LUAJIT_FOUND)
     target_sources(ceammc_lang PRIVATE lang_luajit.cpp lua_cmd.cpp lua_func.cpp lua_interp.cpp)
     target_include_directories(ceammc_lang BEFORE PUBLIC ${LUAJIT_INCLUDE_DIRS})
-    target_include_directories(ceammc_lang PUBLIC ${PROJECT_SOURCE_DIR}/ceammc/extra/readerwriterqueue)
 
-    target_link_libraries(ceammc_lang PUBLIC ${LUAJIT_LINK_LIBRARIES})
+    target_link_libraries(ceammc_lang PUBLIC ${LUAJIT_LINK_LIBRARIES} readerwriterqueue)
     target_compile_options(ceammc_lang PRIVATE ${LUAJIT_CFLAGS_OTHER})
     target_compile_definitions(ceammc_lang PRIVATE WITH_LUA)
 

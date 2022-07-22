@@ -32,14 +32,14 @@ AtomList BpmProperty::get() const
     return { value_, beatlen_ };
 }
 
-bool BpmProperty::setList(const AtomListView& lst)
+bool BpmProperty::setList(const AtomListView& lv)
 {
-    if (!emptyCheck(lst))
+    if (!emptyCheck(lv))
         return false;
 
-    if (lst.size() == 2 && lst[0].isFloat() && lst[1].isFloat()) {
-        const auto f0 = lst[0].asT<t_float>();
-        const auto f1 = lst[1].asT<t_float>();
+    if (lv.size() == 2 && lv[0].isFloat() && lv[1].isFloat()) {
+        const auto f0 = lv[0].asT<t_float>();
+        const auto f1 = lv[1].asT<t_float>();
 
         if (!setValue(f0))
             return false;
@@ -48,13 +48,13 @@ bool BpmProperty::setList(const AtomListView& lst)
             return false;
 
         return true;
-    } else if (lst.size() == 1 && lst[0].isFloat()) {
-        return setFloat(lst[0].asT<t_float>());
-    } else if (lst.size() == 1 && lst[0].isSymbol()) {
+    } else if (lv.size() == 1 && lv[0].isFloat()) {
+        return setFloat(lv[0].asT<t_float>());
+    } else if (lv.size() == 1 && lv[0].isSymbol()) {
         using namespace ceammc::parser;
         BpmFullMatch p;
-        if (!p.parse(lst[0])) {
-            PROP_ERR() << "invalid BPM value: " << lst[0];
+        if (!p.parse(lv[0])) {
+            PROP_ERR() << "invalid BPM value: " << lv[0];
             return false;
         }
 

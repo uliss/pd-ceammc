@@ -159,9 +159,9 @@ void TlCue::onPropChange(t_symbol* prop_name)
     return UIObject::onPropChange(prop_name);
 }
 
-void TlCue::m_updateLine(const AtomListView& l)
+void TlCue::m_updateLine(const AtomListView& lv)
 {
-    if (l.symbolAt(0, &s_) != asEBox()->b_canvas_id)
+    if (lv.symbolAt(0, &s_) != asEBox()->b_canvas_id)
         return;
 
     updateLineCoords();

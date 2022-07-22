@@ -28,7 +28,7 @@ public:
 
     void onBang() override;
     void onFloat(t_float v) override;
-    void onInlet(size_t n, const AtomListView& l) override;
+    void onInlet(size_t n, const AtomListView& lv) override;
 
     bool loopbackDetected();
 

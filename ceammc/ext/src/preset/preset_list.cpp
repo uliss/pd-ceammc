@@ -19,9 +19,9 @@ void PresetList::initDone()
     current_value_ = init_->value();
 }
 
-void PresetList::onList(const AtomList& lst)
+void PresetList::onList(const AtomListView& lv)
 {
-    current_value_ = lst;
+    current_value_ = lv;
 }
 
 void PresetList::loadFrom(t_float idx)

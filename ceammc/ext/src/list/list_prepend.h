@@ -20,20 +20,18 @@
 using namespace ceammc;
 
 class ListPrepend : public BaseObject {
-    AtomList lst_;
+    ListProperty* lst_;
 
 public:
     ListPrepend(const PdArgs& args);
 
-    void parseProperties() override;
-
     void onBang() override;
     void onFloat(t_float f) override;
     void onSymbol(t_symbol* s) override;
-    void onList(const AtomList& lst) override;
+    void onList(const AtomListView& lv) override;
     void onData(const Atom& d) override;
     void onDataT(const MListAtom& ml);
-    void onInlet(size_t n, const AtomListView& lst) override;
+    void onInlet(size_t n, const AtomListView& lv) override;
 };
 
 void setup_list_prepend();

@@ -131,7 +131,7 @@ DataParseResult parseDataList(const AtomListView& view) noexcept;
  * Parse string
  * @return parse result
  */
-DataParseResult parseDataString(const std::string& str) noexcept;
+DataParseResult parseDataString(const char* str) noexcept;
 
 }
 

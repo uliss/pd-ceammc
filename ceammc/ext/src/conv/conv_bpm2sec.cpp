@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "conv_bpm2sec.h"
+#include "ceammc_containers.h"
 #include "ceammc_factory.h"
 
 static t_float bpm2sec(t_float v)
@@ -30,9 +31,11 @@ void BpmToSec::onFloat(t_float v)
     floatTo(0, bpm2sec(v));
 }
 
-void BpmToSec::onList(const AtomList& lst)
+void BpmToSec::onList(const AtomListView& lv)
 {
-    listTo(0, lst.mapFloat(bpm2sec));
+    SmallAtomList res;
+    lv.mapFloat(bpm2sec, res);
+    listTo(0, res.view());
 }
 
 void setup_conv_bpm2sec()

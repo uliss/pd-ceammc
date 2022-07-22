@@ -7,15 +7,14 @@
 #include <boost/algorithm/string/case_conv.hpp>
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/bind/bind.hpp>
-#include <boost/foreach.hpp>
 #include <pthread.h>
 
 #include <cassert>
 #include <chrono>
+#include <cstdint>
 #include <cstdio>
 #include <iostream>
 #include <stdexcept>
-#include <stdint.h>
 #include <thread>
 
 using namespace ceammc::platform;
@@ -24,7 +23,7 @@ using namespace boost::placeholders;
 namespace ceammc {
 namespace hw {
 
-    static const int DEFAULT_TIMEOUT = 10;
+    constexpr const int DEFAULT_TIMEOUT = 10;
     static std::chrono::milliseconds RECONNECT_TIME_MS(1000);
 
     struct usb_info {
@@ -384,7 +383,11 @@ namespace hw {
     {
         static usb_info const info[] = {
             // CP2102 USB to UART Bridge Controller
-            { 0x10c4, /*(Silicon Laboratories, Inc.)*/ 0xea60 }
+            {
+                0x10c4,
+                /*(Silicon Laboratories, Inc.)*/
+                0xea60,
+            }
         };
 
         using namespace boost::algorithm;
@@ -397,7 +400,7 @@ namespace hw {
         if (!parseArduinoId(p.hardware_id, vid, pid, serial))
             return false;
 
-        BOOST_FOREACH (const usb_info& i, info) {
+        for (const usb_info& i : info) {
             if (i.vid == vid && i.pid == pid)
                 return true;
         }

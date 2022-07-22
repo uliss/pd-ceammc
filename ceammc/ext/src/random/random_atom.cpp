@@ -14,14 +14,17 @@
 #include "random_atom.h"
 #include "ceammc_factory.h"
 #include "ceammc_fn_list.h"
+#include "fmt/format.h"
 
 #include <cassert>
+#include <limits>
 
 RandomAtom::RandomAtom(const PdArgs& args)
     : BaseObject(args)
     , atoms_(nullptr)
-    , wsum_(0)
     , seed_(nullptr)
+    , last_idx_(std::numeric_limits<uint32_t>::max())
+    , is_uniform_(true)
 {
     atoms_ = new ListProperty("@a");
     atoms_->setArgIndex(0);
@@ -36,19 +39,25 @@ RandomAtom::RandomAtom(const PdArgs& args)
 
             return res;
         },
-        [this](const AtomList& l) -> bool {
-            if (l.size() > atoms_->value().size()) {
-                OBJ_ERR << "number of weights exceed number of atoms";
+        [this](const AtomListView& lv) -> bool {
+            const auto NA = atoms_->value().size();
+            const auto NW = lv.size();
+            if (NW > NA) {
+                OBJ_ERR << fmt::format("number of weights is greater then number of atoms: {}>{}", NW, NA);
                 return false;
             }
 
             weights_.clear();
-            weights_.assign(atoms_->value().size(), 0);
+            weights_.assign(NA, 0);
 
-            assert(l.size() <= atoms_->value().size());
+            // empty weights: use uniform distribution
+            if (NW == 0) {
+                is_uniform_ = true;
+                return true;
+            }
 
             int idx = 0;
-            for (auto& a : l) {
+            for (auto& a : lv) {
                 auto w = a.asFloat(-1);
                 if (w < 0) {
                     OBJ_ERR << "invalid weight value: " << a << ", using 0 instead";
@@ -58,13 +67,13 @@ RandomAtom::RandomAtom(const PdArgs& args)
                 weights_[idx++] = w;
             }
 
-            wsum_ = std::accumulate(weights_.begin(), weights_.end(), t_float(0));
-            if (wsum_ == 0) {
+            if (std::accumulate(weights_.begin(), weights_.end(), t_float(0)) == 0) {
                 OBJ_ERR << "weights sum is equal 0";
                 return false;
             }
 
-            dist_ = std::discrete_distribution<size_t>(weights_.begin(), weights_.end());
+            discrete_ = DiscreteDist(weights_.begin(), weights_.end());
+            is_uniform_ = false;
             return true;
         });
 
@@ -72,30 +81,76 @@ RandomAtom::RandomAtom(const PdArgs& args)
     seed_->setSuccessFn([this](Property* p) { gen_.setSeed(seed_->value()); });
     addProperty(seed_);
 
+    nonrep_ = new BoolProperty("@nonrep", false);
+    addProperty(nonrep_);
+
+    createInlet();
     createOutlet();
 }
 
 void RandomAtom::onBang()
 {
-    if (atoms_->value().empty()) {
-        OBJ_ERR << "empty list";
-        return;
-    }
+    const auto N = atoms_->value().size();
+    const auto NONREP = nonrep_->value();
 
     size_t idx = 0;
 
-    if (wsum_ == 0) {
-        std::uniform_int_distribution<size_t> dist(0, atoms_->value().size() - 1);
-        idx = dist(gen_.get());
-    } else
-        idx = dist_(gen_.get());
+    if (NONREP) {
+        if (N < 2) {
+            OBJ_ERR << fmt::format("not enough elements for non-repeating random reneration: {}", N);
+            return;
+        }
 
-    assert(idx < atoms_->value().size());
+        updateUniformDistrib();
+        idx = genIndex();
+        int max_tries = 512;
+        // generate new index not equal to previous
+        while (last_idx_ == idx && max_tries-- > 0)
+            idx = genIndex();
+
+        // update last index
+        last_idx_ = idx;
+
+    } else {
+        if (N == 0) {
+            OBJ_ERR << "empty atom list";
+            return;
+        }
+
+        updateUniformDistrib();
+        idx = genIndex();
+    }
+
     atomTo(0, atoms_->value()[idx]);
+}
+
+void RandomAtom::onInlet(size_t n, const AtomListView& lv)
+{
+    if (atoms_->set(lv)) {
+        if (!is_uniform_) {
+            OBJ_DBG << "clearing atoms weights, using uniform distribution";
+            is_uniform_ = true;
+            weights_.clear();
+        }
+    }
+}
+
+uint32_t RandomAtom::genIndex()
+{
+    if (is_uniform_)
+        return uniform_(gen_.get());
+    else
+        return discrete_(gen_.get());
+}
+
+void RandomAtom::updateUniformDistrib()
+{
+    uniform_ = UniformDist(0, atoms_->value().size() - 1);
 }
 
 void setup_random_atom()
 {
     ObjectFactory<RandomAtom> obj("random.atom");
     obj.addAlias("random.a");
+    obj.setXletsInfo({ "bang", "list: set list to choose from" }, { "atom: random element from list" });
 }

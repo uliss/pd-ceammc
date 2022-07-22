@@ -28,7 +28,7 @@ public:
     MidiVelocityRamp(const PdArgs& args);
 
     void onFloat(t_float v) override;
-    void onList(const AtomList& lst) override;
+    void onList(const AtomListView& lv) override;
 
     void m_reset(t_symbol* s, const AtomListView& lv);
 };

@@ -25,7 +25,7 @@ public:
      * @param sample position
      */
     void onFloat(t_float sample) override;
-    void onList(const AtomList& lst) override;
+    void onList(const AtomListView& lv) override;
 };
 
 void setup_array_s2p();

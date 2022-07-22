@@ -115,7 +115,7 @@ extern "C" CEAMMC_EXTERN bool ceammc_dump_json(int argc, char* argv[])
             continue;
         }
 
-        jobj["properties"].push_back(json::parse(info.valueToJsonString()));
+        jobj["properties"].push_back(json::parse(info.toJsonString()));
     }
 
     // add info

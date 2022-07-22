@@ -17,6 +17,8 @@
 
 PD_COMPLETE_TEST_SETUP(ListXContains, list, xcontains)
 
+using MA = MListAtom;
+
 TEST_CASE("list.^contains", "[externals]")
 {
     pd_test_init();
@@ -39,19 +41,23 @@ TEST_CASE("list.^contains", "[externals]")
 
         SECTION("spaces and quotes")
         {
-            TObj t("list.^contains", LA("\"a b c\""));
+            TObj t("list.^contains", LP("\"a b c\""));
             REQUIRE_PROPERTY(t, @value, "a b c");
         }
 
         SECTION("args mlist")
         {
-            TObj t("list.^contains", AtomList::parseString("(1 2 3 (4 5 6))"));
-            REQUIRE_PROPERTY(t, @value, MListAtom(*DataTypeMList::parse("( 1 2 3 ( 4 5 6 ) )")));
+            auto args = LP("(1 2 3 (4 5 6))");
+            TObj t("list.^contains", args);
+
+            MA ma;
+            REQUIRE(ma->setFromDataList(args));
+            REQUIRE_PROPERTY(t, @value, ma);
         }
 
         SECTION("args props")
         {
-            TObj t("list.^contains", AtomList::parseString("\"@b\" \"@c\""));
+            TObj t("list.^contains", LP("\"@b\" \"@c\""));
             REQUIRE_PROPERTY(t, @value, LA("@b", "@c"));
         }
     }

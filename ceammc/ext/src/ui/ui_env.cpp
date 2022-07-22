@@ -270,7 +270,7 @@ void UIEnv::drawEnvelope(const t_rect& r)
 
                     int i = n.x * z;
                     for (; i < next.x * z; i += 4 * z) {
-                        float y = convert::lin2curve(float(i), n.x* z, next.x* z, n.y* z, next.y* z, n.curve);
+                        float y = convert::lin2curve(float(i), n.x * z, next.x * z, n.y * z, next.y * z, n.curve);
                         ep.drawLineTo(i, y);
                     }
 
@@ -796,8 +796,8 @@ void UIEnv::setNamedEnvelope(const char* env, const AtomListView& lv)
 void UIEnv::loadPreset(size_t idx)
 {
     auto lv = PresetStorage::instance().listValueAt(presetId(), idx);
-    DataTypeEnv env = DataTypeEnv::fromListView(lv);
-    if (env.empty())
+    DataTypeEnv env;
+    if (!env.setFromDataList(lv))
         return;
 
     env_ = env;
@@ -807,7 +807,7 @@ void UIEnv::loadPreset(size_t idx)
 
 void UIEnv::storePreset(size_t idx)
 {
-    PresetStorage::instance().setListValueAt(presetId(), idx, env_.toList());
+    PresetStorage::instance().setListValueAt(presetId(), idx, AtomList::parseString(env_.toDictString().c_str()));
 }
 
 void UIEnv::onPropChange(t_symbol* prop_name)

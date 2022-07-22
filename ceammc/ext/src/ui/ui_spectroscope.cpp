@@ -19,8 +19,8 @@
 #include <algorithm>
 #include <cmath>
 
-static const size_t TXT_DB_COUNT = 10;
-static const char* TXT_DB[TXT_DB_COUNT] = {
+constexpr const size_t TXT_DB_COUNT = 10;
+constexpr const char* TXT_DB[TXT_DB_COUNT] = {
     "", " -6", "-12", "-18", "-24", "-30", "-36", "-42", "-50", "-54"
 };
 

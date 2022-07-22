@@ -89,6 +89,7 @@ private:
     std::uint16_t n_instance_in_;
     std::uint16_t n_instance_out_;
     size_t pattern_hash_;
+    std::vector<std::string> inlet_help_, outlet_help_;
     bool renaming_;
 
 public:
@@ -121,6 +122,9 @@ public:
 
     bool changed() const;
 
+    const char* annotateInlet(size_t n) const final;
+    const char* annotateOutlet(size_t n) const final;
+
 public:
     virtual void onSave(t_binbuf* b) const;
     virtual void onRestore(const AtomListView& lv);
@@ -131,6 +135,7 @@ private:
 
     void updateInlets();
     void updateOutlets();
+    void updateXletsInfo();
 
     void signalInit(t_signal** sp);
 

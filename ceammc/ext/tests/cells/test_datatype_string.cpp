@@ -329,13 +329,13 @@ TEST_CASE("DataTypeString", "[core]")
 
     SECTION("json")
     {
-        REQUIRE(DSTR("simple").valueToJsonString() == "\"simple\"");
-        REQUIRE(DSTR("a b c").valueToJsonString() == "\"a b c\"");
-        REQUIRE(DSTR("a\nb").valueToJsonString() == "\"a\\nb\"");
-        REQUIRE(DSTR("a\tb").valueToJsonString() == "\"a\\tb\"");
-        REQUIRE(DSTR(R"( a\b )").valueToJsonString() == R"(" a\\b ")");
-        REQUIRE(DSTR(R"( a"b )").valueToJsonString() == R"(" a\"b ")");
-        REQUIRE(DSTR(R"( a\"b )").valueToJsonString() == R"(" a\\\"b ")");
+        REQUIRE(DSTR("simple").toJsonString() == "\"simple\"");
+        REQUIRE(DSTR("a b c").toJsonString() == "\"a b c\"");
+        REQUIRE(DSTR("a\nb").toJsonString() == "\"a\\nb\"");
+        REQUIRE(DSTR("a\tb").toJsonString() == "\"a\\tb\"");
+        REQUIRE(DSTR(R"( a\b )").toJsonString() == R"(" a\\b ")");
+        REQUIRE(DSTR(R"( a"b )").toJsonString() == R"(" a\"b ")");
+        REQUIRE(DSTR(R"( a\"b )").toJsonString() == R"(" a\\\"b ")");
     }
 
     SECTION("StringAtom")
@@ -364,14 +364,73 @@ TEST_CASE("DataTypeString", "[core]")
 
     SECTION("to_string")
     {
-        CHECK(to_string(StringAtom("spaceless")) == "spaceless");
-        CHECK(to_string(StringAtom("")) == "");
-        CHECK(to_string(StringAtom(" ")) == " ");
-        CHECK(to_string(StringAtom("with spaces")) == "with spaces");
+        CHECK(to_string(StringAtom("spaceless")) == "S\"spaceless\"");
+        CHECK(to_string(StringAtom("")) == "S\"\"");
+        CHECK(to_string(StringAtom(" ")) == "S\" \"");
+        CHECK(to_string(StringAtom("with spaces")) == "S\"with spaces\"");
+        CHECK(to_string(StringAtom("with 'single quotes'")) == "S\"with 'single quotes'\"");
+        CHECK(to_string(StringAtom(R"(with "double quotes")")) == R"(S"with `"double quotes`"")");
+        CHECK(to_string(StringAtom(R"(with,commas)")) == R"(S"with,commas")");
+        CHECK(to_string(StringAtom(R"(with;semicolon)")) == R"(S"with;semicolon")");
+        CHECK(to_string(StringAtom(R"(with:)")) == R"(S"with:")");
+        CHECK(to_string(StringAtom(R"(with {} braces)")) == R"(S"with `(`) braces")");
+        CHECK(to_string(StringAtom(R"(with @at)")) == R"(S"with @at")");
+        CHECK(to_string(StringAtom(R"(with ``)")) == R"(S"with ````")");
+        CHECK(to_string(StringAtom(R"(with \ slash)")) == R"(S"with \ slash")");
 
-        REQUIRE(StringAtom("a b").asData()->toString() == "a b");
-        REQUIRE(Atom(new DataTypeString("a b c")).asData()->toString() == "a b c");
-        REQUIRE(to_string(Atom(new DataTypeString("a b c"))) == "a b c");
+        REQUIRE(StringAtom("a b").asData()->toString() == "S\"a b\"");
+        REQUIRE(Atom(new DataTypeString("a b c")).asData()->toString() == "S\"a b c\"");
+        REQUIRE(to_string(Atom(new DataTypeString("a b c"))) == "S\"a b c\"");
+    }
+
+    SECTION("toListStringContent")
+    {
+        using SA = StringAtom;
+        CHECK(SA("")->toListStringContent() == "\"\"");
+        CHECK(SA(" ")->toListStringContent() == "\" \"");
+        CHECK(SA("a, b, c;")->toListStringContent() == "\"a, b, c;\"");
+        CHECK(SA("'single quotes'")->toListStringContent() == "\"'single quotes'\"");
+        CHECK(SA("\"double quotes\"")->toListStringContent() == "\"`\"double quotes`\"\"");
+    }
+
+    SECTION("toListString")
+    {
+        using SA = StringAtom;
+        CHECK(SA("")->toListString() == "String(\"\")");
+        CHECK(SA(" ")->toListString() == "String(\" \")");
+        CHECK(SA("a, b, c;")->toListString() == "String(\"a, b, c;\")");
+        CHECK(SA("'single quotes'")->toListString() == "String(\"'single quotes'\")");
+        CHECK(SA("\"double quotes\"")->toListString() == "String(\"`\"double quotes`\"\")");
+    }
+
+    SECTION("toString")
+    {
+        using SA = StringAtom;
+        CHECK(SA("")->toString() == "S\"\"");
+        CHECK(SA(" ")->toString() == "S\" \"");
+        CHECK(SA("a, b, c;")->toString() == "S\"a, b, c;\"");
+        CHECK(SA("'single quotes'")->toString() == "S\"'single quotes'\"");
+        CHECK(SA("\"double quotes\"")->toString() == "S\"`\"double quotes`\"\"");
+    }
+
+    SECTION("toDictString")
+    {
+        using SA = StringAtom;
+        CHECK(SA("")->toDictString() == "String[value: \"\"]");
+        CHECK(SA(" ")->toDictString() == "String[value: \" \"]");
+        CHECK(SA("a, b, c;")->toDictString() == "String[value: \"a, b, c;\"]");
+        CHECK(SA("'single quotes'")->toDictString() == "String[value: \"'single quotes'\"]");
+        CHECK(SA("\"double quotes\"")->toDictString() == "String[value: \"`\"double quotes`\"\"]");
+    }
+
+    SECTION("toDictStringContent")
+    {
+        using SA = StringAtom;
+        CHECK(SA("")->toDictStringContent() == "value: \"\"");
+        CHECK(SA(" ")->toDictStringContent() == "value: \" \"");
+        CHECK(SA("a, b, c;")->toDictStringContent() == "value: \"a, b, c;\"");
+        CHECK(SA("'single quotes'")->toDictStringContent() == "value: \"'single quotes'\"");
+        CHECK(SA("\"double quotes\"")->toDictStringContent() == "value: \"`\"double quotes`\"\"");
     }
 
     SECTION("create via factory")
@@ -394,5 +453,8 @@ TEST_CASE("DataTypeString", "[core]")
     SECTION("parse")
     {
         REQUIRE(parseDataString("S\"a b c\"") == StringAtom("a b c"));
+        REQUIRE(parseDataString("String(a b c)") == StringAtom("a b c"));
+        REQUIRE(parseDataString("String(\"a b c\")") == StringAtom("a b c"));
+        REQUIRE(parseDataString("String(\"a b\" c)") == StringAtom("a b c"));
     }
 }

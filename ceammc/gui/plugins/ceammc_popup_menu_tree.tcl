@@ -37,10 +37,10 @@
     {array {
         array.bpm array.circular~ array.copy array.do array.each array.fill
         array.grainer~ array.hist array.mean array.minmax array.play~
-        array.plot array.plot~ array.resample array.rms array.set array.stddev
-        array.stretch array.sum array.sum2 array.variance array.vplay
-        array.window plot.geomspace~ plot.hist~ plot.linspace~ plot.logspace~
-        plot.response~
+        array.plot array.plot~ array.resample array.risset_rythm~ array.rms
+        array.set array.stddev array.stretch array.sum array.sum2
+        array.variance array.vplay array.window plot.geomspace~ plot.hist~
+        plot.linspace~ plot.logspace~ plot.response~
     }}
     {base {
         ceammc.search function function.call gain~ logger matrix~
@@ -128,14 +128,15 @@
         list.convolve list.correlate list.count list.count_if list.delta
         list.distribution list.do list.each list.enumerate list.equal
         list.first list.gen list.histogram list.insert list.integrator
-        list.last list.length list.max list.mean list.min list.none_of
-        list.normalize list.pass_if list.prepend list.product list.range
-        list.reduce list.remove list.remove_if list.repack list.repeat
-        list.resample list.resize list.reverse list.rldecode list.rlencode
-        list.rotate list.route list.rundiff list.runsum list.search
-        list.separate list.seq list.set list.shift list.shuffle list.slice
-        list.sort list.sort_with list.split list.stretch list.sum list.unique
-        list.unpack list.unzip list.walk list.zip
+        list.last list.length list.map list.max list.mean list.min
+        list.none_of list.normalize list.pass list.pass_if list.prepend
+        list.product list.range list.reduce list.reject list.remove
+        list.remove_if list.repack list.repeat list.resample list.resize
+        list.reverse list.rldecode list.rlencode list.rotate list.route
+        list.rundiff list.runsum list.search list.separate list.seq list.set
+        list.shift list.shuffle list.slice list.sort list.sort_with list.split
+        list.stretch list.sum list.unique list.unpack list.unzip list.walk
+        list.zip
     }}
     {live {
         live.capture~
@@ -169,7 +170,7 @@
         midi.vramp midi.vrand
     }}
     {misc {
-        click~ fluid~ modplug~ sfizz~ speech.flite speech.flite~
+        click~ fluid~ modplug~ risset.gliss sfizz~ speech.flite speech.flite~
     }}
     {msg {
         loadexpr msg msg.after msg.onload msg.sched

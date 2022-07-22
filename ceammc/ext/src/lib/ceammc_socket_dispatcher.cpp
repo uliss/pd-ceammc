@@ -12,6 +12,9 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_socket_dispatcher.h"
+#include "ceammc_log.h"
+
+#include "m_pd.h"
 
 extern "C" {
 #include "s_net.h"

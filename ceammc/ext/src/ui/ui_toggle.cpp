@@ -3,13 +3,11 @@
 #include "ceammc_ui.h"
 #include "ui_toggle.tcl.h"
 
-static t_symbol* midi_ctl_sym()
-{
-    static t_symbol* sym = gensym("#ctlin");
-    return sym;
-}
+constexpr const char* SYM_CTLIN = "#ctlin";
 
-static t_rgba BIND_MIDI_COLOR = hex_to_rgba("#FF3377");
+const t_rgba BIND_MIDI_COLOR = hex_to_rgba("#FF3377");
+
+namespace ceammc {
 
 UIToggle::UIToggle()
     : midi_proxy_(this, &UIToggle::onMidiCtrl)
@@ -27,7 +25,7 @@ UIToggle::UIToggle()
 void UIToggle::startListenMidi()
 {
     listen_midi_ctrl_ = true;
-    midi_proxy_.bind(midi_ctl_sym());
+    midi_proxy_.bind(SYM_CTLIN);
     LIB_DBG << "move MIDI control to bind";
 
     asEBox()->b_boxparameters.d_bordercolor = BIND_MIDI_COLOR;
@@ -97,7 +95,7 @@ void UIToggle::onDblClick(t_object* x, const t_pt& pt, long mod)
         stopListenMidi();
 }
 
-void UIToggle::onPropChange(t_symbol *prop_name)
+void UIToggle::onPropChange(t_symbol* prop_name)
 {
     UIObject::onPropChange(prop_name);
 
@@ -113,7 +111,7 @@ void UIToggle::onPropChange(t_symbol *prop_name)
                 ss << prop_midi_chn;
 
             UI_DBG << ss.str();
-            midi_proxy_.bind(midi_ctl_sym());
+            midi_proxy_.bind(SYM_CTLIN);
         } else
             midi_proxy_.unbind();
     }
@@ -214,11 +212,13 @@ void UIToggle::setup()
 
     obj.addProperty("midi_channel", _("MIDI channel"), 0, &UIToggle::prop_midi_chn, "MIDI");
     obj.setPropertyRange("midi_channel", 0, 16);
-    obj.addProperty("midi_control", _("MIDI control"), 0, &UIToggle::prop_midi_ctl, "MIDI");
-    obj.setPropertyRange("midi_control", 0, 128);
+    obj.addProperty("midi_control", _("MIDI control"), -1, &UIToggle::prop_midi_ctl, "MIDI");
+    obj.setPropertyRange("midi_control", -1, 127);
+}
+
 }
 
 void setup_ui_toggle()
 {
-    UIToggle::setup();
+    ceammc::UIToggle::setup();
 }

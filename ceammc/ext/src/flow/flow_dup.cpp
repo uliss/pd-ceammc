@@ -45,10 +45,10 @@ void FlowDup::onSymbol(t_symbol* s)
         symbolTo(0, s);
 }
 
-void FlowDup::onList(const AtomList& l)
+void FlowDup::onList(const AtomListView& lv)
 {
     for (int i = times_->value(); i > 0; i--)
-        listTo(0, l);
+        listTo(0, lv);
 }
 
 void FlowDup::onAny(t_symbol* s, const AtomListView& lv)
@@ -66,4 +66,6 @@ void setup_flow_dup()
 {
     ObjectFactory<FlowDup> obj("flow.dup");
     obj.noPropsDispatch();
+
+    obj.setXletsInfo({ "input messages", "int: number of repeats for each message" }, { "output messages" });
 }

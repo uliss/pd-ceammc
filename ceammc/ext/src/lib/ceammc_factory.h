@@ -452,7 +452,8 @@ public:
     /** default factory list handler */
     static void processList(ObjectProxy* x, t_symbol*, int argc, t_atom* argv)
     {
-        x->impl->onList(AtomList(argc, argv));
+        const AtomListView args(argv, argc);
+        x->impl->onList(args);
     }
 
     /** default factory any handler handler */
@@ -490,7 +491,7 @@ public:
         if (argc == 1 && argv && Atom::is_data(argv)) {
             x->impl->onData(Atom(*argv));
         } else {
-            x->impl->onList(AtomList(argc, argv));
+            x->impl->onList(AtomListView(argv, argc));
         }
     }
 
@@ -507,7 +508,7 @@ public:
             if (!IteratorPred::next(x, data))
                 x->impl->onData(data);
         } else {
-            x->impl->onList(AtomList(argc, argv));
+            x->impl->onList(AtomListView(argv, argc));
         }
     }
 

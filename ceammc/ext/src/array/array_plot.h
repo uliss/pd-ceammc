@@ -35,7 +35,7 @@ public:
     ArrayPlot(const PdArgs& a);
 
     void onFloat(t_float sample) override;
-    void onList(const AtomList& lst) override;
+    void onList(const AtomListView& lv) override;
     void onInlet(size_t n, const AtomListView& l) override;
 
     bool setArray(t_symbol* s);

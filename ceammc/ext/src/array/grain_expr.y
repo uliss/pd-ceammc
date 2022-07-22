@@ -171,6 +171,9 @@ expr    ::= FN_URAND OPENP CLOSEP.        { p->bcPushCode(ceammc::OP_URAND0); }
 expr    ::= FN_URAND OPENP expr CLOSEP.   { p->bcPushCode(ceammc::OP_URAND1); }
 expr    ::= FN_URAND OPENP expr COMMA expr CLOSEP.
                                           { p->bcPushCode(ceammc::OP_URAND2); }
+expr    ::= FN_URAND OPENP expr DOTS expr CLOSEP.
+                                        { p->bcPushCode(ceammc::OP_URAND2); }
+
 
 number(A) ::= DOUBLE(B).                  { A = B; p->bcPushValue(B.val); }
 number(A) ::= MINUS DOUBLE(B).            { A.val = -B.val; p->bcPushValue(-B.val); }

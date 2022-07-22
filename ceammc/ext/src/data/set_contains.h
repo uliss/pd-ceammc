@@ -17,13 +17,15 @@
 #include "ceammc_object.h"
 #include "datatype_set.h"
 
+using namespace ceammc;
+
 class SetContains : public BaseObject {
     AtomProperty* element_;
 
 public:
     SetContains(const PdArgs& a);
     void onDataT(const SetAtom& set);
-    void onInlet(size_t n, const AtomListView& lst) override;
+    void onInlet(size_t n, const AtomListView& lv) override;
 };
 
 void setup_set_contains();

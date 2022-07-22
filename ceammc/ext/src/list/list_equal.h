@@ -24,8 +24,8 @@ class ListEqual : public ListBase {
 public:
     ListEqual(const PdArgs& a);
 
-    void onInlet(size_t n, const AtomListView& lst) override;
-    void onList(const AtomList& lst) override;
+    void onInlet(size_t n, const AtomListView& lv) override;
+    void onList(const AtomListView& lv) override;
 };
 
 void setup_list_equal();

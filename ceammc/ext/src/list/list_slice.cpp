@@ -35,8 +35,9 @@ ListSlice::ListSlice(const PdArgs& a)
     addProperty(step_);
 }
 
-void ListSlice::onList(const AtomList& l)
+void ListSlice::onList(const AtomListView& lv)
 {
+    AtomList l(lv);
     listTo(0, l.slice(from_->value(), to_->value(), step_->value()));
 }
 

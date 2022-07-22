@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "ceammc_editor_object.h"
 #include "ceammc_canvas.h"
+#include "fmt/format.h"
 
 extern "C" {
 #include "g_canvas.h"
@@ -20,28 +21,49 @@ extern "C" {
 
 namespace ceammc {
 
-static const char* editorSyntaxStr(EditorSyntax s)
+namespace {
+    const char* editorSyntaxStr(EditorSyntax s)
+    {
+        switch (s) {
+        case EDITOR_SYNTAX_SELECTOR:
+            return "selector";
+        case EDITOR_SYNTAX_DEFAULT:
+            return "default";
+        case EDITOR_SYNTAX_LUA:
+            return "lua";
+        case EDITOR_SYNTAX_NONE:
+        default:
+            return "none";
+        }
+    }
+
+    const char* escapeMode(EditorEscapeMode m)
+    {
+        switch (m) {
+        case EDITOR_ESC_MODE_LUA:
+            return "lua";
+        case EDITOR_ESC_MODE_DATA:
+            return "data";
+        case EDITOR_ESC_MODE_DEFAULT:
+        default:
+            return "default";
+        }
+    }
+}
+
+void EditorString::append(char ch)
 {
-    switch (s) {
-    case EDITOR_SYNTAX_SELECTOR:
-        return "selector";
-    case EDITOR_SYNTAX_DEFAULT:
-        return "default";
-    case EDITOR_SYNTAX_LUA:
-        return "lua";
-    case EDITOR_SYNTAX_NONE:
-    default:
-        return "none";
+    try {
+        str.push_back(ch);
+    } catch (std::exception& e) {
+        LIB_ERR << e.what();
     }
 }
 
 void EditorString::append(t_float t)
 {
-    char buf[32];
-    snprintf(buf, sizeof(buf) - 1, "%.7g", t);
-
     try {
-        str.append(buf);
+        fmt::format_to(std::back_inserter(str), "{:g}", t);
     } catch (std::exception& e) {
         LIB_ERR << e.what();
     }
@@ -66,16 +88,6 @@ void EditorString::append(const Atom& a)
         LIB_ERR << "unsupported atom type: " << a.type();
 }
 
-void EditorString::append(const AtomList& lst, const char* delim)
-{
-    for (size_t i = 0; i < lst.size(); i++) {
-        if (i > 0)
-            append(delim);
-
-        append(lst[i]);
-    }
-}
-
 void EditorString::append(const AtomListView& lv, const char* delim)
 {
     for (size_t i = 0; i < lv.size(); i++) {
@@ -86,10 +98,63 @@ void EditorString::append(const AtomListView& lv, const char* delim)
     }
 }
 
+void EditorString::appendQuoted(const char* txt)
+{
+    try {
+
+        str.append(1, '"');
+        const auto N = strlen(txt);
+        for (size_t i = 0; i < N; i++) {
+            auto c = txt[i];
+            if (c == '"') {
+                str.append(1, '`');
+                str.append(1, '"');
+            } else if (c == '`') {
+                str.append(2, '`');
+            } else
+                str.append(1, c);
+        }
+
+        str.append(1, '"');
+    } catch (std::exception& e) {
+        LIB_ERR << e.what();
+    }
+}
+
+void EditorString::appendQuoted(const Atom& a)
+{
+    if (a.isFloat())
+        return append(a.asT<t_float>());
+    else if (a.isSymbol())
+        return appendQuoted(a.asT<t_symbol*>()->s_name);
+}
+
+void EditorString::appendQuoted(const AtomListView& lv, const char* delim)
+{
+    for (size_t i = 0; i < lv.size(); i++) {
+        if (i > 0)
+            append(delim);
+
+        appendQuoted(lv[i]);
+    }
+}
+
+void EditorString::pop()
+{
+    if (str.size() > 0)
+        str.pop_back();
+}
+
+void EditorString::trim()
+{
+    while (str.size() > 0 && str.back() == ' ')
+        str.pop_back();
+}
+
 EditorObjectImpl::EditorObjectImpl(t_object* owner)
     : owner_(owner)
     , guiconnect_(nullptr)
-    , escape_specs_(false)
+    , esc_mode_(EDITOR_ESC_MODE_DEFAULT)
 {
 }
 
@@ -118,7 +183,7 @@ void EditorObjectImpl::open(t_canvas* cnv, const EditorLineList& data, const Edi
         sys_vgui("ceammc::texteditor::open .x%lx %dx%d+%d+%d {%s} %d %d %s\n",
             xowner(), w, h, brect.x + x, brect.y + y, title.c_str(), fsz, (int)lineNumbers, editorSyntaxStr(syntax));
 
-        sys_vgui("ceammc::texteditor::set_escape .x%lx %d\n", xowner(), escape_specs_ ? 1 : 0);
+        sys_vgui("ceammc::texteditor::set_escape .x%lx %s\n", xowner(), escapeMode(esc_mode_));
 
         char buf[40];
         sprintf(buf, ".x%lx", xowner());
@@ -155,9 +220,9 @@ void EditorObjectImpl::sync(const EditorLineList& list)
     sys_vgui("ceammc::texteditor::setundo .x%lx 1\n", xowner());
 }
 
-void EditorObjectImpl::setSpecialSymbolEscape(bool value)
+void EditorObjectImpl::setSpecialSymbolEscape(EditorEscapeMode mode)
 {
-    escape_specs_ = value;
+    esc_mode_ = mode;
 }
 
 void EditorObjectImpl::setDirty(t_canvas* c, bool value)

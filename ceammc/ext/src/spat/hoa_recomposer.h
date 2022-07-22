@@ -33,8 +33,8 @@ public:
     void processBlock(const t_sample** in, t_sample** out) override;
     void setupDSP(t_signal** sp) override;
 
-    void m_angles(t_symbol* s, const AtomListView& lst);
-    void m_wide(t_symbol* s, const AtomListView& lst);
+    void m_angles(t_symbol* s, const AtomListView& lv);
+    void m_wide(t_symbol* s, const AtomListView& lv);
 
     bool propSetRamp(t_float f);
 

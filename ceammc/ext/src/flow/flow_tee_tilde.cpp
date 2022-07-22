@@ -23,9 +23,9 @@ void FlowTeeTilde::onFloat(t_float f)
     floatTo(1, f);
 }
 
-void FlowTeeTilde::onList(const AtomList& l)
+void FlowTeeTilde::onList(const AtomListView& lv)
 {
-    listTo(1, l);
+    listTo(1, lv);
 }
 
 void FlowTeeTilde::onAny(t_symbol* s, const AtomListView& lv)

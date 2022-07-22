@@ -6,6 +6,11 @@
 #include <tuple>
 
 static const float ALPHA_BLEND = 0.4;
+constexpr int MIDI_CTL_NONE = -1;
+constexpr int MIDI_CTL_MIN = 0;
+constexpr int MIDI_CTL_MAX = 127;
+
+namespace ceammc {
 
 UISlider::UISlider()
     : is_horizontal_(false)
@@ -225,8 +230,8 @@ void UISlider::setup()
 
     obj.addProperty("midi_channel", _("MIDI channel"), 0, &UISingleValue::prop_midi_chn, "MIDI");
     obj.setPropertyRange("midi_channel", 0, 16);
-    obj.addProperty("midi_control", _("MIDI control"), 0, &UISingleValue::prop_midi_ctl, "MIDI");
-    obj.setPropertyRange("midi_control", 0, 128);
+    obj.addProperty("midi_control", _("MIDI control"), MIDI_CTL_NONE, &UISingleValue::prop_midi_ctl, "MIDI");
+    obj.setPropertyRange("midi_control", MIDI_CTL_NONE, MIDI_CTL_MAX);
     obj.addProperty("midi_pickup", _("MIDI pickup"), true, &UISingleValue::prop_pickup_midi, "MIDI");
     obj.addProperty("active_scale", _("Draw active scale"), false, &UISlider::prop_active_scale, "Main");
     obj.addProperty("show_value", _("Show value in horizontal mode"), false, &UISingleValue::prop_show_value, "Misc");
@@ -237,7 +242,9 @@ void UISlider::setup()
     obj.addProperty("value", &UISingleValue::value, &UISingleValue::setValue);
 }
 
+}
+
 void setup_ui_slider()
 {
-    UISlider::setup();
+    ceammc::UISlider::setup();
 }

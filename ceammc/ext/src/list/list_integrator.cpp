@@ -1,3 +1,4 @@
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "ceammc_log.h"
 #include "ceammc_object.h"
@@ -5,11 +6,11 @@
 
 using namespace ceammc;
 
-static t_symbol* SYM_MIN;
-static t_symbol* SYM_PADZ;
-static t_symbol* SYM_CLIP;
-static t_symbol* SYM_WRAP;
-static t_symbol* SYM_FOLD;
+CEAMMC_DEFINE_SYM_HASH(min);
+CEAMMC_DEFINE_SYM_HASH(padz);
+CEAMMC_DEFINE_SYM_HASH(clip);
+CEAMMC_DEFINE_SYM_HASH(wrap);
+CEAMMC_DEFINE_SYM_HASH(fold);
 
 class ListIntegrator : public BaseObject {
     AtomList integral_list_;
@@ -20,30 +21,32 @@ public:
         : BaseObject(a)
     {
         createOutlet();
-        wrap_method_ = new SymbolEnumProperty("@oversize", { SYM_PADZ, SYM_MIN, SYM_CLIP, SYM_FOLD, SYM_WRAP });
+        wrap_method_ = new SymbolEnumProperty("@oversize", { sym_padz(), sym_min(), sym_clip(), sym_fold(), sym_wrap() });
         addProperty(wrap_method_);
 
-        addProperty(new SymbolEnumAlias("@min", wrap_method_, SYM_MIN));
-        addProperty(new SymbolEnumAlias("@padz", wrap_method_, SYM_PADZ));
-        addProperty(new SymbolEnumAlias("@clip", wrap_method_, SYM_CLIP));
-        addProperty(new SymbolEnumAlias("@wrap", wrap_method_, SYM_WRAP));
-        addProperty(new SymbolEnumAlias("@fold", wrap_method_, SYM_FOLD));
+        addProperty(new SymbolEnumAlias("@min", wrap_method_, sym_min()));
+        addProperty(new SymbolEnumAlias("@padz", wrap_method_, sym_padz()));
+        addProperty(new SymbolEnumAlias("@clip", wrap_method_, sym_clip()));
+        addProperty(new SymbolEnumAlias("@wrap", wrap_method_, sym_wrap()));
+        addProperty(new SymbolEnumAlias("@fold", wrap_method_, sym_fold()));
     }
 
     AtomList::NonEqualLengthBehaivor symbolToWrap(t_symbol* s)
     {
-        if (s == SYM_MIN)
+        switch (crc32_hash(s)) {
+        case hash_min:
             return AtomList::MINSIZE;
-        else if (s == SYM_PADZ)
+        case hash_padz:
             return AtomList::PADZERO;
-        else if (s == SYM_CLIP)
+        case hash_clip:
             return AtomList::CLIP;
-        else if (s == SYM_WRAP)
+        case hash_wrap:
             return AtomList::WRAP;
-        else if (s == SYM_FOLD)
+        case hash_fold:
             return AtomList::FOLD;
-        else
+        default:
             return AtomList::MINSIZE;
+        }
     }
 
     void onBang()
@@ -51,9 +54,9 @@ public:
         listTo(0, integral_list_);
     }
 
-    void onList(const AtomList& l)
+    void onList(const AtomListView& lv)
     {
-        integral_list_ = AtomList::add(l, integral_list_, symbolToWrap(wrap_method_->value()));
+        integral_list_ = AtomList::add(lv, integral_list_, symbolToWrap(wrap_method_->value()));
         listTo(0, integral_list_);
     }
 
@@ -71,12 +74,6 @@ public:
 
 void setup_list_integrator()
 {
-    SYM_MIN = gensym("min");
-    SYM_PADZ = gensym("padz");
-    SYM_CLIP = gensym("clip");
-    SYM_WRAP = gensym("wrap");
-    SYM_FOLD = gensym("fold");
-
     ObjectFactory<ListIntegrator> obj("list.integrator");
     obj.addMethod("clear", &ListIntegrator::m_clear);
 }

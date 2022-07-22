@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="list.map">
+        <title>list.map</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>map list values by specified dictionary</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>list</category>
+            <keywords>list map dict</keywords>
+            <since>0.9.5</since>
+            <also>
+                <see>data.dict</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="DICT" type="list">mapping dictionary, see @dict property</argument>
+        </arguments>
+        <properties>
+            <property name="@dict" type="list">mapping dictionary, the syntax is [KEY: VALUES...],
+            for example: [1: "one" 2: "two" k: "map values"]</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="float">input float, no output if not in dict</xinfo>
+                <xinfo on="symbol">input symbol, no output if not in dict</xinfo>
+                <xinfo on="list">input list, output always at least empty list</xinfo>
+                <xinfo on="data:mlist">input list, output always at least empty list</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="data:dict">set mapping dictionary</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>list or data:mlist mapped list</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[ui.keyboard 24]
+|
+|
+|
+|
+|
+[$1(
+|
+[% 12]
+|
+[list.map \[0: "C" 1: "C#" 2: "D" 3: "Eb" 4: "E" 5: "F" 6: "F#" 7: "G" 8: "G#" 9: "A" 10: "A#" 11: "B"\] {w:50}]
+|
+|
+|
+[ui.dt]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

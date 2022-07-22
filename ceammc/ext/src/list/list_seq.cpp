@@ -91,25 +91,25 @@ void ListSeq::onFloat(t_float f)
     onBang();
 }
 
-void ListSeq::onList(const AtomList& lst)
+void ListSeq::onList(const AtomListView& lv)
 {
-    switch (lst.size()) {
+    switch (lv.size()) {
     case 1: {
         from_->setValue(0);
-        to_->setValue(lst[0].asFloat(0));
+        to_->setValue(lv[0].asFloat(0));
         step_->setValue(1);
         onBang();
     } break;
     case 2: {
-        from_->setValue(lst[0].asFloat(0));
-        to_->setValue(lst[1].asFloat(0));
+        from_->setValue(lv[0].asFloat(0));
+        to_->setValue(lv[1].asFloat(0));
         step_->setValue(1);
         onBang();
     } break;
     case 3: {
-        from_->setValue(lst[0].asFloat(0));
-        to_->setValue(lst[1].asFloat(0));
-        step_->setValue(lst[2].asFloat(0));
+        from_->setValue(lv[0].asFloat(0));
+        to_->setValue(lv[1].asFloat(0));
+        step_->setValue(lv[2].asFloat(0));
         onBang();
     } break;
     default:

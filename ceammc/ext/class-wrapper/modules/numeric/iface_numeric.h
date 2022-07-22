@@ -452,12 +452,12 @@ public:
         return ok();
     }
 
-    Result setFromList(const AtomList& l) override
+    Result setFromList(const ceammc::AtomListView& lv) override
     {
-        if (l.size() != 2)
+        if (lv.size() != 2)
             return error("IMAG REAL pair expected");
 
-        v_ = std::complex<float>(l[0].asFloat(), l[1].asFloat());
+        v_ = std::complex<float>(lv[0].asFloat(), lv[1].asFloat());
         return ok();
     }
 };
@@ -1036,35 +1036,35 @@ public:
         return setFromString(s->s_name);
     }
 
-    Result setFromList(const AtomList& l) override
+    Result setFromList(const ceammc::AtomListView& lv) override
     {
-        if (l.size() != 2) {
-            if (l.size() == 3)
-                return setFromString(to_string(l, ""));
+        if (lv.size() != 2) {
+            if (lv.size() == 3)
+                return setFromString(to_string(lv, ""));
 
             return error("NUM DEM pair expected");
         }
 
-        if (!l[0].isInteger() || !l[1].isInteger()) {
+        if (!lv[0].isInteger() || !lv[1].isInteger()) {
             std::ostringstream ss;
-            ss << "natural values expected: " << l;
+            ss << "natural values expected: " << lv;
             return error(ss.str());
         }
 
-        if (l[1].asInt() == 0) {
+        if (lv[1].asInt() == 0) {
             std::ostringstream ss;
-            ss << "invalid denominator value: " << l[1];
+            ss << "invalid denominator value: " << lv[1];
             return error(ss.str());
         }
 
-        r_.assign(l[0].asInt(), l[1].asInt());
+        r_.assign(lv[0].asInt(), lv[1].asInt());
         return ok();
     }
 
-    Result setFromAny(t_symbol* s, const AtomList& l) override
+    Result setFromAny(t_symbol* s, const AtomListView& lv) override
     {
         std::string str(s->s_name);
-        str += to_string(l, "");
+        str += to_string(lv, "");
         return setFromString(str);
     }
 };

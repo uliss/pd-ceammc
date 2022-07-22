@@ -14,6 +14,7 @@
 #include "net_osc_receive.h"
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
+#include "ceammc_output.h"
 #include "fmt/format.h"
 
 #include <cstring>
@@ -93,17 +94,16 @@ public:
 namespace net {
 
     NetOscReceive::NetOscReceive(const PdArgs& args)
-        : NotifiedObject(args)
+        : BaseObject(args)
         , server_(nullptr)
         , path_(nullptr)
         , types_(nullptr)
-        , server_ptr_(nullptr)
         , disp_(this)
     {
         createOutlet();
 
         server_ = new SymbolProperty("@server", gensym("default"));
-        server_->setArgIndex(2);
+        server_->setArgIndex(1);
         addProperty(server_);
 
         path_ = new SymbolProperty("@path", &s_);
@@ -111,40 +111,38 @@ namespace net {
         addProperty(path_);
 
         types_ = new SymbolProperty("@types", gensym(str_none));
-        types_->setArgIndex(1);
+        types_->setArgIndex(2);
         types_->setSymbolCheckFn([this](t_symbol* s) -> bool {
             return validOscTypeString(s->s_name);
         },
             "invalid type string");
         addProperty(types_);
+
+        bindReceive(gensym(OscServerList::DISPATCHER));
     }
 
     NetOscReceive::~NetOscReceive()
     {
-        if (server_ptr_)
-            server_ptr_->unsubscribeAll(disp_.id());
+        auto osc = OscServerList::instance().findByName(server_->value());
+        if (osc)
+            osc->unsubscribeAll(disp_.id());
     }
 
     void NetOscReceive::initDone()
     {
-        auto p = net::OscServerList::instance().findByName("default");
-        if (p != nullptr && p->isValid()) {
-            server_ptr_ = p;
+        auto osc = net::OscServerList::instance().findByName(server_->value());
+        if (osc != nullptr && osc->isValid()) {
             const char* types = (crc32_hash(types_->value()) == hash_none) ? nullptr
                                                                            : types_->value()->s_name;
-            const char* str_types = types ? types : "";
-            server_ptr_->subscribeMethod(path_->value()->s_name, types, disp_.id(), &pipe_);
-            LIB_LOG << fmt::format("subscribed to {} {} at \"{}\"", path_->value()->s_name, str_types, server_ptr_->name());
-        }
+            osc->subscribeMethod(path_->value()->s_name, types, disp_.id(), &pipe_);
+            LIB_LOG << fmt::format("[osc] subscribed to {} at \"{}\"", path_->value()->s_name, osc->name());
+        } else
+            LIB_LOG << fmt::format("[osc] can't subscribe to {} '{}'", path_->value()->s_name, server_->value()->s_name);
     }
 
     bool NetOscReceive::notify(NotifyEventType code)
     {
         switch (code) {
-        case NOTIFY_SOURCE_REMOVED:
-            OBJ_LOG << "server removed";
-            server_ptr_ = nullptr;
-            break;
         case NOTIFY_UPDATE: {
             OscMessage msg;
             while (pipe_.try_dequeue(msg))
@@ -165,7 +163,20 @@ namespace net {
         for (auto& a : msg)
             a.apply_visitor(v);
 
-        listTo(0, res);
+        outletAtomList(outletAt(0), res, true);
+    }
+
+    void NetOscReceive::updateServer(t_symbol* name, const AtomListView& lv)
+    {
+        if (lv != server_->value())
+            return;
+
+        auto osc = net::OscServerList::instance().findByName(server_->value());
+        if (osc != nullptr && osc->isValid()) {
+            const char* types = (crc32_hash(types_->value()) == hash_none) ? nullptr
+                                                                           : types_->value()->s_name;
+            osc->subscribeMethod(path_->value()->s_name, types, disp_.id(), &pipe_);
+        }
     }
 }
 }
@@ -177,9 +188,5 @@ void setup_net_osc_receive()
     ObjectFactory<net::NetOscReceive> obj("net.osc.receive");
     obj.addAlias("net.osc.r");
 
-    auto osc = net::OscServerList::instance().createUdp("default", 7001);
-    if (osc && osc->isValid())
-        osc->start();
-    else
-        LIB_LOG << "can't start server";
+    obj.addMethod(net::OscServerList::METHOD_UPDATE, &net::NetOscReceive::updateServer);
 }

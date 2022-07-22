@@ -34,7 +34,7 @@ private:
 public:
     MidiSustain(const PdArgs& args);
 
-    void onList(const AtomList& lst) override;
+    void onList(const AtomListView& lv) override;
     void onInlet(size_t n, const AtomListView& lv) override;
 
     void onCC(const AtomListView& lv);

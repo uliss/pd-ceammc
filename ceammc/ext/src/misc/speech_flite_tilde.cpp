@@ -36,7 +36,7 @@ enum Status {
     ERR_SYNTH
 };
 
-static int do_speech_synth(rw_queue& queue,
+static int do_speech_synth(TtsQueue& queue,
     const std::atomic_bool& run_flag,
     int SR,
     const std::string& voice,
@@ -125,9 +125,9 @@ void SpeechFilteTilde::onSymbol(t_symbol* s)
     checkSynth();
 }
 
-void SpeechFilteTilde::onList(const AtomList& lst)
+void SpeechFilteTilde::onList(const AtomListView& lv)
 {
-    sentences_.emplace(to_string(lst));
+    sentences_.emplace(to_string(lv));
     checkSynth();
 }
 

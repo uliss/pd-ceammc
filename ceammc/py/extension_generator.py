@@ -2,12 +2,16 @@
 # -*- coding: utf-8 -*-#
 
 import os.path
-import imp
+import importlib.util
 import argparse
 
 CWD = os.path.dirname(__file__)
-ceammc = imp.load_source('module.name', os.path.join(CWD, 'ceammc/template.py'))
-ceammc_cpp = imp.load_source('module.name2', os.path.join(CWD, 'ceammc/cppexternal.py'))
+ceammc_spec = importlib.util.spec_from_file_location('module.name', os.path.join(CWD, 'ceammc/template.py'))
+ceammc = importlib.util.module_from_spec(ceammc_spec)
+ceammc_spec.loader.exec_module(ceammc)
+ceammc_cpp_spec = importlib.util.spec_from_file_location('module.name2', os.path.join(CWD, 'ceammc/cppexternal.py'))
+ceammc_cpp = importlib.util.module_from_spec(ceammc_cpp_spec)
+ceammc_cpp_spec.loader.exec_module(ceammc_cpp)
 
 parser = argparse.ArgumentParser(description='Generate PureData ceammc math extensions.')
 parser.add_argument('module', metavar='MODULE', help='Module name')

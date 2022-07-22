@@ -63,7 +63,7 @@ namespace faust {
     public:
         UIProperty(UIElement* el);
 
-        bool setList(const AtomListView& lst) override;
+        bool setList(const AtomListView& lv) override;
         AtomList get() const override;
         t_float value() const;
         void setValue(t_float v, bool clip = false) const;

@@ -155,7 +155,7 @@ PitchClass Tonality::correctAlteration(size_t pitch, const Tonality& t, Alterati
             return chrom[i];
     }
 
-    // shoud never happend
+    // should never happen
     return PitchClass(pitch);
 }
 

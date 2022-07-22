@@ -41,7 +41,7 @@ ZeroCrossingTilde::ZeroCrossingTilde(const PdArgs& args)
         [this]() -> AtomList {
             return AtomList(crc32_hash(mode_->value()) == hash_count && buffer_size_->value() == 1 ? 1.0 : 0.0);
         },
-        [this](const AtomList&) -> bool {
+        [this](const AtomListView&) -> bool {
             mode_->setValue(gensym(str_count));
             buffer_size_->setValue(1);
             return true; } //

@@ -367,9 +367,9 @@ BaseClone::BaseClone(const PdArgs& args)
     , pattern_hash_(0)
     , renaming_(false)
 {
-    num_ = new IntProperty("@n", 0);
+    num_ = new IntProperty("@n", 1);
     num_->setInitOnly();
-    num_->checkMinEq(0);
+    num_->checkMinEq(1);
     num_->setArgIndex(0);
     addProperty(num_);
 
@@ -510,6 +510,25 @@ void BaseClone::updateInstances()
         if (visible) {
             gobj_vis(&owner()->te_g, canvas(), 1);
             canvas_fixlinesfor(canvas(), owner());
+        }
+
+        updateXletsInfo();
+    }
+}
+
+void BaseClone::updateXletsInfo()
+{
+    inlet_help_.clear();
+    for (int i = 0; i < num_->value(); i++) {
+        for (int k = 0; k < n_instance_in_; k++) {
+            inlet_help_.push_back(fmt::format("instance\\[{}\\]: inlet {}", i + 1, k));
+        }
+    }
+
+    outlet_help_.clear();
+    for (int i = 0; i < num_->value(); i++) {
+        for (int k = 0; k < n_instance_out_; k++) {
+            outlet_help_.push_back(fmt::format("instance\\[{}\\]: outlet {}", i + 1, k));
         }
     }
 }
@@ -963,6 +982,24 @@ BaseClone::InstanceRange BaseClone::instanceRange(const parser::TargetMessage& m
 bool BaseClone::changed() const
 {
     return canvas_info_is_dirty(canvas()) && pattern_;
+}
+
+const char* BaseClone::annotateInlet(size_t n) const
+{
+    if (n == 0)
+        return "control inlet";
+    else if (n <= inlet_help_.size())
+        return inlet_help_[n - 1].c_str();
+    else
+        return "";
+}
+
+const char* BaseClone::annotateOutlet(size_t n) const
+{
+    if (n < outlet_help_.size())
+        return outlet_help_[n].c_str();
+    else
+        return "";
 }
 
 void BaseClone::sendToInlet(t_inlet* inlet, const AtomListView& lv)

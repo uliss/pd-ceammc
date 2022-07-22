@@ -33,7 +33,7 @@
 #X text 150 429 *float*;
 #X text 245 429 reject if float is in reject list.;
 #X text 150 449 *symbol*;
-#X text 245 449 reject if float is in reject list.;
+#X text 245 449 reject if symbol is in reject list.;
 #X text 150 469 *list*;
 #X text 245 469 reject if first atom is in reject list.;
 #X text 150 489 *any*;

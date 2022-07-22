@@ -11,10 +11,12 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-
 #include "ceammc_format.h"
+#include "lex/parser_strings.h"
 
 #include "test_common.h"
+
+using namespace ceammc;
 
 TEST_CASE("format", "[ceammc::format]")
 {
@@ -43,31 +45,28 @@ TEST_CASE("format", "[ceammc::format]")
 
     SECTION("string escape format")
     {
-#define REQUIRE_ESCAPED(a, b)                              \
-    {                                                      \
-        REQUIRE(to_string_quoted(test_atom_wrap(a)) == b); \
+#define REQUIRE_ESCAPED(a, b)                           \
+    {                                                   \
+        string::StaticString buf;                       \
+        REQUIRE(string::escape_and_quote(a, buf) >= 0); \
+        REQUIRE(buf == b);                              \
     }
 
-        REQUIRE_ESCAPED("", "\"\"");
-        REQUIRE_ESCAPED(123, "123");
-        REQUIRE_ESCAPED(123.123, "123.123");
-        REQUIRE_ESCAPED("abc", "abc");
+        REQUIRE_ESCAPED("abc", "\"abc\"");
         REQUIRE_ESCAPED("a b c", "\"a b c\"");
         REQUIRE_ESCAPED("a b    c", "\"a b    c\"");
         REQUIRE_ESCAPED("there's a table", "\"there's a table\"");
-        REQUIRE_ESCAPED(new IntData(123), "123");
-        REQUIRE_ESCAPED(new StrData("test string with spaces and q`otes"), "test string with spaces and q`otes");
-        REQUIRE_ESCAPED("many ````", "\"many ````\"");
+        REQUIRE_ESCAPED("many ````", "\"many ````````\"");
         REQUIRE_ESCAPED("many '''''", "\"many '''''\"");
         REQUIRE_ESCAPED("many \"\"\"\"", "\"many `\"`\"`\"`\"\"");
-        REQUIRE_ESCAPED("'double'", "'double'");
-        REQUIRE_ESCAPED("\"\"", "\"\"");
-        REQUIRE_ESCAPED("\"", "\"");
-        REQUIRE_ESCAPED("'`", "'`");
-        REQUIRE_ESCAPED("`\"", "`\"");
-        REQUIRE_ESCAPED("`\" a", "\"``\" a\"");
-        REQUIRE_ESCAPED("\" \"", "\"`\" `\"\"");
-        REQUIRE_ESCAPED("\"a ", "\"`\"a \"");
+        REQUIRE_ESCAPED("'double'", "\"'double'\"");
+        REQUIRE_ESCAPED("\"\"", R"("`"`"")");
+        REQUIRE_ESCAPED("\"", R"("`"")");
+        REQUIRE_ESCAPED("'`", R"("'``")");
+        REQUIRE_ESCAPED("`\"", R"("```"")");
+        REQUIRE_ESCAPED("`\" a", R"("```" a")");
+        REQUIRE_ESCAPED("\" \"", R"("`" `"")");
+        REQUIRE_ESCAPED("\"a ", R"("`"a ")");
         REQUIRE_ESCAPED("\"a b\"", "\"`\"a b`\"\"");
     }
 

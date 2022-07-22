@@ -29,7 +29,7 @@ public:
         t_float beatlen = 0.25);
 
     AtomList get() const override;
-    bool setList(const AtomListView& lst) override;
+    bool setList(const AtomListView& lv) override;
     bool setFloat(t_float f) override;
     bool getFloat(t_float& f) const override;
 

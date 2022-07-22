@@ -25,9 +25,6 @@
 #include <iterator>
 #include <string>
 
-#include "lex/quoted_atomlist_lexer.h"
-#include "lex/quoted_string.parser.hpp"
-
 namespace ceammc {
 
 using ElementAccessFn = const Atom* (AtomList::*)(int)const;
@@ -339,60 +336,6 @@ bool AtomList::hasProperty(t_symbol* name) const noexcept
     return false;
 }
 
-AtomList AtomList::mapFloat(const FloatMapFunction& fn, AtomListMapType t) const
-{
-    if (t == AtomListMapType::KEEP) {
-        AtomList res(*this);
-
-        for (auto& a : res.atoms_)
-            a.applyFloat(fn);
-
-        return res;
-    } else {
-        AtomList res;
-        res.reserve(size());
-
-        for (auto& a : atoms_) {
-            if (a.isFloat())
-                res.atoms_.emplace_back(fn(a.asFloat()));
-        }
-
-        return res;
-    }
-}
-
-AtomList AtomList::mapSymbol(const SymbolMapFunction& fn, AtomListMapType t) const
-{
-    if (t == AtomListMapType::KEEP) {
-        AtomList res(*this);
-
-        for (auto& a : res.atoms_)
-            a.applySymbol(fn);
-
-        return res;
-    } else {
-        AtomList res;
-        res.reserve(size());
-
-        for (auto& a : atoms_) {
-            if (a.isSymbol())
-                res.atoms_.emplace_back(fn(a.asSymbol()));
-        }
-
-        return res;
-    }
-}
-
-AtomList AtomList::map(const AtomMapFunction& fn) const
-{
-    AtomList res(*this);
-
-    for (auto& a : res.atoms_)
-        a = fn(a);
-
-    return res;
-}
-
 static size_t normalizeIdx(int idx, size_t N, bool clip)
 {
     assert(N > 0);
@@ -575,16 +518,6 @@ Atom* AtomList::max()
         return nullptr;
 
     return &(*std::max_element(atoms_.begin(), atoms_.end()));
-}
-
-MaybeFloat AtomList::sum() const noexcept
-{
-    return reduceFloat(0, [](t_float a, t_float b) { return a + b; });
-}
-
-MaybeFloat AtomList::product() const noexcept
-{
-    return reduceFloat(1, [](t_float a, t_float b) { return a * b; });
 }
 
 bool AtomList::contains(const Atom& a) const noexcept
@@ -888,11 +821,6 @@ bool AtomList::operator==(const AtomListView& x) const noexcept
     return true;
 }
 
-AtomList AtomList::parseQuoted(bool quote_properties) const
-{
-    return view().parseQuoted(quote_properties);
-}
-
 AtomList AtomList::parseString(const char* str)
 {
     t_binbuf* b = binbuf_new();
@@ -947,92 +875,6 @@ AtomList listFrom(bool v)
     constexpr t_float TRUE = 1;
 
     return Atom(v ? TRUE : FALSE);
-}
-
-AtomList operator+(const AtomList& l1, const AtomList& l2)
-{
-    AtomList res(l1);
-    res.append(l2);
-    return res;
-}
-
-AtomList operator+(const AtomList& l, const Atom& a)
-{
-    AtomList res(l);
-    res.append(a);
-    return res;
-}
-
-AtomList operator+(const Atom& a, const AtomList& l)
-{
-    AtomList res;
-    res.reserve(l.size() + 1);
-    res.append(a);
-    res.append(l);
-    return res;
-}
-
-AtomList AtomList::filtered(const AtomPredicate& pred) const
-{
-    if (!pred)
-        return *this;
-
-    AtomList res;
-    res.atoms_.reserve(atoms_.size());
-
-    for (auto& el : atoms_) {
-        if (pred(el))
-            res.atoms_.push_back(el);
-    }
-
-    return res;
-}
-
-AtomList AtomList::filteredFloat(const FloatPredicate& pred) const
-{
-    if (!pred)
-        return *this;
-
-    AtomList res;
-    res.atoms_.reserve(atoms_.size());
-
-    for (auto& a : atoms_) {
-        if (a.isFloat() && pred(a.asFloat()))
-            res.atoms_.push_back(a);
-    }
-
-    return res;
-}
-
-AtomList AtomList::filteredSymbol(const SymbolPredicate& pred) const
-{
-    if (!pred)
-        return *this;
-
-    AtomList res;
-    res.atoms_.reserve(atoms_.size());
-
-    for (auto& a : atoms_) {
-        if (a.isSymbol() && pred(a.asSymbol()))
-            res.atoms_.push_back(a);
-    }
-
-    return res;
-}
-
-MaybeFloat AtomList::reduceFloat(t_float init, std::function<t_float(t_float, t_float)> fn) const
-{
-    t_float accum = init;
-    size_t n = 0;
-
-    for (auto& el : atoms_) {
-        if (el.isFloat()) {
-            accum = fn(accum, el.asFloat());
-            n++;
-        }
-    }
-
-    return (n > 0) ? MaybeFloat(accum) : boost::none;
 }
 
 } // namespace ceammc

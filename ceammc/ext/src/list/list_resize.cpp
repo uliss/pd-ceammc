@@ -19,17 +19,17 @@ ListResize::ListResize(const PdArgs& a)
     initProperties();
 }
 
-void ListResize::onInlet(size_t n, const AtomListView& l)
+void ListResize::onInlet(size_t n, const AtomListView& lv)
 {
     if (n != 1)
         return;
 
-    size_->set(l);
+    size_->set(lv);
 }
 
-void ListResize::onList(const AtomList& l)
+void ListResize::onList(const AtomListView& lv)
 {
-    AtomList tmp(l);
+    AtomList tmp(lv);
     const t_symbol* m = method_->value();
     const size_t n = size_->value();
 

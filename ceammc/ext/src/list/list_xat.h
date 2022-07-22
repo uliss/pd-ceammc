@@ -29,8 +29,8 @@ public:
     ListXAt(const PdArgs& args);
 
     void onFloat(t_float f) override;
-    void onList(const AtomList& lst) override;
-    void onInlet(size_t n, const AtomListView& lst) override;
+    void onList(const AtomListView& lv) override;
+    void onInlet(size_t n, const AtomListView& lv) override;
 
 private:
     const Atom* at(int pos) const;

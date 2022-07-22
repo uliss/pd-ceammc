@@ -18,32 +18,15 @@
 #include <memory>
 #include <vector>
 
-#include "ceammc_object.h"
+#include "ceammc_notify.h"
 
 namespace ceammc {
 
 using SubscriberId = uint64_t;
 
-enum NotifyEventType {
-    NOTIFY_NONE,
-    NOTIFY_UPDATE,
-    NOTIFY_SOURCE_REMOVED,
-    NOTIFY_DONE
-};
-
 struct NotifyMessage {
     SubscriberId id;
     NotifyEventType event;
-};
-
-class NotifiedObject : public BaseObject {
-public:
-    NotifiedObject(const PdArgs& args)
-        : BaseObject(args)
-    {
-    }
-
-    virtual bool notify(NotifyEventType code) = 0;
 };
 
 struct SubscriberInfo {

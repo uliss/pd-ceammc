@@ -5,7 +5,7 @@
 
 #include "MidiFile.h"
 
-const int DataTypeMidiStream::dataType = DataStorage::instance().registerNewType("MidiStream");
+const DataTypeId DataTypeMidiStream::dataType = DataStorage::instance().registerNewType("MidiStream");
 
 DataTypeMidiStream::DataTypeMidiStream()
     : midi_file_(new MidiFile())
@@ -48,6 +48,26 @@ DataTypeMidiStream::DataTypeMidiStream(const DataTypeMidiStream& s)
 {
 }
 
+DataTypeMidiStream& DataTypeMidiStream::operator=(const DataTypeMidiStream& ms)
+{
+    midi_file_.reset(new MidiFile(*ms.midi_file_));
+    total_ticks_ = ms.total_ticks_;
+    total_secs_ = ms.total_secs_;
+    total_quarters_ = ms.total_quarters_;
+    is_open_ = ms.is_open_;
+    return *this;
+}
+
+DataTypeMidiStream& DataTypeMidiStream::operator=(DataTypeMidiStream&& ms)
+{
+    midi_file_ = std::move(ms.midi_file_);
+    total_ticks_ = std::move(ms.total_ticks_);
+    total_secs_ = std::move(ms.total_secs_);
+    total_quarters_ = std::move(ms.total_quarters_);
+    is_open_ = std::move(ms.is_open_);
+    return *this;
+}
+
 DataTypeMidiStream::~DataTypeMidiStream() = default;
 
 size_t DataTypeMidiStream::trackCount() const
@@ -70,7 +90,7 @@ DataTypeMidiStream* DataTypeMidiStream::clone() const
     return new DataTypeMidiStream(*this);
 }
 
-int DataTypeMidiStream::type() const noexcept
+DataTypeId DataTypeMidiStream::type() const noexcept
 {
     return dataType;
 }
@@ -103,6 +123,21 @@ const MidiFile* DataTypeMidiStream::midifile() const
 bool DataTypeMidiStream::is_open() const
 {
     return is_open_;
+}
+
+bool DataTypeMidiStream::set(const AbstractData* d) noexcept
+{
+    return setDataT<DataTypeMidiStream>(d);
+}
+
+std::string DataTypeMidiStream::toListStringContent() const
+{
+    return " ";
+}
+
+std::string DataTypeMidiStream::toDictStringContent() const
+{
+    return " ";
 }
 
 void DataTypeMidiStream::calcTime()

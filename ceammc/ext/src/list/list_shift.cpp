@@ -15,14 +15,14 @@ ListShift::ListShift(const PdArgs& args)
     addProperty(shift_);
 }
 
-void ListShift::onList(const AtomList& lst)
+void ListShift::onList(const AtomListView& lv)
 {
-    listTo(0, list::shift(lst, shift_->value()));
+    listTo(0, list::shift(lv, shift_->value()));
 }
 
-void ListShift::onInlet(size_t n, const AtomListView& lst)
+void ListShift::onInlet(size_t n, const AtomListView& lv)
 {
-    shift_->set(lst);
+    shift_->set(lv);
 }
 
 void ListShift::onDataT(const MListAtom& ml)

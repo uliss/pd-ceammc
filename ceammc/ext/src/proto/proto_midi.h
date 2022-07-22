@@ -61,7 +61,7 @@ class ProtoMidi : public BaseObject {
 public:
     ProtoMidi(const PdArgs& args);
     void onFloat(t_float f) override;
-    void onList(const AtomList& lst) override;
+    void onList(const AtomListView& lv) override;
 
     void m_activeSense(t_symbol*, const AtomListView&);
     void m_afterTouchMono(t_symbol* s, const AtomListView& lv);

@@ -46,10 +46,10 @@ void FlowOnce::onSymbol(t_symbol* s)
     }
 }
 
-void FlowOnce::onList(const AtomList& lst)
+void FlowOnce::onList(const AtomListView& lv)
 {
     if (pass_) {
-        listTo(0, lst);
+        listTo(0, lv);
         pass_ = false;
     }
 }

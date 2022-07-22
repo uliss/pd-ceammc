@@ -101,7 +101,7 @@ public:
 
 private:
     void updateLabels();
-    void onMidiCtrl(const AtomListView& l);
+    void onMidiCtrl(const AtomListView& lv);
     void doOutput();
     void updateIndicators();
     bool isMidiMatched(int num, int ch) const;

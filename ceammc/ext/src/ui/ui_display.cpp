@@ -18,6 +18,7 @@
 #include "ceammc_abstractdata.h"
 #include "ceammc_atomlist.h"
 #include "ceammc_format.h"
+#include "datatype_string.h"
 
 #include "ceammc_ui.h"
 #include "ui_display.h"
@@ -209,9 +210,17 @@ void UIDisplay::setMessage(UIMessageType t, t_symbol* s, const AtomListView& lv)
             appendFloatToText(a.asT<t_float>());
         else if (a.isSymbol())
             msg_txt_ += a.asT<t_symbol*>()->s_name;
-        else if (a.isData())
-            msg_txt_ += a.asData()->toString();
-        else
+        else if (a.isA<DataTypeString>()) {
+            msg_txt_ += a.asD<DataTypeString>()->str();
+        } else if (a.isData()) {
+            auto d = a.asData();
+            if (d->canInitWithList())
+                msg_txt_ += d->toListStringContent();
+            else if (d->canInitWithDict())
+                msg_txt_ += d->toDictStringContent();
+            else
+                msg_txt_ += a.asData()->toString();
+        } else
             msg_txt_ += to_string(a);
     }
 }

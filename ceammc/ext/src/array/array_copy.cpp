@@ -29,50 +29,50 @@ ArrayCopy::ArrayCopy(const PdArgs& a)
     addProperty(resize_);
 }
 
-void ArrayCopy::onList(const AtomList& l)
+void ArrayCopy::onList(const AtomListView& lv)
 {
-    if (!checkArgs(l, ARG_SYMBOL, ARG_SYMBOL, gensym("copy")))
+    if (!checkArgs(lv, ARG_SYMBOL, ARG_SYMBOL, gensym("copy")))
         return;
 
-    copy(l[0].asSymbol(), l[1].asSymbol());
+    copy(lv[0].asSymbol(), lv[1].asSymbol());
 }
 
-void ArrayCopy::m_copy(t_symbol*, const AtomListView& lst)
+void ArrayCopy::m_copy(t_symbol*, const AtomListView& lv)
 {
     /// copy array1 array2
-    if (lst.size() == 2 && lst.allOf(isSymbol))
-        return copy(lst[0].asSymbol(), lst[1].asSymbol());
+    if (lv.size() == 2 && lv.allOf(isSymbol))
+        return copy(lv[0].asSymbol(), lv[1].asSymbol());
 
     /// copy array1 0 100 array2
-    if (lst.size() == 4
-        && lst[0].isSymbol()
-        && lst[1].isFloat()
-        && lst[2].isFloat()
-        && lst[3].isSymbol()) {
-        Range in_range(lst[1].asInt(), lst[2].asInt());
-        return copyRange(lst[0].asSymbol(), in_range, lst[3].asSymbol(), 0);
+    if (lv.size() == 4
+        && lv[0].isSymbol()
+        && lv[1].isFloat()
+        && lv[2].isFloat()
+        && lv[3].isSymbol()) {
+        Range in_range(lv[1].asInt(), lv[2].asInt());
+        return copyRange(lv[0].asSymbol(), in_range, lv[3].asSymbol(), 0);
     }
 
     /// copy array1 0 array2
-    if (lst.size() == 3
-        && lst[0].isSymbol()
-        && lst[1].isFloat()
-        && lst[2].isSymbol()) {
-        Range in_range(lst[1].asInt(), std::numeric_limits<size_t>::max());
-        return copyRange(lst[0].asSymbol(), in_range, lst[2].asSymbol(), 0);
+    if (lv.size() == 3
+        && lv[0].isSymbol()
+        && lv[1].isFloat()
+        && lv[2].isSymbol()) {
+        Range in_range(lv[1].asInt(), std::numeric_limits<size_t>::max());
+        return copyRange(lv[0].asSymbol(), in_range, lv[2].asSymbol(), 0);
     }
 
-    if (lst.size() == 5
-        && lst[0].isSymbol()
-        && lst[1].isFloat()
-        && lst[2].isFloat()
-        && lst[3].isSymbol()
-        && lst[4].isFloat()) {
-        Range in_range(lst[1].asInt(), lst[2].asInt());
-        return copyRange(lst[0].asSymbol(), in_range, lst[3].asSymbol(), lst[4].asInt());
+    if (lv.size() == 5
+        && lv[0].isSymbol()
+        && lv[1].isFloat()
+        && lv[2].isFloat()
+        && lv[3].isSymbol()
+        && lv[4].isFloat()) {
+        Range in_range(lv[1].asInt(), lv[2].asInt());
+        return copyRange(lv[0].asSymbol(), in_range, lv[3].asSymbol(), lv[4].asInt());
     }
 
-    OBJ_ERR << "invalid arguments are given: " << lst;
+    OBJ_ERR << "invalid arguments are given: " << lv;
 }
 
 void ArrayCopy::copy(t_symbol* src, t_symbol* dest)

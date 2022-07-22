@@ -21,9 +21,9 @@
 
 using namespace ceammc;
 
-typedef SmoothLinT<t_float> SmoothLin;
-typedef boost::multi_array<SmoothLin, 2> SmoothMatrix;
-typedef std::vector<t_sample> DSPBlock;
+using SmoothLin = SmoothLinT<t_float>;
+using SmoothMatrix = boost::multi_array<SmoothLin, 2>;
+using DSPBlock = std::vector<t_sample>;
 
 class Matrix : public SoundExternal {
     const size_t nouts_;
@@ -37,7 +37,7 @@ public:
     void processBlock(const t_sample** in, t_sample** out) override;
     void setupDSP(t_signal** in) override;
 
-    void m_cell(t_symbol* s, const AtomListView& lst);
+    void m_cell(t_symbol* s, const AtomListView& lv);
 };
 
 void setup_base_matrix();

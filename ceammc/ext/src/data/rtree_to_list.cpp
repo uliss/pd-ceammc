@@ -61,14 +61,13 @@ void RythmTreeToList::onAny(t_symbol* s, const AtomListView& args)
     std::string str(s->s_name);
     str += ' ';
     str += to_string(args, " ");
-    auto ml = DataTypeMList::parse(str);
-    if (!ml) {
+    MListAtom ml;
+    if (!ml->setFromDataString(str)) {
         OBJ_ERR << "can't parse message: " << s->s_name << ' ' << to_string(args);
         return;
     }
 
-    auto ma = MListAtom(ml.value());
-    rtree_->setValue(ma);
+    rtree_->setValue(ml);
     changed_ = true;
 }
 

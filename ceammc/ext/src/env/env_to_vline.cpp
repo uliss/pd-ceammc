@@ -241,8 +241,8 @@ void Env2VLine::interpSegment(const EnvelopePoint& pt0, const EnvelopePoint& pt1
 void Env2VLine::interpSin2(size_t step_idx, double step_ms,
     const EnvelopePoint& pt0, const EnvelopePoint& pt1, AtomList& lst)
 {
-    double last_dur = pt0.timeMs() + step_idx * step_ms;
-    double v = convert::lin2sin2(last_dur, pt0.timeMs(), pt1.timeMs(), pt0.value, pt1.value);
+    auto last_dur = pt0.timeMs() + step_idx * step_ms;
+    auto v = convert::lin2sin2(last_dur, pt0.timeMs(), pt1.timeMs(), pt0.value, pt1.value);
 
     lst[0].setFloat(v);
     lst[1].setFloat(step_ms);
@@ -268,8 +268,8 @@ void Env2VLine::interpExp(size_t step_idx, double step_ms,
     AtomList& lst)
 {
     double last_dur = pt0.timeMs() + step_idx * step_ms;
-    double v = convert::lin2curve(double(last_dur),
-        pt0.timeMs(), pt1.timeMs(), pt0.value, pt1.value, double(pt0.data));
+    auto v = convert::lin2curve(last_dur,
+        pt0.timeMs(), pt1.timeMs(), (double)pt0.value, (double)pt1.value, (double)pt0.data);
 
     lst[0].setFloat(v);
     lst[1].setFloat(step_ms);

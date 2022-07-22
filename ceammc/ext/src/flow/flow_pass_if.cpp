@@ -50,13 +50,13 @@ void FlowPassIf::onSymbol(t_symbol* s)
         symbolTo(0, s);
 }
 
-void FlowPassIf::onList(const AtomList& l)
+void FlowPassIf::onList(const AtomListView& lv)
 {
     pass_ = 0;
-    listTo(1, l);
+    listTo(1, lv);
 
     if (pass_)
-        listTo(0, l);
+        listTo(0, lv);
 }
 
 void FlowPassIf::onAny(t_symbol* s, const AtomListView& lv)

@@ -40,11 +40,10 @@ namespace net {
         SubscriberId id() const { return reinterpret_cast<SubscriberId>(ptr_); }
     };
 
-    class NetOscReceive : public NotifiedObject {
+    class NetOscReceive : public BaseObject, public NotifiedObject {
         SymbolProperty* server_;
         SymbolProperty* path_;
         SymbolProperty* types_;
-        net::OscServer* server_ptr_;
         DispatcherSubscriber<NetOscReceive> disp_;
         OscMethodPipe pipe_;
 
@@ -55,6 +54,9 @@ namespace net {
         void initDone() override;
         bool notify(NotifyEventType code) final;
         void processMessage(const OscMessage& msg);
+
+    public:
+        void updateServer(t_symbol* name, const AtomListView& lv);
     };
 }
 }

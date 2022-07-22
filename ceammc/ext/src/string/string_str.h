@@ -21,19 +21,19 @@
 using namespace ceammc;
 
 class StringStr : public BaseObject {
-    std::string str_;
+    DataTypeString str_;
 
 public:
     StringStr(const PdArgs& a);
     void onBang() override;
     void onFloat(t_float f) override;
     void onSymbol(t_symbol* s) override;
-    void onList(const AtomList& l) override;
+    void onList(const AtomListView& lv) override;
     void onData(const Atom& d) override;
 
-    void m_append(t_symbol*, const AtomListView& lst);
-    void m_set(t_symbol*, const AtomListView& lst);
-    void m_clear(t_symbol*, const AtomListView& lst);
+    void m_append(t_symbol*, const AtomListView& lv);
+    void m_set(t_symbol*, const AtomListView& lv);
+    void m_clear(t_symbol*, const AtomListView& lv);
 };
 
 void setup_string_str();

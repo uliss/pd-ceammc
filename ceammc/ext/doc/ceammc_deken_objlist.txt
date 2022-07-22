@@ -541,12 +541,14 @@ list.integrator	returns the sum of the previously stored list and the current on
 list.last	output last list element
 list.length	output the number of atoms in the list
 list.size	output the number of atoms in the list
+list.map	map list values by specified dictionary
 list.max	output largest element in the list
 list.mean	calculates average of list of floats
 list.average	calculates average of list of floats
 list.min	returns smallest element in the list
 list.none_of	checks if none of list atoms is accepted by predicate
 list.normalize	normalizes float list values to get their sum = 1.0
+list.pass	leave in list only specified elements
 list.pass_if	leave only elements accepted by predicate
 list.filter	leave only elements accepted by predicate
 list.prepend	prepend atom or list before input list
@@ -555,6 +557,7 @@ list.range	output list smallest and largest value
 list.minmax	output list smallest and largest value
 list.reduce	apply function of two arguments cumulatively to the list
 list.foldl	apply function of two arguments cumulatively to the list
+list.reject	remove specified element from list
 list.remove	remove list element(s) at specified positions
 list.remove_if	remove elements by predicate
 list.repack	repack list to specified size

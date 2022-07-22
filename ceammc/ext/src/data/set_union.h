@@ -24,9 +24,9 @@ class SetUnion : public BaseObject {
 
 public:
     SetUnion(const PdArgs& a);
-    void onList(const AtomList& lst) override;
+    void onList(const AtomListView& lv) override;
     void onDataT(const SetAtom& dptr);
-    void onInlet(size_t, const AtomListView& lst) override;
+    void onInlet(size_t, const AtomListView& lv) override;
 };
 
 void setup_set_union();

@@ -24,24 +24,19 @@ ListHistogram::ListHistogram(const PdArgs& a)
     createOutlet();
 
     bins_ = new IntProperty("@bins", 100);
+    bins_->checkClosedRange(2, 1024);
     bins_->setArgIndex(0);
     addProperty(bins_);
 }
 
-void ListHistogram::onList(const AtomList& l)
+void ListHistogram::onList(const AtomListView& lv)
 {
-    int bins = bins_->value();
-    if (bins < 2) {
-        OBJ_ERR << "invalid bins value: " << bins;
-        return;
-    }
-
-    listTo(0, list::histogram(l, size_t(bins)));
+    listTo(0, list::histogram(lv, bins_->value()));
 }
 
-void ListHistogram::onInlet(size_t, const AtomListView& l)
+void ListHistogram::onInlet(size_t, const AtomListView& lv)
 {
-    bins_->set(l);
+    bins_->set(lv);
 }
 
 void setup_list_histogram()

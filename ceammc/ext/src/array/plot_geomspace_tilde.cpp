@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "plot_geomspace_tilde.h"
+#include "ceammc_containers.h"
 #include "ceammc_factory.h"
 #include "fmt/format.h"
 
@@ -75,7 +76,9 @@ void PlotGeomSpaceTilde::onBang()
     phase_ = 0;
     running_ = true;
 
-    listTo(1, { (t_float)num_->value(), start_->value(), stop_->value(), base_->value() });
+    SmallAtomListN<4> lst { (t_float)num_->value(), start_->value(), stop_->value(), base_->value() };
+
+    listTo(1, lst.view());
 }
 
 void PlotGeomSpaceTilde::onFloat(t_float n)

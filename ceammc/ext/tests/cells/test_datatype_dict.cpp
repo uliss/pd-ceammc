@@ -34,6 +34,8 @@ TEST_CASE("DataTypeDict", "[core]")
             REQUIRE(d.keys().empty());
             REQUIRE(d.flattenToList().empty());
             REQUIRE(d.toString() == "[]");
+            REQUIRE(d.toListStringContent() == "");
+            REQUIRE(d.toListString() == "Dict()");
         }
 
         SECTION("[]")
@@ -323,7 +325,7 @@ TEST_CASE("DataTypeDict", "[core]")
     {
         REQUIRE(Atom() == Atom());
         REQUIRE(Dict::fromList(LF(1, 2, 3, 4), 0) == Dict());
-        REQUIRE(Dict::fromList(LA("a", "b", "c"), 1) == Dict("[a: null b: null c: null]"));
+        REQUIRE(Dict::fromList(LA("a", "b", "c"), 1) == Dict("[a: b: c:]"));
         REQUIRE(Dict::fromList(LA("a", "b", "c", "d"), 2) == Dict("[a: b c: d]"));
     }
 
@@ -334,24 +336,157 @@ TEST_CASE("DataTypeDict", "[core]")
         REQUIRE(d == Dict("[c: 3 b: 2]"));
     }
 
-    SECTION("fromString")
+    SECTION("fromDataString")
     {
         Dict d;
-        REQUIRE(d.fromString("[]"));
+        REQUIRE(d.setFromDataString("[]"));
         REQUIRE(d.size() == 0);
-        REQUIRE(d.fromString("[a: 12]"));
+        REQUIRE(d.setFromDataString("[a: 12]"));
         REQUIRE(d.size() == 1);
         REQUIRE(d.keys() == LA("a"));
         REQUIRE(d.at("a") == LF(12));
 
-        REQUIRE(d.fromString("[@a: 12]"));
+        REQUIRE(d.setFromDataString("[@a: 12]"));
         REQUIRE(d.size() == 1);
         REQUIRE(d.keys() == LA("@a"));
         REQUIRE(d.at("@a") == LF(12));
 
-        REQUIRE(d.fromString("[@a: 12 @b: 15]"));
+        REQUIRE(d.setFromDataString("[@a: 12 @b: 15]"));
         REQUIRE(d.size() == 2);
         REQUIRE(d.at("@a") == LF(12));
         REQUIRE(d.at("@b") == LF(15));
+
+        REQUIRE(d.setFromDataString("[@ABC: абвгд]"));
+        REQUIRE(d.size() == 1);
+        REQUIRE(d.at("@ABC") == LA("абвгд"));
+
+        REQUIRE(d.setFromDataString("Dict[a:]"));
+        REQUIRE(d.size() == 1);
+        REQUIRE(d.at("a") == L());
+
+        REQUIRE(d.setFromDataString("Dict[123: 4]"));
+        REQUIRE(d.size() == 1);
+        REQUIRE(d.at("123") == LF(4));
+    }
+
+    SECTION("toString")
+    {
+#define CHECK_TO_DSC(src_str, res_str)             \
+    {                                              \
+        DataTypeDict d;                            \
+        d.setFromDataString(src_str);              \
+        CHECK(d.toDictStringContent() == res_str); \
+    }
+
+#define CHECK_TO_DS(src_str, res_str)       \
+    {                                       \
+        DataTypeDict d;                     \
+        d.setFromDataString(src_str);       \
+        CHECK(d.toDictString() == res_str); \
+    }
+
+#define CHECK_TO_STRING(src_str, res_str) \
+    {                                     \
+        DataTypeDict d;                   \
+        d.setFromDataString(src_str);     \
+        CHECK(d.toString() == res_str);   \
+    }
+
+#define CHECK_TO_LSC(src_str, res_str)             \
+    {                                              \
+        DataTypeDict d;                            \
+        d.setFromDataString(src_str);              \
+        CHECK(d.toListStringContent() == res_str); \
+    }
+
+#define CHECK_TO_LS(src_str, res_str)       \
+    {                                       \
+        DataTypeDict d;                     \
+        d.setFromDataString(src_str);       \
+        CHECK(d.toListString() == res_str); \
+    }
+
+        SECTION("toListStringContent")
+        {
+            CHECK_TO_LSC("Dict[a:]", "a ()");
+            CHECK_TO_LSC("Dict[a: 1]", "a (1)");
+            CHECK_TO_LSC("Dict[a: -0.25]", "a (-0.25)");
+            CHECK_TO_LSC("Dict[a: 1/4]", "a (0.25)");
+            CHECK_TO_LSC("Dict[a: 0xFF]", "a (255)");
+            CHECK_TO_LSC("Dict[a: 0b0101]", "a (5)");
+            CHECK_TO_LSC("Dict[a: 1 2 3]", "a (1 2 3)");
+            CHECK_TO_LSC("Dict[a: A B C]", "a (A B C)");
+            CHECK_TO_LSC("Dict[a: \"A B C\"]", "a (\"A B C\")");
+            CHECK_TO_LSC("Dict[a: \"`\"A B C`\"\"]", "a (\"`\"A B C`\"\")");
+            CHECK_TO_LSC("Dict[a: MList(1 2 3)]", "a ((1 2 3))");
+            CHECK_TO_LSC("Dict[a: S\"1 2 3\"]", "a (S\"1 2 3\")");
+            CHECK_TO_LSC("Dict[a: String(\"``a\")]", "a (S\"``a\")");
+            CHECK_TO_LSC("Dict[a: @a]", "a (\"@a\")");
+        }
+
+        SECTION("toListString")
+        {
+            CHECK_TO_LS("Dict[a:]", "Dict(a ())");
+        }
+
+        SECTION("toString")
+        {
+            CHECK_TO_STRING("", "[]");
+            CHECK_TO_STRING(" ", "[]");
+            CHECK_TO_STRING("Dict[a:]", "[a:]");
+            CHECK_TO_STRING("Dict[a: 1]", "[a: 1]");
+            CHECK_TO_STRING("Dict[a: -0.25]", "[a: -0.25]");
+            CHECK_TO_STRING("Dict[a: 1/4]", "[a: 0.25]");
+            CHECK_TO_STRING("Dict[a: 0xFF]", "[a: 255]");
+            CHECK_TO_STRING("Dict[a: 0b0101]", "[a: 5]");
+            CHECK_TO_STRING("Dict[a: 1 2 3]", "[a: 1 2 3]");
+            CHECK_TO_STRING("Dict[a: A B C]", "[a: A B C]");
+            CHECK_TO_STRING("Dict[a: \"A B C\"]", "[a: \"A B C\"]");
+            CHECK_TO_STRING("Dict[a: \"`\"A B C`\"\"]", "[a: \"`\"A B C`\"\"]");
+            CHECK_TO_STRING("Dict[a: MList(1 2 3)]", "[a: (1 2 3)]");
+            CHECK_TO_STRING("Dict[a: S\"1 2 3\"]", "[a: S\"1 2 3\"]");
+            CHECK_TO_STRING("Dict[a: String(\"``a\")]", "[a: S\"``a\"]");
+            CHECK_TO_STRING("Dict[a: @a]", "[a: \"@a\"]");
+        }
+
+        SECTION("toDictString")
+        {
+            CHECK_TO_DS("", "Dict[]");
+            CHECK_TO_DS(" ", "Dict[]");
+            CHECK_TO_DS("Dict[a:]", "Dict[a:]");
+            CHECK_TO_DS("Dict[a: 1]", "Dict[a: 1]");
+            CHECK_TO_DS("Dict[a: -0.25]", "Dict[a: -0.25]");
+            CHECK_TO_DS("Dict[a: 1/4]", "Dict[a: 0.25]");
+            CHECK_TO_DS("Dict[a: 0xFF]", "Dict[a: 255]");
+            CHECK_TO_DS("Dict[a: 0b0101]", "Dict[a: 5]");
+            CHECK_TO_DS("Dict[a: 1 2 3]", "Dict[a: 1 2 3]");
+            CHECK_TO_DS("Dict[a: A B C]", "Dict[a: A B C]");
+            CHECK_TO_DS("Dict[a: \"A B C\"]", "Dict[a: \"A B C\"]");
+            CHECK_TO_DS("Dict[a: \"`\"A B C`\"\"]", "Dict[a: \"`\"A B C`\"\"]");
+            CHECK_TO_DS("Dict[a: MList(1 2 3)]", "Dict[a: (1 2 3)]");
+            CHECK_TO_DS("Dict[a: S\"1 2 3\"]", "Dict[a: S\"1 2 3\"]");
+            CHECK_TO_DS("Dict[a: String(\"``a\")]", "Dict[a: S\"``a\"]");
+            CHECK_TO_DS("Dict[a: @a]", "Dict[a: \"@a\"]");
+        }
+
+        SECTION("toDictStringContent")
+        {
+            CHECK_TO_DSC("", "");
+            CHECK_TO_DSC(" ", "");
+            CHECK_TO_DSC("Dict[a:]", "a:");
+            CHECK_TO_DSC("Dict[a: 1]", "a: 1");
+            CHECK_TO_DSC("Dict[a: -0.25]", "a: -0.25");
+            CHECK_TO_DSC("Dict[a: 1/4]", "a: 0.25");
+            CHECK_TO_DSC("Dict[a: 0xFF]", "a: 255");
+            CHECK_TO_DSC("Dict[a: 0b0101]", "a: 5");
+            CHECK_TO_DSC("Dict[a: 1 2 3]", "a: 1 2 3");
+            CHECK_TO_DSC("Dict[a: A B C]", "a: A B C");
+            CHECK_TO_DSC("Dict[a: \"A B C\"]", "a: \"A B C\"");
+            CHECK_TO_DSC("Dict[a: \"`\"A B C`\"\"]", "a: \"`\"A B C`\"\"");
+            CHECK_TO_DSC("Dict[a: MList(1 2 3)]", "a: (1 2 3)");
+            CHECK_TO_DSC("Dict[a: S\"1 2 3\"]", "a: S\"1 2 3\"");
+            CHECK_TO_DSC("Dict[a: String(\"``a\")]", "a: S\"``a\"");
+            CHECK_TO_DSC("Dict[a: @a]", "a: \"@a\"");
+        }
     }
 }

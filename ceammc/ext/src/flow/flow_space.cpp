@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "flow_space.h"
+#include "ceammc_containers.h"
 #include "ceammc_factory.h"
 
 #include <chrono>
@@ -143,12 +144,15 @@ void FlowSpace::onSymbol(t_symbol* s)
     addClock(fn);
 }
 
-void FlowSpace::onList(const AtomList& l)
+void FlowSpace::onList(const AtomListView& lv)
 {
     if (packet_count_ == 0)
         packet_sched_.delay(0);
 
-    auto fn = [l, this]() { listTo(0, l); clockDone(); };
+    // make a copy for lambda capture
+    AtomList16 l;
+    l.insert_back(lv);
+    auto fn = [l, this]() { listTo(0, l.view()); clockDone(); };
     addClock(fn);
 }
 
@@ -157,8 +161,10 @@ void FlowSpace::onAny(t_symbol* s, const AtomListView& lv)
     if (packet_count_ == 0)
         packet_sched_.delay(0);
 
-    AtomList l(lv); // lambda capture copy
-    auto fn = [this, s, l]() { anyTo(0, s, l); clockDone(); };
+    // make a copy for lambda capture
+    AtomList16 l;
+    l.insert_back(lv);
+    auto fn = [this, s, l]() { anyTo(0, s, l.view()); clockDone(); };
     addClock(fn);
 }
 

@@ -26,7 +26,7 @@ public:
     ListRepeat(const PdArgs& a);
     void onFloat(t_float f) override;
     void onSymbol(t_symbol* s) override;
-    void onList(const AtomList& l) override;
+    void onList(const AtomListView& lv) override;
     void onData(const Atom& d) override;
 
     void onInlet(size_t, const AtomListView& l) override;

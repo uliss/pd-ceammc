@@ -11,7 +11,7 @@ public:
     PitchToMIDI(const PdArgs& a);
 
     void onSymbol(t_symbol* s) override;
-    void onList(const AtomList& lst) override;
+    void onList(const AtomListView& lv) override;
     void onDataT(const StringAtom& s);
     void onDataT(const MListAtom& ml);
 

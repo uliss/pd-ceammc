@@ -18,6 +18,7 @@
 #include "ceammc_editor_object.h"
 #include "ceammc_proxy.h"
 #include "ceammc_save_object.h"
+#include "ceammc_thread.h"
 #include "lua_cmd.h"
 #include "lua_interp.h"
 
@@ -39,6 +40,7 @@ private:
     IntProperty* nin_;
     IntProperty* nout_;
     std::vector<Inlet> inlets_;
+    ThreadNotify notify_;
 
 public:
     LangLuaJit(const PdArgs& args);
@@ -49,7 +51,7 @@ public:
     void onBang() override;
     void onFloat(t_float f) override;
     void onSymbol(t_symbol* s) override;
-    void onList(const AtomList& lst) override;
+    void onList(const AtomListView& lv) override;
     void onAny(t_symbol* sel, const AtomListView& lv) override;
 
     void dump() const override;

@@ -14,8 +14,7 @@
 #include "midi_clock.h"
 #include "ceammc_factory.h"
 
-static t_symbol* SYM_MIDIRT;
-
+constexpr const char* STR_MIDIRT = "#midirealtimein";
 constexpr uint16_t PPQN = 24;
 
 static inline uint16_t enumToDiv(int v)
@@ -36,7 +35,7 @@ MidiClock::MidiClock(const PdArgs& args)
     createOutlet();
     createOutlet();
 
-    proxy_.bind(SYM_MIDIRT);
+    proxy_.bind(gensym(STR_MIDIRT));
 
     div_ = new IntEnumProperty("@div", { 0, 4, 8, 16, 32 });
     div_->setArgIndex(0);
@@ -79,8 +78,6 @@ void MidiClock::m_reset(t_symbol*, const AtomListView&)
 
 void setup_midi_clock()
 {
-    SYM_MIDIRT = gensym("#midirealtimein");
-
     ObjectFactory<MidiClock> obj("midi.clock");
 
     obj.addMethod("reset", &MidiClock::m_reset);

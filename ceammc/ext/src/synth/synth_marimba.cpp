@@ -7,8 +7,6 @@ using SynthMarimba = SynthWithFreq<faust_synth_marimba_tilde>;
 
 void setup_synth_marimba_tilde()
 {
-    SynthMarimba::initSymTab();
-
     SoundExternalFactory<SynthMarimba> obj("synth.marimba~", OBJECT_FACTORY_DEFAULT);
     obj.addMethod("note", &SynthMarimba::m_note);
 }

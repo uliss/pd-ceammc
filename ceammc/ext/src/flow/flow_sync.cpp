@@ -40,18 +40,18 @@ FlowSync::FlowSync(const PdArgs& a)
     }
 }
 
-void FlowSync::onInlet(size_t n, const AtomListView& l)
+void FlowSync::onInlet(size_t n, const AtomListView& lv)
 {
     if (n >= msg_list_.size())
         return;
 
-    if (l.size() > 0) {
-        if (l[0].isFloat())
-            msg_list_[n].setFloat(l[0].asFloat());
-        else if (l[0].asSymbol())
-            msg_list_[n].setSymbol(l[0].asSymbol());
+    if (lv.size() > 0) {
+        if (lv[0].isFloat())
+            msg_list_[n].setFloat(lv[0].asFloat());
+        else if (lv[0].asSymbol())
+            msg_list_[n].setSymbol(lv[0].asSymbol());
         else
-            msg_list_[n].setList(l);
+            msg_list_[n].setList(lv);
     } else {
         OBJ_DBG << "bang received to inlet: " << n;
     }
@@ -59,9 +59,9 @@ void FlowSync::onInlet(size_t n, const AtomListView& l)
     sync();
 }
 
-void FlowSync::onList(const AtomList& l)
+void FlowSync::onList(const AtomListView& lv)
 {
-    msg_list_[0] = l;
+    msg_list_[0] = lv;
     sync();
 }
 

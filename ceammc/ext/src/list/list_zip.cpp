@@ -85,9 +85,9 @@ void ListZip::onBang()
     listTo(0, out_list_);
 }
 
-void ListZip::onList(const AtomList& l)
+void ListZip::onList(const AtomListView& lv)
 {
-    in_list_[0] = l;
+    in_list_[0] = lv;
     const t_symbol* m = method_->value();
 
     if (m == SYM_MIN)

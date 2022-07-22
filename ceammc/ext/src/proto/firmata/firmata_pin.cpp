@@ -1,9 +1,6 @@
 #include "firmata_pin.h"
 
-#include <boost/foreach.hpp>
 #include <iomanip>
-
-#define foreach_ BOOST_FOREACH
 
 namespace firmata {
 
@@ -83,8 +80,7 @@ bool Pin::setMode(FirmataPinMode m)
 
 bool Pin::isSupportedMode(FirmataPinMode m) const
 {
-    foreach_(const FirmataPinCapability& c, caps_)
-    {
+    for (const FirmataPinCapability& c : caps_) {
         if (c.mode == m)
             return true;
     }
@@ -94,8 +90,7 @@ bool Pin::isSupportedMode(FirmataPinMode m) const
 
 int Pin::bitResolution() const
 {
-    foreach_(const FirmataPinCapability& c, caps_)
-    {
+    for (const FirmataPinCapability& c : caps_) {
         if (c.mode == mode_)
             return c.resolution;
     }
@@ -133,8 +128,7 @@ std::ostream& operator<<(std::ostream& os, const Pin& p)
     os << ":\n";
     os << "  supported modes:\n";
 
-    foreach_(const FirmataPinCapability& c, p.capabilities())
-    {
+    for (const FirmataPinCapability& c : p.capabilities()) {
         os << "  - " << std::left << std::setw(8) << firmata_pin_mode_str(c.mode)
            << ": " << (int)c.resolution << "\n";
     }

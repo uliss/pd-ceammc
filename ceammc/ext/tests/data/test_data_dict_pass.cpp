@@ -32,13 +32,13 @@ TEST_CASE("dict.pass", "[externals]")
 
         SECTION("args")
         {
-            TExt t("dict.pass", "a", "\"b", "a\"", "\"@c\"");
+            TExt t("dict.pass", LP("a \"b a\" \"@c\""));
             REQUIRE_PROPERTY(t, @keys, "a", "b a", "@c");
         }
 
         SECTION("@keys")
         {
-            TExt t("dict.pass", "@keys", "a", "\"a b\"", "\"@c\"");
+            TExt t("dict.pass", LP("@keys a \"a b\" \"@c\""));
             REQUIRE_PROPERTY(t, @keys, "a", "a b", "@c");
         }
     }

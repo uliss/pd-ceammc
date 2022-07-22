@@ -96,13 +96,13 @@ void Window::onFloat(t_float v)
     floatTo(0, res);
 }
 
-void Window::onList(const AtomList& l)
+void Window::onList(const AtomListView& lv)
 {
-    if (!checkArgs(l, ARG_INT, ARG_INT))
+    if (!checkArgs(lv, ARG_INT, ARG_INT))
         return;
 
-    size_->set(l.view(1, 1));
-    onFloat(l[0].asFloat());
+    size_->set(lv.subView(1, 1));
+    onFloat(lv[0].asFloat());
 }
 
 bool Window::setWindowFunc(t_symbol* name)

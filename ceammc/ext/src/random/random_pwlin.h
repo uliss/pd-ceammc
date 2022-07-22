@@ -15,9 +15,9 @@ class RandomPwLinear : public BaseObject {
 public:
     RandomPwLinear(const PdArgs& a);
     void onBang() override;
-    void onList(const AtomList& w) override;
+    void onList(const AtomListView& w) override;
 
-    bool set(const AtomList& data);
+    bool set(const AtomListView& data);
 };
 
 void setup_random_pw_lin();

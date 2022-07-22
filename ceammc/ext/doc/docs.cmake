@@ -313,16 +313,19 @@ set(DOC_FILES
     list.integrator
     list.last
     list.length
+    list.map
     list.max
     list.mean
     list.min
     list.none_of
     list.normalize
+    list.pass
     list.pass_if
     list.prepend
     list.product
     list.range
     list.reduce
+    list.reject
     list.remove
     list.remove_if
     list.repack

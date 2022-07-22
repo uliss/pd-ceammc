@@ -33,8 +33,6 @@ public:
 
 void setup_synth_harpsichord_tilde()
 {
-    SynthHarpsichord::initSymTab();
-
     SoundExternalFactory<SynthHarpsichord> obj("synth.harpsichord~", OBJECT_FACTORY_DEFAULT);
     obj.addMethod("reset", &SynthHarpsichord::m_reset);
     obj.addMethod("note", &SynthHarpsichord::m_note);

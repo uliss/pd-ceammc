@@ -50,13 +50,13 @@ void FlowRejectIf::onSymbol(t_symbol* s)
         symbolTo(0, s);
 }
 
-void FlowRejectIf::onList(const AtomList& l)
+void FlowRejectIf::onList(const AtomListView& lv)
 {
     reject_ = 1;
-    listTo(1, l);
+    listTo(1, lv);
 
     if (reject_ == 0)
-        listTo(0, l);
+        listTo(0, lv);
 }
 
 void FlowRejectIf::onAny(t_symbol* s, const AtomListView& lv)

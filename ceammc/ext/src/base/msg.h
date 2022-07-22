@@ -29,12 +29,12 @@ public:
     void onBang() final;
     void onFloat(t_float v) final;
     void onSymbol(t_symbol* s) final;
-    void onList(const AtomList& l) final;
+    void onList(const AtomListView& lv) final;
     void onAny(t_symbol* sel, const AtomListView& l) final;
-    void onInlet(size_t n, const AtomListView& l) final;
+    void onInlet(size_t n, const AtomListView& lv) final;
 
 private:
-    void setMethod(const AtomList& l);
+    void setMethod(const AtomListView& lv);
     void output();
 };
 

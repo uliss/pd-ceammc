@@ -58,10 +58,12 @@ bool UnitsFullMatch::parse(const char* str)
     const char* p = str;
     const char* pe = p + len;
     const char* eof = pe;
-    int cat_ = 0;
-    AtomType type_ = TYPE_UNKNOWN;
+
     PositionType pos_ = POSITION_ABS;
-    NumericRagelData num_;
+
+    DECLARE_RAGEL_COMMON_VARS;
+    DECLARE_RAGEL_NUMERIC_VARS;
+
     fsm::BpmData bpm;
     fsm::SmpteData smpte;
 
@@ -72,19 +74,25 @@ bool UnitsFullMatch::parse(const char* str)
 
     const bool ok = cs >= %%{ write first_final; }%%;
     if (ok) {
-        unit_.value = num_.fval;
-        if  (type_ == TYPE_RATIO) {
-            if (num_.iden == 0) {
+        unit_.value = ragel_num.vdouble;
+
+        switch(ragel_type) {
+        case TYPE_RATIO:
+            if (ragel_num.ratio.den == 0) {
                 fprintf(stderr, "division by zero: %s\n", str);
                 return false;
             }
 
-            unit_.value = double(num_.inum) / double(num_.iden);
+            unit_.value = ragel_num.getRatioAsFloat();
+        break;
+        case TYPE_INT:
+            unit_.value = ragel_num.getInteger();
+        break;
+        default:
+        break;
         }
-        else if(type_ == TYPE_INT)
-            unit_.value = num_.ival;
 
-        unit_.type = type_;
+        unit_.type = ragel_type;
         unit_.pos = pos_;
         unit_.smpte.hour = smpte.hour;
         unit_.smpte.min = smpte.min;

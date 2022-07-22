@@ -3,6 +3,8 @@
 
 #include "ui_single_value.h"
 
+namespace ceammc {
+
 class UISlider : public UISingleValue {
     bool is_horizontal_;
     t_float knob_phase_prev_;
@@ -38,6 +40,8 @@ public:
 private:
     t_float calcValueAtMousePos(const t_pt& pt) const;
 };
+
+}
 
 void setup_ui_slider();
 

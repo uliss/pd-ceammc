@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "list_insert.h"
+#include "ceammc_containers.h"
 #include "ceammc_factory.h"
 #include "datatype_mlist.h"
 
@@ -32,41 +33,41 @@ ListInsert::ListInsert(const PdArgs& args)
     createOutlet();
 }
 
-void ListInsert::onList(const AtomList& lst)
+void ListInsert::onList(const AtomListView& lv)
 {
-    AtomList res;
-    res.reserve(lst.size() + lst_->value().size());
+    AtomList32 res;
+    res.reserve(lv.size() + lst_->value().size());
 
-    if (index_->value() > lst.size()) {
+    if (index_->value() > lv.size()) {
         OBJ_ERR << "index value is too big: " << index_->value();
         return;
     }
 
-    const size_t N = std::min<size_t>(lst.size(), index_->value());
+    const size_t N = std::min<size_t>(lv.size(), index_->value());
 
     // insert before
     for (size_t i = 0; i < N; i++)
-        res.append(lst[i]);
+        res.push_back(lv[i]);
 
     // main insert
-    for (size_t i = 0; i < lst_->value().size(); i++)
-        res.append(lst_->value().at(i));
+    for (auto& a : lst_->value())
+        res.push_back(a);
 
     // insert after
-    for (size_t i = N; i < lst.size(); i++)
-        res.append(lst[i]);
+    for (size_t i = N; i < lv.size(); i++)
+        res.push_back(lv[i]);
 
-    listTo(0, res);
+    listTo(0, res.view());
 }
 
-void ListInsert::onInlet(size_t n, const AtomListView& lst)
+void ListInsert::onInlet(size_t n, const AtomListView& lv)
 {
     switch (n) {
     case 1:
-        lst_->set(lst);
+        lst_->set(lv);
         break;
     case 2:
-        index_->set(lst);
+        index_->set(lv);
         break;
     default:
         OBJ_ERR << "invalid inlet: " << n;

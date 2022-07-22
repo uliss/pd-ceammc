@@ -22,6 +22,10 @@ static const float SCALE_ALPHA_BLEND = 0.7;
 static t_rgba BIND_MIDI_COLOR = hex_to_rgba("#FF3377");
 static t_rgba PICKUP_MIDI_COLOR = hex_to_rgba("#3377FF");
 
+constexpr int MIDI_CTL_NONE = -1;
+constexpr int MIDI_CTL_MIN = 0;
+constexpr int MIDI_CTL_MAX = 127;
+
 static t_symbol* midi_ctl_sym()
 {
     static t_symbol* sym = gensym("#ctlin");
@@ -43,7 +47,7 @@ UIGain::UIGain()
     , is_horizontal_(false)
     , prop_relative_mode(0)
     , prop_midi_chn(0)
-    , prop_midi_ctl(0)
+    , prop_midi_ctl(MIDI_CTL_NONE)
     , prop_pickup_midi(0)
     , control_state_(NORMAL)
     , pick_value_state_(PICK_VALUE_START)
@@ -161,7 +165,7 @@ void UIGain::init(t_symbol* name, const AtomListView& args, bool usePresets)
     dspSetup(1, 1);
 
     // if listen MIDI
-    if (prop_midi_ctl > 0) {
+    if (prop_midi_ctl != MIDI_CTL_NONE) {
         midi_proxy_.bind(midi_ctl_sym());
 
         // init pickup
@@ -211,7 +215,7 @@ void UIGain::onPropChange(t_symbol* prop_name)
     prop_color_scale = rgba_color_sum(&prop_color_background, &prop_color_knob, SCALE_ALPHA_BLEND);
 
     if (prop_name == gensym("midi_control")) {
-        if (prop_midi_ctl != 0) {
+        if (prop_midi_ctl != MIDI_CTL_NONE) {
             // info
             std::ostringstream ss;
             ss << "binded to MIDI ctl #"
@@ -413,7 +417,7 @@ void UIGain::updateIndicators()
 bool UIGain::isMidiMatched(int num, int ch) const
 {
     // MIDI control is not binded: skip
-    if (prop_midi_ctl == 0)
+    if (prop_midi_ctl == MIDI_CTL_NONE)
         return false;
 
     // MIDI control not matches: skip
@@ -538,8 +542,8 @@ void UIGain::setup()
 
     obj.addProperty("midi_channel", _("MIDI channel"), 0, &UIGain::prop_midi_chn, "MIDI");
     obj.setPropertyRange("midi_channel", 0, 16);
-    obj.addProperty("midi_control", _("MIDI control"), 0, &UIGain::prop_midi_ctl, "MIDI");
-    obj.setPropertyRange("midi_control", 0, 128);
+    obj.addProperty("midi_control", _("MIDI control"), MIDI_CTL_NONE, &UIGain::prop_midi_ctl, "MIDI");
+    obj.setPropertyRange("midi_control", MIDI_CTL_NONE, MIDI_CTL_MAX);
     obj.addProperty("midi_pickup", _("MIDI pickup"), true, &UIGain::prop_pickup_midi, "MIDI");
 
     obj.setDefaultSize(15, 120);

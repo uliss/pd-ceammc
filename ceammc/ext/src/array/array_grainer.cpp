@@ -81,7 +81,7 @@ ArrayGrainer::ArrayGrainer(const PdArgs& args)
 
 void ArrayGrainer::setupDSP(t_signal** sp)
 {
-    if (!array_.open(array_name_->value())) {
+    if (array_name_->value() != &s_ && !array_.open(array_name_->value())) {
         OBJ_ERR << "can't open array: " << array_name_->value();
         dsp_add_zero(sp[0]->s_vec, sp[0]->s_n);
         return;
@@ -248,6 +248,24 @@ void ArrayGrainer::m_set(t_symbol* s, const AtomListView& lv)
         METHOD_ERR(s) << "ID or tag expected";
 }
 
+void ArrayGrainer::m_pause(t_symbol* s, const AtomListView& lv)
+{
+    if (lv.size() >= 1 && lv[0] == gensym(CHAR_ALL)) { /// pause all
+        cloud_.pauseAll(lv.boolAt(1, true));
+    } else if (lv.size() >= 1 && lv[0].isFloat()) { /// pause by #ID
+        auto id = lv[0].asInt();
+        if (id < 0) {
+            METHOD_ERR(s) << "non-negative grain id expected, got: " << id;
+            return;
+        }
+
+        cloud_.pauseById(id, lv.boolAt(1, true));
+    } else if (lv.size() >= 1 && lv[0].isSymbol()) { /// pause by tag
+        auto tag = lv[0].asT<t_symbol*>();
+        cloud_.pauseByTag(tag, lv.boolAt(1, true));
+    }
+}
+
 void ArrayGrainer::appendGrains(int n, const AtomListView& args)
 {
     if (n < 1) {
@@ -380,4 +398,5 @@ void setup_array_grainer()
     obj.addMethod("set", &ArrayGrainer::m_set);
     obj.addMethod("onsets", &ArrayGrainer::m_onsets);
     obj.addMethod("align", &ArrayGrainer::m_align);
+    obj.addMethod("pause", &ArrayGrainer::m_pause);
 }

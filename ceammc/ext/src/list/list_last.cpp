@@ -8,12 +8,10 @@ ListLast::ListLast(const PdArgs& args)
     createOutlet();
 }
 
-void ListLast::onList(const AtomList& lst)
+void ListLast::onList(const AtomListView& lv)
 {
-    auto last = lst.last();
-
-    if (last)
-        atomTo(0, *last);
+    if (!lv.empty())
+        atomTo(0, lv.back());
 }
 
 void ListLast::onDataT(const MListAtom& ml)

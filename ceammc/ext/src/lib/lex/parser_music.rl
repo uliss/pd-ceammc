@@ -61,8 +61,8 @@ bool BpmFullMatch::parse(const char* str)
     const char* p = str;
     const char* pe = p + len;
     const char* eof = pe;
-    int cat_ = 0;
-    AtomType type_;
+
+    DECLARE_RAGEL_COMMON_VARS;
     fsm::BpmData bpm;
 
     reset();
@@ -120,8 +120,8 @@ bool SpnFullMatch::parse(const char* str)
     const char* p = str;
     const char* pe = p + len;
     const char* eof = pe;
-    int cat_ = 0;
-    AtomType type_;
+
+    DECLARE_RAGEL_COMMON_VARS;
     fsm::SpnData spn;
 
     reset();
@@ -187,8 +187,8 @@ bool PitchFullMatch::parse(const char* str)
     const char* p = str;
     const char* pe = p + len;
     const char* eof = pe;
-    int cat_ = 0;
-    AtomType type_;
+
+    DECLARE_RAGEL_COMMON_VARS;
     fsm::SpnData spn;
 
     reset();
@@ -243,8 +243,8 @@ bool NotationSingle::parse(const char* str)
     const char* p = str;
     const char* pe = p + len;
     const char* eof = pe;
-    int cat_ = 0;
-    AtomType type_;
+
+    DECLARE_RAGEL_COMMON_VARS;
     fsm::NotationData note;
     fsm::SpnData spn;
 

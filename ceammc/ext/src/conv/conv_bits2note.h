@@ -32,7 +32,7 @@ public:
     ConvBits2Note(const PdArgs& args);
 
     void initDone() override;
-    void onList(const AtomList& lst) override;
+    void onList(const AtomListView& lv) override;
 
 private:
     void noteTo(size_t n, t_float note, t_float vel);

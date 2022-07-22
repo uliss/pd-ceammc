@@ -15,10 +15,10 @@ class RandomPWConst : public BaseObject {
 public:
     RandomPWConst(const PdArgs& a);
     void onBang() override;
-    void onList(const AtomList& v) override;
+    void onList(const AtomListView& lv) override;
 
 private:
-    bool set(const AtomList& data);
+    bool set(const AtomListView& data);
 };
 
 void setup_random_pw_const();

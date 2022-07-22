@@ -3,7 +3,11 @@ add_library(ceammc_path STATIC
     datatype_path.cpp
     file_size.cpp
 )
-target_include_directories(ceammc_path PRIVATE ${CMAKE_BINARY_DIR})
+target_include_directories(ceammc_path
+    PRIVATE
+        ${CMAKE_BINARY_DIR}
+        "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>"
+)
 
 function(ceammc_path_external name)
     target_sources(ceammc_path PRIVATE "path_${name}.cpp")

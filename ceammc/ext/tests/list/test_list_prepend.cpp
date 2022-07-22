@@ -55,7 +55,7 @@ TEST_CASE("list.prepend", "[externals]")
 
     SECTION("args")
     {
-        TObj t("list.prepend", LA("@prop", 1));
+        TObj t("list.prepend", LA("\"@prop\"", 1));
 
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_LIST_AT_OUTLET(0, t, LA("@prop", 1));

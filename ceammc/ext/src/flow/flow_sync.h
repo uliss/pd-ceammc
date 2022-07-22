@@ -28,8 +28,8 @@ class FlowSync : public BaseObject {
 public:
     FlowSync(const PdArgs& a);
 
-    void onInlet(size_t n, const AtomListView& l) override;
-    void onList(const AtomList& l) override;
+    void onInlet(size_t n, const AtomListView& lv) override;
+    void onList(const AtomListView& lv) override;
     void onFloat(t_float v) override;
     void onSymbol(t_symbol* s) override;
 

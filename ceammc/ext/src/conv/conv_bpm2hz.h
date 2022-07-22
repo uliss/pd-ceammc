@@ -22,6 +22,6 @@ class BpmToHz : public BaseObject {
 public:
     BpmToHz(const PdArgs& a);
     void onFloat(t_float v) override;
-    void onList(const AtomList& lst) override;
+    void onList(const AtomListView& lv) override;
 };
 #endif // CONV_BPM2HZ_H

@@ -200,7 +200,7 @@ GrainState Grain::process(ArrayIterator in, size_t in_size, t_sample** buf, uint
     constexpr float QUIT_LIMIT = 0.00001;
 
     // invalid
-    if (state_ == GRAIN_FINISHED)
+    if (state_ == GRAIN_FINISHED || state_ == GRAIN_PAUSE)
         return state_;
 
     // optimization: silence before grain

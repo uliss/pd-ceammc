@@ -22,9 +22,9 @@ SetIntersection::SetIntersection(const PdArgs& a)
     createOutlet();
 }
 
-void SetIntersection::onList(const AtomList& lst)
+void SetIntersection::onList(const AtomListView& lv)
 {
-    onDataT(SetAtom(lst));
+    onDataT(SetAtom(lv));
 }
 
 void SetIntersection::onDataT(const SetAtom& set)
@@ -32,12 +32,12 @@ void SetIntersection::onDataT(const SetAtom& set)
     atomTo(0, SetAtom(DataTypeSet::intersection(*set, set1_)));
 }
 
-void SetIntersection::onInlet(size_t, const AtomListView& l)
+void SetIntersection::onInlet(size_t, const AtomListView& lv)
 {
-    if (l.isA<DataTypeSet>()) {
-        set1_ = *l.asD<DataTypeSet>();
+    if (lv.isA<DataTypeSet>()) {
+        set1_ = *lv.asD<DataTypeSet>();
     } else {
-        set1_ = DataTypeSet(l);
+        set1_ = DataTypeSet(lv);
     }
 }
 

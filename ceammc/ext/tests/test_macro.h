@@ -85,6 +85,11 @@
 #define LA(...) AtomList({ CALL_MACRO_X_FOR_EACH(_TEST_ATOM_WRAP, __VA_ARGS__) })
 
 /**
+ * @brief create atomlist from parsed string (as Pd does for object arguments
+ */
+#define LP(s) AtomList::parseString(s)
+
+/**
  * @brief variadic list of floats (only)
  */
 #define LF(...) AtomList({ __VA_ARGS__ })

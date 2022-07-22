@@ -6,32 +6,6 @@
 namespace ceammc {
 namespace parser {
 
-static uint8_t xchar2digit(char c)
-{
-    switch (c) {
-    case '0':
-    case '1':
-    case '2':
-    case '3':
-    case '4':
-    case '5':
-    case '6':
-    case '7':
-    case '8':
-    case '9':
-        return c - '0';
-    case 'A':
-    case 'B':
-    case 'C':
-    case 'D':
-    case 'E':
-    case 'F':
-        return c - 'A' + 10;
-    default:
-        return c - 'a' + 10;
-    }
-}
-
 %%{
     machine color;
     include color_common "ragel_color.rl";

@@ -41,33 +41,33 @@ void MathApprox::onFloat(t_float f)
     floatTo(0, std::fabs(f - v) <= std::fabs(e) ? 1 : 0);
 }
 
-void MathApprox::onList(const AtomList& l)
+void MathApprox::onList(const AtomListView& lv)
 {
     static ArgChecker arg_cheker("f f f?");
 
-    if (!arg_cheker.check(l))
+    if (!arg_cheker.check(lv))
         return;
 
-    if (l.size() == 3) {
-        value_->set(l.view(1, 1));
-        epsilon_->set(l.view(2, 1));
-        onFloat(l[0].asFloat(0));
+    if (lv.size() == 3) {
+        value_->set(lv.subView(1, 1));
+        epsilon_->set(lv.subView(2, 1));
+        onFloat(lv[0].asFloat(0));
     }
 
-    if (l.size() == 2) {
-        value_->set(l.view(1, 1));
-        onFloat(l[0].asFloat(0));
+    if (lv.size() == 2) {
+        value_->set(lv.subView(1, 1));
+        onFloat(lv[0].asFloat(0));
     }
 }
 
-void MathApprox::onInlet(size_t n, const AtomListView& l)
+void MathApprox::onInlet(size_t n, const AtomListView& lv)
 {
     switch (n) {
     case 1:
-        value_->set(l);
+        value_->set(lv);
         break;
     case 2:
-        epsilon_->set(l);
+        epsilon_->set(lv);
         break;
     }
 }

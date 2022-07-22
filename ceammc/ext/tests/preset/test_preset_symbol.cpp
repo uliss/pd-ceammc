@@ -45,20 +45,27 @@ TEST_CASE("preset.symbol", "[PureData]")
 
     SECTION("do")
     {
-        TObj p1("preset.symbol", LA("p1"));
+        TObj p("preset.symbol", LA("p1"));
 
-        WHEN_SEND_SYMBOL_TO(0, p1, "ABC");
+        WHEN_SEND_SYMBOL_TO(0, p, "ABC");
 
-        p1.m_store(0, L());
+        p.m_store(0, L());
 
-        WHEN_SEND_SYMBOL_TO(0, p1, "DEF");
-        REQUIRE_NO_MSG(p1);
-        p1.m_store(0, LF(1));
+        WHEN_SEND_SYMBOL_TO(0, p, "DEF");
+        REQUIRE_NO_MSG(p);
+        p.m_store(0, LF(1));
 
-        p1.m_load(0, L());
-        REQUIRE_SYMBOL_AT_OUTLET(0, p1, "ABC");
+        WHEN_SEND_SYMBOL_TO(0, p, "with many spaces    ...");
+        REQUIRE_NO_MSG(p);
+        p.m_store(0, LF(2));
 
-        p1.m_load(0, LF(1));
-        REQUIRE_SYMBOL_AT_OUTLET(0, p1, "DEF");
+        p.m_load(0, L());
+        REQUIRE_SYMBOL_AT_OUTLET(0, p, "ABC");
+
+        p.m_load(0, LF(1));
+        REQUIRE_SYMBOL_AT_OUTLET(0, p, "DEF");
+
+        p.m_load(0, LF(2));
+        REQUIRE_SYMBOL_AT_OUTLET(0, p, "with many spaces    ...");
     }
 }

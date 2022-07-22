@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "array_s2p.h"
+#include "ceammc_containers.h"
 #include "ceammc_factory.h"
 
 ArraySampleToPhase::ArraySampleToPhase(const PdArgs& a)
@@ -28,12 +29,14 @@ void ArraySampleToPhase::onFloat(t_float sample)
     floatTo(0, sample / array_.size());
 }
 
-void ArraySampleToPhase::onList(const AtomList& lst)
+void ArraySampleToPhase::onList(const AtomListView& lv)
 {
     if (!array_.update() || array_.size() == 0)
         return;
 
-    listTo(0, lst.filtered(isFloat) / array_.size());
+    SmallAtomList val;
+    lv.mapFloat([this](t_float f) { return f / array_.size(); }, val, AtomListMapType::FILTER);
+    listTo(0, val.view());
 }
 
 void setup_array_s2p()

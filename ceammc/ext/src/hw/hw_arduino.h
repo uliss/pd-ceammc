@@ -30,7 +30,7 @@ public:
     ArduinoExternal(const PdArgs& args);
     ~ArduinoExternal();
     void onFloat(t_float f) override;
-    void onList(const AtomList& lst) override;
+    void onList(const AtomListView& lv) override;
     void initDone() override;
 
     void tick();

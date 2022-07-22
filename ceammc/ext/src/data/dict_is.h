@@ -24,7 +24,7 @@ public:
     IsDict(const PdArgs& args);
     void onFloat(t_float) override;
     void onSymbol(t_symbol*) override;
-    void onList(const AtomList&) override;
+    void onList(const AtomListView &) override;
     void onAny(t_symbol*, const AtomListView&) override;
     void onData(const Atom& ptr) override;
 };

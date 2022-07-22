@@ -27,7 +27,7 @@ class ConvDegree2Key : public BaseObject {
 public:
     ConvDegree2Key(const PdArgs& args);
     void onFloat(t_float f) override;
-    void onList(const AtomList& l) override;
+    void onList(const AtomListView& lv) override;
 
     void m_random(t_symbol* s, const AtomListView& v);
 };

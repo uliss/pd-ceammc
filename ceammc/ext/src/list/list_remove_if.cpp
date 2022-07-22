@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "list_remove_if.h"
+#include "ceammc_containers.h"
 #include "ceammc_factory.h"
 #include "datatype_mlist.h"
 
@@ -24,28 +25,28 @@ ListRemoveIf::ListRemoveIf(const PdArgs& a)
     createOutlet();
 }
 
-void ListRemoveIf::onList(const AtomList& l)
+void ListRemoveIf::onList(const AtomListView& lv)
 {
     remove_ = true;
-    AtomList res;
+    AtomList32 res;
 
-    for (size_t i = 0; i < l.size(); i++) {
+    for (auto& a : lv) {
         remove_ = true;
 
-        atomTo(1, l[i]);
+        atomTo(1, a);
         if (!remove_)
-            res.append(l[i]);
+            res.push_back(a);
     }
 
-    listTo(0, res);
+    listTo(0, res.view());
 }
 
-void ListRemoveIf::onInlet(size_t n, const AtomListView& l)
+void ListRemoveIf::onInlet(size_t n, const AtomListView& lv)
 {
-    if (l.empty())
+    if (lv.empty())
         return;
 
-    remove_ = l[0].asFloat() != 0;
+    remove_ = lv[0].asFloat() != 0;
 }
 
 void ListRemoveIf::onDataT(const MListAtom& ml)

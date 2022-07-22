@@ -47,15 +47,15 @@ void FlowReject::onSymbol(t_symbol* s)
     symbolTo(0, s);
 }
 
-void FlowReject::onList(const AtomList& l)
+void FlowReject::onList(const AtomListView& lv)
 {
-    if (l.empty())
+    if (lv.empty())
         return onBang();
 
-    if (reject_list_->value().contains(l[0]))
+    if (reject_list_->value().contains(lv[0]))
         return;
 
-    listTo(0, l);
+    listTo(0, lv);
 }
 
 void FlowReject::onAny(t_symbol* sel, const AtomListView& lv)

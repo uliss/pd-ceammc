@@ -16,6 +16,7 @@
 
 #include <functional>
 
+#include "ceammc_containers.h"
 #include "ceammc_object.h"
 #include "ceammc_sound_external.h"
 using namespace ceammc;
@@ -37,16 +38,12 @@ public:
         floatTo(0, fn_(v));
     }
 
-    void onList(const AtomList& l) override
+    void onList(const AtomListView& lv) override
     {
-        AtomList res;
-        res.reserve(l.size());
-
-        for (auto& a : l) {
-            res.append(Atom(fn_(a.asFloat())));
-        }
-
-        listTo(0, res);
+        SmallAtomList res;
+        res.reserve(lv.size());
+        lv.mapFloat(fn_, res);
+        listTo(0, res.view());
     }
 };
 

@@ -73,6 +73,35 @@ void GrainCloud::removeByTag(t_symbol* tag)
     grains_.erase(from, grains_.end());
 }
 
+void GrainCloud::pauseAll(bool value)
+{
+    const auto st = value ? GRAIN_PAUSE : GRAIN_PLAYING;
+    for (auto* g : grains_)
+        g->setPlayStatus(st);
+}
+
+void GrainCloud::pauseById(int id, bool value)
+{
+    const auto st = value ? GRAIN_PAUSE : GRAIN_PLAYING;
+
+    for (auto* g : grains_) {
+        if (g->id() == id) {
+            g->setPlayStatus(st);
+            break;
+        }
+    }
+}
+
+void GrainCloud::pauseByTag(t_symbol* tag, bool value)
+{
+    const auto st = value ? GRAIN_PAUSE : GRAIN_PLAYING;
+
+    for (auto* g : grains_) {
+        if (g->tag() == tag)
+            g->setPlayStatus(st);
+    }
+}
+
 void GrainCloud::alignAll(const std::vector<size_t>& onsets)
 {
     for (auto* g : grains_)
@@ -128,7 +157,7 @@ void GrainCloud::playBuffer(t_sample** buf, uint32_t bs, uint32_t sr)
             continue;
 
         if (g->canBePlayed()) {
-            if (g->playStatus() == GRAIN_FINISHED) {
+            if (g->playStatus() == GRAIN_FINISHED) { // grain retriggering
                 switch (sync_) {
                 case SYNC_INTERNAL:
                     sync_counter_ += bs;

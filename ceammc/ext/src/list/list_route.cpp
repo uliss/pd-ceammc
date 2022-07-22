@@ -70,21 +70,21 @@ void ListRoute::onSymbol(t_symbol* s)
     }
 }
 
-void ListRoute::onList(const AtomList& lst)
+void ListRoute::onList(const AtomListView& lv)
 {
-    if (lst.empty())
+    if (lv.empty())
         return;
 
-    int idx = args_->value().findPos(lst.at(0));
+    int idx = args_->value().findPos(lv.at(0));
 
     // no match
     if (idx == -1) {
-        return listTo(numOutlets() - 1, lst);
+        return listTo(numOutlets() - 1, lv);
     } else {
         if (trim_->value())
-            outputList(idx, lst.view(1));
+            outputList(idx, lv.subView(1));
         else
-            outputList(idx, lst.view());
+            outputList(idx, lv);
     }
 }
 

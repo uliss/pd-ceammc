@@ -12,41 +12,63 @@
  * this file belongs to.
  *****************************************************************************/
 #include "list_prepend.h"
+#include "ceammc_containers.h"
 #include "ceammc_factory.h"
 #include "datatype_mlist.h"
 
 ListPrepend::ListPrepend(const PdArgs& args)
     : BaseObject(args)
-    , lst_(args.args)
+    , lst_(nullptr)
 {
+    lst_ = new ListProperty("@value");
+    lst_->setArgIndex(0);
+    addProperty(lst_);
     createInlet();
     createOutlet();
-}
-
-void ListPrepend::parseProperties()
-{
-    // empty
 }
 
 void ListPrepend::onBang()
 {
     // bang processed as empty list
-    listTo(0, lst_);
+    listTo(0, lst_->value());
 }
 
 void ListPrepend::onFloat(t_float f)
 {
-    onList(AtomList(f));
+    AtomList32 res;
+    res.reserve(lst_->value().size() + 1);
+
+    for (auto& a : lst_->value())
+        res.push_back(a);
+
+    res.push_back(f);
+    listTo(0, res.view());
 }
 
 void ListPrepend::onSymbol(t_symbol* s)
 {
-    onList(AtomList(s));
+    SmallAtomList res;
+    res.reserve(lst_->value().size() + 1);
+
+    for (auto& a : lst_->value())
+        res.push_back(a);
+
+    res.push_back(s);
+    listTo(0, res.view());
 }
 
-void ListPrepend::onList(const AtomList& lst)
+void ListPrepend::onList(const AtomListView& lv)
 {
-    listTo(0, lst_ + lst);
+    AtomList32 res;
+
+    res.reserve(lst_->value().size() + lv.size());
+    for (auto& a : lst_->value())
+        res.push_back(a);
+
+    for (auto& a : lv)
+        res.push_back(a);
+
+    listTo(0, res.view());
 }
 
 void ListPrepend::onData(const Atom& d)
@@ -58,13 +80,13 @@ void ListPrepend::onDataT(const MListAtom& ml)
 {
     MListAtom res(ml);
     res.detachData();
-    res->prepend(lst_);
+    res->prepend(lst_->value());
     atomTo(0, res);
 }
 
 void ListPrepend::onInlet(size_t n, const AtomListView& lst)
 {
-    lst_ = lst;
+    lst_->setValue(lst);
 }
 
 void setup_list_prepend()

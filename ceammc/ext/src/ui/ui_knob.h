@@ -3,7 +3,7 @@
 
 #include "ui_single_value.h"
 
-using namespace ceammc;
+namespace ceammc {
 
 class UIKnob : public UISingleValue {
     int show_range_;
@@ -28,6 +28,8 @@ public:
     void onMouseWheel(const t_pt& pt, long modifiers, double delta);
     void showPopup(const t_pt& pt, const t_pt& abs_pt);
 };
+
+}
 
 void setup_ui_knob();
 

@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "conv_bpm2ms.h"
 #include "ceammc_factory.h"
+#include "ceammc_containers.h"
 
 static t_float bpm2ms(t_float v)
 {
@@ -30,9 +31,11 @@ void BpmToMs::onFloat(t_float v)
     floatTo(0, bpm2ms(v));
 }
 
-void BpmToMs::onList(const AtomList& lst)
+void BpmToMs::onList(const AtomListView& lv)
 {
-    listTo(0, lst.mapFloat(bpm2ms));
+    SmallAtomList res;
+    lv.mapFloat(bpm2ms, res);
+    listTo(0, res.view());
 }
 
 void setup_conv_bpm2ms()

@@ -21,7 +21,7 @@ class Dbfs2amp : public BaseObject {
 public:
     Dbfs2amp(const PdArgs& args);
     void onFloat(t_float v) override;
-    void onList(const AtomList& args) override;
+    void onList(const AtomListView& args) override;
 };
 
 class Dbfs2ampTilde : public SoundExternal {

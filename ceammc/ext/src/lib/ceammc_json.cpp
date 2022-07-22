@@ -74,7 +74,7 @@ namespace json {
         else if (a.isA<DataTypeDict>())
             return to_json_struct(*a.asD<DataTypeDict>());
         else if (a.isData())
-            return nlohmann::json::parse(a.asData()->valueToJsonString());
+            return nlohmann::json::parse(a.asData()->toJsonString());
         else
             return nlohmann::json();
     }

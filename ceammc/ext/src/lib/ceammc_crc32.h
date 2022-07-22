@@ -159,10 +159,17 @@ constexpr bool crc32_check_unique(uint32_t a, uint32_t b, uint32_t c, uint32_t d
 
 #define CEAMMC_DEFINE_STR(name) constexpr const char* str_##name = #name;
 #define CEAMMC_DEFINE_CRC32(name) constexpr const auto hash_##name = #name##_hash;
+#define CEAMMC_DEFINE_SYM(name) \
+    static inline t_symbol* sym_##name() { return gensym(#name); }
+
 #define CEAMMC_DEFINE_HASH(name) \
     CEAMMC_DEFINE_STR(name)      \
     CEAMMC_DEFINE_CRC32(name)
 
+#define CEAMMC_DEFINE_SYM_HASH(name) \
+    CEAMMC_DEFINE_STR(name)          \
+    CEAMMC_DEFINE_CRC32(name)        \
+    CEAMMC_DEFINE_SYM(name)
 }
 
 #endif

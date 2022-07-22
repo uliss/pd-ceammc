@@ -38,7 +38,7 @@ public:
     MidiModus(const PdArgs& args);
 
     void onFloat(t_float f) override;
-    void onList(const AtomList& lst) override;
+    void onList(const AtomListView& lv) override;
 
 private:
     NoteStatus mapNote(t_float note, t_float& res) const;

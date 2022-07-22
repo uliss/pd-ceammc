@@ -69,15 +69,15 @@ void SeqNBangs::onFloat(t_float f)
         clock_.exec();
 }
 
-void SeqNBangs::onList(const AtomList& l)
+void SeqNBangs::onList(const AtomListView& lv)
 {
-    if (l.empty())
+    if (lv.empty())
         return onBang();
-    else if (l.size() == 1)
-        return onFloat(l[0].asFloat());
-    else if (l.size() == 2) {
+    else if (lv.size() == 1)
+        return onFloat(lv[0].asFloat());
+    else if (lv.size() == 2) {
         reset();
-        if (n_->set(l.view(0, 1)) && interval_->set(l.view(1, 1)))
+        if (n_->set(lv.subView(0, 1)) && interval_->set(lv.subView(1, 1)))
             clock_.exec();
     } else
         OBJ_ERR << "usage: NUM INTERVAL";

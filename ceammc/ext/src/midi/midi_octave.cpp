@@ -50,14 +50,14 @@ MidiOctave::MidiOctave(const PdArgs& args)
     createCbListProperty(
         "@random",
         [this]() -> AtomList { return random_ ? AtomList { (t_float)a_, (t_float)b_ } : AtomList(); },
-        [this](const AtomList& lst) -> bool {
-            if (lst.empty()) {
+        [this](const AtomListView& lv) -> bool {
+            if (lv.empty()) {
                 random_ = false;
                 return true;
-            } else if (lst.size() == 2) {
-                if (lst[0].isFloat() && lst[1].isFloat()) {
-                    auto a = lst[0].asInt();
-                    auto b = lst[1].asInt();
+            } else if (lv.size() == 2) {
+                if (lv[0].isFloat() && lv[1].isFloat()) {
+                    auto a = lv[0].asInt();
+                    auto b = lv[1].asInt();
 
                     if (a == 0 && b == 0) {
                         random_ = false;
@@ -75,7 +75,7 @@ MidiOctave::MidiOctave(const PdArgs& args)
                     }
 
                     if (a >= b) {
-                        OBJ_ERR << "MIN<MAX expected, got: " << lst;
+                        OBJ_ERR << "MIN<MAX expected, got: " << lv;
                         return false;
                     }
 
@@ -102,17 +102,17 @@ void MidiOctave::onFloat(t_float note)
     floatTo(0, octave(note));
 }
 
-void MidiOctave::onList(const AtomList& lst)
+void MidiOctave::onList(const AtomListView& lv)
 {
-    if (!onlist_chk->check(lst.view())) {
-        OBJ_ERR << "NOTE VEL [DUR] expected, got: " << lst;
+    if (!onlist_chk->check(lv)) {
+        OBJ_ERR << "NOTE VEL [DUR] expected, got: " << lv;
         return;
     }
 
-    const size_t N = lst.size();
+    const size_t N = lv.size();
     assert(N == 2 || N == 3);
 
-    Atom msg[3] = { octave(lst[0].asFloat()), lst[1], N == 3 ? lst[2] : 0. };
+    Atom msg[3] = { octave(lv[0].asFloat()), lv[1], N == 3 ? lv[2] : 0. };
     listTo(0, AtomListView(msg, N));
 }
 

@@ -976,6 +976,9 @@
     <entry name="list.length" descr="output the number of atoms in the list" ref_view="object">
       <xi:include href="list.length.pddoc" parse="xml"/>
     </entry>
+    <entry name="list.map" descr="map list values by specified dictionary" ref_view="object">
+      <xi:include href="list.map.pddoc" parse="xml"/>
+    </entry>
     <entry name="list.max" descr="output largest element in the list" ref_view="object">
       <xi:include href="list.max.pddoc" parse="xml"/>
     </entry>
@@ -991,6 +994,9 @@
     <entry name="list.normalize" descr="normalizes float list values to get their sum = 1.0" ref_view="object">
       <xi:include href="list.normalize.pddoc" parse="xml"/>
     </entry>
+    <entry name="list.pass" descr="leave in list only specified elements" ref_view="object">
+      <xi:include href="list.pass.pddoc" parse="xml"/>
+    </entry>
     <entry name="list.pass_if" descr="leave only elements accepted by predicate" ref_view="object">
       <xi:include href="list.pass_if.pddoc" parse="xml"/>
     </entry>
@@ -1005,6 +1011,9 @@
     </entry>
     <entry name="list.reduce" descr="apply function of two arguments cumulatively to the list" ref_view="object">
       <xi:include href="list.reduce.pddoc" parse="xml"/>
+    </entry>
+    <entry name="list.reject" descr="remove specified element from list" ref_view="object">
+      <xi:include href="list.reject.pddoc" parse="xml"/>
     </entry>
     <entry name="list.remove" descr="remove list element(s) at specified positions" ref_view="object">
       <xi:include href="list.remove.pddoc" parse="xml"/>
