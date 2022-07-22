@@ -18,6 +18,11 @@
 #include <chrono>
 #include <random>
 
+namespace {
+std::mt19937 random_dev(std::time(nullptr));
+
+}
+
 FlowSpace::FlowSpace(const PdArgs& a)
     : BaseObject(a)
     , packet_sched_([this]() { packetSchedule(); })
@@ -52,6 +57,10 @@ FlowSpace::FlowSpace(const PdArgs& a)
 
 void FlowSpace::packetSchedule()
 {
+    const t_float b = deviation_->value() * 0.49;
+    const t_float a = -b;
+    std::uniform_real_distribution<t_float> dist(a, b);
+
     // finalize scheduled clocks
     // as we add events from back to beginning
     // we need to process them from begining to end
@@ -64,14 +73,8 @@ void FlowSpace::packetSchedule()
 
                 if (packet_count_ != 0) {
                     t_float t = packet_count_ * delay_->value();
-
-                    if (deviation_->value() > 0) {
-                        std::mt19937 dev(std::time(nullptr));
-                        const t_float b = deviation_->value() * 0.49;
-                        const t_float a = -b;
-                        std::uniform_real_distribution<t_float> dist(a, b);
-                        t += (dist(dev) * delay_->value());
-                    }
+                    if (deviation_->value() > 0)
+                        t += (dist(random_dev) * delay_->value());
 
                     it->clock.delay(t);
                 } else // exec immidiately
