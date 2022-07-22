@@ -581,6 +581,7 @@ set(DOC_FILES
     random.discrete
     replace
     route.float
+    route.random
     risset.gliss
     rtree.to_list
     samp.time~

@@ -611,6 +611,9 @@
     <entry name="route.float" descr="separate float messages from other types" ref_view="object">
       <xi:include href="route.float.pddoc" parse="xml"/>
     </entry>
+    <entry name="route.random" descr="routes input flow to random outlet" ref_view="object">
+      <xi:include href="route.random.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="flt">
     <entry name="flt.biquad~" descr="second order IIR filter." ref_view="object">

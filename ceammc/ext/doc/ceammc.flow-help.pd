@@ -93,7 +93,9 @@ time;
 #X text 200 1277 Replace atoms in data stream;
 #X obj 30 1304 route.float;
 #X text 200 1304 separate float messages from other types;
+#X obj 30 1331 route.random;
+#X text 200 1331 routes input flow to random outlet;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::flow 20 20 0 20 -104026
 -4096 0;
-#X obj 1 1331 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 1341 library: ceammc;
+#X obj 1 1358 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 1368 library: ceammc;

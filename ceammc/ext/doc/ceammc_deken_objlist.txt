@@ -411,6 +411,8 @@ replace	Replace atoms in data stream
 ceammc/replace	Replace atoms in data stream
 route.float	separate float messages from other types
 route.f	separate float messages from other types
+route.random	routes input flow to random outlet
+route.r	routes input flow to random outlet
 flt.biquad~	second order IIR filter.
 flt.bpf12~	Two pole band-pass butterworth filter
 flt.bpf24~	Four pole band-pass butterworth filter
