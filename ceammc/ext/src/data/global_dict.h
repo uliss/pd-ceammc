@@ -29,8 +29,8 @@ public:
     const DictAtom& dict() const final { return ref(); }
     DictAtom& dict() final { return ref(); }
 
-    const DataTypeDict& editorData() const final { return *dict(); }
-    DataTypeDict& editorData() final { return *dict(); }
+    const DataTypeDict& editorData() const final { return *ref(); }
+    DataTypeDict& editorData() final { return *ref(); }
 
     EditorTitleString editorTitle() const final;
 };
