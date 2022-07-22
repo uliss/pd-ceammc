@@ -2,15 +2,14 @@
 #define RANDOM_PWLIN_H
 
 #include "ceammc_object.h"
-#include "rnd_gen.h"
+#include "ceammc_random.h"
 using namespace ceammc;
 
 class RandomPwLinear : public BaseObject {
     AtomList values_;
     std::vector<t_float> bounds_;
     std::vector<t_float> weights_;
-    RandomGen gen_;
-    SizeTProperty* seed_;
+    random::RandomGen gen_;
 
 public:
     RandomPwLinear(const PdArgs& a);

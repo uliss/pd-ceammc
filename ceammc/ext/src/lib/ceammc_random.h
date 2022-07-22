@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Copyright 2020 Serge Poltavsky. All rights reserved.
+ * Copyright 2022 Serge Poltavski. All rights reserved.
  *
  * This file may be distributed under the terms of GNU Public License version
  * 3 (GPL v3) as defined by the Free Software Foundation (FSF). A copy of the
@@ -11,24 +11,41 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef RND_GEN_H
-#define RND_GEN_H
+#ifndef CEAMMC_RANDOM_H
+#define CEAMMC_RANDOM_H
 
+#include <cstdint>
 #include <memory>
 #include <random>
 
+#include "ceammc_property.h"
+
 namespace ceammc {
+namespace random {
 
-using RandomGenT = std::mt19937;
+    using DefaultRandomGen = std::mt19937;
+    using RandomGenPtr = std::shared_ptr<DefaultRandomGen>;
 
-class RandomGen {
-    std::shared_ptr<RandomGenT> gen_;
+    class RandomGen {
+        RandomGenPtr gen_;
 
-public:
-    RandomGen();
-    void setSeed(uint_fast32_t v);
-    RandomGenT& get() { return *gen_; }
-};
+    public:
+        RandomGen();
+        void setSeed(uint_fast32_t v);
+        DefaultRandomGen& get() { return *gen_; }
+
+        float gen_uniform_float(float a, float b);
+        uint32_t gen_uniform_int(uint32_t a, uint32_t b);
+    };
+
+
+    class SeedProperty : public IntProperty {
+        RandomGen& gen_;
+    public:
+        SeedProperty(RandomGen& gen);
+    };
+
+}
 }
 
-#endif // RND_GEN_H
+#endif // CEAMMC_RANDOM_H

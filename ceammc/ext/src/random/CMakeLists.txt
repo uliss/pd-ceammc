@@ -1,4 +1,4 @@
-set(RANDOM_SOURCES mod_random.cpp rnd_gen.cpp)
+set(RANDOM_SOURCES mod_random.cpp)
 
 macro(ceammc_random_extension name)
     list(APPEND RANDOM_SOURCES "random_${name}.cpp")

@@ -15,7 +15,6 @@ static AtomList vector2list(const std::vector<t_float>& v)
 
 RandomPWConst::RandomPWConst(const PdArgs& a)
     : BaseObject(a)
-    , seed_(nullptr)
 {
     createOutlet();
 
@@ -28,9 +27,7 @@ RandomPWConst::RandomPWConst(const PdArgs& a)
     createCbListProperty("@bounds", [this]() { return vector2list(bounds_); });
     createCbListProperty("@weights", [this]() { return vector2list(weights_); });
 
-    seed_ = new SizeTProperty("@seed", 0);
-    seed_->setSuccessFn([this](Property* p) { gen_.setSeed(seed_->value()); });
-    addProperty(seed_);
+    addProperty(new random::SeedProperty(gen_));
 }
 
 void RandomPWConst::onBang()

@@ -91,6 +91,7 @@ set(CEAMMC_LIB_SOURCES
     ceammc_property_callback.cpp
     ceammc_property_enum.cpp
     ceammc_property_info.cpp
+    ceammc_random.cpp
     ceammc_regexp.cpp
     ceammc_rtree.cpp
     ceammc_score.cpp
