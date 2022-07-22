@@ -25,6 +25,8 @@ namespace ceammc {
 
 using EditorTitleString = boost::static_string<32>;
 
+EditorTitleString makeEditorTitleString(const char* dataName, const char* dataId = "");
+
 class EditorString : public memorypool::boost_intrusive_pool_item {
 public:
     boost::static_string<MAXPDSTRING> str;

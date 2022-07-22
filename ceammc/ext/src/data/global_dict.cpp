@@ -13,7 +13,6 @@
  *****************************************************************************/
 #include "global_dict.h"
 #include "ceammc_factory.h"
-#include "fmt/core.h"
 
 GlobalDict::GlobalDict(const PdArgs& args)
     : GlobalDictBase(args)
@@ -23,19 +22,7 @@ GlobalDict::GlobalDict(const PdArgs& args)
 
 EditorTitleString GlobalDict::editorTitle() const
 {
-    EditorTitleString res;
-
-    // string buffer overflow check
-    try {
-        fmt::format_to(std::back_inserter(res), "global Dict ({})", id()->s_name);
-        return res;
-    } catch (std::exception& e) {
-        if (res.size() >= (res.max_size() - 1)) {
-            res.resize(res.max_size() - 5);
-            res.append("...)");
-        }
-        return res;
-    }
+    return makeEditorTitleString("global Dict", id()->s_name);
 }
 
 void setup_global_dict()

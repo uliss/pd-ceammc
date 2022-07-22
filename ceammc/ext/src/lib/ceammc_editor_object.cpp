@@ -13,7 +13,7 @@
  *****************************************************************************/
 #include "ceammc_editor_object.h"
 #include "ceammc_canvas.h"
-#include "fmt/format.h"
+#include "fmt/core.h"
 
 extern "C" {
 #include "g_canvas.h"
@@ -254,6 +254,29 @@ void EditorStringPool::dumpMemoryUsage()
             << pool().inuse_count() << "\n"
                                        "\tunused="
             << pool().unused_count();
+}
+
+EditorTitleString makeEditorTitleString(const char* dataName, const char* dataId)
+{
+    EditorTitleString res;
+    const bool with_id = dataId && dataId[0];
+
+    try {
+        if (with_id)
+            fmt::format_to(std::back_inserter(res), "{} ({})", dataName, dataId);
+        else
+            res.append(dataName);
+
+    } catch (std::exception& e) {
+        if (res.size() >= (res.max_size() - 1)) {
+            res.resize(res.max_size() - 5);
+            res.append("...");
+            if (with_id)
+                res.push_back(')');
+        }
+    }
+
+    return res;
 }
 
 }
