@@ -547,6 +547,7 @@ is_pointer
 is_symbol
 l->l
 l->l~
+lang.lua
 lfo.+pulse~
 lfo.+saw~
 lfo.+square~
