@@ -17,8 +17,8 @@
             <par>Histogram outputted as list of probabilities in specified number of bins</par>
         </info>
         <properties>
-            <property name="@bins" type="int" minvalue="2" default="100" maxvalue="1024">number of histogram
-            bins</property>
+            <property name="@bins" type="int" minvalue="2" default="100" maxvalue="1024">number of
+            histogram bins</property>
         </properties>
         <inlets>
             <inlet>
