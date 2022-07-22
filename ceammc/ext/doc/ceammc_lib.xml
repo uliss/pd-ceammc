@@ -1770,6 +1770,9 @@
     <entry name="proto.firmata" descr="Firmata Arduino protocol support" ref_view="object">
       <xi:include href="proto.firmata.pddoc" parse="xml"/>
     </entry>
+    <entry name="proto.inscore" descr="INScore message creator" ref_view="object">
+      <xi:include href="proto.inscore.pddoc" parse="xml"/>
+    </entry>
     <entry name="proto.midi" descr="raw midi encoder/parser" ref_view="object">
       <xi:include href="proto.midi.pddoc" parse="xml"/>
     </entry>

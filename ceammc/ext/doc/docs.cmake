@@ -564,6 +564,7 @@ set(DOC_FILES
     prop.set
     prop.split
     proto.firmata
+    proto.inscore
     proto.midi
     proto.midi.cc
     proto.midi.sysex

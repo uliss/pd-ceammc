@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="proto.inscore">
+        <title>proto.inscore</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>INScore message creator</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>proto</category>
+            <keywords>inscore</keywords>
+            <since>0.9.6</since>
+        </meta>
+        <methods>
+            <method name="text">create text object at (0,0) position
+            <param name="NAME" type="symbol" required="true">object name</param>
+            <param name="ARGS" type="list">content</param></method>
+            <method name="del">remove object
+            <param name="NAME" type="symbol" required="true">object name</param></method>
+            <!-- pos -->
+            <method name="x">move object to new Y-coord
+            <param name="NAME" type="symbol" required="true">object name</param>
+            <param name="POS" type="float">new X position</param></method>
+            <method name="y">move object to new Y-coord
+            <param name="NAME" type="symbol" required="true">object name</param>
+            <param name="POS" type="float">new Y position</param></method>
+            <method name="dx">move object horizontally by specified X offset
+            <param name="NAME" type="symbol" required="true">object name</param>
+            <param name="POS" type="float">X offset</param></method>
+            <method name="dy">move object vertically by specified Y offset
+            <param name="NAME" type="symbol" required="true">object name</param>
+            <param name="POS" type="float">Y offset</param></method>
+            <!-- rotation -->
+            <method name="angle">rotate object
+            <param name="NAME" type="symbol" required="true">object name</param>
+            <param name="ANGLE" type="float" units="degree">rotation angle (clockwise)</param></method>
+            <!-- music -->
+            <method name="gmn">create Guido Music notation
+            <param name="NAME" type="symbol" required="true">object name</param>
+            <param name="NOTES" type="list">Guido Music Notation</param></method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="float">raw input of bytes from Arduino serial connection</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>raw byte output to Arduino serial connection and tagged parsed output from
+            Arduino</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[text LABEL text message(
+|
+| [ui.hsl -1 1]     [ui.hsl 0 360]
+| |                 |
+| [x LABEL $1(      [angle LABEL $1(
+| |                 |
+| | [dx LABEL 0.1(  | [gmn M \[f b d# g#\](
+| | |               | |
+| | | [del LABEL(   | |
+| | | |             | |
+[proto.inscore        ]
+|  |
+|  [print INSCORE]
+|
+[net.osc.send localhost 7000 {i=1}]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -562,6 +562,7 @@ prop.random		?		..
 prop.set,p.set		?		.
 prop.split,prop->,@->		.		?
 proto.firmata		.		.
+proto.inscore		.		.
 proto.midi		.		.
 proto.midi.cc		.		.
 proto.midi.sysex		.		.
