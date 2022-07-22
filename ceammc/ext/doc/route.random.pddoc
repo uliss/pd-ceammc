@@ -56,6 +56,33 @@
 |
 [ui.dt]
 
+[route.random.chord]
+]]>
+            </pdascii>
+            <pdascii id="chord">
+<![CDATA[
+[ui.keyboard 24 48]
+|
+|
+|
+|
+[stripnote]
+|
+[$1(      [ui.dsp~]
+|
+[mtof]
+|
+[route.random  3]
+|      ^|     ^^|
+[F]    [F]    [F]
+|      |      |
+[osc~] [osc~] [osc~]
+|      |.     |..
+[pan.spread~ 3  ]
+*|*
+[ui.hgain2~]
+*|*
+[dac~]
 ]]>
             </pdascii>
         </example>
