@@ -35,7 +35,7 @@ namespace random {
         DefaultRandomGen& get() { return *gen_; }
 
         float gen_uniform_float(float a, float b);
-        uint32_t gen_uniform_int(uint32_t a, uint32_t b);
+        uint32_t gen_uniform_uint(uint32_t a, uint32_t b);
     };
 
 

@@ -46,7 +46,7 @@ namespace random {
         return dist(*gen_);
     }
 
-    uint32_t RandomGen::gen_uniform_int(uint32_t a, uint32_t b)
+    uint32_t RandomGen::gen_uniform_uint(uint32_t a, uint32_t b)
     {
         std::uniform_int_distribution<uint32_t> dist(a, b);
         return dist(*gen_);
