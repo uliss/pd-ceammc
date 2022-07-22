@@ -28,6 +28,7 @@ BaseZTilde::BaseZTilde(const PdArgs& args)
             OBJ_ERR << "delay error";
     });
     z_->setArgIndex(0);
+    z_->setUnits(PropValueUnits::SAMP);
     addProperty(z_);
 
     createInlet();
