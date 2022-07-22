@@ -17,12 +17,13 @@
 LocalSet::LocalSet(const PdArgs& a)
     : LocalSetBase(a)
 {
+    setSpecialSymbolEscape(EDITOR_ESC_MODE_DATA);
 }
 
 EditorTitleString LocalSet::editorTitle() const
 {
-    char buf[32];
-    snprintf(buf, sizeof(buf) - 1, "GLOBAL.SET (%s)", this->id()->s_name);
+    char buf[EditorTitleString::static_capacity];
+    snprintf(buf, sizeof(buf) - 1, "local Set (%s)", binbufArgs().symbolAt(0, gensym("default"))->s_name);
     return buf;
 }
 
