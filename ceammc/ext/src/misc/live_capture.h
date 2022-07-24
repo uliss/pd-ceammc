@@ -647,13 +647,17 @@ class live_capture : public live_capture_dsp {
 	
  private:
 	
-	FAUSTFLOAT fCheckbox0;
-	int IOTA0;
-	float fVec0[8388608];
 	int fSampleRate;
-	float fConst0;
-	int iVec1[2];
+	float fConst1;
+	FAUSTFLOAT fHslider0;
+	FAUSTFLOAT fCheckbox0;
+	int iVec0[2];
 	int iRec1[2];
+	int iRec2[2];
+	int IOTA0;
+	float fVec1[8388608];
+	float fConst2;
+	int iRec3[2];
 	float fRec0[2];
 	
  public:
@@ -664,6 +668,12 @@ class live_capture : public live_capture_dsp {
 		m->declare("copyright", "(c)GRAME 2006");
 		m->declare("delays.lib/name", "Faust Delay Library");
 		m->declare("delays.lib/version", "0.1");
+		m->declare("envelopes.lib/asr:author", "Yann Orlarey, Stéphane Letz");
+		m->declare("envelopes.lib/author", "GRAME");
+		m->declare("envelopes.lib/copyright", "GRAME");
+		m->declare("envelopes.lib/license", "LGPL with exception");
+		m->declare("envelopes.lib/name", "Faust Envelope Library");
+		m->declare("envelopes.lib/version", "0.2");
 		m->declare("filename", "live_capture.dsp");
 		m->declare("license", "BSD");
 		m->declare("maths.lib/author", "GRAME");
@@ -689,26 +699,35 @@ class live_capture : public live_capture_dsp {
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
-		fConst0 = 32.0f * std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
+		float fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
+		fConst1 = 0.00100000005f * fConst0;
+		fConst2 = 32.0f * fConst0;
 	}
 	
 	virtual void instanceResetUserInterface() {
+		fHslider0 = FAUSTFLOAT(70.0f);
 		fCheckbox0 = FAUSTFLOAT(0.0f);
 	}
 	
 	virtual void instanceClear() {
-		IOTA0 = 0;
-		for (int l0 = 0; l0 < 8388608; l0 = l0 + 1) {
-			fVec0[l0] = 0.0f;
+		for (int l0 = 0; l0 < 2; l0 = l0 + 1) {
+			iVec0[l0] = 0;
 		}
 		for (int l1 = 0; l1 < 2; l1 = l1 + 1) {
-			iVec1[l1] = 0;
+			iRec1[l1] = 0;
 		}
 		for (int l2 = 0; l2 < 2; l2 = l2 + 1) {
-			iRec1[l2] = 0;
+			iRec2[l2] = 0;
 		}
-		for (int l3 = 0; l3 < 2; l3 = l3 + 1) {
-			fRec0[l3] = 0.0f;
+		IOTA0 = 0;
+		for (int l3 = 0; l3 < 8388608; l3 = l3 + 1) {
+			fVec1[l3] = 0.0f;
+		}
+		for (int l4 = 0; l4 < 2; l4 = l4 + 1) {
+			iRec3[l4] = 0;
+		}
+		for (int l5 = 0; l5 < 2; l5 = l5 + 1) {
+			fRec0[l5] = 0.0f;
 		}
 	}
 	
@@ -732,6 +751,8 @@ class live_capture : public live_capture_dsp {
 	
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("live.capture");
+		ui_interface->declare(&fHslider0, "unit", "ms");
+		ui_interface->addHorizontalSlider("fade", &fHslider0, FAUSTFLOAT(70.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(200.0f), FAUSTFLOAT(1.0f));
 		ui_interface->addCheckButton("gate", &fCheckbox0);
 		ui_interface->closeBox();
 	}
@@ -739,18 +760,23 @@ class live_capture : public live_capture_dsp {
 	virtual void compute(int count, FAUSTFLOAT** RESTRICT inputs, FAUSTFLOAT** RESTRICT outputs) {
 		FAUSTFLOAT* input0 = inputs[0];
 		FAUSTFLOAT* output0 = outputs[0];
-		float fSlow0 = float(fCheckbox0);
-		float fSlow1 = 1.0f - fSlow0;
-		int iSlow2 = int(fSlow0);
+		float fSlow0 = 1.0f / std::max<float>(1.0f, fConst1 * float(fHslider0));
+		int iSlow1 = int(float(fCheckbox0));
+		int iSlow2 = iSlow1 == 0;
 		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
-			fVec0[IOTA0 & 8388607] = fSlow1 * fRec0[1] + fSlow0 * float(input0[i0]);
-			iVec1[0] = iSlow2;
-			iRec1[0] = (iSlow2 - iVec1[1] <= 0) * (iSlow2 + iRec1[1]);
-			fRec0[0] = fVec0[(IOTA0 - int(std::min<float>(fConst0, float(std::max<int>(0, int(iRec1[0] + -1)))))) & 8388607];
+			iVec0[0] = iSlow1;
+			iRec1[0] = iSlow1 + iRec1[1] * (iVec0[1] >= iSlow1);
+			iRec2[0] = iSlow2 * (iRec2[1] + 1);
+			float fTemp0 = std::max<float>(0.0f, std::min<float>(fSlow0 * float(iRec1[0]), 1.0f) - fSlow0 * float(iRec2[0]));
+			fVec1[IOTA0 & 8388607] = fRec0[1] * (1.0f - fTemp0) + float(input0[i0]) * fTemp0;
+			iRec3[0] = (iSlow1 - iVec0[1] <= 0) * (iSlow1 + iRec3[1]);
+			fRec0[0] = fVec1[(IOTA0 - int(std::min<float>(fConst2, float(std::max<int>(0, int(iRec3[0] + -1)))))) & 8388607];
 			output0[i0] = FAUSTFLOAT(fRec0[0]);
-			IOTA0 = IOTA0 + 1;
-			iVec1[1] = iVec1[0];
+			iVec0[1] = iVec0[0];
 			iRec1[1] = iRec1[0];
+			iRec2[1] = iRec2[0];
+			IOTA0 = IOTA0 + 1;
+			iRec3[1] = iRec3[0];
 			fRec0[1] = fRec0[0];
 		}
 	}
