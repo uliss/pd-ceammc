@@ -11,11 +11,11 @@
 
 
 #line 14 "new_file_pattern.cpp"
-static const int new_file_pattern_start = 63;
-static const int new_file_pattern_first_final = 63;
-static const int new_file_pattern_error = 0;
+static const int expand_filename_pattern_start = 63;
+static const int expand_filename_pattern_first_final = 63;
+static const int expand_filename_pattern_error = 0;
 
-static const int new_file_pattern_en_main = 63;
+static const int expand_filename_pattern_en_main = 63;
 
 
 #line 113 "new_file_pattern.rl"
@@ -24,7 +24,7 @@ static const int new_file_pattern_en_main = 63;
 namespace ceammc {
 	namespace path {
 		
-		PatternStatus make_new_filename_by_pattern(const std::string& pattern, std::string& res, uint32_t idx)
+		PatternStatus expand_filename_pattern(const std::string& pattern, std::string& res, uint32_t idx)
 		{
 			int cs = 0;
 			auto* p = pattern.data();
@@ -43,7 +43,7 @@ namespace ceammc {
 			
 #line 45 "new_file_pattern.cpp"
 			{
-				cs = (int)new_file_pattern_start;
+				cs = (int)expand_filename_pattern_start;
 			}
 			
 #line 134 "new_file_pattern.rl"

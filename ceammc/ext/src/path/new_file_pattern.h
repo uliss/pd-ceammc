@@ -28,7 +28,7 @@ namespace path {
         PATTERN_LENGTH_OVERFLOW,
     };
 
-    PatternStatus make_new_filename_by_pattern(const std::string& pattern, std::string& res, uint32_t idx = 1);
+    PatternStatus expand_filename_pattern(const std::string& pattern, std::string& res, uint32_t idx = 1);
 
 }
 }

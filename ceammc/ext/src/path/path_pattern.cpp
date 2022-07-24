@@ -29,7 +29,7 @@ fs::path make_new_filename(const fs::path& pattern)
     for (int i = 1; i < 1000; i++) {
         subst.clear();
 
-        switch (path::make_new_filename_by_pattern(stem.string(), subst, i)) {
+        switch (path::expand_filename_pattern(stem.string(), subst, i)) {
         case path::PATTERN_DONE: {
             fs::path new_path(pattern);
             new_path.replace_filename(subst + ext.string());

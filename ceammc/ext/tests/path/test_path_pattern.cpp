@@ -36,44 +36,44 @@ TEST_CASE("path.pattern", "[externals]")
     SECTION("ragel")
     {
         std::string res;
-        REQUIRE(make_new_filename_by_pattern("record-###.wav", res) == PATTERN_DONE);
+        REQUIRE(expand_filename_pattern("record-###.wav", res) == PATTERN_DONE);
         REQUIRE(res == "record-001.wav");
-        REQUIRE(make_new_filename_by_pattern("record-###.wav", res, 2) == PATTERN_DONE);
+        REQUIRE(expand_filename_pattern("record-###.wav", res, 2) == PATTERN_DONE);
         REQUIRE(res == "record-002.wav");
-        REQUIRE(make_new_filename_by_pattern("record-##.wav", res, 92) == PATTERN_DONE);
+        REQUIRE(expand_filename_pattern("record-##.wav", res, 92) == PATTERN_DONE);
         REQUIRE(res == "record-92.wav");
-        REQUIRE(make_new_filename_by_pattern("record-##.wav", res, 99) == PATTERN_DONE);
+        REQUIRE(expand_filename_pattern("record-##.wav", res, 99) == PATTERN_DONE);
         REQUIRE(res == "record-99.wav");
-        REQUIRE(make_new_filename_by_pattern("record-##.wav", res, 100) == PATTERN_DONE);
+        REQUIRE(expand_filename_pattern("record-##.wav", res, 100) == PATTERN_DONE);
         REQUIRE(res == "record-00.wav");
-        REQUIRE(make_new_filename_by_pattern("record-#.wav", res, 0) == PATTERN_DONE);
+        REQUIRE(expand_filename_pattern("record-#.wav", res, 0) == PATTERN_DONE);
         REQUIRE(res == "record-0.wav");
-        REQUIRE(make_new_filename_by_pattern("record-#.wav", res, 10) == PATTERN_DONE);
+        REQUIRE(expand_filename_pattern("record-#.wav", res, 10) == PATTERN_DONE);
         REQUIRE(res == "record-0.wav");
-        REQUIRE(make_new_filename_by_pattern("record-#.wav", res, 123) == PATTERN_DONE);
+        REQUIRE(expand_filename_pattern("record-#.wav", res, 123) == PATTERN_DONE);
         REQUIRE(res == "record-3.wav");
-        REQUIRE(make_new_filename_by_pattern("record-#################.wav", res, 123) == PATTERN_LENGTH_OVERFLOW);
+        REQUIRE(expand_filename_pattern("record-#################.wav", res, 123) == PATTERN_LENGTH_OVERFLOW);
 
-        REQUIRE(make_new_filename_by_pattern("rec_%YEAR%-###.wav", res, 321) == PATTERN_DONE);
+        REQUIRE(expand_filename_pattern("rec_%YEAR%-###.wav", res, 321) == PATTERN_DONE);
         REQUIRE(res == make_tm("rec_%Y-321.wav"));
-        REQUIRE(make_new_filename_by_pattern("rec_%DATE%-###.wav", res, 321) == PATTERN_DONE);
+        REQUIRE(expand_filename_pattern("rec_%DATE%-###.wav", res, 321) == PATTERN_DONE);
         REQUIRE(res == make_tm("rec_%Y-%m-%d-321.wav"));
-        REQUIRE(make_new_filename_by_pattern("rec_%NOW%-###.wav", res, 321) == PATTERN_DONE);
+        REQUIRE(expand_filename_pattern("rec_%NOW%-###.wav", res, 321) == PATTERN_DONE);
         REQUIRE(res == make_tm("rec_%Y-%m-%d_%H-%M-%S-321.wav"));
-        REQUIRE(make_new_filename_by_pattern("rec_%UNKNOWN%-###.wav", res, 321) == PATTERN_DONE);
+        REQUIRE(expand_filename_pattern("rec_%UNKNOWN%-###.wav", res, 321) == PATTERN_DONE);
         REQUIRE(res == make_tm("rec_%%UNKNOWN%%-321.wav"));
-        REQUIRE(make_new_filename_by_pattern("rec_%-###.wav", res, 3210) == PATTERN_DONE);
+        REQUIRE(expand_filename_pattern("rec_%-###.wav", res, 3210) == PATTERN_DONE);
         REQUIRE(res == "rec_%-210.wav");
-        REQUIRE(make_new_filename_by_pattern("rec_%YEAR-###.wav", res, 3210) == PATTERN_DONE);
+        REQUIRE(expand_filename_pattern("rec_%YEAR-###.wav", res, 3210) == PATTERN_DONE);
         REQUIRE(res == "rec_%YEAR-210.wav");
-        REQUIRE(make_new_filename_by_pattern("rec_%Y-###.wav", res, 3210) == PATTERN_DONE);
+        REQUIRE(expand_filename_pattern("rec_%Y-###.wav", res, 3210) == PATTERN_DONE);
         REQUIRE(res == "rec_%Y-210.wav");
-        REQUIRE(make_new_filename_by_pattern("rec_%?-###.wav", res, 3210) == PATTERN_DONE);
+        REQUIRE(expand_filename_pattern("rec_%?-###.wav", res, 3210) == PATTERN_DONE);
         REQUIRE(res == "rec_%?-210.wav");
 
-        REQUIRE(make_new_filename_by_pattern("empty", res) == PATTERN_NOMATCH);
+        REQUIRE(expand_filename_pattern("empty", res) == PATTERN_NOMATCH);
         REQUIRE(res == "empty-001");
-        REQUIRE(make_new_filename_by_pattern("empty.txt", res) == PATTERN_NOMATCH);
+        REQUIRE(expand_filename_pattern("empty.txt", res) == PATTERN_NOMATCH);
         REQUIRE(res == "empty-001.txt");
     }
 

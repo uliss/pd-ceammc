@@ -10,7 +10,7 @@
 
 %%{
 
-machine new_file_pattern;
+machine expand_filename_pattern;
 
 action on_pattern_done {
     using IndexT = decltype(idx);
@@ -115,7 +115,7 @@ write data;
 namespace ceammc {
 namespace path {
 
-PatternStatus make_new_filename_by_pattern(const std::string& pattern, std::string& res, uint32_t idx)
+PatternStatus expand_filename_pattern(const std::string& pattern, std::string& res, uint32_t idx)
 {
     int cs = 0;
     auto* p = pattern.data();
