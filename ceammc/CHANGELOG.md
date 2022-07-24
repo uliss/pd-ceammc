@@ -17,6 +17,7 @@
   - @dev property added to flow.space: to set deviation
   - @channels property added to xdac~: live-channel remapping
   - @nonrep property added to random.atom to generate non equal adjacent elements
+  - @fade property added to live.capture~ to control loop crossfading (fix #171)
 - new methods:
   - [polltime( method added to system.cursor to change global polltime
   - [reverse( method added to xdac~ to reverse output channels order
