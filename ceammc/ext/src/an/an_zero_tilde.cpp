@@ -17,7 +17,7 @@
 
 #include <cstdint>
 
-CEAMMC_DEFINE_HASH(count)
+CEAMMC_DEFINE_SYM_HASH(count)
 CEAMMC_DEFINE_HASH(rate)
 CEAMMC_DEFINE_HASH(freq)
 
@@ -31,6 +31,7 @@ ZeroCrossingTilde::ZeroCrossingTilde(const PdArgs& args)
     buffer_size_ = new IntProperty("@bs", 1024);
     buffer_size_->setInitOnly();
     buffer_size_->checkClosedRange(1, 1024 * 64);
+    buffer_size_->setUnitsSamp();
     addProperty(buffer_size_);
 
     mode_ = new SymbolEnumProperty("@mode", { str_count, str_rate, str_freq });
@@ -42,7 +43,7 @@ ZeroCrossingTilde::ZeroCrossingTilde(const PdArgs& args)
             return AtomList(crc32_hash(mode_->value()) == hash_count && buffer_size_->value() == 1 ? 1.0 : 0.0);
         },
         [this](const AtomListView&) -> bool {
-            mode_->setValue(gensym(str_count));
+            mode_->setValue(sym_count());
             buffer_size_->setValue(1);
             return true; } //
         )
@@ -149,5 +150,5 @@ double ZeroCrossingTilde::zeroCrossingCount() const
 void setup_an_zero_tilde()
 {
     SoundExternalFactory<ZeroCrossingTilde> obj("an.zero~");
-    obj.setXletsInfo({ "signal: input" }, { "signal: zero crossing count/rate.freq" });
+    obj.setXletsInfo({ "signal: input" }, { "signal: zero crossing count/rate/freq" });
 }

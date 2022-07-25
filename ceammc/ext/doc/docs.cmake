@@ -4,6 +4,7 @@ set(DOC_FILES
     an.pitchtrack~
     an.rms~
     an.tempo~
+    an.zero~
     array.bpm
     array.circular~
     array.copy

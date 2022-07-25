@@ -16,6 +16,9 @@
     <entry name="an.tempo~" descr="tempo detector" ref_view="object">
       <xi:include href="an.tempo~.pddoc" parse="xml"/>
     </entry>
+    <entry name="an.zero~" descr="zero crossing count/rate/freq calculator" ref_view="object">
+      <xi:include href="an.zero~.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="array">
     <entry name="array.bpm" descr="BPM calculator" ref_view="object">

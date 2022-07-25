@@ -32,7 +32,7 @@
 }
 {ceammc
     {an {
-        an.onset an.onset~ an.pitchtrack~ an.rms~ an.tempo~
+        an.onset an.onset~ an.pitchtrack~ an.rms~ an.tempo~ an.zero~
     }}
     {array {
         array.bpm array.circular~ array.copy array.do array.each array.fill
@@ -209,8 +209,8 @@
         prop.set prop.split
     }}
     {proto {
-        proto.firmata proto.midi proto.midi.cc proto.midi.sysex proto.mpv
-        proto.sp.alpaca proto.xtouch_ext
+        proto.firmata proto.inscore proto.midi proto.midi.cc proto.midi.sysex
+        proto.mpv proto.sp.alpaca proto.xtouch_ext
     }}
     {random {
         random.atom random.discrete random.float random.gauss random.int

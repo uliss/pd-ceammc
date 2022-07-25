@@ -5,6 +5,7 @@ ceammc/helmholtz~	pitch tracker
 helmholtz~	pitch tracker
 an.rms~	root mean square with moving-average algorithm.
 an.tempo~	tempo detector
+an.zero~	zero crossing count/rate/freq calculator
 array.bpm	BPM calculator
 array.circular~	circular buffer for arrays
 array.copy	copy samples from one array to another
