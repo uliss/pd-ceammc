@@ -16,8 +16,6 @@
 #include "ceammc_factory.h"
 
 #include <algorithm>
-#include <ctime>
-#include <random>
 
 namespace {
 using State = ProtoWhammy::State;
@@ -48,7 +46,6 @@ constexpr const State ST_DOWN_OCT_UP_OCT { -8, +8 };
 
 constexpr const auto STATE_DEFAULT = ST_UP_2OCT;
 
-std::mt19937 random_gen(std::time(0));
 }
 
 // NOTE: keep the order in stync with parser_whammy_common.h enum constants!
@@ -100,6 +97,8 @@ ProtoWhammy::ProtoWhammy(const PdArgs& args)
     active_->setArgIndexNext(mode_);
     active_->setSuccessFn([this](Property*) { output(); });
     addProperty(active_);
+
+    addProperty(new random::SeedProperty(gen_));
 }
 
 void ProtoWhammy::m_reset(t_symbol*, const AtomListView& lv)
@@ -121,22 +120,22 @@ void ProtoWhammy::m_random(t_symbol* s, const AtomListView& lv)
         const auto N = midi_classic_map_.size();
 
         std::uniform_int_distribution<size_t> dist(0, N);
-        idx_ = dist(random_gen);
+        idx_ = dist(gen_.get());
         active_->setValue(lv.boolAt(0, true));
     } else if (lv.isSymbol()) {
         auto sym_hash = crc32_hash(lv.asT<t_symbol*>());
         switch (sym_hash) {
         case "whammy"_hash: {
             std::uniform_int_distribution<size_t> dist(proto::WHAMMY_MODE_MIN_TRANSPOSE, proto::WHAMMY_MODE_MAX_TRANSPOSE + 1);
-            idx_ = dist(random_gen);
+            idx_ = dist(gen_.get());
         } break;
         case "harm"_hash: {
             std::uniform_int_distribution<size_t> dist(proto::WHAMMY_MODE_MIN_HARMONIZER, proto::WHAMMY_MODE_MAX_HARMONIZER + 1);
-            idx_ = dist(random_gen);
+            idx_ = dist(gen_.get());
         } break;
         case "detune"_hash: {
             std::uniform_int_distribution<size_t> dist(proto::WHAMMY_MODE_MIN_DETUNE, proto::WHAMMY_MODE_MAX_DETUNE + 1);
-            idx_ = dist(random_gen);
+            idx_ = dist(gen_.get());
         } break;
         default:
             METHOD_ERR(s) << "unknown random method: " << s << ", expected 'whammy', 'harm' or 'detune'";
@@ -228,7 +227,7 @@ void ProtoWhammy::m_next(t_symbol* s, const AtomListView& lv)
         }
     } else if (lv == gensym("random")) {
         std::uniform_int_distribution<size_t> dist(1, N);
-        offset = dist(random_gen);
+        offset = dist(gen_.get());
     } else {
         METHOD_ERR(s) << "usage: INT or random";
         return;
@@ -257,7 +256,7 @@ void ProtoWhammy::m_prev(t_symbol* s, const AtomListView& lv)
         }
     } else if (lv == gensym("random")) {
         std::uniform_int_distribution<size_t> dist(1, N);
-        offset = dist(random_gen);
+        offset = dist(gen_.get());
     } else {
         METHOD_ERR(s) << "usage: INT or random";
         return;

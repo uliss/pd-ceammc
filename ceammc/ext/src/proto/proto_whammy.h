@@ -16,6 +16,7 @@
 
 #include "ceammc_object.h"
 #include "ceammc_property_enum.h"
+#include "ceammc_random.h"
 #include "parser_whammy_common.h"
 
 #include <cstdint>
@@ -54,6 +55,9 @@ private:
     IntProperty* chan_;
     BoolProperty* active_;
     size_t idx_;
+    random::RandomGen gen_;
+
+private:
     static const MidiMap midi_classic_map_;
 };
 
