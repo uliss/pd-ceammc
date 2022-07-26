@@ -573,6 +573,7 @@ set(DOC_FILES
     proto.mpv
     proto.xtouch_ext
     proto.sp.alpaca
+    proto.whammy
     radio
     random.atom
     random.float

@@ -40,6 +40,7 @@ public:
     ProtoWhammy(const PdArgs& args);
 
     void onBang() override { output(); }
+    void onFloat(t_float f) override;
 
     void m_reset(t_symbol*, const AtomListView& lv);
     void m_toggle(t_symbol*, const AtomListView& lv);

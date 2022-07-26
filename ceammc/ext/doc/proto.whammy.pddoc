@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="proto.whammy">
+        <title>proto.whammy</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Control for Digitech Whammy pedal</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>proto</category>
+            <keywords>parser midi whammy</keywords>
+            <since>0.9.5</since>
+        </meta>
+        <methods>
+            <method name="toggle">toggle pedal on/off</method>
+            <method name="random">send Timing Tick realtime message (0xF9)</method>
+            <method name="reset">turn off pedal and select default preset</method>
+            <method name="set">send Stop realtime message (0xFC)</method>
+            <method name="next">select next preset
+            <param name="N" type="atom">int positive step or 'random'</param></method>
+            <method name="prev">select previous preset
+            <param name="N" type="atom">int positive step or 'random'</param></method>
+        </methods>
+        <properties>
+            <property name="@active" type="int" enum="0 1" default="1">pedal state</property>
+            <property name="@mode" type="symbol" enum="chords classic" default="classic">
+            pedal mode (hardware switch on pedal)</property>
+            <property name="@chan" type="int" default="0" minvalue="0" maxvalue="15">
+            output Midi channel</property>
+            <property name="@seed" type="int" default="0" minvalue="0">
+            random seed</property>
+            <property name="@chords" type="alias">alias for @mode chords</property>
+            <property name="@classic" type="alias">alias for @mode classic</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="int">1: turn on, 0: turn off pedal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>float stream: raw midi output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[T]
+|
+[proto.whammy @chan 0 @mode classic]
+|
+[midiout]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

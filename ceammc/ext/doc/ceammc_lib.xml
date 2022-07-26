@@ -1794,6 +1794,9 @@
     <entry name="proto.sp.alpaca" descr="protocol parser for Arduino-based CEAMMC footswitch" ref_view="object">
       <xi:include href="proto.sp.alpaca.pddoc" parse="xml"/>
     </entry>
+    <entry name="proto.whammy" descr="Control for Digitech Whammy pedal" ref_view="object">
+      <xi:include href="proto.whammy.pddoc" parse="xml"/>
+    </entry>
     <entry name="proto.xtouch_ext" descr="Behringer XTouch Extender XMidi protocol" ref_view="object">
       <xi:include href="proto.xtouch_ext.pddoc" parse="xml"/>
     </entry>

@@ -570,6 +570,7 @@ proto.midi.cc		.		.
 proto.midi.sysex		.		.
 proto.mpv		.		.
 proto.sp.alpaca		.		.
+proto.whammy		.		.
 proto.xtouch_ext		.		..
 radio,ceammc/radio		.		?
 random.atom,random.a		..		.

@@ -101,6 +101,12 @@ ProtoWhammy::ProtoWhammy(const PdArgs& args)
     addProperty(new random::SeedProperty(gen_));
 }
 
+void ProtoWhammy::onFloat(t_float f)
+{
+    active_->set(Atom(f));
+    output();
+}
+
 void ProtoWhammy::m_reset(t_symbol*, const AtomListView& lv)
 {
     active_->setValue(false);
