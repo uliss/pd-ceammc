@@ -22,7 +22,8 @@
         <inlets>
             <inlet>
                 <xinfo on="float">input frequency in Herz</xinfo>
-                <xinfo on="list">list of input frequencies in Herz, non float types are ignored</xinfo>
+                <xinfo on="list">list of input frequencies in Herz, non float types are
+                ignored</xinfo>
             </inlet>
         </inlets>
         <outlets>

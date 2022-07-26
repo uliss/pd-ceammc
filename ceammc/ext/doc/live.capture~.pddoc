@@ -22,8 +22,8 @@
         <properties>
             <property name="@gate" type="int" enum="0 1" default="0">start/stop
             recording</property>
-            <property name="@fade" type="float" minvalue="0" maxvalue="200" default="70" units="millisecond">
-            intput crossfade time</property>
+            <property name="@fade" type="float" minvalue="0" maxvalue="200" default="70"
+            units="millisecond">intput crossfade time</property>
             <property name="@active" type="int" enum="0 1" default="1">on/off dsp
             processing</property>
         </properties>

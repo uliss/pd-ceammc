@@ -14,30 +14,31 @@
             <since>0.9.6</since>
         </meta>
         <methods>
-            <method name="text">create text object at (0,0) position
+            <method name="text">create text object at (0,0) position 
             <param name="NAME" type="symbol" required="true">object name</param>
             <param name="ARGS" type="list">content</param></method>
-            <method name="del">remove object
+            <method name="del">remove object 
             <param name="NAME" type="symbol" required="true">object name</param></method>
             <!-- pos -->
-            <method name="x">move object to new Y-coord
+            <method name="x">move object to new Y-coord 
             <param name="NAME" type="symbol" required="true">object name</param>
             <param name="POS" type="float">new X position</param></method>
-            <method name="y">move object to new Y-coord
+            <method name="y">move object to new Y-coord 
             <param name="NAME" type="symbol" required="true">object name</param>
             <param name="POS" type="float">new Y position</param></method>
-            <method name="dx">move object horizontally by specified X offset
+            <method name="dx">move object horizontally by specified X offset 
             <param name="NAME" type="symbol" required="true">object name</param>
             <param name="POS" type="float">X offset</param></method>
-            <method name="dy">move object vertically by specified Y offset
+            <method name="dy">move object vertically by specified Y offset 
             <param name="NAME" type="symbol" required="true">object name</param>
             <param name="POS" type="float">Y offset</param></method>
             <!-- rotation -->
-            <method name="angle">rotate object
+            <method name="angle">rotate object 
             <param name="NAME" type="symbol" required="true">object name</param>
-            <param name="ANGLE" type="float" units="degree">rotation angle (clockwise)</param></method>
+            <param name="ANGLE" type="float" units="degree">rotation angle
+            (clockwise)</param></method>
             <!-- music -->
-            <method name="gmn">create Guido Music notation
+            <method name="gmn">create Guido Music notation 
             <param name="NAME" type="symbol" required="true">object name</param>
             <param name="NOTES" type="list">Guido Music Notation</param></method>
         </methods>

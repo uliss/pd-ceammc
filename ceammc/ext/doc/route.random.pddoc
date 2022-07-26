@@ -17,10 +17,12 @@
             </aliases>
         </meta>
         <arguments>
-            <argument name="N" type="int" minvalue="2" maxvalue="64">number of outlets. See @n property</argument>
+            <argument name="N" type="int" minvalue="2" maxvalue="64">number of outlets. See @n
+            property</argument>
         </arguments>
         <properties>
-            <property name="@n" type="int" default="2" minvalue="2" maxvalue="64">number of outlets</property>
+            <property name="@n" type="int" default="2" minvalue="2" maxvalue="64">number of
+            outlets</property>
             <property name="@seed" type="int" minvalue="0" default="0">generator seed</property>
         </properties>
         <inlets>
