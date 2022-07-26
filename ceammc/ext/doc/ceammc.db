@@ -166,6 +166,7 @@ flow.stack		..		.
 flow.sync,flow.'		?		?
 flow.sync_pack,flow.pack'		?		.
 flow.tee~,ceammc/tee~,tee~,ceammc/~->,~->		~		~.
+flt.a-weight		.		.
 flt.biquad~		~~~~~~		~
 flt.bpf12~		~		~
 flt.bpf24~		~		~

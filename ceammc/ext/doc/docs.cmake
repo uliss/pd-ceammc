@@ -168,6 +168,7 @@ set(DOC_FILES
     flow.sync
     flow.sync_pack
     flow.tee~
+    flt.a-weight
     flt.biquad~
     flt.bpf12~
     flt.bpf24~

@@ -59,7 +59,7 @@
         replace route.float route.random
     }}
     {flt {
-        flt.biquad~ flt.bpf12~ flt.bpf24~ flt.c_apf flt.c_bpf~
+        flt.a-weight flt.biquad~ flt.bpf12~ flt.bpf24~ flt.c_apf flt.c_bpf~
         flt.c_highshelf~ flt.c_hpf flt.c_hpf~ flt.c_lowshelf~ flt.c_lpf
         flt.c_lpf~ flt.c_notch flt.c_notch~ flt.c_peak~ flt.c_pole
         flt.dcblock2~ flt.dcblock~ flt.eq10~ flt.eq_peak_cq~ flt.eq_peak~

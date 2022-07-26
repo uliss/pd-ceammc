@@ -10,6 +10,8 @@
   - list.pass: leave only specified atoms in list
   - list.reject: reject specified atoms in list
   - list.map: list value mapping object added
+  - flt.a-weight: A-weight amplitude/decibel value calculator
+  - an.zero~: zero crossing count/rate/freq
 - new properties:
   - @clip property added to system.cursor to clip cursor XY coords
   - @norm property added to ui.env to do envelope value normalization on input

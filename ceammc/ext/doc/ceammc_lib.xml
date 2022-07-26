@@ -619,6 +619,9 @@
     </entry>
   </category>
   <category name="flt">
+    <entry name="flt.a-weight" descr="convert frequency to A-weight value" ref_view="object">
+      <xi:include href="flt.a-weight.pddoc" parse="xml"/>
+    </entry>
     <entry name="flt.biquad~" descr="second order IIR filter." ref_view="object">
       <xi:include href="flt.biquad~.pddoc" parse="xml"/>
     </entry>
