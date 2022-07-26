@@ -159,6 +159,7 @@ flow.reject_if,ceammc/reject_if,reject_if		..		..
 flow.ring,flow.>>		..		?
 flow.route		.		?
 flow.select,flow.sel		.		?
+flow.seqdelay,flow.seqdel		..		?
 flow.space		..		..
 flow.speedlim,ceammc/speedlim,speedlim		..		.
 flow.split,ceammc/split,split		..		...

@@ -587,6 +587,9 @@
     <entry name="flow.select" descr="vanilla flow on steroids" ref_view="object">
       <xi:include href="flow.select.pddoc" parse="xml"/>
     </entry>
+    <entry name="flow.seqdelay" descr="sequential delay/router for input flow" ref_view="object">
+      <xi:include href="flow.seqdelay.pddoc" parse="xml"/>
+    </entry>
     <entry name="flow.space" descr="space in time messages received at the same logical time" ref_view="object">
       <xi:include href="flow.space.pddoc" parse="xml"/>
     </entry>

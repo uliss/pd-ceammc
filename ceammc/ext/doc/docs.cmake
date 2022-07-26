@@ -161,6 +161,7 @@ set(DOC_FILES
     flow.route
     flow.queue
     flow.select
+    flow.seqdelay
     flow.space
     flow.speedlim
     flow.split

@@ -13,6 +13,7 @@
   - flt.a-weight: A-weight amplitude/decibel value calculator
   - an.zero~: zero crossing count/rate/freq
   - proto.whammy: Digitech Whammy pedal control
+  - flow.seqdelay: sequential message delay/router
 - new properties:
   - @clip property added to system.cursor to clip cursor XY coords
   - @norm property added to ui.env to do envelope value normalization on input
