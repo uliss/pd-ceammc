@@ -233,11 +233,6 @@ do
     copy ${tcl} "${BUNDLE_TCL}/ceammc"
 done
 
-for cfg in ${SRC_DIR}/ceammc/gui/plugins/*.cfg
-do
-    copy ${cfg} "${BUNDLE_TCL}/ceammc"
-done
-
 mkdir -p "${BUNDLE_TCL}/completion-plugin"
 for tcl in ${SRC_DIR}/ceammc/gui/plugins/completion-plugin/*.tcl
 do
