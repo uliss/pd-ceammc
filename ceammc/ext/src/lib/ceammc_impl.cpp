@@ -92,4 +92,32 @@ bool is_ceammc_distribution()
     return is_ceammc;
 }
 
+bool class_method_set_fn(t_class* c, int method_idx, void* fn)
+{
+    if (!c)
+        return false;
+
+    if (method_idx < 0 || method_idx >= c->c_nmethod)
+        return false;
+
+    if (is_ceammc_distribution()) {
+        auto m = class_get_method<t_methodentry>(c, method_idx);
+        m->me_fun = reinterpret_cast<t_gotfn>(fn);
+        return true;
+    } else {
+        int maj, min, bug;
+        sys_getversion(&maj, &min, nullptr);
+        int int_vers = maj * 100 + min;
+        if (int_vers < 52) {
+            auto m = class_get_method<t_methodentry51>(c, method_idx);
+            m->me_fun = reinterpret_cast<t_gotfn>(fn);
+        } else {
+            auto m = class_get_method<t_methodentry52>(c, method_idx);
+            m->me_fun = reinterpret_cast<t_gotfn>(fn);
+        }
+
+        return true;
+    }
+}
+
 } // namespace ceammc

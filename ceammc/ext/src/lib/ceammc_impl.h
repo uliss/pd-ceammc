@@ -38,6 +38,8 @@ PdFloatFunction default_pd_float_fn(_class* c);
  */
 _symbol* class_method_name(_class* c, int method_idx);
 
+bool class_method_set_fn(_class*c, int method_idx, void* fn);
+
 /**
  * runtime check if external running under CEAMMC distribution
  */

@@ -114,10 +114,6 @@ void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type, 
  */
 int eclass_attr_setter(t_object* x, t_symbol* s, int argc, t_atom* argv);
 
-struct _methodentry;
-using t_methodentry = _methodentry;
-t_methodentry* eclass_methods(t_class* c);
-
 bool ebox_attr_float_setter(t_ebox* x, t_eattr* a, t_float value, size_t idx, t_eattr_op op);
 bool ebox_attr_long_setter(t_ebox* x, t_eattr* a, t_float value, size_t idx, t_eattr_op op);
 

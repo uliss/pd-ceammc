@@ -10,6 +10,7 @@
 
 #include "eclass.h"
 #include "ceammc.h"
+#include "ceammc_impl.h"
 #include "ebox.h"
 #include "ecommon.h"
 #include "egraphics.h"
@@ -585,9 +586,9 @@ void eclass_attr_redirect(t_eclass* c, const char* attrname, t_gotfn fn)
     t_symbol* sel1 = gensym(buf);
 
     for (int i = 0; i < c->c_class.c_nmethod; i++) {
-        auto& m = eclass_methods(&c->c_class)[i];
-        if (m.me_name == sel0 || m.me_name == sel1)
-            m.me_fun = fn;
+        auto mname = ceammc::class_method_name(&c->c_class, i);
+        if (mname == sel0 || mname == sel1)
+            ceammc::class_method_set_fn(&c->c_class, i, (void*)fn);
     }
 }
 
@@ -1923,13 +1924,4 @@ void eclass_attr_units(t_eclass* c, t_symbol* attrname, t_symbol* units)
             return;
         }
     }
-}
-
-t_methodentry* eclass_methods(_class* c)
-{
-#ifdef PDINSTANCE
-    return c->c_methods[pd_this->pd_instanceno];
-#else
-    return c->c_methods;
-#endif
 }
