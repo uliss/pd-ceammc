@@ -355,13 +355,13 @@ TEST_CASE("Array", "[ceammc::Atom]")
         Array a("array1", { 1, 2, 3 });
         REQUIRE(a.isValid());
 
-        a.ringPushBack(4);
+        REQUIRE(a.ringPushBack(4) == 1);
         REQUIRE(a.size() == 3);
         REQUIRE(a[0] == 2);
         REQUIRE(a[1] == 3);
         REQUIRE(a[2] == 4);
 
-        a.ringPushBack(5);
+        REQUIRE(a.ringPushBack(5) == 2);
         REQUIRE(a.size() == 3);
         REQUIRE(a[0] == 3);
         REQUIRE(a[1] == 4);
@@ -373,13 +373,13 @@ TEST_CASE("Array", "[ceammc::Atom]")
         Array a("array1", { 1, 2, 3 });
         REQUIRE(a.isValid());
 
-        a.ringPushFront(0);
+        REQUIRE(a.ringPushFront(0) == 3);
         REQUIRE(a.size() == 3);
         REQUIRE(a[0] == 0);
         REQUIRE(a[1] == 1);
         REQUIRE(a[2] == 2);
 
-        a.ringPushFront(-0.5);
+        REQUIRE(a.ringPushFront(-0.5) == 2);
         REQUIRE(a.size() == 3);
         REQUIRE(a[0] == -0.5);
         REQUIRE(a[1] == 0);

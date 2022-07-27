@@ -14,6 +14,7 @@
 #include "array_vline_play.h"
 #include "array_window.h"
 
+void setup_array_circular();
 void setup_array_circular_tilde();
 void setup_array_copy();
 void setup_array_do();
@@ -35,6 +36,7 @@ void setup_plot_response_tilde();
 void ceammc_array_setup()
 {
     setup_array_bpm();
+    setup_array_circular();
     setup_array_circular_tilde();
     setup_array_convolve();
     setup_array_copy();
