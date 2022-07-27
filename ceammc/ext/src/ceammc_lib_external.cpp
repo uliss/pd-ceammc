@@ -126,7 +126,7 @@ void ceammc_tcl_path_init()
 {
     auto extern_dir = class_gethelpdir(ceammc_class);
     if (extern_dir)
-        sys_vgui("lappend ::auto_path {%s}/tcl\n", extern_dir);
+        sys_vgui("lappend ::auto_path {%s/tcl}\n", extern_dir);
 }
 }
 
