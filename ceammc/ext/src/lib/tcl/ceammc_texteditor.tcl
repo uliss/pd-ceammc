@@ -10,7 +10,7 @@
 package provide ceammc_texteditor 0.1
 
 if {[catch {package require ctext}]} {
-    ::pdwindow::error "[TCL] package error: can't find ctext package\n"
+    ::pdwindow::error "\[TCL\] package error: can't find ctext package\n"
 } else {
 
 namespace eval ::ceammc {
