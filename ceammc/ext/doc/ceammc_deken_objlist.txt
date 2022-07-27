@@ -7,6 +7,7 @@ an.rms~	root mean square with moving-average algorithm.
 an.tempo~	tempo detector
 an.zero~	zero crossing count/rate/freq calculator
 array.bpm	BPM calculator
+array.circular	array read/write as circular buffer
 array.circular~	circular buffer for arrays
 array.copy	copy samples from one array to another
 array.do	iterate and modify array content via side-chain

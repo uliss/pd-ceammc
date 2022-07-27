@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="array.circular">
+        <title>array.circular</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>array read/write as circular buffer</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>array</category>
+            <keywords>array circular</keywords>
+            <since>0.9.5</since>
+            <also>
+                <see>array.circular~</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="ARRAY" type="symbol">array name</argument>
+        </arguments>
+        <properties>
+            <property name="@array" type="symbol" default="">array name</property>
+            <property name="@redraw" type="int" enum="0 1" default="1">array redraw after change</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="float">push back new float</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>float: popped front element</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[T]                     [array A-CIRC size=100 w=180 h=130 yr=0..1]
+|
+[metro 200] [ui.knob]
+|           |
+[random.f]  |
+|           |
+[array.circular A-CIRC]
+|
+[F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

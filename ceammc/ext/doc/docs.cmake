@@ -6,6 +6,7 @@ set(DOC_FILES
     an.tempo~
     an.zero~
     array.bpm
+    array.circular
     array.circular~
     array.copy
     array.do
