@@ -167,7 +167,7 @@ extern "C" CEAMMC_EXTERN void ceammc_list_externals(int vanilla)
     if (vanilla) {
         std::set<std::string> all_ext;
 
-        for (auto x : ceammc::pd::currentListOfExternals())
+        for (auto& x : ceammc::pd::currentListOfExternals())
             all_ext.insert(x);
 
         std::set<std::string> vanilla_ext;
