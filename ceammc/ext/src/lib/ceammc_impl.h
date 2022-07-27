@@ -17,6 +17,7 @@
 struct _class;
 struct _symbol;
 struct _atom;
+struct _methodentry;
 
 namespace ceammc {
 
@@ -28,6 +29,21 @@ typedef void (*PdAnyFunction)(_class*, _symbol*, int argc, _atom* argv);
 
 PdBangFunction default_pd_bang_fn(_class* c);
 PdFloatFunction default_pd_float_fn(_class* c);
+
+/**
+ * get class method name by given index
+ * @param c - pointer to class
+ * @param method_idx - method index
+ * @return method name or NULL on error
+ */
+_symbol* class_method_name(_class* c, int method_idx);
+
+/**
+ * runtime check if external running under CEAMMC distribution
+ */
+bool is_ceammc_distribution();
+
+
 
 } // namespace ceammc
 
