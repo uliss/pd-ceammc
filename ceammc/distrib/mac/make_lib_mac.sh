@@ -41,6 +41,21 @@ function skip_ext {
     fi
 }
 
+function dylib_external_fix() {
+    exec=$1
+    dir=$2
+
+    echo "\t- fixing @loader_path for $(basename $exec) ..."
+    $DYLIBBUNDLER \
+        --fix-file "${exec}" \
+        --bundle-deps \
+        --create-dir \
+        --dest-dir "${dir}" \
+        --install-path @loader_path/ \
+        --overwrite-files \
+        --ignore /usr/local/opt/llvm/lib
+}
+
 # main
 
 section "installing"
