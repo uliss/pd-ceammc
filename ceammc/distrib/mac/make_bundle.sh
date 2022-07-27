@@ -368,7 +368,7 @@ cat $BUILD_DIR/ceammc/ext/doc/about.pd | sed "s/%GIT_BRANCH%/$GIT_BRANCH/g" | \
 chmod 0444 "${BUNDLE_CEAMMC}/about.pd"
 
 section "Copying license"
-copy $SRC_DIR/License.txt "${BUNDLE_RESOURCES}/Scripts"
+copy $SRC_DIR/LICENSE.txt "${BUNDLE_RESOURCES}/Scripts"
 
 ##############
 # 3RD PARTY
