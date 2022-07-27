@@ -349,4 +349,40 @@ TEST_CASE("Array", "[ceammc::Atom]")
         REQUIRE(a.readSafe3(2.5) == Approx(2.625));
         REQUIRE(a.readSafe3(2.75) == Approx(2.29688));
     }
+
+    SECTION("ringPushBack")
+    {
+        Array a("array1", { 1, 2, 3 });
+        REQUIRE(a.isValid());
+
+        a.ringPushBack(4);
+        REQUIRE(a.size() == 3);
+        REQUIRE(a[0] == 2);
+        REQUIRE(a[1] == 3);
+        REQUIRE(a[2] == 4);
+
+        a.ringPushBack(5);
+        REQUIRE(a.size() == 3);
+        REQUIRE(a[0] == 3);
+        REQUIRE(a[1] == 4);
+        REQUIRE(a[2] == 5);
+    }
+
+    SECTION("ringPushFront")
+    {
+        Array a("array1", { 1, 2, 3 });
+        REQUIRE(a.isValid());
+
+        a.ringPushFront(0);
+        REQUIRE(a.size() == 3);
+        REQUIRE(a[0] == 0);
+        REQUIRE(a[1] == 1);
+        REQUIRE(a[2] == 2);
+
+        a.ringPushFront(-0.5);
+        REQUIRE(a.size() == 3);
+        REQUIRE(a[0] == -0.5);
+        REQUIRE(a[1] == 0);
+        REQUIRE(a[2] == 1);
+    }
 }

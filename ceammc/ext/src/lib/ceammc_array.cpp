@@ -21,6 +21,7 @@ extern "C" {
 
 #include <algorithm>
 #include <cmath>
+#include <cstring>
 
 using namespace ceammc;
 
@@ -204,6 +205,24 @@ t_float& Array::at(size_t n)
         throw Exception("invalid index");
 
     return data_[n].w_float;
+}
+
+void Array::ringPushBack(t_float f)
+{
+    if (!array_ || !data_ || size_ < 2)
+        throw Exception("invalid array");
+
+    std::memmove(data_, data_ + 1, sizeof(data_[0]) * (size_ - 1));
+    data_[size_ - 1].w_float = f;
+}
+
+void Array::ringPushFront(t_float f)
+{
+    if (!array_ || !data_ || size_ < 2)
+        throw Exception("invalid array");
+
+    std::memmove(data_ + 1, data_, sizeof(data_[0]) * (size_ - 1));
+    data_[0].w_float = f;
 }
 
 bool Array::resize(size_t n)
