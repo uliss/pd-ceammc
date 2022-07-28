@@ -26,6 +26,7 @@ ArrayConvolve::ArrayConvolve(const PdArgs& args)
     : ArrayBase(args)
     , conv_(new fftconvolver::FFTConvolver())
     , ir_name_(nullptr)
+    , norm_(nullptr)
     , ir_data_(MAX_IR_SIZE)
 {
     createInlet();
@@ -34,11 +35,12 @@ ArrayConvolve::ArrayConvolve(const PdArgs& args)
     ir_name_ = new SymbolProperty("@ir", &s_);
     ir_name_->setArgIndex(1);
     addProperty(ir_name_);
+
+    norm_ = new BoolProperty("@norm", false);
+    addProperty(norm_);
 }
 
-ArrayConvolve::~ArrayConvolve()
-{
-}
+ArrayConvolve::~ArrayConvolve() = default;
 
 void ArrayConvolve::onBang()
 {
@@ -94,6 +96,9 @@ void ArrayConvolve::onBang()
     }
 
     array_.redraw();
+
+    if (norm_->value())
+        array_.normalize();
 
     const auto t1 = std::chrono::steady_clock::now();
     const auto time_ms = std::chrono::duration_cast<std::chrono::milliseconds>(t1 - t0).count();

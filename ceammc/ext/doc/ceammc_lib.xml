@@ -30,6 +30,9 @@
     <entry name="array.circular~" descr="circular buffer for arrays" ref_view="object">
       <xi:include href="array.circular~.pddoc" parse="xml"/>
     </entry>
+    <entry name="array.convolve" descr="array FFT convolution" ref_view="object">
+      <xi:include href="array.convolve.pddoc" parse="xml"/>
+    </entry>
     <entry name="array.copy" descr="copy samples from one array to another" ref_view="object">
       <xi:include href="array.copy.pddoc" parse="xml"/>
     </entry>

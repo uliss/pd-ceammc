@@ -8,6 +8,7 @@ set(DOC_FILES
     array.bpm
     array.circular
     array.circular~
+    array.convolve
     array.copy
     array.do
     array.each

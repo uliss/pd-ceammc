@@ -9,6 +9,7 @@ an.zero~	zero crossing count/rate/freq calculator
 array.bpm	BPM calculator
 array.circular	array read/write as circular buffer
 array.circular~	circular buffer for arrays
+array.convolve	array FFT convolution
 array.copy	copy samples from one array to another
 array.do	iterate and modify array content via side-chain
 array.each	process each array elements via side-chain
