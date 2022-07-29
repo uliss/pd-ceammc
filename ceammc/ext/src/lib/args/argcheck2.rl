@@ -172,7 +172,7 @@ num_sign = '+' @{ rl_sign = 1; }
 num_num  = [0-9]+ >{ rl_num = 0; } ${ (rl_num *= 10) += (fc - '0'); };
 num_den  = [0-9]+ >{ rl_den = 0; rl_den_cnt = 1; } ${ (rl_den *= 10) += (fc - '0'); rl_den_cnt *= 10; };
 
-cmp_arg   = (num_sign?
+cmp_farg   = (num_sign?
             num_num
             ('.' num_den)?
             ) >{ rl_sign = 1; }
@@ -180,13 +180,19 @@ cmp_arg   = (num_sign?
                  if(rl_den_cnt)  rl_cmp_arg += (double(rl_den) / rl_den_cnt);
               };
 
-int_check = ('>'  @{ rl_cmp = CMP_GREATER; }
-           | '<'  @{ rl_cmp = CMP_LESS; }
-           | '='  @{ rl_cmp = CMP_EQUAL; }
-           | '!=' @{ rl_cmp = CMP_NOT_EQUAL; }
-           | '%'  @{ rl_cmp = CMP_MODULE; }
-           | '^'  @{ rl_cmp = CMP_POWER2; }
-           ) cmp_arg
+cmp_op = '>'  @{ rl_cmp = CMP_GREATER; }
+       | '<'  @{ rl_cmp = CMP_LESS; }
+       | '='  @{ rl_cmp = CMP_EQUAL; }
+       | '!=' @{ rl_cmp = CMP_NOT_EQUAL; }
+       | '^2' @{ rl_cmp = CMP_POWER2; };
+
+cmp_mod = ( '%' @{ rl_cmp = CMP_MODULE; }
+            ([1-9][0-9]*) >{ rl_num = 0; } ${ (rl_num *= 10) += (fc - '0'); }
+          ) @{ rl_cmp_arg = rl_num; }
+          ;
+
+int_check = (cmp_op cmp_farg)
+          | cmp_mod
           ;
 
 atom = 'a' @{ rl_type = CHECK_ATOM; };
