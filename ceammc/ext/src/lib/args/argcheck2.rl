@@ -27,7 +27,9 @@ namespace {
     enum CompareType {
         CMP_NONE,
         CMP_LESS,
+        CMP_LESS_EQ,
         CMP_GREATER,
+        CMP_GREATER_EQ,
         CMP_EQUAL,
         CMP_NOT_EQUAL,
         CMP_MODULE,
@@ -120,9 +122,21 @@ action do_check {
                         return false;
                     }
                 break;
+                case CMP_LESS_EQ:
+                    if (!(val <= arg)) {
+                        err << fmt::format("int value at [{}] expected to be <={}, got: {}", ca, arg, val);
+                        return false;
+                    }
+                break;
                 case CMP_GREATER:
                     if (!(val > arg)) {
                         err << fmt::format("int value at [{}] expected to be >{}, got: {}", ca, arg, val);
+                        return false;
+                    }
+                break;
+                case CMP_GREATER_EQ:
+                    if (!(val >= arg)) {
+                        err << fmt::format("int value at [{}] expected to be >={}, got: {}", ca, arg, val);
                         return false;
                     }
                 break;
@@ -189,10 +203,10 @@ cmp_farg   = (num_sign?
                  if(rl_den_cnt)  rl_cmp_arg += (double(rl_den) / rl_den_cnt);
               };
 
-cmp_op = '>'  @{ rl_cmp = CMP_GREATER; }
-       | '<'  @{ rl_cmp = CMP_LESS; }
-       | '='  @{ rl_cmp = CMP_EQUAL; }
-       | '!=' @{ rl_cmp = CMP_NOT_EQUAL; };
+cmp_op = ('>' @{ rl_cmp = CMP_GREATER; } ('=' @{ rl_cmp = CMP_GREATER_EQ; })?)
+       | ('<'  @{ rl_cmp = CMP_LESS; } ('=' @{ rl_cmp = CMP_LESS_EQ; })?)
+       |  '='  @{ rl_cmp = CMP_EQUAL; }
+       |  '!=' @{ rl_cmp = CMP_NOT_EQUAL; };
 
 cmp_mod = ( '%' @{ rl_cmp = CMP_MODULE; }
             ([1-9][0-9]*) >{ rl_num = 0; } ${ (rl_num *= 10) += (fc - '0'); }
