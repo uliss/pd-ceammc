@@ -28,6 +28,7 @@ namespace {
         CMP_LESS,
         CMP_GREATER,
         CMP_EQUAL,
+        CMP_NOT_EQUAL,
         CMP_MODULE,
         CMP_POWER2,
     };
@@ -130,6 +131,12 @@ action do_check {
                         return false;
                     }
                 break;
+                case CMP_NOT_EQUAL:
+                    if (val == arg) {
+                        err << fmt::format("int value at [{}] expected to be !={}, got: {}", ca, arg, val);
+                        return false;
+                    }
+                break;
                 default:
                 break;
                 }
@@ -167,11 +174,12 @@ cmp_arg   = (num_sign?
                  if(rl_den_cnt)  rl_cmp_arg += (double(rl_den) / rl_den_cnt);
               };
 
-int_check = ('>' @{ rl_cmp = CMP_GREATER; }
-           | '<' @{ rl_cmp = CMP_LESS; }
-           | '=' @{ rl_cmp = CMP_EQUAL; }
-           | '%' @{ rl_cmp = CMP_MODULE; }
-           | '^' @{ rl_cmp = CMP_POWER2; }
+int_check = ('>'  @{ rl_cmp = CMP_GREATER; }
+           | '<'  @{ rl_cmp = CMP_LESS; }
+           | '='  @{ rl_cmp = CMP_EQUAL; }
+           | '!=' @{ rl_cmp = CMP_NOT_EQUAL; }
+           | '%'  @{ rl_cmp = CMP_MODULE; }
+           | '^'  @{ rl_cmp = CMP_POWER2; }
            ) cmp_arg
           ;
 
