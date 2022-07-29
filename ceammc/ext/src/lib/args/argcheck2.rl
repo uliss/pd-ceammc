@@ -151,7 +151,7 @@ num_den  = [0-9]+ >{ rl_den = 0; rl_den_cnt = 1; } ${ (rl_den *= 10) += (fc - '0
 num_int  = num_sign? >{ rl_sign = 1; } num_num;
 num_real = num_int ('.' num_den)?;
 
-cmp_range_int = (num_int @append_opt_int '..' num_int @append_opt_int) >{ rl_cmp = CMP_RANGE; };
+cmp_range_int = ('[' num_int @append_opt_int ',' num_int @append_opt_int ']') >{ rl_cmp = CMP_RANGE; };
 
 cmp_eq_int = (('=' num_int @append_opt_int)
               ('|' num_int @append_opt_int)*
