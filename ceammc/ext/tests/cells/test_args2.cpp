@@ -181,4 +181,17 @@ TEST_CASE("args2", "[core]")
         REQUIRE(args::check_args("s=A|B?|@c", LA("@c")));
         REQUIRE_FALSE(args::check_args("s=A|B?|@c", LA("@d")));
     }
+
+    SECTION("float")
+    {
+        REQUIRE_FALSE(args::check_args("f", Atom()));
+        REQUIRE_FALSE(args::check_args("f", L()));
+        REQUIRE_FALSE(args::check_args("f", LA("abc")));
+
+        REQUIRE(args::check_args("f", LF(-0)));
+        REQUIRE(args::check_args("f", LF(1.5)));
+        REQUIRE(args::check_args("f", LF(2.25)));
+        REQUIRE(args::check_args("f", LF(+1000)));
+        REQUIRE(args::check_args("f", LF(-11000.0)));
+    }
 }

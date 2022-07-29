@@ -153,6 +153,14 @@ action append_opt_int {
     rl_check.values.push_back((int64_t)(rl_sign * rl_num));
 }
 
+action append_opt_real {
+    double real = rl_sign * rl_num;
+    if (rl_den_cnt)
+        real += rl_den / double(rl_den_cnt);
+
+    rl_check.values.push_back(real);
+}
+
 action append_opt_sym {
     try {
         ArgString str{ {}, 0 };
@@ -192,11 +200,9 @@ num_real = num_int ('.' num_den)?;
 # closed int range: [INT,INT] or [INT,INT)
 #####################
 cmp_range_int = ('['
-                            num_int @append_opt_int
-                            ','
-                            num_int @append_opt_int
-                        (']' @{ rl_cmp = CMP_RANGE_CLOSED; } | ')' @{ rl_cmp = CMP_RANGE_SEMIOPEN; })
-                       );
+                    num_int @append_opt_int ',' num_int @append_opt_int
+                (']' @{ rl_cmp = CMP_RANGE_CLOSED; } | ')' @{ rl_cmp = CMP_RANGE_SEMIOPEN; })
+                );
 
 #####################
 # equal: =INT|INT|INT...
@@ -240,22 +246,26 @@ cmp_eq_sym = ('=' sym_opt  %append_opt_sym
 
 sym_check = cmp_eq_sym;
 
-atom = 'a' @{ rl_type = CHECK_ATOM; };
-bool = 'B' @{ rl_type = CHECK_BOOL; };
-byte = 'b' @{ rl_type = CHECK_BYTE; };
-int  = 'i' @{ rl_type = CHECK_INT; } int_check?;
-sym  = 's' @{ rl_type = CHECK_SYMBOL; } sym_check?;
-nrep = '?' @{ rl_min = 0; rl_max = 1; }
-     | '+' @{ rl_min = 1, rl_max = REPEAT_INF; }
-     | '*' @{ rl_min = 0; rl_max = REPEAT_INF; }
-     | rep_range
-     | rep_num;
+float_check = (cmp_op num_real %append_opt_real);
+
+atom  = 'a' @{ rl_type = CHECK_ATOM; };
+bool  = 'B' @{ rl_type = CHECK_BOOL; };
+byte  = 'b' @{ rl_type = CHECK_BYTE; };
+int   = 'i' @{ rl_type = CHECK_INT; } int_check?;
+sym   = 's' @{ rl_type = CHECK_SYMBOL; } sym_check?;
+float = 'f' @{ rl_type = CHECK_FLOAT; } float_check?;
+nrep  = '?' @{ rl_min = 0; rl_max = 1; }
+      | '+' @{ rl_min = 1, rl_max = REPEAT_INF; }
+      | '*' @{ rl_min = 0; rl_max = REPEAT_INF; }
+      | rep_range
+      | rep_num;
 
 check = (atom
       | bool
       | byte
       | int
       | sym
+      | float
       ) nrep? >{ rl_min = 1; rl_max = REPEAT_INF; }
       ;
 
@@ -404,7 +414,7 @@ bool checkAtom(const Check& c, const Atom& a, int& i, const void* x) {
         i++;
     }
     break;
-    case CHECK_SYMBOL:
+    case CHECK_SYMBOL: {
         if (!a.isSymbol()) {
             pdError(x, fmt::format("not a symbol at position [{}]: '{}'", i, atom_to_string(a)));
             return false;
@@ -433,6 +443,15 @@ bool checkAtom(const Check& c, const Atom& a, int& i, const void* x) {
         default:
         break;
         }
+    }
+    break;
+    case CHECK_FLOAT: {
+        if (!a.isFloat()) {
+            pdError(x, fmt::format("not a float at position [{}]: '{}'", i, atom_to_string(a)));
+            return false;
+        }
+    } break;
+    default:
     break;
     }
 
@@ -469,6 +488,9 @@ bool ArgChecker::check(const AtomListView& lv, BaseObject* obj) const
                 return false;
             case CHECK_INT:
                 pdError(x, fmt::format("int expected at position [{}]", cur));
+                return false;
+            case CHECK_FLOAT:
+                pdError(x, fmt::format("float expected at position [{}]", cur));
                 return false;
             case CHECK_SYMBOL:
                 pdError(x, fmt::format("symbol expected at position [{}]", cur));
