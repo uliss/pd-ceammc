@@ -81,13 +81,14 @@ namespace {
     struct Check {
         ArgList values;
         ArgName name;
-        int8_t atom_type;
-        int8_t cmp_type;
-        int8_t repeat_min;
-        int8_t repeat_max;
+        CheckType type;
+        CompareType cmp;
+        int8_t rmin;
+        int8_t rmax;
 
-        inline int repeatMin() const { return repeat_min; }
-        inline int repeatMax() const { return (repeat_max == REPEAT_INF) ? std::numeric_limits<int>::max() : repeat_max; }
+        inline int repeatMin() const { return rmin; }
+        inline int repeatMax() const { return (rmax == REPEAT_INF) ? std::numeric_limits<int>::max() : rmax; }
+        inline void setRepeats(int min, int max) { rmin = min; rmax = max; }
 
         inline static bool isEqual(const ArgValue& v, int64_t i)
         {
@@ -103,7 +104,7 @@ namespace {
 
         inline std::string argName() const {
             if (name.empty())
-                return typeNames[atom_type];
+                return typeNames[type];
             else
                 return { name.data(), name.size() };
         }
@@ -149,25 +150,18 @@ namespace {
 machine arg_check2;
 
 action do_check {
-    if (chk_) {
-        rl_check.atom_type = rl_type;
-        rl_check.cmp_type = rl_cmp;
-        rl_check.repeat_min = rl_min;
-        rl_check.repeat_max = rl_max;
-        chk_->push_back(rl_check);
-    }
+    if (chk_)
+        chk_->push_back(rl_chk);
 
     rl_num = 0;
     rl_den = 0;
     rl_sign = 0;
     rl_den_cnt = 0;
-    rl_min = 0;
-    rl_max = 0;
-    rl_check = {};
+    rl_chk = {};
 }
 
 action append_opt_int {
-    rl_check.values.push_back((int64_t)(rl_sign * rl_num));
+    rl_chk.values.push_back((int64_t)(rl_sign * rl_num));
 }
 
 action append_opt_real {
@@ -175,7 +169,7 @@ action append_opt_real {
     if (rl_den_cnt)
         real += rl_den / double(rl_den_cnt);
 
-    rl_check.values.push_back(rl_sign * real);
+    rl_chk.values.push_back(rl_sign * real);
 }
 
 action append_opt_sym {
@@ -183,7 +177,7 @@ action append_opt_sym {
         ArgString str{ {}, 0 };
         str.first.assign(rl_sym_start, fpc - rl_sym_start);
         str.second = crc32_hash(str.first.data());
-        rl_check.values.push_back(str);
+        rl_chk.values.push_back(str);
     } catch(std::exception& e) {
         LIB_ERR << "exception: " << e.what();
     }
@@ -192,9 +186,9 @@ action append_opt_sym {
 #####################
 # repeats: {INT}, {INT,} or {INT,INT}
 #####################
-rep_min = '0' @{ rl_min = 0; } | ([1-9] @{ rl_min = fc-'0'; } [0-9]* ${ (rl_min *= 10) += (fc - '0'); });
-rep_max = '0' @{ rl_max = 0; } | ([1-9] @{ rl_max = fc-'0'; } [0-9]* ${ (rl_max *= 10) += (fc - '0'); });
-rep_num   = '{' rep_min '}' @{ rl_max = rl_min; };
+rep_min = '0' @{ rl_chk.rmin = 0; } | ([1-9] @{ rl_chk.rmin = fc-'0'; } [0-9]* ${ (rl_chk.rmin *= 10) += (fc - '0'); });
+rep_max = '0' @{ rl_chk.rmax = 0; } | ([1-9] @{ rl_chk.rmax = fc-'0'; } [0-9]* ${ (rl_chk.rmax *= 10) += (fc - '0'); });
+rep_num   = '{' rep_min '}' @{ rl_chk.rmax = rl_chk.rmin; };
 rep_range = '{' rep_min ',' rep_max? '}';
 
 num_sign = '+' @{ rl_sign = 1; }
@@ -218,7 +212,7 @@ num_real = num_int ('.' num_den)?;
 #####################
 cmp_range_int = ('['
                     num_int @append_opt_int ',' num_int @append_opt_int
-                (']' @{ rl_cmp = CMP_RANGE_CLOSED; } | ')' @{ rl_cmp = CMP_RANGE_SEMIOPEN; })
+                (']' @{ rl_chk.cmp = CMP_RANGE_CLOSED; } | ')' @{ rl_chk.cmp = CMP_RANGE_SEMIOPEN; })
                 );
 
 #####################
@@ -226,24 +220,24 @@ cmp_range_int = ('['
 #####################
 cmp_eq_int = (('=' num_int @append_opt_int)
               ('|' num_int @append_opt_int)*
-             ) >{ rl_cmp = CMP_EQUAL; }
+             ) >{ rl_chk.cmp = CMP_EQUAL; }
            ;
 
-cmp_op = ('>'  @{ rl_cmp = CMP_GREATER; } ('=' @{ rl_cmp = CMP_GREATER_EQ; })?)
-       | ('<'  @{ rl_cmp = CMP_LESS; }    ('=' @{ rl_cmp = CMP_LESS_EQ; })?)
-       |  '!=' @{ rl_cmp = CMP_NOT_EQUAL; };
+cmp_op = ('>'  @{ rl_chk.cmp = CMP_GREATER; } ('=' @{ rl_chk.cmp = CMP_GREATER_EQ; })?)
+       | ('<'  @{ rl_chk.cmp = CMP_LESS; }    ('=' @{ rl_chk.cmp = CMP_LESS_EQ; })?)
+       |  '!=' @{ rl_chk.cmp = CMP_NOT_EQUAL; };
 
 #####################
 # mod: %INT
 #####################
-cmp_mod = ( '%' @{ rl_cmp = CMP_MODULE; }
+cmp_mod = ( '%' @{ rl_chk.cmp = CMP_MODULE; }
             ([1-9][0-9]*) >{ rl_sign = 1; rl_num = 0; } ${ (rl_num *= 10) += (fc - '0'); } @append_opt_int
           )
           ;
 #####################
 # power of 2: ^2
 #####################
-cmp_pow2 = '^2' @{ rl_cmp = CMP_POWER2; };
+cmp_pow2 = '^2' @{ rl_chk.cmp = CMP_POWER2; };
 
 int_check = (cmp_op num_int %append_opt_int)
           | cmp_mod
@@ -259,25 +253,25 @@ sym_opt = ([^ |]-0)+** >{ rl_sym_start = fpc; };
 #####################
 cmp_eq_sym = ('=' sym_opt  %append_opt_sym
               ('|' sym_opt %append_opt_sym)*
-             ) >{ rl_cmp = CMP_EQUAL; };
+             ) >{ rl_chk.cmp = CMP_EQUAL; };
 
 sym_check = cmp_eq_sym;
 
 float_check = (cmp_op num_real %append_opt_real);
 
-atom  = 'a' @{ rl_type = CHECK_ATOM; };
-bool  = 'B' @{ rl_type = CHECK_BOOL; };
-byte  = 'b' @{ rl_type = CHECK_BYTE; };
-int   = 'i' @{ rl_type = CHECK_INT; } int_check?;
-sym   = 's' @{ rl_type = CHECK_SYMBOL; } sym_check?;
-float = 'f' @{ rl_type = CHECK_FLOAT; } float_check?;
-nrep  = '?' @{ rl_min = 0; rl_max = 1; }
-      | '+' @{ rl_min = 1, rl_max = REPEAT_INF; }
-      | '*' @{ rl_min = 0; rl_max = REPEAT_INF; }
+atom  = 'a' @{ rl_chk.type = CHECK_ATOM; };
+bool  = 'B' @{ rl_chk.type = CHECK_BOOL; };
+byte  = 'b' @{ rl_chk.type = CHECK_BYTE; };
+int   = 'i' @{ rl_chk.type = CHECK_INT; } int_check?;
+sym   = 's' @{ rl_chk.type = CHECK_SYMBOL; } sym_check?;
+float = 'f' @{ rl_chk.type = CHECK_FLOAT; } float_check?;
+nrep  = '?' @{ rl_chk.setRepeats(0, 1); }
+      | '+' @{ rl_chk.setRepeats(0, REPEAT_INF); }
+      | '*' @{ rl_chk.setRepeats(0, REPEAT_INF); }
       | rep_range
       | rep_num;
 
-arg_name = [A-Z0-9_?@]{1,8} >{ rl_check.name.clear(); } ${ rl_check.name.push_back(fc); };
+arg_name = [A-Z0-9_?@]{1,8} >{ rl_chk.name.clear(); } ${ rl_chk.name.push_back(fc); };
 
 check = (arg_name ':')?
       (atom
@@ -286,7 +280,7 @@ check = (arg_name ':')?
       | int
       | sym
       | float
-      ) nrep? >{ rl_min = 1; rl_max = REPEAT_INF; }
+      ) nrep? >{ rl_chk.rmin = 1; rl_chk.rmax = REPEAT_INF; }
       ;
 
 args = (check (' ' @do_check check)*);
@@ -303,7 +297,7 @@ namespace args {
 namespace {
 
 bool checkAtom(const Check& c, const Atom& a, int i, const void* x) {
-    switch (c.atom_type) {
+    switch (c.type) {
     case CHECK_ATOM:
         debug("atom", "Ok");
     break;
@@ -334,7 +328,7 @@ bool checkAtom(const Check& c, const Atom& a, int i, const void* x) {
                 ? *boost::strict_get<int64_t>(&c.values[0])
                 : -999999999;
 
-            switch (c.cmp_type) {
+            switch (c.cmp) {
             case CMP_LESS:
                 if (!(val < arg)) {
                     pdError(x, fmt::format("{} at [{}] expected to be <{}, got: {}", c.argName(), i, arg, val));
@@ -414,12 +408,12 @@ bool checkAtom(const Check& c, const Atom& a, int i, const void* x) {
                 const auto a = *boost::get<int64_t>(&c.values[0]);
                 const auto b = *boost::get<int64_t>(&c.values[1]);
 
-                if (c.cmp_type == CMP_RANGE_CLOSED && !(a <= val && val <= b)) {
+                if (c.cmp == CMP_RANGE_CLOSED && !(a <= val && val <= b)) {
                     pdError(x, fmt::format("{} value at [{}] expected to be in [{},{}] range, got: {}", c.argName(), i, a, b, val));
                     return false;
                 }
 
-                if (c.cmp_type == CMP_RANGE_SEMIOPEN && !(a <= val && val < b)) {
+                if (c.cmp == CMP_RANGE_SEMIOPEN && !(a <= val && val < b)) {
                     pdError(x, fmt::format("{} at [{}] expected to be in [{},{}) range, got: {}", c.argName(), i, a, b, val));
                     return false;
                 }
@@ -440,7 +434,7 @@ bool checkAtom(const Check& c, const Atom& a, int i, const void* x) {
         auto val = a.asT<t_symbol*>()->s_name;
         auto hash = crc32_hash(val);
 
-        switch(c.cmp_type) {
+        switch(c.cmp) {
         case CMP_EQUAL: {
             bool found = false;
             for (auto& v: c.values) {
@@ -473,7 +467,7 @@ bool checkAtom(const Check& c, const Atom& a, int i, const void* x) {
             ? *boost::strict_get<double>(&c.values[0])
             : -999999999;
 
-        switch (c.cmp_type) {
+        switch (c.cmp) {
         case CMP_LESS:
             if (!(val < arg)) {
                 pdError(x, fmt::format("{} at [{}] expected to be <{}, got: {}", c.argName(), i, arg, val));
@@ -525,9 +519,9 @@ bool ArgChecker::check(const AtomListView& lv, BaseObject* obj) const
     int ca = 0;
     for (int i = 0; i < chk_->size(); i++) {
         auto& c = (*chk_)[i];
-        auto cur = i + (c.repeat_min - 1);
+        auto cur = i + (c.rmin - 1);
         if (cur >= N) {
-            switch (c.atom_type) {
+            switch (c.type) {
             case CHECK_ATOM:
                 pdError(x, fmt::format("atom expected at position [{}]", cur));
                 return false;
@@ -553,14 +547,14 @@ bool ArgChecker::check(const AtomListView& lv, BaseObject* obj) const
         }
 
         const auto TOTAL = std::min<int>(N, i + c.repeatMax());
-        for (ca = i; ca < TOTAL; ca++) {
+        for (int j = ca; j < TOTAL; j++, ca++) {
             if (!checkAtom(c, lv[ca], ca, x))
                 return false;
         }
     }
 
     if (ca < N) {
-        pdError(x, fmt::format("extra arguments left, starting from [{}]", ca));
+        pdError(x, fmt::format("extra arguments left, starting from [{}]: {}", ca, list_to_string(lv.subView(ca))));
         return false;
     }
 
@@ -573,15 +567,11 @@ ArgChecker::ArgChecker(const char* str)
     int ca = 0;
     int cs = 0;
     const char* p = str;
-    CheckType rl_type = CHECK_ATOM;
-    CompareType rl_cmp = CMP_NONE;
     int64_t rl_num = 0;
     int64_t rl_den = 0;
     int64_t rl_den_cnt = 0;
     int rl_sign = 0;
-    int rl_min = 0;
-    int rl_max = 0;
-    Check rl_check;
+    Check rl_chk;
     const char* rl_sym_start = 0;
 
     %%{

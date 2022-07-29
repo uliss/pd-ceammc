@@ -62,6 +62,9 @@ TEST_CASE("args2", "[core]")
         REQUIRE_FALSE(args::check_args("B", LF(1.5)));
         REQUIRE_FALSE(args::check_args("B", LF(2)));
         REQUIRE_FALSE(args::check_args("B", LF(-0.1)));
+
+        REQUIRE(args::check_args("B B", LF(0, 1)));
+        REQUIRE(args::check_args("B+", LF(0, 1)));
     }
 
     SECTION("byte")
@@ -180,6 +183,11 @@ TEST_CASE("args2", "[core]")
         REQUIRE(args::check_args("s=A|B?|@c", LA("B?")));
         REQUIRE(args::check_args("s=A|B?|@c", LA("@c")));
         REQUIRE_FALSE(args::check_args("MODE:s=A|B?|@c", LA("@d")));
+
+        REQUIRE(args::check_args("s s", LA("A", "B")));
+        REQUIRE(args::check_args("s s*", LA("A")));
+        REQUIRE(args::check_args("s s*", LA("A", "B")));
+        REQUIRE(args::check_args("A:s B?:s*", LA("A", "B", "C")));
     }
 
     SECTION("float")
@@ -226,6 +234,11 @@ TEST_CASE("args2", "[core]")
         REQUIRE_FALSE(args::check_args("FREQ:f<=-10.5", LF(-10.499)));
         REQUIRE(args::check_args("f<=-10.5", LF(-10.5)));
         REQUIRE(args::check_args("f<=-10.5", LF(-10.501)));
+    }
 
+    SECTION("mixed")
+    {
+        REQUIRE(args::check_args("a f<0 i+ s=A|B{2,4}", LA("true", -1.5, 1, 2, 3, 4, 5, "A", "A", "B")));
+        //REQUIRE_FALSE(args::check_args("a f<0 i+ s=A|B{2,4}", LA("true", 2, 1, 2, 3, 4, 5, "A", "A", "B")));
     }
 }
