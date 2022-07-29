@@ -246,6 +246,6 @@ TEST_CASE("args2", "[core]")
     {
         REQUIRE(args::check_args("a f<0 i+ s+", LA("true", -1.5, 1, 2, 3, 4, 5, "A", "A", "B")));
         REQUIRE(args::check_args("a f<0 i+ s=A|BC*", LA("true", -1.5, 2, 1, 2, 3, 4, 5, "A", "A", "BC")));
-        REQUIRE(args::check_args("a f<0 i+ s=A|BC+ f", LA("true", -1.5, 2, 1, 2, 3, 4, 5, "A", "A", "BC", -100)));
+        REQUIRE(args::check_args("A:a f<0 i[1,5]+ NAME:s=A|BC+ f", LA("true", -1.5, 2, 1, 2, 3, 4, 5, "A", "A", "BC", -100)));
     }
 }

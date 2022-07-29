@@ -78,6 +78,40 @@ namespace {
     using ArgValue = boost::variant<double, int64_t, ArgString>;
     using ArgList = boost::container::small_vector<ArgValue, 3>;
 
+    class ArgStringVisitor : public boost::static_visitor<std::string>
+    {
+    public:
+        std::string operator()(const double& d) const { return fmt::format("{}", d); }
+        std::string operator()(const int64_t& i) const { return fmt::format("{}", i); }
+        std::string operator()(const ArgString& s) const {
+            std::string res;
+            res.reserve(s.first.size() + 2);
+            res += '\'';
+            res.append(s.first.data(), s.first.size());
+            res += '\'';
+            return res;
+        }
+    };
+
+    inline std::string arg_to_string(const ArgValue& v)
+    {
+        return boost::apply_visitor(ArgStringVisitor(), v);
+    }
+
+    inline std::string arg_to_string(const ArgList& v, const char* delim = ", ")
+    {
+        ceammc::string::SmallString res;
+        ArgStringVisitor visitor;
+        for (auto& a: v) {
+            if (&a != &v[0]) {
+                res.insert(res.end(), delim, delim + strlen(delim));
+            }
+            fmt::format_to(std::back_inserter(res), boost::apply_visitor(visitor, a));
+        }
+
+        return { res.data(), res.size() };
+    }
+
     struct Check {
         ArgList values;
         ArgName name;
@@ -109,6 +143,39 @@ namespace {
                 return { name.data(), name.size() };
         }
 
+        inline std::string checkInfo() const {
+            switch (cmp) {
+            case CMP_MODULE:
+                return fmt::format("check: %{}==0", arg_to_string(values));
+            case CMP_LESS:
+                return fmt::format("check: <{}", arg_to_string(values));
+            case CMP_LESS_EQ:
+                return fmt::format("check: <={}", arg_to_string(values));
+            case CMP_GREATER:
+                return fmt::format("check: >{}", arg_to_string(values));
+            case CMP_GREATER_EQ:
+                return fmt::format("check: >={}", arg_to_string(values));
+            case CMP_RANGE_CLOSED:
+                return fmt::format("range: [{}]", arg_to_string(values, ","));
+            case CMP_RANGE_SEMIOPEN:
+                return fmt::format("range: [{})", arg_to_string(values, ","));
+            case CMP_EQUAL:
+                if (values.size() == 1)
+                    return fmt::format("check: ={}", arg_to_string(values));
+                else
+                    return fmt::format("enum: {}", arg_to_string(values, "|"));
+            default:
+                return {};
+            }
+        }
+
+        inline std::string argInfo() const {
+            if (name.empty())
+                return fmt::format("{:10s} [{}]{}", typeNames[type], checkInfo(), helpRepeats());
+            else
+                return fmt::format("{:10s} [type: {} {}]{}", name.data(), typeNames[type], checkInfo(), helpRepeats());
+        }
+
         inline std::string helpRepeats() const {
             if (rmin == 1 && rmax == 1) return {};
             if (rmin == 0 && rmax == 1) return { '?', 1 };
@@ -122,41 +189,6 @@ namespace {
                 return fmt::format("{{{},}}", (int)rmin);
         }
     };
-
-    class ArgStringVisitor : public boost::static_visitor<std::string>
-    {
-    public:
-        std::string operator()(const double& d) const { return std::to_string(d); }
-        std::string operator()(const int64_t& i) const { return std::to_string(i); }
-        std::string operator()(const ArgString& s) const {
-            std::string res;
-            res.reserve(s.first.size() + 2);
-            res += '\'';
-            res.append(s.first.data(), s.first.size());
-            res += '\'';
-            return res;
-        }
-    };
-
-    inline std::string arg_to_string(const ArgValue& v)
-    {
-        return boost::apply_visitor(ArgStringVisitor(), v );
-    }
-
-    inline std::string arg_to_string(const ArgList& v)
-    {
-        ceammc::string::SmallString res;
-        ArgStringVisitor visitor;
-        for (auto& a: v) {
-            if (&a != &v[0]) {
-                res.push_back(',');
-                res.push_back(' ');
-            }
-            fmt::format_to(std::back_inserter(res), boost::apply_visitor(visitor, a));
-        }
-
-        return { res.data(), res.size() };
-    }
 }
 
 %%{
@@ -309,7 +341,7 @@ namespace args {
 
 namespace {
 
-bool checkAtom(const Check& c, const Atom& a, int i, const void* x) {
+bool checkAtom(const Check& c, const Atom& a, int i, const void* x, bool pErr) {
     switch (c.type) {
     case CHECK_ATOM:
         debug("atom", "Ok");
@@ -319,13 +351,15 @@ bool checkAtom(const Check& c, const Atom& a, int i, const void* x) {
             debug("book", "Ok");
             i++;
         } else {
-            pdError(x, fmt::format("invalid {} value at [{}]: '{}'", c.argName(), i, atom_to_string(a)));
+            if (pErr)
+                pdError(x, fmt::format("invalid {} value at [{}]: '{}'", c.argName(), i, atom_to_string(a)));
             return false;
         }
     break;
     case CHECK_BYTE:
         if (!a.isInteger() || a.asT<int>() < 0 || a.asT<int>() > 255) {
-            pdError(x, fmt::format("invalid {} value at [{}]: '{}'", c.argName(), i, atom_to_string(a)));
+            if (pErr)
+                pdError(x, fmt::format("invalid {} value at [{}]: '{}'", c.argName(), i, atom_to_string(a)));
             return false;
         } else {
             debug("byte", "Ok");
@@ -333,7 +367,8 @@ bool checkAtom(const Check& c, const Atom& a, int i, const void* x) {
     break;
     case CHECK_INT:
         if (!a.isInteger()) {
-            pdError(x, fmt::format("invalid {} value at [{}]: '{}'", c.argName(), i, atom_to_string(a)));
+            if (pErr)
+                pdError(x, fmt::format("invalid {} value at [{}]: '{}'", c.argName(), i, atom_to_string(a)));
             return false;
         } else {
             const int64_t val = a.asT<int>();
@@ -344,33 +379,38 @@ bool checkAtom(const Check& c, const Atom& a, int i, const void* x) {
             switch (c.cmp) {
             case CMP_LESS:
                 if (!(val < arg)) {
-                    pdError(x, fmt::format("{} at [{}] expected to be <{}, got: {}", c.argName(), i, arg, val));
+                    if (pErr)
+                        pdError(x, fmt::format("{} at [{}] expected to be <{}, got: {}", c.argName(), i, arg, val));
                     return false;
                 }
             break;
             case CMP_LESS_EQ:
                 if (!(val <= arg)) {
-                    pdError(x, fmt::format("{} at [{}] expected to be <={}, got: {}", c.argName(), i, arg, val));
+                    if (pErr)
+                        pdError(x, fmt::format("{} at [{}] expected to be <={}, got: {}", c.argName(), i, arg, val));
                     return false;
                 }
             break;
             case CMP_GREATER:
                 if (!(val > arg)) {
-                    pdError(x, fmt::format("{} at [{}] expected to be >{}, got: {}", c.argName(), i, arg, val));
+                    if (pErr)
+                        pdError(x, fmt::format("{} at [{}] expected to be >{}, got: {}", c.argName(), i, arg, val));
                     return false;
                 }
             break;
             case CMP_GREATER_EQ:
                 if (!(val >= arg)) {
-                    pdError(x, fmt::format("{} at [{}] expected to be >={}, got: {}", c.argName(), i, arg, val));
+                    if (pErr)
+                        pdError(x, fmt::format("{} at [{}] expected to be >={}, got: {}", c.argName(), i, arg, val));
                     return false;
                 }
             break;
             case CMP_EQUAL:
                 if (c.values.size() == 1) {
                     if (val != arg) {
-                        pdError(x, fmt::format("{} at [{}] expected to be = {}, got: {}",
-                                c.argName(), i, arg_to_string(c.values[0]), atom_to_string(a)));
+                        if (pErr)
+                            pdError(x, fmt::format("{} at [{}] expected to be = {}, got: {}",
+                                    c.argName(), i, arg_to_string(c.values[0]), atom_to_string(a)));
                         return false;
                     }
                 } else {
@@ -379,29 +419,33 @@ bool checkAtom(const Check& c, const Atom& a, int i, const void* x) {
                         if (c.isEqual(v, val)) { found = true; break; }
                     }
                     if (!found) {
-                        pdError(x, fmt::format("{} at [{}] expected to be one of: {}, got: {}",
-                                c.argName(), i, arg_to_string(c.values), atom_to_string(a)));
+                        if (pErr)
+                            pdError(x, fmt::format("{} at [{}] expected to be one of: {}, got: {}",
+                                    c.argName(), i, arg_to_string(c.values), atom_to_string(a)));
                         return false;
                     }
                 }
             break;
             case CMP_NOT_EQUAL:
                 if (val == arg) {
-                    pdError(x, fmt::format("{} at [{}] expected to be !={}, got: {}", c.argName(), i, arg, val));
+                    if (pErr)
+                        pdError(x, fmt::format("{} at [{}] expected to be !={}, got: {}", c.argName(), i, arg, val));
                     return false;
                 }
             break;
             case CMP_MODULE:
                 fmt::print("val={}, arg={}\n", val, arg);
                 if (val % arg != 0) {
-                    pdError(x, fmt::format("{} at [{}] expected to be multiple of {}, got: {}", c.argName(), i, arg, val));
+                    if (pErr)
+                        pdError(x, fmt::format("{} at [{}] expected to be multiple of {}, got: {}", c.argName(), i, arg, val));
                     return false;
                 }
             break;
             case CMP_POWER2: {
                 bool rc = (val > 0 && ((val & (val - 1)) == 0));
                 if (!rc) {
-                    pdError(x, fmt::format("{} at [{}] expected to be power of 2, got: {}", c.argName(), i, val));
+                    if (pErr)
+                        pdError(x, fmt::format("{} at [{}] expected to be power of 2, got: {}", c.argName(), i, val));
                     return false;
                 }
             }
@@ -422,12 +466,14 @@ bool checkAtom(const Check& c, const Atom& a, int i, const void* x) {
                 const auto b = *boost::get<int64_t>(&c.values[1]);
 
                 if (c.cmp == CMP_RANGE_CLOSED && !(a <= val && val <= b)) {
-                    pdError(x, fmt::format("{} value at [{}] expected to be in [{},{}] range, got: {}", c.argName(), i, a, b, val));
+                    if (pErr)
+                        pdError(x, fmt::format("{} value at [{}] expected to be in [{},{}] range, got: {}", c.argName(), i, a, b, val));
                     return false;
                 }
 
                 if (c.cmp == CMP_RANGE_SEMIOPEN && !(a <= val && val < b)) {
-                    pdError(x, fmt::format("{} at [{}] expected to be in [{},{}) range, got: {}", c.argName(), i, a, b, val));
+                    if (pErr)
+                        pdError(x, fmt::format("{} at [{}] expected to be in [{},{}) range, got: {}", c.argName(), i, a, b, val));
                     return false;
                 }
             }
@@ -440,7 +486,8 @@ bool checkAtom(const Check& c, const Atom& a, int i, const void* x) {
     break;
     case CHECK_SYMBOL: {
         if (!a.isSymbol()) {
-            pdError(x, fmt::format("invalid {} value at [{}]: '{}'", c.argName(), i, atom_to_string(a)));
+            if (pErr)
+                pdError(x, fmt::format("invalid {} value at [{}]: '{}'", c.argName(), i, atom_to_string(a)));
             return false;
         }
 
@@ -454,12 +501,14 @@ bool checkAtom(const Check& c, const Atom& a, int i, const void* x) {
                 if (c.isEqualHash(v, hash)) { found = true; break; }
             }
             if (!found) {
-                if (c.values.size() == 1)
-                    pdError(x, fmt::format("{} at [{}] expected to be {}, got: '{}'",
-                            c.argName(), i, arg_to_string(c.values[0]), atom_to_string(a)));
-                else
-                    pdError(x, fmt::format("{} at [{}] expected to be one of: {}, got: '{}'",
-                            c.argName(), i, arg_to_string(c.values), atom_to_string(a)));
+                if (pErr) {
+                    if (c.values.size() == 1)
+                        pdError(x, fmt::format("{} at [{}] expected to be {}, got: '{}'",
+                                c.argName(), i, arg_to_string(c.values[0]), atom_to_string(a)));
+                    else
+                        pdError(x, fmt::format("{} at [{}] expected to be one of: {}, got: '{}'",
+                                c.argName(), i, arg_to_string(c.values), atom_to_string(a)));
+                }
                 return false;
             }
         }
@@ -472,7 +521,8 @@ bool checkAtom(const Check& c, const Atom& a, int i, const void* x) {
     break;
     case CHECK_FLOAT: {
         if (!a.isFloat()) {
-            pdError(x, fmt::format("invalid {} value at [{}]: '{}'", c.argName(), i, atom_to_string(a)));
+            if (pErr)
+                pdError(x, fmt::format("invalid {} value at [{}]: '{}'", c.argName(), i, atom_to_string(a)));
             return false;
         }
 
@@ -484,25 +534,29 @@ bool checkAtom(const Check& c, const Atom& a, int i, const void* x) {
         switch (c.cmp) {
         case CMP_LESS:
             if (!(val < arg)) {
-                pdError(x, fmt::format("{} at [{}] expected to be <{}, got: {}", c.argName(), i, arg, val));
+                if (pErr)
+                    pdError(x, fmt::format("{} at [{}] expected to be <{}, got: {}", c.argName(), i, arg, val));
                 return false;
             }
         break;
         case CMP_LESS_EQ:
             if (!(val <= arg)) {
-                pdError(x, fmt::format("{} at [{}] expected to be <={}, got: {}", c.argName(), i, arg, val));
+                if (pErr)
+                    pdError(x, fmt::format("{} at [{}] expected to be <={}, got: {}", c.argName(), i, arg, val));
                 return false;
             }
         break;
         case CMP_GREATER:
             if (!(val > arg)) {
-                pdError(x, fmt::format("{} at [{}] expected to be >{}, got: {}", c.argName(), i, arg, val));
+                if (pErr)
+                    pdError(x, fmt::format("{} at [{}] expected to be >{}, got: {}", c.argName(), i, arg, val));
                 return false;
             }
         break;
         case CMP_GREATER_EQ:
             if (!(val >= arg)) {
-                pdError(x, fmt::format("{} at [{}] expected to be >={}, got: {}", c.argName(), i, arg, val));
+                if (pErr)
+                    pdError(x, fmt::format("{} at [{}] expected to be >={}, got: {}", c.argName(), i, arg, val));
                 return false;
             }
         break;
@@ -530,6 +584,24 @@ public:
         }
         return { str.data(), str.size() };
     }
+
+    std::string help() const {
+        string::MediumString str;
+        auto bs = std::back_inserter(str);
+        fmt::format_to(bs, "usage: ");
+        for (auto& c: *this)
+            fmt::format_to(bs, "{}{} ", c.argName(), c.helpRepeats());
+
+        str.push_back('\n');
+        for (auto& c: *this) {
+            fmt::format_to(bs, " - {}\n", c.argInfo());
+        }
+
+        if (str.size() > 0 && str.back() == '\n')
+            str.pop_back();
+
+        return { str.data(), str.size() };
+    }
 };
 
 ArgChecker::~ArgChecker()  = default;
@@ -542,6 +614,7 @@ bool ArgChecker::check(const AtomListView& lv, BaseObject* obj) const
     const void* x = obj ? obj->owner() : nullptr;
 
     pdDebug(x, chk_->helpBrief());
+    pdDebug(x, chk_->help());
 
     const int N = lv.size();
     int atom_idx = 0;
@@ -555,7 +628,7 @@ bool ArgChecker::check(const AtomListView& lv, BaseObject* obj) const
                 pdError(x, fmt::format("{} expected at [{}]", check.argName(), atom_idx));
                 return false;
             }
-            if (!checkAtom(check, lv[atom_idx], atom_idx, x))
+            if (!checkAtom(check, lv[atom_idx], atom_idx, x, true))
                 return false;
         }
 
@@ -563,7 +636,7 @@ bool ArgChecker::check(const AtomListView& lv, BaseObject* obj) const
             if (atom_idx >= N)
                 break;
 
-            if (!checkAtom(check, lv[atom_idx], atom_idx, x))
+            if (!checkAtom(check, lv[atom_idx], atom_idx, x, false))
                 break;
         }
     }
