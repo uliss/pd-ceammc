@@ -1,6 +1,7 @@
 # include "argcheck2.h"
 # include "ceammc_string.h"
 # include "ceammc_object.h"
+# include "ceammc_crc32.h"
 # include "fmt/core.h"
 
 # include <cstdint>
@@ -83,6 +84,12 @@ namespace {
             auto int_ptr = boost::get<int64_t>(&v);
             return (int_ptr && i == *int_ptr);
         }
+
+        inline static bool isEqualHash(const ArgValue& v, uint32_t hash)
+        {
+            auto str_ptr = boost::get<ArgString>(&v);
+            return (str_ptr && str_ptr->second == hash);
+        }
     };
 
     class ArgStringVisitor : public boost::static_visitor<std::string>
@@ -90,7 +97,14 @@ namespace {
     public:
         std::string operator()(const double& d) const { return std::to_string(d); }
         std::string operator()(const int64_t& i) const { return std::to_string(i); }
-        std::string operator()(const ArgString& s) const { return s.first.data(); }
+        std::string operator()(const ArgString& s) const {
+            std::string res;
+            res.reserve(s.first.size() + 2);
+            res += '\'';
+            res.append(s.first.data(), s.first.size());
+            res += '\'';
+            return res;
+        }
     };
 
     inline std::string arg_to_string(const ArgValue& v)
@@ -100,17 +114,17 @@ namespace {
 
     inline std::string arg_to_string(const ArgList& v)
     {
-        std::string res;
+        ceammc::string::SmallString res;
         ArgStringVisitor visitor;
         for (auto& a: v) {
             if (&a != &v[0]) {
-                res += ',';
-                res += ' ';
+                res.push_back(',');
+                res.push_back(' ');
             }
-            res += boost::apply_visitor(visitor, a);
+            fmt::format_to(std::back_inserter(res), boost::apply_visitor(visitor, a));
         }
 
-        return res;
+        return { res.data(), res.size() };
     }
 }
 
@@ -139,6 +153,20 @@ action append_opt_int {
     rl_check.values.push_back((int64_t)(rl_sign * rl_num));
 }
 
+action append_opt_sym {
+    try {
+        ArgString str{ {}, 0 };
+        str.first.assign(rl_sym_start, fpc - rl_sym_start);
+        str.second = crc32_hash(str.first.data());
+        rl_check.values.push_back(str);
+    } catch(std::exception& e) {
+        LIB_ERR << "exception: " << e.what();
+    }
+}
+
+#####################
+# repeats: {INT}, {INT,} or {INT,INT}
+#####################
 rep_min = '0' @{ rl_min = 0; } | ([1-9] @{ rl_min = fc-'0'; } [0-9]* ${ (rl_min *= 10) += (fc - '0'); });
 rep_max = '0' @{ rl_max = 0; } | ([1-9] @{ rl_max = fc-'0'; } [0-9]* ${ (rl_max *= 10) += (fc - '0'); });
 rep_num   = '{' rep_min '}' @{ rl_max = rl_min; };
@@ -149,16 +177,30 @@ num_sign = '+' @{ rl_sign = 1; }
 
 num_num  = [0-9]+ >{ rl_num = 0; } ${ (rl_num *= 10) += (fc - '0'); };
 num_den  = [0-9]+ >{ rl_den = 0; rl_den_cnt = 1; } ${ (rl_den *= 10) += (fc - '0'); rl_den_cnt *= 10; };
+
+#####################
+# int: (+-)?INT
+#####################
 num_int  = num_sign? >{ rl_sign = 1; } num_num;
+
+#####################
+# float: (+-)?INT.FRAC
+#####################
 num_real = num_int ('.' num_den)?;
 
-cmp_range_closed_int = ('['
+#####################
+# closed int range: [INT,INT] or [INT,INT)
+#####################
+cmp_range_int = ('['
                             num_int @append_opt_int
                             ','
                             num_int @append_opt_int
                         (']' @{ rl_cmp = CMP_RANGE_CLOSED; } | ')' @{ rl_cmp = CMP_RANGE_SEMIOPEN; })
                        );
 
+#####################
+# equal: =INT|INT|INT...
+#####################
 cmp_eq_int = (('=' num_int @append_opt_int)
               ('|' num_int @append_opt_int)*
              ) >{ rl_cmp = CMP_EQUAL; }
@@ -168,22 +210,32 @@ cmp_op = ('>'  @{ rl_cmp = CMP_GREATER; } ('=' @{ rl_cmp = CMP_GREATER_EQ; })?)
        | ('<'  @{ rl_cmp = CMP_LESS; }    ('=' @{ rl_cmp = CMP_LESS_EQ; })?)
        |  '!=' @{ rl_cmp = CMP_NOT_EQUAL; };
 
+#####################
+# mod: %INT
+#####################
 cmp_mod = ( '%' @{ rl_cmp = CMP_MODULE; }
             ([1-9][0-9]*) >{ rl_sign = 1; rl_num = 0; } ${ (rl_num *= 10) += (fc - '0'); } @append_opt_int
           )
           ;
-
+#####################
+# power of 2: ^2
+#####################
 cmp_pow2 = '^2' @{ rl_cmp = CMP_POWER2; };
 
 int_check = (cmp_op num_int %append_opt_int)
           | cmp_mod
           | cmp_pow2
           | cmp_eq_int
-          | cmp_range_closed_int
+          | cmp_range_int
           ;
 
-cmp_eq_sym = ('='
+sym_opt = ([^ |]-0)+** >{ rl_sym_start = fpc; };
 
+#####################
+# symbol equal: =SYM|SYM...
+#####################
+cmp_eq_sym = ('=' sym_opt  %append_opt_sym
+              ('|' sym_opt %append_opt_sym)*
              ) >{ rl_cmp = CMP_EQUAL; };
 
 sym_check = cmp_eq_sym;
@@ -358,7 +410,26 @@ bool checkAtom(const Check& c, const Atom& a, int& i, const void* x) {
             return false;
         }
 
+        auto val = a.asT<t_symbol*>()->s_name;
+        auto hash = crc32_hash(val);
+
         switch(c.cmp_type) {
+        case CMP_EQUAL: {
+            bool found = false;
+            for (auto& v: c.values) {
+                if (c.isEqualHash(v, hash)) { found = true; break; }
+            }
+            if (!found) {
+                if (c.values.size() == 1)
+                    pdError(x, fmt::format("symbol value at [{}] expected to be {}, got: '{}'",
+                            i, arg_to_string(c.values[0]), atom_to_string(a)));
+                else
+                    pdError(x, fmt::format("symbol value at [{}] expected to be one of: {}, got: '{}'",
+                            i, arg_to_string(c.values), atom_to_string(a)));
+                return false;
+            }
+        }
+        break;
         default:
         break;
         }
@@ -438,6 +509,7 @@ ArgChecker::ArgChecker(const char* str)
     int rl_min = 0;
     int rl_max = 0;
     Check rl_check;
+    const char* rl_sym_start = 0;
 
     %%{
         write init;

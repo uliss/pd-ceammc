@@ -173,5 +173,12 @@ TEST_CASE("args2", "[core]")
 
         REQUIRE(args::check_args("s", LA("")));
         REQUIRE(args::check_args("s", LA("ABC")));
+
+        REQUIRE(args::check_args("s=A", LA("A")));
+        REQUIRE_FALSE(args::check_args("s=A", LA("AB")));
+        REQUIRE(args::check_args("s=A|B?|@c", LA("A")));
+        REQUIRE(args::check_args("s=A|B?|@c", LA("B?")));
+        REQUIRE(args::check_args("s=A|B?|@c", LA("@c")));
+        REQUIRE_FALSE(args::check_args("s=A|B?|@c", LA("@d")));
     }
 }
