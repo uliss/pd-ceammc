@@ -42,6 +42,7 @@ namespace {
         CMP_MODULE,
         CMP_POWER2,
         CMP_RANGE_CLOSED,
+        CMP_RANGE_SEMIOPEN,
     };
 
     std::string atom_to_string(const ceammc::Atom& a) {
@@ -151,7 +152,12 @@ num_den  = [0-9]+ >{ rl_den = 0; rl_den_cnt = 1; } ${ (rl_den *= 10) += (fc - '0
 num_int  = num_sign? >{ rl_sign = 1; } num_num;
 num_real = num_int ('.' num_den)?;
 
-cmp_range_closed_int = ('[' num_int @append_opt_int ',' num_int @append_opt_int ']') >{ rl_cmp = CMP_RANGE_CLOSED; };
+cmp_range_closed_int = ('['
+                            num_int @append_opt_int
+                            ','
+                            num_int @append_opt_int
+                        (']' @{ rl_cmp = CMP_RANGE_CLOSED; } | ')' @{ rl_cmp = CMP_RANGE_SEMIOPEN; })
+                       );
 
 cmp_eq_int = (('=' num_int @append_opt_int)
               ('|' num_int @append_opt_int)*
@@ -313,6 +319,7 @@ bool checkAtom(const Check& c, const Atom& a, int& i, const void* x) {
                 }
             }
             break;
+            case CMP_RANGE_SEMIOPEN:
             case CMP_RANGE_CLOSED: {
                 if (c.values.size() != 2) {
                     pdError(x, "internal arg error");
@@ -327,8 +334,13 @@ bool checkAtom(const Check& c, const Atom& a, int& i, const void* x) {
                 const auto a = *boost::get<int64_t>(&c.values[0]);
                 const auto b = *boost::get<int64_t>(&c.values[1]);
 
-                if (!(a <= val && val <= b)) {
+                if (c.cmp_type == CMP_RANGE_CLOSED && !(a <= val && val <= b)) {
                     pdError(x, fmt::format("int value at [{}] expected to be in [{},{}] range, got: {}", i, a, b, val));
+                    return false;
+                }
+
+                if (c.cmp_type == CMP_RANGE_SEMIOPEN && !(a <= val && val < b)) {
+                    pdError(x, fmt::format("int value at [{}] expected to be in [{},{}) range, got: {}", i, a, b, val));
                     return false;
                 }
             }

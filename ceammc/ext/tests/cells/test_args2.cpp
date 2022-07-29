@@ -139,6 +139,12 @@ TEST_CASE("args2", "[core]")
         REQUIRE(args::check_args("i[-1,1]", LF(1)));
         REQUIRE_FALSE(args::check_args("i[-1,1]", LF(2)));
 
+        REQUIRE_FALSE(args::check_args("i[-1,1)", LF(-2)));
+        REQUIRE(args::check_args("i[-1,1)", LF(-1)));
+        REQUIRE(args::check_args("i[-1,1)", LF(0)));
+        REQUIRE_FALSE(args::check_args("i[-1,1)", LF(1)));
+        REQUIRE_FALSE(args::check_args("i[-1,1)", LF(2)));
+
         REQUIRE(args::check_args("i!=0", LF(1)));
         REQUIRE(args::check_args("i!=0", LF(-1)));
         REQUIRE_FALSE(args::check_args("i!=0", LF(0)));
