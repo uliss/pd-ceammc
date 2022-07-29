@@ -193,5 +193,6 @@ TEST_CASE("args2", "[core]")
         REQUIRE(args::check_args("f", LF(2.25)));
         REQUIRE(args::check_args("f", LF(+1000)));
         REQUIRE(args::check_args("f", LF(-11000.0)));
+        REQUIRE(args::check_args("f", LF(0.1e+32)));
     }
 }
