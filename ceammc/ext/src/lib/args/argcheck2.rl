@@ -172,10 +172,17 @@ int_check = (cmp_op num_int %append_opt_int)
           | cmp_eq_int
           ;
 
+cmp_eq_sym = ('='
+
+             ) >{ rl_cmp = CMP_EQUAL; };
+
+sym_check = cmp_eq_sym;
+
 atom = 'a' @{ rl_type = CHECK_ATOM; };
 bool = 'B' @{ rl_type = CHECK_BOOL; };
 byte = 'b' @{ rl_type = CHECK_BYTE; };
 int  = 'i' @{ rl_type = CHECK_INT; } int_check?;
+sym  = 's' @{ rl_type = CHECK_SYMBOL; } sym_check?;
 nrep = '?' @{ rl_min = 0; rl_max = 1; }
      | '+' @{ rl_min = 1, rl_max = REPEAT_INF; }
      | '*' @{ rl_min = 0; rl_max = REPEAT_INF; }
@@ -186,6 +193,7 @@ check = (atom
       | bool
       | byte
       | int
+      | sym
       ) nrep? >{ rl_min = 1; rl_max = REPEAT_INF; }
       ;
 
@@ -309,6 +317,15 @@ bool checkAtom(const Check& c, const Atom& a, int& i, const void* x) {
     }
     break;
     case CHECK_SYMBOL:
+        if (!a.isSymbol()) {
+            pdError(x, fmt::format("not a symbol at position [{}]: '{}'", i, atom_to_string(a)));
+            return false;
+        }
+
+        switch(c.cmp_type) {
+        default:
+        break;
+        }
     break;
     }
 
@@ -345,6 +362,9 @@ bool ArgChecker::check(const AtomListView& lv, BaseObject* obj) const
                 return false;
             case CHECK_INT:
                 pdError(x, fmt::format("int expected at position [{}]", cur));
+                return false;
+            case CHECK_SYMBOL:
+                pdError(x, fmt::format("symbol expected at position [{}]", cur));
                 return false;
             default:
                 pdError(x, fmt::format("error at position [{}]", cur));

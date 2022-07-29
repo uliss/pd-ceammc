@@ -152,4 +152,14 @@ TEST_CASE("args2", "[core]")
         REQUIRE_FALSE(args::check_args("i^2", LF(3)));
         REQUIRE_FALSE(args::check_args("i^2", LF(6)));
     }
+
+    SECTION("symbol")
+    {
+        REQUIRE_FALSE(args::check_args("s", Atom()));
+        REQUIRE_FALSE(args::check_args("s", L()));
+        REQUIRE_FALSE(args::check_args("s", LF(123)));
+
+        REQUIRE(args::check_args("s", LA("")));
+        REQUIRE(args::check_args("s", LA("ABC")));
+    }
 }
