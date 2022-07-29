@@ -80,4 +80,20 @@ TEST_CASE("args2", "[core]")
         REQUIRE_FALSE(args::check_args("b", LF(1.5), std::cerr));
         REQUIRE_FALSE(args::check_args("b", LF(-0.1), std::cerr));
     }
+
+    SECTION("int")
+    {
+        REQUIRE_FALSE(args::check_args("i", Atom(), std::cerr));
+        REQUIRE_FALSE(args::check_args("i", L(), std::cerr));
+        REQUIRE_FALSE(args::check_args("i", LA("abc"), std::cerr));
+
+        REQUIRE(args::check_args("i", LF(0), std::cerr));
+        REQUIRE(args::check_args("i", LF(1), std::cerr));
+        REQUIRE(args::check_args("i", LF(2), std::cerr));
+        REQUIRE(args::check_args("i", LF(1000), std::cerr));
+        REQUIRE(args::check_args("i", LF(-11000), std::cerr));
+
+        REQUIRE_FALSE(args::check_args("i", LF(1.5), std::cerr));
+        REQUIRE_FALSE(args::check_args("i", LF(-0.1), std::cerr));
+    }
 }

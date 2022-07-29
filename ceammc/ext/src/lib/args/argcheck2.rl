@@ -20,6 +20,7 @@ namespace {
         CHECK_ATOM,
         CHECK_BOOL,
         CHECK_BYTE,
+        CHECK_INT,
     };
 
 
@@ -59,6 +60,9 @@ action do_check {
         case CHECK_BYTE:
             err << fmt::format("int[0..255] expected at position [{}]", cur);
             return false;
+        case CHECK_INT:
+            err << fmt::format("int expected at position [{}]", cur);
+            return false;
         default:
             err << fmt::format("error at position [{}]", cur);
             return false;
@@ -92,6 +96,15 @@ action do_check {
                 ca++;
             }
         break;
+        case CHECK_INT:
+            if (!a.isInteger()) {
+                err << fmt::format("not a int value at position [{}]: '{}'", ca, atom_to_string(a));
+                return false;
+            } else {
+                debug("int", "Ok");
+                ca++;
+            }
+        break;
         }
 
     }
@@ -106,6 +119,7 @@ rep_range = '[' rep_min '..' rep_max? ']';
 atom = 'a' @{ rl_type = CHECK_ATOM; };
 bool = 'B' @{ rl_type = CHECK_BOOL; };
 byte = 'b' @{ rl_type = CHECK_BYTE; };
+int  = 'i' @{ rl_type = CHECK_INT; };
 nrep = '?' @{ rl_min = 0; rl_max = 1; }
      | '+' @{ rl_min = 1, rl_max = REPEAT_INF; }
      | '*' @{ rl_min = 0; rl_max = REPEAT_INF; }
@@ -115,6 +129,7 @@ nrep = '?' @{ rl_min = 0; rl_max = 1; }
 check = (atom
       | bool
       | byte
+      | int
       ) nrep? >{ rl_min = 1; rl_max = REPEAT_INF; }
       ;
 
