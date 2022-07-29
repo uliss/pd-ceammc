@@ -75,17 +75,21 @@ action do_check {
             ca++;
         break;
         case CHECK_BOOL:
-            if (a.isBool())
+            if (a.isBool()) {
+                debug("book", "Ok");
                 ca++;
-            else {
+            } else {
                 err << fmt::format("bool expected at position [{}]: '{}'", ca, atom_to_string(a));
                 return false;
             }
         break;
         case CHECK_BYTE:
             if (!a.isInteger() || a.asT<int>() < 0 || a.asT<int>() > 255) {
-                err << fmt::format("not a byte value at position [{}]: '{}'", atom_to_string(a));
+                err << fmt::format("not a byte value at position [{}]: '{}'", ca, atom_to_string(a));
                 return false;
+            } else {
+                debug("byte", "Ok");
+                ca++;
             }
         break;
         }
@@ -95,16 +99,22 @@ action do_check {
 
 rep_min = '0' @{ rl_min = 0; } | ([1-9] @{ rl_min = fc-'0'; } [0-9]* ${ (rl_min *= 10) += (fc - '0'); });
 rep_max = '0' @{ rl_max = 0; } | ([1-9] @{ rl_max = fc-'0'; } [0-9]* ${ (rl_max *= 10) += (fc - '0'); });
+rep_num   = '[' rep_min ']' @{ rl_max = rl_min; };
+rep_range = '[' rep_min '..' rep_max? ']';
+
 
 atom = 'a' @{ rl_type = CHECK_ATOM; };
-bool = 'b' @{ rl_type = CHECK_BOOL; };
+bool = 'B' @{ rl_type = CHECK_BOOL; };
+byte = 'b' @{ rl_type = CHECK_BYTE; };
 nrep = '?' @{ rl_min = 0; rl_max = 1; }
      | '+' @{ rl_min = 1, rl_max = REPEAT_INF; }
      | '*' @{ rl_min = 0; rl_max = REPEAT_INF; }
-     | '[' rep_min '..' rep_max? ']';
+     | rep_range
+     | rep_num;
 
 check = (atom
       | bool
+      | byte
       ) nrep? >{ rl_min = 1; rl_max = REPEAT_INF; }
       ;
 
