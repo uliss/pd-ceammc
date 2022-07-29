@@ -1,11 +1,15 @@
 # include "argcheck2.h"
 # include "ceammc_string.h"
-# include "ceammc_containers.h"
+# include "ceammc_object.h"
 # include "fmt/core.h"
 
 # include <cstdint>
 # include <iostream>
 # include <limits>
+# include <algorithm>
+# include <boost/static_string.hpp>
+# include <boost/container/static_vector.hpp>
+# include <boost/variant.hpp>
 
 #define ARG_DEBUG
 
@@ -18,14 +22,14 @@
 namespace {
     constexpr int16_t REPEAT_INF = -1;
 
-    enum CheckType {
+    enum CheckType : int8_t {
         CHECK_ATOM,
         CHECK_BOOL,
         CHECK_BYTE,
         CHECK_INT,
     };
 
-    enum CompareType {
+    enum CompareType : int8_t {
         CMP_NONE,
         CMP_LESS,
         CMP_LESS_EQ,
@@ -52,142 +56,55 @@ namespace {
         else
             return "?";
     }
+
+
+    using ArgString = std::pair<boost::static_string<14>, uint32_t>;
+    using ArgName = boost::static_string<10>;
+    using ArgValue = boost::variant<double, int64_t, ArgString>;
+    using ArgList = boost::container::small_vector<ArgValue, 3>;
+
+    struct Check {
+        ArgList values;
+        ArgName name;
+        int8_t atom_type;
+        int8_t cmp_type;
+        int8_t repeat_min;
+        int8_t repeat_max;
+
+        inline int repeatMin() const { return repeat_min; }
+        inline int repeatMax() const { return (repeat_max == REPEAT_INF) ? std::numeric_limits<int>::max() : repeat_max; }
+
+        inline static bool isEqual(const ArgValue& v, int64_t i)
+        {
+            auto int_ptr = boost::get<int64_t>(&v);
+            return (int_ptr && i == *int_ptr);
+        }
+    };
+
+    class ArgStringVisitor : public boost::static_visitor<std::string>
+    {
+    public:
+        std::string operator()(const double& d) const { return std::to_string(d); }
+        std::string operator()(const int64_t& i) const { return std::to_string(i); }
+        std::string operator()(const ArgString& s) const { return s.first.data(); }
+    };
+
+    inline std::string arg_to_string(const ArgValue& v)
+    {
+        return boost::apply_visitor(ArgStringVisitor(), v );
+    }
 }
 
 %%{
 machine arg_check2;
 
 action do_check {
-    debug("min", rl_min);
-    debug("max", rl_max);
-
-    auto cur = ca + (rl_min-1);
-    if (cur >= N) {
-        switch (rl_type) {
-        case CHECK_ATOM:
-            err << fmt::format("atom expected at position [{}]", cur);
-            return false;
-        case CHECK_BOOL:
-            err << fmt::format("bool expected at position [{}]", cur);
-            return false;
-        case CHECK_BYTE:
-            err << fmt::format("int[0..255] expected at position [{}]", cur);
-            return false;
-        case CHECK_INT:
-            err << fmt::format("int expected at position [{}]", cur);
-            return false;
-        default:
-            err << fmt::format("error at position [{}]", cur);
-            return false;
-        }
-    }
-
-    const auto rep_max = (rl_max == REPEAT_INF) ? 1000000 : rl_max;
-    const auto TOTAL = std::min<int>(N, ca + rep_max);
-    for (int i = ca; i < TOTAL; i++) {
-        const auto& a = lv[i];
-        switch (rl_type) {
-        case CHECK_ATOM:
-            debug("atom", "Ok");
-            ca++;
-        break;
-        case CHECK_BOOL:
-            if (a.isBool()) {
-                debug("book", "Ok");
-                ca++;
-            } else {
-                err << fmt::format("bool expected at position [{}]: '{}'", ca, atom_to_string(a));
-                return false;
-            }
-        break;
-        case CHECK_BYTE:
-            if (!a.isInteger() || a.asT<int>() < 0 || a.asT<int>() > 255) {
-                err << fmt::format("not a byte value at position [{}]: '{}'", ca, atom_to_string(a));
-                return false;
-            } else {
-                debug("byte", "Ok");
-                ca++;
-            }
-        break;
-        case CHECK_INT:
-            if (!a.isInteger()) {
-                err << fmt::format("not a int value at position [{}]: '{}'", ca, atom_to_string(a));
-                return false;
-            } else {
-                const int64_t val = a.asT<int>();
-                const int64_t arg = rl_cmp_arg;
-                switch (rl_cmp) {
-                case CMP_LESS:
-                    if (!(val < arg)) {
-                        err << fmt::format("int value at [{}] expected to be <{}, got: {}", ca, arg, val);
-                        return false;
-                    }
-                break;
-                case CMP_LESS_EQ:
-                    if (!(val <= arg)) {
-                        err << fmt::format("int value at [{}] expected to be <={}, got: {}", ca, arg, val);
-                        return false;
-                    }
-                break;
-                case CMP_GREATER:
-                    if (!(val > arg)) {
-                        err << fmt::format("int value at [{}] expected to be >{}, got: {}", ca, arg, val);
-                        return false;
-                    }
-                break;
-                case CMP_GREATER_EQ:
-                    if (!(val >= arg)) {
-                        err << fmt::format("int value at [{}] expected to be >={}, got: {}", ca, arg, val);
-                        return false;
-                    }
-                break;
-                case CMP_EQUAL:
-                    if (rl_eq.size() == 1) {
-                        if (a != rl_eq[0]) {
-                            err << fmt::format("int value at [{}] expected to be = {}, got: {}",
-                                    ca, atom_to_string(rl_eq[0]), atom_to_string(a));
-                            return false;
-                        }
-                    } else {
-                        bool found = false;
-                        for (auto& x: rl_eq) {
-                            if (a == x) { found = true; break; }
-                        }
-                        if (!found) {
-                            err << fmt::format("int value at [{}] expected to be one of: {}, got: {}",
-                                    ca, list_to_string(rl_eq.view()), atom_to_string(a));
-                            return false;
-                        }
-                    }
-                break;
-                case CMP_NOT_EQUAL:
-                    if (val == arg) {
-                        err << fmt::format("int value at [{}] expected to be !={}, got: {}", ca, arg, val);
-                        return false;
-                    }
-                break;
-                case CMP_MODULE:
-                    if (val % arg != 0) {
-                        err << fmt::format("int value at [{}] expected to be multiple of {}, got: {}", ca, arg, val);
-                        return false;
-                    }
-                break;
-                case CMP_POWER2: {
-                    bool rc = (val > 0 && ((val & (val - 1)) == 0));
-                    if (!rc) {
-                        err << fmt::format("int value at [{}] expected to be power of 2, got: {}", ca, val);
-                        return false;
-                    }
-                }
-                break;
-                default:
-                break;
-                }
-                debug("int", "Ok");
-                ca++;
-            }
-        break;
-        }
+    if (chk_) {
+        rl_check.atom_type = rl_type;
+        rl_check.cmp_type = rl_cmp;
+        rl_check.repeat_min = rl_min;
+        rl_check.repeat_max = rl_max;
+        chk_->push_back(rl_check);
     }
 
     rl_num = 0;
@@ -196,11 +113,11 @@ action do_check {
     rl_den_cnt = 0;
     rl_min = 0;
     rl_max = 0;
+    rl_check = {};
 }
 
 action append_opt_int {
-    rl_eq.push_back(Atom(rl_sign * rl_num));
-    debug("op size", rl_eq.size());
+    rl_check.values.push_back((int64_t)(rl_sign * rl_num));
 }
 
 rep_min = '0' @{ rl_min = 0; } | ([1-9] @{ rl_min = fc-'0'; } [0-9]* ${ (rl_min *= 10) += (fc - '0'); });
@@ -216,30 +133,23 @@ num_den  = [0-9]+ >{ rl_den = 0; rl_den_cnt = 1; } ${ (rl_den *= 10) += (fc - '0
 num_int  = num_sign? >{ rl_sign = 1; } num_num;
 num_real = num_int ('.' num_den)?;
 
-cmp_farg   = num_real
-             @{
-                rl_cmp_arg = rl_sign * rl_num;
-                if (rl_den_cnt)
-                    rl_cmp_arg += (double(rl_den) / rl_den_cnt);
-             };
-
-cmp_eq_int = (('=' num_int %append_opt_int)
-              ('|' num_int %append_opt_int)*
+cmp_eq_int = (('=' num_int @append_opt_int)
+              ('|' num_int @append_opt_int)*
              ) >{ rl_cmp = CMP_EQUAL; }
            ;
 
-cmp_op = ('>' @{ rl_cmp = CMP_GREATER; } ('=' @{ rl_cmp = CMP_GREATER_EQ; })?)
-       | ('<'  @{ rl_cmp = CMP_LESS; } ('=' @{ rl_cmp = CMP_LESS_EQ; })?)
+cmp_op = ('>'  @{ rl_cmp = CMP_GREATER; } ('=' @{ rl_cmp = CMP_GREATER_EQ; })?)
+       | ('<'  @{ rl_cmp = CMP_LESS; }    ('=' @{ rl_cmp = CMP_LESS_EQ; })?)
        |  '!=' @{ rl_cmp = CMP_NOT_EQUAL; };
 
 cmp_mod = ( '%' @{ rl_cmp = CMP_MODULE; }
-            ([1-9][0-9]*) >{ rl_num = 0; } ${ (rl_num *= 10) += (fc - '0'); }
-          ) @{ rl_cmp_arg = rl_num; }
+            ([1-9][0-9]*) >{ rl_sign = 1; rl_num = 0; } ${ (rl_num *= 10) += (fc - '0'); } @append_opt_int
+          )
           ;
 
 cmp_pow2 = '^2' @{ rl_cmp = CMP_POWER2; };
 
-int_check = (cmp_op cmp_farg)
+int_check = (cmp_op num_int %append_opt_int)
           | cmp_mod
           | cmp_pow2
           | cmp_eq_int
@@ -273,39 +183,202 @@ write data;
 namespace ceammc {
 namespace args {
 
-bool check_args(const char* arg_string, const AtomListView& lv, std::ostream& err)
+namespace {
+
+bool checkAtom(const Check& c, const Atom& a, int& i, const void* x) {
+    switch (c.atom_type) {
+    case CHECK_ATOM:
+        debug("atom", "Ok");
+        i++;
+    break;
+    case CHECK_BOOL:
+        if (a.isBool()) {
+            debug("book", "Ok");
+            i++;
+        } else {
+            pdError(x, fmt::format("bool expected at position [{}]: '{}'", i, atom_to_string(a)));
+            return false;
+        }
+    break;
+    case CHECK_BYTE:
+        if (!a.isInteger() || a.asT<int>() < 0 || a.asT<int>() > 255) {
+            pdError(x, fmt::format("not a byte value at position [{}]: '{}'", i, atom_to_string(a)));
+            return false;
+        } else {
+            debug("byte", "Ok");
+            i++;
+        }
+    break;
+    case CHECK_INT:
+        if (!a.isInteger()) {
+            pdError(x, fmt::format("not a int value at position [{}]: '{}'", i, atom_to_string(a)));
+            return false;
+        } else {
+            const int64_t val = a.asT<int>();
+            const int64_t arg = (c.values.size() >= 1 && boost::get<int64_t>(&c.values[0]))
+                ? *boost::strict_get<int64_t>(&c.values[0])
+                : -999999999;
+
+            switch (c.cmp_type) {
+            case CMP_LESS:
+                if (!(val < arg)) {
+                    pdError(x, fmt::format("int value at [{}] expected to be <{}, got: {}", i, arg, val));
+                    return false;
+                }
+            break;
+            case CMP_LESS_EQ:
+                if (!(val <= arg)) {
+                    pdError(x, fmt::format("int value at [{}] expected to be <={}, got: {}", i, arg, val));
+                    return false;
+                }
+            break;
+            case CMP_GREATER:
+                if (!(val > arg)) {
+                    pdError(x, fmt::format("int value at [{}] expected to be >{}, got: {}", i, arg, val));
+                    return false;
+                }
+            break;
+            case CMP_GREATER_EQ:
+                if (!(val >= arg)) {
+                    pdError(x, fmt::format("int value at [{}] expected to be >={}, got: {}", i, arg, val));
+                    return false;
+                }
+            break;
+            case CMP_EQUAL:
+                if (c.values.size() == 1) {
+                    if (val != arg) {
+                        pdError(x, fmt::format("int value at [{}] expected to be = {}, got: {}",
+                                i, arg_to_string(c.values[0]), atom_to_string(a)));
+                        return false;
+                    }
+                } else {
+                    bool found = false;
+                    for (auto& v: c.values) {
+                        if (c.isEqual(v, val)) { found = true; break; }
+                    }
+                    if (!found) {
+                        pdError(x, fmt::format("int value at [{}] expected to be one of: {}, got: {}",
+                                i, "", atom_to_string(a)));
+                        return false;
+                    }
+                }
+            break;
+            case CMP_NOT_EQUAL:
+                if (val == arg) {
+                    pdError(x, fmt::format("int value at [{}] expected to be !={}, got: {}", i, arg, val));
+                    return false;
+                }
+            break;
+            case CMP_MODULE:
+                fmt::print("val={}, arg={}\n", val, arg);
+                if (val % arg != 0) {
+                    pdError(x, fmt::format("int value at [{}] expected to be multiple of {}, got: {}", i, arg, val));
+                    return false;
+                }
+            break;
+            case CMP_POWER2: {
+                bool rc = (val > 0 && ((val & (val - 1)) == 0));
+                if (!rc) {
+                    pdError(x, fmt::format("int value at [{}] expected to be power of 2, got: {}", i, val));
+                    return false;
+                }
+            }
+            break;
+            default:
+            break;
+        }
+        debug("int", "Ok");
+        i++;
+    }
+    break;
+    }
+
+    return true;
+}
+}
+
+struct ArgCheckImp : boost::container::small_vector<Check, 4> {};
+
+ArgChecker::~ArgChecker()  = default;
+
+bool ArgChecker::check(const AtomListView& lv, BaseObject* obj) const
 {
+    if (!chk_)
+        return false;
+
+    const void* x = obj ? obj->owner() : nullptr;
+
     const int N = lv.size();
     int ca = 0;
+    for (int i = 0; i < chk_->size(); i++) {
+        auto& c = (*chk_)[i];
+        auto cur = i + (c.repeat_min - 1);
+        if (cur >= N) {
+            switch (c.atom_type) {
+            case CHECK_ATOM:
+                pdError(x, fmt::format("atom expected at position [{}]", cur));
+                return false;
+            case CHECK_BOOL:
+                pdError(x, fmt::format("bool expected at position [{}]", cur));
+                return false;
+            case CHECK_BYTE:
+                pdError(x, fmt::format("byte[0..255] expected at position [{}]", cur));
+                return false;
+            case CHECK_INT:
+                pdError(x, fmt::format("int expected at position [{}]", cur));
+                return false;
+            default:
+                pdError(x, fmt::format("error at position [{}]", cur));
+                return false;
+            }
+        }
+
+        const auto TOTAL = std::min<int>(N, i + c.repeatMax());
+        for (ca = i; ca < TOTAL; ca++) {
+            if (!checkAtom(c, lv[ca], ca, x))
+                return false;
+        }
+    }
+
+    if (ca < N) {
+        pdError(x, fmt::format("extra arguments left, starting from [{}]", ca));
+        return false;
+    }
+
+    return true;
+}
+
+ArgChecker::ArgChecker(const char* str)
+    : chk_(new ArgCheckImp)
+{
+    int ca = 0;
     int cs = 0;
-    const char* p = arg_string;
+    const char* p = str;
     CheckType rl_type = CHECK_ATOM;
     CompareType rl_cmp = CMP_NONE;
     int64_t rl_num = 0;
     int64_t rl_den = 0;
     int64_t rl_den_cnt = 0;
     int rl_sign = 0;
-    t_float rl_cmp_arg = 0;
     int rl_min = 0;
     int rl_max = 0;
-
-    SmallAtomListN<16> rl_eq;
+    Check rl_check;
 
     %%{
         write init;
         write exec noend;
     }%%
 
-    if (cs >= %%{ write first_final; }%%) {
-        if (ca < N) {
-            err << fmt::format("unexpected extra atoms: {} at [{}]", list_to_string(lv.subView(ca)), ca);
-            return false;
-        } else
-            return true;
-    } else {
-        err << fmt::format("invalid format string: '{}'", arg_string);
-        return false;
+    if (cs < %%{ write first_final; }%%) {
+        LIB_ERR << fmt::format("invalid format string: '{}'", str);
+        chk_.reset();
     }
+}
+
+bool check_args(const char* arg_string, const AtomListView& lv, BaseObject* obj)
+{
+    ArgChecker chk(arg_string);
+    return chk.check(lv, obj);
 }
 
 }

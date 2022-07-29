@@ -17,11 +17,26 @@
 #include "ceammc_atomlist_view.h"
 
 #include <iosfwd>
+#include <memory>
 
 namespace ceammc {
+
+class BaseObject;
+
 namespace args {
 
-    bool check_args(const char* arg_string, const AtomListView& lv, std::ostream& err);
+    class ArgCheckImp;
+
+    class ArgChecker {
+        std::unique_ptr<ArgCheckImp> chk_;
+
+    public:
+        ArgChecker(const char* str);
+        ~ArgChecker();
+        bool check(const AtomListView& lv, BaseObject* obj) const;
+    };
+
+    bool check_args(const char* arg_string, const AtomListView& lv, BaseObject* obj = nullptr);
 
 }
 }

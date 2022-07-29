@@ -1,12 +1,16 @@
 #line 1 "args/argcheck2.rl"
 # include "argcheck2.h"
 # include "ceammc_string.h"
-# include "ceammc_containers.h"
+# include "ceammc_object.h"
 # include "fmt/core.h"
 
 # include <cstdint>
 # include <iostream>
 # include <limits>
+# include <algorithm>
+# include <boost/static_string.hpp>
+# include <boost/container/static_vector.hpp>
+# include <boost/variant.hpp>
 
 #define ARG_DEBUG
 
@@ -19,14 +23,14 @@
 namespace {
 	constexpr int16_t REPEAT_INF = -1;
 	
-	enum CheckType {
+	enum CheckType : int8_t {
 		CHECK_ATOM,
 		CHECK_BOOL,
 		CHECK_BYTE,
 		CHECK_INT,
 	};
 	
-	enum CompareType {
+	enum CompareType : int8_t {
 		CMP_NONE,
 		CMP_LESS,
 		CMP_LESS_EQ,
@@ -53,48 +57,248 @@ namespace {
 		else
 			return "?";
 	}
+	
+	
+	using ArgString = std::pair<boost::static_string<14>, uint32_t>;
+	using ArgName = boost::static_string<10>;
+	using ArgValue = boost::variant<double, int64_t, ArgString>;
+	using ArgList = boost::container::small_vector<ArgValue, 3>;
+	
+	struct Check {
+		ArgList values;
+		ArgName name;
+		int8_t atom_type;
+		int8_t cmp_type;
+		int8_t repeat_min;
+		int8_t repeat_max;
+		
+		inline int repeatMin() const { return repeat_min; }
+		inline int repeatMax() const { return (repeat_max == REPEAT_INF) ? std::numeric_limits<int>::max() : repeat_max; }
+		
+		inline static bool isEqual(const ArgValue& v, int64_t i)
+		{
+			auto int_ptr = boost::get<int64_t>(&v);
+			return (int_ptr && i == *int_ptr);
+		}
+	};
+	
+	class ArgStringVisitor : public boost::static_visitor<std::string>
+	{
+		public:
+		std::string operator()(const double& d) const { return std::to_string(d); }
+		std::string operator()(const int64_t& i) const { return std::to_string(i); }
+		std::string operator()(const ArgString& s) const { return s.first.data(); }
+	};
+	
+	inline std::string arg_to_string(const ArgValue& v)
+	{
+		return boost::apply_visitor(ArgStringVisitor(), v );
+	}
 }
 
 
-#line 60 "args/argcheck2.cpp"
+#line 101 "args/argcheck2.cpp"
 static const int arg_check2_start = 1;
-static const int arg_check2_first_final = 26;
+static const int arg_check2_first_final = 24;
 static const int arg_check2_error = 0;
 
 static const int arg_check2_en_main = 1;
 
 
-#line 271 "args/argcheck2.rl"
+#line 181 "args/argcheck2.rl"
 
 
 namespace ceammc {
 	namespace args {
 		
-		bool check_args(const char* arg_string, const AtomListView& lv, std::ostream& err)
+		namespace {
+			
+			bool checkAtom(const Check& c, const Atom& a, int& i, const void* x) {
+				switch (c.atom_type) {
+					case CHECK_ATOM:
+					debug("atom", "Ok");
+					i++;
+					break;
+					case CHECK_BOOL:
+					if (a.isBool()) {
+						debug("book", "Ok");
+						i++;
+					} else {
+						pdError(x, fmt::format("bool expected at position [{}]: '{}'", i, atom_to_string(a)));
+						return false;
+					}
+					break;
+					case CHECK_BYTE:
+					if (!a.isInteger() || a.asT<int>() < 0 || a.asT<int>() > 255) {
+						pdError(x, fmt::format("not a byte value at position [{}]: '{}'", i, atom_to_string(a)));
+						return false;
+					} else {
+						debug("byte", "Ok");
+						i++;
+					}
+					break;
+					case CHECK_INT:
+					if (!a.isInteger()) {
+						pdError(x, fmt::format("not a int value at position [{}]: '{}'", i, atom_to_string(a)));
+						return false;
+					} else {
+						const int64_t val = a.asT<int>();
+						const int64_t arg = (c.values.size() >= 1 && boost::get<int64_t>(&c.values[0]))
+						? *boost::strict_get<int64_t>(&c.values[0])
+						: -999999999;
+						
+						switch (c.cmp_type) {
+							case CMP_LESS:
+							if (!(val < arg)) {
+								pdError(x, fmt::format("int value at [{}] expected to be <{}, got: {}", i, arg, val));
+								return false;
+							}
+							break;
+							case CMP_LESS_EQ:
+							if (!(val <= arg)) {
+								pdError(x, fmt::format("int value at [{}] expected to be <={}, got: {}", i, arg, val));
+								return false;
+							}
+							break;
+							case CMP_GREATER:
+							if (!(val > arg)) {
+								pdError(x, fmt::format("int value at [{}] expected to be >{}, got: {}", i, arg, val));
+								return false;
+							}
+							break;
+							case CMP_GREATER_EQ:
+							if (!(val >= arg)) {
+								pdError(x, fmt::format("int value at [{}] expected to be >={}, got: {}", i, arg, val));
+								return false;
+							}
+							break;
+							case CMP_EQUAL:
+							if (c.values.size() == 1) {
+								if (val != arg) {
+									pdError(x, fmt::format("int value at [{}] expected to be = {}, got: {}",
+									i, arg_to_string(c.values[0]), atom_to_string(a)));
+									return false;
+								}
+							} else {
+								bool found = false;
+								for (auto& v: c.values) {
+									if (c.isEqual(v, val)) { found = true; break; }
+								}
+								if (!found) {
+									pdError(x, fmt::format("int value at [{}] expected to be one of: {}, got: {}",
+									i, "", atom_to_string(a)));
+									return false;
+								}
+							}
+							break;
+							case CMP_NOT_EQUAL:
+							if (val == arg) {
+								pdError(x, fmt::format("int value at [{}] expected to be !={}, got: {}", i, arg, val));
+								return false;
+							}
+							break;
+							case CMP_MODULE:
+							fmt::print("val={}, arg={}\n", val, arg);
+							if (val % arg != 0) {
+								pdError(x, fmt::format("int value at [{}] expected to be multiple of {}, got: {}", i, arg, val));
+								return false;
+							}
+							break;
+							case CMP_POWER2: {
+								bool rc = (val > 0 && ((val & (val - 1)) == 0));
+								if (!rc) {
+									pdError(x, fmt::format("int value at [{}] expected to be power of 2, got: {}", i, val));
+									return false;
+								}
+							}
+							break;
+							default:
+							break;
+						}
+						debug("int", "Ok");
+						i++;
+					}
+					break;
+				}
+				
+				return true;
+			}
+		}
+		
+		struct ArgCheckImp : boost::container::small_vector<Check, 4> {};
+		
+		ArgChecker::~ArgChecker()  = default;
+		
+		bool ArgChecker::check(const AtomListView& lv, BaseObject* obj) const
 		{
+			if (!chk_)
+				return false;
+			
+			const void* x = obj ? obj->owner() : nullptr;
+			
 			const int N = lv.size();
 			int ca = 0;
+			for (int i = 0; i < chk_->size(); i++) {
+				auto& c = (*chk_)[i];
+				auto cur = i + (c.repeat_min - 1);
+				if (cur >= N) {
+					switch (c.atom_type) {
+						case CHECK_ATOM:
+						pdError(x, fmt::format("atom expected at position [{}]", cur));
+						return false;
+						case CHECK_BOOL:
+						pdError(x, fmt::format("bool expected at position [{}]", cur));
+						return false;
+						case CHECK_BYTE:
+						pdError(x, fmt::format("byte[0..255] expected at position [{}]", cur));
+						return false;
+						case CHECK_INT:
+						pdError(x, fmt::format("int expected at position [{}]", cur));
+						return false;
+						default:
+						pdError(x, fmt::format("error at position [{}]", cur));
+						return false;
+					}
+				}
+				
+				const auto TOTAL = std::min<int>(N, i + c.repeatMax());
+				for (ca = i; ca < TOTAL; ca++) {
+					if (!checkAtom(c, lv[ca], ca, x))
+						return false;
+				}
+			}
+			
+			if (ca < N) {
+				pdError(x, fmt::format("extra arguments left, starting from [{}]", ca));
+				return false;
+			}
+			
+			return true;
+		}
+		
+		ArgChecker::ArgChecker(const char* str)
+		: chk_(new ArgCheckImp)
+		{
+			int ca = 0;
 			int cs = 0;
-			const char* p = arg_string;
+			const char* p = str;
 			CheckType rl_type = CHECK_ATOM;
 			CompareType rl_cmp = CMP_NONE;
 			int64_t rl_num = 0;
 			int64_t rl_den = 0;
 			int64_t rl_den_cnt = 0;
 			int rl_sign = 0;
-			t_float rl_cmp_arg = 0;
 			int rl_min = 0;
 			int rl_max = 0;
+			Check rl_check;
 			
-			SmallAtomListN<16> rl_eq;
 			
-			
-#line 93 "args/argcheck2.cpp"
+#line 297 "args/argcheck2.cpp"
 			{
 				cs = (int)arg_check2_start;
 			}
 			
-#line 98 "args/argcheck2.cpp"
+#line 302 "args/argcheck2.cpp"
 			{
 				switch ( cs ) {
 					case 1:
@@ -103,8 +307,8 @@ namespace ceammc {
 					goto st_case_0;
 					case 2:
 					goto st_case_2;
-					case 26:
-					goto st_case_26;
+					case 24:
+					goto st_case_24;
 					case 3:
 					goto st_case_3;
 					case 4:
@@ -147,152 +351,24 @@ namespace ceammc {
 					goto st_case_22;
 					case 23:
 					goto st_case_23;
-					case 24:
-					goto st_case_24;
-					case 25:
-					goto st_case_25;
 				}
 				goto st_out;
 				_ctr8:
 				{
-#line 262 "args/argcheck2.rl"
+#line 172 "args/argcheck2.rl"
 					rl_min = 1; rl_max = REPEAT_INF; }
 				
-#line 162 "args/argcheck2.cpp"
+#line 362 "args/argcheck2.cpp"
 				
 				{
-#line 60 "args/argcheck2.rl"
+#line 101 "args/argcheck2.rl"
 					
-					debug("min", rl_min);
-					debug("max", rl_max);
-					
-					auto cur = ca + (rl_min-1);
-					if (cur >= N) {
-						switch (rl_type) {
-							case CHECK_ATOM:
-							err << fmt::format("atom expected at position [{}]", cur);
-							return false;
-							case CHECK_BOOL:
-							err << fmt::format("bool expected at position [{}]", cur);
-							return false;
-							case CHECK_BYTE:
-							err << fmt::format("int[0..255] expected at position [{}]", cur);
-							return false;
-							case CHECK_INT:
-							err << fmt::format("int expected at position [{}]", cur);
-							return false;
-							default:
-							err << fmt::format("error at position [{}]", cur);
-							return false;
-						}
-					}
-					
-					const auto rep_max = (rl_max == REPEAT_INF) ? 1000000 : rl_max;
-					const auto TOTAL = std::min<int>(N, ca + rep_max);
-					for (int i = ca; i < TOTAL; i++) {
-						const auto& a = lv[i];
-						switch (rl_type) {
-							case CHECK_ATOM:
-							debug("atom", "Ok");
-							ca++;
-							break;
-							case CHECK_BOOL:
-							if (a.isBool()) {
-								debug("book", "Ok");
-								ca++;
-							} else {
-								err << fmt::format("bool expected at position [{}]: '{}'", ca, atom_to_string(a));
-								return false;
-							}
-							break;
-							case CHECK_BYTE:
-							if (!a.isInteger() || a.asT<int>() < 0 || a.asT<int>() > 255) {
-								err << fmt::format("not a byte value at position [{}]: '{}'", ca, atom_to_string(a));
-								return false;
-							} else {
-								debug("byte", "Ok");
-								ca++;
-							}
-							break;
-							case CHECK_INT:
-							if (!a.isInteger()) {
-								err << fmt::format("not a int value at position [{}]: '{}'", ca, atom_to_string(a));
-								return false;
-							} else {
-								const int64_t val = a.asT<int>();
-								const int64_t arg = rl_cmp_arg;
-								switch (rl_cmp) {
-									case CMP_LESS:
-									if (!(val < arg)) {
-										err << fmt::format("int value at [{}] expected to be <{}, got: {}", ca, arg, val);
-										return false;
-									}
-									break;
-									case CMP_LESS_EQ:
-									if (!(val <= arg)) {
-										err << fmt::format("int value at [{}] expected to be <={}, got: {}", ca, arg, val);
-										return false;
-									}
-									break;
-									case CMP_GREATER:
-									if (!(val > arg)) {
-										err << fmt::format("int value at [{}] expected to be >{}, got: {}", ca, arg, val);
-										return false;
-									}
-									break;
-									case CMP_GREATER_EQ:
-									if (!(val >= arg)) {
-										err << fmt::format("int value at [{}] expected to be >={}, got: {}", ca, arg, val);
-										return false;
-									}
-									break;
-									case CMP_EQUAL:
-									if (rl_eq.size() == 1) {
-										if (a != rl_eq[0]) {
-											err << fmt::format("int value at [{}] expected to be = {}, got: {}",
-											ca, atom_to_string(rl_eq[0]), atom_to_string(a));
-											return false;
-										}
-									} else {
-										bool found = false;
-										for (auto& x: rl_eq) {
-											if (a == x) { found = true; break; }
-										}
-										if (!found) {
-											err << fmt::format("int value at [{}] expected to be one of: {}, got: {}",
-											ca, list_to_string(rl_eq.view()), atom_to_string(a));
-											return false;
-										}
-									}
-									break;
-									case CMP_NOT_EQUAL:
-									if (val == arg) {
-										err << fmt::format("int value at [{}] expected to be !={}, got: {}", ca, arg, val);
-										return false;
-									}
-									break;
-									case CMP_MODULE:
-									if (val % arg != 0) {
-										err << fmt::format("int value at [{}] expected to be multiple of {}, got: {}", ca, arg, val);
-										return false;
-									}
-									break;
-									case CMP_POWER2: {
-										bool rc = (val > 0 && ((val & (val - 1)) == 0));
-										if (!rc) {
-											err << fmt::format("int value at [{}] expected to be power of 2, got: {}", ca, val);
-											return false;
-										}
-									}
-									break;
-									default:
-									break;
-								}
-								debug("int", "Ok");
-								ca++;
-							}
-							break;
-						}
+					if (chk_) {
+						rl_check.atom_type = rl_type;
+						rl_check.cmp_type = rl_cmp;
+						rl_check.repeat_min = rl_min;
+						rl_check.repeat_max = rl_max;
+						chk_->push_back(rl_check);
 					}
 					
 					rl_num = 0;
@@ -301,145 +377,22 @@ namespace ceammc {
 					rl_den_cnt = 0;
 					rl_min = 0;
 					rl_max = 0;
+					rl_check = {};
 				}
 				
-#line 307 "args/argcheck2.cpp"
+#line 384 "args/argcheck2.cpp"
 				
 				goto _st1;
 				_ctr15:
 				{
-#line 60 "args/argcheck2.rl"
+#line 101 "args/argcheck2.rl"
 					
-					debug("min", rl_min);
-					debug("max", rl_max);
-					
-					auto cur = ca + (rl_min-1);
-					if (cur >= N) {
-						switch (rl_type) {
-							case CHECK_ATOM:
-							err << fmt::format("atom expected at position [{}]", cur);
-							return false;
-							case CHECK_BOOL:
-							err << fmt::format("bool expected at position [{}]", cur);
-							return false;
-							case CHECK_BYTE:
-							err << fmt::format("int[0..255] expected at position [{}]", cur);
-							return false;
-							case CHECK_INT:
-							err << fmt::format("int expected at position [{}]", cur);
-							return false;
-							default:
-							err << fmt::format("error at position [{}]", cur);
-							return false;
-						}
-					}
-					
-					const auto rep_max = (rl_max == REPEAT_INF) ? 1000000 : rl_max;
-					const auto TOTAL = std::min<int>(N, ca + rep_max);
-					for (int i = ca; i < TOTAL; i++) {
-						const auto& a = lv[i];
-						switch (rl_type) {
-							case CHECK_ATOM:
-							debug("atom", "Ok");
-							ca++;
-							break;
-							case CHECK_BOOL:
-							if (a.isBool()) {
-								debug("book", "Ok");
-								ca++;
-							} else {
-								err << fmt::format("bool expected at position [{}]: '{}'", ca, atom_to_string(a));
-								return false;
-							}
-							break;
-							case CHECK_BYTE:
-							if (!a.isInteger() || a.asT<int>() < 0 || a.asT<int>() > 255) {
-								err << fmt::format("not a byte value at position [{}]: '{}'", ca, atom_to_string(a));
-								return false;
-							} else {
-								debug("byte", "Ok");
-								ca++;
-							}
-							break;
-							case CHECK_INT:
-							if (!a.isInteger()) {
-								err << fmt::format("not a int value at position [{}]: '{}'", ca, atom_to_string(a));
-								return false;
-							} else {
-								const int64_t val = a.asT<int>();
-								const int64_t arg = rl_cmp_arg;
-								switch (rl_cmp) {
-									case CMP_LESS:
-									if (!(val < arg)) {
-										err << fmt::format("int value at [{}] expected to be <{}, got: {}", ca, arg, val);
-										return false;
-									}
-									break;
-									case CMP_LESS_EQ:
-									if (!(val <= arg)) {
-										err << fmt::format("int value at [{}] expected to be <={}, got: {}", ca, arg, val);
-										return false;
-									}
-									break;
-									case CMP_GREATER:
-									if (!(val > arg)) {
-										err << fmt::format("int value at [{}] expected to be >{}, got: {}", ca, arg, val);
-										return false;
-									}
-									break;
-									case CMP_GREATER_EQ:
-									if (!(val >= arg)) {
-										err << fmt::format("int value at [{}] expected to be >={}, got: {}", ca, arg, val);
-										return false;
-									}
-									break;
-									case CMP_EQUAL:
-									if (rl_eq.size() == 1) {
-										if (a != rl_eq[0]) {
-											err << fmt::format("int value at [{}] expected to be = {}, got: {}",
-											ca, atom_to_string(rl_eq[0]), atom_to_string(a));
-											return false;
-										}
-									} else {
-										bool found = false;
-										for (auto& x: rl_eq) {
-											if (a == x) { found = true; break; }
-										}
-										if (!found) {
-											err << fmt::format("int value at [{}] expected to be one of: {}, got: {}",
-											ca, list_to_string(rl_eq.view()), atom_to_string(a));
-											return false;
-										}
-									}
-									break;
-									case CMP_NOT_EQUAL:
-									if (val == arg) {
-										err << fmt::format("int value at [{}] expected to be !={}, got: {}", ca, arg, val);
-										return false;
-									}
-									break;
-									case CMP_MODULE:
-									if (val % arg != 0) {
-										err << fmt::format("int value at [{}] expected to be multiple of {}, got: {}", ca, arg, val);
-										return false;
-									}
-									break;
-									case CMP_POWER2: {
-										bool rc = (val > 0 && ((val & (val - 1)) == 0));
-										if (!rc) {
-											err << fmt::format("int value at [{}] expected to be power of 2, got: {}", ca, val);
-											return false;
-										}
-									}
-									break;
-									default:
-									break;
-								}
-								debug("int", "Ok");
-								ca++;
-							}
-							break;
-						}
+					if (chk_) {
+						rl_check.atom_type = rl_type;
+						rl_check.cmp_type = rl_cmp;
+						rl_check.repeat_min = rl_min;
+						rl_check.repeat_max = rl_max;
+						chk_->push_back(rl_check);
 					}
 					
 					rl_num = 0;
@@ -448,160 +401,36 @@ namespace ceammc {
 					rl_den_cnt = 0;
 					rl_min = 0;
 					rl_max = 0;
+					rl_check = {};
 				}
 				
-#line 454 "args/argcheck2.cpp"
+#line 408 "args/argcheck2.cpp"
 				
 				goto _st1;
-				_ctr64:
+				_ctr46:
 				{
-#line 201 "args/argcheck2.rl"
+#line 119 "args/argcheck2.rl"
 					
-					rl_eq.push_back(Atom(rl_sign * rl_num));
-					debug("op size", rl_eq.size());
+					rl_check.values.push_back((int64_t)(rl_sign * rl_num));
 				}
 				
-#line 465 "args/argcheck2.cpp"
+#line 418 "args/argcheck2.cpp"
 				
 				{
-#line 262 "args/argcheck2.rl"
+#line 172 "args/argcheck2.rl"
 					rl_min = 1; rl_max = REPEAT_INF; }
 				
-#line 471 "args/argcheck2.cpp"
+#line 424 "args/argcheck2.cpp"
 				
 				{
-#line 60 "args/argcheck2.rl"
+#line 101 "args/argcheck2.rl"
 					
-					debug("min", rl_min);
-					debug("max", rl_max);
-					
-					auto cur = ca + (rl_min-1);
-					if (cur >= N) {
-						switch (rl_type) {
-							case CHECK_ATOM:
-							err << fmt::format("atom expected at position [{}]", cur);
-							return false;
-							case CHECK_BOOL:
-							err << fmt::format("bool expected at position [{}]", cur);
-							return false;
-							case CHECK_BYTE:
-							err << fmt::format("int[0..255] expected at position [{}]", cur);
-							return false;
-							case CHECK_INT:
-							err << fmt::format("int expected at position [{}]", cur);
-							return false;
-							default:
-							err << fmt::format("error at position [{}]", cur);
-							return false;
-						}
-					}
-					
-					const auto rep_max = (rl_max == REPEAT_INF) ? 1000000 : rl_max;
-					const auto TOTAL = std::min<int>(N, ca + rep_max);
-					for (int i = ca; i < TOTAL; i++) {
-						const auto& a = lv[i];
-						switch (rl_type) {
-							case CHECK_ATOM:
-							debug("atom", "Ok");
-							ca++;
-							break;
-							case CHECK_BOOL:
-							if (a.isBool()) {
-								debug("book", "Ok");
-								ca++;
-							} else {
-								err << fmt::format("bool expected at position [{}]: '{}'", ca, atom_to_string(a));
-								return false;
-							}
-							break;
-							case CHECK_BYTE:
-							if (!a.isInteger() || a.asT<int>() < 0 || a.asT<int>() > 255) {
-								err << fmt::format("not a byte value at position [{}]: '{}'", ca, atom_to_string(a));
-								return false;
-							} else {
-								debug("byte", "Ok");
-								ca++;
-							}
-							break;
-							case CHECK_INT:
-							if (!a.isInteger()) {
-								err << fmt::format("not a int value at position [{}]: '{}'", ca, atom_to_string(a));
-								return false;
-							} else {
-								const int64_t val = a.asT<int>();
-								const int64_t arg = rl_cmp_arg;
-								switch (rl_cmp) {
-									case CMP_LESS:
-									if (!(val < arg)) {
-										err << fmt::format("int value at [{}] expected to be <{}, got: {}", ca, arg, val);
-										return false;
-									}
-									break;
-									case CMP_LESS_EQ:
-									if (!(val <= arg)) {
-										err << fmt::format("int value at [{}] expected to be <={}, got: {}", ca, arg, val);
-										return false;
-									}
-									break;
-									case CMP_GREATER:
-									if (!(val > arg)) {
-										err << fmt::format("int value at [{}] expected to be >{}, got: {}", ca, arg, val);
-										return false;
-									}
-									break;
-									case CMP_GREATER_EQ:
-									if (!(val >= arg)) {
-										err << fmt::format("int value at [{}] expected to be >={}, got: {}", ca, arg, val);
-										return false;
-									}
-									break;
-									case CMP_EQUAL:
-									if (rl_eq.size() == 1) {
-										if (a != rl_eq[0]) {
-											err << fmt::format("int value at [{}] expected to be = {}, got: {}",
-											ca, atom_to_string(rl_eq[0]), atom_to_string(a));
-											return false;
-										}
-									} else {
-										bool found = false;
-										for (auto& x: rl_eq) {
-											if (a == x) { found = true; break; }
-										}
-										if (!found) {
-											err << fmt::format("int value at [{}] expected to be one of: {}, got: {}",
-											ca, list_to_string(rl_eq.view()), atom_to_string(a));
-											return false;
-										}
-									}
-									break;
-									case CMP_NOT_EQUAL:
-									if (val == arg) {
-										err << fmt::format("int value at [{}] expected to be !={}, got: {}", ca, arg, val);
-										return false;
-									}
-									break;
-									case CMP_MODULE:
-									if (val % arg != 0) {
-										err << fmt::format("int value at [{}] expected to be multiple of {}, got: {}", ca, arg, val);
-										return false;
-									}
-									break;
-									case CMP_POWER2: {
-										bool rc = (val > 0 && ((val & (val - 1)) == 0));
-										if (!rc) {
-											err << fmt::format("int value at [{}] expected to be power of 2, got: {}", ca, val);
-											return false;
-										}
-									}
-									break;
-									default:
-									break;
-								}
-								debug("int", "Ok");
-								ca++;
-							}
-							break;
-						}
+					if (chk_) {
+						rl_check.atom_type = rl_type;
+						rl_check.cmp_type = rl_cmp;
+						rl_check.repeat_min = rl_min;
+						rl_check.repeat_max = rl_max;
+						chk_->push_back(rl_check);
 					}
 					
 					rl_num = 0;
@@ -610,9 +439,10 @@ namespace ceammc {
 					rl_den_cnt = 0;
 					rl_min = 0;
 					rl_max = 0;
+					rl_check = {};
 				}
 				
-#line 616 "args/argcheck2.cpp"
+#line 446 "args/argcheck2.cpp"
 				
 				goto _st1;
 				_st1:
@@ -641,34 +471,34 @@ namespace ceammc {
 				goto _pop;
 				_ctr2:
 				{
-#line 249 "args/argcheck2.rl"
+#line 159 "args/argcheck2.rl"
 					rl_type = CHECK_BOOL; }
 				
-#line 648 "args/argcheck2.cpp"
+#line 478 "args/argcheck2.cpp"
 				
 				goto _st2;
 				_ctr3:
 				{
-#line 248 "args/argcheck2.rl"
+#line 158 "args/argcheck2.rl"
 					rl_type = CHECK_ATOM; }
 				
-#line 656 "args/argcheck2.cpp"
+#line 486 "args/argcheck2.cpp"
 				
 				goto _st2;
 				_ctr4:
 				{
-#line 250 "args/argcheck2.rl"
+#line 160 "args/argcheck2.rl"
 					rl_type = CHECK_BYTE; }
 				
-#line 664 "args/argcheck2.cpp"
+#line 494 "args/argcheck2.cpp"
 				
 				goto _st2;
-				_ctr73:
+				_ctr68:
 				{
-#line 240 "args/argcheck2.rl"
+#line 150 "args/argcheck2.rl"
 					rl_cmp = CMP_POWER2; }
 				
-#line 672 "args/argcheck2.cpp"
+#line 502 "args/argcheck2.cpp"
 				
 				goto _st2;
 				_st2:
@@ -699,144 +529,20 @@ namespace ceammc {
 				}
 				_ctr7:
 				{
-#line 262 "args/argcheck2.rl"
+#line 172 "args/argcheck2.rl"
 					rl_min = 1; rl_max = REPEAT_INF; }
 				
-#line 706 "args/argcheck2.cpp"
+#line 536 "args/argcheck2.cpp"
 				
 				{
-#line 60 "args/argcheck2.rl"
+#line 101 "args/argcheck2.rl"
 					
-					debug("min", rl_min);
-					debug("max", rl_max);
-					
-					auto cur = ca + (rl_min-1);
-					if (cur >= N) {
-						switch (rl_type) {
-							case CHECK_ATOM:
-							err << fmt::format("atom expected at position [{}]", cur);
-							return false;
-							case CHECK_BOOL:
-							err << fmt::format("bool expected at position [{}]", cur);
-							return false;
-							case CHECK_BYTE:
-							err << fmt::format("int[0..255] expected at position [{}]", cur);
-							return false;
-							case CHECK_INT:
-							err << fmt::format("int expected at position [{}]", cur);
-							return false;
-							default:
-							err << fmt::format("error at position [{}]", cur);
-							return false;
-						}
-					}
-					
-					const auto rep_max = (rl_max == REPEAT_INF) ? 1000000 : rl_max;
-					const auto TOTAL = std::min<int>(N, ca + rep_max);
-					for (int i = ca; i < TOTAL; i++) {
-						const auto& a = lv[i];
-						switch (rl_type) {
-							case CHECK_ATOM:
-							debug("atom", "Ok");
-							ca++;
-							break;
-							case CHECK_BOOL:
-							if (a.isBool()) {
-								debug("book", "Ok");
-								ca++;
-							} else {
-								err << fmt::format("bool expected at position [{}]: '{}'", ca, atom_to_string(a));
-								return false;
-							}
-							break;
-							case CHECK_BYTE:
-							if (!a.isInteger() || a.asT<int>() < 0 || a.asT<int>() > 255) {
-								err << fmt::format("not a byte value at position [{}]: '{}'", ca, atom_to_string(a));
-								return false;
-							} else {
-								debug("byte", "Ok");
-								ca++;
-							}
-							break;
-							case CHECK_INT:
-							if (!a.isInteger()) {
-								err << fmt::format("not a int value at position [{}]: '{}'", ca, atom_to_string(a));
-								return false;
-							} else {
-								const int64_t val = a.asT<int>();
-								const int64_t arg = rl_cmp_arg;
-								switch (rl_cmp) {
-									case CMP_LESS:
-									if (!(val < arg)) {
-										err << fmt::format("int value at [{}] expected to be <{}, got: {}", ca, arg, val);
-										return false;
-									}
-									break;
-									case CMP_LESS_EQ:
-									if (!(val <= arg)) {
-										err << fmt::format("int value at [{}] expected to be <={}, got: {}", ca, arg, val);
-										return false;
-									}
-									break;
-									case CMP_GREATER:
-									if (!(val > arg)) {
-										err << fmt::format("int value at [{}] expected to be >{}, got: {}", ca, arg, val);
-										return false;
-									}
-									break;
-									case CMP_GREATER_EQ:
-									if (!(val >= arg)) {
-										err << fmt::format("int value at [{}] expected to be >={}, got: {}", ca, arg, val);
-										return false;
-									}
-									break;
-									case CMP_EQUAL:
-									if (rl_eq.size() == 1) {
-										if (a != rl_eq[0]) {
-											err << fmt::format("int value at [{}] expected to be = {}, got: {}",
-											ca, atom_to_string(rl_eq[0]), atom_to_string(a));
-											return false;
-										}
-									} else {
-										bool found = false;
-										for (auto& x: rl_eq) {
-											if (a == x) { found = true; break; }
-										}
-										if (!found) {
-											err << fmt::format("int value at [{}] expected to be one of: {}, got: {}",
-											ca, list_to_string(rl_eq.view()), atom_to_string(a));
-											return false;
-										}
-									}
-									break;
-									case CMP_NOT_EQUAL:
-									if (val == arg) {
-										err << fmt::format("int value at [{}] expected to be !={}, got: {}", ca, arg, val);
-										return false;
-									}
-									break;
-									case CMP_MODULE:
-									if (val % arg != 0) {
-										err << fmt::format("int value at [{}] expected to be multiple of {}, got: {}", ca, arg, val);
-										return false;
-									}
-									break;
-									case CMP_POWER2: {
-										bool rc = (val > 0 && ((val & (val - 1)) == 0));
-										if (!rc) {
-											err << fmt::format("int value at [{}] expected to be power of 2, got: {}", ca, val);
-											return false;
-										}
-									}
-									break;
-									default:
-									break;
-								}
-								debug("int", "Ok");
-								ca++;
-							}
-							break;
-						}
+					if (chk_) {
+						rl_check.atom_type = rl_type;
+						rl_check.cmp_type = rl_cmp;
+						rl_check.repeat_min = rl_min;
+						rl_check.repeat_max = rl_max;
+						chk_->push_back(rl_check);
 					}
 					
 					rl_num = 0;
@@ -845,151 +551,28 @@ namespace ceammc {
 					rl_den_cnt = 0;
 					rl_min = 0;
 					rl_max = 0;
+					rl_check = {};
 				}
 				
-#line 851 "args/argcheck2.cpp"
+#line 558 "args/argcheck2.cpp"
 				
 				{
-#line 267 "args/argcheck2.rl"
-					{p+= 1; cs = 26; goto _out;} }
+#line 177 "args/argcheck2.rl"
+					{p+= 1; cs = 24; goto _out;} }
 				
-#line 857 "args/argcheck2.cpp"
+#line 564 "args/argcheck2.cpp"
 				
-				goto _st26;
+				goto _st24;
 				_ctr14:
 				{
-#line 60 "args/argcheck2.rl"
+#line 101 "args/argcheck2.rl"
 					
-					debug("min", rl_min);
-					debug("max", rl_max);
-					
-					auto cur = ca + (rl_min-1);
-					if (cur >= N) {
-						switch (rl_type) {
-							case CHECK_ATOM:
-							err << fmt::format("atom expected at position [{}]", cur);
-							return false;
-							case CHECK_BOOL:
-							err << fmt::format("bool expected at position [{}]", cur);
-							return false;
-							case CHECK_BYTE:
-							err << fmt::format("int[0..255] expected at position [{}]", cur);
-							return false;
-							case CHECK_INT:
-							err << fmt::format("int expected at position [{}]", cur);
-							return false;
-							default:
-							err << fmt::format("error at position [{}]", cur);
-							return false;
-						}
-					}
-					
-					const auto rep_max = (rl_max == REPEAT_INF) ? 1000000 : rl_max;
-					const auto TOTAL = std::min<int>(N, ca + rep_max);
-					for (int i = ca; i < TOTAL; i++) {
-						const auto& a = lv[i];
-						switch (rl_type) {
-							case CHECK_ATOM:
-							debug("atom", "Ok");
-							ca++;
-							break;
-							case CHECK_BOOL:
-							if (a.isBool()) {
-								debug("book", "Ok");
-								ca++;
-							} else {
-								err << fmt::format("bool expected at position [{}]: '{}'", ca, atom_to_string(a));
-								return false;
-							}
-							break;
-							case CHECK_BYTE:
-							if (!a.isInteger() || a.asT<int>() < 0 || a.asT<int>() > 255) {
-								err << fmt::format("not a byte value at position [{}]: '{}'", ca, atom_to_string(a));
-								return false;
-							} else {
-								debug("byte", "Ok");
-								ca++;
-							}
-							break;
-							case CHECK_INT:
-							if (!a.isInteger()) {
-								err << fmt::format("not a int value at position [{}]: '{}'", ca, atom_to_string(a));
-								return false;
-							} else {
-								const int64_t val = a.asT<int>();
-								const int64_t arg = rl_cmp_arg;
-								switch (rl_cmp) {
-									case CMP_LESS:
-									if (!(val < arg)) {
-										err << fmt::format("int value at [{}] expected to be <{}, got: {}", ca, arg, val);
-										return false;
-									}
-									break;
-									case CMP_LESS_EQ:
-									if (!(val <= arg)) {
-										err << fmt::format("int value at [{}] expected to be <={}, got: {}", ca, arg, val);
-										return false;
-									}
-									break;
-									case CMP_GREATER:
-									if (!(val > arg)) {
-										err << fmt::format("int value at [{}] expected to be >{}, got: {}", ca, arg, val);
-										return false;
-									}
-									break;
-									case CMP_GREATER_EQ:
-									if (!(val >= arg)) {
-										err << fmt::format("int value at [{}] expected to be >={}, got: {}", ca, arg, val);
-										return false;
-									}
-									break;
-									case CMP_EQUAL:
-									if (rl_eq.size() == 1) {
-										if (a != rl_eq[0]) {
-											err << fmt::format("int value at [{}] expected to be = {}, got: {}",
-											ca, atom_to_string(rl_eq[0]), atom_to_string(a));
-											return false;
-										}
-									} else {
-										bool found = false;
-										for (auto& x: rl_eq) {
-											if (a == x) { found = true; break; }
-										}
-										if (!found) {
-											err << fmt::format("int value at [{}] expected to be one of: {}, got: {}",
-											ca, list_to_string(rl_eq.view()), atom_to_string(a));
-											return false;
-										}
-									}
-									break;
-									case CMP_NOT_EQUAL:
-									if (val == arg) {
-										err << fmt::format("int value at [{}] expected to be !={}, got: {}", ca, arg, val);
-										return false;
-									}
-									break;
-									case CMP_MODULE:
-									if (val % arg != 0) {
-										err << fmt::format("int value at [{}] expected to be multiple of {}, got: {}", ca, arg, val);
-										return false;
-									}
-									break;
-									case CMP_POWER2: {
-										bool rc = (val > 0 && ((val & (val - 1)) == 0));
-										if (!rc) {
-											err << fmt::format("int value at [{}] expected to be power of 2, got: {}", ca, val);
-											return false;
-										}
-									}
-									break;
-									default:
-									break;
-								}
-								debug("int", "Ok");
-								ca++;
-							}
-							break;
-						}
+					if (chk_) {
+						rl_check.atom_type = rl_type;
+						rl_check.cmp_type = rl_cmp;
+						rl_check.repeat_min = rl_min;
+						rl_check.repeat_max = rl_max;
+						chk_->push_back(rl_check);
 					}
 					
 					rl_num = 0;
@@ -998,166 +581,42 @@ namespace ceammc {
 					rl_den_cnt = 0;
 					rl_min = 0;
 					rl_max = 0;
+					rl_check = {};
 				}
 				
-#line 1004 "args/argcheck2.cpp"
+#line 588 "args/argcheck2.cpp"
 				
 				{
-#line 267 "args/argcheck2.rl"
-					{p+= 1; cs = 26; goto _out;} }
+#line 177 "args/argcheck2.rl"
+					{p+= 1; cs = 24; goto _out;} }
 				
-#line 1010 "args/argcheck2.cpp"
+#line 594 "args/argcheck2.cpp"
 				
-				goto _st26;
-				_ctr63:
+				goto _st24;
+				_ctr45:
 				{
-#line 201 "args/argcheck2.rl"
+#line 119 "args/argcheck2.rl"
 					
-					rl_eq.push_back(Atom(rl_sign * rl_num));
-					debug("op size", rl_eq.size());
+					rl_check.values.push_back((int64_t)(rl_sign * rl_num));
 				}
 				
-#line 1021 "args/argcheck2.cpp"
+#line 604 "args/argcheck2.cpp"
 				
 				{
-#line 262 "args/argcheck2.rl"
+#line 172 "args/argcheck2.rl"
 					rl_min = 1; rl_max = REPEAT_INF; }
 				
-#line 1027 "args/argcheck2.cpp"
+#line 610 "args/argcheck2.cpp"
 				
 				{
-#line 60 "args/argcheck2.rl"
+#line 101 "args/argcheck2.rl"
 					
-					debug("min", rl_min);
-					debug("max", rl_max);
-					
-					auto cur = ca + (rl_min-1);
-					if (cur >= N) {
-						switch (rl_type) {
-							case CHECK_ATOM:
-							err << fmt::format("atom expected at position [{}]", cur);
-							return false;
-							case CHECK_BOOL:
-							err << fmt::format("bool expected at position [{}]", cur);
-							return false;
-							case CHECK_BYTE:
-							err << fmt::format("int[0..255] expected at position [{}]", cur);
-							return false;
-							case CHECK_INT:
-							err << fmt::format("int expected at position [{}]", cur);
-							return false;
-							default:
-							err << fmt::format("error at position [{}]", cur);
-							return false;
-						}
-					}
-					
-					const auto rep_max = (rl_max == REPEAT_INF) ? 1000000 : rl_max;
-					const auto TOTAL = std::min<int>(N, ca + rep_max);
-					for (int i = ca; i < TOTAL; i++) {
-						const auto& a = lv[i];
-						switch (rl_type) {
-							case CHECK_ATOM:
-							debug("atom", "Ok");
-							ca++;
-							break;
-							case CHECK_BOOL:
-							if (a.isBool()) {
-								debug("book", "Ok");
-								ca++;
-							} else {
-								err << fmt::format("bool expected at position [{}]: '{}'", ca, atom_to_string(a));
-								return false;
-							}
-							break;
-							case CHECK_BYTE:
-							if (!a.isInteger() || a.asT<int>() < 0 || a.asT<int>() > 255) {
-								err << fmt::format("not a byte value at position [{}]: '{}'", ca, atom_to_string(a));
-								return false;
-							} else {
-								debug("byte", "Ok");
-								ca++;
-							}
-							break;
-							case CHECK_INT:
-							if (!a.isInteger()) {
-								err << fmt::format("not a int value at position [{}]: '{}'", ca, atom_to_string(a));
-								return false;
-							} else {
-								const int64_t val = a.asT<int>();
-								const int64_t arg = rl_cmp_arg;
-								switch (rl_cmp) {
-									case CMP_LESS:
-									if (!(val < arg)) {
-										err << fmt::format("int value at [{}] expected to be <{}, got: {}", ca, arg, val);
-										return false;
-									}
-									break;
-									case CMP_LESS_EQ:
-									if (!(val <= arg)) {
-										err << fmt::format("int value at [{}] expected to be <={}, got: {}", ca, arg, val);
-										return false;
-									}
-									break;
-									case CMP_GREATER:
-									if (!(val > arg)) {
-										err << fmt::format("int value at [{}] expected to be >{}, got: {}", ca, arg, val);
-										return false;
-									}
-									break;
-									case CMP_GREATER_EQ:
-									if (!(val >= arg)) {
-										err << fmt::format("int value at [{}] expected to be >={}, got: {}", ca, arg, val);
-										return false;
-									}
-									break;
-									case CMP_EQUAL:
-									if (rl_eq.size() == 1) {
-										if (a != rl_eq[0]) {
-											err << fmt::format("int value at [{}] expected to be = {}, got: {}",
-											ca, atom_to_string(rl_eq[0]), atom_to_string(a));
-											return false;
-										}
-									} else {
-										bool found = false;
-										for (auto& x: rl_eq) {
-											if (a == x) { found = true; break; }
-										}
-										if (!found) {
-											err << fmt::format("int value at [{}] expected to be one of: {}, got: {}",
-											ca, list_to_string(rl_eq.view()), atom_to_string(a));
-											return false;
-										}
-									}
-									break;
-									case CMP_NOT_EQUAL:
-									if (val == arg) {
-										err << fmt::format("int value at [{}] expected to be !={}, got: {}", ca, arg, val);
-										return false;
-									}
-									break;
-									case CMP_MODULE:
-									if (val % arg != 0) {
-										err << fmt::format("int value at [{}] expected to be multiple of {}, got: {}", ca, arg, val);
-										return false;
-									}
-									break;
-									case CMP_POWER2: {
-										bool rc = (val > 0 && ((val & (val - 1)) == 0));
-										if (!rc) {
-											err << fmt::format("int value at [{}] expected to be power of 2, got: {}", ca, val);
-											return false;
-										}
-									}
-									break;
-									default:
-									break;
-								}
-								debug("int", "Ok");
-								ca++;
-							}
-							break;
-						}
+					if (chk_) {
+						rl_check.atom_type = rl_type;
+						rl_check.cmp_type = rl_cmp;
+						rl_check.repeat_min = rl_min;
+						rl_check.repeat_max = rl_max;
+						chk_->push_back(rl_check);
 					}
 					
 					rl_num = 0;
@@ -1166,140 +625,138 @@ namespace ceammc {
 					rl_den_cnt = 0;
 					rl_min = 0;
 					rl_max = 0;
+					rl_check = {};
 				}
 				
-#line 1172 "args/argcheck2.cpp"
+#line 632 "args/argcheck2.cpp"
 				
 				{
-#line 267 "args/argcheck2.rl"
-					{p+= 1; cs = 26; goto _out;} }
+#line 177 "args/argcheck2.rl"
+					{p+= 1; cs = 24; goto _out;} }
 				
-#line 1178 "args/argcheck2.cpp"
+#line 638 "args/argcheck2.cpp"
 				
-				goto _st26;
-				_st26:
+				goto _st24;
+				_st24:
 				p += 1;
-				st_case_26:
+				st_case_24:
 				{
 					goto _st0;
 				}
 				_ctr9:
 				{
-#line 262 "args/argcheck2.rl"
+#line 172 "args/argcheck2.rl"
 					rl_min = 1; rl_max = REPEAT_INF; }
 				
-#line 1192 "args/argcheck2.cpp"
+#line 652 "args/argcheck2.cpp"
 				
 				{
-#line 254 "args/argcheck2.rl"
+#line 164 "args/argcheck2.rl"
 					rl_min = 0; rl_max = REPEAT_INF; }
 				
-#line 1198 "args/argcheck2.cpp"
+#line 658 "args/argcheck2.cpp"
 				
 				goto _st3;
 				_ctr10:
 				{
-#line 262 "args/argcheck2.rl"
+#line 172 "args/argcheck2.rl"
 					rl_min = 1; rl_max = REPEAT_INF; }
 				
-#line 1206 "args/argcheck2.cpp"
+#line 666 "args/argcheck2.cpp"
 				
 				{
-#line 253 "args/argcheck2.rl"
+#line 163 "args/argcheck2.rl"
 					rl_min = 1, rl_max = REPEAT_INF; }
 				
-#line 1212 "args/argcheck2.cpp"
+#line 672 "args/argcheck2.cpp"
 				
 				goto _st3;
 				_ctr11:
 				{
-#line 262 "args/argcheck2.rl"
+#line 172 "args/argcheck2.rl"
 					rl_min = 1; rl_max = REPEAT_INF; }
 				
-#line 1220 "args/argcheck2.cpp"
+#line 680 "args/argcheck2.cpp"
 				
 				{
-#line 252 "args/argcheck2.rl"
+#line 162 "args/argcheck2.rl"
 					rl_min = 0; rl_max = 1; }
 				
-#line 1226 "args/argcheck2.cpp"
+#line 686 "args/argcheck2.cpp"
 				
 				goto _st3;
 				_ctr21:
 				{
-#line 208 "args/argcheck2.rl"
+#line 125 "args/argcheck2.rl"
 					rl_max = rl_min; }
 				
-#line 1234 "args/argcheck2.cpp"
+#line 694 "args/argcheck2.cpp"
 				
 				goto _st3;
-				_ctr65:
+				_ctr47:
 				{
-#line 201 "args/argcheck2.rl"
+#line 119 "args/argcheck2.rl"
 					
-					rl_eq.push_back(Atom(rl_sign * rl_num));
-					debug("op size", rl_eq.size());
+					rl_check.values.push_back((int64_t)(rl_sign * rl_num));
 				}
 				
-#line 1245 "args/argcheck2.cpp"
+#line 704 "args/argcheck2.cpp"
 				
 				{
-#line 262 "args/argcheck2.rl"
+#line 172 "args/argcheck2.rl"
 					rl_min = 1; rl_max = REPEAT_INF; }
 				
-#line 1251 "args/argcheck2.cpp"
+#line 710 "args/argcheck2.cpp"
 				
 				{
-#line 254 "args/argcheck2.rl"
+#line 164 "args/argcheck2.rl"
 					rl_min = 0; rl_max = REPEAT_INF; }
 				
-#line 1257 "args/argcheck2.cpp"
+#line 716 "args/argcheck2.cpp"
 				
 				goto _st3;
-				_ctr66:
+				_ctr48:
 				{
-#line 201 "args/argcheck2.rl"
+#line 119 "args/argcheck2.rl"
 					
-					rl_eq.push_back(Atom(rl_sign * rl_num));
-					debug("op size", rl_eq.size());
+					rl_check.values.push_back((int64_t)(rl_sign * rl_num));
 				}
 				
-#line 1268 "args/argcheck2.cpp"
+#line 726 "args/argcheck2.cpp"
 				
 				{
-#line 262 "args/argcheck2.rl"
+#line 172 "args/argcheck2.rl"
 					rl_min = 1; rl_max = REPEAT_INF; }
 				
-#line 1274 "args/argcheck2.cpp"
+#line 732 "args/argcheck2.cpp"
 				
 				{
-#line 253 "args/argcheck2.rl"
+#line 163 "args/argcheck2.rl"
 					rl_min = 1, rl_max = REPEAT_INF; }
 				
-#line 1280 "args/argcheck2.cpp"
+#line 738 "args/argcheck2.cpp"
 				
 				goto _st3;
-				_ctr68:
+				_ctr50:
 				{
-#line 201 "args/argcheck2.rl"
+#line 119 "args/argcheck2.rl"
 					
-					rl_eq.push_back(Atom(rl_sign * rl_num));
-					debug("op size", rl_eq.size());
+					rl_check.values.push_back((int64_t)(rl_sign * rl_num));
 				}
 				
-#line 1291 "args/argcheck2.cpp"
+#line 748 "args/argcheck2.cpp"
 				
 				{
-#line 262 "args/argcheck2.rl"
+#line 172 "args/argcheck2.rl"
 					rl_min = 1; rl_max = REPEAT_INF; }
 				
-#line 1297 "args/argcheck2.cpp"
+#line 754 "args/argcheck2.cpp"
 				
 				{
-#line 252 "args/argcheck2.rl"
+#line 162 "args/argcheck2.rl"
 					rl_min = 0; rl_max = 1; }
 				
-#line 1303 "args/argcheck2.cpp"
+#line 760 "args/argcheck2.cpp"
 				
 				goto _st3;
 				_st3:
@@ -1318,27 +775,26 @@ namespace ceammc {
 				}
 				_ctr12:
 				{
-#line 262 "args/argcheck2.rl"
+#line 172 "args/argcheck2.rl"
 					rl_min = 1; rl_max = REPEAT_INF; }
 				
-#line 1325 "args/argcheck2.cpp"
+#line 782 "args/argcheck2.cpp"
 				
 				goto _st4;
-				_ctr69:
+				_ctr51:
 				{
-#line 201 "args/argcheck2.rl"
+#line 119 "args/argcheck2.rl"
 					
-					rl_eq.push_back(Atom(rl_sign * rl_num));
-					debug("op size", rl_eq.size());
+					rl_check.values.push_back((int64_t)(rl_sign * rl_num));
 				}
 				
-#line 1336 "args/argcheck2.cpp"
+#line 792 "args/argcheck2.cpp"
 				
 				{
-#line 262 "args/argcheck2.rl"
+#line 172 "args/argcheck2.rl"
 					rl_min = 1; rl_max = REPEAT_INF; }
 				
-#line 1342 "args/argcheck2.cpp"
+#line 798 "args/argcheck2.cpp"
 				
 				goto _st4;
 				_st4:
@@ -1355,10 +811,10 @@ namespace ceammc {
 				}
 				_ctr17:
 				{
-#line 206 "args/argcheck2.rl"
+#line 123 "args/argcheck2.rl"
 					rl_min = 0; }
 				
-#line 1362 "args/argcheck2.cpp"
+#line 818 "args/argcheck2.cpp"
 				
 				goto _st5;
 				_st5:
@@ -1403,10 +859,10 @@ namespace ceammc {
 				}
 				_ctr23:
 				{
-#line 207 "args/argcheck2.rl"
+#line 124 "args/argcheck2.rl"
 					rl_max = 0; }
 				
-#line 1410 "args/argcheck2.cpp"
+#line 866 "args/argcheck2.cpp"
 				
 				goto _st8;
 				_st8:
@@ -1420,18 +876,18 @@ namespace ceammc {
 				}
 				_ctr24:
 				{
-#line 207 "args/argcheck2.rl"
+#line 124 "args/argcheck2.rl"
 					rl_max = (( (*( p))))-'0'; }
 				
-#line 1427 "args/argcheck2.cpp"
+#line 883 "args/argcheck2.cpp"
 				
 				goto _st9;
 				_ctr27:
 				{
-#line 207 "args/argcheck2.rl"
+#line 124 "args/argcheck2.rl"
 					(rl_max *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 1435 "args/argcheck2.cpp"
+#line 891 "args/argcheck2.cpp"
 				
 				goto _st9;
 				_st9:
@@ -1448,18 +904,18 @@ namespace ceammc {
 				}
 				_ctr18:
 				{
-#line 206 "args/argcheck2.rl"
+#line 123 "args/argcheck2.rl"
 					rl_min = (( (*( p))))-'0'; }
 				
-#line 1455 "args/argcheck2.cpp"
+#line 911 "args/argcheck2.cpp"
 				
 				goto _st10;
 				_ctr29:
 				{
-#line 206 "args/argcheck2.rl"
+#line 123 "args/argcheck2.rl"
 					(rl_min *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 1463 "args/argcheck2.cpp"
+#line 919 "args/argcheck2.cpp"
 				
 				goto _st10;
 				_st10:
@@ -1481,10 +937,10 @@ namespace ceammc {
 				}
 				_ctr5:
 				{
-#line 251 "args/argcheck2.rl"
+#line 161 "args/argcheck2.rl"
 					rl_type = CHECK_INT; }
 				
-#line 1488 "args/argcheck2.cpp"
+#line 944 "args/argcheck2.cpp"
 				
 				goto _st11;
 				_st11:
@@ -1525,7 +981,7 @@ namespace ceammc {
 						goto _ctr12;
 					}
 					case 94: {
-						goto _st25;
+						goto _st23;
 					}
 				}
 				{
@@ -1542,26 +998,26 @@ namespace ceammc {
 				}
 				_ctr37:
 				{
-#line 233 "args/argcheck2.rl"
+#line 143 "args/argcheck2.rl"
 					rl_cmp = CMP_NOT_EQUAL; }
 				
-#line 1549 "args/argcheck2.cpp"
+#line 1005 "args/argcheck2.cpp"
 				
 				goto _st13;
-				_ctr55:
+				_ctr57:
 				{
-#line 232 "args/argcheck2.rl"
+#line 142 "args/argcheck2.rl"
 					rl_cmp = CMP_LESS_EQ; }
 				
-#line 1557 "args/argcheck2.cpp"
+#line 1013 "args/argcheck2.cpp"
 				
 				goto _st13;
-				_ctr72:
+				_ctr67:
 				{
-#line 231 "args/argcheck2.rl"
+#line 141 "args/argcheck2.rl"
 					rl_cmp = CMP_GREATER_EQ; }
 				
-#line 1565 "args/argcheck2.cpp"
+#line 1021 "args/argcheck2.cpp"
 				
 				goto _st13;
 				_st13:
@@ -1583,30 +1039,30 @@ namespace ceammc {
 				}
 				_ctr39:
 				{
-#line 216 "args/argcheck2.rl"
+#line 133 "args/argcheck2.rl"
 					rl_sign = 1; }
 				
-#line 1590 "args/argcheck2.cpp"
+#line 1046 "args/argcheck2.cpp"
 				
 				{
-#line 211 "args/argcheck2.rl"
+#line 128 "args/argcheck2.rl"
 					rl_sign = 1; }
 				
-#line 1596 "args/argcheck2.cpp"
+#line 1052 "args/argcheck2.cpp"
 				
 				goto _st14;
 				_ctr40:
 				{
-#line 216 "args/argcheck2.rl"
+#line 133 "args/argcheck2.rl"
 					rl_sign = 1; }
 				
-#line 1604 "args/argcheck2.cpp"
+#line 1060 "args/argcheck2.cpp"
 				
 				{
-#line 212 "args/argcheck2.rl"
+#line 129 "args/argcheck2.rl"
 					rl_sign = -1; }
 				
-#line 1610 "args/argcheck2.cpp"
+#line 1066 "args/argcheck2.cpp"
 				
 				goto _st14;
 				_st14:
@@ -1620,74 +1076,44 @@ namespace ceammc {
 				}
 				_ctr41:
 				{
-#line 216 "args/argcheck2.rl"
+#line 133 "args/argcheck2.rl"
 					rl_sign = 1; }
 				
-#line 1627 "args/argcheck2.cpp"
+#line 1083 "args/argcheck2.cpp"
 				
 				{
-#line 214 "args/argcheck2.rl"
+#line 131 "args/argcheck2.rl"
 					rl_num = 0; }
 				
-#line 1633 "args/argcheck2.cpp"
+#line 1089 "args/argcheck2.cpp"
 				
 				{
-#line 214 "args/argcheck2.rl"
+#line 131 "args/argcheck2.rl"
 					(rl_num *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 1639 "args/argcheck2.cpp"
-				
-				{
-#line 220 "args/argcheck2.rl"
-					
-					rl_cmp_arg = rl_sign * rl_num;
-					if (rl_den_cnt)
-					rl_cmp_arg += (double(rl_den) / rl_den_cnt);
-				}
-				
-#line 1649 "args/argcheck2.cpp"
+#line 1095 "args/argcheck2.cpp"
 				
 				goto _st15;
 				_ctr43:
 				{
-#line 214 "args/argcheck2.rl"
+#line 131 "args/argcheck2.rl"
 					rl_num = 0; }
 				
-#line 1657 "args/argcheck2.cpp"
+#line 1103 "args/argcheck2.cpp"
 				
 				{
-#line 214 "args/argcheck2.rl"
+#line 131 "args/argcheck2.rl"
 					(rl_num *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 1663 "args/argcheck2.cpp"
-				
-				{
-#line 220 "args/argcheck2.rl"
-					
-					rl_cmp_arg = rl_sign * rl_num;
-					if (rl_den_cnt)
-					rl_cmp_arg += (double(rl_den) / rl_den_cnt);
-				}
-				
-#line 1673 "args/argcheck2.cpp"
+#line 1109 "args/argcheck2.cpp"
 				
 				goto _st15;
-				_ctr46:
+				_ctr49:
 				{
-#line 214 "args/argcheck2.rl"
+#line 131 "args/argcheck2.rl"
 					(rl_num *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 1681 "args/argcheck2.cpp"
-				
-				{
-#line 220 "args/argcheck2.rl"
-					
-					rl_cmp_arg = rl_sign * rl_num;
-					if (rl_den_cnt)
-					rl_cmp_arg += (double(rl_den) / rl_den_cnt);
-				}
-				
-#line 1691 "args/argcheck2.cpp"
+#line 1117 "args/argcheck2.cpp"
 				
 				goto _st15;
 				_st15:
@@ -1695,82 +1121,83 @@ namespace ceammc {
 				st_case_15:
 				switch( ( (*( p))) ) {
 					case 0: {
-						goto _ctr7;
+						goto _ctr45;
 					}
 					case 32: {
-						goto _ctr8;
+						goto _ctr46;
 					}
 					case 42: {
-						goto _ctr9;
+						goto _ctr47;
 					}
 					case 43: {
-						goto _ctr10;
-					}
-					case 46: {
-						goto _st16;
+						goto _ctr48;
 					}
 					case 63: {
-						goto _ctr11;
+						goto _ctr50;
 					}
 					case 91: {
-						goto _ctr12;
+						goto _ctr51;
 					}
 				}
 				if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-					goto _ctr46;
+					goto _ctr49;
 				}
 				{
 					goto _st0;
 				}
+				_ctr32:
+				{
+#line 145 "args/argcheck2.rl"
+					rl_cmp = CMP_MODULE; }
+				
+#line 1154 "args/argcheck2.cpp"
+				
+				goto _st16;
 				_st16:
 				p += 1;
 				st_case_16:
-				if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-					goto _ctr47;
+				if ( 49 <= ( (*( p))) && ( (*( p))) <= 57 ) {
+					goto _ctr53;
 				}
 				{
 					goto _st0;
 				}
-				_ctr47:
+				_ctr53:
 				{
-#line 215 "args/argcheck2.rl"
-					rl_den = 0; rl_den_cnt = 1; }
+#line 146 "args/argcheck2.rl"
+					rl_sign = 1; rl_num = 0; }
 				
-#line 1740 "args/argcheck2.cpp"
-				
-				{
-#line 215 "args/argcheck2.rl"
-					(rl_den *= 10) += ((( (*( p)))) - '0'); rl_den_cnt *= 10; }
-				
-#line 1746 "args/argcheck2.cpp"
+#line 1171 "args/argcheck2.cpp"
 				
 				{
-#line 220 "args/argcheck2.rl"
+#line 146 "args/argcheck2.rl"
+					(rl_num *= 10) += ((( (*( p)))) - '0'); }
+				
+#line 1177 "args/argcheck2.cpp"
+				
+				{
+#line 119 "args/argcheck2.rl"
 					
-					rl_cmp_arg = rl_sign * rl_num;
-					if (rl_den_cnt)
-					rl_cmp_arg += (double(rl_den) / rl_den_cnt);
+					rl_check.values.push_back((int64_t)(rl_sign * rl_num));
 				}
 				
-#line 1756 "args/argcheck2.cpp"
+#line 1185 "args/argcheck2.cpp"
 				
 				goto _st17;
-				_ctr49:
+				_ctr55:
 				{
-#line 215 "args/argcheck2.rl"
-					(rl_den *= 10) += ((( (*( p)))) - '0'); rl_den_cnt *= 10; }
+#line 146 "args/argcheck2.rl"
+					(rl_num *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 1764 "args/argcheck2.cpp"
+#line 1193 "args/argcheck2.cpp"
 				
 				{
-#line 220 "args/argcheck2.rl"
+#line 119 "args/argcheck2.rl"
 					
-					rl_cmp_arg = rl_sign * rl_num;
-					if (rl_den_cnt)
-					rl_cmp_arg += (double(rl_den) / rl_den_cnt);
+					rl_check.values.push_back((int64_t)(rl_sign * rl_num));
 				}
 				
-#line 1774 "args/argcheck2.cpp"
+#line 1201 "args/argcheck2.cpp"
 				
 				goto _st17;
 				_st17:
@@ -1797,65 +1224,170 @@ namespace ceammc {
 					}
 				}
 				if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-					goto _ctr49;
+					goto _ctr55;
 				}
 				{
 					goto _st0;
 				}
-				_ctr32:
+				_ctr33:
 				{
-#line 235 "args/argcheck2.rl"
-					rl_cmp = CMP_MODULE; }
+#line 142 "args/argcheck2.rl"
+					rl_cmp = CMP_LESS; }
 				
-#line 1811 "args/argcheck2.cpp"
+#line 1238 "args/argcheck2.cpp"
 				
 				goto _st18;
 				_st18:
 				p += 1;
 				st_case_18:
-				if ( 49 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-					goto _ctr51;
+				switch( ( (*( p))) ) {
+					case 43: {
+						goto _ctr39;
+					}
+					case 45: {
+						goto _ctr40;
+					}
+					case 61: {
+						goto _ctr57;
+					}
+				}
+				if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
+					goto _ctr41;
 				}
 				{
 					goto _st0;
 				}
-				_ctr51:
+				_ctr34:
 				{
-#line 236 "args/argcheck2.rl"
-					rl_num = 0; }
+#line 138 "args/argcheck2.rl"
+					rl_cmp = CMP_EQUAL; }
 				
-#line 1828 "args/argcheck2.cpp"
-				
-				{
-#line 236 "args/argcheck2.rl"
-					(rl_num *= 10) += ((( (*( p)))) - '0'); }
-				
-#line 1834 "args/argcheck2.cpp"
-				
-				{
-#line 237 "args/argcheck2.rl"
-					rl_cmp_arg = rl_num; }
-				
-#line 1840 "args/argcheck2.cpp"
-				
-				goto _st19;
-				_ctr53:
-				{
-#line 236 "args/argcheck2.rl"
-					(rl_num *= 10) += ((( (*( p)))) - '0'); }
-				
-#line 1848 "args/argcheck2.cpp"
-				
-				{
-#line 237 "args/argcheck2.rl"
-					rl_cmp_arg = rl_num; }
-				
-#line 1854 "args/argcheck2.cpp"
+#line 1266 "args/argcheck2.cpp"
 				
 				goto _st19;
 				_st19:
 				p += 1;
 				st_case_19:
+				switch( ( (*( p))) ) {
+					case 43: {
+						goto _ctr59;
+					}
+					case 45: {
+						goto _ctr60;
+					}
+				}
+				if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
+					goto _ctr61;
+				}
+				{
+					goto _st0;
+				}
+				_ctr59:
+				{
+#line 133 "args/argcheck2.rl"
+					rl_sign = 1; }
+				
+#line 1291 "args/argcheck2.cpp"
+				
+				{
+#line 128 "args/argcheck2.rl"
+					rl_sign = 1; }
+				
+#line 1297 "args/argcheck2.cpp"
+				
+				goto _st20;
+				_ctr60:
+				{
+#line 133 "args/argcheck2.rl"
+					rl_sign = 1; }
+				
+#line 1305 "args/argcheck2.cpp"
+				
+				{
+#line 129 "args/argcheck2.rl"
+					rl_sign = -1; }
+				
+#line 1311 "args/argcheck2.cpp"
+				
+				goto _st20;
+				_st20:
+				p += 1;
+				st_case_20:
+				if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
+					goto _ctr63;
+				}
+				{
+					goto _st0;
+				}
+				_ctr61:
+				{
+#line 133 "args/argcheck2.rl"
+					rl_sign = 1; }
+				
+#line 1328 "args/argcheck2.cpp"
+				
+				{
+#line 131 "args/argcheck2.rl"
+					rl_num = 0; }
+				
+#line 1334 "args/argcheck2.cpp"
+				
+				{
+#line 131 "args/argcheck2.rl"
+					(rl_num *= 10) += ((( (*( p)))) - '0'); }
+				
+#line 1340 "args/argcheck2.cpp"
+				
+				{
+#line 119 "args/argcheck2.rl"
+					
+					rl_check.values.push_back((int64_t)(rl_sign * rl_num));
+				}
+				
+#line 1348 "args/argcheck2.cpp"
+				
+				goto _st21;
+				_ctr63:
+				{
+#line 131 "args/argcheck2.rl"
+					rl_num = 0; }
+				
+#line 1356 "args/argcheck2.cpp"
+				
+				{
+#line 131 "args/argcheck2.rl"
+					(rl_num *= 10) += ((( (*( p)))) - '0'); }
+				
+#line 1362 "args/argcheck2.cpp"
+				
+				{
+#line 119 "args/argcheck2.rl"
+					
+					rl_check.values.push_back((int64_t)(rl_sign * rl_num));
+				}
+				
+#line 1370 "args/argcheck2.cpp"
+				
+				goto _st21;
+				_ctr65:
+				{
+#line 131 "args/argcheck2.rl"
+					(rl_num *= 10) += ((( (*( p)))) - '0'); }
+				
+#line 1378 "args/argcheck2.cpp"
+				
+				{
+#line 119 "args/argcheck2.rl"
+					
+					rl_check.values.push_back((int64_t)(rl_sign * rl_num));
+				}
+				
+#line 1386 "args/argcheck2.cpp"
+				
+				goto _st21;
+				_st21:
+				p += 1;
+				st_case_21:
 				switch( ( (*( p))) ) {
 					case 0: {
 						goto _ctr7;
@@ -1875,199 +1407,27 @@ namespace ceammc {
 					case 91: {
 						goto _ctr12;
 					}
-				}
-				if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-					goto _ctr53;
-				}
-				{
-					goto _st0;
-				}
-				_ctr33:
-				{
-#line 232 "args/argcheck2.rl"
-					rl_cmp = CMP_LESS; }
-				
-#line 1891 "args/argcheck2.cpp"
-				
-				goto _st20;
-				_st20:
-				p += 1;
-				st_case_20:
-				switch( ( (*( p))) ) {
-					case 43: {
-						goto _ctr39;
-					}
-					case 45: {
-						goto _ctr40;
-					}
-					case 61: {
-						goto _ctr55;
-					}
-				}
-				if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-					goto _ctr41;
-				}
-				{
-					goto _st0;
-				}
-				_ctr34:
-				{
-#line 228 "args/argcheck2.rl"
-					rl_cmp = CMP_EQUAL; }
-				
-#line 1919 "args/argcheck2.cpp"
-				
-				goto _st21;
-				_ctr70:
-				{
-#line 201 "args/argcheck2.rl"
-					
-					rl_eq.push_back(Atom(rl_sign * rl_num));
-					debug("op size", rl_eq.size());
-				}
-				
-#line 1930 "args/argcheck2.cpp"
-				
-				goto _st21;
-				_st21:
-				p += 1;
-				st_case_21:
-				switch( ( (*( p))) ) {
-					case 43: {
-						goto _ctr57;
-					}
-					case 45: {
-						goto _ctr58;
-					}
-				}
-				if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-					goto _ctr59;
-				}
-				{
-					goto _st0;
-				}
-				_ctr57:
-				{
-#line 216 "args/argcheck2.rl"
-					rl_sign = 1; }
-				
-#line 1955 "args/argcheck2.cpp"
-				
-				{
-#line 211 "args/argcheck2.rl"
-					rl_sign = 1; }
-				
-#line 1961 "args/argcheck2.cpp"
-				
-				goto _st22;
-				_ctr58:
-				{
-#line 216 "args/argcheck2.rl"
-					rl_sign = 1; }
-				
-#line 1969 "args/argcheck2.cpp"
-				
-				{
-#line 212 "args/argcheck2.rl"
-					rl_sign = -1; }
-				
-#line 1975 "args/argcheck2.cpp"
-				
-				goto _st22;
-				_st22:
-				p += 1;
-				st_case_22:
-				if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-					goto _ctr61;
-				}
-				{
-					goto _st0;
-				}
-				_ctr59:
-				{
-#line 216 "args/argcheck2.rl"
-					rl_sign = 1; }
-				
-#line 1992 "args/argcheck2.cpp"
-				
-				{
-#line 214 "args/argcheck2.rl"
-					rl_num = 0; }
-				
-#line 1998 "args/argcheck2.cpp"
-				
-				{
-#line 214 "args/argcheck2.rl"
-					(rl_num *= 10) += ((( (*( p)))) - '0'); }
-				
-#line 2004 "args/argcheck2.cpp"
-				
-				goto _st23;
-				_ctr61:
-				{
-#line 214 "args/argcheck2.rl"
-					rl_num = 0; }
-				
-#line 2012 "args/argcheck2.cpp"
-				
-				{
-#line 214 "args/argcheck2.rl"
-					(rl_num *= 10) += ((( (*( p)))) - '0'); }
-				
-#line 2018 "args/argcheck2.cpp"
-				
-				goto _st23;
-				_ctr67:
-				{
-#line 214 "args/argcheck2.rl"
-					(rl_num *= 10) += ((( (*( p)))) - '0'); }
-				
-#line 2026 "args/argcheck2.cpp"
-				
-				goto _st23;
-				_st23:
-				p += 1;
-				st_case_23:
-				switch( ( (*( p))) ) {
-					case 0: {
-						goto _ctr63;
-					}
-					case 32: {
-						goto _ctr64;
-					}
-					case 42: {
-						goto _ctr65;
-					}
-					case 43: {
-						goto _ctr66;
-					}
-					case 63: {
-						goto _ctr68;
-					}
-					case 91: {
-						goto _ctr69;
-					}
 					case 124: {
-						goto _ctr70;
+						goto _st19;
 					}
 				}
 				if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-					goto _ctr67;
+					goto _ctr65;
 				}
 				{
 					goto _st0;
 				}
 				_ctr35:
 				{
-#line 231 "args/argcheck2.rl"
+#line 141 "args/argcheck2.rl"
 					rl_cmp = CMP_GREATER; }
 				
-#line 2066 "args/argcheck2.cpp"
+#line 1426 "args/argcheck2.cpp"
 				
-				goto _st24;
-				_st24:
+				goto _st22;
+				_st22:
 				p += 1;
-				st_case_24:
+				st_case_22:
 				switch( ( (*( p))) ) {
 					case 43: {
 						goto _ctr39;
@@ -2076,7 +1436,7 @@ namespace ceammc {
 						goto _ctr40;
 					}
 					case 61: {
-						goto _ctr72;
+						goto _ctr67;
 					}
 				}
 				if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
@@ -2085,11 +1445,11 @@ namespace ceammc {
 				{
 					goto _st0;
 				}
-				_st25:
+				_st23:
 				p += 1;
-				st_case_25:
+				st_case_23:
 				if ( ( (*( p))) == 50 ) {
-					goto _ctr73;
+					goto _ctr68;
 				}
 				{
 					goto _st0;
@@ -2097,7 +1457,7 @@ namespace ceammc {
 				st_out:
 				_test_eof1: cs = 1; goto _test_eof; 
 				_test_eof2: cs = 2; goto _test_eof; 
-				_test_eof26: cs = 26; goto _test_eof; 
+				_test_eof24: cs = 24; goto _test_eof; 
 				_test_eof3: cs = 3; goto _test_eof; 
 				_test_eof4: cs = 4; goto _test_eof; 
 				_test_eof5: cs = 5; goto _test_eof; 
@@ -2119,32 +1479,30 @@ namespace ceammc {
 				_test_eof21: cs = 21; goto _test_eof; 
 				_test_eof22: cs = 22; goto _test_eof; 
 				_test_eof23: cs = 23; goto _test_eof; 
-				_test_eof24: cs = 24; goto _test_eof; 
-				_test_eof25: cs = 25; goto _test_eof; 
 				
 				_test_eof: {}
-				if ( cs >= 26 )
+				if ( cs >= 24 )
 					goto _out; _pop: {}
 				_out: {}
 			}
 			
-#line 297 "args/argcheck2.rl"
+#line 370 "args/argcheck2.rl"
 			
 			
-			if (cs >= 
-#line 2136 "args/argcheck2.cpp"
-			26
-#line 299 "args/argcheck2.rl"
+			if (cs < 
+#line 1494 "args/argcheck2.cpp"
+			24
+#line 372 "args/argcheck2.rl"
 			) {
-				if (ca < N) {
-					err << fmt::format("unexpected extra atoms: {} at [{}]", list_to_string(lv.subView(ca)), ca);
-					return false;
-				} else
-				return true;
-			} else {
-				err << fmt::format("invalid format string: '{}'", arg_string);
-				return false;
+				LIB_ERR << fmt::format("invalid format string: '{}'", str);
+				chk_.reset();
 			}
+		}
+		
+		bool check_args(const char* arg_string, const AtomListView& lv, BaseObject* obj)
+		{
+			ArgChecker chk(arg_string);
+			return chk.check(lv, obj);
 		}
 		
 	}
