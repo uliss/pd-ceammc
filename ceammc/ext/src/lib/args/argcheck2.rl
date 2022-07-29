@@ -23,6 +23,14 @@ namespace {
         CHECK_INT,
     };
 
+    enum CompareType {
+        CMP_NONE,
+        CMP_LESS,
+        CMP_GREATER,
+        CMP_EQUAL,
+        CMP_MODULE,
+        CMP_POWER2,
+    };
 
     std::string atom_to_string(const ceammc::Atom& a) {
         ceammc::string::SmallString buf;
@@ -101,13 +109,31 @@ action do_check {
                 err << fmt::format("not a int value at position [{}]: '{}'", ca, atom_to_string(a));
                 return false;
             } else {
+                const int64_t val = a.asT<int>();
+                const int64_t arg = rl_cmp_arg;
+                switch (rl_cmp) {
+                case CMP_LESS:
+                    if (!(val < arg)) {
+                        err << fmt::format("int value at [{}] expected to be <{}, got: {}", ca, arg, val);
+                        return false;
+                    }
+                break;
+                default:
+                break;
+                }
                 debug("int", "Ok");
                 ca++;
             }
         break;
         }
-
     }
+
+    rl_num = 0;
+    rl_den = 0;
+    rl_sign = 0;
+    rl_den_cnt = 0;
+    rl_min = 0;
+    rl_max = 0;
 }
 
 rep_min = '0' @{ rl_min = 0; } | ([1-9] @{ rl_min = fc-'0'; } [0-9]* ${ (rl_min *= 10) += (fc - '0'); });
@@ -115,11 +141,32 @@ rep_max = '0' @{ rl_max = 0; } | ([1-9] @{ rl_max = fc-'0'; } [0-9]* ${ (rl_max 
 rep_num   = '[' rep_min ']' @{ rl_max = rl_min; };
 rep_range = '[' rep_min '..' rep_max? ']';
 
+num_sign = '+' @{ rl_sign = 1; }
+         | '-' @{ rl_sign = -1; };
+
+num_num  = [0-9]+ >{ rl_num = 0; } ${ (rl_num *= 10) += (fc - '0'); };
+num_den  = [0-9]+ >{ rl_den = 0; rl_den_cnt = 1; } ${ (rl_den *= 10) += (fc - '0'); rl_den_cnt *= 10; };
+
+cmp_arg   = (num_sign?
+            num_num
+            ('.' num_den)?
+            ) >{ rl_sign = 1; }
+              @{ rl_cmp_arg = rl_sign * rl_num;
+                 if(rl_den_cnt)  rl_cmp_arg += (double(rl_den) / rl_den_cnt);
+              };
+
+int_check = ('>' @{ rl_cmp = CMP_GREATER; }
+           | '<' @{ rl_cmp = CMP_LESS; }
+           | '=' @{ rl_cmp = CMP_EQUAL; }
+           | '%' @{ rl_cmp = CMP_MODULE; }
+           | '^' @{ rl_cmp = CMP_POWER2; }
+           ) cmp_arg
+          ;
 
 atom = 'a' @{ rl_type = CHECK_ATOM; };
 bool = 'B' @{ rl_type = CHECK_BOOL; };
 byte = 'b' @{ rl_type = CHECK_BYTE; };
-int  = 'i' @{ rl_type = CHECK_INT; };
+int  = 'i' @{ rl_type = CHECK_INT; } int_check?;
 nrep = '?' @{ rl_min = 0; rl_max = 1; }
      | '+' @{ rl_min = 1, rl_max = REPEAT_INF; }
      | '*' @{ rl_min = 0; rl_max = REPEAT_INF; }
@@ -151,6 +198,12 @@ bool check_args(const char* arg_string, const AtomListView& lv, std::ostream& er
     int cs = 0;
     const char* p = arg_string;
     CheckType rl_type = CHECK_ATOM;
+    CompareType rl_cmp = CMP_NONE;
+    int64_t rl_num = 0;
+    int64_t rl_den = 0;
+    int64_t rl_den_cnt = 0;
+    int rl_sign = 0;
+    t_float rl_cmp_arg = 0;
     int rl_min = 0;
     int rl_max = 0;
 

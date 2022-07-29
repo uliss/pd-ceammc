@@ -95,5 +95,14 @@ TEST_CASE("args2", "[core]")
 
         REQUIRE_FALSE(args::check_args("i", LF(1.5), std::cerr));
         REQUIRE_FALSE(args::check_args("i", LF(-0.1), std::cerr));
+
+        REQUIRE(args::check_args("i<1000", LF(999), std::cerr));
+        REQUIRE(args::check_args("i<1000", LF(0), std::cerr));
+        REQUIRE(args::check_args("i<1000", LF(-100), std::cerr));
+        REQUIRE_FALSE(args::check_args("i<1000", LF(1000), std::cerr));
+
+        REQUIRE_FALSE(args::check_args("i<-10", LF(-9), std::cerr));
+        REQUIRE_FALSE(args::check_args("i<-10", LF(-10), std::cerr));
+        REQUIRE(args::check_args("i<-10", LF(-11), std::cerr));
     }
 }
