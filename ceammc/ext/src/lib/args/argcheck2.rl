@@ -463,6 +463,7 @@ bool checkAtom(const Check& c, const Atom& a, int& i, const void* x) {
         default:
         break;
         }
+        i++;
     }
     break;
     case CHECK_FLOAT: {
@@ -504,7 +505,7 @@ bool checkAtom(const Check& c, const Atom& a, int& i, const void* x) {
         default:
         break;
         }
-
+        i++;
     } break;
     default:
     break;
