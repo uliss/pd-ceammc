@@ -137,6 +137,12 @@ action do_check {
                         return false;
                     }
                 break;
+                case CMP_MODULE:
+                    if (val % arg != 0) {
+                        err << fmt::format("int value at [{}] expected to be multiple of {}, got: {}", ca, arg, val);
+                        return false;
+                    }
+                break;
                 default:
                 break;
                 }
