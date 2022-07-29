@@ -32,6 +32,16 @@ namespace {
         CHECK_SYMBOL,
     };
 
+    // keep in sync with CheckType values!
+    const char* typeNames[] = {
+        "atom",
+        "bool",
+        "byte",
+        "int",
+        "float",
+        "symbol",
+    };
+
     enum CompareType : int8_t {
         CMP_NONE,
         CMP_LESS,
@@ -89,6 +99,13 @@ namespace {
         {
             auto str_ptr = boost::get<ArgString>(&v);
             return (str_ptr && str_ptr->second == hash);
+        }
+
+        inline std::string argName() const {
+            if (name.empty())
+                return typeNames[atom_type];
+            else
+                return { name.data(), name.size() };
         }
     };
 
@@ -260,7 +277,10 @@ nrep  = '?' @{ rl_min = 0; rl_max = 1; }
       | rep_range
       | rep_num;
 
-check = (atom
+arg_name = [A-Z0-9_?@]{1,8} >{ rl_check.name.clear(); } ${ rl_check.name.push_back(fc); };
+
+check = (arg_name ':')?
+      (atom
       | bool
       | byte
       | int
@@ -447,7 +467,7 @@ bool checkAtom(const Check& c, const Atom& a, int& i, const void* x) {
     break;
     case CHECK_FLOAT: {
         if (!a.isFloat()) {
-            pdError(x, fmt::format("not a float at position [{}]: '{}'", i, atom_to_string(a)));
+            pdError(x, fmt::format("invalid {} value at [{}]: '{}'", c.argName(), i, atom_to_string(a)));
             return false;
         }
 
@@ -459,25 +479,25 @@ bool checkAtom(const Check& c, const Atom& a, int& i, const void* x) {
         switch (c.cmp_type) {
         case CMP_LESS:
             if (!(val < arg)) {
-                pdError(x, fmt::format("float value at [{}] expected to be <{}, got: {}", i, arg, val));
+                pdError(x, fmt::format("{} at [{}] expected to be <{}, got: {}", c.argName(), i, arg, val));
                 return false;
             }
         break;
         case CMP_LESS_EQ:
             if (!(val <= arg)) {
-                pdError(x, fmt::format("float value at [{}] expected to be <={}, got: {}", i, arg, val));
+                pdError(x, fmt::format("{} at [{}] expected to be <={}, got: {}", c.argName(), i, arg, val));
                 return false;
             }
         break;
         case CMP_GREATER:
             if (!(val > arg)) {
-                pdError(x, fmt::format("float value at [{}] expected to be >{}, got: {}", i, arg, val));
+                pdError(x, fmt::format("{} at [{}] expected to be >{}, got: {}", c.argName(), i, arg, val));
                 return false;
             }
         break;
         case CMP_GREATER_EQ:
             if (!(val >= arg)) {
-                pdError(x, fmt::format("float value at [{}] expected to be >={}, got: {}", i, arg, val));
+                pdError(x, fmt::format("{} at [{}] expected to be >={}, got: {}", c.argName(), i, arg, val));
                 return false;
             }
         break;

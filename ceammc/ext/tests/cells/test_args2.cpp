@@ -186,7 +186,7 @@ TEST_CASE("args2", "[core]")
     {
         REQUIRE_FALSE(args::check_args("f", Atom()));
         REQUIRE_FALSE(args::check_args("f", L()));
-        REQUIRE_FALSE(args::check_args("f", LA("abc")));
+        REQUIRE_FALSE(args::check_args("IDX:f", LA("abc")));
 
         REQUIRE(args::check_args("f", LF(-0)));
         REQUIRE(args::check_args("f", LF(1.5)));
@@ -223,7 +223,7 @@ TEST_CASE("args2", "[core]")
         REQUIRE_FALSE(args::check_args("f<-10.5", LF(-10.5)));
         REQUIRE(args::check_args("f<-10.5", LF(-10.501)));
 
-        REQUIRE_FALSE(args::check_args("f<=-10.5", LF(-10.499)));
+        REQUIRE_FALSE(args::check_args("FREQ:f<=-10.5", LF(-10.499)));
         REQUIRE(args::check_args("f<=-10.5", LF(-10.5)));
         REQUIRE(args::check_args("f<=-10.5", LF(-10.501)));
 
