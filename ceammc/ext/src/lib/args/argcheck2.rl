@@ -27,6 +27,8 @@ namespace {
         CHECK_BOOL,
         CHECK_BYTE,
         CHECK_INT,
+        CHECK_FLOAT,
+        CHECK_SYMBOL,
     };
 
     enum CompareType : int8_t {
@@ -92,6 +94,21 @@ namespace {
     inline std::string arg_to_string(const ArgValue& v)
     {
         return boost::apply_visitor(ArgStringVisitor(), v );
+    }
+
+    inline std::string arg_to_string(const ArgList& v)
+    {
+        std::string res;
+        ArgStringVisitor visitor;
+        for (auto& a: v) {
+            if (&a != &v[0]) {
+                res += ',';
+                res += ' ';
+            }
+            res += boost::apply_visitor(visitor, a);
+        }
+
+        return res;
     }
 }
 
@@ -258,7 +275,7 @@ bool checkAtom(const Check& c, const Atom& a, int& i, const void* x) {
                     }
                     if (!found) {
                         pdError(x, fmt::format("int value at [{}] expected to be one of: {}, got: {}",
-                                i, "", atom_to_string(a)));
+                                i, arg_to_string(c.values), atom_to_string(a)));
                         return false;
                     }
                 }
@@ -290,6 +307,8 @@ bool checkAtom(const Check& c, const Atom& a, int& i, const void* x) {
         debug("int", "Ok");
         i++;
     }
+    break;
+    case CHECK_SYMBOL:
     break;
     }
 
