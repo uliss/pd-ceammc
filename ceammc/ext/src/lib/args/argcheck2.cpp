@@ -42,7 +42,7 @@ namespace {
 		CMP_NOT_EQUAL,
 		CMP_MODULE,
 		CMP_POWER2,
-		CMP_RANGE,
+		CMP_RANGE_CLOSED,
 	};
 	
 	std::string atom_to_string(const ceammc::Atom& a) {
@@ -230,7 +230,7 @@ namespace ceammc {
 								}
 							}
 							break;
-							case CMP_RANGE: {
+							case CMP_RANGE_CLOSED: {
 								if (c.values.size() != 2) {
 									pdError(x, "internal arg error");
 									return false;
@@ -245,7 +245,7 @@ namespace ceammc {
 								const auto b = *boost::get<int64_t>(&c.values[1]);
 								
 								if (!(a <= val && val <= b)) {
-									pdError(x, fmt::format("int value at [{}] expected to be in [{}..{}] range, got: {}", i, a, b, val));
+									pdError(x, fmt::format("int value at [{}] expected to be in [{},{}] range, got: {}", i, a, b, val));
 									return false;
 								}
 							}
@@ -1517,7 +1517,7 @@ namespace ceammc {
 				_ctr36:
 				{
 #line 154 "args/argcheck2.rl"
-					rl_cmp = CMP_RANGE; }
+					rl_cmp = CMP_RANGE_CLOSED; }
 				
 #line 1523 "args/argcheck2.cpp"
 				

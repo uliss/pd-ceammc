@@ -41,7 +41,7 @@ namespace {
         CMP_NOT_EQUAL,
         CMP_MODULE,
         CMP_POWER2,
-        CMP_RANGE,
+        CMP_RANGE_CLOSED,
     };
 
     std::string atom_to_string(const ceammc::Atom& a) {
@@ -151,7 +151,7 @@ num_den  = [0-9]+ >{ rl_den = 0; rl_den_cnt = 1; } ${ (rl_den *= 10) += (fc - '0
 num_int  = num_sign? >{ rl_sign = 1; } num_num;
 num_real = num_int ('.' num_den)?;
 
-cmp_range_int = ('[' num_int @append_opt_int ',' num_int @append_opt_int ']') >{ rl_cmp = CMP_RANGE; };
+cmp_range_closed_int = ('[' num_int @append_opt_int ',' num_int @append_opt_int ']') >{ rl_cmp = CMP_RANGE_CLOSED; };
 
 cmp_eq_int = (('=' num_int @append_opt_int)
               ('|' num_int @append_opt_int)*
@@ -173,7 +173,7 @@ int_check = (cmp_op num_int %append_opt_int)
           | cmp_mod
           | cmp_pow2
           | cmp_eq_int
-          | cmp_range_int
+          | cmp_range_closed_int
           ;
 
 cmp_eq_sym = ('='
@@ -313,7 +313,7 @@ bool checkAtom(const Check& c, const Atom& a, int& i, const void* x) {
                 }
             }
             break;
-            case CMP_RANGE: {
+            case CMP_RANGE_CLOSED: {
                 if (c.values.size() != 2) {
                     pdError(x, "internal arg error");
                     return false;
@@ -328,7 +328,7 @@ bool checkAtom(const Check& c, const Atom& a, int& i, const void* x) {
                 const auto b = *boost::get<int64_t>(&c.values[1]);
 
                 if (!(a <= val && val <= b)) {
-                    pdError(x, fmt::format("int value at [{}] expected to be in [{}..{}] range, got: {}", i, a, b, val));
+                    pdError(x, fmt::format("int value at [{}] expected to be in [{},{}] range, got: {}", i, a, b, val));
                     return false;
                 }
             }
