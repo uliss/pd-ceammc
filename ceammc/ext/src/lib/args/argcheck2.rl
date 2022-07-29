@@ -4,6 +4,7 @@
 
 # include <cstdint>
 # include <iostream>
+# include <limits>
 
 #define ARG_DEBUG
 
@@ -143,6 +144,14 @@ action do_check {
                         return false;
                     }
                 break;
+                case CMP_POWER2: {
+                    bool rc = (val > 0 && ((val & (val - 1)) == 0));
+                    if (!rc) {
+                        err << fmt::format("int value at [{}] expected to be power of 2, got: {}", ca, val);
+                        return false;
+                    }
+                }
+                break;
                 default:
                 break;
                 }
@@ -183,16 +192,18 @@ cmp_farg   = (num_sign?
 cmp_op = '>'  @{ rl_cmp = CMP_GREATER; }
        | '<'  @{ rl_cmp = CMP_LESS; }
        | '='  @{ rl_cmp = CMP_EQUAL; }
-       | '!=' @{ rl_cmp = CMP_NOT_EQUAL; }
-       | '^2' @{ rl_cmp = CMP_POWER2; };
+       | '!=' @{ rl_cmp = CMP_NOT_EQUAL; };
 
 cmp_mod = ( '%' @{ rl_cmp = CMP_MODULE; }
             ([1-9][0-9]*) >{ rl_num = 0; } ${ (rl_num *= 10) += (fc - '0'); }
           ) @{ rl_cmp_arg = rl_num; }
           ;
 
+cmp_pow2 = '^2' @{ rl_cmp = CMP_POWER2; };
+
 int_check = (cmp_op cmp_farg)
           | cmp_mod
+          | cmp_pow2
           ;
 
 atom = 'a' @{ rl_type = CHECK_ATOM; };

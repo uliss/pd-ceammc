@@ -118,11 +118,18 @@ TEST_CASE("args2", "[core]")
         REQUIRE_FALSE(args::check_args("i!=0", LF(0), std::cerr));
 
         REQUIRE(args::check_args("i%2", LF(2), std::cerr));
-        REQUIRE(args::check_args("i%2", LF(4), std::cerr));
+        REQUIRE(args::check_args("i%2", LF(6), std::cerr));
         REQUIRE(args::check_args("i%2", LF(1024), std::cerr));
         REQUIRE_FALSE(args::check_args("i%2", LF(1), std::cerr));
         REQUIRE_FALSE(args::check_args("i%2", LF(1111), std::cerr));
         REQUIRE_FALSE(args::check_args("i%0", LF(1), std::cerr));
         REQUIRE_FALSE(args::check_args("i%-123", LF(1), std::cerr));
+
+        REQUIRE(args::check_args("i^2", LF(1), std::cerr));
+        REQUIRE(args::check_args("i^2", LF(2), std::cerr));
+        REQUIRE(args::check_args("i^2", LF(8), std::cerr));
+        REQUIRE(args::check_args("i^2", LF(1024), std::cerr));
+        REQUIRE_FALSE(args::check_args("i^2", LF(3), std::cerr));
+        REQUIRE_FALSE(args::check_args("i^2", LF(6), std::cerr));
     }
 }
