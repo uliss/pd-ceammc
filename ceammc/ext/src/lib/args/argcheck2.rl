@@ -194,14 +194,17 @@ num_sign = '+' @{ rl_sign = 1; }
 
 num_num  = [0-9]+ >{ rl_num = 0; } ${ (rl_num *= 10) += (fc - '0'); };
 num_den  = [0-9]+ >{ rl_den = 0; rl_den_cnt = 1; } ${ (rl_den *= 10) += (fc - '0'); rl_den_cnt *= 10; };
+num_int  = num_sign? >{ rl_sign = 1; } num_num;
+num_real = num_int ('.' num_den)?;
 
-cmp_farg   = (num_sign?
-            num_num
-            ('.' num_den)?
-            ) >{ rl_sign = 1; }
-              @{ rl_cmp_arg = rl_sign * rl_num;
-                 if(rl_den_cnt)  rl_cmp_arg += (double(rl_den) / rl_den_cnt);
-              };
+cmp_farg   = num_real
+             @{
+                rl_cmp_arg = rl_sign * rl_num;
+                if(rl_den_cnt)
+                    rl_cmp_arg += (double(rl_den) / rl_den_cnt);
+             };
+
+cmp_eq_int = '=' num_num;
 
 cmp_op = ('>' @{ rl_cmp = CMP_GREATER; } ('=' @{ rl_cmp = CMP_GREATER_EQ; })?)
        | ('<'  @{ rl_cmp = CMP_LESS; } ('=' @{ rl_cmp = CMP_LESS_EQ; })?)
