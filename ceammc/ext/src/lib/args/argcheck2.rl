@@ -130,6 +130,12 @@ namespace {
             return (int_ptr && i == *int_ptr);
         }
 
+        inline static bool isEqual(const ArgValue& v, double d)
+        {
+            auto dbl_ptr = boost::get<double>(&v);
+            return (dbl_ptr && d == *dbl_ptr);
+        }
+
         inline static bool isEqualHash(const ArgValue& v, uint32_t hash)
         {
             auto str_ptr = boost::get<ArgString>(&v);
@@ -310,7 +316,16 @@ cmp_range_float = ('['
                 (']' @{ rl_chk.cmp = CMP_RANGE_CLOSED; } | ')' @{ rl_chk.cmp = CMP_RANGE_SEMIOPEN; })
                 );
 
+#####################
+# equal: =FLOAT|FLOAT|FLOAT...
+#####################
+cmp_eq_float = (('=' num_real %append_opt_real)
+               ('|' num_real  %append_opt_real)*
+               ) >{ rl_chk.cmp = CMP_EQUAL; }
+               ;
+
 float_check = (cmp_op num_real %append_opt_real)
+            | cmp_eq_float
             | cmp_range_float
             ;
 
@@ -597,6 +612,34 @@ bool checkAtom(const Check& c, const Atom& a, int i, const void* x, bool pErr) {
                 return false;
             }
         }
+        break;
+        case CMP_EQUAL:
+            if (c.values.size() == 1) {
+                if (val != arg) {
+                    if (pErr)
+                        pdError(x, fmt::format("{} at [{}] expected to be = {}, got: {}",
+                                c.argName(), i, arg_to_string(c.values[0]), atom_to_string(a)));
+                    return false;
+                }
+            } else {
+                bool found = false;
+                for (auto& v: c.values) {
+                    if (c.isEqual(v, val)) { found = true; break; }
+                }
+                if (!found) {
+                    if (pErr)
+                        pdError(x, fmt::format("{} at [{}] expected to be one of: {}, got: {}",
+                                c.argName(), i, arg_to_string(c.values), atom_to_string(a)));
+                    return false;
+                }
+            }
+        break;
+        case CMP_NOT_EQUAL:
+            if (val == arg) {
+                if (pErr)
+                    pdError(x, fmt::format("{} at [{}] expected to be !={}, got: {}", c.argName(), i, arg, val));
+                return false;
+            }
         break;
         default:
         break;

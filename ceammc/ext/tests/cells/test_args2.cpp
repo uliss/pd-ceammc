@@ -252,6 +252,18 @@ TEST_CASE("args2", "[core]")
         REQUIRE(args::check_args("FREQ:f[1,2.5)", LF(2)));
         REQUIRE_FALSE(args::check_args("FREQ:f[1,2.5)", LF(2.5)));
         REQUIRE_FALSE(args::check_args("FREQ:f[1,2.5]", LF(2.5001)));
+
+        REQUIRE_FALSE(args::check_args("FREQ:f!=0", LF(0)));
+        REQUIRE(args::check_args("FREQ:f!=0", LF(0.0001)));
+
+        REQUIRE_FALSE(args::check_args("FREQ:f!=-2.5", LF(-2.5)));
+        REQUIRE(args::check_args("FREQ:f!=0", LF(-2.50001)));
+
+        REQUIRE(args::check_args("FREQ:f=+1.25", LF(1.25)));
+        REQUIRE(args::check_args("FREQ:f=-1.25", LF(-1.25)));
+        REQUIRE(args::check_args("FREQ:f=-1.25|+1.25", LF(-1.25)));
+        REQUIRE(args::check_args("FREQ:f=-1.25|+1.25", LF(1.25)));
+        REQUIRE_FALSE(args::check_args("FREQ:f=-1.25|+1.25", LF(-2.25)));
     }
 
     SECTION("mixed")
