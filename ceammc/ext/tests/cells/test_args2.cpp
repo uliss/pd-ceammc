@@ -168,7 +168,7 @@ TEST_CASE("args2", "[core]")
     SECTION("symbol")
     {
         REQUIRE_FALSE(args::check_args("s", Atom()));
-        REQUIRE_FALSE(args::check_args("s", L()));
+        REQUIRE_FALSE(args::check_args("NAME:s", L()));
         REQUIRE_FALSE(args::check_args("s", LF(123)));
 
         REQUIRE(args::check_args("s", LA("")));
@@ -179,7 +179,7 @@ TEST_CASE("args2", "[core]")
         REQUIRE(args::check_args("s=A|B?|@c", LA("A")));
         REQUIRE(args::check_args("s=A|B?|@c", LA("B?")));
         REQUIRE(args::check_args("s=A|B?|@c", LA("@c")));
-        REQUIRE_FALSE(args::check_args("s=A|B?|@c", LA("@d")));
+        REQUIRE_FALSE(args::check_args("MODE:s=A|B?|@c", LA("@d")));
     }
 
     SECTION("float")

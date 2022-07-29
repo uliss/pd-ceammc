@@ -313,13 +313,13 @@ bool checkAtom(const Check& c, const Atom& a, int& i, const void* x) {
             debug("book", "Ok");
             i++;
         } else {
-            pdError(x, fmt::format("bool expected at position [{}]: '{}'", i, atom_to_string(a)));
+            pdError(x, fmt::format("invalid {} value at [{}]: '{}'", c.argName(), i, atom_to_string(a)));
             return false;
         }
     break;
     case CHECK_BYTE:
         if (!a.isInteger() || a.asT<int>() < 0 || a.asT<int>() > 255) {
-            pdError(x, fmt::format("not a byte value at position [{}]: '{}'", i, atom_to_string(a)));
+            pdError(x, fmt::format("invalid {} value at [{}]: '{}'", c.argName(), i, atom_to_string(a)));
             return false;
         } else {
             debug("byte", "Ok");
@@ -328,7 +328,7 @@ bool checkAtom(const Check& c, const Atom& a, int& i, const void* x) {
     break;
     case CHECK_INT:
         if (!a.isInteger()) {
-            pdError(x, fmt::format("not a int value at position [{}]: '{}'", i, atom_to_string(a)));
+            pdError(x, fmt::format("invalid {} value at [{}]: '{}'", c.argName(), i, atom_to_string(a)));
             return false;
         } else {
             const int64_t val = a.asT<int>();
@@ -339,33 +339,33 @@ bool checkAtom(const Check& c, const Atom& a, int& i, const void* x) {
             switch (c.cmp_type) {
             case CMP_LESS:
                 if (!(val < arg)) {
-                    pdError(x, fmt::format("int value at [{}] expected to be <{}, got: {}", i, arg, val));
+                    pdError(x, fmt::format("{} at [{}] expected to be <{}, got: {}", c.argName(), i, arg, val));
                     return false;
                 }
             break;
             case CMP_LESS_EQ:
                 if (!(val <= arg)) {
-                    pdError(x, fmt::format("int value at [{}] expected to be <={}, got: {}", i, arg, val));
+                    pdError(x, fmt::format("{} at [{}] expected to be <={}, got: {}", c.argName(), i, arg, val));
                     return false;
                 }
             break;
             case CMP_GREATER:
                 if (!(val > arg)) {
-                    pdError(x, fmt::format("int value at [{}] expected to be >{}, got: {}", i, arg, val));
+                    pdError(x, fmt::format("{} at [{}] expected to be >{}, got: {}", c.argName(), i, arg, val));
                     return false;
                 }
             break;
             case CMP_GREATER_EQ:
                 if (!(val >= arg)) {
-                    pdError(x, fmt::format("int value at [{}] expected to be >={}, got: {}", i, arg, val));
+                    pdError(x, fmt::format("{} at [{}] expected to be >={}, got: {}", c.argName(), i, arg, val));
                     return false;
                 }
             break;
             case CMP_EQUAL:
                 if (c.values.size() == 1) {
                     if (val != arg) {
-                        pdError(x, fmt::format("int value at [{}] expected to be = {}, got: {}",
-                                i, arg_to_string(c.values[0]), atom_to_string(a)));
+                        pdError(x, fmt::format("{} at [{}] expected to be = {}, got: {}",
+                                c.argName(), i, arg_to_string(c.values[0]), atom_to_string(a)));
                         return false;
                     }
                 } else {
@@ -374,29 +374,29 @@ bool checkAtom(const Check& c, const Atom& a, int& i, const void* x) {
                         if (c.isEqual(v, val)) { found = true; break; }
                     }
                     if (!found) {
-                        pdError(x, fmt::format("int value at [{}] expected to be one of: {}, got: {}",
-                                i, arg_to_string(c.values), atom_to_string(a)));
+                        pdError(x, fmt::format("{} at [{}] expected to be one of: {}, got: {}",
+                                c.argName(), i, arg_to_string(c.values), atom_to_string(a)));
                         return false;
                     }
                 }
             break;
             case CMP_NOT_EQUAL:
                 if (val == arg) {
-                    pdError(x, fmt::format("int value at [{}] expected to be !={}, got: {}", i, arg, val));
+                    pdError(x, fmt::format("{} at [{}] expected to be !={}, got: {}", c.argName(), i, arg, val));
                     return false;
                 }
             break;
             case CMP_MODULE:
                 fmt::print("val={}, arg={}\n", val, arg);
                 if (val % arg != 0) {
-                    pdError(x, fmt::format("int value at [{}] expected to be multiple of {}, got: {}", i, arg, val));
+                    pdError(x, fmt::format("{} at [{}] expected to be multiple of {}, got: {}", c.argName(), i, arg, val));
                     return false;
                 }
             break;
             case CMP_POWER2: {
                 bool rc = (val > 0 && ((val & (val - 1)) == 0));
                 if (!rc) {
-                    pdError(x, fmt::format("int value at [{}] expected to be power of 2, got: {}", i, val));
+                    pdError(x, fmt::format("{} at [{}] expected to be power of 2, got: {}", c.argName(), i, val));
                     return false;
                 }
             }
@@ -417,12 +417,12 @@ bool checkAtom(const Check& c, const Atom& a, int& i, const void* x) {
                 const auto b = *boost::get<int64_t>(&c.values[1]);
 
                 if (c.cmp_type == CMP_RANGE_CLOSED && !(a <= val && val <= b)) {
-                    pdError(x, fmt::format("int value at [{}] expected to be in [{},{}] range, got: {}", i, a, b, val));
+                    pdError(x, fmt::format("{} value at [{}] expected to be in [{},{}] range, got: {}", c.argName(), i, a, b, val));
                     return false;
                 }
 
                 if (c.cmp_type == CMP_RANGE_SEMIOPEN && !(a <= val && val < b)) {
-                    pdError(x, fmt::format("int value at [{}] expected to be in [{},{}) range, got: {}", i, a, b, val));
+                    pdError(x, fmt::format("{} at [{}] expected to be in [{},{}) range, got: {}", c.argName(), i, a, b, val));
                     return false;
                 }
             }
@@ -436,7 +436,7 @@ bool checkAtom(const Check& c, const Atom& a, int& i, const void* x) {
     break;
     case CHECK_SYMBOL: {
         if (!a.isSymbol()) {
-            pdError(x, fmt::format("not a symbol at position [{}]: '{}'", i, atom_to_string(a)));
+            pdError(x, fmt::format("invalid {} value at [{}]: '{}'", c.argName(), i, atom_to_string(a)));
             return false;
         }
 
@@ -451,11 +451,11 @@ bool checkAtom(const Check& c, const Atom& a, int& i, const void* x) {
             }
             if (!found) {
                 if (c.values.size() == 1)
-                    pdError(x, fmt::format("symbol value at [{}] expected to be {}, got: '{}'",
-                            i, arg_to_string(c.values[0]), atom_to_string(a)));
+                    pdError(x, fmt::format("{} at [{}] expected to be {}, got: '{}'",
+                            c.argName(), i, arg_to_string(c.values[0]), atom_to_string(a)));
                 else
-                    pdError(x, fmt::format("symbol value at [{}] expected to be one of: {}, got: '{}'",
-                            i, arg_to_string(c.values), atom_to_string(a)));
+                    pdError(x, fmt::format("{} at [{}] expected to be one of: {}, got: '{}'",
+                            c.argName(), i, arg_to_string(c.values), atom_to_string(a)));
                 return false;
             }
         }
