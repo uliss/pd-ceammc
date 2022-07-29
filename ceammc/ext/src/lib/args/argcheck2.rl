@@ -154,11 +154,11 @@ action append_opt_int {
 }
 
 action append_opt_real {
-    double real = rl_sign * rl_num;
+    double real = rl_num;
     if (rl_den_cnt)
         real += rl_den / double(rl_den_cnt);
 
-    rl_check.values.push_back(real);
+    rl_check.values.push_back(rl_sign * real);
 }
 
 action append_opt_sym {
@@ -312,7 +312,7 @@ bool checkAtom(const Check& c, const Atom& a, int& i, const void* x) {
             return false;
         } else {
             const int64_t val = a.asT<int>();
-            const int64_t arg = (c.values.size() >= 1 && boost::get<int64_t>(&c.values[0]))
+            const int64_t arg = (c.values.size() == 1 && boost::get<int64_t>(&c.values[0]))
                 ? *boost::strict_get<int64_t>(&c.values[0])
                 : -999999999;
 
@@ -450,6 +450,41 @@ bool checkAtom(const Check& c, const Atom& a, int& i, const void* x) {
             pdError(x, fmt::format("not a float at position [{}]: '{}'", i, atom_to_string(a)));
             return false;
         }
+
+        auto val = a.asT<t_float>();
+        const t_float arg = (c.values.size() == 1 && boost::get<double>(&c.values[0]))
+            ? *boost::strict_get<double>(&c.values[0])
+            : -999999999;
+
+        switch (c.cmp_type) {
+        case CMP_LESS:
+            if (!(val < arg)) {
+                pdError(x, fmt::format("float value at [{}] expected to be <{}, got: {}", i, arg, val));
+                return false;
+            }
+        break;
+        case CMP_LESS_EQ:
+            if (!(val <= arg)) {
+                pdError(x, fmt::format("float value at [{}] expected to be <={}, got: {}", i, arg, val));
+                return false;
+            }
+        break;
+        case CMP_GREATER:
+            if (!(val > arg)) {
+                pdError(x, fmt::format("float value at [{}] expected to be >{}, got: {}", i, arg, val));
+                return false;
+            }
+        break;
+        case CMP_GREATER_EQ:
+            if (!(val >= arg)) {
+                pdError(x, fmt::format("float value at [{}] expected to be >={}, got: {}", i, arg, val));
+                return false;
+            }
+        break;
+        default:
+        break;
+        }
+
     } break;
     default:
     break;

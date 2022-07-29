@@ -194,5 +194,38 @@ TEST_CASE("args2", "[core]")
         REQUIRE(args::check_args("f", LF(+1000)));
         REQUIRE(args::check_args("f", LF(-11000.0)));
         REQUIRE(args::check_args("f", LF(0.1e+32)));
+
+        REQUIRE_FALSE(args::check_args("f>+2.5", LF(2.4999)));
+        REQUIRE_FALSE(args::check_args("f>+2.5", LF(2.5)));
+        REQUIRE(args::check_args("f>+2.5", LF(2.5001)));
+
+        REQUIRE_FALSE(args::check_args("f>2.5", LF(2.4999)));
+        REQUIRE_FALSE(args::check_args("f>2.5", LF(2.5)));
+        REQUIRE(args::check_args("f>2.5", LF(2.5001)));
+
+        REQUIRE_FALSE(args::check_args("f>20", LF(19.999)));
+        REQUIRE_FALSE(args::check_args("f>20", LF(20)));
+        REQUIRE(args::check_args("f>20", LF(20.001)));
+
+        REQUIRE_FALSE(args::check_args("f>-10", LF(-10.001)));
+        REQUIRE_FALSE(args::check_args("f>-10", LF(-10)));
+        REQUIRE(args::check_args("f>-10", LF(-9.999)));
+
+        REQUIRE_FALSE(args::check_args("f>-10.0", LF(-10.001)));
+        REQUIRE_FALSE(args::check_args("f>-10.0", LF(-10)));
+        REQUIRE(args::check_args("f>-10.0", LF(-9.999)));
+
+        REQUIRE_FALSE(args::check_args("f>=-10.0", LF(-10.001)));
+        REQUIRE(args::check_args("f>=-10.0", LF(-10)));
+        REQUIRE(args::check_args("f>=-10.0", LF(-9.999)));
+
+        REQUIRE_FALSE(args::check_args("f<-10.5", LF(-10.499)));
+        REQUIRE_FALSE(args::check_args("f<-10.5", LF(-10.5)));
+        REQUIRE(args::check_args("f<-10.5", LF(-10.501)));
+
+        REQUIRE_FALSE(args::check_args("f<=-10.5", LF(-10.499)));
+        REQUIRE(args::check_args("f<=-10.5", LF(-10.5)));
+        REQUIRE(args::check_args("f<=-10.5", LF(-10.501)));
+
     }
 }
