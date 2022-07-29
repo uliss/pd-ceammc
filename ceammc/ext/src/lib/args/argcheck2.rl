@@ -302,7 +302,17 @@ cmp_eq_sym = ('=' sym_opt  %append_opt_sym
 
 sym_check = cmp_eq_sym;
 
-float_check = (cmp_op num_real %append_opt_real);
+#####################
+# closed float range: [FLOAT,FLOAT] or [FLOAT,FLOAT)
+#####################
+cmp_range_float = ('['
+                    num_real %append_opt_real ',' num_real %append_opt_real
+                (']' @{ rl_chk.cmp = CMP_RANGE_CLOSED; } | ')' @{ rl_chk.cmp = CMP_RANGE_SEMIOPEN; })
+                );
+
+float_check = (cmp_op num_real %append_opt_real)
+            | cmp_range_float
+            ;
 
 atom  = 'a' @{ rl_chk.type = CHECK_ATOM; };
 bool  = 'B' @{ rl_chk.type = CHECK_BOOL; };
@@ -559,6 +569,34 @@ bool checkAtom(const Check& c, const Atom& a, int i, const void* x, bool pErr) {
                     pdError(x, fmt::format("{} at [{}] expected to be >={}, got: {}", c.argName(), i, arg, val));
                 return false;
             }
+        break;
+        case CMP_RANGE_SEMIOPEN:
+        case CMP_RANGE_CLOSED: {
+            if (c.values.size() != 2) {
+                pdError(x, fmt::format("internal arg error, invalid arg count: {}", c.values.size()));
+                return false;
+            }
+
+            if (!boost::get<double>(&c.values[0]) || !boost::get<double>(&c.values[1])) {
+                pdError(x, "internal arg error");
+                return false;
+            }
+
+            const auto a = *boost::get<double>(&c.values[0]);
+            const auto b = *boost::get<double>(&c.values[1]);
+
+            if (c.cmp == CMP_RANGE_CLOSED && !(a <= val && val <= b)) {
+                if (pErr)
+                    pdError(x, fmt::format("{} value at [{}] expected to be in [{},{}] range, got: {}", c.argName(), i, a, b, val));
+                return false;
+            }
+
+            if (c.cmp == CMP_RANGE_SEMIOPEN && !(a <= val && val < b)) {
+                if (pErr)
+                    pdError(x, fmt::format("{} at [{}] expected to be in [{},{}) range, got: {}", c.argName(), i, a, b, val));
+                return false;
+            }
+        }
         break;
         default:
         break;
