@@ -118,6 +118,18 @@ action do_check {
                         return false;
                     }
                 break;
+                case CMP_GREATER:
+                    if (!(val > arg)) {
+                        err << fmt::format("int value at [{}] expected to be >{}, got: {}", ca, arg, val);
+                        return false;
+                    }
+                break;
+                case CMP_EQUAL:
+                    if (val != arg) {
+                        err << fmt::format("int value at [{}] expected to be ={}, got: {}", ca, arg, val);
+                        return false;
+                    }
+                break;
                 default:
                 break;
                 }
