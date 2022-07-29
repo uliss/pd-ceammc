@@ -108,6 +108,19 @@ namespace {
             else
                 return { name.data(), name.size() };
         }
+
+        inline std::string helpRepeats() const {
+            if (rmin == 1 && rmax == 1) return {};
+            if (rmin == 0 && rmax == 1) return { '?', 1 };
+            if (rmin == 0 && rmax == REPEAT_INF) return { '*', 1 };
+            if (rmin == 1 && rmax == REPEAT_INF) return { '+', 1 };
+            if (rmin == rmax)
+                return fmt::format("{{{}}}", (int)rmin);
+            if (rmax != REPEAT_INF)
+                return fmt::format("{{{},{}}}", (int)rmin, (int)rmax);
+            else
+                return fmt::format("{{{},}}", (int)rmin);
+        }
     };
 
     class ArgStringVisitor : public boost::static_visitor<std::string>
@@ -189,7 +202,7 @@ action append_opt_sym {
 rep_min = '0' @{ rl_chk.rmin = 0; } | ([1-9] @{ rl_chk.rmin = fc-'0'; } [0-9]* ${ (rl_chk.rmin *= 10) += (fc - '0'); });
 rep_max = '0' @{ rl_chk.rmax = 0; } | ([1-9] @{ rl_chk.rmax = fc-'0'; } [0-9]* ${ (rl_chk.rmax *= 10) += (fc - '0'); });
 rep_num   = '{' rep_min '}' @{ rl_chk.rmax = rl_chk.rmin; };
-rep_range = '{' rep_min ',' rep_max? '}';
+rep_range = ('{' rep_min ',' rep_max? '}') >{ rl_chk.rmin = 0; rl_chk.rmax = REPEAT_INF; };
 
 num_sign = '+' @{ rl_sign = 1; }
          | '-' @{ rl_sign = -1; };
@@ -246,7 +259,7 @@ int_check = (cmp_op num_int %append_opt_int)
           | cmp_range_int
           ;
 
-sym_opt = ([^ |]-0)+** >{ rl_sym_start = fpc; };
+sym_opt = [a-zA-Z_\-0-9@#:]+ >{ rl_sym_start = fpc; };
 
 #####################
 # symbol equal: =SYM|SYM...
@@ -266,7 +279,7 @@ int   = 'i' @{ rl_chk.type = CHECK_INT; } int_check?;
 sym   = 's' @{ rl_chk.type = CHECK_SYMBOL; } sym_check?;
 float = 'f' @{ rl_chk.type = CHECK_FLOAT; } float_check?;
 nrep  = '?' @{ rl_chk.setRepeats(0, 1); }
-      | '+' @{ rl_chk.setRepeats(0, REPEAT_INF); }
+      | '+' @{ rl_chk.setRepeats(1, REPEAT_INF); }
       | '*' @{ rl_chk.setRepeats(0, REPEAT_INF); }
       | rep_range
       | rep_num;
@@ -280,7 +293,7 @@ check = (arg_name ':')?
       | int
       | sym
       | float
-      ) nrep? >{ rl_chk.rmin = 1; rl_chk.rmax = REPEAT_INF; }
+      ) nrep? >{ rl_chk.rmin = 1; rl_chk.rmax = 1; }
       ;
 
 args = (check (' ' @do_check check)*);
@@ -454,6 +467,7 @@ bool checkAtom(const Check& c, const Atom& a, int i, const void* x) {
         default:
         break;
         }
+        debug("symbol", "Ok");
     }
     break;
     case CHECK_FLOAT: {
@@ -495,6 +509,7 @@ bool checkAtom(const Check& c, const Atom& a, int i, const void* x) {
         default:
         break;
         }
+        debug("float", "Ok");
     } break;
     default:
     break;
@@ -504,7 +519,18 @@ bool checkAtom(const Check& c, const Atom& a, int i, const void* x) {
 }
 }
 
-struct ArgCheckImp : boost::container::small_vector<Check, 4> {};
+struct ArgCheckImp : boost::container::small_vector<Check, 4> {
+public:
+    std::string helpBrief() const {
+        string::MediumString str;
+        auto bs = std::back_inserter(str);
+        fmt::format_to(bs, "usage: ");
+        for (auto& c: *this) {
+            fmt::format_to(bs, "{}{} ", c.argName(), c.helpRepeats());
+        }
+        return { str.data(), str.size() };
+    }
+};
 
 ArgChecker::~ArgChecker()  = default;
 
@@ -515,46 +541,35 @@ bool ArgChecker::check(const AtomListView& lv, BaseObject* obj) const
 
     const void* x = obj ? obj->owner() : nullptr;
 
+    pdDebug(x, chk_->helpBrief());
+
     const int N = lv.size();
-    int ca = 0;
+    int atom_idx = 0;
+
     for (int i = 0; i < chk_->size(); i++) {
-        auto& c = (*chk_)[i];
-        auto cur = i + (c.rmin - 1);
-        if (cur >= N) {
-            switch (c.type) {
-            case CHECK_ATOM:
-                pdError(x, fmt::format("atom expected at position [{}]", cur));
-                return false;
-            case CHECK_BOOL:
-                pdError(x, fmt::format("bool expected at position [{}]", cur));
-                return false;
-            case CHECK_BYTE:
-                pdError(x, fmt::format("byte[0..255] expected at position [{}]", cur));
-                return false;
-            case CHECK_INT:
-                pdError(x, fmt::format("int expected at position [{}]", cur));
-                return false;
-            case CHECK_FLOAT:
-                pdError(x, fmt::format("float expected at position [{}]", cur));
-                return false;
-            case CHECK_SYMBOL:
-                pdError(x, fmt::format("symbol expected at position [{}]", cur));
-                return false;
-            default:
-                pdError(x, fmt::format("error at position [{}]", cur));
+        auto& check = (*chk_)[i];
+        auto cur = atom_idx + (check.rmin - 1);
+
+        for (int k = 0; k < check.rmin; k++, atom_idx++) {
+            if (atom_idx >= N) {
+                pdError(x, fmt::format("{} expected at [{}]", check.argName(), atom_idx));
                 return false;
             }
+            if (!checkAtom(check, lv[atom_idx], atom_idx, x))
+                return false;
         }
 
-        const auto TOTAL = std::min<int>(N, i + c.repeatMax());
-        for (int j = ca; j < TOTAL; j++, ca++) {
-            if (!checkAtom(c, lv[ca], ca, x))
-                return false;
+        for (int k = check.rmin; k < check.repeatMax(); k++, atom_idx++) {
+            if (atom_idx >= N)
+                break;
+
+            if (!checkAtom(check, lv[atom_idx], atom_idx, x))
+                break;
         }
     }
 
-    if (ca < N) {
-        pdError(x, fmt::format("extra arguments left, starting from [{}]: {}", ca, list_to_string(lv.subView(ca))));
+    if (atom_idx < N) {
+        pdError(x, fmt::format("extra arguments left, starting from [{}]: {}", atom_idx, list_to_string(lv.subView(atom_idx))));
         return false;
     }
 

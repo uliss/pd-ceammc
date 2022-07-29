@@ -179,14 +179,20 @@ TEST_CASE("args2", "[core]")
 
         REQUIRE(args::check_args("s=A", LA("A")));
         REQUIRE_FALSE(args::check_args("s=A", LA("AB")));
-        REQUIRE(args::check_args("s=A|B?|@c", LA("A")));
-        REQUIRE(args::check_args("s=A|B?|@c", LA("B?")));
-        REQUIRE(args::check_args("s=A|B?|@c", LA("@c")));
-        REQUIRE_FALSE(args::check_args("MODE:s=A|B?|@c", LA("@d")));
+        REQUIRE(args::check_args("s=A|B#|@c", LA("A")));
+        REQUIRE(args::check_args("s=A|B#|@c", LA("B#")));
+        REQUIRE(args::check_args("s=A|B#|@c", LA("@c")));
+        REQUIRE_FALSE(args::check_args("MODE:s=A|B#|@c", LA("@d")));
 
         REQUIRE(args::check_args("s s", LA("A", "B")));
+        REQUIRE(args::check_args("s{2}", LA("A", "B")));
+        REQUIRE(args::check_args("s{1,}", LA("A", "B")));
+        REQUIRE(args::check_args("s{1,2}", LA("A", "B")));
+        REQUIRE(args::check_args("s+", LA("A", "B")));
+        REQUIRE(args::check_args("s+", LA("A", "B", "C")));
         REQUIRE(args::check_args("s s*", LA("A")));
         REQUIRE(args::check_args("s s*", LA("A", "B")));
+        REQUIRE(args::check_args("s s+", LA("A", "test")));
         REQUIRE(args::check_args("A:s B?:s*", LA("A", "B", "C")));
     }
 
@@ -238,7 +244,8 @@ TEST_CASE("args2", "[core]")
 
     SECTION("mixed")
     {
-        REQUIRE(args::check_args("a f<0 i+ s=A|B{2,4}", LA("true", -1.5, 1, 2, 3, 4, 5, "A", "A", "B")));
-        //REQUIRE_FALSE(args::check_args("a f<0 i+ s=A|B{2,4}", LA("true", 2, 1, 2, 3, 4, 5, "A", "A", "B")));
+        REQUIRE(args::check_args("a f<0 i+ s+", LA("true", -1.5, 1, 2, 3, 4, 5, "A", "A", "B")));
+        REQUIRE(args::check_args("a f<0 i+ s=A|BC*", LA("true", -1.5, 2, 1, 2, 3, 4, 5, "A", "A", "BC")));
+        REQUIRE(args::check_args("a f<0 i+ s=A|BC+ f", LA("true", -1.5, 2, 1, 2, 3, 4, 5, "A", "A", "BC", -100)));
     }
 }
