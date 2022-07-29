@@ -41,6 +41,7 @@ namespace {
         CMP_NOT_EQUAL,
         CMP_MODULE,
         CMP_POWER2,
+        CMP_RANGE,
     };
 
     std::string atom_to_string(const ceammc::Atom& a) {
@@ -139,8 +140,8 @@ action append_opt_int {
 
 rep_min = '0' @{ rl_min = 0; } | ([1-9] @{ rl_min = fc-'0'; } [0-9]* ${ (rl_min *= 10) += (fc - '0'); });
 rep_max = '0' @{ rl_max = 0; } | ([1-9] @{ rl_max = fc-'0'; } [0-9]* ${ (rl_max *= 10) += (fc - '0'); });
-rep_num   = '[' rep_min ']' @{ rl_max = rl_min; };
-rep_range = '[' rep_min '..' rep_max? ']';
+rep_num   = '{' rep_min '}' @{ rl_max = rl_min; };
+rep_range = '{' rep_min ',' rep_max? '}';
 
 num_sign = '+' @{ rl_sign = 1; }
          | '-' @{ rl_sign = -1; };
@@ -149,6 +150,8 @@ num_num  = [0-9]+ >{ rl_num = 0; } ${ (rl_num *= 10) += (fc - '0'); };
 num_den  = [0-9]+ >{ rl_den = 0; rl_den_cnt = 1; } ${ (rl_den *= 10) += (fc - '0'); rl_den_cnt *= 10; };
 num_int  = num_sign? >{ rl_sign = 1; } num_num;
 num_real = num_int ('.' num_den)?;
+
+cmp_range_int = (num_int @append_opt_int '..' num_int @append_opt_int) >{ rl_cmp = CMP_RANGE; };
 
 cmp_eq_int = (('=' num_int @append_opt_int)
               ('|' num_int @append_opt_int)*
@@ -170,6 +173,7 @@ int_check = (cmp_op num_int %append_opt_int)
           | cmp_mod
           | cmp_pow2
           | cmp_eq_int
+          | cmp_range_int
           ;
 
 cmp_eq_sym = ('='
@@ -305,6 +309,26 @@ bool checkAtom(const Check& c, const Atom& a, int& i, const void* x) {
                 bool rc = (val > 0 && ((val & (val - 1)) == 0));
                 if (!rc) {
                     pdError(x, fmt::format("int value at [{}] expected to be power of 2, got: {}", i, val));
+                    return false;
+                }
+            }
+            break;
+            case CMP_RANGE: {
+                if (c.values.size() != 2) {
+                    pdError(x, "internal arg error");
+                    return false;
+                }
+
+                if (!boost::get<int64_t>(&c.values[0]) || !boost::get<int64_t>(&c.values[1])) {
+                    pdError(x, "internal arg error");
+                    return false;
+                }
+
+                const auto a = *boost::get<int64_t>(&c.values[0]);
+                const auto b = *boost::get<int64_t>(&c.values[1]);
+
+                if (!(a <= val && val <= b)) {
+                    pdError(x, fmt::format("int value at [{}] expected to be in [{}..{}] range, got: {}", i, a, b, val));
                     return false;
                 }
             }

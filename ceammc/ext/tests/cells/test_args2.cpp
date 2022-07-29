@@ -30,22 +30,22 @@ TEST_CASE("args2", "[core]")
         REQUIRE(args::check_args("a?", Atom(1)));
         REQUIRE(args::check_args("a+", Atom(1)));
         REQUIRE(args::check_args("a*", Atom(1)));
-        REQUIRE(args::check_args("a[0..]", Atom(1)));
-        REQUIRE(args::check_args("a[1..]", Atom(1)));
-        REQUIRE(args::check_args("a[0..1]", Atom(1)));
+        REQUIRE(args::check_args("a{0,}", Atom(1)));
+        REQUIRE(args::check_args("a{1,}", Atom(1)));
+        REQUIRE(args::check_args("a{0,1}", Atom(1)));
         REQUIRE_FALSE(args::check_args("a a", Atom(100)));
         REQUIRE(args::check_args("a a?", Atom(100)));
         REQUIRE(args::check_args("a a*", Atom(100)));
-        REQUIRE(args::check_args("a a[0..100]", Atom(100)));
+        REQUIRE(args::check_args("a a{0,100}", Atom(100)));
         REQUIRE(args::check_args("a? a?", Atom(100)));
         REQUIRE(args::check_args("a? a?", LF(1, 2)));
         REQUIRE(args::check_args("a+", LF(1, 2)));
-        REQUIRE_FALSE(args::check_args("a[3..]", LF(1, 2)));
-        REQUIRE(args::check_args("a[3..]", LF(1, 2, 3)));
+        REQUIRE_FALSE(args::check_args("a{3,}", LF(1, 2)));
+        REQUIRE(args::check_args("a{3,}", LF(1, 2, 3)));
         REQUIRE_FALSE(args::check_args("a?", LF(1, 2, 3)));
-        REQUIRE(args::check_args("a[2]", LF(1, 2)));
-        REQUIRE_FALSE(args::check_args("a[2]", LF(1)));
-        REQUIRE_FALSE(args::check_args("a[2]", LF(1, 2, 3)));
+        REQUIRE(args::check_args("a{2}", LF(1, 2)));
+        REQUIRE_FALSE(args::check_args("a{2}", LF(1)));
+        REQUIRE_FALSE(args::check_args("a{2}", LF(1, 2, 3)));
     }
 
     SECTION("bool")
