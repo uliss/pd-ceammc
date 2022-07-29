@@ -1,5 +1,6 @@
 # include "argcheck2.h"
 # include "ceammc_string.h"
+# include "ceammc_containers.h"
 # include "fmt/core.h"
 
 # include <cstdint>
@@ -141,9 +142,22 @@ action do_check {
                     }
                 break;
                 case CMP_EQUAL:
-                    if (val != arg) {
-                        err << fmt::format("int value at [{}] expected to be ={}, got: {}", ca, arg, val);
-                        return false;
+                    if (rl_eq.size() == 1) {
+                        if (a != rl_eq[0]) {
+                            err << fmt::format("int value at [{}] expected to be = {}, got: {}",
+                                    ca, atom_to_string(rl_eq[0]), atom_to_string(a));
+                            return false;
+                        }
+                    } else {
+                        bool found = false;
+                        for (auto& x: rl_eq) {
+                            if (a == x) { found = true; break; }
+                        }
+                        if (!found) {
+                            err << fmt::format("int value at [{}] expected to be one of: {}, got: {}",
+                                    ca, list_to_string(rl_eq.view()), atom_to_string(a));
+                            return false;
+                        }
                     }
                 break;
                 case CMP_NOT_EQUAL:
@@ -184,6 +198,11 @@ action do_check {
     rl_max = 0;
 }
 
+action append_opt_int {
+    rl_eq.push_back(Atom(rl_sign * rl_num));
+    debug("op size", rl_eq.size());
+}
+
 rep_min = '0' @{ rl_min = 0; } | ([1-9] @{ rl_min = fc-'0'; } [0-9]* ${ (rl_min *= 10) += (fc - '0'); });
 rep_max = '0' @{ rl_max = 0; } | ([1-9] @{ rl_max = fc-'0'; } [0-9]* ${ (rl_max *= 10) += (fc - '0'); });
 rep_num   = '[' rep_min ']' @{ rl_max = rl_min; };
@@ -200,15 +219,17 @@ num_real = num_int ('.' num_den)?;
 cmp_farg   = num_real
              @{
                 rl_cmp_arg = rl_sign * rl_num;
-                if(rl_den_cnt)
+                if (rl_den_cnt)
                     rl_cmp_arg += (double(rl_den) / rl_den_cnt);
              };
 
-cmp_eq_int = '=' num_num;
+cmp_eq_int = (('=' num_int %append_opt_int)
+              ('|' num_int %append_opt_int)*
+             ) >{ rl_cmp = CMP_EQUAL; }
+           ;
 
 cmp_op = ('>' @{ rl_cmp = CMP_GREATER; } ('=' @{ rl_cmp = CMP_GREATER_EQ; })?)
        | ('<'  @{ rl_cmp = CMP_LESS; } ('=' @{ rl_cmp = CMP_LESS_EQ; })?)
-       |  '='  @{ rl_cmp = CMP_EQUAL; }
        |  '!=' @{ rl_cmp = CMP_NOT_EQUAL; };
 
 cmp_mod = ( '%' @{ rl_cmp = CMP_MODULE; }
@@ -221,6 +242,7 @@ cmp_pow2 = '^2' @{ rl_cmp = CMP_POWER2; };
 int_check = (cmp_op cmp_farg)
           | cmp_mod
           | cmp_pow2
+          | cmp_eq_int
           ;
 
 atom = 'a' @{ rl_type = CHECK_ATOM; };
@@ -266,6 +288,8 @@ bool check_args(const char* arg_string, const AtomListView& lv, std::ostream& er
     t_float rl_cmp_arg = 0;
     int rl_min = 0;
     int rl_max = 0;
+
+    SmallAtomListN<16> rl_eq;
 
     %%{
         write init;

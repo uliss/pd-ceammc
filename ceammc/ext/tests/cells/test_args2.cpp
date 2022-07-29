@@ -121,6 +121,12 @@ TEST_CASE("args2", "[core]")
         REQUIRE_FALSE(args::check_args("i=-13", LF(-12), std::cerr));
         REQUIRE_FALSE(args::check_args("i=-13", LF(-11), std::cerr));
 
+        REQUIRE(args::check_args("i=1|2|3", LF(1), std::cerr));
+        REQUIRE(args::check_args("i=1|2|3", LF(2), std::cerr));
+        REQUIRE(args::check_args("i=1|2|3", LF(3), std::cerr));
+        REQUIRE_FALSE(args::check_args("i=1|2|3", LF(4), std::cerr));
+        REQUIRE_FALSE(args::check_args("i=1|2|3", LF(0), std::cerr));
+
         REQUIRE(args::check_args("i!=0", LF(1), std::cerr));
         REQUIRE(args::check_args("i!=0", LF(-1), std::cerr));
         REQUIRE_FALSE(args::check_args("i!=0", LF(0), std::cerr));
