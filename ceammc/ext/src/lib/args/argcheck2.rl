@@ -13,7 +13,7 @@
 # include <boost/container/static_vector.hpp>
 # include <boost/variant.hpp>
 
-#define ARG_DEBUG
+// #define ARG_DEBUG
 
 #ifdef ARG_DEBUG
 #define debug(prefix, arg) std::cerr << " - " << prefix << ": " << arg << std::endl;
@@ -742,7 +742,6 @@ bool ArgChecker::check(const AtomListView& lv, BaseObject* obj) const
 
     const void* x = obj ? obj->owner() : nullptr;
 
-    pdDebug(x, chk_->helpBrief());
     pdDebug(x, chk_->help());
 
     const int N = lv.size();
