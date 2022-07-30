@@ -742,7 +742,7 @@ bool ArgChecker::check(const AtomListView& lv, BaseObject* obj) const
 
     const void* x = obj ? obj->owner() : nullptr;
 
-    pdDebug(x, chk_->help());
+    // pdDebug(x, chk_->help());
 
     const int N = lv.size();
     int atom_idx = 0;
@@ -799,6 +799,18 @@ ArgChecker::ArgChecker(const char* str)
         LIB_ERR << fmt::format("invalid format string: '{}'", str);
         chk_.reset();
     }
+}
+
+void ArgChecker::usage(BaseObject* obj, t_symbol* m)
+{
+    if (!chk_)
+        return;
+
+    Error err(obj);
+    if (m)
+        err << '[' << m->s_name << "( ";
+
+    err << chk_->help();
 }
 
 bool check_args(const char* arg_string, const AtomListView& lv, BaseObject* obj)

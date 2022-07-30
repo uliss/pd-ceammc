@@ -34,6 +34,7 @@ namespace args {
         ArgChecker(const char* str);
         ~ArgChecker();
         bool check(const AtomListView& lv, BaseObject* obj) const;
+        void usage(BaseObject* obj = nullptr, t_symbol* m = nullptr);
     };
 
     bool check_args(const char* arg_string, const AtomListView& lv, BaseObject* obj = nullptr);
