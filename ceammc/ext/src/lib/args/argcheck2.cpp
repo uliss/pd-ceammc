@@ -8,6 +8,7 @@
 # include <cstdint>
 # include <iostream>
 # include <limits>
+# include <cmath>
 # include <algorithm>
 # include <boost/static_string.hpp>
 # include <boost/container/static_vector.hpp>
@@ -55,6 +56,7 @@ namespace {
 		CMP_POWER2,
 		CMP_RANGE_CLOSED,
 		CMP_RANGE_SEMIOPEN,
+		CMP_APPROX,
 	};
 	
 	std::string atom_to_string(const ceammc::Atom& a) {
@@ -113,6 +115,11 @@ namespace {
 		return { res.data(), res.size() };
 	}
 	
+	inline bool approx_equal(double a, double b, double e = 0.00001)
+	{
+		return std::fabs(a - b) <= e;
+	}
+	
 	struct Check {
 		ArgList values;
 		ArgName name;
@@ -135,6 +142,12 @@ namespace {
 		{
 			auto dbl_ptr = boost::get<double>(&v);
 			return (dbl_ptr && d == *dbl_ptr);
+		}
+		
+		inline static bool isApproxEqual(const ArgValue& v, double d)
+		{
+			auto dbl_ptr = boost::get<double>(&v);
+			return dbl_ptr && approx_equal(d, *dbl_ptr);
 		}
 		
 		inline static bool isEqualHash(const ArgValue& v, uint32_t hash)
@@ -171,6 +184,11 @@ namespace {
 					return fmt::format("check: ={}", arg_to_string(values));
 				else
 					return fmt::format("enum: {}", arg_to_string(values, "|"));
+				case CMP_APPROX:
+				if (values.size() == 1)
+					return fmt::format("check: ~{}", arg_to_string(values));
+				else
+					return fmt::format("enum: ~{}", arg_to_string(values, "|"));
 				default:
 				return {};
 			}
@@ -199,7 +217,7 @@ namespace {
 }
 
 
-#line 203 "args/argcheck2.cpp"
+#line 221 "args/argcheck2.cpp"
 static const int arg_check2_start = 1;
 static const int arg_check2_first_final = 67;
 static const int arg_check2_error = 0;
@@ -207,7 +225,7 @@ static const int arg_check2_error = 0;
 static const int arg_check2_en_main = 1;
 
 
-#line 362 "args/argcheck2.rl"
+#line 389 "args/argcheck2.rl"
 
 
 namespace ceammc {
@@ -490,6 +508,27 @@ namespace ceammc {
 								return false;
 							}
 							break;
+							case CMP_APPROX:
+							if (c.values.size() == 1) {
+								if (!approx_equal(val, arg)) {
+									if (pErr)
+										pdError(x, fmt::format("{} at [{}] expected to be ~ {}, got: {}",
+									c.argName(), i, arg_to_string(c.values[0]), atom_to_string(a)));
+									return false;
+								}
+							} else {
+								bool found = false;
+								for (auto& v: c.values) {
+									if (c.isApproxEqual(v, val)) { found = true; break; }
+								}
+								if (!found) {
+									if (pErr)
+										pdError(x, fmt::format("{} at [{}] expected to be aprrox of: {}, got: {}",
+									c.argName(), i, arg_to_string(c.values), atom_to_string(a)));
+									return false;
+								}
+							}
+							break;
 							default:
 							break;
 						}
@@ -593,12 +632,12 @@ namespace ceammc {
 			const char* rl_sym_start = 0;
 			
 			
-#line 597 "args/argcheck2.cpp"
+#line 636 "args/argcheck2.cpp"
 			{
 				cs = (int)arg_check2_start;
 			}
 			
-#line 602 "args/argcheck2.cpp"
+#line 641 "args/argcheck2.cpp"
 			{
 				switch ( cs ) {
 					case 1:
@@ -741,13 +780,13 @@ namespace ceammc {
 				goto st_out;
 				_ctr28:
 				{
-#line 353 "args/argcheck2.rl"
+#line 380 "args/argcheck2.rl"
 					rl_chk.rmin = 1; rl_chk.rmax = 1; }
 				
-#line 748 "args/argcheck2.cpp"
+#line 787 "args/argcheck2.cpp"
 				
 				{
-#line 203 "args/argcheck2.rl"
+#line 221 "args/argcheck2.rl"
 					
 					if (chk_)
 					chk_->push_back(rl_chk);
@@ -759,12 +798,12 @@ namespace ceammc {
 					rl_chk = {};
 				}
 				
-#line 763 "args/argcheck2.cpp"
+#line 802 "args/argcheck2.cpp"
 				
 				goto _st1;
 				_ctr35:
 				{
-#line 203 "args/argcheck2.rl"
+#line 221 "args/argcheck2.rl"
 					
 					if (chk_)
 					chk_->push_back(rl_chk);
@@ -776,12 +815,12 @@ namespace ceammc {
 					rl_chk = {};
 				}
 				
-#line 780 "args/argcheck2.cpp"
+#line 819 "args/argcheck2.cpp"
 				
 				goto _st1;
-				_ctr64:
+				_ctr65:
 				{
-#line 218 "args/argcheck2.rl"
+#line 236 "args/argcheck2.rl"
 					
 					double real = rl_num;
 					if (rl_den_cnt)
@@ -790,16 +829,16 @@ namespace ceammc {
 					rl_chk.values.push_back(rl_sign * real);
 				}
 				
-#line 794 "args/argcheck2.cpp"
+#line 833 "args/argcheck2.cpp"
 				
 				{
-#line 353 "args/argcheck2.rl"
+#line 380 "args/argcheck2.rl"
 					rl_chk.rmin = 1; rl_chk.rmax = 1; }
 				
-#line 800 "args/argcheck2.cpp"
+#line 839 "args/argcheck2.cpp"
 				
 				{
-#line 203 "args/argcheck2.rl"
+#line 221 "args/argcheck2.rl"
 					
 					if (chk_)
 					chk_->push_back(rl_chk);
@@ -811,26 +850,26 @@ namespace ceammc {
 					rl_chk = {};
 				}
 				
-#line 815 "args/argcheck2.cpp"
+#line 854 "args/argcheck2.cpp"
 				
 				goto _st1;
-				_ctr134:
+				_ctr135:
 				{
-#line 214 "args/argcheck2.rl"
+#line 232 "args/argcheck2.rl"
 					
 					rl_chk.values.push_back((int64_t)(rl_sign * rl_num));
 				}
 				
-#line 825 "args/argcheck2.cpp"
+#line 864 "args/argcheck2.cpp"
 				
 				{
-#line 353 "args/argcheck2.rl"
+#line 380 "args/argcheck2.rl"
 					rl_chk.rmin = 1; rl_chk.rmax = 1; }
 				
-#line 831 "args/argcheck2.cpp"
+#line 870 "args/argcheck2.cpp"
 				
 				{
-#line 203 "args/argcheck2.rl"
+#line 221 "args/argcheck2.rl"
 					
 					if (chk_)
 					chk_->push_back(rl_chk);
@@ -842,12 +881,12 @@ namespace ceammc {
 					rl_chk = {};
 				}
 				
-#line 846 "args/argcheck2.cpp"
+#line 885 "args/argcheck2.cpp"
 				
 				goto _st1;
-				_ctr180:
+				_ctr181:
 				{
-#line 226 "args/argcheck2.rl"
+#line 244 "args/argcheck2.rl"
 					
 					try {
 						ArgString str{ {}, 0 };
@@ -859,16 +898,16 @@ namespace ceammc {
 					}
 				}
 				
-#line 863 "args/argcheck2.cpp"
+#line 902 "args/argcheck2.cpp"
 				
 				{
-#line 353 "args/argcheck2.rl"
+#line 380 "args/argcheck2.rl"
 					rl_chk.rmin = 1; rl_chk.rmax = 1; }
 				
-#line 869 "args/argcheck2.cpp"
+#line 908 "args/argcheck2.cpp"
 				
 				{
-#line 203 "args/argcheck2.rl"
+#line 221 "args/argcheck2.rl"
 					
 					if (chk_)
 					chk_->push_back(rl_chk);
@@ -880,7 +919,7 @@ namespace ceammc {
 					rl_chk = {};
 				}
 				
-#line 884 "args/argcheck2.cpp"
+#line 923 "args/argcheck2.cpp"
 				
 				goto _st1;
 				_st1:
@@ -925,16 +964,16 @@ namespace ceammc {
 				goto _pop;
 				_ctr2:
 				{
-#line 344 "args/argcheck2.rl"
+#line 371 "args/argcheck2.rl"
 					rl_chk.name.clear(); }
 				
-#line 932 "args/argcheck2.cpp"
+#line 971 "args/argcheck2.cpp"
 				
 				{
-#line 344 "args/argcheck2.rl"
+#line 371 "args/argcheck2.rl"
 					rl_chk.name.push_back((( (*( p))))); }
 				
-#line 938 "args/argcheck2.cpp"
+#line 977 "args/argcheck2.cpp"
 				
 				goto _st2;
 				_st2:
@@ -960,10 +999,10 @@ namespace ceammc {
 				}
 				_ctr10:
 				{
-#line 344 "args/argcheck2.rl"
+#line 371 "args/argcheck2.rl"
 					rl_chk.name.push_back((( (*( p))))); }
 				
-#line 967 "args/argcheck2.cpp"
+#line 1006 "args/argcheck2.cpp"
 				
 				goto _st3;
 				_st3:
@@ -989,10 +1028,10 @@ namespace ceammc {
 				}
 				_ctr13:
 				{
-#line 344 "args/argcheck2.rl"
+#line 371 "args/argcheck2.rl"
 					rl_chk.name.push_back((( (*( p))))); }
 				
-#line 996 "args/argcheck2.cpp"
+#line 1035 "args/argcheck2.cpp"
 				
 				goto _st4;
 				_st4:
@@ -1018,10 +1057,10 @@ namespace ceammc {
 				}
 				_ctr15:
 				{
-#line 344 "args/argcheck2.rl"
+#line 371 "args/argcheck2.rl"
 					rl_chk.name.push_back((( (*( p))))); }
 				
-#line 1025 "args/argcheck2.cpp"
+#line 1064 "args/argcheck2.cpp"
 				
 				goto _st5;
 				_st5:
@@ -1047,10 +1086,10 @@ namespace ceammc {
 				}
 				_ctr17:
 				{
-#line 344 "args/argcheck2.rl"
+#line 371 "args/argcheck2.rl"
 					rl_chk.name.push_back((( (*( p))))); }
 				
-#line 1054 "args/argcheck2.cpp"
+#line 1093 "args/argcheck2.cpp"
 				
 				goto _st6;
 				_st6:
@@ -1076,10 +1115,10 @@ namespace ceammc {
 				}
 				_ctr19:
 				{
-#line 344 "args/argcheck2.rl"
+#line 371 "args/argcheck2.rl"
 					rl_chk.name.push_back((( (*( p))))); }
 				
-#line 1083 "args/argcheck2.cpp"
+#line 1122 "args/argcheck2.cpp"
 				
 				goto _st7;
 				_st7:
@@ -1105,10 +1144,10 @@ namespace ceammc {
 				}
 				_ctr21:
 				{
-#line 344 "args/argcheck2.rl"
+#line 371 "args/argcheck2.rl"
 					rl_chk.name.push_back((( (*( p))))); }
 				
-#line 1112 "args/argcheck2.cpp"
+#line 1151 "args/argcheck2.cpp"
 				
 				goto _st8;
 				_st8:
@@ -1134,10 +1173,10 @@ namespace ceammc {
 				}
 				_ctr23:
 				{
-#line 344 "args/argcheck2.rl"
+#line 371 "args/argcheck2.rl"
 					rl_chk.name.push_back((( (*( p))))); }
 				
-#line 1141 "args/argcheck2.cpp"
+#line 1180 "args/argcheck2.cpp"
 				
 				goto _st9;
 				_st9:
@@ -1177,31 +1216,31 @@ namespace ceammc {
 				}
 				_ctr4:
 				{
-#line 332 "args/argcheck2.rl"
+#line 359 "args/argcheck2.rl"
 					rl_chk.type = CHECK_ATOM; }
 				
-#line 1184 "args/argcheck2.cpp"
+#line 1223 "args/argcheck2.cpp"
 				
 				goto _st11;
 				_ctr5:
 				{
-#line 334 "args/argcheck2.rl"
+#line 361 "args/argcheck2.rl"
 					rl_chk.type = CHECK_BYTE; }
 				
-#line 1192 "args/argcheck2.cpp"
+#line 1231 "args/argcheck2.cpp"
 				
 				goto _st11;
 				_ctr25:
 				{
-#line 333 "args/argcheck2.rl"
+#line 360 "args/argcheck2.rl"
 					rl_chk.type = CHECK_BOOL; }
 				
-#line 1200 "args/argcheck2.cpp"
+#line 1239 "args/argcheck2.cpp"
 				
 				goto _st11;
-				_ctr107:
+				_ctr108:
 				{
-#line 218 "args/argcheck2.rl"
+#line 236 "args/argcheck2.rl"
 					
 					double real = rl_num;
 					if (rl_den_cnt)
@@ -1210,18 +1249,18 @@ namespace ceammc {
 					rl_chk.values.push_back(rl_sign * real);
 				}
 				
-#line 1214 "args/argcheck2.cpp"
+#line 1253 "args/argcheck2.cpp"
 				
 				{
-#line 316 "args/argcheck2.rl"
+#line 334 "args/argcheck2.rl"
 					rl_chk.cmp = CMP_RANGE_SEMIOPEN; }
 				
-#line 1220 "args/argcheck2.cpp"
+#line 1259 "args/argcheck2.cpp"
 				
 				goto _st11;
-				_ctr110:
+				_ctr111:
 				{
-#line 218 "args/argcheck2.rl"
+#line 236 "args/argcheck2.rl"
 					
 					double real = rl_num;
 					if (rl_den_cnt)
@@ -1230,37 +1269,37 @@ namespace ceammc {
 					rl_chk.values.push_back(rl_sign * real);
 				}
 				
-#line 1234 "args/argcheck2.cpp"
+#line 1273 "args/argcheck2.cpp"
 				
 				{
-#line 316 "args/argcheck2.rl"
+#line 334 "args/argcheck2.rl"
 					rl_chk.cmp = CMP_RANGE_CLOSED; }
 				
-#line 1240 "args/argcheck2.cpp"
+#line 1279 "args/argcheck2.cpp"
 				
 				goto _st11;
-				_ctr170:
+				_ctr171:
 				{
-#line 266 "args/argcheck2.rl"
+#line 284 "args/argcheck2.rl"
 					rl_chk.cmp = CMP_RANGE_SEMIOPEN; }
 				
-#line 1248 "args/argcheck2.cpp"
-				
-				goto _st11;
-				_ctr172:
-				{
-#line 266 "args/argcheck2.rl"
-					rl_chk.cmp = CMP_RANGE_CLOSED; }
-				
-#line 1256 "args/argcheck2.cpp"
+#line 1287 "args/argcheck2.cpp"
 				
 				goto _st11;
 				_ctr173:
 				{
-#line 291 "args/argcheck2.rl"
+#line 284 "args/argcheck2.rl"
+					rl_chk.cmp = CMP_RANGE_CLOSED; }
+				
+#line 1295 "args/argcheck2.cpp"
+				
+				goto _st11;
+				_ctr174:
+				{
+#line 309 "args/argcheck2.rl"
 					rl_chk.cmp = CMP_POWER2; }
 				
-#line 1264 "args/argcheck2.cpp"
+#line 1303 "args/argcheck2.cpp"
 				
 				goto _st11;
 				_st11:
@@ -1291,13 +1330,13 @@ namespace ceammc {
 				}
 				_ctr27:
 				{
-#line 353 "args/argcheck2.rl"
+#line 380 "args/argcheck2.rl"
 					rl_chk.rmin = 1; rl_chk.rmax = 1; }
 				
-#line 1298 "args/argcheck2.cpp"
+#line 1337 "args/argcheck2.cpp"
 				
 				{
-#line 203 "args/argcheck2.rl"
+#line 221 "args/argcheck2.rl"
 					
 					if (chk_)
 					chk_->push_back(rl_chk);
@@ -1309,18 +1348,18 @@ namespace ceammc {
 					rl_chk = {};
 				}
 				
-#line 1313 "args/argcheck2.cpp"
+#line 1352 "args/argcheck2.cpp"
 				
 				{
-#line 358 "args/argcheck2.rl"
+#line 385 "args/argcheck2.rl"
 					{p+= 1; cs = 67; goto _out;} }
 				
-#line 1319 "args/argcheck2.cpp"
+#line 1358 "args/argcheck2.cpp"
 				
 				goto _st67;
 				_ctr34:
 				{
-#line 203 "args/argcheck2.rl"
+#line 221 "args/argcheck2.rl"
 					
 					if (chk_)
 					chk_->push_back(rl_chk);
@@ -1332,18 +1371,18 @@ namespace ceammc {
 					rl_chk = {};
 				}
 				
-#line 1336 "args/argcheck2.cpp"
+#line 1375 "args/argcheck2.cpp"
 				
 				{
-#line 358 "args/argcheck2.rl"
+#line 385 "args/argcheck2.rl"
 					{p+= 1; cs = 67; goto _out;} }
 				
-#line 1342 "args/argcheck2.cpp"
+#line 1381 "args/argcheck2.cpp"
 				
 				goto _st67;
-				_ctr63:
+				_ctr64:
 				{
-#line 218 "args/argcheck2.rl"
+#line 236 "args/argcheck2.rl"
 					
 					double real = rl_num;
 					if (rl_den_cnt)
@@ -1352,16 +1391,16 @@ namespace ceammc {
 					rl_chk.values.push_back(rl_sign * real);
 				}
 				
-#line 1356 "args/argcheck2.cpp"
+#line 1395 "args/argcheck2.cpp"
 				
 				{
-#line 353 "args/argcheck2.rl"
+#line 380 "args/argcheck2.rl"
 					rl_chk.rmin = 1; rl_chk.rmax = 1; }
 				
-#line 1362 "args/argcheck2.cpp"
+#line 1401 "args/argcheck2.cpp"
 				
 				{
-#line 203 "args/argcheck2.rl"
+#line 221 "args/argcheck2.rl"
 					
 					if (chk_)
 					chk_->push_back(rl_chk);
@@ -1373,32 +1412,32 @@ namespace ceammc {
 					rl_chk = {};
 				}
 				
-#line 1377 "args/argcheck2.cpp"
+#line 1416 "args/argcheck2.cpp"
 				
 				{
-#line 358 "args/argcheck2.rl"
+#line 385 "args/argcheck2.rl"
 					{p+= 1; cs = 67; goto _out;} }
 				
-#line 1383 "args/argcheck2.cpp"
+#line 1422 "args/argcheck2.cpp"
 				
 				goto _st67;
-				_ctr133:
+				_ctr134:
 				{
-#line 214 "args/argcheck2.rl"
+#line 232 "args/argcheck2.rl"
 					
 					rl_chk.values.push_back((int64_t)(rl_sign * rl_num));
 				}
 				
-#line 1393 "args/argcheck2.cpp"
+#line 1432 "args/argcheck2.cpp"
 				
 				{
-#line 353 "args/argcheck2.rl"
+#line 380 "args/argcheck2.rl"
 					rl_chk.rmin = 1; rl_chk.rmax = 1; }
 				
-#line 1399 "args/argcheck2.cpp"
+#line 1438 "args/argcheck2.cpp"
 				
 				{
-#line 203 "args/argcheck2.rl"
+#line 221 "args/argcheck2.rl"
 					
 					if (chk_)
 					chk_->push_back(rl_chk);
@@ -1410,18 +1449,18 @@ namespace ceammc {
 					rl_chk = {};
 				}
 				
-#line 1414 "args/argcheck2.cpp"
+#line 1453 "args/argcheck2.cpp"
 				
 				{
-#line 358 "args/argcheck2.rl"
+#line 385 "args/argcheck2.rl"
 					{p+= 1; cs = 67; goto _out;} }
 				
-#line 1420 "args/argcheck2.cpp"
+#line 1459 "args/argcheck2.cpp"
 				
 				goto _st67;
-				_ctr179:
+				_ctr180:
 				{
-#line 226 "args/argcheck2.rl"
+#line 244 "args/argcheck2.rl"
 					
 					try {
 						ArgString str{ {}, 0 };
@@ -1433,16 +1472,16 @@ namespace ceammc {
 					}
 				}
 				
-#line 1437 "args/argcheck2.cpp"
+#line 1476 "args/argcheck2.cpp"
 				
 				{
-#line 353 "args/argcheck2.rl"
+#line 380 "args/argcheck2.rl"
 					rl_chk.rmin = 1; rl_chk.rmax = 1; }
 				
-#line 1443 "args/argcheck2.cpp"
+#line 1482 "args/argcheck2.cpp"
 				
 				{
-#line 203 "args/argcheck2.rl"
+#line 221 "args/argcheck2.rl"
 					
 					if (chk_)
 					chk_->push_back(rl_chk);
@@ -1454,13 +1493,13 @@ namespace ceammc {
 					rl_chk = {};
 				}
 				
-#line 1458 "args/argcheck2.cpp"
+#line 1497 "args/argcheck2.cpp"
 				
 				{
-#line 358 "args/argcheck2.rl"
+#line 385 "args/argcheck2.rl"
 					{p+= 1; cs = 67; goto _out;} }
 				
-#line 1464 "args/argcheck2.cpp"
+#line 1503 "args/argcheck2.cpp"
 				
 				goto _st67;
 				_st67:
@@ -1471,83 +1510,57 @@ namespace ceammc {
 				}
 				_ctr29:
 				{
-#line 353 "args/argcheck2.rl"
+#line 380 "args/argcheck2.rl"
 					rl_chk.rmin = 1; rl_chk.rmax = 1; }
 				
-#line 1478 "args/argcheck2.cpp"
+#line 1517 "args/argcheck2.cpp"
 				
 				{
-#line 340 "args/argcheck2.rl"
+#line 367 "args/argcheck2.rl"
 					rl_chk.setRepeats(0, REPEAT_INF); }
 				
-#line 1484 "args/argcheck2.cpp"
+#line 1523 "args/argcheck2.cpp"
 				
 				goto _st12;
 				_ctr30:
 				{
-#line 353 "args/argcheck2.rl"
+#line 380 "args/argcheck2.rl"
 					rl_chk.rmin = 1; rl_chk.rmax = 1; }
 				
-#line 1492 "args/argcheck2.cpp"
+#line 1531 "args/argcheck2.cpp"
 				
 				{
-#line 339 "args/argcheck2.rl"
+#line 366 "args/argcheck2.rl"
 					rl_chk.setRepeats(1, REPEAT_INF); }
 				
-#line 1498 "args/argcheck2.cpp"
+#line 1537 "args/argcheck2.cpp"
 				
 				goto _st12;
 				_ctr31:
 				{
-#line 353 "args/argcheck2.rl"
+#line 380 "args/argcheck2.rl"
 					rl_chk.rmin = 1; rl_chk.rmax = 1; }
 				
-#line 1506 "args/argcheck2.cpp"
+#line 1545 "args/argcheck2.cpp"
 				
 				{
-#line 338 "args/argcheck2.rl"
+#line 365 "args/argcheck2.rl"
 					rl_chk.setRepeats(0, 1); }
 				
-#line 1512 "args/argcheck2.cpp"
+#line 1551 "args/argcheck2.cpp"
 				
 				goto _st12;
 				_ctr41:
 				{
-#line 242 "args/argcheck2.rl"
+#line 260 "args/argcheck2.rl"
 					rl_chk.rmax = rl_chk.rmin; }
 				
-#line 1520 "args/argcheck2.cpp"
-				
-				goto _st12;
-				_ctr65:
-				{
-#line 218 "args/argcheck2.rl"
-					
-					double real = rl_num;
-					if (rl_den_cnt)
-					real += rl_den / double(rl_den_cnt);
-					
-					rl_chk.values.push_back(rl_sign * real);
-				}
-				
-#line 1534 "args/argcheck2.cpp"
-				
-				{
-#line 353 "args/argcheck2.rl"
-					rl_chk.rmin = 1; rl_chk.rmax = 1; }
-				
-#line 1540 "args/argcheck2.cpp"
-				
-				{
-#line 340 "args/argcheck2.rl"
-					rl_chk.setRepeats(0, REPEAT_INF); }
-				
-#line 1546 "args/argcheck2.cpp"
+#line 1559 "args/argcheck2.cpp"
 				
 				goto _st12;
 				_ctr66:
 				{
-#line 218 "args/argcheck2.rl"
+#line 236 "args/argcheck2.rl"
 					
 					double real = rl_num;
 					if (rl_den_cnt)
@@ -1556,145 +1569,142 @@ namespace ceammc {
 					rl_chk.values.push_back(rl_sign * real);
 				}
 				
-#line 1560 "args/argcheck2.cpp"
+#line 1573 "args/argcheck2.cpp"
 				
 				{
-#line 353 "args/argcheck2.rl"
+#line 380 "args/argcheck2.rl"
 					rl_chk.rmin = 1; rl_chk.rmax = 1; }
 				
-#line 1566 "args/argcheck2.cpp"
+#line 1579 "args/argcheck2.cpp"
 				
 				{
-#line 339 "args/argcheck2.rl"
-					rl_chk.setRepeats(1, REPEAT_INF); }
-				
-#line 1572 "args/argcheck2.cpp"
-				
-				goto _st12;
-				_ctr69:
-				{
-#line 218 "args/argcheck2.rl"
-					
-					double real = rl_num;
-					if (rl_den_cnt)
-					real += rl_den / double(rl_den_cnt);
-					
-					rl_chk.values.push_back(rl_sign * real);
-				}
-				
-#line 1586 "args/argcheck2.cpp"
-				
-				{
-#line 353 "args/argcheck2.rl"
-					rl_chk.rmin = 1; rl_chk.rmax = 1; }
-				
-#line 1592 "args/argcheck2.cpp"
-				
-				{
-#line 338 "args/argcheck2.rl"
-					rl_chk.setRepeats(0, 1); }
-				
-#line 1598 "args/argcheck2.cpp"
-				
-				goto _st12;
-				_ctr135:
-				{
-#line 214 "args/argcheck2.rl"
-					
-					rl_chk.values.push_back((int64_t)(rl_sign * rl_num));
-				}
-				
-#line 1608 "args/argcheck2.cpp"
-				
-				{
-#line 353 "args/argcheck2.rl"
-					rl_chk.rmin = 1; rl_chk.rmax = 1; }
-				
-#line 1614 "args/argcheck2.cpp"
-				
-				{
-#line 340 "args/argcheck2.rl"
+#line 367 "args/argcheck2.rl"
 					rl_chk.setRepeats(0, REPEAT_INF); }
 				
-#line 1620 "args/argcheck2.cpp"
+#line 1585 "args/argcheck2.cpp"
+				
+				goto _st12;
+				_ctr67:
+				{
+#line 236 "args/argcheck2.rl"
+					
+					double real = rl_num;
+					if (rl_den_cnt)
+					real += rl_den / double(rl_den_cnt);
+					
+					rl_chk.values.push_back(rl_sign * real);
+				}
+				
+#line 1599 "args/argcheck2.cpp"
+				
+				{
+#line 380 "args/argcheck2.rl"
+					rl_chk.rmin = 1; rl_chk.rmax = 1; }
+				
+#line 1605 "args/argcheck2.cpp"
+				
+				{
+#line 366 "args/argcheck2.rl"
+					rl_chk.setRepeats(1, REPEAT_INF); }
+				
+#line 1611 "args/argcheck2.cpp"
+				
+				goto _st12;
+				_ctr70:
+				{
+#line 236 "args/argcheck2.rl"
+					
+					double real = rl_num;
+					if (rl_den_cnt)
+					real += rl_den / double(rl_den_cnt);
+					
+					rl_chk.values.push_back(rl_sign * real);
+				}
+				
+#line 1625 "args/argcheck2.cpp"
+				
+				{
+#line 380 "args/argcheck2.rl"
+					rl_chk.rmin = 1; rl_chk.rmax = 1; }
+				
+#line 1631 "args/argcheck2.cpp"
+				
+				{
+#line 365 "args/argcheck2.rl"
+					rl_chk.setRepeats(0, 1); }
+				
+#line 1637 "args/argcheck2.cpp"
 				
 				goto _st12;
 				_ctr136:
 				{
-#line 214 "args/argcheck2.rl"
+#line 232 "args/argcheck2.rl"
 					
 					rl_chk.values.push_back((int64_t)(rl_sign * rl_num));
 				}
 				
-#line 1630 "args/argcheck2.cpp"
+#line 1647 "args/argcheck2.cpp"
 				
 				{
-#line 353 "args/argcheck2.rl"
+#line 380 "args/argcheck2.rl"
 					rl_chk.rmin = 1; rl_chk.rmax = 1; }
 				
-#line 1636 "args/argcheck2.cpp"
+#line 1653 "args/argcheck2.cpp"
 				
 				{
-#line 339 "args/argcheck2.rl"
+#line 367 "args/argcheck2.rl"
+					rl_chk.setRepeats(0, REPEAT_INF); }
+				
+#line 1659 "args/argcheck2.cpp"
+				
+				goto _st12;
+				_ctr137:
+				{
+#line 232 "args/argcheck2.rl"
+					
+					rl_chk.values.push_back((int64_t)(rl_sign * rl_num));
+				}
+				
+#line 1669 "args/argcheck2.cpp"
+				
+				{
+#line 380 "args/argcheck2.rl"
+					rl_chk.rmin = 1; rl_chk.rmax = 1; }
+				
+#line 1675 "args/argcheck2.cpp"
+				
+				{
+#line 366 "args/argcheck2.rl"
 					rl_chk.setRepeats(1, REPEAT_INF); }
-				
-#line 1642 "args/argcheck2.cpp"
-				
-				goto _st12;
-				_ctr138:
-				{
-#line 214 "args/argcheck2.rl"
-					
-					rl_chk.values.push_back((int64_t)(rl_sign * rl_num));
-				}
-				
-#line 1652 "args/argcheck2.cpp"
-				
-				{
-#line 353 "args/argcheck2.rl"
-					rl_chk.rmin = 1; rl_chk.rmax = 1; }
-				
-#line 1658 "args/argcheck2.cpp"
-				
-				{
-#line 338 "args/argcheck2.rl"
-					rl_chk.setRepeats(0, 1); }
-				
-#line 1664 "args/argcheck2.cpp"
-				
-				goto _st12;
-				_ctr181:
-				{
-#line 226 "args/argcheck2.rl"
-					
-					try {
-						ArgString str{ {}, 0 };
-						str.first.assign(rl_sym_start, p - rl_sym_start);
-						str.second = crc32_hash(str.first.data());
-						rl_chk.values.push_back(str);
-					} catch(std::exception& e) {
-						LIB_ERR << "exception: " << e.what();
-					}
-				}
 				
 #line 1681 "args/argcheck2.cpp"
 				
+				goto _st12;
+				_ctr139:
 				{
-#line 353 "args/argcheck2.rl"
+#line 232 "args/argcheck2.rl"
+					
+					rl_chk.values.push_back((int64_t)(rl_sign * rl_num));
+				}
+				
+#line 1691 "args/argcheck2.cpp"
+				
+				{
+#line 380 "args/argcheck2.rl"
 					rl_chk.rmin = 1; rl_chk.rmax = 1; }
 				
-#line 1687 "args/argcheck2.cpp"
+#line 1697 "args/argcheck2.cpp"
 				
 				{
-#line 340 "args/argcheck2.rl"
-					rl_chk.setRepeats(0, REPEAT_INF); }
+#line 365 "args/argcheck2.rl"
+					rl_chk.setRepeats(0, 1); }
 				
-#line 1693 "args/argcheck2.cpp"
+#line 1703 "args/argcheck2.cpp"
 				
 				goto _st12;
 				_ctr182:
 				{
-#line 226 "args/argcheck2.rl"
+#line 244 "args/argcheck2.rl"
 					
 					try {
 						ArgString str{ {}, 0 };
@@ -1706,24 +1716,24 @@ namespace ceammc {
 					}
 				}
 				
-#line 1710 "args/argcheck2.cpp"
+#line 1720 "args/argcheck2.cpp"
 				
 				{
-#line 353 "args/argcheck2.rl"
+#line 380 "args/argcheck2.rl"
 					rl_chk.rmin = 1; rl_chk.rmax = 1; }
 				
-#line 1716 "args/argcheck2.cpp"
+#line 1726 "args/argcheck2.cpp"
 				
 				{
-#line 339 "args/argcheck2.rl"
-					rl_chk.setRepeats(1, REPEAT_INF); }
+#line 367 "args/argcheck2.rl"
+					rl_chk.setRepeats(0, REPEAT_INF); }
 				
-#line 1722 "args/argcheck2.cpp"
+#line 1732 "args/argcheck2.cpp"
 				
 				goto _st12;
 				_ctr183:
 				{
-#line 226 "args/argcheck2.rl"
+#line 244 "args/argcheck2.rl"
 					
 					try {
 						ArgString str{ {}, 0 };
@@ -1735,19 +1745,48 @@ namespace ceammc {
 					}
 				}
 				
-#line 1739 "args/argcheck2.cpp"
+#line 1749 "args/argcheck2.cpp"
 				
 				{
-#line 353 "args/argcheck2.rl"
+#line 380 "args/argcheck2.rl"
 					rl_chk.rmin = 1; rl_chk.rmax = 1; }
 				
-#line 1745 "args/argcheck2.cpp"
+#line 1755 "args/argcheck2.cpp"
 				
 				{
-#line 338 "args/argcheck2.rl"
+#line 366 "args/argcheck2.rl"
+					rl_chk.setRepeats(1, REPEAT_INF); }
+				
+#line 1761 "args/argcheck2.cpp"
+				
+				goto _st12;
+				_ctr184:
+				{
+#line 244 "args/argcheck2.rl"
+					
+					try {
+						ArgString str{ {}, 0 };
+						str.first.assign(rl_sym_start, p - rl_sym_start);
+						str.second = crc32_hash(str.first.data());
+						rl_chk.values.push_back(str);
+					} catch(std::exception& e) {
+						LIB_ERR << "exception: " << e.what();
+					}
+				}
+				
+#line 1778 "args/argcheck2.cpp"
+				
+				{
+#line 380 "args/argcheck2.rl"
+					rl_chk.rmin = 1; rl_chk.rmax = 1; }
+				
+#line 1784 "args/argcheck2.cpp"
+				
+				{
+#line 365 "args/argcheck2.rl"
 					rl_chk.setRepeats(0, 1); }
 				
-#line 1751 "args/argcheck2.cpp"
+#line 1790 "args/argcheck2.cpp"
 				
 				goto _st12;
 				_st12:
@@ -1766,21 +1805,21 @@ namespace ceammc {
 				}
 				_ctr32:
 				{
-#line 353 "args/argcheck2.rl"
+#line 380 "args/argcheck2.rl"
 					rl_chk.rmin = 1; rl_chk.rmax = 1; }
 				
-#line 1773 "args/argcheck2.cpp"
+#line 1812 "args/argcheck2.cpp"
 				
 				{
-#line 243 "args/argcheck2.rl"
+#line 261 "args/argcheck2.rl"
 					rl_chk.rmin = 0; rl_chk.rmax = REPEAT_INF; }
 				
-#line 1779 "args/argcheck2.cpp"
+#line 1818 "args/argcheck2.cpp"
 				
 				goto _st13;
-				_ctr70:
+				_ctr71:
 				{
-#line 218 "args/argcheck2.rl"
+#line 236 "args/argcheck2.rl"
 					
 					double real = rl_num;
 					if (rl_den_cnt)
@@ -1789,46 +1828,46 @@ namespace ceammc {
 					rl_chk.values.push_back(rl_sign * real);
 				}
 				
-#line 1793 "args/argcheck2.cpp"
+#line 1832 "args/argcheck2.cpp"
 				
 				{
-#line 353 "args/argcheck2.rl"
+#line 380 "args/argcheck2.rl"
 					rl_chk.rmin = 1; rl_chk.rmax = 1; }
 				
-#line 1799 "args/argcheck2.cpp"
+#line 1838 "args/argcheck2.cpp"
 				
 				{
-#line 243 "args/argcheck2.rl"
+#line 261 "args/argcheck2.rl"
 					rl_chk.rmin = 0; rl_chk.rmax = REPEAT_INF; }
 				
-#line 1805 "args/argcheck2.cpp"
+#line 1844 "args/argcheck2.cpp"
 				
 				goto _st13;
-				_ctr139:
+				_ctr140:
 				{
-#line 214 "args/argcheck2.rl"
+#line 232 "args/argcheck2.rl"
 					
 					rl_chk.values.push_back((int64_t)(rl_sign * rl_num));
 				}
 				
-#line 1815 "args/argcheck2.cpp"
+#line 1854 "args/argcheck2.cpp"
 				
 				{
-#line 353 "args/argcheck2.rl"
+#line 380 "args/argcheck2.rl"
 					rl_chk.rmin = 1; rl_chk.rmax = 1; }
 				
-#line 1821 "args/argcheck2.cpp"
+#line 1860 "args/argcheck2.cpp"
 				
 				{
-#line 243 "args/argcheck2.rl"
+#line 261 "args/argcheck2.rl"
 					rl_chk.rmin = 0; rl_chk.rmax = REPEAT_INF; }
 				
-#line 1827 "args/argcheck2.cpp"
+#line 1866 "args/argcheck2.cpp"
 				
 				goto _st13;
-				_ctr184:
+				_ctr185:
 				{
-#line 226 "args/argcheck2.rl"
+#line 244 "args/argcheck2.rl"
 					
 					try {
 						ArgString str{ {}, 0 };
@@ -1840,19 +1879,19 @@ namespace ceammc {
 					}
 				}
 				
-#line 1844 "args/argcheck2.cpp"
+#line 1883 "args/argcheck2.cpp"
 				
 				{
-#line 353 "args/argcheck2.rl"
+#line 380 "args/argcheck2.rl"
 					rl_chk.rmin = 1; rl_chk.rmax = 1; }
 				
-#line 1850 "args/argcheck2.cpp"
+#line 1889 "args/argcheck2.cpp"
 				
 				{
-#line 243 "args/argcheck2.rl"
+#line 261 "args/argcheck2.rl"
 					rl_chk.rmin = 0; rl_chk.rmax = REPEAT_INF; }
 				
-#line 1856 "args/argcheck2.cpp"
+#line 1895 "args/argcheck2.cpp"
 				
 				goto _st13;
 				_st13:
@@ -1869,10 +1908,10 @@ namespace ceammc {
 				}
 				_ctr37:
 				{
-#line 240 "args/argcheck2.rl"
+#line 258 "args/argcheck2.rl"
 					rl_chk.rmin = 0; }
 				
-#line 1876 "args/argcheck2.cpp"
+#line 1915 "args/argcheck2.cpp"
 				
 				goto _st14;
 				_st14:
@@ -1908,10 +1947,10 @@ namespace ceammc {
 				}
 				_ctr42:
 				{
-#line 241 "args/argcheck2.rl"
+#line 259 "args/argcheck2.rl"
 					rl_chk.rmax = 0; }
 				
-#line 1915 "args/argcheck2.cpp"
+#line 1954 "args/argcheck2.cpp"
 				
 				goto _st16;
 				_st16:
@@ -1925,18 +1964,18 @@ namespace ceammc {
 				}
 				_ctr43:
 				{
-#line 241 "args/argcheck2.rl"
+#line 259 "args/argcheck2.rl"
 					rl_chk.rmax = (( (*( p))))-'0'; }
 				
-#line 1932 "args/argcheck2.cpp"
+#line 1971 "args/argcheck2.cpp"
 				
 				goto _st17;
 				_ctr46:
 				{
-#line 241 "args/argcheck2.rl"
+#line 259 "args/argcheck2.rl"
 					(rl_chk.rmax *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 1940 "args/argcheck2.cpp"
+#line 1979 "args/argcheck2.cpp"
 				
 				goto _st17;
 				_st17:
@@ -1953,18 +1992,18 @@ namespace ceammc {
 				}
 				_ctr38:
 				{
-#line 240 "args/argcheck2.rl"
+#line 258 "args/argcheck2.rl"
 					rl_chk.rmin = (( (*( p))))-'0'; }
 				
-#line 1960 "args/argcheck2.cpp"
+#line 1999 "args/argcheck2.cpp"
 				
 				goto _st18;
 				_ctr48:
 				{
-#line 240 "args/argcheck2.rl"
+#line 258 "args/argcheck2.rl"
 					(rl_chk.rmin *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 1968 "args/argcheck2.cpp"
+#line 2007 "args/argcheck2.cpp"
 				
 				goto _st18;
 				_st18:
@@ -1986,10 +2025,10 @@ namespace ceammc {
 				}
 				_ctr6:
 				{
-#line 337 "args/argcheck2.rl"
+#line 364 "args/argcheck2.rl"
 					rl_chk.type = CHECK_FLOAT; }
 				
-#line 1993 "args/argcheck2.cpp"
+#line 2032 "args/argcheck2.cpp"
 				
 				goto _st19;
 				_st19:
@@ -2029,6 +2068,9 @@ namespace ceammc {
 					case 123: {
 						goto _ctr32;
 					}
+					case 126: {
+						goto _ctr55;
+					}
 				}
 				{
 					goto _st0;
@@ -2037,33 +2079,33 @@ namespace ceammc {
 				p += 1;
 				st_case_20:
 				if ( ( (*( p))) == 61 ) {
-					goto _ctr55;
+					goto _ctr56;
 				}
 				{
 					goto _st0;
 				}
-				_ctr55:
+				_ctr56:
 				{
-#line 279 "args/argcheck2.rl"
+#line 297 "args/argcheck2.rl"
 					rl_chk.cmp = CMP_NOT_EQUAL; }
 				
-#line 2051 "args/argcheck2.cpp"
+#line 2093 "args/argcheck2.cpp"
 				
 				goto _st21;
-				_ctr75:
+				_ctr76:
 				{
-#line 278 "args/argcheck2.rl"
+#line 296 "args/argcheck2.rl"
 					rl_chk.cmp = CMP_LESS_EQ; }
 				
-#line 2059 "args/argcheck2.cpp"
+#line 2101 "args/argcheck2.cpp"
 				
 				goto _st21;
-				_ctr90:
+				_ctr91:
 				{
-#line 277 "args/argcheck2.rl"
+#line 295 "args/argcheck2.rl"
 					rl_chk.cmp = CMP_GREATER_EQ; }
 				
-#line 2067 "args/argcheck2.cpp"
+#line 2109 "args/argcheck2.cpp"
 				
 				goto _st21;
 				_st21:
@@ -2071,95 +2113,95 @@ namespace ceammc {
 				st_case_21:
 				switch( ( (*( p))) ) {
 					case 43: {
-						goto _ctr57;
+						goto _ctr58;
 					}
 					case 45: {
-						goto _ctr58;
+						goto _ctr59;
 					}
 				}
 				if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-					goto _ctr59;
+					goto _ctr60;
 				}
 				{
 					goto _st0;
 				}
-				_ctr57:
-				{
-#line 254 "args/argcheck2.rl"
-					rl_sign = 1; }
-				
-#line 2092 "args/argcheck2.cpp"
-				
-				{
-#line 245 "args/argcheck2.rl"
-					rl_sign = 1; }
-				
-#line 2098 "args/argcheck2.cpp"
-				
-				goto _st22;
 				_ctr58:
 				{
-#line 254 "args/argcheck2.rl"
+#line 272 "args/argcheck2.rl"
 					rl_sign = 1; }
 				
-#line 2106 "args/argcheck2.cpp"
+#line 2134 "args/argcheck2.cpp"
 				
 				{
-#line 246 "args/argcheck2.rl"
+#line 263 "args/argcheck2.rl"
+					rl_sign = 1; }
+				
+#line 2140 "args/argcheck2.cpp"
+				
+				goto _st22;
+				_ctr59:
+				{
+#line 272 "args/argcheck2.rl"
+					rl_sign = 1; }
+				
+#line 2148 "args/argcheck2.cpp"
+				
+				{
+#line 264 "args/argcheck2.rl"
 					rl_sign = -1; }
 				
-#line 2112 "args/argcheck2.cpp"
+#line 2154 "args/argcheck2.cpp"
 				
 				goto _st22;
 				_st22:
 				p += 1;
 				st_case_22:
 				if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-					goto _ctr61;
+					goto _ctr62;
 				}
 				{
 					goto _st0;
 				}
-				_ctr59:
+				_ctr60:
 				{
-#line 254 "args/argcheck2.rl"
+#line 272 "args/argcheck2.rl"
 					rl_sign = 1; }
 				
-#line 2129 "args/argcheck2.cpp"
+#line 2171 "args/argcheck2.cpp"
 				
 				{
-#line 248 "args/argcheck2.rl"
+#line 266 "args/argcheck2.rl"
 					rl_num = 0; }
 				
-#line 2135 "args/argcheck2.cpp"
+#line 2177 "args/argcheck2.cpp"
 				
 				{
-#line 248 "args/argcheck2.rl"
+#line 266 "args/argcheck2.rl"
 					(rl_num *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 2141 "args/argcheck2.cpp"
+#line 2183 "args/argcheck2.cpp"
 				
 				goto _st23;
-				_ctr61:
+				_ctr62:
 				{
-#line 248 "args/argcheck2.rl"
+#line 266 "args/argcheck2.rl"
 					rl_num = 0; }
 				
-#line 2149 "args/argcheck2.cpp"
+#line 2191 "args/argcheck2.cpp"
 				
 				{
-#line 248 "args/argcheck2.rl"
+#line 266 "args/argcheck2.rl"
 					(rl_num *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 2155 "args/argcheck2.cpp"
+#line 2197 "args/argcheck2.cpp"
 				
 				goto _st23;
-				_ctr68:
+				_ctr69:
 				{
-#line 248 "args/argcheck2.rl"
+#line 266 "args/argcheck2.rl"
 					(rl_num *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 2163 "args/argcheck2.cpp"
+#line 2205 "args/argcheck2.cpp"
 				
 				goto _st23;
 				_st23:
@@ -2167,29 +2209,29 @@ namespace ceammc {
 				st_case_23:
 				switch( ( (*( p))) ) {
 					case 0: {
-						goto _ctr63;
-					}
-					case 32: {
 						goto _ctr64;
 					}
-					case 42: {
+					case 32: {
 						goto _ctr65;
 					}
-					case 43: {
+					case 42: {
 						goto _ctr66;
+					}
+					case 43: {
+						goto _ctr67;
 					}
 					case 46: {
 						goto _st24;
 					}
 					case 63: {
-						goto _ctr69;
+						goto _ctr70;
 					}
 					case 123: {
-						goto _ctr70;
+						goto _ctr71;
 					}
 				}
 				if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-					goto _ctr68;
+					goto _ctr69;
 				}
 				{
 					goto _st0;
@@ -2198,31 +2240,31 @@ namespace ceammc {
 				p += 1;
 				st_case_24:
 				if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-					goto _ctr71;
+					goto _ctr72;
 				}
 				{
 					goto _st0;
 				}
-				_ctr71:
+				_ctr72:
 				{
-#line 249 "args/argcheck2.rl"
+#line 267 "args/argcheck2.rl"
 					rl_den = 0; rl_den_cnt = 1; }
 				
-#line 2212 "args/argcheck2.cpp"
+#line 2254 "args/argcheck2.cpp"
 				
 				{
-#line 249 "args/argcheck2.rl"
+#line 267 "args/argcheck2.rl"
 					(rl_den *= 10) += ((( (*( p)))) - '0'); rl_den_cnt *= 10; }
 				
-#line 2218 "args/argcheck2.cpp"
+#line 2260 "args/argcheck2.cpp"
 				
 				goto _st25;
-				_ctr73:
+				_ctr74:
 				{
-#line 249 "args/argcheck2.rl"
+#line 267 "args/argcheck2.rl"
 					(rl_den *= 10) += ((( (*( p)))) - '0'); rl_den_cnt *= 10; }
 				
-#line 2226 "args/argcheck2.cpp"
+#line 2268 "args/argcheck2.cpp"
 				
 				goto _st25;
 				_st25:
@@ -2230,36 +2272,36 @@ namespace ceammc {
 				st_case_25:
 				switch( ( (*( p))) ) {
 					case 0: {
-						goto _ctr63;
-					}
-					case 32: {
 						goto _ctr64;
 					}
-					case 42: {
+					case 32: {
 						goto _ctr65;
 					}
-					case 43: {
+					case 42: {
 						goto _ctr66;
 					}
+					case 43: {
+						goto _ctr67;
+					}
 					case 63: {
-						goto _ctr69;
+						goto _ctr70;
 					}
 					case 123: {
-						goto _ctr70;
+						goto _ctr71;
 					}
 				}
 				if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-					goto _ctr73;
+					goto _ctr74;
 				}
 				{
 					goto _st0;
 				}
 				_ctr51:
 				{
-#line 278 "args/argcheck2.rl"
+#line 296 "args/argcheck2.rl"
 					rl_chk.cmp = CMP_LESS; }
 				
-#line 2263 "args/argcheck2.cpp"
+#line 2305 "args/argcheck2.cpp"
 				
 				goto _st26;
 				_st26:
@@ -2267,32 +2309,40 @@ namespace ceammc {
 				st_case_26:
 				switch( ( (*( p))) ) {
 					case 43: {
-						goto _ctr57;
-					}
-					case 45: {
 						goto _ctr58;
 					}
+					case 45: {
+						goto _ctr59;
+					}
 					case 61: {
-						goto _ctr75;
+						goto _ctr76;
 					}
 				}
 				if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-					goto _ctr59;
+					goto _ctr60;
 				}
 				{
 					goto _st0;
 				}
 				_ctr52:
 				{
-#line 324 "args/argcheck2.rl"
+#line 342 "args/argcheck2.rl"
 					rl_chk.cmp = CMP_EQUAL; }
 				
-#line 2291 "args/argcheck2.cpp"
+#line 2333 "args/argcheck2.cpp"
 				
 				goto _st27;
-				_ctr85:
+				_ctr55:
 				{
-#line 218 "args/argcheck2.rl"
+#line 350 "args/argcheck2.rl"
+					rl_chk.cmp = CMP_APPROX; }
+				
+#line 2341 "args/argcheck2.cpp"
+				
+				goto _st27;
+				_ctr86:
+				{
+#line 236 "args/argcheck2.rl"
 					
 					double real = rl_num;
 					if (rl_den_cnt)
@@ -2301,7 +2351,7 @@ namespace ceammc {
 					rl_chk.values.push_back(rl_sign * real);
 				}
 				
-#line 2305 "args/argcheck2.cpp"
+#line 2355 "args/argcheck2.cpp"
 				
 				goto _st27;
 				_st27:
@@ -2309,95 +2359,95 @@ namespace ceammc {
 				st_case_27:
 				switch( ( (*( p))) ) {
 					case 43: {
-						goto _ctr77;
+						goto _ctr78;
 					}
 					case 45: {
-						goto _ctr78;
+						goto _ctr79;
 					}
 				}
 				if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-					goto _ctr79;
+					goto _ctr80;
 				}
 				{
 					goto _st0;
 				}
-				_ctr77:
-				{
-#line 254 "args/argcheck2.rl"
-					rl_sign = 1; }
-				
-#line 2330 "args/argcheck2.cpp"
-				
-				{
-#line 245 "args/argcheck2.rl"
-					rl_sign = 1; }
-				
-#line 2336 "args/argcheck2.cpp"
-				
-				goto _st28;
 				_ctr78:
 				{
-#line 254 "args/argcheck2.rl"
+#line 272 "args/argcheck2.rl"
 					rl_sign = 1; }
 				
-#line 2344 "args/argcheck2.cpp"
+#line 2380 "args/argcheck2.cpp"
 				
 				{
-#line 246 "args/argcheck2.rl"
+#line 263 "args/argcheck2.rl"
+					rl_sign = 1; }
+				
+#line 2386 "args/argcheck2.cpp"
+				
+				goto _st28;
+				_ctr79:
+				{
+#line 272 "args/argcheck2.rl"
+					rl_sign = 1; }
+				
+#line 2394 "args/argcheck2.cpp"
+				
+				{
+#line 264 "args/argcheck2.rl"
 					rl_sign = -1; }
 				
-#line 2350 "args/argcheck2.cpp"
+#line 2400 "args/argcheck2.cpp"
 				
 				goto _st28;
 				_st28:
 				p += 1;
 				st_case_28:
 				if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-					goto _ctr81;
+					goto _ctr82;
 				}
 				{
 					goto _st0;
 				}
-				_ctr79:
+				_ctr80:
 				{
-#line 254 "args/argcheck2.rl"
+#line 272 "args/argcheck2.rl"
 					rl_sign = 1; }
 				
-#line 2367 "args/argcheck2.cpp"
+#line 2417 "args/argcheck2.cpp"
 				
 				{
-#line 248 "args/argcheck2.rl"
+#line 266 "args/argcheck2.rl"
 					rl_num = 0; }
 				
-#line 2373 "args/argcheck2.cpp"
+#line 2423 "args/argcheck2.cpp"
 				
 				{
-#line 248 "args/argcheck2.rl"
+#line 266 "args/argcheck2.rl"
 					(rl_num *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 2379 "args/argcheck2.cpp"
+#line 2429 "args/argcheck2.cpp"
 				
 				goto _st29;
-				_ctr81:
+				_ctr82:
 				{
-#line 248 "args/argcheck2.rl"
+#line 266 "args/argcheck2.rl"
 					rl_num = 0; }
 				
-#line 2387 "args/argcheck2.cpp"
+#line 2437 "args/argcheck2.cpp"
 				
 				{
-#line 248 "args/argcheck2.rl"
+#line 266 "args/argcheck2.rl"
 					(rl_num *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 2393 "args/argcheck2.cpp"
+#line 2443 "args/argcheck2.cpp"
 				
 				goto _st29;
-				_ctr84:
+				_ctr85:
 				{
-#line 248 "args/argcheck2.rl"
+#line 266 "args/argcheck2.rl"
 					(rl_num *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 2401 "args/argcheck2.cpp"
+#line 2451 "args/argcheck2.cpp"
 				
 				goto _st29;
 				_st29:
@@ -2405,32 +2455,32 @@ namespace ceammc {
 				st_case_29:
 				switch( ( (*( p))) ) {
 					case 0: {
-						goto _ctr63;
-					}
-					case 32: {
 						goto _ctr64;
 					}
-					case 42: {
+					case 32: {
 						goto _ctr65;
 					}
-					case 43: {
+					case 42: {
 						goto _ctr66;
+					}
+					case 43: {
+						goto _ctr67;
 					}
 					case 46: {
 						goto _st30;
 					}
 					case 63: {
-						goto _ctr69;
-					}
-					case 123: {
 						goto _ctr70;
 					}
+					case 123: {
+						goto _ctr71;
+					}
 					case 124: {
-						goto _ctr85;
+						goto _ctr86;
 					}
 				}
 				if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-					goto _ctr84;
+					goto _ctr85;
 				}
 				{
 					goto _st0;
@@ -2439,31 +2489,31 @@ namespace ceammc {
 				p += 1;
 				st_case_30:
 				if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-					goto _ctr86;
+					goto _ctr87;
 				}
 				{
 					goto _st0;
 				}
-				_ctr86:
+				_ctr87:
 				{
-#line 249 "args/argcheck2.rl"
+#line 267 "args/argcheck2.rl"
 					rl_den = 0; rl_den_cnt = 1; }
 				
-#line 2453 "args/argcheck2.cpp"
+#line 2503 "args/argcheck2.cpp"
 				
 				{
-#line 249 "args/argcheck2.rl"
+#line 267 "args/argcheck2.rl"
 					(rl_den *= 10) += ((( (*( p)))) - '0'); rl_den_cnt *= 10; }
 				
-#line 2459 "args/argcheck2.cpp"
+#line 2509 "args/argcheck2.cpp"
 				
 				goto _st31;
-				_ctr88:
+				_ctr89:
 				{
-#line 249 "args/argcheck2.rl"
+#line 267 "args/argcheck2.rl"
 					(rl_den *= 10) += ((( (*( p)))) - '0'); rl_den_cnt *= 10; }
 				
-#line 2467 "args/argcheck2.cpp"
+#line 2517 "args/argcheck2.cpp"
 				
 				goto _st31;
 				_st31:
@@ -2471,39 +2521,39 @@ namespace ceammc {
 				st_case_31:
 				switch( ( (*( p))) ) {
 					case 0: {
-						goto _ctr63;
-					}
-					case 32: {
 						goto _ctr64;
 					}
-					case 42: {
+					case 32: {
 						goto _ctr65;
 					}
-					case 43: {
+					case 42: {
 						goto _ctr66;
 					}
-					case 63: {
-						goto _ctr69;
+					case 43: {
+						goto _ctr67;
 					}
-					case 123: {
+					case 63: {
 						goto _ctr70;
 					}
+					case 123: {
+						goto _ctr71;
+					}
 					case 124: {
-						goto _ctr85;
+						goto _ctr86;
 					}
 				}
 				if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-					goto _ctr88;
+					goto _ctr89;
 				}
 				{
 					goto _st0;
 				}
 				_ctr53:
 				{
-#line 277 "args/argcheck2.rl"
+#line 295 "args/argcheck2.rl"
 					rl_chk.cmp = CMP_GREATER; }
 				
-#line 2507 "args/argcheck2.cpp"
+#line 2557 "args/argcheck2.cpp"
 				
 				goto _st32;
 				_st32:
@@ -2511,17 +2561,17 @@ namespace ceammc {
 				st_case_32:
 				switch( ( (*( p))) ) {
 					case 43: {
-						goto _ctr57;
-					}
-					case 45: {
 						goto _ctr58;
 					}
+					case 45: {
+						goto _ctr59;
+					}
 					case 61: {
-						goto _ctr90;
+						goto _ctr91;
 					}
 				}
 				if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-					goto _ctr59;
+					goto _ctr60;
 				}
 				{
 					goto _st0;
@@ -2531,95 +2581,95 @@ namespace ceammc {
 				st_case_33:
 				switch( ( (*( p))) ) {
 					case 43: {
-						goto _ctr91;
+						goto _ctr92;
 					}
 					case 45: {
-						goto _ctr92;
+						goto _ctr93;
 					}
 				}
 				if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-					goto _ctr93;
+					goto _ctr94;
 				}
 				{
 					goto _st0;
 				}
-				_ctr91:
-				{
-#line 254 "args/argcheck2.rl"
-					rl_sign = 1; }
-				
-#line 2552 "args/argcheck2.cpp"
-				
-				{
-#line 245 "args/argcheck2.rl"
-					rl_sign = 1; }
-				
-#line 2558 "args/argcheck2.cpp"
-				
-				goto _st34;
 				_ctr92:
 				{
-#line 254 "args/argcheck2.rl"
+#line 272 "args/argcheck2.rl"
 					rl_sign = 1; }
 				
-#line 2566 "args/argcheck2.cpp"
+#line 2602 "args/argcheck2.cpp"
 				
 				{
-#line 246 "args/argcheck2.rl"
+#line 263 "args/argcheck2.rl"
+					rl_sign = 1; }
+				
+#line 2608 "args/argcheck2.cpp"
+				
+				goto _st34;
+				_ctr93:
+				{
+#line 272 "args/argcheck2.rl"
+					rl_sign = 1; }
+				
+#line 2616 "args/argcheck2.cpp"
+				
+				{
+#line 264 "args/argcheck2.rl"
 					rl_sign = -1; }
 				
-#line 2572 "args/argcheck2.cpp"
+#line 2622 "args/argcheck2.cpp"
 				
 				goto _st34;
 				_st34:
 				p += 1;
 				st_case_34:
 				if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-					goto _ctr95;
+					goto _ctr96;
 				}
 				{
 					goto _st0;
 				}
-				_ctr93:
+				_ctr94:
 				{
-#line 254 "args/argcheck2.rl"
+#line 272 "args/argcheck2.rl"
 					rl_sign = 1; }
 				
-#line 2589 "args/argcheck2.cpp"
+#line 2639 "args/argcheck2.cpp"
 				
 				{
-#line 248 "args/argcheck2.rl"
+#line 266 "args/argcheck2.rl"
 					rl_num = 0; }
 				
-#line 2595 "args/argcheck2.cpp"
+#line 2645 "args/argcheck2.cpp"
 				
 				{
-#line 248 "args/argcheck2.rl"
+#line 266 "args/argcheck2.rl"
 					(rl_num *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 2601 "args/argcheck2.cpp"
+#line 2651 "args/argcheck2.cpp"
 				
 				goto _st35;
-				_ctr95:
+				_ctr96:
 				{
-#line 248 "args/argcheck2.rl"
+#line 266 "args/argcheck2.rl"
 					rl_num = 0; }
 				
-#line 2609 "args/argcheck2.cpp"
+#line 2659 "args/argcheck2.cpp"
 				
 				{
-#line 248 "args/argcheck2.rl"
+#line 266 "args/argcheck2.rl"
 					(rl_num *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 2615 "args/argcheck2.cpp"
+#line 2665 "args/argcheck2.cpp"
 				
 				goto _st35;
-				_ctr99:
+				_ctr100:
 				{
-#line 248 "args/argcheck2.rl"
+#line 266 "args/argcheck2.rl"
 					(rl_num *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 2623 "args/argcheck2.cpp"
+#line 2673 "args/argcheck2.cpp"
 				
 				goto _st35;
 				_st35:
@@ -2627,21 +2677,21 @@ namespace ceammc {
 				st_case_35:
 				switch( ( (*( p))) ) {
 					case 44: {
-						goto _ctr97;
+						goto _ctr98;
 					}
 					case 46: {
 						goto _st41;
 					}
 				}
 				if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-					goto _ctr99;
+					goto _ctr100;
 				}
 				{
 					goto _st0;
 				}
-				_ctr97:
+				_ctr98:
 				{
-#line 218 "args/argcheck2.rl"
+#line 236 "args/argcheck2.rl"
 					
 					double real = rl_num;
 					if (rl_den_cnt)
@@ -2650,7 +2700,7 @@ namespace ceammc {
 					rl_chk.values.push_back(rl_sign * real);
 				}
 				
-#line 2654 "args/argcheck2.cpp"
+#line 2704 "args/argcheck2.cpp"
 				
 				goto _st36;
 				_st36:
@@ -2658,95 +2708,95 @@ namespace ceammc {
 				st_case_36:
 				switch( ( (*( p))) ) {
 					case 43: {
-						goto _ctr101;
+						goto _ctr102;
 					}
 					case 45: {
-						goto _ctr102;
+						goto _ctr103;
 					}
 				}
 				if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-					goto _ctr103;
+					goto _ctr104;
 				}
 				{
 					goto _st0;
 				}
-				_ctr101:
-				{
-#line 254 "args/argcheck2.rl"
-					rl_sign = 1; }
-				
-#line 2679 "args/argcheck2.cpp"
-				
-				{
-#line 245 "args/argcheck2.rl"
-					rl_sign = 1; }
-				
-#line 2685 "args/argcheck2.cpp"
-				
-				goto _st37;
 				_ctr102:
 				{
-#line 254 "args/argcheck2.rl"
+#line 272 "args/argcheck2.rl"
 					rl_sign = 1; }
 				
-#line 2693 "args/argcheck2.cpp"
+#line 2729 "args/argcheck2.cpp"
 				
 				{
-#line 246 "args/argcheck2.rl"
+#line 263 "args/argcheck2.rl"
+					rl_sign = 1; }
+				
+#line 2735 "args/argcheck2.cpp"
+				
+				goto _st37;
+				_ctr103:
+				{
+#line 272 "args/argcheck2.rl"
+					rl_sign = 1; }
+				
+#line 2743 "args/argcheck2.cpp"
+				
+				{
+#line 264 "args/argcheck2.rl"
 					rl_sign = -1; }
 				
-#line 2699 "args/argcheck2.cpp"
+#line 2749 "args/argcheck2.cpp"
 				
 				goto _st37;
 				_st37:
 				p += 1;
 				st_case_37:
 				if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-					goto _ctr105;
+					goto _ctr106;
 				}
 				{
 					goto _st0;
 				}
-				_ctr103:
+				_ctr104:
 				{
-#line 254 "args/argcheck2.rl"
+#line 272 "args/argcheck2.rl"
 					rl_sign = 1; }
 				
-#line 2716 "args/argcheck2.cpp"
+#line 2766 "args/argcheck2.cpp"
 				
 				{
-#line 248 "args/argcheck2.rl"
+#line 266 "args/argcheck2.rl"
 					rl_num = 0; }
 				
-#line 2722 "args/argcheck2.cpp"
+#line 2772 "args/argcheck2.cpp"
 				
 				{
-#line 248 "args/argcheck2.rl"
+#line 266 "args/argcheck2.rl"
 					(rl_num *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 2728 "args/argcheck2.cpp"
+#line 2778 "args/argcheck2.cpp"
 				
 				goto _st38;
-				_ctr105:
+				_ctr106:
 				{
-#line 248 "args/argcheck2.rl"
+#line 266 "args/argcheck2.rl"
 					rl_num = 0; }
 				
-#line 2736 "args/argcheck2.cpp"
+#line 2786 "args/argcheck2.cpp"
 				
 				{
-#line 248 "args/argcheck2.rl"
+#line 266 "args/argcheck2.rl"
 					(rl_num *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 2742 "args/argcheck2.cpp"
+#line 2792 "args/argcheck2.cpp"
 				
 				goto _st38;
-				_ctr109:
+				_ctr110:
 				{
-#line 248 "args/argcheck2.rl"
+#line 266 "args/argcheck2.rl"
 					(rl_num *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 2750 "args/argcheck2.cpp"
+#line 2800 "args/argcheck2.cpp"
 				
 				goto _st38;
 				_st38:
@@ -2754,17 +2804,17 @@ namespace ceammc {
 				st_case_38:
 				switch( ( (*( p))) ) {
 					case 41: {
-						goto _ctr107;
+						goto _ctr108;
 					}
 					case 46: {
 						goto _st39;
 					}
 					case 93: {
-						goto _ctr110;
+						goto _ctr111;
 					}
 				}
 				if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-					goto _ctr109;
+					goto _ctr110;
 				}
 				{
 					goto _st0;
@@ -2773,31 +2823,31 @@ namespace ceammc {
 				p += 1;
 				st_case_39:
 				if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-					goto _ctr111;
+					goto _ctr112;
 				}
 				{
 					goto _st0;
 				}
-				_ctr111:
+				_ctr112:
 				{
-#line 249 "args/argcheck2.rl"
+#line 267 "args/argcheck2.rl"
 					rl_den = 0; rl_den_cnt = 1; }
 				
-#line 2787 "args/argcheck2.cpp"
+#line 2837 "args/argcheck2.cpp"
 				
 				{
-#line 249 "args/argcheck2.rl"
+#line 267 "args/argcheck2.rl"
 					(rl_den *= 10) += ((( (*( p)))) - '0'); rl_den_cnt *= 10; }
 				
-#line 2793 "args/argcheck2.cpp"
+#line 2843 "args/argcheck2.cpp"
 				
 				goto _st40;
-				_ctr113:
+				_ctr114:
 				{
-#line 249 "args/argcheck2.rl"
+#line 267 "args/argcheck2.rl"
 					(rl_den *= 10) += ((( (*( p)))) - '0'); rl_den_cnt *= 10; }
 				
-#line 2801 "args/argcheck2.cpp"
+#line 2851 "args/argcheck2.cpp"
 				
 				goto _st40;
 				_st40:
@@ -2805,14 +2855,14 @@ namespace ceammc {
 				st_case_40:
 				switch( ( (*( p))) ) {
 					case 41: {
-						goto _ctr107;
+						goto _ctr108;
 					}
 					case 93: {
-						goto _ctr110;
+						goto _ctr111;
 					}
 				}
 				if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-					goto _ctr113;
+					goto _ctr114;
 				}
 				{
 					goto _st0;
@@ -2821,51 +2871,51 @@ namespace ceammc {
 				p += 1;
 				st_case_41:
 				if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-					goto _ctr114;
+					goto _ctr115;
 				}
 				{
 					goto _st0;
 				}
-				_ctr114:
+				_ctr115:
 				{
-#line 249 "args/argcheck2.rl"
+#line 267 "args/argcheck2.rl"
 					rl_den = 0; rl_den_cnt = 1; }
 				
-#line 2835 "args/argcheck2.cpp"
+#line 2885 "args/argcheck2.cpp"
 				
 				{
-#line 249 "args/argcheck2.rl"
+#line 267 "args/argcheck2.rl"
 					(rl_den *= 10) += ((( (*( p)))) - '0'); rl_den_cnt *= 10; }
 				
-#line 2841 "args/argcheck2.cpp"
+#line 2891 "args/argcheck2.cpp"
 				
 				goto _st42;
-				_ctr116:
+				_ctr117:
 				{
-#line 249 "args/argcheck2.rl"
+#line 267 "args/argcheck2.rl"
 					(rl_den *= 10) += ((( (*( p)))) - '0'); rl_den_cnt *= 10; }
 				
-#line 2849 "args/argcheck2.cpp"
+#line 2899 "args/argcheck2.cpp"
 				
 				goto _st42;
 				_st42:
 				p += 1;
 				st_case_42:
 				if ( ( (*( p))) == 44 ) {
-					goto _ctr97;
+					goto _ctr98;
 				}
 				if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-					goto _ctr116;
+					goto _ctr117;
 				}
 				{
 					goto _st0;
 				}
 				_ctr7:
 				{
-#line 335 "args/argcheck2.rl"
+#line 362 "args/argcheck2.rl"
 					rl_chk.type = CHECK_INT; }
 				
-#line 2869 "args/argcheck2.cpp"
+#line 2919 "args/argcheck2.cpp"
 				
 				goto _st43;
 				_st43:
@@ -2882,7 +2932,7 @@ namespace ceammc {
 						goto _st44;
 					}
 					case 37: {
-						goto _ctr119;
+						goto _ctr120;
 					}
 					case 42: {
 						goto _ctr29;
@@ -2891,13 +2941,13 @@ namespace ceammc {
 						goto _ctr30;
 					}
 					case 60: {
-						goto _ctr120;
-					}
-					case 61: {
 						goto _ctr121;
 					}
-					case 62: {
+					case 61: {
 						goto _ctr122;
+					}
+					case 62: {
+						goto _ctr123;
 					}
 					case 63: {
 						goto _ctr31;
@@ -2919,33 +2969,33 @@ namespace ceammc {
 				p += 1;
 				st_case_44:
 				if ( ( (*( p))) == 61 ) {
-					goto _ctr125;
+					goto _ctr126;
 				}
 				{
 					goto _st0;
 				}
-				_ctr125:
+				_ctr126:
 				{
-#line 279 "args/argcheck2.rl"
+#line 297 "args/argcheck2.rl"
 					rl_chk.cmp = CMP_NOT_EQUAL; }
 				
-#line 2933 "args/argcheck2.cpp"
+#line 2983 "args/argcheck2.cpp"
 				
 				goto _st45;
-				_ctr145:
+				_ctr146:
 				{
-#line 278 "args/argcheck2.rl"
+#line 296 "args/argcheck2.rl"
 					rl_chk.cmp = CMP_LESS_EQ; }
 				
-#line 2941 "args/argcheck2.cpp"
+#line 2991 "args/argcheck2.cpp"
 				
 				goto _st45;
-				_ctr155:
+				_ctr156:
 				{
-#line 277 "args/argcheck2.rl"
+#line 295 "args/argcheck2.rl"
 					rl_chk.cmp = CMP_GREATER_EQ; }
 				
-#line 2949 "args/argcheck2.cpp"
+#line 2999 "args/argcheck2.cpp"
 				
 				goto _st45;
 				_st45:
@@ -2953,95 +3003,95 @@ namespace ceammc {
 				st_case_45:
 				switch( ( (*( p))) ) {
 					case 43: {
-						goto _ctr127;
+						goto _ctr128;
 					}
 					case 45: {
-						goto _ctr128;
+						goto _ctr129;
 					}
 				}
 				if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-					goto _ctr129;
+					goto _ctr130;
 				}
 				{
 					goto _st0;
 				}
-				_ctr127:
-				{
-#line 254 "args/argcheck2.rl"
-					rl_sign = 1; }
-				
-#line 2974 "args/argcheck2.cpp"
-				
-				{
-#line 245 "args/argcheck2.rl"
-					rl_sign = 1; }
-				
-#line 2980 "args/argcheck2.cpp"
-				
-				goto _st46;
 				_ctr128:
 				{
-#line 254 "args/argcheck2.rl"
+#line 272 "args/argcheck2.rl"
 					rl_sign = 1; }
 				
-#line 2988 "args/argcheck2.cpp"
+#line 3024 "args/argcheck2.cpp"
 				
 				{
-#line 246 "args/argcheck2.rl"
+#line 263 "args/argcheck2.rl"
+					rl_sign = 1; }
+				
+#line 3030 "args/argcheck2.cpp"
+				
+				goto _st46;
+				_ctr129:
+				{
+#line 272 "args/argcheck2.rl"
+					rl_sign = 1; }
+				
+#line 3038 "args/argcheck2.cpp"
+				
+				{
+#line 264 "args/argcheck2.rl"
 					rl_sign = -1; }
 				
-#line 2994 "args/argcheck2.cpp"
+#line 3044 "args/argcheck2.cpp"
 				
 				goto _st46;
 				_st46:
 				p += 1;
 				st_case_46:
 				if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-					goto _ctr131;
+					goto _ctr132;
 				}
 				{
 					goto _st0;
 				}
-				_ctr129:
+				_ctr130:
 				{
-#line 254 "args/argcheck2.rl"
+#line 272 "args/argcheck2.rl"
 					rl_sign = 1; }
 				
-#line 3011 "args/argcheck2.cpp"
+#line 3061 "args/argcheck2.cpp"
 				
 				{
-#line 248 "args/argcheck2.rl"
+#line 266 "args/argcheck2.rl"
 					rl_num = 0; }
 				
-#line 3017 "args/argcheck2.cpp"
+#line 3067 "args/argcheck2.cpp"
 				
 				{
-#line 248 "args/argcheck2.rl"
+#line 266 "args/argcheck2.rl"
 					(rl_num *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 3023 "args/argcheck2.cpp"
+#line 3073 "args/argcheck2.cpp"
 				
 				goto _st47;
-				_ctr131:
+				_ctr132:
 				{
-#line 248 "args/argcheck2.rl"
+#line 266 "args/argcheck2.rl"
 					rl_num = 0; }
 				
-#line 3031 "args/argcheck2.cpp"
+#line 3081 "args/argcheck2.cpp"
 				
 				{
-#line 248 "args/argcheck2.rl"
+#line 266 "args/argcheck2.rl"
 					(rl_num *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 3037 "args/argcheck2.cpp"
+#line 3087 "args/argcheck2.cpp"
 				
 				goto _st47;
-				_ctr137:
+				_ctr138:
 				{
-#line 248 "args/argcheck2.rl"
+#line 266 "args/argcheck2.rl"
 					(rl_num *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 3045 "args/argcheck2.cpp"
+#line 3095 "args/argcheck2.cpp"
 				
 				goto _st47;
 				_st47:
@@ -3049,83 +3099,83 @@ namespace ceammc {
 				st_case_47:
 				switch( ( (*( p))) ) {
 					case 0: {
-						goto _ctr133;
-					}
-					case 32: {
 						goto _ctr134;
 					}
-					case 42: {
+					case 32: {
 						goto _ctr135;
 					}
-					case 43: {
+					case 42: {
 						goto _ctr136;
 					}
+					case 43: {
+						goto _ctr137;
+					}
 					case 63: {
-						goto _ctr138;
+						goto _ctr139;
 					}
 					case 123: {
-						goto _ctr139;
+						goto _ctr140;
 					}
 				}
 				if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-					goto _ctr137;
+					goto _ctr138;
 				}
 				{
 					goto _st0;
 				}
-				_ctr119:
+				_ctr120:
 				{
-#line 284 "args/argcheck2.rl"
+#line 302 "args/argcheck2.rl"
 					rl_chk.cmp = CMP_MODULE; }
 				
-#line 3082 "args/argcheck2.cpp"
+#line 3132 "args/argcheck2.cpp"
 				
 				goto _st48;
 				_st48:
 				p += 1;
 				st_case_48:
 				if ( 49 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-					goto _ctr141;
+					goto _ctr142;
 				}
 				{
 					goto _st0;
 				}
-				_ctr141:
+				_ctr142:
 				{
-#line 285 "args/argcheck2.rl"
+#line 303 "args/argcheck2.rl"
 					rl_sign = 1; rl_num = 0; }
 				
-#line 3099 "args/argcheck2.cpp"
+#line 3149 "args/argcheck2.cpp"
 				
 				{
-#line 285 "args/argcheck2.rl"
+#line 303 "args/argcheck2.rl"
 					(rl_num *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 3105 "args/argcheck2.cpp"
+#line 3155 "args/argcheck2.cpp"
 				
 				{
-#line 214 "args/argcheck2.rl"
+#line 232 "args/argcheck2.rl"
 					
 					rl_chk.values.push_back((int64_t)(rl_sign * rl_num));
 				}
 				
-#line 3113 "args/argcheck2.cpp"
+#line 3163 "args/argcheck2.cpp"
 				
 				goto _st49;
-				_ctr143:
+				_ctr144:
 				{
-#line 285 "args/argcheck2.rl"
+#line 303 "args/argcheck2.rl"
 					(rl_num *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 3121 "args/argcheck2.cpp"
+#line 3171 "args/argcheck2.cpp"
 				
 				{
-#line 214 "args/argcheck2.rl"
+#line 232 "args/argcheck2.rl"
 					
 					rl_chk.values.push_back((int64_t)(rl_sign * rl_num));
 				}
 				
-#line 3129 "args/argcheck2.cpp"
+#line 3179 "args/argcheck2.cpp"
 				
 				goto _st49;
 				_st49:
@@ -3152,17 +3202,17 @@ namespace ceammc {
 					}
 				}
 				if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-					goto _ctr143;
+					goto _ctr144;
 				}
 				{
 					goto _st0;
 				}
-				_ctr120:
+				_ctr121:
 				{
-#line 278 "args/argcheck2.rl"
+#line 296 "args/argcheck2.rl"
 					rl_chk.cmp = CMP_LESS; }
 				
-#line 3166 "args/argcheck2.cpp"
+#line 3216 "args/argcheck2.cpp"
 				
 				goto _st50;
 				_st50:
@@ -3170,27 +3220,27 @@ namespace ceammc {
 				st_case_50:
 				switch( ( (*( p))) ) {
 					case 43: {
-						goto _ctr127;
-					}
-					case 45: {
 						goto _ctr128;
 					}
+					case 45: {
+						goto _ctr129;
+					}
 					case 61: {
-						goto _ctr145;
+						goto _ctr146;
 					}
 				}
 				if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-					goto _ctr129;
+					goto _ctr130;
 				}
 				{
 					goto _st0;
 				}
-				_ctr121:
+				_ctr122:
 				{
-#line 274 "args/argcheck2.rl"
+#line 292 "args/argcheck2.rl"
 					rl_chk.cmp = CMP_EQUAL; }
 				
-#line 3194 "args/argcheck2.cpp"
+#line 3244 "args/argcheck2.cpp"
 				
 				goto _st51;
 				_st51:
@@ -3198,119 +3248,119 @@ namespace ceammc {
 				st_case_51:
 				switch( ( (*( p))) ) {
 					case 43: {
-						goto _ctr147;
+						goto _ctr148;
 					}
 					case 45: {
-						goto _ctr148;
+						goto _ctr149;
 					}
 				}
 				if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-					goto _ctr149;
+					goto _ctr150;
 				}
 				{
 					goto _st0;
 				}
-				_ctr147:
-				{
-#line 254 "args/argcheck2.rl"
-					rl_sign = 1; }
-				
-#line 3219 "args/argcheck2.cpp"
-				
-				{
-#line 245 "args/argcheck2.rl"
-					rl_sign = 1; }
-				
-#line 3225 "args/argcheck2.cpp"
-				
-				goto _st52;
 				_ctr148:
 				{
-#line 254 "args/argcheck2.rl"
+#line 272 "args/argcheck2.rl"
 					rl_sign = 1; }
 				
-#line 3233 "args/argcheck2.cpp"
+#line 3269 "args/argcheck2.cpp"
 				
 				{
-#line 246 "args/argcheck2.rl"
+#line 263 "args/argcheck2.rl"
+					rl_sign = 1; }
+				
+#line 3275 "args/argcheck2.cpp"
+				
+				goto _st52;
+				_ctr149:
+				{
+#line 272 "args/argcheck2.rl"
+					rl_sign = 1; }
+				
+#line 3283 "args/argcheck2.cpp"
+				
+				{
+#line 264 "args/argcheck2.rl"
 					rl_sign = -1; }
 				
-#line 3239 "args/argcheck2.cpp"
+#line 3289 "args/argcheck2.cpp"
 				
 				goto _st52;
 				_st52:
 				p += 1;
 				st_case_52:
 				if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-					goto _ctr151;
+					goto _ctr152;
 				}
 				{
 					goto _st0;
 				}
-				_ctr149:
+				_ctr150:
 				{
-#line 254 "args/argcheck2.rl"
+#line 272 "args/argcheck2.rl"
 					rl_sign = 1; }
-				
-#line 3256 "args/argcheck2.cpp"
-				
-				{
-#line 248 "args/argcheck2.rl"
-					rl_num = 0; }
-				
-#line 3262 "args/argcheck2.cpp"
-				
-				{
-#line 248 "args/argcheck2.rl"
-					(rl_num *= 10) += ((( (*( p)))) - '0'); }
-				
-#line 3268 "args/argcheck2.cpp"
-				
-				{
-#line 214 "args/argcheck2.rl"
-					
-					rl_chk.values.push_back((int64_t)(rl_sign * rl_num));
-				}
-				
-#line 3276 "args/argcheck2.cpp"
-				
-				goto _st53;
-				_ctr151:
-				{
-#line 248 "args/argcheck2.rl"
-					rl_num = 0; }
-				
-#line 3284 "args/argcheck2.cpp"
-				
-				{
-#line 248 "args/argcheck2.rl"
-					(rl_num *= 10) += ((( (*( p)))) - '0'); }
-				
-#line 3290 "args/argcheck2.cpp"
-				
-				{
-#line 214 "args/argcheck2.rl"
-					
-					rl_chk.values.push_back((int64_t)(rl_sign * rl_num));
-				}
-				
-#line 3298 "args/argcheck2.cpp"
-				
-				goto _st53;
-				_ctr153:
-				{
-#line 248 "args/argcheck2.rl"
-					(rl_num *= 10) += ((( (*( p)))) - '0'); }
 				
 #line 3306 "args/argcheck2.cpp"
 				
 				{
-#line 214 "args/argcheck2.rl"
+#line 266 "args/argcheck2.rl"
+					rl_num = 0; }
+				
+#line 3312 "args/argcheck2.cpp"
+				
+				{
+#line 266 "args/argcheck2.rl"
+					(rl_num *= 10) += ((( (*( p)))) - '0'); }
+				
+#line 3318 "args/argcheck2.cpp"
+				
+				{
+#line 232 "args/argcheck2.rl"
 					
 					rl_chk.values.push_back((int64_t)(rl_sign * rl_num));
 				}
 				
-#line 3314 "args/argcheck2.cpp"
+#line 3326 "args/argcheck2.cpp"
+				
+				goto _st53;
+				_ctr152:
+				{
+#line 266 "args/argcheck2.rl"
+					rl_num = 0; }
+				
+#line 3334 "args/argcheck2.cpp"
+				
+				{
+#line 266 "args/argcheck2.rl"
+					(rl_num *= 10) += ((( (*( p)))) - '0'); }
+				
+#line 3340 "args/argcheck2.cpp"
+				
+				{
+#line 232 "args/argcheck2.rl"
+					
+					rl_chk.values.push_back((int64_t)(rl_sign * rl_num));
+				}
+				
+#line 3348 "args/argcheck2.cpp"
+				
+				goto _st53;
+				_ctr154:
+				{
+#line 266 "args/argcheck2.rl"
+					(rl_num *= 10) += ((( (*( p)))) - '0'); }
+				
+#line 3356 "args/argcheck2.cpp"
+				
+				{
+#line 232 "args/argcheck2.rl"
+					
+					rl_chk.values.push_back((int64_t)(rl_sign * rl_num));
+				}
+				
+#line 3364 "args/argcheck2.cpp"
 				
 				goto _st53;
 				_st53:
@@ -3340,17 +3390,17 @@ namespace ceammc {
 					}
 				}
 				if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-					goto _ctr153;
+					goto _ctr154;
 				}
 				{
 					goto _st0;
 				}
-				_ctr122:
+				_ctr123:
 				{
-#line 277 "args/argcheck2.rl"
+#line 295 "args/argcheck2.rl"
 					rl_chk.cmp = CMP_GREATER; }
 				
-#line 3354 "args/argcheck2.cpp"
+#line 3404 "args/argcheck2.cpp"
 				
 				goto _st54;
 				_st54:
@@ -3358,17 +3408,17 @@ namespace ceammc {
 				st_case_54:
 				switch( ( (*( p))) ) {
 					case 43: {
-						goto _ctr127;
-					}
-					case 45: {
 						goto _ctr128;
 					}
+					case 45: {
+						goto _ctr129;
+					}
 					case 61: {
-						goto _ctr155;
+						goto _ctr156;
 					}
 				}
 				if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-					goto _ctr129;
+					goto _ctr130;
 				}
 				{
 					goto _st0;
@@ -3378,119 +3428,119 @@ namespace ceammc {
 				st_case_55:
 				switch( ( (*( p))) ) {
 					case 43: {
-						goto _ctr156;
+						goto _ctr157;
 					}
 					case 45: {
-						goto _ctr157;
+						goto _ctr158;
 					}
 				}
 				if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-					goto _ctr158;
+					goto _ctr159;
 				}
 				{
 					goto _st0;
 				}
-				_ctr156:
-				{
-#line 254 "args/argcheck2.rl"
-					rl_sign = 1; }
-				
-#line 3399 "args/argcheck2.cpp"
-				
-				{
-#line 245 "args/argcheck2.rl"
-					rl_sign = 1; }
-				
-#line 3405 "args/argcheck2.cpp"
-				
-				goto _st56;
 				_ctr157:
 				{
-#line 254 "args/argcheck2.rl"
+#line 272 "args/argcheck2.rl"
 					rl_sign = 1; }
 				
-#line 3413 "args/argcheck2.cpp"
+#line 3449 "args/argcheck2.cpp"
 				
 				{
-#line 246 "args/argcheck2.rl"
+#line 263 "args/argcheck2.rl"
+					rl_sign = 1; }
+				
+#line 3455 "args/argcheck2.cpp"
+				
+				goto _st56;
+				_ctr158:
+				{
+#line 272 "args/argcheck2.rl"
+					rl_sign = 1; }
+				
+#line 3463 "args/argcheck2.cpp"
+				
+				{
+#line 264 "args/argcheck2.rl"
 					rl_sign = -1; }
 				
-#line 3419 "args/argcheck2.cpp"
+#line 3469 "args/argcheck2.cpp"
 				
 				goto _st56;
 				_st56:
 				p += 1;
 				st_case_56:
 				if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-					goto _ctr160;
+					goto _ctr161;
 				}
 				{
 					goto _st0;
 				}
-				_ctr158:
+				_ctr159:
 				{
-#line 254 "args/argcheck2.rl"
+#line 272 "args/argcheck2.rl"
 					rl_sign = 1; }
-				
-#line 3436 "args/argcheck2.cpp"
-				
-				{
-#line 248 "args/argcheck2.rl"
-					rl_num = 0; }
-				
-#line 3442 "args/argcheck2.cpp"
-				
-				{
-#line 248 "args/argcheck2.rl"
-					(rl_num *= 10) += ((( (*( p)))) - '0'); }
-				
-#line 3448 "args/argcheck2.cpp"
-				
-				{
-#line 214 "args/argcheck2.rl"
-					
-					rl_chk.values.push_back((int64_t)(rl_sign * rl_num));
-				}
-				
-#line 3456 "args/argcheck2.cpp"
-				
-				goto _st57;
-				_ctr160:
-				{
-#line 248 "args/argcheck2.rl"
-					rl_num = 0; }
-				
-#line 3464 "args/argcheck2.cpp"
-				
-				{
-#line 248 "args/argcheck2.rl"
-					(rl_num *= 10) += ((( (*( p)))) - '0'); }
-				
-#line 3470 "args/argcheck2.cpp"
-				
-				{
-#line 214 "args/argcheck2.rl"
-					
-					rl_chk.values.push_back((int64_t)(rl_sign * rl_num));
-				}
-				
-#line 3478 "args/argcheck2.cpp"
-				
-				goto _st57;
-				_ctr163:
-				{
-#line 248 "args/argcheck2.rl"
-					(rl_num *= 10) += ((( (*( p)))) - '0'); }
 				
 #line 3486 "args/argcheck2.cpp"
 				
 				{
-#line 214 "args/argcheck2.rl"
+#line 266 "args/argcheck2.rl"
+					rl_num = 0; }
+				
+#line 3492 "args/argcheck2.cpp"
+				
+				{
+#line 266 "args/argcheck2.rl"
+					(rl_num *= 10) += ((( (*( p)))) - '0'); }
+				
+#line 3498 "args/argcheck2.cpp"
+				
+				{
+#line 232 "args/argcheck2.rl"
 					
 					rl_chk.values.push_back((int64_t)(rl_sign * rl_num));
 				}
 				
-#line 3494 "args/argcheck2.cpp"
+#line 3506 "args/argcheck2.cpp"
+				
+				goto _st57;
+				_ctr161:
+				{
+#line 266 "args/argcheck2.rl"
+					rl_num = 0; }
+				
+#line 3514 "args/argcheck2.cpp"
+				
+				{
+#line 266 "args/argcheck2.rl"
+					(rl_num *= 10) += ((( (*( p)))) - '0'); }
+				
+#line 3520 "args/argcheck2.cpp"
+				
+				{
+#line 232 "args/argcheck2.rl"
+					
+					rl_chk.values.push_back((int64_t)(rl_sign * rl_num));
+				}
+				
+#line 3528 "args/argcheck2.cpp"
+				
+				goto _st57;
+				_ctr164:
+				{
+#line 266 "args/argcheck2.rl"
+					(rl_num *= 10) += ((( (*( p)))) - '0'); }
+				
+#line 3536 "args/argcheck2.cpp"
+				
+				{
+#line 232 "args/argcheck2.rl"
+					
+					rl_chk.values.push_back((int64_t)(rl_sign * rl_num));
+				}
+				
+#line 3544 "args/argcheck2.cpp"
 				
 				goto _st57;
 				_st57:
@@ -3500,7 +3550,7 @@ namespace ceammc {
 					goto _st58;
 				}
 				if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-					goto _ctr163;
+					goto _ctr164;
 				}
 				{
 					goto _st0;
@@ -3510,119 +3560,119 @@ namespace ceammc {
 				st_case_58:
 				switch( ( (*( p))) ) {
 					case 43: {
-						goto _ctr164;
+						goto _ctr165;
 					}
 					case 45: {
-						goto _ctr165;
+						goto _ctr166;
 					}
 				}
 				if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-					goto _ctr166;
+					goto _ctr167;
 				}
 				{
 					goto _st0;
 				}
-				_ctr164:
-				{
-#line 254 "args/argcheck2.rl"
-					rl_sign = 1; }
-				
-#line 3531 "args/argcheck2.cpp"
-				
-				{
-#line 245 "args/argcheck2.rl"
-					rl_sign = 1; }
-				
-#line 3537 "args/argcheck2.cpp"
-				
-				goto _st59;
 				_ctr165:
 				{
-#line 254 "args/argcheck2.rl"
+#line 272 "args/argcheck2.rl"
 					rl_sign = 1; }
 				
-#line 3545 "args/argcheck2.cpp"
+#line 3581 "args/argcheck2.cpp"
 				
 				{
-#line 246 "args/argcheck2.rl"
+#line 263 "args/argcheck2.rl"
+					rl_sign = 1; }
+				
+#line 3587 "args/argcheck2.cpp"
+				
+				goto _st59;
+				_ctr166:
+				{
+#line 272 "args/argcheck2.rl"
+					rl_sign = 1; }
+				
+#line 3595 "args/argcheck2.cpp"
+				
+				{
+#line 264 "args/argcheck2.rl"
 					rl_sign = -1; }
 				
-#line 3551 "args/argcheck2.cpp"
+#line 3601 "args/argcheck2.cpp"
 				
 				goto _st59;
 				_st59:
 				p += 1;
 				st_case_59:
 				if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-					goto _ctr168;
+					goto _ctr169;
 				}
 				{
 					goto _st0;
 				}
-				_ctr166:
+				_ctr167:
 				{
-#line 254 "args/argcheck2.rl"
+#line 272 "args/argcheck2.rl"
 					rl_sign = 1; }
-				
-#line 3568 "args/argcheck2.cpp"
-				
-				{
-#line 248 "args/argcheck2.rl"
-					rl_num = 0; }
-				
-#line 3574 "args/argcheck2.cpp"
-				
-				{
-#line 248 "args/argcheck2.rl"
-					(rl_num *= 10) += ((( (*( p)))) - '0'); }
-				
-#line 3580 "args/argcheck2.cpp"
-				
-				{
-#line 214 "args/argcheck2.rl"
-					
-					rl_chk.values.push_back((int64_t)(rl_sign * rl_num));
-				}
-				
-#line 3588 "args/argcheck2.cpp"
-				
-				goto _st60;
-				_ctr168:
-				{
-#line 248 "args/argcheck2.rl"
-					rl_num = 0; }
-				
-#line 3596 "args/argcheck2.cpp"
-				
-				{
-#line 248 "args/argcheck2.rl"
-					(rl_num *= 10) += ((( (*( p)))) - '0'); }
-				
-#line 3602 "args/argcheck2.cpp"
-				
-				{
-#line 214 "args/argcheck2.rl"
-					
-					rl_chk.values.push_back((int64_t)(rl_sign * rl_num));
-				}
-				
-#line 3610 "args/argcheck2.cpp"
-				
-				goto _st60;
-				_ctr171:
-				{
-#line 248 "args/argcheck2.rl"
-					(rl_num *= 10) += ((( (*( p)))) - '0'); }
 				
 #line 3618 "args/argcheck2.cpp"
 				
 				{
-#line 214 "args/argcheck2.rl"
+#line 266 "args/argcheck2.rl"
+					rl_num = 0; }
+				
+#line 3624 "args/argcheck2.cpp"
+				
+				{
+#line 266 "args/argcheck2.rl"
+					(rl_num *= 10) += ((( (*( p)))) - '0'); }
+				
+#line 3630 "args/argcheck2.cpp"
+				
+				{
+#line 232 "args/argcheck2.rl"
 					
 					rl_chk.values.push_back((int64_t)(rl_sign * rl_num));
 				}
 				
-#line 3626 "args/argcheck2.cpp"
+#line 3638 "args/argcheck2.cpp"
+				
+				goto _st60;
+				_ctr169:
+				{
+#line 266 "args/argcheck2.rl"
+					rl_num = 0; }
+				
+#line 3646 "args/argcheck2.cpp"
+				
+				{
+#line 266 "args/argcheck2.rl"
+					(rl_num *= 10) += ((( (*( p)))) - '0'); }
+				
+#line 3652 "args/argcheck2.cpp"
+				
+				{
+#line 232 "args/argcheck2.rl"
+					
+					rl_chk.values.push_back((int64_t)(rl_sign * rl_num));
+				}
+				
+#line 3660 "args/argcheck2.cpp"
+				
+				goto _st60;
+				_ctr172:
+				{
+#line 266 "args/argcheck2.rl"
+					(rl_num *= 10) += ((( (*( p)))) - '0'); }
+				
+#line 3668 "args/argcheck2.cpp"
+				
+				{
+#line 232 "args/argcheck2.rl"
+					
+					rl_chk.values.push_back((int64_t)(rl_sign * rl_num));
+				}
+				
+#line 3676 "args/argcheck2.cpp"
 				
 				goto _st60;
 				_st60:
@@ -3630,14 +3680,14 @@ namespace ceammc {
 				st_case_60:
 				switch( ( (*( p))) ) {
 					case 41: {
-						goto _ctr170;
+						goto _ctr171;
 					}
 					case 93: {
-						goto _ctr172;
+						goto _ctr173;
 					}
 				}
 				if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-					goto _ctr171;
+					goto _ctr172;
 				}
 				{
 					goto _st0;
@@ -3646,17 +3696,17 @@ namespace ceammc {
 				p += 1;
 				st_case_61:
 				if ( ( (*( p))) == 50 ) {
-					goto _ctr173;
+					goto _ctr174;
 				}
 				{
 					goto _st0;
 				}
 				_ctr8:
 				{
-#line 336 "args/argcheck2.rl"
+#line 363 "args/argcheck2.rl"
 					rl_chk.type = CHECK_SYMBOL; }
 				
-#line 3660 "args/argcheck2.cpp"
+#line 3710 "args/argcheck2.cpp"
 				
 				goto _st62;
 				_st62:
@@ -3676,7 +3726,7 @@ namespace ceammc {
 						goto _ctr30;
 					}
 					case 61: {
-						goto _ctr175;
+						goto _ctr176;
 					}
 					case 63: {
 						goto _ctr31;
@@ -3688,17 +3738,17 @@ namespace ceammc {
 				{
 					goto _st0;
 				}
-				_ctr175:
+				_ctr176:
 				{
-#line 307 "args/argcheck2.rl"
+#line 325 "args/argcheck2.rl"
 					rl_chk.cmp = CMP_EQUAL; }
 				
-#line 3697 "args/argcheck2.cpp"
+#line 3747 "args/argcheck2.cpp"
 				
 				goto _st63;
-				_ctr185:
+				_ctr186:
 				{
-#line 226 "args/argcheck2.rl"
+#line 244 "args/argcheck2.rl"
 					
 					try {
 						ArgString str{ {}, 0 };
@@ -3710,7 +3760,7 @@ namespace ceammc {
 					}
 				}
 				
-#line 3714 "args/argcheck2.cpp"
+#line 3764 "args/argcheck2.cpp"
 				
 				goto _st63;
 				_st63:
@@ -3718,35 +3768,35 @@ namespace ceammc {
 				st_case_63:
 				switch( ( (*( p))) ) {
 					case 35: {
-						goto _ctr177;
+						goto _ctr178;
 					}
 					case 45: {
-						goto _ctr177;
+						goto _ctr178;
 					}
 					case 95: {
-						goto _ctr177;
+						goto _ctr178;
 					}
 				}
 				if ( ( (*( p))) < 64 ) {
 					if ( 48 <= ( (*( p))) && ( (*( p))) <= 58 ) {
-						goto _ctr177;
+						goto _ctr178;
 					}
 				} else if ( ( (*( p))) > 90 ) {
 					if ( 97 <= ( (*( p))) && ( (*( p))) <= 122 ) {
-						goto _ctr177;
+						goto _ctr178;
 					}
 				} else {
-					goto _ctr177;
+					goto _ctr178;
 				}
 				{
 					goto _st0;
 				}
-				_ctr177:
+				_ctr178:
 				{
-#line 300 "args/argcheck2.rl"
+#line 318 "args/argcheck2.rl"
 					rl_sym_start = p; }
 				
-#line 3750 "args/argcheck2.cpp"
+#line 3800 "args/argcheck2.cpp"
 				
 				goto _st64;
 				_st64:
@@ -3754,34 +3804,34 @@ namespace ceammc {
 				st_case_64:
 				switch( ( (*( p))) ) {
 					case 0: {
-						goto _ctr179;
+						goto _ctr180;
 					}
 					case 32: {
-						goto _ctr180;
+						goto _ctr181;
 					}
 					case 35: {
 						goto _st64;
 					}
 					case 42: {
-						goto _ctr181;
+						goto _ctr182;
 					}
 					case 43: {
-						goto _ctr182;
+						goto _ctr183;
 					}
 					case 45: {
 						goto _st64;
 					}
 					case 63: {
-						goto _ctr183;
+						goto _ctr184;
 					}
 					case 95: {
 						goto _st64;
 					}
 					case 123: {
-						goto _ctr184;
+						goto _ctr185;
 					}
 					case 124: {
-						goto _ctr185;
+						goto _ctr186;
 					}
 				}
 				if ( ( (*( p))) < 64 ) {
@@ -3800,22 +3850,22 @@ namespace ceammc {
 				}
 				_ctr3:
 				{
-#line 344 "args/argcheck2.rl"
+#line 371 "args/argcheck2.rl"
 					rl_chk.name.clear(); }
 				
-#line 3807 "args/argcheck2.cpp"
+#line 3857 "args/argcheck2.cpp"
 				
 				{
-#line 344 "args/argcheck2.rl"
+#line 371 "args/argcheck2.rl"
 					rl_chk.name.push_back((( (*( p))))); }
 				
-#line 3813 "args/argcheck2.cpp"
+#line 3863 "args/argcheck2.cpp"
 				
 				{
-#line 333 "args/argcheck2.rl"
+#line 360 "args/argcheck2.rl"
 					rl_chk.type = CHECK_BOOL; }
 				
-#line 3819 "args/argcheck2.cpp"
+#line 3869 "args/argcheck2.cpp"
 				
 				goto _st65;
 				_st65:
@@ -3838,7 +3888,7 @@ namespace ceammc {
 						goto _st10;
 					}
 					case 63: {
-						goto _ctr187;
+						goto _ctr188;
 					}
 					case 95: {
 						goto _ctr10;
@@ -3857,24 +3907,24 @@ namespace ceammc {
 				{
 					goto _st0;
 				}
-				_ctr187:
+				_ctr188:
 				{
-#line 344 "args/argcheck2.rl"
+#line 371 "args/argcheck2.rl"
 					rl_chk.name.push_back((( (*( p))))); }
 				
-#line 3866 "args/argcheck2.cpp"
+#line 3916 "args/argcheck2.cpp"
 				
 				{
-#line 353 "args/argcheck2.rl"
+#line 380 "args/argcheck2.rl"
 					rl_chk.rmin = 1; rl_chk.rmax = 1; }
 				
-#line 3872 "args/argcheck2.cpp"
+#line 3922 "args/argcheck2.cpp"
 				
 				{
-#line 338 "args/argcheck2.rl"
+#line 365 "args/argcheck2.rl"
 					rl_chk.setRepeats(0, 1); }
 				
-#line 3878 "args/argcheck2.cpp"
+#line 3928 "args/argcheck2.cpp"
 				
 				goto _st66;
 				_st66:
@@ -3979,13 +4029,13 @@ namespace ceammc {
 				_out: {}
 			}
 			
-#line 749 "args/argcheck2.rl"
+#line 797 "args/argcheck2.rl"
 			
 			
 			if (cs < 
-#line 3987 "args/argcheck2.cpp"
+#line 4037 "args/argcheck2.cpp"
 			67
-#line 751 "args/argcheck2.rl"
+#line 799 "args/argcheck2.rl"
 			) {
 				LIB_ERR << fmt::format("invalid format string: '{}'", str);
 				chk_.reset();

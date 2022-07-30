@@ -7,6 +7,7 @@
 # include <cstdint>
 # include <iostream>
 # include <limits>
+# include <cmath>
 # include <algorithm>
 # include <boost/static_string.hpp>
 # include <boost/container/static_vector.hpp>
@@ -54,6 +55,7 @@ namespace {
         CMP_POWER2,
         CMP_RANGE_CLOSED,
         CMP_RANGE_SEMIOPEN,
+        CMP_APPROX,
     };
 
     std::string atom_to_string(const ceammc::Atom& a) {
@@ -112,6 +114,11 @@ namespace {
         return { res.data(), res.size() };
     }
 
+    inline bool approx_equal(double a, double b, double e = 0.00001)
+    {
+        return std::fabs(a - b) <= e;
+    }
+
     struct Check {
         ArgList values;
         ArgName name;
@@ -134,6 +141,12 @@ namespace {
         {
             auto dbl_ptr = boost::get<double>(&v);
             return (dbl_ptr && d == *dbl_ptr);
+        }
+
+        inline static bool isApproxEqual(const ArgValue& v, double d)
+        {
+            auto dbl_ptr = boost::get<double>(&v);
+            return dbl_ptr && approx_equal(d, *dbl_ptr);
         }
 
         inline static bool isEqualHash(const ArgValue& v, uint32_t hash)
@@ -170,6 +183,11 @@ namespace {
                     return fmt::format("check: ={}", arg_to_string(values));
                 else
                     return fmt::format("enum: {}", arg_to_string(values, "|"));
+            case CMP_APPROX:
+                if (values.size() == 1)
+                    return fmt::format("check: ~{}", arg_to_string(values));
+                else
+                    return fmt::format("enum: ~{}", arg_to_string(values, "|"));
             default:
                 return {};
             }
@@ -324,8 +342,17 @@ cmp_eq_float = (('=' num_real %append_opt_real)
                ) >{ rl_chk.cmp = CMP_EQUAL; }
                ;
 
+#####################
+# approx: ~FLOAT|FLOAT|FLOAT...
+#####################
+cmp_approx_float = (('~' num_real %append_opt_real)
+               ('|' num_real  %append_opt_real)*
+               ) >{ rl_chk.cmp = CMP_APPROX; }
+               ;
+
 float_check = (cmp_op num_real %append_opt_real)
             | cmp_eq_float
+            | cmp_approx_float
             | cmp_range_float
             ;
 
@@ -639,6 +666,27 @@ bool checkAtom(const Check& c, const Atom& a, int i, const void* x, bool pErr) {
                 if (pErr)
                     pdError(x, fmt::format("{} at [{}] expected to be !={}, got: {}", c.argName(), i, arg, val));
                 return false;
+            }
+        break;
+        case CMP_APPROX:
+            if (c.values.size() == 1) {
+                if (!approx_equal(val, arg)) {
+                    if (pErr)
+                        pdError(x, fmt::format("{} at [{}] expected to be ~ {}, got: {}",
+                                c.argName(), i, arg_to_string(c.values[0]), atom_to_string(a)));
+                    return false;
+                }
+            } else {
+                bool found = false;
+                for (auto& v: c.values) {
+                    if (c.isApproxEqual(v, val)) { found = true; break; }
+                }
+                if (!found) {
+                    if (pErr)
+                        pdError(x, fmt::format("{} at [{}] expected to be aprrox of: {}, got: {}",
+                                c.argName(), i, arg_to_string(c.values), atom_to_string(a)));
+                    return false;
+                }
             }
         break;
         default:
