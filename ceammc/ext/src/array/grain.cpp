@@ -17,6 +17,7 @@
 #include "ceammc_sound.h"
 #include "ceammc_window.h"
 
+#include "fmt/core.h"
 #include "grain_expr_parser.h"
 #include "grain_random.h"
 
@@ -55,6 +56,11 @@ static const char* interp2str(GrainInterp i)
 {
     static const char* txt[3] = { "none", "lin", "cubic" };
     return txt[i];
+}
+
+static std::string tag2str(t_symbol* tag)
+{
+    return tag ? (std::string(1, '.') + tag->s_name) : std::string {};
 }
 
 Grain::Grain()
@@ -175,22 +181,26 @@ GrainState Grain::done()
 
 std::ostream& operator<<(std::ostream& os, const Grain& g)
 {
-    os << "grain(#" << g.id();
 
-    if (g.tag())
-        os << '.' << g.tag()->s_name;
+    os << fmt::format("grain(#{}{},"
+                      "@at={},@l={},@d={},@tb={},@ta={},"
+                      "@amp={},@s={},@p={},@r={},"
+                      "panmode={},"
+                      "interp={})",
+        g.id(),
+        tag2str(g.tag()),
+        g.arrayPosInSamples(),
+        g.lengthInSamples(),
+        g.durationInSamples(),
+        g.timeBefore(),
+        g.timeAfter(),
+        g.amplitude(),
+        g.speed(),
+        g.pan(),
+        g.repeats(),
+        panMode2str(g.panMode()),
+        interp2str(g.playInterpolation()));
 
-    os << ",@at=" << g.arrayPosInSamples()
-       << ",@l=" << g.lengthInSamples()
-       << ",@d=" << g.durationInSamples()
-       << ",@tb=" << g.timeBefore()
-       << ",@ta=" << g.timeAfter()
-       << ",@amp=" << g.amplitude()
-       << ",@s=" << g.speed()
-       << ",@p=" << g.pan()
-       << ",panmode=" << panMode2str(g.panMode())
-       << ",interp=" << interp2str(g.playInterpolation())
-       << ')';
     return os;
 }
 
