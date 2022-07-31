@@ -186,7 +186,7 @@ std::ostream& operator<<(std::ostream& os, const Grain& g)
 
     os << fmt::format("grain(#{}{},"
                       "@at={},@l={},@d={},@tb={},@ta={},"
-                      "@amp={},@s={},@p={},@r={},@cnt={}"
+                      "@amp={},@s={},@p={},@r={},@cnt={},"
                       "panmode={},"
                       "interp={})",
         g.id(),
