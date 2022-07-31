@@ -171,8 +171,10 @@ bool GrainCloud::spreadGrains(SpreadMode mode, uint32_t len_samp, t_symbol* tag)
                 double tlen = len_samp;
                 double gk = i / double(N);
                 double gpos = gk * tlen;
+                g->resetFirstTime();
+                g->start(0);
                 g->setTimeBefore(gpos);
-                g->setTimeAfter(clip_min<double, 0>(tlen - (gpos + glen)));
+                g->setTimeAfter(clip_min<double, 0>(tlen - glen));
             } break;
             default:
                 std::cerr << "unknown spread mode";
@@ -245,11 +247,14 @@ void GrainCloud::playBuffer(t_sample** buf, uint32_t bs, uint32_t sr)
                     g->start(0);
 
                     uint32_t done_samp = 0;
-                    auto state = g->process(array_it_, array_size_, buf, bs, sr, 0, &done_samp);
+                    uint32_t offset = 0;
+                    auto state = g->process(array_it_, array_size_, buf, bs, sr, offset, &done_samp);
 
-                    while (state == GRAIN_FINISHED && g->canBePlayed() && done_samp > 0) {
+                    while (g->speed() > 0  && state == GRAIN_FINISHED && g->canBePlayed() && done_samp > 0) {
+                        offset += done_samp;
+                        done_samp = 0;
                         g->start(0);
-                        state = g->process(array_it_, array_size_, buf, bs, sr, done_samp, &done_samp);
+                        state = g->process(array_it_, array_size_, buf, bs, sr, offset, &done_samp);
                     }
                     break;
                 }
@@ -263,11 +268,14 @@ void GrainCloud::playBuffer(t_sample** buf, uint32_t bs, uint32_t sr)
                 case SYNC_NONE:
                 default:
                     uint32_t done_samp = 0;
-                    auto state = g->process(array_it_, array_size_, buf, bs, sr, 0, &done_samp);
+                    uint32_t offset = 0;
+                    auto state = g->process(array_it_, array_size_, buf, bs, sr, offset, &done_samp);
 
-                    while (state == GRAIN_FINISHED && g->canBePlayed() && done_samp > 0) {
+                    while (g->speed() > 0 && state == GRAIN_FINISHED && g->canBePlayed() && done_samp > 0) {
+                        offset += done_samp;
+                        done_samp = 0;
                         g->start(0);
-                        state = g->process(array_it_, array_size_, buf, bs, sr, done_samp, &done_samp);
+                        state = g->process(array_it_, array_size_, buf, bs, sr, offset, &done_samp);
                     }
                     break;
                 }
