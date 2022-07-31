@@ -54,6 +54,10 @@ TEST_CASE("array.grainer", "[externals]")
         REQUIRE(g->speed() == 1);
         REQUIRE(g->durationInSamples() == 7);
         REQUIRE(g->endInSamples() == 13);
+        REQUIRE(g->timeBefore() == 6);
+        g->setTimeAfter(1);
+        REQUIRE(g->timeAfter() == 1);
+        REQUIRE(g->amplitude() == 1);
         REQUIRE(g->pan() == 0.5);
         REQUIRE(g->panOverflow() == GRAIN_PROP_OVERFLOW_CLIP);
         REQUIRE(g->winType() == GRAIN_WIN_RECT);
@@ -71,17 +75,22 @@ TEST_CASE("array.grainer", "[externals]")
         g->process(aptr->begin(), aptr->size(), buf, BS, SR);
         REQUIRE(std::all_of(std::begin(buf0), std::end(buf0), [](t_sample s) { return s == 0; }));
         REQUIRE(g->playStatus() == GRAIN_FINISHED);
+        g->resetFirstTime();
 
         // out of range play position
         g->start(aptr->size());
         g->process(aptr->begin(), aptr->size(), buf, BS, SR);
         REQUIRE(std::all_of(std::begin(buf0), std::end(buf0), [](t_sample s) { return s == 0; }));
         REQUIRE(g->playStatus() == GRAIN_FINISHED);
+        g->resetFirstTime();
 
-        // play out of block
+        // play out of grain block
         g->start(0);
         g->process(aptr->begin(), aptr->size(), buf, BS, SR);
-        REQUIRE(std::all_of(std::begin(buf0), std::end(buf0), [](t_sample s) { return s == 0; }));
+        REQUIRE(buf0[0] == 0);
+        REQUIRE(buf0[1] == 0);
+        REQUIRE(buf0[2] == 0);
+        REQUIRE(buf0[3] == 0);
         REQUIRE(g->playStatus() == GRAIN_PLAYING);
 
         // play 0, 0, 3, 4
@@ -93,7 +102,7 @@ TEST_CASE("array.grainer", "[externals]")
         REQUIRE(buf0[3] == 4);
         REQUIRE(g->playStatus() == GRAIN_PLAYING);
 
-        // play again - 0, 0, 3, 4
+        // play again - 0, 0, 3, 4: add to buffer values
         g->start(BS);
         g->process(aptr->begin(), aptr->size(), buf, BS, SR);
         REQUIRE(buf0[0] == 0);
@@ -113,6 +122,14 @@ TEST_CASE("array.grainer", "[externals]")
         std::fill(std::begin(buf0), std::end(buf0), 0);
         g->process(aptr->begin(), aptr->size(), buf, BS, SR);
         REQUIRE(buf0[0] == 9);
+        REQUIRE(buf0[1] == 0);
+        REQUIRE(buf0[2] == 0);
+        REQUIRE(buf0[3] == 0);
+        REQUIRE(g->playStatus() == GRAIN_FINISHED);
+
+        std::fill(std::begin(buf0), std::end(buf0), 0);
+        g->process(aptr->begin(), aptr->size(), buf, BS, SR);
+        REQUIRE(buf0[0] == 0);
         REQUIRE(buf0[1] == 0);
         REQUIRE(buf0[2] == 0);
         REQUIRE(buf0[3] == 0);
@@ -603,5 +620,38 @@ TEST_CASE("array.grainer", "[externals]")
         MSG_GRAIN(t, "@speed mod none");
 
         REQUIRE(t.cloud().size() == 5);
+    }
+
+    SECTION("spread")
+    {
+        TExt t("array.grainer~", LA("array_g1"));
+        t.m_append(&s_, AtomList::parseString("1 @at 4 @tag g0 @l 10samp"));
+        t.m_append(&s_, AtomList::parseString("1 @at 3 @tag g0 @l 10samp"));
+        t.m_append(&s_, AtomList::parseString("1 @at 2 @tag g1 @l 10samp"));
+        t.m_append(&s_, AtomList::parseString("1 @at 1 @tag g1 @l 10samp"));
+        REQUIRE(t.cloud().size() == 4);
+
+        REQUIRE(t.cloud().grains().at(0)->timeBefore() == 0);
+        REQUIRE(t.cloud().grains().at(1)->timeBefore() == 0);
+        REQUIRE(t.cloud().grains().at(2)->timeBefore() == 0);
+        REQUIRE(t.cloud().grains().at(3)->timeBefore() == 0);
+
+        t.m_spread(&s_, LA("equal", "100samp", "g0"));
+        REQUIRE(t.cloud().grains().at(0)->timeBefore() == 0);
+        REQUIRE(t.cloud().grains().at(0)->timeAfter() == 90);
+        REQUIRE(t.cloud().grains().at(1)->timeBefore() == 50);
+        REQUIRE(t.cloud().grains().at(1)->timeAfter() == 40);
+        REQUIRE(t.cloud().grains().at(2)->timeBefore() == 0);
+        REQUIRE(t.cloud().grains().at(3)->timeBefore() == 0);
+
+        t.m_spread(&s_, LA("equal", "100samp"));
+        REQUIRE(t.cloud().grains().at(0)->timeBefore() == 0);
+        REQUIRE(t.cloud().grains().at(0)->timeAfter() == 90);
+        REQUIRE(t.cloud().grains().at(1)->timeBefore() == 25);
+        REQUIRE(t.cloud().grains().at(1)->timeAfter() == 65);
+        REQUIRE(t.cloud().grains().at(2)->timeBefore() == 50);
+        REQUIRE(t.cloud().grains().at(2)->timeAfter() == 40);
+        REQUIRE(t.cloud().grains().at(3)->timeBefore() == 75);
+        REQUIRE(t.cloud().grains().at(3)->timeAfter() == 15);
     }
 }

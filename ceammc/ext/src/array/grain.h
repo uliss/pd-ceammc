@@ -175,7 +175,7 @@ private:
     uint32_t length_ = { 0 }; ///< grain length in samples
     int32_t repeats_ = { -1 }; ///< max number of grain repeats
 
-    uint32_t time_before_ = { 0 }; ///< silence before grain in samples
+    uint32_t pre_delay_ = { 0 }; ///< silence before first grain playing in samples
     uint32_t time_after_ = { 0 }; ///< silence after grain in samples
     double play_pos_ = { 0 }; ///< current grain play position in samples
 
@@ -210,6 +210,7 @@ private:
     GrainPan pan_mode_ : 2;
     GrainInterp play_interp_ : 2;
     GrainWindowType win_type_ : 3;
+    bool pre_delay_done_ : 1; // used to play 'upbeat' before normal grain playing
 
     Grain(const Grain&) = delete;
     Grain& operator=(const Grain&) = delete;
@@ -219,11 +220,11 @@ public:
 
     /**
      * Grain ctor
-     * @param array_pos - grain position in the array
-     * @param length - grain length
-     * @param time_before - pause before grain
+     * @param array_pos - grain position in the array (in samples)
+     * @param length - grain length (in samples)
+     * @param pre_delay - 'upbeat' before the grain will be played first time (in samples)
      */
-    Grain(size_t array_pos, size_t length, size_t time_before = 0);
+    Grain(size_t array_pos, size_t length, size_t pre_delay = 0);
 
     /// get grain id
     uint16_t id() const { return id_; }
@@ -250,9 +251,10 @@ public:
     /// set grain length
     void setLengthInSamples(size_t l) { length_ = l; }
 
-    size_t grainStartInSamples() const { return time_before_; }
-    size_t grainEndInSamples() const { return time_before_ + length_; }
-    double currentLogicPlayPos() const { return play_pos_ - time_before_; }
+    inline size_t grainStartInSamples() const { return pre_delay_done_ ? 0 : pre_delay_; }
+    inline size_t grainEndInSamples() const { return grainStartInSamples() + length_; }
+    inline size_t grainDonePos() const { return grainEndInSamples() + time_after_; }
+    double currentLogicPlayPos() const { return play_pos_ - grainStartInSamples(); }
 
     double currentAbsPlayPos() const
     {
@@ -282,8 +284,8 @@ public:
     size_t endInSamples() const { return timeBefore() + durationInSamples(); }
 
     /// grain playing time on the global timeline
-    size_t timeBefore() const { return time_before_; }
-    void setTimeBefore(uint32_t samp) { time_before_ = samp; }
+    size_t timeBefore() const { return pre_delay_; }
+    void setTimeBefore(uint32_t samp) { pre_delay_ = samp; }
 
     /// silence after grain in samples
     size_t timeAfter() const { return time_after_; }
@@ -332,7 +334,12 @@ public:
         }
     }
 
+    /**
+     * @brief start grain playing at position
+     */
     void start(size_t playPosSamp);
+
+    void resetFirstTime() { pre_delay_done_ = false; }
 
     GrainState done();
 
@@ -353,8 +360,11 @@ public:
     bool hasModulation(GrainPropId id) const;
 
 private:
-    inline bool beforeGrain() const { return play_pos_ < time_before_; }
-    inline bool afterGrain() const { return play_pos_ >= double(time_before_ + length_); }
+    inline bool beforeGrain() const { return play_pos_ < grainStartInSamples(); }
+    inline bool afterGrain() const { return play_pos_ >= grainEndInSamples(); }
+
+    /// checks if the whole grain playing should be stopped
+    inline bool shouldDone() const { return play_pos_ >= grainDonePos(); }
 
 public:
     static bool initWinTables();

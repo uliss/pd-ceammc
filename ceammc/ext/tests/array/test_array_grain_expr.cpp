@@ -955,9 +955,9 @@ TEST_CASE("array_grain", "[externals]")
         REQUIRE(br[1] == 7);
         REQUIRE(br[2] == 9);
         REQUIRE(br[3] == 11);
-        REQUIRE(g.currentLogicPlayPos() == -3);
-        REQUIRE(g.currentAbsPlayPos() == -3);
-        REQUIRE(g.currentArrayPlayPos() == 0);
+        REQUIRE(g.currentLogicPlayPos() == 0);
+        REQUIRE(g.currentAbsPlayPos() == 0);
+        REQUIRE(g.currentArrayPlayPos() == 3);
     }
 
     SECTION("play 6")
@@ -1020,9 +1020,9 @@ TEST_CASE("array_grain", "[externals]")
         REQUIRE(bl[5] == 0);
         REQUIRE(bl[6] == 0);
         REQUIRE(bl[7] == 0);
-        REQUIRE(g.currentLogicPlayPos() == -2);
-        REQUIRE(g.currentAbsPlayPos() == -2);
-        REQUIRE(g.currentArrayPlayPos() == 1);
+        REQUIRE(g.currentLogicPlayPos() == 0);
+        REQUIRE(g.currentAbsPlayPos() == 0);
+        REQUIRE(g.currentArrayPlayPos() == 3);
     }
 
     SECTION("play 6")
