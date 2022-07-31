@@ -207,7 +207,7 @@ std::ostream& operator<<(std::ostream& os, const Grain& g)
     return os;
 }
 
-GrainState Grain::process(ArrayIterator in, size_t in_size, t_sample** buf, uint32_t bs, uint32_t sr)
+GrainState Grain::process(ArrayIterator in, size_t in_size, t_sample** buf, uint32_t bs, uint32_t sr, uint32_t buf_offset, uint32_t* done_samp)
 {
     constexpr float SLOW_LIMIT = 0.001;
     constexpr float QUIT_LIMIT = 0.00001;
@@ -215,6 +215,11 @@ GrainState Grain::process(ArrayIterator in, size_t in_size, t_sample** buf, uint
     // invalid
     if (state_ == GRAIN_FINISHED || state_ == GRAIN_PAUSE)
         return state_;
+
+    if (buf_offset < bs) {
+        bs -= buf_offset;
+    } else
+        buf_offset = 0;
 
     // optimization: silence before grain
     const double next_block = play_pos_ + bs;
@@ -245,14 +250,20 @@ GrainState Grain::process(ArrayIterator in, size_t in_size, t_sample** buf, uint
 
     // before grain fill with silence
     size_t i = 0;
-    if (play_pos_ < pre_delay_) {
+    if (beforeGrain()) {
         i = pre_delay_ - play_pos_;
         play_pos_ += i;
+        if (done_samp)
+            (*done_samp) += i;
     }
 
     for (; i < bs && play_pos_ < grainEndInSamples(); i++) {
         // only grain itself expected here, without silence before/after
         assert(play_pos_ >= grainStartInSamples() && play_pos_ < grainEndInSamples());
+
+        // increment done samples
+        if (done_samp)
+            (*done_samp)++;
 
         // array play position
         const double arr_idx = currentArrayPlayPos();
@@ -354,8 +365,8 @@ GrainState Grain::process(ArrayIterator in, size_t in_size, t_sample** buf, uint
         const auto vamp = value * amp_;
 
         // apply pan
-        buf[0][i] += pan_coeffs.first * vamp;
-        buf[1][i] += pan_coeffs.second * vamp;
+        buf[0][i + buf_offset] += pan_coeffs.first * vamp;
+        buf[1][i + buf_offset] += pan_coeffs.second * vamp;
 
         play_pos_ += step_incr;
 
@@ -366,7 +377,11 @@ GrainState Grain::process(ArrayIterator in, size_t in_size, t_sample** buf, uint
     if (shouldDone())
         return done();
     else if (afterGrain()) {
-        play_pos_ += (bs - i);
+        auto left_samp = bs - i;
+        play_pos_ += left_samp;
+        if (done_samp && time_after_ <= left_samp)
+            (*done_samp) += time_after_;
+
         // need to check again
         if (shouldDone())
             return done();

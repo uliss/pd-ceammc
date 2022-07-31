@@ -343,7 +343,17 @@ public:
 
     GrainState done();
 
-    GrainState process(ArrayIterator in, size_t in_size, t_sample** buf, uint32_t bs, uint32_t sr);
+    /**
+     * @brief process grain: add grain output to specified buffers
+     * @param in - input source array iterator
+     * @param in_size - array size in samples
+     * @param buf - point to input buffers (left and right channels)
+     * @param bs - buffer block size
+     * @param sr - samplerate
+     * @param done_samp - pointer to write number of processed samples in current block
+     * @return
+     */
+    GrainState process(ArrayIterator in, size_t in_size, t_sample** buf, uint32_t bs, uint32_t sr, uint32_t buf_offset = 0, uint32_t* done_samp = nullptr);
 
     // grain playing status
     GrainState playStatus() const { return state_; }

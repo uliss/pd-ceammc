@@ -12,9 +12,13 @@
  * this file belongs to.
  *****************************************************************************/
 #include "array_grainer.h"
+#include "args/argcheck2.h"
 #include "aubio.h"
 #include "ceammc_convert.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
+#include "ceammc_units.h"
+#include "fmt/core.h"
 #include "grain_expr_parser.h"
 
 #include <limits>
@@ -387,6 +391,62 @@ void ArrayGrainer::m_onsets(t_symbol* s, const AtomListView& lv)
     }
 }
 
+void ArrayGrainer::m_spread(t_symbol* s, const AtomListView& lv)
+{
+    static args::ArgChecker chk("MODE:s=src_start|src_end|src_both|equal|linup|lindown|equal|random|length_up|length_down "
+                                "DUR:a "
+                                "TAG:s?");
+
+    if (!chk.check(lv, this)) {
+        chk.usage(this, s);
+        return;
+    }
+
+    auto mode = lv.symbolAt(0, &s_);
+    Atom dur = lv[1];
+    auto tag = lv.symbolAt(2, &s_);
+
+    units::TimeValue gdur { 0 };
+    gdur.setSamplerate(samplerate());
+    auto res = units::TimeValue::parse(dur);
+    if (!res.matchValue(gdur)) {
+        units::UnitParseError err;
+        if (res.matchError(err))
+            METHOD_ERR(s) << err.msg;
+
+        return;
+    }
+
+    GrainCloud::SpreadMode gmode;
+    switch (crc32_hash(mode)) {
+    case "src_start"_hash:
+        gmode = GrainCloud::SPREAD_ORIGIN_START;
+        break;
+    case "src_end"_hash:
+        gmode = GrainCloud::SPREAD_ORIGIN_END;
+        break;
+    case "src_both"_hash:
+        gmode = GrainCloud::SPREAD_ORIGIN_BOTH;
+        break;
+    case "linup"_hash:
+        gmode = GrainCloud::SPREAD_LINEAR_UP;
+        break;
+    case "lindown"_hash:
+        gmode = GrainCloud::SPREAD_LINEAR_DOWN;
+        break;
+    case "equal"_hash:
+        gmode = GrainCloud::SPREAD_EQUAL;
+        break;
+    case "random"_hash:
+        gmode = GrainCloud::SPREAD_RANDOM;
+        break;
+    default:
+        break;
+    }
+
+    cloud_.spreadGrains(gmode, gdur.toSamples(), tag);
+}
+
 void setup_array_grainer()
 {
     SoundExternalFactory<ArrayGrainer> obj("array.grainer~", OBJECT_FACTORY_DEFAULT);
@@ -399,4 +459,5 @@ void setup_array_grainer()
     obj.addMethod("onsets", &ArrayGrainer::m_onsets);
     obj.addMethod("align", &ArrayGrainer::m_align);
     obj.addMethod("pause", &ArrayGrainer::m_pause);
+    obj.addMethod("spread", &ArrayGrainer::m_spread);
 }

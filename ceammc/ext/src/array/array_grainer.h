@@ -47,6 +47,7 @@ public:
     void m_fill(t_symbol* s, const AtomListView& lv);
     void m_grain(t_symbol* s, const AtomListView& lv);
     void m_onsets(t_symbol* s, const AtomListView& lv);
+    void m_spread(t_symbol* s, const AtomListView& lv);
     void m_set(t_symbol* s, const AtomListView& lv);
     void m_pause(t_symbol* s, const AtomListView& lv);
 

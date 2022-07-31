@@ -12,6 +12,8 @@
  * this file belongs to.
  *****************************************************************************/
 #include "grain_cloud.h"
+#include "ceammc_convert.h"
+#include "fmt/core.h"
 #include "grain_random.h"
 
 #include <algorithm>
@@ -134,6 +136,54 @@ void GrainCloud::alignFinished(const std::vector<size_t>& onsets)
     }
 }
 
+bool GrainCloud::spreadGrains(SpreadMode mode, uint32_t len_samp, t_symbol* tag)
+{
+    const auto N = (!tag || tag == &s_)
+        ? grains_.size()
+        : std::count_if(grains_.begin(), grains_.end(), [tag](const Grain* g) { return g->tag() == tag; });
+
+    for (size_t i = 0; i < N; i++) {
+        auto g = grains_[i];
+
+        if (tag == &s_ || tag == g->tag()) {
+            int64_t n = g->arraySizeInSamples();
+            int64_t p = g->arrayPosInSamples();
+            int64_t glen = g->lengthInSamples();
+
+            switch (mode) {
+            case SPREAD_ORIGIN_START: {
+                uint32_t b = std::round(convert::lin2lin<double>(p, 0, n, 0, len_samp));
+                g->setTimeBefore(b);
+                g->setTimeAfter(0);
+            } break;
+            case SPREAD_ORIGIN_END: {
+                uint32_t e = std::round(convert::lin2lin_clip<double>(n - double(p + glen), 0, n, 0, len_samp));
+                g->setTimeBefore(0);
+                g->setTimeAfter(e);
+            } break;
+            case SPREAD_ORIGIN_BOTH: {
+                uint32_t b = std::round(convert::lin2lin<double>(p, 0, n, 0, len_samp));
+                uint32_t e = std::round(convert::lin2lin_clip<double>(n - double(p + glen), 0, n, 0, len_samp));
+                g->setTimeBefore(b);
+                g->setTimeAfter(e);
+            } break;
+            case SPREAD_EQUAL: {
+                double tlen = len_samp;
+                double gk = i / double(N);
+                double gpos = gk * tlen;
+                g->setTimeBefore(gpos);
+                g->setTimeAfter(clip_min<double, 0>(tlen - (gpos + glen)));
+            } break;
+            default:
+                std::cerr << "unknown spread mode";
+                break;
+            }
+        }
+    }
+
+    return true;
+}
+
 void GrainCloud::popGrain()
 {
     if (grains_.empty())
@@ -169,8 +219,10 @@ void GrainCloud::playBuffer(t_sample** buf, uint32_t bs, uint32_t sr)
                         if (sync_prob_ < 1)
                             start = GrainRandom::instance().urandf(0, 1) < sync_prob_;
 
-                        if (start)
+                        if (start) {
                             g->start(0);
+                            g->process(array_it_, array_size_, buf, bs, sr);
+                        }
                     }
 
                     break;
@@ -182,18 +234,44 @@ void GrainCloud::playBuffer(t_sample** buf, uint32_t bs, uint32_t sr)
                         if (sync_prob_ < 1)
                             start = GrainRandom::instance().urandf(0, 1) < sync_prob_;
 
-                        if (start)
+                        if (start) {
                             g->start(0);
+                            g->process(array_it_, array_size_, buf, bs, sr);
+                        }
                     }
                     break;
                 case SYNC_NONE:
                 default:
                     g->start(0);
+
+                    uint32_t done_samp = 0;
+                    auto state = g->process(array_it_, array_size_, buf, bs, sr, 0, &done_samp);
+
+                    while (state == GRAIN_FINISHED && g->canBePlayed() && done_samp > 0) {
+                        g->start(0);
+                        state = g->process(array_it_, array_size_, buf, bs, sr, done_samp, &done_samp);
+                    }
+                    break;
+                }
+            } else { // process without retriggering
+                switch (sync_) {
+                case SYNC_INTERNAL:
+                case SYNC_EXTERNAL:
+                    // simple process
+                    g->process(array_it_, array_size_, buf, bs, sr);
+                    break;
+                case SYNC_NONE:
+                default:
+                    uint32_t done_samp = 0;
+                    auto state = g->process(array_it_, array_size_, buf, bs, sr, 0, &done_samp);
+
+                    while (state == GRAIN_FINISHED && g->canBePlayed() && done_samp > 0) {
+                        g->start(0);
+                        state = g->process(array_it_, array_size_, buf, bs, sr, done_samp, &done_samp);
+                    }
                     break;
                 }
             }
-
-            g->process(array_it_, array_size_, buf, bs, sr);
         }
     }
 }

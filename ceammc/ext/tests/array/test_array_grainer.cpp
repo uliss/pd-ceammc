@@ -19,6 +19,35 @@
 #include <cmath>
 #include <random>
 
+using DspVector = std::vector<t_sample>;
+
+static DspVector make_seq(const DspVector& pattern, const DspVector& pre = {}, size_t n = 64)
+{
+    DspVector res(pre);
+    auto t = n / pattern.size();
+    for (int i = 0; i <= t; i++)
+        res.insert(res.end(), pattern.begin(), pattern.end());
+
+    res.resize(n);
+    return res;
+}
+
+static DspVector make_seq(int from, int to, const DspVector& pre = {}, size_t n = 64)
+{
+    DspVector res(pre);
+    auto t = n / std::abs(from - to + 1);
+    for (int i = 0; i <= t; i++) {
+        for (int k = from; k < to; k++)
+            res.push_back(k);
+
+        for (int k = from; k > to; k--)
+            res.push_back(k);
+    }
+
+    res.resize(n);
+    return res;
+}
+
 PD_COMPLETE_SND_TEST_SETUP(ArrayGrainer, array, grainer)
 
 TEST_CASE("array.grainer", "[externals]")
@@ -244,36 +273,22 @@ TEST_CASE("array.grainer", "[externals]")
         REQUIRE_PROPERTY(t, @array, "array_g1");
 
         TestSignal<0, 2> s0;
+        DspVector block;
 
         REQUIRE(t.cloud().empty());
-        t.m_grain(&s_, LA("@at", 4, "@l", 10, "@speed", 1, "@pan", -1));
+        t.m_grain(&s_, LA("@at", 4, "@l", 10, "@speed", 1, "@pan", 0.0, "@ta", 1, "@tb", 3));
         REQUIRE(t.cloud().size() == 1);
         t.dump();
 
         DSP<TestSignal<0, 2>, TExt> dsp(s0, t);
         dsp.processBlock();
 
-        for (size_t i = 0; i < 10; i++) {
-            REQUIRE(s0.out[0][i] == i + 4);
-        }
-
-        for (size_t i = 10; i < 64; i++) {
-            REQUIRE(s0.out[0][i] == 0);
-        }
-
-        s0.fillOutput(0);
-        for (size_t i = 0; i < 64; i++) {
-            REQUIRE(s0.out[0][i] == 0);
-        }
+        block.assign(s0.out[0], s0.out[0] + 64);
+        REQUIRE(block == make_seq({ 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 0 }, { 0, 0, 0 }));
 
         dsp.processBlock();
-        for (size_t i = 0; i < 10; i++) {
-            REQUIRE(s0.out[0][i] == i + 4);
-        }
-
-        for (size_t i = 10; i < 64; i++) {
-            REQUIRE(s0.out[0][i] == 0);
-        }
+        block.assign(s0.out[0], s0.out[0] + 64);
+        REQUIRE(block == make_seq({ 10, 11, 12, 13, 0, 4, 5, 6, 7, 8, 9 }));
     }
 
     SECTION("do empty")
@@ -411,21 +426,21 @@ TEST_CASE("array.grainer", "[externals]")
     SECTION("Grain @speed -1")
     {
         TExt t("array.grainer~", LA("array_g1"));
-        MSG_GRAIN(t, "@at 0 @l 20 @speed -1 @pan mode none");
+        MSG_GRAIN(t, "@at 2 @l 20 @speed -1 @pan mode none @tb 3 @ta 2");
         REQUIRE_SPEED(t, -1);
 
         TestSignal<0, 2> s0;
+        DspVector block;
 
         DSP<TestSignal<0, 2>, TExt> dsp(s0, t);
+
         dsp.processBlock();
+        block.assign(s0.out[0], s0.out[0] + 64);
+        REQUIRE(block == make_seq({ 21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 0, 0 }, { 0, 0, 0 }));
 
-        for (size_t i = 0; i < 20; i++) {
-            REQUIRE(s0.out[0][i] == (19 - i));
-        }
-
-        for (size_t i = 20; i < 64; i++) {
-            REQUIRE(s0.out[0][i] == 0);
-        }
+        dsp.processBlock();
+        block.assign(s0.out[0], s0.out[0] + 64);
+        REQUIRE(block == make_seq({ 4, 3, 2, 0, 0, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5 }, {}));
     }
 
     SECTION("Grain @amp")
