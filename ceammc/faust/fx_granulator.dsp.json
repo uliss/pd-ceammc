@@ -1,8 +1,8 @@
 {
 	"name": "fx.granulator",
 	"filename": "fx_granulator.dsp",
-	"version": "2.37.3",
-	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0",
+	"version": "2.44.1",
+	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn fx_granulator -scn fx_granulator_dsp -es 1 -mcd 16 -single -ftz 0",
 	"library_list": ["/usr/local/share/faust/stdfaust.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc.lib","/usr/local/share/faust/signals.lib","/usr/local/share/faust/basics.lib"],
 	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
 	"inputs": 1,
@@ -10,10 +10,10 @@
 	"meta": [ 
 		{ "author": "Mayank Sanganeria" },
 		{ "basics.lib/name": "Faust Basic Element Library" },
-		{ "basics.lib/version": "0.2" },
+		{ "basics.lib/version": "0.8" },
 		{ "ceammc.lib/name": "Ceammc PureData misc utils" },
 		{ "ceammc.lib/version": "0.1.2" },
-		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0" },
+		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn fx_granulator -scn fx_granulator_dsp -es 1 -mcd 16 -single -ftz 0" },
 		{ "filename": "fx_granulator.dsp" },
 		{ "maths.lib/author": "GRAME" },
 		{ "maths.lib/copyright": "GRAME" },
@@ -24,7 +24,7 @@
 		{ "platform.lib/name": "Generic Platform Library" },
 		{ "platform.lib/version": "0.2" },
 		{ "signals.lib/name": "Faust Signal Routing Library" },
-		{ "signals.lib/version": "0.1" },
+		{ "signals.lib/version": "0.3" },
 		{ "version": "1.0" }
 	],
 	"ui": [ 
@@ -35,6 +35,7 @@
 				{
 					"type": "hslider",
 					"label": "delay",
+					"shortname": "delay",
 					"address": "/fx.granulator/delay",
 					"meta": [
 						{ "unit": "sec" }
@@ -47,6 +48,7 @@
 				{
 					"type": "hslider",
 					"label": "density",
+					"shortname": "density",
 					"address": "/fx.granulator/density",
 					"meta": [
 						{ "type": "int" }
@@ -59,6 +61,7 @@
 				{
 					"type": "hslider",
 					"label": "length",
+					"shortname": "length",
 					"address": "/fx.granulator/length",
 					"meta": [
 						{ "unit": "ms" }

@@ -1,8 +1,8 @@
 {
 	"name": "fx.distortion2",
 	"filename": "fx_distortion2.dsp",
-	"version": "2.37.3",
-	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0",
+	"version": "2.44.1",
+	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn fx_distortion2 -scn fx_distortion2_dsp -es 1 -mcd 16 -single -ftz 0",
 	"library_list": ["/Users/serge/work/music/pure-data/ceammc/faust/guitarix.lib","/usr/local/share/faust/stdfaust.lib","/usr/local/share/faust/delays.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/filters.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib","/usr/local/share/faust/misceffects.lib","/Users/serge/work/music/pure-data/ceammc/faust/HighShelf.dsp","/usr/local/share/faust/maxmsp.lib","/usr/local/share/faust/signals.lib"],
 	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
 	"inputs": 1,
@@ -10,9 +10,10 @@
 	"meta": [ 
 		{ "HighShelf.dsp/id": "HighShelf" },
 		{ "author": "brummer" },
+		{ "basics.lib/bypass1:author": "Julius Smith" },
 		{ "basics.lib/name": "Faust Basic Element Library" },
-		{ "basics.lib/version": "0.2" },
-		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0" },
+		{ "basics.lib/version": "0.8" },
+		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn fx_distortion2 -scn fx_distortion2_dsp -es 1 -mcd 16 -single -ftz 0" },
 		{ "copyright": "(c)brummer 2008" },
 		{ "delays.lib/name": "Faust Delay Library" },
 		{ "delays.lib/version": "0.1" },
@@ -28,7 +29,7 @@
 		{ "filters.lib/iir:author": "Julius O. Smith III" },
 		{ "filters.lib/iir:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
 		{ "filters.lib/iir:license": "MIT-style STK-4.3 license" },
-		{ "filters.lib/lowpass0_highpass1": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/lowpass0_highpass1": "MIT-style STK-4.3 license" },
 		{ "filters.lib/lowpass0_highpass1:author": "Julius O. Smith III" },
 		{ "filters.lib/lowpass:author": "Julius O. Smith III" },
 		{ "filters.lib/lowpass:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
@@ -70,7 +71,7 @@
 		{ "platform.lib/name": "Generic Platform Library" },
 		{ "platform.lib/version": "0.2" },
 		{ "signals.lib/name": "Faust Signal Routing Library" },
-		{ "signals.lib/version": "0.1" },
+		{ "signals.lib/version": "0.3" },
 		{ "version": "0.01" }
 	],
 	"ui": [ 
@@ -81,6 +82,7 @@
 				{
 					"type": "vslider",
 					"label": "drive",
+					"shortname": "drive",
 					"address": "/fx.distortion2/drive",
 					"init": 0.64,
 					"min": 0,
@@ -90,6 +92,7 @@
 				{
 					"type": "vslider",
 					"label": "gain",
+					"shortname": "gain",
 					"address": "/fx.distortion2/gain",
 					"meta": [
 						{ "unit": "db" }
@@ -102,6 +105,7 @@
 				{
 					"type": "vslider",
 					"label": "level",
+					"shortname": "level",
 					"address": "/fx.distortion2/level",
 					"init": 0.01,
 					"min": 0,
@@ -115,6 +119,7 @@
 						{
 							"type": "vslider",
 							"label": "sp_high_freq",
+							"shortname": "sp_high_freq",
 							"address": "/fx.distortion2/low_highcutoff/sp_high_freq",
 							"meta": [
 								{ "unit": "Hz" }
@@ -127,6 +132,7 @@
 						{
 							"type": "vslider",
 							"label": "sp_low_freq",
+							"shortname": "sp_low_freq",
 							"address": "/fx.distortion2/low_highcutoff/sp_low_freq",
 							"meta": [
 								{ "unit": "Hz" }
@@ -139,6 +145,7 @@
 						{
 							"type": "checkbox",
 							"label": "sp_on_off",
+							"shortname": "sp_on_off",
 							"address": "/fx.distortion2/low_highcutoff/sp_on_off"
 						}
 					]
@@ -150,11 +157,13 @@
 						{
 							"type": "checkbox",
 							"label": "flt_on_off",
+							"shortname": "flt_on_off",
 							"address": "/fx.distortion2/low_highpass/flt_on_off"
 						},
 						{
 							"type": "nentry",
 							"label": "hp_freq",
+							"shortname": "hp_freq",
 							"address": "/fx.distortion2/low_highpass/hp_freq",
 							"meta": [
 								{ "unit": "Hz" }
@@ -167,6 +176,7 @@
 						{
 							"type": "nentry",
 							"label": "lp_freq",
+							"shortname": "lp_freq",
 							"address": "/fx.distortion2/low_highpass/lp_freq",
 							"meta": [
 								{ "unit": "Hz" }
@@ -181,11 +191,13 @@
 				{
 					"type": "checkbox",
 					"label": "res_on_off",
+					"shortname": "res_on_off",
 					"address": "/fx.distortion2/res_on_off"
 				},
 				{
 					"type": "vslider",
 					"label": "trigger",
+					"shortname": "trigger",
 					"address": "/fx.distortion2/trigger",
 					"init": 0.12,
 					"min": 0,
@@ -195,6 +207,7 @@
 				{
 					"type": "vslider",
 					"label": "vibrato",
+					"shortname": "vibrato",
 					"address": "/fx.distortion2/vibrato",
 					"init": 1,
 					"min": 0,
