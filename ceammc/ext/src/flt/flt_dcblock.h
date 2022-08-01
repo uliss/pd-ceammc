@@ -1,5 +1,5 @@
 /* ------------------------------------------------------------
-name: "flt_dcblock"
+name: "flt.dcblock"
 Code generated with Faust 2.44.1 (https://faust.grame.fr)
 Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn flt_dcblock -scn flt_dcblock_dsp -es 1 -mcd 16 -single -ftz 0
 ------------------------------------------------------------ */
@@ -663,7 +663,7 @@ class flt_dcblock : public flt_dcblock_dsp {
 		m->declare("filters.lib/zero:author", "Julius O. Smith III");
 		m->declare("filters.lib/zero:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/zero:license", "MIT-style STK-4.3 license");
-		m->declare("name", "flt_dcblock");
+		m->declare("name", "flt.dcblock");
 	}
 
 	virtual int getNumInputs() {
@@ -711,7 +711,7 @@ class flt_dcblock : public flt_dcblock_dsp {
 	}
 	
 	virtual void buildUserInterface(UI* ui_interface) {
-		ui_interface->openVerticalBox("flt_dcblock");
+		ui_interface->openVerticalBox("flt.dcblock");
 		ui_interface->closeBox();
 	}
 	

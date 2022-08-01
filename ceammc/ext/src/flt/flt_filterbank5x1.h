@@ -1031,7 +1031,7 @@ class flt_filterbank5x1 : public flt_filterbank5x1_dsp {
 			fRec1[0] = fRec2[0] - fConst3 * (fConst39 * fRec1[2] + fConst42 * fRec1[1]);
 			output0[i0] = FAUSTFLOAT(fConst3 * fRec0[0] * (fRec1[2] + fRec1[0] + 2.0f * fRec1[1]));
 			fRec9[0] = fSlow1 + fConst5 * fRec9[1];
-			fRec11[0] = fConst11 * (fConst44 * fVec3[1] + fConst43 * fTemp3) - fConst45 * fRec11[1];
+			fRec11[0] = fConst11 * (fConst43 * fTemp3 + fConst44 * fVec3[1]) - fConst45 * fRec11[1];
 			fRec10[0] = fRec11[0] - fConst3 * (fConst39 * fRec10[2] + fConst42 * fRec10[1]);
 			output1[i0] = FAUSTFLOAT(fConst3 * fRec9[0] * (fConst41 * fRec10[0] + fConst46 * fRec10[1] + fConst41 * fRec10[2]));
 			fRec12[0] = fSlow2 + fConst5 * fRec12[1];

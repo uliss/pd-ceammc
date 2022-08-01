@@ -1,5 +1,5 @@
 /* ------------------------------------------------------------
-name: "flt_ff_comb"
+name: "flt.ff_comb"
 Code generated with Faust 2.44.1 (https://faust.grame.fr)
 Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn flt_ff_comb -scn flt_ff_comb_dsp -es 1 -mcd 16 -single -ftz 0
 ------------------------------------------------------------ */
@@ -673,7 +673,7 @@ class flt_ff_comb : public flt_ff_comb_dsp {
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
 		m->declare("maths.lib/version", "2.5");
-		m->declare("name", "flt_ff_comb");
+		m->declare("name", "flt.ff_comb");
 		m->declare("platform.lib/name", "Generic Platform Library");
 		m->declare("platform.lib/version", "0.2");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
@@ -736,7 +736,7 @@ class flt_ff_comb : public flt_ff_comb_dsp {
 	}
 	
 	virtual void buildUserInterface(UI* ui_interface) {
-		ui_interface->openVerticalBox("flt_ff_comb");
+		ui_interface->openVerticalBox("flt.ff_comb");
 		ui_interface->addHorizontalSlider("a", &fHslider0, FAUSTFLOAT(1.0f), FAUSTFLOAT(-1.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(9.99999975e-05f));
 		ui_interface->closeBox();
 	}

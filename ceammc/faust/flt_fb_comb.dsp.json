@@ -1,5 +1,5 @@
 {
-	"name": "flt_fb_comb",
+	"name": "flt.fb_comb",
 	"filename": "flt_fb_comb.dsp",
 	"version": "2.44.1",
 	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn flt_fb_comb -scn flt_fb_comb_dsp -es 1 -mcd 16 -single -ftz 0",
@@ -25,7 +25,7 @@
 		{ "maths.lib/license": "LGPL with exception" },
 		{ "maths.lib/name": "Faust Math Library" },
 		{ "maths.lib/version": "2.5" },
-		{ "name": "flt_fb_comb" },
+		{ "name": "flt.fb_comb" },
 		{ "platform.lib/name": "Generic Platform Library" },
 		{ "platform.lib/version": "0.2" },
 		{ "signals.lib/name": "Faust Signal Routing Library" },
@@ -34,13 +34,13 @@
 	"ui": [ 
 		{
 			"type": "vgroup",
-			"label": "flt_fb_comb",
+			"label": "flt.fb_comb",
 			"items": [ 
 				{
 					"type": "hslider",
 					"label": "a",
 					"shortname": "a",
-					"address": "/flt_fb_comb/a",
+					"address": "/flt.fb_comb/a",
 					"init": 0.75,
 					"min": -1,
 					"max": 1,

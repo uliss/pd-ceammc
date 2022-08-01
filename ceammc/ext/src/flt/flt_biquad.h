@@ -1,5 +1,5 @@
 /* ------------------------------------------------------------
-name: "flt_biquad"
+name: "flt.biquad"
 Code generated with Faust 2.44.1 (https://faust.grame.fr)
 Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn flt_biquad -scn flt_biquad_dsp -es 1 -mcd 16 -single -ftz 0
 ------------------------------------------------------------ */
@@ -667,7 +667,7 @@ class flt_biquad : public flt_biquad_dsp {
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
 		m->declare("maths.lib/version", "2.5");
-		m->declare("name", "flt_biquad");
+		m->declare("name", "flt.biquad");
 	}
 
 	virtual int getNumInputs() {
@@ -712,7 +712,7 @@ class flt_biquad : public flt_biquad_dsp {
 	}
 	
 	virtual void buildUserInterface(UI* ui_interface) {
-		ui_interface->openVerticalBox("flt_biquad");
+		ui_interface->openVerticalBox("flt.biquad");
 		ui_interface->closeBox();
 	}
 	

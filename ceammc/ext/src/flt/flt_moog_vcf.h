@@ -768,7 +768,7 @@ class flt_moog_vcf : public flt_moog_vcf_dsp {
 			double fTemp4 = fTemp2 + 2.0;
 			double fTemp5 = std::tan(fConst3 * std::max<double>(double(input1[i0]), 20.0));
 			double fTemp6 = 1.0 / fTemp5;
-			double fTemp7 = fTemp1 + fTemp2 + (fTemp4 + fTemp6) / fTemp5 + 1.0;
+			double fTemp7 = fTemp3 + (fTemp4 + fTemp6) / fTemp5 + 1.0;
 			double fTemp8 = (fTemp3 + 1.0 - (fTemp4 - fTemp6) / fTemp5) / fTemp7;
 			double fTemp9 = std::max<double>(-0.99999999999999978, std::min<double>(0.99999999999999978, fTemp8));
 			double fTemp10 = 1.0 - flt_moog_vcf_faustpower2_f(fTemp9);
