@@ -138,4 +138,17 @@ void setup_env_ar_tilde()
     obj.addMethod("play", &EnvAr::m_play);
     obj.addMethod("reset", &EnvAr::m_reset);
     obj.useClick();
+
+    obj.setXletsInfo(
+        {
+            "bang: run envelope\n"
+            "list: ATTACK RELEASE\n"
+            "play: run envelope\n"
+            "reset: reset evenlope\n"
+            "signal: input",
+        },
+        {
+            "output signal",
+            "bang on done",
+        });
 }
