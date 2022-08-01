@@ -1607,7 +1607,7 @@ class fx_greyhole : public fx_greyhole_dsp {
 			float fTemp103 = fVec36[(IOTA0 - std::min<int>(8192, std::max<int>(0, int(fTemp102)))) & 16383];
 			fVec37[0] = fTemp103;
 			float fTemp104 = std::floor(fTemp102);
-			fRec18[0] = fVec37[1] + ((fTemp104 + 2.0f - fRec67[0]) * (fTemp103 - fRec18[1])) / (fRec67[0] - fTemp104);
+			fRec18[0] = fVec37[1] - ((fTemp104 + 2.0f - fRec67[0]) * (fRec18[1] - fTemp103)) / (fRec67[0] - fTemp104);
 			fRec16[0] = fRec18[0];
 			fVec38[IOTA0 & 16383] = fRec19[1] * fTemp8 + fTemp76 * fTemp84;
 			fRec69[0] = fSlow47 + 0.999000013f * (fRec69[1] + float(iSlow46 * iTemp16));
@@ -1627,7 +1627,7 @@ class fx_greyhole : public fx_greyhole_dsp {
 			float fTemp113 = fVec40[(IOTA0 - std::min<int>(8192, std::max<int>(0, int(fTemp112)))) & 16383];
 			fVec41[0] = fTemp113;
 			float fTemp114 = std::floor(fTemp112);
-			fRec15[0] = fVec41[1] + ((fTemp114 + 2.0f - fRec70[0]) * (fTemp113 - fRec15[1])) / (fRec70[0] - fTemp114);
+			fRec15[0] = fVec41[1] - ((fTemp114 + 2.0f - fRec70[0]) * (fRec15[1] - fTemp113)) / (fRec70[0] - fTemp114);
 			fRec13[0] = fRec15[0];
 			float fTemp115 = fRec16[1] * fTemp8 + fTemp76 * fTemp83;
 			float fTemp116 = fTemp6 * fTemp115 - fTemp32 * fRec4[1];
@@ -1647,7 +1647,7 @@ class fx_greyhole : public fx_greyhole_dsp {
 			float fTemp123 = fVec44[(IOTA0 - std::min<int>(8192, std::max<int>(0, int(fTemp122)))) & 16383];
 			fVec45[0] = fTemp123;
 			float fTemp124 = std::floor(fTemp122);
-			fRec12[0] = fVec45[1] + ((fTemp124 + 2.0f - fRec73[0]) * (fTemp123 - fRec12[1])) / (fRec73[0] - fTemp124);
+			fRec12[0] = fVec45[1] - ((fTemp124 + 2.0f - fRec73[0]) * (fRec12[1] - fTemp123)) / (fRec73[0] - fTemp124);
 			fRec10[0] = fRec12[0];
 			fVec46[IOTA0 & 16383] = fRec13[1] * fTemp6 + fTemp32 * fTemp118;
 			fRec75[0] = fSlow57 + 0.999000013f * (fRec75[1] + float(iSlow56 * iTemp16));
@@ -1663,7 +1663,7 @@ class fx_greyhole : public fx_greyhole_dsp {
 			float fTemp129 = fVec48[(IOTA0 - std::min<int>(8192, std::max<int>(0, int(fTemp128)))) & 16383];
 			fVec49[0] = fTemp129;
 			float fTemp130 = std::floor(fTemp128);
-			fRec9[0] = fVec49[1] + ((fTemp130 + 2.0f - fRec76[0]) * (fTemp129 - fRec9[1])) / (fRec76[0] - fTemp130);
+			fRec9[0] = fVec49[1] - ((fTemp130 + 2.0f - fRec76[0]) * (fRec9[1] - fTemp129)) / (fRec76[0] - fTemp130);
 			fRec7[0] = fRec9[0];
 			fVec50[IOTA0 & 16383] = fRec10[1] * fTemp6 + fTemp32 * fTemp117;
 			fRec78[0] = fSlow62 + 0.999000013f * (fRec78[1] + float(iSlow61 * iTemp16));

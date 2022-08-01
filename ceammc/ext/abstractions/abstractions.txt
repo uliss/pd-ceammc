@@ -7,7 +7,9 @@ gflt.bpf24~
 gflt.eq10~
 gflt.eq_peak_cq~
 gflt.eq_peak~
+gflt.fb_comb~
 gflt.fbank5x1~
+gflt.ff_comb~
 gflt.highshelf~
 gflt.hpf12~
 gflt.hpf24~

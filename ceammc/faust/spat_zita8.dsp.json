@@ -1,16 +1,16 @@
 {
 	"name": "spat.zita8",
 	"filename": "spat_zita8.dsp",
-	"version": "2.37.3",
-	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0",
+	"version": "2.44.1",
+	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn spat_zita8 -scn spat_zita8_dsp -es 1 -mcd 16 -single -ftz 0",
 	"library_list": ["/usr/local/share/faust/reverbs.lib","/usr/local/share/faust/signals.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib","/usr/local/share/faust/delays.lib","/usr/local/share/faust/filters.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/routes.lib"],
 	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
 	"inputs": 1,
 	"outputs": 8,
 	"meta": [ 
 		{ "basics.lib/name": "Faust Basic Element Library" },
-		{ "basics.lib/version": "0.2" },
-		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0" },
+		{ "basics.lib/version": "0.8" },
+		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn spat_zita8 -scn spat_zita8_dsp -es 1 -mcd 16 -single -ftz 0" },
 		{ "delays.lib/name": "Faust Delay Library" },
 		{ "delays.lib/version": "0.1" },
 		{ "filename": "spat_zita8.dsp" },
@@ -40,10 +40,11 @@
 		{ "platform.lib/version": "0.2" },
 		{ "reverbs.lib/name": "Faust Reverb Library" },
 		{ "reverbs.lib/version": "0.2" },
+		{ "routes.lib/hadamard:author": "Remy Muller, revised by Romain Michon" },
 		{ "routes.lib/name": "Faust Signal Routing Library" },
 		{ "routes.lib/version": "0.2" },
 		{ "signals.lib/name": "Faust Signal Routing Library" },
-		{ "signals.lib/version": "0.1" }
+		{ "signals.lib/version": "0.3" }
 	],
 	"ui": [ 
 		{
@@ -53,6 +54,7 @@
 				{
 					"type": "vslider",
 					"label": "angle",
+					"shortname": "angle",
 					"address": "/spat.zita8/angle",
 					"init": 0,
 					"min": 0,
@@ -62,6 +64,7 @@
 				{
 					"type": "vslider",
 					"label": "decay_low",
+					"shortname": "decay_low",
 					"address": "/spat.zita8/decay_low",
 					"meta": [
 						{ "scale": "log" },
@@ -76,6 +79,7 @@
 				{
 					"type": "vslider",
 					"label": "decay_mid",
+					"shortname": "decay_mid",
 					"address": "/spat.zita8/decay_mid",
 					"meta": [
 						{ "scale": "log" },
@@ -90,6 +94,7 @@
 				{
 					"type": "vslider",
 					"label": "delay",
+					"shortname": "delay",
 					"address": "/spat.zita8/delay",
 					"meta": [
 						{ "style": "knob" },
@@ -103,6 +108,7 @@
 				{
 					"type": "vslider",
 					"label": "dump_hf",
+					"shortname": "dump_hf",
 					"address": "/spat.zita8/dump_hf",
 					"meta": [
 						{ "scale": "log" },
@@ -117,6 +123,7 @@
 				{
 					"type": "vslider",
 					"label": "freq_low",
+					"shortname": "freq_low",
 					"address": "/spat.zita8/freq_low",
 					"meta": [
 						{ "scale": "log" },
@@ -131,6 +138,7 @@
 				{
 					"type": "vslider",
 					"label": "radius",
+					"shortname": "radius",
 					"address": "/spat.zita8/radius",
 					"init": 1,
 					"min": 0,
