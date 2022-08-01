@@ -17,6 +17,16 @@
                 <see>dyn.comp~</see>
             </also>
         </meta>
+        <arguments>
+            <argument name="ratio" type="float" minvalue="1" maxvalue="10">compression ratio (1 = no compression,
+            &gt;1 means compression)</argument>
+            <argument name="threshold" type="float" minvalue="0" maxvalue="100" units="decibel">
+            level threshold above which compression kicks in (100 dB = max level)</argument>
+            <argument name="attack" type="float" units="millisecond">attack time = time constant
+            when level &amp; compression going up</argument>
+            <argument name="release" type="float" units="millisecond">release time = time constant
+            coming out of compression</argument>
+        </arguments>
         <properties>
             <property name="@ratio" type="float" default="1" minvalue="1" maxvalue="10">compression
             ratio (1 = no compression, &gt;1 means compression)</property>
@@ -27,24 +37,14 @@
             maxvalue="100">time constant when level &amp; compression going up</property>
             <property name="@release" type="float" units="millisecond" default="50" minvalue="1"
             maxvalue="500">release time = time constant coming out of compression</property>
+            <property name="@gain" type="float" units="decibel" default="0" minvalue="-12"
+            maxvalue="12">make up gain: applied to the signal after the compression takes place</property>
             <property name="@active" type="int" enum="0 1" default="1">on/off dsp
             processing</property>
         </properties>
-        <arguments>
-            <argument name="ratio" type="float" minvalue="1">compression ratio (1 = no compression,
-            &gt;1 means compression)</argument>
-            <argument name="threshold" type="float" minvalue="0" maxvalue="100" units="decibel">
-            level threshold above which compression kicks in (100 dB = max level)</argument>
-            <argument name="attack" type="float" units="millisecond">attack time = time constant
-            when level &amp; compression going up</argument>
-            <argument name="release" type="float" units="millisecond">release time = time constant
-            coming out of compression</argument>
-            <argument name="ID" type="symbol">object ID for OSC control path</argument>
-        </arguments>
         <inlets>
             <inlet type="audio">
                 <xinfo>left input signal</xinfo>
-                <xinfo on="bang">outputs object internal state to rightmost outlet</xinfo>
             </inlet>
             <inlet type="audio">
                 <xinfo>right input signal</xinfo>
@@ -53,7 +53,6 @@
         <outlets>
             <outlet type="audio">left output signal</outlet>
             <outlet type="audio">right output signal</outlet>
-            <outlet type="control">information output</outlet>
         </outlets>
         <example>
             <pdascii>
@@ -62,11 +61,12 @@
 |
 [*~ 100]
 |
-[clip~ 0 1]   [F]
+[clip~ 0 1]   [ui.hsl 1.5 10 @show_value 1]
 |             |
 [*~ 20]       [@ratio $1(
-|             |
-[dyn.comp2~ 3 90 10 100 id]
+|*            |
+|*            |
+[dyn.comp2~ 3 90 10 100]
 *|*
 [ui.hgain2~]
 *|*

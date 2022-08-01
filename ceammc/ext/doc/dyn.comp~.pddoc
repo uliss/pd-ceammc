@@ -26,7 +26,6 @@
             when level &amp; compression going up</argument>
             <argument name="release" type="float" units="millisecond">release time = time constant
             coming out of compression</argument>
-            <argument name="ID" type="symbol">object ID for OSC control path</argument>
         </arguments>
         <properties>
             <property name="@ratio" type="float" default="1" minvalue="1" maxvalue="10">compression
