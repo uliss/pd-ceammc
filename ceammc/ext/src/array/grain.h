@@ -147,6 +147,15 @@ public:
     GrainModulation type() const { return mtype_; }
 };
 
+template <typename T>
+std::unique_ptr<T> unique_clone(const std::unique_ptr<T>& up)
+{
+    if (up)
+        return std::unique_ptr<T>(new T(*up));
+    else
+        return {};
+}
+
 class GrainPropMods {
     GrainPropModulator speed_;
     GrainPropModulator amp_;
@@ -198,7 +207,7 @@ private:
     ///< pan
     float pan_ = { 0.5 }; // 0: left, 0.5: center, 1: right
 
-    ///< win param
+    ///< window parameters
     float win_param_ = { 0 };
 
     ///< grain id
@@ -212,11 +221,35 @@ private:
     GrainWindowType win_type_ : 3;
     bool pre_delay_done_ : 1; // used to play 'upbeat' before normal grain playing
 
-    Grain(const Grain&) = delete;
     Grain& operator=(const Grain&) = delete;
 
 public:
     Grain();
+
+    explicit Grain(const Grain& g)
+        : array_size_(g.array_size_)
+        , src_pos_(g.src_pos_)
+        , length_(g.length_)
+        , repeats_(g.repeats_)
+        , pre_delay_(g.pre_delay_)
+        , time_after_(g.time_after_)
+        , play_pos_(g.play_pos_)
+        , tag_(g.tag_)
+        , ondone_(unique_clone(g.ondone_))
+        , mods_(unique_clone(g.mods_))
+        , amp_(g.amp_)
+        , play_speed_(g.play_speed_)
+        , cnt_repeats_(g.cnt_repeats_)
+        , pan_(g.pan_)
+        , id_(g.id_)
+        , state_(g.state_)
+        , pan_overflow_(g.pan_overflow_)
+        , pan_mode_(g.pan_mode_)
+        , play_interp_(g.play_interp_)
+        , win_type_(g.win_type_)
+        , pre_delay_done_(g.pre_delay_done_)
+    {
+    }
 
     /**
      * Grain ctor
@@ -378,7 +411,7 @@ public:
 private:
     inline bool beforeGrain() const { return play_pos_ < grainStartInSamples(); }
     inline bool afterGrain() const { return play_pos_ >= grainEndInSamples(); }
-    inline bool validArrayPos(double pos, size_t size) const { return 0 <= pos && pos < size ;}
+    inline bool validArrayPos(double pos, size_t size) const { return 0 <= pos && pos < size; }
 
     /// checks if the whole grain playing should be stopped
     inline bool shouldDone() const { return play_pos_ >= grainDonePos(); }
