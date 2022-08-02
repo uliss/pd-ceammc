@@ -46,18 +46,13 @@ using FVecPtr = std::unique_ptr<fvec_t, FVecDeleter>;
 using OnsetPtr = std::unique_ptr<aubio_onset_t, OnsetDeleter>;
 
 ArrayGrainer::ArrayGrainer(const PdArgs& args)
-    : SoundExternal(args)
-    , array_name_(nullptr)
+    : ArraySoundBase(args)
     , sync_(nullptr)
     , sync_interval_(nullptr)
     , sync_prob_(nullptr)
 {
     createSignalOutlet();
     createSignalOutlet();
-
-    array_name_ = new SymbolProperty("@array", &s_);
-    array_name_->setArgIndex(0);
-    addProperty(array_name_);
 
     sync_ = new SymbolEnumProperty("@sync", { "none", "int", "ext" });
     sync_->setSuccessFn([this](Property*) {
@@ -85,16 +80,10 @@ ArrayGrainer::ArrayGrainer(const PdArgs& args)
 
 void ArrayGrainer::setupDSP(t_signal** sp)
 {
-    if (array_name_->value() != &s_ && !array_.open(array_name_->value())) {
-        OBJ_ERR << "can't open array: " << array_name_->value();
-        dsp_add_zero(sp[0]->s_vec, sp[0]->s_n);
-        return;
-    }
+    ArraySoundBase::setupDSP(sp);
 
-    array_.useInDSP();
-    cloud_.setArrayData(array_.begin(), array_.size());
-
-    SoundExternal::setupDSP(sp);
+    if (array_.isValid())
+        cloud_.setArrayData(array_.begin(), array_.size());
 }
 
 void ArrayGrainer::processBlock(const t_sample** /*in*/, t_sample** out)
@@ -151,10 +140,8 @@ void ArrayGrainer::m_align(t_symbol* s, const AtomListView& lv)
 
 void ArrayGrainer::m_append(t_symbol* s, const AtomListView& lv)
 {
-    if (!array_.open(array_name_->value())) {
-        METHOD_ERR(s) << "can't open array: " << array_name_->value();
+    if (!checkArray(true))
         return;
-    }
 
     if (lv.size() < 1) {
         METHOD_ERR(s) << "NUM_GRAINS PROPS... expected";
@@ -166,10 +153,8 @@ void ArrayGrainer::m_append(t_symbol* s, const AtomListView& lv)
 
 void ArrayGrainer::m_grain(t_symbol* s, const AtomListView& lv)
 {
-    if (!array_.open(array_name_->value())) {
-        METHOD_ERR(s) << "can't open array: " << array_name_->value();
+    if (!checkArray(true))
         return;
-    }
 
     auto id = cloud_.size();
     auto grain = cloud_.appendGrain();
@@ -191,10 +176,8 @@ void ArrayGrainer::m_grain(t_symbol* s, const AtomListView& lv)
 
 void ArrayGrainer::m_set(t_symbol* s, const AtomListView& lv)
 {
-    if (!array_.open(array_name_->value())) {
-        METHOD_ERR(s) << "can't open array: " << array_name_->value();
+    if (!checkArray(true))
         return;
-    }
 
     const bool ok = lv.size() > 1;
     if (!ok) {
@@ -304,10 +287,8 @@ void ArrayGrainer::appendGrains(int n, const AtomListView& args)
 
 void ArrayGrainer::m_fill(t_symbol* s, const AtomListView& lv)
 {
-    if (!array_.open(array_name_->value())) {
-        METHOD_ERR(s) << "can't open array: " << array_name_->value();
+    if (!checkArray(true))
         return;
-    }
 
     if (lv.size() < 1) {
         METHOD_ERR(s) << "NUM_GRAINS PROPS... expected";
@@ -343,10 +324,8 @@ void ArrayGrainer::m_onsets(t_symbol* s, const AtomListView& lv)
     constexpr const char* DEFAULT_METHOD = "default";
     constexpr int DEFAULT_BUFFER_SIZE = 1024;
 
-    if (!array_.open(array_name_->value())) {
-        METHOD_ERR(s) << "can't open array: " << array_name_->value();
+    if (!checkArray(true))
         return;
-    }
 
     const size_t BS = DEFAULT_BUFFER_SIZE; // buffer size
     const size_t HS = BS / 2; // hop size
@@ -391,6 +370,57 @@ void ArrayGrainer::m_onsets(t_symbol* s, const AtomListView& lv)
     }
 }
 
+void ArrayGrainer::m_slice(t_symbol* s, const AtomListView& lv)
+{
+    static args::ArgChecker chk("N:i[1,64] "
+                                "GRAIN:a*");
+
+    if (!chk.check(lv, this)) {
+        chk.usage(this, s);
+        return;
+    }
+
+    if (!checkArray(true))
+        return;
+
+    const auto N = lv[0].asT<int>();
+    const auto args = lv.subView(1);
+    GrainExprParser parser(nullptr);
+
+    cloud_.clear();
+
+    const int64_t alen = array_.size();
+    const double glen = alen / double(N);
+    const int64_t ilen = std::round(glen);
+
+    for (int i = 0; i < N; i++) {
+        auto id = cloud_.size();
+        auto grain = cloud_.appendGrain();
+        if (!grain) {
+            OBJ_ERR << "memory error, can't add grain";
+            break;
+        }
+
+        grain->setId(id);
+        grain->setArraySizeInSamples(alen);
+        parser.setGrain(grain);
+
+        if (args.size() > 0 && !parser.parse(args)) {
+            OBJ_ERR << "invalid grain props: " << args;
+            cloud_.popGrain();
+            return;
+        }
+
+        const int64_t pos = std::round(i * glen);
+        grain->setLengthInSamples(ilen);
+        grain->setArrayPosInSamples(pos);
+        grain->setTimeBefore(pos);
+        grain->setTimeAfter(clip_min<int64_t, 0>(alen - grain->durationInSamples()));
+
+        OBJ_DBG << "added: " << *grain;
+    }
+}
+
 void ArrayGrainer::m_spread(t_symbol* s, const AtomListView& lv)
 {
     static args::ArgChecker chk("MODE:s=src_start|src_end|src_both|equal|linup|lindown|equal|random|length_up|length_down "
@@ -401,6 +431,9 @@ void ArrayGrainer::m_spread(t_symbol* s, const AtomListView& lv)
         chk.usage(this, s);
         return;
     }
+
+    if (!checkArray(true))
+        return;
 
     auto mode = lv.symbolAt(0, &s_);
     Atom dur = lv[1];
@@ -441,7 +474,8 @@ void ArrayGrainer::m_spread(t_symbol* s, const AtomListView& lv)
         gmode = GrainCloud::SPREAD_RANDOM;
         break;
     default:
-        break;
+        METHOD_ERR(s) << fmt::format("unknown spread mode: '{}'", mode->s_name);
+        return;
     }
 
     cloud_.spreadGrains(gmode, gdur.toSamples(), tag);
@@ -451,13 +485,14 @@ void setup_array_grainer()
 {
     SoundExternalFactory<ArrayGrainer> obj("array.grainer~", OBJECT_FACTORY_DEFAULT);
 
+    obj.addMethod("align", &ArrayGrainer::m_align);
     obj.addMethod("append", &ArrayGrainer::m_append);
     obj.addMethod("clear", &ArrayGrainer::m_clear);
     obj.addMethod("fill", &ArrayGrainer::m_fill);
     obj.addMethod("grain", &ArrayGrainer::m_grain);
-    obj.addMethod("set", &ArrayGrainer::m_set);
     obj.addMethod("onsets", &ArrayGrainer::m_onsets);
-    obj.addMethod("align", &ArrayGrainer::m_align);
     obj.addMethod("pause", &ArrayGrainer::m_pause);
+    obj.addMethod("set", &ArrayGrainer::m_set);
+    obj.addMethod("slice", &ArrayGrainer::m_slice);
     obj.addMethod("spread", &ArrayGrainer::m_spread);
 }
