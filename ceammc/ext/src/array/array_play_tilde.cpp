@@ -255,7 +255,7 @@ void ArrayPlayTilde::onFloat(t_float pos)
 void ArrayPlayTilde::setupDSP(t_signal** sig)
 {
     ArraySoundBase::setupDSP(sig);
-    if (checkArray() && cursor_->value() >= array_.size())
+    if (array_.isValid() && cursor_->value() >= array_.size())
         resetPlayPosition();
 }
 
