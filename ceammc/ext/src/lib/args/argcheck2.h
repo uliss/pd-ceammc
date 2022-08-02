@@ -33,11 +33,19 @@ namespace args {
     public:
         ArgChecker(const char* str);
         ~ArgChecker();
-        bool check(const AtomListView& lv, BaseObject* obj) const;
+
+        /**
+         * Check specified list
+         * @param lv - argument list
+         * @param obj - pointer to parent object (can be nullptr)
+         * @param nmatch - pointer to write number of matched items
+         * @return true on success, false on error
+         */
+        bool check(const AtomListView& lv, BaseObject* obj, int* nmatch = nullptr) const;
         void usage(BaseObject* obj = nullptr, t_symbol* m = nullptr);
     };
 
-    bool check_args(const char* arg_string, const AtomListView& lv, BaseObject* obj = nullptr);
+    bool check_args(const char* arg_string, const AtomListView& lv, BaseObject* obj = nullptr, int* nmatch = nullptr);
 
 }
 }

@@ -735,7 +735,7 @@ public:
 
 ArgChecker::~ArgChecker()  = default;
 
-bool ArgChecker::check(const AtomListView& lv, BaseObject* obj) const
+bool ArgChecker::check(const AtomListView& lv, BaseObject* obj, int* nmatch) const
 {
     if (!chk_)
         return false;
@@ -773,6 +773,9 @@ bool ArgChecker::check(const AtomListView& lv, BaseObject* obj) const
         pdError(x, fmt::format("extra arguments left, starting from [{}]: {}", atom_idx, list_to_string(lv.subView(atom_idx))));
         return false;
     }
+
+    if (nmatch)
+        *nmatch = atom_idx;
 
     return true;
 }
@@ -813,10 +816,10 @@ void ArgChecker::usage(BaseObject* obj, t_symbol* m)
     err << chk_->help();
 }
 
-bool check_args(const char* arg_string, const AtomListView& lv, BaseObject* obj)
+bool check_args(const char* arg_string, const AtomListView& lv, BaseObject* obj, int* nmatch)
 {
     ArgChecker chk(arg_string);
-    return chk.check(lv, obj);
+    return chk.check(lv, obj, nmatch);
 }
 
 }
