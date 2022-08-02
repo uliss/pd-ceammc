@@ -280,15 +280,15 @@ num_real = num_int ('.' num_den)?;
 # closed int range: [INT,INT] or [INT,INT)
 #####################
 cmp_range_int = ('['
-                    num_int @append_opt_int ',' num_int @append_opt_int
-                (']' @{ rl_chk.cmp = CMP_RANGE_CLOSED; } | ')' @{ rl_chk.cmp = CMP_RANGE_SEMIOPEN; })
+                    num_int %append_opt_int ',' num_int %append_opt_int
+                (']' %{ rl_chk.cmp = CMP_RANGE_CLOSED; } | ')' %{ rl_chk.cmp = CMP_RANGE_SEMIOPEN; })
                 );
 
 #####################
 # equal: =INT|INT|INT...
 #####################
-cmp_eq_int = (('=' num_int @append_opt_int)
-              ('|' num_int @append_opt_int)*
+cmp_eq_int = (('=' num_int %append_opt_int)
+              ('|' num_int %append_opt_int)*
              ) >{ rl_chk.cmp = CMP_EQUAL; }
            ;
 
@@ -300,7 +300,7 @@ cmp_op = ('>'  @{ rl_chk.cmp = CMP_GREATER; } ('=' @{ rl_chk.cmp = CMP_GREATER_E
 # mod: %INT
 #####################
 cmp_mod = ( '%' @{ rl_chk.cmp = CMP_MODULE; }
-            ([1-9][0-9]*) >{ rl_sign = 1; rl_num = 0; } ${ (rl_num *= 10) += (fc - '0'); } @append_opt_int
+            ([1-9][0-9]*) >{ rl_sign = 1; rl_num = 0; } ${ (rl_num *= 10) += (fc - '0'); } %append_opt_int
           )
           ;
 #####################

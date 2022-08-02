@@ -132,6 +132,9 @@ TEST_CASE("args2", "[core]")
         REQUIRE(args::check_args("i=-1|2|-3", LF(-1)));
         REQUIRE(args::check_args("i=-1|2|-3", LF(-3)));
         REQUIRE(args::check_args("i=-1|2|-3", LF(2)));
+        REQUIRE(args::check_args("i=11|-12|+123", LF(11)));
+        REQUIRE(args::check_args("i=11|-12|+123", LF(-12)));
+        REQUIRE(args::check_args("i=11|-12|+123", LF(123)));
         REQUIRE_FALSE(args::check_args("i=-1|2|-3", LF(1)));
         REQUIRE_FALSE(args::check_args("i=-1|2|-3", LF(3)));
         REQUIRE_FALSE(args::check_args("i=-1|2|-3", LF(-2)));
@@ -141,6 +144,11 @@ TEST_CASE("args2", "[core]")
         REQUIRE(args::check_args("i[-1,1]", LF(0)));
         REQUIRE(args::check_args("i[-1,1]", LF(1)));
         REQUIRE_FALSE(args::check_args("i[-1,1]", LF(2)));
+        REQUIRE(args::check_args("i[-100,100]", LF(2)));
+        REQUIRE(args::check_args("i[-100,100]", LF(-100)));
+        REQUIRE(args::check_args("i[-100,100]", LF(100)));
+        REQUIRE_FALSE(args::check_args("i[-100,100]", LF(101)));
+        REQUIRE_FALSE(args::check_args("i[-100,100]", LF(-101)));
 
         REQUIRE_FALSE(args::check_args("i[-1,1)", LF(-2)));
         REQUIRE(args::check_args("i[-1,1)", LF(-1)));
@@ -155,6 +163,8 @@ TEST_CASE("args2", "[core]")
         REQUIRE(args::check_args("i%2", LF(2)));
         REQUIRE(args::check_args("i%2", LF(6)));
         REQUIRE(args::check_args("i%2", LF(1024)));
+        REQUIRE(args::check_args("INT:i%32", LF(1024)));
+        REQUIRE_FALSE(args::check_args("i%31", LF(1024)));
         REQUIRE_FALSE(args::check_args("i%2", LF(1)));
         REQUIRE_FALSE(args::check_args("i%2", LF(1111)));
         REQUIRE_FALSE(args::check_args("i%0", LF(1)));
