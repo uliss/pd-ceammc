@@ -250,7 +250,7 @@ void GrainCloud::playBuffer(t_sample** buf, uint32_t bs, uint32_t sr)
                     uint32_t offset = 0;
                     auto state = g->process(array_it_, array_size_, buf, bs, sr, offset, &done_samp);
 
-                    while (g->speed() > 0  && state == GRAIN_FINISHED && g->canBePlayed() && done_samp > 0) {
+                    while (state == GRAIN_FINISHED && g->canBePlayed() && done_samp > 0 && offset < bs) {
                         offset += done_samp;
                         done_samp = 0;
                         g->start(0);
@@ -271,7 +271,7 @@ void GrainCloud::playBuffer(t_sample** buf, uint32_t bs, uint32_t sr)
                     uint32_t offset = 0;
                     auto state = g->process(array_it_, array_size_, buf, bs, sr, offset, &done_samp);
 
-                    while (g->speed() > 0 && state == GRAIN_FINISHED && g->canBePlayed() && done_samp > 0) {
+                    while (state == GRAIN_FINISHED && g->canBePlayed() && done_samp > 0 && offset < bs) {
                         offset += done_samp;
                         done_samp = 0;
                         g->start(0);

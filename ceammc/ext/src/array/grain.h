@@ -256,7 +256,7 @@ public:
     inline size_t grainDonePos() const { return grainEndInSamples() + time_after_; }
     double currentLogicPlayPos() const { return play_pos_ - grainStartInSamples(); }
 
-    double currentAbsPlayPos() const
+    [[deprecated]] double currentAbsPlayPos() const
     {
         if (play_speed_ >= 0)
             return currentLogicPlayPos();
@@ -264,7 +264,13 @@ public:
             return double(length_) - (currentLogicPlayPos() + 1);
     }
 
-    double currentArrayPlayPos() const { return src_pos_ + currentAbsPlayPos(); }
+    double currentArrayPlayPos() const
+    {
+        if (play_speed_ >= 0)
+            return src_pos_ + currentLogicPlayPos();
+        else
+            return src_pos_ + (double(length_) - 1) - currentLogicPlayPos();
+    }
 
     /// grain play duration according to playing speed
     size_t durationInSamples() const
@@ -372,6 +378,7 @@ public:
 private:
     inline bool beforeGrain() const { return play_pos_ < grainStartInSamples(); }
     inline bool afterGrain() const { return play_pos_ >= grainEndInSamples(); }
+    inline bool validArrayPos(double pos, size_t size) const { return 0 <= pos && pos < size ;}
 
     /// checks if the whole grain playing should be stopped
     inline bool shouldDone() const { return play_pos_ >= grainDonePos(); }

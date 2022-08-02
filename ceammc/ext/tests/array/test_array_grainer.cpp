@@ -655,7 +655,7 @@ TEST_CASE("array.grainer", "[externals]")
         REQUIRE(t.cloud().grains().at(0)->timeBefore() == 0);
         REQUIRE(t.cloud().grains().at(0)->timeAfter() == 90);
         REQUIRE(t.cloud().grains().at(1)->timeBefore() == 50);
-        REQUIRE(t.cloud().grains().at(1)->timeAfter() == 40);
+        REQUIRE(t.cloud().grains().at(1)->timeAfter() == 90);
         REQUIRE(t.cloud().grains().at(2)->timeBefore() == 0);
         REQUIRE(t.cloud().grains().at(3)->timeBefore() == 0);
 
@@ -663,10 +663,10 @@ TEST_CASE("array.grainer", "[externals]")
         REQUIRE(t.cloud().grains().at(0)->timeBefore() == 0);
         REQUIRE(t.cloud().grains().at(0)->timeAfter() == 90);
         REQUIRE(t.cloud().grains().at(1)->timeBefore() == 25);
-        REQUIRE(t.cloud().grains().at(1)->timeAfter() == 65);
+        REQUIRE(t.cloud().grains().at(1)->timeAfter() == 90);
         REQUIRE(t.cloud().grains().at(2)->timeBefore() == 50);
-        REQUIRE(t.cloud().grains().at(2)->timeAfter() == 40);
+        REQUIRE(t.cloud().grains().at(2)->timeAfter() == 90);
         REQUIRE(t.cloud().grains().at(3)->timeBefore() == 75);
-        REQUIRE(t.cloud().grains().at(3)->timeAfter() == 15);
+        REQUIRE(t.cloud().grains().at(3)->timeAfter() == 90);
     }
 }
