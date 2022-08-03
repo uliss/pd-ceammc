@@ -732,14 +732,18 @@ std::ostream& operator<<(std::ostream& os, const Atom& a)
         } else {
             os << "NULL data pointer";
         }
-    } else if (a.isNone())
-        os << "NONE";
-    else if (a.isComma())
+    } else if (a.isComma())
         os << "[A_COMMA]";
     else if (a.isSemicolon())
         os << "[A_SEMI]";
     else if (a.isPointer())
         os << "[A_POINTER]";
+    else if (a.isDollar())
+        os << "[A_DOLLAR]";
+    else if (a.isDollarSym())
+        os << "[A_DOLLSYM]";
+    else if (a.isNone())
+        os << "NONE";
     else
         os << "???";
 
