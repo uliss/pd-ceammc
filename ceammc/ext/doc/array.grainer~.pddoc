@@ -82,6 +82,14 @@
             Float value treat as millisecond. If not specified - use the whole source array duration</param>
             <param name="GRAIN" type="list">properties of sliced grains</param>
             </method>
+            <!--spread-->
+            <method name="spread">uniformly arrange grains to fill specified time space
+            <param name="DUR" type="atom">time space. Positive time values are expected,
+            for example: 100ms, 1.02s, 400samp etc.
+            Float value treat as millisecond. If not specified - use the whole source array duration</param>
+            <param name="TAG" type="symbol" required="false">if '*' or ommited: spread all grains, if
+            '.': spread finished grains only, otherwise spread grains with corresponding tag</param>
+            </method>
         </methods>
         <properties>
             <property name="@array" type="symbol" default="">array name</property>
