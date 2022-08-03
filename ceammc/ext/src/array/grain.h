@@ -379,6 +379,7 @@ public:
     void start(size_t playPosSamp);
 
     void resetFirstTime() { pre_delay_done_ = false; }
+    void resetPlayPos() { play_pos_ = 0; }
 
     GrainState done();
 
