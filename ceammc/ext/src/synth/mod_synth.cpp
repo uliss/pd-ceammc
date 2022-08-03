@@ -20,6 +20,7 @@ extern void setup_synth_glitch();
 extern void setup_synth_harpsichord_tilde();
 extern void setup_synth_ks_tilde();
 extern void setup_synth_marimba_tilde();
+extern void setup_synth_metro_tilde();
 extern void setup_synth_piano_tilde();
 extern void setup_synth_risset_arp_tilde();
 extern void setup_synth_risset_bell_tilde();
@@ -54,6 +55,7 @@ void ceammc_synth_setup()
     setup_synth_harpsichord_tilde();
     setup_synth_ks_tilde();
     setup_synth_marimba_tilde();
+    setup_synth_metro_tilde();
     setup_synth_piano_tilde();
     setup_synth_risset_arp_tilde();
     setup_synth_risset_bell_tilde();

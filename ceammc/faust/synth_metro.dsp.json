@@ -1,0 +1,180 @@
+{
+	"name": "synth.metro",
+	"filename": "synth_metro.dsp",
+	"version": "2.44.1",
+	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn synth_metro -scn synth_metro_dsp -es 1 -mcd 16 -single -ftz 0",
+	"library_list": ["/usr/local/share/faust/basics.lib","/usr/local/share/faust/filters.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib"],
+	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
+	"inputs": 0,
+	"outputs": 1,
+	"meta": [ 
+		{ "basics.lib/name": "Faust Basic Element Library" },
+		{ "basics.lib/version": "0.8" },
+		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn synth_metro -scn synth_metro_dsp -es 1 -mcd 16 -single -ftz 0" },
+		{ "filename": "synth_metro.dsp" },
+		{ "filters.lib/fir:author": "Julius O. Smith III" },
+		{ "filters.lib/fir:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/fir:license": "MIT-style STK-4.3 license" },
+		{ "filters.lib/iir:author": "Julius O. Smith III" },
+		{ "filters.lib/iir:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/iir:license": "MIT-style STK-4.3 license" },
+		{ "filters.lib/lowpass0_highpass1": "MIT-style STK-4.3 license" },
+		{ "filters.lib/lowpass0_highpass1:author": "Julius O. Smith III" },
+		{ "filters.lib/lowpass:author": "Julius O. Smith III" },
+		{ "filters.lib/lowpass:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/lowpass:license": "MIT-style STK-4.3 license" },
+		{ "filters.lib/name": "Faust Filters Library" },
+		{ "filters.lib/resonbp:author": "Julius O. Smith III" },
+		{ "filters.lib/resonbp:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/resonbp:license": "MIT-style STK-4.3 license" },
+		{ "filters.lib/tf2:author": "Julius O. Smith III" },
+		{ "filters.lib/tf2:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/tf2:license": "MIT-style STK-4.3 license" },
+		{ "filters.lib/tf2s:author": "Julius O. Smith III" },
+		{ "filters.lib/tf2s:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/tf2s:license": "MIT-style STK-4.3 license" },
+		{ "filters.lib/version": "0.3" },
+		{ "maths.lib/author": "GRAME" },
+		{ "maths.lib/copyright": "GRAME" },
+		{ "maths.lib/license": "LGPL with exception" },
+		{ "maths.lib/name": "Faust Math Library" },
+		{ "maths.lib/version": "2.5" },
+		{ "name": "synth.metro" },
+		{ "platform.lib/name": "Generic Platform Library" },
+		{ "platform.lib/version": "0.2" }
+	],
+	"ui": [ 
+		{
+			"type": "vgroup",
+			"label": "synth.metro",
+			"items": [ 
+				{
+					"type": "button",
+					"label": "b0",
+					"shortname": "b0",
+					"address": "/synth.metro/b0"
+				},
+				{
+					"type": "button",
+					"label": "b1",
+					"shortname": "b1",
+					"address": "/synth.metro/b1"
+				},
+				{
+					"type": "button",
+					"label": "b2",
+					"shortname": "b2",
+					"address": "/synth.metro/b2"
+				},
+				{
+					"type": "vslider",
+					"label": "freq0",
+					"shortname": "freq0",
+					"address": "/synth.metro/freq0",
+					"meta": [
+						{ "unit": "Hz" }
+					],
+					"init": 2000,
+					"min": 100,
+					"max": 10000,
+					"step": 0.1
+				},
+				{
+					"type": "vslider",
+					"label": "freq1",
+					"shortname": "freq1",
+					"address": "/synth.metro/freq1",
+					"meta": [
+						{ "unit": "Hz" }
+					],
+					"init": 1000,
+					"min": 100,
+					"max": 10000,
+					"step": 0.1
+				},
+				{
+					"type": "vslider",
+					"label": "freq2",
+					"shortname": "freq2",
+					"address": "/synth.metro/freq2",
+					"meta": [
+						{ "unit": "Hz" }
+					],
+					"init": 1500,
+					"min": 100,
+					"max": 10000,
+					"step": 0.1
+				},
+				{
+					"type": "vslider",
+					"label": "gain0",
+					"shortname": "gain0",
+					"address": "/synth.metro/gain0",
+					"meta": [
+						{ "unit": "db" }
+					],
+					"init": 3,
+					"min": -60,
+					"max": 12,
+					"step": 0.1
+				},
+				{
+					"type": "vslider",
+					"label": "gain1",
+					"shortname": "gain1",
+					"address": "/synth.metro/gain1",
+					"meta": [
+						{ "unit": "db" }
+					],
+					"init": 0,
+					"min": -60,
+					"max": 12,
+					"step": 0.1
+				},
+				{
+					"type": "vslider",
+					"label": "gain2",
+					"shortname": "gain2",
+					"address": "/synth.metro/gain2",
+					"meta": [
+						{ "unit": "db" }
+					],
+					"init": 3,
+					"min": -60,
+					"max": 12,
+					"step": 0.1
+				},
+				{
+					"type": "vslider",
+					"label": "q0",
+					"shortname": "q0",
+					"address": "/synth.metro/q0",
+					"init": 30,
+					"min": 10,
+					"max": 200,
+					"step": 0.1
+				},
+				{
+					"type": "vslider",
+					"label": "q1",
+					"shortname": "q1",
+					"address": "/synth.metro/q1",
+					"init": 10,
+					"min": 10,
+					"max": 200,
+					"step": 0.1
+				},
+				{
+					"type": "vslider",
+					"label": "q2",
+					"shortname": "q2",
+					"address": "/synth.metro/q2",
+					"init": 300,
+					"min": 10,
+					"max": 300,
+					"step": 0.1
+				}
+			]
+		}
+	]
+}

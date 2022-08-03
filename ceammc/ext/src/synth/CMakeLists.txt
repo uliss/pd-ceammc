@@ -30,6 +30,7 @@ ceammc_synth_obj(glitch)
 ceammc_synth_obj(harpsichord)
 ceammc_synth_obj(ks)
 ceammc_synth_obj(marimba)
+ceammc_synth_obj(metro)
 ceammc_synth_obj(piano)
 ceammc_synth_obj(risset_arp)
 ceammc_synth_obj(risset_bell)
@@ -45,8 +46,10 @@ ceammc_faust_gen_obj(synth dx7 JSON OCPP)
 add_library(ceammc_synth STATIC mod_synth.cpp ${SYNTH_SOURCES} ${SYNTH_STK_SOURCES})
 
 target_link_libraries(ceammc_synth PRIVATE stk glitch-core)
-target_include_directories(ceammc_synth PRIVATE
+target_include_directories(ceammc_synth
+PRIVATE
     ${PROJECT_SOURCE_DIR}/ceammc/extra/stk/stk/include
+    "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>"
 )
 
 set_target_properties(ceammc_synth PROPERTIES COMPILE_DEFINITIONS "FAUST_MACRO")

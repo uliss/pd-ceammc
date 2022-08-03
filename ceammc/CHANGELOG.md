@@ -15,6 +15,7 @@
   - proto.whammy: Digitech Whammy pedal control
   - flow.seqdelay: sequential message delay/router
   - array.circular: array circular read/write
+  - synth.metro~: metronome generator
 - new properties:
   - @clip property added to system.cursor to clip cursor XY coords
   - @norm property added to ui.env to do envelope value normalization on input
