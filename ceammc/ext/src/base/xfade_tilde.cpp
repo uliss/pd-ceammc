@@ -94,7 +94,7 @@ void XFadeTilde::processBlock(const t_sample** in, t_sample** out)
     }
 }
 
-void XFadeTilde::onInlet(size_t n, const AtomListView& lst)
+void XFadeTilde::onInlet(size_t n, const AtomListView& lv)
 {
     typedef std::function<t_float(t_float, t_float)> XFadeCurveFunction;
     typedef std::pair<t_symbol*, XFadeCurveFunction> XFadeCurvePair;
@@ -104,12 +104,12 @@ void XFadeTilde::onInlet(size_t n, const AtomListView& lst)
         { SYM_POW, [](t_float a, t_float b) { return (a - b) * (a - b); } }
     };
 
-    if (!checkArgs(lst, ARG_FLOAT)) {
-        OBJ_ERR << "float expected: " << lst;
+    if (!checkArgs(lv, ARG_FLOAT)) {
+        OBJ_ERR << "float expected: " << lv;
         return;
     }
 
-    t_float v = lst.floatAt(0, 0);
+    t_float v = lv.floatAt(0, 0);
 
     auto type = prop_type_->value();
     auto fn_it = std::find_if(std::begin(xfade_fns), std::end(xfade_fns),
