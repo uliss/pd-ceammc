@@ -50,6 +50,7 @@
   - ui.slider2d alias added: ui.s2d
   - env.asr~: second inlet added for gate control
   - second inlet added to random.atom to set list to choose from
+  - msg.onload: semicolon messages supported
 - TCL editor added for objects:
   - data.list
   - local.list
@@ -61,6 +62,7 @@
 ### Fixed:
 - system.cursor no normalization in subpatch
 - conv.dbfs2amp~: signal version fix
+- msg.onload: comma sperated message fixed
 
 ### Changes:
 - @i property of seq.counter made writable

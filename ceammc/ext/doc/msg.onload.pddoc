@@ -48,35 +48,35 @@
             </pdascii>
             <pdascii id="type">
 <![CDATA[
-[msg.onload]
-|
-[ui.d @display_type 1 @auto_size 0]
+[msg.onload]             [msg.onload \$0]
+|                        |
+[ui.dt @auto_size 0]     [ui.dt @auto_size 0]
 
-[msg.onload 1000]
-|
-[ui.d @display_type 1 @auto_size 0]
+[msg.onload 1000]        [msg.onload symbol \$0-text]
+|                        |
+[ui.dt @auto_size 0]     [ui.dt @auto_size 0 @size 140 15]
 
-[msg.onload symbol TEXT]
-|
-[ui.d @display_type 1 @auto_size 0]
+[msg.onload symbol TEXT] [r \$0-test]    [msg.onload \; \$0-test 1 2 3]
+|                        |
+[ui.dt @auto_size 0]     [ui.dt @auto_size 0 @size 140 15]
 
-[msg.onload 1 2 3 4 5]   /*implicit list*/
+[msg.onload 1 2 3 4 5]    /*implicit list*/
 |
-[ui.d @display_type 1 @auto_size 0]
+[ui.dt @auto_size 0]
 
-[msg.onload list A B @C] /*explicit list*/
+[msg.onload list A B @C]  /*explicit list*/
 |
-[ui.d @display_type 1 @auto_size 0]
+[ui.dt @auto_size 0]
 
 [msg.onload TEXT]
 |
-[ui.d @display_type 1 @auto_size 0]
+[ui.dt @auto_size 0]
 
 [msg.onload MSG ARG0 @ARG1]
 |
-[ui.d @display_type 1 @auto_size 0]
+[ui.dt @auto_size 0 @size 140 15]
 
-[msg.onload A \, B \, C]    /*comma separated messages*/
+[msg.onload A \, B \, C]  /*comma separated messages*/
 |
 [print]
 ]]>
