@@ -33,23 +33,29 @@
             <argument name="NAME" type="symbol">array name</argument>
         </arguments>
         <methods>
+            <!--clear-->
             <method name="clear">remove grain(s) 
             <param name="SUBJ" type="atom" required="false">if '*' or ommited: remove all grains,
             if '.': remove finished grains only, if float: remove grain with corresponding #id, if
             symbol: remove grains with corresponding tag</param></method>
+            <!--set-->
             <method name="set">set grain(s) properties 
             <param name="SUBJ" type="atom" required="true">if '*': set for all grains, if float:
             set for grain with specified #id, if symbol: set for grains with specified tag</param>
             <param name="PROPS" type="list" required="true">grain properties</param></method>
-            <method name="grain">create single grain 
+            <!--grain-->
+            <method name="grain">create single grain
             <param name="PROPS" type="list" required="true">grain properties</param></method>
-            <method name="append">append several grains 
+            <!--append-->
+            <method name="append">append several grains
             <param name="N" type="int" required="true" minvalue="1">number of grains</param>
             <param name="PROPS" type="list" required="true">grain properties</param></method>
-            <method name="fill">fill with grains (remove all existing grains before) 
+            <!--fill-->
+            <method name="fill">fill with grains (remove all existing grains before)
             <param name="N" type="int" required="true" minvalue="1">number of grains</param>
             <param name="PROPS" type="list" required="true">grain properties</param></method>
-            <method name="onsets">analyze source array for onsets 
+            <!--onsets-->
+            <method name="onsets">analyze source array for onsets
             <param name="METHOD" type="symbol" default="default"
             enum="default hfc energy complex phase wphase specdiff kl mkl specflux">onset detection
             method</param>
@@ -57,15 +63,25 @@
             minimal space between onsets</param>
             <param name="SILENCE" type="float" default="-40" units="decibel" required="false">
             silence level</param></method>
-            <method name="align">align grain(s) to onset 
+            <!--align-->
+            <method name="align">align grain(s) to onset
             <param name="SUBJ" type="atom" required="false">if '*' or ommited: align all grains, if
             '.': align finished grains only, if float: align grain with corresponding #id, if
             symbol: align grains with corresponding tag</param></method>
-            <method name="pause">pause (resume) grain(s) 
+            <!--pause-->
+            <method name="pause">pause (resume) grain(s)
             <param name="SUBJ" type="atom" required="true">if '*': pause all grains, if float:
             pause grain with corresponding #id, if symbol: pause grains with matched tag</param>
             <param name="STATE" type="int" enum="0 1" required="false">on/off
             value</param></method>
+            <!--slice-->
+            <method name="slice">slice specified duration to specified number of grains and add them
+            <param name="N" type="int" required="true" minvalue="1" maxvalue="64">desired number of grains</param>
+            <param name="DUR" type="atom">duration to slice. Positive time value expected,
+            for example: 100ms, 1.02s, 400samp etc.
+            Float value treat as millisecond. If not specified - use the whole source array duration</param>
+            <param name="GRAIN" type="list">properties of sliced grains</param>
+            </method>
         </methods>
         <properties>
             <property name="@array" type="symbol" default="">array name</property>

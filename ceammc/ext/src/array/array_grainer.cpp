@@ -52,7 +52,7 @@ uint64_t parseTimeUnit(const AtomListView& lv, double sr, uint64_t def)
     units::TimeValue tm(0, units::TimeValue::SAMPLE, sr);
     auto res = units::TimeValue::parse(lv);
     if (res.matchValue(tm))
-        return tm.value() < 0 ? def : tm.toSamples();
+        return tm.value() <= 0 ? def : tm.toSamples();
     else
         return def;
 }
