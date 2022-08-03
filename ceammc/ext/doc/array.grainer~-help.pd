@@ -73,63 +73,63 @@ Default value: 50\. Min value: 1\.;
 #X text 255 1263 [SUBJ]: if '*' or ommited: remove all grains \, if
 '.': remove finished grains only \, if float: remove grain with corresponding
 #id \, if symbol: remove grains with corresponding tag. Type: atom.;
-#X msg 110 1333 fill;
-#X text 245 1333 fill with grains (remove all existing grains before).
+#X msg 110 1333 defer;
+#X text 245 1333 defer method call until grains will finish. Arguments
+are:;
+#X obj 255 1356 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1356 [N]: number of finished grains to wait before calling.
+If not specified \, treat as 1\. Type: int. Range: 1\...255\.;
+#X obj 255 1394 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1394 METHOD: method name. Type: symbol.;
+#X obj 255 1417 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1417 [ARGS]: method arguments. Type: list.;
+#X msg 110 1442 fill;
+#X text 245 1442 fill with grains (remove all existing grains before).
 Arguments are:;
-#X obj 255 1371 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1371 N: number of grains. Type: int. Min value: 1\.;
-#X obj 255 1394 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1394 PROPS: grain properties. Type: list.;
-#X msg 110 1419 grain;
-#X text 245 1419 create single grain. Arguments are:;
-#X obj 255 1442 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1442 PROPS: grain properties. Type: list.;
-#X msg 110 1467 onsets;
-#X text 245 1467 analyze source array for onsets. Arguments are:;
-#X obj 255 1490 cnv 1 123 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1490 [METHOD=default]: onset detection method. Type: symbol.
+#X obj 255 1480 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1480 N: number of grains. Type: int. Min value: 1\.;
+#X obj 255 1503 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1503 PROPS: grain properties. Type: list.;
+#X msg 110 1528 grain;
+#X text 245 1528 create single grain. Arguments are:;
+#X obj 255 1551 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1551 PROPS: grain properties. Type: list.;
+#X msg 110 1576 onsets;
+#X text 245 1576 analyze source array for onsets. Arguments are:;
+#X obj 255 1599 cnv 1 123 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1599 [METHOD=default]: onset detection method. Type: symbol.
 Allowed values: default \, hfc \, energy \, complex \, phase \, wphase
 \, specdiff \, kl \, mkl \, specflux.;
-#X obj 255 1543 cnv 1 77 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1543 [SPACE=64]: minimal space between onsets. Type: float.
+#X obj 255 1652 cnv 1 77 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1652 [SPACE=64]: minimal space between onsets. Type: float.
 Units: ms.;
-#X obj 255 1581 cnv 1 100 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1581 [SILENCE=-40]: silence level. Type: float. Units:
+#X obj 255 1690 cnv 1 100 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1690 [SILENCE=-40]: silence level. Type: float. Units:
 db.;
-#X msg 110 1606 pause;
-#X text 245 1606 pause (resume) grain(s). Arguments are:;
-#X obj 255 1629 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1629 SUBJ: if '*': pause all grains \, if float: pause
+#X msg 110 1715 pause;
+#X text 245 1715 pause (resume) grain(s). Arguments are:;
+#X obj 255 1738 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1738 SUBJ: if '*': pause all grains \, if float: pause
 grain with corresponding #id \, if symbol: pause grains with matched
 tag. Type: atom.;
-#X obj 255 1682 cnv 1 54 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1682 [STATE]: on/off value. Type: int. Allowed values:
+#X obj 255 1791 cnv 1 54 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1791 [STATE]: on/off value. Type: int. Allowed values:
 0 \, 1\.;
-#X msg 110 1707 set;
-#X text 245 1707 set grain(s) properties. Arguments are:;
-#X obj 255 1730 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1730 SUBJ: if '*': set for all grains \, if float: set
+#X msg 110 1816 set;
+#X text 245 1816 set grain(s) properties. Arguments are:;
+#X obj 255 1839 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1839 SUBJ: if '*': set for all grains \, if float: set
 for grain with specified #id \, if symbol: set for grains with specified
 tag. Type: atom.;
-#X obj 255 1783 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1783 PROPS: grain properties. Type: list.;
-#X msg 110 1808 shuffle;
-#X text 245 1808 shuffle grain positions (@ta and @tb) values. Arguments
+#X obj 255 1892 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1892 PROPS: grain properties. Type: list.;
+#X msg 110 1917 shuffle;
+#X text 245 1917 shuffle grain positions (@ta and @tb) values. Arguments
 are:;
-#X obj 255 1831 cnv 1 39 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1831 [TAG]: if '*' or ommited: shuffle all grains \, if
+#X obj 255 1940 cnv 1 39 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1940 [TAG]: if '*' or ommited: shuffle all grains \, if
 '.': shuffle finished grains only \, otherwise shuffle grains with
 corresponding tag. Type: symbol.;
-#X msg 110 1886 shuffle;
-#X text 245 1886 defer method call until grains will finish. Arguments
-are:;
-#X obj 255 1909 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1909 [N]: number of finished grains to wait before calling.
-If not specified \, treat as 1\. Type: int. Range: 1\...255\.;
-#X obj 255 1947 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1947 METHOD: method name. Type: symbol.;
-#X obj 255 1970 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1970 [ARGS]: method arguments. Type: list.;
 #X msg 110 1995 slice;
 #X text 245 1995 slice specified duration to specified number of grains
 and add them. Arguments are:;
