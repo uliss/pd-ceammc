@@ -19,6 +19,8 @@
 #include <iosfwd>
 #include <memory>
 
+#include <boost/container/small_vector.hpp>
+
 namespace ceammc {
 
 class BaseObject;
@@ -26,6 +28,8 @@ class BaseObject;
 namespace args {
 
     class ArgCheckImp;
+
+    using ArgMatchList = boost::container::small_vector<AtomListView, 16>;
 
     class ArgChecker {
         std::unique_ptr<ArgCheckImp> chk_;
@@ -38,14 +42,14 @@ namespace args {
          * Check specified list
          * @param lv - argument list
          * @param obj - pointer to parent object (can be nullptr)
-         * @param nmatch - pointer to write number of matched items
+         * @param matches - pointer to write matched items
          * @return true on success, false on error
          */
-        bool check(const AtomListView& lv, BaseObject* obj, int* nmatch = nullptr) const;
+        bool check(const AtomListView& lv, BaseObject* obj, ArgMatchList* matches = nullptr) const;
         void usage(BaseObject* obj = nullptr, t_symbol* m = nullptr);
     };
 
-    bool check_args(const char* arg_string, const AtomListView& lv, BaseObject* obj = nullptr, int* nmatch = nullptr);
+    bool check_args(const char* arg_string, const AtomListView& lv, BaseObject* obj = nullptr, ArgMatchList* matches = nullptr);
 
 }
 }

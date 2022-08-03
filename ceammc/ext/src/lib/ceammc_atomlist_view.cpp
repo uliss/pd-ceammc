@@ -29,13 +29,13 @@ AtomListView::AtomListView() noexcept
 }
 
 AtomListView::AtomListView(const t_atom* a, size_t n) noexcept
-    : data_(reinterpret_cast<const Atom*>(a))
+    : data_(n ? reinterpret_cast<const Atom*>(a) : nullptr)
     , n_(n)
 {
 }
 
 AtomListView::AtomListView(const Atom* a, size_t n) noexcept
-    : data_(a)
+    : data_(n ? a : nullptr)
     , n_(n)
 {
 }

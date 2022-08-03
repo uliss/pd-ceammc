@@ -486,7 +486,6 @@ bool checkAtom(const Check& c, const Atom& a, int i, const void* x, bool pErr) {
                 }
             break;
             case CMP_MODULE:
-                fmt::print("val={}, arg={}\n", val, arg);
                 if (val % arg != 0) {
                     if (pErr)
                         pdError(x, fmt::format("{} at [{}] expected to be multiple of {}, got: {}", c.argName(), i, arg, val));
@@ -735,14 +734,13 @@ public:
 
 ArgChecker::~ArgChecker()  = default;
 
-bool ArgChecker::check(const AtomListView& lv, BaseObject* obj, int* nmatch) const
+bool ArgChecker::check(const AtomListView& lv, BaseObject* obj, ArgMatchList* matches) const
 {
     if (!chk_)
         return false;
 
+    ArgMatchList m;
     const void* x = obj ? obj->owner() : nullptr;
-
-    // pdDebug(x, chk_->help());
 
     const int N = lv.size();
     int atom_idx = 0;
@@ -750,6 +748,7 @@ bool ArgChecker::check(const AtomListView& lv, BaseObject* obj, int* nmatch) con
     for (int i = 0; i < chk_->size(); i++) {
         auto& check = (*chk_)[i];
         auto cur = atom_idx + (check.rmin - 1);
+        auto match_pos = atom_idx;
 
         for (int k = 0; k < check.rmin; k++, atom_idx++) {
             if (atom_idx >= N) {
@@ -767,6 +766,8 @@ bool ArgChecker::check(const AtomListView& lv, BaseObject* obj, int* nmatch) con
             if (!checkAtom(check, lv[atom_idx], atom_idx, x, false))
                 break;
         }
+
+        m.push_back(lv.subView(match_pos, atom_idx - match_pos));
     }
 
     if (atom_idx < N) {
@@ -774,8 +775,8 @@ bool ArgChecker::check(const AtomListView& lv, BaseObject* obj, int* nmatch) con
         return false;
     }
 
-    if (nmatch)
-        *nmatch = atom_idx;
+    if (matches)
+        *matches = m;
 
     return true;
 }
@@ -816,10 +817,10 @@ void ArgChecker::usage(BaseObject* obj, t_symbol* m)
     err << chk_->help();
 }
 
-bool check_args(const char* arg_string, const AtomListView& lv, BaseObject* obj, int* nmatch)
+bool check_args(const char* arg_string, const AtomListView& lv, BaseObject* obj, ArgMatchList* matches)
 {
     ArgChecker chk(arg_string);
-    return chk.check(lv, obj, nmatch);
+    return chk.check(lv, obj, matches);
 }
 
 }

@@ -20,6 +20,8 @@
 #include "catch.hpp"
 #include "test_common.h"
 
+#include <boost/preprocessor.hpp>
+
 using namespace ceammc;
 
 TEST_CASE("args2", "[core]")
@@ -283,11 +285,33 @@ TEST_CASE("args2", "[core]")
 
     SECTION("mixed")
     {
-        int nm = 0;
-        REQUIRE(args::check_args("a f<0 i+ s+", LA("true", -1.5, 1, 2, 3, 4, 5, "A", "A", "B"), nullptr, &nm));
-        REQUIRE(nm == 10);
+        args::ArgMatchList ml;
+        REQUIRE(args::check_args("a f<0 i+ s+", LA("true", -1.5, 1, 2, 3, 4, 5, "A", "A", "B"), nullptr, &ml));
+        REQUIRE(ml.size() == 4);
         REQUIRE(args::check_args("a f<0 i+ s=A|BC*", LA("true", -1.5, 2, 1, 2, 3, 4, 5, "A", "A", "BC")));
-        REQUIRE(args::check_args("A:a f<0 i[1,5]+ NAME:s=A|BC+ f", LA("true", -1.5, 2, 1, 2, 3, 4, 5, "A", "A", "BC", -100), nullptr, &nm));
-        REQUIRE(nm == 12);
+        REQUIRE(args::check_args("A:a f<0 i[1,5]+ NAME:s=A|BC+ f", LA("true", -1.5, 2, 1, 2, 3, 4, 5, "A", "A", "BC", -100), nullptr, &ml));
+        REQUIRE(ml.size() == 5);
+    }
+
+    SECTION("matches")
+    {
+        args::ArgMatchList ml;
+
+#define REQUIRE_MATCH(fmt, lst, n, ...)                     \
+    {                                                       \
+        args::ArgMatchList ml;                              \
+        AtomList largs = lst;                               \
+        args::check_args(fmt, largs, nullptr, &ml);         \
+        REQUIRE(ml.size() == n);                            \
+        REQUIRE(ml == args::ArgMatchList({ __VA_ARGS__ })); \
+    }
+
+        REQUIRE_MATCH("i?", LF(500), 1, LF(500));
+        REQUIRE_MATCH("i?", L(), 1, L());
+        REQUIRE_MATCH("i{2,3} i?", LF(1, 2), 2, LF(1, 2), L());
+        REQUIRE_MATCH("i{2,3} i?", LF(1, 2, 3), 2, LF(1, 2, 3), L());
+        REQUIRE_MATCH("i{2,3} i? s*", LA(1, 2, 3), 3, LF(1, 2, 3), L(), L());
+        REQUIRE_MATCH("i{2,3} i? s*", LA(1, 2, 3, "A"), 3, LF(1, 2, 3), L(), LA("A"));
+        REQUIRE_MATCH("i{2,3} i? s*", LA(1, 2, 3, "A", "B"), 3, LF(1, 2, 3), L(), LA("A", "B"));
     }
 }
