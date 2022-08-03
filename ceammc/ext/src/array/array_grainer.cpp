@@ -30,6 +30,8 @@ constexpr const char* CHAR_FINISHED = ".";
 
 using namespace ceammc;
 
+namespace {
+
 struct FVecDeleter {
     void operator()(fvec_t* v) { del_fvec(v); }
 };
@@ -44,6 +46,18 @@ struct OnsetDeleter {
 
 using FVecPtr = std::unique_ptr<fvec_t, FVecDeleter>;
 using OnsetPtr = std::unique_ptr<aubio_onset_t, OnsetDeleter>;
+
+uint64_t parseTimeUnit(const AtomListView& lv, double sr, uint64_t def)
+{
+    units::TimeValue tm(0, units::TimeValue::SAMPLE, sr);
+    auto res = units::TimeValue::parse(lv);
+    if (res.matchValue(tm))
+        return tm.value() < 0 ? def : tm.toSamples();
+    else
+        return def;
+}
+
+}
 
 ArrayGrainer::ArrayGrainer(const PdArgs& args)
     : ArraySoundBase(args)
@@ -386,23 +400,12 @@ void ArrayGrainer::m_slice(t_symbol* s, const AtomListView& lv)
         return;
 
     const auto N = m[0].asInt();
-    const auto args = m[2];
-
-    // parse length
-    int64_t alen = array_.size();
-    if (m[1].size() == 1) {
-        units::TimeValue tm(0, units::TimeValue::SAMPLE, samplerate());
-        auto res = units::TimeValue::parse(m[1]);
-        if (res.matchValue(tm))
-            alen = tm.toSamples();
-    }
-
-    GrainExprParser parser(nullptr);
-
-    cloud_.clear();
-
+    const int64_t alen = parseTimeUnit(m[1], samplerate(), array_.size());
+    const auto grain_props = m[2];
     const double glen = alen / double(N);
     const int64_t ilen = std::round(glen);
+
+    GrainExprParser parser(nullptr);
 
     for (int i = 0; i < N; i++) {
         auto id = cloud_.size();
@@ -416,8 +419,8 @@ void ArrayGrainer::m_slice(t_symbol* s, const AtomListView& lv)
         grain->setArraySizeInSamples(alen);
         parser.setGrain(grain);
 
-        if (args.size() > 0 && !parser.parse(args)) {
-            OBJ_ERR << "invalid grain props: " << args;
+        if (grain_props.size() > 0 && !parser.parse(grain_props)) {
+            OBJ_ERR << "invalid grain props: " << grain_props;
             cloud_.popGrain();
             return;
         }
