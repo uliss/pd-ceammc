@@ -373,9 +373,11 @@ void ArrayGrainer::m_onsets(t_symbol* s, const AtomListView& lv)
 void ArrayGrainer::m_slice(t_symbol* s, const AtomListView& lv)
 {
     static args::ArgChecker chk("N:i[1,64] "
+                                "LEN:t? "
                                 "GRAIN:a*");
 
-    if (!chk.check(lv, this)) {
+    args::ArgMatchList m;
+    if (!chk.check(lv, this, &m)) {
         chk.usage(this, s);
         return;
     }
@@ -383,13 +385,22 @@ void ArrayGrainer::m_slice(t_symbol* s, const AtomListView& lv)
     if (!checkArray(true))
         return;
 
-    const auto N = lv[0].asT<int>();
-    const auto args = lv.subView(1);
+    const auto N = m[0].asInt();
+    const auto args = m[2];
+
+    // parse length
+    int64_t alen = array_.size();
+    if (m[1].size() == 1) {
+        units::TimeValue tm(0, units::TimeValue::SAMPLE, samplerate());
+        auto res = units::TimeValue::parse(m[1]);
+        if (res.matchValue(tm))
+            alen = tm.toSamples();
+    }
+
     GrainExprParser parser(nullptr);
 
     cloud_.clear();
 
-    const int64_t alen = array_.size();
     const double glen = alen / double(N);
     const int64_t ilen = std::round(glen);
 
@@ -416,8 +427,6 @@ void ArrayGrainer::m_slice(t_symbol* s, const AtomListView& lv)
         grain->setArrayPosInSamples(pos);
         grain->setTimeBefore(pos);
         grain->setTimeAfter(clip_min<int64_t, 0>(alen - grain->durationInSamples()));
-
-        OBJ_DBG << "added: " << *grain;
     }
 }
 
