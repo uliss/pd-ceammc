@@ -17,6 +17,7 @@
 #include "grain_random.h"
 
 #include <algorithm>
+#include <boost/container/small_vector.hpp>
 
 namespace ceammc {
 
@@ -136,51 +137,56 @@ void GrainCloud::alignFinished(const std::vector<size_t>& onsets)
     }
 }
 
-bool GrainCloud::spreadGrains(SpreadMode mode, uint32_t len_samp, t_symbol* tag)
+bool GrainCloud::spreadGrains(SpreadMode mode, uint32_t len_samp, t_symbol* tag, bool sync)
 {
+    using GrainIdxVec = boost::container::small_vector<std::uint8_t, 64>;
+
+    // count target grains
     const auto N = (!tag || tag == &s_)
         ? grains_.size()
         : std::count_if(grains_.begin(), grains_.end(), [tag](const Grain* g) { return g->tag() == tag; });
 
-    for (size_t i = 0; i < N; i++) {
-        auto g = grains_[i];
+    switch (mode) {
+    case SPREAD_EQUAL: {
+        for (size_t i = 0; i < N; i++) {
+            auto g = grains_[i];
 
-        if (tag == &s_ || tag == g->tag()) {
-            int64_t n = g->arraySizeInSamples();
-            int64_t p = g->arrayPosInSamples();
-            int64_t glen = g->lengthInSamples();
+            if (tag == &s_ || tag == g->tag()) {
+                const double glen = g->lengthInSamples();
+                const double tlen = len_samp;
+                const double gpos = (i / double(N)) * tlen;
 
-            switch (mode) {
-            case SPREAD_ORIGIN_START: {
-                uint32_t b = std::round(convert::lin2lin<double>(p, 0, n, 0, len_samp));
-                g->setTimeBefore(b);
-                g->setTimeAfter(0);
-            } break;
-            case SPREAD_ORIGIN_END: {
-                uint32_t e = std::round(convert::lin2lin_clip<double>(n - double(p + glen), 0, n, 0, len_samp));
-                g->setTimeBefore(0);
-                g->setTimeAfter(e);
-            } break;
-            case SPREAD_ORIGIN_BOTH: {
-                uint32_t b = std::round(convert::lin2lin<double>(p, 0, n, 0, len_samp));
-                uint32_t e = std::round(convert::lin2lin_clip<double>(n - double(p + glen), 0, n, 0, len_samp));
-                g->setTimeBefore(b);
-                g->setTimeAfter(e);
-            } break;
-            case SPREAD_EQUAL: {
-                double tlen = len_samp;
-                double gk = i / double(N);
+                g->resetFirstTime();
+                g->start(0);
+                g->setTimeBefore(gpos);
+                g->setTimeAfter(clip_min<double, 0>(tlen - glen));
+            }
+        }
+    } break;
+    case SPREAD_SHUFFLE: {
+        GrainIdxVec gidxvec;
+        gidxvec.reserve(N);
+        for (size_t i = 0; i < N; i++)
+            gidxvec.push_back(i);
+
+        for (size_t i = 0; i < N; i++) {
+            auto g = grains_[i];
+
+            if (tag == &s_ || tag == g->tag()) {
+                const double glen = g->lengthInSamples();
+                const double tlen = len_samp;
+                std::shuffle(gidxvec.begin(), gidxvec.end(), GrainRandom::instance().gen());
+                double gk = gidxvec[i] / double(N);
                 double gpos = gk * tlen;
                 g->resetFirstTime();
                 g->start(0);
                 g->setTimeBefore(gpos);
                 g->setTimeAfter(clip_min<double, 0>(tlen - glen));
-            } break;
-            default:
-                std::cerr << "unknown spread mode";
-                break;
             }
         }
+    } break;
+    default:
+        return false;
     }
 
     return true;

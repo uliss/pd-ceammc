@@ -86,21 +86,14 @@ public:
     void alignFinished(const std::vector<size_t>& onsets);
 
     enum SpreadMode {
-        SPREAD_ORIGIN_START,
-        SPREAD_ORIGIN_END,
-        SPREAD_ORIGIN_BOTH,
-        SPREAD_LINEAR_UP,
-        SPREAD_LINEAR_DOWN,
         SPREAD_EQUAL,
-        SPREAD_RANDOM,
-        SPREAD_LENGTH_UP,
-        SPREAD_LENGTH_DOWN,
+        SPREAD_SHUFFLE,
     };
 
     /**
      * set grain start position
      */
-    bool spreadGrains(SpreadMode mode, uint32_t len_samp, t_symbol* tag = &s_);
+    bool spreadGrains(SpreadMode mode, uint32_t len_samp, t_symbol* tag = &s_, bool sync = true);
 
     void setArrayData(ArrayIterator data, size_t sz)
     {

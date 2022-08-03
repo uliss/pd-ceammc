@@ -637,6 +637,85 @@ TEST_CASE("array.grainer", "[externals]")
         REQUIRE(t.cloud().size() == 5);
     }
 
+    SECTION("slice")
+    {
+        TExt t("array.grainer~", LA("array_g1"));
+
+        t.m_slice(&s_, AtomList::parseString("1 @at 4 @tag g0 @l 10samp @p 1 @amp 0.5"));
+        REQUIRE(t.cloud().size() == 1);
+        REQUIRE(t.cloud().grains().at(0)->timeBefore() == 0);
+        REQUIRE(t.cloud().grains().at(0)->timeAfter() == 0);
+        REQUIRE(t.cloud().grains().at(0)->lengthInSamples() == 128);
+        REQUIRE(t.cloud().grains().at(0)->tag() == SYM("g0"));
+        REQUIRE(t.cloud().grains().at(0)->pan() == 1);
+        REQUIRE(t.cloud().grains().at(0)->amplitude() == 0.5);
+
+        t.m_clear(&s_, {});
+        t.m_slice(&s_, AtomList::parseString("4 @at 4 @tag g0 @l 10samp @p 1 @amp 0.5"));
+        REQUIRE(t.cloud().size() == 4);
+        REQUIRE(t.cloud().grains().at(0)->timeBefore() == 0);
+        REQUIRE(t.cloud().grains().at(0)->timeAfter() == 96);
+        REQUIRE(t.cloud().grains().at(0)->lengthInSamples() == 32);
+        REQUIRE(t.cloud().grains().at(0)->tag() == SYM("g0"));
+        REQUIRE(t.cloud().grains().at(0)->pan() == 1);
+        REQUIRE(t.cloud().grains().at(0)->amplitude() == 0.5);
+        REQUIRE(t.cloud().grains().at(1)->timeBefore() == 32);
+        REQUIRE(t.cloud().grains().at(1)->timeAfter() == 96);
+        REQUIRE(t.cloud().grains().at(1)->lengthInSamples() == 32);
+        REQUIRE(t.cloud().grains().at(1)->tag() == SYM("g0"));
+        REQUIRE(t.cloud().grains().at(1)->pan() == 1);
+        REQUIRE(t.cloud().grains().at(1)->amplitude() == 0.5);
+        REQUIRE(t.cloud().grains().at(2)->timeBefore() == 64);
+        REQUIRE(t.cloud().grains().at(2)->timeAfter() == 96);
+        REQUIRE(t.cloud().grains().at(2)->lengthInSamples() == 32);
+        REQUIRE(t.cloud().grains().at(2)->tag() == SYM("g0"));
+        REQUIRE(t.cloud().grains().at(2)->pan() == 1);
+        REQUIRE(t.cloud().grains().at(2)->amplitude() == 0.5);
+        REQUIRE(t.cloud().grains().at(3)->timeBefore() == 96);
+        REQUIRE(t.cloud().grains().at(3)->timeAfter() == 96);
+        REQUIRE(t.cloud().grains().at(3)->lengthInSamples() == 32);
+        REQUIRE(t.cloud().grains().at(3)->tag() == SYM("g0"));
+        REQUIRE(t.cloud().grains().at(3)->pan() == 1);
+        REQUIRE(t.cloud().grains().at(3)->amplitude() == 0.5);
+
+        t.m_clear(&s_, {});
+        t.m_slice(&s_, AtomList::parseString("0 @at 4 @tag g0 @l 10samp @p 1 @amp 0.5"));
+        REQUIRE(t.cloud().size() == 0);
+
+        t.m_slice(&s_, AtomList::parseString("2 @s 2"));
+        REQUIRE(t.cloud().size() == 2);
+        REQUIRE(t.cloud().grains().at(0)->durationInSamples() == 32);
+        REQUIRE(t.cloud().grains().at(0)->timeBefore() == 0);
+        REQUIRE(t.cloud().grains().at(0)->timeAfter() == 96);
+        REQUIRE(t.cloud().grains().at(0)->speed() == 2);
+        REQUIRE(t.cloud().grains().at(1)->durationInSamples() == 32);
+        REQUIRE(t.cloud().grains().at(1)->timeBefore() == 64);
+        REQUIRE(t.cloud().grains().at(1)->timeAfter() == 96);
+        REQUIRE(t.cloud().grains().at(1)->speed() == 2);
+
+        t.m_clear(&s_, {});
+        t.m_slice(&s_, AtomList::parseString("2 @s 0.5"));
+        REQUIRE(t.cloud().size() == 2);
+        REQUIRE(t.cloud().grains().at(0)->durationInSamples() == 128);
+        REQUIRE(t.cloud().grains().at(0)->timeBefore() == 0);
+        REQUIRE(t.cloud().grains().at(0)->timeAfter() == 0);
+        REQUIRE(t.cloud().grains().at(0)->speed() == 0.5);
+        REQUIRE(t.cloud().grains().at(1)->durationInSamples() == 128);
+        REQUIRE(t.cloud().grains().at(1)->timeBefore() == 64);
+        REQUIRE(t.cloud().grains().at(1)->timeAfter() == 0);
+        REQUIRE(t.cloud().grains().at(1)->speed() == 0.5);
+
+        t.m_clear(&s_, {});
+        t.m_slice(&s_, AtomList::parseString("2 32samp"));
+        REQUIRE(t.cloud().size() == 2);
+        REQUIRE(t.cloud().grains().at(0)->durationInSamples() == 16);
+        REQUIRE(t.cloud().grains().at(0)->timeBefore() == 0);
+        REQUIRE(t.cloud().grains().at(0)->timeAfter() == 16);
+        REQUIRE(t.cloud().grains().at(1)->durationInSamples() == 16);
+        REQUIRE(t.cloud().grains().at(1)->timeBefore() == 16);
+        REQUIRE(t.cloud().grains().at(1)->timeAfter() == 16);
+    }
+
     SECTION("spread")
     {
         TExt t("array.grainer~", LA("array_g1"));

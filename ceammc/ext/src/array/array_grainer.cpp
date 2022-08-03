@@ -435,11 +435,12 @@ void ArrayGrainer::m_slice(t_symbol* s, const AtomListView& lv)
 
 void ArrayGrainer::m_spread(t_symbol* s, const AtomListView& lv)
 {
-    static args::ArgChecker chk("MODE:s=src_start|src_end|src_both|equal|linup|lindown|equal|random|length_up|length_down "
-                                "DUR:a "
+    static args::ArgChecker chk("MODE:s=equal|shuffle "
+                                "DUR:t? "
                                 "TAG:s?");
 
-    if (!chk.check(lv, this)) {
+    args::ArgMatchList m;
+    if (!chk.check(lv, this, &m)) {
         chk.usage(this, s);
         return;
     }
@@ -448,49 +449,23 @@ void ArrayGrainer::m_spread(t_symbol* s, const AtomListView& lv)
         return;
 
     auto mode = lv.symbolAt(0, &s_);
-    Atom dur = lv[1];
+    const int64_t gdur = parseTimeUnit(m[1], samplerate(), array_.size());
     auto tag = lv.symbolAt(2, &s_);
-
-    units::TimeValue gdur { 0 };
-    gdur.setSamplerate(samplerate());
-    auto res = units::TimeValue::parse(dur);
-    if (!res.matchValue(gdur)) {
-        units::UnitParseError err;
-        if (res.matchError(err))
-            METHOD_ERR(s) << err.msg;
-
-        return;
-    }
 
     GrainCloud::SpreadMode gmode;
     switch (crc32_hash(mode)) {
-    case "src_start"_hash:
-        gmode = GrainCloud::SPREAD_ORIGIN_START;
-        break;
-    case "src_end"_hash:
-        gmode = GrainCloud::SPREAD_ORIGIN_END;
-        break;
-    case "src_both"_hash:
-        gmode = GrainCloud::SPREAD_ORIGIN_BOTH;
-        break;
-    case "linup"_hash:
-        gmode = GrainCloud::SPREAD_LINEAR_UP;
-        break;
-    case "lindown"_hash:
-        gmode = GrainCloud::SPREAD_LINEAR_DOWN;
-        break;
     case "equal"_hash:
         gmode = GrainCloud::SPREAD_EQUAL;
         break;
-    case "random"_hash:
-        gmode = GrainCloud::SPREAD_RANDOM;
+    case "shuffle"_hash:
+        gmode = GrainCloud::SPREAD_SHUFFLE;
         break;
     default:
         METHOD_ERR(s) << fmt::format("unknown spread mode: '{}'", mode->s_name);
         return;
     }
 
-    cloud_.spreadGrains(gmode, gdur.toSamples(), tag);
+    cloud_.spreadGrains(gmode, gdur, tag);
 }
 
 void setup_array_grainer()
