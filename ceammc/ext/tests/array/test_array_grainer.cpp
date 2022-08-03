@@ -730,7 +730,7 @@ TEST_CASE("array.grainer", "[externals]")
         REQUIRE(t.cloud().grains().at(2)->timeBefore() == 0);
         REQUIRE(t.cloud().grains().at(3)->timeBefore() == 0);
 
-        t.m_spread(&s_, LA("equal", "100samp", "g0"));
+        t.m_spread(&s_, LA("100samp", "g0"));
         REQUIRE(t.cloud().grains().at(0)->timeBefore() == 0);
         REQUIRE(t.cloud().grains().at(0)->timeAfter() == 90);
         REQUIRE(t.cloud().grains().at(1)->timeBefore() == 50);
@@ -738,7 +738,7 @@ TEST_CASE("array.grainer", "[externals]")
         REQUIRE(t.cloud().grains().at(2)->timeBefore() == 0);
         REQUIRE(t.cloud().grains().at(3)->timeBefore() == 0);
 
-        t.m_spread(&s_, LA("equal", "100samp"));
+        t.m_spread(&s_, LA("100samp"));
         REQUIRE(t.cloud().grains().at(0)->timeBefore() == 0);
         REQUIRE(t.cloud().grains().at(0)->timeAfter() == 90);
         REQUIRE(t.cloud().grains().at(1)->timeBefore() == 25);
@@ -747,5 +747,57 @@ TEST_CASE("array.grainer", "[externals]")
         REQUIRE(t.cloud().grains().at(2)->timeAfter() == 90);
         REQUIRE(t.cloud().grains().at(3)->timeBefore() == 75);
         REQUIRE(t.cloud().grains().at(3)->timeAfter() == 90);
+
+        t.m_spread(&s_, L());
+        REQUIRE(t.cloud().grains().at(0)->timeBefore() == 0);
+        REQUIRE(t.cloud().grains().at(0)->timeAfter() == 118);
+        REQUIRE(t.cloud().grains().at(1)->timeBefore() == 32);
+        REQUIRE(t.cloud().grains().at(1)->timeAfter() == 118);
+        REQUIRE(t.cloud().grains().at(2)->timeBefore() == 64);
+        REQUIRE(t.cloud().grains().at(2)->timeAfter() == 118);
+        REQUIRE(t.cloud().grains().at(3)->timeBefore() == 96);
+        REQUIRE(t.cloud().grains().at(3)->timeAfter() == 118);
+
+        t.m_spread(&s_, LA("*"));
+        REQUIRE(t.cloud().grains().at(0)->timeBefore() == 0);
+        REQUIRE(t.cloud().grains().at(0)->timeAfter() == 118);
+        REQUIRE(t.cloud().grains().at(1)->timeBefore() == 32);
+        REQUIRE(t.cloud().grains().at(1)->timeAfter() == 118);
+        REQUIRE(t.cloud().grains().at(2)->timeBefore() == 64);
+        REQUIRE(t.cloud().grains().at(2)->timeAfter() == 118);
+        REQUIRE(t.cloud().grains().at(3)->timeBefore() == 96);
+        REQUIRE(t.cloud().grains().at(3)->timeAfter() == 118);
+
+        t.m_spread(&s_, LA(&s_));
+        REQUIRE(t.cloud().grains().at(0)->timeBefore() == 0);
+        REQUIRE(t.cloud().grains().at(0)->timeAfter() == 118);
+        REQUIRE(t.cloud().grains().at(1)->timeBefore() == 32);
+        REQUIRE(t.cloud().grains().at(1)->timeAfter() == 118);
+        REQUIRE(t.cloud().grains().at(2)->timeBefore() == 64);
+        REQUIRE(t.cloud().grains().at(2)->timeAfter() == 118);
+        REQUIRE(t.cloud().grains().at(3)->timeBefore() == 96);
+        REQUIRE(t.cloud().grains().at(3)->timeAfter() == 118);
+
+        t.m_set(&s_, LA("g0", "@ta", 0., "@tb", 0.));
+        t.m_spread(&s_, LA("g0"));
+        REQUIRE(t.cloud().grains().at(0)->timeBefore() == 0);
+        REQUIRE(t.cloud().grains().at(0)->timeAfter() == 118);
+        REQUIRE(t.cloud().grains().at(1)->timeBefore() == 64);
+        REQUIRE(t.cloud().grains().at(1)->timeAfter() == 118);
+        REQUIRE(t.cloud().grains().at(2)->timeBefore() == 64);
+        REQUIRE(t.cloud().grains().at(2)->timeAfter() == 118);
+        REQUIRE(t.cloud().grains().at(3)->timeBefore() == 96);
+        REQUIRE(t.cloud().grains().at(3)->timeAfter() == 118);
+
+        t.m_set(&s_, LA("g0", "@ta", 0., "@tb", 0.));
+        t.m_spread(&s_, LA("g1"));
+        REQUIRE(t.cloud().grains().at(0)->timeBefore() == 0);
+        REQUIRE(t.cloud().grains().at(0)->timeAfter() == 0);
+        REQUIRE(t.cloud().grains().at(1)->timeBefore() == 0);
+        REQUIRE(t.cloud().grains().at(1)->timeAfter() == 0);
+        REQUIRE(t.cloud().grains().at(2)->timeBefore() == 0);
+        REQUIRE(t.cloud().grains().at(2)->timeAfter() == 118);
+        REQUIRE(t.cloud().grains().at(3)->timeBefore() == 64);
+        REQUIRE(t.cloud().grains().at(3)->timeAfter() == 118);
     }
 }

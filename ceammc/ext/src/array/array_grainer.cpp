@@ -433,10 +433,24 @@ void ArrayGrainer::m_slice(t_symbol* s, const AtomListView& lv)
     }
 }
 
+void ArrayGrainer::m_shuffle(t_symbol* s, const AtomListView& lv)
+{
+    static args::ArgChecker chk("TAG:s?");
+
+    if (!chk.check(lv, this)) {
+        chk.usage(this, s);
+        return;
+    }
+
+    if (!checkArray(true))
+        return;
+
+    cloud_.shuffle(lv.symbolAt(0, &s_));
+}
+
 void ArrayGrainer::m_spread(t_symbol* s, const AtomListView& lv)
 {
-    static args::ArgChecker chk("MODE:s=equal|shuffle "
-                                "DUR:t? "
+    static args::ArgChecker chk("DUR:t? "
                                 "TAG:s?");
 
     args::ArgMatchList m;
@@ -448,24 +462,10 @@ void ArrayGrainer::m_spread(t_symbol* s, const AtomListView& lv)
     if (!checkArray(true))
         return;
 
-    auto mode = lv.symbolAt(0, &s_);
-    const int64_t gdur = parseTimeUnit(m[1], samplerate(), array_.size());
-    auto tag = lv.symbolAt(2, &s_);
+    const int64_t gdur = parseTimeUnit(m[0], samplerate(), array_.size());
+    auto tag = m[1].symbolAt(0, &s_);
 
-    GrainCloud::SpreadMode gmode;
-    switch (crc32_hash(mode)) {
-    case "equal"_hash:
-        gmode = GrainCloud::SPREAD_EQUAL;
-        break;
-    case "shuffle"_hash:
-        gmode = GrainCloud::SPREAD_SHUFFLE;
-        break;
-    default:
-        METHOD_ERR(s) << fmt::format("unknown spread mode: '{}'", mode->s_name);
-        return;
-    }
-
-    cloud_.spreadGrains(gmode, gdur, tag);
+    cloud_.spread(gdur, tag);
 }
 
 void setup_array_grainer()
@@ -482,4 +482,5 @@ void setup_array_grainer()
     obj.addMethod("set", &ArrayGrainer::m_set);
     obj.addMethod("slice", &ArrayGrainer::m_slice);
     obj.addMethod("spread", &ArrayGrainer::m_spread);
+    obj.addMethod("shuffle", &ArrayGrainer::m_shuffle);
 }

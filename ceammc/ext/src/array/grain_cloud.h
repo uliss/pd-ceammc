@@ -85,15 +85,12 @@ public:
     void alignByTag(t_symbol* tag, const std::vector<size_t>& onsets);
     void alignFinished(const std::vector<size_t>& onsets);
 
-    enum SpreadMode {
-        SPREAD_EQUAL,
-        SPREAD_SHUFFLE,
-    };
-
     /**
      * set grain start position
      */
-    bool spreadGrains(SpreadMode mode, uint32_t len_samp, t_symbol* tag = &s_, bool sync = true);
+    bool spread(uint32_t len_samp, t_symbol* tag = &s_);
+
+    bool shuffle(t_symbol* tag = &s_);
 
     void setArrayData(ArrayIterator data, size_t sz)
     {

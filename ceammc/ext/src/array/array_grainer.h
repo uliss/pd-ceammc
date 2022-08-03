@@ -51,6 +51,7 @@ public:
     void m_set(t_symbol* s, const AtomListView& lv);
     void m_slice(t_symbol* s, const AtomListView& lv);
     void m_spread(t_symbol* s, const AtomListView& lv);
+    void m_shuffle(t_symbol* s, const AtomListView& lv);
 
     const GrainCloud& cloud() const { return cloud_; }
 

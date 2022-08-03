@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "grain_cloud.h"
+#include "array_play_tilde.h"
 #include "ceammc_convert.h"
 #include "fmt/core.h"
 #include "grain_random.h"
@@ -20,6 +21,28 @@
 #include <boost/container/small_vector.hpp>
 
 namespace ceammc {
+
+namespace {
+    inline bool tagEqual(const char* tag, char ch)
+    {
+        return tag[0] == ch && tag[1] == '\0';
+    }
+
+    inline bool tagAll(t_symbol* tag)
+    {
+        return !tag || tag == &s_ || tagEqual(tag->s_name, '*');
+    }
+
+    inline bool tagMatch(const Grain* g, t_symbol* tag)
+    {
+        if (tagAll(tag))
+            return true;
+        else if (tagEqual(tag->s_name, '.') && g->playStatus() == GRAIN_FINISHED)
+            return true;
+        else
+            return g->tag() == tag;
+    }
+}
 
 GrainCloud::GrainCloud(size_t n)
     : pool_(n)
@@ -137,56 +160,71 @@ void GrainCloud::alignFinished(const std::vector<size_t>& onsets)
     }
 }
 
-bool GrainCloud::spreadGrains(SpreadMode mode, uint32_t len_samp, t_symbol* tag, bool sync)
+bool GrainCloud::shuffle(t_symbol* tag)
 {
-    using GrainIdxVec = boost::container::small_vector<std::uint8_t, 64>;
+    using GrainPreVec = boost::container::small_vector<size_t, 64>;
 
     // count target grains
-    const auto N = (!tag || tag == &s_)
+    const auto N = tagAll(tag)
         ? grains_.size()
-        : std::count_if(grains_.begin(), grains_.end(), [tag](const Grain* g) { return g->tag() == tag; });
+        : std::count_if(grains_.begin(), grains_.end(), [tag](const Grain* g) { return tagMatch(g, tag); });
 
-    switch (mode) {
-    case SPREAD_EQUAL: {
-        for (size_t i = 0; i < N; i++) {
-            auto g = grains_[i];
-
-            if (tag == &s_ || tag == g->tag()) {
-                const double glen = g->lengthInSamples();
-                const double tlen = len_samp;
-                const double gpos = (i / double(N)) * tlen;
-
-                g->resetFirstTime();
-                g->start(0);
-                g->setTimeBefore(gpos);
-                g->setTimeAfter(clip_min<double, 0>(tlen - glen));
-            }
-        }
-    } break;
-    case SPREAD_SHUFFLE: {
-        GrainIdxVec gidxvec;
-        gidxvec.reserve(N);
-        for (size_t i = 0; i < N; i++)
-            gidxvec.push_back(i);
-
-        for (size_t i = 0; i < N; i++) {
-            auto g = grains_[i];
-
-            if (tag == &s_ || tag == g->tag()) {
-                const double glen = g->lengthInSamples();
-                const double tlen = len_samp;
-                std::shuffle(gidxvec.begin(), gidxvec.end(), GrainRandom::instance().gen());
-                double gk = gidxvec[i] / double(N);
-                double gpos = gk * tlen;
-                g->resetFirstTime();
-                g->start(0);
-                g->setTimeBefore(gpos);
-                g->setTimeAfter(clip_min<double, 0>(tlen - glen));
-            }
-        }
-    } break;
-    default:
+    if (N < 1)
         return false;
+
+    // store grain pre-delay times
+    GrainPreVec gpos;
+    gpos.reserve(N);
+    size_t maxlen = 0;
+    for (size_t i = 0; i < N; i++) {
+        auto g = grains_[i];
+
+        gpos.push_back(g->timeBefore());
+        maxlen = std::max<size_t>(maxlen, g->lengthInSamples() + g->timeAfter());
+    }
+
+    // shuffle grain pre-delay times
+    std::shuffle(gpos.begin(), gpos.end(), GrainRandom::instance().gen());
+
+    // spread bounds
+    const double tlen = maxlen;
+
+    // update grains
+    for (size_t i = 0; i < N; i++) {
+        auto g = grains_[i];
+
+        if (tagMatch(g, tag)) {
+            const double glen = g->lengthInSamples();
+            g->resetFirstTime();
+            g->resetPlayPos();
+            g->setTimeBefore(gpos[i]);
+            g->setTimeAfter(clip_min<double, 0>(tlen - glen));
+        }
+    }
+
+    return true;
+}
+
+bool GrainCloud::spread(uint32_t len_samp, t_symbol* tag)
+{
+    // count target grains
+    const auto N = tagAll(tag)
+        ? grains_.size()
+        : std::count_if(grains_.begin(), grains_.end(), [tag](const Grain* g) { return tagMatch(g, tag); });
+
+    for (size_t i = 0, k = 0; i < grains_.size(); i++) {
+        auto g = grains_[i];
+
+        if (tagMatch(g, tag)) {
+            const double glen = g->lengthInSamples();
+            const double tlen = len_samp;
+            const double gpos = (k++ / double(N)) * tlen;
+
+            g->resetFirstTime();
+            g->resetPlayPos();
+            g->setTimeBefore(gpos);
+            g->setTimeAfter(clip_min<double, 0>(tlen - glen));
+        }
     }
 
     return true;
