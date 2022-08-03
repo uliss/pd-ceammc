@@ -504,6 +504,26 @@ void ArrayGrainer::m_spread(t_symbol* s, const AtomListView& lv)
     cloud_.spread(gdur, tag);
 }
 
+void ArrayGrainer::m_permutate(t_symbol* s, const AtomListView& lv)
+{
+    static args::ArgChecker chk("N:i[-16,16]? "
+                                "TAG:s?");
+
+    args::ArgMatchList m;
+    if (!chk.check(lv, this, &m)) {
+        chk.usage(this, s);
+        return;
+    }
+
+    if (!checkArray(true))
+        return;
+
+    const int n = m[0].intAt(0, 1);
+    auto tag = m[1].symbolAt(0, &s_);
+
+    cloud_.permutate(n, tag);
+}
+
 void ArrayGrainer::m_defer(t_symbol* s, const AtomListView& lv)
 {
     static args::ArgChecker chk("COUNT:i[1,255]? "
@@ -547,4 +567,5 @@ void setup_array_grainer()
     obj.addMethod("shuffle", &ArrayGrainer::m_shuffle);
     obj.addMethod("defer", &ArrayGrainer::m_defer);
     obj.addMethod("reverse", &ArrayGrainer::m_reverse);
+    obj.addMethod("permutate", &ArrayGrainer::m_permutate);
 }

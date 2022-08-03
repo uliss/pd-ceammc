@@ -40,6 +40,7 @@
   - [shuffle( method added to \[array.grainer~\] - to shuffle grains
   - [defer( method added to \[array.grainer~\] - to execute messages on grain finish
   - [reverse( method added to \[array.grainer~\] - to reverse grains positions
+  - [permutate( method added to \[array.grainer~\] - to permutate grains positions
 - misc:
   - conv.lin2exp: list support added
   - conv.lin2curve: list support added

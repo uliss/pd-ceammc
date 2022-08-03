@@ -94,6 +94,8 @@ public:
 
     bool reverse(t_symbol* tag = &s_);
 
+    bool permutate(int n, t_symbol* tag = &s_);
+
     void setArrayData(ArrayIterator data, size_t sz)
     {
         array_it_ = data;

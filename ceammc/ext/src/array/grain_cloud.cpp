@@ -236,6 +236,45 @@ bool GrainCloud::reverse(t_symbol* tag)
     return true;
 }
 
+bool GrainCloud::permutate(int n, t_symbol* tag)
+{
+    // count matched grains
+    // and store pre-delay times
+    GrainPreVec gpos;
+    size_t maxlen = 0;
+    for (auto g : grains_) {
+        if (tagMatch(g, tag)) {
+            gpos.push_back(g->timeBefore());
+            maxlen = std::max<size_t>(maxlen, g->durationInSamples() + g->timeAfter());
+        }
+    }
+
+    if (n > 0) {
+        while (n-- > 0)
+            std::next_permutation(gpos.begin(), gpos.end());
+    } else if (n < 0) {
+        while (n++ < 0)
+            std::prev_permutation(gpos.begin(), gpos.end());
+    }
+
+    for (size_t i = 0, gi = 0; i < grains_.size(); i++) {
+        auto g = grains_[i];
+
+        if (tagMatch(g, tag) && gi < gpos.size()) {
+            const double glen = g->durationInSamples();
+            const double tlen = maxlen;
+            const double pos = gpos[gi++];
+
+            g->resetFirstTime();
+            g->resetPlayPos();
+            g->setTimeBefore(pos);
+            g->setTimeAfter(clip_min<double, 0>(tlen - glen));
+        }
+    }
+
+    return true;
+}
+
 bool GrainCloud::spread(uint32_t len_samp, t_symbol* tag)
 {
     // count target grains

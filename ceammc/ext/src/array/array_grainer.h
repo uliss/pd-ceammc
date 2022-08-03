@@ -64,6 +64,7 @@ public:
     void m_shuffle(t_symbol* s, const AtomListView& lv);
     void m_defer(t_symbol* s, const AtomListView& lv);
     void m_reverse(t_symbol* s, const AtomListView& lv);
+    void m_permutate(t_symbol* s, const AtomListView& lv);
 
     const GrainCloud& cloud() const { return cloud_; }
 
