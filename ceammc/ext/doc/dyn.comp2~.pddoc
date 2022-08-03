@@ -18,8 +18,8 @@
             </also>
         </meta>
         <arguments>
-            <argument name="ratio" type="float" minvalue="1" maxvalue="10">compression ratio (1 = no compression,
-            &gt;1 means compression)</argument>
+            <argument name="ratio" type="float" minvalue="1" maxvalue="10">compression ratio (1 =
+            no compression, &gt;1 means compression)</argument>
             <argument name="threshold" type="float" minvalue="0" maxvalue="100" units="decibel">
             level threshold above which compression kicks in (100 dB = max level)</argument>
             <argument name="attack" type="float" units="millisecond">attack time = time constant
@@ -38,7 +38,8 @@
             <property name="@release" type="float" units="millisecond" default="50" minvalue="1"
             maxvalue="500">release time = time constant coming out of compression</property>
             <property name="@gain" type="float" units="decibel" default="0" minvalue="-12"
-            maxvalue="12">make up gain: applied to the signal after the compression takes place</property>
+            maxvalue="12">make up gain: applied to the signal after the compression takes
+            place</property>
             <property name="@active" type="int" enum="0 1" default="1">on/off dsp
             processing</property>
         </properties>

@@ -20,7 +20,8 @@
         <properties>
             <property name="@array" type="symbol" default="">target array</property>
             <property name="@ir" type="symbol" default="">impulse response array</property>
-            <property name="@norm" type="int" default="0" enum="0 1">impulse response array</property>
+            <property name="@norm" type="int" default="0" enum="0 1">impulse response
+            array</property>
         </properties>
         <inlets>
             <inlet>
