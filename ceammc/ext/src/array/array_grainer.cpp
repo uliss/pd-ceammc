@@ -469,6 +469,21 @@ void ArrayGrainer::m_shuffle(t_symbol* s, const AtomListView& lv)
     cloud_.shuffle(lv.symbolAt(0, &s_));
 }
 
+void ArrayGrainer::m_reverse(t_symbol* s, const AtomListView& lv)
+{
+    static args::ArgChecker chk("TAG:s?");
+
+    if (!chk.check(lv, this)) {
+        chk.usage(this, s);
+        return;
+    }
+
+    if (!checkArray(true))
+        return;
+
+    cloud_.reverse(lv.symbolAt(0, &s_));
+}
+
 void ArrayGrainer::m_spread(t_symbol* s, const AtomListView& lv)
 {
     static args::ArgChecker chk("DUR:t? "
@@ -531,4 +546,5 @@ void setup_array_grainer()
     obj.addMethod("spread", &ArrayGrainer::m_spread);
     obj.addMethod("shuffle", &ArrayGrainer::m_shuffle);
     obj.addMethod("defer", &ArrayGrainer::m_defer);
+    obj.addMethod("reverse", &ArrayGrainer::m_reverse);
 }

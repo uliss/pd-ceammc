@@ -20,6 +20,8 @@
 #include <algorithm>
 #include <boost/container/small_vector.hpp>
 
+using GrainPreVec = boost::container::small_vector<size_t, 64>;
+
 namespace ceammc {
 
 namespace {
@@ -162,8 +164,6 @@ void GrainCloud::alignFinished(const std::vector<size_t>& onsets)
 
 bool GrainCloud::shuffle(t_symbol* tag)
 {
-    using GrainPreVec = boost::container::small_vector<size_t, 64>;
-
     // count target grains
     const auto N = tagAll(tag)
         ? grains_.size()
@@ -176,11 +176,11 @@ bool GrainCloud::shuffle(t_symbol* tag)
     GrainPreVec gpos;
     gpos.reserve(N);
     size_t maxlen = 0;
-    for (size_t i = 0; i < N; i++) {
-        auto g = grains_[i];
-
-        gpos.push_back(g->timeBefore());
-        maxlen = std::max<size_t>(maxlen, g->durationInSamples() + g->timeAfter());
+    for (auto g : grains_) {
+        if (tagMatch(g, tag)) {
+            gpos.push_back(g->timeBefore());
+            maxlen = std::max<size_t>(maxlen, g->durationInSamples() + g->timeAfter());
+        }
     }
 
     // shuffle grain pre-delay times
@@ -198,6 +198,37 @@ bool GrainCloud::shuffle(t_symbol* tag)
             g->resetFirstTime();
             g->resetPlayPos();
             g->setTimeBefore(gpos[gi++]);
+            g->setTimeAfter(clip_min<double, 0>(tlen - glen));
+        }
+    }
+
+    return true;
+}
+
+bool GrainCloud::reverse(t_symbol* tag)
+{
+    // count matched grains
+    // and store pre-delay times
+    GrainPreVec gpos;
+    size_t maxlen = 0;
+    for (auto g : grains_) {
+        if (tagMatch(g, tag)) {
+            gpos.push_back(g->timeBefore());
+            maxlen = std::max<size_t>(maxlen, g->durationInSamples() + g->timeAfter());
+        }
+    }
+
+    for (size_t i = 0, gi = 0; i < grains_.size(); i++) {
+        auto g = grains_[i];
+
+        if (tagMatch(g, tag) && gi < gpos.size()) {
+            const double glen = g->durationInSamples();
+            const double tlen = maxlen;
+            const double pos = gpos[(gpos.size() - 1) - gi++];
+
+            g->resetFirstTime();
+            g->resetPlayPos();
+            g->setTimeBefore(pos);
             g->setTimeAfter(clip_min<double, 0>(tlen - glen));
         }
     }

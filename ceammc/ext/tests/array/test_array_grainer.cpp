@@ -816,4 +816,44 @@ TEST_CASE("array.grainer", "[externals]")
         REQUIRE(t.cloud().grains().at(3)->timeBefore() == 96);
         REQUIRE(t.cloud().grains().at(3)->timeAfter() == 118);
     }
+
+    SECTION("reverse")
+    {
+        TExt t("array.grainer~", LA("array_g1"));
+        t.m_append(&s_, AtomList::parseString("1 @at 4 @l 10samp"));
+        t.m_append(&s_, AtomList::parseString("1 @at 3 @l 20samp"));
+        t.m_append(&s_, AtomList::parseString("1 @at 2 @l 10samp"));
+        t.m_append(&s_, AtomList::parseString("1 @at 1 @l 10samp"));
+        REQUIRE(t.cloud().size() == 4);
+
+        t.m_spread(&s_, L());
+        REQUIRE(t.cloud().grains().at(0)->timeBefore() == 0);
+        REQUIRE(t.cloud().grains().at(0)->timeAfter() == 118);
+        REQUIRE(t.cloud().grains().at(1)->timeBefore() == 32);
+        REQUIRE(t.cloud().grains().at(1)->timeAfter() == 108);
+        REQUIRE(t.cloud().grains().at(2)->timeBefore() == 64);
+        REQUIRE(t.cloud().grains().at(2)->timeAfter() == 118);
+        REQUIRE(t.cloud().grains().at(3)->timeBefore() == 96);
+        REQUIRE(t.cloud().grains().at(3)->timeAfter() == 118);
+
+        t.m_reverse(&s_, L());
+        REQUIRE(t.cloud().grains().at(0)->timeBefore() == 96);
+        REQUIRE(t.cloud().grains().at(0)->timeAfter() == 118);
+        REQUIRE(t.cloud().grains().at(1)->timeBefore() == 64);
+        REQUIRE(t.cloud().grains().at(1)->timeAfter() == 108);
+        REQUIRE(t.cloud().grains().at(2)->timeBefore() == 32);
+        REQUIRE(t.cloud().grains().at(2)->timeAfter() == 118);
+        REQUIRE(t.cloud().grains().at(3)->timeBefore() == 0);
+        REQUIRE(t.cloud().grains().at(3)->timeAfter() == 118);
+
+        t.m_reverse(&s_, L());
+        REQUIRE(t.cloud().grains().at(0)->timeBefore() == 0);
+        REQUIRE(t.cloud().grains().at(0)->timeAfter() == 118);
+        REQUIRE(t.cloud().grains().at(1)->timeBefore() == 32);
+        REQUIRE(t.cloud().grains().at(1)->timeAfter() == 108);
+        REQUIRE(t.cloud().grains().at(2)->timeBefore() == 64);
+        REQUIRE(t.cloud().grains().at(2)->timeAfter() == 118);
+        REQUIRE(t.cloud().grains().at(3)->timeBefore() == 96);
+        REQUIRE(t.cloud().grains().at(3)->timeAfter() == 118);
+    }
 }

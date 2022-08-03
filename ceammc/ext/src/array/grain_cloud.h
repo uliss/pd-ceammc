@@ -86,11 +86,13 @@ public:
     void alignFinished(const std::vector<size_t>& onsets);
 
     /**
-     * set grain start position
+     * uniformly spread grains
      */
     bool spread(uint32_t len_samp, t_symbol* tag = &s_);
 
     bool shuffle(t_symbol* tag = &s_);
+
+    bool reverse(t_symbol* tag = &s_);
 
     void setArrayData(ArrayIterator data, size_t sz)
     {
