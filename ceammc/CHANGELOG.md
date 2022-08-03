@@ -24,6 +24,7 @@
   - @nonrep property added to random.atom to generate non equal adjacent elements
   - @fade property added to live.capture~ to control loop crossfading (fix #171)
   - @gain: make up gain applied to the signal after the compression takes place
+  - @x property added to \[xfade~\] and \[xfade2~\] for setting crossfade
 - new methods:
   - [polltime( method added to system.cursor to change global polltime
   - [reverse( method added to xdac~ to reverse output channels order
