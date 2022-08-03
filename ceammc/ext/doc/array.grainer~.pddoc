@@ -95,6 +95,13 @@
             <param name="TAG" type="symbol" required="false">if '*' or ommited: shuffle all grains, if
             '.': shuffle finished grains only, otherwise shuffle grains with corresponding tag</param>
             </method>
+            <!--defer-->
+            <method name="shuffle">defer method call until grains will finish
+            <param name="N" type="int" minvalue="1" maxvalue="255">number of finished grains to wait before calling.
+            If not specified, treat as 1.</param>
+            <param name="METHOD" type="symbol" required="true">method name</param>
+            <param name="ARGS" type="list">method arguments</param>
+            </method>
         </methods>
         <properties>
             <property name="@array" type="symbol" default="">array name</property>

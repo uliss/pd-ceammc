@@ -38,6 +38,7 @@
   - [slice( method added to \[array.grainer~\] - to slice source to specified number of equal grains
   - [spread( method added to \[array.grainer~\] - to uniformly spread grain over specified duration
   - [shuffle( method added to \[array.grainer~\] - to shuffle grains
+  - [defer( method added to \[array.grainer~\] - to execute messages on grain finish
 - misc:
   - conv.lin2exp: list support added
   - conv.lin2curve: list support added

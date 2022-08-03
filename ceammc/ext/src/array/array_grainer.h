@@ -16,6 +16,8 @@
 
 #include "array_base.h"
 #include "ceammc_array.h"
+#include "ceammc_clock.h"
+#include "ceammc_containers.h"
 #include "ceammc_property_enum.h"
 #include "ceammc_sound_external.h"
 #include "grain.h"
@@ -23,6 +25,10 @@
 
 using namespace ceammc;
 
+struct DeferMessage {
+    SmallAtomListN<8> msg;
+    std::uint8_t count;
+};
 
 class ArrayGrainer : public ArraySoundBase {
     SymbolEnumProperty* sync_;
@@ -30,6 +36,10 @@ class ArrayGrainer : public ArraySoundBase {
     FloatProperty* sync_prob_;
     GrainCloud cloud_;
     std::vector<size_t> onsets_;
+    ClockLambdaFunction defer_;
+
+    using MsgList = std::vector<DeferMessage>;
+    MsgList defer_msg_;
 
 public:
     ArrayGrainer(const PdArgs& args);
@@ -52,13 +62,14 @@ public:
     void m_slice(t_symbol* s, const AtomListView& lv);
     void m_spread(t_symbol* s, const AtomListView& lv);
     void m_shuffle(t_symbol* s, const AtomListView& lv);
+    void m_defer(t_symbol* s, const AtomListView& lv);
 
     const GrainCloud& cloud() const { return cloud_; }
 
 private:
     void updateGrains();
-
     void appendGrains(int n, const AtomListView& args);
+    void dispatchMethod(t_symbol* m, const AtomListView& args);
 };
 
 void setup_array_grainer();

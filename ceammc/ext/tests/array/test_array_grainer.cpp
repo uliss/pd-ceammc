@@ -799,5 +799,21 @@ TEST_CASE("array.grainer", "[externals]")
         REQUIRE(t.cloud().grains().at(2)->timeAfter() == 118);
         REQUIRE(t.cloud().grains().at(3)->timeBefore() == 64);
         REQUIRE(t.cloud().grains().at(3)->timeAfter() == 118);
+
+        t.m_clear(&s_, L());
+        t.m_append(&s_, AtomList::parseString("1 @at 4 @s 1 @l 10samp"));
+        t.m_append(&s_, AtomList::parseString("1 @at 3 @s 2 @l 10samp"));
+        t.m_append(&s_, AtomList::parseString("1 @at 2 @s 0.5 @l 10samp"));
+        t.m_append(&s_, AtomList::parseString("1 @at 1 @s 1 @l 10samp"));
+
+        t.m_spread(&s_, L());
+        REQUIRE(t.cloud().grains().at(0)->timeBefore() == 0);
+        REQUIRE(t.cloud().grains().at(0)->timeAfter() == 118);
+        REQUIRE(t.cloud().grains().at(1)->timeBefore() == 32);
+        REQUIRE(t.cloud().grains().at(1)->timeAfter() == 123);
+        REQUIRE(t.cloud().grains().at(2)->timeBefore() == 64);
+        REQUIRE(t.cloud().grains().at(2)->timeAfter() == 108);
+        REQUIRE(t.cloud().grains().at(3)->timeBefore() == 96);
+        REQUIRE(t.cloud().grains().at(3)->timeAfter() == 118);
     }
 }

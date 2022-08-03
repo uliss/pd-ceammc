@@ -180,7 +180,7 @@ bool GrainCloud::shuffle(t_symbol* tag)
         auto g = grains_[i];
 
         gpos.push_back(g->timeBefore());
-        maxlen = std::max<size_t>(maxlen, g->lengthInSamples() + g->timeAfter());
+        maxlen = std::max<size_t>(maxlen, g->durationInSamples() + g->timeAfter());
     }
 
     // shuffle grain pre-delay times
@@ -194,7 +194,7 @@ bool GrainCloud::shuffle(t_symbol* tag)
         auto g = grains_[i];
 
         if (tagMatch(g, tag) && gi < N) {
-            const double glen = g->lengthInSamples();
+            const double glen = g->durationInSamples();
             g->resetFirstTime();
             g->resetPlayPos();
             g->setTimeBefore(gpos[gi++]);
@@ -216,7 +216,7 @@ bool GrainCloud::spread(uint32_t len_samp, t_symbol* tag)
         auto g = grains_[i];
 
         if (tagMatch(g, tag) && gi < N) {
-            const double glen = g->lengthInSamples();
+            const double glen = g->durationInSamples();
             const double tlen = len_samp;
             const double gpos = (gi++ / double(N)) * tlen;
 
@@ -240,13 +240,15 @@ void GrainCloud::popGrain()
     grains_.pop_back();
 }
 
-void GrainCloud::playBuffer(t_sample** buf, uint32_t bs, uint32_t sr)
+int GrainCloud::playBuffer(t_sample** buf, uint32_t bs, uint32_t sr)
 {
+    int ndone = 0;
+
     std::fill(&buf[0][0], &buf[0][0] + bs, 0);
     std::fill(&buf[1][0], &buf[1][0] + bs, 0);
 
     if (grains_.empty())
-        return;
+        return ndone;
 
     for (auto* g : grains_) {
         if (!g)
@@ -268,6 +270,7 @@ void GrainCloud::playBuffer(t_sample** buf, uint32_t bs, uint32_t sr)
                         if (start) {
                             g->start(0);
                             g->process(array_it_, array_size_, buf, bs, sr);
+                            ++ndone;
                         }
                     }
 
@@ -283,12 +286,14 @@ void GrainCloud::playBuffer(t_sample** buf, uint32_t bs, uint32_t sr)
                         if (start) {
                             g->start(0);
                             g->process(array_it_, array_size_, buf, bs, sr);
+                            ++ndone;
                         }
                     }
                     break;
                 case SYNC_NONE:
                 default:
                     g->start(0);
+                    ++ndone;
 
                     uint32_t done_samp = 0;
                     uint32_t offset = 0;
@@ -299,6 +304,7 @@ void GrainCloud::playBuffer(t_sample** buf, uint32_t bs, uint32_t sr)
                         done_samp = 0;
                         g->start(0);
                         state = g->process(array_it_, array_size_, buf, bs, sr, offset, &done_samp);
+                        ++ndone;
                     }
                     break;
                 }
@@ -320,12 +326,15 @@ void GrainCloud::playBuffer(t_sample** buf, uint32_t bs, uint32_t sr)
                         done_samp = 0;
                         g->start(0);
                         state = g->process(array_it_, array_size_, buf, bs, sr, offset, &done_samp);
+                        ++ndone;
                     }
                     break;
                 }
             }
         }
     }
+
+    return ndone;
 }
 
 void GrainCloud::alignGrain(Grain* g, const std::vector<size_t>& onsets)

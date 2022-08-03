@@ -30,6 +30,9 @@ constexpr const char* CHAR_FINISHED = ".";
 
 using namespace ceammc;
 
+using Factory = SoundExternalFactory<ArrayGrainer>;
+using Proxy = Factory::ObjectProxy;
+
 namespace {
 
 struct FVecDeleter {
@@ -64,6 +67,20 @@ ArrayGrainer::ArrayGrainer(const PdArgs& args)
     , sync_(nullptr)
     , sync_interval_(nullptr)
     , sync_prob_(nullptr)
+    , defer_([this]() {
+        for (auto& m : defer_msg_) {
+            if (m.count > 0)
+                m.count--;
+
+            if (m.count == 0) {
+                auto sel = m.msg[0].asSymbol();
+                dispatchMethod(sel, m.msg.view().subView(1));
+            }
+        }
+
+        auto end = std::remove_if(defer_msg_.begin(), defer_msg_.end(), [](const DeferMessage& m) { return m.count == 0; });
+        defer_msg_.erase(end, defer_msg_.end());
+    })
 {
     createSignalOutlet();
     createSignalOutlet();
@@ -90,6 +107,8 @@ ArrayGrainer::ArrayGrainer(const PdArgs& args)
     sync_prob_->checkClosedRange(0, 1);
     sync_prob_->setSuccessFn([this](Property*) { cloud_.setSyncProbability(sync_prob_->value()); });
     addProperty(sync_prob_);
+
+    defer_msg_.reserve(4);
 }
 
 void ArrayGrainer::setupDSP(t_signal** sp)
@@ -102,7 +121,9 @@ void ArrayGrainer::setupDSP(t_signal** sp)
 
 void ArrayGrainer::processBlock(const t_sample** /*in*/, t_sample** out)
 {
-    cloud_.playBuffer(out, blockSize(), samplerate());
+    int done = cloud_.playBuffer(out, blockSize(), samplerate());
+    if (done > 0 && defer_msg_.size() > 0)
+        defer_.delay(0);
 }
 
 void ArrayGrainer::onBang()
@@ -468,9 +489,35 @@ void ArrayGrainer::m_spread(t_symbol* s, const AtomListView& lv)
     cloud_.spread(gdur, tag);
 }
 
+void ArrayGrainer::m_defer(t_symbol* s, const AtomListView& lv)
+{
+    static args::ArgChecker chk("COUNT:i[1,255]? "
+                                "MSG:s "
+                                "ARG:a*");
+
+    args::ArgMatchList m;
+    if (!chk.check(lv, this, &m)) {
+        chk.usage(this, s);
+        return;
+    }
+
+    DeferMessage def;
+    def.msg.reserve(m[1].size() + m[2].size());
+    def.msg.insert_back(m[1]);
+    def.msg.insert_back(m[2]);
+    def.count = m[0].intAt(0, 1);
+    defer_msg_.push_back(std::move(def));
+}
+
+void ArrayGrainer::dispatchMethod(t_symbol* m, const AtomListView& args)
+{
+    auto p = (Proxy*)owner();
+    Factory::defaultListMethod(p, m, args.size(), args.toPdData());
+}
+
 void setup_array_grainer()
 {
-    SoundExternalFactory<ArrayGrainer> obj("array.grainer~", OBJECT_FACTORY_DEFAULT);
+    Factory obj("array.grainer~", OBJECT_FACTORY_DEFAULT);
 
     obj.addMethod("align", &ArrayGrainer::m_align);
     obj.addMethod("append", &ArrayGrainer::m_append);
@@ -483,4 +530,5 @@ void setup_array_grainer()
     obj.addMethod("slice", &ArrayGrainer::m_slice);
     obj.addMethod("spread", &ArrayGrainer::m_spread);
     obj.addMethod("shuffle", &ArrayGrainer::m_shuffle);
+    obj.addMethod("defer", &ArrayGrainer::m_defer);
 }

@@ -110,7 +110,14 @@ public:
 
     void popGrain();
 
-    void playBuffer(t_sample** buf, uint32_t bs, uint32_t sr);
+    /**
+     * play active grains and add their values to given stereo buffer
+     * @param buf - output buffer
+     * @param bs - buffer size
+     * @param sr - samplerate
+     * @return number of done grains while playing this buffer
+     */
+    int playBuffer(t_sample** buf, uint32_t bs, uint32_t sr);
 };
 
 }
