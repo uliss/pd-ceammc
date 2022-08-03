@@ -208,6 +208,25 @@ TEST_CASE("args2", "[core]")
         REQUIRE(args::check_args("A:s B?:s*", LA("A", "B", "C")));
     }
 
+    SECTION("time")
+    {
+        REQUIRE_FALSE(args::check_args("t", Atom()));
+        REQUIRE_FALSE(args::check_args("TIME:t", L()));
+        REQUIRE_FALSE(args::check_args("t", LA("abc")));
+
+        REQUIRE(args::check_args("t", LF(0)));
+        REQUIRE(args::check_args("t", LF(100)));
+        REQUIRE_FALSE(args::check_args("t", LF(-100)));
+
+        REQUIRE(args::check_args("t", LA("0ms")));
+        REQUIRE(args::check_args("t", LA("0msec")));
+        REQUIRE(args::check_args("t", LA("0s")));
+        REQUIRE(args::check_args("t", LA("0sec")));
+        REQUIRE(args::check_args("t", LA("123samp")));
+        REQUIRE(args::check_args("t", LA("123.5_ms")));
+        REQUIRE(args::check_args("t", LA("0.123_sec")));
+    }
+
     SECTION("float")
     {
         REQUIRE_FALSE(args::check_args("f", Atom()));
@@ -313,5 +332,6 @@ TEST_CASE("args2", "[core]")
         REQUIRE_MATCH("i{2,3} i? s*", LA(1, 2, 3), 3, LF(1, 2, 3), L(), L());
         REQUIRE_MATCH("i{2,3} i? s*", LA(1, 2, 3, "A"), 3, LF(1, 2, 3), L(), LA("A"));
         REQUIRE_MATCH("i{2,3} i? s*", LA(1, 2, 3, "A", "B"), 3, LF(1, 2, 3), L(), LA("A", "B"));
+        REQUIRE_MATCH("i a*", LA(1, "A", "B"), 2, LF(1), LA("A", "B"));
     }
 }

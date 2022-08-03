@@ -24,6 +24,7 @@
 namespace {
     constexpr int16_t REPEAT_INF = -1;
 
+    // keep in sync with typeNames values!
     enum CheckType : int8_t {
         CHECK_ATOM,
         CHECK_BOOL,
@@ -31,6 +32,7 @@ namespace {
         CHECK_INT,
         CHECK_FLOAT,
         CHECK_SYMBOL,
+        CHECK_TIME,
     };
 
     // keep in sync with CheckType values!
@@ -41,6 +43,7 @@ namespace {
         "int",
         "float",
         "symbol",
+        "time",
     };
 
     enum CompareType : int8_t {
@@ -216,6 +219,34 @@ namespace {
 }
 
 %%{
+machine time_check;
+
+num    = [0-9]+ ('.' [0-9]+)?;
+suffix = '_'? ('samp'|'msec'|'ms'|'sec'|'s');
+
+main := num suffix 0 @{ fbreak; };
+
+write data;
+}%%
+
+namespace {
+
+bool check_time_unit(t_symbol* sym)
+{
+    if (!sym) return false;
+
+    int cs = 0;
+    const char* p = sym->s_name;
+
+    %% write init;
+    %% write exec noend;
+
+    return (cs >= %%{ write first_final; }%%);
+}
+
+}
+
+%%{
 machine arg_check2;
 
 action do_check {
@@ -362,6 +393,7 @@ byte  = 'b' @{ rl_chk.type = CHECK_BYTE; };
 int   = 'i' @{ rl_chk.type = CHECK_INT; } int_check?;
 sym   = 's' @{ rl_chk.type = CHECK_SYMBOL; } sym_check?;
 float = 'f' @{ rl_chk.type = CHECK_FLOAT; } float_check?;
+time  = 't' @{ rl_chk.type = CHECK_TIME; };
 nrep  = '?' @{ rl_chk.setRepeats(0, 1); }
       | '+' @{ rl_chk.setRepeats(1, REPEAT_INF); }
       | '*' @{ rl_chk.setRepeats(0, REPEAT_INF); }
@@ -377,6 +409,7 @@ check = (arg_name ':')?
       | int
       | sym
       | float
+      | time
       ) nrep? >{ rl_chk.rmin = 1; rl_chk.rmax = 1; }
       ;
 
@@ -416,6 +449,27 @@ bool checkAtom(const Check& c, const Atom& a, int i, const void* x, bool pErr) {
         } else {
             debug("byte", "Ok");
         }
+    break;
+    case CHECK_TIME:
+        if (a.isFloat()) {
+            auto f = a.asT<t_float>();
+            if (f < 0) {
+                if (pErr)
+                    pdError(x, fmt::format("invalid {} value at [{}]: '{}', expected to be >= 0", c.argName(), i, f));
+                return false;
+            }
+        } else if (a.isSymbol()) {
+            if (!check_time_unit(a.asT<t_symbol*>())) {
+                if (pErr)
+                    pdError(x, fmt::format("invalid {} value at [{}]: '{}', time value expected", c.argName(), i, atom_to_string(a)));
+                return false;
+            }
+        } else {
+            if (pErr)
+                pdError(x, fmt::format("invalid {} value type at [{}]: '{}', expected float or symbol", c.argName(), i, atom_to_string(a)));
+            return false;
+        }
+        debug("time", "Ok");
     break;
     case CHECK_INT:
         if (!a.isInteger()) {
