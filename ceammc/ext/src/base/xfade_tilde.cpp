@@ -108,11 +108,6 @@ void XFadeTilde::processBlock(const t_sample** in, t_sample** out)
 
 void XFadeTilde::onInlet(size_t n, const AtomListView& lv)
 {
-    if (!checkArgs(lv, ARG_FLOAT)) {
-        OBJ_ERR << "float expected: " << lv;
-        return;
-    }
-
     value_->set(lv);
 }
 
@@ -128,7 +123,6 @@ std::vector<float> XFadeTilde::gains() const
 
 void XFadeTilde::setXFade(t_float v)
 {
-    OBJ_DBG << v;
     using XFadeCurveFunction = t_float (*)(t_float, t_float);
 
     XFadeCurveFunction curve_fn = nullptr;

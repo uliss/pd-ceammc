@@ -151,4 +151,13 @@ TEST_CASE("xfade~", "[externals]")
             REQUIRE(dsp.out(0, i) == Approx(-1));
         }
     }
+
+    SECTION("inlet")
+    {
+        TExt t("xfade~", LF(2, 0.125));
+        REQUIRE_PROPERTY_FLOAT(t, @x, 0.125);
+
+        t.sendFloatTo(0.5, 2);
+        REQUIRE_PROPERTY_FLOAT(t, @x, 0.5);
+    }
 }
