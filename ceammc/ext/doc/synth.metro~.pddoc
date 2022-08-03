@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="synth.metro~">
+        <title>synth.metro~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>metronome sound generator</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>synth</category>
+            <keywords>metro</keywords>
+            <since>0.9.5</since>
+        </meta>
+        <properties>
+            <property name="@freq0" type="float" minvalue="100" maxvalue="10000" default="2000" units="herz">downbeat freq</property>
+            <property name="@freq1" type="float" minvalue="100" maxvalue="10000" default="1000" units="herz">upbeat freq</property>
+            <property name="@freq2" type="float" minvalue="100" maxvalue="10000" default="1500" units="herz">section freq</property>
+            <property name="@gain0" type="float" minvalue="-60" maxvalue="12" default="3" units="decibel">downbeat gain</property>
+            <property name="@gain1" type="float" minvalue="-60" maxvalue="12" default="0" units="decibel">upbeat gain</property>
+            <property name="@gain2" type="float" minvalue="-60" maxvalue="12" default="3" units="decibel">section gain</property>
+            <property name="@q0" type="float" minvalue="3" maxvalue="300" default="30">downbeat resonance</property>
+            <property name="@q1" type="float" minvalue="3" maxvalue="300" default="10">upbeat resonance</property>
+            <property name="@q2" type="float" minvalue="3" maxvalue="300" default="300">section resonance</property>
+            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
+            processing</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">play downbeat sound</xinfo>
+                <xinfo on="int">1: play downbeat, 0: play upbeat, 2: play section</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="bang">play upbeat sound</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="bang">play section sound</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">synth output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[T]
+|
+[t f b #a] [F]
+|          |.
+[metro 150  ]
+|
+[flow.count #b]
+|
+[% 5]
+|
+[== 1]
+|
+| [B] [B] [B]
+| |   |.  |..
+[synth.metro~ ]   [ui.dsp~]
+|
+[ui.hgain~]
+|\
+[dac~]
+
+[X a:1->b:1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

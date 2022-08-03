@@ -150,8 +150,8 @@
 					"shortname": "q0",
 					"address": "/synth.metro/q0",
 					"init": 30,
-					"min": 10,
-					"max": 200,
+					"min": 3,
+					"max": 300,
 					"step": 0.1
 				},
 				{
@@ -160,8 +160,8 @@
 					"shortname": "q1",
 					"address": "/synth.metro/q1",
 					"init": 10,
-					"min": 10,
-					"max": 200,
+					"min": 3,
+					"max": 300,
 					"step": 0.1
 				},
 				{
@@ -170,7 +170,7 @@
 					"shortname": "q2",
 					"address": "/synth.metro/q2",
 					"init": 300,
-					"min": 10,
+					"min": 3,
 					"max": 300,
 					"step": 0.1
 				}

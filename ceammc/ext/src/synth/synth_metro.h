@@ -804,9 +804,9 @@ class synth_metro : public synth_metro_dsp {
 		ui_interface->addVerticalSlider("gain1", &fVslider4, FAUSTFLOAT(0.0f), FAUSTFLOAT(-60.0f), FAUSTFLOAT(12.0f), FAUSTFLOAT(0.100000001f));
 		ui_interface->declare(&fVslider7, "unit", "db");
 		ui_interface->addVerticalSlider("gain2", &fVslider7, FAUSTFLOAT(3.0f), FAUSTFLOAT(-60.0f), FAUSTFLOAT(12.0f), FAUSTFLOAT(0.100000001f));
-		ui_interface->addVerticalSlider("q0", &fVslider2, FAUSTFLOAT(30.0f), FAUSTFLOAT(10.0f), FAUSTFLOAT(200.0f), FAUSTFLOAT(0.100000001f));
-		ui_interface->addVerticalSlider("q1", &fVslider5, FAUSTFLOAT(10.0f), FAUSTFLOAT(10.0f), FAUSTFLOAT(200.0f), FAUSTFLOAT(0.100000001f));
-		ui_interface->addVerticalSlider("q2", &fVslider8, FAUSTFLOAT(300.0f), FAUSTFLOAT(10.0f), FAUSTFLOAT(300.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("q0", &fVslider2, FAUSTFLOAT(30.0f), FAUSTFLOAT(3.0f), FAUSTFLOAT(300.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("q1", &fVslider5, FAUSTFLOAT(10.0f), FAUSTFLOAT(3.0f), FAUSTFLOAT(300.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addVerticalSlider("q2", &fVslider8, FAUSTFLOAT(300.0f), FAUSTFLOAT(3.0f), FAUSTFLOAT(300.0f), FAUSTFLOAT(0.100000001f));
 		ui_interface->closeBox();
 	}
 	

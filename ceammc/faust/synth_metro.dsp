@@ -13,9 +13,9 @@ db0 = vslider("gain0 [unit:db]", 3, -60, 12, 0.1) +3 : ba.db2linear;
 db1 = vslider("gain1 [unit:db]", 0, -60, 12, 0.1) +3 : ba.db2linear;
 db2 = vslider("gain2 [unit:db]", 3, -60, 12, 0.1) +3 : ba.db2linear;
 
-Q0 = vslider("q0", 30,  10, 200, 0.1);
-Q1 = vslider("q1", 10,  10, 200, 0.1);
-Q2 = vslider("q2", 300, 10, 300, 0.1);
+Q0 = vslider("q0", 30,  3, 300, 0.1);
+Q1 = vslider("q1", 10,  3, 300, 0.1);
+Q2 = vslider("q2", 300, 3, 300, 0.1);
 
 b0 = button("b0") : ba.impulsify : fi.resonbp(f0, Q0, db0) : fi.lowpass(2, f0);
 b1 = button("b1") : ba.impulsify : fi.resonbp(f1, Q1, db1) : fi.lowpass(2, f1);

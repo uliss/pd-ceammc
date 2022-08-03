@@ -35,12 +35,13 @@
         an.onset an.onset~ an.pitchtrack~ an.rms~ an.tempo~ an.zero~
     }}
     {array {
-        array.bpm array.circular~ array.copy array.do array.each array.fill
-        array.grainer~ array.hist array.mean array.minmax array.play~
-        array.plot array.plot~ array.resample array.risset_rythm~ array.rms
-        array.set array.stddev array.stretch array.sum array.sum2
-        array.variance array.vplay array.window plot.geomspace~ plot.hist~
-        plot.linspace~ plot.logspace~ plot.response~
+        array.bpm array.circular array.circular~ array.convolve array.copy
+        array.do array.each array.fill array.grainer~ array.hist array.mean
+        array.minmax array.play~ array.plot array.plot~ array.resample
+        array.risset_rythm~ array.rms array.set array.stddev array.stretch
+        array.sum array.sum2 array.variance array.vplay array.window
+        plot.geomspace~ plot.hist~ plot.linspace~ plot.logspace~
+        plot.response~
     }}
     {base {
         ceammc.search function function.call gain~ logger matrix~
@@ -86,9 +87,9 @@
         flow.interval flow.less flow.less_eq flow.list2many flow.match
         flow.mem flow.multiplex flow.multiplex2~ flow.multiplex~ flow.once
         flow.pack flow.pass flow.pass_if flow.pipe flow.queue flow.record
-        flow.reject flow.reject_if flow.ring flow.route flow.select flow.space
-        flow.speedlim flow.split flow.stack flow.sync flow.sync_pack flow.tee~
-        replace route.float route.random
+        flow.reject flow.reject_if flow.ring flow.route flow.select
+        flow.seqdelay flow.space flow.speedlim flow.split flow.stack flow.sync
+        flow.sync_pack flow.tee~ replace route.float route.random
     }}
     {flt {
         flt.a-weight flt.biquad~ flt.bpf12~ flt.bpf24~ flt.c_apf flt.c_bpf~
@@ -246,8 +247,8 @@
         synth.bee3~ synth.birds~ synth.church_bell~ synth.dubdub~ synth.dx7~
         synth.eguitar~ synth.english_bell~ synth.fgrain~ synth.french_bell~
         synth.german_bell~ synth.glass_harm~ synth.glitch~ synth.harpsichord~
-        synth.kick~ synth.ks~ synth.marimba~ synth.piano~ synth.rhodey~
-        synth.risset_arp~ synth.risset_bell~ synth.risset_tone~
+        synth.kick~ synth.ks~ synth.marimba~ synth.metro~ synth.piano~
+        synth.rhodey~ synth.risset_arp~ synth.risset_bell~ synth.risset_tone~
         synth.russian_bell~ synth.shakers~ synth.sitar~ synth.snare~
         synth.standard_bell~ synth.tube_bell~ synth.wurley~
     }}

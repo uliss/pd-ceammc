@@ -41,6 +41,10 @@ public:
         })
         , beats_ { 0, 0, 0 }
     {
+        b0_->setInternal();
+        b1_->setInternal();
+        b2_->setInternal();
+
         createInlet();
         createInlet();
     }
@@ -88,4 +92,13 @@ public:
 void setup_synth_metro_tilde()
 {
     SoundExternalFactory<SynthMetro> obj("synth.metro~", OBJECT_FACTORY_DEFAULT);
+    obj.setXletsInfo({
+                         "bang: downbeat\n"
+                         "0:    upbeat\n"
+                         "1:    downbeat\n"
+                         "2:    section",
+                         "bang: upbeat",
+                         "bang: section",
+                     },
+        { "signal: output" });
 }
