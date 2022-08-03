@@ -36,6 +36,8 @@
   - [choose( method added to get random element from \[data.dict\], \[local.dict\] and \[global.dict\]
   - [pause( method added to \[array.grainer~\]
   - [slice( method added to \[array.grainer~\] - to slice source to specified number of equal grains
+  - [spread( method added to \[array.grainer~\] - to uniformly spread grain over specified duration
+  - [shuffle( method added to \[array.grainer~\] - to shuffle grains
 - misc:
   - conv.lin2exp: list support added
   - conv.lin2curve: list support added

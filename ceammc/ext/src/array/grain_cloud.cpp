@@ -190,14 +190,14 @@ bool GrainCloud::shuffle(t_symbol* tag)
     const double tlen = maxlen;
 
     // update grains
-    for (size_t i = 0; i < N; i++) {
+    for (size_t i = 0, gi = 0; i < grains_.size(); i++) {
         auto g = grains_[i];
 
-        if (tagMatch(g, tag)) {
+        if (tagMatch(g, tag) && gi < N) {
             const double glen = g->lengthInSamples();
             g->resetFirstTime();
             g->resetPlayPos();
-            g->setTimeBefore(gpos[i]);
+            g->setTimeBefore(gpos[gi++]);
             g->setTimeAfter(clip_min<double, 0>(tlen - glen));
         }
     }
@@ -212,13 +212,13 @@ bool GrainCloud::spread(uint32_t len_samp, t_symbol* tag)
         ? grains_.size()
         : std::count_if(grains_.begin(), grains_.end(), [tag](const Grain* g) { return tagMatch(g, tag); });
 
-    for (size_t i = 0, k = 0; i < grains_.size(); i++) {
+    for (size_t i = 0, gi = 0; i < grains_.size(); i++) {
         auto g = grains_[i];
 
-        if (tagMatch(g, tag)) {
+        if (tagMatch(g, tag) && gi < N) {
             const double glen = g->lengthInSamples();
             const double tlen = len_samp;
-            const double gpos = (k++ / double(N)) * tlen;
+            const double gpos = (gi++ / double(N)) * tlen;
 
             g->resetFirstTime();
             g->resetPlayPos();
