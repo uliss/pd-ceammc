@@ -115,69 +115,76 @@ tag. Type: atom.;
 #X obj 255 1791 cnv 1 54 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1791 [STATE]: on/off value. Type: int. Allowed values:
 0 \, 1\.;
-#X msg 110 1816 set;
-#X text 245 1816 set grain(s) properties. Arguments are:;
-#X obj 255 1839 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1839 SUBJ: if '*': set for all grains \, if float: set
+#X msg 110 1816 reverse;
+#X text 245 1816 reverse grain positions (@ta and @tb) values. Arguments
+are:;
+#X obj 255 1839 cnv 1 39 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1839 [TAG]: if '*' or ommited: reverse positions of all
+grains \, if '.': reverse positions of finished grains only \, otherwise
+reverse grains with corresponding tag. Type: symbol.;
+#X msg 110 1894 set;
+#X text 245 1894 set grain(s) properties. Arguments are:;
+#X obj 255 1917 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1917 SUBJ: if '*': set for all grains \, if float: set
 for grain with specified #id \, if symbol: set for grains with specified
 tag. Type: atom.;
-#X obj 255 1892 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1892 PROPS: grain properties. Type: list.;
-#X msg 110 1917 shuffle;
-#X text 245 1917 shuffle grain positions (@ta and @tb) values. Arguments
+#X obj 255 1970 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1970 PROPS: grain properties. Type: list.;
+#X msg 110 1995 shuffle;
+#X text 245 1995 shuffle grain positions (@ta and @tb) values. Arguments
 are:;
-#X obj 255 1940 cnv 1 39 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1940 [TAG]: if '*' or ommited: shuffle all grains \, if
+#X obj 255 2018 cnv 1 39 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2018 [TAG]: if '*' or ommited: shuffle all grains \, if
 '.': shuffle finished grains only \, otherwise shuffle grains with
 corresponding tag. Type: symbol.;
-#X msg 110 1995 slice;
-#X text 245 1995 slice specified duration to specified number of grains
+#X msg 110 2073 slice;
+#X text 245 2073 slice specified duration to specified number of grains
 and add them. Arguments are:;
-#X obj 255 2033 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2033 N: desired number of grains. Type: int. Range: 1\...64\.;
-#X obj 255 2056 cnv 1 39 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2056 [DUR]: duration to slice. Positive time value expected
+#X obj 255 2111 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2111 N: desired number of grains. Type: int. Range: 1\...64\.;
+#X obj 255 2134 cnv 1 39 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2134 [DUR]: duration to slice. Positive time value expected
 \, for example: 100ms \, 1.02s \, 400samp etc. Float value treat as
 millisecond. If not specified - use the whole source array duration.
 Type: atom.;
-#X obj 255 2124 cnv 1 54 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2124 [GRAIN]: properties of sliced grains. Type: list.;
-#X msg 110 2149 spread;
-#X text 245 2149 uniformly arrange grains to fill specified time space.
+#X obj 255 2202 cnv 1 54 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2202 [GRAIN]: properties of sliced grains. Type: list.;
+#X msg 110 2227 spread;
+#X text 245 2227 uniformly arrange grains to fill specified time space.
 Arguments are:;
-#X obj 255 2187 cnv 1 39 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2187 [DUR]: time space. Positive time values are expected
+#X obj 255 2265 cnv 1 39 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2265 [DUR]: time space. Positive time values are expected
 \, for example: 100ms \, 1.02s \, 400samp etc. Float value treat as
 millisecond. If not specified - use the whole source array duration.
 Type: atom.;
-#X obj 255 2255 cnv 1 39 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2255 [TAG]: if '*' or ommited: spread all grains \, if
+#X obj 255 2333 cnv 1 39 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2333 [TAG]: if '*' or ommited: spread all grains \, if
 '.': spread finished grains only \, otherwise spread grains with corresponding
 tag. Type: symbol.;
-#X obj 20 2320 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2325 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 2398 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2403 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 2326 1\.;
-#X text 245 2326 control inlet.;
-#X text 150 2346 *bang*;
-#X text 245 2346 if @sync = 'ext': starts finished grains playback.;
-#X obj 20 2376 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2381 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 2404 1\.;
+#X text 245 2404 control inlet.;
+#X text 150 2424 *bang*;
+#X text 245 2424 if @sync = 'ext': starts finished grains playback.;
+#X obj 20 2454 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2459 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 2382 1\.;
-#X text 245 2382 left output.;
-#X text 110 2402 2\.;
-#X text 245 2402 right output.;
+#X text 110 2460 1\.;
+#X text 245 2460 left output.;
+#X text 110 2480 2\.;
+#X text 245 2480 right output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 2452 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2455 library: ceammc v0.9.4;
-#X text 594 2467 see also:;
-#X obj 668 2467 array.each;
-#N canvas 10 2474 400 290 info 0;
+#X obj 1 2530 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2533 library: ceammc v0.9.4;
+#X text 594 2545 see also:;
+#X obj 668 2545 array.each;
+#N canvas 10 2552 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -201,7 +208,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 2474 pd info;
+#X restore 10 2552 pd info;
 #X connect 17 0 19 0;
 #X connect 16 0 20 0;
 #X connect 18 0 20 0;

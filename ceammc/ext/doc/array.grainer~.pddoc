@@ -95,6 +95,11 @@
             <param name="TAG" type="symbol" required="false">if '*' or ommited: shuffle all grains, if
             '.': shuffle finished grains only, otherwise shuffle grains with corresponding tag</param>
             </method>
+            <!--reverse-->
+            <method name="reverse">reverse grain positions (@ta and @tb) values
+            <param name="TAG" type="symbol" required="false">if '*' or ommited: reverse positions of all grains, if
+            '.': reverse positions of finished grains only, otherwise reverse grains with corresponding tag</param>
+            </method>
             <!--defer-->
             <method name="defer">defer method call until grains will finish
             <param name="N" type="int" minvalue="1" maxvalue="255">number of finished grains to wait before calling.
