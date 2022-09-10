@@ -14,7 +14,7 @@
 #include "flow_seqdelay.h"
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
-#include "fmt/format.h"
+#include "fmt/core.h"
 
 #define PROP_TIME "@t"
 #define PROP_BLOCK "@block"
@@ -87,6 +87,7 @@ FlowSeqDelay::FlowSeqDelay(const PdArgs& args)
         });
 
     prop->setArgIndex(0);
+    prop->setUnitsMs();
 
     block_ = new BoolProperty(PROP_BLOCK, false);
     addProperty(block_);
@@ -161,8 +162,10 @@ void FlowSeqDelay::handleNewMessage()
 
 bool FlowSeqDelay::scheduleNext()
 {
-    if (idx_ >= time_.size())
+    if (idx_ >= time_.size()) {
+        in_process_ = false;
         return false;
+    }
 
     const auto t = time_[idx_];
     if (t == 0) {
@@ -181,6 +184,6 @@ void setup_flow_seqdelay()
 
     ObjectFactory<FlowSeqDelay> obj("flow.seqdelay", OBJECT_FACTORY_NO_DEFAULT_INLET);
     obj.addAlias("flow.seqdel");
-    obj.setInletsInfo({ "input message" });
+    obj.setInletsInfo({ "input message", "control inlet for properties" });
     obj.addMethod("reset", &FlowSeqDelay::m_reset);
 }

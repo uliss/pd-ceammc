@@ -1,21 +1,22 @@
 {
 	"name": "fx.echo2",
 	"filename": "fx_echo2.dsp",
-	"version": "2.37.3",
-	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0",
+	"version": "2.44.1",
+	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn fx_echo2 -scn fx_echo2_dsp -es 1 -mcd 16 -single -ftz 0",
 	"library_list": ["/Users/serge/work/music/pure-data/ceammc/faust/ceammc.lib","/usr/local/share/faust/signals.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc_ui.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/delays.lib","/usr/local/share/faust/routes.lib"],
 	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
 	"inputs": 2,
 	"outputs": 2,
 	"meta": [ 
 		{ "author": "Albert Graef" },
+		{ "basics.lib/bypass2:author": "Julius Smith" },
 		{ "basics.lib/name": "Faust Basic Element Library" },
-		{ "basics.lib/version": "0.2" },
+		{ "basics.lib/version": "0.8" },
 		{ "ceammc.lib/name": "Ceammc PureData misc utils" },
 		{ "ceammc.lib/version": "0.1.2" },
 		{ "ceammc_ui.lib/name": "CEAMMC faust default UI elements" },
 		{ "ceammc_ui.lib/version": "0.1.2" },
-		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0" },
+		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn fx_echo2 -scn fx_echo2_dsp -es 1 -mcd 16 -single -ftz 0" },
 		{ "delays.lib/name": "Faust Delay Library" },
 		{ "delays.lib/version": "0.1" },
 		{ "filename": "fx_echo2.dsp" },
@@ -30,7 +31,7 @@
 		{ "routes.lib/name": "Faust Signal Routing Library" },
 		{ "routes.lib/version": "0.2" },
 		{ "signals.lib/name": "Faust Signal Routing Library" },
-		{ "signals.lib/version": "0.1" }
+		{ "signals.lib/version": "0.3" }
 	],
 	"ui": [ 
 		{
@@ -40,11 +41,13 @@
 				{
 					"type": "checkbox",
 					"label": "bypass",
+					"shortname": "bypass",
 					"address": "/fx.echo2/bypass"
 				},
 				{
 					"type": "hslider",
 					"label": "delay",
+					"shortname": "delay",
 					"address": "/fx.echo2/delay",
 					"meta": [
 						{ "unit": "ms" }
@@ -57,6 +60,7 @@
 				{
 					"type": "hslider",
 					"label": "drywet",
+					"shortname": "drywet",
 					"address": "/fx.echo2/drywet",
 					"meta": [
 						{ "style": "knob" }
@@ -69,6 +73,7 @@
 				{
 					"type": "hslider",
 					"label": "feedback",
+					"shortname": "feedback",
 					"address": "/fx.echo2/feedback",
 					"init": 0.3,
 					"min": 0,
@@ -78,6 +83,7 @@
 				{
 					"type": "hslider",
 					"label": "stereo",
+					"shortname": "stereo",
 					"address": "/fx.echo2/stereo",
 					"init": 1,
 					"min": 0,

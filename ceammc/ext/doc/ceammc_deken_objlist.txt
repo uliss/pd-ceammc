@@ -5,8 +5,11 @@ ceammc/helmholtz~	pitch tracker
 helmholtz~	pitch tracker
 an.rms~	root mean square with moving-average algorithm.
 an.tempo~	tempo detector
+an.zero~	zero crossing count/rate/freq calculator
 array.bpm	BPM calculator
+array.circular	array read/write as circular buffer
 array.circular~	circular buffer for arrays
+array.convolve	array FFT convolution
 array.copy	copy samples from one array to another
 array.do	iterate and modify array content via side-chain
 array.each	process each array elements via side-chain
@@ -390,6 +393,8 @@ flow.>>	dataflow ring buffer
 flow.route	advanced message router
 flow.select	vanilla flow on steroids
 flow.sel	vanilla flow on steroids
+flow.seqdelay	sequential delay/router for input flow
+flow.seqdel	sequential delay/router for input flow
 flow.space	space in time messages received at the same logical time
 flow.speedlim	control stream speed limiter
 ceammc/speedlim	control stream speed limiter
@@ -411,6 +416,9 @@ replace	Replace atoms in data stream
 ceammc/replace	Replace atoms in data stream
 route.float	separate float messages from other types
 route.f	separate float messages from other types
+route.random	routes input flow to random outlet
+route.r	routes input flow to random outlet
+flt.a-weight	convert frequency to A-weight value
 flt.biquad~	second order IIR filter.
 flt.bpf12~	Two pole band-pass butterworth filter
 flt.bpf24~	Four pole band-pass butterworth filter
@@ -926,11 +934,13 @@ prop.split	separate properties from dataflow
 prop->	separate properties from dataflow
 @->	separate properties from dataflow
 proto.firmata	Firmata Arduino protocol support
+proto.inscore	INScore message creator
 proto.midi	raw midi encoder/parser
 proto.midi.cc	raw midi CC encoder/parser
 proto.midi.sysex	raw midi SYSex encoder/parser
 proto.mpv	mpv video player control
 proto.sp.alpaca	protocol parser for Arduino-based CEAMMC footswitch
+proto.whammy	Control for Digitech Whammy pedal
 proto.xtouch_ext	Behringer XTouch Extender XMidi protocol
 random.atom	weighted atom generation from specified list
 random.a	weighted atom generation from specified list
@@ -1011,8 +1021,8 @@ string.equal	check strings or symbols for equality
 str.equal	check strings or symbols for equality
 string.format	formats string like printf.
 str.format	formats string like printf.
-string.join	joins (concatenates) strings with separator
-str.join	joins (concatenates) strings with separator
+string.join	joins (concatenates) list to string with separator
+str.join	joins (concatenates) list to string with separator
 string.length	number of characters in string (unicode supported)
 str.length	number of characters in string (unicode supported)
 string.match	check if string match regular expression

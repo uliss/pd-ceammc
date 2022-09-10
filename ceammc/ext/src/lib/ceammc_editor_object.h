@@ -25,6 +25,8 @@ namespace ceammc {
 
 using EditorTitleString = boost::static_string<32>;
 
+EditorTitleString makeEditorTitleString(const char* dataName, const char* dataId = "");
+
 class EditorString : public memorypool::boost_intrusive_pool_item {
 public:
     boost::static_string<MAXPDSTRING> str;
@@ -39,6 +41,7 @@ public:
     void append(t_symbol* s) { append(s->s_name); }
     void append(const Atom& a);
     void append(const AtomListView& lv, const char* delim = " ");
+    void append(const char* txt, size_t len);
 
     void appendQuoted(const std::string& txt) { appendQuoted(txt.c_str()); }
     void appendQuoted(t_symbol* s) { appendQuoted(s->s_name); }

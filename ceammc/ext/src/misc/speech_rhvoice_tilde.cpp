@@ -196,6 +196,13 @@ void SpeechRhvoiceTilde::m_stop(t_symbol* s, const AtomListView& lv)
         ;
 }
 
+void SpeechRhvoiceTilde::m_clear(t_symbol* s, const AtomListView& lv)
+{
+    Msg msg;
+    while (txt_queue_.try_dequeue(msg))
+        ;
+}
+
 void SpeechRhvoiceTilde::onDone()
 {
     Dispatcher::instance().send({ reinterpret_cast<SubscriberId>(this), NOTIFY_DONE });
@@ -376,6 +383,7 @@ void setup_speech_rhvoice_tilde()
     SoundExternalFactory<SpeechRhvoiceTilde> obj("speech.rhvoice~", OBJECT_FACTORY_DEFAULT);
     obj.addAlias("rhvoice~");
     obj.addMethod("stop", &SpeechRhvoiceTilde::m_stop);
+    obj.addMethod("clear", &SpeechRhvoiceTilde::m_clear);
 
     obj.setXletsInfo({ "symbol: speak symbol" }, { "signal: tts output", "'done' when done" });
 

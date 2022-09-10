@@ -30,28 +30,15 @@ CEAMMC_DEFINE_HASH(none)
 CEAMMC_DEFINE_HASH(time)
 CEAMMC_DEFINE_HASH(value)
 
-static const char* CURVE_TYPES[] = {
+namespace {
+
+const char* CURVE_TYPES[] = {
     str_step, str_line, str_exp, str_sin2, str_sigmoid
 };
 
-static const char* FIX_TYPES[] = {
+const char* FIX_TYPES[] = {
     str_none, str_all, str_time, str_value
 };
-
-static bool compareByTime(const EnvelopePoint& n0, const EnvelopePoint& n1)
-{
-    return n0.utime < n1.utime;
-}
-
-static bool compareByValue(const EnvelopePoint& n0, const EnvelopePoint& n1)
-{
-    return n0.value < n1.value;
-}
-
-static bool has_stop(const EnvelopePoint& n)
-{
-    return n.stop;
-}
 
 struct find_by_time {
     size_t t;
@@ -63,7 +50,22 @@ struct find_by_time {
     bool operator()(const EnvelopePoint& n) { return n.utime == t; }
 };
 
-static bool isValidAttack(const Atom& p)
+bool compareByTime(const EnvelopePoint& n0, const EnvelopePoint& n1)
+{
+    return n0.utime < n1.utime;
+}
+
+bool compareByValue(const EnvelopePoint& n0, const EnvelopePoint& n1)
+{
+    return n0.value < n1.value;
+}
+
+bool has_stop(const EnvelopePoint& n)
+{
+    return n.stop;
+}
+
+bool isValidAttack(const Atom& p)
 {
     if (!p.isFloat() || p.asFloat() < 0) {
         LIB_ERR << "invalid attack time: " << p;
@@ -73,7 +75,7 @@ static bool isValidAttack(const Atom& p)
     return true;
 }
 
-static bool isValidDecay(const Atom& p)
+bool isValidDecay(const Atom& p)
 {
     if (!p.isFloat() || p.asFloat() < 0) {
         LIB_ERR << "invalid decay time: " << p;
@@ -83,7 +85,7 @@ static bool isValidDecay(const Atom& p)
     return true;
 }
 
-static bool isValidRelease(const Atom& p)
+bool isValidRelease(const Atom& p)
 {
     if (!p.isFloat() || p.asFloat() < 0) {
         LIB_ERR << "invalid release time: " << p;
@@ -93,7 +95,7 @@ static bool isValidRelease(const Atom& p)
     return true;
 }
 
-static bool isValidSustain(const Atom& p)
+bool isValidSustain(const Atom& p)
 {
     if (!p.isFloat() || p.asFloat() < 0 || p.asFloat() > 100) {
         LIB_ERR << "invalid sustain level value: " << p;
@@ -165,8 +167,6 @@ static bool isValidSustain(const Atom& p)
         }                                                    \
     }
 
-namespace {
-
 const char* fixToStr(uint8_t f)
 {
     switch (f) {
@@ -203,19 +203,16 @@ void symbolToFix(t_symbol* s, std::uint8_t& fix)
 
 void exportPoint(const EnvelopePoint& pt, std::string& res)
 {
-    constexpr const char* indent = "";
-
-    res += fmt::format("{0:>5}[time:  {1:.7g}\n"
-                       "{0:>6}value: {2:.7g}\n"
-                       "{0:>6}type:  {3}\n",
-        indent, pt.timeMs(), pt.value, CURVE_TYPES[pt.type]);
+    auto str = std::back_inserter(res);
+    fmt::format_to(str, "    [time: {0:.7g} value: {1:.7g} type: {2}",
+        pt.timeMs(), pt.value, CURVE_TYPES[pt.type]);
     if (pt.type != CURVE_LINE || pt.type != CURVE_STEP)
-        res += fmt::format("{0:>6}curve: {1}\n", indent,
+        fmt::format_to(str, " curve: {}",
             (pt.type == CURVE_SIGMOID) ? pt.sigmoid_skew : pt.data);
 
     if (pt.fix_pos != EnvelopePoint::FIX_NONE)
-        res += fmt::format("{0:>6}fix:   {1}\n", indent, fixToStr(pt.fix_pos));
-    res += fmt::format("{0:>6}stop: {1}]\n", indent, pt.stop ? 1 : 0);
+        fmt::format_to(str, " fix: {}", fixToStr(pt.fix_pos));
+    fmt::format_to(str, " stop: {}]", pt.stop ? 1 : 0);
 }
 
 EnvelopePoint pointFromDict(const DataTypeDict& dict)
@@ -342,22 +339,6 @@ const DataTypeEnv::NamedMethodList DataTypeEnv::named_methods = {
     NamedMethod { hash_sin2, &DataTypeEnv::setSin2 },
     NamedMethod { hash_step, &DataTypeEnv::setStep },
 };
-
-std::string DataTypeEnv::toString() const
-{
-    std::string res("Envelope:\n");
-    res.reserve(48 * points_.size());
-
-    for (size_t i = 0; i < points_.size(); i++) {
-        res += fmt::format("    {:c} point: {: 8g}(ms) {: 8g} {}\n",
-            points_[i].stop ? '*' : ' ',
-            points_[i].utime / 1000.f,
-            points_[i].value,
-            to_string(points_[i].type));
-    }
-
-    return res;
-}
 
 bool DataTypeEnv::isEqual(const AbstractData* d) const noexcept
 {
@@ -1205,6 +1186,11 @@ bool DataTypeEnv::checkADSR() const
             && points_[3].fix_pos == EnvelopePoint::FIX_VALUE);
 }
 
+std::string DataTypeEnv::toString() const noexcept
+{
+    return toDictString();
+}
+
 std::string DataTypeEnv::toListStringContent() const noexcept
 {
     return " ";
@@ -1230,10 +1216,12 @@ std::string DataTypeEnv::toDictStringContent() const noexcept
             const auto R = points_[3].timeMs() - (A + D);
             res = fmt::format("adsr: {:.3g} {:.3g} {:.3g} {:.3g}", A, D, S, R);
         } else if (!points_.empty()) {
-            res = fmt::format("points: \n");
-            const char* indent = "";
-            for (auto& pt : points_)
+            res = fmt::format("points:\n");
+            for (auto& pt : points_) {
                 exportPoint(pt, res);
+                res.push_back('\n');
+            }
+
         } else
             res = " ";
     } catch (std::exception& e) {

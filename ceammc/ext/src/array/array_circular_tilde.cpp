@@ -39,14 +39,8 @@ ArrayCircularTilde::ArrayCircularTilde(const PdArgs& args)
 
 void ArrayCircularTilde::setupDSP(t_signal** sp)
 {
-    if (!checkArray()) {
-        array_size_ = 0;
-        return;
-    }
-
-    array_size_ = array_.size();
-    array_.useInDSP();
     ArraySoundBase::setupDSP(sp);
+    array_size_ = array_.isValid() ? array_.size() : 0;
 }
 
 void ArrayCircularTilde::processBlock(const t_sample** in, t_sample** out)

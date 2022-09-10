@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "fx.pitchshift"
-Code generated with Faust 2.37.3 (https://faust.grame.fr)
-Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0
+Code generated with Faust 2.44.1 (https://faust.grame.fr)
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn fx_pitchshift_sig -scn fx_pitchshift_sig_dsp -es 1 -mcd 16 -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __fx_pitchshift_sig_H__
@@ -14,23 +14,23 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_ds
 #include <memory>
 #include <string>
 
-/************************** BEGIN fx_pitchshift_sig_dsp.h **************************/
-/************************************************************************
+/************************** BEGIN fx_pitchshift_sig_dsp.h ********************************
  FAUST Architecture File
- Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
+ Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
  ---------------------------------------------------------------------
- This Architecture section is free software; you can redistribute it
- and/or modify it under the terms of the GNU General Public License
- as published by the Free Software Foundation; either version 3 of
- the License, or (at your option) any later version.
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation; either version 2.1 of the License, or
+ (at your option) any later version.
  
  This program is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU Lesser General Public License for more details.
  
- You should have received a copy of the GNU General Public License
- along with this program; If not, see <http://www.gnu.org/licenses/>.
+ You should have received a copy of the GNU Lesser General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  
  EXCEPTION : As a special exception, you may create a larger work
  that contains this FAUST architecture section and distribute
@@ -44,22 +44,104 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_ds
 #include <string>
 #include <vector>
 
+/************************************************************************
+ ************************************************************************
+    FAUST compiler
+    Copyright (C) 2003-2018 GRAME, Centre National de Creation Musicale
+    ---------------------------------------------------------------------
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ ************************************************************************
+ ************************************************************************/
+
+#ifndef __export__
+#define __export__
+
+#define FAUSTVERSION "2.44.1"
+
+// Use FAUST_API for code that is part of the external API but is also compiled in faust and libfaust
+// Use LIBFAUST_API for code that is compiled in faust and libfaust
+
+#ifdef _WIN32
+    #pragma warning (disable: 4251)
+    #ifdef FAUST_EXE
+        #define FAUST_API
+        #define LIBFAUST_API
+    #elif FAUST_LIB
+        #define FAUST_API __declspec(dllexport)
+        #define LIBFAUST_API __declspec(dllexport)
+    #else
+        #define FAUST_API
+        #define LIBFAUST_API 
+    #endif
+#else
+    #ifdef FAUST_EXE
+        #define FAUST_API
+        #define LIBFAUST_API
+    #else
+        #define FAUST_API __attribute__((visibility("default")))
+        #define LIBFAUST_API __attribute__((visibility("default")))
+    #endif
+#endif
+
+#endif
+
 #ifndef FAUSTFLOAT
 #define FAUSTFLOAT float
 #endif
 
-struct UI;
-struct Meta;
+struct FAUST_API UI;
+struct FAUST_API Meta;
 
 /**
  * DSP memory manager.
  */
 
-struct dsp_memory_manager {
+struct FAUST_API dsp_memory_manager {
     
     virtual ~dsp_memory_manager() {}
     
+    /**
+     * Inform the Memory Manager with the number of expected memory zones.
+     * @param count - the number of expected memory zones
+     */
+    virtual void begin(size_t count) {}
+    
+    /**
+     * Give the Memory Manager information on a given memory zone.
+     * @param size - the size in bytes of the memory zone
+     * @param reads - the number of Read access to the zone used to compute one frame
+     * @param writes - the number of Write access to the zone used to compute one frame
+     */
+    virtual void info(size_t size, size_t reads, size_t writes) {}
+    
+    /**
+     * Inform the Memory Manager that all memory zones have been described,
+     * to possibly start a 'compute the best allocation strategy' step.
+     */
+    virtual void end() {}
+    
+    /**
+     * Allocate a memory zone.
+     * @param size - the memory zone size in bytes
+     */
     virtual void* allocate(size_t size) = 0;
+    
+    /**
+     * Destroy a memory zone.
+     * @param ptr - the memory zone pointer to be deallocated
+     */
     virtual void destroy(void* ptr) = 0;
     
 };
@@ -68,7 +150,7 @@ struct dsp_memory_manager {
 * Signal processor definition.
 */
 
-class fx_pitchshift_sig_dsp {
+class FAUST_API fx_pitchshift_sig_dsp {
 
     public:
 
@@ -162,7 +244,7 @@ class fx_pitchshift_sig_dsp {
  * Generic DSP decorator.
  */
 
-class decorator_dsp : public fx_pitchshift_sig_dsp {
+class FAUST_API decorator_dsp : public fx_pitchshift_sig_dsp {
 
     protected:
 
@@ -195,7 +277,7 @@ class decorator_dsp : public fx_pitchshift_sig_dsp {
  * to create DSP instances from a compiled DSP program.
  */
 
-class dsp_factory {
+class FAUST_API dsp_factory {
     
     protected:
     
@@ -224,8 +306,8 @@ class dsp_factory {
 #include <xmmintrin.h>
 #endif
 
-class ScopedNoDenormals
-{
+class FAUST_API ScopedNoDenormals {
+    
     private:
     
         intptr_t fpsr;
@@ -281,32 +363,33 @@ class ScopedNoDenormals
 #endif
 
 /************************** END fx_pitchshift_sig_dsp.h **************************/
-/************************** BEGIN UI.h **************************/
-/************************************************************************
+/************************** BEGIN UI.h *****************************
  FAUST Architecture File
- Copyright (C) 2003-2020 GRAME, Centre National de Creation Musicale
+ Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
  ---------------------------------------------------------------------
- This Architecture section is free software; you can redistribute it
- and/or modify it under the terms of the GNU General Public License
- as published by the Free Software Foundation; either version 3 of
- the License, or (at your option) any later version.
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation; either version 2.1 of the License, or
+ (at your option) any later version.
  
  This program is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU Lesser General Public License for more details.
  
- You should have received a copy of the GNU General Public License
- along with this program; If not, see <http://www.gnu.org/licenses/>.
+ You should have received a copy of the GNU Lesser General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  
  EXCEPTION : As a special exception, you may create a larger work
  that contains this FAUST architecture section and distribute
  that work under terms of your choice, so long as this FAUST
  architecture section is not modified.
- ************************************************************************/
+ ********************************************************************/
 
 #ifndef __UI_H__
 #define __UI_H__
+
 
 #ifndef FAUSTFLOAT
 #define FAUSTFLOAT float
@@ -322,8 +405,8 @@ class ScopedNoDenormals
 struct Soundfile;
 
 template <typename REAL>
-struct UIReal
-{
+struct FAUST_API UIReal {
+    
     UIReal() {}
     virtual ~UIReal() {}
     
@@ -359,31 +442,30 @@ struct UIReal
     virtual int sizeOfFAUSTFLOAT() { return sizeof(FAUSTFLOAT); }
 };
 
-struct UI : public UIReal<FAUSTFLOAT>
-{
+struct FAUST_API UI : public UIReal<FAUSTFLOAT> {
     UI() {}
     virtual ~UI() {}
 };
 
 #endif
 /**************************  END  UI.h **************************/
-/************************** BEGIN meta.h **************************/
-/************************************************************************
+/************************** BEGIN meta.h *******************************
  FAUST Architecture File
- Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
+ Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
  ---------------------------------------------------------------------
- This Architecture section is free software; you can redistribute it
- and/or modify it under the terms of the GNU General Public License
- as published by the Free Software Foundation; either version 3 of
- the License, or (at your option) any later version.
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation; either version 2.1 of the License, or
+ (at your option) any later version.
  
  This program is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU Lesser General Public License for more details.
  
- You should have received a copy of the GNU General Public License
- along with this program; If not, see <http://www.gnu.org/licenses/>.
+ You should have received a copy of the GNU Lesser General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  
  EXCEPTION : As a special exception, you may create a larger work
  that contains this FAUST architecture section and distribute
@@ -394,40 +476,40 @@ struct UI : public UIReal<FAUSTFLOAT>
 #ifndef __meta__
 #define __meta__
 
+
 /**
  The base class of Meta handler to be used in fx_pitchshift_sig_dsp::metadata(Meta* m) method to retrieve (key, value) metadata.
  */
-struct Meta
-{
-    virtual ~Meta() {};
+struct FAUST_API Meta {
+    virtual ~Meta() {}
     virtual void declare(const char* key, const char* value) = 0;
 };
 
 #endif
 /**************************  END  meta.h **************************/
-/************************** BEGIN misc.h **************************/
-/************************************************************************
- FAUST Architecture File
- Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
- ---------------------------------------------------------------------
- This Architecture section is free software; you can redistribute it
- and/or modify it under the terms of the GNU General Public License
- as published by the Free Software Foundation; either version 3 of
- the License, or (at your option) any later version.
- 
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
- 
- You should have received a copy of the GNU General Public License
- along with this program; If not, see <http://www.gnu.org/licenses/>.
- 
- EXCEPTION : As a special exception, you may create a larger work
- that contains this FAUST architecture section and distribute
- that work under terms of your choice, so long as this FAUST
- architecture section is not modified.
- ************************************************************************/
+/************************** BEGIN misc.h *******************************
+FAUST Architecture File
+Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
+---------------------------------------------------------------------
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation; either version 2.1 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+
+EXCEPTION : As a special exception, you may create a larger work
+that contains this FAUST architecture section and distribute
+that work under terms of your choice, so long as this FAUST
+architecture section is not modified.
+***************************************************************************/
 
 #ifndef __misc__
 #define __misc__
@@ -439,14 +521,6 @@ struct Meta
 #include <fstream>
 #include <string>
 
-
-using std::max;
-using std::min;
-
-struct XXXX_Meta : std::map<const char*, const char*>
-{
-    void declare(const char* key, const char* value) { (*this)[key] = value; }
-};
 
 struct MY_Meta : Meta, std::map<const char*, const char*>
 {
@@ -549,7 +623,6 @@ struct fx_pitchshift_sig : public fx_pitchshift_sig_dsp {
 #include <cstdint>
 #include <math.h>
 
-
 #ifndef FAUSTCLASS 
 #define FAUSTCLASS fx_pitchshift_sig
 #endif
@@ -559,12 +632,19 @@ struct fx_pitchshift_sig : public fx_pitchshift_sig_dsp {
 #define exp10 __exp10
 #endif
 
+#if defined(_WIN32)
+#define RESTRICT __restrict
+#else
+#define RESTRICT __restrict__
+#endif
+
+
 class fx_pitchshift_sig : public fx_pitchshift_sig_dsp {
 	
  private:
 	
 	FAUSTFLOAT fCheckbox0;
-	int IOTA;
+	int IOTA0;
 	float fVec0[131072];
 	int fSampleRate;
 	float fConst1;
@@ -580,13 +660,14 @@ class fx_pitchshift_sig : public fx_pitchshift_sig_dsp {
  public:
 	
 	void metadata(Meta* m) { 
+		m->declare("basics.lib/bypass1:author", "Julius Smith");
 		m->declare("basics.lib/name", "Faust Basic Element Library");
-		m->declare("basics.lib/version", "0.2");
+		m->declare("basics.lib/version", "0.8");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
 		m->declare("ceammc.lib/version", "0.1.2");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
 		m->declare("ceammc_ui.lib/version", "0.1.2");
-		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn fx_pitchshift_sig -scn fx_pitchshift_sig_dsp -es 1 -mcd 16 -single -ftz 0");
 		m->declare("delays.lib/name", "Faust Delay Library");
 		m->declare("delays.lib/version", "0.1");
 		m->declare("filename", "fx_pitchshift_sig.dsp");
@@ -601,7 +682,7 @@ class fx_pitchshift_sig : public fx_pitchshift_sig_dsp {
 		m->declare("platform.lib/name", "Generic Platform Library");
 		m->declare("platform.lib/version", "0.2");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
-		m->declare("signals.lib/version", "0.1");
+		m->declare("signals.lib/version", "0.3");
 	}
 
 	virtual int getNumInputs() {
@@ -617,10 +698,10 @@ class fx_pitchshift_sig : public fx_pitchshift_sig_dsp {
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
 		float fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
-		fConst1 = (44.0999985f / fConst0);
-		fConst2 = (1.0f - fConst1);
-		fConst3 = (0.00100000005f * fConst0);
-		fConst4 = (1000.0f / fConst0);
+		fConst1 = 44.0999985f / fConst0;
+		fConst2 = 1.0f - fConst1;
+		fConst3 = 0.00100000005f * fConst0;
+		fConst4 = 1000.0f / fConst0;
 	}
 	
 	virtual void instanceResetUserInterface() {
@@ -631,14 +712,14 @@ class fx_pitchshift_sig : public fx_pitchshift_sig_dsp {
 	}
 	
 	virtual void instanceClear() {
-		IOTA = 0;
-		for (int l0 = 0; (l0 < 131072); l0 = (l0 + 1)) {
+		IOTA0 = 0;
+		for (int l0 = 0; l0 < 131072; l0 = l0 + 1) {
 			fVec0[l0] = 0.0f;
 		}
-		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
+		for (int l1 = 0; l1 < 2; l1 = l1 + 1) {
 			fRec0[l1] = 0.0f;
 		}
-		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
+		for (int l2 = 0; l2 < 2; l2 = l2 + 1) {
 			fRec1[l2] = 0.0f;
 		}
 	}
@@ -673,30 +754,30 @@ class fx_pitchshift_sig : public fx_pitchshift_sig_dsp {
 		ui_interface->closeBox();
 	}
 	
-	virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
+	virtual void compute(int count, FAUSTFLOAT** RESTRICT inputs, FAUSTFLOAT** RESTRICT outputs) {
 		FAUSTFLOAT* input0 = inputs[0];
 		FAUSTFLOAT* input1 = inputs[1];
 		FAUSTFLOAT* output0 = outputs[0];
 		int iSlow0 = int(float(fCheckbox0));
-		float fSlow1 = (fConst1 * float(fHslider0));
-		float fSlow2 = (fConst3 * float(fVslider0));
-		float fSlow3 = (fConst4 / float(fVslider1));
-		for (int i0 = 0; (i0 < count); i0 = (i0 + 1)) {
+		float fSlow1 = fConst1 * float(fHslider0);
+		float fSlow2 = fConst3 * float(fVslider0);
+		float fSlow3 = fConst4 / float(fVslider1);
+		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
 			float fTemp0 = float(input0[i0]);
-			float fTemp1 = (iSlow0 ? 0.0f : fTemp0);
-			fVec0[(IOTA & 131071)] = fTemp1;
-			fRec0[0] = (fSlow1 + (fConst2 * fRec0[1]));
-			fRec1[0] = std::fmod((fSlow2 + (fRec1[1] + (1.0f - std::pow(2.0f, (0.0833333358f * float(input1[i0])))))), fSlow2);
+			float fTemp1 = ((iSlow0) ? 0.0f : fTemp0);
+			fVec0[IOTA0 & 131071] = fTemp1;
+			fRec0[0] = fSlow1 + fConst2 * fRec0[1];
+			fRec1[0] = std::fmod(fSlow2 + fRec1[1] + 1.0f - std::pow(2.0f, 0.0833333358f * float(input1[i0])), fSlow2);
 			int iTemp2 = int(fRec1[0]);
 			float fTemp3 = std::floor(fRec1[0]);
-			float fTemp4 = (1.0f - fRec1[0]);
-			float fTemp5 = std::min<float>((fSlow3 * fRec1[0]), 1.0f);
-			float fTemp6 = (fSlow2 + fRec1[0]);
+			float fTemp4 = 1.0f - fRec1[0];
+			float fTemp5 = std::min<float>(fSlow3 * fRec1[0], 1.0f);
+			float fTemp6 = fSlow2 + fRec1[0];
 			int iTemp7 = int(fTemp6);
 			float fTemp8 = std::floor(fTemp6);
-			float fThen1 = ((fTemp1 * (1.0f - fRec0[0])) + (fRec0[0] * ((((fVec0[((IOTA - std::min<int>(65537, std::max<int>(0, iTemp2))) & 131071)] * (fTemp3 + fTemp4)) + ((fRec1[0] - fTemp3) * fVec0[((IOTA - std::min<int>(65537, std::max<int>(0, (iTemp2 + 1)))) & 131071)])) * fTemp5) + (((fVec0[((IOTA - std::min<int>(65537, std::max<int>(0, iTemp7))) & 131071)] * ((fTemp8 + fTemp4) - fSlow2)) + ((fSlow2 + (fRec1[0] - fTemp8)) * fVec0[((IOTA - std::min<int>(65537, std::max<int>(0, (iTemp7 + 1)))) & 131071)])) * (1.0f - fTemp5)))));
-			output0[i0] = FAUSTFLOAT((iSlow0 ? fTemp0 : fThen1));
-			IOTA = (IOTA + 1);
+			float fThen1 = fTemp1 * (1.0f - fRec0[0]) + fRec0[0] * ((fVec0[(IOTA0 - std::min<int>(65537, std::max<int>(0, iTemp2))) & 131071] * (fTemp3 + fTemp4) + (fRec1[0] - fTemp3) * fVec0[(IOTA0 - std::min<int>(65537, std::max<int>(0, iTemp2 + 1))) & 131071]) * fTemp5 + (fVec0[(IOTA0 - std::min<int>(65537, std::max<int>(0, iTemp7))) & 131071] * ((fTemp8 + fTemp4) - fSlow2) + (fSlow2 + fRec1[0] - fTemp8) * fVec0[(IOTA0 - std::min<int>(65537, std::max<int>(0, iTemp7 + 1))) & 131071]) * (1.0f - fTemp5));
+			output0[i0] = FAUSTFLOAT(((iSlow0) ? fTemp0 : fThen1));
+			IOTA0 = IOTA0 + 1;
 			fRec0[1] = fRec0[0];
 			fRec1[1] = fRec1[0];
 		}

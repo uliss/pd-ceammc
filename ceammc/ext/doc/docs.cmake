@@ -4,8 +4,11 @@ set(DOC_FILES
     an.pitchtrack~
     an.rms~
     an.tempo~
+    an.zero~
     array.bpm
+    array.circular
     array.circular~
+    array.convolve
     array.copy
     array.do
     array.each
@@ -160,6 +163,7 @@ set(DOC_FILES
     flow.route
     flow.queue
     flow.select
+    flow.seqdelay
     flow.space
     flow.speedlim
     flow.split
@@ -167,6 +171,7 @@ set(DOC_FILES
     flow.sync
     flow.sync_pack
     flow.tee~
+    flt.a-weight
     flt.biquad~
     flt.bpf12~
     flt.bpf24~
@@ -564,12 +569,14 @@ set(DOC_FILES
     prop.set
     prop.split
     proto.firmata
+    proto.inscore
     proto.midi
     proto.midi.cc
     proto.midi.sysex
     proto.mpv
     proto.xtouch_ext
     proto.sp.alpaca
+    proto.whammy
     radio
     random.atom
     random.float
@@ -581,6 +588,7 @@ set(DOC_FILES
     random.discrete
     replace
     route.float
+    route.random
     risset.gliss
     rtree.to_list
     samp.time~

@@ -10,6 +10,7 @@
 
 #include "eclass.h"
 #include "ceammc.h"
+#include "ceammc_impl.h"
 #include "ebox.h"
 #include "ecommon.h"
 #include "egraphics.h"
@@ -521,7 +522,7 @@ void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type,
 
         for (size_t i = 0; i < c->c_nattr; i++) {
             if (c->c_attr[i]->name == name) {
-                error("%s already have %s attribute.", c->c_class.c_name->s_name, attrname);
+                pd_error(nullptr, "%s already have %s attribute.", c->c_class.c_name->s_name, attrname);
                 return;
             }
         }
@@ -565,14 +566,14 @@ void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type,
                 class_addmethod(&c->c_class, reinterpret_cast<t_method>(eclass_attr_ceammc_getter), gensym(buf), A_GIMME, 0);
                 c->c_nattr++;
             } else {
-                error("%s can't increase memory for %s attribute.", c->c_class.c_name->s_name, attrname);
+                pd_error(nullptr, "%s can't increase memory for %s attribute.", c->c_class.c_name->s_name, attrname);
             }
 
         } else {
-            error("%s can't allocate memory for %s attribute.", c->c_class.c_name->s_name, attrname);
+            pd_error(nullptr, "%s can't allocate memory for %s attribute.", c->c_class.c_name->s_name, attrname);
         }
     } else {
-        error("%s %s attribute size is too null.", c->c_class.c_name->s_name, attrname);
+        pd_error(nullptr, "%s %s attribute size is too null.", c->c_class.c_name->s_name, attrname);
     }
 }
 
@@ -585,9 +586,9 @@ void eclass_attr_redirect(t_eclass* c, const char* attrname, t_gotfn fn)
     t_symbol* sel1 = gensym(buf);
 
     for (int i = 0; i < c->c_class.c_nmethod; i++) {
-        auto& m = eclass_methods(&c->c_class)[i];
-        if (m.me_name == sel0 || m.me_name == sel1)
-            m.me_fun = fn;
+        auto mname = ceammc::class_method_name(&c->c_class, i);
+        if (mname == sel0 || mname == sel1)
+            ceammc::class_method_set_fn(&c->c_class, i, (void*)fn);
     }
 }
 
@@ -774,7 +775,7 @@ void eclass_attr_itemlist(t_eclass* c, const char* attrname, const char* list)
         const size_t max_items = (attr->sizemax > 0) ? attr->sizemax : MAX_ITEMS;
 
         if (new_size > max_items) {
-            error("[%s] to many property items: %d, clipping to %d", c->c_class.c_name->s_name, (int)new_size, (int)max_items);
+            pd_error(nullptr, "[%s] to many property items: %d, clipping to %d", c->c_class.c_name->s_name, (int)new_size, (int)max_items);
             new_size = max_items;
         }
 
@@ -790,7 +791,7 @@ void eclass_attr_itemlist(t_eclass* c, const char* attrname, const char* list)
                 if (attr->itemslist)
                     attr->itemssize = new_size;
                 else {
-                    error("[%s] can't resize itemlist to size %d", c->c_class.c_name->s_name, (int)new_size);
+                    pd_error(nullptr, "[%s] can't resize itemlist to size %d", c->c_class.c_name->s_name, (int)new_size);
                     return;
                 }
             } else {
@@ -798,7 +799,7 @@ void eclass_attr_itemlist(t_eclass* c, const char* attrname, const char* list)
                 if (attr->itemslist)
                     attr->itemssize = new_size;
                 else {
-                    error("[%s] can't allocate itemlist of size %d", c->c_class.c_name->s_name, (int)new_size);
+                    pd_error(nullptr, "[%s] can't allocate itemlist of size %d", c->c_class.c_name->s_name, (int)new_size);
                     return;
                 }
             }
@@ -807,7 +808,7 @@ void eclass_attr_itemlist(t_eclass* c, const char* attrname, const char* list)
             if (attr->itemslist && attr->itemssize) {
                 fill_items(list, len, attr->itemslist);
             } else {
-                error("[%s] %s error in @%s", c->c_class.c_name->s_name, __FUNCTION__, attrname);
+                pd_error(nullptr, "[%s] %s error in @%s", c->c_class.c_name->s_name, __FUNCTION__, attrname);
                 return;
             }
 
@@ -1923,13 +1924,4 @@ void eclass_attr_units(t_eclass* c, t_symbol* attrname, t_symbol* units)
             return;
         }
     }
-}
-
-t_methodentry* eclass_methods(_class* c)
-{
-#ifdef PDINSTANCE
-    return c->c_methods[pd_this->pd_instanceno];
-#else
-    return c->c_methods;
-#endif
 }

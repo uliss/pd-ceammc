@@ -15,15 +15,14 @@
 #define RANDOM_FLOAT_H
 
 #include "ceammc_object.h"
-#include "rnd_gen.h"
+#include "ceammc_random.h"
 
 using namespace ceammc;
 
 class RandomFloat : public BaseObject {
     FloatProperty* min_;
     FloatProperty* max_;
-    RandomGen gen_;
-    SizeTProperty* seed_;
+    random::RandomGen gen_;
 
 public:
     RandomFloat(const PdArgs& a);

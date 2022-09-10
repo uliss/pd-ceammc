@@ -17,6 +17,12 @@
 GlobalMList::GlobalMList(const PdArgs& args)
     : GlobalMListBase(args)
 {
+    setSpecialSymbolEscape(EDITOR_ESC_MODE_DATA);
+}
+
+EditorTitleString GlobalMList::editorTitle() const
+{
+    return makeEditorTitleString("global MList", id()->s_name);
 }
 
 void setup_global_mlist()
@@ -25,4 +31,6 @@ void setup_global_mlist()
     obj.processData<DataTypeMList>();
     obj.useDefaultPdFloatFn();
     obj.useDefaultPdSymbolFn();
+
+    GlobalMList::registerMethods(obj);
 }

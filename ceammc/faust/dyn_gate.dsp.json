@@ -1,20 +1,21 @@
 {
 	"name": "dyn.gate",
 	"filename": "dyn_gate.dsp",
-	"version": "2.37.3",
-	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0",
+	"version": "2.44.1",
+	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn dyn_gate -scn dyn_gate_dsp -es 1 -mcd 16 -single -ftz 0",
 	"library_list": ["/Users/serge/work/music/pure-data/ceammc/faust/ceammc.lib","/usr/local/share/faust/misceffects.lib","/usr/local/share/faust/signals.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib","/usr/local/share/faust/analyzers.lib","/usr/local/share/faust/basics.lib"],
 	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
 	"inputs": 1,
 	"outputs": 1,
 	"meta": [ 
+		{ "analyzers.lib/amp_follower_ar:author": "Jonatan Liljedahl, revised by Romain Michon" },
 		{ "analyzers.lib/name": "Faust Analyzer Library" },
-		{ "analyzers.lib/version": "0.1" },
+		{ "analyzers.lib/version": "0.2" },
 		{ "basics.lib/name": "Faust Basic Element Library" },
-		{ "basics.lib/version": "0.2" },
+		{ "basics.lib/version": "0.8" },
 		{ "ceammc.lib/name": "Ceammc PureData misc utils" },
 		{ "ceammc.lib/version": "0.1.2" },
-		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0" },
+		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn dyn_gate -scn dyn_gate_dsp -es 1 -mcd 16 -single -ftz 0" },
 		{ "filename": "dyn_gate.dsp" },
 		{ "maths.lib/author": "GRAME" },
 		{ "maths.lib/copyright": "GRAME" },
@@ -27,7 +28,9 @@
 		{ "platform.lib/name": "Generic Platform Library" },
 		{ "platform.lib/version": "0.2" },
 		{ "signals.lib/name": "Faust Signal Routing Library" },
-		{ "signals.lib/version": "0.1" }
+		{ "signals.lib/onePoleSwitching:author": "Jonatan Liljedahl, revised by Dario Sanfilippo" },
+		{ "signals.lib/onePoleSwitching:licence": "STK-4.3" },
+		{ "signals.lib/version": "0.3" }
 	],
 	"ui": [ 
 		{
@@ -37,6 +40,7 @@
 				{
 					"type": "vslider",
 					"label": "attack",
+					"shortname": "attack",
 					"address": "/dyn.gate/attack",
 					"meta": [
 						{ "unit": "ms" }
@@ -49,6 +53,7 @@
 				{
 					"type": "vslider",
 					"label": "hold",
+					"shortname": "hold",
 					"address": "/dyn.gate/hold",
 					"meta": [
 						{ "unit": "ms" }
@@ -61,6 +66,7 @@
 				{
 					"type": "vslider",
 					"label": "release",
+					"shortname": "release",
 					"address": "/dyn.gate/release",
 					"meta": [
 						{ "unit": "ms" }
@@ -73,6 +79,7 @@
 				{
 					"type": "vslider",
 					"label": "threshold",
+					"shortname": "threshold",
 					"address": "/dyn.gate/threshold",
 					"meta": [
 						{ "unit": "db" }

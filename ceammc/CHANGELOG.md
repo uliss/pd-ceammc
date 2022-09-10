@@ -10,6 +10,11 @@
   - list.pass: leave only specified atoms in list
   - list.reject: reject specified atoms in list
   - list.map: list value mapping object added
+  - flt.a-weight: A-weight amplitude/decibel value calculator
+  - an.zero~: zero crossing count/rate/freq
+  - proto.whammy: Digitech Whammy pedal control
+  - flow.seqdelay: sequential message delay/router
+  - array.circular: array circular read/write
 - new properties:
   - @clip property added to system.cursor to clip cursor XY coords
   - @norm property added to ui.env to do envelope value normalization on input
@@ -17,6 +22,9 @@
   - @dev property added to flow.space: to set deviation
   - @channels property added to xdac~: live-channel remapping
   - @nonrep property added to random.atom to generate non equal adjacent elements
+  - @fade property added to live.capture~ to control loop crossfading (fix #171)
+  - @gain: make up gain applied to the signal after the compression takes place
+  - @x property added to \[xfade~\] and \[xfade2~\] for setting crossfade
 - new methods:
   - [polltime( method added to system.cursor to change global polltime
   - [reverse( method added to xdac~ to reverse output channels order
@@ -28,6 +36,12 @@
   - [choose( method added to get random element from \[data.set\], \[local.set\] and \[global.set\]
   - [choose( method added to get random element from \[data.dict\], \[local.dict\] and \[global.dict\]
   - [pause( method added to \[array.grainer~\]
+  - [slice( method added to \[array.grainer~\] - to slice source to specified number of equal grains
+  - [spread( method added to \[array.grainer~\] - to uniformly spread grain over specified duration
+  - [shuffle( method added to \[array.grainer~\] - to shuffle grains
+  - [defer( method added to \[array.grainer~\] - to execute messages on grain finish
+  - [reverse( method added to \[array.grainer~\] - to reverse grains positions
+  - [permutate( method added to \[array.grainer~\] - to permutate grains positions
 - misc:
   - conv.lin2exp: list support added
   - conv.lin2curve: list support added

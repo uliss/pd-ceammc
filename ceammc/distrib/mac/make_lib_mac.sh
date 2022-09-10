@@ -41,10 +41,27 @@ function skip_ext {
     fi
 }
 
+function dylib_external_fix() {
+    exec=$1
+    dir=$2
+
+    echo "\t- fixing @loader_path for $(basename $exec) ..."
+
+    $DYLIBBUNDLER \
+        --fix-file "${exec}" \
+        --bundle-deps \
+        --create-dir \
+        --dest-dir "${dir}" \
+        --install-path @loader_path/ \
+        --overwrite-files \
+        --ignore /usr/local/opt/llvm/lib > /dev/null
+}
+
 # main
 
 section "installing"
 $CMAKE --install ${BINDIR} --prefix ${INSTALL_DIR}
+cp ${BINDIR}/ceammc/ext/src/*.d_amd64 "${INSTALL_DIR}/lib/pd_ceammc/extra/ceammc"
 
 section "copy installed files"
 
@@ -65,7 +82,7 @@ find_ext ${CEAMMC_DIR} "*" | while read file
 do
     ext_name=$(basename $file)
     echo "+ Fix DLL: '$ext_name'"
-    ${DYLIBBUNDLER} -x ${CEAMMC_DIR}/$ext_name -b -d ${CEAMMC_DIR} -p @loader_path/ -of
+    dylib_external_fix "${CEAMMC_DIR}/$ext_name" "${CEAMMC_DIR}"
 done
 
 section "fix help files index"

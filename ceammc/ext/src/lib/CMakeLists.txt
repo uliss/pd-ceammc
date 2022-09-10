@@ -42,6 +42,7 @@ set(CEAMMC_LIB_SOURCES
     args/arg_is_float.cpp
     args/arg_is_int.cpp
     args/arg_is_symbol.cpp
+    args/argcheck2.cpp
     tcl/ceammc_texteditor.h
     tcl/ceammc_tcl.cpp
     ceammc_array.cpp
@@ -91,11 +92,13 @@ set(CEAMMC_LIB_SOURCES
     ceammc_property_callback.cpp
     ceammc_property_enum.cpp
     ceammc_property_info.cpp
+    ceammc_random.cpp
     ceammc_regexp.cpp
     ceammc_rtree.cpp
     ceammc_score.cpp
     ceammc_sound_external.cpp
     ceammc_string.cpp
+    ceammc_string_split.cpp
     ceammc_thread.cpp
     ceammc_timeline.cpp
     ceammc_transport.cpp
@@ -164,6 +167,9 @@ if(RAGEL_FOUND)
     RAGEL_TARGET(lemon_data_string_parser
         lex/lemon_data_string_parser.rl lex/lemon_data_string_parser.cpp
         COMPILE_FLAGS "-G2 -s")
+    RAGEL_TARGET(parser_argcheck
+        args/argcheck2.rl args/argcheck2.cpp
+        COMPILE_FLAGS "-G2 -s")
 
     add_custom_target(lemon_data_parser
         COMMAND $<TARGET_FILE:lemon> -s -q lemon_data_string.y
@@ -192,7 +198,7 @@ target_sources(ceammc_core
 
 # ragel files
 file(GLOB RAGEL_SOURCES lex/*.rl)
-add_custom_target(lex_ragel_sources SOURCES ${RAGEL_SOURCES})
+add_custom_target(lex_ragel_sources SOURCES ${RAGEL_SOURCES} args/argcheck2.rl)
 
 if(BISON_FOUND AND FLEX_FOUND)
     add_custom_target(ceammc_argcheck_gen

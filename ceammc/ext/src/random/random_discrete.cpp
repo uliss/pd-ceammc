@@ -13,7 +13,6 @@ static AtomList vector2list(const std::vector<t_float>& v)
 
 RandomDiscrete::RandomDiscrete(const PdArgs& a)
     : BaseObject(a)
-    , seed_(nullptr)
 {
     createOutlet();
     weights_.reserve(16);
@@ -25,9 +24,7 @@ RandomDiscrete::RandomDiscrete(const PdArgs& a)
         [this](const AtomListView& lv) -> bool { return set(lv); })
         ->setArgIndex(0);
 
-    seed_ = new SizeTProperty("@seed", 0);
-    seed_->setSuccessFn([this](Property* p) { gen_.setSeed(seed_->value()); });
-    addProperty(seed_);
+    addProperty(new random::SeedProperty(gen_));
 }
 
 void RandomDiscrete::onBang()

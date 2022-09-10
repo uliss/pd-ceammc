@@ -17,10 +17,22 @@
 GlobalDict::GlobalDict(const PdArgs& args)
     : GlobalDictBase(args)
 {
+    setSpecialSymbolEscape(EDITOR_ESC_MODE_DATA);
+}
+
+EditorTitleString GlobalDict::editorTitle() const
+{
+    return makeEditorTitleString("global Dict", id()->s_name);
 }
 
 void setup_global_dict()
 {
     DictIFaceFactory<GlobalDict> obj("global.dict");
     obj.addAlias("global.json");
+
+    obj.setXletsInfo({ "bang: output\n"
+                       "methods: add, clear, get_key, set_key, remove, set, read, write" },
+        { "data: dict" });
+
+    GlobalDict::registerMethods(obj);
 }

@@ -3,8 +3,11 @@ an.onset~		~		..
 an.pitchtrack~,ceammc/helmholtz~,helmholtz~		~		~..
 an.rms~		~		~
 an.tempo~		~		..
+an.zero~		~		.
 array.bpm		.		.
+array.circular		.		.
 array.circular~		~~~		~
+array.convolve		..		.
 array.copy		.		.
 array.do		..		..
 array.each		..		..
@@ -101,8 +104,8 @@ dict.reject		..		.
 dict.size		.		.
 dict.to_list,ceammc/dict->list,dict->list		.		.
 dict.values		.		.
-dyn.comp2~		~~		~~.
-dyn.comp~		~		~.
+dyn.comp2~		~~		~~
+dyn.comp~		~		~
 dyn.gate2~		~~		~~
 dyn.gate~		~		~
 dyn.limit2~		~~		~~
@@ -158,6 +161,7 @@ flow.reject_if,ceammc/reject_if,reject_if		..		..
 flow.ring,flow.>>		..		?
 flow.route		.		?
 flow.select,flow.sel		.		?
+flow.seqdelay,flow.seqdel		..		?
 flow.space		..		..
 flow.speedlim,ceammc/speedlim,speedlim		..		.
 flow.split,ceammc/split,split		..		...
@@ -165,6 +169,7 @@ flow.stack		..		.
 flow.sync,flow.'		?		?
 flow.sync_pack,flow.pack'		?		.
 flow.tee~,ceammc/tee~,tee~,ceammc/~->,~->		~		~.
+flt.a-weight		.		.
 flt.biquad~		~~~~~~		~
 flt.bpf12~		~		~
 flt.bpf24~		~		~
@@ -562,11 +567,13 @@ prop.random		?		..
 prop.set,p.set		?		.
 prop.split,prop->,@->		.		?
 proto.firmata		.		.
+proto.inscore		.		.
 proto.midi		.		.
 proto.midi.cc		.		.
 proto.midi.sysex		.		.
 proto.mpv		.		.
 proto.sp.alpaca		.		.
+proto.whammy		.		.
 proto.xtouch_ext		.		..
 radio,ceammc/radio		.		?
 random.atom,random.a		..		.
@@ -580,6 +587,7 @@ random.pw_lin		.		.
 replace,ceammc/replace		...		.
 risset.gliss		.		..
 route.float,route.f		.		..
+route.random,route.r		.		?
 rtree.to_list,ceammc/rtree->list,rtree->list		.		.
 samp.time~,samp.t~		~.		.
 seq.arp		.		..

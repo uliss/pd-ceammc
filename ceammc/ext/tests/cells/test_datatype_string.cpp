@@ -83,7 +83,7 @@ TEST_CASE("DataTypeString", "[core]")
     SECTION("split")
     {
         DSTR t("");
-        std::vector<std::string> tokens;
+        string::StringSplitResult tokens;
         t.split(tokens);
         REQUIRE(tokens.empty());
         t.split(tokens, ":");

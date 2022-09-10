@@ -65,6 +65,7 @@ public:
     bool notify(NotifyEventType code) final;
 
     void m_stop(t_symbol* s, const AtomListView& lv);
+    void m_clear(t_symbol* s, const AtomListView& lv);
 
 private:
     // called from worker thread

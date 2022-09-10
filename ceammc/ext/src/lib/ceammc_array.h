@@ -176,6 +176,9 @@ public:
     const t_float& at(size_t n) const;
     t_float& at(size_t n);
 
+    t_float ringPushBack(t_float f);
+    t_float ringPushFront(t_float f);
+
     /**
      * @brief get reference to sample with at position
      * @param n - sample position

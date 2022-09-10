@@ -32,24 +32,18 @@ mode_name =
     ('-5-4'|'-5th-4th') % { mode_ = WHAMMY_MODE_DOWN_5TH_DOWN_4TH; } |
     ('-8+8'|'-oct+oct') % { mode_ = WHAMMY_MODE_DOWN_OCT_UP_OCT; } ;
 
-main := mode_name;
+main := mode_name 0 @{ fbreak; };
 write data;
 
 }%%
 
 bool nameToWhammyMode(const char* str, WhammyMode& mode) {
-    const auto len = strlen(str);
-    if (len == 0)
-        return false;
-
     int cs = 0;
     const char* p = str;
-    const char* pe = p + len;
-    const char* eof = pe;
     WhammyMode mode_ = WHAMMY_MODE_UP_OCT;
 
     %% write init;
-    %% write exec;
+    %% write exec noend;
 
     const auto ok = cs >= %%{ write first_final; }%%;
     if (ok)

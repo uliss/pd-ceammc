@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="an.zero~">
+        <title>an.zero~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>zero crossing count/rate/freq calculator</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>an</category>
+            <keywords>zero crossing rate count freq</keywords>
+            <since>0.9.5</since>
+            <also>
+                <see>an.pitchtrack~</see>
+            </also>
+        </meta>
+        <properties>
+            <property name="@bs" type="int" minvalue="1" default="1024" maxvalue="65536"
+            units="sample">buffer size</property>
+            <property name="@mode" type="symbol" enum="count rate freq" default="count">calculation
+            mode: if 'count' - output number of zero crossing occured in a period of current block
+            size, if 'rate' - output zero crossing rate (zero crossing number / block size), if
+            'freq' - output zero crossing frequency in herz.</property>
+            <property name="@clock" type="list" default="0">alias for @mode count @bs 1. Output
+            impulse at each zero crossing.</property>
+        </properties>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output zero crossing count/freq/rate</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F digit=8]     [ui.dsp~]
+|
+|
+[osc~     ]
+|    |    |
+|    |    [an.zero~ #c]
+|    |    |
+|    |    [ui.n~]
+|    |
+|    [an.zero~ #b]
+|    |
+|    [ui.n~]
+|
+[an.zero~ #a]
+|
+[ui.n~]
+
+[F digit=8]
+|
+[osc~]
+|
+[an.zero~ @clock]
+|
+[ui.hgain~]
+|\
+[dac~]
+#a @mode count
+#b @mode rate
+#c @mode freq
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

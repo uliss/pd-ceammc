@@ -2,13 +2,12 @@
 #define RANDOM_DISCRETE_H
 
 #include "ceammc_object.h"
-#include "rnd_gen.h"
+#include "ceammc_random.h"
 using namespace ceammc;
 
 class RandomDiscrete : public BaseObject {
     std::vector<t_float> weights_;
-    RandomGen gen_;
-    SizeTProperty* seed_;
+    random::RandomGen gen_;
 
 public:
     RandomDiscrete(const PdArgs& a);

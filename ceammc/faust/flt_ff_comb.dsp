@@ -1,3 +1,5 @@
+declare name "flt.ff_comb";
+
 fi = library("filters.lib");
 ma = library("maths.lib");
 ba = library("basics.lib");

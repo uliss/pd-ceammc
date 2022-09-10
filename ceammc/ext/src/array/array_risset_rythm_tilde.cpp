@@ -35,7 +35,7 @@ void ArrayRissetRythmTilde::setupDSP(t_signal** sp)
 {
     ArraySoundBase::setupDSP(sp);
 
-    if (checkArray()) {
+    if (array_.isValid()) {
         T_ = array_.size();
         te_ = 0;
         tl0_ = 0;

@@ -19,6 +19,7 @@ macro(ceammc_array_external name)
 endmacro()
 
 ceammc_array_external(bpm)
+ceammc_array_external(circular)
 ceammc_array_external(circular_tilde)
 ceammc_array_external(convolve)
 ceammc_array_external(copy)

@@ -14,7 +14,7 @@
 #include "random_atom.h"
 #include "ceammc_factory.h"
 #include "ceammc_fn_list.h"
-#include "fmt/format.h"
+#include "fmt/core.h"
 
 #include <cassert>
 #include <limits>
@@ -22,7 +22,6 @@
 RandomAtom::RandomAtom(const PdArgs& args)
     : BaseObject(args)
     , atoms_(nullptr)
-    , seed_(nullptr)
     , last_idx_(std::numeric_limits<uint32_t>::max())
     , is_uniform_(true)
 {
@@ -77,9 +76,7 @@ RandomAtom::RandomAtom(const PdArgs& args)
             return true;
         });
 
-    seed_ = new SizeTProperty("@seed", 0);
-    seed_->setSuccessFn([this](Property* p) { gen_.setSeed(seed_->value()); });
-    addProperty(seed_);
+    addProperty(new random::SeedProperty(gen_));
 
     nonrep_ = new BoolProperty("@nonrep", false);
     addProperty(nonrep_);

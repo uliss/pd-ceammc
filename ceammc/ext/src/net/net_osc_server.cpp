@@ -522,6 +522,10 @@ namespace net {
         url_->setArgIndex(1);
         addProperty(url_);
 
+        createCbSymbolProperty("@port", [this]() { return url_->port(); });
+        createCbSymbolProperty("@host", [this]() { return url_->host(); });
+        createCbSymbolProperty("@proto", [this]() { return url_->proto(); });
+
         dump_ = new BoolProperty("@dump", false);
         dump_->setSuccessFn([this](Property*) {
             auto osc = OscServerList::instance().findByName(name_->value());

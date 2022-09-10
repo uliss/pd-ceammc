@@ -1,20 +1,21 @@
 {
 	"name": "fx.wahwah",
 	"filename": "fx_wahwah.dsp",
-	"version": "2.37.3",
-	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0",
+	"version": "2.44.1",
+	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn fx_wahwah -scn fx_wahwah_dsp -es 1 -mcd 16 -single -ftz 0",
 	"library_list": ["/usr/local/share/faust/stdfaust.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc.lib","/usr/local/share/faust/vaeffects.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/signals.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib","/usr/local/share/faust/filters.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc_ui.lib"],
 	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
 	"inputs": 1,
 	"outputs": 1,
 	"meta": [ 
+		{ "basics.lib/bypass1:author": "Julius Smith" },
 		{ "basics.lib/name": "Faust Basic Element Library" },
-		{ "basics.lib/version": "0.2" },
+		{ "basics.lib/version": "0.8" },
 		{ "ceammc.lib/name": "Ceammc PureData misc utils" },
 		{ "ceammc.lib/version": "0.1.2" },
 		{ "ceammc_ui.lib/name": "CEAMMC faust default UI elements" },
 		{ "ceammc_ui.lib/version": "0.1.2" },
-		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0" },
+		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn fx_wahwah -scn fx_wahwah_dsp -es 1 -mcd 16 -single -ftz 0" },
 		{ "filename": "fx_wahwah.dsp" },
 		{ "filters.lib/fir:author": "Julius O. Smith III" },
 		{ "filters.lib/fir:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
@@ -22,7 +23,7 @@
 		{ "filters.lib/iir:author": "Julius O. Smith III" },
 		{ "filters.lib/iir:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
 		{ "filters.lib/iir:license": "MIT-style STK-4.3 license" },
-		{ "filters.lib/lowpass0_highpass1": "MIT-style STK-4.3 license" },
+		{ "filters.lib/lowpass0_highpass1": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
 		{ "filters.lib/name": "Faust Filters Library" },
 		{ "filters.lib/tf2:author": "Julius O. Smith III" },
 		{ "filters.lib/tf2:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
@@ -37,7 +38,7 @@
 		{ "platform.lib/name": "Generic Platform Library" },
 		{ "platform.lib/version": "0.2" },
 		{ "signals.lib/name": "Faust Signal Routing Library" },
-		{ "signals.lib/version": "0.1" },
+		{ "signals.lib/version": "0.3" },
 		{ "vaeffects.lib/name": "Faust Virtual Analog Filter Effect Library" },
 		{ "vaeffects.lib/version": "0.2" }
 	],
@@ -49,6 +50,7 @@
 				{
 					"type": "hslider",
 					"label": "angle",
+					"shortname": "angle",
 					"address": "/fx.wahwah/angle",
 					"init": 0.6,
 					"min": 0,
@@ -58,11 +60,13 @@
 				{
 					"type": "checkbox",
 					"label": "bypass",
+					"shortname": "bypass",
 					"address": "/fx.wahwah/bypass"
 				},
 				{
 					"type": "hslider",
 					"label": "drywet",
+					"shortname": "drywet",
 					"address": "/fx.wahwah/drywet",
 					"meta": [
 						{ "style": "knob" }
@@ -75,6 +79,7 @@
 				{
 					"type": "hslider",
 					"label": "speed",
+					"shortname": "speed",
 					"address": "/fx.wahwah/speed",
 					"meta": [
 						{ "unit": "bpm" }

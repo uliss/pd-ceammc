@@ -1,3 +1,5 @@
+declare name "env.adsr";
+
 import("stdfaust.lib");
 import("ceammc.lib");
 ui = library("ceammc_ui.lib");

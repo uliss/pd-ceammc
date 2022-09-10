@@ -30,9 +30,7 @@ StringJoin::StringJoin(const PdArgs& a)
         "@sep",
         [this]() -> AtomList { return Atom(gensym(sep_.str().c_str())); },
         [this](const AtomListView& lv) -> bool {
-            LIB_ERR << lv;
             sep_.setFromQuotedList(lv);
-            LIB_ERR << " sep: '" << sep_.str() << "'";
             return true;
         })
         ->setArgIndex(0);
@@ -92,7 +90,11 @@ void StringJoin::do_join(const AtomListView& lv, string::MediumString& res)
         if (&a != &lv.front())
             res.insert(res.end(), sep_.str().begin(), sep_.str().end());
 
-        string::atom_to_string(a, res);
+        if (a.isA<DataTypeString>()) {
+            auto& str = a.asD<DataTypeString>()->str();
+            res.insert(res.end(), str.begin(), str.end());
+        } else
+            string::atom_to_string(a, res);
     }
 }
 

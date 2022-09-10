@@ -16,13 +16,22 @@
     <entry name="an.tempo~" descr="tempo detector" ref_view="object">
       <xi:include href="an.tempo~.pddoc" parse="xml"/>
     </entry>
+    <entry name="an.zero~" descr="zero crossing count/rate/freq calculator" ref_view="object">
+      <xi:include href="an.zero~.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="array">
     <entry name="array.bpm" descr="BPM calculator" ref_view="object">
       <xi:include href="array.bpm.pddoc" parse="xml"/>
     </entry>
+    <entry name="array.circular" descr="array read/write as circular buffer" ref_view="object">
+      <xi:include href="array.circular.pddoc" parse="xml"/>
+    </entry>
     <entry name="array.circular~" descr="circular buffer for arrays" ref_view="object">
       <xi:include href="array.circular~.pddoc" parse="xml"/>
+    </entry>
+    <entry name="array.convolve" descr="array FFT convolution" ref_view="object">
+      <xi:include href="array.convolve.pddoc" parse="xml"/>
     </entry>
     <entry name="array.copy" descr="copy samples from one array to another" ref_view="object">
       <xi:include href="array.copy.pddoc" parse="xml"/>
@@ -584,6 +593,9 @@
     <entry name="flow.select" descr="vanilla flow on steroids" ref_view="object">
       <xi:include href="flow.select.pddoc" parse="xml"/>
     </entry>
+    <entry name="flow.seqdelay" descr="sequential delay/router for input flow" ref_view="object">
+      <xi:include href="flow.seqdelay.pddoc" parse="xml"/>
+    </entry>
     <entry name="flow.space" descr="space in time messages received at the same logical time" ref_view="object">
       <xi:include href="flow.space.pddoc" parse="xml"/>
     </entry>
@@ -611,8 +623,14 @@
     <entry name="route.float" descr="separate float messages from other types" ref_view="object">
       <xi:include href="route.float.pddoc" parse="xml"/>
     </entry>
+    <entry name="route.random" descr="routes input flow to random outlet" ref_view="object">
+      <xi:include href="route.random.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="flt">
+    <entry name="flt.a-weight" descr="convert frequency to A-weight value" ref_view="object">
+      <xi:include href="flt.a-weight.pddoc" parse="xml"/>
+    </entry>
     <entry name="flt.biquad~" descr="second order IIR filter." ref_view="object">
       <xi:include href="flt.biquad~.pddoc" parse="xml"/>
     </entry>
@@ -1767,6 +1785,9 @@
     <entry name="proto.firmata" descr="Firmata Arduino protocol support" ref_view="object">
       <xi:include href="proto.firmata.pddoc" parse="xml"/>
     </entry>
+    <entry name="proto.inscore" descr="INScore message creator" ref_view="object">
+      <xi:include href="proto.inscore.pddoc" parse="xml"/>
+    </entry>
     <entry name="proto.midi" descr="raw midi encoder/parser" ref_view="object">
       <xi:include href="proto.midi.pddoc" parse="xml"/>
     </entry>
@@ -1781,6 +1802,9 @@
     </entry>
     <entry name="proto.sp.alpaca" descr="protocol parser for Arduino-based CEAMMC footswitch" ref_view="object">
       <xi:include href="proto.sp.alpaca.pddoc" parse="xml"/>
+    </entry>
+    <entry name="proto.whammy" descr="Control for Digitech Whammy pedal" ref_view="object">
+      <xi:include href="proto.whammy.pddoc" parse="xml"/>
     </entry>
     <entry name="proto.xtouch_ext" descr="Behringer XTouch Extender XMidi protocol" ref_view="object">
       <xi:include href="proto.xtouch_ext.pddoc" parse="xml"/>
@@ -1941,7 +1965,7 @@
     <entry name="string.format" descr="formats string like printf." ref_view="object">
       <xi:include href="string.format.pddoc" parse="xml"/>
     </entry>
-    <entry name="string.join" descr="joins (concatenates) strings with separator" ref_view="object">
+    <entry name="string.join" descr="joins (concatenates) list to string with separator" ref_view="object">
       <xi:include href="string.join.pddoc" parse="xml"/>
     </entry>
     <entry name="string.length" descr="number of characters in string (unicode supported)" ref_view="object">

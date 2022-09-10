@@ -38,6 +38,7 @@ any->props
 apf->biquad
 approx
 array.bpm
+array.circular
 array.circular~
 array.convolve
 array.copy
@@ -547,6 +548,7 @@ is_pointer
 is_symbol
 l->l
 l->l~
+lang.lua
 lfo.+pulse~
 lfo.+saw~
 lfo.+square~
@@ -908,6 +910,7 @@ path.lsdir
 path.monitor
 path.norm
 path.normalize
+path.pattern
 path.search
 path.split
 phase->rad

@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Copyright 2020 Serge Poltavsky. All rights reserved.
+ * Copyright 2022 Serge Poltavski. All rights reserved.
  *
  * This file may be distributed under the terms of GNU Public License version
  * 3 (GPL v3) as defined by the Free Software Foundation (FSF). A copy of the
@@ -11,25 +11,31 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "rnd_gen.h"
+#include "array_circular.h"
+#include "ceammc_factory.h"
 
-#include <ctime>
-
-namespace ceammc {
-
-static std::shared_ptr<RandomGenT> default_gen(new RandomGenT(std::time(0)));
-
-RandomGen::RandomGen()
-    : gen_(default_gen)
+ArrayCircular::ArrayCircular(const PdArgs& args)
+    : ArrayMod(args)
 {
+    createOutlet();
 }
 
-void RandomGen::setSeed(uint_fast32_t v)
+void ArrayCircular::onFloat(t_float f)
 {
-    if (gen_ == default_gen)
-        gen_.reset(new RandomGenT(v));
-    else
-        gen_->seed(v);
+    if (!checkArray(true))
+        return;
+
+    try {
+        floatTo(0, array_.ringPushBack(f));
+
+        if (shouldRedraw())
+            array_.redraw();
+    } catch (std::exception& e) {
+        OBJ_ERR << "can't push value: " << e.what();
+    }
 }
 
+void setup_array_circular()
+{
+    ObjectFactory<ArrayCircular> obj("array.circular");
 }

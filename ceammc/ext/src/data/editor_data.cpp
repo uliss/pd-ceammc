@@ -9,7 +9,7 @@
 namespace ceammc {
 
 namespace {
-    void editorAppend(EditorLineList& res, const DataTypeMList& lst, int indentLevel);
+    void editorAppend(EditorLineList& res, const DataTypeMList& ml, int indentLevel);
     void editorAppend(EditorLineList& res, const DataTypeDict& dict, int indentLevel);
 
     bool isSimpleList(const AtomListView& lv)
@@ -38,6 +38,28 @@ namespace {
         res.push_back(str);
     }
 
+    template <typename L>
+    void appendMultiLine(EditorLineList& res, const L& lst, int indentLevel)
+    {
+        // each value on separate line
+        for (auto& a : lst) {
+            if (a.template isA<DataTypeMList>()) {
+                editorAppend(res, *a.template asD<DataTypeMList>(), indentLevel + 1);
+            } else if (a.template isA<DataTypeDict>()) {
+                editorAppend(res, *a.template asD<DataTypeDict>(), indentLevel + 1);
+            } else {
+                auto str = EditorStringPool::pool().allocate();
+                appendIndent(str, indentLevel + 1);
+
+                string::SmallString buf;
+                if (string::parsed_atom_to_string(a, buf))
+                    str->append(buf.data(), buf.size());
+
+                res.push_back(str);
+            }
+        }
+    }
+
     void editorAppend(EditorLineList& res, const DataTypeMList& ml, int indentLevel)
     {
         const bool simple_content = isSimpleList(ml.data().view());
@@ -45,7 +67,6 @@ namespace {
 
         if (single_line) {
             auto str = EditorStringPool::pool().allocate();
-
             appendIndent(str, indentLevel);
 
             if (ml.empty())
@@ -55,28 +76,8 @@ namespace {
 
             res.push_back(str);
         } else {
-
             appendIndent(res, '(', indentLevel);
-
-            // each value on separate line
-            for (const Atom& a : ml) {
-                auto str = EditorStringPool::pool().allocate();
-                appendIndent(str, indentLevel + 1);
-
-                if (a.isFloat()) {
-                    str->append(a.asT<t_float>());
-                    res.push_back(str);
-                } else if (a.isSymbol()) {
-                    str->appendQuoted(a);
-                    res.push_back(str);
-                } else if (a.isDataType(DataTypeMList::dataType))
-                    editorAppend(res, *a.asDataT<DataTypeMList>(), indentLevel + 1);
-                else if (a.isDataType(DataTypeDict::dataType))
-                    editorAppend(res, *a.asDataT<DataTypeDict>(), indentLevel + 1);
-                else if (a.isData())
-                    editorAppend(res, a.asData(), indentLevel + 1);
-            }
-
+            appendMultiLine(res, ml, indentLevel);
             appendIndent(res, ')', indentLevel);
         }
     }
@@ -109,7 +110,7 @@ namespace {
 
                 auto& l = kv.second;
 
-                // simple list is one liner
+                // simple list is one-liner
                 if (isSimpleList(l.view())) {
                     for (auto& a : l) {
                         str->appendQuoted(a);
@@ -122,7 +123,7 @@ namespace {
                     res.push_back(str);
                 } else {
                     res.push_back(str);
-                    editorAppend(res, l.view(), indentLevel + 1);
+                    appendMultiLine(res, l, indentLevel + 1);
                 }
             }
 
@@ -174,8 +175,10 @@ void editorAppend(EditorLineList& res, const AtomListView& lv, int indentLevel)
 
         if (a.isData())
             editorAppend(res, a.asData(), indentLevel + 1);
-        else
+        else {
             str->appendQuoted(a);
+            res.push_back(str);
+        }
     }
 }
 

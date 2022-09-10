@@ -131,6 +131,15 @@ class ArraySoundBase : public ArrayReadIFace<SoundExternal> {
 public:
     ArraySoundBase(const PdArgs& args);
     bool setArray(t_symbol* aname) override;
+
+    void setupDSP(t_signal** sp) override
+    {
+        if (!checkArray(true))
+            return dsp_add_zero(sp[0]->s_vec, sp[0]->s_n);
+
+        array_.useInDSP();
+        SoundExternal::setupDSP(sp);
+    }
 };
 
 class ArrayMod : public ArrayBase {
@@ -157,9 +166,8 @@ template <class Base>
 bool ArrayReadIFace<Base>::checkArray(bool log)
 {
     if (array_name_ == &s_ || !array_.open(array_name_)) {
-        if (log && array_name_ != &s_ && !Base::isPatchLoading()) {
-            OBJ_ERR << "invalid array: " << array_.name();
-        }
+        if (log && array_name_ != &s_ && !Base::isPatchLoading())
+            OBJ_ERR << "invalid array: '" << array_name_->s_name << '\'';
 
         return false;
     }
@@ -173,7 +181,7 @@ bool ArrayReadIFace<Base>::setArray(t_symbol* s)
     array_name_ = s;
     if (!array_.open(array_name_)) {
         if (!Base::isPatchLoading())
-            OBJ_ERR << "array not found: " << s->s_name;
+            OBJ_ERR << "array not found: '" << s->s_name << '\'';
 
         return false;
     }

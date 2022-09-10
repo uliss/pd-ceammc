@@ -1,6 +1,6 @@
 {ceammc
     {an {
-        an.onset an.onset~ an.pitchtrack~ an.rms~ an.tempo~
+        an.onset an.onset~ an.pitchtrack~ an.rms~ an.tempo~ an.zero~
     }}
     {array {
         array.bpm array.circular~ array.copy array.do array.each array.fill
@@ -56,10 +56,10 @@
         flow.pack flow.pass flow.pass_if flow.pipe flow.queue flow.record
         flow.reject flow.reject_if flow.ring flow.route flow.select flow.space
         flow.speedlim flow.split flow.stack flow.sync flow.sync_pack flow.tee~
-        replace route.float
+        replace route.float route.random
     }}
     {flt {
-        flt.biquad~ flt.bpf12~ flt.bpf24~ flt.c_apf flt.c_bpf~
+        flt.a-weight flt.biquad~ flt.bpf12~ flt.bpf24~ flt.c_apf flt.c_bpf~
         flt.c_highshelf~ flt.c_hpf flt.c_hpf~ flt.c_lowshelf~ flt.c_lpf
         flt.c_lpf~ flt.c_notch flt.c_notch~ flt.c_peak~ flt.c_pole
         flt.dcblock2~ flt.dcblock~ flt.eq10~ flt.eq_peak_cq~ flt.eq_peak~
@@ -177,8 +177,8 @@
         prop.set prop.split
     }}
     {proto {
-        proto.firmata proto.midi proto.midi.cc proto.midi.sysex proto.mpv
-        proto.sp.alpaca proto.xtouch_ext
+        proto.firmata proto.inscore proto.midi proto.midi.cc proto.midi.sysex
+        proto.mpv proto.sp.alpaca proto.whammy proto.xtouch_ext
     }}
     {random {
         random.atom random.discrete random.float random.gauss random.int

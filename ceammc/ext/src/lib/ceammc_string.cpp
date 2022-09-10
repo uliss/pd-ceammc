@@ -42,6 +42,11 @@ namespace string {
         return utf8len(str);
     }
 
+    const char* utf8_next(const char* text, size_t len)
+    {
+        return utf8seek(text, len, text, 1, SEEK_CUR);
+    }
+
     std::string utf8_to_upper(const char* str)
     {
         auto input_size = strlen(str);

@@ -16,8 +16,6 @@
 #include "ceammc_factory.h"
 
 #include <algorithm>
-#include <ctime>
-#include <random>
 
 namespace {
 using State = ProtoWhammy::State;
@@ -48,7 +46,6 @@ constexpr const State ST_DOWN_OCT_UP_OCT { -8, +8 };
 
 constexpr const auto STATE_DEFAULT = ST_UP_2OCT;
 
-std::mt19937 random_gen(std::time(0));
 }
 
 // NOTE: keep the order in stync with parser_whammy_common.h enum constants!
@@ -100,6 +97,14 @@ ProtoWhammy::ProtoWhammy(const PdArgs& args)
     active_->setArgIndexNext(mode_);
     active_->setSuccessFn([this](Property*) { output(); });
     addProperty(active_);
+
+    addProperty(new random::SeedProperty(gen_));
+}
+
+void ProtoWhammy::onFloat(t_float f)
+{
+    active_->setValue(f);
+    output();
 }
 
 void ProtoWhammy::m_reset(t_symbol*, const AtomListView& lv)
@@ -121,22 +126,22 @@ void ProtoWhammy::m_random(t_symbol* s, const AtomListView& lv)
         const auto N = midi_classic_map_.size();
 
         std::uniform_int_distribution<size_t> dist(0, N);
-        idx_ = dist(random_gen);
+        idx_ = dist(gen_.get());
         active_->setValue(lv.boolAt(0, true));
     } else if (lv.isSymbol()) {
         auto sym_hash = crc32_hash(lv.asT<t_symbol*>());
         switch (sym_hash) {
         case "whammy"_hash: {
-            std::uniform_int_distribution<size_t> dist(proto::WHAMMY_MODE_MIN_TRANSPOSE, proto::WHAMMY_MODE_MAX_TRANSPOSE + 1);
-            idx_ = dist(random_gen);
+            std::uniform_int_distribution<size_t> dist(proto::WHAMMY_MODE_MIN_TRANSPOSE, proto::WHAMMY_MODE_MAX_TRANSPOSE);
+            idx_ = dist(gen_.get());
         } break;
         case "harm"_hash: {
-            std::uniform_int_distribution<size_t> dist(proto::WHAMMY_MODE_MIN_HARMONIZER, proto::WHAMMY_MODE_MAX_HARMONIZER + 1);
-            idx_ = dist(random_gen);
+            std::uniform_int_distribution<size_t> dist(proto::WHAMMY_MODE_MIN_HARMONIZER, proto::WHAMMY_MODE_MAX_HARMONIZER);
+            idx_ = dist(gen_.get());
         } break;
         case "detune"_hash: {
-            std::uniform_int_distribution<size_t> dist(proto::WHAMMY_MODE_MIN_DETUNE, proto::WHAMMY_MODE_MAX_DETUNE + 1);
-            idx_ = dist(random_gen);
+            std::uniform_int_distribution<size_t> dist(proto::WHAMMY_MODE_MIN_DETUNE, proto::WHAMMY_MODE_MAX_DETUNE);
+            idx_ = dist(gen_.get());
         } break;
         default:
             METHOD_ERR(s) << "unknown random method: " << s << ", expected 'whammy', 'harm' or 'detune'";
@@ -156,7 +161,7 @@ void ProtoWhammy::m_set(t_symbol* s, const AtomListView& lv)
 {
     const auto N = midi_classic_map_.size();
 
-    if (lv.size() == 2 && lv[0].isInteger() && lv[1].isBool()) {
+    if (lv.size() >= 1 && lv[0].isInteger()) {
         const auto i = lv.intAt(0, 0);
         if (i < 0 || i >= N) {
             METHOD_ERR(s) << "invalid index: " << i;
@@ -164,8 +169,9 @@ void ProtoWhammy::m_set(t_symbol* s, const AtomListView& lv)
         }
 
         idx_ = i;
-        active_->setValue(lv[1].asBool());
-    } else if (lv.size() == 2 && lv[0].isSymbol() && lv[1].isBool()) {
+        if (lv.size() == 2 && lv[1].isBool())
+            active_->setValue(lv[1].asBool());
+    } else if (lv.size() >= 1 && lv[0].isSymbol()) {
         auto sym = lv.symbolAt(0, &s_);
         proto::WhammyMode mode;
         if (!proto::nameToWhammyMode(sym->s_name, mode)) {
@@ -179,8 +185,10 @@ void ProtoWhammy::m_set(t_symbol* s, const AtomListView& lv)
         }
 
         idx_ = mode;
-        active_->setValue(lv[1].asBool());
-    } else if (lv.size() == 3 && lv[0].isInteger() && lv[1].isInteger() && lv[2].isBool()) {
+        if (lv.size() == 2 && lv[1].isBool())
+            active_->setValue(lv[1].asBool());
+
+    } else if (lv.size() >= 2 && lv[0].isInteger() && lv[1].isInteger()) {
         const auto up = lv[0].asInt();
         const auto down = lv[1].asInt();
 
@@ -199,12 +207,14 @@ void ProtoWhammy::m_set(t_symbol* s, const AtomListView& lv)
         }
 
         idx_ = idx;
-        active_->setValue(lv[2].asBool());
+        if (lv.size() == 3 && lv[2].isBool())
+            active_->setValue(lv[2].asBool());
+
     } else {
         METHOD_ERR(s) << "usage: \n"
-                         "\t IDX STATE\n"
-                         "\t MODE STATE\n"
-                         "\t UP DOWN STATE";
+                         "\t IDX STATE?\n"
+                         "\t MODE STATE?\n"
+                         "\t UP DOWN STATE?";
         return;
     }
 
@@ -228,7 +238,7 @@ void ProtoWhammy::m_next(t_symbol* s, const AtomListView& lv)
         }
     } else if (lv == gensym("random")) {
         std::uniform_int_distribution<size_t> dist(1, N);
-        offset = dist(random_gen);
+        offset = dist(gen_.get());
     } else {
         METHOD_ERR(s) << "usage: INT or random";
         return;
@@ -257,7 +267,7 @@ void ProtoWhammy::m_prev(t_symbol* s, const AtomListView& lv)
         }
     } else if (lv == gensym("random")) {
         std::uniform_int_distribution<size_t> dist(1, N);
-        offset = dist(random_gen);
+        offset = dist(gen_.get());
     } else {
         METHOD_ERR(s) << "usage: INT or random";
         return;
@@ -270,8 +280,10 @@ void ProtoWhammy::m_prev(t_symbol* s, const AtomListView& lv)
 
 void ProtoWhammy::output()
 {
-    if (idx_ >= midi_classic_map_.size())
+    if (idx_ >= midi_classic_map_.size()) {
+        LIB_ERR << "invalid index: " << idx_;
         return;
+    }
 
     int chan = chan_->value();
     int val = active_->value() ? midi_classic_map_[idx_].active : midi_classic_map_[idx_].bypass;

@@ -13,13 +13,14 @@
  *****************************************************************************/
 #include "xfade_tilde.h"
 #include "ceammc_convert.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "ceammc_property_callback.h"
 
-#include <algorithm>
+CEAMMC_DEFINE_SYM_HASH(lin);
+CEAMMC_DEFINE_SYM_HASH(pow)
 
-static t_symbol* SYM_POW;
-static t_symbol* SYM_LIN;
+#include <algorithm>
 
 constexpr t_float DEFAULT_SMOOTH_MS = 20;
 constexpr size_t DEF_NCHAN = 2;
@@ -38,6 +39,7 @@ XFadeTilde::XFadeTilde(const PdArgs& args)
     : SoundExternal(args)
     , smooth_ms_(DEFAULT_SMOOTH_MS)
     , prop_type_(nullptr)
+    , value_(nullptr)
 {
     const size_t N = positionalConstant<DEF_NCHAN, MIN_NCHAN, MAX_NCHAN>(0);
     for (size_t i = 1; i < N * inMultiple(args); i++)
@@ -49,11 +51,11 @@ XFadeTilde::XFadeTilde(const PdArgs& args)
     if (args.flags & XFADE_STEREO)
         createSignalOutlet();
 
-    prop_type_ = new SymbolEnumProperty("@type", { SYM_POW, SYM_LIN });
+    prop_type_ = new SymbolEnumProperty("@type", { sym_pow(), sym_lin() });
     addProperty(prop_type_);
 
-    addProperty(new SymbolEnumAlias("@pow", prop_type_, SYM_POW));
-    addProperty(new SymbolEnumAlias("@lin", prop_type_, SYM_LIN));
+    addProperty(new SymbolEnumAlias("@pow", prop_type_, sym_pow()));
+    addProperty(new SymbolEnumAlias("@lin", prop_type_, sym_lin()));
 
     {
         Property* p = createCbFloatProperty(
@@ -65,7 +67,17 @@ XFadeTilde::XFadeTilde(const PdArgs& args)
     }
 
     gain_.assign(N, t_smooth(0));
-    gain_[0].setTargetValue(1);
+
+    value_ = new FloatProperty("@x", 0);
+    value_->setSuccessFn([this](Property* p) { setXFade(value_->value()); });
+    value_->setArgIndex(1);
+    value_->checkClosedRange(0, N - 1);
+    addProperty(value_);
+}
+
+void XFadeTilde::initDone()
+{
+    setXFade(value_->value());
 }
 
 void XFadeTilde::setupDSP(t_signal** in)
@@ -74,8 +86,8 @@ void XFadeTilde::setupDSP(t_signal** in)
 
     const double SR = samplerate();
 
-    for (size_t i = 0; i < gain_.size(); i++)
-        gain_[i].setDurationMs(smooth_ms_, SR);
+    for (auto& g : gain_)
+        g.setDurationMs(smooth_ms_, SR);
 }
 
 void XFadeTilde::processBlock(const t_sample** in, t_sample** out)
@@ -94,45 +106,9 @@ void XFadeTilde::processBlock(const t_sample** in, t_sample** out)
     }
 }
 
-void XFadeTilde::onInlet(size_t n, const AtomListView& lst)
+void XFadeTilde::onInlet(size_t n, const AtomListView& lv)
 {
-    typedef std::function<t_float(t_float, t_float)> XFadeCurveFunction;
-    typedef std::pair<t_symbol*, XFadeCurveFunction> XFadeCurvePair;
-
-    static XFadeCurvePair xfade_fns[] = {
-        { SYM_LIN, [](t_float a, t_float b) { return a - b; } },
-        { SYM_POW, [](t_float a, t_float b) { return (a - b) * (a - b); } }
-    };
-
-    if (!checkArgs(lst, ARG_FLOAT)) {
-        OBJ_ERR << "float expected: " << lst;
-        return;
-    }
-
-    t_float v = lst.floatAt(0, 0);
-
-    auto type = prop_type_->value();
-    auto fn_it = std::find_if(std::begin(xfade_fns), std::end(xfade_fns),
-        [type](const XFadeCurvePair& p) { return p.first == type; });
-
-    if (fn_it == std::end(xfade_fns)) {
-        OBJ_ERR << "unknown xfade type: " << type;
-        return;
-    }
-
-    const size_t N = gain_.size();
-    for (size_t i = 0; i < N; i++) {
-        if (v >= i && v < (i + 1) && (i + 1) < N) {
-            t_float k = fn_it->second(v, i);
-            gain_[i].setTargetValue(1 - k);
-            gain_[i + 1].setTargetValue(k);
-            i++;
-        } else if (v >= i && (i + 1) == N) {
-            gain_[i].setTargetValue(1);
-        } else {
-            gain_[i].setTargetValue(0);
-        }
-    }
+    value_->set(lv);
 }
 
 std::vector<float> XFadeTilde::gains() const
@@ -145,11 +121,40 @@ std::vector<float> XFadeTilde::gains() const
     return res;
 }
 
+void XFadeTilde::setXFade(t_float v)
+{
+    using XFadeCurveFunction = t_float (*)(t_float, t_float);
+
+    XFadeCurveFunction curve_fn = nullptr;
+    switch (crc32_hash(prop_type_->value())) {
+    case hash_lin:
+        curve_fn = [](t_float a, t_float b) -> t_float { return a - b; };
+        break;
+    case hash_pow:
+        curve_fn = [](t_float a, t_float b) -> t_float { return (a - b) * (a - b); };
+        break;
+    default:
+        OBJ_ERR << "unknown xfade type: " << prop_type_->value();
+        return;
+    }
+
+    const size_t N = gain_.size();
+    for (size_t i = 0; i < N; i++) {
+        if (v >= i && v < (i + 1) && (i + 1) < N) {
+            auto k = curve_fn(v, i);
+            gain_[i].setTargetValue(1 - k);
+            gain_[i + 1].setTargetValue(k);
+            i++;
+        } else if (v >= i && (i + 1) == N) {
+            gain_[i].setTargetValue(1);
+        } else {
+            gain_[i].setTargetValue(0);
+        }
+    }
+}
+
 void setup_base_xfade_tilde()
 {
-    SYM_POW = gensym("pow");
-    SYM_LIN = gensym("lin");
-
     SoundExternalFactory<XFadeTilde> obj("xfade~");
 
     obj.setDescription("multi signal crossfade");

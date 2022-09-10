@@ -39,6 +39,7 @@ add_subdirectory(subprocess)
 add_subdirectory(httplib)
 add_subdirectory(miniz)
 add_subdirectory(readerwriterqueue)
+add_subdirectory(tcltk)
 
 if(WITH_FAUST)
     add_subdirectory(faust)

@@ -138,7 +138,10 @@ std::string searchFilenameInRpaths(const std::string& rpath_file, const std::str
         if (realpath(rpath.c_str(), buffer)) {
             fullpath = buffer;
         } else {
-            std::cerr << "\n/!\\ WARNING : can't get path for '" << rpath_file << "'\n" << "orig " << orig << "\n";
+
+            std::cerr << "\n/!\\ WARNING : can't get path for '" << rpath << "'\n"
+                      << "orig " << orig << "\n"
+                      << "error: " << strerror(errno) << "\n";
         }
     }
 

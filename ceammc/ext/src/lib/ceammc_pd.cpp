@@ -16,6 +16,7 @@
 #include "ceammc_externals.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
+#include "ceammc_impl.h"
 #include "ceammc_platform.h"
 
 #include "m_pd.h"
@@ -25,15 +26,6 @@ extern "C" {
 #include "m_imp.h"
 void pd_init();
 void obj_sendinlet(t_object* x, int n, t_symbol* s, int argc, t_atom* argv);
-}
-
-static t_methodentry* class_methods(t_class* c)
-{
-#ifdef PDINSTANCE
-    return c->c_methods[pd_this->pd_instanceno];
-#else
-    return c->c_methods;
-#endif
 }
 
 #include <exception>
@@ -97,15 +89,15 @@ std::vector<std::string> pd::currentListOfExternals()
     if (!pd_objectmaker)
         return {};
 
-    auto mlist = class_methods(pd_objectmaker);
-    if (!mlist)
+    const auto N = pd_objectmaker->c_nmethod;
+    if (N <= 0)
         return {};
 
     std::vector<std::string> res;
-    res.reserve(pd_objectmaker->c_nmethod);
+    res.reserve(N);
 
-    for (int i = 0; i < pd_objectmaker->c_nmethod; i++)
-        res.push_back(mlist[i].me_name->s_name);
+    for (int i = 0; i < N; i++)
+        res.push_back(class_method_name(pd_objectmaker, i)->s_name);
 
     return res;
 }
@@ -467,8 +459,8 @@ std::vector<t_symbol*> pd::External::methods() const
 
     t_class* c = obj_->te_g.g_pd;
     for (int i = 0; i < c->c_nmethod; i++) {
-        auto& m = class_methods(c)[i];
-        res.push_back(m.me_name);
+        auto mname = class_method_name(c, i);
+        res.push_back(mname);
     }
 
     return res;

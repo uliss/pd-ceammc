@@ -17,10 +17,8 @@
 #include "dataset_iface.h"
 #include "datatype_set.h"
 #include "editor_data.h"
-#include "editor_set.h"
 
 using namespace ceammc;
-// EditorDataT<DataMListIFace<BaseObject>, DataTypeMList>;
 using DataSetBase = EditorDataT<DataSetIface<BaseObject>, DataTypeSet>;
 
 class DataSet : public DataSetBase {

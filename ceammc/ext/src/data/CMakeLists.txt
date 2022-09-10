@@ -1,4 +1,9 @@
-add_library(ceammc_data STATIC mod_data.h mod_data.cpp dict_base.cpp editor_data.cpp)
+add_library(ceammc_data STATIC
+    mod_data.h mod_data.cpp
+    dict_base.cpp
+    local_base.cpp
+    editor_data.cpp
+)
 
 function(ceammc_data_external mod name)
     target_sources(ceammc_data PRIVATE "${mod}_${name}.cpp")
@@ -51,3 +56,6 @@ ceammc_data_external(local mlist)
 ceammc_data_external(local set)
 
 ceammc_data_external(rtree to_list)
+
+target_include_directories(ceammc_data PRIVATE "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>")
+

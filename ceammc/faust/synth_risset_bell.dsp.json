@@ -1,8 +1,8 @@
 {
 	"name": "synth.risset_bell",
 	"filename": "synth_risset_bell.dsp",
-	"version": "2.37.3",
-	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0",
+	"version": "2.44.1",
+	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn synth_risset_bell -scn synth_risset_bell_dsp -es 1 -mcd 16 -single -ftz 0",
 	"library_list": ["/usr/local/share/faust/stdfaust.lib","/usr/local/share/faust/oscillators.lib","/usr/local/share/faust/platform.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/signals.lib","/usr/local/share/faust/envelopes.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc.lib"],
 	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
 	"inputs": 0,
@@ -10,16 +10,16 @@
 	"meta": [ 
 		{ "author": "Alain Bonardi & Paul Goutmann" },
 		{ "basics.lib/name": "Faust Basic Element Library" },
-		{ "basics.lib/version": "0.2" },
+		{ "basics.lib/version": "0.8" },
 		{ "ceammc.lib/name": "Ceammc PureData misc utils" },
 		{ "ceammc.lib/version": "0.1.2" },
-		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0" },
+		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn synth_risset_bell -scn synth_risset_bell_dsp -es 1 -mcd 16 -single -ftz 0" },
 		{ "envelopes.lib/ar:author": "Yann Orlarey, Stéphane Letz" },
 		{ "envelopes.lib/author": "GRAME" },
 		{ "envelopes.lib/copyright": "GRAME" },
 		{ "envelopes.lib/license": "LGPL with exception" },
 		{ "envelopes.lib/name": "Faust Envelope Library" },
-		{ "envelopes.lib/version": "0.1" },
+		{ "envelopes.lib/version": "0.2" },
 		{ "filename": "synth_risset_bell.dsp" },
 		{ "licence": "LGPLv3" },
 		{ "maths.lib/author": "GRAME" },
@@ -29,11 +29,11 @@
 		{ "maths.lib/version": "2.5" },
 		{ "name": "synth.risset_bell" },
 		{ "oscillators.lib/name": "Faust Oscillator Library" },
-		{ "oscillators.lib/version": "0.1" },
+		{ "oscillators.lib/version": "0.3" },
 		{ "platform.lib/name": "Generic Platform Library" },
 		{ "platform.lib/version": "0.2" },
 		{ "signals.lib/name": "Faust Signal Routing Library" },
-		{ "signals.lib/version": "0.1" }
+		{ "signals.lib/version": "0.3" }
 	],
 	"ui": [ 
 		{
@@ -43,6 +43,7 @@
 				{
 					"type": "hslider",
 					"label": "dur",
+					"shortname": "dur",
 					"address": "/synth.risset_bell/dur",
 					"meta": [
 						{ "unit": "ms" }
@@ -55,6 +56,7 @@
 				{
 					"type": "hslider",
 					"label": "freq",
+					"shortname": "freq",
 					"address": "/synth.risset_bell/freq",
 					"meta": [
 						{ "unit": "Hz" }
@@ -67,11 +69,13 @@
 				{
 					"type": "button",
 					"label": "gate",
+					"shortname": "gate",
 					"address": "/synth.risset_bell/gate"
 				},
 				{
 					"type": "hslider",
 					"label": "pfreq",
+					"shortname": "pfreq",
 					"address": "/synth.risset_bell/pfreq",
 					"init": 1,
 					"min": 0,

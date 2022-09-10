@@ -156,5 +156,18 @@ TEST_CASE("string.join", "[external]")
 
         t.sendList(MLA("a", "b", "c"));
         REQUIRE_STRING(t, "a:b:c");
+
+        t.sendList(MLA(MLA(), MLA(), MLA()));
+        REQUIRE_STRING(t, "():():()");
+    }
+
+    SECTION("string")
+    {
+        using SA = StringAtom;
+
+        TExt t("string.join", "-|");
+
+        t.sendList(LA(SA("a"), SA("b"), SA("c"), "d"));
+        REQUIRE_STRING(t, "a-|b-|c-|d");
     }
 }

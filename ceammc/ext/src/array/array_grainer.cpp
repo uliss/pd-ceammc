@@ -12,9 +12,13 @@
  * this file belongs to.
  *****************************************************************************/
 #include "array_grainer.h"
+#include "args/argcheck2.h"
 #include "aubio.h"
 #include "ceammc_convert.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
+#include "ceammc_units.h"
+#include "fmt/core.h"
 #include "grain_expr_parser.h"
 
 #include <limits>
@@ -25,6 +29,11 @@ constexpr const char* CHAR_ALL = "*";
 constexpr const char* CHAR_FINISHED = ".";
 
 using namespace ceammc;
+
+using Factory = SoundExternalFactory<ArrayGrainer>;
+using Proxy = Factory::ObjectProxy;
+
+namespace {
 
 struct FVecDeleter {
     void operator()(fvec_t* v) { del_fvec(v); }
@@ -41,19 +50,40 @@ struct OnsetDeleter {
 using FVecPtr = std::unique_ptr<fvec_t, FVecDeleter>;
 using OnsetPtr = std::unique_ptr<aubio_onset_t, OnsetDeleter>;
 
+uint64_t parseTimeUnit(const AtomListView& lv, double sr, uint64_t def)
+{
+    units::TimeValue tm(0, units::TimeValue::SAMPLE, sr);
+    auto res = units::TimeValue::parse(lv);
+    if (res.matchValue(tm))
+        return tm.value() <= 0 ? def : tm.toSamples();
+    else
+        return def;
+}
+
+}
+
 ArrayGrainer::ArrayGrainer(const PdArgs& args)
-    : SoundExternal(args)
-    , array_name_(nullptr)
+    : ArraySoundBase(args)
     , sync_(nullptr)
     , sync_interval_(nullptr)
     , sync_prob_(nullptr)
+    , defer_([this]() {
+        for (auto& m : defer_msg_) {
+            if (m.count > 0)
+                m.count--;
+
+            if (m.count == 0) {
+                auto sel = m.msg[0].asSymbol();
+                dispatchMethod(sel, m.msg.view().subView(1));
+            }
+        }
+
+        auto end = std::remove_if(defer_msg_.begin(), defer_msg_.end(), [](const DeferMessage& m) { return m.count == 0; });
+        defer_msg_.erase(end, defer_msg_.end());
+    })
 {
     createSignalOutlet();
     createSignalOutlet();
-
-    array_name_ = new SymbolProperty("@array", &s_);
-    array_name_->setArgIndex(0);
-    addProperty(array_name_);
 
     sync_ = new SymbolEnumProperty("@sync", { "none", "int", "ext" });
     sync_->setSuccessFn([this](Property*) {
@@ -77,25 +107,23 @@ ArrayGrainer::ArrayGrainer(const PdArgs& args)
     sync_prob_->checkClosedRange(0, 1);
     sync_prob_->setSuccessFn([this](Property*) { cloud_.setSyncProbability(sync_prob_->value()); });
     addProperty(sync_prob_);
+
+    defer_msg_.reserve(4);
 }
 
 void ArrayGrainer::setupDSP(t_signal** sp)
 {
-    if (array_name_->value() != &s_ && !array_.open(array_name_->value())) {
-        OBJ_ERR << "can't open array: " << array_name_->value();
-        dsp_add_zero(sp[0]->s_vec, sp[0]->s_n);
-        return;
-    }
+    ArraySoundBase::setupDSP(sp);
 
-    array_.useInDSP();
-    cloud_.setArrayData(array_.begin(), array_.size());
-
-    SoundExternal::setupDSP(sp);
+    if (array_.isValid())
+        cloud_.setArrayData(array_.begin(), array_.size());
 }
 
 void ArrayGrainer::processBlock(const t_sample** /*in*/, t_sample** out)
 {
-    cloud_.playBuffer(out, blockSize(), samplerate());
+    int done = cloud_.playBuffer(out, blockSize(), samplerate());
+    if (done > 0 && defer_msg_.size() > 0)
+        defer_.delay(0);
 }
 
 void ArrayGrainer::onBang()
@@ -147,10 +175,8 @@ void ArrayGrainer::m_align(t_symbol* s, const AtomListView& lv)
 
 void ArrayGrainer::m_append(t_symbol* s, const AtomListView& lv)
 {
-    if (!array_.open(array_name_->value())) {
-        METHOD_ERR(s) << "can't open array: " << array_name_->value();
+    if (!checkArray(true))
         return;
-    }
 
     if (lv.size() < 1) {
         METHOD_ERR(s) << "NUM_GRAINS PROPS... expected";
@@ -162,10 +188,8 @@ void ArrayGrainer::m_append(t_symbol* s, const AtomListView& lv)
 
 void ArrayGrainer::m_grain(t_symbol* s, const AtomListView& lv)
 {
-    if (!array_.open(array_name_->value())) {
-        METHOD_ERR(s) << "can't open array: " << array_name_->value();
+    if (!checkArray(true))
         return;
-    }
 
     auto id = cloud_.size();
     auto grain = cloud_.appendGrain();
@@ -187,10 +211,8 @@ void ArrayGrainer::m_grain(t_symbol* s, const AtomListView& lv)
 
 void ArrayGrainer::m_set(t_symbol* s, const AtomListView& lv)
 {
-    if (!array_.open(array_name_->value())) {
-        METHOD_ERR(s) << "can't open array: " << array_name_->value();
+    if (!checkArray(true))
         return;
-    }
 
     const bool ok = lv.size() > 1;
     if (!ok) {
@@ -300,10 +322,8 @@ void ArrayGrainer::appendGrains(int n, const AtomListView& args)
 
 void ArrayGrainer::m_fill(t_symbol* s, const AtomListView& lv)
 {
-    if (!array_.open(array_name_->value())) {
-        METHOD_ERR(s) << "can't open array: " << array_name_->value();
+    if (!checkArray(true))
         return;
-    }
 
     if (lv.size() < 1) {
         METHOD_ERR(s) << "NUM_GRAINS PROPS... expected";
@@ -339,10 +359,8 @@ void ArrayGrainer::m_onsets(t_symbol* s, const AtomListView& lv)
     constexpr const char* DEFAULT_METHOD = "default";
     constexpr int DEFAULT_BUFFER_SIZE = 1024;
 
-    if (!array_.open(array_name_->value())) {
-        METHOD_ERR(s) << "can't open array: " << array_name_->value();
+    if (!checkArray(true))
         return;
-    }
 
     const size_t BS = DEFAULT_BUFFER_SIZE; // buffer size
     const size_t HS = BS / 2; // hop size
@@ -387,16 +405,167 @@ void ArrayGrainer::m_onsets(t_symbol* s, const AtomListView& lv)
     }
 }
 
+void ArrayGrainer::m_slice(t_symbol* s, const AtomListView& lv)
+{
+    static args::ArgChecker chk("N:i[1,64] "
+                                "LEN:t? "
+                                "GRAIN:a*");
+
+    args::ArgMatchList m;
+    if (!chk.check(lv, this, &m)) {
+        chk.usage(this, s);
+        return;
+    }
+
+    if (!checkArray(true))
+        return;
+
+    const auto N = m[0].asInt();
+    const int64_t alen = parseTimeUnit(m[1], samplerate(), array_.size());
+    const auto grain_props = m[2];
+    const double glen = alen / double(N);
+    const int64_t ilen = std::round(glen);
+
+    GrainExprParser parser(nullptr);
+
+    for (int i = 0; i < N; i++) {
+        auto id = cloud_.size();
+        auto grain = cloud_.appendGrain();
+        if (!grain) {
+            OBJ_ERR << "memory error, can't add grain";
+            break;
+        }
+
+        grain->setId(id);
+        grain->setArraySizeInSamples(alen);
+        parser.setGrain(grain);
+
+        if (grain_props.size() > 0 && !parser.parse(grain_props)) {
+            OBJ_ERR << "invalid grain props: " << grain_props;
+            cloud_.popGrain();
+            return;
+        }
+
+        const int64_t pos = std::round(i * glen);
+        grain->setLengthInSamples(ilen);
+        grain->setArrayPosInSamples(pos);
+        grain->setTimeBefore(pos);
+        grain->setTimeAfter(clip_min<int64_t, 0>(alen - grain->durationInSamples()));
+    }
+}
+
+void ArrayGrainer::m_shuffle(t_symbol* s, const AtomListView& lv)
+{
+    static args::ArgChecker chk("TAG:s?");
+
+    if (!chk.check(lv, this)) {
+        chk.usage(this, s);
+        return;
+    }
+
+    if (!checkArray(true))
+        return;
+
+    cloud_.shuffle(lv.symbolAt(0, &s_));
+}
+
+void ArrayGrainer::m_reverse(t_symbol* s, const AtomListView& lv)
+{
+    static args::ArgChecker chk("TAG:s?");
+
+    if (!chk.check(lv, this)) {
+        chk.usage(this, s);
+        return;
+    }
+
+    if (!checkArray(true))
+        return;
+
+    cloud_.reverse(lv.symbolAt(0, &s_));
+}
+
+void ArrayGrainer::m_spread(t_symbol* s, const AtomListView& lv)
+{
+    static args::ArgChecker chk("DUR:t? "
+                                "TAG:s?");
+
+    args::ArgMatchList m;
+    if (!chk.check(lv, this, &m)) {
+        chk.usage(this, s);
+        return;
+    }
+
+    if (!checkArray(true))
+        return;
+
+    const int64_t gdur = parseTimeUnit(m[0], samplerate(), array_.size());
+    auto tag = m[1].symbolAt(0, &s_);
+
+    cloud_.spread(gdur, tag);
+}
+
+void ArrayGrainer::m_permutate(t_symbol* s, const AtomListView& lv)
+{
+    static args::ArgChecker chk("N:i[-16,16]? "
+                                "TAG:s?");
+
+    args::ArgMatchList m;
+    if (!chk.check(lv, this, &m)) {
+        chk.usage(this, s);
+        return;
+    }
+
+    if (!checkArray(true))
+        return;
+
+    const int n = m[0].intAt(0, 1);
+    auto tag = m[1].symbolAt(0, &s_);
+
+    cloud_.permutate(n, tag);
+}
+
+void ArrayGrainer::m_defer(t_symbol* s, const AtomListView& lv)
+{
+    static args::ArgChecker chk("COUNT:i[1,255]? "
+                                "MSG:s "
+                                "ARG:a*");
+
+    args::ArgMatchList m;
+    if (!chk.check(lv, this, &m)) {
+        chk.usage(this, s);
+        return;
+    }
+
+    DeferMessage def;
+    def.msg.reserve(m[1].size() + m[2].size());
+    def.msg.insert_back(m[1]);
+    def.msg.insert_back(m[2]);
+    def.count = m[0].intAt(0, 1);
+    defer_msg_.push_back(std::move(def));
+}
+
+void ArrayGrainer::dispatchMethod(t_symbol* m, const AtomListView& args)
+{
+    auto p = (Proxy*)owner();
+    Factory::defaultListMethod(p, m, args.size(), args.toPdData());
+}
+
 void setup_array_grainer()
 {
-    SoundExternalFactory<ArrayGrainer> obj("array.grainer~", OBJECT_FACTORY_DEFAULT);
+    Factory obj("array.grainer~", OBJECT_FACTORY_DEFAULT);
 
+    obj.addMethod("align", &ArrayGrainer::m_align);
     obj.addMethod("append", &ArrayGrainer::m_append);
     obj.addMethod("clear", &ArrayGrainer::m_clear);
     obj.addMethod("fill", &ArrayGrainer::m_fill);
     obj.addMethod("grain", &ArrayGrainer::m_grain);
-    obj.addMethod("set", &ArrayGrainer::m_set);
     obj.addMethod("onsets", &ArrayGrainer::m_onsets);
-    obj.addMethod("align", &ArrayGrainer::m_align);
     obj.addMethod("pause", &ArrayGrainer::m_pause);
+    obj.addMethod("set", &ArrayGrainer::m_set);
+    obj.addMethod("slice", &ArrayGrainer::m_slice);
+    obj.addMethod("spread", &ArrayGrainer::m_spread);
+    obj.addMethod("shuffle", &ArrayGrainer::m_shuffle);
+    obj.addMethod("defer", &ArrayGrainer::m_defer);
+    obj.addMethod("reverse", &ArrayGrainer::m_reverse);
+    obj.addMethod("permutate", &ArrayGrainer::m_permutate);
 }

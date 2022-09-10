@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="route.random">
+        <title>route.random</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>routes input flow to random outlet</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>flow</category>
+            <keywords>route</keywords>
+            <since>0.9.6</since>
+            <aliases>
+                <alias>route.r</alias>
+            </aliases>
+        </meta>
+        <arguments>
+            <argument name="N" type="int" minvalue="2" maxvalue="64">number of outlets. See @n
+            property</argument>
+        </arguments>
+        <properties>
+            <property name="@n" type="int" default="2" minvalue="2" maxvalue="64">number of
+            outlets</property>
+            <property name="@seed" type="int" minvalue="0" default="0">generator seed</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">bang to random outlet</xinfo>
+                <xinfo on="float">float to random outlet</xinfo>
+                <xinfo on="symbol">symbol to random outlet</xinfo>
+                <xinfo on="list">list to random outlet</xinfo>
+                <xinfo on="any">any to random outlet</xinfo>
+            </inlet>
+        </inlets>
+        <outlets dynamic="true">
+            <outlet number="1">first outlet</outlet>
+            <outlet number="...">... outlet</outlet>
+            <outlet number="n">n-th outlet</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]
+|
+|  [1 2 3(
+|  |
+|  |  [bang( [any message(
+|  |  |      |
+[route.random 4]
+|  ^| ^^| ^^^|
+|   |   |  [ui.dt]
+|   |   |
+|   |   [ui.dt]
+|   |
+|   [ui.dt]
+|
+[ui.dt]
+
+[route.random.chord]
+]]>
+            </pdascii>
+            <pdascii id="chord">
+<![CDATA[
+[ui.keyboard 24 48]
+|
+|
+|
+|
+[stripnote]
+|
+[$1(      [ui.dsp~]
+|
+[mtof]
+|
+[route.random  3]
+|      ^|     ^^|
+[F]    [F]    [F]
+|      |      |
+[osc~] [osc~] [osc~]
+|      |.     |..
+[pan.spread~ 3  ]
+*|*
+[ui.hgain2~]
+*|*
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

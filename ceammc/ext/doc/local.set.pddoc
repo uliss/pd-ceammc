@@ -20,6 +20,9 @@
         <info>
             <par>Defines local scope set variable, accessed by ID name</par>
         </info>
+        <mouse>
+            <event editmode="false" type="left-click">open data editor</event>
+        </mouse>
         <arguments>
             <argument name="ID" type="symbol">object ID</argument>
         </arguments>

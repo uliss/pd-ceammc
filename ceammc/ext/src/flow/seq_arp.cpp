@@ -71,6 +71,7 @@ SeqArp::SeqArp(const PdArgs& args)
 
 void SeqArp::onBang()
 {
+    m_on(&s_, {});
 }
 
 void SeqArp::m_on(t_symbol* s, const AtomListView& lv)
