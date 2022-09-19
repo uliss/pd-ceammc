@@ -342,7 +342,7 @@ TEST_CASE("ui.radio", "[ui.radio]")
             REQUIRE_NONE_WAS_SEND(t, "r2");
 
             t << LF(1, 1, 1, 1);
-            REQUIRE_LIST_WAS_SEND(t, "r2", LF(1, 1, 1, 1) + AtomList::zeroes(4));
+            REQUIRE_LIST_WAS_SEND(t, "r2", LF(1, 1, 1, 1, 0, 0, 0, 0));
 
             t.call("any", LF(1, 2));
             REQUIRE_NONE_WAS_SEND(t, "r2");

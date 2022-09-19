@@ -46,7 +46,7 @@ void FlowCount::onSymbol(t_symbol* s)
     tick();
 }
 
-void FlowCount::onList(const AtomList& l)
+void FlowCount::onList(const AtomListView& lv)
 {
     tick();
 }

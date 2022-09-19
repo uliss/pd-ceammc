@@ -11,7 +11,7 @@ class ListChoice : public ListBase {
 
 public:
     ListChoice(const PdArgs& a);
-    void onList(const AtomList& l) override;
+    void onList(const AtomListView& lv) override;
 };
 
 void setup_list_choice();

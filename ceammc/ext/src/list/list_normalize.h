@@ -24,7 +24,7 @@ class ListNormalize : public ListBase {
 
 public:
     ListNormalize(const PdArgs& a);
-    void onList(const AtomList& lst) override;
+    void onList(const AtomListView& lv) override;
 };
 
 void setup_list_normalize();

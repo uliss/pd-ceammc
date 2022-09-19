@@ -25,7 +25,7 @@ class DictContains : public DictBase {
 public:
     DictContains(const PdArgs& args);
 
-    void onInlet(size_t n, const AtomListView& lst) final;
+    void onInlet(size_t n, const AtomListView& lv) final;
     void onDataT(const DictAtom& dict) final;
 };
 

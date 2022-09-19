@@ -15,6 +15,7 @@
 #define CEAMMC_EXT_LIST_H
 
 #include "ceammc_atomlist.h"
+#include "ceammc_atomlist_view.h"
 
 #include <utility>
 #include <vector>
@@ -38,28 +39,28 @@ namespace list {
     AtomList interleaveWrap(const std::vector<AtomList>& l);
     AtomList interleaveFold(const std::vector<AtomList>& l);
 
-    void deinterleaveMinLength(const AtomList& in, std::vector<AtomList>& out);
-    void deinterleavePadWith(const AtomList& in, const Atom& pad, std::vector<AtomList>& out);
+    void deinterleaveMinLength(const AtomListView& in, std::vector<AtomList>& out);
+    void deinterleavePadWith(const AtomListView& in, const Atom& pad, std::vector<AtomList>& out);
 
-    MaybeFloat average(const AtomList& l);
+    MaybeFloat average(const AtomListView& lv);
 
-    AtomList countRepeats(const AtomList& l, bool normalizeBySum = false);
+    AtomList countRepeats(const AtomListView& lv, bool normalizeBySum = false);
 
-    bool containsAllOff(const AtomList& input, const AtomList& needles);
-    bool containsAnyOff(const AtomList& input, const AtomList& needles);
+    bool containsAllOff(const AtomListView& input, const AtomListView& needles);
+    bool containsAnyOff(const AtomListView& input, const AtomListView& needles);
 
-    AtomList sliceWrap(const AtomList& l, int pos, size_t len);
-    AtomList sliceClip(const AtomList& l, int pos, size_t len);
-    AtomList sliceFold(const AtomList& l, int pos, size_t len);
+    AtomList sliceWrap(const AtomListView& lv, int pos, size_t len);
+    AtomList sliceClip(const AtomListView& lv, int pos, size_t len);
+    AtomList sliceFold(const AtomListView& lv, int pos, size_t len);
 
     bool calcClipIndex(int pos, size_t len, size_t* idx);
     bool calcWrapIndex(int pos, size_t len, size_t* idx);
     bool calcFoldIndex(int pos, size_t len, size_t* idx);
 
-    AtomList rotate(const AtomList& l, int steps);
-    AtomList repeat(const AtomList& l, size_t n);
+    AtomList rotate(const AtomListView& lv, int steps);
+    AtomList repeat(const AtomListView& lv, size_t n);
 
-    AtomList histogram(const AtomList& l, size_t bins);
+    AtomList histogram(const AtomListView& lv, size_t bins);
 
     /**
      * Normalize floats by total sum, that goes to 1, and each element is equal value/sum
@@ -67,7 +68,7 @@ namespace list {
      * @param dest - write result
      * @return true on success, false on error (zero range, empty etc.)
      */
-    bool normalizeBySum(const AtomList& src, AtomList& dest);
+    bool normalizeBySum(const AtomListView& src, AtomList& dest);
 
     /**
      * Normalize floats to [0, 1] range: min element goes to 0, max element goes to 1
@@ -75,7 +76,7 @@ namespace list {
      * @param dest - write result
      * @return true on success, false on error (zero range, empty etc.)
      */
-    bool normalizeByRange(const AtomList& src, AtomList& dest);
+    bool normalizeByRange(const AtomListView& src, AtomList& dest);
 
     /**
      * Resample list
@@ -84,18 +85,18 @@ namespace list {
      * @param ratio - resample ratio (src/desc)
      * @return treu on success, false on error
      */
-    bool resample(const AtomList& src, AtomList& dest, t_float ratio);
+    bool resample(const AtomListView& src, AtomList& dest, t_float ratio);
 
     /**
      * Return vector of types containing in lst, elements of other types are discarded
      */
     template <typename T>
-    std::vector<T> extractByType(const AtomList& l)
+    std::vector<T> extractByType(const AtomListView& lv)
     {
         std::vector<T> res;
-        res.reserve(l.size());
+        res.reserve(lv.size());
 
-        for (const Atom& a : l) {
+        for (const Atom& a : lv) {
             if (a.isA<T>())
                 res.push_back(a.asT<T>());
         }
@@ -119,81 +120,81 @@ namespace list {
      */
     AtomList bresenham(size_t onsets, size_t pulses);
 
-    AtomList enumerate(const AtomList& l, int from = 0, enumerateMode mode = PREPEND);
+    AtomList enumerate(const AtomListView& lv, int from = 0, enumerateMode mode = PREPEND);
 
     // preserves element order but not suitable for data atoms
-    AtomList uniqueStable(const AtomList& l);
+    AtomList uniqueStable(const AtomListView& lv);
     // suitable for data atoms, but returns sorted output
-    AtomList uniqueSorted(const AtomList& l);
-    AtomList shift(const AtomList& l, t_float off);
-    AtomList stretch(const AtomList& l, size_t sz);
+    AtomList uniqueSorted(const AtomListView& lv);
+    AtomList shift(const AtomListView& lv, t_float off);
+    AtomList stretch(const AtomListView& lv, size_t sz);
 
-    std::vector<std::pair<Atom, size_t>> rleEncode(const AtomList& l);
+    std::vector<std::pair<Atom, size_t>> rleEncode(const AtomListView& lv);
     AtomList rleDecode(const std::vector<std::pair<Atom, size_t>>& rle);
 
     template <typename T>
-    static bool canConvertToType(const AtomList&) { return false; }
+    static bool canConvertToType(const AtomListView&) { return false; }
 
     template <>
-    bool canConvertToType<bool>(const AtomList& l)
+    bool canConvertToType<bool>(const AtomListView& lv)
     {
-        if (l.size() != 1)
+        if (lv.size() != 1)
             return false;
 
-        if (l[0].isFloat())
+        if (lv[0].isFloat())
             return true;
 
-        if (l[0].isSymbol()
-            && (l[0].asSymbol() == gensym("true") || l[0].asSymbol() == gensym("false")))
+        if (lv[0].isSymbol()
+            && (lv[0].asSymbol() == gensym("true") || lv[0].asSymbol() == gensym("false")))
             return true;
 
         return false;
     }
 
     template <>
-    bool canConvertToType<float>(const AtomList& l)
+    bool canConvertToType<float>(const AtomListView& lv)
     {
-        return l.isFloat();
+        return lv.isFloat();
     }
 
     template <>
-    bool canConvertToType<double>(const AtomList& l)
+    bool canConvertToType<double>(const AtomListView& lv)
     {
-        return l.isFloat();
+        return lv.isFloat();
     }
 
     template <>
-    bool canConvertToType<int>(const AtomList& l)
+    bool canConvertToType<int>(const AtomListView& lv)
     {
-        return l.isFloat();
+        return lv.isFloat();
     }
 
     template <>
-    bool canConvertToType<size_t>(const AtomList& l)
+    bool canConvertToType<size_t>(const AtomListView& lv)
     {
-        if (!l.isFloat())
+        if (!lv.isFloat())
             return false;
 
-        if (l[0].asFloat() < 0)
+        if (lv[0].asFloat() < 0)
             return false;
 
         return true;
     }
 
     template <>
-    bool canConvertToType<t_symbol*>(const AtomList& l)
+    bool canConvertToType<t_symbol*>(const AtomListView& lv)
     {
-        return l.isSymbol();
+        return lv.isSymbol();
     }
 
     template <>
-    bool canConvertToType<Atom>(const AtomList& l)
+    bool canConvertToType<Atom>(const AtomListView& lv)
     {
-        return l.size() == 1;
+        return lv.size() == 1;
     }
 
     template <>
-    bool canConvertToType<AtomList>(const AtomList&)
+    bool canConvertToType<AtomList>(const AtomListView&)
     {
         return true;
     }

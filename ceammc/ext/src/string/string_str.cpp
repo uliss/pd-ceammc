@@ -13,16 +13,22 @@
  *****************************************************************************/
 #include "string_str.h"
 #include "ceammc_factory.h"
-#include "ceammc_format.h"
+#include "fmt/format.h"
 
 #include <cstdio>
 
 StringStr::StringStr(const PdArgs& a)
     : BaseObject(a)
+    , str_("")
 {
-    addProperty(new ListProperty("@value", AtomList(&s_)))
-        ->setSuccessFn([this](Property* p) { str_ = to_string(p->get()); });
-    property("@value")->setArgIndex(0);
+    createCbListProperty(
+        "@value",
+        [this]() -> AtomList { return StringAtom(str_); },
+        [this](const AtomListView& lv) -> bool {
+            str_.setFromQuotedList(lv);
+            return true;
+        })
+        ->setArgIndex(0);
 
     createOutlet();
 }
@@ -34,38 +40,36 @@ void StringStr::onBang()
 
 void StringStr::onFloat(t_float f)
 {
-    char buf[20];
-    sprintf(buf, "%g", f);
-    str_ = buf;
+    str_ = fmt::format("{:g}", f);
     onBang();
 }
 
 void StringStr::onSymbol(t_symbol* s)
 {
-    str_ = s->s_name;
+    str_.setFromQuotedList(AtomListView(s));
     onBang();
 }
 
-void StringStr::onList(const AtomList& l)
+void StringStr::onList(const AtomListView& lv)
 {
-    str_ = to_string(l);
+    str_.setFromQuotedList(lv);
     onBang();
 }
 
 void StringStr::onData(const Atom& d)
 {
-    str_ = d.asData()->toString();
+    str_.setFromQuotedList(AtomListView(d));
     onBang();
 }
 
-void StringStr::m_append(t_symbol*, const AtomListView& lst)
+void StringStr::m_append(t_symbol*, const AtomListView& lv)
 {
-    str_ += to_string(lst);
+    str_.appendFromQuotedList(lv);
 }
 
-void StringStr::m_set(t_symbol*, const AtomListView& lst)
+void StringStr::m_set(t_symbol*, const AtomListView& lv)
 {
-    str_ = to_string(lst);
+    str_.setFromQuotedList(lv);
 }
 
 void StringStr::m_clear(t_symbol*, const AtomListView&)

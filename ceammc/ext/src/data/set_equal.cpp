@@ -20,11 +20,11 @@ SetEqual::SetEqual(const PdArgs& a)
     createCbListProperty(
         "@subj",
         [this]() { return set1_; },
-        [this](const AtomList& l) -> bool {
-            if (l.isA<DataTypeSet>())
-                set1_ = SetAtom(l[0]);
+        [this](const AtomListView& lv) -> bool {
+            if (lv.isA<DataTypeSet>())
+                set1_ = SetAtom(lv[0]);
             else
-                set1_ = SetAtom(l);
+                set1_ = SetAtom(lv);
 
             return true;
         })
@@ -39,14 +39,14 @@ void SetEqual::onDataT(const SetAtom& set)
     boolTo(0, set == set1_);
 }
 
-void SetEqual::onInlet(size_t, const AtomListView& l)
+void SetEqual::onInlet(size_t, const AtomListView& lv)
 {
-    property("@subj")->set(l);
+    property("@subj")->set(lv);
 }
 
-void SetEqual::onList(const AtomList& l)
+void SetEqual::onList(const AtomListView& lv)
 {
-    onDataT(SetAtom(l));
+    onDataT(SetAtom(lv));
 }
 
 void setup_set_equal()

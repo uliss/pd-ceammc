@@ -1,12 +1,11 @@
 #include "random_int.h"
 #include "ceammc_factory.h"
-#include "fmt/format.h"
+#include "fmt/core.h"
 
 RandomInt::RandomInt(const PdArgs& a)
     : BaseObject(a)
     , min_(nullptr)
     , max_(nullptr)
-    , seed_(nullptr)
 {
     createInlet();
     createInlet();
@@ -33,9 +32,7 @@ RandomInt::RandomInt(const PdArgs& a)
         break;
     }
 
-    seed_ = new SizeTProperty("@seed", 0);
-    seed_->setSuccessFn([this](Property* p) { gen_.setSeed(seed_->value()); });
-    addProperty(seed_);
+    addProperty(new random::SeedProperty(gen_));
 }
 
 void RandomInt::onBang()

@@ -84,16 +84,16 @@ void FlowPack::onInlet(size_t idx, const AtomListView& l)
     output(idx);
 }
 
-void FlowPack::onList(const AtomList& l)
+void FlowPack::onList(const AtomListView& lv)
 {
     const size_t N = msg_->value().size();
 
-    if (l.size() > N)
-        OBJ_ERR << "too many values in list: " << l.size() << ". Using only first " << N;
+    if (lv.size() > N)
+        OBJ_ERR << "too many values in list: " << lv.size() << ". Using only first " << N;
 
-    const size_t NMIN = std::min<size_t>(l.size(), N);
+    const size_t NMIN = std::min<size_t>(lv.size(), N);
     for (size_t i = 0; i < NMIN; i++)
-        msg_->value()[i] = l[i];
+        msg_->value()[i] = lv[i];
 
     output(0);
 }

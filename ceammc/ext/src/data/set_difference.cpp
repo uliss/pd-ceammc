@@ -22,9 +22,9 @@ SetDifference::SetDifference(const PdArgs& a)
     createOutlet();
 }
 
-void SetDifference::onList(const AtomList& l)
+void SetDifference::onList(const AtomListView& lv)
 {
-    onDataT(SetAtom(l));
+    onDataT(SetAtom(lv));
 }
 
 void SetDifference::onDataT(const SetAtom& set)
@@ -32,12 +32,12 @@ void SetDifference::onDataT(const SetAtom& set)
     atomTo(0, SetAtom(DataTypeSet::difference(*set, set1_)));
 }
 
-void SetDifference::onInlet(size_t, const AtomListView& l)
+void SetDifference::onInlet(size_t, const AtomListView& lv)
 {
-    if (l.isA<DataTypeSet>()) {
-        set1_ = *l[0].asD<DataTypeSet>();
+    if (lv.isA<DataTypeSet>()) {
+        set1_ = *lv[0].asD<DataTypeSet>();
     } else {
-        set1_ = DataTypeSet(l);
+        set1_ = DataTypeSet(lv);
     }
 }
 

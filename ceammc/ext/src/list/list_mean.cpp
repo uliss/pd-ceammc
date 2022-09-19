@@ -14,12 +14,12 @@ void ListMean::onFloat(t_float f)
     floatTo(0, f);
 }
 
-void ListMean::onList(const AtomList& l)
+void ListMean::onList(const AtomListView& lv)
 {
-    if (l.empty())
+    if (lv.empty())
         return;
 
-    auto avg = list::average(l);
+    auto avg = list::average(lv);
     if (avg == boost::none)
         return;
 

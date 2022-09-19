@@ -23,7 +23,7 @@ class MsToSample : public BaseObject {
 public:
     MsToSample(const PdArgs& a);
     void onFloat(t_float v) override;
-    void onList(const AtomList& lst) override;
+    void onList(const AtomListView& lv) override;
 };
 
 class MsToSampleTilde : public SoundExternal {

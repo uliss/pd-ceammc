@@ -3,10 +3,11 @@ add_library(ceammc_core SHARED ceammc.cpp)
 target_include_directories(ceammc_core PRIVATE ${CMAKE_BINARY_DIR}) # for config.h
 target_include_directories(ceammc_core PRIVATE
     ${PROJECT_SOURCE_DIR}/src # m_pd.h
-    ${PROJECT_SOURCE_DIR}/ceammc/extra
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/utf8rewind
 )
+
+add_executable(lemon lex/lemon.c)
 
 set(UTF8REWIND_SOURCES
     utf8rewind/utf8rewind.c
@@ -41,9 +42,7 @@ set(CEAMMC_LIB_SOURCES
     args/arg_is_float.cpp
     args/arg_is_int.cpp
     args/arg_is_symbol.cpp
-    lex/data_string.lexer.cpp
-    lex/data_string.parser.cpp
-    lex/quoted_string.parser.cpp
+    args/argcheck2.cpp
     tcl/ceammc_texteditor.h
     tcl/ceammc_tcl.cpp
     ceammc_array.cpp
@@ -57,6 +56,7 @@ set(CEAMMC_LIB_SOURCES
     ceammc_convert_pitch.cpp
     ceammc_data.cpp
     ceammc_datastorage.cpp
+    ceammc_deprecated.cpp
     ceammc_dsp.cpp
     ceammc_externals.cpp
     ceammc_factory.h
@@ -92,11 +92,13 @@ set(CEAMMC_LIB_SOURCES
     ceammc_property_callback.cpp
     ceammc_property_enum.cpp
     ceammc_property_info.cpp
+    ceammc_random.cpp
     ceammc_regexp.cpp
     ceammc_rtree.cpp
     ceammc_score.cpp
     ceammc_sound_external.cpp
     ceammc_string.cpp
+    ceammc_string_split.cpp
     ceammc_thread.cpp
     ceammc_timeline.cpp
     ceammc_transport.cpp
@@ -105,6 +107,7 @@ set(CEAMMC_LIB_SOURCES
     datatype_dict.cpp
     datatype_mlist.cpp
     datatype_property.cpp
+    datatype_set.cpp
     datatype_string.cpp
 )
 
@@ -141,23 +144,39 @@ find_package(RAGEL 6.6)
 
 if(RAGEL_FOUND)
     RAGEL_TARGET(parser_numeric
-        lex/parser_numeric.rl ${CMAKE_CURRENT_SOURCE_DIR}/lex/parser_numeric.cpp
+        lex/parser_numeric.rl lex/parser_numeric.cpp
         COMPILE_FLAGS "-G2 -s")
     RAGEL_TARGET(parser_color
-        lex/parser_color.rl ${CMAKE_CURRENT_SOURCE_DIR}/lex/parser_color.cpp
+        lex/parser_color.rl lex/parser_color.cpp
         COMPILE_FLAGS "-G2 -s")
     RAGEL_TARGET(parser_music
-        lex/parser_music.rl ${CMAKE_CURRENT_SOURCE_DIR}/lex/parser_music.cpp
+        lex/parser_music.rl lex/parser_music.cpp
         COMPILE_FLAGS "-G2 -s")
     RAGEL_TARGET(parser_units
-        lex/parser_units.rl ${CMAKE_CURRENT_SOURCE_DIR}/lex/parser_units.cpp
+        lex/parser_units.rl lex/parser_units.cpp
         COMPILE_FLAGS "-G2 -s")
     RAGEL_TARGET(parser_props
-        lex/parser_props.rl ${CMAKE_CURRENT_SOURCE_DIR}/lex/parser_props.cpp
+        lex/parser_props.rl lex/parser_props.cpp
         COMPILE_FLAGS "-G2 -s")
     RAGEL_TARGET(parser_clone
-        lex/parser_clone.rl ${CMAKE_CURRENT_SOURCE_DIR}/lex/parser_clone.cpp
+        lex/parser_clone.rl lex/parser_clone.cpp
         COMPILE_FLAGS "-G2 -s")
+    RAGEL_TARGET(parser_strings
+        lex/parser_strings.rl lex/parser_strings.cpp
+        COMPILE_FLAGS "-G2 -s")
+    RAGEL_TARGET(lemon_data_string_parser
+        lex/lemon_data_string_parser.rl lex/lemon_data_string_parser.cpp
+        COMPILE_FLAGS "-G2 -s")
+    RAGEL_TARGET(parser_argcheck
+        args/argcheck2.rl args/argcheck2.cpp
+        COMPILE_FLAGS "-G2 -s")
+
+    add_custom_target(lemon_data_parser
+        COMMAND $<TARGET_FILE:lemon> -s -q lemon_data_string.y
+        COMMAND mv lemon_data_string.c lemon_data_parser_impl.cpp
+        SOURCES lex/lemon_data_string.y
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lex
+    )
 endif()
 
 # ragel generated sources
@@ -170,11 +189,16 @@ target_sources(ceammc_core
         lex/parser_props.cpp
         lex/parser_props_details.cpp
         lex/parser_units.cpp
+        lex/parser_strings.cpp
+        lex/lemon_data_parser_impl.h
+        lex/lemon_data_parser_impl.cpp
+        lex/lemon_data_string_parser.h
+        lex/lemon_data_string_parser.cpp
 )
 
 # ragel files
 file(GLOB RAGEL_SOURCES lex/*.rl)
-add_custom_target(lex_ragel_sources SOURCES ${RAGEL_SOURCES})
+add_custom_target(lex_ragel_sources SOURCES ${RAGEL_SOURCES} args/argcheck2.rl)
 
 if(BISON_FOUND AND FLEX_FOUND)
     add_custom_target(ceammc_argcheck_gen
@@ -182,15 +206,6 @@ if(BISON_FOUND AND FLEX_FOUND)
         COMMAND ${BISON_EXECUTABLE} argcheck.yy
         SOURCES args/argcheck.l args/argcheck.yy
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/args)
-
-    add_custom_target(ceammc_parser_gen
-        COMMAND $<TARGET_FILE:reflex-bin> data_string.l
-        COMMAND ${BISON_EXECUTABLE} data_string.y
-        COMMAND ${BISON_EXECUTABLE} quoted_string.y
-        SOURCES lex/data_string.l
-                lex/data_string.y
-                lex/quoted_string.y
-        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lex)
 
     add_custom_target(ceammc_arrayloader_gen
         COMMAND $<TARGET_FILE:reflex-bin> array_loader.l
@@ -223,6 +238,7 @@ endif()
 target_link_libraries(ceammc_core PRIVATE re2)
 target_link_libraries(ceammc_core PRIVATE reflex)
 target_link_libraries(ceammc_core PRIVATE muparser)
+target_link_libraries(ceammc_core PRIVATE readerwriterqueue)
 #target_link_libraries(ceammc_core PRIVATE ${Boost_FILESYSTEM_LIBRARY} ${Boost_SYSTEM_LIBRARY})
 #target_link_libraries(ceammc_core PRIVATE puredata-core)
 

@@ -14,19 +14,13 @@
 #ifndef ROUTE_RANDOM_H
 #define ROUTE_RANDOM_H
 
-#include <random>
-
 #include "ceammc_object.h"
+#include "ceammc_random.h"
 using namespace ceammc;
 
 class RouteRandom : public BaseObject {
-    using Distribution = std::uniform_int_distribution<int>;
-
-private:
     IntProperty* n_;
-    SizeTProperty* seed_;
-    std::mt19937 rnd_dev_;
-    Distribution dist_;
+    random::RandomGen gen_;
 
 public:
     RouteRandom(const PdArgs& args);
@@ -35,11 +29,11 @@ public:
     void onBang() final;
     void onFloat(t_float f) final;
     void onSymbol(t_symbol* s) final;
-    void onList(const AtomList& lst) final;
+    void onList(const AtomListView& lv) final;
     void onAny(t_symbol* s, const AtomListView& lv) override;
 
 private:
-    inline size_t genOutletIdx() { return dist_(rnd_dev_); }
+    inline size_t genOutletIdx() { return gen_.gen_uniform_uint(0, n_->value() - 1); }
 };
 
 void setup_route_random();

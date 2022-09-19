@@ -40,8 +40,8 @@ private:
     AtomList propInt() const { return AtomList({ t_float(r_), t_float(g_), t_float(b_) }); }
     AtomList propFloat() const { return AtomList({ r_ / t_float(255), g_ / t_float(255), b_ / t_float(255) }); }
 
-    void propSetFloat(const AtomList& v);
-    void propSetInt(const AtomList& v);
+    void propSetFloat(const AtomListView& v);
+    void propSetInt(const AtomListView& v);
 };
 
 void setup_system_colorpanel();

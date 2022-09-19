@@ -23,7 +23,7 @@ class ConvBits2Int : public BaseObject {
 public:
     ConvBits2Int(const PdArgs& args);
     void onFloat(t_float f) override;
-    void onList(const AtomList& lst) override;
+    void onList(const AtomListView& lv) override;
 };
 
 void setup_conv_bits2int();

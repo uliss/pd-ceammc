@@ -85,13 +85,11 @@ endif()
 ceammc_add_test_linked(
     TITLE "Serial"
     NAME test_serialport
-    INCLUDE_DIRECTORIES ${CMAKE_SOURCE_DIR}/ceammc/extra/serial/serial/include
     LINK serial)
 
 ceammc_add_test_linked(TITLE "ArduinoThread"
     NAME test_arduino_thread
-    INCLUDE_DIRECTORIES ${CMAKE_SOURCE_DIR}/ceammc/extra/serial/serial/include
-    LINK tests_main_lib hw_arduino ceammc_core puredata-core)
+    LINK tests_main_lib serial hw_arduino ceammc_core puredata-core)
 ceammc_add_test_linked(TITLE "Arduino" NAME test_arduino LINK tests_main_lib hw_arduino ceammc_core puredata-core)
 
 add_custom_target(test_src SOURCES gen_test_wav.py)

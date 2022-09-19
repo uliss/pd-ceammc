@@ -15,16 +15,20 @@
 #include "ceammc_atomlist.h"
 #include "ceammc_datastorage.h"
 #include "ceammc_format.h"
+#include "ceammc_string.h"
+#include "fmt/format.h"
 
 #include "filesystem.hpp"
+
+constexpr const char* TYPE_NAME = "Path";
 
 namespace ceammc {
 namespace path {
 
     namespace fs = ghc::filesystem;
 
-    const int DataTypePath::dataType = DataStorage::instance().registerNewType("Path",
-        [](const AtomList& ls) { return Atom(new DataTypePath(ceammc::to_string(ls))); });
+    const DataTypeId DataTypePath::dataType = DataStorage::instance().registerNewType(TYPE_NAME,
+        [](const AtomListView& lv) { return Atom(new DataTypePath(ceammc::to_string(lv))); });
 
     DataTypePath::DataTypePath()
     {
@@ -82,19 +86,14 @@ namespace path {
         return new DataTypePath(*this);
     }
 
-    int DataTypePath::type() const noexcept
+    DataTypeId DataTypePath::type() const noexcept
     {
         return dataType;
     }
 
-    std::string DataTypePath::toString() const
+    std::string DataTypePath::toJsonString() const
     {
-        return path_.string();
-    }
-
-    std::string DataTypePath::valueToJsonString() const
-    {
-        return path_.string();
+        return fmt::format("\"{}\"", string::escape_for_json(path_.string()));
     }
 
     bool DataTypePath::isEqual(const AbstractData* d) const noexcept

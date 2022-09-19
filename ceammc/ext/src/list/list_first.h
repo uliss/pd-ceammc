@@ -23,7 +23,7 @@ class ListFirst : public BaseObject {
 public:
     ListFirst(const PdArgs& args);
 
-    void onList(const AtomList& lst) override;
+    void onList(const AtomListView& lv) override;
     void onDataT(const MListAtom& ml);
 };
 

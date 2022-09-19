@@ -30,6 +30,9 @@ public:
     DataTypeMidiStream(const DataTypeMidiStream& s);
     ~DataTypeMidiStream();
 
+    DataTypeMidiStream& operator=(const DataTypeMidiStream& ms);
+    DataTypeMidiStream& operator=(DataTypeMidiStream&& ms);
+
     /**
      * Number of tracks in midifile
      */
@@ -49,7 +52,7 @@ public:
     /**
      * Polymorphics data type
      */
-    int type() const noexcept;
+    DataTypeId type() const noexcept;
 
     double totalTimeInQuarters() const;
     int totalTimeInTicks() const;
@@ -66,8 +69,12 @@ public:
      */
     bool is_open() const;
 
+    bool set(const AbstractData* d) noexcept final;
+    std::string toListStringContent() const final;
+    std::string toDictStringContent() const final;
+
 public:
-    static const int dataType;
+    static const DataTypeId dataType;
 
 private:
     void calcTime();

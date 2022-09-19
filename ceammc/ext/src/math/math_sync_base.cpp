@@ -55,26 +55,26 @@ void MathSyncBase::onFloat(t_float f)
     onBang();
 }
 
-void MathSyncBase::onInlet(size_t n, const AtomListView& lst)
+void MathSyncBase::onInlet(size_t n, const AtomListView& lv)
 {
     if (n != 1)
         return;
 
-    if (!lst.empty())
-        v2_ = lst[0].asFloat();
+    if (!lv.empty())
+        v2_ = lv[0].asFloat();
 
     onBang();
 }
 
-void MathSyncBase::onList(const AtomList& lst)
+void MathSyncBase::onList(const AtomListView& lv)
 {
-    const auto N = lst.size();
+    const auto N = lv.size();
 
     if (N > 0)
-        v1_ = lst[0].asFloat();
+        v1_ = lv[0].asFloat();
 
     if (N > 1)
-        v2_ = lst[1].asFloat();
+        v2_ = lv[1].asFloat();
 
     onBang();
 }
@@ -100,26 +100,26 @@ void MathSyncBool::onFloat(t_float f)
     onBang();
 }
 
-void MathSyncBool::onInlet(size_t n, const AtomListView& lst)
+void MathSyncBool::onInlet(size_t n, const AtomListView& lv)
 {
     if (n != 1)
         return;
 
-    if (!lst.empty())
-        v2_ = checkBool(lst[0].asFloat());
+    if (!lv.empty())
+        v2_ = checkBool(lv[0].asFloat());
 
     onBang();
 }
 
-void MathSyncBool::onList(const AtomList& lst)
+void MathSyncBool::onList(const AtomListView& lv)
 {
-    const auto N = lst.size();
+    const auto N = lv.size();
 
     if (N > 0)
-        v1_ = checkBool(lst[0].asFloat());
+        v1_ = checkBool(lv[0].asFloat());
 
     if (N > 1)
-        v2_ = checkBool(lst[1].asFloat());
+        v2_ = checkBool(lv[1].asFloat());
 
     onBang();
 }

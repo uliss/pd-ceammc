@@ -13,8 +13,10 @@
  *****************************************************************************/
 #include "ui_label.h"
 #include "ceammc_abstractdata.h"
+#include "ceammc_containers.h"
 #include "ceammc_convert.h"
 #include "ceammc_format.h"
+#include "ceammc_string.h"
 #include "ceammc_ui.h"
 
 static t_symbol* SYM_LEFT;
@@ -105,13 +107,22 @@ void UILabel::onBang()
 
 void UILabel::onList(const AtomListView& lv)
 {
-    text_str_ = to_string(lv, " ");
+    string::SmallString str;
+    string::list_to_string(lv, str);
+    text_str_.assign(str.data(), str.size());
+
     redrawBGLayer();
 }
 
 void UILabel::onAny(t_symbol* s, const AtomListView& lv)
 {
-    text_str_ = to_string(Atom(s) + lv, " ");
+    SmallAtomList lst { s };
+    lst.insert(lst.end(), lv.begin(), lv.end());
+
+    string::SmallString str;
+    string::list_to_string(lst.view(), str);
+    text_str_.assign(str.data(), str.size());
+
     redrawBGLayer();
 }
 

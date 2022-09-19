@@ -28,7 +28,7 @@ public:
     ListSeq(const PdArgs& a);
     void onBang() final;
     void onFloat(t_float f) final;
-    void onList(const AtomList& lst) final;
+    void onList(const AtomListView& lv) final;
 };
 
 void setup_list_seq();

@@ -13,19 +13,27 @@
  *****************************************************************************/
 #include "string_join.h"
 #include "ceammc_factory.h"
-#include "ceammc_format.h"
+#include "ceammc_string.h"
 #include "datatype_mlist.h"
 #include "datatype_string.h"
+#include "lex/parser_strings.h"
 
 StringJoin::StringJoin(const PdArgs& a)
     : BaseObject(a)
+    , str_("")
+    , sep_("")
 {
     createInlet();
     createOutlet();
 
-    addProperty(new SymbolProperty("@sep", &s_))
-        ->setSuccessFn([this](Property* p) { sep_ = to_string(p->get()); });
-    property("@sep")->setArgIndex(0);
+    createCbListProperty(
+        "@sep",
+        [this]() -> AtomList { return Atom(gensym(sep_.str().c_str())); },
+        [this](const AtomListView& lv) -> bool {
+            sep_.setFromQuotedList(lv);
+            return true;
+        })
+        ->setArgIndex(0);
 }
 
 void StringJoin::onBang()
@@ -35,31 +43,59 @@ void StringJoin::onBang()
 
 void StringJoin::onSymbol(t_symbol* s)
 {
-    str_ = s->s_name;
+    str_.setFromQuotedList(Atom(s));
     onBang();
 }
 
 void StringJoin::onData(const Atom& d)
 {
-    str_ = d.asData()->toString();
+    str_.setFromQuotedList(d);
     onBang();
 }
 
-void StringJoin::onList(const AtomList& l)
+void StringJoin::onList(const AtomListView& lv)
 {
-    str_ = to_string(l, sep_);
+    string::MediumString res;
+    join(lv, res);
+    str_.set({ res.data(), res.size() });
+
     onBang();
 }
 
-void StringJoin::onInlet(size_t n, const AtomListView& l)
+void StringJoin::onInlet(size_t n, const AtomListView& lv)
 {
-    property("@sep")->set(l);
+    property("@sep")->set(lv);
 }
 
 void StringJoin::onDataT(const MListAtom& ml)
 {
-    str_ = to_string(ml->data(), sep_);
+    string::MediumString res;
+    join(ml->data().view(), res);
+    str_.set({ res.data(), res.size() });
+
     onBang();
+}
+
+void StringJoin::join(const AtomListView& lv, string::MediumString& res)
+{
+    if (string::maybe_ceammc_quoted_string(lv))
+        do_join(string::parse_ceammc_quoted_string(lv), res);
+    else
+        do_join(lv, res);
+}
+
+void StringJoin::do_join(const AtomListView& lv, string::MediumString& res)
+{
+    for (auto& a : lv) {
+        if (&a != &lv.front())
+            res.insert(res.end(), sep_.str().begin(), sep_.str().end());
+
+        if (a.isA<DataTypeString>()) {
+            auto& str = a.asD<DataTypeString>()->str();
+            res.insert(res.end(), str.begin(), str.end());
+        } else
+            string::atom_to_string(a, res);
+    }
 }
 
 void setup_string_join()

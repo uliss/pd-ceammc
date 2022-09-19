@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "expand_env.h"
+#include "ceammc_containers.h"
 #include "ceammc_platform.h"
 
 static t_symbol* expandEnv(t_symbol* s)
@@ -44,15 +45,21 @@ void ExpandEnv::onSymbol(t_symbol* s)
     symbolTo(0, expandEnv(s));
 }
 
-void ExpandEnv::onList(const AtomList& l)
+void ExpandEnv::onList(const AtomListView& lv)
 {
-    listTo(0, l.mapSymbol(&expandEnv));
+    SmallAtomList res;
+    res.reserve(lv.size());
+    lv.mapSymbol(expandEnv, res);
+    listTo(0, res.view());
 }
 
-void ExpandEnv::onAny(t_symbol* sel, const AtomListView& v)
+void ExpandEnv::onAny(t_symbol* sel, const AtomListView& lv)
 {
-    AtomList l = v;
-    anyTo(0, expand_any_->value() ? expandEnv(sel) : sel, l.mapSymbol(&expandEnv));
+    SmallAtomList res;
+    res.reserve(lv.size());
+    lv.mapSymbol(expandEnv, res);
+
+    anyTo(0, expand_any_->value() ? expandEnv(sel) : sel, res.view());
 }
 
 void setup_base_expand_env()
@@ -61,7 +68,7 @@ void setup_base_expand_env()
 
     obj.setDescription("Substitute environment variables in data stream");
     obj.addAuthor("Serge Poltavsky");
-    obj.setKeywords({"expand_env", "test"});
+    obj.setKeywords({ "expand_env", "test" });
     obj.setCategory("flow");
     obj.setSinceVersion(0, 1);
 }

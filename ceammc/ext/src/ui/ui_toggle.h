@@ -39,7 +39,7 @@ public:
     void loadPreset(size_t idx);
     void storePreset(size_t idx);
 
-    void onMidiCtrl(const AtomListView& l);
+    void onMidiCtrl(const AtomListView& lv);
 
 public:
     static void setup();

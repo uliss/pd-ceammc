@@ -29,20 +29,9 @@ std::string to_string(const AtomList& l, const std::string& separator = " ");
 std::string to_string(const Message& m, const std::string& separator = " ");
 
 std::string to_json_string(const Atom& a);
-std::string to_json_string(const AtomList& l);
-
-/**
- * same as to_string(), but symbol's that contains spaces will be in double quotes, and if there's
- * inner quotes, they will be escaped with '`'
- * @example a b c -> "a b c", "abc" -> "`"abc`""
- * @param str - string to quote
- * @return quoted string if needed
- */
-std::string to_string_quoted(const std::string& str);
-std::string to_string_quoted(const Atom& a);
+std::string to_json_string(const AtomListView& lv);
 
 std::string parse_quoted(const Atom& str);
-std::string parse_quoted(const AtomList& l);
 std::string parse_quoted(const AtomListView& v);
 
 std::string format(const std::string& fmt, const AtomList& l);

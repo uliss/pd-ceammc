@@ -22,7 +22,7 @@ class SecondToSample : public BaseObject {
 public:
     SecondToSample(const PdArgs& a);
     void onFloat(t_float v) override;
-    void onList(const AtomList& lst) override;
+    void onList(const AtomListView& lv) override;
 };
 
 #endif // CONV_SEC2SAMP_H

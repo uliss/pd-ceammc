@@ -24,7 +24,7 @@ public:
     PathExists(const PdArgs& a);
 
     void onSymbol(t_symbol* s) override;
-    void onList(const AtomList& l) override;
+    void onList(const AtomListView& lv) override;
 
     void onDataT(const StringAtom& str);
 };

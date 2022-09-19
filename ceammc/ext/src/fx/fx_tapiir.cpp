@@ -101,10 +101,10 @@ FxTapiir::FxTapiir(const PdArgs& args)
             for (size_t i = 0; i < NUM_TAPS; i++)
                 res.append(tap_outputs_[i]->value());
             return res; },
-        [this](const AtomList& l) -> bool {
-            const size_t N = std::min(NUM_TAPS, l.size());
+        [this](const AtomListView& lv) -> bool {
+            const size_t N = std::min(NUM_TAPS, lv.size());
             for (size_t i = 0; i < N; i++) {
-                if (!tap_outputs_[i]->set(l.view(i, 1)))
+                if (!tap_outputs_[i]->set(lv.subView(i, 1)))
                     return false;
             }
             return true;
@@ -118,10 +118,10 @@ FxTapiir::FxTapiir(const PdArgs& args)
             for (size_t i = 0; i < NUM_TAPS; i++)
                 res.append(tap_outputs_[NUM_TAPS + i]->value());
             return res; },
-        [this](const AtomList& l) -> bool {
-            const size_t N = std::min(NUM_TAPS, l.size());
+        [this](const AtomListView& lv) -> bool {
+            const size_t N = std::min(NUM_TAPS, lv.size());
             for (size_t i = 0; i < N; i++) {
-                if (!tap_outputs_[NUM_TAPS + i]->set(l.view(i, 1)))
+                if (!tap_outputs_[NUM_TAPS + i]->set(lv.subView(i, 1)))
                     return false;
             }
             return true;
@@ -135,10 +135,10 @@ FxTapiir::FxTapiir(const PdArgs& args)
             for (size_t i = 0; i < NUM_TAPS; i++)
                 res.append(tap_inputs_[i]->value());
             return res; },
-        [this](const AtomList& l) -> bool {
-            const size_t N = std::min(NUM_TAPS, l.size());
+        [this](const AtomListView& lv) -> bool {
+            const size_t N = std::min(NUM_TAPS, lv.size());
             for (size_t i = 0; i < N; i++) {
-                if (!tap_inputs_[i]->set(l.view(i, 1)))
+                if (!tap_inputs_[i]->set(lv.subView(i, 1)))
                     return false;
             }
             return true;
@@ -152,10 +152,10 @@ FxTapiir::FxTapiir(const PdArgs& args)
             for (size_t i = 0; i < NUM_TAPS; i++)
                 res.append(tap_inputs_[NUM_TAPS + i]->value());
             return res; },
-        [this](const AtomList& l) -> bool {
-            const size_t N = std::min(NUM_TAPS, l.size());
+        [this](const AtomListView& lv) -> bool {
+            const size_t N = std::min(NUM_TAPS, lv.size());
             for (size_t i = 0; i < N; i++) {
-                if (!tap_inputs_[NUM_TAPS + i]->set(l.view(i, 1)))
+                if (!tap_inputs_[NUM_TAPS + i]->set(lv.subView(i, 1)))
                     return false;
             }
             return true;
@@ -169,10 +169,10 @@ FxTapiir::FxTapiir(const PdArgs& args)
                 res.append(d->value());
 
             return res; },
-        [this](const AtomList& l) -> bool {
-            const size_t N = std::min(NUM_TAPS, l.size());
+        [this](const AtomListView& lv) -> bool {
+            const size_t N = std::min(NUM_TAPS, lv.size());
             for (size_t i = 0; i < N; i++) {
-                if (!tap_delays_[i]->set(l.view(i, 1)))
+                if (!tap_delays_[i]->set(lv.subView(i, 1)))
                     return false;
             }
             return true;
@@ -186,10 +186,10 @@ FxTapiir::FxTapiir(const PdArgs& args)
             for(auto& d: tap_gains_)
                 res.append(d->value());
             return res; },
-        [this](const AtomList& l) -> bool {
-            const size_t N = std::min(NUM_TAPS, l.size());
+        [this](const AtomListView& lv) -> bool {
+            const size_t N = std::min(NUM_TAPS, lv.size());
             for (size_t i = 0; i < N; i++) {
-                if (!tap_gains_[i]->set(l.view(i, 1)))
+                if (!tap_gains_[i]->set(lv.subView(i, 1)))
                     return false;
             }
             return true;

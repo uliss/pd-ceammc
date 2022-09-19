@@ -46,7 +46,7 @@ public:
     size_t samples() const { return length_; }
     void next() { phase_ += (phase_ < length_); }
     virtual t_float amp() const = 0;
-    bool set(const AtomListView& lst) override;
+    bool set(const AtomListView& lv) override;
 };
 
 class LinFadeoutProperty : public XFadeProperty {
@@ -121,8 +121,8 @@ public:
     void m_play(t_symbol*, const AtomListView&);
     void m_overdub(t_symbol*, const AtomListView&);
     void m_clear(t_symbol*, const AtomListView&);
-    void m_adjust(t_symbol*, const AtomListView& lst);
-    void m_smooth(t_symbol*, const AtomListView& lst);
+    void m_adjust(t_symbol*, const AtomListView& lv);
+    void m_smooth(t_symbol*, const AtomListView& lv);
 
     // test functions
     FxLooperState state() const { return state_; }

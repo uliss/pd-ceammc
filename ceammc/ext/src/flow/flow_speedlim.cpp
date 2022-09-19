@@ -46,13 +46,13 @@ void FlowSpeedLimit::onSymbol(t_symbol* s)
     symbolTo(0, s);
 }
 
-void FlowSpeedLimit::onList(const AtomList& l)
+void FlowSpeedLimit::onList(const AtomListView& lv)
 {
     if (is_closed_)
         return;
 
     accept();
-    listTo(0, l);
+    listTo(0, lv);
 }
 
 void FlowSpeedLimit::onAny(t_symbol* s, const AtomListView& lv)

@@ -53,14 +53,14 @@ void ListUnzip::onBang()
         listTo(i - 1, out_lists_[i - 1]);
 }
 
-void ListUnzip::onList(const AtomList& l)
+void ListUnzip::onList(const AtomListView& lv)
 {
     clearOutputList();
 
     if (method_->value() == SYM_MIN)
-        list::deinterleaveMinLength(l, out_lists_);
+        list::deinterleaveMinLength(lv, out_lists_);
     else if (method_->value() == SYM_PAD)
-        list::deinterleavePadWith(l, pad_, out_lists_);
+        list::deinterleavePadWith(lv, pad_, out_lists_);
 
     onBang();
 }

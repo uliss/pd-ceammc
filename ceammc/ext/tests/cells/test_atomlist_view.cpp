@@ -19,6 +19,40 @@
 using namespace ceammc;
 
 #include <algorithm>
+#include <boost/optional/optional_io.hpp>
+
+namespace {
+
+Atom atomAdd(const Atom& a, const Atom& b) { return Atom(a.asFloat() + b.asFloat()); }
+float atomSum(const Atom& a, const Atom& b) { return a.asFloat(0) + b.asFloat(0); }
+t_float floatSum(t_float a, t_float b) { return a + b; }
+float atomMul(const Atom& a, const Atom& b) { return a.asFloat(1) * b.asFloat(1); }
+t_float floatMul(t_float a, t_float b) { return a * b; }
+t_float mul10(t_float v) { return v * 10; }
+t_float neg(t_float v) { return -v; }
+
+t_symbol* toUpper(t_symbol* s)
+{
+    std::string str(s->s_name);
+    std::transform(str.begin(), str.end(), str.begin(), ::toupper);
+    return gensym(str.c_str());
+}
+
+/** *= 100 or upper case */
+Atom testMap1(const Atom& a)
+{
+    Atom res(a);
+
+    if (a.isFloat())
+        res.setFloat(a.asFloat() * 100);
+
+    if (a.isSymbol())
+        res.setSymbol(toUpper(a.asSymbol()));
+
+    return res;
+}
+
+}
 
 TEST_CASE("AtomListView", "core")
 {
@@ -190,68 +224,6 @@ TEST_CASE("AtomListView", "core")
         REQUIRE_FALSE(AtomListView().contains(A(100)));
     }
 
-    SECTION("parse quoted")
-    {
-
-#define REQUIRE_ALV_EQ(l0, l1, p)               \
-    {                                           \
-        AtomList l = l0;                        \
-        REQUIRE(l.view().parseQuoted(p) == l1); \
-    }
-
-        // empty
-        REQUIRE_ALV_EQ(L(), L(), false);
-        REQUIRE_ALV_EQ(L(), L(), true);
-
-        // normal atoms
-        REQUIRE_ALV_EQ(LA(1, 2, 3, "A"), LA(1, 2, 3, "A"), false);
-        REQUIRE_ALV_EQ(LA(1, 2, 3, "A"), LA(1, 2, 3, "A"), true);
-
-        // normal atoms
-        REQUIRE_ALV_EQ(LA(1, "'A"), LA(1, "'A"), false);
-        REQUIRE_ALV_EQ(LA(1, "'A"), LA(1, "'A"), true);
-
-        // normal atoms
-        REQUIRE_ALV_EQ(LA(1, "'A'"), LA(1, "'A'"), false);
-        REQUIRE_ALV_EQ(LA(1, "'A'"), LA(1, "'A'"), true);
-
-        // normal atoms
-        REQUIRE_ALV_EQ(LA(1, "A'"), LA(1, "A'"), false);
-        REQUIRE_ALV_EQ(LA(1, "A'"), LA(1, "A'"), true);
-
-        // unbalanced quotes
-        REQUIRE_ALV_EQ(LA(1, "A\""), LA(1, "A\""), false);
-        REQUIRE_ALV_EQ(LA(1, "A\""), LA(1, "A\""), true);
-
-        // unbalanced quotes
-        REQUIRE_ALV_EQ(LA(1, "\"A"), LA(1, "\"A"), false);
-        REQUIRE_ALV_EQ(LA(1, "\"A"), LA(1, "\"A"), true);
-
-        // simple quotes
-        REQUIRE_ALV_EQ(LA(1, "\"A\"", 2), LA(1, "A", 2), false);
-        REQUIRE_ALV_EQ(LA(1, "\"A\"", 2), LA(1, "A", 2), true);
-
-        // simple quotes
-        REQUIRE_ALV_EQ(LA(1, "\"A", "B\"", 2), LA(1, "A B", 2), false);
-        REQUIRE_ALV_EQ(LA(1, "\"A", "B\"", 2), LA(1, "A B", 2), true);
-
-        // inner quotes
-        REQUIRE_ALV_EQ(LA(1, "\"A`\"", "B\"", 2), LA(1, "A\" B", 2), false);
-        REQUIRE_ALV_EQ(LA(1, "\"A`\"", "B\"", 2), LA(1, "A\" B", 2), true);
-
-        // props
-        REQUIRE_ALV_EQ(LA(1, "@abc", 2), LA(1, "@abc", 2), false);
-        REQUIRE_ALV_EQ(LA(1, "@abc", 2).view(), LA(1, "@abc", 2), true);
-
-        // props
-        REQUIRE_ALV_EQ(LA(1, "@abc", "\"@def\""), LA(1, "@abc", "@def"), false);
-        REQUIRE_ALV_EQ(LA(1, "@abc", "\"@def\"").view(), LA(1, "@abc", "\"@def\""), true);
-
-        // props
-        REQUIRE_ALV_EQ(LA(1, "@abc", "\"@d", "e\""), LA(1, "@abc", "@d e"), false);
-        REQUIRE_ALV_EQ(LA(1, "@abc", "\"@d", "e\"").view(), LA(1, "@abc", "@d e"), true);
-    }
-
     SECTION("allOf")
     {
 
@@ -381,5 +353,94 @@ TEST_CASE("AtomListView", "core")
         REQUIRE(LF(1, 2, 3, 4, 5).view().at(3) == 4);
         REQUIRE(LF(1, 2, 3, 4, 5).view().at(4) == 5);
         REQUIRE(LF(1, 2, 3, 4, 5).view()[0] == 1);
+    }
+
+    SECTION("test reduce")
+    {
+        AtomList l;
+        REQUIRE(l.view().reduceFloat(1.f, &floatSum) == boost::none);
+        REQUIRE(l.view().reduceFloat(1.f, &floatMul) == boost::none);
+        l.append(1.f);
+        l.append(2.f);
+        REQUIRE(l.view().reduceFloat(0.5f, &floatSum) == MaybeFloat(3.5));
+        REQUIRE(l.view().reduceFloat(2.f, &floatMul) == MaybeFloat(4));
+        l.append(gensym("a"));
+        REQUIRE(l.view().reduceFloat(0.5f, &floatSum) == MaybeFloat(3.5));
+        REQUIRE(l.view().reduceFloat(2.f, &floatMul) == MaybeFloat(4));
+        l.append(2.f);
+        REQUIRE(l.view().reduceFloat(0.5f, &floatSum) == MaybeFloat(5.5));
+        REQUIRE(l.view().reduceFloat(2.f, &floatMul) == MaybeFloat(8));
+    }
+
+    SECTION("test map")
+    {
+#define REQUIRE_MAP_FLOAT(lst, fn, res) \
+    {                                   \
+        AtomList out;                   \
+        lst.view().mapFloat(fn, out);   \
+        REQUIRE(out == res);            \
+    }
+
+#define REQUIRE_MAP_SYM(lst, fn, res)  \
+    {                                  \
+        AtomList out;                  \
+        lst.view().mapSymbol(fn, out); \
+        REQUIRE(out == res);           \
+    }
+
+#define REQUIRE_MAP_ATOM(lst, fn, res) \
+    {                                  \
+        AtomList out;                  \
+        lst.view().map(fn, out);       \
+        REQUIRE(out == res);           \
+    }
+
+        SECTION("float")
+        {
+            REQUIRE_MAP_FLOAT(LF(1, 2, 3), mul10, LF(10, 20, 30));
+            REQUIRE_MAP_FLOAT(LA("a", "b", "@c"), neg, LA("a", "b", "@c"));
+            REQUIRE_MAP_FLOAT(LA("a", 100, "c"), neg, LA("a", -100, "c"));
+        }
+
+        SECTION("symbol")
+        {
+            REQUIRE_MAP_SYM(LF(1, 2, 3), toUpper, LF(1, 2, 3));
+            REQUIRE_MAP_SYM(LA("a", "b", "c"), toUpper, LA("A", "B", "C"));
+            REQUIRE_MAP_SYM(LA("@a", "b", "c"), toUpper, LA("@A", "B", "C"));
+            REQUIRE_MAP_SYM(LA("A", "B", "C"), toUpper, LA("A", "B", "C"));
+            REQUIRE_MAP_SYM(LA("a", 100, "c"), toUpper, LA("A", 100, "C"));
+        }
+
+        SECTION("atom")
+        {
+            REQUIRE_MAP_ATOM(LF(1, 2, 3), &testMap1, LF(100, 200, 300));
+            REQUIRE_MAP_ATOM(LA("a", 0.5, "@c"), &testMap1, LAX("A", 50, "@C"));
+        }
+
+        SECTION("map atom")
+        {
+            auto fn = [](const Atom& a) { return Atom(a.isFloat()); };
+            REQUIRE_MAP_ATOM(LA(1, "a", 3), fn, LX(1, 0, 1));
+        }
+
+        SECTION("map float")
+        {
+            auto fn = [](t_float f) { return f * 2; };
+            REQUIRE_MAP_FLOAT(LF(1, 2, 3), fn, LF(2, 4, 6));
+        }
+    }
+
+    SECTION("filtered")
+    {
+#define REQUIRE_FILTER_ATOM(lst, fn, res) \
+    {                                     \
+        AtomList out;                     \
+        lst.view().filter(fn, out);       \
+        CHECK(out == res);                \
+    }
+
+        REQUIRE_FILTER_ATOM(LA("a", 2, 3, "b"), nullptr, LA("a", 2, 3, "b"));
+        REQUIRE_FILTER_ATOM(LA("a", 2, 3, "b"), isFloat, LF(2, 3));
+        REQUIRE_FILTER_ATOM(LA("a", 2, 3, "b"), isSymbol, LA("a", "b"));
     }
 }

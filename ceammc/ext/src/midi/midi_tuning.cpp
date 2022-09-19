@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "midi_tuning.h"
+#include "ceammc_containers.h"
 #include "ceammc_factory.h"
 #include "ceammc_music_temperament.h"
 #include "ceammc_music_theory_pitch_class.h"
@@ -41,13 +42,13 @@ MidiTuning::MidiTuning(const PdArgs& args)
                 res.append(d);
 
             return res; },
-        [this](const AtomList& l) -> bool {
-            if (l.isSymbol()) {
-                const auto* s = l.asT<t_symbol*>();
+        [this](const AtomListView& lv) -> bool {
+            if (lv.isSymbol()) {
+                const auto* s = lv.asT<t_symbol*>();
                 auto it = std::find_if(TEMPS.cbegin(), TEMPS.cend(), [s](const TPair& p) { return p.first == s; });
                 if (it == TEMPS.end()) {
                     Error log(this);
-                    log.stream() << "unknown tuning name: " << l << ", valid values are: ";
+                    log.stream() << "unknown tuning name: " << lv << ", valid values are: ";
                     for (auto& t : TEMPS)
                         log << t.first->s_name << ' ';
 
@@ -62,34 +63,35 @@ MidiTuning::MidiTuning(const PdArgs& args)
                 }
             }
 
-            const auto N = std::min<size_t>(12, l.size());
-            if (l.size() > 12)
-                Error(this).stream() << "too many values in deviation list: " << l.size();
+            const auto N = std::min<size_t>(12, lv.size());
+            if (lv.size() > 12)
+                Error(this).stream() << "too many values in deviation list: " << lv.size();
 
             for (size_t i = 0; i < N; i++)
-                deviations_[i] = l.floatAt(i, 0);
+                deviations_[i] = lv.floatAt(i, 0);
 
             return true;
         })
         ->setArgIndex(0);
 }
 
-void MidiTuning::onList(const AtomList& l)
+void MidiTuning::onList(const AtomListView& lv)
 {
-    if (l.size() != 2) {
-        OBJ_ERR << "NOTE VELOCITY pair expected, got: " << l;
+    if (lv.size() != 2) {
+        OBJ_ERR << "NOTE VELOCITY pair expected, got: " << lv;
         return;
     }
 
-    const auto note = l.intAt(0, -1);
-    const auto vel = l.floatAt(1, -1);
+    const auto note = lv.intAt(0, -1);
+    const auto vel = lv.floatAt(1, -1);
 
     if (note < 0 || vel < 0) {
         OBJ_ERR << "unexpected note/velocity values: " << note << ' ' << vel;
         return;
     }
 
-    listTo(0, { t_float(note + (deviations_[note % 12]) * 0.01), vel });
+    StaticAtomList<2> res { t_float(note + (deviations_[note % 12]) * 0.01), vel };
+    listTo(0, res.view());
 }
 
 void setup_midi_tuning()

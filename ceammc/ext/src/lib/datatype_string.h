@@ -16,6 +16,8 @@
 
 #include "ceammc_abstractdata.h"
 #include "ceammc_atomlist.h"
+#include "ceammc_string_split.h"
+#include "ceammc_string_types.h"
 
 #include <iostream>
 #include <string>
@@ -41,6 +43,10 @@ public:
      * Creates from string
      */
     DataTypeString(const std::string& str);
+    DataTypeString(std::string&& str)
+        : str_(std::move(str))
+    {
+    }
 
     /**
      * Creates from atom
@@ -52,7 +58,7 @@ public:
      * Create string from list of atoms - converts using to_string with space separator
      * @example list [1,2,3] -> string "1 2 3"
      */
-    DataTypeString(const AtomList& l);
+    DataTypeString(const AtomListView& lv);
 
     // copy/move
     DataTypeString(const DataTypeString& d);
@@ -76,14 +82,15 @@ public:
     const std::string& str() const noexcept { return str_; }
 
     /**
-     * Polymorphic string representation
-     */
-    std::string toString() const final;
-
-    /**
      * Polymorphic JSON string representation (quoted escaped string)
      */
-    std::string valueToJsonString() const override;
+    std::string toJsonString() const final;
+
+    std::string toListStringContent() const final;
+    std::string toDictStringContent() const final;
+    bool set(const AbstractData* d) noexcept final;
+
+    std::string toString() const final;
 
     /**
      * Check for equality with abstract data pointer
@@ -106,6 +113,11 @@ public:
     void set(const std::string& s);
 
     /**
+     * Append string to existing string
+     */
+    void append(const std::string& str);
+
+    /**
      * Makes empty
      */
     void clear() noexcept;
@@ -113,7 +125,7 @@ public:
     /**
      * Split current string to vector of string by given separator
      */
-    void split(std::vector<std::string>& res, const std::string& sep = "") const;
+    void split(string::StringSplitResult& res, const char* sep = "") const;
 
     // operators
     bool operator==(const DataTypeString& s) const noexcept { return str_ == s.str_; }
@@ -175,14 +187,20 @@ public:
      */
     DataTypeString substr(int from, size_t len) const;
 
-    int type() const noexcept final;
+    DataTypeId type() const noexcept final;
+
+    void setFromQuotedList(const AtomListView& lv);
+    void appendFromQuotedList(const AtomListView& lv);
 
 public:
-    static const int dataType;
+    static void quotedListToString(const AtomListView& lv, string::MediumString& str);
+
+public:
+    static const DataTypeId dataType;
 
 private:
-    void splitEveryChar(std::vector<std::string>& res) const;
-    void splitBySep(std::vector<std::string>& res, const std::string& sep) const;
+    void splitEveryChar(string::StringSplitResult& res) const;
+    void splitBySep(string::StringSplitResult& res, const char* sep) const;
 };
 
 std::ostream& operator<<(std::ostream& os, const DataTypeString& d);

@@ -163,15 +163,15 @@ public:
         }
     }
 
-    void onInlet(size_t n, const AtomListView& lst) override
+    void onInlet(size_t n, const AtomListView& lv) override
     {
         // find overloaded method first
-        int idx = tuple_utils::find_first(overload_args_, ArgumentMatchAndSet(lst));
+        int idx = tuple_utils::find_first(overload_args_, ArgumentMatchAndSet(lv));
 
         if (idx == MAIN_METHOD_CALL) { // overload not found
             InletArgSetter arg_setter(main_method_args_);
             // set specified argument
-            ErrorMsg err = arg_setter.setNthArg(n, lst);
+            ErrorMsg err = arg_setter.setNthArg(n, lv);
             if (err)
                 OBJ_ERR << err.msg();
 
@@ -187,9 +187,9 @@ public:
         dispatch();
     }
 
-    void onList(const AtomList& lst) override
+    void onList(const AtomListView& lv) override
     {
-        Result res = data_.setFromList(lst);
+        Result res = data_.setFromList(lv);
 
         if (res.isOk()) {
             dispatch();
@@ -242,9 +242,9 @@ public:
         }
     }
 
-    void onAny(t_symbol* s, const AtomListView& lst) override
+    void onAny(t_symbol* s, const AtomListView& lv) override
     {
-        Result res = data_.setFromAny(s, lst);
+        Result res = data_.setFromAny(s, lv);
 
         if (res.isOk()) {
             dispatch();

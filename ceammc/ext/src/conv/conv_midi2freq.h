@@ -13,7 +13,7 @@ class Midi2Freq : public BaseObject {
 public:
     Midi2Freq(const PdArgs& args);
     void onFloat(t_float f) override;
-    void onList(const AtomList& lst) override;
+    void onList(const AtomListView& lv) override;
 };
 
 void setup_conv_midi2freq();

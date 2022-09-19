@@ -28,7 +28,7 @@ public:
     void onBang() override;
     void onFloat(t_float f) override;
     void onSymbol(t_symbol* s) override;
-    void onList(const AtomList& l) override;
+    void onList(const AtomListView& lv) override;
     void onAny(t_symbol* sel, const AtomListView& lv) override;
     void onData(const Atom& data) override;
     void onInlet(size_t idx, const AtomListView& lv) override;

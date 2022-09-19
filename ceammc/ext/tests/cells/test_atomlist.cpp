@@ -16,31 +16,6 @@
 #include <boost/optional/optional_io.hpp>
 #include <cstdarg>
 
-static Atom atomAdd(const Atom& a, const Atom& b)
-{
-    return Atom(a.asFloat() + b.asFloat());
-}
-
-static float atomSum(const Atom& a, const Atom& b)
-{
-    return a.asFloat(0) + b.asFloat(0);
-}
-
-static t_float floatSum(t_float a, t_float b)
-{
-    return a + b;
-}
-
-static float atomMul(const Atom& a, const Atom& b)
-{
-    return a.asFloat(1) * b.asFloat(1);
-}
-
-static t_float floatMul(t_float a, t_float b)
-{
-    return a * b;
-}
-
 TEST_CASE("AtomList", "[ceammc::AtomList]")
 {
     SECTION("test of tests")
@@ -133,14 +108,6 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         REQUIRE(LA("A", "C") != LA("A", "B"));
         REQUIRE(LA("A", "C") != LA("A", 0xB));
         REQUIRE(LA("A", "B") == LA("A", "B"));
-    }
-
-    SECTION("filtered")
-    {
-        AtomList l = LA("a", 2, 3, "b");
-        REQUIRE(l.filtered(nullptr) == l);
-        REQUIRE(l.filtered(isFloat) == LF(2, 3));
-        REQUIRE(l.filtered(isSymbol) == LA("a", "b"));
     }
 
     SECTION("clear")
@@ -1053,44 +1020,6 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
             l.clear();
             l.append(Atom());
             REQUIRE(atomlistToValue<bool>(l, true) == false);
-        }
-    }
-
-    SECTION("test reduce")
-    {
-        SECTION("template")
-        {
-            AtomList l;
-            REQUIRE(l.reduce<t_float>(1, &atomSum) == MaybeFloat(1));
-            REQUIRE(l.reduce<t_float>(1, &atomMul) == MaybeFloat(1));
-            l.append(1.f);
-            l.append(2.f);
-            REQUIRE(l.reduce<t_float>(0.5f, &atomSum) == MaybeFloat(3.5));
-            REQUIRE(l.reduce<t_float>(2, &atomMul) == MaybeFloat(4));
-            l.append(gensym("a"));
-            REQUIRE(l.reduce<t_float>(0.5f, &atomSum) == MaybeFloat(3.5));
-            REQUIRE(l.reduce<t_float>(2, &atomMul) == MaybeFloat(4));
-            l.append(2.f);
-            REQUIRE(l.reduce<t_float>(0.5f, &atomSum) == MaybeFloat(5.5));
-            REQUIRE(l.reduce<t_float>(2, &atomMul) == MaybeFloat(8));
-        }
-
-        SECTION("float")
-        {
-
-            AtomList l;
-            REQUIRE(l.reduceFloat(1.f, &floatSum) == boost::none);
-            REQUIRE(l.reduceFloat(1.f, &floatMul) == boost::none);
-            l.append(1.f);
-            l.append(2.f);
-            REQUIRE(l.reduceFloat(0.5f, &floatSum) == MaybeFloat(3.5));
-            REQUIRE(l.reduceFloat(2.f, &floatMul) == MaybeFloat(4));
-            l.append(gensym("a"));
-            REQUIRE(l.reduceFloat(0.5f, &floatSum) == MaybeFloat(3.5));
-            REQUIRE(l.reduceFloat(2.f, &floatMul) == MaybeFloat(4));
-            l.append(2.f);
-            REQUIRE(l.reduceFloat(0.5f, &floatSum) == MaybeFloat(5.5));
-            REQUIRE(l.reduceFloat(2.f, &floatMul) == MaybeFloat(8));
         }
     }
 

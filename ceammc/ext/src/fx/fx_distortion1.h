@@ -4,8 +4,8 @@ copyright: "(c)brummer 2008"
 license: "BSD"
 name: "fx.distortion1"
 version: "0.01"
-Code generated with Faust 2.37.3 (https://faust.grame.fr)
-Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0
+Code generated with Faust 2.44.1 (https://faust.grame.fr)
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn fx_distortion1 -scn fx_distortion1_dsp -es 1 -mcd 16 -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __fx_distortion1_H__
@@ -18,23 +18,23 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_ds
 #include <memory>
 #include <string>
 
-/************************** BEGIN fx_distortion1_dsp.h **************************/
-/************************************************************************
+/************************** BEGIN fx_distortion1_dsp.h ********************************
  FAUST Architecture File
- Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
+ Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
  ---------------------------------------------------------------------
- This Architecture section is free software; you can redistribute it
- and/or modify it under the terms of the GNU General Public License
- as published by the Free Software Foundation; either version 3 of
- the License, or (at your option) any later version.
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation; either version 2.1 of the License, or
+ (at your option) any later version.
  
  This program is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU Lesser General Public License for more details.
  
- You should have received a copy of the GNU General Public License
- along with this program; If not, see <http://www.gnu.org/licenses/>.
+ You should have received a copy of the GNU Lesser General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  
  EXCEPTION : As a special exception, you may create a larger work
  that contains this FAUST architecture section and distribute
@@ -48,22 +48,104 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_ds
 #include <string>
 #include <vector>
 
+/************************************************************************
+ ************************************************************************
+    FAUST compiler
+    Copyright (C) 2003-2018 GRAME, Centre National de Creation Musicale
+    ---------------------------------------------------------------------
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ ************************************************************************
+ ************************************************************************/
+
+#ifndef __export__
+#define __export__
+
+#define FAUSTVERSION "2.44.1"
+
+// Use FAUST_API for code that is part of the external API but is also compiled in faust and libfaust
+// Use LIBFAUST_API for code that is compiled in faust and libfaust
+
+#ifdef _WIN32
+    #pragma warning (disable: 4251)
+    #ifdef FAUST_EXE
+        #define FAUST_API
+        #define LIBFAUST_API
+    #elif FAUST_LIB
+        #define FAUST_API __declspec(dllexport)
+        #define LIBFAUST_API __declspec(dllexport)
+    #else
+        #define FAUST_API
+        #define LIBFAUST_API 
+    #endif
+#else
+    #ifdef FAUST_EXE
+        #define FAUST_API
+        #define LIBFAUST_API
+    #else
+        #define FAUST_API __attribute__((visibility("default")))
+        #define LIBFAUST_API __attribute__((visibility("default")))
+    #endif
+#endif
+
+#endif
+
 #ifndef FAUSTFLOAT
 #define FAUSTFLOAT float
 #endif
 
-struct UI;
-struct Meta;
+struct FAUST_API UI;
+struct FAUST_API Meta;
 
 /**
  * DSP memory manager.
  */
 
-struct dsp_memory_manager {
+struct FAUST_API dsp_memory_manager {
     
     virtual ~dsp_memory_manager() {}
     
+    /**
+     * Inform the Memory Manager with the number of expected memory zones.
+     * @param count - the number of expected memory zones
+     */
+    virtual void begin(size_t count) {}
+    
+    /**
+     * Give the Memory Manager information on a given memory zone.
+     * @param size - the size in bytes of the memory zone
+     * @param reads - the number of Read access to the zone used to compute one frame
+     * @param writes - the number of Write access to the zone used to compute one frame
+     */
+    virtual void info(size_t size, size_t reads, size_t writes) {}
+    
+    /**
+     * Inform the Memory Manager that all memory zones have been described,
+     * to possibly start a 'compute the best allocation strategy' step.
+     */
+    virtual void end() {}
+    
+    /**
+     * Allocate a memory zone.
+     * @param size - the memory zone size in bytes
+     */
     virtual void* allocate(size_t size) = 0;
+    
+    /**
+     * Destroy a memory zone.
+     * @param ptr - the memory zone pointer to be deallocated
+     */
     virtual void destroy(void* ptr) = 0;
     
 };
@@ -72,7 +154,7 @@ struct dsp_memory_manager {
 * Signal processor definition.
 */
 
-class fx_distortion1_dsp {
+class FAUST_API fx_distortion1_dsp {
 
     public:
 
@@ -166,7 +248,7 @@ class fx_distortion1_dsp {
  * Generic DSP decorator.
  */
 
-class decorator_dsp : public fx_distortion1_dsp {
+class FAUST_API decorator_dsp : public fx_distortion1_dsp {
 
     protected:
 
@@ -199,7 +281,7 @@ class decorator_dsp : public fx_distortion1_dsp {
  * to create DSP instances from a compiled DSP program.
  */
 
-class dsp_factory {
+class FAUST_API dsp_factory {
     
     protected:
     
@@ -228,8 +310,8 @@ class dsp_factory {
 #include <xmmintrin.h>
 #endif
 
-class ScopedNoDenormals
-{
+class FAUST_API ScopedNoDenormals {
+    
     private:
     
         intptr_t fpsr;
@@ -285,32 +367,33 @@ class ScopedNoDenormals
 #endif
 
 /************************** END fx_distortion1_dsp.h **************************/
-/************************** BEGIN UI.h **************************/
-/************************************************************************
+/************************** BEGIN UI.h *****************************
  FAUST Architecture File
- Copyright (C) 2003-2020 GRAME, Centre National de Creation Musicale
+ Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
  ---------------------------------------------------------------------
- This Architecture section is free software; you can redistribute it
- and/or modify it under the terms of the GNU General Public License
- as published by the Free Software Foundation; either version 3 of
- the License, or (at your option) any later version.
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation; either version 2.1 of the License, or
+ (at your option) any later version.
  
  This program is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU Lesser General Public License for more details.
  
- You should have received a copy of the GNU General Public License
- along with this program; If not, see <http://www.gnu.org/licenses/>.
+ You should have received a copy of the GNU Lesser General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  
  EXCEPTION : As a special exception, you may create a larger work
  that contains this FAUST architecture section and distribute
  that work under terms of your choice, so long as this FAUST
  architecture section is not modified.
- ************************************************************************/
+ ********************************************************************/
 
 #ifndef __UI_H__
 #define __UI_H__
+
 
 #ifndef FAUSTFLOAT
 #define FAUSTFLOAT float
@@ -326,8 +409,8 @@ class ScopedNoDenormals
 struct Soundfile;
 
 template <typename REAL>
-struct UIReal
-{
+struct FAUST_API UIReal {
+    
     UIReal() {}
     virtual ~UIReal() {}
     
@@ -363,31 +446,30 @@ struct UIReal
     virtual int sizeOfFAUSTFLOAT() { return sizeof(FAUSTFLOAT); }
 };
 
-struct UI : public UIReal<FAUSTFLOAT>
-{
+struct FAUST_API UI : public UIReal<FAUSTFLOAT> {
     UI() {}
     virtual ~UI() {}
 };
 
 #endif
 /**************************  END  UI.h **************************/
-/************************** BEGIN meta.h **************************/
-/************************************************************************
+/************************** BEGIN meta.h *******************************
  FAUST Architecture File
- Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
+ Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
  ---------------------------------------------------------------------
- This Architecture section is free software; you can redistribute it
- and/or modify it under the terms of the GNU General Public License
- as published by the Free Software Foundation; either version 3 of
- the License, or (at your option) any later version.
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation; either version 2.1 of the License, or
+ (at your option) any later version.
  
  This program is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU Lesser General Public License for more details.
  
- You should have received a copy of the GNU General Public License
- along with this program; If not, see <http://www.gnu.org/licenses/>.
+ You should have received a copy of the GNU Lesser General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  
  EXCEPTION : As a special exception, you may create a larger work
  that contains this FAUST architecture section and distribute
@@ -398,40 +480,40 @@ struct UI : public UIReal<FAUSTFLOAT>
 #ifndef __meta__
 #define __meta__
 
+
 /**
  The base class of Meta handler to be used in fx_distortion1_dsp::metadata(Meta* m) method to retrieve (key, value) metadata.
  */
-struct Meta
-{
-    virtual ~Meta() {};
+struct FAUST_API Meta {
+    virtual ~Meta() {}
     virtual void declare(const char* key, const char* value) = 0;
 };
 
 #endif
 /**************************  END  meta.h **************************/
-/************************** BEGIN misc.h **************************/
-/************************************************************************
- FAUST Architecture File
- Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
- ---------------------------------------------------------------------
- This Architecture section is free software; you can redistribute it
- and/or modify it under the terms of the GNU General Public License
- as published by the Free Software Foundation; either version 3 of
- the License, or (at your option) any later version.
- 
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
- 
- You should have received a copy of the GNU General Public License
- along with this program; If not, see <http://www.gnu.org/licenses/>.
- 
- EXCEPTION : As a special exception, you may create a larger work
- that contains this FAUST architecture section and distribute
- that work under terms of your choice, so long as this FAUST
- architecture section is not modified.
- ************************************************************************/
+/************************** BEGIN misc.h *******************************
+FAUST Architecture File
+Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
+---------------------------------------------------------------------
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation; either version 2.1 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+
+EXCEPTION : As a special exception, you may create a larger work
+that contains this FAUST architecture section and distribute
+that work under terms of your choice, so long as this FAUST
+architecture section is not modified.
+***************************************************************************/
 
 #ifndef __misc__
 #define __misc__
@@ -443,14 +525,6 @@ struct Meta
 #include <fstream>
 #include <string>
 
-
-using std::max;
-using std::min;
-
-struct XXXX_Meta : std::map<const char*, const char*>
-{
-    void declare(const char* key, const char* value) { (*this)[key] = value; }
-};
 
 struct MY_Meta : Meta, std::map<const char*, const char*>
 {
@@ -553,10 +627,6 @@ struct fx_distortion1 : public fx_distortion1_dsp {
 #include <cstdint>
 #include <math.h>
 
-static float fx_distortion1_faustpower2_f(float value) {
-	return (value * value);
-}
-
 #ifndef FAUSTCLASS 
 #define FAUSTCLASS fx_distortion1
 #endif
@@ -565,6 +635,16 @@ static float fx_distortion1_faustpower2_f(float value) {
 #define exp10f __exp10f
 #define exp10 __exp10
 #endif
+
+#if defined(_WIN32)
+#define RESTRICT __restrict
+#else
+#define RESTRICT __restrict__
+#endif
+
+static float fx_distortion1_faustpower2_f(float value) {
+	return value * value;
+}
 
 class fx_distortion1 : public fx_distortion1_dsp {
 	
@@ -648,9 +728,10 @@ class fx_distortion1 : public fx_distortion1_dsp {
 	void metadata(Meta* m) { 
 		m->declare("HighShelf.dsp/id", "HighShelf");
 		m->declare("author", "brummer");
+		m->declare("basics.lib/bypass1:author", "Julius Smith");
 		m->declare("basics.lib/name", "Faust Basic Element Library");
-		m->declare("basics.lib/version", "0.2");
-		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0");
+		m->declare("basics.lib/version", "0.8");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn fx_distortion1 -scn fx_distortion1_dsp -es 1 -mcd 16 -single -ftz 0");
 		m->declare("copyright", "(c)brummer 2008");
 		m->declare("delays.lib/name", "Faust Delay Library");
 		m->declare("delays.lib/version", "0.1");
@@ -666,7 +747,7 @@ class fx_distortion1 : public fx_distortion1_dsp {
 		m->declare("filters.lib/iir:author", "Julius O. Smith III");
 		m->declare("filters.lib/iir:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/iir:license", "MIT-style STK-4.3 license");
-		m->declare("filters.lib/lowpass0_highpass1", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
+		m->declare("filters.lib/lowpass0_highpass1", "MIT-style STK-4.3 license");
 		m->declare("filters.lib/lowpass0_highpass1:author", "Julius O. Smith III");
 		m->declare("filters.lib/lowpass:author", "Julius O. Smith III");
 		m->declare("filters.lib/lowpass:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -723,19 +804,19 @@ class fx_distortion1 : public fx_distortion1_dsp {
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
 		float fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
-		fConst1 = (3.14159274f / fConst0);
-		float fConst2 = (6.28318548f * (std::max<float>(0.0f, ((0.5f * fConst0) + -100.0f)) / fConst0));
+		fConst1 = 3.14159274f / fConst0;
+		float fConst2 = 6.28318548f * std::max<float>(0.0f, 0.5f * fConst0 + -100.0f) / fConst0;
 		float fConst3 = std::cos(fConst2);
-		float fConst4 = (0.683772206f * fConst3);
-		float fConst5 = (0.00562341325f * std::sin(fConst2));
-		float fConst6 = (fConst4 + fConst5);
-		fConst7 = (1.0f / (fConst6 + 1.31622779f));
-		float fConst8 = (1.31622779f * fConst3);
-		fConst9 = (0.0f - (0.632455528f * (fConst8 + -0.683772206f)));
-		fConst10 = (fConst4 + (1.31622779f - fConst5));
-		fConst11 = (2.0f * (-0.683772206f - fConst8));
-		fConst12 = (0.316227764f * (fConst5 + (1.31622779f - fConst4)));
-		fConst13 = (0.316227764f * (1.31622779f - fConst6));
+		float fConst4 = 0.683772206f * fConst3;
+		float fConst5 = 0.00562341325f * std::sin(fConst2);
+		float fConst6 = fConst4 + fConst5;
+		fConst7 = 1.0f / (fConst6 + 1.31622779f);
+		float fConst8 = 1.31622779f * fConst3;
+		fConst9 = 0.0f - 0.632455528f * (fConst8 + -0.683772206f);
+		fConst10 = fConst4 + 1.31622779f - fConst5;
+		fConst11 = 2.0f * (-0.683772206f - fConst8);
+		fConst12 = 0.316227764f * (fConst5 + 1.31622779f - fConst4);
+		fConst13 = 0.316227764f * (1.31622779f - fConst6);
 	}
 	
 	virtual void instanceResetUserInterface() {
@@ -765,127 +846,127 @@ class fx_distortion1 : public fx_distortion1_dsp {
 	}
 	
 	virtual void instanceClear() {
-		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
+		for (int l0 = 0; l0 < 2; l0 = l0 + 1) {
 			iVec0[l0] = 0;
 		}
-		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
+		for (int l1 = 0; l1 < 2; l1 = l1 + 1) {
 			fRec4[l1] = 0.0f;
 		}
-		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
+		for (int l2 = 0; l2 < 2; l2 = l2 + 1) {
 			fRec6[l2] = 0.0f;
 		}
-		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
+		for (int l3 = 0; l3 < 2; l3 = l3 + 1) {
 			fRec7[l3] = 0.0f;
 		}
-		for (int l4 = 0; (l4 < 2); l4 = (l4 + 1)) {
+		for (int l4 = 0; l4 < 2; l4 = l4 + 1) {
 			fVec1[l4] = 0.0f;
 		}
-		for (int l5 = 0; (l5 < 2); l5 = (l5 + 1)) {
+		for (int l5 = 0; l5 < 2; l5 = l5 + 1) {
 			fRec17[l5] = 0.0f;
 		}
-		for (int l6 = 0; (l6 < 2); l6 = (l6 + 1)) {
+		for (int l6 = 0; l6 < 2; l6 = l6 + 1) {
 			fVec2[l6] = 0.0f;
 		}
-		for (int l7 = 0; (l7 < 2); l7 = (l7 + 1)) {
+		for (int l7 = 0; l7 < 2; l7 = l7 + 1) {
 			fRec16[l7] = 0.0f;
 		}
-		for (int l8 = 0; (l8 < 2); l8 = (l8 + 1)) {
+		for (int l8 = 0; l8 < 2; l8 = l8 + 1) {
 			fRec15[l8] = 0.0f;
 		}
-		for (int l9 = 0; (l9 < 2); l9 = (l9 + 1)) {
+		for (int l9 = 0; l9 < 2; l9 = l9 + 1) {
 			fVec3[l9] = 0.0f;
 		}
-		for (int l10 = 0; (l10 < 2); l10 = (l10 + 1)) {
+		for (int l10 = 0; l10 < 2; l10 = l10 + 1) {
 			fRec14[l10] = 0.0f;
 		}
-		for (int l11 = 0; (l11 < 2); l11 = (l11 + 1)) {
+		for (int l11 = 0; l11 < 2; l11 = l11 + 1) {
 			fVec4[l11] = 0.0f;
 		}
-		for (int l12 = 0; (l12 < 2); l12 = (l12 + 1)) {
+		for (int l12 = 0; l12 < 2; l12 = l12 + 1) {
 			fRec13[l12] = 0.0f;
 		}
-		for (int l13 = 0; (l13 < 3); l13 = (l13 + 1)) {
+		for (int l13 = 0; l13 < 3; l13 = l13 + 1) {
 			fRec12[l13] = 0.0f;
 		}
-		for (int l14 = 0; (l14 < 3); l14 = (l14 + 1)) {
+		for (int l14 = 0; l14 < 3; l14 = l14 + 1) {
 			fRec11[l14] = 0.0f;
 		}
-		for (int l15 = 0; (l15 < 3); l15 = (l15 + 1)) {
+		for (int l15 = 0; l15 < 3; l15 = l15 + 1) {
 			fRec10[l15] = 0.0f;
 		}
-		for (int l16 = 0; (l16 < 2); l16 = (l16 + 1)) {
+		for (int l16 = 0; l16 < 2; l16 = l16 + 1) {
 			fVec5[l16] = 0.0f;
 		}
-		for (int l17 = 0; (l17 < 2); l17 = (l17 + 1)) {
+		for (int l17 = 0; l17 < 2; l17 = l17 + 1) {
 			fRec9[l17] = 0.0f;
 		}
-		for (int l18 = 0; (l18 < 3); l18 = (l18 + 1)) {
+		for (int l18 = 0; l18 < 3; l18 = l18 + 1) {
 			fRec8[l18] = 0.0f;
 		}
-		for (int l19 = 0; (l19 < 2); l19 = (l19 + 1)) {
+		for (int l19 = 0; l19 < 2; l19 = l19 + 1) {
 			fRec18[l19] = 0.0f;
 		}
-		for (int l20 = 0; (l20 < 2); l20 = (l20 + 1)) {
+		for (int l20 = 0; l20 < 2; l20 = l20 + 1) {
 			fRec22[l20] = 0.0f;
 		}
-		for (int l21 = 0; (l21 < 3); l21 = (l21 + 1)) {
+		for (int l21 = 0; l21 < 3; l21 = l21 + 1) {
 			fRec21[l21] = 0.0f;
 		}
-		for (int l22 = 0; (l22 < 2); l22 = (l22 + 1)) {
+		for (int l22 = 0; l22 < 2; l22 = l22 + 1) {
 			fVec6[l22] = 0.0f;
 		}
-		for (int l23 = 0; (l23 < 2); l23 = (l23 + 1)) {
+		for (int l23 = 0; l23 < 2; l23 = l23 + 1) {
 			fRec20[l23] = 0.0f;
 		}
-		for (int l24 = 0; (l24 < 3); l24 = (l24 + 1)) {
+		for (int l24 = 0; l24 < 3; l24 = l24 + 1) {
 			fRec19[l24] = 0.0f;
 		}
-		for (int l25 = 0; (l25 < 2); l25 = (l25 + 1)) {
+		for (int l25 = 0; l25 < 2; l25 = l25 + 1) {
 			fRec23[l25] = 0.0f;
 		}
-		for (int l26 = 0; (l26 < 2); l26 = (l26 + 1)) {
+		for (int l26 = 0; l26 < 2; l26 = l26 + 1) {
 			fRec27[l26] = 0.0f;
 		}
-		for (int l27 = 0; (l27 < 3); l27 = (l27 + 1)) {
+		for (int l27 = 0; l27 < 3; l27 = l27 + 1) {
 			fRec26[l27] = 0.0f;
 		}
-		for (int l28 = 0; (l28 < 2); l28 = (l28 + 1)) {
+		for (int l28 = 0; l28 < 2; l28 = l28 + 1) {
 			fVec7[l28] = 0.0f;
 		}
-		for (int l29 = 0; (l29 < 2); l29 = (l29 + 1)) {
+		for (int l29 = 0; l29 < 2; l29 = l29 + 1) {
 			fRec25[l29] = 0.0f;
 		}
-		for (int l30 = 0; (l30 < 3); l30 = (l30 + 1)) {
+		for (int l30 = 0; l30 < 3; l30 = l30 + 1) {
 			fRec24[l30] = 0.0f;
 		}
-		for (int l31 = 0; (l31 < 2); l31 = (l31 + 1)) {
+		for (int l31 = 0; l31 < 2; l31 = l31 + 1) {
 			fRec28[l31] = 0.0f;
 		}
-		for (int l32 = 0; (l32 < 2); l32 = (l32 + 1)) {
+		for (int l32 = 0; l32 < 2; l32 = l32 + 1) {
 			fRec30[l32] = 0.0f;
 		}
-		for (int l33 = 0; (l33 < 3); l33 = (l33 + 1)) {
+		for (int l33 = 0; l33 < 3; l33 = l33 + 1) {
 			fRec29[l33] = 0.0f;
 		}
-		for (int l34 = 0; (l34 < 3); l34 = (l34 + 1)) {
+		for (int l34 = 0; l34 < 3; l34 = l34 + 1) {
 			fRec5[l34] = 0.0f;
 		}
-		for (int l35 = 0; (l35 < 2); l35 = (l35 + 1)) {
+		for (int l35 = 0; l35 < 2; l35 = l35 + 1) {
 			fVec8[l35] = 0.0f;
 		}
-		for (int l36 = 0; (l36 < 2); l36 = (l36 + 1)) {
+		for (int l36 = 0; l36 < 2; l36 = l36 + 1) {
 			fRec3[l36] = 0.0f;
 		}
-		for (int l37 = 0; (l37 < 2); l37 = (l37 + 1)) {
+		for (int l37 = 0; l37 < 2; l37 = l37 + 1) {
 			fVec9[l37] = 0.0f;
 		}
-		for (int l38 = 0; (l38 < 2); l38 = (l38 + 1)) {
+		for (int l38 = 0; l38 < 2; l38 = l38 + 1) {
 			fRec2[l38] = 0.0f;
 		}
-		for (int l39 = 0; (l39 < 3); l39 = (l39 + 1)) {
+		for (int l39 = 0; l39 < 3; l39 = l39 + 1) {
 			fRec1[l39] = 0.0f;
 		}
-		for (int l40 = 0; (l40 < 3); l40 = (l40 + 1)) {
+		for (int l40 = 0; l40 < 3; l40 = l40 + 1) {
 			fRec0[l40] = 0.0f;
 		}
 	}
@@ -952,151 +1033,151 @@ class fx_distortion1 : public fx_distortion1_dsp {
 		ui_interface->closeBox();
 	}
 	
-	virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
+	virtual void compute(int count, FAUSTFLOAT** RESTRICT inputs, FAUSTFLOAT** RESTRICT outputs) {
 		FAUSTFLOAT* input0 = inputs[0];
 		FAUSTFLOAT* output0 = outputs[0];
 		int iSlow0 = int(float(fCheckbox0));
-		float fSlow1 = std::tan((fConst1 * float(fVslider0)));
-		float fSlow2 = (1.0f / fSlow1);
-		float fSlow3 = (1.0f / (((fSlow2 + 0.765366852f) / fSlow1) + 1.0f));
-		float fSlow4 = (1.0f / (((fSlow2 + 1.84775901f) / fSlow1) + 1.0f));
-		float fSlow5 = (fConst1 * float(fVslider1));
-		float fSlow6 = (1.0f / (fSlow5 + 1.0f));
-		float fSlow7 = (0.00100000005f * std::pow(10.0f, (0.0500000007f * (float(fVslider2) + -10.0f))));
-		float fSlow8 = (0.00100000005f * std::pow(10.0f, (0.0500000007f * (float(fVslider3) + -10.0f))));
+		float fSlow1 = std::tan(fConst1 * float(fVslider0));
+		float fSlow2 = 1.0f / fSlow1;
+		float fSlow3 = 1.0f / ((fSlow2 + 0.765366852f) / fSlow1 + 1.0f);
+		float fSlow4 = 1.0f / ((fSlow2 + 1.84775901f) / fSlow1 + 1.0f);
+		float fSlow5 = fConst1 * float(fVslider1);
+		float fSlow6 = 1.0f / (fSlow5 + 1.0f);
+		float fSlow7 = 0.00100000005f * std::pow(10.0f, 0.0500000007f * (float(fVslider2) + -10.0f));
+		float fSlow8 = 0.00100000005f * std::pow(10.0f, 0.0500000007f * (float(fVslider3) + -10.0f));
 		float fSlow9 = float(fVslider4);
 		float fSlow10 = float(fVslider6);
-		float fSlow11 = std::tan((fConst1 * float(fEntry0)));
-		float fSlow12 = (1.0f / fSlow11);
-		float fSlow13 = (((fSlow12 + 1.0f) / fSlow11) + 1.0f);
-		float fSlow14 = (std::pow(10.0f, (2.0f * (float(fVslider5) * fSlow10))) / fSlow13);
+		float fSlow11 = std::tan(fConst1 * float(fEntry0));
+		float fSlow12 = 1.0f / fSlow11;
+		float fSlow13 = (fSlow12 + 1.0f) / fSlow11 + 1.0f;
+		float fSlow14 = std::pow(10.0f, 2.0f * float(fVslider5) * fSlow10) / fSlow13;
 		float fSlow15 = fx_distortion1_faustpower2_f(fSlow11);
-		float fSlow16 = (1.0f / fSlow15);
-		float fSlow17 = (fSlow12 + 1.0f);
-		float fSlow18 = (1.0f / (fSlow11 * fSlow17));
+		float fSlow16 = 1.0f / fSlow15;
+		float fSlow17 = fSlow12 + 1.0f;
+		float fSlow18 = 1.0f / (fSlow11 * fSlow17);
 		int iSlow19 = int(float(fCheckbox1));
-		float fSlow20 = std::tan((fConst1 * float(fEntry1)));
-		float fSlow21 = (1.0f / fSlow20);
-		float fSlow22 = (fSlow21 + 1.0f);
-		float fSlow23 = (0.0f - (1.0f / (fSlow20 * fSlow22)));
-		float fSlow24 = (1.0f / std::tan((fConst1 * float(fEntry2))));
-		float fSlow25 = (1.0f / (fSlow24 + 1.0f));
-		float fSlow26 = (1.0f - fSlow24);
+		float fSlow20 = std::tan(fConst1 * float(fEntry1));
+		float fSlow21 = 1.0f / fSlow20;
+		float fSlow22 = fSlow21 + 1.0f;
+		float fSlow23 = 0.0f - 1.0f / (fSlow20 * fSlow22);
+		float fSlow24 = 1.0f / std::tan(fConst1 * float(fEntry2));
+		float fSlow25 = 1.0f / (fSlow24 + 1.0f);
+		float fSlow26 = 1.0f - fSlow24;
 		int iSlow27 = int(float(fCheckbox2));
-		float fSlow28 = (1.0f - float(fVslider7));
+		float fSlow28 = 1.0f - float(fVslider7);
 		float fSlow29 = float(fVslider8);
-		int iSlow30 = int(std::min<float>(4096.0f, std::max<float>(0.0f, (fSlow29 + -1.0f))));
+		int iSlow30 = int(std::min<float>(4096.0f, std::max<float>(0.0f, fSlow29 + -1.0f)));
 		int iSlow31 = int(std::min<float>(4096.0f, std::max<float>(0.0f, fSlow29)));
-		float fSlow32 = (1.0f / fSlow22);
-		float fSlow33 = (1.0f - fSlow21);
-		float fSlow34 = (1.0f - fSlow5);
-		float fSlow35 = (((fSlow2 + -1.84775901f) / fSlow1) + 1.0f);
-		float fSlow36 = (2.0f * (1.0f - (1.0f / fx_distortion1_faustpower2_f(fSlow1))));
-		float fSlow37 = (((fSlow2 + -0.765366852f) / fSlow1) + 1.0f);
-		float fSlow38 = (0.0f - fSlow18);
-		float fSlow39 = (1.0f - fSlow12);
-		float fSlow40 = (fSlow39 / fSlow17);
-		float fSlow41 = (1.0f / fSlow13);
-		float fSlow42 = (((fSlow12 + -1.0f) / fSlow11) + 1.0f);
-		float fSlow43 = (2.0f * (1.0f - fSlow16));
-		float fSlow44 = (0.0f - (2.0f / fSlow15));
-		float fSlow45 = (0.00100000005f * std::pow(10.0f, (0.0500000007f * (float(fVslider9) + -10.0f))));
-		float fSlow46 = std::tan((fConst1 * float(fEntry3)));
-		float fSlow47 = (1.0f / fSlow46);
-		float fSlow48 = (((fSlow47 + 1.0f) / fSlow46) + 1.0f);
-		float fSlow49 = (std::pow(10.0f, (2.0f * (fSlow10 * float(fVslider10)))) / fSlow48);
+		float fSlow32 = 1.0f / fSlow22;
+		float fSlow33 = 1.0f - fSlow21;
+		float fSlow34 = 1.0f - fSlow5;
+		float fSlow35 = (fSlow2 + -1.84775901f) / fSlow1 + 1.0f;
+		float fSlow36 = 2.0f * (1.0f - 1.0f / fx_distortion1_faustpower2_f(fSlow1));
+		float fSlow37 = (fSlow2 + -0.765366852f) / fSlow1 + 1.0f;
+		float fSlow38 = 0.0f - fSlow18;
+		float fSlow39 = 1.0f - fSlow12;
+		float fSlow40 = fSlow39 / fSlow17;
+		float fSlow41 = 1.0f / fSlow13;
+		float fSlow42 = (fSlow12 + -1.0f) / fSlow11 + 1.0f;
+		float fSlow43 = 2.0f * (1.0f - fSlow16);
+		float fSlow44 = 0.0f - 2.0f / fSlow15;
+		float fSlow45 = 0.00100000005f * std::pow(10.0f, 0.0500000007f * (float(fVslider9) + -10.0f));
+		float fSlow46 = std::tan(fConst1 * float(fEntry3));
+		float fSlow47 = 1.0f / fSlow46;
+		float fSlow48 = (fSlow47 + 1.0f) / fSlow46 + 1.0f;
+		float fSlow49 = std::pow(10.0f, 2.0f * fSlow10 * float(fVslider10)) / fSlow48;
 		float fSlow50 = fx_distortion1_faustpower2_f(fSlow46);
-		float fSlow51 = (0.0f - (2.0f / fSlow50));
-		float fSlow52 = (fSlow47 + 1.0f);
-		float fSlow53 = (0.0f - (1.0f / (fSlow46 * fSlow52)));
-		float fSlow54 = (1.0f / fSlow17);
-		float fSlow55 = (1.0f / fSlow52);
-		float fSlow56 = (1.0f - fSlow47);
-		float fSlow57 = (1.0f / (fSlow46 * fSlow13));
-		float fSlow58 = (1.0f / fSlow48);
-		float fSlow59 = (((fSlow47 + -1.0f) / fSlow46) + 1.0f);
-		float fSlow60 = (1.0f / fSlow50);
-		float fSlow61 = (2.0f * (1.0f - fSlow60));
-		float fSlow62 = (0.00100000005f * std::pow(10.0f, (0.0500000007f * (float(fVslider11) + -10.0f))));
-		float fSlow63 = std::tan((fConst1 * float(fEntry4)));
-		float fSlow64 = (1.0f / fSlow63);
-		float fSlow65 = (((fSlow64 + 1.0f) / fSlow63) + 1.0f);
-		float fSlow66 = (std::pow(10.0f, (2.0f * (fSlow10 * float(fVslider12)))) / fSlow65);
+		float fSlow51 = 1.0f / fSlow50;
+		float fSlow52 = fSlow47 + 1.0f;
+		float fSlow53 = 0.0f - 1.0f / (fSlow46 * fSlow52);
+		float fSlow54 = 1.0f / fSlow17;
+		float fSlow55 = 1.0f / fSlow52;
+		float fSlow56 = 1.0f - fSlow47;
+		float fSlow57 = 1.0f / (fSlow46 * fSlow13);
+		float fSlow58 = 1.0f / fSlow48;
+		float fSlow59 = (fSlow47 + -1.0f) / fSlow46 + 1.0f;
+		float fSlow60 = 2.0f * (1.0f - fSlow51);
+		float fSlow61 = 0.0f - 2.0f / fSlow50;
+		float fSlow62 = 0.00100000005f * std::pow(10.0f, 0.0500000007f * (float(fVslider11) + -10.0f));
+		float fSlow63 = std::tan(fConst1 * float(fEntry4));
+		float fSlow64 = 1.0f / fSlow63;
+		float fSlow65 = (fSlow64 + 1.0f) / fSlow63 + 1.0f;
+		float fSlow66 = std::pow(10.0f, 2.0f * fSlow10 * float(fVslider12)) / fSlow65;
 		float fSlow67 = fx_distortion1_faustpower2_f(fSlow63);
-		float fSlow68 = (1.0f / fSlow67);
-		float fSlow69 = (fSlow64 + 1.0f);
-		float fSlow70 = (0.0f - (1.0f / (fSlow63 * fSlow69)));
-		float fSlow71 = (1.0f / fSlow69);
-		float fSlow72 = (1.0f - fSlow64);
-		float fSlow73 = (1.0f / (fSlow63 * fSlow48));
-		float fSlow74 = (1.0f / fSlow65);
-		float fSlow75 = (((fSlow64 + -1.0f) / fSlow63) + 1.0f);
-		float fSlow76 = (2.0f * (1.0f - fSlow68));
-		float fSlow77 = (0.0f - (2.0f / fSlow67));
-		float fSlow78 = (0.00100000005f * std::pow(10.0f, (0.0500000007f * (float(fVslider13) + -10.0f))));
-		float fSlow79 = (std::pow(10.0f, (2.0f * (fSlow10 * float(fVslider14)))) / fSlow65);
-		for (int i0 = 0; (i0 < count); i0 = (i0 + 1)) {
+		float fSlow68 = 1.0f / fSlow67;
+		float fSlow69 = fSlow64 + 1.0f;
+		float fSlow70 = 0.0f - 1.0f / (fSlow63 * fSlow69);
+		float fSlow71 = 1.0f / fSlow69;
+		float fSlow72 = 1.0f - fSlow64;
+		float fSlow73 = 1.0f / (fSlow63 * fSlow48);
+		float fSlow74 = 1.0f / fSlow65;
+		float fSlow75 = (fSlow64 + -1.0f) / fSlow63 + 1.0f;
+		float fSlow76 = 2.0f * (1.0f - fSlow68);
+		float fSlow77 = 0.0f - 2.0f / fSlow67;
+		float fSlow78 = 0.00100000005f * std::pow(10.0f, 0.0500000007f * (float(fVslider13) + -10.0f));
+		float fSlow79 = std::pow(10.0f, 2.0f * fSlow10 * float(fVslider14)) / fSlow65;
+		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
 			iVec0[0] = 1;
-			fRec4[0] = ((9.99999968e-21f * float((1 - iVec0[1]))) - fRec4[1]);
-			fRec6[0] = (fSlow7 + (0.999000013f * fRec6[1]));
-			fRec7[0] = (fSlow8 + (0.999000013f * fRec7[1]));
+			fRec4[0] = 9.99999968e-21f * float(1 - iVec0[1]) - fRec4[1];
+			fRec6[0] = fSlow7 + 0.999000013f * fRec6[1];
+			fRec7[0] = fSlow8 + 0.999000013f * fRec7[1];
 			float fTemp0 = float(input0[i0]);
-			float fTemp1 = (fTemp0 + (fSlow28 * fRec17[1]));
+			float fTemp1 = fTemp0 + fSlow28 * fRec17[1];
 			fVec1[0] = fTemp1;
-			fRec17[0] = (0.5f * (fVec1[iSlow30] + fVec1[iSlow31]));
-			float fTemp2 = ((iSlow27 ? fRec17[0] : fTemp0) + fRec4[0]);
-			float fTemp3 = (fRec4[0] + (iSlow19 ? 0.0f : fTemp2));
+			fRec17[0] = 0.5f * (fVec1[iSlow30] + fVec1[iSlow31]);
+			float fTemp2 = ((iSlow27) ? fRec17[0] : fTemp0) + fRec4[0];
+			float fTemp3 = fRec4[0] + ((iSlow19) ? 0.0f : fTemp2);
 			fVec2[0] = fTemp3;
-			fRec16[0] = (0.0f - (fSlow25 * ((fSlow26 * fRec16[1]) - (fTemp3 + fVec2[1]))));
-			fRec15[0] = ((fSlow23 * fRec16[1]) - (fSlow32 * ((fSlow33 * fRec15[1]) - (fSlow21 * fRec16[0]))));
-			float fTemp4 = (iSlow19 ? fTemp2 : fRec15[0]);
-			float fTemp5 = (fRec4[0] + (iSlow0 ? 0.0f : fTemp4));
-			fVec3[0] = (fSlow6 * fTemp5);
-			fRec14[0] = ((fSlow6 * (fTemp5 + (fSlow34 * fRec14[1]))) - fVec3[1]);
-			fVec4[0] = (fSlow6 * fRec14[0]);
-			fRec13[0] = ((fSlow6 * (fRec14[0] + (fSlow34 * fRec13[1]))) - fVec4[1]);
-			fRec12[0] = (fRec13[0] - (fSlow4 * ((fSlow35 * fRec12[2]) + (fSlow36 * fRec12[1]))));
-			fRec11[0] = ((fSlow4 * (fRec12[2] + (fRec12[0] + (2.0f * fRec12[1])))) - (fSlow3 * ((fSlow37 * fRec11[2]) + (fSlow36 * fRec11[1]))));
-			float fThen4 = (fSlow3 * (fRec11[2] + (fRec11[0] + (2.0f * fRec11[1]))));
-			fRec10[0] = ((iSlow0 ? fTemp4 : fThen4) - (fConst7 * ((fConst10 * fRec10[2]) + (fConst11 * fRec10[1]))));
-			float fTemp6 = (((fConst9 * fRec10[1]) + (fConst12 * fRec10[0])) + (fConst13 * fRec10[2]));
+			fRec16[0] = 0.0f - fSlow25 * (fSlow26 * fRec16[1] - (fTemp3 + fVec2[1]));
+			fRec15[0] = fSlow23 * fRec16[1] - fSlow32 * (fSlow33 * fRec15[1] - fSlow21 * fRec16[0]);
+			float fTemp4 = ((iSlow19) ? fTemp2 : fRec15[0]);
+			float fTemp5 = fRec4[0] + ((iSlow0) ? 0.0f : fTemp4);
+			fVec3[0] = fSlow6 * fTemp5;
+			fRec14[0] = fSlow6 * (fTemp5 + fSlow34 * fRec14[1]) - fVec3[1];
+			fVec4[0] = fSlow6 * fRec14[0];
+			fRec13[0] = fSlow6 * (fRec14[0] + fSlow34 * fRec13[1]) - fVec4[1];
+			fRec12[0] = fRec13[0] - fSlow4 * (fSlow35 * fRec12[2] + fSlow36 * fRec12[1]);
+			fRec11[0] = fSlow4 * (fRec12[2] + fRec12[0] + 2.0f * fRec12[1]) - fSlow3 * (fSlow37 * fRec11[2] + fSlow36 * fRec11[1]);
+			float fThen4 = fSlow3 * (fRec11[2] + fRec11[0] + 2.0f * fRec11[1]);
+			fRec10[0] = ((iSlow0) ? fTemp4 : fThen4) - fConst7 * (fConst10 * fRec10[2] + fConst11 * fRec10[1]);
+			float fTemp6 = fConst9 * fRec10[1] + fConst12 * fRec10[0] + fConst13 * fRec10[2];
 			fVec5[0] = fTemp6;
-			fRec9[0] = ((fConst7 * ((fSlow18 * fTemp6) + (fSlow38 * fVec5[1]))) - (fSlow40 * fRec9[1]));
-			fRec8[0] = (fRec9[0] - (fSlow41 * ((fSlow42 * fRec8[2]) + (fSlow43 * fRec8[1]))));
-			float fTemp7 = std::max<float>(-1.0f, std::min<float>(1.0f, (fSlow9 + (fSlow14 * (((fSlow16 * fRec8[0]) + (fSlow44 * fRec8[1])) + (fSlow16 * fRec8[2]))))));
-			fRec18[0] = (fSlow45 + (0.999000013f * fRec18[1]));
-			fRec22[0] = (0.0f - (fSlow54 * ((fSlow39 * fRec22[1]) - (fConst7 * (fTemp6 + fVec5[1])))));
-			fRec21[0] = (fRec22[0] - (fSlow41 * ((fSlow42 * fRec21[2]) + (fSlow43 * fRec21[1]))));
-			float fTemp8 = (fRec21[2] + (fRec21[0] + (2.0f * fRec21[1])));
-			float fTemp9 = (fSlow41 * fTemp8);
+			fRec9[0] = fConst7 * (fSlow18 * fTemp6 + fSlow38 * fVec5[1]) - fSlow40 * fRec9[1];
+			fRec8[0] = fRec9[0] - fSlow41 * (fSlow42 * fRec8[2] + fSlow43 * fRec8[1]);
+			float fTemp7 = std::max<float>(-1.0f, std::min<float>(1.0f, fSlow9 + fSlow14 * (fSlow16 * fRec8[0] + fSlow44 * fRec8[1] + fSlow16 * fRec8[2])));
+			fRec18[0] = fSlow45 + 0.999000013f * fRec18[1];
+			fRec22[0] = 0.0f - fSlow54 * (fSlow39 * fRec22[1] - fConst7 * (fTemp6 + fVec5[1]));
+			fRec21[0] = fRec22[0] - fSlow41 * (fSlow42 * fRec21[2] + fSlow43 * fRec21[1]);
+			float fTemp8 = fRec21[2] + fRec21[0] + 2.0f * fRec21[1];
+			float fTemp9 = fSlow41 * fTemp8;
 			fVec6[0] = fTemp9;
-			fRec20[0] = ((fSlow53 * fVec6[1]) - (fSlow55 * ((fSlow56 * fRec20[1]) - (fSlow57 * fTemp8))));
-			fRec19[0] = (fRec20[0] - (fSlow58 * ((fSlow59 * fRec19[2]) + (fSlow61 * fRec19[1]))));
-			float fTemp10 = std::max<float>(-1.0f, std::min<float>(1.0f, (fSlow9 + (fSlow49 * (((fSlow51 * fRec19[1]) + (fSlow60 * fRec19[0])) + (fSlow60 * fRec19[2]))))));
-			fRec23[0] = (fSlow62 + (0.999000013f * fRec23[1]));
-			fRec27[0] = (0.0f - (fSlow55 * ((fSlow56 * fRec27[1]) - (fTemp9 + fVec6[1]))));
-			fRec26[0] = (fRec27[0] - (fSlow58 * ((fSlow59 * fRec26[2]) + (fSlow61 * fRec26[1]))));
-			float fTemp11 = (fRec26[2] + (fRec26[0] + (2.0f * fRec26[1])));
-			float fTemp12 = (fSlow58 * fTemp11);
+			fRec20[0] = fSlow53 * fVec6[1] - fSlow55 * (fSlow56 * fRec20[1] - fSlow57 * fTemp8);
+			fRec19[0] = fRec20[0] - fSlow58 * (fSlow59 * fRec19[2] + fSlow60 * fRec19[1]);
+			float fTemp10 = std::max<float>(-1.0f, std::min<float>(1.0f, fSlow9 + fSlow49 * (fSlow51 * fRec19[0] + fSlow61 * fRec19[1] + fSlow51 * fRec19[2])));
+			fRec23[0] = fSlow62 + 0.999000013f * fRec23[1];
+			fRec27[0] = 0.0f - fSlow55 * (fSlow56 * fRec27[1] - (fTemp9 + fVec6[1]));
+			fRec26[0] = fRec27[0] - fSlow58 * (fSlow59 * fRec26[2] + fSlow60 * fRec26[1]);
+			float fTemp11 = fRec26[2] + fRec26[0] + 2.0f * fRec26[1];
+			float fTemp12 = fSlow58 * fTemp11;
 			fVec7[0] = fTemp12;
-			fRec25[0] = ((fSlow70 * fVec7[1]) - (fSlow71 * ((fSlow72 * fRec25[1]) - (fSlow73 * fTemp11))));
-			fRec24[0] = (fRec25[0] - (fSlow74 * ((fSlow75 * fRec24[2]) + (fSlow76 * fRec24[1]))));
-			float fTemp13 = std::max<float>(-1.0f, std::min<float>(1.0f, (fSlow9 + (fSlow66 * (((fSlow68 * fRec24[0]) + (fSlow77 * fRec24[1])) + (fSlow68 * fRec24[2]))))));
-			fRec28[0] = (fSlow78 + (0.999000013f * fRec28[1]));
-			fRec30[0] = (0.0f - (fSlow71 * ((fSlow72 * fRec30[1]) - (fTemp12 + fVec7[1]))));
-			fRec29[0] = (fRec30[0] - (fSlow74 * ((fSlow75 * fRec29[2]) + (fSlow76 * fRec29[1]))));
-			float fTemp14 = std::max<float>(-1.0f, std::min<float>(1.0f, (fSlow9 + (fSlow79 * (fRec29[2] + (fRec29[0] + (2.0f * fRec29[1])))))));
-			fRec5[0] = ((fRec6[0] * (((((fRec7[0] * fTemp7) * (1.0f - (0.333333343f * fx_distortion1_faustpower2_f(fTemp7)))) + ((fRec18[0] * fTemp10) * (1.0f - (0.333333343f * fx_distortion1_faustpower2_f(fTemp10))))) + ((fRec23[0] * fTemp13) * (1.0f - (0.333333343f * fx_distortion1_faustpower2_f(fTemp13))))) + ((fRec28[0] * fTemp14) * (1.0f - (0.333333343f * fx_distortion1_faustpower2_f(fTemp14)))))) - (fConst7 * ((fConst10 * fRec5[2]) + (fConst11 * fRec5[1]))));
-			float fTemp15 = (fConst7 * (((fConst9 * fRec5[1]) + (fConst12 * fRec5[0])) + (fConst13 * fRec5[2])));
-			float fTemp16 = (fRec4[0] + (iSlow0 ? 0.0f : fTemp15));
-			fVec8[0] = (fSlow6 * fTemp16);
-			fRec3[0] = ((fSlow6 * (fTemp16 + (fSlow34 * fRec3[1]))) - fVec8[1]);
-			fVec9[0] = (fSlow6 * fRec3[0]);
-			fRec2[0] = ((fSlow6 * (fRec3[0] + (fSlow34 * fRec2[1]))) - fVec9[1]);
-			fRec1[0] = (fRec2[0] - (fSlow4 * ((fSlow35 * fRec1[2]) + (fSlow36 * fRec1[1]))));
-			fRec0[0] = ((fSlow4 * (fRec1[2] + (fRec1[0] + (2.0f * fRec1[1])))) - (fSlow3 * ((fSlow37 * fRec0[2]) + (fSlow36 * fRec0[1]))));
-			float fThen6 = (fSlow3 * (fRec0[2] + (fRec0[0] + (2.0f * fRec0[1]))));
-			output0[i0] = FAUSTFLOAT((iSlow0 ? fTemp15 : fThen6));
+			fRec25[0] = fSlow70 * fVec7[1] - fSlow71 * (fSlow72 * fRec25[1] - fSlow73 * fTemp11);
+			fRec24[0] = fRec25[0] - fSlow74 * (fSlow75 * fRec24[2] + fSlow76 * fRec24[1]);
+			float fTemp13 = std::max<float>(-1.0f, std::min<float>(1.0f, fSlow9 + fSlow66 * (fSlow68 * fRec24[0] + fSlow77 * fRec24[1] + fSlow68 * fRec24[2])));
+			fRec28[0] = fSlow78 + 0.999000013f * fRec28[1];
+			fRec30[0] = 0.0f - fSlow71 * (fSlow72 * fRec30[1] - (fTemp12 + fVec7[1]));
+			fRec29[0] = fRec30[0] - fSlow74 * (fSlow75 * fRec29[2] + fSlow76 * fRec29[1]);
+			float fTemp14 = std::max<float>(-1.0f, std::min<float>(1.0f, fSlow9 + fSlow79 * (fRec29[2] + fRec29[0] + 2.0f * fRec29[1])));
+			fRec5[0] = fRec6[0] * (fRec7[0] * fTemp7 * (1.0f - 0.333333343f * fx_distortion1_faustpower2_f(fTemp7)) + fRec18[0] * fTemp10 * (1.0f - 0.333333343f * fx_distortion1_faustpower2_f(fTemp10)) + fRec23[0] * fTemp13 * (1.0f - 0.333333343f * fx_distortion1_faustpower2_f(fTemp13)) + fRec28[0] * fTemp14 * (1.0f - 0.333333343f * fx_distortion1_faustpower2_f(fTemp14))) - fConst7 * (fConst10 * fRec5[2] + fConst11 * fRec5[1]);
+			float fTemp15 = fConst7 * (fConst9 * fRec5[1] + fConst12 * fRec5[0] + fConst13 * fRec5[2]);
+			float fTemp16 = fRec4[0] + ((iSlow0) ? 0.0f : fTemp15);
+			fVec8[0] = fSlow6 * fTemp16;
+			fRec3[0] = fSlow6 * (fTemp16 + fSlow34 * fRec3[1]) - fVec8[1];
+			fVec9[0] = fSlow6 * fRec3[0];
+			fRec2[0] = fSlow6 * (fRec3[0] + fSlow34 * fRec2[1]) - fVec9[1];
+			fRec1[0] = fRec2[0] - fSlow4 * (fSlow35 * fRec1[2] + fSlow36 * fRec1[1]);
+			fRec0[0] = fSlow4 * (fRec1[2] + fRec1[0] + 2.0f * fRec1[1]) - fSlow3 * (fSlow37 * fRec0[2] + fSlow36 * fRec0[1]);
+			float fThen6 = fSlow3 * (fRec0[2] + fRec0[0] + 2.0f * fRec0[1]);
+			output0[i0] = FAUSTFLOAT(((iSlow0) ? fTemp15 : fThen6));
 			iVec0[1] = iVec0[0];
 			fRec4[1] = fRec4[0];
 			fRec6[1] = fRec6[0];

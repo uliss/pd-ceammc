@@ -56,8 +56,8 @@ private:
                 AtomList res;
                 getTapFb(N, res);
                 return res; },
-            [this](const AtomList& l) -> bool {
-                return setTapFb(N, l);
+            [this](const AtomListView& lv) -> bool {
+                return setTapFb(N, lv);
             });
     }
 };

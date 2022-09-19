@@ -50,6 +50,7 @@ public:
     void m_write(t_symbol* s, const AtomListView& lv);
     void m_rect(t_symbol* s, const AtomListView& lv);
     void m_ellipse(t_symbol* s, const AtomListView& lv);
+    void m_file(t_symbol* s, const AtomListView& lv);
 
     void m_fontSize(t_symbol* s, const AtomListView& lv);
     void m_fontWeight(t_symbol* s, const AtomListView& lv);

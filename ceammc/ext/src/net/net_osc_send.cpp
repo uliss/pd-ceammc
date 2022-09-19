@@ -15,12 +15,13 @@
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
+#include "ceammc_poll_dispatcher.h"
+#include "ceammc_thread.h"
 #include "fmt/format.h"
 
 #include <boost/container/small_vector.hpp>
 #include <boost/variant.hpp>
 
-#include <condition_variable>
 #include <future>
 #include <mutex>
 
@@ -73,92 +74,46 @@ struct NetOscSendOscTask {
 
 namespace {
 
-class ThreadLogger : public NotifiedObject {
-    std::mutex mtx_;
-    std::list<std::string> msg_;
-
-public:
-    ThreadLogger()
-    {
-        Dispatcher::instance().subscribe(this, id());
-    }
-
-    ~ThreadLogger()
-    {
-        Dispatcher::instance().unsubscribe(this);
-    }
-
-    SubscriberId id() const { return reinterpret_cast<SubscriberId>(this); }
-
-    bool notify(NotifyEventType /*code*/) final
-    {
-        std::lock_guard<std::mutex> g(mtx_);
-        while (!msg_.empty()) {
-            LIB_ERR << msg_.front();
-            msg_.pop_front();
-        }
-
-        return true;
-    }
-
-    void error(const std::string& msg)
-    {
-        {
-            std::lock_guard<std::mutex> g(mtx_);
-            msg_.push_back(fmt::format("[osc] [error] {}", msg));
-        }
-
-        Dispatcher::instance().send({ id(), NOTIFY_UPDATE });
-    }
-};
-
 class OscSendWorker {
-    using UniqueLock = std::unique_lock<std::mutex>;
     using Pipe = moodycamel::ReaderWriterQueue<NetOscSendOscTask, 64>;
-
-    static bool launchSender(OscSendWorker* w, const std::atomic_bool& quit, std::condition_variable& notified, std::mutex& m)
-    {
-        ThreadLogger logger;
-
-        while (!quit) {
-            try {
-                NetOscSendOscTask task;
-                while (w->pipe_.try_dequeue(task)) {
-                    if (quit)
-                        return true;
-
-                    lo_address addr = lo_address_new(task.host.c_str(), fmt::format("{:d}", task.port).c_str());
-                    const auto rc = lo_send_message(addr, task.path.c_str(), task.msg());
-                    if (rc == -1) {
-                        auto url = lo_address_get_url(addr);
-                        logger.error(fmt::format("{} - `{}`", lo_address_errstr(addr), url));
-                        free(url);
-                    }
-
-                    lo_address_free(addr);
-                }
-
-                UniqueLock lock(m);
-                // if a signal from the main thread occures here
-                // we can miss this signal and have to wait 100ms or until next send
-                // so we have to lock sending of signal notification to prevent
-                // spourious delays in OSC sending
-                notified.wait_for(lock, std::chrono::milliseconds(100));
-
-            } catch (std::exception& e) {
-                std::cerr << "exception: " << e.what();
-            }
-        }
-
-        return true;
-    }
+    ThreadPdLogger logger_;
 
     OscSendWorker()
         : pipe_(64)
         , quit_(false)
     {
         LIB_LOG << "launch OSC sender worker process";
-        future_ = std::async(std::launch::async, launchSender, this, std::ref(quit_), std::ref(notify_), std::ref(mtx_));
+
+        future_ = std::async(
+            std::launch::async,
+            [this]() {
+                while (!quit_) {
+                    try {
+                        NetOscSendOscTask task;
+                        while (pipe_.try_dequeue(task)) {
+                            if (quit_)
+                                return true;
+
+                            lo_address addr = lo_address_new(task.host.c_str(), fmt::format("{:d}", task.port).c_str());
+                            const auto rc = lo_send_message(addr, task.path.c_str(), task.msg());
+                            if (rc == -1) {
+                                auto url = lo_address_get_url(addr);
+                                logger_.error(fmt::format("{} - `{}`", lo_address_errstr(addr), url));
+                                free(url);
+                            }
+
+                            lo_address_free(addr);
+                        }
+
+                        notify_.waitFor(100);
+
+                    } catch (std::exception& e) {
+                        std::cerr << "exception: " << e.what();
+                    }
+                }
+
+                return true;
+            });
     }
 
     ~OscSendWorker()
@@ -170,8 +125,7 @@ class OscSendWorker {
     Pipe pipe_;
     std::future<bool> future_;
     std::atomic_bool quit_;
-    std::mutex mtx_;
-    std::condition_variable notify_;
+    ThreadNotify notify_;
 
 public:
     static OscSendWorker& instance()
@@ -183,11 +137,8 @@ public:
     bool add(const NetOscSendOscTask& task)
     {
         auto ok = pipe_.enqueue(task);
-        if (ok) {
-            // @see comments in worker function
-            UniqueLock lock(mtx_);
-            notify_.notify_one();
-        }
+        if (ok)
+            notify_.notifyOne();
 
         return ok;
     }

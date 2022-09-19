@@ -110,7 +110,7 @@ bool SystemColorpanel::setHex(t_symbol* s)
     return true;
 }
 
-void SystemColorpanel::propSetFloat(const AtomList& v)
+void SystemColorpanel::propSetFloat(const AtomListView& v)
 {
     if (!checkArgs(v, ARG_FLOAT, ARG_FLOAT, ARG_FLOAT)) {
         OBJ_ERR << "list of RGB float values expected in 0-1 range: " << v;
@@ -122,7 +122,7 @@ void SystemColorpanel::propSetFloat(const AtomList& v)
     b_ = convert::lin2lin_clip<t_float, 0, 1>(v[2].asFloat(), 0, 255);
 }
 
-void SystemColorpanel::propSetInt(const AtomList& v)
+void SystemColorpanel::propSetInt(const AtomListView& v)
 {
     if (!(checkArgs(v, ARG_INT, ARG_INT, ARG_INT)
             && v.allOf([](const Atom& a) { return a.isFloat() && a.asFloat() >= 0 && a.asFloat() <= 255; }))) {

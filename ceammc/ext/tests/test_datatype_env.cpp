@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../env/datatype_env.h"
-#include "../lib/ceammc_datatypes.h"
+#include "ceammc_datatypes.h"
 
 #include "test_base.h"
 
@@ -85,16 +85,16 @@ TEST_CASE("DataTypeEnv", "[ceammc::DataTypeEnv]")
             REQUIRE(env.valueAtTime(0) == 0);
             REQUIRE(env.valueAtTime(100) == 0);
 
-            env.insertPoint(EnvelopePoint(1, 0.1, false, CURVE_STEP));
+            env.insertPoint(EnvelopePoint(1, 0.25, false, CURVE_STEP));
             REQUIRE(env.valueAtTime(0) == 0);
-            REQUIRE(env.valueAtTime(1) == 0.1);
+            REQUIRE(env.valueAtTime(1) == 0.25);
             REQUIRE(env.valueAtTime(2) == 0);
 
             env.insertPoint(EnvelopePoint(20, 1, false, CURVE_STEP));
 
             REQUIRE(env.valueAtTime(0) == 0);
             for (int i = 1; i < 20; i++)
-                REQUIRE(env.valueAtTime(i) == 0.1);
+                REQUIRE(env.valueAtTime(i) == 0.25);
 
             REQUIRE(env.valueAtTime(20) == 1);
             REQUIRE(env.valueAtTime(21) == 0);
@@ -248,6 +248,14 @@ TEST_CASE("DataTypeEnv", "[ceammc::DataTypeEnv]")
         REQUIRE(env.hasPointAtTime(10 * 1000));
         REQUIRE(env.hasPointAtTime(30 * 1000));
         REQUIRE(!env.hasStopPoints());
+
+        REQUIRE(env.isAR());
+        REQUIRE(env.isAR(true));
+        REQUIRE_FALSE(env.isADSR());
+        REQUIRE_FALSE(env.isADSR(true));
+        REQUIRE_FALSE(env.checkASR());
+        REQUIRE(env.checkAR());
+        REQUIRE_FALSE(env.checkADSR());
     }
 
     SECTION("setASR")
@@ -271,6 +279,14 @@ TEST_CASE("DataTypeEnv", "[ceammc::DataTypeEnv]")
         REQUIRE(env.hasPointAtTime(0));
         REQUIRE(env.hasPointAtTime(10 * 1000));
         REQUIRE(env.hasPointAtTime(30 * 1000));
+
+        REQUIRE(env.isAR());
+        REQUIRE(env.isAR(true));
+        REQUIRE_FALSE(env.isADSR());
+        REQUIRE_FALSE(env.isADSR(true));
+        REQUIRE(env.checkASR());
+        REQUIRE_FALSE(env.checkAR());
+        REQUIRE_FALSE(env.checkADSR());
     }
 
     SECTION("setADSR")
@@ -290,8 +306,13 @@ TEST_CASE("DataTypeEnv", "[ceammc::DataTypeEnv]")
         REQUIRE(env.hasPointAtTime(100 * 1000));
         REQUIRE(env.hasStopPoints());
 
+        REQUIRE(env.isADSR());
+        REQUIRE(env.isADSR(true));
         REQUIRE_FALSE(env.isAR());
         REQUIRE_FALSE(env.isAR(true));
+        REQUIRE(env.checkADSR());
+        REQUIRE_FALSE(env.checkASR());
+        REQUIRE_FALSE(env.checkAR());
     }
 
     SECTION("render")
@@ -399,7 +420,7 @@ TEST_CASE("DataTypeEnv", "[ceammc::DataTypeEnv]")
             REQUIRE(env.nextStopIdx(2) == -1);
 
             // 7-point envelope
-            env.setLine(LA(1, 20, 2, 20, 3, 20, 4) + LA(20, 5, 20, 6, 20, 7));
+            env.setLine(AtomList(1, 20, 2, 20, 3, 20, 4, 20, 5, 20, 6, 20, 7));
             env.pointAt(0).stop = true;
 
             REQUIRE(env.nextStopIdx(0) == 6);
@@ -551,49 +572,15 @@ TEST_CASE("DataTypeEnv", "[ceammc::DataTypeEnv]")
     {
         DataTypeEnv env;
         env.insertPoint(EnvelopePoint(0, 0, false, CURVE_EXP));
-        REQUIRE(env.toString() == "Envelope:\n"
-                                  "      point:        0(ms)        0 exp\n");
+        REQUIRE(env.toString() ==
+R"(Env[points:
+    [time: 0 value: 0 type: exp curve: 0 stop: 0]
+])");
 
         std::ostringstream ss;
         ss << env;
 
         REQUIRE(env.toString() == ss.str());
-    }
-
-    SECTION("toList")
-    {
-        DataTypeEnv env;
-        REQUIRE(env.toList() == L());
-        env.setASR(10, 20, -10);
-
-        REQUIRE(DataTypeEnv::fromListView(env.toList()) == env);
-
-        AtomList lst;
-        lst.append(S("EnvelopePoint"));
-        lst.append(0.f);
-        lst.append(0.f);
-        lst.append(0.f);
-        lst.append(16);
-        lst.append(1);
-        lst.append(0.f);
-
-        lst.append(S("EnvelopePoint"));
-        lst.append(10);
-        lst.append(-10);
-        lst.append(0.f);
-        lst.append(16);
-        lst.append(1);
-        lst.append(1);
-
-        lst.append(S("EnvelopePoint"));
-        lst.append(30);
-        lst.append(0.f);
-        lst.append(0.f);
-        lst.append(16);
-        lst.append(1);
-        lst.append(0.f);
-
-        REQUIRE(env.toList() == lst);
     }
 
     SECTION("named envelope")
@@ -650,19 +637,6 @@ TEST_CASE("DataTypeEnv", "[ceammc::DataTypeEnv]")
             REQUIRE(e.numStopPoints() == 1);
             REQUIRE_FALSE(e.isAR());
         }
-    }
-
-    SECTION("fromList")
-    {
-        REQUIRE(DataTypeEnv::fromListView(L()).empty());
-        REQUIRE(DataTypeEnv::fromListView(LF(1, 2)).empty());
-        REQUIRE(DataTypeEnv::fromListView(LA("Not an EnvelopePoint", 1, 1, 1, 1, 1, 1)).empty());
-        REQUIRE(DataTypeEnv::fromListView(LA("EnvelopePoint", 1, 1, 1, 1, 1, 1)).numPoints() == 1);
-
-        DataTypeEnv env = DataTypeEnv::fromListView(LA("EnvelopePoint", 1, 100, 1, 1, 1, 1));
-        REQUIRE(env.hasPointAtTime(1));
-        REQUIRE(env.valueAtTime(1) == 100);
-        REQUIRE(env.pointAt(0).type == CURVE_LINE);
     }
 
     SECTION("normalize")
@@ -817,7 +791,7 @@ TEST_CASE("DataTypeEnv", "[ceammc::DataTypeEnv]")
         REQUIRE(e.pointAt(1).type == CURVE_EXP);
         REQUIRE(e.pointAt(1).data == 0);
 
-        REQUIRE(e.setExponential(LF(0.1f, 10, -2) + LA(0.9, 20, -4, 0.2f)));
+        REQUIRE(e.setExponential(LF(0.1f, 10, -2, 0.9, 20, -4, 0.2f)));
         REQUIRE(e.numPoints() == 3);
         REQUIRE(e.pointAt(0).timeMs() == 0);
         REQUIRE(e.pointAt(1).timeMs() == 10);

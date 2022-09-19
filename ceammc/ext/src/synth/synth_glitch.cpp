@@ -79,8 +79,8 @@ SynthGlitch::SynthGlitch(const PdArgs& args)
 
     expr_ = new ListProperty("@expr");
     if (!expr_->setListCheckFn(
-            [this](const AtomList& l) -> bool {
-                const auto str = to_string(l);
+            [this](const AtomListView& lv) -> bool {
+                const auto str = to_string(lv);
                 return glitch_.setExpr(str);
             })) {
         OBJ_ERR << "can't set list check...";

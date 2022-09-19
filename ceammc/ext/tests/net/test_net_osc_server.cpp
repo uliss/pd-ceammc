@@ -11,19 +11,19 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
+#include "ceammc_format.h"
 #include "net_osc_server.h"
 #include "test_base.h"
 #include "test_external.h"
-#include "ceammc_format.h"
 
 using namespace ceammc::net;
 
 PD_COMPLETE_TEST_SETUP(NetOscServer, net, osc_server)
 
-Atom operator ""_a (long double f) { return Atom(f); }
-Atom operator ""_a (const char* s, size_t) { return Atom(gensym(s)); }
-std::string operator ""_str   (const char* s, size_t) { return std::string(s); }
-t_symbol*   operator ""_sym (const char* s, size_t) { return gensym(s); }
+Atom operator""_a(long double f) { return Atom(f); }
+Atom operator""_a(const char* s, size_t) { return Atom(gensym(s)); }
+std::string operator""_str(const char* s, size_t) { return std::string(s); }
+t_symbol* operator""_sym(const char* s, size_t) { return gensym(s); }
 
 TEST_CASE("net.osc.server", "[externals]")
 {
@@ -40,7 +40,7 @@ TEST_CASE("net.osc.server", "[externals]")
         REQUIRE(prop.set(LF(5432)));
         REQUIRE(prop.host() == ""_sym);
         REQUIRE(prop.port() == "5432"_sym);
-        REQUIRE(prop.proto() == ""_sym);
+        REQUIRE(prop.proto() == "udp"_sym);
 
         REQUIRE(prop.set(LA("osc://localhost:9123")));
         REQUIRE(prop.host() == "localhost"_sym);
@@ -52,10 +52,8 @@ TEST_CASE("net.osc.server", "[externals]")
         REQUIRE(prop.port()->s_name == ""_str);
         REQUIRE(prop.proto() == "tcp"_sym);
 
-        REQUIRE(prop.set(LA("osc.tcp://localhost:")));
-        REQUIRE(prop.host() == "localhost"_sym);
-        REQUIRE(prop.port() == ""_sym);
-        REQUIRE(prop.proto() == "tcp"_sym);
+        REQUIRE_FALSE(prop.set(LA("osc.ftp://localhost")));
+        REQUIRE_FALSE(prop.set(LA("http://localhost")));
     }
 
     SECTION("construct")
@@ -73,6 +71,9 @@ TEST_CASE("net.osc.server", "[externals]")
             TExt t("net.osc.server", LA("test0", "osc.udp://:9123"));
             REQUIRE_PROPERTY(t, @name, "test0");
             REQUIRE_PROPERTY(t, @url, "osc.udp://:9123");
+            REQUIRE_PROPERTY(t, @proto, "udp");
+            REQUIRE_PROPERTY(t, @port, "9123");
+            REQUIRE_PROPERTY(t, @host, "");
         }
     }
 }

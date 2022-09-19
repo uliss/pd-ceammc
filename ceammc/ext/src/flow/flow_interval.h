@@ -30,8 +30,8 @@ public:
     void onBang() override;
     void onFloat(t_float f) override;
     void onSymbol(t_symbol* s) override;
-    void onList(const AtomList& lst) override;
-    void onAny(t_symbol* s, const AtomListView& lst) override;
+    void onList(const AtomListView& lv) override;
+    void onAny(t_symbol* s, const AtomListView& lv) override;
 };
 
 void setup_flow_interval();

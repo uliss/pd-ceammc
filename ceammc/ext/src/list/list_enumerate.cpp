@@ -31,9 +31,9 @@ ListEnumerate::ListEnumerate(const PdArgs& a)
     addProperty(append_);
 }
 
-void ListEnumerate::onList(const AtomList& l)
+void ListEnumerate::onList(const AtomListView& lv)
 {
-    listTo(0, list::enumerate(l, from_->value(), append_->value() ? list::APPEND : list::PREPEND));
+    listTo(0, list::enumerate(lv, from_->value(), append_->value() ? list::APPEND : list::PREPEND));
 }
 
 void setup_list_enumerate()

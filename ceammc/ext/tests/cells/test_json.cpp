@@ -73,16 +73,16 @@ TEST_CASE("json", "[core]")
         REQUIRE(dict.keys() == LA("a"));
         REQUIRE(dict.contains("a"));
         REQUIRE(dict.at("a") == A("b"));
-        REQUIRE(dict.valueToJsonString() == R"({"a":"b"})");
+        REQUIRE(dict.toJsonString() == R"({"a":"b"})");
 
         using DT = DataTypeDict;
         DT dict1;
         dict1.insert("a", A("b"));
-        REQUIRE(dict1.valueToJsonString() == R"({"a":"b"})");
+        REQUIRE(dict1.toJsonString() == R"({"a":"b"})");
         dict1.at("a") = LF(1, 2);
-        REQUIRE(dict1.valueToJsonString() == R"({"a":[1,2]})");
+        REQUIRE(dict1.toJsonString() == R"({"a":[1,2]})");
         dict1.at("a") = DA("[b: c]");
-        REQUIRE(dict1.valueToJsonString() == R"({"a":{"b":"c"}})");
+        REQUIRE(dict1.toJsonString() == R"({"a":{"b":"c"}})");
     }
 }
 

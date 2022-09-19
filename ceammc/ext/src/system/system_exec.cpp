@@ -53,18 +53,18 @@ void SystemExec::onSymbol(t_symbol* s)
     onList(Atom(s));
 }
 
-static std::vector<std::string> prepareArgs(const AtomList& l)
+static std::vector<std::string> prepareArgs(const AtomListView& lv)
 {
     std::vector<std::string> res;
-    for (auto& a : l)
+    for (auto& a : lv)
         res.push_back(to_string(a));
 
     return res;
 }
 
-void SystemExec::onList(const AtomList& l)
+void SystemExec::onList(const AtomListView& lv)
 {
-    if (l.empty()) {
+    if (lv.empty()) {
         OBJ_ERR << "empty args";
         return;
     }
@@ -80,8 +80,8 @@ void SystemExec::onList(const AtomList& l)
 
     process_->setLog(log_);
 
-    if (!process_->run(prepareArgs(l))) {
-        OBJ_ERR << fmt::format("can't run '{}': {}", to_string(l), process_->error());
+    if (!process_->run(prepareArgs(lv))) {
+        OBJ_ERR << fmt::format("can't run '{}': {}", to_string(lv), process_->error());
         return;
     }
 

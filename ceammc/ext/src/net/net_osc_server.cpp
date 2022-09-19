@@ -15,7 +15,9 @@
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
+#include "ceammc_thread.h"
 #include "fmt/format.h"
+#include "parser_osc.h"
 
 #include <algorithm>
 #include <unordered_set>
@@ -520,6 +522,10 @@ namespace net {
         url_->setArgIndex(1);
         addProperty(url_);
 
+        createCbSymbolProperty("@port", [this]() { return url_->port(); });
+        createCbSymbolProperty("@host", [this]() { return url_->host(); });
+        createCbSymbolProperty("@proto", [this]() { return url_->proto(); });
+
         dump_ = new BoolProperty("@dump", false);
         dump_->setSuccessFn([this](Property*) {
             auto osc = OscServerList::instance().findByName(name_->value());
@@ -599,47 +605,32 @@ namespace net {
         BaseObject::dump();
     }
 
-    void OscUrlProperty::parseUrl(const Atom& url)
+    bool OscUrlProperty::parseUrl(const Atom& url)
     {
         if (url.isSymbol()) {
             auto s = url.asT<t_symbol*>()->s_name;
-            auto host = lo_url_get_hostname(s);
-            if (host) {
-                host_ = gensym(host);
-                free(host);
-            } else
-                host_ = &s_;
 
-            auto port = lo_url_get_port(s);
-            if (port) {
-                port_ = gensym(port);
-                free(port);
-            } else
-                port_ = &s_;
+            if (!parser::parse_osc_url(s, proto_, host_, port_))
+                return false;
 
-            auto proto = lo_url_get_protocol(s);
-            if (proto) {
-                proto_ = gensym(proto);
-                free(proto);
-            } else
-                proto_ = &s_;
-
-            if(port_ == host_)
-                port_ = &s_;
         } else if (url.isInteger()) {
             constexpr int MIN_PORT = 1024;
             constexpr int MAX_PORT = std::numeric_limits<std::int16_t>::max();
             const int port = url.asT<int>();
             if (port <= MIN_PORT || port > MAX_PORT) {
                 LIB_ERR << fmt::format("[@{}] invalid port value: {}, expected to be in {}..{} range", name()->s_name, port, MIN_PORT, MAX_PORT);
-                return;
+                return false;
             }
 
             port_ = gensym(fmt::format("{:d}", port).c_str());
-            proto_ = &s_;
+            proto_ = gensym("udp");
             host_ = &s_;
-        } else
+        } else {
             LIB_ERR << "OSC url or port number expected";
+            return false;
+        }
+
+        return true;
     }
 
     OscUrlProperty::OscUrlProperty(const std::string& name, t_symbol* def, PropValueAccess ro)
@@ -649,7 +640,7 @@ namespace net {
         , proto_(&s_)
     {
         parseUrl(def);
-        setSuccessFn([this](Property*) { parseUrl(value()); });
+        setAtomCheckFn([this](const Atom& a) -> bool { return parseUrl(a); });
     }
 }
 }

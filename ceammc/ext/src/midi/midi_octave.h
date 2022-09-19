@@ -30,7 +30,7 @@ class MidiOctave : public BaseObject {
 public:
     MidiOctave(const PdArgs& args);
     void onFloat(t_float note) override;
-    void onList(const AtomList& lst) override;
+    void onList(const AtomListView& lv) override;
     void onInlet(size_t, const AtomListView& lv) override;
 
 private:

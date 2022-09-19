@@ -29,7 +29,7 @@ class ListUnzip : public ListBase {
 public:
     ListUnzip(const PdArgs& a);
     void onBang() override;
-    void onList(const AtomList& l) override;
+    void onList(const AtomListView& lv) override;
 
     const char* annotateOutlet(size_t n) const final;
 

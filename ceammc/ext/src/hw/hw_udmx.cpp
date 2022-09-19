@@ -39,31 +39,31 @@ void uDMX::onFloat(t_float f)
         return;
 }
 
-void uDMX::onList(const AtomList& lst)
+void uDMX::onList(const AtomListView& lv)
 {
     std::vector<unsigned char> data;
-    std::transform(lst.begin(), lst.end(), std::back_inserter(data), [](const Atom& a) { return a.asFloat(0); });
+    std::transform(lv.begin(), lv.end(), std::back_inserter(data), [](const Atom& a) { return a.asFloat(0); });
     udmx_->send(data, channel_->value());
 }
 
-void uDMX::onInlet(size_t n, const AtomListView& lst)
+void uDMX::onInlet(size_t n, const AtomListView& lv)
 {
-    channel_->set(lst);
+    channel_->set(lv);
 }
 
-void uDMX::m_open(t_symbol* s, const AtomList& lst)
+void uDMX::m_open(t_symbol* s, const AtomList&)
 {
     if (!udmx_->open())
         OBJ_ERR << "can't connect to uDMX device";
 }
 
-void uDMX::m_close(t_symbol* s, const AtomList& lst)
+void uDMX::m_close(t_symbol* s, const AtomList&)
 {
     if (!udmx_->close())
         OBJ_ERR << "can't close uDMX device";
 }
 
-void uDMX::m_find(t_symbol* s, const AtomList& lst)
+void uDMX::m_find(t_symbol* s, const AtomList&)
 {
     udmx_->findDevice();
 }

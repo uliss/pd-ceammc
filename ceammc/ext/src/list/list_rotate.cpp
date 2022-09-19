@@ -16,9 +16,9 @@ ListRotate::ListRotate(const PdArgs& a)
     addProperty(step_);
 }
 
-void ListRotate::onList(const AtomList& l)
+void ListRotate::onList(const AtomListView& lv)
 {
-    listTo(0, list::rotate(l, step_->value() * rotate_dir_));
+    listTo(0, list::rotate(lv, step_->value() * rotate_dir_));
 }
 
 void ListRotate::onInlet(size_t, const AtomListView& step)

@@ -12,12 +12,9 @@
  * this file belongs to.
  *****************************************************************************/
 #include "list_prepend.h"
+#include "ceammc_containers.h"
 #include "ceammc_factory.h"
 #include "datatype_mlist.h"
-
-#include <boost/container/small_vector.hpp>
-
-using SmallAtomList = boost::container::small_vector<Atom, 16>;
 
 ListPrepend::ListPrepend(const PdArgs& args)
     : BaseObject(args)
@@ -38,24 +35,40 @@ void ListPrepend::onBang()
 
 void ListPrepend::onFloat(t_float f)
 {
-    onList(AtomList(f));
+    AtomList32 res;
+    res.reserve(lst_->value().size() + 1);
+
+    for (auto& a : lst_->value())
+        res.push_back(a);
+
+    res.push_back(f);
+    listTo(0, res.view());
 }
 
 void ListPrepend::onSymbol(t_symbol* s)
 {
-    onList(AtomList(s));
-}
-
-void ListPrepend::onList(const AtomList& lst)
-{
     SmallAtomList res;
+    res.reserve(lst_->value().size() + 1);
+
     for (auto& a : lst_->value())
         res.push_back(a);
 
-    for (auto& a : lst)
+    res.push_back(s);
+    listTo(0, res.view());
+}
+
+void ListPrepend::onList(const AtomListView& lv)
+{
+    AtomList32 res;
+
+    res.reserve(lst_->value().size() + lv.size());
+    for (auto& a : lst_->value())
         res.push_back(a);
 
-    listTo(0, AtomListView(&res.front(), res.size()));
+    for (auto& a : lv)
+        res.push_back(a);
+
+    listTo(0, res.view());
 }
 
 void ListPrepend::onData(const Atom& d)

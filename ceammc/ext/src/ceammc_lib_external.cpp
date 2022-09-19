@@ -14,6 +14,7 @@
 
 #include "ceammc.h"
 #include "ceammc_config.h"
+#include "ceammc_impl.h"
 #include "ceammc_object_info.h"
 #include "ceammc_pd.h"
 #include "mod_init.h"
@@ -44,9 +45,9 @@ void ceammc_info_message()
          "       version: %s\n"
          "       url: %s\n"
 #ifdef PD_INSTANCE
-        "        pd instance: true\n"
+         "        pd instance: true\n"
 #else
-        "        pd instance: false\n"
+         "        pd instance: false\n"
 #endif
          "       license: GPL-3\n"
          "       build date: '%s'\n",
@@ -120,6 +121,13 @@ void ceammc_cords(t_object* x, t_symbol* s)
     if (s == gensym("lower"))
         sys_vgui("[tkcanvas_name $::focused_window] lower cord\n");
 }
+
+void ceammc_tcl_path_init()
+{
+    auto extern_dir = class_gethelpdir(ceammc_class);
+    if (extern_dir)
+        sys_vgui("lappend ::auto_path {%s/tcl}\n", extern_dir);
+}
 }
 
 extern "C" CEAMMC_EXTERN int ceammc_init_done()
@@ -156,6 +164,7 @@ extern "C" CEAMMC_EXTERN void ceammc_setup()
     }
 
     ceammc_info_message();
+    ceammc_tcl_path_init();
     ceammc_new();
     ceammc_init();
 }
@@ -167,7 +176,7 @@ extern "C" CEAMMC_EXTERN void ceammc_list_externals(int vanilla)
     if (vanilla) {
         std::set<std::string> all_ext;
 
-        for (auto x : ceammc::pd::currentListOfExternals())
+        for (auto& x : ceammc::pd::currentListOfExternals())
             all_ext.insert(x);
 
         std::set<std::string> vanilla_ext;

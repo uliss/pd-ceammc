@@ -11,9 +11,15 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-
 #include "catch.hpp"
+#include "ceammc_atomlist.h"
+#include "ceammc_data.h"
+#include "ceammc_platform.h"
 #include "ceammc_string.h"
+#include "datatype_mlist.h"
+#include "lex/parser_strings.h"
+#include "test_common.h"
+#include "test_datatypes.h"
 
 #include <cstring>
 
@@ -278,85 +284,409 @@ TEST_CASE("ceammc_string", "[PureData]")
         REQUIRE_FALSE(contains("вапьты", "абв"));
     }
 
-    SECTION("pd_string_match")
+    SECTION("is_quoted_string")
     {
-        std::string str;
-        REQUIRE(pd_string_match("\"\"", str));
-        REQUIRE(str == "");
-        REQUIRE(pd_string_match("\" \"", str));
-        REQUIRE(str == " ");
-        REQUIRE(pd_string_match("\"wasn`\"t\"", str));
-        REQUIRE(str == "wasn`\"t");
-        REQUIRE(pd_string_match("\"`\"a b c`\"\"", str));
-        REQUIRE(str == "`\"a b c`\"");
-        REQUIRE_FALSE(pd_string_match(R"("""")", str));
-        REQUIRE(pd_string_match(R"("`"`"")", str));
-        REQUIRE(pd_string_match(R"("`.")", str));
-        REQUIRE(pd_string_match(R"("`:")", str));
-        REQUIRE(pd_string_match(R"("`(")", str));
-        REQUIRE(pd_string_match(R"("`/")", str));
-        REQUIRE(pd_string_match(R"("``")", str));
-        REQUIRE_FALSE(pd_string_match(R"("```")", str));
-        REQUIRE_FALSE(pd_string_match(R"("`n")", str));
-        REQUIRE_FALSE(pd_string_match(R"("`"``"")", str));
-    }
-
-    SECTION("pd_string_unescape")
-    {
-        REQUIRE(pd_string_unescape("") == "");
-        REQUIRE(pd_string_unescape(" ") == " ");
-        REQUIRE(pd_string_unescape("wasn't") == "wasn't");
-        REQUIRE(pd_string_unescape("`\"") == "\"");
-        REQUIRE(pd_string_unescape("`'") == "'");
-        REQUIRE(pd_string_unescape("``'") == "`'");
-        REQUIRE(pd_string_unescape("``") == "`");
-        REQUIRE(pd_string_unescape("````") == "``");
-        REQUIRE(pd_string_unescape("`(") == "{");
-        REQUIRE(pd_string_unescape("`)") == "}");
-        REQUIRE(pd_string_unescape("`.") == ",");
-        REQUIRE(pd_string_unescape("`:") == ";");
-        REQUIRE(pd_string_unescape("'") == "'");
-        REQUIRE(pd_string_unescape("'") == "'");
-        REQUIRE(pd_string_unescape(" `\" ") == " \" ");
+        REQUIRE(is_quoted_string("\"\""));
+        REQUIRE(is_quoted_string("\" \""));
+        REQUIRE(is_quoted_string("\"wasn`\"t\""));
+        REQUIRE(is_quoted_string("\"`\"a b c`\"\""));
+        REQUIRE_FALSE(is_quoted_string(R"("""")"));
+        REQUIRE(is_quoted_string(R"("`"`"")"));
+        REQUIRE_FALSE(is_quoted_string(R"("`.")"));
+        REQUIRE_FALSE(is_quoted_string(R"("`:")"));
+        REQUIRE(is_quoted_string(R"("`(")"));
+        REQUIRE_FALSE(is_quoted_string(R"("`/")"));
+        REQUIRE(is_quoted_string(R"("``")"));
+        REQUIRE_FALSE(is_quoted_string(R"("```")"));
+        REQUIRE_FALSE(is_quoted_string(R"("`n")"));
+        REQUIRE_FALSE(is_quoted_string(R"("`"``"")"));
     }
 
     SECTION("pd_string_parse")
     {
-        std::string str;
-        REQUIRE_FALSE(pd_string_parse("''", str));
-        REQUIRE(pd_string_parse("\"\"", str));
+        StaticString str;
+        REQUIRE_FALSE(unquote_and_unescape("''", str));
+        REQUIRE(unquote_and_unescape("\"\"", str));
         REQUIRE(str == "");
-        REQUIRE_FALSE(pd_string_parse("' '", str));
-        REQUIRE(pd_string_parse("\" \"", str));
+        str.clear();
+        REQUIRE_FALSE(unquote_and_unescape("' '", str));
+        REQUIRE(unquote_and_unescape("\" \"", str));
         REQUIRE(str == " ");
-        REQUIRE_FALSE(pd_string_parse("wasn't", str));
-        REQUIRE(pd_string_parse("\"wasn't\"", str));
+        str.clear();
+        REQUIRE_FALSE(unquote_and_unescape(R"(wasn't)", str));
+        REQUIRE(unquote_and_unescape(R"("wasn't")", str));
         REQUIRE(str == "wasn't");
-        REQUIRE(pd_string_parse("\"a`.b`.c\"", str));
-        REQUIRE(str == "a,b,c");
-
-        // check self-reference passing
-        std::string sp("\" \"");
-        REQUIRE(pd_string_parse(sp, sp));
-        REQUIRE(sp == " ");
+        str.clear();
+        REQUIRE(unquote_and_unescape("\"a`(b`)c\"", str));
+        REQUIRE(str == "a{b}c");
     }
 
     SECTION("is_pd_string")
     {
-        REQUIRE_FALSE(is_pd_string(""));
-        REQUIRE_FALSE(is_pd_string("\""));
-        REQUIRE_FALSE(is_pd_string("abc"));
-        REQUIRE_FALSE(is_pd_string("123"));
-        REQUIRE_FALSE(is_pd_string("\"123"));
-        REQUIRE_FALSE(is_pd_string("123\""));
-        REQUIRE_FALSE(is_pd_string("\"`\""));
+        REQUIRE_FALSE(is_quoted_string((char*)0));
+        REQUIRE_FALSE(is_quoted_string((t_symbol*)0));
+        REQUIRE_FALSE(is_quoted_string(""));
+        REQUIRE_FALSE(is_quoted_string("\""));
+        REQUIRE_FALSE(is_quoted_string("abc"));
+        REQUIRE_FALSE(is_quoted_string("123"));
+        REQUIRE_FALSE(is_quoted_string("\"123"));
+        REQUIRE_FALSE(is_quoted_string("123\""));
+        REQUIRE_FALSE(is_quoted_string("\"`\""));
 
-        REQUIRE(is_pd_string("\"\""));
-        REQUIRE(is_pd_string("\" \""));
-        REQUIRE(is_pd_string("\"123\""));
-        REQUIRE(is_pd_string("\"a b\""));
-        REQUIRE(is_pd_string("\"a``\""));
-        REQUIRE(is_pd_string("\"`\" asb `\"\""));
-        REQUIRE(is_pd_string("\"```\"`/`:`.\""));
+        REQUIRE(is_quoted_string("\"\""));
+        REQUIRE(is_quoted_string("\" \""));
+        REQUIRE(is_quoted_string("\"123\""));
+        REQUIRE(is_quoted_string("\"a b\""));
+        REQUIRE(is_quoted_string("\"А Б В Г Д\""));
+        REQUIRE(is_quoted_string("\"👽👾🤖🎃\""));
+        REQUIRE(is_quoted_string("\"a``\""));
+        REQUIRE(is_quoted_string("\"`\" asb `\"\""));
+        REQUIRE(is_quoted_string("\"```(`)\""));
+
+        REQUIRE_FALSE(is_quoted_string(L()));
+        REQUIRE_FALSE(is_quoted_string(LF(1)));
+        REQUIRE_FALSE(is_quoted_string(LF(1, 2)));
+        REQUIRE_FALSE(is_quoted_string(LA("A")));
+        REQUIRE(is_quoted_string(LA("\"\"")));
+        REQUIRE(is_quoted_string(LA("\"a b c\"")));
+        REQUIRE(is_quoted_string(AtomList::parseString("\"a\"")));
+        REQUIRE(is_quoted_string(AtomList::parseString("\"a b c\"")));
+        REQUIRE_FALSE(is_quoted_string(AtomList::parseString("\"a b c")));
+        REQUIRE_FALSE(is_quoted_string(AtomList::parseString("a b c\"")));
+    }
+
+    SECTION("data_string_end")
+    {
+        REQUIRE_FALSE(quoted_string_end((char*)nullptr));
+        REQUIRE_FALSE(quoted_string_end((t_symbol*)nullptr));
+        REQUIRE_FALSE(quoted_string_end(""));
+        REQUIRE_FALSE(quoted_string_end("`"));
+        REQUIRE_FALSE(quoted_string_end("``"));
+        REQUIRE_FALSE(quoted_string_end("`\""));
+        REQUIRE(quoted_string_end("\""));
+        REQUIRE(quoted_string_end("abcd\""));
+        REQUIRE(quoted_string_end("abcd@\""));
+        REQUIRE(quoted_string_end("abcd@``\""));
+        REQUIRE(quoted_string_end("абвгд\""));
+        REQUIRE(quoted_string_end("```(`)\""));
+        REQUIRE(quoted_string_end("``\""));
+    }
+
+    SECTION("string_need_quotes")
+    {
+        REQUIRE_FALSE(string_need_quotes((char*)nullptr));
+        REQUIRE_FALSE(string_need_quotes(""));
+        REQUIRE_FALSE(string_need_quotes("a"));
+        REQUIRE_FALSE(string_need_quotes("1"));
+        REQUIRE_FALSE(string_need_quotes("abc"));
+        REQUIRE_FALSE(string_need_quotes("'"));
+        REQUIRE(string_need_quotes(" "));
+        REQUIRE(string_need_quotes(","));
+        REQUIRE(string_need_quotes(";"));
+        REQUIRE(string_need_quotes("\\"));
+        REQUIRE(string_need_quotes("\""));
+        REQUIRE_FALSE(string_need_quotes("there's"));
+        REQUIRE(string_need_quotes("there\"s"));
+        REQUIRE(string_need_quotes("the space"));
+        REQUIRE(string_need_quotes(":"));
+        REQUIRE(string_need_quotes("#"));
+        REQUIRE(string_need_quotes("@"));
+        REQUIRE(string_need_quotes("("));
+        REQUIRE(string_need_quotes(")"));
+        REQUIRE(string_need_quotes("["));
+        REQUIRE(string_need_quotes("]"));
+        REQUIRE(string_need_quotes("%"));
+    }
+
+    SECTION("escape_and_quote")
+    {
+#define CHECK_ESCAPE_AND_QUOTE(s, res, n)                               \
+    {                                                                   \
+        StaticString str;                                               \
+        CHECK(n == escape_and_quote(s, str));                           \
+        CHECK(std::string(str.data(), str.data() + str.size()) == res); \
+    }
+
+        CHECK(AtomList::parseString("\\ \\ ") == A("  "));
+        CHECK(AtomList::parseString("\\\\") == A("\\"));
+        CHECK(AtomList::parseString("\\,") == A(","));
+        CHECK(AtomList::parseString("\\;") == A(";"));
+        CHECK(AtomList::parseString("   ").empty());
+        CHECK(AtomList::parseString(",") == Atom::comma());
+        CHECK(AtomList::parseString(";") == Atom::semicolon());
+        CHECK(AtomList::parseString("$0")[0].atom().a_type == A_DOLLAR);
+        CHECK(AtomList::parseString("$9")[0].atom().a_type == A_DOLLAR);
+        CHECK(AtomList::parseString("$10")[0].atom().a_type == A_DOLLAR);
+        CHECK(AtomList::parseString("abc-$0")[0].atom().a_type == A_DOLLSYM);
+        CHECK(AtomList::parseString("\\$10") == A("$10"));
+        CHECK(AtomList::parseString("\\$0") == A("$0"));
+        CHECK(AtomList::parseString("\\$") == A("$"));
+
+        CHECK(AtomList::parseString("A $") == LA("A", "$"));
+
+        CHECK_ESCAPE_AND_QUOTE("", "\"\"", 0);
+        CHECK_ESCAPE_AND_QUOTE(" ", "\" \"", 1);
+        CHECK_ESCAPE_AND_QUOTE("  ", "\"  \"", 2);
+        CHECK_ESCAPE_AND_QUOTE("a,b,c;", "\"a,b,c;\"", 3);
+        CHECK_ESCAPE_AND_QUOTE(R"("quotes")", R"("`"quotes`"")", 2);
+        CHECK_ESCAPE_AND_QUOTE("fn()", "\"fn()\"", 2);
+        CHECK_ESCAPE_AND_QUOTE("#true", "\"#true\"", 1);
+        CHECK_ESCAPE_AND_QUOTE(" @,:;#%", "\" @,:;#%\"", 7);
+        CHECK_ESCAPE_AND_QUOTE("Dict[]", R"("Dict[]")", 2);
+        CHECK_ESCAPE_AND_QUOTE(R"(abc)", R"("abc")", 0);
+        CHECK_ESCAPE_AND_QUOTE(R"(1)", R"("1")", 0);
+        CHECK_ESCAPE_AND_QUOTE(R"(`abc`)", R"("``abc``")", 2);
+    }
+
+    SECTION("raw_list_to_string")
+    {
+        SECTION("StaticString")
+        {
+#define REQUIRE_STATIC_STR(lst, s1)          \
+    {                                        \
+        string::StaticString str;            \
+        raw_list_to_string(lst.view(), str); \
+        REQUIRE(str == s1);                  \
+    }
+
+            REQUIRE_STATIC_STR(L(), "");
+            REQUIRE_STATIC_STR(LF(1), "1");
+            REQUIRE_STATIC_STR(LF(1234.25), "1234.25");
+            REQUIRE_STATIC_STR(LF(1, 2, -3), "1 2 -3");
+            REQUIRE_STATIC_STR(AtomList::parseString(" a  b  c "), "a b c");
+            REQUIRE_STATIC_STR(AtomList::parseString("1,2,3;"), "1, 2, 3;");
+            REQUIRE_STATIC_STR(LA(Atom()), "");
+            REQUIRE_STATIC_STR(LA(Atom(), "ABC"), " ABC");
+        }
+
+        SECTION("SmallString")
+        {
+#define REQUIRE_SMALL_STR(lst, s1)                          \
+    {                                                       \
+        string::SmallString str;                            \
+        raw_list_to_string(lst.view(), str);                \
+        REQUIRE(std::string(str.data(), str.size()) == s1); \
+    }
+
+            REQUIRE_SMALL_STR(L(), "");
+            REQUIRE_SMALL_STR(LF(1), "1");
+            REQUIRE_SMALL_STR(LF(1234.25), "1234.25");
+            REQUIRE_SMALL_STR(LF(1, 2, -3), "1 2 -3");
+            REQUIRE_SMALL_STR(AtomList::parseString(" a  b  c "), "a b c");
+            REQUIRE_SMALL_STR(AtomList::parseString("1,2,3;"), "1, 2, 3;");
+            REQUIRE_SMALL_STR(LA(Atom()), "");
+            REQUIRE_SMALL_STR(LA(Atom(), "ABC"), " ABC");
+        }
+
+        SECTION("MediumString")
+        {
+#define REQUIRE_MEDIUM_STR(lst, s1)                         \
+    {                                                       \
+        string::MediumString str;                           \
+        raw_list_to_string(lst.view(), str);                \
+        REQUIRE(std::string(str.data(), str.size()) == s1); \
+    }
+
+            REQUIRE_MEDIUM_STR(L(), "");
+            REQUIRE_MEDIUM_STR(LF(1), "1");
+            REQUIRE_MEDIUM_STR(LF(1234.25), "1234.25");
+            REQUIRE_MEDIUM_STR(LF(1, 2, -3), "1 2 -3");
+            REQUIRE_MEDIUM_STR(AtomList::parseString(" a  b  c "), "a b c");
+            REQUIRE_MEDIUM_STR(AtomList::parseString("1,2,3;"), "1, 2, 3;");
+            REQUIRE_MEDIUM_STR(LA(Atom()), "");
+            REQUIRE_MEDIUM_STR(LA(Atom(), "ABC"), " ABC");
+        }
+    }
+
+    SECTION("parsed_atom_to_string")
+    {
+        SECTION("SmallString")
+        {
+#define REQUIRE_ATOM_STR(a, str)                             \
+    {                                                        \
+        SmallString buf;                                     \
+        parsed_atom_to_string(a, buf);                       \
+        REQUIRE(std::string(buf.data(), buf.size()) == str); \
+    }
+
+            using IntA = DataAtom<IntData>;
+            using StrA = DataAtom<StrData>;
+
+            REQUIRE_ATOM_STR(Atom(), "#null");
+            REQUIRE_ATOM_STR(A(""), "\"\"");
+            REQUIRE_ATOM_STR(A(-12.5), "-12.5");
+            REQUIRE_ATOM_STR(A("ABC"), "ABC");
+            REQUIRE_ATOM_STR(A("pi()"), "\"pi()\"");
+            REQUIRE_ATOM_STR(A("A B C"), "\"A B C\"");
+            REQUIRE_ATOM_STR(A("(())"), "\"(())\"");
+            REQUIRE_ATOM_STR(A(";"), "\";\"");
+            REQUIRE_ATOM_STR(A(","), "\",\"");
+            REQUIRE_ATOM_STR(A(" "), "\" \"");
+            REQUIRE_ATOM_STR(A("`"), "\"``\"");
+            REQUIRE_ATOM_STR(A("\""), "\"`\"\"");
+            REQUIRE_ATOM_STR(A("#true"), "\"#true\"");
+            REQUIRE_ATOM_STR(A("#false"), "\"#false\"");
+            REQUIRE_ATOM_STR(A("#null"), "\"#null\"");
+            REQUIRE_ATOM_STR(A("[a: 1]"), "\"[a: 1]\"");
+            REQUIRE_ATOM_STR(IntA(100), "IntData(100)");
+            REQUIRE_ATOM_STR(StrA("100"), "StrData(100)");
+            REQUIRE_ATOM_STR(StrA("1 2 3"), "StrData(1 2 3)");
+            REQUIRE_ATOM_STR(MListAtom(LF(1, 2, 3)), "(1 2 3)");
+            REQUIRE_ATOM_STR(MListAtom(LA("A", "B", "C")), "(A B C)");
+            REQUIRE_ATOM_STR(MListAtom(LA("A B C")), "(\"A B C\")");
+        }
+    }
+
+    SECTION("parsed_atom_to_raw_string")
+    {
+#define REQUIRE_ATOM_TO_RAW_STRING(a, str) \
+    {                                      \
+        StaticString buf;                  \
+        parsed_atom_to_raw_string(a, out); \
+        REQUIRE(out == str);               \
+    }
+    }
+
+    SECTION("escape_and_quote")
+    {
+        Atom a;
+        a.setComma();
+
+        escape_and_quote(a);
+        REQUIRE(a == A(R"(",")"));
+        escape_and_quote(a);
+        REQUIRE(a == A(R"("`",`"")"));
+
+        a.setSemicolon();
+        escape_and_quote(a);
+        REQUIRE(a == A(R"(";")"));
+
+        a = A("");
+        escape_and_quote(a);
+        REQUIRE(a == A(R"("")"));
+
+        a = A(" ");
+        escape_and_quote(a);
+        REQUIRE(a == A(R"(" ")"));
+
+        a = A("   ");
+        escape_and_quote(a);
+        REQUIRE(a == A(R"("   ")"));
+
+        REQUIRE(escape_and_quote(A("")) == A("\"\""));
+        REQUIRE(escape_and_quote(A(&s_)) == A("\"\""));
+        REQUIRE(escape_and_quote(A("#")) == A("\"#\""));
+        REQUIRE(escape_and_quote(A("%")) == A("\"%\""));
+        REQUIRE(escape_and_quote(A(":")) == A("\":\""));
+        REQUIRE(escape_and_quote(A("@prop")) == A(R"("@prop")"));
+        REQUIRE(escape_and_quote(A("abc")) == A("abc"));
+        REQUIRE(escape_and_quote(A("a b c")) == A(R"("a b c")"));
+        REQUIRE(escape_and_quote(A("[")) == A(R"("[")"));
+        REQUIRE(escape_and_quote(A("]")) == A(R"("]")"));
+        REQUIRE(escape_and_quote(A("(")) == A(R"("(")"));
+        REQUIRE(escape_and_quote(A(")")) == A("\")\""));
+        REQUIRE(escape_and_quote(A("\\")) == A("\"\\\""));
+        REQUIRE(escape_and_quote(A("`")) == A("\"``\""));
+        REQUIRE(escape_and_quote(A("\"")) == A("\"`\"\""));
+        REQUIRE(escape_and_quote(A("{}")) == A("\"`(`)\""));
+
+        REQUIRE(escape_and_quote(L()) == L());
+        REQUIRE(escape_and_quote(LF(1, 2, 3)) == LF(1, 2, 3));
+        REQUIRE(escape_and_quote(LA(1, "B", "C D", Atom::semicolon())) == LA(1, "B", "\"C D\"", "\";\""));
+    }
+
+    SECTION("unquote_and_unescape")
+    {
+        StaticString buf;
+        REQUIRE(unquote_and_unescape((char*)0, buf) == -1);
+        REQUIRE(unquote_and_unescape("", buf) == 0);
+        REQUIRE(unquote_and_unescape("abc", buf) == 0);
+        REQUIRE(unquote_and_unescape(" ", buf) == 0);
+        REQUIRE(unquote_and_unescape("\"\"", buf) == 1);
+        REQUIRE(buf == "");
+        REQUIRE(unquote_and_unescape("\" \"", buf) == 1);
+        REQUIRE(buf == " ");
+        REQUIRE(unquote_and_unescape("\"``\"", buf) == 1);
+        REQUIRE(buf == " `");
+    }
+
+    SECTION("parse_ceammc_quoted_string (Atom)")
+    {
+        REQUIRE(parse_ceammc_quoted_string(Atom()) == Atom());
+        REQUIRE(parse_ceammc_quoted_string(A(100)) == A(100));
+        REQUIRE(parse_ceammc_quoted_string(Atom::comma()) == Atom::comma());
+        REQUIRE(parse_ceammc_quoted_string(Atom::semicolon()) == Atom::semicolon());
+        REQUIRE(parse_ceammc_quoted_string(A("")) == A(""));
+        REQUIRE(parse_ceammc_quoted_string(A(&s_)) == A(&s_));
+        REQUIRE(parse_ceammc_quoted_string(A(" ")) == A(" "));
+        REQUIRE(parse_ceammc_quoted_string(A("A B C")) == A("A B C"));
+        REQUIRE(parse_ceammc_quoted_string(A("\"\"")) == A(""));
+        REQUIRE(parse_ceammc_quoted_string(A("\" \"")) == A(" "));
+        REQUIRE(parse_ceammc_quoted_string(A("\"a b c\"")) == A("a b c"));
+        REQUIRE(parse_ceammc_quoted_string(A("\"``abc``\"")) == A("`abc`"));
+        REQUIRE(parse_ceammc_quoted_string(A("\"`\"abc`\"\"")) == A("\"abc\""));
+        REQUIRE(parse_ceammc_quoted_string(A("\"`(`)\"")) == A("{}"));
+        REQUIRE(parse_ceammc_quoted_string(A("\"``\"")) == A("`"));
+        REQUIRE(parse_ceammc_quoted_string(A("\"`\"\"")) == A("\""));
+        REQUIRE(parse_ceammc_quoted_string(A("S\"\"")) == A(""));
+        REQUIRE(parse_ceammc_quoted_string(A("S\" \"")) == A(" "));
+        REQUIRE(parse_ceammc_quoted_string(A("S\"a b c\"")) == A("a b c"));
+        REQUIRE(parse_ceammc_quoted_string(A("S\"``abc``\"")) == A("`abc`"));
+        REQUIRE(parse_ceammc_quoted_string(A("S\"`\"abc`\"\"")) == A("\"abc\""));
+        REQUIRE(parse_ceammc_quoted_string(A("S\"`(`)\"")) == A("{}"));
+        REQUIRE(parse_ceammc_quoted_string(A("abc\"")) == A("abc\""));
+        REQUIRE(parse_ceammc_quoted_string(A("\"abc")) == A("\"abc"));
+        REQUIRE(parse_ceammc_quoted_string(A("S\"abc")) == A("S\"abc"));
+        REQUIRE(parse_ceammc_quoted_string(A("R\"abc\"")) == A("R\"abc\""));
+        REQUIRE(parse_ceammc_quoted_string(A("wasn't")) == A("wasn't"));
+        REQUIRE(parse_ceammc_quoted_string(A("\"wasn't\"")) == A("wasn't"));
+
+        platform::set_env("STR", "#PLACEHOLDER#");
+        REQUIRE(parse_ceammc_quoted_string(A("\"%STR%\"")) == A("#PLACEHOLDER#"));
+        REQUIRE(parse_ceammc_quoted_string(A("\"1 2 3 %STR%\"")) == A("1 2 3 #PLACEHOLDER#"));
+        REQUIRE(parse_ceammc_quoted_string(A("\"%STR% 1 2 3\"")) == A("#PLACEHOLDER# 1 2 3"));
+        REQUIRE(parse_ceammc_quoted_string(A("\"1 2 3 %STR% 1 2 3\"")) == A("1 2 3 #PLACEHOLDER# 1 2 3"));
+        REQUIRE(parse_ceammc_quoted_string(A("\"100% abc\"")) == A("100% abc"));
+        REQUIRE(parse_ceammc_quoted_string(A("\"100%\"")) == A("100%"));
+        REQUIRE(parse_ceammc_quoted_string(A("\"`%100\"")) == A("%100"));
+        REQUIRE(parse_ceammc_quoted_string(A("\"abc%def\"")) == A("abc%def"));
+        REQUIRE(parse_ceammc_quoted_string(A("\"a%def\"")) == A("a%def"));
+        REQUIRE(parse_ceammc_quoted_string(A("\"%def\"")) == A("%def"));
+        REQUIRE(parse_ceammc_quoted_string(A("\"%\"")) == A("%"));
+        REQUIRE(parse_ceammc_quoted_string(A("\"%d\"")) == A("%d"));
+        REQUIRE(parse_ceammc_quoted_string(A("\"%D\"")) == A("%D"));
+        REQUIRE(parse_ceammc_quoted_string(A("\"%HOME\"")) == A("%HOME"));
+        REQUIRE(parse_ceammc_quoted_string(A("\"100% 200% 300%\"")) == A("100% 200% 300%"));
+    }
+
+    SECTION("parse_ceammc_quoted_string (t_symbol*)")
+    {
+        REQUIRE(parse_ceammc_quoted_string((t_symbol*)nullptr) == &s_);
+        REQUIRE(parse_ceammc_quoted_string(&s_) == &s_);
+        REQUIRE(parse_ceammc_quoted_string(SYM("\"\"")) == &s_);
+        REQUIRE(parse_ceammc_quoted_string(SYM("abc")) == SYM("abc"));
+        REQUIRE(parse_ceammc_quoted_string(SYM("\"abc\"")) == SYM("abc"));
+    }
+
+    SECTION("parse_ceammc_quoted_string (AtomListView)")
+    {
+        REQUIRE(parse_ceammc_quoted_string(L()) == L());
+        REQUIRE(parse_ceammc_quoted_string(LF(1)) == LF(1));
+        REQUIRE(parse_ceammc_quoted_string(LF(1, 2, 3)) == LF(1, 2, 3));
+        REQUIRE(parse_ceammc_quoted_string(LA("A")) == LA("A"));
+        REQUIRE(parse_ceammc_quoted_string(LA("")) == LA(""));
+        REQUIRE(parse_ceammc_quoted_string(LA("\"\"")) == LA(""));
+        REQUIRE(parse_ceammc_quoted_string(LA("\" \"")) == LA(" "));
+        REQUIRE(parse_ceammc_quoted_string(LP("\" \"")) == LA(" "));
+        REQUIRE(parse_ceammc_quoted_string(LA("A", "B")) == LA("A", "B"));
+        REQUIRE(parse_ceammc_quoted_string(LA("\"``A B C``\"")) == LA("`A B C`"));
+        REQUIRE(parse_ceammc_quoted_string(LA("\"$0-abc\"")) == LA("$0-abc"));
+        REQUIRE(parse_ceammc_quoted_string(LA(1, "\"``A B C``\"", "B")) == LA(1, "`A B C`", "B"));
+        REQUIRE(parse_ceammc_quoted_string(LA("\"A", "$1-B\"")) == LA("A $1-B"));
+        REQUIRE(parse_ceammc_quoted_string(LA("\"A", 1000.25, "$1-B\"")) == LA("A 1000.25 $1-B"));
+        REQUIRE(parse_ceammc_quoted_string(LA(1, 2, 3, "\"A", 1000.25, "$1-B\"")) == LA(1, 2, 3, "A 1000.25 $1-B"));
+        REQUIRE(parse_ceammc_quoted_string(LA(1, 2, 3, "\"A", 1000.25, "$1-B\"", 4, 5, 6)) == LA(1, 2, 3, "A 1000.25 $1-B", 4, 5, 6));
+        REQUIRE(parse_ceammc_quoted_string(LA("\"A", 1000.25, "$1-B\"", 4, 5, 6)) == LA("A 1000.25 $1-B", 4, 5, 6));
+
     }
 }

@@ -4,8 +4,12 @@
 #include "datatype_mlist.h"
 
 #include <cstdlib>
+#include <ctime>
+#include <random>
 
-const static int MAX_REPEAT_TRIES = 10;
+constexpr int MAX_REPEAT_TRIES = 10;
+
+static std::mt19937 gen(std::time(nullptr));
 
 ListChoice::ListChoice(const PdArgs& a)
     : ListBase(a)
@@ -19,16 +23,17 @@ ListChoice::ListChoice(const PdArgs& a)
     createOutlet();
 }
 
-void ListChoice::onList(const AtomList& l)
+void ListChoice::onList(const AtomListView& lv)
 {
-    const size_t sz = l.size();
+    const size_t sz = lv.size();
 
     if (sz == 0) {
         OBJ_ERR << "empty list given";
         return;
     }
 
-    size_t idx = static_cast<size_t>(rand()) % sz;
+    std::uniform_int_distribution<size_t> dist(0, sz - 1);
+    auto idx = dist(gen);
 
     // repeat index found
     if (no_repeat_->value() && prev_idx_ == idx) {
@@ -40,7 +45,7 @@ void ListChoice::onList(const AtomList& l)
         } else {
             int n_tries = 0;
             while (prev_idx_ == idx) {
-                idx = static_cast<size_t>(rand()) % sz;
+                idx = dist(gen);
                 if (++n_tries > MAX_REPEAT_TRIES) {
                     OBJ_DBG << "max @norepeat tries exceeded";
                     break;
@@ -50,7 +55,7 @@ void ListChoice::onList(const AtomList& l)
     }
 
     prev_idx_ = idx;
-    atomTo(0, l[idx]);
+    atomTo(0, lv[idx]);
 }
 
 void setup_list_choice()

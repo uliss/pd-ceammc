@@ -8,34 +8,8 @@
 namespace ceammc {
 	namespace parser {
 		
-		static uint8_t xchar2digit(char c)
-		{
-			switch (c) {
-				case '0':
-				case '1':
-				case '2':
-				case '3':
-				case '4':
-				case '5':
-				case '6':
-				case '7':
-				case '8':
-				case '9':
-				return c - '0';
-				case 'A':
-				case 'B':
-				case 'C':
-				case 'D':
-				case 'E':
-				case 'F':
-				return c - 'A' + 10;
-				default:
-				return c - 'a' + 10;
-			}
-		}
 		
-		
-#line 39 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 13 "lex/parser_numeric.cpp"
 		static const int numeric_full_start = 1;
 		static const int numeric_full_first_final = 14;
 		static const int numeric_full_error = 0;
@@ -43,7 +17,7 @@ namespace ceammc {
 		static const int numeric_full_en_main = 1;
 		
 		
-#line 42 "lex/parser_numeric.rl"
+#line 16 "lex/parser_numeric.rl"
 		
 		
 		NumericFullMatch::NumericFullMatch()
@@ -86,22 +60,22 @@ namespace ceammc {
 			const char* p = str;
 			const char* pe = p + len;
 			const char* eof = pe;
-			int cat_ = 0;
-			AtomType type_;
-			NumericRagelData num_;
+			
+			DECLARE_RAGEL_COMMON_VARS;
+			DECLARE_RAGEL_NUMERIC_VARS;
 			
 			reset();
 			
 			
-#line 97 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 71 "lex/parser_numeric.cpp"
 			{
 				cs = (int)numeric_full_start;
 			}
 			
-#line 90 "lex/parser_numeric.rl"
+#line 64 "lex/parser_numeric.rl"
 			
 			
-#line 105 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 79 "lex/parser_numeric.cpp"
 			{
 				if ( p == pe )
 					goto _test_eof;
@@ -195,10 +169,10 @@ namespace ceammc {
 				goto _pop;
 				_ctr2:
 				{
-#line 4 "lex/ragel_numeric.rl"
-					num_.sign = ((( (*( p))))=='-') ? -1 : 1; }
+#line 21 "lex/ragel_numeric.rl"
+					ragel_num.sign = ((( (*( p))))=='-') ? -1 : 1; }
 				
-#line 202 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 176 "lex/parser_numeric.cpp"
 				
 				goto _st2;
 				_st2:
@@ -228,24 +202,28 @@ namespace ceammc {
 				}
 				_ctr7:
 				{
-#line 9 "lex/ragel_numeric.rl"
-					(num_.ival *= 10) += ((( (*( p))))-'0'); }
+#line 29 "lex/ragel_numeric.rl"
+					(ragel_num.vint *= 10) += ((( (*( p))))-'0'); }
 				
-#line 235 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 209 "lex/parser_numeric.cpp"
 				
 				{
-#line 15 "lex/ragel_numeric.rl"
-					(num_.inum *= 10) += ((( (*( p))))-'0'); }
+#line 42 "lex/ragel_numeric.rl"
+					(ragel_num.ratio.num *= 10) += ((( (*( p))))-'0'); }
 				
-#line 241 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 215 "lex/parser_numeric.cpp"
 				
 				goto _st14;
 				_ctr26:
 				{
-#line 10 "lex/ragel_numeric.rl"
-					num_.ival *= num_.sign; cat_ = CAT_NUMBER; type_ = TYPE_INT; }
+#line 30 "lex/ragel_numeric.rl"
+					
+					ragel_num.vint *= ragel_num.sign;
+					ragel_type = TYPE_INT;
+					ragel_cat  = CAT_NUMBER;
+				}
 				
-#line 249 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 227 "lex/parser_numeric.cpp"
 				
 				goto _st14;
 				_st14:
@@ -284,36 +262,44 @@ namespace ceammc {
 				}
 				_ctr27:
 				{
-#line 10 "lex/ragel_numeric.rl"
-					num_.ival *= num_.sign; cat_ = CAT_NUMBER; type_ = TYPE_INT; }
+#line 30 "lex/ragel_numeric.rl"
+					
+					ragel_num.vint *= ragel_num.sign;
+					ragel_type = TYPE_INT;
+					ragel_cat  = CAT_NUMBER;
+				}
 				
-#line 291 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 273 "lex/parser_numeric.cpp"
 				
 				{
-#line 60 "lex/ragel_numeric.rl"
-					num_.fval = num_.ival;}
+#line 108 "lex/ragel_numeric.rl"
+					ragel_num.vdouble = ragel_num.vint;}
 				
-#line 297 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 279 "lex/parser_numeric.cpp"
 				
 				goto _st15;
 				_ctr32:
 				{
-#line 63 "lex/ragel_numeric.rl"
-					type_ = TYPE_PERCENT;}
+#line 70 "lex/ragel_numeric.rl"
+					
+					ragel_type = TYPE_PERCENT;
+					ragel_cat = CAT_NUMBER;
+				}
 				
-#line 305 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 290 "lex/parser_numeric.cpp"
 				
 				goto _st15;
 				_ctr35:
 				{
-#line 19 "lex/ragel_numeric.rl"
+#line 58 "lex/ragel_numeric.rl"
 					
-					cat_ = CAT_NUMBER;
-					type_ = TYPE_FLOAT;
-					num_.fval = num_.ival + num_.sign * (double(num_.inum)/num_.iden);
+					const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
+					ragel_num.vdouble = ragel_num.vint + ragel_num.sign * frac;
+					ragel_type = TYPE_FLOAT;
+					ragel_cat  = CAT_NUMBER;
 				}
 				
-#line 317 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 303 "lex/parser_numeric.cpp"
 				
 				goto _st15;
 				_st15:
@@ -332,36 +318,44 @@ namespace ceammc {
 				}
 				_ctr28:
 				{
-#line 10 "lex/ragel_numeric.rl"
-					num_.ival *= num_.sign; cat_ = CAT_NUMBER; type_ = TYPE_INT; }
+#line 30 "lex/ragel_numeric.rl"
+					
+					ragel_num.vint *= ragel_num.sign;
+					ragel_type = TYPE_INT;
+					ragel_cat  = CAT_NUMBER;
+				}
 				
-#line 339 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 329 "lex/parser_numeric.cpp"
 				
 				{
-#line 65 "lex/ragel_numeric.rl"
-					num_.fval = num_.ival;}
+#line 113 "lex/ragel_numeric.rl"
+					ragel_num.vdouble = ragel_num.vint;}
 				
-#line 345 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 335 "lex/parser_numeric.cpp"
 				
 				goto _st16;
 				_ctr33:
 				{
-#line 68 "lex/ragel_numeric.rl"
-					type_ = TYPE_PHASE;}
+#line 75 "lex/ragel_numeric.rl"
+					
+					ragel_type = TYPE_PHASE;
+					ragel_cat = CAT_NUMBER;
+				}
 				
-#line 353 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 346 "lex/parser_numeric.cpp"
 				
 				goto _st16;
 				_ctr36:
 				{
-#line 19 "lex/ragel_numeric.rl"
+#line 58 "lex/ragel_numeric.rl"
 					
-					cat_ = CAT_NUMBER;
-					type_ = TYPE_FLOAT;
-					num_.fval = num_.ival + num_.sign * (double(num_.inum)/num_.iden);
+					const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
+					ragel_num.vdouble = ragel_num.vint + ragel_num.sign * frac;
+					ragel_type = TYPE_FLOAT;
+					ragel_cat  = CAT_NUMBER;
 				}
 				
-#line 365 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 359 "lex/parser_numeric.cpp"
 				
 				goto _st16;
 				_st16:
@@ -380,16 +374,23 @@ namespace ceammc {
 				}
 				_ctr29:
 				{
-#line 10 "lex/ragel_numeric.rl"
-					num_.ival *= num_.sign; cat_ = CAT_NUMBER; type_ = TYPE_INT; }
+#line 30 "lex/ragel_numeric.rl"
+					
+					ragel_num.vint *= ragel_num.sign;
+					ragel_type = TYPE_INT;
+					ragel_cat  = CAT_NUMBER;
+				}
 				
-#line 387 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 385 "lex/parser_numeric.cpp"
 				
 				{
-#line 54 "lex/ragel_numeric.rl"
-					num_.inum = 0; num_.iden = 1;}
+#line 50 "lex/ragel_numeric.rl"
+					
+					ragel_num.ratio.num = 0;
+					ragel_num.ratio.den = 1;
+				}
 				
-#line 393 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 394 "lex/parser_numeric.cpp"
 				
 				goto _st3;
 				_st3:
@@ -411,22 +412,26 @@ namespace ceammc {
 				}
 				_ctr9:
 				{
-#line 46 "lex/ragel_numeric.rl"
-					(num_.inum *= 10) += ((( (*( p)))) - '0'); num_.iden *= 10;}
+#line 54 "lex/ragel_numeric.rl"
+					
+					(ragel_num.ratio.num *= 10) += ((( (*( p)))) - '0');
+					ragel_num.ratio.den *= 10;
+				}
 				
-#line 418 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 422 "lex/parser_numeric.cpp"
 				
 				goto _st17;
 				_ctr34:
 				{
-#line 19 "lex/ragel_numeric.rl"
+#line 58 "lex/ragel_numeric.rl"
 					
-					cat_ = CAT_NUMBER;
-					type_ = TYPE_FLOAT;
-					num_.fval = num_.ival + num_.sign * (double(num_.inum)/num_.iden);
+					const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
+					ragel_num.vdouble = ragel_num.vint + ragel_num.sign * frac;
+					ragel_type = TYPE_FLOAT;
+					ragel_cat  = CAT_NUMBER;
 				}
 				
-#line 430 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 435 "lex/parser_numeric.cpp"
 				
 				goto _st17;
 				_st17:
@@ -462,34 +467,39 @@ namespace ceammc {
 				}
 				_ctr30:
 				{
-#line 10 "lex/ragel_numeric.rl"
-					num_.ival *= num_.sign; cat_ = CAT_NUMBER; type_ = TYPE_INT; }
+#line 30 "lex/ragel_numeric.rl"
+					
+					ragel_num.vint *= ragel_num.sign;
+					ragel_type = TYPE_INT;
+					ragel_cat  = CAT_NUMBER;
+				}
 				
-#line 469 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
-				
-				{
-#line 60 "lex/ragel_numeric.rl"
-					num_.fval = num_.ival;}
-				
-#line 475 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 478 "lex/parser_numeric.cpp"
 				
 				{
-#line 65 "lex/ragel_numeric.rl"
-					num_.fval = num_.ival;}
+#line 108 "lex/ragel_numeric.rl"
+					ragel_num.vdouble = ragel_num.vint;}
 				
-#line 481 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 484 "lex/parser_numeric.cpp"
+				
+				{
+#line 113 "lex/ragel_numeric.rl"
+					ragel_num.vdouble = ragel_num.vint;}
+				
+#line 490 "lex/parser_numeric.cpp"
 				
 				goto _st4;
 				_ctr37:
 				{
-#line 19 "lex/ragel_numeric.rl"
+#line 58 "lex/ragel_numeric.rl"
 					
-					cat_ = CAT_NUMBER;
-					type_ = TYPE_FLOAT;
-					num_.fval = num_.ival + num_.sign * (double(num_.inum)/num_.iden);
+					const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
+					ragel_num.vdouble = ragel_num.vint + ragel_num.sign * frac;
+					ragel_type = TYPE_FLOAT;
+					ragel_cat  = CAT_NUMBER;
 				}
 				
-#line 493 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 503 "lex/parser_numeric.cpp"
 				
 				goto _st4;
 				_st4:
@@ -516,28 +526,33 @@ namespace ceammc {
 				}
 				_ctr31:
 				{
-#line 10 "lex/ragel_numeric.rl"
-					num_.ival *= num_.sign; cat_ = CAT_NUMBER; type_ = TYPE_INT; }
+#line 30 "lex/ragel_numeric.rl"
+					
+					ragel_num.vint *= ragel_num.sign;
+					ragel_type = TYPE_INT;
+					ragel_cat  = CAT_NUMBER;
+				}
 				
-#line 523 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 537 "lex/parser_numeric.cpp"
 				
 				{
-#line 65 "lex/ragel_numeric.rl"
-					num_.fval = num_.ival;}
+#line 113 "lex/ragel_numeric.rl"
+					ragel_num.vdouble = ragel_num.vint;}
 				
-#line 529 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 543 "lex/parser_numeric.cpp"
 				
 				goto _st5;
 				_ctr38:
 				{
-#line 19 "lex/ragel_numeric.rl"
+#line 58 "lex/ragel_numeric.rl"
 					
-					cat_ = CAT_NUMBER;
-					type_ = TYPE_FLOAT;
-					num_.fval = num_.ival + num_.sign * (double(num_.inum)/num_.iden);
+					const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
+					ragel_num.vdouble = ragel_num.vint + ragel_num.sign * frac;
+					ragel_type = TYPE_FLOAT;
+					ragel_cat  = CAT_NUMBER;
 				}
 				
-#line 541 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 556 "lex/parser_numeric.cpp"
 				
 				goto _st5;
 				_st5:
@@ -630,18 +645,22 @@ namespace ceammc {
 				}
 				_ctr18:
 				{
-#line 16 "lex/ragel_numeric.rl"
-					(num_.iden *= 10) += ((( (*( p))))-'0'); }
+#line 43 "lex/ragel_numeric.rl"
+					(ragel_num.ratio.den *= 10) += ((( (*( p))))-'0'); }
 				
-#line 637 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 652 "lex/parser_numeric.cpp"
 				
 				goto _st18;
 				_ctr39:
 				{
-#line 17 "lex/ragel_numeric.rl"
-					num_.inum *= num_.sign; cat_ = CAT_NUMBER; type_ = TYPE_RATIO; }
+#line 44 "lex/ragel_numeric.rl"
+					
+					ragel_num.ratio.num *= ragel_num.sign;
+					ragel_type = TYPE_RATIO;
+					ragel_cat  = CAT_NUMBER;
+				}
 				
-#line 645 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 664 "lex/parser_numeric.cpp"
 				
 				goto _st18;
 				_st18:
@@ -660,18 +679,22 @@ namespace ceammc {
 				}
 				_ctr19:
 				{
-#line 16 "lex/ragel_numeric.rl"
-					(num_.iden *= 10) += ((( (*( p))))-'0'); }
+#line 43 "lex/ragel_numeric.rl"
+					(ragel_num.ratio.den *= 10) += ((( (*( p))))-'0'); }
 				
-#line 667 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 686 "lex/parser_numeric.cpp"
 				
 				goto _st19;
 				_ctr40:
 				{
-#line 17 "lex/ragel_numeric.rl"
-					num_.inum *= num_.sign; cat_ = CAT_NUMBER; type_ = TYPE_RATIO; }
+#line 44 "lex/ragel_numeric.rl"
+					
+					ragel_num.ratio.num *= ragel_num.sign;
+					ragel_type = TYPE_RATIO;
+					ragel_cat  = CAT_NUMBER;
+				}
 				
-#line 675 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 698 "lex/parser_numeric.cpp"
 				
 				goto _st19;
 				_st19:
@@ -693,24 +716,28 @@ namespace ceammc {
 				}
 				_ctr4:
 				{
-#line 9 "lex/ragel_numeric.rl"
-					(num_.ival *= 10) += ((( (*( p))))-'0'); }
+#line 29 "lex/ragel_numeric.rl"
+					(ragel_num.vint *= 10) += ((( (*( p))))-'0'); }
 				
-#line 700 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 723 "lex/parser_numeric.cpp"
 				
 				{
-#line 15 "lex/ragel_numeric.rl"
-					(num_.inum *= 10) += ((( (*( p))))-'0'); }
+#line 42 "lex/ragel_numeric.rl"
+					(ragel_num.ratio.num *= 10) += ((( (*( p))))-'0'); }
 				
-#line 706 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 729 "lex/parser_numeric.cpp"
 				
 				goto _st20;
 				_ctr41:
 				{
-#line 10 "lex/ragel_numeric.rl"
-					num_.ival *= num_.sign; cat_ = CAT_NUMBER; type_ = TYPE_INT; }
+#line 30 "lex/ragel_numeric.rl"
+					
+					ragel_num.vint *= ragel_num.sign;
+					ragel_type = TYPE_INT;
+					ragel_cat  = CAT_NUMBER;
+				}
 				
-#line 714 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 741 "lex/parser_numeric.cpp"
 				
 				goto _st20;
 				_st20:
@@ -786,13 +813,13 @@ namespace ceammc {
 				}
 				_ctr42:
 				{
-#line 25 "lex/ragel_numeric.rl"
+#line 65 "lex/ragel_numeric.rl"
 					
-					cat_ = CAT_NUMBER;
-					type_ = TYPE_INF;
+					ragel_type = TYPE_INF;
+					ragel_cat = CAT_NUMBER;
 				}
 				
-#line 796 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 823 "lex/parser_numeric.cpp"
 				
 				goto _st21;
 				_st21:
@@ -811,24 +838,28 @@ namespace ceammc {
 				}
 				_ctr3:
 				{
-#line 9 "lex/ragel_numeric.rl"
-					(num_.ival *= 10) += ((( (*( p))))-'0'); }
+#line 29 "lex/ragel_numeric.rl"
+					(ragel_num.vint *= 10) += ((( (*( p))))-'0'); }
 				
-#line 818 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 845 "lex/parser_numeric.cpp"
 				
 				{
-#line 15 "lex/ragel_numeric.rl"
-					(num_.inum *= 10) += ((( (*( p))))-'0'); }
+#line 42 "lex/ragel_numeric.rl"
+					(ragel_num.ratio.num *= 10) += ((( (*( p))))-'0'); }
 				
-#line 824 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 851 "lex/parser_numeric.cpp"
 				
 				goto _st22;
 				_ctr43:
 				{
-#line 10 "lex/ragel_numeric.rl"
-					num_.ival *= num_.sign; cat_ = CAT_NUMBER; type_ = TYPE_INT; }
+#line 30 "lex/ragel_numeric.rl"
+					
+					ragel_num.vint *= ragel_num.sign;
+					ragel_type = TYPE_INT;
+					ragel_cat  = CAT_NUMBER;
+				}
 				
-#line 832 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 863 "lex/parser_numeric.cpp"
 				
 				goto _st22;
 				_st22:
@@ -890,18 +921,21 @@ namespace ceammc {
 				}
 				_ctr23:
 				{
-#line 6 "lex/ragel_numeric.rl"
-					(num_.ival <<= 1) |= ((( (*( p))))=='1'); }
+#line 23 "lex/ragel_numeric.rl"
+					(ragel_num.vint <<= 1) |= ((( (*( p))))=='1'); }
 				
-#line 897 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 928 "lex/parser_numeric.cpp"
 				
 				goto _st23;
 				_ctr44:
 				{
-#line 7 "lex/ragel_numeric.rl"
-					cat_ = CAT_NUMBER; type_ = TYPE_BIN; }
+#line 24 "lex/ragel_numeric.rl"
+					
+					ragel_type = TYPE_BIN;
+					ragel_cat  = CAT_NUMBER;
+				}
 				
-#line 905 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 939 "lex/parser_numeric.cpp"
 				
 				goto _st23;
 				_st23:
@@ -948,18 +982,21 @@ namespace ceammc {
 				}
 				_ctr25:
 				{
-#line 12 "lex/ragel_numeric.rl"
-					(num_.ival <<= 4) |= xchar2digit((( (*( p))))); }
+#line 36 "lex/ragel_numeric.rl"
+					(ragel_num.vint <<= 4) |= xchar2digit((( (*( p))))); }
 				
-#line 955 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 989 "lex/parser_numeric.cpp"
 				
 				goto _st24;
 				_ctr45:
 				{
-#line 13 "lex/ragel_numeric.rl"
-					cat_ = CAT_NUMBER; type_ = TYPE_HEX; }
+#line 37 "lex/ragel_numeric.rl"
+					
+					ragel_type = TYPE_HEX;
+					ragel_cat  = CAT_NUMBER;
+				}
 				
-#line 963 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 1000 "lex/parser_numeric.cpp"
 				
 				goto _st24;
 				_st24:
@@ -1128,23 +1165,23 @@ namespace ceammc {
 				_out: {}
 			}
 			
-#line 91 "lex/parser_numeric.rl"
+#line 65 "lex/parser_numeric.rl"
 			
 			
-			switch(type_) {
+			switch(ragel_type) {
 				case TYPE_PHASE:
 				case TYPE_PERCENT:
 				case TYPE_FLOAT:
-				res_.f = num_.fval;
+				res_.f = ragel_num.getFloat();
 				break;
 				case TYPE_INT:
 				case TYPE_HEX:
 				case TYPE_BIN:
-				res_.i0 = num_.ival;
+				res_.i0 = ragel_num.getInteger();
 				break;
 				case TYPE_RATIO:
-				res_.i0 = num_.inum;
-				res_.i1 = num_.iden;
+				res_.i0 = ragel_num.ratio.num;
+				res_.i1 = ragel_num.ratio.den;
 				break;
 				case TYPE_INF:
 				res_.f = std::numeric_limits<typeof(res_.f)>::infinity();
@@ -1153,12 +1190,12 @@ namespace ceammc {
 				break;
 			}
 			
-			res_.t = type_;
+			res_.t = ragel_type;
 			
 			return cs >= 
-#line 1160 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 1197 "lex/parser_numeric.cpp"
 			14
-#line 117 "lex/parser_numeric.rl"
+#line 91 "lex/parser_numeric.rl"
 			;
 		}
 		
@@ -1219,7 +1256,7 @@ namespace ceammc {
 		}
 		
 		
-#line 1223 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 1260 "lex/parser_numeric.cpp"
 		static const int numeric_some_start = 1;
 		static const int numeric_some_first_final = 14;
 		static const int numeric_some_error = 0;
@@ -1227,7 +1264,7 @@ namespace ceammc {
 		static const int numeric_some_en_main = 1;
 		
 		
-#line 187 "lex/parser_numeric.rl"
+#line 161 "lex/parser_numeric.rl"
 		
 		
 		NumericMatchSome::NumericMatchSome()
@@ -1238,12 +1275,12 @@ namespace ceammc {
 		void NumericMatchSome::reset()
 		{
 			
-#line 1242 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 1279 "lex/parser_numeric.cpp"
 			{
 				cs = (int)numeric_some_start;
 			}
 			
-#line 196 "lex/parser_numeric.rl"
+#line 170 "lex/parser_numeric.rl"
 			
 			res_.clear();
 		}
@@ -1257,22 +1294,22 @@ namespace ceammc {
 			const char* p = str;
 			const char* pe = p + len;
 			const char* eof = pe;
-			int cat_ = 0;
-			AtomType type_;
-			NumericRagelData num_;
+			
+			DECLARE_RAGEL_COMMON_VARS;
+			DECLARE_RAGEL_NUMERIC_VARS;
 			
 			bool ok = false;
 			
 			
-#line 1268 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 1305 "lex/parser_numeric.cpp"
 			{
 				cs = (int)numeric_some_start;
 			}
 			
-#line 215 "lex/parser_numeric.rl"
+#line 189 "lex/parser_numeric.rl"
 			
 			
-#line 1276 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 1313 "lex/parser_numeric.cpp"
 			{
 				if ( p == pe )
 					goto _test_eof;
@@ -1376,10 +1413,10 @@ namespace ceammc {
 				goto _pop;
 				_ctr2:
 				{
-#line 4 "lex/ragel_numeric.rl"
-					num_.sign = ((( (*( p))))=='-') ? -1 : 1; }
+#line 21 "lex/ragel_numeric.rl"
+					ragel_num.sign = ((( (*( p))))=='-') ? -1 : 1; }
 				
-#line 1383 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 1420 "lex/parser_numeric.cpp"
 				
 				goto _st2;
 				_st2:
@@ -1409,24 +1446,28 @@ namespace ceammc {
 				}
 				_ctr7:
 				{
-#line 9 "lex/ragel_numeric.rl"
-					(num_.ival *= 10) += ((( (*( p))))-'0'); }
+#line 29 "lex/ragel_numeric.rl"
+					(ragel_num.vint *= 10) += ((( (*( p))))-'0'); }
 				
-#line 1416 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 1453 "lex/parser_numeric.cpp"
 				
 				{
-#line 15 "lex/ragel_numeric.rl"
-					(num_.inum *= 10) += ((( (*( p))))-'0'); }
+#line 42 "lex/ragel_numeric.rl"
+					(ragel_num.ratio.num *= 10) += ((( (*( p))))-'0'); }
 				
-#line 1422 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 1459 "lex/parser_numeric.cpp"
 				
 				goto _st14;
 				_ctr26:
 				{
-#line 10 "lex/ragel_numeric.rl"
-					num_.ival *= num_.sign; cat_ = CAT_NUMBER; type_ = TYPE_INT; }
+#line 30 "lex/ragel_numeric.rl"
+					
+					ragel_num.vint *= ragel_num.sign;
+					ragel_type = TYPE_INT;
+					ragel_cat  = CAT_NUMBER;
+				}
 				
-#line 1430 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 1471 "lex/parser_numeric.cpp"
 				
 				goto _st14;
 				_st14:
@@ -1471,73 +1512,94 @@ namespace ceammc {
 				}
 				_ctr27:
 				{
-#line 10 "lex/ragel_numeric.rl"
-					num_.ival *= num_.sign; cat_ = CAT_NUMBER; type_ = TYPE_INT; }
+#line 30 "lex/ragel_numeric.rl"
+					
+					ragel_num.vint *= ragel_num.sign;
+					ragel_type = TYPE_INT;
+					ragel_cat  = CAT_NUMBER;
+				}
 				
-#line 1478 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 1523 "lex/parser_numeric.cpp"
 				
 				goto _st15;
 				_ctr36:
 				{
-#line 63 "lex/ragel_numeric.rl"
-					type_ = TYPE_PERCENT;}
+#line 70 "lex/ragel_numeric.rl"
+					
+					ragel_type = TYPE_PERCENT;
+					ragel_cat = CAT_NUMBER;
+				}
 				
-#line 1486 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 1534 "lex/parser_numeric.cpp"
 				
 				goto _st15;
 				_ctr38:
 				{
-#line 68 "lex/ragel_numeric.rl"
-					type_ = TYPE_PHASE;}
+#line 75 "lex/ragel_numeric.rl"
+					
+					ragel_type = TYPE_PHASE;
+					ragel_cat = CAT_NUMBER;
+				}
 				
-#line 1494 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 1545 "lex/parser_numeric.cpp"
 				
 				goto _st15;
 				_ctr40:
 				{
-#line 19 "lex/ragel_numeric.rl"
+#line 58 "lex/ragel_numeric.rl"
 					
-					cat_ = CAT_NUMBER;
-					type_ = TYPE_FLOAT;
-					num_.fval = num_.ival + num_.sign * (double(num_.inum)/num_.iden);
+					const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
+					ragel_num.vdouble = ragel_num.vint + ragel_num.sign * frac;
+					ragel_type = TYPE_FLOAT;
+					ragel_cat  = CAT_NUMBER;
 				}
 				
-#line 1506 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 1558 "lex/parser_numeric.cpp"
 				
 				goto _st15;
 				_ctr46:
 				{
-#line 17 "lex/ragel_numeric.rl"
-					num_.inum *= num_.sign; cat_ = CAT_NUMBER; type_ = TYPE_RATIO; }
+#line 44 "lex/ragel_numeric.rl"
+					
+					ragel_num.ratio.num *= ragel_num.sign;
+					ragel_type = TYPE_RATIO;
+					ragel_cat  = CAT_NUMBER;
+				}
 				
-#line 1514 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 1570 "lex/parser_numeric.cpp"
 				
 				goto _st15;
 				_ctr50:
 				{
-#line 25 "lex/ragel_numeric.rl"
+#line 65 "lex/ragel_numeric.rl"
 					
-					cat_ = CAT_NUMBER;
-					type_ = TYPE_INF;
+					ragel_type = TYPE_INF;
+					ragel_cat = CAT_NUMBER;
 				}
 				
-#line 1525 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 1581 "lex/parser_numeric.cpp"
 				
 				goto _st15;
 				_ctr53:
 				{
-#line 7 "lex/ragel_numeric.rl"
-					cat_ = CAT_NUMBER; type_ = TYPE_BIN; }
+#line 24 "lex/ragel_numeric.rl"
+					
+					ragel_type = TYPE_BIN;
+					ragel_cat  = CAT_NUMBER;
+				}
 				
-#line 1533 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 1592 "lex/parser_numeric.cpp"
 				
 				goto _st15;
 				_ctr55:
 				{
-#line 13 "lex/ragel_numeric.rl"
-					cat_ = CAT_NUMBER; type_ = TYPE_HEX; }
+#line 37 "lex/ragel_numeric.rl"
+					
+					ragel_type = TYPE_HEX;
+					ragel_cat  = CAT_NUMBER;
+				}
 				
-#line 1541 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 1603 "lex/parser_numeric.cpp"
 				
 				goto _st15;
 				_st15:
@@ -1552,10 +1614,10 @@ namespace ceammc {
 					goto _test_eof15;
 				st_case_15:
 				{
-#line 180 "lex/parser_numeric.rl"
+#line 154 "lex/parser_numeric.rl"
 					if((( (*( p))))!=' '&&(( (*( p))))!='\t'){{p = p - 1; }{p+= 1; cs = 15; goto _out;}}}
 				
-#line 1559 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 1621 "lex/parser_numeric.cpp"
 				
 				switch( ( (*( p))) ) {
 					case 9: {
@@ -1584,36 +1646,44 @@ namespace ceammc {
 				}
 				_ctr28:
 				{
-#line 10 "lex/ragel_numeric.rl"
-					num_.ival *= num_.sign; cat_ = CAT_NUMBER; type_ = TYPE_INT; }
+#line 30 "lex/ragel_numeric.rl"
+					
+					ragel_num.vint *= ragel_num.sign;
+					ragel_type = TYPE_INT;
+					ragel_cat  = CAT_NUMBER;
+				}
 				
-#line 1591 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 1657 "lex/parser_numeric.cpp"
 				
 				{
-#line 60 "lex/ragel_numeric.rl"
-					num_.fval = num_.ival;}
+#line 108 "lex/ragel_numeric.rl"
+					ragel_num.vdouble = ragel_num.vint;}
 				
-#line 1597 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 1663 "lex/parser_numeric.cpp"
 				
 				goto _st17;
 				_ctr35:
 				{
-#line 63 "lex/ragel_numeric.rl"
-					type_ = TYPE_PERCENT;}
+#line 70 "lex/ragel_numeric.rl"
+					
+					ragel_type = TYPE_PERCENT;
+					ragel_cat = CAT_NUMBER;
+				}
 				
-#line 1605 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 1674 "lex/parser_numeric.cpp"
 				
 				goto _st17;
 				_ctr41:
 				{
-#line 19 "lex/ragel_numeric.rl"
+#line 58 "lex/ragel_numeric.rl"
 					
-					cat_ = CAT_NUMBER;
-					type_ = TYPE_FLOAT;
-					num_.fval = num_.ival + num_.sign * (double(num_.inum)/num_.iden);
+					const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
+					ragel_num.vdouble = ragel_num.vint + ragel_num.sign * frac;
+					ragel_type = TYPE_FLOAT;
+					ragel_cat  = CAT_NUMBER;
 				}
 				
-#line 1617 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 1687 "lex/parser_numeric.cpp"
 				
 				goto _st17;
 				_st17:
@@ -1640,36 +1710,44 @@ namespace ceammc {
 				}
 				_ctr29:
 				{
-#line 10 "lex/ragel_numeric.rl"
-					num_.ival *= num_.sign; cat_ = CAT_NUMBER; type_ = TYPE_INT; }
+#line 30 "lex/ragel_numeric.rl"
+					
+					ragel_num.vint *= ragel_num.sign;
+					ragel_type = TYPE_INT;
+					ragel_cat  = CAT_NUMBER;
+				}
 				
-#line 1647 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 1721 "lex/parser_numeric.cpp"
 				
 				{
-#line 65 "lex/ragel_numeric.rl"
-					num_.fval = num_.ival;}
+#line 113 "lex/ragel_numeric.rl"
+					ragel_num.vdouble = ragel_num.vint;}
 				
-#line 1653 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 1727 "lex/parser_numeric.cpp"
 				
 				goto _st18;
 				_ctr37:
 				{
-#line 68 "lex/ragel_numeric.rl"
-					type_ = TYPE_PHASE;}
+#line 75 "lex/ragel_numeric.rl"
+					
+					ragel_type = TYPE_PHASE;
+					ragel_cat = CAT_NUMBER;
+				}
 				
-#line 1661 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 1738 "lex/parser_numeric.cpp"
 				
 				goto _st18;
 				_ctr42:
 				{
-#line 19 "lex/ragel_numeric.rl"
+#line 58 "lex/ragel_numeric.rl"
 					
-					cat_ = CAT_NUMBER;
-					type_ = TYPE_FLOAT;
-					num_.fval = num_.ival + num_.sign * (double(num_.inum)/num_.iden);
+					const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
+					ragel_num.vdouble = ragel_num.vint + ragel_num.sign * frac;
+					ragel_type = TYPE_FLOAT;
+					ragel_cat  = CAT_NUMBER;
 				}
 				
-#line 1673 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 1751 "lex/parser_numeric.cpp"
 				
 				goto _st18;
 				_st18:
@@ -1696,16 +1774,23 @@ namespace ceammc {
 				}
 				_ctr30:
 				{
-#line 10 "lex/ragel_numeric.rl"
-					num_.ival *= num_.sign; cat_ = CAT_NUMBER; type_ = TYPE_INT; }
+#line 30 "lex/ragel_numeric.rl"
+					
+					ragel_num.vint *= ragel_num.sign;
+					ragel_type = TYPE_INT;
+					ragel_cat  = CAT_NUMBER;
+				}
 				
-#line 1703 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 1785 "lex/parser_numeric.cpp"
 				
 				{
-#line 54 "lex/ragel_numeric.rl"
-					num_.inum = 0; num_.iden = 1;}
+#line 50 "lex/ragel_numeric.rl"
+					
+					ragel_num.ratio.num = 0;
+					ragel_num.ratio.den = 1;
+				}
 				
-#line 1709 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 1794 "lex/parser_numeric.cpp"
 				
 				goto _st3;
 				_st3:
@@ -1727,22 +1812,26 @@ namespace ceammc {
 				}
 				_ctr9:
 				{
-#line 46 "lex/ragel_numeric.rl"
-					(num_.inum *= 10) += ((( (*( p)))) - '0'); num_.iden *= 10;}
+#line 54 "lex/ragel_numeric.rl"
+					
+					(ragel_num.ratio.num *= 10) += ((( (*( p)))) - '0');
+					ragel_num.ratio.den *= 10;
+				}
 				
-#line 1734 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 1822 "lex/parser_numeric.cpp"
 				
 				goto _st19;
 				_ctr39:
 				{
-#line 19 "lex/ragel_numeric.rl"
+#line 58 "lex/ragel_numeric.rl"
 					
-					cat_ = CAT_NUMBER;
-					type_ = TYPE_FLOAT;
-					num_.fval = num_.ival + num_.sign * (double(num_.inum)/num_.iden);
+					const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
+					ragel_num.vdouble = ragel_num.vint + ragel_num.sign * frac;
+					ragel_type = TYPE_FLOAT;
+					ragel_cat  = CAT_NUMBER;
 				}
 				
-#line 1746 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 1835 "lex/parser_numeric.cpp"
 				
 				goto _st19;
 				_st19:
@@ -1784,34 +1873,39 @@ namespace ceammc {
 				}
 				_ctr31:
 				{
-#line 10 "lex/ragel_numeric.rl"
-					num_.ival *= num_.sign; cat_ = CAT_NUMBER; type_ = TYPE_INT; }
+#line 30 "lex/ragel_numeric.rl"
+					
+					ragel_num.vint *= ragel_num.sign;
+					ragel_type = TYPE_INT;
+					ragel_cat  = CAT_NUMBER;
+				}
 				
-#line 1791 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
-				
-				{
-#line 60 "lex/ragel_numeric.rl"
-					num_.fval = num_.ival;}
-				
-#line 1797 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 1884 "lex/parser_numeric.cpp"
 				
 				{
-#line 65 "lex/ragel_numeric.rl"
-					num_.fval = num_.ival;}
+#line 108 "lex/ragel_numeric.rl"
+					ragel_num.vdouble = ragel_num.vint;}
 				
-#line 1803 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 1890 "lex/parser_numeric.cpp"
+				
+				{
+#line 113 "lex/ragel_numeric.rl"
+					ragel_num.vdouble = ragel_num.vint;}
+				
+#line 1896 "lex/parser_numeric.cpp"
 				
 				goto _st4;
 				_ctr43:
 				{
-#line 19 "lex/ragel_numeric.rl"
+#line 58 "lex/ragel_numeric.rl"
 					
-					cat_ = CAT_NUMBER;
-					type_ = TYPE_FLOAT;
-					num_.fval = num_.ival + num_.sign * (double(num_.inum)/num_.iden);
+					const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
+					ragel_num.vdouble = ragel_num.vint + ragel_num.sign * frac;
+					ragel_type = TYPE_FLOAT;
+					ragel_cat  = CAT_NUMBER;
 				}
 				
-#line 1815 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 1909 "lex/parser_numeric.cpp"
 				
 				goto _st4;
 				_st4:
@@ -1838,28 +1932,33 @@ namespace ceammc {
 				}
 				_ctr32:
 				{
-#line 10 "lex/ragel_numeric.rl"
-					num_.ival *= num_.sign; cat_ = CAT_NUMBER; type_ = TYPE_INT; }
+#line 30 "lex/ragel_numeric.rl"
+					
+					ragel_num.vint *= ragel_num.sign;
+					ragel_type = TYPE_INT;
+					ragel_cat  = CAT_NUMBER;
+				}
 				
-#line 1845 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 1943 "lex/parser_numeric.cpp"
 				
 				{
-#line 65 "lex/ragel_numeric.rl"
-					num_.fval = num_.ival;}
+#line 113 "lex/ragel_numeric.rl"
+					ragel_num.vdouble = ragel_num.vint;}
 				
-#line 1851 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 1949 "lex/parser_numeric.cpp"
 				
 				goto _st5;
 				_ctr44:
 				{
-#line 19 "lex/ragel_numeric.rl"
+#line 58 "lex/ragel_numeric.rl"
 					
-					cat_ = CAT_NUMBER;
-					type_ = TYPE_FLOAT;
-					num_.fval = num_.ival + num_.sign * (double(num_.inum)/num_.iden);
+					const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
+					ragel_num.vdouble = ragel_num.vint + ragel_num.sign * frac;
+					ragel_type = TYPE_FLOAT;
+					ragel_cat  = CAT_NUMBER;
 				}
 				
-#line 1863 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 1962 "lex/parser_numeric.cpp"
 				
 				goto _st5;
 				_st5:
@@ -1952,18 +2051,22 @@ namespace ceammc {
 				}
 				_ctr18:
 				{
-#line 16 "lex/ragel_numeric.rl"
-					(num_.iden *= 10) += ((( (*( p))))-'0'); }
+#line 43 "lex/ragel_numeric.rl"
+					(ragel_num.ratio.den *= 10) += ((( (*( p))))-'0'); }
 				
-#line 1959 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 2058 "lex/parser_numeric.cpp"
 				
 				goto _st20;
 				_ctr45:
 				{
-#line 17 "lex/ragel_numeric.rl"
-					num_.inum *= num_.sign; cat_ = CAT_NUMBER; type_ = TYPE_RATIO; }
+#line 44 "lex/ragel_numeric.rl"
+					
+					ragel_num.ratio.num *= ragel_num.sign;
+					ragel_type = TYPE_RATIO;
+					ragel_cat  = CAT_NUMBER;
+				}
 				
-#line 1967 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 2070 "lex/parser_numeric.cpp"
 				
 				goto _st20;
 				_st20:
@@ -1990,18 +2093,22 @@ namespace ceammc {
 				}
 				_ctr19:
 				{
-#line 16 "lex/ragel_numeric.rl"
-					(num_.iden *= 10) += ((( (*( p))))-'0'); }
+#line 43 "lex/ragel_numeric.rl"
+					(ragel_num.ratio.den *= 10) += ((( (*( p))))-'0'); }
 				
-#line 1997 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 2100 "lex/parser_numeric.cpp"
 				
 				goto _st21;
 				_ctr47:
 				{
-#line 17 "lex/ragel_numeric.rl"
-					num_.inum *= num_.sign; cat_ = CAT_NUMBER; type_ = TYPE_RATIO; }
+#line 44 "lex/ragel_numeric.rl"
+					
+					ragel_num.ratio.num *= ragel_num.sign;
+					ragel_type = TYPE_RATIO;
+					ragel_cat  = CAT_NUMBER;
+				}
 				
-#line 2005 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 2112 "lex/parser_numeric.cpp"
 				
 				goto _st21;
 				_st21:
@@ -2031,24 +2138,28 @@ namespace ceammc {
 				}
 				_ctr4:
 				{
-#line 9 "lex/ragel_numeric.rl"
-					(num_.ival *= 10) += ((( (*( p))))-'0'); }
+#line 29 "lex/ragel_numeric.rl"
+					(ragel_num.vint *= 10) += ((( (*( p))))-'0'); }
 				
-#line 2038 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 2145 "lex/parser_numeric.cpp"
 				
 				{
-#line 15 "lex/ragel_numeric.rl"
-					(num_.inum *= 10) += ((( (*( p))))-'0'); }
+#line 42 "lex/ragel_numeric.rl"
+					(ragel_num.ratio.num *= 10) += ((( (*( p))))-'0'); }
 				
-#line 2044 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 2151 "lex/parser_numeric.cpp"
 				
 				goto _st22;
 				_ctr48:
 				{
-#line 10 "lex/ragel_numeric.rl"
-					num_.ival *= num_.sign; cat_ = CAT_NUMBER; type_ = TYPE_INT; }
+#line 30 "lex/ragel_numeric.rl"
+					
+					ragel_num.vint *= ragel_num.sign;
+					ragel_type = TYPE_INT;
+					ragel_cat  = CAT_NUMBER;
+				}
 				
-#line 2052 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 2163 "lex/parser_numeric.cpp"
 				
 				goto _st22;
 				_st22:
@@ -2130,13 +2241,13 @@ namespace ceammc {
 				}
 				_ctr49:
 				{
-#line 25 "lex/ragel_numeric.rl"
+#line 65 "lex/ragel_numeric.rl"
 					
-					cat_ = CAT_NUMBER;
-					type_ = TYPE_INF;
+					ragel_type = TYPE_INF;
+					ragel_cat = CAT_NUMBER;
 				}
 				
-#line 2140 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 2251 "lex/parser_numeric.cpp"
 				
 				goto _st23;
 				_st23:
@@ -2163,24 +2274,28 @@ namespace ceammc {
 				}
 				_ctr3:
 				{
-#line 9 "lex/ragel_numeric.rl"
-					(num_.ival *= 10) += ((( (*( p))))-'0'); }
+#line 29 "lex/ragel_numeric.rl"
+					(ragel_num.vint *= 10) += ((( (*( p))))-'0'); }
 				
-#line 2170 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 2281 "lex/parser_numeric.cpp"
 				
 				{
-#line 15 "lex/ragel_numeric.rl"
-					(num_.inum *= 10) += ((( (*( p))))-'0'); }
+#line 42 "lex/ragel_numeric.rl"
+					(ragel_num.ratio.num *= 10) += ((( (*( p))))-'0'); }
 				
-#line 2176 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 2287 "lex/parser_numeric.cpp"
 				
 				goto _st24;
 				_ctr51:
 				{
-#line 10 "lex/ragel_numeric.rl"
-					num_.ival *= num_.sign; cat_ = CAT_NUMBER; type_ = TYPE_INT; }
+#line 30 "lex/ragel_numeric.rl"
+					
+					ragel_num.vint *= ragel_num.sign;
+					ragel_type = TYPE_INT;
+					ragel_cat  = CAT_NUMBER;
+				}
 				
-#line 2184 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 2299 "lex/parser_numeric.cpp"
 				
 				goto _st24;
 				_st24:
@@ -2248,18 +2363,21 @@ namespace ceammc {
 				}
 				_ctr23:
 				{
-#line 6 "lex/ragel_numeric.rl"
-					(num_.ival <<= 1) |= ((( (*( p))))=='1'); }
+#line 23 "lex/ragel_numeric.rl"
+					(ragel_num.vint <<= 1) |= ((( (*( p))))=='1'); }
 				
-#line 2255 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 2370 "lex/parser_numeric.cpp"
 				
 				goto _st25;
 				_ctr52:
 				{
-#line 7 "lex/ragel_numeric.rl"
-					cat_ = CAT_NUMBER; type_ = TYPE_BIN; }
+#line 24 "lex/ragel_numeric.rl"
+					
+					ragel_type = TYPE_BIN;
+					ragel_cat  = CAT_NUMBER;
+				}
 				
-#line 2263 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 2381 "lex/parser_numeric.cpp"
 				
 				goto _st25;
 				_st25:
@@ -2314,18 +2432,21 @@ namespace ceammc {
 				}
 				_ctr25:
 				{
-#line 12 "lex/ragel_numeric.rl"
-					(num_.ival <<= 4) |= xchar2digit((( (*( p))))); }
+#line 36 "lex/ragel_numeric.rl"
+					(ragel_num.vint <<= 4) |= xchar2digit((( (*( p))))); }
 				
-#line 2321 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 2439 "lex/parser_numeric.cpp"
 				
 				goto _st26;
 				_ctr54:
 				{
-#line 13 "lex/ragel_numeric.rl"
-					cat_ = CAT_NUMBER; type_ = TYPE_HEX; }
+#line 37 "lex/ragel_numeric.rl"
+					
+					ragel_type = TYPE_HEX;
+					ragel_cat  = CAT_NUMBER;
+				}
 				
-#line 2329 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 2450 "lex/parser_numeric.cpp"
 				
 				goto _st26;
 				_st26:
@@ -2406,10 +2527,10 @@ namespace ceammc {
 						}
 						case 15: {
 							{
-#line 180 "lex/parser_numeric.rl"
+#line 154 "lex/parser_numeric.rl"
 								if((( (*( p))))!=' '&&(( (*( p))))!='\t'){{p = p - 1; }{p+= 1; cs = 15; goto _out;}}}
 							
-#line 2413 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 2534 "lex/parser_numeric.cpp"
 							
 							break;
 						}
@@ -2518,33 +2639,33 @@ namespace ceammc {
 				_out: {}
 			}
 			
-#line 216 "lex/parser_numeric.rl"
+#line 190 "lex/parser_numeric.rl"
 			
 			
 			ok = cs >= 
-#line 2526 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_numeric.cpp"
+#line 2647 "lex/parser_numeric.cpp"
 			14
-#line 218 "lex/parser_numeric.rl"
+#line 192 "lex/parser_numeric.rl"
 			;
 			
 			if(ok) {
-				switch(type_) {
+				switch(ragel_type) {
 					case TYPE_PHASE:
 					case TYPE_PERCENT:
 					case TYPE_FLOAT:
 					res_.push_back({});
-					res_.back().f = num_.fval;
+					res_.back().f = ragel_num.getFloat();
 					break;
 					case TYPE_INT:
 					case TYPE_HEX:
 					case TYPE_BIN:
 					res_.push_back({});
-					res_.back().i0 = num_.ival;
+					res_.back().i0 = ragel_num.getInteger();
 					break;
 					case TYPE_RATIO:
 					res_.push_back({});
-					res_.back().i0 = num_.inum;
-					res_.back().i1 = num_.iden;
+					res_.back().i0 = ragel_num.ratio.num;
+					res_.back().i1 = ragel_num.ratio.den;
 					break;
 					case TYPE_INF:
 					res_.push_back({});
@@ -2555,7 +2676,7 @@ namespace ceammc {
 					break;
 				}
 				
-				res_.back().t = type_;
+				res_.back().t = ragel_type;
 			}
 			
 			endptr = p;

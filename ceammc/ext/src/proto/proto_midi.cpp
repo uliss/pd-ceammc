@@ -240,9 +240,9 @@ void ProtoMidi::onFloat(t_float f)
     }
 }
 
-void ProtoMidi::onList(const AtomList& lst)
+void ProtoMidi::onList(const AtomListView& lv)
 {
-    for (auto& a : lst) {
+    for (auto& a : lv) {
         if (a.isFloat())
             onFloat(a.asT<t_float>());
     }

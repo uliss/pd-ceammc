@@ -19,24 +19,23 @@
 using namespace ceammc;
 
 class ArrayFill : public ArrayMod {
-
 public:
     ArrayFill(const PdArgs& a);
     void onSymbol(t_symbol* s) override;
     void onFloat(t_float f) override;
-    void onList(const AtomList& l) override;
+    void onList(const AtomListView& lv) override;
 
-    void m_gauss(t_symbol* m, const AtomListView& l);
-    void m_uniform(t_symbol* m, const AtomListView& l);
-    void m_fill(t_symbol* m, const AtomListView& l);
-    void m_sin(t_symbol* m, const AtomListView& l);
-    void m_pulse(t_symbol* m, const AtomListView& l);
-    void m_saw(t_symbol* m, const AtomListView& l);
-    void m_tri(t_symbol* m, const AtomListView& l);
+    void m_gauss(t_symbol* m, const AtomListView& lv);
+    void m_uniform(t_symbol* m, const AtomListView& lv);
+    void m_fill(t_symbol* m, const AtomListView& lv);
+    void m_sin(t_symbol* m, const AtomListView& lv);
+    void m_pulse(t_symbol* m, const AtomListView& lv);
+    void m_saw(t_symbol* m, const AtomListView& lv);
+    void m_tri(t_symbol* m, const AtomListView& lv);
     AtomListView parseRange(const AtomListView& args, size_t* from, size_t* to) const;
 
 private:
-    void fillRange(size_t from, size_t to, const AtomList& l);
+    void fillRange(size_t from, size_t to, const AtomListView& lv);
     void fillRange(size_t from, size_t to, t_float v);
     void finish();
 };

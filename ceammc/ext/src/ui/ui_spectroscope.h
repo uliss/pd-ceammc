@@ -17,12 +17,12 @@
 #include "ceammc_clock.h"
 #include "ceammc_ui_object.h"
 
-#include <boost/scoped_array.hpp>
+#include <memory>
 
 using namespace ceammc;
 
-typedef boost::scoped_array<t_sample> SampleArray;
-typedef boost::scoped_array<float> SpectreArray;
+using SampleArray = std::unique_ptr<t_sample[]>;
+using SpectreArray = std::unique_ptr<float[]>;
 
 class UISpectroscope : public UIDspObject {
 public:

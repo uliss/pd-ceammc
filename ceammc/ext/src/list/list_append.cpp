@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "list_append.h"
+#include "ceammc_containers.h"
 #include "ceammc_factory.h"
 #include "datatype_mlist.h"
 
@@ -32,9 +33,14 @@ void ListAppend::onBang()
     listTo(0, lst_->value());
 }
 
-void ListAppend::onList(const AtomList& lst)
+void ListAppend::onList(const AtomListView& lv)
 {
-    listTo(0, lst + lst_->value());
+    SmallAtomList lst;
+    lst.reserve(lv.size() + lst_->value().size());
+    lst.insert_back(lv);
+    lst.insert_back(lst_->value());
+
+    listTo(0, lst.view());
 }
 
 void ListAppend::onDataT(const MListAtom& d)

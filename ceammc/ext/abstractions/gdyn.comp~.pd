@@ -3,9 +3,9 @@
 #X obj 25 25 inlet~;
 #X obj 425 25 inlet;
 #X obj 425 200 route dyn.comp;
-#X obj 425 250 route @attack @ratio @release @threshold;
+#X obj 425 250 route @attack @gain @ratio @release @threshold;
 #X obj 675 350 print unknown property;
-#X msg 325 75 @attack 10 \, @ratio 1 \, @release 50 \, @threshold 100 \,;
+#X msg 325 75 @attack 10 \, @gain 0 \, @ratio 1 \, @release 50 \, @threshold 100 \,;
 #X obj 325 25 msg.onload;
 #X obj 500 550 outlet~;
 #X obj 600 550 outlet ctl;
@@ -17,28 +17,34 @@ attack(ms): @label_side top @label_align left @fontsize 10 @presetname
 #X obj 190 238 sync;
 #X obj 145 238 ui.number @size 50 12 @min 1 @max 100 @digits 2;
 #X msg 260 238 @attack \$1;
-#X obj 12 270 ui.slider @size 125 12 @active_scale 1 @label ratio:
+#X obj 12 270 ui.slider @size 125 12 @active_scale 1 @label gain(db):
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/dyn.comp~/slider1 @min 1 @max 10;
+/gui/\$1/dyn.comp~/slider1 @min -12 @max 12;
 #X obj 190 270 sync;
-#X obj 145 270 ui.number @size 50 12 @min 1 @max 10 @digits 3;
-#X msg 260 270 @ratio \$1;
-#X obj 12 302 ui.slider @size 125 12 @active_scale 1 @label
-release(ms): @label_side top @label_align left @fontsize 10
-@presetname /gui/\$1/dyn.comp~/slider2 @min 1 @max 500;
+#X obj 145 270 ui.number @size 50 12 @min -12 @max 12 @digits 2;
+#X msg 260 270 @gain \$1;
+#X obj 12 302 ui.slider @size 125 12 @active_scale 1 @label ratio:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/dyn.comp~/slider2 @min 1 @max 10;
 #X obj 190 302 sync;
-#X obj 145 302 ui.number @size 50 12 @min 1 @max 500 @digits 1;
-#X msg 260 302 @release \$1;
+#X obj 145 302 ui.number @size 50 12 @min 1 @max 10 @digits 3;
+#X msg 260 302 @ratio \$1;
 #X obj 12 334 ui.slider @size 125 12 @active_scale 1 @label
-threshold(db): @label_side top @label_align left @fontsize 10
-@presetname /gui/\$1/dyn.comp~/slider3 @min 0 @max 100;
+release(ms): @label_side top @label_align left @fontsize 10
+@presetname /gui/\$1/dyn.comp~/slider3 @min 1 @max 500;
 #X obj 190 334 sync;
-#X obj 145 334 ui.number @size 50 12 @min 0 @max 100 @digits 2;
-#X msg 260 334 @threshold \$1;
+#X obj 145 334 ui.number @size 50 12 @min 1 @max 500 @digits 1;
+#X msg 260 334 @release \$1;
+#X obj 12 366 ui.slider @size 125 12 @active_scale 1 @label
+threshold(db): @label_side top @label_align left @fontsize 10
+@presetname /gui/\$1/dyn.comp~/slider4 @min 0 @max 100;
+#X obj 190 366 sync;
+#X obj 145 366 ui.number @size 50 12 @min 0 @max 100 @digits 2;
+#X msg 260 366 @threshold \$1;
 #X connect 1 0 0 0;
 #X connect 2 0 3 0;
 #X connect 3 0 4 0;
-#X connect 4 4 5 0;
+#X connect 4 5 5 0;
 #X connect 6 0 4 0;
 #X connect 7 0 6 0;
 #X connect 0 0 8 0;
@@ -71,4 +77,11 @@ threshold(db): @label_side top @label_align left @fontsize 10
 #X connect 23 0 26 0;
 #X connect 26 0 0 0;
 #X connect 4 3 23 0;
-#X coords 0 -1 1 1 200 154 2 2 200;
+#X connect 27 0 28 0;
+#X connect 28 0 27 0;
+#X connect 29 0 28 1;
+#X connect 28 1 29 0;
+#X connect 27 0 30 0;
+#X connect 30 0 0 0;
+#X connect 4 4 27 0;
+#X coords 0 -1 1 1 200 186 2 2 200;

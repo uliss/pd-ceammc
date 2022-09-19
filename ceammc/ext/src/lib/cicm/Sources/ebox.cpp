@@ -9,6 +9,7 @@
  */
 
 #include "ebox.h"
+#include "ceammc_impl.h"
 #include "eclass.h"
 #include "egraphics.h"
 #include "eobj.h"
@@ -917,7 +918,7 @@ static long modifier_wrapper(long mod)
 #ifdef __APPLE__
 #elif __WIN32
 #else
-    if (mod == 24) //right click
+    if (mod == 24) // right click
         mod = EMOD_CMD;
     else if (mod & EMOD_CMD) {
         mod ^= EMOD_CMD;
@@ -1687,12 +1688,12 @@ void ebox_attr_dump(t_ebox* x)
 
     // print methods
     for (int i = 0; i < xc->c_nmethod; i++) {
-        auto& m = eclass_methods(xc)[i];
+        auto mname = ceammc::class_method_name(xc, i);
         // ignore property methods
-        if (m.me_name->s_name[0] == '@')
+        if (mname->s_name[0] == '@')
             continue;
 
-        post("[%s] method: %s", name, m.me_name->s_name);
+        post("[%s] method: %s", name, mname->s_name);
     }
 
     // print xlets

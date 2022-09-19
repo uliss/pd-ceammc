@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "conv_bpm2hz.h"
+#include "ceammc_containers.h"
 #include "ceammc_factory.h"
 
 BpmToHz::BpmToHz(const PdArgs& a)
@@ -25,9 +26,14 @@ void BpmToHz::onFloat(t_float v)
     floatTo(0, v / 60);
 }
 
-void BpmToHz::onList(const AtomList& lst)
+void BpmToHz::onList(const AtomListView& lv)
 {
-    listTo(0, lst / 60);
+    SmallAtomList res;
+    res.reserve(lv.size());
+    for (auto& a : lv)
+        res.push_back(a / 60);
+
+    listTo(0, res.view());
 }
 
 void setup_conv_bpm2hz()

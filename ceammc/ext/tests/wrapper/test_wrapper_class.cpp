@@ -20,6 +20,17 @@ using namespace wrapper;
 
 TEST_CASE("wrapper_class", "[class-wrapper]")
 {
+    SECTION("AbstractWrapper")
+    {
+        using W = AbstractDataWrapper<WrapperDataVoid>;
+        W data;
+        REQUIRE(data.toListStringContent() == "void");
+        REQUIRE(data.toDictStringContent() == "value: void");
+        REQUIRE(data.toListString() == "DataVoid(void)");
+        REQUIRE(data.toDictString() == "DataVoid[value: void]");
+        REQUIRE(data.toString() == "DataVoid(void)");
+    }
+
     SECTION("constructor0")
     {
         using ExternalType = wrapper::ClassConstructorCustom<WrapperDataVoid>;
@@ -47,7 +58,7 @@ TEST_CASE("wrapper_class", "[class-wrapper]")
             Atom r = t.outputAtomAt(0);
             REQUIRE(r.isData());
             REQUIRE(r.isA<DataType>());
-            REQUIRE(r.asD<DataType>()->toString() == "void");
+            REQUIRE(r.asD<DataType>()->toString() == "DataVoid(void)");
 
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
@@ -79,7 +90,7 @@ TEST_CASE("wrapper_class", "[class-wrapper]")
             REQUIRE(t.isOutputDataAt(0));
             Atom r = t.outputAtomAt(0);
             REQUIRE(r.isData());
-            REQUIRE(r.asD<DataType>()->toString() == "int: 0");
+            REQUIRE(r.asD<DataType>()->toString() == "DataInt(int: 0)");
 
             const DataType* p = r.asD<DataType>();
             REQUIRE(p);
@@ -94,7 +105,7 @@ TEST_CASE("wrapper_class", "[class-wrapper]")
             REQUIRE(t.isOutputDataAt(0));
             Atom r = t.outputAtomAt(0);
             REQUIRE(r.isData());
-            REQUIRE(r.asD<DataType>()->toString() == "int: 100");
+            REQUIRE(r.asD<DataType>()->toString() == "DataInt(int: 100)");
 
             const DataType* p = r.asD<DataType>();
             REQUIRE(p);
@@ -108,7 +119,7 @@ TEST_CASE("wrapper_class", "[class-wrapper]")
 
             Atom r = t.outputAtomAt(0);
             REQUIRE(r.isData());
-            REQUIRE(r.asD<DataType>()->toString() == "int: 0");
+            REQUIRE(r.asD<DataType>()->toString() == "DataInt(int: 0)");
         }
 
         SECTION("list arg")
@@ -118,7 +129,7 @@ TEST_CASE("wrapper_class", "[class-wrapper]")
 
             Atom r = t.outputAtomAt(0);
             REQUIRE(r.isData());
-            REQUIRE(r.asD<DataType>()->toString() == "int: 0");
+            REQUIRE(r.asD<DataType>()->toString() == "DataInt(int: 0)");
         }
 
         SECTION("on float")
@@ -265,7 +276,7 @@ TEST_CASE("wrapper_class", "[class-wrapper]")
             REQUIRE(t.isOutputDataAt(0));
             Atom r = t.outputAtomAt(0);
             REQUIRE(r.isData());
-            REQUIRE(r.asD<DataType>()->toString() == "pair: 0 0");
+            REQUIRE(r.asD<DataType>()->toString() == "IntPair(pair: 0 0)");
 
             const DataType* p = r.asD<DataType>();
             REQUIRE(p);
@@ -280,7 +291,7 @@ TEST_CASE("wrapper_class", "[class-wrapper]")
             REQUIRE(t.isOutputDataAt(0));
             Atom r = t.outputAtomAt(0);
             REQUIRE(r.isData());
-            REQUIRE(r.asD<DataType>()->toString() == "pair: 0 0");
+            REQUIRE(r.asD<DataType>()->toString() == "IntPair(pair: 0 0)");
 
             const DataType* p = r.asD<DataType>();
             REQUIRE(p);
@@ -295,7 +306,7 @@ TEST_CASE("wrapper_class", "[class-wrapper]")
             REQUIRE(t.isOutputDataAt(0));
             Atom r = t.outputAtomAt(0);
             REQUIRE(r.isData());
-            REQUIRE(r.asD<DataType>()->toString() == "pair: 100 200");
+            REQUIRE(r.asD<DataType>()->toString() == "IntPair(pair: 100 200)");
 
             const DataType* p = r.asD<DataType>();
             REQUIRE(p);
@@ -310,7 +321,7 @@ TEST_CASE("wrapper_class", "[class-wrapper]")
             REQUIRE(t.isOutputDataAt(0));
             Atom r = t.outputAtomAt(0);
             REQUIRE(r.isData());
-            REQUIRE(r.asD<DataType>()->toString() == "pair: 100 200");
+            REQUIRE(r.asD<DataType>()->toString() == "IntPair(pair: 100 200)");
 
             const DataType* p = r.asD<DataType>();
             REQUIRE(p);
@@ -325,7 +336,7 @@ TEST_CASE("wrapper_class", "[class-wrapper]")
             REQUIRE(t.isOutputDataAt(0));
             Atom r = t.outputAtomAt(0);
             REQUIRE(r.isData());
-            REQUIRE(r.asD<DataType>()->toString() == "pair: 0 0");
+            REQUIRE(r.asD<DataType>()->toString() == "IntPair(pair: 0 0)");
         }
     }
 }

@@ -38,6 +38,7 @@ any->props
 apf->biquad
 approx
 array.bpm
+array.circular
 array.circular~
 array.convolve
 array.copy
@@ -57,7 +58,6 @@ array.plot~
 array.p~
 array.r
 array.resample
-array.risset_rythm~
 array.rms
 array.s->p
 array.s2p
@@ -128,6 +128,7 @@ ceammc/cc->amp
 ceammc/cdiv~
 ceammc/cexp~
 ceammc/click~
+ceammc/clone:
 ceammc/cmul~
 ceammc/dbfs->amp
 ceammc/dbfs->amp~
@@ -210,6 +211,7 @@ ceammc/radio
 ceammc/reject
 ceammc/reject_if
 ceammc/replace
+ceammc/rhvoice~
 ceammc/rtree->list
 ceammc/s->f~
 ceammc/samp->ms
@@ -258,6 +260,7 @@ chaos.logistic
 chaos.std0
 chaos.std0~
 click~
+clone:
 cmul~
 conv.amp2dbfs
 conv.amp2dbfs~
@@ -285,6 +288,7 @@ conv.midi2freq
 conv.ms2bpm
 conv.ms2samp
 conv.ms2samp~
+conv.note2guido
 conv.phase2rad
 conv.phase2rad~
 conv.pitch2midi
@@ -406,6 +410,8 @@ flow.ring
 flow.route
 flow.sel
 flow.select
+flow.seqdel
+flow.seqdelay
 flow.space
 flow.speedlim
 flow.split
@@ -472,7 +478,6 @@ fx.granulator~
 fx.greyhole~
 fx.infrev~
 fx.looper~
-fx.onset~
 fx.pitchshift_s~
 fx.pitchshift~
 fx.rb_pitchshift~
@@ -481,7 +486,6 @@ fx.room~
 fx.sdelay~
 fx.secho~
 fx.shimmer~
-fx.specdelay~
 fx.tapiir~
 fx.vocoder~
 fx.wahwah~
@@ -598,18 +602,21 @@ list.integrator
 list.interleave
 list.last
 list.length
+list.map
 list.max
 list.mean
 list.min
 list.minmax
 list.none_of
 list.normalize
+list.pass
 list.pass_if
 list.prepend
 list.product
 list.r
 list.range
 list.reduce
+list.reject
 list.remove
 list.remove_if
 list.repack
@@ -833,6 +840,12 @@ mux2~
 mux~
 net.host->ip
 net.host2ip
+net.osc
+net.osc.r
+net.osc.receive
+net.osc.s
+net.osc.send
+net.osc.server
 noise.baker
 noise.clifford
 noise.collatz
@@ -897,6 +910,7 @@ path.lsdir
 path.monitor
 path.norm
 path.normalize
+path.pattern
 path.search
 path.split
 phase->rad
@@ -932,12 +946,14 @@ prop<-
 prop~>
 proto.firmata
 proto.hui
+proto.inscore
 proto.midi
 proto.midi.casio
 proto.midi.cc
 proto.midi.sysex
 proto.mpv
 proto.sp.alpaca
+proto.whammy
 proto.xtouch_ext
 rad->phase
 rad->phase~
@@ -956,8 +972,12 @@ random.pw_lin
 reject
 reject_if
 replace
+rhvoice~
+risset.gliss
 route.f
 route.float
+route.r
+route.random
 rtree->list
 rtree.to_list
 s->f~
@@ -999,6 +1019,7 @@ spat.zita6x8~
 spat.zita8~
 speech.flite
 speech.flite~
+speech.rhvoice~
 speedlim
 split
 spring
@@ -1149,6 +1170,7 @@ ui.ssc~
 ui.t
 ui.tab
 ui.toggle
+ui.touchosc
 ui.vgain2~
 ui.vgain~
 ui.vk

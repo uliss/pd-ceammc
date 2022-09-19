@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="array.convolve">
+        <title>array.convolve</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>array FFT convolution</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>array</category>
+            <keywords>array fft convolution</keywords>
+            <since>0.9.5</since>
+        </meta>
+        <arguments>
+            <argument name="TARGET" type="symbol">target array</argument>
+            <argument name="IR" type="symbol">array with impulse response</argument>
+        </arguments>
+        <properties>
+            <property name="@array" type="symbol" default="">target array</property>
+            <property name="@ir" type="symbol" default="">impulse response array</property>
+            <property name="@norm" type="int" default="0" enum="0 1">impulse response
+            array</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">start convolution process</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="symbol">set array name</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>bang: on done</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[array A-CONV #a]      [array A-IR size=10 w=40 h=130]
+
+
+
+
+
+
+
+
+
+
+[B]
+|
+[array.convolve A-CONV A-IR]
+|
+[B]
+#a size=100 w=200 h=130
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

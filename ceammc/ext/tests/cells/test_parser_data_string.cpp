@@ -11,16 +11,13 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
+#include "ceammc_data.h"
 #include "ceammc_platform.h"
 #include "datatype_dict.h"
 #include "datatype_mlist.h"
 #include "datatype_string.h"
-#include "lex/data_string.lexer.h"
-#include "lex/data_string.parser.hpp"
 #include "test_base.h"
 #include "test_common.h"
-
-using namespace ceammc::ds;
 
 using ML = DataTypeMList;
 using DD = DataTypeDict;
@@ -28,13 +25,11 @@ using DS = DataTypeString;
 
 static AtomList parse(const char* str)
 {
-    AtomList res;
-    DataStringLexer l(str);
-    DataStringParser p(l, res);
-    if (p.parse() != 0)
-        res.clear();
-
-    return res;
+    auto res = parseDataString(str);
+    if (res)
+        return res.result();
+    else
+        return {};
 }
 
 TEST_CASE("DataStringParser", "[core]")
@@ -42,67 +37,48 @@ TEST_CASE("DataStringParser", "[core]")
     test::pdPrintToStdError();
     IntData int100(100);
 
-    SECTION("lexer")
-    {
-        DataStringLexer l("100");
-        REQUIRE(l.lex().kind() == DataStringParser::symbol_kind::S_FLOAT);
-        REQUIRE(l.lex().kind() == DataStringParser::symbol_kind::S_YYEOF);
-
-        l.in("-15");
-        REQUIRE(l.lex().kind() == DataStringParser::symbol_kind::S_FLOAT);
-        REQUIRE(l.lex().kind() == DataStringParser::symbol_kind::S_YYEOF);
-
-        l.in("0.5ms");
-        REQUIRE(l.lex().kind() == DataStringParser::symbol_kind::S_SYMBOL);
-        REQUIRE(l.lex().kind() == DataStringParser::symbol_kind::S_YYEOF);
-
-        l.in("-0.5ms");
-        REQUIRE(l.lex().kind() == DataStringParser::symbol_kind::S_SYMBOL);
-        REQUIRE(l.lex().kind() == DataStringParser::symbol_kind::S_YYEOF);
-    }
-
     SECTION("basic atom types")
     {
         REQUIRE(parse("") == L());
-        REQUIRE(parse("null") == Atom());
-        REQUIRE(parse("true") == Atom(1));
-        REQUIRE(parse("false") == Atom(0.f));
+        REQUIRE(parse("#null") == Atom());
+        REQUIRE(parse("#true") == Atom(1));
+        REQUIRE(parse("#false") == Atom(0.f));
         REQUIRE(parse("abc") == LA("abc"));
         REQUIRE(parse("@prop") == LA("@prop"));
         REQUIRE(parse("what's up?") == LA("what's", "up?"));
         REQUIRE(parse("@prop?") == LA("@prop?"));
         REQUIRE(parse("a==b") == LA("a==b"));
         // no unicode in symbols
-        REQUIRE(parse("абвгд") == L());
+        REQUIRE(parse("абвгд") == LA("абвгд"));
         // first char should not be &
-        REQUIRE(parse("&abcd") == L());
+        REQUIRE(parse("&abcd") == LA("&abcd"));
         REQUIRE(parse("100") == LF(100));
         REQUIRE(parse("-100") == LF(-100));
         REQUIRE(parse("100.5") == LF(100.5));
         REQUIRE(parse("-100.5") == LF(-100.5));
         REQUIRE(parse("0xff") == LF(0xFF));
-        REQUIRE(parse("-0xff") == LF(-255));
+        REQUIRE(parse("-0xff") == LA("-0xff"));
         REQUIRE(parse("0x1A") == LF(0x1A));
         REQUIRE(parse("0b000101") == LF(5));
         REQUIRE(parse("0b11111111") == LF(0xFF));
-        REQUIRE(parse("0xffffffffffffffff") == L());
+//        REQUIRE(parse("0xffffffffffffffff") == L());
         REQUIRE(parse("\"a b c\"") == LA("a b c"));
-        REQUIRE(parse("\"a b `\"c\"") == LA("a b \"c"));
+        REQUIRE(parse(R"("a b `"c")") == LA("a b \"c"));
         // empty quoted
         REQUIRE(parse("\"\"") == LA(""));
         REQUIRE(parse("\" \"") == LA(" "));
         REQUIRE(parse("\"") == L());
         REQUIRE(parse("\"`\"\"") == LA("\""));
-        REQUIRE(parse("`") == L());
+        REQUIRE(parse("`") == LA("`"));
         REQUIRE(parse("\"``\"") == LA("`"));
         REQUIRE(parse("\"\"") == LA(""));
         REQUIRE(parse("\"абвгд©®\"") == LA("абвгд©®"));
         REQUIRE(parse("[") == L());
         REQUIRE(parse("\"[\"") == LA("["));
-        REQUIRE(parse("]") == L());
+        REQUIRE(parse("]") == LA("]"));
         REQUIRE(parse("\"]\"") == LA("]"));
-        REQUIRE(parse("a: b") == L());
-        REQUIRE(parse("toomany!@#$%^&*,:{}") == L());
+        REQUIRE(parse("a: b") == LA("a:", "b"));
+        REQUIRE(parse("toomany!@#$%^&*,:{}") == LA("toomany!@#$%^&*,:{}"));
         REQUIRE(parse("\"toomany!@#$%^&*,:{}\"") == LA("toomany!@#$%^&*,:{}"));
     }
 
@@ -119,7 +95,7 @@ TEST_CASE("DataStringParser", "[core]")
     SECTION("base sequence")
     {
         REQUIRE(parse("1 2 3") == LF(1, 2, 3));
-        REQUIRE(parse("a \"a space\" -2 3.5 true false null")
+        REQUIRE(parse("a \"a space\" -2 3.5 #true #false #null")
             == LA("a", "a space", -2, 3.5, 1, 0.f, Atom()));
 
         // mixed syntax
@@ -141,8 +117,8 @@ TEST_CASE("DataStringParser", "[core]")
     SECTION("base list")
     {
         REQUIRE(parse("()") == LA(new ML()));
-        REQUIRE(parse("(null)") == LA(new ML(Atom())));
-        REQUIRE(parse("(null null)") == LA(new ML(Atom(), Atom())));
+        REQUIRE(parse("(#null)") == LA(new ML(Atom())));
+        REQUIRE(parse("(#null #null)") == LA(new ML(Atom(), Atom())));
         REQUIRE(parse("(a b c)") == LA(new ML("a", "b", "c")));
         REQUIRE(parse("(1 2 -3)") == LF(new ML(1, 2, -3)));
         REQUIRE(parse(R"(("a b" "c d"))") == LA(new ML("a b", "c d")));
@@ -162,7 +138,7 @@ TEST_CASE("DataStringParser", "[core]")
         REQUIRE(parse("String(a b c)") == LA(new DS("a b c")));
         REQUIRE(parse("String(a)") == LA(new DS("a")));
         REQUIRE(parse("String(\"a string\")") == LA(new DS("a string")));
-        REQUIRE(parse("String(IntData(1000))") == LA(new DS("1000")));
+        REQUIRE(parse("String(IntData(1000))") == LA(new DS("IntData(1000)")));
         REQUIRE(parse("String([a: b])") == LA(new DS("[a: b]")));
         REQUIRE(parse("String(())") == LA(new DS("()")));
         REQUIRE(parse("String((a b))") == LA(new DS("(a b)")));
@@ -171,10 +147,7 @@ TEST_CASE("DataStringParser", "[core]")
         REQUIRE(parse("S\"a b c\"") == LA(new DS("a b c")));
         REQUIRE(parse("S\"\"") == LA(new DS("")));
         REQUIRE(parse("S\" \"") == LA(new DS(" ")));
-        REQUIRE(parse("S\"`\"\"") == LA(new DS("\"")));
         REQUIRE(parse("S\"``\"") == LA(new DS("`")));
-        REQUIRE(parse("S\"`.\"") == LA(new DS(",")));
-        REQUIRE(parse("S\"`:\"") == LA(new DS(";")));
         REQUIRE(parse("S\"`(`)\"") == LA(new DS("{}")));
 
         // mixed
@@ -310,9 +283,9 @@ TEST_CASE("DataStringParser", "[core]")
         REQUIRE(parse("rtree(1 (1))") == LF(1));
         REQUIRE(parse("rtree(1 (1 1))") == LF(0.5, 0.5));
         REQUIRE(parse("rtree(2 (1 1))") == LF(1, 1));
-        REQUIRE(parse("rtree(2 (1 1(1 1)))") == LF(1, 0.5, 0.5));
+        REQUIRE(parse("rtree(2 (1 1 (1 1)))") == LF(1, 0.5, 0.5));
         REQUIRE(parse("rtree(1 (1 1 2))") == LF(0.25, 0.25, 0.5));
-        REQUIRE(parse("rtree(1 (1 1 2( 2 1 1)))") == LF(0.25, 0.25, 0.25, 0.125, 0.125));
+        REQUIRE(parse("rtree(1 (1 1 2 (2 1 1)))") == LF(0.25, 0.25, 0.25, 0.125, 0.125));
     }
 
     SECTION("euclid()")

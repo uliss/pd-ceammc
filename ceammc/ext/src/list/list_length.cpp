@@ -8,24 +8,21 @@ ListLength::ListLength(const PdArgs& args)
     createOutlet();
 }
 
-static void list_size_fn(PdObject<ListLength>* x, t_symbol*, int argc, t_atom* argv)
+void ListLength::onList(const AtomListView& lv)
 {
-    if (argc == 1 && Atom::is_data(argv)) {
-        Atom a(*argv);
-        if (a.isA<DataTypeMList>())
-            x->impl->floatTo(0, a.asD<DataTypeMList>()->size());
-        else
-            LIB_ERR << "unsupported data type: " << a.asData()->typeName();
-    } else
-        x->impl->floatTo(0, argc);
+    floatTo(0, lv.size());
+}
+
+void ListLength::onDataT(const MListAtom& ml)
+{
+    floatTo(0, ml->size());
 }
 
 void setup_list_length()
 {
     ObjectFactory<ListLength> obj("list.length");
     obj.addAlias("list.size");
-    obj.setListFn(list_size_fn);
-    obj.setFlag(OBJECT_FACTORY_NO_LIST, true);
+    obj.processData<DataTypeMList>();
 
     obj.setDescription("output the number of atoms in the list");
     obj.addAuthor("Serge Poltavsky");

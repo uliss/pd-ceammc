@@ -81,9 +81,9 @@ public:
     {
         pd_args_ = new ListProperty("@args");
         pd_args_->setArgIndex(0);
-        pd_args_->setListCheckFn([this](const AtomList& l) {
+        pd_args_->setListCheckFn([this](const AtomListView& lv) {
             try {
-                atomListToArguments<Method>(l, arguments_);
+                atomListToArguments<Method>(lv, arguments_);
                 return true;
             } catch (std::exception& e) {
                 OBJ_ERR << "initial arguments error: " << e.what();
@@ -135,20 +135,20 @@ public:
         onList(AtomList(Atom(s)));
     }
 
-    void onList(const AtomList& l) override
+    void onList(const AtomListView& lv) override
     {
-        if (!processList(l))
+        if (!processList(lv))
             return;
 
         dispatch();
     }
 
-    void onInlet(size_t n, const AtomListView& lst) override
+    void onInlet(size_t n, const AtomListView& lv) override
     {
         InletArgSetter arg_setter(arguments_);
         // note: InletArgSetter is designed for ClassMethod and has 1-based argument count
         // so we have to do correction by +1
-        ErrorMsg err = arg_setter.setNthArg(n + 1, lst);
+        ErrorMsg err = arg_setter.setNthArg(n + 1, lv);
         if (err)
             OBJ_ERR << err.msg();
     }
@@ -163,13 +163,13 @@ private:
     }
 
     template <bool enable = has_varargs>
-    bool processList(const typename std::enable_if<enable, AtomList>::type& l)
+    bool processList(const typename std::enable_if<enable, AtomListView>::type& l)
     {
         return pd_args_->set(l);
     }
 
     template <bool enable = has_varargs>
-    bool processList(const typename std::enable_if<!enable, AtomList>::type& l)
+    bool processList(const typename std::enable_if<!enable, AtomListView>::type& l)
     {
         if (l.size() != MethodTraits::nargs) {
             OBJ_ERR << "bad message: expecting "

@@ -85,6 +85,17 @@ public:
     void alignByTag(t_symbol* tag, const std::vector<size_t>& onsets);
     void alignFinished(const std::vector<size_t>& onsets);
 
+    /**
+     * uniformly spread grains
+     */
+    bool spread(uint32_t len_samp, t_symbol* tag = &s_);
+
+    bool shuffle(t_symbol* tag = &s_);
+
+    bool reverse(t_symbol* tag = &s_);
+
+    bool permutate(int n, t_symbol* tag = &s_);
+
     void setArrayData(ArrayIterator data, size_t sz)
     {
         array_it_ = data;
@@ -103,7 +114,14 @@ public:
 
     void popGrain();
 
-    void playBuffer(t_sample** buf, uint32_t bs, uint32_t sr);
+    /**
+     * play active grains and add their values to given stereo buffer
+     * @param buf - output buffer
+     * @param bs - buffer size
+     * @param sr - samplerate
+     * @return number of done grains while playing this buffer
+     */
+    int playBuffer(t_sample** buf, uint32_t bs, uint32_t sr);
 };
 
 }

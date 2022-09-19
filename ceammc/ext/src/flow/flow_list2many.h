@@ -24,7 +24,7 @@ private:
 
 public:
     FlowList2Many(const PdArgs& args);
-    void onList(const AtomList& lv) override;
+    void onList(const AtomListView& lv) override;
 
     const char* annotateOutlet(size_t n) const override;
 };

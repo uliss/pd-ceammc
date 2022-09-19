@@ -3,39 +3,29 @@
 
 using namespace ceammc;
 
-class SpatPan4 : public faust_spat_pan4_tilde {
-public:
-    static t_symbol* SYM_RADIUS;
-    static t_symbol* SYM_ANGLE;
+constexpr const char* STR_RADIUS = "@radius";
+constexpr const char* STR_ANGLE = "@angle";
 
+class SpatPan4 : public faust_spat_pan4_tilde {
 public:
     SpatPan4(const PdArgs& args)
         : faust_spat_pan4_tilde(args)
     {
-        bindPositionalArgsToProps({ SYM_RADIUS, SYM_ANGLE });
+        bindPositionalArgsToProps({ gensym(STR_RADIUS), gensym(STR_ANGLE) });
     }
 
-    void onList(const AtomList& l) override
+    void onList(const AtomListView& lv) override
     {
-        static const Atom A_RADIUS(gensym("@radius"));
-        static const Atom A_ANGLE(gensym("@angle"));
-
-        if (!checkArgs(l, ARG_FLOAT, ARG_FLOAT))
+        if (!checkArgs(lv, ARG_FLOAT, ARG_FLOAT))
             return;
 
-        setProperty(SYM_RADIUS, l.view(0, 1));
-        setProperty(SYM_ANGLE, l.view(1, 1));
+        setProperty(gensym(STR_RADIUS), lv.subView(0, 1));
+        setProperty(gensym(STR_ANGLE), lv.subView(1, 1));
     }
 };
 
-t_symbol* SpatPan4::SYM_ANGLE;
-t_symbol* SpatPan4::SYM_RADIUS;
-
 void setup_spat_pan4_tilde()
 {
-    SpatPan4::SYM_RADIUS = gensym("@radius");
-    SpatPan4::SYM_ANGLE = gensym("@angle");
-
     SoundExternalFactory<SpatPan4> obj("spat.pan4~");
     obj.addAlias("pan4~");
     obj.setXletsInfo(

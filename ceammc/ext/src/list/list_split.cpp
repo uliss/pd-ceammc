@@ -1,6 +1,7 @@
 #include "list_split.h"
 #include "ceammc_factory.h"
 #include "datatype_mlist.h"
+#include "ceammc_containers.h"
 
 ListSplit::ListSplit(const ceammc::PdArgs& args)
     : BaseObject(args)
@@ -14,19 +15,21 @@ ListSplit::ListSplit(const ceammc::PdArgs& args)
     createOutlet();
 }
 
-void ListSplit::onList(const AtomList& l)
+void ListSplit::onList(const AtomListView& lv)
 {
-    AtomList l1, l2;
+    AtomList16 l1, l2;
+    l1.reserve(lv.size());
+    l2.reserve(lv.size());
 
-    for (size_t i = 0; i < l.size(); i++) {
+    for (size_t i = 0; i < lv.size(); i++) {
         if (i < index_->value())
-            l1.append(l[i]);
+            l1.push_back(lv[i]);
         else
-            l2.append(l[i]);
+            l2.push_back(lv[i]);
     }
 
-    listTo(1, l2);
-    listTo(0, l1);
+    listTo(1, l2.view());
+    listTo(0, l1.view());
 }
 
 void ListSplit::onDataT(const MListAtom& ml)

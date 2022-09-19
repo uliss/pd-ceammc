@@ -25,6 +25,9 @@
             <par>Syntax: [key1: value key2 : "with space"]. Nested dictionaries are supported: [a:
             [A:1 B:2]]).</par>
         </info>
+        <mouse>
+            <event editmode="false" type="left-click">open data editor</event>
+        </mouse>
         <properties>
             <property name="@keys" readonly="true" type="list">keys of dictionary</property>
             <property name="@empty" readonly="true" enum="0 1" type="int" default="1">1 if dict is

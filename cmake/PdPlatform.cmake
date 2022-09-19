@@ -222,7 +222,9 @@ if(APPLE)
         COMMAND ${CMAKE_COMMAND}
             -DBUNDLE=${BUNDLE_FULL_PATH}
             -P ${PROJECT_SOURCE_DIR}/cmake/bundle.cmake
-        DEPENDS pd)
+        DEPENDS pd
+        USES_TERMINAL
+    )
 
     # app target
     # `make app` creates MacOSX bundle
@@ -234,6 +236,7 @@ if(APPLE)
         COMMAND ${CMAKE_COMMAND}
             -DBUNDLE=${BUNDLE_FULL_PATH}
             -P ${PROJECT_SOURCE_DIR}/cmake/bundle.cmake
+        USES_TERMINAL
         )
 
     add_custom_target(app-zip

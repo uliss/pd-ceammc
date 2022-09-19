@@ -96,10 +96,10 @@ void Function::onFloat(t_float f)
     floatTo(1, f);
 }
 
-void Function::onList(const AtomList& l)
+void Function::onList(const AtomListView& lv)
 {
     result_.clear();
-    listTo(1, l);
+    listTo(1, lv);
 }
 
 void Function::onSymbol(t_symbol* s)

@@ -45,22 +45,20 @@ Car2Pol::Car2Pol(const PdArgs& args)
     createOutlet();
 }
 
-void Car2Pol::onList(const AtomList& lst)
+void Car2Pol::onList(const AtomListView& lv)
 {
     static const t_float m_pi = std::acos(t_float(-1));
 
-    if (!checkArgs(lst, ARG_FLOAT, ARG_FLOAT)) {
-        OBJ_ERR << "X Y coordinates expected: " << lst;
+    if (!checkArgs(lv, ARG_FLOAT, ARG_FLOAT)) {
+        OBJ_ERR << "X Y coordinates expected: " << lv;
         return;
     }
 
-    const auto x = lst[0].asFloat();
-    const auto y = lst[1].asFloat();
+    const auto x = lv[0].asFloat();
+    const auto y = lv[1].asFloat();
 
-    if (true)
-        listTo(0, { std::hypot(x, y), wrapFloatMinMax<t_float>(std::atan2(y, x), 0, 2 * m_pi) });
-    else
-        listTo(0, { std::hypot(x, y), std::atan2(y, x) });
+    SmallAtomList res { std::hypot(x, y), wrapFloatMinMax<t_float>(std::atan2(y, x), 0, 2 * m_pi) };
+    listTo(0, res.view());
 }
 
 Pol2Car::Pol2Car(const PdArgs& args)
@@ -69,17 +67,18 @@ Pol2Car::Pol2Car(const PdArgs& args)
     createOutlet();
 }
 
-void Pol2Car::onList(const AtomList& lst)
+void Pol2Car::onList(const AtomListView& lv)
 {
-    if (!checkArgs(lst, ARG_FLOAT, ARG_FLOAT)) {
-        OBJ_ERR << "R THETA coordinates expected: " << lst;
+    if (!checkArgs(lv, ARG_FLOAT, ARG_FLOAT)) {
+        OBJ_ERR << "R THETA coordinates expected: " << lv;
         return;
     }
 
-    const auto r = lst[0].asFloat();
-    const auto theta = lst[1].asFloat();
+    const auto r = lv[0].asFloat();
+    const auto theta = lv[1].asFloat();
 
-    listTo(0, { r * std::cos(theta), r * std::sin(theta) });
+    SmallAtomList res { r * std::cos(theta), r * std::sin(theta) };
+    listTo(0, res.view());
 }
 
 void setup_conv_angles()

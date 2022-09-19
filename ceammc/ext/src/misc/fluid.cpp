@@ -113,14 +113,14 @@ public:
         return setter_(synth_, v);
     }
 
-    bool setList(const AtomListView& lst) override
+    bool setList(const AtomListView& lv) override
     {
-        if (!lst.isFloat()) {
-            PROP_ERR() << "float value expected, got: " << lst;
+        if (!lv.isFloat()) {
+            PROP_ERR() << "float value expected, got: " << lv;
             return false;
         }
 
-        return setFloat(lst.asT<t_float>());
+        return setFloat(lv.asT<t_float>());
     }
 };
 
@@ -286,9 +286,9 @@ void Fluid::initDone()
         propSetSoundFont(gensym(DEFAULT_SOUNDFONT));
 }
 
-void Fluid::onList(const AtomList& lst)
+void Fluid::onList(const AtomListView& lv)
 {
-    m_note(&s_, lst);
+    m_note(&s_, lv);
 }
 
 void Fluid::setupDSP(t_signal** sp)
@@ -543,23 +543,23 @@ void Fluid::m_bend_float(t_symbol* s, const AtomListView& lv)
     setBend(s, ch.chan, float_to_uint14(ch.value), lv);
 }
 
-void Fluid::m_gen(t_symbol* s, const AtomListView& lst)
+void Fluid::m_gen(t_symbol* s, const AtomListView& lv)
 {
     if (synth_ == nullptr)
         return;
 
-    if (lst.size() == 3 && lst[0].isFloat() && lst[1].isFloat() && lst[2].isFloat()) {
-        int chan = lst[0].asInt();
-        int param = lst[1].asInt();
-        int value = lst[2].asInt();
+    if (lv.size() == 3 && lv[0].isFloat() && lv[1].isFloat() && lv[2].isFloat()) {
+        int chan = lv[0].asInt();
+        int param = lv[1].asInt();
+        int value = lv[2].asInt();
 
         fluid_synth_set_gen(synth_, chan - 1, param, value);
-    } else if (lst.size() == 2 && lst[0].isFloat() && lst[1].isFloat()) {
-        int param = lst[0].asInt();
-        int value = lst[1].asInt();
+    } else if (lv.size() == 2 && lv[0].isFloat() && lv[1].isFloat()) {
+        int param = lv[0].asInt();
+        int value = lv[1].asInt();
         fluid_synth_set_gen(synth_, 0, param, value);
     } else {
-        METHOD_ERR(s) << "CHAN PARAM VAL or PARAM VAL expected: " << lst;
+        METHOD_ERR(s) << "CHAN PARAM VAL or PARAM VAL expected: " << lv;
     }
 }
 

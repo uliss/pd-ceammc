@@ -63,10 +63,10 @@ public:
         play(gain);
     }
 
-    void onList(const AtomList& lst) override
+    void onList(const AtomListView& lv) override
     {
-        const auto N = lst.size();
-        const bool ok = (N >= 1 && N <= 2) && lst[0].isFloat();
+        const auto N = lv.size();
+        const bool ok = (N >= 1 && N <= 2) && lv[0].isFloat();
         if (!ok) {
             OBJ_ERR << "usage: GAIN[0..1] DUR[ms]?";
             return;
@@ -75,10 +75,10 @@ public:
         if (isBusy())
             return;
 
-        const auto gain = lst[0].asT<t_float>();
+        const auto gain = lv[0].asT<t_float>();
 
         if (N == 2) {
-            const auto rel = clip<t_float>(lst[1].asFloat(DEFAULT_DUR) - attackPhaseMs(), MIN_DUR, MAX_DUR);
+            const auto rel = clip<t_float>(lv[1].asFloat(DEFAULT_DUR) - attackPhaseMs(), MIN_DUR, MAX_DUR);
             release_->setValue(rel);
         }
 

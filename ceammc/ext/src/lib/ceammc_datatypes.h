@@ -14,14 +14,23 @@
 #ifndef CEAMMC_DATATYPES_H
 #define CEAMMC_DATATYPES_H
 
+#include <boost/static_string.hpp>
+
 #include <cstdint>
 
 namespace ceammc {
+
+constexpr size_t DATA_TYPE_NAME_MAX_LENGTH = 14;
+
 namespace data {
-    static const uint16_t DATA_INVALID = uint16_t(-1);
-    static const uint16_t DATA_PROPERTY = 31;
-    static const uint16_t DATA_WRAPPER = 32;
+    constexpr uint16_t DATA_INVALID = uint16_t(-1);
+    constexpr uint16_t DATA_PROPERTY = 31;
+    constexpr uint16_t DATA_WRAPPER = 32;
 }
+
+using DataTypeName = boost::static_string<DATA_TYPE_NAME_MAX_LENGTH>;
+using DataTypeId = uint16_t;
+
 }
 
 #endif // CEAMMC_DATATYPES_H

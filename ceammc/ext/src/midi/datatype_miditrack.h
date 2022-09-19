@@ -32,7 +32,7 @@ public:
     /**
      * Polymorphic data type
      */
-    int type() const noexcept;
+    DataTypeId type() const noexcept;
 
     size_t eventCount() const;
     MidiEventList& events();
@@ -40,6 +40,13 @@ public:
     const MidiEvent* eventAt(size_t n) const;
 
     void setEventList(const MidiEventList& lst);
+
+    /**
+     * Polymorphic set function
+     */
+    bool set(const AbstractData* d) noexcept final;
+    std::string toListStringContent() const final;
+    std::string toDictStringContent() const final;
 
 public:
     using iterator = std::vector<MidiEvent*>::iterator;
@@ -52,7 +59,7 @@ public:
     const_iterator end() const;
 
 public:
-    static const int dataType;
+    static const DataTypeId dataType;
 };
 
 #endif // DATATYPE_MIDITRACK_H

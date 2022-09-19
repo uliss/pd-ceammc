@@ -13,6 +13,17 @@ if(LIBLO_FOUND)
     target_link_libraries(ceammc_net PUBLIC ${LIBLO_LIBRARIES})
 endif()
 
+find_package(RAGEL 6.6)
+
+if(RAGEL_FOUND)
+    RAGEL_TARGET(parser_osc
+        parser_osc.rl parser_osc.cpp
+        COMPILE_FLAGS "-G2 -s")
+    add_custom_target(net_ragel_src SOURCES parser_osc.rl)
+endif()
+
+target_sources(ceammc_net PRIVATE parser_osc.cpp)
+
 target_include_directories(ceammc_net
     PUBLIC
         ${PROJECT_SOURCE_DIR}/ceammc/extra/readerwriterqueue # for readerwriterqueue

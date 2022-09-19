@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "mix.h"
+#include "ceammc_containers.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 #include "ceammc_property_callback.h"
@@ -62,23 +63,23 @@ Mix::Mix(const PdArgs& args)
     createCbListProperty(
         "@db",
         [this]() { return propDb(); },
-        [this](const AtomList& l) { setPropDb(l); return true; })
+        [this](const AtomListView& lv) { setPropDb(lv); return true; })
         ->setUnitsDb();
     createCbProperty("@value", &Mix::propValue, &Mix::setPropValue);
 
     createCbListProperty(
         "@mute",
         [this]() { return propMute(); },
-        [this](const AtomList& l) { setPropMute(l); return true; });
+        [this](const AtomListView& lv) { setPropMute(lv); return true; });
 
     createCbProperty("@solo", &Mix::propSolo, &Mix::setPropSolo);
 }
 
-void Mix::onList(const AtomList& lst)
+void Mix::onList(const AtomListView& lv)
 {
-    const size_t N = std::min(lst.size(), gain_.size());
+    const size_t N = std::min(lv.size(), gain_.size());
     for (size_t i = 0; i < N; i++)
-        gain_[i].setTargetValue(std::max<t_float>(0, lst[i].asFloat()));
+        gain_[i].setTargetValue(std::max<t_float>(0, lv[i].asFloat()));
 }
 
 void Mix::setupDSP(t_signal** in)
@@ -124,19 +125,24 @@ AtomList Mix::propValue() const
     return res;
 }
 
-void Mix::setPropValue(const AtomList& lst)
+void Mix::setPropValue(const AtomListView& lv)
 {
-    onList(lst);
+    onList(lv);
 }
 
 AtomList Mix::propDb() const
 {
-    return propValue().mapFloat(toDb);
+    AtomList res;
+    propValue().view().mapFloat(toDb, res);
+    return res;
 }
 
-void Mix::setPropDb(const AtomList& lst)
+void Mix::setPropDb(const AtomListView& lv)
 {
-    setPropValue(lst.mapFloat(fromDb));
+    SmallAtomList res;
+    res.reserve(lv.size());
+    lv.mapFloat(fromDb, res);
+    setPropValue(res.view());
 }
 
 AtomList Mix::propMute() const
@@ -150,10 +156,10 @@ AtomList Mix::propMute() const
     return res;
 }
 
-void Mix::setPropMute(const AtomList& lst)
+void Mix::setPropMute(const AtomListView& lv)
 {
     for (size_t i = 0; i < mute_.size(); i++) {
-        int v = int(lst.floatAt(i, 0)) != 0 ? 1 : 0;
+        int v = int(lv.floatAt(i, 0)) != 0 ? 1 : 0;
         mute_[i].setTargetValue(v);
     }
 }
@@ -169,12 +175,12 @@ AtomList Mix::propSolo() const
     return res;
 }
 
-void Mix::setPropSolo(const AtomList& lst)
+void Mix::setPropSolo(const AtomListView& lv)
 {
     is_solo_ = false;
 
     for (size_t i = 0; i < solo_values_.size(); i++) {
-        int v = (int(lst.floatAt(i, 0)) == 0) ? 0 : 1;
+        int v = (int(lv.floatAt(i, 0)) == 0) ? 0 : 1;
         solo_values_[i] = v;
     }
 
@@ -191,16 +197,16 @@ void Mix::setPropSolo(const AtomList& lst)
     }
 }
 
-void Mix::m_mute(t_symbol* s, const AtomListView& lst)
+void Mix::m_mute(t_symbol* s, const AtomListView& lv)
 {
-    if (!checkArgs(lst, ARG_NATURAL, ARG_BOOL, s))
+    if (!checkArgs(lv, ARG_NATURAL, ARG_BOOL, s))
         return;
 
-    int idx = lst.intAt(0, -1);
-    int v = lst.intAt(1, -1);
+    int idx = lv.intAt(0, -1);
+    int v = lv.intAt(1, -1);
 
     if (idx < 0 || idx >= n_) {
-        OBJ_ERR << "invalid input index: " << lst[0];
+        OBJ_ERR << "invalid input index: " << lv[0];
         return;
     }
 
@@ -209,19 +215,19 @@ void Mix::m_mute(t_symbol* s, const AtomListView& lst)
     else if (v == 1)
         mute_[idx].setTargetValue(1);
     else
-        OBJ_ERR << "invalid mute value: " << lst[1];
+        OBJ_ERR << "invalid mute value: " << lv[1];
 }
 
-void Mix::m_solo(t_symbol* s, const AtomListView& lst)
+void Mix::m_solo(t_symbol* s, const AtomListView& lv)
 {
-    if (!checkArgs(lst, ARG_NATURAL, ARG_BOOL, s))
+    if (!checkArgs(lv, ARG_NATURAL, ARG_BOOL, s))
         return;
 
-    int idx = lst.intAt(0, -1);
-    int v = lst.intAt(1, -1);
+    int idx = lv.intAt(0, -1);
+    int v = lv.intAt(1, -1);
 
     if (idx < 0 || idx >= n_ || idx >= solo_.size() || idx >= solo_values_.size()) {
-        OBJ_ERR << "invalid input index: " << lst[0];
+        OBJ_ERR << "invalid input index: " << lv[0];
         return;
     }
 
@@ -232,7 +238,7 @@ void Mix::m_solo(t_symbol* s, const AtomListView& lst)
         solo_[idx].setTargetValue(1);
         solo_values_[idx] = 1;
     } else {
-        OBJ_ERR << "invalid mute value: " << lst[1];
+        OBJ_ERR << "invalid mute value: " << lv[1];
         return;
     }
 

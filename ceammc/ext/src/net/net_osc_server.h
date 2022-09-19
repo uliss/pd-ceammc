@@ -29,7 +29,11 @@
 #include <boost/variant.hpp>
 #include <lo/lo.h>
 
+#include "ceammc_atom.h"
+#include "ceammc_log.h"
+#include "ceammc_object.h"
 #include "ceammc_poll_dispatcher.h"
+#include "ceammc_property.h"
 #include "readerwriterqueue.h"
 
 namespace ceammc {
@@ -204,7 +208,7 @@ namespace net {
         const Atom& url() const { return value(); }
 
     private:
-        void parseUrl(const Atom& url);
+        bool parseUrl(const Atom& url);
     };
 
     class NetOscServer : public BaseObject {

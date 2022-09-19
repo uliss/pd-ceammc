@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "list_set.h"
+#include "ceammc_containers.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 #include "datatype_mlist.h"
@@ -34,21 +35,22 @@ ListSet::ListSet(const PdArgs& args)
     createOutlet();
 }
 
-void ListSet::onList(const AtomList& lst)
+void ListSet::onList(const AtomListView& lv)
 {
     if (value_->value().isNone())
         return;
 
-    auto idx = relativeIndex<long>(index_->value(), lst.size());
+    auto idx = relativeIndex<long>(index_->value(), lv.size());
 
     if (idx < 0) {
         OBJ_ERR << "invalid index: " << index_->value();
         return;
     }
 
-    AtomList res(lst);
+    SmallAtomList res;
+    res.insert_back(lv);
     res[idx] = value_->value();
-    listTo(0, res);
+    listTo(0, res.view());
 }
 
 void ListSet::onInlet(size_t n, const AtomListView& lst)

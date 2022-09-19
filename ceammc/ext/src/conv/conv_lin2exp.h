@@ -22,7 +22,7 @@ class Lin2Exp : public BaseRangeConverter {
 public:
     Lin2Exp(const PdArgs& a);
     void onFloat(t_float value) override;
-    void onList(const AtomList& l) override;
+    void onList(const AtomListView& lv) override;
 };
 
 void setup_conv_lin2exp();

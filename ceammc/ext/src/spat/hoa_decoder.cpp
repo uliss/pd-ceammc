@@ -68,7 +68,7 @@ HoaDecoder::HoaDecoder(const PdArgs& args)
     createCbListProperty(
         "@angles",
         [this]() -> AtomList { return propAngles(); },
-        [this](const AtomList& l) -> bool { return propSetAngles(l); })
+        [this](const AtomListView& lv) -> bool { return propSetAngles(lv); })
         ->setUnits(PropValueUnits::DEG);
 
     createCbFloatProperty(
@@ -296,9 +296,9 @@ AtomList HoaDecoder::propAngles() const
     return res;
 }
 
-bool HoaDecoder::propSetAngles(const AtomList& lst)
+bool HoaDecoder::propSetAngles(const AtomListView& lv)
 {
-    if (lst.empty()) {
+    if (lv.empty()) {
         OBJ_ERR << "angle list in degrees expected";
         return false;
     }
@@ -306,16 +306,16 @@ bool HoaDecoder::propSetAngles(const AtomList& lst)
     if (!decoder_)
         return true;
 
-    cache_angles_ = lst;
+    cache_angles_ = lv;
 
     if (mode_->value() != SYM_IRREGULAR) {
         OBJ_ERR << "not in irregular mode: can not set angles";
         return false;
     }
 
-    auto N = std::min<size_t>(decoder_->getNumberOfPlanewaves(), lst.size());
+    auto N = std::min<size_t>(decoder_->getNumberOfPlanewaves(), lv.size());
     for (size_t i = 0; i < N; i++)
-        decoder_->setPlanewaveAzimuth(i, convert::degree2rad(lst[i].asFloat()));
+        decoder_->setPlanewaveAzimuth(i, convert::degree2rad(lv[i].asFloat()));
 
     return true;
 }

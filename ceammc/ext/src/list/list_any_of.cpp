@@ -12,8 +12,9 @@
  * this file belongs to.
  *****************************************************************************/
 #include "list_any_of.h"
-#include "datatype_mlist.h"
+#include "ceammc_containers.h"
 #include "ceammc_factory.h"
+#include "datatype_mlist.h"
 
 ListAnyOf::ListAnyOf(const PdArgs& a)
     : ListBase(a)
@@ -25,32 +26,32 @@ ListAnyOf::ListAnyOf(const PdArgs& a)
     createInlet();
 }
 
-void ListAnyOf::onList(const AtomList& l)
+void ListAnyOf::onList(const AtomListView& lv)
 {
-    if (l.empty())
+    if (lv.empty())
         return floatTo(0, 0);
 
     any_ = false;
 
-    for (size_t i = 0; i < l.size(); i++) {
+    for (auto& a : lv) {
         if (any_)
             break;
 
-        atomTo(1, l[i]);
+        atomTo(1, a);
     }
 
-    floatTo(0, any_ ? 1 : 0);
+    boolTo(0, any_);
 }
 
-void ListAnyOf::onInlet(size_t n, const AtomListView& l)
+void ListAnyOf::onInlet(size_t n, const AtomListView& lv)
 {
-    if (n != 1 || l.empty())
+    if (n != 1 || lv.empty())
         return;
 
     if (any_)
         return;
 
-    if (l[0].asInt(0) == 1)
+    if (lv[0].asBool(false))
         any_ = true;
 }
 
@@ -61,7 +62,7 @@ void setup_list_any_of()
 
     obj.setDescription("checks if at least one list element is accepted by predicate");
     obj.addAuthor("Serge Poltavsky");
-    obj.setKeywords({"list", "predicate", "any"});
+    obj.setKeywords({ "list", "predicate", "any" });
     obj.setCategory("list");
     obj.setSinceVersion(0, 1);
 

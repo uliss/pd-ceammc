@@ -1,6 +1,7 @@
 #include "list_reverse.h"
 #include "ceammc_factory.h"
 #include "datatype_mlist.h"
+#include "ceammc_containers.h"
 
 #include <algorithm>
 
@@ -10,11 +11,13 @@ ListReverse::ListReverse(const PdArgs& a)
     createOutlet();
 }
 
-void ListReverse::onList(const AtomList& l)
+void ListReverse::onList(const AtomListView& lv)
 {
-    AtomList rev(l);
-    rev.reverse();
-    listTo(0, rev);
+    AtomList32 rev;
+    rev.reserve(lv.size());
+    rev.insert_back(lv);
+    std::reverse(rev.begin(), rev.end());
+    listTo(0, rev.view());
 }
 
 void ListReverse::onDataT(const MListAtom& ml)

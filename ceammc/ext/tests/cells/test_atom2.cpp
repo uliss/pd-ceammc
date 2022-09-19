@@ -34,7 +34,7 @@ TEST_CASE("Atom2", "[core]")
 
         SECTION("IntData")
         {
-            Atom a(new IntData(100));
+            Atom a(new IntData(100.25));
             REQUIRE(a.isData());
             REQUIRE(a.isA<IntData>());
             REQUIRE(a.isDataType(IntData::dataType));
@@ -54,7 +54,9 @@ TEST_CASE("Atom2", "[core]")
             REQUIRE(a.asSymbol() == &s_);
             REQUIRE(a.asData());
             REQUIRE(a.asData()->type() == IntData::dataType);
-            REQUIRE(a.asData()->toString() == "100");
+            REQUIRE(a.asData()->toString() == "IntData(100)");
+            REQUIRE(a.asData()->toListString() == "IntData(100)");
+            REQUIRE(a.asData()->toDictString() == "IntData[value: 100]");
 
             REQUIRE(a.asDataT<IntData>());
             REQUIRE(a.asDataT<IntData>()->value() == 100);
@@ -386,7 +388,7 @@ TEST_CASE("Atom2", "[core]")
         REQUIRE(!A("`\"").endQuote());
         REQUIRE(A("\"").endQuote());
         REQUIRE(A("abc\"").endQuote());
-        REQUIRE(A("abc```````/`.`:``\"").endQuote());
+        REQUIRE(A("abc``\"").endQuote());
         REQUIRE(!A("\"\"").endQuote());
     }
 
@@ -460,13 +462,13 @@ TEST_CASE("Atom2", "[core]")
 
     SECTION("single detach")
     {
-        Atom i(new IntData(100));
+        Atom i(new IntData(-100));
         auto p0 = i.asData();
 
         REQUIRE(i.detachData());
         auto p1 = i.asData();
         REQUIRE(p0 != p1);
-        REQUIRE(p1->toString() == "100");
+        REQUIRE(p1->toString() == "IntData(-100)");
         REQUIRE(i.refCount() == 1);
     }
 

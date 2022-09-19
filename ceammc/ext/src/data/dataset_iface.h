@@ -52,9 +52,9 @@ public:
         data().add(Atom(s));
     }
 
-    void onList(const AtomList& l) override
+    void onList(const AtomListView& lv) override
     {
-        data().add(l);
+        data().add(lv);
     }
 
     void onDataT(const SetAtom& s)
@@ -63,9 +63,9 @@ public:
         onBang();
     }
 
-    void proto_add(const AtomListView& l) override
+    void proto_add(const AtomListView& lv) override
     {
-        data().add(l);
+        data().add(lv);
     }
 
     void proto_clear() override
@@ -78,15 +78,15 @@ public:
         return data().size();
     }
 
-    bool proto_remove(const AtomListView& lst) override
+    bool proto_remove(const AtomListView& lv) override
     {
-        data().remove(lst);
+        data().remove(lv);
         return true;
     }
 
-    void proto_set(const AtomListView& lst) override
+    void proto_set(const AtomListView& lv) override
     {
-        data() = DataTypeSet(lst);
+        data() = DataTypeSet(lv);
     }
 
     bool proto_choose(Atom& res) const override

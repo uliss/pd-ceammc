@@ -87,7 +87,7 @@ private:
     void blockLast(size_t i, size_t bs, t_sample* out);
     void blockDone();
 
-    static FSM fsm_;
+    static const FSM fsm_;
 };
 
 void setup_array_play_tilde();

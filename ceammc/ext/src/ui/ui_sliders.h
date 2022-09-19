@@ -65,9 +65,9 @@ public:
     void onDblClick(t_object* view, const t_pt& pt, long modifiers);
 
     // methods
-    void m_get(const AtomListView& l);
-    void m_set(const AtomListView& l);
-    void m_select(const AtomListView& l);
+    void m_get(const AtomListView& lv);
+    void m_set(const AtomListView& lv);
+    void m_select(const AtomListView& lv);
     void m_plus(t_float f);
     void m_minus(t_float f);
     void m_mul(t_float f);
@@ -87,7 +87,7 @@ public:
 private:
     void setRealValueAt(size_t n, t_float v);
     t_float realValueAt(size_t n) const;
-    bool setRealValues(const AtomListView& l);
+    bool setRealValues(const AtomListView& lv);
 
     t_float propCount() const;
     void setPropCount(t_float f);

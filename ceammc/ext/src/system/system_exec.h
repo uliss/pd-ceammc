@@ -39,7 +39,7 @@ public:
     SystemExec(const PdArgs& args);
     ~SystemExec();
     void onSymbol(t_symbol* s) override;
-    void onList(const AtomList& l) override;
+    void onList(const AtomListView& lv) override;
 
     void m_stop(t_symbol* s, const AtomListView& l);
     void m_terminate(t_symbol* s, const AtomListView& l);

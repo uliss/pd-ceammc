@@ -36,10 +36,10 @@ public:
         createOutlet();
     }
 
-    bool processAnyProps(t_symbol* sel, const AtomListView& lst) override
+    bool processAnyProps(t_symbol* sel, const AtomListView& lv) override
     {
         if (sel == gensym("@gate")) {
-            if (lst.boolAt(0, false)) {
+            if (lv.boolAt(0, false)) {
                 clockReset();
                 attack_done_.delay(prop_attack_->value());
             } else {
@@ -48,17 +48,17 @@ public:
             }
         }
 
-        return faust_env_asr_tilde::processAnyProps(sel, lst);
+        return faust_env_asr_tilde::processAnyProps(sel, lv);
     }
 
-    void onList(const AtomList& l) override
+    void onList(const AtomListView& lv) override
     {
-        if (!checkArgs(l, ARG_FLOAT, ARG_FLOAT, ARG_FLOAT)) {
-            OBJ_ERR << "ATTACK SUSTAIN RELEASE values expected: " << l;
+        if (!checkArgs(lv, ARG_FLOAT, ARG_FLOAT, ARG_FLOAT)) {
+            OBJ_ERR << "ATTACK SUSTAIN RELEASE values expected: " << lv;
             return;
         }
 
-        if (!set(l[0].asFloat(), l[1].asFloat(), l[2].asFloat()))
+        if (!set(lv[0].asFloat(), lv[1].asFloat(), lv[2].asFloat()))
             OBJ_ERR << "can't set envelope";
     }
 

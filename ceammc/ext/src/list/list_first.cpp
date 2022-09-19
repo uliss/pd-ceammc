@@ -8,12 +8,12 @@ ListFirst::ListFirst(const PdArgs& args)
     createOutlet();
 }
 
-void ListFirst::onList(const AtomList& lst)
+void ListFirst::onList(const AtomListView& lv)
 {
-    if (lst.empty())
+    if (lv.empty())
         return;
 
-    atomTo(0, lst[0]);
+    atomTo(0, lv[0]);
 }
 
 void ListFirst::onDataT(const MListAtom& ml)

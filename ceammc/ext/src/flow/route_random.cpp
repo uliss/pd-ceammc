@@ -14,8 +14,6 @@
 #include "route_random.h"
 #include "ceammc_factory.h"
 
-#include <ctime>
-
 constexpr int MIN_NUM_OUTLETS = 2;
 constexpr int MAX_NUM_OUTLETS = 64;
 constexpr int DEFAULT_NUM_OUTLETS = 2;
@@ -23,25 +21,17 @@ constexpr int DEFAULT_NUM_OUTLETS = 2;
 RouteRandom::RouteRandom(const PdArgs& args)
     : BaseObject(args)
     , n_(nullptr)
-    , seed_(nullptr)
-    , rnd_dev_(std::time(nullptr))
 {
     n_ = new IntProperty("@n", DEFAULT_NUM_OUTLETS, PropValueAccess::INITONLY);
     n_->checkClosedRange(MIN_NUM_OUTLETS, MAX_NUM_OUTLETS);
     n_->setArgIndex(0);
     addProperty(n_);
 
-    seed_ = new SizeTProperty("@seed", 0);
-    addProperty(seed_);
+    addProperty(new random::SeedProperty(gen_));
 }
 
 void RouteRandom::initDone()
 {
-    if (seed_->value() != 0)
-        rnd_dev_.seed(seed_->value());
-
-    dist_ = Distribution(0, n_->value() - 1);
-
     for (int i = 0; i < n_->value(); i++)
         createOutlet();
 }
@@ -61,9 +51,9 @@ void RouteRandom::onSymbol(t_symbol* s)
     symbolTo(genOutletIdx(), s);
 }
 
-void RouteRandom::onList(const AtomList& lst)
+void RouteRandom::onList(const AtomListView& lv)
 {
-    listTo(genOutletIdx(), lst);
+    listTo(genOutletIdx(), lv);
 }
 
 void RouteRandom::onAny(t_symbol* s, const AtomListView& lv)

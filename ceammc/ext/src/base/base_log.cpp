@@ -121,12 +121,12 @@ void BaseLog::onSymbol(t_symbol* s)
     LOG_VALUE("symbol " << v);
 }
 
-void BaseLog::onList(const AtomList& l)
+void BaseLog::onList(const AtomListView& lv)
 {
     if (!active_->value())
         return;
 
-    LOG_VALUE("list " << to_string(l));
+    LOG_VALUE("list " << to_string(lv));
 }
 
 void BaseLog::onAny(t_symbol* s, const AtomListView& lv)

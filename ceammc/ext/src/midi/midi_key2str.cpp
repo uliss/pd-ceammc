@@ -16,7 +16,7 @@ MidiKey2Str::MidiKey2Str(const PdArgs& args)
     createCbListProperty(
         "@tonality",
         [this]() -> AtomList { return p_tonality(); },
-        [this](const AtomList& l) -> bool { return p_setTonality(l); })
+        [this](const AtomListView& lv) -> bool { return p_setTonality(lv); })
         ->setArgIndex(0);
 
     as_symbol_ = new FlagProperty("@symbol");
@@ -50,9 +50,9 @@ AtomList MidiKey2Str::p_tonality() const
     return Atom(gensym(name.c_str()));
 }
 
-bool MidiKey2Str::p_setTonality(const AtomList& l)
+bool MidiKey2Str::p_setTonality(const AtomListView& lv)
 {
-    std::string str = to_string(l);
+    std::string str = to_string(lv);
     if (!music::from_string(str, tonality_, music::NAMING_SCHEME_SPN)) {
         OBJ_ERR << "can't parse tonality: " << str;
         return false;

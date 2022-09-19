@@ -23,16 +23,16 @@ ListApplyTo::ListApplyTo(const ceammc::PdArgs& args)
 
             return res;
         },
-        [this](const AtomList& l) -> bool {
-            setIndexes(l);
+        [this](const AtomListView& lv) -> bool {
+            setIndexes(lv);
             return true;
         })
         ->setArgIndex(0);
 }
 
-void ListApplyTo::onList(const AtomList& lst)
+void ListApplyTo::onList(const AtomListView& lv)
 {
-    const int N = lst.size();
+    const int N = lv.size();
     mapped_.clear();
     mapped_.reserve(N);
     normalizeIndexes(N);
@@ -45,9 +45,9 @@ void ListApplyTo::onList(const AtomList& lst)
 
         // no proccessing required
         if (it == norm_idxs_.end())
-            mapped_.append(lst[cur_idx_]);
+            mapped_.append(lv[cur_idx_]);
         else
-            atomTo(1, lst[cur_idx_]);
+            atomTo(1, lv[cur_idx_]);
     }
 
     on_loop_ = false;
@@ -55,13 +55,13 @@ void ListApplyTo::onList(const AtomList& lst)
     listTo(0, mapped_);
 }
 
-void ListApplyTo::onInlet(size_t n, const AtomListView& lst)
+void ListApplyTo::onInlet(size_t n, const AtomListView& lv)
 {
     switch (n) {
     case 1:
-        return setIndexes(lst);
+        return setIndexes(lv);
     case 2:
-        return loopProcess(lst);
+        return loopProcess(lv);
     default:
         break;
     }
@@ -91,30 +91,32 @@ void ListApplyTo::onDataT(const MListAtom& ml)
     atomTo(0, new DataTypeMList(mapped_));
 }
 
-void ListApplyTo::setIndexes(const AtomList& lst)
+void ListApplyTo::setIndexes(const AtomListView& lv)
 {
     // set unique float indexes
-    auto idx = list::uniqueSorted(lst.filtered(isFloat));
+    AtomList out;
+    lv.filter(isFloat, out);
+    auto idx = list::uniqueSorted(out);
     idxs_.clear();
     idxs_.reserve(idx.size());
 
-    for (auto& el : lst)
+    for (auto& el : lv)
         idxs_.push_back(el.asInt());
 }
 
-void ListApplyTo::loopProcess(const AtomList& v)
+void ListApplyTo::loopProcess(const AtomListView& lv)
 {
     if (!on_loop_) {
         OBJ_ERR << "not in process loop";
         return;
     }
 
-    if (v.size() != 1) {
-        OBJ_ERR << "single modified value expected: " << v;
+    if (lv.size() != 1) {
+        OBJ_ERR << "single modified value expected: " << lv;
         return;
     }
 
-    mapped_.append(v[0]);
+    mapped_.append(lv[0]);
 }
 
 void ListApplyTo::normalizeIndexes(size_t N)

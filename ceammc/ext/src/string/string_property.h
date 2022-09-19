@@ -33,7 +33,7 @@ public:
     AtomList get() const override;
 
     bool setSymbol(t_symbol*) override;
-    bool setList(const AtomListView& lst) override;
+    bool setList(const AtomListView& lv) override;
 
     const std::string& str() const { return str_->str(); }
 };

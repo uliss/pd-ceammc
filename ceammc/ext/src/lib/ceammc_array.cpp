@@ -21,6 +21,7 @@ extern "C" {
 
 #include <algorithm>
 #include <cmath>
+#include <cstring>
 
 using namespace ceammc;
 
@@ -206,6 +207,28 @@ t_float& Array::at(size_t n)
     return data_[n].w_float;
 }
 
+t_float Array::ringPushBack(t_float f)
+{
+    if (!array_ || !data_ || size_ < 2)
+        throw Exception("invalid array");
+
+    const auto prev = data_[0].w_float;
+    std::memmove(data_, data_ + 1, sizeof(data_[0]) * (size_ - 1));
+    data_[size_ - 1].w_float = f;
+    return prev;
+}
+
+t_float Array::ringPushFront(t_float f)
+{
+    if (!array_ || !data_ || size_ < 2)
+        throw Exception("invalid array");
+
+    const auto prev = data_[size_ - 1].w_float;
+    std::memmove(data_ + 1, data_, sizeof(data_[0]) * (size_ - 1));
+    data_[0].w_float = f;
+    return prev;
+}
+
 bool Array::resize(size_t n)
 {
     if (!array_)
@@ -236,14 +259,14 @@ void Array::fillWith(FloatValueGenerator gen)
     std::generate(begin(), end(), [&n, gen]() { return gen(n++); });
 }
 
-bool Array::set(const AtomList& l)
+bool Array::set(const AtomListView& lv)
 {
-    if (!resize(l.size()))
+    if (!resize(lv.size()))
         return false;
 
-    const size_t N = std::min(size(), l.size());
+    const size_t N = std::min(size(), lv.size());
     for (size_t i = 0; i < N; i++)
-        data_[i].w_float = l[i].asFloat();
+        data_[i].w_float = lv[i].asFloat();
 
     return true;
 }

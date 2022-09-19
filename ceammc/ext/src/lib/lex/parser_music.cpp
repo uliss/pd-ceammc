@@ -9,7 +9,7 @@ namespace ceammc {
 	namespace parser {
 		
 		
-#line 13 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 13 "lex/parser_music.cpp"
 		static const int bpm_start = 1;
 		static const int bpm_first_final = 7;
 		static const int bpm_error = 0;
@@ -66,14 +66,14 @@ namespace ceammc {
 			const char* p = str;
 			const char* pe = p + len;
 			const char* eof = pe;
-			int cat_ = 0;
-			AtomType type_;
+			
+			DECLARE_RAGEL_COMMON_VARS;
 			fsm::BpmData bpm;
 			
 			reset();
 			
 			
-#line 77 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 77 "lex/parser_music.cpp"
 			{
 				cs = (int)bpm_start;
 			}
@@ -81,7 +81,7 @@ namespace ceammc {
 #line 70 "lex/parser_music.rl"
 			
 			
-#line 85 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 85 "lex/parser_music.cpp"
 			{
 				if ( p == pe )
 					goto _test_eof;
@@ -147,21 +147,21 @@ namespace ceammc {
 #line 9 "lex/ragel_music.rl"
 					bpm.dur_num = 1; bpm.dur_den = 4; }
 				
-#line 151 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 151 "lex/parser_music.cpp"
 				
 				{
 #line 6 "lex/ragel_music.rl"
 					(bpm.ival *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 157 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 157 "lex/parser_music.cpp"
 				
 				goto _st7;
 				_ctr13:
 				{
 #line 10 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_BPM; }
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_BPM; }
 				
-#line 165 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 165 "lex/parser_music.cpp"
 				
 				goto _st7;
 				_st7:
@@ -214,15 +214,15 @@ namespace ceammc {
 #line 7 "lex/ragel_music.rl"
 					(bpm.fnum *= 10) += ((( (*( p)))) - '0'); bpm.fden *= 10; }
 				
-#line 218 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 218 "lex/parser_music.cpp"
 				
 				goto _st8;
 				_ctr15:
 				{
 #line 10 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_BPM; }
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_BPM; }
 				
-#line 226 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 226 "lex/parser_music.cpp"
 				
 				goto _st8;
 				_st8:
@@ -256,9 +256,9 @@ namespace ceammc {
 				_ctr16:
 				{
 #line 10 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_BPM; }
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_BPM; }
 				
-#line 262 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 262 "lex/parser_music.cpp"
 				
 				goto _st9;
 				_ctr21:
@@ -266,7 +266,7 @@ namespace ceammc {
 #line 24 "lex/ragel_music.rl"
 					bpm.dur_num = 1;}
 				
-#line 270 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 270 "lex/parser_music.cpp"
 				
 				goto _st9;
 				_st9:
@@ -291,7 +291,7 @@ namespace ceammc {
 #line 24 "lex/ragel_music.rl"
 					bpm.dur_num = 1;}
 				
-#line 295 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 295 "lex/parser_music.cpp"
 				
 				goto _st3;
 				_st3:
@@ -331,9 +331,9 @@ namespace ceammc {
 				_ctr17:
 				{
 #line 10 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_BPM; }
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_BPM; }
 				
-#line 337 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 337 "lex/parser_music.cpp"
 				
 				goto _st10;
 				_st10:
@@ -372,25 +372,25 @@ namespace ceammc {
 #line 11 "lex/ragel_music.rl"
 					bpm.dur_num = 0; }
 				
-#line 376 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 376 "lex/parser_music.cpp"
 				
 				{
 #line 12 "lex/ragel_music.rl"
 					(bpm.dur_num *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 382 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 382 "lex/parser_music.cpp"
 				
 				{
 #line 13 "lex/ragel_music.rl"
 					bpm.dur_den = 0;}
 				
-#line 388 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 388 "lex/parser_music.cpp"
 				
 				{
 #line 14 "lex/ragel_music.rl"
 					(bpm.dur_den *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 394 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 394 "lex/parser_music.cpp"
 				
 				goto _st11;
 				_ctr18:
@@ -398,13 +398,13 @@ namespace ceammc {
 #line 24 "lex/ragel_music.rl"
 					bpm.dur_num = 1;}
 				
-#line 402 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 402 "lex/parser_music.cpp"
 				
 				{
 #line 10 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_BPM; }
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_BPM; }
 				
-#line 408 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 408 "lex/parser_music.cpp"
 				
 				goto _st11;
 				_ctr20:
@@ -412,13 +412,13 @@ namespace ceammc {
 #line 12 "lex/ragel_music.rl"
 					(bpm.dur_num *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 416 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 416 "lex/parser_music.cpp"
 				
 				{
 #line 14 "lex/ragel_music.rl"
 					(bpm.dur_den *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 422 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 422 "lex/parser_music.cpp"
 				
 				goto _st11;
 				_st11:
@@ -455,9 +455,9 @@ namespace ceammc {
 				_ctr23:
 				{
 #line 10 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_BPM; }
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_BPM; }
 				
-#line 461 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 461 "lex/parser_music.cpp"
 				
 				goto _st12;
 				_ctr19:
@@ -465,13 +465,13 @@ namespace ceammc {
 #line 24 "lex/ragel_music.rl"
 					bpm.dur_num = 1;}
 				
-#line 469 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 469 "lex/parser_music.cpp"
 				
 				{
 #line 8 "lex/ragel_music.rl"
 					bpm.dur_num *= 3; bpm.dur_den *= 2; }
 				
-#line 475 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 475 "lex/parser_music.cpp"
 				
 				goto _st12;
 				_ctr25:
@@ -479,7 +479,7 @@ namespace ceammc {
 #line 8 "lex/ragel_music.rl"
 					bpm.dur_num *= 3; bpm.dur_den *= 2; }
 				
-#line 483 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 483 "lex/parser_music.cpp"
 				
 				goto _st12;
 				_st12:
@@ -526,21 +526,21 @@ namespace ceammc {
 #line 13 "lex/ragel_music.rl"
 					bpm.dur_den = 0;}
 				
-#line 530 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 530 "lex/parser_music.cpp"
 				
 				{
 #line 14 "lex/ragel_music.rl"
 					(bpm.dur_den *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 536 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 536 "lex/parser_music.cpp"
 				
 				goto _st13;
 				_ctr24:
 				{
 #line 10 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_BPM; }
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_BPM; }
 				
-#line 544 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 544 "lex/parser_music.cpp"
 				
 				goto _st13;
 				_ctr26:
@@ -548,7 +548,7 @@ namespace ceammc {
 #line 14 "lex/ragel_music.rl"
 					(bpm.dur_den *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 552 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 552 "lex/parser_music.cpp"
 				
 				goto _st13;
 				_st13:
@@ -584,21 +584,21 @@ namespace ceammc {
 #line 9 "lex/ragel_music.rl"
 					bpm.dur_num = 1; bpm.dur_den = 4; }
 				
-#line 588 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 588 "lex/parser_music.cpp"
 				
 				{
 #line 6 "lex/ragel_music.rl"
 					(bpm.ival *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 594 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 594 "lex/parser_music.cpp"
 				
 				goto _st14;
 				_ctr27:
 				{
 #line 10 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_BPM; }
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_BPM; }
 				
-#line 602 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 602 "lex/parser_music.cpp"
 				
 				goto _st14;
 				_ctr28:
@@ -606,7 +606,7 @@ namespace ceammc {
 #line 6 "lex/ragel_music.rl"
 					(bpm.ival *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 610 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 610 "lex/parser_music.cpp"
 				
 				goto _st14;
 				_st14:
@@ -735,7 +735,7 @@ namespace ceammc {
 			
 			
 			const bool ok = cs >= 
-#line 739 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 739 "lex/parser_music.cpp"
 			7
 #line 73 "lex/parser_music.rl"
 			;
@@ -762,7 +762,7 @@ namespace ceammc {
 		}
 		
 		
-#line 766 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 766 "lex/parser_music.cpp"
 		static const int spn_start = 1;
 		static const int spn_first_final = 8;
 		static const int spn_error = 0;
@@ -792,14 +792,14 @@ namespace ceammc {
 			const char* p = str;
 			const char* pe = p + len;
 			const char* eof = pe;
-			int cat_ = 0;
-			AtomType type_;
+			
+			DECLARE_RAGEL_COMMON_VARS;
 			fsm::SpnData spn;
 			
 			reset();
 			
 			
-#line 803 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 803 "lex/parser_music.cpp"
 			{
 				cs = (int)spn_start;
 			}
@@ -807,7 +807,7 @@ namespace ceammc {
 #line 129 "lex/parser_music.rl"
 			
 			
-#line 811 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 811 "lex/parser_music.cpp"
 			{
 				if ( p == pe )
 					goto _test_eof;
@@ -897,13 +897,13 @@ namespace ceammc {
 #line 77 "lex/ragel_music.rl"
 					spn.alt = 0; spn.oct = 0; spn.octtype = OCTAVE_REL; spn.dev = 0;}
 				
-#line 901 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 901 "lex/parser_music.cpp"
 				
 				{
 #line 41 "lex/ragel_music.rl"
 					spn.note = 5;}
 				
-#line 907 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 907 "lex/parser_music.cpp"
 				
 				goto _st8;
 				_ctr3:
@@ -911,13 +911,13 @@ namespace ceammc {
 #line 77 "lex/ragel_music.rl"
 					spn.alt = 0; spn.oct = 0; spn.octtype = OCTAVE_REL; spn.dev = 0;}
 				
-#line 915 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 915 "lex/parser_music.cpp"
 				
 				{
 #line 42 "lex/ragel_music.rl"
 					spn.note = 6;}
 				
-#line 921 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 921 "lex/parser_music.cpp"
 				
 				goto _st8;
 				_ctr4:
@@ -925,13 +925,13 @@ namespace ceammc {
 #line 77 "lex/ragel_music.rl"
 					spn.alt = 0; spn.oct = 0; spn.octtype = OCTAVE_REL; spn.dev = 0;}
 				
-#line 929 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 929 "lex/parser_music.cpp"
 				
 				{
 #line 43 "lex/ragel_music.rl"
 					spn.note = ((( (*( p)))) - 'C');}
 				
-#line 935 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 935 "lex/parser_music.cpp"
 				
 				goto _st8;
 				_ctr16:
@@ -939,19 +939,19 @@ namespace ceammc {
 #line 44 "lex/ragel_music.rl"
 					spn.pitch = (spn.note * 2) - (spn.note > 2);}
 				
-#line 943 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 943 "lex/parser_music.cpp"
 				
 				{
 #line 60 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_REL;}
 				
-#line 949 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 949 "lex/parser_music.cpp"
 				
 				{
 #line 78 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 955 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 955 "lex/parser_music.cpp"
 				
 				goto _st8;
 				_st8:
@@ -996,13 +996,13 @@ namespace ceammc {
 #line 44 "lex/ragel_music.rl"
 					spn.pitch = (spn.note * 2) - (spn.note > 2);}
 				
-#line 1000 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1000 "lex/parser_music.cpp"
 				
 				{
 #line 37 "lex/ragel_music.rl"
 					spn.alt = 1;}
 				
-#line 1006 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1006 "lex/parser_music.cpp"
 				
 				goto _st9;
 				_ctr24:
@@ -1010,13 +1010,13 @@ namespace ceammc {
 #line 60 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_REL;}
 				
-#line 1014 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1014 "lex/parser_music.cpp"
 				
 				{
 #line 78 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 1020 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1020 "lex/parser_music.cpp"
 				
 				goto _st9;
 				_st9:
@@ -1058,13 +1058,13 @@ namespace ceammc {
 #line 60 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_REL;}
 				
-#line 1062 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1062 "lex/parser_music.cpp"
 				
 				{
 #line 78 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 1068 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1068 "lex/parser_music.cpp"
 				
 				goto _st10;
 				_ctr25:
@@ -1072,7 +1072,7 @@ namespace ceammc {
 #line 38 "lex/ragel_music.rl"
 					spn.alt = 2;}
 				
-#line 1076 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1076 "lex/parser_music.cpp"
 				
 				goto _st10;
 				_ctr53:
@@ -1080,7 +1080,7 @@ namespace ceammc {
 #line 40 "lex/ragel_music.rl"
 					spn.alt = -2;}
 				
-#line 1084 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1084 "lex/parser_music.cpp"
 				
 				goto _st10;
 				_st10:
@@ -1119,13 +1119,13 @@ namespace ceammc {
 #line 44 "lex/ragel_music.rl"
 					spn.pitch = (spn.note * 2) - (spn.note > 2);}
 				
-#line 1123 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1123 "lex/parser_music.cpp"
 				
 				{
 #line 60 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_REL;}
 				
-#line 1129 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1129 "lex/parser_music.cpp"
 				
 				goto _st2;
 				_ctr26:
@@ -1133,7 +1133,7 @@ namespace ceammc {
 #line 60 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_REL;}
 				
-#line 1137 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1137 "lex/parser_music.cpp"
 				
 				goto _st2;
 				_ctr34:
@@ -1141,7 +1141,7 @@ namespace ceammc {
 #line 51 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_ABS;}
 				
-#line 1145 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1145 "lex/parser_music.cpp"
 				
 				goto _st2;
 				_st2:
@@ -1171,7 +1171,7 @@ namespace ceammc {
 #line 65 "lex/ragel_music.rl"
 					spn.sign = ((( (*( p))))=='-') ? -1 : 1;}
 				
-#line 1175 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1175 "lex/parser_music.cpp"
 				
 				goto _st3;
 				_st3:
@@ -1196,7 +1196,7 @@ namespace ceammc {
 #line 66 "lex/ragel_music.rl"
 					(spn.dev *= 10) += ((( (*( p)))) - '0');}
 				
-#line 1200 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1200 "lex/parser_music.cpp"
 				
 				goto _st4;
 				_st4:
@@ -1224,7 +1224,7 @@ namespace ceammc {
 #line 66 "lex/ragel_music.rl"
 					(spn.dev *= 10) += ((( (*( p)))) - '0');}
 				
-#line 1228 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1228 "lex/parser_music.cpp"
 				
 				goto _st5;
 				_st5:
@@ -1266,15 +1266,15 @@ namespace ceammc {
 #line 67 "lex/ragel_music.rl"
 					spn.dev *= spn.sign;}
 				
-#line 1270 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1270 "lex/parser_music.cpp"
 				
 				goto _st11;
 				_ctr32:
 				{
 #line 78 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 1278 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1278 "lex/parser_music.cpp"
 				
 				goto _st11;
 				_st11:
@@ -1296,13 +1296,13 @@ namespace ceammc {
 #line 44 "lex/ragel_music.rl"
 					spn.pitch = (spn.note * 2) - (spn.note > 2);}
 				
-#line 1300 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1300 "lex/parser_music.cpp"
 				
 				{
 #line 60 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_REL;}
 				
-#line 1306 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1306 "lex/parser_music.cpp"
 				
 				goto _st7;
 				_ctr27:
@@ -1310,7 +1310,7 @@ namespace ceammc {
 #line 60 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_REL;}
 				
-#line 1314 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1314 "lex/parser_music.cpp"
 				
 				goto _st7;
 				_st7:
@@ -1335,7 +1335,7 @@ namespace ceammc {
 #line 48 "lex/ragel_music.rl"
 					spn.oct = -1;}
 				
-#line 1339 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1339 "lex/parser_music.cpp"
 				
 				goto _st12;
 				_ctr20:
@@ -1343,19 +1343,19 @@ namespace ceammc {
 #line 44 "lex/ragel_music.rl"
 					spn.pitch = (spn.note * 2) - (spn.note > 2);}
 				
-#line 1347 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1347 "lex/parser_music.cpp"
 				
 				{
 #line 60 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_REL;}
 				
-#line 1353 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1353 "lex/parser_music.cpp"
 				
 				{
 #line 49 "lex/ragel_music.rl"
 					spn.oct = ((( (*( p)))) - '0');}
 				
-#line 1359 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1359 "lex/parser_music.cpp"
 				
 				goto _st12;
 				_ctr28:
@@ -1363,13 +1363,13 @@ namespace ceammc {
 #line 60 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_REL;}
 				
-#line 1367 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1367 "lex/parser_music.cpp"
 				
 				{
 #line 49 "lex/ragel_music.rl"
 					spn.oct = ((( (*( p)))) - '0');}
 				
-#line 1373 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1373 "lex/parser_music.cpp"
 				
 				goto _st12;
 				_ctr33:
@@ -1377,13 +1377,13 @@ namespace ceammc {
 #line 51 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_ABS;}
 				
-#line 1381 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1381 "lex/parser_music.cpp"
 				
 				{
 #line 78 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 1387 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1387 "lex/parser_music.cpp"
 				
 				goto _st12;
 				_st12:
@@ -1408,25 +1408,25 @@ namespace ceammc {
 #line 44 "lex/ragel_music.rl"
 					spn.pitch = (spn.note * 2) - (spn.note > 2);}
 				
-#line 1412 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1412 "lex/parser_music.cpp"
 				
 				{
 #line 60 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_REL;}
 				
-#line 1418 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1418 "lex/parser_music.cpp"
 				
 				{
 #line 55 "lex/ragel_music.rl"
 					spn.oct++;}
 				
-#line 1424 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1424 "lex/parser_music.cpp"
 				
 				{
 #line 58 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_REL;}
 				
-#line 1430 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1430 "lex/parser_music.cpp"
 				
 				goto _st13;
 				_ctr29:
@@ -1434,27 +1434,27 @@ namespace ceammc {
 #line 60 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_REL;}
 				
-#line 1438 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1438 "lex/parser_music.cpp"
 				
 				{
 #line 55 "lex/ragel_music.rl"
 					spn.oct++;}
 				
-#line 1444 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1444 "lex/parser_music.cpp"
 				
 				{
 #line 58 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_REL;}
 				
-#line 1450 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1450 "lex/parser_music.cpp"
 				
 				goto _st13;
 				_ctr35:
 				{
 #line 78 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 1458 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1458 "lex/parser_music.cpp"
 				
 				goto _st13;
 				_st13:
@@ -1482,9 +1482,9 @@ namespace ceammc {
 				_ctr37:
 				{
 #line 78 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 1488 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1488 "lex/parser_music.cpp"
 				
 				goto _st14;
 				_ctr36:
@@ -1492,13 +1492,13 @@ namespace ceammc {
 #line 55 "lex/ragel_music.rl"
 					spn.oct++;}
 				
-#line 1496 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1496 "lex/parser_music.cpp"
 				
 				{
 #line 58 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_REL;}
 				
-#line 1502 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1502 "lex/parser_music.cpp"
 				
 				goto _st14;
 				_st14:
@@ -1526,9 +1526,9 @@ namespace ceammc {
 				_ctr39:
 				{
 #line 78 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 1532 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1532 "lex/parser_music.cpp"
 				
 				goto _st15;
 				_ctr38:
@@ -1536,13 +1536,13 @@ namespace ceammc {
 #line 55 "lex/ragel_music.rl"
 					spn.oct++;}
 				
-#line 1540 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1540 "lex/parser_music.cpp"
 				
 				{
 #line 58 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_REL;}
 				
-#line 1546 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1546 "lex/parser_music.cpp"
 				
 				goto _st15;
 				_st15:
@@ -1570,9 +1570,9 @@ namespace ceammc {
 				_ctr41:
 				{
 #line 78 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 1576 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1576 "lex/parser_music.cpp"
 				
 				goto _st16;
 				_ctr40:
@@ -1580,13 +1580,13 @@ namespace ceammc {
 #line 55 "lex/ragel_music.rl"
 					spn.oct++;}
 				
-#line 1584 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1584 "lex/parser_music.cpp"
 				
 				{
 #line 58 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_REL;}
 				
-#line 1590 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1590 "lex/parser_music.cpp"
 				
 				goto _st16;
 				_st16:
@@ -1614,9 +1614,9 @@ namespace ceammc {
 				_ctr43:
 				{
 #line 78 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 1620 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1620 "lex/parser_music.cpp"
 				
 				goto _st17;
 				_ctr42:
@@ -1624,13 +1624,13 @@ namespace ceammc {
 #line 55 "lex/ragel_music.rl"
 					spn.oct++;}
 				
-#line 1628 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1628 "lex/parser_music.cpp"
 				
 				{
 #line 58 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_REL;}
 				
-#line 1634 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1634 "lex/parser_music.cpp"
 				
 				goto _st17;
 				_ctr51:
@@ -1638,13 +1638,13 @@ namespace ceammc {
 #line 57 "lex/ragel_music.rl"
 					spn.oct--;}
 				
-#line 1642 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1642 "lex/parser_music.cpp"
 				
 				{
 #line 58 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_REL;}
 				
-#line 1648 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1648 "lex/parser_music.cpp"
 				
 				goto _st17;
 				_st17:
@@ -1669,25 +1669,25 @@ namespace ceammc {
 #line 44 "lex/ragel_music.rl"
 					spn.pitch = (spn.note * 2) - (spn.note > 2);}
 				
-#line 1673 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1673 "lex/parser_music.cpp"
 				
 				{
 #line 60 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_REL;}
 				
-#line 1679 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1679 "lex/parser_music.cpp"
 				
 				{
 #line 57 "lex/ragel_music.rl"
 					spn.oct--;}
 				
-#line 1685 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1685 "lex/parser_music.cpp"
 				
 				{
 #line 58 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_REL;}
 				
-#line 1691 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1691 "lex/parser_music.cpp"
 				
 				goto _st18;
 				_ctr30:
@@ -1695,27 +1695,27 @@ namespace ceammc {
 #line 60 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_REL;}
 				
-#line 1699 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1699 "lex/parser_music.cpp"
 				
 				{
 #line 57 "lex/ragel_music.rl"
 					spn.oct--;}
 				
-#line 1705 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1705 "lex/parser_music.cpp"
 				
 				{
 #line 58 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_REL;}
 				
-#line 1711 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1711 "lex/parser_music.cpp"
 				
 				goto _st18;
 				_ctr44:
 				{
 #line 78 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 1719 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1719 "lex/parser_music.cpp"
 				
 				goto _st18;
 				_st18:
@@ -1743,9 +1743,9 @@ namespace ceammc {
 				_ctr46:
 				{
 #line 78 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 1749 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1749 "lex/parser_music.cpp"
 				
 				goto _st19;
 				_ctr45:
@@ -1753,13 +1753,13 @@ namespace ceammc {
 #line 57 "lex/ragel_music.rl"
 					spn.oct--;}
 				
-#line 1757 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1757 "lex/parser_music.cpp"
 				
 				{
 #line 58 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_REL;}
 				
-#line 1763 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1763 "lex/parser_music.cpp"
 				
 				goto _st19;
 				_st19:
@@ -1787,9 +1787,9 @@ namespace ceammc {
 				_ctr48:
 				{
 #line 78 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 1793 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1793 "lex/parser_music.cpp"
 				
 				goto _st20;
 				_ctr47:
@@ -1797,13 +1797,13 @@ namespace ceammc {
 #line 57 "lex/ragel_music.rl"
 					spn.oct--;}
 				
-#line 1801 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1801 "lex/parser_music.cpp"
 				
 				{
 #line 58 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_REL;}
 				
-#line 1807 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1807 "lex/parser_music.cpp"
 				
 				goto _st20;
 				_st20:
@@ -1831,9 +1831,9 @@ namespace ceammc {
 				_ctr50:
 				{
 #line 78 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 1837 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1837 "lex/parser_music.cpp"
 				
 				goto _st21;
 				_ctr49:
@@ -1841,13 +1841,13 @@ namespace ceammc {
 #line 57 "lex/ragel_music.rl"
 					spn.oct--;}
 				
-#line 1845 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1845 "lex/parser_music.cpp"
 				
 				{
 #line 58 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_REL;}
 				
-#line 1851 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1851 "lex/parser_music.cpp"
 				
 				goto _st21;
 				_st21:
@@ -1877,13 +1877,13 @@ namespace ceammc {
 #line 44 "lex/ragel_music.rl"
 					spn.pitch = (spn.note * 2) - (spn.note > 2);}
 				
-#line 1881 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1881 "lex/parser_music.cpp"
 				
 				{
 #line 39 "lex/ragel_music.rl"
 					spn.alt = -1;}
 				
-#line 1887 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1887 "lex/parser_music.cpp"
 				
 				goto _st22;
 				_ctr52:
@@ -1891,13 +1891,13 @@ namespace ceammc {
 #line 60 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_REL;}
 				
-#line 1895 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1895 "lex/parser_music.cpp"
 				
 				{
 #line 78 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 1901 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 1901 "lex/parser_music.cpp"
 				
 				goto _st22;
 				_st22:
@@ -2069,7 +2069,7 @@ namespace ceammc {
 			
 			
 			const bool ok = cs >= 
-#line 2073 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2073 "lex/parser_music.cpp"
 			8
 #line 132 "lex/parser_music.rl"
 			;
@@ -2104,7 +2104,7 @@ namespace ceammc {
 		}
 		
 		
-#line 2108 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2108 "lex/parser_music.cpp"
 		static const int pitch_start = 1;
 		static const int pitch_first_final = 2;
 		static const int pitch_error = 0;
@@ -2134,14 +2134,14 @@ namespace ceammc {
 			const char* p = str;
 			const char* pe = p + len;
 			const char* eof = pe;
-			int cat_ = 0;
-			AtomType type_;
+			
+			DECLARE_RAGEL_COMMON_VARS;
 			fsm::SpnData spn;
 			
 			reset();
 			
 			
-#line 2145 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2145 "lex/parser_music.cpp"
 			{
 				cs = (int)pitch_start;
 			}
@@ -2149,7 +2149,7 @@ namespace ceammc {
 #line 196 "lex/parser_music.rl"
 			
 			
-#line 2153 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2153 "lex/parser_music.cpp"
 			{
 				if ( p == pe )
 					goto _test_eof;
@@ -2205,13 +2205,13 @@ namespace ceammc {
 #line 81 "lex/ragel_music.rl"
 					spn.alt = 0; spn.oct = 0; spn.octtype = OCTAVE_REL; spn.dev = 0;}
 				
-#line 2209 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2209 "lex/parser_music.cpp"
 				
 				{
 #line 41 "lex/ragel_music.rl"
 					spn.note = 5;}
 				
-#line 2215 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2215 "lex/parser_music.cpp"
 				
 				goto _st2;
 				_ctr3:
@@ -2219,13 +2219,13 @@ namespace ceammc {
 #line 81 "lex/ragel_music.rl"
 					spn.alt = 0; spn.oct = 0; spn.octtype = OCTAVE_REL; spn.dev = 0;}
 				
-#line 2223 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2223 "lex/parser_music.cpp"
 				
 				{
 #line 42 "lex/ragel_music.rl"
 					spn.note = 6;}
 				
-#line 2229 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2229 "lex/parser_music.cpp"
 				
 				goto _st2;
 				_ctr4:
@@ -2233,13 +2233,13 @@ namespace ceammc {
 #line 81 "lex/ragel_music.rl"
 					spn.alt = 0; spn.oct = 0; spn.octtype = OCTAVE_REL; spn.dev = 0;}
 				
-#line 2237 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2237 "lex/parser_music.cpp"
 				
 				{
 #line 43 "lex/ragel_music.rl"
 					spn.note = ((( (*( p)))) - 'C');}
 				
-#line 2243 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2243 "lex/parser_music.cpp"
 				
 				goto _st2;
 				_ctr5:
@@ -2247,13 +2247,13 @@ namespace ceammc {
 #line 44 "lex/ragel_music.rl"
 					spn.pitch = (spn.note * 2) - (spn.note > 2);}
 				
-#line 2251 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2251 "lex/parser_music.cpp"
 				
 				{
 #line 82 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 2257 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2257 "lex/parser_music.cpp"
 				
 				goto _st2;
 				_st2:
@@ -2283,21 +2283,21 @@ namespace ceammc {
 #line 44 "lex/ragel_music.rl"
 					spn.pitch = (spn.note * 2) - (spn.note > 2);}
 				
-#line 2287 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2287 "lex/parser_music.cpp"
 				
 				{
 #line 37 "lex/ragel_music.rl"
 					spn.alt = 1;}
 				
-#line 2293 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2293 "lex/parser_music.cpp"
 				
 				goto _st3;
 				_ctr8:
 				{
 #line 82 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 2301 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2301 "lex/parser_music.cpp"
 				
 				goto _st3;
 				_st3:
@@ -2320,9 +2320,9 @@ namespace ceammc {
 				_ctr10:
 				{
 #line 82 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 2326 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2326 "lex/parser_music.cpp"
 				
 				goto _st4;
 				_ctr9:
@@ -2330,7 +2330,7 @@ namespace ceammc {
 #line 38 "lex/ragel_music.rl"
 					spn.alt = 2;}
 				
-#line 2334 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2334 "lex/parser_music.cpp"
 				
 				goto _st4;
 				_ctr12:
@@ -2338,7 +2338,7 @@ namespace ceammc {
 #line 40 "lex/ragel_music.rl"
 					spn.alt = -2;}
 				
-#line 2342 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2342 "lex/parser_music.cpp"
 				
 				goto _st4;
 				_st4:
@@ -2360,21 +2360,21 @@ namespace ceammc {
 #line 44 "lex/ragel_music.rl"
 					spn.pitch = (spn.note * 2) - (spn.note > 2);}
 				
-#line 2364 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2364 "lex/parser_music.cpp"
 				
 				{
 #line 39 "lex/ragel_music.rl"
 					spn.alt = -1;}
 				
-#line 2370 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2370 "lex/parser_music.cpp"
 				
 				goto _st5;
 				_ctr11:
 				{
 #line 82 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 2378 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2378 "lex/parser_music.cpp"
 				
 				goto _st5;
 				_st5:
@@ -2444,7 +2444,7 @@ namespace ceammc {
 			
 			
 			const bool ok = cs >= 
-#line 2448 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2448 "lex/parser_music.cpp"
 			2
 #line 199 "lex/parser_music.rl"
 			;
@@ -2467,7 +2467,7 @@ namespace ceammc {
 		}
 		
 		
-#line 2471 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2471 "lex/parser_music.cpp"
 		static const int notation_start = 1;
 		static const int notation_first_final = 15;
 		static const int notation_error = 0;
@@ -2498,15 +2498,15 @@ namespace ceammc {
 			const char* p = str;
 			const char* pe = p + len;
 			const char* eof = pe;
-			int cat_ = 0;
-			AtomType type_;
+			
+			DECLARE_RAGEL_COMMON_VARS;
 			fsm::NotationData note;
 			fsm::SpnData spn;
 			
 			reset();
 			
 			
-#line 2510 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2510 "lex/parser_music.cpp"
 			{
 				cs = (int)notation_start;
 			}
@@ -2514,7 +2514,7 @@ namespace ceammc {
 #line 253 "lex/parser_music.rl"
 			
 			
-#line 2518 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2518 "lex/parser_music.cpp"
 			{
 				if ( p == pe )
 					goto _test_eof;
@@ -2645,13 +2645,13 @@ namespace ceammc {
 #line 138 "lex/ragel_music.rl"
 					note.repeats = 0; }
 				
-#line 2649 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2649 "lex/parser_music.cpp"
 				
 				{
 #line 139 "lex/ragel_music.rl"
 					(note.repeats *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 2655 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2655 "lex/parser_music.cpp"
 				
 				goto _st2;
 				_ctr9:
@@ -2659,7 +2659,7 @@ namespace ceammc {
 #line 139 "lex/ragel_music.rl"
 					(note.repeats *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 2663 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2663 "lex/parser_music.cpp"
 				
 				goto _st2;
 				_st2:
@@ -2718,13 +2718,13 @@ namespace ceammc {
 #line 77 "lex/ragel_music.rl"
 					spn.alt = 0; spn.oct = 0; spn.octtype = OCTAVE_REL; spn.dev = 0;}
 				
-#line 2722 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2722 "lex/parser_music.cpp"
 				
 				{
 #line 41 "lex/ragel_music.rl"
 					spn.note = 5;}
 				
-#line 2728 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2728 "lex/parser_music.cpp"
 				
 				goto _st15;
 				_ctr4:
@@ -2732,13 +2732,13 @@ namespace ceammc {
 #line 77 "lex/ragel_music.rl"
 					spn.alt = 0; spn.oct = 0; spn.octtype = OCTAVE_REL; spn.dev = 0;}
 				
-#line 2736 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2736 "lex/parser_music.cpp"
 				
 				{
 #line 42 "lex/ragel_music.rl"
 					spn.note = 6;}
 				
-#line 2742 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2742 "lex/parser_music.cpp"
 				
 				goto _st15;
 				_ctr5:
@@ -2746,13 +2746,13 @@ namespace ceammc {
 #line 77 "lex/ragel_music.rl"
 					spn.alt = 0; spn.oct = 0; spn.octtype = OCTAVE_REL; spn.dev = 0;}
 				
-#line 2750 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2750 "lex/parser_music.cpp"
 				
 				{
 #line 43 "lex/ragel_music.rl"
 					spn.note = ((( (*( p)))) - 'C');}
 				
-#line 2756 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2756 "lex/parser_music.cpp"
 				
 				goto _st15;
 				_ctr31:
@@ -2760,31 +2760,31 @@ namespace ceammc {
 #line 44 "lex/ragel_music.rl"
 					spn.pitch = (spn.note * 2) - (spn.note > 2);}
 				
-#line 2764 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2764 "lex/parser_music.cpp"
 				
 				{
 #line 60 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_REL;}
 				
-#line 2770 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2770 "lex/parser_music.cpp"
 				
 				{
 #line 78 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 2776 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2776 "lex/parser_music.cpp"
 				
 				{
 #line 134 "lex/ragel_music.rl"
 					note.num = 1; note.den = 4; note.dots = 0; note.durtype = DURATION_REL;}
 				
-#line 2782 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2782 "lex/parser_music.cpp"
 				
 				{
 #line 135 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 2788 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2788 "lex/parser_music.cpp"
 				
 				goto _st15;
 				_st15:
@@ -2832,13 +2832,13 @@ namespace ceammc {
 #line 44 "lex/ragel_music.rl"
 					spn.pitch = (spn.note * 2) - (spn.note > 2);}
 				
-#line 2836 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2836 "lex/parser_music.cpp"
 				
 				{
 #line 37 "lex/ragel_music.rl"
 					spn.alt = 1;}
 				
-#line 2842 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2842 "lex/parser_music.cpp"
 				
 				goto _st16;
 				_ctr40:
@@ -2846,25 +2846,25 @@ namespace ceammc {
 #line 60 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_REL;}
 				
-#line 2850 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2850 "lex/parser_music.cpp"
 				
 				{
 #line 78 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 2856 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2856 "lex/parser_music.cpp"
 				
 				{
 #line 134 "lex/ragel_music.rl"
 					note.num = 1; note.den = 4; note.dots = 0; note.durtype = DURATION_REL;}
 				
-#line 2862 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2862 "lex/parser_music.cpp"
 				
 				{
 #line 135 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 2868 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2868 "lex/parser_music.cpp"
 				
 				goto _st16;
 				_st16:
@@ -2909,25 +2909,25 @@ namespace ceammc {
 #line 60 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_REL;}
 				
-#line 2913 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2913 "lex/parser_music.cpp"
 				
 				{
 #line 78 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 2919 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2919 "lex/parser_music.cpp"
 				
 				{
 #line 134 "lex/ragel_music.rl"
 					note.num = 1; note.den = 4; note.dots = 0; note.durtype = DURATION_REL;}
 				
-#line 2925 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2925 "lex/parser_music.cpp"
 				
 				{
 #line 135 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 2931 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2931 "lex/parser_music.cpp"
 				
 				goto _st17;
 				_ctr41:
@@ -2935,7 +2935,7 @@ namespace ceammc {
 #line 38 "lex/ragel_music.rl"
 					spn.alt = 2;}
 				
-#line 2939 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2939 "lex/parser_music.cpp"
 				
 				goto _st17;
 				_ctr92:
@@ -2943,7 +2943,7 @@ namespace ceammc {
 #line 40 "lex/ragel_music.rl"
 					spn.alt = -2;}
 				
-#line 2947 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2947 "lex/parser_music.cpp"
 				
 				goto _st17;
 				_st17:
@@ -2985,13 +2985,13 @@ namespace ceammc {
 #line 44 "lex/ragel_music.rl"
 					spn.pitch = (spn.note * 2) - (spn.note > 2);}
 				
-#line 2989 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2989 "lex/parser_music.cpp"
 				
 				{
 #line 60 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_REL;}
 				
-#line 2995 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 2995 "lex/parser_music.cpp"
 				
 				goto _st4;
 				_ctr42:
@@ -2999,7 +2999,7 @@ namespace ceammc {
 #line 60 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_REL;}
 				
-#line 3003 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3003 "lex/parser_music.cpp"
 				
 				goto _st4;
 				_ctr72:
@@ -3007,7 +3007,7 @@ namespace ceammc {
 #line 51 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_ABS;}
 				
-#line 3011 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3011 "lex/parser_music.cpp"
 				
 				goto _st4;
 				_st4:
@@ -3037,7 +3037,7 @@ namespace ceammc {
 #line 65 "lex/ragel_music.rl"
 					spn.sign = ((( (*( p))))=='-') ? -1 : 1;}
 				
-#line 3041 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3041 "lex/parser_music.cpp"
 				
 				goto _st5;
 				_st5:
@@ -3062,7 +3062,7 @@ namespace ceammc {
 #line 66 "lex/ragel_music.rl"
 					(spn.dev *= 10) += ((( (*( p)))) - '0');}
 				
-#line 3066 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3066 "lex/parser_music.cpp"
 				
 				goto _st6;
 				_st6:
@@ -3090,7 +3090,7 @@ namespace ceammc {
 #line 66 "lex/ragel_music.rl"
 					(spn.dev *= 10) += ((( (*( p)))) - '0');}
 				
-#line 3094 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3094 "lex/parser_music.cpp"
 				
 				goto _st7;
 				_st7:
@@ -3132,27 +3132,27 @@ namespace ceammc {
 #line 67 "lex/ragel_music.rl"
 					spn.dev *= spn.sign;}
 				
-#line 3136 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3136 "lex/parser_music.cpp"
 				
 				goto _st18;
 				_ctr49:
 				{
 #line 78 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 3144 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3144 "lex/parser_music.cpp"
 				
 				{
 #line 134 "lex/ragel_music.rl"
 					note.num = 1; note.den = 4; note.dots = 0; note.durtype = DURATION_REL;}
 				
-#line 3150 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3150 "lex/parser_music.cpp"
 				
 				{
 #line 135 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 3156 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3156 "lex/parser_music.cpp"
 				
 				goto _st18;
 				_st18:
@@ -3177,25 +3177,25 @@ namespace ceammc {
 #line 44 "lex/ragel_music.rl"
 					spn.pitch = (spn.note * 2) - (spn.note > 2);}
 				
-#line 3181 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3181 "lex/parser_music.cpp"
 				
 				{
 #line 60 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_REL;}
 				
-#line 3187 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3187 "lex/parser_music.cpp"
 				
 				{
 #line 78 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 3193 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3193 "lex/parser_music.cpp"
 				
 				{
 #line 134 "lex/ragel_music.rl"
 					note.num = 1; note.den = 4; note.dots = 0; note.durtype = DURATION_REL;}
 				
-#line 3199 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3199 "lex/parser_music.cpp"
 				
 				goto _st9;
 				_ctr47:
@@ -3203,33 +3203,33 @@ namespace ceammc {
 #line 60 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_REL;}
 				
-#line 3207 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3207 "lex/parser_music.cpp"
 				
 				{
 #line 78 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 3213 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3213 "lex/parser_music.cpp"
 				
 				{
 #line 134 "lex/ragel_music.rl"
 					note.num = 1; note.den = 4; note.dots = 0; note.durtype = DURATION_REL;}
 				
-#line 3219 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3219 "lex/parser_music.cpp"
 				
 				goto _st9;
 				_ctr50:
 				{
 #line 78 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 3227 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3227 "lex/parser_music.cpp"
 				
 				{
 #line 134 "lex/ragel_music.rl"
 					note.num = 1; note.den = 4; note.dots = 0; note.durtype = DURATION_REL;}
 				
-#line 3233 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3233 "lex/parser_music.cpp"
 				
 				goto _st9;
 				_ctr73:
@@ -3237,19 +3237,19 @@ namespace ceammc {
 #line 51 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_ABS;}
 				
-#line 3241 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3241 "lex/parser_music.cpp"
 				
 				{
 #line 78 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 3247 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3247 "lex/parser_music.cpp"
 				
 				{
 #line 134 "lex/ragel_music.rl"
 					note.num = 1; note.den = 4; note.dots = 0; note.durtype = DURATION_REL;}
 				
-#line 3253 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3253 "lex/parser_music.cpp"
 				
 				goto _st9;
 				_ctr94:
@@ -3257,7 +3257,7 @@ namespace ceammc {
 #line 134 "lex/ragel_music.rl"
 					note.num = 1; note.den = 4; note.dots = 0; note.durtype = DURATION_REL;}
 				
-#line 3261 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3261 "lex/parser_music.cpp"
 				
 				goto _st9;
 				_st9:
@@ -3307,13 +3307,13 @@ namespace ceammc {
 #line 105 "lex/ragel_music.rl"
 					note.num = 0; }
 				
-#line 3311 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3311 "lex/parser_music.cpp"
 				
 				{
 #line 106 "lex/ragel_music.rl"
 					(note.num *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 3317 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3317 "lex/parser_music.cpp"
 				
 				goto _st19;
 				_ctr51:
@@ -3321,19 +3321,19 @@ namespace ceammc {
 #line 103 "lex/ragel_music.rl"
 					note.den = 1; }
 				
-#line 3325 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3325 "lex/parser_music.cpp"
 				
 				{
 #line 101 "lex/ragel_music.rl"
 					note.durtype = DURATION_REL; }
 				
-#line 3331 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3331 "lex/parser_music.cpp"
 				
 				{
 #line 135 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 3337 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3337 "lex/parser_music.cpp"
 				
 				goto _st19;
 				_ctr52:
@@ -3341,7 +3341,7 @@ namespace ceammc {
 #line 106 "lex/ragel_music.rl"
 					(note.num *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 3345 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3345 "lex/parser_music.cpp"
 				
 				goto _st19;
 				_st19:
@@ -3386,13 +3386,13 @@ namespace ceammc {
 #line 107 "lex/ragel_music.rl"
 					note.den = 0; }
 				
-#line 3390 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3390 "lex/parser_music.cpp"
 				
 				{
 #line 108 "lex/ragel_music.rl"
 					(note.den *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 3396 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3396 "lex/parser_music.cpp"
 				
 				goto _st20;
 				_ctr53:
@@ -3400,13 +3400,13 @@ namespace ceammc {
 #line 101 "lex/ragel_music.rl"
 					note.durtype = DURATION_REL; }
 				
-#line 3404 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3404 "lex/parser_music.cpp"
 				
 				{
 #line 135 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 3410 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3410 "lex/parser_music.cpp"
 				
 				goto _st20;
 				_ctr54:
@@ -3414,7 +3414,7 @@ namespace ceammc {
 #line 108 "lex/ragel_music.rl"
 					(note.den *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 3418 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3418 "lex/parser_music.cpp"
 				
 				goto _st20;
 				_st20:
@@ -3456,13 +3456,13 @@ namespace ceammc {
 #line 107 "lex/ragel_music.rl"
 					note.den = 0; }
 				
-#line 3460 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3460 "lex/parser_music.cpp"
 				
 				{
 #line 108 "lex/ragel_music.rl"
 					(note.den *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 3466 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3466 "lex/parser_music.cpp"
 				
 				goto _st21;
 				_ctr56:
@@ -3470,7 +3470,7 @@ namespace ceammc {
 #line 108 "lex/ragel_music.rl"
 					(note.den *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 3474 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3474 "lex/parser_music.cpp"
 				
 				goto _st21;
 				_ctr55:
@@ -3478,19 +3478,19 @@ namespace ceammc {
 #line 102 "lex/ragel_music.rl"
 					note.num = 1; }
 				
-#line 3482 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3482 "lex/parser_music.cpp"
 				
 				{
 #line 101 "lex/ragel_music.rl"
 					note.durtype = DURATION_REL; }
 				
-#line 3488 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3488 "lex/parser_music.cpp"
 				
 				{
 #line 135 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 3494 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3494 "lex/parser_music.cpp"
 				
 				goto _st21;
 				_st21:
@@ -3515,25 +3515,25 @@ namespace ceammc {
 #line 105 "lex/ragel_music.rl"
 					note.num = 0; }
 				
-#line 3519 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3519 "lex/parser_music.cpp"
 				
 				{
 #line 106 "lex/ragel_music.rl"
 					(note.num *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 3525 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3525 "lex/parser_music.cpp"
 				
 				{
 #line 107 "lex/ragel_music.rl"
 					note.den = 0; }
 				
-#line 3531 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3531 "lex/parser_music.cpp"
 				
 				{
 #line 108 "lex/ragel_music.rl"
 					(note.den *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 3537 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3537 "lex/parser_music.cpp"
 				
 				goto _st22;
 				_ctr57:
@@ -3541,19 +3541,19 @@ namespace ceammc {
 #line 102 "lex/ragel_music.rl"
 					note.num = 1; }
 				
-#line 3545 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3545 "lex/parser_music.cpp"
 				
 				{
 #line 100 "lex/ragel_music.rl"
 					note.durtype = DURATION_ABS; }
 				
-#line 3551 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3551 "lex/parser_music.cpp"
 				
 				{
 #line 135 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 3557 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3557 "lex/parser_music.cpp"
 				
 				goto _st22;
 				_ctr59:
@@ -3561,13 +3561,13 @@ namespace ceammc {
 #line 106 "lex/ragel_music.rl"
 					(note.num *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 3565 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3565 "lex/parser_music.cpp"
 				
 				{
 #line 108 "lex/ragel_music.rl"
 					(note.den *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 3571 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3571 "lex/parser_music.cpp"
 				
 				goto _st22;
 				_st22:
@@ -3603,7 +3603,7 @@ namespace ceammc {
 #line 102 "lex/ragel_music.rl"
 					note.num = 1; }
 				
-#line 3607 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3607 "lex/parser_music.cpp"
 				
 				{
 #line 85 "lex/ragel_music.rl"
@@ -3621,7 +3621,7 @@ namespace ceammc {
 					}
 				}
 				
-#line 3625 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3625 "lex/parser_music.cpp"
 				
 				goto _st23;
 				_ctr61:
@@ -3629,13 +3629,13 @@ namespace ceammc {
 #line 100 "lex/ragel_music.rl"
 					note.durtype = DURATION_ABS; }
 				
-#line 3633 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3633 "lex/parser_music.cpp"
 				
 				{
 #line 135 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 3639 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3639 "lex/parser_music.cpp"
 				
 				goto _st23;
 				_ctr67:
@@ -3655,7 +3655,7 @@ namespace ceammc {
 					}
 				}
 				
-#line 3659 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3659 "lex/parser_music.cpp"
 				
 				goto _st23;
 				_st23:
@@ -3680,13 +3680,13 @@ namespace ceammc {
 #line 100 "lex/ragel_music.rl"
 					note.durtype = DURATION_ABS; }
 				
-#line 3684 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3684 "lex/parser_music.cpp"
 				
 				{
 #line 135 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 3690 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3690 "lex/parser_music.cpp"
 				
 				goto _st24;
 				_ctr62:
@@ -3706,7 +3706,7 @@ namespace ceammc {
 					}
 				}
 				
-#line 3710 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3710 "lex/parser_music.cpp"
 				
 				goto _st24;
 				_st24:
@@ -3731,13 +3731,13 @@ namespace ceammc {
 #line 100 "lex/ragel_music.rl"
 					note.durtype = DURATION_ABS; }
 				
-#line 3735 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3735 "lex/parser_music.cpp"
 				
 				{
 #line 135 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 3741 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3741 "lex/parser_music.cpp"
 				
 				goto _st25;
 				_ctr64:
@@ -3757,7 +3757,7 @@ namespace ceammc {
 					}
 				}
 				
-#line 3761 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3761 "lex/parser_music.cpp"
 				
 				goto _st25;
 				_st25:
@@ -3796,13 +3796,13 @@ namespace ceammc {
 #line 107 "lex/ragel_music.rl"
 					note.den = 0; }
 				
-#line 3800 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3800 "lex/parser_music.cpp"
 				
 				{
 #line 108 "lex/ragel_music.rl"
 					(note.den *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 3806 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3806 "lex/parser_music.cpp"
 				
 				goto _st26;
 				_ctr68:
@@ -3810,7 +3810,7 @@ namespace ceammc {
 #line 108 "lex/ragel_music.rl"
 					(note.den *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 3814 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3814 "lex/parser_music.cpp"
 				
 				goto _st26;
 				_ctr66:
@@ -3818,13 +3818,13 @@ namespace ceammc {
 #line 100 "lex/ragel_music.rl"
 					note.durtype = DURATION_ABS; }
 				
-#line 3822 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3822 "lex/parser_music.cpp"
 				
 				{
 #line 135 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 3828 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3828 "lex/parser_music.cpp"
 				
 				goto _st26;
 				_st26:
@@ -3857,7 +3857,7 @@ namespace ceammc {
 #line 102 "lex/ragel_music.rl"
 					note.num = 1; }
 				
-#line 3861 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3861 "lex/parser_music.cpp"
 				
 				goto _st27;
 				_ctr70:
@@ -3865,13 +3865,13 @@ namespace ceammc {
 #line 100 "lex/ragel_music.rl"
 					note.durtype = DURATION_ABS; }
 				
-#line 3869 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3869 "lex/parser_music.cpp"
 				
 				{
 #line 135 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 3875 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3875 "lex/parser_music.cpp"
 				
 				goto _st27;
 				_st27:
@@ -3896,13 +3896,13 @@ namespace ceammc {
 #line 44 "lex/ragel_music.rl"
 					spn.pitch = (spn.note * 2) - (spn.note > 2);}
 				
-#line 3900 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3900 "lex/parser_music.cpp"
 				
 				{
 #line 60 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_REL;}
 				
-#line 3906 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3906 "lex/parser_music.cpp"
 				
 				goto _st14;
 				_ctr43:
@@ -3910,7 +3910,7 @@ namespace ceammc {
 #line 60 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_REL;}
 				
-#line 3914 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3914 "lex/parser_music.cpp"
 				
 				goto _st14;
 				_st14:
@@ -3935,7 +3935,7 @@ namespace ceammc {
 #line 48 "lex/ragel_music.rl"
 					spn.oct = -1;}
 				
-#line 3939 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3939 "lex/parser_music.cpp"
 				
 				goto _st28;
 				_ctr35:
@@ -3943,19 +3943,19 @@ namespace ceammc {
 #line 44 "lex/ragel_music.rl"
 					spn.pitch = (spn.note * 2) - (spn.note > 2);}
 				
-#line 3947 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3947 "lex/parser_music.cpp"
 				
 				{
 #line 60 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_REL;}
 				
-#line 3953 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3953 "lex/parser_music.cpp"
 				
 				{
 #line 49 "lex/ragel_music.rl"
 					spn.oct = ((( (*( p)))) - '0');}
 				
-#line 3959 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3959 "lex/parser_music.cpp"
 				
 				goto _st28;
 				_ctr44:
@@ -3963,13 +3963,13 @@ namespace ceammc {
 #line 60 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_REL;}
 				
-#line 3967 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3967 "lex/parser_music.cpp"
 				
 				{
 #line 49 "lex/ragel_music.rl"
 					spn.oct = ((( (*( p)))) - '0');}
 				
-#line 3973 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3973 "lex/parser_music.cpp"
 				
 				goto _st28;
 				_ctr71:
@@ -3977,25 +3977,25 @@ namespace ceammc {
 #line 51 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_ABS;}
 				
-#line 3981 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3981 "lex/parser_music.cpp"
 				
 				{
 #line 78 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 3987 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3987 "lex/parser_music.cpp"
 				
 				{
 #line 134 "lex/ragel_music.rl"
 					note.num = 1; note.den = 4; note.dots = 0; note.durtype = DURATION_REL;}
 				
-#line 3993 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3993 "lex/parser_music.cpp"
 				
 				{
 #line 135 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 3999 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 3999 "lex/parser_music.cpp"
 				
 				goto _st28;
 				_st28:
@@ -4025,25 +4025,25 @@ namespace ceammc {
 #line 44 "lex/ragel_music.rl"
 					spn.pitch = (spn.note * 2) - (spn.note > 2);}
 				
-#line 4029 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4029 "lex/parser_music.cpp"
 				
 				{
 #line 60 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_REL;}
 				
-#line 4035 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4035 "lex/parser_music.cpp"
 				
 				{
 #line 55 "lex/ragel_music.rl"
 					spn.oct++;}
 				
-#line 4041 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4041 "lex/parser_music.cpp"
 				
 				{
 #line 58 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_REL;}
 				
-#line 4047 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4047 "lex/parser_music.cpp"
 				
 				goto _st29;
 				_ctr45:
@@ -4051,39 +4051,39 @@ namespace ceammc {
 #line 60 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_REL;}
 				
-#line 4055 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4055 "lex/parser_music.cpp"
 				
 				{
 #line 55 "lex/ragel_music.rl"
 					spn.oct++;}
 				
-#line 4061 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4061 "lex/parser_music.cpp"
 				
 				{
 #line 58 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_REL;}
 				
-#line 4067 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4067 "lex/parser_music.cpp"
 				
 				goto _st29;
 				_ctr74:
 				{
 #line 78 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 4075 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4075 "lex/parser_music.cpp"
 				
 				{
 #line 134 "lex/ragel_music.rl"
 					note.num = 1; note.den = 4; note.dots = 0; note.durtype = DURATION_REL;}
 				
-#line 4081 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4081 "lex/parser_music.cpp"
 				
 				{
 #line 135 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 4087 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4087 "lex/parser_music.cpp"
 				
 				goto _st29;
 				_st29:
@@ -4114,21 +4114,21 @@ namespace ceammc {
 				_ctr76:
 				{
 #line 78 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 4120 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4120 "lex/parser_music.cpp"
 				
 				{
 #line 134 "lex/ragel_music.rl"
 					note.num = 1; note.den = 4; note.dots = 0; note.durtype = DURATION_REL;}
 				
-#line 4126 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4126 "lex/parser_music.cpp"
 				
 				{
 #line 135 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 4132 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4132 "lex/parser_music.cpp"
 				
 				goto _st30;
 				_ctr75:
@@ -4136,13 +4136,13 @@ namespace ceammc {
 #line 55 "lex/ragel_music.rl"
 					spn.oct++;}
 				
-#line 4140 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4140 "lex/parser_music.cpp"
 				
 				{
 #line 58 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_REL;}
 				
-#line 4146 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4146 "lex/parser_music.cpp"
 				
 				goto _st30;
 				_st30:
@@ -4173,21 +4173,21 @@ namespace ceammc {
 				_ctr78:
 				{
 #line 78 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 4179 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4179 "lex/parser_music.cpp"
 				
 				{
 #line 134 "lex/ragel_music.rl"
 					note.num = 1; note.den = 4; note.dots = 0; note.durtype = DURATION_REL;}
 				
-#line 4185 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4185 "lex/parser_music.cpp"
 				
 				{
 #line 135 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 4191 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4191 "lex/parser_music.cpp"
 				
 				goto _st31;
 				_ctr77:
@@ -4195,13 +4195,13 @@ namespace ceammc {
 #line 55 "lex/ragel_music.rl"
 					spn.oct++;}
 				
-#line 4199 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4199 "lex/parser_music.cpp"
 				
 				{
 #line 58 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_REL;}
 				
-#line 4205 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4205 "lex/parser_music.cpp"
 				
 				goto _st31;
 				_st31:
@@ -4232,21 +4232,21 @@ namespace ceammc {
 				_ctr80:
 				{
 #line 78 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 4238 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4238 "lex/parser_music.cpp"
 				
 				{
 #line 134 "lex/ragel_music.rl"
 					note.num = 1; note.den = 4; note.dots = 0; note.durtype = DURATION_REL;}
 				
-#line 4244 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4244 "lex/parser_music.cpp"
 				
 				{
 #line 135 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 4250 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4250 "lex/parser_music.cpp"
 				
 				goto _st32;
 				_ctr79:
@@ -4254,13 +4254,13 @@ namespace ceammc {
 #line 55 "lex/ragel_music.rl"
 					spn.oct++;}
 				
-#line 4258 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4258 "lex/parser_music.cpp"
 				
 				{
 #line 58 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_REL;}
 				
-#line 4264 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4264 "lex/parser_music.cpp"
 				
 				goto _st32;
 				_st32:
@@ -4291,21 +4291,21 @@ namespace ceammc {
 				_ctr82:
 				{
 #line 78 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 4297 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4297 "lex/parser_music.cpp"
 				
 				{
 #line 134 "lex/ragel_music.rl"
 					note.num = 1; note.den = 4; note.dots = 0; note.durtype = DURATION_REL;}
 				
-#line 4303 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4303 "lex/parser_music.cpp"
 				
 				{
 #line 135 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 4309 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4309 "lex/parser_music.cpp"
 				
 				goto _st33;
 				_ctr81:
@@ -4313,13 +4313,13 @@ namespace ceammc {
 #line 55 "lex/ragel_music.rl"
 					spn.oct++;}
 				
-#line 4317 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4317 "lex/parser_music.cpp"
 				
 				{
 #line 58 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_REL;}
 				
-#line 4323 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4323 "lex/parser_music.cpp"
 				
 				goto _st33;
 				_ctr90:
@@ -4327,13 +4327,13 @@ namespace ceammc {
 #line 57 "lex/ragel_music.rl"
 					spn.oct--;}
 				
-#line 4331 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4331 "lex/parser_music.cpp"
 				
 				{
 #line 58 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_REL;}
 				
-#line 4337 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4337 "lex/parser_music.cpp"
 				
 				goto _st33;
 				_st33:
@@ -4363,25 +4363,25 @@ namespace ceammc {
 #line 44 "lex/ragel_music.rl"
 					spn.pitch = (spn.note * 2) - (spn.note > 2);}
 				
-#line 4367 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4367 "lex/parser_music.cpp"
 				
 				{
 #line 60 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_REL;}
 				
-#line 4373 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4373 "lex/parser_music.cpp"
 				
 				{
 #line 57 "lex/ragel_music.rl"
 					spn.oct--;}
 				
-#line 4379 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4379 "lex/parser_music.cpp"
 				
 				{
 #line 58 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_REL;}
 				
-#line 4385 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4385 "lex/parser_music.cpp"
 				
 				goto _st34;
 				_ctr46:
@@ -4389,39 +4389,39 @@ namespace ceammc {
 #line 60 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_REL;}
 				
-#line 4393 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4393 "lex/parser_music.cpp"
 				
 				{
 #line 57 "lex/ragel_music.rl"
 					spn.oct--;}
 				
-#line 4399 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4399 "lex/parser_music.cpp"
 				
 				{
 #line 58 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_REL;}
 				
-#line 4405 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4405 "lex/parser_music.cpp"
 				
 				goto _st34;
 				_ctr83:
 				{
 #line 78 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 4413 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4413 "lex/parser_music.cpp"
 				
 				{
 #line 134 "lex/ragel_music.rl"
 					note.num = 1; note.den = 4; note.dots = 0; note.durtype = DURATION_REL;}
 				
-#line 4419 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4419 "lex/parser_music.cpp"
 				
 				{
 #line 135 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 4425 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4425 "lex/parser_music.cpp"
 				
 				goto _st34;
 				_st34:
@@ -4452,21 +4452,21 @@ namespace ceammc {
 				_ctr85:
 				{
 #line 78 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 4458 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4458 "lex/parser_music.cpp"
 				
 				{
 #line 134 "lex/ragel_music.rl"
 					note.num = 1; note.den = 4; note.dots = 0; note.durtype = DURATION_REL;}
 				
-#line 4464 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4464 "lex/parser_music.cpp"
 				
 				{
 #line 135 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 4470 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4470 "lex/parser_music.cpp"
 				
 				goto _st35;
 				_ctr84:
@@ -4474,13 +4474,13 @@ namespace ceammc {
 #line 57 "lex/ragel_music.rl"
 					spn.oct--;}
 				
-#line 4478 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4478 "lex/parser_music.cpp"
 				
 				{
 #line 58 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_REL;}
 				
-#line 4484 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4484 "lex/parser_music.cpp"
 				
 				goto _st35;
 				_st35:
@@ -4511,21 +4511,21 @@ namespace ceammc {
 				_ctr87:
 				{
 #line 78 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 4517 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4517 "lex/parser_music.cpp"
 				
 				{
 #line 134 "lex/ragel_music.rl"
 					note.num = 1; note.den = 4; note.dots = 0; note.durtype = DURATION_REL;}
 				
-#line 4523 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4523 "lex/parser_music.cpp"
 				
 				{
 #line 135 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 4529 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4529 "lex/parser_music.cpp"
 				
 				goto _st36;
 				_ctr86:
@@ -4533,13 +4533,13 @@ namespace ceammc {
 #line 57 "lex/ragel_music.rl"
 					spn.oct--;}
 				
-#line 4537 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4537 "lex/parser_music.cpp"
 				
 				{
 #line 58 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_REL;}
 				
-#line 4543 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4543 "lex/parser_music.cpp"
 				
 				goto _st36;
 				_st36:
@@ -4570,21 +4570,21 @@ namespace ceammc {
 				_ctr89:
 				{
 #line 78 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 4576 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4576 "lex/parser_music.cpp"
 				
 				{
 #line 134 "lex/ragel_music.rl"
 					note.num = 1; note.den = 4; note.dots = 0; note.durtype = DURATION_REL;}
 				
-#line 4582 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4582 "lex/parser_music.cpp"
 				
 				{
 #line 135 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 4588 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4588 "lex/parser_music.cpp"
 				
 				goto _st37;
 				_ctr88:
@@ -4592,13 +4592,13 @@ namespace ceammc {
 #line 57 "lex/ragel_music.rl"
 					spn.oct--;}
 				
-#line 4596 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4596 "lex/parser_music.cpp"
 				
 				{
 #line 58 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_REL;}
 				
-#line 4602 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4602 "lex/parser_music.cpp"
 				
 				goto _st37;
 				_st37:
@@ -4631,13 +4631,13 @@ namespace ceammc {
 #line 44 "lex/ragel_music.rl"
 					spn.pitch = (spn.note * 2) - (spn.note > 2);}
 				
-#line 4635 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4635 "lex/parser_music.cpp"
 				
 				{
 #line 39 "lex/ragel_music.rl"
 					spn.alt = -1;}
 				
-#line 4641 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4641 "lex/parser_music.cpp"
 				
 				goto _st38;
 				_ctr91:
@@ -4645,25 +4645,25 @@ namespace ceammc {
 #line 60 "lex/ragel_music.rl"
 					spn.octtype = OCTAVE_REL;}
 				
-#line 4649 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4649 "lex/parser_music.cpp"
 				
 				{
 #line 78 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 4655 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4655 "lex/parser_music.cpp"
 				
 				{
 #line 134 "lex/ragel_music.rl"
 					note.num = 1; note.den = 4; note.dots = 0; note.durtype = DURATION_REL;}
 				
-#line 4661 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4661 "lex/parser_music.cpp"
 				
 				{
 #line 135 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 4667 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4667 "lex/parser_music.cpp"
 				
 				goto _st38;
 				_st38:
@@ -4708,7 +4708,7 @@ namespace ceammc {
 #line 131 "lex/ragel_music.rl"
 					note.rest = 1;}
 				
-#line 4712 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4712 "lex/parser_music.cpp"
 				
 				goto _st39;
 				_ctr93:
@@ -4716,13 +4716,13 @@ namespace ceammc {
 #line 134 "lex/ragel_music.rl"
 					note.num = 1; note.den = 4; note.dots = 0; note.durtype = DURATION_REL;}
 				
-#line 4720 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4720 "lex/parser_music.cpp"
 				
 				{
 #line 135 "lex/ragel_music.rl"
-					cat_ = CAT_UNIT; type_ = TYPE_SPN;}
+					ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 				
-#line 4726 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4726 "lex/parser_music.cpp"
 				
 				goto _st39;
 				_st39:
@@ -4962,7 +4962,7 @@ namespace ceammc {
 			
 			
 			const bool ok = cs >= 
-#line 4966 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 4966 "lex/parser_music.cpp"
 			15
 #line 256 "lex/parser_music.rl"
 			;
@@ -5002,7 +5002,7 @@ namespace ceammc {
 		}
 		
 		
-#line 5006 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 5006 "lex/parser_music.cpp"
 		static const int duration_start = 1;
 		static const int duration_first_final = 4;
 		static const int duration_error = 0;
@@ -5039,7 +5039,7 @@ namespace ceammc {
 			reset();
 			
 			
-#line 5043 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 5043 "lex/parser_music.cpp"
 			{
 				cs = (int)duration_start;
 			}
@@ -5047,7 +5047,7 @@ namespace ceammc {
 #line 325 "lex/parser_music.rl"
 			
 			
-#line 5051 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 5051 "lex/parser_music.cpp"
 			{
 				if ( p == pe )
 					goto _test_eof;
@@ -5102,25 +5102,25 @@ namespace ceammc {
 #line 105 "lex/ragel_music.rl"
 					note.num = 0; }
 				
-#line 5106 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 5106 "lex/parser_music.cpp"
 				
 				{
 #line 106 "lex/ragel_music.rl"
 					(note.num *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 5112 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 5112 "lex/parser_music.cpp"
 				
 				{
 #line 107 "lex/ragel_music.rl"
 					note.den = 0; }
 				
-#line 5118 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 5118 "lex/parser_music.cpp"
 				
 				{
 #line 108 "lex/ragel_music.rl"
 					(note.den *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 5124 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 5124 "lex/parser_music.cpp"
 				
 				goto _st4;
 				_ctr7:
@@ -5128,13 +5128,13 @@ namespace ceammc {
 #line 102 "lex/ragel_music.rl"
 					note.num = 1; }
 				
-#line 5132 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 5132 "lex/parser_music.cpp"
 				
 				{
 #line 100 "lex/ragel_music.rl"
 					note.durtype = DURATION_ABS; }
 				
-#line 5138 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 5138 "lex/parser_music.cpp"
 				
 				goto _st4;
 				_ctr9:
@@ -5142,13 +5142,13 @@ namespace ceammc {
 #line 106 "lex/ragel_music.rl"
 					(note.num *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 5146 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 5146 "lex/parser_music.cpp"
 				
 				{
 #line 108 "lex/ragel_music.rl"
 					(note.den *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 5152 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 5152 "lex/parser_music.cpp"
 				
 				goto _st4;
 				_st4:
@@ -5193,7 +5193,7 @@ namespace ceammc {
 #line 104 "lex/ragel_music.rl"
 					note.repeats = note.num; }
 				
-#line 5197 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 5197 "lex/parser_music.cpp"
 				
 				p+= 1;
 				if ( p == pe )
@@ -5210,25 +5210,25 @@ namespace ceammc {
 #line 105 "lex/ragel_music.rl"
 					note.num = 0; }
 				
-#line 5214 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 5214 "lex/parser_music.cpp"
 				
 				{
 #line 106 "lex/ragel_music.rl"
 					(note.num *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 5220 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 5220 "lex/parser_music.cpp"
 				
 				{
 #line 107 "lex/ragel_music.rl"
 					note.den = 0; }
 				
-#line 5226 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 5226 "lex/parser_music.cpp"
 				
 				{
 #line 108 "lex/ragel_music.rl"
 					(note.den *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 5232 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 5232 "lex/parser_music.cpp"
 				
 				goto _st5;
 				_ctr11:
@@ -5236,13 +5236,13 @@ namespace ceammc {
 #line 102 "lex/ragel_music.rl"
 					note.num = 1; }
 				
-#line 5240 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 5240 "lex/parser_music.cpp"
 				
 				{
 #line 100 "lex/ragel_music.rl"
 					note.durtype = DURATION_ABS; }
 				
-#line 5246 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 5246 "lex/parser_music.cpp"
 				
 				goto _st5;
 				_ctr12:
@@ -5250,13 +5250,13 @@ namespace ceammc {
 #line 106 "lex/ragel_music.rl"
 					(note.num *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 5254 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 5254 "lex/parser_music.cpp"
 				
 				{
 #line 108 "lex/ragel_music.rl"
 					(note.den *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 5260 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 5260 "lex/parser_music.cpp"
 				
 				goto _st5;
 				_st5:
@@ -5292,7 +5292,7 @@ namespace ceammc {
 #line 102 "lex/ragel_music.rl"
 					note.num = 1; }
 				
-#line 5296 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 5296 "lex/parser_music.cpp"
 				
 				{
 #line 85 "lex/ragel_music.rl"
@@ -5310,7 +5310,7 @@ namespace ceammc {
 					}
 				}
 				
-#line 5314 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 5314 "lex/parser_music.cpp"
 				
 				goto _st6;
 				_ctr13:
@@ -5318,7 +5318,7 @@ namespace ceammc {
 #line 100 "lex/ragel_music.rl"
 					note.durtype = DURATION_ABS; }
 				
-#line 5322 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 5322 "lex/parser_music.cpp"
 				
 				goto _st6;
 				_ctr19:
@@ -5338,7 +5338,7 @@ namespace ceammc {
 					}
 				}
 				
-#line 5342 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 5342 "lex/parser_music.cpp"
 				
 				goto _st6;
 				_st6:
@@ -5363,7 +5363,7 @@ namespace ceammc {
 #line 100 "lex/ragel_music.rl"
 					note.durtype = DURATION_ABS; }
 				
-#line 5367 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 5367 "lex/parser_music.cpp"
 				
 				goto _st7;
 				_ctr14:
@@ -5383,7 +5383,7 @@ namespace ceammc {
 					}
 				}
 				
-#line 5387 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 5387 "lex/parser_music.cpp"
 				
 				goto _st7;
 				_st7:
@@ -5408,7 +5408,7 @@ namespace ceammc {
 #line 100 "lex/ragel_music.rl"
 					note.durtype = DURATION_ABS; }
 				
-#line 5412 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 5412 "lex/parser_music.cpp"
 				
 				goto _st8;
 				_ctr16:
@@ -5428,7 +5428,7 @@ namespace ceammc {
 					}
 				}
 				
-#line 5432 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 5432 "lex/parser_music.cpp"
 				
 				goto _st8;
 				_st8:
@@ -5467,13 +5467,13 @@ namespace ceammc {
 #line 107 "lex/ragel_music.rl"
 					note.den = 0; }
 				
-#line 5471 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 5471 "lex/parser_music.cpp"
 				
 				{
 #line 108 "lex/ragel_music.rl"
 					(note.den *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 5477 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 5477 "lex/parser_music.cpp"
 				
 				goto _st9;
 				_ctr18:
@@ -5481,7 +5481,7 @@ namespace ceammc {
 #line 100 "lex/ragel_music.rl"
 					note.durtype = DURATION_ABS; }
 				
-#line 5485 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 5485 "lex/parser_music.cpp"
 				
 				goto _st9;
 				_ctr20:
@@ -5489,7 +5489,7 @@ namespace ceammc {
 #line 108 "lex/ragel_music.rl"
 					(note.den *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 5493 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 5493 "lex/parser_music.cpp"
 				
 				goto _st9;
 				_st9:
@@ -5522,7 +5522,7 @@ namespace ceammc {
 #line 102 "lex/ragel_music.rl"
 					note.num = 1; }
 				
-#line 5526 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 5526 "lex/parser_music.cpp"
 				
 				goto _st10;
 				_ctr22:
@@ -5530,7 +5530,7 @@ namespace ceammc {
 #line 100 "lex/ragel_music.rl"
 					note.durtype = DURATION_ABS; }
 				
-#line 5534 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 5534 "lex/parser_music.cpp"
 				
 				goto _st10;
 				_st10:
@@ -5625,7 +5625,7 @@ namespace ceammc {
 			
 			
 			const bool ok = cs >= 
-#line 5629 "/Users/serge/work/music/pure-data/ceammc/ext/src/lib/lex/parser_music.cpp"
+#line 5629 "lex/parser_music.cpp"
 			4
 #line 328 "lex/parser_music.rl"
 			;

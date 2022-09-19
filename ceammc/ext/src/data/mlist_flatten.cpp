@@ -20,9 +20,9 @@ MListFlatten::MListFlatten(const PdArgs& args)
     createOutlet();
 }
 
-void MListFlatten::onList(const AtomList& lst)
+void MListFlatten::onList(const AtomListView& lv)
 {
-    DataTypeMList ml(lst);
+    DataTypeMList ml(lv);
     listTo(0, ml.flatten().data());
 }
 

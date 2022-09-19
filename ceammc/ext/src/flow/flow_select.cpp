@@ -126,22 +126,22 @@ void FlowSelect::onSymbol(t_symbol* s)
     }
 }
 
-void FlowSelect::onList(const AtomList& l)
+void FlowSelect::onList(const AtomListView& lv)
 {
     const size_t N = patterns_->data.size();
     bool res[N];
     std::fill(res, res + N, false);
 
-    if (l.empty())
+    if (lv.empty())
         return;
-    else if (l.isFloat())
-        return onFloat(l[0].asT<t_float>());
-    else if (l.isSymbol())
-        return onSymbol(l[0].asT<t_symbol*>());
+    else if (lv.isFloat())
+        return onFloat(lv[0].asT<t_float>());
+    else if (lv.isSymbol())
+        return onSymbol(lv[0].asT<t_symbol*>());
     else {
-        if (!match(l[0], &res[0])) {
-            OBJ_ERR << "no match: " << N << " L" << l;
-            return listTo(N, l);
+        if (!match(lv[0], &res[0])) {
+            OBJ_ERR << "no match: " << N << " L" << lv;
+            return listTo(N, lv);
         }
 
         const bool kv = keep_value_->value();
@@ -150,7 +150,7 @@ void FlowSelect::onList(const AtomList& l)
             const auto idx = i - 1;
 
             if (res[idx])
-                kv ? listTo(idx, l) : bangTo(idx);
+                kv ? listTo(idx, lv) : bangTo(idx);
         }
     }
 }

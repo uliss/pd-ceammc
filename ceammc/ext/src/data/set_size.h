@@ -17,10 +17,12 @@
 #include "ceammc_object.h"
 #include "datatype_set.h"
 
+using namespace ceammc;
+
 class SetSize : public BaseObject {
 public:
     SetSize(const PdArgs& a);
-    void onList(const AtomList& l) override;
+    void onList(const AtomListView& lv) override;
     void onDataT(const SetAtom& set);
 };
 

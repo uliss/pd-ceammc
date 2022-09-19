@@ -127,15 +127,15 @@ void ArrayPlot::onFloat(t_float sample)
         done();
 }
 
-void ArrayPlot::onList(const AtomList& lst)
+void ArrayPlot::onList(const AtomListView& lv)
 {
-    if (lst.empty())
+    if (lv.empty())
         return;
 
     if (!checkArray(true))
         return;
 
-    const size_t N = lst.size();
+    const size_t N = lv.size();
     if (!resizeArray(N))
         return;
 
@@ -143,7 +143,7 @@ void ArrayPlot::onList(const AtomList& lst)
     const auto ymin = ymin_->value();
     const auto ymax = ymax_->value();
 
-    for (auto& a : lst) {
+    for (auto& a : lv) {
         auto s = processSample(a.asFloat(), ymin, ymax, yauto);
         plotSample(s);
     }

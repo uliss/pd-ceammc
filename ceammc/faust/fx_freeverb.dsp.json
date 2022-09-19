@@ -1,20 +1,21 @@
 {
 	"name": "fx.freeverb",
 	"filename": "fx_freeverb.dsp",
-	"version": "2.37.3",
-	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0",
+	"version": "2.44.1",
+	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn fx_freeverb -scn fx_freeverb_dsp -es 1 -mcd 16 -single -ftz 0",
 	"library_list": ["/Users/serge/work/music/pure-data/ceammc/faust/ceammc.lib","/usr/local/share/faust/signals.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib","/usr/local/share/faust/reverbs.lib","/usr/local/share/faust/filters.lib","/usr/local/share/faust/delays.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc_ui.lib"],
 	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
 	"inputs": 1,
 	"outputs": 1,
 	"meta": [ 
+		{ "basics.lib/bypass1:author": "Julius Smith" },
 		{ "basics.lib/name": "Faust Basic Element Library" },
-		{ "basics.lib/version": "0.2" },
+		{ "basics.lib/version": "0.8" },
 		{ "ceammc.lib/name": "Ceammc PureData misc utils" },
 		{ "ceammc.lib/version": "0.1.2" },
 		{ "ceammc_ui.lib/name": "CEAMMC faust default UI elements" },
 		{ "ceammc_ui.lib/version": "0.1.2" },
-		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0" },
+		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn fx_freeverb -scn fx_freeverb_dsp -es 1 -mcd 16 -single -ftz 0" },
 		{ "delays.lib/name": "Faust Delay Library" },
 		{ "delays.lib/version": "0.1" },
 		{ "filename": "fx_freeverb.dsp" },
@@ -32,10 +33,11 @@
 		{ "name": "fx.freeverb" },
 		{ "platform.lib/name": "Generic Platform Library" },
 		{ "platform.lib/version": "0.2" },
+		{ "reverbs.lib/mono_freeverb:author": "Romain Michon" },
 		{ "reverbs.lib/name": "Faust Reverb Library" },
 		{ "reverbs.lib/version": "0.2" },
 		{ "signals.lib/name": "Faust Signal Routing Library" },
-		{ "signals.lib/version": "0.1" }
+		{ "signals.lib/version": "0.3" }
 	],
 	"ui": [ 
 		{
@@ -45,11 +47,13 @@
 				{
 					"type": "checkbox",
 					"label": "bypass",
+					"shortname": "bypass",
 					"address": "/fx.freeverb/bypass"
 				},
 				{
 					"type": "hslider",
 					"label": "damp",
+					"shortname": "damp",
 					"address": "/fx.freeverb/damp",
 					"meta": [
 						{ "style": "knob" }
@@ -62,6 +66,7 @@
 				{
 					"type": "hslider",
 					"label": "drywet",
+					"shortname": "drywet",
 					"address": "/fx.freeverb/drywet",
 					"meta": [
 						{ "style": "knob" }
@@ -74,6 +79,7 @@
 				{
 					"type": "hslider",
 					"label": "fr_damp",
+					"shortname": "fr_damp",
 					"address": "/fx.freeverb/fr_damp",
 					"meta": [
 						{ "style": "knob" }
@@ -86,6 +92,7 @@
 				{
 					"type": "hslider",
 					"label": "fr_room",
+					"shortname": "fr_room",
 					"address": "/fx.freeverb/fr_room",
 					"meta": [
 						{ "style": "knob" }
@@ -98,6 +105,7 @@
 				{
 					"type": "hslider",
 					"label": "fr_time",
+					"shortname": "fr_time",
 					"address": "/fx.freeverb/fr_time",
 					"meta": [
 						{ "style": "knob" },
@@ -111,6 +119,7 @@
 				{
 					"type": "checkbox",
 					"label": "freeze",
+					"shortname": "freeze",
 					"address": "/fx.freeverb/freeze",
 					"meta": [
 						{ "type": "bool" }
@@ -119,6 +128,7 @@
 				{
 					"type": "hslider",
 					"label": "room",
+					"shortname": "room",
 					"address": "/fx.freeverb/room",
 					"meta": [
 						{ "stye": "knob" }

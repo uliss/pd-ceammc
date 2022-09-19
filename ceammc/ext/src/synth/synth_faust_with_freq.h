@@ -23,10 +23,7 @@ using namespace ceammc;
 template <class T>
 class SynthWithFreq : public T {
 public:
-    static t_symbol* PROP_PITCH;
-    static t_symbol* PROP_GATE;
-    static t_symbol* PROP_GAIN;
-    static t_symbol* SYM_NOTE;
+    t_symbol* SYM_NOTE;
 
 protected:
     ceammc::faust::UIProperty* pitch_;
@@ -35,8 +32,9 @@ protected:
 public:
     SynthWithFreq(const PdArgs& args)
         : T(args)
-        , pitch_(static_cast<ceammc::faust::UIProperty*>(T::property(PROP_PITCH)))
-        , gate_(static_cast<ceammc::faust::UIProperty*>(T::property(PROP_GATE)))
+        , SYM_NOTE(gensym("note"))
+        , pitch_(static_cast<ceammc::faust::UIProperty*>(T::property(gensym("@pitch"))))
+        , gate_(static_cast<ceammc::faust::UIProperty*>(T::property(gensym("@gate"))))
     {
         if (!pitch_ || !gate_)
             OBJ_ERR << "dev error: @pitch and @gate property not found";
@@ -51,14 +49,14 @@ public:
                 ->setUnits(PropValueUnits::HZ);
     }
 
-    void onList(const AtomList& lst) override
+    void onList(const AtomListView& lv) override
     {
-        if (lst.size() != 2) {
-            OBJ_ERR << "list: NOTE VEL expected, got: " << lst;
+        if (lv.size() != 2) {
+            OBJ_ERR << "list: NOTE VEL expected, got: " << lv;
             return;
         }
 
-        m_note(SYM_NOTE, lst.view());
+        m_note(SYM_NOTE, lv);
     }
 
     const char* annotateInlet(size_t) const override
@@ -102,23 +100,6 @@ public:
         pitch_->setValue(note, true);
         gate_->setValue(convert::lin2lin_clip<t_float, 0, 127>(vel, 0, 1));
     }
-
-    static void initSymTab()
-    {
-        PROP_PITCH = gensym("@pitch");
-        PROP_GATE = gensym("@gate");
-        PROP_GAIN = gensym("@gain");
-        SYM_NOTE = gensym("note");
-    }
 };
-
-template <class T>
-t_symbol* SynthWithFreq<T>::PROP_PITCH;
-template <class T>
-t_symbol* SynthWithFreq<T>::PROP_GATE;
-template <class T>
-t_symbol* SynthWithFreq<T>::PROP_GAIN;
-template <class T>
-t_symbol* SynthWithFreq<T>::SYM_NOTE;
 
 #endif // SYNTH_FAUST_WITH_FREQ_H

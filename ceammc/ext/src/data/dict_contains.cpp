@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "dict_contains.h"
+#include "ceammc_containers.h"
 #include "ceammc_factory.h"
 #include "datatype_dict.h"
 
@@ -27,9 +28,9 @@ DictContains::DictContains(const PdArgs& args)
     createOutlet();
 }
 
-void DictContains::onInlet(size_t n, const AtomListView& lst)
+void DictContains::onInlet(size_t n, const AtomListView& lv)
 {
-    keys_->set(lst);
+    keys_->set(lv);
 }
 
 void DictContains::onDataT(const DictAtom& dict)
@@ -39,12 +40,17 @@ void DictContains::onDataT(const DictAtom& dict)
         return;
     }
 
-    listTo(0, keys_->value().map([&dict](const Atom& a) -> Atom {
-        if (!a.isSymbol())
-            return Atom(0.0);
+    SmallAtomList val;
+    keys_->value().view().map(
+        [&dict](const Atom& a) -> Atom {
+            if (!a.isSymbol())
+                return Atom(0.0);
 
-        return Atom(dict->contains(a.asSymbol()) ? 1 : 0);
-    }));
+            return Atom(dict->contains(a.asSymbol()) ? 1 : 0);
+        },
+        val);
+
+    listTo(0, val.view());
 }
 
 void setup_dict_contains()

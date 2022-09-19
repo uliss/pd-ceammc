@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "math_mul.h"
+#include "ceammc_containers.h"
 #include "ceammc_factory.h"
 
 MathMul::MathMul(const PdArgs& args)
@@ -26,12 +27,12 @@ MathMul::MathMul(const PdArgs& args)
     createOutlet();
 }
 
-void MathMul::onInlet(size_t n, const AtomListView& lst)
+void MathMul::onInlet(size_t n, const AtomListView& lv)
 {
     if (n != 1)
         return;
 
-    mul_->set(lst);
+    mul_->set(lv);
 }
 
 void MathMul::onFloat(t_float v)
@@ -39,17 +40,15 @@ void MathMul::onFloat(t_float v)
     floatTo(0, v * mul_->value());
 }
 
-void MathMul::onList(const AtomList& lst)
+void MathMul::onList(const AtomListView& lv)
 {
-    AtomList res(lst);
+    SmallAtomList res;
+    res.reserve(lv.size());
 
-    for (size_t i = 0; i < res.size(); i++) {
-        Atom& a = res[i];
+    for (auto& a : lv)
+        res.push_back(a * mul_->value());
 
-        a *= mul_->value();
-    }
-
-    listTo(0, res);
+    listTo(0, res.view());
 }
 
 void setup_math_mul()

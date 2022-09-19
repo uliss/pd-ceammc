@@ -13,9 +13,9 @@ void ListSum::onFloat(t_float f)
     floatTo(0, f);
 }
 
-void ListSum::onList(const AtomList& l)
+void ListSum::onList(const AtomListView& lv)
 {
-    auto s = l.sum();
+    auto s = lv.sum();
     if (s == boost::none)
         return;
 

@@ -12,12 +12,10 @@
  * this file belongs to.
  *****************************************************************************/
 #include "voice_to_midi.h"
+#include "ceammc_containers.h"
 #include "ceammc_factory.h"
 #include "lex/parser_music.h"
 
-#include <boost/container/small_vector.hpp>
-
-using SmallAtomVec = boost::container::small_vector<Atom, 16>;
 
 Voice2Midi::Voice2Midi(const PdArgs& args)
     : BaseObject(args)
@@ -30,20 +28,20 @@ void Voice2Midi::onSymbol(t_symbol* s)
     onList(AtomList(s));
 }
 
-void Voice2Midi::onList(const AtomList& lst)
+void Voice2Midi::onList(const AtomListView& lv)
 {
     using namespace ceammc::parser;
 
     NotationSingle p;
     NoteVec out;
 
-    const auto n = p.parse(lst.view(), out);
+    const auto n = p.parse(lv, out);
     if (n == 0) {
-        OBJ_ERR << "note list expected, got: " << lst;
+        OBJ_ERR << "note list expected, got: " << lv;
         return;
     }
 
-    SmallAtomVec atoms;
+    SmallAtomList atoms;
     atoms.reserve(out.size());
 
     int prev_oct = 4;
@@ -54,7 +52,7 @@ void Voice2Midi::onList(const AtomList& lst)
         atoms.push_back(n.isRest() ? 0 : n.spn.midi());
     }
 
-    listTo(0, AtomListView(atoms.data(), atoms.size()));
+    listTo(0, atoms.view());
 }
 
 void setup_music_voice2midi()

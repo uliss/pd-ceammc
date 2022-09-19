@@ -25,12 +25,12 @@ public:
     MathPolyEval(const PdArgs& args);
 
     void onFloat(t_float v) override;
-    void onList(const AtomList& v) override;
+    void onList(const AtomListView& lv) override;
 
-    void onInlet(size_t n, const AtomListView& lst) override;
+    void onInlet(size_t n, const AtomListView& lv) override;
 
     AtomList propCoeffs() const;
-    void propSetCoeffs(const AtomList& lst);
+    void propSetCoeffs(const AtomListView& lv);
 
 private:
     t_float eval(t_float v) const;

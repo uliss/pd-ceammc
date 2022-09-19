@@ -40,7 +40,7 @@ FlowList2Many::FlowList2Many(const PdArgs& args)
     }
 }
 
-void FlowList2Many::onList(const AtomList& lv)
+void FlowList2Many::onList(const AtomListView& lv)
 {
     const size_t N = std::min<size_t>(lv.size(), selectors_.size());
 

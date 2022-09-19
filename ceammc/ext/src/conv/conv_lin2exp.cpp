@@ -7,6 +7,7 @@
 //
 
 #include "conv_lin2exp.h"
+#include "ceammc_containers.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 #include "ceammc_log.h"
@@ -40,7 +41,7 @@ void Lin2Exp::onFloat(t_float value)
     floatTo(0, convert::lin2exp(value, x0, x1, y0, y1));
 }
 
-void Lin2Exp::onList(const AtomList& l)
+void Lin2Exp::onList(const AtomListView& lv)
 {
     const t_float x0 = in_from();
     const t_float x1 = in_to();
@@ -56,7 +57,10 @@ void Lin2Exp::onList(const AtomList& l)
         return convert::lin2exp(value, x0, x1, y0, y1);
     };
 
-    listTo(0, l.mapFloat(fn));
+    SmallAtomList res;
+    res.reserve(lv.size());
+    lv.mapFloat(fn, res);
+    listTo(0, res.view());
 }
 
 void setup_conv_lin2exp()

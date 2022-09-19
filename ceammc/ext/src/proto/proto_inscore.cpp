@@ -496,6 +496,22 @@ void ProtoInscore::m_ellipse(t_symbol* s, const AtomListView& lv)
     anyTo(0, gensym(SEND_TYPED), toView(args));
 }
 
+void ProtoInscore::m_file(t_symbol *s, const AtomListView &lv)
+{
+    if (!checkArgs(lv, ARG_SYMBOL, ARG_SYMBOL)) {
+        METHOD_ERR(s) << "usage: OBJ_NAME URL";
+        return;
+    }
+
+    AtomArray<5> args;
+    args[0] = make_obj_msg(scene_->value(), lv[0]);
+    args[1] = gensym("sss");
+    args[2] = gensym("set");
+    args[3] = gensym("file");
+    args[4] = lv[1];
+    anyTo(0, gensym(SEND_TYPED), toView(args));
+}
+
 void ProtoInscore::m_fontSize(t_symbol* s, const AtomListView& lv)
 {
     if (!checkArgs(lv, ARG_SYMBOL, ARG_FLOAT)) {
@@ -641,6 +657,7 @@ void setup_proto_inscore()
 
     obj.addMethod("rect", &ProtoInscore::m_rect);
     obj.addMethod("ellipse", &ProtoInscore::m_ellipse);
+    obj.addMethod("file", &ProtoInscore::m_file);
 
     obj.addMethod("fontSize", &ProtoInscore::m_fontSize);
     obj.addMethod("fontWeight", &ProtoInscore::m_fontWeight);

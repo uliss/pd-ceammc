@@ -9,7 +9,7 @@ LocalList::LocalList(const PdArgs& a)
     createCbListProperty(
         "@value",
         [this]() -> AtomList { return list(); },
-        [this](const AtomList& l) -> bool { list() = l; return true; })
+        [this](const AtomListView& lv) -> bool { list() = lv; return true; })
         ->setArgIndex(1);
 }
 

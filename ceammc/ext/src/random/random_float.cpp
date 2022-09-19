@@ -1,12 +1,11 @@
 #include "random_float.h"
 #include "ceammc_factory.h"
-#include "fmt/format.h"
+#include "fmt/core.h"
 
 RandomFloat::RandomFloat(const PdArgs& a)
     : BaseObject(a)
     , min_(nullptr)
     , max_(nullptr)
-    , seed_(nullptr)
 {
     createInlet();
     createInlet();
@@ -33,9 +32,7 @@ RandomFloat::RandomFloat(const PdArgs& a)
         break;
     }
 
-    seed_ = new SizeTProperty("@seed", 0);
-    seed_->setSuccessFn([this](Property* p) { gen_.setSeed(seed_->value()); });
-    addProperty(seed_);
+    addProperty(new random::SeedProperty(gen_));
 }
 
 void RandomFloat::onBang()

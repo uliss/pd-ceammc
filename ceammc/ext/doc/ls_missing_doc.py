@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import os
 import re
 import logging
@@ -57,7 +57,7 @@ def not_in_project():
     if len(files) > 0:
         logging.warning("this pddoc files are not in cmake project (no PD-help will be generated for them):")
         for f in files:
-            print "    {0}".format(f)
+            print("    {0}".format(f))
 
 def non_documented():
     files = allExternalsWithAliases() - allDocFilesWithAliases() - ignored
@@ -65,7 +65,7 @@ def non_documented():
     if len(files) > 0:
         logging.warning("this objects are not documented:")
         for f in sorted(files):
-            print "    {0}".format(f)
+            print("    {0}".format(f))
 
         logging.warning("undocumented objects: %s", len(files))
 

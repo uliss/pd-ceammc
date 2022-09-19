@@ -1,6 +1,6 @@
-import("stdfaust.lib");
+declare name "dyn.softclip";
 
-//declare name "softclip";
+import("stdfaust.lib");
 
 softClip =  _ : v1 <: v2 , _ : *
 with{

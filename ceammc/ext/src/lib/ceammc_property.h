@@ -45,7 +45,7 @@ using PropertySymbolSetter = std::function<bool(t_symbol*)>;
 using PropertyAtomGetter = std::function<Atom()>;
 using PropertyAtomSetter = std::function<bool(const Atom&)>;
 using PropertyListGetter = std::function<AtomList()>;
-using PropertyListSetter = std::function<bool(const AtomList&)>;
+using PropertyListSetter = std::function<bool(const AtomListView&)>;
 
 /**
  * @brief Base class for all properties
@@ -56,7 +56,7 @@ public:
     using PropIntCheckFn = std::function<bool(int)>;
     using PropSymbolCheckFn = std::function<bool(t_symbol*)>;
     using PropAtomCheckFn = std::function<bool(const Atom&)>;
-    using PropListCheckFn = std::function<bool(const AtomList&)>;
+    using PropListCheckFn = std::function<bool(const AtomListView&)>;
     using PropSuccessFn = std::function<void(Property*)>;
 
     using CheckFnTuple = std::tuple<
@@ -75,10 +75,10 @@ public:
 
     /// pure virtual
     virtual AtomList get() const = 0;
-    virtual bool setList(const AtomListView& lst) = 0;
+    virtual bool setList(const AtomListView& lv) = 0;
     /// virtual
-    virtual bool set(const AtomListView& lst);
-    virtual bool setInit(const AtomListView& lst);
+    virtual bool set(const AtomListView& lv);
+    virtual bool setInit(const AtomListView& lv);
 
     inline t_symbol* name() const { return info_.name(); }
 
@@ -177,7 +177,7 @@ public:
     inline bool setT(int i) { return setInt(i); }
     inline bool setT(t_symbol* s) { return setSymbol(s); }
     inline bool setT(const Atom& a) { return setAtom(a); }
-    inline bool setT(const AtomList& l) { return setList(l); }
+    inline bool setT(const AtomListView& lv) { return setList(lv); }
 
     // freq used
     inline void setUnitsHz() { setUnits(PropValueUnits::HZ); }
@@ -196,7 +196,7 @@ protected:
     bool checkAtom(const Atom& a) const;
     bool checkFloat(t_float v) const;
     bool checkInt(int v) const;
-    bool checkList(const AtomListView& l) const;
+    bool checkList(const AtomListView& lv) const;
     bool checkSymbol(t_symbol* s) const;
     bool emptyCheck(const AtomListView& v) const;
     bool initCheck() const;
@@ -254,7 +254,7 @@ class AtomProperty : public Property {
 public:
     AtomProperty(const std::string& name, const Atom& def, PropValueAccess access = PropValueAccess::READWRITE);
 
-    bool setList(const AtomListView& lst) override;
+    bool setList(const AtomListView& lv) override;
     AtomList get() const override;
     bool getAtom(Atom& a) const override;
 
@@ -283,7 +283,7 @@ public:
     FloatProperty(const std::string& name, t_float init = 0, PropValueAccess access = PropValueAccess::READWRITE);
 
     AtomList get() const override;
-    bool setList(const AtomListView& lst) override;
+    bool setList(const AtomListView& lv) override;
     bool setFloat(t_float v) override;
     bool setInt(int v) override;
     bool getFloat(t_float& v) const override;
@@ -319,7 +319,7 @@ public:
     IntProperty(const std::string& name, int init = 0, PropValueAccess access = PropValueAccess::READWRITE);
 
     AtomList get() const override;
-    bool setList(const AtomListView& lst) override;
+    bool setList(const AtomListView& lv) override;
     bool setInt(int v) override;
     bool getInt(int& v) const override;
 
@@ -355,7 +355,7 @@ public:
     SizeTProperty(const std::string& name, size_t init = 0, PropValueAccess access = PropValueAccess::READWRITE);
 
     AtomList get() const override;
-    bool setList(const AtomListView& lst) override;
+    bool setList(const AtomListView& lv) override;
     bool getInt(int&) const override;
 
     inline size_t value() const { return v_; }
@@ -381,7 +381,7 @@ public:
     SymbolProperty(const std::string& name, t_symbol* init, PropValueAccess access = PropValueAccess::READWRITE);
 
     AtomList get() const override;
-    bool setList(const AtomListView& lst) override;
+    bool setList(const AtomListView& lv) override;
     bool setSymbol(t_symbol* s) override;
     bool getSymbol(t_symbol*& s) const override;
 
@@ -408,7 +408,7 @@ public:
     ListProperty(const std::string& name, const AtomList& init = AtomList(), PropValueAccess access = PropValueAccess::READWRITE);
 
     AtomList get() const override;
-    bool setList(const AtomListView& l) override;
+    bool setList(const AtomListView& lv) override;
     bool getList(AtomList& l) const override;
 
     inline const AtomList& value() const { return lst_; }
@@ -521,9 +521,9 @@ public:
 
     value_type value() const { return val_; }
 
-    bool setList(const AtomListView& lst) override
+    bool setList(const AtomListView& lv) override
     {
-        if (!lst.empty())
+        if (!lv.empty())
             LIB_ERR << "no arguments required for alias property: " << name();
 
         return ptr_->setValue(val_);
@@ -543,7 +543,7 @@ public:
     BoolProperty(const std::string& name, bool init, PropValueAccess access = PropValueAccess::READWRITE);
 
     AtomList get() const override;
-    bool setList(const AtomListView& lst) override;
+    bool setList(const AtomListView& lv) override;
     bool setBool(bool b) override;
     bool getBool(bool& b) const override;
 
@@ -582,15 +582,15 @@ public:
         return true;
     }
 
-    bool setList(const AtomListView& lst) override
+    bool setList(const AtomListView& lv) override
     {
-        if (!emptyCheck(lst))
+        if (!emptyCheck(lv))
             return false;
 
-        if (!lst.isA<T>())
+        if (!lv.isA<T>())
             return false;
 
-        return setValue(atomlistToValue(lst, T()));
+        return setValue(atomlistToValue(lv, T()));
     }
 
     AtomList get() const override

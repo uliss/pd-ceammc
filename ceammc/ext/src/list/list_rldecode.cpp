@@ -27,25 +27,25 @@ ListRLDecode::ListRLDecode(const PdArgs& args)
     createCbListProperty(
         "@l",
         [this]() -> AtomList { return len_; },
-        [this](const AtomList& l) -> bool { len_ = l; return true; })
+        [this](const AtomListView& lv) -> bool { len_ = lv; return true; })
         ->setArgIndex(0);
 }
 
-void ListRLDecode::onList(const AtomList& l)
+void ListRLDecode::onList(const AtomListView& lv)
 {
-    const size_t N = std::min(l.size(), len_.size());
+    const size_t N = std::min(lv.size(), len_.size());
     std::vector<std::pair<Atom, size_t>> rle;
     rle.reserve(N);
 
     for (size_t i = 0; i < N; i++)
-        rle.push_back({ l[i], len_[i].asInt() });
+        rle.push_back({ lv[i], len_[i].asInt() });
 
     listTo(0, list::rleDecode(rle));
 }
 
-void ListRLDecode::onInlet(size_t n, const AtomListView& l)
+void ListRLDecode::onInlet(size_t n, const AtomListView& lv)
 {
-    len_ = l;
+    len_ = lv;
 }
 
 void setup_list_rldecode()
