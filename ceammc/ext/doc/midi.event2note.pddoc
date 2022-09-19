@@ -46,7 +46,7 @@
 |               |
 [msg note]      [prog 0 1(
 |               |
-[fluid~ sf2/waves.sf2]
+[fluid~ sf2/waves.sf2 @gain 1]
 *|*
 [ui.hgain2~]
 |\
