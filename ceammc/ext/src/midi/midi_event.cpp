@@ -1,5 +1,6 @@
 #include "midi_event.h"
 #include "MidiEvent.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 
 XMidiEvent::XMidiEvent(const AtomList& l)
@@ -99,9 +100,7 @@ BaseMidiEventExternal::BaseMidiEventExternal(const PdArgs& a)
 
 void BaseMidiEventExternal::onAny(t_symbol* s, const AtomListView& args)
 {
-    static t_symbol* SYM_MIDI_EVENT = gensym("MidiEvent");
-
-    if (s != SYM_MIDI_EVENT) {
+    if (crc32_hash(s) != "MidiEvent"_hash) {
         OBJ_ERR << "MidiEvent expected: " << s->s_name;
         return;
     }
@@ -154,6 +153,9 @@ void setup_midi_event()
 {
     ObjectFactory<MidiEventToNote> to_note("midi.event2note");
     to_note.addAlias("midi.ev->note");
+    to_note.setXletsInfo({ "midi event stream" }, { "pair: KEY VEL", "float: duration (ms)", "int: midi track" });
+
     ObjectFactory<MidiEventToPrg> to_prg("midi.event2prg");
+    to_prg.setXletsInfo({ "midi event stream" }, { "int: program", "int: midi track" });
     to_prg.addAlias("midi.ev->prg");
 }

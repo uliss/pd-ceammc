@@ -22,7 +22,7 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output pair: note, velocity</outlet>
+            <outlet>pair: note, velocity</outlet>
             <outlet>note duration in milliseconds</outlet>
             <outlet>note track</outlet>
         </outlets>
@@ -35,14 +35,14 @@
 |           |
 [read $1, bang(
 |
-[midi.file]             [ui.hsl 0.5 2]
+[midi.file]             [ui.hsl 0.5 2 @show_value 1]
 |                       |
 |  [reset, play( [stop( [@speed $1(
 |  |             |      |
 |  |             |      |
 [midi.track @join @speed 0.7]
 |
-[midi.ev->note] [loadbang]
+[midi.ev->note] [loadbang]  [ui.dsp~]
 |               |
 [msg note]      [prog 0 1(
 |               |
