@@ -68,7 +68,7 @@ Min value: 0\.;
 #X obj 20 1083 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 110 1084 1\.;
-#X text 245 1084 outputs MidiEvent message.;
+#X text 245 1084 MidiEvent message.;
 #X text 110 1104 2\.;
 #X text 245 1104 time in milliseconds until next MIDI event.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;

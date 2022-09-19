@@ -334,6 +334,10 @@ void MidiTrack::clockTick()
 void setup_midi_track()
 {
     ObjectFactory<MidiTrack> obj("midi.track");
+
+    obj.setXletsInfo({ "play, pause, stop, reset, seek, next" },
+                     { "MidiEvent message", "time in ms until next MIDI event" });
+
     obj.processData<DataTypeMidiStream>();
     obj.addMethod("next", &MidiTrack::m_next);
     obj.addMethod("reset", &MidiTrack::m_reset);

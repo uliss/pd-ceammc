@@ -41,7 +41,7 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>outputs MidiEvent message</outlet>
+            <outlet>MidiEvent message</outlet>
             <outlet>time in milliseconds until next MIDI event</outlet>
         </outlets>
         <example>
