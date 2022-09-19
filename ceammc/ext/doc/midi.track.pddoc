@@ -37,7 +37,8 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo>method inlet</xinfo>
+                <xinfo on="bang">output current event</xinfo>
+                <xinfo on="data">MidiStream object: set new mifi file</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -49,8 +50,8 @@
 <![CDATA[
 [B]
 |
-[openpanel]
-|
+[openpanel] [symbol midi/bach-wtk2-prelude2.mid(
+|           |
 [read $1, bang(
 |
 [midi.file]
@@ -68,7 +69,9 @@
 [osc~] |
 |      |.
 [*~     ]
-| \
+*|*
+[ui.hgain2~]
+|\
 [dac~]
 ]]>
             </pdascii>
