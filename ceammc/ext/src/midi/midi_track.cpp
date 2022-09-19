@@ -173,7 +173,7 @@ void MidiTrack::m_pause(t_symbol*, const AtomListView&)
 
 void MidiTrack::outputEvent(MidiEvent* ev)
 {
-    static t_symbol* SYM_MIDI_EVENT = gensym("MidiEvent");
+    constexpr auto* STR_MIDI_EVENT = "MidiEvent";
 
     current_event_.clear();
 
@@ -186,7 +186,7 @@ void MidiTrack::outputEvent(MidiEvent* ev)
     for (size_t i = 0; i < size; i++)
         current_event_.append(Atom(ev->operator[](i)));
 
-    anyTo(0, SYM_MIDI_EVENT, current_event_);
+    anyTo(0, gensym(STR_MIDI_EVENT), current_event_);
 }
 
 struct NewTickFinder {
@@ -328,7 +328,7 @@ void MidiTrack::clockTick()
     }
 
     clock_delay(clock_, dur_ms);
-    m_next(0, AtomList());
+    m_next(0, {});
 }
 
 void setup_midi_track()

@@ -38,6 +38,22 @@ bool XMidiEvent::isNote() const
     return event_->isNote();
 }
 
+bool XMidiEvent::isNoteOn() const
+{
+    if (!valid_)
+        return false;
+
+    return event_->isNoteOn();
+}
+
+bool XMidiEvent::isNoteOff() const
+{
+    if (!valid_)
+        return false;
+
+    return event_->isNoteOff();
+}
+
 bool XMidiEvent::isProgramChange() const
 {
     if (!valid_)
@@ -98,10 +114,10 @@ void BaseMidiEventExternal::onAny(t_symbol* s, const AtomListView& args)
 
 MidiEventToNote::MidiEventToNote(const PdArgs& args)
     : BaseMidiEventExternal(args)
+    , msg_ { Atom(0.), Atom(0.) }
 {
     createOutlet();
     createOutlet();
-    msg_.fill(Atom(0.f), 2);
 }
 
 void MidiEventToNote::processEvent()
@@ -113,9 +129,9 @@ void MidiEventToNote::processEvent()
     floatTo(1, event_.duration());
 
     msg_[0].setFloat(event_.event().getKeyNumber());
-    msg_[1].setFloat(event_.event().getVelocity());
+    msg_[1].setFloat(event_.isNoteOff() ? 0 : event_.event().getVelocity());
 
-    listTo(0, msg_);
+    listTo(0, AtomListView(msg_.data(), msg_.size()));
 }
 
 MidiEventToPrg::MidiEventToPrg(const PdArgs& args)
