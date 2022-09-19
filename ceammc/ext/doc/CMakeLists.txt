@@ -129,14 +129,12 @@ install(FILES "index-help.pd" DESTINATION "${DOC_INSTALL_PATH}/.."
 # extra doc file: presets, sound examples etc.
 set(EXTRA_DOC_FILES prs.txt stargazing.mod)
 file(GLOB _PDDOC_WAV "*.wav")
-file(GLOB _PDDOC_MIDI "*.midi")
 file(GLOB _PDDOC_EXAMPLES "snd.file.*.pd")
 file(GLOB _PDDOC_GLITCH "*.glitch")
 
 # install extra files
 install(FILES ${EXTRA_DOC_FILES}
         ${_PDDOC_WAV}
-        ${_PDDOC_MIDI}
         ${_PDDOC_EXAMPLES}
         ${_PDDOC_GLITCH}
         ui.plot~.lin1-help.pd
@@ -195,6 +193,7 @@ add_custom_target(pddoc_faust_files SOURCES ${_PDDOC_FAUST_FILES})
 install(DIRECTORY hoa DESTINATION ${DOC_INSTALL_PATH})
 install(DIRECTORY faust DESTINATION ${DOC_INSTALL_PATH})
 
+add_subdirectory(midi)
 add_subdirectory(sound)
 add_subdirectory(sf2)
 add_subdirectory(sfz)

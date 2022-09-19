@@ -309,7 +309,8 @@ do
 done
 
 section "Copying CEAMMC midi files"
-for midi in $SRC_CEAMMC/ext/doc/midi/*
+mkdir -p "${BUNDLE_MIDI}"
+for midi in $SRC_CEAMMC/ext/doc/midi/*.@(mid|midi)
 do
     copy ${midi} "${BUNDLE_MIDI}"
 done
