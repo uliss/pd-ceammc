@@ -49,7 +49,7 @@
 [fluid~ sf2/waves.sf2 @gain 1]
 *|*
 [ui.hgain2~]
-|\
+*|*
 [dac~]
 ]]>
             </pdascii>

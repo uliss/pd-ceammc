@@ -5,6 +5,7 @@
 
 #include <array>
 #include <memory>
+#include <bitset>
 
 using namespace ceammc;
 
@@ -26,6 +27,7 @@ public:
     bool isNote() const;
     bool isNoteOn() const;
     bool isNoteOff() const;
+    bool isAllNotesOff() const;
     bool isProgramChange() const;
     bool isControl() const;
     bool isValid() const;
@@ -47,6 +49,7 @@ public:
 
 class MidiEventToNote : public BaseMidiEventExternal {
     std::array<Atom, 2> msg_;
+    std::bitset<128> notes_on_;
 
 public:
     MidiEventToNote(const PdArgs& args);

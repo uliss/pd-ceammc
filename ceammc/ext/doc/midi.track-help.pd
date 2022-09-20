@@ -56,11 +56,12 @@ Min value: 0\.;
 #X msg 110 953 play;
 #X text 245 953 start playing.;
 #X msg 110 980 reset;
-#X text 245 980 set current event index to zero.;
+#X text 245 980 set current event index to zero and send All Notes
+Off event.;
 #X msg 110 1007 seek;
 #X text 245 1007 seek to specified tick.;
 #X msg 110 1034 stop;
-#X text 245 1034 stop playing.;
+#X text 245 1034 stop playing and send All Notes Off event.;
 #X obj 20 1071 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1076 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;

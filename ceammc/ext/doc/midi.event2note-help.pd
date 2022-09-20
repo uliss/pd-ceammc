@@ -88,4 +88,4 @@ https://github.com/uliss/pure-data;
 #X connect 20 0 21 0;
 #X connect 20 1 21 1;
 #X connect 21 0 22 0;
-#X connect 21 0 22 1;
+#X connect 21 1 22 1;

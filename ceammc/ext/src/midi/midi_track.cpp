@@ -10,7 +10,7 @@ MidiTrack::MidiTrack(const PdArgs& args)
     , track_idx_(0)
     , tempo_(0)
     , current_event_idx_(0)
-    , clock_(clock_new(this, (t_method)&MidiTrack::clockTickHandler))
+    , clock_([this] { clockTick(); })
     , play_state_(PLAY_STATE_STOPPED)
 {
     // properties
@@ -50,8 +50,8 @@ MidiTrack::MidiTrack(const PdArgs& args)
 
 MidiTrack::~MidiTrack()
 {
-    if (clock_)
-        clock_free(clock_);
+    if (play_state_ != PLAY_STATE_STOPPED)
+        allNotesOff();
 }
 
 void MidiTrack::onBang()
@@ -104,6 +104,7 @@ void MidiTrack::m_next(t_symbol*, const AtomListView&)
 void MidiTrack::m_reset(t_symbol*, const AtomListView&)
 {
     current_event_idx_ = 0;
+    allNotesOff();
 }
 
 void MidiTrack::m_seek(t_symbol*, const AtomListView& l)
@@ -152,7 +153,9 @@ void MidiTrack::m_stop(t_symbol*, const AtomListView&)
 
     current_event_idx_ = 0;
     play_state_ = PLAY_STATE_STOPPED;
-    clock_unset(clock_);
+    clock_.unset();
+
+    allNotesOff();
 }
 
 void MidiTrack::m_pause(t_symbol*, const AtomListView&)
@@ -168,7 +171,7 @@ void MidiTrack::m_pause(t_symbol*, const AtomListView&)
     }
 
     play_state_ = PLAY_STATE_PAUSED;
-    clock_unset(clock_);
+    clock_.unset();
 }
 
 void MidiTrack::outputEvent(MidiEvent* ev)
@@ -187,6 +190,13 @@ void MidiTrack::outputEvent(MidiEvent* ev)
         current_event_.append(Atom(ev->operator[](i)));
 
     anyTo(0, gensym(STR_MIDI_EVENT), current_event_);
+}
+
+void MidiTrack::allNotesOff()
+{
+    MidiEvent ev;
+    ev.makeController(0, 0x7B, 0);
+    outputEvent(&ev);
 }
 
 struct NewTickFinder {
@@ -276,20 +286,6 @@ int MidiTrack::currentTick() const
     return midi_track_.eventAt(current_event_idx_)->tick;
 }
 
-struct EventOutput {
-    MidiTrack* track;
-
-    EventOutput(MidiTrack* t)
-        : track(t)
-    {
-    }
-
-    void operator()(MidiEvent* e)
-    {
-        track->outputEvent(e);
-    }
-};
-
 double MidiTrack::outputCurrent()
 {
     if (current_event_idx_ >= size())
@@ -309,11 +305,6 @@ double MidiTrack::outputCurrent()
     return tick_duration_ms;
 }
 
-void MidiTrack::clockTickHandler(MidiTrack* p)
-{
-    p->clockTick();
-}
-
 void MidiTrack::clockTick()
 {
     if (play_state_ != PLAY_STATE_PLAYING)
@@ -327,7 +318,7 @@ void MidiTrack::clockTick()
         return;
     }
 
-    clock_delay(clock_, dur_ms);
+    clock_.delay(dur_ms);
     m_next(0, {});
 }
 
@@ -336,7 +327,7 @@ void setup_midi_track()
     ObjectFactory<MidiTrack> obj("midi.track");
 
     obj.setXletsInfo({ "play, pause, stop, reset, seek, next" },
-                     { "MidiEvent message", "time in ms until next MIDI event" });
+        { "MidiEvent message", "time in ms until next MIDI event" });
 
     obj.processData<DataTypeMidiStream>();
     obj.addMethod("next", &MidiTrack::m_next);
