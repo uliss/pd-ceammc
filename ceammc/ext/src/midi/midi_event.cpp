@@ -1,4 +1,5 @@
 #include "midi_event.h"
+#include "ceammc_convert.h"
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "fmt/core.h"
@@ -44,6 +45,30 @@ bool XMidiEvent::isNote() const
         return false;
 
     return event_->isNote();
+}
+
+bool XMidiEvent::isNoteOn() const
+{
+    if (!valid_)
+        return false;
+
+    return event_->isNoteOn();
+}
+
+bool XMidiEvent::isNoteOff() const
+{
+    if (!valid_)
+        return false;
+
+    return event_->isNoteOff();
+}
+
+bool XMidiEvent::isAllNotesOff() const
+{
+    if (!valid_)
+        return false;
+
+    return event_->isController() && event_->getP1() == 0x7B;
 }
 
 bool XMidiEvent::isProgramChange() const
@@ -104,24 +129,39 @@ void BaseMidiEventExternal::onAny(t_symbol* s, const AtomListView& args)
 
 MidiEventToNote::MidiEventToNote(const PdArgs& args)
     : BaseMidiEventExternal(args)
+    , msg_ { Atom(0.), Atom(0.) }
 {
     createOutlet();
     createOutlet();
-    msg_.fill(Atom(0.f), 2);
 }
 
 void MidiEventToNote::processEvent()
 {
-    if (!event_.isNote())
+    if (!event_.isNote()) {
+        if (event_.isAllNotesOff()) {
+            for (size_t i = 0; i < notes_on_.size(); i++) {
+                if (notes_on_[i]) {
+                    Atom data[2] = { Atom(i), Atom(0.0) };
+                    listTo(0, AtomListView(data, 2));
+                    notes_on_[i] = 0;
+                }
+            }
+        }
         return;
+    }
 
     floatTo(2, event_.track());
     floatTo(1, event_.duration());
 
-    msg_[0].setFloat(event_.event().getKeyNumber());
-    msg_[1].setFloat(event_.event().getVelocity());
+    int key = event_.event().getKeyNumber();
+    int vel = event_.isNoteOff() ? 0 : event_.event().getVelocity();
 
-    listTo(0, msg_);
+    notes_on_[clip<std::uint8_t>(key, 0, notes_on_.size() - 1)] = vel > 0;
+
+    msg_[0].setFloat(key);
+    msg_[1].setFloat(vel);
+
+    listTo(0, AtomListView(msg_.data(), msg_.size()));
 }
 
 MidiEventToPrg::MidiEventToPrg(const PdArgs& args)
@@ -144,6 +184,9 @@ void setup_midi_event()
 {
     ObjectFactory<MidiEventToNote> to_note("midi.event2note");
     to_note.addAlias("midi.ev->note");
+    to_note.setXletsInfo({ "midi event stream" }, { "pair: KEY VEL", "float: duration (ms)", "int: midi track" });
+
     ObjectFactory<MidiEventToPrg> to_prg("midi.event2prg");
+    to_prg.setXletsInfo({ "midi event stream" }, { "int: program", "int: midi track" });
     to_prg.addAlias("midi.ev->prg");
 }

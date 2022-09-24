@@ -193,6 +193,7 @@ add_custom_target(pddoc_faust_files SOURCES ${_PDDOC_FAUST_FILES})
 install(DIRECTORY hoa DESTINATION ${DOC_INSTALL_PATH})
 install(DIRECTORY faust DESTINATION ${DOC_INSTALL_PATH})
 
+add_subdirectory(midi)
 add_subdirectory(sound)
 add_subdirectory(sf2)
 add_subdirectory(sfz)

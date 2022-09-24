@@ -22,7 +22,8 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output MIDI patch number</outlet>
+            <outlet>int: MIDI program change value</outlet>
+            <outlet>int: MIDI track</outlet>
         </outlets>
         <example>
             <pdascii>
@@ -41,9 +42,7 @@
 |
 [midi.prg->str @symbol]
 |
-[msg set]
-|
-[ (
+[ui.dt]
 ]]>
             </pdascii>
         </example>

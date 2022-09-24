@@ -30,6 +30,7 @@ PD_PO=$PD_RESOURCES/po
 PD_CEAMMC=$PD_EXTRA/ceammc
 PD_SF2=$PD_CEAMMC/sf2
 PD_SFZ=$PD_CEAMMC/sfz
+PD_MIDI=$PD_CEAMMC/midi
 PD_SAMPLES=$PD_CEAMMC/sound
 
 # absolute dir names
@@ -45,6 +46,7 @@ BUNDLE_TCL="${DIST_DIR}/${PD_TCL}"
 BUNDLE_CEAMMC="${DIST_DIR}/${PD_CEAMMC}"
 BUNDLE_SF2="${DIST_DIR}/${PD_SF2}"
 BUNDLE_SFZ="${DIST_DIR}/${PD_SFZ}"
+BUNDLE_MIDI="${DIST_DIR}/${PD_MIDI}"
 BUNDLE_SAMPLES="${DIST_DIR}/${PD_SAMPLES}"
 BUNDLE_INCLUDE="${DIST_DIR}/${PD_INCLUDE}"
 BUNDLE_COMPLETIONS="${BUNDLE_TCL}/ceammc/custom_completions"
@@ -299,6 +301,13 @@ mkdir -p "${BUNDLE_SAMPLES}"
 for samp in $SRC_CEAMMC/ext/doc/sound/*
 do
     copy ${samp} "${BUNDLE_SAMPLES}"
+done
+
+section "Copying CEAMMC midi files"
+mkdir -p "${BUNDLE_MIDI}"
+for midi in $SRC_CEAMMC/ext/doc/midi/*.@(mid|midi)
+do
+    copy ${midi} "${BUNDLE_MIDI}"
 done
 
 section "Copying CEAMMC cmake files"
