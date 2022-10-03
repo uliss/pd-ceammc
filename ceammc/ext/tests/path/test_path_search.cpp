@@ -114,15 +114,22 @@ TEST_CASE("path.search", "[externals]")
 
     SECTION("recursive @sync search in user dir")
     {
-        TExt t("path.search", PROJECT_SOURCE_DIR "/ceammc/ext", "@sync", "@depth", 1);
+        TExt t("path.search", PROJECT_SOURCE_DIR "/ceammc/ext", "@sync", "@depth", 0);
         REQUIRE_PROPERTY(t, @async, 0.);
 
         const auto fname = platform::basename(__FILE__);
         const std::string full_name = TEST_SRC_DIR "/" + fname;
 
+        std::cerr << "find file \n\t'" << __FILE__ << "'\n\t in \n\t'" << PROJECT_SOURCE_DIR "/ceammc/ext'\n";
+
         // not enough recursion depth
         t << fname.c_str();
+        REQUIRE(t.hasOutputAt(1));
+        REQUIRE(t.isOutputBangAt(1));
 
+        // still not enough
+        t->setProperty("@depth", LF(1));
+        t << fname.c_str();
         REQUIRE(t.hasOutputAt(1));
         REQUIRE(t.isOutputBangAt(1));
 
