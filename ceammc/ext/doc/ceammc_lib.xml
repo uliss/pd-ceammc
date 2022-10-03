@@ -1550,6 +1550,12 @@
     <entry name="net.host2ip" descr="returns IP address by DNS name" ref_view="object">
       <xi:include href="net.host2ip.pddoc" parse="xml"/>
     </entry>
+    <entry name="net.osc.send" descr="OSC message sender" ref_view="object">
+      <xi:include href="net.osc.send.pddoc" parse="xml"/>
+    </entry>
+    <entry name="net.osc.server" descr="OSC server control" ref_view="object">
+      <xi:include href="net.osc.server.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="noise">
     <entry name="noise.baker" descr="Part of a-chaos library" ref_view="object">

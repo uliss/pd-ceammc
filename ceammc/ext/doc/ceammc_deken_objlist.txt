@@ -845,6 +845,10 @@ loadmsg	send message when patch loads
 msg.sched	message scheduler
 net.host2ip	returns IP address by DNS name
 net.host->ip	returns IP address by DNS name
+net.osc.send	OSC message sender
+net.osc.s	OSC message sender
+net.osc.server	OSC server control
+net.osc	OSC server control
 noise.baker	Part of a-chaos library
 noise.clifford	Part of a-chaos library
 noise.collatz	Part of a-chaos library

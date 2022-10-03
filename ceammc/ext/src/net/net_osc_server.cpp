@@ -510,6 +510,7 @@ namespace net {
         : BaseObject(args)
         , name_(nullptr)
         , url_(nullptr)
+        , auto_start_(nullptr)
         , dump_(nullptr)
     {
         createOutlet();
@@ -535,6 +536,9 @@ namespace net {
             }
         });
         addProperty(dump_);
+
+        auto_start_ = new BoolProperty("@auto_start", true);
+        addProperty(auto_start_);
     }
 
     NetOscServer::~NetOscServer()
@@ -568,6 +572,9 @@ namespace net {
             server_ = osc;
             osc->setDumpAll(dump_->value());
             srv_list.addRef(name);
+
+            if (auto_start_->value())
+                osc->start(true);
         }
     }
 

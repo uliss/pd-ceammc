@@ -215,6 +215,7 @@ namespace net {
         SymbolProperty* name_;
         OscUrlProperty* url_;
         BoolProperty* dump_;
+        BoolProperty* auto_start_;
         std::weak_ptr<OscServer> server_;
 
     public:
