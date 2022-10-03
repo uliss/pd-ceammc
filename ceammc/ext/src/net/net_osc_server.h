@@ -166,7 +166,7 @@ namespace net {
     };
 
     class OscServerList {
-        using OscServerPtr = std::unique_ptr<OscServer>;
+        using OscServerPtr = std::shared_ptr<OscServer>;
         using Entry = std::pair<OscServerPtr, int>;
         std::list<Entry> servers_;
 
@@ -175,11 +175,11 @@ namespace net {
     public:
         static OscServerList& instance();
 
-        OscServer* findByName(t_symbol* name) { return findByName(name->s_name); }
-        OscServer* findByName(const char* name);
+        OscServerPtr findByName(t_symbol* name) { return findByName(name->s_name); }
+        OscServerPtr findByName(const char* name);
 
-        OscServer* createByUrl(const char* name, const char* url);
-        OscServer* createByPort(const char* name, int port);
+        OscServerPtr createByUrl(const char* name, const char* url);
+        OscServerPtr createByPort(const char* name, int port);
 
         void start(const char* name, bool value);
 
@@ -187,7 +187,7 @@ namespace net {
         void unRef(const char* name);
 
     private:
-        OscServer* addToList(OscServerPtr&& osc);
+        OscServerPtr addToList(const OscServerPtr& osc);
 
     public:
         static constexpr const char* DISPATCHER = "#osc";
@@ -200,7 +200,7 @@ namespace net {
         t_symbol* proto_;
 
     public:
-        OscUrlProperty(const std::string& name, t_symbol* def = &s_, PropValueAccess ro = PropValueAccess::READWRITE);
+        OscUrlProperty(const std::string& name, const Atom& def, PropValueAccess ro = PropValueAccess::READWRITE);
 
         t_symbol* host() const { return host_; }
         t_symbol* port() const { return port_; }
@@ -215,6 +215,7 @@ namespace net {
         SymbolProperty* name_;
         OscUrlProperty* url_;
         BoolProperty* dump_;
+        std::weak_ptr<OscServer> server_;
 
     public:
         NetOscServer(const PdArgs& args);
@@ -223,8 +224,6 @@ namespace net {
         void initDone() final;
         void m_start(t_symbol* s, const AtomListView& lv);
         void m_stop(t_symbol* s, const AtomListView& lv);
-
-        void dump() const override;
     };
 }
 }
