@@ -506,6 +506,14 @@ namespace net {
         }
     }
 
+    void OscServerList::dump()
+    {
+        LIB_POST << "OSC servers:";
+        for (auto& s : servers_) {
+            LIB_POST << fmt::format(" - '{}': {} [{}]", s.first->name(), s.first->hostname(), s.second);
+        }
+    }
+
     NetOscServer::NetOscServer(const PdArgs& args)
         : BaseObject(args)
         , name_(nullptr)
@@ -544,6 +552,12 @@ namespace net {
     NetOscServer::~NetOscServer()
     {
         OscServerList::instance().unRef(name_->value()->s_name);
+    }
+
+    void NetOscServer::dump() const
+    {
+        OscServerList::instance().dump();
+        BaseObject::dump();
     }
 
     void NetOscServer::initDone()

@@ -186,6 +186,8 @@ namespace net {
         void addRef(const char* name);
         void unRef(const char* name);
 
+        void dump();
+
     private:
         OscServerPtr addToList(const OscServerPtr& osc);
 
@@ -221,6 +223,8 @@ namespace net {
     public:
         NetOscServer(const PdArgs& args);
         ~NetOscServer();
+
+        void dump() const override;
 
         void initDone() final;
         void m_start(t_symbol* s, const AtomListView& lv);
