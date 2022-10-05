@@ -22,7 +22,7 @@
         </meta>
         <arguments>
             <argument name="NAME" type="symbol">OSC server name (for using with other objects)</argument>
-            <argument name="URL" type="atom">OSC server url (like osc.udp://localhost:12345)</argument>
+            <argument name="URL" type="atom">OSC server url (like osc.udp://:12345), see @url property</argument>
         </arguments>
         <methods>
             <method name="start">start OSC server
@@ -33,6 +33,12 @@
         <properties>
             <property name="@dump" type="int" enum="0 1" default="0">dump incoming messages to Pd window</property>
             <property name="@auto_start" type="int" enum="0 1" default="1">automatically start on creation</property>
+            <property name="@url" type="atom" default="9000">OSC server url in form: osc.PROTO://:PORT or just PORT
+            (for ex. osc.udp://:9001)</property>
+            <property name="@name" type="symbol" default="default">OSC server name</property>
+            <property name="@port" type="symbol" default="9000" readonly="true">OSC server port</property>
+            <property name="@proto" type="symbol" default="udp" readonly="true">OSC server proto (udp or tcp)</property>
+            <property name="@host" type="symbol" default="" readonly="true">OSC server host</property>
         </properties>
         <inlets>
             <inlet>
@@ -45,7 +51,7 @@
         <example>
             <pdascii>
 <![CDATA[
-/*default OSC server: osc.udp://localhost:9000*/
+/*default OSC server: osc.udp://:9000*/
 
 [tgl]
 |
