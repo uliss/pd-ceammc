@@ -96,7 +96,7 @@ void epd_init(void)
 
 void object_method(void* x, t_symbol* s, void* z, t_typ_method method, long number, void* other)
 {
-    t_ret_method nrmethod = (t_ret_method)getfn((t_pd*)x, s);
+    auto nrmethod = (t_ret_method)getfn((t_pd*)x, s);
     nrmethod(x, s, z, method, number, other);
 }
 

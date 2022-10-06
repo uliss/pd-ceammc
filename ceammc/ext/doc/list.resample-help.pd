@@ -7,7 +7,7 @@
 #X obj 578 11 list.r;
 #X obj 646 11 list.resample;
 #X obj 50 118 ui.sliders;
-#X obj 203 118 ui.sliders @auto_range 1;
+#X obj 203 118 ui.sliders @auto_count 1;
 #X obj 174 234 ui.hrd;
 #X obj 50 262 list.resample 4;
 #X obj 20 311 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

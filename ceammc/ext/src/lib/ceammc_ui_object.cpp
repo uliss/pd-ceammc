@@ -1,8 +1,8 @@
 #include "ceammc_ui_object.h"
+#include "ceammc_crc32.h"
 #include "ceammc_log.h"
-#include "ceammc_output.h"
 #include "ceammc_preset.h"
-#include "ceammc_ui.h"
+#include "fmt/core.h"
 
 #include <algorithm>
 
@@ -77,7 +77,10 @@ void UIObjectImpl::invalidateLayer(UILayer* l)
 
 void UIObjectImpl::initPopupMenu(const std::string& n, std::initializer_list<PopupMenuCallbacks::Entry> args)
 {
-    auto it = std::find_if(popup_menu_list_.begin(), popup_menu_list_.end(), [&n](const PopupMenuCallbacks& c) { return c.name() == n; });
+    auto it = std::find_if(popup_menu_list_.begin(),
+        popup_menu_list_.end(),
+        [&n](const PopupMenuCallbacks& c) { return c.name() == n; });
+
     if (it != popup_menu_list_.end()) {
         UI_ERR << "menu already exists: " << n;
         return;
@@ -496,11 +499,10 @@ void UIObjectImpl::presetInit()
 {
     old_preset_id_ = s_null;
     if ((!presetId() || presetId() == s_null) && !isPatchLoading()) {
-        t_symbol* name = genPresetName(name_);
-        box_->b_objpreset_id = name;
+        box_->b_objpreset_id = genPresetName(name_);
         bindPreset(box_->b_objpreset_id);
     } else if (isPatchEdited() && !isPatchLoading()) {
-        PresetNameMap::iterator it = presets_.find(box_->b_objpreset_id);
+        auto it = presets_.find(box_->b_objpreset_id);
         if (it != presets_.end() && it->second > 1) {
             t_symbol* name = genPresetName(name_);
             rebindPreset(box_->b_objpreset_id, name);
@@ -711,25 +713,29 @@ static void set_constraints(PropertyInfo& info, t_eattr* a)
 
 static PropertyInfo attr_to_prop(t_eattr* a)
 {
-    static t_symbol* SYM_CHECKBOX = gensym("checkbutton");
-    static t_symbol* SYM_FLOAT = &s_float;
-    static t_symbol* SYM_DOUBLE = gensym("double");
-    static t_symbol* SYM_INT = gensym("int");
-    static t_symbol* SYM_LONG = gensym("long");
-    static t_symbol* SYM_SYMBOL = &s_symbol;
-    static t_symbol* SYM_COLOR = gensym("color");
-    static t_symbol* SYM_ATOM = gensym("atom");
-    static t_symbol* SYM_UNIT_DB = gensym("db");
-    static t_symbol* SYM_UNIT_MSEC = gensym("msec");
-    static t_symbol* SYM_UNIT_SEC = gensym("sec");
-    static t_symbol* SYM_UNIT_SAMP = gensym("samp");
-    static t_symbol* SYM_UNIT_DEG = gensym("deg");
-    static t_symbol* SYM_UNIT_RAD = gensym("rad");
-    static t_symbol* SYM_UNIT_HZ = gensym("hz");
+    CEAMMC_DEFINE_CRC32(checkbutton);
+    CEAMMC_DEFINE_CRC32(float);
+    CEAMMC_DEFINE_CRC32(double);
+    CEAMMC_DEFINE_CRC32(int);
+    CEAMMC_DEFINE_CRC32(long);
+    CEAMMC_DEFINE_CRC32(symbol);
+    CEAMMC_DEFINE_CRC32(color);
+    CEAMMC_DEFINE_CRC32(atom);
+    CEAMMC_DEFINE_CRC32(db);
+    CEAMMC_DEFINE_CRC32(msec);
+    CEAMMC_DEFINE_CRC32(samp);
+    CEAMMC_DEFINE_CRC32(sec);
+    CEAMMC_DEFINE_CRC32(deg);
+    CEAMMC_DEFINE_CRC32(rad);
+    CEAMMC_DEFINE_CRC32(hz);
 
     PropertyInfo res(std::string("@") + a->name->s_name, PropValueType::ATOM);
 
-    if (a->type == SYM_FLOAT || a->type == SYM_DOUBLE) {
+    const auto attr_style = crc32_hash(a->style);
+
+    switch (crc32_hash(a->type)) {
+    case hash_float:
+    case hash_double: {
         if (a->size == 1) {
             res.setType(PropValueType::FLOAT);
             set_constraints(res, a);
@@ -739,7 +745,7 @@ static PropertyInfo attr_to_prop(t_eattr* a)
         } else if (a->size > 1) {
             res.setType(PropValueType::LIST);
 
-            if (a->style == SYM_COLOR)
+            if (attr_style == hash_color)
                 res.setView(PropValueView::COLOR);
 
             if (a->defvals)
@@ -748,9 +754,11 @@ static PropertyInfo attr_to_prop(t_eattr* a)
         } else {
             std::cerr << "invalid float property size: " << a->size << "\n";
         }
-    } else if (a->type == SYM_INT || a->type == SYM_LONG) {
+    } break;
+    case hash_int:
+    case hash_long: {
         if (a->size == 1) {
-            if (a->style == SYM_CHECKBOX) {
+            if (attr_style == hash_checkbutton) {
                 res.setType(PropValueType::BOOLEAN);
                 res.setView(PropValueView::TOGGLE);
 
@@ -770,7 +778,8 @@ static PropertyInfo attr_to_prop(t_eattr* a)
         } else {
             std::cerr << "invalid int property size: " << a->size << "\n";
         }
-    } else if (a->type == SYM_SYMBOL) {
+    } break;
+    case hash_symbol: {
         if (a->size == 1) {
             res.setType(PropValueType::SYMBOL);
             set_constraints(res, a);
@@ -784,7 +793,8 @@ static PropertyInfo attr_to_prop(t_eattr* a)
         } else {
             std::cerr << "invalid int property size: " << a->size << "\n";
         }
-    } else if (a->type == SYM_ATOM) {
+    } break;
+    case hash_atom: {
         if (a->size == 1) {
             if (a->sizemax == 0) {
                 res.setType(PropValueType::LIST);
@@ -804,25 +814,38 @@ static PropertyInfo attr_to_prop(t_eattr* a)
         } else {
             std::cerr << "invalid atom property size: " << a->size << "\n";
         }
+    } break;
+    default:
+        break;
     }
 
     if (a->units != &s_) {
-        if (a->units == SYM_UNIT_DB)
+        switch (crc32_hash(a->units)) {
+        case hash_db:
             res.setUnits(PropValueUnits::DB);
-        else if (a->units == SYM_UNIT_MSEC)
+            break;
+        case hash_msec:
             res.setUnits(PropValueUnits::MSEC);
-        else if (a->units == SYM_UNIT_SEC)
+            break;
+        case hash_sec:
             res.setUnits(PropValueUnits::SEC);
-        else if (a->units == SYM_UNIT_SAMP)
+            break;
+        case hash_samp:
             res.setUnits(PropValueUnits::SAMP);
-        else if (a->units == SYM_UNIT_DEG)
+            break;
+        case hash_deg:
             res.setUnits(PropValueUnits::DEG);
-        else if (a->units == SYM_UNIT_RAD)
+            break;
+        case hash_rad:
             res.setUnits(PropValueUnits::RAD);
-        else if (a->units == SYM_UNIT_HZ)
+            break;
+        case hash_hz:
             res.setUnits(PropValueUnits::HZ);
-        else
-            std::cerr << "unknown unit: " << a->units->s_name << "\n";
+            break;
+        default:
+            std::cerr << fmt::format("unknown unit: {}\n", a->units->s_name);
+            break;
+        }
     }
 
     //

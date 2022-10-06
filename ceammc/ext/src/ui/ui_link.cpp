@@ -9,6 +9,7 @@
 #include "ui_link.h"
 #include "ceammc_ui.h"
 #include "ui_link.tcl.h"
+#include "ceammc_format.h"
 
 UILink::UILink()
     : prop_color_link(rgba_blue)

@@ -26,6 +26,13 @@
 #include "minimp3.h"
 #include "minimp3_ex.h"
 
+#ifdef WITH_LIBSAMPLERATE
+#include "samplerate.h"
+
+using SampleRatePtr = std::unique_ptr<SRC_STATE, decltype(&src_delete)>;
+
+#endif
+
 namespace {
 
 using SoxPtr = std::unique_ptr<soxr, decltype(&soxr_delete)>;
@@ -136,6 +143,143 @@ namespace sound {
         return readed / NUM_CH;
     }
 
+#ifdef WITH_LIBSAMPLERATE
+    long MiniMp3::readResampled(t_word* dest, size_t sz, size_t ch, long offset, size_t max_samples)
+    {
+        static_assert(std::is_same<mp3d_sample_t, float>::value, "");
+
+        if (resampleRatio() < 0.001) {
+            LIB_ERR << "[minimp3] invalid resample ratio: " << resampleRatio();
+            return -1;
+        }
+
+        if (!decoder_) {
+            LIB_ERR << "[minimp3] decoder init error";
+            return -1;
+        }
+
+        const auto NUM_CH = channels();
+        if (ch >= NUM_CH) {
+            LIB_ERR << "[minimp3] invalid channel number: " << ch;
+            return -1;
+        }
+
+        // seek to position
+        const auto pos = std::min<size_t>(offset * NUM_CH * resampleRatio(), sampleCount());
+        if (pos > 0 && mp3dec_ex_seek(decoder_.get(), pos)) {
+            LIB_ERR << "[minimp3] can't seek to pos #" << offset;
+            return -1;
+        }
+
+        if (debug)
+            LIB_DBG << "offset " << pos;
+
+        int sr_error = 0;
+        SampleRatePtr libsr(src_new(SRC_SINC_BEST_QUALITY, NUM_CH, &sr_error), &src_delete);
+        if (!libsr) {
+            LIB_ERR << "[libsamplerate] init error: " << src_strerror(sr_error);
+            return -1;
+        }
+
+        sr_error = src_set_ratio(libsr.get(), resampleRatio());
+        if (sr_error) {
+            LIB_ERR << "[libsamplerate] can't set ratio: " << src_strerror(sr_error);
+            return -1;
+        }
+
+        // decode to buffer
+        const size_t mp3_out_bufsize = MINIMP3_MAX_SAMPLES_PER_FRAME;
+        std::vector<mp3d_sample_t> in_buffer(mp3_out_bufsize);
+        const size_t should_read = sz * NUM_CH;
+
+        if (debug)
+            LIB_DBG << "should output " << should_read << " samples";
+
+        const size_t OUT_BUF_SIZE = std::round(in_buffer.size() * resampleRatio());
+        std::vector<float> out_buf(OUT_BUF_SIZE);
+
+        size_t total_decoded_mp3_samples = 0;
+        size_t total_output_samples = 0;
+        t_word* x = dest;
+        while (total_output_samples < should_read) {
+            bool eof = false;
+            // read to buffer
+            const auto nsamp = mp3dec_ex_read(decoder_.get(), in_buffer.data(), in_buffer.size());
+            total_decoded_mp3_samples += nsamp;
+
+            if (nsamp != in_buffer.size()) { /* normal eof or error condition */
+                if (decoder_->last_error) {
+                    LIB_ERR << "[minimp3] read error";
+                    return -1;
+                }
+
+                // eof
+                eof = true;
+            }
+
+            /*
+             * Copy data from the mp3 decoder buffer into the resampler and resample
+             * to produce as much output as is possible to the given output buffer:
+             */
+            SRC_DATA data = { 0 };
+            data.data_in = in_buffer.data();
+            data.input_frames = in_buffer.size();
+            data.data_out = out_buf.data();
+            data.output_frames = out_buf.size();
+            data.src_ratio = resampleRatio();
+            data.end_of_input = 0;
+
+            sr_error = src_process(libsr.get(), &data);
+            if (sr_error) {
+                LIB_ERR << "[libsamplerate] error: " << src_strerror(sr_error);
+                return -1;
+            }
+
+            // write channel data to destination
+            for (size_t j = 0; total_output_samples < max_samples; j++) {
+                x->w_float = out_buf[j * NUM_CH + ch] * gain();
+                x++;
+                total_output_samples++;
+            }
+
+            if (eof)
+                break;
+        }
+
+        // process remaining resample data
+        while (true) {
+            SRC_DATA data = { 0 };
+            data.data_in = in_buffer.data();
+            data.input_frames = in_buffer.size();
+            data.data_out = out_buf.data();
+            data.output_frames = out_buf.size();
+            data.src_ratio = resampleRatio();
+            data.end_of_input = 1;
+            sr_error = src_process(libsr.get(), &data);
+            if (sr_error) {
+                LIB_ERR << "[libsamplerate] error: " << src_strerror(sr_error);
+                return -1;
+            }
+
+            if (!data.output_frames_gen)
+                break;
+
+            // write channel data to destination
+            for (size_t j = 0; total_output_samples < max_samples; j++) {
+                x->w_float = out_buf[j * NUM_CH + ch] * gain();
+                x++;
+                total_output_samples++;
+            }
+        }
+
+        if (debug) {
+            LIB_ERR << "total decoded mp3 samples: " << total_decoded_mp3_samples;
+            LIB_ERR << "total output samples: " << total_output_samples;
+        }
+
+        return total_output_samples;
+    }
+#else
     long MiniMp3::readResampled(t_word* dest, size_t sz, size_t ch, long offset, size_t max_samples)
     {
         if (resampleRatio() < 0.001) {
@@ -158,7 +302,7 @@ namespace sound {
         soxr_error_t error;
         SoxPtr soxr(ceammc_soxr_create(resampleRatio(), NUM_CH, &error), &soxr_delete);
 
-        if (error) {
+        if (error || !soxr) {
             LIB_ERR << "[minimp3] resampler init failed: " << error;
             return -1;
         }
@@ -253,6 +397,7 @@ namespace sound {
 
         return total_output_samples;
     }
+#endif
 
     FormatList MiniMp3::supportedFormats()
     {

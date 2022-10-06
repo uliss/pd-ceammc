@@ -12,7 +12,6 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_platform.h"
-#include "datatype_string.h"
 #include "path_search.h"
 #include "test_path_base.h"
 
@@ -25,7 +24,6 @@ TEST_CASE("path.search", "[externals]")
 {
     pd_test_init();
     test::pdPrintToStdError();
-    setTestSampleRate(64000); // 1tick == 1ms
 
     SECTION("init")
     {
@@ -120,11 +118,13 @@ TEST_CASE("path.search", "[externals]")
         const auto fname = platform::basename(__FILE__);
         const std::string full_name = TEST_SRC_DIR "/" + fname;
 
+#ifndef __APPLE__
         // not enough recursion depth
         t << fname.c_str();
 
         REQUIRE(t.hasOutputAt(1));
         REQUIRE(t.isOutputBangAt(1));
+#endif
 
         // should be ok
         t->setProperty("@depth", LF(2));

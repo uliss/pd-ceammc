@@ -12,7 +12,6 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ui_colorpanel.h"
-#include "ceammc_preset.h"
 #include "test_ui.h"
 
 UI_COMPLETE_TEST_SETUP(ColorPanel)
@@ -26,6 +25,7 @@ TEST_CASE("ui.colorpanel", "[ui.colorpanel]")
         TestColorPanel t("ui.colorpanel");
         REQUIRE(t->numOutlets() == 1);
         REQUIRE(t->numInlets() == 1);
+        REQUIRE_UI_LIST_PROPERTY(t, "size", LF(193, 105));
         REQUIRE_UI_LIST_PROPERTY(t, "matrix", LF(24, 13));
         REQUIRE_UI_FLOAT_PROPERTY(t, "saturation", 1);
         REQUIRE_UI_FLOAT_PROPERTY(t, "hue", 0);

@@ -60,6 +60,12 @@ extern "C" {
 #define atom_getlong(a) (long)atom_getfloat(a)
 #define atom_gettype(a) (a)[0].a_type
 //! @endcond
+//!
+
+struct t_ebox;
+struct t_rect;
+struct t_edrawparams;
+struct t_eattr;
 
 //! The error type
 typedef long t_pd_err;
@@ -67,8 +73,27 @@ typedef long t_pd_err;
 typedef void (*t_typ_method)(void* x, ...);
 //! The return method
 typedef void* (*t_ret_method)(void* x, ...);
-//! The error method
-typedef t_pd_err (*t_err_method)(void* x, ...);
+//! The draw params method
+using t_draw_param_method = void (*)(t_ebox*, t_edrawparams*);
+//! The getter method
+using t_getter_method = bool (*)(void* x, t_eattr*, int*, t_atom**);
+//! The setter method
+using t_setter_method = bool (*)(void* x, t_eattr*, int, t_atom*);
+//! The ok_size method
+using t_oksize_method = void (*)(void*, t_rect* rect);
+//! The notify method
+using t_notify_method = void (*)(void*, t_symbol*, t_symbol*);
+//! The write method
+using t_write_method = void (*)(void*, const char*);
+//! The read method
+using t_read_method = void (*)(void*, const char*);
+//! The zoom method
+using t_zoom_method = void (*)(void*, float);
+//! The dsp_add method
+using t_dsp_add_method = void (*)(void*, t_object* dsp,
+    t_sample** ins, long n_ins,
+    t_sample** outs, long n_outs,
+    long sampleframes, long flags, void* up);
 
 //! The pre-defined ("null") t_symbol*
 extern t_symbol* s_null;
@@ -111,17 +136,6 @@ extern t_symbol* s_value_label_side_top;
 extern t_symbol* s_value_label_side_right;
 extern t_symbol* s_value_label_side_bottom;
 
-//! @cond
-typedef struct _namelist /* element in a linked list of stored strings */
-{
-    struct _namelist* nl_next; /* next in list */
-    char* nl_string; /* the string */
-} t_namelist;
-
-EXTERN t_namelist* sys_searchpath;
-
-//! @endcond
-
 /** @} */
 
 /*! @addtogroup groupgraphics The Graphics Part
@@ -130,33 +144,33 @@ EXTERN t_namelist* sys_searchpath;
  *  @{
  */
 
-//! Macros that define the a pi
-#define EPD_PI (3.141592653589793238462643383279502884f)
-//! Macros that define the a 2pi
-#define EPD_2PI (6.283185307179586476925286766559005f)
-//! Macros that define the a pi over 2
-#define EPD_PI2 (1.57079632679489661923132169163975144f)
-//! Macros that define the a pi over 4
-#define EPD_PI4 (0.785398163397448309615660845819875721f)
+//! pi
+constexpr double EPD_PI = 3.141592653589793238462643383279502884;
+//! 2pi
+constexpr double EPD_2PI = 6.283185307179586476925286766559005;
+//! pi over 2
+constexpr double EPD_PI2 = 1.57079632679489661923132169163975144;
+//! pi over 4
+constexpr double EPD_PI4 = 0.785398163397448309615660845819875721;
 
 /**
  * @enum elayer_flags
  * @brief The flags that defines the status of a layer.
  * @details It define all possible the status of a layer.
  */
-typedef enum elayer_flags {
+enum elayer_flags : std::int8_t {
     EGRAPHICS_OPEN = 0, /*!< Open. */
     EGRAPHICS_CLOSE = -1, /*!< Closed. */
     EGRAPHICS_INVALID = -2, /*!< Invalid. */
     EGRAPHICS_TODRAW = -3 /*!< To be drawn. */
-} elayer_flags;
+};
 
 /**
  * @enum etextanchor_flags
  * @brief The flags that defines the text anchor.
  * @details It define all text anchor.
  */
-typedef enum etextanchor_flags {
+enum etextanchor_flags : std::int8_t {
     ETEXT_UP = 0, /*!< Up and center. */
     ETEXT_UP_LEFT = 1, /*!< Up and left. */
     ETEXT_UP_RIGHT = 2, /*!< Up and right. */
@@ -167,67 +181,67 @@ typedef enum etextanchor_flags {
     ETEXT_RIGHT = 7, /*!< Right. */
     ETEXT_CENTER = 8 /*!< Center. */
 
-} etextanchor_flags;
+};
 
 /**
  * @enum etextwrap_flags
  * @brief The flags that defines if the text should be wrapped.
  * @details It define true or false.
  */
-typedef enum etextwrap_flags {
+enum etextwrap_flags : std::int8_t {
     ETEXT_NOWRAP = 0, /*!< False. */
     ETEXT_WRAP = 1 /*!< True. */
-} etextwrap_flags;
+};
 
 /**
  * @enum etextjustify_flags
  * @brief The flags that define the text justification.
  * @details It define all text justification.
  */
-typedef enum etextjustify_flags {
+enum etextjustify_flags : std::int8_t {
     ETEXT_JLEFT = 0, /*!< Left. */
     ETEXT_JRIGHT = 1, /*!< Right. */
     ETEXT_JCENTER = 2 /*!< Center. */
-} etextjustify_flags;
+};
 
 /**
  * @enum egraphics_types
  * @brief The types of graphical object.
  * @details It define all the graphical type.
  */
-typedef enum {
+enum egraphics_types : std::int8_t {
     E_GOBJ_INVALID = 0, /*!< This type is invalid. */
     E_GOBJ_PATH = 1, /*!< This is a path. */
     E_GOBJ_TEXT = 2, /*!< This is a text. */
     E_GOBJ_SHAPE = 3 /*!< This is a shape. */
-} egraphics_types;
+};
 
 /**
  * @enum epath_types
  * @brief The types of path.
  * @details It define all the path type.
  */
-typedef enum {
+enum epath_types : std::int8_t {
     E_PATH_MOVE = 0, /*!< This type is move. */
     E_PATH_LINE = 1, /*!< This type is line. */
     E_PATH_CURVE = 2, /*!< This type is curve. */
     E_PATH_CLOSE = 3, /*!< This type is close. */
     E_PATH_CIRCLE = 4
-} epath_types;
+};
 
 /**
  * @enum eshape_types
  * @brief The types of shape.
  * @details It define soem of the shape type.
  */
-typedef enum {
+enum eshape_types : std::int8_t {
     E_SHAPE_OVAL = 0, /*!< This shape is oval. */
     E_SHAPE_ARC = 1, /*!< This shape is arc. */
     E_SHAPE_IMAGE = 2, /*!< This shape is image. */
     E_SHAPE_RECT = 3 /*!< This shape is rectangle. */
-} eshape_types;
+};
 
-enum eclip_flags {
+enum eclip_flags : std::int8_t {
     E_CLIP_NONE = 0x0,
     E_CLIP_MIN = 0x1,
     E_CLIP_MAX = 0x2,
@@ -311,76 +325,76 @@ struct t_matrix {
  * @brief A rgb color structure.
  * @details It contains the members red, green and blue.
  */
-typedef struct t_rgb {
+struct t_rgb {
     float red; /*!< The red value. */
     float green; /*!< The green value. */
     float blue; /*!< The blue value. */
-} t_rgb;
+};
 
 /**
  * @struct t_rgba
  * @brief A rgba color structure.
  * @details It contains the members red, green, blue and alpha.
  */
-typedef struct t_rgba {
+struct t_rgba {
     float red; /*!< The red value. */
     float green; /*!< The green value. */
     float blue; /*!< The blue value. */
     float alpha; /*!< The alpha value. */
-} t_rgba;
+};
 
 /**
  * @struct t_hsl
  * @brief A hsl color structure.
  * @details It contains the members hue, saturation and lightness.
  */
-typedef struct t_hsl {
+struct t_hsl {
     float hue; /*!< The hue value. */
     float saturation; /*!< The saturation value. */
     float lightness; /*!< The lightness value. */
-} t_hsl;
+};
 
 /**
  * @struct t_hsla
  * @brief A hsla color structure.
  * @details It contains the members hue, saturation, lightness and alpha.
  */
-typedef struct t_hsla {
+struct t_hsla {
     float hue; /*!< The hue value. */
     float saturation; /*!< The saturation value. */
     float lightness; /*!< The lightness value. */
     float alpha; /*!< The alpha value. */
-} t_hsla;
+};
 
 /**
  * @struct t_capstyle
  * @brief A capstyle enum
  */
-typedef enum t_capstyle {
+enum t_capstyle : std::int8_t {
     ECAPSTYLE_BUTT = 0, /*!< Default. A flat edge is added to each end of the line */
     ECAPSTYLE_ROUND = 1, /*!< A rounded end cap is added to each end of the line */
     ECAPSTYLE_SQUARE = 2 /*!< A square end cap is added to each end of the line */
-} t_capstyle;
+};
 
 /**
  * @struct t_dashstyle
  * @brief A dashstyle enum
  */
-typedef enum t_dashstyle {
+enum t_dashstyle : std::int8_t {
     EDASHSTYLE_NONE = 0, /*!< Default. No dash line pattern */
     EDASHSTYLE_24 = 1, /*!<  */
     EDASHSTYLE_64 = 2 /*!<  */
-} t_dashstyle;
+};
 
 /**
  * @struct t_dashstyle
  * @brief A dashstyle enum
  */
-typedef enum t_smooth {
+enum t_smooth : std::int8_t {
     ESMOOTH_NONE = 0, /*!< Default. No dash line pattern */
     ESMOOTH_RAW = 1, /*!<  */
     ESMOOTH_BEZIER = 2 /*!<  */
-} t_smooth;
+};
 
 //! The pre-defined black t_rgba
 extern const t_rgba rgba_black;
@@ -404,20 +418,20 @@ extern const t_rgba rgba_red;
  * @brief The font structure.
  * @details It contains the informations of a font.
  */
-typedef struct t_efont {
+struct t_efont {
     t_symbol* c_family; /*!< The family of the font (times, helvetica, ect.). */
     t_symbol* c_slant; /*!< The slant of the font (regular, italic, etc.). */
     t_symbol* c_weight; /*!< The weight of the font (normal, bold). */
     float c_size; /*!< The size of the font. */
     int c_sizereal; /*!< The platform's size of the font. */
-} t_efont;
+};
 
 /**
  * @struct t_etext
  * @brief The text structure.
  * @details It contains the all the informations to be drawn.
  */
-typedef struct t_etext {
+struct t_etext {
     t_rgba c_color; /*!< The color of the text. */
     t_efont c_font; /*!< The font of the text. */
     t_rect c_rect; /*!< The rectangle of the text. */
@@ -426,20 +440,20 @@ typedef struct t_etext {
     char c_is_buffer_used;
     etextanchor_flags c_anchor; /*!< The anchor of the text. */
     etextjustify_flags c_justify; /*!< The justification of the text. */
-} t_etext;
+};
 
 /**
  * @struct t_eimage
  * @brief The image structure.
  * @details It contains the all the informations to be drawn.
  */
-typedef struct t_eimage {
+struct t_eimage {
     const char* data_base64;
     t_symbol* name;
     uint16_t width;
     uint16_t height;
     etextanchor_flags anchor;
-} t_eimage;
+};
 
 /**
  * @struct t_egobj
@@ -447,7 +461,7 @@ typedef struct t_eimage {
  * @details It contains the all the informations to be drawn.
  * @todo should keep the allocated memory
  */
-typedef struct t_egobj {
+struct t_egobj {
     std::vector<t_pt> e_points; /*!< The points of the graphical object. */
     t_efont e_font; /*!< The font of the graphical object. */
     const char* e_text; /*!< The text of the graphical object. */
@@ -464,14 +478,14 @@ typedef struct t_egobj {
     etextjustify_flags e_justify; /*!< The justification of the graphical object. */
     egraphics_types e_type; /*!< The type of the graphical object. */
     bool e_filled; /*!< The filled state of the graphical object. */
-} t_egobj;
+};
 
 /**
  * @struct t_elayer
  * @brief The  drawing layer.
  * @details It contains the all the informations and the graphical objects to be drawn.
  */
-typedef struct t_elayer {
+struct t_elayer {
     t_object* e_owner; /*!< The layer owner. */
     t_symbol* e_name; /*!< The layer name. */
     t_symbol* e_id; /*!< The layer canvas ID. */
@@ -488,7 +502,7 @@ typedef struct t_elayer {
     t_dashstyle e_line_dashstyle; /*!< The layer line dashstyle. */
     t_smooth e_line_smooth; /*!< The layer line dashstyle. */
     bool e_optimize; /*!< optimize line drawing */
-} t_elayer;
+};
 
 /** @} */
 
@@ -503,10 +517,10 @@ typedef struct t_elayer {
  * @brief The popup structure.
  * @details It contains the informations to show and retieve a popup.
  */
-typedef struct t_epopup {
+struct t_epopup {
     t_symbol* c_name; /*!< The name of the popup. */
     t_symbol* c_send; /*!< The name of the owner. */
-} t_epopup;
+};
 
 /** @} */
 
@@ -525,18 +539,25 @@ typedef void (*t_mouseenter_method)(void* x);
 typedef void (*t_mouseleave_method)(void* x);
 typedef void (*t_mousemove_method)(void* x, t_glist*, t_pt, long);
 typedef void (*t_mousedown_method)(void* x, t_glist*, t_pt, t_pt, long);
+typedef void (*t_mousedrag_method)(void* x, t_glist*, t_pt, long);
 typedef void (*t_mouseup_method)(void* x, t_glist*, t_pt, long);
 typedef void (*t_mousewheel_method)(void* x, t_pt, long, float);
 typedef void (*t_dblclick_method)(void* x, t_glist*, t_pt, long);
 typedef void (*t_rightclick_method)(void* x, t_pt, t_pt);
 typedef void (*t_popup_method)(void* x, t_symbol*, long, t_pt);
+typedef void (*t_key_method)(void* x, t_symbol*, int, long);
+typedef void (*t_save_method)(void* x, t_binbuf*);
+typedef void (*t_dsp_method)(void* x, t_object*, short*, double, long, long);
+typedef void (*t_paint_method)(void* x);
+typedef void (*t_create_method)(void* x);
+typedef void (*t_erase_method)(void* x);
 
 /**
  * @struct t_ewidget
  * @brief The default method of a class.
  * @details It contains the adress of the default methods of a class.
  */
-typedef struct t_ewidget {
+struct t_ewidget {
     t_getrectfn w_getrectfn; /*!< The native Pd get size method. */
     t_displacefn w_displacefn; /*!< The native Pd displace method. */
     t_selectfn w_selectfn; /*!< The native Pd selection method. */
@@ -544,40 +565,38 @@ typedef struct t_ewidget {
     t_deletefn w_deletefn; /*!< The native Pd deletion method. */
     t_visfn w_visfn; /*!< The native Pd visible method. */
     t_clickfn w_clickfn; /*!< The native Pd click method. */
-    t_typ_method w_assist; /*!< The dummy iolets assist method. */
-    t_typ_method w_paint; /*!< The paint method. */
-    t_typ_method w_create; /*!< The widget after create method. */
-    t_typ_method w_erase; /*!< The widget before erase method. */
+    t_paint_method w_paint; /*!< The paint method. */
+    t_create_method w_create; /*!< The widget after create method. */
+    t_erase_method w_erase; /*!< The widget before erase method. */
     t_mouseenter_method w_mouseenter; /*!< The mouse enter method. */
     t_mouseleave_method w_mouseleave; /*!< The mouse leave method. */
     t_mousemove_method w_mousemove; /*!< The mouse move method. */
     t_mousedown_method w_mousedown; /*!< The mouse down method. */
-    t_typ_method w_mousedrag; /*!< The mouse drag method. */
+    t_mousedrag_method w_mousedrag; /*!< The mouse drag method. */
     t_mouseup_method w_mouseup; /*!< The mouse up method. */
     t_mousewheel_method w_mousewheel; /*!< The mouse wheel method. */
     t_dblclick_method w_dblclick; /*!< The mouse double click method. */
     t_rightclick_method w_rightclick; /*!< The mouse double click method. */
-    t_typ_method w_key; /*!< The key method. */
-    t_typ_method w_keyfilter; /*!< The key filter method. */
-    t_typ_method w_getdrawparameters; /*!< The get draw parameter method. */
-    t_typ_method w_save; /*!< The save method. */
-    t_typ_method w_dosave; /*!< The real save method. */
+    t_key_method w_key; /*!< The key method. */
+    t_key_method w_keyfilter; /*!< The key filter method. */
+    t_draw_param_method w_getdrawparameters; /*!< The get draw parameter method. */
+    t_save_method w_save; /*!< The save method. */
+    t_save_method w_dosave; /*!< The real save method. */
     t_popup_method w_popup; /*!< The popup method. */
-    t_typ_method w_dsp; /*!< The dsp method. */
-    t_typ_method w_oksize; /*!< The size validation method. */
-    t_err_method w_notify; /*!< The notification method. */
-    t_typ_method w_write; /*!< The write to file method. */
-    t_typ_method w_read; /*!< The read from file method. */
-    t_typ_method w_onzoom; /*!< Zoom callback. */
-} t_ewidget;
+    t_dsp_method w_dsp; /*!< The dsp method. */
+    t_oksize_method w_oksize; /*!< The size validation method. */
+    t_notify_method w_notify; /*!< The notification method. */
+    t_write_method w_write; /*!< The write to file method. */
+    t_read_method w_read; /*!< The read from file method. */
+    t_zoom_method w_onzoom; /*!< Zoom callback. */
+};
 
 /**
  * @struct t_eattr
  * @brief The attribute.
  * @details It contains the members and the methods for an attribute. It is not already an object but perhaps it will be in the futur.
  */
-typedef struct t_eattr {
-    t_object obj; /*!< The dummy object. */
+struct t_eattr {
     t_symbol* name; /*!< The name of the attribute. */
     t_symbol* type; /*!< The type of the attribute (int, long, float,d double, rgba, etc.). */
     t_symbol* category; /*!< The dummy category of the attribute. */
@@ -587,22 +606,22 @@ typedef struct t_eattr {
     t_symbol* defvals; /*!< The default value of the attribute. */
     t_symbol** itemslist; /*!< The available items of an attribute if it is a menu. */
     size_t itemssize; /*!< The number of available items of an attribute if it is a menu. */
-    t_err_method getter; /*!< The getter method of the attribute. */
-    t_err_method setter; /*!< The setter method of the attribute. */
-    size_t offset; /*!< The offset of the attribute in the object structure. */
-    size_t sizemax; /*!< The maximum size of the attribute if the attribute is an array. */
-    size_t size; /*!< The size of the attribute if the attribute is an array. */
+    t_getter_method getter; /*!< The getter method of the attribute. */
+    t_setter_method setter; /*!< The setter method of the attribute. */
+    std::uint16_t offset; /*!< The offset of the attribute in the object structure. */
+    std::uint16_t sizemax; /*!< The maximum size of the attribute if the attribute is an array. */
+    std::uint16_t size; /*!< The size of the attribute if the attribute is an array. */
     t_float minimum; /*!< The minimum value of the attribute. */
     t_float maximum; /*!< The maximum value of the attribute. */
     t_float step; /*!< The increment or decrement step calue of the attribute. */
-    int order; /*!< The dummy order of the attribute. */
+    std::int8_t order; /*!< The dummy order of the attribute. */
     eclip_flags clipped; /*!< If the attribute is clipped if it's value or an array of numerical values. */
     bool save; /*!< If the attribute should be saved. */
     bool paint; /*!< If the attribute should repaint the t_ebox when it has changed. */
     bool invisible; /*!< If the attribute is invisible. */
-} t_eattr;
+};
 
-enum t_eattr_op {
+enum t_eattr_op : std::int8_t {
     EATTR_OP_ASSIGN,
     EATTR_OP_ADD,
     EATTR_OP_SUB,
@@ -616,7 +635,7 @@ enum t_eattr_op {
  * @brief The class.
  * @details It contains the Pure Data default class with extra methods and attributes.
  */
-typedef struct t_eclass {
+struct t_eclass {
     t_class c_class; /*!< The default class. */
     // do not remove!
     // in Pd 0.48 t_class* next added into t_class, and sizeof(t_class) grown to 8 bytes on x86_64
@@ -627,7 +646,7 @@ typedef struct t_eclass {
     t_ewidget c_widget; /*!< The extra widget methods. */
     t_eattr** c_attr; /*!< The attributes. */
     size_t c_nattr; /*!< The number of attributes. */
-} t_eclass;
+};
 
 /** @} */
 
@@ -642,12 +661,12 @@ typedef struct t_eclass {
  * @brief The Proxy object.
  * @details It contains the proxy class, the eobj owner and the index of the proxy.
  */
-typedef struct t_eproxy {
+struct t_eproxy {
     t_pd p_pd; /*!< The class object. */
     t_object* p_owner; /*!< The pointer to the eobj owner. */
     t_inlet* p_inlet; /*!< The pointer to the inlet. */
     int p_index; /*!< The index of the proxy. */
-} t_eproxy;
+};
 
 /**
  * @struct t_eobj
@@ -655,14 +674,14 @@ typedef struct t_eproxy {
  * @details It contains the Pd object, the canvas pointer and members for proxy inlets.
  * This should be used for no graphical object that don't have signal processing methods.
  */
-typedef struct t_eobj {
+struct t_eobj {
     t_object o_obj; /*!< The Pd object. */
     t_symbol* o_id; /*!< The object ID. */
     t_canvas* o_canvas; /*!< The canvas that own the object. */
     t_eproxy** o_proxy; /*!< The array of proxy inlets. */
     int o_nproxy; /*!< The number of proxy inlets. */
     int o_current_proxy; /*!< The index of the current proxy inlet used */
-} t_eobj;
+};
 
 /** @} */
 
@@ -678,7 +697,7 @@ typedef struct t_eobj {
  * @details It contains all the members for signal processing.
  * This should be used for no graphical object that have signal processing methods.
  */
-typedef struct t_edsp {
+struct t_edsp {
     float d_float; /*!< The float member to initialize the signal method. */
     long d_size; /*!< The number of signal inlets and outlets. */
     t_int* d_vectors; /*!< The vector that contains all the pointers for the perform method. */
@@ -686,19 +705,19 @@ typedef struct t_edsp {
     void* d_user_param; /*!< The user parameters to pass through the perform method. */
     t_float** d_sigs_out; /*!< The array of signal vectors. */
     t_float* d_sigs_real; /*!< The real array of signal. */
-    t_typ_method d_perform_method; /*!< The user perform method. */
+    t_dsp_add_method d_perform_method; /*!< The user perform method. */
     long d_misc; /*!< The flag that could be inplace or not. */
-} t_edsp;
+};
 
 /**
  * @enum edsp_flags
  * @brief The flags that discribe the behavior of a t_edspobj.
  * @details It define all the behavior of a t_edspobj.
  */
-typedef enum {
+enum edsp_flags : std::int8_t {
     E_INPLACE = 0, /*!< The signal processing can be inplace. */
     E_NO_INPLACE = 1 /*!< The signal processing can't be inplace. */
-} edsp_flags;
+};
 
 /**
  * @struct t_edspobj
@@ -706,10 +725,10 @@ typedef enum {
  * @details It contains the t_eobj with the t_edsp structure.
  * This should be used for no graphical object that have signal processing methods.
  */
-typedef struct t_edspobj {
+struct t_edspobj {
     t_eobj d_obj; /*!< The default object. */
     t_edsp d_dsp; /*!< The dsp structure. */
-} t_edspobj;
+};
 
 /** @} */
 
@@ -724,7 +743,7 @@ typedef struct t_edspobj {
  * @brief The mouse modifiers.
  * @details It define mouse modifiers.
  */
-typedef enum emod_flags {
+enum emod_flags : std::int8_t {
     EMOD_NONE = 0, /*!< Nothing. */
     EMOD_SHIFT = 1, /*!< Shift. */
     EMOD_MAJ = 2, /*!< Maj. */
@@ -732,23 +751,22 @@ typedef enum emod_flags {
     EMOD_CMD = 8, /*!< Command. */
     EMOD_ALT = 16, /*!< Alt. */
     EMOD_RIGHT = 32 /*!< Right click. */
-} emod_flags;
+};
 
 /**
  * @enum ekey_flags
  * @brief The system keys.
  * @details It define the system keys.
  */
-typedef enum ekey_flags {
+enum ekey_flags : std::int8_t {
     EKEY_DEL = 0, /*!< The delete key. */
     EKEY_TAB = 1, /*!< The tabulation key. */
     EKEY_ENTER = 2, /*!< The return key. */
     EKEY_ESC = 3 /*!< The escape key. */
-
-} ekey_flags;
+};
 
 //! @cond
-typedef enum eselitem_flags {
+enum eselitem_flags : std::int8_t {
     EITEM_NONE = 0,
     EITEM_OBJ = 1,
     EITEM_INLET = 2,
@@ -756,7 +774,7 @@ typedef enum eselitem_flags {
     EITEM_BOTTOM = 4,
     EITEM_CORNER = 5,
     EITEM_RIGHT = 6
-} eselitem_flags;
+};
 //! @endcond
 
 /**
@@ -764,19 +782,19 @@ typedef enum eselitem_flags {
  * @brief The flags that discribe the behavior of a t_ebox.
  * @details It define all the behavior of a t_ebox.
  */
-typedef enum {
+enum ebox_flags : std::uint8_t {
     EBOX_GROWNO = (1 << 4), /*!< The width and the height can't be modified. */
     EBOX_GROWLINK = (1 << 5), /*!< The width and the height are linked. */
     EBOX_GROWINDI = (1 << 6), /*!< The width and the height are independant. */
     EBOX_IGNORELOCKCLICK = (1 << 7) /*!< The t_ebox ignore the mouse events. */
-} ebox_flags;
+};
 
 /**
  * @enum ebox_cursors
  * @brief The cursors that can be used.
  * @details It define all the available cursors.
  */
-typedef enum t_cursor {
+enum t_cursor : std::int8_t {
     ECURSOR_LEFT_PTR = 0, /*!< The left_ptr string. */
     ECURSOR_CENTER_PTR = 1, /*!< The center_ptr string. */
     ECURSOR_PLUS = 2, /*!< The plus string. */
@@ -792,20 +810,20 @@ typedef enum t_cursor {
     ECURSOR_MOVE = 12, /*!< The move cursor */
     ECURSOR_VDOUBLE_ARROW = 13, /*!< The sb_v_double_arrow string. */
     ECURSOR_HDOUBLE_ARROW = 14 /*!< The sb_h_double_arrow string. */
-} ebox_cursors;
+};
 
 /**
  * @struct t_edrawparams
  * @brief The  drawing parameters.
  * @details It contains the default parameters of a ebox.
  */
-typedef struct t_edrawparams {
+struct t_edrawparams {
     t_rgba d_bordercolor; /*!< The border color. */
     t_rgba d_boxfillcolor; /*!< The background color. */
     t_rgba d_labelcolor; /*!< The label color. */
     bool d_hideiolets; /*!< hide standard iolets, for ui.icon for example */
     bool d_hideborder; /*!< hide standard border, for ui.link for example */
-} t_edrawparams;
+};
 
 /**
  * @struct t_ebox
@@ -813,8 +831,8 @@ typedef struct t_edrawparams {
  * @details It contains the t_eobj with all the members for graphical behavior.
  * This should be used for graphical object that don't have signal processing methods.
  */
-typedef struct t_ebox_ {
-    t_eobj b_obj; ///<The  object.
+struct t_ebox {
+    t_eobj b_obj; ///< The  object.
 
     t_symbol* b_receive_id; /*!< The object user ID. */
     t_symbol* b_send_id; /*!< The object send ID. */
@@ -835,6 +853,18 @@ typedef struct t_ebox_ {
     int b_selected_outlet; /*!< The outlet selected. */
     float b_zoom;
 
+    std::vector<t_elayer>* b_layers; /*!< The ebox layers. */
+
+    t_symbol* b_label; /*!< The UI label. */
+    t_symbol* label_align; /*!< The UI label align: left center or right */
+    t_symbol* label_valign; /*!< The UI label vertical align: top, center or bottom */
+    t_symbol* label_side; /*!< The UI label anchor side: top, left, right, or bottom */
+
+    int label_inner;
+    int label_margins[2];
+
+    t_edrawparams b_boxparameters; /*!< The ebox parameters. */
+
     bool b_mouse_down; /*!< The mouse state. */
     bool b_resize; /*!< Widget is in resize state */
     bool b_resize_redraw_all; /*!< Widget in resize state and redraw all layers */
@@ -843,20 +873,10 @@ typedef struct t_ebox_ {
     bool b_ready_to_draw; /*!< The ebox state for drawing. */
     bool b_have_window; /*!< The ebox window state. */
     bool b_isinsubcanvas; /*!< If the box is in a sub canvas. */
-    t_edrawparams b_boxparameters; /*!< The ebox parameters. */
-
-    std::vector<t_elayer>* b_layers; /*!< The ebox layers. */
-
-    t_symbol* b_label; /*!< The UI label. */
-    t_symbol* label_align; /*!< The UI label align: left center or right */
-    t_symbol* label_valign; /*!< The UI label vertical align: top, center or bottom */
-    t_symbol* label_side; /*!< The UI label anchor side: top, left, right, or bottom */
-    int label_inner;
-    int label_margins[2];
     t_cursor cursor;
 
     t_canvas* wis_canvas;
-} t_ebox;
+};
 
 /** @} */
 
@@ -867,9 +887,9 @@ typedef struct t_ebox_ {
  * This should be used for graphical object that have signal processing methods.
  * @ingroup groupbox groupdspobj
  */
-typedef struct t_edspbox {
+struct t_edspbox {
     t_ebox e_box; /*!< The  DSP object. */
     t_edsp d_dsp; /*!< The dsp structure. */
-} t_edspbox;
+};
 
 #endif
