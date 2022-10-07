@@ -14,6 +14,8 @@
 #include "lang_luajit.h"
 #include "test_lang_base.h"
 
+#include <thread>
+
 PD_COMPLETE_TEST_SETUP(LangLuaJit, lang, luajit)
 
 TEST_CASE("lang.luajit", "[externals]")
