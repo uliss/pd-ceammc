@@ -6,6 +6,7 @@
 #include <future>
 #include <memory>
 #include <mutex>
+#include <list>
 
 #include "config.h"
 #ifdef HAVE_PTHREAD_H
