@@ -54,9 +54,13 @@
             <method name="send_inf">send inf value
             <param name="PATH" type="symbol" required="true">OSC path</param>
             </method>
+            <method name="send_string">send string value
+            <param name="PATH" type="symbol" required="true">OSC path</param>
+            <param name="VAL" type="list" required="true">value</param>
+            </method>
          </methods>
         <properties>
-            <property name="@dump" type="int" enum="0 1" default="0">dump incoming messages to Pd window</property>
+            <property name="@host" type="symbol" enum="0 1" default="0">dump incoming messages to Pd window</property>
         </properties>
         <inlets>
             <inlet>
