@@ -133,6 +133,7 @@ if(WIN32)
     install_tcl_dir(tcllib1.18)
     install_tcl_dir(tcllib1.19)
     install_tcl_dir(tcllib1.20)
+    install_tcl_dir(tcllib1.21)
     # try different tooltip location
     install_tcl_dir(tklib0.6)
     install_tcl_dir(tklib0.6/tooltip)
