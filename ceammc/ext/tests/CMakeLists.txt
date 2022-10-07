@@ -49,8 +49,12 @@ if(WITH_LIBSNDFILE)
     if(LIBSNDFILE_FOUND)
         include_directories(${LIBSNDFILE_INCLUDE_DIRS})
         ceammc_add_core_test("ceammc::libsndfile" test_libsndfile)
-        ceammc_add_test_linked(NAME test_sound TITLE "ceammc::sound" SRC test_sound_minimp3.cpp)
     endif()
+endif()
+
+ceammc_add_test_linked(NAME test_sound TITLE "ceammc::sound" SRC test_sound_minimp3.cpp)
+if(WITH_LIBSAMPLERATE)
+    target_compile_definitions(test_sound PRIVATE WITH_LIBSAMPLERATE)
 endif()
 
 ceammc_add_test_linked(TITLE "ceammc::pd" NAME test_pd SRC "../src/base/debug_gensym.cpp" LINK ceammc_core puredata-core)

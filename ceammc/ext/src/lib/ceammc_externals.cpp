@@ -230,7 +230,7 @@ PropertySetState ceammc_base_property_set_cc(t_object* x, t_symbol* key, t_float
 
     auto prop = obj->property(key);
     if (!prop)
-        return PPS::ERROR_NOT_FOUND;
+        return PPS::ERROR_PROP_NOT_FOUND;
 
     auto& info = prop->infoT();
     // check rw
@@ -265,7 +265,7 @@ PropertySetState ceammc_ui_property_set_cc(t_object* x, t_symbol* key, t_float v
 
     auto info = (c->c_dsp) ? objdsp->propertyInfo(key0) : obj->propertyInfo(key0);
     if (!info)
-        return PPS::ERROR_NOT_FOUND;
+        return PPS::ERROR_PROP_NOT_FOUND;
 
     // check rw
     if (!info->isReadWrite())
@@ -305,7 +305,7 @@ PropertySetState ceammc_property_set_cc(t_object* x, t_symbol* key, t_float val)
     if (res == PropertySetState::OK || res != PropertySetState::OTHER_TYPE)
         return res;
 
-    return PropertySetState::ERROR_NOT_FOUND;
+    return PropertySetState::ERROR_PROP_NOT_FOUND;
 }
 
 const char* ceammc_property_set_cc_str_state(PropertySetState st)
@@ -320,7 +320,7 @@ const char* ceammc_property_set_cc_str_state(PropertySetState st)
         return "readonly property";
     case PSS::ERROR_INVALID_TYPE:
         return "non-numeric property type";
-    case PSS::ERROR_NOT_FOUND:
+    case PSS::ERROR_PROP_NOT_FOUND:
         return "not found";
     case PSS::ERROR_NO_RANGE:
         return "not bounded property";

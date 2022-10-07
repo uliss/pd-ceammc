@@ -9,11 +9,13 @@
  */
 
 #include "ebox.h"
+#include "ceammc_atomlist.h"
+#include "ceammc_crc32.h"
 #include "ceammc_impl.h"
-#include "eclass.h"
+#include "ceammc_syms.h"
 #include "egraphics.h"
 #include "eobj.h"
-#include "g_style.h"
+#include "fmt/format.h"
 
 #include "ceammc.h"
 
@@ -86,10 +88,6 @@ static const char* SYM_NORMAL = "normal";
 static const char* SYM_ITALIC = "italic";
 static const char* SYM_ROMAN = "roman";
 static const char* SYM_ALL_PROPS = "@*";
-
-static const char* SYM_CHECKBUTTON = "checkbutton";
-static const char* SYM_MENU = "menu";
-static const char* SYM_COLOR = "color";
 
 static t_pt ebox_calc_pos(t_ebox* x, t_glist* glist);
 static void ebox_create_window(t_ebox* x, t_glist* glist);
@@ -459,7 +457,7 @@ void ebox_new(t_ebox* x, long flags)
 
     x->wis_canvas = nullptr;
 
-    eobj_getclass(&x->b_obj)->c_widget.w_dosave = reinterpret_cast<t_typ_method>(ebox_dosave);
+    eobj_getclass(&x->b_obj)->c_widget.w_dosave = reinterpret_cast<t_save_method>(ebox_dosave);
     ebox_attrprocess_default(x);
 }
 
@@ -600,27 +598,31 @@ void ebox_attrprocess_viabinbuf(t_ebox* x, t_binbuf* d)
 
 static void ebox_attrprocess_default(t_ebox* x)
 {
-    t_eclass* c = eobj_getclass(&x->b_obj);
+    auto* c = eobj_getclass(&x->b_obj);
 
     for (size_t i = 0; i < c->c_nattr; i++) {
-        auto defvals = c->c_attr[i]->defvals;
+        auto attr = c->c_attr[i];
+        auto defvals = attr->defvals;
 
         // skip if default is not set
-        if (!defvals)
+        if (!attr || !defvals)
             continue;
 
-        if (c->c_attr[i]->size < 1) {
-            pd_error(x, "[%s] invalid attribute size: %ld", c->c_class.c_name->s_name, c->c_attr[i]->size);
+        const size_t N = attr->size;
+        if (N < 1) {
+            pd_error(x, "[%s] invalid attribute size: %d", c->c_class.c_name->s_name, (int)N);
             return;
         }
 
-        const size_t N = c->c_attr[i]->size;
         t_atom defv[N];
         memset(defv, 0, sizeof(defv));
 
-        // list of numbers
-        auto type = c->c_attr[i]->type;
-        if (type == s_int || type == s_long || type == &s_float || type == s_double) {
+        using namespace ceammc;
+        switch (crc32_hash(attr->type)) {
+        case "int"_hash:
+        case "long"_hash:
+        case "float"_hash:
+        case "double"_hash: { // list of numbers
             std::vector<std::string> result;
             boost::split(result, defvals->s_name, boost::is_any_of(" "), boost::token_compress_on);
 
@@ -634,7 +636,7 @@ static void ebox_attrprocess_default(t_ebox* x)
                 const char* s = result[j].c_str();
                 char* e = nullptr;
 #if PD_FLOATSIZE == 32
-                float f = std::strtof(s, &e);
+                const auto f = std::strtof(s, &e);
                 if (f == HUGE_VALF) {
                     pd_error(x, "[%s] value is too big: %s", c->c_class.c_name->s_name, s);
                     return;
@@ -645,7 +647,7 @@ static void ebox_attrprocess_default(t_ebox* x)
                     atom_setfloat(&defv[j], f);
                 }
 #elif PD_FLOATSIZE == 64
-                double f = std::strtod(s, &e);
+                const auto f = std::strtod(s, &e);
                 if (f == HUGE_VAL) {
                     pd_error(x, "[%s] value is too big: %s", c->c_class.c_name->s_name, s);
                     return;
@@ -657,24 +659,25 @@ static void ebox_attrprocess_default(t_ebox* x)
                 }
 #endif
             }
-        } else {
+        } break;
+        default: {
             // single symbol
             if (N == 1) {
                 atom_setsym(&defv[0], defvals);
             } else {
-                // symbol list
-                std::vector<std::string> result;
-                boost::split(result, defvals->s_name, boost::is_any_of(" "), boost::token_compress_on);
+                auto args = AtomList::parseString(defvals->s_name);
 
-                if (N != result.size()) {
+                if (N != args.size()) {
                     pd_error(x, "[%s] mismatched size of default values: %d != %d",
-                        c->c_class.c_name->s_name, int(N), int(result.size()));
-                    return;
+                        c->c_class.c_name->s_name, int(N), int(args.size()));
+                    continue;
                 }
 
-                for (size_t j = 0; j < N; j++)
-                    atom_setsym(&defv[j], gensym(result[j].c_str()));
+                for (size_t i = 0; i < N; i++) {
+                    defv[i] = args[i].atom();
+                }
             }
+        } break;
         }
 
         bool readonly = (c->c_attr[i]->getter) && (!c->c_attr[i]->setter);
@@ -1294,13 +1297,14 @@ void ebox_vis(t_ebox* x, t_float v)
     }
 }
 
-t_pd_err ebox_set_receiveid(t_ebox* x, t_object* /*attr*/, int argc, t_atom* argv)
+bool ebox_set_receiveid(void* z, t_eattr* /*attr*/, int argc, t_atom* argv)
 {
+    auto x = static_cast<t_ebox*>(z);
     if (argc && argv && atom_gettype(argv) == A_SYMBOL && atom_getsymbol(argv) != s_null) {
         t_symbol* new_sym = atom_getsymbol(argv);
 
         if (new_sym == x->b_receive_id)
-            return 0; // no change
+            return true; // no change
 
         // unbind previous
         if (x->b_receive_id != s_null) {
@@ -1324,22 +1328,24 @@ t_pd_err ebox_set_receiveid(t_ebox* x, t_object* /*attr*/, int argc, t_atom* arg
         x->b_receive_id = s_null;
     }
 
-    return 0;
+    return true;
 }
 
-t_pd_err ebox_set_sendid(t_ebox* x, t_object* /*attr*/, int argc, t_atom* argv)
+bool ebox_set_sendid(void* z, t_eattr* /*attr*/, int argc, t_atom* argv)
 {
+    auto x = static_cast<t_ebox*>(z);
     if (argc && argv && atom_gettype(argv) == A_SYMBOL && atom_getsymbol(argv) != s_null) {
         x->b_send_id = atom_getsymbol(argv);
     } else {
         x->b_send_id = s_null;
     }
 
-    return 0;
+    return true;
 }
 
-t_pd_err ebox_set_label(t_ebox* x, t_object* /*attr*/, int argc, t_atom* argv)
+bool ebox_set_label(void* z, t_eattr* /*attr*/, int argc, t_atom* argv)
 {
+    auto x = static_cast<t_ebox*>(z);
     if (argc && argv && atom_gettype(argv) == A_SYMBOL && atom_getsymbol(argv) != s_null) {
 
         if (x->b_label == s_null) {
@@ -1386,11 +1392,12 @@ t_pd_err ebox_set_label(t_ebox* x, t_object* /*attr*/, int argc, t_atom* argv)
         x->b_label = s_null;
     }
 
-    return 0;
+    return true;
 }
 
-t_pd_err ebox_set_label_align(t_ebox* x, t_object* /*attr*/, int argc, t_atom* argv)
+bool ebox_set_label_align(void* z, t_eattr* /*attr*/, int argc, t_atom* argv)
 {
+    auto x = static_cast<t_ebox*>(z);
     static t_symbol* items[] = {
         s_value_label_align_center,
         s_value_label_align_left,
@@ -1411,18 +1418,19 @@ t_pd_err ebox_set_label_align(t_ebox* x, t_object* /*attr*/, int argc, t_atom* a
             }
 
             pd_error(x, "[%s] supported values are:%s", eobj_getclassname(&x->b_obj)->s_name, values.c_str());
-            return 1;
+            return false;
         }
 
         x->label_align = s;
         ebox_update_label_pos(x);
     }
 
-    return 0;
+    return true;
 }
 
-t_pd_err ebox_set_label_valign(t_ebox* x, t_object* /*attr*/, int argc, t_atom* argv)
+bool ebox_set_label_valign(void* z, t_eattr* /*attr*/, int argc, t_atom* argv)
 {
+    auto x = static_cast<t_ebox*>(z);
     static t_symbol* items[] = {
         s_value_label_valign_top,
         s_value_label_valign_center,
@@ -1450,11 +1458,12 @@ t_pd_err ebox_set_label_valign(t_ebox* x, t_object* /*attr*/, int argc, t_atom* 
         ebox_update_label_pos(x);
     }
 
-    return 0;
+    return true;
 }
 
-t_pd_err ebox_set_label_side(t_ebox* x, t_object* /*attr*/, int argc, t_atom* argv)
+bool ebox_set_label_side(void* z, t_eattr* /*attr*/, int argc, t_atom* argv)
 {
+    auto x = static_cast<t_ebox*>(z);
     static t_symbol* items[] = {
         s_value_label_side_bottom,
         s_value_label_side_left,
@@ -1482,11 +1491,13 @@ t_pd_err ebox_set_label_side(t_ebox* x, t_object* /*attr*/, int argc, t_atom* ar
         ebox_update_label_pos(x);
     }
 
-    return 0;
+    return true;
 }
 
-t_pd_err ebox_set_label_position(t_ebox* x, t_object* /*attr*/, int argc, t_atom* argv)
+bool ebox_set_label_position(void* z, t_eattr* /*attr*/, int argc, t_atom* argv)
 {
+    auto x = static_cast<t_ebox*>(z);
+
     if (argc && argv && atom_gettype(argv) == A_FLOAT) {
         int pos = (atom_getfloat(argv) != 0) ? 1 : 0;
 
@@ -1503,19 +1514,23 @@ t_pd_err ebox_set_label_position(t_ebox* x, t_object* /*attr*/, int argc, t_atom
         }
     }
 
-    return 0;
+    return true;
 }
 
-t_pd_err ebox_set_label_margins(t_ebox* x, t_object* /*attr*/, int argc, t_atom* argv)
+bool ebox_set_label_margins(void* z, t_eattr* /*attr*/, int argc, t_atom* argv)
 {
+    auto x = static_cast<t_ebox*>(z);
+
     if (argc == 2 && argv && atom_gettype(argv) == A_FLOAT) {
         x->label_margins[0] = int(atom_getfloat(argv));
         x->label_margins[1] = int(atom_getfloat(argv + 1));
         ebox_update_label_pos(x);
-    } else
+    } else {
         pd_error(x, "[%s] X Y margin pair expected", eobj_getclassname(&x->b_obj)->s_name);
+        return false;
+    }
 
-    return 0;
+    return true;
 }
 
 t_symbol* ebox_get_presetid(t_ebox* x)
@@ -1527,18 +1542,20 @@ t_symbol* ebox_get_presetid(t_ebox* x)
     }
 }
 
-t_pd_err ebox_set_presetid(t_ebox* x, t_object* /*attr*/, int argc, t_atom* argv)
+bool ebox_set_presetid(void* z, t_eattr* /*attr*/, int argc, t_atom* argv)
 {
+    auto x = static_cast<t_ebox*>(z);
     if (argc && argv && atom_gettype(argv) == A_SYMBOL && atom_getsymbol(argv) != s_null) {
         x->b_objpreset_id = atom_getsymbol(argv);
     } else {
         x->b_objpreset_id = s_null;
     }
-    return 0;
+    return true;
 }
 
-t_pd_err ebox_set_font(t_ebox* x, t_object* /*attr*/, int argc, t_atom* argv)
+bool ebox_set_font(void* z, t_eattr* /*attr*/, int argc, t_atom* argv)
 {
+    auto x = static_cast<t_ebox*>(z);
     if (argc && argv && atom_gettype(argv) == A_SYMBOL) {
         if (atom_getsymbol(argv) == s_null || atom_getsymbol(argv) == &s_)
             x->b_font.c_family = gensym(SYM_DEFAULT_FONT_FAMILY);
@@ -1549,11 +1566,13 @@ t_pd_err ebox_set_font(t_ebox* x, t_object* /*attr*/, int argc, t_atom* argv)
 
     auto ftname = strdup(x->b_font.c_family->s_name);
     if (!ftname)
-        return -1;
+        return false;
 
     auto ftname_uc = strtok(ftname, " ',.-");
-    if (!ftname_uc)
-        return -1;
+    if (!ftname_uc) {
+        free(ftname);
+        return false;
+    }
 
     ftname_uc[0] = (char)toupper(ftname_uc[0]);
     x->b_font.c_family = gensym(ftname_uc);
@@ -1561,11 +1580,12 @@ t_pd_err ebox_set_font(t_ebox* x, t_object* /*attr*/, int argc, t_atom* argv)
 
     ebox_update_label_font(x);
 
-    return 0;
+    return true;
 }
 
-t_pd_err ebox_set_fontweight(t_ebox* x, t_object* /*attr*/, int argc, t_atom* argv)
+bool ebox_set_fontweight(void* z, t_eattr* /*attr*/, int argc, t_atom* argv)
 {
+    auto x = static_cast<t_ebox*>(z);
     if (argc && argv && atom_gettype(argv) == A_SYMBOL) {
         if (atom_getsymbol(argv) == gensym(SYM_BOLD))
             x->b_font.c_weight = gensym(SYM_BOLD);
@@ -1574,11 +1594,12 @@ t_pd_err ebox_set_fontweight(t_ebox* x, t_object* /*attr*/, int argc, t_atom* ar
     } else
         x->b_font.c_weight = gensym(SYM_NORMAL);
 
-    return 0;
+    return true;
 }
 
-t_pd_err ebox_set_fontslant(t_ebox* x, t_object* /*attr*/, int argc, t_atom* argv)
+bool ebox_set_fontslant(void* z, t_eattr* /*attr*/, int argc, t_atom* argv)
 {
+    auto x = static_cast<t_ebox*>(z);
     if (argc && argv && atom_gettype(argv) == A_SYMBOL) {
         if (atom_getsymbol(argv) == gensym(SYM_ITALIC))
             x->b_font.c_slant = gensym(SYM_ITALIC);
@@ -1587,7 +1608,7 @@ t_pd_err ebox_set_fontslant(t_ebox* x, t_object* /*attr*/, int argc, t_atom* arg
     } else
         x->b_font.c_slant = gensym(SYM_ROMAN);
 
-    return 0;
+    return true;
 }
 
 #ifdef __APPLE__
@@ -1598,8 +1619,9 @@ static const int FONT_SIZE = 9;
 static const int FONT_SIZE = 10;
 #endif
 
-t_pd_err ebox_set_fontsize(t_ebox* x, t_object* /*attr*/, int argc, t_atom* argv)
+bool ebox_set_fontsize(void* z, t_eattr* /*attr*/, int argc, t_atom* argv)
 {
+    auto x = static_cast<t_ebox*>(z);
     if (argc && argv && atom_gettype(argv) == A_FLOAT)
         x->b_font.c_sizereal = static_cast<int>(pd_clip_min(atom_getfloat(argv), 4));
     else
@@ -1614,19 +1636,19 @@ t_pd_err ebox_set_fontsize(t_ebox* x, t_object* /*attr*/, int argc, t_atom* argv
 #endif
 
     ebox_update_label_font(x);
-    return 0;
+    return true;
 }
 
-t_pd_err ebox_size_set(t_ebox* x, t_object* /*attr*/, int argc, t_atom* argv)
+bool ebox_size_set(void* z, t_eattr* /*attr*/, int argc, t_atom* argv)
 {
-    float width, height;
+    auto x = static_cast<t_ebox*>(z);
     if (argc && argv) {
         if (x->b_flags & EBOX_GROWNO)
-            return 0;
+            return false;
         else if (x->b_flags & EBOX_GROWLINK) {
             if (atom_gettype(argv) == A_FLOAT) {
-                width = (float)pd_clip_min(atom_getfloat(argv), 4) / x->b_zoom;
-                height = x->b_rect.height;
+                float width = (float)pd_clip_min(atom_getfloat(argv), 4) / x->b_zoom;
+                float height = x->b_rect.height;
                 x->b_rect.height += width - x->b_rect.width;
                 if (x->b_rect.height < 4) {
                     x->b_rect.width += 4 - height;
@@ -1644,15 +1666,15 @@ t_pd_err ebox_size_set(t_ebox* x, t_object* /*attr*/, int argc, t_atom* argv)
         }
     }
 
-    return 0;
+    return true;
 }
 
 bool ebox_notify(t_ebox* x, t_symbol* s)
 {
-    t_eclass* c = eobj_getclass(&x->b_obj);
     if (s == s_size) {
+        auto* c = eobj_getclass(&x->b_obj);
         if (c->c_widget.w_oksize != nullptr)
-            c->c_widget.w_oksize(x, &x->b_rect);
+            c->c_widget.w_oksize(x, &(x->b_rect));
 
         if (x->b_resize_redraw_all) {
             ebox_invalidate_all(x);
@@ -1861,9 +1883,7 @@ std::string ceammc_quote_str(const std::string& str, char q)
 
 void ebox_dialog(t_ebox* x, t_symbol* s, int argc, t_atom* argv)
 {
-    static t_symbol* S_COLOR = gensym(SYM_COLOR);
-    static t_symbol* S_CHECKBUTTON = gensym(SYM_CHECKBUTTON);
-    static t_symbol* S_MENU = gensym(SYM_MENU);
+    using namespace ceammc;
 
     static const bool is_ceammc = (getenv("is_ceammc") != nullptr);
     const bool use_sframe = !is_ceammc;
@@ -1899,17 +1919,17 @@ void ebox_dialog(t_ebox* x, t_symbol* s, int argc, t_atom* argv)
                 if (ac && av) {
                     const auto style = c->c_attr[attrindex]->style;
 
-                    if (style == S_CHECKBUTTON) {
+                    if (style == sym_checkbutton()) {
                         if (atom_getfloat(av) == 0)
                             sys_vgui("%s state !selected\n", WIDGET_ID);
                         else
                             sys_vgui("%s state selected\n", WIDGET_ID);
-                    } else if (style == S_COLOR) {
+                    } else if (style == sym_color()) {
                         color.red = atom_getfloat(av);
                         color.green = atom_getfloat(av + 1);
                         color.blue = atom_getfloat(av + 2);
                         sys_vgui("%s configure -readonlybackground #%6.6x\n", WIDGET_ID, rgb_to_hex_int(color));
-                    } else if (style == S_MENU) {
+                    } else if (style == sym_menu()) {
                         atom_string(av, temp, MAXPDSTRING);
                         std::string buffer(temp);
                         for (int i = 1; i < ac; i++) {

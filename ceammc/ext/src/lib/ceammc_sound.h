@@ -30,7 +30,7 @@ namespace sound {
 
     class SoundFile {
         std::string fname_;
-        t_float gain_ = { 1 };
+        t_float gain_ = { 1.f };
         double resample_ratio_ = { 1 };
 
     public:

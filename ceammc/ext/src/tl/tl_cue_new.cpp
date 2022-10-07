@@ -299,8 +299,8 @@ void TlCue::setup()
 
     obj.setPropertyDefaultValue(PROP_BORDER_COLOR, DEFAULT_ACTIVE_COLOR);
 
-    obj.pd_class->c_widget.w_displacefn = tl_cue_displace;
-    obj.pd_class->c_widget.w_visfn = tl_cue_wvis;
+    obj.pd_ui_class->c_widget.w_displacefn = tl_cue_displace;
+    obj.pd_ui_class->c_widget.w_visfn = tl_cue_wvis;
     obj.addMethod(".update_line", &TlCue::m_updateLine);
 }
 

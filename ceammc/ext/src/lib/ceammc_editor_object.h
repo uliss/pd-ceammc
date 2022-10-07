@@ -18,6 +18,7 @@
 
 #include <boost/static_string.hpp>
 #include <list>
+#include <string>
 
 #include "extra/boost_intrusive_pool.hpp"
 
@@ -133,7 +134,7 @@ public:
     void setDirty(t_canvas* c, bool value);
 
 private:
-    unsigned long xowner() const { return reinterpret_cast<unsigned long>(owner_); }
+    unsigned long xowner() const { return reinterpret_cast<std::uintptr_t>(owner_); }
 };
 
 template <typename BaseClass>
