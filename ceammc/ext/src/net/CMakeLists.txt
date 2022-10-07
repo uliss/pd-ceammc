@@ -8,6 +8,7 @@ if(LIBLO_FOUND)
         net_osc_send.cpp
         net_osc_server.cpp
         net_osc_receive.cpp
+        osc_property.cpp
     )
     target_include_directories(ceammc_net PUBLIC ${LIBLO_INCLUDE_DIRS})
     target_link_libraries(ceammc_net PUBLIC ${LIBLO_LIBRARIES})

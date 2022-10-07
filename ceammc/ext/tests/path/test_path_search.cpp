@@ -112,7 +112,7 @@ TEST_CASE("path.search", "[externals]")
 
     SECTION("recursive @sync search in user dir")
     {
-        TExt t("path.search", PROJECT_SOURCE_DIR "/ceammc/ext", "@sync", "@depth", 1);
+        TExt t("path.search", PROJECT_SOURCE_DIR "/ceammc/ext", "@sync", "@depth", 0);
         REQUIRE_PROPERTY(t, @async, 0.);
 
         const auto fname = platform::basename(__FILE__);
@@ -121,7 +121,12 @@ TEST_CASE("path.search", "[externals]")
 #ifndef __APPLE__
         // not enough recursion depth
         t << fname.c_str();
+        REQUIRE(t.hasOutputAt(1));
+        REQUIRE(t.isOutputBangAt(1));
 
+        // still not enough
+        t->setProperty("@depth", LF(1));
+        t << fname.c_str();
         REQUIRE(t.hasOutputAt(1));
         REQUIRE(t.isOutputBangAt(1));
 #endif

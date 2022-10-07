@@ -41,7 +41,7 @@
                     | 'unix' %{ rl_proto = gensym("unix"); }
                 );
     host  = (nz_any - (']' | ':'))+ ${ rl_host.push_back(fc); };
-    port  = ':' ([0-9]+ ${ rl_port.push_back(fc); });
+    port  = ':' ([0-9]+ ${ rl_port.push_back(fc); (rl_int_port *= 10) += (fc - '0'); });
     url   = 'osc' proto? '://' host? port?;
 
     main := url 0 @{ fbreak; };
@@ -53,11 +53,12 @@
 namespace ceammc {
 namespace parser {
 
-    bool parse_osc_url(const char* str, t_symbol*& proto, t_symbol*& host, t_symbol*& port) {
+    bool parse_osc_url(const char* str, t_symbol*& proto, t_symbol*& host, t_symbol*& port, int& iport) {
         int cs = 0;
         const char* p = str;
         string::SmallString rl_port;
         string::SmallString rl_host;
+        int rl_int_port = 0;
         t_symbol* rl_proto = nullptr;
 
         %% write init;
@@ -69,6 +70,7 @@ namespace parser {
             proto = (rl_proto != nullptr) ? rl_proto : gensym("udp");
             host = gensym(rl_host.data());
             port = gensym(rl_port.data());
+            iport = rl_int_port;
             return true;
         } else
             return false;
