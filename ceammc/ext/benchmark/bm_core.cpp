@@ -14,6 +14,7 @@
 #include "ceammc_args.h"
 #include "ceammc_atomlist.h"
 #include "ceammc_atomlist_view.h"
+#include "ceammc_crc32.h"
 
 #include "re2/re2.h"
 #include "reflex/matcher.h"
@@ -60,8 +61,14 @@ static auto is_odd1 = [](int n) { return n % 2 == 1; };
 static std::function<bool(int)> is_odd2 = is_odd0;
 static std::function<bool(int)> is_odd3 = is_odd1;
 
-NONIUS_BENCHMARK("gensym", [] {
-    return gensym(SYM_TABLE[sym_int(engine)]);
+NONIUS_BENCHMARK("gensym (x1000)", [] {
+    for (size_t i = 0; i < 1000; i++)
+        gensym(SYM_TABLE[sym_int(engine)]);
+})
+
+NONIUS_BENCHMARK("crc32 (x1000)", [] {
+    for (size_t i = 0; i < 1000; i++)
+        crc32_hash(SYM_TABLE[sym_int(engine)]);
 })
 
 NONIUS_BENCHMARK("std::regex", [] {
@@ -130,5 +137,3 @@ NONIUS_BENCHMARK("is_odd3: std::function lambda call", [] {
 
     return res;
 })
-
-

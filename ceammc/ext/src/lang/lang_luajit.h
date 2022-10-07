@@ -16,7 +16,9 @@
 
 #include "ceammc_containers.h"
 #include "ceammc_editor_object.h"
+#include "ceammc_proxy.h"
 #include "ceammc_save_object.h"
+#include "ceammc_thread.h"
 #include "lua_cmd.h"
 #include "lua_interp.h"
 
@@ -27,12 +29,18 @@ using namespace ceammc;
 using LangLuaBase = SaveObject<EditorObject<PollThreadQueueObject<lua::LuaCmd, lua::LuaCommandQueue>>>;
 
 class LangLuaJit : public LangLuaBase {
-    lua::LuaInterp interp_;
+public:
     using FixedAtomList = SmallAtomListN<8>;
     using FixedEditorList = boost::container::small_vector<FixedAtomList, 48>;
+    using Inlet = InletProxy<LangLuaJit>;
+
+private:
+    lua::LuaInterp interp_;
     FixedEditorList src_;
     IntProperty* nin_;
     IntProperty* nout_;
+    std::vector<Inlet> inlets_;
+    ThreadNotify notify_;
 
 public:
     LangLuaJit(const PdArgs& args);
@@ -43,7 +51,7 @@ public:
     void onBang() override;
     void onFloat(t_float f) override;
     void onSymbol(t_symbol* s) override;
-    void onList(const AtomList& lst) override;
+    void onList(const AtomListView& lv) override;
     void onAny(t_symbol* sel, const AtomListView& lv) override;
 
     void dump() const override;
@@ -68,6 +76,13 @@ public:
 
 public:
     lua::LuaInterp& interp() { return interp_; }
+
+public:
+    void inletBang(int id);
+    void inletFloat(int id, t_float f);
+    void inletSymbol(int id, t_symbol* s);
+    void inletList(int id, const AtomListView& lv);
+    void inletAny(int id, t_symbol* s, const AtomListView& lv);
 
 private:
     void updateInterpSource();

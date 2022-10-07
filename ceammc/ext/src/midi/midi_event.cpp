@@ -1,30 +1,39 @@
 #include "midi_event.h"
-#include "MidiEvent.h"
+#include "ceammc_convert.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
+#include "fmt/core.h"
 
-XMidiEvent::XMidiEvent(const AtomList& l)
-    : valid_(false)
-    , raw_(l)
-    , event_(new MidiEvent())
+CEAMMC_DEFINE_HASH(MidiEvent);
+
+#include "MidiEvent.h"
+
+// for std::unique_ptr
+XMidiEvent::~XMidiEvent() = default;
+
+XMidiEvent::XMidiEvent(const AtomListView& lv)
+    : event_(new MidiEvent())
     , duration_(0)
     , track_(0)
+    , valid_(false)
 {
-    parse(l);
+    parse(lv);
 }
 
-bool XMidiEvent::parse(const AtomListView& l)
+bool XMidiEvent::parse(const AtomListView& lv)
 {
-    valid_ = (l.size() >= 5);
+    valid_ = (lv.size() >= 5);
 
     if (valid_) {
         std::vector<uchar> v;
+        v.reserve(lv.size() - 3);
 
-        for (size_t i = 3; i < l.size(); i++)
-            v.push_back(l[i].asInt());
+        for (size_t i = 3; i < lv.size(); i++)
+            v.push_back(lv[i].asInt());
 
-        *event_.get() = MidiEvent(l[0].asInt(), l[1].asInt(), v);
-        track_ = l[1].asInt();
-        duration_ = l[2].asFloat();
+        *event_.get() = MidiEvent(lv[0].asInt(), lv[1].asInt(), v);
+        track_ = lv[1].asInt();
+        duration_ = lv[2].asFloat();
     }
 
     return valid_;
@@ -36,6 +45,30 @@ bool XMidiEvent::isNote() const
         return false;
 
     return event_->isNote();
+}
+
+bool XMidiEvent::isNoteOn() const
+{
+    if (!valid_)
+        return false;
+
+    return event_->isNoteOn();
+}
+
+bool XMidiEvent::isNoteOff() const
+{
+    if (!valid_)
+        return false;
+
+    return event_->isNoteOff();
+}
+
+bool XMidiEvent::isAllNotesOff() const
+{
+    if (!valid_)
+        return false;
+
+    return event_->isController() && event_->getP1() == 0x7B;
 }
 
 bool XMidiEvent::isProgramChange() const
@@ -83,10 +116,8 @@ BaseMidiEventExternal::BaseMidiEventExternal(const PdArgs& a)
 
 void BaseMidiEventExternal::onAny(t_symbol* s, const AtomListView& args)
 {
-    static t_symbol* SYM_MIDI_EVENT = gensym("MidiEvent");
-
-    if (s != SYM_MIDI_EVENT) {
-        OBJ_ERR << "MidiEvent expected: " << s->s_name;
+    if (crc32_hash(s) != hash_MidiEvent) {
+        OBJ_ERR << fmt::format("{} expected, got: '{}'", str_MidiEvent, s->s_name);
         return;
     }
 
@@ -98,24 +129,39 @@ void BaseMidiEventExternal::onAny(t_symbol* s, const AtomListView& args)
 
 MidiEventToNote::MidiEventToNote(const PdArgs& args)
     : BaseMidiEventExternal(args)
+    , msg_ { Atom(0.), Atom(0.) }
 {
     createOutlet();
     createOutlet();
-    msg_.fill(Atom(0.f), 2);
 }
 
 void MidiEventToNote::processEvent()
 {
-    if (!event_.isNote())
+    if (!event_.isNote()) {
+        if (event_.isAllNotesOff()) {
+            for (size_t i = 0; i < notes_on_.size(); i++) {
+                if (notes_on_[i]) {
+                    Atom data[2] = { Atom(i), Atom(0.0) };
+                    listTo(0, AtomListView(data, 2));
+                    notes_on_[i] = 0;
+                }
+            }
+        }
         return;
+    }
 
     floatTo(2, event_.track());
     floatTo(1, event_.duration());
 
-    msg_[0].setFloat(event_.event().getKeyNumber());
-    msg_[1].setFloat(event_.event().getVelocity());
+    int key = event_.event().getKeyNumber();
+    int vel = event_.isNoteOff() ? 0 : event_.event().getVelocity();
 
-    listTo(0, msg_);
+    notes_on_[clip<std::uint8_t>(key, 0, notes_on_.size() - 1)] = vel > 0;
+
+    msg_[0].setFloat(key);
+    msg_[1].setFloat(vel);
+
+    listTo(0, AtomListView(msg_.data(), msg_.size()));
 }
 
 MidiEventToPrg::MidiEventToPrg(const PdArgs& args)
@@ -138,6 +184,9 @@ void setup_midi_event()
 {
     ObjectFactory<MidiEventToNote> to_note("midi.event2note");
     to_note.addAlias("midi.ev->note");
+    to_note.setXletsInfo({ "midi event stream" }, { "pair: KEY VEL", "float: duration (ms)", "int: midi track" });
+
     ObjectFactory<MidiEventToPrg> to_prg("midi.event2prg");
+    to_prg.setXletsInfo({ "midi event stream" }, { "int: program", "int: midi track" });
     to_prg.addAlias("midi.ev->prg");
 }

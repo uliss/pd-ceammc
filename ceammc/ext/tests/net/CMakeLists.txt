@@ -3,7 +3,6 @@ add_executable(test_ext_net test_net_base.h)
 target_include_directories(test_ext_net
     PRIVATE
         "${PROJECT_SOURCE_DIR}/ceammc/ext/src/net"
-        "${PROJECT_SOURCE_DIR}/ceammc/extra"
         "${CMAKE_CURRENT_SOURCE_DIR}/..")
 
 target_link_libraries(test_ext_net PUBLIC
@@ -20,5 +19,10 @@ function(add_net_test src)
     target_sources(test_ext_net PRIVATE "test_net_${src}.cpp")
 endfunction()
 
+# liblo
+find_package(liblo)
+if(LIBLO_FOUND)
+    target_sources(test_ext_net PRIVATE test_net_osc_server.cpp)
+endif()
 
 add_net_test(host)

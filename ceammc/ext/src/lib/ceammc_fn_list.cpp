@@ -149,7 +149,7 @@ namespace list {
         return res;
     }
 
-    void deinterleaveMinLength(const AtomList& in, std::vector<AtomList>& out)
+    void deinterleaveMinLength(const AtomListView& in, std::vector<AtomList>& out)
     {
         const size_t in_sz = in.size();
         const size_t out_sz = out.size();
@@ -161,7 +161,7 @@ namespace list {
             out[i % out_sz].append(in[i]);
     }
 
-    void deinterleavePadWith(const AtomList& in, const Atom& pad, std::vector<AtomList>& out)
+    void deinterleavePadWith(const AtomListView& in, const Atom& pad, std::vector<AtomList>& out)
     {
         if (in.empty() || out.empty())
             return;
@@ -180,12 +180,12 @@ namespace list {
         }
     }
 
-    MaybeFloat average(const AtomList& l)
+    MaybeFloat average(const AtomListView& lv)
     {
         size_t n = 0;
         t_float sum = 0;
 
-        for (auto& el : l) {
+        for (auto& el : lv) {
             if (!el.isFloat())
                 continue;
 
@@ -199,18 +199,18 @@ namespace list {
         return sum / n;
     }
 
-    AtomList countRepeats(const AtomList& l, bool normalizeBySum)
+    AtomList countRepeats(const AtomListView& lv, bool normalizeBySum)
     {
         typedef std::map<Atom, int> AtomMap;
         AtomMap hist_map;
 
         // fill histogram
-        for (size_t i = 0; i < l.size(); i++)
-            hist_map[l.at(i)]++;
+        for (size_t i = 0; i < lv.size(); i++)
+            hist_map[lv.at(i)]++;
 
         AtomList res;
         res.reserve(hist_map.size() * 2);
-        const t_float N = l.size();
+        const t_float N = lv.size();
 
         for (auto& x : hist_map) {
             res.append(x.first);
@@ -224,38 +224,38 @@ namespace list {
         return res;
     }
 
-    AtomList sliceWrap(const AtomList& l, int pos, size_t len)
+    AtomList sliceWrap(const AtomListView& lv, int pos, size_t len)
     {
         AtomList res;
-        if (l.empty())
+        if (lv.empty())
             return res;
 
         for (int i = pos; i < pos + int(len); i++)
-            res.append(*l.wrapAt(i));
+            res.append(*lv.wrapAt(i));
 
         return res;
     }
 
-    AtomList sliceClip(const AtomList& l, int pos, size_t len)
+    AtomList sliceClip(const AtomListView& lv, int pos, size_t len)
     {
         AtomList res;
-        if (l.empty())
+        if (lv.empty())
             return res;
 
         for (int i = pos; i < pos + int(len); i++)
-            res.append(*l.clipAt(i));
+            res.append(*lv.clipAt(i));
 
         return res;
     }
 
-    AtomList sliceFold(const AtomList& l, int pos, size_t len)
+    AtomList sliceFold(const AtomListView& lv, int pos, size_t len)
     {
         AtomList res;
-        if (l.empty())
+        if (lv.empty())
             return res;
 
         for (int i = pos; i < pos + int(len); i++)
-            res.append(*l.foldAt(i));
+            res.append(*lv.foldAt(i));
 
         return res;
     }
@@ -299,38 +299,38 @@ namespace list {
         return true;
     }
 
-    AtomList rotate(const AtomList& l, int steps)
+    AtomList rotate(const AtomListView& lv, int steps)
     {
-        if (l.size() < 2 || steps == 0)
-            return l;
+        if (lv.size() < 2 || steps == 0)
+            return lv;
 
-        int sz = int(l.size());
+        int sz = int(lv.size());
         steps = steps % sz;
         if (steps < 0)
             steps += sz;
 
-        AtomList res(l);
+        AtomList res(lv);
         std::rotate(res.begin(), res.begin() + steps, res.end());
         return res;
     }
 
-    AtomList repeat(const AtomList& l, size_t n)
+    AtomList repeat(const AtomListView& lv, size_t n)
     {
         AtomList res;
-        if (n == 0 || l.size() == 0)
+        if (n == 0 || lv.size() == 0)
             return res;
 
-        res.reserve(l.size() * n);
+        res.reserve(lv.size() * n);
 
         while (n-- > 0)
-            res.append(l);
+            res.append(lv);
 
         return res;
     }
 
-    AtomList histogram(const AtomList& l, size_t bins)
+    AtomList histogram(const AtomListView& lv, size_t bins)
     {
-        if (l.empty() || bins == 0)
+        if (lv.empty() || bins == 0)
             return AtomList();
 
         if (bins == 1)
@@ -339,7 +339,7 @@ namespace list {
         std::vector<int> hist(bins, 0);
 
         Atom amin, amax;
-        l.range(amin, amax);
+        lv.range(amin, amax);
         const t_float min = amin.asFloat();
         const t_float max = amax.asFloat();
         t_float range = std::fabs(max - min);
@@ -348,8 +348,8 @@ namespace list {
             hist[0] = max * bins;
         } else {
             t_float bin_wd = range / (bins - 1);
-            for (size_t i = 0; i < l.size(); i++) {
-                const t_float v = l[i].asFloat();
+            for (size_t i = 0; i < lv.size(); i++) {
+                const t_float v = lv[i].asFloat();
                 int idx = ((v - min) / bin_wd);
                 hist[idx]++;
             }
@@ -365,7 +365,7 @@ namespace list {
         return res;
     }
 
-    bool normalizeByRange(const AtomList& src, AtomList& dest)
+    bool normalizeByRange(const AtomListView& src, AtomList& dest)
     {
         Atom amin, amax;
         if (!src.range(amin, amax))
@@ -387,22 +387,22 @@ namespace list {
         return true;
     }
 
-    AtomList enumerate(const AtomList& l, int from, enumerateMode mode)
+    AtomList enumerate(const AtomListView& lv, int from, enumerateMode mode)
     {
-        if (l.empty())
-            return l;
+        if (lv.empty())
+            return lv;
 
         AtomList res;
-        res.reserve(l.size() * 2);
+        res.reserve(lv.size() * 2);
 
-        for (size_t i = 0; i < l.size(); i++) {
+        for (size_t i = 0; i < lv.size(); i++) {
             const int idx = int(i) + from;
 
             if (mode == PREPEND) {
                 res.append(Atom(idx));
-                res.append(l[i]);
+                res.append(lv[i]);
             } else if (mode == APPEND) {
-                res.append(l[i]);
+                res.append(lv[i]);
                 res.append(Atom(idx));
             }
         }
@@ -428,9 +428,9 @@ namespace list {
         }
     };
 
-    AtomList uniqueStable(const AtomList& l)
+    AtomList uniqueStable(const AtomListView& lv)
     {
-        const size_t N = l.size();
+        const size_t N = lv.size();
         std::unordered_set<Atom, AtomHasher> atom_set;
         AtomList res;
 
@@ -438,7 +438,7 @@ namespace list {
         atom_set.reserve(N);
 
         for (size_t i = 0; i < N; i++) {
-            auto& a = l[i];
+            auto& a = lv[i];
             if (atom_set.find(a) == atom_set.end()) {
                 atom_set.insert(a);
                 res.append(a);
@@ -448,9 +448,9 @@ namespace list {
         return res;
     }
 
-    AtomList uniqueSorted(const AtomList& l)
+    AtomList uniqueSorted(const AtomListView& lv)
     {
-        AtomList res(l);
+        AtomList res(lv);
         res.sort();
 
         auto last = std::unique(res.begin(), res.end(),
@@ -460,12 +460,12 @@ namespace list {
         return res;
     }
 
-    AtomList shift(const AtomList& l, t_float off)
+    AtomList shift(const AtomListView& lv, t_float off)
     {
         AtomList res;
-        res.fill(Atom(0.f), l.size());
+        res.fill(Atom(0.f), lv.size());
 
-        const size_t N = l.size();
+        const size_t N = lv.size();
 
         for (size_t i = 0; i < N; i++) {
             // wrap by N
@@ -479,8 +479,8 @@ namespace list {
             size_t i1 = size_t(long(fidx)) % N;
             size_t i2 = (i1 + 1) % N;
 
-            t_float a = l[i1].asFloat();
-            t_float b = l[i2].asFloat();
+            t_float a = lv[i1].asFloat();
+            t_float b = lv[i2].asFloat();
             t_float mix = fidx - std::floor(fidx);
 
             // linear interpolation
@@ -490,18 +490,18 @@ namespace list {
         return res;
     }
 
-    AtomList stretch(const AtomList& l, size_t sz)
+    AtomList stretch(const AtomListView& lv, size_t sz)
     {
-        if (sz <= 1 || l.size() == 0)
+        if (sz <= 1 || lv.size() == 0)
             return AtomList();
 
-        if (sz == l.size())
-            return l;
+        if (sz == lv.size())
+            return lv;
 
         AtomList res;
         res.reserve(sz);
 
-        const size_t N = l.size();
+        const size_t N = lv.size();
 
         for (size_t i = 0; i < sz; i++) {
             double old_fidx = ((N - 1) * i) / double(sz - 1);
@@ -509,24 +509,24 @@ namespace list {
             size_t old_idx1 = std::min(N - 1, old_idx0 + 1);
             double mix = old_fidx - old_idx0;
 
-            double value = l[old_idx0].asFloat() * (1 - mix) + l[old_idx1].asFloat() * mix;
+            double value = lv[old_idx0].asFloat() * (1 - mix) + lv[old_idx1].asFloat() * mix;
             res.append(Atom(value));
         }
 
         return res;
     }
 
-    std::vector<std::pair<Atom, size_t>> rleEncode(const AtomList& l)
+    std::vector<std::pair<Atom, size_t>> rleEncode(const AtomListView& lv)
     {
         std::vector<std::pair<Atom, size_t>> res;
-        const size_t N = l.size();
+        const size_t N = lv.size();
         if (!N)
             return res;
 
-        Atom prev = l[0];
+        Atom prev = lv[0];
         res.push_back({ prev, 1 });
         for (size_t i = 1; i < N; i++) {
-            const auto& a = l[i];
+            const auto& a = lv[i];
             if (a == prev) {
                 res.back().second++;
                 continue;
@@ -555,7 +555,7 @@ namespace list {
         return res;
     }
 
-    bool normalizeBySum(const AtomList& src, AtomList& dest)
+    bool normalizeBySum(const AtomListView& src, AtomList& dest)
     {
         if (src.empty())
             return false;
@@ -574,7 +574,7 @@ namespace list {
         return true;
     }
 
-    bool containsAllOff(const AtomList& input, const AtomList& needles)
+    bool containsAllOff(const AtomListView& input, const AtomListView& needles)
     {
         size_t cnt = 0;
 
@@ -586,7 +586,7 @@ namespace list {
         return cnt == needles.size();
     }
 
-    bool containsAnyOff(const AtomList& input, const AtomList& needles)
+    bool containsAnyOff(const AtomListView& input, const AtomListView& needles)
     {
         for (auto& x : input) {
             if (needles.contains(x))
@@ -596,7 +596,7 @@ namespace list {
         return false;
     }
 
-    bool resample(const AtomList& src, AtomList& dest, t_float ratio)
+    bool resample(const AtomListView& src, AtomList& dest, t_float ratio)
     {
         if (ratio <= 0)
             return false;

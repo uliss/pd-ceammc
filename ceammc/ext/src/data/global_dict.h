@@ -15,17 +15,24 @@
 #define GLOBAL_DICT_H
 
 #include "dict_iface.h"
+#include "editor_data.h"
 #include "global_base.h"
 
 using namespace ceammc;
 
-typedef DictIFace<GlobalBase<DictAtom>> GlobalDictBase;
+using GlobalDictIFace = DictIFace<GlobalBase<DictAtom>>;
+using GlobalDictBase = EditorDataT<GlobalDictIFace, DataTypeDict>;
 
 class GlobalDict : public GlobalDictBase {
 public:
     GlobalDict(const PdArgs& args);
     const DictAtom& dict() const final { return ref(); }
     DictAtom& dict() final { return ref(); }
+
+    const DataTypeDict& editorData() const final { return *ref(); }
+    DataTypeDict& editorData() final { return *ref(); }
+
+    EditorTitleString editorTitle() const final;
 };
 
 void setup_global_dict();

@@ -24,7 +24,7 @@ class ListCountIf : public ListBase {
 public:
     ListCountIf(const PdArgs& a);
     void onBang() override;
-    void onList(const AtomList& lst) override;
+    void onList(const AtomListView& lv) override;
     void onInlet(size_t n, const AtomListView& l) override;
 };
 

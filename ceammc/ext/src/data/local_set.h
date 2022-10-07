@@ -15,12 +15,12 @@
 #define LOCAL_SET_H
 
 #include "dataset_iface.h"
-#include "editor_set.h"
+#include "editor_data.h"
 #include "local_base.h"
 
 using namespace ceammc;
 
-using LocalSetBase = EditorSetT<DataSetIface<LocalBase<DataTypeSet>>>;
+using LocalSetBase = EditorDataT<DataSetIface<LocalBase<DataTypeSet>>, DataTypeSet>;
 
 class LocalSet : public LocalSetBase {
 public:
@@ -30,6 +30,9 @@ public:
     const DataTypeSet& data() const final { return ref(); }
 
     EditorTitleString editorTitle() const final;
+
+    DataTypeSet& editorData() final { return ref(); }
+    const DataTypeSet& editorData() const final { return ref(); }
 };
 
 void setup_local_set();

@@ -25,32 +25,32 @@ ListAllOf::ListAllOf(const PdArgs& a)
     createInlet();
 }
 
-void ListAllOf::onList(const AtomList& l)
+void ListAllOf::onList(const AtomListView& lv)
 {
-    if (l.empty())
+    if (lv.empty())
         return floatTo(0, 1);
 
     all_ = true;
 
-    for (size_t i = 0; i < l.size(); i++) {
+    for (auto& a : lv) {
         if (!all_)
             break;
 
-        atomTo(1, l[i]);
+        atomTo(1, a);
     }
 
-    floatTo(0, all_ ? 1 : 0);
+    boolTo(0, all_);
 }
 
-void ListAllOf::onInlet(size_t n, const AtomListView& l)
+void ListAllOf::onInlet(size_t n, const AtomListView& lv)
 {
-    if (n != 1 || l.empty())
+    if (n != 1 || lv.empty())
         return;
 
     if (!all_)
         return;
 
-    if (l[0].asInt(0) != 1)
+    if (lv[0].asInt(0) != 1)
         all_ = false;
 }
 

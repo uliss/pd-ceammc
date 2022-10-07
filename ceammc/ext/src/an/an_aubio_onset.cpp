@@ -231,16 +231,6 @@ AtomList AubioOnset::propArray() const
     return AtomList(array_name_);
 }
 
-void AubioOnset::propSetArray(const AtomList& l)
-{
-    if (l.empty() || !l[0].isSymbol()) {
-        OBJ_ERR << "array name required";
-        return;
-    }
-
-    setArray(l[0].asSymbol());
-}
-
 void AubioOnset::saveSteadyProperties()
 {
     threshold_->save();

@@ -11,10 +11,10 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../data/datatype_set.h"
-#include "flow_pack.h"
 #include "datatype_dict.h"
 #include "datatype_mlist.h"
+#include "datatype_set.h"
+#include "flow_pack.h"
 #include "test_external.h"
 
 PD_COMPLETE_TEST_SETUP(FlowPack, flow, pack)

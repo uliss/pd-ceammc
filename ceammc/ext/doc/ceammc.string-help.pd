@@ -13,7 +13,7 @@
 #X obj 30 224 string.format;
 #X text 200 224 formats string like printf.;
 #X obj 30 251 string.join;
-#X text 200 251 joins (concatenates) strings with separator;
+#X text 200 251 joins (concatenates) list to string with separator;
 #X obj 30 278 string.length;
 #X text 200 278 number of characters in string (unicode supported);
 #X obj 30 305 string.match;

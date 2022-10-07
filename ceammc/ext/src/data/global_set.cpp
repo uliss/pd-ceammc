@@ -17,12 +17,13 @@
 GlobalSet::GlobalSet(const PdArgs& a)
     : GlobalSetBase(a)
 {
+    setSpecialSymbolEscape(EDITOR_ESC_MODE_DATA);
 }
 
 EditorTitleString GlobalSet::editorTitle() const
 {
-    char buf[32];
-    snprintf(buf, sizeof(buf) - 1, "GLOBAL.SET (%s)", this->id()->s_name);
+    char buf[EditorTitleString::static_capacity];
+    snprintf(buf, sizeof(buf) - 1, "global Set (%s)", id()->s_name);
     return buf;
 }
 

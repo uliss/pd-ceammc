@@ -14,7 +14,8 @@
 #ifndef IMAGE_DETECT_H
 #define IMAGE_DETECT_H
 
-#include <boost/cstdint.hpp>
+#include <cstddef>
+#include <cstdint>
 
 namespace ceammc {
 namespace image {

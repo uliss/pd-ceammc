@@ -38,6 +38,8 @@ void setup_conv_bits2int();
 void setup_conv_bits2note();
 void setup_conv_bits2pos();
 
+void setup_conv_note2guido();
+
 void ceammc_conv_setup()
 {
     setup_conv_sec2str();
@@ -78,4 +80,6 @@ void ceammc_conv_setup()
 
     setup_conv_sig2float();
     setup_conv_edge2bang();
+
+    setup_conv_note2guido();
 }

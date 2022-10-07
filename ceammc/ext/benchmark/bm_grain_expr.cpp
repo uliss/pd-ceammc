@@ -27,10 +27,10 @@ extern "C" void pd_init();
 bool init_data()
 {
     pd_init();
-    l0 = AtomList::parseString("@t 100");
-    l1 = AtomList::parseString("@t abs(0.25*10.0)");
-    l2 = AtomList::parseString("@t sin($pi/2)");
-    l3 = AtomList::parseString("@t 1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1");
+    l0 = AtomList::parseString("@tb 100");
+    l1 = AtomList::parseString("@tb abs(0.25*10.0)");
+    l2 = AtomList::parseString("@tb sin($pi/2)");
+    l3 = AtomList::parseString("@tb 1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1");
 
     GrainExprParser p;
     p.parse(l3.view());
@@ -49,29 +49,29 @@ NONIUS_BENCHMARK("GrainExprParser construct", [] {
 
 NONIUS_BENCHMARK("GrainExprParser parse string", [] {
     GrainExprParser p;
-    p.parse("@t +=100");
+    p.parse("@ta +=100");
     return 0;
 })
 
-NONIUS_BENCHMARK("GrainExprParser parse @t 100", [] {
+NONIUS_BENCHMARK("GrainExprParser parse @tb 100", [] {
     GrainExprParser p;
     p.parse(l0.view());
     return 0;
 })
 
-NONIUS_BENCHMARK("GrainExprParser parse @t abs(0.25*10.0)", [] {
+NONIUS_BENCHMARK("GrainExprParser parse @tb abs(0.25*10.0)", [] {
     GrainExprParser p;
     p.parse(l1.view());
     return 0;
 })
 
-NONIUS_BENCHMARK("GrainExprParser parse @t sin($pi/2)", [] {
+NONIUS_BENCHMARK("GrainExprParser parse @tb sin($pi/2)", [] {
     GrainExprParser p;
     p.parse(l2.view());
     return 0;
 })
 
-NONIUS_BENCHMARK("GrainExprParser parse @t 1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1", [] {
+NONIUS_BENCHMARK("GrainExprParser parse @tb 1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1", [] {
     GrainExprParser p;
     p.parse(l3.view());
     return 0;

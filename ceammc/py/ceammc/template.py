@@ -34,7 +34,7 @@ class PdExternal(object):
                 func = getattr(self, 'generate_' + m)
                 func()
             except AttributeError:
-                print m, " not found"
+                print(m, " not found")
 
         self.generate_new()
         if self.gen_free:
@@ -42,15 +42,15 @@ class PdExternal(object):
         self.generate_setup(methods)
 
     def generate_header(self):
-        print '#include "ceammc.h"'
+        print('#include "ceammc.h"')
 
-        print "#include \"m_pd.h\""
+        print("#include \"m_pd.h\"")
         for f in self.headers:
-            print "#include <{}>".format(f)
+            print("#include <{}>".format(f))
 
         macro = '''
 #define OBJ_NAME "{mod}.{ext}"'''
-        print macro.format(mod=self.module, ext=self.extension)
+        print(macro.format(mod=self.module, ext=self.extension))
 
     def generate_struct(self, fields=[]):
         res = '''
@@ -66,7 +66,7 @@ struct {2} {{
     t_object x_obj;{fields}
 }};'''
 
-        print res.format(self.class_, self.name_, self.type_, fields="\n".join(fields))
+        print(res.format(self.class_, self.name_, self.type_, fields="\n".join(fields)))
 
     def generate_bang(self, code=''):
         res = '''
@@ -74,7 +74,7 @@ static void {name}_bang({type}* x)
 {{
     {code}
 }}'''
-        print res.format(name=self.name_, type=self.type_, code=code)
+        print(res.format(name=self.name_, type=self.type_, code=code))
 
     def generate_float(self, code=''):
         res = '''
@@ -83,7 +83,7 @@ static void {name}_float({type}* x, t_floatarg f)
     {code}
 }}'''
 
-        print res.format(name=self.name_, type=self.type_, code=code)
+        print(res.format(name=self.name_, type=self.type_, code=code))
 
     def generate_list(self, code=''):
         res = '''
@@ -91,7 +91,7 @@ static void {name}_list({type}* x, t_symbol* s, int argc, t_atom* argv)
 {{
     {code}
 }}'''
-        print res.format(name=self.name_, type=self.type_, code=code)
+        print(res.format(name=self.name_, type=self.type_, code=code))
 
     def generate_symbol(self, code=''):
         res = '''
@@ -99,7 +99,7 @@ static void {name}_symbol({type}* x, t_symbol *s)
 {{
     {code}
 }}'''
-        print res.format(name=self.name_, type=self.type_, code=code)
+        print(res.format(name=self.name_, type=self.type_, code=code))
 
     def generate_pointer(self, code=''):
         res = '''
@@ -108,7 +108,7 @@ static void {name}_pointer({type}* x, t_gpointer *pt)
      {code}
 }}'''
 
-        print res.format(name=self.name_, type=self.type_, code=code)
+        print(res.format(name=self.name_, type=self.type_, code=code))
 
     def generate_anything(self, code=''):
         res = '''
@@ -117,7 +117,7 @@ static void {name}_anything({type} *x, t_symbol *s, int argc, t_atom *argv)
     {code}
 }}'''
 
-        print res.format(name=self.name_, type=self.type_, code=code)
+        print(res.format(name=self.name_, type=self.type_, code=code))
 
     def generate_new(self, outlet_type='s_float', code=''):
         res = '''
@@ -138,7 +138,7 @@ static void* {name}_new()
     return static_cast<void*>(x);
 }}'''
 
-        print res.format(name=self.name_, type=self.type_, class_=self.class_, outlet=outlet_type, code=code)
+        print(res.format(name=self.name_, type=self.type_, class_=self.class_, outlet=outlet_type, code=code))
 
     def generate_free(self, code=''):
         res = '''
@@ -146,7 +146,7 @@ static void {name}_free({type} *x)
 {{
     {code}
 }}'''
-        print res.format(name=self.name_, code=code, type=self.type_)
+        print(res.format(name=self.name_, code=code, type=self.type_))
 
     def generate_setup(self, methods=None):
         # handle cpp
@@ -198,7 +198,7 @@ static void {name}_free({type} *x)
 
         res += "\n}\n"
 
-        print res
+        print(res)
 
 
 class PdMathUnaryExternal(PdExternal):
@@ -222,24 +222,24 @@ class PdMathUnaryExternal(PdExternal):
         self.generate_setup(['float', 'list'])
 
     def generate_work_function(self):
-        print '\nstatic t_float private_{name}(t_float v) \n{{'.format(name=self.name_)
+        print('\nstatic t_float private_{name}(t_float v) \n{{'.format(name=self.name_))
 
         if self.func_code:
-            print '    {}'.format(self.func_code)
+            print('    {}'.format(self.func_code))
         else:
             if (self.func32 and self.func64) and (self.func32 != self.func64):
-                print '''#if PD_FLOATSIZE == 32
+                print('''#if PD_FLOATSIZE == 32
     return {func32}(v);
 #elif PD_FLOATSIZE == 64
     return {func64}(v);
 #else
 #error "Unsupported PD_FLOATSIZE"
-#endif'''.format(func32=self.func32, func64=self.func64)
+#endif'''.format(func32=self.func32, func64=self.func64))
 
             if (self.func32 and not self.func64) or (self.func32 == self.func64):
-                print '    return {}(v);'.format(self.func32)
+                print('    return {}(v);'.format(self.func32))
 
-        print '}'
+        print('}')
 
 
 class PdMathConstExternal(PdExternal):

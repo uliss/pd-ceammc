@@ -8,6 +8,7 @@
 #X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 50 147 openpanel;
+#X msg 165 147 symbol midi/bach-wtk2-prelude2.mid;
 #X msg 50 176 read \$1 \, bang;
 #X obj 50 205 midi.file;
 #X msg 78 234 play;
@@ -19,66 +20,71 @@
 #X obj 117 349 / 100;
 #X obj 50 378 osc~;
 #X obj 50 406 *~;
-#X obj 50 435 dac~;
-#X obj 20 484 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 489 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 50 435 ui.hgain2~;
+#X obj 50 464 dac~;
+#X obj 20 513 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 518 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 524 @current;
-#X text 245 524 (readonly) Get current event tick index. Type: int.
+#X msg 110 553 @current;
+#X text 245 553 (readonly) Get current event tick index. Type: int.
 Default value: 0\.;
-#X msg 110 566 @join;
-#X text 245 566 join all tracks into one. Default value: 0\.;
-#X msg 110 595 @nevents;
-#X text 245 595 (readonly) Get number of events in track. Type: int.
+#X msg 110 595 @join;
+#X text 245 595 join all tracks into one. Default value: 0\.;
+#X msg 110 624 @nevents;
+#X text 245 624 (readonly) Get number of events in track. Type: int.
 Default value: 0\.;
-#X msg 110 637 @speed;
-#X text 245 637 Get/Set play speed factor. Type: float. Default value:
+#X msg 110 666 @speed;
+#X text 245 666 Get/Set play speed factor. Type: float. Default value:
 1\. Min value: 0.01\.;
-#X msg 110 679 @state;
-#X text 245 679 (readonly) Get current state. 0: stopped \, 1: playing
+#X msg 110 708 @state;
+#X text 245 708 (readonly) Get current state. 0: stopped \, 1: playing
 \, 2: paused. Type: int. Default value: 0\. Allowed values: 0 \, 1
 \, 2\.;
-#X msg 110 736 @tempo;
-#X text 245 736 (readonly) Get current tempo in TPQ. Type: int. Default
+#X msg 110 765 @tempo;
+#X text 245 765 (readonly) Get current tempo in TPQ. Type: int. Default
 value: 120\.;
-#X msg 110 778 @track;
-#X text 245 778 Get/Set track number. Type: int. Default value: 0\.
+#X msg 110 807 @track;
+#X text 245 807 Get/Set track number. Type: int. Default value: 0\.
 Min value: 0\.;
-#X obj 20 830 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 835 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 859 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 864 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 870 next;
-#X text 245 870 moves playing position to next event. No output.;
-#X msg 110 897 pause;
-#X text 245 897 pause playing.;
-#X msg 110 924 play;
-#X text 245 924 start playing.;
-#X msg 110 951 reset;
-#X text 245 951 set current event index to zero.;
-#X msg 110 978 seek;
-#X text 245 978 seek to specified tick.;
-#X msg 110 1005 stop;
-#X text 245 1005 stop playing.;
-#X obj 20 1042 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1047 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X msg 110 899 next;
+#X text 245 899 moves playing position to next event. No output.;
+#X msg 110 926 pause;
+#X text 245 926 pause playing.;
+#X msg 110 953 play;
+#X text 245 953 start playing.;
+#X msg 110 980 reset;
+#X text 245 980 set current event index to zero and send All Notes
+Off event.;
+#X msg 110 1007 seek;
+#X text 245 1007 seek to specified tick.;
+#X msg 110 1034 stop;
+#X text 245 1034 stop playing and send All Notes Off event.;
+#X obj 20 1071 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1076 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1048 1\.;
-#X text 245 1048 method inlet.;
-#X obj 20 1078 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1083 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 1077 1\.;
+#X text 150 1077 *bang*;
+#X text 245 1077 output current event.;
+#X text 150 1097 *data*;
+#X text 245 1097 MidiStream object: set new mifi file.;
+#X obj 20 1127 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1132 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1084 1\.;
-#X text 245 1084 outputs MidiEvent message.;
-#X text 110 1104 2\.;
-#X text 245 1104 time in milliseconds until next MIDI event.;
+#X text 110 1133 1\.;
+#X text 245 1133 MidiEvent message.;
+#X text 110 1153 2\.;
+#X text 245 1153 time in milliseconds until next MIDI event.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title midi @url ceammc.midi-help.pd;
-#X obj 1 1154 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1157 library: ceammc v0.9.4;
-#N canvas 10 1176 400 290 info 0;
+#X obj 1 1203 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1206 library: ceammc v0.9.4;
+#N canvas 10 1225 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -102,19 +108,21 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1176 pd info;
+#X restore 10 1225 pd info;
 #X connect 4 0 5 0;
-#X connect 5 0 6 0;
+#X connect 5 0 7 0;
 #X connect 6 0 7 0;
-#X connect 7 0 10 0;
-#X connect 8 0 10 0;
-#X connect 9 0 10 0;
+#X connect 7 0 8 0;
+#X connect 8 0 11 0;
+#X connect 9 0 11 0;
 #X connect 10 0 11 0;
 #X connect 11 0 12 0;
 #X connect 12 0 13 0;
-#X connect 12 1 14 0;
-#X connect 13 0 15 0;
-#X connect 15 0 16 0;
-#X connect 14 0 16 1;
+#X connect 13 0 14 0;
+#X connect 13 1 15 0;
+#X connect 14 0 16 0;
 #X connect 16 0 17 0;
-#X connect 16 0 17 1;
+#X connect 15 0 17 1;
+#X connect 17 0 18 0;
+#X connect 18 0 19 0;
+#X connect 18 0 19 1;

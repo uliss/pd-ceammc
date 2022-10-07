@@ -245,7 +245,7 @@ void Message::output(t_outlet* x) const
         outlet_symbol(x, value_.asT<t_symbol*>());
         break;
     case LIST:
-        outletAtomList(x, v_list_);
+        outletAtomList(x, v_list_.view());
         break;
     case ANY:
         outlet_anything(x,

@@ -24,6 +24,10 @@ public:
     FltAWeight(const PdArgs& args);
 
     void onFloat(t_float f) override;
+    void onList(const AtomListView& lv) override;
+
+private:
+    bool getValue(t_float freqHz, t_float& res) const;
 };
 
 void setup_flt_a_weight();

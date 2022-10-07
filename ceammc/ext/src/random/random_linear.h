@@ -2,7 +2,7 @@
 #define RANDOM_LINEAR_H
 
 #include "ceammc_object.h"
-#include "rnd_gen.h"
+#include "ceammc_random.h"
 
 using namespace ceammc;
 
@@ -11,8 +11,7 @@ class RandomLinear : public BaseObject {
     FloatProperty* v1_;
     FloatProperty* p0_;
     FloatProperty* p1_;
-    RandomGen gen_;
-    SizeTProperty* seed_;
+    random::RandomGen gen_;
 
 public:
     RandomLinear(const PdArgs& a);

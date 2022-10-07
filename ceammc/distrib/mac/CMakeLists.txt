@@ -66,6 +66,14 @@ if(APPLE)
         COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/check_bundle.sh "${PROJECT_BINARY_DIR}/dist/${PD_MACOSX_APP}"
         USES_TERMINAL)
 
+    find_program(LLDB lldb)
+    if(LLDB)
+        add_custom_target(dev_lldb
+            COMMAND ${LLDB} --one-line run -- ${BUNDLE_FULL_PATH}/Contents/Resources/bin/pd
+            DEPENDS dev_ceammc
+            USES_TERMINAL)
+    endif()
+
     find_program(GITHUB_CLI NAMES gh gh.exe)
     if(GITHUB_CLI)
         message(STATUS "GitHub command line found: ${GITHUB_CLI}")

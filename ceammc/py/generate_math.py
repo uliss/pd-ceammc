@@ -47,7 +47,7 @@ def main():
         cmd = [SCRIPT, "--type", "unary", "--f32", ext[1], "--f64", ext[2], "math", name]
         subprocess.call(cmd, stdout=f)
         f.close()
-        print "math_{}.cpp generated".format(name)
+        print(f"math_{name}.cpp generated")
 
 
     for ext in CONST_EXT:
@@ -57,7 +57,7 @@ def main():
         cmd = [SCRIPT, "--type", "const", "--cpp", "--code", value, "math", name]
         subprocess.call(cmd, stdout=f)
         f.close()
-        print "math_{}.cpp generated".format(name)
+        print(f"math_{name}.cpp generated")
 
 if __name__ == '__main__':
     main()

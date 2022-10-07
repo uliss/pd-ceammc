@@ -1,9 +1,5 @@
-include_directories(${PROJECT_SOURCE_DIR}/src)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../extra)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../src/lib)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../src)
-
 add_library(bm_main STATIC bm_main.cpp)
+target_include_directories(bm_main PUBLIC ${PROJECT_SOURCE_DIR}/ceammc/extra)
 
 set(BM_HTML_DIR "${CMAKE_CURRENT_BINARY_DIR}")
 
@@ -12,8 +8,27 @@ function(add_benchmark name)
     if(UNIX)
         target_compile_options(bm_${name} PRIVATE "-fPIC")
     endif()
-    target_link_libraries(bm_${name} bm_main ceammc_base
-        ceammc_list ceammc_array ceammc_data ceammc_core puredata-core)
+
+    target_include_directories(bm_${name}
+    PRIVATE
+        ${PROJECT_SOURCE_DIR}/src
+        ${PROJECT_SOURCE_DIR}/ceammc/ext/src
+        ${PROJECT_SOURCE_DIR}/ceammc/ext/src/lib
+    )
+
+    target_link_libraries(bm_${name}
+    PRIVATE
+        bm_main
+        ceammc_base
+        ceammc_list
+        ceammc_array
+        ceammc_net
+        ceammc_data
+        ceammc_core
+        puredata-core
+        fmt
+        re2
+    )
 
     set_property(TARGET bm_${name} APPEND_STRING PROPERTY LINK_FLAGS "${PD_EXTERNAL_LDFLAGS}")
 
@@ -32,17 +47,13 @@ add_benchmark(control_externals)
 add_benchmark(core)
 add_benchmark(dataptr)
 add_benchmark(grain_expr)
+add_benchmark(lowlevel)
+add_benchmark(parse)
 
-
-# lowlevel tests
-add_executable(bm_lowlevel bm_lowlevel.cpp)
-target_link_libraries(bm_lowlevel bm_main puredata-core fmt)
-target_link_libraries(bm_core re2)
-target_include_directories(bm_core PRIVATE $<TARGET_PROPERTY:re2,INCLUDE_DIRECTORIES>)
-target_include_directories(bm_core PRIVATE $<TARGET_PROPERTY:reflex,INCLUDE_DIRECTORIES>)
+# extra options
+target_include_directories(bm_core
+    PRIVATE
+        $<TARGET_PROPERTY:re2,INCLUDE_DIRECTORIES>
+        $<TARGET_PROPERTY:reflex,INCLUDE_DIRECTORIES>
+)
 target_include_directories(bm_grain_expr PRIVATE ${PROJECT_SOURCE_DIR}/ceammc/ext/src/array)
-
-add_custom_target(benchmark_lowlevel
-    COMMAND ${CMAKE_CURRENT_BINARY_DIR}/bm_lowlevel -r html -o "${BM_HTML_DIR}/benchmark_lowlevel.html"
-    COMMAND open "${BM_HTML_DIR}/benchmark_lowlevel.html"
-    DEPENDS bm_lowlevel)

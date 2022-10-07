@@ -7,8 +7,6 @@ using SynthKs = SynthWithFreq<faust_synth_ks_tilde>;
 
 void setup_synth_ks_tilde()
 {
-    SynthKs::initSymTab();
-
     SoundExternalFactory<SynthKs> obj("synth.ks~", OBJECT_FACTORY_DEFAULT);
     obj.addMethod("note", &SynthKs::m_note);
 }

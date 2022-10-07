@@ -15,52 +15,58 @@
 #define CEAMMC_XDATASTORAGE_H
 
 #include "ceammc_abstractdata.h"
+#include "ceammc_data.h"
 
 #include <boost/container/static_vector.hpp>
-#include <cstdint>
 #include <map>
-#include <string>
-#include <utility>
-#include <vector>
 
 namespace ceammc {
 
-class AtomList;
+constexpr size_t DATA_TYPES_MAX = 1024;
 
-using DictEntry = std::pair<std::string, AtomList>;
-using Dict = std::vector<DictEntry>;
-using CreateFromListFn = Atom (*)(const AtomList&);
-using CreateFromDictFn = Atom (*)(const Dict&);
+using CreateFromListFn = Atom (*)(const AtomListView&);
+using CreateFromDictFn = Atom (*)(const DictAtom&);
 
 class DataStorage {
 
     struct DataTypeRecord {
-        int type;
-        std::string name;
+        DataTypeName name;
         CreateFromListFn from_list_fn;
         CreateFromDictFn from_dict_fn;
+        DataTypeId type;
 
-        DataTypeRecord(int type_,
-            const std::string& name_,
+        DataTypeRecord(DataTypeId type_,
+            const DataTypeName& name_,
             CreateFromListFn list_fn,
             CreateFromDictFn dict_fn)
-            : type(type_)
-            , name(name_)
+            : name(name_)
             , from_list_fn(list_fn)
             , from_dict_fn(dict_fn)
+            , type(type_)
+        {
+        }
+
+        DataTypeRecord(DataTypeId type_,
+            const char* name_,
+            CreateFromListFn list_fn,
+            CreateFromDictFn dict_fn)
+            : name(name_)
+            , from_list_fn(list_fn)
+            , from_dict_fn(dict_fn)
+            , type(type_)
         {
         }
     };
 
-    using TypeList = boost::container::static_vector<DataTypeRecord, 1024>;
+    using TypeList = boost::container::static_vector<DataTypeRecord, DATA_TYPES_MAX>;
     using type_iterator = TypeList::const_iterator;
 
     DataStorage();
     DataStorage(const DataStorage& s) = delete;
     void operator=(const DataStorage& s) = delete;
 
-    type_iterator findByName(const std::string& name) const;
-    type_iterator findByType(int type) const;
+    type_iterator findByName(const DataTypeName& name) const;
+    type_iterator findByType(DataTypeId type) const;
 
 public:
     /**
@@ -69,14 +75,14 @@ public:
     static DataStorage& instance();
 
     // types functions
-    int registerNewType(const std::string& name,
+    DataTypeId registerNewType(const DataTypeName& name,
         CreateFromListFn fromListFn = nullptr,
         CreateFromDictFn fromDictFn = nullptr);
 
-    int typeByName(const std::string& name) const;
-    std::string nameByType(int type) const;
-    CreateFromListFn fromListFunction(const std::string& name) const;
-    CreateFromDictFn fromDictFunction(const std::string& name) const;
+    DataTypeId typeByName(const DataTypeName& name) const;
+    DataTypeName nameByType(DataTypeId type) const;
+    CreateFromListFn fromListFunction(const DataTypeName& name) const;
+    CreateFromDictFn fromDictFunction(const DataTypeName& name) const;
 
     void clearAll();
 

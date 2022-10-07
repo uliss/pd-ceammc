@@ -77,15 +77,15 @@ void Duration2Time::onSymbol(t_symbol* s)
     listTo(0, AtomListView(atoms.data(), atoms.size()));
 }
 
-void Duration2Time::onList(const AtomList& lst)
+void Duration2Time::onList(const AtomListView& lv)
 {
     using namespace ceammc::parser;
 
     DurationFullMatch p;
     DurationVec out;
-    const auto n = p.parse(lst.view(), out);
+    const auto n = p.parse(lv, out);
     if (n == 0) {
-        OBJ_ERR << "duration list expected, got: " << lst;
+        OBJ_ERR << "duration list expected, got: " << lv;
         return;
     }
 

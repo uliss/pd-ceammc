@@ -16,22 +16,27 @@
 
 #include "ceammc_data.h"
 #include "ceammc_object.h"
+#include "datatype_string.h"
 
 using namespace ceammc;
 
 class StringJoin : public BaseObject {
-    std::string str_;
-    std::string sep_;
+    DataTypeString str_;
+    DataTypeString sep_;
 
 public:
     StringJoin(const PdArgs& a);
     void onBang() override;
     void onSymbol(t_symbol* s) override;
     void onData(const Atom& d) override;
-    void onList(const AtomList& l) override;
-    void onInlet(size_t n, const AtomListView& l) override;
+    void onList(const AtomListView& lv) override;
+    void onInlet(size_t n, const AtomListView& lv) override;
 
     void onDataT(const MListAtom& ml);
+
+private:
+    void do_join(const AtomListView& lv, string::MediumString& res);
+    void join(const AtomListView& lv, string::MediumString& res);
 };
 
 void setup_string_join();

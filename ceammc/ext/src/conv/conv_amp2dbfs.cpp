@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "conv_amp2dbfs.h"
+#include "ceammc_containers.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 
@@ -39,9 +40,11 @@ void Amp2dbfs::onFloat(t_float v)
     floatTo(0, a2d(v));
 }
 
-void Amp2dbfs::onList(const AtomList& lst)
+void Amp2dbfs::onList(const AtomListView& lv)
 {
-    listTo(0, lst.mapFloat(a2d));
+    SmallAtomList res;
+    lv.mapFloat(a2d, res);
+    listTo(0, res.view());
 }
 
 Amp2dbfsTilde::Amp2dbfsTilde(const PdArgs& args)

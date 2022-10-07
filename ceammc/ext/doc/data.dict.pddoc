@@ -25,6 +25,9 @@
             <par>Syntax: [key1: value key2 : "with space"]. Nested dictionaries are supported: [a:
             [A:1 B:2]]).</par>
         </info>
+        <mouse>
+            <event editmode="false" type="left-click">open data editor</event>
+        </mouse>
         <properties>
             <property name="@keys" readonly="true" type="list">keys of dictionary</property>
             <property name="@empty" readonly="true" enum="0 1" type="int" default="1">1 if dict is
@@ -39,6 +42,7 @@
             <method name="clear">removes all dict values. No output</method>
             <method name="get_key">get entry from dictionary 
             <param name="KEY" type="symbol" required="true">entry key</param></method>
+            <method name="choose">choose random key and output it</method>
             <method name="set_key">change entry in dictionary. If it's not exists, do nothing. 
             <param name="KEY" type="symbol" required="true">key</param>
             <param name="VAL" type="list" required="true">single value or list</param></method>

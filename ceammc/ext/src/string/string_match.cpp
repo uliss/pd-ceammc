@@ -26,7 +26,7 @@ StringMatch::StringMatch(const PdArgs& args)
     createCbListProperty(
         "@re",
         [this]() -> AtomList { return propRe2(); },
-        [this](const AtomList& l) -> bool { return propSetRe2(l); })
+        [this](const AtomListView& lv) -> bool { return propSetRe2(lv); })
         ->setArgIndex(0);
 
     createOutlet();
@@ -77,14 +77,14 @@ AtomList StringMatch::propRe2() const
         return Atom(&s_);
 }
 
-bool StringMatch::propSetRe2(const AtomList& lst)
+bool StringMatch::propSetRe2(const AtomListView& lv)
 {
-    if (lst.empty())
+    if (lv.empty())
         return false;
 
-    re_.reset(new re2::RE2(regexp::escape(to_string(lst, " "))));
+    re_.reset(new re2::RE2(regexp::escape(to_string(lv, " "))));
     if (!re_->ok()) {
-        OBJ_ERR << "invalid regexp: " << lst[0];
+        OBJ_ERR << "invalid regexp: " << lv[0];
         return false;
     } else
         return true;

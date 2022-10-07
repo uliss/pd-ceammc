@@ -11,7 +11,7 @@ public:
     PresetList(const PdArgs& args);
     void initDone() override;
 
-    void onList(const AtomList& lst) override;
+    void onList(const AtomListView& lv) override;
     void loadFrom(t_float idx) override;
     void storeAt(size_t idx) override;
 };

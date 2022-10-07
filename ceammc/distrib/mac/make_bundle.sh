@@ -30,6 +30,7 @@ PD_PO=$PD_RESOURCES/po
 PD_CEAMMC=$PD_EXTRA/ceammc
 PD_SF2=$PD_CEAMMC/sf2
 PD_SFZ=$PD_CEAMMC/sfz
+PD_MIDI=$PD_CEAMMC/midi
 PD_SAMPLES=$PD_CEAMMC/sound
 
 # absolute dir names
@@ -45,6 +46,7 @@ BUNDLE_TCL="${DIST_DIR}/${PD_TCL}"
 BUNDLE_CEAMMC="${DIST_DIR}/${PD_CEAMMC}"
 BUNDLE_SF2="${DIST_DIR}/${PD_SF2}"
 BUNDLE_SFZ="${DIST_DIR}/${PD_SFZ}"
+BUNDLE_MIDI="${DIST_DIR}/${PD_MIDI}"
 BUNDLE_SAMPLES="${DIST_DIR}/${PD_SAMPLES}"
 BUNDLE_INCLUDE="${DIST_DIR}/${PD_INCLUDE}"
 BUNDLE_COMPLETIONS="${BUNDLE_TCL}/ceammc/custom_completions"
@@ -233,11 +235,6 @@ do
     copy ${tcl} "${BUNDLE_TCL}/ceammc"
 done
 
-for cfg in ${SRC_DIR}/ceammc/gui/plugins/*.cfg
-do
-    copy ${cfg} "${BUNDLE_TCL}/ceammc"
-done
-
 mkdir -p "${BUNDLE_TCL}/completion-plugin"
 for tcl in ${SRC_DIR}/ceammc/gui/plugins/completion-plugin/*.tcl
 do
@@ -306,6 +303,13 @@ do
     copy ${samp} "${BUNDLE_SAMPLES}"
 done
 
+section "Copying CEAMMC midi files"
+mkdir -p "${BUNDLE_MIDI}"
+for midi in $SRC_CEAMMC/ext/doc/midi/*.@(mid|midi)
+do
+    copy ${midi} "${BUNDLE_MIDI}"
+done
+
 section "Copying CEAMMC cmake files"
 mkdir -p "${BUNDLE_INCLUDE}"
 copy "${SRC_DIR}/cmake/PdExternal.cmake" "${BUNDLE_INCLUDE}"
@@ -368,7 +372,7 @@ cat $BUILD_DIR/ceammc/ext/doc/about.pd | sed "s/%GIT_BRANCH%/$GIT_BRANCH/g" | \
 chmod 0444 "${BUNDLE_CEAMMC}/about.pd"
 
 section "Copying license"
-copy $SRC_DIR/License.txt "${BUNDLE_RESOURCES}/Scripts"
+copy $SRC_DIR/LICENSE.txt "${BUNDLE_RESOURCES}/Scripts"
 
 ##############
 # 3RD PARTY

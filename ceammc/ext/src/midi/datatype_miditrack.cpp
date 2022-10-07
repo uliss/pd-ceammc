@@ -4,7 +4,9 @@
 
 #include "MidiEventList.h"
 
-const int DataTypeMidiTrack::dataType = DataStorage::instance().registerNewType("MidiTrack");
+constexpr const char* TYPE_NAME = "MidiTrack";
+
+const DataTypeId DataTypeMidiTrack::dataType = DataStorage::instance().registerNewType(TYPE_NAME);
 
 DataTypeMidiTrack::DataTypeMidiTrack()
     : events_(new MidiEventList())
@@ -31,6 +33,21 @@ void DataTypeMidiTrack::setEventList(const MidiEventList& lst)
     events_->linkNotePairs();
 }
 
+bool DataTypeMidiTrack::set(const AbstractData* d) noexcept
+{
+    return setDataT<DataTypeMidiTrack>(d);
+}
+
+std::string DataTypeMidiTrack::toListStringContent() const
+{
+    return " ";
+}
+
+std::string DataTypeMidiTrack::toDictStringContent() const
+{
+    return " ";
+}
+
 DataTypeMidiTrack& DataTypeMidiTrack::operator=(const DataTypeMidiTrack& mt)
 {
     if (this == &mt)
@@ -45,7 +62,7 @@ DataTypeMidiTrack* DataTypeMidiTrack::clone() const
     return new DataTypeMidiTrack(*this);
 }
 
-int DataTypeMidiTrack::type() const noexcept
+DataTypeId DataTypeMidiTrack::type() const noexcept
 {
     return dataType;
 }

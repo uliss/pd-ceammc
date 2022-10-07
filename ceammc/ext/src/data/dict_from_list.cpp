@@ -31,10 +31,10 @@ DictFromList::DictFromList(const PdArgs& args)
     createOutlet();
 }
 
-void DictFromList::onList(const AtomList& l)
+void DictFromList::onList(const AtomListView& lv)
 {
     DictAtom dict;
-    *dict = DataTypeDict::fromList(l, n_->value());
+    *dict = DataTypeDict::fromList(lv, n_->value());
     atomTo(0, dict);
 }
 

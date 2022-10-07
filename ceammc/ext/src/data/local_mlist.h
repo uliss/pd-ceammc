@@ -14,10 +14,11 @@
 #ifndef LOCAL_MLIST_H
 #define LOCAL_MLIST_H
 
+#include "editor_data.h"
 #include "local_base.h"
 #include "mlist_iface.h"
 
-typedef DataMListIFace<LocalBase<MListAtom>> LocalMListBase;
+using LocalMListBase = EditorDataT<DataMListIFace<LocalBase<MListAtom>>, DataTypeMList>;
 
 class LocalMList : public LocalMListBase {
 public:
@@ -25,6 +26,11 @@ public:
 
     MListAtom& mlist() override { return ref(); }
     const MListAtom& mlist() const override { return ref(); }
+
+    const DataTypeMList& editorData() const final { return *ref(); }
+    DataTypeMList& editorData() final { return *ref(); }
+
+    EditorTitleString editorTitle() const final;
 };
 
 void setup_local_mlist();

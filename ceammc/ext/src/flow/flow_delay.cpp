@@ -72,13 +72,13 @@ void FlowDelay::onSymbol(t_symbol* s)
     clock_.delay(delay_->value());
 }
 
-void FlowDelay::onList(const AtomList& l)
+void FlowDelay::onList(const AtomListView& lv)
 {
     if (block_->value() && in_process_)
         return;
 
     in_process_ = block_->value();
-    last_msg_.setList(l);
+    last_msg_.setList(lv);
     clock_.delay(delay_->value());
 }
 
@@ -92,12 +92,12 @@ void FlowDelay::onAny(t_symbol* s, const AtomListView& l)
     clock_.delay(delay_->value());
 }
 
-void FlowDelay::proxy_delay(t_float f)
+void FlowDelay::proxy_delay(int i, t_float f)
 {
     delay_->setValue(f);
 }
 
-void FlowDelay::proxy_reset()
+void FlowDelay::proxy_reset(int)
 {
     clock_.unset();
     in_process_ = false;
@@ -105,7 +105,7 @@ void FlowDelay::proxy_reset()
 
 void FlowDelay::proxy_reset(const AtomListView&)
 {
-    proxy_reset();
+    proxy_reset(0);
 }
 
 void FlowDelay::proxy_add(const AtomListView& lv)

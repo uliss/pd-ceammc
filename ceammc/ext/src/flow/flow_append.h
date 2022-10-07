@@ -33,10 +33,10 @@ public:
     void onBang() override;
     void onFloat(t_float v) override;
     void onSymbol(t_symbol* s) override;
-    void onList(const AtomList& l) override;
+    void onList(const AtomListView& lv) override;
     void onAny(t_symbol* s, const AtomListView& lv) override;
 
-    void proxy_any(InletProxy<FlowAppend>* x, t_symbol* s, const AtomListView& v);
+    void proxy_any(int id, t_symbol* s, const AtomListView& v);
 
 private:
     void append();

@@ -37,7 +37,7 @@ namespace lua {
         }
     }
 
-    LuaInterp::LuaInterp(LuaCommandQueue* pipe, SubscriberId id, const bool* quit)
+    LuaInterp::LuaInterp(LuaCommandQueue* pipe, SubscriberId id, const std::atomic_bool* quit)
         : lua_(nullptr)
         , pipe_(pipe)
         , quit_(quit)
@@ -110,8 +110,8 @@ namespace lua {
         lua_setglobal(lua_, "_id");
 
         // note: pointer to pointer
-        lua_pushlightuserdata(lua_, &quit_);
-        lua_setglobal(lua_, "_quit");
+        // lua_pushlightuserdata(lua_, &quit_);
+        // lua_setglobal(lua_, "_quit");
 
         // Initialisation code
         lua_sethook(lua_, &line_hook_fn, LUA_MASKLINE, 0);

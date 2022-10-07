@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ui_tab.h"
+#include "ceammc_containers.h"
 #include "ceammc_format.h"
 #include "ceammc_preset.h"
 #include "ceammc_ui.h"
@@ -342,7 +343,11 @@ void UITab::m_append(const AtomListView& lv)
     if (lv.empty())
         return;
 
-    propSetItems(items_ + lv);
+    SmallAtomList lst;
+    lst.insert(lst.end(), items_.begin(), items_.end());
+    lst.insert(lst.end(), lv.begin(), lv.end());
+
+    propSetItems(lst.view());
     resize(width(), height());
 }
 

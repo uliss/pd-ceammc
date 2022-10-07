@@ -45,9 +45,9 @@ public:
     void initDone() override;
 
 public:
-    void m_play(t_symbol* s, const AtomListView& lst);
-    void m_stop(t_symbol* s, const AtomListView& lst);
-    void m_range(t_symbol* s, const AtomListView& lst);
+    void m_play(t_symbol* s, const AtomListView& lv);
+    void m_stop(t_symbol* s, const AtomListView& lv);
+    void m_range(t_symbol* s, const AtomListView& lv);
 
 private:
     size_t secToAbsPosition(t_float t);

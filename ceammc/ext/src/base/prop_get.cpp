@@ -111,7 +111,7 @@ void PropGet::processObjectProps(t_object* dest, const std::vector<t_symbol*>& p
         }
 
         const size_t IDX = props.size() - std::distance(props.rbegin(), it);
-        outletAtomListView(outletAt(IDX), AtomListView(argv, argc), true);
+        outletAtomList(outletAt(IDX), AtomListView(argv, argc), true);
 
         freebytes(argv, argc);
     }

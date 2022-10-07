@@ -26,7 +26,7 @@ class MidiSplit : public BaseObject {
 public:
     MidiSplit(const PdArgs& args);
 
-    void onList(const AtomList& lst) override;
+    void onList(const AtomListView& lv) override;
     const char* annotateOutlet(size_t n) const override;
 };
 

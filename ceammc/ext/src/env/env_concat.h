@@ -15,7 +15,7 @@ public:
 
     void onBang() override;
     void onDataT(const EnvAtom& env);
-    void onInlet(size_t n, const AtomListView& lst) override;
+    void onInlet(size_t n, const AtomListView& lv) override;
 };
 
 void setup_env_concat();

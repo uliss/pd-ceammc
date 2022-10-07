@@ -86,9 +86,9 @@ void ListConvolveBase::onInlet(size_t n, const AtomListView& lv)
         setB(lv);
 }
 
-void ListConvolveBase::onList(const AtomList& lst)
+void ListConvolveBase::onList(const AtomListView& lv)
 {
-    setA(lst.view());
+    setA(lv);
 
     if (!calc())
         return;

@@ -70,9 +70,9 @@ void ProtoMidiCC::onFloat(t_float f)
     }
 }
 
-void ProtoMidiCC::onList(const AtomList& lst)
+void ProtoMidiCC::onList(const AtomListView& lv)
 {
-    for (auto& a : lst)
+    for (auto& a : lv)
         onFloat(a.asT<t_float>());
 }
 

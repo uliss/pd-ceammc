@@ -30,18 +30,20 @@
         <methods>
             <method name="play">start playing</method>
             <method name="pause">pause playing</method>
-            <method name="stop">stop playing</method>
+            <method name="stop">stop playing and send All Notes Off event</method>
             <method name="next">moves playing position to next event. No output</method>
-            <method name="reset">set current event index to zero</method>
+            <method name="reset">set current event index to zero and send All Notes Off
+            event</method>
             <method name="seek">seek to specified tick</method>
         </methods>
         <inlets>
             <inlet>
-                <xinfo>method inlet</xinfo>
+                <xinfo on="bang">output current event</xinfo>
+                <xinfo on="data">MidiStream object: set new mifi file</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>outputs MidiEvent message</outlet>
+            <outlet>MidiEvent message</outlet>
             <outlet>time in milliseconds until next MIDI event</outlet>
         </outlets>
         <example>
@@ -49,8 +51,8 @@
 <![CDATA[
 [B]
 |
-[openpanel]
-|
+[openpanel] [symbol midi/bach-wtk2-prelude2.mid(
+|           |
 [read $1, bang(
 |
 [midi.file]
@@ -68,7 +70,9 @@
 [osc~] |
 |      |.
 [*~     ]
-| \
+*|*
+[ui.hgain2~]
+|\
 [dac~]
 ]]>
             </pdascii>

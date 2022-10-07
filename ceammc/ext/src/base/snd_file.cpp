@@ -8,6 +8,7 @@
 #include "ceammc_string.h"
 #include "fmt/format.h"
 #include "lex/array_loader.h"
+#include "lex/parser_strings.h"
 
 #include "config.h"
 
@@ -52,7 +53,7 @@ SndFile::SndFile(const PdArgs& a)
         });
 }
 
-void SndFile::m_load(t_symbol* s, const AtomListView& lst)
+void SndFile::m_load(t_symbol* s, const AtomListView& lv)
 {
     std::string fname, array_opts;
 
@@ -61,8 +62,8 @@ void SndFile::m_load(t_symbol* s, const AtomListView& lst)
     samplerates_.clear();
     samplecount_.clear();
 
-    if (!extractLoadArgs(lst, fname, array_opts)) {
-        METHOD_ERR(s) << "not enough arguments: " << lst;
+    if (!extractLoadArgs(lv, fname, array_opts)) {
+        METHOD_ERR(s) << "not enough arguments: " << lv;
         return postLoadUsage();
     }
 
@@ -170,25 +171,27 @@ MaybeString SndFile::fullLoadPath(const std::string& fname) const
     }
 }
 
-bool SndFile::extractLoadArgs(const AtomListView& lst, std::string& fname, std::string& array_opts)
+bool SndFile::extractLoadArgs(const AtomListView& lv, std::string& fname, std::string& array_opts)
 {
     static t_symbol* SYM_TO = gensym("to");
 
-    if (lst.size() < 3)
+    if (lv.size() < 3)
         return false;
 
-    auto it = std::find_if(lst.begin(), lst.end(), [](const Atom& a) { return a.isProperty() || a == Atom(SYM_TO); });
-    if (it == lst.end())
+    auto it = std::find_if(lv.begin(), lv.end(), [](const Atom& a) { return a.isProperty() || a == Atom(SYM_TO); });
+    if (it == lv.end())
         return false;
 
-    auto array_opt_pos = std::distance(lst.begin(), it);
+    auto array_opt_pos = std::distance(lv.begin(), it);
 
-    fname = to_string(lst.subView(0, array_opt_pos), " ");
+    fname = to_string(lv.subView(0, array_opt_pos), " ");
     // parse end escapes quotes
     // check for "quoted path with spaces"
-    string::pd_string_parse(fname, fname);
+    string::MediumString buf;
+    if (string::unquote_and_unescape(fname.c_str(), buf))
+        fname.assign(buf.data(), buf.size());
 
-    array_opts = to_string(lst.subView(array_opt_pos), " ");
+    array_opts = to_string(lv.subView(array_opt_pos), " ");
     return true;
 }
 

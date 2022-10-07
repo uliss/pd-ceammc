@@ -110,7 +110,7 @@ TEST_CASE("list.count", "[externals]")
 
     SECTION("external data")
     {
-        TExt t("list.count", "(1 2)");
+        TExt t("list.count", LP("(1 2)"));
 
         t.send(1, 2);
         REQUIRE(floatAt(t) == 0);

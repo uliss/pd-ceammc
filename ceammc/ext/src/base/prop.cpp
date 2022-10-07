@@ -13,23 +13,27 @@
  *****************************************************************************/
 #include "prop.h"
 #include "ceammc_canvas.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
+#include "fmt/core.h"
 
 extern "C" {
 #include "g_canvas.h"
 }
 
-static t_symbol* SYM_TRUE;
-static t_symbol* SYM_FALSE;
+namespace {
 
-static t_symbol* makePropName(const AtomList& l)
+CEAMMC_DEFINE_HASH(false);
+CEAMMC_DEFINE_HASH(true);
+
+inline t_symbol* makePropName(const AtomListView& lv)
 {
-    static t_symbol* SYM_INVALID = gensym("@invalid");
-
-    if (l.isSymbol())
-        return l[0].asSymbol();
+    if (lv.isSymbol())
+        return lv[0].asSymbol();
     else
-        return SYM_INVALID;
+        return gensym("@invalid");
+}
+
 }
 
 BaseProp::BaseProp(const PdArgs& args)
@@ -115,15 +119,16 @@ void BaseProp::onSymbol(t_symbol* s)
         if (!prop->setSymbol(s))
             OBJ_ERR << "can't set property to " << s;
     } else if (prop->isBool()) {
-        if (!(s == SYM_TRUE || s == SYM_FALSE))
-            OBJ_ERR << "only " << SYM_TRUE << " and " << SYM_FALSE << " values are supported";
-        else if (!prop->setBool(s == SYM_TRUE))
+        auto hash = crc32_hash(s);
+        if (!(hash == hash_true || hash == hash_false))
+            OBJ_ERR << fmt::format("only '{}' and '{}' values are supported, got: {}", str_true, str_false, s->s_name);
+        else if (!prop->setBool(hash == hash_true))
             OBJ_ERR << "can't set property to " << s;
     } else
         OBJ_ERR << "not a symbol property";
 }
 
-void BaseProp::onList(const AtomList& l)
+void BaseProp::onList(const AtomListView& lv)
 {
     PropertyPtr prop(full_name_);
 
@@ -132,19 +137,19 @@ void BaseProp::onList(const AtomList& l)
         return;
     }
 
-    if (l.isFloat() && (prop->isFloat() || prop->isInt() || prop->isBool()))
-        return onFloat(l[0].asFloat());
+    if (lv.isFloat() && (prop->isFloat() || prop->isInt() || prop->isBool()))
+        return onFloat(lv[0].asFloat());
 
-    if (l.isSymbol() && (prop->isSymbol() || prop->isBool()))
-        return onSymbol(l[0].asSymbol());
+    if (lv.isSymbol() && (prop->isSymbol() || prop->isBool()))
+        return onSymbol(lv[0].asSymbol());
 
     if (!prop->isList()) {
         OBJ_ERR << "not a list property";
         return;
     }
 
-    if (!prop->setList(l))
-        OBJ_ERR << "can't set property to " << l;
+    if (!prop->setList(lv))
+        OBJ_ERR << "can't set property to " << lv;
 }
 
 void BaseProp::m_default(t_symbol*, const AtomListView&)
@@ -189,9 +194,6 @@ void BaseProp::dump() const
 
 void setup_base_prop()
 {
-    SYM_TRUE = gensym("true");
-    SYM_FALSE = gensym("false");
-
     ObjectFactory<BaseProp> obj("prop");
     obj.addMethod("default", &BaseProp::m_default);
 

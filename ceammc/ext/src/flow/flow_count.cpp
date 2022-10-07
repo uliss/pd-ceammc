@@ -46,7 +46,7 @@ void FlowCount::onSymbol(t_symbol* s)
     tick();
 }
 
-void FlowCount::onList(const AtomList& l)
+void FlowCount::onList(const AtomListView& lv)
 {
     tick();
 }
@@ -61,7 +61,7 @@ void FlowCount::onData(const Atom&)
     tick();
 }
 
-void FlowCount::onInletAny(Inlet* inl, t_symbol* s, const AtomListView& lv)
+void FlowCount::onInletAny(int id, t_symbol* s, const AtomListView& lv)
 {
     switch (crc32_hash(s)) {
     case "bang"_hash:

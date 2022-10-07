@@ -17,9 +17,6 @@
 #include "ceammc_log.h"
 #include "ceammc_numeric.h"
 
-#include "lex/quoted_atomlist_lexer.h"
-#include "lex/quoted_string.parser.hpp"
-
 #include <cmath>
 #include <functional>
 
@@ -32,13 +29,13 @@ AtomListView::AtomListView() noexcept
 }
 
 AtomListView::AtomListView(const t_atom* a, size_t n) noexcept
-    : data_(reinterpret_cast<const Atom*>(a))
+    : data_(n ? reinterpret_cast<const Atom*>(a) : nullptr)
     , n_(n)
 {
 }
 
 AtomListView::AtomListView(const Atom* a, size_t n) noexcept
-    : data_(a)
+    : data_(n ? a : nullptr)
     , n_(n)
 {
 }
@@ -270,22 +267,6 @@ bool AtomListView::contains(const Atom& a) const
     return std::find(data_, data_ + n_, a) != (data_ + n_);
 }
 
-AtomList AtomListView::parseQuoted(bool quoted_props) const
-{
-    if (empty())
-        return {};
-
-    QuotedAtomListLexer lex(*this, quoted_props);
-    QuotedAtomListParser parser(lex);
-
-    if (parser.parse() != 0) {
-        LIB_ERR << "parse error";
-        return AtomList(*this);
-    }
-
-    return lex.result();
-}
-
 bool AtomListView::allOf(std::function<bool(const Atom&)> pred) const
 {
     return std::all_of(begin(), end(), pred);
@@ -299,6 +280,77 @@ bool AtomListView::anyOf(std::function<bool(const Atom&)> pred) const
 bool AtomListView::noneOf(std::function<bool(const Atom&)> pred) const
 {
     return std::none_of(begin(), end(), pred);
+}
+
+MaybeFloat AtomListView::sum() const noexcept
+{
+    return reduceFloat(0, [](t_float a, t_float b) { return a + b; });
+}
+
+MaybeFloat AtomListView::product() const noexcept
+{
+    return reduceFloat(1, [](t_float a, t_float b) { return a * b; });
+}
+
+MaybeFloat AtomListView::reduceFloat(t_float init, std::function<t_float(t_float, t_float)> fn) const
+{
+    t_float accum = init;
+    size_t n = 0;
+
+    for (size_t i = 0; i < n_; i++) {
+        auto& el = data_[i];
+        if (el.isFloat()) {
+            accum = fn(accum, el.asFloat());
+            n++;
+        }
+    }
+
+    return (n > 0) ? MaybeFloat(accum) : boost::none;
+}
+
+const Atom* AtomListView::relativeAt(int pos) const
+{
+    auto idx = relativeIndex<int>(pos, n_);
+    if (idx < 0)
+        return nullptr;
+
+    return data_ + static_cast<size_t>(idx);
+}
+
+const Atom* AtomListView::clipAt(int pos) const
+{
+    if (n_ == 0)
+        return nullptr;
+
+    auto idx = static_cast<size_t>(clip<long>(pos, 0, long(n_ - 1)));
+    return data_ + idx;
+}
+
+const Atom* AtomListView::wrapAt(int pos) const
+{
+    if (n_ == 0)
+        return nullptr;
+
+    return data_ + wrapInteger<long>(pos, n_);
+}
+
+const Atom* AtomListView::foldAt(int pos) const
+{
+    if (n_ == 0)
+        return nullptr;
+
+    return data_ + foldInteger<long>(pos, n_);
+}
+
+bool AtomListView::range(Atom& min, Atom& max) const noexcept
+{
+    if (!n_ || !data_)
+        return false;
+
+    auto res = std::minmax_element(begin(), end());
+    min = *res.first;
+    max = *res.second;
+    return true;
 }
 
 std::ostream& operator<<(std::ostream& os, const AtomListView& l)

@@ -26,22 +26,27 @@ enum XFadeFlags {
 
 class XFadeTilde : public SoundExternal {
 protected:
-    typedef SmoothLinT<t_float> t_smooth;
+    using t_smooth = SmoothLinT<t_float>;
     std::vector<t_smooth> gain_;
     t_float smooth_ms_;
     SymbolEnumProperty* prop_type_;
+    FloatProperty* value_;
 
 public:
     XFadeTilde(const PdArgs& args);
+    void initDone() override;
 
     void setupDSP(t_signal** in) override;
     void processBlock(const t_sample** in, t_sample** out) override;
 
-    void onInlet(size_t n, const AtomListView& lst) override;
+    void onInlet(size_t n, const AtomListView& lv) override;
 
 public:
     // test
     std::vector<float> gains() const;
+
+private:
+    void setXFade(t_float v);
 };
 
 void setup_base_xfade_tilde();

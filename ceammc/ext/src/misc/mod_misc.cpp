@@ -6,6 +6,10 @@
 #include "speech_flite_tilde.h"
 #endif
 
+#ifdef WITH_RHVOICE
+#include "speech_rhvoice_tilde.h"
+#endif
+
 #ifdef WITH_MODPLUG
 #include "misc_modplug.h"
 #endif
@@ -38,6 +42,10 @@ void ceammc_misc_setup()
 #ifdef CEAMMC_HAVE_TTS_FLITE
     setup_misc_speech_flite();
     setup_misc_speech_filte_tilde();
+#endif
+
+#ifdef WITH_RHVOICE
+    setup_speech_rhvoice_tilde();
 #endif
 
     setup_misc_risset_glissando();

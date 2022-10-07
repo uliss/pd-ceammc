@@ -14,7 +14,10 @@
 #ifndef ARRAY_GRAINER_H
 #define ARRAY_GRAINER_H
 
+#include "array_base.h"
 #include "ceammc_array.h"
+#include "ceammc_clock.h"
+#include "ceammc_containers.h"
 #include "ceammc_property_enum.h"
 #include "ceammc_sound_external.h"
 #include "grain.h"
@@ -22,14 +25,21 @@
 
 using namespace ceammc;
 
-class ArrayGrainer : public SoundExternal {
-    SymbolProperty* array_name_;
+struct DeferMessage {
+    SmallAtomListN<8> msg;
+    std::uint8_t count;
+};
+
+class ArrayGrainer : public ArraySoundBase {
     SymbolEnumProperty* sync_;
     FloatProperty* sync_interval_;
     FloatProperty* sync_prob_;
-    Array array_;
     GrainCloud cloud_;
     std::vector<size_t> onsets_;
+    ClockLambdaFunction defer_;
+
+    using MsgList = std::vector<DeferMessage>;
+    MsgList defer_msg_;
 
 public:
     ArrayGrainer(const PdArgs& args);
@@ -47,14 +57,21 @@ public:
     void m_fill(t_symbol* s, const AtomListView& lv);
     void m_grain(t_symbol* s, const AtomListView& lv);
     void m_onsets(t_symbol* s, const AtomListView& lv);
+    void m_pause(t_symbol* s, const AtomListView& lv);
     void m_set(t_symbol* s, const AtomListView& lv);
+    void m_slice(t_symbol* s, const AtomListView& lv);
+    void m_spread(t_symbol* s, const AtomListView& lv);
+    void m_shuffle(t_symbol* s, const AtomListView& lv);
+    void m_defer(t_symbol* s, const AtomListView& lv);
+    void m_reverse(t_symbol* s, const AtomListView& lv);
+    void m_permutate(t_symbol* s, const AtomListView& lv);
 
     const GrainCloud& cloud() const { return cloud_; }
 
 private:
     void updateGrains();
-
     void appendGrains(int n, const AtomListView& args);
+    void dispatchMethod(t_symbol* m, const AtomListView& args);
 };
 
 void setup_array_grainer();

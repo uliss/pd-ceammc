@@ -32,7 +32,7 @@
             <inlet>
                 <xinfo on="bang">pass</xinfo>
                 <xinfo on="float">reject if float is in reject list</xinfo>
-                <xinfo on="symbol">reject if float is in reject list</xinfo>
+                <xinfo on="symbol">reject if symbol is in reject list</xinfo>
                 <xinfo on="list">reject if first atom is in reject list</xinfo>
                 <xinfo on="any">reject if message selector is in reject list</xinfo>
             </inlet>

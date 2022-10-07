@@ -46,7 +46,7 @@ public:
     bool propSetCropSize(int n);
 
     AtomList propAngles() const;
-    bool propSetAngles(const AtomList& lst);
+    bool propSetAngles(const AtomListView& lv);
 
     bool propSetOffset(t_float lst);
 

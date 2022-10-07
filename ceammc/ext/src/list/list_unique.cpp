@@ -13,12 +13,12 @@ ListUnique::ListUnique(const ceammc::PdArgs& a)
     createOutlet();
 }
 
-void ListUnique::onList(const AtomList& l)
+void ListUnique::onList(const AtomListView& lv)
 {
     if (stable_->value())
-        listTo(0, list::uniqueStable(l));
+        listTo(0, list::uniqueStable(lv));
     else
-        listTo(0, list::uniqueSorted(l));
+        listTo(0, list::uniqueSorted(lv));
 }
 
 void ListUnique::onDataT(const MListAtom& ml)

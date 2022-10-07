@@ -18,7 +18,7 @@
 #include "ceammc_string.h"
 #include "ceammc_ui.h"
 
-#include <boost/make_shared.hpp>
+#include <memory>
 
 UIMenu::UIMenu()
     : prop_color_text(rgba_black)

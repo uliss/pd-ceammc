@@ -12,10 +12,8 @@
  * this file belongs to.
  *****************************************************************************/
 #include "list_running_diff.h"
+#include "ceammc_containers.h"
 #include "ceammc_factory.h"
-
-#include <boost/container/small_vector.hpp>
-using AtomList32 = boost::container::small_vector<Atom, 32>;
 
 ListRunningDiff::ListRunningDiff(const PdArgs& args)
     : BaseObject(args)
@@ -23,13 +21,13 @@ ListRunningDiff::ListRunningDiff(const PdArgs& args)
     createOutlet();
 }
 
-void ListRunningDiff::onList(const AtomList& lst)
+void ListRunningDiff::onList(const AtomListView& lv)
 {
     AtomList32 res;
-    res.reserve(lst.size());
+    res.reserve(lv.size());
 
-    auto it = lst.begin();
-    auto last = lst.end();
+    auto it = lv.begin();
+    auto last = lv.end();
 
     if (it != last) {
         t_float val, prev;
@@ -43,7 +41,7 @@ void ListRunningDiff::onList(const AtomList& lst)
         }
     }
 
-    listTo(0, AtomListView(res.data(), res.size()));
+    listTo(0, res.view());
 }
 
 void setup_list_rundiff()

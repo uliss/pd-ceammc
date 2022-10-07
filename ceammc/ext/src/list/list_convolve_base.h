@@ -44,7 +44,7 @@ public:
     ListConvolveBase(const PdArgs& args);
 
     void onInlet(size_t n, const AtomListView& lv) override;
-    void onList(const AtomList& lst) override;
+    void onList(const AtomListView& lv) override;
     void onFloat(t_float f) override;
     void onDataT(const MListAtom& ml);
 

@@ -17,37 +17,6 @@
 #include <algorithm>
 #include <cctype>
 
-static t_float mul10(t_float v)
-{
-    return v * 10;
-}
-
-static t_float neg(t_float v)
-{
-    return -v;
-}
-
-static t_symbol* toUpper(t_symbol* s)
-{
-    std::string str(s->s_name);
-    std::transform(str.begin(), str.end(), str.begin(), ::toupper);
-    return gensym(str.c_str());
-}
-
-/** *= 100 or upper case */
-static Atom testMap1(const Atom& a)
-{
-    Atom res(a);
-
-    if (a.isFloat())
-        res.setFloat(a.asFloat() * 100);
-
-    if (a.isSymbol())
-        res.setSymbol(toUpper(a.asSymbol()));
-
-    return res;
-}
-
 using namespace ceammc;
 
 TEST_CASE("AtomList2", "[ceammc::AtomList]")
@@ -580,43 +549,6 @@ TEST_CASE("AtomList2", "[ceammc::AtomList]")
         REQUIRE(LF(-1.5).asT<int>() == -1);
     }
 
-    SECTION("test map")
-    {
-        SECTION("float")
-        {
-            REQUIRE(LF(1, 2, 3).mapFloat(mul10) == LF(10, 20, 30));
-            REQUIRE(LA("a", "b", "@c").mapFloat(neg) == LA("a", "b", "@c"));
-            REQUIRE(LA("a", 100, "c").mapFloat(neg) == LA("a", -100, "c"));
-        }
-
-        SECTION("symbol")
-        {
-            REQUIRE(LF(1, 2, 3).mapSymbol(toUpper) == LF(1, 2, 3));
-            REQUIRE(LA("a", "b", "c").mapSymbol(toUpper) == LA("A", "B", "C"));
-            REQUIRE(LA("@a", "b", "c").mapSymbol(toUpper) == LA("@A", "B", "C"));
-            REQUIRE(LA("A", "B", "C").mapSymbol(toUpper) == LA("A", "B", "C"));
-            REQUIRE(LA("a", 100, "c").mapSymbol(toUpper) == LA("A", 100, "C"));
-        }
-
-        SECTION("atom")
-        {
-            REQUIRE(LF(1, 2, 3).map(&testMap1) == LF(100, 200, 300));
-            REQUIRE(LA("a", 0.5, "@c").map(&testMap1) == LAX("A", 50, "@C"));
-        }
-
-        SECTION("map atom")
-        {
-            auto fn = [](const Atom& a) { return Atom(a.isFloat()); };
-            REQUIRE(LA(1, "a", 3).map(fn) == LX(1, 0, 1));
-        }
-
-        SECTION("map float")
-        {
-            auto fn = [](t_float f) { return f * 2; };
-            REQUIRE(LF(1, 2, 3).mapFloat(fn) == LF(2, 4, 6));
-        }
-    }
-
     SECTION("operators")
     {
         AtomList lst = LA(10, -12, "a");
@@ -696,13 +628,6 @@ TEST_CASE("AtomList2", "[ceammc::AtomList]")
             REQUIRE(atomlistToValue<Atom>(LF(123), Atom()) == Atom(123));
             REQUIRE(atomlistToValue<Atom>(LA("a", 124), Atom()) == Atom(gensym("a")));
         }
-    }
-
-    SECTION("operator+")
-    {
-        REQUIRE(LF(1, 2) + LF(3, 4) == LF(1, 2, 3, 4));
-        REQUIRE(LF(1, 2) + Atom(3) == LF(1, 2, 3));
-        REQUIRE(Atom(0.f) + LF(1, 2) == LF(0.f, 1, 2));
     }
 
     SECTION("floatIterator")
@@ -901,56 +826,6 @@ TEST_CASE("AtomList2", "[ceammc::AtomList]")
             REQUIRE(LF(1, 2, 3).view(2, 2) == LF(3));
             REQUIRE(LF(1, 2, 3).view(3, 2) == L());
         }
-    }
-
-    SECTION("parseQuoted")
-    {
-
-#define REQUIRE_PARSED(str, lst) REQUIRE(AtomList::parseString(str).parseQuoted() == lst)
-
-        REQUIRE(to_string(LA("\" \"")) == "\" \"");
-        REQUIRE(parse_quoted(LA("\" \"")) == " ");
-
-        REQUIRE_PARSED("\" \"", LA(" "));
-        REQUIRE_PARSED("abc", LA("abc"));
-        REQUIRE_PARSED("a b c", LA("a", "b", "c"));
-        REQUIRE_PARSED("\"abc\"", LA("abc"));
-        REQUIRE_PARSED("'abc'", LA("'abc'"));
-        REQUIRE_PARSED("\" abc \"", LA(" abc "));
-        REQUIRE_PARSED("\" abc\"", LA(" abc"));
-
-        REQUIRE_PARSED("\"abc \"", LA("abc "));
-        REQUIRE_PARSED("\"a b c\" \"a b\"", LA("a b c", "a b"));
-        REQUIRE_PARSED("\"a b c\" 1 2 \"f\" \"a b\"", LA("a b c", 1, 2, "f", "a b"));
-        REQUIRE_PARSED("1 2 3", LF(1, 2, 3));
-        REQUIRE_PARSED("\"a b c\" \"d e f\"", LA("a b c", "d e f"));
-        REQUIRE_PARSED("\"a b c\" 1 2 \"d e f\"", LA("a b c", 1, 2, "d e f"));
-        REQUIRE_PARSED("\" 1 2 3\" 10 20", LA(" 1 2 3", 10, 20));
-        REQUIRE_PARSED("\" 1 2 3 \" 10 20", LA(" 1 2 3 ", 10, 20));
-        REQUIRE_PARSED("\"1 2 3 \" 10 20", LA("1 2 3 ", 10, 20));
-        REQUIRE_PARSED("\" \" \" \"", LA(" ", " "));
-        REQUIRE_PARSED("\" \" \" a b c \"", LA(" ", " a b c "));
-
-        REQUIRE_PARSED("\"`\"\"", LA("\""));
-        // no quotes
-        REQUIRE_PARSED("don't", LA("don't"));
-        // no quotes
-        REQUIRE_PARSED("don`'t", LA("don`'t"));
-        REQUIRE_PARSED("\"don`\"t\"", LA("don\"t"));
-        REQUIRE_PARSED("\"don't\"", LA("don't"));
-        REQUIRE_PARSED("\"a `\" b\"", LA("a \" b"));
-
-        REQUIRE_PARSED("\" ' \"", LA(" ' "));
-        REQUIRE_PARSED("\" `\" \"", LA(" \" "));
-
-        REQUIRE_PARSED("\"@prop?\"", LA("@prop?"));
-
-        REQUIRE(L().parseQuoted() == AtomList());
-
-        REQUIRE(LA("\"@prop?\"").parseQuoted(true) == LA("\"@prop?\""));
-        REQUIRE(LA("\"@prop\"").parseQuoted(true) == LA("\"@prop\""));
-        REQUIRE(LA("\"@prop?\"").parseQuoted(false) == LA("@prop?"));
-        REQUIRE(LA("\"@prop?\"").parseQuoted(false) == LA("@prop?"));
     }
 
     SECTION("template create")

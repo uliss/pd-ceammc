@@ -37,14 +37,14 @@ void FlowDollar::onSymbol(t_symbol* s)
     symbolTo(0, canvas_realizedollar(canvas(), s));
 }
 
-void FlowDollar::onList(const AtomList& lst)
+void FlowDollar::onList(const AtomListView& lv)
 {
     auto cnv = canvas();
-    const auto N = lst.size();
+    const auto N = lv.size();
     Atom data[N];
 
     for (size_t i = 0; i < N; i++) {
-        auto& a = lst[i];
+        auto& a = lv[i];
         if (a.isSymbol())
             data[i] = canvas_realizedollar(cnv, a.asT<t_symbol*>());
         else

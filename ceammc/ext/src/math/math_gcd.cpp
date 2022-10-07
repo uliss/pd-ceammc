@@ -29,16 +29,16 @@ void MathGCD::onFloat(t_float f)
     floatTo(0, boost::integer::gcd(int(f), int(b_)));
 }
 
-void MathGCD::onList(const AtomList& l)
+void MathGCD::onList(const AtomListView& lv)
 {
-    if (l.size() < 1)
+    if (lv.size() < 1)
         return;
 
-    if (l.size() == 1)
-        return onFloat(l[0].asFloat());
+    if (lv.size() == 1)
+        return onFloat(lv[0].asFloat());
 
-    b_ = l[1].asFloat();
-    onFloat(l[0].asFloat());
+    b_ = lv[1].asFloat();
+    onFloat(lv[0].asFloat());
 }
 
 void setup_math_gcd()

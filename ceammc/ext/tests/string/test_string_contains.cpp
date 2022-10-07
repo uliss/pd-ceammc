@@ -80,7 +80,7 @@ TEST_CASE("string.contains", "[external]")
 
         SECTION("quoted atom")
         {
-            TestExtStringContains t("string.contains", LA("\" \""));
+            TestExtStringContains t("string.contains", LP("\" \""));
             REQUIRE_PROPERTY(t, @subj, StringAtom(" "));
             t.sendSymbol(SYM("abc"));
             REQUIRE(t.outputFloatAt(0) == 0);

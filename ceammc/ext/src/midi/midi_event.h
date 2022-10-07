@@ -3,25 +3,31 @@
 
 #include "ceammc_object.h"
 
-#include <boost/shared_ptr.hpp>
+#include <array>
+#include <memory>
+#include <bitset>
 
 using namespace ceammc;
 
 class MidiEvent;
 
 class XMidiEvent {
-    bool valid_;
-    AtomList raw_;
-    boost::shared_ptr<MidiEvent> event_;
+    std::unique_ptr<MidiEvent> event_;
     t_float duration_;
     int track_;
+    bool valid_;
 
-    XMidiEvent(XMidiEvent&);
+    XMidiEvent(XMidiEvent&) = delete;
 
 public:
-    XMidiEvent(const AtomList& l);
-    bool parse(const AtomListView& l);
+    explicit XMidiEvent(const AtomListView& lv);
+    ~XMidiEvent();
+
+    bool parse(const AtomListView& lv);
     bool isNote() const;
+    bool isNoteOn() const;
+    bool isNoteOff() const;
+    bool isAllNotesOff() const;
     bool isProgramChange() const;
     bool isControl() const;
     bool isValid() const;
@@ -42,7 +48,8 @@ public:
 };
 
 class MidiEventToNote : public BaseMidiEventExternal {
-    AtomList msg_;
+    std::array<Atom, 2> msg_;
+    std::bitset<128> notes_on_;
 
 public:
     MidiEventToNote(const PdArgs& args);

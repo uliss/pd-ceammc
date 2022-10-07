@@ -11,9 +11,9 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "xfade_tilde.h"
-#include "test_sound.h"
 #include "test_external.h"
+#include "test_sound.h"
+#include "xfade_tilde.h"
 
 typedef TestSoundExternal<XFadeTilde> XFadeTildeTest;
 
@@ -59,6 +59,13 @@ TEST_CASE("xfade~", "[externals]")
             REQUIRE(t.numInputChannels() == 4);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE(t.numOutputChannels() == 1);
+            REQUIRE_PROPERTY_FLOAT(t, @x, 0);
+        }
+
+        SECTION("args x")
+        {
+            TExt t("xfade~", LF(4, 0.125));
+            REQUIRE_PROPERTY_FLOAT(t, @x, 0.125);
         }
     }
 
@@ -128,6 +135,7 @@ TEST_CASE("xfade~", "[externals]")
 
         // invalid
         t.sendFloat(4, 4);
+        REQUIRE_PROPERTY_FLOAT(t, @x, 3);
         dsp.processBlock(20);
 
         for (size_t i = 0; i < 64; i++) {
@@ -136,10 +144,20 @@ TEST_CASE("xfade~", "[externals]")
 
         // invalid
         t.sendFloat(-1, 4);
+        REQUIRE_PROPERTY_FLOAT(t, @x, 3);
         dsp.processBlock(20);
 
         for (size_t i = 0; i < 64; i++) {
-            REQUIRE(dsp.out(0, i) == Approx(0));
+            REQUIRE(dsp.out(0, i) == Approx(-1));
         }
+    }
+
+    SECTION("inlet")
+    {
+        TExt t("xfade~", LF(2, 0.125));
+        REQUIRE_PROPERTY_FLOAT(t, @x, 0.125);
+
+        t.sendFloatTo(0.5, 2);
+        REQUIRE_PROPERTY_FLOAT(t, @x, 0.5);
     }
 }

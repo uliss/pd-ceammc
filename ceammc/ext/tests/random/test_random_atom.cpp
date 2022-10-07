@@ -27,12 +27,13 @@ TEST_CASE("random.atom", "[externals]")
         SECTION("default")
         {
             TObj t("random.atom");
-            REQUIRE(t.numInlets() == 1);
+            REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
 
             REQUIRE_PROPERTY(t, @a, L());
             REQUIRE_PROPERTY(t, @w, L());
             REQUIRE_PROPERTY(t, @seed, 0);
+            REQUIRE_PROPERTY(t, @nonrep, 0);
         }
 
         SECTION("pos args")
@@ -124,5 +125,29 @@ TEST_CASE("random.atom", "[externals]")
         REQUIRE(cnt.size() == 2);
         REQUIRE(cnt[A("A")] == 701);
         REQUIRE(cnt[A("B")] == 323);
+
+        t.sendListTo(LF(1, 2, 3), 1);
+        REQUIRE_PROPERTY_LIST(t, @a, LF(1, 2, 3));
+        REQUIRE_PROPERTY_LIST(t, @w, L());
+    }
+
+    SECTION("@nonrep")
+    {
+        TExt t("random.a", "A", "@seed", 1, "@nonrep", 1);
+
+        t << BANG;
+        REQUIRE(!t.hasOutputAt(0));
+
+        t->setProperty("@a", LA("A", "B"));
+
+        for (int i = 0; i < 16; i++) {
+            t << BANG;
+            REQUIRE(t.hasOutputAt(0));
+
+            if (i % 2)
+                REQUIRE(t.outputAtomAt(0) == A("A"));
+            else
+                REQUIRE(t.outputAtomAt(0) == A("B"));
+        }
     }
 }

@@ -24,7 +24,7 @@ class MathLCM : public BaseObject {
 public:
     MathLCM(const PdArgs& a);
     void onFloat(t_float v) override;
-    void onList(const AtomList& l) override;
+    void onList(const AtomListView& lv) override;
 };
 
 void setup_math_lcm();

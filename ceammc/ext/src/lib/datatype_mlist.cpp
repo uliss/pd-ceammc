@@ -17,6 +17,8 @@
 #include "ceammc_format.h"
 #include "ceammc_json.h"
 #include "ceammc_log.h"
+#include "ceammc_string.h"
+#include "fmt/format.h"
 
 #include <algorithm>
 #include <cmath>
@@ -24,17 +26,17 @@
 
 namespace ceammc {
 
-static Atom newMList(const AtomList& args)
+static Atom newMList(const AtomListView& args)
 {
     return new DataTypeMList(args);
 }
 
-int DataTypeMList::dataType = DataStorage::instance().registerNewType("MList", newMList);
+DataTypeId DataTypeMList::dataType = DataStorage::instance().registerNewType("MList", newMList);
 
 DataTypeMList::DataTypeMList() noexcept = default;
 
-DataTypeMList::DataTypeMList(const AtomList& lst)
-    : data_(lst)
+DataTypeMList::DataTypeMList(const AtomListView& lv)
+    : data_(lv)
 {
 }
 
@@ -71,7 +73,7 @@ DataTypeMList& DataTypeMList::operator=(DataTypeMList&& mlist)
     return *this;
 }
 
-int DataTypeMList::type() const noexcept
+DataTypeId DataTypeMList::type() const noexcept
 {
     return dataType;
 }
@@ -90,25 +92,31 @@ bool DataTypeMList::isEqual(const AbstractData* cmp) const noexcept
     return mlist->data_ == data_;
 }
 
-std::string DataTypeMList::toString() const
-{
-    std::string res("(");
-
-    for (size_t i = 0; i < data_.size(); i++) {
-        res += to_string_quoted(data_[i]);
-        res.push_back(' ');
-    }
-
-    if (!data_.empty())
-        res.pop_back();
-
-    res.push_back(')');
-    return res;
-}
-
-std::string DataTypeMList::valueToJsonString() const
+std::string DataTypeMList::toJsonString() const
 {
     return ceammc::json::to_json(*this);
+}
+
+std::string DataTypeMList::toListStringContent() const noexcept
+{
+    string::MediumString str;
+    string::parsed_list_to_string(data_.view(), str);
+    return std::string(str.data(), str.size());
+}
+
+std::string DataTypeMList::toDictStringContent() const noexcept
+{
+    return fmt::format("items: {}", toListStringContent());
+}
+
+bool DataTypeMList::set(const AbstractData* d) noexcept
+{
+    return setDataT<DataTypeMList>(d);
+}
+
+std::string DataTypeMList::toString() const
+{
+    return fmt::format("({})", toListStringContent());
 }
 
 void DataTypeMList::append(const Atom& a)
@@ -116,9 +124,9 @@ void DataTypeMList::append(const Atom& a)
     data_.append(a);
 }
 
-void DataTypeMList::append(const AtomList& lst)
+void DataTypeMList::append(const AtomListView& lv)
 {
-    data_.append(lst);
+    data_.append(lv);
 }
 
 void DataTypeMList::clear()
@@ -126,9 +134,9 @@ void DataTypeMList::clear()
     data_.clear();
 }
 
-bool DataTypeMList::insert(size_t idx, const AtomList& lst)
+bool DataTypeMList::insert(size_t idx, const AtomListView& lv)
 {
-    return data_.insert(idx, lst);
+    return data_.insert(idx, lv);
 }
 
 void DataTypeMList::prepend(const Atom& a)
@@ -136,9 +144,9 @@ void DataTypeMList::prepend(const Atom& a)
     data_.insert(0, a);
 }
 
-void DataTypeMList::prepend(const AtomList& lst)
+void DataTypeMList::prepend(const AtomListView& lv)
 {
-    data_.insert(0, lst);
+    data_.insert(0, lv);
 }
 
 bool DataTypeMList::pop()
@@ -160,16 +168,9 @@ void DataTypeMList::reserve(size_t n)
     data_.reserve(n);
 }
 
-void DataTypeMList::setRaw(const AtomList& lst)
+void DataTypeMList::setRaw(const AtomListView& lv)
 {
-    data_ = lst;
-}
-
-void DataTypeMList::setParsed(const AtomList& lst)
-{
-    auto ml = parse(lst);
-    if (ml)
-        std::swap(data_, ml.value().data_);
+    data_ = lv;
 }
 
 DataTypeMList DataTypeMList::rotateLeft(int steps) const
@@ -241,37 +242,6 @@ bool DataTypeMList::contains(const DataTypeMList& l) const
 {
     auto it = std::search(data_.begin(), data_.end(), l.begin(), l.end());
     return it != data_.end();
-}
-
-DataTypeMList::MaybeList DataTypeMList::parse(const AtomList& lst)
-{
-    if (lst.anyOf(isData)) {
-        LIB_ERR << "only core atom types allowed for parsing....";
-        return DataTypeMList();
-    }
-
-    return parse(to_string(lst, " "));
-}
-
-DataTypeMList::MaybeList DataTypeMList::parse(const std::string& str)
-{
-    auto pos = str.find('(');
-
-    if (str.empty() || pos == std::string::npos)
-        return {};
-
-    auto parse_result = parseDataString(str);
-    if (!parse_result) {
-        LIB_ERR << "parse error: " << parse_result.err();
-        return {};
-    }
-
-    if (!parse_result.result().isA<DataTypeMList>()) {
-        LIB_ERR << "not a MList: " << str;
-        return {};
-    }
-
-    return *parse_result.result().asD<DataTypeMList>();
 }
 
 std::ostream& operator<<(std::ostream& os, const DataTypeMList& d)

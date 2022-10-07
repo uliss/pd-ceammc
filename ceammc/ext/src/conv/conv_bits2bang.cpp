@@ -48,22 +48,22 @@ void ConvBits2Bang::initDone()
         createOutlet();
 }
 
-void ConvBits2Bang::onList(const AtomList& lst)
+void ConvBits2Bang::onList(const AtomListView& lv)
 {
     const bool reversed = reversed_->value();
     const bool poly = poly_->value();
 
-    if (!poly && (int)lst.size() != n_->value()) {
-        OBJ_ERR << "length of input list should be equal " << n_->value() << ", got: " << lst;
+    if (!poly && (int)lv.size() != n_->value()) {
+        OBJ_ERR << "length of input list should be equal " << n_->value() << ", got: " << lv;
         return;
     }
 
     Atom apair[2] = { 0., &s_bang };
     const AtomListView lvpair(apair, 2);
 
-    for (size_t i = 0; i < lst.size(); i++) {
-        const size_t aidx = reversed ? (lst.size() - (i + 1)) : i;
-        const auto& a = lst[aidx];
+    for (size_t i = 0; i < lv.size(); i++) {
+        const size_t aidx = reversed ? (lv.size() - (i + 1)) : i;
+        const auto& a = lv[aidx];
         if (a.isFloat() && a.asT<t_float>() != 0) {
             if (poly) {
                 apair[0] = i;

@@ -115,7 +115,7 @@ TEST_CASE("midi.prg->str", "[externals]")
     SECTION("common")
     {
         for (size_t i = 1; i <= 128; i++) {
-            REQUIRE(midi::instrument_name(i) != &s_);
+            REQUIRE(midi::instrument_name(i)[0] != '\0');
         }
 
         REQUIRE(midi::instrument_index(midi::instrument_name(10)) == 10);

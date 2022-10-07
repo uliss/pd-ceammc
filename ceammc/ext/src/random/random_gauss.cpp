@@ -1,6 +1,3 @@
-#include <ctime>
-#include <random>
-
 #include "ceammc_factory.h"
 #include "random_gauss.h"
 
@@ -8,7 +5,6 @@ RandomGauss::RandomGauss(const PdArgs& a)
     : BaseObject(a)
     , mu_(nullptr)
     , sigma_(nullptr)
-    , seed_(nullptr)
 {
     createOutlet();
 
@@ -21,9 +17,7 @@ RandomGauss::RandomGauss(const PdArgs& a)
     addProperty(mu_);
     addProperty(sigma_);
 
-    seed_ = new SizeTProperty("@seed", 0);
-    seed_->setSuccessFn([this](Property* p) { gen_.setSeed(seed_->value()); });
-    addProperty(seed_);
+    addProperty(new random::SeedProperty(gen_));
 }
 
 void RandomGauss::onBang()

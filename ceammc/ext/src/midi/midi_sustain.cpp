@@ -13,12 +13,13 @@
  *****************************************************************************/
 #include "midi_sustain.h"
 #include "ceammc_args.h"
+#include "ceammc_containers.h"
 #include "ceammc_factory.h"
 
 #include <memory>
 
 constexpr int CC_SUSTAIN = 64;
-static t_symbol* SYM_CTLIN;
+constexpr const char* STR_CTLIN = "#ctlin";
 
 static std::unique_ptr<ArgChecker> onlist_chk;
 
@@ -36,7 +37,7 @@ MidiSustain::MidiSustain(const PdArgs& args)
     ctlin_ = new BoolProperty("@ctlin", false);
     ctlin_->setSuccessFn([this](Property*) {
         if (ctlin_->value())
-            proxy_.bind(SYM_CTLIN);
+            proxy_.bind(gensym(STR_CTLIN));
         else
             proxy_.unbind();
     });
@@ -46,24 +47,24 @@ MidiSustain::MidiSustain(const PdArgs& args)
     createOutlet();
 }
 
-void MidiSustain::onList(const AtomList& lst)
+void MidiSustain::onList(const AtomListView& lv)
 {
-    if (!onlist_chk->check(lst.view())) {
-        OBJ_ERR << "NOTE VEL expected, got: " << lst;
+    if (!onlist_chk->check(lv)) {
+        OBJ_ERR << "NOTE VEL expected, got: " << lv;
         return;
     }
 
-    const auto note = lst[0].asT<int>();
-    const auto vel = lst[1].asT<t_float>();
+    const auto note = lv[0].asT<int>();
+    const auto vel = lv[1].asT<t_float>();
 
     if (on_->value()) {
         if (vel > 0) {
             notes_.set(note, true);
-            listTo(0, lst);
+            listTo(0, lv);
         }
     } else {
         notes_.set(note, vel > 0);
-        listTo(0, lst);
+        listTo(0, lv);
     }
 }
 
@@ -87,13 +88,12 @@ void MidiSustain::onCC(const AtomListView& lv)
 
 void MidiSustain::notesOff()
 {
-    Atom msg[2] = { 0., 0. };
-    AtomListView lv(msg, 2);
+    StaticAtomList<2> msg { 0., 0. };
 
     for (size_t i = 0; i < notes_.size(); i++) {
         if (notes_.test(i)) {
             msg[0] = i;
-            listTo(0, lv);
+            listTo(0, msg.view());
         }
     }
 }
@@ -101,7 +101,6 @@ void MidiSustain::notesOff()
 void setup_midi_sustain()
 {
     onlist_chk.reset(new ArgChecker("f0..127 f0..127"));
-    SYM_CTLIN = gensym("#ctlin");
 
     ObjectFactory<MidiSustain> obj("midi.sustain");
     obj.setXletsInfo({ "list: NOTE VEL", "int: 1 or 0 to turn sustain on/off" }, { "list: NOTE VEL" });

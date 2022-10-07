@@ -31,7 +31,7 @@ public:
     Vline2Env(const PdArgs& args);
 
     void onBang() override;
-    void onList(const AtomList& lst) override;
+    void onList(const AtomListView& lv) override;
 
 private:
     void tick();

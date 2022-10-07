@@ -12,13 +12,12 @@
  * this file belongs to.
  *****************************************************************************/
 #include "prop_declare.h"
-#include "../string/tinyformat.h"
-#include "../string/vformatlist.h"
 #include "ceammc_canvas.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 #include "ceammc_globaldata.h"
 #include "datatype_property.h"
+#include "fmt/format.h"
 
 #include <cstring>
 #include <limits>
@@ -40,7 +39,7 @@ constexpr int IMAX = std::numeric_limits<int>::max();
 
 class CanvasEditCallback {
     std::unordered_map<t_canvas*, t_glistkeyfn> map_;
-    CanvasEditCallback() {}
+    CanvasEditCallback() { }
 
 public:
     static CanvasEditCallback& instance()
@@ -83,7 +82,7 @@ PropDeclare::PropDeclare(const PdArgs& args)
     initName();
 
     if (PropertyStorage::storage().contains(sym_full_name_)) {
-        auto msg = tfm::format("\"%s\" is already declared", sym_name_->s_name);
+        auto msg = fmt::format("\"{}\" is already declared", sym_name_->s_name);
         throw std::runtime_error(msg);
     }
 
@@ -260,7 +259,7 @@ void setup_prop_declare()
 
     obj.setDescription("declare named property for subpatch or abstraction");
     obj.addAuthor("Serge Poltavsky");
-    obj.setKeywords({"property", "declare"});
+    obj.setKeywords({ "property", "declare" });
     obj.setCategory("property");
     obj.setSinceVersion(0, 7);
 }

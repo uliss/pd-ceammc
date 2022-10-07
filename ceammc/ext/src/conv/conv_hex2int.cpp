@@ -38,11 +38,11 @@ void ConvHex2Int::onSymbol(t_symbol* s)
     floatTo(0, v);
 }
 
-void ConvHex2Int::onList(const AtomList& l)
+void ConvHex2Int::onList(const AtomListView& lv)
 {
     AtomList res;
-    res.reserve(l.size());
-    for (auto& a : l) {
+    res.reserve(lv.size());
+    for (auto& a : lv) {
         t_symbol* s = a.asSymbol(nullptr);
         if (s) {
             char* end = nullptr;

@@ -15,6 +15,7 @@
 #include <array>
 #include <cassert>
 
+#include "ceammc_containers.h"
 #include "ceammc_faust.h"
 #include "ceammc_output.h"
 #include "ceammc_property_callback.h"
@@ -193,15 +194,15 @@ namespace faust {
         if (!sel)
             return;
 
-        AtomList lst;
-        lst.append(atomFrom(path_));
-        lst.append(Atom(value()));
-        lst.append(Atom(init_));
-        lst.append(Atom(min_));
-        lst.append(Atom(max_));
-        lst.append(Atom(step_));
+        StaticAtomList<6> lst { path_, value(), init_, min_, max_, step_ };
+//        lst.append(atomFrom(path_));
+//        lst.append(Atom(value()));
+//        lst.append(Atom(init_));
+//        lst.append(Atom(min_));
+//        lst.append(Atom(max_));
+//        lst.append(Atom(step_));
 
-        outletAny(out, sel, lst);
+        outletAny(out, sel, lst.view());
     }
 
     bool isGetAllProperties(t_symbol* s)
@@ -428,17 +429,17 @@ namespace faust {
         return true;
     }
 
-    bool UIProperty::setList(const AtomListView& lst)
+    bool UIProperty::setList(const AtomListView& lv)
     {
-        if (!emptyCheck(lst))
+        if (!emptyCheck(lv))
             return false;
 
-        if (lst.isFloat()) {
-            setValue(lst[0].asT<t_float>(), true);
+        if (lv.isFloat()) {
+            setValue(lv[0].asT<t_float>(), true);
             return true;
-        } else if (lst.size() == 2 && lst[0].isSymbol() && lst[1].isFloat()) {
-            const auto val = lst[1].asT<t_float>();
-            const auto op = lst[0].asT<t_symbol*>()->s_name;
+        } else if (lv.size() == 2 && lv[0].isSymbol() && lv[1].isFloat()) {
+            const auto val = lv[1].asT<t_float>();
+            const auto op = lv[0].asT<t_symbol*>()->s_name;
             if (op[0] == '+' && op[1] == '\0') {
                 setValue(value() + val, true);
                 return true;
@@ -457,11 +458,11 @@ namespace faust {
                     return true;
                 }
             } else {
-                LIB_ERR << "[" << name()->s_name << "] expected +-*/, got: " << lst[0];
+                LIB_ERR << "[" << name()->s_name << "] expected +-*/, got: " << lv[0];
                 return false;
             }
         } else {
-            LIB_ERR << "[" << name()->s_name << "] float value expected, got: " << lst;
+            LIB_ERR << "[" << name()->s_name << "] float value expected, got: " << lv;
             return false;
         }
     }

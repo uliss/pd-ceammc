@@ -33,7 +33,7 @@ void IsDict::onSymbol(t_symbol*)
     boolTo(0, false);
 }
 
-void IsDict::onList(const AtomList&)
+void IsDict::onList(const AtomListView&)
 {
     boolTo(0, false);
 }

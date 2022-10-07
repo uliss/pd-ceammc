@@ -16,17 +16,17 @@ ListStretch::ListStretch(const PdArgs& args)
     addProperty(n_);
 }
 
-void ListStretch::onList(const AtomList& lst)
+void ListStretch::onList(const AtomListView& lv)
 {
-    if (lst.empty())
+    if (lv.empty())
         return;
 
-    listTo(0, list::stretch(lst, n_->value()));
+    listTo(0, list::stretch(lv, n_->value()));
 }
 
-void ListStretch::onInlet(size_t n, const AtomListView& lst)
+void ListStretch::onInlet(size_t n, const AtomListView& lv)
 {
-    n_->set(lst);
+    n_->set(lv);
 }
 
 void ListStretch::onDataT(const MListAtom& ml)

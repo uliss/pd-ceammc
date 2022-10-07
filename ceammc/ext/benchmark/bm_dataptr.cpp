@@ -28,7 +28,7 @@ public:
     {
     }
 
-    int type() const noexcept override
+    DataTypeId type() const noexcept override
     {
         return dataType;
     }
@@ -46,15 +46,15 @@ public:
         return false;
     }
 
-    std::string toString() const override
-    {
-        return std::to_string(v_);
-    }
+    std::string toListStringContent() const override { return std::to_string(v_);}
+    std::string toDictStringContent() const override { return std::string("value: ") + std::to_string(v_); }
+    bool set(const AbstractData* d) noexcept override { return setDataT<IntData>(d); }
 
-    static const int dataType;
+
+    static const DataTypeId dataType;
 };
 
-const int IntData::dataType = DataStorage::instance().registerNewType("IntData");
+const DataTypeId IntData::dataType = DataStorage::instance().registerNewType("IntData");
 using IntA = DataAtom<IntData>;
 
 static void init(std::vector<IntA>& vec)

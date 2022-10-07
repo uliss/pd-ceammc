@@ -12,7 +12,7 @@ class Firmata : public BaseObject {
 public:
     Firmata(const PdArgs& a);
     void onFloat(t_float f) override;
-    void onAny(t_symbol* s, const AtomListView& lst) override;
+    void onAny(t_symbol* s, const AtomListView& lv) override;
 
     void processFirmataInput(int cmd);
     void toArduino(const std::string& cmd);

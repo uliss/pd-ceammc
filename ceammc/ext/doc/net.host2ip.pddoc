@@ -36,12 +36,19 @@
 <![CDATA[
 [localhost(
 |
-| [symbol bbc.com(
+| [bbc.com(
 | |
-| |
-[net.host->ip]
+[symbol]
 |
-[ui.d]
+[S digits=16]   [ui.tab ipv4 ipv6]
+|               |
+|               [$2(
+|               |
+|               [msg @type]
+|               |
+[net.host->ip   ]
+|
+[ui.dt]
 ]]>
             </pdascii>
         </example>

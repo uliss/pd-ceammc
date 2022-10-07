@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "list_separate.h"
+#include "ceammc_containers.h"
 #include "ceammc_factory.h"
 #include "datatype_mlist.h"
 
@@ -30,15 +31,19 @@ ListSeparate::ListSeparate(const PdArgs& a)
     createOutlet();
 }
 
-void ListSeparate::onList(const AtomList& l)
+void ListSeparate::onList(const AtomListView& lv)
 {
     if (!enumerate_->value()) {
-        for (auto& el : l)
+        for (auto& el : lv)
             atomTo(0, el);
     } else {
         int idx = from_->value();
-        for (auto& el : l)
-            listTo(0, AtomList(Atom(idx++), el));
+        StaticAtomList<2> msg { 0., 0. };
+        for (auto& x : lv) {
+            msg[0] = idx++;
+            msg[1] = x;
+            listTo(0, msg.view());
+        }
     }
 
     bangTo(1);
@@ -51,8 +56,12 @@ void ListSeparate::onDataT(const MListAtom& ml)
             atomTo(0, x);
     } else {
         int idx = from_->value();
-        for (auto& x : *ml)
-            listTo(0, { Atom(idx++), x });
+        StaticAtomList<2> msg { 0., 0. };
+        for (auto& x : *ml) {
+            msg[0] = idx++;
+            msg[1] = x;
+            listTo(0, msg.view());
+        }
     }
 
     bangTo(1);

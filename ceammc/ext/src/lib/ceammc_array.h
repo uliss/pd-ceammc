@@ -176,6 +176,9 @@ public:
     const t_float& at(size_t n) const;
     t_float& at(size_t n);
 
+    t_float ringPushBack(t_float f);
+    t_float ringPushFront(t_float f);
+
     /**
      * @brief get reference to sample with at position
      * @param n - sample position
@@ -223,7 +226,7 @@ public:
      * @param l - list of values
      * @return true on success, false on error
      */
-    bool set(const AtomList& l);
+    bool set(const AtomListView& lv);
 
     /**
      * @brief set array content with initializer list

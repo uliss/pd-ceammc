@@ -12,10 +12,8 @@
  * this file belongs to.
  *****************************************************************************/
 #include "list_running_sum.h"
+#include "ceammc_containers.h"
 #include "ceammc_factory.h"
-
-#include <boost/container/small_vector.hpp>
-using AtomList32 = boost::container::small_vector<Atom, 32>;
 
 ListRunningSum::ListRunningSum(const PdArgs& args)
     : BaseObject(args)
@@ -23,17 +21,18 @@ ListRunningSum::ListRunningSum(const PdArgs& args)
     createOutlet();
 }
 
-void ListRunningSum::onList(const AtomList& lst)
+void ListRunningSum::onList(const AtomListView& lv)
 {
     AtomList32 res;
+    res.reserve(lv.size());
 
     t_float val = 0;
-    for (auto& a : lst) {
+    for (auto& a : lv) {
         val += a.asFloat();
         res.push_back(Atom(val));
     }
 
-    listTo(0, AtomListView(res.data(), res.size()));
+    listTo(0, res.view());
 }
 
 void setup_list_runsum()

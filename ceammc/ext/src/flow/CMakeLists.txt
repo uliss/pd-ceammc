@@ -1,6 +1,7 @@
 set(FLOW_SOURCES mod_flow.h mod_flow.cpp
     conway_life.cpp
     route_float.cpp
+    route_random.cpp
     seq_arp.cpp
     seq_bangs.cpp
     seq_base.cpp
@@ -54,6 +55,7 @@ ceammc_flow_external(reject)
 ceammc_flow_external(reject_if)
 ceammc_flow_external(route)
 ceammc_flow_external(select)
+ceammc_flow_external(seqdelay)
 ceammc_flow_external(space)
 ceammc_flow_external(speedlim)
 ceammc_flow_external(split)

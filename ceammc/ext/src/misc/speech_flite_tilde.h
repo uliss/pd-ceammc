@@ -18,7 +18,7 @@
 #include "ceammc_property_enum.h"
 #include "ceammc_sound_external.h"
 
-#include "readerwriterqueue/readerwriterqueue.h"
+#include "readerwriterqueue.h"
 
 #include <atomic>
 #include <future>
@@ -28,14 +28,14 @@
 
 using namespace ceammc;
 
-using rw_queue = moodycamel::ReaderWriterQueue<float, 2048>;
+using TtsQueue = moodycamel::ReaderWriterQueue<float, 2048>;
 
 class SpeechFilteTilde : public SoundExternal {
     SymbolEnumProperty* voice_name_;
     FloatProperty* speed_;
     FloatProperty* pitch_;
     std::future<int> running_;
-    rw_queue queue_;
+    TtsQueue queue_;
     std::atomic_bool run_;
     std::queue<std::string> sentences_;
     ClockLambdaFunction clock_;
@@ -46,7 +46,7 @@ public:
 
     void onFloat(t_float f) override;
     void onSymbol(t_symbol* s) override;
-    void onList(const AtomList& lst) override;
+    void onList(const AtomListView& lv) override;
 
     void processBlock(const t_sample** in, t_sample** out) override;
 

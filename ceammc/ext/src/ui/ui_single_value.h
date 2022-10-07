@@ -5,7 +5,7 @@
 #include "ceammc_proxy.h"
 #include "ceammc_ui_object.h"
 
-using namespace ceammc;
+namespace ceammc {
 
 class UISingleValue : public UIObject {
     PdListProxy<UISingleValue> midi_proxy_;
@@ -53,7 +53,7 @@ public:
 
     void onBang();
     void onFloat(t_float f);
-    void onMidiCtrl(const AtomListView& l);
+    void onMidiCtrl(const AtomListView& lv);
     void onDblClick(t_object*, const t_pt&, long mod);
 
     void loadPreset(size_t idx);
@@ -87,5 +87,7 @@ protected:
 private:
     void setValueLin(t_float v);
 };
+
+}
 
 #endif // UI_SINGLE_VALUE_H

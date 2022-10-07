@@ -1,4 +1,5 @@
 #include "list_walk.h"
+#include "ceammc_crc32.h"
 #include "ceammc_property_enum.h"
 
 #include <cstdlib>
@@ -6,10 +7,10 @@
 using namespace ceammc;
 using namespace ceammc::list;
 
-static t_symbol* SYM_SINGLE;
-static t_symbol* SYM_CLIP;
-static t_symbol* SYM_WRAP;
-static t_symbol* SYM_FOLD;
+CEAMMC_DEFINE_SYM_HASH(single);
+CEAMMC_DEFINE_SYM_HASH(clip);
+CEAMMC_DEFINE_SYM_HASH(wrap);
+CEAMMC_DEFINE_SYM_HASH(fold);
 
 ListWalk::ListWalk(const PdArgs& a)
     : BaseObject(a)
@@ -26,7 +27,7 @@ ListWalk::ListWalk(const PdArgs& a)
     addProperty(new PointerProperty<bool>("@direction", &forward_, PropValueAccess::READWRITE));
     addProperty(new PointerProperty<int>("@length", &length_, PropValueAccess::READWRITE));
 
-    walk_mode_ = new SymbolEnumProperty("@mode", { SYM_SINGLE, SYM_WRAP, SYM_CLIP, SYM_FOLD });
+    walk_mode_ = new SymbolEnumProperty("@mode", { sym_single(), sym_wrap(), sym_clip(), sym_fold() });
     addProperty(walk_mode_);
 
     lst_ = new ListProperty("@value");
@@ -34,11 +35,11 @@ ListWalk::ListWalk(const PdArgs& a)
     addProperty(lst_);
 
     // aliases
-    addProperty(new SymbolEnumAlias("@single", walk_mode_, SYM_SINGLE));
-    addProperty(new SymbolEnumAlias("@loop", walk_mode_, SYM_WRAP));
-    addProperty(new SymbolEnumAlias("@wrap", walk_mode_, SYM_WRAP));
-    addProperty(new SymbolEnumAlias("@clip", walk_mode_, SYM_CLIP));
-    addProperty(new SymbolEnumAlias("@fold", walk_mode_, SYM_FOLD));
+    addProperty(new SymbolEnumAlias("@single", walk_mode_, sym_single()));
+    addProperty(new SymbolEnumAlias("@loop", walk_mode_, sym_wrap()));
+    addProperty(new SymbolEnumAlias("@wrap", walk_mode_, sym_wrap()));
+    addProperty(new SymbolEnumAlias("@clip", walk_mode_, sym_clip()));
+    addProperty(new SymbolEnumAlias("@fold", walk_mode_, sym_fold()));
 
     createCbIntProperty(
         "@size",
@@ -64,16 +65,16 @@ void ListWalk::onFloat(t_float v)
         toPosition(current_pos_ - step);
 }
 
-void ListWalk::onList(const AtomList& l)
+void ListWalk::onList(const AtomListView& lv)
 {
-    lst_->set(l);
+    lst_->set(lv);
     current_pos_ = 0;
     single_done_ = false;
 }
 
 void ListWalk::m_current(t_symbol*, const AtomListView&) { current(); }
-void ListWalk::m_next(t_symbol*, const AtomListView& l) { next(l.toT<int>(1)); }
-void ListWalk::m_prev(t_symbol*, const AtomListView& l) { prev(l.toT<int>(1)); }
+void ListWalk::m_next(t_symbol*, const AtomListView& lv) { next(lv.toT<int>(1)); }
+void ListWalk::m_prev(t_symbol*, const AtomListView& lv) { prev(lv.toT<int>(1)); }
 
 void ListWalk::m_reset(t_symbol*, const AtomListView&)
 {
@@ -83,7 +84,7 @@ void ListWalk::m_reset(t_symbol*, const AtomListView&)
 
 AtomList ListWalk::p_index() const
 {
-    if (walk_mode_->value() != SYM_FOLD)
+    if (walk_mode_->value() != sym_fold())
         return AtomList(current_pos_);
     else {
         size_t idx = 0;
@@ -92,9 +93,9 @@ AtomList ListWalk::p_index() const
     }
 }
 
-void ListWalk::p_set_index(const AtomList& l)
+void ListWalk::p_set_index(const AtomListView& lv)
 {
-    int idx = atomlistToValue<int>(l, 0);
+    int idx = atomlistToValue<int>(lv, 0);
     if (idx < 0)
         idx += lst_->value().size();
 
@@ -130,7 +131,8 @@ void ListWalk::toPosition(int pos)
 
     size_t idx = 0;
 
-    if (walk_mode_->value() == SYM_SINGLE) {
+    switch (crc32_hash(walk_mode_->value())) {
+    case hash_single:
         if (pos < 0) {
             current_pos_ = 0;
             single_done_ = true;
@@ -141,15 +143,21 @@ void ListWalk::toPosition(int pos)
             current_pos_ = lst_->value().size() - 1;
             single_done_ = true;
         }
-    } else if (walk_mode_->value() == SYM_WRAP) {
+        break;
+    case hash_wrap:
         if (calcWrapIndex(pos, lst_->value().size(), &idx))
             current_pos_ = idx;
-    } else if (walk_mode_->value() == SYM_CLIP) {
+
+        break;
+    case hash_clip:
         if (calcClipIndex(pos, lst_->value().size(), &idx))
             current_pos_ = idx;
-    } else if (walk_mode_->value() == SYM_FOLD) {
+
+        break;
+    case hash_fold:
         current_pos_ = pos;
-    } else {
+        break;
+    default:
         OBJ_ERR << "unsupported list mode: " << walk_mode_->value()->s_name;
     }
 }
@@ -169,32 +177,36 @@ void ListWalk::current()
     }
 
     //! single
-    if (walk_mode_->value() == SYM_SINGLE) {
+    switch (crc32_hash(walk_mode_->value())) {
+    case hash_single: {
         if (single_done_)
             return;
 
         listTo(0, l.slice(current_pos_, current_pos_ + length_ - 1));
-    }
+    } break;
     //! clip
-    else if (walk_mode_->value() == SYM_CLIP) {
+    case hash_clip: {
         if (length_ == 1)
             atomTo(0, *l.clipAt(current_pos_));
         else
             listTo(0, list::sliceClip(l, current_pos_, length_));
-    }
+    } break;
     //! wrap/loop
-    else if (walk_mode_->value() == SYM_WRAP) {
+    case hash_wrap: {
         if (length_ == 1)
             atomTo(0, *l.wrapAt(current_pos_));
         else
             listTo(0, list::sliceWrap(l, current_pos_, length_));
-    }
+    } break;
     //! fold
-    else if (walk_mode_->value() == SYM_FOLD) {
+    case hash_fold: {
         if (length_ == 1)
             atomTo(0, *l.foldAt(current_pos_));
         else
             listTo(0, list::sliceFold(l, current_pos_, length_));
+    } break;
+    default:
+        break;
     }
 
     // last element
@@ -204,11 +216,6 @@ void ListWalk::current()
 
 void setup_list_walk()
 {
-    SYM_SINGLE = gensym("single");
-    SYM_CLIP = gensym("clip");
-    SYM_WRAP = gensym("wrap");
-    SYM_FOLD = gensym("fold");
-
     ObjectFactory<ListWalk> obj("list.walk");
     obj.addMethod("current", &ListWalk::m_current);
     obj.addMethod("next", &ListWalk::m_next);

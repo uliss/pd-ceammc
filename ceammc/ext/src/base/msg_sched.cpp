@@ -26,12 +26,13 @@ MsgSched::MsgSched(const PdArgs& args)
     createOutlet();
 }
 
-void MsgSched::onList(const AtomList& lst)
+void MsgSched::onList(const AtomListView& lv)
 {
-    if (lst.size() > 0 && lst[0].isFloat()) {
-        const auto del_ms = lst[0].asT<t_float>();
+    if (lv.size() > 0 && lv[0].isFloat()) {
+        const auto del_ms = lv[0].asT<t_float>();
 
         if (del_ms >= 0) {
+            AtomList lst(lv);
             queue_.emplace_back([this, lst]() {
                 output(lst.view(1));
                 cleanup_.delay(0); // cleanup on next round to prevent self-destruction
@@ -39,13 +40,13 @@ void MsgSched::onList(const AtomList& lst)
 
             queue_.back().delay(del_ms);
         } else
-            output(lst.view(1));
+            output(lv.subView(1));
 
     } else
-        listTo(0, lst);
+        listTo(0, lv);
 }
 
-void MsgSched::proxy_bang()
+void MsgSched::proxy_bang(int)
 {
     queue_.clear();
 }

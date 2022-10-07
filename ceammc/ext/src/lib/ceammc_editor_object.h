@@ -24,6 +24,7 @@
 #include <boost/static_string.hpp>
 #endif
 #include <list>
+#include <string>
 
 #include "extra/boost_intrusive_pool.hpp"
 
@@ -39,6 +40,8 @@ using StaticString = boost::static_string<N>;
 
 using EditorTitleString = StaticString<32>;
 
+EditorTitleString makeEditorTitleString(const char* dataName, const char* dataId = "");
+
 class EditorString : public memorypool::boost_intrusive_pool_item {
 public:
     StaticString<MAXPDSTRING> str;
@@ -46,16 +49,29 @@ public:
     EditorString() { }
     void destroy() final { str.clear(); }
 
+    void append(char ch);
     void append(t_float t);
+    void append(const std::string& txt) { append(txt.c_str()); }
     void append(const char* txt);
     void append(t_symbol* s) { append(s->s_name); }
     void append(const Atom& a);
-    void append(const AtomList& lst, const char* delim = " ");
     void append(const AtomListView& lv, const char* delim = " ");
+    void append(const char* txt, size_t len);
+
+    void appendQuoted(const std::string& txt) { appendQuoted(txt.c_str()); }
+    void appendQuoted(t_symbol* s) { appendQuoted(s->s_name); }
+    void appendQuoted(const char* txt);
+    void appendQuoted(const Atom& a);
+    void appendQuoted(const AtomListView& lv, const char* delim = " ");
+
+    void pop();
 
     void clear() { str.clear(); }
     const char* c_str() const { return str.c_str(); }
     size_t length() const { return str.length(); }
+    char back() const { return str.back(); }
+
+    void trim();
 };
 
 using EditorStringPtr = boost::intrusive_ptr<EditorString>;
@@ -79,10 +95,16 @@ enum EditorSyntax {
     EDITOR_SYNTAX_DEFAULT
 };
 
+enum EditorEscapeMode {
+    EDITOR_ESC_MODE_DEFAULT = 0,
+    EDITOR_ESC_MODE_LUA,
+    EDITOR_ESC_MODE_DATA
+};
+
 class EditorObjectImpl {
     t_object* owner_;
     void* guiconnect_;
-    bool escape_specs_;
+    EditorEscapeMode esc_mode_;
 
 public:
     EditorObjectImpl(t_object* owner);
@@ -118,7 +140,7 @@ public:
      * Enable/disable special symbols ("\t,;{}") escaping
      * useful for LUA, for example
      */
-    void setSpecialSymbolEscape(bool value);
+    void setSpecialSymbolEscape(EditorEscapeMode mode);
 
     /**
      * set owner canvas dirty
@@ -126,7 +148,7 @@ public:
     void setDirty(t_canvas* c, bool value);
 
 private:
-    unsigned long xowner() const { return reinterpret_cast<unsigned long>(owner_); }
+    unsigned long xowner() const { return reinterpret_cast<std::uintptr_t>(owner_); }
 };
 
 template <typename BaseClass>
@@ -196,7 +218,7 @@ public:
     /**
      * Enable/disable escaping of special chars
      */
-    void setSpecialSymbolEscape(bool value) { impl_.setSpecialSymbolEscape(value); }
+    void setSpecialSymbolEscape(EditorEscapeMode mode) { impl_.setSpecialSymbolEscape(mode); }
 
 public:
     using ThisType = EditorObject<BaseClass>;

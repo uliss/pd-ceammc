@@ -86,10 +86,10 @@ public:
         onList(AtomList(s));
     }
 
-    void onList(const AtomList& l) override
+    void onList(const AtomListView& lv) override
     {
         T data;
-        auto st = data.setFromPd(l);
+        auto st = data.setFromPd(lv);
         std::string err;
         if (!st.error(&err)) {
             data_ = TypedDataAtom(data);
@@ -99,10 +99,10 @@ public:
         }
     }
 
-    void onAny(t_symbol* s, const AtomListView& l) override
+    void onAny(t_symbol* s, const AtomListView& lv) override
     {
         T data;
-        auto st = data.setFromAny(s, l);
+        auto st = data.setFromAny(s, lv);
         std::string err;
         if (!st.error(&err)) {
             data_ = TypedDataAtom(data);
@@ -118,16 +118,16 @@ public:
         atomTo(0, data_);
     }
 
-    void m_set(t_symbol* s, const AtomListView& l)
+    void m_set(t_symbol* s, const AtomListView& lv)
     {
-        if (l.isData()) {
-            if (l.isA<TypeWrapped>()) {
-                auto d = l.asD<TypeWrapped>();
+        if (lv.isData()) {
+            if (lv.isA<TypeWrapped>()) {
+                auto d = lv.asD<TypeWrapped>();
                 data_ = TypedDataAtom(*d);
             }
         } else {
             T data;
-            auto st = data.setFromPd(l);
+            auto st = data.setFromPd(lv);
             std::string err;
             if (!st.error(&err))
                 data_ = TypedDataAtom(data);

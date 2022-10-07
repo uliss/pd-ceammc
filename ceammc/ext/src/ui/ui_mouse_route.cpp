@@ -14,38 +14,33 @@
 #include "ui_mouse_route.h"
 #include "ceammc_factory.h"
 
-#include <array>
 #include <algorithm>
+#include <array>
+
+using PropArray = std::array<std::string, 6>;
+const PropArray ALL_PROPS { "@up", "@down", "@drag", "@move", "@enter", "@leave" };
+const PropArray ALL_FULL_PROPS { "@mouse_up", "@mouse_down", "@mouse_drag", "@mouse_move", "@mouse_enter", "@mouse_leave" };
+
+static t_symbol* checkProp(t_symbol* s)
+{
+    auto it = std::find(ALL_PROPS.begin(), ALL_PROPS.end(), s->s_name);
+    if (it != ALL_PROPS.end()) {
+        auto idx = std::distance(ALL_PROPS.begin(), it);
+        auto& str = ALL_FULL_PROPS[idx];
+        return gensym(str.c_str());
+    } else
+        return nullptr;
+}
 
 UIMouseRoute::UIMouseRoute(const PdArgs& args)
     : BaseObject(args)
     , index_(-1)
 {
-    static t_symbol* SYM_PROP_UP = gensym("@up");
-    static t_symbol* SYM_PROP_DOWN = gensym("@down");
-    static t_symbol* SYM_PROP_DRAG = gensym("@drag");
-    static t_symbol* SYM_PROP_MOVE = gensym("@move");
-    static t_symbol* SYM_PROP_ENTER = gensym("@enter");
-    static t_symbol* SYM_PROP_LEAVE = gensym("@leave");
-    static t_symbol* SYM_FULL_PROP_UP = gensym("@mouse_up");
-    static t_symbol* SYM_FULL_PROP_DOWN = gensym("@mouse_down");
-    static t_symbol* SYM_FULL_PROP_DRAG = gensym("@mouse_drag");
-    static t_symbol* SYM_FULL_PROP_MOVE = gensym("@mouse_move");
-    static t_symbol* SYM_FULL_PROP_ENTER = gensym("@mouse_enter");
-    static t_symbol* SYM_FULL_PROP_LEAVE = gensym("@mouse_leave");
-    static const std::array<t_symbol*, 6> ALL_PROPS { SYM_PROP_UP, SYM_PROP_DOWN, SYM_PROP_DRAG, SYM_PROP_MOVE, SYM_PROP_ENTER, SYM_PROP_LEAVE };
-    static const std::array<t_symbol*, 6> ALL_FULL_PROPS { SYM_FULL_PROP_UP, SYM_FULL_PROP_DOWN, SYM_FULL_PROP_DRAG, SYM_FULL_PROP_MOVE, SYM_FULL_PROP_ENTER, SYM_FULL_PROP_LEAVE };
-
     for (size_t i = 0; i < ALL_PROPS.size(); i++) {
-        BoolProperty* b = new BoolProperty(ALL_FULL_PROPS[i]->s_name, false);
+        BoolProperty* b = new BoolProperty(ALL_FULL_PROPS[i], false);
         addProperty(b);
-        addProperty(new AliasProperty<BoolProperty>(ALL_PROPS[i]->s_name, b, true));
+        addProperty(new AliasProperty<BoolProperty>(ALL_PROPS[i], b, true));
     }
-
-    auto toProp = [this](t_symbol* s) {
-        auto it = std::find(ALL_PROPS.begin(), ALL_PROPS.end(), s);
-        return (it == ALL_PROPS.end()) ? nullptr : ALL_FULL_PROPS[std::distance(ALL_PROPS.begin(), it)];
-    };
 
     for (const Atom& a : args.args) {
         if (!a.isProperty()) {
@@ -60,7 +55,7 @@ UIMouseRoute::UIMouseRoute(const PdArgs& args)
             continue;
         }
 
-        auto p = toProp(a.asSymbol());
+        auto p = checkProp(a.asSymbol());
         if (p) {
             mouse_events_.push_back(p);
             createOutlet();
@@ -69,8 +64,8 @@ UIMouseRoute::UIMouseRoute(const PdArgs& args)
 
             Error err(this);
             err << "supported props are: ";
-            for (auto pp : ALL_PROPS)
-                err << pp->s_name << " ";
+            for (auto& pp : ALL_PROPS)
+                err << pp << " ";
         }
     }
 }
@@ -112,10 +107,10 @@ void UIMouseRoute::onSymbol(t_symbol* s)
         symbolTo(index_, s);
 }
 
-void UIMouseRoute::onList(const AtomList& l)
+void UIMouseRoute::onList(const AtomListView& lv)
 {
     if (index_ >= 0)
-        listTo(index_, l);
+        listTo(index_, lv);
 }
 
 void UIMouseRoute::onAny(t_symbol* s, const AtomListView& lv)

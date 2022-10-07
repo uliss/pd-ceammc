@@ -15,21 +15,22 @@ void ListSearch::parseProperties()
     // empty
 }
 
-void ListSearch::onList(const AtomList& lst)
+void ListSearch::onList(const AtomListView& lv)
 {
+    AtomList l(lv); // FIX
     AtomList idxs;
     idxs.reserve(subj_.size());
 
     for (size_t i = 0; i < subj_.size(); i++) {
-        idxs.append(lst.findPos(subj_[i]));
+        idxs.append(l.findPos(subj_[i]));
     }
 
     listTo(0, idxs);
 }
 
-void ListSearch::onInlet(size_t n, const AtomListView& lst)
+void ListSearch::onInlet(size_t n, const AtomListView& lv)
 {
-    subj_ = lst;
+    subj_ = lv;
 }
 
 void setup_list_search()

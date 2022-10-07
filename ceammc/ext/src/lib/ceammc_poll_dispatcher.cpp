@@ -39,11 +39,11 @@ Dispatcher::Dispatcher()
 {
 }
 
-bool Dispatcher::notify(SubscriberId id)
+bool Dispatcher::notify(SubscriberId id, NotifyEventType t)
 {
     for (auto& x : subscribers_) {
         if (x.id == id) {
-            x.obj->notify(NOTIFY_DONE);
+            x.obj->notify(t);
             return true;
         }
     }
@@ -59,7 +59,7 @@ void Dispatcher::pollFn(void* x, int fd)
     if (!dp->impl_->recv(msg, fd))
         return;
 
-    if (!dp->notify(msg.id))
+    if (!dp->notify(msg.id, msg.event))
         LIB_ERR << MSG_PREFIX "subscriber not found #" << msg.id;
 }
 

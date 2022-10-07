@@ -60,9 +60,9 @@ void FlowRing::onSymbol(t_symbol* s)
     output();
 }
 
-void FlowRing::onList(const AtomList& l)
+void FlowRing::onList(const AtomListView& lv)
 {
-    addMessage(Message(l));
+    addMessage(Message(lv));
     output();
 }
 
@@ -72,7 +72,7 @@ void FlowRing::onAny(t_symbol* s, const AtomListView& lv)
     output();
 }
 
-void FlowRing::proxy_bang()
+void FlowRing::proxy_bang(int)
 {
     output();
 }

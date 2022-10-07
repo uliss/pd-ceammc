@@ -1,0 +1,3 @@
+install(DIRECTORY ctext/
+    DESTINATION ${PD_INTERNAL_EXT_INSTALL_PATH}/ceammc/tcl
+    FILES_MATCHING PATTERN "*.tcl")

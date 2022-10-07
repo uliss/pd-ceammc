@@ -19,6 +19,7 @@ macro(ceammc_array_external name)
 endmacro()
 
 ceammc_array_external(bpm)
+ceammc_array_external(circular)
 ceammc_array_external(circular_tilde)
 ceammc_array_external(convolve)
 ceammc_array_external(copy)
@@ -61,7 +62,9 @@ if(RAGEL_FOUND)
     add_custom_target(lemon_grain_parser
         COMMAND lemon -s ${CMAKE_CURRENT_SOURCE_DIR}/grain_expr.y
         COMMAND mv ${CMAKE_CURRENT_SOURCE_DIR}/grain_expr.c ${CMAKE_CURRENT_SOURCE_DIR}/grain_expr_lemon.h
-        COMMAND rm ${CMAKE_CURRENT_SOURCE_DIR}/grain_expr.out)
+        COMMAND rm ${CMAKE_CURRENT_SOURCE_DIR}/grain_expr.out
+        SOURCES grain_expr.rl grain_expr.y
+    )
 endif()
 
 # ragel generated sources

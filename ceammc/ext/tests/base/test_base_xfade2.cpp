@@ -35,6 +35,7 @@ TEST_CASE("xfade2~", "[externals]")
             REQUIRE(t.numOutlets() == 2);
             REQUIRE(t.numOutputChannels() == 2);
             REQUIRE_PROPERTY_LIST(t, @smooth, LX(20));
+            REQUIRE_PROPERTY_FLOAT(t, @x, 0);
 
             t.setProperty("@smooth", LF(10));
             REQUIRE_PROPERTY_FLOAT(t, @smooth, 10);
@@ -60,6 +61,12 @@ TEST_CASE("xfade2~", "[externals]")
             REQUIRE(t.numInputChannels() == 8);
             REQUIRE(t.numOutlets() == 2);
             REQUIRE(t.numOutputChannels() == 2);
+        }
+
+        SECTION("args x")
+        {
+            TExt t("xfade~", LF(4, 0.625));
+            REQUIRE_PROPERTY_FLOAT(t, @x, 0.625);
         }
     }
 

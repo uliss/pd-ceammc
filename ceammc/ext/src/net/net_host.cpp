@@ -12,101 +12,105 @@
  * this file belongs to.
  *****************************************************************************/
 #include "net_host.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "ceammc_fn_list.h"
 #include "ceammc_output.h"
 #include "ceammc_platform.h"
 
-#include <mutex>
+#include <unordered_set>
 
-typedef int t_pipe_fd[2];
+namespace ceammc {
 
-class HostTask : public thread::Task {
-    mutable std::mutex lock_;
-    t_symbol* name_;
-    AtomList result_;
-    platform::NetAddressType type_;
+CEAMMC_DEFINE_HASH(ipv4);
+CEAMMC_DEFINE_HASH(ipv6);
 
-public:
-    HostTask(NetHost* caller)
-        : Task(caller)
-        , name_(&s_)
-        , type_(platform::ADDR_IPV4)
+namespace {
+
+    void startNetHostEvent(ceammc::NetHost* host, ceammc::SubscriberId id)
     {
-    }
+        HostResult msg;
+        while (host->inPipe().try_dequeue(msg)) {
+            const auto type = msg.type;
 
-    void setType(platform::NetAddressType t)
-    {
-        type_ = t;
-    }
+            if (msg.data.empty()) {
+                host->outPipe().try_enqueue({ HOST_RESOLVE_ERROR, type, "no host name specified" });
+                continue;
+            }
 
-    void setName(t_symbol* n)
-    {
-        std::lock_guard<std::mutex> lock(lock_);
-        name_ = n;
-    }
+            platform::NetAddressList res;
+            platform::PlatformError err;
 
-    AtomList result() const
-    {
-        std::lock_guard<std::mutex> lock(lock_);
-        return result_;
-    }
+            auto either = platform::hostnametoip(msg.data.c_str(), type);
+            if (either.matchValue(res)) {
+                // remove duplicates preserving initial order
+                std::unordered_set<std::string> ip_set;
 
-    int run() override
-    {
-        if (name_ == &s_) {
-            writeError("no host name specified");
-            return 1;
+                for (auto& ip : res) {
+                    if (ip_set.find(ip) == ip_set.end()) {
+                        ip_set.insert(ip);
+                        host->outPipe().try_enqueue({ HOST_GET_ADDR, type, ip });
+                    }
+                }
+
+            } else if (either.matchError(err)) {
+                host->outPipe().try_enqueue({ HOST_RESOLVE_ERROR, type, err.msg });
+            } else {
+                host->outPipe().try_enqueue({ HOST_RESOLVE_ERROR, type, "bug" });
+                break;
+            }
         }
 
-        platform::NetAddressList res;
-        platform::PlatformError err;
+        Dispatcher::instance().send({ id, NOTIFY_UPDATE });
+    }
 
-        auto either = platform::hostnametoip(name_->s_name, type_);
-        if (either.matchValue(res)) {
-            std::lock_guard<std::mutex> lock(lock_);
-            result_.clear();
-
-            for (auto& addr : res)
-                result_.append(gensym(addr.c_str()));
-
-            result_ = list::uniqueStable(result_);
-
-            return 0;
-
-        } else if (either.matchError(err)) {
-            writeError(err.msg.c_str());
-            return 1;
-        } else {
-            writeError("bug");
-            return 2;
+    bool symToAddress(const char* str, platform::NetAddressType& type)
+    {
+        switch (crc32_hash(str)) {
+        case hash_ipv4:
+            type = platform::ADDR_IPV4;
+            return true;
+        case hash_ipv6:
+            type = platform::ADDR_IPV6;
+            return true;
+        default:
+            return false;
         }
     }
-};
 
-static t_symbol* SYM_IPV4;
-static t_symbol* SYM_IPV6;
+}
 
 NetHost::NetHost(const PdArgs& args)
-    : ThreadExternal(args, new HostTask(this))
+    : NetHostBase(args)
     , addr_type_(nullptr)
 {
-    task()->setName(parsedPosArgs().symbolAt(0, &s_));
+    Dispatcher::instance().subscribe(this, subscriberId());
+
     createOutlet();
 
-    addr_type_ = new SymbolEnumProperty("@type", { SYM_IPV4, SYM_IPV6 });
+    addr_type_ = new SymbolEnumProperty("@type", { str_ipv4, str_ipv6 });
     addr_type_->setArgIndex(1);
     addProperty(addr_type_);
 
-    addProperty(new SymbolEnumAlias("@ipv4", addr_type_, SYM_IPV4));
-    addProperty(new SymbolEnumAlias("@ipv6", addr_type_, SYM_IPV6));
+    addProperty(new SymbolEnumAlias("@ipv4", addr_type_, gensym(str_ipv4)));
+    addProperty(new SymbolEnumAlias("@ipv6", addr_type_, gensym(str_ipv6)));
 }
 
 void NetHost::onSymbol(t_symbol* s)
 {
-    task()->setName(s);
-    task()->setType(addr_type_->value() == SYM_IPV4 ? platform::ADDR_IPV4 : platform::ADDR_IPV6);
-    start();
+    platform::NetAddressType type;
+    if (!symToAddress(addr_type_->value()->s_name, type)) {
+        OBJ_ERR << "unknown IP type: " << s;
+        return;
+    }
+
+    if (!inPipe().try_enqueue({ HOST_RESOLVE_ADDR, type, s->s_name })) {
+        OBJ_ERR << "can't send command to worker";
+        return;
+    }
+
+    if (!runTask())
+        OBJ_ERR << "can't run worker";
 }
 
 void NetHost::onAny(t_symbol* s, const AtomListView&)
@@ -114,21 +118,46 @@ void NetHost::onAny(t_symbol* s, const AtomListView&)
     onSymbol(s);
 }
 
-void NetHost::onThreadDone(int rc)
+void NetHost::processMessage(const HostResult& msg)
 {
-    if (rc == 0)
-        outletAtomList(outletAt(0), task()->result(), true);
+    switch (msg.cmd) {
+    case HOST_GET_ADDR:
+        result_.append(gensym(msg.data.c_str()));
+        break;
+    case HOST_RESOLVE_ERROR:
+        OBJ_ERR << msg.data;
+        break;
+    default:
+        OBJ_ERR << "invalid resolve answer: " << (int)msg.cmd;
+        return;
+    }
 }
 
-HostTask* NetHost::task()
+NetHost::Future NetHost::createTask()
 {
-    return static_cast<HostTask*>(task_.get());
+    return std::async(std::launch::async, startNetHostEvent, this, subscriberId());
+}
+
+bool NetHost::notify(NotifyEventType event)
+{
+    result_.clear();
+
+    if (!NetHostBase::notify(event))
+        return false;
+
+    if (result_.isSymbol())
+        symbolTo(0, result_[0].asT<t_symbol*>());
+    else if (!result_.empty())
+        listTo(0, result_);
+
+    result_.clear();
+    return true;
+}
 }
 
 void setup_net_host()
 {
-    SYM_IPV4 = gensym("ipv4");
-    SYM_IPV6 = gensym("ipv6");
+    using namespace ceammc;
 
     ObjectFactory<NetHost> obj("net.host2ip");
     obj.addAlias("net.host->ip");

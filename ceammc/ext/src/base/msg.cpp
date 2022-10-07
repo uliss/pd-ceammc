@@ -29,35 +29,35 @@ void Msg::onSymbol(t_symbol* s)
     output();
 }
 
-void Msg::onList(const AtomList& l)
+void Msg::onList(const AtomListView& lv)
 {
     data_ = prefix_;
-    data_.append(l);
+    data_.append(lv);
     output();
 }
 
-void Msg::onAny(t_symbol* sel, const AtomListView& l)
+void Msg::onAny(t_symbol* sel, const AtomListView& lv)
 {
     data_ = prefix_;
     data_.append(sel);
-    data_.append(l);
+    data_.append(lv);
     output();
 }
 
-void Msg::onInlet(size_t n, const AtomListView& l)
+void Msg::onInlet(size_t n, const AtomListView& lv)
 {
     if (n != 1)
         return;
 
-    setMethod(l);
+    setMethod(lv);
 }
 
-void Msg::setMethod(const AtomList& l)
+void Msg::setMethod(const AtomListView& lv)
 {
-    if (l.empty())
+    if (lv.empty())
         return;
 
-    prefix_ = l;
+    prefix_ = lv;
 }
 
 void Msg::output()

@@ -27,7 +27,7 @@ class ListResize : public BaseObject {
 public:
     ListResize(const PdArgs& a);
     void onInlet(size_t n, const AtomListView& l) override;
-    void onList(const AtomList& l) override;
+    void onList(const AtomListView& lv) override;
 
 private:
     void initProperties();

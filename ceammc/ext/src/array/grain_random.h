@@ -30,6 +30,8 @@ public:
     static GrainRandom& instance();
     static void seed(size_t seed) { instance().gen_.seed(seed); }
 
+    std::mt19937& gen() { return gen_; }
+
     template <class T>
     static T urand_closed(T a, T b)
     {

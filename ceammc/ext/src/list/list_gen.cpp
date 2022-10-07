@@ -56,10 +56,10 @@ void ListGenerate::onFloat(t_float v)
     onBang();
 }
 
-void ListGenerate::onInlet(size_t n, const AtomListView& l)
+void ListGenerate::onInlet(size_t n, const AtomListView& lv)
 {
     if (n == 1) {
-        gen_values_.append(l);
+        gen_values_.append(lv);
         return;
     }
 }

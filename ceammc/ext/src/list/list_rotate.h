@@ -30,7 +30,7 @@ class ListRotate : public BaseObject {
 
 public:
     ListRotate(const PdArgs& a);
-    void onList(const AtomList& l) override;
+    void onList(const AtomListView& lv) override;
     void onInlet(size_t, const AtomListView& step) override;
     void onDataT(const MListAtom& ml);
 };

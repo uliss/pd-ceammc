@@ -47,9 +47,9 @@ void MessageAfter::onSymbol(t_symbol* s)
     run();
 }
 
-void MessageAfter::onList(const AtomList& lst)
+void MessageAfter::onList(const AtomListView& lv)
 {
-    listTo(0, lst);
+    listTo(0, lv);
     run();
 }
 
@@ -69,7 +69,7 @@ void MessageAfter::parseProperties()
 {
 }
 
-bool MessageAfter::processAnyProps(t_symbol* sel, const AtomListView& lst)
+bool MessageAfter::processAnyProps(t_symbol* sel, const AtomListView&)
 {
     return false;
 }

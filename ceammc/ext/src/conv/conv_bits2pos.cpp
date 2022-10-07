@@ -30,21 +30,21 @@ void ConvBits2Pos::onFloat(t_float f)
         floatTo(0, 0);
 }
 
-void ConvBits2Pos::onList(const AtomList& lst)
+void ConvBits2Pos::onList(const AtomListView& lv)
 {
-    Atom res[lst.size()];
+    Atom res[lv.size()];
     size_t n = 0;
 
     if (reversed_->value()) {
-        for (size_t i = 0; i < lst.size(); i++) {
-            const auto& a = lst[i];
+        for (size_t i = 0; i < lv.size(); i++) {
+            const auto& a = lv[i];
             if (a.isFloat() && a.asT<t_float>() != 0)
                 res[n++] = i;
         }
     } else {
-        const auto N = lst.size();
-        for (size_t i = 0; i < lst.size(); i++) {
-            const auto& a = lst[N - (i + 1)];
+        const auto N = lv.size();
+        for (size_t i = 0; i < lv.size(); i++) {
+            const auto& a = lv[N - (i + 1)];
             if (a.isFloat() && a.asT<t_float>() != 0)
                 res[n++] = i;
         }

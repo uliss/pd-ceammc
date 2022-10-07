@@ -32,13 +32,42 @@ FltAWeight::FltAWeight(const PdArgs& args)
 
 void FltAWeight::onFloat(t_float f)
 {
-    if (f < tab_a_weight.min() || f > tab_a_weight.max())
+    t_float res;
+    if (!getValue(f, res))
         return;
 
+    floatTo(0, res);
+}
+
+void FltAWeight::onList(const AtomListView& lv)
+{
+    AtomList res;
+    res.reserve(lv.size());
+
+    for (auto& a : lv) {
+        t_float val = 0;
+        if (a.isFloat() && getValue(a.asT<t_float>(), val)) {
+            res.append(val);
+        } else
+            res.append(a);
+    }
+
+    listTo(0, res);
+}
+
+bool FltAWeight::getValue(t_float freqHz, t_float& res) const
+{
+    if (freqHz < tab_a_weight.min() || freqHz > tab_a_weight.max())
+        return false;
+
+    const auto val = tab_a_weight.at(freqHz);
+
     if (db_->value())
-        floatTo(0, 20 * std::log10(tab_a_weight.at(f)) - 2.0);
+        res = 20 * std::log10(val) - 2.0;
     else
-        floatTo(0, tab_a_weight.at(f));
+        res = val;
+
+    return true;
 }
 
 void setup_flt_a_weight()

@@ -12,6 +12,8 @@
  * this file belongs to.
  *****************************************************************************/
 #include "list_pass_if.h"
+#include "ceammc_containers.h"
+#include "ceammc_deprecated.h"
 #include "ceammc_factory.h"
 #include "datatype_mlist.h"
 
@@ -24,20 +26,20 @@ ListPassIf::ListPassIf(const PdArgs& a)
     createOutlet();
 }
 
-void ListPassIf::onList(const AtomList& lst)
+void ListPassIf::onList(const AtomListView& lv)
 {
-    AtomList res;
+    SmallAtomListN<32> res;
 
-    for (size_t i = 0; i < lst.size(); i++) {
+    for (size_t i = 0; i < lv.size(); i++) {
         pass_flag_ = false;
 
-        atomTo(1, lst[i]);
+        atomTo(1, lv[i]);
 
         if (pass_flag_)
-            res.append(lst[i]);
+            res.push_back(lv[i]);
     }
 
-    listTo(0, res);
+    listTo(0, res.view());
 }
 
 void ListPassIf::onInlet(size_t n, const AtomListView& l)
@@ -67,7 +69,8 @@ void ListPassIf::onDataT(const MListAtom& ml)
 void setup_list_pass_if()
 {
     ObjectFactory<ListPassIf> obj("list.pass_if");
-    obj.addAlias("list.filter");
+    DEPRECATED_ALIAS(obj, "list.filter");
+
     obj.useDefaultPdFloatFn();
 
     obj.processData<DataTypeMList>();
@@ -78,6 +81,5 @@ void setup_list_pass_if()
     obj.setCategory("list");
     obj.setSinceVersion(0, 3);
 
-    ListPassIf::setInletsInfo(obj.classPointer(), { "list or Mlist", "int: 1 or 0 from predicate" });
-    ListPassIf::setOutletsInfo(obj.classPointer(), { "list or Mlist", "atom: to predicate" });
+    obj.setXletsInfo({ "list or Mlist", "int: 1 or 0 from predicate" }, { "list or Mlist", "atom: to predicate" });
 }

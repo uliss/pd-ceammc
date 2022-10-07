@@ -34,14 +34,14 @@ public:
     void onBang() override;
     void onFloat(t_float f) override;
     void onSymbol(t_symbol* s) override;
-    void onList(const AtomList& l) override;
+    void onList(const AtomListView& lv) override;
     void onAny(t_symbol* s, const AtomListView& l) override;
     void onData(const Atom&) override;
 
     bool processAnyProps(t_symbol* s, const AtomListView&) override;
     void initDone() override;
 
-    void onInletAny(Inlet* inl, t_symbol* s, const AtomListView& lv);
+    void onInletAny(int id, t_symbol* s, const AtomListView& lv);
 
 private:
     void tick();

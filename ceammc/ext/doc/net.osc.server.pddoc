@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="net.osc.server">
+        <title>net.osc.server</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>OSC server control</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>net</category>
+            <keywords>net osc server</keywords>
+            <since>0.9.5</since>
+            <also>
+                <see>net.osc.send</see>
+                <see>net.osc.receive</see>
+            </also>
+            <aliases>
+                <alias>net.osc</alias>
+            </aliases>
+        </meta>
+        <arguments>
+            <argument name="NAME" type="symbol">OSC server name (for using with other
+            objects)</argument>
+            <argument name="URL" type="atom">OSC server url (like osc.udp://:12345), see @url
+            property</argument>
+        </arguments>
+        <methods>
+            <method name="start">start OSC server 
+            <param name="VAL" type="int" enum="0 1">1: start, 0: stop</param></method>
+            <method name="stop">stop OSC server 
+            <param name="VAL" type="int" enum="0 1">1: stop, 0: start</param></method>
+        </methods>
+        <properties>
+            <property name="@dump" type="int" enum="0 1" default="0">dump incoming messages to Pd
+            window</property>
+            <property name="@auto_start" type="int" enum="0 1" default="1">automatically start on
+            creation</property>
+            <property name="@url" type="atom" default="9000">OSC server url in form:
+            osc.PROTO://:PORT or just PORT (for ex. osc.udp://:9001)</property>
+            <property name="@name" type="symbol" default="default">OSC server name</property>
+            <property name="@port" type="symbol" default="9000" readonly="true">OSC server
+            port</property>
+            <property name="@proto" type="symbol" default="udp" readonly="true">OSC server proto
+            (udp or tcp)</property>
+            <property name="@host" type="symbol" default="" readonly="true">OSC server
+            host</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo>...</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>...</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+/*default OSC server: osc.udp://:9000*/
+
+[tgl]
+|
+[@dump $1( [start( [stop(
+|          |       |
+[net.osc.server    ]
+
+/*send list of floats*/
+
+[send /addr 1 2 3 4(
+|
+[net.osc.send localhost 9000]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

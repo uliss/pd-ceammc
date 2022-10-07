@@ -13,9 +13,9 @@ ListDistribution::ListDistribution(const PdArgs& a)
     addProperty(normalize_);
 }
 
-void ListDistribution::onList(const AtomList& l)
+void ListDistribution::onList(const AtomListView& lv)
 {
-    listTo(0, list::countRepeats(l, normalize_->value()));
+    listTo(0, list::countRepeats(lv, normalize_->value()));
 }
 
 void setup_list_distribution()

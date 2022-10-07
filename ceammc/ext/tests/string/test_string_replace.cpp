@@ -85,14 +85,14 @@ TEST_CASE("string.replace", "[external]")
 
     SECTION("space")
     {
-        TestExtStringReplace t("string.replace", LA("\" \"", "Y"));
+        TestExtStringReplace t("string.replace", LP("\" \" Y"));
         REQUIRE_PROPERTY(t, @from, " ");
         REQUIRE_PROPERTY(t, @to, "Y");
     }
 
     SECTION("space")
     {
-        TestExtStringReplace t("string.replace", LA("\"A\"", "\"\""));
+        TestExtStringReplace t("string.replace", LP("\"A\" \"\""));
         REQUIRE_PROPERTY(t, @from, "A");
         REQUIRE_PROPERTY(t, @to, "");
     }

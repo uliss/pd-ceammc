@@ -22,7 +22,7 @@ using namespace ceammc;
 class ListReverse : public BaseObject {
 public:
     ListReverse(const PdArgs& a);
-    void onList(const AtomList& l) override;
+    void onList(const AtomListView& lv) override;
     void onDataT(const MListAtom& ml);
 };
 

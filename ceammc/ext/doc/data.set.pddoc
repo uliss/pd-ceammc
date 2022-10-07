@@ -25,7 +25,6 @@
             empty, otherwise 0</property>
             <property name="@size" readonly="true" minvalue="0" type="int" default="0">number of
             elements in list</property>
-            <property name="@value" type="list">current value</property>
         </properties>
         <methods>
             <method name="add">add values to the set 
@@ -35,6 +34,7 @@
             <param name="VAL" type="list" required="true">elements</param></method>
             <method name="set">sets new set content without output 
             <param name="LIST" type="list" required="true">new set content</param></method>
+            <method name="choose">choose random element and output it</method>
         </methods>
         <inlets>
             <inlet>

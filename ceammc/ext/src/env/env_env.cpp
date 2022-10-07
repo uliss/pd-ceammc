@@ -1,34 +1,35 @@
 #include "env_env.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "datatype_env.h"
 
 #include <boost/range.hpp>
 #include <limits>
 
-static t_symbol* SYM_CURVE_STEP;
-static t_symbol* SYM_CURVE_LINE;
-static t_symbol* SYM_CURVE_EXP;
-static t_symbol* SYM_CURVE_SIN2;
-static t_symbol* SYM_CURVE_SIGMOID;
+CEAMMC_DEFINE_SYM_HASH(step);
+CEAMMC_DEFINE_SYM_HASH(line);
+CEAMMC_DEFINE_SYM_HASH(exp);
+CEAMMC_DEFINE_SYM_HASH(sin2);
+CEAMMC_DEFINE_SYM_HASH(sigmoid);
 
-static t_symbol* SYM_ADSR;
-static t_symbol* SYM_ASR;
-static t_symbol* SYM_AR;
-static t_symbol* SYM_EADSR;
-static t_symbol* SYM_EASR;
-static t_symbol* SYM_EAR;
-static t_symbol* SYM_EMPTY;
+CEAMMC_DEFINE_SYM_HASH(adsr);
+CEAMMC_DEFINE_SYM_HASH(asr);
+CEAMMC_DEFINE_SYM_HASH(ar);
+CEAMMC_DEFINE_SYM_HASH(eadsr);
+CEAMMC_DEFINE_SYM_HASH(easr);
+CEAMMC_DEFINE_SYM_HASH(ear);
+CEAMMC_DEFINE_SYM_HASH(empty);
 
 Envelope::Envelope(const PdArgs& args)
     : BaseObject(args)
 {
     createOutlet();
 
-    t_symbol* method = parsedPosArgs().symbolAt(0, SYM_EMPTY);
+    t_symbol* method = parsedPosArgs().symbolAt(0, sym_empty());
 
     if (env_->isNamedEnvelope(method->s_name))
         env_->setNamedEnvelope(method->s_name, parsedPosArgs().slice(1));
-    else if (method != SYM_EMPTY) // wrong name
+    else if (method != sym_empty()) // wrong name
         OBJ_ERR << "unknown arguments: " << parsedPosArgs();
 
     {
@@ -71,34 +72,42 @@ void Envelope::onDataT(const EnvAtom& env)
     onBang();
 }
 
-void Envelope::m_addPoint(t_symbol* s, const AtomListView& lst)
+void Envelope::m_addPoint(t_symbol* s, const AtomListView& lv)
 {
-    if (!checkArgs(lst, ARG_FLOAT, ARG_FLOAT, s))
+    if (!checkArgs(lv, ARG_FLOAT, ARG_FLOAT, s))
         return;
 
-    int point_time = lst[0].asFloat() * 1000;
+    int point_time = lv[0].asFloat() * 1000;
     if (point_time < 0) {
         OBJ_ERR << "invalid point time: " << point_time;
         return;
     }
 
-    t_float point_value = lst[1].asFloat();
-    bool stop_point = lst.size() < 3 ? false : lst[2].asFloat(0);
-    t_symbol* curve = lst.size() < 4 ? SYM_CURVE_LINE : lst[3].asSymbol();
-    t_float curve_data = lst.size() < 5 ? 1 : lst[4].asFloat(1);
+    t_float point_value = lv[1].asFloat();
+    bool stop_point = lv.boolAt(2, false);
+    t_symbol* curve = lv.symbolAt(3, sym_line());
+    t_float curve_data = lv.floatAt(4, 1);
 
     CurveType curve_type = CURVE_LINE;
 
-    if (curve == SYM_CURVE_STEP)
+    switch (crc32_hash(curve)) {
+    case hash_step:
         curve_type = CURVE_STEP;
-    else if (curve == SYM_CURVE_EXP)
+        break;
+    case hash_exp:
         curve_type = CURVE_EXP;
-    else if (curve == SYM_CURVE_SIN2)
+        break;
+    case hash_sin2:
         curve_type = CURVE_SIN2;
-    else if (curve == SYM_CURVE_SIGMOID)
+        break;
+    case hash_sigmoid:
         curve_type = CURVE_SIGMOID;
-    else
+        break;
+    case hash_line:
+    default:
         curve_type = CURVE_LINE;
+        break;
+    }
 
     EnvelopePoint pt(point_time, point_value, stop_point, curve_type);
     pt.data = curve_data;
@@ -106,12 +115,12 @@ void Envelope::m_addPoint(t_symbol* s, const AtomListView& lst)
     env_->insertPoint(pt);
 }
 
-void Envelope::m_removePoint(t_symbol* s, const AtomListView& lst)
+void Envelope::m_removePoint(t_symbol* s, const AtomListView& lv)
 {
-    if (!checkArgs(lst, ARG_NATURAL, s))
+    if (!checkArgs(lv, ARG_NATURAL, s))
         return;
 
-    size_t point_idx = lst[0].asSizeT();
+    size_t point_idx = lv[0].asSizeT();
     if (point_idx >= env_->numPoints()) {
         OBJ_ERR << "invalid point index: " << point_idx;
         return;
@@ -122,46 +131,46 @@ void Envelope::m_removePoint(t_symbol* s, const AtomListView& lst)
         OBJ_ERR << "can't remove point at: " << point_idx;
 }
 
-void Envelope::m_setPointTime(t_symbol* s, const AtomListView& lst)
+void Envelope::m_setPointTime(t_symbol* s, const AtomListView& lv)
 {
-    if (!checkArgs(lst, ARG_NATURAL, ARG_FLOAT, s))
+    if (!checkArgs(lv, ARG_NATURAL, ARG_FLOAT, s))
         return;
 
-    size_t point_idx = lst[0].asSizeT();
+    size_t point_idx = lv[0].asSizeT();
     if (point_idx >= env_->numPoints()) {
         OBJ_ERR << "invalid point index: " << point_idx;
         return;
     }
 
     env_.detachData();
-    env_->pointAt(point_idx).utime = lst[1].asFloat() * 1000;
+    env_->pointAt(point_idx).utime = lv[1].asFloat() * 1000;
     env_->sort();
 }
 
-void Envelope::m_setPointValue(t_symbol* s, const AtomListView& lst)
+void Envelope::m_setPointValue(t_symbol* s, const AtomListView& lv)
 {
-    if (!checkArgs(lst, ARG_NATURAL, ARG_FLOAT, s))
+    if (!checkArgs(lv, ARG_NATURAL, ARG_FLOAT, s))
         return;
 
-    size_t point_idx = lst[0].asSizeT();
+    size_t point_idx = lv[0].asSizeT();
     if (point_idx >= env_->numPoints()) {
         OBJ_ERR << "invalid point index: " << point_idx;
         return;
     }
 
     env_.detachData();
-    env_->pointAt(point_idx).value = lst[1].asFloat();
+    env_->pointAt(point_idx).value = lv[1].asFloat();
 }
 
-void Envelope::m_setPoint(t_symbol* s, const AtomListView& lst)
+void Envelope::m_setPoint(t_symbol* s, const AtomListView& lv)
 {
-    if (!checkArgs(lst, ARG_NATURAL, s))
+    if (!checkArgs(lv, ARG_NATURAL, s))
         return;
 
-    size_t idx = lst[0].asSizeT();
-    t_float time_ms = lst.floatAt(1, -1);
-    t_float value = lst.floatAt(2, 0);
-    int stop = lst.intAt(2, 0);
+    size_t idx = lv[0].asSizeT();
+    t_float time_ms = lv.floatAt(1, -1);
+    t_float value = lv.floatAt(2, 0);
+    int stop = lv.intAt(2, 0);
 
     if (idx >= env_->numPoints()) {
         OBJ_ERR << "invalid point index: " << idx;
@@ -182,28 +191,28 @@ void Envelope::m_setPoint(t_symbol* s, const AtomListView& lst)
     env_->sort();
 }
 
-void Envelope::m_setStopPoint(t_symbol* s, const AtomListView& lst)
+void Envelope::m_setStopPoint(t_symbol* s, const AtomListView& lv)
 {
-    if (!checkArgs(lst, ARG_NATURAL, ARG_BOOL, s))
+    if (!checkArgs(lv, ARG_NATURAL, ARG_BOOL, s))
         return;
 
-    size_t point_idx = lst[0].asSizeT();
+    size_t point_idx = lv[0].asSizeT();
     if (point_idx >= env_->numPoints()) {
         OBJ_ERR << "invalid point index: " << point_idx;
         return;
     }
 
     env_.detachData();
-    env_->pointAt(point_idx).stop = lst[1].asInt();
+    env_->pointAt(point_idx).stop = lv[1].asInt();
 }
 
-void Envelope::m_appendSegment(t_symbol* s, const AtomListView& lst)
+void Envelope::m_appendSegment(t_symbol* s, const AtomListView& lv)
 {
-    t_symbol* type = lst.symbolAt(0, NULL);
-    int length_ms = lst.intAt(1, -1);
-    t_float value = lst.floatAt(2, std::numeric_limits<t_float>::max());
+    t_symbol* type = lv.symbolAt(0, NULL);
+    int length_ms = lv.intAt(1, -1);
+    t_float value = lv.floatAt(2, std::numeric_limits<t_float>::max());
 
-    t_float curve_skew = lst.floatAt(3, 0);
+    t_float curve_skew = lv.floatAt(3, 0);
 
     if (length_ms < 1
         || value == std::numeric_limits<t_float>::max()
@@ -226,22 +235,22 @@ void Envelope::m_appendSegment(t_symbol* s, const AtomListView& lst)
         OBJ_ERR << "can't append segment";
 }
 
-void Envelope::m_setSegmentType(t_symbol* s, const AtomListView& lst)
+void Envelope::m_setSegmentType(t_symbol* s, const AtomListView& lv)
 {
-    if (!checkArgs(lst, ARG_NATURAL, ARG_SYMBOL, s))
+    if (!checkArgs(lv, ARG_NATURAL, ARG_SYMBOL, s))
         return;
 
     if (env_->numPoints() == 0)
         return;
 
-    size_t seg_idx = lst[0].asSizeT();
+    size_t seg_idx = lv[0].asSizeT();
 
     if (seg_idx >= (env_->numPoints() - 1)) {
         OBJ_ERR << "invalid segment index: " << seg_idx;
         return;
     }
 
-    t_symbol* t = lst[1].asSymbol();
+    t_symbol* t = lv[1].asSymbol();
     CurveType seg_type = CURVE_LINE;
     if (!symbol2curve(t, seg_type)) {
         OBJ_ERR << "invalid segment type: " << t->s_name;
@@ -252,118 +261,118 @@ void Envelope::m_setSegmentType(t_symbol* s, const AtomListView& lst)
     env_->pointAt(seg_idx).type = seg_type;
 }
 
-void Envelope::m_plus(t_symbol* s, const AtomListView& lst)
+void Envelope::m_plus(t_symbol* s, const AtomListView& lv)
 {
-    if (!checkArgs(lst, ARG_FLOAT, s))
+    if (!checkArgs(lv, ARG_FLOAT, s))
         return;
 
-    t_float v = lst[0].asFloat();
+    t_float v = lv[0].asFloat();
 
     env_.detachData();
     for (size_t i = 0; i < env_->numPoints(); i++)
         env_->pointAt(i).value += v;
 }
 
-void Envelope::m_multiply(t_symbol* s, const AtomListView& lst)
+void Envelope::m_multiply(t_symbol* s, const AtomListView& lv)
 {
-    if (!checkArgs(lst, ARG_FLOAT, s))
+    if (!checkArgs(lv, ARG_FLOAT, s))
         return;
 
-    t_float v = lst[0].asFloat();
+    t_float v = lv[0].asFloat();
 
     env_.detachData();
     for (size_t i = 0; i < env_->numPoints(); i++)
         env_->pointAt(i).value *= v;
 }
 
-void Envelope::m_shift(t_symbol* s, const AtomListView& lst)
+void Envelope::m_shift(t_symbol* s, const AtomListView& lv)
 {
-    if (!checkArgs(lst, ARG_FLOAT, s))
+    if (!checkArgs(lv, ARG_FLOAT, s))
         return;
 
     env_.detachData();
-    long v = lst[0].asFloat() * 1000;
+    long v = lv[0].asFloat() * 1000;
     env_->shiftTime(v);
 }
 
-void Envelope::m_AR(t_symbol* s, const AtomListView& lst)
+void Envelope::m_AR(t_symbol* s, const AtomListView& lv)
 {
     env_.detachData();
-    env_->setAR(lst);
+    env_->setAR(lv);
 }
 
-void Envelope::m_ASR(t_symbol* s, const AtomListView& lst)
+void Envelope::m_ASR(t_symbol* s, const AtomListView& lv)
 {
     env_.detachData();
-    env_->setASR(lst);
+    env_->setASR(lv);
 }
 
-void Envelope::m_ADSR(t_symbol* s, const AtomListView& lst)
+void Envelope::m_ADSR(t_symbol* s, const AtomListView& lv)
 {
     env_.detachData();
-    env_->setADSR(lst);
+    env_->setADSR(lv);
 }
 
-void Envelope::m_EADSR(t_symbol* s, const AtomListView& lst)
+void Envelope::m_EADSR(t_symbol* s, const AtomListView& lv)
 {
     env_.detachData();
-    env_->setEADSR(lst);
+    env_->setEADSR(lv);
 }
 
-void Envelope::m_EASR(t_symbol* s, const AtomListView& lst)
+void Envelope::m_EASR(t_symbol* s, const AtomListView& lv)
 {
     env_.detachData();
-    env_->setEASR(lst);
+    env_->setEASR(lv);
 }
 
-void Envelope::m_EAR(t_symbol* s, const AtomListView& lst)
+void Envelope::m_EAR(t_symbol* s, const AtomListView& lv)
 {
     env_.detachData();
-    env_->setEAR(lst);
+    env_->setEAR(lv);
 }
 
-void Envelope::m_step(t_symbol* s, const AtomListView& lst)
+void Envelope::m_step(t_symbol* s, const AtomListView& lv)
 {
-    if (lst.size() % 2 != 1 || !lst.allOf(isFloat)) {
+    if (lv.size() % 2 != 1 || !lv.allOf(isFloat)) {
         OBJ_ERR << "Usage: step VAL LENGTH VAL [LENGTH VAL]...";
         return;
     }
 
     env_.detachData();
-    if (!env_->setStep(lst))
+    if (!env_->setStep(lv))
         OBJ_ERR << "Can't set step envelope";
 }
 
-void Envelope::m_line(t_symbol* s, const AtomListView& lst)
+void Envelope::m_line(t_symbol* s, const AtomListView& lv)
 {
-    if (lst.size() % 2 != 1 || !lst.allOf(isFloat)) {
+    if (lv.size() % 2 != 1 || !lv.allOf(isFloat)) {
         OBJ_ERR << "Usage: line VAL LENGTH VAL [LENGTH VAL]...";
         return;
     }
 
     env_.detachData();
-    if (!env_->setLine(lst))
+    if (!env_->setLine(lv))
         OBJ_ERR << "Can't set line envelope";
 }
 
-void Envelope::m_sin2(t_symbol* s, const AtomListView& lst)
+void Envelope::m_sin2(t_symbol* s, const AtomListView& lv)
 {
     env_.detachData();
-    if (!env_->setSin2(lst))
+    if (!env_->setSin2(lv))
         OBJ_ERR << "Can't set sin2 envelope";
 }
 
-void Envelope::m_exp(t_symbol* s, const AtomListView& lst)
+void Envelope::m_exp(t_symbol* s, const AtomListView& lv)
 {
     env_.detachData();
-    if (!env_->setExponential(lst))
+    if (!env_->setExponential(lv))
         OBJ_ERR << "Can't set exponential envelope";
 }
 
-void Envelope::m_sigmoid(t_symbol* s, const AtomListView& lst)
+void Envelope::m_sigmoid(t_symbol* s, const AtomListView& lv)
 {
     env_.detachData();
-    if (!env_->setSigmoid(lst))
+    if (!env_->setSigmoid(lv))
         OBJ_ERR << "Can't set sigmoid envelope";
 }
 
@@ -413,20 +422,6 @@ AtomList Envelope::p_stops() const
 
 void setup_envelope_env()
 {
-    SYM_CURVE_STEP = gensym("step");
-    SYM_CURVE_LINE = gensym("line");
-    SYM_CURVE_EXP = gensym("exp");
-    SYM_CURVE_SIN2 = gensym("sin2");
-    SYM_CURVE_SIGMOID = gensym("sigmoid");
-
-    SYM_ADSR = gensym("adsr");
-    SYM_ASR = gensym("asr");
-    SYM_AR = gensym("ar");
-    SYM_EADSR = gensym("eadsr");
-    SYM_EASR = gensym("easr");
-    SYM_EAR = gensym("ear");
-    SYM_EMPTY = gensym("empty");
-
     ObjectFactory<Envelope> obj("envelope");
     obj.addAlias("env");
     obj.processData<DataTypeEnv>();
@@ -441,17 +436,17 @@ void setup_envelope_env()
     obj.addMethod("+", &Envelope::m_plus);
     obj.addMethod("*", &Envelope::m_multiply);
     obj.addMethod(">>", &Envelope::m_shift);
-    obj.addMethod("adsr", &Envelope::m_ADSR);
-    obj.addMethod("asr", &Envelope::m_ASR);
-    obj.addMethod("ar", &Envelope::m_AR);
-    obj.addMethod("eadsr", &Envelope::m_EADSR);
-    obj.addMethod("easr", &Envelope::m_EASR);
-    obj.addMethod("ear", &Envelope::m_EAR);
-    obj.addMethod("step", &Envelope::m_step);
-    obj.addMethod("line", &Envelope::m_line);
-    obj.addMethod("exp", &Envelope::m_exp);
-    obj.addMethod("sin2", &Envelope::m_sin2);
-    obj.addMethod("sigmoid", &Envelope::m_sigmoid);
+    obj.addMethod(str_adsr, &Envelope::m_ADSR);
+    obj.addMethod(str_asr, &Envelope::m_ASR);
+    obj.addMethod(str_ar, &Envelope::m_AR);
+    obj.addMethod(str_eadsr, &Envelope::m_EADSR);
+    obj.addMethod(str_easr, &Envelope::m_EASR);
+    obj.addMethod(str_ear, &Envelope::m_EAR);
+    obj.addMethod(str_step, &Envelope::m_step);
+    obj.addMethod(str_line, &Envelope::m_line);
+    obj.addMethod(str_exp, &Envelope::m_exp);
+    obj.addMethod(str_sin2, &Envelope::m_sin2);
+    obj.addMethod(str_sigmoid, &Envelope::m_sigmoid);
 
     obj.addMethod("clear", &Envelope::m_clear);
 }

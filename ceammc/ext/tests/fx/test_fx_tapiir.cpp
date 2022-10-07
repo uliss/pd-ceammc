@@ -192,4 +192,24 @@ TEST_CASE("fx.tapiir~", "[externals]")
         REQUIRE_PROPERTY_FLOAT(t, @tap4.in1, 0.5);
         REQUIRE_PROPERTY_FLOAT(t, @tap5.in1, 0.6);
     }
+
+    SECTION("pinpong")
+    {
+        TObj t("fx.tapiir~");
+
+        t.m_pingpong(&s_, LF(100, 0.25));
+
+        REQUIRE_PROPERTY_LIST(t, @delays, LF(100, 100, 0, 0, 0, 0));
+        REQUIRE_PROPERTY_LIST(t, @ins0, LF(1, 0, 0, 0, 0, 0));
+        REQUIRE_PROPERTY_LIST(t, @ins1, LF(0, 1, 0, 0, 0, 0));
+        REQUIRE_PROPERTY_LIST(t, @outs0, LF(1, 0, 0, 0, 0, 0));
+        REQUIRE_PROPERTY_LIST(t, @outs1, LF(0, 1, 0, 0, 0, 0));
+
+        REQUIRE_PROPERTY_LIST(t, @fbs0, LF(0, 0.25, 0, 0, 0, 0));
+        REQUIRE_PROPERTY_LIST(t, @fbs1, LF(0.25, 0, 0, 0, 0, 0));
+        REQUIRE_PROPERTY_LIST(t, @fbs2, LF(0, 0, 0, 0, 0, 0));
+        REQUIRE_PROPERTY_LIST(t, @fbs3, LF(0, 0, 0, 0, 0, 0));
+        REQUIRE_PROPERTY_LIST(t, @fbs4, LF(0, 0, 0, 0, 0, 0));
+        REQUIRE_PROPERTY_LIST(t, @fbs5, LF(0, 0, 0, 0, 0, 0));
+    }
 }

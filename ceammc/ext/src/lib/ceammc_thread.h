@@ -2,8 +2,11 @@
 #define CEAMMC_THREAD_H
 
 #include <atomic>
+#include <condition_variable>
 #include <future>
 #include <memory>
+#include <mutex>
+#include <list>
 
 #include "config.h"
 #ifdef HAVE_PTHREAD_H
@@ -11,10 +14,12 @@
 #endif
 
 #include "ceammc_clock.h"
+#include "ceammc_log.h"
+#include "ceammc_notify.h"
 #include "ceammc_object.h"
 #include "ceammc_pollfd.h"
 
-#include "readerwriterqueue/readerwriterqueue.h"
+#include "readerwriterqueue.h"
 
 namespace ceammc {
 
@@ -27,6 +32,83 @@ enum ThreadProto {
 };
 
 class ThreadExternalBase;
+
+/**
+ * Send notifications to waiting threads
+ */
+class ThreadNotify {
+    std::condition_variable notify_;
+    std::mutex mtx_;
+    using Lock = std::unique_lock<std::mutex>;
+
+    ThreadNotify(const ThreadNotify&) = delete;
+    ThreadNotify(ThreadNotify&&) = delete;
+    ThreadNotify& operator=(const ThreadNotify&) = delete;
+    ThreadNotify& operator=(ThreadNotify&&) = delete;
+
+public:
+    ThreadNotify();
+
+    /**
+     * notify one waiting thread
+     * @note called from main thread
+     */
+    void notifyOne();
+
+    /**
+     * notify all waiting threads
+     * @note called from main thread
+     */
+    void notifyAll();
+
+    /**
+     * @brief wait for notification
+     * blocks until specified time in ms has elapsed
+     * or the notification arrived, whichever comes first
+     * @param ms = maximum blocking time
+     * @note called from worker thread
+     */
+    void waitFor(int ms = 100);
+};
+
+class ThreadPdLogger : public NotifiedObject {
+    using Msg = std::pair<std::string, LogLevel>;
+    using Lock = std::lock_guard<std::mutex>;
+
+    std::string prefix_;
+    std::mutex mtx_;
+    std::list<Msg> msg_;
+
+public:
+    ThreadPdLogger(const std::string& prefix = "");
+    ~ThreadPdLogger();
+
+    bool notify(NotifyEventType /*code*/) final;
+
+    /**
+     * put error message to logger
+     * @note should be called in worker thread
+     */
+    void error(const std::string& msg);
+
+    /**
+     * put post message to logger
+     * @note should be called in worker thread
+     */
+    void post(const std::string& msg);
+
+    /**
+     * put debug message to logger
+     * @note should be called in worker thread
+     */
+    void debug(const std::string& msg);
+
+    /**
+     * put verbose message to logger
+     * @note should be called in worker thread
+     */
+    void verbose(const std::string& msg);
+};
 
 namespace thread {
     class Lock {

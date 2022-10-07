@@ -16,13 +16,13 @@ ListEach::ListEach(const PdArgs& a)
     addProperty(step_prop_);
 }
 
-void ListEach::onList(const AtomList& l)
+void ListEach::onList(const AtomListView& lv)
 {
-    doEach(l);
+    doEach(lv);
     return listTo(0, mapped_list_);
 }
 
-void ListEach::doEach(const AtomList& l)
+void ListEach::doEach(const AtomListView& lv)
 {
     mapped_list_.clear();
 
@@ -30,23 +30,23 @@ void ListEach::doEach(const AtomList& l)
 
     // output single values
     if (step == 1) {
-        for (size_t i = 0; i < l.size(); i += step)
-            atomTo(1, l[i]);
+        for (size_t i = 0; i < lv.size(); i += step)
+            atomTo(1, lv[i]);
     } else { // output as sublist
-        for (size_t i = 0; i < l.size(); i += step)
-            listTo(1, l.view(i, step));
+        for (size_t i = 0; i < lv.size(); i += step)
+            listTo(1, lv.subView(i, step));
     }
 }
 
-void ListEach::onInlet(size_t n, const AtomListView& l)
+void ListEach::onInlet(size_t n, const AtomListView& lv)
 {
     if (n != 1)
         return;
 
-    if (l.empty())
+    if (lv.empty())
         return;
 
-    mapped_list_.append(l);
+    mapped_list_.append(lv);
 }
 
 void ListEach::onDataT(const MListAtom& ml)

@@ -1,16 +1,16 @@
 {
 	"name": "noise.crackle",
 	"filename": "noise_crackle.dsp",
-	"version": "2.37.3",
-	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0",
+	"version": "2.44.1",
+	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn noise_crackle -scn noise_crackle_dsp -es 1 -mcd 16 -single -ftz 0",
 	"library_list": ["/usr/local/share/faust/noises.lib","/usr/local/share/faust/oscillators.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib","/usr/local/share/faust/basics.lib"],
 	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
 	"inputs": 0,
 	"outputs": 1,
 	"meta": [ 
 		{ "basics.lib/name": "Faust Basic Element Library" },
-		{ "basics.lib/version": "0.2" },
-		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0" },
+		{ "basics.lib/version": "0.8" },
+		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn noise_crackle -scn noise_crackle_dsp -es 1 -mcd 16 -single -ftz 0" },
 		{ "filename": "noise_crackle.dsp" },
 		{ "maths.lib/author": "GRAME" },
 		{ "maths.lib/copyright": "GRAME" },
@@ -19,9 +19,11 @@
 		{ "maths.lib/version": "2.5" },
 		{ "name": "noise.crackle" },
 		{ "noises.lib/name": "Faust Noise Generator Library" },
-		{ "noises.lib/version": "0.1" },
+		{ "noises.lib/version": "0.4" },
+		{ "oscillators.lib/lf_sawpos:author": "Bart Brouns, revised by Stéphane Letz" },
+		{ "oscillators.lib/lf_sawpos:licence": "STK-4.3" },
 		{ "oscillators.lib/name": "Faust Oscillator Library" },
-		{ "oscillators.lib/version": "0.1" },
+		{ "oscillators.lib/version": "0.3" },
 		{ "platform.lib/name": "Generic Platform Library" },
 		{ "platform.lib/version": "0.2" }
 	],
@@ -33,6 +35,7 @@
 				{
 					"type": "hslider",
 					"label": "freq",
+					"shortname": "freq",
 					"address": "/noise.crackle/freq",
 					"meta": [
 						{ "style": "knob" },

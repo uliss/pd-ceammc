@@ -7,7 +7,7 @@
 #X obj 525 250 route @bypass @control @damp_hf @decay_low @decay_mid
 @depth @drywet @envelope @freq_low @mode @ps_drywet @shift @speed;
 #X obj 775 350 print unknown property;
-#X msg 425 75 @control 0.5 \, @damp_hf 6000 \, @decay_low 3 \, @decay_mid 2 \, @depth 0 \, @drywet 0.5 \, @envelope 1 \, @freq_low 200 \, @mode 0 \, @ps_drywet 0.5 \, @shift 0 \, @speed 0.1 \,;
+#X msg 425 75 @control 0.5 \, @damp_hf 6000 \, @decay_low 3 \, @decay_mid 2 \, @depth 0 \, @drywet 0.5 \, @envelope 1 \, @freq_low 200 \, @mode 0 \, @ps_drywet 0.5 \, @shift 12 \, @speed 0.1 \,;
 #X obj 425 25 msg.onload;
 #X obj 500 550 outlet~;
 #X obj 600 550 outlet~;

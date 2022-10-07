@@ -13,30 +13,29 @@
  *****************************************************************************/
 #include "ui_arrayview.h"
 #include "ceammc_convert.h"
-#include "ceammc_format.h"
 #include "ceammc_ui.h"
 
-static t_symbol* SYM_ARRAY_NAME;
-static t_symbol* SYM_ATTR_SIZE;
-static t_symbol* SYM_ATTR_WAVE_COLOR;
-static t_symbol* SYM_ATTR_CURSOR_COLOR;
-static t_symbol* SYM_ATTR_SELECTION_COLOR;
-static t_symbol* SYM_ATTR_BG_COLOR;
-static t_symbol* SYM_ATTR_SHOW_LABELS;
-static t_symbol* SYM_CURSOR_SAMPLE;
-static t_symbol* SYM_CURSOR_PHASE;
-static t_symbol* SYM_CURSOR_MS;
-static t_symbol* SYM_CURSOR_SEC;
+constexpr const char* SYM_ARRAY_NAME = "array";
+constexpr const char* SYM_ATTR_SIZE = "size";
+constexpr const char* SYM_ATTR_WAVE_COLOR = "wave_color";
+constexpr const char* SYM_ATTR_CURSOR_COLOR = "cursor_color";
+constexpr const char* SYM_ATTR_SELECTION_COLOR = "selection_color";
+constexpr const char* SYM_ATTR_BG_COLOR = PROP_BACKGROUND_COLOR;
+constexpr const char* SYM_ATTR_SHOW_LABELS = "show_labels";
+constexpr const char* SYM_CURSOR_SAMPLE = "@cursor_samp";
+constexpr const char* SYM_CURSOR_PHASE = "@cursor_phase";
+constexpr const char* SYM_CURSOR_MS = "@cursor_ms";
+constexpr const char* SYM_CURSOR_SEC = "@cursor_sec";
 
-static t_symbol* SYM_SELECT_SAMPLE;
-static t_symbol* SYM_SELECT_PHASE;
-static t_symbol* SYM_SELECT_MS;
-static t_symbol* SYM_SELECT_SEC;
-static t_symbol* SYM_BEGIN;
-static t_symbol* SYM_END;
+constexpr const char* SYM_SELECT_SAMPLE = "@select_samp";
+constexpr const char* SYM_SELECT_PHASE = "@select_phase";
+constexpr const char* SYM_SELECT_MS = "@select_ms";
+constexpr const char* SYM_SELECT_SEC = "@select_sec";
+constexpr const char* SYM_BEGIN = "@begin";
+constexpr const char* SYM_END = "@end";
 
-static const size_t RENDER_CHUNK = 44100 * 5;
-static const size_t RENDER_CHUNK_PERIOD = 100;
+constexpr size_t RENDER_CHUNK = 44100 * 5;
+constexpr size_t RENDER_CHUNK_PERIOD = 100;
 
 UIArrayView::UIArrayView()
     : cursor_layer_(asEBox(), gensym("control_layer"))
@@ -184,7 +183,7 @@ void UIArrayView::okSize(t_rect* newrect)
 
 void UIArrayView::onPropChange(t_symbol* prop_name)
 {
-    if (prop_name == SYM_ATTR_SIZE) {
+    if (prop_name == gensym(SYM_ATTR_SIZE)) {
         // width changed
         if (buffer_.size() != width()) {
             buffer_.resize(width());
@@ -196,17 +195,17 @@ void UIArrayView::onPropChange(t_symbol* prop_name)
             wave_layer_.invalidate();
             redraw();
         }
-    } else if (prop_name == SYM_ATTR_WAVE_COLOR || prop_name == SYM_ATTR_SELECTION_COLOR) {
+    } else if (prop_name == gensym(SYM_ATTR_WAVE_COLOR) || prop_name == gensym(SYM_ATTR_SELECTION_COLOR)) {
         wave_layer_.invalidate();
         redraw();
-    } else if (prop_name == SYM_ATTR_BG_COLOR || prop_name == SYM_ATTR_SHOW_LABELS) {
+    } else if (prop_name == gensym(SYM_ATTR_BG_COLOR) || prop_name == gensym(SYM_ATTR_SHOW_LABELS)) {
         bg_layer_.invalidate();
         wave_layer_.invalidate();
         redraw();
-    } else if (prop_name == SYM_ATTR_CURSOR_COLOR) {
+    } else if (prop_name == gensym(SYM_ATTR_CURSOR_COLOR)) {
         cursor_layer_.invalidate();
         redraw();
-    } else if (prop_name == SYM_ARRAY_NAME) {
+    } else if (prop_name == gensym(SYM_ARRAY_NAME)) {
         m_update();
     }
 }
@@ -638,19 +637,19 @@ void UIArrayView::output()
     if (N == 0 || SR == 0)
         return;
 
-    anyTo(0, SYM_CURSOR_SAMPLE, Atom(cursor_sample_pos_));
-    anyTo(0, SYM_CURSOR_PHASE, Atom(double(cursor_sample_pos_) / double(N - 1)));
-    anyTo(0, SYM_CURSOR_MS, Atom(double(cursor_sample_pos_ * 1000) / SR));
-    anyTo(0, SYM_CURSOR_SEC, Atom(double(cursor_sample_pos_) / SR));
+    anyTo(0, gensym(SYM_CURSOR_SAMPLE), Atom(cursor_sample_pos_));
+    anyTo(0, gensym(SYM_CURSOR_PHASE), Atom(double(cursor_sample_pos_) / double(N - 1)));
+    anyTo(0, gensym(SYM_CURSOR_MS), Atom(double(cursor_sample_pos_ * 1000) / SR));
+    anyTo(0, gensym(SYM_CURSOR_SEC), Atom(double(cursor_sample_pos_) / SR));
 
     // output selection
     if (!selection_.isNull() && selection_.absLength() > 0) {
-        anyTo(0, SYM_SELECT_SAMPLE, selectPosSample());
-        anyTo(0, SYM_SELECT_PHASE, selectPosPhase());
-        anyTo(0, SYM_SELECT_MS, selectPosMs());
-        anyTo(0, SYM_SELECT_SEC, selectPosSec());
-        anyTo(0, SYM_BEGIN, Atom(selection_.from()));
-        anyTo(0, SYM_END, Atom(selection_.to()));
+        anyTo(0, gensym(SYM_SELECT_SAMPLE), selectPosSample());
+        anyTo(0, gensym(SYM_SELECT_PHASE), selectPosPhase());
+        anyTo(0, gensym(SYM_SELECT_MS), selectPosMs());
+        anyTo(0, gensym(SYM_SELECT_SEC), selectPosSec());
+        anyTo(0, gensym(SYM_BEGIN), Atom(selection_.from()));
+        anyTo(0, gensym(SYM_END), Atom(selection_.to()));
     }
 }
 
@@ -1073,24 +1072,5 @@ bool UIArrayView::openArray() const
 
 void setup_ui_arrayview()
 {
-    SYM_ARRAY_NAME = gensym("array");
-    SYM_ATTR_SIZE = gensym("size");
-    SYM_ATTR_WAVE_COLOR = gensym("wave_color");
-    SYM_ATTR_CURSOR_COLOR = gensym("cursor_color");
-    SYM_ATTR_SELECTION_COLOR = gensym("selection_color");
-    SYM_ATTR_BG_COLOR = gensym(PROP_BACKGROUND_COLOR);
-    SYM_ATTR_SHOW_LABELS = gensym("show_labels");
-    SYM_CURSOR_SAMPLE = gensym("@cursor_samp");
-    SYM_CURSOR_PHASE = gensym("@cursor_phase");
-    SYM_CURSOR_MS = gensym("@cursor_ms");
-    SYM_CURSOR_SEC = gensym("@cursor_sec");
-
-    SYM_SELECT_SAMPLE = gensym("@select_samp");
-    SYM_SELECT_PHASE = gensym("@select_phase");
-    SYM_SELECT_MS = gensym("@select_ms");
-    SYM_SELECT_SEC = gensym("@select_sec");
-    SYM_BEGIN = gensym("@begin");
-    SYM_END = gensym("@end");
-
     UIArrayView::setup();
 }

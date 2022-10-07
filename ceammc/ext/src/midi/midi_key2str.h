@@ -15,7 +15,7 @@ public:
     void onFloat(t_float f) override;
 
     AtomList p_tonality() const;
-    bool p_setTonality(const AtomList& l);
+    bool p_setTonality(const AtomListView& lv);
 
 private:
     bool isMajor() const;

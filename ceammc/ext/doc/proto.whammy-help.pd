@@ -1,0 +1,135 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 506 50 cnv 1 259 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 506 50 Control for Digitech Whammy pedal;
+#X obj 1 1 cnv 5 765 40 empty empty proto.whammy 20 20 0 20 -104026
+-4096 0;
+#X obj 653 11 proto.whammy;
+#X obj 50 118 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 232 118 ui.tab chords classic;
+#X msg 88 147 random harm;
+#X msg 232 147 @mode \$2;
+#X obj 50 176 proto.whammy @chan 0 @mode classic;
+#X obj 50 205 midiout;
+#X obj 146 205 print;
+#X obj 20 254 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 259 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+-49933 0;
+#X msg 110 294 @active;
+#X text 245 294 Get/Set pedal state. Type: int. Default value: 1\.
+Allowed values: 0 \, 1\.;
+#X msg 110 336 @chan;
+#X text 245 336 Get/Set output Midi channel. Type: int. Default value:
+0\. Range: 0\...15\.;
+#X msg 110 378 @chords;
+#X text 245 378 alias for @mode chords.;
+#X msg 110 407 @classic;
+#X text 245 407 alias for @mode classic.;
+#X msg 110 436 @mode;
+#X text 245 436 Get/Set pedal mode (should corresponde to hardware
+switch on pedal). Type: symbol. Default value: classic. Allowed values:
+chords \, classic.;
+#X msg 110 493 @seed;
+#X text 245 493 Get/Set random seed. Type: int. Default value: 0\.
+Min value: 0\.;
+#X obj 20 545 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 550 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+-49933 0;
+#X msg 110 585 next;
+#X text 245 585 select next preset. Arguments are:;
+#X obj 255 608 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 608 [N]: positive step or 'random'. Type: atom.;
+#X msg 110 633 prev;
+#X text 245 633 select previous preset. Arguments are:;
+#X obj 255 656 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 656 [N]: positive step or 'random'. Type: atom.;
+#X msg 110 681 random;
+#X text 245 681 choose random preset. Arguments are:;
+#X obj 255 704 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 704 MODE: if 'whammy' - select random preset from 'whammy'
+modes (right pedal side) \, if 'harm' - select random preset from harmonizer
+modes (left pedal side) \, if 'detune' - select random detune mode.
+If not specified - select random mode from all categories. Type: symbol.
+Allowed values: whammy \, harm \, detune.;
+#X obj 255 802 cnv 1 54 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 802 [STATE]: pedal state (on/off). Type: int. Allowed values:
+0 \, 1\.;
+#X msg 110 842 reset;
+#X text 245 842 turn off pedal and select default preset.;
+#X msg 110 869 set IDX;
+#X text 245 869 set preset by index. Arguments are:;
+#X obj 255 892 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 892 IDX: preset index. Type: int. Range: 0\...20\.;
+#X obj 255 915 cnv 1 54 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 915 [STATE]: pedal state (on/off). Type: int. Allowed values:
+0 \, 1\.;
+#X msg 110 955 set NAME;
+#X text 245 955 set preset by name. Arguments are:;
+#X obj 255 978 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 978 NAME: preset name. Type: symbol. Range: 0\...20\. Allowed
+values: +2oct \, +1oct \, +5th \, +4th \, -2nd \, -4th \, -5th \, -1oct
+\, -2oct \, bomb \, deep \, shallow \, +2+3 \, +3b+3 \, +3+4 \, +4+5
+\, +5+6 \, +5+7 \, -4-3 \, -5-4 \, -8+8\.;
+#X obj 255 1046 cnv 1 54 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1046 [STATE]: pedal state (on/off). Type: int. Allowed
+values: 0 \, 1\.;
+#X msg 110 1086 set UP DOWN;
+#X text 245 1086 set preset by transpose range. Arguments are:;
+#X obj 255 1109 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1109 UP: up range. Type: int.;
+#X obj 255 1132 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1132 DOWN: down range. Type: int.;
+#X obj 255 1155 cnv 1 54 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1155 [STATE]: pedal state (on/off). Type: int. Allowed
+values: 0 \, 1\.;
+#X msg 110 1195 toggle;
+#X text 245 1195 toggle pedal on/off.;
+#X obj 20 1232 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1237 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+-49933 0;
+#X text 110 1238 1\.;
+#X text 150 1238 *int*;
+#X text 245 1238 1: turn on \, 0: turn off pedal.;
+#X obj 20 1268 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1273 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+-49933 0;
+#X text 110 1274 1\.;
+#X text 245 1274 float stream: raw midi output.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 115 45 ::;
+#X obj 131 48 ui.link @title proto @url ceammc.proto-help.pd;
+#X obj 1 1324 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1327 library: ceammc v0.9.4;
+#N canvas 10 1346 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 library:;
+#X text 120 10 ceammc;
+#X text 10 32 version:;
+#X text 120 32 0.9.4;
+#X text 10 54 object:;
+#X text 120 54 proto.whammy;
+#X text 10 76 category:;
+#X text 120 76 proto;
+#X text 10 98 since:;
+#X text 120 98 0.9.5;
+#X text 10 120 authors:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 license:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 keywords:;
+#X text 120 164 parser \, midi \, whammy;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pure-data @url
+https://github.com/uliss/pure-data;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 generated by pddoc;
+#X restore 10 1346 pd info;
+#X connect 5 0 7 0;
+#X connect 4 0 8 0;
+#X connect 6 0 8 0;
+#X connect 7 0 8 0;
+#X connect 8 0 9 0;
+#X connect 8 0 10 0;

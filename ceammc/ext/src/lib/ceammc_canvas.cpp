@@ -427,35 +427,38 @@ const _glist* ceammc::canvas_root(const _glist* c)
 
 namespace ceammc {
 
-std::unique_ptr<pd::CanvasTree> canvas_info_tree(const t_canvas* c)
+std::unique_ptr<pd::CanvasTree> canvas_info_tree(const t_canvas* c, CanvasClassPredicate pred)
 {
     std::unique_ptr<pd::CanvasTree> tree;
 
     if (!c || !c->gl_list)
         return tree;
 
-    auto x = c->gl_list;
-    for (; x != nullptr; x = x->g_next) {
-        auto pdobj = x->g_pd;
-        if (!pd_checkobject(&pdobj))
+    for (auto x = c->gl_list; x != nullptr; x = x->g_next) {
+        auto cls = &x->g_pd;
+        auto pdobj = pd_checkobject(cls);
+        // skip not-patchable objects
+        if (!pdobj)
             continue;
 
         if (!tree)
             tree.reset(new pd::CanvasTree(canvas_info_name(c), canvas_info_dir(c)));
 
-        if (pd_class(&pdobj) == canvas_class) {
+        // subpatch or abstraction
+        if (pd_class(cls) == canvas_class) {
 
             t_canvas* obj_cnv = reinterpret_cast<t_canvas*>(x);
             tree->objects.emplace_back(canvas_info_name(obj_cnv),
                 canvas_info_dir(obj_cnv),
                 canvas_isabstraction(obj_cnv) ? pd::CanvasTree::ABSTRACTION : pd::CanvasTree::SUBPATCH);
-            tree->objects.back().obj_tree = canvas_info_tree(obj_cnv);
+            tree->objects.back().obj_tree = canvas_info_tree(obj_cnv, pred);
 
             continue;
-        }
+        } else if (pred && !pred(c, pdobj))
+            continue;
 
-        auto name = pdobj->c_name;
-        auto dir = pdobj->c_externdir;
+        auto name = (*cls)->c_name;
+        auto dir = (*cls)->c_externdir;
         if (dir == &s_)
             dir = gensym("_core");
 
@@ -463,6 +466,35 @@ std::unique_ptr<pd::CanvasTree> canvas_info_tree(const t_canvas* c)
     }
 
     return tree;
+}
+
+std::vector<t_object*> canvas_find(const _glist* c, CanvasClassPredicate pred)
+{
+    std::vector<t_object*> res;
+
+    if (!c || !c->gl_list)
+        return res;
+
+    for (auto x = c->gl_list; x != nullptr; x = x->g_next) {
+        auto pdobj = pd_checkobject(&x->g_pd);
+        // skip non-patchable objects
+        if (!pdobj)
+            continue;
+
+        // subpatch or abstraction
+        if (pd_class(&pdobj->te_g.g_pd) == canvas_class) {
+            t_canvas* obj_cnv = reinterpret_cast<t_canvas*>(x);
+
+            auto cnv_objects = canvas_find(obj_cnv, pred);
+            res.reserve(res.size() + cnv_objects.size());
+            for (auto x : cnv_objects)
+                res.push_back(x);
+            continue;
+        } else if (pred(c, pdobj))
+            res.push_back(pdobj);
+    }
+
+    return res;
 }
 
 pd::CanvasTree::Object::Object(t_symbol* name, t_symbol* dir, pd::CanvasTree::Type t)
@@ -503,5 +535,10 @@ pd::CanvasTree& pd::CanvasTree::operator=(pd::CanvasTree&& t)
 {
     std::swap(*this, t);
     return *this;
+}
+
+bool canvas_info_is_dirty(const _glist* c)
+{
+    return c == nullptr ? false : c->gl_dirty;
 }
 }

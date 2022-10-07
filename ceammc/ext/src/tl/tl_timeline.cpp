@@ -12,16 +12,17 @@
  * this file belongs to.
  *****************************************************************************/
 #include "tl_timeline.h"
+#include "ceammc_containers.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
 
 #include <cstdio>
 
-static const char* SYM_START = "begin";
-static const char* SYM_END = "end";
-static const char* SYM_INF = "inf";
-static const char* SYM_INF2 = "infinite";
-static const char* SYM_FIXED = "fixed";
+constexpr const char* SYM_START = "begin";
+constexpr const char* SYM_END = "end";
+constexpr const char* SYM_INF = "inf";
+constexpr const char* SYM_INF2 = "infinite";
+constexpr const char* SYM_FIXED = "fixed";
 
 TlTimeLine::TlTimeLine(const PdArgs& args)
     : BaseObject(args)
@@ -106,7 +107,8 @@ void TlTimeLine::event(size_t n, t_float at)
 
 void TlTimeLine::eventStart()
 {
-    listTo(0, { gensym(SYM_START), 0.f });
+    SmallAtomList lst { gensym(SYM_START), 0.f };
+    listTo(0, lst.view());
 }
 
 void TlTimeLine::eventEnd()
@@ -114,53 +116,53 @@ void TlTimeLine::eventEnd()
     listTo(0, AtomList(gensym(SYM_END), tl_.length()));
 }
 
-void TlTimeLine::m_add(t_symbol* s, const AtomListView& lst)
+void TlTimeLine::m_add(t_symbol* s, const AtomListView& lv)
 {
-    if (!cmd_parser_.parse(to_string(Message(s, lst))))
-        METHOD_ERR(s) << "can't add event: " << lst;
+    if (!cmd_parser_.parse(to_string(Message(s, lv))))
+        METHOD_ERR(s) << "can't add event: " << lv;
 }
 
-void TlTimeLine::m_remove(t_symbol* s, const AtomListView& lst)
+void TlTimeLine::m_remove(t_symbol* s, const AtomListView& lv)
 {
-    if (!cmd_parser_.parse(to_string(Message(s, lst))))
-        METHOD_ERR(s) << "can't remove event: " << lst;
+    if (!cmd_parser_.parse(to_string(Message(s, lv))))
+        METHOD_ERR(s) << "can't remove event: " << lv;
 }
 
-void TlTimeLine::m_clear(t_symbol* s, const AtomListView& lst)
+void TlTimeLine::m_clear(t_symbol* s, const AtomListView& lv)
 {
     tl_.clear();
 }
 
-void TlTimeLine::m_start(t_symbol* s, const AtomListView& lst)
+void TlTimeLine::m_start(t_symbol* s, const AtomListView& lv)
 {
     tl_.start();
 }
 
-void TlTimeLine::m_stop(t_symbol* s, const AtomListView& lst)
+void TlTimeLine::m_stop(t_symbol* s, const AtomListView& lv)
 {
     tl_.stop();
 }
 
-void TlTimeLine::m_pause(t_symbol* s, const AtomListView& lst)
+void TlTimeLine::m_pause(t_symbol* s, const AtomListView& lv)
 {
     tl_.pause();
 }
 
-void TlTimeLine::m_reset(t_symbol* s, const AtomListView& lst)
+void TlTimeLine::m_reset(t_symbol* s, const AtomListView& lv)
 {
     tl_.reset();
 }
 
-void TlTimeLine::m_to_event(t_symbol* s, const AtomListView& lst)
+void TlTimeLine::m_to_event(t_symbol* s, const AtomListView& lv)
 {
-    if (!cmd_parser_.parse(to_string(Message(s, lst))))
-        METHOD_ERR(s) << "can't move to event: " << lst;
+    if (!cmd_parser_.parse(to_string(Message(s, lv))))
+        METHOD_ERR(s) << "can't move to event: " << lv;
 }
 
-void TlTimeLine::m_to_time(t_symbol* s, const AtomListView& lst)
+void TlTimeLine::m_to_time(t_symbol* s, const AtomListView& lv)
 {
-    if (!cmd_parser_.parse(to_string(Message(s, lst))))
-        METHOD_ERR(s) << "can't move to time: " << lst;
+    if (!cmd_parser_.parse(to_string(Message(s, lv))))
+        METHOD_ERR(s) << "can't move to time: " << lv;
 }
 
 AtomList TlTimeLine::propNumEvents() const

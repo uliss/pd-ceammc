@@ -69,10 +69,10 @@ void UIMouseFilter::onSymbol(t_symbol* s)
         symbolTo(0, s);
 }
 
-void UIMouseFilter::onList(const AtomList& l)
+void UIMouseFilter::onList(const AtomListView& lv)
 {
     if (!closed_)
-        listTo(0, l);
+        listTo(0, lv);
 }
 
 void UIMouseFilter::onAny(t_symbol* s, const AtomListView& lv)

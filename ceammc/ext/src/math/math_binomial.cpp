@@ -52,15 +52,15 @@ void MathBinomial::onFloat(t_float f)
     listTo(0, res);
 }
 
-void MathBinomial::onList(const AtomList& lst)
+void MathBinomial::onList(const AtomListView& lv)
 {
-    if (!checkArgs(lst, ARG_NATURAL, ARG_NATURAL)) {
-        OBJ_ERR << "N(order) K(coeff) integer pair expected, got: " << lst;
+    if (!checkArgs(lv, ARG_NATURAL, ARG_NATURAL)) {
+        OBJ_ERR << "N(order) K(coeff) integer pair expected, got: " << lv;
         return;
     }
 
-    const unsigned n = lst[0].asT<int>();
-    const unsigned k = lst[1].asT<int>();
+    const unsigned n = lv[0].asT<int>();
+    const unsigned k = lv[1].asT<int>();
 
     using namespace boost::math;
 

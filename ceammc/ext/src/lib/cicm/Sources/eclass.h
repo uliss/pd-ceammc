@@ -114,10 +114,6 @@ void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type, 
  */
 int eclass_attr_setter(t_object* x, t_symbol* s, int argc, t_atom* argv);
 
-struct _methodentry;
-using t_methodentry = _methodentry;
-t_methodentry* eclass_methods(t_class* c);
-
 bool ebox_attr_float_setter(t_ebox* x, t_eattr* a, t_float value, size_t idx, t_eattr_op op);
 bool ebox_attr_long_setter(t_ebox* x, t_eattr* a, t_float value, size_t idx, t_eattr_op op);
 
@@ -279,7 +275,7 @@ void eclass_attr_visible(t_eclass* c, const char* attrname);
  * \param getter    The getter method.
  * \param setter    The setter method.
  */
-void eclass_attr_accessor(t_eclass* c, const char* attrname, t_err_method getter, t_err_method setter);
+void eclass_attr_accessor(t_eclass* c, const char* attrname, t_getter_method getter, t_setter_method setter);
 
 /*!
  * \fn          void eclass_attr_itemlist(t_eclass* c, const char* attrname, long flags, const char* list)
@@ -399,7 +395,7 @@ std::pair<int, int> eclass_tcl_version();
 //! Macros that define the visible behavior of the attributes
 #define CLASS_ATTR_INVISIBLE(c, name) eclass_attr_invisible(c, name)
 //! Macros that define the setter and getter of the attributes
-#define CLASS_ATTR_ACCESSORS(c, name, getter, setter) eclass_attr_accessor(c, name, reinterpret_cast<t_err_method>(getter), reinterpret_cast<t_err_method>(setter))
+#define CLASS_ATTR_ACCESSORS(c, name, getter, setter) eclass_attr_accessor(c, name, getter, setter)
 //! Macros that define the items list of the attributes
 #define CLASS_ATTR_ITEMS(c, name, list) eclass_attr_itemlist(c, name, list)
 //! Macros that define the deault value, save and paint bbehavior of the attributes

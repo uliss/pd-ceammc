@@ -7,7 +7,7 @@ action bpm_add_int       { (bpm.ival *= 10) += (fc - '0'); }
 action bpm_add_frac      { (bpm.fnum *= 10) += (fc - '0'); bpm.fden *= 10; }
 action bpm_add_dot       { bpm.dur_num *= 3; bpm.dur_den *= 2; }
 action bpm_init          { bpm.dur_num = 1; bpm.dur_den = 4; }
-action bpm_done          { cat_ = CAT_UNIT; type_ = TYPE_BPM; }
+action bpm_done          { ragel_cat = CAT_UNIT; ragel_type = TYPE_BPM; }
 action bpm_beat_num_init { bpm.dur_num = 0; }
 action bpm_beat_num_dig  { (bpm.dur_num *= 10) += (fc - '0'); }
 action bpm_beat_den_init { bpm.dur_den = 0;}
@@ -75,11 +75,11 @@ spn = (
         spn_dev?
       )
       >{spn.alt = 0; spn.oct = 0; spn.octtype = OCTAVE_REL; spn.dev = 0;}
-      %{cat_ = CAT_UNIT; type_ = TYPE_SPN;};
+      %{ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;};
 
 pitch = (spn_pitch spn_alt?)
       >{spn.alt = 0; spn.oct = 0; spn.octtype = OCTAVE_REL; spn.dev = 0;}
-      %{cat_ = CAT_UNIT; type_ = TYPE_SPN;};
+      %{ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;};
 
 # notes
 action note_add_dot {
@@ -132,7 +132,7 @@ note_rest = 'R' @{note.rest = 1;};
 
 note_single = (note_rest | spn) note_dur_par?
     >{note.num = 1; note.den = 4; note.dots = 0; note.durtype = DURATION_REL;}
-    %{cat_ = CAT_UNIT; type_ = TYPE_SPN;};
+    %{ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;};
 
 
 action note_repeat_init  { note.repeats = 0; }

@@ -151,6 +151,16 @@ public:
     bool isSemicolon() const noexcept { return a_type == A_SEMI; }
 
     /**
+     * @returns true if atom has PureData type A_DOLLAR
+     */
+    bool isDollar() const noexcept { return a_type == A_DOLLAR; }
+
+    /**
+     * @returns true if atom has PureData type A_DOLLSYM
+     */
+    bool isDollarSym() const noexcept { return a_type == A_DOLLSYM; }
+
+    /**
      * @returns true if atom has PureData type A_POINTER
      */
     bool isPointer() const noexcept { return a_type == A_POINTER; }

@@ -17,10 +17,22 @@
 LocalDict::LocalDict(const PdArgs& args)
     : LocalDictBase(args)
 {
+    setSpecialSymbolEscape(EDITOR_ESC_MODE_DATA);
+}
+
+EditorTitleString LocalDict::editorTitle() const
+{
+    return makeEditorTitleString("local Dict", binbufArgs().symbolAt(0, gensym("default"))->s_name);
 }
 
 void setup_local_dict()
 {
     DictIFaceFactory<LocalDict> obj("local.dict");
     obj.addAlias("local.json");
+
+    obj.setXletsInfo({ "bang: output\n"
+                       "methods: add, clear, get_key, set_key, remove, set, read, write" },
+        { "data: dict" });
+
+    LocalDict::registerMethods(obj);
 }

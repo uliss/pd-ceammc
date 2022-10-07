@@ -1,20 +1,21 @@
 {
 	"name": "fx.distortion",
 	"filename": "fx_distortion.dsp",
-	"version": "2.37.3",
-	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0",
+	"version": "2.44.1",
+	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn fx_distortion -scn fx_distortion_dsp -es 1 -mcd 16 -single -ftz 0",
 	"library_list": ["/Users/serge/work/music/pure-data/ceammc/faust/ceammc.lib","/usr/local/share/faust/misceffects.lib","/usr/local/share/faust/signals.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib","/usr/local/share/faust/filters.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc_ui.lib","/usr/local/share/faust/basics.lib"],
 	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
 	"inputs": 1,
 	"outputs": 1,
 	"meta": [ 
+		{ "basics.lib/bypass1:author": "Julius Smith" },
 		{ "basics.lib/name": "Faust Basic Element Library" },
-		{ "basics.lib/version": "0.2" },
+		{ "basics.lib/version": "0.8" },
 		{ "ceammc.lib/name": "Ceammc PureData misc utils" },
 		{ "ceammc.lib/version": "0.1.2" },
 		{ "ceammc_ui.lib/name": "CEAMMC faust default UI elements" },
 		{ "ceammc_ui.lib/version": "0.1.2" },
-		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0" },
+		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn fx_distortion -scn fx_distortion_dsp -es 1 -mcd 16 -single -ftz 0" },
 		{ "filename": "fx_distortion.dsp" },
 		{ "filters.lib/dcblocker:author": "Julius O. Smith III" },
 		{ "filters.lib/dcblocker:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
@@ -39,7 +40,7 @@
 		{ "platform.lib/name": "Generic Platform Library" },
 		{ "platform.lib/version": "0.2" },
 		{ "signals.lib/name": "Faust Signal Routing Library" },
-		{ "signals.lib/version": "0.1" }
+		{ "signals.lib/version": "0.3" }
 	],
 	"ui": [ 
 		{
@@ -49,11 +50,13 @@
 				{
 					"type": "checkbox",
 					"label": "bypass",
+					"shortname": "bypass",
 					"address": "/fx.distortion/bypass"
 				},
 				{
 					"type": "vslider",
 					"label": "drive",
+					"shortname": "drive",
 					"address": "/fx.distortion/drive",
 					"init": 0.5,
 					"min": 0,
@@ -63,6 +66,7 @@
 				{
 					"type": "hslider",
 					"label": "drywet",
+					"shortname": "drywet",
 					"address": "/fx.distortion/drywet",
 					"meta": [
 						{ "style": "knob" }
@@ -75,6 +79,7 @@
 				{
 					"type": "vslider",
 					"label": "offset",
+					"shortname": "offset",
 					"address": "/fx.distortion/offset",
 					"init": 0,
 					"min": 0,

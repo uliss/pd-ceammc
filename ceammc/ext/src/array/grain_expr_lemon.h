@@ -199,18 +199,18 @@ typedef union {
 #define parse_grain_exprCTX_PARAM
 #define parse_grain_exprCTX_FETCH
 #define parse_grain_exprCTX_STORE
-#define YYNSTATE             118
-#define YYNRULE              109
-#define YYNRULE_WITH_ACTION  95
+#define YYNSTATE             120
+#define YYNRULE              110
+#define YYNRULE_WITH_ACTION  96
 #define YYNTOKEN             81
-#define YY_MAX_SHIFT         117
-#define YY_MIN_SHIFTREDUCE   212
-#define YY_MAX_SHIFTREDUCE   320
-#define YY_ERROR_ACTION      321
-#define YY_ACCEPT_ACTION     322
-#define YY_NO_ACTION         323
-#define YY_MIN_REDUCE        324
-#define YY_MAX_REDUCE        432
+#define YY_MAX_SHIFT         119
+#define YY_MIN_SHIFTREDUCE   215
+#define YY_MAX_SHIFTREDUCE   324
+#define YY_ERROR_ACTION      325
+#define YY_ACCEPT_ACTION     326
+#define YY_NO_ACTION         327
+#define YY_MIN_REDUCE        328
+#define YY_MAX_REDUCE        437
 /************* End control #defines *******************************************/
 #define YY_NLOOKAHEAD ((int)(sizeof(yy_lookahead)/sizeof(yy_lookahead[0])))
 
@@ -277,66 +277,66 @@ typedef union {
 **  yy_default[]       Default action for each state.
 **
 *********** Begin parsing tables **********************************************/
-#define YY_ACTTAB_COUNT (571)
+#define YY_ACTTAB_COUNT (577)
 static const YYACTIONTYPE yy_action[] = {
- /*     0 */    52,   48,  426,   51,   52,   48,   40,   51,   36,   30,
- /*    10 */    32,   28,   26,   34,   36,   30,   32,   28,   26,   34,
- /*    20 */     6,   77,   36,   30,   32,   28,   26,   34,  431,  247,
- /*    30 */    90,   96,   97,  101,  248,  320,  403,   80,  115,  114,
- /*    40 */   233,  234,  235,  295,  249,  250,  251,  252,  253,  254,
- /*    50 */   255,  256,  257,  258,  259,  260,  261,  262,  236,  237,
- /*    60 */   238,  344,  116,  113,  112,  111,  110,  109,  108,  107,
- /*    70 */   106,  105,  104,  103,  102,   40,  100,   99,  212,  213,
- /*    80 */   214,  215,  216,  217,   39,  219,  421,  422,   37,    6,
- /*    90 */    77,  285,  263,  264,  265,  266,  117,   98,   44,   42,
- /*   100 */    96,   97,  101,   46,   79,  425,  427,  115,  114,  427,
- /*   110 */   427,   78,  288,  249,  250,  251,  252,  253,  254,  255,
- /*   120 */   256,  257,  258,  259,  260,  261,  262,  304,  305,  306,
- /*   130 */   402,  116,  113,  112,  111,  110,  109,  108,  107,  106,
- /*   140 */   105,  104,  103,  102,   40,  100,   99,   36,   30,   32,
- /*   150 */    28,   26,   34,   30,   32,   28,   26,   34,    6,   77,
- /*   160 */    36,   30,   32,   28,   26,   34,   43,   82,  294,   96,
- /*   170 */    97,  101,  229,   81,  239,  240,  115,  114,  241,  227,
- /*   180 */    85,  287,  249,  250,  251,  252,  253,  254,  255,  256,
- /*   190 */   257,  258,  259,  260,  261,  262,   84,   87,  303,   88,
- /*   200 */   116,  113,  112,  111,  110,  109,  108,  107,  106,  105,
- /*   210 */   104,  103,  102,   41,  100,   99,   53,   41,  225,    4,
- /*   220 */    53,  249,  250,  251,  252,  253,  254,  255,  256,  257,
- /*   230 */   258,  259,  260,  261,  262,  419,   54,   55,   34,    9,
- /*   240 */    54,   55,  212,  213,  214,  215,  216,  217,   39,  219,
- /*   250 */    36,   30,   32,   28,   26,   34,   11,   56,   38,  292,
- /*   260 */   117,   56,   44,   42,   57,  289,    3,  243,   57,   36,
- /*   270 */    30,   32,   28,   26,   34,   36,   30,   32,   28,   26,
- /*   280 */    34,   36,   30,   32,   28,   26,   34,   15,  242,  244,
- /*   290 */   245,  246,   36,   30,   32,   28,   26,   34,   36,   30,
- /*   300 */    32,   28,   26,   34,   36,   30,   32,   28,   26,   34,
- /*   310 */    47,    5,   45,  293,   47,  322,    1,   46,   58,  286,
- /*   320 */     1,  323,   58,    1,    1,  283,   16,   36,   30,   32,
- /*   330 */    28,   26,   34,   36,   30,   32,   28,   26,   34,   36,
- /*   340 */    30,   32,   28,   26,   34,   17,  230,   18,  282,    7,
- /*   350 */   221,  222,  223,   89,  284,    8,  323,   86,   83,  323,
- /*   360 */   281,   59,   19,   49,   50,   59,   10,   49,   50,   60,
- /*   370 */    61,   62,   12,   60,   61,   62,   20,  323,   13,   21,
- /*   380 */    36,   30,   32,   28,   26,   34,   63,   64,   65,   22,
- /*   390 */    63,   64,   65,   66,   67,   23,   68,   66,   67,  323,
- /*   400 */    68,   14,   24,   36,   30,   32,   28,   26,   34,   36,
- /*   410 */    30,   32,   28,   26,   34,   36,   30,   32,   28,   26,
- /*   420 */    34,   69,   95,   70,  280,   69,   95,   70,   94,   71,
- /*   430 */   279,   93,   94,   71,  323,   93,  278,   25,   36,   30,
- /*   440 */    32,   28,   26,   34,   36,   30,   32,   28,   26,   34,
- /*   450 */    36,   30,   32,   28,   26,   34,   72,   92,   73,  277,
- /*   460 */    72,   92,   73,   91,   74,  276,   76,   91,   74,  323,
- /*   470 */    76,  275,   27,   36,   30,   32,   28,   26,   34,   36,
- /*   480 */    30,   32,   28,   26,   34,   36,   30,   32,   28,   26,
- /*   490 */    34,   75,  323,   29,  274,   75,   31,   33,  323,   35,
- /*   500 */   273,  323,  323,  323,  323,  323,  272,  323,   36,   30,
- /*   510 */    32,   28,   26,   34,   36,   30,   32,   28,   26,   34,
- /*   520 */    36,   30,   32,   28,   26,   34,  220,  323,  323,  271,
- /*   530 */   323,  323,  323,  323,  323,  270,  323,  323,  323,  323,
- /*   540 */     2,  269,  323,   36,   30,   32,   28,   26,   34,   36,
- /*   550 */    30,   32,   28,   26,   34,  323,  323,  323,  323,  323,
- /*   560 */   323,  323,  323,  323,  268,  323,  323,  323,  323,  323,
- /*   570 */   267,
+ /*     0 */    53,   48,  431,   52,   53,   48,   41,   52,   37,   31,
+ /*    10 */    33,   29,   27,   35,   37,   31,   33,   29,   27,   35,
+ /*    20 */     7,   79,   37,   31,   33,   29,   27,   35,  436,  250,
+ /*    30 */    92,   98,   99,  103,  251,  291,  408,   82,  117,  116,
+ /*    40 */   236,  237,  238,  324,  252,  253,  254,  255,  256,  257,
+ /*    50 */   258,  259,  260,  261,  262,  263,  264,  265,  239,  240,
+ /*    60 */   241,  348,  118,  115,  114,  113,  112,  111,  110,  109,
+ /*    70 */   108,  107,  106,  105,  104,   41,  102,  101,  215,  216,
+ /*    80 */   217,  218,  219,  220,   40,  222,  426,  427,   38,    7,
+ /*    90 */    79,  288,  266,  267,  268,  269,  119,  100,   45,   43,
+ /*   100 */    98,   99,  103,   47,   81,  430,  432,  117,  116,  432,
+ /*   110 */   432,   80,  292,  252,  253,  254,  255,  256,  257,  258,
+ /*   120 */   259,  260,  261,  262,  263,  264,  265,  308,  309,  310,
+ /*   130 */   407,  118,  115,  114,  113,  112,  111,  110,  109,  108,
+ /*   140 */   107,  106,  105,  104,   41,  102,  101,   37,   31,   33,
+ /*   150 */    29,   27,   35,   31,   33,   29,   27,   35,    7,   79,
+ /*   160 */    37,   31,   33,   29,   27,   35,   44,   84,  299,   98,
+ /*   170 */    99,  103,  232,   83,  242,  243,  117,  116,  244,  230,
+ /*   180 */    87,  298,  252,  253,  254,  255,  256,  257,  258,  259,
+ /*   190 */   260,  261,  262,  263,  264,  265,   86,   89,  307,   90,
+ /*   200 */   118,  115,  114,  113,  112,  111,  110,  109,  108,  107,
+ /*   210 */   106,  105,  104,   42,  102,  101,   54,   42,  228,    4,
+ /*   220 */    54,  252,  253,  254,  255,  256,  257,  258,  259,  260,
+ /*   230 */   261,  262,  263,  264,  265,  424,   55,   56,   35,   10,
+ /*   240 */    55,   56,  215,  216,  217,  218,  219,  220,   40,  222,
+ /*   250 */    37,   31,   33,   29,   27,   35,   12,   57,   39,  296,
+ /*   260 */   119,   57,   45,   43,   58,  293,    3,  246,   58,   37,
+ /*   270 */    31,   33,   29,   27,   35,   37,   31,   33,   29,   27,
+ /*   280 */    35,   37,   31,   33,   29,   27,   35,   16,  245,  247,
+ /*   290 */   248,  249,   37,   31,   33,   29,   27,   35,   37,   31,
+ /*   300 */    33,   29,   27,   35,   37,   31,   33,   29,   27,   35,
+ /*   310 */    59,    5,   46,  289,   59,  326,    1,   47,   49,  297,
+ /*   320 */     1,  233,   49,    1,    1,  286,  327,   37,   31,   33,
+ /*   330 */    29,   27,   35,   17,    6,   18,   37,   31,   33,   29,
+ /*   340 */    27,   35,   37,   31,   33,   29,   27,   35,  285,    8,
+ /*   350 */    60,  327,   19,   20,   60,    9,   61,  290,   21,  327,
+ /*   360 */    61,   50,   22,  287,   51,   50,   13,   62,   51,   63,
+ /*   370 */    23,   62,   11,   63,  224,  225,  226,   91,   14,   24,
+ /*   380 */   327,   88,   85,   37,   31,   33,   29,   27,   35,   25,
+ /*   390 */    64,   65,   66,   67,   64,   65,   66,   67,   68,   26,
+ /*   400 */    28,   15,   68,   37,   31,   33,   29,   27,   35,   37,
+ /*   410 */    31,   33,   29,   27,   35,   37,   31,   33,   29,   27,
+ /*   420 */    35,   69,   70,   71,  284,   69,   70,   71,  327,   97,
+ /*   430 */   283,   72,   30,   97,  327,   72,  282,   32,   37,   31,
+ /*   440 */    33,   29,   27,   35,   37,   31,   33,   29,   27,   35,
+ /*   450 */    37,   31,   33,   29,   27,   35,   96,   73,   95,  281,
+ /*   460 */    96,   73,   95,  327,   74,  280,   94,   34,   74,  327,
+ /*   470 */    94,  279,   36,   37,   31,   33,   29,   27,   35,   37,
+ /*   480 */    31,   33,   29,   27,   35,   37,   31,   33,   29,   27,
+ /*   490 */    35,   75,  327,  327,  278,   75,  327,   93,   76,   78,
+ /*   500 */   277,   93,   76,   78,  327,  327,  276,  327,   37,   31,
+ /*   510 */    33,   29,   27,   35,   37,   31,   33,   29,   27,   35,
+ /*   520 */    37,   31,   33,   29,   27,   35,   77,  327,  327,  275,
+ /*   530 */    77,  327,  327,  327,  327,  274,  327,  327,  327,  327,
+ /*   540 */   327,  273,  327,   37,   31,   33,   29,   27,   35,   37,
+ /*   550 */    31,   33,   29,   27,   35,   37,   31,   33,   29,   27,
+ /*   560 */    35,  223,  327,  327,  272,  327,  327,  327,  327,  327,
+ /*   570 */   271,  327,  327,  327,  327,    2,  270,
 };
 static const YYCODETYPE yy_lookahead[] = {
  /*     0 */    92,   92,   94,   92,   96,   96,    6,   96,    1,    2,
@@ -371,81 +371,81 @@ static const YYCODETYPE yy_lookahead[] = {
  /*   290 */    41,   42,    1,    2,    3,    4,    5,    6,    1,    2,
  /*   300 */     3,    4,    5,    6,    1,    2,    3,    4,    5,    6,
  /*   310 */    92,   43,   75,   22,   96,   81,   82,   83,   92,   22,
- /*   320 */    86,   99,   96,   89,   90,   22,   20,    1,    2,    3,
- /*   330 */     4,    5,    6,    1,    2,    3,    4,    5,    6,    1,
- /*   340 */     2,    3,    4,    5,    6,   20,   26,   20,   22,   75,
- /*   350 */    16,   17,   18,   19,   22,   75,   99,   23,   24,   99,
- /*   360 */    22,   92,   20,   92,   92,   96,   75,   96,   96,   92,
- /*   370 */    92,   92,   75,   96,   96,   96,   20,   99,   75,   20,
- /*   380 */     1,    2,    3,    4,    5,    6,   92,   92,   92,   20,
- /*   390 */    96,   96,   96,   92,   92,   20,   92,   96,   96,   99,
- /*   400 */    96,   75,   20,    1,    2,    3,    4,    5,    6,    1,
+ /*   320 */    86,   26,   96,   89,   90,   22,   99,    1,    2,    3,
+ /*   330 */     4,    5,    6,   20,   43,   20,    1,    2,    3,    4,
+ /*   340 */     5,    6,    1,    2,    3,    4,    5,    6,   22,   75,
+ /*   350 */    92,   99,   20,   20,   96,   75,   92,   22,   20,   99,
+ /*   360 */    96,   92,   20,   22,   92,   96,   75,   92,   96,   92,
+ /*   370 */    20,   96,   75,   96,   16,   17,   18,   19,   75,   20,
+ /*   380 */    99,   23,   24,    1,    2,    3,    4,    5,    6,   20,
+ /*   390 */    92,   92,   92,   92,   96,   96,   96,   96,   92,   20,
+ /*   400 */    20,   75,   96,    1,    2,    3,    4,    5,    6,    1,
  /*   410 */     2,    3,    4,    5,    6,    1,    2,    3,    4,    5,
- /*   420 */     6,   92,   92,   92,   22,   96,   96,   96,   92,   92,
- /*   430 */    22,   92,   96,   96,   99,   96,   22,   20,    1,    2,
+ /*   420 */     6,   92,   92,   92,   22,   96,   96,   96,   99,   92,
+ /*   430 */    22,   92,   20,   96,   99,   96,   22,   20,    1,    2,
  /*   440 */     3,    4,    5,    6,    1,    2,    3,    4,    5,    6,
  /*   450 */     1,    2,    3,    4,    5,    6,   92,   92,   92,   22,
- /*   460 */    96,   96,   96,   92,   92,   22,   92,   96,   96,   99,
+ /*   460 */    96,   96,   96,   99,   92,   22,   92,   20,   96,   99,
  /*   470 */    96,   22,   20,    1,    2,    3,    4,    5,    6,    1,
  /*   480 */     2,    3,    4,    5,    6,    1,    2,    3,    4,    5,
- /*   490 */     6,   92,   99,   20,   22,   96,   20,   20,   99,   20,
- /*   500 */    22,   99,   99,   99,   99,   99,   22,   99,    1,    2,
+ /*   490 */     6,   92,   99,   99,   22,   96,   99,   92,   92,   92,
+ /*   500 */    22,   96,   96,   96,   99,   99,   22,   99,    1,    2,
  /*   510 */     3,    4,    5,    6,    1,    2,    3,    4,    5,    6,
- /*   520 */     1,    2,    3,    4,    5,    6,   15,   99,   99,   22,
- /*   530 */    99,   99,   99,   99,   99,   22,   99,   99,   99,   99,
- /*   540 */    29,   22,   99,    1,    2,    3,    4,    5,    6,    1,
- /*   550 */     2,    3,    4,    5,    6,   99,   99,   99,   99,   99,
- /*   560 */    99,   99,   99,   99,   22,   99,   99,   99,   99,   99,
- /*   570 */    22,   99,   99,   99,   99,   99,   99,   99,   99,   99,
+ /*   520 */     1,    2,    3,    4,    5,    6,   92,   99,   99,   22,
+ /*   530 */    96,   99,   99,   99,   99,   22,   99,   99,   99,   99,
+ /*   540 */    99,   22,   99,    1,    2,    3,    4,    5,    6,    1,
+ /*   550 */     2,    3,    4,    5,    6,    1,    2,    3,    4,    5,
+ /*   560 */     6,   15,   99,   99,   22,   99,   99,   99,   99,   99,
+ /*   570 */    22,   99,   99,   99,   99,   29,   22,   99,   99,   99,
  /*   580 */    99,   99,   99,   99,   99,   99,   99,   99,   99,   99,
  /*   590 */    99,   99,   99,   99,   99,   99,   99,   99,   99,   99,
  /*   600 */    99,   99,   99,   99,   99,   99,   99,   99,   99,   99,
  /*   610 */    99,   99,   99,   99,   99,   99,   99,   99,   99,   99,
  /*   620 */    99,   99,   99,   99,   99,   99,   99,   99,   99,   99,
- /*   630 */    99,   81,   81,   81,   81,   81,   81,   81,   81,   81,
- /*   640 */    81,   81,   81,   81,   81,   81,   81,   81,   81,   81,
- /*   650 */    81,   81,
+ /*   630 */    99,   99,   99,   99,   99,   99,   99,   99,   99,   99,
+ /*   640 */    99,   99,   99,   81,   81,   81,   81,   81,   81,   81,
+ /*   650 */    81,   81,   81,   81,   81,   81,   81,   81,
 };
-#define YY_SHIFT_COUNT    (117)
+#define YY_SHIFT_COUNT    (119)
 #define YY_SHIFT_MIN      (0)
-#define YY_SHIFT_MAX      (548)
+#define YY_SHIFT_MAX      (554)
 static const unsigned short int yy_shift_ofst[] = {
  /*     0 */    71,  235,    0,   69,  138,  138,  138,  138,  138,  138,
  /*    10 */   138,  138,  138,  138,  138,  138,  138,  138,  138,  138,
  /*    20 */   138,  138,  138,  138,  138,  138,  138,  138,  138,  138,
- /*    30 */   138,  138,  138,  138,  138,  138,  138,  138,   91,   74,
- /*    40 */   177,  249,  334,   34,   24,   91,  511,  291,  297,  303,
- /*    50 */   326,    7,  268,   13,   21,  274,  280,  146,  159,  332,
- /*    60 */   338,  402,  408,  414,  437,  443,  449,  472,  478,  484,
- /*    70 */   507,  513,  519,  542,  548,  379,  151,   49,  140,    9,
- /*    80 */   237,  150,  152,  147,  157,  175,  160,  196,  176,  179,
- /*    90 */   199,  232,  232,  232,  232,  232,  219,  236,  244,  238,
- /*   100 */   246,  267,  306,  325,  327,  342,  356,  359,  369,  375,
- /*   110 */   382,  417,  452,  473,  476,  477,  479,  320,
+ /*    30 */   138,  138,  138,  138,  138,  138,  138,  138,  138,   91,
+ /*    40 */    74,  177,  249,  358,   34,   24,   91,  546,  291,  297,
+ /*    50 */   303,  326,    7,  268,   13,   21,  146,  274,  280,  159,
+ /*    60 */   335,  341,  402,  408,  414,  437,  443,  449,  472,  478,
+ /*    70 */   484,  507,  513,  519,  542,  548,  554,  382,  151,   49,
+ /*    80 */   140,    9,  237,  150,  152,  147,  157,  175,  160,  196,
+ /*    90 */   176,  179,  199,  232,  232,  232,  232,  232,  219,  236,
+ /*   100 */   244,  238,  246,  267,  313,  315,  332,  333,  338,  342,
+ /*   110 */   350,  359,  369,  379,  380,  412,  417,  447,  452,  295,
 };
-#define YY_REDUCE_COUNT (46)
+#define YY_REDUCE_COUNT (47)
 #define YY_REDUCE_MIN   (-92)
-#define YY_REDUCE_MAX   (399)
+#define YY_REDUCE_MAX   (434)
 static const short yy_reduce_ofst[] = {
  /*     0 */   234,   20,  -92,  -91,  -89,  121,  124,  144,  145,  165,
- /*    10 */   172,  218,  226,  269,  271,  272,  277,  278,  279,  294,
- /*    20 */   295,  296,  301,  302,  304,  329,  330,  331,  336,  337,
- /*    30 */   339,  364,  365,  366,  371,  372,  374,  399,  -61,   -1,
- /*    40 */   -68,  -65,  -24,   -3,   12,   33,   82,
+ /*    10 */   172,  218,  226,  258,  264,  269,  272,  275,  277,  298,
+ /*    20 */   299,  300,  301,  306,  329,  330,  331,  337,  339,  364,
+ /*    30 */   365,  366,  372,  374,  399,  405,  406,  407,  434,  -61,
+ /*    40 */    -1,  -68,  -65,  -24,   -3,   12,   33,   82,
 };
 static const YYACTIONTYPE yy_default[] = {
- /*     0 */   321,  321,  321,  321,  321,  321,  321,  321,  321,  321,
- /*    10 */   321,  321,  321,  321,  321,  321,  321,  321,  321,  321,
- /*    20 */   321,  321,  321,  321,  321,  321,  321,  321,  321,  321,
- /*    30 */   321,  321,  321,  321,  321,  321,  321,  321,  321,  330,
- /*    40 */   321,  321,  321,  429,  321,  321,  420,  321,  321,  321,
- /*    50 */   321,  321,  321,  321,  321,  321,  321,  321,  321,  321,
- /*    60 */   321,  321,  321,  321,  321,  321,  321,  321,  321,  321,
- /*    70 */   321,  321,  321,  321,  321,  343,  408,  414,  321,  321,
- /*    80 */   321,  321,  321,  340,  321,  321,  338,  321,  321,  336,
- /*    90 */   321,  409,  410,  411,  412,  413,  321,  321,  321,  321,
- /*   100 */   321,  321,  321,  321,  321,  321,  321,  321,  321,  321,
- /*   110 */   321,  321,  321,  321,  321,  321,  321,  321,
+ /*     0 */   325,  325,  325,  325,  325,  325,  325,  325,  325,  325,
+ /*    10 */   325,  325,  325,  325,  325,  325,  325,  325,  325,  325,
+ /*    20 */   325,  325,  325,  325,  325,  325,  325,  325,  325,  325,
+ /*    30 */   325,  325,  325,  325,  325,  325,  325,  325,  325,  325,
+ /*    40 */   334,  325,  325,  325,  434,  325,  325,  425,  325,  325,
+ /*    50 */   325,  325,  325,  325,  325,  325,  325,  325,  325,  325,
+ /*    60 */   325,  325,  325,  325,  325,  325,  325,  325,  325,  325,
+ /*    70 */   325,  325,  325,  325,  325,  325,  325,  347,  413,  419,
+ /*    80 */   325,  325,  325,  325,  325,  344,  325,  325,  342,  325,
+ /*    90 */   325,  340,  325,  414,  415,  416,  417,  418,  325,  325,
+ /*   100 */   325,  325,  325,  325,  325,  325,  325,  325,  325,  325,
+ /*   110 */   325,  325,  325,  325,  325,  325,  325,  325,  325,  325,
 };
 /********** End of lemon-generated parsing tables *****************************/
 
@@ -735,39 +735,40 @@ static const char *const yyRuleName[] = {
  /*  73 */ "expr ::= FN_URAND OPENP CLOSEP",
  /*  74 */ "expr ::= FN_URAND OPENP expr CLOSEP",
  /*  75 */ "expr ::= FN_URAND OPENP expr COMMA expr CLOSEP",
- /*  76 */ "number ::= DOUBLE",
- /*  77 */ "number ::= MINUS DOUBLE",
- /*  78 */ "num_vargs ::= num_vargs COMMA number",
- /*  79 */ "num_vargs ::= number",
- /*  80 */ "expr ::= CHOICE OPENP num_vargs CLOSEP",
- /*  81 */ "expr ::= FOLD OPENP expr CLOSEP",
- /*  82 */ "expr ::= FOLD OPENP expr COMMA expr CLOSEP",
- /*  83 */ "expr ::= CLIP OPENP expr COMMA expr COMMA expr CLOSEP",
- /*  84 */ "expr ::= expr PLUS expr",
- /*  85 */ "expr ::= expr MINUS expr",
- /*  86 */ "expr ::= expr TIMES expr",
- /*  87 */ "expr ::= expr DIVIDE expr",
- /*  88 */ "expr ::= expr POW expr",
- /*  89 */ "expr ::= expr MOD expr",
- /*  90 */ "expr ::= DOUBLE",
- /*  91 */ "expr ::= MINUS DOUBLE",
- /*  92 */ "expr ::= DOUBLE SAMP",
- /*  93 */ "expr ::= DOUBLE MSEC",
- /*  94 */ "expr ::= DOUBLE SEC",
- /*  95 */ "program ::= prop_list",
- /*  96 */ "ondone ::=",
- /*  97 */ "prop_pan ::= PROP_PAN overflow",
- /*  98 */ "prop_pan ::= PROP_PAN mode",
- /*  99 */ "prop_expr ::= prop_pan",
- /* 100 */ "prop_expr ::= prop_tag",
- /* 101 */ "prop_expr ::= PROP_INTERP interp",
- /* 102 */ "prop_expr ::= prop MODULATE modulate",
- /* 103 */ "prop_list ::= prop_list prop_expr",
- /* 104 */ "prop_list ::= prop_expr",
- /* 105 */ "assign ::=",
- /* 106 */ "expr ::= vars",
- /* 107 */ "expr ::= MINUS vars",
- /* 108 */ "expr ::= OPENP expr CLOSEP",
+ /*  76 */ "expr ::= FN_URAND OPENP expr DOTS expr CLOSEP",
+ /*  77 */ "number ::= DOUBLE",
+ /*  78 */ "number ::= MINUS DOUBLE",
+ /*  79 */ "num_vargs ::= num_vargs COMMA number",
+ /*  80 */ "num_vargs ::= number",
+ /*  81 */ "expr ::= CHOICE OPENP num_vargs CLOSEP",
+ /*  82 */ "expr ::= FOLD OPENP expr CLOSEP",
+ /*  83 */ "expr ::= FOLD OPENP expr COMMA expr CLOSEP",
+ /*  84 */ "expr ::= CLIP OPENP expr COMMA expr COMMA expr CLOSEP",
+ /*  85 */ "expr ::= expr PLUS expr",
+ /*  86 */ "expr ::= expr MINUS expr",
+ /*  87 */ "expr ::= expr TIMES expr",
+ /*  88 */ "expr ::= expr DIVIDE expr",
+ /*  89 */ "expr ::= expr POW expr",
+ /*  90 */ "expr ::= expr MOD expr",
+ /*  91 */ "expr ::= DOUBLE",
+ /*  92 */ "expr ::= MINUS DOUBLE",
+ /*  93 */ "expr ::= DOUBLE SAMP",
+ /*  94 */ "expr ::= DOUBLE MSEC",
+ /*  95 */ "expr ::= DOUBLE SEC",
+ /*  96 */ "program ::= prop_list",
+ /*  97 */ "ondone ::=",
+ /*  98 */ "prop_pan ::= PROP_PAN overflow",
+ /*  99 */ "prop_pan ::= PROP_PAN mode",
+ /* 100 */ "prop_expr ::= prop_pan",
+ /* 101 */ "prop_expr ::= prop_tag",
+ /* 102 */ "prop_expr ::= PROP_INTERP interp",
+ /* 103 */ "prop_expr ::= prop MODULATE modulate",
+ /* 104 */ "prop_list ::= prop_list prop_expr",
+ /* 105 */ "prop_list ::= prop_expr",
+ /* 106 */ "assign ::=",
+ /* 107 */ "expr ::= vars",
+ /* 108 */ "expr ::= MINUS vars",
+ /* 109 */ "expr ::= OPENP expr CLOSEP",
 };
 #endif /* NDEBUG */
 
@@ -1111,7 +1112,7 @@ static void yyStackOverflow(yyParser *yypParser){
 #line 39 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 
     p->setErrorMsg("stack overflow");
-#line 1114 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1115 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
 /******** End %stack_overflow code ********************************************/
    parse_grain_exprARG_STORE /* Suppress warning about unused %extra_argument var */
    parse_grain_exprCTX_STORE
@@ -1259,39 +1260,40 @@ static const YYCODETYPE yyRuleInfoLhs[] = {
     92,  /* (73) expr ::= FN_URAND OPENP CLOSEP */
     92,  /* (74) expr ::= FN_URAND OPENP expr CLOSEP */
     92,  /* (75) expr ::= FN_URAND OPENP expr COMMA expr CLOSEP */
-    97,  /* (76) number ::= DOUBLE */
-    97,  /* (77) number ::= MINUS DOUBLE */
-    98,  /* (78) num_vargs ::= num_vargs COMMA number */
-    98,  /* (79) num_vargs ::= number */
-    92,  /* (80) expr ::= CHOICE OPENP num_vargs CLOSEP */
-    92,  /* (81) expr ::= FOLD OPENP expr CLOSEP */
-    92,  /* (82) expr ::= FOLD OPENP expr COMMA expr CLOSEP */
-    92,  /* (83) expr ::= CLIP OPENP expr COMMA expr COMMA expr CLOSEP */
-    92,  /* (84) expr ::= expr PLUS expr */
-    92,  /* (85) expr ::= expr MINUS expr */
-    92,  /* (86) expr ::= expr TIMES expr */
-    92,  /* (87) expr ::= expr DIVIDE expr */
-    92,  /* (88) expr ::= expr POW expr */
-    92,  /* (89) expr ::= expr MOD expr */
-    92,  /* (90) expr ::= DOUBLE */
-    92,  /* (91) expr ::= MINUS DOUBLE */
-    92,  /* (92) expr ::= DOUBLE SAMP */
-    92,  /* (93) expr ::= DOUBLE MSEC */
-    92,  /* (94) expr ::= DOUBLE SEC */
-    81,  /* (95) program ::= prop_list */
-    84,  /* (96) ondone ::= */
-    86,  /* (97) prop_pan ::= PROP_PAN overflow */
-    86,  /* (98) prop_pan ::= PROP_PAN mode */
-    90,  /* (99) prop_expr ::= prop_pan */
-    90,  /* (100) prop_expr ::= prop_tag */
-    90,  /* (101) prop_expr ::= PROP_INTERP interp */
-    90,  /* (102) prop_expr ::= prop MODULATE modulate */
-    82,  /* (103) prop_list ::= prop_list prop_expr */
-    82,  /* (104) prop_list ::= prop_expr */
-    91,  /* (105) assign ::= */
-    92,  /* (106) expr ::= vars */
-    92,  /* (107) expr ::= MINUS vars */
-    92,  /* (108) expr ::= OPENP expr CLOSEP */
+    92,  /* (76) expr ::= FN_URAND OPENP expr DOTS expr CLOSEP */
+    97,  /* (77) number ::= DOUBLE */
+    97,  /* (78) number ::= MINUS DOUBLE */
+    98,  /* (79) num_vargs ::= num_vargs COMMA number */
+    98,  /* (80) num_vargs ::= number */
+    92,  /* (81) expr ::= CHOICE OPENP num_vargs CLOSEP */
+    92,  /* (82) expr ::= FOLD OPENP expr CLOSEP */
+    92,  /* (83) expr ::= FOLD OPENP expr COMMA expr CLOSEP */
+    92,  /* (84) expr ::= CLIP OPENP expr COMMA expr COMMA expr CLOSEP */
+    92,  /* (85) expr ::= expr PLUS expr */
+    92,  /* (86) expr ::= expr MINUS expr */
+    92,  /* (87) expr ::= expr TIMES expr */
+    92,  /* (88) expr ::= expr DIVIDE expr */
+    92,  /* (89) expr ::= expr POW expr */
+    92,  /* (90) expr ::= expr MOD expr */
+    92,  /* (91) expr ::= DOUBLE */
+    92,  /* (92) expr ::= MINUS DOUBLE */
+    92,  /* (93) expr ::= DOUBLE SAMP */
+    92,  /* (94) expr ::= DOUBLE MSEC */
+    92,  /* (95) expr ::= DOUBLE SEC */
+    81,  /* (96) program ::= prop_list */
+    84,  /* (97) ondone ::= */
+    86,  /* (98) prop_pan ::= PROP_PAN overflow */
+    86,  /* (99) prop_pan ::= PROP_PAN mode */
+    90,  /* (100) prop_expr ::= prop_pan */
+    90,  /* (101) prop_expr ::= prop_tag */
+    90,  /* (102) prop_expr ::= PROP_INTERP interp */
+    90,  /* (103) prop_expr ::= prop MODULATE modulate */
+    82,  /* (104) prop_list ::= prop_list prop_expr */
+    82,  /* (105) prop_list ::= prop_expr */
+    91,  /* (106) assign ::= */
+    92,  /* (107) expr ::= vars */
+    92,  /* (108) expr ::= MINUS vars */
+    92,  /* (109) expr ::= OPENP expr CLOSEP */
 };
 
 /* For rule J, yyRuleInfoNRhs[J] contains the negative of the number
@@ -1373,39 +1375,40 @@ static const signed char yyRuleInfoNRhs[] = {
    -3,  /* (73) expr ::= FN_URAND OPENP CLOSEP */
    -4,  /* (74) expr ::= FN_URAND OPENP expr CLOSEP */
    -6,  /* (75) expr ::= FN_URAND OPENP expr COMMA expr CLOSEP */
-   -1,  /* (76) number ::= DOUBLE */
-   -2,  /* (77) number ::= MINUS DOUBLE */
-   -3,  /* (78) num_vargs ::= num_vargs COMMA number */
-   -1,  /* (79) num_vargs ::= number */
-   -4,  /* (80) expr ::= CHOICE OPENP num_vargs CLOSEP */
-   -4,  /* (81) expr ::= FOLD OPENP expr CLOSEP */
-   -6,  /* (82) expr ::= FOLD OPENP expr COMMA expr CLOSEP */
-   -8,  /* (83) expr ::= CLIP OPENP expr COMMA expr COMMA expr CLOSEP */
-   -3,  /* (84) expr ::= expr PLUS expr */
-   -3,  /* (85) expr ::= expr MINUS expr */
-   -3,  /* (86) expr ::= expr TIMES expr */
-   -3,  /* (87) expr ::= expr DIVIDE expr */
-   -3,  /* (88) expr ::= expr POW expr */
-   -3,  /* (89) expr ::= expr MOD expr */
-   -1,  /* (90) expr ::= DOUBLE */
-   -2,  /* (91) expr ::= MINUS DOUBLE */
-   -2,  /* (92) expr ::= DOUBLE SAMP */
-   -2,  /* (93) expr ::= DOUBLE MSEC */
-   -2,  /* (94) expr ::= DOUBLE SEC */
-   -1,  /* (95) program ::= prop_list */
-    0,  /* (96) ondone ::= */
-   -2,  /* (97) prop_pan ::= PROP_PAN overflow */
-   -2,  /* (98) prop_pan ::= PROP_PAN mode */
-   -1,  /* (99) prop_expr ::= prop_pan */
-   -1,  /* (100) prop_expr ::= prop_tag */
-   -2,  /* (101) prop_expr ::= PROP_INTERP interp */
-   -3,  /* (102) prop_expr ::= prop MODULATE modulate */
-   -2,  /* (103) prop_list ::= prop_list prop_expr */
-   -1,  /* (104) prop_list ::= prop_expr */
-    0,  /* (105) assign ::= */
-   -1,  /* (106) expr ::= vars */
-   -2,  /* (107) expr ::= MINUS vars */
-   -3,  /* (108) expr ::= OPENP expr CLOSEP */
+   -6,  /* (76) expr ::= FN_URAND OPENP expr DOTS expr CLOSEP */
+   -1,  /* (77) number ::= DOUBLE */
+   -2,  /* (78) number ::= MINUS DOUBLE */
+   -3,  /* (79) num_vargs ::= num_vargs COMMA number */
+   -1,  /* (80) num_vargs ::= number */
+   -4,  /* (81) expr ::= CHOICE OPENP num_vargs CLOSEP */
+   -4,  /* (82) expr ::= FOLD OPENP expr CLOSEP */
+   -6,  /* (83) expr ::= FOLD OPENP expr COMMA expr CLOSEP */
+   -8,  /* (84) expr ::= CLIP OPENP expr COMMA expr COMMA expr CLOSEP */
+   -3,  /* (85) expr ::= expr PLUS expr */
+   -3,  /* (86) expr ::= expr MINUS expr */
+   -3,  /* (87) expr ::= expr TIMES expr */
+   -3,  /* (88) expr ::= expr DIVIDE expr */
+   -3,  /* (89) expr ::= expr POW expr */
+   -3,  /* (90) expr ::= expr MOD expr */
+   -1,  /* (91) expr ::= DOUBLE */
+   -2,  /* (92) expr ::= MINUS DOUBLE */
+   -2,  /* (93) expr ::= DOUBLE SAMP */
+   -2,  /* (94) expr ::= DOUBLE MSEC */
+   -2,  /* (95) expr ::= DOUBLE SEC */
+   -1,  /* (96) program ::= prop_list */
+    0,  /* (97) ondone ::= */
+   -2,  /* (98) prop_pan ::= PROP_PAN overflow */
+   -2,  /* (99) prop_pan ::= PROP_PAN mode */
+   -1,  /* (100) prop_expr ::= prop_pan */
+   -1,  /* (101) prop_expr ::= prop_tag */
+   -2,  /* (102) prop_expr ::= PROP_INTERP interp */
+   -3,  /* (103) prop_expr ::= prop MODULATE modulate */
+   -2,  /* (104) prop_list ::= prop_list prop_expr */
+   -1,  /* (105) prop_list ::= prop_expr */
+    0,  /* (106) assign ::= */
+   -1,  /* (107) expr ::= vars */
+   -2,  /* (108) expr ::= MINUS vars */
+   -3,  /* (109) expr ::= OPENP expr CLOSEP */
 };
 
 static void yy_accept(yyParser*);  /* Forward Declaration */
@@ -1450,97 +1453,97 @@ static YYACTIONTYPE yy_reduce(
       case 0: /* prop ::= PROP_AMP */
 #line 47 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->startProp(ceammc::GRAIN_PROP_AMP); }
-#line 1453 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1456 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 1: /* prop ::= PROP_AT */
 #line 48 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->startProp(ceammc::GRAIN_PROP_AT); }
-#line 1458 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1461 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 2: /* prop ::= PROP_LEN */
 #line 49 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->startProp(ceammc::GRAIN_PROP_LENGTH); }
-#line 1463 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1466 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 3: /* prop ::= PROP_SPEED */
 #line 50 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->startProp(ceammc::GRAIN_PROP_SPEED); }
-#line 1468 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1471 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 4: /* prop ::= PROP_TIME_BEFORE */
 #line 51 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->startProp(ceammc::GRAIN_PROP_TIME_BEFORE); }
-#line 1473 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1476 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 5: /* prop ::= PROP_TIME_AFTER */
 #line 52 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->startProp(ceammc::GRAIN_PROP_TIME_AFTER); }
-#line 1478 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1481 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 6: /* prop ::= PROP_PAN */
 #line 53 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->startProp(ceammc::GRAIN_PROP_PAN); }
-#line 1483 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1486 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 7: /* prop ::= PROP_REPEATS */
 #line 54 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->startProp(ceammc::GRAIN_PROP_REPEATS); }
-#line 1488 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1491 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 8: /* ondone ::= ONDONE */
 #line 56 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->setCalcMoment(ceammc::GRAIN_CALC_ONDONE); }
-#line 1493 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1496 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 9: /* wintype ::= HANN */
 #line 59 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { yymsp[0].minor.yy0.val = ceammc::GRAIN_WIN_HANN; p->setWinParam(0); }
-#line 1498 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1501 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 10: /* wintype ::= RECT */
 #line 60 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { yymsp[0].minor.yy0.val = ceammc::GRAIN_WIN_RECT; p->setWinParam(0); }
-#line 1503 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1506 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 11: /* wintype ::= TRI */
 #line 61 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { yymsp[0].minor.yy0.val = ceammc::GRAIN_WIN_TRI;  p->setWinParam(0); }
-#line 1508 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1511 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 12: /* wintype ::= TRPZ */
 #line 62 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { yymsp[0].minor.yy0.val = ceammc::GRAIN_WIN_TRPZ; p->setWinParam(0); }
-#line 1513 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1516 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 13: /* wintype ::= TRPZ OPENP DOUBLE CLOSEP */
 #line 64 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { yymsp[-3].minor.yy0.val = ceammc::GRAIN_WIN_TRPZ; p->setWinParam(yymsp[-1].minor.yy0.val); }
-#line 1518 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1521 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 14: /* wintype ::= LINUP */
 #line 65 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { yymsp[0].minor.yy0.val = ceammc::GRAIN_WIN_LINUP; p->setWinParam(0); }
-#line 1523 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1526 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 15: /* wintype ::= LINUP OPENP DOUBLE CLOSEP */
 #line 67 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { yymsp[-3].minor.yy0.val = ceammc::GRAIN_WIN_LINUP; p->setWinParam(yymsp[-1].minor.yy0.val); }
-#line 1528 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1531 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 16: /* wintype ::= LINDOWN */
 #line 68 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { yymsp[0].minor.yy0.val = ceammc::GRAIN_WIN_LINDOWN; p->setWinParam(0); }
-#line 1533 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1536 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 17: /* wintype ::= LINDOWN OPENP DOUBLE CLOSEP */
 #line 70 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { yymsp[-3].minor.yy0.val = ceammc::GRAIN_WIN_LINDOWN; p->setWinParam(yymsp[-1].minor.yy0.val); }
-#line 1538 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1541 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 18: /* prop_tag ::= PROP_TAG SYMBOL */
 #line 75 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->startProp(ceammc::GRAIN_PROP_TAG); p->saveGrainTag(yymsp[0].minor.yy0.sym); }
-#line 1543 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1546 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 19: /* prop_expr ::= prop ondone assign expr */
 #line 78 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
@@ -1557,387 +1560,388 @@ static YYACTIONTYPE yy_reduce(
     break;
     }
 }
-#line 1560 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1563 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 20: /* prop_expr ::= PROP_WINDOW wintype */
 #line 94 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->setWinType(static_cast<ceammc::GrainWindowType>(yymsp[0].minor.yy0.val)); }
-#line 1565 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1568 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 21: /* overflow ::= OVERFLOW CLIP */
 #line 100 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->setPanOverflow(ceammc::GRAIN_PROP_OVERFLOW_CLIP); }
-#line 1570 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1573 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 22: /* overflow ::= OVERFLOW FOLD */
 #line 101 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->setPanOverflow(ceammc::GRAIN_PROP_OVERFLOW_FOLD); }
-#line 1575 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1578 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 23: /* overflow ::= OVERFLOW WRAP */
 #line 102 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->setPanOverflow(ceammc::GRAIN_PROP_OVERFLOW_WRAP); }
-#line 1580 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1583 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 24: /* interp ::= NONE */
 #line 104 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->setInterp(ceammc::GRAIN_INTERP_NONE); }
-#line 1585 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1588 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 25: /* interp ::= LINEAR */
 #line 105 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->setInterp(ceammc::GRAIN_INTERP_LINEAR); }
-#line 1590 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1593 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 26: /* interp ::= CUBIC */
 #line 106 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->setInterp(ceammc::GRAIN_INTERP_CUBIC); }
-#line 1595 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1598 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 27: /* mode ::= MODE NONE */
 #line 108 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->setPanMode(ceammc::GRAIN_PAN_NONE); }
-#line 1600 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1603 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 28: /* mode ::= MODE LINEAR */
 #line 109 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->setPanMode(ceammc::GRAIN_PAN_LINEAR); }
-#line 1605 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1608 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 29: /* mode ::= MODE FN_SQRT */
 #line 110 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->setPanMode(ceammc::GRAIN_PAN_SQRT); }
-#line 1610 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1613 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 30: /* waveform1 ::= SIN */
 #line 112 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { yymsp[0].minor.yy0 = ceammc::GRAIN_MOD_SIN; }
-#line 1615 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1618 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 31: /* waveform1 ::= TRI */
 #line 113 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { yymsp[0].minor.yy0 = ceammc::GRAIN_MOD_TRI; }
-#line 1620 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1623 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 32: /* waveform1 ::= SQR */
 #line 114 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { yymsp[0].minor.yy0 = ceammc::GRAIN_MOD_SQR; }
-#line 1625 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1628 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 33: /* waveform1 ::= USAW */
 #line 115 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { yymsp[0].minor.yy0 = ceammc::GRAIN_MOD_SAWUP; }
-#line 1630 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1633 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 34: /* waveform1 ::= DSAW */
 #line 116 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { yymsp[0].minor.yy0 = ceammc::GRAIN_MOD_SAWDOWN; }
-#line 1635 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1638 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 35: /* modulate ::= expr DOTS expr waveform1 OPENP expr CLOSEP */
 #line 119 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->setModulation(yymsp[-6].minor.yy0.val, yymsp[-4].minor.yy0.val, (ceammc::GrainModulation)yymsp[-3].minor.yy0.val, yymsp[-1].minor.yy0.val); }
-#line 1640 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1643 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 36: /* modulate ::= NONE */
 #line 120 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->setModulation(0, 0, ceammc::GRAIN_MOD_NONE, 0); }
-#line 1645 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1648 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 37: /* vars ::= CONST_AMP */
 #line 123 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_CONST0); }
-#line 1650 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1653 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 38: /* vars ::= CONST_AT */
 #line 124 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_CONST1); }
-#line 1655 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1658 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 39: /* vars ::= CONST_LEN */
 #line 125 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_CONST2); }
-#line 1660 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1663 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 40: /* vars ::= CONST_PAN */
 #line 126 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_CONST3); }
-#line 1665 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1668 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 41: /* vars ::= CONST_SPEED */
 #line 127 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_CONST4); }
-#line 1670 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1673 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 42: /* vars ::= CONST_TIME_BEFORE */
 #line 128 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_CONST5); }
-#line 1675 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1678 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 43: /* vars ::= CONST_TIME_AFTER */
 #line 129 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_CONST13); }
-#line 1680 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1683 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 44: /* vars ::= CONST_SR */
 #line 131 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_CONST6); }
-#line 1685 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1688 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 45: /* vars ::= CONST_BS */
 #line 132 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_CONST7); }
-#line 1690 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1693 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 46: /* vars ::= CONST_ASIZE */
 #line 133 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_CONST8); }
-#line 1695 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1698 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 47: /* vars ::= CONST_NITER */
 #line 134 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_CONST9); }
-#line 1700 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1703 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 48: /* vars ::= CONST_NBLOCK */
 #line 135 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_CONST10); }
-#line 1705 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1708 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 49: /* vars ::= CONST_NSAMP */
 #line 136 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_CONST11); }
-#line 1710 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1713 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 50: /* vars ::= CONST_GIDX */
 #line 137 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_CONST12); }
-#line 1715 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1718 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 51: /* assign ::= ASSIGN_ADD */
 #line 139 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->setAssignType(ceammc::BC_ASSIGN_ADD); }
-#line 1720 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1723 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 52: /* assign ::= ASSIGN_SUB */
 #line 140 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->setAssignType(ceammc::BC_ASSIGN_SUB); }
-#line 1725 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1728 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 53: /* assign ::= ASSIGN_MUL */
 #line 141 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->setAssignType(ceammc::BC_ASSIGN_MUL); }
-#line 1730 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1733 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 54: /* assign ::= ASSIGN_SET */
 #line 142 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->setAssignType(ceammc::BC_ASSIGN_SET); }
-#line 1735 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1738 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 55: /* expr ::= FN_ABS OPENP expr CLOSEP */
 #line 148 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_ABS); }
-#line 1740 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1743 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 56: /* expr ::= FN_SQRT OPENP expr CLOSEP */
 #line 149 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_SQRT); }
-#line 1745 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1748 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 57: /* expr ::= SIN OPENP expr CLOSEP */
 #line 150 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_SIN); }
-#line 1750 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1753 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 58: /* expr ::= FN_COS OPENP expr CLOSEP */
 #line 151 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_COS); }
-#line 1755 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1758 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 59: /* expr ::= FN_TAN OPENP expr CLOSEP */
 #line 152 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_TAN); }
-#line 1760 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1763 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 60: /* expr ::= FN_ACOS OPENP expr CLOSEP */
 #line 153 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_ACOS); }
-#line 1765 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1768 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 61: /* expr ::= FN_ASIN OPENP expr CLOSEP */
 #line 154 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_ASIN); }
-#line 1770 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1773 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 62: /* expr ::= FN_ATAN OPENP expr CLOSEP */
 #line 155 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_ATAN); }
-#line 1775 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1778 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 63: /* expr ::= FN_CEIL OPENP expr CLOSEP */
 #line 156 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_CEIL); }
-#line 1780 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1783 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 64: /* expr ::= FN_FLOOR OPENP expr CLOSEP */
 #line 157 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_FLOOR); }
-#line 1785 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1788 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 65: /* expr ::= FN_ROUND OPENP expr CLOSEP */
 #line 158 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_ROUND); }
-#line 1790 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1793 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 66: /* expr ::= FN_LOG OPENP expr CLOSEP */
 #line 159 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_LOG); }
-#line 1795 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1798 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 67: /* expr ::= FN_LOG10 OPENP expr CLOSEP */
 #line 160 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_LOG10); }
-#line 1800 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1803 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 68: /* expr ::= FN_LOG2 OPENP expr CLOSEP */
 #line 161 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_LOG2); }
-#line 1805 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1808 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 69: /* expr ::= FN_FRAC OPENP expr CLOSEP */
 #line 162 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_FRAC); }
-#line 1810 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1813 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 70: /* expr ::= WRAP OPENP expr CLOSEP */
 #line 164 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_WRAP0); }
-#line 1815 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1818 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 71: /* expr ::= WRAP OPENP expr COMMA expr CLOSEP */
 #line 166 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_WRAP1); }
-#line 1820 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1823 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 72: /* expr ::= WRAP OPENP expr COMMA expr COMMA expr CLOSEP */
 #line 168 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_WRAP2); }
-#line 1825 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1828 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 73: /* expr ::= FN_URAND OPENP CLOSEP */
 #line 170 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_URAND0); }
-#line 1830 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1833 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 74: /* expr ::= FN_URAND OPENP expr CLOSEP */
 #line 171 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_URAND1); }
-#line 1835 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1838 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       case 75: /* expr ::= FN_URAND OPENP expr COMMA expr CLOSEP */
+      case 76: /* expr ::= FN_URAND OPENP expr DOTS expr CLOSEP */ yytestcase(yyruleno==76);
 #line 173 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_URAND2); }
-#line 1840 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1844 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
-      case 76: /* number ::= DOUBLE */
-      case 90: /* expr ::= DOUBLE */ yytestcase(yyruleno==90);
-#line 175 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+      case 77: /* number ::= DOUBLE */
+      case 91: /* expr ::= DOUBLE */ yytestcase(yyruleno==91);
+#line 178 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { yylhsminor.yy0 = yymsp[0].minor.yy0; p->bcPushValue(yymsp[0].minor.yy0.val); }
-#line 1846 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1850 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
   yymsp[0].minor.yy0 = yylhsminor.yy0;
         break;
-      case 77: /* number ::= MINUS DOUBLE */
-      case 91: /* expr ::= MINUS DOUBLE */ yytestcase(yyruleno==91);
-#line 176 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+      case 78: /* number ::= MINUS DOUBLE */
+      case 92: /* expr ::= MINUS DOUBLE */ yytestcase(yyruleno==92);
+#line 179 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { yymsp[-1].minor.yy0.val = -yymsp[0].minor.yy0.val; p->bcPushValue(-yymsp[0].minor.yy0.val); }
-#line 1853 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1857 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
-      case 78: /* num_vargs ::= num_vargs COMMA number */
-      case 79: /* num_vargs ::= number */ yytestcase(yyruleno==79);
-#line 178 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
-{ p->bcVarArg(); }
-#line 1859 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
-        break;
-      case 80: /* expr ::= CHOICE OPENP num_vargs CLOSEP */
+      case 79: /* num_vargs ::= num_vargs COMMA number */
+      case 80: /* num_vargs ::= number */ yytestcase(yyruleno==80);
 #line 181 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+{ p->bcVarArg(); }
+#line 1863 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+        break;
+      case 81: /* expr ::= CHOICE OPENP num_vargs CLOSEP */
+#line 184 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushVarArgs(); p->bcPushCode(ceammc::OP_CHOICE); }
-#line 1864 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1868 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
-      case 81: /* expr ::= FOLD OPENP expr CLOSEP */
-#line 183 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+      case 82: /* expr ::= FOLD OPENP expr CLOSEP */
+#line 186 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_FOLD0); }
-#line 1869 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1873 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
-      case 82: /* expr ::= FOLD OPENP expr COMMA expr CLOSEP */
-#line 185 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+      case 83: /* expr ::= FOLD OPENP expr COMMA expr CLOSEP */
+#line 188 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushCode(ceammc::OP_FOLD1); }
-#line 1874 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1878 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
-      case 83: /* expr ::= CLIP OPENP expr COMMA expr COMMA expr CLOSEP */
-#line 189 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
-{ p->bcPushCode(ceammc::OP_CLIP); }
-#line 1879 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
-        break;
-      case 84: /* expr ::= expr PLUS expr */
+      case 84: /* expr ::= CLIP OPENP expr COMMA expr COMMA expr CLOSEP */
 #line 192 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
-{ p->bcPushCode(ceammc::OP_ADD); }
-#line 1884 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+{ p->bcPushCode(ceammc::OP_CLIP); }
+#line 1883 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
-      case 85: /* expr ::= expr MINUS expr */
-#line 193 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
-{ p->bcPushCode(ceammc::OP_SUB); }
-#line 1889 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
-        break;
-      case 86: /* expr ::= expr TIMES expr */
-#line 194 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
-{ p->bcPushCode(ceammc::OP_MUL); }
-#line 1894 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
-        break;
-      case 87: /* expr ::= expr DIVIDE expr */
+      case 85: /* expr ::= expr PLUS expr */
 #line 195 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
-{ p->bcPushCode(ceammc::OP_DIV); }
-#line 1899 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+{ p->bcPushCode(ceammc::OP_ADD); }
+#line 1888 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
-      case 88: /* expr ::= expr POW expr */
+      case 86: /* expr ::= expr MINUS expr */
 #line 196 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
-{ p->bcPushCode(ceammc::OP_POW); }
-#line 1904 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+{ p->bcPushCode(ceammc::OP_SUB); }
+#line 1893 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
-      case 89: /* expr ::= expr MOD expr */
+      case 87: /* expr ::= expr TIMES expr */
 #line 197 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
-{ p->bcPushCode(ceammc::OP_MOD); }
-#line 1909 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+{ p->bcPushCode(ceammc::OP_MUL); }
+#line 1898 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
-      case 92: /* expr ::= DOUBLE SAMP */
+      case 88: /* expr ::= expr DIVIDE expr */
+#line 198 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+{ p->bcPushCode(ceammc::OP_DIV); }
+#line 1903 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+        break;
+      case 89: /* expr ::= expr POW expr */
+#line 199 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+{ p->bcPushCode(ceammc::OP_POW); }
+#line 1908 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+        break;
+      case 90: /* expr ::= expr MOD expr */
 #line 200 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+{ p->bcPushCode(ceammc::OP_MOD); }
+#line 1913 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+        break;
+      case 93: /* expr ::= DOUBLE SAMP */
+#line 203 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushValue(yymsp[-1].minor.yy0.val); }
-#line 1914 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1918 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
-      case 93: /* expr ::= DOUBLE MSEC */
-#line 201 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+      case 94: /* expr ::= DOUBLE MSEC */
+#line 204 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushValue((sys_getsr() / 1000.0) * yymsp[-1].minor.yy0.val); }
-#line 1919 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1923 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
-      case 94: /* expr ::= DOUBLE SEC */
-#line 202 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
+      case 95: /* expr ::= DOUBLE SEC */
+#line 205 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 { p->bcPushValue(sys_getsr() * yymsp[-1].minor.yy0.val); }
-#line 1924 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1928 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
         break;
       default:
-      /* (95) program ::= prop_list */ yytestcase(yyruleno==95);
-      /* (96) ondone ::= */ yytestcase(yyruleno==96);
-      /* (97) prop_pan ::= PROP_PAN overflow */ yytestcase(yyruleno==97);
-      /* (98) prop_pan ::= PROP_PAN mode */ yytestcase(yyruleno==98);
-      /* (99) prop_expr ::= prop_pan (OPTIMIZED OUT) */ assert(yyruleno!=99);
-      /* (100) prop_expr ::= prop_tag (OPTIMIZED OUT) */ assert(yyruleno!=100);
-      /* (101) prop_expr ::= PROP_INTERP interp */ yytestcase(yyruleno==101);
-      /* (102) prop_expr ::= prop MODULATE modulate */ yytestcase(yyruleno==102);
-      /* (103) prop_list ::= prop_list prop_expr */ yytestcase(yyruleno==103);
-      /* (104) prop_list ::= prop_expr (OPTIMIZED OUT) */ assert(yyruleno!=104);
-      /* (105) assign ::= */ yytestcase(yyruleno==105);
-      /* (106) expr ::= vars (OPTIMIZED OUT) */ assert(yyruleno!=106);
-      /* (107) expr ::= MINUS vars */ yytestcase(yyruleno==107);
-      /* (108) expr ::= OPENP expr CLOSEP */ yytestcase(yyruleno==108);
+      /* (96) program ::= prop_list */ yytestcase(yyruleno==96);
+      /* (97) ondone ::= */ yytestcase(yyruleno==97);
+      /* (98) prop_pan ::= PROP_PAN overflow */ yytestcase(yyruleno==98);
+      /* (99) prop_pan ::= PROP_PAN mode */ yytestcase(yyruleno==99);
+      /* (100) prop_expr ::= prop_pan (OPTIMIZED OUT) */ assert(yyruleno!=100);
+      /* (101) prop_expr ::= prop_tag (OPTIMIZED OUT) */ assert(yyruleno!=101);
+      /* (102) prop_expr ::= PROP_INTERP interp */ yytestcase(yyruleno==102);
+      /* (103) prop_expr ::= prop MODULATE modulate */ yytestcase(yyruleno==103);
+      /* (104) prop_list ::= prop_list prop_expr */ yytestcase(yyruleno==104);
+      /* (105) prop_list ::= prop_expr (OPTIMIZED OUT) */ assert(yyruleno!=105);
+      /* (106) assign ::= */ yytestcase(yyruleno==106);
+      /* (107) expr ::= vars (OPTIMIZED OUT) */ assert(yyruleno!=107);
+      /* (108) expr ::= MINUS vars */ yytestcase(yyruleno==108);
+      /* (109) expr ::= OPENP expr CLOSEP */ yytestcase(yyruleno==109);
         break;
 /********** End reduce actions ************************************************/
   };
@@ -1982,7 +1986,7 @@ static void yy_parse_failed(
 #line 35 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
 
     p->setErrorMsg("parse failure");
-#line 1985 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 1989 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
 /************ End %parse_failure code *****************************************/
   parse_grain_exprARG_STORE /* Suppress warning about unused %extra_argument variable */
   parse_grain_exprCTX_STORE
@@ -2011,7 +2015,7 @@ static void yy_syntax_error(
             std::cerr << "possible token: " << yyTokenName[i] << "\n";
         }
     }
-#line 2014 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 2018 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
 /************ End %syntax_error code ******************************************/
   parse_grain_exprARG_STORE /* Suppress warning about unused %extra_argument variable */
   parse_grain_exprCTX_STORE
@@ -2039,7 +2043,7 @@ static void yy_accept(
 /*********** Begin %parse_accept code *****************************************/
 #line 33 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.y"
  
-#line 2042 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
+#line 2046 "/Users/serge/work/music/pure-data/ceammc/ext/src/array/grain_expr.c"
 /*********** End %parse_accept code *******************************************/
   parse_grain_exprARG_STORE /* Suppress warning about unused %extra_argument variable */
   parse_grain_exprCTX_STORE

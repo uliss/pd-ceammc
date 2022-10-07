@@ -22,7 +22,7 @@ public:
     Voice2Midi(const PdArgs& args);
 
     void onSymbol(t_symbol* s) override;
-    void onList(const AtomList& lst) override;
+    void onList(const AtomListView& lv) override;
 };
 
 void setup_music_voice2midi();

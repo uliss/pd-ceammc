@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="flt.a-weight">
+        <title>flt.a-weight</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>convert frequency to A-weight value</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>flt</category>
+            <keywords>filter weight A</keywords>
+            <since>0.9.5</since>
+        </meta>
+        <methods>
+            <method name="reset">reset filter state</method>
+        </methods>
+        <properties>
+            <property name="@db" type="int" enum="0 1" default="0">output in decibels</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="float">input frequency in Herz</xinfo>
+                <xinfo on="list">list of input frequencies in Herz, non float types are
+                ignored</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>float or list A-weight amplitudes or decibel values</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[bang(                  [array A-WEIGHT w=400 yr=0..1]
+|
+[list.seq 20 20000 50]
+|
+[flt.a-weight]
+|
+[list->array A-WEIGHT]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

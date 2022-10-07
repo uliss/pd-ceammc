@@ -28,12 +28,14 @@
 using namespace ceammc;
 
 static const int MAX_SLIDERS_NUM = 1024;
-static t_symbol* SYM_SLIDER;
-static t_symbol* SYM_VSLIDERS;
-static t_symbol* SYM_NONE;
-static t_symbol* SYM_BOTH;
-static t_symbol* SYM_MIN;
-static t_symbol* SYM_MAX;
+
+constexpr const char * SYM_SLIDER = "slider";
+constexpr const char * SYM_VSLIDERS = "ui.vsliders";
+constexpr const char * SYM_NONE = "none";
+constexpr const char * SYM_BOTH = "both";
+constexpr const char * SYM_MIN = "min";
+constexpr const char * SYM_MAX = "max";
+
 static decltype(std::chrono::system_clock::now().time_since_epoch().count()) random_seed;
 
 UISliders::UISliders()
@@ -90,7 +92,7 @@ void UISliders::init(t_symbol* name, const AtomListView& args, bool usePresets)
         pos_values_.resize(prop_count, 0);
     }
 
-    if (name == SYM_VSLIDERS)
+    if (name == gensym(SYM_VSLIDERS))
         std::swap(asEBox()->b_rect.width, asEBox()->b_rect.height);
 }
 
@@ -307,7 +309,7 @@ void UISliders::m_get(const AtomListView& l)
 {
     if (l.size() > 0 && l[0].isSymbol()) {
         if (l.size() == 2
-            && l[0].asSymbol() == SYM_SLIDER
+            && l[0].asSymbol() == gensym(SYM_SLIDER)
             && l[1].isFloat()) {
 
             int idx = l[1].asFloat();
@@ -319,7 +321,7 @@ void UISliders::m_get(const AtomListView& l)
             Atom res[2];
             res[0] = idx;
             res[1] = realValueAt(idx);
-            anyTo(0, SYM_SLIDER, AtomListView(res, 2));
+            anyTo(0, gensym(SYM_SLIDER), AtomListView(res, 2));
         } else {
             UI_ERR << "usage: get slider IDX";
             return;
@@ -357,7 +359,7 @@ bool UISliders::setRealValues(const AtomListView& l)
         return false;
     }
 
-    if (prop_auto_range_mode == SYM_BOTH) {
+    if (prop_auto_range_mode == gensym(SYM_BOTH)) {
         auto mm = std::minmax_element(l.begin(), l.end(),
             [](const Atom& a, const Atom& b) {
                 return a.toT<t_float>(0) < b.toT<t_float>(0);
@@ -374,7 +376,7 @@ bool UISliders::setRealValues(const AtomListView& l)
         prop_min = min;
         prop_max = max;
         generateTxtLabels();
-    } else if (prop_auto_range_mode == SYM_MAX) {
+    } else if (prop_auto_range_mode == gensym(SYM_MAX)) {
         const size_t N = prop_auto_count
             ? std::min<size_t>(l.size(), MAX_SLIDERS_NUM)
             : std::min<size_t>(l.size(), prop_count);
@@ -392,7 +394,7 @@ bool UISliders::setRealValues(const AtomListView& l)
 
         prop_max = max;
         generateTxtLabels();
-    } else if (prop_auto_range_mode == SYM_MIN) {
+    } else if (prop_auto_range_mode == gensym(SYM_MIN)) {
         const size_t N = prop_auto_count
             ? std::min<size_t>(l.size(), MAX_SLIDERS_NUM)
             : std::min<size_t>(l.size(), prop_count);
@@ -454,24 +456,24 @@ AtomList UISliders::propAutoRangeMode() const
 
 void UISliders::setPropAutoRangeMode(const AtomListView& lv)
 {
-    static t_symbol* opts[] = { SYM_NONE, SYM_BOTH, SYM_MAX, SYM_MIN };
+    static const char* opts[] = { SYM_NONE, SYM_BOTH, SYM_MAX, SYM_MIN };
 
     auto sym = lv.asSymbol();
-    auto it = std::find_if(std::begin(opts), std::end(opts), [sym](t_symbol* s) { return s == sym; });
+    auto it = std::find_if(std::begin(opts), std::end(opts), [sym](const char* s) { return gensym(s) == sym; });
     if (it == std::end(opts)) {
         UI_ERR << SYM_NONE << ", " << SYM_BOTH << ", " << SYM_MAX << ", " << SYM_MIN << " expected, got: " << lv;
         return;
     }
 
-    prop_auto_range_mode = *it;
+    prop_auto_range_mode = sym;
     if (isPatchLoading())
         return;
 
-    if (prop_auto_range_mode == SYM_BOTH)
+    if (prop_auto_range_mode == gensym(SYM_BOTH))
         normalize();
-    else if (prop_auto_range_mode == SYM_MIN)
+    else if (prop_auto_range_mode == gensym(SYM_MIN))
         normalizeMin();
-    else if (prop_auto_range_mode == SYM_MAX)
+    else if (prop_auto_range_mode == gensym(SYM_MAX))
         normalizeMax();
 }
 
@@ -579,7 +581,7 @@ void UISliders::m_set(const AtomListView& l)
     // set VALUES...
     if (l.size() > 0 && l[0].isSymbol()) {
         if (l.size() == 3
-            && l[0].asSymbol() == SYM_SLIDER
+            && l[0].asSymbol() == gensym(SYM_SLIDER)
             && l[1].isFloat()
             && l[2].isFloat()) {
 
@@ -693,13 +695,6 @@ void UISliders::onPropChange(t_symbol* prop_name)
 
 void UISliders::setup()
 {
-    SYM_SLIDER = gensym("slider");
-    SYM_VSLIDERS = gensym("ui.vsliders");
-    SYM_NONE = gensym("none");
-    SYM_BOTH = gensym("both");
-    SYM_MIN = gensym("min");
-    SYM_MAX = gensym("max");
-
     sys_gui(ui_sliders_tcl);
 
     random_seed = std::chrono::system_clock::now().time_since_epoch().count();

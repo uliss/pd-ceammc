@@ -27,8 +27,8 @@ static t_symbol* SYM_OUTPUT_ALL_CELLS;
 static const int CELL_MARGIN = 0;
 
 namespace {
-    auto random_seed = std::chrono::system_clock::now().time_since_epoch().count();
-    std::default_random_engine random_gen(random_seed);
+auto random_seed = std::chrono::system_clock::now().time_since_epoch().count();
+std::default_random_engine random_gen(random_seed);
 }
 
 UIMatrix::UIMatrix()
@@ -118,19 +118,19 @@ bool UIMatrix::cell(size_t row, size_t col) const
     return matrix_[row * UI_MAX_MATRIX_SIZE + col];
 }
 
-void UIMatrix::setCell(const AtomList& lst)
+void UIMatrix::setCell(const AtomListView& lv)
 {
-    if (lst.size() != 3) {
+    if (lv.size() != 3) {
         UI_ERR << "usage set cell ROW COL VALUE";
         return;
     }
 
-    int row = lst[0].asInt(-1);
-    int col = lst[1].asInt(-1);
-    int v = lst[2].asInt(0);
+    int row = lv[0].asInt(-1);
+    int col = lv[1].asInt(-1);
+    int v = lv[2].asInt(0);
 
     if (row < 0 || row >= prop_rows_ || col < 0 || col >= prop_cols_) {
-        UI_ERR << "invalid indexes: " << lst;
+        UI_ERR << "invalid indexes: " << lv;
         return;
     }
 
@@ -567,9 +567,9 @@ void UIMatrix::onBang()
     outputAllCells();
 }
 
-void UIMatrix::onList(const AtomListView& lst)
+void UIMatrix::onList(const AtomListView& lv)
 {
-    setList(lst);
+    setList(lv);
     outputAllCells();
     drawActiveCells();
 }
@@ -836,6 +836,9 @@ void UIMatrix::loadPreset(size_t idx)
             setCell(ri, wi * NBITS + bi, v);
         }
     }
+
+    drawActiveCells();
+    outputAllCells();
 }
 
 void UIMatrix::storePreset(size_t idx)

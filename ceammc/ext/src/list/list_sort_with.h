@@ -25,7 +25,7 @@ class ListSortWith : public BaseObject {
 
 public:
     ListSortWith(const PdArgs& a);
-    void onList(const AtomList& l) override;
+    void onList(const AtomListView& lv) override;
     void onInlet(size_t n, const AtomListView& l) override;
     void onDataT(const MListAtom& ml);
 };

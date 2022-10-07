@@ -40,12 +40,12 @@ void RouteFloat::onSymbol(t_symbol* s)
     symbolTo(1, s);
 }
 
-void RouteFloat::onList(const AtomList& lst)
+void RouteFloat::onList(const AtomListView& lv)
 {
-    if (!strict_->value() && lst.isFloat())
-        floatTo(0, lst[0].asT<t_float>());
+    if (!strict_->value() && lv.isFloat())
+        floatTo(0, lv[0].asT<t_float>());
     else
-        listTo(1, lst);
+        listTo(1, lv);
 }
 
 void RouteFloat::onAny(t_symbol* s, const AtomListView& lv)

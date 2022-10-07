@@ -46,13 +46,13 @@ void FlowSpeedLimit::onSymbol(t_symbol* s)
     symbolTo(0, s);
 }
 
-void FlowSpeedLimit::onList(const AtomList& l)
+void FlowSpeedLimit::onList(const AtomListView& lv)
 {
     if (is_closed_)
         return;
 
     accept();
-    listTo(0, l);
+    listTo(0, lv);
 }
 
 void FlowSpeedLimit::onAny(t_symbol* s, const AtomListView& lv)
@@ -87,7 +87,7 @@ void FlowSpeedLimit::clock_handler()
     is_closed_ = false;
 }
 
-void FlowSpeedLimit::proxy_reset(const AtomListView&)
+void FlowSpeedLimit::onInletReset(const AtomListView&)
 {
     is_closed_ = false;
     clock_.unset();
@@ -100,9 +100,9 @@ void setup_flow_speedlim()
     obj.noPropsDispatch();
 
     InletProxy<FlowSpeedLimit>::init();
-    InletProxy<FlowSpeedLimit>::set_bang_callback(&FlowSpeedLimit::proxy_reset);
-    InletProxy<FlowSpeedLimit>::set_float_callback(&FlowSpeedLimit::proxy_float);
-    InletProxy<FlowSpeedLimit>::set_method_callback(gensym("reset"), &FlowSpeedLimit::proxy_reset);
+    InletProxy<FlowSpeedLimit>::set_bang_callback(&FlowSpeedLimit::onInletBang);
+    InletProxy<FlowSpeedLimit>::set_float_callback(&FlowSpeedLimit::onInletFloat);
+    InletProxy<FlowSpeedLimit>::set_method_callback(gensym("reset"), &FlowSpeedLimit::onInletReset);
 
     obj.setXletsInfo({ "any: input flow", "float: change speed" }, { "any: output flow" });
 }

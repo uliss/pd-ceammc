@@ -23,8 +23,8 @@ class ListHistogram : public ListBase {
 
 public:
     ListHistogram(const PdArgs& a);
-    void onList(const AtomList& l) override;
-    void onInlet(size_t, const AtomListView& l) override;
+    void onList(const AtomListView& lv) override;
+    void onInlet(size_t, const AtomListView& lv) override;
 };
 
 void setup_list_histogram();

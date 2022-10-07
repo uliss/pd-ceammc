@@ -22,9 +22,9 @@ SetSymmetricDifference::SetSymmetricDifference(const PdArgs& a)
     createOutlet();
 }
 
-void SetSymmetricDifference::onList(const AtomList& l)
+void SetSymmetricDifference::onList(const AtomListView& lv)
 {
-    onDataT(SetAtom(l));
+    onDataT(SetAtom(lv));
 }
 
 void SetSymmetricDifference::onDataT(const SetAtom& set)
@@ -32,12 +32,12 @@ void SetSymmetricDifference::onDataT(const SetAtom& set)
     atomTo(0, SetAtom(DataTypeSet::sym_difference(*set, set1_)));
 }
 
-void SetSymmetricDifference::onInlet(size_t, const AtomListView& l)
+void SetSymmetricDifference::onInlet(size_t, const AtomListView& lv)
 {
-    if (l.isA<DataTypeSet>()) {
-        set1_ = *l.asD<DataTypeSet>();
+    if (lv.isA<DataTypeSet>()) {
+        set1_ = *lv.asD<DataTypeSet>();
     } else {
-        set1_ = DataTypeSet(l);
+        set1_ = DataTypeSet(lv);
     }
 }
 

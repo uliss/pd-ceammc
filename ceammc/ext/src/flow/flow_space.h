@@ -48,15 +48,14 @@ public:
     void onBang() override;
     void onFloat(t_float f) override;
     void onSymbol(t_symbol* s) override;
-    void onList(const AtomList& l) override;
+    void onList(const AtomListView& lv) override;
     void onAny(t_symbol* s, const AtomListView& lv) override;
 
     void m_reset(const AtomListView&);
     void m_prop_delay(const AtomListView& lv);
     void m_prop_done(const AtomListView& lv);
 
-
-    void setInterval(t_float f);
+    void setInterval(int, t_float f);
 
 private:
     void packetSchedule();

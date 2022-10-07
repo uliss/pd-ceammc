@@ -21,7 +21,7 @@
 
 using namespace ceammc;
 
-class PathMonitor : public NotifiedObject {
+class PathMonitor : public BaseObject, public NotifiedObject {
     SymbolProperty* path_;
     std::string path_info_;
     std::mutex mtx_;

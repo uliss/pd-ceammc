@@ -23,8 +23,8 @@ class ListAnyOf : public ListBase {
 
 public:
     ListAnyOf(const PdArgs& a);
-    void onList(const AtomList& l) override;
-    void onInlet(size_t n, const AtomListView& l) override;
+    void onList(const AtomListView& lv) override;
+    void onInlet(size_t n, const AtomListView& lv) override;
 };
 
 void setup_list_any_of();

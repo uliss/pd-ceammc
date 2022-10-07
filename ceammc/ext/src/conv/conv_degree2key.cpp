@@ -15,6 +15,7 @@
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "ceammc_music_scale.h"
+#include "ceammc_containers.h"
 
 #include <ctime>
 #include <random>
@@ -60,10 +61,13 @@ void ConvDegree2Key::onFloat(t_float f)
         floatTo(0, scale_ptr_->degreeToKey(f));
 }
 
-void ConvDegree2Key::onList(const AtomList& l)
+void ConvDegree2Key::onList(const AtomListView& lv)
 {
-    if (scale_ptr_)
-        listTo(0, l.mapFloat([this](t_float f) { return scale_ptr_->degreeToKey(f); }));
+    if (scale_ptr_) {
+        SmallAtomList res;
+        lv.mapFloat([this](t_float f) { return scale_ptr_->degreeToKey(f); }, res);
+        listTo(0, res.view());
+    }
 }
 
 void ConvDegree2Key::m_random(t_symbol* s, const AtomListView& v)

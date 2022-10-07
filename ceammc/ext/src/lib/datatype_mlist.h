@@ -16,7 +16,6 @@
 
 #include "ceammc_abstractdata.h"
 #include "ceammc_atomlist.h"
-#include "ceammc_maybe.h"
 
 #include <iostream>
 
@@ -40,7 +39,7 @@ public:
     /**
      * create with elements from given list
      */
-    DataTypeMList(const AtomList& lst);
+    DataTypeMList(const AtomListView& lv);
     DataTypeMList(AtomList&& lst) noexcept;
 
     /**
@@ -58,7 +57,7 @@ public:
     DataTypeMList& operator=(const DataTypeMList& mlist);
     DataTypeMList& operator=(DataTypeMList&& mlist);
 
-    int type() const noexcept final;
+    DataTypeId type() const noexcept final;
 
     /**
      * Polymorphic copy creation
@@ -71,16 +70,19 @@ public:
     bool isEqual(const AbstractData* cmp) const noexcept final;
 
     /**
-     * Polymorphic convertion to string
-     * return string (in list syntax)
-     */
-    std::string toString() const final;
-
-    /**
      * Returns JSON representation of string
      *  - [1,2,3] etc...
      */
-    std::string valueToJsonString() const override;
+    std::string toJsonString() const final;
+
+    std::string toListStringContent() const noexcept final;
+    std::string toDictStringContent() const noexcept final;
+    bool set(const AbstractData* d) noexcept;
+
+    /**
+     * Polymorphic string value
+     */
+    std::string toString() const final;
 
     /**
      * Reference to underlying list
@@ -119,7 +121,7 @@ public:
     /**
      * Append all list elements to the end of the list
      */
-    void append(const AtomList& lst);
+    void append(const AtomListView& lv);
 
     /**
      * Removes all elements
@@ -130,7 +132,7 @@ public:
      * Insert elements in specified position
      * @return false on invalid position
      */
-    bool insert(size_t idx, const AtomList& lst);
+    bool insert(size_t idx, const AtomListView& lv);
 
     /**
      * Insert element into beginning
@@ -140,7 +142,7 @@ public:
     /**
      * Insert elements into beginning
      */
-    void prepend(const AtomList& lst);
+    void prepend(const AtomListView& lv);
 
     /**
      * Remove last element from list
@@ -162,12 +164,7 @@ public:
     /**
      * Set list elements
      */
-    void setRaw(const AtomList& lst);
-
-    /**
-     * Set list new content from parsed string/list
-     */
-    void setParsed(const AtomList& lst);
+    void setRaw(const AtomListView& lv);
 
     // iterators
     const_iterator begin() const { return data_.begin(); }
@@ -209,12 +206,7 @@ public:
     bool operator!=(const DataTypeMList& ml) const { return !operator==(ml); }
 
 public:
-    using MaybeList = Maybe<DataTypeMList>;
-
-public:
-    static int dataType;
-    static MaybeList parse(const AtomList& lst);
-    static MaybeList parse(const std::string& lst);
+    static DataTypeId dataType;
 };
 
 std::ostream& operator<<(std::ostream& os, const DataTypeMList& d);

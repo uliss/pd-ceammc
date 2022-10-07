@@ -24,6 +24,9 @@
             <par>Defines local scope dict variable, accessed by ID name and available only within
             its patch (canvas)</par>
         </info>
+        <mouse>
+            <event editmode="false" type="left-click">open data editor</event>
+        </mouse>
         <arguments>
             <argument name="ID" type="symbol">object ID</argument>
         </arguments>
@@ -39,6 +42,7 @@
             <param name="KEY" type="atom" required="true">entry key</param>
             <param name="VAL" type="list" required="true">single value or list</param></method>
             <method name="clear">removes all dict values. No output</method>
+            <method name="choose">choose random key and output it</method>
             <method name="get_key">get entry from dictionary 
             <param name="KEY" type="atom" required="true">entry key</param></method>
             <method name="set_key">change entry in dictionary. If it's not exists, do nothing. 
