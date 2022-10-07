@@ -14,23 +14,18 @@
 #ifndef NET_OSC_SEND_H
 #define NET_OSC_SEND_H
 
-#ifndef WIN32
-#include <unistd.h>
-#endif
-
 #include <cstdarg>
 #include <cstdint>
 
 #include "ceammc_object.h"
-#include "readerwriterqueue.h"
+#include "osc_property.h"
 
 using namespace ceammc;
 
 struct NetOscSendOscTask;
 
 class NetOscSend : public BaseObject {
-    SymbolProperty* host_;
-    IntProperty* port_;
+    net::OscUrlProperty* url_;
 
 public:
     NetOscSend(const PdArgs& args);

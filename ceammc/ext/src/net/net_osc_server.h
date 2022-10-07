@@ -35,6 +35,7 @@
 #include "ceammc_poll_dispatcher.h"
 #include "ceammc_property.h"
 #include "readerwriterqueue.h"
+#include "osc_property.h"
 
 namespace ceammc {
 namespace net {
@@ -194,23 +195,6 @@ namespace net {
     public:
         static constexpr const char* DISPATCHER = "#osc";
         static constexpr const char* METHOD_UPDATE = "update";
-    };
-
-    class OscUrlProperty : public AtomProperty {
-        t_symbol* host_;
-        t_symbol* port_;
-        t_symbol* proto_;
-
-    public:
-        OscUrlProperty(const std::string& name, const Atom& def, PropValueAccess ro = PropValueAccess::READWRITE);
-
-        t_symbol* host() const { return host_; }
-        t_symbol* port() const { return port_; }
-        t_symbol* proto() const { return proto_; }
-        const Atom& url() const { return value(); }
-
-    private:
-        bool parseUrl(const Atom& url);
     };
 
     class NetOscServer : public BaseObject {
