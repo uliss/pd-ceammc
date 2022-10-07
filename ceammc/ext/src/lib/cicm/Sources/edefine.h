@@ -27,20 +27,21 @@
 #define _FUNCTION_DEPRECTAED_ __attribute__((deprecated))
 #endif
 
+struct _class;
 #include "m_pd.h"
-
-extern "C" {
 #include "g_canvas.h"
+extern "C" {
 #include "m_imp.h"
 }
 
-#include <ctype.h>
-#include <fcntl.h>
-#include <math.h>
-#include <stdarg.h>
-#include <stdlib.h>
-#include <string.h>
+//#include <ctype.h>
+//#include <fcntl.h>
+
+#include <cmath>
+#include <cstdlib>
+#include <cstring>
 #include <vector>
+#include <cstdint>
 
 #ifdef _MSC_VER
 
