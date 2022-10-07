@@ -21,46 +21,41 @@
             </aliases>
         </meta>
         <arguments>
-            <argument name="NAME" type="symbol">OSC server name (for using with other objects)</argument>
-            <argument name="URL" type="atom">OSC server url (like osc.udp://localhost:12345)</argument>
+            <argument name="NAME" type="symbol">OSC server name (for using with other
+            objects)</argument>
+            <argument name="URL" type="atom">OSC server url (like
+            osc.udp://localhost:12345)</argument>
         </arguments>
         <methods>
-            <method name="send">send input values (autotyped)
+            <method name="send">send input values (autotyped) 
             <param name="PATH" type="symbol" required="true">OSC path</param>
             <param name="VALUES" type="list" required="true">values</param></method>
-            <method name="send_bool">send boolean value
+            <method name="send_bool">send boolean value 
             <param name="PATH" type="symbol" required="true">OSC path</param>
-            <param name="VAL" type="int" enum="0 1" required="true">value</param>
-            </method>
-            <method name="send_i32">send int32 value
+            <param name="VAL" type="int" enum="0 1" required="true">value</param></method>
+            <method name="send_i32">send int32 value 
             <param name="PATH" type="symbol" required="true">OSC path</param>
-            <param name="VAL" type="int" required="true">value</param>
-            </method>
-            <method name="send_i64">send int64 value
+            <param name="VAL" type="int" required="true">value</param></method>
+            <method name="send_i64">send int64 value 
             <param name="PATH" type="symbol" required="true">OSC path</param>
-            <param name="VAL" type="int" required="true">value</param>
-            </method>
-            <method name="send_float">send float value
+            <param name="VAL" type="int" required="true">value</param></method>
+            <method name="send_float">send float value 
             <param name="PATH" type="symbol" required="true">OSC path</param>
-            <param name="VAL" type="float" required="true">value</param>
-            </method>
-            <method name="send_double">send double value
+            <param name="VAL" type="float" required="true">value</param></method>
+            <method name="send_double">send double value 
             <param name="PATH" type="symbol" required="true">OSC path</param>
-            <param name="VAL" type="float" required="true">value</param>
-            </method>
-            <method name="send_null">send null value
+            <param name="VAL" type="float" required="true">value</param></method>
+            <method name="send_null">send null value 
+            <param name="PATH" type="symbol" required="true">OSC path</param></method>
+            <method name="send_inf">send inf value 
+            <param name="PATH" type="symbol" required="true">OSC path</param></method>
+            <method name="send_string">send string value 
             <param name="PATH" type="symbol" required="true">OSC path</param>
-            </method>
-            <method name="send_inf">send inf value
-            <param name="PATH" type="symbol" required="true">OSC path</param>
-            </method>
-            <method name="send_string">send string value
-            <param name="PATH" type="symbol" required="true">OSC path</param>
-            <param name="VAL" type="list" required="true">value</param>
-            </method>
-         </methods>
+            <param name="VAL" type="list" required="true">value</param></method>
+        </methods>
         <properties>
-            <property name="@host" type="symbol" enum="0 1" default="0">dump incoming messages to Pd window</property>
+            <property name="@host" type="symbol" enum="0 1" default="0">dump incoming messages to
+            Pd window</property>
         </properties>
         <inlets>
             <inlet>
