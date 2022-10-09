@@ -1039,6 +1039,8 @@ void Fluid::processBlock(const t_sample** in, t_sample** out)
 
 void setup_misc_fluid()
 {
+    LIB_DBG << fmt::format("fluidsynth version: {}", fluid_version_str());
+
     SoundExternalFactory<Fluid> obj("fluid~", OBJECT_FACTORY_DEFAULT);
 
     obj.addMethod("note", &Fluid::m_note);
