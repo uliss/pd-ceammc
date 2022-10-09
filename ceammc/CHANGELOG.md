@@ -42,6 +42,7 @@
   - [defer( method added to \[array.grainer~\] - to execute messages on grain finish
   - [reverse( method added to \[array.grainer~\] - to reverse grains positions
   - [permutate( method added to \[array.grainer~\] - to permutate grains positions
+  - [prog( method added to \[sfizz~\] - to send Program Change events
 - misc:
   - conv.lin2exp: list support added
   - conv.lin2curve: list support added
@@ -49,6 +50,7 @@
   - ui.slider2d alias added: ui.s2d
   - env.asr~: second inlet added for gate control
   - second inlet added to random.atom to set list to choose from
+  - sfizz synth udpated to version 1.2.0
 - TCL editor added for objects:
   - data.list
   - local.list
