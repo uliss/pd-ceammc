@@ -173,6 +173,49 @@ void PathFile::m_read_line(t_symbol* s, const AtomListView& lv)
         return bangTo(1);
 }
 
+void PathFile::m_read_bytes(t_symbol* s, const AtomListView& lv)
+{
+    static args::ArgChecker chk("NUM:i?");
+
+    if (!chk.check(lv, this)) {
+        chk.usage(this, s);
+        return;
+    }
+
+    if (!fs_.is_open()) {
+        METHOD_ERR(s) << fmt::format("file is not opened: '{}'", fname_->value()->s_name);
+        return;
+    }
+
+    if (fs_.eof())
+        return;
+
+    const auto N = lv.intAt(0, 0);
+    if (N <= 0) {
+        AtomList lst;
+        auto it = std::istreambuf_iterator<char>(fs_);
+        auto e = std::istreambuf_iterator<char>();
+        while (it != e) {
+            lst.append(static_cast<int>(*it++));
+        }
+
+        listTo(0, lst);
+    } else {
+        std::unique_ptr<char[]> data(new char[N]);
+        fs_.read(data.get(), N);
+        AtomList lst;
+        lst.reserve(N);
+        for (size_t i = 0; i < fs_.gcount(); i++) {
+            lst.append(static_cast<int>(data[i]));
+        }
+
+        listTo(0, lst);
+    }
+
+    if (fs_.eof())
+        return bangTo(1);
+}
+
 void PathFile::m_seek_read(t_symbol* s, const AtomListView& lv)
 {
     static args::ArgChecker chk("POS:i ORIG:s=beg|end|cur?");
@@ -275,6 +318,7 @@ void setup_path_file()
     obj.addMethod("close", &PathFile::m_close);
 
     obj.addMethod("read_line", &PathFile::m_read_line);
+    obj.addMethod("read_bytes", &PathFile::m_read_bytes);
 
     obj.addMethod("write", &PathFile::m_write_string);
     obj.addMethod("write_line", &PathFile::m_write_line);

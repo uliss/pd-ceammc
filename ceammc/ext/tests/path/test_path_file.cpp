@@ -306,4 +306,37 @@ TEST_CASE("file", "[externals]")
 
         REQUIRE(std::remove(PATH) == 0);
     }
+
+    SECTION("read_bytes")
+    {
+        constexpr const char* PATH = TEST_DIR "/file1.tmp";
+        std::remove(PATH);
+
+        TExt t("file");
+        t.call("open", LA(PATH, "w+"));
+        REQUIRE(platform::path_exists(PATH));
+
+        t.call("write_bytes", LF('C', 'E', 'A', 'M', 'C'));
+
+        t.call("seek_read", LA(0.0, "beg"));
+        t.call("read_bytes");
+        REQUIRE(t.hasOutputAt(0));
+        REQUIRE(t.outputListAt(0) == LF('C', 'E', 'A', 'M', 'C'));
+        t.clearAll();
+
+        t.call("seek_read", LA(1, "beg"));
+        t.call("read_bytes", LF(3));
+        REQUIRE(t.hasOutputAt(0));
+        REQUIRE(t.outputListAt(0) == LF('E', 'A', 'M'));
+        t.clearAll();
+
+        t.call("read_bytes", LF(3));
+        REQUIRE(t.hasOutputAt(0));
+        REQUIRE(t.outputListAt(0) == LF('C'));
+        REQUIRE(t.hasOutputAt(1));
+        REQUIRE(t.isOutputBangAt(1));
+        t.clearAll();
+
+        REQUIRE(std::remove(PATH) == 0);
+    }
 }

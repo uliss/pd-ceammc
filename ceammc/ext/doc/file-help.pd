@@ -36,59 +36,63 @@ writing at end of file. 'r+': open text file for reading and writing.
 reading and writing. 'a+': append \, open or create text file for reading
 and writing \, writing at end of file. Type: symbol. Allowed values:
 r \, w \, a \, r+ \, w+ \, a+.;
-#X msg 110 633 read_line;
-#X text 245 633 read line from. Arguments are:;
-#X obj 255 656 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 656 ARGS: atoms to write. Type: list.;
-#X msg 110 681 seek_read;
-#X text 245 681 change reading position. Arguments are:;
-#X obj 255 704 cnv 1 28 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 704 POS: offset position. Type: int.;
-#X obj 255 727 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 727 [ORIG]: offset origin \, if omitted offset from the
-beginning. Type: symbol. Allowed values: beg|cur|end.;
-#X msg 110 767 seek_write;
-#X text 245 767 change writing position. Arguments are:;
-#X obj 255 790 cnv 1 28 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 790 POS: offset position. Type: int.;
-#X obj 255 813 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 813 [ORIG]: offset origin \, if omitted offset from the
-beginning. Type: symbol. Allowed values: beg|cur|end.;
-#X msg 110 853 write;
-#X text 245 853 write space separated atoms to file \, no newline added.
+#X msg 110 633 read_bytes;
+#X text 245 633 read bytes from file \, output as list of integers.
 Arguments are:;
-#X obj 255 891 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 891 ARGS: atoms to write. Type: list.;
-#X msg 110 916 write_bytes;
-#X text 245 916 write given bytes to file. Arguments are:;
-#X obj 255 939 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 939 ARGS: list of bytes: integers in 0-255 or symbols with
+#X obj 255 671 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 671 [N]: number of bytes to read \, if omitted read all
+content. Type: int.;
+#X msg 110 711 read_line;
+#X text 245 711 read line from file \, output as list as atoms.;
+#X msg 110 738 seek_read;
+#X text 245 738 change reading position. Arguments are:;
+#X obj 255 761 cnv 1 28 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 761 POS: offset position. Type: int.;
+#X obj 255 784 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 784 [ORIG]: offset origin \, if omitted offset from the
+beginning. Type: symbol. Allowed values: beg|cur|end.;
+#X msg 110 824 seek_write;
+#X text 245 824 change writing position. Arguments are:;
+#X obj 255 847 cnv 1 28 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 847 POS: offset position. Type: int.;
+#X obj 255 870 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 870 [ORIG]: offset origin \, if omitted offset from the
+beginning. Type: symbol. Allowed values: beg|cur|end.;
+#X msg 110 910 write;
+#X text 245 910 write space separated atoms to file \, no newline added.
+Arguments are:;
+#X obj 255 948 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 948 ARGS: atoms to write. Type: list.;
+#X msg 110 973 write_bytes;
+#X text 245 973 write given bytes to file. Arguments are:;
+#X obj 255 996 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 996 ARGS: list of bytes: integers in 0-255 or symbols with
 '0x' prefix: 0x11 \, 0xFF etc.. Type: list.;
-#X msg 110 979 write_line;
-#X text 245 979 write space separated atoms to file \, newline added.
+#X msg 110 1036 write_line;
+#X text 245 1036 write space separated atoms to file \, newline added.
 Arguments are:;
-#X obj 255 1017 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1017 ARGS: atoms to write. Type: list.;
-#X obj 20 1052 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1057 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X obj 255 1074 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1074 ARGS: atoms to write. Type: list.;
+#X obj 20 1109 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1114 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1058 1\.;
-#X text 245 1058 ...;
-#X obj 20 1088 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1093 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 1115 1\.;
+#X text 245 1115 ...;
+#X obj 20 1145 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1150 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1094 1\.;
-#X text 245 1094 ...;
-#X text 110 1114 2\.;
-#X text 245 1114 bang on EOF reached.;
+#X text 110 1151 1\.;
+#X text 245 1151 ...;
+#X text 110 1171 2\.;
+#X text 245 1171 bang on EOF reached.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title path @url ceammc.path-help.pd;
-#X obj 1 1164 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1167 library: ceammc v0.9.4;
-#N canvas 10 1186 400 290 info 0;
+#X obj 1 1221 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1224 library: ceammc v0.9.4;
+#N canvas 10 1243 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -112,7 +116,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1186 pd info;
+#X restore 10 1243 pd info;
 #X connect 4 0 9 0;
 #X connect 5 0 9 0;
 #X connect 6 0 9 0;

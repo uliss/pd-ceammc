@@ -49,8 +49,10 @@
                 <param name="ORIG" required="false" type="symbol" enum="beg|cur|end">offset origin, if omitted
                 offset from the beginning</param>
             </method>
-            <method name="read_line">read line from
-                <param name="ARGS" required="true" type="list">atoms to write</param>
+            <method name="read_line">read line from file, output as list as atoms
+            </method>
+            <method name="read_bytes">read bytes from file, output as list of integers
+                <param name="N" required="false" type="int">number of bytes to read, if omitted read all content</param>
             </method>
         </methods>
         <inlets>
