@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "flow_dollar.h"
+#include "ceammc_containers.h"
 #include "ceammc_factory.h"
 
 #include "g_canvas.h"
@@ -41,17 +42,19 @@ void FlowDollar::onList(const AtomListView& lv)
 {
     auto cnv = canvas();
     const auto N = lv.size();
-    Atom data[N];
+
+    AtomList64 data;
+    data.reserve(N);
 
     for (size_t i = 0; i < N; i++) {
         auto& a = lv[i];
         if (a.isSymbol())
-            data[i] = canvas_realizedollar(cnv, a.asT<t_symbol*>());
+            data.push_back(canvas_realizedollar(cnv, a.asT<t_symbol*>()));
         else
-            data[i] = a;
+            data.push_back(a);
     }
 
-    listTo(0, AtomListView(&data->atom(), N));
+    listTo(0, data.view());
 }
 
 void FlowDollar::onAny(t_symbol* s, const AtomListView& lv)
