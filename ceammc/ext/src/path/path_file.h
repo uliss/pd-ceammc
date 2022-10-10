@@ -14,9 +14,9 @@ public:
     PathFile(const PdArgs& args);
 
     void m_create(t_symbol* s, const AtomListView& args);
-    void m_append_string(t_symbol* s, const AtomListView& args);
-    void m_append_line(t_symbol* s, const AtomListView& args);
-    void m_append_bytes(t_symbol* s, const AtomListView& args);
+    void m_write_string(t_symbol* s, const AtomListView& args);
+    void m_write_line(t_symbol* s, const AtomListView& args);
+    void m_write_bytes(t_symbol* s, const AtomListView& args);
 
 private:
     bool updateFullPath(const AtomListView& args);

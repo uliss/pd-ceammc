@@ -53,54 +53,55 @@ void PathFile::m_create(t_symbol* s, const AtomListView& args)
         return;
     }
 
-    if (!checkOpen(std::ios::out))
+    if (!checkOpen(std::ios::out | std::ios::out))
         return;
 
-    fs_.sync();
     OBJ_LOG << fmt::format("file created: '{}'", fname_->value()->s_name);
 }
 
-void PathFile::m_append_string(t_symbol* s, const AtomListView& args)
+void PathFile::m_write_string(t_symbol* s, const AtomListView& args)
 {
-    if (!checkArgs(args, ARG_SYMBOL)) {
-        METHOD_ERR(s) << fmt::format("FILENAME expected, got: ") << args;
+    if (args.size() < 1) {
+        METHOD_ERR(s) << fmt::format("ARGS... expected, got: ") << args;
         return;
     }
 
-    if (!updateFullPath(args)) {
-        METHOD_ERR(s) << fmt::format("can't create full path: ") << args;
+    if (!fs_.is_open()) {
+        METHOD_ERR(s) << fmt::format("file not opened: '{}'", fname_->value()->s_name);
         return;
     }
 
-    if (!checkExists() || !checkOpen(std::ios::out))
-        return;
-
-    fs_ << to_string(args.subView(1));
-    if (!fs_)
+    fs_ << to_string(args);
+    if (!fs_) {
         METHOD_ERR(s) << fmt::format("can't write to file: '{}'", fname_->value()->s_name);
+    } else {
+        fs_.sync();
+        OBJ_LOG << fmt::format("write to file: {}", to_string(args));
+    }
 }
 
-void PathFile::m_append_line(t_symbol* s, const AtomListView& args)
+void PathFile::m_write_line(t_symbol* s, const AtomListView& args)
 {
-    if (!checkArgs(args, ARG_SYMBOL)) {
-        METHOD_ERR(s) << fmt::format("FILENAME expected, got: ") << args;
+    if (args.size() < 1) {
+        METHOD_ERR(s) << fmt::format("ARGS... expected, got: ") << args;
         return;
     }
 
-    if (!updateFullPath(args)) {
-        METHOD_ERR(s) << fmt::format("can't create full path: ") << args;
+    if (!fs_.is_open()) {
+        METHOD_ERR(s) << fmt::format("file not opened: '{}'", fname_->value()->s_name);
         return;
     }
 
-    if (!checkExists() || !checkOpen(std::ios::out))
-        return;
-
-    fs_ << to_string(args.subView(1)) << std::endl;
-    if (!fs_)
+    fs_ << to_string(args) << std::endl;
+    if (!fs_) {
         METHOD_ERR(s) << fmt::format("can't write to file: '{}'", fname_->value()->s_name);
+    } else {
+        fs_.sync();
+        OBJ_LOG << fmt::format("write to file: {}", to_string(args));
+    }
 }
 
-void PathFile::m_append_bytes(t_symbol* s, const AtomListView& args)
+void PathFile::m_write_bytes(t_symbol* s, const AtomListView& args)
 {
     if (!checkArgs(args, ARG_SYMBOL)) {
         METHOD_ERR(s) << fmt::format("FILENAME expected, got: ") << args;
@@ -119,6 +120,7 @@ void PathFile::m_append_bytes(t_symbol* s, const AtomListView& args)
     to_bytes(args.subView(1), data);
 
     fs_.write(data.c_str(), data.size());
+    fs_.sync();
     if (!fs_)
         METHOD_ERR(s) << fmt::format("can't write to file: '{}'", fname_->value()->s_name);
 }
@@ -158,19 +160,16 @@ bool PathFile::checkExists() const
 bool PathFile::checkOpen(std::ios::openmode mode)
 {
     auto path = fname_->value()->s_name;
-    fs_.open(path, mode);
-    if (!fs_) {
-        OBJ_ERR << fmt::format("can't open file: '{}'", path);
-        return false;
-    } else
-        return true;
+    if (!fs_.is_open())
+        fs_.open(path, mode);
+    return (bool)fs_;
 }
 
 void setup_path_file()
 {
     ObjectFactory<PathFile> obj("file");
     obj.addMethod("create", &PathFile::m_create);
-    obj.addMethod("append", &PathFile::m_append_string);
-    obj.addMethod("append_line", &PathFile::m_append_line);
-    obj.addMethod("append_bytes", &PathFile::m_append_bytes);
+    obj.addMethod("write", &PathFile::m_write_string);
+    obj.addMethod("write_line", &PathFile::m_write_line);
+    obj.addMethod("write_bytes", &PathFile::m_write_bytes);
 }

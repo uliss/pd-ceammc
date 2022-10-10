@@ -17,9 +17,17 @@
 
 #include <chrono>
 #include <fstream>
+#include <iterator>
 #include <thread>
 
 PD_COMPLETE_TEST_SETUP(PathFile, path, file)
+
+static std::string file_content(const char* path)
+{
+    std::ifstream ifs(path, std::ios::in);
+    return std::string((std::istreambuf_iterator<char>(ifs)),
+        std::istreambuf_iterator<char>());
+}
 
 TEST_CASE("file", "[externals]")
 {
@@ -126,6 +134,36 @@ TEST_CASE("file", "[externals]")
             t.call("create", LA(rel_path.c_str()));
             REQUIRE(platform::path_exists(full_path.c_str()));
             REQUIRE(std::remove(full_path.c_str()) == 0);
+        }
+    }
+
+    SECTION("write")
+    {
+        constexpr const char* PATH = TEST_DIR "/file1.tmp";
+        constexpr const char* PATH2 = TEST_DIR "/file2.tmp";
+        std::remove(PATH);
+        std::remove(PATH2);
+
+        SECTION("no args")
+        {
+            TExt t("file");
+            t.call("write");
+            t.call("write", LA(PATH));
+            REQUIRE_FALSE(platform::path_exists(PATH));
+
+            t.call("create", LA(PATH));
+            REQUIRE(platform::path_exists(PATH));
+            t.call("write", LF(1, 2, 3, 4, 5));
+
+            REQUIRE(file_content(PATH) == "1 2 3 4 5");
+
+            t.call("write", LF(1, 2, 3, 4, 5));
+            REQUIRE(file_content(PATH) == "1 2 3 4 51 2 3 4 5");
+
+            t.call("write_line", LF(1, 2, 3));
+            REQUIRE(file_content(PATH) == "1 2 3 4 51 2 3 4 51 2 3\n");
+
+            REQUIRE(std::remove(PATH) == 0);
         }
     }
 }
