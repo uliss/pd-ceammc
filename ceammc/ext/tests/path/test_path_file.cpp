@@ -42,7 +42,7 @@ TEST_CASE("file", "[externals]")
         {
             TExt t("file");
             REQUIRE_PROPERTY_LIST(t, @path, LA(""));
-            REQUIRE(t.numInlets() == 2);
+            REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
         }
     }

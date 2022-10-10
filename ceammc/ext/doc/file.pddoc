@@ -16,13 +16,33 @@
         <properties>
             <property name="@path" type="symbol" default="">file path</property>
         </properties>
+        <methods>
+            <method name="close">close file</method>
+            <method name="open">open file
+                <param name="FNAME" required="true" type="symbol">file path: absolute or relative</param>
+                <param name="MODE" required="false" type="symbol" enum="r w a r+ w+ a+">
+                open mode,
+                'r': open text file for reading only.
+                'w': truncate to 0 length, if existent, or create text file for writing only.
+                'a': append, open or create text file only for writing at end of file.
+                'r+': open text file for reading and writing.
+                'w+': truncate to 0 length, if existent, or create text file for reading and writing.
+                'a+': append, open or create text file for reading and writing, writing at end of file</param>
+            </method>
+            <method name="write">write space separated atoms to file, no newline added
+                <param name="ARGS" required="true" type="list">atoms to write</param>
+            </method>
+            <method name="write_line">write space separated atoms to file, newline added
+                <param name="ARGS" required="true" type="list">atoms to write</param>
+            </method>
+            <method name="write_bytes">write given bytes to file
+                <param name="ARGS" required="true" type="list">list of bytes: integers in 0-255 or symbols
+                with '0x' prefix: 0x11, 0xFF etc..</param>
+            </method>
+        </methods>
         <inlets>
             <inlet>
                 <xinfo>...</xinfo>
-            </inlet>
-            <inlet>
-                <xinfo on="symbol">set file path</xinfo>
-                <xinfo on="data:string">set file path</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -33,8 +53,9 @@
 <![CDATA[
 [open ~/test.txt w, write_line 1 2 3 4 5(
 |
-|
-[file]
+| [close( [write_bytes 67 69 0x41 0x4D 0x43(
+| |       |
+[file     ]
 ]]>
             </pdascii>
         </example>

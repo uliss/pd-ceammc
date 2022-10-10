@@ -52,7 +52,6 @@ PathFile::PathFile(const PdArgs& args)
     fname_ = new SymbolProperty("@path", &s_);
     addProperty(fname_);
 
-    createInlet();
     createOutlet();
 }
 

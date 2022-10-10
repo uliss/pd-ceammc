@@ -888,6 +888,7 @@ canvas.top	verbose information about top-level canvas
 patch.args	Get patch or subpatch arguments
 patch.deps	patch dependencies: used objects and abstractions
 patch.tree	patch tree
+file	file input/output
 file.size	output file size
 path.basename	outputs filename portion of pathname
 path.dirname	outputs directory portion of pathname
