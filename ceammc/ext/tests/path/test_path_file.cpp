@@ -41,21 +41,21 @@ TEST_CASE("file", "[externals]")
         SECTION("default")
         {
             TExt t("file");
-            REQUIRE_PROPERTY_LIST(t, @name, LA(""));
+            REQUIRE_PROPERTY_LIST(t, @path, LA(""));
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
         }
 
         SECTION("props")
         {
-            TExt t("file", LA("@name", TEST_DIR));
-            REQUIRE_PROPERTY(t, @name, TEST_DIR);
+            TExt t("file", LA("@path", TEST_DIR));
+            REQUIRE_PROPERTY(t, @path, TEST_DIR);
         }
 
         SECTION("arg")
         {
             TExt t("file", LA(TEST_DIR));
-            REQUIRE_PROPERTY(t, @name, TEST_DIR);
+            REQUIRE_PROPERTY(t, @path, TEST_DIR);
         }
     }
 
@@ -77,7 +77,7 @@ TEST_CASE("file", "[externals]")
         {
             TExt t("file");
             t.call("create", PATH);
-            REQUIRE_PROPERTY(t, @name, LA(PATH));
+            REQUIRE_PROPERTY(t, @path, LA(PATH));
             REQUIRE(platform::path_exists(PATH));
             REQUIRE(std::remove(PATH) == 0);
         }
@@ -88,13 +88,13 @@ TEST_CASE("file", "[externals]")
             REQUIRE_FALSE(platform::path_exists(PATH));
 
             t.call("create", PATH);
-            REQUIRE_PROPERTY(t, @name, LA(PATH));
+            REQUIRE_PROPERTY(t, @path, LA(PATH));
             REQUIRE(platform::path_exists(PATH));
             REQUIRE_FALSE(platform::path_exists(PATH2));
             REQUIRE(std::remove(PATH) == 0);
 
             t.call("create", PATH2);
-            REQUIRE_PROPERTY(t, @name, LA(PATH2));
+            REQUIRE_PROPERTY(t, @path, LA(PATH2));
             REQUIRE(platform::path_exists(PATH2));
             REQUIRE(std::remove(PATH2) == 0);
 
@@ -129,7 +129,7 @@ TEST_CASE("file", "[externals]")
             t.call("create", LA(tilde_path.c_str()));
             REQUIRE(platform::path_exists(full_path.c_str()));
             REQUIRE(std::remove(full_path.c_str()) == 0);
-            REQUIRE_PROPERTY(t, @name, full_path.c_str());
+            REQUIRE_PROPERTY(t, @path, full_path.c_str());
         }
 
         SECTION("relative path")

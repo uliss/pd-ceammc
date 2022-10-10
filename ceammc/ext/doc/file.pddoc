@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="file">
+        <title>file</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>file input/output</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>path</category>
+            <keywords>path file</keywords>
+            <since>0.9.5</since>
+        </meta>
+        <properties>
+            <property name="@path" type="symbol" default="">file path</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo>...</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="symbol">set file path</xinfo>
+                <xinfo on="data:string">set file path</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>...</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[open ~/test.txt w, write_line 1 2 3 4 5(
+|
+|
+[file]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

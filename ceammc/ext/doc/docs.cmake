@@ -127,6 +127,7 @@ set(DOC_FILES
     env2vline
     vline2env
     expand_env
+    file
     file.size
     flow.append
     flow.change

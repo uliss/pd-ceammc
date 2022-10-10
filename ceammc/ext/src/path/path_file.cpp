@@ -49,7 +49,7 @@ PathFile::PathFile(const PdArgs& args)
     : BaseObject(args)
     , fname_(nullptr)
 {
-    fname_ = new SymbolProperty("@name", &s_);
+    fname_ = new SymbolProperty("@path", &s_);
     fname_->setArgIndex(0);
     addProperty(fname_);
 

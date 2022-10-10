@@ -1681,6 +1681,9 @@
     </entry>
   </category>
   <category name="path">
+    <entry name="file" descr="file input/output" ref_view="object">
+      <xi:include href="file.pddoc" parse="xml"/>
+    </entry>
     <entry name="file.size" descr="output file size" ref_view="object">
       <xi:include href="file.size.pddoc" parse="xml"/>
     </entry>
