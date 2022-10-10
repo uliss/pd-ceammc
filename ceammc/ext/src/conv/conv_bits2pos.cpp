@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "conv_bits2pos.h"
 #include "ceammc_factory.h"
+#include "ceammc_containers.h"
 
 ConvBits2Pos::ConvBits2Pos(const PdArgs& args)
     : BaseObject(args)
@@ -32,25 +33,25 @@ void ConvBits2Pos::onFloat(t_float f)
 
 void ConvBits2Pos::onList(const AtomListView& lv)
 {
-    Atom res[lv.size()];
-    size_t n = 0;
+    AtomList256 res;
+    res.reserve(lv.size());
 
     if (reversed_->value()) {
         for (size_t i = 0; i < lv.size(); i++) {
             const auto& a = lv[i];
             if (a.isFloat() && a.asT<t_float>() != 0)
-                res[n++] = i;
+                res.push_back(i);
         }
     } else {
         const auto N = lv.size();
         for (size_t i = 0; i < lv.size(); i++) {
             const auto& a = lv[N - (i + 1)];
             if (a.isFloat() && a.asT<t_float>() != 0)
-                res[n++] = i;
+                res.push_back(i);
         }
     }
 
-    listTo(0, AtomListView(res, n));
+    listTo(0, res.view());
 }
 
 void setup_conv_bits2pos()
