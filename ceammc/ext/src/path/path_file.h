@@ -14,6 +14,7 @@ public:
     PathFile(const PdArgs& args);
 
     void m_create(t_symbol* s, const AtomListView& lv);
+    void m_open(t_symbol* s, const AtomListView& lv);
     void m_write_string(t_symbol* s, const AtomListView& lv);
     void m_write_line(t_symbol* s, const AtomListView& lv);
     void m_write_bytes(t_symbol* s, const AtomListView& lv);
@@ -23,6 +24,7 @@ private:
     bool updateFullPath(const AtomListView& args);
     bool checkExists() const;
     bool checkOpen(std::ios::openmode mode);
+    bool checkOpenMode(const char* mode, std::ios::openmode& res) const;
 };
 
 void setup_path_file();

@@ -2,6 +2,7 @@
 #define PARSER_BYTES_H
 
 #include <cstdint>
+#include <ios>
 #include <string>
 #include <vector>
 
@@ -20,6 +21,8 @@ int parse_byte_string(const char* str);
 std::pair<int, size_t> parse_bytes(const AtomListView& lv, std::vector<char>& out);
 
 std::string parser_byte_error(const AtomListView& lv, const std::pair<int, size_t>& res);
+
+std::ios::open_mode parse_mode(const char* str);
 
 }
 

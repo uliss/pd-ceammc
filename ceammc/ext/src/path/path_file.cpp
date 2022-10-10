@@ -22,6 +22,27 @@ std::ios::seekdir to_seek_orgin(t_symbol* s)
         return std::ios::beg;
     }
 }
+
+const char* mode_to_string(std::ios::openmode m)
+{
+    using namespace std;
+    switch (m) {
+    case ios::in:
+        return "r";
+    case ios::out | ios::trunc:
+        return "w";
+    case ios::out | ios::app:
+        return "a";
+    case ios::in | ios::out:
+        return "r+";
+    case ios::in | ios::out | ios::trunc:
+        return "w+";
+    case ios::in | ios::out | ios::app:
+        return "a+";
+    default:
+        return "?";
+    }
+}
 }
 
 PathFile::PathFile(const PdArgs& args)
@@ -60,6 +81,33 @@ void PathFile::m_create(t_symbol* s, const AtomListView& lv)
         return;
 
     OBJ_LOG << fmt::format("file created: '{}'", fname_->value()->s_name);
+}
+
+void PathFile::m_open(t_symbol* s, const AtomListView& lv)
+{
+    static args::ArgChecker chk("FNAME:s MODE:s?");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    if (!updateFullPath(lv)) {
+        METHOD_ERR(s) << fmt::format("can't create full path: ") << lv;
+        return;
+    }
+
+    std::ios::openmode mode = parse_mode(lv.symbolAt(1, &s_)->s_name);
+    if (!mode) {
+        METHOD_ERR(s) << fmt::format("invalid open mode: '{}', expected r, w, a, r+, w+ or a+",
+            lv.symbolAt(1, &s_)->s_name);
+        return;
+    }
+
+    if (!checkOpen(mode)) {
+        METHOD_ERR(s) << fmt::format("can't open file '{}' with mode: {}",
+            fname_->value()->s_name, mode_to_string(mode));
+        return;
+    }
+
+    OBJ_LOG << fmt::format("file opened with mode '{}': '{}'", mode_to_string(mode), fname_->value()->s_name);
 }
 
 void PathFile::m_write_string(t_symbol* s, const AtomListView& lv)
@@ -135,7 +183,7 @@ void PathFile::m_write_bytes(t_symbol* s, const AtomListView& lv)
 
 void PathFile::m_seek_write(t_symbol* s, const AtomListView& lv)
 {
-    static args::ArgChecker chk("i s=beg|end|cur?");
+    static args::ArgChecker chk("POS:i ORIG:s=beg|end|cur?");
 
     if (!chk.check(lv, this)) {
         chk.usage(this, s);
@@ -188,15 +236,17 @@ bool PathFile::checkExists() const
 bool PathFile::checkOpen(std::ios::openmode mode)
 {
     auto path = fname_->value()->s_name;
-    if (!fs_.is_open())
-        fs_.open(path, mode);
-    return (bool)fs_;
+    fs_.close();
+    fs_.open(path, mode);
+    return fs_.is_open();
 }
 
 void setup_path_file()
 {
     ObjectFactory<PathFile> obj("file");
     obj.addMethod("create", &PathFile::m_create);
+    obj.addMethod("open", &PathFile::m_open);
+
     obj.addMethod("write", &PathFile::m_write_string);
     obj.addMethod("write_line", &PathFile::m_write_line);
     obj.addMethod("write_bytes", &PathFile::m_write_bytes);

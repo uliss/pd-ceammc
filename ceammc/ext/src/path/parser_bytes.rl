@@ -21,9 +21,10 @@ namespace ceammc {
 
 int parse_byte_string(const char* str)
 {
-    int cs;
-    const char* p = str;
+    int cs = 0;
     int rl_val = 0;
+
+    const char* p = str;
 
     %% write init;
     %% write exec noend;
@@ -74,6 +75,37 @@ std::string parser_byte_error(const AtomListView& lv, const std::pair<int, size_
     default:
         return {};
     }
+}
+
+%%{
+    machine open_mode;
+
+    mode = 'r' @{ rl_mode = std::ios::in; } |
+           'w' @{ rl_mode = std::ios::out | std::ios::trunc; } |
+           'a' @{ rl_mode = std::ios::out | std::ios::app; };
+
+
+    main := mode ('+'? @{ rl_mode |= std::ios::in; }) 0 @{ fbreak; };
+
+    write data;
+}%%
+
+std::ios::open_mode parse_mode(const char* str)
+{
+    int cs = 0;
+    int rl_mode = 0;
+    const char* p = str;
+
+    if (!p || p[0] == '\0')
+        return std::ios::in | std::ios::out;
+
+    %% write init;
+    %% write exec noend;
+
+    if (cs >= %%{ write first_final; }%%)
+        return rl_mode;
+
+    return 0;
 }
 
 }

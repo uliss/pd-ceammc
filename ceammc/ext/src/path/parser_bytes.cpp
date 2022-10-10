@@ -19,20 +19,21 @@ namespace ceammc {
 	
 	int parse_byte_string(const char* str)
 	{
-		int cs;
-		const char* p = str;
+		int cs = 0;
 		int rl_val = 0;
 		
+		const char* p = str;
 		
-#line 28 "parser_bytes.cpp"
+		
+#line 29 "parser_bytes.cpp"
 		{
 			cs = (int)bytes_start;
 		}
 		
-#line 28 "parser_bytes.rl"
+#line 29 "parser_bytes.rl"
 		
 		
-#line 36 "parser_bytes.cpp"
+#line 37 "parser_bytes.cpp"
 		{
 			switch ( cs ) {
 				case 1:
@@ -68,7 +69,7 @@ namespace ceammc {
 #line 8 "parser_bytes.rl"
 				rl_val = 0; }
 			
-#line 72 "parser_bytes.cpp"
+#line 73 "parser_bytes.cpp"
 			
 			goto _st2;
 			_st2:
@@ -102,7 +103,7 @@ namespace ceammc {
 #line 9 "parser_bytes.rl"
 				(rl_val <<= 4) |= ((( (*( p)))) - '0'); }
 			
-#line 106 "parser_bytes.cpp"
+#line 107 "parser_bytes.cpp"
 			
 			goto _st4;
 			_ctr6:
@@ -110,7 +111,7 @@ namespace ceammc {
 #line 11 "parser_bytes.rl"
 				(rl_val <<= 4) |= ((( (*( p)))) - 'A' + 10); }
 			
-#line 114 "parser_bytes.cpp"
+#line 115 "parser_bytes.cpp"
 			
 			goto _st4;
 			_ctr7:
@@ -118,7 +119,7 @@ namespace ceammc {
 #line 10 "parser_bytes.rl"
 				(rl_val <<= 4) |= ((( (*( p)))) - 'a' + 10); }
 			
-#line 122 "parser_bytes.cpp"
+#line 123 "parser_bytes.cpp"
 			
 			goto _st4;
 			_st4:
@@ -143,7 +144,7 @@ namespace ceammc {
 #line 9 "parser_bytes.rl"
 				(rl_val <<= 4) |= ((( (*( p)))) - '0'); }
 			
-#line 147 "parser_bytes.cpp"
+#line 148 "parser_bytes.cpp"
 			
 			goto _st5;
 			_ctr10:
@@ -151,7 +152,7 @@ namespace ceammc {
 #line 11 "parser_bytes.rl"
 				(rl_val <<= 4) |= ((( (*( p)))) - 'A' + 10); }
 			
-#line 155 "parser_bytes.cpp"
+#line 156 "parser_bytes.cpp"
 			
 			goto _st5;
 			_ctr11:
@@ -159,7 +160,7 @@ namespace ceammc {
 #line 10 "parser_bytes.rl"
 				(rl_val <<= 4) |= ((( (*( p)))) - 'a' + 10); }
 			
-#line 163 "parser_bytes.cpp"
+#line 164 "parser_bytes.cpp"
 			
 			goto _st5;
 			_st5:
@@ -176,7 +177,7 @@ namespace ceammc {
 #line 15 "parser_bytes.rl"
 				{p+= 1; cs = 6; goto _out;} }
 			
-#line 180 "parser_bytes.cpp"
+#line 181 "parser_bytes.cpp"
 			
 			goto _st6;
 			_st6:
@@ -199,13 +200,13 @@ namespace ceammc {
 			_out: {}
 		}
 		
-#line 29 "parser_bytes.rl"
+#line 30 "parser_bytes.rl"
 		
 		
 		if (cs >= 
-#line 207 "parser_bytes.cpp"
+#line 208 "parser_bytes.cpp"
 		6
-#line 31 "parser_bytes.rl"
+#line 32 "parser_bytes.rl"
 		)
 		return rl_val;
 		
@@ -252,6 +253,165 @@ namespace ceammc {
 			default:
 			return {};
 		}
+	}
+	
+	
+#line 260 "parser_bytes.cpp"
+	static const int open_mode_start = 1;
+	static const int open_mode_first_final = 4;
+	static const int open_mode_error = 0;
+	
+	static const int open_mode_en_main = 1;
+	
+	
+#line 91 "parser_bytes.rl"
+	
+	
+	std::ios::open_mode parse_mode(const char* str)
+	{
+		int cs = 0;
+		int rl_mode = 0;
+		const char* p = str;
+		
+		if (!p || p[0] == '\0')
+			return std::ios::in | std::ios::out;
+		
+		
+#line 281 "parser_bytes.cpp"
+		{
+			cs = (int)open_mode_start;
+		}
+		
+#line 102 "parser_bytes.rl"
+		
+		
+#line 289 "parser_bytes.cpp"
+		{
+			switch ( cs ) {
+				case 1:
+				goto st_case_1;
+				case 0:
+				goto st_case_0;
+				case 2:
+				goto st_case_2;
+				case 4:
+				goto st_case_4;
+				case 3:
+				goto st_case_3;
+			}
+			goto st_out;
+			p += 1;
+			st_case_1:
+			switch( ( (*( p))) ) {
+				case 97: {
+					goto _ctr2;
+				}
+				case 114: {
+					goto _ctr3;
+				}
+				case 119: {
+					goto _ctr4;
+				}
+			}
+			{
+				goto _st0;
+			}
+			st_case_0:
+			_st0:
+			cs = 0;
+			goto _pop;
+			_ctr2:
+			{
+#line 85 "parser_bytes.rl"
+				rl_mode = std::ios::out | std::ios::app; }
+			
+#line 329 "parser_bytes.cpp"
+			
+			goto _st2;
+			_ctr3:
+			{
+#line 83 "parser_bytes.rl"
+				rl_mode = std::ios::in; }
+			
+#line 337 "parser_bytes.cpp"
+			
+			goto _st2;
+			_ctr4:
+			{
+#line 84 "parser_bytes.rl"
+				rl_mode = std::ios::out | std::ios::trunc; }
+			
+#line 345 "parser_bytes.cpp"
+			
+			goto _st2;
+			_st2:
+			p += 1;
+			st_case_2:
+			switch( ( (*( p))) ) {
+				case 0: {
+					goto _ctr6;
+				}
+				case 43: {
+					goto _ctr7;
+				}
+			}
+			{
+				goto _st0;
+			}
+			_ctr6:
+			{
+#line 88 "parser_bytes.rl"
+				{p+= 1; cs = 4; goto _out;} }
+			
+#line 367 "parser_bytes.cpp"
+			
+			goto _st4;
+			_st4:
+			p += 1;
+			st_case_4:
+			{
+				goto _st0;
+			}
+			_ctr7:
+			{
+#line 88 "parser_bytes.rl"
+				rl_mode |= std::ios::in; }
+			
+#line 381 "parser_bytes.cpp"
+			
+			goto _st3;
+			_st3:
+			p += 1;
+			st_case_3:
+			if ( ( (*( p))) == 0 ) {
+				goto _ctr6;
+			}
+			{
+				goto _st0;
+			}
+			st_out:
+			_test_eof1: cs = 1; goto _test_eof; 
+			_test_eof2: cs = 2; goto _test_eof; 
+			_test_eof4: cs = 4; goto _test_eof; 
+			_test_eof3: cs = 3; goto _test_eof; 
+			
+			_test_eof: {}
+			if ( cs >= 4 )
+				goto _out; _pop: {}
+			_out: {}
+		}
+		
+#line 103 "parser_bytes.rl"
+		
+		
+		if (cs >= 
+#line 409 "parser_bytes.cpp"
+		4
+#line 105 "parser_bytes.rl"
+		)
+		return rl_mode;
+		
+		return 0;
 	}
 	
 }

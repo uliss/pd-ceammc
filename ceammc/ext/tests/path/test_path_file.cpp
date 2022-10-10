@@ -12,8 +12,8 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_platform.h"
-#include "path_file.h"
 #include "parser_bytes.h"
+#include "path_file.h"
 #include "test_path_base.h"
 
 #include <chrono>
@@ -64,7 +64,6 @@ TEST_CASE("file", "[externals]")
         REQUIRE(parse_byte_string("0x01") == 1);
         REQUIRE(parse_byte_string("0xff") == 0xff);
         REQUIRE(parse_byte_string("0xFF") == 0xff);
-        REQUIRE(parse_byte_string("DE") == 0xde);
     }
 
     SECTION("create")
@@ -236,5 +235,27 @@ TEST_CASE("file", "[externals]")
 
             REQUIRE(std::remove(PATH) == 0);
         }
+    }
+
+    SECTION("open")
+    {
+        constexpr const char* PATH = TEST_DIR "/file1.tmp";
+        constexpr const char* PATH2 = TEST_DIR "/file2.tmp";
+        std::remove(PATH);
+        std::remove(PATH2);
+
+        TExt t("file");
+        t.call("open");
+        t.call("open", LA("a", 100));
+
+        t.call("open", LA(PATH));
+        REQUIRE_FALSE(platform::path_exists(PATH));
+
+        t.call("open", LA(PATH, "asda"));
+        REQUIRE_FALSE(platform::path_exists(PATH));
+
+        t.call("open", LA(PATH, "w+"));
+        REQUIRE(platform::path_exists(PATH));
+        REQUIRE(std::remove(PATH) == 0);
     }
 }
