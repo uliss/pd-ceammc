@@ -53,6 +53,7 @@ PathFile::PathFile(const PdArgs& args)
     addProperty(fname_);
 
     createOutlet();
+    createOutlet();
 }
 
 void PathFile::m_open(t_symbol* s, const AtomListView& lv)
@@ -153,6 +154,46 @@ void PathFile::m_write_bytes(t_symbol* s, const AtomListView& lv)
     }
 }
 
+void PathFile::m_read_line(t_symbol* s, const AtomListView& lv)
+{
+    if (!fs_.is_open()) {
+        METHOD_ERR(s) << fmt::format("file is not opened: '{}'", fname_->value()->s_name);
+        return;
+    }
+
+    if (fs_.eof())
+        return;
+
+    std::string line;
+    std::getline(fs_, line);
+
+    listTo(0, AtomList::parseString(line.c_str()));
+
+    if (fs_.eof())
+        return bangTo(1);
+}
+
+void PathFile::m_seek_read(t_symbol* s, const AtomListView& lv)
+{
+    static args::ArgChecker chk("POS:i ORIG:s=beg|end|cur?");
+
+    if (!chk.check(lv, this)) {
+        chk.usage(this, s);
+        return;
+    }
+
+    if (!fs_.is_open()) {
+        METHOD_ERR(s) << fmt::format("file not opened: '{}'", fname_->value()->s_name);
+        return;
+    }
+
+    auto off = lv.intAt(0, 0);
+    auto orig = to_seek_orgin(lv.symbolAt(1, &s_));
+    fs_.seekg(off, orig);
+
+    OBJ_LOG << fmt::format("seek read to {} from {}", off, lv.symbolAt(1, &s_)->s_name);
+}
+
 void PathFile::m_seek_write(t_symbol* s, const AtomListView& lv)
 {
     static args::ArgChecker chk("POS:i ORIG:s=beg|end|cur?");
@@ -169,11 +210,12 @@ void PathFile::m_seek_write(t_symbol* s, const AtomListView& lv)
 
     auto off = lv.intAt(0, 0);
     auto orig = to_seek_orgin(lv.symbolAt(1, &s_));
-    OBJ_LOG << fmt::format("seek to {} from {}", off, lv.symbolAt(1, &s_)->s_name);
     fs_.seekp(off, orig);
+
+    OBJ_LOG << fmt::format("seek write to {} from {}", off, lv.symbolAt(1, &s_)->s_name);
 }
 
-void PathFile::m_close(t_symbol *s, const AtomListView &lv)
+void PathFile::m_close(t_symbol* s, const AtomListView& lv)
 {
     if (!fs_.is_open()) {
         METHOD_ERR(s) << fmt::format("file not opened: '{}'", fname_->value()->s_name);
@@ -227,12 +269,17 @@ void setup_path_file()
 {
     ObjectFactory<PathFile> obj("file");
 
+    obj.setXletsInfo({ "open, close, read, write..." }, { "read output", "bang: on EOF" });
+
     obj.addMethod("open", &PathFile::m_open);
     obj.addMethod("close", &PathFile::m_close);
+
+    obj.addMethod("read_line", &PathFile::m_read_line);
 
     obj.addMethod("write", &PathFile::m_write_string);
     obj.addMethod("write_line", &PathFile::m_write_line);
     obj.addMethod("write_bytes", &PathFile::m_write_bytes);
 
     obj.addMethod("seek_write", &PathFile::m_seek_write);
+    obj.addMethod("seek_read", &PathFile::m_seek_read);
 }

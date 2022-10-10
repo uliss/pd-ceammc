@@ -14,11 +14,16 @@ public:
     PathFile(const PdArgs& args);
 
     void m_open(t_symbol* s, const AtomListView& lv);
+    void m_close(t_symbol* s, const AtomListView& lv);
+
     void m_write_string(t_symbol* s, const AtomListView& lv);
     void m_write_line(t_symbol* s, const AtomListView& lv);
     void m_write_bytes(t_symbol* s, const AtomListView& lv);
+
+    void m_read_line(t_symbol* s, const AtomListView& lv);
+
+    void m_seek_read(t_symbol* s, const AtomListView& lv);
     void m_seek_write(t_symbol* s, const AtomListView& lv);
-    void m_close(t_symbol* s, const AtomListView& lv);
 
 private:
     bool updateFullPath(const AtomListView& args);

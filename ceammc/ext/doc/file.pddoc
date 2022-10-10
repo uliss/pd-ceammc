@@ -41,7 +41,16 @@
             </method>
             <method name="seek_write">change writing position
                 <param name="POS" required="true" type="int">offset position</param>
-                <param name="ORIG" required="false" type="symbol" enum="beg|cur|end">offset origin</param>
+                <param name="ORIG" required="false" type="symbol" enum="beg|cur|end">offset origin, if omitted
+                offset from the beginning</param>
+            </method>
+            <method name="seek_read">change reading position
+                <param name="POS" required="true" type="int">offset position</param>
+                <param name="ORIG" required="false" type="symbol" enum="beg|cur|end">offset origin, if omitted
+                offset from the beginning</param>
+            </method>
+            <method name="read_line">read line from
+                <param name="ARGS" required="true" type="list">atoms to write</param>
             </method>
         </methods>
         <inlets>
@@ -51,15 +60,22 @@
         </inlets>
         <outlets>
             <outlet>...</outlet>
+            <outlet>bang on EOF reached</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[open ~/test.txt w, write_line 1 2 3 4 5(
+[open ~/test.txt w+, write_line 1 2 3 4 5(
 |
 | [close( [write_bytes 67 69 0x41 0x4D 0x43(
 | |       |
-[file     ]
+| |       | [seek_read 0(
+| |       | |
+| |       | | [read_line(
+| |       | | |
+[file         ]
+|           ^|
+[ui.dt]     [B]
 ]]>
             </pdascii>
         </example>

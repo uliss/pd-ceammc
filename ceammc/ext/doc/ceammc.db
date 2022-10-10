@@ -125,7 +125,7 @@ env2array,ceammc/env2array,ceammc/env->array,env->array		.		.
 env2vline,ceammc/env2vline,ceammc/env->vline,env->vline		.		.
 envelope,ceammc/envelope,ceammc/env,env		.		.
 expand_env,ceammc/expand_env		.		.
-file		.		.
+file		.		..
 file.size		.		.
 flow.append		..		.
 flow.change		..		.
