@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "ceammc_platform.h"
 #include "path_file.h"
+#include "parser_bytes.h"
 #include "test_path_base.h"
 
 #include <chrono>
@@ -56,6 +57,13 @@ TEST_CASE("file", "[externals]")
             TExt t("file", LA(TEST_DIR));
             REQUIRE_PROPERTY(t, @name, TEST_DIR);
         }
+    }
+
+    SECTION("parse_bytes")
+    {
+        REQUIRE(parse_byte_string("0x01") == 1);
+        REQUIRE(parse_byte_string("0xff") == 0xff);
+        REQUIRE(parse_byte_string("0xFF") == 0xff);
     }
 
     SECTION("create")
@@ -162,6 +170,22 @@ TEST_CASE("file", "[externals]")
 
             t.call("write_line", LF(1, 2, 3));
             REQUIRE(file_content(PATH) == "1 2 3 4 51 2 3 4 51 2 3\n");
+
+            REQUIRE(std::remove(PATH) == 0);
+        }
+
+        SECTION("bytes")
+        {
+            TExt t("file");
+
+            t.call("create", LA(PATH));
+            REQUIRE(platform::path_exists(PATH));
+
+            t.call("write_bytes", LF(0x31, 0x32, 0x33, 0x34, 0x35));
+            REQUIRE(file_content(PATH) == "12345");
+
+            t.call("write_bytes", LA("0x41", "0x42", "0x43", "0x44", "0x45"));
+            REQUIRE(file_content(PATH) == "12345\x41\x42\x43\x44\x45");
 
             REQUIRE(std::remove(PATH) == 0);
         }

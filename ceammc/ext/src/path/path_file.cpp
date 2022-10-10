@@ -5,22 +5,11 @@
 #include "ceammc_platform.h"
 #include "filesystem.hpp"
 #include "fmt/core.h"
+#include "parser_bytes.h"
 
 namespace fs = ghc::filesystem;
 
 namespace {
-void to_bytes(const AtomListView& lv, std::string& out)
-{
-    out.reserve(lv.size());
-    for (auto& a : lv) {
-        if (a.isInteger()) {
-            auto val = a.asT<int>();
-            if (val >= 0 && val < 255)
-                out.push_back(static_cast<char>(val));
-        }
-    }
-}
-
 std::ios::seekdir to_seek_orgin(t_symbol* s)
 {
     switch (s->s_name[0]) {
@@ -47,18 +36,18 @@ PathFile::PathFile(const PdArgs& args)
     createOutlet();
 }
 
-void PathFile::m_create(t_symbol* s, const AtomListView& args)
+void PathFile::m_create(t_symbol* s, const AtomListView& lv)
 {
-    if (!checkArgs(args, ARG_SYMBOL)) {
-        METHOD_ERR(s) << fmt::format("FILENAME expected, got: ") << args;
+    if (!checkArgs(lv, ARG_SYMBOL)) {
+        METHOD_ERR(s) << fmt::format("FILENAME expected, got: ") << lv;
         return;
     }
 
     if (fs_.is_open())
         fs_.close();
 
-    if (!updateFullPath(args)) {
-        METHOD_ERR(s) << fmt::format("can't create full path: ") << args;
+    if (!updateFullPath(lv)) {
+        METHOD_ERR(s) << fmt::format("can't create full path: ") << lv;
         return;
     }
 
@@ -73,10 +62,10 @@ void PathFile::m_create(t_symbol* s, const AtomListView& args)
     OBJ_LOG << fmt::format("file created: '{}'", fname_->value()->s_name);
 }
 
-void PathFile::m_write_string(t_symbol* s, const AtomListView& args)
+void PathFile::m_write_string(t_symbol* s, const AtomListView& lv)
 {
-    if (args.size() < 1) {
-        METHOD_ERR(s) << fmt::format("ARGS... expected, got: ") << args;
+    if (lv.size() < 1) {
+        METHOD_ERR(s) << fmt::format("ARGS... expected, got: ") << lv;
         return;
     }
 
@@ -85,19 +74,19 @@ void PathFile::m_write_string(t_symbol* s, const AtomListView& args)
         return;
     }
 
-    fs_ << to_string(args);
+    fs_ << to_string(lv);
     if (!fs_) {
         METHOD_ERR(s) << fmt::format("can't write to file: '{}'", fname_->value()->s_name);
     } else {
         fs_.sync();
-        OBJ_LOG << fmt::format("write to file: {}", to_string(args));
+        OBJ_LOG << fmt::format("write to file: {}", to_string(lv));
     }
 }
 
-void PathFile::m_write_line(t_symbol* s, const AtomListView& args)
+void PathFile::m_write_line(t_symbol* s, const AtomListView& lv)
 {
-    if (args.size() < 1) {
-        METHOD_ERR(s) << fmt::format("ARGS... expected, got: ") << args;
+    if (lv.size() < 1) {
+        METHOD_ERR(s) << fmt::format("ARGS... expected, got: ") << lv;
         return;
     }
 
@@ -106,37 +95,42 @@ void PathFile::m_write_line(t_symbol* s, const AtomListView& args)
         return;
     }
 
-    fs_ << to_string(args) << std::endl;
+    fs_ << to_string(lv) << std::endl;
     if (!fs_) {
         METHOD_ERR(s) << fmt::format("can't write to file: '{}'", fname_->value()->s_name);
     } else {
         fs_.sync();
-        OBJ_LOG << fmt::format("write to file: {}", to_string(args));
+        OBJ_LOG << fmt::format("write line to file: {}", to_string(lv));
     }
 }
 
 void PathFile::m_write_bytes(t_symbol* s, const AtomListView& lv)
 {
-    if (!checkArgs(lv, ARG_SYMBOL)) {
-        METHOD_ERR(s) << fmt::format("FILENAME expected, got: ") << lv;
+    if (lv.size() < 1) {
+        METHOD_ERR(s) << fmt::format("ARGS... expected, got: ") << lv;
         return;
     }
 
-    if (!updateFullPath(lv)) {
-        METHOD_ERR(s) << fmt::format("can't create full path: ") << lv;
+    if (!fs_.is_open()) {
+        METHOD_ERR(s) << fmt::format("file not opened: '{}'", fname_->value()->s_name);
         return;
     }
 
-    if (!checkExists() || !checkOpen(std::ios::out))
+    std::vector<char> out;
+    auto res = parse_bytes(lv, out);
+    if (res.first < 0) {
+        METHOD_ERR(s) << parser_byte_error(lv, res);
         return;
+    }
 
-    std::string data;
-    to_bytes(lv.subView(1), data);
+    fs_.write(out.data(), out.size());
 
-    fs_.write(data.c_str(), data.size());
-    fs_.sync();
-    if (!fs_)
+    if (!fs_) {
         METHOD_ERR(s) << fmt::format("can't write to file: '{}'", fname_->value()->s_name);
+    } else {
+        fs_.sync();
+        OBJ_LOG << fmt::format("write bytes to file: {}", to_string(lv));
+    }
 }
 
 void PathFile::m_seek_write(t_symbol* s, const AtomListView& lv)
