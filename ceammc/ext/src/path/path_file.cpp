@@ -50,7 +50,6 @@ PathFile::PathFile(const PdArgs& args)
     , fname_(nullptr)
 {
     fname_ = new SymbolProperty("@path", &s_);
-    fname_->setArgIndex(0);
     addProperty(fname_);
 
     createInlet();

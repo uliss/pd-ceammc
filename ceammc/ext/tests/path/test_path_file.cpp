@@ -45,18 +45,6 @@ TEST_CASE("file", "[externals]")
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
         }
-
-        SECTION("props")
-        {
-            TExt t("file", LA("@path", TEST_DIR));
-            REQUIRE_PROPERTY(t, @path, TEST_DIR);
-        }
-
-        SECTION("arg")
-        {
-            TExt t("file", LA(TEST_DIR));
-            REQUIRE_PROPERTY(t, @path, TEST_DIR);
-        }
     }
 
     SECTION("parse_bytes")
