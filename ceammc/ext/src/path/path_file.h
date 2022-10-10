@@ -13,7 +13,6 @@ class PathFile : public BaseObject {
 public:
     PathFile(const PdArgs& args);
 
-    void m_create(t_symbol* s, const AtomListView& lv);
     void m_open(t_symbol* s, const AtomListView& lv);
     void m_write_string(t_symbol* s, const AtomListView& lv);
     void m_write_line(t_symbol* s, const AtomListView& lv);

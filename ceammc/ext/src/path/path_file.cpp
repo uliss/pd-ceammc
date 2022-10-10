@@ -55,32 +55,6 @@ PathFile::PathFile(const PdArgs& args)
     createOutlet();
 }
 
-void PathFile::m_create(t_symbol* s, const AtomListView& lv)
-{
-    if (!checkArgs(lv, ARG_SYMBOL)) {
-        METHOD_ERR(s) << fmt::format("FILENAME expected, got: ") << lv;
-        return;
-    }
-
-    if (fs_.is_open())
-        fs_.close();
-
-    if (!updateFullPath(lv)) {
-        METHOD_ERR(s) << fmt::format("can't create full path: ") << lv;
-        return;
-    }
-
-    if (checkExists()) {
-        METHOD_ERR(s) << fmt::format("file already exists: '{}'", fname_->value()->s_name);
-        return;
-    }
-
-    if (!checkOpen(std::ios::out | std::ios::out))
-        return;
-
-    OBJ_LOG << fmt::format("file created: '{}'", fname_->value()->s_name);
-}
-
 void PathFile::m_open(t_symbol* s, const AtomListView& lv)
 {
     static args::ArgChecker chk("FNAME:s MODE:s?");
@@ -252,7 +226,7 @@ bool PathFile::checkOpen(std::ios::openmode mode)
 void setup_path_file()
 {
     ObjectFactory<PathFile> obj("file");
-    obj.addMethod("create", &PathFile::m_create);
+
     obj.addMethod("open", &PathFile::m_open);
     obj.addMethod("close", &PathFile::m_close);
 

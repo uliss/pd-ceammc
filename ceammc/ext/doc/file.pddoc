@@ -39,6 +39,10 @@
                 <param name="ARGS" required="true" type="list">list of bytes: integers in 0-255 or symbols
                 with '0x' prefix: 0x11, 0xFF etc..</param>
             </method>
+            <method name="seek_write">change writing position
+                <param name="POS" required="true" type="int">offset position</param>
+                <param name="ORIG" required="false" type="symbol" enum="beg|cur|end">offset origin</param>
+            </method>
         </methods>
         <inlets>
             <inlet>

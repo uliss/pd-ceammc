@@ -54,7 +54,7 @@ TEST_CASE("file", "[externals]")
         REQUIRE(parse_byte_string("0xFF") == 0xff);
     }
 
-    SECTION("create")
+    SECTION("open 1")
     {
         constexpr const char* PATH = TEST_DIR "/file1.tmp";
         constexpr const char* PATH2 = TEST_DIR "/file2.tmp";
@@ -64,7 +64,7 @@ TEST_CASE("file", "[externals]")
         SECTION("default")
         {
             TExt t("file");
-            t.call("create", PATH);
+            t.call("open", PATH, "w+");
             REQUIRE_PROPERTY(t, @path, LA(PATH));
             REQUIRE(platform::path_exists(PATH));
             REQUIRE(std::remove(PATH) == 0);
@@ -75,19 +75,19 @@ TEST_CASE("file", "[externals]")
             TExt t("file", PATH);
             REQUIRE_FALSE(platform::path_exists(PATH));
 
-            t.call("create", PATH);
+            t.call("open", PATH, "w+");
             REQUIRE_PROPERTY(t, @path, LA(PATH));
             REQUIRE(platform::path_exists(PATH));
             REQUIRE_FALSE(platform::path_exists(PATH2));
             REQUIRE(std::remove(PATH) == 0);
 
-            t.call("create", PATH2);
+            t.call("open", PATH2, "w+");
             REQUIRE_PROPERTY(t, @path, LA(PATH2));
             REQUIRE(platform::path_exists(PATH2));
             REQUIRE(std::remove(PATH2) == 0);
 
-            t.call("create", PATH2);
-            t.call("create", PATH2);
+            t.call("open", PATH2, "w");
+            t.call("open", PATH2, "w");
             REQUIRE(platform::path_exists(PATH2));
             REQUIRE(std::remove(PATH2) == 0);
         }
@@ -95,16 +95,16 @@ TEST_CASE("file", "[externals]")
         SECTION("empty args")
         {
             TExt t("file", PATH);
-            t.call("create");
+            t.call("open");
             REQUIRE_FALSE(platform::path_exists(PATH));
-            t.call("create", LF(1000));
+            t.call("open", LF(1000));
             REQUIRE_FALSE(platform::path_exists(PATH));
         }
 
         SECTION("invalid arg")
         {
             TExt t("file");
-            t.call("create", TEST_DIR);
+            t.call("open", TEST_DIR);
         }
 
         SECTION("tilde path")
@@ -114,7 +114,7 @@ TEST_CASE("file", "[externals]")
             std::remove(full_path.c_str());
 
             TExt t("file");
-            t.call("create", LA(tilde_path.c_str()));
+            t.call("open", LA(tilde_path.c_str(), "w"));
             REQUIRE(platform::path_exists(full_path.c_str()));
             REQUIRE(std::remove(full_path.c_str()) == 0);
             REQUIRE_PROPERTY(t, @path, full_path.c_str());
@@ -127,7 +127,7 @@ TEST_CASE("file", "[externals]")
             std::remove(full_path.c_str());
 
             TExt t("file");
-            t.call("create", LA(rel_path.c_str()));
+            t.call("open", LA(rel_path.c_str(), "w"));
             REQUIRE(platform::path_exists(full_path.c_str()));
             REQUIRE(std::remove(full_path.c_str()) == 0);
         }
@@ -147,7 +147,7 @@ TEST_CASE("file", "[externals]")
             t.call("write", LA(PATH));
             REQUIRE_FALSE(platform::path_exists(PATH));
 
-            t.call("create", LA(PATH));
+            t.call("open", LA(PATH, "w"));
             REQUIRE(platform::path_exists(PATH));
             t.call("write", LF(1, 2, 3, 4, 5));
 
@@ -166,7 +166,7 @@ TEST_CASE("file", "[externals]")
         {
             TExt t("file");
 
-            t.call("create", LA(PATH));
+            t.call("open", LA(PATH, "w"));
             REQUIRE(platform::path_exists(PATH));
 
             t.call("write_bytes", LF(0x31, 0x32, 0x33, 0x34, 0x35));
@@ -188,7 +188,7 @@ TEST_CASE("file", "[externals]")
         {
             TExt t("file");
 
-            t.call("create", LA(PATH));
+            t.call("open", LA(PATH, "w"));
             REQUIRE(platform::path_exists(PATH));
             t.call("write_line", LF(1, 2, 3, 4, 5));
             REQUIRE(file_content(PATH) == "1 2 3 4 5\n");
