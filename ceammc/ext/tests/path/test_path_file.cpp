@@ -166,4 +166,50 @@ TEST_CASE("file", "[externals]")
             REQUIRE(std::remove(PATH) == 0);
         }
     }
+
+    SECTION("seek")
+    {
+        constexpr const char* PATH = TEST_DIR "/file1.tmp";
+        std::remove(PATH);
+
+        SECTION("write")
+        {
+            TExt t("file");
+
+            t.call("create", LA(PATH));
+            REQUIRE(platform::path_exists(PATH));
+            t.call("write_line", LF(1, 2, 3, 4, 5));
+            REQUIRE(file_content(PATH) == "1 2 3 4 5\n");
+
+            t.call("seek_write", LF(0));
+            t.call("write", LF(6, 7, 8));
+            REQUIRE(file_content(PATH) == "6 7 8 4 5\n");
+
+            t.call("seek_write", LA(1, "cur"));
+            t.call("write", LA("XXX"));
+            REQUIRE(file_content(PATH) == "6 7 8 XXX\n");
+
+            t.call("seek_write", LA(-3, "cur"));
+            t.call("write", LA("###"));
+            REQUIRE(file_content(PATH) == "6 7 8 ###\n");
+
+            t.call("seek_write", LA(2, "beg"));
+            t.call("write", LA("?"));
+            REQUIRE(file_content(PATH) == "6 ? 8 ###\n");
+
+            t.call("seek_write", LA(-2, "end"));
+            t.call("write", LA("%"));
+            REQUIRE(file_content(PATH) == "6 ? 8 ##%\n");
+
+            t.call("seek_write", LA(-1, "end"));
+            t.call("write", LA("EXTRA\n"));
+            REQUIRE(file_content(PATH) == "6 ? 8 ##%EXTRA\n");
+
+            t.call("seek_write", LA(0.0, "end"));
+            t.call("write", LA("+++\n"));
+            REQUIRE(file_content(PATH) == "6 ? 8 ##%EXTRA\n+++\n");
+
+            REQUIRE(std::remove(PATH) == 0);
+        }
+    }
 }

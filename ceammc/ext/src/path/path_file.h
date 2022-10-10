@@ -13,10 +13,11 @@ class PathFile : public BaseObject {
 public:
     PathFile(const PdArgs& args);
 
-    void m_create(t_symbol* s, const AtomListView& args);
-    void m_write_string(t_symbol* s, const AtomListView& args);
-    void m_write_line(t_symbol* s, const AtomListView& args);
-    void m_write_bytes(t_symbol* s, const AtomListView& args);
+    void m_create(t_symbol* s, const AtomListView& lv);
+    void m_write_string(t_symbol* s, const AtomListView& lv);
+    void m_write_line(t_symbol* s, const AtomListView& lv);
+    void m_write_bytes(t_symbol* s, const AtomListView& lv);
+    void m_seek_write(t_symbol* s, const AtomListView& lv);
 
 private:
     bool updateFullPath(const AtomListView& args);

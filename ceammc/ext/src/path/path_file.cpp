@@ -1,4 +1,5 @@
 #include "path_file.h"
+#include "args/argcheck2.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
 #include "ceammc_platform.h"
@@ -17,6 +18,19 @@ void to_bytes(const AtomListView& lv, std::string& out)
             if (val >= 0 && val < 255)
                 out.push_back(static_cast<char>(val));
         }
+    }
+}
+
+std::ios::seekdir to_seek_orgin(t_symbol* s)
+{
+    switch (s->s_name[0]) {
+    case 'e':
+        return std::ios::end;
+    case 'c':
+        return std::ios::cur;
+    default:
+    case 'b':
+        return std::ios::beg;
     }
 }
 }
@@ -101,15 +115,15 @@ void PathFile::m_write_line(t_symbol* s, const AtomListView& args)
     }
 }
 
-void PathFile::m_write_bytes(t_symbol* s, const AtomListView& args)
+void PathFile::m_write_bytes(t_symbol* s, const AtomListView& lv)
 {
-    if (!checkArgs(args, ARG_SYMBOL)) {
-        METHOD_ERR(s) << fmt::format("FILENAME expected, got: ") << args;
+    if (!checkArgs(lv, ARG_SYMBOL)) {
+        METHOD_ERR(s) << fmt::format("FILENAME expected, got: ") << lv;
         return;
     }
 
-    if (!updateFullPath(args)) {
-        METHOD_ERR(s) << fmt::format("can't create full path: ") << args;
+    if (!updateFullPath(lv)) {
+        METHOD_ERR(s) << fmt::format("can't create full path: ") << lv;
         return;
     }
 
@@ -117,12 +131,32 @@ void PathFile::m_write_bytes(t_symbol* s, const AtomListView& args)
         return;
 
     std::string data;
-    to_bytes(args.subView(1), data);
+    to_bytes(lv.subView(1), data);
 
     fs_.write(data.c_str(), data.size());
     fs_.sync();
     if (!fs_)
         METHOD_ERR(s) << fmt::format("can't write to file: '{}'", fname_->value()->s_name);
+}
+
+void PathFile::m_seek_write(t_symbol* s, const AtomListView& lv)
+{
+    static args::ArgChecker chk("i s=beg|end|cur?");
+
+    if (!chk.check(lv, this)) {
+        chk.usage(this, s);
+        return;
+    }
+
+    if (!fs_.is_open()) {
+        METHOD_ERR(s) << fmt::format("file not opened: '{}'", fname_->value()->s_name);
+        return;
+    }
+
+    auto off = lv.intAt(0, 0);
+    auto orig = to_seek_orgin(lv.symbolAt(1, &s_));
+    OBJ_LOG << fmt::format("seek to {} from {}", off, lv.symbolAt(1, &s_)->s_name);
+    fs_.seekp(off, orig);
 }
 
 bool PathFile::updateFullPath(const AtomListView& args)
@@ -172,4 +206,6 @@ void setup_path_file()
     obj.addMethod("write", &PathFile::m_write_string);
     obj.addMethod("write_line", &PathFile::m_write_line);
     obj.addMethod("write_bytes", &PathFile::m_write_bytes);
+
+    obj.addMethod("seek_write", &PathFile::m_seek_write);
 }
