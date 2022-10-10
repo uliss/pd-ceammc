@@ -64,6 +64,7 @@ TEST_CASE("file", "[externals]")
         REQUIRE(parse_byte_string("0x01") == 1);
         REQUIRE(parse_byte_string("0xff") == 0xff);
         REQUIRE(parse_byte_string("0xFF") == 0xff);
+        REQUIRE(parse_byte_string("DE") == 0xde);
     }
 
     SECTION("create")
