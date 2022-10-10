@@ -246,4 +246,24 @@ TEST_CASE("file", "[externals]")
         REQUIRE(platform::path_exists(PATH));
         REQUIRE(std::remove(PATH) == 0);
     }
+
+    SECTION("close")
+    {
+        constexpr const char* PATH = TEST_DIR "/file1.tmp";
+        std::remove(PATH);
+
+        TExt t("file");
+        t.call("open", LA(PATH, "w"));
+        REQUIRE(platform::path_exists(PATH));
+
+        t.call("write_line", LF(1, 2, 3));
+        REQUIRE(file_content(PATH) == "1 2 3\n");
+
+        t.call("close");
+
+        t.call("write_line", LF(1, 2, 3));
+        REQUIRE(file_content(PATH) == "1 2 3\n");
+
+        REQUIRE(std::remove(PATH) == 0);
+    }
 }

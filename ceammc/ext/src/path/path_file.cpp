@@ -200,6 +200,16 @@ void PathFile::m_seek_write(t_symbol* s, const AtomListView& lv)
     fs_.seekp(off, orig);
 }
 
+void PathFile::m_close(t_symbol *s, const AtomListView &lv)
+{
+    if (!fs_.is_open()) {
+        METHOD_ERR(s) << fmt::format("file not opened: '{}'", fname_->value()->s_name);
+        return;
+    }
+
+    fs_.close();
+}
+
 bool PathFile::updateFullPath(const AtomListView& args)
 {
     if (args.empty() || !canvas()) {
@@ -245,6 +255,7 @@ void setup_path_file()
     ObjectFactory<PathFile> obj("file");
     obj.addMethod("create", &PathFile::m_create);
     obj.addMethod("open", &PathFile::m_open);
+    obj.addMethod("close", &PathFile::m_close);
 
     obj.addMethod("write", &PathFile::m_write_string);
     obj.addMethod("write_line", &PathFile::m_write_line);

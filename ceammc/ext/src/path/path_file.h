@@ -19,6 +19,7 @@ public:
     void m_write_line(t_symbol* s, const AtomListView& lv);
     void m_write_bytes(t_symbol* s, const AtomListView& lv);
     void m_seek_write(t_symbol* s, const AtomListView& lv);
+    void m_close(t_symbol* s, const AtomListView& lv);
 
 private:
     bool updateFullPath(const AtomListView& args);
