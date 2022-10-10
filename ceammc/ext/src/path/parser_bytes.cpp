@@ -43,29 +43,18 @@ namespace ceammc {
 				goto st_case_2;
 				case 3:
 				goto st_case_3;
-				case 6:
-				goto st_case_6;
 				case 4:
 				goto st_case_4;
 				case 5:
 				goto st_case_5;
+				case 6:
+				goto st_case_6;
 			}
 			goto st_out;
 			p += 1;
 			st_case_1:
 			if ( ( (*( p))) == 48 ) {
 				goto _ctr2;
-			}
-			if ( ( (*( p))) < 65 ) {
-				if ( 49 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-					goto _ctr3;
-				}
-			} else if ( ( (*( p))) > 70 ) {
-				if ( 97 <= ( (*( p))) && ( (*( p))) <= 102 ) {
-					goto _ctr5;
-				}
-			} else {
-				goto _ctr4;
 			}
 			{
 				goto _st0;
@@ -79,74 +68,115 @@ namespace ceammc {
 #line 8 "parser_bytes.rl"
 				rl_val = 0; }
 			
-#line 83 "parser_bytes.cpp"
-			
-			{
-#line 9 "parser_bytes.rl"
-				(rl_val <<= 4) |= ((( (*( p)))) - '0'); }
-			
-#line 89 "parser_bytes.cpp"
+#line 72 "parser_bytes.cpp"
 			
 			goto _st2;
 			_st2:
 			p += 1;
 			st_case_2:
 			if ( ( (*( p))) == 120 ) {
-				goto _st4;
-			}
-			if ( ( (*( p))) < 65 ) {
-				if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-					goto _ctr7;
-				}
-			} else if ( ( (*( p))) > 70 ) {
-				if ( 97 <= ( (*( p))) && ( (*( p))) <= 102 ) {
-					goto _ctr9;
-				}
-			} else {
-				goto _ctr8;
+				goto _st3;
 			}
 			{
 				goto _st0;
 			}
-			_ctr7:
+			_st3:
+			p += 1;
+			st_case_3:
+			if ( ( (*( p))) < 65 ) {
+				if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
+					goto _ctr5;
+				}
+			} else if ( ( (*( p))) > 70 ) {
+				if ( 97 <= ( (*( p))) && ( (*( p))) <= 102 ) {
+					goto _ctr7;
+				}
+			} else {
+				goto _ctr6;
+			}
+			{
+				goto _st0;
+			}
+			_ctr5:
 			{
 #line 9 "parser_bytes.rl"
 				(rl_val <<= 4) |= ((( (*( p)))) - '0'); }
 			
-#line 117 "parser_bytes.cpp"
+#line 106 "parser_bytes.cpp"
 			
-			goto _st3;
-			_ctr8:
+			goto _st4;
+			_ctr6:
 			{
 #line 11 "parser_bytes.rl"
 				(rl_val <<= 4) |= ((( (*( p)))) - 'A' + 10); }
 			
-#line 125 "parser_bytes.cpp"
+#line 114 "parser_bytes.cpp"
 			
-			goto _st3;
-			_ctr9:
+			goto _st4;
+			_ctr7:
 			{
 #line 10 "parser_bytes.rl"
 				(rl_val <<= 4) |= ((( (*( p)))) - 'a' + 10); }
 			
-#line 133 "parser_bytes.cpp"
+#line 122 "parser_bytes.cpp"
 			
-			goto _st3;
-			_st3:
+			goto _st4;
+			_st4:
 			p += 1;
-			st_case_3:
-			if ( ( (*( p))) == 0 ) {
-				goto _ctr12;
+			st_case_4:
+			if ( ( (*( p))) < 65 ) {
+				if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
+					goto _ctr9;
+				}
+			} else if ( ( (*( p))) > 70 ) {
+				if ( 97 <= ( (*( p))) && ( (*( p))) <= 102 ) {
+					goto _ctr11;
+				}
+			} else {
+				goto _ctr10;
 			}
 			{
 				goto _st0;
 			}
-			_ctr12:
+			_ctr9:
+			{
+#line 9 "parser_bytes.rl"
+				(rl_val <<= 4) |= ((( (*( p)))) - '0'); }
+			
+#line 147 "parser_bytes.cpp"
+			
+			goto _st5;
+			_ctr10:
+			{
+#line 11 "parser_bytes.rl"
+				(rl_val <<= 4) |= ((( (*( p)))) - 'A' + 10); }
+			
+#line 155 "parser_bytes.cpp"
+			
+			goto _st5;
+			_ctr11:
+			{
+#line 10 "parser_bytes.rl"
+				(rl_val <<= 4) |= ((( (*( p)))) - 'a' + 10); }
+			
+#line 163 "parser_bytes.cpp"
+			
+			goto _st5;
+			_st5:
+			p += 1;
+			st_case_5:
+			if ( ( (*( p))) == 0 ) {
+				goto _ctr13;
+			}
+			{
+				goto _st0;
+			}
+			_ctr13:
 			{
 #line 15 "parser_bytes.rl"
 				{p+= 1; cs = 6; goto _out;} }
 			
-#line 150 "parser_bytes.cpp"
+#line 180 "parser_bytes.cpp"
 			
 			goto _st6;
 			_st6:
@@ -155,71 +185,13 @@ namespace ceammc {
 			{
 				goto _st0;
 			}
-			_st4:
-			p += 1;
-			st_case_4:
-			if ( ( (*( p))) < 65 ) {
-				if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-					goto _ctr3;
-				}
-			} else if ( ( (*( p))) > 70 ) {
-				if ( 97 <= ( (*( p))) && ( (*( p))) <= 102 ) {
-					goto _ctr5;
-				}
-			} else {
-				goto _ctr4;
-			}
-			{
-				goto _st0;
-			}
-			_ctr3:
-			{
-#line 9 "parser_bytes.rl"
-				(rl_val <<= 4) |= ((( (*( p)))) - '0'); }
-			
-#line 181 "parser_bytes.cpp"
-			
-			goto _st5;
-			_ctr4:
-			{
-#line 11 "parser_bytes.rl"
-				(rl_val <<= 4) |= ((( (*( p)))) - 'A' + 10); }
-			
-#line 189 "parser_bytes.cpp"
-			
-			goto _st5;
-			_ctr5:
-			{
-#line 10 "parser_bytes.rl"
-				(rl_val <<= 4) |= ((( (*( p)))) - 'a' + 10); }
-			
-#line 197 "parser_bytes.cpp"
-			
-			goto _st5;
-			_st5:
-			p += 1;
-			st_case_5:
-			if ( ( (*( p))) < 65 ) {
-				if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-					goto _ctr7;
-				}
-			} else if ( ( (*( p))) > 70 ) {
-				if ( 97 <= ( (*( p))) && ( (*( p))) <= 102 ) {
-					goto _ctr9;
-				}
-			} else {
-				goto _ctr8;
-			}
-			{
-				goto _st0;
-			}
 			st_out:
 			_test_eof1: cs = 1; goto _test_eof; 
 			_test_eof2: cs = 2; goto _test_eof; 
 			_test_eof3: cs = 3; goto _test_eof; 
-			_test_eof6: cs = 6; goto _test_eof; 
 			_test_eof4: cs = 4; goto _test_eof; 
 			_test_eof5: cs = 5; goto _test_eof; 
+			_test_eof6: cs = 6; goto _test_eof; 
 			
 			_test_eof: {}
 			if ( cs >= 6 )
@@ -231,7 +203,7 @@ namespace ceammc {
 		
 		
 		if (cs >= 
-#line 235 "parser_bytes.cpp"
+#line 207 "parser_bytes.cpp"
 		6
 #line 31 "parser_bytes.rl"
 		)

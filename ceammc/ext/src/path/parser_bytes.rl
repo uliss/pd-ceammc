@@ -12,7 +12,7 @@
 
     byte = xdig{2};
 
-    main := prefix? byte 0 @{ fbreak; };
+    main := prefix byte 0 @{ fbreak; };
 
     write data;
 }%%
