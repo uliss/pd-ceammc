@@ -18,42 +18,34 @@
         </properties>
         <methods>
             <method name="close">close file</method>
-            <method name="open">open file
-                <param name="FNAME" required="true" type="symbol">file path: absolute or relative</param>
-                <param name="MODE" required="false" type="symbol" enum="r w a r+ w+ a+">
-                open mode,
-                'r': open text file for reading only.
-                'w': truncate to 0 length, if existent, or create text file for writing only.
-                'a': append, open or create text file only for writing at end of file.
-                'r+': open text file for reading and writing.
-                'w+': truncate to 0 length, if existent, or create text file for reading and writing.
-                'a+': append, open or create text file for reading and writing, writing at end of file</param>
-            </method>
-            <method name="write">write space separated atoms to file, no newline added
-                <param name="ARGS" required="true" type="list">atoms to write</param>
-            </method>
-            <method name="write_line">write space separated atoms to file, newline added
-                <param name="ARGS" required="true" type="list">atoms to write</param>
-            </method>
-            <method name="write_bytes">write given bytes to file
-                <param name="ARGS" required="true" type="list">list of bytes: integers in 0-255 or symbols
-                with '0x' prefix: 0x11, 0xFF etc..</param>
-            </method>
-            <method name="seek_write">change writing position
-                <param name="POS" required="true" type="int">offset position</param>
-                <param name="ORIG" required="false" type="symbol" enum="beg|cur|end">offset origin, if omitted
-                offset from the beginning</param>
-            </method>
-            <method name="seek_read">change reading position
-                <param name="POS" required="true" type="int">offset position</param>
-                <param name="ORIG" required="false" type="symbol" enum="beg|cur|end">offset origin, if omitted
-                offset from the beginning</param>
-            </method>
-            <method name="read_line">read line from file, output as list as atoms
-            </method>
-            <method name="read_bytes">read bytes from file, output as list of integers
-                <param name="N" required="false" type="int">number of bytes to read, if omitted read all content</param>
-            </method>
+            <method name="open">open file 
+            <param name="FNAME" required="true" type="symbol">file path: absolute or
+            relative</param>
+            <param name="MODE" required="false" type="symbol" enum="r w a r+ w+ a+">open mode, 'r':
+            open text file for reading only. 'w': truncate to 0 length, if existent, or create text
+            file for writing only. 'a': append, open or create text file only for writing at end of
+            file. 'r+': open text file for reading and writing. 'w+': truncate to 0 length, if
+            existent, or create text file for reading and writing. 'a+': append, open or create
+            text file for reading and writing, writing at end of file</param></method>
+            <method name="write">write space separated atoms to file, no newline added 
+            <param name="ARGS" required="true" type="list">atoms to write</param></method>
+            <method name="write_line">write space separated atoms to file, newline added 
+            <param name="ARGS" required="true" type="list">atoms to write</param></method>
+            <method name="write_bytes">write given bytes to file 
+            <param name="ARGS" required="true" type="list">list of bytes: integers in 0-255 or
+            symbols with '0x' prefix: 0x11, 0xFF etc..</param></method>
+            <method name="seek_write">change writing position 
+            <param name="POS" required="true" type="int">offset position</param>
+            <param name="ORIG" required="false" type="symbol" enum="beg|cur|end">offset origin, if
+            omitted offset from the beginning</param></method>
+            <method name="seek_read">change reading position 
+            <param name="POS" required="true" type="int">offset position</param>
+            <param name="ORIG" required="false" type="symbol" enum="beg|cur|end">offset origin, if
+            omitted offset from the beginning</param></method>
+            <method name="read_line">read line from file, output as list as atoms</method>
+            <method name="read_bytes">read bytes from file, output as list of integers 
+            <param name="N" required="false" type="int">number of bytes to read, if omitted read
+            all content</param></method>
         </methods>
         <inlets>
             <inlet>
