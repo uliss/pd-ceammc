@@ -5,6 +5,7 @@
 #include "ceammc_platform.h"
 #include "filesystem.hpp"
 #include "fmt/core.h"
+#include "lex/parser_strings.h"
 #include "parser_bytes.h"
 
 namespace fs = ghc::filesystem;
@@ -275,7 +276,9 @@ bool PathFile::updateFullPath(const AtomListView& args)
         return false;
     }
 
-    fs::path path = platform::expand_tilde_path(args[0].asT<t_symbol*>()->s_name);
+    auto sym_path = string::parse_ceammc_quoted_string(args[0].asT<t_symbol*>());
+    fs::path path = platform::expand_tilde_path(sym_path->s_name);
+
     if (path.empty()) {
         fname_->setValue(&s_);
         return false;

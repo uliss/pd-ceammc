@@ -131,6 +131,21 @@ TEST_CASE("file", "[externals]")
             REQUIRE(platform::path_exists(full_path.c_str()));
             REQUIRE(std::remove(full_path.c_str()) == 0);
         }
+
+        SECTION("quoted path")
+        {
+#ifdef __APPLE__
+            platform::set_env("PD", ceammc::platform::pd_user_directory().c_str());
+            const std::string rel_path = "\"%PD%/file2.tmp\"";
+            const std::string full_path = platform::expand_tilde_path("~/Documents/Pd/file2.tmp");
+            std::remove(full_path.c_str());
+
+            TExt t("file");
+            t.call("open", LA(rel_path.c_str(), "w"));
+            REQUIRE(platform::path_exists(full_path.c_str()));
+            REQUIRE(std::remove(full_path.c_str()) == 0);
+#endif
+        }
     }
 
     SECTION("write")
