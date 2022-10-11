@@ -15,6 +15,7 @@ public:
 
     void m_open(t_symbol* s, const AtomListView& lv);
     void m_close(t_symbol* s, const AtomListView& lv);
+    void m_remove(t_symbol* s, const AtomListView& lv);
 
     void m_write_string(t_symbol* s, const AtomListView& lv);
     void m_write_line(t_symbol* s, const AtomListView& lv);

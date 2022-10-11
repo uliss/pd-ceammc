@@ -84,22 +84,7 @@ TEST_CASE("path.monitor", "[externals]")
         REQUIRE(t.outputAnyAt(0) == LA("create", "test_path_2.tmp"));
         t.clearAll();
 
-        {
-            std::this_thread::sleep_for(WAIT_DELAY);
-            auto f = fopen(PATH1, "a+");
-            if(f) {
-                fputs("string\n", f);
-                fflush(f);
-                fsync(fileno(f));
-                fclose(f);
-
-            }
-        }
-
-        std::this_thread::sleep_for(WAIT_DELAY);
-        sys_pollgui();
-
-        REQUIRE(t.hasOutputAt(0));
-        REQUIRE(t.outputAnyAt(0) == LA("update", "test_path_1.tmp"));
+        std::remove(PATH1);
+        std::remove(PATH2);
     }
 }

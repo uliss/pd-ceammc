@@ -354,4 +354,17 @@ TEST_CASE("file", "[externals]")
 
         REQUIRE(std::remove(PATH) == 0);
     }
+
+    SECTION("remove")
+    {
+        constexpr const char* PATH = TEST_DIR "/file1.tmp";
+        std::remove(PATH);
+
+        TExt t("file");
+        t.call("open", LA(PATH, "w+"));
+        REQUIRE(platform::path_exists(PATH));
+
+        t.call("remove", LA(PATH));
+        REQUIRE_FALSE(platform::path_exists(PATH));
+    }
 }

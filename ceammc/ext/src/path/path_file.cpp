@@ -84,6 +84,24 @@ void PathFile::m_open(t_symbol* s, const AtomListView& lv)
     OBJ_LOG << fmt::format("file opened with mode '{}': '{}'", mode_to_string(mode), fname_->value()->s_name);
 }
 
+void PathFile::m_remove(t_symbol* s, const AtomListView& lv)
+{
+    static args::ArgChecker chk("FNAME:s");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    if (!updateFullPath(lv)) {
+        METHOD_ERR(s) << fmt::format("can't create full path: ") << lv;
+        return;
+    }
+
+    auto fname = fname_->value()->s_name;
+    if (std::remove(fname) == 0)
+        OBJ_LOG << fmt::format("file removed: '{}'", fname);
+    else
+        OBJ_ERR << fmt::format("can't remove file: '{}'", fname);
+}
+
 void PathFile::m_write_string(t_symbol* s, const AtomListView& lv)
 {
     if (lv.size() < 1) {
@@ -319,6 +337,7 @@ void setup_path_file()
 
     obj.addMethod("open", &PathFile::m_open);
     obj.addMethod("close", &PathFile::m_close);
+    obj.addMethod("remove", &PathFile::m_remove);
 
     obj.addMethod("read_line", &PathFile::m_read_line);
     obj.addMethod("read_bytes", &PathFile::m_read_bytes);
