@@ -7,6 +7,8 @@
 #include "Infinity.h"
 #endif
 
+#include <cstdlib>
+
 AudioEffect* createEffectInstance(audioMasterCallback audioMaster) {return new Infinity(audioMaster);}
 
 Infinity::Infinity(audioMasterCallback audioMaster) :

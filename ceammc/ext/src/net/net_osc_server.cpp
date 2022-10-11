@@ -15,8 +15,7 @@
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
-#include "ceammc_thread.h"
-#include "fmt/format.h"
+#include "fmt/core.h"
 
 #include <algorithm>
 #include <unordered_set>
@@ -393,7 +392,7 @@ namespace net {
         auto it = subs_.find(hash);
 
         if (it == subs_.end()) {
-            subs_.insert(std::make_pair(hash, new OscServerSubscriberList(id, pipe)));
+            subs_[hash].reset(new OscServerSubscriberList(id, pipe));
         } else if (it->second) {
             it->second->subscribe(id, pipe);
         }

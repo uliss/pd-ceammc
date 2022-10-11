@@ -12,25 +12,27 @@
  * this file belongs to.
  *****************************************************************************/
 #include "midi_kbd.h"
+#include "ceammc_crc32.h"
 #include "ceammc_data.h"
 #include "ceammc_factory.h"
-#include "ceammc_music_scale.h"
 #include "datatype_dict.h"
 #include "kbd_names.h"
 #include "kbd_querty.h"
 
-#include <limits>
+#include <boost/container/small_vector.hpp>
 
 #include <codecvt>
+#include <limits>
 #include <locale>
 
 constexpr auto KEY_NOT_FOUND = std::numeric_limits<int>::max();
 
-static t_symbol* SYM_KEYUP;
-static t_symbol* SYM_KEYDOWN;
-static t_symbol* SYM_QWERTY;
-static t_symbol* SYM_NAMES;
-static t_symbol* SYM_CUSTOM;
+CEAMMC_DEFINE_SYM_HASH(qwerty);
+CEAMMC_DEFINE_SYM_HASH(names);
+CEAMMC_DEFINE_SYM_HASH(custom);
+
+constexpr const char* STR_KEYUP = "#keyup";
+constexpr const char* STR_KEYDOWN = "#key";
 
 static inline std::string int_to_utf8(char32_t v)
 {
@@ -55,8 +57,8 @@ MidiKbd::MidiKbd(const PdArgs& args)
     , on_(nullptr)
     , kbd_(&kbd_querty)
 {
-    keypress_.bind(SYM_KEYDOWN);
-    keyrelease_.bind(SYM_KEYUP);
+    keypress_.bind(gensym(STR_KEYDOWN));
+    keyrelease_.bind(gensym(STR_KEYUP));
 
     octave_ = new IntProperty("@octave", 4);
     octave_->checkClosedRange(0, 8);
@@ -66,17 +68,21 @@ MidiKbd::MidiKbd(const PdArgs& args)
     vel_->checkClosedRange(0, 127);
     addProperty(vel_);
 
-    layout_ = new SymbolEnumProperty("@layout", { SYM_QWERTY, SYM_NAMES, SYM_CUSTOM });
+    layout_ = new SymbolEnumProperty("@layout", { sym_qwerty(), sym_names(), sym_custom() });
     layout_->setSuccessFn([this](Property*) {
-        const auto l = layout_->value();
-        if (l == SYM_QWERTY)
+        switch (crc32_hash(layout_->value())) {
+        case hash_qwerty:
             kbd_ = &kbd_querty;
-        else if (l == SYM_NAMES)
+            break;
+        case hash_names:
             kbd_ = &kbd_names;
-        else if (l == SYM_CUSTOM)
+            break;
+        case hash_custom:
             kbd_ = &custom_;
-        else
-            OBJ_ERR << "unknown layout type: " << l->s_name;
+            break;
+        default:
+            OBJ_ERR << "unknown layout type: " << layout_->value()->s_name;
+        }
     });
     layout_->setArgIndex(0);
     addProperty(layout_);
@@ -141,14 +147,15 @@ void MidiKbd::dump() const
         return;
 
     using KV = std::pair<uint32_t, int8_t>;
-    KV keys[N];
-    int i = 0;
-    for (auto& kv : *kbd_)
-        keys[i++] = kv;
+    boost::container::small_vector<KV, 32> keys;
+    keys.reserve(N);
 
-    std::sort(keys, keys + N, [](const KV& a, const KV& b) { return a.second < b.second; });
+    for (auto& kv : *kbd_)
+        keys.push_back(kv);
+
+    std::sort(keys.begin(), keys.end(), [](const KV& a, const KV& b) { return a.second < b.second; });
     std::string keyname;
-    for (auto kv : keys) {
+    for (auto& kv : keys) {
         auto k = kv.first;
         if (k < 127)
             keyname = char(k);
@@ -216,13 +223,6 @@ void MidiKbd::onKeyRelease(t_float key)
 
 void setup_midi_kbd()
 {
-    SYM_KEYUP = gensym("#keyup");
-    SYM_KEYDOWN = gensym("#key");
-
-    SYM_QWERTY = gensym("qwerty");
-    SYM_NAMES = gensym("names");
-    SYM_CUSTOM = gensym("custom");
-
     ObjectFactory<MidiKbd> obj("midi.kbd");
     obj.addMethod("custom", &MidiKbd::m_custom);
 
