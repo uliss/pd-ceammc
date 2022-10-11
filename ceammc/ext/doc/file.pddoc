@@ -53,7 +53,7 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>...</outlet>
+            <outlet>list: read output</outlet>
             <outlet>bang on EOF reached</outlet>
         </outlets>
         <example>

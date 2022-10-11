@@ -82,7 +82,7 @@ Arguments are:;
 #X obj 20 1150 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 110 1151 1\.;
-#X text 245 1151 ...;
+#X text 245 1151 list: read output.;
 #X text 110 1171 2\.;
 #X text 245 1171 bang on EOF reached.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
