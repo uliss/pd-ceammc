@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "proto_midi.h"
+#include "ceammc_containers.h"
 #include "ceammc_convert.h"
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
@@ -220,11 +221,12 @@ ProtoMidi::ProtoMidi(const PdArgs& args)
     });
 
     parser_.setSysExFn([this](size_t n, const Byte* b) {
-        Atom msg[n];
+        AtomList256 msg;
+        msg.reserve(n);
         for (size_t i = 0; i < n; i++)
-            msg[i] = b[i];
+            msg.push_back(b[i]);
 
-        msgTo(sym_sysex(), msg, n);
+        msgTo(sym_sysex(), msg.data(), n);
     });
 }
 
