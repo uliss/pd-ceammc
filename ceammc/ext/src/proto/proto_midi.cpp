@@ -50,7 +50,7 @@ static std::tuple<uint8_t, uint8_t> floatToBit14(t_float v)
     const uint8_t lsb = 0x7F & uval;
     const uint8_t msb = 0x7F & (uval >> 7);
 
-    return { lsb, msb };
+    return std::make_pair(lsb, msb);
 }
 
 t_float MidiQuaterFrame::floatFps() const
