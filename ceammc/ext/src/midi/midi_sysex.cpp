@@ -12,9 +12,10 @@
  * this file belongs to.
  *****************************************************************************/
 #include "midi_sysex.h"
+#include "ceammc_containers.h"
 #include "ceammc_factory.h"
 
-static t_symbol* SYM_SYSEXIN;
+constexpr const char* STR_SYSEXIN = "#sysexin";
 
 constexpr uint8_t SYSEX_BEGIN = 0xF0;
 constexpr uint8_t SYSEX_END = 0xF7;
@@ -32,7 +33,7 @@ MidiSysex::MidiSysex(const PdArgs& args)
 {
     createOutlet();
 
-    proxy_.bind(SYM_SYSEXIN);
+    proxy_.bind(STR_SYSEXIN);
     buffer_.reserve(256);
 }
 
@@ -76,17 +77,17 @@ void MidiSysex::m_reset(t_symbol*, const AtomListView&)
 void MidiSysex::output()
 {
     const auto N = buffer_.size();
-    Atom b[N];
-    for (size_t i = 0; i < N; i++)
-        b[i] = buffer_[i];
+    AtomList512 b;
+    b.reserve(N);
 
-    listTo(0, AtomListView(b, N));
+    for (size_t i = 0; i < N; i++)
+        b.push_back(buffer_[i]);
+
+    listTo(0, b.view());
 }
 
 void setup_midi_sysex()
 {
-    SYM_SYSEXIN = gensym("#sysexin");
-
     ObjectFactory<MidiSysex> obj("midi.sysex");
     obj.addMethod("reset", &MidiSysex::m_reset);
 
