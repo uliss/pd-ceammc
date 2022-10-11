@@ -896,6 +896,7 @@ path.exists	checks if given path exists
 path.is_dir	check if path is directory
 path.lsdir	list directory contents
 path.ls	list directory contents
+path.monitor	filesystem event monitor
 path.normalize	normalize file paths
 path.norm	normalize file paths
 path.search	file search

@@ -1702,6 +1702,9 @@
     <entry name="path.lsdir" descr="list directory contents" ref_view="object">
       <xi:include href="path.lsdir.pddoc" parse="xml"/>
     </entry>
+    <entry name="path.monitor" descr="filesystem event monitor" ref_view="object">
+      <xi:include href="path.monitor.pddoc" parse="xml"/>
+    </entry>
     <entry name="path.normalize" descr="normalize file paths" ref_view="object">
       <xi:include href="path.normalize.pddoc" parse="xml"/>
     </entry>

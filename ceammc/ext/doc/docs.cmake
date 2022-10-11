@@ -551,6 +551,7 @@ set(DOC_FILES
     path.exists
     path.is_dir
     path.lsdir
+    path.monitor
     path.normalize
     path.search
     path.split
