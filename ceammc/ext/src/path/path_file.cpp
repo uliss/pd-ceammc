@@ -102,6 +102,26 @@ void PathFile::m_remove(t_symbol* s, const AtomListView& lv)
         OBJ_ERR << fmt::format("can't remove file: '{}'", fname);
 }
 
+void PathFile::m_rename(t_symbol* s, const AtomListView& lv)
+{
+    static args::ArgChecker chk("OLD:s NEW:s");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    auto old_name = expandPath(lv[0].asSymbol());
+    auto new_name = expandPath(lv[1].asSymbol());
+
+    if (old_name == &s_ || new_name == &s_) {
+        METHOD_ERR(s) << "can't determine full paths: " << lv;
+        return;
+    }
+
+    if (std::rename(old_name->s_name, new_name->s_name) == 0)
+        OBJ_LOG << fmt::format("file renamed: '{}' -> '{}'", old_name->s_name, new_name->s_name);
+    else
+        OBJ_ERR << fmt::format("can't rename file: '{}' -> '{}'", old_name->s_name, new_name->s_name);
+}
+
 void PathFile::m_write_string(t_symbol* s, const AtomListView& lv)
 {
     if (lv.size() < 1) {
@@ -294,26 +314,13 @@ bool PathFile::updateFullPath(const AtomListView& args)
         return false;
     }
 
-    auto sym_path = string::parse_ceammc_quoted_string(args[0].asT<t_symbol*>());
-    fs::path path = platform::expand_tilde_path(sym_path->s_name);
-
-    if (path.empty()) {
+    auto path = expandPath(args[0].asT<t_symbol*>());
+    if (path == &s_) {
         fname_->setValue(&s_);
         return false;
-    } else if (path.is_relative()) {
-        auto dir = canvas_getdir(canvas());
-        if (!dir || !dir->s_name) {
-            fs::path new_path = platform::current_working_directory();
-            new_path /= path;
-            fname_->setValue(gensym(new_path.lexically_normal().c_str()));
-            return true;
-        }
-
-        fs::path new_path = platform::expand_tilde_path(dir->s_name);
-        new_path /= path;
-        return fname_->setValue(gensym(new_path.lexically_normal().c_str()));
-    } else
-        return fname_->setValue(gensym(path.lexically_normal().c_str()));
+    } else {
+        return fname_->setValue(path);
+    }
 }
 
 bool PathFile::checkExists() const
@@ -329,6 +336,28 @@ bool PathFile::checkOpen(std::ios::openmode mode)
     return fs_.is_open();
 }
 
+t_symbol* PathFile::expandPath(t_symbol* path) const
+{
+    auto sym_path = string::parse_ceammc_quoted_string(path);
+    fs::path exp_path = platform::expand_tilde_path(sym_path->s_name);
+
+    if (exp_path.empty()) {
+        return &s_;
+    } else if (exp_path.is_relative()) {
+        auto dir = canvas_getdir(canvas());
+        if (!dir || !dir->s_name) {
+            fs::path new_path = platform::pd_user_directory();
+            new_path /= exp_path;
+            return gensym(new_path.lexically_normal().c_str());
+        }
+
+        fs::path new_path = platform::expand_tilde_path(dir->s_name);
+        new_path /= exp_path;
+        return gensym(new_path.lexically_normal().c_str());
+    } else
+        return gensym(exp_path.lexically_normal().c_str());
+}
+
 void setup_path_file()
 {
     ObjectFactory<PathFile> obj("file");
@@ -338,6 +367,7 @@ void setup_path_file()
     obj.addMethod("open", &PathFile::m_open);
     obj.addMethod("close", &PathFile::m_close);
     obj.addMethod("remove", &PathFile::m_remove);
+    obj.addMethod("rename", &PathFile::m_rename);
 
     obj.addMethod("read_line", &PathFile::m_read_line);
     obj.addMethod("read_bytes", &PathFile::m_read_bytes);
