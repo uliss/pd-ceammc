@@ -12,15 +12,13 @@
  * this file belongs to.
  *****************************************************************************/
 #include "path_monitor.h"
-#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
-#include "ceammc_format.h"
-#include "fmt/core.h"
 
 #define DMON_IMPL
 #include "dmon.h"
 
 #if 0
+#include "fmt/core.h"
 #define DMON_DEBUG(msg) std::cerr << "[dmon] " << msg << std::endl;
 #else
 #define DMON_DEBUG(msg)

@@ -16,6 +16,7 @@ public:
     void m_open(t_symbol* s, const AtomListView& lv);
     void m_close(t_symbol* s, const AtomListView& lv);
     void m_remove(t_symbol* s, const AtomListView& lv);
+    void m_rename(t_symbol* s, const AtomListView& lv);
 
     void m_write_string(t_symbol* s, const AtomListView& lv);
     void m_write_line(t_symbol* s, const AtomListView& lv);
@@ -32,6 +33,7 @@ private:
     bool checkExists() const;
     bool checkOpen(std::ios::openmode mode);
     bool checkOpenMode(const char* mode, std::ios::openmode& res) const;
+    t_symbol* expandPath(t_symbol* path) const;
 };
 
 void setup_path_file();

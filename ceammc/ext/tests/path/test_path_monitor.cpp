@@ -23,6 +23,12 @@ extern "C" {
 void sys_pollgui();
 }
 
+static void poll_gui(int n = 10)
+{
+    while (n-- > 0)
+        sys_pollgui();
+}
+
 PD_COMPLETE_TEST_SETUP(PathMonitor, path, monitor)
 
 TEST_CASE("path.monitor", "[externals]")
@@ -33,19 +39,19 @@ TEST_CASE("path.monitor", "[externals]")
 
     SECTION("init")
     {
-        //        SECTION("default")
-        //        {
-        //            TExt t("path.monitor");
-        //            REQUIRE_PROPERTY_LIST(t, @path, LA(""));
-        //            REQUIRE(t.numInlets() == 1);
-        //            REQUIRE(t.numOutlets() == 1);
-        //        }
+        SECTION("default")
+        {
+            TExt t("path.monitor");
+            REQUIRE_PROPERTY_LIST(t, @path, LA(""));
+            REQUIRE(t.numInlets() == 1);
+            REQUIRE(t.numOutlets() == 1);
+        }
 
-        //        SECTION("arg")
-        //        {
-        //            TExt t("path.monitor", LA(TEST_DIR));
-        //            REQUIRE_PROPERTY(t, @path, TEST_DIR);
-        //        }
+        SECTION("arg")
+        {
+            TExt t("path.monitor", LA(TEST_DIR));
+            REQUIRE_PROPERTY(t, @path, TEST_DIR);
+        }
     }
 
     SECTION("run")
@@ -64,10 +70,11 @@ TEST_CASE("path.monitor", "[externals]")
 
         {
             std::ofstream ofs(PATH1);
+            ofs.close();
+            std::this_thread::sleep_for(WAIT_DELAY);
         }
 
-        std::this_thread::sleep_for(WAIT_DELAY);
-        sys_pollgui();
+        poll_gui();
 
         REQUIRE(t.hasOutputAt(0));
         REQUIRE(t.outputAnyAt(0) == LA("create", "test_path_1.tmp"));
@@ -75,13 +82,35 @@ TEST_CASE("path.monitor", "[externals]")
 
         {
             std::ofstream ofs(PATH2);
+            ofs.close();
+            std::this_thread::sleep_for(WAIT_DELAY);
         }
 
-        std::this_thread::sleep_for(WAIT_DELAY);
-        sys_pollgui();
+        poll_gui();
 
         REQUIRE(t.hasOutputAt(0));
         REQUIRE(t.outputAnyAt(0) == LA("create", "test_path_2.tmp"));
+        t.clearAll();
+
+        {
+            std::ofstream ofs(PATH2);
+            ofs << 10000;
+            ofs.close();
+            std::this_thread::sleep_for(WAIT_DELAY);
+        }
+
+        poll_gui();
+
+        REQUIRE(t.hasOutputAt(0));
+        REQUIRE(t.outputAnyAt(0) == LA("update", "test_path_2.tmp"));
+        t.clearAll();
+
+        std::remove(PATH1);
+        std::this_thread::sleep_for(WAIT_DELAY);
+        poll_gui();
+
+        REQUIRE(t.hasOutputAt(0));
+        REQUIRE(t.outputAnyAt(0) == LA("remove", "test_path_1.tmp"));
         t.clearAll();
 
         std::remove(PATH1);
