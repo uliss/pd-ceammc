@@ -134,9 +134,13 @@ void PathFile::m_write_string(t_symbol* s, const AtomListView& lv)
         return;
     }
 
+    if (!fs_)
+        fs_.clear();
+
     fs_ << to_string(lv);
     if (!fs_) {
         METHOD_ERR(s) << fmt::format("can't write to file: '{}'", fname_->value()->s_name);
+        fs_.clear();
     } else {
         fs_.sync();
         OBJ_LOG << fmt::format("write to file: {}", to_string(lv));
@@ -155,9 +159,13 @@ void PathFile::m_write_line(t_symbol* s, const AtomListView& lv)
         return;
     }
 
+    if (!fs_)
+        fs_.clear();
+
     fs_ << to_string(lv) << std::endl;
     if (!fs_) {
         METHOD_ERR(s) << fmt::format("can't write to file: '{}'", fname_->value()->s_name);
+        fs_.clear();
     } else {
         fs_.sync();
         OBJ_LOG << fmt::format("write line to file: {}", to_string(lv));
@@ -176,6 +184,9 @@ void PathFile::m_write_bytes(t_symbol* s, const AtomListView& lv)
         return;
     }
 
+    if (!fs_)
+        fs_.clear();
+
     std::vector<char> out;
     auto res = parse_bytes(lv, out);
     if (res.first < 0) {
@@ -187,6 +198,7 @@ void PathFile::m_write_bytes(t_symbol* s, const AtomListView& lv)
 
     if (!fs_) {
         METHOD_ERR(s) << fmt::format("can't write to file: '{}'", fname_->value()->s_name);
+        fs_.clear();
     } else {
         fs_.sync();
         OBJ_LOG << fmt::format("write bytes to file: {}", to_string(lv));
