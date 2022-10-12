@@ -14,6 +14,7 @@
 #include "ui_touchosc.h"
 #include "ceammc_base64.h"
 #include "ceammc_canvas.h"
+#include "ceammc_format.h"
 #include "ceammc_factory.h"
 #include "ceammc_platform.h"
 
@@ -219,10 +220,10 @@ void UiTouchOsc::m_auto(t_symbol* s, const AtomListView& lv)
         return;
     }
 
-    const auto cbng = &UIObjectFactory<UIBang>::pd_class->c_class;
-    const auto ctgl = &UIObjectFactory<UIToggle>::pd_class->c_class;
-    const auto cknob = &UIObjectFactory<UIKnob>::pd_class->c_class;
-    const auto csl = &UIObjectFactory<UISlider>::pd_class->c_class;
+    const auto cbng = &UIObjectFactory<UIBang>::pd_ui_class->c_class;
+    const auto ctgl = &UIObjectFactory<UIToggle>::pd_ui_class->c_class;
+    const auto cknob = &UIObjectFactory<UIKnob>::pd_ui_class->c_class;
+    const auto csl = &UIObjectFactory<UISlider>::pd_ui_class->c_class;
 
     enum UIType {
         UI_BANG,

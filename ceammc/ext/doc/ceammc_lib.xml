@@ -1550,6 +1550,12 @@
     <entry name="net.host2ip" descr="returns IP address by DNS name" ref_view="object">
       <xi:include href="net.host2ip.pddoc" parse="xml"/>
     </entry>
+    <entry name="net.osc.send" descr="OSC message sender" ref_view="object">
+      <xi:include href="net.osc.send.pddoc" parse="xml"/>
+    </entry>
+    <entry name="net.osc.server" descr="OSC server control" ref_view="object">
+      <xi:include href="net.osc.server.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="noise">
     <entry name="noise.baker" descr="Part of a-chaos library" ref_view="object">
@@ -1675,6 +1681,9 @@
     </entry>
   </category>
   <category name="path">
+    <entry name="file" descr="file input/output" ref_view="object">
+      <xi:include href="file.pddoc" parse="xml"/>
+    </entry>
     <entry name="file.size" descr="output file size" ref_view="object">
       <xi:include href="file.size.pddoc" parse="xml"/>
     </entry>
@@ -1692,6 +1701,9 @@
     </entry>
     <entry name="path.lsdir" descr="list directory contents" ref_view="object">
       <xi:include href="path.lsdir.pddoc" parse="xml"/>
+    </entry>
+    <entry name="path.monitor" descr="filesystem event monitor" ref_view="object">
+      <xi:include href="path.monitor.pddoc" parse="xml"/>
     </entry>
     <entry name="path.normalize" descr="normalize file paths" ref_view="object">
       <xi:include href="path.normalize.pddoc" parse="xml"/>

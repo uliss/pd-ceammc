@@ -401,17 +401,17 @@ public:
     /**
      * Returns number of elements for that predicate pred returns true
      */
-    size_t count(AtomPredicate pred) const noexcept;
+    CEAMMC_NO_ASAN size_t count(AtomPredicate pred) const noexcept;
 
     /**
      * Checks if predicate pred returns true for all list elements
      */
-    bool allOf(AtomPredicate pred) const noexcept;
+    CEAMMC_NO_ASAN bool allOf(AtomPredicate pred) const noexcept;
 
     /**
      * Checks if predicate pred returns true at least for one list element
      */
-    bool anyOf(AtomPredicate pred) const noexcept;
+    CEAMMC_NO_ASAN bool anyOf(AtomPredicate pred) const noexcept;
 
     /**
      * Checks if predicate pred returns false for all list elements

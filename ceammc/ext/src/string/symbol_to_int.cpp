@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "symbol_to_int.h"
+#include "ceammc_containers.h"
 #include "ceammc_factory.h"
 #include "ceammc_string.h"
 
@@ -31,7 +32,8 @@ void SymbolToInt::onSymbol(t_symbol* s)
     if (N == 0)
         return;
 
-    Atom out[N];
+    AtomList256 out;
+    out.assign(N, Atom());
     size_t out_idx = 0;
 
     const char* c0 = s->s_name;

@@ -92,6 +92,16 @@ static void setup_env_ceammc_doc_path()
     ceammc::platform::set_env("CEAMMC", path.c_str());
 }
 
+static void setup_env_user_path()
+{
+    if (!ceammc_class || !ceammc_class->c_externdir) {
+        pd_error(nullptr, "[ceammc] library is not initialized");
+        return;
+    }
+
+    ceammc::platform::set_env("PD", ceammc::platform::pd_user_directory().c_str());
+}
+
 namespace {
 
 t_visfn ceammc_pd_vanilla_visfn = nullptr;
@@ -153,6 +163,7 @@ void ceammc_init()
     // setup env variables
     setup_env_doc_path();
     setup_env_ceammc_doc_path();
+    setup_env_user_path();
 
 #ifndef __WIN32
     // save vanilla external list

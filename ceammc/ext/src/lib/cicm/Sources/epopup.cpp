@@ -12,7 +12,7 @@
 
 t_epopup* epopupmenu_create(t_eobj* x, t_symbol* name)
 {
-    t_epopup* popup = (t_epopup*)malloc(sizeof(t_epopup));
+    auto popup = (t_epopup*)malloc(sizeof(t_epopup));
     if (popup) {
         popup->c_send = x->o_id;
         popup->c_name = name;
@@ -24,7 +24,9 @@ t_epopup* epopupmenu_create(t_eobj* x, t_symbol* name)
 
 void epopupmenu_setfont(t_epopup* popup, t_efont* font)
 {
-    sys_vgui(".eboxpopup%s configure -font {%s %d %s italic}\n", popup->c_name->s_name, font[0].c_family->s_name, (int)font[0].c_size, font[0].c_weight->s_name, font[0].c_slant->s_name);
+    sys_vgui(".eboxpopup%s configure -font {%s %d %s italic}\n",
+        popup->c_name->s_name, font[0].c_family->s_name,
+        (int)font[0].c_size, font[0].c_weight->s_name, font[0].c_slant->s_name);
 }
 
 void epopupmenu_additem(t_epopup* popup, int itemid, const char* text, bool enabled, const t_pt& pos)

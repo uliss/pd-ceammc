@@ -36,7 +36,7 @@ void MidiKey2Str::onFloat(t_float f)
     key %= 12;
 
     if (cache_[key] == 0)
-        cache_[key] = midi::key_to_name(key, tonality_, true);
+        cache_[key] = gensym(midi::key_to_name(key, tonality_, true).c_str());
 
     if (as_symbol_->value())
         symbolTo(0, cache_[key]);

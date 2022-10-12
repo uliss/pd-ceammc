@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="file">
+        <title>file</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>file input/output</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>path</category>
+            <keywords>path file</keywords>
+            <since>0.9.5</since>
+        </meta>
+        <properties>
+            <property name="@path" type="symbol" default="">file path</property>
+        </properties>
+        <methods>
+            <method name="close">close file</method>
+            <method name="open">open file, updates @path property
+            <param name="FNAME" required="true" type="symbol">file path: absolute or
+            relative</param>
+            <param name="MODE" required="false" type="symbol" enum="r w a r+ w+ a+">open mode, 'r':
+            open text file for reading only. 'w': truncate to 0 length, if existent, or create text
+            file for writing only. 'a': append, open or create text file only for writing at end of
+            file. 'r+': open text file for reading and writing. 'w+': truncate to 0 length, if
+            existent, or create text file for reading and writing. 'a+': append, open or create
+            text file for reading and writing, writing at end of file</param></method>
+            <method name="write">write space separated atoms to file, no newline added 
+            <param name="ARGS" required="true" type="list">atoms to write</param></method>
+            <method name="write_line">write space separated atoms to file, newline added 
+            <param name="ARGS" required="true" type="list">atoms to write</param></method>
+            <method name="write_bytes">write given bytes to file 
+            <param name="ARGS" required="true" type="list">list of bytes: integers in 0-255 or
+            symbols with '0x' prefix: 0x11, 0xFF etc..</param></method>
+            <method name="seek_write">change writing position 
+            <param name="POS" required="true" type="int">offset position</param>
+            <param name="ORIG" required="false" type="symbol" enum="beg|cur|end">offset origin, if
+            omitted offset from the beginning</param></method>
+            <method name="seek_read">change reading position 
+            <param name="POS" required="true" type="int">offset position</param>
+            <param name="ORIG" required="false" type="symbol" enum="beg|cur|end">offset origin, if
+            omitted offset from the beginning</param></method>
+            <method name="read_line">read line from file, output as list as atoms</method>
+            <method name="read_bytes">read bytes from file, output as list of integers 
+            <param name="N" required="false" type="int">number of bytes to read, if omitted read
+            all content</param></method>
+            <method name="remove">remove file
+            <param name="NAME" required="true" type="symbol">file path</param></method>
+            <method name="rename">rename file
+            <param name="PATH" required="true" type="symbol">old file path</param>
+            <param name="NEW_PATH" required="true" type="symbol">new file path</param></method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo>...</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>list: read output</outlet>
+            <outlet>bang on EOF reached</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[open ~/test.txt w+, write_line 1 2 3 4 5(
+|
+| [close( [write_bytes 67 69 0x41 0x4D 0x43(
+| |       |
+| |       | [seek_read 0(
+| |       | |
+| |       | | [read_line( [remove ~/test.txt(
+| |       | | |           |
+[file                     ]
+|           ^|
+[ui.dt]     [B]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

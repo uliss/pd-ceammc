@@ -11,7 +11,6 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "ceammc_format.h"
 #include "ui_bang.h"
 
 #include "test_ui.h"
@@ -29,6 +28,7 @@ TEST_CASE("ui.bang", "[ui.bang]")
         REQUIRE(t->numOutlets() == 1);
         REQUIRE_UI_LIST_PROPERTY(t, "send", LA("(null)"));
         REQUIRE_UI_LIST_PROPERTY(t, "receive", LA("(null)"));
+
         REQUIRE_UI_LIST_PROPERTY(t, "background_color", LX(0.93, 0.93, 0.93, 1));
     }
 

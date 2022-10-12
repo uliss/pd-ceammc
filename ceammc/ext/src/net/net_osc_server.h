@@ -35,6 +35,7 @@
 #include "ceammc_poll_dispatcher.h"
 #include "ceammc_property.h"
 #include "readerwriterqueue.h"
+#include "osc_property.h"
 
 namespace ceammc {
 namespace net {
@@ -166,7 +167,7 @@ namespace net {
     };
 
     class OscServerList {
-        using OscServerPtr = std::unique_ptr<OscServer>;
+        using OscServerPtr = std::shared_ptr<OscServer>;
         using Entry = std::pair<OscServerPtr, int>;
         std::list<Entry> servers_;
 
@@ -175,56 +176,43 @@ namespace net {
     public:
         static OscServerList& instance();
 
-        OscServer* findByName(t_symbol* name) { return findByName(name->s_name); }
-        OscServer* findByName(const char* name);
+        OscServerPtr findByName(t_symbol* name) { return findByName(name->s_name); }
+        OscServerPtr findByName(const char* name);
 
-        OscServer* createByUrl(const char* name, const char* url);
-        OscServer* createByPort(const char* name, int port);
+        OscServerPtr createByUrl(const char* name, const char* url);
+        OscServerPtr createByPort(const char* name, int port);
 
         void start(const char* name, bool value);
 
         void addRef(const char* name);
         void unRef(const char* name);
 
+        void dump();
+
     private:
-        OscServer* addToList(OscServerPtr&& osc);
+        OscServerPtr addToList(const OscServerPtr& osc);
 
     public:
         static constexpr const char* DISPATCHER = "#osc";
         static constexpr const char* METHOD_UPDATE = "update";
     };
 
-    class OscUrlProperty : public AtomProperty {
-        t_symbol* host_;
-        t_symbol* port_;
-        t_symbol* proto_;
-
-    public:
-        OscUrlProperty(const std::string& name, t_symbol* def = &s_, PropValueAccess ro = PropValueAccess::READWRITE);
-
-        t_symbol* host() const { return host_; }
-        t_symbol* port() const { return port_; }
-        t_symbol* proto() const { return proto_; }
-        const Atom& url() const { return value(); }
-
-    private:
-        bool parseUrl(const Atom& url);
-    };
-
     class NetOscServer : public BaseObject {
         SymbolProperty* name_;
         OscUrlProperty* url_;
         BoolProperty* dump_;
+        BoolProperty* auto_start_;
+        std::weak_ptr<OscServer> server_;
 
     public:
         NetOscServer(const PdArgs& args);
         ~NetOscServer();
 
+        void dump() const override;
+
         void initDone() final;
         void m_start(t_symbol* s, const AtomListView& lv);
         void m_stop(t_symbol* s, const AtomListView& lv);
-
-        void dump() const override;
     };
 }
 }

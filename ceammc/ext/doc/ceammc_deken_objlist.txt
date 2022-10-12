@@ -845,6 +845,10 @@ loadmsg	send message when patch loads
 msg.sched	message scheduler
 net.host2ip	returns IP address by DNS name
 net.host->ip	returns IP address by DNS name
+net.osc.send	OSC message sender
+net.osc.s	OSC message sender
+net.osc.server	OSC server control
+net.osc	OSC server control
 noise.baker	Part of a-chaos library
 noise.clifford	Part of a-chaos library
 noise.collatz	Part of a-chaos library
@@ -884,6 +888,7 @@ canvas.top	verbose information about top-level canvas
 patch.args	Get patch or subpatch arguments
 patch.deps	patch dependencies: used objects and abstractions
 patch.tree	patch tree
+file	file input/output
 file.size	output file size
 path.basename	outputs filename portion of pathname
 path.dirname	outputs directory portion of pathname
@@ -891,6 +896,7 @@ path.exists	checks if given path exists
 path.is_dir	check if path is directory
 path.lsdir	list directory contents
 path.ls	list directory contents
+path.monitor	filesystem event monitor
 path.normalize	normalize file paths
 path.norm	normalize file paths
 path.search	file search

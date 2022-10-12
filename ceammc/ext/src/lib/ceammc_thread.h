@@ -4,13 +4,9 @@
 #include <atomic>
 #include <condition_variable>
 #include <future>
+#include <list>
 #include <memory>
 #include <mutex>
-
-#include "config.h"
-#ifdef HAVE_PTHREAD_H
-#include <pthread.h>
-#endif
 
 #include "ceammc_clock.h"
 #include "ceammc_log.h"
@@ -110,16 +106,7 @@ public:
 };
 
 namespace thread {
-    class Lock {
-        pthread_mutex_t& m_;
-        bool locked_;
-
-    public:
-        explicit Lock(pthread_mutex_t& m);
-        ~Lock();
-    };
-
-    typedef moodycamel::ReaderWriterQueue<char> Pipe;
+    using Pipe = moodycamel::ReaderWriterQueue<char>;
 
     class Task {
         ThreadExternalBase* caller_;

@@ -12,12 +12,17 @@
  * this file belongs to.
  *****************************************************************************/
 #include "path_monitor.h"
-#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
-#include "ceammc_format.h"
 
 #define DMON_IMPL
 #include "dmon.h"
+
+#if 0
+#include "fmt/core.h"
+#define DMON_DEBUG(msg) std::cerr << "[dmon] " << msg << std::endl;
+#else
+#define DMON_DEBUG(msg)
+#endif
 
 #include <string>
 #include <unordered_set>
@@ -25,22 +30,7 @@
 using PathSet = std::unordered_set<std::string>;
 
 using WatchMap = std::unordered_map<PathMonitor*, dmon_watch_id>;
-
-struct MutexLock {
-    std::mutex& m_;
-
-public:
-    MutexLock(std::mutex& m)
-        : m_(m)
-    {
-        m_.lock();
-    }
-
-    ~MutexLock()
-    {
-        m_.unlock();
-    }
-};
+using Lock = std::lock_guard<std::mutex>;
 
 class DMonitor {
     int refs_ { 0 };
@@ -60,7 +50,7 @@ class DMonitor {
     void init()
     {
         if (++refs_ == 1) {
-            std::cerr << "dmon_init()\n";
+            DMON_DEBUG("init");
         }
     }
 
@@ -70,7 +60,7 @@ class DMonitor {
             return;
 
         refs_--;
-        std::cerr << "dmon_deinit()\n";
+        DMON_DEBUG("deinit");
     }
 
 public:
@@ -84,7 +74,7 @@ public:
     {
         init();
 
-        MutexLock l(mtx_);
+        Lock l(mtx_);
 
         auto it = watch_map_.find(obj);
         if (it == watch_map_.end()) {
@@ -98,7 +88,8 @@ public:
 
     void removeRef(PathMonitor* obj)
     {
-        MutexLock l(mtx_);
+        Lock l(mtx_);
+
         auto it = watch_map_.find(obj);
         if (it == watch_map_.end())
             return;
@@ -112,14 +103,22 @@ public:
     static void watch_callback(dmon_watch_id watch_id, dmon_action action, const char* rootdir,
         const char* filepath, const char* oldfilepath, void* user)
     {
-        DMonitor* mon = static_cast<DMonitor*>(user);
+        auto mon = static_cast<DMonitor*>(user);
 
-        MutexLock l(mon->mtx_);
+        std::unique_lock<std::mutex> l(mon->mtx_, std::defer_lock);
+
+        if (!l.try_lock())
+            return;
+
         for (auto& w : mon->watch_map_) {
             if (w.second.id == watch_id.id) {
-                SubscriberId id = reinterpret_cast<SubscriberId>(w.first);
+                auto id = w.first->id();
                 w.first->setPath(filepath);
-                Dispatcher::instance().send({ id, (NotifyEventType)action });
+                if (!Dispatcher::instance().send({ id, (NotifyEventType)action })) {
+                    DMON_DEBUG(fmt::format("can't send to dispatcher: #{} -> {}", id, action));
+                    return;
+                }
+                DMON_DEBUG(fmt::format("action: {}", action));
                 return;
             }
         }
@@ -132,7 +131,7 @@ PathMonitor::PathMonitor(const PdArgs& args)
 {
     createOutlet();
 
-    path_ = new SymbolProperty("@paths", &s_);
+    path_ = new SymbolProperty("@path", &s_);
     addProperty(path_);
     path_->setArgIndex(0);
     path_->setSuccessFn([this](Property*) {
@@ -140,12 +139,10 @@ PathMonitor::PathMonitor(const PdArgs& args)
         if (path == &s_)
             return;
 
-        SubscriberId id = reinterpret_cast<SubscriberId>(this);
-        DMonitor::instance().addRef(this, path, id);
+        DMonitor::instance().addRef(this, path, id());
     });
 
-    SubscriberId id = reinterpret_cast<SubscriberId>(this);
-    Dispatcher::instance().subscribe(this, id);
+    Dispatcher::instance().subscribe(this, id());
 }
 
 PathMonitor::~PathMonitor()
@@ -156,12 +153,9 @@ PathMonitor::~PathMonitor()
 
 bool PathMonitor::notify(NotifyEventType code)
 {
-    OBJ_DBG << "code: " << code;
-    dmon_action act = static_cast<dmon_action>(code);
+    Lock l(mtx_);
 
-    MutexLock l(mtx_);
-
-    switch (act) {
+    switch (static_cast<dmon_action>(code)) {
     case DMON_ACTION_CREATE:
         OBJ_DBG << "file created: " << path_info_;
         anyTo(0, gensym("create"), gensym(path_info_.c_str()));
@@ -187,7 +181,7 @@ bool PathMonitor::notify(NotifyEventType code)
 
 void PathMonitor::setPath(const char* path)
 {
-    MutexLock lock(mtx_);
+    Lock lock(mtx_);
     path_info_ = path;
 }
 

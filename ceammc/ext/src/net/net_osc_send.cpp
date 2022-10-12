@@ -148,16 +148,11 @@ public:
 
 NetOscSend::NetOscSend(const PdArgs& args)
     : BaseObject(args)
-    , host_(nullptr)
-    , port_(nullptr)
+    , url_(nullptr)
 {
-    host_ = new SymbolProperty("@host", &s_);
-    host_->setArgIndex(0);
-    addProperty(host_);
-
-    port_ = new IntProperty("@port", 0);
-    port_->setArgIndex(1);
-    addProperty(port_);
+    url_ = new net::OscUrlProperty("@url", &s_);
+    url_->setArgIndex(0);
+    addProperty(url_);
 
     createOutlet();
 }
@@ -295,15 +290,15 @@ void NetOscSend::m_send_inf(t_symbol* s, const AtomListView& lv)
 
 void NetOscSend::m_send_string(t_symbol* s, const AtomListView& lv)
 {
-    const bool ok = lv.size() == 2 && lv[0].isSymbol();
+    const bool ok = lv.size() >= 2 && lv[0].isSymbol();
     if (!ok) {
-        METHOD_ERR(s) << "invalid args: OSC_PATH ATOM expected";
+        METHOD_ERR(s) << "invalid args: OSC_PATH ATOMS expected";
         return;
     }
 
     NetOscSendOscTask task;
     initTask(task, lv[0].asT<t_symbol*>()->s_name);
-    lo_message_add_string(task.msg(), to_string(lv[1]).c_str());
+    lo_message_add_string(task.msg(), to_string(lv.subView(1)).c_str());
 
     if (!OscSendWorker::instance().add(task))
         LIB_ERR << "can't add task";
@@ -402,8 +397,8 @@ void NetOscSend::m_send_typed(t_symbol* s, const AtomListView& lv)
 
 void NetOscSend::initTask(NetOscSendOscTask& task, const char* path)
 {
-    task.host = host_->value()->s_name;
-    task.port = port_->value();
+    task.host = url_->host()->s_name;
+    task.port = url_->iport();
     task.path = path;
     task.id = reinterpret_cast<SubscriberId>(this);
 }

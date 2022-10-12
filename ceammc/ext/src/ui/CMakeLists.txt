@@ -6,6 +6,8 @@ macro(ceammc_ui_external name)
     list(APPEND UI_SOURCES "ui_${name}.cpp")
 endmacro()
 
+set(NUI_SOURCES nui_bang.cpp nui_toggle.cpp)
+
 add_subdirectory(touchosc)
 
 ceammc_ui_external(arrayview)
@@ -48,9 +50,9 @@ ceammc_ui_external(tab)
 ceammc_ui_external(toggle)
 ceammc_ui_external(touchosc)
 
-add_library(ceammc_ui STATIC mod_ui.cpp ${UI_SOURCES})
+add_library(ceammc_ui STATIC mod_ui.cpp ${NUI_SOURCES} ${UI_SOURCES})
 
-target_link_libraries(ceammc_ui ceammc_env http_lib readerwriterqueue touchosc)
+target_link_libraries(ceammc_ui ceammc_nui ceammc_env http_lib readerwriterqueue touchosc)
 target_include_directories(ceammc_ui
     PRIVATE
         "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>")

@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "fluid.h"
 #include "ceammc_args.h"
+#include "ceammc_containers.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 #include "ceammc_platform.h"
@@ -641,21 +642,25 @@ void Fluid::m_sysex(t_symbol* s, const AtomListView& lv)
         char big_reply[reply_len];
         auto res = fluid_synth_sysex(synth_, data, N, big_reply, &reply_len, nullptr, 0);
         if (res == FLUID_OK) {
-            Atom res[reply_len];
-            for (int i = 0; i < reply_len; i++)
-                res[i] = big_reply[i];
+            AtomList512 res;
+            res.reserve(reply_len);
 
-            anyTo(0, gensym("sysex"), AtomListView(res, reply_len));
+            for (int i = 0; i < reply_len; i++)
+                res.push_back(big_reply[i]);
+
+            anyTo(0, gensym("sysex"), res.view());
         }
     } else if (res == FLUID_OK) {
         METHOD_ERR(s) << "ok";
 
         if (reply_len > 0) {
-            Atom res[reply_len];
-            for (int i = 0; i < reply_len; i++)
-                res[i] = small_reply[i];
+            AtomList512 res;
+            res.reserve(reply_len);
 
-            anyTo(0, gensym("sysex"), AtomListView(res, reply_len));
+            for (int i = 0; i < reply_len; i++)
+                res.push_back(small_reply[i]);
+
+            anyTo(0, gensym("sysex"), res.view());
         } else {
             METHOD_ERR(s) << "no reply: " << reply_len;
         }
@@ -1039,6 +1044,8 @@ void Fluid::processBlock(const t_sample** in, t_sample** out)
 
 void setup_misc_fluid()
 {
+    LIB_DBG << fmt::format("fluidsynth version: {}", fluid_version_str());
+
     SoundExternalFactory<Fluid> obj("fluid~", OBJECT_FACTORY_DEFAULT);
 
     obj.addMethod("note", &Fluid::m_note);

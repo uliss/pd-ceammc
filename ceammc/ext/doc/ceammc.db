@@ -125,6 +125,7 @@ env2array,ceammc/env2array,ceammc/env->array,env->array		.		.
 env2vline,ceammc/env2vline,ceammc/env->vline,env->vline		.		.
 envelope,ceammc/envelope,ceammc/env,env		.		.
 expand_env,ceammc/expand_env		.		.
+file		.		..
 file.size		.		.
 flow.append		..		.
 flow.change		..		.
@@ -499,6 +500,8 @@ msg.sched		..		.
 music.dur2time,music.d->t		.		.
 music.voice2midi,music.v->m		.		.
 net.host2ip,net.host->ip		.		.
+net.osc.send,net.osc.s		.		.
+net.osc.server,net.osc		.		.
 noise.baker		.		.
 noise.clifford		.		.
 noise.collatz		.		.
@@ -546,6 +549,7 @@ path.dirname		.		.
 path.exists		.		.
 path.is_dir		.		..
 path.lsdir,path.ls		..		.
+path.monitor		.		.
 path.normalize,path.norm		.		.
 path.search		.		..
 path.split		.		..

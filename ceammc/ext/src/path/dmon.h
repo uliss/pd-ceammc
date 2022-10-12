@@ -1310,10 +1310,12 @@ _DMON_PRIVATE void dmon__fsevent_process_events(void)
         if (ev->event_flags & kFSEventStreamEventFlagItemCreated) {
             watch->watch_cb(ev->watch_id, DMON_ACTION_CREATE, watch->rootdir_unmod, ev->filepath, NULL,
                             watch->user_data);
-        } else if (ev->event_flags & kFSEventStreamEventFlagItemModified) {
+        }
+        if (ev->event_flags & kFSEventStreamEventFlagItemModified) {
             watch->watch_cb(ev->watch_id, DMON_ACTION_MODIFY, watch->rootdir_unmod, ev->filepath, NULL,
                             watch->user_data);
-        } else if (ev->event_flags & kFSEventStreamEventFlagItemRenamed) {
+        }
+        if (ev->event_flags & kFSEventStreamEventFlagItemRenamed) {
             for (int j = i + 1; j < c; j++) {
                 dmon__fsevent_event* check_ev = &_dmon.events[j];
                 if (check_ev->event_flags & kFSEventStreamEventFlagItemRenamed) {
@@ -1322,7 +1324,8 @@ _DMON_PRIVATE void dmon__fsevent_process_events(void)
                     break;
                 }
             }
-        } else if (ev->event_flags & kFSEventStreamEventFlagItemRemoved) {
+        }
+        if (ev->event_flags & kFSEventStreamEventFlagItemRemoved) {
             watch->watch_cb(ev->watch_id, DMON_ACTION_DELETE, watch->rootdir_unmod, ev->filepath, NULL,
                             watch->user_data);
         }

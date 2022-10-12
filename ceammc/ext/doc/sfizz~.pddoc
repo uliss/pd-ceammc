@@ -51,6 +51,12 @@
             note</param>
             <param name="VEL" required="true" type="float" minvalue="0" maxvalue="127">MIDI
             velocity</param></method>
+            <!-- program -->
+            <method name="prog">program change 
+            <param name="CHAN" required="false" type="int" default="0" minvalue="0" maxvalue="16">
+            MIDI channel, if zero or ommited set for all channels</param>
+            <param name="PGM" required="true" type="int" minvalue="0" maxvalue="16383">program
+            number</param></method>
             <!-- bend -->
             <method name="bend">pitchband change 
             <param name="CHAN" required="false" type="int" default="0" minvalue="0" maxvalue="16">

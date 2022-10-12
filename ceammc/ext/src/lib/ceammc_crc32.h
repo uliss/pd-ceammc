@@ -94,6 +94,16 @@ constexpr uint32_t crc32_constexpr(char const* const str, int32_t const len, uin
 
 constexpr uint32_t crc32_hash_seed() { return -1; }
 
+constexpr uint32_t crc32_constexpr_strlen(const char* str)
+{
+    return *str ? 1 + crc32_constexpr_strlen(str + 1) : 0;
+}
+
+constexpr uint32_t crc32_constexpr(char const* const str)
+{
+    return crc32_constexpr(str, crc32_constexpr_strlen(str), crc32_hash_seed());
+}
+
 /**
  * a user-defined string literal for static string hashing, to be used together
  * with @ref str_hash() along the lines of:

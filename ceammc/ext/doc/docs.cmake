@@ -127,6 +127,7 @@ set(DOC_FILES
     env2vline
     vline2env
     expand_env
+    file
     file.size
     flow.append
     flow.change
@@ -501,6 +502,8 @@ set(DOC_FILES
     music.dur2time
     music.voice2midi
     net.host2ip
+    net.osc.send
+    net.osc.server
     noise.baker
     noise.clifford
     noise.collatz
@@ -548,6 +551,7 @@ set(DOC_FILES
     path.exists
     path.is_dir
     path.lsdir
+    path.monitor
     path.normalize
     path.search
     path.split

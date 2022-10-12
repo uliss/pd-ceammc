@@ -133,6 +133,7 @@ if(WIN32)
     install_tcl_dir(tcllib1.18)
     install_tcl_dir(tcllib1.19)
     install_tcl_dir(tcllib1.20)
+    install_tcl_dir(tcllib1.21)
     # try different tooltip location
     install_tcl_dir(tklib0.6)
     install_tcl_dir(tklib0.6/tooltip)
@@ -202,7 +203,7 @@ if(APPLE)
     configure_file(${PROJECT_SOURCE_DIR}/ceammc/gui/Info.plist ${PROJECT_BINARY_DIR}/dist/Info.plist)
 
     # tk versions later then 8.6.8 have problems with russian keyboard shortcuts
-    set(TK_VERSION "8.6.12")
+    set(TK_VERSION ${WISH_VERSION})
     set(EMBEDDED_WISH "${PROJECT_SOURCE_DIR}/mac/Wish-${TK_VERSION}.app")
 
     if(EXISTS ${EMBEDDED_WISH})

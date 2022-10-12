@@ -18,23 +18,24 @@ static const int parser_osc_en_main = 1;
 namespace ceammc {
 	namespace parser {
 		
-		bool parse_osc_url(const char* str, t_symbol*& proto, t_symbol*& host, t_symbol*& port) {
+		bool parse_osc_url(const char* str, t_symbol*& proto, t_symbol*& host, t_symbol*& port, int& iport) {
 			int cs = 0;
 			const char* p = str;
 			string::SmallString rl_port;
 			string::SmallString rl_host;
+			int rl_int_port = 0;
 			t_symbol* rl_proto = nullptr;
 			
 			
-#line 30 "parser_osc.cpp"
+#line 31 "parser_osc.cpp"
 			{
 				cs = (int)parser_osc_start;
 			}
 			
-#line 63 "parser_osc.rl"
+#line 64 "parser_osc.rl"
 			
 			
-#line 38 "parser_osc.cpp"
+#line 39 "parser_osc.cpp"
 			{
 				switch ( cs ) {
 					case 1:
@@ -171,7 +172,7 @@ namespace ceammc {
 #line 39 "parser_osc.rl"
 					rl_proto = gensym("tcp"); }
 				
-#line 175 "parser_osc.cpp"
+#line 176 "parser_osc.cpp"
 				
 				goto _st9;
 				_ctr22:
@@ -179,7 +180,7 @@ namespace ceammc {
 #line 40 "parser_osc.rl"
 					rl_proto = gensym("udp"); }
 				
-#line 183 "parser_osc.cpp"
+#line 184 "parser_osc.cpp"
 				
 				goto _st9;
 				_ctr25:
@@ -187,7 +188,7 @@ namespace ceammc {
 #line 41 "parser_osc.rl"
 					rl_proto = gensym("unix"); }
 				
-#line 191 "parser_osc.cpp"
+#line 192 "parser_osc.cpp"
 				
 				goto _st9;
 				_st9:
@@ -213,7 +214,7 @@ namespace ceammc {
 #line 43 "parser_osc.rl"
 					rl_host.push_back((( (*( p))))); }
 				
-#line 217 "parser_osc.cpp"
+#line 218 "parser_osc.cpp"
 				
 				goto _st11;
 				_st11:
@@ -238,7 +239,7 @@ namespace ceammc {
 #line 47 "parser_osc.rl"
 					{p+= 1; cs = 20; goto _out;} }
 				
-#line 242 "parser_osc.cpp"
+#line 243 "parser_osc.cpp"
 				
 				goto _st20;
 				_st20:
@@ -259,9 +260,9 @@ namespace ceammc {
 				_ctr17:
 				{
 #line 44 "parser_osc.rl"
-					rl_port.push_back((( (*( p))))); }
+					rl_port.push_back((( (*( p))))); (rl_int_port *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 265 "parser_osc.cpp"
+#line 266 "parser_osc.cpp"
 				
 				goto _st13;
 				_st13:
@@ -363,19 +364,20 @@ namespace ceammc {
 				_out: {}
 			}
 			
-#line 64 "parser_osc.rl"
+#line 65 "parser_osc.rl"
 			
 			
 			if (cs >= 
-#line 371 "parser_osc.cpp"
+#line 372 "parser_osc.cpp"
 			20
-#line 66 "parser_osc.rl"
+#line 67 "parser_osc.rl"
 			) {
 				rl_host.push_back('\0');
 				rl_port.push_back('\0');
 				proto = (rl_proto != nullptr) ? rl_proto : gensym("udp");
 				host = gensym(rl_host.data());
 				port = gensym(rl_port.data());
+				iport = rl_int_port;
 				return true;
 			} else
 			return false;

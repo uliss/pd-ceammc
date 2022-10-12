@@ -12,15 +12,16 @@
  * this file belongs to.
  *****************************************************************************/
 #include "array_hist.h"
+#include "ceammc_containers.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 
 #include <cmath>
 #include <cstdint>
 
-static const size_t HIST_MIN_SIZE = 2;
-static const size_t HIST_DEFAULT_SIZE = 100;
-static const size_t HIST_MAX_SIZE = 1000;
+constexpr const size_t HIST_MIN_SIZE = 2;
+constexpr const size_t HIST_DEFAULT_SIZE = 100;
+constexpr const size_t HIST_MAX_SIZE = 1000;
 
 ArrayHist::ArrayHist(const PdArgs& args)
     : ArrayBase(args)
@@ -81,11 +82,13 @@ void ArrayHist::onBang()
         hist[idx]++;
     }
 
-    Atom res[NBINS];
-    for (size_t i = 0; i < NBINS; i++)
-        res[i] = hist[i];
+    StaticAtomList<256> res;
+    res.reserve(NBINS);
 
-    listTo(0, AtomListView(res, NBINS));
+    for (size_t i = 0; i < NBINS; i++)
+        res.push_back(hist[i]);
+
+    listTo(0, res.view());
 }
 
 void setup_array_hist()

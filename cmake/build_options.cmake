@@ -18,10 +18,15 @@ option(WITH_EXT_FLEXT "Build flext externals" ON)
 option(WITH_FAUST "Build faust externals" ON)
 option(WITH_LUAJIT "Build luajit externals" ON)
 option(WITH_PD_INSTANCE "Build with PD_INSTANCE" OFF)
+option(WITH_LIBSAMPLERATE "Build with libsamplerate" OFF)
 
 if(UNIX)
     option(WITH_ASAN "Build with address sanitizer" OFF)
     option(WITH_PROFILE "Build with gprof support" OFF)
+endif()
+
+if(APPLE)
+    set(WISH_VERSION "8.6.12" CACHE STRING "Wish Tk version")
 endif()
 
 option(ENABLE_TESTS "Enable tests" ON)

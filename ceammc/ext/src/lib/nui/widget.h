@@ -18,7 +18,6 @@
 #include <cstdint>
 #include <type_traits>
 
-#include "ceammc_canvas.h"
 #include "ceammc_object.h"
 #include "nui/common.h"
 #include "nui/property.h"
@@ -317,7 +316,7 @@ namespace ui {
                         }
                     }
                 } else {
-                    utils::canvas_motion(drawCanvas(), T::owner(), 1);
+                    return utils::canvas_motion(drawCanvas(), T::owner(), 1);
                 }
             } else { // mouse move
                 if (editModeAccept(mod)) {

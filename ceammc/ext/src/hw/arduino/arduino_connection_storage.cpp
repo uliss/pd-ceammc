@@ -5,22 +5,17 @@
 
 using namespace ceammc::thread;
 
+using Lock = std::unique_lock<std::mutex>;
+
 namespace ceammc {
 namespace hw {
 
-    ConnectionStorage* ConnectionStorage::instance_ = 0;
-    pthread_mutex_t ConnectionStorage::mutex_;
-    bool ConnectionStorage::init_ = ConnectionStorage::initMutex();
+    ConnectionStorage* ConnectionStorage::instance_ = nullptr;
+    std::mutex ConnectionStorage::mutex_;
 
     ConnectionStorage::ConnectionStorage() {}
 
     ConnectionStorage::~ConnectionStorage() {}
-
-    bool ConnectionStorage::initMutex()
-    {
-        pthread_mutex_init(&mutex_, 0);
-        return true;
-    }
 
     ConnectionStorage& ConnectionStorage::instance()
     {

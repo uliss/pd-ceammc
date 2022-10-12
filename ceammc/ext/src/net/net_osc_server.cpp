@@ -15,9 +15,7 @@
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
-#include "ceammc_thread.h"
-#include "fmt/format.h"
-#include "parser_osc.h"
+#include "fmt/core.h"
 
 #include <algorithm>
 #include <unordered_set>
@@ -394,7 +392,7 @@ namespace net {
         auto it = subs_.find(hash);
 
         if (it == subs_.end()) {
-            subs_.insert(std::make_pair(hash, new OscServerSubscriberList(id, pipe)));
+            subs_[hash].reset(new OscServerSubscriberList(id, pipe));
         } else if (it->second) {
             it->second->subscribe(id, pipe);
         }
@@ -421,7 +419,7 @@ namespace net {
         return m;
     }
 
-    OscServer* OscServerList::findByName(const char* name)
+    OscServerList::OscServerPtr OscServerList::findByName(const char* name)
     {
         const auto hash = crc32_hash(name);
 
@@ -429,18 +427,18 @@ namespace net {
         // so doing linear search
         for (auto& s : servers_) {
             if (s.first && s.first->nameHash() == hash)
-                return s.first.get();
+                return s.first;
         }
 
-        return nullptr;
+        return {};
     }
 
-    OscServer* OscServerList::addToList(OscServerPtr&& osc)
+    OscServerList::OscServerPtr OscServerList::addToList(const OscServerPtr& osc)
     {
         if (osc && osc->isValid()) {
-            servers_.push_front({ std::move(osc), 0 });
+            servers_.push_front({ osc, 0 });
 
-            auto res = servers_.front().first.get();
+            auto res = servers_.front().first;
 
             auto x = gensym(DISPATCHER);
             auto s = gensym(METHOD_UPDATE);
@@ -452,27 +450,27 @@ namespace net {
 
             return res;
         } else
-            return nullptr;
+            return {};
     }
 
-    OscServer* OscServerList::createByUrl(const char* name, const char* url)
+    OscServerList::OscServerPtr OscServerList::createByUrl(const char* name, const char* url)
     {
         if (findByName(name)) {
             LIB_ERR << fmt::format("server already exists: \"{}\"", name);
-            return nullptr;
+            return {};
         }
 
-        return addToList(OscServerPtr { new OscServer(name, url) });
+        return addToList(std::make_shared<OscServer>(name, url));
     }
 
-    OscServer* OscServerList::createByPort(const char* name, int port)
+    OscServerList::OscServerPtr OscServerList::createByPort(const char* name, int port)
     {
         if (findByName(name)) {
             LIB_ERR << fmt::format("server already exists: \"{}\"", name);
-            return nullptr;
+            return {};
         }
 
-        return addToList(OscServerPtr { new OscServer(name, port) });
+        return addToList(std::make_shared<OscServer>(name, port));
     }
 
     void OscServerList::start(const char* name, bool value)
@@ -506,10 +504,19 @@ namespace net {
         }
     }
 
+    void OscServerList::dump()
+    {
+        LIB_POST << "OSC servers:";
+        for (auto& s : servers_) {
+            LIB_POST << fmt::format(" - '{}': {} [{}]", s.first->name(), s.first->hostname(), s.second);
+        }
+    }
+
     NetOscServer::NetOscServer(const PdArgs& args)
         : BaseObject(args)
         , name_(nullptr)
         , url_(nullptr)
+        , auto_start_(nullptr)
         , dump_(nullptr)
     {
         createOutlet();
@@ -518,7 +525,7 @@ namespace net {
         name_->setArgIndex(0);
         addProperty(name_);
 
-        url_ = new OscUrlProperty("@url", &s_, PropValueAccess::INITONLY);
+        url_ = new OscUrlProperty("@url", Atom(9000), PropValueAccess::INITONLY);
         url_->setArgIndex(1);
         addProperty(url_);
 
@@ -528,16 +535,27 @@ namespace net {
 
         dump_ = new BoolProperty("@dump", false);
         dump_->setSuccessFn([this](Property*) {
-            auto osc = OscServerList::instance().findByName(name_->value());
-            if (osc)
-                osc->setDumpAll(dump_->value());
+            if (!server_.expired()) {
+                auto osc = server_.lock();
+                if (osc)
+                    osc->setDumpAll(dump_->value());
+            }
         });
         addProperty(dump_);
+
+        auto_start_ = new BoolProperty("@auto_start", true);
+        addProperty(auto_start_);
     }
 
     NetOscServer::~NetOscServer()
     {
         OscServerList::instance().unRef(name_->value()->s_name);
+    }
+
+    void NetOscServer::dump() const
+    {
+        OscServerList::instance().dump();
+        BaseObject::dump();
     }
 
     void NetOscServer::initDone()
@@ -548,7 +566,7 @@ namespace net {
         auto& srv_list = OscServerList::instance();
 
         auto osc = srv_list.findByName(name);
-        if (osc == nullptr) {
+        if (!osc) {
             t_float port = 0;
             t_symbol* str_url = &s_;
 
@@ -563,8 +581,12 @@ namespace net {
         if (!osc || !osc->isValid())
             LIB_ERR << fmt::format("can't create server '{}': {}", name, to_string(url));
         else {
+            server_ = osc;
             osc->setDumpAll(dump_->value());
             srv_list.addRef(name);
+
+            if (auto_start_->value())
+                osc->start(true);
         }
     }
 
@@ -581,7 +603,12 @@ namespace net {
             return;
         }
 
-        OscServerList::instance().start(name_->value()->s_name, value);
+        if (!server_.expired()) {
+            auto srv = server_.lock();
+            if (srv) {
+                srv->start(value);
+            }
+        }
     }
 
     void NetOscServer::m_stop(t_symbol* s, const AtomListView& lv)
@@ -597,50 +624,12 @@ namespace net {
             return;
         }
 
-        OscServerList::instance().start(name_->value()->s_name, !value);
-    }
-
-    void NetOscServer::dump() const
-    {
-        BaseObject::dump();
-    }
-
-    bool OscUrlProperty::parseUrl(const Atom& url)
-    {
-        if (url.isSymbol()) {
-            auto s = url.asT<t_symbol*>()->s_name;
-
-            if (!parser::parse_osc_url(s, proto_, host_, port_))
-                return false;
-
-        } else if (url.isInteger()) {
-            constexpr int MIN_PORT = 1024;
-            constexpr int MAX_PORT = std::numeric_limits<std::int16_t>::max();
-            const int port = url.asT<int>();
-            if (port <= MIN_PORT || port > MAX_PORT) {
-                LIB_ERR << fmt::format("[@{}] invalid port value: {}, expected to be in {}..{} range", name()->s_name, port, MIN_PORT, MAX_PORT);
-                return false;
+        if (!server_.expired()) {
+            auto srv = server_.lock();
+            if (srv) {
+                srv->start(!value);
             }
-
-            port_ = gensym(fmt::format("{:d}", port).c_str());
-            proto_ = gensym("udp");
-            host_ = &s_;
-        } else {
-            LIB_ERR << "OSC url or port number expected";
-            return false;
         }
-
-        return true;
-    }
-
-    OscUrlProperty::OscUrlProperty(const std::string& name, t_symbol* def, PropValueAccess ro)
-        : AtomProperty(name, def, ro)
-        , host_(&s_)
-        , port_(&s_)
-        , proto_(&s_)
-    {
-        parseUrl(def);
-        setAtomCheckFn([this](const Atom& a) -> bool { return parseUrl(a); });
     }
 }
 }
