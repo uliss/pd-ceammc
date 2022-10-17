@@ -1,4 +1,5 @@
 #include "osc_property.h"
+#include "ceammc_object.h"
 #include "fmt/format.h"
 #include "parser_osc.h"
 
@@ -12,7 +13,7 @@ namespace net {
         if (url.isSymbol()) {
             auto s = url.asT<t_symbol*>()->s_name;
 
-            if (!parser::parse_osc_url(s, proto_, host_, port_, iport_))
+            if (!parser::parse_osc_url(s, proto_, host_, port_, path_))
                 return false;
 
         } else if (url.isInteger()) {
@@ -24,9 +25,10 @@ namespace net {
                 return false;
             }
 
-            port_ = gensym(fmt::format("{:d}", port).c_str());
+            port_ = port;
             proto_ = gensym("udp");
             host_ = &s_;
+            setValue(&s_);
         } else {
             LIB_ERR << "OSC url or port number expected";
             return false;
@@ -38,12 +40,20 @@ namespace net {
     OscUrlProperty::OscUrlProperty(const std::string& name, const Atom& def, PropValueAccess ro)
         : AtomProperty(name, def, ro)
         , host_(&s_)
-        , port_(&s_)
         , proto_(&s_)
-        , iport_(0)
+        , path_(&s_)
+        , port_(0)
     {
         parseUrl(def);
         setAtomCheckFn([this](const Atom& a) -> bool { return parseUrl(a); });
+    }
+
+    void OscUrlProperty::registerProps(BaseObject* obj)
+    {
+        obj->createCbSymbolProperty("@host", [this]() { return host_; });
+        obj->createCbSymbolProperty("@proto", [this]() { return proto_; });
+        obj->createCbSymbolProperty("@path", [this]() { return path_; });
+        obj->createCbIntProperty("@port", [this]() { return port_; });
     }
 
 }

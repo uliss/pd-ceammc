@@ -34,26 +34,44 @@ TEST_CASE("net.osc.server", "[externals]")
         OscUrlProperty prop("url", SYM("osc.udp://:8080"));
         REQUIRE(prop.name() == "url"_sym);
         REQUIRE(prop.host() == ""_sym);
-        REQUIRE(prop.port() == "8080"_sym);
+        REQUIRE(prop.path() == ""_sym);
+        REQUIRE(prop.port() == 8080);
         REQUIRE(prop.proto() == "udp"_sym);
 
         REQUIRE(prop.set(LF(5432)));
         REQUIRE(prop.host() == ""_sym);
-        REQUIRE(prop.port() == "5432"_sym);
+        REQUIRE(prop.port() == 5432);
         REQUIRE(prop.proto() == "udp"_sym);
 
         REQUIRE(prop.set(LA("osc://localhost:9123")));
         REQUIRE(prop.host() == "localhost"_sym);
-        REQUIRE(prop.port() == "9123"_sym);
+        REQUIRE(prop.port() == 9123);
         REQUIRE(prop.proto()->s_name == "udp"_str);
 
-        REQUIRE(prop.set(LA("osc.tcp://localhost")));
+        REQUIRE(prop.set(LA("udp:12345")));
+        REQUIRE(prop.host() == ""_sym);
+        REQUIRE(prop.port() == 12345);
+        REQUIRE(prop.proto()->s_name == "udp"_str);
+
+        REQUIRE(prop.set(LA("tcp:12340")));
+        REQUIRE(prop.host() == ""_sym);
+        REQUIRE(prop.port() == 12340);
+        REQUIRE(prop.proto()->s_name == "tcp"_str);
+
+        REQUIRE(!prop.set(LA("osc.tcp://localhost")));
+        REQUIRE(prop.set(LA("osc.tcp://localhost:9129")));
         REQUIRE(prop.host() == "localhost"_sym);
-        REQUIRE(prop.port()->s_name == ""_str);
-        REQUIRE(prop.proto() == "tcp"_sym);
+        REQUIRE(prop.port() == 9129);
+        REQUIRE(prop.proto()->s_name == "tcp"_str);
 
         REQUIRE_FALSE(prop.set(LA("osc.ftp://localhost")));
         REQUIRE_FALSE(prop.set(LA("http://localhost")));
+
+        REQUIRE(prop.set(LA("osc.unix:///var/tmp/socket")));
+        REQUIRE(prop.host() == ""_sym);
+        REQUIRE(prop.port() == 0);
+        REQUIRE(prop.proto()->s_name == "unix"_str);
+        REQUIRE(prop.path()->s_name == "/var/tmp/socket"_str);
     }
 
     SECTION("construct")
@@ -64,6 +82,18 @@ TEST_CASE("net.osc.server", "[externals]")
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY(t, @name, "default");
+            REQUIRE_PROPERTY(t, @port, 9000);
+            REQUIRE_PROPERTY(t, @proto, "udp"_sym);
+        }
+
+        SECTION("port")
+        {
+            TObj t("net.osc.server", LA("test0", 9001));
+            REQUIRE_PROPERTY(t, @name, "test0");
+            REQUIRE_PROPERTY(t, @url, 9001);
+            REQUIRE_PROPERTY(t, @proto, "udp");
+            REQUIRE_PROPERTY(t, @port, 9001);
+            REQUIRE_PROPERTY(t, @host, "");
         }
 
         SECTION("url")
@@ -72,7 +102,7 @@ TEST_CASE("net.osc.server", "[externals]")
             REQUIRE_PROPERTY(t, @name, "test0");
             REQUIRE_PROPERTY(t, @url, "osc.udp://:9123");
             REQUIRE_PROPERTY(t, @proto, "udp");
-            REQUIRE_PROPERTY(t, @port, "9123");
+            REQUIRE_PROPERTY(t, @port, 9123);
             REQUIRE_PROPERTY(t, @host, "");
         }
     }

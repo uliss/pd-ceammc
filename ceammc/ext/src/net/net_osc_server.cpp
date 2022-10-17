@@ -527,11 +527,8 @@ namespace net {
 
         url_ = new OscUrlProperty("@url", Atom(9000), PropValueAccess::INITONLY);
         url_->setArgIndex(1);
+        url_->registerProps(this);
         addProperty(url_);
-
-        createCbSymbolProperty("@port", [this]() { return url_->port(); });
-        createCbSymbolProperty("@host", [this]() { return url_->host(); });
-        createCbSymbolProperty("@proto", [this]() { return url_->proto(); });
 
         dump_ = new BoolProperty("@dump", false);
         dump_->setSuccessFn([this](Property*) {

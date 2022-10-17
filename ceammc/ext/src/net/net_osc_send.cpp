@@ -398,7 +398,7 @@ void NetOscSend::m_send_typed(t_symbol* s, const AtomListView& lv)
 void NetOscSend::initTask(NetOscSendOscTask& task, const char* path)
 {
     task.host = url_->host()->s_name;
-    task.port = url_->iport();
+    task.port = url_->port();
     task.path = path;
     task.id = reinterpret_cast<SubscriberId>(this);
 }

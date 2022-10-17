@@ -6,7 +6,7 @@
 namespace ceammc {
 namespace parser {
 
-    bool parse_osc_url(const char* str, t_symbol*& proto, t_symbol*& host, t_symbol*& port, int& iport);
+    bool parse_osc_url(const char* str, t_symbol*& proto, t_symbol*& host, int& port, t_symbol*& unix_path);
 
 }
 }
