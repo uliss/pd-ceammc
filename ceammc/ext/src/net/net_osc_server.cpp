@@ -88,7 +88,7 @@ namespace net {
                     atom = OscMessageSpec::INF;
                     break;
                 case LO_CHAR:
-                    atom = argv[i]->c;
+                    atom = static_cast<char>(argv[i]->c);
                     break;
                 }
 

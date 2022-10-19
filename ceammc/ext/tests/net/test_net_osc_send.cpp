@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_format.h"
+#include "net_osc_receive.h"
 #include "net_osc_send.h"
 #include "net_osc_server.h"
 #include "test_base.h"
@@ -23,6 +24,18 @@ extern "C" {
 #include "s_stuff.h"
 }
 
+static void sleep_ms(int ms)
+{
+    std::this_thread::sleep_for(std::chrono::milliseconds(ms));
+}
+
+static void poll_ms(int ms)
+{
+    sys_pollgui();
+    sleep_ms(ms);
+    sys_pollgui();
+}
+
 using namespace ceammc::net;
 
 PD_COMPLETE_TEST_SETUP(NetOscSend, net, osc_send)
@@ -31,6 +44,7 @@ TEST_CASE("net.osc.send", "[externals]")
 {
     pd_test_init();
     setup_net_osc_server();
+    setup_net_osc_receive();
 
     SECTION("construct")
     {
@@ -100,7 +114,7 @@ TEST_CASE("net.osc.send", "[externals]")
 
             t.call("send", LA("/udp/path", 1, 2, 3, 4));
             sys_pollgui();
-            std::this_thread::sleep_for(std::chrono::milliseconds(100));
+            sleep_ms(100);
             sys_pollgui();
         }
 
@@ -110,7 +124,7 @@ TEST_CASE("net.osc.send", "[externals]")
 
             t.call("send", LA("/tcp/path", 1, 2, 3, 4));
             sys_pollgui();
-            std::this_thread::sleep_for(std::chrono::milliseconds(100));
+            sleep_ms(100);
             sys_pollgui();
         }
 
@@ -121,12 +135,78 @@ TEST_CASE("net.osc.send", "[externals]")
 
             t.call("send", LA("/unix/path", 1, 2, 3, 4));
             sys_pollgui();
-            std::this_thread::sleep_for(std::chrono::milliseconds(100));
+            sleep_ms(100);
             sys_pollgui();
         }
 #endif
 
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
-//        std::remove(TEST_SOCKET);
+        std::remove(TEST_SOCKET);
+    }
+
+#define REQUIRE_OSC_SEND_LIST(recv, lst)      \
+    {                                         \
+        poll_ms(50);                          \
+        REQUIRE(recv.hasOutputAt(0));         \
+        REQUIRE(recv.isOutputListAt(0));      \
+        REQUIRE(recv.outputListAt(0) == lst); \
+    }
+
+#define REQUIRE_OSC_SEND_ANY(recv, msg)      \
+    {                                        \
+        poll_ms(50);                         \
+        REQUIRE(recv.hasOutputAt(0));        \
+        REQUIRE(recv.isOutputAnyAt(0));      \
+        REQUIRE(recv.outputAnyAt(0) == msg); \
+    }
+
+#define REQUIRE_OSC_SEND_SYMBOL(recv, sym)              \
+    {                                                   \
+        poll_ms(50);                                    \
+        REQUIRE(recv.hasOutputAt(0));                   \
+        REQUIRE(recv.isOutputSymbolAt(0));              \
+        REQUIRE(recv.outputSymbolAt(0) == gensym(sym)); \
+    }
+
+#define REQUIRE_OSC_SEND_FLOAT(recv, f)      \
+    {                                        \
+        poll_ms(50);                         \
+        REQUIRE(recv.hasOutputAt(0));        \
+        REQUIRE(recv.isOutputFloatAt(0));    \
+        REQUIRE(recv.outputFloatAt(0) == f); \
+    }
+
+    SECTION("send/receive")
+    {
+        TExt s("net.osc.server", "default", "osc.udp://:9000");
+        TExt r("net.osc.receive", "/");
+        TExt t("net.osc.send", LA("osc.udp://:9000"));
+
+        t.call("send", LA("/", 1, 2, 3, "ABC", "100"));
+        REQUIRE_OSC_SEND_LIST(r, LA(1, 2, 3, "ABC", "100"));
+
+        t.call("send_bool", LA("/", 1));
+        REQUIRE_OSC_SEND_FLOAT(r, 1);
+
+        t.call("send_bool", LA("/", 0.));
+        REQUIRE_OSC_SEND_FLOAT(r, 0);
+
+        t.call("send_float", LA("/", -0.125));
+        REQUIRE_OSC_SEND_FLOAT(r, -0.125);
+
+        t.call("send_double", LA("/", -10.125));
+        REQUIRE_OSC_SEND_FLOAT(r, -10.125);
+
+        t.call("send_i32", LA("/", 12345));
+        REQUIRE_OSC_SEND_FLOAT(r, 12345);
+
+        t.call("send_i64", LA("/", -12345));
+        REQUIRE_OSC_SEND_FLOAT(r, -12345);
+
+        t.call("send_char", LA("/", "A"));
+        REQUIRE_OSC_SEND_SYMBOL(r, "A");
+
+        t.call("send_char", LA("/", 66));
+        REQUIRE_OSC_SEND_SYMBOL(r, "B");
     }
 }

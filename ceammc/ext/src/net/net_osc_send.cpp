@@ -18,6 +18,7 @@
 #include "ceammc_poll_dispatcher.h"
 #include "ceammc_thread.h"
 #include "fmt/format.h"
+#include "lex/parser_numeric.h"
 
 #include <boost/container/small_vector.hpp>
 #include <boost/variant.hpp>
@@ -434,6 +435,86 @@ void NetOscSend::m_send_typed(t_symbol* s, const AtomListView& lv)
         LIB_ERR << "[osc_send] can't add task";
 }
 
+void NetOscSend::m_send_char(t_symbol* s, const AtomListView& lv)
+{
+    char ch = 0;
+
+    if (lv.size() == 2
+        && lv[0].isSymbol()
+        && lv[1].isInteger()
+        && lv[1].asFloat() >= 0
+        && lv[1].asFloat() <= 255) {
+        ch = lv.intAt(1, 0);
+    } else if (lv.size() == 2
+        && lv[0].isSymbol()
+        && lv[1].isSymbol()) {
+        auto str = lv.symbolAt(1, &s_)->s_name;
+        if (strlen(str) != 1) {
+            METHOD_ERR(s) << "expected string with length = 1, got: " << lv[1];
+            return;
+        }
+
+        ch = str[0];
+    } else {
+        METHOD_ERR(s) << "usage: PATH CHAR_CODE|SYM";
+        return;
+    }
+
+    NetOscSendOscTask task;
+    initTask(task, lv[0].asT<t_symbol*>()->s_name);
+
+    lo_message_add_char(task.msg(), ch);
+
+    if (!OscSendWorker::instance().add(task))
+        LIB_ERR << "[osc_send] can't add task";
+}
+
+void NetOscSend::m_send_midi(t_symbol* s, const AtomListView& lv)
+{
+    std::uint8_t midi[4];
+
+    if (lv.size() == 2 && lv[0].isSymbol() && lv[1].isSymbol()) {
+        parser::NumericFullMatch p;
+        if (!p.parse(lv[1].asSymbol()->s_name) || p.isHex()) {
+            METHOD_ERR(s) << "hex value expected, got: " << lv[1];
+            return;
+        }
+
+        const std::uint32_t v = p.result().i0;
+        midi[0] = 0xFF & (v >> 24);
+        midi[1] = 0xFF & (v >> 16);
+        midi[2] = 0xFF & (v >> 8);
+        midi[3] = 0xFF & v;
+    } else if (lv.size() == 5
+        && checkArg(lv[0], ARG_SYMBOL, 0)
+        && checkArg(lv[1], ARG_BYTE, 1)
+        && checkArg(lv[2], ARG_BYTE, 2)
+        && checkArg(lv[3], ARG_BYTE, 3)
+        && checkArg(lv[4], ARG_BYTE, 4)) {
+
+        auto b0 = lv[1].asInt();
+        auto b1 = lv[2].asInt();
+        auto b2 = lv[3].asInt();
+        auto b3 = lv[4].asInt();
+
+        midi[0] = b0;
+        midi[1] = b1;
+        midi[2] = b2;
+        midi[3] = b3;
+    } else {
+        METHOD_ERR(s) << "usage: PATH HEX|(BYTE1 BYTE2 BYTE3 BYTE4)";
+        return;
+    }
+
+    NetOscSendOscTask task;
+    initTask(task, lv[0].asT<t_symbol*>()->s_name);
+
+    lo_message_add_midi(task.msg(), midi);
+
+    if (!OscSendWorker::instance().add(task))
+        LIB_ERR << "[osc_send] can't add task";
+}
+
 void NetOscSend::initTask(NetOscSendOscTask& task, const char* path)
 {
     task.port = url_->port();
@@ -454,6 +535,7 @@ void setup_net_osc_send()
     ObjectFactory<NetOscSend> obj("net.osc.send");
     obj.addAlias("net.osc.s");
     obj.addMethod("send", &NetOscSend::m_send);
+    obj.addMethod("send_typed", &NetOscSend::m_send_typed);
     obj.addMethod("send_bool", &NetOscSend::m_send_bool);
     obj.addMethod("send_i32", &NetOscSend::m_send_i32);
     obj.addMethod("send_i64", &NetOscSend::m_send_i64);
@@ -462,5 +544,6 @@ void setup_net_osc_send()
     obj.addMethod("send_null", &NetOscSend::m_send_null);
     obj.addMethod("send_inf", &NetOscSend::m_send_inf);
     obj.addMethod("send_string", &NetOscSend::m_send_string);
-    obj.addMethod("send_typed", &NetOscSend::m_send_typed);
+    obj.addMethod("send_midi", &NetOscSend::m_send_midi);
+    obj.addMethod("send_char", &NetOscSend::m_send_char);
 }
