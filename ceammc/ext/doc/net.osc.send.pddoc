@@ -72,23 +72,35 @@
 
 [tgl]
 |
-[@dump $1(
+[@dump $1(  /*open Pd window to see OSC dump output*/
 |
 [net.osc.server]
 
 /*send list of floats*/
 
-[send /l 1 2 3 4(
-|
-| [T]               [F]                [F]
-| |                 |                  |
-| [send_bool /b $1( [send_float /f $1( [send_double /d $1(
-| |                 |                  |
-| | [send_inf /(    | [send_null /(    | [F]
-| | |               | |                | |
-| | |               | |                | [send_i32 /i $1(
-| | |               | |                | |
-[net.osc.send osc.udp://localhost:9000   ]
+[send /l 1 2 3 4 #a( [send_typed /t ifs 0.5 -100 symbol #i(
+
+ [T]                 [F]                   [F]
+ |                   |                     |
+[send_bool /b $1 #b( [send_float /f $1 #e( [send_double /d $1 #g(
+
+[send_inf /inf #c(   [F]                   [F]
+                     |                     |
+[send_null /null #d( [send_i32 /i32 $1 #f( [send_i64 /i64 $1 #h(
+
+
+
+[net.osc.send osc.udp://localhost:9000 #x]
+
+[X a->x]
+[X b->x]
+[X c->x]
+[X d->x]
+[X e->x]
+[X f->x]
+[X g->x]
+[X h->x]
+[X i->x]
 ]]>
             </pdascii>
         </example>
