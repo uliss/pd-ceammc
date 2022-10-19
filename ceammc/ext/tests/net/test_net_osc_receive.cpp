@@ -127,15 +127,33 @@ TEST_CASE("net.osc.receive", "[externals]")
     {
         TExt s("net.osc.server", "test:receive", "osc.udp://:9011");
         poll_ms(POLL_DEFAULT);
-        TExt r("net.osc.receive", "/x", "test:receive");
+        TExt t("net.osc.receive", "/x", "test:receive");
         poll_ms(POLL_DEFAULT);
-        TExt t("net.osc.send", LA("osc.udp://:9011"));
+        TExt send("net.osc.send", LA("osc.udp://:9011"));
         poll_ms(POLL_DEFAULT);
 
-        t.call("send", LA("/", 1, 2, 3));
-        REQUIRE_OSC_NO_RECV(r);
+        send.call("send", LA("/y", 1, 2, 3));
+        REQUIRE_OSC_NO_RECV(t);
 
-        t.call("send", LA("/*", 1, 2, 3));
-        REQUIRE_OSC_SEND_LIST(r, LF(1, 2, 3));
+        send.call("send", LA("/*", 1, 2, 3));
+        REQUIRE_OSC_SEND_LIST(t, LF(1, 2, 3));
+        t.clearAll();
+
+        send.call("send", LA("/x", "ABC", 1));
+        REQUIRE_OSC_SEND_LIST(t, LA("ABC", 1));
+        t.clearAll();
+
+        t->setProperty("@path", LA("/y"));
+
+        send.call("send", LA("/x", "ABC", 2));
+        REQUIRE_OSC_NO_RECV(t);
+
+        send.call("send", LA("/y", 200, 300));
+        REQUIRE_OSC_SEND_LIST(t, LF(200, 300));
+        t.clearAll();
+
+        send.call("send", LA("/*", 1, 2, 3));
+        REQUIRE_OSC_SEND_LIST(t, LF(1, 2, 3));
+        t.clearAll();
     }
 }

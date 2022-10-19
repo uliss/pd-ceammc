@@ -139,36 +139,42 @@ namespace net {
                                                           : types_->value()->s_name;
     }
 
-    void NetOscReceive::subscribe(const net::OscServerList::OscServerPtr& osc)
+    bool NetOscReceive::subscribe(const net::OscServerList::OscServerPtr& osc, t_symbol* path)
     {
-        auto osc_path = path_->value();
-
-        if (osc != nullptr && osc->isValid() && osc_path != &s_) {
-            osc->subscribeMethod(osc_path->s_name, types(), disp_.id(), &pipe_);
-            LIB_LOG << fmt::format("[osc] subscribed to {} at \"{}\"", path_->value()->s_name, osc->name());
-        } else if (osc_path != &s_)
-            LIB_LOG << fmt::format("[osc] can't subscribe to {} '{}'", path_->value()->s_name, server_->value()->s_name);
+        if (osc && osc->isValid() && path != &s_) {
+            osc->subscribeMethod(path->s_name, types(), disp_.id(), &pipe_);
+            LIB_LOG << fmt::format("[osc] subscribed to {} at \"{}\"", path->s_name, osc->name());
+            return true;
+        } else if (path != &s_) {
+            LIB_LOG << fmt::format("[osc] can't subscribe to {} '{}'", path->s_name, server_->value()->s_name);
+            return false;
+        } else
+            return true;
     }
 
-    void NetOscReceive::unsubscribe(const net::OscServerList::OscServerPtr& osc)
+    bool NetOscReceive::unsubscribe(const net::OscServerList::OscServerPtr& osc, t_symbol* path)
     {
-        auto osc_path = path_->value();
-
-        if (osc != nullptr && osc->isValid() && osc_path != &s_) {
-            osc->unsubscribeMethod(path_->value()->s_name, types(), disp_.id());
-            LIB_LOG << fmt::format("[osc] unsubscribed from {} at \"{}\"", path_->value()->s_name, osc->name());
-        } else if (osc_path != &s_)
-            LIB_LOG << fmt::format("[osc] can't unsubscribe from {} '{}'", path_->value()->s_name, server_->value()->s_name);
+        if (osc && osc->isValid() && path != &s_) {
+            osc->unsubscribeMethod(path->s_name, types(), disp_.id());
+            LIB_LOG << fmt::format("[osc] unsubscribed from {} at \"{}\"", path->s_name, osc->name());
+            return true;
+        } else if (path != &s_) {
+            LIB_LOG << fmt::format("[osc] can't unsubscribe from {} '{}'", path->s_name, server_->value()->s_name);
+            return false;
+        } else
+            return true;
     }
 
     void NetOscReceive::initDone()
     {
-        subscribe(OscServerList::instance().findByName(server_->value()));
+        subscribe(OscServerList::instance().findByName(server_->value()), path_->value());
 
-        path_->setSuccessFn([this](Property*) {
+        path_->setSymbolCheckFn([this](t_symbol* new_path) -> bool {
             auto osc = OscServerList::instance().findByName(server_->value());
-            unsubscribe(osc);
-            subscribe(osc);
+            if (!unsubscribe(osc, path_->value()))
+                return false;
+
+            return subscribe(osc, new_path);
         });
     }
 
@@ -220,11 +226,11 @@ namespace net {
             return;
 
         auto osc = net::OscServerList::instance().findByName(server_->value());
-        if (osc != nullptr && osc->isValid()) {
-            const char* types = (crc32_hash(types_->value()) == hash_none) ? nullptr
-                                                                           : types_->value()->s_name;
-            osc->subscribeMethod(path_->value()->s_name, types, disp_.id(), &pipe_);
-        }
+
+        if (!unsubscribe(osc, path_->value()))
+            return;
+
+        subscribe(osc, path_->value());
     }
 }
 }

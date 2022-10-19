@@ -60,8 +60,8 @@ namespace net {
     public:
         void updateServer(t_symbol* name, const AtomListView& lv);
         const char* types() const;
-        void subscribe(const net::OscServerList::OscServerPtr& osc);
-        void unsubscribe(const net::OscServerList::OscServerPtr& osc);
+        bool subscribe(const net::OscServerList::OscServerPtr& osc, t_symbol* path);
+        bool unsubscribe(const net::OscServerList::OscServerPtr& osc, t_symbol* path);
     };
 }
 }
