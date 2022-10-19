@@ -5,7 +5,7 @@
 
 #line 7 "parser_osc.cpp"
 static const int parser_osc_start = 1;
-static const int parser_osc_first_final = 32;
+static const int parser_osc_first_final = 33;
 static const int parser_osc_error = 0;
 
 static const int parser_osc_en_main = 1;
@@ -67,8 +67,8 @@ namespace ceammc {
 					goto st_case_12;
 					case 13:
 					goto st_case_13;
-					case 32:
-					goto st_case_32;
+					case 33:
+					goto st_case_33;
 					case 14:
 					goto st_case_14;
 					case 15:
@@ -105,6 +105,8 @@ namespace ceammc {
 					goto st_case_30;
 					case 31:
 					goto st_case_31;
+					case 32:
+					goto st_case_32;
 				}
 				goto st_out;
 				p += 1;
@@ -114,10 +116,10 @@ namespace ceammc {
 						goto _st2;
 					}
 					case 116: {
-						goto _st24;
+						goto _st25;
 					}
 					case 117: {
-						goto _st29;
+						goto _st30;
 					}
 				}
 				{
@@ -205,7 +207,7 @@ namespace ceammc {
 #line 39 "parser_osc.rl"
 					rl_proto = OSC_PROTO_TCP; }
 				
-#line 209 "parser_osc.cpp"
+#line 211 "parser_osc.cpp"
 				
 				goto _st9;
 				_ctr24:
@@ -213,7 +215,7 @@ namespace ceammc {
 #line 40 "parser_osc.rl"
 					rl_proto = OSC_PROTO_UDP; }
 				
-#line 217 "parser_osc.cpp"
+#line 219 "parser_osc.cpp"
 				
 				goto _st9;
 				_st9:
@@ -239,7 +241,7 @@ namespace ceammc {
 #line 43 "parser_osc.rl"
 					rl_host.push_back((( (*( p))))); }
 				
-#line 243 "parser_osc.cpp"
+#line 245 "parser_osc.cpp"
 				
 				goto _st11;
 				_st11:
@@ -273,13 +275,13 @@ namespace ceammc {
 #line 44 "parser_osc.rl"
 					(rl_port *= 10) += ((( (*( p)))) - '0'); }
 				
-#line 277 "parser_osc.cpp"
+#line 279 "parser_osc.cpp"
 				
 				{
 #line 50 "parser_osc.rl"
 					rl_addr = OSC_ADDR_URL; }
 				
-#line 283 "parser_osc.cpp"
+#line 285 "parser_osc.cpp"
 				
 				goto _st13;
 				_st13:
@@ -297,14 +299,14 @@ namespace ceammc {
 				_ctr20:
 				{
 #line 54 "parser_osc.rl"
-					{p+= 1; cs = 32; goto _out;} }
+					{p+= 1; cs = 33; goto _out;} }
 				
-#line 303 "parser_osc.cpp"
+#line 305 "parser_osc.cpp"
 				
-				goto _st32;
-				_st32:
+				goto _st33;
+				_st33:
 				p += 1;
-				st_case_32:
+				st_case_33:
 				{
 					goto _st0;
 				}
@@ -372,7 +374,7 @@ namespace ceammc {
 #line 42 "parser_osc.rl"
 					rl_proto = OSC_PROTO_UNIX; }
 				
-#line 376 "parser_osc.cpp"
+#line 378 "parser_osc.cpp"
 				
 				goto _st20;
 				_st20:
@@ -396,8 +398,13 @@ namespace ceammc {
 				_st22:
 				p += 1;
 				st_case_22:
-				if ( ( (*( p))) == 0 ) {
-					goto _st0;
+				switch( ( (*( p))) ) {
+					case 0: {
+						goto _st0;
+					}
+					case 58: {
+						goto _st24;
+					}
 				}
 				{
 					goto _ctr31;
@@ -407,13 +414,13 @@ namespace ceammc {
 #line 47 "parser_osc.rl"
 					rl_path.push_back((( (*( p))))); }
 				
-#line 411 "parser_osc.cpp"
+#line 418 "parser_osc.cpp"
 				
 				{
 #line 51 "parser_osc.rl"
 					rl_addr = OSC_ADDR_UNIX; }
 				
-#line 417 "parser_osc.cpp"
+#line 424 "parser_osc.cpp"
 				
 				goto _st23;
 				_st23:
@@ -428,16 +435,21 @@ namespace ceammc {
 				_st24:
 				p += 1;
 				st_case_24:
-				if ( ( (*( p))) == 99 ) {
-					goto _st25;
+				switch( ( (*( p))) ) {
+					case 0: {
+						goto _st0;
+					}
+					case 58: {
+						goto _st0;
+					}
 				}
 				{
-					goto _st0;
+					goto _ctr31;
 				}
 				_st25:
 				p += 1;
 				st_case_25:
-				if ( ( (*( p))) == 112 ) {
+				if ( ( (*( p))) == 99 ) {
 					goto _st26;
 				}
 				{
@@ -446,68 +458,68 @@ namespace ceammc {
 				_st26:
 				p += 1;
 				st_case_26:
-				if ( ( (*( p))) == 58 ) {
-					goto _ctr35;
+				if ( ( (*( p))) == 112 ) {
+					goto _st27;
 				}
 				{
 					goto _st0;
 				}
-				_ctr35:
+				_st27:
+				p += 1;
+				st_case_27:
+				if ( ( (*( p))) == 58 ) {
+					goto _ctr36;
+				}
+				{
+					goto _st0;
+				}
+				_ctr36:
 				{
 #line 39 "parser_osc.rl"
 					rl_proto = OSC_PROTO_TCP; }
 				
-#line 461 "parser_osc.cpp"
+#line 482 "parser_osc.cpp"
 				
-				goto _st27;
-				_ctr41:
+				goto _st28;
+				_ctr42:
 				{
 #line 40 "parser_osc.rl"
 					rl_proto = OSC_PROTO_UDP; }
 				
-#line 469 "parser_osc.cpp"
-				
-				goto _st27;
-				_st27:
-				p += 1;
-				st_case_27:
-				if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-					goto _ctr37;
-				}
-				{
-					goto _st0;
-				}
-				_ctr37:
-				{
-#line 44 "parser_osc.rl"
-					(rl_port *= 10) += ((( (*( p)))) - '0'); }
-				
-#line 486 "parser_osc.cpp"
-				
-				{
-#line 52 "parser_osc.rl"
-					rl_addr = OSC_ADDR_PROTO_PORT; }
-				
-#line 492 "parser_osc.cpp"
+#line 490 "parser_osc.cpp"
 				
 				goto _st28;
 				_st28:
 				p += 1;
 				st_case_28:
-				if ( ( (*( p))) == 0 ) {
-					goto _ctr20;
-				}
 				if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
-					goto _ctr37;
+					goto _ctr38;
 				}
 				{
 					goto _st0;
 				}
+				_ctr38:
+				{
+#line 44 "parser_osc.rl"
+					(rl_port *= 10) += ((( (*( p)))) - '0'); }
+				
+#line 507 "parser_osc.cpp"
+				
+				{
+#line 52 "parser_osc.rl"
+					rl_addr = OSC_ADDR_PROTO_PORT; }
+				
+#line 513 "parser_osc.cpp"
+				
+				goto _st29;
 				_st29:
 				p += 1;
 				st_case_29:
-				if ( ( (*( p))) == 100 ) {
-					goto _st30;
+				if ( ( (*( p))) == 0 ) {
+					goto _ctr20;
+				}
+				if ( 48 <= ( (*( p))) && ( (*( p))) <= 57 ) {
+					goto _ctr38;
 				}
 				{
 					goto _st0;
@@ -515,7 +527,7 @@ namespace ceammc {
 				_st30:
 				p += 1;
 				st_case_30:
-				if ( ( (*( p))) == 112 ) {
+				if ( ( (*( p))) == 100 ) {
 					goto _st31;
 				}
 				{
@@ -524,8 +536,17 @@ namespace ceammc {
 				_st31:
 				p += 1;
 				st_case_31:
+				if ( ( (*( p))) == 112 ) {
+					goto _st32;
+				}
+				{
+					goto _st0;
+				}
+				_st32:
+				p += 1;
+				st_case_32:
 				if ( ( (*( p))) == 58 ) {
-					goto _ctr41;
+					goto _ctr42;
 				}
 				{
 					goto _st0;
@@ -544,7 +565,7 @@ namespace ceammc {
 				_test_eof11: cs = 11; goto _test_eof; 
 				_test_eof12: cs = 12; goto _test_eof; 
 				_test_eof13: cs = 13; goto _test_eof; 
-				_test_eof32: cs = 32; goto _test_eof; 
+				_test_eof33: cs = 33; goto _test_eof; 
 				_test_eof14: cs = 14; goto _test_eof; 
 				_test_eof15: cs = 15; goto _test_eof; 
 				_test_eof16: cs = 16; goto _test_eof; 
@@ -563,9 +584,10 @@ namespace ceammc {
 				_test_eof29: cs = 29; goto _test_eof; 
 				_test_eof30: cs = 30; goto _test_eof; 
 				_test_eof31: cs = 31; goto _test_eof; 
+				_test_eof32: cs = 32; goto _test_eof; 
 				
 				_test_eof: {}
-				if ( cs >= 32 )
+				if ( cs >= 33 )
 					goto _out; _pop: {}
 				_out: {}
 			}
@@ -574,8 +596,8 @@ namespace ceammc {
 			
 			
 			if (cs >= 
-#line 578 "parser_osc.cpp"
-			32
+#line 600 "parser_osc.cpp"
+			33
 #line 75 "parser_osc.rl"
 			) {
 				rl_host.push_back('\0');

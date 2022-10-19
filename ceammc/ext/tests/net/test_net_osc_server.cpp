@@ -80,6 +80,13 @@ TEST_CASE("net.osc.server", "[externals]")
         REQUIRE(prop.proto() == OSC_PROTO_UNIX);
         REQUIRE(prop.path()->s_name == "/var/tmp/socket"_str);
         REQUIRE(prop.isUrlAddr());
+
+        REQUIRE(prop.set(LA("osc.unix://:/var/tmp/socket")));
+        REQUIRE(prop.host() == ""_sym);
+        REQUIRE(prop.port() == 0);
+        REQUIRE(prop.proto() == OSC_PROTO_UNIX);
+        REQUIRE(prop.path()->s_name == "/var/tmp/socket"_str);
+        REQUIRE(prop.isUrlAddr());
     }
 
     SECTION("construct")

@@ -68,6 +68,7 @@ struct NetOscSendOscTask {
     OscMessage m;
     SubscriberId id;
     uint16_t port;
+    OscProto proto;
 
     lo_message msg() const { return m.get(); }
 };
@@ -82,11 +83,23 @@ class OscSendWorker {
         : pipe_(64)
         , quit_(false)
     {
-        LIB_LOG << "launch OSC sender worker process";
+        LIB_LOG << "[osc_send] launch OSC sender worker process";
 
         future_ = std::async(
             std::launch::async,
             [this]() {
+                lo_server lo_udp_srv = lo_server_new_with_proto(nullptr, LO_UDP, nullptr);
+                if (!lo_udp_srv) {
+                    logger_.error("[osc_send] can't create send UDP socket");
+                    return false;
+                }
+
+                lo_server lo_tcp_srv = lo_server_new_with_proto(nullptr, LO_TCP, nullptr);
+                if (!lo_tcp_srv) {
+                    logger_.error("[osc_send] can't create send TCP socket");
+                    return false;
+                }
+
                 while (!quit_) {
                     try {
                         NetOscSendOscTask task;
@@ -94,11 +107,30 @@ class OscSendWorker {
                             if (quit_)
                                 return true;
 
-                            lo_address addr = lo_address_new(task.host.c_str(), fmt::format("{:d}", task.port).c_str());
-                            const auto rc = lo_send_message(addr, task.path.c_str(), task.msg());
-                            if (rc == -1) {
+                            lo_address addr = nullptr;
+                            int rc = -1;
+
+                            switch (task.proto) {
+                            case OSC_PROTO_UDP:
+                                addr = lo_address_new_with_proto(LO_UDP, task.host.c_str(), fmt::format("{:d}", task.port).c_str());
+                                rc = lo_send_message_from(addr, lo_udp_srv, task.path.c_str(), task.msg());
+                                break;
+                            case OSC_PROTO_TCP:
+                                addr = lo_address_new_with_proto(LO_TCP, task.host.c_str(), fmt::format("{:d}", task.port).c_str());
+                                rc = lo_send_message(addr, task.path.c_str(), task.msg());
+                                break;
+                            case OSC_PROTO_UNIX:
+                                addr = lo_address_new_with_proto(LO_UNIX, nullptr, task.host.c_str());
+                                rc = lo_send_message(addr, task.path.c_str(), task.msg());
+                                break;
+                            default:
+                                logger_.error(fmt::format("[osc_send] unsupported OSC protocol: {}", task.proto));
+                                break;
+                            }
+
+                            if (!addr || rc == -1) {
                                 auto url = lo_address_get_url(addr);
-                                logger_.error(fmt::format("{} - `{}`", lo_address_errstr(addr), url));
+                                logger_.error(fmt::format("[osc_send] {} - `{}`", lo_address_errstr(addr), url));
                                 free(url);
                             }
 
@@ -108,9 +140,15 @@ class OscSendWorker {
                         notify_.waitFor(100);
 
                     } catch (std::exception& e) {
-                        std::cerr << "exception: " << e.what();
+                        std::cerr << "[osc_send]  exception: " << e.what();
                     }
                 }
+
+                if (lo_udp_srv)
+                    lo_server_free(lo_udp_srv);
+
+                if (lo_tcp_srv)
+                    lo_server_free(lo_tcp_srv);
 
                 return true;
             });
@@ -152,6 +190,7 @@ NetOscSend::NetOscSend(const PdArgs& args)
 {
     url_ = new net::OscUrlProperty("@url", &s_);
     url_->setArgIndex(0);
+    url_->registerProps(this);
     addProperty(url_);
 
     createOutlet();
@@ -177,7 +216,7 @@ void NetOscSend::m_send(t_symbol* s, const AtomListView& lv)
     }
 
     if (!OscSendWorker::instance().add(task))
-        LIB_ERR << "can't add task";
+        LIB_ERR << "[osc_send] can't add task";
 }
 
 void NetOscSend::m_send_bool(t_symbol* s, const AtomListView& lv)
@@ -195,7 +234,7 @@ void NetOscSend::m_send_bool(t_symbol* s, const AtomListView& lv)
         lo_message_add_false(task.msg());
 
     if (!OscSendWorker::instance().add(task))
-        LIB_ERR << "can't add task";
+        LIB_ERR << "[osc_send] can't add task";
 }
 
 void NetOscSend::m_send_i32(t_symbol* s, const AtomListView& lv)
@@ -210,7 +249,7 @@ void NetOscSend::m_send_i32(t_symbol* s, const AtomListView& lv)
     lo_message_add_int32(task.msg(), lv[1].asT<int>());
 
     if (!OscSendWorker::instance().add(task))
-        LIB_ERR << "can't add task";
+        LIB_ERR << "[osc_send] can't add task";
 }
 
 void NetOscSend::m_send_i64(t_symbol* s, const AtomListView& lv)
@@ -225,7 +264,7 @@ void NetOscSend::m_send_i64(t_symbol* s, const AtomListView& lv)
     lo_message_add_int64(task.msg(), lv[1].asT<t_float>());
 
     if (!OscSendWorker::instance().add(task))
-        LIB_ERR << "can't add task";
+        LIB_ERR << "[osc_send] can't add task";
 }
 
 void NetOscSend::m_send_float(t_symbol* s, const AtomListView& lv)
@@ -240,7 +279,7 @@ void NetOscSend::m_send_float(t_symbol* s, const AtomListView& lv)
     lo_message_add_float(task.msg(), lv[1].asT<t_float>());
 
     if (!OscSendWorker::instance().add(task))
-        LIB_ERR << "can't add task";
+        LIB_ERR << "[osc_send] can't add task";
 }
 
 void NetOscSend::m_send_double(t_symbol* s, const AtomListView& lv)
@@ -255,7 +294,7 @@ void NetOscSend::m_send_double(t_symbol* s, const AtomListView& lv)
     lo_message_add_double(task.msg(), lv[1].asT<t_float>());
 
     if (!OscSendWorker::instance().add(task))
-        LIB_ERR << "can't add task";
+        LIB_ERR << "[osc_send] can't add task";
 }
 
 void NetOscSend::m_send_null(t_symbol* s, const AtomListView& lv)
@@ -270,7 +309,7 @@ void NetOscSend::m_send_null(t_symbol* s, const AtomListView& lv)
     lo_message_add_nil(task.msg());
 
     if (!OscSendWorker::instance().add(task))
-        LIB_ERR << "can't add task";
+        LIB_ERR << "[osc_send] can't add task";
 }
 
 void NetOscSend::m_send_inf(t_symbol* s, const AtomListView& lv)
@@ -285,7 +324,7 @@ void NetOscSend::m_send_inf(t_symbol* s, const AtomListView& lv)
     lo_message_add_infinitum(task.msg());
 
     if (!OscSendWorker::instance().add(task))
-        LIB_ERR << "can't add task";
+        LIB_ERR << "[osc_send] can't add task";
 }
 
 void NetOscSend::m_send_string(t_symbol* s, const AtomListView& lv)
@@ -301,7 +340,7 @@ void NetOscSend::m_send_string(t_symbol* s, const AtomListView& lv)
     lo_message_add_string(task.msg(), to_string(lv.subView(1)).c_str());
 
     if (!OscSendWorker::instance().add(task))
-        LIB_ERR << "can't add task";
+        LIB_ERR << "[osc_send] can't add task";
 }
 
 static inline char atom_arg_type(const Atom& a)
@@ -392,13 +431,16 @@ void NetOscSend::m_send_typed(t_symbol* s, const AtomListView& lv)
     }
 
     if (!OscSendWorker::instance().add(task))
-        LIB_ERR << "can't add task";
+        LIB_ERR << "[osc_send] can't add task";
 }
 
 void NetOscSend::initTask(NetOscSendOscTask& task, const char* path)
 {
-    task.host = url_->host()->s_name;
     task.port = url_->port();
+    task.proto = url_->proto();
+    task.host = (task.proto == OSC_PROTO_UNIX)
+        ? url_->path()->s_name
+        : url_->host()->s_name;
     task.path = path;
     task.id = reinterpret_cast<SubscriberId>(this);
 }

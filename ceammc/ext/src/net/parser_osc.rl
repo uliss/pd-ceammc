@@ -44,8 +44,8 @@
     port  = ':' ([0-9]+ ${ (rl_port *= 10) += (fc - '0'); });
     net_url   = 'osc' ('.' net_proto)? '://' host? port;
 
-    path = nz_any+ ${ rl_path.push_back(fc); };
-    socket_url = 'osc' unix_proto '://' path;
+    path = ((nz_any - ':') nz_any*) ${ rl_path.push_back(fc); };
+    socket_url = 'osc' unix_proto '://' (':'?) path;
     proto_url = net_proto port;
     url =   (net_url    @{ rl_addr = OSC_ADDR_URL; })
           | (socket_url @{ rl_addr = OSC_ADDR_UNIX; })
