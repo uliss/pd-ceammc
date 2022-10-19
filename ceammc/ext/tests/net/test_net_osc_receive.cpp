@@ -156,4 +156,24 @@ TEST_CASE("net.osc.receive", "[externals]")
         REQUIRE_OSC_SEND_LIST(t, LF(1, 2, 3));
         t.clearAll();
     }
+
+    SECTION("send/receive")
+    {
+        TExt s("net.osc.server", "test:receive_typed", "osc.udp://:9012");
+        poll_ms(POLL_DEFAULT);
+        TExt t("net.osc.receive", "/x", "test:receive_typed", "ii");
+        poll_ms(POLL_DEFAULT);
+        TExt send("net.osc.send", LA("osc.udp://:9012"));
+        poll_ms(POLL_DEFAULT);
+
+        send.call("send", LA("/x", "A", 20));
+        REQUIRE_OSC_NO_RECV(t);
+
+        send.call("send", LA("/x", 10, 20));
+        REQUIRE_OSC_SEND_LIST(t, LA(10, 20));
+        t.clearAll();
+
+        send.call("send", LA("/x", 10, 20, 30));
+        REQUIRE_OSC_NO_RECV(t);
+    }
 }
