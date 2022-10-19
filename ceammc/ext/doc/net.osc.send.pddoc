@@ -52,10 +52,23 @@
             <method name="send_string">send string value 
             <param name="PATH" type="symbol" required="true">OSC path</param>
             <param name="VAL" type="list" required="true">value</param></method>
+            <method name="send_typed">send list of typed values 
+            <param name="PATH" type="symbol" required="true">OSC path</param>
+            <param name="TYPES" type="symbol" required="true">type string, 'i': int32, 'f': 32-bit
+            float, 's': string, 'h': int64, 'd': 64-bit float, 'T': #true value, 'F': #false value,
+            'N': #null value, 'I': #inf value</param>
+            <param name="VAL" type="list" required="true">value</param></method>
         </methods>
         <properties>
-            <property name="@host" type="symbol" enum="0 1" default="0">dump incoming messages to
-            Pd window</property>
+            <property name="@proto" type="symbol" default="udp" readonly="true">sending
+            protocol</property>
+            <property name="@port" type="int" default="0" readonly="true">destination
+            port</property>
+            <property name="@host" type="symbol" default="" readonly="true">destination
+            host</property>
+            <property name="@url" type="atom" default="">destination url</property>
+            <property name="@path" type="symbol" default="" readonly="true">socket filesystem path
+            (if using unix proto)</property>
         </properties>
         <inlets>
             <inlet>
