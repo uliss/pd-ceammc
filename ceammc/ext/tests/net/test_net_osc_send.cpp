@@ -229,5 +229,8 @@ TEST_CASE("net.osc.send", "[externals]")
 
         t.call("send_blob", LA("/", 10, 20, 30));
         REQUIRE_OSC_SEND_ANY(r, LA("blob", 10, 20, 30));
+
+        t.call("send_typed", LA("/", "ifs", 10.5, 10.5, 10.5));
+        REQUIRE_OSC_SEND_LIST(r, LA(10, 10.5, "10.5"));
     }
 }
