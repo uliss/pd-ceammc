@@ -15,6 +15,11 @@ namespace lo {
         return AddressPtr(addr, &lo_address_free);
     }
 
+    using BlobPtr = std::unique_ptr<std::remove_pointer<lo_blob>::type, typeof(&lo_blob_free)>;
+    inline BlobPtr make_blob(std::int32_t size, const void* data)
+    {
+        return BlobPtr(lo_blob_new(size, data), &lo_blob_free);
+    }
 }
 }
 

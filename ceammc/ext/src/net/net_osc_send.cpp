@@ -543,9 +543,8 @@ void NetOscSend::m_send_blob(t_symbol* s, const AtomListView& lv)
     for (auto& a : lv.subView(1))
         data.push_back(a.asT<t_float>());
 
-    auto b = lo_blob_new(data.size(), data.data());
-    lo_message_add_blob(task.msg(), b);
-    lo_blob_free(b);
+    auto b = lo::make_blob(data.size(), data.data());
+    lo_message_add_blob(task.msg(), b.get());
 
     if (!OscSendWorker::instance().add(task))
         LIB_ERR << "[osc_send] can't add task";
