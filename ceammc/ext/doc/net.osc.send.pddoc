@@ -88,6 +88,7 @@
                      |                     |
 [send_null /null #d( [send_i32 /i32 $1 #f( [send_i64 /i64 $1 #h(
 
+                                           [send_string /s with spaces #j(
 
 
 [net.osc.send osc.udp://localhost:9000 #x]
@@ -101,6 +102,7 @@
 [X g->x]
 [X h->x]
 [X i->x]
+[X j->x]
 ]]>
             </pdascii>
         </example>
