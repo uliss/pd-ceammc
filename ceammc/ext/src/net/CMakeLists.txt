@@ -14,6 +14,17 @@ if(LIBLO_FOUND)
     target_link_libraries(ceammc_net PUBLIC ${LIBLO_LIBRARIES})
 endif()
 
+# libartnet
+if(WITH_ARTNET)
+    target_compile_definitions(ceammc_net PRIVATE WITH_ARTNET)
+    target_sources(ceammc_net
+        PRIVATE
+        net_artnet_send.cpp
+    )
+    target_include_directories(ceammc_net PUBLIC ${PROJECT_SOURCE_DIR}/ceammc/extra/artnet/libartnet)
+    target_link_libraries(ceammc_net PUBLIC artnet)
+endif()
+
 find_package(RAGEL 6.6)
 
 if(RAGEL_FOUND)
