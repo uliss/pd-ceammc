@@ -845,6 +845,8 @@ loadmsg	send message when patch loads
 msg.sched	message scheduler
 net.host2ip	returns IP address by DNS name
 net.host->ip	returns IP address by DNS name
+net.osc.receive	OSC message listener
+net.osc.r	OSC message listener
 net.osc.send	OSC message sender
 net.osc.s	OSC message sender
 net.osc.server	OSC server control

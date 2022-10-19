@@ -35,7 +35,7 @@ TEST_CASE("net.osc.server", "[externals]")
         OscUrlProperty prop("url", SYM("osc.udp://:8080"));
         REQUIRE(prop.name() == "url"_sym);
         REQUIRE(prop.host() == ""_sym);
-        REQUIRE(prop.path() == ""_sym);
+        REQUIRE(prop.path()->s_name == ""_str);
         REQUIRE(prop.port() == 8080);
         REQUIRE(prop.proto() == OSC_PROTO_UDP);
         REQUIRE(prop.isUrlAddr());

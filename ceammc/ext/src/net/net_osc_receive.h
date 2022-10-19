@@ -55,8 +55,13 @@ namespace net {
         bool notify(NotifyEventType code) final;
         void processMessage(const OscMessage& msg);
 
+        void onInlet(size_t n, const AtomListView& lv) override;
+
     public:
         void updateServer(t_symbol* name, const AtomListView& lv);
+        const char* types() const;
+        void subscribe(const net::OscServerList::OscServerPtr& osc);
+        void unsubscribe(const net::OscServerList::OscServerPtr& osc);
     };
 }
 }

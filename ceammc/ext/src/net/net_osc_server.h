@@ -178,8 +178,11 @@ namespace net {
     };
 
     class OscServerList {
+    public:
         using OscServerPtr = std::shared_ptr<OscServer>;
         using Entry = std::pair<OscServerPtr, int>;
+
+    private:
         std::list<Entry> servers_;
 
         OscServerList();
@@ -205,7 +208,7 @@ namespace net {
 
     public:
         static constexpr const char* DISPATCHER = "#osc";
-        static constexpr const char* METHOD_UPDATE = "update";
+        static constexpr const char* METHOD_UPDATE = ".update";
     };
 
     class NetOscServer : public BaseObject {

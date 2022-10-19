@@ -1550,6 +1550,9 @@
     <entry name="net.host2ip" descr="returns IP address by DNS name" ref_view="object">
       <xi:include href="net.host2ip.pddoc" parse="xml"/>
     </entry>
+    <entry name="net.osc.receive" descr="OSC message listener" ref_view="object">
+      <xi:include href="net.osc.receive.pddoc" parse="xml"/>
+    </entry>
     <entry name="net.osc.send" descr="OSC message sender" ref_view="object">
       <xi:include href="net.osc.send.pddoc" parse="xml"/>
     </entry>
