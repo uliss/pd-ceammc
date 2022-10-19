@@ -57,7 +57,18 @@
             <param name="TYPES" type="symbol" required="true">type string, 'i': int32, 'f': 32-bit
             float, 's': string, 'h': int64, 'd': 64-bit float, 'T': #true value, 'F': #false value,
             'N': #null value, 'I': #inf value</param>
-            <param name="VAL" type="list" required="true">value</param></method>
+            <param name="VAL" type="list" required="true">values</param></method>
+            <method name="send_char">send character 
+            <param name="PATH" type="symbol" required="true">OSC path</param>
+            <param name="VAL" type="atom" required="true">ASCII code in 0-127 range or single
+            symbol</param></method>
+            <method name="send_blob">send character 
+            <param name="PATH" type="symbol" required="true">OSC path</param>
+            <param name="VAL" type="list" required="true">list of bytes</param></method>
+            <method name="send_midi">send midi message (4 bytes) 
+            <param name="PATH" type="symbol" required="true">OSC path</param>
+            <param name="VAL" type="list" required="true">hex symbol (0xAAFF1122) or list of 4
+            bytes</param></method>
         </methods>
         <properties>
             <property name="@proto" type="symbol" default="udp" readonly="true">sending
