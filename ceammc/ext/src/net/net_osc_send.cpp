@@ -19,6 +19,7 @@
 #include "ceammc_thread.h"
 #include "fmt/format.h"
 #include "lex/parser_numeric.h"
+#include "net_osc_lo_cxx.h"
 
 #include <boost/container/small_vector.hpp>
 #include <boost/variant.hpp>
@@ -108,21 +109,26 @@ class OscSendWorker {
                             if (quit_)
                                 return true;
 
-                            lo_address addr = nullptr;
                             int rc = -1;
+
+                            auto addr = lo::make_address(nullptr);
 
                             switch (task.proto) {
                             case OSC_PROTO_UDP:
-                                addr = lo_address_new_with_proto(LO_UDP, task.host.c_str(), fmt::format("{:d}", task.port).c_str());
-                                rc = lo_send_message_from(addr, lo_udp_srv, task.path.c_str(), task.msg());
+                                addr.reset(lo_address_new_with_proto(LO_UDP,
+                                    task.host.c_str(),
+                                    fmt::format("{:d}", task.port).c_str()));
+                                rc = lo_send_message_from(addr.get(), lo_udp_srv, task.path.c_str(), task.msg());
                                 break;
                             case OSC_PROTO_TCP:
-                                addr = lo_address_new_with_proto(LO_TCP, task.host.c_str(), fmt::format("{:d}", task.port).c_str());
-                                rc = lo_send_message(addr, task.path.c_str(), task.msg());
+                                addr.reset(lo_address_new_with_proto(LO_TCP,
+                                    task.host.c_str(),
+                                    fmt::format("{:d}", task.port).c_str()));
+                                rc = lo_send_message(addr.get(), task.path.c_str(), task.msg());
                                 break;
                             case OSC_PROTO_UNIX:
-                                addr = lo_address_new_with_proto(LO_UNIX, nullptr, task.host.c_str());
-                                rc = lo_send_message(addr, task.path.c_str(), task.msg());
+                                addr.reset(lo_address_new_with_proto(LO_UNIX, nullptr, task.host.c_str()));
+                                rc = lo_send_message(addr.get(), task.path.c_str(), task.msg());
                                 break;
                             default:
                                 logger_.error(fmt::format("[osc_send] unsupported OSC protocol: {}", task.proto));
@@ -130,12 +136,10 @@ class OscSendWorker {
                             }
 
                             if (!addr || rc == -1) {
-                                auto url = lo_address_get_url(addr);
-                                logger_.error(fmt::format("[osc_send] {} - `{}`", lo_address_errstr(addr), url));
+                                auto url = lo_address_get_url(addr.get());
+                                logger_.error(fmt::format("[osc_send] {} - `{}`", lo_address_errstr(addr.get()), url));
                                 free(url);
                             }
-
-                            lo_address_free(addr);
                         }
 
                         notify_.waitFor(100);
