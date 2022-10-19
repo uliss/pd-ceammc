@@ -59,16 +59,16 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo></xinfo>
+                <xinfo>message input</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet></outlet>
+            <outlet>none</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-/*default OSC server: osc.udp://localhost:9000*/
+/*default OSC server: osc.udp://:9000*/
 
 [tgl]
 |
@@ -78,9 +78,17 @@
 
 /*send list of floats*/
 
-[send /addr 1 2 3 4(
+[send /l 1 2 3 4(
 |
-[net.osc.send localhost 9000]
+| [T]               [F]                [F]
+| |                 |                  |
+| [send_bool /b $1( [send_float /f $1( [send_double /d $1(
+| |                 |                  |
+| | [send_inf /(    | [send_null /(    | [F]
+| | |               | |                | |
+| | |               | |                | [send_i32 /i $1(
+| | |               | |                | |
+[net.osc.send osc.udp://localhost:9000   ]
 ]]>
             </pdascii>
         </example>
