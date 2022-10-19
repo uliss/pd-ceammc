@@ -137,7 +137,7 @@ namespace net {
         OscServer& operator=(const OscServer&) = delete;
 
     public:
-        OscServer(const char* name, int port);
+        OscServer(const char* name, int port, OscProto proto = OSC_PROTO_UDP);
         OscServer(const char* name, const char* url);
         OscServer(OscServer&& srv);
         ~OscServer();
@@ -180,7 +180,7 @@ namespace net {
         OscServerPtr findByName(const char* name);
 
         OscServerPtr createByUrl(const char* name, const char* url);
-        OscServerPtr createByPort(const char* name, int port);
+        OscServerPtr createByPortProto(const char* name, OscProto proto, int port);
 
         void start(const char* name, bool value);
 

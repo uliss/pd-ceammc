@@ -23,7 +23,7 @@
         <arguments>
             <argument name="NAME" type="symbol">OSC server name (for using with other
             objects)</argument>
-            <argument name="URL" type="atom">OSC server url (like osc.udp://:12345), see @url
+            <argument name="URL" type="atom">OSC server url (like udp:12345), see @url
             property</argument>
         </arguments>
         <methods>
@@ -38,7 +38,7 @@
             <property name="@auto_start" type="int" enum="0 1" default="1">automatically start on
             creation</property>
             <property name="@url" type="atom" default="9000">OSC server url in form:
-            osc.PROTO://:PORT or just PORT (for ex. osc.udp://:9001)</property>
+            PROTO:PORT (udp:12345) or just PORT, or osc.PROTO://:PORT (for ex. osc.tcp://:9001)</property>
             <property name="@name" type="symbol" default="default">OSC server name</property>
             <property name="@port" type="symbol" default="9000" readonly="true">OSC server
             port</property>
