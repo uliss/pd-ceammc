@@ -475,7 +475,7 @@ void NetOscSend::m_send_midi(t_symbol* s, const AtomListView& lv)
 
     if (lv.size() == 2 && lv[0].isSymbol() && lv[1].isSymbol()) {
         parser::NumericFullMatch p;
-        if (!p.parse(lv[1].asSymbol()->s_name) || p.isHex()) {
+        if (!p.parse(lv[1].asSymbol()->s_name) || !p.isHex()) {
             METHOD_ERR(s) << "hex value expected, got: " << lv[1];
             return;
         }

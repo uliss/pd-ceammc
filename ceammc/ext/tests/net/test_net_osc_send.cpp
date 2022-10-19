@@ -32,9 +32,12 @@ static void sleep_ms(int ms)
 static void poll_ms(int ms)
 {
     sys_pollgui();
-    sleep_ms(ms);
+    sleep_ms(ms / 2);
     sys_pollgui();
+    sleep_ms(ms / 2);
 }
+
+constexpr int POLL_DEFAULT = 50;
 
 using namespace ceammc::net;
 
@@ -113,9 +116,7 @@ TEST_CASE("net.osc.send", "[externals]")
             TExt t("net.osc.s", "osc.udp://localhost:9000");
 
             t.call("send", LA("/udp/path", 1, 2, 3, 4));
-            sys_pollgui();
-            sleep_ms(100);
-            sys_pollgui();
+            poll_ms(POLL_DEFAULT);
         }
 
         SECTION("send tcp")
@@ -123,9 +124,7 @@ TEST_CASE("net.osc.send", "[externals]")
             TExt t("net.osc.s", "osc.tcp://localhost:9001");
 
             t.call("send", LA("/tcp/path", 1, 2, 3, 4));
-            sys_pollgui();
-            sleep_ms(100);
-            sys_pollgui();
+            poll_ms(POLL_DEFAULT);
         }
 
 #ifdef __APPLE__
@@ -134,19 +133,17 @@ TEST_CASE("net.osc.send", "[externals]")
             TExt t("net.osc.s", "osc.unix://" TEST_SOCKET);
 
             t.call("send", LA("/unix/path", 1, 2, 3, 4));
-            sys_pollgui();
-            sleep_ms(100);
-            sys_pollgui();
+            poll_ms(POLL_DEFAULT);
         }
 #endif
 
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        poll_ms(POLL_DEFAULT);
         std::remove(TEST_SOCKET);
     }
 
 #define REQUIRE_OSC_SEND_LIST(recv, lst)      \
     {                                         \
-        poll_ms(50);                          \
+        poll_ms(POLL_DEFAULT);                \
         REQUIRE(recv.hasOutputAt(0));         \
         REQUIRE(recv.isOutputListAt(0));      \
         REQUIRE(recv.outputListAt(0) == lst); \
@@ -154,7 +151,7 @@ TEST_CASE("net.osc.send", "[externals]")
 
 #define REQUIRE_OSC_SEND_ANY(recv, msg)      \
     {                                        \
-        poll_ms(50);                         \
+        poll_ms(POLL_DEFAULT);               \
         REQUIRE(recv.hasOutputAt(0));        \
         REQUIRE(recv.isOutputAnyAt(0));      \
         REQUIRE(recv.outputAnyAt(0) == msg); \
@@ -162,7 +159,7 @@ TEST_CASE("net.osc.send", "[externals]")
 
 #define REQUIRE_OSC_SEND_SYMBOL(recv, sym)              \
     {                                                   \
-        poll_ms(50);                                    \
+        poll_ms(POLL_DEFAULT);                          \
         REQUIRE(recv.hasOutputAt(0));                   \
         REQUIRE(recv.isOutputSymbolAt(0));              \
         REQUIRE(recv.outputSymbolAt(0) == gensym(sym)); \
@@ -170,7 +167,7 @@ TEST_CASE("net.osc.send", "[externals]")
 
 #define REQUIRE_OSC_SEND_FLOAT(recv, f)      \
     {                                        \
-        poll_ms(50);                         \
+        poll_ms(POLL_DEFAULT);               \
         REQUIRE(recv.hasOutputAt(0));        \
         REQUIRE(recv.isOutputFloatAt(0));    \
         REQUIRE(recv.outputFloatAt(0) == f); \
@@ -178,9 +175,12 @@ TEST_CASE("net.osc.send", "[externals]")
 
     SECTION("send/receive")
     {
-        TExt s("net.osc.server", "default", "osc.udp://:9000");
-        TExt r("net.osc.receive", "/");
-        TExt t("net.osc.send", LA("osc.udp://:9000"));
+        TExt s("net.osc.server", "test:send/receive", "osc.udp://:9011");
+        poll_ms(POLL_DEFAULT);
+        TExt r("net.osc.receive", "/", "test:send/receive");
+        poll_ms(POLL_DEFAULT);
+        TExt t("net.osc.send", LA("osc.udp://:9011"));
+        poll_ms(POLL_DEFAULT);
 
         t.call("send", LA("/", 1, 2, 3, "ABC", "100"));
         REQUIRE_OSC_SEND_LIST(r, LA(1, 2, 3, "ABC", "100"));
@@ -220,5 +220,11 @@ TEST_CASE("net.osc.send", "[externals]")
 
         t.call("send_inf", LA("/"));
         REQUIRE_OSC_SEND_ANY(r, LA("inf"));
+
+        t.call("send_midi", LA("/", "0xFFAA1122"));
+        REQUIRE_OSC_SEND_ANY(r, LA("midi", 0xFF, 0xAA, 0x11, 0x22));
+
+        t.call("send_midi", LA("/", 4, 3, 2, 1));
+        REQUIRE_OSC_SEND_ANY(r, LA("midi", 4, 3, 2, 1));
     }
 }

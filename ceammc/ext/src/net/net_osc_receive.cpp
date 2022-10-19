@@ -85,7 +85,6 @@ public:
     }
     void operator()(const net::OscMessageMidi& midi)
     {
-        r_.append(gensym("midi"));
         for (int i = 0; i < 4; i++)
             r_.append(midi.data[i]);
     }
@@ -169,6 +168,8 @@ namespace net {
                 anyTo(0, gensym("inf"), AtomListView());
             else if (spec == OscMessageSpec::NIL)
                 anyTo(0, gensym("null"), AtomListView());
+        } else if (msg.size() == 1 && msg[0].type() == typeid(OscMessageMidi)) {
+            anyTo(0, gensym("midi"), res);
         } else
             outletAtomList(outletAt(0), res, true);
     }
