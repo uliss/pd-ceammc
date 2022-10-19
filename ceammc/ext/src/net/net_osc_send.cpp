@@ -90,14 +90,14 @@ class OscSendWorker {
         future_ = std::async(
             std::launch::async,
             [this]() {
-                lo_server lo_udp_srv = lo_server_new_with_proto(nullptr, LO_UDP, nullptr);
-                if (!lo_udp_srv) {
+                auto srv_udp = lo::make_server(lo_server_new_with_proto(nullptr, LO_UDP, nullptr));
+                if (!srv_udp) {
                     logger_.error("[osc_send] can't create send UDP socket");
                     return false;
                 }
 
-                lo_server lo_tcp_srv = lo_server_new_with_proto(nullptr, LO_TCP, nullptr);
-                if (!lo_tcp_srv) {
+                auto srv_tcp = lo::make_server(lo_server_new_with_proto(nullptr, LO_TCP, nullptr));
+                if (!srv_tcp) {
                     logger_.error("[osc_send] can't create send TCP socket");
                     return false;
                 }
@@ -118,13 +118,13 @@ class OscSendWorker {
                                 addr.reset(lo_address_new_with_proto(LO_UDP,
                                     task.host.c_str(),
                                     fmt::format("{:d}", task.port).c_str()));
-                                rc = lo_send_message_from(addr.get(), lo_udp_srv, task.path.c_str(), task.msg());
+                                rc = lo_send_message_from(addr.get(), srv_udp.get(), task.path.c_str(), task.msg());
                                 break;
                             case OSC_PROTO_TCP:
                                 addr.reset(lo_address_new_with_proto(LO_TCP,
                                     task.host.c_str(),
                                     fmt::format("{:d}", task.port).c_str()));
-                                rc = lo_send_message(addr.get(), task.path.c_str(), task.msg());
+                                rc = lo_send_message_from(addr.get(), srv_tcp.get(), task.path.c_str(), task.msg());
                                 break;
                             case OSC_PROTO_UNIX:
                                 addr.reset(lo_address_new_with_proto(LO_UNIX, nullptr, task.host.c_str()));
@@ -148,12 +148,6 @@ class OscSendWorker {
                         std::cerr << "[osc_send]  exception: " << e.what();
                     }
                 }
-
-                if (lo_udp_srv)
-                    lo_server_free(lo_udp_srv);
-
-                if (lo_tcp_srv)
-                    lo_server_free(lo_tcp_srv);
 
                 return true;
             });

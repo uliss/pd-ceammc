@@ -20,6 +20,12 @@ namespace lo {
     {
         return BlobPtr(lo_blob_new(size, data), &lo_blob_free);
     }
+
+    using ServerPtr = std::unique_ptr<std::remove_pointer<lo_server>::type, typeof(&lo_server_free)>;
+    inline ServerPtr make_server(lo_server srv)
+    {
+        return ServerPtr(srv, &lo_server_free);
+    }
 }
 }
 
