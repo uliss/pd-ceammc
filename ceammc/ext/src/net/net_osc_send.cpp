@@ -515,6 +515,38 @@ void NetOscSend::m_send_midi(t_symbol* s, const AtomListView& lv)
         LIB_ERR << "[osc_send] can't add task";
 }
 
+void NetOscSend::m_send_blob(t_symbol* s, const AtomListView& lv)
+{
+    const auto ok = lv.size() > 1
+        && lv[0].isSymbol()
+        && lv.subView(1).allOf([](const Atom& a) {
+               if (!a.isFloat())
+                   return false;
+               auto f = a.asT<t_float>();
+               return f >= 0 && f <= 255;
+           });
+
+    if (!ok) {
+        METHOD_ERR(s) << "usage: PATH BYTES+";
+        return;
+    }
+
+    NetOscSendOscTask task;
+    initTask(task, lv[0].asT<t_symbol*>()->s_name);
+
+    std::string data;
+    data.reserve(lv.size() - 1);
+    for (auto& a : lv.subView(1))
+        data.push_back(a.asT<t_float>());
+
+    auto b = lo_blob_new(data.size(), data.data());
+    lo_message_add_blob(task.msg(), b);
+    lo_blob_free(b);
+
+    if (!OscSendWorker::instance().add(task))
+        LIB_ERR << "[osc_send] can't add task";
+}
+
 void NetOscSend::initTask(NetOscSendOscTask& task, const char* path)
 {
     task.port = url_->port();
@@ -546,4 +578,5 @@ void setup_net_osc_send()
     obj.addMethod("send_string", &NetOscSend::m_send_string);
     obj.addMethod("send_midi", &NetOscSend::m_send_midi);
     obj.addMethod("send_char", &NetOscSend::m_send_char);
+    obj.addMethod("send_blob", &NetOscSend::m_send_blob);
 }

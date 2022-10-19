@@ -88,6 +88,11 @@ public:
         for (int i = 0; i < 4; i++)
             r_.append(midi.data[i]);
     }
+    void operator()(const net::OscMessageBlob& blob)
+    {
+        for (auto b : blob.data)
+            r_.append(static_cast<int>(b));
+    }
 };
 
 namespace net {
@@ -170,6 +175,8 @@ namespace net {
                 anyTo(0, gensym("null"), AtomListView());
         } else if (msg.size() == 1 && msg[0].type() == typeid(OscMessageMidi)) {
             anyTo(0, gensym("midi"), res);
+        } else if (msg.size() == 1 && msg[0].type() == typeid(OscMessageBlob)) {
+            anyTo(0, gensym("blob"), res);
         } else
             outletAtomList(outletAt(0), res, true);
     }

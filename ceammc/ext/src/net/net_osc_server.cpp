@@ -90,6 +90,12 @@ namespace net {
                 case LO_CHAR:
                     atom = static_cast<char>(argv[i]->c);
                     break;
+                case LO_BLOB:
+                    atom = OscMessageBlob(argv[i]->blob.size, &argv[i]->blob.data);
+                    break;
+                default:
+                    fmt::print("[osc] [{}]unsupported OSC type: '{}'\n", __FUNCTION__, t);
+                    break;
                 }
 
                 msg.push_back(atom);

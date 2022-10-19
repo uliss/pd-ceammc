@@ -226,5 +226,8 @@ TEST_CASE("net.osc.send", "[externals]")
 
         t.call("send_midi", LA("/", 4, 3, 2, 1));
         REQUIRE_OSC_SEND_ANY(r, LA("midi", 4, 3, 2, 1));
+
+        t.call("send_blob", LA("/", 10, 20, 30));
+        REQUIRE_OSC_SEND_ANY(r, LA("blob", 10, 20, 30));
     }
 }

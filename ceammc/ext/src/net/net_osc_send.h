@@ -42,6 +42,7 @@ public:
     void m_send_typed(t_symbol* s, const AtomListView& lv);
     void m_send_midi(t_symbol* s, const AtomListView& lv);
     void m_send_char(t_symbol* s, const AtomListView& lv);
+    void m_send_blob(t_symbol* s, const AtomListView& lv);
 
 private:
     void initTask(NetOscSendOscTask& task, const char* path);
