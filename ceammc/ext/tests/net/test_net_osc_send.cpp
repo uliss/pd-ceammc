@@ -208,5 +208,17 @@ TEST_CASE("net.osc.send", "[externals]")
 
         t.call("send_char", LA("/", 66));
         REQUIRE_OSC_SEND_SYMBOL(r, "B");
+
+        t.call("send_string", LA("/", "ABC"));
+        REQUIRE_OSC_SEND_SYMBOL(r, "ABC");
+
+        t.call("send_string", LA("/", 1, 2, 3));
+        REQUIRE_OSC_SEND_SYMBOL(r, "1 2 3");
+
+        t.call("send_null", LA("/"));
+        REQUIRE_OSC_SEND_ANY(r, LA("null"));
+
+        t.call("send_inf", LA("/"));
+        REQUIRE_OSC_SEND_ANY(r, LA("inf"));
     }
 }

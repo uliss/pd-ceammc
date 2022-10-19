@@ -163,7 +163,14 @@ namespace net {
         for (auto& a : msg)
             a.apply_visitor(v);
 
-        outletAtomList(outletAt(0), res, true);
+        if (msg.size() == 1 && msg[0].type() == typeid(OscMessageSpec)) {
+            auto spec = boost::get<OscMessageSpec>(msg[0]);
+            if (spec == OscMessageSpec::INF)
+                anyTo(0, gensym("inf"), AtomListView());
+            else if (spec == OscMessageSpec::NIL)
+                anyTo(0, gensym("null"), AtomListView());
+        } else
+            outletAtomList(outletAt(0), res, true);
     }
 
     void NetOscReceive::updateServer(t_symbol* name, const AtomListView& lv)
