@@ -18,7 +18,7 @@
         </properties>
         <methods>
             <method name="close">close file</method>
-            <method name="open">open file, updates @path property
+            <method name="open">open file, updates @path property 
             <param name="FNAME" required="true" type="symbol">file path: absolute or
             relative</param>
             <param name="MODE" required="false" type="symbol" enum="r w a r+ w+ a+">open mode, 'r':
@@ -46,9 +46,9 @@
             <method name="read_bytes">read bytes from file, output as list of integers 
             <param name="N" required="false" type="int">number of bytes to read, if omitted read
             all content</param></method>
-            <method name="remove">remove file
+            <method name="remove">remove file 
             <param name="NAME" required="true" type="symbol">file path</param></method>
-            <method name="rename">rename file
+            <method name="rename">rename file 
             <param name="PATH" required="true" type="symbol">old file path</param>
             <param name="NEW_PATH" required="true" type="symbol">new file path</param></method>
         </methods>
