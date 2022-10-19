@@ -601,6 +601,7 @@ namespace ceammc {
 #line 75 "parser_osc.rl"
 			) {
 				rl_host.push_back('\0');
+				rl_path.push_back('\0');
 				proto = rl_proto;
 				host = gensym(rl_host.data());
 				port = rl_port;
