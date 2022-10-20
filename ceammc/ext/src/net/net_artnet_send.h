@@ -17,6 +17,8 @@ namespace net {
         void initDone() override;
 
         void m_dmx(t_symbol* s, const AtomListView& lv);
+        void m_dmx_set(t_symbol* s, const AtomListView& lv);
+        void m_dmx_fill(t_symbol* s, const AtomListView& lv);
         void m_poll(t_symbol* s, const AtomListView& lv);
     };
 

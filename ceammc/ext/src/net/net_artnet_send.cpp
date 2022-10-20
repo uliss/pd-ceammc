@@ -253,10 +253,29 @@ namespace net {
         auto& dmx = ArtnetSendWorker::instance();
         auto N = std::min<size_t>(lv.size(), MAX_DMX_CHANNELS);
 
-        for (size_t i = 0; i < N; i++) {
+        for (size_t i = 0; i < N; i++)
             dmx.setDmx(i, lv[i].asInt());
-        }
 
+        dmx.add(ArtNetCommand(ARTNET_CMD_SEND_DMX, universe_->value()));
+    }
+
+    void NetArtnetSend::m_dmx_set(t_symbol* s, const AtomListView& lv)
+    {
+        if (!checkArgs(lv, ARG_INT, ARG_BYTE))
+            return;
+
+        auto& dmx = ArtnetSendWorker::instance();
+        dmx.setDmx(lv[0].asInt(), lv[1].asInt());
+        dmx.add(ArtNetCommand(ARTNET_CMD_SEND_DMX, universe_->value()));
+    }
+
+    void NetArtnetSend::m_dmx_fill(t_symbol* s, const AtomListView& lv)
+    {
+        if (!checkArgs(lv, ARG_BYTE))
+            return;
+
+        auto& dmx = ArtnetSendWorker::instance();
+        dmx.fillDmx(lv[0].asInt());
         dmx.add(ArtNetCommand(ARTNET_CMD_SEND_DMX, universe_->value()));
     }
 
@@ -277,6 +296,8 @@ void setup_net_artnet_send()
     obj.addAlias("artnet.s");
 
     obj.addMethod("dmx", &net::NetArtnetSend::m_dmx);
+    obj.addMethod("dmx_set", &net::NetArtnetSend::m_dmx_set);
+    obj.addMethod("dmx_fill", &net::NetArtnetSend::m_dmx_fill);
     obj.addMethod("poll", &net::NetArtnetSend::m_poll);
 
 #endif
