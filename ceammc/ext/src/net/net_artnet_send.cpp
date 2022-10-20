@@ -246,17 +246,17 @@ namespace net {
         addProperty(universe_);
 
         offset_ = new IntProperty("@offset", 0);
-        offset_->checkClosedRange(0, 511);
+        offset_->checkClosedRange(0, MAX_DMX_CHANNELS - 1);
         addProperty(offset_);
     }
 
     void NetArtnetSend::m_dmx(t_symbol* s, const AtomListView& lv)
     {
         auto& dmx = ArtnetSendWorker::instance();
-        auto N = std::min<size_t>(lv.size(), MAX_DMX_CHANNELS);
+        auto N = std::min<size_t>(MAX_DMX_CHANNELS - offset_->value(), std::min<size_t>(lv.size(), MAX_DMX_CHANNELS));
 
-        for (size_t i = offset_->value(); i < N; i++)
-            dmx.setDmx(i, lv[i].asInt());
+        for (size_t i = 0; i < N; i++)
+            dmx.setDmx(i + offset_->value(), lv[i].asInt());
 
         dmx.add(ArtNetCommand(ARTNET_CMD_SEND_DMX, universe_->value()));
     }
