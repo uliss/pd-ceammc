@@ -11,10 +11,10 @@ namespace net {
 
     class NetArtnetSend : public BaseObject {
         IntProperty* universe_;
+        IntProperty* offset_;
 
     public:
         NetArtnetSend(const PdArgs& args);
-        void initDone() override;
 
         void m_dmx(t_symbol* s, const AtomListView& lv);
         void m_dmx_set(t_symbol* s, const AtomListView& lv);

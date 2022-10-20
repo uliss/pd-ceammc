@@ -238,15 +238,16 @@ namespace net {
     NetArtnetSend::NetArtnetSend(const PdArgs& args)
         : BaseObject(args)
         , universe_(nullptr)
+        , offset_(nullptr)
     {
         universe_ = new IntProperty("@universe", 0);
         universe_->checkClosedRange(0, 4);
         universe_->setArgIndex(0);
         addProperty(universe_);
-    }
 
-    void NetArtnetSend::initDone()
-    {
+        offset_ = new IntProperty("@offset", 0);
+        offset_->checkClosedRange(0, 511);
+        addProperty(offset_);
     }
 
     void NetArtnetSend::m_dmx(t_symbol* s, const AtomListView& lv)
@@ -254,7 +255,7 @@ namespace net {
         auto& dmx = ArtnetSendWorker::instance();
         auto N = std::min<size_t>(lv.size(), MAX_DMX_CHANNELS);
 
-        for (size_t i = 0; i < N; i++)
+        for (size_t i = offset_->value(); i < N; i++)
             dmx.setDmx(i, lv[i].asInt());
 
         dmx.add(ArtNetCommand(ARTNET_CMD_SEND_DMX, universe_->value()));
@@ -266,7 +267,7 @@ namespace net {
             return;
 
         auto& dmx = ArtnetSendWorker::instance();
-        dmx.setDmx(lv[0].asInt(), lv[1].asInt());
+        dmx.setDmx(lv[0].asInt() + offset_->value(), lv[1].asInt());
         dmx.add(ArtNetCommand(ARTNET_CMD_SEND_DMX, universe_->value()));
     }
 
