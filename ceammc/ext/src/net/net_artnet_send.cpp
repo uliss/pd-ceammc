@@ -240,8 +240,10 @@ namespace net {
         , universe_(nullptr)
         , offset_(nullptr)
     {
+        createOutlet();
+
         universe_ = new IntProperty("@universe", 0);
-        universe_->checkClosedRange(0, 4);
+        universe_->checkClosedRange(0, 3);
         universe_->setArgIndex(0);
         addProperty(universe_);
 

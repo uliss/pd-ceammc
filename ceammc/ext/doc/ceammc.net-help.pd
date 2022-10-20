@@ -2,14 +2,16 @@
 #X obj 20 53 ui.link @title index @url ../index-help.pd;
 #X text 62 50 ::;
 #X obj 79 53 ui.link @title ceammc @url ceammc-help.pd;
-#X obj 30 116 net.host2ip;
-#X text 200 116 returns IP address by DNS name;
-#X obj 30 143 net.osc.receive;
-#X text 200 143 OSC message listener;
-#X obj 30 170 net.osc.send;
-#X text 200 170 OSC message sender;
-#X obj 30 197 net.osc.server;
-#X text 200 197 OSC server control;
+#X obj 30 116 net.artnet.send;
+#X text 200 116 ArtNet DMX message sender;
+#X obj 30 143 net.host2ip;
+#X text 200 143 returns IP address by DNS name;
+#X obj 30 170 net.osc.receive;
+#X text 200 170 OSC message listener;
+#X obj 30 197 net.osc.send;
+#X text 200 197 OSC message sender;
+#X obj 30 224 net.osc.server;
+#X text 200 224 OSC server control;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::net 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

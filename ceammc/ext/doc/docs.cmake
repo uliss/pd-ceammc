@@ -501,6 +501,7 @@ set(DOC_FILES
     msg.sched
     music.dur2time
     music.voice2midi
+    net.artnet.send
     net.host2ip
     net.osc.receive
     net.osc.send

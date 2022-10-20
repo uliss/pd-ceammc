@@ -499,6 +499,7 @@ msg.onload,ceammc/loadmsg,loadmsg		-		.
 msg.sched		..		.
 music.dur2time,music.d->t		.		.
 music.voice2midi,music.v->m		.		.
+net.artnet.send,artnet.send,artnet.s		.		.
 net.host2ip,net.host->ip		.		.
 net.osc.receive,net.osc.r		..		.
 net.osc.send,net.osc.s		.		.
