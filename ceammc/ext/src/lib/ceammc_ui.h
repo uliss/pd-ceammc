@@ -507,6 +507,13 @@ public:
         eclass_attr_category(pd_ui_class, name, category);
     }
 
+    void addRawProperty(const char* name, const char* type, size_t size, size_t maxsize)
+    {
+        eclass_new_attr_typed(pd_ui_class, name, type, size, maxsize, 0);
+        eclass_attr_save(pd_ui_class, name);
+        eclass_attr_paint(pd_ui_class, name);
+    }
+
     /**
      * @brief adds symbol enum property shown as dropout menu in properties dialog
      * @param name - property name

@@ -27,8 +27,9 @@ constexpr const char* SYM_PROP_HEX = "@hex";
 static int rgb_to_pd(const t_rgba& c)
 {
     return -(0x10000 * (int(std::round(c.red * 255)) & 0xFF)
-        + 0x100 * (int(std::round(c.green * 255)) & 0xFF)
-        + (int(std::round(c.blue * 255)) & 0xFF)) - 1;
+               + 0x100 * (int(std::round(c.green * 255)) & 0xFF)
+               + (int(std::round(c.blue * 255)) & 0xFF))
+        - 1;
 }
 
 UIColorPanel::UIColorPanel()
@@ -158,7 +159,6 @@ void UIColorPanel::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_p
 
     hover_x_ = -1;
     hover_y_ = -1;
-
 
     picked_x_ = clip<int>(pt.x / (r.width / matrix_x_), 0, matrix_x_ - 1);
     picked_y_ = clip<int>(pt.y / (r.height / matrix_y_), 0, matrix_y_ - 1);
@@ -420,11 +420,12 @@ void UIColorPanel::setup()
     obj.usePresets();
     obj.useBang();
 
-    obj.addProperty("matrix", &UIColorPanel::propMatrixSize, &UIColorPanel::propSetMatrixSize);
+    obj.addRawProperty("matrix", "int", 2, 0);
     obj.showProperty("matrix");
     obj.setPropertyCategory("matrix", "Basic");
     obj.setPropertyLabel("matrix", _("Matrix Size"));
     obj.setPropertyDefaultValue("matrix", "24 13");
+    obj.setPropertyAccessor("matrix", &UIColorPanel::propMatrixSize, &UIColorPanel::propSetMatrixSize);
 
     obj.addFloatProperty("saturation", _("Saturation"), 1., &UIColorPanel::saturation_);
     obj.setPropertyRange("saturation", 0, 1);
