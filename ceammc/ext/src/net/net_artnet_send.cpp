@@ -44,45 +44,6 @@ ArtnetPtr make_artnet(const char* ip)
     return ArtnetPtr(artnet_new(ip, 1), &artnet_destroy);
 }
 
-struct ReplyContext {
-    int nodes_found;
-};
-
-void print_node_config(artnet_node_entry ne)
-{
-    post("--------- %d.%d.%d.%d -------------\n", ne->ip[0], ne->ip[1], ne->ip[2], ne->ip[3]);
-    post("Short Name:   %s\n", ne->shortname);
-    post("Long Name:    %s\n", ne->longname);
-    post("Node Report:  %s\n", ne->nodereport);
-    post("Subnet:       0x%02x\n", ne->sub);
-    post("Numb Ports:   %d\n", ne->numbports);
-    post("Input Addrs:  0x%02x, 0x%02x, 0x%02x, 0x%02x\n", ne->swin[0], ne->swin[1], ne->swin[2], ne->swin[3]);
-    post("Output Addrs: 0x%02x, 0x%02x, 0x%02x, 0x%02x\n", ne->swout[0], ne->swout[1], ne->swout[2], ne->swout[3]);
-    post("----------------------------------\n");
-}
-
-int reply_handler(artnet_node n, void* pp, void* d)
-{
-    auto nl = artnet_get_nl(n);
-    auto ctx = static_cast<ReplyContext*>(d);
-
-    if (ctx->nodes_found == artnet_nl_get_length(nl)) {
-        // this is not a new node, just a previously discovered one sending
-        // another reply
-        return 0;
-    } else if (ctx->nodes_found == 0) {
-        // first node found
-        ctx->nodes_found++;
-        print_node_config(artnet_nl_first(nl));
-    } else {
-        // new node
-        ctx->nodes_found++;
-        print_node_config(artnet_nl_next(nl));
-    }
-
-    return 0;
-}
-
 class ArtnetSendWorker {
     using Pipe = moodycamel::ReaderWriterQueue<ArtNetCommand, 64>;
 
@@ -92,6 +53,7 @@ class ArtnetSendWorker {
         : pipe_(64)
         , quit_(false)
         , node_(nullptr, nullptr)
+        , nodes_found_(0)
     {
         dmx_.fill(0);
 
@@ -99,7 +61,7 @@ class ArtnetSendWorker {
 
         node_ = make_artnet(nullptr);
         if (!node_) {
-            LIB_ERR << "can't create artnet node";
+            LIB_ERR << ARTNET_PREFIX "can't create artnet node";
             return;
         }
 
@@ -121,13 +83,13 @@ class ArtnetSendWorker {
         future_ = std::async(
             std::launch::async,
             [this]() {
-                ReplyContext ctx { 0 };
-                // set poll reply handler
-                artnet_set_handler(node_.get(), ARTNET_REPLY_HANDLER, reply_handler, &ctx);
+                if (artnet_set_handler(node_.get(), ARTNET_REPLY_HANDLER, pollReplyHandler, this) != 0) {
+                    logger_.error(fmt::format(ARTNET_PREFIX "can't set reply handler: '{}'", artnet_strerror()));
+                    return false;
+                }
 
-                auto rc = artnet_start(node_.get());
-                if (rc != 0) {
-                    logger_.error(fmt::format("[artnet] can't start artnet: '{}'", artnet_strerror()));
+                if (artnet_start(node_.get()) != 0) {
+                    logger_.error(fmt::format(ARTNET_PREFIX "can't start artnet: '{}'", artnet_strerror()));
                     return false;
                 }
 
@@ -152,6 +114,7 @@ class ArtnetSendWorker {
                                 }
                             } break;
                             case ARTNET_CMD_POLL: {
+                                nodes_found_ = 0;
                                 if (artnet_send_poll(node_.get(), nullptr, ARTNET_TTM_DEFAULT) != ARTNET_EOK) {
                                     logger_.error(ARTNET_PREFIX "send poll failed");
                                 }
@@ -203,6 +166,7 @@ class ArtnetSendWorker {
     ThreadNotify notify_;
     ThreadPdLogger logger_;
     ArtnetPtr node_;
+    std::atomic_int nodes_found_;
 
 public:
     static ArtnetSendWorker& instance()
@@ -211,6 +175,41 @@ public:
         return w;
     }
 
+    void dumpNodeConfig(artnet_node_entry ne)
+    {
+        logger_.post(fmt::format("--------- {}.{}.{}.{} -------------\n", ne->ip[0], ne->ip[1], ne->ip[2], ne->ip[3]));
+        logger_.post(fmt::format("Short Name:   {}", ne->shortname));
+        logger_.post(fmt::format("Long Name:    {}", ne->longname));
+        logger_.post(fmt::format("Node Report:  {}", ne->nodereport));
+        logger_.post(fmt::format("Subnet:       {:02x}", ne->sub));
+        logger_.post(fmt::format("Numb Ports:   {}", ne->numbports));
+        logger_.post(fmt::format("Input Addrs:  {:02x}, {:02x}, {:02x}, {:02x}", ne->swin[0], ne->swin[1], ne->swin[2], ne->swin[3]));
+        logger_.post(fmt::format("Output Addrs: {:02x}, {:02x}, {:02x}, {:02x}", ne->swout[0], ne->swout[1], ne->swout[2], ne->swout[3]));
+    }
+
+    static int pollReplyHandler(artnet_node n, void* pp, void* x)
+    {
+        auto nl = artnet_get_nl(n);
+        auto w = static_cast<ArtnetSendWorker*>(x);
+
+        if (w->nodes_found_ == artnet_nl_get_length(nl)) {
+            // this is not a new node, just a previously discovered one sending
+            // another reply
+            return 0;
+        } else if (w->nodes_found_ == 0) {
+            // first node found
+            w->nodes_found_++;
+            w->dumpNodeConfig(artnet_nl_first(nl));
+        } else {
+            // new node
+            w->nodes_found_++;
+            w->dumpNodeConfig(artnet_nl_next(nl));
+        }
+
+        return 0;
+    }
+
+public:
     void fillDmx(uint8_t v)
     {
         dmx_.fill(v);
@@ -252,12 +251,18 @@ namespace net {
     void NetArtnetSend::m_dmx(t_symbol* s, const AtomListView& lv)
     {
         auto& dmx = ArtnetSendWorker::instance();
+        auto N = std::min<size_t>(lv.size(), MAX_DMX_CHANNELS);
 
-        for (size_t i = 0; i < lv.size(); i++) {
+        for (size_t i = 0; i < N; i++) {
             dmx.setDmx(i, lv[i].asInt());
         }
 
         dmx.add(ArtNetCommand(ARTNET_CMD_SEND_DMX, universe_->value()));
+    }
+
+    void NetArtnetSend::m_poll(t_symbol* s, const AtomListView& lv)
+    {
+        ArtnetSendWorker::instance().add(ArtNetCommand(ARTNET_CMD_POLL, 0));
     }
 
 } // namespace net
@@ -272,6 +277,7 @@ void setup_net_artnet_send()
     obj.addAlias("artnet.s");
 
     obj.addMethod("dmx", &net::NetArtnetSend::m_dmx);
+    obj.addMethod("poll", &net::NetArtnetSend::m_poll);
 
 #endif
 }
