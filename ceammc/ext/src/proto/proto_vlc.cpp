@@ -298,6 +298,7 @@ ProtoVlc::Future ProtoVlc::createTask()
                 cli.set_basic_auth("", to_string(pass_->value()).c_str());
                 cli.set_connection_timeout(1);
                 cli.set_tcp_nodelay(true);
+                cli.set_keep_alive(false);
                 auto req = make_vlc_request(cmd);
                 logger_.debug(req);
                 auto res = cli.Get(req.c_str());
