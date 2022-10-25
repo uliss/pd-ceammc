@@ -4,6 +4,7 @@
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
 #include "datatype_dict.h"
+#include "parser_vlc.h"
 
 #include "fmt/format.h"
 #include "httplib.h"
@@ -72,8 +73,19 @@ void ProtoVlc::m_fullscreen(t_symbol* s, const AtomListView& lv)
 
 void ProtoVlc::m_seek(t_symbol* s, const AtomListView& lv)
 {
+    if (lv.empty()) {
+        METHOD_ERR(s) << "TIME expected";
+        return;
+    }
+
+    if(!parser::check_vlc_seek(lv[0])) {
+        METHOD_ERR(s) << "invalid TIME: " << lv;
+        return;
+}
+
     VlcCommand cmd;
     cmd.code = VLC_CMD_SEEK;
+    cmd.data = to_string(lv[0]);
     sendCommand(s, cmd);
 }
 
@@ -273,6 +285,8 @@ static std::string make_vlc_request(const VlcCommand& cmd)
     case VLC_CMD_BROWSE:
         return fmt::format(VLC_BROWSE "?uri={}",
             httplib::detail::encode_query_param(boost::get<std::string>(cmd.data)));
+    case VLC_CMD_SEEK:
+        return fmt::format(VLC_STATUS "?command=seek&val={}", boost::get<std::string>(cmd.data));
     }
 }
 

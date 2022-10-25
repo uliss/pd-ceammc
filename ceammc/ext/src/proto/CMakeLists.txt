@@ -24,11 +24,16 @@ if(RAGEL_FOUND)
     RAGEL_TARGET(parser_whammy
         parser_whammy.rl parser_whammy.cpp
         COMPILE_FLAGS "-G2 -s")
-    add_custom_target(parser_src SOURCES parser_whammy.rl)
+    RAGEL_TARGET(parser_vlc
+        parser_vlc.rl parser_vlc.cpp
+        COMPILE_FLAGS "-G2 -s")
+
+    add_custom_target(parser_src SOURCES parser_whammy.rl parser_vlc.rl)
 endif()
 
 target_sources(ceammc_proto
     PRIVATE
+        parser_vlc.cpp
         parser_whammy.cpp
         proto_midi_parser.cpp
 )
