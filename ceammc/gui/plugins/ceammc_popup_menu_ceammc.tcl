@@ -145,7 +145,7 @@
         loadexpr msg msg.after msg.onload msg.sched
     }}
     {net {
-        net.artnet.send net.host2ip net.osc.receive net.osc.send
+        net.artnet.send net.host2ip net.http.send net.osc.receive net.osc.send
         net.osc.server
     }}
     {noise {

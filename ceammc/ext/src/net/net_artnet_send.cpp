@@ -297,7 +297,6 @@ void setup_net_artnet_send()
     using namespace ceammc;
     ObjectFactory<net::NetArtnetSend> obj("net.artnet.send");
     obj.addAlias("artnet.send");
-    obj.addAlias("artnet.s");
 
     obj.addMethod("dmx", &net::NetArtnetSend::m_dmx);
     obj.addMethod("dmx_set", &net::NetArtnetSend::m_dmx_set);

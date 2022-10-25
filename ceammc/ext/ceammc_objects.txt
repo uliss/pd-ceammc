@@ -70,7 +70,6 @@ array.sum2
 array.variance
 array.vplay
 array.window
-artnet.s
 artnet.send
 bits->bang
 bits->int
@@ -530,6 +529,7 @@ hoa.rotate~
 hoa.scope~
 hoa.wider~
 hpf->biquad
+http.send
 hw.apple_smc
 hw.apple_sms
 hw.arduino

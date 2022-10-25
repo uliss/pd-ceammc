@@ -6,12 +6,14 @@
 #X text 200 116 ArtNet DMX message sender;
 #X obj 30 143 net.host2ip;
 #X text 200 143 returns IP address by DNS name;
-#X obj 30 170 net.osc.receive;
-#X text 200 170 OSC message listener;
-#X obj 30 197 net.osc.send;
-#X text 200 197 OSC message sender;
-#X obj 30 224 net.osc.server;
-#X text 200 224 OSC server control;
+#X obj 30 170 net.http.send;
+#X text 200 170 HTTP request sender;
+#X obj 30 197 net.osc.receive;
+#X text 200 197 OSC message listener;
+#X obj 30 224 net.osc.send;
+#X text 200 224 OSC message sender;
+#X obj 30 251 net.osc.server;
+#X text 200 251 OSC server control;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::net 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
