@@ -270,7 +270,7 @@ namespace ceammc {
 	std::ios::openmode parse_mode(const char* str)
 	{
 		int cs = 0;
-		int rl_mode = 0;
+		std::ios::openmode rl_mode = 0;
 		const char* p = str;
 		
 		if (!p || p[0] == '\0')
