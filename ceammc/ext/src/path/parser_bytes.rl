@@ -93,7 +93,7 @@ std::string parser_byte_error(const AtomListView& lv, const std::pair<int, size_
 std::ios::openmode parse_mode(const char* str)
 {
     int cs = 0;
-    std::ios::openmode rl_mode = 0;
+    std::ios::openmode rl_mode = static_cast<std::ios::openmode>(0);
     const char* p = str;
 
     if (!p || p[0] == '\0')
@@ -105,7 +105,7 @@ std::ios::openmode parse_mode(const char* str)
     if (cs >= %%{ write first_final; }%%)
         return rl_mode;
 
-    return 0;
+    return static_cast<std::ios::openmode>(0);;
 }
 
 }
