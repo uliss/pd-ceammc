@@ -267,7 +267,7 @@ namespace ceammc {
 #line 91 "parser_bytes.rl"
 	
 	
-	std::ios::open_mode parse_mode(const char* str)
+	std::ios::openmode parse_mode(const char* str)
 	{
 		int cs = 0;
 		int rl_mode = 0;

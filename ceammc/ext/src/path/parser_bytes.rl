@@ -90,7 +90,7 @@ std::string parser_byte_error(const AtomListView& lv, const std::pair<int, size_
     write data;
 }%%
 
-std::ios::open_mode parse_mode(const char* str)
+std::ios::openmode parse_mode(const char* str)
 {
     int cs = 0;
     int rl_mode = 0;
