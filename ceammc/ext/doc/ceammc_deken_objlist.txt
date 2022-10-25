@@ -845,9 +845,10 @@ loadmsg	send message when patch loads
 msg.sched	message scheduler
 net.artnet.send	ArtNet DMX message sender
 artnet.send	ArtNet DMX message sender
-artnet.s	ArtNet DMX message sender
 net.host2ip	returns IP address by DNS name
 net.host->ip	returns IP address by DNS name
+net.http.send	HTTP request sender
+http.send	HTTP request sender
 net.osc.receive	OSC message listener
 net.osc.r	OSC message listener
 net.osc.send	OSC message sender

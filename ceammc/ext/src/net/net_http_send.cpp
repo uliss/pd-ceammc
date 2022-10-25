@@ -35,6 +35,7 @@ NetHttpSend::NetHttpSend(const PdArgs& args)
 
     timeout_ = new IntProperty("@timeout", 1);
     timeout_->checkClosedRange(1, 10);
+    timeout_->setUnits(PropValueUnits::SEC);
     addProperty(timeout_);
 
     Dispatcher::instance().subscribe(this, subscriberId());
@@ -121,5 +122,6 @@ void NetHttpSend::m_get(t_symbol* s, const AtomListView& lv)
 void setup_net_http_send()
 {
     ObjectFactory<NetHttpSend> obj("net.http.send");
+    obj.addAlias("http.send");
     obj.addMethod("get", &NetHttpSend::m_get);
 }

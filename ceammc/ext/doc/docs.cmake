@@ -503,6 +503,7 @@ set(DOC_FILES
     music.voice2midi
     net.artnet.send
     net.host2ip
+    net.http.send
     net.osc.receive
     net.osc.send
     net.osc.server
