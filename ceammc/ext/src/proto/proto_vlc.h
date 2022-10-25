@@ -3,6 +3,7 @@
 
 #include "ceammc_pollthread_object.h"
 #include "ceammc_thread.h"
+#include "datatype_dict.h"
 using namespace ceammc;
 
 #include <boost/variant.hpp>
@@ -17,8 +18,12 @@ enum VlcCommandCode {
     VLC_CMD_NEXT,
     VLC_CMD_PREV,
     VLC_CMD_DELETE,
+    VLC_CMD_ADD,
     VLC_CMD_LOOP,
     VLC_CMD_VOLUME,
+    VLC_CMD_STATUS,
+    VLC_CMD_PLAYLIST,
+    VLC_CMD_BROWSE,
 };
 
 using VlcCommandData = boost::variant<bool, float, int, std::string>;
@@ -29,6 +34,7 @@ struct VlcCommand {
 };
 
 struct VlcResponse {
+    DataTypeDict resp;
     int status;
 };
 
@@ -51,9 +57,15 @@ public:
     void m_clear(t_symbol* s, const AtomListView& lv);
     void m_next(t_symbol* s, const AtomListView& lv);
     void m_prev(t_symbol* s, const AtomListView& lv);
+
+    void m_add(t_symbol* s, const AtomListView& lv);
     void m_delete(t_symbol* s, const AtomListView& lv);
     void m_loop(t_symbol* s, const AtomListView& lv);
     void m_volume(t_symbol* s, const AtomListView& lv);
+
+    void m_status(t_symbol* s, const AtomListView& lv);
+    void m_playlist(t_symbol* s, const AtomListView& lv);
+    void m_browse(t_symbol* s, const AtomListView& lv);
 
     void processMessage(const VlcResponse& msg) final;
     Future createTask() final;

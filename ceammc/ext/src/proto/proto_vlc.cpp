@@ -3,9 +3,14 @@
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
+#include "datatype_dict.h"
 
 #include "fmt/format.h"
 #include "httplib.h"
+
+#define VLC_BROWSE "/requests/browse.json"
+#define VLC_STATUS "/requests/status.json"
+#define VLC_PLAYLIST "/requests/playlist.json"
 
 ProtoVlc::ProtoVlc(const PdArgs& args)
     : ProtoVlcBase(args)
@@ -14,6 +19,7 @@ ProtoVlc::ProtoVlc(const PdArgs& args)
     , pass_(nullptr)
     , logger_ {}
 {
+    createOutlet();
     createOutlet();
 
     host_ = new SymbolProperty("@host", gensym("localhost"));
@@ -51,6 +57,7 @@ void ProtoVlc::m_pause(t_symbol* s, const AtomListView& lv)
 {
     VlcCommand cmd;
     cmd.code = VLC_CMD_PAUSE;
+    cmd.data = lv.boolAt(0, true);
     sendCommand(s, cmd);
 }
 
@@ -152,9 +159,75 @@ void ProtoVlc::m_delete(t_symbol* s, const AtomListView& lv)
     sendCommand(s, cmd);
 }
 
+void ProtoVlc::m_add(t_symbol* s, const AtomListView& lv)
+{
+    if (lv.empty()) {
+        METHOD_ERR(s) << "URI expected";
+        return;
+    }
+
+    VlcCommand cmd;
+    cmd.code = VLC_CMD_ADD;
+    cmd.data = to_string(lv);
+    sendCommand(s, cmd);
+}
+
+void ProtoVlc::m_status(t_symbol* s, const AtomListView& lv)
+{
+    VlcCommand cmd;
+    cmd.code = VLC_CMD_STATUS;
+    sendCommand(s, cmd);
+}
+
+void ProtoVlc::m_playlist(t_symbol* s, const AtomListView& lv)
+{
+    VlcCommand cmd;
+    cmd.code = VLC_CMD_PLAYLIST;
+    sendCommand(s, cmd);
+}
+
+void ProtoVlc::m_browse(t_symbol* s, const AtomListView& lv)
+{
+    if (lv.empty()) {
+        METHOD_ERR(s) << "URI expected";
+        return;
+    }
+
+    VlcCommand cmd;
+    cmd.code = VLC_CMD_BROWSE;
+    cmd.data = to_string(lv);
+    sendCommand(s, cmd);
+}
+
 void ProtoVlc::processMessage(const VlcResponse& msg)
 {
-    boolTo(0, msg.status == 200);
+    try {
+        atomTo(1, DictAtom(msg.resp));
+    } catch (std::exception& e) {
+        OBJ_ERR << e.what();
+    }
+
+    enum {
+        HTTP_OK = 200,
+        HTTP_UNAUTH = 401,
+        HTTP_NOT_FOUND = 404,
+    };
+
+    switch (msg.status) {
+    case HTTP_OK:
+        return boolTo(0, true);
+    case HTTP_UNAUTH:
+        OBJ_ERR << "authorization error";
+        break;
+    case HTTP_NOT_FOUND:
+        OBJ_ERR << "not found";
+        break;
+    default:
+        OBJ_ERR << "unknown http code: " << msg.status;
+        break;
+    }
+
+    boolTo(0, false);
 }
 
 static std::string make_vlc_request(const VlcCommand& cmd)
@@ -163,34 +236,55 @@ static std::string make_vlc_request(const VlcCommand& cmd)
     case VLC_CMD_PLAY: {
         auto id = boost::get<int>(&cmd.data);
         if (id)
-            return fmt::format("/requests/status.xml?command=pl_play&id={}", *id);
+            return fmt::format(VLC_STATUS "?command=pl_play&id={}", *id);
         else
-            return "/requests/status.xml?command=pl_play";
+            return VLC_STATUS "?command=pl_play";
     }
     case VLC_CMD_DELETE:
-        return fmt::format("/requests/status.xml?command=pl_delete&id={}", boost::get<int>(cmd.data));
+        return fmt::format(VLC_STATUS "?command=pl_delete&id={}", boost::get<int>(cmd.data));
     case VLC_CMD_STOP:
-        return "/requests/status.xml?command=pl_stop";
+        return VLC_STATUS "?command=pl_stop";
     case VLC_CMD_NEXT:
-        return "/requests/status.xml?command=pl_next";
+        return VLC_STATUS "?command=pl_next";
     case VLC_CMD_PREV:
-        return "/requests/status.xml?command=pl_prev";
-    case VLC_CMD_PAUSE:
-        return "/requests/status.xml?command=pl_pause";
+        return VLC_STATUS "?command=pl_prev";
+    case VLC_CMD_PAUSE: {
+        auto on = boost::get<bool>(&cmd.data);
+        if (on && *on)
+            return VLC_STATUS "?command=pl_forcepause";
+        else
+            return VLC_STATUS "?command=pl_forceresume";
+    }
     case VLC_CMD_FULLSCREEN:
-        return "/requests/status.xml?command=fullscreen";
+        return VLC_STATUS "?command=fullscreen";
     case VLC_CMD_CLEAR:
-        return "/requests/status.xml?command=pl_empty";
+        return VLC_STATUS "?command=pl_empty";
     case VLC_CMD_LOOP:
-        return "/requests/status.xml?command=pl_loop";
+        return VLC_STATUS "?command=pl_loop";
     case VLC_CMD_VOLUME:
-        return fmt::format("/requests/status.xml?command=volume&val={}", boost::get<std::string>(cmd.data));
+        return fmt::format(VLC_STATUS "?command=volume&val={}", boost::get<std::string>(cmd.data));
+    case VLC_CMD_STATUS:
+        return VLC_STATUS;
+    case VLC_CMD_PLAYLIST:
+        return VLC_PLAYLIST;
+    case VLC_CMD_ADD:
+        return fmt::format(VLC_STATUS "?command=in_enqueue&input={}",
+            httplib::detail::encode_query_param(boost::get<std::string>(cmd.data)));
+    case VLC_CMD_BROWSE:
+        return fmt::format(VLC_BROWSE "?uri={}",
+            httplib::detail::encode_query_param(boost::get<std::string>(cmd.data)));
     }
 }
 
 static VlcResponse make_vlc_response(const VlcCommand& cmd, const httplib::Result& res)
 {
-    return {};
+    try {
+        DataTypeDict dict;
+        dict.fromJSON(res->body);
+        return { dict, res->status };
+    } catch (std::exception& e) {
+        return { {}, -1 };
+    }
 }
 
 ProtoVlc::Future ProtoVlc::createTask()
@@ -248,4 +342,9 @@ void setup_proto_vlc()
     obj.addMethod("delete", &ProtoVlc::m_delete);
     obj.addMethod("loop", &ProtoVlc::m_loop);
     obj.addMethod("volume", &ProtoVlc::m_volume);
+
+    obj.addMethod("add", &ProtoVlc::m_add);
+    obj.addMethod("browse", &ProtoVlc::m_browse);
+    obj.addMethod("playlist", &ProtoVlc::m_playlist);
+    obj.addMethod("status", &ProtoVlc::m_status);
 }
