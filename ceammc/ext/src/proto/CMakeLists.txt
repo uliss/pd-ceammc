@@ -15,6 +15,7 @@ ceammc_proto_external(midi_cc)
 ceammc_proto_external(midi_sysex)
 ceammc_proto_external(mpv)
 ceammc_proto_external(sp_alpaca)
+ceammc_proto_external(vlc)
 ceammc_proto_external(whammy)
 ceammc_proto_external(xtouch_ext)
 
@@ -39,4 +40,4 @@ target_include_directories(ceammc_proto
         ${CMAKE_CURRENT_SOURCE_DIR}/../midi
         "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>"
 )
-target_link_libraries(ceammc_proto PRIVATE proto_firmata)
+target_link_libraries(ceammc_proto PRIVATE proto_firmata http_lib)

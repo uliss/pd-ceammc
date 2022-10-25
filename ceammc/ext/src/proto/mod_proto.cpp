@@ -10,6 +10,7 @@ void setup_proto_midi_casio();
 void setup_proto_midi_cc();
 void setup_proto_midi_sysex();
 void setup_proto_mpv();
+void setup_proto_vlc();
 void setup_proto_xtouch_ext();
 
 void ceammc_proto_setup()
@@ -23,6 +24,7 @@ void ceammc_proto_setup()
     setup_proto_midi_sysex();
     setup_proto_mpv();
     setup_proto_sp_alpaca();
+    setup_proto_vlc();
     setup_proto_whammy();
     setup_proto_xtouch_ext();
 }
