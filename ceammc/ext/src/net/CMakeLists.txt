@@ -44,3 +44,9 @@ target_include_directories(ceammc_net
         "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>"
 )
 
+# http
+target_sources(ceammc_net PRIVATE net_http_send.cpp)
+target_link_libraries(ceammc_net PRIVATE http_lib)
+
+
+
