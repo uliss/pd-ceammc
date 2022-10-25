@@ -16,6 +16,11 @@
   - flow.seqdelay: sequential message delay/router
   - array.circular: array circular read/write
   - file: file object added
+  - net.artnet.send: send DMX messages via ArtNet
+  - net.http.send: send HTTP requests
+  - net.osc.send: send OSC messages
+  - net.osc.receive: receive OSC
+  - net.osc.server: OSC server control
 - new properties:
   - @clip property added to system.cursor to clip cursor XY coords
   - @norm property added to ui.env to do envelope value normalization on input

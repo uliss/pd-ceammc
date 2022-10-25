@@ -121,7 +121,11 @@ void NetHttpSend::m_get(t_symbol* s, const AtomListView& lv)
 
 void setup_net_http_send()
 {
+    LIB_DBG << "httplib-cpp version: " << CPPHTTPLIB_VERSION;
+
     ObjectFactory<NetHttpSend> obj("net.http.send");
     obj.addAlias("http.send");
     obj.addMethod("get", &NetHttpSend::m_get);
+
+    obj.setXletsInfo({ "get" }, { "int: status code", "data:string: respone body" });
 }
