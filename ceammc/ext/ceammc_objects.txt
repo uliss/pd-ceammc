@@ -956,8 +956,10 @@ proto.midi
 proto.midi.casio
 proto.midi.cc
 proto.midi.sysex
+proto.moppy
 proto.mpv
 proto.sp.alpaca
+proto.vlc
 proto.whammy
 proto.xtouch_ext
 rad->phase
