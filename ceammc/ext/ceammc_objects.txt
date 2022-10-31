@@ -949,6 +949,7 @@ prop.set
 prop.split
 prop<-
 prop~>
+proto.feelworld
 proto.firmata
 proto.hui
 proto.inscore

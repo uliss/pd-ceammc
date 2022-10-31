@@ -211,8 +211,9 @@
         prop.set prop.split
     }}
     {proto {
-        proto.firmata proto.inscore proto.midi proto.midi.cc proto.midi.sysex
-        proto.moppy proto.mpv proto.sp.alpaca proto.whammy proto.xtouch_ext
+        proto.feelworld proto.firmata proto.inscore proto.midi proto.midi.cc
+        proto.midi.sysex proto.moppy proto.mpv proto.sp.alpaca proto.whammy
+        proto.xtouch_ext
     }}
     {random {
         random.atom random.discrete random.float random.gauss random.int
