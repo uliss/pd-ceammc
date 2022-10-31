@@ -21,6 +21,8 @@
   - net.osc.send: send OSC messages
   - net.osc.receive: receive OSC
   - net.osc.server: OSC server control
+  - proto.moppy: MOPPY floppy controller
+  - proto.vlc: control VLC player over HTTP
 - new properties:
   - @clip property added to system.cursor to clip cursor XY coords
   - @norm property added to ui.env to do envelope value normalization on input

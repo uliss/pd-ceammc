@@ -232,4 +232,6 @@ void setup_proto_moppy()
     obj.addMethod("ping", &ProtoMoppy::m_ping);
     obj.addMethod("reset", &ProtoMoppy::m_reset);
     obj.addMethod(M_BEND_FLOAT, &ProtoMoppy::m_bendf);
+
+    obj.setXletsInfo({ "note, noteoff, bend:f, reset, ping" }, { "list: byte list" });
 }

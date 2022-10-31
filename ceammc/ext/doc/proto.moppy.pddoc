@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="proto.moppy">
+        <title>proto.moppy</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>protocol for Musical flOPPY controller</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>proto</category>
+            <keywords>floppy diy serial</keywords>
+            <since>0.9.5</since>
+        </meta>
+        <info>
+            <a href="https://github.com/Sammy1Am/Moppy2">https://github.com/Sammy1Am/Moppy2</a>
+        </info>
+        <properties>
+            <property name="@v" type="int" default="2" enum="2 1">MOPPY protocol version</property>
+            <property name="@device" type="int" default="1" minvalue="1" maxvalue="255">moppy device ID</property>
+            <property name="@floppy" type="int" default="1" minvalue="1" maxvalue="16">floppy ID on moppy device</property>
+        </properties>
+        <methods>
+            <method name="ping">send ping request to all devices</method>
+            <method name="note">see noteon</method>
+            <method name="noteon">play note
+            <param name="CHAN" required="false" type="int">optional floppy id (overrides @floppy property)</param>
+            <param name="NOTE" required="true" type="int" minvalue="24" maxvalue="72">MIDI note</param>
+            <param name="VEL"  required="true" type="int" minvalue="0" maxvalue="127">note velocity (if 0 - turns
+            note off, otherwise ignored)</param>
+            </method>
+            <method name="noteoff">note off message
+            <param name="CHAN" required="false" type="int">optional floppy id (overrides @floppy property)</param>
+            <param name="NOTE" required="true" type="int" minvalue="24" maxvalue="72">MIDI note</param>
+            </method>
+            <method name="reset">reset moppy device.
+            <param name="all" type="symbol">reset all devices</param></method>
+            <method name="bend:f">note pitchbend
+            <param name="VAL" required="true" type="float" minvalue="-1" maxvalue="1">pitch bend</param>
+            </method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo>commands</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>list: output to moppy</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[ui.keyboard 60 12]
+|
+|
+|
+|
+|
+[msg note] [reset(
+|          |
+[proto.moppy] [dump(
+|             |
+[hw.arduino @rate 57600]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

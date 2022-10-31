@@ -950,6 +950,7 @@ proto.inscore	INScore message creator
 proto.midi	raw midi encoder/parser
 proto.midi.cc	raw midi CC encoder/parser
 proto.midi.sysex	raw midi SYSex encoder/parser
+proto.moppy	protocol for Musical flOPPY controller
 proto.mpv	mpv video player control
 proto.sp.alpaca	protocol parser for Arduino-based CEAMMC footswitch
 proto.whammy	Control for Digitech Whammy pedal

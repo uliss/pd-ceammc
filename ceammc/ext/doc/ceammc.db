@@ -578,6 +578,7 @@ proto.inscore		.		.
 proto.midi		.		.
 proto.midi.cc		.		.
 proto.midi.sysex		.		.
+proto.moppy		.		.
 proto.mpv		.		.
 proto.sp.alpaca		.		.
 proto.whammy		.		.

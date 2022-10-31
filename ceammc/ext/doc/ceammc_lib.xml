@@ -1818,6 +1818,9 @@
     <entry name="proto.midi.sysex" descr="raw midi SYSex encoder/parser" ref_view="object">
       <xi:include href="proto.midi.sysex.pddoc" parse="xml"/>
     </entry>
+    <entry name="proto.moppy" descr="protocol for Musical flOPPY controller" ref_view="object">
+      <xi:include href="proto.moppy.pddoc" parse="xml"/>
+    </entry>
     <entry name="proto.mpv" descr="mpv video player control" ref_view="object">
       <xi:include href="proto.mpv.pddoc" parse="xml"/>
     </entry>
