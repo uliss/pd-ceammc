@@ -7,6 +7,7 @@ function(ceammc_proto_external name)
 endfunction()
 
 ceammc_proto_external(firmata)
+ceammc_proto_external(feelworld)
 ceammc_proto_external(hui)
 ceammc_proto_external(inscore)
 ceammc_proto_external(midi)
