@@ -23,6 +23,7 @@
   - net.osc.server: OSC server control
   - proto.moppy: MOPPY floppy controller
   - proto.vlc: control VLC player over HTTP
+  - proto.feelworld: control Feelworld Livepro L1 HDMI video mixer
 - new properties:
   - @clip property added to system.cursor to clip cursor XY coords
   - @norm property added to ui.env to do envelope value normalization on input

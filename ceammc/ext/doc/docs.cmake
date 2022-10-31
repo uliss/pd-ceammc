@@ -575,6 +575,7 @@ set(DOC_FILES
     prop.random
     prop.set
     prop.split
+    proto.feelworld
     proto.firmata
     proto.inscore
     proto.midi

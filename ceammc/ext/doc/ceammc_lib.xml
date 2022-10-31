@@ -1803,6 +1803,9 @@
     </entry>
   </category>
   <category name="proto">
+    <entry name="proto.feelworld" descr="protocol for FeelWorld LivePro L1 HDMI mixer" ref_view="object">
+      <xi:include href="proto.feelworld.pddoc" parse="xml"/>
+    </entry>
     <entry name="proto.firmata" descr="Firmata Arduino protocol support" ref_view="object">
       <xi:include href="proto.firmata.pddoc" parse="xml"/>
     </entry>
