@@ -27,6 +27,9 @@ using MoppyCmd0 = AtomArray<5>;
 using MoppyCmd1 = AtomArray<6>;
 using MoppyCmd2 = AtomArray<7>;
 
+// v2 protocol:
+// https://github.com/Sammy1Am/Moppy2/wiki/Design-Docs
+
 ProtoMoppy::ProtoMoppy(const PdArgs& args)
     : BaseObject(args)
     , vers_(nullptr)
