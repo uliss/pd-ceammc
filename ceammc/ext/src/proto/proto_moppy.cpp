@@ -21,6 +21,11 @@ constexpr int MOPPY_CMD0 = 1;
 constexpr int MOPPY_CMD1 = 2;
 constexpr int MOPPY_CMD2 = 3;
 
+/**
+ * Resolution of the Arduino code in microSeconds.
+ */
+constexpr int ARDUINO_RESOLUTION = 40;
+
 template <size_t N>
 using AtomArray = std::array<Atom, N>;
 using MoppyCmd0 = AtomArray<5>;
@@ -93,6 +98,26 @@ void ProtoMoppy::m_note_on(t_symbol* s, const AtomListView& lv)
             listTo(0, AtomListView(msg.data(), msg.size()));
         }
     } break;
+    case MOPPY_PROTO_V1: {
+        const std::uint8_t pin = floppy_id * 2;
+
+        if (vel > 0) {
+            auto freq = convert::midi2freq(static_cast<double>(note));
+            // After looking up the period, devide by (the Arduino resolution * 2).
+            // The Arduino's timer will only tick once per X microseconds based on the
+            // resolution.  And each tick will only turn the pin on or off.  So a full
+            // on-off cycle (one step on the floppy) is two periods.
+            int t = std::round((1000000.0 / freq) / (ARDUINO_RESOLUTION * 2));
+            std::uint8_t msb = (t >> 8) & 0xff;
+            std::uint8_t lsb = t & 0xff;
+
+            AtomArray<3> msg { pin, msb, lsb };
+            listTo(0, AtomListView(msg.data(), msg.size()));
+        } else {
+            AtomArray<3> msg { pin, 0., 0. };
+            listTo(0, AtomListView(msg.data(), msg.size()));
+        }
+    } break;
     default:
         METHOD_ERR(s) << fmt::format("protocol version not supported: {}", vers_->value());
         break;
@@ -124,6 +149,11 @@ void ProtoMoppy::m_note_off(t_symbol* s, const AtomListView& lv)
             MOPPY_NOTE_OFF,
             note,
         };
+        listTo(0, AtomListView(msg.data(), msg.size()));
+    } break;
+    case MOPPY_PROTO_V1: {
+        std::uint8_t pin = floppy_addr_->value() * 2;
+        AtomArray<3> msg { pin, 0., 0. };
         listTo(0, AtomListView(msg.data(), msg.size()));
     } break;
     default:
@@ -174,6 +204,10 @@ void ProtoMoppy::m_reset(t_symbol* s, const AtomListView& lv)
             };
             listTo(0, AtomListView(msg.data(), msg.size()));
         }
+    } break;
+    case MOPPY_PROTO_V1: {
+        AtomArray<3> msg { 100, 0., 0. };
+        listTo(0, AtomListView(msg.data(), msg.size()));
     } break;
     default:
         METHOD_ERR(s) << fmt::format("protocol version not supported: {}", vers_->value());
