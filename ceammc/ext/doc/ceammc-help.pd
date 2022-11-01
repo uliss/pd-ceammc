@@ -1286,7 +1286,7 @@ value;
 0;
 #X obj 20 17598 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 17609 proto.feelworld;
-#X text 200 17609 protocol FeelWorld LivePro L1;
+#X text 200 17609 protocol for FeelWorld LivePro L1 HDMI mixer;
 #X obj 30 17636 proto.firmata;
 #X text 200 17636 Firmata Arduino protocol support;
 #X obj 30 17663 proto.inscore;

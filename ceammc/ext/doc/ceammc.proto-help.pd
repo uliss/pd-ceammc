@@ -3,7 +3,7 @@
 #X text 62 50 ::;
 #X obj 79 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 30 116 proto.feelworld;
-#X text 200 116 protocol FeelWorld LivePro L1;
+#X text 200 116 protocol for FeelWorld LivePro L1 HDMI mixer;
 #X obj 30 143 proto.firmata;
 #X text 200 143 Firmata Arduino protocol support;
 #X obj 30 170 proto.inscore;

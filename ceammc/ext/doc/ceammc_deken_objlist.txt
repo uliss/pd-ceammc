@@ -945,7 +945,7 @@ p.set	set property for connected object/subpatch/abstraction
 prop.split	separate properties from dataflow
 prop->	separate properties from dataflow
 @->	separate properties from dataflow
-proto.feelworld	protocol FeelWorld LivePro L1
+proto.feelworld	protocol for FeelWorld LivePro L1 HDMI mixer
 proto.firmata	Firmata Arduino protocol support
 proto.inscore	INScore message creator
 proto.midi	raw midi encoder/parser

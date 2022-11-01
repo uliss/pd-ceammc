@@ -57,11 +57,16 @@
 |
 |
 |
-[msg note] [reset(
+|                  [choose(
+|                  |
+[msg note] [reset( [data.list 1 14 15 19]
+|          |       |
+|          |       [@v 1, period $1 #a(
 |          |
-[proto.moppy] [dump(
-|             |
+[proto.moppy #x]   [dump(
+|                  |
 [hw.arduino @rate 57600]
+[X a->x]
 ]]>
             </pdascii>
         </example>
