@@ -582,6 +582,7 @@ proto.midi.sysex		.		.
 proto.moppy		.		.
 proto.mpv		.		.
 proto.sp.alpaca		.		.
+proto.vlc		.		..
 proto.whammy		.		.
 proto.xtouch_ext		.		..
 radio,ceammc/radio		.		?

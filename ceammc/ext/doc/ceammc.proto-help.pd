@@ -20,10 +20,12 @@
 #X text 200 305 mpv video player control;
 #X obj 30 332 proto.sp.alpaca;
 #X text 200 332 protocol parser for Arduino-based CEAMMC footswitch;
-#X obj 30 359 proto.whammy;
-#X text 200 359 Control for Digitech Whammy pedal;
-#X obj 30 386 proto.xtouch_ext;
-#X text 200 386 Behringer XTouch Extender XMidi protocol;
+#X obj 30 359 proto.vlc;
+#X text 200 359 VLC video player control over HTTP;
+#X obj 30 386 proto.whammy;
+#X text 200 386 Control for Digitech Whammy pedal;
+#X obj 30 413 proto.xtouch_ext;
+#X text 200 413 Behringer XTouch Extender XMidi protocol;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::proto 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

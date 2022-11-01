@@ -109,7 +109,7 @@ void ProtoVlc::m_next(t_symbol* s, const AtomListView& lv)
 void ProtoVlc::m_prev(t_symbol* s, const AtomListView& lv)
 {
     VlcCommand cmd;
-    cmd.code = VLC_CMD_NEXT;
+    cmd.code = VLC_CMD_PREV;
 
     sendCommand(s, cmd);
 }

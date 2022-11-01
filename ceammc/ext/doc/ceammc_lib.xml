@@ -1830,6 +1830,9 @@
     <entry name="proto.sp.alpaca" descr="protocol parser for Arduino-based CEAMMC footswitch" ref_view="object">
       <xi:include href="proto.sp.alpaca.pddoc" parse="xml"/>
     </entry>
+    <entry name="proto.vlc" descr="VLC video player control over HTTP" ref_view="object">
+      <xi:include href="proto.vlc.pddoc" parse="xml"/>
+    </entry>
     <entry name="proto.whammy" descr="Control for Digitech Whammy pedal" ref_view="object">
       <xi:include href="proto.whammy.pddoc" parse="xml"/>
     </entry>
