@@ -21,16 +21,29 @@ constexpr int MOPPY_CMD0 = 1;
 constexpr int MOPPY_CMD1 = 2;
 constexpr int MOPPY_CMD2 = 3;
 
-/**
- * Resolution of the Arduino code in microSeconds.
- */
-constexpr int ARDUINO_RESOLUTION = 40;
-
 template <size_t N>
 using AtomArray = std::array<Atom, N>;
 using MoppyCmd0 = AtomArray<5>;
 using MoppyCmd1 = AtomArray<6>;
 using MoppyCmd2 = AtomArray<7>;
+
+namespace {
+std::pair<std::uint8_t, std::uint8_t> freq2Arduino(float f)
+{
+    // Resolution of the Arduino code in microSeconds.
+    constexpr int ARDUINO_RESOLUTION = 40;
+
+    // After looking up the period, devide by (the Arduino resolution * 2).
+    // The Arduino's timer will only tick once per X microseconds based on the
+    // resolution.  And each tick will only turn the pin on or off.  So a full
+    // on-off cycle (one step on the floppy) is two periods.
+    int t = std::round((1000000.0 / f) / (ARDUINO_RESOLUTION * 2));
+    std::uint8_t msb = (t >> 8) & 0xff;
+    std::uint8_t lsb = t & 0xff;
+
+    return { msb, lsb };
+}
+}
 
 // v2 protocol:
 // https://github.com/Sammy1Am/Moppy2/wiki/Design-Docs
@@ -102,16 +115,8 @@ void ProtoMoppy::m_note_on(t_symbol* s, const AtomListView& lv)
         const std::uint8_t pin = floppy_id * 2;
 
         if (vel > 0) {
-            auto freq = convert::midi2freq(static_cast<double>(note));
-            // After looking up the period, devide by (the Arduino resolution * 2).
-            // The Arduino's timer will only tick once per X microseconds based on the
-            // resolution.  And each tick will only turn the pin on or off.  So a full
-            // on-off cycle (one step on the floppy) is two periods.
-            int t = std::round((1000000.0 / freq) / (ARDUINO_RESOLUTION * 2));
-            std::uint8_t msb = (t >> 8) & 0xff;
-            std::uint8_t lsb = t & 0xff;
-
-            AtomArray<3> msg { pin, msb, lsb };
+            auto p = freq2Arduino(convert::midi2freq(static_cast<float>(note)));
+            AtomArray<3> msg { pin, p.first, p.second };
             listTo(0, AtomListView(msg.data(), msg.size()));
         } else {
             AtomArray<3> msg { pin, 0., 0. };
@@ -244,6 +249,63 @@ void ProtoMoppy::m_bendf(t_symbol* s, const AtomListView& lv)
     }
 }
 
+void ProtoMoppy::m_freq(t_symbol* s, const AtomListView& lv)
+{
+    int floppy_id = floppy_addr_->value();
+    float freq = 0;
+
+    if (lv.size() == 2 && lv[0].isInteger() && lv[1].isFloat()) {
+        floppy_id = lv[0].asT<int>();
+        freq = lv[1].asT<t_float>();
+    } else if (lv.size() == 1 && lv[0].isFloat()) {
+        freq = lv[0].asT<t_float>();
+    } else {
+        METHOD_ERR(s) << "usage: FLOPPY? FREQ(hz)";
+        return;
+    }
+
+    switch (vers_->value()) {
+    case MOPPY_PROTO_V1: {
+        int pin = floppy_id * 2;
+        auto p = freq2Arduino(freq);
+        AtomArray<3> msg { pin, p.first, p.second };
+        listTo(0, AtomListView(msg.data(), msg.size()));
+    } break;
+    default:
+        METHOD_ERR(s) << fmt::format("protocol version not supported: {}", vers_->value());
+        break;
+    }
+}
+
+void ProtoMoppy::m_period(t_symbol* s, const AtomListView& lv)
+{
+    int floppy_id = floppy_addr_->value();
+    int period = 0;
+
+    if (lv.size() == 2 && lv[0].isInteger() && lv[1].isInteger()) {
+        floppy_id = lv[0].asT<int>();
+        period = lv[1].asT<int>();
+    } else if (lv.size() == 1 && lv[0].isFloat()) {
+        period = lv[0].asT<int>();
+    } else {
+        METHOD_ERR(s) << "usage: FLOPPY? PERIOD(μs:int)";
+        return;
+    }
+
+    switch (vers_->value()) {
+    case MOPPY_PROTO_V1: {
+        int pin = floppy_id * 2;
+        int msb = (period >> 8) & 0xff;
+        int lsb = period & 0xff;
+        AtomArray<3> msg { pin, msb, lsb };
+        listTo(0, AtomListView(msg.data(), msg.size()));
+    } break;
+    default:
+        METHOD_ERR(s) << fmt::format("protocol version not supported: {}", vers_->value());
+        break;
+    }
+}
+
 bool ProtoMoppy::checkArgBytesN(uint8_t n, const AtomListView& lv)
 {
     if (lv.size() != n)
@@ -269,6 +331,8 @@ void setup_proto_moppy()
     obj.addMethod("ping", &ProtoMoppy::m_ping);
     obj.addMethod("reset", &ProtoMoppy::m_reset);
     obj.addMethod(M_BEND_FLOAT, &ProtoMoppy::m_bendf);
+    obj.addMethod("freq", &ProtoMoppy::m_freq);
+    obj.addMethod("period", &ProtoMoppy::m_period);
 
     obj.setXletsInfo({ "note, noteoff, bend:f, reset, ping" }, { "list: byte list" });
 }

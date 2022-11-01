@@ -20,6 +20,8 @@ public:
     void m_ping(t_symbol* s, const AtomListView& lv);
     void m_reset(t_symbol* s, const AtomListView& lv);
     void m_bendf(t_symbol* s, const AtomListView& lv);
+    void m_freq(t_symbol* s, const AtomListView& lv);
+    void m_period(t_symbol* s, const AtomListView& lv);
 
 private:
     static bool checkArgBytesN(uint8_t n, const AtomListView& lv);
