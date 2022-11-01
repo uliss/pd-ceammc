@@ -17,25 +17,30 @@
             </aliases>
         </meta>
         <arguments>
-            <argument name="UNIVERSE" type="int" minvalue="0" maxvalue="3">ArtNet universe</argument>
+            <argument name="UNIVERSE" type="int" minvalue="0" maxvalue="3">ArtNet
+            universe</argument>
         </arguments>
         <methods>
             <method name="poll">send poll request, dump response to Pd window</method>
-            <method name="dmx_fill">set all DMX channels to given value
-            <param name="VAL" type="int" required="true" minvalue="0" maxvalue="255">DMX value</param>
-            </method>
-            <method name="dmx_set">set DMX channel value
-            <param name="CHAN" type="int" required="true" minvalue="0" maxvalue="512">DMX channel</param>
-            <param name="VAL" type="int" required="true" minvalue="0" maxvalue="255">DMX value</param>
-            </method>
-            <method name="dmx">set DMX channel values
-            <param name="CHAN" type="int" required="true" minvalue="0" maxvalue="512">DMX channel</param>
-            <param name="VALUES" type="list" required="true">list of DMX values, first element sets first channel etc.</param>
-            </method>
+            <method name="dmx_fill">set all DMX channels to given value 
+            <param name="VAL" type="int" required="true" minvalue="0" maxvalue="255">DMX
+            value</param></method>
+            <method name="dmx_set">set DMX channel value 
+            <param name="CHAN" type="int" required="true" minvalue="0" maxvalue="512">DMX
+            channel</param>
+            <param name="VAL" type="int" required="true" minvalue="0" maxvalue="255">DMX
+            value</param></method>
+            <method name="dmx">set DMX channel values 
+            <param name="CHAN" type="int" required="true" minvalue="0" maxvalue="512">DMX
+            channel</param>
+            <param name="VALUES" type="list" required="true">list of DMX values, first element sets
+            first channel etc.</param></method>
         </methods>
         <properties>
-            <property name="@universe" type="int" default="0" minvalue="0" maxvalue="3">ArtNet universe</property>
-            <property name="@offset" type="int" default="0" minvalue="0" maxvalue="511">DMX channel offset</property>
+            <property name="@universe" type="int" default="0" minvalue="0" maxvalue="3">ArtNet
+            universe</property>
+            <property name="@offset" type="int" default="0" minvalue="0" maxvalue="511">DMX channel
+            offset</property>
         </properties>
         <inlets>
             <inlet>

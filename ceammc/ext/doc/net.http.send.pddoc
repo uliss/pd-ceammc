@@ -21,16 +21,18 @@
             <argument name="PORT" type="int">destination port</argument>
         </arguments>
         <methods>
-            <method name="get">send GET request
+            <method name="get">send GET request 
             <param name="PATH" type="symbol" required="true">request path</param>
             <param name="VALUES" type="list" required="true">list of query pairs</param></method>
         </methods>
         <properties>
             <property name="@host" type="symbol" default="localhost">destination host</property>
-            <property name="@port" type="int" default="80" minvalue="1" maxvalue="32768">destination port</property>
+            <property name="@port" type="int" default="80" minvalue="1" maxvalue="32768">
+            destination port</property>
             <property name="@user" type="symbol" default="">Basic Auth user name</property>
             <property name="@pass" type="atom" default="">Basic Auth password</property>
-            <property name="@timeout" type="int" default="1" minvalue="1" maxvalue="10" units="second">TCP connection timeout</property>
+            <property name="@timeout" type="int" default="1" minvalue="1" maxvalue="10"
+            units="second">TCP connection timeout</property>
         </properties>
         <inlets>
             <inlet>

@@ -13,10 +13,11 @@
             <keywords>video mixer fellworld</keywords>
             <since>0.9.5</since>
         </meta>
-        <properties/>
+        <properties />
         <methods>
-            <method name="input">select HDMI input
-            <param name="N" type="int" required="true" minvalue="0" maxvalue="3">input index</param></method>
+            <method name="input">select HDMI input 
+            <param name="N" type="int" required="true" minvalue="0" maxvalue="3">input
+            index</param></method>
         </methods>
         <inlets>
             <inlet>

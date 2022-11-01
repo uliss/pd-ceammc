@@ -24,11 +24,12 @@
             <argument name="PATH" type="symbol">OSC path to listen</argument>
             <argument name="NAME" type="symbol">OSC server name</argument>
         </arguments>
-        <methods/>
+        <methods />
         <properties>
             <property name="@server" type="symbol" default="default">OSC server name</property>
             <property name="@path" type="symbol" default="">OSC listen path</property>
-            <property name="@types" type="symbol" default="none">expected OSC type string</property>
+            <property name="@types" type="symbol" default="none">expected OSC type
+            string</property>
         </properties>
         <inlets>
             <inlet>
