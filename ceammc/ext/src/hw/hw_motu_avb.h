@@ -21,9 +21,12 @@ public:
 
     void m_sync(t_symbol* s, const AtomListView& lv);
     void m_phantom(t_symbol* s, const AtomListView& lv);
+    void m_mic_gain(t_symbol* s, const AtomListView& lv);
+    void m_guitar_gain(t_symbol* s, const AtomListView& lv);
 
 private:
-    bool fillRequestDict(t_symbol* s, DataTypeDict& dict) const;
+    bool fillRequestDict(t_symbol* s, DataTypeDict& dict, int type) const;
+    bool scheduleTask(t_symbol* s, DataTypeDict&& dict);
 };
 
 void setup_hw_motu_avb();
