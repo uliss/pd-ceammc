@@ -13,6 +13,7 @@ class HwMotuAvb : public MotuAvbBase {
     SymbolProperty* host_;
     IntProperty* port_;
     ThreadPdLogger logger_;
+
 public:
     HwMotuAvb(const PdArgs& args);
 
@@ -23,6 +24,7 @@ public:
     void m_phantom(t_symbol* s, const AtomListView& lv);
     void m_mic_gain(t_symbol* s, const AtomListView& lv);
     void m_guitar_gain(t_symbol* s, const AtomListView& lv);
+    void m_input_gain(t_symbol* s, const AtomListView& lv);
 
 private:
     bool fillRequestDict(t_symbol* s, DataTypeDict& dict, int type) const;

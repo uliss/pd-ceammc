@@ -11,6 +11,7 @@ constexpr const char* KEY_DEVICE = "dev-id";
 constexpr const char* KEY_PHANTOM = "phantom-ch";
 constexpr const char* KEY_MIC_GAIN = "mic-gain";
 constexpr const char* KEY_GUITAR_GAIN = "guitar-gain";
+constexpr const char* KEY_INPUT_GAIN = "input-gain";
 constexpr const char* KEY_VALUE = "val";
 
 namespace {
@@ -24,6 +25,7 @@ const std::unordered_map<const char*, std::string> UrlMap = {
     { KEY_PHANTOM, "/{}/datastore/ext/ibank/0/ch/{}/48V" },
     { KEY_MIC_GAIN, "/{}/datastore/ext/ibank/0/ch/{}/trim" },
     { KEY_GUITAR_GAIN, "/{}/datastore/ext/ibank/1/ch/{}/trim" },
+    { KEY_INPUT_GAIN, "/{}/datastore/ext/ibank/2/ch/{}/trim" },
 };
 
 bool getRequestKey(const DataTypeDict& dict, const char* key, int& val)
@@ -186,6 +188,7 @@ HwMotuAvb::Future HwMotuAvb::createTask()
                     setSingleValue(cli, dev_id, KEY_PHANTOM, dict, logger_);
                     setSingleValue(cli, dev_id, KEY_MIC_GAIN, dict, logger_);
                     setSingleValue(cli, dev_id, KEY_GUITAR_GAIN, dict, logger_);
+                    setSingleValue(cli, dev_id, KEY_INPUT_GAIN, dict, logger_);
 
                 } break;
                 default:
@@ -254,7 +257,7 @@ void HwMotuAvb::m_mic_gain(t_symbol* s, const AtomListView& lv)
         return;
 
     dict.insert(KEY_MIC_GAIN, lv.intAt(0, 0));
-    dict.insert(KEY_VALUE, lv.intAt(1, false));
+    dict.insert(KEY_VALUE, lv.intAt(1, 0));
 
     scheduleTask(s, std::move(dict));
 }
@@ -269,7 +272,22 @@ void HwMotuAvb::m_guitar_gain(t_symbol* s, const AtomListView& lv)
         return;
 
     dict.insert(KEY_GUITAR_GAIN, lv.intAt(0, 0));
-    dict.insert(KEY_VALUE, lv.intAt(1, false));
+    dict.insert(KEY_VALUE, lv.intAt(1, 0));
+
+    scheduleTask(s, std::move(dict));
+}
+
+void HwMotuAvb::m_input_gain(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_INT, ARG_FLOAT))
+        return;
+
+    DataTypeDict dict;
+    if (!fillRequestDict(s, dict, REQ_SET))
+        return;
+
+    dict.insert(KEY_INPUT_GAIN, lv.intAt(0, 0));
+    dict.insert(KEY_VALUE, lv.intAt(1, 0));
 
     scheduleTask(s, std::move(dict));
 }
@@ -296,4 +314,5 @@ void setup_hw_motu_avb()
     obj.addMethod("phantom", &HwMotuAvb::m_phantom);
     obj.addMethod("mic_gain", &HwMotuAvb::m_mic_gain);
     obj.addMethod("guitar_gain", &HwMotuAvb::m_guitar_gain);
+    obj.addMethod("input_gain", &HwMotuAvb::m_input_gain);
 }
