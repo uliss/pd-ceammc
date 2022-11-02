@@ -12,6 +12,10 @@ constexpr const char* KEY_PHANTOM = "phantom-ch";
 constexpr const char* KEY_MIC_GAIN = "mic-gain";
 constexpr const char* KEY_GUITAR_GAIN = "guitar-gain";
 constexpr const char* KEY_INPUT_GAIN = "input-gain";
+constexpr const char* KEY_MAIN_GAIN = "main-gain";
+constexpr const char* KEY_PHONES_GAIN = "phones-gain";
+constexpr const char* KEY_OUTPUT_GAIN = "output-gain";
+
 constexpr const char* KEY_VALUE = "val";
 
 namespace {
@@ -26,6 +30,9 @@ const std::unordered_map<const char*, std::string> UrlMap = {
     { KEY_MIC_GAIN, "/{}/datastore/ext/ibank/0/ch/{}/trim" },
     { KEY_GUITAR_GAIN, "/{}/datastore/ext/ibank/1/ch/{}/trim" },
     { KEY_INPUT_GAIN, "/{}/datastore/ext/ibank/2/ch/{}/trim" },
+    { KEY_MAIN_GAIN, "/{}/datastore/ext/obank/1/ch/0/stereoTrim" },
+    { KEY_PHONES_GAIN, "/{}/datastore/ext/obank/0/ch/0/stereoTrim" },
+    { KEY_OUTPUT_GAIN, "/{}/datastore/ext/obank/2/ch/{}/trim" },
 };
 
 bool getRequestKey(const DataTypeDict& dict, const char* key, int& val)
@@ -189,6 +196,9 @@ HwMotuAvb::Future HwMotuAvb::createTask()
                     setSingleValue(cli, dev_id, KEY_MIC_GAIN, dict, logger_);
                     setSingleValue(cli, dev_id, KEY_GUITAR_GAIN, dict, logger_);
                     setSingleValue(cli, dev_id, KEY_INPUT_GAIN, dict, logger_);
+                    setSingleValue(cli, dev_id, KEY_MAIN_GAIN, dict, logger_);
+                    setSingleValue(cli, dev_id, KEY_PHONES_GAIN, dict, logger_);
+                    setSingleValue(cli, dev_id, KEY_OUTPUT_GAIN, dict, logger_);
 
                 } break;
                 default:
@@ -223,6 +233,18 @@ bool HwMotuAvb::scheduleTask(t_symbol* s, DataTypeDict&& dict)
     return true;
 }
 
+void HwMotuAvb::m_set_single(t_symbol* s, const char* key, int ch, int val, const AtomListView& lv)
+{
+    DataTypeDict dict;
+    if (!fillRequestDict(s, dict, REQ_SET))
+        return;
+
+    dict.insert(key, ch);
+    dict.insert(KEY_VALUE, val);
+
+    scheduleTask(s, std::move(dict));
+}
+
 void HwMotuAvb::m_sync(t_symbol* s, const AtomListView& lv)
 {
     DataTypeDict dict;
@@ -237,14 +259,7 @@ void HwMotuAvb::m_phantom(t_symbol* s, const AtomListView& lv)
     if (!checkArgs(lv, ARG_INT, ARG_BOOL))
         return;
 
-    DataTypeDict dict;
-    if (!fillRequestDict(s, dict, REQ_SET))
-        return;
-
-    dict.insert(KEY_PHANTOM, lv.intAt(0, 0));
-    dict.insert(KEY_VALUE, lv.boolAt(1, false));
-
-    scheduleTask(s, std::move(dict));
+    m_set_single(s, KEY_PHANTOM, lv.intAt(0, 0), lv.boolAt(1, false), lv);
 }
 
 void HwMotuAvb::m_mic_gain(t_symbol* s, const AtomListView& lv)
@@ -252,14 +267,7 @@ void HwMotuAvb::m_mic_gain(t_symbol* s, const AtomListView& lv)
     if (!checkArgs(lv, ARG_INT, ARG_FLOAT))
         return;
 
-    DataTypeDict dict;
-    if (!fillRequestDict(s, dict, REQ_SET))
-        return;
-
-    dict.insert(KEY_MIC_GAIN, lv.intAt(0, 0));
-    dict.insert(KEY_VALUE, lv.intAt(1, 0));
-
-    scheduleTask(s, std::move(dict));
+    m_set_single(s, KEY_MIC_GAIN, lv.intAt(0, 0), lv.intAt(1, 0), lv);
 }
 
 void HwMotuAvb::m_guitar_gain(t_symbol* s, const AtomListView& lv)
@@ -267,14 +275,7 @@ void HwMotuAvb::m_guitar_gain(t_symbol* s, const AtomListView& lv)
     if (!checkArgs(lv, ARG_INT, ARG_FLOAT))
         return;
 
-    DataTypeDict dict;
-    if (!fillRequestDict(s, dict, REQ_SET))
-        return;
-
-    dict.insert(KEY_GUITAR_GAIN, lv.intAt(0, 0));
-    dict.insert(KEY_VALUE, lv.intAt(1, 0));
-
-    scheduleTask(s, std::move(dict));
+    m_set_single(s, KEY_GUITAR_GAIN, lv.intAt(0, 0), lv.intAt(1, 0), lv);
 }
 
 void HwMotuAvb::m_input_gain(t_symbol* s, const AtomListView& lv)
@@ -282,14 +283,31 @@ void HwMotuAvb::m_input_gain(t_symbol* s, const AtomListView& lv)
     if (!checkArgs(lv, ARG_INT, ARG_FLOAT))
         return;
 
-    DataTypeDict dict;
-    if (!fillRequestDict(s, dict, REQ_SET))
+    m_set_single(s, KEY_INPUT_GAIN, lv.intAt(0, 0), lv.intAt(1, 0), lv);
+}
+
+void HwMotuAvb::m_main_gain(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_FLOAT))
         return;
 
-    dict.insert(KEY_INPUT_GAIN, lv.intAt(0, 0));
-    dict.insert(KEY_VALUE, lv.intAt(1, 0));
+    m_set_single(s, KEY_MAIN_GAIN, 0, lv.intAt(0, 0), lv);
+}
 
-    scheduleTask(s, std::move(dict));
+void HwMotuAvb::m_phones_gain(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_FLOAT))
+        return;
+
+    m_set_single(s, KEY_PHONES_GAIN, 0, lv.intAt(0, 0), lv);
+}
+
+void HwMotuAvb::m_output_gain(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_INT, ARG_FLOAT))
+        return;
+
+    m_set_single(s, KEY_OUTPUT_GAIN, lv.intAt(0, 0), lv.intAt(1, 0), lv);
 }
 
 bool HwMotuAvb::fillRequestDict(t_symbol* s, DataTypeDict& dict, int type) const
@@ -315,4 +333,7 @@ void setup_hw_motu_avb()
     obj.addMethod("mic_gain", &HwMotuAvb::m_mic_gain);
     obj.addMethod("guitar_gain", &HwMotuAvb::m_guitar_gain);
     obj.addMethod("input_gain", &HwMotuAvb::m_input_gain);
+    obj.addMethod("main_gain", &HwMotuAvb::m_main_gain);
+    obj.addMethod("phones_gain", &HwMotuAvb::m_phones_gain);
+    obj.addMethod("output_gain", &HwMotuAvb::m_output_gain);
 }

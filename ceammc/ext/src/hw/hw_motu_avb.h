@@ -25,10 +25,14 @@ public:
     void m_mic_gain(t_symbol* s, const AtomListView& lv);
     void m_guitar_gain(t_symbol* s, const AtomListView& lv);
     void m_input_gain(t_symbol* s, const AtomListView& lv);
+    void m_main_gain(t_symbol* s, const AtomListView& lv);
+    void m_phones_gain(t_symbol* s, const AtomListView& lv);
+    void m_output_gain(t_symbol* s, const AtomListView& lv);
 
 private:
     bool fillRequestDict(t_symbol* s, DataTypeDict& dict, int type) const;
     bool scheduleTask(t_symbol* s, DataTypeDict&& dict);
+    void m_set_single(t_symbol* s, const char* key, int ch, int val, const AtomListView& lv);
 };
 
 void setup_hw_motu_avb();
