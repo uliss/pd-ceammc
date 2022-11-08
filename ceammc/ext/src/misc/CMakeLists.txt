@@ -29,12 +29,6 @@ endif()
 find_package(PkgConfig QUIET)
 
 if(WITH_SFIZZ)
-    pkg_check_modules(SFIZZ "sfizz" REQUIRED)
-else()
-    pkg_check_modules(SFIZZ "sfizz")
-endif()
-
-if(SFIZZ_FOUND)
     target_include_directories(ceammc_misc PRIVATE ${SFIZZ_INCLUDE_DIRS})
     target_compile_definitions(ceammc_misc PRIVATE -DWITH_SFIZZ)
     target_link_libraries(ceammc_misc PUBLIC ${SFIZZ_LIBRARIES})
