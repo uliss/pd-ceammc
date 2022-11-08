@@ -85,9 +85,13 @@ public:
     }
     void operator()(const net::OscMessageMidi& midi)
     {
-        r_.append(gensym("midi"));
         for (int i = 0; i < 4; i++)
             r_.append(midi.data[i]);
+    }
+    void operator()(const net::OscMessageBlob& blob)
+    {
+        for (auto b : blob.data)
+            r_.append(static_cast<int>(b));
     }
 };
 
@@ -100,6 +104,7 @@ namespace net {
         , types_(nullptr)
         , disp_(this)
     {
+        createInlet();
         createOutlet();
 
         server_ = new SymbolProperty("@server", gensym("default"));
@@ -128,16 +133,49 @@ namespace net {
             osc->unsubscribeAll(disp_.id());
     }
 
+    const char* NetOscReceive::types() const
+    {
+        return (crc32_hash(types_->value()) == hash_none) ? nullptr
+                                                          : types_->value()->s_name;
+    }
+
+    bool NetOscReceive::subscribe(const net::OscServerList::OscServerPtr& osc, t_symbol* path)
+    {
+        if (osc && osc->isValid() && path != &s_) {
+            osc->subscribeMethod(path->s_name, types(), disp_.id(), &pipe_);
+            LIB_LOG << fmt::format("[osc] subscribed to {} at \"{}\"", path->s_name, osc->name());
+            return true;
+        } else if (path != &s_) {
+            LIB_LOG << fmt::format("[osc] can't subscribe to {} '{}'", path->s_name, server_->value()->s_name);
+            return false;
+        } else
+            return true;
+    }
+
+    bool NetOscReceive::unsubscribe(const net::OscServerList::OscServerPtr& osc, t_symbol* path)
+    {
+        if (osc && osc->isValid() && path != &s_) {
+            osc->unsubscribeMethod(path->s_name, types(), disp_.id());
+            LIB_LOG << fmt::format("[osc] unsubscribed from {} at \"{}\"", path->s_name, osc->name());
+            return true;
+        } else if (path != &s_) {
+            LIB_LOG << fmt::format("[osc] can't unsubscribe from {} '{}'", path->s_name, server_->value()->s_name);
+            return false;
+        } else
+            return true;
+    }
+
     void NetOscReceive::initDone()
     {
-        auto osc = net::OscServerList::instance().findByName(server_->value());
-        if (osc != nullptr && osc->isValid()) {
-            const char* types = (crc32_hash(types_->value()) == hash_none) ? nullptr
-                                                                           : types_->value()->s_name;
-            osc->subscribeMethod(path_->value()->s_name, types, disp_.id(), &pipe_);
-            LIB_LOG << fmt::format("[osc] subscribed to {} at \"{}\"", path_->value()->s_name, osc->name());
-        } else
-            LIB_LOG << fmt::format("[osc] can't subscribe to {} '{}'", path_->value()->s_name, server_->value()->s_name);
+        subscribe(OscServerList::instance().findByName(server_->value()), path_->value());
+
+        path_->setSymbolCheckFn([this](t_symbol* new_path) -> bool {
+            auto osc = OscServerList::instance().findByName(server_->value());
+            if (!unsubscribe(osc, path_->value()))
+                return false;
+
+            return subscribe(osc, new_path);
+        });
     }
 
     bool NetOscReceive::notify(NotifyEventType code)
@@ -163,7 +201,23 @@ namespace net {
         for (auto& a : msg)
             a.apply_visitor(v);
 
-        outletAtomList(outletAt(0), res, true);
+        if (msg.size() == 1 && msg[0].type() == typeid(OscMessageSpec)) {
+            auto spec = boost::get<OscMessageSpec>(msg[0]);
+            if (spec == OscMessageSpec::INF)
+                anyTo(0, gensym("inf"), AtomListView());
+            else if (spec == OscMessageSpec::NIL)
+                anyTo(0, gensym("null"), AtomListView());
+        } else if (msg.size() == 1 && msg[0].type() == typeid(OscMessageMidi)) {
+            anyTo(0, gensym("midi"), res);
+        } else if (msg.size() == 1 && msg[0].type() == typeid(OscMessageBlob)) {
+            anyTo(0, gensym("blob"), res);
+        } else
+            outletAtomList(outletAt(0), res, true);
+    }
+
+    void NetOscReceive::onInlet(size_t n, const AtomListView& lv)
+    {
+        path_->set(lv);
     }
 
     void NetOscReceive::updateServer(t_symbol* name, const AtomListView& lv)
@@ -172,11 +226,11 @@ namespace net {
             return;
 
         auto osc = net::OscServerList::instance().findByName(server_->value());
-        if (osc != nullptr && osc->isValid()) {
-            const char* types = (crc32_hash(types_->value()) == hash_none) ? nullptr
-                                                                           : types_->value()->s_name;
-            osc->subscribeMethod(path_->value()->s_name, types, disp_.id(), &pipe_);
-        }
+
+        if (!unsubscribe(osc, path_->value()))
+            return;
+
+        subscribe(osc, path_->value());
     }
 }
 }

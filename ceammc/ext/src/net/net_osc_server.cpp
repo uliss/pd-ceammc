@@ -25,6 +25,20 @@ using MutexLock = std::lock_guard<std::mutex>;
 namespace ceammc {
 namespace net {
 
+    static int oscProtoToLiblo(OscProto proto)
+    {
+        switch (proto) {
+        case OSC_PROTO_UDP:
+            return LO_UDP;
+        case OSC_PROTO_TCP:
+            return LO_TCP;
+        case OSC_PROTO_UNIX:
+            return LO_UNIX;
+        default:
+            return LO_DEFAULT;
+        }
+    }
+
     OscMethodSubscriber::OscMethodSubscriber(SubscriberId id, OscMethodPipe* pipe)
         : id_(id)
         , pipe_(pipe)
@@ -74,7 +88,13 @@ namespace net {
                     atom = OscMessageSpec::INF;
                     break;
                 case LO_CHAR:
-                    atom = argv[i]->c;
+                    atom = static_cast<char>(argv[i]->c);
+                    break;
+                case LO_BLOB:
+                    atom = OscMessageBlob(argv[i]->blob.size, &argv[i]->blob.data);
+                    break;
+                default:
+                    fmt::print("[osc] [{}]unsupported OSC type: '{}'\n", __FUNCTION__, t);
                     break;
                 }
 
@@ -136,20 +156,6 @@ namespace net {
             s.insert(x.id());
     }
 
-    static const char* protoToStr(int proto)
-    {
-        switch (proto) {
-        case LO_UDP:
-            return "udp";
-        case LO_TCP:
-            return "tcp";
-        case LO_UNIX:
-            return "unix";
-        default:
-            return "??";
-        }
-    }
-
     OscServerLogger::OscServerLogger()
     {
         Dispatcher::instance().subscribe(this, id());
@@ -200,16 +206,18 @@ namespace net {
         Dispatcher::instance().send({ id(), NOTIFY_UPDATE });
     }
 
-    OscServer::OscServer(const char* name, int port)
+    OscServer::OscServer(const char* name, int port, OscProto proto)
         : name_(name)
         , name_hash_(crc32_hash(name_))
         , lo_(nullptr)
     {
+        auto lo_proto = oscProtoToLiblo(proto);
+
         if (port <= 0) {
             // create at free system port
-            lo_ = lo_server_thread_new(nullptr, errorHandler);
+            lo_ = lo_server_thread_new_with_proto(nullptr, lo_proto, errorHandler);
         } else
-            lo_ = lo_server_thread_new(fmt::format("{}", port).c_str(), errorHandler);
+            lo_ = lo_server_thread_new_with_proto(fmt::format("{}", port).c_str(), lo_proto, errorHandler);
 
         if (lo_)
             OscServerLogger::instance().print(fmt::format("Server created: \"{}\" at {}", name_, hostname()).c_str());
@@ -463,14 +471,14 @@ namespace net {
         return addToList(std::make_shared<OscServer>(name, url));
     }
 
-    OscServerList::OscServerPtr OscServerList::createByPort(const char* name, int port)
+    OscServerList::OscServerPtr OscServerList::createByPortProto(const char* name, OscProto proto, int port)
     {
         if (findByName(name)) {
             LIB_ERR << fmt::format("server already exists: \"{}\"", name);
             return {};
         }
 
-        return addToList(std::make_shared<OscServer>(name, port));
+        return addToList(std::make_shared<OscServer>(name, port, proto));
     }
 
     void OscServerList::start(const char* name, bool value)
@@ -525,13 +533,10 @@ namespace net {
         name_->setArgIndex(0);
         addProperty(name_);
 
-        url_ = new OscUrlProperty("@url", Atom(9000), PropValueAccess::INITONLY);
+        url_ = new OscUrlProperty("@url", Atom(gensym("udp:9000")), PropValueAccess::INITONLY);
         url_->setArgIndex(1);
+        url_->registerProps(this);
         addProperty(url_);
-
-        createCbSymbolProperty("@port", [this]() { return url_->port(); });
-        createCbSymbolProperty("@host", [this]() { return url_->host(); });
-        createCbSymbolProperty("@proto", [this]() { return url_->proto(); });
 
         dump_ = new BoolProperty("@dump", false);
         dump_->setSuccessFn([this](Property*) {
@@ -567,15 +572,12 @@ namespace net {
 
         auto osc = srv_list.findByName(name);
         if (!osc) {
-            t_float port = 0;
             t_symbol* str_url = &s_;
 
-            if (url.getFloat(&port))
-                osc = srv_list.createByPort(name, port);
-            else if (url.getSymbol(&str_url))
+            if (url_->isProtoPortAddr())
+                osc = srv_list.createByPortProto(name, url_->proto(), url_->port());
+            else if (url_->isUrlAddr() && url_->value().getSymbol(&str_url))
                 osc = srv_list.createByUrl(name, str_url->s_name);
-            else
-                osc = srv_list.createByPort(name, 0);
         }
 
         if (!osc || !osc->isValid())

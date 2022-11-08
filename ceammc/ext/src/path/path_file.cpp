@@ -360,14 +360,14 @@ t_symbol* PathFile::expandPath(t_symbol* path) const
         if (!dir || !dir->s_name) {
             fs::path new_path = platform::pd_user_directory();
             new_path /= exp_path;
-            return gensym(new_path.lexically_normal().c_str());
+            return gensym(new_path.lexically_normal().string().c_str());
         }
 
         fs::path new_path = platform::expand_tilde_path(dir->s_name);
         new_path /= exp_path;
-        return gensym(new_path.lexically_normal().c_str());
+        return gensym(new_path.lexically_normal().string().c_str());
     } else
-        return gensym(exp_path.lexically_normal().c_str());
+        return gensym(exp_path.lexically_normal().string().c_str());
 }
 
 void setup_path_file()

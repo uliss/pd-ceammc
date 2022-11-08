@@ -31,6 +31,7 @@ ceammc_hw_external(arduino)
 ceammc_hw_external(cpu_temp)
 ceammc_hw_external(display)
 ceammc_hw_external(kbd_light)
+ceammc_hw_external(motu_avb)
 ceammc_hw_external(serial)
 
 #if(LIBUSB_1_FOUND)
@@ -44,6 +45,7 @@ ceammc_hw_external(serial)
 target_include_directories(ceammc_hw
     PRIVATE
         ${PROJECT_BINARY_DIR} # for config.h
+        "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>"
 )
 
 target_link_libraries(ceammc_hw
@@ -51,6 +53,7 @@ target_link_libraries(ceammc_hw
         serial
         readerwriterqueue
         hw_arduino
+        http_lib
 )
 
 #if(WITH_EXPERIMENTAL)

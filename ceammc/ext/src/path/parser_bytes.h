@@ -22,7 +22,7 @@ std::pair<int, size_t> parse_bytes(const AtomListView& lv, std::vector<char>& ou
 
 std::string parser_byte_error(const AtomListView& lv, const std::pair<int, size_t>& res);
 
-std::ios::open_mode parse_mode(const char* str);
+std::ios::openmode parse_mode(const char* str);
 
 }
 

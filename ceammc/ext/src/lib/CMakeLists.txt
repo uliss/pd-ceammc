@@ -104,6 +104,7 @@ set(CEAMMC_LIB_SOURCES
     ceammc_transport.cpp
     ceammc_units.cpp
     ceammc_window.cpp
+    datatype_json.cpp
     datatype_dict.cpp
     datatype_mlist.cpp
     datatype_property.cpp

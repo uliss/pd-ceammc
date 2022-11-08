@@ -840,7 +840,7 @@ bool BaseObject::checkArg(const Atom& atom, BaseObject::ArgumentType type, int p
         break;
     case ARG_BYTE:
         if (!atom.isFloat())
-            ARG_ERROR("byte value expexted");
+            ARG_ERROR("byte value expected");
 
         if (atom.asFloat() < 0 || atom.asFloat() > 255)
             ARG_ERROR("byte range expected: [0-255]");

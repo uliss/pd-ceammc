@@ -3,12 +3,13 @@
         an.onset an.onset~ an.pitchtrack~ an.rms~ an.tempo~ an.zero~
     }}
     {array {
-        array.bpm array.circular~ array.copy array.do array.each array.fill
-        array.grainer~ array.hist array.mean array.minmax array.play~
-        array.plot array.plot~ array.resample array.risset_rythm~ array.rms
-        array.set array.stddev array.stretch array.sum array.sum2
-        array.variance array.vplay array.window plot.geomspace~ plot.hist~
-        plot.linspace~ plot.logspace~ plot.response~
+        array.bpm array.circular array.circular~ array.convolve array.copy
+        array.do array.each array.fill array.grainer~ array.hist array.mean
+        array.minmax array.play~ array.plot array.plot~ array.resample
+        array.risset_rythm~ array.rms array.set array.stddev array.stretch
+        array.sum array.sum2 array.variance array.vplay array.window
+        plot.geomspace~ plot.hist~ plot.linspace~ plot.logspace~
+        plot.response~
     }}
     {base {
         ceammc.search function function.call gain~ logger matrix~
@@ -54,9 +55,9 @@
         flow.interval flow.less flow.less_eq flow.list2many flow.match
         flow.mem flow.multiplex flow.multiplex2~ flow.multiplex~ flow.once
         flow.pack flow.pass flow.pass_if flow.pipe flow.queue flow.record
-        flow.reject flow.reject_if flow.ring flow.route flow.select flow.space
-        flow.speedlim flow.split flow.stack flow.sync flow.sync_pack flow.tee~
-        replace route.float route.random
+        flow.reject flow.reject_if flow.ring flow.route flow.select
+        flow.seqdelay flow.space flow.speedlim flow.split flow.stack flow.sync
+        flow.sync_pack flow.tee~ replace route.float route.random
     }}
     {flt {
         flt.a-weight flt.biquad~ flt.bpf12~ flt.bpf24~ flt.c_apf flt.c_bpf~
@@ -144,7 +145,8 @@
         loadexpr msg msg.after msg.onload msg.sched
     }}
     {net {
-        net.host2ip
+        net.artnet.send net.host2ip net.http.send net.osc.receive net.osc.send
+        net.osc.server
     }}
     {noise {
         noise.baker noise.clifford noise.collatz noise.crackle~ noise.duffing
@@ -162,8 +164,8 @@
         patch.args patch.deps patch.tree
     }}
     {path {
-        file.size path.basename path.dirname path.exists path.is_dir
-        path.lsdir path.normalize path.search path.split
+        file file.size path.basename path.dirname path.exists path.is_dir
+        path.lsdir path.monitor path.normalize path.search path.split
     }}
     {predicates {
         is_any is_bang is_data is_dict is_even is_file is_float is_list is_odd
@@ -177,8 +179,9 @@
         prop.set prop.split
     }}
     {proto {
-        proto.firmata proto.inscore proto.midi proto.midi.cc proto.midi.sysex
-        proto.mpv proto.sp.alpaca proto.whammy proto.xtouch_ext
+        proto.feelworld proto.firmata proto.inscore proto.midi proto.midi.cc
+        proto.midi.sysex proto.moppy proto.mpv proto.sp.alpaca proto.vlc
+        proto.whammy proto.xtouch_ext
     }}
     {random {
         random.atom random.discrete random.float random.gauss random.int

@@ -35,7 +35,7 @@ struct HostResult {
     std::string data;
 };
 
-using NetHostBase = PollThreadQueueObject<HostResult, PollThreadQueue<HostResult>>;
+using NetHostBase = PollThreadQueueObject<HostResult, HostResult>;
 
 class NetHost : public NetHostBase {
     SymbolEnumProperty* addr_type_;

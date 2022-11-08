@@ -22,7 +22,9 @@ endfunction()
 # liblo
 find_package(liblo)
 if(LIBLO_FOUND)
-    target_sources(test_ext_net PRIVATE test_net_osc_server.cpp)
+    add_net_test(osc_receive)
+    add_net_test(osc_server)
+    add_net_test(osc_send)
 endif()
 
 add_net_test(host)

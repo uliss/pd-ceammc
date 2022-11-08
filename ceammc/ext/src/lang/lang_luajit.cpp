@@ -171,7 +171,7 @@ void LangLuaJit::dump() const
         os << l.view() << "\n";
 }
 
-PollThreadTaskObject<int>::Future LangLuaJit::createTask()
+LangLuaJit::Future LangLuaJit::createTask()
 {
     setQuit(false);
 
@@ -200,6 +200,13 @@ PollThreadTaskObject<int>::Future LangLuaJit::createTask()
 
             return;
         });
+}
+
+void LangLuaJit::processTask(NotifyEventType)
+{
+    lua::LuaCmd msg;
+    while (this->outPipe().try_dequeue(msg))
+        processMessage(msg);
 }
 
 void LangLuaJit::processMessage(const lua::LuaCmd& msg)

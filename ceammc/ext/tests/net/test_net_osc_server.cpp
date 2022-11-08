@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "ceammc_format.h"
 #include "net_osc_server.h"
+#include "parser_osc.h"
 #include "test_base.h"
 #include "test_external.h"
 
@@ -34,26 +35,58 @@ TEST_CASE("net.osc.server", "[externals]")
         OscUrlProperty prop("url", SYM("osc.udp://:8080"));
         REQUIRE(prop.name() == "url"_sym);
         REQUIRE(prop.host() == ""_sym);
-        REQUIRE(prop.port() == "8080"_sym);
-        REQUIRE(prop.proto() == "udp"_sym);
+        REQUIRE(prop.path()->s_name == ""_str);
+        REQUIRE(prop.port() == 8080);
+        REQUIRE(prop.proto() == OSC_PROTO_UDP);
+        REQUIRE(prop.isUrlAddr());
 
         REQUIRE(prop.set(LF(5432)));
         REQUIRE(prop.host() == ""_sym);
-        REQUIRE(prop.port() == "5432"_sym);
-        REQUIRE(prop.proto() == "udp"_sym);
+        REQUIRE(prop.port() == 5432);
+        REQUIRE(prop.proto() == OSC_PROTO_UDP);
+        REQUIRE(prop.isProtoPortAddr());
 
         REQUIRE(prop.set(LA("osc://localhost:9123")));
         REQUIRE(prop.host() == "localhost"_sym);
-        REQUIRE(prop.port() == "9123"_sym);
-        REQUIRE(prop.proto()->s_name == "udp"_str);
+        REQUIRE(prop.port() == 9123);
+        REQUIRE(prop.proto() == OSC_PROTO_UDP);
+        REQUIRE(prop.isUrlAddr());
 
-        REQUIRE(prop.set(LA("osc.tcp://localhost")));
+        REQUIRE(prop.set(LA("udp:12345")));
+        REQUIRE(prop.host() == ""_sym);
+        REQUIRE(prop.port() == 12345);
+        REQUIRE(prop.proto() == OSC_PROTO_UDP);
+        REQUIRE(prop.isProtoPortAddr());
+
+        REQUIRE(prop.set(LA("tcp:12340")));
+        REQUIRE(prop.host() == ""_sym);
+        REQUIRE(prop.port() == 12340);
+        REQUIRE(prop.proto() == OSC_PROTO_TCP);
+        REQUIRE(prop.isProtoPortAddr());
+
+        REQUIRE(!prop.set(LA("osc.tcp://localhost")));
+        REQUIRE(prop.set(LA("osc.tcp://localhost:9129")));
         REQUIRE(prop.host() == "localhost"_sym);
-        REQUIRE(prop.port()->s_name == ""_str);
-        REQUIRE(prop.proto() == "tcp"_sym);
+        REQUIRE(prop.port() == 9129);
+        REQUIRE(prop.proto() == OSC_PROTO_TCP);
+        REQUIRE(prop.isUrlAddr());
 
         REQUIRE_FALSE(prop.set(LA("osc.ftp://localhost")));
         REQUIRE_FALSE(prop.set(LA("http://localhost")));
+
+        REQUIRE(prop.set(LA("osc.unix:///var/tmp/socket")));
+        REQUIRE(prop.host() == ""_sym);
+        REQUIRE(prop.port() == 0);
+        REQUIRE(prop.proto() == OSC_PROTO_UNIX);
+        REQUIRE(prop.path()->s_name == "/var/tmp/socket"_str);
+        REQUIRE(prop.isUrlAddr());
+
+        REQUIRE(prop.set(LA("osc.unix://:/var/tmp/socket")));
+        REQUIRE(prop.host() == ""_sym);
+        REQUIRE(prop.port() == 0);
+        REQUIRE(prop.proto() == OSC_PROTO_UNIX);
+        REQUIRE(prop.path()->s_name == "/var/tmp/socket"_str);
+        REQUIRE(prop.isUrlAddr());
     }
 
     SECTION("construct")
@@ -64,15 +97,57 @@ TEST_CASE("net.osc.server", "[externals]")
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY(t, @name, "default");
+            REQUIRE_PROPERTY(t, @port, 9000);
+            REQUIRE_PROPERTY(t, @proto, "udp"_sym);
+        }
+
+        SECTION("name")
+        {
+            TObj t("net.osc.server", LA("test0"));
+            REQUIRE_PROPERTY(t, @name, "test0");
+            REQUIRE_PROPERTY(t, @url, "udp:9000");
+            REQUIRE_PROPERTY(t, @port, 9000);
+            REQUIRE_PROPERTY(t, @proto, "udp"_sym);
+        }
+
+        SECTION("port")
+        {
+            TObj t("net.osc.server", LA("test1", 9001));
+            REQUIRE_PROPERTY(t, @name, "test1");
+            REQUIRE_PROPERTY(t, @url, 9001);
+            REQUIRE_PROPERTY(t, @proto, "udp");
+            REQUIRE_PROPERTY(t, @port, 9001);
+            REQUIRE_PROPERTY(t, @host, "");
+        }
+
+
+        SECTION("port proto")
+        {
+            TObj t("net.osc.server", LA("test2", "udp:9002"));
+            REQUIRE_PROPERTY(t, @name, "test2");
+            REQUIRE_PROPERTY(t, @url, "udp:9002");
+            REQUIRE_PROPERTY(t, @proto, "udp");
+            REQUIRE_PROPERTY(t, @port, 9002);
+            REQUIRE_PROPERTY(t, @host, "");
+        }
+
+        SECTION("port proto tcp")
+        {
+            TObj t("net.osc.server", LA("test3", "tcp:9003"));
+            REQUIRE_PROPERTY(t, @name, "test3");
+            REQUIRE_PROPERTY(t, @url, "tcp:9003");
+            REQUIRE_PROPERTY(t, @proto, "tcp");
+            REQUIRE_PROPERTY(t, @port, 9003);
+            REQUIRE_PROPERTY(t, @host, "");
         }
 
         SECTION("url")
         {
-            TExt t("net.osc.server", LA("test0", "osc.udp://:9123"));
-            REQUIRE_PROPERTY(t, @name, "test0");
-            REQUIRE_PROPERTY(t, @url, "osc.udp://:9123");
+            TExt t("net.osc.server", LA("test4", "osc.udp://:9003"));
+            REQUIRE_PROPERTY(t, @name, "test4");
+            REQUIRE_PROPERTY(t, @url, "osc.udp://:9003");
             REQUIRE_PROPERTY(t, @proto, "udp");
-            REQUIRE_PROPERTY(t, @port, "9123");
+            REQUIRE_PROPERTY(t, @port, 9003);
             REQUIRE_PROPERTY(t, @host, "");
         }
     }

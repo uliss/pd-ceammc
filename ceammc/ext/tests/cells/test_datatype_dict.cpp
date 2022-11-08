@@ -219,87 +219,137 @@ TEST_CASE("DataTypeDict", "[core]")
         REQUIRE(*src.toJSON() == "{\"f\":[[1,2],\"ABC\"]}");
     }
 
-    //    SECTION("fromJSON")
-    //    {
-    //        DataTypeDict src;
-    //        //        REQUIRE(src.fromJSON("") == false);
+    SECTION("fromJSON")
+    {
+        DataTypeDict src;
+        REQUIRE(src.fromJSON("") == false);
 
-    //        REQUIRE(src.fromJSON("{\"a\":\"a b c\"}"));
-    //        REQUIRE(src.size() == 1);
-    //        REQUIRE(src.contains(A("a")));
-    //        REQUIRE(src.valueT<Atom>(A("a")) == A("a b c"));
+        REQUIRE(src.fromJSON("{\"a\":1024}"));
+        REQUIRE(src.size() == 1);
+        REQUIRE(src.contains("a"));
+        REQUIRE(src.at("a") == LF(1024));
 
-    //        REQUIRE(src.fromJSON("{\"b\":123}"));
-    //        REQUIRE(src.size() == 1);
-    //        REQUIRE(src.contains(A("b")));
-    //        REQUIRE(src.valueT<Atom>(A("b")) == A(123));
+        REQUIRE(src.fromJSON("{\"a\":\"ABC\"}"));
+        REQUIRE(src.size() == 1);
+        REQUIRE(src.contains("a"));
+        REQUIRE(src.at("a") == LA("ABC"));
 
-    //        REQUIRE(src.fromJSON("{\"d\":true}"));
-    //        REQUIRE(src.size() == 1);
-    //        REQUIRE(src.contains(A("d")));
-    //        REQUIRE(src.valueT<Atom>(A("d")) == A(1));
+        REQUIRE(src.fromJSON("{\"a\":[]}"));
+        REQUIRE(src.size() == 1);
+        REQUIRE(src.contains("a"));
+        REQUIRE(src.at("a") == L());
 
-    //        REQUIRE(src.fromJSON("{\"d\":false}"));
-    //        REQUIRE(src.size() == 1);
-    //        REQUIRE(src.contains(A("d")));
-    //        REQUIRE(src.valueT<Atom>(A("d")) == A(0.f));
+        REQUIRE(src.fromJSON("{\"a\":[1,2,3]}"));
+        REQUIRE(src.size() == 1);
+        REQUIRE(src.contains("a"));
+        REQUIRE(src.at("a") == LF(1, 2, 3));
 
-    //        REQUIRE(src.fromJSON("{\"e\": [1, 2, 3]}"));
-    //        REQUIRE(src.size() == 1);
-    //        REQUIRE(src.contains(A("e")));
-    //        REQUIRE(src.valueT<AtomList>(A("e")) == LF(1, 2, 3));
+        REQUIRE(src.fromJSON(R"({"a": {}})"));
+        REQUIRE(src.size() == 1);
+        REQUIRE(src.contains("a"));
+        REQUIRE(src.at("a") == AtomList(DictAtom()));
 
-    //        REQUIRE(src.fromJSON("{\"f\": [1, 2, \"ABC\"]}"));
-    //        REQUIRE(src.size() == 1);
-    //        REQUIRE(src.contains(A("f")));
-    //        REQUIRE(src.valueT<AtomList>(A("f")) == LA(1, 2, "ABC"));
+        REQUIRE(src.fromJSON(R"({"a": {"b": -1234}})"));
+        REQUIRE(src.size() == 1);
+        REQUIRE(src.contains("a"));
+        REQUIRE(src.at("a") == AtomList(DictAtom("[b: -1234]")));
 
-    //        // complex array
-    //        REQUIRE(src.fromJSON("{\"g\": [1, 2, [3,4,5], [6, 7], {\"a\": 200}]}"));
-    //        REQUIRE(src.size() == 1);
-    //        REQUIRE(src.contains(A("g")));
-    //        REQUIRE(src.valueT<DataAtom>(A("g"))->isData());
-    //        REQUIRE(src.valueT<DataAtom>(A("g"))->data().as<DataTypeMList>() != 0);
-    //        auto lst0 = *src.valueT<DataAtom>(A("g"))->data().as<DataTypeMList>();
-    //        REQUIRE(lst0.size() == 5);
-    //        REQUIRE(lst0.at(0) == DataAtom(A(1)));
-    //        REQUIRE(lst0.at(1) == DataAtom(A(2)));
-    //        auto ml0 = DataTypeMList(LF(3, 4, 5));
-    //        REQUIRE(lst0.at(2).data().as<DataTypeMList>()->isEqual(&ml0));
-    //        auto ml1 = DataTypeMList(LF(6, 7));
-    //        REQUIRE(lst0.at(3).data().as<DataTypeMList>()->isEqual(&ml1));
-    //        REQUIRE(lst0.at(4).data().as<DataTypeDict>() != 0);
-    //        auto dict0 = *lst0.at(4).data().as<DataTypeDict>();
-    //        REQUIRE(dict0.contains(A("a")));
-    //        REQUIRE(dict0.size() == 1);
-    //        REQUIRE(dict0.valueT<Atom>(A("a"))->asFloat() == 200);
+        REQUIRE(src.fromJSON(R"({"A": {"B": {"C": 1234}}})"));
+        REQUIRE(src.size() == 1);
+        REQUIRE(src.contains("A"));
+        REQUIRE(src.at("A") == AtomList(DictAtom("[B: [C: 1234]]")));
 
-    // simple dict
-    //        REQUIRE(src.fromJSON("{\"h\": {\"a'\": 1024, \"b'\": -100}}"));
-    //        REQUIRE(src.size() == 1);
-    //        REQUIRE(src.contains(A("h")));
-    //        REQUIRE(src.valueT<DataAtom>(A("h"))->isData());
-    //        REQUIRE(src.valueT<DataAtom>(A("h"))->data().as<DataTypeDict>() != 0);
-    //        auto dict1 = *src.valueT<DataAtom>(A("h"))->data().as<DataTypeDict>();
-    //        REQUIRE(dict1.size() == 2);
-    //        REQUIRE(dict1.contains(A("a'")));
-    //        REQUIRE(dict1.contains(A("b'")));
-    //        REQUIRE(dict1.valueT<Atom>(A("a'"))->asFloat() == 1024);
-    //        REQUIRE(dict1.valueT<Atom>(A("b'"))->asFloat() == -100);
+        REQUIRE(src.fromJSON(R"({"a": [[]]})"));
+        REQUIRE(src.size() == 1);
+        REQUIRE(src.contains("a"));
+        REQUIRE(src.at("a") == parseDataString("(())").result());
 
-    //        // spaces dict
-    //        REQUIRE(src.fromJSON("{\"key space\": {\"a'\": \"value space\", \"b'\": -100}}"));
-    //        REQUIRE(src.size() == 1);
-    //        REQUIRE(src.contains(A("key space")));
-    //        REQUIRE(src.valueT<DataAtom>(A("key space"))->isData());
-    //        REQUIRE(src.valueT<DataAtom>(A("key space"))->data().as<DataTypeDict>() != 0);
-    //        dict1 = *src.valueT<DataAtom>(A("key space"))->data().as<DataTypeDict>();
-    //        REQUIRE(dict1.size() == 2);
-    //        REQUIRE(dict1.contains(A("a'")));
-    //        REQUIRE(dict1.contains(A("b'")));
-    //        REQUIRE(dict1.valueT<Atom>(A("a'")) == A("value space"));
-    //        REQUIRE(dict1.valueT<Atom>(A("b'"))->asFloat() == -100);
-    //    }
+        REQUIRE(src.fromJSON(R"({"a": [{},{}]})"));
+        REQUIRE(src.size() == 1);
+        REQUIRE(src.contains("a"));
+        REQUIRE(src.at("a") == parseDataString("([] [])").result());
+
+        //        REQUIRE(src.fromJSON("{\"a\":[{},{a: 1},{b: 2}]}"));
+        //        REQUIRE(src.size() == 1);
+        //        REQUIRE(src.contains("a"));
+        //        REQUIRE(src.at("a") == AtomList(MListAtom()));
+
+        //        REQUIRE(src.fromJSON("{\"a\":{\"b\":-45}}"));
+        //        REQUIRE(src.size() == 1);
+        //        REQUIRE(src.contains("a"));
+        //        REQUIRE(src.at("a") == AtomList(DictAtom("[b: -45]")));
+
+        //        REQUIRE(src.fromJSON("{\"b\":123}"));
+        //        REQUIRE(src.size() == 1);
+        //        REQUIRE(src.contains(A("b")));
+        //        REQUIRE(src.valueT<Atom>(A("b")) == A(123));
+
+        //        REQUIRE(src.fromJSON("{\"d\":true}"));
+        //        REQUIRE(src.size() == 1);
+        //        REQUIRE(src.contains(A("d")));
+        //        REQUIRE(src.valueT<Atom>(A("d")) == A(1));
+
+        //        REQUIRE(src.fromJSON("{\"d\":false}"));
+        //        REQUIRE(src.size() == 1);
+        //        REQUIRE(src.contains(A("d")));
+        //        REQUIRE(src.valueT<Atom>(A("d")) == A(0.f));
+
+        //        REQUIRE(src.fromJSON("{\"e\": [1, 2, 3]}"));
+        //        REQUIRE(src.size() == 1);
+        //        REQUIRE(src.contains(A("e")));
+        //        REQUIRE(src.valueT<AtomList>(A("e")) == LF(1, 2, 3));
+
+        //        REQUIRE(src.fromJSON("{\"f\": [1, 2, \"ABC\"]}"));
+        //        REQUIRE(src.size() == 1);
+        //        REQUIRE(src.contains(A("f")));
+        //        REQUIRE(src.valueT<AtomList>(A("f")) == LA(1, 2, "ABC"));
+
+        //        // complex array
+        //        REQUIRE(src.fromJSON("{\"g\": [1, 2, [3,4,5], [6, 7], {\"a\": 200}]}"));
+        //        REQUIRE(src.size() == 1);
+        //        REQUIRE(src.contains(A("g")));
+        //        REQUIRE(src.valueT<DataAtom>(A("g"))->isData());
+        //        REQUIRE(src.valueT<DataAtom>(A("g"))->data().as<DataTypeMList>() != 0);
+        //        auto lst0 = *src.valueT<DataAtom>(A("g"))->data().as<DataTypeMList>();
+        //        REQUIRE(lst0.size() == 5);
+        //        REQUIRE(lst0.at(0) == DataAtom(A(1)));
+        //        REQUIRE(lst0.at(1) == DataAtom(A(2)));
+        //        auto ml0 = DataTypeMList(LF(3, 4, 5));
+        //        REQUIRE(lst0.at(2).data().as<DataTypeMList>()->isEqual(&ml0));
+        //        auto ml1 = DataTypeMList(LF(6, 7));
+        //        REQUIRE(lst0.at(3).data().as<DataTypeMList>()->isEqual(&ml1));
+        //        REQUIRE(lst0.at(4).data().as<DataTypeDict>() != 0);
+        //        auto dict0 = *lst0.at(4).data().as<DataTypeDict>();
+        //        REQUIRE(dict0.contains(A("a")));
+        //        REQUIRE(dict0.size() == 1);
+        //        REQUIRE(dict0.valueT<Atom>(A("a"))->asFloat() == 200);
+
+        // simple dict
+        //        REQUIRE(src.fromJSON("{\"h\": {\"a'\": 1024, \"b'\": -100}}"));
+        //        REQUIRE(src.size() == 1);
+        //        REQUIRE(src.contains(A("h")));
+        //        REQUIRE(src.valueT<DataAtom>(A("h"))->isData());
+        //        REQUIRE(src.valueT<DataAtom>(A("h"))->data().as<DataTypeDict>() != 0);
+        //        auto dict1 = *src.valueT<DataAtom>(A("h"))->data().as<DataTypeDict>();
+        //        REQUIRE(dict1.size() == 2);
+        //        REQUIRE(dict1.contains(A("a'")));
+        //        REQUIRE(dict1.contains(A("b'")));
+        //        REQUIRE(dict1.valueT<Atom>(A("a'"))->asFloat() == 1024);
+        //        REQUIRE(dict1.valueT<Atom>(A("b'"))->asFloat() == -100);
+
+        //        // spaces dict
+        //        REQUIRE(src.fromJSON("{\"key space\": {\"a'\": \"value space\", \"b'\": -100}}"));
+        //        REQUIRE(src.size() == 1);
+        //        REQUIRE(src.contains(A("key space")));
+        //        REQUIRE(src.valueT<DataAtom>(A("key space"))->isData());
+        //        REQUIRE(src.valueT<DataAtom>(A("key space"))->data().as<DataTypeDict>() != 0);
+        //        dict1 = *src.valueT<DataAtom>(A("key space"))->data().as<DataTypeDict>();
+        //        REQUIRE(dict1.size() == 2);
+        //        REQUIRE(dict1.contains(A("a'")));
+        //        REQUIRE(dict1.contains(A("b'")));
+        //        REQUIRE(dict1.valueT<Atom>(A("a'")) == A("value space"));
+        //        REQUIRE(dict1.valueT<Atom>(A("b'"))->asFloat() == -100);
+    }
 
     //    SECTION("toJSON")
     //    {

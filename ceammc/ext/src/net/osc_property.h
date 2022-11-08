@@ -2,28 +2,35 @@
 #define OSC_PROPERTY_H
 
 #include "ceammc_property.h"
+#include "osc_common.h"
 
 namespace ceammc {
 namespace net {
 
-class OscUrlProperty : public AtomProperty {
-    t_symbol* host_;
-    t_symbol* port_;
-    t_symbol* proto_;
-    int iport_;
+    class OscUrlProperty : public AtomProperty {
+        t_symbol* host_;
+        t_symbol* path_;
+        int port_;
+        int addr_type_;
+        OscProto proto_;
 
-public:
-    OscUrlProperty(const std::string& name, const Atom& def, PropValueAccess ro = PropValueAccess::READWRITE);
+    public:
+        OscUrlProperty(const std::string& name, const Atom& def, PropValueAccess ro = PropValueAccess::READWRITE);
 
-    t_symbol* host() const { return host_; }
-    t_symbol* port() const { return port_; }
-    int iport() const { return iport_; }
-    t_symbol* proto() const { return proto_; }
-    const Atom& url() const { return value(); }
+        t_symbol* host() const { return host_; }
+        OscProto proto() const { return proto_; }
+        t_symbol* path() const { return path_; }
+        int port() const { return port_; }
+        const Atom& url() const { return value(); }
 
-private:
-    bool parseUrl(const Atom& url);
-};
+        void registerProps(BaseObject* obj);
+
+        bool isUrlAddr() const;
+        bool isProtoPortAddr() const;
+
+    private:
+        bool parseUrl(const Atom& url);
+    };
 
 }
 }

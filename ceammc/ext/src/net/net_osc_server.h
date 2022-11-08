@@ -34,8 +34,8 @@
 #include "ceammc_object.h"
 #include "ceammc_poll_dispatcher.h"
 #include "ceammc_property.h"
-#include "readerwriterqueue.h"
 #include "osc_property.h"
+#include "readerwriterqueue.h"
 
 namespace ceammc {
 namespace net {
@@ -53,7 +53,18 @@ namespace net {
         }
     };
 
-    using OscMessageAtom = boost::variant<bool, char, int32_t, int64_t, float, double, std::string, OscMessageMidi, OscMessageSpec>;
+    struct OscMessageBlob {
+        std::vector<char> data;
+
+        OscMessageBlob(size_t size, const char* p)
+            : data(size)
+        {
+            if (data.size() == size)
+                memcpy(data.data(), p, size);
+        }
+    };
+
+    using OscMessageAtom = boost::variant<bool, char, int32_t, int64_t, float, double, std::string, OscMessageMidi, OscMessageSpec, OscMessageBlob>;
     using OscMessage = boost::container::small_vector<OscMessageAtom, 8>;
     using OscMethodPipe = moodycamel::ReaderWriterQueue<OscMessage>;
     using OscMethodHash = std::uint32_t;
@@ -137,7 +148,7 @@ namespace net {
         OscServer& operator=(const OscServer&) = delete;
 
     public:
-        OscServer(const char* name, int port);
+        OscServer(const char* name, int port, OscProto proto = OSC_PROTO_UDP);
         OscServer(const char* name, const char* url);
         OscServer(OscServer&& srv);
         ~OscServer();
@@ -167,8 +178,11 @@ namespace net {
     };
 
     class OscServerList {
+    public:
         using OscServerPtr = std::shared_ptr<OscServer>;
         using Entry = std::pair<OscServerPtr, int>;
+
+    private:
         std::list<Entry> servers_;
 
         OscServerList();
@@ -180,7 +194,7 @@ namespace net {
         OscServerPtr findByName(const char* name);
 
         OscServerPtr createByUrl(const char* name, const char* url);
-        OscServerPtr createByPort(const char* name, int port);
+        OscServerPtr createByPortProto(const char* name, OscProto proto, int port);
 
         void start(const char* name, bool value);
 
@@ -194,7 +208,7 @@ namespace net {
 
     public:
         static constexpr const char* DISPATCHER = "#osc";
-        static constexpr const char* METHOD_UPDATE = "update";
+        static constexpr const char* METHOD_UPDATE = ".update";
     };
 
     class NetOscServer : public BaseObject {

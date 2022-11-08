@@ -267,10 +267,10 @@ namespace ceammc {
 #line 91 "parser_bytes.rl"
 	
 	
-	std::ios::open_mode parse_mode(const char* str)
+	std::ios::openmode parse_mode(const char* str)
 	{
 		int cs = 0;
-		int rl_mode = 0;
+		std::ios::openmode rl_mode = static_cast<std::ios::openmode>(0);
 		const char* p = str;
 		
 		if (!p || p[0] == '\0')
@@ -411,7 +411,7 @@ namespace ceammc {
 		)
 		return rl_mode;
 		
-		return 0;
+		return static_cast<std::ios::openmode>(0);;
 	}
 	
 }

@@ -25,14 +25,15 @@
 
 namespace ceammc {
 
-template <class Result>
+template <typename In, typename Out>
 class PollThreadTaskObject : public BaseObject, public NotifiedObject {
 public:
     using Future = std::future<void>;
 
 private:
     Future future_;
-    Result task_in_, task_out_;
+    In task_in_;
+    Out task_out_;
     std::atomic_bool quit_ { false };
 
 public:
@@ -115,31 +116,36 @@ public:
     void setQuit(bool value) { quit_ = value; }
     const std::atomic_bool& quit() const { return quit_; }
 
-    Result& inPipe() { return task_in_; }
-    const Result& inPipe() const { return task_in_; }
-    Result& outPipe() { return task_out_; }
-    const Result& outPipe() const { return task_out_; }
+    In& inPipe() { return task_in_; }
+    const In& inPipe() const { return task_in_; }
+    Out& outPipe() { return task_out_; }
+    const Out& outPipe() const { return task_out_; }
 };
 
-template <typename Msg>
-using PollThreadQueue = moodycamel::ReaderWriterQueue<Msg>;
+template <typename T>
+using PollThreadQueue = moodycamel::ReaderWriterQueue<T>;
 
-template <typename Msg, typename Result = PollThreadQueue<Msg>>
-class PollThreadQueueObject : public PollThreadTaskObject<Result> {
+template <typename In, typename Out>
+class PollThreadQueueObject
+    : public PollThreadTaskObject<
+          PollThreadQueue<In>,
+          PollThreadQueue<Out>> {
 public:
     PollThreadQueueObject(const PdArgs& args)
-        : PollThreadTaskObject<Result>(args)
+        : PollThreadTaskObject<
+            PollThreadQueue<In>,
+            PollThreadQueue<Out>>(args)
     {
     }
 
     void processTask(NotifyEventType /*event*/) override
     {
-        Msg msg;
+        Out msg;
         while (this->outPipe().try_dequeue(msg))
             processMessage(msg);
     }
 
-    virtual void processMessage(const Msg& msg) = 0;
+    virtual void processMessage(const Out& msg) = 0;
 };
 
 }

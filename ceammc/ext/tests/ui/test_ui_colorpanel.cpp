@@ -38,6 +38,12 @@ TEST_CASE("ui.colorpanel", "[ui.colorpanel]")
         REQUIRE_UI_FLOAT_PROPERTY(t, "reverse", 0);
     }
 
+    SECTION("construct args")
+    {
+        TestExtColorPanel t("ui.colorpanel", LA("@matrix", 14, 8));
+        REQUIRE_UI_LIST_PROPERTY(t, "matrix", LF(14, 8));
+    }
+
     SECTION("external")
     {
         // just create test

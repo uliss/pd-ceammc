@@ -499,7 +499,10 @@ msg.onload,ceammc/loadmsg,loadmsg		-		.
 msg.sched		..		.
 music.dur2time,music.d->t		.		.
 music.voice2midi,music.v->m		.		.
+net.artnet.send,artnet.send		.		.
 net.host2ip,net.host->ip		.		.
+net.http.send,http.send		.		..
+net.osc.receive,net.osc.r		..		.
 net.osc.send,net.osc.s		.		.
 net.osc.server,net.osc		.		.
 noise.baker		.		.
@@ -570,13 +573,16 @@ prop.join,prop<-		?		.
 prop.random		?		..
 prop.set,p.set		?		.
 prop.split,prop->,@->		.		?
+proto.feelworld		.		.
 proto.firmata		.		.
 proto.inscore		.		.
 proto.midi		.		.
 proto.midi.cc		.		.
 proto.midi.sysex		.		.
+proto.moppy		.		.
 proto.mpv		.		.
 proto.sp.alpaca		.		.
+proto.vlc		.		..
 proto.whammy		.		.
 proto.xtouch_ext		.		..
 radio,ceammc/radio		.		?

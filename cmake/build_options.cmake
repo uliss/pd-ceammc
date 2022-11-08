@@ -19,6 +19,7 @@ option(WITH_FAUST "Build faust externals" ON)
 option(WITH_LUAJIT "Build luajit externals" ON)
 option(WITH_PD_INSTANCE "Build with PD_INSTANCE" OFF)
 option(WITH_LIBSAMPLERATE "Build with libsamplerate" OFF)
+option(WITH_ARTNET "Build with artnet" ON)
 
 if(UNIX)
     option(WITH_ASAN "Build with address sanitizer" OFF)
