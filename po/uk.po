@@ -1,262 +1,248 @@
-# translation of Pure Data 0.43 to Azerbaijani Turkish
+# Translation of Pure Data to Ukrainian.
 # This file is put in the public domain.
-# Metin Amiroff <metin@karegen.com>, 2004.
+# Alex Nadzharov <anadjarov@gmail.com>, 2022.
+# Nick Acorne, 2022.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Pure Data 0.43\n"
+"Project-Id-Version: Pure Data 0.53.0\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
 "POT-Creation-Date: 2022-10-19 23:59+0200\n"
-"PO-Revision-Date: 2004-03-12 22:22+0200\n"
-"Last-Translator: Metin Amiroff <metin@karegen.com>\n"
-"Language-Team: Azerbaijani <translation-team-az@lists.sourceforge.net>\n"
-"Language: az\n"
+"PO-Revision-Date: 2022-10-20 12:48+0000\n"
+"Last-Translator: Alex Nadzharov <anadjarov@gmail.com>\n"
+"Language-Team: Ukrainian <https://hosted.weblate.org/projects/pure-data/pure-"
+"data/uk/>\n"
+"Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.14.2-dev\n"
 
 msgid "linear"
-msgstr ""
+msgstr "лінійний"
 
 msgid "logarithmic"
-msgstr ""
+msgstr "логарифмічний"
 
 msgid "new-only"
-msgstr ""
+msgstr "тільки новий"
 
 msgid "new&old"
-msgstr ""
+msgstr "новий та старий"
 
-#, fuzzy
 msgid "no scale"
-msgstr "Qeyd Et"
+msgstr "без шкали"
 
-#, fuzzy
 msgid "scale"
-msgstr "Qeyd Et"
+msgstr "зі шкалою"
 
 #, tcl-format
 msgid "Discard changes to '%s'?"
-msgstr ""
+msgstr "Відхилити зміни до '%s\"?"
 
 msgid "Undo clear"
-msgstr ""
+msgstr "вернути \"очистити\""
 
 msgid "Undo connect"
-msgstr ""
+msgstr "Вернути \"з'єднати\""
 
-#, fuzzy
 msgid "Undo cut"
-msgstr "Uqanda"
+msgstr "Вернути \"вирізати\""
 
 msgid "Undo disconnect"
-msgstr ""
+msgstr "Вернути \"раз'єднати\""
 
-#, fuzzy
 msgid "Undo duplicate"
-msgstr "Tarix"
+msgstr "Вернути \"дублювати\""
 
 msgid "Undo motion"
-msgstr ""
+msgstr "Вернути \"переміщення\""
 
 msgid "Undo paste"
-msgstr ""
+msgstr "Вернути \"вставити\""
 
 msgid "Undo typing"
-msgstr ""
+msgstr "Вернути \"набір тексту\""
 
 msgid "Redo clear"
-msgstr ""
+msgstr "Повторити \"очистити\""
 
 msgid "Redo connect"
-msgstr ""
+msgstr "Повторити \"з'єднатися\""
 
-#, fuzzy
 msgid "Redo cut"
-msgstr "Uqanda"
+msgstr "Повторити \"вирізати\""
 
 msgid "Redo disconnect"
-msgstr ""
+msgstr "Повторити \"раз'єднатися\""
 
-#, fuzzy
 msgid "Redo duplicate"
-msgstr "Tarix"
+msgstr "Повторити \"зробити копію\""
 
 msgid "Redo motion"
-msgstr ""
+msgstr "Повторити \"переміщення об'єктів\""
 
 msgid "Redo paste"
-msgstr ""
+msgstr "Повторити \"вставити\""
 
 msgid "Redo typing"
-msgstr ""
+msgstr "Повторити набібр текста"
 
 msgid "no Pd settings to clear"
-msgstr ""
+msgstr "немає Pd налаштувань для скидання"
 
 msgid "removed .pdsettings file"
-msgstr ""
+msgstr "файл .pdsettings був видалений"
 
 msgid "couldn't delete .pdsettings file"
-msgstr ""
+msgstr "не вдалося видалити файл .pdsettings"
 
 msgid "failed to erase Pd settings"
-msgstr ""
+msgstr "не вдалося стерти налаштування Pd"
 
 msgid "erased Pd settings"
-msgstr ""
+msgstr "налаштування Pd видалені"
 
 msgid "no Pd settings to erase"
-msgstr ""
+msgstr "немає налаштувань Pd для видалення"
 
 msgid "skipping loading preferences... Pd seems to have crashed on startup"
 msgstr ""
+"пропуск налаштувань завантаження... Pd, схоже, вийшов з ладу при запуску"
 
 msgid "(re-save preferences to reinstate them)"
-msgstr ""
+msgstr "(повторне збереження параметрів для їх відновлення)"
 
 msgid "File"
-msgstr "Fayl"
+msgstr "Файл"
 
-#, fuzzy
 msgid "Edit"
-msgstr "_Yüklə..."
+msgstr "Редагувати"
 
 msgid "Put"
-msgstr ""
+msgstr "Вставити"
 
 msgid "Find"
-msgstr "Axtar"
+msgstr "Пошук"
 
-#, fuzzy
 msgid "Media"
-msgstr "Makedoniya"
+msgstr "Медіа"
 
-#, fuzzy
 msgid "Window"
-msgstr "_Pəncərə"
+msgstr "Вікно"
 
 msgid "Help"
-msgstr "Yardım"
+msgstr "Допомога"
 
 msgid "Show &Hidden Files and Directories"
-msgstr ""
+msgstr "Показати приховані файли та каталоги"
 
 msgid "Copy"
-msgstr "Köçür"
+msgstr "Копіювати"
 
-#, fuzzy
 msgid "Paste"
-msgstr "Tarix"
+msgstr "Вставити"
 
 msgid "Array Properties"
-msgstr ""
+msgstr "Властивості масиву"
 
-#, fuzzy
 msgid "Array"
-msgstr "Andorra"
+msgstr "Масив"
 
-#, fuzzy
 msgid "Name:"
-msgstr "Ad"
+msgstr "Назва:"
 
-#, fuzzy
 msgid "Size:"
-msgstr "Böyüklük"
+msgstr "Розмір:"
 
-#, fuzzy
 msgid "Save contents"
-msgstr "_Məzmun"
+msgstr "Збереження змісту"
 
 msgid "Draw as:"
-msgstr ""
+msgstr "Типи малювання:"
 
-#, fuzzy
 msgid "Polygon"
-msgstr "Polşa"
+msgstr "Багатокутник"
 
-#, fuzzy
 msgid "Points"
-msgstr "Port"
+msgstr "Точки"
 
 msgid "Bezier curve"
-msgstr ""
+msgstr "Крива Без'є"
 
 msgid "Put array into:"
-msgstr ""
+msgstr "Вставити массив в:"
 
 msgid "New graph"
-msgstr ""
+msgstr "Новий графік"
 
-#, fuzzy
 msgid "Last graph"
-msgstr "Son ismarış: %s"
+msgstr "Останній графік"
 
 msgid "Options"
-msgstr ""
+msgstr "Параметри"
 
-#, fuzzy
 msgid "Open List View..."
-msgstr "Ban Siyahısı..."
+msgstr "Відкрити перегляд списку..."
 
-#, fuzzy
 msgid "Delete array"
-msgstr "Sil"
+msgstr "Видалити масив"
 
 msgid "Cancel"
-msgstr "Ləğv Et"
+msgstr "Відминити"
 
 msgid "Apply"
-msgstr "Tətbiq Et"
+msgstr "Застосувати"
 
 msgid "OK"
-msgstr ""
+msgstr "ОК"
 
 msgid "Audio Settings"
-msgstr ""
+msgstr "Аудіо налаштування"
 
 msgid "Settings"
-msgstr ""
+msgstr "Налаштування"
 
 msgid "Sample rate:"
-msgstr ""
+msgstr "Частота дискретизації:"
 
 msgid "Delay (msec):"
-msgstr ""
+msgstr "Затримка (мсек):"
 
 msgid "48k"
-msgstr ""
+msgstr "48 кГц"
 
 msgid "44.1k"
-msgstr ""
+msgstr "44.1 кГц"
 
 msgid "96k"
-msgstr ""
+msgstr "96 кГц"
 
 msgid "Block size:"
-msgstr ""
+msgstr "Розмір блоку:"
 
 msgid "Use callbacks"
-msgstr ""
+msgstr "Використовувати зворотній виклик функції (callback)"
 
 msgid "Input Devices"
-msgstr ""
+msgstr "Пристрої вводу"
 
-#, fuzzy
 msgid "Channels:"
-msgstr "Ləğv Et"
+msgstr "Канали:"
 
 msgid "Output Devices"
-msgstr ""
+msgstr "Вихідні пристрої"
 
 msgid "(same as input device)..."
-msgstr ""
+msgstr "(такий же, як вхід) ..."
 
 msgid "Use Multiple Devices"
-msgstr ""
+msgstr "Використовувати декілька пристроїв"
 
 msgid "Save All Settings"
-msgstr ""
+msgstr "Зберегти всі налаштування"
 
 msgid "WARNING: unknown graphme flags received in pdtk_canvas_dialog"
 msgstr ""
@@ -264,9 +250,8 @@ msgstr ""
 msgid "Canvas Properties"
 msgstr ""
 
-#, fuzzy
 msgid "Scale"
-msgstr "Qeyd Et"
+msgstr ""
 
 msgid "X units per pixel:"
 msgstr ""
@@ -292,9 +277,8 @@ msgstr ""
 msgid "to"
 msgstr ""
 
-#, fuzzy
 msgid "Margin:"
-msgstr "Ön işarə:"
+msgstr ""
 
 msgid "Y range: from"
 msgstr ""
@@ -316,9 +300,9 @@ msgstr ""
 msgid "Couldn't find '%1$s' in %2$s"
 msgstr ""
 
-#, fuzzy, tcl-format
+#, tcl-format
 msgid "Search in %s for:"
-msgstr "Mətni Axtar..."
+msgstr ""
 
 #, tcl-format
 msgid "Showed last '%1$s' in %2$s"
@@ -328,31 +312,27 @@ msgstr ""
 msgid "Showing '%1$d' out of %2$d items in %3$s"
 msgstr ""
 
-#, fuzzy
 msgid "Pd window"
-msgstr "Fayl Yolla"
+msgstr ""
 
 msgid "Match whole word only"
 msgstr ""
 
 msgid "Close"
-msgstr "Bağla"
+msgstr ""
 
-#, fuzzy, tcl-format
+#, tcl-format
 msgid "%s Font"
-msgstr "Yazı növü:"
+msgstr ""
 
-#, fuzzy
 msgid "Font"
-msgstr "Yazı növü:"
+msgstr ""
 
-#, fuzzy
 msgid "Font Size"
-msgstr "Böyüklük"
+msgstr ""
 
-#, fuzzy
 msgid "Stretch"
-msgstr "Başlanğıc Vaxtı"
+msgstr ""
 
 msgid "X and Y"
 msgstr ""
@@ -366,62 +346,53 @@ msgstr ""
 msgid "GUI Box Properties"
 msgstr ""
 
-#, fuzzy
 msgid "Messages"
-msgstr "İsmarış"
+msgstr ""
 
 msgid "Send symbol:"
 msgstr ""
 
-#, fuzzy
 msgid "Receive symbol:"
-msgstr "Alıcı"
+msgstr ""
 
 msgid "Width:"
-msgstr ""
+msgstr "Ширина:"
 
-#, fuzzy
 msgid "Limits"
-msgstr "Siyahılar"
+msgstr "Межі"
 
 msgid "Lower:"
-msgstr ""
+msgstr "Нижній:"
 
-#, fuzzy
 msgid "Upper:"
-msgstr "İstifadəçi"
+msgstr "Верхній:"
 
 msgid "Label"
-msgstr ""
+msgstr "Напис"
 
-#, fuzzy
 msgid "Left"
-msgstr "Solda"
+msgstr "Лiворуч"
 
 msgid "Right"
-msgstr "Sağda"
+msgstr "Правильно"
 
 msgid "Top"
-msgstr "Üstdə"
+msgstr "Вгорі"
 
 msgid "Bottom"
-msgstr "Altda"
+msgstr "Внизу"
 
-#, fuzzy
 msgid "Background color"
-msgstr "Arxa plan:"
+msgstr "Колір фону"
 
-#, fuzzy
 msgid "Foreground color"
-msgstr "Ön plan:"
+msgstr "Основний колір"
 
-#, fuzzy
 msgid "Label color"
-msgstr "Rəng seç"
+msgstr "Колір напису"
 
-#, fuzzy
 msgid "Bang"
-msgstr "Ban-la"
+msgstr "Bang"
 
 msgid "Flash Time (msec)"
 msgstr ""
@@ -432,9 +403,8 @@ msgstr ""
 msgid "Max:"
 msgstr ""
 
-#, fuzzy
 msgid "Toggle"
-msgstr "Toqo"
+msgstr ""
 
 msgid "Non Zero Value"
 msgstr ""
@@ -442,16 +412,14 @@ msgstr ""
 msgid "Value:"
 msgstr ""
 
-#, fuzzy
 msgid "Number2"
-msgstr "$ Nömrəsi"
+msgstr ""
 
 msgid "Width (digits):"
 msgstr ""
 
-#, fuzzy
 msgid "Height:"
-msgstr "Sağda"
+msgstr ""
 
 msgid "Output Range"
 msgstr ""
@@ -462,13 +430,11 @@ msgstr ""
 msgid "Vslider"
 msgstr ""
 
-#, fuzzy
 msgid "Hslider"
-msgstr "Göstərmə"
+msgstr ""
 
-#, fuzzy
 msgid "Vradio"
-msgstr "Buraxılış"
+msgstr ""
 
 msgid "Num cells:"
 msgstr ""
@@ -479,9 +445,8 @@ msgstr ""
 msgid "VU Meter"
 msgstr ""
 
-#, fuzzy
 msgid "Canvas"
-msgstr "Kanada"
+msgstr ""
 
 msgid "Visible Rectangle (pix)"
 msgstr ""
@@ -493,9 +458,8 @@ msgstr ""
 msgid "Parameters"
 msgstr ""
 
-#, fuzzy
 msgid "Init"
-msgstr "Dəvət Et"
+msgstr ""
 
 msgid "No init"
 msgstr ""
@@ -513,26 +477,22 @@ msgid "Y offset:"
 msgstr ""
 
 msgid "Colors"
-msgstr "Rənglər"
+msgstr ""
 
-#, fuzzy
 msgid "Background"
-msgstr "Arxa plan:"
+msgstr ""
 
-#, fuzzy
 msgid "Front"
-msgstr "Yazı növü:"
+msgstr ""
 
 msgid "Compose color"
 msgstr ""
 
-#, fuzzy
 msgid "Test label"
-msgstr "Hamısı Sına"
+msgstr ""
 
-#, fuzzy
 msgid "Send a Pd message"
-msgstr "İsmarış"
+msgstr ""
 
 msgid "(use arrow keys for history)"
 msgstr ""
@@ -573,9 +533,8 @@ msgstr ""
 msgid "Externals Install Directory"
 msgstr ""
 
-#, fuzzy
 msgid "Clear"
-msgstr "Siyahını təmizlə"
+msgstr ""
 
 msgid "Choose Pd documents directory:"
 msgstr ""
@@ -605,23 +564,20 @@ msgstr ""
 msgid "Defeat real-time scheduling"
 msgstr ""
 
-#, fuzzy
 msgid "Help Browser"
-msgstr "Gəz..."
+msgstr ""
 
 msgid "Associated Files"
 msgstr ""
 
-#, fuzzy
 msgid "Pd Files"
-msgstr "Fayl"
+msgstr ""
 
 msgid "Max Patch Files"
 msgstr ""
 
-#, fuzzy
 msgid "Max Text Files"
-msgstr "Fayl"
+msgstr ""
 
 msgid "Max Patch Files (.pat)"
 msgstr ""
@@ -679,24 +635,6 @@ msgid "(Tcl) UNHANDLED ERROR: "
 msgstr ""
 
 #, tcl-format
-<<<<<<< HEAD
-msgid "installed version [%1$s] > %2$s...skipping!"
-msgstr ""
-
-#, tcl-format
-msgid "installed version [%1$s] < %2$s...overwriting!"
-msgstr ""
-
-#, tcl-format
-msgid "installed version [%1$s] == %2$s...skipping!"
-msgstr ""
-
-#, tcl-format
-msgid "successfully unzipped %1$s into %2$s"
-msgstr ""
-
-msgid "unable to extract package automatically"
-=======
 msgid "[deken] installed version [%1$s] > %2$s...skipping!"
 msgstr ""
 
@@ -716,60 +654,44 @@ msgstr ""
 msgid "ignoring '%s': doesn't look like a deken package"
 msgstr ""
 
-#, fuzzy, tcl-format
+#, tcl-format
 msgid "Installing '%s'"
-msgstr "Mətni Axtar..."
+msgstr ""
 
 #, tcl-format
 msgid "Successfully unzipped %1$s into %2$s."
 msgstr ""
 
 msgid "Unable to extract package automatically."
->>>>>>> pure-data/master
 msgstr ""
 
-msgid "please perform the following steps manually:"
+msgid "Please perform the following steps manually:"
 msgstr ""
 
 #, tcl-format
-msgid "1. unzip %s"
+msgid "1. Unzip %s."
 msgstr ""
 
 msgid "You might need to change the file-extension from .dek to .zip"
 msgstr ""
 
 #, tcl-format
-msgid "2. copy the contents into %s"
+msgid "2. Copy the contents into %s."
 msgstr ""
 
 #, tcl-format
-<<<<<<< HEAD
-msgid "uninstalling '%s'"
-=======
 msgid "3. Remove %s. (optional)"
 msgstr ""
 
 #, tcl-format
 msgid "Removing '%s'"
->>>>>>> pure-data/master
 msgstr ""
 
 #, tcl-format
-msgid "uninstalling %1$s from %2$s failed!"
+msgid "Uninstalling %1$s from %2$s failed!"
 msgstr ""
 
 #, tcl-format
-<<<<<<< HEAD
-msgid "deken-plugin.tcl (Pd externals search) loaded from %s"
-msgstr ""
-
-#, tcl-format
-msgid "platform detected: %s"
-msgstr ""
-
-#, tcl-format
-msgid "platform re-detected: %s"
-=======
 msgid "Skipping SHA256 verification of '%s'."
 msgstr ""
 
@@ -779,7 +701,6 @@ msgstr ""
 
 #, tcl-format
 msgid "Unable to fetch reference SHA256 for '%s'."
->>>>>>> pure-data/master
 msgstr ""
 
 #, tcl-format
@@ -847,41 +768,28 @@ msgid ""
 "(treats other versions like foreign architectures)"
 msgstr ""
 
-#, fuzzy, tcl-format
+#, tcl-format
 msgid "Deken %s Preferences"
-msgstr "Seçimlər..."
+msgstr ""
 
-<<<<<<< HEAD
-#, fuzzy
-msgid "start searching for externals..."
-msgstr "Mətni Axtar..."
-=======
 #, tcl-format
 msgid "Platform re-detected: %s"
 msgstr ""
->>>>>>> pure-data/master
 
 msgid "Deken Packages"
 msgstr ""
 
-#, fuzzy
 msgid "ZIP Files"
-msgstr "ZIP fayllar"
+msgstr ""
 
-#, fuzzy
 msgid "TAR Files"
-msgstr "TAR fayllar"
+msgstr ""
 
-#, fuzzy
 msgid "All Files"
-msgstr "barcha fayllar"
+msgstr ""
 
 #, tcl-format
-<<<<<<< HEAD
-msgid "online? %s"
-=======
 msgid "Checksum mismatch for '%s'"
->>>>>>> pure-data/master
 msgstr ""
 
 #, tcl-format
@@ -891,19 +799,12 @@ msgstr ""
 msgid "SHA256 verification failed"
 msgstr ""
 
-<<<<<<< HEAD
-msgid "no matching externals found"
-msgstr ""
-
-msgid "try using the full name e.g. 'freeverb'"
-=======
 #, tcl-format
 msgid "Uninstalling previous installation of '%s'"
 msgstr ""
 
 #, tcl-format
 msgid "Temporarily moving %1$s into %2$s failed."
->>>>>>> pure-data/master
 msgstr ""
 
 #, tcl-format
@@ -921,15 +822,6 @@ msgid "Installation failed!"
 msgstr ""
 
 #, tcl-format
-<<<<<<< HEAD
-msgid ""
-"commencing downloading of:\n"
-"%1$s\n"
-"into %2$s..."
-msgstr ""
-
-msgid "... aborting"
-=======
 msgid "Failed to install '%s'!"
 msgstr ""
 
@@ -940,11 +832,10 @@ msgstr ""
 msgid ""
 "Failed to completely remove %1$s.\n"
 "Please manually remove the directory %2$s after quitting Pd."
->>>>>>> pure-data/master
 msgstr ""
 
 #, tcl-format
-msgid "unable to add %s to search paths"
+msgid "Unable to add %s to search paths"
 msgstr ""
 
 #, tcl-format
@@ -952,35 +843,23 @@ msgid "Add %s to the Pd search paths?"
 msgstr ""
 
 #, tcl-format
-msgid "added %s to search paths"
+msgid "Added %s to search paths"
 msgstr ""
 
 msgid "No packages selected for installation."
 msgstr ""
 
 #, tcl-format
-<<<<<<< HEAD
-msgid "unable to download from %1$s [%2$s]"
-=======
 msgid "Processed %d packages selected for installation."
->>>>>>> pure-data/master
 msgstr ""
 
 msgid "Show all"
 msgstr ""
 
-#, fuzzy
 msgid "Search"
-msgstr "Mətni Axtar..."
-
-#, tcl-format
-<<<<<<< HEAD
-msgid "unable to remove stray file %s"
 msgstr ""
 
 #, tcl-format
-msgid "unable to rename downloaded file to %s"
-=======
 msgid "Install (%d)"
 msgstr ""
 
@@ -1022,11 +901,10 @@ msgid "Install DEK file..."
 msgstr ""
 
 msgid "Preferences..."
-msgstr "Seçimlər..."
+msgstr ""
 
-#, fuzzy
 msgid "Search for: "
-msgstr "Mətni Axtar..."
+msgstr ""
 
 msgid "libraries"
 msgstr ""
@@ -1061,19 +939,14 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
-#, fuzzy
 msgid "Search Results"
-msgstr "Mətni Axtar..."
-
-msgid "Log"
->>>>>>> pure-data/master
 msgstr ""
 
-#, fuzzy, tcl-format
-msgid "Searching for \"%s\"..."
-msgstr "Mətni Axtar..."
+msgid "Log"
+msgstr ""
 
-msgid "unable to perform search"
+#, tcl-format
+msgid "Searching for \"%s\"..."
 msgstr ""
 
 #, tcl-format
@@ -1155,9 +1028,9 @@ msgstr ""
 msgid "[deken] Platform detected: %s"
 msgstr ""
 
-#, fuzzy, tcl-format
+#, tcl-format
 msgid "Searching on %s..."
-msgstr "Mətni Axtar..."
+msgstr ""
 
 #, tcl-format
 msgid "Searching on %1$s returned %2$d results"
@@ -1170,13 +1043,12 @@ msgstr ""
 msgid "Uploaded by %1$s @ %2$s"
 msgstr ""
 
-#, fuzzy, tcl-format
+#, tcl-format
 msgid "Searching for '%s' failed!"
-msgstr "Mətni Axtar..."
+msgstr ""
 
-#, fuzzy
 msgid "Search failed"
-msgstr "Mətni Axtar..."
+msgstr ""
 
 msgid "Unable to perform search."
 msgstr ""
@@ -1215,16 +1087,6 @@ msgstr ""
 
 #, tcl-format
 msgid ""
-"Do you want Pd to use the existing documents directory for patches and "
-"external libraries?\n"
-"\n"
-"Location: %s\n"
-"\n"
-"You can change or disable this later in the Path preferences."
-msgstr ""
-
-#, tcl-format
-msgid ""
 "Do you want Pd to create a documents directory for patches and external "
 "libraries?\n"
 "\n"
@@ -1243,19 +1105,11 @@ msgid ""
 msgstr ""
 
 #, tcl-format
-<<<<<<< HEAD
-msgid "couldn't create Pd documents directory: %s\n"
-msgstr ""
-
-#, tcl-format
-msgid "couldn't create \"externals\" directory in: %s\n"
-=======
 msgid "couldn't create Pd documents directory: %s"
 msgstr ""
 
 #, tcl-format
 msgid "couldn't create \"externals\" directory in: %s"
->>>>>>> pure-data/master
 msgstr ""
 
 msgid "refusing to delete empty domain"
@@ -1269,39 +1123,33 @@ msgstr ""
 msgid "ignoring '%s': doesn't exist"
 msgstr ""
 
-#, fuzzy
 msgid "About Pd"
-msgstr "_Haqqında"
+msgstr ""
 
 #, tcl-format
 msgid "couldn't read \"%s\" document"
 msgstr ""
 
 msgid "Save"
-msgstr "Qeyd Et"
+msgstr ""
 
-#, fuzzy
 msgid "Save As..."
-msgstr "Fərqli Qeyd Et"
+msgstr ""
 
-#, fuzzy
 msgid "Print..."
-msgstr "_Yüklə..."
+msgstr ""
 
 msgid "Paste Replace"
 msgstr ""
 
-#, fuzzy
 msgid "Duplicate"
-msgstr "Tarix"
+msgstr ""
 
-#, fuzzy
 msgid "Zoom In"
-msgstr "Altda"
+msgstr ""
 
-#, fuzzy
 msgid "Zoom Out"
-msgstr "Altda"
+msgstr ""
 
 msgid "Tidy Up"
 msgstr ""
@@ -1312,120 +1160,104 @@ msgstr ""
 msgid "Triggerize"
 msgstr ""
 
-#, fuzzy
 msgid "Edit Mode"
-msgstr "Təfərruatlar"
+msgstr ""
 
-#, fuzzy
 msgid "Undo"
-msgstr "Uqanda"
+msgstr ""
 
-#, fuzzy
 msgid "Redo"
-msgstr "Səbəb"
+msgstr ""
 
 msgid "New"
-msgstr "Yeni"
+msgstr ""
 
 msgid "Open"
-msgstr "Aç"
+msgstr ""
 
-#, fuzzy
 msgid "Message..."
-msgstr "İsmarış"
+msgstr ""
 
 msgid "Cut"
 msgstr ""
 
-#, fuzzy
 msgid "Select All"
-msgstr "Hamısı Sil"
+msgstr ""
 
-#, fuzzy
 msgid "Clear Console"
-msgstr "Siyahını təmizlə"
+msgstr ""
 
 msgid "Object"
 msgstr ""
 
 msgid "Message"
-msgstr "İsmarış"
+msgstr ""
 
-#, fuzzy
 msgid "Number"
-msgstr "$ Nömrəsi"
+msgstr ""
 
 msgid "List"
 msgstr ""
 
 msgid "Symbol"
-msgstr ""
+msgstr "Символ"
 
-#, fuzzy
 msgid "Comment"
-msgstr "Əmr"
+msgstr "Коментар"
 
 msgid "Graph"
-msgstr "Qrafika"
+msgstr ""
 
-#, fuzzy
 msgid "Find..."
-msgstr "Fayl Göndərilməsi..."
+msgstr "Знайти..."
 
 msgid "Find Again"
-msgstr ""
+msgstr "Знову знайти"
 
 msgid "Find Last Error"
-msgstr ""
+msgstr "Знайти останню помилку"
 
 msgid "DSP On"
-msgstr ""
+msgstr "DSP включено"
 
-#, fuzzy
 msgid "DSP Off"
-msgstr "Bağlı"
+msgstr "DSP вимкнено"
 
 msgid "Test Audio and MIDI..."
-msgstr ""
+msgstr "тест аудіо i MIDI..."
 
-#, fuzzy
 msgid "Load Meter"
-msgstr "Lag ölçəni:"
+msgstr ""
 
 msgid "Audio Settings..."
-msgstr ""
+msgstr "Налаштування звуку..."
 
 msgid "MIDI Settings..."
-msgstr ""
+msgstr "Налаштування MIDI..."
 
 msgid "Minimize"
 msgstr ""
 
-#, fuzzy
 msgid "Zoom"
-msgstr "Altda"
+msgstr ""
 
 msgid "Bring All to Front"
 msgstr ""
 
-#, fuzzy
 msgid "Next Window"
-msgstr "Fayl Yolla"
+msgstr ""
 
-#, fuzzy
 msgid "Previous Window"
-msgstr "Fayl Yolla"
+msgstr ""
 
-#, fuzzy
 msgid "Parent Window"
-msgstr "Fayl Yolla"
+msgstr ""
 
 msgid "HTML Manual..."
 msgstr ""
 
-#, fuzzy
 msgid "Browser..."
-msgstr "Gəz..."
+msgstr ""
 
 msgid "List of objects..."
 msgstr ""
@@ -1439,9 +1271,8 @@ msgstr ""
 msgid "Report a bug"
 msgstr ""
 
-#, fuzzy
 msgid "Clear Menu"
-msgstr "Siyahını təmizlə"
+msgstr ""
 
 msgid ""
 "Delete all preferences?\n"
@@ -1466,17 +1297,14 @@ msgstr ""
 msgid "MIDI..."
 msgstr ""
 
-#, fuzzy
 msgid "Zoom New Windows"
-msgstr "Fayl Yolla"
+msgstr ""
 
-#, fuzzy
 msgid "Save All Preferences"
-msgstr "Seçimlər..."
+msgstr ""
 
-#, fuzzy
 msgid "Save to..."
-msgstr "Fərqli Qeyd Et"
+msgstr ""
 
 msgid "Load from..."
 msgstr ""
@@ -1484,15 +1312,14 @@ msgstr ""
 msgid "Forget All..."
 msgstr ""
 
-#, fuzzy
 msgid "Preferences"
-msgstr "Seçimlər..."
+msgstr ""
 
 msgid "Open Recent"
 msgstr ""
 
 msgid "Quit"
-msgstr "Çıx"
+msgstr ""
 
 #, tcl-format
 msgid "Do you want to save the changes you made in '%s'?"
@@ -1524,9 +1351,8 @@ msgstr ""
 msgid "Pd"
 msgstr ""
 
-#, fuzzy
 msgid "DSP"
-msgstr "Bağlı"
+msgstr ""
 
 msgid "Audio I/O error"
 msgstr ""
@@ -1552,59 +1378,12 @@ msgstr ""
 msgid "New..."
 msgstr ""
 
-#, fuzzy
 msgid "Edit..."
-msgstr "_Yüklə..."
+msgstr ""
 
-#, fuzzy
 msgid "Delete"
-msgstr "Sil"
-
-#, tcl-format
-<<<<<<< HEAD
-msgid "ignoring '%s': doesn't exist"
 msgstr ""
 
 #, tcl-format
 msgid "ignoring '%s': doesn't look like a Pd file"
 msgstr ""
-=======
-msgid "ignoring '%s': doesn't look like a Pd file"
-msgstr ""
-
-#, fuzzy
-#~ msgid "bottom:"
-#~ msgstr "Altda"
-
-#, fuzzy
-#~ msgid "height:"
-#~ msgstr "Sağda"
-
-#, fuzzy
-#~ msgid "right:"
-#~ msgstr "Sağda"
-
-#, fuzzy
-#~ msgid "size:"
-#~ msgstr "Böyüklük"
-
-#, fuzzy
-#~ msgid "start searching for externals..."
-#~ msgstr "Mətni Axtar..."
->>>>>>> pure-data/master
-
-#, fuzzy
-#~ msgid "for:"
-#~ msgstr "Qapı:"
-
-#, fuzzy
-#~ msgid "Close this window??"
-#~ msgstr "Bu səkmə/pəncərəni bağla"
-
-#, fuzzy
-#~ msgid "Filters"
-#~ msgstr "Fayl"
-
-#, fuzzy
-#~ msgid "Text Editor"
-#~ msgstr "Rənglər"
