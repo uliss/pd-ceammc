@@ -25,8 +25,7 @@ ListXContains::ListXContains(const PdArgs& args)
 
     createCbListProperty(
         "@value",
-        [this]() -> AtomList {
-            OBJ_DBG << lst_; return lst_; },
+        [this]() -> AtomList { return lst_; },
         [this](const AtomListView& lv) -> bool { onInlet(1, lv); return true; })
         ->setArgIndex(0);
 }
