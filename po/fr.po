@@ -10,29 +10,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure Data 0.53-0\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-<<<<<<< HEAD
-"POT-Creation-Date: 2017-07-06 18:10+0200\n"
-"PO-Revision-Date: 2020-10-28 11:37+0100\n"
-"Last-Translator: Cyrille Henry / Antoine Rousseau / Antoine Villeret / "
-"Baptiste Chatel / JP Cimalando / Olivier Humbert\n"
-"Language-Team: \n"
-=======
 "POT-Creation-Date: 2022-10-19 23:59+0200\n"
 "PO-Revision-Date: 2022-10-20 12:48+0000\n"
 "Last-Translator: Alex Nadzharov <anadjarov@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/pure-data/"
 "pure-data/fr/>\n"
->>>>>>> pure-data/master
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-<<<<<<< HEAD
-"X-Generator: Poedit 1.8.7.1\n"
-=======
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
 "X-Generator: Weblate 4.14.2-dev\n"
->>>>>>> pure-data/master
 
 msgid "linear"
 msgstr "linéaire"
@@ -124,12 +112,7 @@ msgstr "pas de paramètres a effacer"
 
 msgid "skipping loading preferences... Pd seems to have crashed on startup"
 msgstr ""
-<<<<<<< HEAD
-"Pd semble ne pas avoir démarré correctement, les préférences n'ont pas été "
-"chargées"
-=======
 "Pd semble avoir planté au démarrage, les préférences n'ont pas été chargées"
->>>>>>> pure-data/master
 
 msgid "(re-save preferences to reinstate them)"
 msgstr "(enregistrez à nouveau les préférences afin de les rétablir)"
@@ -659,25 +642,6 @@ msgid "(Tcl) UNHANDLED ERROR: "
 msgstr "(Tcl) ERREUR : "
 
 #, tcl-format
-<<<<<<< HEAD
-msgid "installed version [%1$s] > %2$s...skipping!"
-msgstr "version installée [%1$s] > %2$s... ignorer !"
-
-#, tcl-format
-msgid "installed version [%1$s] < %2$s...overwriting!"
-msgstr "version installée [%1$s] < %2$s... remplacer !"
-
-#, tcl-format
-msgid "installed version [%1$s] == %2$s...skipping!"
-msgstr "version installée [%1$s] == %2$s... ignorer !"
-
-#, tcl-format
-msgid "successfully unzipped %1$s into %2$s"
-msgstr "%1$s décompressé avec succès dans %2$s"
-
-msgid "unable to extract package automatically"
-msgstr "impossible d'extraire l'archive automatiquement"
-=======
 msgid "[deken] installed version [%1$s] > %2$s...skipping!"
 msgstr "[deken] version installée [%1$s] > %2$s... ignorer !"
 
@@ -707,40 +671,11 @@ msgstr "%1$s a été décompressé avec succès dans %2$s."
 
 msgid "Unable to extract package automatically."
 msgstr "Impossible d'extraire le paquet automatiquement."
->>>>>>> pure-data/master
 
-msgid "please perform the following steps manually:"
-msgstr "effectuez manuellement les étapes suivantes :"
-
-#, tcl-format
-<<<<<<< HEAD
-msgid "1. unzip %s"
-msgstr "1. décompresser %s"
+msgid "Please perform the following steps manually:"
+msgstr "Effectuez manuellement les étapes suivantes :"
 
 #, tcl-format
-msgid "2. copy the contents into %s"
-msgstr "2. copier le dossier obtenu dans %s"
-
-#, tcl-format
-msgid "uninstalling '%s'"
-msgstr "désinstallation de '%s'"
-
-#, tcl-format
-msgid "uninstalling %1$s from %2$s failed!"
-msgstr "échec de la désinstallation de %1$s de %2$s !"
-
-#, tcl-format
-msgid "deken-plugin.tcl (Pd externals search) loaded from %s"
-msgstr "deken-plugin.tcl (recherche d'externals Pd) chargé depuis %s"
-
-#, tcl-format
-msgid "platform detected: %s"
-msgstr "plateforme détectée : %s"
-
-#, tcl-format
-msgid "platform re-detected: %s"
-msgstr "plateforme re-détectée : %s"
-=======
 msgid "1. Unzip %s."
 msgstr "1. Dézipper %s."
 
@@ -774,7 +709,6 @@ msgstr "Vérification SHA256 de '%s'"
 #, tcl-format
 msgid "Unable to fetch reference SHA256 for '%s'."
 msgstr "Impossible de récupérer la référence SHA256 pour '%s'."
->>>>>>> pure-data/master
 
 #, tcl-format
 msgid "Unable to perform SHA256 verification for '%s'."
@@ -852,14 +786,6 @@ msgstr ""
 msgid "Deken %s Preferences"
 msgstr "Préférences de Deken %s"
 
-<<<<<<< HEAD
-msgid "start searching for externals..."
-msgstr "démarrage de la recherche d'externals..."
-
-#, tcl-format
-msgid "online? %s"
-msgstr "connecté ? %s"
-=======
 #, tcl-format
 msgid "Platform re-detected: %s"
 msgstr "Plateforme re-détectée : %s"
@@ -879,7 +805,6 @@ msgstr "Tous les fichiers"
 #, tcl-format
 msgid "Checksum mismatch for '%s'"
 msgstr "Erreur de somme de contrôle pour '%s'"
->>>>>>> pure-data/master
 
 #, tcl-format
 msgid "SHA256 verification of '%s' failed!"
@@ -888,13 +813,6 @@ msgstr "Échec de la vérification SHA256 de '%s' !"
 msgid "SHA256 verification failed"
 msgstr "Échec de la vérification SHA256"
 
-<<<<<<< HEAD
-msgid "no matching externals found"
-msgstr "aucun external correspondant trouvé"
-
-msgid "try using the full name e.g. 'freeverb'"
-msgstr "essayez avec le nom complet, par exemple 'freeverb'"
-=======
 #, tcl-format
 msgid "Uninstalling previous installation of '%s'"
 msgstr "Désinstallation de la version précédente de '%s'"
@@ -902,7 +820,6 @@ msgstr "Désinstallation de la version précédente de '%s'"
 #, tcl-format
 msgid "Temporarily moving %1$s into %2$s failed."
 msgstr "Échec du déplacement temporaire de %1$s vers %2$s."
->>>>>>> pure-data/master
 
 #, tcl-format
 msgid "Installing package '%s'"
@@ -927,53 +844,28 @@ msgstr "Échec de l'installation du paquet"
 
 #, tcl-format
 msgid ""
-<<<<<<< HEAD
-"commencing downloading of:\n"
-"%1$s\n"
-"into %2$s..."
-msgstr ""
-"début du téléchargement de :\n"
-"%1$s\n"
-"dans %2$s..."
-
-msgid "... aborting"
-msgstr "... abandon"
-=======
 "Failed to completely remove %1$s.\n"
 "Please manually remove the directory %2$s after quitting Pd."
 msgstr ""
 "Impossible de supprimer complètement %1$s.\n"
 "Veuillez supprimer manuellement le répertoire %2$s après avoir quitté Pd."
->>>>>>> pure-data/master
 
 #, tcl-format
-msgid "unable to add %s to search paths"
-msgstr "impossible d'ajouter %s aux chemins de recherche"
+msgid "Unable to add %s to search paths"
+msgstr "Impossible d'ajouter %s aux chemins de recherche"
 
 #, tcl-format
 msgid "Add %s to the Pd search paths?"
 msgstr "Ajouter %s aux chemins de recherche ?"
 
 #, tcl-format
-msgid "added %s to search paths"
+msgid "Added %s to search paths"
 msgstr "%s a été ajouté aux chemins de recherche"
 
 msgid "No packages selected for installation."
 msgstr "Aucun paquet sélectionné pour installation."
 
 #, tcl-format
-<<<<<<< HEAD
-msgid "unable to download from %1$s [%2$s]"
-msgstr "impossible de télécharger %1$s [%2$s]"
-
-#, tcl-format
-msgid "unable to remove stray file %s"
-msgstr "impossible d'effacer le ficher temporaire %s"
-
-#, tcl-format
-msgid "unable to rename downloaded file to %s"
-msgstr "impossible de donner au fichier téléchargé le nom %s"
-=======
 msgid "Processed %d packages selected for installation."
 msgstr "Traitement de %d paquets sélectionnés pour l'installation."
 
@@ -1138,7 +1030,6 @@ msgstr "Le répertoire n'est pas accessible en écriture !"
 #, tcl-format
 msgid "Downloading '%s'"
 msgstr "Téléchargement de '%s'"
->>>>>>> pure-data/master
 
 #, tcl-format
 msgid "Commencing download of '%1$s' into '%2$s'..."
@@ -1178,9 +1069,6 @@ msgstr "La recherche de %1$s a donné %2$d résultats"
 
 msgid "No usable servers for searching found..."
 msgstr "Aucun serveur utilisable pour la recherche n'a été trouvé..."
-
-msgid "unable to perform search"
-msgstr "recherche impossible"
 
 #, tcl-format
 msgid "Uploaded by %1$s @ %2$s"
@@ -1237,23 +1125,6 @@ msgstr ""
 
 #, tcl-format
 msgid ""
-"Do you want Pd to use the existing documents directory for patches and "
-"external libraries?\n"
-"\n"
-"Location: %s\n"
-"\n"
-"You can change or disable this later in the Path preferences."
-msgstr ""
-"Voulez-vous que Pd utilise le dossier Documents existant pour les patchs "
-"et les externals ?\n"
-"\n"
-"Emplacement : %s\n"
-"\n"
-"Vous pourrez changer ou désactiver cet emplacement plus tard, dans les "
-"préférences de Chemins."
-
-#, tcl-format
-msgid ""
 "Do you want Pd to create a documents directory for patches and external "
 "libraries?\n"
 "\n"
@@ -1283,21 +1154,6 @@ msgstr ""
 "Choisir un nouvel emplacement ?"
 
 #, tcl-format
-<<<<<<< HEAD
-msgid "couldn't create Pd documents directory: %s\n"
-msgstr "impossible de créer le dossier Documents : %s\n"
-
-#, tcl-format
-msgid "couldn't create \"externals\" directory in: %s\n"
-msgstr "le dossier \"externals\" n'a pas pu être créé dans : %s\n"
-
-msgid "refusing to delete empty domain"
-msgstr "refus de supprimer un domaine vide"
-
-#, tcl-format
-msgid "Couldn't create preferences \"%1$s\" in %2$s"
-msgstr "Impossible de créer des préférences \"%1$s\" en %2$s"
-=======
 msgid "couldn't create Pd documents directory: %s"
 msgstr "impossible de créer le dossier de documents Pd : %s"
 
@@ -1315,7 +1171,6 @@ msgstr "Impossible de créer des préférences \"%1$s\" en %2$s"
 #, tcl-format
 msgid "ignoring '%s': doesn't exist"
 msgstr "ignorer '%s' : n'existe pas"
->>>>>>> pure-data/master
 
 msgid "About Pd"
 msgstr "À propos de Pd"
@@ -1581,14 +1436,6 @@ msgid "Delete"
 msgstr "Supprimer"
 
 #, tcl-format
-<<<<<<< HEAD
-msgid "ignoring '%s': doesn't exist"
-msgstr "ignorer '%s' : n'existe pas"
-
-#, tcl-format
-msgid "ignoring '%s': doesn't look like a Pd file"
-msgstr "ignorer '%s' : ne semble pas être un fichier Pd"
-=======
 msgid "ignoring '%s': doesn't look like a Pd file"
 msgstr "ignorer '%s' : ne semble pas être un fichier Pd"
 
@@ -1665,7 +1512,6 @@ msgstr "ignorer '%s' : ne semble pas être un fichier Pd"
 #, tcl-format
 #~ msgid "couldn't create \"externals\" directory in: %s\n"
 #~ msgstr "le dossier \"externals\" n'a pas pu être créé dans : %s\n"
->>>>>>> pure-data/master
 
 #, tcl-format
 #~ msgid "WARNING: font family '%s' not found, using default (%s)\n"

@@ -209,17 +209,6 @@ msgid "Delay (msec):"
 msgstr "Latência (ms):"
 
 msgid "48k"
-<<<<<<< HEAD
-msgstr ""
-
-msgid "44.1k"
-msgstr ""
-
-msgid "96k"
-msgstr ""
-
-# iemgui
-=======
 msgstr "48k"
 
 msgid "44.1k"
@@ -228,7 +217,6 @@ msgstr "44.1k"
 msgid "96k"
 msgstr "96l"
 
->>>>>>> pure-data/master
 msgid "Block size:"
 msgstr "Tamanho do bloco:"
 
@@ -649,19 +637,6 @@ msgstr "(Tcl) ERRO NÃO TRATADO: "
 msgid "[deken] installed version [%1$s] > %2$s...skipping!"
 msgstr "[deken] versão instalada [%1$s] > %2$s...pulando!"
 
-<<<<<<< HEAD
-#, fuzzy, tcl-format
-msgid "installed version [%1$s] > %2$s...skipping!"
-msgstr "versão instalada [%1$s] > %2$s...pulando!"
-
-#, fuzzy, tcl-format
-msgid "installed version [%1$s] < %2$s...overwriting!"
-msgstr "versão instalada [%1$s] < %2$s...sobrescrevendo!"
-
-#, fuzzy, tcl-format
-msgid "installed version [%1$s] == %2$s...skipping!"
-msgstr "versão instalada [%1$s] == %2$s...pulando!"
-=======
 #, tcl-format
 msgid "[deken] installed version [%1$s] < %2$s...overwriting!"
 msgstr "[deken] versão instalada [%1$s] < %2$s...sobrescrevendo!"
@@ -681,38 +656,21 @@ msgstr "ignorando '%s': não parece ser um pacote do deken"
 #, tcl-format
 msgid "Installing '%s'"
 msgstr "Instalando '%s'"
->>>>>>> pure-data/master
-
-#, fuzzy, tcl-format
-msgid "successfully unzipped %1$s into %2$s"
-msgstr "%1$s descompactado em %2$s com sucesso."
-
-<<<<<<< HEAD
-#, fuzzy
-msgid "unable to extract package automatically"
-msgstr "incapaz de extrair o pacote automaticamente"
-=======
-msgid "Unable to extract package automatically."
-msgstr "Incapaz de extrair o pacote automaticamente."
->>>>>>> pure-data/master
-
-#, fuzzy
-msgid "please perform the following steps manually:"
-msgstr "por favor realize os seguintes passos manualmente:"
-
-#, fuzzy, tcl-format
-msgid "1. unzip %s"
-msgstr "1. descompactar %s"
-
-<<<<<<< HEAD
-#, fuzzy, tcl-format
-msgid "2. copy the contents into %s"
-msgstr "2. copiar o conteúdo para %s"
 
 #, tcl-format
-msgid "uninstalling '%s'"
-msgstr "desinstalando '%s'"
-=======
+msgid "Successfully unzipped %1$s into %2$s."
+msgstr "%1$s descompactado em %2$s com sucesso."
+
+msgid "Unable to extract package automatically."
+msgstr "Incapaz de extrair o pacote automaticamente."
+
+msgid "Please perform the following steps manually:"
+msgstr "Por favor realize os seguintes passos manualmente:"
+
+#, tcl-format
+msgid "1. Unzip %s."
+msgstr "1. Descompactar %s."
+
 msgid "You might need to change the file-extension from .dek to .zip"
 msgstr "Você poderá ter que mudar a extensão de arquivo de .dek para .zip"
 
@@ -727,25 +685,11 @@ msgstr "3. Remover %s. (opcional)"
 #, tcl-format
 msgid "Removing '%s'"
 msgstr "Removendo '%s'"
->>>>>>> pure-data/master
 
-#, fuzzy, tcl-format
-msgid "uninstalling %1$s from %2$s failed!"
-msgstr "falha ao desinstalar %1$s de %2$s!"
+#, tcl-format
+msgid "Uninstalling %1$s from %2$s failed!"
+msgstr "Falha ao desinstalar %1$s de %2$s!"
 
-<<<<<<< HEAD
-#, fuzzy, tcl-format
-msgid "deken-plugin.tcl (Pd externals search) loaded from %s"
-msgstr "deken-plugin.tcl (busca de externals Pd) carregado de %s"
-
-#, fuzzy, tcl-format
-msgid "platform detected: %s"
-msgstr "platforma detectada: %s"
-
-#, fuzzy, tcl-format
-msgid "platform re-detected: %s"
-msgstr "platforma redetectada: %s"
-=======
 #, tcl-format
 msgid "Skipping SHA256 verification of '%s'."
 msgstr "Pulando verificação SHA256 de '%s'."
@@ -757,7 +701,6 @@ msgstr "Verificação SHA256 de '%s'"
 #, tcl-format
 msgid "Unable to fetch reference SHA256 for '%s'."
 msgstr "Incapaz de coletar referência SHA256 de '%s'."
->>>>>>> pure-data/master
 
 #, tcl-format
 msgid "Unable to perform SHA256 verification for '%s'."
@@ -840,15 +783,6 @@ msgstr "Pacotes do Deken"
 msgid "ZIP Files"
 msgstr "Arquivos ZIP"
 
-<<<<<<< HEAD
-#, fuzzy
-msgid "start searching for externals..."
-msgstr "procurando por externals..."
-
-#, fuzzy, tcl-format
-msgid "online? %s"
-msgstr "você está online? %s"
-=======
 msgid "TAR Files"
 msgstr "Arquivos TAR"
 
@@ -858,7 +792,6 @@ msgstr "Todos os Arquivos"
 #, tcl-format
 msgid "Checksum mismatch for '%s'"
 msgstr "Checksum falhou para '%s'"
->>>>>>> pure-data/master
 
 #, tcl-format
 msgid "SHA256 verification of '%s' failed!"
@@ -867,15 +800,6 @@ msgstr "Verificação SHA256 de '%s' falhou!"
 msgid "SHA256 verification failed"
 msgstr "Verificação SHA256 falhou"
 
-<<<<<<< HEAD
-#, fuzzy
-msgid "no matching externals found"
-msgstr "nenhum external encontrado"
-
-#, fuzzy
-msgid "try using the full name e.g. 'freeverb'"
-msgstr "tente usar o nome completo (como 'freeverb')"
-=======
 #, tcl-format
 msgid "Uninstalling previous installation of '%s'"
 msgstr "Desinstalando instalação prévia de '%s'"
@@ -883,7 +807,6 @@ msgstr "Desinstalando instalação prévia de '%s'"
 #, tcl-format
 msgid "Temporarily moving %1$s into %2$s failed."
 msgstr "Mover temporariamente %1$s para %2$s falhou."
->>>>>>> pure-data/master
 
 #, tcl-format
 msgid "Installing package '%s'"
@@ -906,53 +829,26 @@ msgstr "Falha ao instalar '%s'!"
 msgid "Package installation failed"
 msgstr "Falhou instalação do pacote"
 
-#, fuzzy, tcl-format
+#, tcl-format
 msgid ""
-<<<<<<< HEAD
-"commencing downloading of:\n"
-"%1$s\n"
-"into %2$s..."
-msgstr ""
-"começando a baixar:\n"
-"%1$s\n"
-"em %2$s..."
-
-#, fuzzy
-msgid "... aborting"
-msgstr "... abortando"
-=======
 "Failed to completely remove %1$s.\n"
 "Please manually remove the directory %2$s after quitting Pd."
 msgstr ""
 "Falha ao completamente remover %1$s.\n"
 "Por favor remover manualmente o diretório %2$s depois de fechar o Pd."
->>>>>>> pure-data/master
 
-#, fuzzy, tcl-format
-msgid "unable to add %s to search paths"
-msgstr "incapaz de adicionar %s aos caminhos de busca"
+#, tcl-format
+msgid "Unable to add %s to search paths"
+msgstr "Incapaz de adicionar %s aos caminhos de busca"
 
 #, tcl-format
 msgid "Add %s to the Pd search paths?"
 msgstr "Adicionar %s aos caminhos de busca do Pd?"
 
-#, fuzzy, tcl-format
-msgid "added %s to search paths"
+#, tcl-format
+msgid "Added %s to search paths"
 msgstr "%s adicionado aos caminhos de busca"
 
-<<<<<<< HEAD
-#, fuzzy, tcl-format
-msgid "unable to download from %1$s [%2$s]"
-msgstr "incapaz de baixar de %1$s [%2$s]"
-
-#, fuzzy, tcl-format
-msgid "unable to remove stray file %s"
-msgstr "incapaz de remover arquivo %s"
-
-#, fuzzy, tcl-format
-msgid "unable to rename downloaded file to %s"
-msgstr "incapaz de renomear o arquivo baixado para %s"
-=======
 msgid "No packages selected for installation."
 msgstr "Nenhum pacote selecionado para instalação."
 
@@ -1089,7 +985,6 @@ msgstr "Por favor selecione um diretório de instalação (writable)!"
 #, tcl-format
 msgid "Install %1$s to %2$s?"
 msgstr "Instalar %1$s em %2$s?"
->>>>>>> pure-data/master
 
 #, tcl-format
 msgid "Cancelling download of '%s': No installation directory given."
@@ -1150,10 +1045,6 @@ msgstr "Procura em %1$s retornou %2$d resultados"
 
 msgid "No usable servers for searching found..."
 msgstr "Nenhum servidor encontrado para procurar..."
-
-#, fuzzy
-msgid "unable to perform search"
-msgstr "incapaz de realizar busca"
 
 #, tcl-format
 msgid "Uploaded by %1$s @ %2$s"
@@ -1239,18 +1130,6 @@ msgstr ""
 "\n"
 "Escolher um novo local?"
 
-<<<<<<< HEAD
-#, fuzzy, tcl-format
-msgid "couldn't create Pd documents directory: %s\n"
-msgstr "impossível criar diretório de documentos Pd: %s\n"
-
-#, fuzzy, tcl-format
-msgid "couldn't create \"externals\" directory in: %s\n"
-msgstr "impossível criar diretório \"externals\" em: %s\n"
-
-msgid "refusing to delete empty domain"
-msgstr ""
-=======
 #, tcl-format
 msgid "couldn't create Pd documents directory: %s"
 msgstr "impossível criar diretório de documentos Pd: %s"
@@ -1261,7 +1140,6 @@ msgstr "impossível criar diretório de \"externals\" em: %s"
 
 msgid "refusing to delete empty domain"
 msgstr "recusando deletar domínio vazio"
->>>>>>> pure-data/master
 
 #, tcl-format
 msgid "Couldn't create preferences \"%1$s\" in %2$s"
@@ -1534,79 +1412,9 @@ msgstr "Editar..."
 msgid "Delete"
 msgstr "Deletar"
 
-<<<<<<< HEAD
-#, fuzzy, tcl-format
-msgid "ignoring '%s': doesn't exist"
-msgstr "ignorando '%s': não existe"
-
-#, fuzzy, tcl-format
-msgid "ignoring '%s': doesn't look like a Pd file"
-msgstr "ignorando '%s': não parece ser um arquivo de Pd válido"
-
-#~ msgid "Unable to perform search. Are you online?"
-#~ msgstr "Incapaz de realizar busca. Você está online?"
-
-#~ msgid "for:"
-#~ msgstr "por:"
-
-#~ msgid "Discard changes to this window??"
-#~ msgstr "Descartar mudanças feitas nesta janela??"
-
-#~ msgid "Max Text Files"
-#~ msgstr "Arquivos de Texto Max"
-
-#~ msgid "Signal"
-#~ msgstr "Sinal"
-
-#~ msgid "Input device 2:"
-#~ msgstr "Dispositivo de entrada 2:"
-
-#~ msgid "Routing"
-#~ msgstr "Roteamento"
-
-#~ msgid "Send (Ctrl s)"
-#~ msgstr "Enviar (Ctrl s)"
-
-#~ msgid "IN"
-#~ msgstr "ENTRADA"
-
-#~ msgid "Max Patch Files (.pat)"
-#~ msgstr "Arquivos de Patch Max (.pat)"
-
-#~ msgid "OUT"
-#~ msgstr "SAÍDA"
-
-#~ msgid "DIO"
-#~ msgstr "DIO"
-
-#~ msgid "Sampling"
-#~ msgstr "Amostragem"
-
-#~ msgid "Use multiple ALSA devices"
-#~ msgstr "Usar múltiplos dispositivos ALSA"
-
-#~ msgid "Preferences..."
-#~ msgstr "Preferências..."
-
-#~ msgid "Close this window??"
-#~ msgstr "Fechar esta janela??"
-
-#~ msgid "Font Properties"
-#~ msgstr "Propriedades da Fonte"
-
-#~ msgid "really quit?"
-#~ msgstr "deseja realmente sair?"
-
-#~ msgid "Input device 4:"
-#~ msgstr "Dispositivo de entrada 4:"
-
-#~ msgid "Output device 3:"
-#~ msgstr "Dispositivo de saída 3:"
-=======
 #, tcl-format
 msgid "ignoring '%s': doesn't look like a Pd file"
 msgstr "ignorando '%s': não parece ser um arquivo de Pd"
->>>>>>> pure-data/master
 
 #~ msgid "_"
 #~ msgstr "_"

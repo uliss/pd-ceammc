@@ -679,24 +679,6 @@ msgid "(Tcl) UNHANDLED ERROR: "
 msgstr ""
 
 #, tcl-format
-<<<<<<< HEAD
-msgid "installed version [%1$s] > %2$s...skipping!"
-msgstr ""
-
-#, tcl-format
-msgid "installed version [%1$s] < %2$s...overwriting!"
-msgstr ""
-
-#, tcl-format
-msgid "installed version [%1$s] == %2$s...skipping!"
-msgstr ""
-
-#, tcl-format
-msgid "successfully unzipped %1$s into %2$s"
-msgstr ""
-
-msgid "unable to extract package automatically"
-=======
 msgid "[deken] installed version [%1$s] > %2$s...skipping!"
 msgstr ""
 
@@ -725,51 +707,35 @@ msgid "Successfully unzipped %1$s into %2$s."
 msgstr ""
 
 msgid "Unable to extract package automatically."
->>>>>>> pure-data/master
 msgstr ""
 
-msgid "please perform the following steps manually:"
+msgid "Please perform the following steps manually:"
 msgstr ""
 
 #, tcl-format
-msgid "1. unzip %s"
+msgid "1. Unzip %s."
 msgstr ""
 
 msgid "You might need to change the file-extension from .dek to .zip"
 msgstr ""
 
 #, tcl-format
-msgid "2. copy the contents into %s"
+msgid "2. Copy the contents into %s."
 msgstr ""
 
 #, tcl-format
-<<<<<<< HEAD
-msgid "uninstalling '%s'"
-=======
 msgid "3. Remove %s. (optional)"
 msgstr ""
 
 #, tcl-format
 msgid "Removing '%s'"
->>>>>>> pure-data/master
 msgstr ""
 
 #, tcl-format
-msgid "uninstalling %1$s from %2$s failed!"
+msgid "Uninstalling %1$s from %2$s failed!"
 msgstr ""
 
 #, tcl-format
-<<<<<<< HEAD
-msgid "deken-plugin.tcl (Pd externals search) loaded from %s"
-msgstr ""
-
-#, tcl-format
-msgid "platform detected: %s"
-msgstr ""
-
-#, tcl-format
-msgid "platform re-detected: %s"
-=======
 msgid "Skipping SHA256 verification of '%s'."
 msgstr ""
 
@@ -779,7 +745,6 @@ msgstr ""
 
 #, tcl-format
 msgid "Unable to fetch reference SHA256 for '%s'."
->>>>>>> pure-data/master
 msgstr ""
 
 #, tcl-format
@@ -851,15 +816,9 @@ msgstr ""
 msgid "Deken %s Preferences"
 msgstr "Seçimlər..."
 
-<<<<<<< HEAD
-#, fuzzy
-msgid "start searching for externals..."
-msgstr "Mətni Axtar..."
-=======
 #, tcl-format
 msgid "Platform re-detected: %s"
 msgstr ""
->>>>>>> pure-data/master
 
 msgid "Deken Packages"
 msgstr ""
@@ -877,11 +836,7 @@ msgid "All Files"
 msgstr "barcha fayllar"
 
 #, tcl-format
-<<<<<<< HEAD
-msgid "online? %s"
-=======
 msgid "Checksum mismatch for '%s'"
->>>>>>> pure-data/master
 msgstr ""
 
 #, tcl-format
@@ -891,19 +846,12 @@ msgstr ""
 msgid "SHA256 verification failed"
 msgstr ""
 
-<<<<<<< HEAD
-msgid "no matching externals found"
-msgstr ""
-
-msgid "try using the full name e.g. 'freeverb'"
-=======
 #, tcl-format
 msgid "Uninstalling previous installation of '%s'"
 msgstr ""
 
 #, tcl-format
 msgid "Temporarily moving %1$s into %2$s failed."
->>>>>>> pure-data/master
 msgstr ""
 
 #, tcl-format
@@ -921,15 +869,6 @@ msgid "Installation failed!"
 msgstr ""
 
 #, tcl-format
-<<<<<<< HEAD
-msgid ""
-"commencing downloading of:\n"
-"%1$s\n"
-"into %2$s..."
-msgstr ""
-
-msgid "... aborting"
-=======
 msgid "Failed to install '%s'!"
 msgstr ""
 
@@ -940,11 +879,10 @@ msgstr ""
 msgid ""
 "Failed to completely remove %1$s.\n"
 "Please manually remove the directory %2$s after quitting Pd."
->>>>>>> pure-data/master
 msgstr ""
 
 #, tcl-format
-msgid "unable to add %s to search paths"
+msgid "Unable to add %s to search paths"
 msgstr ""
 
 #, tcl-format
@@ -952,18 +890,14 @@ msgid "Add %s to the Pd search paths?"
 msgstr ""
 
 #, tcl-format
-msgid "added %s to search paths"
+msgid "Added %s to search paths"
 msgstr ""
 
 msgid "No packages selected for installation."
 msgstr ""
 
 #, tcl-format
-<<<<<<< HEAD
-msgid "unable to download from %1$s [%2$s]"
-=======
 msgid "Processed %d packages selected for installation."
->>>>>>> pure-data/master
 msgstr ""
 
 msgid "Show all"
@@ -974,13 +908,6 @@ msgid "Search"
 msgstr "Mətni Axtar..."
 
 #, tcl-format
-<<<<<<< HEAD
-msgid "unable to remove stray file %s"
-msgstr ""
-
-#, tcl-format
-msgid "unable to rename downloaded file to %s"
-=======
 msgid "Install (%d)"
 msgstr ""
 
@@ -1066,15 +993,11 @@ msgid "Search Results"
 msgstr "Mətni Axtar..."
 
 msgid "Log"
->>>>>>> pure-data/master
 msgstr ""
 
 #, fuzzy, tcl-format
 msgid "Searching for \"%s\"..."
 msgstr "Mətni Axtar..."
-
-msgid "unable to perform search"
-msgstr ""
 
 #, tcl-format
 msgid "online? %s"
@@ -1215,16 +1138,6 @@ msgstr ""
 
 #, tcl-format
 msgid ""
-"Do you want Pd to use the existing documents directory for patches and "
-"external libraries?\n"
-"\n"
-"Location: %s\n"
-"\n"
-"You can change or disable this later in the Path preferences."
-msgstr ""
-
-#, tcl-format
-msgid ""
 "Do you want Pd to create a documents directory for patches and external "
 "libraries?\n"
 "\n"
@@ -1243,19 +1156,11 @@ msgid ""
 msgstr ""
 
 #, tcl-format
-<<<<<<< HEAD
-msgid "couldn't create Pd documents directory: %s\n"
-msgstr ""
-
-#, tcl-format
-msgid "couldn't create \"externals\" directory in: %s\n"
-=======
 msgid "couldn't create Pd documents directory: %s"
 msgstr ""
 
 #, tcl-format
 msgid "couldn't create \"externals\" directory in: %s"
->>>>>>> pure-data/master
 msgstr ""
 
 msgid "refusing to delete empty domain"
@@ -1561,14 +1466,6 @@ msgid "Delete"
 msgstr "Sil"
 
 #, tcl-format
-<<<<<<< HEAD
-msgid "ignoring '%s': doesn't exist"
-msgstr ""
-
-#, tcl-format
-msgid "ignoring '%s': doesn't look like a Pd file"
-msgstr ""
-=======
 msgid "ignoring '%s': doesn't look like a Pd file"
 msgstr ""
 
@@ -1591,7 +1488,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "start searching for externals..."
 #~ msgstr "Mətni Axtar..."
->>>>>>> pure-data/master
 
 #, fuzzy
 #~ msgid "for:"

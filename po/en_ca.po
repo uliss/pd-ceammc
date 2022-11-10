@@ -107,11 +107,7 @@ msgid "no Pd settings to erase"
 msgstr "no Pd settings to erase"
 
 msgid "skipping loading preferences... Pd seems to have crashed on startup"
-<<<<<<< HEAD
-msgstr ""
-=======
 msgstr "skipping loading preferences... Pd seems to have crashed on startup"
->>>>>>> pure-data/master
 
 msgid "(re-save preferences to reinstate them)"
 msgstr "(re-save preferences to reinstate them)"
@@ -220,15 +216,6 @@ msgstr "44.1k"
 
 msgid "96k"
 msgstr "96k"
-
-msgid "48k"
-msgstr ""
-
-msgid "44.1k"
-msgstr ""
-
-msgid "96k"
-msgstr ""
 
 msgid "Block size:"
 msgstr "Block size:"
@@ -596,56 +583,6 @@ msgid "Max Text Files (.mxt)"
 msgstr "Max Text Files (.mxt)"
 
 #, tcl-format
-<<<<<<< HEAD
-msgid "installed version [%1$s] > %2$s...skipping!"
-msgstr ""
-
-#, tcl-format
-msgid "installed version [%1$s] < %2$s...overwriting!"
-msgstr ""
-
-#, tcl-format
-msgid "installed version [%1$s] == %2$s...skipping!"
-msgstr ""
-
-#, tcl-format
-msgid "successfully unzipped %1$s into %2$s"
-msgstr ""
-
-msgid "unable to extract package automatically"
-msgstr ""
-
-msgid "please perform the following steps manually:"
-msgstr ""
-
-#, tcl-format
-msgid "1. unzip %s"
-msgstr ""
-
-#, tcl-format
-msgid "2. copy the contents into %s"
-msgstr ""
-
-#, tcl-format
-msgid "uninstalling '%s'"
-msgstr ""
-
-#, tcl-format
-msgid "uninstalling %1$s from %2$s failed!"
-msgstr ""
-
-#, tcl-format
-msgid "deken-plugin.tcl (Pd externals search) loaded from %s"
-msgstr ""
-
-#, tcl-format
-msgid "platform detected: %s"
-msgstr ""
-
-#, tcl-format
-msgid "platform re-detected: %s"
-msgstr ""
-=======
 msgid "detected font: %s"
 msgstr "detected font: %s"
 
@@ -762,7 +699,6 @@ msgstr "SHA256 verification of '%s'"
 #, tcl-format
 msgid "Unable to fetch reference SHA256 for '%s'."
 msgstr "Unable to fetch reference SHA256 for '%s'."
->>>>>>> pure-data/master
 
 #, tcl-format
 msgid "Unable to perform SHA256 verification for '%s'."
@@ -835,14 +771,6 @@ msgstr ""
 msgid "Deken %s Preferences"
 msgstr "Deken %s Preferences"
 
-<<<<<<< HEAD
-msgid "start searching for externals..."
-msgstr ""
-
-#, tcl-format
-msgid "online? %s"
-msgstr ""
-=======
 #, tcl-format
 msgid "Platform re-detected: %s"
 msgstr "Platform re-detected: %s"
@@ -862,7 +790,6 @@ msgstr "All Files"
 #, tcl-format
 msgid "Checksum mismatch for '%s'"
 msgstr "Checksum mismatch for '%s'"
->>>>>>> pure-data/master
 
 #, tcl-format
 msgid "SHA256 verification of '%s' failed!"
@@ -871,13 +798,6 @@ msgstr "SHA256 verification of '%s' failed!"
 msgid "SHA256 verification failed"
 msgstr "SHA256 verification failed"
 
-<<<<<<< HEAD
-msgid "no matching externals found"
-msgstr ""
-
-msgid "try using the full name e.g. 'freeverb'"
-msgstr ""
-=======
 #, tcl-format
 msgid "Uninstalling previous installation of '%s'"
 msgstr "Uninstalling previous installation of '%s'"
@@ -885,7 +805,6 @@ msgstr "Uninstalling previous installation of '%s'"
 #, tcl-format
 msgid "Temporarily moving %1$s into %2$s failed."
 msgstr "Temporarily moving %1$s into %2$s failed."
->>>>>>> pure-data/master
 
 #, tcl-format
 msgid "Installing package '%s'"
@@ -902,15 +821,6 @@ msgid "Installation failed!"
 msgstr "Installation failed!"
 
 #, tcl-format
-<<<<<<< HEAD
-msgid ""
-"commencing downloading of:\n"
-"%1$s\n"
-"into %2$s..."
-msgstr ""
-
-msgid "... aborting"
-=======
 msgid "Failed to install '%s'!"
 msgstr "Failed to install '%s'!"
 
@@ -921,41 +831,19 @@ msgstr "Package installation failed"
 msgid ""
 "Failed to completely remove %1$s.\n"
 "Please manually remove the directory %2$s after quitting Pd."
->>>>>>> pure-data/master
 msgstr ""
 "Failed to completely remove %1$s.\n"
 "Please manually remove the directory %2$s after quitting Pd."
 
 #, tcl-format
-<<<<<<< HEAD
-msgid "unable to add %s to search paths"
-msgstr ""
-=======
 msgid "Unable to add %s to search paths"
 msgstr "Unable to add %s to search paths"
->>>>>>> pure-data/master
 
 #, tcl-format
 msgid "Add %s to the Pd search paths?"
 msgstr "Add %s to the Pd search paths?"
 
 #, tcl-format
-<<<<<<< HEAD
-msgid "added %s to search paths"
-msgstr ""
-
-#, tcl-format
-msgid "unable to download from %1$s [%2$s]"
-msgstr ""
-
-#, tcl-format
-msgid "unable to remove stray file %s"
-msgstr ""
-
-#, tcl-format
-msgid "unable to rename downloaded file to %s"
-msgstr ""
-=======
 msgid "Added %s to search paths"
 msgstr "Added %s to search paths"
 
@@ -1057,7 +945,6 @@ msgstr "Search Results"
 
 msgid "Log"
 msgstr "Log"
->>>>>>> pure-data/master
 
 #, tcl-format
 msgid "Searching for \"%s\"..."
@@ -1153,9 +1040,6 @@ msgstr "Searching on %1$s returned %2$d results"
 msgid "No usable servers for searching found..."
 msgstr "No usable servers for searching found..."
 
-msgid "unable to perform search"
-msgstr ""
-
 #, tcl-format
 msgid "Uploaded by %1$s @ %2$s"
 msgstr "Uploaded by %1$s @ %2$s"
@@ -1210,16 +1094,6 @@ msgstr ""
 
 #, tcl-format
 msgid ""
-"Do you want Pd to use the existing documents directory for patches and "
-"external libraries?\n"
-"\n"
-"Location: %s\n"
-"\n"
-"You can change or disable this later in the Path preferences."
-msgstr ""
-
-#, tcl-format
-msgid ""
 "Do you want Pd to create a documents directory for patches and external "
 "libraries?\n"
 "\n"
@@ -1249,17 +1123,6 @@ msgstr ""
 "Choose a new location?"
 
 #, tcl-format
-<<<<<<< HEAD
-msgid "couldn't create Pd documents directory: %s\n"
-msgstr ""
-
-#, tcl-format
-msgid "couldn't create \"externals\" directory in: %s\n"
-msgstr ""
-
-msgid "refusing to delete empty domain"
-msgstr ""
-=======
 msgid "couldn't create Pd documents directory: %s"
 msgstr "couldn't create Pd documents directory: %s"
 
@@ -1269,7 +1132,6 @@ msgstr "couldn't create \"externals\" directory in: %s"
 
 msgid "refusing to delete empty domain"
 msgstr "refusing to delete empty domain"
->>>>>>> pure-data/master
 
 #, tcl-format
 msgid "Couldn't create preferences \"%1$s\" in %2$s"
@@ -1443,12 +1305,6 @@ msgstr "removed GUI settings"
 msgid "no Pd-GUI settings to clear"
 msgstr "no Pd-GUI settings to clear"
 
-msgid "removed GUI settings"
-msgstr ""
-
-msgid "no Pd-GUI settings to clear"
-msgstr ""
-
 msgid "Path..."
 msgstr "Path..."
 
@@ -1549,14 +1405,5 @@ msgid "Delete"
 msgstr "Delete"
 
 #, tcl-format
-<<<<<<< HEAD
-msgid "ignoring '%s': doesn't exist"
-msgstr ""
-
-#, tcl-format
-msgid "ignoring '%s': doesn't look like a Pd file"
-msgstr ""
-=======
 msgid "ignoring '%s': doesn't look like a Pd file"
 msgstr "ignoring '%s': doesn't look like a Pd file"
->>>>>>> pure-data/master
