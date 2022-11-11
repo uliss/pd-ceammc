@@ -12,12 +12,9 @@
  * this file belongs to.
  *****************************************************************************/
 #include "conv_note2guido.h"
-#include "ceammc_containers.h"
 #include "ceammc_factory.h"
 #include "ceammc_music_theory.h"
 #include "ceammc_music_theory_pitch_class.h"
-
-#include <boost/static_string.hpp>
 
 using namespace ceammc::music;
 

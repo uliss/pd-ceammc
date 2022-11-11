@@ -3,9 +3,9 @@
 # include "lemon_data_string.h"
 # include "parser_numeric.h"
 # include "fmt/format.h"
+# include "ceammc_datatypes.h"
 
 # include <cstdint>
-# include <boost/static_string.hpp>
 
 # include "lemon_data_parser_impl.h"
 
@@ -294,7 +294,7 @@ bool LemonDataStringParser::parse(const char* data) noexcept
     DECLARE_RAGEL_NUMERIC_VARS;
 
     // for quoted string parser
-    boost::static_string<512> ragel_string;
+    ceammc::BoostStaticString<512> ragel_string;
     // for matrices
     int ragel_mtx_cols = 0;
     int ragel_mtx_rows = 0;

@@ -29,11 +29,11 @@ namespace ceammc {
 #if BOOST_VERSION < 107500
 #define STATIC_STRING_SIZE(type) type::max_size_n
 template<size_t N>
-using StaticString = boost::beast::static_string<N>;
+using BoostStaticString = boost::beast::static_string<N>;
 #else
 #define STATIC_STRING_SIZE(type) type::static_capacity
 template<size_t N>
-using StaticString = boost::static_string<N>;
+using BoostStaticString = boost::static_string<N>;
 #endif
 
 constexpr size_t DATA_TYPE_NAME_MAX_LENGTH = 14;
@@ -44,7 +44,7 @@ namespace data {
     constexpr uint16_t DATA_WRAPPER = 32;
 }
 
-using DataTypeName = StaticString<DATA_TYPE_NAME_MAX_LENGTH>;
+using DataTypeName = BoostStaticString<DATA_TYPE_NAME_MAX_LENGTH>;
 using DataTypeId = uint16_t;
 
 }

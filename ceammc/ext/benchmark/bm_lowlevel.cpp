@@ -12,10 +12,10 @@
  * this file belongs to.
  *****************************************************************************/
 
-#include "fmt/include/fmt/format.h"
+#include "fmt/include/fmt/core.h"
+#include "ceammc_datatypes.h"
 
 #include <boost/unordered_map.hpp>
-#include <boost/static_string.hpp>
 #include <boost/container/static_vector.hpp>
 #include <climits>
 #include <cstdio>
@@ -131,19 +131,19 @@ NONIUS_BENCHMARK("fmt::format @l%s", [] {
 })
 
 NONIUS_BENCHMARK("fmt::format_to @l%s (static_string)", [] {
-    boost::static_string<1024> buf;
+    ceammc::BoostStaticString<1024> buf;
     fmt::format_to(std::back_inserter(buf), "@l{}", str[str_rand(gen)]);
     return 0;
 })
 
 NONIUS_BENCHMARK("fmt::format_to @l%f (static_string)", [] {
-    boost::static_string<1024> buf;
+    ceammc::BoostStaticString<1024> buf;
     fmt::format_to(std::back_inserter(buf), "@l{}", frand(gen));
     return 0;
 })
 
 NONIUS_BENCHMARK("fmt::format_to {:g} (static_string)", [] {
-    boost::static_string<1024> buf;
+    ceammc::BoostStaticString<1024> buf;
     fmt::format_to(std::back_inserter(buf), "{:g}", frand(gen));
     return 0;
 })
@@ -155,7 +155,7 @@ NONIUS_BENCHMARK("fmt::format_to {:g} (static_vector)", [] {
 })
 
 NONIUS_BENCHMARK("fmt::format_to {} (static_string)", [] {
-    boost::static_string<1024> buf;
+    ceammc::BoostStaticString<1024> buf;
     fmt::format_to(std::back_inserter(buf), "{}", frand(gen));
     return 0;
 })

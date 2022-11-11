@@ -10,7 +10,6 @@
 # include <limits>
 # include <cmath>
 # include <algorithm>
-# include <boost/static_string.hpp>
 # include <boost/container/static_vector.hpp>
 # include <boost/variant.hpp>
 
@@ -79,8 +78,8 @@ namespace {
     }
 
 
-    using ArgString = std::pair<ceammc::StaticString<14>, uint32_t>;
-    using ArgName = ceammc::StaticString<10>;
+    using ArgString = std::pair<ceammc::BoostStaticString<14>, uint32_t>;
+    using ArgName = ceammc::BoostStaticString<10>;
     using ArgValue = boost::variant<double, int64_t, ArgString>;
     using ArgList = boost::container::small_vector<ArgValue, 3>;
 

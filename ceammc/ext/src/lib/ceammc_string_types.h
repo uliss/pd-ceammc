@@ -8,7 +8,7 @@
 namespace ceammc {
 namespace string {
 
-    using StaticString = ::ceammc::StaticString<1000>;
+    using StaticString = ceammc::BoostStaticString<1000>;
     using SmallString = boost::container::small_vector<char, 31>;
     using MediumString = boost::container::small_vector<char, 255>;
 

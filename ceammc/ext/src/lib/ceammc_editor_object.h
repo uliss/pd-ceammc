@@ -24,13 +24,13 @@
 
 namespace ceammc {
 
-using EditorTitleString = StaticString<32>;
+using EditorTitleString = BoostStaticString<32>;
 
 EditorTitleString makeEditorTitleString(const char* dataName, const char* dataId = "");
 
 class EditorString : public memorypool::boost_intrusive_pool_item {
 public:
-    StaticString<MAXPDSTRING> str;
+    BoostStaticString<MAXPDSTRING> str;
 
     EditorString() { }
     void destroy() final { str.clear(); }

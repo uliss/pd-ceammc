@@ -25,11 +25,10 @@
 #include <unordered_set>
 
 #include <boost/container/small_vector.hpp>
-#include <boost/static_string.hpp>
 #include <boost/variant.hpp>
 #include <lo/lo.h>
 
-#include "ceammc_atom.h"
+#include "ceammc_datatypes.h"
 #include "ceammc_log.h"
 #include "ceammc_object.h"
 #include "ceammc_poll_dispatcher.h"
@@ -111,7 +110,7 @@ namespace net {
     };
 
     class OscServerLogger : public NotifiedObject {
-        using LogString = boost::static_string<80>;
+        using LogString = BoostStaticString<80>;
         using LogEntry = std::pair<LogLevel, LogString>;
         using LogPipe = moodycamel::ReaderWriterQueue<LogEntry>;
 
