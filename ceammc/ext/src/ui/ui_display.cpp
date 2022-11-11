@@ -128,7 +128,7 @@ void UIDisplay::paint()
     auto escaped = msg_txt_.find_first_of("{}");
     if (escaped == std::string::npos) {
         paint(msg_txt_.c_str());
-    } else if (msg_txt_.size() < (string::StaticString::static_capacity / 2)) {
+    } else if (msg_txt_.size() < (STATIC_STRING_SIZE(string::StaticString) / 2)) {
         try {
             string::StaticString buf;
             for (auto ch : msg_txt_) {
