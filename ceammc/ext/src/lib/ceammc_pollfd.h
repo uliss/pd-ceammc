@@ -27,7 +27,9 @@
 
 #ifdef HAVE_IO_H
 #include <io.h>
-#define close _close
+#define pipe_close _close
+#else
+#define pipe_close close
 #endif
 
 extern "C" {
@@ -115,10 +117,10 @@ public:
 
     ~PollPipeMemberFunction()
     {
-        if (close(fd[0]) == -1)
+        if (pipe_close(fd[0]) == -1)
             perror("[ceammc] pipe closing error");
 
-        if (close(fd[1]) == -1)
+        if (pipe_close(fd[1]) == -1)
             perror("[ceammc] pipe closing error");
     }
 };
