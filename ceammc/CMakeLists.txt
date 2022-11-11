@@ -16,6 +16,7 @@ find_program(PD_LIB2DEKEN pd_lib2deken)
 find_program(PD_CAT2PD pd_cat2pd)
 
 set(CEAMMC_INSTALL_PATH ${PD_INTERNAL_EXT_INSTALL_PATH}/ceammc)
+set(CEAMMC_FAUST_TARGETS "" CACHE INTERNAL "")
 
 add_subdirectory(extra)
 add_subdirectory(gui)
@@ -74,4 +75,7 @@ add_custom_target(ceammc_extra_files
 set(DEV_INFO_TXT "${CMAKE_CURRENT_SOURCE_DIR}/dev_info_${CMAKE_SYSTEM_NAME}.txt")
 add_custom_target(dev
     COMMAND ${CMAKE_COMMAND} -E cat "${DEV_INFO_TXT}")
+
+add_custom_target(dev_faust
+    COMMAND ${CMAKE_COMMAND} -D ALL_TARGETS="${CEAMMC_FAUST_TARGETS}" -P "${CMAKE_CURRENT_SOURCE_DIR}/scripts/list_faust_targets.cmake")
 
