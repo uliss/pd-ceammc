@@ -287,6 +287,8 @@ static std::string make_vlc_request(const VlcCommand& cmd)
             httplib::detail::encode_query_param(boost::get<std::string>(cmd.data)));
     case VLC_CMD_SEEK:
         return fmt::format(VLC_STATUS "?command=seek&val={}", boost::get<std::string>(cmd.data));
+    default:
+        return {};
     }
 }
 
