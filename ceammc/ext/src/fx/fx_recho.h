@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "fx.recho"
-Code generated with Faust 2.44.1 (https://faust.grame.fr)
+Code generated with Faust 2.53.1 (https://faust.grame.fr)
 Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn fx_recho -scn fx_recho_dsp -es 1 -mcd 16 -single -ftz 0
 ------------------------------------------------------------ */
 
@@ -45,30 +45,33 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_ds
 #include <vector>
 
 /************************************************************************
- ************************************************************************
-    FAUST compiler
-    Copyright (C) 2003-2018 GRAME, Centre National de Creation Musicale
-    ---------------------------------------------------------------------
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- ************************************************************************
- ************************************************************************/
+ FAUST Architecture File
+ Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
+ ---------------------------------------------------------------------
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation; either version 2.1 of the License, or
+ (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU Lesser General Public License for more details.
+ 
+ You should have received a copy of the GNU Lesser General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ 
+ EXCEPTION : As a special exception, you may create a larger work
+ that contains this FAUST architecture section and distribute
+ that work under terms of your choice, so long as this FAUST
+ architecture section is not modified.
+ ***************************************************************************/
 
 #ifndef __export__
 #define __export__
 
-#define FAUSTVERSION "2.44.1"
+#define FAUSTVERSION "2.53.1"
 
 // Use FAUST_API for code that is part of the external API but is also compiled in faust and libfaust
 // Use LIBFAUST_API for code that is compiled in faust and libfaust
@@ -116,7 +119,7 @@ struct FAUST_API dsp_memory_manager {
      * Inform the Memory Manager with the number of expected memory zones.
      * @param count - the number of expected memory zones
      */
-    virtual void begin(size_t count) {}
+    virtual void begin(size_t /*count*/) {}
     
     /**
      * Give the Memory Manager information on a given memory zone.
@@ -124,8 +127,8 @@ struct FAUST_API dsp_memory_manager {
      * @param reads - the number of Read access to the zone used to compute one frame
      * @param writes - the number of Write access to the zone used to compute one frame
      */
-    virtual void info(size_t size, size_t reads, size_t writes) {}
-    
+    virtual void info(size_t /*size*/, size_t /*reads*/, size_t /*writes*/) {}
+
     /**
      * Inform the Memory Manager that all memory zones have been described,
      * to possibly start a 'compute the best allocation strategy' step.
@@ -310,14 +313,17 @@ class FAUST_API ScopedNoDenormals {
     
     private:
     
-        intptr_t fpsr;
+        intptr_t fpsr = 0;
         
         void setFpStatusRegister(intptr_t fpsr_aux) noexcept
         {
         #if defined (__arm64__) || defined (__aarch64__)
-           asm volatile("msr fpcr, %0" : : "ri" (fpsr_aux));
+            asm volatile("msr fpcr, %0" : : "ri" (fpsr_aux));
         #elif defined (__SSE__)
-            _mm_setcsr(static_cast<uint32_t>(fpsr_aux));
+            // The volatile keyword here is needed to workaround a bug in AppleClang 13.0
+            // which aggressively optimises away the variable otherwise
+            volatile uint32_t fpsr_w = static_cast<uint32_t>(fpsr_aux);
+            _mm_setcsr(fpsr_w);
         #endif
         }
         
@@ -325,7 +331,7 @@ class FAUST_API ScopedNoDenormals {
         {
         #if defined (__arm64__) || defined (__aarch64__)
             asm volatile("mrs %0, fpcr" : "=r" (fpsr));
-        #elif defined ( __SSE__)
+        #elif defined (__SSE__)
             fpsr = static_cast<intptr_t>(_mm_getcsr());
         #endif
         }
@@ -336,16 +342,14 @@ class FAUST_API ScopedNoDenormals {
         {
         #if defined (__arm64__) || defined (__aarch64__)
             intptr_t mask = (1 << 24 /* FZ */);
+        #elif defined (__SSE__)
+        #if defined (__SSE2__)
+            intptr_t mask = 0x8040;
         #else
-            #if defined(__SSE__)
-            #if defined(__SSE2__)
-                intptr_t mask = 0x8040;
-            #else
-                intptr_t mask = 0x8000;
-            #endif
-            #else
-                intptr_t mask = 0x0000;
-            #endif
+            intptr_t mask = 0x8000;
+        #endif
+        #else
+            intptr_t mask = 0x0000;
         #endif
             getFpStatusRegister();
             setFpStatusRegister(fpsr | mask);
@@ -358,7 +362,7 @@ class FAUST_API ScopedNoDenormals {
 
 };
 
-#define AVOIDDENORMALS ScopedNoDenormals();
+#define AVOIDDENORMALS ScopedNoDenormals ftz_scope;
 
 #endif
 
@@ -436,8 +440,8 @@ struct FAUST_API UIReal {
     
     // -- metadata declarations
     
-    virtual void declare(REAL* zone, const char* key, const char* val) {}
-    
+    virtual void declare(REAL* /*zone*/, const char* /*key*/, const char* /*val*/) {}
+
     // To be used by LLVM client
     virtual int sizeOfFAUSTFLOAT() { return sizeof(FAUSTFLOAT); }
 };
@@ -720,7 +724,7 @@ class fx_recho : public fx_recho_dsp {
 		m->declare("compressors.lib/compressor_mono:copyright", "Copyright (C) 2014-2020 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("compressors.lib/compressor_mono:license", "MIT-style STK-4.3 license");
 		m->declare("compressors.lib/name", "Faust Compressor Effect Library");
-		m->declare("compressors.lib/version", "0.2");
+		m->declare("compressors.lib/version", "0.4");
 		m->declare("filename", "fx_recho.dsp");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
@@ -748,28 +752,28 @@ class fx_recho : public fx_recho_dsp {
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
-		float fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
-		fConst1 = 44.0999985f / fConst0;
+		float fConst0 = std::min<float>(1.92e+05f, std::max<float>(1.0f, float(fSampleRate)));
+		fConst1 = 44.1f / fConst0;
 		fConst2 = 1.0f - fConst1;
 		fx_rechoSIG0* sig0 = newfx_rechoSIG0();
 		sig0->instanceInitfx_rechoSIG0(sample_rate);
 		sig0->fillfx_rechoSIG0(96000, ftbl0);
-		fConst3 = 0.00100000005f * fConst0;
+		fConst3 = 0.001f * fConst0;
 		sig0->instanceInitfx_rechoSIG0(sample_rate);
 		sig0->fillfx_rechoSIG0(96000, ftbl1);
-		fConst4 = 0.000500000024f * fConst0;
-		fConst5 = std::exp(0.0f - 0.200000003f / fConst0);
+		fConst4 = 0.0005f * fConst0;
+		fConst5 = std::exp(0.0f - 0.2f / fConst0);
 		fConst6 = 1.0f - fConst5;
-		fConst7 = std::exp(0.0f - 0.0199999996f / fConst0);
-		fConst8 = std::exp(0.0f - 0.100000001f / fConst0);
+		fConst7 = std::exp(0.0f - 0.02f / fConst0);
+		fConst8 = std::exp(0.0f - 0.1f / fConst0);
 		deletefx_rechoSIG0(sig0);
 	}
 	
 	virtual void instanceResetUserInterface() {
 		fCheckbox0 = FAUSTFLOAT(0.0f);
 		fHslider0 = FAUSTFLOAT(1.0f);
-		fHslider1 = FAUSTFLOAT(0.29999999999999999f);
-		fHslider2 = FAUSTFLOAT(500.0f);
+		fHslider1 = FAUSTFLOAT(0.3f);
+		fHslider2 = FAUSTFLOAT(5e+02f);
 	}
 	
 	virtual void instanceClear() {
@@ -815,10 +819,10 @@ class fx_recho : public fx_recho_dsp {
 		ui_interface->openVerticalBox("fx.recho");
 		ui_interface->addCheckButton("bypass", &fCheckbox0);
 		ui_interface->declare(&fHslider2, "unit", "ms");
-		ui_interface->addHorizontalSlider("delay", &fHslider2, FAUSTFLOAT(500.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(2000.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addHorizontalSlider("delay", &fHslider2, FAUSTFLOAT(5e+02f), FAUSTFLOAT(0.0f), FAUSTFLOAT(2e+03f), FAUSTFLOAT(0.1f));
 		ui_interface->declare(&fHslider0, "style", "knob");
-		ui_interface->addHorizontalSlider("drywet", &fHslider0, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.00999999978f));
-		ui_interface->addHorizontalSlider("feedback", &fHslider1, FAUSTFLOAT(0.300000012f), FAUSTFLOAT(0.0f), FAUSTFLOAT(0.99000001f), FAUSTFLOAT(0.00100000005f));
+		ui_interface->addHorizontalSlider("drywet", &fHslider0, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.01f));
+		ui_interface->addHorizontalSlider("feedback", &fHslider1, FAUSTFLOAT(0.3f), FAUSTFLOAT(0.0f), FAUSTFLOAT(0.99f), FAUSTFLOAT(0.001f));
 		ui_interface->closeBox();
 	}
 	
@@ -829,9 +833,9 @@ class fx_recho : public fx_recho_dsp {
 		float fSlow1 = fConst1 * float(fHslider0);
 		float fSlow2 = fConst1 * float(fHslider1);
 		float fSlow3 = float(fHslider2);
-		int iSlow4 = int(std::min<float>(96000.0f, fConst3 * fSlow3));
+		int iSlow4 = int(std::min<float>(9.6e+04f, fConst3 * fSlow3));
 		int iSlow5 = 2 * iSlow4;
-		float fSlow6 = 3.14159274f / float(iSlow4);
+		float fSlow6 = 3.1415927f / float(iSlow4);
 		int iSlow7 = int(fConst4 * fSlow3);
 		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
 			float fTemp0 = float(input0[i0]);
@@ -841,25 +845,20 @@ class fx_recho : public fx_recho_dsp {
 			float fTemp2 = fTemp1 + fRec2[0] * fRec1[1];
 			iRec3[0] = iRec3[1] + 1;
 			int iTemp3 = iRec3[0] % iSlow5;
-			int iElse1 = iSlow5 - iTemp3;
-			ftbl0[((iTemp3 > iSlow4) ? iElse1 : iTemp3)] = fTemp2;
+			ftbl0[((iTemp3 > iSlow4) ? iSlow5 - iTemp3 : iTemp3)] = fTemp2;
 			int iTemp4 = iRec3[0] + 1;
 			int iTemp5 = iTemp4 % iSlow5;
-			int iElse2 = iSlow5 - iTemp5;
 			int iTemp6 = (iSlow7 + iRec3[0]) % iSlow5;
-			int iElse3 = iSlow5 - iTemp6;
-			ftbl1[((iTemp6 > iSlow4) ? iElse3 : iTemp6)] = fTemp2;
+			ftbl1[((iTemp6 > iSlow4) ? iSlow5 - iTemp6 : iTemp6)] = fTemp2;
 			int iTemp7 = iSlow7 + iTemp4;
 			int iTemp8 = iTemp7 % iSlow5;
-			int iElse4 = iSlow5 - iTemp8;
-			float fTemp9 = ftbl0[((iTemp5 > iSlow4) ? iElse2 : iTemp5)] * fx_recho_faustpower2_f(std::sin(fSlow6 * float(iTemp4 % iSlow4))) + ftbl1[((iTemp8 > iSlow4) ? iElse4 : iTemp8)] * fx_recho_faustpower2_f(std::sin(fSlow6 * float(iTemp7 % iSlow4)));
+			float fTemp9 = ftbl0[((iTemp5 > iSlow4) ? iSlow5 - iTemp5 : iTemp5)] * fx_recho_faustpower2_f(std::sin(fSlow6 * float(iTemp4 % iSlow4))) + ftbl1[((iTemp8 > iSlow4) ? iSlow5 - iTemp8 : iTemp8)] * fx_recho_faustpower2_f(std::sin(fSlow6 * float(iTemp7 % iSlow4)));
 			float fTemp10 = std::fabs(fTemp9);
 			float fTemp11 = ((fTemp10 > fRec5[1]) ? fConst8 : fConst7);
 			fRec5[0] = fTemp10 * (1.0f - fTemp11) + fRec5[1] * fTemp11;
-			fRec4[0] = fConst6 * (0.0f - 0.800000012f * std::max<float>(20.0f * std::log10(std::max<float>(1.17549435e-38f, fRec5[0])) + 3.0f, 0.0f)) + fConst5 * fRec4[1];
-			fRec1[0] = fTemp9 * std::pow(10.0f, 0.0500000007f * fRec4[0]);
-			float fThen6 = fTemp1 * (1.0f - fRec0[0]) + fRec0[0] * fRec1[0];
-			output0[i0] = FAUSTFLOAT(((iSlow0) ? fTemp0 : fThen6));
+			fRec4[0] = fConst6 * (0.0f - 0.8f * std::max<float>(2e+01f * std::log10(std::max<float>(1.1754944e-38f, fRec5[0])) + 3.0f, 0.0f)) + fConst5 * fRec4[1];
+			fRec1[0] = fTemp9 * std::pow(1e+01f, 0.05f * fRec4[0]);
+			output0[i0] = FAUSTFLOAT(((iSlow0) ? fTemp0 : fTemp1 * (1.0f - fRec0[0]) + fRec0[0] * fRec1[0]));
 			fRec0[1] = fRec0[0];
 			fRec2[1] = fRec2[0];
 			iRec3[1] = iRec3[0];

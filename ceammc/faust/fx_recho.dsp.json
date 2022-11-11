@@ -1,7 +1,7 @@
 {
 	"name": "fx.recho",
 	"filename": "fx_recho.dsp",
-	"version": "2.44.1",
+	"version": "2.53.1",
 	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn fx_recho -scn fx_recho_dsp -es 1 -mcd 16 -single -ftz 0",
 	"library_list": ["/Users/serge/work/music/pure-data/ceammc/faust/ceammc.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib","/usr/local/share/faust/compressors.lib","/usr/local/share/faust/signals.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc_ui.lib","/usr/local/share/faust/analyzers.lib","/usr/local/share/faust/basics.lib"],
 	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
@@ -29,7 +29,7 @@
 		{ "compressors.lib/compressor_mono:copyright": "Copyright (C) 2014-2020 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
 		{ "compressors.lib/compressor_mono:license": "MIT-style STK-4.3 license" },
 		{ "compressors.lib/name": "Faust Compressor Effect Library" },
-		{ "compressors.lib/version": "0.2" },
+		{ "compressors.lib/version": "0.4" },
 		{ "filename": "fx_recho.dsp" },
 		{ "maths.lib/author": "GRAME" },
 		{ "maths.lib/copyright": "GRAME" },
