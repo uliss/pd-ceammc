@@ -129,7 +129,7 @@ TEST_CASE("net.osc.receive", "[externals]")
         poll_ms(POLL_DEFAULT);
         TExt t("net.osc.receive", "/x", "test:receive");
         poll_ms(POLL_DEFAULT);
-        TExt send("net.osc.send", LA("osc.udp://:9011"));
+        TExt send("net.osc.send", LA("osc.udp://localhost:9011"));
         poll_ms(POLL_DEFAULT);
 
         send.call("send", LA("/y", 1, 2, 3));
@@ -163,7 +163,7 @@ TEST_CASE("net.osc.receive", "[externals]")
         poll_ms(POLL_DEFAULT);
         TExt t("net.osc.receive", "/x", "test:receive_typed", "ii");
         poll_ms(POLL_DEFAULT);
-        TExt send("net.osc.send", LA("osc.udp://:9012"));
+        TExt send("net.osc.send", LA("osc.udp://localhost:9012"));
         poll_ms(POLL_DEFAULT);
 
         send.call("send", LA("/x", "A", 20));

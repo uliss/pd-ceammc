@@ -179,7 +179,7 @@ TEST_CASE("net.osc.send", "[externals]")
         poll_ms(POLL_DEFAULT);
         TExt r("net.osc.receive", "/", "test:send/receive");
         poll_ms(POLL_DEFAULT);
-        TExt t("net.osc.send", LA("osc.udp://:9011"));
+        TExt t("net.osc.send", LA("osc.udp://localhost:9011"));
         poll_ms(POLL_DEFAULT);
 
         t.call("send", LA("/", 1, 2, 3, "ABC", "100"));
