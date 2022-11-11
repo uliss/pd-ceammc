@@ -30,6 +30,8 @@ extern "C" {
 #define read _read
 #endif
 
+#include <cstring>
+
 namespace ceammc {
 
 PipeDispatcherImpl::PipeDispatcherImpl(PollFn fn, Dispatcher* owner)
