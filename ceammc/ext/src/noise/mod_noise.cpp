@@ -1,5 +1,5 @@
 #include "mod_noise.h"
-#include "m_pd.h"
+#include "ceammc_log.h"
 
 extern "C" void setup_noise0x2ebaker();
 extern "C" void setup_noise0x2eclifford();
@@ -60,5 +60,6 @@ void ceammc_noise_setup()
     setup_chaos_gbman();
     setup_chaos_standard();
 
-    post("[ceammc] A-Chaos library, (c) 2004 André Sier");
+    using namespace ceammc;
+    LIB_DBG << "A-Chaos library, (c) 2004 André Sier";
 }
