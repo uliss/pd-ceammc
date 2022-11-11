@@ -12,13 +12,12 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ui_touchosc.h"
-#include "ceammc_base64.h"
 #include "ceammc_canvas.h"
-#include "ceammc_format.h"
 #include "ceammc_factory.h"
+#include "ceammc_format.h"
 #include "ceammc_platform.h"
 
-#include "fmt/format.h"
+#include "fmt/core.h"
 #include "httplib.h"
 
 #include <chrono>
@@ -117,8 +116,14 @@ class TouchOscHttpServer {
     {
         using namespace httplib;
 
-        http_.set_exception_handler([this](const Request& req, Response& res, std::exception& e) {
-            log_.error(e.what());
+        http_.set_exception_handler([this](const Request&, Response&, std::exception_ptr ep) {
+            try {
+                if (ep)
+                    std::rethrow_exception(ep);
+
+            } catch (const std::exception& e) {
+                log_.error(e.what());
+            }
         });
 
         http_.Get("/", [this](const Request&, Response& res) {
