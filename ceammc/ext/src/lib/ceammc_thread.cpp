@@ -421,6 +421,7 @@ void ThreadPollPipeExternal::writeCommand(char code)
 void ThreadPollPipeExternal::handleThreadControl(int fd)
 {
     char code;
-    read(fd, &code, 1);
-    processCommand(code);
+    auto res = read(fd, &code, 1);
+    if (res == 1)
+        processCommand(code);
 }
