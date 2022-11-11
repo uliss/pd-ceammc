@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "flt.fb_comb"
-Code generated with Faust 2.44.1 (https://faust.grame.fr)
+Code generated with Faust 2.53.1 (https://faust.grame.fr)
 Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn flt_fb_comb -scn flt_fb_comb_dsp -es 1 -mcd 16 -single -ftz 0
 ------------------------------------------------------------ */
 
@@ -45,30 +45,33 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_ds
 #include <vector>
 
 /************************************************************************
- ************************************************************************
-    FAUST compiler
-    Copyright (C) 2003-2018 GRAME, Centre National de Creation Musicale
-    ---------------------------------------------------------------------
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- ************************************************************************
- ************************************************************************/
+ FAUST Architecture File
+ Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
+ ---------------------------------------------------------------------
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation; either version 2.1 of the License, or
+ (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU Lesser General Public License for more details.
+ 
+ You should have received a copy of the GNU Lesser General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ 
+ EXCEPTION : As a special exception, you may create a larger work
+ that contains this FAUST architecture section and distribute
+ that work under terms of your choice, so long as this FAUST
+ architecture section is not modified.
+ ***************************************************************************/
 
 #ifndef __export__
 #define __export__
 
-#define FAUSTVERSION "2.44.1"
+#define FAUSTVERSION "2.53.1"
 
 // Use FAUST_API for code that is part of the external API but is also compiled in faust and libfaust
 // Use LIBFAUST_API for code that is compiled in faust and libfaust
@@ -116,7 +119,7 @@ struct FAUST_API dsp_memory_manager {
      * Inform the Memory Manager with the number of expected memory zones.
      * @param count - the number of expected memory zones
      */
-    virtual void begin(size_t count) {}
+    virtual void begin(size_t /*count*/) {}
     
     /**
      * Give the Memory Manager information on a given memory zone.
@@ -124,8 +127,8 @@ struct FAUST_API dsp_memory_manager {
      * @param reads - the number of Read access to the zone used to compute one frame
      * @param writes - the number of Write access to the zone used to compute one frame
      */
-    virtual void info(size_t size, size_t reads, size_t writes) {}
-    
+    virtual void info(size_t /*size*/, size_t /*reads*/, size_t /*writes*/) {}
+
     /**
      * Inform the Memory Manager that all memory zones have been described,
      * to possibly start a 'compute the best allocation strategy' step.
@@ -310,14 +313,17 @@ class FAUST_API ScopedNoDenormals {
     
     private:
     
-        intptr_t fpsr;
+        intptr_t fpsr = 0;
         
         void setFpStatusRegister(intptr_t fpsr_aux) noexcept
         {
         #if defined (__arm64__) || defined (__aarch64__)
-           asm volatile("msr fpcr, %0" : : "ri" (fpsr_aux));
+            asm volatile("msr fpcr, %0" : : "ri" (fpsr_aux));
         #elif defined (__SSE__)
-            _mm_setcsr(static_cast<uint32_t>(fpsr_aux));
+            // The volatile keyword here is needed to workaround a bug in AppleClang 13.0
+            // which aggressively optimises away the variable otherwise
+            volatile uint32_t fpsr_w = static_cast<uint32_t>(fpsr_aux);
+            _mm_setcsr(fpsr_w);
         #endif
         }
         
@@ -325,7 +331,7 @@ class FAUST_API ScopedNoDenormals {
         {
         #if defined (__arm64__) || defined (__aarch64__)
             asm volatile("mrs %0, fpcr" : "=r" (fpsr));
-        #elif defined ( __SSE__)
+        #elif defined (__SSE__)
             fpsr = static_cast<intptr_t>(_mm_getcsr());
         #endif
         }
@@ -336,16 +342,14 @@ class FAUST_API ScopedNoDenormals {
         {
         #if defined (__arm64__) || defined (__aarch64__)
             intptr_t mask = (1 << 24 /* FZ */);
+        #elif defined (__SSE__)
+        #if defined (__SSE2__)
+            intptr_t mask = 0x8040;
         #else
-            #if defined(__SSE__)
-            #if defined(__SSE2__)
-                intptr_t mask = 0x8040;
-            #else
-                intptr_t mask = 0x8000;
-            #endif
-            #else
-                intptr_t mask = 0x0000;
-            #endif
+            intptr_t mask = 0x8000;
+        #endif
+        #else
+            intptr_t mask = 0x0000;
         #endif
             getFpStatusRegister();
             setFpStatusRegister(fpsr | mask);
@@ -358,7 +362,7 @@ class FAUST_API ScopedNoDenormals {
 
 };
 
-#define AVOIDDENORMALS ScopedNoDenormals();
+#define AVOIDDENORMALS ScopedNoDenormals ftz_scope;
 
 #endif
 
@@ -436,8 +440,8 @@ struct FAUST_API UIReal {
     
     // -- metadata declarations
     
-    virtual void declare(REAL* zone, const char* key, const char* val) {}
-    
+    virtual void declare(REAL* /*zone*/, const char* /*key*/, const char* /*val*/) {}
+
     // To be used by LLVM client
     virtual int sizeOfFAUSTFLOAT() { return sizeof(FAUSTFLOAT); }
 };
@@ -651,7 +655,7 @@ class flt_fb_comb : public flt_fb_comb_dsp {
 	float fRec2[2];
 	int IOTA0;
 	float fVec0[16384];
-	float fConst8;
+	int iConst8;
 	float fRec0[2];
 	float fRec1[2];
 	
@@ -694,15 +698,15 @@ class flt_fb_comb : public flt_fb_comb_dsp {
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
-		fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
-		fConst1 = 44.0999985f / fConst0;
+		fConst0 = std::min<float>(1.92e+05f, std::max<float>(1.0f, float(fSampleRate)));
+		fConst1 = 44.1f / fConst0;
 		fConst2 = 1.0f - fConst1;
-		int iConst3 = int(0.0500000007f * std::max<float>(8000.0f, fConst0) + -1.0f);
+		int iConst3 = int(0.05f * std::max<float>(8e+03f, fConst0) + -1.0f);
 		int iConst4 = (iConst3 >> 1) | iConst3;
 		int iConst5 = (iConst4 >> 2) | iConst4;
 		int iConst6 = (iConst5 >> 4) | iConst5;
 		int iConst7 = (iConst6 >> 8) | iConst6;
-		fConst8 = float((iConst7 >> 16) | iConst7) + 2.0f;
+		iConst8 = ((iConst7 >> 16) | iConst7) + 2;
 	}
 	
 	virtual void instanceResetUserInterface() {
@@ -745,7 +749,7 @@ class flt_fb_comb : public flt_fb_comb_dsp {
 	
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("flt.fb_comb");
-		ui_interface->addHorizontalSlider("a", &fHslider0, FAUSTFLOAT(0.75f), FAUSTFLOAT(-1.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(9.99999975e-05f));
+		ui_interface->addHorizontalSlider("a", &fHslider0, FAUSTFLOAT(0.75f), FAUSTFLOAT(-1.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0001f));
 		ui_interface->closeBox();
 	}
 	
@@ -758,11 +762,11 @@ class flt_fb_comb : public flt_fb_comb_dsp {
 			fRec2[0] = fSlow0 + fConst2 * fRec2[1];
 			float fTemp0 = float(input0[i0]) - fRec2[0] * fRec0[1];
 			fVec0[IOTA0 & 16383] = fTemp0;
-			float fTemp1 = fConst0 / std::max<float>(20.0f, std::min<float>(20000.0f, float(input1[i0])));
+			float fTemp1 = fConst0 / std::max<float>(2e+01f, std::min<float>(2e+04f, float(input1[i0])));
 			float fTemp2 = fTemp1 + -1.0f;
 			int iTemp3 = int(fTemp2);
 			float fTemp4 = std::floor(fTemp2);
-			fRec0[0] = fVec0[(IOTA0 - int(std::min<float>(fConst8, float(std::max<int>(0, iTemp3))))) & 16383] * (fTemp4 + 2.0f - fTemp1) + (fTemp1 + -1.0f - fTemp4) * fVec0[(IOTA0 - int(std::min<float>(fConst8, float(std::max<int>(0, iTemp3 + 1))))) & 16383];
+			fRec0[0] = fVec0[(IOTA0 - std::min<int>(iConst8, std::max<int>(0, iTemp3))) & 16383] * (fTemp4 + (2.0f - fTemp1)) + (fTemp1 + (-1.0f - fTemp4)) * fVec0[(IOTA0 - std::min<int>(iConst8, std::max<int>(0, iTemp3 + 1))) & 16383];
 			fRec1[0] = fTemp0;
 			output0[i0] = FAUSTFLOAT(fRec1[1]);
 			fRec2[1] = fRec2[0];
