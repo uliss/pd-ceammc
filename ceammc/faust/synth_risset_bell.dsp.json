@@ -1,7 +1,7 @@
 {
-	"name": "synth.risset_bell",
+	"name": "abc_rissetsbell",
 	"filename": "synth_risset_bell.dsp",
-	"version": "2.44.1",
+	"version": "2.53.1",
 	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn synth_risset_bell -scn synth_risset_bell_dsp -es 1 -mcd 16 -single -ftz 0",
 	"library_list": ["/usr/local/share/faust/stdfaust.lib","/usr/local/share/faust/oscillators.lib","/usr/local/share/faust/platform.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/signals.lib","/usr/local/share/faust/envelopes.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc.lib"],
 	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
@@ -27,7 +27,7 @@
 		{ "maths.lib/license": "LGPL with exception" },
 		{ "maths.lib/name": "Faust Math Library" },
 		{ "maths.lib/version": "2.5" },
-		{ "name": "synth.risset_bell" },
+		{ "name": "abc_rissetsbell" },
 		{ "oscillators.lib/name": "Faust Oscillator Library" },
 		{ "oscillators.lib/version": "0.3" },
 		{ "platform.lib/name": "Generic Platform Library" },
@@ -38,13 +38,13 @@
 	"ui": [ 
 		{
 			"type": "vgroup",
-			"label": "synth.risset_bell",
+			"label": "abc_rissetsbell",
 			"items": [ 
 				{
 					"type": "hslider",
 					"label": "dur",
 					"shortname": "dur",
-					"address": "/synth.risset_bell/dur",
+					"address": "/abc_rissetsbell/dur",
 					"meta": [
 						{ "unit": "ms" }
 					],
@@ -57,7 +57,7 @@
 					"type": "hslider",
 					"label": "freq",
 					"shortname": "freq",
-					"address": "/synth.risset_bell/freq",
+					"address": "/abc_rissetsbell/freq",
 					"meta": [
 						{ "unit": "Hz" }
 					],
@@ -70,13 +70,13 @@
 					"type": "button",
 					"label": "gate",
 					"shortname": "gate",
-					"address": "/synth.risset_bell/gate"
+					"address": "/abc_rissetsbell/gate"
 				},
 				{
 					"type": "hslider",
 					"label": "pfreq",
 					"shortname": "pfreq",
-					"address": "/synth.risset_bell/pfreq",
+					"address": "/abc_rissetsbell/pfreq",
 					"init": 1,
 					"min": 0,
 					"max": 10,

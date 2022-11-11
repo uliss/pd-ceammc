@@ -21,6 +21,7 @@ endmacro()
 ceammc_synth_obj(birds)
 ceammc_synth_obj(church_bell)
 ceammc_synth_obj(dubdub)
+ceammc_synth_obj(dx7)
 ceammc_synth_obj(eguitar)
 ceammc_synth_obj(english_bell)
 ceammc_synth_obj(french_bell)
@@ -38,9 +39,6 @@ ceammc_synth_obj(russian_bell)
 ceammc_synth_obj(standard_bell)
 ceammc_synth_obj(snare)
 ceammc_synth_obj(kick)
-
-list(APPEND SYNTH_SOURCES "synth_dx7.cpp")
-ceammc_faust_gen_obj(synth dx7 JSON OCPP)
 
 add_library(ceammc_synth STATIC mod_synth.cpp ${SYNTH_SOURCES} ${SYNTH_STK_SOURCES})
 

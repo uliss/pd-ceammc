@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "synth.ks"
-Code generated with Faust 2.44.1 (https://faust.grame.fr)
+Code generated with Faust 2.53.1 (https://faust.grame.fr)
 Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn synth_ks -scn synth_ks_dsp -es 1 -mcd 16 -single -ftz 0
 ------------------------------------------------------------ */
 
@@ -45,30 +45,33 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_ds
 #include <vector>
 
 /************************************************************************
- ************************************************************************
-    FAUST compiler
-    Copyright (C) 2003-2018 GRAME, Centre National de Creation Musicale
-    ---------------------------------------------------------------------
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- ************************************************************************
- ************************************************************************/
+ FAUST Architecture File
+ Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
+ ---------------------------------------------------------------------
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation; either version 2.1 of the License, or
+ (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU Lesser General Public License for more details.
+ 
+ You should have received a copy of the GNU Lesser General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ 
+ EXCEPTION : As a special exception, you may create a larger work
+ that contains this FAUST architecture section and distribute
+ that work under terms of your choice, so long as this FAUST
+ architecture section is not modified.
+ ***************************************************************************/
 
 #ifndef __export__
 #define __export__
 
-#define FAUSTVERSION "2.44.1"
+#define FAUSTVERSION "2.53.1"
 
 // Use FAUST_API for code that is part of the external API but is also compiled in faust and libfaust
 // Use LIBFAUST_API for code that is compiled in faust and libfaust
@@ -116,7 +119,7 @@ struct FAUST_API dsp_memory_manager {
      * Inform the Memory Manager with the number of expected memory zones.
      * @param count - the number of expected memory zones
      */
-    virtual void begin(size_t count) {}
+    virtual void begin(size_t /*count*/) {}
     
     /**
      * Give the Memory Manager information on a given memory zone.
@@ -124,8 +127,8 @@ struct FAUST_API dsp_memory_manager {
      * @param reads - the number of Read access to the zone used to compute one frame
      * @param writes - the number of Write access to the zone used to compute one frame
      */
-    virtual void info(size_t size, size_t reads, size_t writes) {}
-    
+    virtual void info(size_t /*size*/, size_t /*reads*/, size_t /*writes*/) {}
+
     /**
      * Inform the Memory Manager that all memory zones have been described,
      * to possibly start a 'compute the best allocation strategy' step.
@@ -310,14 +313,17 @@ class FAUST_API ScopedNoDenormals {
     
     private:
     
-        intptr_t fpsr;
+        intptr_t fpsr = 0;
         
         void setFpStatusRegister(intptr_t fpsr_aux) noexcept
         {
         #if defined (__arm64__) || defined (__aarch64__)
-           asm volatile("msr fpcr, %0" : : "ri" (fpsr_aux));
+            asm volatile("msr fpcr, %0" : : "ri" (fpsr_aux));
         #elif defined (__SSE__)
-            _mm_setcsr(static_cast<uint32_t>(fpsr_aux));
+            // The volatile keyword here is needed to workaround a bug in AppleClang 13.0
+            // which aggressively optimises away the variable otherwise
+            volatile uint32_t fpsr_w = static_cast<uint32_t>(fpsr_aux);
+            _mm_setcsr(fpsr_w);
         #endif
         }
         
@@ -325,7 +331,7 @@ class FAUST_API ScopedNoDenormals {
         {
         #if defined (__arm64__) || defined (__aarch64__)
             asm volatile("mrs %0, fpcr" : "=r" (fpsr));
-        #elif defined ( __SSE__)
+        #elif defined (__SSE__)
             fpsr = static_cast<intptr_t>(_mm_getcsr());
         #endif
         }
@@ -336,16 +342,14 @@ class FAUST_API ScopedNoDenormals {
         {
         #if defined (__arm64__) || defined (__aarch64__)
             intptr_t mask = (1 << 24 /* FZ */);
+        #elif defined (__SSE__)
+        #if defined (__SSE2__)
+            intptr_t mask = 0x8040;
         #else
-            #if defined(__SSE__)
-            #if defined(__SSE2__)
-                intptr_t mask = 0x8040;
-            #else
-                intptr_t mask = 0x8000;
-            #endif
-            #else
-                intptr_t mask = 0x0000;
-            #endif
+            intptr_t mask = 0x8000;
+        #endif
+        #else
+            intptr_t mask = 0x0000;
         #endif
             getFpStatusRegister();
             setFpStatusRegister(fpsr | mask);
@@ -358,7 +362,7 @@ class FAUST_API ScopedNoDenormals {
 
 };
 
-#define AVOIDDENORMALS ScopedNoDenormals();
+#define AVOIDDENORMALS ScopedNoDenormals ftz_scope;
 
 #endif
 
@@ -436,8 +440,8 @@ struct FAUST_API UIReal {
     
     // -- metadata declarations
     
-    virtual void declare(REAL* zone, const char* key, const char* val) {}
-    
+    virtual void declare(REAL* /*zone*/, const char* /*key*/, const char* /*val*/) {}
+
     // To be used by LLVM client
     virtual int sizeOfFAUSTFLOAT() { return sizeof(FAUSTFLOAT); }
 };
@@ -698,7 +702,7 @@ class synth_ks : public synth_ks_dsp {
 		m->declare("filters.lib/iir:author", "Julius O. Smith III");
 		m->declare("filters.lib/iir:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/iir:license", "MIT-style STK-4.3 license");
-		m->declare("filters.lib/lowpass0_highpass1", "MIT-style STK-4.3 license");
+		m->declare("filters.lib/lowpass0_highpass1", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/lowpass0_highpass1:author", "Julius O. Smith III");
 		m->declare("filters.lib/lowpass:author", "Julius O. Smith III");
 		m->declare("filters.lib/lowpass:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -741,12 +745,12 @@ class synth_ks : public synth_ks_dsp {
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
-		float fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
-		fConst1 = 0.00147058826f * fConst0;
-		fConst2 = 0.00882352982f * fConst0;
-		fConst3 = 6911.50391f / fConst0;
-		fConst4 = 0.00200000009f * fConst0;
-		fConst5 = 3.14159274f / fConst0;
+		float fConst0 = std::min<float>(1.92e+05f, std::max<float>(1.0f, float(fSampleRate)));
+		fConst1 = 0.0014705883f * fConst0;
+		fConst2 = 0.00882353f * fConst0;
+		fConst3 = 6911.504f / fConst0;
+		fConst4 = 0.002f * fConst0;
+		fConst5 = 3.1415927f / fConst0;
 	}
 	
 	virtual void instanceResetUserInterface() {
@@ -757,7 +761,7 @@ class synth_ks : public synth_ks_dsp {
 		fHslider4 = FAUSTFLOAT(1.0f);
 		fHslider5 = FAUSTFLOAT(0.25f);
 		fButton0 = FAUSTFLOAT(0.0f);
-		fHslider6 = FAUSTFLOAT(0.69999999999999996f);
+		fHslider6 = FAUSTFLOAT(0.7f);
 	}
 	
 	virtual void instanceClear() {
@@ -817,70 +821,70 @@ class synth_ks : public synth_ks_dsp {
 	
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("synth.ks");
-		ui_interface->addHorizontalSlider("cutoff", &fHslider4, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.100000001f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.00100000005f));
-		ui_interface->addHorizontalSlider("gain", &fHslider3, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.00100000005f));
+		ui_interface->addHorizontalSlider("cutoff", &fHslider4, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.1f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.001f));
+		ui_interface->addHorizontalSlider("gain", &fHslider3, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.001f));
 		ui_interface->addButton("gate", &fButton0);
 		ui_interface->declare(&fHslider2, "enum", "0 1");
 		ui_interface->declare(&fHslider2, "type", "int");
 		ui_interface->addHorizontalSlider("mode", &fHslider2, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(1.0f));
-		ui_interface->addHorizontalSlider("mute", &fHslider0, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.00100000005f));
-		ui_interface->addHorizontalSlider("pitch", &fHslider1, FAUSTFLOAT(48.0f), FAUSTFLOAT(36.0f), FAUSTFLOAT(84.0f), FAUSTFLOAT(0.00100000005f));
-		ui_interface->addHorizontalSlider("pos", &fHslider6, FAUSTFLOAT(0.699999988f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.00999999978f));
-		ui_interface->addHorizontalSlider("sharp", &fHslider5, FAUSTFLOAT(0.25f), FAUSTFLOAT(0.00999999978f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.00100000005f));
+		ui_interface->addHorizontalSlider("mute", &fHslider0, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.001f));
+		ui_interface->addHorizontalSlider("pitch", &fHslider1, FAUSTFLOAT(48.0f), FAUSTFLOAT(36.0f), FAUSTFLOAT(84.0f), FAUSTFLOAT(0.001f));
+		ui_interface->addHorizontalSlider("pos", &fHslider6, FAUSTFLOAT(0.7f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.01f));
+		ui_interface->addHorizontalSlider("sharp", &fHslider5, FAUSTFLOAT(0.25f), FAUSTFLOAT(0.01f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.001f));
 		ui_interface->closeBox();
 	}
 	
 	virtual void compute(int count, FAUSTFLOAT** RESTRICT inputs, FAUSTFLOAT** RESTRICT outputs) {
 		FAUSTFLOAT* output0 = outputs[0];
-		float fSlow0 = 0.5f * (0.200000003f * (1.0f - float(fHslider0)) + 0.800000012f);
-		float fSlow1 = std::pow(2.0f, 0.0833333358f * (float(fHslider1) + -69.0f));
-		float fSlow2 = fConst1 * (0.772727251f / fSlow1 + -0.0500000007f);
-		float fSlow3 = fSlow2 + -1.49999499f;
+		float fSlow0 = 0.5f * (0.2f * (1.0f - float(fHslider0)) + 0.8f);
+		float fSlow1 = std::pow(2.0f, 0.083333336f * (float(fHslider1) + -69.0f));
+		float fSlow2 = fConst1 * (0.77272725f / fSlow1 + -0.05f);
+		float fSlow3 = fSlow2 + -1.499995f;
 		float fSlow4 = std::floor(fSlow3);
-		float fSlow5 = fSlow2 + -1.0f - fSlow4;
-		float fSlow6 = fSlow2 + -2.0f - fSlow4;
-		float fSlow7 = fSlow2 + -3.0f - fSlow4;
-		float fSlow8 = fSlow2 + -4.0f - fSlow4;
-		float fSlow9 = (0.0f - fSlow5) * (0.0f - 0.5f * fSlow6) * (0.0f - 0.333333343f * fSlow7) * (0.0f - 0.25f * fSlow8);
+		float fSlow5 = fSlow2 + (-1.0f - fSlow4);
+		float fSlow6 = fSlow2 + (-2.0f - fSlow4);
+		float fSlow7 = fSlow2 + (-3.0f - fSlow4);
+		float fSlow8 = fSlow2 + (-4.0f - fSlow4);
+		float fSlow9 = (0.0f - fSlow5) * (0.0f - 0.5f * fSlow6) * (0.0f - 0.33333334f * fSlow7) * (0.0f - 0.25f * fSlow8);
 		int iSlow10 = int(fSlow3);
 		int iSlow11 = int(std::min<float>(fConst2, float(std::max<int>(0, iSlow10)))) + 1;
 		float fSlow12 = fSlow2 - fSlow4;
-		float fSlow13 = (0.0f - fSlow6) * (0.0f - 0.5f * fSlow7) * (0.0f - 0.333333343f * fSlow8);
+		float fSlow13 = (0.0f - fSlow6) * (0.0f - 0.5f * fSlow7) * (0.0f - 0.33333334f * fSlow8);
 		int iSlow14 = int(std::min<float>(fConst2, float(std::max<int>(0, iSlow10 + 1)))) + 1;
 		float fSlow15 = 0.5f * fSlow5 * (0.0f - fSlow7) * (0.0f - 0.5f * fSlow8);
 		int iSlow16 = int(std::min<float>(fConst2, float(std::max<int>(0, iSlow10 + 2)))) + 1;
 		float fSlow17 = fSlow5 * fSlow6;
-		float fSlow18 = 0.166666672f * fSlow17 * (0.0f - fSlow8);
+		float fSlow18 = 0.16666667f * fSlow17 * (0.0f - fSlow8);
 		int iSlow19 = int(std::min<float>(fConst2, float(std::max<int>(0, iSlow10 + 3)))) + 1;
-		float fSlow20 = 0.0416666679f * fSlow17 * fSlow7;
+		float fSlow20 = 0.041666668f * fSlow17 * fSlow7;
 		int iSlow21 = int(std::min<float>(fConst2, float(std::max<int>(0, iSlow10 + 4)))) + 1;
 		int iSlow22 = int(float(fHslider2)) >= 1;
 		float fSlow23 = float(fHslider3);
 		float fSlow24 = std::tan(fConst3 * fSlow1 * float(fHslider4));
 		float fSlow25 = 1.0f / fSlow24;
-		float fSlow26 = (fSlow25 + 1.41421354f) / fSlow24 + 1.0f;
+		float fSlow26 = (fSlow25 + 1.4142135f) / fSlow24 + 1.0f;
 		float fSlow27 = fSlow23 / fSlow26;
 		float fSlow28 = 1.0f / fSlow26;
-		float fSlow29 = (fSlow25 + -1.41421354f) / fSlow24 + 1.0f;
+		float fSlow29 = (fSlow25 + -1.4142135f) / fSlow24 + 1.0f;
 		float fSlow30 = 2.0f * (1.0f - 1.0f / synth_ks_faustpower2_f(fSlow24));
 		float fSlow31 = float(fHslider5);
-		float fSlow32 = 1.0f / std::max<float>(1.0f, fConst4 * fSlow31 * synth_ks_faustpower2_f(1.0f - 0.219999999f * fSlow1));
+		float fSlow32 = 1.0f / std::max<float>(1.0f, fConst4 * fSlow31 * synth_ks_faustpower2_f(1.0f - 0.22f * fSlow1));
 		float fSlow33 = float(fButton0);
 		float fSlow34 = float(fHslider6);
-		float fSlow35 = std::tan(fConst5 * (15000.0f * fSlow34 + 500.0f));
+		float fSlow35 = std::tan(fConst5 * (1.5e+04f * fSlow34 + 5e+02f));
 		float fSlow36 = 1.0f / fSlow35;
-		float fSlow37 = (fSlow36 + 1.41421354f) / fSlow35 + 1.0f;
+		float fSlow37 = (fSlow36 + 1.4142135f) / fSlow35 + 1.0f;
 		float fSlow38 = fSlow23 / fSlow37;
-		float fSlow39 = std::tan(fConst5 * (500.0f * fSlow34 + 40.0f));
+		float fSlow39 = std::tan(fConst5 * (5e+02f * fSlow34 + 4e+01f));
 		float fSlow40 = 1.0f / fSlow39;
-		float fSlow41 = 1.0f / ((fSlow40 + 1.41421354f) / fSlow39 + 1.0f);
+		float fSlow41 = 1.0f / ((fSlow40 + 1.4142135f) / fSlow39 + 1.0f);
 		float fSlow42 = synth_ks_faustpower2_f(fSlow39);
 		float fSlow43 = 1.0f / fSlow42;
-		float fSlow44 = (fSlow40 + -1.41421354f) / fSlow39 + 1.0f;
+		float fSlow44 = (fSlow40 + -1.4142135f) / fSlow39 + 1.0f;
 		float fSlow45 = 2.0f * (1.0f - fSlow43);
 		float fSlow46 = 0.0f - 2.0f / fSlow42;
 		float fSlow47 = 1.0f / fSlow37;
-		float fSlow48 = (fSlow36 + -1.41421354f) / fSlow35 + 1.0f;
+		float fSlow48 = (fSlow36 + -1.4142135f) / fSlow35 + 1.0f;
 		float fSlow49 = 2.0f * (1.0f - 1.0f / synth_ks_faustpower2_f(fSlow35));
 		float fSlow50 = 1.0f / std::max<float>(1.0f, fConst4 * fSlow31);
 		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
@@ -888,7 +892,7 @@ class synth_ks : public synth_ks_dsp {
 			fRec7[IOTA0 & 2047] = fTemp0;
 			float fRec8 = fSlow9 * fRec7[(IOTA0 - iSlow11) & 2047] + fSlow12 * (fSlow13 * fRec7[(IOTA0 - iSlow14) & 2047] + fSlow15 * fRec7[(IOTA0 - iSlow16) & 2047] + fSlow18 * fRec7[(IOTA0 - iSlow19) & 2047] + fSlow20 * fRec7[(IOTA0 - iSlow21) & 2047]);
 			iRec12[0] = 1103515245 * iRec12[1] + 12345;
-			float fTemp1 = 4.65661287e-10f * float(iRec12[0]);
+			float fTemp1 = 4.656613e-10f * float(iRec12[0]);
 			fRec11[0] = fTemp1 - fSlow28 * (fSlow29 * fRec11[2] + fSlow30 * fRec11[1]);
 			fVec0[0] = fSlow33;
 			iRec13[0] = (fSlow33 > fVec0[1]) + (fSlow33 <= fVec0[1]) * (iRec13[1] + (iRec13[1] > 0));
@@ -897,14 +901,13 @@ class synth_ks : public synth_ks_dsp {
 			fRec15[0] = fTemp1 - fSlow41 * (fSlow44 * fRec15[2] + fSlow45 * fRec15[1]);
 			fRec14[0] = fSlow41 * (fSlow43 * fRec15[0] + fSlow46 * fRec15[1] + fSlow43 * fRec15[2]) - fSlow47 * (fSlow48 * fRec14[2] + fSlow49 * fRec14[1]);
 			float fTemp4 = fSlow50 * fTemp2;
-			float fThen0 = fSlow27 * (fRec11[2] + fRec11[0] + 2.0f * fRec11[1]) * std::max<float>(0.0f, std::min<float>(fTemp3, 2.0f - fTemp3));
-			float fElse0 = fSlow38 * (fRec14[2] + fRec14[0] + 2.0f * fRec14[1]) * std::max<float>(0.0f, std::min<float>(fTemp4, 2.0f - fTemp4));
-			float fTemp5 = ((iSlow22) ? fElse0 : fThen0);
+			float fTemp5 = ((iSlow22) ? fSlow38 * (fRec14[2] + fRec14[0] + 2.0f * fRec14[1]) * std::max<float>(0.0f, std::min<float>(fTemp4, 2.0f - fTemp4)) : fSlow27 * (fRec11[2] + fRec11[0] + 2.0f * fRec11[1]) * std::max<float>(0.0f, std::min<float>(fTemp3, 2.0f - fTemp3)));
 			float fTemp6 = fRec0[2] + fTemp5;
 			fVec1[IOTA0 & 2047] = fTemp6;
-			float fTemp7 = fSlow9 * fVec1[(IOTA0 - iSlow11) & 2047] + fSlow12 * (fSlow13 * fVec1[(IOTA0 - iSlow14) & 2047] + fSlow15 * fVec1[(IOTA0 - iSlow16) & 2047] + fSlow18 * fVec1[(IOTA0 - iSlow19) & 2047] + fSlow20 * fVec1[(IOTA0 - iSlow21) & 2047]);
-			float fRec9 = fTemp7;
-			float fRec10 = fTemp0 + fTemp7;
+			float fTemp7 = fSlow9 * fVec1[(IOTA0 - iSlow11) & 2047];
+			float fTemp8 = fSlow12 * (fSlow13 * fVec1[(IOTA0 - iSlow14) & 2047] + fSlow15 * fVec1[(IOTA0 - iSlow16) & 2047] + fSlow18 * fVec1[(IOTA0 - iSlow19) & 2047] + fSlow20 * fVec1[(IOTA0 - iSlow21) & 2047]);
+			float fRec9 = fTemp7 + fTemp8;
+			float fRec10 = fTemp8 + fTemp0 + fTemp7;
 			fRec3[0] = fRec8;
 			float fRec4 = fTemp5 + fRec3[1];
 			float fRec5 = fRec9;

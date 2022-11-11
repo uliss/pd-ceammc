@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.1)
+cmake_minimum_required(VERSION 3.13)
 project(puredata)
 
 if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
@@ -147,4 +147,4 @@ add_custom_target(puredata_changelog SOURCES CHANGELOG.md)
 file(GLOB _DEB_FILES "debian/*")
 add_custom_target(deb_files SOURCES ${_DEB_FILES})
 
-add_custom_target(ci_files SOURCES .travis.yml appveyor.yml)
+add_custom_target(ci_files SOURCES appveyor.yml)

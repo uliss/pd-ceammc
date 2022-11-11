@@ -26,8 +26,8 @@ Type: symbol.;
 #X text 110 415 2\.;
 #X text 150 415 atom;
 #X obj 246 416 cnv 1 31 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 415 URL: OSC server url (like osc.udp://:12345) \, see
-@url property. Type: atom.;
+#X text 245 415 URL: OSC server url (like udp:12345) \, see @url property.
+Type: atom.;
 #X obj 20 460 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 465 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -49,8 +49,9 @@ value: 9000\.;
 #X text 245 697 (readonly) Get OSC server proto (udp or tcp). Type:
 symbol. Default value: udp.;
 #X msg 110 739 @url;
-#X text 245 739 Get/Set OSC server url in form: osc.PROTO://:PORT or
-just PORT (for ex. osc.udp://:9001). Type: atom. Default value: 9000\.;
+#X text 245 739 Get/Set OSC server url in form: PROTO:PORT (udp:12345)
+or just PORT \, or osc.PROTO://:PORT (for ex. osc.tcp://:9001). Type:
+atom. Default value: 9000\.;
 #X obj 20 806 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 811 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;

@@ -22,6 +22,7 @@
 #include "ceammc_string.h"
 #include "datatype_mlist.h"
 #include "datatype_string.h"
+#include "datatype_json.h"
 #include "fmt/format.h"
 #include "json/json.hpp"
 
@@ -29,17 +30,10 @@
 #include <fstream>
 #include <random>
 
+
 namespace ceammc {
 
 constexpr const char* TYPE_NAME = "Dict";
-
-void to_json(nlohmann::json& out, const Atom& atom);
-void to_json(nlohmann::json& out, const AtomList& lst);
-void to_json(nlohmann::json& out, const DataTypeDict& dict);
-
-void from_json(const nlohmann::json& j, Atom& atom);
-void from_json(const nlohmann::json& json, AtomList& lst);
-void from_json(const nlohmann::json& j, DataTypeDict::DictMap& dict);
 
 static t_symbol* atom_to_symbol(const Atom& a)
 {
@@ -259,54 +253,6 @@ bool DataTypeDict::remove(t_symbol* key)
     return true;
 }
 
-void to_json(nlohmann::json& out, const DataTypeDict& dict)
-{
-    using json = nlohmann::json;
-    for (auto& kv : dict) {
-        auto key = kv.first->s_name;
-        auto& value = kv.second;
-
-        if (value.isAtom())
-            out[key] = json(value[0]);
-        else
-            out[key] = json(value);
-    }
-}
-
-void to_json(nlohmann::json& out, const Atom& atom)
-{
-    using json = nlohmann::json;
-
-    try {
-
-        if (atom.isFloat() && !atom.isInteger())
-            out = atom.asFloat();
-        else if (atom.isInteger())
-            out = atom.asInt();
-        else if (atom.isSymbol())
-            out = atom.asSymbol()->s_name;
-        else if (atom.isA<DataTypeDict>())
-            out = json(*atom.asD<DataTypeDict>());
-        else if (atom.isData())
-            out = json::parse(atom.asData()->toJsonString());
-        else
-            out = json();
-
-    } catch (json::exception& e) {
-        LIB_ERR << "[dict] JSON exception: " << e.what();
-        out = json();
-    }
-}
-
-void to_json(nlohmann::json& out, const AtomList& lst)
-{
-    using json = nlohmann::json;
-    out = json::array();
-
-    for (auto& x : lst)
-        out.push_back(json(x));
-}
-
 MaybeString DataTypeDict::toJSON(int indent) const
 {
     using json = nlohmann::json;
@@ -316,58 +262,6 @@ MaybeString DataTypeDict::toJSON(int indent) const
         return {};
 
     return j.dump(indent);
-}
-
-void from_json(const nlohmann::json& json, AtomList& lst)
-{
-    bool simple_array = std::all_of(json.begin(), json.end(),
-        [](const decltype(json.begin())::value_type& v) { return v.is_primitive(); });
-
-    if (simple_array) {
-        for (auto& x : json)
-            lst.append(x.get<Atom>());
-    } else {
-        DataTypeMList* ptr = new DataTypeMList;
-        Atom mlist(ptr);
-
-        for (auto& x : json)
-            ptr->append(x.get<Atom>());
-    }
-}
-
-void from_json(const nlohmann::json& j, Atom& atom)
-{
-    if (j.is_boolean())
-        atom = Atom(j.get<bool>() ? 1 : 0);
-    else if (j.is_number())
-        atom = Atom(j.get<t_float>());
-    else if (j.is_string())
-        atom = Atom(gensym(j.get<std::string>().c_str()));
-    else if (j.is_object()) {
-        DataTypeDict* d = new DataTypeDict;
-        atom = Atom(d);
-        *d = j.get<DataTypeDict>();
-    } else
-        atom = Atom();
-}
-
-void from_json(const nlohmann::json& j, DataTypeDict& dict)
-{
-    from_json(j, dict.innerData());
-}
-
-void from_json(const nlohmann::json& j, DataTypeDict::DictMap& dict)
-{
-    for (auto it = j.begin(); it != j.end(); ++it) {
-        t_symbol* key = gensym(it.key().c_str());
-
-        if (it->is_boolean() || it->is_number() || it->is_string() || it->is_object())
-            dict[key] = AtomList(it->get<Atom>());
-        else if (it->is_array())
-            dict[key] = it->get<AtomList>();
-        else
-            dict[key] = AtomList();
-    }
 }
 
 bool DataTypeDict::fromJSON(const std::string& str)

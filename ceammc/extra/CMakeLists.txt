@@ -27,6 +27,10 @@ if(WITH_EXT_LYONPOTPOURRI)
     add_subdirectory(lyonpotpourri)
 endif()
 
+if(WITH_ARTNET)
+    add_subdirectory(artnet)
+endif()
+
 add_subdirectory(glitch)
 add_subdirectory(midifile)
 add_subdirectory(muparser)
@@ -100,8 +104,8 @@ if(WITH_SFIZZ)
 
     FetchContent_Declare(
       sfizz
-      URL      https://github.com/sfztools/sfizz/releases/download/1.1.1/sfizz-1.1.1.tar.gz
-      URL_HASH MD5=cc4770c287d52da517a7ae25fd826a3e
+      URL      https://github.com/sfztools/sfizz/releases/download/1.2.0/sfizz-1.2.0.tar.gz
+      URL_HASH MD5=13725a41a811dc81c973f303eaaea86b
     )
     FetchContent_GetProperties(sfizz)
     if(NOT sfizz_POPULATED)

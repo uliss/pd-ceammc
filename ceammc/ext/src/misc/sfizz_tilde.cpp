@@ -255,6 +255,25 @@ void SfizzTilde::m_cc(t_symbol* s, const AtomListView& lv)
     sfz_.hdcc(0, cc, val / 127.0);
 }
 
+void SfizzTilde::m_prog(t_symbol* s, const AtomListView& lv)
+{
+    int val = 0;
+
+    if (lv.size() == 2 && lv[0].isInteger() && lv[1].isInteger()) {
+        // NOTE: channel is ignored, but leaved for compatibility with fluid~ external
+        // that accepts both [prog CHAN VAL( and [prog VAL( messages
+
+        val = lv[1].asInt();
+    } else if (lv.size() == 1 && lv[0].isInteger()) {
+        val = lv[0].asInt();
+    } else {
+        METHOD_ERR(s) << "CHAN? VAL expected, got: " << lv;
+        return;
+    }
+
+    sfz_.programChange(0, val);
+}
+
 void SfizzTilde::m_midi(t_symbol* s, const AtomListView& lv)
 {
     for (auto& byte : lv) {
@@ -654,6 +673,7 @@ void setup_misc_sfizz_tilde()
 
     obj.addMethod("note", &SfizzTilde::m_note);
     obj.addMethod("cc", &SfizzTilde::m_cc);
+    obj.addMethod("prog", &SfizzTilde::m_prog);
     obj.addMethod("midi", &SfizzTilde::m_midi);
     obj.addMethod(M_AFTER_TOUCH, &SfizzTilde::m_aftertouch);
     obj.addMethod(M_POLY_TOUCH, &SfizzTilde::m_polytouch);

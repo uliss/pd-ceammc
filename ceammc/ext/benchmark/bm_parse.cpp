@@ -89,9 +89,9 @@ NONIUS_BENCHMARK("lo_url_get_port (sscanf)", [] {
 })
 
 NONIUS_BENCHMARK("parse::parse_osc_url (ragel)", [] {
-    t_symbol* proto;
+    OscProto proto;
     t_symbol* host;
-    t_symbol* port;
-    int iport;
-    parse_osc_url(random_url(), proto, host, port, iport);
+    t_symbol* path;
+    int port;
+    parse_osc_url(random_url(), proto, host, port, path);
 })

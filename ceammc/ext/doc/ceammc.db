@@ -125,6 +125,7 @@ env2array,ceammc/env2array,ceammc/env->array,env->array		.		.
 env2vline,ceammc/env2vline,ceammc/env->vline,env->vline		.		.
 envelope,ceammc/envelope,ceammc/env,env		.		.
 expand_env,ceammc/expand_env		.		.
+file		.		..
 file.size		.		.
 flow.append		..		.
 flow.change		..		.
@@ -498,7 +499,10 @@ msg.onload,ceammc/loadmsg,loadmsg		-		.
 msg.sched		..		.
 music.dur2time,music.d->t		.		.
 music.voice2midi,music.v->m		.		.
+net.artnet.send,artnet.send		.		.
 net.host2ip,net.host->ip		.		.
+net.http.send,http.send		.		..
+net.osc.receive,net.osc.r		..		.
 net.osc.send,net.osc.s		.		.
 net.osc.server,net.osc		.		.
 noise.baker		.		.
@@ -546,8 +550,10 @@ patch.tree		.		.
 path.basename		.		.
 path.dirname		.		.
 path.exists		.		.
+path.file		.		..
 path.is_dir		.		..
 path.lsdir,path.ls		..		.
+path.monitor		.		.
 path.normalize,path.norm		.		.
 path.search		.		..
 path.split		.		..
@@ -568,13 +574,16 @@ prop.join,prop<-		?		.
 prop.random		?		..
 prop.set,p.set		?		.
 prop.split,prop->,@->		.		?
+proto.feelworld		.		.
 proto.firmata		.		.
 proto.inscore		.		.
 proto.midi		.		.
 proto.midi.cc		.		.
 proto.midi.sysex		.		.
+proto.moppy		.		.
 proto.mpv		.		.
 proto.sp.alpaca		.		.
+proto.vlc		.		..
 proto.whammy		.		.
 proto.xtouch_ext		.		..
 radio,ceammc/radio		.		?

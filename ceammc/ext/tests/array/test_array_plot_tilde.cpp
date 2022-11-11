@@ -69,7 +69,7 @@ TEST_CASE("array.plot~", "[externals]")
             REQUIRE(aptr->size() == 30);
 
             for (size_t i = 0; i < 30; i++) {
-                REQUIRE(aptr->at(i) == Approx((2 * i - 50.0) / 50.0));
+                REQUIRE(aptr->at(i) == Approx((2 * i - 50.0) / 50.0).margin(0.0001));
             }
         }
 

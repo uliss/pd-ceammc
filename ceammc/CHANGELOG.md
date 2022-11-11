@@ -15,6 +15,15 @@
   - proto.whammy: Digitech Whammy pedal control
   - flow.seqdelay: sequential message delay/router
   - array.circular: array circular read/write
+  - file: file object added
+  - net.artnet.send: send DMX messages via ArtNet
+  - net.http.send: send HTTP requests
+  - net.osc.send: send OSC messages
+  - net.osc.receive: receive OSC
+  - net.osc.server: OSC server control
+  - proto.moppy: MOPPY floppy controller
+  - proto.vlc: control VLC player over HTTP
+  - proto.feelworld: control Feelworld Livepro L1 HDMI video mixer
 - new properties:
   - @clip property added to system.cursor to clip cursor XY coords
   - @norm property added to ui.env to do envelope value normalization on input
@@ -42,6 +51,7 @@
   - [defer( method added to \[array.grainer~\] - to execute messages on grain finish
   - [reverse( method added to \[array.grainer~\] - to reverse grains positions
   - [permutate( method added to \[array.grainer~\] - to permutate grains positions
+  - [prog( method added to \[sfizz~\] - to send Program Change events
 - misc:
   - conv.lin2exp: list support added
   - conv.lin2curve: list support added
@@ -49,6 +59,7 @@
   - ui.slider2d alias added: ui.s2d
   - env.asr~: second inlet added for gate control
   - second inlet added to random.atom to set list to choose from
+  - sfizz synth udpated to version 1.2.0
 - TCL editor added for objects:
   - data.list
   - local.list

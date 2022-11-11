@@ -43,6 +43,7 @@ public:
 
     void m_note(t_symbol* s, const AtomListView& lv);
     void m_cc(t_symbol* s, const AtomListView& lv);
+    void m_prog(t_symbol* s, const AtomListView& lv);
     void m_midi(t_symbol* s, const AtomListView& lv);
     void m_notesOff(t_symbol* s, const AtomListView& lv);
     void m_soundsOff(t_symbol*, const AtomListView&);

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="proto.vlc">
+        <title>proto.vlc</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>VLC video player control over HTTP</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>proto</category>
+            <keywords>mpv mplayer</keywords>
+            <since>0.9.5</since>
+        </meta>
+        <info>
+            <par>VLC video player control</par>
+            <a href="https://www.videolan.org/vlc">videolan.org</a>
+        </info>
+        <arguments>
+            <argument name="HOST" type="symbol">hostname on that VLC player is running
+            on</argument>
+        </arguments>
+        <properties>
+            <property name="@host" type="symbol" default="localhost">hostname on that VLC player is
+            running on</property>
+            <property name="@port" type="int" default="8080" minvalue="1" maxvalue="32768">hostname
+            on that VLC player is running on</property>
+            <property name="@pass" type="atom" default="">VLC http password</property>
+        </properties>
+        <methods>
+            <method name="delete">delete item from playlist 
+            <param name="ID" type="int">playlist entry id</param></method>
+            <method name="fs">toggle VLC fullscreen mode</method>
+            <method name="clear">clear playlist</method>
+            <method name="volume">set playing volume 
+            <param name="VAL" type="atom" required="true">absolute value in percent or relative change
+            +VOL or -VOL</param></method>
+            <method name="loop">toggle loop</method>
+            <method name="next">go to the next entry on the playlist</method>
+            <method name="prev">go to the previous entry on the playlist</method>
+            <method name="seek">seek playback position
+            <param name="TIME" type="atom" required="true">absolute time position
+            (int value in seconds or 00h:00m:00s) or relative
+            offset (+val, -val)</param></method>
+            <method name="play">start playback</method>
+            <method name="stop">stop playback</method>
+            <method name="pause">pause/resume playback
+            <param name="VAL" type="int" enum="0 1">1 or omitted: pause, 0: resume</param>
+            </method>
+            <method name="add">add URI to playlist
+            <param name="URI" type="symbol" required="true">resource URI (file:// or http:// or camera://)</param>
+            </method>
+            <method name="status">request playback status. Output as dict to second outlet</method>
+            <method name="playlist">request playlist. Output as dict to second outlet</method>
+            <method name="browse">browse resource
+            <param name="URI" type="symbol" required="true">resource URI (file:///path)</param>
+            </method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo>commands</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>int: 1 on success, 0 on error</outlet>
+            <outlet>dict: response data</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[play #a(    [playlist #c(   [next #d( [prev #e(
+
+[stop #b(    [B]             [browse file:// #f(
+             |
+ [T]         [openpanel]     [S digits=10]
+ |           |               |
+[pause( [fs( [add file://$1( [seek $1(
+|       |    |               |
+[proto.vlc localhost @pass 12345 #z]
+|                      ^|
+[T]                    [print]
+[X a->z]
+[X b->z]
+[X c->z]
+[X d->z]
+[X e->z]
+[X f->z]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

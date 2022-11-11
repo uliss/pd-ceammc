@@ -1,4 +1,5 @@
 #include "conv_pitch2midi.h"
+#include "ceammc_containers.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 #include "datatype_mlist.h"
@@ -41,8 +42,8 @@ void PitchToMIDI::onSymbol(t_symbol* p)
 
 void PitchToMIDI::onList(const AtomListView& lv)
 {
-    Atom res[lv.size()];
-    int n = 0;
+    AtomList256 res;
+    res.reserve(lv.size());
 
     for (auto& a : lv) {
         if (!a.isSymbol())
@@ -53,12 +54,12 @@ void PitchToMIDI::onList(const AtomListView& lv)
             OBJ_ERR << "invalid pitch: " << a;
             continue;
         } else if (note == convert::MIDI_REST)
-            res[n++] = -1;
+            res.push_back(-1);
         else
-            res[n++] = note;
+            res.push_back(note);
     }
 
-    listTo(0, AtomListView(res, n));
+    listTo(0, res.view());
 }
 
 void setup_conv_pitch2midi()

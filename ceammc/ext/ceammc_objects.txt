@@ -70,6 +70,7 @@ array.sum2
 array.variance
 array.vplay
 array.window
+artnet.send
 bits->bang
 bits->int
 bits->note
@@ -211,7 +212,6 @@ ceammc/radio
 ceammc/reject
 ceammc/reject_if
 ceammc/replace
-ceammc/rhvoice~
 ceammc/rtree->list
 ceammc/s->f~
 ceammc/samp->ms
@@ -527,12 +527,14 @@ hoa.rotate~
 hoa.scope~
 hoa.wider~
 hpf->biquad
+http.send
 hw.apple_smc
 hw.apple_sms
 hw.arduino
 hw.cpu_temp
 hw.display
 hw.kbd_light
+hw.motu.avb
 hw.serial
 int->bits
 is_any
@@ -838,8 +840,10 @@ music.v->m
 music.voice2midi
 mux2~
 mux~
+net.artnet.send
 net.host->ip
 net.host2ip
+net.http.send
 net.osc
 net.osc.r
 net.osc.receive
@@ -904,6 +908,7 @@ patch.tree
 path.basename
 path.dirname
 path.exists
+path.file
 path.is_dir
 path.ls
 path.lsdir
@@ -944,6 +949,7 @@ prop.set
 prop.split
 prop<-
 prop~>
+proto.feelworld
 proto.firmata
 proto.hui
 proto.inscore
@@ -951,8 +957,10 @@ proto.midi
 proto.midi.casio
 proto.midi.cc
 proto.midi.sysex
+proto.moppy
 proto.mpv
 proto.sp.alpaca
+proto.vlc
 proto.whammy
 proto.xtouch_ext
 rad->phase
@@ -972,7 +980,6 @@ random.pw_lin
 reject
 reject_if
 replace
-rhvoice~
 risset.gliss
 route.f
 route.float
@@ -1019,7 +1026,6 @@ spat.zita6x8~
 spat.zita8~
 speech.flite
 speech.flite~
-speech.rhvoice~
 speedlim
 split
 spring

@@ -32,6 +32,8 @@ public:
 
     bool notify(NotifyEventType code) override;
     void setPath(const char* path);
+
+    SubscriberId id() const { return reinterpret_cast<SubscriberId>(this); }
 };
 
 void setup_path_monitor();

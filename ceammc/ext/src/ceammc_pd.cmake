@@ -71,4 +71,6 @@ macro(ceammc_faust_gen_obj module name)
             ${_args}
             "${CMAKE_SOURCE_DIR}/ceammc/faust/${module}_${name}.dsp"
             -o ${CMAKE_CURRENT_SOURCE_DIR}/${module}_${name}.h)
+
+    set(CEAMMC_FAUST_TARGETS "${CEAMMC_FAUST_TARGETS};faust_${module}_${name}" CACHE INTERNAL "")
 endmacro()

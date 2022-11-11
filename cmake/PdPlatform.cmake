@@ -203,7 +203,7 @@ if(APPLE)
     configure_file(${PROJECT_SOURCE_DIR}/ceammc/gui/Info.plist ${PROJECT_BINARY_DIR}/dist/Info.plist)
 
     # tk versions later then 8.6.8 have problems with russian keyboard shortcuts
-    set(TK_VERSION "8.6.12")
+    set(TK_VERSION ${WISH_VERSION})
     set(EMBEDDED_WISH "${PROJECT_SOURCE_DIR}/mac/Wish-${TK_VERSION}.app")
 
     if(EXISTS ${EMBEDDED_WISH})

@@ -500,7 +500,10 @@ set(DOC_FILES
     msg.sched
     music.dur2time
     music.voice2midi
+    net.artnet.send
     net.host2ip
+    net.http.send
+    net.osc.receive
     net.osc.send
     net.osc.server
     noise.baker
@@ -548,8 +551,10 @@ set(DOC_FILES
     path.basename
     path.dirname
     path.exists
+    path.file
     path.is_dir
     path.lsdir
+    path.monitor
     path.normalize
     path.search
     path.split
@@ -570,14 +575,17 @@ set(DOC_FILES
     prop.random
     prop.set
     prop.split
+    proto.feelworld
     proto.firmata
     proto.inscore
     proto.midi
     proto.midi.cc
     proto.midi.sysex
+    proto.moppy
     proto.mpv
     proto.xtouch_ext
     proto.sp.alpaca
+    proto.vlc
     proto.whammy
     radio
     random.atom

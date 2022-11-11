@@ -1547,8 +1547,17 @@
     </entry>
   </category>
   <category name="net">
+    <entry name="net.artnet.send" descr="ArtNet DMX message sender" ref_view="object">
+      <xi:include href="net.artnet.send.pddoc" parse="xml"/>
+    </entry>
     <entry name="net.host2ip" descr="returns IP address by DNS name" ref_view="object">
       <xi:include href="net.host2ip.pddoc" parse="xml"/>
+    </entry>
+    <entry name="net.http.send" descr="HTTP request sender" ref_view="object">
+      <xi:include href="net.http.send.pddoc" parse="xml"/>
+    </entry>
+    <entry name="net.osc.receive" descr="OSC message listener" ref_view="object">
+      <xi:include href="net.osc.receive.pddoc" parse="xml"/>
     </entry>
     <entry name="net.osc.send" descr="OSC message sender" ref_view="object">
       <xi:include href="net.osc.send.pddoc" parse="xml"/>
@@ -1693,11 +1702,17 @@
     <entry name="path.exists" descr="checks if given path exists" ref_view="object">
       <xi:include href="path.exists.pddoc" parse="xml"/>
     </entry>
+    <entry name="path.file" descr="file input/output" ref_view="object">
+      <xi:include href="path.file.pddoc" parse="xml"/>
+    </entry>
     <entry name="path.is_dir" descr="check if path is directory" ref_view="object">
       <xi:include href="path.is_dir.pddoc" parse="xml"/>
     </entry>
     <entry name="path.lsdir" descr="list directory contents" ref_view="object">
       <xi:include href="path.lsdir.pddoc" parse="xml"/>
+    </entry>
+    <entry name="path.monitor" descr="filesystem event monitor" ref_view="object">
+      <xi:include href="path.monitor.pddoc" parse="xml"/>
     </entry>
     <entry name="path.normalize" descr="normalize file paths" ref_view="object">
       <xi:include href="path.normalize.pddoc" parse="xml"/>
@@ -1788,6 +1803,9 @@
     </entry>
   </category>
   <category name="proto">
+    <entry name="proto.feelworld" descr="protocol for FeelWorld LivePro L1 HDMI mixer" ref_view="object">
+      <xi:include href="proto.feelworld.pddoc" parse="xml"/>
+    </entry>
     <entry name="proto.firmata" descr="Firmata Arduino protocol support" ref_view="object">
       <xi:include href="proto.firmata.pddoc" parse="xml"/>
     </entry>
@@ -1803,11 +1821,17 @@
     <entry name="proto.midi.sysex" descr="raw midi SYSex encoder/parser" ref_view="object">
       <xi:include href="proto.midi.sysex.pddoc" parse="xml"/>
     </entry>
+    <entry name="proto.moppy" descr="protocol for Musical flOPPY controller" ref_view="object">
+      <xi:include href="proto.moppy.pddoc" parse="xml"/>
+    </entry>
     <entry name="proto.mpv" descr="mpv video player control" ref_view="object">
       <xi:include href="proto.mpv.pddoc" parse="xml"/>
     </entry>
     <entry name="proto.sp.alpaca" descr="protocol parser for Arduino-based CEAMMC footswitch" ref_view="object">
       <xi:include href="proto.sp.alpaca.pddoc" parse="xml"/>
+    </entry>
+    <entry name="proto.vlc" descr="VLC video player control over HTTP" ref_view="object">
+      <xi:include href="proto.vlc.pddoc" parse="xml"/>
     </entry>
     <entry name="proto.whammy" descr="Control for Digitech Whammy pedal" ref_view="object">
       <xi:include href="proto.whammy.pddoc" parse="xml"/>

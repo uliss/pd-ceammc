@@ -35,14 +35,21 @@
     machine parser_osc;
 
     nz_any = any - 0;
-    proto = '.' (
-                    'tcp'    %{ rl_proto = gensym("tcp"); }
-                    | 'udp'  %{ rl_proto = gensym("udp"); }
-                    | 'unix' %{ rl_proto = gensym("unix"); }
+    net_proto = (
+                    'tcp'    %{ rl_proto = OSC_PROTO_TCP; }
+                    | 'udp'  %{ rl_proto = OSC_PROTO_UDP; }
                 );
+    unix_proto = '.unix' %{ rl_proto = OSC_PROTO_UNIX; };
     host  = (nz_any - (']' | ':'))+ ${ rl_host.push_back(fc); };
-    port  = ':' ([0-9]+ ${ rl_port.push_back(fc); (rl_int_port *= 10) += (fc - '0'); });
-    url   = 'osc' proto? '://' host? port?;
+    port  = ':' ([0-9]+ ${ (rl_port *= 10) += (fc - '0'); });
+    net_url   = 'osc' ('.' net_proto)? '://' host? port;
+
+    path = ((nz_any - ':') nz_any*) ${ rl_path.push_back(fc); };
+    socket_url = 'osc' unix_proto '://' (':'?) path;
+    proto_url = net_proto port;
+    url =   (net_url    @{ rl_addr = OSC_ADDR_URL; })
+          | (socket_url @{ rl_addr = OSC_ADDR_UNIX; })
+          | (proto_url  @{ rl_addr = OSC_ADDR_PROTO_PORT; });
 
     main := url 0 @{ fbreak; };
 
@@ -53,27 +60,28 @@
 namespace ceammc {
 namespace parser {
 
-    bool parse_osc_url(const char* str, t_symbol*& proto, t_symbol*& host, t_symbol*& port, int& iport) {
+    OscAddress parse_osc_url(const char* str, OscProto& proto, t_symbol*& host, int& port, t_symbol*& unix_path) {
         int cs = 0;
         const char* p = str;
-        string::SmallString rl_port;
         string::SmallString rl_host;
-        int rl_int_port = 0;
-        t_symbol* rl_proto = nullptr;
+        string::SmallString rl_path;
+        int rl_port = 0;
+        OscProto rl_proto = OSC_PROTO_UDP;
+        OscAddress rl_addr = OSC_ADDR_INVALID;
 
         %% write init;
         %% write exec noend;
 
         if (cs >= %%{ write first_final; }%%) {
             rl_host.push_back('\0');
-            rl_port.push_back('\0');
-            proto = (rl_proto != nullptr) ? rl_proto : gensym("udp");
+            rl_path.push_back('\0');
+            proto = rl_proto;
             host = gensym(rl_host.data());
-            port = gensym(rl_port.data());
-            iport = rl_int_port;
-            return true;
-        } else
-            return false;
+            port = rl_port;
+            unix_path = gensym(rl_path.data());
+        }
+
+        return rl_addr;
     }
 }
 }

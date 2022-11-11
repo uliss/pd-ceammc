@@ -19,6 +19,8 @@
 
 using namespace ceammc::thread;
 
+using Lock = std::unique_lock<std::mutex>;
+
 namespace ceammc {
 namespace hw {
 
@@ -38,18 +40,11 @@ namespace hw {
         , vendor_id_(vendorId)
         , product_id_(productId)
     {
-        int status = 0;
-
-        status = pthread_mutex_init(&mutex_, 0);
-        ARDUINO_THREAD_CHECK(status, "can't init mutex");
     }
 
     Arduino::~Arduino()
     {
         stop();
-
-        int err = pthread_mutex_destroy(&mutex_);
-        ARDUINO_THREAD_CHECK(err, "can't destroy mutex");
     }
 
     std::string Arduino::usbSerial() const

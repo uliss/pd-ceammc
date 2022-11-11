@@ -843,8 +843,14 @@ msg.onload	send message when patch loads
 ceammc/loadmsg	send message when patch loads
 loadmsg	send message when patch loads
 msg.sched	message scheduler
+net.artnet.send	ArtNet DMX message sender
+artnet.send	ArtNet DMX message sender
 net.host2ip	returns IP address by DNS name
 net.host->ip	returns IP address by DNS name
+net.http.send	HTTP request sender
+http.send	HTTP request sender
+net.osc.receive	OSC message listener
+net.osc.r	OSC message listener
 net.osc.send	OSC message sender
 net.osc.s	OSC message sender
 net.osc.server	OSC server control
@@ -892,9 +898,11 @@ file.size	output file size
 path.basename	outputs filename portion of pathname
 path.dirname	outputs directory portion of pathname
 path.exists	checks if given path exists
+path.file	file input/output
 path.is_dir	check if path is directory
 path.lsdir	list directory contents
 path.ls	list directory contents
+path.monitor	filesystem event monitor
 path.normalize	normalize file paths
 path.norm	normalize file paths
 path.search	file search
@@ -937,13 +945,16 @@ p.set	set property for connected object/subpatch/abstraction
 prop.split	separate properties from dataflow
 prop->	separate properties from dataflow
 @->	separate properties from dataflow
+proto.feelworld	protocol for FeelWorld LivePro L1 HDMI mixer
 proto.firmata	Firmata Arduino protocol support
 proto.inscore	INScore message creator
 proto.midi	raw midi encoder/parser
 proto.midi.cc	raw midi CC encoder/parser
 proto.midi.sysex	raw midi SYSex encoder/parser
+proto.moppy	protocol for Musical flOPPY controller
 proto.mpv	mpv video player control
 proto.sp.alpaca	protocol parser for Arduino-based CEAMMC footswitch
+proto.vlc	VLC video player control over HTTP
 proto.whammy	Control for Digitech Whammy pedal
 proto.xtouch_ext	Behringer XTouch Extender XMidi protocol
 random.atom	weighted atom generation from specified list
