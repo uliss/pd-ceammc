@@ -465,8 +465,8 @@ TEST_CASE("parser_music", "[ceammc::ceammc_units]")
             REQUIRE(p.note().dur.timeMs({ 60, 0.5 }) == 500);
             REQUIRE(p.note().dur.timeMs({ 60, 1 }) == 250);
             REQUIRE(p.note().dur.timeMs({ 120, 0.25 }) == 500);
-            REQUIRE(p.note().dur.timeSamp(44100) == 44100);
-            REQUIRE(p.note().dur.timeSamp(44100, { 120, 0.25 }) == 22050);
+            REQUIRE(p.note().dur.timeSamp(44100) == Approx(44100));
+            REQUIRE(p.note().dur.timeSamp(44100, { 120, 0.25 }) == Approx(22050));
 
             REQUIRE(p.parse("R|7/8"));
             REQUIRE(p.note().isRest());
