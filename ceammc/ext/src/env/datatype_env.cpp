@@ -489,12 +489,14 @@ void DataTypeEnv::scaleValue(float factor)
 
 DataTypeEnv DataTypeEnv::normalize() const
 {
+    DataTypeEnv res;
+
     std::pair<float, float> yr = valueRange();
     float vrange = yr.second - yr.first;
     if (vrange == 0 || totalLength() == 0)
-        return DataTypeEnv();
+        return res;
 
-    DataTypeEnv res(*this);
+    res = *this;
 
     // shift
     if (points_[0].utime > 0)
