@@ -140,14 +140,19 @@ TEST_CASE("random.atom", "[externals]")
 
         t->setProperty("@a", LA("A", "B"));
 
+        bool first_a = false;
+
         for (int i = 0; i < 16; i++) {
             t << BANG;
             REQUIRE(t.hasOutputAt(0));
 
+            if (i == 0)
+                first_a = t.outputAtomAt(0) == A("A");
+
             if (i % 2)
-                REQUIRE(t.outputAtomAt(0) == A("A"));
+                REQUIRE(t.outputAtomAt(0) == A(!first_a ? "A" : "B"));
             else
-                REQUIRE(t.outputAtomAt(0) == A("B"));
+                REQUIRE(t.outputAtomAt(0) == A(!first_a ? "B" : "A"));
         }
     }
 }
