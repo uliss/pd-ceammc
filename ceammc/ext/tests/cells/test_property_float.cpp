@@ -282,10 +282,11 @@ TEST_CASE("FloatProperty", "[core]")
 
     SECTION("denormals")
     {
+#ifndef NDEBUG
+
         REQUIRE_FALSE(p.setList(LF(std::numeric_limits<t_float>::infinity())));
         REQUIRE(p.value() == 0.5);
 
-#ifndef NDEBUG
         REQUIRE_FALSE(p.setList(LF(std::numeric_limits<t_float>::signaling_NaN())));
         REQUIRE(p.value() == 0.5);
 
