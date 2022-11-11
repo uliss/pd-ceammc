@@ -1,5 +1,11 @@
 # CEAMMC Pd distribution changelog
 
+## [2022.11]
+### Added:
+- migration to Pd version 0.53.0
+- disable enternals libdir and import
+- **CEAMMC** external library v0.9.5 - [ceammc/CHANGELOG.md](ceammc/CHANGELOG.md)
+
 ## [2021.11]
 ### Added:
 - disable enternal FFTease and LyonPotpourri externals cause they available via deken

@@ -7,8 +7,6 @@ add_subdirectory(aubio)
 add_subdirectory(comport)
 add_subdirectory(fftconv)
 add_subdirectory(helmholtz)
-add_subdirectory(import)
-add_subdirectory(libdir)
 add_subdirectory(airwindows)
 
 if(WITH_EXT_AUTOTUNE)
@@ -68,6 +66,8 @@ if(UNIX)
 endif()
 
 if(WITH_EXPERIMENTAL)
+    add_subdirectory(import)
+    add_subdirectory(libdir)
     add_subdirectory(libusb)
 endif()
 
