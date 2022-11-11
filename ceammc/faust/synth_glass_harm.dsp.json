@@ -1,7 +1,7 @@
 {
 	"name": "synth.glass_harm",
 	"filename": "synth_glass_harm.dsp",
-	"version": "2.44.1",
+	"version": "2.53.1",
 	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn synth_glass_harm -scn synth_glass_harm_dsp -es 1 -mcd 16 -single -ftz 0",
 	"library_list": ["/usr/local/share/faust/instruments.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc_ui.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc.lib","/usr/local/share/faust/signals.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib","/usr/local/share/faust/envelopes.lib","/usr/local/share/faust/delays.lib","/Users/serge/work/music/pure-data/ceammc/faust/spn.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/filters.lib","/usr/local/share/faust/oscillators.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc_instruments.lib","/usr/local/share/faust/reverbs.lib","/usr/local/share/faust/routes.lib"],
 	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
@@ -35,7 +35,7 @@
 		{ "filters.lib/allpassnn:author": "Julius O. Smith III" },
 		{ "filters.lib/allpassnn:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
 		{ "filters.lib/allpassnn:license": "MIT-style STK-4.3 license" },
-		{ "filters.lib/lowpass0_highpass1": "MIT-style STK-4.3 license" },
+		{ "filters.lib/lowpass0_highpass1": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
 		{ "filters.lib/lowpass0_highpass1:author": "Julius O. Smith III" },
 		{ "filters.lib/lowpass:author": "Julius O. Smith III" },
 		{ "filters.lib/lowpass:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },

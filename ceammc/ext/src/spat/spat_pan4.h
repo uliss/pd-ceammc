@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "spat.pan4"
-Code generated with Faust 2.44.1 (https://faust.grame.fr)
+Code generated with Faust 2.53.1 (https://faust.grame.fr)
 Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn spat_pan4 -scn spat_pan4_dsp -es 1 -mcd 16 -single -ftz 0
 ------------------------------------------------------------ */
 
@@ -45,30 +45,33 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_ds
 #include <vector>
 
 /************************************************************************
- ************************************************************************
-    FAUST compiler
-    Copyright (C) 2003-2018 GRAME, Centre National de Creation Musicale
-    ---------------------------------------------------------------------
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- ************************************************************************
- ************************************************************************/
+ FAUST Architecture File
+ Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
+ ---------------------------------------------------------------------
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation; either version 2.1 of the License, or
+ (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU Lesser General Public License for more details.
+ 
+ You should have received a copy of the GNU Lesser General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ 
+ EXCEPTION : As a special exception, you may create a larger work
+ that contains this FAUST architecture section and distribute
+ that work under terms of your choice, so long as this FAUST
+ architecture section is not modified.
+ ***************************************************************************/
 
 #ifndef __export__
 #define __export__
 
-#define FAUSTVERSION "2.44.1"
+#define FAUSTVERSION "2.53.1"
 
 // Use FAUST_API for code that is part of the external API but is also compiled in faust and libfaust
 // Use LIBFAUST_API for code that is compiled in faust and libfaust
@@ -116,7 +119,7 @@ struct FAUST_API dsp_memory_manager {
      * Inform the Memory Manager with the number of expected memory zones.
      * @param count - the number of expected memory zones
      */
-    virtual void begin(size_t count) {}
+    virtual void begin(size_t /*count*/) {}
     
     /**
      * Give the Memory Manager information on a given memory zone.
@@ -124,8 +127,8 @@ struct FAUST_API dsp_memory_manager {
      * @param reads - the number of Read access to the zone used to compute one frame
      * @param writes - the number of Write access to the zone used to compute one frame
      */
-    virtual void info(size_t size, size_t reads, size_t writes) {}
-    
+    virtual void info(size_t /*size*/, size_t /*reads*/, size_t /*writes*/) {}
+
     /**
      * Inform the Memory Manager that all memory zones have been described,
      * to possibly start a 'compute the best allocation strategy' step.
@@ -310,14 +313,17 @@ class FAUST_API ScopedNoDenormals {
     
     private:
     
-        intptr_t fpsr;
+        intptr_t fpsr = 0;
         
         void setFpStatusRegister(intptr_t fpsr_aux) noexcept
         {
         #if defined (__arm64__) || defined (__aarch64__)
-           asm volatile("msr fpcr, %0" : : "ri" (fpsr_aux));
+            asm volatile("msr fpcr, %0" : : "ri" (fpsr_aux));
         #elif defined (__SSE__)
-            _mm_setcsr(static_cast<uint32_t>(fpsr_aux));
+            // The volatile keyword here is needed to workaround a bug in AppleClang 13.0
+            // which aggressively optimises away the variable otherwise
+            volatile uint32_t fpsr_w = static_cast<uint32_t>(fpsr_aux);
+            _mm_setcsr(fpsr_w);
         #endif
         }
         
@@ -325,7 +331,7 @@ class FAUST_API ScopedNoDenormals {
         {
         #if defined (__arm64__) || defined (__aarch64__)
             asm volatile("mrs %0, fpcr" : "=r" (fpsr));
-        #elif defined ( __SSE__)
+        #elif defined (__SSE__)
             fpsr = static_cast<intptr_t>(_mm_getcsr());
         #endif
         }
@@ -336,16 +342,14 @@ class FAUST_API ScopedNoDenormals {
         {
         #if defined (__arm64__) || defined (__aarch64__)
             intptr_t mask = (1 << 24 /* FZ */);
+        #elif defined (__SSE__)
+        #if defined (__SSE2__)
+            intptr_t mask = 0x8040;
         #else
-            #if defined(__SSE__)
-            #if defined(__SSE2__)
-                intptr_t mask = 0x8040;
-            #else
-                intptr_t mask = 0x8000;
-            #endif
-            #else
-                intptr_t mask = 0x0000;
-            #endif
+            intptr_t mask = 0x8000;
+        #endif
+        #else
+            intptr_t mask = 0x0000;
         #endif
             getFpStatusRegister();
             setFpStatusRegister(fpsr | mask);
@@ -358,7 +362,7 @@ class FAUST_API ScopedNoDenormals {
 
 };
 
-#define AVOIDDENORMALS ScopedNoDenormals();
+#define AVOIDDENORMALS ScopedNoDenormals ftz_scope;
 
 #endif
 
@@ -436,8 +440,8 @@ struct FAUST_API UIReal {
     
     // -- metadata declarations
     
-    virtual void declare(REAL* zone, const char* key, const char* val) {}
-    
+    virtual void declare(REAL* /*zone*/, const char* /*key*/, const char* /*val*/) {}
+
     // To be used by LLVM client
     virtual int sizeOfFAUSTFLOAT() { return sizeof(FAUSTFLOAT); }
 };
@@ -723,8 +727,8 @@ class spat_pan4 : public spat_pan4_dsp {
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("spat.pan4");
 		ui_interface->declare(&fVslider1, "unit", "rad");
-		ui_interface->addVerticalSlider("angle", &fVslider1, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(6.28318548f), FAUSTFLOAT(9.99999975e-05f));
-		ui_interface->addVerticalSlider("radius", &fVslider0, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(9.99999975e-05f));
+		ui_interface->addVerticalSlider("angle", &fVslider1, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(6.2831855f), FAUSTFLOAT(0.0001f));
+		ui_interface->addVerticalSlider("radius", &fVslider0, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0001f));
 		ui_interface->closeBox();
 	}
 	
@@ -736,20 +740,20 @@ class spat_pan4 : public spat_pan4_dsp {
 		FAUSTFLOAT* output3 = outputs[3];
 		float fSlow0 = float(fVslider0);
 		float fSlow1 = fSlow0 + 1.0f;
-		float fSlow2 = 0.159154937f * float(fVslider1);
-		float fSlow3 = 4.99999987e-05f * fSlow1 * std::sqrt(std::max<float>(0.0f, 1.0f - 4.0f * fSlow0 * std::fabs(std::fmod(fSlow2 + 1.5f, 1.0f) + -0.5f)));
-		float fSlow4 = 4.99999987e-05f * fSlow1 * std::sqrt(std::max<float>(0.0f, 1.0f - 4.0f * fSlow0 * std::fabs(std::fmod(fSlow2 + 1.25f, 1.0f) + -0.5f)));
-		float fSlow5 = 4.99999987e-05f * fSlow1 * std::sqrt(std::max<float>(0.0f, 1.0f - 4.0f * fSlow0 * std::fabs(std::fmod(fSlow2 + 1.0f, 1.0f) + -0.5f)));
-		float fSlow6 = 4.99999987e-05f * fSlow1 * std::sqrt(std::max<float>(0.0f, 1.0f - 4.0f * fSlow0 * std::fabs(std::fmod(fSlow2 + 0.75f, 1.0f) + -0.5f)));
+		float fSlow2 = 0.15915494f * float(fVslider1);
+		float fSlow3 = 5e-05f * fSlow1 * std::sqrt(std::max<float>(0.0f, 1.0f - 4.0f * fSlow0 * std::fabs(std::fmod(fSlow2 + 1.5f, 1.0f) + -0.5f)));
+		float fSlow4 = 5e-05f * fSlow1 * std::sqrt(std::max<float>(0.0f, 1.0f - 4.0f * fSlow0 * std::fabs(std::fmod(fSlow2 + 1.25f, 1.0f) + -0.5f)));
+		float fSlow5 = 5e-05f * fSlow1 * std::sqrt(std::max<float>(0.0f, 1.0f - 4.0f * fSlow0 * std::fabs(std::fmod(fSlow2 + 1.0f, 1.0f) + -0.5f)));
+		float fSlow6 = 5e-05f * fSlow1 * std::sqrt(std::max<float>(0.0f, 1.0f - 4.0f * fSlow0 * std::fabs(std::fmod(fSlow2 + 0.75f, 1.0f) + -0.5f)));
 		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
 			float fTemp0 = float(input0[i0]);
-			fRec0[0] = fSlow3 + 0.999899983f * fRec0[1];
+			fRec0[0] = fSlow3 + 0.9999f * fRec0[1];
 			output0[i0] = FAUSTFLOAT(fTemp0 * fRec0[0]);
-			fRec1[0] = fSlow4 + 0.999899983f * fRec1[1];
+			fRec1[0] = fSlow4 + 0.9999f * fRec1[1];
 			output1[i0] = FAUSTFLOAT(fTemp0 * fRec1[0]);
-			fRec2[0] = fSlow5 + 0.999899983f * fRec2[1];
+			fRec2[0] = fSlow5 + 0.9999f * fRec2[1];
 			output2[i0] = FAUSTFLOAT(fTemp0 * fRec2[0]);
-			fRec3[0] = fSlow6 + 0.999899983f * fRec3[1];
+			fRec3[0] = fSlow6 + 0.9999f * fRec3[1];
 			output3[i0] = FAUSTFLOAT(fTemp0 * fRec3[0]);
 			fRec0[1] = fRec0[0];
 			fRec1[1] = fRec1[0];

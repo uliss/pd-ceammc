@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "synth.snare"
-Code generated with Faust 2.44.1 (https://faust.grame.fr)
+Code generated with Faust 2.53.1 (https://faust.grame.fr)
 Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn synth_snare -scn synth_snare_dsp -es 1 -mcd 16 -single -ftz 0
 ------------------------------------------------------------ */
 
@@ -45,30 +45,33 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_ds
 #include <vector>
 
 /************************************************************************
- ************************************************************************
-    FAUST compiler
-    Copyright (C) 2003-2018 GRAME, Centre National de Creation Musicale
-    ---------------------------------------------------------------------
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- ************************************************************************
- ************************************************************************/
+ FAUST Architecture File
+ Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
+ ---------------------------------------------------------------------
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation; either version 2.1 of the License, or
+ (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU Lesser General Public License for more details.
+ 
+ You should have received a copy of the GNU Lesser General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ 
+ EXCEPTION : As a special exception, you may create a larger work
+ that contains this FAUST architecture section and distribute
+ that work under terms of your choice, so long as this FAUST
+ architecture section is not modified.
+ ***************************************************************************/
 
 #ifndef __export__
 #define __export__
 
-#define FAUSTVERSION "2.44.1"
+#define FAUSTVERSION "2.53.1"
 
 // Use FAUST_API for code that is part of the external API but is also compiled in faust and libfaust
 // Use LIBFAUST_API for code that is compiled in faust and libfaust
@@ -116,7 +119,7 @@ struct FAUST_API dsp_memory_manager {
      * Inform the Memory Manager with the number of expected memory zones.
      * @param count - the number of expected memory zones
      */
-    virtual void begin(size_t count) {}
+    virtual void begin(size_t /*count*/) {}
     
     /**
      * Give the Memory Manager information on a given memory zone.
@@ -124,8 +127,8 @@ struct FAUST_API dsp_memory_manager {
      * @param reads - the number of Read access to the zone used to compute one frame
      * @param writes - the number of Write access to the zone used to compute one frame
      */
-    virtual void info(size_t size, size_t reads, size_t writes) {}
-    
+    virtual void info(size_t /*size*/, size_t /*reads*/, size_t /*writes*/) {}
+
     /**
      * Inform the Memory Manager that all memory zones have been described,
      * to possibly start a 'compute the best allocation strategy' step.
@@ -310,14 +313,17 @@ class FAUST_API ScopedNoDenormals {
     
     private:
     
-        intptr_t fpsr;
+        intptr_t fpsr = 0;
         
         void setFpStatusRegister(intptr_t fpsr_aux) noexcept
         {
         #if defined (__arm64__) || defined (__aarch64__)
-           asm volatile("msr fpcr, %0" : : "ri" (fpsr_aux));
+            asm volatile("msr fpcr, %0" : : "ri" (fpsr_aux));
         #elif defined (__SSE__)
-            _mm_setcsr(static_cast<uint32_t>(fpsr_aux));
+            // The volatile keyword here is needed to workaround a bug in AppleClang 13.0
+            // which aggressively optimises away the variable otherwise
+            volatile uint32_t fpsr_w = static_cast<uint32_t>(fpsr_aux);
+            _mm_setcsr(fpsr_w);
         #endif
         }
         
@@ -325,7 +331,7 @@ class FAUST_API ScopedNoDenormals {
         {
         #if defined (__arm64__) || defined (__aarch64__)
             asm volatile("mrs %0, fpcr" : "=r" (fpsr));
-        #elif defined ( __SSE__)
+        #elif defined (__SSE__)
             fpsr = static_cast<intptr_t>(_mm_getcsr());
         #endif
         }
@@ -336,16 +342,14 @@ class FAUST_API ScopedNoDenormals {
         {
         #if defined (__arm64__) || defined (__aarch64__)
             intptr_t mask = (1 << 24 /* FZ */);
+        #elif defined (__SSE__)
+        #if defined (__SSE2__)
+            intptr_t mask = 0x8040;
         #else
-            #if defined(__SSE__)
-            #if defined(__SSE2__)
-                intptr_t mask = 0x8040;
-            #else
-                intptr_t mask = 0x8000;
-            #endif
-            #else
-                intptr_t mask = 0x0000;
-            #endif
+            intptr_t mask = 0x8000;
+        #endif
+        #else
+            intptr_t mask = 0x0000;
         #endif
             getFpStatusRegister();
             setFpStatusRegister(fpsr | mask);
@@ -358,7 +362,7 @@ class FAUST_API ScopedNoDenormals {
 
 };
 
-#define AVOIDDENORMALS ScopedNoDenormals();
+#define AVOIDDENORMALS ScopedNoDenormals ftz_scope;
 
 #endif
 
@@ -436,8 +440,8 @@ struct FAUST_API UIReal {
     
     // -- metadata declarations
     
-    virtual void declare(REAL* zone, const char* key, const char* val) {}
-    
+    virtual void declare(REAL* /*zone*/, const char* /*key*/, const char* /*val*/) {}
+
     // To be used by LLVM client
     virtual int sizeOfFAUSTFLOAT() { return sizeof(FAUSTFLOAT); }
 };
@@ -761,27 +765,27 @@ class synth_snare : public synth_snare_dsp {
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
-		float fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
-		fConst1 = 0.00100000005f * fConst0;
-		fConst2 = 0.000274999999f * fConst0;
-		float fConst3 = 2073.45117f / fConst0;
+		float fConst0 = std::min<float>(1.92e+05f, std::max<float>(1.0f, float(fSampleRate)));
+		fConst1 = 0.001f * fConst0;
+		fConst2 = 0.000275f * fConst0;
+		float fConst3 = 2073.4512f / fConst0;
 		fConst4 = std::sin(fConst3);
 		fConst5 = std::cos(fConst3);
-		fConst6 = 0.000375000003f * fConst0;
-		float fConst7 = 1162.38928f / fConst0;
+		fConst6 = 0.000375f * fConst0;
+		float fConst7 = 1162.3893f / fConst0;
 		fConst8 = std::sin(fConst7);
 		fConst9 = std::cos(fConst7);
-		float fConst10 = std::tan(22116.8125f / fConst0);
+		float fConst10 = std::tan(22116.812f / fConst0);
 		float fConst11 = 1.0f / fConst10;
 		fConst12 = 1.0f / ((fConst11 + 1.0f) / fConst10 + 1.0f);
 		fConst13 = 1.0f / (fConst11 + 1.0f);
 		fConst14 = 1.0f - fConst11;
 		fConst15 = (fConst11 + -1.0f) / fConst10 + 1.0f;
 		fConst16 = 2.0f * (1.0f - 1.0f / synth_snare_faustpower2_f(fConst10));
-		float fConst17 = std::tan(1643.05298f / fConst0);
+		float fConst17 = std::tan(1643.053f / fConst0);
 		float fConst18 = 1.0f / fConst17;
 		fConst19 = 1.0f / ((fConst18 + 1.0f) / fConst17 + 1.0f);
-		fConst20 = 0.000914999982f * fConst0;
+		fConst20 = 0.000915f * fConst0;
 		float fConst21 = synth_snare_faustpower2_f(fConst17);
 		fConst22 = 1.0f / fConst21;
 		float fConst23 = fConst18 + 1.0f;
@@ -797,7 +801,7 @@ class synth_snare : public synth_snare_dsp {
 		fCheckbox0 = FAUSTFLOAT(0.0f);
 		fVslider0 = FAUSTFLOAT(0.5f);
 		fVslider1 = FAUSTFLOAT(1.0f);
-		fVslider2 = FAUSTFLOAT(200.0f);
+		fVslider2 = FAUSTFLOAT(2e+02f);
 	}
 	
 	virtual void instanceClear() {
@@ -893,13 +897,13 @@ class synth_snare : public synth_snare_dsp {
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("synth.snare");
 		ui_interface->declare(&fVslider0, "unit", "ms");
-		ui_interface->addVerticalSlider("attack", &fVslider0, FAUSTFLOAT(0.5f), FAUSTFLOAT(0.300000012f), FAUSTFLOAT(100.0f), FAUSTFLOAT(0.00999999978f));
+		ui_interface->addVerticalSlider("attack", &fVslider0, FAUSTFLOAT(0.5f), FAUSTFLOAT(0.3f), FAUSTFLOAT(1e+02f), FAUSTFLOAT(0.01f));
 		ui_interface->declare(&fVslider1, "unit", "ms");
-		ui_interface->addVerticalSlider("decay", &fVslider1, FAUSTFLOAT(1.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(100.0f), FAUSTFLOAT(0.00999999978f));
+		ui_interface->addVerticalSlider("decay", &fVslider1, FAUSTFLOAT(1.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(1e+02f), FAUSTFLOAT(0.01f));
 		ui_interface->declare(&fCheckbox0, "type", "float");
 		ui_interface->addCheckButton("gate", &fCheckbox0);
 		ui_interface->declare(&fVslider2, "unit", "ms");
-		ui_interface->addVerticalSlider("release", &fVslider2, FAUSTFLOAT(200.0f), FAUSTFLOAT(10.0f), FAUSTFLOAT(1000.0f), FAUSTFLOAT(0.00999999978f));
+		ui_interface->addVerticalSlider("release", &fVslider2, FAUSTFLOAT(2e+02f), FAUSTFLOAT(1e+01f), FAUSTFLOAT(1e+03f), FAUSTFLOAT(0.01f));
 		ui_interface->closeBox();
 	}
 	
@@ -910,14 +914,14 @@ class synth_snare : public synth_snare_dsp {
 		float fSlow2 = float(fVslider0);
 		float fSlow3 = fConst1 * fSlow2;
 		float fSlow4 = 1.0f / float(int(fSlow3));
-		float fSlow5 = 1.0f / (fSlow3 + float(0.00100000005f * fSlow2 == 0.0f));
+		float fSlow5 = 1.0f / (fSlow3 + float((0.001f * fSlow2) == 0.0f));
 		float fSlow6 = float(fVslider1);
-		float fSlow7 = 1.0f - std::pow(1.0f, 1.0f / (fConst1 * fSlow6 + float(0.00100000005f * fSlow6 == 0.0f)));
+		float fSlow7 = 1.0f - std::pow(1.0f, 1.0f / (fConst1 * fSlow6 + float((0.001f * fSlow6) == 0.0f)));
 		float fSlow8 = float(fVslider2);
-		float fSlow9 = 1.0f - 1.0f / std::pow(1000.0f, 1.0f / (fConst2 * fSlow8 + float(0.000274999999f * fSlow8 == 0.0f)));
-		float fSlow10 = 1.0f - 1.0f / std::pow(1000.0f, 1.0f / (fConst6 * fSlow8 + float(0.000375000003f * fSlow8 == 0.0f)));
-		float fSlow11 = 1.0f - 1.0f / std::pow(1000.0f, 1.0f / (fConst1 * fSlow8 + float(0.00100000005f * fSlow8 == 0.0f)));
-		float fSlow12 = 1.0f - 1.0f / std::pow(1000.0f, 1.0f / (fConst20 * fSlow8 + float(0.000914999982f * fSlow8 == 0.0f)));
+		float fSlow9 = 1.0f - 1.0f / std::pow(1e+03f, 1.0f / (fConst2 * fSlow8 + float((0.000275f * fSlow8) == 0.0f)));
+		float fSlow10 = 1.0f - 1.0f / std::pow(1e+03f, 1.0f / (fConst6 * fSlow8 + float((0.000375f * fSlow8) == 0.0f)));
+		float fSlow11 = 1.0f - 1.0f / std::pow(1e+03f, 1.0f / (fConst1 * fSlow8 + float((0.001f * fSlow8) == 0.0f)));
+		float fSlow12 = 1.0f - 1.0f / std::pow(1e+03f, 1.0f / (fConst20 * fSlow8 + float((0.000915f * fSlow8) == 0.0f)));
 		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
 			iVec0[0] = 1;
 			fVec1[0] = fSlow0;
@@ -925,35 +929,35 @@ class synth_snare : public synth_snare_dsp {
 			iVec2[0] = iTemp0;
 			int iTemp1 = (iVec2[1] <= 0) & (iTemp0 > 0);
 			fRec0[0] = fRec0[1] * float(1 - iTemp1) + fSlow1 * float(iTemp1);
-			fRec3[0] = (fRec3[1] + float(iTemp0)) - fSlow4 * float(fRec3[1] > 0.0f);
+			fRec3[0] = fRec3[1] + float(iTemp0) - fSlow4 * float(fRec3[1] > 0.0f);
 			int iTemp2 = fRec3[0] > 0.0f;
 			int iTemp3 = iTemp2 > 0;
 			iRec1[0] = iTemp3 & (iRec1[1] | (fRec2[1] >= 1.0f));
 			int iTemp4 = iTemp2 <= 0;
 			int iTemp5 = iTemp4 & (fRec2[1] > 0.0f);
-			fRec2[0] = (fSlow5 * float(((iRec1[1] == 0) & iTemp3) & (fRec2[1] < 1.0f)) + fRec2[1] * (1.0f - fSlow7 * float(iRec1[1] & (fRec2[1] > 1.0f)) - fSlow9 * float(iTemp5))) * float((iTemp5 == 0) | (fRec2[1] >= 9.99999997e-07f));
+			fRec2[0] = (fSlow5 * float(((iRec1[1] == 0) & iTemp3) & (fRec2[1] < 1.0f)) + fRec2[1] * (1.0f - fSlow7 * float(iRec1[1] & (fRec2[1] > 1.0f)) - fSlow9 * float(iTemp5))) * float((iTemp5 == 0) | (fRec2[1] >= 1e-06f));
 			fRec4[0] = fConst4 * fRec5[1] + fConst5 * fRec4[1];
 			float fTemp6 = float(1 - iVec0[1]);
-			fRec5[0] = (fTemp6 + fConst5 * fRec5[1]) - fConst4 * fRec4[1];
+			fRec5[0] = fTemp6 + fConst5 * fRec5[1] - fConst4 * fRec4[1];
 			iRec6[0] = iTemp3 & (iRec6[1] | (fRec7[1] >= 1.0f));
 			int iTemp7 = iTemp4 & (fRec7[1] > 0.0f);
-			fRec7[0] = (fSlow5 * float(((iRec6[1] == 0) & iTemp3) & (fRec7[1] < 1.0f)) + fRec7[1] * (1.0f - fSlow7 * float(iRec6[1] & (fRec7[1] > 1.0f)) - fSlow10 * float(iTemp7))) * float((iTemp7 == 0) | (fRec7[1] >= 9.99999997e-07f));
+			fRec7[0] = (fSlow5 * float(((iRec6[1] == 0) & iTemp3) & (fRec7[1] < 1.0f)) + fRec7[1] * (1.0f - fSlow7 * float(iRec6[1] & (fRec7[1] > 1.0f)) - fSlow10 * float(iTemp7))) * float((iTemp7 == 0) | (fRec7[1] >= 1e-06f));
 			fRec8[0] = fConst8 * fRec9[1] + fConst9 * fRec8[1];
-			fRec9[0] = (fTemp6 + fConst9 * fRec9[1]) - fConst8 * fRec8[1];
+			fRec9[0] = fTemp6 + fConst9 * fRec9[1] - fConst8 * fRec8[1];
 			iRec10[0] = iTemp3 & (iRec10[1] | (fRec11[1] >= 1.0f));
 			int iTemp8 = iTemp4 & (fRec11[1] > 0.0f);
-			fRec11[0] = (fSlow5 * float(((iRec10[1] == 0) & iTemp3) & (fRec11[1] < 1.0f)) + fRec11[1] * (1.0f - fSlow7 * float(iRec10[1] & (fRec11[1] > 1.0f)) - fSlow11 * float(iTemp8))) * float((iTemp8 == 0) | (fRec11[1] >= 9.99999997e-07f));
+			fRec11[0] = (fSlow5 * float(((iRec10[1] == 0) & iTemp3) & (fRec11[1] < 1.0f)) + fRec11[1] * (1.0f - fSlow7 * float(iRec10[1] & (fRec11[1] > 1.0f)) - fSlow11 * float(iTemp8))) * float((iTemp8 == 0) | (fRec11[1] >= 1e-06f));
 			iRec14[0] = 1103515245 * iRec14[1] + 12345;
 			float fTemp9 = float(iRec14[0]);
 			fVec3[0] = fTemp9;
-			fRec13[0] = fConst13 * (4.65661287e-10f * (fTemp9 + fVec3[1]) - fConst14 * fRec13[1]);
+			fRec13[0] = fConst13 * (4.656613e-10f * (fTemp9 + fVec3[1]) - fConst14 * fRec13[1]);
 			fRec12[0] = fRec13[0] - fConst12 * (fConst15 * fRec12[2] + fConst16 * fRec12[1]);
 			iRec15[0] = iTemp3 & (iRec15[1] | (fRec16[1] >= 1.0f));
 			int iTemp10 = iTemp4 & (fRec16[1] > 0.0f);
-			fRec16[0] = (fSlow5 * float(((iRec15[1] == 0) & iTemp3) & (fRec16[1] < 1.0f)) + fRec16[1] * (1.0f - fSlow7 * float(iRec15[1] & (fRec16[1] > 1.0f)) - fSlow12 * float(iTemp10))) * float((iTemp10 == 0) | (fRec16[1] >= 9.99999997e-07f));
-			fRec18[0] = 4.65661287e-10f * (fConst24 * fTemp9 + fConst25 * fVec3[1]) - fConst26 * fRec18[1];
+			fRec16[0] = (fSlow5 * float(((iRec15[1] == 0) & iTemp3) & (fRec16[1] < 1.0f)) + fRec16[1] * (1.0f - fSlow7 * float(iRec15[1] & (fRec16[1] > 1.0f)) - fSlow12 * float(iTemp10))) * float((iTemp10 == 0) | (fRec16[1] >= 1e-06f));
+			fRec18[0] = 4.656613e-10f * (fConst24 * fTemp9 + fConst25 * fVec3[1]) - fConst26 * fRec18[1];
 			fRec17[0] = fRec18[0] - fConst19 * (fConst27 * fRec17[2] + fConst28 * fRec17[1]);
-			output0[i0] = FAUSTFLOAT(0.251188636f * fRec0[0] * (fRec2[0] * (fRec4[0] + 0.25f) + fRec7[0] * (fRec8[0] + 0.25f) + 0.200000003f * (fConst12 * fRec11[0] * (fRec12[2] + fRec12[0] + 2.0f * fRec12[1]) + fConst19 * fRec16[0] * (fConst22 * fRec17[0] + fConst29 * fRec17[1] + fConst22 * fRec17[2]))));
+			output0[i0] = FAUSTFLOAT(0.25118864f * fRec0[0] * (fRec2[0] * (fRec4[0] + 0.25f) + fRec7[0] * (fRec8[0] + 0.25f) + 0.2f * (fConst12 * fRec11[0] * (fRec12[2] + fRec12[0] + 2.0f * fRec12[1]) + fConst19 * fRec16[0] * (fConst22 * fRec17[0] + fConst29 * fRec17[1] + fConst22 * fRec17[2]))));
 			iVec0[1] = iVec0[0];
 			fVec1[1] = fVec1[0];
 			iVec2[1] = iVec2[0];

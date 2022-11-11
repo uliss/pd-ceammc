@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 author: "Pierre Cochard"
 name: "synth.birds"
-Code generated with Faust 2.44.1 (https://faust.grame.fr)
+Code generated with Faust 2.53.1 (https://faust.grame.fr)
 Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn synth_birds -scn synth_birds_dsp -es 1 -mcd 16 -single -ftz 0
 ------------------------------------------------------------ */
 
@@ -46,30 +46,33 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_ds
 #include <vector>
 
 /************************************************************************
- ************************************************************************
-    FAUST compiler
-    Copyright (C) 2003-2018 GRAME, Centre National de Creation Musicale
-    ---------------------------------------------------------------------
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- ************************************************************************
- ************************************************************************/
+ FAUST Architecture File
+ Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
+ ---------------------------------------------------------------------
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation; either version 2.1 of the License, or
+ (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU Lesser General Public License for more details.
+ 
+ You should have received a copy of the GNU Lesser General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ 
+ EXCEPTION : As a special exception, you may create a larger work
+ that contains this FAUST architecture section and distribute
+ that work under terms of your choice, so long as this FAUST
+ architecture section is not modified.
+ ***************************************************************************/
 
 #ifndef __export__
 #define __export__
 
-#define FAUSTVERSION "2.44.1"
+#define FAUSTVERSION "2.53.1"
 
 // Use FAUST_API for code that is part of the external API but is also compiled in faust and libfaust
 // Use LIBFAUST_API for code that is compiled in faust and libfaust
@@ -117,7 +120,7 @@ struct FAUST_API dsp_memory_manager {
      * Inform the Memory Manager with the number of expected memory zones.
      * @param count - the number of expected memory zones
      */
-    virtual void begin(size_t count) {}
+    virtual void begin(size_t /*count*/) {}
     
     /**
      * Give the Memory Manager information on a given memory zone.
@@ -125,8 +128,8 @@ struct FAUST_API dsp_memory_manager {
      * @param reads - the number of Read access to the zone used to compute one frame
      * @param writes - the number of Write access to the zone used to compute one frame
      */
-    virtual void info(size_t size, size_t reads, size_t writes) {}
-    
+    virtual void info(size_t /*size*/, size_t /*reads*/, size_t /*writes*/) {}
+
     /**
      * Inform the Memory Manager that all memory zones have been described,
      * to possibly start a 'compute the best allocation strategy' step.
@@ -311,14 +314,17 @@ class FAUST_API ScopedNoDenormals {
     
     private:
     
-        intptr_t fpsr;
+        intptr_t fpsr = 0;
         
         void setFpStatusRegister(intptr_t fpsr_aux) noexcept
         {
         #if defined (__arm64__) || defined (__aarch64__)
-           asm volatile("msr fpcr, %0" : : "ri" (fpsr_aux));
+            asm volatile("msr fpcr, %0" : : "ri" (fpsr_aux));
         #elif defined (__SSE__)
-            _mm_setcsr(static_cast<uint32_t>(fpsr_aux));
+            // The volatile keyword here is needed to workaround a bug in AppleClang 13.0
+            // which aggressively optimises away the variable otherwise
+            volatile uint32_t fpsr_w = static_cast<uint32_t>(fpsr_aux);
+            _mm_setcsr(fpsr_w);
         #endif
         }
         
@@ -326,7 +332,7 @@ class FAUST_API ScopedNoDenormals {
         {
         #if defined (__arm64__) || defined (__aarch64__)
             asm volatile("mrs %0, fpcr" : "=r" (fpsr));
-        #elif defined ( __SSE__)
+        #elif defined (__SSE__)
             fpsr = static_cast<intptr_t>(_mm_getcsr());
         #endif
         }
@@ -337,16 +343,14 @@ class FAUST_API ScopedNoDenormals {
         {
         #if defined (__arm64__) || defined (__aarch64__)
             intptr_t mask = (1 << 24 /* FZ */);
+        #elif defined (__SSE__)
+        #if defined (__SSE2__)
+            intptr_t mask = 0x8040;
         #else
-            #if defined(__SSE__)
-            #if defined(__SSE2__)
-                intptr_t mask = 0x8040;
-            #else
-                intptr_t mask = 0x8000;
-            #endif
-            #else
-                intptr_t mask = 0x0000;
-            #endif
+            intptr_t mask = 0x8000;
+        #endif
+        #else
+            intptr_t mask = 0x0000;
         #endif
             getFpStatusRegister();
             setFpStatusRegister(fpsr | mask);
@@ -359,7 +363,7 @@ class FAUST_API ScopedNoDenormals {
 
 };
 
-#define AVOIDDENORMALS ScopedNoDenormals();
+#define AVOIDDENORMALS ScopedNoDenormals ftz_scope;
 
 #endif
 
@@ -437,8 +441,8 @@ struct FAUST_API UIReal {
     
     // -- metadata declarations
     
-    virtual void declare(REAL* zone, const char* key, const char* val) {}
-    
+    virtual void declare(REAL* /*zone*/, const char* /*key*/, const char* /*val*/) {}
+
     // To be used by LLVM client
     virtual int sizeOfFAUSTFLOAT() { return sizeof(FAUSTFLOAT); }
 };
@@ -668,7 +672,7 @@ class synth_birdsSIG0 {
 		for (int i1 = 0; i1 < count; i1 = i1 + 1) {
 			iVec3[0] = 1;
 			iRec14[0] = (iVec3[1] + iRec14[1]) % 65536;
-			table[i1] = std::sin(9.58738019e-05f * float(iRec14[0]));
+			table[i1] = std::sin(9.58738e-05f * float(iRec14[0]));
 			iVec3[1] = iVec3[0];
 			iRec14[1] = iRec14[0];
 		}
@@ -810,7 +814,7 @@ class synth_birds : public synth_birds_dsp {
 		m->declare("ceammc_ui.lib/version", "0.1.2");
 		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn synth_birds -scn synth_birds_dsp -es 1 -mcd 16 -single -ftz 0");
 		m->declare("filename", "synth_birds.dsp");
-		m->declare("filters.lib/lowpass0_highpass1", "MIT-style STK-4.3 license");
+		m->declare("filters.lib/lowpass0_highpass1", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/lowpass0_highpass1:author", "Julius O. Smith III");
 		m->declare("filters.lib/lowpass:author", "Julius O. Smith III");
 		m->declare("filters.lib/lowpass:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -860,81 +864,81 @@ class synth_birds : public synth_birds_dsp {
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
-		float fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
-		float fConst1 = 1.0f / std::tan(7853.98145f / fConst0);
+		float fConst0 = std::min<float>(1.92e+05f, std::max<float>(1.0f, float(fSampleRate)));
+		float fConst1 = 1.0f / std::tan(7853.9814f / fConst0);
 		fConst2 = 1.0f / (fConst1 + 1.0f);
 		fConst3 = 1.0f - fConst1;
-		float fConst4 = 1.0f / std::tan(9424.77832f / fConst0);
+		float fConst4 = 1.0f / std::tan(9424.778f / fConst0);
 		fConst5 = 1.0f / (fConst4 + 1.0f);
 		fConst6 = 1.0f - fConst4;
-		fConst7 = 0.00100000005f * fConst0;
-		fConst8 = 60.0f * fConst0;
-		fConst9 = 0.00251000002f * fConst0;
-		fConst10 = 0.00218875497f * fConst0;
-		fConst11 = 0.00208835304f * fConst0;
-		fConst12 = 0.00182730902f * fConst0;
-		fConst13 = 0.00174698804f * fConst0;
-		fConst14 = 0.00152610498f * fConst0;
-		fConst15 = 0.00134538196f * fConst0;
+		fConst7 = 0.001f * fConst0;
+		fConst8 = 6e+01f * fConst0;
+		fConst9 = 0.00251f * fConst0;
+		fConst10 = 0.002188755f * fConst0;
+		fConst11 = 0.002088353f * fConst0;
+		fConst12 = 0.001827309f * fConst0;
+		fConst13 = 0.001746988f * fConst0;
+		fConst14 = 0.001526105f * fConst0;
+		fConst15 = 0.001345382f * fConst0;
 		fConst16 = 0.001064257f * fConst0;
-		fConst17 = 0.000983936014f * fConst0;
-		fConst18 = 0.000682730984f * fConst0;
-		fConst19 = 3319.99805f / fConst0;
-		fConst20 = 0.000582328998f * fConst0;
-		fConst21 = 9959.96094f / fConst0;
-		fConst22 = 0.000461846997f * fConst0;
-		fConst23 = 7702.39551f / fConst0;
+		fConst17 = 0.000983936f * fConst0;
+		fConst18 = 0.000682731f * fConst0;
+		fConst19 = 3319.998f / fConst0;
+		fConst20 = 0.000582329f * fConst0;
+		fConst21 = 9959.961f / fConst0;
+		fConst22 = 0.000461847f * fConst0;
+		fConst23 = 7702.3955f / fConst0;
 		fConst24 = 6.0241e-05f * fConst0;
-		fConst25 = 2490.00269f / fConst0;
-		fConst26 = 16599.9902f / fConst0;
+		fConst25 = 2490.0027f / fConst0;
+		fConst26 = 16599.99f / fConst0;
 		fConst27 = 1.0f / fConst0;
-		fConst28 = 359.25119f / fConst0;
-		fConst29 = 0.0416666679f * synth_birds_faustpower2_f(fConst0);
-		fConst30 = 0.00170000002f * fConst0;
+		fConst28 = 359.2512f / fConst0;
+		fConst29 = 0.041666668f * synth_birds_faustpower2_f(fConst0);
+		fConst30 = 0.0017f * fConst0;
 		fConst31 = 0.001646586f * fConst0;
 		fConst32 = 0.001305221f * fConst0;
-		fConst33 = 2929.41577f / fConst0;
-		fConst34 = 0.000865000009f * fConst0;
-		fConst35 = 2271.58643f / fConst0;
-		fConst36 = 0.000863454014f * fConst0;
+		fConst33 = 2929.4158f / fConst0;
+		fConst34 = 0.000865f * fConst0;
+		fConst35 = 2271.5864f / fConst0;
+		fConst36 = 0.000863454f * fConst0;
 		fConst37 = 646830.5f / fConst0;
-		fConst38 = 567.48822f / fConst0;
+		fConst38 = 567.4882f / fConst0;
 		fConst39 = 0.5f * fConst0;
-		fConst40 = 0.000549999997f * fConst0;
-		fConst41 = 0.000502068026f * fConst0;
+		fConst40 = 0.00055f * fConst0;
+		fConst41 = 0.000502068f * fConst0;
 		fConst42 = 0.000240964f * fConst0;
 		fConst43 = 3829.8916f / fConst0;
-		fConst44 = 2299.09863f / fConst0;
-		fConst45 = 0.000943000021f * fConst0;
-		fConst46 = 0.000829679018f * fConst0;
-		fConst47 = 0.000943333027f * fConst0;
-		fConst48 = 8798.63477f / fConst0;
-		fConst49 = 0.000806947995f * fConst0;
-		fConst50 = 43992.7852f / fConst0;
-		fConst51 = 0.00071602402f * fConst0;
-		fConst52 = 10998.1963f / fConst0;
-		fConst53 = 0.000659196987f * fConst0;
-		fConst54 = 17597.2695f / fConst0;
-		fConst55 = 0.000613734999f * fConst0;
-		fConst56 = 21996.3926f / fConst0;
-		fConst57 = 0.000488715013f * fConst0;
-		fConst58 = 7998.72021f / fConst0;
-		fConst59 = 0.000431888009f * fConst0;
-		fConst60 = 7637.21484f / fConst0;
-		fConst61 = 0.000318233011f * fConst0;
-		fConst62 = 8798.55664f / fConst0;
-		fConst63 = 0.000193212996f * fConst0;
-		fConst64 = 7.99872017f / fConst0;
-		fConst65 = 0.000147750994f * fConst0;
-		fConst66 = 21996.3926f / fConst0;
-		fConst67 = 6768.14355f / fConst0;
+		fConst44 = 2299.0986f / fConst0;
+		fConst45 = 0.000943f * fConst0;
+		fConst46 = 0.000829679f * fConst0;
+		fConst47 = 0.000943333f * fConst0;
+		fConst48 = 8798.635f / fConst0;
+		fConst49 = 0.000806948f * fConst0;
+		fConst50 = 43992.785f / fConst0;
+		fConst51 = 0.000716024f * fConst0;
+		fConst52 = 10998.196f / fConst0;
+		fConst53 = 0.000659197f * fConst0;
+		fConst54 = 17597.27f / fConst0;
+		fConst55 = 0.000613735f * fConst0;
+		fConst56 = 21996.393f / fConst0;
+		fConst57 = 0.000488715f * fConst0;
+		fConst58 = 7998.72f / fConst0;
+		fConst59 = 0.000431888f * fConst0;
+		fConst60 = 7637.215f / fConst0;
+		fConst61 = 0.000318233f * fConst0;
+		fConst62 = 8798.557f / fConst0;
+		fConst63 = 0.000193213f * fConst0;
+		fConst64 = 7.99872f / fConst0;
+		fConst65 = 0.000147751f * fConst0;
+		fConst66 = 21996.393f / fConst0;
+		fConst67 = 6768.1436f / fConst0;
 	}
 	
 	virtual void instanceResetUserInterface() {
 		fCheckbox0 = FAUSTFLOAT(0.0f);
 		fCheckbox1 = FAUSTFLOAT(0.0f);
-		fHslider0 = FAUSTFLOAT(240.0f);
-		fHslider1 = FAUSTFLOAT(50.0f);
+		fHslider0 = FAUSTFLOAT(2.4e+02f);
+		fHslider1 = FAUSTFLOAT(5e+01f);
 	}
 	
 	virtual void instanceClear() {
@@ -1078,9 +1082,9 @@ class synth_birds : public synth_birds_dsp {
 		ui_interface->addCheckButton("gate", &fCheckbox1);
 		ui_interface->declare(&fHslider1, "style", "knob");
 		ui_interface->declare(&fHslider1, "unit", "%");
-		ui_interface->addHorizontalSlider("probability", &fHslider1, FAUSTFLOAT(50.0f), FAUSTFLOAT(25.0f), FAUSTFLOAT(100.0f), FAUSTFLOAT(1.0f));
+		ui_interface->addHorizontalSlider("probability", &fHslider1, FAUSTFLOAT(5e+01f), FAUSTFLOAT(25.0f), FAUSTFLOAT(1e+02f), FAUSTFLOAT(1.0f));
 		ui_interface->declare(&fHslider0, "style", "knob");
-		ui_interface->addHorizontalSlider("speed", &fHslider0, FAUSTFLOAT(240.0f), FAUSTFLOAT(120.0f), FAUSTFLOAT(480.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addHorizontalSlider("speed", &fHslider0, FAUSTFLOAT(2.4e+02f), FAUSTFLOAT(1.2e+02f), FAUSTFLOAT(4.8e+02f), FAUSTFLOAT(0.1f));
 		ui_interface->closeBox();
 	}
 	
@@ -1089,183 +1093,108 @@ class synth_birds : public synth_birds_dsp {
 		FAUSTFLOAT* output1 = outputs[1];
 		int iSlow0 = int(float(fCheckbox0));
 		int iSlow1 = int(float(fCheckbox1));
-		float fSlow2 = 0.00100000005f * float(fHslider0);
-		float fSlow3 = 9.99999975e-06f * float(fHslider1);
+		float fSlow2 = 0.001f * float(fHslider0);
+		float fSlow3 = 1e-05f * float(fHslider1);
 		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
 			iVec0[0] = 1;
-			fRec8[0] = fSlow2 + 0.999000013f * fRec8[1];
+			fRec8[0] = fSlow2 + 0.999f * fRec8[1];
 			iRec7[0] = (iVec0[1] + iRec7[1]) % int(fConst8 / fRec8[0]);
 			iRec9[0] = 1103515245 * iRec9[1] + 12345;
-			fRec10[0] = fSlow3 + 0.999000013f * fRec10[1];
-			int iTemp0 = (iRec7[0] <= iRec7[1]) * (std::fabs(4.65661287e-10f * float(iRec9[0])) <= fRec10[0]);
+			fRec10[0] = fSlow3 + 0.999f * fRec10[1];
+			int iTemp0 = (iRec7[0] <= iRec7[1]) * (std::fabs(4.656613e-10f * float(iRec9[0])) <= fRec10[0]);
 			iVec1[0] = iTemp0;
-			fRec6[0] = (fRec6[1] + float(float(iTemp0 - iVec1[1]) > 0.0f)) - 0.020833334f * float(fRec6[1] > 0.0f);
-			int iElse0 = fRec6[0] > 0.0f;
-			int iTemp1 = ((iSlow0) ? iElse0 : iSlow1);
-			fRec11[0] = std::fmod(float(int(2994.2312f * (fRec11[2] + fRec11[3])) + 38125), 2900.0f);
-			float fElse1 = fRec11[0] + 100.0f;
-			fRec5[0] = ((iTemp1) ? fElse1 : fRec5[1]);
+			fRec6[0] = fRec6[1] + float(float(iTemp0 - iVec1[1]) > 0.0f) - 0.020833334f * float(fRec6[1] > 0.0f);
+			int iTemp1 = ((iSlow0) ? fRec6[0] > 0.0f : iSlow1);
+			fRec11[0] = std::fmod(float(int(2994.2312f * (fRec11[2] + fRec11[3])) + 38125), 2.9e+03f);
+			fRec5[0] = ((iTemp1) ? fRec11[0] + 1e+02f : fRec5[1]);
 			int iTemp2 = int(fConst7 * std::fabs(fRec5[0] + -1.0f));
 			iVec2[0] = iTemp2;
 			iRec4[0] = (iTemp2 == iVec2[1]) * (iRec4[1] + 1);
 			float fTemp3 = float(iRec4[0]);
-			fRec13[0] = std::fmod(float(int(2994.2312f * (fRec13[2] + fRec13[3])) + 38125), 2000.0f);
+			fRec13[0] = std::fmod(float(int(2994.2312f * (fRec13[2] + fRec13[3])) + 38125), 2e+03f);
 			fRec12[0] = ((iTemp1) ? fRec13[0] : fRec12[1]);
 			float fTemp4 = std::fabs(fRec12[0] + -1.0f);
-			iRec3[0] = ((fTemp3 < fConst9 * fTemp4) ? iRec4[0] : iRec3[1]);
+			iRec3[0] = ((fTemp3 < (fConst9 * fTemp4)) ? iRec4[0] : iRec3[1]);
 			float fTemp5 = float(iRec3[0]);
-			int iTemp6 = fTemp5 < fConst17 * fTemp4;
+			int iTemp6 = fTemp5 < (fConst17 * fTemp4);
 			float fTemp7 = fConst18 * fTemp4;
 			int iTemp8 = fTemp5 < fTemp7;
-			float fElse4 = fConst19 * (0.0f - 0.5f * (fTemp5 - fTemp7)) / fTemp4 + 0.5f;
 			float fTemp9 = fConst20 * fTemp4;
 			int iTemp10 = fTemp5 < fTemp9;
-			float fElse5 = fConst21 * (0.0f - 0.428000003f * (fTemp5 - fTemp9)) / fTemp4 + 0.927999973f;
 			float fTemp11 = fConst22 * fTemp4;
 			int iTemp12 = fTemp5 < fTemp11;
-			float fElse6 = fConst23 * (fTemp5 - fTemp11) / fTemp4;
 			float fTemp13 = fConst24 * fTemp4;
 			int iTemp14 = fTemp5 < fTemp13;
-			float fElse7 = fConst25 * (0.0f - fTemp5 - fTemp13) / fTemp4 + 1.0f;
-			float fElse8 = fConst26 * fTemp5 / fTemp4;
-			float fThen9 = ((iTemp14) ? fElse8 : 1.0f);
-			float fThen10 = ((iTemp12) ? fElse7 : 0.0f);
-			float fElse10 = ((iRec3[0] < 0) ? 0.0f : fThen9);
-			float fThen11 = ((iTemp10) ? fElse6 : 0.927999973f);
-			float fElse11 = ((iTemp14) ? fElse10 : fThen10);
-			float fThen12 = ((iTemp8) ? fElse5 : 0.5f);
-			float fElse12 = ((iTemp12) ? fElse11 : fThen11);
-			float fThen13 = ((iTemp6) ? fElse4 : 0.0f);
-			float fElse13 = ((iTemp10) ? fElse12 : fThen12);
-			float fElse14 = ((iTemp8) ? fElse13 : fThen13);
-			float fElse15 = ((iTemp6) ? fElse14 : 0.0f);
-			float fElse16 = ((fTemp5 < fConst16 * fTemp4) ? fElse15 : 0.0f);
-			float fElse17 = ((fTemp5 < fConst15 * fTemp4) ? fElse16 : 0.0f);
-			float fElse18 = ((fTemp5 < fConst14 * fTemp4) ? fElse17 : 0.0f);
-			float fElse19 = ((fTemp5 < fConst13 * fTemp4) ? fElse18 : 0.0f);
-			float fElse20 = ((fTemp5 < fConst12 * fTemp4) ? fElse19 : 0.0f);
-			float fElse21 = ((fTemp5 < fConst11 * fTemp4) ? fElse20 : 0.0f);
-			fRec2[0] = 0.00100000005f * ((fTemp5 < fConst10 * fTemp4) ? fElse21 : 0.0f) + 0.999000013f * fRec2[1];
+			fRec2[0] = 0.001f * ((fTemp5 < (fConst10 * fTemp4)) ? ((fTemp5 < (fConst11 * fTemp4)) ? ((fTemp5 < (fConst12 * fTemp4)) ? ((fTemp5 < (fConst13 * fTemp4)) ? ((fTemp5 < (fConst14 * fTemp4)) ? ((fTemp5 < (fConst15 * fTemp4)) ? ((fTemp5 < (fConst16 * fTemp4)) ? ((iTemp6) ? ((iTemp8) ? ((iTemp10) ? ((iTemp12) ? ((iTemp14) ? ((iRec3[0] < 0) ? 0.0f : ((iTemp14) ? fConst26 * (fTemp5 / fTemp4) : 1.0f)) : ((iTemp12) ? fConst25 * ((0.0f - (fTemp5 - fTemp13)) / fTemp4) + 1.0f : 0.0f)) : ((iTemp10) ? fConst23 * ((fTemp5 - fTemp11) / fTemp4) : 0.928f)) : ((iTemp8) ? fConst21 * ((0.0f - 0.428f * (fTemp5 - fTemp9)) / fTemp4) + 0.928f : 0.5f)) : ((iTemp6) ? fConst19 * ((0.0f - 0.5f * (fTemp5 - fTemp7)) / fTemp4) + 0.5f : 0.0f)) : 0.0f) : 0.0f) : 0.0f) : 0.0f) : 0.0f) : 0.0f) : 0.0f) : 0.0f) + 0.999f * fRec2[1];
 			fRec1[0] = 0.0f - fConst5 * (fConst6 * fRec1[1] - (fRec2[0] + fRec2[1]));
 			fRec17[0] = std::fmod(float(int(2994.2312f * (fRec17[2] + fRec17[3])) + 38125), 22.0f);
-			float fElse22 = fRec17[0] + 72.0f;
-			fRec16[0] = ((iTemp1) ? fElse22 : fRec16[1]);
-			float fTemp15 = std::pow(2.0f, 0.0833333358f * (std::fabs(fRec16[0] + -1.0f) + -69.0f));
-			iRec22[0] = ((fTemp3 < fConst30 * fTemp4) ? iRec4[0] : iRec22[1]);
+			fRec16[0] = ((iTemp1) ? fRec17[0] + 72.0f : fRec16[1]);
+			float fTemp15 = std::pow(2.0f, 0.083333336f * (std::fabs(fRec16[0] + -1.0f) + -69.0f));
+			iRec22[0] = ((fTemp3 < (fConst30 * fTemp4)) ? iRec4[0] : iRec22[1]);
 			float fTemp16 = float(iRec22[0]);
-			int iTemp17 = fTemp16 < fConst31 * fTemp4;
+			int iTemp17 = fTemp16 < (fConst31 * fTemp4);
 			float fTemp18 = fConst32 * fTemp4;
 			int iTemp19 = fTemp16 < fTemp18;
-			float fElse24 = fConst33 * (0.0f - fTemp16 - fTemp18) / fTemp4 + 1.0f;
 			float fTemp20 = fConst34 * fTemp4;
 			int iTemp21 = fTemp16 < fTemp20;
-			float fElse25 = fConst35 * (fTemp16 - fTemp20) / fTemp4;
 			float fTemp22 = fConst36 * fTemp4;
 			int iTemp23 = fTemp16 < fTemp22;
-			float fElse26 = fConst37 * (0.0f - 0.49000001f * (fTemp16 - fTemp22)) / fTemp4 + 0.49000001f;
-			float fElse27 = fConst38 * fTemp16 / fTemp4;
-			float fThen28 = ((iTemp23) ? fElse27 : 0.49000001f);
-			float fThen29 = ((iTemp21) ? fElse26 : 0.0f);
-			float fElse29 = ((iRec22[0] < 0) ? 0.0f : fThen28);
-			float fThen30 = ((iTemp19) ? fElse25 : 1.0f);
-			float fElse30 = ((iTemp23) ? fElse29 : fThen29);
-			float fThen31 = ((iTemp17) ? fElse24 : 0.0f);
-			float fElse31 = ((iTemp21) ? fElse30 : fThen30);
-			float fElse32 = ((iTemp19) ? fElse31 : fThen31);
-			fRec21[0] = 0.00100000005f * ((iTemp17) ? fElse32 : 0.0f) + 0.999000013f * fRec21[1];
+			fRec21[0] = 0.001f * ((iTemp17) ? ((iTemp19) ? ((iTemp21) ? ((iTemp23) ? ((iRec22[0] < 0) ? 0.0f : ((iTemp23) ? fConst38 * (fTemp16 / fTemp4) : 0.49f)) : ((iTemp21) ? fConst37 * ((0.0f - 0.49f * (fTemp16 - fTemp22)) / fTemp4) + 0.49f : 0.0f)) : ((iTemp19) ? fConst35 * ((fTemp16 - fTemp20) / fTemp4) : 1.0f)) : ((iTemp17) ? fConst33 * ((0.0f - (fTemp16 - fTemp18)) / fTemp4) + 1.0f : 0.0f)) : 0.0f) + 0.999f * fRec21[1];
 			fRec20[0] = 0.0f - fConst5 * (fConst6 * fRec20[1] - (fRec21[0] + fRec21[1]));
 			float fTemp24 = fRec20[0] + 1.0f;
-			float fTemp25 = std::max<float>(27.7199993f * fTemp15 * fTemp24, 23.4489498f);
-			float fTemp26 = std::max<float>(20.0f, std::fabs(fTemp25));
+			float fTemp25 = std::max<float>(27.72f * fTemp15 * fTemp24, 23.44895f);
+			float fTemp26 = std::max<float>(2e+01f, std::fabs(fTemp25));
 			float fTemp27 = fRec19[1] + fConst27 * fTemp26;
 			fRec19[0] = fTemp27 - std::floor(fTemp27);
 			float fTemp28 = 2.0f * fRec19[0];
 			float fTemp29 = synth_birds_faustpower3_f(fTemp28 + -1.0f);
-			fVec4[0] = fTemp29 + 1.0f - fTemp28;
-			float fTemp30 = (fTemp29 + 1.0f - (fTemp28 + fVec4[1])) / fTemp26;
+			fVec4[0] = fTemp29 + (1.0f - fTemp28);
+			float fTemp30 = (fTemp29 + (1.0f - (fTemp28 + fVec4[1]))) / fTemp26;
 			fVec5[0] = fTemp30;
-			float fTemp31 = (float(iVec0[2]) * (fTemp30 - fVec5[1])) / fTemp26;
+			float fTemp31 = float(iVec0[2]) * (fTemp30 - fVec5[1]) / fTemp26;
 			fVec6[IOTA0 & 4095] = fTemp31;
 			float fTemp32 = std::max<float>(0.0f, std::min<float>(2047.0f, fConst39 / fTemp25));
 			int iTemp33 = int(fTemp32);
 			float fTemp34 = std::floor(fTemp32);
-			fRec18[0] = 0.999000013f * fRec18[1] + fConst29 * (fTemp31 - fVec6[(IOTA0 - iTemp33) & 4095] * (fTemp34 + 1.0f - fTemp32) - (fTemp32 - fTemp34) * fVec6[(IOTA0 - (iTemp33 + 1)) & 4095]);
-			iRec25[0] = ((fTemp3 < fConst40 * fTemp4) ? iRec4[0] : iRec25[1]);
+			fRec18[0] = 0.999f * fRec18[1] + fConst29 * (fTemp31 - fVec6[(IOTA0 - iTemp33) & 4095] * (fTemp34 + (1.0f - fTemp32)) - (fTemp32 - fTemp34) * fVec6[(IOTA0 - (iTemp33 + 1)) & 4095]);
+			iRec25[0] = ((fTemp3 < (fConst40 * fTemp4)) ? iRec4[0] : iRec25[1]);
 			float fTemp35 = float(iRec25[0]);
-			int iTemp36 = fTemp35 < fConst41 * fTemp4;
+			int iTemp36 = fTemp35 < (fConst41 * fTemp4);
 			float fTemp37 = fConst42 * fTemp4;
 			int iTemp38 = fTemp35 < fTemp37;
-			float fElse34 = fConst43 * (0.0f - 0.55400002f * (fTemp35 - fTemp37)) / fTemp4 + 0.55400002f;
-			float fElse35 = fConst44 * fTemp35 / fTemp4;
-			float fThen36 = ((iTemp38) ? fElse35 : 0.55400002f);
-			float fThen37 = ((iTemp36) ? fElse34 : 0.0f);
-			float fElse37 = ((iRec25[0] < 0) ? 0.0f : fThen36);
-			float fElse38 = ((iTemp38) ? fElse37 : fThen37);
-			fRec24[0] = 0.00100000005f * ((iTemp36) ? fElse38 : 0.0f) + 0.999000013f * fRec24[1];
+			fRec24[0] = 0.001f * ((iTemp36) ? ((iTemp38) ? ((iRec25[0] < 0) ? 0.0f : ((iTemp38) ? fConst44 * (fTemp35 / fTemp4) : 0.554f)) : ((iTemp36) ? fConst43 * ((0.0f - 0.554f * (fTemp35 - fTemp37)) / fTemp4) + 0.554f : 0.0f)) : 0.0f) + 0.999f * fRec24[1];
 			fRec23[0] = 0.0f - fConst5 * (fConst6 * fRec23[1] - (fRec24[0] + fRec24[1]));
-			iRec28[0] = ((fTemp3 < fConst45 * fTemp4) ? iRec4[0] : iRec28[1]);
+			iRec28[0] = ((fTemp3 < (fConst45 * fTemp4)) ? iRec4[0] : iRec28[1]);
 			float fTemp39 = float(iRec28[0]);
 			float fTemp40 = fConst46 * fTemp4;
 			int iTemp41 = fTemp39 < fTemp40;
-			fRec30[0] = std::fmod(float(int(2994.2312f * (fRec30[2] + fRec30[3])) + 38125), 1000.0f);
+			fRec30[0] = std::fmod(float(int(2994.2312f * (fRec30[2] + fRec30[3])) + 38125), 1e+03f);
 			fRec29[0] = ((iTemp1) ? fRec30[0] : fRec29[1]);
 			float fTemp42 = std::fabs(fRec29[0] + -1.0f);
-			float fTemp43 = 0.00100000005f * fTemp42;
-			float fElse41 = fTemp43 + fConst48 * (0.0f - 0.00100000005f * fTemp42 * (fTemp39 - fTemp40)) / fTemp4;
+			float fTemp43 = 0.001f * fTemp42;
 			float fTemp44 = fConst49 * fTemp4;
 			int iTemp45 = fTemp39 < fTemp44;
 			float fTemp46 = fTemp43 + -1.0f;
-			float fElse42 = fConst50 * ((fTemp39 - fTemp44) * fTemp46) / fTemp4 + 1.0f;
 			float fTemp47 = fConst51 * fTemp4;
 			int iTemp48 = fTemp39 < fTemp47;
 			float fTemp49 = 1.0f - fTemp43;
-			float fElse43 = fTemp43 + fConst52 * ((fTemp39 - fTemp47) * fTemp49) / fTemp4;
 			float fTemp50 = fConst53 * fTemp4;
 			int iTemp51 = fTemp39 < fTemp50;
-			float fElse44 = fConst54 * (fTemp46 * (fTemp39 - fTemp50)) / fTemp4 + 1.0f;
 			float fTemp52 = fConst55 * fTemp4;
 			int iTemp53 = fTemp39 < fTemp52;
-			float fElse45 = fTemp43 + fConst56 * (fTemp49 * (fTemp39 - fTemp52)) / fTemp4;
 			float fTemp54 = fConst57 * fTemp4;
 			int iTemp55 = fTemp39 < fTemp54;
-			float fElse46 = fConst58 * ((fTemp39 - fTemp54) * (fTemp43 + -0.433999985f)) / fTemp4 + 0.433999985f;
 			float fTemp56 = fConst59 * fTemp4;
 			int iTemp57 = fTemp39 < fTemp56;
-			float fElse47 = fConst60 * (fTemp39 - fTemp56) / fTemp4;
 			float fTemp58 = fConst61 * fTemp4;
 			int iTemp59 = fTemp39 < fTemp58;
-			float fElse48 = fTemp43 + fConst62 * (0.0f - 0.00100000005f * fTemp42 * (fTemp39 - fTemp58)) / fTemp4;
 			float fTemp60 = fConst63 * fTemp4;
 			int iTemp61 = fTemp39 < fTemp60;
-			float fElse49 = fConst64 * (fTemp42 * (fTemp39 - fTemp60)) / fTemp4;
 			float fTemp62 = fConst65 * fTemp4;
 			int iTemp63 = fTemp39 < fTemp62;
-			float fElse50 = fConst66 * (0.0f - fTemp39 - fTemp62) / fTemp4 + 1.0f;
-			float fElse51 = fConst67 * fTemp39 / fTemp4;
-			float fThen52 = ((iTemp63) ? fElse51 : 1.0f);
-			float fThen53 = ((iTemp61) ? fElse50 : 0.0f);
-			float fElse53 = ((iRec28[0] < 0) ? 0.0f : fThen52);
-			float fThen54 = ((iTemp59) ? fElse49 : fTemp43);
-			float fElse54 = ((iTemp63) ? fElse53 : fThen53);
-			float fThen55 = ((iTemp57) ? fElse48 : 0.0f);
-			float fElse55 = ((iTemp61) ? fElse54 : fThen54);
-			float fThen56 = ((iTemp55) ? fElse47 : 0.433999985f);
-			float fElse56 = ((iTemp59) ? fElse55 : fThen55);
-			float fThen57 = ((iTemp53) ? fElse46 : fTemp43);
-			float fElse57 = ((iTemp57) ? fElse56 : fThen56);
-			float fThen58 = ((iTemp51) ? fElse45 : 1.0f);
-			float fElse58 = ((iTemp55) ? fElse57 : fThen57);
-			float fThen59 = ((iTemp48) ? fElse44 : fTemp43);
-			float fElse59 = ((iTemp53) ? fElse58 : fThen58);
-			float fThen60 = ((iTemp45) ? fElse43 : 1.0f);
-			float fElse60 = ((iTemp51) ? fElse59 : fThen59);
-			float fThen61 = ((iTemp41) ? fElse42 : fTemp43);
-			float fElse61 = ((iTemp48) ? fElse60 : fThen60);
-			float fThen62 = ((fTemp39 < fConst47 * fTemp4) ? fElse41 : 0.0f);
-			float fElse62 = ((iTemp45) ? fElse61 : fThen61);
-			fRec27[0] = 0.00100000005f * ((iTemp41) ? fElse62 : fThen62) + 0.999000013f * fRec27[1];
-			fRec26[0] = 0.0f - fConst5 * (fConst6 * fRec26[1] - (fRec27[0] + fRec27[1]));
-			float fTemp64 = fRec15[1] + fConst27 * fTemp15 * (fConst28 * fRec18[0] * fTemp24 * (fRec23[0] + 1.0f) + 440.0f) * (fRec26[0] + 1.0f);
+			fRec27[0] = 0.001f * ((iTemp41) ? ((iTemp45) ? ((iTemp48) ? ((iTemp51) ? ((iTemp53) ? ((iTemp55) ? ((iTemp57) ? ((iTemp59) ? ((iTemp61) ? ((iTemp63) ? ((iRec28[0] < 0) ? 0.0f : ((iTemp63) ? fConst67 * (fTemp39 / fTemp4) : 1.0f)) : ((iTemp61) ? fConst66 * ((0.0f - (fTemp39 - fTemp62)) / fTemp4) + 1.0f : 0.0f)) : ((iTemp59) ? fConst64 * (fTemp42 * (fTemp39 - fTemp60) / fTemp4) : fTemp43)) : ((iTemp57) ? fTemp43 + fConst62 * ((0.0f - 0.001f * fTemp42 * (fTemp39 - fTemp58)) / fTemp4) : 0.0f)) : ((iTemp55) ? fConst60 * ((fTemp39 - fTemp56) / fTemp4) : 0.434f)) : ((iTemp53) ? fConst58 * ((fTemp39 - fTemp54) * (fTemp43 + -0.434f) / fTemp4) + 0.434f : fTemp43)) : ((iTemp51) ? fTemp43 + fConst56 * (fTemp49 * (fTemp39 - fTemp52) / fTemp4) : 1.0f)) : ((iTemp48) ? fConst54 * (fTemp46 * (fTemp39 - fTemp50) / fTemp4) + 1.0f : fTemp43)) : ((iTemp45) ? fTemp43 + fConst52 * ((fTemp39 - fTemp47) * fTemp49 / fTemp4) : 1.0f)) : ((iTemp41) ? fConst50 * ((fTemp39 - fTemp44) * fTemp46 / fTemp4) + 1.0f : fTemp43)) : ((fTemp39 < (fConst47 * fTemp4)) ? fTemp43 + fConst48 * ((0.0f - 0.001f * fTemp42 * (fTemp39 - fTemp40)) / fTemp4) : 0.0f)) + 0.999f * fRec27[1];
+			fRec26[0] = fConst5 * (fRec27[0] + fRec27[1] - fConst6 * fRec26[1]);
+			float fTemp64 = fRec15[1] + fConst27 * fTemp15 * (fConst28 * fRec18[0] * fTemp24 * (fRec23[0] + 1.0f) + 4.4e+02f) * (fRec26[0] + 1.0f);
 			fRec15[0] = fTemp64 - std::floor(fTemp64);
 			float fTemp65 = 65536.0f * fRec15[0];
 			int iTemp66 = int(fTemp65);
@@ -1273,7 +1202,7 @@ class synth_birds : public synth_birds_dsp {
 			float fTemp68 = fRec1[0] * (fTemp67 + (fTemp65 - std::floor(fTemp65)) * (ftbl0synth_birdsSIG0[iTemp66 + 1] - fTemp67));
 			fVec7[0] = fTemp68;
 			fRec0[0] = 0.0f - fConst2 * (fConst3 * fRec0[1] - (fTemp68 + fVec7[1]));
-			float fTemp69 = 0.800000012f * fRec0[0];
+			float fTemp69 = 0.8f * fRec0[0];
 			output0[i0] = FAUSTFLOAT(fTemp69);
 			output1[i0] = FAUSTFLOAT(fTemp69);
 			iVec0[2] = iVec0[1];

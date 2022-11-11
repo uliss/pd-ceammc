@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "synth.english_bell"
-Code generated with Faust 2.44.1 (https://faust.grame.fr)
+Code generated with Faust 2.53.1 (https://faust.grame.fr)
 Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn synth_english_bell -scn synth_english_bell_dsp -es 1 -mcd 16 -single -ftz 0
 ------------------------------------------------------------ */
 
@@ -45,30 +45,33 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_ds
 #include <vector>
 
 /************************************************************************
- ************************************************************************
-    FAUST compiler
-    Copyright (C) 2003-2018 GRAME, Centre National de Creation Musicale
-    ---------------------------------------------------------------------
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- ************************************************************************
- ************************************************************************/
+ FAUST Architecture File
+ Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
+ ---------------------------------------------------------------------
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation; either version 2.1 of the License, or
+ (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU Lesser General Public License for more details.
+ 
+ You should have received a copy of the GNU Lesser General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ 
+ EXCEPTION : As a special exception, you may create a larger work
+ that contains this FAUST architecture section and distribute
+ that work under terms of your choice, so long as this FAUST
+ architecture section is not modified.
+ ***************************************************************************/
 
 #ifndef __export__
 #define __export__
 
-#define FAUSTVERSION "2.44.1"
+#define FAUSTVERSION "2.53.1"
 
 // Use FAUST_API for code that is part of the external API but is also compiled in faust and libfaust
 // Use LIBFAUST_API for code that is compiled in faust and libfaust
@@ -116,7 +119,7 @@ struct FAUST_API dsp_memory_manager {
      * Inform the Memory Manager with the number of expected memory zones.
      * @param count - the number of expected memory zones
      */
-    virtual void begin(size_t count) {}
+    virtual void begin(size_t /*count*/) {}
     
     /**
      * Give the Memory Manager information on a given memory zone.
@@ -124,8 +127,8 @@ struct FAUST_API dsp_memory_manager {
      * @param reads - the number of Read access to the zone used to compute one frame
      * @param writes - the number of Write access to the zone used to compute one frame
      */
-    virtual void info(size_t size, size_t reads, size_t writes) {}
-    
+    virtual void info(size_t /*size*/, size_t /*reads*/, size_t /*writes*/) {}
+
     /**
      * Inform the Memory Manager that all memory zones have been described,
      * to possibly start a 'compute the best allocation strategy' step.
@@ -310,14 +313,17 @@ class FAUST_API ScopedNoDenormals {
     
     private:
     
-        intptr_t fpsr;
+        intptr_t fpsr = 0;
         
         void setFpStatusRegister(intptr_t fpsr_aux) noexcept
         {
         #if defined (__arm64__) || defined (__aarch64__)
-           asm volatile("msr fpcr, %0" : : "ri" (fpsr_aux));
+            asm volatile("msr fpcr, %0" : : "ri" (fpsr_aux));
         #elif defined (__SSE__)
-            _mm_setcsr(static_cast<uint32_t>(fpsr_aux));
+            // The volatile keyword here is needed to workaround a bug in AppleClang 13.0
+            // which aggressively optimises away the variable otherwise
+            volatile uint32_t fpsr_w = static_cast<uint32_t>(fpsr_aux);
+            _mm_setcsr(fpsr_w);
         #endif
         }
         
@@ -325,7 +331,7 @@ class FAUST_API ScopedNoDenormals {
         {
         #if defined (__arm64__) || defined (__aarch64__)
             asm volatile("mrs %0, fpcr" : "=r" (fpsr));
-        #elif defined ( __SSE__)
+        #elif defined (__SSE__)
             fpsr = static_cast<intptr_t>(_mm_getcsr());
         #endif
         }
@@ -336,16 +342,14 @@ class FAUST_API ScopedNoDenormals {
         {
         #if defined (__arm64__) || defined (__aarch64__)
             intptr_t mask = (1 << 24 /* FZ */);
+        #elif defined (__SSE__)
+        #if defined (__SSE2__)
+            intptr_t mask = 0x8040;
         #else
-            #if defined(__SSE__)
-            #if defined(__SSE2__)
-                intptr_t mask = 0x8040;
-            #else
-                intptr_t mask = 0x8000;
-            #endif
-            #else
-                intptr_t mask = 0x0000;
-            #endif
+            intptr_t mask = 0x8000;
+        #endif
+        #else
+            intptr_t mask = 0x0000;
         #endif
             getFpStatusRegister();
             setFpStatusRegister(fpsr | mask);
@@ -358,7 +362,7 @@ class FAUST_API ScopedNoDenormals {
 
 };
 
-#define AVOIDDENORMALS ScopedNoDenormals();
+#define AVOIDDENORMALS ScopedNoDenormals ftz_scope;
 
 #endif
 
@@ -436,8 +440,8 @@ struct FAUST_API UIReal {
     
     // -- metadata declarations
     
-    virtual void declare(REAL* zone, const char* key, const char* val) {}
-    
+    virtual void declare(REAL* /*zone*/, const char* /*key*/, const char* /*val*/) {}
+
     // To be used by LLVM client
     virtual int sizeOfFAUSTFLOAT() { return sizeof(FAUSTFLOAT); }
 };
@@ -638,7 +642,7 @@ struct synth_english_bell : public synth_english_bell_dsp {
 #define RESTRICT __restrict__
 #endif
 
-const static float fsynth_english_bellSIG0Wave0[350] = {0.694274008f,0.471697986f,0.172389999f,0.585446f,0.397985995f,0.919579029f,0.531947017f,0.100204997f,0.639469028f,0.672209024f,0.144345f,0.416595012f,0.124108002f,0.380591005f,0.256577998f,0.646031022f,0.852199972f,0.0224376004f,0.382762015f,0.143924996f,0.368690997f,0.430555999f,0.32317999f,0.142956004f,0.274520993f,0.713823974f,0.442793995f,0.352472991f,0.247756004f,0.415152013f,1.0f,0.401868999f,0.197981f,0.279509991f,0.210249007f,0.369740009f,0.369226992f,0.155769005f,0.272368014f,0.335711986f,0.31645f,0.714102983f,0.285780996f,0.220060006f,0.827704012f,0.206341997f,0.180177003f,0.311477989f,0.197606996f,0.575474977f,0.473311007f,0.587231994f,0.502879977f,0.33730799f,0.304513991f,0.429039001f,0.351521999f,0.341372997f,0.175081f,0.561748028f,0.439172f,0.323163986f,0.540517986f,0.536522985f,0.0743864998f,0.213416994f,0.358011991f,0.47449401f,0.310274005f,0.839412987f,0.241372004f,0.202343002f,0.480634004f,0.995684981f,0.373739988f,0.133998007f,0.52067399f,0.207514003f,1.0f,0.101239003f,0.279536009f,0.185984999f,0.436293006f,0.624109983f,0.334518999f,0.283585012f,0.179316998f,0.353846997f,0.449544996f,0.574127972f,0.135171995f,0.538275003f,0.476424009f,0.832903028f,0.164197996f,0.188562006f,0.135977998f,0.390127987f,0.131044999f,0.312065005f,0.142139003f,0.0255900994f,0.266947001f,0.371607006f,0.0168434996f,0.0249467995f,0.508916974f,0.354409993f,0.283347994f,0.628154993f,0.292477995f,0.358350009f,0.342568994f,0.441237003f,0.886699021f,0.0174697991f,0.00641842978f,0.555320024f,0.88012898f,0.0306908991f,0.290080994f,0.248815998f,0.981736004f,0.324624002f,0.213676006f,0.432884991f,0.0981559008f,0.444148988f,0.395554006f,0.525068998f,0.077130802f,0.0488803983f,0.591320992f,0.108043998f,0.443801999f,0.740318f,0.599438012f,0.293092996f,1.0f,0.141662002f,0.910031021f,0.226126f,0.299701989f,0.341472f,0.0568060987f,0.222494006f,0.91871798f,0.199478f,0.216619998f,0.107758999f,0.692323983f,0.556335986f,0.281717986f,0.430831999f,0.341655999f,0.60809499f,0.342128992f,0.31131199f,0.229953006f,0.695087016f,0.0761488974f,0.349817991f,0.361705989f,0.577611029f,0.147797003f,0.327376008f,0.465714991f,0.342902005f,0.521381021f,0.836827993f,0.241111994f,0.284393996f,0.539315999f,0.143408f,0.517019987f,1.0f,0.236335993f,0.480333f,0.676743984f,0.807582021f,0.468620986f,0.236953005f,0.411603987f,0.579250991f,0.425098002f,0.375990003f,0.461176008f,0.276529998f,0.462368011f,0.613004029f,0.666849017f,0.954715014f,0.161506996f,0.170433f,0.290461004f,0.117302999f,0.365132987f,0.233794004f,0.194567993f,0.338874012f,0.523380995f,0.39835f,0.447838992f,0.65289098f,0.157079995f,0.340353996f,0.442169994f,0.338764012f,0.184396997f,0.771606982f,0.160502002f,0.324487001f,0.477499008f,0.831519008f,0.0168763995f,0.154264003f,0.201865003f,0.237785995f,0.390065998f,0.880164027f,0.284233987f,0.162836999f,0.437557012f,0.227845997f,0.399340004f,1.0f,0.158106998f,0.396903008f,0.513028979f,0.676456988f,0.204282001f,0.0895574987f,0.555410028f,0.73248601f,0.125062004f,0.171229005f,0.0816460028f,0.0541394018f,0.396160007f,0.454288006f,0.466863006f,0.928842008f,0.155393004f,0.262849987f,0.113453001f,0.133163005f,0.302020997f,0.612616003f,0.228392005f,0.195617005f,0.287236005f,0.198762f,0.499884009f,0.809139013f,0.00929925032f,0.084029898f,0.286446005f,0.182111993f,0.186043993f,0.754137993f,0.279556006f,0.266948014f,0.494291008f,1.0f,0.321283996f,0.0230981f,0.0375537015f,0.262531012f,0.602204025f,0.489924997f,0.633077025f,0.407409012f,0.422255993f,0.0910641029f,0.357935011f,0.550179005f,0.106192f,0.132366002f,0.376231015f,0.35115099f,0.0420302004f,0.0372182988f,0.696335018f,0.840821028f,0.855234981f,0.249247998f,0.860010982f,0.340481013f,0.285580009f,0.363038987f,0.324122012f,0.515699029f,0.228130996f,0.172591999f,0.0188723002f,0.168243006f,0.995105028f,0.741759002f,0.107092999f,0.0703490004f,0.136636004f,0.0780455023f,0.315748006f,0.502201021f,0.0190421995f,0.0339139998f,0.225723997f,0.160236001f,0.184101f,0.564203024f,0.247317001f,0.284224987f,0.327152997f,0.651443005f,0.593470991f,0.0163899008f,0.0141048003f,0.521130025f,1.0f,0.105108999f,0.530936003f,0.363723993f,0.924808979f,0.250409991f,0.692879975f,0.414121985f,0.0793657973f,0.34781301f,0.441731006f,0.476428002f,0.0808833987f,0.0581637993f,0.557238996f,0.556514978f,0.746083975f,0.582228005f,0.177230999f,0.158425003f,0.850902975f,0.755271018f,0.673614025f,0.317059994f,0.0515386015f,0.201897994f,0.0577937998f,0.232031003f,0.734987974f,0.141593993f,0.267062008f,0.145806998f};
+const static float fsynth_english_bellSIG0Wave0[350] = {0.694274f,0.471698f,0.17239f,0.585446f,0.397986f,0.919579f,0.531947f,0.100205f,0.639469f,0.672209f,0.144345f,0.416595f,0.124108f,0.380591f,0.256578f,0.646031f,0.8522f,0.0224376f,0.382762f,0.143925f,0.368691f,0.430556f,0.32318f,0.142956f,0.274521f,0.713824f,0.442794f,0.352473f,0.247756f,0.415152f,1.0f,0.401869f,0.197981f,0.27951f,0.210249f,0.36974f,0.369227f,0.155769f,0.272368f,0.335712f,0.31645f,0.714103f,0.285781f,0.22006f,0.827704f,0.206342f,0.180177f,0.311478f,0.197607f,0.575475f,0.473311f,0.587232f,0.50288f,0.337308f,0.304514f,0.429039f,0.351522f,0.341373f,0.175081f,0.561748f,0.439172f,0.323164f,0.540518f,0.536523f,0.0743865f,0.213417f,0.358012f,0.474494f,0.310274f,0.839413f,0.241372f,0.202343f,0.480634f,0.995685f,0.37374f,0.133998f,0.520674f,0.207514f,1.0f,0.101239f,0.279536f,0.185985f,0.436293f,0.62411f,0.334519f,0.283585f,0.179317f,0.353847f,0.449545f,0.574128f,0.135172f,0.538275f,0.476424f,0.832903f,0.164198f,0.188562f,0.135978f,0.390128f,0.131045f,0.312065f,0.142139f,0.0255901f,0.266947f,0.371607f,0.0168435f,0.0249468f,0.508917f,0.35441f,0.283348f,0.628155f,0.292478f,0.35835f,0.342569f,0.441237f,0.886699f,0.0174698f,0.00641843f,0.55532f,0.880129f,0.0306909f,0.290081f,0.248816f,0.981736f,0.324624f,0.213676f,0.432885f,0.0981559f,0.444149f,0.395554f,0.525069f,0.0771308f,0.0488804f,0.591321f,0.108044f,0.443802f,0.740318f,0.599438f,0.293093f,1.0f,0.141662f,0.910031f,0.226126f,0.299702f,0.341472f,0.0568061f,0.222494f,0.918718f,0.199478f,0.21662f,0.107759f,0.692324f,0.556336f,0.281718f,0.430832f,0.341656f,0.608095f,0.342129f,0.311312f,0.229953f,0.695087f,0.0761489f,0.349818f,0.361706f,0.577611f,0.147797f,0.327376f,0.465715f,0.342902f,0.521381f,0.836828f,0.241112f,0.284394f,0.539316f,0.143408f,0.51702f,1.0f,0.236336f,0.480333f,0.676744f,0.807582f,0.468621f,0.236953f,0.411604f,0.579251f,0.425098f,0.37599f,0.461176f,0.27653f,0.462368f,0.613004f,0.666849f,0.954715f,0.161507f,0.170433f,0.290461f,0.117303f,0.365133f,0.233794f,0.194568f,0.338874f,0.523381f,0.39835f,0.447839f,0.652891f,0.15708f,0.340354f,0.44217f,0.338764f,0.184397f,0.771607f,0.160502f,0.324487f,0.477499f,0.831519f,0.0168764f,0.154264f,0.201865f,0.237786f,0.390066f,0.880164f,0.284234f,0.162837f,0.437557f,0.227846f,0.39934f,1.0f,0.158107f,0.396903f,0.513029f,0.676457f,0.204282f,0.0895575f,0.55541f,0.732486f,0.125062f,0.171229f,0.081646f,0.0541394f,0.39616f,0.454288f,0.466863f,0.928842f,0.155393f,0.26285f,0.113453f,0.133163f,0.302021f,0.612616f,0.228392f,0.195617f,0.287236f,0.198762f,0.499884f,0.809139f,0.00929925f,0.0840299f,0.286446f,0.182112f,0.186044f,0.754138f,0.279556f,0.266948f,0.494291f,1.0f,0.321284f,0.0230981f,0.0375537f,0.262531f,0.602204f,0.489925f,0.633077f,0.407409f,0.422256f,0.0910641f,0.357935f,0.550179f,0.106192f,0.132366f,0.376231f,0.351151f,0.0420302f,0.0372183f,0.696335f,0.840821f,0.855235f,0.249248f,0.860011f,0.340481f,0.28558f,0.363039f,0.324122f,0.515699f,0.228131f,0.172592f,0.0188723f,0.168243f,0.995105f,0.741759f,0.107093f,0.070349f,0.136636f,0.0780455f,0.315748f,0.502201f,0.0190422f,0.033914f,0.225724f,0.160236f,0.184101f,0.564203f,0.247317f,0.284225f,0.327153f,0.651443f,0.593471f,0.0163899f,0.0141048f,0.52113f,1.0f,0.105109f,0.530936f,0.363724f,0.924809f,0.25041f,0.69288f,0.414122f,0.0793658f,0.347813f,0.441731f,0.476428f,0.0808834f,0.0581638f,0.557239f,0.556515f,0.746084f,0.582228f,0.177231f,0.158425f,0.850903f,0.755271f,0.673614f,0.31706f,0.0515386f,0.201898f,0.0577938f,0.232031f,0.734988f,0.141594f,0.267062f,0.145807f};
 class synth_english_bellSIG0 {
 	
   private:
@@ -866,76 +870,76 @@ class synth_english_bell : public synth_english_bell_dsp {
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
-		float fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
-		fConst1 = 3.14159274f / fConst0;
+		float fConst0 = std::min<float>(1.92e+05f, std::max<float>(1.0f, float(fSampleRate)));
+		fConst1 = 3.1415927f / fConst0;
 		float fConst2 = std::tan(31.415926f / fConst0);
 		float fConst3 = 1.0f / fConst2;
-		fConst4 = 1.0f / ((fConst3 + 1.41421354f) / fConst2 + 1.0f);
+		fConst4 = 1.0f / ((fConst3 + 1.4142135f) / fConst2 + 1.0f);
 		float fConst5 = synth_english_bell_faustpower2_f(fConst2);
 		fConst6 = 1.0f / fConst5;
-		fConst7 = (fConst3 + -1.41421354f) / fConst2 + 1.0f;
+		fConst7 = (fConst3 + -1.4142135f) / fConst2 + 1.0f;
 		fConst8 = 2.0f * (1.0f - fConst6);
 		fConst9 = 0.0f - 2.0f / fConst5;
-		fConst10 = 0.00200000009f * fConst0;
-		fConst11 = std::cos(9177.84863f / fConst0);
+		fConst10 = 0.002f * fConst0;
+		fConst11 = std::cos(13111.813f / fConst0);
 		fConst12 = 1.0f / fConst0;
-		fConst13 = std::cos(9168.6123f / fConst0);
-		fConst14 = std::cos(9157.42871f / fConst0);
-		fConst15 = std::cos(9134.30664f / fConst0);
-		fConst16 = std::cos(9131.85547f / fConst0);
-		fConst17 = std::cos(9127.14355f / fConst0);
-		fConst18 = std::cos(8426.69434f / fConst0);
-		fConst19 = std::cos(8420.78809f / fConst0);
-		fConst20 = std::cos(7767.77637f / fConst0);
-		fConst21 = std::cos(7616.54004f / fConst0);
-		fConst22 = std::cos(7612.64453f / fConst0);
-		fConst23 = std::cos(6502.21729f / fConst0);
-		fConst24 = std::cos(6435.48975f / fConst0);
-		fConst25 = std::cos(3099.69019f / fConst0);
-		fConst26 = std::cos(11990.1396f / fConst0);
-		fConst27 = std::cos(11937.1729f / fConst0);
-		fConst28 = std::cos(11913.4844f / fConst0);
-		fConst29 = std::cos(11891.3057f / fConst0);
-		fConst30 = std::cos(11476.9287f / fConst0);
-		fConst31 = std::cos(10665.5186f / fConst0);
-		fConst32 = std::cos(9908.26953f / fConst0);
-		fConst33 = std::cos(9839.1543f / fConst0);
-		fConst34 = std::cos(9721.78418f / fConst0);
-		fConst35 = std::cos(9547.61426f / fConst0);
-		fConst36 = std::cos(5986.50586f / fConst0);
-		fConst37 = std::cos(5950.86133f / fConst0);
-		fConst38 = std::cos(5947.24219f / fConst0);
-		fConst39 = std::cos(5927.73926f / fConst0);
-		fConst40 = std::cos(5861.24414f / fConst0);
-		fConst41 = std::cos(5855.25635f / fConst0);
-		fConst42 = std::cos(4944.77246f / fConst0);
-		fConst43 = std::cos(4553.9082f / fConst0);
-		fConst44 = std::cos(4552.58252f / fConst0);
-		fConst45 = std::cos(3799.70605f / fConst0);
-		fConst46 = std::cos(3789.06226f / fConst0);
-		fConst47 = std::cos(1630.04053f / fConst0);
-		fConst48 = std::cos(1645.28345f / fConst0);
-		fConst49 = std::cos(3106.85913f / fConst0);
-		fConst50 = std::cos(9316.76953f / fConst0);
-		fConst51 = std::cos(9318.21484f / fConst0);
-		fConst52 = std::cos(12591.1895f / fConst0);
-		fConst53 = std::cos(12598.2266f / fConst0);
-		fConst54 = std::cos(12603.3789f / fConst0);
-		fConst55 = std::cos(12604.0068f / fConst0);
-		fConst56 = std::cos(12989.9834f / fConst0);
-		fConst57 = std::cos(13084.2305f / fConst0);
-		fConst58 = std::cos(13111.8135f / fConst0);
-		fConst59 = std::cos(13323.8711f / fConst0);
-		fConst60 = std::cos(13381.8652f / fConst0);
+		fConst13 = std::cos(13084.23f / fConst0);
+		fConst14 = std::cos(12989.983f / fConst0);
+		fConst15 = std::cos(12604.007f / fConst0);
+		fConst16 = std::cos(12603.379f / fConst0);
+		fConst17 = std::cos(12598.227f / fConst0);
+		fConst18 = std::cos(12591.189f / fConst0);
+		fConst19 = std::cos(11990.14f / fConst0);
+		fConst20 = std::cos(11937.173f / fConst0);
+		fConst21 = std::cos(11913.484f / fConst0);
+		fConst22 = std::cos(11891.306f / fConst0);
+		fConst23 = std::cos(11476.929f / fConst0);
+		fConst24 = std::cos(10665.519f / fConst0);
+		fConst25 = std::cos(9908.27f / fConst0);
+		fConst26 = std::cos(9318.215f / fConst0);
+		fConst27 = std::cos(9316.77f / fConst0);
+		fConst28 = std::cos(9177.849f / fConst0);
+		fConst29 = std::cos(9168.612f / fConst0);
+		fConst30 = std::cos(9157.429f / fConst0);
+		fConst31 = std::cos(9134.307f / fConst0);
+		fConst32 = std::cos(9131.855f / fConst0);
+		fConst33 = std::cos(9127.144f / fConst0);
+		fConst34 = std::cos(8420.788f / fConst0);
+		fConst35 = std::cos(7767.7764f / fConst0);
+		fConst36 = std::cos(6502.2173f / fConst0);
+		fConst37 = std::cos(5950.8613f / fConst0);
+		fConst38 = std::cos(5947.242f / fConst0);
+		fConst39 = std::cos(5927.7393f / fConst0);
+		fConst40 = std::cos(5861.244f / fConst0);
+		fConst41 = std::cos(3789.0623f / fConst0);
+		fConst42 = std::cos(3106.8591f / fConst0);
+		fConst43 = std::cos(9547.614f / fConst0);
+		fConst44 = std::cos(7612.6445f / fConst0);
+		fConst45 = std::cos(7616.54f / fConst0);
+		fConst46 = std::cos(5855.2563f / fConst0);
+		fConst47 = std::cos(4944.7725f / fConst0);
+		fConst48 = std::cos(4553.908f / fConst0);
+		fConst49 = std::cos(4552.5825f / fConst0);
+		fConst50 = std::cos(3799.706f / fConst0);
+		fConst51 = std::cos(3099.6902f / fConst0);
+		fConst52 = std::cos(1645.2834f / fConst0);
+		fConst53 = std::cos(1630.0405f / fConst0);
+		fConst54 = std::cos(5986.506f / fConst0);
+		fConst55 = std::cos(8426.694f / fConst0);
+		fConst56 = std::cos(6435.4897f / fConst0);
+		fConst57 = std::cos(9721.784f / fConst0);
+		fConst58 = std::cos(9839.154f / fConst0);
+		fConst59 = std::cos(13323.871f / fConst0);
+		fConst60 = std::cos(13381.865f / fConst0);
 		fConst61 = std::cos(13403.4795f / fConst0);
 	}
 	
 	virtual void instanceResetUserInterface() {
 		fHslider0 = FAUSTFLOAT(1.0f);
-		fHslider1 = FAUSTFLOAT(6500.0f);
+		fHslider1 = FAUSTFLOAT(6.5e+03f);
 		fHslider2 = FAUSTFLOAT(0.5f);
 		fButton0 = FAUSTFLOAT(0.0f);
-		fHslider3 = FAUSTFLOAT(20.0f);
+		fHslider3 = FAUSTFLOAT(2e+01f);
 		fHslider4 = FAUSTFLOAT(1.0f);
 		fHslider5 = FAUSTFLOAT(2.5f);
 		fEntry0 = FAUSTFLOAT(0.0f);
@@ -1130,16 +1134,16 @@ class synth_english_bell : public synth_english_bell_dsp {
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("synth.english_bell");
 		ui_interface->declare(&fHslider1, "unit", "Hz");
-		ui_interface->addHorizontalSlider("cutoff", &fHslider1, FAUSTFLOAT(6500.0f), FAUSTFLOAT(20.0f), FAUSTFLOAT(20000.0f), FAUSTFLOAT(1.0f));
-		ui_interface->addHorizontalSlider("decay_ratio", &fHslider4, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.00999999978f));
-		ui_interface->addHorizontalSlider("decay_slope", &fHslider5, FAUSTFLOAT(2.5f), FAUSTFLOAT(0.0f), FAUSTFLOAT(10.0f), FAUSTFLOAT(0.00999999978f));
-		ui_interface->addHorizontalSlider("gain", &fHslider0, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.00999999978f));
+		ui_interface->addHorizontalSlider("cutoff", &fHslider1, FAUSTFLOAT(6.5e+03f), FAUSTFLOAT(2e+01f), FAUSTFLOAT(2e+04f), FAUSTFLOAT(1.0f));
+		ui_interface->addHorizontalSlider("decay_ratio", &fHslider4, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.01f));
+		ui_interface->addHorizontalSlider("decay_slope", &fHslider5, FAUSTFLOAT(2.5f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1e+01f), FAUSTFLOAT(0.01f));
+		ui_interface->addHorizontalSlider("gain", &fHslider0, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.01f));
 		ui_interface->addButton("gate", &fButton0);
 		ui_interface->declare(&fEntry0, "type", "int");
 		ui_interface->addNumEntry("pos", &fEntry0, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(6.0f), FAUSTFLOAT(1.0f));
-		ui_interface->addHorizontalSlider("sharp", &fHslider2, FAUSTFLOAT(0.5f), FAUSTFLOAT(0.00999999978f), FAUSTFLOAT(5.0f), FAUSTFLOAT(0.00999999978f));
+		ui_interface->addHorizontalSlider("sharp", &fHslider2, FAUSTFLOAT(0.5f), FAUSTFLOAT(0.01f), FAUSTFLOAT(5.0f), FAUSTFLOAT(0.01f));
 		ui_interface->declare(&fHslider3, "unit", "sec");
-		ui_interface->addHorizontalSlider("t60", &fHslider3, FAUSTFLOAT(20.0f), FAUSTFLOAT(0.100000001f), FAUSTFLOAT(30.0f), FAUSTFLOAT(0.00999999978f));
+		ui_interface->addHorizontalSlider("t60", &fHslider3, FAUSTFLOAT(2e+01f), FAUSTFLOAT(0.1f), FAUSTFLOAT(3e+01f), FAUSTFLOAT(0.01f));
 		ui_interface->closeBox();
 	}
 	
@@ -1147,220 +1151,220 @@ class synth_english_bell : public synth_english_bell_dsp {
 		FAUSTFLOAT* output0 = outputs[0];
 		float fSlow0 = std::tan(fConst1 * float(fHslider1));
 		float fSlow1 = 1.0f / fSlow0;
-		float fSlow2 = (fSlow1 + 1.41421354f) / fSlow0 + 1.0f;
+		float fSlow2 = (fSlow1 + 1.4142135f) / fSlow0 + 1.0f;
 		float fSlow3 = float(fHslider0) / fSlow2;
 		float fSlow4 = 1.0f / fSlow2;
-		float fSlow5 = (fSlow1 + -1.41421354f) / fSlow0 + 1.0f;
+		float fSlow5 = (fSlow1 + -1.4142135f) / fSlow0 + 1.0f;
 		float fSlow6 = 2.0f * (1.0f - 1.0f / synth_english_bell_faustpower2_f(fSlow0));
 		float fSlow7 = 1.0f / std::max<float>(1.0f, fConst10 * float(fHslider2));
 		float fSlow8 = float(fButton0);
 		float fSlow9 = float(fHslider3);
 		float fSlow10 = float(fHslider4);
 		float fSlow11 = float(fHslider5);
-		float fSlow12 = std::pow(0.00100000005f, fConst12 / (fSlow9 * std::pow(1.0f - 0.683515489f * fSlow10, fSlow11)));
+		float fSlow12 = std::pow(0.001f, fConst12 / (fSlow9 * std::pow(1.0f - 0.9764955f * fSlow10, fSlow11)));
 		float fSlow13 = fConst11 * (0.0f - 2.0f * fSlow12);
 		float fSlow14 = synth_english_bell_faustpower2_f(fSlow12);
 		int iSlow15 = 50 * int(float(fEntry0));
-		float fSlow16 = ftbl0synth_english_bellSIG0[iSlow15 + 27];
-		float fSlow17 = std::pow(0.00100000005f, fConst12 / (fSlow9 * std::pow(1.0f - 0.682827652f * fSlow10, fSlow11)));
+		float fSlow16 = ftbl0synth_english_bellSIG0[iSlow15 + 46];
+		float fSlow17 = std::pow(0.001f, fConst12 / (fSlow9 * std::pow(1.0f - 0.9744413f * fSlow10, fSlow11)));
 		float fSlow18 = fConst13 * (0.0f - 2.0f * fSlow17);
 		float fSlow19 = synth_english_bell_faustpower2_f(fSlow17);
-		float fSlow20 = ftbl0synth_english_bellSIG0[iSlow15 + 26];
-		float fSlow21 = std::pow(0.00100000005f, fConst12 / (fSlow9 * std::pow(1.0f - 0.681994736f * fSlow10, fSlow11)));
+		float fSlow20 = ftbl0synth_english_bellSIG0[iSlow15 + 45];
+		float fSlow21 = std::pow(0.001f, fConst12 / (fSlow9 * std::pow(1.0f - 0.96742225f * fSlow10, fSlow11)));
 		float fSlow22 = fConst14 * (0.0f - 2.0f * fSlow21);
 		float fSlow23 = synth_english_bell_faustpower2_f(fSlow21);
-		float fSlow24 = ftbl0synth_english_bellSIG0[iSlow15 + 25];
-		float fSlow25 = std::pow(0.00100000005f, fConst12 / (fSlow9 * std::pow(1.0f - 0.680272698f * fSlow10, fSlow11)));
+		float fSlow24 = ftbl0synth_english_bellSIG0[iSlow15 + 44];
+		float fSlow25 = std::pow(0.001f, fConst12 / (fSlow9 * std::pow(1.0f - 0.93867683f * fSlow10, fSlow11)));
 		float fSlow26 = fConst15 * (0.0f - 2.0f * fSlow25);
 		float fSlow27 = synth_english_bell_faustpower2_f(fSlow25);
-		float fSlow28 = ftbl0synth_english_bellSIG0[iSlow15 + 24];
-		float fSlow29 = std::pow(0.00100000005f, fConst12 / (fSlow9 * std::pow(1.0f - 0.680090189f * fSlow10, fSlow11)));
+		float fSlow28 = ftbl0synth_english_bellSIG0[iSlow15 + 43];
+		float fSlow29 = std::pow(0.001f, fConst12 / (fSlow9 * std::pow(1.0f - 0.93863004f * fSlow10, fSlow11)));
 		float fSlow30 = fConst16 * (0.0f - 2.0f * fSlow29);
 		float fSlow31 = synth_english_bell_faustpower2_f(fSlow29);
-		float fSlow32 = ftbl0synth_english_bellSIG0[iSlow15 + 23];
-		float fSlow33 = std::pow(0.00100000005f, fConst12 / (fSlow9 * std::pow(1.0f - 0.679739237f * fSlow10, fSlow11)));
+		float fSlow32 = ftbl0synth_english_bellSIG0[iSlow15 + 42];
+		float fSlow33 = std::pow(0.001f, fConst12 / (fSlow9 * std::pow(1.0f - 0.93824637f * fSlow10, fSlow11)));
 		float fSlow34 = fConst17 * (0.0f - 2.0f * fSlow33);
 		float fSlow35 = synth_english_bell_faustpower2_f(fSlow33);
-		float fSlow36 = ftbl0synth_english_bellSIG0[iSlow15 + 22];
-		float fSlow37 = std::pow(0.00100000005f, fConst12 / (fSlow9 * std::pow(1.0f - 0.627573669f * fSlow10, fSlow11)));
+		float fSlow36 = ftbl0synth_english_bellSIG0[iSlow15 + 41];
+		float fSlow37 = std::pow(0.001f, fConst12 / (fSlow9 * std::pow(1.0f - 0.93772227f * fSlow10, fSlow11)));
 		float fSlow38 = fConst18 * (0.0f - 2.0f * fSlow37);
 		float fSlow39 = synth_english_bell_faustpower2_f(fSlow37);
-		float fSlow40 = ftbl0synth_english_bellSIG0[iSlow15 + 21];
-		float fSlow41 = std::pow(0.00100000005f, fConst12 / (fSlow9 * std::pow(1.0f - 0.627133787f * fSlow10, fSlow11)));
+		float fSlow40 = ftbl0synth_english_bellSIG0[iSlow15 + 40];
+		float fSlow41 = std::pow(0.001f, fConst12 / (fSlow9 * std::pow(1.0f - 0.8929594f * fSlow10, fSlow11)));
 		float fSlow42 = fConst19 * (0.0f - 2.0f * fSlow41);
 		float fSlow43 = synth_english_bell_faustpower2_f(fSlow41);
-		float fSlow44 = ftbl0synth_english_bellSIG0[iSlow15 + 20];
-		float fSlow45 = std::pow(0.00100000005f, fConst12 / (fSlow9 * std::pow(1.0f - 0.578501105f * fSlow10, fSlow11)));
+		float fSlow44 = ftbl0synth_english_bellSIG0[iSlow15 + 39];
+		float fSlow45 = std::pow(0.001f, fConst12 / (fSlow9 * std::pow(1.0f - 0.8890147f * fSlow10, fSlow11)));
 		float fSlow46 = fConst20 * (0.0f - 2.0f * fSlow45);
 		float fSlow47 = synth_english_bell_faustpower2_f(fSlow45);
-		float fSlow48 = ftbl0synth_english_bellSIG0[iSlow15 + 19];
-		float fSlow49 = std::pow(0.00100000005f, fConst12 / (fSlow9 * std::pow(1.0f - 0.567237854f * fSlow10, fSlow11)));
+		float fSlow48 = ftbl0synth_english_bellSIG0[iSlow15 + 38];
+		float fSlow49 = std::pow(0.001f, fConst12 / (fSlow9 * std::pow(1.0f - 0.8872506f * fSlow10, fSlow11)));
 		float fSlow50 = fConst21 * (0.0f - 2.0f * fSlow49);
 		float fSlow51 = synth_english_bell_faustpower2_f(fSlow49);
-		float fSlow52 = ftbl0synth_english_bellSIG0[iSlow15 + 18];
-		float fSlow53 = std::pow(0.00100000005f, fConst12 / (fSlow9 * std::pow(1.0f - 0.566947758f * fSlow10, fSlow11)));
+		float fSlow52 = ftbl0synth_english_bellSIG0[iSlow15 + 37];
+		float fSlow53 = std::pow(0.001f, fConst12 / (fSlow9 * std::pow(1.0f - 0.8855988f * fSlow10, fSlow11)));
 		float fSlow54 = fConst22 * (0.0f - 2.0f * fSlow53);
 		float fSlow55 = synth_english_bell_faustpower2_f(fSlow53);
-		float fSlow56 = ftbl0synth_english_bellSIG0[iSlow15 + 17];
-		float fSlow57 = std::pow(0.00100000005f, fConst12 / (fSlow9 * std::pow(1.0f - 0.484249234f * fSlow10, fSlow11)));
+		float fSlow56 = ftbl0synth_english_bellSIG0[iSlow15 + 36];
+		float fSlow57 = std::pow(0.001f, fConst12 / (fSlow9 * std::pow(1.0f - 0.85473835f * fSlow10, fSlow11)));
 		float fSlow58 = fConst23 * (0.0f - 2.0f * fSlow57);
 		float fSlow59 = synth_english_bell_faustpower2_f(fSlow57);
-		float fSlow60 = ftbl0synth_english_bellSIG0[iSlow15 + 16];
-		float fSlow61 = std::pow(0.00100000005f, fConst12 / (fSlow9 * std::pow(1.0f - 0.479279757f * fSlow10, fSlow11)));
+		float fSlow60 = ftbl0synth_english_bellSIG0[iSlow15 + 35];
+		float fSlow61 = std::pow(0.001f, fConst12 / (fSlow9 * std::pow(1.0f - 0.79430896f * fSlow10, fSlow11)));
 		float fSlow62 = fConst24 * (0.0f - 2.0f * fSlow61);
 		float fSlow63 = synth_english_bell_faustpower2_f(fSlow61);
-		float fSlow64 = ftbl0synth_english_bellSIG0[iSlow15 + 15];
-		float fSlow65 = std::pow(0.00100000005f, fConst12 / (fSlow9 * std::pow(1.0f - 0.230847806f * fSlow10, fSlow11)));
+		float fSlow64 = ftbl0synth_english_bellSIG0[iSlow15 + 34];
+		float fSlow65 = std::pow(0.001f, fConst12 / (fSlow9 * std::pow(1.0f - 0.7379132f * fSlow10, fSlow11)));
 		float fSlow66 = fConst25 * (0.0f - 2.0f * fSlow65);
 		float fSlow67 = synth_english_bell_faustpower2_f(fSlow65);
-		float fSlow68 = ftbl0synth_english_bellSIG0[iSlow15 + 2];
-		float fSlow69 = std::pow(0.00100000005f, fConst12 / (fSlow9 * std::pow(1.0f - 0.892959416f * fSlow10, fSlow11)));
+		float fSlow68 = ftbl0synth_english_bellSIG0[iSlow15 + 33];
+		float fSlow69 = std::pow(0.001f, fConst12 / (fSlow9 * std::pow(1.0f - 0.69396925f * fSlow10, fSlow11)));
 		float fSlow70 = fConst26 * (0.0f - 2.0f * fSlow69);
 		float fSlow71 = synth_english_bell_faustpower2_f(fSlow69);
-		float fSlow72 = ftbl0synth_english_bellSIG0[iSlow15 + 39];
-		float fSlow73 = std::pow(0.00100000005f, fConst12 / (fSlow9 * std::pow(1.0f - 0.889014721f * fSlow10, fSlow11)));
+		float fSlow72 = ftbl0synth_english_bellSIG0[iSlow15 + 29];
+		float fSlow73 = std::pow(0.001f, fConst12 / (fSlow9 * std::pow(1.0f - 0.6938616f * fSlow10, fSlow11)));
 		float fSlow74 = fConst27 * (0.0f - 2.0f * fSlow73);
 		float fSlow75 = synth_english_bell_faustpower2_f(fSlow73);
-		float fSlow76 = ftbl0synth_english_bellSIG0[iSlow15 + 38];
-		float fSlow77 = std::pow(0.00100000005f, fConst12 / (fSlow9 * std::pow(1.0f - 0.887250602f * fSlow10, fSlow11)));
+		float fSlow76 = ftbl0synth_english_bellSIG0[iSlow15 + 28];
+		float fSlow77 = std::pow(0.001f, fConst12 / (fSlow9 * std::pow(1.0f - 0.6835155f * fSlow10, fSlow11)));
 		float fSlow78 = fConst28 * (0.0f - 2.0f * fSlow77);
 		float fSlow79 = synth_english_bell_faustpower2_f(fSlow77);
-		float fSlow80 = ftbl0synth_english_bellSIG0[iSlow15 + 37];
-		float fSlow81 = std::pow(0.00100000005f, fConst12 / (fSlow9 * std::pow(1.0f - 0.885598779f * fSlow10, fSlow11)));
+		float fSlow80 = ftbl0synth_english_bellSIG0[iSlow15 + 27];
+		float fSlow81 = std::pow(0.001f, fConst12 / (fSlow9 * std::pow(1.0f - 0.68282765f * fSlow10, fSlow11)));
 		float fSlow82 = fConst29 * (0.0f - 2.0f * fSlow81);
 		float fSlow83 = synth_english_bell_faustpower2_f(fSlow81);
-		float fSlow84 = ftbl0synth_english_bellSIG0[iSlow15 + 36];
-		float fSlow85 = std::pow(0.00100000005f, fConst12 / (fSlow9 * std::pow(1.0f - 0.854738355f * fSlow10, fSlow11)));
+		float fSlow84 = ftbl0synth_english_bellSIG0[iSlow15 + 26];
+		float fSlow85 = std::pow(0.001f, fConst12 / (fSlow9 * std::pow(1.0f - 0.68199474f * fSlow10, fSlow11)));
 		float fSlow86 = fConst30 * (0.0f - 2.0f * fSlow85);
 		float fSlow87 = synth_english_bell_faustpower2_f(fSlow85);
-		float fSlow88 = ftbl0synth_english_bellSIG0[iSlow15 + 35];
-		float fSlow89 = std::pow(0.00100000005f, fConst12 / (fSlow9 * std::pow(1.0f - 0.79430896f * fSlow10, fSlow11)));
+		float fSlow88 = ftbl0synth_english_bellSIG0[iSlow15 + 25];
+		float fSlow89 = std::pow(0.001f, fConst12 / (fSlow9 * std::pow(1.0f - 0.6802727f * fSlow10, fSlow11)));
 		float fSlow90 = fConst31 * (0.0f - 2.0f * fSlow89);
 		float fSlow91 = synth_english_bell_faustpower2_f(fSlow89);
-		float fSlow92 = ftbl0synth_english_bellSIG0[iSlow15 + 34];
-		float fSlow93 = std::pow(0.00100000005f, fConst12 / (fSlow9 * std::pow(1.0f - 0.737913191f * fSlow10, fSlow11)));
+		float fSlow92 = ftbl0synth_english_bellSIG0[iSlow15 + 24];
+		float fSlow93 = std::pow(0.001f, fConst12 / (fSlow9 * std::pow(1.0f - 0.6800902f * fSlow10, fSlow11)));
 		float fSlow94 = fConst32 * (0.0f - 2.0f * fSlow93);
 		float fSlow95 = synth_english_bell_faustpower2_f(fSlow93);
-		float fSlow96 = ftbl0synth_english_bellSIG0[iSlow15 + 33];
-		float fSlow97 = std::pow(0.00100000005f, fConst12 / (fSlow9 * std::pow(1.0f - 0.732765853f * fSlow10, fSlow11)));
+		float fSlow96 = ftbl0synth_english_bellSIG0[iSlow15 + 23];
+		float fSlow97 = std::pow(0.001f, fConst12 / (fSlow9 * std::pow(1.0f - 0.67973924f * fSlow10, fSlow11)));
 		float fSlow98 = fConst33 * (0.0f - 2.0f * fSlow97);
 		float fSlow99 = synth_english_bell_faustpower2_f(fSlow97);
-		float fSlow100 = ftbl0synth_english_bellSIG0[iSlow15 + 32];
-		float fSlow101 = std::pow(0.00100000005f, fConst12 / (fSlow9 * std::pow(1.0f - 0.724024832f * fSlow10, fSlow11)));
+		float fSlow100 = ftbl0synth_english_bellSIG0[iSlow15 + 22];
+		float fSlow101 = std::pow(0.001f, fConst12 / (fSlow9 * std::pow(1.0f - 0.6271338f * fSlow10, fSlow11)));
 		float fSlow102 = fConst34 * (0.0f - 2.0f * fSlow101);
 		float fSlow103 = synth_english_bell_faustpower2_f(fSlow101);
-		float fSlow104 = ftbl0synth_english_bellSIG0[iSlow15 + 31];
-		float fSlow105 = std::pow(0.00100000005f, fConst12 / (fSlow9 * std::pow(1.0f - 0.71105361f * fSlow10, fSlow11)));
+		float fSlow104 = ftbl0synth_english_bellSIG0[iSlow15 + 20];
+		float fSlow105 = std::pow(0.001f, fConst12 / (fSlow9 * std::pow(1.0f - 0.5785011f * fSlow10, fSlow11)));
 		float fSlow106 = fConst35 * (0.0f - 2.0f * fSlow105);
 		float fSlow107 = synth_english_bell_faustpower2_f(fSlow105);
-		float fSlow108 = ftbl0synth_english_bellSIG0[iSlow15 + 30];
-		float fSlow109 = std::pow(0.00100000005f, fConst12 / (fSlow9 * std::pow(1.0f - 0.445841908f * fSlow10, fSlow11)));
+		float fSlow108 = ftbl0synth_english_bellSIG0[iSlow15 + 19];
+		float fSlow109 = std::pow(0.001f, fConst12 / (fSlow9 * std::pow(1.0f - 0.48424923f * fSlow10, fSlow11)));
 		float fSlow110 = fConst36 * (0.0f - 2.0f * fSlow109);
 		float fSlow111 = synth_english_bell_faustpower2_f(fSlow109);
-		float fSlow112 = ftbl0synth_english_bellSIG0[iSlow15 + 14];
-		float fSlow113 = std::pow(0.00100000005f, fConst12 / (fSlow9 * std::pow(1.0f - 0.443187296f * fSlow10, fSlow11)));
+		float fSlow112 = ftbl0synth_english_bellSIG0[iSlow15 + 16];
+		float fSlow113 = std::pow(0.001f, fConst12 / (fSlow9 * std::pow(1.0f - 0.4431873f * fSlow10, fSlow11)));
 		float fSlow114 = fConst37 * (0.0f - 2.0f * fSlow113);
 		float fSlow115 = synth_english_bell_faustpower2_f(fSlow113);
 		float fSlow116 = ftbl0synth_english_bellSIG0[iSlow15 + 13];
-		float fSlow117 = std::pow(0.00100000005f, fConst12 / (fSlow9 * std::pow(1.0f - 0.442917764f * fSlow10, fSlow11)));
+		float fSlow117 = std::pow(0.001f, fConst12 / (fSlow9 * std::pow(1.0f - 0.44291776f * fSlow10, fSlow11)));
 		float fSlow118 = fConst38 * (0.0f - 2.0f * fSlow117);
 		float fSlow119 = synth_english_bell_faustpower2_f(fSlow117);
 		float fSlow120 = ftbl0synth_english_bellSIG0[iSlow15 + 12];
-		float fSlow121 = std::pow(0.00100000005f, fConst12 / (fSlow9 * std::pow(1.0f - 0.441465288f * fSlow10, fSlow11)));
+		float fSlow121 = std::pow(0.001f, fConst12 / (fSlow9 * std::pow(1.0f - 0.4414653f * fSlow10, fSlow11)));
 		float fSlow122 = fConst39 * (0.0f - 2.0f * fSlow121);
 		float fSlow123 = synth_english_bell_faustpower2_f(fSlow121);
 		float fSlow124 = ftbl0synth_english_bellSIG0[iSlow15 + 11];
-		float fSlow125 = std::pow(0.00100000005f, fConst12 / (fSlow9 * std::pow(1.0f - 0.436513126f * fSlow10, fSlow11)));
+		float fSlow125 = std::pow(0.001f, fConst12 / (fSlow9 * std::pow(1.0f - 0.43651313f * fSlow10, fSlow11)));
 		float fSlow126 = fConst40 * (0.0f - 2.0f * fSlow125);
 		float fSlow127 = synth_english_bell_faustpower2_f(fSlow125);
 		float fSlow128 = ftbl0synth_english_bellSIG0[iSlow15 + 10];
-		float fSlow129 = std::pow(0.00100000005f, fConst12 / (fSlow9 * std::pow(1.0f - 0.436067164f * fSlow10, fSlow11)));
+		float fSlow129 = std::pow(0.001f, fConst12 / (fSlow9 * std::pow(1.0f - 0.28218845f * fSlow10, fSlow11)));
 		float fSlow130 = fConst41 * (0.0f - 2.0f * fSlow129);
 		float fSlow131 = synth_english_bell_faustpower2_f(fSlow129);
-		float fSlow132 = ftbl0synth_english_bellSIG0[iSlow15 + 9];
-		float fSlow133 = std::pow(0.00100000005f, fConst12 / (fSlow9 * std::pow(1.0f - 0.36825937f * fSlow10, fSlow11)));
+		float fSlow132 = ftbl0synth_english_bellSIG0[iSlow15 + 4];
+		float fSlow133 = std::pow(0.001f, fConst12 / (fSlow9 * std::pow(1.0f - 0.23138173f * fSlow10, fSlow11)));
 		float fSlow134 = fConst42 * (0.0f - 2.0f * fSlow133);
 		float fSlow135 = synth_english_bell_faustpower2_f(fSlow133);
-		float fSlow136 = ftbl0synth_english_bellSIG0[iSlow15 + 8];
-		float fSlow137 = std::pow(0.00100000005f, fConst12 / (fSlow9 * std::pow(1.0f - 0.339149952f * fSlow10, fSlow11)));
+		float fSlow136 = ftbl0synth_english_bellSIG0[iSlow15 + 3];
+		float fSlow137 = std::pow(0.001f, fConst12 / (fSlow9 * std::pow(1.0f - 0.7110536f * fSlow10, fSlow11)));
 		float fSlow138 = fConst43 * (0.0f - 2.0f * fSlow137);
 		float fSlow139 = synth_english_bell_faustpower2_f(fSlow137);
-		float fSlow140 = ftbl0synth_english_bellSIG0[iSlow15 + 7];
-		float fSlow141 = std::pow(0.00100000005f, fConst12 / (fSlow9 * std::pow(1.0f - 0.339051217f * fSlow10, fSlow11)));
+		float fSlow140 = ftbl0synth_english_bellSIG0[iSlow15 + 30];
+		float fSlow141 = std::pow(0.001f, fConst12 / (fSlow9 * std::pow(1.0f - 0.56694776f * fSlow10, fSlow11)));
 		float fSlow142 = fConst44 * (0.0f - 2.0f * fSlow141);
 		float fSlow143 = synth_english_bell_faustpower2_f(fSlow141);
-		float fSlow144 = ftbl0synth_english_bellSIG0[iSlow15 + 6];
-		float fSlow145 = std::pow(0.00100000005f, fConst12 / (fSlow9 * std::pow(1.0f - 0.282981128f * fSlow10, fSlow11)));
+		float fSlow144 = ftbl0synth_english_bellSIG0[iSlow15 + 17];
+		float fSlow145 = std::pow(0.001f, fConst12 / (fSlow9 * std::pow(1.0f - 0.56723785f * fSlow10, fSlow11)));
 		float fSlow146 = fConst45 * (0.0f - 2.0f * fSlow145);
 		float fSlow147 = synth_english_bell_faustpower2_f(fSlow145);
-		float fSlow148 = ftbl0synth_english_bellSIG0[iSlow15 + 5];
-		float fSlow149 = std::pow(0.00100000005f, fConst12 / (fSlow9 * std::pow(1.0f - 0.282188445f * fSlow10, fSlow11)));
+		float fSlow148 = ftbl0synth_english_bellSIG0[iSlow15 + 18];
+		float fSlow149 = std::pow(0.001f, fConst12 / (fSlow9 * std::pow(1.0f - 0.43606716f * fSlow10, fSlow11)));
 		float fSlow150 = fConst46 * (0.0f - 2.0f * fSlow149);
 		float fSlow151 = synth_english_bell_faustpower2_f(fSlow149);
-		float fSlow152 = ftbl0synth_english_bellSIG0[iSlow15 + 4];
-		float fSlow153 = std::pow(0.00100000005f, fConst12 / (fSlow9 * std::pow(1.0f - 0.121396415f * fSlow10, fSlow11)));
+		float fSlow152 = ftbl0synth_english_bellSIG0[iSlow15 + 9];
+		float fSlow153 = std::pow(0.001f, fConst12 / (fSlow9 * std::pow(1.0f - 0.36825937f * fSlow10, fSlow11)));
 		float fSlow154 = fConst47 * (0.0f - 2.0f * fSlow153);
 		float fSlow155 = synth_english_bell_faustpower2_f(fSlow153);
-		float fSlow156 = ftbl0synth_english_bellSIG0[iSlow15];
-		float fSlow157 = std::pow(0.00100000005f, fConst12 / (fSlow9 * std::pow(1.0f - 0.12253163f * fSlow10, fSlow11)));
+		float fSlow156 = ftbl0synth_english_bellSIG0[iSlow15 + 8];
+		float fSlow157 = std::pow(0.001f, fConst12 / (fSlow9 * std::pow(1.0f - 0.33914995f * fSlow10, fSlow11)));
 		float fSlow158 = fConst48 * (0.0f - 2.0f * fSlow157);
 		float fSlow159 = synth_english_bell_faustpower2_f(fSlow157);
-		float fSlow160 = ftbl0synth_english_bellSIG0[iSlow15 + 1];
-		float fSlow161 = std::pow(0.00100000005f, fConst12 / (fSlow9 * std::pow(1.0f - 0.231381729f * fSlow10, fSlow11)));
+		float fSlow160 = ftbl0synth_english_bellSIG0[iSlow15 + 7];
+		float fSlow161 = std::pow(0.001f, fConst12 / (fSlow9 * std::pow(1.0f - 0.33905122f * fSlow10, fSlow11)));
 		float fSlow162 = fConst49 * (0.0f - 2.0f * fSlow161);
 		float fSlow163 = synth_english_bell_faustpower2_f(fSlow161);
-		float fSlow164 = ftbl0synth_english_bellSIG0[iSlow15 + 3];
-		float fSlow165 = std::pow(0.00100000005f, fConst12 / (fSlow9 * std::pow(1.0f - 0.693861604f * fSlow10, fSlow11)));
+		float fSlow164 = ftbl0synth_english_bellSIG0[iSlow15 + 6];
+		float fSlow165 = std::pow(0.001f, fConst12 / (fSlow9 * std::pow(1.0f - 0.28298113f * fSlow10, fSlow11)));
 		float fSlow166 = fConst50 * (0.0f - 2.0f * fSlow165);
 		float fSlow167 = synth_english_bell_faustpower2_f(fSlow165);
-		float fSlow168 = ftbl0synth_english_bellSIG0[iSlow15 + 28];
-		float fSlow169 = std::pow(0.00100000005f, fConst12 / (fSlow9 * std::pow(1.0f - 0.69396925f * fSlow10, fSlow11)));
+		float fSlow168 = ftbl0synth_english_bellSIG0[iSlow15 + 5];
+		float fSlow169 = std::pow(0.001f, fConst12 / (fSlow9 * std::pow(1.0f - 0.2308478f * fSlow10, fSlow11)));
 		float fSlow170 = fConst51 * (0.0f - 2.0f * fSlow169);
 		float fSlow171 = synth_english_bell_faustpower2_f(fSlow169);
-		float fSlow172 = ftbl0synth_english_bellSIG0[iSlow15 + 29];
-		float fSlow173 = std::pow(0.00100000005f, fConst12 / (fSlow9 * std::pow(1.0f - 0.937722266f * fSlow10, fSlow11)));
+		float fSlow172 = ftbl0synth_english_bellSIG0[iSlow15 + 2];
+		float fSlow173 = std::pow(0.001f, fConst12 / (fSlow9 * std::pow(1.0f - 0.12253163f * fSlow10, fSlow11)));
 		float fSlow174 = fConst52 * (0.0f - 2.0f * fSlow173);
 		float fSlow175 = synth_english_bell_faustpower2_f(fSlow173);
-		float fSlow176 = ftbl0synth_english_bellSIG0[iSlow15 + 40];
-		float fSlow177 = std::pow(0.00100000005f, fConst12 / (fSlow9 * std::pow(1.0f - 0.938246369f * fSlow10, fSlow11)));
+		float fSlow176 = ftbl0synth_english_bellSIG0[iSlow15 + 1];
+		float fSlow177 = std::pow(0.001f, fConst12 / (fSlow9 * std::pow(1.0f - 0.121396415f * fSlow10, fSlow11)));
 		float fSlow178 = fConst53 * (0.0f - 2.0f * fSlow177);
 		float fSlow179 = synth_english_bell_faustpower2_f(fSlow177);
-		float fSlow180 = ftbl0synth_english_bellSIG0[iSlow15 + 41];
-		float fSlow181 = std::pow(0.00100000005f, fConst12 / (fSlow9 * std::pow(1.0f - 0.938630044f * fSlow10, fSlow11)));
+		float fSlow180 = ftbl0synth_english_bellSIG0[iSlow15];
+		float fSlow181 = std::pow(0.001f, fConst12 / (fSlow9 * std::pow(1.0f - 0.4458419f * fSlow10, fSlow11)));
 		float fSlow182 = fConst54 * (0.0f - 2.0f * fSlow181);
 		float fSlow183 = synth_english_bell_faustpower2_f(fSlow181);
-		float fSlow184 = ftbl0synth_english_bellSIG0[iSlow15 + 42];
-		float fSlow185 = std::pow(0.00100000005f, fConst12 / (fSlow9 * std::pow(1.0f - 0.938676834f * fSlow10, fSlow11)));
+		float fSlow184 = ftbl0synth_english_bellSIG0[iSlow15 + 14];
+		float fSlow185 = std::pow(0.001f, fConst12 / (fSlow9 * std::pow(1.0f - 0.62757367f * fSlow10, fSlow11)));
 		float fSlow186 = fConst55 * (0.0f - 2.0f * fSlow185);
 		float fSlow187 = synth_english_bell_faustpower2_f(fSlow185);
-		float fSlow188 = ftbl0synth_english_bellSIG0[iSlow15 + 43];
-		float fSlow189 = std::pow(0.00100000005f, fConst12 / (fSlow9 * std::pow(1.0f - 0.967422247f * fSlow10, fSlow11)));
+		float fSlow188 = ftbl0synth_english_bellSIG0[iSlow15 + 21];
+		float fSlow189 = std::pow(0.001f, fConst12 / (fSlow9 * std::pow(1.0f - 0.47927976f * fSlow10, fSlow11)));
 		float fSlow190 = fConst56 * (0.0f - 2.0f * fSlow189);
 		float fSlow191 = synth_english_bell_faustpower2_f(fSlow189);
-		float fSlow192 = ftbl0synth_english_bellSIG0[iSlow15 + 44];
-		float fSlow193 = std::pow(0.00100000005f, fConst12 / (fSlow9 * std::pow(1.0f - 0.97444129f * fSlow10, fSlow11)));
+		float fSlow192 = ftbl0synth_english_bellSIG0[iSlow15 + 15];
+		float fSlow193 = std::pow(0.001f, fConst12 / (fSlow9 * std::pow(1.0f - 0.72402483f * fSlow10, fSlow11)));
 		float fSlow194 = fConst57 * (0.0f - 2.0f * fSlow193);
 		float fSlow195 = synth_english_bell_faustpower2_f(fSlow193);
-		float fSlow196 = ftbl0synth_english_bellSIG0[iSlow15 + 45];
-		float fSlow197 = std::pow(0.00100000005f, fConst12 / (fSlow9 * std::pow(1.0f - 0.976495504f * fSlow10, fSlow11)));
+		float fSlow196 = ftbl0synth_english_bellSIG0[iSlow15 + 31];
+		float fSlow197 = std::pow(0.001f, fConst12 / (fSlow9 * std::pow(1.0f - 0.73276585f * fSlow10, fSlow11)));
 		float fSlow198 = fConst58 * (0.0f - 2.0f * fSlow197);
 		float fSlow199 = synth_english_bell_faustpower2_f(fSlow197);
-		float fSlow200 = ftbl0synth_english_bellSIG0[iSlow15 + 46];
-		float fSlow201 = std::pow(0.00100000005f, fConst12 / (fSlow9 * std::pow(1.0f - 0.992288411f * fSlow10, fSlow11)));
+		float fSlow200 = ftbl0synth_english_bellSIG0[iSlow15 + 32];
+		float fSlow201 = std::pow(0.001f, fConst12 / (fSlow9 * std::pow(1.0f - 0.9922884f * fSlow10, fSlow11)));
 		float fSlow202 = fConst59 * (0.0f - 2.0f * fSlow201);
 		float fSlow203 = synth_english_bell_faustpower2_f(fSlow201);
 		float fSlow204 = ftbl0synth_english_bellSIG0[iSlow15 + 47];
-		float fSlow205 = std::pow(0.00100000005f, fConst12 / (fSlow9 * std::pow(1.0f - 0.996607482f * fSlow10, fSlow11)));
+		float fSlow205 = std::pow(0.001f, fConst12 / (fSlow9 * std::pow(1.0f - 0.9966075f * fSlow10, fSlow11)));
 		float fSlow206 = fConst60 * (0.0f - 2.0f * fSlow205);
 		float fSlow207 = synth_english_bell_faustpower2_f(fSlow205);
 		float fSlow208 = ftbl0synth_english_bellSIG0[iSlow15 + 48];
-		float fSlow209 = std::pow(0.00100000005f, fConst12 / (fSlow9 * std::pow(1.0f - 0.998217165f * fSlow10, fSlow11)));
+		float fSlow209 = std::pow(0.001f, fConst12 / (fSlow9 * std::pow(1.0f - 0.99821717f * fSlow10, fSlow11)));
 		float fSlow210 = fConst61 * (0.0f - 2.0f * fSlow209);
 		float fSlow211 = synth_english_bell_faustpower2_f(fSlow209);
 		float fSlow212 = ftbl0synth_english_bellSIG0[iSlow15 + 49];
 		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
 			iRec3[0] = 1103515245 * iRec3[1] + 12345;
-			fRec2[0] = 4.65661287e-10f * float(iRec3[0]) - fConst4 * (fConst7 * fRec2[2] + fConst8 * fRec2[1]);
+			fRec2[0] = 4.656613e-10f * float(iRec3[0]) - fConst4 * (fConst7 * fRec2[2] + fConst8 * fRec2[1]);
 			fRec1[0] = fConst4 * (fConst6 * fRec2[0] + fConst9 * fRec2[1] + fConst6 * fRec2[2]) - fSlow4 * (fSlow5 * fRec1[2] + fSlow6 * fRec1[1]);
 			fVec0[0] = fSlow8;
 			iRec4[0] = (iRec4[1] + (iRec4[1] > 0)) * (fSlow8 <= fVec0[1]) + (fSlow8 > fVec0[1]);
@@ -1416,7 +1420,7 @@ class synth_english_bell : public synth_english_bell_dsp {
 			fRec51[0] = fTemp1 - (fSlow202 * fRec51[1] + fSlow203 * fRec51[2]);
 			fRec52[0] = fTemp1 - (fSlow206 * fRec52[1] + fSlow207 * fRec52[2]);
 			fRec53[0] = fTemp1 - (fSlow210 * fRec53[1] + fSlow211 * fRec53[2]);
-			output0[i0] = FAUSTFLOAT(0.0199999996f * ((fRec0[0] - fRec0[2]) * fSlow16 + (fRec5[0] - fRec5[2]) * fSlow20 + (fRec6[0] - fRec6[2]) * fSlow24 + (fRec7[0] - fRec7[2]) * fSlow28 + (fRec8[0] - fRec8[2]) * fSlow32 + (fRec9[0] - fRec9[2]) * fSlow36 + (fRec10[0] - fRec10[2]) * fSlow40 + (fRec11[0] - fRec11[2]) * fSlow44 + (fRec12[0] - fRec12[2]) * fSlow48 + (fRec13[0] - fRec13[2]) * fSlow52 + (fRec14[0] - fRec14[2]) * fSlow56 + (fRec15[0] - fRec15[2]) * fSlow60 + (fRec16[0] - fRec16[2]) * fSlow64 + (fRec17[0] - fRec17[2]) * fSlow68 + (fRec18[0] - fRec18[2]) * fSlow72 + (fRec19[0] - fRec19[2]) * fSlow76 + (fRec20[0] - fRec20[2]) * fSlow80 + (fRec21[0] - fRec21[2]) * fSlow84 + (fRec22[0] - fRec22[2]) * fSlow88 + (fRec23[0] - fRec23[2]) * fSlow92 + (fRec24[0] - fRec24[2]) * fSlow96 + (fRec25[0] - fRec25[2]) * fSlow100 + (fRec26[0] - fRec26[2]) * fSlow104 + (fRec27[0] - fRec27[2]) * fSlow108 + (fRec28[0] - fRec28[2]) * fSlow112 + (fRec29[0] - fRec29[2]) * fSlow116 + (fRec30[0] - fRec30[2]) * fSlow120 + (fRec31[0] - fRec31[2]) * fSlow124 + (fRec32[0] - fRec32[2]) * fSlow128 + (fRec33[0] - fRec33[2]) * fSlow132 + (fRec34[0] - fRec34[2]) * fSlow136 + (fRec35[0] - fRec35[2]) * fSlow140 + (fRec36[0] - fRec36[2]) * fSlow144 + (fRec37[0] - fRec37[2]) * fSlow148 + (fRec38[0] - fRec38[2]) * fSlow152 + (fRec39[0] - fRec39[2]) * fSlow156 + (fRec40[0] - fRec40[2]) * fSlow160 + (fRec41[0] - fRec41[2]) * fSlow164 + (fRec42[0] - fRec42[2]) * fSlow168 + (fRec43[0] - fRec43[2]) * fSlow172 + (fRec44[0] - fRec44[2]) * fSlow176 + (fRec45[0] - fRec45[2]) * fSlow180 + (fRec46[0] - fRec46[2]) * fSlow184 + (fRec47[0] - fRec47[2]) * fSlow188 + (fRec48[0] - fRec48[2]) * fSlow192 + (fRec49[0] - fRec49[2]) * fSlow196 + (fRec50[0] - fRec50[2]) * fSlow200 + (fRec51[0] - fRec51[2]) * fSlow204 + (fRec52[0] - fRec52[2]) * fSlow208 + (fRec53[0] - fRec53[2]) * fSlow212));
+			output0[i0] = FAUSTFLOAT(0.02f * ((fRec0[0] - fRec0[2]) * fSlow16 + (fRec5[0] - fRec5[2]) * fSlow20 + (fRec6[0] - fRec6[2]) * fSlow24 + (fRec7[0] - fRec7[2]) * fSlow28 + (fRec8[0] - fRec8[2]) * fSlow32 + (fRec9[0] - fRec9[2]) * fSlow36 + (fRec10[0] - fRec10[2]) * fSlow40 + (fRec11[0] - fRec11[2]) * fSlow44 + (fRec12[0] - fRec12[2]) * fSlow48 + (fRec13[0] - fRec13[2]) * fSlow52 + (fRec14[0] - fRec14[2]) * fSlow56 + (fRec15[0] - fRec15[2]) * fSlow60 + (fRec16[0] - fRec16[2]) * fSlow64 + (fRec17[0] - fRec17[2]) * fSlow68 + (fRec18[0] - fRec18[2]) * fSlow72 + (fRec19[0] - fRec19[2]) * fSlow76 + (fRec20[0] - fRec20[2]) * fSlow80 + (fRec21[0] - fRec21[2]) * fSlow84 + (fRec22[0] - fRec22[2]) * fSlow88 + (fRec23[0] - fRec23[2]) * fSlow92 + (fRec24[0] - fRec24[2]) * fSlow96 + (fRec25[0] - fRec25[2]) * fSlow100 + (fRec26[0] - fRec26[2]) * fSlow104 + (fRec27[0] - fRec27[2]) * fSlow108 + (fRec28[0] - fRec28[2]) * fSlow112 + (fRec29[0] - fRec29[2]) * fSlow116 + (fRec30[0] - fRec30[2]) * fSlow120 + (fRec31[0] - fRec31[2]) * fSlow124 + (fRec32[0] - fRec32[2]) * fSlow128 + (fRec33[0] - fRec33[2]) * fSlow132 + (fRec34[0] - fRec34[2]) * fSlow136 + (fRec35[0] - fRec35[2]) * fSlow140 + (fRec36[0] - fRec36[2]) * fSlow144 + (fRec37[0] - fRec37[2]) * fSlow148 + (fRec38[0] - fRec38[2]) * fSlow152 + (fRec39[0] - fRec39[2]) * fSlow156 + (fRec40[0] - fRec40[2]) * fSlow160 + (fRec41[0] - fRec41[2]) * fSlow164 + (fRec42[0] - fRec42[2]) * fSlow168 + (fRec43[0] - fRec43[2]) * fSlow172 + (fRec44[0] - fRec44[2]) * fSlow176 + (fRec45[0] - fRec45[2]) * fSlow180 + (fRec46[0] - fRec46[2]) * fSlow184 + (fRec47[0] - fRec47[2]) * fSlow188 + (fRec48[0] - fRec48[2]) * fSlow192 + (fRec49[0] - fRec49[2]) * fSlow196 + (fRec50[0] - fRec50[2]) * fSlow200 + (fRec51[0] - fRec51[2]) * fSlow204 + (fRec52[0] - fRec52[2]) * fSlow208 + (fRec53[0] - fRec53[2]) * fSlow212));
 			iRec3[1] = iRec3[0];
 			fRec2[2] = fRec2[1];
 			fRec2[1] = fRec2[0];

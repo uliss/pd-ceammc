@@ -3,7 +3,7 @@ author: "Romain Michon (rmichon@ccrma.stanford.edu)"
 copyright: "Romain Michon"
 name: "synth.piano"
 version: "1.0"
-Code generated with Faust 2.44.1 (https://faust.grame.fr)
+Code generated with Faust 2.53.1 (https://faust.grame.fr)
 Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn synth_piano -scn synth_piano_dsp -es 1 -mcd 16 -single -ftz 0
 ------------------------------------------------------------ */
 
@@ -48,30 +48,33 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_ds
 #include <vector>
 
 /************************************************************************
- ************************************************************************
-    FAUST compiler
-    Copyright (C) 2003-2018 GRAME, Centre National de Creation Musicale
-    ---------------------------------------------------------------------
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- ************************************************************************
- ************************************************************************/
+ FAUST Architecture File
+ Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
+ ---------------------------------------------------------------------
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation; either version 2.1 of the License, or
+ (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU Lesser General Public License for more details.
+ 
+ You should have received a copy of the GNU Lesser General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ 
+ EXCEPTION : As a special exception, you may create a larger work
+ that contains this FAUST architecture section and distribute
+ that work under terms of your choice, so long as this FAUST
+ architecture section is not modified.
+ ***************************************************************************/
 
 #ifndef __export__
 #define __export__
 
-#define FAUSTVERSION "2.44.1"
+#define FAUSTVERSION "2.53.1"
 
 // Use FAUST_API for code that is part of the external API but is also compiled in faust and libfaust
 // Use LIBFAUST_API for code that is compiled in faust and libfaust
@@ -119,7 +122,7 @@ struct FAUST_API dsp_memory_manager {
      * Inform the Memory Manager with the number of expected memory zones.
      * @param count - the number of expected memory zones
      */
-    virtual void begin(size_t count) {}
+    virtual void begin(size_t /*count*/) {}
     
     /**
      * Give the Memory Manager information on a given memory zone.
@@ -127,8 +130,8 @@ struct FAUST_API dsp_memory_manager {
      * @param reads - the number of Read access to the zone used to compute one frame
      * @param writes - the number of Write access to the zone used to compute one frame
      */
-    virtual void info(size_t size, size_t reads, size_t writes) {}
-    
+    virtual void info(size_t /*size*/, size_t /*reads*/, size_t /*writes*/) {}
+
     /**
      * Inform the Memory Manager that all memory zones have been described,
      * to possibly start a 'compute the best allocation strategy' step.
@@ -313,14 +316,17 @@ class FAUST_API ScopedNoDenormals {
     
     private:
     
-        intptr_t fpsr;
+        intptr_t fpsr = 0;
         
         void setFpStatusRegister(intptr_t fpsr_aux) noexcept
         {
         #if defined (__arm64__) || defined (__aarch64__)
-           asm volatile("msr fpcr, %0" : : "ri" (fpsr_aux));
+            asm volatile("msr fpcr, %0" : : "ri" (fpsr_aux));
         #elif defined (__SSE__)
-            _mm_setcsr(static_cast<uint32_t>(fpsr_aux));
+            // The volatile keyword here is needed to workaround a bug in AppleClang 13.0
+            // which aggressively optimises away the variable otherwise
+            volatile uint32_t fpsr_w = static_cast<uint32_t>(fpsr_aux);
+            _mm_setcsr(fpsr_w);
         #endif
         }
         
@@ -328,7 +334,7 @@ class FAUST_API ScopedNoDenormals {
         {
         #if defined (__arm64__) || defined (__aarch64__)
             asm volatile("mrs %0, fpcr" : "=r" (fpsr));
-        #elif defined ( __SSE__)
+        #elif defined (__SSE__)
             fpsr = static_cast<intptr_t>(_mm_getcsr());
         #endif
         }
@@ -339,16 +345,14 @@ class FAUST_API ScopedNoDenormals {
         {
         #if defined (__arm64__) || defined (__aarch64__)
             intptr_t mask = (1 << 24 /* FZ */);
+        #elif defined (__SSE__)
+        #if defined (__SSE2__)
+            intptr_t mask = 0x8040;
         #else
-            #if defined(__SSE__)
-            #if defined(__SSE2__)
-                intptr_t mask = 0x8040;
-            #else
-                intptr_t mask = 0x8000;
-            #endif
-            #else
-                intptr_t mask = 0x0000;
-            #endif
+            intptr_t mask = 0x8000;
+        #endif
+        #else
+            intptr_t mask = 0x0000;
         #endif
             getFpStatusRegister();
             setFpStatusRegister(fpsr | mask);
@@ -361,7 +365,7 @@ class FAUST_API ScopedNoDenormals {
 
 };
 
-#define AVOIDDENORMALS ScopedNoDenormals();
+#define AVOIDDENORMALS ScopedNoDenormals ftz_scope;
 
 #endif
 
@@ -439,8 +443,8 @@ struct FAUST_API UIReal {
     
     // -- metadata declarations
     
-    virtual void declare(REAL* zone, const char* key, const char* val) {}
-    
+    virtual void declare(REAL* /*zone*/, const char* /*key*/, const char* /*val*/) {}
+
     // To be used by LLVM client
     virtual int sizeOfFAUSTFLOAT() { return sizeof(FAUSTFLOAT); }
 };
@@ -661,7 +665,7 @@ class synth_piano : public synth_piano_dsp {
 	float fRec11[2];
 	float fRec10[2];
 	int IOTA0;
-	float fVec0[16384];
+	float fVec0[32768];
 	int iConst10;
 	FAUSTFLOAT fHslider1;
 	float fConst11;
@@ -717,11 +721,11 @@ class synth_piano : public synth_piano_dsp {
 	float fRec41[2];
 	float fRec40[2];
 	float fRec39[8192];
+	float fConst25;
 	float fVec5[2];
 	float fRec50[2];
 	float fRec49[2];
 	float fRec48[8192];
-	float fConst25;
 	float fVec6[2];
 	float fRec53[2];
 	float fRec52[2];
@@ -746,19 +750,19 @@ class synth_piano : public synth_piano_dsp {
 	float fRec55[3];
 	float fRec54[2];
 	float fVec10[4096];
+	float fConst27;
+	FAUSTFLOAT fHslider8;
 	float fVec11[4096];
-	int iConst27;
-	float fVec12[2048];
 	int iConst28;
+	float fVec12[4096];
+	int iConst29;
 	float fRec8[2];
-	float fConst31;
 	float fConst32;
+	float fConst33;
 	float fRec67[2];
 	float fRec66[2];
-	float fVec13[32768];
-	int iConst34;
-	float fConst35;
-	FAUSTFLOAT fHslider8;
+	float fVec13[16384];
+	int iConst35;
 	float fVec14[4096];
 	float fVec15[2048];
 	int iConst36;
@@ -767,7 +771,7 @@ class synth_piano : public synth_piano_dsp {
 	float fConst40;
 	float fRec71[2];
 	float fRec70[2];
-	float fVec16[32768];
+	float fVec16[16384];
 	int iConst42;
 	float fVec17[4096];
 	int iConst43;
@@ -796,16 +800,16 @@ class synth_piano : public synth_piano_dsp {
 	float fRec82[2];
 	float fVec22[16384];
 	int iConst63;
-	float fVec23[2048];
+	float fVec23[4096];
 	int iConst64;
 	float fRec80[2];
 	float fConst67;
 	float fConst68;
 	float fRec87[2];
 	float fRec86[2];
-	float fVec24[16384];
+	float fVec24[32768];
 	int iConst70;
-	float fVec25[4096];
+	float fVec25[2048];
 	int iConst71;
 	float fRec84[2];
 	float fConst74;
@@ -814,7 +818,7 @@ class synth_piano : public synth_piano_dsp {
 	float fRec90[2];
 	float fVec26[16384];
 	int iConst77;
-	float fVec27[4096];
+	float fVec27[2048];
 	int iConst78;
 	float fRec88[2];
 	float fRec0[3];
@@ -898,97 +902,97 @@ class synth_piano : public synth_piano_dsp {
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
-		float fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
-		float fConst1 = std::floor(0.153128996f * fConst0 + 0.5f);
-		float fConst2 = (0.0f - 6.90775537f * fConst1) / fConst0;
+		float fConst0 = std::min<float>(1.92e+05f, std::max<float>(1.0f, float(fSampleRate)));
+		float fConst1 = std::floor(0.210389f * fConst0 + 0.5f);
+		float fConst2 = (0.0f - 6.9077554f * fConst1) / fConst0;
 		fConst3 = 0.25f * fConst2;
-		fConst4 = std::cos(37699.1133f / fConst0);
-		fConst5 = 0.166666672f * fConst2;
-		float fConst6 = 1.0f / std::tan(628.318542f / fConst0);
+		fConst4 = std::cos(37699.113f / fConst0);
+		fConst5 = 0.16666667f * fConst2;
+		float fConst6 = 1.0f / std::tan(628.31854f / fConst0);
 		fConst7 = 1.0f / (fConst6 + 1.0f);
 		fConst8 = 1.0f - fConst6;
-		float fConst9 = std::floor(0.0203460008f * fConst0 + 0.5f);
-		iConst10 = int(std::min<float>(8192.0f, std::max<float>(0.0f, fConst1 - fConst9)));
-		fConst11 = 44.0999985f / fConst0;
+		float fConst9 = std::floor(0.024421f * fConst0 + 0.5f);
+		iConst10 = int(std::min<float>(16384.0f, std::max<float>(0.0f, fConst1 - fConst9)));
+		fConst11 = 44.1f / fConst0;
 		fConst12 = 1.0f - fConst11;
 		float fConst13 = synth_piano_faustpower2_f(fConst0);
-		fConst14 = 96800.0f / fConst13;
-		fConst15 = 0.159154937f * fConst0;
-		fConst16 = 6.28318548f / fConst0;
+		fConst14 = 9.68e+04f / fConst13;
+		fConst15 = 0.15915494f * fConst0;
+		fConst16 = 6.2831855f / fConst0;
 		fConst17 = 7.0f / fConst0;
 		fConst18 = std::exp(0.0f - 5.0f / fConst0);
-		fConst19 = 10.0f / fConst0;
-		fConst20 = 0.100000001f * fConst0;
+		fConst19 = 1e+01f / fConst0;
+		fConst20 = 0.1f * fConst0;
 		fConst21 = std::exp(0.0f - 0.5f / fConst0);
-		fConst22 = 880.0f / fConst0;
-		fConst23 = 2764.60156f / fConst0;
-		fConst24 = 193600.0f / fConst13;
-		fConst25 = 0.000361715793f * fConst0;
-		fConst26 = 0.0500000007f / fConst0;
-		iConst27 = int(std::min<float>(8192.0f, std::max<float>(0.0f, 0.0199999996f * fConst0)));
-		iConst28 = int(std::min<float>(1024.0f, std::max<float>(0.0f, fConst9 + -1.0f)));
-		float fConst29 = std::floor(0.219990999f * fConst0 + 0.5f);
-		float fConst30 = (0.0f - 6.90775537f * fConst29) / fConst0;
-		fConst31 = 0.25f * fConst30;
-		fConst32 = 0.166666672f * fConst30;
-		float fConst33 = std::floor(0.0191229992f * fConst0 + 0.5f);
-		iConst34 = int(std::min<float>(16384.0f, std::max<float>(0.0f, fConst29 - fConst33)));
-		fConst35 = 0.0011363636f * fConst0;
-		iConst36 = int(std::min<float>(1024.0f, std::max<float>(0.0f, fConst33 + -1.0f)));
-		float fConst37 = std::floor(0.256891012f * fConst0 + 0.5f);
-		float fConst38 = (0.0f - 6.90775537f * fConst37) / fConst0;
+		fConst22 = 8.8e+02f / fConst0;
+		fConst23 = 2764.6016f / fConst0;
+		fConst24 = 1.936e+05f / fConst13;
+		fConst25 = 0.0003617158f * fConst0;
+		fConst26 = 0.05f / fConst0;
+		fConst27 = 0.0011363636f * fConst0;
+		iConst28 = int(std::min<float>(8192.0f, std::max<float>(0.0f, 0.02f * fConst0)));
+		iConst29 = int(std::min<float>(2048.0f, std::max<float>(0.0f, fConst9 + -1.0f)));
+		float fConst30 = std::floor(0.125f * fConst0 + 0.5f);
+		float fConst31 = (0.0f - 6.9077554f * fConst30) / fConst0;
+		fConst32 = 0.25f * fConst31;
+		fConst33 = 0.16666667f * fConst31;
+		float fConst34 = std::floor(0.013458f * fConst0 + 0.5f);
+		iConst35 = int(std::min<float>(8192.0f, std::max<float>(0.0f, fConst30 - fConst34)));
+		iConst36 = int(std::min<float>(1024.0f, std::max<float>(0.0f, fConst34 + -1.0f)));
+		float fConst37 = std::floor(0.127837f * fConst0 + 0.5f);
+		float fConst38 = (0.0f - 6.9077554f * fConst37) / fConst0;
 		fConst39 = 0.25f * fConst38;
-		fConst40 = 0.166666672f * fConst38;
-		float fConst41 = std::floor(0.0273330007f * fConst0 + 0.5f);
-		iConst42 = int(std::min<float>(16384.0f, std::max<float>(0.0f, fConst37 - fConst41)));
+		fConst40 = 0.16666667f * fConst38;
+		float fConst41 = std::floor(0.031604f * fConst0 + 0.5f);
+		iConst42 = int(std::min<float>(8192.0f, std::max<float>(0.0f, fConst37 - fConst41)));
 		iConst43 = int(std::min<float>(2048.0f, std::max<float>(0.0f, fConst41 + -1.0f)));
-		float fConst44 = std::floor(0.192303002f * fConst0 + 0.5f);
-		float fConst45 = (0.0f - 6.90775537f * fConst44) / fConst0;
+		float fConst44 = std::floor(0.174713f * fConst0 + 0.5f);
+		float fConst45 = (0.0f - 6.9077554f * fConst44) / fConst0;
 		fConst46 = 0.25f * fConst45;
-		fConst47 = 0.166666672f * fConst45;
-		float fConst48 = std::floor(0.0292910002f * fConst0 + 0.5f);
+		fConst47 = 0.16666667f * fConst45;
+		float fConst48 = std::floor(0.022904f * fConst0 + 0.5f);
 		iConst49 = int(std::min<float>(8192.0f, std::max<float>(0.0f, fConst44 - fConst48)));
 		iConst50 = int(std::min<float>(2048.0f, std::max<float>(0.0f, fConst48 + -1.0f)));
-		float fConst51 = std::floor(0.210389003f * fConst0 + 0.5f);
-		float fConst52 = (0.0f - 6.90775537f * fConst51) / fConst0;
+		float fConst51 = std::floor(0.256891f * fConst0 + 0.5f);
+		float fConst52 = (0.0f - 6.9077554f * fConst51) / fConst0;
 		fConst53 = 0.25f * fConst52;
-		fConst54 = 0.166666672f * fConst52;
-		float fConst55 = std::floor(0.0244210009f * fConst0 + 0.5f);
+		fConst54 = 0.16666667f * fConst52;
+		float fConst55 = std::floor(0.027333f * fConst0 + 0.5f);
 		iConst56 = int(std::min<float>(16384.0f, std::max<float>(0.0f, fConst51 - fConst55)));
 		iConst57 = int(std::min<float>(2048.0f, std::max<float>(0.0f, fConst55 + -1.0f)));
-		float fConst58 = std::floor(0.125f * fConst0 + 0.5f);
-		float fConst59 = (0.0f - 6.90775537f * fConst58) / fConst0;
+		float fConst58 = std::floor(0.192303f * fConst0 + 0.5f);
+		float fConst59 = (0.0f - 6.9077554f * fConst58) / fConst0;
 		fConst60 = 0.25f * fConst59;
-		fConst61 = 0.166666672f * fConst59;
-		float fConst62 = std::floor(0.0134579996f * fConst0 + 0.5f);
+		fConst61 = 0.16666667f * fConst59;
+		float fConst62 = std::floor(0.029291f * fConst0 + 0.5f);
 		iConst63 = int(std::min<float>(8192.0f, std::max<float>(0.0f, fConst58 - fConst62)));
-		iConst64 = int(std::min<float>(1024.0f, std::max<float>(0.0f, fConst62 + -1.0f)));
-		float fConst65 = std::floor(0.127837002f * fConst0 + 0.5f);
-		float fConst66 = (0.0f - 6.90775537f * fConst65) / fConst0;
+		iConst64 = int(std::min<float>(2048.0f, std::max<float>(0.0f, fConst62 + -1.0f)));
+		float fConst65 = std::floor(0.219991f * fConst0 + 0.5f);
+		float fConst66 = (0.0f - 6.9077554f * fConst65) / fConst0;
 		fConst67 = 0.25f * fConst66;
-		fConst68 = 0.166666672f * fConst66;
-		float fConst69 = std::floor(0.0316039994f * fConst0 + 0.5f);
-		iConst70 = int(std::min<float>(8192.0f, std::max<float>(0.0f, fConst65 - fConst69)));
-		iConst71 = int(std::min<float>(2048.0f, std::max<float>(0.0f, fConst69 + -1.0f)));
-		float fConst72 = std::floor(0.174713001f * fConst0 + 0.5f);
-		float fConst73 = (0.0f - 6.90775537f * fConst72) / fConst0;
+		fConst68 = 0.16666667f * fConst66;
+		float fConst69 = std::floor(0.019123f * fConst0 + 0.5f);
+		iConst70 = int(std::min<float>(16384.0f, std::max<float>(0.0f, fConst65 - fConst69)));
+		iConst71 = int(std::min<float>(1024.0f, std::max<float>(0.0f, fConst69 + -1.0f)));
+		float fConst72 = std::floor(0.153129f * fConst0 + 0.5f);
+		float fConst73 = (0.0f - 6.9077554f * fConst72) / fConst0;
 		fConst74 = 0.25f * fConst73;
-		fConst75 = 0.166666672f * fConst73;
-		float fConst76 = std::floor(0.0229039993f * fConst0 + 0.5f);
+		fConst75 = 0.16666667f * fConst73;
+		float fConst76 = std::floor(0.020346f * fConst0 + 0.5f);
 		iConst77 = int(std::min<float>(8192.0f, std::max<float>(0.0f, fConst72 - fConst76)));
-		iConst78 = int(std::min<float>(2048.0f, std::max<float>(0.0f, fConst76 + -1.0f)));
+		iConst78 = int(std::min<float>(1024.0f, std::max<float>(0.0f, fConst76 + -1.0f)));
 	}
 	
 	virtual void instanceResetUserInterface() {
-		fHslider0 = FAUSTFLOAT(0.35999999999999999f);
-		fHslider1 = FAUSTFLOAT(0.59999999999999998f);
-		fHslider2 = FAUSTFLOAT(0.13700000000000001f);
+		fHslider0 = FAUSTFLOAT(0.36f);
+		fHslider1 = FAUSTFLOAT(0.6f);
+		fHslider2 = FAUSTFLOAT(0.137f);
 		fHslider3 = FAUSTFLOAT(48.0f);
-		fHslider4 = FAUSTFLOAT(0.28000000000000003f);
-		fHslider5 = FAUSTFLOAT(0.10000000000000001f);
+		fHslider4 = FAUSTFLOAT(0.28f);
+		fHslider5 = FAUSTFLOAT(0.1f);
 		fButton0 = FAUSTFLOAT(0.0f);
 		fHslider6 = FAUSTFLOAT(0.0f);
-		fHslider7 = FAUSTFLOAT(0.10000000000000001f);
+		fHslider7 = FAUSTFLOAT(0.1f);
 		fHslider8 = FAUSTFLOAT(0.5f);
 	}
 	
@@ -1000,7 +1004,7 @@ class synth_piano : public synth_piano_dsp {
 			fRec10[l1] = 0.0f;
 		}
 		IOTA0 = 0;
-		for (int l2 = 0; l2 < 16384; l2 = l2 + 1) {
+		for (int l2 = 0; l2 < 32768; l2 = l2 + 1) {
 			fVec0[l2] = 0.0f;
 		}
 		for (int l3 = 0; l3 < 2; l3 = l3 + 1) {
@@ -1186,7 +1190,7 @@ class synth_piano : public synth_piano_dsp {
 		for (int l63 = 0; l63 < 4096; l63 = l63 + 1) {
 			fVec11[l63] = 0.0f;
 		}
-		for (int l64 = 0; l64 < 2048; l64 = l64 + 1) {
+		for (int l64 = 0; l64 < 4096; l64 = l64 + 1) {
 			fVec12[l64] = 0.0f;
 		}
 		for (int l65 = 0; l65 < 2; l65 = l65 + 1) {
@@ -1198,7 +1202,7 @@ class synth_piano : public synth_piano_dsp {
 		for (int l67 = 0; l67 < 2; l67 = l67 + 1) {
 			fRec66[l67] = 0.0f;
 		}
-		for (int l68 = 0; l68 < 32768; l68 = l68 + 1) {
+		for (int l68 = 0; l68 < 16384; l68 = l68 + 1) {
 			fVec13[l68] = 0.0f;
 		}
 		for (int l69 = 0; l69 < 4096; l69 = l69 + 1) {
@@ -1216,7 +1220,7 @@ class synth_piano : public synth_piano_dsp {
 		for (int l73 = 0; l73 < 2; l73 = l73 + 1) {
 			fRec70[l73] = 0.0f;
 		}
-		for (int l74 = 0; l74 < 32768; l74 = l74 + 1) {
+		for (int l74 = 0; l74 < 16384; l74 = l74 + 1) {
 			fVec16[l74] = 0.0f;
 		}
 		for (int l75 = 0; l75 < 4096; l75 = l75 + 1) {
@@ -1264,7 +1268,7 @@ class synth_piano : public synth_piano_dsp {
 		for (int l89 = 0; l89 < 16384; l89 = l89 + 1) {
 			fVec22[l89] = 0.0f;
 		}
-		for (int l90 = 0; l90 < 2048; l90 = l90 + 1) {
+		for (int l90 = 0; l90 < 4096; l90 = l90 + 1) {
 			fVec23[l90] = 0.0f;
 		}
 		for (int l91 = 0; l91 < 2; l91 = l91 + 1) {
@@ -1276,10 +1280,10 @@ class synth_piano : public synth_piano_dsp {
 		for (int l93 = 0; l93 < 2; l93 = l93 + 1) {
 			fRec86[l93] = 0.0f;
 		}
-		for (int l94 = 0; l94 < 16384; l94 = l94 + 1) {
+		for (int l94 = 0; l94 < 32768; l94 = l94 + 1) {
 			fVec24[l94] = 0.0f;
 		}
-		for (int l95 = 0; l95 < 4096; l95 = l95 + 1) {
+		for (int l95 = 0; l95 < 2048; l95 = l95 + 1) {
 			fVec25[l95] = 0.0f;
 		}
 		for (int l96 = 0; l96 < 2; l96 = l96 + 1) {
@@ -1294,7 +1298,7 @@ class synth_piano : public synth_piano_dsp {
 		for (int l99 = 0; l99 < 16384; l99 = l99 + 1) {
 			fVec26[l99] = 0.0f;
 		}
-		for (int l100 = 0; l100 < 4096; l100 = l100 + 1) {
+		for (int l100 = 0; l100 < 2048; l100 = l100 + 1) {
 			fVec27[l100] = 0.0f;
 		}
 		for (int l101 = 0; l101 < 2; l101 = l101 + 1) {
@@ -1346,16 +1350,16 @@ class synth_piano : public synth_piano_dsp {
 	
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("synth.piano");
-		ui_interface->addHorizontalSlider("brightness", &fHslider6, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.00999999978f));
-		ui_interface->addHorizontalSlider("detuning", &fHslider5, FAUSTFLOAT(0.100000001f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.00999999978f));
+		ui_interface->addHorizontalSlider("brightness", &fHslider6, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.01f));
+		ui_interface->addHorizontalSlider("detuning", &fHslider5, FAUSTFLOAT(0.1f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.01f));
 		ui_interface->addButton("gate", &fButton0);
-		ui_interface->addHorizontalSlider("hammer_hardness", &fHslider7, FAUSTFLOAT(0.100000001f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.00999999978f));
-		ui_interface->addHorizontalSlider("pan", &fHslider1, FAUSTFLOAT(0.600000024f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.00999999978f));
-		ui_interface->addHorizontalSlider("pitch", &fHslider3, FAUSTFLOAT(48.0f), FAUSTFLOAT(21.0f), FAUSTFLOAT(108.0f), FAUSTFLOAT(0.00100000005f));
-		ui_interface->addHorizontalSlider("reverb_gain", &fHslider2, FAUSTFLOAT(0.136999995f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.00999999978f));
-		ui_interface->addHorizontalSlider("room_size", &fHslider0, FAUSTFLOAT(0.360000014f), FAUSTFLOAT(0.00499999989f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.00999999978f));
-		ui_interface->addHorizontalSlider("stiffness", &fHslider4, FAUSTFLOAT(0.280000001f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.00999999978f));
-		ui_interface->addHorizontalSlider("width", &fHslider8, FAUSTFLOAT(0.5f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.00999999978f));
+		ui_interface->addHorizontalSlider("hammer_hardness", &fHslider7, FAUSTFLOAT(0.1f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.01f));
+		ui_interface->addHorizontalSlider("pan", &fHslider1, FAUSTFLOAT(0.6f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.01f));
+		ui_interface->addHorizontalSlider("pitch", &fHslider3, FAUSTFLOAT(48.0f), FAUSTFLOAT(21.0f), FAUSTFLOAT(108.0f), FAUSTFLOAT(0.001f));
+		ui_interface->addHorizontalSlider("reverb_gain", &fHslider2, FAUSTFLOAT(0.137f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.01f));
+		ui_interface->addHorizontalSlider("room_size", &fHslider0, FAUSTFLOAT(0.36f), FAUSTFLOAT(0.005f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.01f));
+		ui_interface->addHorizontalSlider("stiffness", &fHslider4, FAUSTFLOAT(0.28f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.01f));
+		ui_interface->addHorizontalSlider("width", &fHslider8, FAUSTFLOAT(0.5f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.01f));
 		ui_interface->closeBox();
 	}
 	
@@ -1369,407 +1373,405 @@ class synth_piano : public synth_piano_dsp {
 		float fSlow4 = 1.0f - fSlow2;
 		float fSlow5 = std::sqrt(std::max<float>(0.0f, synth_piano_faustpower2_f(fSlow3) / synth_piano_faustpower2_f(fSlow4) + -1.0f));
 		float fSlow6 = fSlow3 / fSlow4;
-		float fSlow7 = fSlow1 * (fSlow5 + 1.0f - fSlow6);
+		float fSlow7 = fSlow1 * (fSlow5 + (1.0f - fSlow6));
 		float fSlow8 = std::exp(fConst5 / fSlow0) / fSlow1 + -1.0f;
 		float fSlow9 = fSlow6 - fSlow5;
 		float fSlow10 = float(fHslider1);
-		float fSlow11 = 12.0f * (1.0f - fSlow10);
+		float fSlow11 = 12.0f * fSlow10;
 		float fSlow12 = fConst11 * float(fHslider2);
 		float fSlow13 = float(fHslider3);
-		float fSlow14 = std::pow(2.0f, 0.0833333358f * (fSlow13 + -69.0f));
-		float fSlow15 = float(getValueEQBandWidthFactor(float(fSlow13)));
+		float fSlow14 = std::pow(2.0f, 0.083333336f * (fSlow13 + -69.0f));
+		float fSlow15 = getValueEQBandWidthFactor(fSlow13);
 		float fSlow16 = synth_piano_faustpower2_f(fSlow14) * synth_piano_faustpower2_f(fSlow15);
 		float fSlow17 = 0.5f - fConst14 * fSlow16;
-		float fSlow18 = float(getValueEQGain(float(fSlow13)));
+		float fSlow18 = getValueEQGain(fSlow13);
 		float fSlow19 = float(fHslider4);
-		float fSlow20 = float(getValueStiffnessCoefficient(float(fSlow13)));
-		float fSlow21 = 13.6899996f * synth_piano_faustpower2_f(fSlow19) * synth_piano_faustpower2_f(fSlow20);
+		float fSlow20 = getValueStiffnessCoefficient(fSlow13);
+		float fSlow21 = 13.69f * synth_piano_faustpower2_f(fSlow19) * synth_piano_faustpower2_f(fSlow20);
 		float fSlow22 = fSlow21 + -1.0f;
-		float fSlow23 = 440.0f * fSlow14;
-		float fSlow24 = 5.0f * float(getValueDetuningHz(float(fSlow13))) * float(fHslider5);
+		float fSlow23 = 4.4e+02f * fSlow14;
+		float fSlow24 = 5.0f * getValueDetuningHz(fSlow13) * float(fHslider5);
 		float fSlow25 = fSlow23 + fSlow24;
 		float fSlow26 = fConst16 * fSlow25;
 		float fSlow27 = std::sin(fSlow26);
 		float fSlow28 = fSlow19 * fSlow20;
-		float fSlow29 = 7.4000001f * fSlow28;
+		float fSlow29 = 7.4f * fSlow28;
 		float fSlow30 = fSlow21 + 1.0f;
 		float fSlow31 = std::cos(fSlow26);
 		float fSlow32 = 3.0f * std::atan2(fSlow22 * fSlow27, fSlow29 + fSlow30 * fSlow31);
-		float fSlow33 = float(getValueSingleStringZero(float(fSlow13)));
-		float fSlow34 = std::pow(10.0f, 0.000113636364f * float(getValueSingleStringDecayRate(float(fSlow13))) / fSlow14);
-		float fSlow35 = float(getValueSingleStringPole(float(fSlow13)));
-		float fSlow36 = 1.0f - fSlow35;
-		float fSlow37 = fSlow33 * fSlow34 * fSlow36;
+		float fSlow33 = getValueSingleStringZero(fSlow13);
+		float fSlow34 = getValueSingleStringPole(fSlow13);
+		float fSlow35 = 1.0f - fSlow34;
+		float fSlow36 = std::pow(1e+01f, 0.000113636364f * (getValueSingleStringDecayRate(fSlow13) / fSlow14));
+		float fSlow37 = fSlow33 * fSlow35 * fSlow36;
 		float fSlow38 = 1.0f - fSlow33;
-		float fSlow39 = fSlow35 * fSlow38;
+		float fSlow39 = fSlow34 * fSlow38;
 		float fSlow40 = 3.0f * fSlow39;
 		float fSlow41 = fSlow37 - fSlow40;
 		float fSlow42 = fSlow39 - fSlow37;
 		float fSlow43 = 4.0f * fSlow42;
 		float fSlow44 = fSlow41 + fSlow43;
-		float fSlow45 = fSlow34 * fSlow36;
+		float fSlow45 = fSlow35 * fSlow36;
 		float fSlow46 = 3.0f * fSlow38 - fSlow45;
-		float fSlow47 = (fSlow31 * fSlow41) / fSlow46 + 1.0f;
+		float fSlow47 = fSlow41 * fSlow31 / fSlow46 + 1.0f;
 		float fSlow48 = fSlow33 + fSlow45 + -1.0f;
 		float fSlow49 = 4.0f * fSlow48;
-		float fSlow50 = (fSlow49 + fSlow31 * fSlow44) / fSlow46 + 1.0f;
-		float fSlow51 = synth_piano_faustpower2_f(fSlow27) * fSlow41;
-		float fSlow52 = synth_piano_faustpower2_f(fSlow46);
-		float fSlow53 = fConst15 * (fSlow32 + std::atan2((0.0f - (fSlow27 * fSlow44) / fSlow46) * fSlow47 + (fSlow27 * fSlow41 * fSlow50) / fSlow46, fSlow47 * fSlow50 + (fSlow51 * fSlow44) / fSlow52) + 6.28318548f) / fSlow25;
-		float fSlow54 = std::floor(fSlow53);
-		float fSlow55 = fSlow53 - fSlow54;
-		float fSlow56 = float(fButton0);
-		int iSlow57 = fSlow56 > 0.0f;
-		float fSlow58 = float(iSlow57);
-		float fSlow59 = float(0 - (iSlow57 + -1));
-		float fSlow60 = fConst11 * (0.999599993f * fSlow58 + 0.899999976f * float(getValueReleaseLoopGain(float(fSlow13))) * fSlow59);
-		float fSlow61 = float(getValueDCBa1(float(fSlow13)));
-		float fSlow62 = 1.0f - fSlow61;
-		float fSlow63 = 0.5f * fSlow62;
-		float fSlow64 = 0.25f * float(fHslider6);
-		float fSlow65 = float(getValueLoudPole(float(fSlow13)));
-		float fSlow66 = float(getValueLoudGain(float(fSlow13))) * (fSlow64 + 0.980000019f - fSlow65);
-		float fSlow67 = 1.62981451e-09f * fSlow66 * float(fSlow13 < 45.0f);
-		int iSlow68 = iSlow57 > 0;
-		float fSlow69 = std::exp(0.0f - fConst17 / (float(getValueDryTapAmpT60(float(fSlow13))) * std::min<float>(1.0f, std::max<float>(0.0f, fSlow56))));
-		int iSlow70 = iSlow57 < 1;
-		float fSlow71 = fConst18 * fSlow59;
-		float fSlow72 = float(fHslider7);
-		float fSlow73 = fSlow58 * std::exp(0.0f - fConst19 / fSlow72);
-		float fSlow74 = fConst20 * fSlow72;
-		float fSlow75 = 0.200000003f * float(getValueSustainPedalLevel(float(fSlow13)));
-		float fSlow76 = fSlow65 + 0.0199999996f - fSlow64;
-		float fSlow77 = 0.0f - fSlow63;
-		float fSlow78 = 3.70000005f * fSlow28;
-		float fSlow79 = (fSlow37 + fSlow43) - fSlow40;
-		float fSlow80 = (fSlow49 + fSlow31 * fSlow79) / fSlow46 + 1.0f;
-		int iSlow81 = int(fConst15 * (fSlow32 + std::atan2(0.0f - (fSlow27 * (fSlow79 * fSlow47 - fSlow41 * fSlow80)) / fSlow46, fSlow47 * fSlow80 + (fSlow51 * fSlow79) / fSlow52) + 6.28318548f) / fSlow25);
-		int iSlow82 = std::min<int>(4097, std::max<int>(0, iSlow81 + 1));
-		float fSlow83 = 1.0f / fSlow46;
-		float fSlow84 = fSlow23 - fSlow24;
-		float fSlow85 = fConst16 * fSlow84;
-		float fSlow86 = std::sin(fSlow85);
-		float fSlow87 = std::cos(fSlow85);
-		float fSlow88 = 3.0f * std::atan2(fSlow22 * fSlow86, fSlow29 + fSlow30 * fSlow87);
-		float fSlow89 = (fSlow87 * fSlow41) / fSlow46 + 1.0f;
-		float fSlow90 = (fSlow87 * fSlow44 + fSlow49) / fSlow46 + 1.0f;
-		float fSlow91 = synth_piano_faustpower2_f(fSlow86) * fSlow41;
-		float fSlow92 = fConst15 * (fSlow88 + std::atan2((0.0f - (fSlow86 * fSlow44) / fSlow46) * fSlow89 + (fSlow86 * fSlow41 * fSlow90) / fSlow46, fSlow89 * fSlow90 + (fSlow91 * fSlow44) / fSlow52) + 6.28318548f) / fSlow84;
-		float fSlow93 = std::floor(fSlow92);
-		float fSlow94 = fSlow93 + 1.0f - fSlow92;
-		float fSlow95 = (fSlow49 + fSlow87 * fSlow79) / fSlow46 + 1.0f;
-		int iSlow96 = int(fConst15 * (fSlow88 + std::atan2(0.0f - (fSlow86 * (fSlow89 * fSlow79 - fSlow41 * fSlow95)) / fSlow46, fSlow89 * fSlow95 + (fSlow91 * fSlow79) / fSlow52) + 6.28318548f) / fSlow84);
-		int iSlow97 = std::min<int>(4097, std::max<int>(0, iSlow96));
-		float fSlow98 = fSlow92 - fSlow93;
-		int iSlow99 = std::min<int>(4097, std::max<int>(0, iSlow96 + 1));
-		float fSlow100 = fSlow54 + 1.0f - fSlow53;
-		int iSlow101 = std::min<int>(4097, std::max<int>(0, iSlow81));
-		float fSlow102 = (0.0f - fConst22 * fSlow14 * fSlow15) * std::cos(fConst23 * fSlow14 / float(getValueStrikePosition(float(fSlow13))));
-		float fSlow103 = fConst24 * fSlow16;
-		float fSlow104 = fSlow14 + std::pow(2.0f, 0.0833333358f * (fSlow13 + -129.0f));
-		float fSlow105 = 440.0f * fSlow104;
-		float fSlow106 = fSlow24 + fSlow105;
-		float fSlow107 = fConst16 * fSlow106;
-		float fSlow108 = std::sin(fSlow107);
-		float fSlow109 = std::cos(fSlow107);
-		float fSlow110 = 3.0f * std::atan2(fSlow22 * fSlow108, fSlow29 + fSlow30 * fSlow109);
-		float fSlow111 = (fSlow109 * fSlow41) / fSlow46 + 1.0f;
-		float fSlow112 = (fSlow49 + fSlow109 * fSlow44) / fSlow46 + 1.0f;
-		float fSlow113 = synth_piano_faustpower2_f(fSlow108) * fSlow41;
-		float fSlow114 = fConst15 * (fSlow110 + std::atan2((0.0f - (fSlow108 * fSlow44) / fSlow46) * fSlow111 + (fSlow108 * fSlow41 * fSlow112) / fSlow46, fSlow111 * fSlow112 + (fSlow113 * fSlow44) / fSlow52) + 6.28318548f) / fSlow106;
-		float fSlow115 = std::floor(fSlow114);
-		float fSlow116 = fSlow114 - fSlow115;
-		float fSlow117 = 1.16415322e-09f * fSlow66 * float((fSlow13 >= 45.0f) & (fSlow13 < 88.0f));
-		float fSlow118 = (fSlow49 + fSlow109 * fSlow79) / fSlow46 + 1.0f;
-		int iSlow119 = int(fConst15 * (fSlow110 + std::atan2(0.0f - (fSlow108 * (fSlow79 * fSlow111 - fSlow41 * fSlow118)) / fSlow46, fSlow111 * fSlow118 + (fSlow113 * fSlow79) / fSlow52) + 6.28318548f) / fSlow106);
-		int iSlow120 = std::min<int>(4097, std::max<int>(0, iSlow119 + 1));
-		float fSlow121 = fSlow105 - fSlow24;
-		float fSlow122 = fConst16 * fSlow121;
-		float fSlow123 = std::sin(fSlow122);
-		float fSlow124 = std::cos(fSlow122);
-		float fSlow125 = 3.0f * std::atan2(fSlow22 * fSlow123, fSlow29 + fSlow30 * fSlow124);
-		float fSlow126 = (fSlow124 * fSlow41) / fSlow46 + 1.0f;
-		float fSlow127 = (fSlow49 + fSlow124 * fSlow44) / fSlow46 + 1.0f;
-		float fSlow128 = synth_piano_faustpower2_f(fSlow123) * fSlow41;
-		float fSlow129 = fConst15 * (fSlow125 + std::atan2((0.0f - (fSlow123 * fSlow44) / fSlow46) * fSlow126 + (fSlow123 * fSlow41 * fSlow127) / fSlow46, fSlow126 * fSlow127 + (fSlow128 * fSlow44) / fSlow52) + 6.28318548f) / fSlow121;
-		float fSlow130 = std::floor(fSlow129);
-		float fSlow131 = fSlow129 - fSlow130;
-		float fSlow132 = (fSlow49 + fSlow124 * fSlow79) / fSlow46 + 1.0f;
-		int iSlow133 = int(fConst15 * (fSlow125 + std::atan2(0.0f - (fSlow123 * (fSlow79 * fSlow126 - fSlow41 * fSlow132)) / fSlow46, fSlow126 * fSlow132 + (fSlow128 * fSlow79) / fSlow52) + 6.28318548f) / fSlow121);
-		int iSlow134 = std::min<int>(4097, std::max<int>(0, iSlow133 + 1));
-		float fSlow135 = fConst23 * fSlow104;
-		float fSlow136 = std::sin(fSlow135);
-		float fSlow137 = std::cos(fSlow135);
-		float fSlow138 = 3.0f * std::atan2(fSlow22 * fSlow136, fSlow29 + fSlow30 * fSlow137);
-		float fSlow139 = (fSlow137 * fSlow41) / fSlow46 + 1.0f;
-		float fSlow140 = (fSlow49 + fSlow137 * fSlow44) / fSlow46 + 1.0f;
-		float fSlow141 = synth_piano_faustpower2_f(fSlow136) * fSlow41;
-		float fSlow142 = fConst25 * (fSlow138 + std::atan2((0.0f - (fSlow136 * fSlow44) / fSlow46) * fSlow139 + (fSlow136 * fSlow41 * fSlow140) / fSlow46, fSlow139 * fSlow140 + (fSlow141 * fSlow44) / fSlow52) + 6.28318548f) / fSlow104;
-		float fSlow143 = std::floor(fSlow142);
-		float fSlow144 = fSlow143 + 1.0f - fSlow142;
-		float fSlow145 = (fSlow49 + fSlow137 * fSlow79) / fSlow46 + 1.0f;
-		int iSlow146 = int(fConst25 * (fSlow138 + std::atan2(0.0f - (fSlow136 * (fSlow79 * fSlow139 - fSlow41 * fSlow145)) / fSlow46, fSlow139 * fSlow145 + (fSlow141 * fSlow79) / fSlow52) + 6.28318548f) / fSlow104);
-		int iSlow147 = std::min<int>(4097, std::max<int>(0, iSlow146));
-		float fSlow148 = fSlow142 - fSlow143;
-		int iSlow149 = std::min<int>(4097, std::max<int>(0, iSlow146 + 1));
-		float fSlow150 = fSlow130 + 1.0f - fSlow129;
-		int iSlow151 = std::min<int>(4097, std::max<int>(0, iSlow133));
-		float fSlow152 = fSlow115 + 1.0f - fSlow114;
-		int iSlow153 = std::min<int>(4097, std::max<int>(0, iSlow119));
-		float fSlow154 = std::cos(fConst23 * fSlow14);
-		float fSlow155 = std::pow(10.0f, 0.0500000007f * float(getValueSecondStageAmpRatio(float(fSlow13))));
-		float fSlow156 = std::pow(10.0f, fConst26 * float(getValuer1_1db(float(fSlow13))));
-		float fSlow157 = std::pow(10.0f, fConst26 * float(getValuer1_2db(float(fSlow13))));
-		float fSlow158 = 1.0f - fSlow155;
-		float fSlow159 = 0.0f - 2.0f * (fSlow155 * fSlow156 + fSlow157 * fSlow158);
-		float fSlow160 = float(getValueBq4_gEarBalled(float(fSlow13)));
-		float fSlow161 = 2.0f * fSlow160;
-		float fSlow162 = float(fSlow13 >= 88.0f);
-		float fSlow163 = 2.32830644e-10f * fSlow162;
-		float fSlow164 = 1.16415322e-10f * fSlow162;
-		float fSlow165 = std::pow(10.0f, fConst26 * float(getValuer3db(float(fSlow13))));
-		float fSlow166 = std::cos(fConst23 * fSlow14 * float(getValueThirdPartialFactor(float(fSlow13)))) * (0.0f - 2.0f * fSlow165);
-		float fSlow167 = synth_piano_faustpower2_f(fSlow165);
-		float fSlow168 = std::pow(10.0f, fConst26 * float(getValuer2db(float(fSlow13))));
-		float fSlow169 = std::cos(fConst23 * fSlow14 * float(getValueSecondPartialFactor(float(fSlow13)))) * (0.0f - 2.0f * fSlow168);
-		float fSlow170 = synth_piano_faustpower2_f(fSlow168);
-		float fSlow171 = fSlow154 * (0.0f - 2.0f * fSlow156);
-		float fSlow172 = synth_piano_faustpower2_f(fSlow156);
-		float fSlow173 = 0.0f - 2.0f * fSlow157;
-		float fSlow174 = synth_piano_faustpower2_f(fSlow157);
-		float fSlow175 = fSlow155 * fSlow172 + fSlow174 * fSlow158;
-		float fSlow176 = std::exp(fConst31 / fSlow0);
-		float fSlow177 = synth_piano_faustpower2_f(fSlow176);
-		float fSlow178 = 1.0f - fConst4 * fSlow177;
-		float fSlow179 = 1.0f - fSlow177;
-		float fSlow180 = std::sqrt(std::max<float>(0.0f, synth_piano_faustpower2_f(fSlow178) / synth_piano_faustpower2_f(fSlow179) + -1.0f));
-		float fSlow181 = fSlow178 / fSlow179;
-		float fSlow182 = fSlow176 * (fSlow180 + 1.0f - fSlow181);
-		float fSlow183 = std::exp(fConst32 / fSlow0) / fSlow176 + -1.0f;
-		float fSlow184 = fSlow181 - fSlow180;
-		float fSlow185 = 12.0f * fSlow10;
-		int iSlow186 = int(std::min<float>(4096.0f, std::max<float>(0.0f, fConst35 * float(fHslider8) / fSlow14)));
-		float fSlow187 = std::exp(fConst39 / fSlow0);
-		float fSlow188 = synth_piano_faustpower2_f(fSlow187);
-		float fSlow189 = 1.0f - fConst4 * fSlow188;
-		float fSlow190 = 1.0f - fSlow188;
-		float fSlow191 = std::sqrt(std::max<float>(0.0f, synth_piano_faustpower2_f(fSlow189) / synth_piano_faustpower2_f(fSlow190) + -1.0f));
-		float fSlow192 = fSlow189 / fSlow190;
-		float fSlow193 = fSlow187 * (fSlow191 + 1.0f - fSlow192);
-		float fSlow194 = std::exp(fConst40 / fSlow0) / fSlow187 + -1.0f;
-		float fSlow195 = fSlow192 - fSlow191;
-		float fSlow196 = std::exp(fConst46 / fSlow0);
-		float fSlow197 = synth_piano_faustpower2_f(fSlow196);
-		float fSlow198 = 1.0f - fConst4 * fSlow197;
-		float fSlow199 = 1.0f - fSlow197;
-		float fSlow200 = std::sqrt(std::max<float>(0.0f, synth_piano_faustpower2_f(fSlow198) / synth_piano_faustpower2_f(fSlow199) + -1.0f));
-		float fSlow201 = fSlow198 / fSlow199;
-		float fSlow202 = fSlow196 * (fSlow200 + 1.0f - fSlow201);
-		float fSlow203 = std::exp(fConst47 / fSlow0) / fSlow196 + -1.0f;
-		float fSlow204 = fSlow201 - fSlow200;
-		float fSlow205 = std::exp(fConst53 / fSlow0);
-		float fSlow206 = synth_piano_faustpower2_f(fSlow205);
-		float fSlow207 = 1.0f - fConst4 * fSlow206;
-		float fSlow208 = 1.0f - fSlow206;
-		float fSlow209 = std::sqrt(std::max<float>(0.0f, synth_piano_faustpower2_f(fSlow207) / synth_piano_faustpower2_f(fSlow208) + -1.0f));
-		float fSlow210 = fSlow207 / fSlow208;
-		float fSlow211 = fSlow205 * (fSlow209 + 1.0f - fSlow210);
-		float fSlow212 = std::exp(fConst54 / fSlow0) / fSlow205 + -1.0f;
-		float fSlow213 = fSlow210 - fSlow209;
-		float fSlow214 = std::exp(fConst60 / fSlow0);
-		float fSlow215 = synth_piano_faustpower2_f(fSlow214);
-		float fSlow216 = 1.0f - fConst4 * fSlow215;
-		float fSlow217 = 1.0f - fSlow215;
-		float fSlow218 = std::sqrt(std::max<float>(0.0f, synth_piano_faustpower2_f(fSlow216) / synth_piano_faustpower2_f(fSlow217) + -1.0f));
-		float fSlow219 = fSlow216 / fSlow217;
-		float fSlow220 = fSlow214 * (fSlow218 + 1.0f - fSlow219);
-		float fSlow221 = std::exp(fConst61 / fSlow0) / fSlow214 + -1.0f;
-		float fSlow222 = fSlow219 - fSlow218;
-		float fSlow223 = std::exp(fConst67 / fSlow0);
-		float fSlow224 = synth_piano_faustpower2_f(fSlow223);
-		float fSlow225 = 1.0f - fConst4 * fSlow224;
-		float fSlow226 = 1.0f - fSlow224;
-		float fSlow227 = std::sqrt(std::max<float>(0.0f, synth_piano_faustpower2_f(fSlow225) / synth_piano_faustpower2_f(fSlow226) + -1.0f));
-		float fSlow228 = fSlow225 / fSlow226;
-		float fSlow229 = fSlow223 * (fSlow227 + 1.0f - fSlow228);
-		float fSlow230 = std::exp(fConst68 / fSlow0) / fSlow223 + -1.0f;
-		float fSlow231 = fSlow228 - fSlow227;
-		float fSlow232 = std::exp(fConst74 / fSlow0);
-		float fSlow233 = synth_piano_faustpower2_f(fSlow232);
-		float fSlow234 = 1.0f - fConst4 * fSlow233;
-		float fSlow235 = 1.0f - fSlow233;
-		float fSlow236 = std::sqrt(std::max<float>(0.0f, synth_piano_faustpower2_f(fSlow234) / synth_piano_faustpower2_f(fSlow235) + -1.0f));
-		float fSlow237 = fSlow234 / fSlow235;
-		float fSlow238 = fSlow232 * (fSlow236 + 1.0f - fSlow237);
-		float fSlow239 = std::exp(fConst75 / fSlow0) / fSlow232 + -1.0f;
-		float fSlow240 = fSlow237 - fSlow236;
+		float fSlow50 = (fSlow49 + fSlow44 * fSlow31) / fSlow46 + 1.0f;
+		float fSlow51 = fSlow41 * fSlow44;
+		float fSlow52 = synth_piano_faustpower2_f(fSlow27);
+		float fSlow53 = synth_piano_faustpower2_f(fSlow46);
+		float fSlow54 = fConst15 * ((fSlow32 + std::atan2((0.0f - fSlow44 * fSlow27 / fSlow46) * fSlow47 + fSlow41 * fSlow27 * fSlow50 / fSlow46, fSlow47 * fSlow50 + fSlow51 * fSlow52 / fSlow53) + 6.2831855f) / fSlow25);
+		float fSlow55 = std::floor(fSlow54);
+		float fSlow56 = fSlow54 - fSlow55;
+		float fSlow57 = float(fButton0);
+		int iSlow58 = fSlow57 > 0.0f;
+		float fSlow59 = float(iSlow58);
+		float fSlow60 = float(0 - (iSlow58 + -1));
+		float fSlow61 = fConst11 * (0.9996f * fSlow59 + 0.9f * getValueReleaseLoopGain(fSlow13) * fSlow60);
+		float fSlow62 = getValueDCBa1(fSlow13);
+		float fSlow63 = 1.0f - fSlow62;
+		float fSlow64 = 0.5f * fSlow63;
+		float fSlow65 = 0.25f * float(fHslider6);
+		float fSlow66 = getValueLoudPole(fSlow13);
+		float fSlow67 = getValueLoudGain(fSlow13) * (fSlow65 + (0.98f - fSlow66));
+		float fSlow68 = 1.6298145e-09f * fSlow67 * float(fSlow13 < 45.0f);
+		int iSlow69 = iSlow58 > 0;
+		float fSlow70 = std::exp(0.0f - fConst17 / (getValueDryTapAmpT60(fSlow13) * std::min<float>(1.0f, std::max<float>(0.0f, fSlow57))));
+		int iSlow71 = iSlow58 < 1;
+		float fSlow72 = fConst18 * fSlow60;
+		float fSlow73 = float(fHslider7);
+		float fSlow74 = fSlow59 * std::exp(0.0f - fConst19 / fSlow73);
+		float fSlow75 = fConst20 * fSlow73;
+		float fSlow76 = 0.2f * getValueSustainPedalLevel(fSlow13);
+		float fSlow77 = fSlow66 + (0.02f - fSlow65);
+		float fSlow78 = 0.0f - fSlow64;
+		float fSlow79 = 3.7f * fSlow28;
+		float fSlow80 = fSlow37 + fSlow43 - fSlow40;
+		float fSlow81 = (fSlow49 + fSlow80 * fSlow31) / fSlow46 + 1.0f;
+		float fSlow82 = fSlow41 * fSlow80;
+		int iSlow83 = int(fConst15 * ((fSlow32 + std::atan2(0.0f - fSlow27 * (fSlow80 * fSlow47 - fSlow41 * fSlow81) / fSlow46, fSlow47 * fSlow81 + fSlow82 * fSlow52 / fSlow53) + 6.2831855f) / fSlow25));
+		int iSlow84 = std::min<int>(4097, std::max<int>(0, iSlow83 + 1));
+		float fSlow85 = 1.0f / fSlow46;
+		float fSlow86 = fSlow23 - fSlow24;
+		float fSlow87 = fConst16 * fSlow86;
+		float fSlow88 = std::sin(fSlow87);
+		float fSlow89 = std::cos(fSlow87);
+		float fSlow90 = 3.0f * std::atan2(fSlow22 * fSlow88, fSlow29 + fSlow30 * fSlow89);
+		float fSlow91 = fSlow89 * fSlow41 / fSlow46 + 1.0f;
+		float fSlow92 = (fSlow89 * fSlow44 + fSlow49) / fSlow46 + 1.0f;
+		float fSlow93 = synth_piano_faustpower2_f(fSlow88) * fSlow41;
+		float fSlow94 = fConst15 * ((fSlow90 + std::atan2((0.0f - fSlow88 * fSlow44 / fSlow46) * fSlow91 + fSlow88 * fSlow41 * fSlow92 / fSlow46, fSlow91 * fSlow92 + fSlow93 * fSlow44 / fSlow53) + 6.2831855f) / fSlow86);
+		float fSlow95 = std::floor(fSlow94);
+		float fSlow96 = fSlow94 - fSlow95;
+		float fSlow97 = (fSlow49 + fSlow89 * fSlow80) / fSlow46 + 1.0f;
+		int iSlow98 = int(fConst15 * ((fSlow90 + std::atan2(0.0f - fSlow88 * (fSlow91 * fSlow80 - fSlow41 * fSlow97) / fSlow46, fSlow91 * fSlow97 + fSlow93 * fSlow80 / fSlow53) + 6.2831855f) / fSlow86));
+		int iSlow99 = std::min<int>(4097, std::max<int>(0, iSlow98 + 1));
+		float fSlow100 = fSlow95 + (1.0f - fSlow94);
+		int iSlow101 = std::min<int>(4097, std::max<int>(0, iSlow98));
+		float fSlow102 = fSlow55 + (1.0f - fSlow54);
+		int iSlow103 = std::min<int>(4097, std::max<int>(0, iSlow83));
+		float fSlow104 = (0.0f - fConst22 * fSlow14 * fSlow15) * std::cos(fConst23 * (fSlow14 / getValueStrikePosition(fSlow13)));
+		float fSlow105 = fConst24 * fSlow16;
+		float fSlow106 = fSlow14 + std::pow(2.0f, 0.083333336f * (fSlow13 + -129.0f));
+		float fSlow107 = 4.4e+02f * fSlow106;
+		float fSlow108 = fSlow24 + fSlow107;
+		float fSlow109 = fConst16 * fSlow108;
+		float fSlow110 = std::sin(fSlow109);
+		float fSlow111 = std::cos(fSlow109);
+		float fSlow112 = 3.0f * std::atan2(fSlow22 * fSlow110, fSlow29 + fSlow30 * fSlow111);
+		float fSlow113 = fSlow41 * fSlow111 / fSlow46 + 1.0f;
+		float fSlow114 = (fSlow49 + fSlow44 * fSlow111) / fSlow46 + 1.0f;
+		float fSlow115 = synth_piano_faustpower2_f(fSlow110);
+		float fSlow116 = fConst15 * ((fSlow112 + std::atan2((0.0f - fSlow44 * fSlow110 / fSlow46) * fSlow113 + fSlow41 * fSlow110 * fSlow114 / fSlow46, fSlow113 * fSlow114 + fSlow51 * fSlow115 / fSlow53) + 6.2831855f) / fSlow108);
+		float fSlow117 = std::floor(fSlow116);
+		float fSlow118 = fSlow116 - fSlow117;
+		float fSlow119 = 1.1641532e-09f * fSlow67 * float((fSlow13 >= 45.0f) & (fSlow13 < 88.0f));
+		float fSlow120 = (fSlow49 + fSlow80 * fSlow111) / fSlow46 + 1.0f;
+		int iSlow121 = int(fConst15 * ((fSlow112 + std::atan2(0.0f - fSlow110 * (fSlow80 * fSlow113 - fSlow41 * fSlow120) / fSlow46, fSlow113 * fSlow120 + fSlow82 * fSlow115 / fSlow53) + 6.2831855f) / fSlow108));
+		int iSlow122 = std::min<int>(4097, std::max<int>(0, iSlow121 + 1));
+		float fSlow123 = fConst23 * fSlow106;
+		float fSlow124 = std::sin(fSlow123);
+		float fSlow125 = std::cos(fSlow123);
+		float fSlow126 = 3.0f * std::atan2(fSlow22 * fSlow124, fSlow29 + fSlow30 * fSlow125);
+		float fSlow127 = fSlow41 * fSlow125 / fSlow46 + 1.0f;
+		float fSlow128 = (fSlow49 + fSlow44 * fSlow125) / fSlow46 + 1.0f;
+		float fSlow129 = synth_piano_faustpower2_f(fSlow124);
+		float fSlow130 = fConst25 * ((fSlow126 + std::atan2((0.0f - fSlow44 * fSlow124 / fSlow46) * fSlow127 + fSlow41 * fSlow124 * fSlow128 / fSlow46, fSlow127 * fSlow128 + fSlow51 * fSlow129 / fSlow53) + 6.2831855f) / fSlow106);
+		float fSlow131 = std::floor(fSlow130);
+		float fSlow132 = fSlow130 - fSlow131;
+		float fSlow133 = (fSlow49 + fSlow80 * fSlow125) / fSlow46 + 1.0f;
+		int iSlow134 = int(fConst25 * ((fSlow126 + std::atan2(0.0f - fSlow124 * (fSlow80 * fSlow127 - fSlow41 * fSlow133) / fSlow46, fSlow127 * fSlow133 + fSlow82 * fSlow129 / fSlow53) + 6.2831855f) / fSlow106));
+		int iSlow135 = std::min<int>(4097, std::max<int>(0, iSlow134 + 1));
+		float fSlow136 = fSlow131 + (1.0f - fSlow130);
+		int iSlow137 = std::min<int>(4097, std::max<int>(0, iSlow134));
+		float fSlow138 = fSlow107 - fSlow24;
+		float fSlow139 = fConst16 * fSlow138;
+		float fSlow140 = std::sin(fSlow139);
+		float fSlow141 = std::cos(fSlow139);
+		float fSlow142 = 3.0f * std::atan2(fSlow22 * fSlow140, fSlow29 + fSlow30 * fSlow141);
+		float fSlow143 = fSlow41 * fSlow141 / fSlow46 + 1.0f;
+		float fSlow144 = (fSlow49 + fSlow44 * fSlow141) / fSlow46 + 1.0f;
+		float fSlow145 = synth_piano_faustpower2_f(fSlow140);
+		float fSlow146 = fConst15 * ((fSlow142 + std::atan2((0.0f - fSlow44 * fSlow140 / fSlow46) * fSlow143 + fSlow41 * fSlow140 * fSlow144 / fSlow46, fSlow143 * fSlow144 + fSlow51 * fSlow145 / fSlow53) + 6.2831855f) / fSlow138);
+		float fSlow147 = std::floor(fSlow146);
+		float fSlow148 = fSlow147 + (1.0f - fSlow146);
+		float fSlow149 = (fSlow49 + fSlow80 * fSlow141) / fSlow46 + 1.0f;
+		int iSlow150 = int(fConst15 * ((fSlow142 + std::atan2(0.0f - fSlow140 * (fSlow80 * fSlow143 - fSlow41 * fSlow149) / fSlow46, fSlow143 * fSlow149 + fSlow82 * fSlow145 / fSlow53) + 6.2831855f) / fSlow138));
+		int iSlow151 = std::min<int>(4097, std::max<int>(0, iSlow150));
+		float fSlow152 = fSlow146 - fSlow147;
+		int iSlow153 = std::min<int>(4097, std::max<int>(0, iSlow150 + 1));
+		float fSlow154 = fSlow117 + (1.0f - fSlow116);
+		int iSlow155 = std::min<int>(4097, std::max<int>(0, iSlow121));
+		float fSlow156 = std::cos(fConst23 * fSlow14);
+		float fSlow157 = std::pow(1e+01f, 0.05f * getValueSecondStageAmpRatio(fSlow13));
+		float fSlow158 = std::pow(1e+01f, fConst26 * getValuer1_1db(fSlow13));
+		float fSlow159 = 1.0f - fSlow157;
+		float fSlow160 = std::pow(1e+01f, fConst26 * getValuer1_2db(fSlow13));
+		float fSlow161 = 0.0f - 2.0f * (fSlow157 * fSlow158 + fSlow159 * fSlow160);
+		float fSlow162 = getValueBq4_gEarBalled(fSlow13);
+		float fSlow163 = 2.0f * fSlow162;
+		float fSlow164 = float(fSlow13 >= 88.0f);
+		float fSlow165 = 2.3283064e-10f * fSlow164;
+		float fSlow166 = 1.1641532e-10f * fSlow164;
+		float fSlow167 = std::pow(1e+01f, fConst26 * getValuer3db(fSlow13));
+		float fSlow168 = (0.0f - 2.0f * fSlow167) * std::cos(fConst23 * fSlow14 * getValueThirdPartialFactor(fSlow13));
+		float fSlow169 = synth_piano_faustpower2_f(fSlow167);
+		float fSlow170 = std::pow(1e+01f, fConst26 * getValuer2db(fSlow13));
+		float fSlow171 = (0.0f - 2.0f * fSlow170) * std::cos(fConst23 * fSlow14 * getValueSecondPartialFactor(fSlow13));
+		float fSlow172 = synth_piano_faustpower2_f(fSlow170);
+		float fSlow173 = (0.0f - 2.0f * fSlow158) * fSlow156;
+		float fSlow174 = synth_piano_faustpower2_f(fSlow158);
+		float fSlow175 = 0.0f - 2.0f * fSlow160;
+		float fSlow176 = synth_piano_faustpower2_f(fSlow160);
+		float fSlow177 = fSlow157 * fSlow174 + fSlow159 * fSlow176;
+		int iSlow178 = int(std::min<float>(4096.0f, std::max<float>(0.0f, fConst27 * (float(fHslider8) / fSlow14))));
+		float fSlow179 = std::exp(fConst32 / fSlow0);
+		float fSlow180 = synth_piano_faustpower2_f(fSlow179);
+		float fSlow181 = 1.0f - fConst4 * fSlow180;
+		float fSlow182 = 1.0f - fSlow180;
+		float fSlow183 = std::sqrt(std::max<float>(0.0f, synth_piano_faustpower2_f(fSlow181) / synth_piano_faustpower2_f(fSlow182) + -1.0f));
+		float fSlow184 = fSlow181 / fSlow182;
+		float fSlow185 = fSlow179 * (fSlow183 + (1.0f - fSlow184));
+		float fSlow186 = std::exp(fConst33 / fSlow0) / fSlow179 + -1.0f;
+		float fSlow187 = fSlow184 - fSlow183;
+		float fSlow188 = 12.0f * (1.0f - fSlow10);
+		float fSlow189 = std::exp(fConst39 / fSlow0);
+		float fSlow190 = synth_piano_faustpower2_f(fSlow189);
+		float fSlow191 = 1.0f - fConst4 * fSlow190;
+		float fSlow192 = 1.0f - fSlow190;
+		float fSlow193 = std::sqrt(std::max<float>(0.0f, synth_piano_faustpower2_f(fSlow191) / synth_piano_faustpower2_f(fSlow192) + -1.0f));
+		float fSlow194 = fSlow191 / fSlow192;
+		float fSlow195 = fSlow189 * (fSlow193 + (1.0f - fSlow194));
+		float fSlow196 = std::exp(fConst40 / fSlow0) / fSlow189 + -1.0f;
+		float fSlow197 = fSlow194 - fSlow193;
+		float fSlow198 = std::exp(fConst46 / fSlow0);
+		float fSlow199 = synth_piano_faustpower2_f(fSlow198);
+		float fSlow200 = 1.0f - fConst4 * fSlow199;
+		float fSlow201 = 1.0f - fSlow199;
+		float fSlow202 = std::sqrt(std::max<float>(0.0f, synth_piano_faustpower2_f(fSlow200) / synth_piano_faustpower2_f(fSlow201) + -1.0f));
+		float fSlow203 = fSlow200 / fSlow201;
+		float fSlow204 = fSlow198 * (fSlow202 + (1.0f - fSlow203));
+		float fSlow205 = std::exp(fConst47 / fSlow0) / fSlow198 + -1.0f;
+		float fSlow206 = fSlow203 - fSlow202;
+		float fSlow207 = std::exp(fConst53 / fSlow0);
+		float fSlow208 = synth_piano_faustpower2_f(fSlow207);
+		float fSlow209 = 1.0f - fConst4 * fSlow208;
+		float fSlow210 = 1.0f - fSlow208;
+		float fSlow211 = std::sqrt(std::max<float>(0.0f, synth_piano_faustpower2_f(fSlow209) / synth_piano_faustpower2_f(fSlow210) + -1.0f));
+		float fSlow212 = fSlow209 / fSlow210;
+		float fSlow213 = fSlow207 * (fSlow211 + (1.0f - fSlow212));
+		float fSlow214 = std::exp(fConst54 / fSlow0) / fSlow207 + -1.0f;
+		float fSlow215 = fSlow212 - fSlow211;
+		float fSlow216 = std::exp(fConst60 / fSlow0);
+		float fSlow217 = synth_piano_faustpower2_f(fSlow216);
+		float fSlow218 = 1.0f - fConst4 * fSlow217;
+		float fSlow219 = 1.0f - fSlow217;
+		float fSlow220 = std::sqrt(std::max<float>(0.0f, synth_piano_faustpower2_f(fSlow218) / synth_piano_faustpower2_f(fSlow219) + -1.0f));
+		float fSlow221 = fSlow218 / fSlow219;
+		float fSlow222 = fSlow216 * (fSlow220 + (1.0f - fSlow221));
+		float fSlow223 = std::exp(fConst61 / fSlow0) / fSlow216 + -1.0f;
+		float fSlow224 = fSlow221 - fSlow220;
+		float fSlow225 = std::exp(fConst67 / fSlow0);
+		float fSlow226 = synth_piano_faustpower2_f(fSlow225);
+		float fSlow227 = 1.0f - fConst4 * fSlow226;
+		float fSlow228 = 1.0f - fSlow226;
+		float fSlow229 = std::sqrt(std::max<float>(0.0f, synth_piano_faustpower2_f(fSlow227) / synth_piano_faustpower2_f(fSlow228) + -1.0f));
+		float fSlow230 = fSlow227 / fSlow228;
+		float fSlow231 = fSlow225 * (fSlow229 + (1.0f - fSlow230));
+		float fSlow232 = std::exp(fConst68 / fSlow0) / fSlow225 + -1.0f;
+		float fSlow233 = fSlow230 - fSlow229;
+		float fSlow234 = std::exp(fConst74 / fSlow0);
+		float fSlow235 = synth_piano_faustpower2_f(fSlow234);
+		float fSlow236 = 1.0f - fConst4 * fSlow235;
+		float fSlow237 = 1.0f - fSlow235;
+		float fSlow238 = std::sqrt(std::max<float>(0.0f, synth_piano_faustpower2_f(fSlow236) / synth_piano_faustpower2_f(fSlow237) + -1.0f));
+		float fSlow239 = fSlow236 / fSlow237;
+		float fSlow240 = fSlow234 * (fSlow238 + (1.0f - fSlow239));
+		float fSlow241 = std::exp(fConst75 / fSlow0) / fSlow234 + -1.0f;
+		float fSlow242 = fSlow239 - fSlow238;
 		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
-			fRec11[0] = 0.0f - fConst7 * (fConst8 * fRec11[1] - (fRec0[1] + fRec0[2]));
-			fRec10[0] = fSlow7 * (fRec0[1] + fSlow8 * fRec11[0]) + fSlow9 * fRec10[1];
-			fVec0[IOTA0 & 16383] = 0.353553385f * fRec10[0] + 9.99999968e-21f;
+			fRec11[0] = 0.0f - fConst7 * (fConst8 * fRec11[1] - (fRec1[1] + fRec1[2]));
+			fRec10[0] = fSlow7 * (fRec1[1] + fSlow8 * fRec11[0]) + fSlow9 * fRec10[1];
+			fVec0[IOTA0 & 32767] = 0.35355338f * fRec10[0] + 1e-20f;
 			fRec12[0] = fSlow12 + fConst12 * fRec12[1];
-			fRec20[0] = fSlow60 + fConst12 * fRec20[1];
+			fRec20[0] = fSlow61 + fConst12 * fRec20[1];
 			iRec26[0] = 1103515245 * iRec26[1] + 12345;
-			iRec28[0] = iSlow57 * iRec28[1] + 1;
+			iRec28[0] = iSlow58 * iRec28[1] + 1;
 			float fTemp0 = float(iRec28[0] + -1);
-			float fTemp1 = float((fTemp0 < 2.0f) & iSlow68);
-			float fTemp2 = 0.0301973838f * fTemp1 + fSlow69 * float((fTemp0 >= 2.0f) | iSlow70);
-			fRec27[0] = fRec27[1] * fTemp2 + 0.150000006f * fTemp1 * (1.0f - fTemp2);
-			int iTemp3 = fTemp0 < fSlow74;
-			float fTemp4 = fSlow73 * float(iTemp3) + fConst21 * float(iSlow57 * (fTemp0 >= fSlow74));
-			fRec29[0] = fRec29[1] * (fSlow71 + fTemp4) + fSlow75 * (1.0f - fTemp4 - fSlow71) * float(iTemp3 & iSlow68);
+			float fTemp1 = float((fTemp0 < 2.0f) & iSlow69);
+			float fTemp2 = 0.030197384f * fTemp1 + fSlow70 * float((fTemp0 >= 2.0f) | iSlow71);
+			fRec27[0] = fRec27[1] * fTemp2 + 0.15f * fTemp1 * (1.0f - fTemp2);
+			int iTemp3 = fTemp0 < fSlow75;
+			float fTemp4 = fSlow74 * float(iTemp3) + fConst21 * float(iSlow58 * (fTemp0 >= fSlow75));
+			fRec29[0] = fRec29[1] * (fSlow72 + fTemp4) + fSlow76 * (1.0f - fTemp4 - fSlow72) * float(iTemp3 & iSlow69);
 			float fTemp5 = float(iRec26[0]) * (fRec27[0] + fRec29[0]);
-			fRec25[0] = fSlow67 * fTemp5 + fSlow76 * fRec25[1];
-			fRec24[0] = fSlow66 * fRec25[0] + fSlow76 * fRec24[1];
-			fRec23[0] = fSlow66 * fRec24[0] + fSlow76 * fRec23[1];
-			fRec22[0] = fSlow66 * fRec23[0] + fSlow76 * fRec22[1];
-			fRec21[0] = (fSlow63 * fRec22[0] + fSlow77 * fRec22[1]) - fSlow61 * fRec21[1];
+			fRec25[0] = fSlow68 * fTemp5 + fSlow77 * fRec25[1];
+			fRec24[0] = fSlow67 * fRec25[0] + fSlow77 * fRec24[1];
+			fRec23[0] = fSlow67 * fRec24[0] + fSlow77 * fRec23[1];
+			fRec22[0] = fSlow67 * fRec23[0] + fSlow77 * fRec22[1];
+			fRec21[0] = fSlow64 * fRec22[0] + fSlow78 * fRec22[1] - fSlow62 * fRec21[1];
 			float fTemp6 = fRec20[0] * (fRec21[0] + fRec14[1]);
 			fVec1[0] = fTemp6;
-			fRec19[0] = fVec1[1] + fSlow78 * (fTemp6 - fRec19[1]);
-			fRec18[0] = fRec19[1] + fSlow78 * (fRec19[0] - fRec18[1]);
-			fRec17[IOTA0 & 8191] = fRec18[1] + fSlow78 * (fRec18[0] - fRec17[(IOTA0 - 1) & 8191]);
-			float fTemp7 = fSlow55 * fRec17[(IOTA0 - iSlow82) & 8191];
+			fRec19[0] = fVec1[1] - fSlow79 * (fRec19[1] - fTemp6);
+			fRec18[0] = fRec19[1] + fSlow79 * (fRec19[0] - fRec18[1]);
+			fRec17[IOTA0 & 8191] = fRec18[1] + fSlow79 * (fRec18[0] - fRec17[(IOTA0 - 1) & 8191]);
+			float fTemp7 = fSlow56 * fRec17[(IOTA0 - iSlow84) & 8191];
 			float fTemp8 = fRec21[0] + fRec20[0] * fRec15[1];
 			fVec2[0] = fTemp8;
-			fRec33[0] = fVec2[1] + fSlow78 * (fTemp8 - fRec33[1]);
-			fRec32[0] = fRec33[1] + fSlow78 * (fRec33[0] - fRec32[1]);
-			fRec31[IOTA0 & 8191] = fRec32[1] + fSlow78 * (fRec32[0] - fRec31[(IOTA0 - 1) & 8191]);
-			float fTemp9 = fSlow94 * fRec31[(IOTA0 - iSlow97) & 8191];
-			float fTemp10 = fSlow98 * fRec31[(IOTA0 - iSlow99) & 8191];
-			float fTemp11 = fSlow100 * fRec17[(IOTA0 - iSlow101) & 8191];
-			float fTemp12 = fTemp7 + fTemp9 + fTemp10 + fTemp11;
+			fRec33[0] = fVec2[1] + fSlow79 * (fTemp8 - fRec33[1]);
+			fRec32[0] = fRec33[1] - fSlow79 * (fRec32[1] - fRec33[0]);
+			fRec31[IOTA0 & 8191] = fRec32[1] + fSlow79 * (fRec32[0] - fRec31[(IOTA0 - 1) & 8191]);
+			float fTemp9 = fSlow96 * fRec31[(IOTA0 - iSlow99) & 8191];
+			float fTemp10 = fSlow100 * fRec31[(IOTA0 - iSlow101) & 8191];
+			float fTemp11 = fSlow102 * fRec17[(IOTA0 - iSlow103) & 8191];
+			float fTemp12 = fTemp9 + fTemp10 + fTemp11 + fTemp7;
 			fVec3[0] = fTemp12;
-			fRec30[0] = fSlow83 * (2.0f * (fSlow48 * fTemp12 + fSlow42 * fVec3[1]) - fSlow41 * fRec30[1]);
+			fRec30[0] = fSlow85 * (2.0f * (fSlow48 * fTemp12 + fSlow42 * fVec3[1]) - fSlow41 * fRec30[1]);
 			fRec14[0] = fTemp7 + fRec30[0] + fTemp11;
-			fRec15[0] = fTemp10 + fRec30[0] + fTemp9;
+			fRec15[0] = fTemp9 + fRec30[0] + fTemp10;
 			float fRec16 = fTemp12;
-			fRec13[0] = fSlow18 * fRec16 - (fSlow102 * fRec13[1] + fSlow103 * fRec13[2]);
-			fRec46[0] = fSlow117 * fTemp5 + fSlow76 * fRec46[1];
-			fRec45[0] = fSlow66 * fRec46[0] + fSlow76 * fRec45[1];
-			fRec44[0] = fSlow66 * fRec45[0] + fSlow76 * fRec44[1];
-			fRec43[0] = fSlow66 * fRec44[0] + fSlow76 * fRec43[1];
-			fRec42[0] = (fSlow63 * fRec43[0] + fSlow77 * fRec43[1]) - fSlow61 * fRec42[1];
+			fRec13[0] = fSlow18 * fRec16 - (fSlow104 * fRec13[1] + fSlow105 * fRec13[2]);
+			fRec46[0] = fSlow119 * fTemp5 + fSlow77 * fRec46[1];
+			fRec45[0] = fSlow67 * fRec46[0] + fSlow77 * fRec45[1];
+			fRec44[0] = fSlow67 * fRec45[0] + fSlow77 * fRec44[1];
+			fRec43[0] = fSlow67 * fRec44[0] + fSlow77 * fRec43[1];
+			fRec42[0] = fSlow64 * fRec43[0] + fSlow78 * fRec43[1] - fSlow62 * fRec42[1];
 			float fTemp13 = fRec20[0] * (fRec42[0] + fRec35[1]);
 			fVec4[0] = fTemp13;
-			fRec41[0] = fVec4[1] + fSlow78 * (fTemp13 - fRec41[1]);
-			fRec40[0] = fRec41[1] + fSlow78 * (fRec41[0] - fRec40[1]);
-			fRec39[IOTA0 & 8191] = fRec40[1] + fSlow78 * (fRec40[0] - fRec39[(IOTA0 - 1) & 8191]);
-			float fTemp14 = fSlow116 * fRec39[(IOTA0 - iSlow120) & 8191];
-			float fTemp15 = fRec42[0] + fRec20[0] * fRec37[1];
+			fRec41[0] = fVec4[1] + fSlow79 * (fTemp13 - fRec41[1]);
+			fRec40[0] = fRec41[1] + fSlow79 * (fRec41[0] - fRec40[1]);
+			fRec39[IOTA0 & 8191] = fRec40[1] + fSlow79 * (fRec40[0] - fRec39[(IOTA0 - 1) & 8191]);
+			float fTemp14 = fSlow118 * fRec39[(IOTA0 - iSlow122) & 8191];
+			float fTemp15 = fRec42[0] + fRec20[0] * fRec36[1];
 			fVec5[0] = fTemp15;
-			fRec50[0] = fVec5[1] + fSlow78 * (fTemp15 - fRec50[1]);
-			fRec49[0] = fRec50[1] + fSlow78 * (fRec50[0] - fRec49[1]);
-			fRec48[IOTA0 & 8191] = fRec49[1] + fSlow78 * (fRec49[0] - fRec48[(IOTA0 - 1) & 8191]);
-			float fTemp16 = fSlow131 * fRec48[(IOTA0 - iSlow134) & 8191];
-			float fTemp17 = fRec42[0] + fRec20[0] * fRec36[1];
-			fVec6[0] = fTemp17;
-			fRec53[0] = fVec6[1] + fSlow78 * (fTemp17 - fRec53[1]);
-			fRec52[0] = fRec53[1] + fSlow78 * (fRec53[0] - fRec52[1]);
-			fRec51[IOTA0 & 8191] = fRec52[1] + fSlow78 * (fRec52[0] - fRec51[(IOTA0 - 1) & 8191]);
-			float fTemp18 = fSlow144 * fRec51[(IOTA0 - iSlow147) & 8191];
-			float fTemp19 = fSlow148 * fRec51[(IOTA0 - iSlow149) & 8191];
-			float fTemp20 = fSlow150 * fRec48[(IOTA0 - iSlow151) & 8191];
-			float fTemp21 = fSlow152 * fRec39[(IOTA0 - iSlow153) & 8191];
-			float fTemp22 = fTemp14 + fTemp16 + fTemp18 + fTemp19 + fTemp20 + fTemp21;
-			fVec7[0] = fTemp22;
-			fRec47[0] = fSlow83 * (2.0f * (fSlow48 * fTemp22 + fSlow42 * fVec7[1]) - fSlow41 * fRec47[1]);
-			fRec35[0] = fTemp14 + fRec47[0] + fTemp21;
-			fRec36[0] = fTemp19 + fRec47[0] + fTemp18;
-			fRec37[0] = fTemp16 + fRec47[0] + fTemp20;
-			float fRec38 = fTemp22;
-			fRec34[0] = fSlow18 * fRec38 - (fSlow102 * fRec34[1] + fSlow103 * fRec34[2]);
-			fVec8[0] = fSlow163 * fTemp5;
-			float fTemp23 = 0.0f - (0.5f * fVec8[1] + fSlow164 * fTemp5);
-			fVec9[0] = fTemp23;
-			fRec63[0] = (fSlow63 * fTemp23 + fSlow77 * fVec9[1]) - fSlow61 * fRec63[1];
-			fRec62[0] = fSlow66 * fRec63[0] + fSlow76 * fRec62[1];
-			fRec61[0] = fSlow66 * fRec62[0] + fSlow76 * fRec61[1];
-			fRec60[0] = fSlow66 * fRec61[0] + fSlow76 * fRec60[1];
-			fRec59[0] = fSlow66 * fRec60[0] + fSlow76 * fRec59[1];
-			fRec58[0] = fSlow160 * (fRec59[0] - fRec59[1]) - (fSlow166 * fRec58[1] + fSlow167 * fRec58[2]);
-			fRec57[0] = fSlow161 * fRec58[0] - (fSlow169 * fRec57[1] + fSlow170 * fRec57[2]);
-			fRec56[0] = fRec57[0] - (fSlow171 * fRec56[1] + fSlow172 * fRec56[2]);
-			fRec55[0] = (fSlow154 * (fSlow159 * fRec56[1] - fSlow173 * fRec55[1]) + fRec56[0] + fSlow175 * fRec56[2]) - fSlow174 * fRec55[2];
-			fRec54[0] = fSlow62 * fRec55[0] - fSlow61 * fRec54[1];
-			float fTemp24 = fSlow17 * (fRec13[0] - fRec13[2] + fRec34[0] - fRec34[2]) + fRec54[0] + fRec16 + fRec38;
-			fVec10[IOTA0 & 4095] = fTemp24;
+			fRec50[0] = fVec5[1] + fSlow79 * (fTemp15 - fRec50[1]);
+			fRec49[0] = fRec50[1] + fSlow79 * (fRec50[0] - fRec49[1]);
+			fRec48[IOTA0 & 8191] = fRec49[1] + fSlow79 * (fRec49[0] - fRec48[(IOTA0 - 1) & 8191]);
+			float fTemp16 = fSlow132 * fRec48[(IOTA0 - iSlow135) & 8191];
+			float fTemp17 = fSlow136 * fRec48[(IOTA0 - iSlow137) & 8191];
+			float fTemp18 = fRec42[0] + fRec20[0] * fRec37[1];
+			fVec6[0] = fTemp18;
+			fRec53[0] = fVec6[1] + fSlow79 * (fTemp18 - fRec53[1]);
+			fRec52[0] = fRec53[1] + fSlow79 * (fRec53[0] - fRec52[1]);
+			fRec51[IOTA0 & 8191] = fRec52[1] + fSlow79 * (fRec52[0] - fRec51[(IOTA0 - 1) & 8191]);
+			float fTemp19 = fSlow148 * fRec51[(IOTA0 - iSlow151) & 8191] + fSlow152 * fRec51[(IOTA0 - iSlow153) & 8191];
+			float fTemp20 = fSlow154 * fRec39[(IOTA0 - iSlow155) & 8191];
+			float fTemp21 = fTemp14 + fTemp16 + fTemp17 + fTemp19 + fTemp20;
+			fVec7[0] = fTemp21;
+			fRec47[0] = fSlow85 * (2.0f * (fSlow48 * fTemp21 + fSlow42 * fVec7[1]) - fSlow41 * fRec47[1]);
+			fRec35[0] = fTemp14 + fRec47[0] + fTemp20;
+			fRec36[0] = fTemp16 + fRec47[0] + fTemp17;
+			fRec37[0] = fRec47[0] + fTemp19;
+			float fRec38 = fTemp21;
+			fRec34[0] = fSlow18 * fRec38 - (fSlow104 * fRec34[1] + fSlow105 * fRec34[2]);
+			fVec8[0] = fSlow165 * fTemp5;
+			float fTemp22 = 0.0f - (0.5f * fVec8[1] + fSlow166 * fTemp5);
+			fVec9[0] = fTemp22;
+			fRec63[0] = fSlow64 * fTemp22 + fSlow78 * fVec9[1] - fSlow62 * fRec63[1];
+			fRec62[0] = fSlow67 * fRec63[0] + fSlow77 * fRec62[1];
+			fRec61[0] = fSlow67 * fRec62[0] + fSlow77 * fRec61[1];
+			fRec60[0] = fSlow67 * fRec61[0] + fSlow77 * fRec60[1];
+			fRec59[0] = fSlow67 * fRec60[0] + fSlow77 * fRec59[1];
+			fRec58[0] = fSlow162 * (fRec59[0] - fRec59[1]) - (fSlow168 * fRec58[1] + fSlow169 * fRec58[2]);
+			fRec57[0] = fSlow163 * fRec58[0] - (fSlow171 * fRec57[1] + fSlow172 * fRec57[2]);
+			fRec56[0] = fRec57[0] - (fSlow173 * fRec56[1] + fSlow174 * fRec56[2]);
+			fRec55[0] = fSlow156 * (fSlow161 * fRec56[1] - fSlow175 * fRec55[1]) + fRec56[0] + fSlow177 * fRec56[2] - fSlow176 * fRec55[2];
+			fRec54[0] = fSlow63 * fRec55[0] - fSlow62 * fRec54[1];
+			float fTemp23 = fSlow17 * (fRec13[0] - fRec13[2] + (fRec34[0] - fRec34[2])) + fRec54[0] + fRec16 + fRec38;
+			fVec10[IOTA0 & 4095] = fTemp23;
+			float fTemp24 = fVec10[(IOTA0 - iSlow178) & 4095];
 			fVec11[IOTA0 & 4095] = fSlow11 * fRec12[0] * fTemp24;
-			float fTemp25 = 0.300000012f * fVec11[(IOTA0 - iConst27) & 4095];
-			float fTemp26 = (fVec0[(IOTA0 - iConst10) & 16383] + fTemp25) - 0.600000024f * fRec8[1];
-			fVec12[IOTA0 & 2047] = fTemp26;
-			fRec8[0] = fVec12[(IOTA0 - iConst28) & 2047];
-			float fRec9 = 0.600000024f * fTemp26;
-			fRec67[0] = 0.0f - fConst7 * (fConst8 * fRec67[1] - (fRec7[1] + fRec7[2]));
-			fRec66[0] = fSlow182 * (fRec7[1] + fSlow183 * fRec67[0]) + fSlow184 * fRec66[1];
-			fVec13[IOTA0 & 32767] = 0.353553385f * fRec66[0] + 9.99999968e-21f;
-			float fTemp27 = fVec10[(IOTA0 - iSlow186) & 4095];
-			fVec14[IOTA0 & 4095] = fSlow185 * fRec12[0] * fTemp27;
-			float fTemp28 = 0.300000012f * fVec14[(IOTA0 - iConst27) & 4095];
-			float fTemp29 = (0.600000024f * fRec64[1] + fVec13[(IOTA0 - iConst34) & 32767]) - fTemp28;
-			fVec15[IOTA0 & 2047] = fTemp29;
+			float fTemp25 = 0.3f * fVec11[(IOTA0 - iConst28) & 4095];
+			float fTemp26 = 0.6f * fRec8[1] + fVec0[(IOTA0 - iConst10) & 32767] + fTemp25;
+			fVec12[IOTA0 & 4095] = fTemp26;
+			fRec8[0] = fVec12[(IOTA0 - iConst29) & 4095];
+			float fRec9 = 0.0f - 0.6f * fTemp26;
+			fRec67[0] = 0.0f - fConst7 * (fConst8 * fRec67[1] - (fRec6[1] + fRec6[2]));
+			fRec66[0] = fSlow185 * (fRec6[1] + fSlow186 * fRec67[0]) + fSlow187 * fRec66[1];
+			fVec13[IOTA0 & 16383] = 0.35355338f * fRec66[0] + 1e-20f;
+			fVec14[IOTA0 & 4095] = fSlow188 * fRec12[0] * fTemp23;
+			float fTemp27 = 0.3f * fVec14[(IOTA0 - iConst28) & 4095];
+			float fTemp28 = fVec13[(IOTA0 - iConst35) & 16383] - (fTemp27 + 0.6f * fRec64[1]);
+			fVec15[IOTA0 & 2047] = fTemp28;
 			fRec64[0] = fVec15[(IOTA0 - iConst36) & 2047];
-			float fRec65 = 0.0f - 0.600000024f * fTemp29;
-			fRec71[0] = 0.0f - fConst7 * (fConst8 * fRec71[1] - (fRec3[1] + fRec3[2]));
-			fRec70[0] = fSlow193 * (fRec3[1] + fSlow194 * fRec71[0]) + fSlow195 * fRec70[1];
-			fVec16[IOTA0 & 32767] = 0.353553385f * fRec70[0] + 9.99999968e-21f;
-			float fTemp30 = (0.600000024f * fRec68[1] + fVec16[(IOTA0 - iConst42) & 32767]) - fTemp28;
-			fVec17[IOTA0 & 4095] = fTemp30;
+			float fRec65 = 0.6f * fTemp28;
+			fRec71[0] = 0.0f - fConst7 * (fConst8 * fRec71[1] - (fRec2[1] + fRec2[2]));
+			fRec70[0] = fSlow195 * (fRec2[1] + fSlow196 * fRec71[0]) + fSlow197 * fRec70[1];
+			fVec16[IOTA0 & 16383] = 0.35355338f * fRec70[0] + 1e-20f;
+			float fTemp29 = fVec16[(IOTA0 - iConst42) & 16383] - (fTemp27 + 0.6f * fRec68[1]);
+			fVec17[IOTA0 & 4095] = fTemp29;
 			fRec68[0] = fVec17[(IOTA0 - iConst43) & 4095];
-			float fRec69 = 0.0f - 0.600000024f * fTemp30;
-			fRec75[0] = 0.0f - fConst7 * (fConst8 * fRec75[1] - (fRec5[1] + fRec5[2]));
-			fRec74[0] = fSlow202 * (fRec5[1] + fSlow203 * fRec75[0]) + fSlow204 * fRec74[1];
-			fVec18[IOTA0 & 16383] = 0.353553385f * fRec74[0] + 9.99999968e-21f;
-			float fTemp31 = fVec18[(IOTA0 - iConst49) & 16383] + fTemp28 + 0.600000024f * fRec72[1];
-			fVec19[IOTA0 & 4095] = fTemp31;
+			float fRec69 = 0.6f * fTemp29;
+			fRec75[0] = 0.0f - fConst7 * (fConst8 * fRec75[1] - (fRec4[1] + fRec4[2]));
+			fRec74[0] = fSlow204 * (fRec4[1] + fSlow205 * fRec75[0]) + fSlow206 * fRec74[1];
+			fVec18[IOTA0 & 16383] = 0.35355338f * fRec74[0] + 1e-20f;
+			float fTemp30 = fTemp27 + fVec18[(IOTA0 - iConst49) & 16383] - 0.6f * fRec72[1];
+			fVec19[IOTA0 & 4095] = fTemp30;
 			fRec72[0] = fVec19[(IOTA0 - iConst50) & 4095];
-			float fRec73 = 0.0f - 0.600000024f * fTemp31;
-			fRec79[0] = 0.0f - fConst7 * (fConst8 * fRec79[1] - (fRec1[1] + fRec1[2]));
-			fRec78[0] = fSlow211 * (fRec1[1] + fSlow212 * fRec79[0]) + fSlow213 * fRec78[1];
-			fVec20[IOTA0 & 32767] = 0.353553385f * fRec78[0] + 9.99999968e-21f;
-			float fTemp32 = fTemp28 + 0.600000024f * fRec76[1] + fVec20[(IOTA0 - iConst56) & 32767];
-			fVec21[IOTA0 & 4095] = fTemp32;
+			float fRec73 = 0.6f * fTemp30;
+			fRec79[0] = 0.0f - fConst7 * (fConst8 * fRec79[1] - (fRec3[1] + fRec3[2]));
+			fRec78[0] = fSlow213 * (fRec3[1] + fSlow214 * fRec79[0]) + fSlow215 * fRec78[1];
+			fVec20[IOTA0 & 32767] = 0.35355338f * fRec78[0] + 1e-20f;
+			float fTemp31 = 0.6f * fRec76[1] + fVec20[(IOTA0 - iConst56) & 32767] - fTemp25;
+			fVec21[IOTA0 & 4095] = fTemp31;
 			fRec76[0] = fVec21[(IOTA0 - iConst57) & 4095];
-			float fRec77 = 0.0f - 0.600000024f * fTemp32;
-			fRec83[0] = 0.0f - fConst7 * (fConst8 * fRec83[1] - (fRec6[1] + fRec6[2]));
-			fRec82[0] = fSlow220 * (fRec6[1] + fSlow221 * fRec83[0]) + fSlow222 * fRec82[1];
-			fVec22[IOTA0 & 16383] = 0.353553385f * fRec82[0] + 9.99999968e-21f;
-			float fTemp33 = fVec22[(IOTA0 - iConst63) & 16383] - (fTemp25 + 0.600000024f * fRec80[1]);
-			fVec23[IOTA0 & 2047] = fTemp33;
-			fRec80[0] = fVec23[(IOTA0 - iConst64) & 2047];
-			float fRec81 = 0.600000024f * fTemp33;
-			fRec87[0] = 0.0f - fConst7 * (fConst8 * fRec87[1] - (fRec2[1] + fRec2[2]));
-			fRec86[0] = fSlow229 * (fRec2[1] + fSlow230 * fRec87[0]) + fSlow231 * fRec86[1];
-			fVec24[IOTA0 & 16383] = 0.353553385f * fRec86[0] + 9.99999968e-21f;
-			float fTemp34 = fVec24[(IOTA0 - iConst70) & 16383] - (fTemp25 + 0.600000024f * fRec84[1]);
-			fVec25[IOTA0 & 4095] = fTemp34;
-			fRec84[0] = fVec25[(IOTA0 - iConst71) & 4095];
-			float fRec85 = 0.600000024f * fTemp34;
-			fRec91[0] = 0.0f - fConst7 * (fConst8 * fRec91[1] - (fRec4[1] + fRec4[2]));
-			fRec90[0] = fSlow238 * (fRec4[1] + fSlow239 * fRec91[0]) + fSlow240 * fRec90[1];
-			fVec26[IOTA0 & 16383] = 0.353553385f * fRec90[0] + 9.99999968e-21f;
-			float fTemp35 = (fTemp25 + fVec26[(IOTA0 - iConst77) & 16383]) - 0.600000024f * fRec88[1];
-			fVec27[IOTA0 & 4095] = fTemp35;
-			fRec88[0] = fVec27[(IOTA0 - iConst78) & 4095];
-			float fRec89 = 0.600000024f * fTemp35;
-			float fTemp36 = fRec9 + fRec89;
-			float fTemp37 = fRec81 + fRec85 + fTemp36;
-			fRec0[0] = fRec8[1] + fRec64[1] + fRec68[1] + fRec72[1] + fRec76[1] + fRec80[1] + fRec84[1] + fRec88[1] + fRec65 + fRec69 + fRec73 + fRec77 + fTemp37;
-			fRec1[0] = (fRec8[1] + fRec80[1] + fRec84[1] + fRec88[1] + fTemp37) - (fRec64[1] + fRec68[1] + fRec72[1] + fRec76[1] + fRec65 + fRec69 + fRec77 + fRec73);
-			float fTemp38 = fRec85 + fRec81;
-			fRec2[0] = (fRec8[1] + fRec72[1] + fRec76[1] + fRec88[1] + fRec73 + fRec77 + fTemp36) - (fRec64[1] + fRec68[1] + fRec80[1] + fRec84[1] + fRec65 + fRec69 + fTemp38);
-			fRec3[0] = (fRec8[1] + fRec64[1] + fRec68[1] + fRec88[1] + fRec65 + fRec69 + fTemp36) - (fRec72[1] + fRec76[1] + fRec80[1] + fRec84[1] + fRec73 + fRec77 + fTemp38);
-			float fTemp39 = fRec9 + fRec85;
-			float fTemp40 = fRec89 + fRec81;
-			fRec4[0] = (fRec8[1] + fRec68[1] + fRec76[1] + fRec84[1] + fRec69 + fRec77 + fTemp39) - (fRec64[1] + fRec72[1] + fRec80[1] + fRec88[1] + fRec65 + fRec73 + fTemp40);
-			fRec5[0] = (fRec8[1] + fRec64[1] + fRec72[1] + fRec84[1] + fRec65 + fRec73 + fTemp39) - (fRec68[1] + fRec76[1] + fRec80[1] + fRec88[1] + fRec69 + fRec77 + fTemp40);
-			float fTemp41 = fRec9 + fRec81;
-			float fTemp42 = fRec89 + fRec85;
-			fRec6[0] = (fRec8[1] + fRec64[1] + fRec76[1] + fRec80[1] + fRec65 + fRec77 + fTemp41) - (fRec68[1] + fRec72[1] + fRec84[1] + fRec88[1] + fRec69 + fRec73 + fTemp42);
-			fRec7[0] = (fRec8[1] + fRec68[1] + fRec72[1] + fRec80[1] + fRec69 + fRec73 + fTemp41) - (fRec64[1] + fRec76[1] + fRec84[1] + fRec88[1] + fRec65 + fRec77 + fTemp42);
-			float fTemp43 = 1.0f - fRec12[0];
-			output0[i0] = FAUSTFLOAT(0.370000005f * (fRec1[0] + fRec2[0]) + fSlow11 * fTemp43 * fTemp24);
-			output1[i0] = FAUSTFLOAT(0.370000005f * (fRec1[0] - fRec2[0]) + fSlow185 * fTemp43 * fTemp27);
+			float fRec77 = 0.0f - 0.6f * fTemp31;
+			fRec83[0] = 0.0f - fConst7 * (fConst8 * fRec83[1] - (fRec5[1] + fRec5[2]));
+			fRec82[0] = fSlow222 * (fRec5[1] + fSlow223 * fRec83[0]) + fSlow224 * fRec82[1];
+			fVec22[IOTA0 & 16383] = 0.35355338f * fRec82[0] + 1e-20f;
+			float fTemp32 = fVec22[(IOTA0 - iConst63) & 16383] + fTemp25 + 0.6f * fRec80[1];
+			fVec23[IOTA0 & 4095] = fTemp32;
+			fRec80[0] = fVec23[(IOTA0 - iConst64) & 4095];
+			float fRec81 = 0.0f - 0.6f * fTemp32;
+			fRec87[0] = 0.0f - fConst7 * (fConst8 * fRec87[1] - (fRec7[1] + fRec7[2]));
+			fRec86[0] = fSlow231 * (fRec7[1] + fSlow232 * fRec87[0]) + fSlow233 * fRec86[1];
+			fVec24[IOTA0 & 32767] = 0.35355338f * fRec86[0] + 1e-20f;
+			float fTemp33 = 0.6f * fRec84[1] + fVec24[(IOTA0 - iConst70) & 32767] - fTemp25;
+			fVec25[IOTA0 & 2047] = fTemp33;
+			fRec84[0] = fVec25[(IOTA0 - iConst71) & 2047];
+			float fRec85 = 0.0f - 0.6f * fTemp33;
+			fRec91[0] = 0.0f - fConst7 * (fConst8 * fRec91[1] - (fRec0[1] + fRec0[2]));
+			fRec90[0] = fSlow240 * (fRec0[1] + fSlow241 * fRec91[0]) + fSlow242 * fRec90[1];
+			fVec26[IOTA0 & 16383] = 0.35355338f * fRec90[0] + 1e-20f;
+			float fTemp34 = fVec26[(IOTA0 - iConst77) & 16383] + fTemp27 - 0.6f * fRec88[1];
+			fVec27[IOTA0 & 2047] = fTemp34;
+			fRec88[0] = fVec27[(IOTA0 - iConst78) & 2047];
+			float fRec89 = 0.6f * fTemp34;
+			float fTemp35 = fRec73 + fRec88[1];
+			float fTemp36 = fRec69 + fTemp35;
+			fRec0[0] = fRec8[1] + fRec64[1] + fRec68[1] + fRec72[1] + fRec76[1] + fRec80[1] + fRec85 + fRec77 + fRec81 + fRec9 + fRec65 + fRec89 + fTemp36 + fRec84[1];
+			fRec1[0] = fRec64[1] + fRec68[1] + fRec72[1] + fRec65 + fRec89 + fTemp36 - (fRec8[1] + fRec76[1] + fRec80[1] + fRec85 + fRec77 + fRec81 + fRec9 + fRec84[1]);
+			fRec2[0] = fRec8[1] + fRec72[1] + fRec80[1] + fRec81 + fRec9 + fRec89 + fTemp35 - (fRec64[1] + fRec68[1] + fRec76[1] + fRec85 + fRec77 + fRec65 + fRec69 + fRec84[1]);
+			fRec3[0] = fRec72[1] + fRec76[1] + fRec85 + fRec77 + fRec89 + fTemp35 + fRec84[1] - (fRec8[1] + fRec64[1] + fRec68[1] + fRec80[1] + fRec81 + fRec9 + fRec69 + fRec65);
+			float fTemp37 = fRec69 + fRec88[1];
+			fRec4[0] = fRec8[1] + fRec68[1] + fRec76[1] + fRec77 + fRec9 + fRec89 + fTemp37 - (fRec64[1] + fRec72[1] + fRec80[1] + fRec85 + fRec81 + fRec65 + fRec73 + fRec84[1]);
+			fRec5[0] = fRec68[1] + fRec80[1] + fRec85 + fRec81 + fRec89 + fRec84[1] + fTemp37 - (fRec8[1] + fRec64[1] + fRec72[1] + fRec76[1] + fRec77 + fRec9 + fRec73 + fRec65);
+			float fTemp38 = fRec73 + fRec69;
+			fRec6[0] = fRec8[1] + fRec64[1] + fRec85 + fRec9 + fRec65 + fRec89 + fRec88[1] + fRec84[1] - (fRec68[1] + fRec72[1] + fRec76[1] + fRec80[1] + fRec77 + fRec81 + fTemp38);
+			fRec7[0] = fRec64[1] + fRec76[1] + fRec80[1] + fRec77 + fRec81 + fRec65 + fRec89 + fRec88[1] - (fRec8[1] + fRec68[1] + fRec72[1] + fRec85 + fRec9 + fRec84[1] + fTemp38);
+			float fTemp39 = 1.0f - fRec12[0];
+			output0[i0] = FAUSTFLOAT(0.37f * (fRec1[0] + fRec2[0]) + fSlow188 * fTemp39 * fTemp23);
+			output1[i0] = FAUSTFLOAT(0.37f * (fRec1[0] - fRec2[0]) + fSlow11 * fTemp39 * fTemp24);
 			fRec11[1] = fRec11[0];
 			fRec10[1] = fRec10[0];
 			IOTA0 = IOTA0 + 1;

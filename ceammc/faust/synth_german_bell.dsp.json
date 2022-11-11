@@ -1,7 +1,7 @@
 {
 	"name": "synth.german_bell",
 	"filename": "synth_german_bell.dsp",
-	"version": "2.44.1",
+	"version": "2.53.1",
 	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn synth_german_bell -scn synth_german_bell_dsp -es 1 -mcd 16 -single -ftz 0",
 	"library_list": ["/usr/local/share/faust/physmodels.lib","/usr/local/share/faust/stdfaust.lib","/usr/local/share/faust/noises.lib","/usr/local/share/faust/filters.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib","/usr/local/share/faust/envelopes.lib","/usr/local/share/faust/basics.lib"],
 	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
@@ -26,7 +26,7 @@
 		{ "filters.lib/iir:author": "Julius O. Smith III" },
 		{ "filters.lib/iir:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
 		{ "filters.lib/iir:license": "MIT-style STK-4.3 license" },
-		{ "filters.lib/lowpass0_highpass1": "MIT-style STK-4.3 license" },
+		{ "filters.lib/lowpass0_highpass1": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
 		{ "filters.lib/lowpass0_highpass1:author": "Julius O. Smith III" },
 		{ "filters.lib/lowpass:author": "Julius O. Smith III" },
 		{ "filters.lib/lowpass:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
