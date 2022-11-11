@@ -16,6 +16,8 @@
 #include "ceammc_music_theory.h"
 #include "ceammc_music_theory_pitch_class.h"
 
+#include <cmath>
+
 using namespace ceammc::music;
 
 ConvNote2Guido::ConvNote2Guido(const PdArgs& args)
@@ -85,7 +87,7 @@ ConvNote2Guido::GuidoNote ConvNote2Guido::guidoNote(size_t midiPitch, int dur, i
         res += buf;
     }
 
-    if (dots-- > 0)
+    while (dots-- > 0)
         res.push_back('.');
 
     return res;
