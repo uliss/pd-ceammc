@@ -22,7 +22,7 @@ GlobalSet::GlobalSet(const PdArgs& a)
 
 EditorTitleString GlobalSet::editorTitle() const
 {
-    char buf[EditorTitleString::static_capacity];
+    char buf[STATIC_STRING_SIZE(EditorTitleString)];
     snprintf(buf, sizeof(buf) - 1, "global Set (%s)", id()->s_name);
     return buf;
 }

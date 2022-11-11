@@ -22,7 +22,7 @@ LocalSet::LocalSet(const PdArgs& a)
 
 EditorTitleString LocalSet::editorTitle() const
 {
-    char buf[EditorTitleString::static_capacity];
+    char buf[STATIC_STRING_SIZE(EditorTitleString)];
     snprintf(buf, sizeof(buf) - 1, "local Set (%s)", binbufArgs().symbolAt(0, gensym("default"))->s_name);
     return buf;
 }

@@ -15,28 +15,14 @@
 #define CEAMMC_EDITOR_OBJECT_H
 
 #include "ceammc_object.h"
+#include "ceammc_datatypes.h"
 
-#include <boost/version.hpp>
-#if BOOST_VERSION < 107500
-#define _USE_BOOST_BEAST
-#include <boost/beast/core/static_string.hpp>
-#else
-#include <boost/static_string.hpp>
-#endif
 #include <list>
 #include <string>
 
 #include "extra/boost_intrusive_pool.hpp"
 
 namespace ceammc {
-
-#ifdef _USE_BOOST_BEAST
-template<size_t N>
-using StaticString = boost::beast::static_string<N>;
-#else
-template<size_t N>
-using StaticString = boost::static_string<N>;
-#endif
 
 using EditorTitleString = StaticString<32>;
 

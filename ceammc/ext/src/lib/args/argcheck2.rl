@@ -3,6 +3,7 @@
 # include "ceammc_object.h"
 # include "ceammc_crc32.h"
 # include "fmt/core.h"
+# include "ceammc_datatypes.h"
 
 # include <cstdint>
 # include <iostream>
@@ -78,8 +79,8 @@ namespace {
     }
 
 
-    using ArgString = std::pair<boost::static_string<14>, uint32_t>;
-    using ArgName = boost::static_string<10>;
+    using ArgString = std::pair<ceammc::StaticString<14>, uint32_t>;
+    using ArgName = ceammc::StaticString<10>;
     using ArgValue = boost::variant<double, int64_t, ArgString>;
     using ArgList = boost::container::small_vector<ArgValue, 3>;
 
