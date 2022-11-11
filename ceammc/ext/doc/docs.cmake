@@ -127,7 +127,6 @@ set(DOC_FILES
     env2vline
     vline2env
     expand_env
-    file
     file.size
     flow.append
     flow.change
@@ -552,6 +551,7 @@ set(DOC_FILES
     path.basename
     path.dirname
     path.exists
+    path.file
     path.is_dir
     path.lsdir
     path.monitor

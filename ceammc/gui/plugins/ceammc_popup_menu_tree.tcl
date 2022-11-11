@@ -196,7 +196,7 @@
         patch.args patch.deps patch.tree
     }}
     {path {
-        file file.size path.basename path.dirname path.exists path.is_dir
+        file.size path.basename path.dirname path.exists path.file path.is_dir
         path.lsdir path.monitor path.normalize path.search path.split
     }}
     {predicates {

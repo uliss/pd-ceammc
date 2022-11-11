@@ -372,7 +372,7 @@ t_symbol* PathFile::expandPath(t_symbol* path) const
 
 void setup_path_file()
 {
-    ObjectFactory<PathFile> obj("file");
+    ObjectFactory<PathFile> obj("path.file");
 
     obj.setXletsInfo({ "open, close, read, write..." }, { "read output", "bang: on EOF" });
 

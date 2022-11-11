@@ -1690,9 +1690,6 @@
     </entry>
   </category>
   <category name="path">
-    <entry name="file" descr="file input/output" ref_view="object">
-      <xi:include href="file.pddoc" parse="xml"/>
-    </entry>
     <entry name="file.size" descr="output file size" ref_view="object">
       <xi:include href="file.size.pddoc" parse="xml"/>
     </entry>
@@ -1704,6 +1701,9 @@
     </entry>
     <entry name="path.exists" descr="checks if given path exists" ref_view="object">
       <xi:include href="path.exists.pddoc" parse="xml"/>
+    </entry>
+    <entry name="path.file" descr="file input/output" ref_view="object">
+      <xi:include href="path.file.pddoc" parse="xml"/>
     </entry>
     <entry name="path.is_dir" descr="check if path is directory" ref_view="object">
       <xi:include href="path.is_dir.pddoc" parse="xml"/>

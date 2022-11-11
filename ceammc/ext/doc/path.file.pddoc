@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
-    <object name="file">
-        <title>file</title>
+    <object name="path.file">
+        <title>path.file</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
@@ -72,7 +72,7 @@
 | |       | |
 | |       | | [read_line( [remove ~/test.txt(
 | |       | | |           |
-[file                     ]
+[path.file                ]
 |           ^|
 [ui.dt]     [B]
 ]]>
