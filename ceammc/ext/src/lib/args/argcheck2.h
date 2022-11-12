@@ -46,7 +46,7 @@ namespace args {
          * @return true on success, false on error
          */
         bool check(const AtomListView& lv, BaseObject* obj, ArgMatchList* matches = nullptr) const;
-        void usage(BaseObject* obj = nullptr, t_symbol* m = nullptr);
+        void usage(BaseObject* obj = nullptr, t_symbol* m = nullptr) const;
     };
 
     bool check_args(const char* arg_string, const AtomListView& lv, BaseObject* obj = nullptr, ArgMatchList* matches = nullptr);

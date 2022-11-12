@@ -4629,7 +4629,7 @@ namespace ceammc {
 			}
 		}
 		
-		void ArgChecker::usage(BaseObject* obj, t_symbol* m)
+		void ArgChecker::usage(BaseObject* obj, t_symbol* m) const
 		{
 			if (!chk_)
 				return;
