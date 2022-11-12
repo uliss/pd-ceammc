@@ -116,8 +116,8 @@ void setup_synth_kick_tilde()
     SoundExternalFactory<SynthKick> obj("synth.kick~", OBJECT_FACTORY_DEFAULT);
     obj.addMethod("reset", &SynthKick::m_reset);
 
-    obj.setXletsInfo({ "bang: play snare\n"
+    obj.setXletsInfo({ "bang: play kick\n"
                        "float: play with GAIN\n"
                        "list: play with GAIN DUR" },
-        { "audio: output" });
+        { "audio: output", "bang: on finish" });
 }
