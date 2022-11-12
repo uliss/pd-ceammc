@@ -10,6 +10,7 @@ constexpr const char* KEY_MIC_GAIN = "k:mic-gain";
 constexpr const char* KEY_MIC_PAD = "k:mic-pad";
 constexpr const char* KEY_MIC_PHASE = "k:mic-phase";
 constexpr const char* KEY_GUITAR_GAIN = "k:guitar-gain";
+constexpr const char* KEY_GUITAR_PHASE = "k:guitar-phase";
 constexpr const char* KEY_INPUT_GAIN = "k:input-gain";
 constexpr const char* KEY_MAIN_GAIN = "k:main-gain";
 constexpr const char* KEY_PHONES_GAIN = "k:phones-gain";
@@ -30,6 +31,7 @@ const std::unordered_map<const char*, std::string> UrlMap = {
     { KEY_MIC_PAD, "/{}/datastore/ext/ibank/0/ch/{}/pad" },
     { KEY_MIC_PHASE, "/{}/datastore/ext/ibank/0/ch/{}/phase" },
     { KEY_GUITAR_GAIN, "/{}/datastore/ext/ibank/1/ch/{}/trim" },
+    { KEY_GUITAR_PHASE, "/{}/datastore/ext/ibank/1/ch/{}/phase" },
     { KEY_INPUT_GAIN, "/{}/datastore/ext/ibank/2/ch/{}/trim" },
     { KEY_MAIN_GAIN, "/{}/datastore/ext/obank/1/ch/0/stereoTrim" },
     { KEY_PHONES_GAIN, "/{}/datastore/ext/obank/0/ch/0/stereoTrim" },
@@ -177,15 +179,8 @@ HwMotuAvb::Future HwMotuAvb::createTask()
                 case REQ_SET: {
                     auto cli = make_http_cli(req.host, req.port);
 
-                    setSingleValue(cli, req.device, KEY_PHANTOM, req, logger_);
-                    setSingleValue(cli, req.device, KEY_MIC_GAIN, req, logger_);
-                    setSingleValue(cli, req.device, KEY_MIC_PAD, req, logger_);
-                    setSingleValue(cli, req.device, KEY_MIC_PHASE, req, logger_);
-                    setSingleValue(cli, req.device, KEY_GUITAR_GAIN, req, logger_);
-                    setSingleValue(cli, req.device, KEY_INPUT_GAIN, req, logger_);
-                    setSingleValue(cli, req.device, KEY_MAIN_GAIN, req, logger_);
-                    setSingleValue(cli, req.device, KEY_PHONES_GAIN, req, logger_);
-                    setSingleValue(cli, req.device, KEY_OUTPUT_GAIN, req, logger_);
+                    for (auto& kv : UrlMap)
+                        setSingleValue(cli, req.device, kv.first, req, logger_);
 
                 } break;
                 default:
@@ -263,6 +258,14 @@ void HwMotuAvb::m_guitar_gain(t_symbol* s, const AtomListView& lv)
     m_set_single(s, KEY_GUITAR_GAIN, lv.intAt(0, 0), lv.intAt(1, 0), lv);
 }
 
+void HwMotuAvb::m_guitar_phase(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_INT, ARG_FLOAT))
+        return;
+
+    m_set_single(s, KEY_GUITAR_PHASE, lv.intAt(0, 0), lv.intAt(1, 0), lv);
+}
+
 void HwMotuAvb::m_input_gain(t_symbol* s, const AtomListView& lv)
 {
     if (!checkArgs(lv, ARG_INT, ARG_FLOAT))
@@ -334,7 +337,10 @@ void setup_hw_motu_avb()
     obj.addMethod("mic_gain", &HwMotuAvb::m_mic_gain);
     obj.addMethod("mic_pad", &HwMotuAvb::m_mic_pad);
     obj.addMethod("mic_phase", &HwMotuAvb::m_mic_phase);
+
     obj.addMethod("guitar_gain", &HwMotuAvb::m_guitar_gain);
+    obj.addMethod("guitar_phase", &HwMotuAvb::m_guitar_phase);
+
     obj.addMethod("main_gain", &HwMotuAvb::m_main_gain);
     obj.addMethod("phones_gain", &HwMotuAvb::m_phones_gain);
 

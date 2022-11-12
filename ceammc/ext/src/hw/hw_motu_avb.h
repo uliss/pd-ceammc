@@ -39,6 +39,8 @@ public:
     void m_mic_phase(t_symbol* s, const AtomListView& lv);
 
     void m_guitar_gain(t_symbol* s, const AtomListView& lv);
+    void m_guitar_phase(t_symbol* s, const AtomListView& lv);
+
     void m_input_gain(t_symbol* s, const AtomListView& lv);
     void m_main_gain(t_symbol* s, const AtomListView& lv);
     void m_phones_gain(t_symbol* s, const AtomListView& lv);
