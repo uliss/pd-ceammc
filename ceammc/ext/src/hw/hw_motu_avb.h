@@ -55,6 +55,8 @@ public:
     void m_input_to_computer(t_symbol* s, const AtomListView& lv);
     void m_input_to_mixer(t_symbol* s, const AtomListView& lv);
 
+    void m_comp_input_name(t_symbol* s, const AtomListView& lv);
+
     void m_main_gain(t_symbol* s, const AtomListView& lv);
     void m_phones_gain(t_symbol* s, const AtomListView& lv);
     void m_output_gain(t_symbol* s, const AtomListView& lv);

@@ -23,6 +23,7 @@ constexpr const char* KEY_GUITAR_PHASE = "k:guitar-phase";
 constexpr const char* KEY_GUITAR_NAME = "k:guitar-name";
 constexpr const char* KEY_INPUT_GAIN = "k:input-gain";
 constexpr const char* KEY_INPUT_NAME = "k:input-name";
+constexpr const char* KEY_INPUT_COMP_NAME = "k:input-cname";
 constexpr const char* KEY_MAIN_GAIN = "k:main-gain";
 constexpr const char* KEY_PHONES_GAIN = "k:phones-gain";
 constexpr const char* KEY_OUTPUT_GAIN = "k:output-gain";
@@ -81,6 +82,8 @@ const std::unordered_map<const char*, std::string> UrlMap = {
     // analog in
     { KEY_INPUT_GAIN, STR_INPUT_ANALOG + "/trim" },
     { KEY_INPUT_NAME, STR_INPUT_ANALOG + "/name" },
+    // comp im
+    { KEY_INPUT_COMP_NAME, STR_INPUT_COMPUTER + "/name" },
     // routing
     { KEY_MIC_TO_OUTPUT, STR_OUTPUT_ANALOG + "/src" },
     { KEY_MIC_TO_COMPUTER, STR_OUTPUT_COMPUTER + "/src" },
@@ -497,6 +500,16 @@ void HwMotuAvb::m_input_to_mixer(t_symbol* s, const AtomListView& lv)
     routeEnable(s, GROUP_INPUT_ANALOG, guitar_idx, KEY_INPUT_TO_MIXER, out_idx, state);
 }
 
+void HwMotuAvb::m_comp_input_name(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("i>=0 s?");
+
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    m_set_single(s, KEY_INPUT_COMP_NAME, lv.intAt(0, 0), lv.symbolAt(1, &s_));
+}
+
 void HwMotuAvb::m_main_gain(t_symbol* s, const AtomListView& lv)
 {
     if (!checkArgs(lv, ARG_FLOAT))
@@ -540,6 +553,7 @@ void setup_hw_motu_avb()
     ObjectFactory<HwMotuAvb> obj("hw.motu.avb");
     obj.addMethod("sync", &HwMotuAvb::m_sync);
 
+
     obj.addMethod("phantom", &HwMotuAvb::m_phantom);
     obj.addMethod("mic_gain", &HwMotuAvb::m_mic_gain);
     obj.addMethod("mic_pad", &HwMotuAvb::m_mic_pad);
@@ -564,6 +578,8 @@ void setup_hw_motu_avb()
     obj.addMethod("input->output", &HwMotuAvb::m_input_to_output);
     obj.addMethod("input->comp", &HwMotuAvb::m_input_to_computer);
     obj.addMethod("input->mix", &HwMotuAvb::m_input_to_mixer);
+
+    obj.addMethod("comp_input_name", &HwMotuAvb::m_comp_input_name);
 
     obj.addMethod("output_gain", &HwMotuAvb::m_output_gain);
 }
