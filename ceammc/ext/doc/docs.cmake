@@ -556,6 +556,7 @@ set(DOC_FILES
     path.lsdir
     path.monitor
     path.normalize
+    path.pattern
     path.search
     path.split
     plot.hist~

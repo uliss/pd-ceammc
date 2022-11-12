@@ -20,10 +20,12 @@
 #X text 200 305 filesystem event monitor;
 #X obj 30 332 path.normalize;
 #X text 200 332 normalize file paths;
-#X obj 30 359 path.search;
-#X text 200 359 file search;
-#X obj 30 386 path.split;
-#X text 200 386 file path split;
+#X obj 30 359 path.pattern;
+#X text 200 359 pattern filename generator;
+#X obj 30 386 path.search;
+#X text 200 386 file search;
+#X obj 30 413 path.split;
+#X text 200 413 file path split;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::path 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

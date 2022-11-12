@@ -905,6 +905,7 @@ path.ls	list directory contents
 path.monitor	filesystem event monitor
 path.normalize	normalize file paths
 path.norm	normalize file paths
+path.pattern	pattern filename generator
 path.search	file search
 path.split	file path split
 is_any	checks if input data has *any* type

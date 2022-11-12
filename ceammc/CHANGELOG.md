@@ -27,6 +27,7 @@
   - synth.kick2~ added
   - synth.hat~ added
   - synth.clap~ added
+  - path.pattern: generate unique filenames by pattern
 - new properties:
   - @clip property added to system.cursor to clip cursor XY coords
   - @norm property added to ui.env to do envelope value normalization on input
