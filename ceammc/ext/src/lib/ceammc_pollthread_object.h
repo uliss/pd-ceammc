@@ -30,6 +30,12 @@ class PollThreadTaskObject : public BaseObject, public NotifiedObject {
 public:
     using Future = std::future<void>;
 
+    enum TaskState {
+        TASK_NONE,
+        TASK_READY,
+        TASK_RUNNING,
+    };
+
 private:
     Future future_;
     In task_in_;
@@ -67,30 +73,40 @@ public:
     virtual Future createTask() = 0;
     virtual void processTask(NotifyEventType event) = 0;
 
+    TaskState taskState() const
+    {
+        if (future_.valid()) {
+            switch (future_.wait_for(std::chrono::seconds(0))) {
+            case std::future_status::ready:
+            case std::future_status::deferred:
+                return TASK_READY;
+            default:
+                return TASK_RUNNING;
+            }
+        } else
+            return TASK_NONE;
+    }
+
     bool runTask()
     {
         try {
-            if (future_.valid()) {
-                auto st = future_.wait_for(std::chrono::seconds(0));
+            auto ts = taskState();
 
-                switch (st) {
-                case std::future_status::ready:
-                case std::future_status::deferred:
-                    future_.get();
-                    return true;
-                default:
-                    OBJ_ERR << "previous task is not finished";
-                    return false;
-                }
+            switch (ts) {
+            case TASK_RUNNING:
+                // can't start task
+                OBJ_ERR << "previous task is not finished";
+                return false;
+            case TASK_READY:
+                // get result
+                future_.get();
+                break;
+            default:
+                break;
             }
 
             future_ = createTask();
-
-            // deferred
-            if (future_.valid() && future_.wait_for(std::chrono::seconds(0)) == std::future_status::deferred) {
-                future_.get();
-                return true;
-            }
+            processResultIfReady();
         } catch (std::exception& e) {
             OBJ_ERR << e.what();
             return false;
@@ -102,12 +118,7 @@ public:
     bool notify(NotifyEventType event) override
     {
         processTask(event);
-
-        if (future_.valid()
-            && std::future_status::ready == future_.wait_for(std::chrono::seconds(0))) {
-            future_.get();
-        }
-
+        processResultIfReady();
         return true;
     }
 
@@ -120,6 +131,16 @@ public:
     const In& inPipe() const { return task_in_; }
     Out& outPipe() { return task_out_; }
     const Out& outPipe() const { return task_out_; }
+
+private:
+    void processResultIfReady()
+    {
+        if (future_.valid()) {
+            const auto fst = future_.wait_for(std::chrono::seconds(0));
+            if (fst == std::future_status::deferred || fst == std::future_status::ready)
+                future_.get();
+        }
+    }
 };
 
 template <typename T>

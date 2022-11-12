@@ -4,19 +4,14 @@
 #include "fmt/core.h"
 #include "httplib.h"
 
-constexpr const char* KEY_REQUEST_TYPE = "reqtype";
-constexpr const char* KEY_HOST = "host";
-constexpr const char* KEY_HTTP_PORT = "http-port";
-constexpr const char* KEY_DEVICE = "dev-id";
-constexpr const char* KEY_PHANTOM = "phantom-ch";
-constexpr const char* KEY_MIC_GAIN = "mic-gain";
-constexpr const char* KEY_GUITAR_GAIN = "guitar-gain";
-constexpr const char* KEY_INPUT_GAIN = "input-gain";
-constexpr const char* KEY_MAIN_GAIN = "main-gain";
-constexpr const char* KEY_PHONES_GAIN = "phones-gain";
-constexpr const char* KEY_OUTPUT_GAIN = "output-gain";
-
-constexpr const char* KEY_VALUE = "val";
+constexpr size_t KEY_MAX_LENGTH = 32;
+constexpr const char* KEY_PHANTOM = "k:phantom-ch";
+constexpr const char* KEY_MIC_GAIN = "k:mic-gain";
+constexpr const char* KEY_GUITAR_GAIN = "k:guitar-gain";
+constexpr const char* KEY_INPUT_GAIN = "k:input-gain";
+constexpr const char* KEY_MAIN_GAIN = "k:main-gain";
+constexpr const char* KEY_PHONES_GAIN = "k:phones-gain";
+constexpr const char* KEY_OUTPUT_GAIN = "k:output-gain";
 
 namespace {
 
@@ -34,6 +29,13 @@ const std::unordered_map<const char*, std::string> UrlMap = {
     { KEY_PHONES_GAIN, "/{}/datastore/ext/obank/0/ch/0/stereoTrim" },
     { KEY_OUTPUT_GAIN, "/{}/datastore/ext/obank/2/ch/{}/trim" },
 };
+
+void makeKeyChan(const char* key, char* dest, size_t max_size)
+{
+    strncpy(dest, key, max_size);
+    dest[max_size - 1] = '\0';
+    dest[0] = 'c';
+}
 
 bool getRequestKey(const DataTypeDict& dict, const char* key, int& val)
 {
@@ -55,30 +57,6 @@ bool getRequestKey(const DataTypeDict& dict, const char* key, std::string& val)
     return true;
 }
 
-bool getRequestHostPort(const DataTypeDict& dict,
-    RequestType& type,
-    std::string& host,
-    int& port,
-    std::string& dev)
-{
-    int itype = 0;
-    if (!getRequestKey(dict, KEY_REQUEST_TYPE, itype))
-        return false;
-
-    type = static_cast<RequestType>(itype);
-
-    if (!getRequestKey(dict, KEY_HOST, host))
-        return false;
-
-    if (!getRequestKey(dict, KEY_HTTP_PORT, port))
-        return false;
-
-    if (!getRequestKey(dict, KEY_DEVICE, dev))
-        return false;
-
-    return true;
-}
-
 httplib::Client make_http_cli(const std::string& host, int http_port)
 {
     httplib::Client cli(host, http_port);
@@ -90,10 +68,16 @@ httplib::Client make_http_cli(const std::string& host, int http_port)
 bool setSingleValue(httplib::Client& cli,
     const std::string& device,
     const char* key,
-    const DataTypeDict& dict,
+    const MotuAvbRequest& req,
     ThreadPdLogger& log)
 {
-    if (!dict.contains(key) || !dict.contains(KEY_VALUE))
+    if (!req.data.contains(key))
+        return false;
+
+    char key_chan[KEY_MAX_LENGTH];
+    makeKeyChan(key, key_chan, KEY_MAX_LENGTH - 1);
+
+    if (!req.data.contains(key_chan))
         return false;
 
     auto it = UrlMap.find(key);
@@ -102,10 +86,11 @@ bool setSingleValue(httplib::Client& cli,
         return false;
     }
 
-    int ch = dict.at(key).intAt(0, 0);
-    int val = dict.at(KEY_VALUE).intAt(0, 0);
+    auto chan = req.data.at(key_chan).intAt(0, 0);
+    auto path_pattern = it->second;
+    auto path = fmt::format(path_pattern, device, chan);
 
-    auto path = fmt::format(it->second, device, ch);
+    int val = req.data.at(key).intAt(0, 0);
     auto json = fmt::format("json={{\"value\":{}}}", val);
     auto res = cli.Patch(path.c_str(), json.c_str(), "application/x-www-form-urlencoded");
 
@@ -131,6 +116,9 @@ HwMotuAvb::HwMotuAvb(const PdArgs& args)
     , host_(nullptr)
     , port_(nullptr)
     , logger_()
+    , req_timer_([this]() {
+        scheduleTask(req_set_);
+    })
 {
     createOutlet();
 
@@ -150,24 +138,15 @@ HwMotuAvb::HwMotuAvb(const PdArgs& args)
 HwMotuAvb::Future HwMotuAvb::createTask()
 {
     return std::async(std::launch::async, [this]() {
-        DataTypeDict dict;
-        RequestType req_type;
-        std::string host;
-        std::string dev_id;
-        int http_port;
+        MotuAvbRequest req;
 
         try {
 
-            while (inPipe().try_dequeue(dict)) {
-                if (!getRequestHostPort(dict, req_type, host, http_port, dev_id)) {
-                    logger_.error(fmt::format("invalid request params: {}", dict.toString()));
-                    continue;
-                }
-
-                switch (req_type) {
+            while (inPipe().try_dequeue(req)) {
+                switch (req.type) {
                 case REQ_SYNC: {
-                    auto cli = make_http_cli(host, http_port);
-                    auto url = fmt::format("/{}/datastore", dev_id);
+                    auto cli = make_http_cli(req.host, req.port);
+                    auto url = fmt::format("/{}/datastore", req.device);
                     auto res = cli.Get(url.c_str());
                     if (res) {
                         if (res->status == 200) {
@@ -190,19 +169,19 @@ HwMotuAvb::Future HwMotuAvb::createTask()
                     }
                 } break;
                 case REQ_SET: {
-                    auto cli = make_http_cli(host, http_port);
+                    auto cli = make_http_cli(req.host, req.port);
 
-                    setSingleValue(cli, dev_id, KEY_PHANTOM, dict, logger_);
-                    setSingleValue(cli, dev_id, KEY_MIC_GAIN, dict, logger_);
-                    setSingleValue(cli, dev_id, KEY_GUITAR_GAIN, dict, logger_);
-                    setSingleValue(cli, dev_id, KEY_INPUT_GAIN, dict, logger_);
-                    setSingleValue(cli, dev_id, KEY_MAIN_GAIN, dict, logger_);
-                    setSingleValue(cli, dev_id, KEY_PHONES_GAIN, dict, logger_);
-                    setSingleValue(cli, dev_id, KEY_OUTPUT_GAIN, dict, logger_);
+                    setSingleValue(cli, req.device, KEY_PHANTOM, req, logger_);
+                    setSingleValue(cli, req.device, KEY_MIC_GAIN, req, logger_);
+                    setSingleValue(cli, req.device, KEY_GUITAR_GAIN, req, logger_);
+                    setSingleValue(cli, req.device, KEY_INPUT_GAIN, req, logger_);
+                    setSingleValue(cli, req.device, KEY_MAIN_GAIN, req, logger_);
+                    setSingleValue(cli, req.device, KEY_PHONES_GAIN, req, logger_);
+                    setSingleValue(cli, req.device, KEY_OUTPUT_GAIN, req, logger_);
 
                 } break;
                 default:
-                    logger_.error(fmt::format("unknown request type: {}", req_type));
+                    logger_.error(fmt::format("unknown request type: {}", req.type));
                     break;
                 }
 
@@ -216,42 +195,40 @@ HwMotuAvb::Future HwMotuAvb::createTask()
 
 void HwMotuAvb::processMessage(const DataTypeDict& msg)
 {
+    req_set_.data.clear();
 }
 
-bool HwMotuAvb::scheduleTask(t_symbol* s, DataTypeDict&& dict)
+void HwMotuAvb::scheduleTask(const MotuAvbRequest& req)
 {
-    if (!inPipe().try_enqueue(std::move(dict))) {
-        METHOD_ERR(s) << "can't make request";
-        return false;
+    if (!inPipe().enqueue(req)) {
+        OBJ_ERR << "can't make request: command queue is full";
+        return;
     }
 
-    if (!runTask()) {
-        METHOD_ERR(s) << "can't run task";
-        return false;
-    }
-
-    return true;
+    if (taskState() != TASK_RUNNING)
+        runTask();
 }
 
 void HwMotuAvb::m_set_single(t_symbol* s, const char* key, int ch, int val, const AtomListView& lv)
 {
-    DataTypeDict dict;
-    if (!fillRequestDict(s, dict, REQ_SET))
+    if (!updateRequest(s, req_set_, REQ_SET))
         return;
 
-    dict.insert(key, ch);
-    dict.insert(KEY_VALUE, val);
+    char key_chan[KEY_MAX_LENGTH];
+    makeKeyChan(key, key_chan, KEY_MAX_LENGTH - 1);
 
-    scheduleTask(s, std::move(dict));
+    req_set_.data.insert(key, val);
+    req_set_.data.insert(key_chan, ch);
+    req_timer_.delay(100);
 }
 
 void HwMotuAvb::m_sync(t_symbol* s, const AtomListView& lv)
 {
-    DataTypeDict dict;
-    if (!fillRequestDict(s, dict, REQ_SYNC))
+    MotuAvbRequest req;
+    if (!updateRequest(s, req, REQ_SYNC))
         return;
 
-    scheduleTask(s, std::move(dict));
+    scheduleTask(req);
 }
 
 void HwMotuAvb::m_phantom(t_symbol* s, const AtomListView& lv)
@@ -310,17 +287,17 @@ void HwMotuAvb::m_output_gain(t_symbol* s, const AtomListView& lv)
     m_set_single(s, KEY_OUTPUT_GAIN, lv.intAt(0, 0), lv.intAt(1, 0), lv);
 }
 
-bool HwMotuAvb::fillRequestDict(t_symbol* s, DataTypeDict& dict, int type) const
+bool HwMotuAvb::updateRequest(t_symbol* s, MotuAvbRequest& req, int type) const
 {
     if (device_->value() == &s_) {
         METHOD_ERR(s) << "empty device id";
         return false;
     }
 
-    dict.insert(KEY_REQUEST_TYPE, Atom(type));
-    dict.insert(KEY_HOST, host_->value());
-    dict.insert(KEY_HTTP_PORT, port_->value());
-    dict.insert(KEY_DEVICE, device_->value());
+    req.host = host_->value()->s_name;
+    req.device = device_->value()->s_name;
+    req.type = type;
+    req.port = port_->value();
     return true;
 }
 
