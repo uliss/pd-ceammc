@@ -657,6 +657,7 @@ set(DOC_FILES
     synth.fgrain~
     synth.french_bell~
     synth.harpsichord~
+    synth.hat~
     synth.german_bell~
     synth.glass_harm~
     synth.glitch~
