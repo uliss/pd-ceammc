@@ -37,11 +37,24 @@ public:
     void m_mic_gain(t_symbol* s, const AtomListView& lv);
     void m_mic_pad(t_symbol* s, const AtomListView& lv);
     void m_mic_phase(t_symbol* s, const AtomListView& lv);
+    void m_mic_name(t_symbol* s, const AtomListView& lv);
+    void m_mic_to_output(t_symbol* s, const AtomListView& lv);
+    void m_mic_to_computer(t_symbol* s, const AtomListView& lv);
+    void m_mic_to_mixer(t_symbol* s, const AtomListView& lv);
 
     void m_guitar_gain(t_symbol* s, const AtomListView& lv);
     void m_guitar_phase(t_symbol* s, const AtomListView& lv);
+    void m_guitar_name(t_symbol* s, const AtomListView& lv);
+    void m_guitar_to_output(t_symbol* s, const AtomListView& lv);
+    void m_guitar_to_computer(t_symbol* s, const AtomListView& lv);
+    void m_guitar_to_mixer(t_symbol* s, const AtomListView& lv);
 
     void m_input_gain(t_symbol* s, const AtomListView& lv);
+    void m_input_name(t_symbol* s, const AtomListView& lv);
+    void m_input_to_output(t_symbol* s, const AtomListView& lv);
+    void m_input_to_computer(t_symbol* s, const AtomListView& lv);
+    void m_input_to_mixer(t_symbol* s, const AtomListView& lv);
+
     void m_main_gain(t_symbol* s, const AtomListView& lv);
     void m_phones_gain(t_symbol* s, const AtomListView& lv);
     void m_output_gain(t_symbol* s, const AtomListView& lv);
@@ -49,7 +62,8 @@ public:
 private:
     bool updateRequest(t_symbol* s, MotuAvbRequest& req, int type) const;
     void scheduleTask(const MotuAvbRequest& req);
-    void m_set_single(t_symbol* s, const char* key, int ch, int val, const AtomListView& lv);
+    void m_set_single(t_symbol* s, const char* key, int ch, const Atom& val);
+    void routeEnable(t_symbol* s, int in_group, int in_channel, const char* out_key, int out_channel, bool val);
 };
 
 void setup_hw_motu_avb();

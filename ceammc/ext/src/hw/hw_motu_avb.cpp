@@ -1,5 +1,7 @@
 #include "hw_motu_avb.h"
+#include "args/argcheck2.h"
 #include "ceammc_factory.h"
+#include "ceammc_format.h"
 
 #include "fmt/core.h"
 #include "httplib.h"
@@ -9,14 +11,39 @@ constexpr const char* KEY_PHANTOM = "k:phantom-ch";
 constexpr const char* KEY_MIC_GAIN = "k:mic-gain";
 constexpr const char* KEY_MIC_PAD = "k:mic-pad";
 constexpr const char* KEY_MIC_PHASE = "k:mic-phase";
+constexpr const char* KEY_MIC_NAME = "k:mic-name";
+constexpr const char* KEY_MIC_TO_OUTPUT = "k:mic->out";
+constexpr const char* KEY_MIC_TO_COMPUTER = "k:mic->comp";
+constexpr const char* KEY_MIC_TO_MIXER = "k:mic->mix";
+constexpr const char* KEY_GUITAR_TO_OUTPUT = "k:guitar->out";
+constexpr const char* KEY_GUITAR_TO_COMPUTER = "k:guitar->comp";
+constexpr const char* KEY_GUITAR_TO_MIXER = "k:guitar->mix";
 constexpr const char* KEY_GUITAR_GAIN = "k:guitar-gain";
 constexpr const char* KEY_GUITAR_PHASE = "k:guitar-phase";
+constexpr const char* KEY_GUITAR_NAME = "k:guitar-name";
 constexpr const char* KEY_INPUT_GAIN = "k:input-gain";
+constexpr const char* KEY_INPUT_NAME = "k:input-name";
 constexpr const char* KEY_MAIN_GAIN = "k:main-gain";
 constexpr const char* KEY_PHONES_GAIN = "k:phones-gain";
 constexpr const char* KEY_OUTPUT_GAIN = "k:output-gain";
+constexpr const char* KEY_INPUT_TO_OUTPUT = "k:in->out";
+constexpr const char* KEY_INPUT_TO_COMPUTER = "k:in->comp";
+constexpr const char* KEY_INPUT_TO_MIXER = "k:in->mix";
 
 constexpr int MOTU_DEFAULT_HTTP_PORT = 1280;
+
+constexpr int GROUP_INPUT_MIC = 0;
+constexpr int GROUP_INPUT_GUITAR = 1;
+constexpr int GROUP_INPUT_ANALOG = 2;
+constexpr int GROUP_INPUT_TOSLINK = 3;
+constexpr int GROUP_INPUT_COMPUTER = 4;
+
+constexpr int GROUP_OUTPUT_PHONES = 0;
+constexpr int GROUP_OUTPUT_MAIN = 1;
+constexpr int GROUP_OUTPUT_ANALOG = 2;
+constexpr int GROUP_OUTPUT_TOSLINK = 3;
+constexpr int GROUP_OUTPUT_COMPUTER = 4;
+constexpr int GROUP_OUTPUT_MIXER = 9;
 
 namespace {
 
@@ -25,17 +52,49 @@ enum RequestType {
     REQ_SET,
 };
 
+constexpr const char* STR_INPUT_PATTERN = "/{{}}/datastore/ext/ibank/{}/ch/{{}}";
+const std::string STR_INPUT_MIC = fmt::format(STR_INPUT_PATTERN, GROUP_INPUT_MIC);
+const std::string STR_INPUT_GUITAR = fmt::format(STR_INPUT_PATTERN, GROUP_INPUT_GUITAR);
+const std::string STR_INPUT_ANALOG = fmt::format(STR_INPUT_PATTERN, GROUP_INPUT_ANALOG);
+const std::string STR_INPUT_TOSLINK = fmt::format(STR_INPUT_PATTERN, GROUP_INPUT_TOSLINK);
+const std::string STR_INPUT_COMPUTER = fmt::format(STR_INPUT_PATTERN, GROUP_INPUT_COMPUTER);
+
+constexpr const char* STR_OUT_PATTERN = "/{{}}/datastore/ext/obank/{}/ch/{{}}";
+const std::string STR_OUTPUT_PHONES = fmt::format(STR_OUT_PATTERN, GROUP_OUTPUT_PHONES);
+const std::string STR_OUTPUT_MAIN = fmt::format(STR_OUT_PATTERN, GROUP_OUTPUT_MAIN);
+const std::string STR_OUTPUT_ANALOG = fmt::format(STR_OUT_PATTERN, GROUP_OUTPUT_ANALOG);
+const std::string STR_OUTPUT_TOSLINK = fmt::format(STR_OUT_PATTERN, GROUP_OUTPUT_TOSLINK);
+const std::string STR_OUTPUT_COMPUTER = fmt::format(STR_OUT_PATTERN, GROUP_OUTPUT_COMPUTER);
+const std::string STR_OUTPUT_MIXER = fmt::format(STR_OUT_PATTERN, GROUP_OUTPUT_MIXER);
+
 const std::unordered_map<const char*, std::string> UrlMap = {
-    { KEY_PHANTOM, "/{}/datastore/ext/ibank/0/ch/{}/48V" },
-    { KEY_MIC_GAIN, "/{}/datastore/ext/ibank/0/ch/{}/trim" },
-    { KEY_MIC_PAD, "/{}/datastore/ext/ibank/0/ch/{}/pad" },
-    { KEY_MIC_PHASE, "/{}/datastore/ext/ibank/0/ch/{}/phase" },
-    { KEY_GUITAR_GAIN, "/{}/datastore/ext/ibank/1/ch/{}/trim" },
-    { KEY_GUITAR_PHASE, "/{}/datastore/ext/ibank/1/ch/{}/phase" },
-    { KEY_INPUT_GAIN, "/{}/datastore/ext/ibank/2/ch/{}/trim" },
-    { KEY_MAIN_GAIN, "/{}/datastore/ext/obank/1/ch/0/stereoTrim" },
-    { KEY_PHONES_GAIN, "/{}/datastore/ext/obank/0/ch/0/stereoTrim" },
-    { KEY_OUTPUT_GAIN, "/{}/datastore/ext/obank/2/ch/{}/trim" },
+    // mic
+    { KEY_PHANTOM, STR_INPUT_MIC + "/48V" },
+    { KEY_MIC_GAIN, STR_INPUT_MIC + "/trim" },
+    { KEY_MIC_PAD, STR_INPUT_MIC + "/pad" },
+    { KEY_MIC_PHASE, STR_INPUT_MIC + "/phase" },
+    { KEY_MIC_NAME, STR_INPUT_MIC + "/name" },
+    // guitar
+    { KEY_GUITAR_GAIN, STR_INPUT_GUITAR + "/trim" },
+    { KEY_GUITAR_PHASE, STR_INPUT_GUITAR + "/phase" },
+    { KEY_GUITAR_NAME, STR_INPUT_GUITAR + "/name" },
+    // analog in
+    { KEY_INPUT_GAIN, STR_INPUT_ANALOG + "/trim" },
+    { KEY_INPUT_NAME, STR_INPUT_ANALOG + "/name" },
+    // routing
+    { KEY_MIC_TO_OUTPUT, STR_OUTPUT_ANALOG + "/src" },
+    { KEY_MIC_TO_COMPUTER, STR_OUTPUT_COMPUTER + "/src" },
+    { KEY_MIC_TO_MIXER, STR_OUTPUT_MIXER + "/src" },
+    { KEY_GUITAR_TO_OUTPUT, STR_OUTPUT_ANALOG + "/src" },
+    { KEY_GUITAR_TO_COMPUTER, STR_OUTPUT_COMPUTER + "/src" },
+    { KEY_GUITAR_TO_MIXER, STR_OUTPUT_MIXER + "/src" },
+    { KEY_INPUT_TO_OUTPUT, STR_OUTPUT_ANALOG + "/src" },
+    { KEY_INPUT_TO_COMPUTER, STR_OUTPUT_COMPUTER + "/src" },
+    { KEY_INPUT_TO_MIXER, STR_OUTPUT_MIXER + "/src" },
+    // output
+    { KEY_MAIN_GAIN, STR_OUTPUT_MAIN + "/stereoTrim" },
+    { KEY_PHONES_GAIN, STR_OUTPUT_PHONES + "/stereoTrim" },
+    { KEY_OUTPUT_GAIN, STR_OUTPUT_ANALOG + "/trim" },
 };
 
 void makeKeyChan(const char* key, char* dest, size_t max_size)
@@ -98,8 +157,8 @@ bool setSingleValue(httplib::Client& cli,
     auto path_pattern = it->second;
     auto path = fmt::format(path_pattern, device, chan);
 
-    int val = req.data.at(key).intAt(0, 0);
-    auto json = fmt::format("json={{\"value\":{}}}", val);
+    auto val = to_string(req.data.at(key));
+    auto json = fmt::format("json={{\"value\":\"{}\"}}", val);
     auto res = cli.Patch(path.c_str(), json.c_str(), "application/x-www-form-urlencoded");
 
     log.debug(fmt::format("url: {}, json: {}", path, json));
@@ -126,6 +185,7 @@ HwMotuAvb::HwMotuAvb(const PdArgs& args)
     , logger_()
     , req_timer_([this]() {
         scheduleTask(req_set_);
+        req_set_.data.clear();
     })
 {
     createOutlet();
@@ -212,7 +272,7 @@ void HwMotuAvb::scheduleTask(const MotuAvbRequest& req)
         runTask();
 }
 
-void HwMotuAvb::m_set_single(t_symbol* s, const char* key, int ch, int val, const AtomListView& lv)
+void HwMotuAvb::m_set_single(t_symbol* s, const char* key, int ch, const Atom& val)
 {
     if (!updateRequest(s, req_set_, REQ_SET))
         return;
@@ -223,6 +283,15 @@ void HwMotuAvb::m_set_single(t_symbol* s, const char* key, int ch, int val, cons
     req_set_.data.insert(key, val);
     req_set_.data.insert(key_chan, ch);
     req_timer_.delay(100);
+}
+
+void HwMotuAvb::routeEnable(t_symbol* s, int in_group, int in_channel, const char* out_key, int out_channel, bool val)
+{
+    if (val) {
+        auto msg = fmt::format("{}:{}", in_group, in_channel);
+        m_set_single(s, out_key, out_channel, gensym(msg.c_str()));
+    } else
+        m_set_single(s, out_key, out_channel, &s_);
 }
 
 void HwMotuAvb::m_sync(t_symbol* s, const AtomListView& lv)
@@ -239,7 +308,7 @@ void HwMotuAvb::m_phantom(t_symbol* s, const AtomListView& lv)
     if (!checkArgs(lv, ARG_INT, ARG_BOOL))
         return;
 
-    m_set_single(s, KEY_PHANTOM, lv.intAt(0, 0), lv.boolAt(1, false), lv);
+    m_set_single(s, KEY_PHANTOM, lv.intAt(0, 0), lv.at(1));
 }
 
 void HwMotuAvb::m_mic_gain(t_symbol* s, const AtomListView& lv)
@@ -247,7 +316,7 @@ void HwMotuAvb::m_mic_gain(t_symbol* s, const AtomListView& lv)
     if (!checkArgs(lv, ARG_INT, ARG_FLOAT))
         return;
 
-    m_set_single(s, KEY_MIC_GAIN, lv.intAt(0, 0), lv.intAt(1, 0), lv);
+    m_set_single(s, KEY_MIC_GAIN, lv.intAt(0, 0), lv.at(1));
 }
 
 void HwMotuAvb::m_guitar_gain(t_symbol* s, const AtomListView& lv)
@@ -255,7 +324,7 @@ void HwMotuAvb::m_guitar_gain(t_symbol* s, const AtomListView& lv)
     if (!checkArgs(lv, ARG_INT, ARG_FLOAT))
         return;
 
-    m_set_single(s, KEY_GUITAR_GAIN, lv.intAt(0, 0), lv.intAt(1, 0), lv);
+    m_set_single(s, KEY_GUITAR_GAIN, lv.intAt(0, 0), lv.at(1));
 }
 
 void HwMotuAvb::m_guitar_phase(t_symbol* s, const AtomListView& lv)
@@ -263,7 +332,17 @@ void HwMotuAvb::m_guitar_phase(t_symbol* s, const AtomListView& lv)
     if (!checkArgs(lv, ARG_INT, ARG_FLOAT))
         return;
 
-    m_set_single(s, KEY_GUITAR_PHASE, lv.intAt(0, 0), lv.intAt(1, 0), lv);
+    m_set_single(s, KEY_GUITAR_PHASE, lv.intAt(0, 0), lv.at(1));
+}
+
+void HwMotuAvb::m_guitar_name(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("i>=0 s?");
+
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    m_set_single(s, KEY_GUITAR_NAME, lv.intAt(0, 0), lv.symbolAt(1, &s_));
 }
 
 void HwMotuAvb::m_input_gain(t_symbol* s, const AtomListView& lv)
@@ -271,7 +350,17 @@ void HwMotuAvb::m_input_gain(t_symbol* s, const AtomListView& lv)
     if (!checkArgs(lv, ARG_INT, ARG_FLOAT))
         return;
 
-    m_set_single(s, KEY_INPUT_GAIN, lv.intAt(0, 0), lv.intAt(1, 0), lv);
+    m_set_single(s, KEY_INPUT_GAIN, lv.intAt(0, 0), lv.at(1));
+}
+
+void HwMotuAvb::m_input_name(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("i>=0 s?");
+
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    m_set_single(s, KEY_INPUT_NAME, lv.intAt(0, 0), lv.symbolAt(1, &s_));
 }
 
 void HwMotuAvb::m_mic_pad(t_symbol* s, const AtomListView& lv)
@@ -279,7 +368,7 @@ void HwMotuAvb::m_mic_pad(t_symbol* s, const AtomListView& lv)
     if (!checkArgs(lv, ARG_INT, ARG_BOOL))
         return;
 
-    m_set_single(s, KEY_MIC_PAD, lv.intAt(0, 0), lv.boolAt(1, false), lv);
+    m_set_single(s, KEY_MIC_PAD, lv.intAt(0, 0), lv.at(1));
 }
 
 void HwMotuAvb::m_mic_phase(t_symbol* s, const AtomListView& lv)
@@ -287,7 +376,125 @@ void HwMotuAvb::m_mic_phase(t_symbol* s, const AtomListView& lv)
     if (!checkArgs(lv, ARG_INT, ARG_BOOL))
         return;
 
-    m_set_single(s, KEY_MIC_PHASE, lv.intAt(0, 0), lv.boolAt(1, false), lv);
+    m_set_single(s, KEY_MIC_PHASE, lv.intAt(0, 0), lv.at(1));
+}
+
+void HwMotuAvb::m_mic_name(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("i>=0 s?");
+
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    m_set_single(s, KEY_MIC_NAME, lv.intAt(0, 0), lv.symbolAt(1, &s_));
+}
+
+void HwMotuAvb::m_mic_to_output(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_INT, ARG_INT, ARG_BOOL))
+        return;
+
+    auto mic_idx = lv.intAt(0, 0);
+    auto out_idx = lv.intAt(1, 0);
+    auto state = lv.boolAt(2, false);
+
+    routeEnable(s, GROUP_INPUT_MIC, mic_idx, KEY_MIC_TO_OUTPUT, out_idx, state);
+}
+
+void HwMotuAvb::m_mic_to_computer(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_INT, ARG_INT, ARG_BOOL))
+        return;
+
+    auto mic_idx = lv.intAt(0, 0);
+    auto out_idx = lv.intAt(1, 0);
+    auto state = lv.boolAt(2, false);
+
+    routeEnable(s, GROUP_INPUT_MIC, mic_idx, KEY_MIC_TO_COMPUTER, out_idx, state);
+}
+
+void HwMotuAvb::m_mic_to_mixer(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_INT, ARG_INT, ARG_BOOL))
+        return;
+
+    auto mic_idx = lv.intAt(0, 0);
+    auto out_idx = lv.intAt(1, 0);
+    auto state = lv.boolAt(2, false);
+
+    routeEnable(s, GROUP_INPUT_MIC, mic_idx, KEY_MIC_TO_MIXER, out_idx, state);
+}
+
+void HwMotuAvb::m_guitar_to_output(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_INT, ARG_INT, ARG_BOOL))
+        return;
+
+    auto guitar_idx = lv.intAt(0, 0);
+    auto out_idx = lv.intAt(1, 0);
+    auto state = lv.boolAt(2, false);
+
+    routeEnable(s, GROUP_INPUT_GUITAR, guitar_idx, KEY_GUITAR_TO_OUTPUT, out_idx, state);
+}
+
+void HwMotuAvb::m_guitar_to_computer(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_INT, ARG_INT, ARG_BOOL))
+        return;
+
+    auto guitar_idx = lv.intAt(0, 0);
+    auto out_idx = lv.intAt(1, 0);
+    auto state = lv.boolAt(2, false);
+
+    routeEnable(s, GROUP_INPUT_GUITAR, guitar_idx, KEY_GUITAR_TO_COMPUTER, out_idx, state);
+}
+
+void HwMotuAvb::m_guitar_to_mixer(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_INT, ARG_INT, ARG_BOOL))
+        return;
+
+    auto guitar_idx = lv.intAt(0, 0);
+    auto out_idx = lv.intAt(1, 0);
+    auto state = lv.boolAt(2, false);
+
+    routeEnable(s, GROUP_INPUT_GUITAR, guitar_idx, KEY_GUITAR_TO_MIXER, out_idx, state);
+}
+
+void HwMotuAvb::m_input_to_output(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_INT, ARG_INT, ARG_BOOL))
+        return;
+
+    auto guitar_idx = lv.intAt(0, 0);
+    auto out_idx = lv.intAt(1, 0);
+    auto state = lv.boolAt(2, false);
+
+    routeEnable(s, GROUP_INPUT_ANALOG, guitar_idx, KEY_INPUT_TO_OUTPUT, out_idx, state);
+}
+
+void HwMotuAvb::m_input_to_computer(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_INT, ARG_INT, ARG_BOOL))
+        return;
+
+    auto guitar_idx = lv.intAt(0, 0);
+    auto out_idx = lv.intAt(1, 0);
+    auto state = lv.boolAt(2, false);
+
+    routeEnable(s, GROUP_INPUT_ANALOG, guitar_idx, KEY_INPUT_TO_COMPUTER, out_idx, state);
+}
+
+void HwMotuAvb::m_input_to_mixer(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_INT, ARG_INT, ARG_BOOL))
+        return;
+
+    auto guitar_idx = lv.intAt(0, 0);
+    auto out_idx = lv.intAt(1, 0);
+    auto state = lv.boolAt(2, false);
+
+    routeEnable(s, GROUP_INPUT_ANALOG, guitar_idx, KEY_INPUT_TO_MIXER, out_idx, state);
 }
 
 void HwMotuAvb::m_main_gain(t_symbol* s, const AtomListView& lv)
@@ -295,7 +502,7 @@ void HwMotuAvb::m_main_gain(t_symbol* s, const AtomListView& lv)
     if (!checkArgs(lv, ARG_FLOAT))
         return;
 
-    m_set_single(s, KEY_MAIN_GAIN, 0, lv.intAt(0, 0), lv);
+    m_set_single(s, KEY_MAIN_GAIN, 0, lv.at(0));
 }
 
 void HwMotuAvb::m_phones_gain(t_symbol* s, const AtomListView& lv)
@@ -303,7 +510,7 @@ void HwMotuAvb::m_phones_gain(t_symbol* s, const AtomListView& lv)
     if (!checkArgs(lv, ARG_FLOAT))
         return;
 
-    m_set_single(s, KEY_PHONES_GAIN, 0, lv.intAt(0, 0), lv);
+    m_set_single(s, KEY_PHONES_GAIN, 0, lv.at(0));
 }
 
 void HwMotuAvb::m_output_gain(t_symbol* s, const AtomListView& lv)
@@ -311,7 +518,7 @@ void HwMotuAvb::m_output_gain(t_symbol* s, const AtomListView& lv)
     if (!checkArgs(lv, ARG_INT, ARG_FLOAT))
         return;
 
-    m_set_single(s, KEY_OUTPUT_GAIN, lv.intAt(0, 0), lv.intAt(1, 0), lv);
+    m_set_single(s, KEY_OUTPUT_GAIN, lv.intAt(0, 0), lv.at(1));
 }
 
 bool HwMotuAvb::updateRequest(t_symbol* s, MotuAvbRequest& req, int type) const
@@ -337,13 +544,26 @@ void setup_hw_motu_avb()
     obj.addMethod("mic_gain", &HwMotuAvb::m_mic_gain);
     obj.addMethod("mic_pad", &HwMotuAvb::m_mic_pad);
     obj.addMethod("mic_phase", &HwMotuAvb::m_mic_phase);
+    obj.addMethod("mic_name", &HwMotuAvb::m_mic_name);
+    obj.addMethod("mic->output", &HwMotuAvb::m_mic_to_output);
+    obj.addMethod("mic->comp", &HwMotuAvb::m_mic_to_computer);
+    obj.addMethod("mic->mix", &HwMotuAvb::m_mic_to_mixer);
 
     obj.addMethod("guitar_gain", &HwMotuAvb::m_guitar_gain);
     obj.addMethod("guitar_phase", &HwMotuAvb::m_guitar_phase);
+    obj.addMethod("guitar_name", &HwMotuAvb::m_guitar_name);
+    obj.addMethod("guitar->output", &HwMotuAvb::m_guitar_to_output);
+    obj.addMethod("guitar->comp", &HwMotuAvb::m_guitar_to_computer);
+    obj.addMethod("guitar->mix", &HwMotuAvb::m_guitar_to_mixer);
 
     obj.addMethod("main_gain", &HwMotuAvb::m_main_gain);
     obj.addMethod("phones_gain", &HwMotuAvb::m_phones_gain);
 
     obj.addMethod("input_gain", &HwMotuAvb::m_input_gain);
+    obj.addMethod("input_name", &HwMotuAvb::m_input_name);
+    obj.addMethod("input->output", &HwMotuAvb::m_input_to_output);
+    obj.addMethod("input->comp", &HwMotuAvb::m_input_to_computer);
+    obj.addMethod("input->mix", &HwMotuAvb::m_input_to_mixer);
+
     obj.addMethod("output_gain", &HwMotuAvb::m_output_gain);
 }
