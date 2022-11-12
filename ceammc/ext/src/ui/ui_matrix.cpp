@@ -380,12 +380,10 @@ void UIMatrix::eraseCells()
 
 std::pair<int, int> UIMatrix::cellAt(const t_pt& pt)
 {
-    std::pair<int, int> res;
-    res.first = -1;
-    res.second = -1;
+    std::pair<int, int> res { -1, -1 };
 
-    res.first = clip<int>(std::floor((pt.x - 2 * CELL_MARGIN) / cellWidth()), 0, prop_cols_ - 1);
-    res.second = clip<int>(std::floor((pt.y - 2 * CELL_MARGIN) / cellHeight()), 0, prop_rows_ - 1);
+    res.first = clip<int>(std::floor((pt.x - 2 * CELL_MARGIN) * prop_cols_ / width()), 0, prop_cols_ - 1);
+    res.second = clip<int>(std::floor((pt.y - 2 * CELL_MARGIN) * prop_rows_ / height()), 0, prop_rows_ - 1);
     return res;
 }
 
