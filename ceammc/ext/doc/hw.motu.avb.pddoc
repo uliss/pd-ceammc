@@ -16,10 +16,45 @@
         <info>
             <par>Only basic support at this moment</par>
         </info>
+        <arguments>
+            <argument name="ID" type="symbol">Motu device id</argument>
+        </arguments>
         <properties>
-            <property name="@brightness" type="float" minvalue="0" maxvalue="1" default="0.313477">
-            display brightness</property>
+            <property name="@host" type="symbol" default="localhost">
+            Motu HTTP host</property>
+            <property name="@port" type="int" default="1280" minvalue="1" maxvalue="1200">
+            Motu HTTP port</property>
+            <property name="@dev" type="symbol" default="">
+            Motu device id</property>
         </properties>
+        <methods>
+            <method name="main_gain">set main output gain
+            <param name="DB" type="float" units="decibel" required="true" minvalue="-127" maxvalue="0">value in decibel</param>
+            </method>
+            <method name="phones_gain">set phones output gain
+            <param name="DB" type="float" units="decibel" required="true" minvalue="-127" maxvalue="0">value in decibel</param>
+            </method>
+            <method name="phantom">turns phantom on/off
+            <param name="CHAN" type="int" required="true" minvalue="0">phantom channel</param>
+            <param name="VAL" type="int" required="true" enum="0 1">phantom state</param>
+            </method>
+            <method name="mic_gain">set mic gain
+            <param name="CHAN" type="int" required="true" minvalue="0">mic channel (zero-based)</param>
+            <param name="DB" type="float" units="decibel" required="true" minvalue="0" maxvalue="60">value in decibel</param>
+            </method>
+            <method name="guitar_gain">set guitar gain
+            <param name="CHAN" type="int" required="true" minvalue="0">guitar channel (zero-based)</param>
+            <param name="DB" type="float" units="decibel" required="true" minvalue="0" maxvalue="60">value in decibel</param>
+            </method>
+            <method name="input_gain">set input gain
+            <param name="CHAN" type="int" required="true" minvalue="0">input channel (zero-based)</param>
+            <param name="DB" type="float" units="decibel" required="true">value in decibel</param>
+            </method>
+            <method name="output_gain">set input gain
+            <param name="CHAN" type="int" required="true" minvalue="0">input channel (zero-based)</param>
+            <param name="DB" type="float" units="decibel" required="true">value in decibel</param>
+            </method>
+        </methods>
         <inlets>
             <inlet>
                 <xinfo>input</xinfo>

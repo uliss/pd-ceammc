@@ -13,6 +13,8 @@ constexpr const char* KEY_MAIN_GAIN = "k:main-gain";
 constexpr const char* KEY_PHONES_GAIN = "k:phones-gain";
 constexpr const char* KEY_OUTPUT_GAIN = "k:output-gain";
 
+constexpr int MOTU_DEFAULT_HTTP_PORT = 1280;
+
 namespace {
 
 enum RequestType {
@@ -129,7 +131,7 @@ HwMotuAvb::HwMotuAvb(const PdArgs& args)
     host_ = new SymbolProperty("@host", gensym("localhost"));
     addProperty(host_);
 
-    port_ = new IntProperty("@port", 1280);
+    port_ = new IntProperty("@port", MOTU_DEFAULT_HTTP_PORT);
     addProperty(port_);
 
     Dispatcher::instance().subscribe(this, subscriberId());
