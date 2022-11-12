@@ -1072,6 +1072,7 @@ sync
 synth.bee3~
 synth.birds~
 synth.church_bell~
+synth.clap~
 synth.dubdub~
 synth.dx7~
 synth.eguitar~
@@ -1082,6 +1083,7 @@ synth.german_bell~
 synth.glass_harm~
 synth.glitch~
 synth.harpsichord~
+synth.hat~
 synth.kick2~
 synth.kick~
 synth.ks~
