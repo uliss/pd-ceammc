@@ -21,14 +21,18 @@
             &gt;0: on, 0: off. To set output gain to 0.5 you can 0.5 as trigger value</property>
             <property name="@active" type="int" enum="0 1" default="1">on/off dsp
             processing</property>
-            <property name="@attack" type="float" minvalue="1" maxvalue="50" default="10"
+            <property name="@attack" type="float" minvalue="5" maxvalue="400" default="20"
             units="millisecond">attack time</property>
-            <property name="@release" type="float" minvalue="10" maxvalue="8000" default="1000"
+            <property name="@release" type="float" minvalue="5" maxvalue="4000" default="100"
             units="millisecond">release time</property>
             <property name="@envwait" type="int" enum="0 1" default="0">ignore new notes until
             previous note is not finished release time</property>
-            <property name="@freq" type="float" default="50" minvalue="10" maxvalue="5000">start
+            <property name="@freq" type="float" default="44" minvalue="10" maxvalue="5000">start
             frequency</property>
+            <property name="@click" type="float" default="20" minvalue="5" maxvalue="1000"
+            units="millisecond">speed of the pitch envelope</property>
+            <property name="@drive" type="float" default="2.5" minvalue="1" maxvalue="10">
+            gain multiplier going into the saturator</property>
         </properties>
         <methods>
             <method name="reset">reset synth</method>
