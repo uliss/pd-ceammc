@@ -47,15 +47,15 @@
         <example>
             <pdascii>
 <![CDATA[
-[T]    [F]          [ui.k #a]  [ui.k #b]    [ui.k #c]     [ui.k #d]
-|      |.           |          |            |             |
-[metro 1000]        |          |            |             |
-|                   |          |            |             |
-[random.f 0.3 0.95] [@freq $1( [@attack $1( [@release $1( [@drive $1(
-|                   |          |            |             |
-|                   |          |            |             |
-|                   |          |            |             |
-[synth.kick2~                                             ]
+[T]    [F]   [ui.k #a]  [ui.k #b]    [ui.k #c]     [ui.k #d]   [ui.k #e]
+|      |.    |          |            |             |           |
+[metro 1000] |          |            |             |           |
+|            |          |            |             |           |
+|            [@freq $1( [@attack $1( [@release $1( [@drive $1( [@click $1(
+|            |          |            |             |           |
+|            |          |            |             |           |
+|            |          |            |             |           |
+[synth.kick2~                                                  ]
 |               ^|
 |               [B]
 |
@@ -66,7 +66,8 @@
 #a 20 500 @show_value 1
 #b 5 100 @show_value 1
 #c 5 500 @show_value 1
-#d 1 10 @show_value 1
+#d 1 10  @show_value 1
+#e 5 100 @show_value 1
 ]]>
             </pdascii>
         </example>

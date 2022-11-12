@@ -46,7 +46,7 @@
 					"meta": [
 						{ "unit": "ms" }
 					],
-					"init": 10,
+					"init": 20,
 					"min": 5,
 					"max": 400,
 					"step": 1
@@ -69,7 +69,7 @@
 					"label": "drive",
 					"shortname": "drive",
 					"address": "/synth.kick2/drive",
-					"init": 1,
+					"init": 2.5,
 					"min": 1,
 					"max": 10,
 					"step": 0.1
@@ -82,7 +82,7 @@
 					"meta": [
 						{ "unit": "hz" }
 					],
-					"init": 40,
+					"init": 44,
 					"min": 10,
 					"max": 5000,
 					"step": 0.1
@@ -104,7 +104,7 @@
 					"meta": [
 						{ "unit": "ms" }
 					],
-					"init": 500,
+					"init": 100,
 					"min": 5,
 					"max": 4000,
 					"step": 1

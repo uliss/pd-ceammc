@@ -648,7 +648,7 @@ class synth_kick2SIG0 {
   private:
 	
 	int iVec1[2];
-	int iRec4[2];
+	int iRec5[2];
 	
   public:
 	
@@ -660,21 +660,21 @@ class synth_kick2SIG0 {
 	}
 	
 	void instanceInitsynth_kick2SIG0(int sample_rate) {
-		for (int l5 = 0; l5 < 2; l5 = l5 + 1) {
-			iVec1[l5] = 0;
-		}
 		for (int l6 = 0; l6 < 2; l6 = l6 + 1) {
-			iRec4[l6] = 0;
+			iVec1[l6] = 0;
+		}
+		for (int l7 = 0; l7 < 2; l7 = l7 + 1) {
+			iRec5[l7] = 0;
 		}
 	}
 	
 	void fillsynth_kick2SIG0(int count, float* table) {
 		for (int i1 = 0; i1 < count; i1 = i1 + 1) {
 			iVec1[0] = 1;
-			iRec4[0] = (iVec1[1] + iRec4[1]) % 65536;
-			table[i1] = std::sin(9.58738e-05f * float(iRec4[0]));
+			iRec5[0] = (iVec1[1] + iRec5[1]) % 65536;
+			table[i1] = std::sin(9.58738e-05f * float(iRec5[0]));
 			iVec1[1] = iVec1[0];
-			iRec4[1] = iRec4[0];
+			iRec5[1] = iRec5[0];
 		}
 	}
 
@@ -689,29 +689,30 @@ class synth_kick2 : public synth_kick2_dsp {
 	
  private:
 	
-	FAUSTFLOAT fVslider0;
-	FAUSTFLOAT fCheckbox0;
-	float fVec0[2];
-	float fRec0[2];
 	int fSampleRate;
 	float fConst0;
 	float fConst1;
-	FAUSTFLOAT fVslider1;
+	FAUSTFLOAT fVslider0;
 	float fConst2;
-	float fConst3;
+	float fRec0[2];
+	FAUSTFLOAT fCheckbox0;
+	float fVec0[2];
 	float fRec1[2];
-	FAUSTFLOAT fVslider2;
+	float fConst3;
+	FAUSTFLOAT fVslider1;
 	float fRec2[2];
+	FAUSTFLOAT fVslider2;
+	float fRec3[2];
 	float fConst4;
-	int iRec3[2];
+	int iRec4[2];
 	float fConst5;
 	FAUSTFLOAT fVslider3;
-	float fRec6[2];
+	float fRec7[2];
 	float fConst6;
 	float fConst7;
 	FAUSTFLOAT fVslider4;
-	float fRec7[2];
-	float fRec5[2];
+	float fRec8[2];
+	float fRec6[2];
 	
  public:
 	
@@ -759,9 +760,9 @@ class synth_kick2 : public synth_kick2_dsp {
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
 		fConst0 = std::min<float>(1.92e+05f, std::max<float>(1.0f, float(fSampleRate)));
-		fConst1 = 0.0441f / fConst0;
-		fConst2 = 44.1f / fConst0;
-		fConst3 = 1.0f - fConst2;
+		fConst1 = 44.1f / fConst0;
+		fConst2 = 1.0f - fConst1;
+		fConst3 = 0.0441f / fConst0;
 		fConst4 = 1.0f / std::max<float>(1.0f, 0.1f * fConst0);
 		fConst5 = 1.0f / fConst0;
 		fConst6 = std::max<float>(1.0f, 0.005f * fConst0);
@@ -769,20 +770,20 @@ class synth_kick2 : public synth_kick2_dsp {
 	}
 	
 	virtual void instanceResetUserInterface() {
-		fVslider0 = FAUSTFLOAT(1.0f);
+		fVslider0 = FAUSTFLOAT(2.5f);
 		fCheckbox0 = FAUSTFLOAT(0.0f);
-		fVslider1 = FAUSTFLOAT(1e+01f);
-		fVslider2 = FAUSTFLOAT(5e+02f);
-		fVslider3 = FAUSTFLOAT(4e+01f);
+		fVslider1 = FAUSTFLOAT(2e+01f);
+		fVslider2 = FAUSTFLOAT(1e+02f);
+		fVslider3 = FAUSTFLOAT(44.0f);
 		fVslider4 = FAUSTFLOAT(2e+01f);
 	}
 	
 	virtual void instanceClear() {
 		for (int l0 = 0; l0 < 2; l0 = l0 + 1) {
-			fVec0[l0] = 0.0f;
+			fRec0[l0] = 0.0f;
 		}
 		for (int l1 = 0; l1 < 2; l1 = l1 + 1) {
-			fRec0[l1] = 0.0f;
+			fVec0[l1] = 0.0f;
 		}
 		for (int l2 = 0; l2 < 2; l2 = l2 + 1) {
 			fRec1[l2] = 0.0f;
@@ -791,16 +792,19 @@ class synth_kick2 : public synth_kick2_dsp {
 			fRec2[l3] = 0.0f;
 		}
 		for (int l4 = 0; l4 < 2; l4 = l4 + 1) {
-			iRec3[l4] = 0;
+			fRec3[l4] = 0.0f;
 		}
-		for (int l7 = 0; l7 < 2; l7 = l7 + 1) {
-			fRec6[l7] = 0.0f;
+		for (int l5 = 0; l5 < 2; l5 = l5 + 1) {
+			iRec4[l5] = 0;
 		}
 		for (int l8 = 0; l8 < 2; l8 = l8 + 1) {
 			fRec7[l8] = 0.0f;
 		}
 		for (int l9 = 0; l9 < 2; l9 = l9 + 1) {
-			fRec5[l9] = 0.0f;
+			fRec8[l9] = 0.0f;
+		}
+		for (int l10 = 0; l10 < 2; l10 = l10 + 1) {
+			fRec6[l10] = 0.0f;
 		}
 	}
 	
@@ -825,49 +829,51 @@ class synth_kick2 : public synth_kick2_dsp {
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("synth.kick2");
 		ui_interface->declare(&fVslider1, "unit", "ms");
-		ui_interface->addVerticalSlider("attack", &fVslider1, FAUSTFLOAT(1e+01f), FAUSTFLOAT(5.0f), FAUSTFLOAT(4e+02f), FAUSTFLOAT(1.0f));
+		ui_interface->addVerticalSlider("attack", &fVslider1, FAUSTFLOAT(2e+01f), FAUSTFLOAT(5.0f), FAUSTFLOAT(4e+02f), FAUSTFLOAT(1.0f));
 		ui_interface->declare(&fVslider4, "unit", "ms");
 		ui_interface->addVerticalSlider("click", &fVslider4, FAUSTFLOAT(2e+01f), FAUSTFLOAT(5.0f), FAUSTFLOAT(1e+03f), FAUSTFLOAT(1.0f));
-		ui_interface->addVerticalSlider("drive", &fVslider0, FAUSTFLOAT(1.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(1e+01f), FAUSTFLOAT(0.1f));
+		ui_interface->addVerticalSlider("drive", &fVslider0, FAUSTFLOAT(2.5f), FAUSTFLOAT(1.0f), FAUSTFLOAT(1e+01f), FAUSTFLOAT(0.1f));
 		ui_interface->declare(&fVslider3, "unit", "hz");
-		ui_interface->addVerticalSlider("freq", &fVslider3, FAUSTFLOAT(4e+01f), FAUSTFLOAT(1e+01f), FAUSTFLOAT(5e+03f), FAUSTFLOAT(0.1f));
+		ui_interface->addVerticalSlider("freq", &fVslider3, FAUSTFLOAT(44.0f), FAUSTFLOAT(1e+01f), FAUSTFLOAT(5e+03f), FAUSTFLOAT(0.1f));
 		ui_interface->declare(&fCheckbox0, "type", "float");
 		ui_interface->addCheckButton("gate", &fCheckbox0);
 		ui_interface->declare(&fVslider2, "unit", "ms");
-		ui_interface->addVerticalSlider("release", &fVslider2, FAUSTFLOAT(5e+02f), FAUSTFLOAT(5.0f), FAUSTFLOAT(4e+03f), FAUSTFLOAT(1.0f));
+		ui_interface->addVerticalSlider("release", &fVslider2, FAUSTFLOAT(1e+02f), FAUSTFLOAT(5.0f), FAUSTFLOAT(4e+03f), FAUSTFLOAT(1.0f));
 		ui_interface->closeBox();
 	}
 	
 	virtual void compute(int count, FAUSTFLOAT** RESTRICT inputs, FAUSTFLOAT** RESTRICT outputs) {
 		FAUSTFLOAT* output0 = outputs[0];
-		float fSlow0 = float(fVslider0);
+		float fSlow0 = fConst1 * float(fVslider0);
 		float fSlow1 = float(fCheckbox0);
-		float fSlow2 = fConst1 * float(fVslider1);
-		float fSlow3 = fConst1 * float(fVslider2);
+		float fSlow2 = fConst3 * float(fVslider1);
+		float fSlow3 = fConst3 * float(fVslider2);
 		int iSlow4 = fSlow1 == 0.0f;
-		float fSlow5 = fConst2 * float(fVslider3);
-		float fSlow6 = fConst1 * float(fVslider4);
+		float fSlow5 = fConst1 * float(fVslider3);
+		float fSlow6 = fConst3 * float(fVslider4);
 		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
+			fRec0[0] = fSlow0 + fConst2 * fRec0[1];
 			fVec0[0] = fSlow1;
-			fRec0[0] = fSlow1 + fRec0[1] * float(fVec0[1] >= fSlow1);
-			fRec1[0] = fSlow2 + fConst3 * fRec1[1];
-			float fTemp0 = std::max<float>(1.0f, fConst0 * fRec1[0]);
-			fRec2[0] = fSlow3 + fConst3 * fRec2[1];
-			iRec3[0] = iSlow4 * (iRec3[1] + 1);
-			float fTemp1 = 1.0f - fConst4 * float(iRec3[0]);
-			fRec6[0] = fSlow5 + fConst3 * fRec6[1];
-			fRec7[0] = fSlow6 + fConst3 * fRec7[1];
-			float fTemp2 = fRec5[1] + fConst5 * fRec6[0] * (4.0f * std::max<float>(0.0f, fTemp1 * std::min<float>(fConst7 * fRec0[0], std::max<float>((fConst6 - fRec0[0]) / std::max<float>(1.0f, fConst0 * fRec7[0]) + 1.0f, 0.0f))) + 1.0f);
-			fRec5[0] = fTemp2 - std::floor(fTemp2);
-			output0[i0] = FAUSTFLOAT(tanhf(fSlow0 * std::max<float>(0.0f, std::min<float>(fRec0[0] / fTemp0, std::max<float>((fTemp0 - fRec0[0]) / std::max<float>(1.0f, fConst0 * fRec2[0]) + 1.0f, 0.0f)) * fTemp1) * ftbl0synth_kick2SIG0[int(65536.0f * fRec5[0])]));
-			fVec0[1] = fVec0[0];
+			fRec1[0] = fSlow1 + fRec1[1] * float(fVec0[1] >= fSlow1);
+			fRec2[0] = fSlow2 + fConst2 * fRec2[1];
+			float fTemp0 = std::max<float>(1.0f, fConst0 * fRec2[0]);
+			fRec3[0] = fSlow3 + fConst2 * fRec3[1];
+			iRec4[0] = iSlow4 * (iRec4[1] + 1);
+			float fTemp1 = 1.0f - fConst4 * float(iRec4[0]);
+			fRec7[0] = fSlow5 + fConst2 * fRec7[1];
+			fRec8[0] = fSlow6 + fConst2 * fRec8[1];
+			float fTemp2 = fRec6[1] + fConst5 * fRec7[0] * (4.0f * std::max<float>(0.0f, fTemp1 * std::min<float>(fConst7 * fRec1[0], std::max<float>((fConst6 - fRec1[0]) / std::max<float>(1.0f, fConst0 * fRec8[0]) + 1.0f, 0.0f))) + 1.0f);
+			fRec6[0] = fTemp2 - std::floor(fTemp2);
+			output0[i0] = FAUSTFLOAT(tanhf(fRec0[0] * std::max<float>(0.0f, std::min<float>(fRec1[0] / fTemp0, std::max<float>((fTemp0 - fRec1[0]) / std::max<float>(1.0f, fConst0 * fRec3[0]) + 1.0f, 0.0f)) * fTemp1) * ftbl0synth_kick2SIG0[int(65536.0f * fRec6[0])]));
 			fRec0[1] = fRec0[0];
+			fVec0[1] = fVec0[0];
 			fRec1[1] = fRec1[0];
 			fRec2[1] = fRec2[0];
-			iRec3[1] = iRec3[0];
-			fRec6[1] = fRec6[0];
+			fRec3[1] = fRec3[0];
+			iRec4[1] = iRec4[0];
 			fRec7[1] = fRec7[0];
-			fRec5[1] = fRec5[0];
+			fRec8[1] = fRec8[0];
+			fRec6[1] = fRec6[0];
 		}
 	}
 
