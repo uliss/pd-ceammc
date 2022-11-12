@@ -1,5 +1,4 @@
 #include "mod_synth.h"
-#include "ceammc_platform.h"
 #include "synth_bthree.h"
 #include "synth_fgrain.h"
 #include "synth_rhodey.h"
@@ -27,11 +26,16 @@ extern void setup_synth_risset_tone_tilde();
 extern void setup_synth_russian_bell_tilde();
 extern void setup_synth_snare_tilde();
 extern void setup_synth_kick_tilde();
+extern void setup_synth_kick2_tilde();
 extern void setup_synth_standard_bell_tilde();
 extern void setup_synth_tube_bell();
 
 void ceammc_synth_setup()
 {
+#ifdef STK_VERSION
+    LIB_DBG << "STK version: " << STK_VERSION;
+#endif
+
     // STK synths
     setup_synth_bthree();
     setup_synth_fgrain();
@@ -61,6 +65,7 @@ void ceammc_synth_setup()
     setup_synth_russian_bell_tilde();
     setup_synth_snare_tilde();
     setup_synth_kick_tilde();
+    setup_synth_kick2_tilde();
     setup_synth_standard_bell_tilde();
 
     // Glitch

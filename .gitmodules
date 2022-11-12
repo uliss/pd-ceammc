@@ -69,4 +69,4 @@
 	url = https://github.com/richgel999/miniz.git
 [submodule "ceammc/extra/artnet/libartnet"]
 	path = ceammc/extra/artnet/libartnet
-	url = https://github.com/jcelerier/libartnet.git
+	url = https://github.com/uliss/libartnet.git

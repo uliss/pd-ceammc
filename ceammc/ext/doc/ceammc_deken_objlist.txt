@@ -1085,6 +1085,7 @@ synth.german_bell~	german church bell modal model
 synth.glass_harm~	nonlinear banded waveguide modeled Glass Harmonica
 synth.glitch~	Glitch synthesizer by naivesound
 synth.harpsichord~	waveguide commuted harpsichord
+synth.kick2~	low-kick synth from faust librariest
 synth.kick~	low-kick synth from Guitarix project
 synth.ks~	Karplus-Strong string
 synth.marimba~	simple marimba physical model implementing a single tone bar connected to tube

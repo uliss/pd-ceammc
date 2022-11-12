@@ -1,5 +1,13 @@
 # CEAMMC Pd distribution changelog
 
+## [2022.11]
+### Updated:
+- migration to Pd version 0.53.0
+- **CEAMMC** external library v0.9.5 - [ceammc/CHANGELOG.md](ceammc/CHANGELOG.md)
+
+### Removed:
+- disable externals libdir and import in default build options
+
 ## [2021.11]
 ### Added:
 - disable enternal FFTease and LyonPotpourri externals cause they available via deken

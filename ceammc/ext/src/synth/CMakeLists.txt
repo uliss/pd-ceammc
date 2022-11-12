@@ -39,6 +39,7 @@ ceammc_synth_obj(russian_bell)
 ceammc_synth_obj(standard_bell)
 ceammc_synth_obj(snare)
 ceammc_synth_obj(kick)
+ceammc_synth_obj(kick2)
 
 add_library(ceammc_synth STATIC mod_synth.cpp ${SYNTH_SOURCES} ${SYNTH_STK_SOURCES})
 
@@ -47,4 +48,8 @@ target_include_directories(ceammc_synth PRIVATE
     ${PROJECT_SOURCE_DIR}/ceammc/extra/stk/stk/include
 )
 
-set_target_properties(ceammc_synth PROPERTIES COMPILE_DEFINITIONS "FAUST_MACRO")
+if(STK_VERSION)
+    target_compile_definitions(ceammc_synth PRIVATE STK_VERSION="${STK_VERSION}")
+endif()
+
+target_compile_definitions(ceammc_synth PRIVATE FAUST_MACRO)

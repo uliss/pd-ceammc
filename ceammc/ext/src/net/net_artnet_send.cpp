@@ -3,7 +3,7 @@
 #include "ceammc_thread.h"
 
 #include "artnet/artnet.h"
-#include "fmt/format.h"
+#include "fmt/core.h"
 #include "readerwriterqueue.h"
 
 #include <future>
