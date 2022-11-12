@@ -661,6 +661,7 @@ set(DOC_FILES
     synth.glass_harm~
     synth.glitch~
     synth.kick~
+    synth.kick2~
     synth.ks~
     synth.marimba~
     synth.piano~

@@ -2080,6 +2080,9 @@
     <entry name="synth.harpsichord~" descr="waveguide commuted harpsichord" ref_view="object">
       <xi:include href="synth.harpsichord~.pddoc" parse="xml"/>
     </entry>
+    <entry name="synth.kick2~" descr="low-kick synth from faust librariest" ref_view="object">
+      <xi:include href="synth.kick2~.pddoc" parse="xml"/>
+    </entry>
     <entry name="synth.kick~" descr="low-kick synth from Guitarix project" ref_view="object">
       <xi:include href="synth.kick~.pddoc" parse="xml"/>
     </entry>
