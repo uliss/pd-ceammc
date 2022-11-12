@@ -1,5 +1,4 @@
 #include "mod_synth.h"
-#include "ceammc_platform.h"
 #include "synth_bthree.h"
 #include "synth_fgrain.h"
 #include "synth_rhodey.h"
@@ -32,6 +31,10 @@ extern void setup_synth_tube_bell();
 
 void ceammc_synth_setup()
 {
+#ifdef STK_VERSION
+    LIB_DBG << "STK version: " << STK_VERSION;
+#endif
+
     // STK synths
     setup_synth_bthree();
     setup_synth_fgrain();
