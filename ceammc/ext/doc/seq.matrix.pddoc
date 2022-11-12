@@ -70,9 +70,9 @@
 |   |         |
 |   |         [@mode $1(
 |   |         |
-[seq.matrix 16 120|8bpm] [loadmsg random]
-|                        |
-[ui.matrix 3 16 @size 257 46]
+[seq.matrix 16 120|16bpm] [loadmsg random]
+|                         |
+[ui.matrix 3 16 @size 320 51]
 |
 |
 |
@@ -80,11 +80,11 @@
 |
 [unpack f f f f #a]
 |
-[F]  [osc~ 400]    [osc~ 1200]   [osc~ 100]
-     |             |             |
-     | [@gate #g0( | [@gate #g1( | [@gate #g2(
-     | |           | |           | |
-     [env.ar~ #e0] [env.ar~ #e1] [env.ar~ #e2]
+[F]  [osc~ 400]
+     |
+     | [@gate #g0( [synth.kick2~ #e1]
+     | |
+     [env.ar~ #e0] [synth.clap~ #e2]
 
 [pan.spread~ 5 #s {w=16}]
 *|*
@@ -98,8 +98,8 @@
 #g1 $1
 #g2 $1
 [X a:1->g0]
-[X a:2->g1]
-[X a:3->g2]
+[X a:2->e1]
+[X a:3->e2]
 [X e0->s:1]
 [X e1->s:2]
 [X e2->s:3]
