@@ -31,8 +31,8 @@
             frequency</property>
             <property name="@click" type="float" default="20" minvalue="5" maxvalue="1000"
             units="millisecond">speed of the pitch envelope</property>
-            <property name="@drive" type="float" default="2.5" minvalue="1" maxvalue="10">
-            gain multiplier going into the saturator</property>
+            <property name="@drive" type="float" default="2.5" minvalue="1" maxvalue="10">gain
+            multiplier going into the saturator</property>
         </properties>
         <methods>
             <method name="reset">reset synth</method>
