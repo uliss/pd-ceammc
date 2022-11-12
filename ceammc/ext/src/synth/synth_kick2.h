@@ -833,7 +833,7 @@ class synth_kick2 : public synth_kick2_dsp {
 		ui_interface->declare(&fVslider4, "unit", "ms");
 		ui_interface->addVerticalSlider("click", &fVslider4, FAUSTFLOAT(2e+01f), FAUSTFLOAT(5.0f), FAUSTFLOAT(1e+03f), FAUSTFLOAT(1.0f));
 		ui_interface->addVerticalSlider("drive", &fVslider0, FAUSTFLOAT(2.5f), FAUSTFLOAT(1.0f), FAUSTFLOAT(1e+01f), FAUSTFLOAT(0.1f));
-		ui_interface->declare(&fVslider3, "unit", "hz");
+		ui_interface->declare(&fVslider3, "unit", "Hz");
 		ui_interface->addVerticalSlider("freq", &fVslider3, FAUSTFLOAT(44.0f), FAUSTFLOAT(1e+01f), FAUSTFLOAT(5e+03f), FAUSTFLOAT(0.1f));
 		ui_interface->declare(&fCheckbox0, "type", "float");
 		ui_interface->addCheckButton("gate", &fCheckbox0);

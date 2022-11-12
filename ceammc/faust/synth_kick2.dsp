@@ -4,7 +4,7 @@ import("stdfaust.lib");
 cm = library("ceammc.lib");
 
 process = sy.kick(freq, click, attack, decay, drive, gate) with {
-    freq  = vslider("freq [unit:hz]", 44, 10, 5000, 0.1) : si.smoo;
+    freq  = vslider("freq [unit:Hz]", 44, 10, 5000, 0.1) : si.smoo;
     // the speed of the pitch envelope
     click = vslider("click [unit:ms]", 20, 5, 1000, 1) * 0.001 : si.smoo;
     // attack time in ms

@@ -81,7 +81,7 @@
 					"shortname": "freq",
 					"address": "/synth.kick/freq",
 					"meta": [
-						{ "unit": "hz" }
+						{ "unit": "Hz" }
 					],
 					"init": 50,
 					"min": 10,

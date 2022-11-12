@@ -30,8 +30,8 @@ value: 10\. Range: 1\...50\.;
 finished release time. Type: int. Default value: 0\. Allowed values:
 0 \, 1\.;
 #X msg 110 492 @freq;
-#X text 245 492 Get/Set start frequency. Type: float. Default value:
-50\. Range: 10\...5000\.;
+#X text 245 492 Get/Set start frequency. Type: float. Units: Hz. Default
+value: 50\. Range: 10\...5000\.;
 #X msg 110 534 @gate;
 #X text 245 534 Get/Set play trigger >0: on \, 0: off. To set output
 gain to 0.5 you can 0.5 as trigger value. Type: float. Default value:

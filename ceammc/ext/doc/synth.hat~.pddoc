@@ -27,7 +27,8 @@
             units="millisecond">release time</property>
             <property name="@envwait" type="int" enum="0 1" default="0">ignore new notes until
             previous note is not finished release time</property>
-            <property name="@freq" type="float" default="317" minvalue="300" maxvalue="4000" units="herz">base frequency</property>
+            <property name="@freq" type="float" default="317" minvalue="300" maxvalue="4000"
+            units="herz">base frequency</property>
             <property name="@tone" type="float" default="6400" minvalue="800" maxvalue="18000"
             units="herz">bandpass filter cutoff frequency</property>
         </properties>
