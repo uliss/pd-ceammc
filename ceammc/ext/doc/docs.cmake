@@ -650,6 +650,7 @@ set(DOC_FILES
     synth.bee3~
     synth.birds~
     synth.church_bell~
+    synth.clap~
     synth.dubdub~
     synth.dx7~
     synth.eguitar~
