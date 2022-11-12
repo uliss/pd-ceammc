@@ -32,11 +32,14 @@ public:
     void processMessage(const DataTypeDict& msg) final;
 
     void m_sync(t_symbol* s, const AtomListView& lv);
+
     void m_phantom(t_symbol* s, const AtomListView& lv);
     void m_mic_gain(t_symbol* s, const AtomListView& lv);
+    void m_mic_pad(t_symbol* s, const AtomListView& lv);
+    void m_mic_phase(t_symbol* s, const AtomListView& lv);
+
     void m_guitar_gain(t_symbol* s, const AtomListView& lv);
     void m_input_gain(t_symbol* s, const AtomListView& lv);
-    void m_mic_pad(t_symbol* s, const AtomListView& lv);
     void m_main_gain(t_symbol* s, const AtomListView& lv);
     void m_phones_gain(t_symbol* s, const AtomListView& lv);
     void m_output_gain(t_symbol* s, const AtomListView& lv);

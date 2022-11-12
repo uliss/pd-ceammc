@@ -46,6 +46,10 @@
             <param name="CHAN" type="int" required="true" minvalue="0">mic channel (zero-based)</param>
             <param name="VAL" type="int" required="true" enum="0 1">state</param>
             </method>
+            <method name="mic_phase">set mic phase invert
+            <param name="CHAN" type="int" required="true" minvalue="0">mic channel (zero-based)</param>
+            <param name="VAL" type="int" required="true" enum="0 1">state</param>
+            </method>
             <method name="guitar_gain">set guitar gain
             <param name="CHAN" type="int" required="true" minvalue="0">guitar channel (zero-based)</param>
             <param name="DB" type="float" units="decibel" required="true" minvalue="0" maxvalue="60">value in decibel</param>
