@@ -22,15 +22,13 @@
             &gt;0: on, 0: off. To set output gain to 0.5 you can 0.5 as trigger value</property>
             <property name="@active" type="int" enum="0 1" default="1">on/off dsp
             processing</property>
-            <property name="@attack" type="float" minvalue="5" maxvalue="400" default="20"
+            <property name="@attack" type="float" minvalue="0" maxvalue="400" default="0"
             units="millisecond">attack time</property>
-            <property name="@release" type="float" minvalue="5" maxvalue="4000" default="100"
+            <property name="@release" type="float" minvalue="0" maxvalue="4000" default="0"
             units="millisecond">release time</property>
             <property name="@envwait" type="int" enum="0 1" default="0">ignore new notes until
             previous note is not finished release time</property>
-            <property name="@freq" type="float" default="317" minvalue="300" maxvalue="4000"
-            units="herz">base frequency</property>
-            <property name="@tone" type="float" default="6400" minvalue="800" maxvalue="18000"
+            <property name="@tone" type="float" default="3500" minvalue="400" maxvalue="3500"
             units="herz">bandpass filter cutoff frequency</property>
         </properties>
         <methods>
