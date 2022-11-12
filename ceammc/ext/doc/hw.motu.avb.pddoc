@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="hw.motu.avb">
+        <title>hw.motu.avb</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>controls Motu AVB devices over http requests</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>hw</category>
+            <keywords>motu avb</keywords>
+            <since>0.9.5</since>
+        </meta>
+        <info>
+            <par>Only basic support at this moment</par>
+        </info>
+        <properties>
+            <property name="@brightness" type="float" minvalue="0" maxvalue="1" default="0.313477">
+            display brightness</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo>input</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>properties output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+/*Enter device ID*/
+
+[S digits=20]
+|
+[@dev $1( [@dev 0001f2fffe00XXXX #a(
+|
+|  [T]            [ui.hsl -60 0 @show_value 1]
+|  |              |
+|  [phantom 0 $1( [main_gain $1(
+|  |              |
+|  |              |
+[hw.motu.avb      #z]
+[X a->z]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

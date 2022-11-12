@@ -268,6 +268,7 @@ set(DOC_FILES
     hw.cpu_temp
     hw.display
     hw.kbd_light
+    hw.motu.avb
     hw.serial
     is_any
     is_bang
