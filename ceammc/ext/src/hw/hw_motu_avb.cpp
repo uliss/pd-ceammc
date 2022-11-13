@@ -6,6 +6,30 @@
 #include "fmt/core.h"
 #include "httplib.h"
 
+#ifdef NDEBUG
+#define TDBG(msg)
+#else
+#define TDBG(msg)           \
+    do {                    \
+        logger_.debug(msg); \
+    } while (0)
+
+#define TDBG_FMT(msg, ...)                            \
+    do {                                              \
+        logger_.debug(fmt::format(msg, __VA_ARGS__)); \
+    } while (0)
+#endif
+
+#define TERR(msg)           \
+    do {                    \
+        logger_.error(msg); \
+    } while (0)
+
+#define TERR_FMT(msg, ...)                            \
+    do {                                              \
+        logger_.error(fmt::format(msg, __VA_ARGS__)); \
+    } while (0)
+
 constexpr size_t KEY_MAX_LENGTH = 32;
 constexpr const char* KEY_PHANTOM = "k:phantom-ch";
 constexpr const char* KEY_MIC_GAIN = "k:mic-gain";
@@ -38,6 +62,12 @@ constexpr int GROUP_INPUT_GUITAR = 1;
 constexpr int GROUP_INPUT_ANALOG = 2;
 constexpr int GROUP_INPUT_TOSLINK = 3;
 constexpr int GROUP_INPUT_COMPUTER = 4;
+constexpr int GROUP_INPUT_MIX_IN = 9;
+constexpr int GROUP_INPUT_MIX_REVERB = 10;
+constexpr int GROUP_INPUT_MIX_GROUP = 11;
+constexpr int GROUP_INPUT_MIX_MAIN = 12;
+constexpr int GROUP_INPUT_MIX_AUX = 13;
+constexpr int GROUP_INPUT_MIX_MONITOR = 14;
 
 constexpr int GROUP_OUTPUT_PHONES = 0;
 constexpr int GROUP_OUTPUT_MAIN = 1;
@@ -212,49 +242,47 @@ HwMotuAvb::Future HwMotuAvb::createTask()
         MotuAvbRequest req;
 
         try {
+            auto http_cli = make_http_cli(req.host, req.port);
 
             while (inPipe().try_dequeue(req)) {
                 switch (req.type) {
                 case REQ_SYNC: {
-                    auto cli = make_http_cli(req.host, req.port);
+
                     auto url = fmt::format("/{}/datastore", req.device);
-                    auto res = cli.Get(url.c_str());
+                    auto res = http_cli.Get(url.c_str());
                     if (res) {
                         if (res->status == 200) {
                             DataTypeDict resp;
                             if (resp.fromJSON(res->body)) {
                                 outPipe().enqueue(resp);
-                                logger_.debug("HTTP ok");
+                                TDBG("HTTP ok");
                             } else {
-                                logger_.error("JSON parse error");
+                                TERR("JSON parse error");
                             }
                         } else {
-                            logger_.error(fmt::format("http error status: '{}'", res->status));
-                            logger_.debug(fmt::format("{}", res->body));
+                            TERR_FMT("http error status: '{}'", res->status);
+                            TDBG_FMT("{}", res->body);
                             for (auto& kv : res->headers) {
-                                logger_.debug(fmt::format("{}: {}", kv.first, kv.second));
+                                TDBG_FMT("{}: {}", kv.first, kv.second);
                             }
                         }
                     } else {
-                        logger_.error(fmt::format("http request error: '{}'", to_string(res.error())));
+                        TERR_FMT("http request error: '{}'", to_string(res.error()));
                     }
                 } break;
                 case REQ_SET: {
-                    auto cli = make_http_cli(req.host, req.port);
-
                     for (auto& kv : UrlMap)
-                        setSingleValue(cli, req.device, kv.first, req, logger_);
-
+                        setSingleValue(http_cli, req.device, kv.first, req, logger_);
                 } break;
                 default:
-                    logger_.error(fmt::format("unknown request type: {}", req.type));
+                    TERR_FMT("unknown request type: {}", req.type);
                     break;
                 }
 
                 Dispatcher::instance().send({ subscriberId(), NOTIFY_UPDATE });
             }
         } catch (std::exception& e) {
-            logger_.error(fmt::format("run thread exception: {}", e.what()));
+            TERR_FMT("run thread exception: {}", e.what());
         }
     });
 }
@@ -552,7 +580,6 @@ void setup_hw_motu_avb()
 {
     ObjectFactory<HwMotuAvb> obj("hw.motu.avb");
     obj.addMethod("sync", &HwMotuAvb::m_sync);
-
 
     obj.addMethod("phantom", &HwMotuAvb::m_phantom);
     obj.addMethod("mic_gain", &HwMotuAvb::m_mic_gain);
