@@ -367,8 +367,7 @@ void g_message_draw(t_canvas* canvas, const char* tag, int x1, int y1, int x2, i
     sys_vgui(".x%lx.c create polygon %d %d %d %d %d %d %d %d %d %d %d %d "
              "-width %d -outline #%6.6x -fill #%6.6x -tags [list %sR msg]\n",
         canvas,
-        x1, y1, x2 + corner, y1, x2, y1 + corner, x2, y2 - corner, x2 + corner, y2,
-        x1, y2,
+        x1, y1, x2 + corner, y1, x2, y1 + corner, x2, y2 - corner, x2 + corner, y2, x1, y2,
         canvas->gl_zoom, STYLE_BORDER_COLOR, STYLE_FILL_COLOR, tag);
 }
 
@@ -376,8 +375,23 @@ void g_message_move(t_canvas* canvas, const char* tag, int x1, int y1, int x2, i
 {
     sys_vgui(".x%lx.c coords %sR %d %d %d %d %d %d %d %d %d %d %d %d %d %d\n",
         canvas, tag,
-        x1, y1, x2 + corner, y1, x2, y1 + corner, x2, y2 - corner, x2 + corner, y2,
-        x1, y2, x1, y1);
+        x1, y1, x2 + corner, y1, x2, y1 + corner, x2, y2 - corner, x2 + corner, y2, x1, y2, x1, y1);
+}
+
+void g_listentry_draw(t_canvas* canvas, const char* tag, int x1, int y1, int x2, int y2, int corner, int grabbed)
+{
+    sys_vgui(".x%lx.c create polygon %d %d %d %d %d %d %d %d %d %d %d %d %d %d "
+             "-width %d -outline #%6.6x -fill #%6.6x -tags [list %sR msg]\n",
+        canvas,
+        x1, y1, x2 - corner, y1, x2, y1 + corner, x2, y2 - corner, x2 - corner, y2, x1, y2, x1, y1,
+        canvas->gl_zoom, STYLE_BORDER_COLOR, STYLE_FILL_COLOR, tag);
+}
+
+void g_listentry_move(t_canvas* canvas, const char* tag, int x1, int y1, int x2, int y2, int corner, int grabbed)
+{
+    sys_vgui(".x%lx.c coords %sR %d %d %d %d %d %d %d %d %d %d %d %d %d %d\n",
+        canvas, tag,
+        x1, y1, x2 - corner, y1, x2, y1 + corner, x2, y2 - corner, x2 - corner, y2, x1, y2, x1, y1);
 }
 
 void g_atom_select(t_canvas* canvas, const char* tag, int state)
@@ -470,15 +484,15 @@ void g_object_dash(t_canvas* canvas, const char* tag, t_dash_pattern p)
 }
 
 void g_xatom_draw(t_canvas* canvas, const char* tag,
-    int x1, int y1, int x2, int y2, int corner, int zoom)
+    int x1, int y1, int x2, int y2, int corner, int grabbed)
 {
     sys_vgui(".x%lx.c create polygon %d %d %d %d %d %d %d %d %d %d "
              "-width %d -fill #%6.6x -outline #%6.6x -tags [list %sR atom]\n",
         canvas, x1, y1, x2 - corner, y1, x2, y1 + corner, x2, y2, x1, y2,
-        zoom, STYLE_FILL_COLOR, STYLE_BORDER_COLOR, tag);
+        canvas->gl_zoom, STYLE_FILL_COLOR, STYLE_BORDER_COLOR, tag);
 }
 
-void g_xatom_move(t_canvas* canvas, const char* tag, int x1, int y1, int x2, int y2, int corner)
+void g_xatom_move(t_canvas* canvas, const char* tag, int x1, int y1, int x2, int y2, int corner, int grabbed)
 {
     sys_vgui(".x%lx.c coords %sR %d %d %d %d %d %d %d %d %d %d\n",
         canvas, tag,

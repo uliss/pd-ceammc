@@ -60,6 +60,9 @@ void g_message_click(t_canvas* canvas, const char* tag);
 void g_message_normal(t_canvas* canvas, const char* tag);
 void g_message_draw(t_canvas* canvas, const char* tag, int x1, int y1, int x2, int y2, int corner);
 void g_message_move(t_canvas* canvas, const char* tag, int x1, int y1, int x2, int y2, int corner);
+// list entry
+void g_listentry_draw(t_canvas* canvas, const char* tag, int x1, int y1, int x2, int y2, int corner, int grabbed);
+void g_listentry_move(t_canvas* canvas, const char* tag, int x1, int y1, int x2, int y2, int corner, int grabbed);
 // objects
 void g_object_draw(t_canvas* canvas, const char* tag,
     int x1, int y1, int x2, int y2, int zoom, t_dash_pattern p);
@@ -73,9 +76,8 @@ void g_inlet_move(t_canvas* canvas, const char* tag, int idx, int x, int y, int 
 void g_outlets_erase(t_canvas* canvas, const char* tag, int n);
 void g_inlets_erase(t_canvas* canvas, const char* tag, int n);
 // float and symbol atoms
-void g_xatom_draw(t_canvas* canvas, const char* tag,
-    int x1, int y1, int x2, int y2, int corner, int zoom);
-void g_xatom_move(t_canvas* canvas, const char* tag, int x1, int y1, int x2, int y2, int corner);
+void g_xatom_draw(t_canvas* canvas, const char* tag, int x1, int y1, int x2, int y2, int corner, int grabbed);
+void g_xatom_move(t_canvas* canvas, const char* tag, int x1, int y1, int x2, int y2, int corner, int grabbed);
 // comment bar in edit mode
 void g_commentbar_draw(t_canvas* canvas, const char* tag, int x1, int y1, int x2, int y2);
 void g_commentbar_move(t_canvas* canvas, const char* tag, int x1, int y1, int x2, int y2);

@@ -552,13 +552,7 @@ static void message_click(t_message *x,
     {
         /* not zooming click width for now as it gets too fat */
         t_rtext *y = glist_findrtext(x->m_glist, &x->m_text);
-        char buf[MAXPDSTRING];
-        sprintf(buf, "%sR", rtext_gettag(y));
-        pdgui_vmess(0, "crs ri",
-            glist_getcanvas(x->m_glist),
-            "itemconfigure",
-            buf,
-            "-width", MESSAGE_CLICK_WIDTH);
+        g_message_click(glist_getcanvas(x->m_glist), rtext_gettag(y)); // ceammc draw
         clock_delay(x->m_clock, 120);
     }
     message_float(x, 0);
@@ -569,13 +563,7 @@ static void message_tick(t_message *x)
     if (glist_isvisible(x->m_glist))
     {
         t_rtext *y = glist_findrtext(x->m_glist, &x->m_text);
-        char buf[MAXPDSTRING];
-        sprintf(buf, "%sR", rtext_gettag(y));
-        pdgui_vmess(0, "crs ri",
-            glist_getcanvas(x->m_glist),
-            "itemconfigure",
-            buf,
-            "-width", glist_getzoom(x->m_glist));
+        g_message_normal(glist_getcanvas(x->m_glist), rtext_gettag(y)); // ceammc draw
     }
 }
 
@@ -1193,22 +1181,17 @@ static void gatom_vis(t_gobj *z, t_glist *glist, int vis)
         sprintf(buf, "%lx.l", x);
         if (vis)
         {
+            // ceammc draw
             int x1, y1;
-            char *tags[] = {
-                buf,
-                "label",
-                "text"
-            };
             gatom_getwherelabel(x, glist, &x1, &y1);
-            pdgui_vmess("pdtk_text_new", "cS ff s ir",
-                glist_getcanvas(glist),
-                3, tags,
-                (double)x1, (double)y1,
-                canvas_realizedollar(x->a_glist, x->a_label)->s_name,
-                gatom_fontsize(x) * glist_getzoom(glist), "black");
+            g_atom_label_draw(glist_getcanvas(glist), z,
+                              x1, y1,
+                              canvas_realizedollar(x->a_glist, x->a_label)->s_name,
+                              gatom_fontsize(x) * glist_getzoom(glist));
+            // ceammc draw end
         }
         else
-            pdgui_vmess(0, "crs", glist_getcanvas(glist), "delete", buf);
+            g_atom_label_erase(glist_getcanvas(glist), z); // ceammc draw
     }
 }
 
@@ -1399,16 +1382,10 @@ static void text_select(t_gobj *z, t_glist *glist, int state)
     t_text *x = (t_text *)z;
     t_rtext *y = glist_findrtext(glist, x);
     rtext_select(y, state);
+    // ceammc draw
     if (glist_isvisible(glist) && gobj_shouldvis(&x->te_g, glist))
-    {
-        char buf[MAXPDSTRING];
-        sprintf(buf, "%sR", rtext_gettag(y));
-        pdgui_vmess(0, "crs rr",
-            glist,
-            "itemconfigure",
-            buf,
-            "-fill", (state? "blue" : "black"));
-    }
+        g_atom_select(glist, rtext_gettag(y), state);
+    // ceammc draw end
 }
 
 static void text_activate(t_gobj *z, t_glist *glist, int state)
@@ -1588,39 +1565,26 @@ void glist_drawiofor(t_glist *glist, t_object *ob, int firsttime,
     for (i = 0; i < n; i++)
     {
         int onset = x1 + (width - iow) * i / nplus;
-        sprintf(tagbuf, "%so%d", tag, i);
-        tags[0] = tagbuf;
-        tags[1] = "outlet";
+        // ceammc draw
+        t_canvas* canvas = glist_getcanvas(glist);
         if (firsttime)
-            pdgui_vmess(0, "crr iiii rS rr",
-                glist_getcanvas(glist), "create", "rectangle",
-                onset, y2 - oh + glist->gl_zoom, onset + iow, y2,
-                "-tags", (int)(sizeof(tags)/sizeof(*tags)), tags,
-                "-fill", "black");
+            g_outlet_draw(canvas, ob, tag, i, onset, y2, glist->gl_zoom);
         else
-            pdgui_vmess(0, "crs iiii",
-                glist_getcanvas(glist), "coords", tagbuf,
-                onset, y2 - oh + glist->gl_zoom, onset + iow, y2);
+            g_outlet_move(canvas, tag, i, onset, y2, glist->gl_zoom);
+        // end
     }
     n = obj_ninlets(ob);
     nplus = (n == 1 ? 1 : n-1);
     for (i = 0; i < n; i++)
     {
         int onset = x1 + (width - iow) * i / nplus;
-        sprintf(tagbuf, "%si%d", tag, i);
-        tags[0] = tagbuf;
-        tags[1] = "inlet";
+        // ceammc draw
+        t_canvas* canvas = glist_getcanvas(glist);
         if (firsttime)
-            pdgui_vmess(0, "crr iiii rS rr",
-                glist_getcanvas(glist),
-                "create", "rectangle",
-                onset, y1, onset + iow, y1 + ih - glist->gl_zoom,
-                "-tags", (int)(sizeof(tags)/sizeof(*tags)), tags,
-                "-fill", "black");
+            g_inlet_draw(canvas, ob, tag, i, onset, y1, glist->gl_zoom);
         else
-            pdgui_vmess(0, "crs iiii",
-                glist_getcanvas(glist), "coords", tagbuf,
-                onset, y1, onset + iow, y1 + ih - glist->gl_zoom);
+            g_inlet_move(canvas, tag, i, onset, y1, glist->gl_zoom);
+        // ceammc draw end
     }
 }
 
@@ -1636,144 +1600,89 @@ void text_drawborder(t_text *x, t_glist *glist,
     height = y2 - y1;
     if (x->te_type == T_OBJECT)
     {
-        char *pattern = ((pd_class(&x->te_pd) == text_class) ? "-" : "\"\"");
-        char *tags[] = {tagR, "obj"};
-        if (firsttime)
-            pdgui_vmess(0, "crr iiiiiiiiii rr ri rr rS",
-                glist_getcanvas(glist), "create", "line",
-                x1, y1,  x2, y1,  x2, y2,  x1, y2,  x1, y1,
-                "-dash", pattern,
-                "-width", glist->gl_zoom,
-                "-capstyle", "projecting",
-                "-tags", 2, tags);
-        else
-        {
-            pdgui_vmess(0, "crs iiiiiiiiii",
-                glist_getcanvas(glist), "coords", tagR,
-                x1, y1,  x2, y1,  x2, y2,  x1, y2,  x1, y1);
-            pdgui_vmess(0, "crs rr",
-                glist_getcanvas(glist), "itemconfigure", tagR,
-                "-dash", pattern);
+        // ceammc draw
+        t_canvas* canvas = glist_getcanvas(glist);
+        t_dash_pattern pattern = ((pd_class(&x->te_pd) == text_class)
+                                  ? DASH_PATTERN_6_4 : DASH_PATTERN_SOLID);
+        if (firsttime) {
+            g_object_draw(canvas, tag, x1, y1, x2, y2, glist->gl_zoom, pattern);
+        } else {
+            g_object_move(canvas, tag, x1, y1, x2, y2);
+            g_object_dash(canvas, tag, pattern);
         }
+        // ceammc draw end
     }
     else if (x->te_type == T_MESSAGE)
     {
-        char *tags[] = {tagR, "msg"};
+        // ceammc draw
         corner = ((y2-y1)/4);
         if (corner > 10*glist->gl_zoom)
             corner = 10*glist->gl_zoom; /* looks bad if too big */
+
         if (firsttime)
-            pdgui_vmess(0, "crr iiiiiiiiiiiiii ri rr rS",
-                glist_getcanvas(glist), "create", "line",
-                x1, y1,  x2+corner, y1,  x2, y1+corner,  x2, y2-corner,  x2+corner, y2,  x1, y2,  x1, y1,
-                "-width", glist->gl_zoom,
-                "-capstyle", "projecting",
-                "-tags", 2, tags);
+            g_message_draw(glist_getcanvas(glist), tag, x1, y1, x2, y2, corner);
         else
-            pdgui_vmess(0, "crs iiiiiiiiiiiiii",
-                glist_getcanvas(glist), "coords", tagR,
-                x1, y1,  x2+corner, y1,  x2, y1+corner,  x2, y2-corner,  x2+corner, y2,  x1, y2,  x1, y1);
+            g_message_move(glist_getcanvas(glist), tag, x1, y1, x2, y2, corner);
+        // ceammc draw end
     }
     else if (x->te_type == T_ATOM && (((t_gatom *)x)->a_flavor == A_FLOAT ||
            ((t_gatom *)x)->a_flavor == A_SYMBOL))
     {
             /* number or symbol */
         int grabbed = glist->gl_zoom * ((t_gatom *)x)->a_grabbed;
-        int x1p = x1 + grabbed, y1p = y1 + grabbed;
-        char *tags[] = {tagR, "atom"};
+        // ceammc draw
         corner = ((y2-y1)/4);
         if (firsttime)
-            pdgui_vmess(0, "crr iiiiiiiiiiii ri rr rS",
-                glist_getcanvas(glist), "create", "line",
-                x1p, y1p,  x2-corner, y1p,  x2, y1p+corner, x2, y2,  x1p, y2,  x1p, y1p,
-                "-width", glist->gl_zoom+grabbed,
-                "-capstyle", "projecting",
-                "-tags", 2, tags);
+            g_xatom_draw(glist_getcanvas(glist), tag, x1, y1, x2, y2, corner, grabbed);
         else
-        {
-            pdgui_vmess(0, "crs iiiiiiiiiiii",
-                glist_getcanvas(glist), "coords", tagR,
-                x1p, y1p,  x2-corner, y1p,  x2, y1p+corner,  x2, y2,  x1p, y2,  x1p, y1p);
-            pdgui_vmess(0, "crs ri",
-                glist_getcanvas(glist), "itemconfigure", tagR,
-                "-width", glist->gl_zoom+grabbed);
-        }
+            g_xatom_move(glist_getcanvas(glist), tag, x1, y1, x2, y2, corner, grabbed);
+        // ceammc draw end
     }
     else if (x->te_type == T_ATOM ) /* list (ATOM but not float or symbol) */
     {
         int grabbed = glist->gl_zoom * ((t_gatom *)x)->a_grabbed;
-        int x1p = x1 + grabbed, y1p = y1 + grabbed;
-        char *tags[] = {tagR, "atom"};
         corner = ((y2-y1)/4);
+        // ceammc draw
         if (firsttime)
-            pdgui_vmess(0, "crr iiiiiiiiiiiiii ri rr rS",
-                glist_getcanvas(glist),
-                "create", "line",
-                x1p, y1p,  x2-corner, y1p,  x2, y1p+corner,  x2, y2-corner,  x2-corner, y2,  x1p, y2,  x1p, y1p,
-                "-width", glist->gl_zoom+grabbed,
-                "-capstyle", "projecting",
-                "-tags", 2, tags);
+            g_listentry_draw(glist_getcanvas(glist), tag, x1, y1, x2, y2, corner, grabbed);
         else
-        {
-            pdgui_vmess(0, "crs iiiiiiiiiiiiii",
-                glist_getcanvas(glist), "coords", tagR,
-                x1p,y1p, x2-corner,y1p, x2,y1p+corner, x2,y2-corner, x2-corner,y2, x1p,y2, x1p,y1p);
-            pdgui_vmess(0, "crs ri",
-                glist_getcanvas(glist), "itemconfigure", tagR,
-                "-width", glist->gl_zoom+grabbed);
-        }
+            g_listentry_move(glist_getcanvas(glist), tag, x1, y1, x2, y2, corner, grabbed);
+        // ceammc draw end
     }
         /* for comments, just draw a bar on RHS if unlocked; when a visible
         canvas is unlocked we have to call this anew on all comments, and when
         locked we erase them all via the annoying "commentbar" tag. */
     else if (x->te_type == T_TEXT && glist->gl_edit)
     {
-        char *tags[] = {tagR, "commentbar"};
+        // ceammc draw
         if (firsttime)
-            pdgui_vmess(0, "crr iiii rS",
-                glist_getcanvas(glist), "create", "line",
-                x2, y1,  x2, y2,
-                "-tags", 2, tags);
+            g_commentbar_draw(glist_getcanvas(glist), tag, x2, y1, x2, y2);
         else
-            pdgui_vmess(0, "crs iiii",
-                glist_getcanvas(glist), "coords", tagR,
-                x2, y1,  x2, y2);
+            g_commentbar_move(glist_getcanvas(glist), tag, x2, y1, x2, y2);
+        // ceammc draw end
     }
         /* draw inlets/outlets */
 
     if ((ob = pd_checkobject(&x->te_pd)))
         glist_drawiofor(glist, ob, firsttime, tag, x1, y1, x2, y2);
     if (firsttime) /* raise cords over everything else */
-        pdgui_vmess(0, "crr", glist_getcanvas(glist), "raise", "cord");
+        g_cord_raise_all(glist_getcanvas(glist)); // ceammc draw
 }
 
 void glist_eraseiofor(t_glist *glist, t_object *ob, const char *tag)
 {
-    int i, n;
-    n = obj_noutlets(ob);
-    char tagbuf[MAXPDSTRING];
-    for (i = 0; i < n; i++)
-    {
-        sprintf(tagbuf, "%so%d", tag, i);
-        pdgui_vmess(0, "crs",
-            glist_getcanvas(glist), "delete", tagbuf);
-    }
-    n = obj_ninlets(ob);
-    for (i = 0; i < n; i++)
-    {
-        sprintf(tagbuf, "%si%d", tag, i);
-        pdgui_vmess(0, "crs",
-            glist_getcanvas(glist), "delete", tagbuf);
-    }
+    // ceammc draw
+    g_inlets_erase(glist_getcanvas(glist), tag, obj_ninlets(ob));
+    g_outlets_erase(glist_getcanvas(glist), tag, obj_noutlets(ob));
+    // ceammc draw end
 }
 
 void text_eraseborder(t_text *x, t_glist *glist, const char *tag)
 {
-    char tagbuf[MAXPDSTRING];
     if (x->te_type == T_TEXT && !glist->gl_edit) return;
-    sprintf(tagbuf, "%sR", tag);
-    pdgui_vmess(0, "crs",
-        glist_getcanvas(glist), "delete", tagbuf);
+    // ceammc draw
+    g_atom_erase(glist_getcanvas(glist), tag);
+    // ceammc draw end
     glist_eraseiofor(glist, x, tag);
 }
 
