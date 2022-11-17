@@ -16,9 +16,7 @@
 #include "ceammc_containers.h"
 #include "ceammc_datastorage.h"
 #include "ceammc_string.h"
-#include "ceammc_format.h"
-#include "ceammc_log.h"
-#include "fmt/format.h"
+#include "fmt/core.h"
 
 #include <algorithm>
 #include <boost/algorithm/string/predicate.hpp>
@@ -26,15 +24,19 @@
 #include <ctime>
 #include <random>
 
-constexpr const char* TYPE_NAME = "Set";
-
 namespace {
-
 using namespace ceammc;
 
-Atom newFromList(const AtomListView& lv)
+constexpr const char* TYPE_NAME = "Set";
+
+DataTypeId initType()
 {
-    return new DataTypeSet(lv);
+    DataTypeId id = DataStorage::instance().typeByName(TYPE_NAME);
+    if (id == data::DATA_INVALID)
+        id = DataStorage::instance().registerNewType(TYPE_NAME,
+            [](const AtomListView& lv) -> Atom { return new DataTypeSet(lv); });
+
+    return id;
 }
 
 size_t hash_value(const Atom& a) noexcept
@@ -55,7 +57,7 @@ size_t hash_value(const Atom& a) noexcept
 
 namespace ceammc {
 
-const DataTypeId DataTypeSet::dataType = DataStorage::instance().registerNewType(TYPE_NAME, newFromList);
+const DataTypeId DataTypeSet::dataType = initType();
 
 DataTypeSet::DataTypeSet()
     : data_(0, hash_value)
