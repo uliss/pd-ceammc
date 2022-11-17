@@ -11,20 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "ceammc_factory.h"
+#include "ceammc_stub.h"
 
-using namespace ceammc;
+AUDIO_OBJECT_STUB("ui.faust~", 1, 1, 1, 0, "compiled without Faust support", ui0x2efaust_tilde);
 
-class FaustUiStub : public BaseObject {
-public:
-    FaustUiStub(const PdArgs& args)
-        : BaseObject(args)
-    {
-        createOutlet();
-    }
-};
-
-extern "C" void setup_ui0x2efaust_tilde()
-{
-    ObjectFactory<FaustUiStub> obj("ui.faust~");
-}
