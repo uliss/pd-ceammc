@@ -1,5 +1,4 @@
 #include "soundtouch_tilde.h"
-#include "ceammc_convert.h"
 #include "ceammc_factory.h"
 
 #include <cmath>
