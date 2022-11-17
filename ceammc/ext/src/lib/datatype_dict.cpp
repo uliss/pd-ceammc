@@ -18,12 +18,9 @@
 #include "ceammc_format.h"
 #include "ceammc_json.h"
 #include "ceammc_log.h"
-#include "ceammc_output.h"
 #include "ceammc_string.h"
 #include "datatype_json.h"
-#include "datatype_mlist.h"
-#include "datatype_string.h"
-#include "fmt/format.h"
+#include "fmt/core.h"
 #include "json/json.hpp"
 
 #include <ctime>
