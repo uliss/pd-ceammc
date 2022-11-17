@@ -157,6 +157,12 @@
 
 [msg.onload load guitar1.wav to agr0 @resize]
 |
+| [B]
+| |
+| [openpanel]
+| |
+| [load $1 to agr0 @resize(
+| |
 [snd.file]
 ]]>
             </pdascii>
