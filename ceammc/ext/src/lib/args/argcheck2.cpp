@@ -22,20 +22,35 @@
 #define debug(prefix, arg)
 #endif
 
+// keep in sync with typeNames values!
+enum CheckType : int8_t {
+	CHECK_NONE,
+	CHECK_ATOM,
+	CHECK_BOOL,
+	CHECK_BYTE,
+	CHECK_INT,
+	CHECK_FLOAT,
+	CHECK_SYMBOL,
+	CHECK_TIME,
+};
+
+enum CompareType : int8_t {
+	CMP_NONE,
+	CMP_LESS,
+	CMP_LESS_EQ,
+	CMP_GREATER,
+	CMP_GREATER_EQ,
+	CMP_EQUAL,
+	CMP_NOT_EQUAL,
+	CMP_MODULE,
+	CMP_POWER2,
+	CMP_RANGE_CLOSED,
+	CMP_RANGE_SEMIOPEN,
+	CMP_APPROX,
+};
+
 namespace {
 	constexpr int16_t REPEAT_INF = -1;
-	
-	// keep in sync with typeNames values!
-	enum CheckType : int8_t {
-		CHECK_NONE,
-		CHECK_ATOM,
-		CHECK_BOOL,
-		CHECK_BYTE,
-		CHECK_INT,
-		CHECK_FLOAT,
-		CHECK_SYMBOL,
-		CHECK_TIME,
-	};
 	
 	// keep in sync with CheckType values!
 	const char* typeNames[] = {
@@ -47,21 +62,6 @@ namespace {
 		"float",
 		"symbol",
 		"time",
-	};
-	
-	enum CompareType : int8_t {
-		CMP_NONE,
-		CMP_LESS,
-		CMP_LESS_EQ,
-		CMP_GREATER,
-		CMP_GREATER_EQ,
-		CMP_EQUAL,
-		CMP_NOT_EQUAL,
-		CMP_MODULE,
-		CMP_POWER2,
-		CMP_RANGE_CLOSED,
-		CMP_RANGE_SEMIOPEN,
-		CMP_APPROX,
 	};
 	
 	std::string atom_to_string(const ceammc::Atom& a) {
