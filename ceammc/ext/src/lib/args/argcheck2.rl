@@ -26,6 +26,7 @@ namespace {
 
     // keep in sync with typeNames values!
     enum CheckType : int8_t {
+        CHECK_NONE,
         CHECK_ATOM,
         CHECK_BOOL,
         CHECK_BYTE,
@@ -37,6 +38,7 @@ namespace {
 
     // keep in sync with CheckType values!
     const char* typeNames[] = {
+        "",
         "atom",
         "bool",
         "byte",
@@ -125,10 +127,10 @@ namespace {
     struct Check {
         ArgList values;
         ArgName name;
-        CheckType type;
-        CompareType cmp;
-        int8_t rmin;
-        int8_t rmax;
+        CheckType type { CHECK_NONE };
+        CompareType cmp { CMP_NONE };
+        int8_t rmin { 0 };
+        int8_t rmax { 0 };
 
         inline int repeatMin() const { return rmin; }
         inline int repeatMax() const { return (rmax == REPEAT_INF) ? std::numeric_limits<int>::max() : rmax; }
