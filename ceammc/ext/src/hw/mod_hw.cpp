@@ -1,5 +1,6 @@
 #include "mod_hw.h"
 #include "hw_arduino.h"
+#include "hw_display.h"
 #include "hw_kbd_light.h"
 #include "hw_serial.h"
 
