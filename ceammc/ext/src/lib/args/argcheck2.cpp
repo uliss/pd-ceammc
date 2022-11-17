@@ -522,8 +522,8 @@ namespace ceammc {
 						return false;
 					} else {
 						const int64_t val = a.asT<int>();
-						const int64_t arg = (c.values.size() == 1 && boost::get<int64_t>(&c.values[0]))
-						? *boost::strict_get<int64_t>(&c.values[0])
+						const int64_t arg = (c.values.size() >= 1 && boost::get<int64_t>(&c.values[0]))
+						? *boost::get<int64_t>(&c.values[0])
 						: -999999999;
 						
 						switch (c.cmp) {
