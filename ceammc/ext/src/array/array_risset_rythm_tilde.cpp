@@ -19,6 +19,7 @@ ArrayRissetRythmTilde::ArrayRissetRythmTilde(const PdArgs& args)
     : ArraySoundBase(args)
     , T_(0)
     , te_(0)
+    , run_(true)
 {
     bandwidth_ = new IntProperty("@b", 3);
     bandwidth_->checkClosedRange(1, 5);
@@ -29,6 +30,11 @@ ArrayRissetRythmTilde::ArrayRissetRythmTilde(const PdArgs& args)
     addProperty(length_);
 
     createSignalOutlet();
+}
+
+void ArrayRissetRythmTilde::onFloat(t_float f)
+{
+    run_ = (f > 0);
 }
 
 void ArrayRissetRythmTilde::setupDSP(t_signal** sp)
@@ -53,7 +59,7 @@ void ArrayRissetRythmTilde::processBlock(const t_sample** in, t_sample** out)
 {
     const auto bs = blockSize();
 
-    if (T_ == 0) {
+    if (T_ == 0 || !run_) {
         for (size_t i = 0; i < bs; i++)
             out[0][i] = 0;
 
@@ -114,5 +120,5 @@ void ArrayRissetRythmTilde::processBlock(const t_sample** in, t_sample** out)
 
 void setup_array_risset_rythm_tilde()
 {
-    SoundExternalFactory<ArrayRissetRythmTilde> obj("array.risset_rythm~");
+    SoundExternalFactory<ArrayRissetRythmTilde> obj("array.risset_rythm~", OBJECT_FACTORY_DEFAULT);
 }

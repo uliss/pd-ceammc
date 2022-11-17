@@ -22,10 +22,12 @@ class ArrayRissetRythmTilde : public ArraySoundBase {
     t_sample tl0_, tl1_, tl2_, tl3_, tl4_, te_;
     IntProperty* bandwidth_;
     IntProperty* length_;
+    bool run_;
 
 public:
     ArrayRissetRythmTilde(const PdArgs& args);
 
+    void onFloat(t_float f) override;
     void setupDSP(t_signal** sp) override;
     void processBlock(const t_sample** in, t_sample** out) override;
 };
