@@ -8,6 +8,8 @@
 
 #ifdef WITH_RHVOICE
 #include "speech_rhvoice_tilde.h"
+#else
+extern "C" void setup_speech_rhvoice_tilde();
 #endif
 
 #ifdef WITH_MODPLUG
@@ -44,9 +46,6 @@ void ceammc_misc_setup()
     setup_misc_speech_filte_tilde();
 #endif
 
-#ifdef WITH_RHVOICE
     setup_speech_rhvoice_tilde();
-#endif
-
     setup_misc_risset_glissando();
 }

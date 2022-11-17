@@ -83,6 +83,6 @@ private:
     void initWorker();
 };
 
-void setup_speech_rhvoice_tilde();
+extern "C" void setup_speech_rhvoice_tilde();
 
 #endif // SPEECH_RHVOICE_TILDE_H
