@@ -31,24 +31,28 @@ public:
 };
 }
 
-#define AUDIO_OBJECT_STUB(name, ain, aout, cin, cout, msg, fn)                       \
-    namespace {                                                                      \
-        class ControlStub : public ceammc::StubObjectImpl {                          \
-        public:                                                                      \
-            ControlStub(const ceammc::PdArgs& args)                                  \
-                : ceammc::StubObjectImpl(args, ain, aout, cin, cout, msg)            \
-            {                                                                        \
-            }                                                                        \
-            static void init() { ceammc::SoundExternalFactory<ControlStub> obj(name, \
-                ceammc::OBJECT_FACTORY_NO_DEFAULT_INLET); }                          \
-        };                                                                           \
-    }                                                                                \
-    extern "C" void setup_##fn()                                                     \
-    {                                                                                \
-        ControlStub::init();                                                         \
+#define AUDIO_OBJECT_STUB(ain, aout, cin, cout, msg)                      \
+    namespace {                                                           \
+        class ControlStub : public ceammc::StubObjectImpl {               \
+        public:                                                           \
+            ControlStub(const ceammc::PdArgs& args)                       \
+                : ceammc::StubObjectImpl(args, ain, aout, cin, cout, msg) \
+            {                                                             \
+            }                                                             \
+        };                                                                \
     }
 
-#define CONTROL_OBJECT_STUB(name, in, out, msg, fn) \
-    AUDIO_OBJECT_STUB(name, 0, 0, in, out, msg, fn)
+#define CONTROL_OBJECT_STUB(in, out, msg) \
+    AUDIO_OBJECT_STUB(0, 0, in, out, msg)
+
+#define OBJECT_STUB_SETUP(name, fn, ...)                    \
+    extern "C" void setup_##fn()                            \
+    {                                                       \
+        ceammc::SoundExternalFactory<ControlStub> obj(name, \
+            ceammc::OBJECT_FACTORY_NO_DEFAULT_INLET);       \
+        std::vector<const char*> aliases = { __VA_ARGS__ }; \
+        for (auto a : aliases)                              \
+            obj.addAlias(a);                                \
+    }
 
 #endif // CEAMMC_STUB_H

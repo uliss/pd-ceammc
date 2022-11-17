@@ -60,5 +60,6 @@ extern "C" void setup_hw_apple_smc()
     ObjectFactory<HwAppleSMC> obj("hw.apple_smc");
 }
 #else
-CONTROL_OBJECT_STUB("hw.apple_smc", 1, 1, "not supported on this platform", hw_apple_smc);
+CONTROL_OBJECT_STUB(1, 1, "not supported on this platform");
+OBJECT_STUB_SETUP("hw.apple_smc", hw_apple_smc);
 #endif

@@ -73,5 +73,6 @@ extern "C" void setup_hw_display()
     ObjectFactory<HwDisplay> obj("hw.display");
 }
 #else
-CONTROL_OBJECT_STUB("hw.display", 1, 1, "not supported on this platform", hw_display);
+CONTROL_OBJECT_STUB(1, 1, "not supported on this platform");
+OBJECT_STUB_SETUP("hw.display", hw_display);
 #endif
