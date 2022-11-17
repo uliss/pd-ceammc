@@ -18,9 +18,6 @@ public:
         for (int i = 0; i < SigOut; i++)
             createSignalOutlet();
 
-        for (int i = 0; i < CtlOut; i++)
-            createOutlet();
-
         for (int i = 0; i < CtlIn; i++)
             createInlet();
 

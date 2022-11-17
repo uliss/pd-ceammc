@@ -189,11 +189,11 @@ bool HwKeyboardLight::setLevel(t_float v)
 #endif
 }
 
-#if defined(__arm64__) && defined(__APPLE__)
-CONTROL_OBJECT_STUB("hw.kbd_light", 1, 1, "no support for Apple M1 at this moment", hw_keyboard_light);
-#else
+#if !defined(__arm64__) && defined(__APPLE__)
 extern "C" void setup_hw_keyboard_light()
 {
     ObjectFactory<HwKeyboardLight> obj("hw.kbd_light");
 }
+#else
+CONTROL_OBJECT_STUB("hw.kbd_light", 1, 1, "not supported on this platform", hw_keyboard_light);
 #endif
