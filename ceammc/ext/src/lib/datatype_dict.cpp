@@ -20,9 +20,9 @@
 #include "ceammc_log.h"
 #include "ceammc_output.h"
 #include "ceammc_string.h"
+#include "datatype_json.h"
 #include "datatype_mlist.h"
 #include "datatype_string.h"
-#include "datatype_json.h"
 #include "fmt/format.h"
 #include "json/json.hpp"
 
@@ -30,10 +30,28 @@
 #include <fstream>
 #include <random>
 
-
-namespace ceammc {
+namespace {
+using namespace ceammc;
 
 constexpr const char* TYPE_NAME = "Dict";
+
+Atom newFromDict(const DictAtom& datom)
+{
+    return datom;
+}
+
+DataTypeId initType()
+{
+    DataTypeId id = DataStorage::instance().typeByName(TYPE_NAME);
+    if (id == data::DATA_INVALID)
+        id = DataStorage::instance().registerNewType(TYPE_NAME, nullptr, newFromDict);
+
+    return id;
+}
+
+}
+
+namespace ceammc {
 
 static t_symbol* atom_to_symbol(const Atom& a)
 {
@@ -43,12 +61,7 @@ static t_symbol* atom_to_symbol(const Atom& a)
         return gensym(to_string(a).c_str());
 }
 
-static Atom newFromDict(const DictAtom& datom)
-{
-    return datom;
-}
-
-const DataTypeId DataTypeDict::dataType = DataStorage::instance().registerNewType(TYPE_NAME, nullptr, newFromDict);
+const DataTypeId DataTypeDict::dataType = initType();
 
 DataTypeDict::DataTypeDict() noexcept = default;
 
