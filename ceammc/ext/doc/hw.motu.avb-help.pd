@@ -45,77 +45,84 @@ Range: 1\...1200\.;
 #X obj 255 670 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 670 DB: value in decibel. Type: float. Range: 0\...60\.
 Units: db.;
-#X msg 110 710 input_gain;
-#X text 245 710 set input gain. Arguments are:;
+#X msg 110 710 guitar_phase;
+#X text 245 710 set guitar phase invert. Arguments are:;
 #X obj 255 733 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 733 CHAN: input channel (zero-based). Type: int. Min value:
+#X text 255 733 CHAN: guitar channel (zero-based). Type: int. Min value:
 0\.;
-#X obj 255 756 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 756 DB: value in decibel. Type: float. Units: db.;
-#X msg 110 781 main_gain;
-#X text 245 781 set main output gain. Arguments are:;
-#X obj 255 804 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 804 DB: value in decibel. Type: float. Range: -127\...0\.
+#X obj 255 756 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 756 VAL: state. Type: int. Allowed values: 0 \, 1\.;
+#X msg 110 781 input_gain;
+#X text 245 781 set input gain. Arguments are:;
+#X obj 255 804 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 804 CHAN: input channel (zero-based). Type: int. Min value:
+0\.;
+#X obj 255 827 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 827 DB: value in decibel. Type: float. Units: db.;
+#X msg 110 852 main_gain;
+#X text 245 852 set main output gain. Arguments are:;
+#X obj 255 875 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 875 DB: value in decibel. Type: float. Range: -127\...0\.
 Units: db.;
-#X msg 110 844 mic_gain;
-#X text 245 844 set mic gain. Arguments are:;
-#X obj 255 867 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 867 CHAN: mic channel (zero-based). Type: int. Min value:
+#X msg 110 915 mic_gain;
+#X text 245 915 set mic gain. Arguments are:;
+#X obj 255 938 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 938 CHAN: mic channel (zero-based). Type: int. Min value:
 0\.;
-#X obj 255 890 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 890 DB: value in decibel. Type: float. Range: 0\...60\.
+#X obj 255 961 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 961 DB: value in decibel. Type: float. Range: 0\...60\.
 Units: db.;
-#X msg 110 930 mic_pad;
-#X text 245 930 set mic -20db padding. Arguments are:;
-#X obj 255 953 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 953 CHAN: mic channel (zero-based). Type: int. Min value:
-0\.;
-#X obj 255 976 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 976 VAL: state. Type: int. Allowed values: 0 \, 1\.;
-#X msg 110 1001 mic_phase;
-#X text 245 1001 set mic phase invert. Arguments are:;
+#X msg 110 1001 mic_pad;
+#X text 245 1001 set mic -20db padding. Arguments are:;
 #X obj 255 1024 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1024 CHAN: mic channel (zero-based). Type: int. Min value:
 0\.;
 #X obj 255 1047 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1047 VAL: state. Type: int. Allowed values: 0 \, 1\.;
-#X msg 110 1072 output_gain;
-#X text 245 1072 set input gain. Arguments are:;
+#X msg 110 1072 mic_phase;
+#X text 245 1072 set mic phase invert. Arguments are:;
 #X obj 255 1095 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1095 CHAN: input channel (zero-based). Type: int. Min value:
+#X text 255 1095 CHAN: mic channel (zero-based). Type: int. Min value:
 0\.;
-#X obj 255 1118 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1118 DB: value in decibel. Type: float. Units: db.;
-#X msg 110 1143 phantom;
-#X text 245 1143 turns phantom on/off. Arguments are:;
+#X obj 255 1118 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1118 VAL: state. Type: int. Allowed values: 0 \, 1\.;
+#X msg 110 1143 output_gain;
+#X text 245 1143 set input gain. Arguments are:;
 #X obj 255 1166 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1166 CHAN: phantom channel. Type: int. Min value: 0\.;
-#X obj 255 1189 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1189 VAL: phantom state. Type: int. Allowed values: 0 \,
+#X text 255 1166 CHAN: input channel (zero-based). Type: int. Min value:
+0\.;
+#X obj 255 1189 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1189 DB: value in decibel. Type: float. Units: db.;
+#X msg 110 1214 phantom;
+#X text 245 1214 turns phantom on/off. Arguments are:;
+#X obj 255 1237 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1237 CHAN: phantom channel. Type: int. Min value: 0\.;
+#X obj 255 1260 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1260 VAL: phantom state. Type: int. Allowed values: 0 \,
 1\.;
-#X msg 110 1214 phones_gain;
-#X text 245 1214 set phones output gain. Arguments are:;
-#X obj 255 1237 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1237 DB: value in decibel. Type: float. Range: -127\...0\.
+#X msg 110 1285 phones_gain;
+#X text 245 1285 set phones output gain. Arguments are:;
+#X obj 255 1308 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1308 DB: value in decibel. Type: float. Range: -127\...0\.
 Units: db.;
-#X obj 20 1287 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1292 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1358 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1363 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1293 1\.;
-#X text 245 1293 input.;
-#X obj 20 1323 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1328 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 1364 1\.;
+#X text 245 1364 input.;
+#X obj 20 1394 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1399 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1329 1\.;
-#X text 245 1329 properties output.;
+#X text 110 1400 1\.;
+#X text 245 1400 properties output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 1379 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1382 library: ceammc v0.9.4;
-#N canvas 10 1401 400 290 info 0;
+#X obj 1 1450 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1453 library: ceammc v0.9.4;
+#N canvas 10 1472 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -139,7 +146,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1401 pd info;
+#X restore 10 1472 pd info;
 #X connect 7 0 8 0;
 #X connect 10 0 12 0;
 #X connect 11 0 13 0;

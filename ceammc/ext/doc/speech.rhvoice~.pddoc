@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="speech.rhvoice~">
+        <title>speech.rhvoice~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>RHVoice text to speech synthesis</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>misc</category>
+            <keywords>speak speech flite</keywords>
+            <since>0.9.5</since>
+            <aliases>
+                <alias>ceammc/rhvoice~</alias>
+                <alias>rhvoice~</alias>
+            </aliases>
+            <also>
+                <see>speech.flite~</see>
+            </also>
+        </meta>
+        <methods>
+            <method name="stop">stops speech and clear TTS queue</method>
+            <method name="clear">clear TTS queue</method>
+        </methods>
+        <properties>
+            <property name="@voice" type="symbol" default="Anna">voice</property>
+            <property name="@rate" type="float" minvalue="-1" maxvalue="1" default="0">speaking
+            rate</property>
+            <property name="@pitch" type="float" default="0" minvalue="-1" maxvalue="1">voice pitch</property>
+            <property name="@volume" type="float" default="1" minvalue="0" maxvalue="1">voice volume</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="float">speak number</xinfo>
+                <xinfo on="symbol">speak symbol</xinfo>
+                <xinfo on="list">speak list of symbols</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">TTS output</outlet>
+            <outlet>bang on done</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[T]
+|
+[metro 1000]
+|
+[flow.count] [ui.hsl #a]     [ui.hsl #a]
+|            |               |
+|            [@pitch $1(     [@rate $1(
+|            |               |
+[speech.rhvoice~             ]
+|          ^|
+|          [B]
+|
+[ui.gain~ @size 120 16]   [ui.dsp~]
+|\
+[dac~]
+
+#a -1 1 @show_value 1
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

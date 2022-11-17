@@ -86,7 +86,7 @@ static bool is_pd048()
 {
     int major, minor, bugfix;
     sys_getversion(&major, &minor, &bugfix);
-    static_assert(PD_MINOR_VERSION <= 51, "update for minor version");
+    static_assert(PD_MINOR_VERSION <= 53, "update for minor version");
     if (major == PD_MAJOR_VERSION && minor == PD_MINOR_VERSION)
         return false;
 

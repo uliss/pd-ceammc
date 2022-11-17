@@ -7,7 +7,8 @@
 #include "httplib.h"
 
 #ifdef NDEBUG
-#define TDBG(msg)
+#define TDBG(...)
+#define TDBG_FMT(...)
 #else
 #define TDBG(msg)           \
     do {                    \

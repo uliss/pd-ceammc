@@ -831,6 +831,9 @@ sfizz~	SFZ format sample player
 ceammc/sfizz~	SFZ format sample player
 speech.flite	render speech to array
 speech.flite~	render speech to array
+speech.rhvoice~	RHVoice text to speech synthesis
+ceammc/rhvoice~	RHVoice text to speech synthesis
+rhvoice~	RHVoice text to speech synthesis
 loadexpr	send message when patch loads
 ceammc/loadexpr	send message when patch loads
 msg	message constructor

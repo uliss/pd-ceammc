@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# M1 apple check (Faust not build at this moment)
+BUILD_WITH_FAUST=ON
+if [[ $(uname -m) == 'arm64' ]]; then
+  BUILD_WITH_FAUST=OFF
+fi
+
+
 cmake -G Ninja \
 	-DCMAKE_CXX_FLAGS=-ffast-math\
 	-DCMAKE_C_FLAGS=-ffast-math \
@@ -9,6 +16,8 @@ cmake -G Ninja \
 	-DARCH=x86_64 \
 	-DLEAPMOTION_ROOT=~/work/src/LeapSDK \
 	-DENABLE_TESTS=ON \
+	-DWITH_EXT_FLEXT=OFF \
+	-DWITH_FAUST=$BUILD_WITH_FAUST \
 	-DWITH_BENCHMARK=ON\
 	../../../..
 

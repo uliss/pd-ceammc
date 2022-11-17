@@ -61,14 +61,14 @@ void pdLog(const void* pd_obj, LogLevel level, const std::string& s)
     assert(N < MAXPDSTRING);
 
     if (s.size() < N) {
-        logpost(pd_obj, static_cast<int>(level), PD_LOG_FMT, name, s.c_str());
+        logpost(pd_obj, static_cast<t_loglevel>(level), PD_LOG_FMT, name, s.c_str());
     } else {
         char buf[MAXPDSTRING] = { 0 };
         for (size_t i = 0; i < s.size(); i += N) {
             const auto len = s.copy(buf, N, i);
             buf[len] = '\0';
 
-            logpost(pd_obj, static_cast<int>(level), PD_LOG_FMT, name, s.c_str());
+            logpost(pd_obj, static_cast<t_loglevel>(level), PD_LOG_FMT, name, s.c_str());
         }
     }
 }

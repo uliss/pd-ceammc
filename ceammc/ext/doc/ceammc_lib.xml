@@ -1531,6 +1531,9 @@
     <entry name="speech.flite~" descr="render speech to array" ref_view="object">
       <xi:include href="speech.flite~.pddoc" parse="xml"/>
     </entry>
+    <entry name="speech.rhvoice~" descr="RHVoice text to speech synthesis" ref_view="object">
+      <xi:include href="speech.rhvoice~.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="msg">
     <entry name="loadexpr" descr="send message when patch loads" ref_view="object">

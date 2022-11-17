@@ -7,14 +7,14 @@
 /* changes and additions for FFTW3 by Thomas Grill                      */
 
 #include "m_pd.h"
-#include "m_imp.h"
+#include "m_imp.h" // ceammc 
 #include <fftw3.h>
 
 int ilog2(int n);
 // ceammc
 void pd_globallock();
 void pd_globalunlock();
-// ceammc
+// ceammc end
 
 #define MINFFT 0
 #define MAXFFT 30

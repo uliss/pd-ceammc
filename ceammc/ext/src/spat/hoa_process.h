@@ -15,14 +15,23 @@
 #define HOA_PROCESS_H
 
 #include "ceammc_clock.h"
+#include "ceammc_property_enum.h"
 #include "hoa_common.h"
-#include "hoa_connections.h"
 #include "hoa_process_inlet.h"
 #include "hoa_process_instance.h"
 
 #include <functional>
 
 typedef void (*t_bangmethod)(t_pd* x);
+
+constexpr const char* HOA_STR_SWITCH = "switch~";
+constexpr const char* HOA_STR_BLOCK = "block~";
+constexpr const char* HOA_STR_CANVAS = "canvas";
+constexpr const char* HOA_STR_OBJ = "obj";
+constexpr const char* HOA_STR_HARMONICS = "harmonics";
+constexpr const char* HOA_STR_PLANEWAVES = "planewaves";
+constexpr const char* HOA_STR_2D = "2d";
+constexpr const char* HOA_STR_DSP = "dsp";
 
 class HoaProcess : public SoundExternal {
     std::vector<ProcessInstance> instances_;
@@ -115,15 +124,6 @@ public:
     void sendAnyToSpread(size_t inst_idx, size_t inlet_idx, t_symbol* s, const AtomListView& l);
 
 public:
-    static t_symbol* SYM_SWITCH;
-    static t_symbol* SYM_BLOCK;
-    static t_symbol* SYM_OBJ;
-    static t_symbol* SYM_HARMONICS;
-    static t_symbol* SYM_PLANEWAVES;
-    static t_symbol* SYM_2D;
-    static t_symbol* SYM_CANVAS;
-    static t_symbol* SYM_DSP;
-
     static size_t calcHarmDegree2d(size_t index);
     static size_t calcHarmDegree3d(size_t index);
     static long calcAzimuthalOrder2d(size_t index);

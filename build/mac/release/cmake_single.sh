@@ -1,6 +1,13 @@
 #!/bin/bash
 
 export LLVM_DIR=/opt/local/libexec/llvm-10/lib/cmake/llvm
+# M1 apple check (Faust not build at this moment)
+BUILD_WITH_FAUST=ON
+if [[ $(uname -m) == 'arm64' ]]; then
+  BUILD_WITH_FAUST=OFF
+  export LLVM_DIR=/opt/local/libexec/llvm-14/lib/cmake/llvm
+fi
+
 cmake -G Ninja \
 	-DCMAKE_CXX_FLAGS=-ffast-math\
 	-DCMAKE_C_FLAGS=-ffast-math \
@@ -11,6 +18,8 @@ cmake -G Ninja \
 	-DLEAPMOTION_ROOT=~/work/src/LeapSDK \
 	-DENABLE_TESTS=ON \
 	-DWITH_TTS_RHVOICE=ON \
+	-DWITH_EXT_FLEXT=OFF\
+	-DWITH_FAUST=${BUILD_WITH_FAUST}\
 	-DWITH_BENCHMARK=ON\
 	../../../..
 

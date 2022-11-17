@@ -34,9 +34,6 @@
 #include "Hoa_Tools.hpp"
 #pragma clang diagnostic pop
 
-#include "m_pd.h"
-
-#include "ceammc_property_enum.h"
 #include "ceammc_sound_external.h"
 using namespace ceammc;
 

@@ -884,6 +884,7 @@ t_efont* efont_create(t_symbol* family, t_symbol* slant, t_symbol* weight, float
             new_font->c_weight = sym_normal();
 
         new_font->c_size = pd_clip_min(size, 1);
+        new_font->c_sizereal = new_font->c_size;
     }
     return new_font;
 }

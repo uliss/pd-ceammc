@@ -1,17 +1,28 @@
 #include "speech_rhvoice_tilde.h"
 #include "ceammc_factory.h"
 #include "ceammc_string_types.h"
-#include "fmt/format.h"
+#include "fmt/core.h"
 
 #include "RHVoice.h"
 #include "soxr.h"
 
-#include <boost/static_string.hpp>
 #include <chrono>
 
 #define RHVOICE_DEBUG 1
 
 static inline SpeechRhvoiceTilde* toThis(void* x) { return static_cast<SpeechRhvoiceTilde*>(x); }
+
+static const std::array<const char*, 3> RHVOICE_CONFIG_PATHS {
+    "~/.local/etc/RHVoice.conf",
+    "/usr/local/etc/RHVoice/RHVoice.conf",
+    "/opt/local/etc/RHVoice/RHVoice.conf",
+};
+
+static const std::array<const char*, 3> RHVOICE_DATA_PATHS {
+    "~/.local/share/RHVoice",
+    "/usr/local/share/RHVoice",
+    "/opt/local/share/RHVoice",
+};
 
 class SynthFloatProperty : public FloatProperty {
     using ValType = typeof(RHVoice_synth_params::absolute_pitch);
@@ -108,6 +119,13 @@ SpeechRhvoiceTilde::~SpeechRhvoiceTilde()
     Dispatcher::instance().unsubscribe(this);
 }
 
+void SpeechRhvoiceTilde::onFloat(t_float f)
+{
+    stop_ = false;
+    txt_queue_.emplace(fmt::format("{}", f), synth_params_);
+    notify_.notifyOne();
+}
+
 void SpeechRhvoiceTilde::onSymbol(t_symbol* s)
 {
     if (s == &s_) {
@@ -174,7 +192,7 @@ bool SpeechRhvoiceTilde::notify(NotifyEventType code)
 {
     switch (code) {
     case NOTIFY_DONE:
-        symbolTo(1, gensym("done"));
+        bangTo(1);
         break;
     default:
         return true;
@@ -281,9 +299,44 @@ int SpeechRhvoiceTilde::onDsp(const short* data, unsigned int n)
 
 void SpeechRhvoiceTilde::initEngineParams()
 {
+    data_dir_ = platform::pd_user_directory();
+    data_dir_ += "/rhvoice";
+    if (!platform::path_exists(data_dir_.c_str())) {
+        bool found = false;
+        for (auto& p : RHVOICE_DATA_PATHS) {
+            if (platform::path_exists(platform::expand_tilde_path(p).c_str())) {
+                OBJ_DBG << "RHVoice data dir: " << p;
+                found = true;
+                data_dir_ = p;
+                break;
+            }
+        }
+
+        if (!found)
+            OBJ_DBG << fmt::format("RHVoice data directory not exists: '{}'", data_dir_);
+    }
+
+    conf_path_ = platform::pd_user_directory();
+    conf_path_ += "/rhvoice/RHVoice.conf";
+    if (!platform::path_exists(conf_path_.c_str())) {
+        conf_path_ = findInStdPaths("RHVoice.conf");
+        if (conf_path_.empty()) {
+            for (auto& p : RHVOICE_CONFIG_PATHS) {
+                if (platform::path_exists(platform::expand_tilde_path(p).c_str())) {
+                    OBJ_DBG << "RHVoice.conf path: " << p;
+                    conf_path_ = p;
+                    break;
+                }
+            }
+        }
+    }
+
+    if (conf_path_.empty())
+        OBJ_DBG << "RHVoice.conf not found";
+
     memset(&engine_params_, 0, sizeof(engine_params_));
-    engine_params_.data_path = "/Users/serge/.local/share/RHVoice";
-    engine_params_.config_path = "/Users/serge/.local/etc/RHVoice";
+    engine_params_.data_path = data_dir_.c_str();
+    engine_params_.config_path = conf_path_.c_str();
     engine_params_.resource_paths = nullptr;
     engine_params_.options = RHVoice_preload_voices;
     engine_params_.callbacks.done =
@@ -385,7 +438,10 @@ void setup_speech_rhvoice_tilde()
     obj.addMethod("stop", &SpeechRhvoiceTilde::m_stop);
     obj.addMethod("clear", &SpeechRhvoiceTilde::m_clear);
 
-    obj.setXletsInfo({ "symbol: speak symbol" }, { "signal: tts output", "'done' when done" });
+    obj.setXletsInfo({ "float: speak number\n"
+                       "symbol: speak symbol\n"
+                       "list: speak list words" },
+        { "signal: tts output", "'done' when done" });
 
-    LIB_POST << fmt::format("RHVoice version: {}", RHVoice_get_version());
+    LIB_DBG << fmt::format("RHVoice version: {}", RHVoice_get_version());
 }

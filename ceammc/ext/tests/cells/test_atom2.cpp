@@ -34,7 +34,7 @@ TEST_CASE("Atom2", "[core]")
 
         SECTION("IntData")
         {
-            Atom a(new IntData(100.25));
+            Atom a(new IntData(100));
             REQUIRE(a.isData());
             REQUIRE(a.isA<IntData>());
             REQUIRE(a.isDataType(IntData::dataType));

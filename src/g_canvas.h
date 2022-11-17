@@ -43,7 +43,9 @@ in future releases.  The public (stable) API is in m_pd.h. */
 extern "C" {
 #endif
 
+// ceammc
 #include "m_pd.h"
+// ceammc end
 
 /* --------------------- geometry ---------------------------- */
 #define IOWIDTH 7       /* width of an inlet/outlet in pixels */
@@ -52,6 +54,13 @@ extern "C" {
 #define IOMIDDLE ((IOWIDTH-1)/2)
 #define GLIST_DEFGRAPHWIDTH 200
 #define GLIST_DEFGRAPHHEIGHT 140
+
+#define GLIST_DEFCANVASXLOC 0
+#ifdef __APPLE__
+#define GLIST_DEFCANVASYLOC 22
+#else
+#define GLIST_DEFCANVASYLOC 50
+#endif
 
 /* ----------------------- data ------------------------------- */
 
@@ -63,8 +72,9 @@ typedef struct _updateheader
 } t_updateheader;
 
     /* types to support glists grabbing mouse motion or keys from parent */
-typedef void (*t_glistmotionfn)(void *z, t_floatarg dx, t_floatarg dy);
-typedef void (*t_glistkeyfn)(void *z, t_floatarg key);
+typedef void (*t_glistmotionfn)(void *z, t_floatarg dx, t_floatarg dy,
+    t_floatarg up);
+typedef void (*t_glistkeyfn)(void *z, t_symbol *keysym, t_floatarg key);
 
 EXTERN_STRUCT _rtext;
 #define t_rtext struct _rtext
@@ -450,8 +460,9 @@ EXTERN void text_drawborder(t_text *x, t_glist *glist, const char *tag,
 EXTERN void text_eraseborder(t_text *x, t_glist *glist, const char *tag);
 EXTERN int text_xpix(t_text *x, t_glist *glist);
 EXTERN int text_ypix(t_text *x, t_glist *glist);
-/* ceammc: removed const for xlet tooltips */
+// ceammc: removed const for xlet tooltips
 extern t_widgetbehavior text_widgetbehavior;
+// ceammc end
 
 /* -------------------- functions on rtexts ------------------------- */
 #define RTEXT_DOWN 1
@@ -475,6 +486,7 @@ EXTERN int rtext_width(t_rtext *x);
 EXTERN const char *rtext_gettag(t_rtext *x);
 EXTERN void rtext_gettext(t_rtext *x, char **buf, int *bufsize);
 EXTERN void rtext_getseltext(t_rtext *x, char **buf, int *bufsize);
+EXTERN t_text *rtext_getowner(t_rtext *x);
 
 /* -------------------- functions on canvases ------------------------ */
 EXTERN t_class *canvas_class;
@@ -545,6 +557,9 @@ typedef int (*t_canvas_path_iterator)(const char *path, void *user_data);
 EXTERN int canvas_path_iterate(const t_canvas *x, t_canvas_path_iterator fun,
     void *user_data);
 
+/* check string for untitled canvas filename prefix */
+#define UNTITLED_STRNCMP(s) strncmp(s, "PDUNTITLED", 10)
+
 /* ---- functions on canvasses as objects  --------------------- */
 
 EXTERN void linetraverser_start(t_linetraverser *t, t_canvas *x);
@@ -556,8 +571,12 @@ EXTERN void linetraverser_skipobject(t_linetraverser *t);
 EXTERN t_template *garray_template(t_garray *x);
 
 /* -------------------- arrays --------------------- */
+#define GRAPH_ARRAY_SAVE 1      /* flags for graph_array() below */
+#define GRAPH_ARRAY_PLOTSTYLE 6 /* 2-bit field, PLOTSTYLE_POINTS, etc */
+#define GRAPH_ARRAY_SAVESIZE 8  /* save size as well as contents */
+
 EXTERN t_garray *graph_array(t_glist *gl, t_symbol *s, t_symbol *tmpl,
-    t_floatarg f, t_floatarg saveit);
+    t_floatarg f, t_floatarg flags);
 EXTERN t_array *array_new(t_symbol *templatesym, t_gpointer *parent);
 EXTERN void array_resize(t_array *x, int n);
 EXTERN void array_free(t_array *x);
@@ -633,6 +652,7 @@ EXTERN void guiconnect_notarget(t_guiconnect *x, double timedelay);
 /* ------------- IEMGUI routines used in other g_ files ---------------- */
 EXTERN t_symbol *iemgui_raute2dollar(t_symbol *s);
 EXTERN t_symbol *iemgui_dollar2raute(t_symbol *s);
+EXTERN t_symbol *iemgui_put_in_braces(t_symbol *s);
 
 /*-------------  g_clone.c ------------- */
 extern t_class *clone_class;

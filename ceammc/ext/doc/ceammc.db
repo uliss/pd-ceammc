@@ -627,6 +627,7 @@ spat.zita6x8~		~~~~~~		~~~~~~~~
 spat.zita8~		~		~~~~~~~~
 speech.flite		..		.
 speech.flite~		.		~.
+speech.rhvoice~,ceammc/rhvoice~,rhvoice~		.		~.
 spring,ceammc/spring		..		..
 string,ceammc/string,ceammc/str,str		.		.
 string.contains,str.contains		..		.

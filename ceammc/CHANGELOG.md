@@ -1,6 +1,6 @@
 # CEAMMC external library changelog
 
-## [Unreleased]
+## [0.9.5]
 ### Added:
 - new objects:
   - midi.split: midi note splitter
@@ -28,7 +28,8 @@
   - synth.hat~ added
   - synth.clap~ added
   - path.pattern: generate unique filenames by pattern
-  - hw.motu.avb: Motu AVB control added
+  - hw.motu.avb: Motu AVB http control added
+  - speech.rhvoice~: RHVoice TTS engine added
 - new properties:
   - @clip property added to system.cursor to clip cursor XY coords
   - @norm property added to ui.env to do envelope value normalization on input

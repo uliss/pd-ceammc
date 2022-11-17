@@ -14,6 +14,7 @@
 #ifndef HOA_RECOMPOSER_H
 #define HOA_RECOMPOSER_H
 
+#include "ceammc_property_enum.h"
 #include "hoa_common.h"
 
 class HoaRecomposer : public HoaBase {

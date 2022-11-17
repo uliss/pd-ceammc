@@ -7,6 +7,8 @@
 
 ### Removed:
 - disable externals libdir and import in default build options
+- temporary disable flext base external, cause their using obsolete Pd api calls (error(), for example)
+- removed link to FLOSS and Kreidler tutorial, cause they are really old at this time
 
 ## [2021.11]
 ### Added:

@@ -11,8 +11,10 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
+#include "m_pd.h"
 
 #define FAUST_MACRO
+#define FAUSTFLOAT t_float
 #include "flt_eq10.h"
 #include "test_external.h"
 

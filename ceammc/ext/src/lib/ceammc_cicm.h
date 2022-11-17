@@ -44,10 +44,6 @@ enum FontWeight {
 
 class UIFont {
     t_efont* font_;
-    t_symbol* family_;
-    int size_;
-    FontDecoration dec_;
-    FontWeight w_;
 
 public:
     UIFont(t_symbol* family, int size,
@@ -60,6 +56,13 @@ public:
     void operator=(const UIFont& font);
 
     t_efont* font();
+
+    int size() const { return font_->c_sizereal; }
+    void setSize(int sz)
+    {
+        font_->c_sizereal = sz;
+        font_->c_size = sz;
+    }
 };
 
 class UITextLayout {

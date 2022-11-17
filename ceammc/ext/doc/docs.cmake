@@ -628,6 +628,7 @@ set(DOC_FILES
     spat.zita6x8~
     speech.flite
     speech.flite~
+    speech.rhvoice~
     spring
     string
     string.contains

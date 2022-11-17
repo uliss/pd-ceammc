@@ -52,11 +52,14 @@ private:
     AtomList voices_;
     Resampler resampler_;
     ThreadNotify notify_;
+    std::string data_dir_;
+    std::string conf_path_;
 
 public:
     SpeechRhvoiceTilde(const PdArgs& args);
     ~SpeechRhvoiceTilde();
 
+    void onFloat(t_float f) override;
     void onSymbol(t_symbol* s) override;
     void onList(const AtomListView& lv) override;
     void processBlock(const t_sample** in, t_sample** out) final;

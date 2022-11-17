@@ -14,6 +14,7 @@
 #ifndef HOA_DECODER_H
 #define HOA_DECODER_H
 
+#include "ceammc_property_enum.h"
 #include "hoa_common.h"
 
 #include <memory>

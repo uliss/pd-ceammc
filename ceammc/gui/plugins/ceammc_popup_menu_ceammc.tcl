@@ -82,7 +82,7 @@
     }}
     {hw {
         hw.apple_smc hw.apple_sms hw.arduino hw.cpu_temp hw.display
-        hw.kbd_light hw.serial
+        hw.kbd_light hw.motu.avb hw.serial
     }}
     {lang {
         lang.faust~ ui.faust~
@@ -140,6 +140,7 @@
     }}
     {misc {
         click~ fluid~ modplug~ risset.gliss sfizz~ speech.flite speech.flite~
+        speech.rhvoice~
     }}
     {msg {
         loadexpr msg msg.after msg.onload msg.sched

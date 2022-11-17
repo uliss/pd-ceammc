@@ -354,14 +354,6 @@ proc ::pd_menus::build_help_menu {mymenu} {
         # Tk creates this automatically on Mac
         $mymenu add command -label [_ "About Pd"] -command {::pd_menucommands::scheduleAction menu_aboutpd}
     }
-    # ceammc: FLOSS
-    $mymenu add command -label [_ "FLOSS Manual..."] \
-        -command {menu_openfile \
-        {http://write.flossmanuals.net/pure-data/introduction2/}}
-    # ceammc: Kreidler
-    $mymenu add command -label [_ "Pd tutorial by Johannes Kreidler"] \
-        -command {menu_openfile {http://www.pd-tutorial.com/english/}}
-    # ceammc end
     if {$::windowingsystem ne "aqua" || $::tcl_version < 8.5} {
         # TK 8.5+ on Mac creates this automatically, other platforms do not
         $mymenu add command -label [_ "HTML Manual..."] \
