@@ -123,102 +123,102 @@ namespace {
     {
         return std::fabs(a - b) <= e;
     }
-
-    struct Check {
-        ArgList values;
-        ArgName name;
-        CheckType type { CHECK_NONE };
-        CompareType cmp { CMP_NONE };
-        int8_t rmin { 0 };
-        int8_t rmax { 0 };
-
-        inline int repeatMin() const { return rmin; }
-        inline int repeatMax() const { return (rmax == REPEAT_INF) ? std::numeric_limits<int>::max() : rmax; }
-        inline void setRepeats(int min, int max) { rmin = min; rmax = max; }
-
-        inline static bool isEqual(const ArgValue& v, int64_t i)
-        {
-            auto int_ptr = boost::get<int64_t>(&v);
-            return (int_ptr && i == *int_ptr);
-        }
-
-        inline static bool isEqual(const ArgValue& v, double d)
-        {
-            auto dbl_ptr = boost::get<double>(&v);
-            return (dbl_ptr && d == *dbl_ptr);
-        }
-
-        inline static bool isApproxEqual(const ArgValue& v, double d)
-        {
-            auto dbl_ptr = boost::get<double>(&v);
-            return dbl_ptr && approx_equal(d, *dbl_ptr);
-        }
-
-        inline static bool isEqualHash(const ArgValue& v, uint32_t hash)
-        {
-            auto str_ptr = boost::get<ArgString>(&v);
-            return (str_ptr && str_ptr->second == hash);
-        }
-
-        inline std::string argName() const {
-            if (name.empty())
-                return typeNames[type];
-            else
-                return { name.data(), name.size() };
-        }
-
-        inline std::string checkInfo() const {
-            switch (cmp) {
-            case CMP_MODULE:
-                return fmt::format("check: %{}==0", arg_to_string(values));
-            case CMP_LESS:
-                return fmt::format("check: <{}", arg_to_string(values));
-            case CMP_LESS_EQ:
-                return fmt::format("check: <={}", arg_to_string(values));
-            case CMP_GREATER:
-                return fmt::format("check: >{}", arg_to_string(values));
-            case CMP_GREATER_EQ:
-                return fmt::format("check: >={}", arg_to_string(values));
-            case CMP_RANGE_CLOSED:
-                return fmt::format("range: [{}]", arg_to_string(values, ","));
-            case CMP_RANGE_SEMIOPEN:
-                return fmt::format("range: [{})", arg_to_string(values, ","));
-            case CMP_EQUAL:
-                if (values.size() == 1)
-                    return fmt::format("check: ={}", arg_to_string(values));
-                else
-                    return fmt::format("enum: {}", arg_to_string(values, "|"));
-            case CMP_APPROX:
-                if (values.size() == 1)
-                    return fmt::format("check: ~{}", arg_to_string(values));
-                else
-                    return fmt::format("enum: ~{}", arg_to_string(values, "|"));
-            default:
-                return {};
-            }
-        }
-
-        inline std::string argInfo() const {
-            if (name.empty())
-                return fmt::format("{:10s} [{}]{}", typeNames[type], checkInfo(), helpRepeats());
-            else
-                return fmt::format("{:10s} [type: {} {}]{}", name.data(), typeNames[type], checkInfo(), helpRepeats());
-        }
-
-        inline std::string helpRepeats() const {
-            if (rmin == 1 && rmax == 1) return {};
-            if (rmin == 0 && rmax == 1) return { '?', 1 };
-            if (rmin == 0 && rmax == REPEAT_INF) return { '*', 1 };
-            if (rmin == 1 && rmax == REPEAT_INF) return { '+', 1 };
-            if (rmin == rmax)
-                return fmt::format("{{{}}}", (int)rmin);
-            if (rmax != REPEAT_INF)
-                return fmt::format("{{{},{}}}", (int)rmin, (int)rmax);
-            else
-                return fmt::format("{{{},}}", (int)rmin);
-        }
-    };
 }
+
+struct Check {
+    ArgList values;
+    ArgName name;
+    CheckType type { CHECK_NONE };
+    CompareType cmp { CMP_NONE };
+    int8_t rmin { 0 };
+    int8_t rmax { 0 };
+
+    inline int repeatMin() const { return rmin; }
+    inline int repeatMax() const { return (rmax == REPEAT_INF) ? std::numeric_limits<int>::max() : rmax; }
+    inline void setRepeats(int min, int max) { rmin = min; rmax = max; }
+
+    inline static bool isEqual(const ArgValue& v, int64_t i)
+    {
+        auto int_ptr = boost::get<int64_t>(&v);
+        return (int_ptr && i == *int_ptr);
+    }
+
+    inline static bool isEqual(const ArgValue& v, double d)
+    {
+        auto dbl_ptr = boost::get<double>(&v);
+        return (dbl_ptr && d == *dbl_ptr);
+    }
+
+    inline static bool isApproxEqual(const ArgValue& v, double d)
+    {
+        auto dbl_ptr = boost::get<double>(&v);
+        return dbl_ptr && approx_equal(d, *dbl_ptr);
+    }
+
+    inline static bool isEqualHash(const ArgValue& v, uint32_t hash)
+    {
+        auto str_ptr = boost::get<ArgString>(&v);
+        return (str_ptr && str_ptr->second == hash);
+    }
+
+    inline std::string argName() const {
+        if (name.empty())
+            return typeNames[type];
+        else
+            return { name.data(), name.size() };
+    }
+
+    inline std::string checkInfo() const {
+        switch (cmp) {
+        case CMP_MODULE:
+            return fmt::format("check: %{}==0", arg_to_string(values));
+        case CMP_LESS:
+            return fmt::format("check: <{}", arg_to_string(values));
+        case CMP_LESS_EQ:
+            return fmt::format("check: <={}", arg_to_string(values));
+        case CMP_GREATER:
+            return fmt::format("check: >{}", arg_to_string(values));
+        case CMP_GREATER_EQ:
+            return fmt::format("check: >={}", arg_to_string(values));
+        case CMP_RANGE_CLOSED:
+            return fmt::format("range: [{}]", arg_to_string(values, ","));
+        case CMP_RANGE_SEMIOPEN:
+            return fmt::format("range: [{})", arg_to_string(values, ","));
+        case CMP_EQUAL:
+            if (values.size() == 1)
+                return fmt::format("check: ={}", arg_to_string(values));
+            else
+                return fmt::format("enum: {}", arg_to_string(values, "|"));
+        case CMP_APPROX:
+            if (values.size() == 1)
+                return fmt::format("check: ~{}", arg_to_string(values));
+            else
+                return fmt::format("enum: ~{}", arg_to_string(values, "|"));
+        default:
+            return {};
+        }
+    }
+
+    inline std::string argInfo() const {
+        if (name.empty())
+            return fmt::format("{:10s} [{}]{}", typeNames[type], checkInfo(), helpRepeats());
+        else
+            return fmt::format("{:10s} [type: {} {}]{}", name.data(), typeNames[type], checkInfo(), helpRepeats());
+    }
+
+    inline std::string helpRepeats() const {
+        if (rmin == 1 && rmax == 1) return {};
+        if (rmin == 0 && rmax == 1) return { '?', 1 };
+        if (rmin == 0 && rmax == REPEAT_INF) return { '*', 1 };
+        if (rmin == 1 && rmax == REPEAT_INF) return { '+', 1 };
+        if (rmin == rmax)
+            return fmt::format("{{{}}}", (int)rmin);
+        if (rmax != REPEAT_INF)
+            return fmt::format("{{{},{}}}", (int)rmin, (int)rmax);
+        else
+            return fmt::format("{{{},}}", (int)rmin);
+    }
+};
 
 %%{
 machine time_check;
