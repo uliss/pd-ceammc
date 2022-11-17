@@ -37,6 +37,6 @@ private:
     bool setLevel(t_float v);
 };
 
-void setup_hw_keyboard_light();
+extern "C" void setup_hw_keyboard_light();
 
 #endif // HW_KBD_LIGHT_H

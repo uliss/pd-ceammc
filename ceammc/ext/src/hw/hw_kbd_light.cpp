@@ -40,6 +40,7 @@
 #include "hw_kbd_light.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
+#include "ceammc_stub.h"
 
 #ifdef __APPLE__
 #include <mach/mach.h>
@@ -188,7 +189,11 @@ bool HwKeyboardLight::setLevel(t_float v)
 #endif
 }
 
-void setup_hw_keyboard_light()
+#if defined(__arm64__) && defined(__APPLE__)
+CONTROL_OBJECT_STUB("hw.kbd_light", 1, 1, "no support for Apple M1 at this moment", hw_keyboard_light);
+#else
+extern "C" void setup_hw_keyboard_light()
 {
     ObjectFactory<HwKeyboardLight> obj("hw.kbd_light");
 }
+#endif
