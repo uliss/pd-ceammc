@@ -58,6 +58,7 @@ array.plot~
 array.p~
 array.r
 array.resample
+array.risset_rythm~
 array.rms
 array.s->p
 array.s2p
