@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "hw_apple_smc.h"
 #include "ceammc_factory.h"
+#include "ceammc_stub.h"
 
 HwAppleSMC::HwAppleSMC(const PdArgs& args)
     : BaseObject(args)
@@ -53,8 +54,11 @@ void HwAppleSMC::m_read(t_symbol* s, const AtomListView& l)
 #endif
 }
 
-void setup_hw_apple_smc()
+#if !defined(__arm64__) && defined(WITH_SMC)
+extern "C" void setup_hw_apple_smc()
 {
     ObjectFactory<HwAppleSMC> obj("hw.apple_smc");
-    obj.addMethod("read", &HwAppleSMC::m_read);
 }
+#else
+CONTROL_OBJECT_STUB("hw.apple_smc", 1, 1, "not supported on this platform", hw_apple_smc);
+#endif
