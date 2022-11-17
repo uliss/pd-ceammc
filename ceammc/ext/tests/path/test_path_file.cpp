@@ -15,11 +15,15 @@
 #include "parser_bytes.h"
 #include "path_file.h"
 #include "test_path_base.h"
+#include "filesystem.hpp"
 
 #include <chrono>
 #include <fstream>
 #include <iterator>
 #include <thread>
+
+namespace fs = ghc::filesystem;
+#define NORM(path_) AtomList(gensym(fs::path(path_).make_preferred().string().c_str()))
 
 PD_COMPLETE_TEST_SETUP(PathFile, path, file)
 
@@ -65,8 +69,9 @@ TEST_CASE("path.file", "[externals]")
         {
             TExt t("path.file");
             t.call("open", PATH, "w+");
-            REQUIRE_PROPERTY(t, @path, LA(PATH));
+            REQUIRE_PROPERTY(t, @path, NORM(PATH));
             REQUIRE(platform::path_exists(PATH));
+            t.call("close");
             REQUIRE(std::remove(PATH) == 0);
         }
 
@@ -76,19 +81,22 @@ TEST_CASE("path.file", "[externals]")
             REQUIRE_FALSE(platform::path_exists(PATH));
 
             t.call("open", PATH, "w+");
-            REQUIRE_PROPERTY(t, @path, LA(PATH));
+            REQUIRE_PROPERTY(t, @path, NORM(PATH));
             REQUIRE(platform::path_exists(PATH));
             REQUIRE_FALSE(platform::path_exists(PATH2));
+            t.call("close");
             REQUIRE(std::remove(PATH) == 0);
 
             t.call("open", PATH2, "w+");
-            REQUIRE_PROPERTY(t, @path, LA(PATH2));
+            REQUIRE_PROPERTY(t, @path, NORM(PATH2));
             REQUIRE(platform::path_exists(PATH2));
+            t.call("close");
             REQUIRE(std::remove(PATH2) == 0);
 
             t.call("open", PATH2, "w");
             t.call("open", PATH2, "w");
             REQUIRE(platform::path_exists(PATH2));
+            t.call("close");
             REQUIRE(std::remove(PATH2) == 0);
         }
 
@@ -116,8 +124,9 @@ TEST_CASE("path.file", "[externals]")
             TExt t("path.file");
             t.call("open", LA(tilde_path.c_str(), "w"));
             REQUIRE(platform::path_exists(full_path.c_str()));
+            t.call("close");
             REQUIRE(std::remove(full_path.c_str()) == 0);
-            REQUIRE_PROPERTY(t, @path, full_path.c_str());
+            REQUIRE_PROPERTY(t, @path, NORM(full_path.c_str()));
         }
 
         SECTION("relative path")
@@ -129,6 +138,7 @@ TEST_CASE("path.file", "[externals]")
             TExt t("path.file");
             t.call("open", LA(rel_path.c_str(), "w"));
             REQUIRE(platform::path_exists(full_path.c_str()));
+            t.call("close");
             REQUIRE(std::remove(full_path.c_str()) == 0);
         }
 
@@ -174,6 +184,7 @@ TEST_CASE("path.file", "[externals]")
             t.call("write_line", LF(1, 2, 3));
             REQUIRE(file_content(PATH) == "1 2 3 4 51 2 3 4 51 2 3\n");
 
+            t.call("close");
             REQUIRE(std::remove(PATH) == 0);
         }
 
@@ -190,6 +201,7 @@ TEST_CASE("path.file", "[externals]")
             t.call("write_bytes", LA("0x41", "0x42", "0x43", "0x44", "0x45"));
             REQUIRE(file_content(PATH) == "12345\x41\x42\x43\x44\x45");
 
+            t.call("close");
             REQUIRE(std::remove(PATH) == 0);
         }
     }
@@ -224,11 +236,20 @@ TEST_CASE("path.file", "[externals]")
             t.call("write", LA("?"));
             REQUIRE(file_content(PATH) == "6 ? 8 ###\n");
 
+#ifdef __WIN32__
+            t.call("seek_write", LA(-3, "end"));
+#else
             t.call("seek_write", LA(-2, "end"));
+
+#endif
             t.call("write", LA("%"));
             REQUIRE(file_content(PATH) == "6 ? 8 ##%\n");
 
+#ifdef __WIN32__
+            t.call("seek_write", LA(-2, "end"));
+#else
             t.call("seek_write", LA(-1, "end"));
+#endif
             t.call("write", LA("EXTRA\n"));
             REQUIRE(file_content(PATH) == "6 ? 8 ##%EXTRA\n");
 
@@ -236,6 +257,7 @@ TEST_CASE("path.file", "[externals]")
             t.call("write", LA("+++\n"));
             REQUIRE(file_content(PATH) == "6 ? 8 ##%EXTRA\n+++\n");
 
+            t.call("close");
             REQUIRE(std::remove(PATH) == 0);
         }
     }
@@ -259,6 +281,8 @@ TEST_CASE("path.file", "[externals]")
 
         t.call("open", LA(PATH, "w+"));
         REQUIRE(platform::path_exists(PATH));
+
+        t.call("close");
         REQUIRE(std::remove(PATH) == 0);
     }
 
@@ -279,6 +303,7 @@ TEST_CASE("path.file", "[externals]")
         t.call("write_line", LF(1, 2, 3));
         REQUIRE(file_content(PATH) == "1 2 3\n");
 
+        t.call("close");
         REQUIRE(std::remove(PATH) == 0);
     }
 
@@ -319,6 +344,7 @@ TEST_CASE("path.file", "[externals]")
         REQUIRE_FALSE(t.hasOutputAt(1));
         t.clearAll();
 
+        t.call("close");
         REQUIRE(std::remove(PATH) == 0);
     }
 
@@ -352,6 +378,7 @@ TEST_CASE("path.file", "[externals]")
         REQUIRE(t.isOutputBangAt(1));
         t.clearAll();
 
+        t.call("close");
         REQUIRE(std::remove(PATH) == 0);
     }
 
@@ -364,6 +391,7 @@ TEST_CASE("path.file", "[externals]")
         t.call("open", LA(PATH, "w+"));
         REQUIRE(platform::path_exists(PATH));
 
+        t.call("close");
         t.call("remove", LA(PATH));
         REQUIRE_FALSE(platform::path_exists(PATH));
     }
