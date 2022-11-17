@@ -12,26 +12,36 @@
  * this file belongs to.
  *****************************************************************************/
 #include "datatype_mlist.h"
-#include "ceammc_data.h"
 #include "ceammc_datastorage.h"
-#include "ceammc_format.h"
 #include "ceammc_json.h"
 #include "ceammc_log.h"
 #include "ceammc_string.h"
-#include "fmt/format.h"
+#include "fmt/core.h"
 
 #include <algorithm>
 #include <cmath>
 #include <cstring>
 
-namespace ceammc {
+namespace {
+using namespace ceammc;
 
-static Atom newMList(const AtomListView& args)
+constexpr const char* TYPE_NAME = "MList";
+
+DataTypeId initType()
 {
-    return new DataTypeMList(args);
+    DataTypeId id = DataStorage::instance().typeByName(TYPE_NAME);
+    if (id == data::DATA_INVALID)
+        id = DataStorage::instance().registerNewType(TYPE_NAME,
+            [](const AtomListView& args) -> Atom { return new DataTypeMList(args); });
+
+    return id;
 }
 
-DataTypeId DataTypeMList::dataType = DataStorage::instance().registerNewType("MList", newMList);
+}
+
+namespace ceammc {
+
+DataTypeId DataTypeMList::dataType = initType();
 
 DataTypeMList::DataTypeMList() noexcept = default;
 
