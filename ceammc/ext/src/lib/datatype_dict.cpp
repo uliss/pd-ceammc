@@ -32,16 +32,13 @@ using namespace ceammc;
 
 constexpr const char* TYPE_NAME = "Dict";
 
-Atom newFromDict(const DictAtom& datom)
-{
-    return datom;
-}
-
 DataTypeId initType()
 {
     DataTypeId id = DataStorage::instance().typeByName(TYPE_NAME);
     if (id == data::DATA_INVALID)
-        id = DataStorage::instance().registerNewType(TYPE_NAME, nullptr, newFromDict);
+        id = DataStorage::instance().registerNewType(TYPE_NAME,
+            nullptr,
+            [](const DictAtom& datom) -> Atom { return datom; });
 
     return id;
 }
