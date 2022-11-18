@@ -117,7 +117,7 @@
         hw.kbd_light hw.motu.avb hw.serial
     }}
     {lang {
-        lang.faust~ ui.faust~
+        lang.faust~ lang.lua ui.faust~
     }}
     {lfo {
         lfo.+pulse~ lfo.+saw~ lfo.+square~ lfo.+tri~ lfo.impulse~ lfo.mosc~
