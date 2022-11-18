@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 author: "Alain Bonardi & Paul Goutmann"
-name: "abc_rissetsbell", "synth.risset_bell"
+name: "synth.risset_bell"
 Code generated with Faust 2.53.1 (https://faust.grame.fr)
 Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn synth_risset_bell -scn synth_risset_bell_dsp -es 1 -mcd 16 -single -ftz 0
 ------------------------------------------------------------ */
@@ -772,7 +772,7 @@ class synth_risset_bell : public synth_risset_bell_dsp {
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
 		m->declare("maths.lib/version", "2.5");
-		m->declare("name", "abc_rissetsbell");
+		m->declare("name", "synth.risset_bell");
 		m->declare("oscillators.lib/name", "Faust Oscillator Library");
 		m->declare("oscillators.lib/version", "0.3");
 		m->declare("platform.lib/name", "Generic Platform Library");
@@ -935,7 +935,7 @@ class synth_risset_bell : public synth_risset_bell_dsp {
 	}
 	
 	virtual void buildUserInterface(UI* ui_interface) {
-		ui_interface->openVerticalBox("abc_rissetsbell");
+		ui_interface->openVerticalBox("synth.risset_bell");
 		ui_interface->declare(&fHslider2, "unit", "ms");
 		ui_interface->addHorizontalSlider("dur", &fHslider2, FAUSTFLOAT(5e+03f), FAUSTFLOAT(1e+01f), FAUSTFLOAT(6e+05f), FAUSTFLOAT(1.0f));
 		ui_interface->declare(&fHslider0, "unit", "Hz");

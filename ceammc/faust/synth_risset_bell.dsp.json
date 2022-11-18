@@ -1,5 +1,5 @@
 {
-	"name": "abc_rissetsbell",
+	"name": "synth.risset_bell",
 	"filename": "synth_risset_bell.dsp",
 	"version": "2.53.1",
 	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn synth_risset_bell -scn synth_risset_bell_dsp -es 1 -mcd 16 -single -ftz 0",
@@ -27,7 +27,7 @@
 		{ "maths.lib/license": "LGPL with exception" },
 		{ "maths.lib/name": "Faust Math Library" },
 		{ "maths.lib/version": "2.5" },
-		{ "name": "abc_rissetsbell" },
+		{ "name": "synth.risset_bell" },
 		{ "oscillators.lib/name": "Faust Oscillator Library" },
 		{ "oscillators.lib/version": "0.3" },
 		{ "platform.lib/name": "Generic Platform Library" },
@@ -38,13 +38,13 @@
 	"ui": [ 
 		{
 			"type": "vgroup",
-			"label": "abc_rissetsbell",
+			"label": "synth.risset_bell",
 			"items": [ 
 				{
 					"type": "hslider",
 					"label": "dur",
 					"shortname": "dur",
-					"address": "/abc_rissetsbell/dur",
+					"address": "/synth.risset_bell/dur",
 					"meta": [
 						{ "unit": "ms" }
 					],
@@ -57,7 +57,7 @@
 					"type": "hslider",
 					"label": "freq",
 					"shortname": "freq",
-					"address": "/abc_rissetsbell/freq",
+					"address": "/synth.risset_bell/freq",
 					"meta": [
 						{ "unit": "Hz" }
 					],
@@ -70,13 +70,13 @@
 					"type": "button",
 					"label": "gate",
 					"shortname": "gate",
-					"address": "/abc_rissetsbell/gate"
+					"address": "/synth.risset_bell/gate"
 				},
 				{
 					"type": "hslider",
 					"label": "pfreq",
 					"shortname": "pfreq",
-					"address": "/abc_rissetsbell/pfreq",
+					"address": "/synth.risset_bell/pfreq",
 					"init": 1,
 					"min": 0,
 					"max": 10,

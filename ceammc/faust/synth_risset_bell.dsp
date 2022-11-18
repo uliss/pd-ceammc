@@ -4,7 +4,6 @@
 // which came from a Pd version such as this one:
 // http://crca.ucsd.edu/~msp/techniques/v0.11/book-html/node71.html
 
-declare name "synth.risset_bell";
 cm = library("ceammc.lib");
 
 
@@ -19,7 +18,7 @@ cm = library("ceammc.lib");
 //
 declare author "Alain Bonardi & Paul Goutmann";
 declare licence "LGPLv3";
-declare name "abc_rissetsbell";
+declare name "synth.risset_bell";
 //
 //--------------------------------------------------------------------------------------//
 //RISSET'S BELL
