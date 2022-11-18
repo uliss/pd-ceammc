@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="proto.midi.casio">
+        <title>proto.midi.casio</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Casio Privia MIDI control</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>proto</category>
+            <keywords>parser midi casio</keywords>
+            <since>0.9.5</since>
+        </meta>
+        <info>
+            <par>Note: only PX160 model supported at this moment</par>
+        </info>
+        <methods>
+            <method name="instr">send Note On message
+            <param type="int" minvalue="0" maxvalue="15" required="false" name="CH">midi
+            channel</param>
+            <param type="symbol" enum="piano epiano strings bass organ vibr harps" required="true" name="NAME">
+            instrument name</param>
+            <param type="atom" required="true" name="TYPE">
+            instrument type. for 'piano': concert|modern|classic|mellow|bright|0..4,
+            for 'epiano':  0|1|fm|2|3|60, for 'strings': 0|1, for 'bass': 0,
+            for 'organ': pipe|jass|elec1|elec2|0..3, for 'vibr' and 'haprs': 0</param></method>
+            <method name="rev_type">set reverb type
+            <param type="int" minvalue="1" maxvalue="4" required="true" name="TYPE">reverb type</param></method>
+            <method name="rev_time">set reverb time
+            <param type="int" minvalue="0" maxvalue="127" required="true" name="AMOUNT">reverb time</param></method>
+        </methods>
+        <properties>
+            <property name="@model" default="px160" type="symbol">device model</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo></xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>float: raw midi output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[ui.tab piano epiano strings bass organ vibr harps @size 310 15]
+|
+|      [ui.hrd 6]
+|      |.
+[sync 2 ]
+|
+[pack f f]
+|
+[msg instr]
+|
+[proto.midi.casio]
+|
+[midiout]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

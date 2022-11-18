@@ -401,6 +401,9 @@ void ProtoMidiCasio::m_instr(t_symbol* s, const AtomListView& lv)
                 bankSelect(chan, 0, 0);
                 progChange(chan, 0x10);
                 break;
+            default:
+                METHOD_ERR(s) << "unknown organ name, expected (pipe|jass|elec1|elec2|0..3), got: " << lv[1];
+                break;
             }
             break;
         case "vibr"_hash:

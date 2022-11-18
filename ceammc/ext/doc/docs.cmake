@@ -583,6 +583,7 @@ set(DOC_FILES
     proto.firmata
     proto.inscore
     proto.midi
+    proto.midi.casio
     proto.midi.cc
     proto.midi.sysex
     proto.moppy

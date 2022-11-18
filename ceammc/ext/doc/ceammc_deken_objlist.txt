@@ -958,6 +958,7 @@ proto.feelworld	protocol for FeelWorld LivePro L1 HDMI mixer
 proto.firmata	Firmata Arduino protocol support
 proto.inscore	INScore message creator
 proto.midi	raw midi encoder/parser
+proto.midi.casio	Casio Privia MIDI control
 proto.midi.cc	raw midi CC encoder/parser
 proto.midi.sysex	raw midi SYSex encoder/parser
 proto.moppy	protocol for Musical flOPPY controller
