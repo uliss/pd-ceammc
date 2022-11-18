@@ -283,6 +283,7 @@ set(DOC_FILES
     is_pointer
     is_symbol
     lang.faust~
+    lang.lua
     lfo.+pulse~
     lfo.+saw~
     lfo.+square~

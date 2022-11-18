@@ -513,6 +513,7 @@ hw.kbd_light	Get/set keyboard light on some devices
 hw.motu.avb	controls Motu AVB devices over http requests
 hw.serial	serial port device
 lang.faust~	faust realtime compilation
+lang.lua	Lua JIT language bindings
 ui.faust~	faust compiled ui object
 lfo.+pulse~	Unit-amplitude nonnegative low frequency pulse train
 lfo.+saw~	Positive unit-amplitude low frequency saw wave

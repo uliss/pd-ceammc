@@ -31,6 +31,7 @@ PD_CEAMMC=$PD_EXTRA/ceammc
 PD_SF2=$PD_CEAMMC/sf2
 PD_SFZ=$PD_CEAMMC/sfz
 PD_MIDI=$PD_CEAMMC/midi
+PD_LUA=$PD_CEAMMC/lua
 PD_SAMPLES=$PD_CEAMMC/sound
 
 # absolute dir names
@@ -47,6 +48,7 @@ BUNDLE_CEAMMC="${DIST_DIR}/${PD_CEAMMC}"
 BUNDLE_SF2="${DIST_DIR}/${PD_SF2}"
 BUNDLE_SFZ="${DIST_DIR}/${PD_SFZ}"
 BUNDLE_MIDI="${DIST_DIR}/${PD_MIDI}"
+BUNDLE_LUA="${DIST_DIR}/${PD_LUA}"
 BUNDLE_SAMPLES="${DIST_DIR}/${PD_SAMPLES}"
 BUNDLE_INCLUDE="${DIST_DIR}/${PD_INCLUDE}"
 BUNDLE_COMPLETIONS="${BUNDLE_TCL}/ceammc/custom_completions"
@@ -301,6 +303,13 @@ mkdir -p "${BUNDLE_SAMPLES}"
 for samp in $SRC_CEAMMC/ext/doc/sound/*
 do
     copy ${samp} "${BUNDLE_SAMPLES}"
+done
+
+section "Copying CEAMMC lua files"
+mkdir -p "${BUNDLE_LUA}"
+for lua in $SRC_CEAMMC/ext/doc/lua/*.@(lua)
+do
+    copy ${lua} "${BUNDLE_LUA}"
 done
 
 section "Copying CEAMMC midi files"

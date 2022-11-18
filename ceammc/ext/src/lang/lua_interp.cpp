@@ -115,6 +115,27 @@ namespace lua {
 
         // Initialisation code
         lua_sethook(lua_, &line_hook_fn, LUA_MASKLINE, 0);
+
+        luaL_dostring(lua_, R"(
+-- convert list to string
+function str(var, delim)
+    if type(var) ~= "table" then
+        return tostring(var)
+    end
+
+    if delim == nil then delim = " " end
+    local res = ""
+    for i=1,#var do
+    if i ~= 1 then
+        res = res .. delim
+    end
+
+        res = res .. var[i]
+    end
+
+    return res
+end
+)");
     }
 
     LuaInterp::~LuaInterp()

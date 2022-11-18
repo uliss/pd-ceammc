@@ -13,10 +13,9 @@
  *****************************************************************************/
 #include "lua_func.h"
 #include "ceammc_convert.h"
-#include "fmt/format.h"
+#include "fmt/core.h"
 #include "lua_cmd.h"
 #include "lua_stack_guard.h"
-#include "ceammc_pollthread_object.h"
 
 #include <chrono>
 #include <thread>

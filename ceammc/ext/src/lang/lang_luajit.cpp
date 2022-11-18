@@ -18,6 +18,7 @@
 #include "lua_interp.h"
 
 #include <algorithm>
+#include <fstream>
 
 extern "C" {
 #include "luajit.h"
@@ -328,6 +329,22 @@ void LangLuaJit::m_load(t_symbol* s, const AtomListView& lv)
 
     using namespace lua;
 
+    std::ifstream ifs(full_path.c_str());
+    std::string line;
+    src_.clear();
+    constexpr int indent = 4;
+    while (std::getline(ifs, line)) {
+        // seems the only way to save formatting
+        // replace
+        auto start = line.find_first_not_of(' ');
+        if (start != std::string::npos) {
+            line.erase(0, start);
+            line.insert(0, start / indent, '\t');
+        }
+
+        editorAddLine(&s_, AtomList(gensym(line.c_str())));
+    }
+
     if (!inPipe().enqueue({ LUA_INTERP_LOAD, full_path }))
         METHOD_ERR(s) << "can't send command to LUA interpreter: load";
 
@@ -383,7 +400,7 @@ void LangLuaJit::onRestore(const AtomListView& lv)
     }
 }
 
-void LangLuaJit::saveUser(_binbuf* b)
+void LangLuaJit::saveUser(t_binbuf* b)
 {
     auto symA = gensym("#A");
     auto symR = gensym(restoreSymbol);

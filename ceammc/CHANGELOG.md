@@ -30,6 +30,7 @@
   - path.pattern: generate unique filenames by pattern
   - hw.motu.avb: Motu AVB http control added
   - speech.rhvoice~: RHVoice TTS engine added
+  - lang.lua added: LuaJit interpreter added running in separate thread
 - new properties:
   - @clip property added to system.cursor to clip cursor XY coords
   - @norm property added to ui.env to do envelope value normalization on input
