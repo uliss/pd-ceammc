@@ -6,10 +6,9 @@
         array.bpm array.circular array.circular~ array.convolve array.copy
         array.do array.each array.fill array.grainer~ array.hist array.mean
         array.minmax array.play~ array.plot array.plot~ array.resample
-        array.risset_rythm~ array.rms array.set array.stddev array.stretch
-        array.sum array.sum2 array.variance array.vplay array.window
-        plot.geomspace~ plot.hist~ plot.linspace~ plot.logspace~
-        plot.response~
+        array.rms array.set array.stddev array.stretch array.sum array.sum2
+        array.variance array.vplay array.window plot.geomspace~ plot.hist~
+        plot.linspace~ plot.logspace~ plot.response~
     }}
     {base {
         ceammc.search function function.call gain~ logger matrix~
