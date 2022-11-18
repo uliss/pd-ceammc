@@ -282,6 +282,9 @@
     <entry name="conv.ms2samp~" descr="convert time in milliseconds to number of samples according to current samplerate" ref_view="object">
       <xi:include href="conv.ms2samp~.pddoc" parse="xml"/>
     </entry>
+    <entry name="conv.note2guido" descr="convert MIDI note to Guido notation" ref_view="object">
+      <xi:include href="conv.note2guido.pddoc" parse="xml"/>
+    </entry>
     <entry name="conv.phase2rad" descr="convert phase value [0-1] to radians [0-2π]" ref_view="object">
       <xi:include href="conv.phase2rad.pddoc" parse="xml"/>
     </entry>

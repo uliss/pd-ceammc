@@ -1,0 +1,12 @@
+#N canvas 0 0 464 284 12;
+#X obj 20 48 ui.keyboard;
+#X msg 20 120 note \$1 4.125;
+#X obj 20 149 conv.note2guido;
+#X msg 20 178 gmn M [ \$1 ];
+#X obj 20 207 proto.inscore;
+#X obj 20 235 net.osc.send osc.udp://localhost:7000;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;
+#X connect 4 0 5 0;

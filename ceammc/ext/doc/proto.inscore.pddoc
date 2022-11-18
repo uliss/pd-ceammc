@@ -68,7 +68,7 @@
 |  |
 |  [print INSCORE]
 |
-[net.osc.send localhost 7000 {i=1}]
+[net.osc.send osc.udp://localhost:7000 {i=1}]
 ]]>
             </pdascii>
         </example>

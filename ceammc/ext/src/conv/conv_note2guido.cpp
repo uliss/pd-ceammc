@@ -12,6 +12,8 @@
  * this file belongs to.
  *****************************************************************************/
 #include "conv_note2guido.h"
+#include "ceammc_containers.h"
+#include "ceammc_convert.h"
 #include "ceammc_factory.h"
 #include "ceammc_music_theory.h"
 #include "ceammc_music_theory_pitch_class.h"
@@ -22,30 +24,30 @@ using namespace ceammc::music;
 
 ConvNote2Guido::ConvNote2Guido(const PdArgs& args)
     : BaseObject(args)
-    , pc_ {
-        gensym("_"),
-        gensym("c"),
-        gensym("d"),
-        gensym("e"),
-        gensym("f"),
-        gensym("g"),
-        gensym("a"),
-        gensym("b"),
-    }
 {
     createOutlet();
 }
 
 void ConvNote2Guido::onFloat(t_float f)
 {
-    if (f <= 0)
-        return symbolTo(0, pc_[0]);
-
     auto n = guidoNote(f);
     symbolTo(0, gensym(n.c_str()));
 }
 
 void ConvNote2Guido::onList(const AtomListView& lv)
+{
+    AtomList64 data;
+    data.insert_back(lv.begin(), lv.end());
+
+    for (auto& a : data) {
+        if (a.isFloat())
+            a.setSymbol(gensym(guidoNote(a.asT<t_float>()).c_str()), true);
+    }
+
+    listTo(0, data.view());
+}
+
+void ConvNote2Guido::m_note(t_symbol* s, const AtomListView& lv)
 {
     if (!checkArgs(lv, ARG_FLOAT, ARG_FLOAT)) {
         OBJ_ERR << "expected: PITCH DURATION, git: " << lv;
@@ -68,19 +70,23 @@ void ConvNote2Guido::onList(const AtomListView& lv)
     symbolTo(0, gensym(n.c_str()));
 }
 
-ConvNote2Guido::GuidoNote ConvNote2Guido::guidoNote(size_t midiPitch, int dur, int dots) const
+ConvNote2Guido::GuidoNote ConvNote2Guido::guidoNote(int midiPitch, int dur, int dots) const
 {
-    Tonality t(PitchClass::C, MAJOR);
-    auto pc = Tonality::correctAlteration(midiPitch, t, ALTERATE_UP);
-    auto name = music::to_string(pc, NAMING_SCHEME_GUIDO);
-    const int oct = int(midiPitch / 12) - 4;
-
-    GuidoNote res = name.c_str();
-
+    const bool is_note = midiPitch >= 0;
+    GuidoNote res;
     char buf[16];
 
-    sprintf(buf, "%d", oct);
-    res += buf;
+    if (is_note) {
+        Tonality t(PitchClass::C, MAJOR);
+        auto pc = Tonality::correctAlteration(midiPitch, t, ALTERATE_UP);
+        auto name = music::to_string(pc, NAMING_SCHEME_GUIDO);
+        res = name.c_str();
+
+        const int oct = int(clip<int, 0, 128>(midiPitch) / 12) - 4;
+        sprintf(buf, "%d", oct);
+        res += buf;
+    } else
+        res += '_';
 
     if (dur > 0) {
         sprintf(buf, "/%d", dur);
@@ -96,4 +102,7 @@ ConvNote2Guido::GuidoNote ConvNote2Guido::guidoNote(size_t midiPitch, int dur, i
 void setup_conv_note2guido()
 {
     ObjectFactory<ConvNote2Guido> obj("conv.note2guido");
+    obj.addAlias("note->guido");
+
+    obj.addMethod("note", &ConvNote2Guido::m_note);
 }

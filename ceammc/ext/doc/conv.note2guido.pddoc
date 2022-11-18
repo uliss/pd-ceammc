@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="conv.note2guido">
+        <title>conv.note2guido</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>convert MIDI note to Guido notation</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>conv</category>
+            <keywords>conv guido midil</keywords>
+            <since>0.9.5</since>
+            <also>
+                <see>proto.inscore</see>
+            </also>
+            <aliases>
+                <alias>ceammc/note-&gt;guido</alias>
+                <alias>note-&gt;guido</alias>
+            </aliases>
+        </meta>
+        <methods>
+            <method name="note">
+                <param name="PITCH" required="true" type="int">note pitch (pitch &lt;0 treated as rest)</param>
+                <param name="DUR" required="true" type="float">note duration</param>
+            </method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="float">pitch</xinfo>
+                <xinfo on="list">list of pitches</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>symbol: converted value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[ui.keyboard]
+|
+|
+|
+|
+[$1( [60 61 62( [note 61 4.5( [note 61 4.25(
+|    |          |             |
+|    |          |             |
+[conv.note2guido              ]
+|
+[ui.dt]
+
+[conv.note2guido.inscore]
+]]>
+            </pdascii>
+            <pdascii id="inscore">
+<![CDATA[
+[ui.keyboard]
+|
+|
+|
+|
+[note $1 4.125(
+|
+[conv.note2guido]
+|
+[gmn M \[ $1 \](
+|
+[proto.inscore     ]
+|
+[net.osc.send osc.udp://localhost:7000]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

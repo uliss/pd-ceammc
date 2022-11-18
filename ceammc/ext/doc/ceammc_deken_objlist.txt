@@ -188,6 +188,9 @@ ms->samp	convert time in milliseconds to number of samples according to current 
 conv.ms2samp~	convert time in milliseconds to number of samples according to current samplerate
 ceammc/ms->samp~	convert time in milliseconds to number of samples according to current samplerate
 ms->samp~	convert time in milliseconds to number of samples according to current samplerate
+conv.note2guido	convert MIDI note to Guido notation
+ceammc/note->guido	convert MIDI note to Guido notation
+note->guido	convert MIDI note to Guido notation
 conv.phase2rad	convert phase value [0-1] to radians [0-2π]
 ceammc/phase->rad	convert phase value [0-1] to radians [0-2π]
 phase->rad	convert phase value [0-1] to radians [0-2π]

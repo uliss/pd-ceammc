@@ -71,6 +71,7 @@ conv.midi2freq,ceammc/midi->freq,midi->freq,ceammc/m->f,m->f		.		.
 conv.ms2bpm,ceammc/ms->bpm,ms->bpm		.		.
 conv.ms2samp,ceammc/ms->samp,ms->samp		.		.
 conv.ms2samp~,ceammc/ms->samp~,ms->samp~		~		~
+conv.note2guido,ceammc/note->guido,note->guido		.		.
 conv.phase2rad,ceammc/phase->rad,phase->rad		.		.
 conv.phase2rad~,ceammc/phase->rad~,phase->rad~		~		~
 conv.pitch2midi,ceammc/pitch->midi,pitch->midi		.		.

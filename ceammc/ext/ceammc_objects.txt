@@ -190,6 +190,7 @@ ceammc/msg
 ceammc/mux2~
 ceammc/mux~
 ceammc/notch->biquad
+ceammc/note->guido
 ceammc/nsig~
 ceammc/once
 ceammc/or
@@ -877,6 +878,7 @@ noise.torus
 noise.verhulst
 noise.white~
 notch->biquad
+note->guido
 nsig~
 obj.info
 obj.props
