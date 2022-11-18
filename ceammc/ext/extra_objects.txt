@@ -248,6 +248,7 @@ gspat.pan8~
 gspat.zita8~
 gsynth.birds~
 gsynth.church_bell~
+gsynth.clap~
 gsynth.dubdub~
 gsynth.dx7~
 gsynth.eguitar~
@@ -256,6 +257,8 @@ gsynth.french_bell~
 gsynth.german_bell~
 gsynth.glass_harm~
 gsynth.harpsichord~
+gsynth.hat~
+gsynth.kick2~
 gsynth.kick~
 gsynth.ks~
 gsynth.marimba~
