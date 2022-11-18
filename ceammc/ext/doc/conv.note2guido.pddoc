@@ -22,7 +22,8 @@
         </meta>
         <methods>
             <method name="note">
-                <param name="PITCH" required="true" type="int">note pitch (pitch &lt;0 treated as rest)</param>
+                <param name="PITCH" required="true" type="int">note pitch (pitch &lt;0 treated as
+                rest)</param>
                 <param name="DUR" required="true" type="float">note duration</param>
             </method>
         </methods>

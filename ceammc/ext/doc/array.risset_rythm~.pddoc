@@ -16,8 +16,8 @@
         <info>
             <par>not finished yet</par>
         </info>
-        <properties/>
-        <methods/>
+        <properties />
+        <methods />
         <inlets>
             <inlet>
                 <xinfo on="symbol">change array name</xinfo>
