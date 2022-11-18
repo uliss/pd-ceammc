@@ -1,4 +1,3 @@
-gabc_rissetsbell~
 gdyn.comp2~
 gdyn.comp~
 gdyn.gate2~
