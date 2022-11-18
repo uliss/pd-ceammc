@@ -7,6 +7,7 @@
 #include "soxr.h"
 
 #include <chrono>
+#include <thread>
 
 #define RHVOICE_DEBUG 1
 
