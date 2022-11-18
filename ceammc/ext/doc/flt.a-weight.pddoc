@@ -13,9 +13,6 @@
             <keywords>filter weight A</keywords>
             <since>0.9.5</since>
         </meta>
-        <methods>
-            <method name="reset">reset filter state</method>
-        </methods>
         <properties>
             <property name="@db" type="int" enum="0 1" default="0">output in decibels</property>
         </properties>
