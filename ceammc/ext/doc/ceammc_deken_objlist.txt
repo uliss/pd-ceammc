@@ -24,7 +24,6 @@ array.plot	array data plotter
 array.plot~	plot signal on specified array
 array.resample	array resampler
 array.r	array resampler
-array.risset_rythm~	Risset Rythm: accelerando or ritardando
 array.rms	calculates root mean square value for array
 array.set	set array content from list
 ceammc/list->array	set array content from list
@@ -958,7 +957,6 @@ proto.feelworld	protocol for FeelWorld LivePro L1 HDMI mixer
 proto.firmata	Firmata Arduino protocol support
 proto.inscore	INScore message creator
 proto.midi	raw midi encoder/parser
-proto.midi.casio	Casio Privia MIDI control
 proto.midi.cc	raw midi CC encoder/parser
 proto.midi.sysex	raw midi SYSex encoder/parser
 proto.moppy	protocol for Musical flOPPY controller

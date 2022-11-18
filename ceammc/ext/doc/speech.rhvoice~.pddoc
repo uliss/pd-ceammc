@@ -20,6 +20,12 @@
                 <see>speech.flite~</see>
             </also>
         </meta>
+        <info>
+            <par>Note: no voices data in distributed with PureData-ceammc, you have to install voices manually</par>
+            <par>Download language and voice datafiles and put them into ~/Documents/Pd/rhvoice directory</par>
+            <a href="https://github.com/RHVoice/Russian">https://github.com/RHVoice/Russian</a>
+            <a href="https://github.com/RHVoice/anna-rus">https://github.com/RHVoice/anna-rus</a>
+        </info>
         <methods>
             <method name="stop">stops speech and clear TTS queue</method>
             <method name="clear">clear TTS queue</method>
@@ -45,7 +51,7 @@
         <example>
             <pdascii>
 <![CDATA[
-[T]
+[T]          [speech.rhvoice~.voices]
 |
 [metro 1000]
 |
@@ -62,6 +68,22 @@
 [dac~]
 
 #a -1 1 @show_value 1
+]]>
+            </pdascii>
+            <pdascii id="voices">
+<![CDATA[
+[T]
+/* Pd Documents directory structure */
+
+/* rhvoice/ */
+/*      | */
+/*      languages/ */
+/*      |       |
+/*      |       English... etc. */
+/*      | */
+/*      voices/ */
+/*            | */
+/*            voice1... */
 ]]>
             </pdascii>
         </example>
