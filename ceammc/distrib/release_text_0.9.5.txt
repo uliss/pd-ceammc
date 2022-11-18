@@ -1,0 +1,110 @@
+# pan 0
+# voice rms
+# fx-ps on 0
+# dur 0
+# spring vol 0
+# main 1
+
+// INTRO
+.say Hello!
+.sleep 300
+# grain 1
+.sleep 3000
+.say this is a new release of ceammc library version 0.9.4
+.say new objects are added:
+# voice slt
+.say tempo analyzer, array granulator
+
+// REVERSED ECHO
+.say reverse echo effect
+.sleep 500
+.say without fx
+# fx-recho 0
+.sleep 3000
+.say with fx
+# fx-recho 1
+.sleep 3300
+
+// PITCHSHIFT
+.say pitchshift object based on RubberBand library added
+.say it can do transpositions
+// up
+# voice rms
+# fx-ps on 1
+# fx-ps 12
+# main 0
+.say to higher range
+// normal
+# fx-ps 0
+# main 1
+.say and
+// lower
+# main 0
+# fx-ps -6
+.say lower range
+// normal
+# main 1
+# fx-ps 0
+# fx-ps on 0
+
+// MUSIC
+.say music duration syntax to time converter added
+.say you can enter rythm patterns as musicians are used to do:
+.say in terms of beat fractions, using quarter, eight notes etc.
+# dur 1
+.sleep 4000
+# dur 0
+.sleep 300
+
+// FILESYSTEM
+.say Basic filesystem path functions added: search, normalize and split
+.say Let's see path split in action:
+# path 1
+.sleep 700
+
+// SPRING
+.say Spring object added and can be used to emulate Pitch Wheel behaivor:
+.sleep 500
+# spring value 0.8
+# spring vol 1
+.sleep 1000
+# spring value 0.1
+.sleep 1000
+# spring vol 0
+.sleep 300
+
+// SFZ
+.say SFZ soundfont player added
+.say Let's hear
+# sfizz play
+.sleep 1000
+.say then modulate
+# sfizz mod
+.sleep 1000
+.say and quit
+# sfizz stop
+.sleep 300
+
+// BELLS
+.say new physically based modeling bell synthesizers are added from FAUST project
+.say Let's hear carillion
+.sleep 100
+# bells 1
+.sleep 3000
+# bells 0
+.sleep 300
+
+// DRUMS
+.say Kick and snare synthesizers are added from FAUST project
+.sleep 100
+# drums 1
+.sleep 3000
+# drums 0
+.sleep 300
+
+// END
+.say The more information can be found at http://github.com/uliss/pure-data
+.say Bye and good patching!
+# grain 1
+
+
