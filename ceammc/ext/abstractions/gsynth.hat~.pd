@@ -1,39 +1,45 @@
 #N canvas 0 0 950 600 12;
-#X obj 25 125 synth.kick~;
+#X obj 25 125 synth.hat~;
 #X obj 325 25 inlet;
-#X obj 325 200 route synth.kick;
-#X obj 325 250 route @attack @freq @gate @release;
+#X obj 325 200 route synth.hat;
+#X obj 325 250 route @attack @freq @gate @release @tone;
 #X obj 575 350 print unknown property;
-#X msg 225 75 @attack 10 \, @freq 50 \, @release 1000 \,;
+#X msg 225 75 @attack 20 \, @freq 317 \, @release 100 \, @tone 6400 \,;
 #X obj 225 25 msg.onload;
 #X obj 500 550 outlet~;
 #X obj 600 550 outlet ctl;
-#X obj 3 202 cnv 8 198 18 empty empty [synth.kick~] 3 9 0 12 -104026
+#X obj 3 202 cnv 8 198 18 empty empty [synth.hat~] 3 9 0 12 -104026
 -262144 0;
 #X obj 12 238 ui.slider @size 125 12 @active_scale 1 @label
 attack(ms): @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/synth.kick~/slider0 @min 1 @max 50;
+/gui/\$1/synth.hat~/slider0 @min 5 @max 400;
 #X obj 190 238 sync;
-#X obj 145 238 ui.number @size 50 12 @min 1 @max 50 @digits 2;
+#X obj 145 238 ui.number @size 50 12 @min 5 @max 400 @digits 1;
 #X msg 260 238 @attack \$1;
 #X obj 12 270 ui.slider @size 125 12 @active_scale 1 @label freq(Hz):
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/synth.kick~/slider1 @min 10 @max 5000;
+/gui/\$1/synth.hat~/slider1 @min 300 @max 4000;
 #X obj 190 270 sync;
-#X obj 145 270 ui.number @size 50 12 @min 10 @max 5000 @digits 0;
+#X obj 145 270 ui.number @size 50 12 @min 300 @max 4000 @digits 0;
 #X msg 260 270 @freq \$1;
 #X obj 12 290 ui.toggle @size 12 12 @label gate @label_side right
 @label_align left @fontsize 10;
 #X msg 260 282 @gate \$1;
 #X obj 12 320 ui.slider @size 125 12 @active_scale 1 @label
 release(ms): @label_side top @label_align left @fontsize 10
-@presetname /gui/\$1/synth.kick~/slider3 @min 10 @max 8000;
+@presetname /gui/\$1/synth.hat~/slider3 @min 5 @max 4000;
 #X obj 190 320 sync;
-#X obj 145 320 ui.number @size 50 12 @min 10 @max 8000 @digits 0;
+#X obj 145 320 ui.number @size 50 12 @min 5 @max 4000 @digits 0;
 #X msg 260 320 @release \$1;
+#X obj 12 352 ui.slider @size 125 12 @active_scale 1 @label tone(Hz):
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.hat~/slider4 @min 800 @max 18000;
+#X obj 190 352 sync;
+#X obj 145 352 ui.number @size 50 12 @min 800 @max 18000 @digits 1;
+#X msg 260 352 @tone \$1;
 #X connect 1 0 2 0;
 #X connect 2 0 3 0;
-#X connect 3 4 4 0;
+#X connect 3 5 4 0;
 #X connect 5 0 3 0;
 #X connect 6 0 5 0;
 #X connect 0 0 7 0;
@@ -62,4 +68,11 @@ release(ms): @label_side top @label_align left @fontsize 10
 #X connect 20 0 23 0;
 #X connect 23 0 0 0;
 #X connect 3 3 20 0;
-#X coords 0 -1 1 1 200 140 2 2 200;
+#X connect 24 0 25 0;
+#X connect 25 0 24 0;
+#X connect 26 0 25 1;
+#X connect 25 1 26 0;
+#X connect 24 0 27 0;
+#X connect 27 0 0 0;
+#X connect 3 4 24 0;
+#X coords 0 -1 1 1 200 172 2 2 200;
