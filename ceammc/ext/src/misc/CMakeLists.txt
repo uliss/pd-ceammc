@@ -74,3 +74,15 @@ if(WITH_TTS_RHVOICE)
 else()
     target_sources(ceammc_misc PRIVATE speech_rhvoice_tilde_stub.cpp)
 endif()
+
+if(WIN32)
+    set(DOC_INSTALL_PATH "extra/ceammc")
+else()
+    set(DOC_INSTALL_PATH "${PD_DOC_INSTALL_PATH}/extra/ceammc")
+endif()
+add_custom_target(misc_tts_files SOURCES "RHVoice.conf")
+# install extra files
+install(FILES
+    "RHVoice.conf"
+    DESTINATION ${DOC_INSTALL_PATH}/
+    PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
