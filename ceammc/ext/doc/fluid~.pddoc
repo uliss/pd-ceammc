@@ -120,6 +120,8 @@
             MIDI channel, if zero or not specified apply tuning to all channels</param>
             <param name="SEMI" type="float" required="true" minvalue="-64" maxvalue="63">semitones
             (float) tuning</param></method>
+            <!-- tune. -->
+            <method name="tune.">set fine tuninig in cents, see tune:s</method>
             <!-- tune:c -->
             <method name="tune:c">set fine tuning in cents 
             <param name="CHAN" required="false" type="int" default="0" minvalue="0" maxvalue="16">

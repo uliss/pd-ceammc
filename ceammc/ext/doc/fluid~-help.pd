@@ -251,62 +251,64 @@ Arguments are:;
 #X obj 255 3234 cnv 1 62 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 3234 [CHAN=0]: MIDI channel \, if zero or not specified
 stop notes on all channels. Type: int. Range: 0\...16\.;
-#X msg 110 3274 tune:12;
-#X text 245 3274 set and activate octave tuning program in cents deviations.
+#X msg 110 3274 tune.;
+#X text 245 3274 set fine tuninig in cents \, see tune:s.;
+#X msg 110 3301 tune:12;
+#X text 245 3301 set and activate octave tuning program in cents deviations.
 Arguments are:;
-#X obj 255 3312 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3312 BANK: tuning bank (not related to MIDI instrument
+#X obj 255 3339 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3339 BANK: tuning bank (not related to MIDI instrument
 bank). Type: int. Range: 1\...256\.;
-#X obj 255 3350 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3350 PRESET: tuning preset (not related to MIDI instrument
+#X obj 255 3377 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3377 PRESET: tuning preset (not related to MIDI instrument
 program). Type: int. Range: 1\...256\.;
-#X obj 255 3388 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3388 TUNES: list of scale deviations from 12TET in cents.
+#X obj 255 3415 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3415 TUNES: list of scale deviations from 12TET in cents.
 Type: list.;
-#X msg 110 3428 tune:c;
-#X text 245 3428 set fine tuning in cents. Arguments are:;
-#X obj 255 3451 cnv 1 62 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3451 [CHAN=0]: MIDI channel \, if zero or not specified
+#X msg 110 3455 tune:c;
+#X text 245 3455 set fine tuning in cents. Arguments are:;
+#X obj 255 3478 cnv 1 62 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3478 [CHAN=0]: MIDI channel \, if zero or not specified
 apply tuning to all channels. Type: int. Range: 0\...16\.;
-#X obj 255 3489 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3489 CENTS: cents (float) tuning. Type: float. Range: -100\...100\.;
-#X msg 110 3529 tune:s;
-#X text 245 3529 set tuninig in semitones. Arguments are:;
-#X obj 255 3552 cnv 1 62 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3552 [CHAN=0]: MIDI channel \, if zero or not specified
+#X obj 255 3516 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3516 CENTS: cents (float) tuning. Type: float. Range: -100\...100\.;
+#X msg 110 3556 tune:s;
+#X text 245 3556 set tuninig in semitones. Arguments are:;
+#X obj 255 3579 cnv 1 62 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3579 [CHAN=0]: MIDI channel \, if zero or not specified
 apply tuning to all channels. Type: int. Range: 0\...16\.;
-#X obj 255 3590 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3590 SEMI: semitones (float) tuning. Type: float. Range:
+#X obj 255 3617 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3617 SEMI: semitones (float) tuning. Type: float. Range:
 -64\...63\.;
-#X msg 110 3630 tunesel;
-#X text 245 3630 select tuning bank and preset. Arguments are:;
-#X obj 255 3653 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3653 BANK: tuning bank (not related to MIDI instrument
+#X msg 110 3657 tunesel;
+#X text 245 3657 select tuning bank and preset. Arguments are:;
+#X obj 255 3680 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3680 BANK: tuning bank (not related to MIDI instrument
 bank). Type: int. Range: 1\...256\.;
-#X obj 255 3691 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3691 PRESET: tuning preset (not related to MIDI instrument
+#X obj 255 3718 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3718 PRESET: tuning preset (not related to MIDI instrument
 program). Type: int. Range: 1\...256\.;
-#X obj 20 3741 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 3746 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 3768 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 3773 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 3747 1\.;
-#X text 150 3747 *symbol*;
-#X text 245 3747 load mod file.;
-#X obj 20 3777 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 3782 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 3774 1\.;
+#X text 150 3774 *symbol*;
+#X text 245 3774 load mod file.;
+#X obj 20 3804 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 3809 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 3783 1\.;
-#X text 245 3783 left channel and property output.;
-#X text 110 3803 2\.;
-#X text 245 3803 right channel.;
+#X text 110 3810 1\.;
+#X text 245 3810 left channel and property output.;
+#X text 110 3830 2\.;
+#X text 245 3830 right channel.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title misc @url ceammc.misc-help.pd;
-#X obj 1 3853 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 3856 library: ceammc v0.9.5;
-#N canvas 10 3875 400 290 info 0;
+#X obj 1 3880 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 3883 library: ceammc v0.9.5;
+#N canvas 10 3902 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -330,7 +332,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 3875 pd info;
+#X restore 10 3902 pd info;
 #X connect 8 0 10 0;
 #X connect 9 0 11 0;
 #X connect 10 0 14 0;
