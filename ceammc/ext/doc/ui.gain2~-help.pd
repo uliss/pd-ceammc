@@ -90,8 +90,8 @@ value on click. Type: int. Default value: 1\. Allowed values: 0 \,
 #X text 245 1098 Get/Set binded MIDI channel. 0 means listen to all
 channels. Type: int. Default value: 0\. Range: 0\...16\.;
 #X msg 110 1140 @midi_control;
-#X text 245 1140 Get/Set binded MIDI controller number. 0 means not
-binded to any controller. Type: int. Default value: 0\. Range: 0\...128\.;
+#X text 245 1140 Get/Set binded MIDI controller number. -1 means not
+binded to any controller. Type: int. Default value: -1\. Range: -1\...127\.;
 #X msg 110 1197 @midi_pickup;
 #X text 245 1197 Get/Set pickup current value. If slider is binded
 to value \, first time you should pass over this value to make binding.
@@ -112,80 +112,74 @@ in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
 #X msg 110 1439 @fontsize;
 #X text 245 1439 Get/Set fontsize. Type: int. Default value: 11\. Range:
 4\...11\.;
-#X msg 110 1481 @fontslant;
-#X text 245 1481 Get/Set font slant. Type: symbol. Default value: roman.
-Allowed values: roman \, italic.;
-#X msg 110 1523 @fontweight;
-#X text 245 1523 Get/Set font weight. Type: symbol. Default value:
-normal. Allowed values: normal \, bold.;
-#X msg 110 1565 @pinned;
-#X text 245 1565 Get/Set pin mode. if 1 - put element to the lowest
+#X msg 110 1481 @pinned;
+#X text 245 1481 Get/Set pin mode. if 1 - put element to the lowest
 level. Type: int. Default value: 0\. Allowed values: 0 \, 1\.;
-#X msg 110 1607 @presetname;
-#X text 245 1607 Get/Set preset name for using with [ui.preset]. Type:
+#X msg 110 1523 @presetname;
+#X text 245 1523 Get/Set preset name for using with [ui.preset]. Type:
 symbol. Default value: (null).;
-#X msg 110 1649 @size;
-#X text 245 1649 Get/Set element size (width \, height pair). Type:
+#X msg 110 1565 @size;
+#X text 245 1565 Get/Set element size (width \, height pair). Type:
 list. Default value: 15 120\.;
-#X obj 20 1701 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1706 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1617 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1622 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 1741 clear;
-#X text 245 1741 clears specified preset. Arguments are:;
-#X obj 255 1764 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1764 IDX: preset index. Type: int.;
-#X msg 110 1789 interp;
-#X text 245 1789 interplolates between presets. Arguments are:;
-#X obj 255 1812 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1812 IDX: preset fraction index. Type: float.;
-#X msg 110 1837 load;
-#X text 245 1837 loads specified preset. Arguments are:;
-#X obj 255 1860 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1860 IDX: preset index. Type: int.;
-#X msg 110 1885 pos;
-#X text 245 1885 set UI element position. Arguments are:;
-#X obj 255 1908 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1908 X: top left x-coord. Type: float.;
-#X obj 255 1931 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1931 Y: top right y-coord. Type: float.;
-#X msg 110 1956 set N;
-#X text 245 1956 set current gain to N db.;
-#X msg 110 1983 store;
-#X text 245 1983 stores specified preset. Arguments are:;
-#X obj 255 2006 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2006 IDX: preset index. Type: int.;
-#X msg 110 2031 + N;
-#X text 245 2031 increase current gain by N db.;
-#X msg 110 2058 ++;
-#X text 245 2058 decrease current gain by 1 db.;
-#X msg 110 2085 - N;
-#X text 245 2085 decrease current gain by N db.;
-#X msg 110 2112 --;
-#X text 245 2112 decrease current gain by 1 db.;
-#X obj 20 2149 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2154 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X msg 110 1657 clear;
+#X text 245 1657 clears specified preset. Arguments are:;
+#X obj 255 1680 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1680 IDX: preset index. Type: int.;
+#X msg 110 1705 interp;
+#X text 245 1705 interplolates between presets. Arguments are:;
+#X obj 255 1728 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1728 IDX: preset fraction index. Type: float.;
+#X msg 110 1753 load;
+#X text 245 1753 loads specified preset. Arguments are:;
+#X obj 255 1776 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1776 IDX: preset index. Type: int.;
+#X msg 110 1801 pos;
+#X text 245 1801 set UI element position. Arguments are:;
+#X obj 255 1824 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1824 X: top left x-coord. Type: float.;
+#X obj 255 1847 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1847 Y: top right y-coord. Type: float.;
+#X msg 110 1872 set N;
+#X text 245 1872 set current gain to N db.;
+#X msg 110 1899 store;
+#X text 245 1899 stores specified preset. Arguments are:;
+#X obj 255 1922 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1922 IDX: preset index. Type: int.;
+#X msg 110 1947 + N;
+#X text 245 1947 increase current gain by N db.;
+#X msg 110 1974 ++;
+#X text 245 1974 decrease current gain by 1 db.;
+#X msg 110 2001 - N;
+#X text 245 2001 decrease current gain by N db.;
+#X msg 110 2028 --;
+#X text 245 2028 decrease current gain by 1 db.;
+#X obj 20 2065 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2070 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 2155 1\.;
-#X text 245 2155 left input signal.;
-#X text 150 2175 *bang*;
-#X text 245 2175 output current gain @db property.;
-#X text 110 2195 2\.;
-#X text 245 2195 right input signal.;
-#X obj 20 2225 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2230 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 2071 1\.;
+#X text 245 2071 left input signal.;
+#X text 150 2091 *bang*;
+#X text 245 2091 output current gain @db property.;
+#X text 110 2111 2\.;
+#X text 245 2111 right input signal.;
+#X obj 20 2141 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2146 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 2231 1\.;
-#X text 245 2231 left output signal.;
-#X text 110 2251 2\.;
-#X text 245 2251 right output signal.;
+#X text 110 2147 1\.;
+#X text 245 2147 left output signal.;
+#X text 110 2167 2\.;
+#X text 245 2167 right output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 2301 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2304 library: ceammc v0.9.5;
-#N canvas 10 2323 400 290 info 0;
+#X obj 1 2217 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2220 library: ceammc v0.9.5;
+#N canvas 10 2239 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -209,7 +203,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 2323 pd info;
+#X restore 10 2239 pd info;
 #X connect 6 0 7 0;
 #X connect 7 0 8 0;
 #X connect 8 0 9 0;

@@ -26,8 +26,6 @@
             <param name="Y" type="float" required="true">top right y-coord</param></method>
         </methods>
         <properties>
-            <property name="@size" type="list" default="45 15">element size (width, height
-            pair)</property>
             <property name="@pinned" type="int" enum="0 1" default="0">pin mode. if 1 - put element
             to the lowest level</property>
             <property name="@background_color" type="list" default="0.93 0.93 0.93 1">element
@@ -37,10 +35,6 @@
             <property name="@fontsize" type="int" minvalue="4" maxvalue="11" default="11">
             fontsize</property>
             <property name="@fontname" type="symbol" default="Helvetica">fontname</property>
-            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
-            weight</property>
-            <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
-            slant</property>
         </properties>
         <example>
             <pdascii>

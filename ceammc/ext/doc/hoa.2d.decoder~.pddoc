@@ -54,18 +54,18 @@
             default="16">crop HRIR response. Only for @binaural mode.</property>
             <property name="@offset" type="float" units="degree" default="0">rotation of
             loudspeakers. Only available for @regular and @irregular mode.</property>
-            <property name="@angles" type="list" units="degree">angles of loudspeakers. Only
+            <property name="@angles" type="list" units="degree" default="0 90 180 270">angles of loudspeakers. Only
             available for @irregular mode.</property>
             <property name="@pw_x" type="list" units="radian" minvalue="-1" maxvalue="1"
-            readonly="true">list of plain wave x-coordinates (abscissas). -1 is the left of the
+            readonly="true" default="0 -1 0 1">list of plain wave x-coordinates (abscissas). -1 is the left of the
             soundfield, 0 is the center of the soundfield and 1 is the right of the
             soundfield.</property>
             <property name="@pw_y" type="list" units="radian" minvalue="-1" maxvalue="1"
-            readonly="true">list of plain wave y-coordinates (ordinatas). -1 is the back of the
+            readonly="true" default="1 0 -1 0">list of plain wave y-coordinates (ordinatas). -1 is the back of the
             soundfield, 0 is the center of the soundfield and 1 is the front of the
             soundfield.</property>
             <property name="@pw_z" type="list" units="radian" minvalue="-1" maxvalue="1"
-            readonly="true">list of plain wave z-coordinates (heights). -1 is the bottom of the
+            readonly="true" default="0 0 0 0">list of plain wave z-coordinates (heights). -1 is the bottom of the
             soundfield, 0 is the center of the soundfield and 1 is the top of the
             soundfield.</property>
             <property name="@nharm" type="int" minvalue="1" readonly="true" default="3">number of

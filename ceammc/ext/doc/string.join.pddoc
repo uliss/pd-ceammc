@@ -24,7 +24,7 @@
             <argument name="SEP" type="list">separator. For space use quotes.</argument>
         </arguments>
         <properties>
-            <property name="@sep" type="symbol" default="">separator</property>
+            <property name="@sep" type="list" default="">separator</property>
         </properties>
         <inlets>
             <inlet>

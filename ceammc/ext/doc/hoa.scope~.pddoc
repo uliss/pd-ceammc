@@ -40,8 +40,6 @@
             <property name="@nh_color" type="list" default="0 0 1 1">negative harmonics
             color</property>
             <!-- common-->
-            <property name="@send" type="symbol" default="(null)">send destination</property>
-            <property name="@receive" type="symbol" default="(null)">receive source</property>
             <property name="@size" type="list" default="120 120">element size (width, height
             pair)</property>
             <property name="@pinned" type="int" enum="0 1" default="0">pin mode. if 1 - put element
@@ -53,10 +51,6 @@
             <property name="@fontsize" type="int" minvalue="4" maxvalue="11" default="11">
             fontsize</property>
             <property name="@fontname" type="symbol" default="Helvetica">fontname</property>
-            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
-            weight</property>
-            <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
-            slant</property>
             <!-- label -->
             <property name="@label" type="symbol" default="(null)">label text</property>
             <property name="@label_color" type="list" default="0 0 0 1">label color in RGB format
