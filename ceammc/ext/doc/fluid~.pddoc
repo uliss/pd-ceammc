@@ -203,7 +203,7 @@
             <method name="midi">send raw midi message to synth 
             <param name="BYTES" type="list" required="true">list of bytes</param></method>
             <!-- sysex -->
-            <method name="sysex">accept SYSEX message
+            <method name="sysex">accept SYSEX message 
             <param name="BYTES" type="list" required="true">list of bytes</param></method>
         </methods>
         <inlets>

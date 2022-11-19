@@ -26,7 +26,8 @@
             time-space between messages</property>
             <property name="@done" type="int" default="1" minvalue="0">time space (=@done*@delay)
             after last outputted message. After that delay output bang to second outlet</property>
-            <property name="@dev" type="float" default="0" minvalue="0" maxvalue="1">random deviation</property>
+            <property name="@dev" type="float" default="0" minvalue="0" maxvalue="1">random
+            deviation</property>
         </properties>
         <inlets>
             <inlet>
