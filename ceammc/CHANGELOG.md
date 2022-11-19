@@ -5,7 +5,7 @@
 - new objects:
   - an.zero~: zero crossing count/rate/freq
   - array.circular: array circular read/write
-  - file: file object added
+  - path.file: file object added
   - flow.seqdelay: sequential message delay/router
   - flt.a-weight: A-weight amplitude/decibel value calculator
   - hw.motu.avb: Motu AVB http control added
