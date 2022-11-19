@@ -58,6 +58,7 @@ void HwAppleSMC::m_read(t_symbol* s, const AtomListView& l)
 extern "C" void setup_hw_apple_smc()
 {
     ObjectFactory<HwAppleSMC> obj("hw.apple_smc");
+    obj.addMethod("read", &HwAppleSMC::m_read);
 }
 #else
 CONTROL_OBJECT_STUB(1, 1, "not supported on this platform");
