@@ -26,6 +26,7 @@
             time-space between messages</property>
             <property name="@done" type="int" default="1" minvalue="0">time space (=@done*@delay)
             after last outputted message. After that delay output bang to second outlet</property>
+            <property name="@dev" type="float" default="0" minvalue="0" maxvalue="1">random deviation</property>
         </properties>
         <inlets>
             <inlet>
@@ -46,7 +47,11 @@
             <pdascii>
 <![CDATA[
 [7, 2, 1, 2, 0, 2, 1, 2 #a( [reset(
-|                           |.
+|                           |
+|   [ui.hsl @show_value 1]  |
+|   |                       |
+|   [@dev $1(               |
+|   |                       |.
 [flow.space 110            #b]
 |
 [degree->key minor {i=1,o=1}]

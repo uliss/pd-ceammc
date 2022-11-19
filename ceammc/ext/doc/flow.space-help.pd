@@ -10,67 +10,72 @@ time;
 #X text 215 80 first message is delayed to next scheduler time;
 #X msg 50 143 7 \, 2 \, 1 \, 2 \, 0 \, 2 \, 1 \, 2;
 #X msg 318 143 reset;
-#X obj 50 172 flow.space 110;
-#X obj 50 201 degree->key minor;
-#X obj 50 230 + 60;
-#X obj 50 259 mtof;
-#X obj 50 287 osc~;
-#X obj 117 287 b;
-#X obj 50 316 env.ar~ 10 90;
-#X obj 50 345 ui.hgain~;
-#X obj 194 345 ui.dsp~;
-#X obj 50 374 dac~;
-#X obj 50 403 flow.space.done;
-#X obj 20 452 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 457 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 88 172 ui.hsl @show_value 1;
+#X msg 88 201 @dev \$1;
+#X obj 50 230 flow.space 110;
+#X obj 50 259 degree->key minor;
+#X obj 50 287 + 60;
+#X obj 50 316 mtof;
+#X obj 50 345 osc~;
+#X obj 117 345 b;
+#X obj 50 374 env.ar~ 10 90;
+#X obj 50 403 ui.hgain~;
+#X obj 194 403 ui.dsp~;
+#X obj 50 431 dac~;
+#X obj 50 460 flow.space.done;
+#X obj 20 509 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 514 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 492 1\.;
-#X text 150 492 float;
-#X obj 246 493 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 492 MS(ms): time space between messages. Type: float.;
-#X text 110 512 2\.;
-#X text 150 512 int;
-#X obj 246 513 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 512 N: time space = N*space after last outputted message.
+#X text 110 549 1\.;
+#X text 150 549 float;
+#X obj 246 550 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 549 MS(ms): time space between messages. Type: float.;
+#X text 110 569 2\.;
+#X text 150 569 int;
+#X obj 246 570 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 569 N: time space = N*space after last outputted message.
 Type: int. Min value: 0;
-#X obj 20 557 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 562 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 20 614 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 619 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 597 @delay;
-#X text 245 597 Get/Set time-space between messages. Type: float. Units:
+#X msg 110 654 @delay;
+#X text 245 654 Get/Set time-space between messages. Type: float. Units:
 ms. Default value: 1\. Min value: 1\.;
-#X msg 110 639 @done;
-#X text 245 639 Get/Set time space (=@done*@delay) after last outputted
+#X msg 110 696 @dev;
+#X text 245 696 Get/Set random deviation. Type: float. Default value:
+0\. Range: 0\...1\.;
+#X msg 110 738 @done;
+#X text 245 738 Get/Set time space (=@done*@delay) after last outputted
 message. After that delay output bang to second outlet. Type: int.
 Default value: 1\. Min value: 0\.;
-#X obj 20 706 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 711 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 805 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 810 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 712 1\.;
-#X text 245 712 messages.;
-#X text 110 732 2\.;
-#X text 150 732 *float*;
-#X text 245 732 set space interval (ms).;
-#X text 245 752 reset: cancel all scheduled outputs and clear message
+#X text 110 811 1\.;
+#X text 245 811 messages.;
+#X text 110 831 2\.;
+#X text 150 831 *float*;
+#X text 245 831 set space interval (ms).;
+#X text 245 851 reset: cancel all scheduled outputs and clear message
 queue.;
-#X text 245 772 @delay: set @delay property.;
-#X text 245 792 @done: set @done property.;
-#X obj 20 822 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 827 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 245 871 @delay: set @delay property.;
+#X text 245 891 @done: set @done property.;
+#X obj 20 921 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 926 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 828 1\.;
-#X text 245 828 output.;
-#X text 110 848 2\.;
-#X text 245 848 bang on finish (after @delay*@done ms after last outputted
+#X text 110 927 1\.;
+#X text 245 927 output.;
+#X text 110 947 2\.;
+#X text 245 947 bang on finish (after @delay*@done ms after last outputted
 message).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 913 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 916 library: ceammc v0.9.5;
-#N canvas 10 935 400 290 info 0;
+#X obj 1 1012 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1015 library: ceammc v0.9.5;
+#N canvas 10 1034 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -94,17 +99,19 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 935 pd info;
-#X connect 6 0 8 0;
-#X connect 7 0 8 1;
+#X restore 10 1034 pd info;
 #X connect 8 0 9 0;
+#X connect 6 0 10 0;
 #X connect 9 0 10 0;
+#X connect 7 0 10 1;
 #X connect 10 0 11 0;
 #X connect 11 0 12 0;
-#X connect 11 0 13 0;
-#X connect 12 0 14 0;
+#X connect 12 0 13 0;
 #X connect 13 0 14 0;
-#X connect 14 0 15 0;
-#X connect 15 0 17 0;
-#X connect 15 0 17 1;
-#X connect 8 1 6 0;
+#X connect 13 0 15 0;
+#X connect 14 0 16 0;
+#X connect 15 0 16 0;
+#X connect 16 0 17 0;
+#X connect 17 0 19 0;
+#X connect 17 0 19 1;
+#X connect 10 1 6 0;
