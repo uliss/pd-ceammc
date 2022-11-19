@@ -1,4 +1,4 @@
-#N canvas 0 0 395 270 12;
+#N canvas 0 0 462 313 12;
 #X obj 20 48 hoa.in 1;
 #X obj 125 48 hoa.in 2;
 #X obj 20 77 mtof;

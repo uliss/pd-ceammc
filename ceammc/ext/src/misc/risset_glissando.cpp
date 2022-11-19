@@ -96,6 +96,7 @@ RissetGlissando::RissetGlissando(const PdArgs& args)
     base_ = new FloatProperty("@base", 60);
     base_->checkClosedRange(10, 100);
     base_->setArgIndex(0);
+    base_->setUnits(PropValueUnits::SEMITONE);
     addProperty(base_);
 
     data_.resize(calc_.num());
@@ -114,7 +115,8 @@ RissetGlissando::RissetGlissando(const PdArgs& args)
 
     createCbFloatProperty(
         "@interval", [this]() -> t_float { return calc_.interval(); },
-        [this](t_float interval) -> bool { return calc_.setInterval(interval); });
+        [this](t_float interval) -> bool { return calc_.setInterval(interval); })
+        ->setUnits(PropValueUnits::SEMITONE);
 
     createCbFloatProperty(
         "@shift", [this]() -> t_float { return calc_.shift(); },
