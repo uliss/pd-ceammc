@@ -311,11 +311,15 @@ namespace hw {
 
                 // can't open
                 if (!serial.isOpen()) {
+#ifdef DEBUG
                     std::cerr << "[arduino_thread] can't connect to device: "
                               << port_info.port << " at baudrate " << baudRate << "\n";
 
+#endif
                     if (arduino->reconnect()) {
+#ifdef DEBUG
                         std::cerr << "[arduino_thread] reconnecting...\n";
+#endif
                         std::this_thread::sleep_for(RECONNECT_TIME_MS);
                         // try again
                         continue;
@@ -323,9 +327,11 @@ namespace hw {
                         return 0;
                 }
 
+#ifdef DEBUG
                 // connection is ok
-                std::cout << "[arduino_thread] connected to device: "
+                std::cerr << "[arduino_thread] connected to device: "
                           << port_info.port << " with baudrate: " << baudRate << "\n";
+#endif
 
                 serial.setDTR(false);
                 serial.setStopbits(stopbits_one);
@@ -347,7 +353,9 @@ namespace hw {
 
                     // reconnect on error
                     if (arduino->reconnect()) {
+#ifdef DEBUG
                         std::cerr << "[arduino_thread] reconnecting...\n";
+#endif
                         std::this_thread::sleep_for(RECONNECT_TIME_MS);
                         continue;
                     } else
@@ -360,7 +368,9 @@ namespace hw {
             } while (true);
 
         } catch (std::exception& e) {
+#ifdef DEBUG
             std::cerr << "[arduino_thread] exception: " << e.what() << "\n";
+#endif
             return 0;
         }
 
