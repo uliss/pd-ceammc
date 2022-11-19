@@ -37,92 +37,223 @@ Range: 1\...1200\.;
 #X obj 20 584 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 589 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 624 guitar_gain;
-#X text 245 624 set guitar gain. Arguments are:;
+#X msg 110 624 comp_input_name;
+#X text 245 624 set input from computer channel name. Arguments are:;
 #X obj 255 647 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 647 CHAN: guitar channel (zero-based). Type: int. Min value:
-0\.;
-#X obj 255 670 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 670 DB: value in decibel. Type: float. Range: 0\...60\.
+#X text 255 647 CHAN: channel (zero-based). Type: int. Min value: 0\.;
+#X obj 255 670 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 670 NAME: channel name. Type: symbol.;
+#X msg 110 695 guitar->comp;
+#X text 245 695 set guitar input to computer routing. Arguments are:;
+#X obj 255 718 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 718 INCH: guitar input channel (zero-based). Type: int.
+Min value: 0\.;
+#X obj 255 756 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 756 OUTCH: computer input channel (zero-based). Type: int.
+Min value: 0\.;
+#X obj 255 794 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 794 STATE: enable/disable routing. Type: int. Allowed values:
+0 \, 1\.;
+#X msg 110 834 guitar->mix;
+#X text 245 834 set guitar input to mixer routing. Arguments are:;
+#X obj 255 857 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 857 INCH: guitar input channel (zero-based). Type: int.
+Min value: 0\.;
+#X obj 255 895 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 895 OUTCH: mixer input channel (zero-based). Type: int.
+Min value: 0\.;
+#X obj 255 933 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 933 STATE: enable/disable routing. Type: int. Allowed values:
+0 \, 1\.;
+#X msg 110 973 guitar->output;
+#X text 245 973 set guitar input to analogue output routing. Arguments
+are:;
+#X obj 255 996 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 996 INCH: guitar input channel (zero-based). Type: int.
+Min value: 0\.;
+#X obj 255 1034 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1034 OUTCH: analogue output channel (zero-based). Type:
+int. Min value: 0\.;
+#X obj 255 1072 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1072 STATE: enable/disable routing. Type: int. Allowed
+values: 0 \, 1\.;
+#X msg 110 1112 guitar_gain;
+#X text 245 1112 set guitar gain. Arguments are:;
+#X obj 255 1135 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1135 CHAN: guitar channel (zero-based). Type: int. Min
+value: 0\.;
+#X obj 255 1158 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1158 DB: value in decibel. Type: float. Range: 0\...60\.
 Units: db.;
-#X msg 110 710 guitar_phase;
-#X text 245 710 set guitar phase invert. Arguments are:;
-#X obj 255 733 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 733 CHAN: guitar channel (zero-based). Type: int. Min value:
+#X msg 110 1198 guitar_name;
+#X text 245 1198 set guitar channel name. Arguments are:;
+#X obj 255 1221 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1221 CHAN: channel (zero-based). Type: int. Min value:
 0\.;
-#X obj 255 756 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 756 VAL: state. Type: int. Allowed values: 0 \, 1\.;
-#X msg 110 781 input_gain;
-#X text 245 781 set input gain. Arguments are:;
-#X obj 255 804 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 804 CHAN: input channel (zero-based). Type: int. Min value:
+#X obj 255 1244 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1244 NAME: channel name. Type: symbol.;
+#X msg 110 1269 guitar_phase;
+#X text 245 1269 set guitar phase invert. Arguments are:;
+#X obj 255 1292 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1292 CHAN: guitar channel (zero-based). Type: int. Min
+value: 0\.;
+#X obj 255 1315 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1315 VAL: state. Type: int. Allowed values: 0 \, 1\.;
+#X msg 110 1340 input->comp;
+#X text 245 1340 set analogue input to computer routing. Arguments
+are:;
+#X obj 255 1363 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1363 INCH: analogue input channel (zero-based). Type: int.
+Min value: 0\.;
+#X obj 255 1401 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1401 OUTCH: computer input channel (zero-based). Type:
+int. Min value: 0\.;
+#X obj 255 1439 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1439 STATE: enable/disable routing. Type: int. Allowed
+values: 0 \, 1\.;
+#X msg 110 1479 input->mix;
+#X text 245 1479 set analogue input to mixer routing. Arguments are:;
+#X obj 255 1502 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1502 INCH: analogue input channel (zero-based). Type: int.
+Min value: 0\.;
+#X obj 255 1540 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1540 OUTCH: mixer input channel (zero-based). Type: int.
+Min value: 0\.;
+#X obj 255 1578 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1578 STATE: enable/disable routing. Type: int. Allowed
+values: 0 \, 1\.;
+#X msg 110 1618 input->output;
+#X text 245 1618 set analogue input to analog output routing. Arguments
+are:;
+#X obj 255 1641 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1641 INCH: analogue input channel (zero-based). Type: int.
+Min value: 0\.;
+#X obj 255 1679 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1679 OUTCH: analogue output channel (zero-based). Type:
+int. Min value: 0\.;
+#X obj 255 1717 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1717 STATE: enable/disable routing. Type: int. Allowed
+values: 0 \, 1\.;
+#X msg 110 1757 input_gain;
+#X text 245 1757 set input gain. Arguments are:;
+#X obj 255 1780 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1780 CHAN: input channel (zero-based). Type: int. Min value:
 0\.;
-#X obj 255 827 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 827 DB: value in decibel. Type: float. Units: db.;
-#X msg 110 852 main_gain;
-#X text 245 852 set main output gain. Arguments are:;
-#X obj 255 875 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 875 DB: value in decibel. Type: float. Range: -127\...0\.
+#X obj 255 1803 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1803 DB: value in decibel. Type: float. Units: db.;
+#X msg 110 1828 input_name;
+#X text 245 1828 set analogue input channel name. Arguments are:;
+#X obj 255 1851 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1851 CHAN: channel (zero-based). Type: int. Min value:
+0\.;
+#X obj 255 1874 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1874 NAME: channel name. Type: symbol.;
+#X msg 110 1899 main_gain;
+#X text 245 1899 set main output gain. Arguments are:;
+#X obj 255 1922 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1922 DB: value in decibel. Type: float. Range: -127\...0\.
 Units: db.;
-#X msg 110 915 mic_gain;
-#X text 245 915 set mic gain. Arguments are:;
-#X obj 255 938 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 938 CHAN: mic channel (zero-based). Type: int. Min value:
+#X msg 110 1962 mic->comp;
+#X text 245 1962 set microphone input to computer routing. Arguments
+are:;
+#X obj 255 1985 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1985 INCH: microphone input channel (zero-based). Type:
+int. Min value: 0\.;
+#X obj 255 2023 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2023 OUTCH: computer channel (zero-based). Type: int. Min
+value: 0\.;
+#X obj 255 2061 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2061 STATE: enable/disable routing. Type: int. Allowed
+values: 0 \, 1\.;
+#X msg 110 2101 mic->mix;
+#X text 245 2101 set microphone input to mixer routing. Arguments are:;
+#X obj 255 2124 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2124 INCH: microphone input channel (zero-based). Type:
+int. Min value: 0\.;
+#X obj 255 2162 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2162 OUTCH: mixer input channel (zero-based). Type: int.
+Min value: 0\.;
+#X obj 255 2200 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2200 STATE: enable/disable routing. Type: int. Allowed
+values: 0 \, 1\.;
+#X msg 110 2240 mic->output;
+#X text 245 2240 set microphone input to analog output routing. Arguments
+are:;
+#X obj 255 2263 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2263 INCH: microphone input channel (zero-based). Type:
+int. Min value: 0\.;
+#X obj 255 2301 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2301 OUTCH: analogue output channel (zero-based). Type:
+int. Min value: 0\.;
+#X obj 255 2339 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2339 STATE: enable/disable routing. Type: int. Allowed
+values: 0 \, 1\.;
+#X msg 110 2379 mic_gain;
+#X text 245 2379 set mic gain. Arguments are:;
+#X obj 255 2402 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2402 CHAN: mic channel (zero-based). Type: int. Min value:
 0\.;
-#X obj 255 961 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 961 DB: value in decibel. Type: float. Range: 0\...60\.
+#X obj 255 2425 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2425 DB: value in decibel. Type: float. Range: 0\...60\.
 Units: db.;
-#X msg 110 1001 mic_pad;
-#X text 245 1001 set mic -20db padding. Arguments are:;
-#X obj 255 1024 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1024 CHAN: mic channel (zero-based). Type: int. Min value:
+#X msg 110 2465 mic_name;
+#X text 245 2465 set microphone channel name. Arguments are:;
+#X obj 255 2488 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2488 CHAN: channel (zero-based). Type: int. Min value:
 0\.;
-#X obj 255 1047 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1047 VAL: state. Type: int. Allowed values: 0 \, 1\.;
-#X msg 110 1072 mic_phase;
-#X text 245 1072 set mic phase invert. Arguments are:;
-#X obj 255 1095 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1095 CHAN: mic channel (zero-based). Type: int. Min value:
+#X obj 255 2511 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2511 NAME: channel name. Type: symbol.;
+#X msg 110 2536 mic_pad;
+#X text 245 2536 set mic -20db padding. Arguments are:;
+#X obj 255 2559 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2559 CHAN: mic channel (zero-based). Type: int. Min value:
 0\.;
-#X obj 255 1118 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1118 VAL: state. Type: int. Allowed values: 0 \, 1\.;
-#X msg 110 1143 output_gain;
-#X text 245 1143 set input gain. Arguments are:;
-#X obj 255 1166 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1166 CHAN: input channel (zero-based). Type: int. Min value:
+#X obj 255 2582 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2582 VAL: state. Type: int. Allowed values: 0 \, 1\.;
+#X msg 110 2607 mic_phase;
+#X text 245 2607 set mic phase invert. Arguments are:;
+#X obj 255 2630 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2630 CHAN: mic channel (zero-based). Type: int. Min value:
 0\.;
-#X obj 255 1189 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1189 DB: value in decibel. Type: float. Units: db.;
-#X msg 110 1214 phantom;
-#X text 245 1214 turns phantom on/off. Arguments are:;
-#X obj 255 1237 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1237 CHAN: phantom channel. Type: int. Min value: 0\.;
-#X obj 255 1260 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1260 VAL: phantom state. Type: int. Allowed values: 0 \,
+#X obj 255 2653 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2653 VAL: state. Type: int. Allowed values: 0 \, 1\.;
+#X msg 110 2678 output_gain;
+#X text 245 2678 set input gain. Arguments are:;
+#X obj 255 2701 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2701 CHAN: input channel (zero-based). Type: int. Min value:
+0\.;
+#X obj 255 2724 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2724 DB: value in decibel. Type: float. Units: db.;
+#X msg 110 2749 phantom;
+#X text 245 2749 turns phantom on/off. Arguments are:;
+#X obj 255 2772 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2772 CHAN: phantom channel. Type: int. Min value: 0\.;
+#X obj 255 2795 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2795 VAL: phantom state. Type: int. Allowed values: 0 \,
 1\.;
-#X msg 110 1285 phones_gain;
-#X text 245 1285 set phones output gain. Arguments are:;
-#X obj 255 1308 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1308 DB: value in decibel. Type: float. Range: -127\...0\.
+#X msg 110 2820 phones_gain;
+#X text 245 2820 set phones output gain. Arguments are:;
+#X obj 255 2843 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2843 DB: value in decibel. Type: float. Range: -127\...0\.
 Units: db.;
-#X obj 20 1358 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1363 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 2893 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2898 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1364 1\.;
-#X text 245 1364 input.;
-#X obj 20 1394 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1399 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 2899 1\.;
+#X text 245 2899 input.;
+#X obj 20 2929 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2934 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1400 1\.;
-#X text 245 1400 properties output.;
+#X text 110 2935 1\.;
+#X text 245 2935 properties output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 1450 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1453 library: ceammc v0.9.5;
-#N canvas 10 1472 400 290 info 0;
+#X obj 1 2985 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2988 library: ceammc v0.9.5;
+#N canvas 10 3007 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -146,7 +277,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1472 pd info;
+#X restore 10 3007 pd info;
 #X connect 7 0 8 0;
 #X connect 10 0 12 0;
 #X connect 11 0 13 0;

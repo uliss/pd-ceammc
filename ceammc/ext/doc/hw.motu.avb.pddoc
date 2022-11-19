@@ -67,6 +67,81 @@
             (zero-based)</param>
             <param name="DB" type="float" units="decibel" required="true">value in
             decibel</param></method>
+            <!-- setting channel names -->
+            <method name="guitar_name">set guitar channel name
+            <param name="CHAN" type="int" required="true" minvalue="0">channel
+            (zero-based)</param>
+            <param name="NAME" type="symbol" required="true">channel name</param></method>
+            <method name="mic_name">set microphone channel name
+            <param name="CHAN" type="int" required="true" minvalue="0">channel
+            (zero-based)</param>
+            <param name="NAME" type="symbol" required="true">channel name</param></method>
+            <method name="input_name">set analogue input channel name
+            <param name="CHAN" type="int" required="true" minvalue="0">channel
+            (zero-based)</param>
+            <param name="NAME" type="symbol" required="true">channel name</param></method>
+            <method name="comp_input_name">set input from computer channel name
+            <param name="CHAN" type="int" required="true" minvalue="0">channel
+            (zero-based)</param>
+            <param name="NAME" type="symbol" required="true">channel name</param></method>
+            <!-- routing -->
+            <!-- mic -->
+            <method name="mic->comp">set microphone input to computer routing
+            <param name="INCH" type="int" required="true" minvalue="0">microphone input channel
+            (zero-based)</param>
+            <param name="OUTCH" type="int" required="true" minvalue="0">computer channel
+            (zero-based)</param>
+            <param name="STATE" type="int" required="true" enum="0 1">enable/disable routing</param></method>
+            <method name="mic->output">set microphone input to analog output routing
+            <param name="INCH" type="int" required="true" minvalue="0">microphone input channel
+            (zero-based)</param>
+            <param name="OUTCH" type="int" required="true" minvalue="0">analogue output channel
+            (zero-based)</param>
+            <param name="STATE" type="int" required="true" enum="0 1">enable/disable routing</param></method>
+            <method name="mic->mix">set microphone input to mixer routing
+            <param name="INCH" type="int" required="true" minvalue="0">microphone input channel
+            (zero-based)</param>
+            <param name="OUTCH" type="int" required="true" minvalue="0">mixer input channel
+            (zero-based)</param>
+            <param name="STATE" type="int" required="true" enum="0 1">enable/disable routing</param></method>
+            <!-- input -->
+            <method name="input->output">set analogue input to analog output routing
+            <param name="INCH" type="int" required="true" minvalue="0">analogue input channel
+            (zero-based)</param>
+            <param name="OUTCH" type="int" required="true" minvalue="0">analogue output channel
+            (zero-based)</param>
+            <param name="STATE" type="int" required="true" enum="0 1">enable/disable routing</param></method>
+            <method name="input->mix">set analogue input to mixer routing
+            <param name="INCH" type="int" required="true" minvalue="0">analogue input channel
+            (zero-based)</param>
+            <param name="OUTCH" type="int" required="true" minvalue="0">mixer input channel
+            (zero-based)</param>
+            <param name="STATE" type="int" required="true" enum="0 1">enable/disable routing</param></method>
+            <method name="input->comp">set analogue input to computer routing
+            <param name="INCH" type="int" required="true" minvalue="0">analogue input channel
+            (zero-based)</param>
+            <param name="OUTCH" type="int" required="true" minvalue="0">computer input channel
+            (zero-based)</param>
+            <param name="STATE" type="int" required="true" enum="0 1">enable/disable routing</param></method>
+            <!-- guitar -->
+            <method name="guitar->comp">set guitar input to computer routing
+            <param name="INCH" type="int" required="true" minvalue="0">guitar input channel
+            (zero-based)</param>
+            <param name="OUTCH" type="int" required="true" minvalue="0">computer input channel
+            (zero-based)</param>
+            <param name="STATE" type="int" required="true" enum="0 1">enable/disable routing</param></method>
+            <method name="guitar->mix">set guitar input to mixer routing
+            <param name="INCH" type="int" required="true" minvalue="0">guitar input channel
+            (zero-based)</param>
+            <param name="OUTCH" type="int" required="true" minvalue="0">mixer input channel
+            (zero-based)</param>
+            <param name="STATE" type="int" required="true" enum="0 1">enable/disable routing</param></method>
+            <method name="guitar->output">set guitar input to analogue output routing
+            <param name="INCH" type="int" required="true" minvalue="0">guitar input channel
+            (zero-based)</param>
+            <param name="OUTCH" type="int" required="true" minvalue="0">analogue output channel
+            (zero-based)</param>
+            <param name="STATE" type="int" required="true" enum="0 1">enable/disable routing</param></method>
         </methods>
         <inlets>
             <inlet>
