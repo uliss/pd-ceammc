@@ -37,10 +37,12 @@
         </properties>
         <methods>
             <method name="reset">reset counter to start value and repeat counter to 0</method>
+            <method name="next">increment counter then output</method>
+            <method name="prev">decrement counter  then output</method>
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">output current value and increment counter</xinfo>
+                <xinfo on="bang">output current value then increment counter</xinfo>
             </inlet>
             <inlet>
                 <xinfo on="bang">reset counter to start value</xinfo>
@@ -53,13 +55,17 @@
         <example>
             <pdascii>
 <![CDATA[
-[bng]             [bng]         [bng]
-|                 |             |.
-[seq.counter 1 4] [seq.counter 1 4 @r 2]/*repeat two times*/
-|                 |             ^|
-[F]               [F]           [route done]
-                                |       ^|
-                                [bng]   [F]
+[B]   [prev( [next(
+|     |      |
+[seq.counter 1 4]
+|
+[ui.dt]
+
+[B]            [B]
+|              |.
+[seq.counter 1 4 @r 2]/*repeat two times*/
+|              ^|
+[F]            [ui.dt]
 ]]>
             </pdascii>
         </example>
