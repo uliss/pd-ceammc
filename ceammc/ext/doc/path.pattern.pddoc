@@ -27,10 +27,16 @@
             <par>• %DATE% - current date: %YEAR%-%MONTH%-%DAY%</par>
             <par>• %NOW% - current datetime: %DATE%_%TIME%</par>
         </info>
+        <arguments>
+            <argument name="PATT" type="symbol">filename generation pattern</argument>
+        </arguments>
+        <properties>
+            <property name="@pattern" type="symbol">filename pattern</property>
+        </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">outputs filename portion of pathname</xinfo>
-                <xinfo on="symbol">set new pattern and generate path</xinfo>
+                <xinfo on="bang">output generated filename pattern</xinfo>
+                <xinfo on="symbol">set new pattern and generate filename pattern</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -43,6 +49,8 @@
 |
 |  [symbol ~/test-%NOW%.wav(
 |  |
+|  |  [bang(
+|  |  |
 [path.pattern]
 |
 [ui.dt @auto_size 0 @size 400 40]
