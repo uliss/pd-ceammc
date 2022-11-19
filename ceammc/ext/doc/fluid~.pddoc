@@ -26,7 +26,7 @@
         <properties>
             <property name="@sf" type="symbol">soundfont path, you can use **default** value to
             load default soundfont</property>
-            <property name="@version" type="symbol" readonly="true" default="2.1.9">FluidSynth
+            <property name="@version" type="symbol" readonly="true" default="2.0.0">FluidSynth
             version</property>
             <property name="@soundfonts" type="list" readonly="true">list of found
             soundfonts</property>

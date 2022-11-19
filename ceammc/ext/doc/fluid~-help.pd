@@ -71,7 +71,7 @@ value: 0\.;
 to load default soundfont. Type: symbol.;
 #X msg 110 1038 @version;
 #X text 245 1038 (readonly) Get FluidSynth version. Type: symbol. Default
-value: 2.1.9\.;
+value: 2.0.0\.;
 #X msg 110 1080 @volume;
 #X text 245 1080 Get/Set output volume (same as @gain but in db). Type:
 float. Units: db. Default value: 0\. Range: -60\...10\.;
