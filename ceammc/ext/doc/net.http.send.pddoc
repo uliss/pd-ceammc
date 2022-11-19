@@ -49,7 +49,7 @@
 [get /(
 |
 |
-[net.http.send github.com]
+[net.http.send google.com]
 |       ^|
 |        | [bang(
 |        | |

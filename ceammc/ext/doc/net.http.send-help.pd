@@ -7,7 +7,7 @@
 #X obj 556 11 http.send;
 #X obj 646 11 net.http.send;
 #X msg 50 118 get /;
-#X obj 50 162 net.http.send github.com;
+#X obj 50 162 net.http.send google.com;
 #X msg 155 190 bang;
 #X floatatom 50 219 5 0 0 0 - - -;
 #X obj 136 219 ui.dt;

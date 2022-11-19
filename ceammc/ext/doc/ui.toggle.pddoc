@@ -36,8 +36,8 @@
             <!-- midi -->
             <property name="@midi_channel" type="int" minvalue="0" maxvalue="16" default="0">binded
             MIDI channel. 0 means listen to all channels</property>
-            <property name="@midi_control" type="int" minvalue="0" maxvalue="128" default="0">
-            binded MIDI controller number. 0 means not binded to any controller.</property>
+            <property name="@midi_control" type="int" minvalue="-1" maxvalue="127" default="-1">
+            binded MIDI controller number. -1 means not binded to any controller.</property>
             <!-- common -->
             <property name="@presetname" type="symbol" default="(null)">preset name for using with
             [ui.preset]</property>
@@ -56,10 +56,6 @@
             <property name="@fontsize" type="int" minvalue="4" maxvalue="11" default="11">
             fontsize</property>
             <property name="@fontname" type="symbol" default="Helvetica">fontname</property>
-            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
-            weight</property>
-            <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
-            slant</property>
         </properties>
         <methods>
             <method name="dump">dumps all object info to Pd console window</method>
