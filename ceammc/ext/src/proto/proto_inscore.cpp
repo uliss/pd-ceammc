@@ -446,7 +446,7 @@ void ProtoInscore::m_write(t_symbol* s, const AtomListView& lv)
 {
     const bool ok = lv.size() > 1 && lv[0].isSymbol();
     if (!ok) {
-        METHOD_ERR(s) << "usage: OBJ_NAME GUIDO_NOTATION...";
+        METHOD_ERR(s) << "usage: OBJ_NAME CONTENT...";
         return;
     }
 
@@ -509,7 +509,7 @@ void ProtoInscore::m_file(t_symbol *s, const AtomListView &lv)
     anyTo(0, gensym(SEND_TYPED), toView(args));
 }
 
-void ProtoInscore::m_fontSize(t_symbol* s, const AtomListView& lv)
+void ProtoInscore::m_font_size(t_symbol* s, const AtomListView& lv)
 {
     if (!checkArgs(lv, ARG_SYMBOL, ARG_FLOAT)) {
         METHOD_ERR(s) << "usage: OBJ_NAME SIZE";
@@ -534,7 +534,7 @@ void ProtoInscore::m_fontSize(t_symbol* s, const AtomListView& lv)
     anyTo(0, gensym(SEND_TYPED), toView(args));
 }
 
-void ProtoInscore::m_fontWeight(t_symbol* s, const AtomListView& lv)
+void ProtoInscore::m_font_weight(t_symbol* s, const AtomListView& lv)
 {
     CEAMMC_DEFINE_HASH(light);
     CEAMMC_DEFINE_HASH(demibold);
@@ -656,8 +656,8 @@ void setup_proto_inscore()
     obj.addMethod("ellipse", &ProtoInscore::m_ellipse);
     obj.addMethod("file", &ProtoInscore::m_file);
 
-    obj.addMethod("fontSize", &ProtoInscore::m_fontSize);
-    obj.addMethod("fontWeight", &ProtoInscore::m_fontWeight);
+    obj.addMethod("font_size", &ProtoInscore::m_font_size);
+    obj.addMethod("font_weight", &ProtoInscore::m_font_weight);
 
     obj.addMethod("show", &ProtoInscore::m_show);
     obj.addMethod("del", &ProtoInscore::m_del);

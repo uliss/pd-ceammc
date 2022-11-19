@@ -52,8 +52,8 @@ public:
     void m_ellipse(t_symbol* s, const AtomListView& lv);
     void m_file(t_symbol* s, const AtomListView& lv);
 
-    void m_fontSize(t_symbol* s, const AtomListView& lv);
-    void m_fontWeight(t_symbol* s, const AtomListView& lv);
+    void m_font_size(t_symbol* s, const AtomListView& lv);
+    void m_font_weight(t_symbol* s, const AtomListView& lv);
 
     void m_show(t_symbol* s, const AtomListView& lv);
     void m_del(t_symbol* s, const AtomListView& lv);
