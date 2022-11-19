@@ -55,7 +55,7 @@
         <example>
             <pdascii>
 <![CDATA[
-[T]          [speech.rhvoice~.voices]
+[T]          [speech.rhvoice~.voices] /*<-- see here*/
 |
 [metro 1000]
 |
