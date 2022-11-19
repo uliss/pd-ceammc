@@ -312,6 +312,9 @@ do
     copy ${lua} "${BUNDLE_LUA}"
 done
 
+section "Copying RHVoice.conf"
+copy $SRC_CEAMMC/ext/src/misc/RHVoice.conf "${BUNDLE_CEAMMC}"
+
 section "Copying CEAMMC midi files"
 mkdir -p "${BUNDLE_MIDI}"
 for midi in $SRC_CEAMMC/ext/doc/midi/*.@(mid|midi)
