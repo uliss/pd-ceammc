@@ -3,34 +3,34 @@
 ## [0.9.5]
 ### Added:
 - new objects:
-  - midi.split: midi note splitter
-  - midi.modus: snap/skip midi pitches according to selected modus
-  - z~: sample delay added
-  - route.random: random router added (with route.r alias) 
-  - list.pass: leave only specified atoms in list
-  - list.reject: reject specified atoms in list
-  - list.map: list value mapping object added
-  - flt.a-weight: A-weight amplitude/decibel value calculator
   - an.zero~: zero crossing count/rate/freq
-  - proto.whammy: Digitech Whammy pedal control
-  - flow.seqdelay: sequential message delay/router
   - array.circular: array circular read/write
   - file: file object added
+  - flow.seqdelay: sequential message delay/router
+  - flt.a-weight: A-weight amplitude/decibel value calculator
+  - hw.motu.avb: Motu AVB http control added
+  - lang.lua added: LuaJit interpreter added running in separate thread
+  - list.map: list value mapping object added
+  - list.pass: leave only specified atoms in list
+  - list.reject: reject specified atoms in list
+  - midi.modus: snap/skip midi pitches according to selected modus
+  - midi.split: midi note splitter
   - net.artnet.send: send DMX messages via ArtNet
   - net.http.send: send HTTP requests
-  - net.osc.send: send OSC messages
   - net.osc.receive: receive OSC
+  - net.osc.send: send OSC messages
   - net.osc.server: OSC server control
+  - path.pattern: generate unique filenames by pattern
+  - proto.feelworld: control Feelworld Livepro L1 HDMI video mixer
   - proto.moppy: MOPPY floppy controller
   - proto.vlc: control VLC player over HTTP
-  - proto.feelworld: control Feelworld Livepro L1 HDMI video mixer
-  - synth.kick2~ added
-  - synth.hat~ added
-  - synth.clap~ added
-  - path.pattern: generate unique filenames by pattern
-  - hw.motu.avb: Motu AVB http control added
+  - proto.whammy: Digitech Whammy pedal control
+  - route.random: random router added (with route.r alias) 
   - speech.rhvoice~: RHVoice TTS engine added
-  - lang.lua added: LuaJit interpreter added running in separate thread
+  - synth.clap~ added
+  - synth.hat~ added
+  - synth.kick2~ added
+  - z~: sample delay added
 - new properties:
   - @clip property added to system.cursor to clip cursor XY coords
   - @norm property added to ui.env to do envelope value normalization on input
