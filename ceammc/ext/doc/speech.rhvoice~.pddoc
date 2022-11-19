@@ -76,18 +76,17 @@
             </pdascii>
             <pdascii id="voices">
 <![CDATA[
-[T]
-/* Pd Documents directory structure */
+/* Pd Documents directory structure for RHVoice */
 
 /* rhvoice/ */
-/*      | */
-/*      languages/ */
-/*      |       |
-/*      |       English... etc. */
-/*      | */
-/*      voices/ */
-/*            | */
-/*            voice1... */
+    /*| */
+    /*languages/ */
+    /*|       |*/
+    /*|       English... etc. */
+    /*| */
+    /*voices/ */
+        /*| */
+        /*voice1... */
 ]]>
             </pdascii>
         </example>
