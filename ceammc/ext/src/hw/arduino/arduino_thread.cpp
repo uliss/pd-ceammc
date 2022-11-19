@@ -20,6 +20,10 @@
 using namespace ceammc::platform;
 using namespace boost::placeholders;
 
+#ifndef NDEBUG
+#define DEBUG
+#endif
+
 namespace ceammc {
 namespace hw {
 
@@ -38,12 +42,16 @@ namespace hw {
         ThreadTracker(Arduino* a)
             : a_(a)
         {
+#ifdef DEBUG
             std::cerr << "[arduino_thread] " << pthread_self() << " started\n";
+#endif
         }
 
         ~ThreadTracker()
         {
+#ifdef DEBUG
             std::cerr << "[arduino_thread] " << pthread_self() << " finished\n";
+#endif
             a_->threadFinished();
         }
     };
