@@ -12,17 +12,18 @@
 #include "ceammc.h"
 #include "ceammc_impl.h"
 #include "ceammc_log.h"
+#include "ceammc_syms.h"
 #include "ebox.h"
 #include "ecommon.h"
 #include "egraphics.h"
 #include "eobj.h"
-#include "ceammc_syms.h"
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wsign-conversion"
 #include "fmt/format.h"
 #pragma clang diagnostic pop
 
+#include <array>
 #include <cstdint>
 #include <iostream>
 #include <vector>
@@ -373,7 +374,7 @@ void eclass_addmethod(t_eclass* c, t_typ_method m, t_symbol* sname, t_atomtype t
         c->c_widget.w_mousedown = reinterpret_cast<t_mousedown_method>(m);
         break;
     case hash_mousedrag:
-        c->c_widget.w_mousedrag = reinterpret_cast<t_mousedrag_method>(m);;
+        c->c_widget.w_mousedrag = reinterpret_cast<t_mousedrag_method>(m);
         break;
     case hash_mouseup:
         c->c_widget.w_mouseup = reinterpret_cast<t_mouseup_method>(m);
@@ -1734,6 +1735,7 @@ static void eclass_properties_dialog(t_eclass* c)
 
     t_symbol* cat = &s_;
     int category_idx = 0;
+    const std::array<t_symbol*, 2> hidden_by_default_cat { gensym("Label"), gensym("Colors") };
     for (size_t i = 0; i < c->c_nattr; i++) {
         auto attr = c->c_attr[i];
 
@@ -1746,16 +1748,20 @@ static void eclass_properties_dialog(t_eclass* c)
 
             /** PROPERTY CATEGORY **/
             if (attr->category != cat) {
+                bool show_first_time = (std::find(hidden_by_default_cat.begin(),
+                                            hidden_by_default_cat.end(),
+                                            attr->category)
+                    == hidden_by_default_cat.end());
                 auto str = fmt::format(
                     "   global var_cat{0}_state\n"
-                    "   if {{ [info exists var_cat{0}_state] eq 0 }} {{ set var_cat{0}_state 1 }}\n"
+                    "   if {{ [info exists var_cat{0}_state] eq 0 }} {{ set var_cat{0}_state {2} }}\n"
                     "   ttk::label $fp.cat_img{0} -image [ceammc_category_icon var_cat{0}_state]\n"
                     "   bind $fp.cat_img{0} <Button> [list ceammc_category_toggle"
                     "       $fp.cat_img{0} var_cat{0}_state [concat [dict get $cat_dict \"{0}\"]]]\n"
                     "   ttk::label $fp.cat_lbl{0} -justify left -text [_ \"{0}\"] -font CICMCategoryFont\n"
                     "   grid config $fp.cat_img{0} -column 0 -row {1} -sticky w\n"
                     "   grid config $fp.cat_lbl{0} -column 1 -columnspan 2 -row {1} -sticky nwse\n",
-                    attr->category->s_name, i + category_idx + 1);
+                    attr->category->s_name, i + category_idx + 1, (int)show_first_time);
                 // update current category
                 cat = attr->category;
                 category_idx++;
