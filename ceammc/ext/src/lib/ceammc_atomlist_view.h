@@ -67,7 +67,7 @@ public:
     bool operator!=(int v) const { return !operator==(v); }
     bool operator==(t_symbol* s) const { return isSymbol() && asSymbol() == s; }
     bool operator!=(t_symbol* s) const { return !operator==(s); }
-    bool operator==(const Atom& a) const { return isAtom() && asAtom() == a; }
+    bool operator==(const Atom& a) const { return isAtom() && front() == a; }
     bool operator!=(const Atom& a) const { return !operator==(a); }
 
     // containter checks
@@ -174,12 +174,10 @@ public:
     const Atom& operator[](size_t pos) const { return data_[pos]; }
     const Atom& relativeAt(long pos) const;
 
-    // no type checks!!!
-    inline bool asBool() const { return front().asBool(); }
-    inline t_symbol* asSymbol() const { return atom().a_w.w_symbol; }
-    inline t_float asFloat() const { return atom().a_w.w_float; }
-    inline int asInt() const { return static_cast<int>(atom().a_w.w_float); }
-    inline const Atom& asAtom() const { return front(); }
+    inline bool asBool(bool def = false) const { return empty() ? def : front().asBool(def); }
+    inline t_symbol* asSymbol(t_symbol* def = &s_) const { return empty() ? def : front().asSymbol(def); }
+    inline t_float asFloat(t_float def = 0) const { return empty() ? def : front().asFloat(def); }
+    inline t_int asInt(t_int def = 0) const { return empty() ? def : static_cast<t_int>(front().asFloat(def)); }
 
     // with range checks
     /**
