@@ -65,8 +65,19 @@ target_include_directories(ceammc_faust PRIVATE
 if(COMMAND llvm_map_components_to_libnames)
     llvm_map_components_to_libnames(llvm_libs
         support core irreader executionengine
-        x86asmparser asmprinter x86info x86desc x86codegen mcjit ipo
-        objcarcopts)
+        asmprinter mcjit ipo objcarcopts)
+    set(llvm_libs_x86 "")
+    set(llvm_libs_arm64 "")
+    if(CMAKE_OSX_ARCHITECTURES STREQUAL "arm64")
+        llvm_map_components_to_libnames(llvm_libs_arm64
+            AArch64AsmParser AArch64Info AArch64Desc AArch64CodeGen)
+        list(APPEND llvm_libs ${llvm_libs_arm64})
+    elseif (CMAKE_OSX_ARCHITECTURES STREQUAL "x86_64")
+        llvm_map_components_to_libnames(llvm_libs_x86
+            x86asmparser x86info x86desc x86codegen)
+        list(APPEND llvm_libs ${llvm_libs_x86})
+    endif()
+
     message(STATUS "llvm-libs: ${llvm_libs}")
     target_link_libraries(ceammc_faust PUBLIC ${llvm_libs})
 endif()
