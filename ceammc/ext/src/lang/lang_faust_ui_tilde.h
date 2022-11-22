@@ -15,15 +15,11 @@
 #define LANG_FAUST_UI_TILDE_H
 
 #include "ceammc_clock.h"
-#include "ceammc_sound_external.h"
 #include "lang_faust_tilde.h"
-#include "nui/button_view.h"
-#include "nui/label_view.h"
-#include "nui/nui.h"
+#include "nui/button_model.h"
+#include "nui/label_model.h"
 #include "nui/property.h"
-#include "nui/rect.h"
-#include "nui/slider_view.h"
-#include "nui/tk_view_impl.h"
+#include "nui/slider_model.h"
 #include "nui/view.h"
 #include "nui/widget.h"
 

@@ -15,8 +15,12 @@
 #include "ceammc_factory.h"
 #include "ceammc_platform.h"
 
-#include "fmt/format.h"
+#include "fmt/core.h"
+#include "nui/button_view.h"
 #include "nui/factory.h"
+#include "nui/label_view.h"
+#include "nui/slider_view.h"
+#include "nui/tk_view_impl.h"
 
 extern "C" {
 int ceammc_init_done();
@@ -438,12 +442,12 @@ void FaustMasterView::createButtonEntry(faust::UIProperty* p)
 }
 
 #ifdef _WIN32
-#define EXPORT extern "C"  __declspec(dllexport)
+#define FAUST_UI_EXPORT extern "C"  __declspec(dllexport)
 #else
-#define EXPORT extern "C"
+#define FAUST_UI_EXPORT extern "C"
 #endif
 
-EXPORT void setup_ui0x2efaust_tilde()
+FAUST_UI_EXPORT void setup_ui0x2efaust_tilde()
 {
     if (!ceammc_init_done())
         ceammc_setup();
