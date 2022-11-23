@@ -16,7 +16,8 @@
 
 #include "ceammc_factory.h"
 #include "nui/common.h"
-#include "nui/widget.h"
+#include "nui/point.h"
+#include "nui/size.h"
 
 extern "C" {
 #include "g_canvas.h"
@@ -29,20 +30,13 @@ namespace ui {
         uint32_t platform_modifier(uint32_t mod);
     }
 
-    class SymTable {
-        SymTable();
-
-    public:
-        t_symbol* mouseenter;
-        t_symbol* mouseleave;
-        t_symbol* mousemove;
-        t_symbol* mousedown;
-        t_symbol* mouseup;
-        t_symbol* mouseright;
-        t_symbol* m_size;
-
-        static const SymTable& instance();
-    };
+    constexpr const char* SYM_MOUSE_ENTER = "mouseenter";
+    constexpr const char* SYM_MOUSE_LEAVE = "mouseleave";
+    constexpr const char* SYM_MOUSE_MOVE = "mousemove";
+    constexpr const char* SYM_MOUSE_DOWN = "mousedown";
+    constexpr const char* SYM_MOUSE_UP = "mouseup";
+    constexpr const char* SYM_MOUSE_RIGHT = "rightclick";
+    constexpr const char* SYM_SIZE = "size";
 
     template <typename T>
     class ObjectMouseInit : public ceammc::ObjectInitT<T> {
@@ -106,43 +100,43 @@ namespace ui {
             if (ui_flags_ & UI_FACTORY_FLAG_MOUSE_ENTER) {
                 class_addmethod(this->classPointer(),
                     reinterpret_cast<t_method>(mouse_enter),
-                    SymTable::instance().mouseenter, A_NULL, 0);
+                    gensym(SYM_MOUSE_ENTER), A_NULL, 0);
             }
 
             if (ui_flags_ & UI_FACTORY_FLAG_MOUSE_LEAVE) {
                 class_addmethod(this->classPointer(),
                     reinterpret_cast<t_method>(mouse_leave),
-                    SymTable::instance().mouseleave, A_NULL, 0);
+                    gensym(SYM_MOUSE_LEAVE), A_NULL, 0);
             }
 
             if (ui_flags_ & UI_FACTORY_FLAG_MOUSE_MOVE) {
                 class_addmethod(this->classPointer(),
                     reinterpret_cast<t_method>(mouse_move),
-                    SymTable::instance().mousemove, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
+                    gensym(SYM_MOUSE_MOVE), A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
             }
 
             if (ui_flags_ & UI_FACTORY_FLAG_MOUSE_DOWN) {
                 class_addmethod(this->classPointer(),
                     reinterpret_cast<t_method>(mouse_down),
-                    SymTable::instance().mousedown, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
+                    gensym(SYM_MOUSE_DOWN), A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
             }
 
             if (ui_flags_ & UI_FACTORY_FLAG_MOUSE_UP) {
                 class_addmethod(this->classPointer(),
                     reinterpret_cast<t_method>(mouse_up),
-                    SymTable::instance().mouseup, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
+                    gensym(SYM_MOUSE_UP), A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
             }
 
             if (ui_flags_ & UI_FACTORY_FLAG_MOUSE_RIGHT) {
                 class_addmethod(this->classPointer(),
                     reinterpret_cast<t_method>(mouse_right),
-                    SymTable::instance().mouseright, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
+                    gensym(SYM_MOUSE_RIGHT), A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
             }
 
             ObjectInitPtr init(new ObjectMouseInit<T>(static_cast<UIFactoryFlags>(ui_flags_)));
             FactoryT::setObjectInit(std::move(init));
 
-            class_addmethod(this->classPointer(), (t_method)widget_size, SymTable::instance().m_size, A_DEFFLOAT, A_DEFFLOAT, 0);
+            class_addmethod(this->classPointer(), (t_method)widget_size, gensym(SYM_SIZE), A_DEFFLOAT, A_DEFFLOAT, 0);
         }
 
         static ObjectProxy* proxy(t_gobj* x) { return reinterpret_cast<ObjectProxy*>(x); }
