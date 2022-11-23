@@ -117,4 +117,14 @@ protected:
     void createCustomUI() override;
 };
 
+#ifdef _WIN32
+#define FAUST_UI_EXPORT extern "C"  __declspec(dllexport)
+#else
+#define FAUST_UI_EXPORT extern "C"
+#endif
+
+FAUST_UI_EXPORT void setup_ui0x2efaust_tilde();
+
+t_class* setup_ui_faust_non_external();
+
 #endif // LANG_FAUST_UI_TILDE_H

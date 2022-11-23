@@ -90,4 +90,14 @@ private:
     static faust::FaustConfig& faust_config_base();
 };
 
+#ifdef _WIN32
+#define FAUST_LANG_EXPORT extern "C" __declspec(dllexport)
+#else
+#define FAUST_LANG_EXPORT extern "C"
+#endif
+
+FAUST_LANG_EXPORT void setup_lang0x2efaust_tilde();
+
+void setup_lang_faust_non_external();
+
 #endif // LANG_FAUST_TILDE_H
