@@ -31,6 +31,8 @@ proc ::pdwindow::set_layout {} {
     variable maxloglevel
     .pdwindow.text.internal tag configure log0 -foreground "#d00" -background "#ffe0e8"
     .pdwindow.text.internal tag configure log1 -foreground "#d00"
+    # ceammc: set themed print color
+    if {$::windowingsystem eq "aqua"} { .pdwindow.text.internal tag configure log2 -foreground systemTextColor }
     # log2 messages are normal black on white
     .pdwindow.text.internal tag configure log3 -foreground "#484848"
 
