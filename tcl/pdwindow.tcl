@@ -402,9 +402,9 @@ proc ::pdwindow::create_window {} {
     frame .pdwindow.header.pad1
     pack .pdwindow.header.pad1 -side left -padx 12
 
-    checkbutton .pdwindow.header.dsp -text [_ "DSP"] -variable ::dsp \
-        -takefocus 1 -background lightgray \
-        -borderwidth 0  -command {pdsend "pd dsp $::dsp"}
+    # ceammc: using ttk
+    ttk::checkbutton .pdwindow.header.dsp -text [_ "DSP"] -variable ::dsp \
+        -takefocus 1 -command {pdsend "pd dsp $::dsp"}
     pack .pdwindow.header.dsp -side right -fill y -anchor e -padx 5 -pady 0
 
 # frame for DIO error and audio in/out labels
