@@ -499,10 +499,16 @@ void g_inlet_move(t_canvas* canvas, const char* tag, int idx, int x, int y, int 
 void g_object_draw(t_canvas* canvas, const char* tag,
     int x1, int y1, int x2, int y2, int zoom, t_dash_pattern p)
 {
+#if defined(__APPLE__)
+    sys_vgui(".x%lx.c create rectangle %d %d %d %d "
+             " -dash %s -width %d -fill $::pd_colors::obj_fill -outline $::pd_colors::obj_border -tags [list %sR obj]\n",
+        canvas, x1, y1, x2, y2, dash_pattern_str[p], zoom, tag);
+#else
     sys_vgui(".x%lx.c create rectangle %d %d %d %d "
              " -dash %s -width %d -fill #%6.6x -outline #%6.6x -tags [list %sR obj]\n",
         canvas, x1, y1, x2, y2, dash_pattern_str[p], zoom,
         STYLE_FILL_COLOR, STYLE_BORDER_COLOR, tag);
+#endif
 }
 
 void g_object_move(t_canvas* canvas, const char* tag,
