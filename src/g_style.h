@@ -19,16 +19,10 @@
 #define STYLE_TEXT_NORMAL_COLOR STYLE_NORMAL_COLOR
 #define STYLE_TEXT_SELECT_COLOR STYLE_SELECT_COLOR
 
-#define STYLE_CORD_SELECTED STYLE_SELECT_COLOR
-#define STYLE_CORD_NORMAL STYLE_NORMAL_COLOR
-
 #define STYLE_CANVAS_GOP_RECT_COLOR 0xFF8080
 
 int style_cord_width_by_type(int issignal);
 int style_cord_width(t_canvas* x, t_object* ob, int nout);
-int style_cord_color();
-int style_cord_select_color();
-
 int style_border_width(t_glist* glist);
 int style_xlet_height(t_glist* glist);
 
