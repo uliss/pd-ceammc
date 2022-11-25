@@ -526,9 +526,9 @@ void g_xatom_draw(t_canvas* canvas, const char* tag,
     int x1, int y1, int x2, int y2, int corner, int grabbed)
 {
     sys_vgui(".x%lx.c create polygon %d %d %d %d %d %d %d %d %d %d "
-             "-width %d -fill #%6.6x -outline #%6.6x -tags [list %sR atom]\n",
+             "-width %d -fill $::pd_colors::obj_fill -outline $::pd_colors::obj_border -tags [list %sR atom]\n",
         canvas, x1, y1, x2 - corner, y1, x2, y1 + corner, x2, y2, x1, y2,
-        canvas->gl_zoom, STYLE_FILL_COLOR, STYLE_BORDER_COLOR, tag);
+        canvas->gl_zoom, tag);
 }
 
 void g_xatom_move(t_canvas* canvas, const char* tag, int x1, int y1, int x2, int y2, int corner, int grabbed)
@@ -541,9 +541,9 @@ void g_xatom_move(t_canvas* canvas, const char* tag, int x1, int y1, int x2, int
 void g_commentbar_draw(t_canvas* canvas, const char* tag, int x1, int y1, int x2, int y2)
 {
     sys_vgui(".x%lx.c create rectangle %d %d %d %d "
-             "-outline #%6.6x -width 1 -tags [list %sR commentbar]\n",
+             "-outline $::pd_colors::comment_border -width 1 -tags [list %sR commentbar]\n",
         canvas,
-        x1, y1, x2, y2, STYLE_BORDER_COLOR, tag);
+        x1, y1, x2, y2, tag);
 }
 
 void g_commentbar_move(t_canvas* canvas, const char* tag, int x1, int y1, int x2, int y2)
@@ -577,7 +577,7 @@ void g_atom_label_draw(t_canvas* canvas, t_gobj* obj, int x, int y, const char* 
 {
     sys_vgui("pdtk_text_new .x%lx.c {%lx.l label text} %f %f {%s } %d %s\n",
         canvas, obj, (double)x, (double)y, txt, fontsize,
-        "black");
+        "$::pd_colors::obj_text");
 }
 
 void g_atom_erase(t_canvas* canvas, const char* tag)

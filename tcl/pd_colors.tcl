@@ -13,6 +13,7 @@ namespace eval ::pd_colors:: {
     variable log_debug          "#484848"
     variable cord_control       "#444444"
     variable cord_signal        "#2200AA"
+    variable comment_border     "#BFBFBF"
 }
 
 if {[tk windowingsystem] eq "aqua"} {
@@ -26,4 +27,5 @@ if {[tk windowingsystem] eq "aqua"} {
     set ::pd_colors::obj_fill systemWindowBackgroundColor
     set ::pd_colors::obj_border systemWindowBackgroundColor6
     set ::pd_colors::cord_control systemWindowBackgroundColor6
+    set ::pd_colors::comment_border systemWindowBackgroundColor6
 }
