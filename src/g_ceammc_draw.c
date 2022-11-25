@@ -255,8 +255,8 @@ void g_listentry_move(t_canvas* canvas, const char* tag, int x1, int y1, int x2,
 
 void g_atom_select(t_canvas* canvas, const char* tag, int state)
 {
-    sys_vgui(".x%lx.c itemconfigure %sR -outline #%6.6x\n", canvas, tag,
-        (state ? STYLE_SELECT_COLOR : STYLE_BORDER_COLOR));
+    sys_vgui(".x%lx.c itemconfigure %sR -outline %s\n", canvas, tag,
+        (state ? "$::pd_colors::obj_border_selected" : "$::pd_colors::obj_border"));
 }
 
 void g_outlet_draw(t_canvas* canvas, t_object* obj, const char* tag, int idx, int x, int y, int zoom)
@@ -264,7 +264,6 @@ void g_outlet_draw(t_canvas* canvas, t_object* obj, const char* tag, int idx, in
     int iow = IOWIDTH * zoom;
     int oh = (OHEIGHT - 1) * zoom;
 
-#if defined(__APPLE__)
     if (obj_issignaloutlet(obj, idx)) {
         sys_vgui(".x%lx.c create rectangle %d %d %d %d "
                  "-tags [list %so%d outlet] -fill $::pd_colors::xlet_signal "
@@ -281,24 +280,6 @@ void g_outlet_draw(t_canvas* canvas, t_object* obj, const char* tag, int idx, in
             x + iow, y,
             tag, idx, zoom);
     }
-#else
-    if (obj_issignaloutlet(obj, idx)) {
-        sys_vgui(".x%lx.c create rectangle %d %d %d %d "
-                 "-tags [list %so%d outlet] -fill #%6.6x "
-                 "-outline #%6.6x -width %d\n",
-            canvas,
-            x, y - oh,
-            x + iow, y,
-            tag, idx, STYLE_AUDIO_XLET_COLOR, STYLE_AUDIO_XLET_COLOR, zoom);
-    } else {
-        sys_vgui(".x%lx.c create rectangle %d %d %d %d "
-                 "-tags [list %so%d outlet] -fill #%6.6x -outline #%6.6x -width %d\n",
-            canvas,
-            x, y - oh,
-            x + iow, y,
-            tag, idx, STYLE_FILL_COLOR, STYLE_CONTROL_XLET_COLOR, zoom);
-    }
-#endif
 }
 
 void g_outlet_move(t_canvas* canvas, const char* tag, int idx, int x, int y, int zoom)
@@ -316,7 +297,6 @@ void g_inlet_draw(t_canvas* canvas, t_object* obj, const char* tag, int idx, int
     int iow = IOWIDTH * zoom;
     int ih = IHEIGHT * zoom;
 
-#if defined(__APPLE__)
     if (obj_issignalinlet(obj, idx)) {
         sys_vgui(".x%lx.c create rectangle %d %d %d %d "
                  "-tags [list %si%d inlet] -fill $::pd_colors::xlet_signal "
@@ -327,21 +307,6 @@ void g_inlet_draw(t_canvas* canvas, t_object* obj, const char* tag, int idx, int
                  "-tags [list %si%d inlet] -outline $::pd_colors::xlet_control -width %d\n",
             canvas, x, y, x + iow, y + ih - zoom, tag, idx, zoom);
     }
-#else
-    if (obj_issignalinlet(obj, idx)) {
-        sys_vgui(".x%lx.c create rectangle %d %d %d %d "
-                 "-tags [list %si%d inlet] -fill #%6.6x "
-                 "-outline #%6.6x -width %d\n",
-            canvas, x, y, x + iow, y + ih - zoom, tag, idx,
-            STYLE_AUDIO_XLET_COLOR, STYLE_AUDIO_XLET_COLOR, zoom);
-    } else {
-        sys_vgui(".x%lx.c create rectangle %d %d %d %d "
-                 "-tags [list %si%d inlet] -fill #%6.6x "
-                 "-outline #%6.6x -width %d\n",
-            canvas, x, y, x + iow, y + ih - zoom, tag, idx,
-            STYLE_FILL_COLOR, STYLE_CONTROL_XLET_COLOR, zoom);
-    }
-#endif
 }
 
 void g_inlet_move(t_canvas* canvas, const char* tag, int idx, int x, int y, int zoom)
