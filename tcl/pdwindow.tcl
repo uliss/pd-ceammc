@@ -384,7 +384,7 @@ proc ::pdwindow::create_window {} {
     option add *PdWindow*Label.background $::pd_colors::window_background startupFile
     # option add *PdWindow*Checkbutton.background "grey" startupFile
     # option add *PdWindow*Menubutton.background "grey" startupFile
-    option add *PdWindow*Text.background $::pd_colors::window_background startupFile
+    option add *PdWindow*Text.background $::pd_colors::text_background startupFile
     option add *PdWindow*Entry.background $::pd_colors::window_background startupFile
     # ceammc end
 
