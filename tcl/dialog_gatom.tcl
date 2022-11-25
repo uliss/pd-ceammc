@@ -98,7 +98,7 @@ proc ::dialog_gatom::pdtk_gatom_dialog {mytoplevel initwidth initlower initupper
 proc ::dialog_gatom::create_dialog {mytoplevel} {
     global gatomlabel_radio
 
-    toplevel $mytoplevel -class DialogWindow
+    toplevel $mytoplevel -class DialogWindow -background $::pd_colors::window_background
     wm title $mytoplevel [_ "GUI Box Properties"]
     wm group $mytoplevel .
     wm resizable $mytoplevel 0 0
@@ -107,35 +107,44 @@ proc ::dialog_gatom::create_dialog {mytoplevel} {
     $mytoplevel configure -padx 0 -pady 0
     ::pd_bindings::dialog_bindings $mytoplevel "gatom"
 
-    frame $mytoplevel.buttonframe -pady 5
+    # ceammc: ttk
+    ttk::frame $mytoplevel.buttonframe
     pack $mytoplevel.buttonframe -side bottom -pady 2m
-    button $mytoplevel.buttonframe.cancel -text [_ "Cancel"] \
-        -command "::dialog_gatom::cancel $mytoplevel" -highlightcolor green
+    # ceammc: ttk button
+    ttk::button $mytoplevel.buttonframe.cancel -text [_ "Cancel"] \
+        -command "::dialog_gatom::cancel $mytoplevel"
     pack $mytoplevel.buttonframe.cancel -side left -expand 1 -fill x -padx 15 -ipadx 10
     if {$::windowingsystem ne "aqua"} {
-        button $mytoplevel.buttonframe.apply -text [_ "Apply"] \
+        # ceammc: ttk
+        ttk::button $mytoplevel.buttonframe.apply -text [_ "Apply"] \
             -command "::dialog_gatom::apply $mytoplevel"
         pack $mytoplevel.buttonframe.apply -side left -expand 1 -fill x -padx 15 -ipadx 10
     }
-    button $mytoplevel.buttonframe.ok -text [_ "OK"] \
+    # ceammc: ttk
+    ttk::button $mytoplevel.buttonframe.ok -text [_ "OK"] \
         -command "::dialog_gatom::ok $mytoplevel" -default active
     pack $mytoplevel.buttonframe.ok -side left -expand 1 -fill x -padx 15 -ipadx 10
 
-    labelframe $mytoplevel.s_r -text [_ "Messages"] -padx 5 -pady 5 -borderwidth 1
+    # ceammc: ttk::labelframe
+    ttk::labelframe $mytoplevel.s_r -text [_ "Messages"]
     pack $mytoplevel.s_r -side bottom -fill x
-    frame $mytoplevel.s_r.send
+    # ceammc: ttk
+    ttk::frame $mytoplevel.s_r.send
     pack $mytoplevel.s_r.send -side top -anchor e
-    label $mytoplevel.s_r.send.label -text [_ "Send symbol:"]
-    entry $mytoplevel.s_r.send.entry -width 21
+    # ceammc: ttk
+    ttk::label $mytoplevel.s_r.send.label -text [_ "Send symbol:"]
+    ttk::entry $mytoplevel.s_r.send.entry -width 21
     pack $mytoplevel.s_r.send.entry $mytoplevel.s_r.send.label -side right
 
-    frame $mytoplevel.s_r.receive
+    # ceammc: ttk
+    ttk::frame $mytoplevel.s_r.receive
     pack $mytoplevel.s_r.receive -side top -anchor e
-    label $mytoplevel.s_r.receive.label -text [_ "Receive symbol:"]
-    entry $mytoplevel.s_r.receive.entry -width 21
+    # ceammc: ttk
+    ttk::label $mytoplevel.s_r.receive.label -text [_ "Receive symbol:"]
+    ttk::entry $mytoplevel.s_r.receive.entry -width 21
     pack $mytoplevel.s_r.receive.entry $mytoplevel.s_r.receive.label -side right
 
-    labelframe $mytoplevel.fontsize -text [_ "Font Size"] -padx 5 -pady 4 -borderwidth 1 \
+    ttk::labelframe $mytoplevel.fontsize -text [_ "Font Size"] \
         -width [::msgcat::mcmax "Font Size"] -labelanchor n
     pack $mytoplevel.fontsize -side right -padx 5
     foreach size $::dialog_gatom::sizes {
@@ -144,46 +153,53 @@ proc ::dialog_gatom::create_dialog {mytoplevel} {
         } else {
             set sizetext $size
         }
-        radiobutton $mytoplevel.fontsize.radio$size -value $size -text $sizetext \
+        # ceammc: ttk
+        ttk::radiobutton $mytoplevel.fontsize.radio$size -value $size -text $sizetext \
             -variable ::dialog_gatom::fontsize
         pack $mytoplevel.fontsize.radio$size -side top -anchor w
     }
 
-    frame $mytoplevel.width -height 7
+    # ceammc: ttk
+    ttk::frame $mytoplevel.width -height 7
     pack $mytoplevel.width -side top
-    label $mytoplevel.width.label -text [_ "Width:"]
-    entry $mytoplevel.width.entry -width 4
+    # ceammc: ttk
+    ttk::label $mytoplevel.width.label -text [_ "Width:"]
+    ttk::entry $mytoplevel.width.entry -width 4
     pack $mytoplevel.width.label $mytoplevel.width.entry -side left
 
-    labelframe $mytoplevel.limits -text [_ "Limits"] -padx 15 -pady 4 -borderwidth 1
+    ttk::labelframe $mytoplevel.limits -text [_ "Limits"]
     pack $mytoplevel.limits -side top -fill x
-    frame $mytoplevel.limits.lower
+    # ceammc: ttk
+    ttk::frame $mytoplevel.limits.lower
     pack $mytoplevel.limits.lower -side left
-    label $mytoplevel.limits.lower.label -text [_ "Lower:"]
-    entry $mytoplevel.limits.lower.entry -width 7
+    ttk::label $mytoplevel.limits.lower.label -text [_ "Lower:"]
+    # ceammc: ttk
+    ttk::entry $mytoplevel.limits.lower.entry -width 7
     pack $mytoplevel.limits.lower.label $mytoplevel.limits.lower.entry -side left
-    frame $mytoplevel.limits.upper
+    # ceammc: ttk
+    ttk::frame $mytoplevel.limits.upper
     pack $mytoplevel.limits.upper -side left
-    label $mytoplevel.limits.upper.label -text [_ "Upper:"]
-    entry $mytoplevel.limits.upper.entry -width 7
+    # ceammc: ttk
+    ttk::label $mytoplevel.limits.upper.label -text [_ "Upper:"]
+    ttk::entry $mytoplevel.limits.upper.entry -width 7
     pack $mytoplevel.limits.upper.label $mytoplevel.limits.upper.entry -side left
 
-    labelframe $mytoplevel.gatomlabel -text [_ "Label"] -padx 5 -pady 5 -borderwidth 1
+    ttk::labelframe $mytoplevel.gatomlabel -text [_ "Label"]
     pack $mytoplevel.gatomlabel -side top -fill x -pady 5
-    frame $mytoplevel.gatomlabel.name
+    ttk::frame $mytoplevel.gatomlabel.name
     pack $mytoplevel.gatomlabel.name -side top
-    entry $mytoplevel.gatomlabel.name.entry -width 33
+    ttk::entry $mytoplevel.gatomlabel.name.entry -width 33
     pack $mytoplevel.gatomlabel.name.entry -side left
-    frame $mytoplevel.gatomlabel.radio
+    ttk::frame $mytoplevel.gatomlabel.radio
     pack $mytoplevel.gatomlabel.radio -side top
-    radiobutton $mytoplevel.gatomlabel.radio.left -value 0 -text [_ "Left"] \
-        -variable gatomlabel_radio($mytoplevel) -justify left -takefocus 0
-    radiobutton $mytoplevel.gatomlabel.radio.right -value 1 -text [_ "Right"] \
-        -variable gatomlabel_radio($mytoplevel) -justify left -takefocus 0
-    radiobutton $mytoplevel.gatomlabel.radio.top -value 2 -text [_ "Top"] \
-        -variable gatomlabel_radio($mytoplevel) -justify left -takefocus 0
-    radiobutton $mytoplevel.gatomlabel.radio.bottom -value 3 -text [_ "Bottom"] \
-        -variable gatomlabel_radio($mytoplevel) -justify left -takefocus 0
+    ttk::radiobutton $mytoplevel.gatomlabel.radio.left -value 0 -text [_ "Left"] \
+        -variable gatomlabel_radio($mytoplevel) -takefocus 0
+    ttk::radiobutton $mytoplevel.gatomlabel.radio.right -value 1 -text [_ "Right"] \
+        -variable gatomlabel_radio($mytoplevel) -takefocus 0
+    ttk::radiobutton $mytoplevel.gatomlabel.radio.top -value 2 -text [_ "Top"] \
+        -variable gatomlabel_radio($mytoplevel) -takefocus 0
+    ttk::radiobutton $mytoplevel.gatomlabel.radio.bottom -value 3 -text [_ "Bottom"] \
+        -variable gatomlabel_radio($mytoplevel) -takefocus 0
     pack $mytoplevel.gatomlabel.radio.left -side left -anchor w
     pack $mytoplevel.gatomlabel.radio.right -side right -anchor w
     pack $mytoplevel.gatomlabel.radio.top -side top -anchor w
@@ -213,13 +229,13 @@ proc ::dialog_gatom::create_dialog {mytoplevel} {
         bind $mytoplevel.s_r.receive.entry <KeyPress-Return> "::dialog_gatom::apply_and_rebind_return $mytoplevel"
 
         # unbind Return from ok button when an entry takes focus
-        $mytoplevel.width.entry config -validate focusin -vcmd "::dialog_gatom::unbind_return $mytoplevel"
-        $mytoplevel.width.entry config -validate focusin -vcmd "::dialog_gatom::unbind_return $mytoplevel"
-        $mytoplevel.limits.lower.entry config -validate focusin -vcmd "::dialog_gatom::unbind_return $mytoplevel"
-        $mytoplevel.limits.upper.entry config -validate focusin -vcmd "::dialog_gatom::unbind_return $mytoplevel"
-        $mytoplevel.gatomlabel.name.entry config -validate focusin -vcmd "::dialog_gatom::unbind_return $mytoplevel"
-        $mytoplevel.s_r.send.entry config -validate focusin -vcmd "::dialog_gatom::unbind_return $mytoplevel"
-        $mytoplevel.s_r.receive.entry config -validate focusin -vcmd "::dialog_gatom::unbind_return $mytoplevel"
+        $mytoplevel.width.entry config -validate focusin -validatecommand "::dialog_gatom::unbind_return $mytoplevel"
+        $mytoplevel.width.entry config -validate focusin -validatecommand "::dialog_gatom::unbind_return $mytoplevel"
+        $mytoplevel.limits.lower.entry config -validate focusin -validatecommand "::dialog_gatom::unbind_return $mytoplevel"
+        $mytoplevel.limits.upper.entry config -validate focusin -validatecommand "::dialog_gatom::unbind_return $mytoplevel"
+        $mytoplevel.gatomlabel.name.entry config -validate focusin -validatecommand "::dialog_gatom::unbind_return $mytoplevel"
+        $mytoplevel.s_r.send.entry config -validate focusin -validatecommand "::dialog_gatom::unbind_return $mytoplevel"
+        $mytoplevel.s_r.receive.entry config -validate focusin -validatecommand "::dialog_gatom::unbind_return $mytoplevel"
 
         # remove cancel button from focus list since it's not activated on Return
         $mytoplevel.buttonframe.cancel config -takefocus 0
@@ -230,8 +246,10 @@ proc ::dialog_gatom::create_dialog {mytoplevel} {
         bind $mytoplevel.buttonframe.ok <FocusOut> "$mytoplevel.buttonframe.ok config -default normal"
 
         # since we show the active focus, disable the highlight outline
-        $mytoplevel.buttonframe.ok config -highlightthickness 0
-        $mytoplevel.buttonframe.cancel config -highlightthickness 0
+        # ceammc disable
+        # $mytoplevel.buttonframe.ok config -highlightthickness 0
+        # $mytoplevel.buttonframe.cancel config -highlightthickness 0
+        # ceammc end
     }
 
     position_over_window $mytoplevel $::focused_window
