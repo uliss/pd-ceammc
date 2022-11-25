@@ -58,17 +58,16 @@ void g_gop_erase(t_canvas* canvas)
 void g_cord_draw(t_canvas* canvas, t_object* src, int outno, t_outconnect* oc,
     int x0, int y0, int x1, int y1, int zoom)
 {
-    int is_sig = obj_issignaloutlet(src, outno);
-    int cordw = (is_sig
+    int cordw = (obj_issignaloutlet(src, outno)
             ? STYLE_CORD_AUDIO_WIDTH
             : STYLE_CORD_CONTROL_WIDTH);
 
     sys_vgui(
         ".x%lx.c create line %d %d %d %d -capstyle round "
-        "-width %d -fill %s -tags [list l%lx cord]\n",
+        "-width %d -fill $::pd_colors::cord_normal -tags [list l%lx cord]\n",
         canvas,
         x0, y0, x1, y1,
-        cordw * zoom, is_sig ? "$::pd_colors::cord_signal" : "$::pd_colors::cord_control", oc);
+        cordw * zoom, oc);
 }
 
 void g_selection_draw(t_canvas* canvas, int x0, int y0, int x1, int y1)
@@ -88,12 +87,12 @@ void g_selection_clear(t_canvas* canvas)
 
 void g_cord_select(t_canvas* canvas, t_outconnect* oc)
 {
-    sys_vgui(".x%lx.c itemconfigure l%lx -fill #%6.6x\n", canvas, oc, STYLE_CORD_SELECTED);
+    sys_vgui(".x%lx.c itemconfigure l%lx -fill $::pd_colors::cord_selected\n", canvas, oc);
 }
 
 void g_cord_deselect(t_canvas* canvas, t_outconnect* oc)
 {
-    sys_vgui(".x%lx.c itemconfigure l%lx -fill #%6.6x\n", canvas, oc, STYLE_CORD_NORMAL);
+    sys_vgui(".x%lx.c itemconfigure l%lx -fill $::pd_colors::cord_normal\n", canvas, oc);
 }
 
 void g_cord_erase(t_canvas* canvas, t_outconnect* oc)
