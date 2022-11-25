@@ -2,9 +2,6 @@
 package provide pdwindow 0.1
 
 package require pd_connect
-# ceammc
-package require pd_colors
-# ceammc end
 
 namespace eval ::pdwindow:: {
     variable maxlogbuffer 21000 ;# if the logbuffer grows beyond this number, cut it
@@ -35,10 +32,9 @@ proc ::pdwindow::set_layout {} {
     .pdwindow.text.internal tag configure log0 -foreground "#d00" -background "#ffe0e8"
     .pdwindow.text.internal tag configure log1 -foreground "#d00"
     # ceammc: dark theme support for mac
-    if {$::windowingsystem eq "aqua"} { .pdwindow.text.internal tag configure log2 -foreground systemTextColor }
-    .pdwindow.text.internal tag configure log3 -foreground systemControlAccentColor
-    # ceammc: dark theme support for mac
-    if {$::windowingsystem eq "aqua"} { .pdwindow.text.internal tag configure log3 -foreground systemControlAccentColor }
+    .pdwindow.text.internal tag configure log2 -foreground $::pd_colors::log_print
+    .pdwindow.text.internal tag configure log3 -foreground $::pd_colors::log_debug
+    # ceammc end
 
     # 0-20(4-24) is a rough useful range of 'verbose' levels for impl debugging
     set start 4

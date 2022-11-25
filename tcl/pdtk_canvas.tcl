@@ -2,9 +2,6 @@
 package provide pdtk_canvas 0.1
 
 package require pd_bindings
-# ceammc
-package require pd_colors
-# ceammc end
 
 namespace eval ::pdtk_canvas:: {
 
