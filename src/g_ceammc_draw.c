@@ -406,6 +406,24 @@ void g_outlet_draw(t_canvas* canvas, t_object* obj, const char* tag, int idx, in
     int iow = IOWIDTH * zoom;
     int oh = (OHEIGHT - 1) * zoom;
 
+#if defined(__APPLE__)
+    if (obj_issignaloutlet(obj, idx)) {
+        sys_vgui(".x%lx.c create rectangle %d %d %d %d "
+                 "-tags [list %so%d outlet] -fill $::pd_colors::xlet_signal "
+                 "-outline $::pd_colors::xlet_signal -width %d\n",
+            canvas,
+            x, y - oh,
+            x + iow, y,
+            tag, idx, zoom);
+    } else {
+        sys_vgui(".x%lx.c create rectangle %d %d %d %d "
+                 "-tags [list %so%d outlet] -outline $::pd_colors::xlet_control -width %d\n",
+            canvas,
+            x, y - oh,
+            x + iow, y,
+            tag, idx, zoom);
+    }
+#else
     if (obj_issignaloutlet(obj, idx)) {
         sys_vgui(".x%lx.c create rectangle %d %d %d %d "
                  "-tags [list %so%d outlet] -fill #%6.6x "
@@ -422,6 +440,7 @@ void g_outlet_draw(t_canvas* canvas, t_object* obj, const char* tag, int idx, in
             x + iow, y,
             tag, idx, STYLE_FILL_COLOR, STYLE_CONTROL_XLET_COLOR, zoom);
     }
+#endif
 }
 
 void g_outlet_move(t_canvas* canvas, const char* tag, int idx, int x, int y, int zoom)
@@ -439,6 +458,18 @@ void g_inlet_draw(t_canvas* canvas, t_object* obj, const char* tag, int idx, int
     int iow = IOWIDTH * zoom;
     int ih = IHEIGHT * zoom;
 
+#if defined(__APPLE__)
+    if (obj_issignalinlet(obj, idx)) {
+        sys_vgui(".x%lx.c create rectangle %d %d %d %d "
+                 "-tags [list %si%d inlet] -fill $::pd_colors::xlet_signal "
+                 "-outline $::pd_colors::xlet_signal -width %d\n",
+            canvas, x, y, x + iow, y + ih - zoom, tag, idx, zoom);
+    } else {
+        sys_vgui(".x%lx.c create rectangle %d %d %d %d "
+                 "-tags [list %si%d inlet] -outline $::pd_colors::xlet_control -width %d\n",
+            canvas, x, y, x + iow, y + ih - zoom, tag, idx, zoom);
+    }
+#else
     if (obj_issignalinlet(obj, idx)) {
         sys_vgui(".x%lx.c create rectangle %d %d %d %d "
                  "-tags [list %si%d inlet] -fill #%6.6x "
@@ -452,6 +483,7 @@ void g_inlet_draw(t_canvas* canvas, t_object* obj, const char* tag, int idx, int
             canvas, x, y, x + iow, y + ih - zoom, tag, idx,
             STYLE_FILL_COLOR, STYLE_CONTROL_XLET_COLOR, zoom);
     }
+#endif
 }
 
 void g_inlet_move(t_canvas* canvas, const char* tag, int idx, int x, int y, int zoom)
