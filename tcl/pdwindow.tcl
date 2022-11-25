@@ -2,6 +2,9 @@
 package provide pdwindow 0.1
 
 package require pd_connect
+# ceammc
+package require pd_colors
+# ceammc end
 
 namespace eval ::pdwindow:: {
     variable maxlogbuffer 21000 ;# if the logbuffer grows beyond this number, cut it
@@ -380,25 +383,13 @@ proc ::pdwindow::create_window {} {
 
     # colorize by class before creating anything
     # ceammc: dark theme support
-    set bg_color lightgray
-    if {$::windowingsystem eq "aqua"} {
-        set bg_color systemWindowBackgroundColor
-        #option add *PdWindow*Entry.highlightBackground "grey" startupFile
-        option add *PdWindow*Frame.background systemWindowBackgroundColor startupFile
-        option add *PdWindow*Label.background systemWindowBackgroundColor startupFile
-        #option add *PdWindow*Checkbutton.background "grey" startupFile
-        #option add *PdWindow*Menubutton.background "grey" startupFile
-        option add *PdWindow*Text.background systemTextBackgroundColor startupFile
-        #option add *PdWindow*Entry.background "white" startupFile
-    } else {
-        option add *PdWindow*Entry.highlightBackground "grey" startupFile
-        option add *PdWindow*Frame.background "grey" startupFile
-        option add *PdWindow*Label.background "grey" startupFile
-        option add *PdWindow*Checkbutton.background "grey" startupFile
-        option add *PdWindow*Menubutton.background "grey" startupFile
-        option add *PdWindow*Text.background "white" startupFile
-        option add *PdWindow*Entry.background "white" startupFile
-    }
+    # option add *PdWindow*Entry.highlightBackground "grey" startupFile
+    option add *PdWindow*Frame.background $::pd_colors::window_background startupFile
+    option add *PdWindow*Label.background $::pd_colors::window_background startupFile
+    # option add *PdWindow*Checkbutton.background "grey" startupFile
+    # option add *PdWindow*Menubutton.background "grey" startupFile
+    option add *PdWindow*Text.background $::pd_colors::window_background startupFile
+    option add *PdWindow*Entry.background $::pd_colors::window_background startupFile
     # ceammc end
 
     toplevel .pdwindow -class PdWindow
@@ -434,9 +425,10 @@ proc ::pdwindow::create_window {} {
         -text [_ "Audio off"] -takefocus 0
 
 # DIO error label
+    # ceammc colors
     label .pdwindow.header.ioframe.dio \
         -text [_ "Audio I/O error"] -borderwidth 1 \
-        -background ${bg_color} -foreground ${bg_color} \
+        -background $::pd_colors::window_background -foreground $::pd_colors::window_background \
         -takefocus 0
 
     pack .pdwindow.header.ioframe.iostate .pdwindow.header.ioframe.dio \
@@ -452,9 +444,10 @@ proc ::pdwindow::create_window {} {
     lappend logmenuitems "2 [_ normal]"
     lappend logmenuitems "3 [_ debug]"
     lappend logmenuitems "4 [_ all]"
+    # ceammc colors
     set logmenu \
         [eval tk_optionMenu .pdwindow.header.logmenu ::loglevel $loglevels]
-    .pdwindow.header.logmenu configure -background ${bg_color}
+    .pdwindow.header.logmenu configure -background $::pd_colors::window_background
     foreach i $loglevels {
         $logmenu entryconfigure $i -label [lindex $logmenuitems $i]
     }
