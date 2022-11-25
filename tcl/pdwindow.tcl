@@ -408,7 +408,8 @@ proc ::pdwindow::create_window {} {
     }
     wm geometry .pdwindow =500x400
 
-    frame .pdwindow.header -borderwidth 1 -relief flat -background lightgray
+    # ceammc tcl dark theme
+    frame .pdwindow.header -borderwidth 1 -relief flat
     pack .pdwindow.header -side top -fill x -ipady 5
 
     frame .pdwindow.header.pad1
