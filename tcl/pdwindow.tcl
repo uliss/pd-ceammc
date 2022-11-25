@@ -423,26 +423,26 @@ proc ::pdwindow::create_window {} {
     pack .pdwindow.header.dsp -side right -fill y -anchor e -padx 5 -pady 0
 
 # frame for DIO error and audio in/out labels
-    frame .pdwindow.header.ioframe -background lightgray
+    # ceammc: tcl dark theme
+    ttk::frame .pdwindow.header.ioframe
     pack .pdwindow.header.ioframe -side right -padx 30
 
 # I/O state label (shows I/O on/off/in-only/out-only)
-    label .pdwindow.header.ioframe.iostate \
-        -text [_ "Audio off"] -borderwidth 1 \
-        -background lightgray -foreground black \
-        -takefocus 0
+    # ceammc: tcl dark theme
+    ttk::label .pdwindow.header.ioframe.iostate \
+        -text [_ "Audio off"] -takefocus 0
 
 # DIO error label
     label .pdwindow.header.ioframe.dio \
         -text [_ "Audio I/O error"] -borderwidth 1 \
-        -background lightgray -foreground lightgray \
+        -background ${bg_color} -foreground ${bg_color} \
         -takefocus 0
 
     pack .pdwindow.header.ioframe.iostate .pdwindow.header.ioframe.dio \
         -side top
 
-    label .pdwindow.header.loglabel -text [_ "Log:"] -anchor e \
-        -background lightgray
+    # ceammc: tcl dark theme
+    ttk::label .pdwindow.header.loglabel -text [_ "Log:"] -anchor e
     pack .pdwindow.header.loglabel -side left
 
     set loglevels {0 1 2 3 4}
@@ -453,7 +453,8 @@ proc ::pdwindow::create_window {} {
     lappend logmenuitems "4 [_ all]"
     set logmenu \
         [eval tk_optionMenu .pdwindow.header.logmenu ::loglevel $loglevels]
-    .pdwindow.header.logmenu configure -background lightgray
+    # ceammc disable
+    # .pdwindow.header.logmenu configure -background lightgray
     foreach i $loglevels {
         $logmenu entryconfigure $i -label [lindex $logmenuitems $i]
     }
