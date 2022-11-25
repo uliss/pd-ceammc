@@ -379,7 +379,9 @@ proc ::pdwindow::create_window {} {
 
     # colorize by class before creating anything
     # ceammc: dark theme support
+    set bg_color lightgray
     if {$::windowingsystem eq "aqua"} {
+        set bg_color systemWindowBackgroundColor
         #option add *PdWindow*Entry.highlightBackground "grey" startupFile
         option add *PdWindow*Frame.background systemWindowBackgroundColor startupFile
         option add *PdWindow*Label.background systemWindowBackgroundColor startupFile
