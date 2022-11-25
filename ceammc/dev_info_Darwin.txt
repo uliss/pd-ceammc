@@ -10,6 +10,7 @@ dev targets:
   * dev_touch_version - touch external info file, to update compilation date/time in load message
   * dev_build_all     - build targets: `ceammc_lib`, `app`, `app-zip` and `dmg`
   * dev_faust         - list all faust targets
+  * dev_tcl           - install tcl files to ./dist app folder
 
 deploy target:
   * deploy_github_appzip - upload PureData zipped app to github release

@@ -99,3 +99,10 @@ endforeach()
 # bashrc function for testing
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/bashrc_tests bashrc_tests @ONLY)
 
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/dev_sync_tcl.sh
+               ${PROJECT_BINARY_DIR}/dist/dev_sync_tcl.sh @ONLY)
+
+add_custom_target(dev_tcl
+    ${PROJECT_BINARY_DIR}/dist/dev_sync_tcl.sh
+    USES_TERMINAL)
+
