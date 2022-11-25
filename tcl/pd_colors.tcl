@@ -2,6 +2,7 @@ package provide pd_colors 0.1
 
 namespace eval ::pd_colors:: {
     variable window_background      "lightgray"
+    variable window_transparent     "lightgray"
     variable text_background        "white"
     variable xlet_signal            "#110088"
     variable xlet_control           "#555555"
@@ -20,6 +21,7 @@ namespace eval ::pd_colors:: {
 
 if {[tk windowingsystem] eq "aqua"} {
     set ::pd_colors::window_background  systemWindowBackgroundColor
+    set ::pd_colors::window_transparent systemTransparent
     set ::pd_colors::text_background    systemTextBackgroundColor
     set ::pd_colors::log_print          systemTextColor
     set ::pd_colors::log_debug          systemControlAccentColor
