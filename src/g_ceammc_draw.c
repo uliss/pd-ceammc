@@ -116,113 +116,6 @@ void g_connection_draw(t_canvas* canvas, int x0, int y0, int x1, int y1, int iss
         canvas, x0, y0, x1, y1, style_cord_width_by_type(issignal) * canvas->gl_zoom);
 }
 
-void g_figure_outfill(t_canvas* canvas, void* x, const char* figure_id, int color)
-{
-    sys_vgui(".x%lx.c itemconfigure %lx_%s -fill #%6.6x -outline #%6.6x \n",
-        canvas, x, figure_id, color, color);
-}
-
-void g_circle_draw_filled(t_canvas* canvas, void* x, const char* figure_id,
-    int xpos, int ypos, int w, int h, int zoom, int color)
-{
-    sys_vgui(".x%lx.c create oval %d %d %d %d -width %d -fill #%6.6x -tags %lx_%s\n",
-        canvas, xpos, ypos,
-        xpos + w, ypos + h, zoom,
-        color, x, figure_id);
-}
-
-void g_circle_move(t_canvas* canvas, void* x, const char* figure_id, int xpos, int ypos, int w, int h)
-{
-    sys_vgui(".x%lx.c coords %lx_%s %d %d %d %d\n",
-        canvas, x, figure_id,
-        xpos, ypos, xpos + w, ypos + h);
-}
-
-void g_figure_fill(t_canvas* canvas, void* x, const char* figure_id, int color)
-{
-    sys_vgui(".x%lx.c itemconfigure %lx_%s -fill #%6.6x\n",
-        canvas, x, figure_id, color);
-}
-void g_rect_draw_filled(t_canvas* canvas, void* x, const char* figure_id,
-    int xpos, int ypos, int w, int h, int color)
-{
-    sys_vgui(".x%lx.c create rectangle %d %d %d %d -fill #%6.6x -tags %lx_%s\n",
-        canvas, xpos, ypos, xpos + w, ypos + h, color, x, figure_id);
-}
-
-void g_rect_draw_outlined(t_canvas* canvas, void* x, const char* figure_id,
-    int xpos, int ypos, int w, int h, int line_wd, int color)
-{
-    sys_vgui(".x%lx.c create rectangle %d %d %d %d -width %d -outline #%6.6x -tags %lx_%s\n",
-        canvas, xpos, ypos, xpos + w, ypos + h, line_wd, color, x, figure_id);
-}
-
-void g_rect_draw_outfilled(t_canvas* canvas, void* x, const char* figure_id,
-    int xpos, int ypos, int w, int h, int color)
-{
-    sys_vgui(".x%lx.c create rectangle %d %d %d %d -fill #%6.6x -outline #%6.6x -tags %lx_%s\n",
-        canvas, xpos, ypos, xpos + w, ypos + h, color, color, x, figure_id);
-}
-
-void g_rect_move(t_canvas* canvas, void* x, const char* figure_id, int xpos, int ypos, int w, int h)
-{
-    sys_vgui(".x%lx.c coords %lx_%s %d %d %d %d\n",
-        canvas, x, figure_id,
-        xpos, ypos, xpos + w, ypos + h);
-}
-
-void g_text_draw(t_canvas* canvas, void* x, const char* figure_id, int xpos, int ypos, const char* txt)
-{
-    sys_vgui(".x%lx.c create text %d %d -text {%s} -tags %lx_%s\n",
-        canvas,
-        xpos, ypos,
-        txt,
-        x, figure_id);
-}
-
-void g_text_move(t_canvas* canvas, void* x, const char* figure_id, int xpos, int ypos)
-{
-    sys_vgui(".x%lx.c coords %lx_%s %d %d\n", canvas, x, figure_id, xpos, ypos);
-}
-
-void g_text_set(t_canvas* canvas, void* x, const char* figure_id, const char* txt)
-{
-    sys_vgui(".x%lx.c itemconfigure %lx_%s -text {%s} \n", canvas, x, figure_id, txt);
-}
-
-void g_text_color(t_canvas* canvas, void* x, const char* figure_id, int color)
-{
-    g_figure_fill(canvas, x, figure_id, color);
-}
-
-void g_text_font(t_canvas* canvas, void* x, const char* figure_id,
-    const char* font, int size, const char* weight)
-{
-    sys_vgui(".x%lx.c itemconfigure %lx_%s -font {{%s} -%d %s} \n",
-        canvas, x, figure_id, font, size, weight);
-}
-
-void g_text_anchor(t_canvas* canvas, void* x, const char* figure_id, const char* anchor)
-{
-    sys_vgui(".x%lx.c itemconfigure %lx_%s -anchor %s \n", canvas, x, figure_id, anchor);
-}
-
-void g_line_draw(t_canvas* canvas, void* x, const char* figure_id,
-    int xpos0, int ypos0, int xpos1, int ypos1, int width, int color)
-{
-    sys_vgui(".x%lx.c create line %d %d %d %d -width %d -fill #%6.6x -tags %lx_%s\n",
-        canvas,
-        xpos0, ypos0, xpos1, ypos1,
-        width, color, x, figure_id);
-}
-
-void g_line_move(t_canvas* canvas, void* x, const char* figure_id,
-    int xpos0, int ypos0, int xpos1, int ypos1)
-{
-    sys_vgui(".x%lx.c coords %lx_%s %d %d %d %d\n",
-        canvas, x, figure_id, xpos0, ypos0, xpos1, ypos1);
-}
-
 static const char digit_pairs[201] = {
     "00010203040506070809"
     "10111213141516171819"
@@ -316,59 +209,25 @@ int g_va_int2str(char* dest, size_t n, unsigned argc, ...)
     return rc;
 }
 
-void g_line_draw_var(t_canvas* canvas, void* x, const char* figure_id, unsigned ncoords, ...)
-{
-    va_list args;
-    va_start(args, ncoords);
-
-    char buf_int[VAR_INT_BUFFER_SIZE] = { 0 };
-    int rc = g_va_int2str_helper(buf_int, VAR_INT_BUFFER_SIZE, ncoords, args);
-
-    va_end(args);
-
-    if (rc != 0)
-        return;
-
-    sys_vgui(".x%lx.c create line %s -tags %lx_%s\n",
-        canvas, buf_int, x, figure_id);
-}
-
-void g_polygon_draw(t_canvas* canvas, void* x, const char* figure_id, unsigned ncoords, ...)
-{
-    va_list args;
-    va_start(args, ncoords);
-
-    char buf_int[VAR_INT_BUFFER_SIZE] = { 0 };
-    int rc = g_va_int2str_helper(buf_int, VAR_INT_BUFFER_SIZE, ncoords, args);
-
-    va_end(args);
-
-    if (rc != 0)
-        return;
-
-    sys_vgui(".x%lx.c create polygon %s -tags %lx_%s\n",
-        canvas, buf_int, x, figure_id);
-}
-
 void g_message_click(t_canvas* canvas, const char* tag)
 {
     sys_vgui(".x%lx.c itemconfigure %sR -width %d\n", canvas, tag, STYLE_BORDER_WIDTH_CLICKED);
-    sys_vgui(".x%lx.c itemconfigure %sR -outline #%6.6x\n", canvas, tag, STYLE_BORDER_COLOR_CLICKED);
+    sys_vgui(".x%lx.c itemconfigure %sR -outline $::pd_colors::msg_clicked\n", canvas, tag);
 }
 
 void g_message_normal(t_canvas* canvas, const char* tag)
 {
     sys_vgui(".x%lx.c itemconfigure %sR -width %d\n", canvas, tag, STYLE_BORDER_WIDTH * canvas->gl_zoom);
-    sys_vgui(".x%lx.c itemconfigure %sR -outline #%6.6x\n", canvas, tag, STYLE_BORDER_COLOR);
+    sys_vgui(".x%lx.c itemconfigure %sR -outline $::pd_colors::obj_border\n", canvas, tag);
 }
 
 void g_message_draw(t_canvas* canvas, const char* tag, int x1, int y1, int x2, int y2, int corner)
 {
     sys_vgui(".x%lx.c create polygon %d %d %d %d %d %d %d %d %d %d %d %d "
-             "-width %d -outline #%6.6x -fill #%6.6x -tags [list %sR msg]\n",
+             "-width %d -fill $::pd_colors::obj_fill -outline $::pd_colors::obj_border  -tags [list %sR msg]\n",
         canvas,
         x1, y1, x2 + corner, y1, x2, y1 + corner, x2, y2 - corner, x2 + corner, y2, x1, y2,
-        canvas->gl_zoom, STYLE_BORDER_COLOR, STYLE_FILL_COLOR, tag);
+        canvas->gl_zoom, tag);
 }
 
 void g_message_move(t_canvas* canvas, const char* tag, int x1, int y1, int x2, int y2, int corner)
@@ -381,10 +240,10 @@ void g_message_move(t_canvas* canvas, const char* tag, int x1, int y1, int x2, i
 void g_listentry_draw(t_canvas* canvas, const char* tag, int x1, int y1, int x2, int y2, int corner, int grabbed)
 {
     sys_vgui(".x%lx.c create polygon %d %d %d %d %d %d %d %d %d %d %d %d %d %d "
-             "-width %d -outline #%6.6x -fill #%6.6x -tags [list %sR msg]\n",
+             "-width %d -fill $::pd_colors::obj_fill -outline $::pd_colors::obj_border -tags [list %sR msg]\n",
         canvas,
         x1, y1, x2 - corner, y1, x2, y1 + corner, x2, y2 - corner, x2 - corner, y2, x1, y2, x1, y1,
-        canvas->gl_zoom, STYLE_BORDER_COLOR, STYLE_FILL_COLOR, tag);
+        canvas->gl_zoom, tag);
 }
 
 void g_listentry_move(t_canvas* canvas, const char* tag, int x1, int y1, int x2, int y2, int corner, int grabbed)
@@ -498,16 +357,9 @@ void g_inlet_move(t_canvas* canvas, const char* tag, int idx, int x, int y, int 
 void g_object_draw(t_canvas* canvas, const char* tag,
     int x1, int y1, int x2, int y2, int zoom, t_dash_pattern p)
 {
-#if defined(__APPLE__)
     sys_vgui(".x%lx.c create rectangle %d %d %d %d "
              " -dash %s -width %d -fill $::pd_colors::obj_fill -outline $::pd_colors::obj_border -tags [list %sR obj]\n",
         canvas, x1, y1, x2, y2, dash_pattern_str[p], zoom, tag);
-#else
-    sys_vgui(".x%lx.c create rectangle %d %d %d %d "
-             " -dash %s -width %d -fill #%6.6x -outline #%6.6x -tags [list %sR obj]\n",
-        canvas, x1, y1, x2, y2, dash_pattern_str[p], zoom,
-        STYLE_FILL_COLOR, STYLE_BORDER_COLOR, tag);
-#endif
 }
 
 void g_object_move(t_canvas* canvas, const char* tag,
