@@ -378,13 +378,25 @@ proc ::pdwindow::create_window {} {
     set ::loaded(.pdwindow) 0
 
     # colorize by class before creating anything
-    option add *PdWindow*Entry.highlightBackground "grey" startupFile
-    option add *PdWindow*Frame.background "grey" startupFile
-    option add *PdWindow*Label.background "grey" startupFile
-    option add *PdWindow*Checkbutton.background "grey" startupFile
-    option add *PdWindow*Menubutton.background "grey" startupFile
-    option add *PdWindow*Text.background "white" startupFile
-    option add *PdWindow*Entry.background "white" startupFile
+    # ceammc: dark theme support
+    if {$::windowingsystem eq "aqua"} {
+        #option add *PdWindow*Entry.highlightBackground "grey" startupFile
+        option add *PdWindow*Frame.background systemWindowBackgroundColor startupFile
+        option add *PdWindow*Label.background systemWindowBackgroundColor startupFile
+        #option add *PdWindow*Checkbutton.background "grey" startupFile
+        #option add *PdWindow*Menubutton.background "grey" startupFile
+        option add *PdWindow*Text.background systemTextBackgroundColor startupFile
+        #option add *PdWindow*Entry.background "white" startupFile
+    } else {
+        option add *PdWindow*Entry.highlightBackground "grey" startupFile
+        option add *PdWindow*Frame.background "grey" startupFile
+        option add *PdWindow*Label.background "grey" startupFile
+        option add *PdWindow*Checkbutton.background "grey" startupFile
+        option add *PdWindow*Menubutton.background "grey" startupFile
+        option add *PdWindow*Text.background "white" startupFile
+        option add *PdWindow*Entry.background "white" startupFile
+    }
+    # ceammc end
 
     toplevel .pdwindow -class PdWindow
     wm title .pdwindow [_ "Pd"]
