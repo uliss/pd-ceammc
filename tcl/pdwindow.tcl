@@ -453,8 +453,7 @@ proc ::pdwindow::create_window {} {
     lappend logmenuitems "4 [_ all]"
     set logmenu \
         [eval tk_optionMenu .pdwindow.header.logmenu ::loglevel $loglevels]
-    # ceammc disable
-    # .pdwindow.header.logmenu configure -background lightgray
+    .pdwindow.header.logmenu configure -background ${bg_color}
     foreach i $loglevels {
         $logmenu entryconfigure $i -label [lindex $logmenuitems $i]
     }
