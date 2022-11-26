@@ -1,7 +1,7 @@
 package provide pd_colors 0.1
 
 namespace eval ::pd_colors:: {
-    variable window_background      "lightgray"
+    variable window_background      [ttk::style lookup TFrame -background]
     variable window_transparent     "lightgray"
     variable text_background        "white"
     variable text                   "black"
