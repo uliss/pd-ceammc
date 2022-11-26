@@ -193,7 +193,8 @@ proc ::dialog_find::open_find_dialog {mytoplevel} {
 }
 
 proc ::dialog_find::create_dialog {mytoplevel} {
-    toplevel .find -class DialogWindow
+    # ceammc: bg color
+    toplevel .find -class DialogWindow -background $::pd_colors::window_background
     wm title .find [_ "Find"]
     wm geometry .find =475x125+150+150
     wm group .find .
