@@ -53,36 +53,35 @@ proc ::dialog_path::create_dialog {mytoplevel} {
     set readonly_color [lindex [$mytoplevel configure -background] end]
 
     # path options
-    frame $mytoplevel.extraframe
+    ttk::frame $mytoplevel.extraframe
     pack $mytoplevel.extraframe -side top -anchor s -fill x
-    checkbutton $mytoplevel.extraframe.extra -text [_ "Use standard paths"] \
-        -variable use_standard_paths_button -anchor w
-    checkbutton $mytoplevel.extraframe.verbose -text [_ "Verbose"] \
-        -variable verbose_button -anchor w
+    ttk::checkbutton $mytoplevel.extraframe.extra -text [_ "Use standard paths"] \
+        -variable use_standard_paths_button
+    ttk::checkbutton $mytoplevel.extraframe.verbose -text [_ "Verbose"] \
+        -variable verbose_button
     pack $mytoplevel.extraframe.extra -side left -expand 1
     pack $mytoplevel.extraframe.verbose -side right -expand 1
 
     # add docsdir path widgets if pd_docsdir is loaded
     if {[namespace exists ::pd_docsdir]} {
         set docspath $::pd_docsdir::docspath
-        labelframe $mytoplevel.docspath -text [_ "Pd Documents Directory"] \
-            -borderwidth 1 -padx 5 -pady 5
+        ttk::labelframe $mytoplevel.docspath -text [_ "Pd Documents Directory"]
         pack $mytoplevel.docspath -side top -anchor s -fill x -padx {2m 4m} -pady 2m
 
-        frame $mytoplevel.docspath.path
+        ttk::frame $mytoplevel.docspath.path
         pack $mytoplevel.docspath.path -fill x
-        entry $mytoplevel.docspath.path.entry -textvariable docspath \
-            -takefocus 0 -state readonly -readonlybackground $readonly_color
-        button $mytoplevel.docspath.path.browse -text [_ "Browse"] \
+        ttk::entry $mytoplevel.docspath.path.entry -textvariable docspath \
+            -takefocus 0 -state readonly
+        ttk::button $mytoplevel.docspath.path.browse -text [_ "Browse"] \
             -command "::dialog_path::browse_docspath $mytoplevel"
         pack $mytoplevel.docspath.path.browse -side right -fill x -ipadx 8
         pack $mytoplevel.docspath.path.entry -side right -expand 1 -fill x
 
-        frame $mytoplevel.docspath.buttons
+        ttk::frame $mytoplevel.docspath.buttons
         pack $mytoplevel.docspath.buttons -fill x
-        button $mytoplevel.docspath.buttons.reset -text [_ "Reset"] \
+        ttk::button $mytoplevel.docspath.buttons.reset -text [_ "Reset"] \
             -command "::dialog_path::reset_docspath $mytoplevel"
-        button $mytoplevel.docspath.buttons.disable -text [_ "Disable"] \
+        ttk::button $mytoplevel.docspath.buttons.disable -text [_ "Disable"] \
             -command "::dialog_path::disable_docspath $mytoplevel"
         pack $mytoplevel.docspath.buttons.reset -side left -ipadx 8
         pack $mytoplevel.docspath.buttons.disable -side left -ipadx 8
@@ -93,24 +92,23 @@ proc ::dialog_path::create_dialog {mytoplevel} {
 
     # add deken path widgets if deken is loaded
     if {[namespace exists ::deken]} {
-        labelframe $mytoplevel.installpath -text [_ "Externals Install Directory"] \
-            -borderwidth 1 -padx 5 -pady 5
+        ttk::labelframe $mytoplevel.installpath -text [_ "Externals Install Directory"]
         pack $mytoplevel.installpath -fill x -anchor s -padx {2m 4m} -pady 2m
 
-        frame $mytoplevel.installpath.path
+        ttk::frame $mytoplevel.installpath.path
         pack $mytoplevel.installpath.path -fill x
-        entry $mytoplevel.installpath.path.entry -textvariable installpath \
-            -takefocus 0 -state readonly -readonlybackground $readonly_color
-        button $mytoplevel.installpath.path.browse -text [_ "Browse"] \
+        ttk::entry $mytoplevel.installpath.path.entry -textvariable installpath \
+            -takefocus 0 -state readonly
+        ttk::button $mytoplevel.installpath.path.browse -text [_ "Browse"] \
             -command "::dialog_path::browse_installpath $mytoplevel"
         pack $mytoplevel.installpath.path.browse -side right -fill x -ipadx 8
         pack $mytoplevel.installpath.path.entry -side right -expand 1 -fill x
 
-        frame $mytoplevel.installpath.buttons
+        ttk::frame $mytoplevel.installpath.buttons
         pack $mytoplevel.installpath.buttons -fill x
-        button $mytoplevel.installpath.buttons.reset -text [_ "Reset"] \
+        ttk::button $mytoplevel.installpath.buttons.reset -text [_ "Reset"] \
             -command "::dialog_path::reset_installpath $mytoplevel"
-        button $mytoplevel.installpath.buttons.clear -text [_ "Clear"] \
+        ttk::button $mytoplevel.installpath.buttons.clear -text [_ "Clear"] \
             -command "::dialog_path::clear_installpath $mytoplevel"
         pack $mytoplevel.installpath.buttons.reset -side left -ipadx 8
         pack $mytoplevel.installpath.buttons.clear -side left -ipadx 8
@@ -135,8 +133,8 @@ proc ::dialog_path::create_dialog {mytoplevel} {
         bind $mytoplevel.nb.buttonframe.ok <FocusOut> "$mytoplevel.nb.buttonframe.ok config -default normal"
 
         # since we show the active focus, disable the highlight outline
-        $mytoplevel.nb.buttonframe.ok config -highlightthickness 0
-        $mytoplevel.nb.buttonframe.cancel config -highlightthickness 0
+        # $mytoplevel.nb.buttonframe.ok config -highlightthickness 0
+        # $mytoplevel.nb.buttonframe.cancel config -highlightthickness 0
     }
 
     # re-adjust height based on optional sections
