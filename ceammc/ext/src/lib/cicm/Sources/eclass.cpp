@@ -1548,12 +1548,6 @@ static void ewidget_init(t_eclass* c)
 #define DIALOG_WINDOW_PADX " -padx 8 "
 #define DIALOG_WINDOW_PADY " -pady 8 "
 
-#ifdef __APPLE__
-#define DIALOG_BACKGROUND " -background #ECECEC "
-#else
-#define DIALOG_BACKGROUND " -background #ECECEC "
-#endif
-
 static const char* dialog_frame_id(int i)
 {
     static char buf[100];
@@ -1715,18 +1709,18 @@ static void eclass_properties_dialog(t_eclass* c)
             "   wm minsize $id 200 300\n"
             "   bind $id <Key-Escape> \"destroy $id; break\"\n" /// close dialog by key-pressing 'Escape'
             "   raise [winfo toplevel $id]\n"
-            "   $id configure " DIALOG_BACKGROUND DIALOG_WINDOW_PADX DIALOG_WINDOW_PADY "\n"
+            "   $id configure " DIALOG_WINDOW_PADX DIALOG_WINDOW_PADY "\n"
             "   grid $fp\n",
             c->c_class.c_name->s_name);
         sys_gui(str.c_str());
     } else {
         auto str = fmt::format(
-            "   toplevel $id\n"
+            "   toplevel $id -background $::pd_colors::window_background\n"
             "   wm title $id [format [_ \"%s properties\" ] {{{0}}}] \n"
             "   wm minsize $id 200 300\n"
             "   bind $id <Key-Escape> \"destroy $id; break\"\n" /// close dialog by key-pressing 'Escape'
             "   raise [winfo toplevel $id]\n"
-            "   $id configure " DIALOG_BACKGROUND DIALOG_WINDOW_PADX DIALOG_WINDOW_PADY "\n"
+            "   $id configure " DIALOG_WINDOW_PADX DIALOG_WINDOW_PADY "\n"
             "   set fp [ttk::frame $id.f]\n"
             "   grid $fp\n",
             c->c_class.c_name->s_name);

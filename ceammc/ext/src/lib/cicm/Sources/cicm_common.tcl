@@ -501,16 +501,9 @@ proc comboboxScroll {id delta} {
 namespace eval sframe {
    # Create a scrollable frame or window.
    proc new {path args} {
-       # Use the ttk theme's background for the canvas and toplevel
-       set bg [ttk::style lookup TFrame -background]
-       if { [ttk::style theme use] eq "aqua" } {
-           # Use a specific color on the aqua theme as 'ttk::style lookup' is not accurate.
-           set bg "#e9e9e9"
-       }
-
        # Create the main frame or toplevel.
        if { [dict exists $args -toplevel]  &&  [dict get $args -toplevel] } {
-           toplevel $path -bg $bg
+           toplevel $path -background $::pd_colors::window_background
        } else {
            ttk::frame $path
        }
