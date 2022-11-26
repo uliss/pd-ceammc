@@ -787,9 +787,9 @@ proc ::deken::preferences::create_pathentry {toplevel row var path {generic fals
     set chk [::deken::preferences::newwidget ${toplevel}.doit]
     set pad [::deken::preferences::newwidget ${toplevel}.pad]
 
-    radiobutton ${rdb} -value ${path} -text "${path}" -variable $var
-    frame ${pad}
-    button ${chk} -text "..." -command "::deken::preferences::path_doit ${rdb} ${chk} ${xpath}"
+    ttk::radiobutton ${rdb} -value ${path} -text "${path}" -variable $var
+    ttk::frame ${pad}
+    ttk::button ${chk} -text "..." -command "::deken::preferences::path_doit ${rdb} ${chk} ${xpath}"
 
     grid ${rdb} -sticky "w"  -row ${row} -column 2
     grid ${pad} -sticky ""   -row ${row} -column 1 -padx 10
@@ -838,12 +838,13 @@ proc ::deken::preferences::create {winid} {
     #    - a directory chooser
     #  - whether to delete directories before re-extracting
     #  - whether to filter-out non-matching architectures
-    labelframe $winid.installdir -text [_ "Install externals to directory:" ] -padx 5 -pady 5 -borderwidth 1
+    # ceammc: ttk
+    ttk::labelframe $winid.installdir -text [_ "Install externals to directory:" ]
     canvas $winid.installdir.cnv \
         -confine true
-    scrollbar $winid.installdir.scrollv \
+    ttk::scrollbar $winid.installdir.scrollv \
         -command "$winid.installdir.cnv yview"
-    scrollbar $winid.installdir.scrollh \
+    ttk::scrollbar $winid.installdir.scrollh \
         -orient horizontal \
         -command "$winid.installdir.cnv xview"
     $winid.installdir.cnv configure \
@@ -907,24 +908,24 @@ proc ::deken::preferences::create {winid} {
     labelframe $winid.install -text [_ "Installation options:" ] -padx 5 -pady 5 -borderwidth 1
     pack $winid.install -side top -fill "x" -anchor "w"
 
-    checkbutton $winid.install.verify256 -text [_ "Try to verify the libraries' checksum before (re)installing them"] \
+    ttk::checkbutton $winid.install.verify256 -text [_ "Try to verify the libraries' checksum before (re)installing them"] \
         -variable ::deken::preferences::verify_sha256
     pack $winid.install.verify256 -anchor "w"
 
-    checkbutton $winid.install.remove -text [_ "Try to remove libraries before (re)installing them"] \
+    ttk::checkbutton $winid.install.remove -text [_ "Try to remove libraries before (re)installing them"] \
         -variable ::deken::preferences::remove_on_install
     pack $winid.install.remove -anchor "w"
 
-    checkbutton $winid.install.readme -text [_ "Show README of newly installed libraries (if present)"] \
+    ttk::checkbutton $winid.install.readme -text [_ "Show README of newly installed libraries (if present)"] \
         -variable ::deken::preferences::show_readme
     pack $winid.install.readme -anchor "w"
 
-    checkbutton $winid.install.keeppackage -text [_ "Keep package files after installation"] \
+    ttk::checkbutton $winid.install.keeppackage -text [_ "Keep package files after installation"] \
         -variable ::deken::preferences::keep_package
     pack $winid.install.keeppackage -anchor "w"
 
 
-    checkbutton $winid.install.add_to_path -text [_ "Add newly installed libraries to Pd's search path"] \
+    ttk::checkbutton $winid.install.add_to_path -text [_ "Add newly installed libraries to Pd's search path"] \
         -variable ::deken::preferences::add_to_path
     catch { $winid.install.add_to_path configure \
                 -tristatevalue 1 \
@@ -942,22 +943,22 @@ proc ::deken::preferences::create {winid} {
 
 
     ## platform filter settings
-    labelframe $winid.platform -text [_ "Platform settings:" ] -padx 5 -pady 5 -borderwidth 1
+    ttk::labelframe $winid.platform -text [_ "Platform settings:" ]
     pack $winid.platform -side top -fill "x" -anchor "w"
 
     # default architecture vs user-defined arch
-    radiobutton $winid.platform.default -value "DEFAULT" \
+    ttk::radiobutton $winid.platform.default -value "DEFAULT" \
         -text [format [_ "Default platform: %s" ] [::deken::platform2string ] ] \
         -variable ::deken::preferences::platform \
         -command "$winid.platform.userarch.entry configure -state disabled"
     pack $winid.platform.default -anchor "w"
 
-    frame $winid.platform.userarch
-    radiobutton $winid.platform.userarch.radio -value "USER" \
+    ttk::frame $winid.platform.userarch
+    ttk::radiobutton $winid.platform.userarch.radio -value "USER" \
         -text [_ "User-defined platform:" ] \
         -variable ::deken::preferences::platform \
         -command "$winid.platform.userarch.entry configure -state normal"
-    entry $winid.platform.userarch.entry -textvariable ::deken::preferences::userplatform
+    ttk::entry $winid.platform.userarch.entry -textvariable ::deken::preferences::userplatform
     if { "$::deken::preferences::platform" == "DEFAULT" } {
         $winid.platform.userarch.entry configure -state disabled
     }
@@ -969,31 +970,31 @@ proc ::deken::preferences::create {winid} {
     # hide non-matching architecture?
     ::deken::preferences::create_packpad $winid.platform 2 10
 
-    checkbutton $winid.platform.hide_foreign -text [_ "Hide foreign architectures"] \
+    ttk::checkbutton $winid.platform.hide_foreign -text [_ "Hide foreign architectures"] \
         -variable ::deken::preferences::hideforeignarch
     pack $winid.platform.hide_foreign -anchor "w"
-    checkbutton $winid.platform.only_newest -text [_ "Only show the newest version of a library\n(treats other versions like foreign architectures)"] \
+    ttk::checkbutton $winid.platform.only_newest -text [_ "Only show the newest version of a library\n(treats other versions like foreign architectures)"] \
         -variable ::deken::preferences::hideoldversions -justify "left"
     pack $winid.platform.only_newest -anchor "w"
 
 
     # Use two frames for the buttons, since we want them both bottom and right
-    frame $winid.nb
+    ttk::frame $winid.nb
     pack $winid.nb -side bottom -fill "x" -pady 2m
 
     # buttons
-    frame $winid.nb.buttonframe
+    ttk::frame $winid.nb.buttonframe
     pack $winid.nb.buttonframe -side right -fill "x" -padx 2m
 
-    button $winid.nb.buttonframe.cancel -text [_ "Cancel"] \
+    ttk::button $winid.nb.buttonframe.cancel -text [_ "Cancel"] \
         -command "::deken::preferences::cancel $winid"
     pack $winid.nb.buttonframe.cancel -side left -expand 1 -fill "x" -padx 15 -ipadx 10
     if {$::windowingsystem ne "aqua"} {
-        button $winid.nb.buttonframe.apply -text [_ "Apply"] \
+        ttk::button $winid.nb.buttonframe.apply -text [_ "Apply"] \
             -command "::deken::preferences::apply $winid"
         pack $winid.nb.buttonframe.apply -side left -expand 1 -fill "x" -padx 15 -ipadx 10
     }
-    button $winid.nb.buttonframe.ok -text [_ "OK"] \
+    ttk::button $winid.nb.buttonframe.ok -text [_ "OK"] \
         -command "::deken::preferences::ok $winid"
     pack $winid.nb.buttonframe.ok -side left -expand 1 -fill "x" -padx 15 -ipadx 10
 }
@@ -1013,7 +1014,7 @@ proc ::deken::preferences::show {{winid .deken_preferences}} {
         wm deiconify $winid
         raise $winid
     } else {
-        toplevel $winid -class DialogWindow
+        toplevel $winid -class DialogWindow -background $::pd_colors::window_background
         wm title $winid [format [_ "Deken %s Preferences"] $::deken::version]
 
         frame $winid.frame
@@ -1591,7 +1592,7 @@ proc ::deken::open_searchui {winid} {
 # build the externals search dialog window
 proc ::deken::create_dialog {winid} {
     variable resultsid
-    toplevel $winid -class DialogWindow
+    toplevel $winid -class DialogWindow -background $::pd_colors::text_background
     set ::deken::winid $winid
     set title  [_ "Find externals"]
     wm title $winid "deken - $title"
@@ -1612,23 +1613,23 @@ proc ::deken::create_dialog {winid} {
 
     $winid configure -menu $m
 
-    frame $winid.searchbit
+    ttk::frame $winid.searchbit
     pack $winid.searchbit -side top -fill "x"
 
-    entry $winid.searchbit.entry -font 18 -relief sunken -highlightthickness 1 -highlightcolor blue
+    ttk::entry $winid.searchbit.entry -font 18
     pack $winid.searchbit.entry -side left -padx 6 -fill "x" -expand true
     bind $winid.searchbit.entry <Key-Return> "::deken::initiate_search $winid"
     bind $winid.searchbit.entry <KeyRelease> "::deken::update_searchbutton $winid"
     focus $winid.searchbit.entry
-    button $winid.searchbit.button -text [_ "Show all"] -default active -command "::deken::initiate_search $winid"
+    ttk::button $winid.searchbit.button -text [_ "Show all"] -default active -command "::deken::initiate_search $winid"
     pack $winid.searchbit.button -side right -padx 6 -pady 3 -ipadx 10
 
-    frame $winid.objlib
+    ttk::frame $winid.objlib
     pack $winid.objlib -side top -fill "x"
-    label $winid.objlib.label -text [_ "Search for: "]
-    radiobutton $winid.objlib.libraries -text [_ "libraries"] -variable ::deken::searchtype -value libraries
-    radiobutton $winid.objlib.objects -text [_ "objects"] -variable ::deken::searchtype -value objects
-    radiobutton $winid.objlib.both -text [_ "both"] -variable ::deken::searchtype -value name
+    ttk::label $winid.objlib.label -text [_ "Search for: "]
+    ttk::radiobutton $winid.objlib.libraries -text [_ "libraries"] -variable ::deken::searchtype -value libraries
+    ttk::radiobutton $winid.objlib.objects -text [_ "objects"] -variable ::deken::searchtype -value objects
+    ttk::radiobutton $winid.objlib.both -text [_ "both"] -variable ::deken::searchtype -value name
     foreach x {label libraries objects both} {
         pack $winid.objlib.$x -side left -padx 6
     }
@@ -1637,9 +1638,9 @@ proc ::deken::create_dialog {winid} {
         radiobutton $winid.objlib.translations -text [_ "translations"] -variable ::deken::searchtype -value translations
         pack $winid.objlib.translations -side left -padx 6
     }
-    frame $winid.warning
+    ttk::frame $winid.warning
     pack $winid.warning -side top -fill "x"
-    label $winid.warning.label -text [_ "Only install externals uploaded by people you trust."]
+    ttk::label $winid.warning.label -text [_ "Only install externals uploaded by people you trust."]
     pack $winid.warning.label -side left -padx 6
 
     if { [catch {
@@ -1655,7 +1656,7 @@ proc ::deken::create_dialog {winid} {
         pack $winid.tab -side top -padx 6 -pady 3 -fill both -expand true
 
         text $winid.tab.info -takefocus 0 -cursor hand2 -height 100 -yscrollcommand "$winid.tab.info.ys set"
-        scrollbar $winid.tab.info.ys -orient vertical -command "$winid.tab.info yview"
+        ttk::scrollbar $winid.tab.info.ys -orient vertical -command "$winid.tab.info yview"
         pack $winid.tab.info.ys -side right -fill "y"
 
         if { [catch {
@@ -1672,7 +1673,7 @@ proc ::deken::create_dialog {winid} {
             $treeid heading uploader -text [_ "Uploader" ] -anchor center -command "::deken::treeresults::columnsort $treeid uploader"
             $treeid heading date -text [_ "Date" ] -anchor center -command "::deken::treeresults::columnsort $treeid date"
             $treeid column #0 -stretch 0
-            $treeid tag configure library -background lightgrey
+            $treeid tag configure library -background $::pd_colors::window_background
             $treeid tag configure noarchmatch -foreground lightgrey
             $treeid tag configure selpkg -background lightblue
 
@@ -1687,12 +1688,12 @@ proc ::deken::create_dialog {winid} {
             proc ::deken::clear_results {resultsid} { ::deken::treeresults::clear $resultsid}
             proc ::deken::clear_selection {resultsid} { ::deken::treeresults::clear_selection $resultsid }
 
-            scrollbar $winid.tab.results.ys -orient vertical -command "$winid.tab.results yview"
+            ttk::scrollbar $winid.tab.results.ys -orient vertical -command "$winid.tab.results yview"
             pack $winid.tab.results.ys -side right -fill "y"
 
         } ] } {
             text $winid.tab.results -takefocus 0 -cursor hand2 -height 100 -yscrollcommand "$winid.tab.results.ys set"
-            scrollbar $winid.tab.results.ys -orient vertical -command "$winid.tab.results yview"
+            ttk::scrollbar $winid.tab.results.ys -orient vertical -command "$winid.tab.results yview"
             pack $winid.tab.results.ys -side right -fill "y"
         }
 
@@ -1705,27 +1706,27 @@ proc ::deken::create_dialog {winid} {
         set infoid $winid.tab.info
     } ] } {
         text $winid.results -takefocus 0 -cursor hand2 -height 100 -yscrollcommand "$winid.results.ys set"
-        scrollbar $winid.results.ys -orient vertical -command "$winid.results yview"
+        ttk::scrollbar $winid.results.ys -orient vertical -command "$winid.results yview"
         pack $winid.results.ys -side right -fill "y"
         pack $winid.results -side top -padx 6 -pady 3 -fill both -expand true
     }
 
-    frame $winid.progress
+    ttk::frame $winid.progress
     pack $winid.progress -side top -fill "x"
     if { ! [ catch {
         ttk::progressbar $winid.progress.bar -orient horizontal -length 640 -maximum 100 -mode determinate -variable ::deken::progressvar } stdout ] } {
         pack $winid.progress.bar -side top -fill "x"
         proc ::deken::progress {x} { set ::deken::progressvar $x }
-        label ${winid}.progress.label -textvariable ::deken::progresstext -padx 0 -borderwidth 0
+        ttk::label ${winid}.progress.label -textvariable ::deken::progresstext
         place ${winid}.progress.label -in ${winid}.progress.bar -x 1
     }
 
-    frame $winid.status
+    ttk::frame $winid.status
     pack $winid.status -side bottom -fill "x" -pady 3
-    label $winid.status.label -textvariable ::deken::statustext -relief sunken -anchor "w"
+    ttk::label $winid.status.label -textvariable ::deken::statustext -relief sunken
     pack $winid.status.label -side bottom -fill "x"
 
-    button $winid.status.install -text [_ "Install" ] \
+    ttk::button $winid.status.install -text [_ "Install" ] \
         -state disabled \
         -command "::deken::menu_installselected $resultsid"
 
@@ -2321,11 +2322,9 @@ namespace eval ::deken::balloon {
 proc ::deken::balloon::show {winid x y msg {x_offset 0} {y_offset 0}} {
     set ::deken::balloon::message($winid) $msg
     if {![winfo exist $winid]} {
-        toplevel ${winid}
+        toplevel ${winid} -background $::pd_colors::window_background
         wm overrideredirect ${winid} 1
-        label ${winid}.label \
-            -highlightthick 0 -relief solid -borderwidth 1 \
-            -textvariable ::deken::balloon::message($winid)
+        ttk::label ${winid}.label -textvariable ::deken::balloon::message($winid)
         pack ${winid}.label -expand 1 -fill x
     }
 
