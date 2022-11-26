@@ -4,6 +4,7 @@ namespace eval ::pd_colors:: {
     variable window_background      "lightgray"
     variable window_transparent     "lightgray"
     variable text_background        "white"
+    variable text                   "black"
     variable xlet_signal            "#110088"
     variable xlet_control           "#555555"
     variable obj_fill               "#F5F8F8"
@@ -16,12 +17,13 @@ namespace eval ::pd_colors:: {
     variable cord_normal            "#555555"
     variable cord_selected          "#1441E6"
     variable comment_border         "#BFBFBF"
-    variable msg_clicked            "#00AAFF"
+    variable msg_clicked            "#00AAFF" 
 }
 
 if {[tk windowingsystem] eq "aqua"} {
     set ::pd_colors::window_background  systemWindowBackgroundColor
     set ::pd_colors::window_transparent systemTransparent
+    set ::pd_colors::text               systemTextColor
     set ::pd_colors::text_background    systemTextBackgroundColor
     set ::pd_colors::log_print          systemTextColor
     set ::pd_colors::log_debug          systemControlAccentColor

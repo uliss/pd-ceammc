@@ -132,15 +132,17 @@ proc ::scrollbox::release { mytoplevel x y } {
 # add_method - method to be called when we add a new item
 # edit_method - method to be called when we edit an existing item
 proc ::scrollbox::make { mytoplevel listdata add_method edit_method } {
-    # ceammc: padding added
-    frame $mytoplevel.listbox -pady 1 -padx 3 -relief groove -bd 1
+    # ceammc: padding
+    frame $mytoplevel.listbox -pady 1 -padx 3 -relief solid -bd 1 -background $::pd_colors::window_background
     listbox $mytoplevel.listbox.box -relief raised -bd 0 -highlightthickness 0 \
         -selectmode browse -activestyle dotbox \
+        -background $::pd_colors::window_background \
+        -foreground $::pd_colors::text \
         -yscrollcommand [list "$mytoplevel.listbox.scrollbar" set]
 
     # Create a scrollbar and keep it in sync with the current
     # listbox view
-    pack $mytoplevel.listbox.box [scrollbar "$mytoplevel.listbox.scrollbar" \
+    pack $mytoplevel.listbox.box [ttk::scrollbar "$mytoplevel.listbox.scrollbar" \
                               -command [list $mytoplevel.listbox.box yview]] \
         -side left -fill y -anchor w
 
@@ -174,17 +176,17 @@ proc ::scrollbox::make { mytoplevel listdata add_method edit_method } {
     # All widget interactions can be performed without buttons, but
     # we still need a "New..." button since the currently visible window
     # might be full (even though the user can still expand it)
-    frame $mytoplevel.actions
+    ttk::frame $mytoplevel.actions
     pack $mytoplevel.actions -side top -padx 2m -fill x
-    # ceammc padx
-    button $mytoplevel.actions.add_path -text [_ "New..." ] \
-        -command "::scrollbox::add_item $mytoplevel $add_method" -padx 10
-    # ceammc padx
-    button $mytoplevel.actions.edit_path -text [_ "Edit..." ] \
-        -command "::scrollbox::edit_item $mytoplevel $edit_method" -padx 10
-    # ceammc padx
-    button $mytoplevel.actions.delete_path -text [_ "Delete" ] \
-        -command "::scrollbox::delete_item $mytoplevel" -padx 10
+    # ceammc ttk
+    ttk::button $mytoplevel.actions.add_path -text [_ "New..." ] \
+        -command "::scrollbox::add_item $mytoplevel $add_method"
+    # ceammc ttk
+    ttk::button $mytoplevel.actions.edit_path -text [_ "Edit..." ] \
+        -command "::scrollbox::edit_item $mytoplevel $edit_method"
+    # ceammc ttk
+    ttk::button $mytoplevel.actions.delete_path -text [_ "Delete" ] \
+        -command "::scrollbox::delete_item $mytoplevel"
 
     pack $mytoplevel.actions.delete_path -side right -pady 2m -padx 5 -ipadx 10
     pack $mytoplevel.actions.edit_path -side right -pady 2m -padx 5 -ipadx 10
