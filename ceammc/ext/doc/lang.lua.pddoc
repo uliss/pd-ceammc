@@ -14,14 +14,15 @@
             <since>0.9.5</since>
         </meta>
         <mouse>
-            <event editmode="0" type="left-click">open Lua code in editor</event>
+            <event editmode="0" type="left-click">open Lua code in the editor</event>
         </mouse>
         <info>
             <par>Lua code is executed in separated thread in async mode.</par>
             <par>Each lang.lua object has own independent context.</par>
         </info>
         <arguments>
-            <argument name="FNAME" type="symbol">path to faust dsp file</argument>
+            <argument name="NIN" type="int">number of inputs</argument>
+            <argument name="NOUT" type="int">number of outputs</argument>
         </arguments>
         <methods>
             <method name="load">load lua file and eval it 

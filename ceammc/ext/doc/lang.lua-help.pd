@@ -22,68 +22,72 @@
 #X obj 20 323 cnv 5 115 26 empty empty mouse_events: 4 10 0 14 -262144
 -49933 0;
 #X text 110 358 Left-click;
-#X text 285 358 open Lua code in editor.;
+#X text 285 358 open Lua code in the editor.;
 #X obj 20 388 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 393 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 110 428 1\.;
-#X text 150 428 symbol;
-#X obj 246 429 cnv 1 46 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 428 FNAME: path to faust dsp file. Type: symbol.;
-#X obj 20 458 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 463 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 150 428 int;
+#X obj 246 429 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 428 NIN: number of inputs. Type: int.;
+#X text 110 448 2\.;
+#X text 150 448 int;
+#X obj 246 449 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 448 NOUT: number of outputs. Type: int.;
+#X obj 20 478 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 483 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 498 @in;
-#X text 245 498 Get/Set number of inputs. Type: int. Default value:
+#X msg 110 518 @in;
+#X text 245 518 Get/Set number of inputs. Type: int. Default value:
 1\. Range: 1\...16\.;
-#X msg 110 540 @out;
-#X text 245 540 Get/Set number of outputs. Type: int. Default value:
+#X msg 110 560 @out;
+#X text 245 560 Get/Set number of outputs. Type: int. Default value:
 1\. Range: 1\...16\.;
-#X obj 20 592 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 597 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 612 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 617 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 632 call;
-#X text 245 632 call lua function. Arguments are:;
-#X obj 255 655 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 655 FN: function name. Type: symbol.;
-#X obj 255 678 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 678 [ARGS]: function arguments. Type: list.;
-#X msg 110 703 eval;
-#X text 245 703 eval lua code. Arguments are:;
-#X obj 255 726 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 726 CODE: lua code. Type: list.;
-#X msg 110 751 load;
-#X text 245 751 load lua file and eval it. Arguments are:;
-#X obj 255 774 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 774 PATH: path to lua file. Type: list.;
-#X msg 110 799 quit;
-#X text 245 799 abort lua script execution.;
-#X obj 20 836 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 841 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 110 652 call;
+#X text 245 652 call lua function. Arguments are:;
+#X obj 255 675 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 675 FN: function name. Type: symbol.;
+#X obj 255 698 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 698 [ARGS]: function arguments. Type: list.;
+#X msg 110 723 eval;
+#X text 245 723 eval lua code. Arguments are:;
+#X obj 255 746 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 746 CODE: lua code. Type: list.;
+#X msg 110 771 load;
+#X text 245 771 load lua file and eval it. Arguments are:;
+#X obj 255 794 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 794 PATH: path to lua file. Type: list.;
+#X msg 110 819 quit;
+#X text 245 819 abort lua script execution.;
+#X obj 20 856 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 861 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 842 1\.;
-#X text 245 842 first lua input.;
-#X text 110 862 ....;
-#X text 245 862 ... lua input.;
-#X text 110 882 n.;
-#X text 245 882 n-th lua input.;
-#X obj 20 912 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 917 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 862 1\.;
+#X text 245 862 first lua input.;
+#X text 110 882 ....;
+#X text 245 882 ... lua input.;
+#X text 110 902 n.;
+#X text 245 902 n-th lua input.;
+#X obj 20 932 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 937 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 918 1\.;
-#X text 245 918 first lua output.;
-#X text 110 938 ....;
-#X text 245 938 ... lua output.;
-#X text 110 958 n.;
-#X text 245 958 n-th lua output.;
+#X text 110 938 1\.;
+#X text 245 938 first lua output.;
+#X text 110 958 ....;
+#X text 245 958 ... lua output.;
+#X text 110 978 n.;
+#X text 245 978 n-th lua output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title lang @url ceammc.lang-help.pd;
-#X obj 1 1008 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1011 library: ceammc v0.9.5;
-#N canvas 10 1030 400 290 info 0;
+#X obj 1 1028 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1031 library: ceammc v0.9.5;
+#N canvas 10 1050 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -107,7 +111,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1030 pd info;
+#X restore 10 1050 pd info;
 #X connect 7 0 13 0;
 #X connect 8 0 13 0;
 #X connect 9 0 13 1;
