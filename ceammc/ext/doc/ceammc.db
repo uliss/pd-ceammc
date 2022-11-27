@@ -21,7 +21,6 @@ array.play~,array.p~		.		~..
 array.plot		..		.
 array.plot~		~.		-
 array.resample,array.r		.		.
-array.risset_rythm~		.		.
 array.rms		.		.
 array.s2p,array.s->p,array.sample->phase		.		.
 array.set,ceammc/list->array,list->array		.		-
@@ -126,7 +125,6 @@ env2array,ceammc/env2array,ceammc/env->array,env->array		.		.
 env2vline,ceammc/env2vline,ceammc/env->vline,env->vline		.		.
 envelope,ceammc/envelope,ceammc/env,env		.		.
 expand_env,ceammc/expand_env		.		.
-file		.		..
 file.size		.		.
 flow.append		..		.
 flow.change		..		.
@@ -582,7 +580,6 @@ proto.feelworld		.		.
 proto.firmata		.		.
 proto.inscore		.		.
 proto.midi		.		.
-proto.midi.casio		.		.
 proto.midi.cc		.		.
 proto.midi.sysex		.		.
 proto.moppy		.		.
