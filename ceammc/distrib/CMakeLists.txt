@@ -102,7 +102,12 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/bashrc_tests bashrc_tests @ONLY)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/dev_sync_tcl.sh
                ${PROJECT_BINARY_DIR}/dist/dev_sync_tcl.sh @ONLY)
 
-add_custom_target(dev_tcl
-    ${PROJECT_BINARY_DIR}/dist/dev_sync_tcl.sh
-    USES_TERMINAL)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/dev_sync_pd.sh
+              ${PROJECT_BINARY_DIR}/dist/dev_sync_pd.sh @ONLY)
 
+add_custom_target(dev_tcl
+    ${PROJECT_BINARY_DIR}/dist/dev_sync_tcl.sh)
+
+add_custom_target(dev_pd
+    ${PROJECT_BINARY_DIR}/dist/dev_sync_pd.sh $<TARGET_FILE:pd>
+    USES_TERMINAL)
