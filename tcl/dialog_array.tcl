@@ -173,7 +173,7 @@ proc ::dialog_array::pdtk_array_listview_new {id arrayName page} {
     ttk::button $windowName.buttons.prev -text "\u2190" \
         -command "::dialog_array::listview_changepage \{$arrayName\} -1"
     # ceammc: ttk
-    button $windowName.buttons.next -text "\u2192" \
+    ttk::button $windowName.buttons.next -text "\u2192" \
         -command "::dialog_array::listview_changepage \{$arrayName\} 1"
 
     # ceammc: ttk
@@ -450,7 +450,7 @@ proc ::dialog_array::create_dialog {mytoplevel newone xabs yabs} {
             -command "::dialog_array::openlistview $mytoplevel [$mytoplevel.array.name.entry get]"
         pack $mytoplevel.options.listview -side top
         ttk::checkbutton $mytoplevel.options.deletearray -text [_ "Delete array"] \
-            -variable ::dialog_array::otherflag_button($mytoplevel) -anchor w
+            -variable ::dialog_array::otherflag_button($mytoplevel)
         pack $mytoplevel.options.deletearray -side top
     }
 
