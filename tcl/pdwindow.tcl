@@ -241,11 +241,13 @@ proc ::pdwindow::pdtk_pd_dsp {value} {
 }
 
 proc ::pdwindow::pdtk_pd_dio {red} {
+    # ceammc
     if {$red == 1} {
-        .pdwindow.header.ioframe.dio configure -foreground red
+        .pdwindow.header.ioframe.dio configure -text [_ "Audio I/O error"]
     } else {
-        .pdwindow.header.ioframe.dio configure -foreground lightgray
+        .pdwindow.header.ioframe.dio configure -text {}
     }
+    # ceammc end
 }
 
 proc ::pdwindow::pdtk_pd_audio {state} {
@@ -399,10 +401,10 @@ proc ::pdwindow::create_window {} {
     wm geometry .pdwindow =500x400
 
     # ceammc tcl dark theme
-    frame .pdwindow.header -borderwidth 1 -relief flat
+    ttk::frame .pdwindow.header
     pack .pdwindow.header -side top -fill x -ipady 5
 
-    frame .pdwindow.header.pad1
+    ttk::frame .pdwindow.header.pad1
     pack .pdwindow.header.pad1 -side left -padx 12
 
     # ceammc: using ttk
@@ -422,10 +424,7 @@ proc ::pdwindow::create_window {} {
 
 # DIO error label
     # ceammc colors
-    label .pdwindow.header.ioframe.dio \
-        -text [_ "Audio I/O error"] -borderwidth 1 \
-        -background $::pd_colors::window_background -foreground $::pd_colors::window_background \
-        -takefocus 0
+    ttk::label .pdwindow.header.ioframe.dio -takefocus 0
 
     pack .pdwindow.header.ioframe.iostate .pdwindow.header.ioframe.dio \
         -side top
