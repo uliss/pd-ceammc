@@ -64,11 +64,17 @@ target_include_directories(ceammc_faust PRIVATE
 
 if(COMMAND llvm_map_components_to_libnames)
     set(llvm_libs)
-    if(CMAKE_OSX_ARCHITECTURES STREQUAL "arm64")
-        llvm_map_components_to_libnames(llvm_libs_arm64
-            AArch64AsmParser AArch64Info AArch64Desc AArch64CodeGen)
-        list(APPEND llvm_libs ${llvm_libs_arm64})
-    elseif (CMAKE_OSX_ARCHITECTURES STREQUAL "x86_64")
+    if(APPLE)
+        if(CMAKE_OSX_ARCHITECTURES STREQUAL "arm64")
+            llvm_map_components_to_libnames(llvm_libs_arm64
+                AArch64AsmParser AArch64Info AArch64Desc AArch64CodeGen)
+            list(APPEND llvm_libs ${llvm_libs_arm64})
+        else (CMAKE_OSX_ARCHITECTURES STREQUAL "x86_64")
+            llvm_map_components_to_libnames(llvm_libs_x86
+                x86asmparser x86info x86desc x86codegen)
+            list(APPEND llvm_libs ${llvm_libs_x86})
+        endif()
+    elseif(WIN32)
         llvm_map_components_to_libnames(llvm_libs_x86
             x86asmparser x86info x86desc x86codegen)
         list(APPEND llvm_libs ${llvm_libs_x86})
