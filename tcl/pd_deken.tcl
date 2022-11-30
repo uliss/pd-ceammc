@@ -866,7 +866,6 @@ proc ::deken::preferences::create {winid} {
     set pathdoit [::deken::preferences::create_pathentry ${pathsframe} ${row} ::deken::preferences::installpath "USER" true]
     incr row
     [lindex $pathdoit 0] configure \
-        -foreground blue \
         -value "USER" \
         -textvariable ::deken::preferences::userinstallpath \
         -variable ::deken::preferences::installpath
@@ -974,7 +973,7 @@ proc ::deken::preferences::create {winid} {
         -variable ::deken::preferences::hideforeignarch
     pack $winid.platform.hide_foreign -anchor "w"
     ttk::checkbutton $winid.platform.only_newest -text [_ "Only show the newest version of a library\n(treats other versions like foreign architectures)"] \
-        -variable ::deken::preferences::hideoldversions -justify "left"
+        -variable ::deken::preferences::hideoldversions
     pack $winid.platform.only_newest -anchor "w"
 
 
