@@ -110,4 +110,5 @@ add_custom_target(dev_tcl
 
 add_custom_target(dev_pd
     ${PROJECT_BINARY_DIR}/dist/dev_sync_pd.sh $<TARGET_FILE:pd>
+    DEPENDS pd
     USES_TERMINAL)
