@@ -31,27 +31,27 @@ proc ::dialog_data::pdtk_data_dialog {mytoplevel stuff} {
         set modkeyname "Cmd"
     }
 
-    toplevel $mytoplevel -class DialogWindow
+    toplevel $mytoplevel -class DialogWindow -background $::pd_colors::window_background
     wm title $mytoplevel [_ "Data Properties"]
     wm group $mytoplevel $::focused_window
     wm transient $mytoplevel $::focused_window
     $mytoplevel configure -menu $::dialog_menubar
     $mytoplevel configure -padx 0 -pady 0
 
-    frame $mytoplevel.buttonframe
+    ttk::frame $mytoplevel.buttonframe
     pack $mytoplevel.buttonframe -side bottom -pady 2m
     set label [_ "Send"]
-    button $mytoplevel.buttonframe.send -text "$label ($modkeyname-S)" \
+    ttk::button $mytoplevel.buttonframe.send -text "$label ($modkeyname-S)" \
         -command "::dialog_data::send $mytoplevel"
     set label [_ "Done"]
-    button $mytoplevel.buttonframe.ok -text "$label ($modkeyname-D)" \
+    ttk::button $mytoplevel.buttonframe.ok -text "$label ($modkeyname-D)" \
         -command "::dialog_data::ok $mytoplevel"
     pack $mytoplevel.buttonframe.send -side left -expand 1 -padx 15 -ipadx 10
     pack $mytoplevel.buttonframe.ok -side left -expand 1 -padx 15 -ipadx 10
 
     text $mytoplevel.text -relief raised -highlightthickness 0 -bd 2 -height 40 -width 60 \
         -yscrollcommand "$mytoplevel.scroll set" -background white
-    scrollbar $mytoplevel.scroll -command "$mytoplevel.text yview"
+    ttk::scrollbar $mytoplevel.scroll -command "$mytoplevel.text yview"
     pack $mytoplevel.scroll -side right -fill y
     pack $mytoplevel.text -side left -fill both -expand 1
     $mytoplevel.text insert end $stuff
