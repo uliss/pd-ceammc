@@ -24,6 +24,7 @@
 #pragma clang diagnostic pop
 
 #include <array>
+#include <algorithm>
 #include <cstdint>
 #include <iostream>
 #include <vector>
