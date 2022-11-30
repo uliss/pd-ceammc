@@ -1857,12 +1857,15 @@ static void plot_vis(t_gobj *z, t_glist *glist,
                     maxyval = yval;
                 if (i == nelem-1 || inextx != ixpix)
                 {
-
-                    pdgui_vmess(0, "crr iiii rk rf rS",
+                    // ceammc
+                    int theme_color = (color == 0);
+                    void* ncolor = theme_color ? (void*)"$::pd_colors::obj_text" : (void*)(intptr_t)color;
+                    // ceammc end
+                    pdgui_vmess(0, theme_color ? "crr iiii rr rf rS" : "crr iiii rk rf rS", // ceammc
                         glist_getcanvas(glist), "create", "rectangle",
                         ixpix , (int) glist_ytopixels(glist, basey + fielddesc_cvttocoord(yfielddesc, minyval)),
                         inextx, (int)(glist_ytopixels(glist, basey + fielddesc_cvttocoord(yfielddesc, maxyval)) + linewidth),
-                        "-fill", color,
+                        "-fill", ncolor, // ceammc
                         "-width", 0.,
                         "-tags", 3, tags);
                     ndrawn++;
@@ -1974,17 +1977,23 @@ static void plot_vis(t_gobj *z, t_glist *glist,
                 }
             ouch:
 
-                pdgui_vmess(0, "crr ri rk rk ri rS",
+                {
+                // ceammc
+                int theme_color = (outline == 0);
+                void* ncolor = theme_color ? (void*)"$::pd_colors::obj_text" : (void*)(intptr_t)outline;
+                // ceammc end
+                pdgui_vmess(0, theme_color ? "crr ri rr rr ri rS" : "crr ri rk rk ri rS",
                     glist_getcanvas(glist), "create", "polygon",
                     "-width", (glist->gl_isgraph ? glist_getzoom(glist) : 1),
-                    "-fill", outline,
-                    "-outline", outline,
+                    "-fill", ncolor,
+                    "-outline", ncolor,
                     "-smooth", (style == PLOTSTYLE_BEZ),
                     "-tags", 3, tags);
 
                 pdgui_vmess(0, "crs w",
                     glist_getcanvas(glist), "coords", tag0,
                     ndrawn*2, coordinates);
+                }
             }
             else if (linewidth > 0)
             {
@@ -2031,11 +2040,16 @@ static void plot_vis(t_gobj *z, t_glist *glist,
 
                 if(ndrawn)
                 {
-                    pdgui_vmess(0, "crr iiii rf rk ri rS",
+                    // ceammc
+                    int theme_color = (outline == 0);
+                    void* ncolor = theme_color ? (void*)"$::pd_colors::obj_text" : (void*)(intptr_t)outline;
+                    // ceammc end
+
+                    pdgui_vmess(0, theme_color ? "crr iiii rf rr ri rS" : "crr iiii rf rk ri rS", // ceammc
                         glist_getcanvas(glist), "create", "line",
                         0, 0, 0, 0,
                         "-width", linewidth,
-                        "-fill", outline,
+                        "-fill", ncolor, // ceammc
                         "-smooth", (style == PLOTSTYLE_BEZ),
                         "-tags", 3, tags);
                     pdgui_vmess(0, "crs w",
