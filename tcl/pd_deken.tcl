@@ -731,13 +731,13 @@ proc ::deken::preferences::newwidget {basename} {
 
 proc ::deken::preferences::create_pathpad {toplevel row {padx 2} {pady 2}} {
     set pad [::deken::preferences::newwidget ${toplevel}.pad]
-    frame $pad -relief groove -borderwidth 2 -width 2 -height 2
+    ttk::frame $pad
     grid ${pad} -sticky ew -row ${row} -column 0 -columnspan 3 -padx ${padx}  -pady ${pady}
 }
 proc ::deken::preferences::create_packpad {toplevel {padx 2} {pady 2} } {
     set mypad [::deken::preferences::newwidget ${toplevel}.pad]
 
-    frame $mypad
+    ttk::frame $mypad
     pack $mypad -padx ${padx} -pady ${pady} -expand 1 -fill "y"
 
     return $mypad
@@ -904,7 +904,7 @@ proc ::deken::preferences::create {winid} {
     $winid.installdir.cnv create window 0 0 -anchor "nw" -window $pathsframe
 
     ## installation options
-    labelframe $winid.install -text [_ "Installation options:" ] -padx 5 -pady 5 -borderwidth 1
+    ttk::labelframe $winid.install -text [_ "Installation options:" ]
     pack $winid.install -side top -fill "x" -anchor "w"
 
     ttk::checkbutton $winid.install.verify256 -text [_ "Try to verify the libraries' checksum before (re)installing them"] \
@@ -1016,7 +1016,7 @@ proc ::deken::preferences::show {{winid .deken_preferences}} {
         toplevel $winid -class DialogWindow -background $::pd_colors::window_background
         wm title $winid [format [_ "Deken %s Preferences"] $::deken::version]
 
-        frame $winid.frame
+        ttk::frame $winid.frame
         pack $winid.frame -side top -padx 6 -pady 3 -fill both -expand true
 
         ::deken::preferences::create $winid.frame
