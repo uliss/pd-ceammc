@@ -12,6 +12,7 @@ install(FILES ${GUI_PLUGINS} ${GUI_COMPLETION_PLUGIN} DESTINATION ${PD_GUI_PLUGI
 add_custom_target(gui_plugins SOURCES
     ${GUI_PLUGINS}
     ${GUI_COMPLETION_PLUGIN}
+    buttonbar.tmpl.tcl
     check_popup_list.py
     ceammc_popup_menu_ceammc.tcl
     ceammc_popup_menu_extra.tcl

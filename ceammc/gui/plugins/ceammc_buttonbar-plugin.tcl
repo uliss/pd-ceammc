@@ -191,7 +191,7 @@ proc ::btnbar::init {mytoplevel} {
     make_ceammc_button $mytoplevel sliders [_ "Sliders"]
     make_ceammc_button $mytoplevel slider2d [_ "Slider 2D"]
     make_ceammc_button $mytoplevel keyboard [_ "Keyboard"]
-    make_ceammc_button $mytoplevel env "Breakpoint function"
+    make_ceammc_button $mytoplevel env [_ "Envelope"]
     make_ceammc_button $mytoplevel display [_ "Display"]
     make_ceammc_button_tilde $mytoplevel scope [_ "Scope"]
     make_ceammc_button_tilde $mytoplevel spectroscope [_ "Spectroscope"]
