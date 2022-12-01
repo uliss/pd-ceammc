@@ -174,28 +174,28 @@ proc make_ceammc_button_tilde {mytoplevel name tooltip} {
 proc ::btnbar::init {mytoplevel} {
     frame $mytoplevel.buttonbar -cursor arrow -background lightgrey
     make_pd_button $mytoplevel obj [_ "Object"]
-    make_pd_button $mytoplevel msg "Message"
-    make_pd_button $mytoplevel floatatom "Number box"
-    make_pd_button $mytoplevel symbolatom "Symbol box"
-    make_pd_button $mytoplevel text "Comment"
-    make_iemgui_button $mytoplevel bng "Button"
-    make_iemgui_button $mytoplevel toggle "Toggle"
-    make_iemgui_button $mytoplevel numbox "Number box2"
-    make_iemgui_button $mytoplevel hslider "Horizontal slider"
-    make_iemgui_button $mytoplevel vslider "Vertial slider"
-    make_iemgui_button $mytoplevel hradio  "Horizontal radio"
-    make_iemgui_button $mytoplevel vradio  "Vertical radio"
-    make_iemgui_button $mytoplevel mycnv   "Canvas"
-    make_iemgui_button $mytoplevel menuarray "Array"
-    make_ceammc_button $mytoplevel knob "Knob"
-    make_ceammc_button $mytoplevel sliders "Sliders"
-    make_ceammc_button $mytoplevel slider2d "Slider 2D"
-    make_ceammc_button $mytoplevel keyboard "Keyboard"
+    make_pd_button $mytoplevel msg [_ "Message"]
+    make_pd_button $mytoplevel floatatom [_ "Number box"]
+    make_pd_button $mytoplevel symbolatom [_ "Symbol box"]
+    make_pd_button $mytoplevel text [_ "Comment"]
+    make_iemgui_button $mytoplevel bng [_ "Button"]
+    make_iemgui_button $mytoplevel toggle [_ "Toggle"]
+    make_iemgui_button $mytoplevel numbox [_ "Number box2"]
+    make_iemgui_button $mytoplevel hslider [_ "Horizontal slider"]
+    make_iemgui_button $mytoplevel vslider [_ "Vertial slider"]
+    make_iemgui_button $mytoplevel hradio  [_ "Horizontal radio"]
+    make_iemgui_button $mytoplevel vradio  [_ "Vertical radio"]
+    make_iemgui_button $mytoplevel mycnv   [_ "Canvas"]
+    make_iemgui_button $mytoplevel menuarray [_ "Array"]
+    make_ceammc_button $mytoplevel knob [_ "Knob"]
+    make_ceammc_button $mytoplevel sliders [_ "Sliders"]
+    make_ceammc_button $mytoplevel slider2d [_ "Slider 2D"]
+    make_ceammc_button $mytoplevel keyboard [_ "Keyboard"]
     make_ceammc_button $mytoplevel env "Breakpoint function"
-    make_ceammc_button $mytoplevel display "Display"
-    make_ceammc_button_tilde $mytoplevel scope "Scope"
-    make_ceammc_button_tilde $mytoplevel spectroscope "Spectroscope"
-    make_ceammc_button $mytoplevel preset "Presets"
+    make_ceammc_button $mytoplevel display [_ "Display"]
+    make_ceammc_button_tilde $mytoplevel scope [_ "Scope"]
+    make_ceammc_button_tilde $mytoplevel spectroscope [_ "Spectroscope"}
+    make_ceammc_button $mytoplevel preset [_ "Presets"]
 }
 
 proc ::btnbar::show {mytoplevel} {

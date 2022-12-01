@@ -37,6 +37,7 @@ if(XGETTEXT)
     file(GLOB _UI_FILES RELATIVE ${CMAKE_SOURCE_DIR}/po "${CMAKE_CURRENT_SOURCE_DIR}/ext/src/ui/*.cpp" "${CMAKE_CURRENT_SOURCE_DIR}/ext/src/ui/*.h")
     file(GLOB _HOA_FILES RELATIVE ${CMAKE_SOURCE_DIR}/po "${CMAKE_CURRENT_SOURCE_DIR}/ext/src/spat/*.cpp" "${CMAKE_CURRENT_SOURCE_DIR}/ext/src/spat/*.h")
     file(GLOB _TCL_PLUGIN_FILES RELATIVE ${CMAKE_SOURCE_DIR}/po "${CMAKE_CURRENT_SOURCE_DIR}/gui/plugins/ceammc_*-plugin.tcl")
+    list(APPEND _TCL_PLUGIN_FILES "${CMAKE_CURRENT_SOURCE_DIR}/gui/plugins/completion-plugin/completion-plugin.tcl")
 
     set(XGETTEXT_EMAIL "serge.uliss at gmail.com")
     set(XGETTEXT_COPYRIGHT "This file is put in the public domain")

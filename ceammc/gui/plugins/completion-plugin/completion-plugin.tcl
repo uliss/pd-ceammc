@@ -214,12 +214,12 @@ proc ::completion::show_options_gui {} {
         focus .options
         return
     }
-    toplevel .options
+    toplevel .options -background $::pd_colors::window_background
     wm title .options "Pd AutoComplete Settings"
 
-    frame .options.f -padx 5 -pady 5
-    label .options.f.title_label -text "PD AutoComplete Settings"
-    .options.f.title_label configure -font [list $::completion::config(font) [expr {$::completion::config(font_size)+3}]]
+    ttk::frame .options.f
+    ttk::label .options.f.title_label -text [ _ "PD AutoComplete Settings" ]
+    #.options.f.title_label configure -font [list $::completion::config(font) [expr {$::completion::config(font_size)+3}]]
     
     label .options.f.status_label -text "" -foreground "#cc2222"
 
@@ -228,58 +228,58 @@ proc ::completion::show_options_gui {} {
     #ex: you would type a valid string #aabbcc and it would be invalid. Then on the next keypress (whichever it was) it would process #aabbcc
 
     #Options for background color
-    label .options.f.click_to_choose_label -text "click to\nchoose"
+    ttk::label .options.f.click_to_choose_label -text "click to\nchoose"
     
-    label .options.f.bg_label -text "bkg color"
-    entry .options.f.bg_entry -width 8
+    ttk::label .options.f.bg_label -text "bkg color"
+    ttk::entry .options.f.bg_entry -width 8
     frame .options.f.bg_demo -background $::completion::config(bg) -width 40 -height 40
         bind .options.f.bg_demo <ButtonRelease> { ::completion::user_select_color "bg"}
     bind .options.f.bg_entry <KeyRelease> { ::completion::gui_options_update_color ".options.f.bg_entry" ".options.f.bg_demo" "bg" }
     
 
     #Options for skipping mode background color
-    label .options.f.skip_bg_label -text "skipping bkg color"
-    entry .options.f.skip_bg_entry -width 8
+    ttk::label .options.f.skip_bg_label -text "skipping bkg color"
+    ttk::entry .options.f.skip_bg_entry -width 8
     frame .options.f.skip_bg_demo -background $::completion::config(skipbg) -width 40 -height 40
         bind .options.f.skip_bg_demo <ButtonRelease> { ::completion::user_select_color "skipbg"}
     bind .options.f.skip_bg_entry <KeyRelease> { ::completion::gui_options_update_color ".options.f.skip_bg_entry" ".options.f.skip_bg_demo" "skipbg" }
     
     #Options for monolithic mode background color
-    label .options.f.mono_bg_label -text "mono-object bkg color"
-    entry .options.f.mono_bg_entry -width 8
+    ttk::label .options.f.mono_bg_label -text "mono-object bkg color"
+    ttk::entry .options.f.mono_bg_entry -width 8
     frame .options.f.mono_bg_demo -background $::completion::config(monobg) -width 40 -height 40
         bind .options.f.mono_bg_demo <ButtonRelease> { ::completion::user_select_color "monobg"}
     bind .options.f.mono_bg_entry <KeyRelease> { ::completion::gui_options_update_color ".options.f.mono_bg_entry" ".options.f.mono_bg_demo" "monobg" }
     
 
     #Misc
-    checkbutton .options.f.auto_complete_libs -variable ::completion::config(auto_complete_libs) -onvalue 1 -offvalue 0
-    label .options.f.auto_complete_libs_label -text "auto complete library names"
+    ttk::checkbutton .options.f.auto_complete_libs -variable ::completion::config(auto_complete_libs) -onvalue 1 -offvalue 0
+    ttk::label .options.f.auto_complete_libs_label -text [ _ "auto complete library names" ]
 
-    spinbox .options.f.number_of_lines -width 6 -from 3 -to 30 -textvariable ::completion::config(max_lines)
-    label .options.f.number_of_lines_label -text "number of lines to display"
+    ttk::spinbox .options.f.number_of_lines -width 6 -from 3 -to 30 -textvariable ::completion::config(max_lines)
+    ttk::label .options.f.number_of_lines_label -text [ _ "number of lines to display" ]
     
-    spinbox .options.f.maximum_scan_depth -width 6 -from 0 -to 10 -textvariable ::completion::config(max_scan_depth)
-    label .options.f.maximum_scan_depth_label -text "maximum scan depth"
+    ttk::spinbox .options.f.maximum_scan_depth -width 6 -from 0 -to 10 -textvariable ::completion::config(max_scan_depth)
+    ttk::label .options.f.maximum_scan_depth_label -text "maximum scan depth"
 
-    spinbox .options.f.font_size -width 6 -from 7 -to 20 -textvariable ::completion::config(font_size)
-    label .options.f.font_size_label -text "font size"
+    ttk::spinbox .options.f.font_size -width 6 -from 7 -to 20 -textvariable ::completion::config(font_size)
+    ttk::label .options.f.font_size_label -text [ _ "font size" ]
 
     #Hotkey
-    label .options.f.hotkeylabel -text "hotkey (require save&restart)"
-    entry .options.f.hotkeyentry -width 22
+    ttk::label .options.f.hotkeylabel -text "hotkey (require save&restart)"
+    ttk::entry .options.f.hotkeyentry -width 22
     .options.f.hotkeyentry insert 0 "$::completion::config(hotkey)"
     bind .options.f.hotkeyentry <KeyRelease> {
         set ::completion::config(hotkey) [.options.f.hotkeyentry get]
     }
     
     #Buttons
-    button .options.f.save_btn -text "save to file" -command ::completion::write_config
-    button .options.f.default_btn -text "default" -command ::completion::restore_default_option
-    button .options.f.rescan_btn -text "rescan" -command ::completion::scan_all_completions
-    button .options.f.help_btn -text "help" -command ::completion::open_help_file
+    ttk::button .options.f.save_btn -text "save to file" -command ::completion::write_config
+    ttk::button .options.f.default_btn -text "default" -command ::completion::restore_default_option
+    ttk::button .options.f.rescan_btn -text "rescan" -command ::completion::scan_all_completions
+    ttk::button .options.f.help_btn -text "help" -command ::completion::open_help_file
     #.options.f.help_btn configure -font {-family courier -size 12 -weight bold -slant italic}
-    .options.f.help_btn configure -font {-weight bold}
+    #.options.f.help_btn configure -font {-weight bold}
 
 
     set padding 2
