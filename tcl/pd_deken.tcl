@@ -859,7 +859,7 @@ proc ::deken::preferences::create {winid} {
     pack $winid.installdir.scrollh -side bottom -fill "x" -before  $winid.installdir.cnv
     pack $winid.installdir -fill both
 
-    set pathsframe [frame $winid.installdir.cnv.f]
+    set pathsframe [ttk::frame $winid.installdir.cnv.f]
     set row 0
     ### dekenpath: directory-chooser
     # FIXME: should we ask user to add chosen directory to PATH?
