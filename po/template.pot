@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure\\ Data 0.53.0_ceammc\n"
 "Report-Msgid-Bugs-To: serge.uliss at gmail.com\n"
-"POT-Creation-Date: 2022-12-01 07:52+0300\n"
+"POT-Creation-Date: 2022-12-02 02:32+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1025,6 +1025,14 @@ msgstr ""
 
 #: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
 msgid "Vertical radio"
+msgstr ""
+
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "List box"
+msgstr ""
+
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Envelope"
 msgstr ""
 
 #: ../ceammc/gui/plugins/patch2svg-plugin.tcl

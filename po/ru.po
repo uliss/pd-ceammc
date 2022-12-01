@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure Data 0.47.1_ceammc\n"
 "Report-Msgid-Bugs-To: serge.uliss at gmail.com\n"
-"POT-Creation-Date: 2022-12-01 07:45+0300\n"
-"PO-Revision-Date: 2022-12-01 07:50+0300\n"
+"POT-Creation-Date: 2022-12-02 02:32+0300\n"
+"PO-Revision-Date: 2022-12-02 02:34+0300\n"
 "Last-Translator: Serge Poltavski <serge.poltavski@gmail.com>\n"
 "Language-Team: Russian\n"
 "Language: ru\n"
@@ -171,11 +171,11 @@ msgstr "Применить"
 #: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl ../tcl/dialog_array.tcl
 #: ../tcl/pd_menus.tcl
 msgid "Array"
-msgstr "Звуковая таблица"
+msgstr "Массив"
 
 #: ../tcl/dialog_array.tcl
 msgid "Array Properties"
-msgstr "Свойства Array"
+msgstr "Свойства массива"
 
 #: ../ceammc/ext/src/ui/ui_arrayview.cpp
 msgid "Array name"
@@ -672,6 +672,10 @@ msgstr "Цвет пустой ячейки"
 msgid "Enter an exact library or object name."
 msgstr "Введите точное название библиотеки или объекта."
 
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Envelope"
+msgstr "Огибающая"
+
 #: ../ceammc/gui/plugins/patch2svg-plugin.tcl
 msgid "Export patch as SVG..."
 msgstr "Экспортировать патч в SVG..."
@@ -1077,6 +1081,10 @@ msgstr "Цвет ссылки"
 #: ../tcl/pd_menus.tcl
 msgid "List"
 msgstr "Список"
+
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "List box"
+msgstr "Списковый бокс"
 
 #: ../tcl/pd_menus.tcl
 msgid "List of objects..."
