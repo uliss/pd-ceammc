@@ -203,13 +203,13 @@ proc ::btnbar::init {mytoplevel} {
     make_pd_button $mytoplevel symbolatom               [_ "Symbol box"]
     make_pd_button $mytoplevel listbox                  [_ "List box"]
     make_pd_button $mytoplevel text                     [_ "Comment"]
-    make_ceammc_button $mytoplevel bng                  [_ "Button"]
+    make_ceammc_button $mytoplevel bang                 [_ "Button"]
     make_ceammc_button $mytoplevel toggle               [_ "Toggle"]
     make_ceammc_button $mytoplevel number               [_ "Number box2"]
-    make_ceammc_button $mytoplevel hslider              [_ "Horizontal slider"]
-    make_ceammc_button $mytoplevel vslider              [_ "Vertial slider"]
-    make_ceammc_button $mytoplevel hradio               [_ "Horizontal radio"]
-    make_ceammc_button $mytoplevel vradio               [_ "Vertical radio"]
+    make_ceammc_button $mytoplevel hsl                  [_ "Horizontal slider"]
+    make_ceammc_button $mytoplevel vsl                  [_ "Vertial slider"]
+    make_ceammc_button $mytoplevel hrd                  [_ "Horizontal radio"]
+    make_ceammc_button $mytoplevel vrd                  [_ "Vertical radio"]
     make_iemgui_button $mytoplevel mycnv                [_ "Canvas"]
     make_iemgui_button $mytoplevel menuarray            [_ "Array"]
     make_ceammc_button $mytoplevel knob                 [_ "Knob"]
@@ -289,10 +289,10 @@ bind PatchWindow <Destroy> {+::btnbar::removeTopLevel %W}
 bind PatchWindow <<EditMode>> {+::btnbar::showhide %W}
 
 ::btnbar::init_options_menu
-set bngdata_light {R0lGODdhIAAgAIQUAAAAAAEBAQEDAgUKCwsTExwnKB0oKQdhcQdlc3NvcQaqyAasygax0AjJ7KmpqQnU+cC+vsDAwN7e3vz8/P///////////////////////////////////////////////ywAAAAAIAAgAAAFpyAljmRpnmiqrmzrvnAsz3Rtr0Cu73wAA5OgJFEYDAoJSXAC+AUdBMSi0VggBJFg8wWMABSPsJgBcDB/EgFDzH4oCJKtC5A4tNuIhLwFMCzubAsFeywAAw2AYg0DhDiHiWGLjSp9f5CCkyl0dpB5mSgAEgRggAwCcU4OAGttCgBZnydAExACB1NVBwRmZ1xLQwZGBklLsSYBPMk6PjfNzs/Q0dLT1DQhADs=}
-set bngdata_dark {iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAA8UlEQVRIx2M0MjJioCVgYqAxGLVg1ALKAQsuifT0dOJNmTlzJskWMDAwPHjwAM5+LG2+Qcn6C48Iz5c3AfeOyj49CZdSUFAgxwdw8IlXeqptNpz7hVdkib4/g75/9uGpfJ+fUhoHaKYjg6m22Z94pSm1AJfpxMgStuCxtDlB/QTV4LNgg5I1QQsIqsFnwRceEYIWEFSDzwKeL28IWkBQDT4LAu4dJWgBQTX4LEDOTWSrIZBMsw9PJVuWKAv4Pj/FZQqROZlwUcH3+Wnltio8ZRH5FiCXYgoML20fr4NyWBkY8BZwyIBxtNkyasGoBbS3AADIC001mj+B7wAAAABJRU5ErkJggg==}
-image create photo btn_image_bng_light -data $bngdata_light
-image create photo btn_image_bng_dark -data $bngdata_dark
+set bangdata_light {R0lGODdhIAAgAIQUAAAAAAEBAQEDAgUKCwsTExwnKB0oKQdhcQdlc3NvcQaqyAasygax0AjJ7KmpqQnU+cC+vsDAwN7e3vz8/P///////////////////////////////////////////////ywAAAAAIAAgAAAFpyAljmRpnmiqrmzrvnAsz3Rtr0Cu73wAA5OgJFEYDAoJSXAC+AUdBMSi0VggBJFg8wWMABSPsJgBcDB/EgFDzH4oCJKtC5A4tNuIhLwFMCzubAsFeywAAw2AYg0DhDiHiWGLjSp9f5CCkyl0dpB5mSgAEgRggAwCcU4OAGttCgBZnydAExACB1NVBwRmZ1xLQwZGBklLsSYBPMk6PjfNzs/Q0dLT1DQhADs=}
+set bangdata_dark {iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAA8UlEQVRIx2M0MjJioCVgYqAxGLVg1ALKAQsuifT0dOJNmTlzJskWMDAwPHjwAM5+LG2+Qcn6C48Iz5c3AfeOyj49CZdSUFAgxwdw8IlXeqptNpz7hVdkib4/g75/9uGpfJ+fUhoHaKYjg6m22Z94pSm1AJfpxMgStuCxtDlB/QTV4LNgg5I1QQsIqsFnwRceEYIWEFSDzwKeL28IWkBQDT4LAu4dJWgBQTX4LEDOTWSrIZBMsw9PJVuWKAv4Pj/FZQqROZlwUcH3+Wnltio8ZRH5FiCXYgoML20fr4NyWBkY8BZwyIBxtNkyasGoBbS3AADIC001mj+B7wAAAABJRU5ErkJggg==}
+image create photo btn_image_bang_light -data $bangdata_light
+image create photo btn_image_bang_dark -data $bangdata_dark
 
 set displaydata_light {R0lGODlhIAAgAMQAAAAAAP///09vgVNpdlhjaUCBoUV7l0p1jCmWxi+RvTWLtDqGqxGl3xqg1yKbzwCu7wBcfwBdfwBRcABScAAxQwAsPAArOwAmNAep51xcXP///wAAAAAAAAAAAAAAAAAAACH5BAEAABoALAAAAAAgACAAAAWrYCCOZGmeaKqubOu+cCzPdG3fuH1JfO//wJ+FNHkYj8ikMgkhLp9QY3NUNDoOjcXzCp2Kig2DAbvAjBGJxSFxNR/QiezDGygaEonDVfFWKAoMBFcOfnoGfnNObwh6WH8ECmUZVwmHBw8EBwyJVA8IAmNXDQMHhwICClcIAwYCDwWunF9RD4hLGAsKUk5RDg5PDAoYuyMVEcfIycrLyhQ5z9DR0tPU1dbX2DghADs=}
 set displaydata_dark {iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAc0lEQVRYw+3WIQ7AIAwF0M8y0+v0Pmhsj4LlDtyvcrMTZMtCRsX+Nw2C9ImmkFT1QGA2BIcAAggIB+zXQyllSdPW2hgAAO5+eznnPNW8984ZIOAZYGbDugxQax1WzgABn78FACAir1bpbBJ/xQQQQMDvASeyvBeOvwxUSAAAAABJRU5ErkJggg==}
@@ -309,15 +309,15 @@ set floatatomdata_dark {iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAA1klEQVRI
 image create photo btn_image_floatatom_light -data $floatatomdata_light
 image create photo btn_image_floatatom_dark -data $floatatomdata_dark
 
-set hradiodata_light {R0lGODdhIAAgAMIEAAAAAAEBAQnU+QvU+f///////////////ywAAAAAIAAgAAADVki63P4wykmrvTjrzbv/YEgEQGma5HkGExC5EPwSQm0PhOzoj2v/uZnE96sFYy1aUXDsJZdMHkPaIBabu+SgiKMqvAuweJJSmc0skXrNbrvf8Lh8fkkAADs=}
-set hradiodata_dark {iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAAZUlEQVRIx2M0MjJioCVgYqAxGLVg1IIhYAELnJWenk4tQ2fOnInFAgYGhgcPHuDXqaCgQIwa7D6AgHavNlw6K7dVjaaiUQtGLaCwqKAkNxFrAVouJ6YkIAgYR1sVoxaMWjAMLAAAx+sP3mjWCpAAAAAASUVORK5CYII=}
-image create photo btn_image_hradio_light -data $hradiodata_light
-image create photo btn_image_hradio_dark -data $hradiodata_dark
+set hrddata_light {R0lGODdhIAAgAMIEAAAAAAEBAQnU+QvU+f///////////////ywAAAAAIAAgAAADVki63P4wykmrvTjrzbv/YEgEQGma5HkGExC5EPwSQm0PhOzoj2v/uZnE96sFYy1aUXDsJZdMHkPaIBabu+SgiKMqvAuweJJSmc0skXrNbrvf8Lh8fkkAADs=}
+set hrddata_dark {iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAAZUlEQVRIx2M0MjJioCVgYqAxGLVg1IIhYAELnJWenk4tQ2fOnInFAgYGhgcPHuDXqaCgQIwa7D6AgHavNlw6K7dVjaaiUQtGLaCwqKAkNxFrAVouJ6YkIAgYR1sVoxaMWjAMLAAAx+sP3mjWCpAAAAAASUVORK5CYII=}
+image create photo btn_image_hrd_light -data $hrddata_light
+image create photo btn_image_hrd_dark -data $hrddata_dark
 
-set hsliderdata_light {R0lGODdhIAAgAMIFAAAAAAEBAQJpfAnU+YDq+v///////////ywAAAAAIAAgAAADS1i63P4wykmrvTjrzbv/YCg6AWCeaJoGEkARcONGszTcckvdQ07vOEbtMYTwfJDi4yjUTZgLZfMZjEpKqpRguxp5v+CweEwum8+NBAA7}
-set hsliderdata_dark {iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAcUlEQVRYw2M0MjL6zzCAgIlhgMGoA0YdMOqAAXcACzInPT2dLpbOnDkTuwMYGBgYHjx4QLbB7V5tDAwMDAyV26pwqlFQUBhNA6MOGHXAqANGHTCIKyNsZTVJlcy1WTBDiNbDONosH3XAqANGHTDQDgAAtFsPGAk8akMAAAAASUVORK5CYII=}
-image create photo btn_image_hslider_light -data $hsliderdata_light
-image create photo btn_image_hslider_dark -data $hsliderdata_dark
+set hsldata_light {R0lGODdhIAAgAMIFAAAAAAEBAQJpfAnU+YDq+v///////////ywAAAAAIAAgAAADS1i63P4wykmrvTjrzbv/YCg6AWCeaJoGEkARcONGszTcckvdQ07vOEbtMYTwfJDi4yjUTZgLZfMZjEpKqpRguxp5v+CweEwum8+NBAA7}
+set hsldata_dark {iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAcUlEQVRYw2M0MjL6zzCAgIlhgMGoA0YdMOqAAXcACzInPT2dLpbOnDkTuwMYGBgYHjx4QLbB7V5tDAwMDAyV26pwqlFQUBhNA6MOGHXAqANGHTCIKyNsZTVJlcy1WTBDiNbDONosH3XAqANGHTDQDgAAtFsPGAk8akMAAAAASUVORK5CYII=}
+image create photo btn_image_hsl_light -data $hsldata_light
+image create photo btn_image_hsl_dark -data $hsldata_dark
 
 set keyboarddata_light {R0lGODlhIAAgANUAAAAAAP////39/fz8/Pv7+/r6+vn5+fj4+Pf39/T09PPz8/Ly8vHx8fDw8O/v7+7u7u3t7dXV1dLS0tHR0dDQ0M/Pz87Ozs3NzcjIyMTExMPDw8LCwsHBwcDAwL+/v21tbWxsbGhoaGJiYv///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAACMALAAAAAAgACAAAAb/wIBwSCwaj8ikcslsHinQC8ZCkVIpV2t1ur1ShpfFgfPJFDIfzsFRcYzLZzhavbgMKQhBR5QJZEQdAgoVCnp8fod/gQhfQhQJBRwhGQMZIRwFDBUMkZOVnpaYCY0Bj52UoZmbp5+olwWjd5CSrpianLStn6Kkprmpt6yWtbC9s6Cvwb/IvLIFHZ4ayavQlNLWr7GOx8TKyMTapdy7qrjf5OG+zOXC6+kJBsu2q8vgxs8iGgIagOx7+vwA9ntnwAMIDQQ0gPBg4FbBgwkhKmT4LoGFDRMaTNhgIcEtixg1htzYMR0DBBAiQECpEsGDCg9Yrkw5syWDXgwONKDQwMDOVgYHXj7QydNn0Z8Hbt7JKTQoTKdDm0p9qtQR06dTo2LdOrRqqataw0Id29QrBbBkK0BIK9Ys2qxsx3q98JZr3LJ2hEiAwrev37+AJTgZTLiw4cOIlQQBADs=}
 set keyboarddata_dark {iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAAd0lEQVRIx2M0MjJioCVgYqAxGLWAIGCBs9LT06lo7syZM9EtYGBgCA8PhzASEhIgjAULFmByGRgYVq5ciUexp6fnaCSPWjBqwTAti5ABcl7H5JKkGLsPIOUMvLRB4xKjeDSSRy2gImCEN7xoVCczjrbsRi2gGAAA7uEhlSBZIHgAAAAASUVORK5CYII=}
@@ -399,14 +399,14 @@ set toggledata_dark {iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAAwUlEQVRIx2M
 image create photo btn_image_toggle_light -data $toggledata_light
 image create photo btn_image_toggle_dark -data $toggledata_dark
 
-set vradiodata_light {R0lGODdhIAAgAMIFAAAAAAEBAQTX/gPY//z8/P///////////ywAAAAAIAAgAAADY1i63P4wykmrvTjrXYH/YMAVAGGeJzCWQ+sKhMqxrhuvRG3LG63fs5xuAOwJfzxNSaCDJTMlFOqJAVk9OGkqqy0quybqJdoVW8hacwfshbLVFLQUPpFPR4HrRzTq+/+AgYIFCQA7}
-set vradiodata_dark {iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAAZElEQVRIx2M0MjJioCVgYqAxoLkFLHjk0tPTiTRl5syZ5FjAwMDw4MEDgqYrKCgM1iCCg3avNqzilduqRkAqGrVghBcVJKX3weoD/OUMFSwYAoXdqAWjFoxaMBzKIsbRxi8hAADimA/il7QtJQAAAABJRU5ErkJggg==}
-image create photo btn_image_vradio_light -data $vradiodata_light
-image create photo btn_image_vradio_dark -data $vradiodata_dark
+set vrddata_light {R0lGODdhIAAgAMIFAAAAAAEBAQTX/gPY//z8/P///////////ywAAAAAIAAgAAADY1i63P4wykmrvTjrXYH/YMAVAGGeJzCWQ+sKhMqxrhuvRG3LG63fs5xuAOwJfzxNSaCDJTMlFOqJAVk9OGkqqy0quybqJdoVW8hacwfshbLVFLQUPpFPR4HrRzTq+/+AgYIFCQA7}
+set vrddata_dark {iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAAZElEQVRIx2M0MjJioCVgYqAxoLkFLHjk0tPTiTRl5syZ5FjAwMDw4MEDgqYrKCgM1iCCg3avNqzilduqRkAqGrVghBcVJKX3weoD/OUMFSwYAoXdqAWjFoxaMBzKIsbRxi8hAADimA/il7QtJQAAAABJRU5ErkJggg==}
+image create photo btn_image_vrd_light -data $vrddata_light
+image create photo btn_image_vrd_dark -data $vrddata_dark
 
-set vsliderdata_light {R0lGODdhIAAgAMIFAAAAAAEBAQJpfAnU+YDq+v///////////ywAAAAAIAAgAAADUFi63P4wykmrvTjrEoD/QLAxwFOOytmoI7u4GlzImExfNpqa+szrOeAPFSQSBsikoAc4JpFLoPMZJQ5b100R67hZttqspgPyiHrotHrNziQAADs=}
-set vsliderdata_dark {iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAAaElEQVRIx2M0MjJioCVgYqAxoLkFLHjk0tPTiTRl5syZ5FjAwMDw4MEDgqYrKCgM6zgYtYCiZMrAwNDu1UY4jV6bRb4FlduqGIhIp6ORPGrBqAWjFoxaMGoBZTUa/jYPMYBxtPFLCAAAQe0NHiKqzm0AAAAASUVORK5CYII=}
-image create photo btn_image_vslider_light -data $vsliderdata_light
-image create photo btn_image_vslider_dark -data $vsliderdata_dark
+set vsldata_light {R0lGODdhIAAgAMIFAAAAAAEBAQJpfAnU+YDq+v///////////ywAAAAAIAAgAAADUFi63P4wykmrvTjrEoD/QLAxwFOOytmoI7u4GlzImExfNpqa+szrOeAPFSQSBsikoAc4JpFLoPMZJQ5b100R67hZttqspgPyiHrotHrNziQAADs=}
+set vsldata_dark {iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAAaElEQVRIx2M0MjJioCVgYqAxoLkFLHjk0tPTiTRl5syZ5FjAwMDw4MEDgqYrKCgM6zgYtYCiZMrAwNDu1UY4jV6bRb4FlduqGIhIp6ORPGrBqAWjFoxaMGoBZTUa/jYPMYBxtPFLCAAAQe0NHiKqzm0AAAAASUVORK5CYII=}
+image create photo btn_image_vsl_light -data $vsldata_light
+image create photo btn_image_vsl_dark -data $vsldata_dark
 
 ::pdwindow::debug "\[ceammc\]: ceammc_buttonbar-plugin loaded\n"
