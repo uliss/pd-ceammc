@@ -70,14 +70,14 @@ proc ::dialog_message::create_dialog {mytoplevel} {
 
     # ceammc: ttk styles
     ttk::style configure SearchEntry.TEntry -padding 5
-    ttk::style configure SearchLabel.TLabel -font "$::font_family 24"
+    ttk::style configure SearchLabel.TLabel -font {$::font_family 24}
     # ceammc end
 
     # ceammc: ttk
     ttk::frame .message.f
     pack .message.f -side top -fill x -expand 1
     # ceammc: ttk
-    ttk::entry .message.f.entry -width 54 -font "$::font_family 18" -style SearchEntry.TEntry
+    ttk::entry .message.f.entry -width 54 -font {$::font_family 18} -style SearchEntry.TEntry
     ttk::label .message.f.semicolon -text ";" -style SearchLabel.TLabel
     pack .message.f.semicolon -side left
     pack .message.f.entry -side left -padx 10 -fill x -expand 1
