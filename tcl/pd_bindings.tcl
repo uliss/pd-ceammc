@@ -9,6 +9,35 @@ namespace eval ::pd_bindings:: {
     namespace export dialog_bindings
     namespace export patch_bindings
     variable key2iso
+    # ceammc
+    variable cyrbind
+    set cyrbind(a) "ef"
+    set cyrbind(b) "i"
+    set cyrbind(c) "es"
+    set cyrbind(d) "ve"
+    set cyrbind(e) "u"
+    set cyrbind(f) "a"
+    set cyrbind(g) "pe"
+    set cyrbind(h) "er"
+    set cyrbind(i) "sha"
+    set cyrbind(j) "o"
+    set cyrbind(k) "el"
+    set cyrbind(l) "de"
+    set cyrbind(m) "softsign"
+    set cyrbind(n) "te"
+    set cyrbind(o) "shcha"
+    set cyrbind(p) "ze"
+    set cyrbind(q) "shorti"
+    set cyrbind(r) "ka"
+    set cyrbind(s) "yeru"
+    set cyrbind(t) "ie"
+    set cyrbind(u) "ghe"
+    set cyrbind(v) "em"
+    set cyrbind(w) "tse"
+    set cyrbind(x) "che"
+    set cyrbind(y) "en"
+    set cyrbind(z) "ya"
+    # ceammc end
 }
 set ::pd_bindings::key2iso ""
 
@@ -19,6 +48,12 @@ set ::pd_bindings::key2iso ""
 proc ::pd_bindings::bind_capslock {tag seq_prefix seq_nocase script} {
     bind $tag <${seq_prefix}-[string tolower ${seq_nocase}]> "::pd_menucommands::scheduleAction $script"
     bind $tag <${seq_prefix}-[string toupper ${seq_nocase}]> "::pd_menucommands::scheduleAction $script"
+    # ceammc
+    if {[info exists ::pd_bindings::cyrbind($seq_nocase)]} {
+        set key $::pd_bindings::cyrbind($seq_nocase)
+        bind $tag <${seq_prefix}-Cyrillic_$key> "::pd_menucommands::scheduleAction $script"
+    }
+    # ceammc end
 }
 
 # TODO rename pd_bindings to window_bindings after merge is done
