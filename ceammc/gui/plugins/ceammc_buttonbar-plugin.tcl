@@ -96,7 +96,7 @@ proc ::btnbar::show_options_gui {} {
     toplevel .options -background $::pd_colors::window_background
     wm title .options [_ "Button Bar Settings"]
 
-    frame .options.f -padx 5 -pady 5 -background #ECECEC
+    ttk::frame .options.f
 
     ttk::checkbutton .options.f.show -variable ::btnbar::show -onvalue 1 -offvalue 0 -command {
         if {$::btnbar::show} {
