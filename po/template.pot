@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure\\ Data 0.53.0_ceammc\n"
 "Report-Msgid-Bugs-To: serge.uliss at gmail.com\n"
-"POT-Creation-Date: 2022-12-01 07:45+0300\n"
+"POT-Creation-Date: 2022-12-01 07:52+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2657,11 +2657,7 @@ msgid "auto complete library names"
 msgstr ""
 
 #: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
-msgid "font size"
-msgstr ""
-
-#: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
-msgid "number of lines to display"
+msgid "background color"
 msgstr ""
 
 #: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
@@ -2671,15 +2667,11 @@ msgid ""
 msgstr ""
 
 #: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
-msgid "background color"
+msgid "font size"
 msgstr ""
 
 #: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
-msgid "skipping background color"
-msgstr ""
-
-#: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
-msgid "mono-object background color"
+msgid "hotkey (require save&restart)"
 msgstr ""
 
 #: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
@@ -2687,7 +2679,15 @@ msgid "maximum scan depth"
 msgstr ""
 
 #: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
-msgid "hotkey (require save&restart)"
+msgid "mono-object background color"
+msgstr ""
+
+#: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
+msgid "number of lines to display"
+msgstr ""
+
+#: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
+msgid "skipping background color"
 msgstr ""
 
 #: iemgui_dynamic_strings.tcl

@@ -93,7 +93,7 @@ proc ::btnbar::show_options_gui {} {
         return
     }
 
-    toplevel .options
+    toplevel .options -background $::pd_colors::window_background
     wm title .options [_ "Button Bar Settings"]
 
     frame .options.f -padx 5 -pady 5 -background #ECECEC
@@ -172,7 +172,7 @@ proc make_ceammc_button_tilde {mytoplevel name tooltip} {
 }
 
 proc ::btnbar::init {mytoplevel} {
-    frame $mytoplevel.buttonbar -cursor arrow -background lightgrey
+    ttk::frame $mytoplevel.buttonbar -cursor arrow
     make_pd_button $mytoplevel obj [_ "Object"]
     make_pd_button $mytoplevel msg [_ "Message"]
     make_pd_button $mytoplevel floatatom [_ "Number box"]
@@ -194,7 +194,7 @@ proc ::btnbar::init {mytoplevel} {
     make_ceammc_button $mytoplevel env "Breakpoint function"
     make_ceammc_button $mytoplevel display [_ "Display"]
     make_ceammc_button_tilde $mytoplevel scope [_ "Scope"]
-    make_ceammc_button_tilde $mytoplevel spectroscope [_ "Spectroscope"}
+    make_ceammc_button_tilde $mytoplevel spectroscope [_ "Spectroscope"]
     make_ceammc_button $mytoplevel preset [_ "Presets"]
 }
 
