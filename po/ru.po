@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure Data 0.47.1_ceammc\n"
 "Report-Msgid-Bugs-To: serge.uliss at gmail.com\n"
-"POT-Creation-Date: 2022-12-01 07:25+0300\n"
-"PO-Revision-Date: 2022-12-01 07:35+0300\n"
+"POT-Creation-Date: 2022-12-01 07:45+0300\n"
+"PO-Revision-Date: 2022-12-01 07:50+0300\n"
 "Last-Translator: Serge Poltavski <serge.poltavski@gmail.com>\n"
 "Language-Team: Russian\n"
 "Language: ru\n"
@@ -476,6 +476,10 @@ msgstr "Дата"
 msgid "Decimal precision"
 msgstr "Десятичная точность"
 
+#: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
+msgid "Default"
+msgstr "По умолчанию"
+
 #: ../tcl/pd_deken.tcl
 #, tcl-format
 msgid "Default platform: %s"
@@ -832,7 +836,9 @@ msgstr "Руководство в формате HTML..."
 msgid "Height:"
 msgstr "Высота:"
 
-#: ../tcl/pdtk_canvas.tcl pd_dynamic_strings.tcl
+#: ../tcl/pdtk_canvas.tcl
+#: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
+#: pd_dynamic_strings.tcl
 msgid "Help"
 msgstr "Справка"
 
@@ -1523,6 +1529,10 @@ msgstr "Пути..."
 msgid "Pd"
 msgstr "Pd"
 
+#: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
+msgid "Pd AutoComplete Settings"
+msgstr "Настройки автодополнения Pd"
+
 #: ../tcl/dialog_path.tcl
 msgid "Pd Documents Directory"
 msgstr "Каталог Pd документов"
@@ -1731,6 +1741,10 @@ msgstr "Удаление '%s'"
 msgid "Report a bug"
 msgstr "Сообщить об ошибке"
 
+#: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
+msgid "Rescan"
+msgstr "Пересканировать"
+
 #: ../tcl/dialog_path.tcl
 msgid "Reset"
 msgstr "Сбросить"
@@ -1797,6 +1811,10 @@ msgstr "Сохранять содержимое"
 #: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
 msgid "Save settings"
 msgstr "Сохранить настройки"
+
+#: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
+msgid "Save to file"
+msgstr "Сохранить в файл"
 
 #: ../tcl/pd_menus.tcl
 msgid "Save to..."
@@ -2529,6 +2547,10 @@ msgstr "aug7"
 msgid "auto complete library names"
 msgstr "автоматически дополнять названия библиотек"
 
+#: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
+msgid "background color"
+msgstr "цвет фона"
+
 #: ../tcl/pd_deken.tcl
 msgid "both"
 msgstr "одновременно"
@@ -2541,6 +2563,14 @@ msgstr "внизу по центру"
 #: ../ceammc/ext/src/ui/ui_slider2d.cpp
 msgid "center"
 msgstr "по центру"
+
+#: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
+msgid ""
+"click to\n"
+"choose"
+msgstr ""
+"кликните для\n"
+"выбора цвета"
 
 #: ../tcl/pd_docsdir.tcl
 #, tcl-format
@@ -2630,6 +2660,10 @@ msgstr "инвертировать строку"
 msgid "font size"
 msgstr "размер шрифта"
 
+#: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
+msgid "hotkey (require save&restart)"
+msgstr "горячая клавиша (требует сохранения и перезапуска)"
+
 #: ../tcl/wheredoesthisgo.tcl
 #, tcl-format
 msgid "ignoring '%s': doesn't exist"
@@ -2698,6 +2732,10 @@ msgstr "maj7"
 msgid "max"
 msgstr "max"
 
+#: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
+msgid "maximum scan depth"
+msgstr "максимальная глубина сканирования"
+
 #: ../ceammc/ext/src/ui/ui_keyboard.cpp ../ceammc/ext/src/ui/ui_knob.cpp
 msgid "min"
 msgstr "min"
@@ -2705,6 +2743,10 @@ msgstr "min"
 #: ../ceammc/ext/src/ui/ui_keyboard.cpp
 msgid "min7"
 msgstr "min7"
+
+#: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
+msgid "mono-object background color"
+msgstr "цвет фона моно-объектов"
 
 #: iemgui_dynamic_strings.tcl
 msgid "new&old"
@@ -2799,6 +2841,10 @@ msgstr "сохранить"
 #: iemgui_dynamic_strings.tcl
 msgid "scale"
 msgstr "шкала"
+
+#: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
+msgid "skipping background color"
+msgstr "цвет фона пропущенных объектов"
 
 #: pd_dynamic_strings.tcl
 msgid "skipping loading preferences... Pd seems to have crashed on startup"
