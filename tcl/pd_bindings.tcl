@@ -44,10 +44,15 @@ set ::pd_bindings::key2iso ""
 
 # ceammc
 proc ::pd_bindings::bind_cyrillic {tag seq_prefix seq script} {
-    if {$::windowingsystem eq "aqua"} {
-        if {[info exists ::pd_bindings::cyrbind($seq)]} {
-            set key $::pd_bindings::cyrbind($seq)
-            bind $tag <${seq_prefix}-Cyrillic_$key> "::pd_menucommands::scheduleAction $script"
+    switch -- $::windowingsystem {
+        "aqua" {
+            if {[info exists ::pd_bindings::cyrbind($seq)]} {
+                set key $::pd_bindings::cyrbind($seq)
+                bind $tag <${seq_prefix}-Cyrillic_$key> "::pd_menucommands::scheduleAction $script"
+            }
+        }
+        "win32" {
+
         }
     }
 }
