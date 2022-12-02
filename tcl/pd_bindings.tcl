@@ -37,9 +37,21 @@ namespace eval ::pd_bindings:: {
     set cyrbind(x) "che"
     set cyrbind(y) "en"
     set cyrbind(z) "ya"
+    set cyrbind(period) "yu"
     # ceammc end
 }
 set ::pd_bindings::key2iso ""
+
+# ceammc
+proc ::pd_bindings::bind_mac_cyrillic {tag seq_prefix seq script} {
+    if {$::windowingsystem eq "aqua"} {
+        if {[info exists ::pd_bindings::cyrbind($seq)]} {
+            set key $::pd_bindings::cyrbind($seq)
+            bind $tag <${seq_prefix}-Cyrillic_$key> "::pd_menucommands::scheduleAction $script"
+        }
+    }
+}
+# ceammc end
 
 
 # wrapper around bind(3tk)to deal with CapsLock
@@ -49,11 +61,7 @@ proc ::pd_bindings::bind_capslock {tag seq_prefix seq_nocase script} {
     bind $tag <${seq_prefix}-[string tolower ${seq_nocase}]> "::pd_menucommands::scheduleAction $script"
     bind $tag <${seq_prefix}-[string toupper ${seq_nocase}]> "::pd_menucommands::scheduleAction $script"
     # ceammc
-    if {[info exists ::pd_bindings::cyrbind($seq_nocase)]} {
-        set key $::pd_bindings::cyrbind($seq_nocase)
-        bind $tag <${seq_prefix}-Cyrillic_$key> "::pd_menucommands::scheduleAction $script"
-    }
-    # ceammc end
+    bind_mac_cyrillic $tag $seq_prefix [string tolower ${seq_nocase}] $script
 }
 
 # TODO rename pd_bindings to window_bindings after merge is done
@@ -110,6 +118,9 @@ proc ::pd_bindings::global_bindings {} {
     bind all <$::modifier-Key-5>        {::pd_menucommands::scheduleAction menu_send_float %W text 0}
     bind all <$::modifier-Key-slash>    {::pd_menucommands::scheduleAction pdsend "pd dsp 1"}
     bind all <$::modifier-Key-period>   {::pd_menucommands::scheduleAction pdsend "pd dsp 0"}
+    # ceammc cyrillic layout fix
+    ::pd_bindings::bind_mac_cyrillic    all $::modifier-Key period {::pd_menucommands::scheduleAction pdsend "pd dsp 0"}
+    # ceammc end
 
     # take the '=' key as a zoom-in accelerator, because '=' is the non-shifted
     # "+" key... this only makes sense on US keyboards but some users
