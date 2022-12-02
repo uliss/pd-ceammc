@@ -154,6 +154,20 @@ if { [catch {package require tooltip} ] } {
 namespace eval ::ceammc {
 namespace eval ui {
 
+namespace eval colors {
+    variable window_background      [ttk::style lookup TFrame -background]
+}
+
+# colors
+switch -- [tk windowingsystem] {
+    "aqua" {
+        set colors::window_background  systemWindowBackgroundColor
+    }
+    "win32" {
+        set colors::window_background  systemWindow
+    }
+}
+
 # border
 proc border_tag { id }   { return "bd${id}" }
 proc border_w { w zoom } { expr $w * $zoom }
@@ -503,7 +517,7 @@ namespace eval sframe {
    proc new {path args} {
        # Create the main frame or toplevel.
        if { [dict exists $args -toplevel]  &&  [dict get $args -toplevel] } {
-           toplevel $path -background $::pd_colors::window_background
+           toplevel $path -background $::ceammc::ui::colors::window_background
        } else {
            ttk::frame $path
        }

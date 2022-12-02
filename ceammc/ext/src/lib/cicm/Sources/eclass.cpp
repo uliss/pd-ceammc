@@ -1716,7 +1716,7 @@ static void eclass_properties_dialog(t_eclass* c)
         sys_gui(str.c_str());
     } else {
         auto str = fmt::format(
-            "   toplevel $id -background $::pd_colors::window_background\n"
+            "   toplevel $id -background $::ceammc::ui::colors::window_background\n"
             "   wm title $id [format [_ \"%s properties\" ] {{{0}}}] \n"
             "   wm minsize $id 200 300\n"
             "   bind $id <Key-Escape> \"destroy $id; break\"\n" /// close dialog by key-pressing 'Escape'
