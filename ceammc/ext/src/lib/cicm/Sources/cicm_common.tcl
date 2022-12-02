@@ -523,7 +523,8 @@ namespace eval sframe {
        }
 
        # Create a scrollable canvas with scrollbars which will always be the same size as the main frame.
-       set canvas [canvas $path.canvas -bg $bg -bd 0 -highlightthickness 0 -yscrollcommand [list $path.scrolly set]]
+       set canvas [canvas $path.canvas -bg $::ceammc::ui::colors::window_background -bd 0 \
+            -highlightthickness 0 -yscrollcommand [list $path.scrolly set]]
        ttk::scrollbar $path.scrolly -orient vertical -command [list $canvas yview]
 
        # Create a container frame which will always be the same size as the canvas or content, whichever is greater.
