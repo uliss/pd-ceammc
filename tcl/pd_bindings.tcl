@@ -43,7 +43,7 @@ namespace eval ::pd_bindings:: {
 set ::pd_bindings::key2iso ""
 
 # ceammc
-proc ::pd_bindings::bind_mac_cyrillic {tag seq_prefix seq script} {
+proc ::pd_bindings::bind_cyrillic {tag seq_prefix seq script} {
     if {$::windowingsystem eq "aqua"} {
         if {[info exists ::pd_bindings::cyrbind($seq)]} {
             set key $::pd_bindings::cyrbind($seq)
@@ -61,7 +61,7 @@ proc ::pd_bindings::bind_capslock {tag seq_prefix seq_nocase script} {
     bind $tag <${seq_prefix}-[string tolower ${seq_nocase}]> "::pd_menucommands::scheduleAction $script"
     bind $tag <${seq_prefix}-[string toupper ${seq_nocase}]> "::pd_menucommands::scheduleAction $script"
     # ceammc
-    bind_mac_cyrillic $tag $seq_prefix [string tolower ${seq_nocase}] $script
+    bind_cyrillic $tag $seq_prefix [string tolower ${seq_nocase}] $script
 }
 
 # TODO rename pd_bindings to window_bindings after merge is done
@@ -119,7 +119,7 @@ proc ::pd_bindings::global_bindings {} {
     bind all <$::modifier-Key-slash>    {::pd_menucommands::scheduleAction pdsend "pd dsp 1"}
     bind all <$::modifier-Key-period>   {::pd_menucommands::scheduleAction pdsend "pd dsp 0"}
     # ceammc cyrillic layout fix
-    ::pd_bindings::bind_mac_cyrillic    all $::modifier-Key period {::pd_menucommands::scheduleAction pdsend "pd dsp 0"}
+    ::pd_bindings::bind_cyrillic        all $::modifier-Key period {::pd_menucommands::scheduleAction pdsend "pd dsp 0"}
     # ceammc end
 
     # take the '=' key as a zoom-in accelerator, because '=' is the non-shifted
