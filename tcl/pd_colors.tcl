@@ -37,7 +37,7 @@ switch -- [tk windowingsystem] {
         set ::pd_colors::comment_border     systemWindowBackgroundColor6
     }
     "win32" {
-        set ::pd_colors::window_background  systemWindow
+        set ::pd_colors::window_background  [ttk::style lookup TFrame -background]
         set ::pd_colors::window_transparent systemWindow
         set ::pd_colors::text               systemWindowText
         set ::pd_colors::text_background    systemWindow
