@@ -11,38 +11,80 @@ namespace eval ::pd_bindings:: {
     variable key2iso
     # ceammc
     variable cyrbind
-    set cyrbind(a) "ef"
-    set cyrbind(b) "i"
-    set cyrbind(c) "es"
-    set cyrbind(d) "ve"
-    set cyrbind(e) "u"
-    set cyrbind(f) "a"
-    set cyrbind(g) "pe"
-    set cyrbind(h) "er"
-    set cyrbind(i) "sha"
-    set cyrbind(j) "o"
-    set cyrbind(k) "el"
-    set cyrbind(l) "de"
-    set cyrbind(m) "softsign"
-    set cyrbind(n) "te"
-    set cyrbind(o) "shcha"
-    set cyrbind(p) "ze"
-    set cyrbind(q) "shorti"
-    set cyrbind(r) "ka"
-    set cyrbind(s) "yeru"
-    set cyrbind(t) "ie"
-    set cyrbind(u) "ghe"
-    set cyrbind(v) "em"
-    set cyrbind(w) "tse"
-    set cyrbind(x) "che"
-    set cyrbind(y) "en"
-    set cyrbind(z) "ya"
-    set cyrbind(period) "yu"
+    switch -- [tk::windowingsystem] {
+        "aqua" {
+            array set cyrbind {
+                a "ef"
+                b "i"
+                c "es"
+                d "ve"
+                e "u"
+                f "a"
+                g "pe"
+                h "er"
+                i "sha"
+                j "o"
+                k "el"
+                l "de"
+                m "softsign"
+                n "te"
+                o "shcha"
+                p "ze"
+                q "shorti"
+                r "ka"
+                s "yeru"
+                t "ie"
+                u "ghe"
+                v "em"
+                w "tse"
+                x "che"
+                y "en"
+                z "ya"
+                period "yu"
+            }
+        }
+        "win32" {
+            array set cyrbind {
+                a 65
+                b 66
+                c 67
+                d 68
+                e 69
+                f 70
+                g 71
+                h 72
+                i 73
+                j 74
+                k 75
+                l 76
+                m 77
+                n 78
+                o 79
+                p 80
+                q 81
+                r 82
+                s 83
+                t 84
+                u 85
+                v 86
+                w 87
+                x 88
+                y 89
+                z 90
+                period 190
+                slash 191
+            }
+        }
+    }
     # ceammc end
 }
 set ::pd_bindings::key2iso ""
 
 # ceammc
+proc ::pd_bindings::scheduleAction {key seq args} {
+    if { $key eq $seq } { eval ::pd_menucommands::scheduleAction $args }
+}
+
 proc ::pd_bindings::bind_cyrillic {tag seq_prefix seq script} {
     switch -- $::windowingsystem {
         "aqua" {
@@ -52,7 +94,10 @@ proc ::pd_bindings::bind_cyrillic {tag seq_prefix seq script} {
             }
         }
         "win32" {
-
+            if {[info exists ::pd_bindings::cyrbind($seq)]} {
+                set key $::pd_bindings::cyrbind($seq)
+                bind $tag <${seq_prefix}> "+::pd_bindings::scheduleAction %k $key $script"
+            }
         }
     }
 }
@@ -124,7 +169,8 @@ proc ::pd_bindings::global_bindings {} {
     bind all <$::modifier-Key-slash>    {::pd_menucommands::scheduleAction pdsend "pd dsp 1"}
     bind all <$::modifier-Key-period>   {::pd_menucommands::scheduleAction pdsend "pd dsp 0"}
     # ceammc cyrillic layout fix
-    ::pd_bindings::bind_cyrillic        all $::modifier-Key period {::pd_menucommands::scheduleAction pdsend "pd dsp 0"}
+    ::pd_bindings::bind_cyrillic        all $::modifier-Shift-Key slash  {::pd_menucommands::scheduleAction pdsend "pd dsp 1"}
+    ::pd_bindings::bind_cyrillic        all $::modifier-Shift-Key period {::pd_menucommands::scheduleAction pdsend "pd dsp 0"}
     # ceammc end
 
     # take the '=' key as a zoom-in accelerator, because '=' is the non-shifted
