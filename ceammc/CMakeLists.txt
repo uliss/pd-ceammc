@@ -74,8 +74,12 @@ add_custom_target(ceammc_extra_files
 
 
 set(DEV_INFO_TXT "${CMAKE_CURRENT_SOURCE_DIR}/dev_info_${CMAKE_SYSTEM_NAME}.txt")
-add_custom_target(dev
-    COMMAND ${CMAKE_COMMAND} -E cat "${DEV_INFO_TXT}")
+
+if(${CMAKE_VERSION} VERSION_LESS "3.18.0")
+    add_custom_target(dev COMMAND cat "${DEV_INFO_TXT}")
+else()
+    add_custom_target(dev COMMAND ${CMAKE_COMMAND} -E cat "${DEV_INFO_TXT}")
+endif()
 
 add_custom_target(dev_faust
     COMMAND ${CMAKE_COMMAND} -D ALL_TARGETS="${CEAMMC_FAUST_TARGETS}" -P "${CMAKE_CURRENT_SOURCE_DIR}/scripts/list_faust_targets.cmake")
