@@ -74,7 +74,7 @@ if(COMMAND llvm_map_components_to_libnames)
                 x86asmparser x86info x86desc x86codegen)
             list(APPEND llvm_libs ${llvm_libs_x86})
         endif()
-    elseif(WIN32)
+    elseif(WIN32 OR UNIX)
         llvm_map_components_to_libnames(llvm_libs_x86
             x86asmparser x86info x86desc x86codegen)
         list(APPEND llvm_libs ${llvm_libs_x86})
