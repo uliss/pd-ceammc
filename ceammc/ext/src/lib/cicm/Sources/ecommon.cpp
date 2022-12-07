@@ -167,7 +167,7 @@ static long unformat_atoms(int ac, t_atom* av)
                     }
                 } else {
                     len = (int)strlen(buf);
-                    strncat(buf, " ", 1);
+                    strncat(buf, " ", sizeof(buf) - 1);
                     str = (char)unformat_symbol(s->s_name, buf + len + 1, MAXPDSTRING - len - 1);
                 }
                 if (!str) {
