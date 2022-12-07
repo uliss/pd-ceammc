@@ -35,7 +35,7 @@ DataTypeId DataStorage::registerNewType(const DataTypeName& name,
     constexpr auto FIRST_TYPE_ID = 256;
 
     if (type_list_.empty()) {
-        type_list_.emplace_back(FIRST_TYPE_ID, name, fromListFn, fromDictFn);
+        type_list_.push_back({FIRST_TYPE_ID, name, fromListFn, fromDictFn});
         return FIRST_TYPE_ID;
     } else {
         const auto LAST_ID = type_list_.back().type;
@@ -60,7 +60,7 @@ DataTypeId DataStorage::registerNewType(const DataTypeName& name,
         const auto NEW_ID = LAST_ID + 1;
         LIB_LOG << fmt::format("new data type '{}' is registered with id: {}", name.c_str(), NEW_ID);
 
-        type_list_.emplace_back(NEW_ID, name, fromListFn, fromDictFn);
+        type_list_.push_back({NEW_ID, name, fromListFn, fromDictFn});
         return NEW_ID;
     }
 }
