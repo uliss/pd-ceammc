@@ -180,7 +180,7 @@ void UIMeter::reset()
 
 void UIMeter::clockTick()
 {
-    if (canvas_dspstate) {
+    if (pd_getdspstate()) {
         calc();
         output();
         reset();

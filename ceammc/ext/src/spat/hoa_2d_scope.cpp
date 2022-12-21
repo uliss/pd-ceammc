@@ -102,7 +102,7 @@ void Hoa2dScope::tick()
 
     harm_layer_.invalidate();
     redraw();
-    if (canvas_dspstate)
+    if (pd_getdspstate())
         clock_.delay(prop_refresh_);
 }
 
