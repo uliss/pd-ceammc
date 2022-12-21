@@ -11,6 +11,10 @@
             <library>ceammc</library>
             <category>math</category>
             <keywords>math round</keywords>
+            <aliases>
+                <alias>round</alias>
+                <alias>ceammc/round</alias>
+            </aliases>
             <also>
                 <see>math.ceil</see>
                 <see>math.floor</see>

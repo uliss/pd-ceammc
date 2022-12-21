@@ -1,5 +1,16 @@
 # CEAMMC external library changelog
 
+## [Unrelesed]
+### Added:
+- new properties:
+  - @cpuload property added to fluid~
+- new aliases:
+  - round alias added to math.round
+  - round~ alias added to math.round~
+- misc:
+  - new control outlet added to fluid~ - output current number of active voices (only when changed)
+
+
 ## [0.9.5]
 ### Added:
 - new objects:

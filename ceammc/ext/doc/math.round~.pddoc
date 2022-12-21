@@ -13,6 +13,7 @@
             <keywords>math round~</keywords>
             <aliases>
                 <alias>round~</alias>
+                <alias>ceammc/round~</alias>
             </aliases>
             <also>
                 <see>math.round</see>

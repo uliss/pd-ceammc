@@ -711,8 +711,11 @@ math.reciprocal~	calculate reciprocal number for signals
 ceammc/1/x~	calculate reciprocal number for signals
 1/x~	calculate reciprocal number for signals
 math.round	round to integral value, regardless of rounding direction
+round	round to integral value, regardless of rounding direction
+ceammc/round	round to integral value, regardless of rounding direction
 math.round~	signal round
 round~	signal round
+ceammc/round~	signal round
 math.sign	sign function
 math.sin	sine function
 math.sinh	hyperbolic sine function
