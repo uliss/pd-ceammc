@@ -21,6 +21,7 @@ array.play~,array.p~		.		~..
 array.plot		..		.
 array.plot~		~.		-
 array.resample,array.r		.		.
+array.risset_rythm~		.		.
 array.rms		.		.
 array.s2p,array.s->p,array.sample->phase		.		.
 array.set,ceammc/list->array,list->array		.		-
@@ -205,7 +206,7 @@ flt.median		.		.
 flt.moog_vcf~		~~		~
 flt.notch~		~		~
 flt.resonbp~		~		~
-fluid~,ceammc/fluid~		.		~~
+fluid~,ceammc/fluid~		.		~~.
 function,func,ceammc/func,ceammc/function		..		..
 function.call,func.call		..		.
 fx.bitdown~		~		~
@@ -435,8 +436,8 @@ math.pi~,ceammc/pi~,pi~		-		.
 math.polyeval		..		.
 math.reciprocal,ceammc/1/x,1/x		.		.
 math.reciprocal~,ceammc/1/x~,1/x~		~		~
-math.round		.		.
-math.round~,round~		.		.
+math.round,round,ceammc/round		.		.
+math.round~,round~,ceammc/round~		.		.
 math.sign		.		.
 math.sin		.		.
 math.sinh		.		.
@@ -580,6 +581,7 @@ proto.feelworld		.		.
 proto.firmata		.		.
 proto.inscore		.		.
 proto.midi		.		.
+proto.midi.casio		.		.
 proto.midi.cc		.		.
 proto.midi.sysex		.		.
 proto.moppy		.		.
