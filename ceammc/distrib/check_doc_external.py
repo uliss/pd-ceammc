@@ -5,9 +5,12 @@ import signal
 import argparse
 import subprocess
 import os.path
+import time
 from lxml import etree
 from termcolor import cprint
 import json
+
+verbose_output = False
 
 SRC_PATH = "@PROJECT_SOURCE_DIR@/"
 BIN_PATH = "@PROJECT_BINARY_DIR@/ceammc/ext/src/lib/"
@@ -17,6 +20,7 @@ STK_RAWWAVES_PATH = "@PROJECT_SOURCE_DIR@/ceammc/extra/stk/stk/rawwaves"
 EXT_LIST = BIN_PATH + "ext_list"
 EXT_METHODS = BIN_PATH + "ext_methods"
 EXT_PROPS = BIN_PATH + "ext_props"
+EXT_ALIASES = BIN_PATH + "ext_aliases"
 
 SPECIAL_OBJ = {"function": "f"}
 
@@ -91,20 +95,125 @@ def check_spell(obj):
         check_spell(node)
 
 
+def parse_alias_lines(name, lines):
+    for line in lines:
+        line = line.strip()
+        if len(line) == 0:
+            continue
+
+        names = line.split(" ")
+        if len(names) > 1 and names[0] == name:
+            return set(names[1:])
+
+    return set()
+
+
+def run_ext_aliases():
+    return subprocess.check_output([EXT_ALIASES], stderr=subprocess.DEVNULL,
+                                    env={"RAWWAVES": STK_RAWWAVES_PATH},
+                                    encoding="utf-8", errors="ignore",
+                                    text=True)
+
+
+def read_ext_aliases(name, no_cache):
+    try:
+        if not no_cache:
+            cache_file = "{}/aliases.cache".format(os.getcwd())
+            if os.path.exists(cache_file):
+                if int(time.time()) - os.path.getmtime(cache_file) < 3600:
+                    if verbose_output:
+                        cprint(f"[{name}] using ./aliases.cache file", "green")
+                    with open(cache_file) as f:
+                        return parse_alias_lines(name, f.readlines())
+                else:
+                    with open(cache_file, 'w') as f:
+                        if verbose_output:
+                            cprint(f"[{name}] update ./aliases.cache file", "green")
+                        str = run_ext_aliases()
+                        f.write(str)
+                        return parse_alias_lines(name, str.splitlines())
+            else:
+                with open(cache_file, 'w') as f:
+                    if verbose_output:
+                        cprint(f"[{name}] create ./aliases.cache file", "green")
+
+                    str = run_ext_aliases()
+                    f.write(str)
+                    return parse_alias_lines(name, str.splitlines())
+        else:
+            return parse_alias_lines(name, run_ext_aliases().splitlines())
+
+    except(subprocess.CalledProcessError):
+        cprint(f"[{name}] can't get external aliases", "red")
+        return set()
+
+
+def read_doc_aliases(node):
+    res = set()
+
+    if node.tag != "meta":
+        return res
+
+    for x in node:
+        if x.tag == "aliases":
+            for y in x:
+                if y.tag == "alias":
+                    res.add(y.text.strip())
+
+    return res
+
+
+def check_aliases(name, doc, ext):
+    undoc_aliases = ext - doc
+    unknown_aliases = doc - ext
+
+    if len(undoc_aliases) > 0:
+        cprint(f"[{ext_name}] undocumented aliases: {undoc_aliases}",
+            'magenta')
+
+    if len(unknown_aliases) > 0:
+        cprint(f"[{ext_name}] unknown aliases: {unknown_aliases}",
+            'yellow')
+
+
+def check_methods(name, doc, ext):
+    ignored_methods = {'dump', 'dsp', 'signal', 'mouseup', 'mouseenter', 'dialog',
+                       'zoom', 'mousewheel', 'mousemove', 'mousedown', 'mouseleave',
+                       'symbol', 'float', 'bang', 'dblclick', 'list', 'dsp_add', 'loadbang',
+                       'click', 'dsp_add_aliased', 'vis', 'popup', 'eobjreadfrom', 'eobjwriteto',
+                       'rightclick', 'key' }
+
+    undoc_methods_set = ext - doc - ignored_methods
+    unknown_methods = doc - ext
+    if len(undoc_methods_set):
+        cprint(f"[{ext_name}] undocumented methods: {undoc_methods_set}",
+            'magenta')
+
+    if len(unknown_methods):
+        cprint(f"[{ext_name}] unknown methods in doc: {unknown_methods}",
+            'yellow')
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='CEAMMC Pd documentation checker')
     parser.add_argument('-a', '--all', help='check all', action='store_true')
     parser.add_argument('-p', '--props', help='check properties', action='store_true')
+    parser.add_argument('-m', '--methods', help='check methods', action='store_true')
+    parser.add_argument('-i', '--aliases', help='check aliases', action='store_true')
     parser.add_argument('-s', '--spell', help='check spell', action='store_true')
     parser.add_argument('-v', '--verbose', help='verbose output', action='store_true')
+    parser.add_argument('--no-cache', help='not use cached calls', action='store_true')
     parser.add_argument('external', metavar='EXT_NAME', type=str, help='external name')
 
     args = parser.parse_args()
     ext_name = args.external
+    verbose_output = args.verbose
 
     if args.all:
         args.props = True
         args.spell = True
+        args.aliases = True
+        args.methods = True
 
     if args.verbose:
         print(f" - checking [{ext_name}] external ...")
@@ -125,15 +234,23 @@ if __name__ == '__main__':
     doc_methods_set = set()
     doc_props_set = set()
     doc_props_dict = dict()
+    doc_aliases = set()
 
-    # parse methods
+    # parse PDDOC info
     for appt in root:
         for x in appt:
-            if x.tag == "methods":
-                for m in x:
-                    if m.tag != "method" or m.get("example", False) or m.get("internal", False):
-                        continue
-                    doc_methods_set.add(m.attrib["name"].split(' ')[0])
+            # parse pddoc aliases
+            if args.aliases:
+                a = read_doc_aliases(x)
+                if len(a) > 0:
+                    doc_aliases = a
+
+            if args.methods:
+                if x.tag == "methods":
+                    for m in x:
+                        if m.tag != "method" or m.get("example", False) or m.get("internal", False):
+                            continue
+                        doc_methods_set.add(m.attrib["name"].split(' ')[0])
 
             if x.tag == "properties":
                 for p in x:
@@ -158,26 +275,26 @@ if __name__ == '__main__':
 
                     doc_props_dict[name]["type"] = p.attrib["type"]
 
-    ext_methods = read_methods(ext_name)
-    is_ceammc = '.is_cicm?' in ext_methods or '.is_base?' in ext_methods
-    ext_methods = set([x for x in ext_methods if len(x) and x[0] != '.' and x[0] != '_'])
-    # print(doc_methods_set)
-    # print(ext_methods)
-    ignored_methods = {'dump', 'dsp', 'signal', 'mouseup', 'mouseenter', 'dialog',
-                       'zoom', 'mousewheel', 'mousemove', 'mousedown', 'mouseleave',
-                       'symbol', 'float', 'bang', 'dblclick', 'list', 'dsp_add', 'loadbang',
-                       'click', 'dsp_add_aliased', 'vis', 'popup', 'eobjreadfrom', 'eobjwriteto',
-                       'rightclick', 'key' }
-    undoc_methods_set = ext_methods - doc_methods_set - ignored_methods
-    unknown_methods = doc_methods_set - ext_methods
-    if len(undoc_methods_set):
-        cprint(f"[{ext_name}] undocumented methods: {undoc_methods_set}", 'magenta')
+    if args.aliases:
+        ext_aliases = read_ext_aliases(ext_name, args.no_cache)
+        check_aliases(ext_name, doc_aliases, ext_aliases)
 
-    if len(unknown_methods):
-        cprint(f"[{ext_name}] unknown methods in doc: {unknown_methods}", 'yellow')
+    is_ceammc = False
+    if args.methods or args.props:
+        ext_methods = read_methods(ext_name)
+        is_ceammc = '.is_cicm?' in ext_methods or '.is_base?' in ext_methods
+
+    if args.methods:
+        ext_methods = set([x for x in ext_methods if len(x) and x[0] != '.' and x[0] != '_'])
+        check_methods(ext_name, doc_methods_set, ext_methods)
 
     if args.props and is_ceammc:
-        ignored_props = {'@*', '@label', '@label_margins', '@label_valign', '@label_align', '@label_inner', '@label_side', '@label_color'}
+        ignored_props = {'@*', '@label', '@label_margins', '@label_valign',
+            '@label_align',
+            '@label_inner',
+            '@label_side',
+            '@label_color'
+            }
 
         ext_props_set, ext_props_dict = read_props(ext_name)
         undoc_props_set = ext_props_set - doc_props_set - ignored_props
