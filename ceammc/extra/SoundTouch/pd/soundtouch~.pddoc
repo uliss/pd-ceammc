@@ -23,7 +23,6 @@
         <properties>
             <property name="@pitch" type="float" default="0">
             relative pitch change in semitones</property>
-            <property name="@speech" type="flag">optimize for speech sound source</property>
             <property name="@antialias" type="int" enum="0 1" default="0">use of anti-alias filter.
             Anti-alias filter is used to prevent folding of high frequencies when 
             transposing the sample rate with interpolation.</property>
