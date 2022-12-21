@@ -6,6 +6,7 @@
 #include "ceammc_externals.h"
 #include "ceammc_log.h"
 #include "ceammc_ui_object.h"
+#include "ceammc_object_info.h"
 #include "ceammc_syms.h"
 
 #include <stdexcept>
@@ -858,7 +859,7 @@ public:
 
     void addAlias(const char* name)
     {
-        class_addcreator(reinterpret_cast<t_newmethod>(alloc), gensym(name), A_GIMME, A_NULL);
+        ObjectInfoStorage::instance().addAlias(name, &pd_ui_class->c_class, reinterpret_cast<t_newmethod>(alloc));
     }
 
 public:
