@@ -46,6 +46,7 @@
             channels</property>
             <property name="@n" type="int" default="16" readonly="true">number of active
             voices</property>
+            <property name="@cpuload" type="float" default="0" readonly="true">current cpu load</property>
             <property name="@bufsize" units="sample" type="float" default="0" readonly="true">
             internal buffer size</property>
         </properties>
@@ -214,6 +215,7 @@
         <outlets>
             <outlet type="audio">left channel and property output</outlet>
             <outlet type="audio">right channel</outlet>
+            <outlet type="control">int: number of active voices (output only on change)</outlet>
         </outlets>
         <example>
             <pdascii>
