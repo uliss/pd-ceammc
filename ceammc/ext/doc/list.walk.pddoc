@@ -69,6 +69,7 @@
         </inlets>
         <outlets>
             <outlet>list element</outlet>
+            <outlet>bang: when last element reached</outlet>
         </outlets>
         <example>
             <pdascii>

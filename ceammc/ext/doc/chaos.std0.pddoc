@@ -35,6 +35,9 @@
             <inlet>
                 <xinfo on="bang">generates and outputs next x-value</xinfo>
             </inlet>
+            <inlet>
+                <xinfo on="float">set k value</xinfo>
+            </inlet>
         </inlets>
         <outlets>
             <outlet>outputs x-value mapped to [-1..1] range</outlet>

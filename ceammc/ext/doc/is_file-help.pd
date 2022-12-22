@@ -25,6 +25,8 @@ directory;
 -49933 0;
 #X text 110 319 1\.;
 #X text 245 319 0 or 1\.;
+#X text 110 339 2\.;
+#X text 245 339 symbol os String: pass filename if file exists.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

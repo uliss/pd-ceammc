@@ -33,7 +33,7 @@
 1\. Allowed values: 0 \, 1\.;
 #X msg 110 581 @feedback;
 #X text 245 581 Get/Set oscillator feedback coefficient. Type: float.
-Default value: 0\. Range: 0\...6.28319\.;
+Default value: 0\. Range: 0\...6.283\.;
 #X obj 20 633 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 638 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;

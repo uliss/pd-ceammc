@@ -42,7 +42,7 @@ chaos.gbman0		.		..
 chaos.gbman0~		~		~~
 chaos.jong,noise.jong		.		..
 chaos.logistic,noise.logistic		.		.
-chaos.std0		.		..
+chaos.std0		..		..
 chaos.std0~		~~		~~
 click~,ceammc/click~		.		~
 conv.amp2dbfs,ceammc/amp->dbfs,amp->dbfs		.		.
@@ -274,7 +274,7 @@ is_bang		.		..
 is_data,ceammc/is_data		.		..
 is_dict,ceammc/is_dict		.		..
 is_even		.		..
-is_file,ceammc/is_file		.		.
+is_file,ceammc/is_file		.		..
 is_float		.		..
 is_list		.		..
 is_odd		.		..
@@ -360,7 +360,7 @@ list.sum		.		.
 list.unique		.		.
 list.unpack		.		?
 list.unzip,list.deinterleave		.		?
-list.walk		.		.
+list.walk		.		..
 list.zip,list.interleave		?		.
 live.capture~		~.		~
 loadexpr,ceammc/loadexpr		-		.
@@ -576,7 +576,7 @@ prop.get~,prop~>,@~>		~		?
 prop.join,prop<-		?		.
 prop.random		?		..
 prop.set,p.set		?		.
-prop.split,prop->,@->		.		?
+prop.split,prop->,@->,ceammc/prop->,ceammc/@->		.		?
 proto.feelworld		.		.
 proto.firmata		.		.
 proto.inscore		.		.

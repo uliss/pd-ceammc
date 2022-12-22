@@ -432,15 +432,21 @@ if __name__ == '__main__':
 
             attr = check_attr("default", p0, p1)
             if attr == HAVE_BOTH:
-                if isinstance(p0["default"], list):
-                    v0 = round(p0["default"], 3)
+                v0 = p0["default"]
+                v1 = p1["default"]
+                if isinstance(v0, list):
+                    v0 = "(" + " ".join(v0) + ")"
                     v1 = p1["default"].split(" ")
 
                     if len(v0) > 0 and (isinstance(v0[0], float) or isinstance(v0[0], int)):
                         v1 = list(map(float, v1))
+                elif isinstance(v0, dict):
+                    v0 = "[]"
                 else:
-                    v0 = str(round(p0["default"], 3))
-                    v1 = p1["default"]
+                    if isinstance(v0, float):
+                        v0 = round(v0, 3)
+
+                    v0 = str(v0)
 
                 if v1 == "+inf" and float(v0) > 1.0e+24:
                     pass
