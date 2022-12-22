@@ -522,6 +522,10 @@ void UITab::setup()
     obj.addProperty("selected", &UITab::propSelected);
     obj.addProperty("current", &UITab::propCurrent);
 
+    obj.showProperty("count");
+    obj.showProperty("selected");
+    obj.showProperty("current");
+
     obj.addProperty(PROP_TEXT_COLOR, _("Text Color"), DEFAULT_TEXT_COLOR, &UITab::prop_color_text);
     obj.addProperty(PROP_ACTIVE_COLOR, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UITab::prop_color_active);
     obj.addProperty("hover_color", _("Hover Color"), "0.5 0.5 0.5 1", &UITab::prop_color_hover);

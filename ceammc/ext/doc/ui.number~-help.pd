@@ -22,66 +22,60 @@ value: 50\. Range: 20\...1000\.;
 #X msg 110 318 @precision;
 #X text 245 318 Get/Set float precision. Type: int. Default value:
 6\. Range: 0\...16\.;
-#X msg 110 360 @receive;
-#X text 245 360 Get/Set receive source. Type: symbol. Default value:
-(null).;
-#X msg 110 389 @send;
-#X text 245 389 Get/Set send destination. Type: symbol. Default value:
-(null).;
-#X msg 110 431 @active_color;
-#X text 245 431 Get/Set active color (list of red \, green \, blue
+#X msg 110 360 @active_color;
+#X text 245 360 Get/Set active color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
-#X msg 110 473 @background_color;
-#X text 245 473 Get/Set element background color (list of red \, green
+#X msg 110 402 @background_color;
+#X text 245 402 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0.3 0.3 0.3
 1\.;
-#X msg 110 530 @border_color;
-#X text 245 530 Get/Set border color (list of red \, green \, blue
+#X msg 110 459 @border_color;
+#X text 245 459 Get/Set border color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 0 0 0 1\.;
-#X msg 110 572 @text_color;
-#X text 245 572 Get/Set text color (list of red \, green \, blue values
+#X msg 110 501 @text_color;
+#X text 245 501 Get/Set text color (list of red \, green \, blue values
 in 0-1 range). Type: list. Default value: 0.9 0.9 0.9 1\.;
-#X msg 110 614 @fontname;
-#X text 245 614 Get/Set fontname. Type: symbol. Default value: Helvetica.;
-#X msg 110 643 @fontsize;
-#X text 245 643 Get/Set fontsize. Type: int. Default value: 11\. Range:
+#X msg 110 543 @fontname;
+#X text 245 543 Get/Set fontname. Type: symbol. Default value: Helvetica.;
+#X msg 110 572 @fontsize;
+#X text 245 572 Get/Set fontsize. Type: int. Default value: 11\. Range:
 4\...11\.;
-#X msg 110 685 @pinned;
-#X text 245 685 Get/Set pin mode. if 1 - put element to the lowest
+#X msg 110 614 @pinned;
+#X text 245 614 Get/Set pin mode. if 1 - put element to the lowest
 level. Type: int. Default value: 0\. Allowed values: 0 \, 1\.;
-#X msg 110 727 @size;
-#X text 245 727 Get/Set element size (width \, height pair). Type:
+#X msg 110 656 @size;
+#X text 245 656 Get/Set element size (width \, height pair). Type:
 list. Default value: 80 15\.;
-#X obj 20 779 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 784 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 708 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 713 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 819 pos;
-#X text 245 819 set UI element position. Arguments are:;
-#X obj 255 842 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 842 X: top left x-coord. Type: float.;
-#X obj 255 865 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 865 Y: top right y-coord. Type: float.;
-#X obj 20 900 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 905 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 110 748 pos;
+#X text 245 748 set UI element position. Arguments are:;
+#X obj 255 771 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 771 X: top left x-coord. Type: float.;
+#X obj 255 794 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 794 Y: top right y-coord. Type: float.;
+#X obj 20 829 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 834 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 906 1\.;
-#X text 245 906 input audio signal.;
-#X obj 20 936 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 941 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 835 1\.;
+#X text 245 835 input audio signal.;
+#X obj 20 865 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 870 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 942 1\.;
-#X text 245 942 signal pass thru.;
+#X text 110 871 1\.;
+#X text 245 871 signal pass thru.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 992 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 995 library: ceammc v0.9.5;
-#X text 598 1007 see also:;
-#X obj 672 1010 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 921 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 924 library: ceammc v0.9.5;
+#X text 598 936 see also:;
+#X obj 672 939 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.number] @url ui.number-help.pd;
-#N canvas 10 1014 400 290 info 0;
+#N canvas 10 943 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -105,5 +99,5 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1014 pd info;
+#X restore 10 943 pd info;
 #X connect 7 0 9 0;

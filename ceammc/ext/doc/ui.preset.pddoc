@@ -38,7 +38,6 @@
             <property name="@current" type="int" default="0" readonly="true">current preset
             index</property>
             <!-- common -->
-            <property name="@send" type="symbol" default="(null)">send destination</property>
             <property name="@receive" type="symbol" default="(null)">receive source</property>
             <property name="@size" type="list" default="102 42">element size (width, height
             pair)</property>
@@ -59,10 +58,6 @@
             <property name="@fontsize" type="int" minvalue="4" maxvalue="11" default="11">
             fontsize</property>
             <property name="@fontname" type="symbol" default="Helvetica">fontname</property>
-            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
-            weight</property>
-            <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
-            slant</property>
         </properties>
         <methods>
             <method name="clear">clear specified preset 

@@ -62,10 +62,6 @@
             <property name="@fontsize" type="int" minvalue="4" maxvalue="11" default="11">
             fontsize</property>
             <property name="@fontname" type="symbol" default="Helvetica">fontname</property>
-            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
-            weight</property>
-            <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
-            slant</property>
             <property name="@mouse_events" type="int" enum="0 1" default="0">mouse events output
             mode. If on outputs @mouse_down and @mouse_drag events</property>
         </properties>
