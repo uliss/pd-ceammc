@@ -24,6 +24,9 @@
             <inlet type="audio">
                 <xinfo>frequency in Hz</xinfo>
             </inlet>
+            <inlet type="control">
+                <xinfo on="bang">reset phase</xinfo>
+            </inlet>
         </inlets>
         <outlets>
             <outlet type="audio">output signal</outlet>

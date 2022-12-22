@@ -36,7 +36,7 @@
 value: 1000\. Range: 20\...22050\.;
 #X msg 110 546 @q;
 #X text 245 546 Get/Set quality factor: @freq/BANDWIDTH. Type: float.
-Default value: 0.707107\. Range: 0.01\...100\.;
+Default value: 0.707\. Range: 0.01\...100\.;
 #X msg 110 588 @rad;
 #X text 245 588 use angular frequency.;
 #X obj 20 627 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

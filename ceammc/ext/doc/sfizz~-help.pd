@@ -38,7 +38,7 @@ value: 0\.;
 Default value: 440\.;
 #X msg 110 621 @gain;
 #X text 245 621 Get/Set output gain (same as @value but in amp units).
-Type: float. Default value: 0.429042\. Range: 0\...10\.;
+Type: float. Default value: 0.429\. Range: 0\...10\.;
 #X msg 110 663 @poly;
 #X text 245 663 Get/Set max number of voices. Type: int. Default value:
 64\. Range: 1\...1024\.;

@@ -24,7 +24,7 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output signal</outlet>
+            <outlet type="audio">output signal</outlet>
         </outlets>
         <example>
             <pdascii>

@@ -189,7 +189,7 @@ flt.c_pole,ceammc/pole->biquad,pole->biquad		.		.
 flt.dcblock2~		~~		~~
 flt.dcblock~		~		~
 flt.eq10~		~		~
-flt.eq_peak_cq~		.		~
+flt.eq_peak_cq~		~		~
 flt.eq_peak~		~		~
 flt.fb_comb~		~~		~
 flt.fbank5x1~		~		~~~~~
@@ -286,7 +286,7 @@ lfo.+pulse~		~.		~
 lfo.+saw~		~.		~
 lfo.+square~		~.		~
 lfo.+tri~		~.		~
-lfo.impulse~		~		~
+lfo.impulse~		~.		~
 lfo.mosc~		~.		~
 lfo.pulse~		~.		~
 lfo.saw~		~.		~
@@ -314,7 +314,7 @@ list.enumerate		.		.
 list.equal		..		.
 list.first		.		.
 list.gen		..		..
-list.histogram		.		.
+list.histogram		..		.
 list.insert		...		.
 list.integrator		.		.
 list.last		.		.
@@ -337,7 +337,7 @@ list.remove_if		..		..
 list.repack		.		..
 list.repeat		..		.
 list.resample,list.r		..		.
-list.resize		.		.
+list.resize		..		.
 list.reverse		.		.
 list.rldecode,list.unwrap		..		.
 list.rlencode,list.wrap		.		..
@@ -432,12 +432,12 @@ math.nan~		.		~
 math.neg,ceammc/-x,-x		.		.
 math.or,ceammc/or,or		?		.
 math.pi,ceammc/pi,pi		.		.
-math.pi~,ceammc/pi~,pi~		-		.
+math.pi~,ceammc/pi~,pi~		-		~
 math.polyeval		..		.
 math.reciprocal,ceammc/1/x,1/x		.		.
 math.reciprocal~,ceammc/1/x~,1/x~		~		~
 math.round,round,ceammc/round		.		.
-math.round~,round~,ceammc/round~		.		.
+math.round~,round~,ceammc/round~		~		~
 math.sign		.		.
 math.sin		.		.
 math.sinh		.		.
@@ -446,7 +446,7 @@ math.sin~		~		~
 math.sqrt		.		.
 math.sqrt~		~		~
 math.squared,math.^2,ceammc/^2,^2		.		.
-math.squared~,math.^2~,ceammc/^2~,^2~		~		.
+math.squared~,math.^2~,ceammc/^2~,^2~		~		~
 math.sync_add,math.+',ceammc/+',+'		..		.
 math.sync_and,math.&&',ceammc/&&',&&'		..		.
 math.sync_div,math./',ceammc//',/'		..		.
@@ -467,7 +467,7 @@ math.tan		.		.
 math.tanh		.		.
 math.tanh~		~		~
 math.tan~		~		~
-math.trunc		~		~
+math.trunc		.		.
 math.trunc~		~		~
 matrix~,ceammc/matrix~		?		?
 metro.pattern		.		..

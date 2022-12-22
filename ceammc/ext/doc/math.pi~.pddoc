@@ -29,7 +29,7 @@
         </info>
         <inlets />
         <outlets>
-            <outlet>output value</outlet>
+            <outlet type="audio">output value</outlet>
         </outlets>
         <example>
             <pdascii>

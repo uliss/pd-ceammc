@@ -25,6 +25,9 @@
                 <xinfo on="list">input list</xinfo>
                 <xinfo on="data:mlist">input mlist</xinfo>
             </inlet>
+            <inlet>
+                <xinfo on="int">set number of bins</xinfo>
+            </inlet>
         </inlets>
         <outlets>
             <outlet>output list - length of @bins</outlet>

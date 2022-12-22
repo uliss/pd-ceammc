@@ -160,7 +160,7 @@
             key labels</property>
             <property name="@cc_labels" readonly="true" type="atom" default="[]">dict of controller
             labels</property>
-            <property name="@gain" type="float" minvalue="0" maxvalue="10" default="0.429042">
+            <property name="@gain" type="float" minvalue="0" maxvalue="10" default="0.429">
             output gain (same as @value but in amp units)</property>
             <property name="@volume" type="float" minvalue="-60" maxvalue="10" default="-7.35"
             units="decibel">output volume (same as @gain but in db)</property>

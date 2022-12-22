@@ -47,7 +47,7 @@ https://en.wikipedia.org/wiki/All-pass_filter;
 value: 0\. Range: 0\...22050\.;
 #X msg 110 694 @q;
 #X text 245 694 Get/Set quality factor: @freq/BANDWIDTH. Type: float.
-Default value: 0.707107\. Range: 0.01\...100\.;
+Default value: 0.707\. Range: 0.01\...100\.;
 #X msg 110 736 @rad;
 #X text 245 736 use angular frequency.;
 #X obj 20 775 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
