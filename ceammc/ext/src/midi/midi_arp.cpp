@@ -1,6 +1,15 @@
 #include "midi_arp.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "fmt/core.h"
+
+#include <ctime>
+#include <random>
+
+CEAMMC_DEFINE_HASH(up);
+CEAMMC_DEFINE_HASH(down);
+CEAMMC_DEFINE_HASH(tri);
+CEAMMC_DEFINE_HASH(random);
 
 MidiArp::MidiArp(const PdArgs& args)
     : BaseObject(args)
@@ -9,9 +18,12 @@ MidiArp::MidiArp(const PdArgs& args)
     , delay_(nullptr)
     , min_notes_(nullptr)
     , pass_(nullptr)
+    , mode_(nullptr)
+    , seed_(nullptr)
     , cur_note_idx_(0)
     , prev_note_(-1)
     , state_(STATE_EMPTY)
+    , gen_(time(0))
 {
     createInlet();
     createOutlet();
@@ -27,6 +39,18 @@ MidiArp::MidiArp(const PdArgs& args)
 
     min_notes_ = new IntProperty("@min_notes", 1);
     addProperty(min_notes_);
+
+    mode_ = new SymbolEnumProperty("@mode", { str_up, str_down, str_tri, str_random });
+    addProperty(mode_);
+
+    seed_ = new IntProperty("@seed", -1);
+    seed_->setSuccessFn([this](Property*) {
+        if (seed_->value() < 0)
+            gen_.seed(time(0));
+        else
+            gen_.seed(seed_->value());
+    });
+    addProperty(seed_);
 }
 
 MidiArp::~MidiArp()
@@ -152,7 +176,7 @@ void MidiArp::playNote()
     sendNote(notes_[cur_note_idx_], 127);
 
     prev_note_ = notes_[cur_note_idx_];
-    cur_note_idx_++;
+    cur_note_idx_ = nextNote();
 
     if (!external_clock_->value())
         clock_.delay(delay_->value());
@@ -174,6 +198,27 @@ void MidiArp::removeNote(std::uint8_t note)
     auto it = std::remove(notes_.begin(), notes_.end(), note);
     if (it != notes_.end())
         notes_.erase(it, notes_.end());
+}
+
+int MidiArp::nextNote()
+{
+    const auto N = notes_.size();
+
+    if (N == 0)
+        return cur_note_idx_;
+
+    switch (crc32_hash(mode_->value())) {
+    case hash_up:
+        return (cur_note_idx_ + 1) % N;
+    case hash_down:
+        return (cur_note_idx_ == 0) ? (N - 1) : ((cur_note_idx_ - 1) % N);
+    case hash_random: {
+        std::uniform_int_distribution<int> dist(1, N - 1);
+        return (cur_note_idx_ + dist(gen_)) % N;
+    } break;
+    default:
+        return cur_note_idx_;
+    }
 }
 
 void setup_midi_arp()
