@@ -122,8 +122,10 @@ void MidiArp::onEvent(MidiArpEvent ev, std::uint8_t note)
             if (notes_.size() < min_notes_->value()) {
                 state_ = STATE_NOARP;
                 cur_note_idx_ = 0;
-                sendNote(prev_note_, 0);
-                prev_note_ = -1;
+                if (prev_note_ >= 0) {
+                    sendNote(prev_note_, 0);
+                    prev_note_ = -1;
+                }
             }
             if (notes_.empty())
                 state_ = STATE_EMPTY;
@@ -170,7 +172,8 @@ void MidiArp::addNote(std::uint8_t note, std::uint8_t vel)
 void MidiArp::removeNote(std::uint8_t note)
 {
     auto it = std::remove(notes_.begin(), notes_.end(), note);
-    notes_.erase(it);
+    if (it != notes_.end())
+        notes_.erase(it, notes_.end());
 }
 
 void setup_midi_arp()
