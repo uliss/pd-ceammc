@@ -17,13 +17,16 @@ BIN_PATH = "@PROJECT_BINARY_DIR@/ceammc/ext/src/lib/"
 DOC_PATH = "@PROJECT_SOURCE_DIR@/ceammc/ext/doc/"
 STK_RAWWAVES_PATH = "@PROJECT_SOURCE_DIR@/ceammc/extra/stk/stk/rawwaves"
 
-EXT_LIST = BIN_PATH + "ext_list"
-EXT_METHODS = BIN_PATH + "ext_methods"
-EXT_PROPS = BIN_PATH + "ext_props"
-EXT_ALIASES = BIN_PATH + "ext_aliases"
+EXT_INFO = BIN_PATH + "ext_info"
 
 SPECIAL_OBJ = {"function": "f"}
 
+EXT_INLETS = []
+EXT_OUTLETS = []
+EXT_METHODS = set()
+EXT_ALIASES = set()
+EXT_PROPS_SET = set()
+EXT_PROPS_DICT = dict()
 
 def signal_handler(sig, frame):
     sys.exit(0)
@@ -32,49 +35,55 @@ def signal_handler(sig, frame):
 signal.signal(signal.SIGINT, signal_handler)
 
 
-def read_all_externals():
-    return list(filter(lambda x: len(x),
-                subprocess.check_output([EXT_LIST],
-                stderr=subprocess.DEVNULL).decode().split('\n')))
+# methods starting with @ - properties in UI objects
+# methods starting with . - internal methods
+# methods ending with _aliased - overwritten methods
+def is_valid_method(x):
+    return (len(x) and x[0] != '@') and (not str(x).endswith("_aliased"))
 
-
-def read_methods(name):
-    # methods starting with @ - properties in UI objects
-    # methods starting with . - internal methods
-    # methods ending with _aliased - overwritten methods
-    def valid_method(x):
-        return (len(x) and x[0] != '@') and (not str(x).endswith("_aliased"))
+def read_ext_info(name):
+    global EXT_INLETS, EXT_OUTLETS, EXT_METHODS, EXT_ALIASES, EXT_PROPS_SET, EXT_PROPS_DICT
 
     try:
-        args = [EXT_METHODS, name]
+        args = [EXT_INFO, name]
         if name in SPECIAL_OBJ:
             args.append(SPECIAL_OBJ[name])
 
-        return set(filter(valid_method,
-                          subprocess.check_output(args,
-                                                  stderr=subprocess.DEVNULL,
-                                                  env={"RAWWAVES": STK_RAWWAVES_PATH}).decode().split('\n')))
+        output = subprocess.check_output(args,
+                                        env={"RAWWAVES": STK_RAWWAVES_PATH},
+                                        stderr=subprocess.DEVNULL).decode()
+
+        js = json.loads(output)
+        # read xlets
+        try:
+            EXT_INLETS = js["object"]["inlets"]
+            EXT_OUTLETS = js["object"]["outlets"]
+        except(KeyError):
+            pass
+        # read methods
+        try:
+            EXT_METHODS = set(filter(is_valid_method, js["object"]["methods"]))
+        except(KeyError):
+            pass
+        # read aliases
+        try:
+            EXT_ALIASES = set(js["object"]["info"]["aliases"])
+        except(KeyError):
+            pass
+
+        # read props
+        try:
+            props = js["object"]["properties"]
+            for p in props:
+                EXT_PROPS_SET.add(p["name"])
+                EXT_PROPS_DICT[p["name"]] = p
+        except(KeyError):
+            pass
+
+        return True
     except(subprocess.CalledProcessError):
         cprint(f"[{name}] can't get methods", "red")
-        return set()
-
-
-def read_props(name):
-    try:
-        args = [EXT_PROPS, name]
-        if name in SPECIAL_OBJ:
-            args.append(SPECIAL_OBJ[name])
-
-        s = subprocess.check_output(args, stderr=subprocess.DEVNULL,
-                                    env={"RAWWAVES": STK_RAWWAVES_PATH},
-                                    encoding="utf-8", errors="ignore")
-        js = json.loads(s)
-        return set(js.keys()), js
-    except(subprocess.CalledProcessError) as e:
-        if e.returncode != 4:
-            cprint(f"[{name}] can't get properties", "red")
-
-        return set(), dict()
+        return False
 
 
 def check_spell(obj):
@@ -95,59 +104,6 @@ def check_spell(obj):
         check_spell(node)
 
 
-def parse_alias_lines(name, lines):
-    for line in lines:
-        line = line.strip()
-        if len(line) == 0:
-            continue
-
-        names = line.split(" ")
-        if len(names) > 1 and names[0] == name:
-            return set(names[1:])
-
-    return set()
-
-
-def run_ext_aliases():
-    return subprocess.check_output([EXT_ALIASES], stderr=subprocess.DEVNULL,
-                                    env={"RAWWAVES": STK_RAWWAVES_PATH},
-                                    encoding="utf-8", errors="ignore",
-                                    text=True)
-
-
-def read_ext_aliases(name, no_cache):
-    try:
-        if not no_cache:
-            cache_file = "{}/aliases.cache".format(os.getcwd())
-            if os.path.exists(cache_file):
-                if int(time.time()) - os.path.getmtime(cache_file) < 3600:
-                    if verbose_output:
-                        cprint(f"[{name}] using ./aliases.cache file", "green")
-                    with open(cache_file) as f:
-                        return parse_alias_lines(name, f.readlines())
-                else:
-                    with open(cache_file, 'w') as f:
-                        if verbose_output:
-                            cprint(f"[{name}] update ./aliases.cache file", "green")
-                        str = run_ext_aliases()
-                        f.write(str)
-                        return parse_alias_lines(name, str.splitlines())
-            else:
-                with open(cache_file, 'w') as f:
-                    if verbose_output:
-                        cprint(f"[{name}] create ./aliases.cache file", "green")
-
-                    str = run_ext_aliases()
-                    f.write(str)
-                    return parse_alias_lines(name, str.splitlines())
-        else:
-            return parse_alias_lines(name, run_ext_aliases().splitlines())
-
-    except(subprocess.CalledProcessError):
-        cprint(f"[{name}] can't get external aliases", "red")
-        return set()
-
-
 def read_doc_aliases(node):
     res = set()
 
@@ -162,6 +118,37 @@ def read_doc_aliases(node):
 
     return res
 
+
+def read_doc_inlets(node):
+    res = []
+
+    if node.tag != "inlets":
+        return res
+
+    if node.attrib.get("dynamic", "false") == "true":
+        return None
+
+    for x in node:
+        if x.tag == "inlet":
+            res.append(x.attrib.get("type", "control"))
+
+    return res
+
+
+def read_doc_outlets(node):
+    res = []
+
+    if node.tag != "outlets":
+        return res
+
+    if node.attrib.get("dynamic", "false") == "true":
+        return None
+
+    for x in node:
+        if x.tag == "outlet":
+            res.append(x.attrib.get("type", "control"))
+
+    return res
 
 def check_aliases(name, doc, ext):
     undoc_aliases = ext - doc
@@ -194,6 +181,16 @@ def check_methods(name, doc, ext):
             'yellow')
 
 
+def check_xlets(name, doc_in, doc_out, ext_in, ext_out):
+    if doc_in is not None and doc_in != ext_in:
+        cprint(f"[{ext_name}] inlets error: {doc_in} != {ext_in}",
+            'magenta')
+
+    if doc_out is not None and doc_out != ext_out:
+        cprint(f"[{ext_name}] outlets error: {doc_out} != {ext_out}",
+            'magenta')
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='CEAMMC Pd documentation checker')
     parser.add_argument('-a', '--all', help='check all', action='store_true')
@@ -201,8 +198,8 @@ if __name__ == '__main__':
     parser.add_argument('-m', '--methods', help='check methods', action='store_true')
     parser.add_argument('-i', '--aliases', help='check aliases', action='store_true')
     parser.add_argument('-s', '--spell', help='check spell', action='store_true')
+    parser.add_argument('-x', '--xlets', help='check inlets/outlets', action='store_true')
     parser.add_argument('-v', '--verbose', help='verbose output', action='store_true')
-    parser.add_argument('--no-cache', help='not use cached calls', action='store_true')
     parser.add_argument('external', metavar='EXT_NAME', type=str, help='external name')
 
     args = parser.parse_args()
@@ -214,6 +211,7 @@ if __name__ == '__main__':
         args.spell = True
         args.aliases = True
         args.methods = True
+        args.xlets = True
 
     if args.verbose:
         print(f" - checking [{ext_name}] external ...")
@@ -235,6 +233,10 @@ if __name__ == '__main__':
     doc_props_set = set()
     doc_props_dict = dict()
     doc_aliases = set()
+    doc_inlets = None
+    doc_outlets = None
+
+    read_ext_info(ext_name)
 
     # parse PDDOC info
     for appt in root:
@@ -244,6 +246,15 @@ if __name__ == '__main__':
                 a = read_doc_aliases(x)
                 if len(a) > 0:
                     doc_aliases = a
+
+            if args.xlets:
+                z = read_doc_inlets(x)
+                if z is not None and len(z) > 0:
+                    doc_inlets = z
+
+                z = read_doc_outlets(x)
+                if z is not None and len(z) > 0:
+                    doc_outlets = z
 
             if args.methods:
                 if x.tag == "methods":
@@ -275,20 +286,16 @@ if __name__ == '__main__':
 
                     doc_props_dict[name]["type"] = p.attrib["type"]
 
-    if args.aliases:
-        ext_aliases = read_ext_aliases(ext_name, args.no_cache)
-        check_aliases(ext_name, doc_aliases, ext_aliases)
+    if args.xlets:
+        check_xlets(ext_name, doc_inlets, doc_outlets, EXT_INLETS, EXT_OUTLETS)
 
-    is_ceammc = False
-    if args.methods or args.props:
-        ext_methods = read_methods(ext_name)
-        is_ceammc = '.is_cicm?' in ext_methods or '.is_base?' in ext_methods
+    if args.aliases:
+        check_aliases(ext_name, doc_aliases, EXT_ALIASES)
 
     if args.methods:
-        ext_methods = set([x for x in ext_methods if len(x) and x[0] != '.' and x[0] != '_'])
-        check_methods(ext_name, doc_methods_set, ext_methods)
+        check_methods(ext_name, doc_methods_set, EXT_METHODS)
 
-    if args.props and is_ceammc:
+    if args.props:
         ignored_props = {'@*', '@label', '@label_margins', '@label_valign',
             '@label_align',
             '@label_inner',
@@ -296,7 +303,8 @@ if __name__ == '__main__':
             '@label_color'
             }
 
-        ext_props_set, ext_props_dict = read_props(ext_name)
+        ext_props_set = EXT_PROPS_SET
+        ext_props_dict = EXT_PROPS_DICT
         undoc_props_set = ext_props_set - doc_props_set - ignored_props
         unknown_props = doc_props_set - ext_props_set
         exists_props = ext_props_set & doc_props_set
@@ -408,13 +416,13 @@ if __name__ == '__main__':
                 cprint(f"[{ext_name}] missing attribute maxvalue in \"{p}\"", 'magenta')
 
             if "min" in p0 and "minvalue" in p1:
-                v0 = str(p0["min"])
+                v0 = str(round(p0["min"], 3))
                 v1 = str(p1["minvalue"])
                 if v0 != v1:
                     cprint(f"DOC [{ext_name}] invalid minvalue \"{p}\": {v1}, in external: {v0}", 'magenta')
 
             if "max" in p0 and "maxvalue" in p1:
-                v0 = str(p0["max"])
+                v0 = str(round(p0["max"], 3))
                 v1 = str(p1["maxvalue"])
                 if v1 == "2π":
                     v1 = "6.28319"
@@ -425,13 +433,13 @@ if __name__ == '__main__':
             attr = check_attr("default", p0, p1)
             if attr == HAVE_BOTH:
                 if isinstance(p0["default"], list):
-                    v0 = p0["default"]
+                    v0 = round(p0["default"], 3)
                     v1 = p1["default"].split(" ")
 
                     if len(v0) > 0 and (isinstance(v0[0], float) or isinstance(v0[0], int)):
                         v1 = list(map(float, v1))
                 else:
-                    v0 = str(p0["default"])
+                    v0 = str(round(p0["default"], 3))
                     v1 = p1["default"]
 
                 if v1 == "+inf" and float(v0) > 1.0e+24:

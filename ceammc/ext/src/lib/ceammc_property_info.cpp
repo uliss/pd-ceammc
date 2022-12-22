@@ -62,13 +62,13 @@ t_symbol* to_symbol(PropValueUnits u)
 {
     static t_symbol* SYM[] = {
         gensym("unknown"),
-        gensym("msec"),
-        gensym("sec"),
-        gensym("samp"),
-        gensym("db"),
+        gensym("millisecond"),
+        gensym("second"),
+        gensym("sample"),
+        gensym("decibel"),
         gensym("deg"),
         gensym("rad"),
-        gensym("hz"),
+        gensym("herz"),
         gensym("percent"),
         gensym("cent"),
         gensym("semitone"),
