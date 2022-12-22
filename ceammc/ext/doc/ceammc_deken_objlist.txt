@@ -948,6 +948,8 @@ p.get	get property from connected object/subpatch/abstraction
 prop.get~	Property extractor from sound stream
 prop~>	Property extractor from sound stream
 @~>	Property extractor from sound stream
+ceammc/prop~>	Property extractor from sound stream
+ceammc/@~>	Property extractor from sound stream
 prop.join	join property to main data flow
 prop<-	join property to main data flow
 prop.random	property randomizer
@@ -1019,7 +1021,6 @@ hoa.@process	process properties manager for hoa.process~
 hoa.in	message inlet for a patcher loaded by hoa.process~
 hoa.in~	signal inlet for a patcher loaded by hoa.process~
 hoa.out	message outlet for a patcher loaded by hoa.process~
-hoa.out~	signal inlet for a patcher loaded by hoa.process~
 hoa.process~	patcher loader for multichannel processing
 hoa.scope~	a 2d ambisonic harmonic scope
 pan.cos~	two channel equal power sine/cosine panner

@@ -29,8 +29,7 @@
             <param name="Y" type="float" required="true">top right y-coord</param></method>
         </methods>
         <properties>
-            <property name="@order" type="int" minvalue="1" maxvalue="63" default="1"
-            readonly="true">the order of decomposition</property>
+            <property name="@order" type="int" minvalue="1" maxvalue="63" default="1">the order of decomposition</property>
             <property name="@view" type="float" default="0">view rotation</property>
             <property name="@gain" type="float" default="1" minvalue="0">gain</property>
             <property name="@refresh" type="int" default="100" minvalue="20" maxvalue="1000"

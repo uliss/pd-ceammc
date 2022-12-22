@@ -36,10 +36,10 @@ signal.signal(signal.SIGINT, signal_handler)
 
 
 # methods starting with @ - properties in UI objects
-# methods starting with . - internal methods
+# methods starting with . or _ - internal methods
 # methods ending with _aliased - overwritten methods
 def is_valid_method(x):
-    return (len(x) and x[0] != '@') and (not str(x).endswith("_aliased"))
+    return (len(x) and x[0] not in ('@', '_')) and (not str(x).endswith("_aliased"))
 
 def read_ext_info(name):
     global EXT_INLETS, EXT_OUTLETS, EXT_METHODS, EXT_ALIASES, EXT_PROPS_SET, EXT_PROPS_DICT
@@ -165,7 +165,7 @@ def check_aliases(name, doc, ext):
 
 def check_methods(name, doc, ext):
     ignored_methods = {'dump', 'dsp', 'signal', 'mouseup', 'mouseenter', 'dialog',
-                       'zoom', 'mousewheel', 'mousemove', 'mousedown', 'mouseleave',
+                       'onzoom', 'zoom', 'mousewheel', 'mousemove', 'mousedown', 'mouseleave',
                        'symbol', 'float', 'bang', 'dblclick', 'list', 'dsp_add', 'loadbang',
                        'click', 'dsp_add_aliased', 'vis', 'popup', 'eobjreadfrom', 'eobjwriteto',
                        'rightclick', 'key' }
@@ -435,11 +435,13 @@ if __name__ == '__main__':
                 v0 = p0["default"]
                 v1 = p1["default"]
                 if isinstance(v0, list):
-                    v0 = "(" + " ".join(v0) + ")"
                     v1 = p1["default"].split(" ")
 
                     if len(v0) > 0 and (isinstance(v0[0], float) or isinstance(v0[0], int)):
                         v1 = list(map(float, v1))
+                        v0 = list(map(lambda x: round(x, 3), v0))
+                    elif len(v0) == 0:
+                        v0 = "()"
                 elif isinstance(v0, dict):
                     v0 = "[]"
                 else:

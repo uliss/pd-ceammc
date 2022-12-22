@@ -258,7 +258,7 @@ hoa.@process		.		.
 hoa.in		-		.
 hoa.in~		-		~
 hoa.out		.		-
-hoa.out~		-		~
+hoa.out~		~		-
 hoa.process~		?		?
 hoa.scope~		?		-
 hw.apple_smc		.		.
@@ -572,7 +572,7 @@ preset.symbol,preset.s		.		.
 prop,ceammc/prop		.		.
 prop.declare		-		-
 prop.get,p.get		.		?
-prop.get~,prop~>,@~>		~		?
+prop.get~,prop~>,@~>,ceammc/prop~>,ceammc/@~>		~		?
 prop.join,prop<-		?		.
 prop.random		?		..
 prop.set,p.set		?		.
@@ -604,7 +604,7 @@ risset.gliss		.		..
 route.float,route.f		.		..
 route.random,route.r		.		?
 rtree.to_list,ceammc/rtree->list,rtree->list		.		.
-samp.time~,samp.t~		~.		.
+samp.time~,samp.t~		~.		~
 seq.arp		.		..
 seq.bangs,seq.b		..		..
 seq.counter		..		..
@@ -641,7 +641,7 @@ string.length,str.length		.		.
 string.match,str.match		..		.
 string.remove,str.remove		..		.
 string.replace,str.replace		...		.
-string.split,str.split,symbol.split		.		.
+string.split,str.split,symbol.split		..		.
 string.starts_with,str.starts_with		..		.
 string.substr,str.substr		...		.
 string2symbol,ceammc/string2symbol,ceammc/str->sym,str->sym		.		.

@@ -33,8 +33,9 @@
             instances</property>
         </properties>
         <inlets>
-            <inlet type="audio">output signal in the corresponding hoa.process~ object's signal
-            outlet</inlet>
+            <inlet type="audio">
+                <xinfo>output signal in the corresponding hoa.process~ object's signal
+            outlet</xinfo></inlet>
         </inlets>
         <example>
             <pdascii>
