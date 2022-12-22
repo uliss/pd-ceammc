@@ -1,6 +1,7 @@
 #include "ceammc.h"
 #include "ceammc_atomlist.h"
 #include "ceammc_log.h"
+#include "ceammc_object_info.h"
 #include "ceammc_output.h"
 
 #include <map>
@@ -148,8 +149,9 @@ void setup_prop_split()
         reinterpret_cast<t_newmethod>(prop_split_new),
         reinterpret_cast<t_method>(prop_split_free),
         sizeof(t_prop_split), 0, A_GIMME, A_NULL);
-    class_addcreator(reinterpret_cast<t_newmethod>(prop_split_new), gensym("prop->"), A_GIMME, A_NULL);
-    class_addcreator(reinterpret_cast<t_newmethod>(prop_split_new), gensym("@->"), A_GIMME, A_NULL);
+
+    ceammc::ObjectInfoStorage::instance().addAlias("prop->", prop_split_class, reinterpret_cast<t_newmethod>(prop_split_new));
+    ceammc::ObjectInfoStorage::instance().addAlias("@->", prop_split_class, reinterpret_cast<t_newmethod>(prop_split_new));
 
     class_addanything(prop_split_class, reinterpret_cast<t_method>(prop_split_anything));
     class_addmethod(prop_split_class, reinterpret_cast<t_method>(prop_split_dump), gensym("dump"), A_NULL);
