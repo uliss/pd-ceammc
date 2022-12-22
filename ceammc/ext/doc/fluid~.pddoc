@@ -46,7 +46,8 @@
             channels</property>
             <property name="@n" type="int" default="16" readonly="true">number of active
             voices</property>
-            <property name="@cpuload" type="float" default="0" readonly="true">current cpu load</property>
+            <property name="@cpuload" type="float" default="0" readonly="true">current cpu
+            load</property>
             <property name="@bufsize" units="sample" type="float" default="0" readonly="true">
             internal buffer size</property>
         </properties>
@@ -204,7 +205,7 @@
             <method name="midi">send raw midi message to synth 
             <param name="BYTES" type="list" required="true">list of bytes</param></method>
             <!-- sysex -->
-            <method name="sysex">accept SYSEX message
+            <method name="sysex">accept SYSEX message 
             <param name="BYTES" type="list" required="true">list of bytes</param></method>
         </methods>
         <inlets>

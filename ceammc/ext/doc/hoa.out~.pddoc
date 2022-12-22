@@ -35,7 +35,8 @@
         <inlets>
             <inlet type="audio">
                 <xinfo>output signal in the corresponding hoa.process~ object's signal
-            outlet</xinfo></inlet>
+                outlet</xinfo>
+            </inlet>
         </inlets>
         <example>
             <pdascii>

@@ -705,7 +705,7 @@ ui.dsp~		.		-
 ui.env		.		..
 ui.faust~		?		?
 ui.filter		.		.
-ui.filter~		~		~
+ui.filter~		~		~.
 ui.gain2~,ui.hgain2~,ui.vgain2~		~~		~~
 ui.gain~,ui.hgain~,ui.vgain~		~		~
 ui.icon		.		.
@@ -727,7 +727,7 @@ ui.polar		.		.
 ui.preset		.		-
 ui.radio,ui.radio*,ui.hrd,ui.hrd*,ui.vrd,ui.vrd*		.		.
 ui.rslider,ui.rsl		.		.
-ui.scope~		.		-
+ui.scope~		~		-
 ui.slider,ui.hsl,ui.vsl		.		.
 ui.slider2d,ui.s2d		.		.
 ui.sliders,ui.vsliders		.		.

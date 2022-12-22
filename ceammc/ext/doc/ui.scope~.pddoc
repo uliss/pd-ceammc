@@ -38,7 +38,6 @@
             <property name="@refresh" type="int" minvalue="10" maxvalue="1000" default="40"
             units="millisecond">approximate refresh rate</property>
             <!-- common -->
-            <property name="@send" type="symbol" default="(null)">send destination</property>
             <property name="@receive" type="symbol" default="(null)">receive source</property>
             <property name="@size" type="list" default="150 100">element size (width, height
             pair)</property>
@@ -53,10 +52,6 @@
             <property name="@fontsize" type="int" minvalue="4" maxvalue="11" default="11">
             fontsize</property>
             <property name="@fontname" type="symbol" default="Helvetica">fontname</property>
-            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
-            weight</property>
-            <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
-            slant</property>
         </properties>
         <methods>
             <method name="freeze">stop/start processing 
@@ -70,7 +65,7 @@
             <param name="Y" type="float" required="true">top right y-coord</param></method>
         </methods>
         <inlets>
-            <inlet>
+            <inlet type="audio">
                 <xinfo>signal input</xinfo>
             </inlet>
         </inlets>

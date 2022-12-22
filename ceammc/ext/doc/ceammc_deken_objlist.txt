@@ -1021,6 +1021,7 @@ hoa.@process	process properties manager for hoa.process~
 hoa.in	message inlet for a patcher loaded by hoa.process~
 hoa.in~	signal inlet for a patcher loaded by hoa.process~
 hoa.out	message outlet for a patcher loaded by hoa.process~
+hoa.out~	signal inlet for a patcher loaded by hoa.process~
 hoa.process~	patcher loader for multichannel processing
 hoa.scope~	a 2d ambisonic harmonic scope
 pan.cos~	two channel equal power sine/cosine panner

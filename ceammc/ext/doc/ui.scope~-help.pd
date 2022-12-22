@@ -55,74 +55,65 @@ Default value: -1\.;
 #X msg 110 883 @refresh;
 #X text 245 883 Get/Set approximate refresh rate. Type: int. Units:
 ms. Default value: 40\. Range: 10\...1000\.;
-#X msg 110 925 @send;
-#X text 245 925 Get/Set send destination. Type: symbol. Default value:
-(null).;
-#X msg 110 967 @window;
-#X text 245 967 Get/Set window size. Type: int. Default value: 2048\.
+#X msg 110 925 @window;
+#X text 245 925 Get/Set window size. Type: int. Default value: 2048\.
 Range: 512\...4096\.;
-#X msg 110 1009 @active_color;
-#X text 245 1009 Get/Set active color (list of red \, green \, blue
+#X msg 110 967 @active_color;
+#X text 245 967 Get/Set active color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
-#X msg 110 1051 @background_color;
-#X text 245 1051 Get/Set element background color (list of red \, green
+#X msg 110 1009 @background_color;
+#X text 245 1009 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0.93 0.93
 0.93 1\.;
-#X msg 110 1108 @border_color;
-#X text 245 1108 Get/Set border color (list of red \, green \, blue
+#X msg 110 1066 @border_color;
+#X text 245 1066 Get/Set border color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
-#X msg 110 1150 @fontname;
-#X text 245 1150 Get/Set fontname. Type: symbol. Default value: Helvetica.;
-#X msg 110 1179 @fontsize;
-#X text 245 1179 Get/Set fontsize. Type: int. Default value: 11\. Range:
+#X msg 110 1108 @fontname;
+#X text 245 1108 Get/Set fontname. Type: symbol. Default value: Helvetica.;
+#X msg 110 1137 @fontsize;
+#X text 245 1137 Get/Set fontsize. Type: int. Default value: 11\. Range:
 4\...11\.;
-#X msg 110 1221 @fontslant;
-#X text 245 1221 Get/Set font slant. Type: symbol. Default value: roman.
-Allowed values: roman \, italic.;
-#X msg 110 1263 @fontweight;
-#X text 245 1263 Get/Set font weight. Type: symbol. Default value:
-normal. Allowed values: normal \, bold.;
-#X msg 110 1305 @pinned;
-#X text 245 1305 Get/Set pin mode. if 1 - put element to the lowest
+#X msg 110 1179 @pinned;
+#X text 245 1179 Get/Set pin mode. if 1 - put element to the lowest
 level. Type: int. Default value: 0\. Allowed values: 0 \, 1\.;
-#X msg 110 1347 @size;
-#X text 245 1347 Get/Set element size (width \, height pair). Type:
+#X msg 110 1221 @size;
+#X text 245 1221 Get/Set element size (width \, height pair). Type:
 list. Default value: 150 100\.;
-#X obj 20 1399 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1404 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1273 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1278 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 1439 freeze;
-#X text 245 1439 stop/start processing. Arguments are:;
-#X obj 255 1462 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1462 [V]: 1 - freeze \, 0 - unfreeze. Type: int. Allowed
+#X msg 110 1313 freeze;
+#X text 245 1313 stop/start processing. Arguments are:;
+#X obj 255 1336 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1336 [V]: 1 - freeze \, 0 - unfreeze. Type: int. Allowed
 values: 0 \, 1\.;
-#X msg 110 1502 pos;
-#X text 245 1502 set UI element position. Arguments are:;
-#X obj 255 1525 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1525 X: top left x-coord. Type: float.;
-#X obj 255 1548 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1548 Y: top right y-coord. Type: float.;
-#X msg 110 1573 scale;
-#X text 245 1573 sets widget scale. Arguments are:;
-#X obj 255 1596 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1596 [N]: 1 - normal scale \, 2 - range from -2\..2 (zoomout)
+#X msg 110 1376 pos;
+#X text 245 1376 set UI element position. Arguments are:;
+#X obj 255 1399 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1399 X: top left x-coord. Type: float.;
+#X obj 255 1422 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1422 Y: top right y-coord. Type: float.;
+#X msg 110 1447 scale;
+#X text 245 1447 sets widget scale. Arguments are:;
+#X obj 255 1470 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1470 [N]: 1 - normal scale \, 2 - range from -2\..2 (zoomout)
 \, 0.1 - range from -0.1\..0.1 (zoomin). Type: float. Min value: 0\.;
-#X obj 20 1646 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1651 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1520 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1525 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1652 1\.;
-#X text 245 1652 signal input.;
+#X text 110 1526 1\.;
+#X text 245 1526 signal input.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 1702 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1705 library: ceammc v0.9.5;
-#X text 548 1717 see also:;
-#X obj 622 1720 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1576 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1579 library: ceammc v0.9.5;
+#X text 548 1591 see also:;
+#X obj 622 1594 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.spectroscope~] @url ui.spectroscope~-help.pd;
-#N canvas 10 1724 400 290 info 0;
+#N canvas 10 1598 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -146,7 +137,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1724 pd info;
+#X restore 10 1598 pd info;
 #X connect 5 0 8 0;
 #X connect 6 0 8 0;
 #X connect 7 0 8 0;
