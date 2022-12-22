@@ -42,6 +42,9 @@
                 <xinfo>input signal</xinfo>
                 <xinfo on="bang">sample immidiately</xinfo>
             </inlet>
+            <inlet type="control">
+                <xinfo on="float">set sample interval</xinfo>
+            </inlet>
         </inlets>
         <outlets>
             <outlet>float: sample</outlet>
