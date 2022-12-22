@@ -448,6 +448,12 @@ void UIColorPanel::setup()
     obj.addProperty("rgb", &UIColorPanel::propRgbColor, 0);
     obj.addProperty("hsl", &UIColorPanel::propHslColor, 0);
     obj.addProperty("hex", &UIColorPanel::propHexColor, nullptr);
+
+    obj.showProperty("pd");
+    obj.showProperty("rgb");
+    obj.showProperty("hsl");
+    obj.showProperty("hex");
+    obj.showProperty("index");
 }
 
 void setup_ui_colorpanel()

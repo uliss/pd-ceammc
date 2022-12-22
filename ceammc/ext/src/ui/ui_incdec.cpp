@@ -154,6 +154,8 @@ void UIIncDec::setup()
     obj.addMethod("set", &UIIncDec::propSetValue);
     obj.addMethod("inc", &UIIncDec::m_inc);
     obj.addMethod("dec", &UIIncDec::m_dec);
+
+    obj.showProperty("value");
 }
 
 void UIIncDec::output()

@@ -269,6 +269,8 @@ void UIIcon::setup()
     obj.setPropertyDefaultValue("enabled", "1");
 
     obj.addMethod("set", &UIIcon::m_set);
+
+    obj.showProperty("enabled");
 }
 
 void UIIcon::updateIconProp()

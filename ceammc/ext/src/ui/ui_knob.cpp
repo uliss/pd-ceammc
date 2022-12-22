@@ -150,6 +150,7 @@ void UIKnob::setup()
     obj.addBoolProperty("midi_pickup", _("MIDI pickup"), true, &UISingleValue::prop_pickup_midi, "MIDI");
 
     obj.addProperty("value", &UISingleValue::value, &UISingleValue::setValue);
+    obj.showProperty("value");
 }
 
 }
