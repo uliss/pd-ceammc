@@ -32,7 +32,7 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output zero crossing count/freq/rate</outlet>
+            <outlet type="audio">output zero crossing count/freq/rate</outlet>
         </outlets>
         <example>
             <pdascii>

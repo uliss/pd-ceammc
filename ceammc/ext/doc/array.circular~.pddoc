@@ -34,7 +34,7 @@
             <inlet type="audio">
                 <xinfo>read delay</xinfo>
             </inlet>
-            <inlet type="audio">
+            <inlet>
                 <xinfo on="bang">reset write position to zero</xinfo>
                 <xinfo on="float">set write position</xinfo>
             </inlet>

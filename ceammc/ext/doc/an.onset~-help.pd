@@ -59,7 +59,7 @@ detection function.;
 to disable. Type: float. Default value: 1\. Min value: 0\.;
 #X msg 110 793 @delay;
 #X text 245 793 Get/Set constant system delay to take back from detection
-time. Type: float. Units: ms. Default value: 49.9093\. Min value: 0\.;
+time. Type: float. Units: ms. Default value: 49.909\. Min value: 0\.;
 #X msg 110 850 @energy;
 #X text 245 850 alias to @method energy. Energy based onset detection
 function.;

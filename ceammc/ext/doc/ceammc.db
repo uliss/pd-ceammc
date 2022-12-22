@@ -3,10 +3,10 @@ an.onset~		~		..
 an.pitchtrack~,ceammc/helmholtz~,helmholtz~		~		~..
 an.rms~		~		~
 an.tempo~		~		..
-an.zero~		~		.
+an.zero~		~		~
 array.bpm		.		.
 array.circular		.		.
-array.circular~		~~~		~
+array.circular~		~~.		~
 array.convolve		..		.
 array.copy		.		.
 array.do		..		..

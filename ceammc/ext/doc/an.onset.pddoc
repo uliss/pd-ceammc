@@ -66,7 +66,7 @@
             compression factor, 0 to disable</property>
             <property name="@awhitening" type="int" default="0" enum="0 1">adaptive
             whitening</property>
-            <property name="@delay" type="float" minvalue="0" default="49.9093"
+            <property name="@delay" type="float" minvalue="0" default="49.909"
             units="millisecond">constant system delay to take back from detection time</property>
         </properties>
         <inlets>
