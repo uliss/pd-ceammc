@@ -9,6 +9,7 @@ macro(ceammc_midi_external name)
     list(APPEND MIDI_SOURCES "midi_${name}.cpp")
 endmacro()
 
+ceammc_midi_external(arp)
 ceammc_midi_external(cc)
 ceammc_midi_external(clock)
 ceammc_midi_external(ctl2str)
