@@ -55,7 +55,6 @@
             output format width</property>
             <property name="@hex" type="int" default="0" enum="0 1">output integers in hex
             format</property>
-            <property name="@send" type="symbol" default="(null)">send destination</property>
             <property name="@receive" type="symbol" default="(null)">receive source</property>
             <property name="@size" type="list" default="80 18">element size (width, height
             pair)</property>
@@ -72,10 +71,6 @@
             <property name="@fontsize" type="int" minvalue="4" maxvalue="11" default="11">
             fontsize</property>
             <property name="@fontname" type="symbol" default="Helvetica">fontname</property>
-            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
-            weight</property>
-            <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
-            slant</property>
         </properties>
         <example>
             <pdascii>
