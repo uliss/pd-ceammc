@@ -29,6 +29,7 @@ void setup_fx_vocoder_tilde();
 void setup_fx_wahwah_tilde();
 void setup_fx_zita_rev1_tilde();
 void setup_fx_tapiir_tilde();
+void setup_fx_stutter_tilde();
 
 void ceammc_fx_setup()
 {
@@ -40,8 +41,8 @@ void ceammc_fx_setup()
     setup_fx_distortion_tilde();
     setup_fx_drive_tilde();
     setup_fx_drone_box_tilde();
-    setup_fx_echo_tilde();
     setup_fx_echo2_tilde();
+    setup_fx_echo_tilde();
     setup_fx_flanger_tilde();
     setup_fx_freeverb2_tilde();
     setup_fx_freeverb_tilde();
@@ -56,6 +57,7 @@ void ceammc_fx_setup()
     setup_fx_room_tilde();
     setup_fx_sdelay_tilde();
     setup_fx_secho_tilde();
+    setup_fx_stutter_tilde();
     setup_fx_vocoder_tilde();
     setup_fx_wahwah_tilde();
     setup_fx_zita_rev1_tilde();
