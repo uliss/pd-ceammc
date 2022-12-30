@@ -1,7 +1,7 @@
 #include "fx_stutter.h"
 #include "ceammc_factory.h"
 
-constexpr auto PROP_MAXSIZE_MIN = 10;
+constexpr auto PROP_MAXSIZE_MIN = 1;
 constexpr auto PROP_MAXSIZE_DEF = 1000;
 constexpr auto PROP_MAXSIZE_MAX = 10000;
 constexpr auto PROP_SIZE_MIN = PROP_MAXSIZE_MIN;
@@ -150,4 +150,8 @@ void FxStutter::adjustBufferSize()
 void setup_fx_stutter_tilde()
 {
     SoundExternalFactory<FxStutter> obj("fx.stutter~");
+    obj.setXletsInfo(
+        { "signal: input", "1|0: turn fx on/off\n"
+                           "bang: run fx twice" },
+        { "signal: output" });
 }
