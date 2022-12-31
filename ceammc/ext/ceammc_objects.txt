@@ -107,6 +107,8 @@ ceammc/=='
 ceammc/>'
 ceammc/>='
 ceammc/>>'
+ceammc/@->
+ceammc/@~>
 ceammc/^'
 ceammc/^2
 ceammc/^2~
@@ -208,6 +210,8 @@ ceammc/pol->car
 ceammc/pole->biquad
 ceammc/prepend
 ceammc/prop
+ceammc/prop->
+ceammc/prop~>
 ceammc/rad->phase
 ceammc/rad->phase~
 ceammc/radio
@@ -215,6 +219,8 @@ ceammc/reject
 ceammc/reject_if
 ceammc/replace
 ceammc/rhvoice~
+ceammc/round
+ceammc/round~
 ceammc/rtree->list
 ceammc/s->f~
 ceammc/samp->ms
@@ -489,6 +495,7 @@ fx.room~
 fx.sdelay~
 fx.secho~
 fx.shimmer~
+fx.stutter~
 fx.tapiir~
 fx.vocoder~
 fx.wahwah~
@@ -553,6 +560,7 @@ is_pointer
 is_symbol
 l->l
 l->l~
+lang.faust~
 lang.lua
 lfo.+pulse~
 lfo.+saw~
@@ -800,6 +808,7 @@ metro.pattern
 metro.random
 metro.seq
 midi->freq
+midi.arp
 midi.cc
 midi.clock
 midi.ctl->str
@@ -986,6 +995,8 @@ reject_if
 replace
 rhvoice~
 risset.gliss
+round
+round~
 route.f
 route.float
 route.r
@@ -1137,6 +1148,7 @@ ui.display
 ui.dsp~
 ui.dt
 ui.env
+ui.faust~
 ui.filter
 ui.filter~
 ui.gain2~
