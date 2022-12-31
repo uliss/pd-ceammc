@@ -37,6 +37,7 @@ FxStutter::FxStutter(const PdArgs& args)
 
     size_ = new FloatProperty("@size", PROP_SIZE_DEF);
     size_->checkClosedRange(PROP_SIZE_MIN, PROP_SIZE_MAX);
+    size_->setArgIndex(0);
     addProperty(size_);
 }
 

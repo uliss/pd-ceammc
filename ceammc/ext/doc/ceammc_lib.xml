@@ -816,6 +816,9 @@
     <entry name="fx.shimmer~" descr="shimmer reverb effect effect" ref_view="object">
       <xi:include href="fx.shimmer~.pddoc" parse="xml"/>
     </entry>
+    <entry name="fx.stutter~" descr="stutter effect" ref_view="object">
+      <xi:include href="fx.stutter~.pddoc" parse="xml"/>
+    </entry>
     <entry name="fx.tapiir~" descr="multi-tap delay" ref_view="object">
       <xi:include href="fx.tapiir~.pddoc" parse="xml"/>
     </entry>

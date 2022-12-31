@@ -237,6 +237,7 @@ set(DOC_FILES
     fx.sdelay~
     fx.secho~
     fx.shimmer~
+    fx.stutter~
     fx.tapiir~
     fx.vocoder~
     fx.wahwah~

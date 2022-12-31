@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="fx.stutter~">
+        <title>fx.stutter~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>stutter effect</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>fx</category>
+            <keywords>fx stutter glitch</keywords>
+            <since>0.9.6</since>
+        </meta>
+        <arguments>
+            <argument name="PERIOD" type="float" minvalue="1" maxvalue="1000" units="millisecond">stutter period</argument>
+        </arguments>
+        <properties>
+            <property name="@t" type="float" minvalue="1" maxvalue="1000" default="50">stutter period</property>
+        </properties>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>left channel</xinfo>
+            </inlet>
+            <inlet type="control">
+                <xinfo on="bang">turn on effect for 3 periods</xinfo>
+                <xinfo on="float">1: turn on, 0: turn off</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[open %CEAMMC%/guitar1.wav, 1(
+|
+[expand_env]
+|
+[readsf~]    [ui.btn]
+|            |.
+[fx.stutter~  60]
+|
+[ui.gain~ @size 120 14] [ui.dsp~]
+|\
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
