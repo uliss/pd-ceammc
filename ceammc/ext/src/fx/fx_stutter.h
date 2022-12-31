@@ -15,7 +15,7 @@ class FxStutter : public SoundExternal {
 
     State state_;
     FloatProperty* max_size_;
-    FloatProperty* size_;
+    FloatProperty* t_;
     std::vector<t_sample> buffer_;
     size_t buf_phase_;
     ClockLambdaFunction clock_;

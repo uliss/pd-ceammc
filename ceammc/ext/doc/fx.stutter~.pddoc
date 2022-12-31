@@ -17,7 +17,8 @@
             <argument name="PERIOD" type="float" minvalue="1" maxvalue="1000" units="millisecond">stutter period</argument>
         </arguments>
         <properties>
-            <property name="@t" type="float" minvalue="1" maxvalue="1000" default="50">stutter period</property>
+            <property name="@t" type="float" minvalue="1" maxvalue="1000" default="50" units="millisecond">stutter period</property>
+            <property name="@maxsize" type="float" minvalue="1" maxvalue="10000" default="1000" units="millisecond">max stutter period</property>
         </properties>
         <inlets>
             <inlet type="audio">
@@ -34,17 +35,20 @@
         <example>
             <pdascii>
 <![CDATA[
-[open %CEAMMC%/guitar1.wav, 1(
+[open %CEAMMC%/guitar1.wav, 1 #c(
 |
-[expand_env]
+[expand_env]  [stop #b(
 |
-[readsf~]    [ui.btn]
-|            |.
-[fx.stutter~  60]
+[readsf~ #a]  [ui.btn] [B]
+|             |.       |.
+[fx.stutter~          60]
 |
 [ui.gain~ @size 120 14] [ui.dsp~]
 |\
 [dac~]
+
+[X a:1->c]
+[X b->a]
 ]]>
             </pdascii>
         </example>

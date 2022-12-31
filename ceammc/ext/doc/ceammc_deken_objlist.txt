@@ -492,6 +492,7 @@ fx.room~	Gardners room emulation algorithms
 fx.sdelay~	smooth delay with a feedback control
 fx.secho~	enchanced echo effect that does not click on delay change
 fx.shimmer~	shimmer reverb effect effect
+fx.stutter~	stutter effect
 fx.tapiir~	multi-tap delay
 fx.vocoder~	very simple vocoder where the spectrum of the modulation signal is analyzed using a 32-band filter bank
 fx.wahwah~	digitized CryBaby wah pedal

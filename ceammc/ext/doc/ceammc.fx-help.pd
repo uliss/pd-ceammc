@@ -55,16 +55,18 @@
 change;
 #X obj 30 791 fx.shimmer~;
 #X text 200 791 shimmer reverb effect effect;
-#X obj 30 818 fx.tapiir~;
-#X text 200 818 multi-tap delay;
-#X obj 30 845 fx.vocoder~;
-#X text 200 845 very simple vocoder where the spectrum of the modulation
+#X obj 30 818 fx.stutter~;
+#X text 200 818 stutter effect;
+#X obj 30 845 fx.tapiir~;
+#X text 200 845 multi-tap delay;
+#X obj 30 872 fx.vocoder~;
+#X text 200 872 very simple vocoder where the spectrum of the modulation
 signal is analyzed using a 32-band filter bank;
-#X obj 30 885 fx.wahwah~;
-#X text 200 885 digitized CryBaby wah pedal;
-#X obj 30 912 fx.zita_rev1~;
-#X text 200 912 Zita stereo reverb;
+#X obj 30 912 fx.wahwah~;
+#X text 200 912 digitized CryBaby wah pedal;
+#X obj 30 939 fx.zita_rev1~;
+#X text 200 939 Zita stereo reverb;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::fx 20 20 0 20 -104026
 -4096 0;
-#X obj 1 939 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 949 library: ceammc;
+#X obj 1 966 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 976 library: ceammc;

@@ -2,6 +2,8 @@
 
 ## [Unrelesed]
 ### Added:
+- new objects:
+  - fx.stutter~ effect
 - new properties:
   - @cpuload property added to fluid~
 - new aliases:
