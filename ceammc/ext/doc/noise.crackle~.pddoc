@@ -18,8 +18,8 @@
             @freq impulses per second</par>
         </info>
         <arguments>
-            <argument type="float" name="FREQ" minvalue="0" maxvalue="100">average frequency of noise impulses per
-            second</argument>
+            <argument type="float" name="FREQ" minvalue="0" maxvalue="100">average frequency of
+            noise impulses per second</argument>
         </arguments>
         <properties>
             <property name="@freq" type="float" minvalue="0" maxvalue="100" default="10"

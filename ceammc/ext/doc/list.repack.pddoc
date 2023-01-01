@@ -14,7 +14,8 @@
             <since>0.1</since>
         </meta>
         <arguments>
-            <argument name="SIZE" type="int" minvalue="1" maxvalue="1024">output list size</argument>
+            <argument name="SIZE" type="int" minvalue="1" maxvalue="1024">output list
+            size</argument>
         </arguments>
         <properties>
             <property name="@size" type="int" minvalue="1" maxvalue="1024" default="1">output list

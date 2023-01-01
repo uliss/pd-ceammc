@@ -14,8 +14,10 @@
             <since>0.9.4</since>
         </meta>
         <arguments>
-            <argument name="RADIUS" type="float" minvalue="0" maxvalue="1">@radius property</argument>
-            <argument name="ANGLE" type="float" minvalue="0" maxvalue="1">@angle property</argument>
+            <argument name="RADIUS" type="float" minvalue="0" maxvalue="1">@radius
+            property</argument>
+            <argument name="ANGLE" type="float" minvalue="0" maxvalue="1">@angle
+            property</argument>
         </arguments>
         <methods>
             <method name="reset">reset spat and reverb</method>

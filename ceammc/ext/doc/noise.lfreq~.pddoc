@@ -17,7 +17,8 @@
             </also>
         </meta>
         <arguments>
-            <argument type="float" name="FREQ" minvalue="5" maxvalue="22050" units="herz">noise generation freq</argument>
+            <argument type="float" name="FREQ" minvalue="5" maxvalue="22050" units="herz">noise
+            generation freq</argument>
         </arguments>
         <properties>
             <property name="@freq" type="float" minvalue="5" maxvalue="22050" default="1000"

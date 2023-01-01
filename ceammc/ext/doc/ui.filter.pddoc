@@ -51,8 +51,8 @@
             enum="lpf hpf bpf bpfq lowshelf highshelf peak notch">frequency scale</property>
             <property name="@gain" type="float" default="0" minvalue="-24" maxvalue="24"
             units="decibel">gain (for low/highshelf/peak filters)</property>
-            <property name="@q" type="float" default="0.707" minvalue="0.016" maxvalue="64">
-            quality factor</property>
+            <property name="@q" type="float" default="0.707" minvalue="0.016" maxvalue="64">quality
+            factor</property>
             <!-- common -->
             <property name="@presetname" type="symbol" default="(null)">preset name for using with
             [ui.preset]</property>
