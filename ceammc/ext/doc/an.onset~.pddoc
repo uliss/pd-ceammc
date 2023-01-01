@@ -25,7 +25,7 @@
             <argument name="METHOD" type="symbol"
             enum="default hfc energy complex phase wphase specdiff kl mkl specflux">detection
             method</argument>
-            <argument name="HS" type="int" minvalue="0">hop size (by default
+            <argument name="HS" type="int" minvalue="0" units="sample">hop size (by default
             buffer_size/2)</argument>
         </arguments>
         <methods>

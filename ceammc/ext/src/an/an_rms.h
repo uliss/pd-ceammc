@@ -738,7 +738,7 @@ class an_rms : public an_rms_dsp {
 	
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("an_rms");
-		ui_interface->declare(&fHslider0, "units", "ms");
+		ui_interface->declare(&fHslider0, "unit", "ms");
 		ui_interface->addHorizontalSlider("period", &fHslider0, FAUSTFLOAT(2e+02f), FAUSTFLOAT(1.0f), FAUSTFLOAT(1e+03f), FAUSTFLOAT(0.1f));
 		ui_interface->closeBox();
 	}
