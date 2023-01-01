@@ -14,7 +14,7 @@
             <since>0.9.1</since>
         </meta>
         <arguments>
-            <argument type="int" name="MAX_SIZE">max stack size</argument>
+            <argument type="int" name="MAX_SIZE" minvalue="1">max stack size</argument>
         </arguments>
         <properties>
             <property name="@max_size" type="int" default="100" minvalue="1">maximum stack grow

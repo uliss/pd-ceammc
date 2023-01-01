@@ -27,8 +27,8 @@
             function (SNAC)</par>
         </info>
         <arguments>
-            <argument name="FRAMESIZE" type="int" enum="128 256 512 1024 2048" units="sample">frame size in
-            samples</argument>
+            <argument name="FRAMESIZE" type="int" enum="128 256 512 1024 2048" units="sample">frame
+            size in samples</argument>
         </arguments>
         <properties>
             <property name="@framesize" type="int" enum="128 256 512 1024 2048" default="1024"
