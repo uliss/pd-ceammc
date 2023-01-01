@@ -163,7 +163,11 @@ public:
     PropertyInfo(t_symbol* name, PropValueType type, PropValueAccess access = PropValueAccess::READWRITE);
     PropertyInfo(const std::string& name, PropValueType type, PropValueAccess access = PropValueAccess::READWRITE);
     PropertyInfo(const PropertyInfo& getTree);
+    PropertyInfo(PropertyInfo&& info);
     ~PropertyInfo();
+
+    PropertyInfo& operator=(const PropertyInfo& info);
+    PropertyInfo& operator=(PropertyInfo&& info);
 
     t_symbol* name() const { return name_; }
 

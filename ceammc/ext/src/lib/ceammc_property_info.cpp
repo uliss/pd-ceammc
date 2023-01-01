@@ -185,9 +185,54 @@ PropertyInfo::PropertyInfo(const PropertyInfo& info)
 {
 }
 
+PropertyInfo::PropertyInfo(PropertyInfo&& info)
+    : min_(info.min_)
+    , max_(info.max_)
+{
+    *this = std::move(info);
+}
+
 PropertyInfo::~PropertyInfo()
 {
     validate();
+}
+
+PropertyInfo& PropertyInfo::operator=(const PropertyInfo& info)
+{
+    name_ = info.name_;
+    default_ = info.default_;
+    enum_.reset(info.enum_.get() ? new AtomList(*info.enum_) : nullptr);
+    min_ = info.min_;
+    max_ = info.max_;
+    step_ = info.step_;
+    arg_index_ = info.arg_index_;
+    type_ = info.type_;
+    units_ = info.units_;
+    view_ = info.view_;
+    access_ = info.access_;
+    vis_ = info.vis_;
+    constraints_ = info.constraints_;
+
+    return *this;
+}
+
+PropertyInfo& PropertyInfo::operator=(PropertyInfo&& info)
+{
+    name_ = info.name_;
+    default_ = std::move(info.default_);
+    enum_ = std::move(info.enum_);
+    min_ = info.min_;
+    max_ = info.max_;
+    step_ = info.step_;
+    arg_index_ = info.arg_index_;
+    type_ = info.type_;
+    units_ = info.units_;
+    view_ = info.view_;
+    access_ = info.access_;
+    vis_ = info.vis_;
+    constraints_ = info.constraints_;
+
+    return *this;
 }
 
 bool PropertyInfo::enumContains(int v) const
