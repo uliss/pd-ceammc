@@ -20,7 +20,7 @@
             <argument name="X" type="atom">searched element</argument>
         </arguments>
         <properties>
-            <property name="@subj" type="atom">searched element</property>
+            <property name="@subj" type="atom" default="null">searched element</property>
         </properties>
         <inlets>
             <inlet>

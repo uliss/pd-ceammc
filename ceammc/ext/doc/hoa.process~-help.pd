@@ -44,74 +44,78 @@ a patch/effect/operator \, then parallelize it with the hoa.process~;
 -49933 0;
 #X text 110 1003 1\.;
 #X text 150 1003 int;
-#X obj 246 1004 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 1003 ORDER: the order of decomposition. Type: int. Range:
-1\...63;
+#X obj 246 1004 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 1003 N: the order of decomposition. Type: int. Min value:
+0;
 #X text 110 1023 2\.;
 #X text 150 1023 symbol;
 #X obj 246 1024 cnv 1 46 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 1023 PNAME: patch name. Type: symbol.;
+#X text 245 1023 PATCH: patch name. Type: symbol.;
 #X text 110 1043 3\.;
 #X text 150 1043 symbol;
 #X obj 246 1044 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 1043 DOMAIN: process domain: harmonics or planewaves. Allowed
 values: harmonics \, planewaves. . Type: symbol.;
-#X obj 20 1088 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1093 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 1078 4\.;
+#X text 150 1078 list;
+#X obj 246 1079 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 1078 ARGS: instance arguments. Type: list.;
+#X obj 20 1108 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1113 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 1128 @args;
-#X text 245 1128 (readonly) Get arguments passed to instances. Type:
+#X msg 110 1148 @args;
+#X text 245 1148 (readonly) Get arguments passed to instances. Type:
 list.;
-#X msg 110 1157 @domain;
-#X text 245 1157 (readonly) Get process domain: harmonics or planewaves.
+#X msg 110 1177 @domain;
+#X text 245 1177 (readonly) Get process domain: harmonics or planewaves.
 Type: symbol. Default value: harmonics. Allowed values: harmonics \,
 planewaves.;
-#X msg 110 1214 @n;
-#X text 245 1214 (readonly) Get the order of decomposition/number of
+#X msg 110 1234 @n;
+#X text 245 1234 (readonly) Get the order of decomposition/number of
 planewaves. Type: int. Default value: 0\. Range: 0\...63\.;
-#X msg 110 1256 @patch;
-#X text 245 1256 (readonly) Get patch name. Type: symbol.;
-#X obj 20 1295 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1300 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X msg 110 1276 @patch;
+#X text 245 1276 (readonly) Get patch name. Type: symbol.;
+#X obj 20 1315 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1320 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 1335 on;
-#X text 245 1335 switch on/off DSP instance processing. Usage: on all
+#X msg 110 1355 on;
+#X text 245 1355 switch on/off DSP instance processing. Usage: on all
 0|1 - turn on/off all instances \, on IDX 0|1 - turn on/off specified
 instance.;
-#X msg 110 1390 open;
-#X text 245 1390 open Pd window for specified instance. Arguments are:;
-#X obj 255 1413 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1413 IDX: instance index. Type: int.;
-#X msg 110 1438 dump;
-#X text 245 1438 dumps all object info to Pd console window.;
-#X obj 20 1475 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1480 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X msg 110 1410 open;
+#X text 245 1410 open Pd window for specified instance. Arguments are:;
+#X obj 255 1433 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1433 IDX: instance index. Type: int.;
+#X msg 110 1458 dump;
+#X text 245 1458 dumps all object info to Pd console window.;
+#X obj 20 1495 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1500 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1481 1\.;
-#X text 245 1481 first input harmonic/planewave.;
-#X text 110 1501 ....;
-#X text 245 1501 ... input harmonic/planewave.;
-#X text 110 1521 n.;
-#X text 245 1521 n-th input harmonic/planewave.;
-#X obj 20 1551 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1556 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 1501 1\.;
+#X text 245 1501 first input harmonic/planewave.;
+#X text 110 1521 ....;
+#X text 245 1521 ... input harmonic/planewave.;
+#X text 110 1541 n.;
+#X text 245 1541 n-th input harmonic/planewave.;
+#X obj 20 1571 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1576 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1557 1\.;
-#X text 245 1557 first harmonic/planewave output.;
-#X text 110 1577 ....;
-#X text 245 1577 ... harmonic/planewave output.;
-#X text 110 1597 n.;
-#X text 245 1597 n-th harmonic/planewave output.;
+#X text 110 1577 1\.;
+#X text 245 1577 first harmonic/planewave output.;
+#X text 110 1597 ....;
+#X text 245 1597 ... harmonic/planewave output.;
+#X text 110 1617 n.;
+#X text 245 1617 n-th harmonic/planewave output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 1647 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1650 library: ceammc v0.9.5;
-#X text 557 1662 see also:;
-#X obj 631 1662 hoa.2d.decoder~;
-#N canvas 10 1669 400 290 info 0;
+#X obj 1 1667 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1670 library: ceammc v0.9.5;
+#X text 557 1682 see also:;
+#X obj 631 1682 hoa.2d.decoder~;
+#N canvas 10 1689 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -136,7 +140,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1669 pd info;
+#X restore 10 1689 pd info;
 #X connect 8 0 11 0;
 #X connect 9 0 12 0;
 #X connect 11 0 13 0;
