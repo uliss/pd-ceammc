@@ -14,8 +14,10 @@
             <since>0.9.4</since>
         </meta>
         <arguments>
-            <argument name="FREQ" type="float" units="herz">main frequency</argument>
-            <argument name="DUR" type="float" units="millisecond">duration</argument>
+            <argument name="FREQ" type="float" units="herz" minvalue="1" maxvalue="10000">main
+            frequency</argument>
+            <argument name="DUR" type="float" units="millisecond" minvalue="10" maxvalue="600000">
+            duration</argument>
         </arguments>
         <properties>
             <property name="@freq" type="float" minvalue="1" maxvalue="10000" default="440"
