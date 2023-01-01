@@ -138,6 +138,22 @@ extern "C" CEAMMC_EXTERN bool ceammc_dump_json(int argc, char* argv[])
                 { "index", arg_info.argIndex() },
                 { "type", to_symbol(arg_info.type())->s_name },
             });
+
+            DataTypeDict info;
+            if (!arg_info.getDict(info)) {
+                std::cerr << "can't get argument info: " << arg_info.name()->s_name << std::endl;
+                continue;
+            }
+
+            auto jinfo = json::parse(info.toJsonString());
+            if (jinfo.contains("min"))
+                jobj["args"].back()["min"] = jinfo["min"];
+
+            if (jinfo.contains("max"))
+                jobj["args"].back()["max"] = jinfo["max"];
+
+            if (jinfo.contains("units"))
+                jobj["args"].back()["units"] = jinfo["units"];
         }
     }
 
