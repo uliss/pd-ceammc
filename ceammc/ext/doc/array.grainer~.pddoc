@@ -30,7 +30,7 @@
             <par>@tag - grain tag</par>
         </info>
         <arguments>
-            <argument name="NAME" type="symbol">array name</argument>
+            <argument name="ARRAY" type="symbol">array name</argument>
         </arguments>
         <methods>
             <!--clear-->

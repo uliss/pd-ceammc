@@ -18,7 +18,7 @@
             channels</argument>
         </arguments>
         <properties>
-            <property name="@ch" type="int" minvalue="2" maxvalue="16" default="2">number of input
+            <property name="@n" type="int" minvalue="2" maxvalue="16" default="2">number of input
             channels</property>
             <property name="@spread" type="float" minvalue="0" maxvalue="1" default="1">for @spread
             = 0, all channels are in the centre, for 1, they have maximum distribution</property>

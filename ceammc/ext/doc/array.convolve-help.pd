@@ -27,8 +27,8 @@
 -49933 0;
 #X text 110 421 1\.;
 #X text 150 421 symbol;
-#X obj 246 422 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 421 TARGET: target array. Type: symbol.;
+#X obj 246 422 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 421 ARRAY: target array. Type: symbol.;
 #X text 110 441 2\.;
 #X text 150 441 symbol;
 #X obj 246 442 cnv 1 23 20 empty empty empty 17 7 0 10 -245695 -1 0;

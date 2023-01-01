@@ -32,8 +32,8 @@ Variance @url https://en.wikipedia.org/wiki/Variance;
 -49933 0;
 #X text 110 374 1\.;
 #X text 150 374 symbol;
-#X obj 246 375 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 374 NAME: array name. Type: symbol.;
+#X obj 246 375 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 374 ARRAY: array name. Type: symbol.;
 #X obj 20 404 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 409 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;

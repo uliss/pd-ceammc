@@ -12,6 +12,9 @@
 - misc:
   - new control outlet added to fluid~ - output current number of active voices (only when changed)
 
+### Changes:
+- properties:
+  - pan.spread~ @ch property renamed to @n (number of channels)
 
 ## [0.9.5]
 ### Added:

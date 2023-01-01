@@ -14,7 +14,7 @@
             <since>0.9.5</since>
         </meta>
         <arguments>
-            <argument name="TARGET" type="symbol">target array</argument>
+            <argument name="ARRAY" type="symbol">target array</argument>
             <argument name="IR" type="symbol">array with impulse response</argument>
         </arguments>
         <properties>

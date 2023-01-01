@@ -16,6 +16,9 @@
             </also>
             <since>0.9.2</since>
         </meta>
+        <arguments>
+            <argument name="ARRAY" type="symbol">array name</argument>
+        </arguments>
         <properties>
             <property name="@array" type="symbol" default="">array name</property>
             <property name="@ymin" minvalue="-2048" maxvalue="2048" type="float" default="-1">
