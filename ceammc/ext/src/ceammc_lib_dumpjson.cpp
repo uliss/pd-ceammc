@@ -26,6 +26,7 @@ extern "C" {
 using json = nlohmann::json;
 
 #include <algorithm>
+#include <boost/algorithm/string.hpp>
 #include <cstdlib>
 #include <iostream>
 #include <string>
@@ -107,6 +108,9 @@ extern "C" CEAMMC_EXTERN bool ceammc_dump_json(int argc, char* argv[])
         jobj["methods"].push_back(name);
     }
 
+    // arguments
+    std::vector<PropertyInfo> obj_args;
+
     // add properties
     for (const PropertyInfo& i : ext.properties()) {
         DataTypeDict info;
@@ -116,6 +120,25 @@ extern "C" CEAMMC_EXTERN bool ceammc_dump_json(int argc, char* argv[])
         }
 
         jobj["properties"].push_back(json::parse(info.toJsonString()));
+
+        if (i.hasArgIndex()) {
+            obj_args.insert(std::upper_bound(obj_args.begin(), obj_args.end(), i,
+                                [](const PropertyInfo& a, const PropertyInfo& b) { return a.argIndex() < b.argIndex(); }),
+                i);
+        }
+    }
+
+    // output args
+    if (obj_args.size() > 0) {
+        for (auto& arg_info : obj_args) {
+            auto name = boost::to_upper_copy(std::string(arg_info.name()->s_name + 1));
+            jobj["args"].push_back({
+                { "name", name },
+                { "property", arg_info.name()->s_name },
+                { "index", arg_info.argIndex() },
+                { "type", to_symbol(arg_info.type())->s_name },
+            });
+        }
     }
 
     // add info
