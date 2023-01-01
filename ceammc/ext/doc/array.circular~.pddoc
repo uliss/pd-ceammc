@@ -15,6 +15,7 @@
         </meta>
         <arguments>
             <argument name="ARRAY" type="symbol">array name</argument>
+            <argument name="ON" type="int" enum="0 1">write mode</argument>
         </arguments>
         <methods>
             <method name="resize">resize target array 

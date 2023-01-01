@@ -18,13 +18,15 @@
         </meta>
         <arguments>
             <argument name="ARRAY" type="symbol">array name</argument>
+            <argument name="YMIN" type="float" minvalue="-2048" maxvalue="2048">minimal y-axis value</argument>
+            <argument name="YMAX" type="float" minvalue="-2048" maxvalue="2048">maximum y-axis value</argument>
         </arguments>
         <properties>
             <property name="@array" type="symbol" default="">array name</property>
             <property name="@ymin" minvalue="-2048" maxvalue="2048" type="float" default="-1">
             minimal y-axis value</property>
             <property name="@ymax" minvalue="-2048" maxvalue="2048" type="float" default="1">
-            minimal y-axis value</property>
+            maximum y-axis value</property>
             <property name="@yauto" type="int" enum="0 1" default="1">calculate y-axis range
             automatically</property>
             <property name="@nan" type="float" default="+inf">value to replace nan on

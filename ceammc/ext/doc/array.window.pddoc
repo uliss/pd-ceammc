@@ -16,6 +16,9 @@
             </also>
             <since>0.7</since>
         </meta>
+        <arguments>
+            <argument name="ARRAY" type="symbol">array name</argument>
+        </arguments>
         <properties>
             <property name="@array" type="symbol" default="">array name</property>
             <property name="@redraw" type="int" enum="1 0" default="1">redraw after array
