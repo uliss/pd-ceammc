@@ -198,15 +198,15 @@ def check_single_arg(ext_name, arg_name, doc, ext):
         cprint(f"[{ext_name}][arg][{arg_name}] invalid argument type in doc: {doc_type}, should be: {ext_type}", 'magenta')
 
     # check minvalue
-    doc_minval = doc.get("minvalue", "")
+    doc_minval = doc.get("min", "")
     ext_minval = ext.get("min", "")
-    if float(doc_minval) != float(ext_minval):
+    if doc_minval != ext_minval:
         cprint(f"[{ext_name}][arg][{arg_name}] invalid argument minvalue in doc: {doc_minval}, should be: {ext_minval}", 'magenta')
 
     # check maxvalue
-    doc_maxval = doc.get("maxvalue", "")
+    doc_maxval = doc.get("max", "")
     ext_maxval = ext.get("max", "")
-    if float(doc_maxval) != float(ext_maxval):
+    if doc_maxval != ext_maxval:
         cprint(f"[{ext_name}][arg][{arg_name}] invalid argument maxvalue in doc: {doc_maxval}, should be: {ext_maxval}", 'magenta')
 
     # check units
@@ -215,7 +215,6 @@ def check_single_arg(ext_name, arg_name, doc, ext):
     if doc_units != ext_units:
         cprint(f"[{ext_name}][arg][{arg_name}] invalid argument units in doc: {doc_units}, should be: {ext_units}", 'magenta')
 
-    pass
 
 def check_args(name, doc, ext):
     doc_args_set = set(doc.keys())
@@ -322,9 +321,9 @@ if __name__ == '__main__':
                     if "units" in a.attrib:
                         doc_args_dict[name]["units"] = a.attrib["units"]
                     if "minvalue" in a.attrib:
-                        doc_args_dict[name]["minvalue"] = a.attrib["minvalue"]
+                        doc_args_dict[name]["min"] = float(a.attrib["minvalue"])
                     if "maxvalue" in a.attrib:
-                        doc_args_dict[name]["maxvalue"] = a.attrib["maxvalue"]
+                        doc_args_dict[name]["max"] = float(a.attrib["maxvalue"])
                     if "enum" in a.attrib:
                         doc_args_dict[name]["enum"] = a.attrib["enum"]
 
