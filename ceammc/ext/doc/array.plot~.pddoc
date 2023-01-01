@@ -19,8 +19,10 @@
         </meta>
         <arguments>
             <argument name="ARRAY" type="symbol">array name</argument>
-            <argument name="YMIN" type="float" minvalue="-1024" maxvalue="1024">minimal y-axis value</argument>
-            <argument name="YMAX" type="float" minvalue="-1024" maxvalue="1024">maximum y-axis value</argument>
+            <argument name="YMIN" type="float" minvalue="-1024" maxvalue="1024">minimal y-axis
+            value</argument>
+            <argument name="YMAX" type="float" minvalue="-1024" maxvalue="1024">maximum y-axis
+            value</argument>
         </arguments>
         <properties>
             <property name="@array" type="symbol" default="">array name</property>

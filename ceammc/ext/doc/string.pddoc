@@ -18,14 +18,14 @@
                 <alias>str</alias>
             </aliases>
         </meta>
-        <arguments>
-            <argument name="STR" type="symbol">initial string</argument>
-        </arguments>
         <methods>
             <method name="clear">clear string without output</method>
             <method name="set">set string content without output</method>
             <method name="append">append values to the end of string</method>
         </methods>
+        <arguments>
+            <argument name="VALUE" type="symbol">initial string</argument>
+        </arguments>
         <properties>
             <property name="@value" type="list" default="">string value</property>
         </properties>

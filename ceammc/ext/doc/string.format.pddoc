@@ -20,7 +20,7 @@
             <par>This format modifiers are supported: %d, %u, %i, %o, %x, %X, %s, %e, %E.</par>
         </info>
         <arguments>
-            <argument name="FMT" type="symbol">format string</argument>
+            <argument name="FORMAT" type="list">format string</argument>
         </arguments>
         <properties>
             <property name="@format" type="list">format string</property>
