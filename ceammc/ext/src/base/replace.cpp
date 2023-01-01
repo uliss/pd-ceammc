@@ -1,4 +1,5 @@
 #include "replace.h"
+#include "ceammc_factory.h"
 
 using namespace ceammc;
 
