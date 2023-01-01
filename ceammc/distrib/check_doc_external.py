@@ -27,6 +27,7 @@ EXT_METHODS = set()
 EXT_ALIASES = set()
 EXT_PROPS_SET = set()
 EXT_PROPS_DICT = dict()
+EXT_ARGS_DICT = dict()
 
 def signal_handler(sig, frame):
     sys.exit(0)
@@ -77,6 +78,14 @@ def read_ext_info(name):
             for p in props:
                 EXT_PROPS_SET.add(p["name"])
                 EXT_PROPS_DICT[p["name"]] = p
+        except(KeyError):
+            pass
+
+        # read args
+        try:
+            args = js["object"]["args"]
+            for a in args:
+                EXT_ARGS_DICT[a["name"]] = a
         except(KeyError):
             pass
 
@@ -181,6 +190,50 @@ def check_methods(name, doc, ext):
             'yellow')
 
 
+def check_single_arg(ext_name, arg_name, doc, ext):
+    # check type
+    doc_type = doc.get("type", "")
+    ext_type = ext.get("type", "")
+    if doc_type != ext_type:
+        cprint(f"[{ext_name}][arg][{arg_name}] invalid argument type in doc: {doc_type}, should be: {ext_type}", 'magenta')
+
+    # check minvalue
+    doc_minval = doc.get("minvalue", "")
+    ext_minval = ext.get("min", "")
+    if float(doc_minval) != float(ext_minval):
+        cprint(f"[{ext_name}][arg][{arg_name}] invalid argument minvalue in doc: {doc_minval}, should be: {ext_minval}", 'magenta')
+
+    # check maxvalue
+    doc_maxval = doc.get("maxvalue", "")
+    ext_maxval = ext.get("max", "")
+    if float(doc_maxval) != float(ext_maxval):
+        cprint(f"[{ext_name}][arg][{arg_name}] invalid argument maxvalue in doc: {doc_maxval}, should be: {ext_maxval}", 'magenta')
+
+    # check units
+    doc_units = doc.get("units", "")
+    ext_units = ext.get("units", "")
+    if doc_units != ext_units:
+        cprint(f"[{ext_name}][arg][{arg_name}] invalid argument units in doc: {doc_units}, should be: {ext_units}", 'magenta')
+
+    pass
+
+def check_args(name, doc, ext):
+    doc_args_set = set(doc.keys())
+    ext_args_set = set(ext.keys())
+
+    undoc_args = ext_args_set - doc_args_set
+    unknown_args = doc_args_set - ext_args_set
+    if len(undoc_args):
+        cprint(f"[{ext_name}] undocumented arguments: {undoc_args}",
+            'magenta')
+
+    if len(unknown_args):
+        cprint(f"[{ext_name}] unknown arguments in doc: {unknown_args}",
+            'yellow')
+
+    for a in doc_args_set.intersection(ext_args_set):
+        check_single_arg(name, a, doc[a], ext[a])
+
 def check_xlets(name, doc_in, doc_out, ext_in, ext_out):
     if doc_in is not None and doc_in != ext_in:
         cprint(f"[{ext_name}] inlets error: {doc_in} != {ext_in}",
@@ -199,6 +252,7 @@ if __name__ == '__main__':
     parser.add_argument('-i', '--aliases', help='check aliases', action='store_true')
     parser.add_argument('-s', '--spell', help='check spell', action='store_true')
     parser.add_argument('-x', '--xlets', help='check inlets/outlets', action='store_true')
+    parser.add_argument('-g', '--args', help='check arguments', action='store_true')
     parser.add_argument('-v', '--verbose', help='verbose output', action='store_true')
     parser.add_argument('external', metavar='EXT_NAME', type=str, help='external name')
 
@@ -212,6 +266,7 @@ if __name__ == '__main__':
         args.aliases = True
         args.methods = True
         args.xlets = True
+        args.args = True
 
     if args.verbose:
         print(f" - checking [{ext_name}] external ...")
@@ -232,6 +287,7 @@ if __name__ == '__main__':
     doc_methods_set = set()
     doc_props_set = set()
     doc_props_dict = dict()
+    doc_args_dict = dict()
     doc_aliases = set()
     doc_inlets = None
     doc_outlets = None
@@ -255,6 +311,24 @@ if __name__ == '__main__':
                 z = read_doc_outlets(x)
                 if z is not None and len(z) > 0:
                     doc_outlets = z
+
+            if args.args and x.tag == "arguments":
+                for a in x:
+                    if a.tag != "argument":
+                        continue
+
+                    name = a.attrib["name"]
+                    doc_args_dict[name] = dict()
+                    if "units" in a.attrib:
+                        doc_args_dict[name]["units"] = a.attrib["units"]
+                    if "minvalue" in a.attrib:
+                        doc_args_dict[name]["minvalue"] = a.attrib["minvalue"]
+                    if "maxvalue" in a.attrib:
+                        doc_args_dict[name]["maxvalue"] = a.attrib["maxvalue"]
+                    if "enum" in a.attrib:
+                        doc_args_dict[name]["enum"] = a.attrib["enum"]
+
+                    doc_args_dict[name]["type"] = a.attrib["type"]
 
             if args.methods:
                 if x.tag == "methods":
@@ -294,6 +368,9 @@ if __name__ == '__main__':
 
     if args.methods:
         check_methods(ext_name, doc_methods_set, EXT_METHODS)
+
+    if args.args:
+        check_args(ext_name, doc_args_dict, EXT_ARGS_DICT)
 
     if args.props:
         ignored_props = {'@*', '@label', '@label_margins', '@label_valign',
