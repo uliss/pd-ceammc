@@ -48,11 +48,11 @@ extern "C" CEAMMC_EXTERN bool ceammc_dump_json(int argc, char* argv[])
     }
 
     AtomList args;
-    if (argc > 2) {
+    if (argc >= 2) {
         t_binbuf* b = binbuf_new();
 
         std::string str;
-        for (int i = 2; i < argc; i++) {
+        for (int i = 1; i < argc; i++) {
             str += argv[i];
             str += " ";
         }
