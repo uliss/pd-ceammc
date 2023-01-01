@@ -33,9 +33,9 @@
 #X text 245 553 N: number of steps. Type: int. Min value: 0;
 #X text 110 573 2\.;
 #X text 150 573 float;
-#X obj 246 574 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 573 T: time interval between steps or bpm. Type: float.
-Min value: 0;
+#X obj 246 574 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 573 T(ms): time interval between steps or bpm. Type: float.
+Range: 1\...20000;
 #X obj 20 618 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 623 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;

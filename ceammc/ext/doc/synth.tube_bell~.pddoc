@@ -18,7 +18,7 @@
             algorithm 5 of the TX81Z</par>
         </info>
         <arguments>
-            <argument name="FREQ" type="float" units="herz">main frequency</argument>
+            <argument name="FREQ" type="float" units="herz" minvalue="0">main frequency</argument>
         </arguments>
         <properties>
             <property name="@freq" type="float" minvalue="0" maxvalue="10000" default="220"

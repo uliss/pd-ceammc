@@ -23,7 +23,7 @@
         <arguments>
             <argument name="FROM" type="int">substring position. May be relative: -1 means one
             character from the end of stirng</argument>
-            <argument name="LENGTH" type="int" minvalue="0">substring length. If -1 given (by
+            <argument name="LEN" type="int" minvalue="0">substring length. If -1 given (by
             default), means 'till string end'.</argument>
         </arguments>
         <properties>

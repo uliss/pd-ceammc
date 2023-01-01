@@ -19,7 +19,7 @@
         <arguments>
             <argument name="FROM" type="int">@from property</argument>
             <argument name="TO" type="int">@to property</argument>
-            <argument name="STEP" type="int">@step property</argument>
+            <argument name="STEP" type="int" minvalue="0">@step property</argument>
         </arguments>
         <properties>
             <property name="@from" type="int" default="0">start slice position. You can use

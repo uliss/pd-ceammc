@@ -14,7 +14,7 @@
             <since>0.9.2</since>
         </meta>
         <arguments>
-            <argument name="OCT" type="int" minvalue="-8" maxvalue="8">octave
+            <argument name="OCT" type="int" minvalue="-11" maxvalue="11">octave
             transposition</argument>
         </arguments>
         <properties>

@@ -37,10 +37,10 @@ data:String \, to get list of Pd symbols use @sym flag or use alias
 #X obj 20 501 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 110 536 1\.;
-#X text 150 536 atom;
+#X text 150 536 symbol;
 #X obj 246 537 cnv 1 31 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 536 SEP: separator. If nonspecified - separate by every
-char. To separate by space - use " " argument. Type: atom.;
+char. To separate by space - use " " argument. Type: symbol.;
 #X obj 20 581 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 586 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;

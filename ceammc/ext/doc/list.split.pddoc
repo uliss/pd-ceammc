@@ -19,7 +19,7 @@
             </also>
         </meta>
         <arguments>
-            <argument name="AT" type="int">size of first list. The size of the list on the second
+            <argument name="AT" type="int" minvalue="0">size of first list. The size of the list on the second
             output is the size of input list - this value</argument>
         </arguments>
         <properties>

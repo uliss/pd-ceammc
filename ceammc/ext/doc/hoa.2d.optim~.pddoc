@@ -33,7 +33,7 @@
             <a href="hoa/hoa.2d.optim~-help.pd">CICM documentation</a>
         </info>
         <arguments>
-            <argument name="ORDER" type="int" minvalue="1">the order of decomposition</argument>
+            <argument name="ORDER" type="int" minvalue="1" maxvalue="63">the order of decomposition</argument>
             <argument name="MODE" type="symbol" enum="basic maxre inphase">optimization
             mode</argument>
         </arguments>

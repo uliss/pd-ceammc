@@ -18,8 +18,8 @@
         </meta>
         <arguments>
             <argument name="N" type="int" minvalue="0">number of steps</argument>
-            <argument name="T" type="float" minvalue="0">time interval between steps or
-            bpm</argument>
+            <argument name="T" type="float" minvalue="1" maxvalue="20000"
+            units="millisecond">time interval between steps or bpm</argument>
         </arguments>
         <properties>
             <property name="@t" type="float" default="250" minvalue="1" maxvalue="20000"

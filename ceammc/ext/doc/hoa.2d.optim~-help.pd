@@ -38,8 +38,8 @@ your ears.;
 #X text 110 791 1\.;
 #X text 150 791 int;
 #X obj 246 792 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 791 ORDER: the order of decomposition. Type: int. Min value:
-1;
+#X text 245 791 ORDER: the order of decomposition. Type: int. Range:
+1\...63;
 #X text 110 811 2\.;
 #X text 150 811 symbol;
 #X obj 246 812 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
