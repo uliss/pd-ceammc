@@ -2,6 +2,7 @@
 #define FX_STUTTER_H
 
 #include "ceammc_clock.h"
+#include "ceammc_property_enum.h"
 #include "ceammc_sound_external.h"
 using namespace ceammc;
 
@@ -16,8 +17,11 @@ class FxStutter : public SoundExternal {
     State state_;
     FloatProperty* max_size_;
     FloatProperty* t_;
+    SymbolEnumProperty* mode_;
+    FloatProperty* speed_;
     std::vector<t_sample> buffer_;
     size_t buf_phase_;
+    size_t play_phase_;
     ClockLambdaFunction clock_;
 
 public:
