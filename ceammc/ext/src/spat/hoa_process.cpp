@@ -80,6 +80,10 @@ void HoaProcess::initDone()
         else
             OBJ_LOG << e.what(); // object without args - used in help
     }
+    // strange exception handling bug
+#if defined(__APPLE__) && defined(__arm64__)
+    catch(...) { }
+#endif
 
     // call loadbang in 5 ticks
     clock_.delay(5);
