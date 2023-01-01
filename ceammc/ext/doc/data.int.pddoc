@@ -21,7 +21,7 @@
             </aliases>
         </meta>
         <arguments>
-            <argument name="INT" type="int">set initial value</argument>
+            <argument name="VALUE" type="int">set initial value</argument>
         </arguments>
         <properties>
             <property name="@value" readonly="true" type="int" default="0">current value</property>

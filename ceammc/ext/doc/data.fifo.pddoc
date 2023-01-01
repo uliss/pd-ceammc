@@ -21,7 +21,7 @@
             exceed this limit, outputs and removes first value in queue.</par>
         </info>
         <arguments>
-            <argument name="size" type="int" minvalue="0">if specified, creates fixed-size queue.
+            <argument name="SIZE" type="int" minvalue="0">if specified, creates fixed-size queue.
             Value '0' means default size (1024)</argument>
         </arguments>
         <methods>

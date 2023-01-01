@@ -17,7 +17,7 @@
             </also>
         </meta>
         <arguments>
-            <argument name="X" type="any">initial list values</argument>
+            <argument name="VALUE" type="list">initial list values</argument>
         </arguments>
         <properties>
             <property name="@empty" readonly="true" enum="0 1" type="int" default="1">1 if list is
