@@ -23,7 +23,7 @@
             <par>Numbers thar are *less equal* then N-th argument are passed to N-th inlet</par>
         </info>
         <arguments>
-            <argument name="LIST" type="list">compare values: list of floats in ascending
+            <argument name="VALUES" type="list">compare values: list of floats in ascending
             order</argument>
         </arguments>
         <properties>

@@ -25,7 +25,7 @@
             accepts all incoming messages</par>
         </info>
         <arguments>
-            <argument name="PASS" type="int">init gate state. 1 means open, 0 - closed. By default
+            <argument name="STATE" type="int">init gate state. 1 means open, 0 - closed. By default
             gate is closed</argument>
         </arguments>
         <inlets>

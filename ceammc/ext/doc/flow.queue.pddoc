@@ -14,7 +14,7 @@
             <since>0.9.1</since>
         </meta>
         <arguments>
-            <argument name="MAX" type="int" minvalue="1" maxvalue="1024">max queue size</argument>
+            <argument name="MAX_SIZE" type="int" minvalue="1" maxvalue="1024">max queue size</argument>
             <argument name="N" type="int" minvalue="1" maxvalue="32">number of lines</argument>
         </arguments>
         <properties>

@@ -28,12 +28,12 @@ time;
 -49933 0;
 #X text 110 549 1\.;
 #X text 150 549 float;
-#X obj 246 550 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 549 MS(ms): time space between messages. Type: float.;
+#X obj 246 550 cnv 1 77 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 549 DELAY(ms): time space between messages. Type: float.;
 #X text 110 569 2\.;
 #X text 150 569 int;
-#X obj 246 570 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 569 N: time space = N*space after last outputted message.
+#X obj 246 570 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 569 DONE: time space = N*space after last outputted message.
 Type: int. Min value: 0;
 #X obj 20 614 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 619 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144

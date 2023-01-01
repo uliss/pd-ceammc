@@ -21,8 +21,8 @@ object \, since object accepts all incoming messages;
 -49933 0;
 #X text 110 334 1\.;
 #X text 150 334 int;
-#X obj 246 335 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 334 PASS: init gate state. 1 means open \, 0 - closed.
+#X obj 246 335 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 334 STATE: init gate state. 1 means open \, 0 - closed.
 By default gate is closed. Type: int.;
 #X obj 20 379 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 384 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144

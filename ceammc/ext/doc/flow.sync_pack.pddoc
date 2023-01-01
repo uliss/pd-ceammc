@@ -22,7 +22,7 @@
         </meta>
         <arguments>
             <argument name="N" type="int" minvalue="1" maxvalue="255">number of inputs</argument>
-            <argument name="VALS" type="list">default values for all inlets. If not enough default
+            <argument name="INIT" type="list">default values for all inlets. If not enough default
             values given it sets to 0</argument>
         </arguments>
         <properties>

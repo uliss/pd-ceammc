@@ -29,7 +29,7 @@
             object</par>
         </info>
         <arguments>
-            <argument name="TIME" type="list" units="millisecond">List of delay times. See @t
+            <argument name="T" type="list" units="millisecond">List of delay times. See @t
             property.</argument>
         </arguments>
         <methods>

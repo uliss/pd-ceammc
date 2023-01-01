@@ -14,7 +14,7 @@
             <since>0.4</since>
         </meta>
         <arguments>
-            <argument name="N" type="int" minvalue="0">counter init value</argument>
+            <argument name="VALUE" type="int" minvalue="0">counter init value</argument>
         </arguments>
         <properties>
             <property name="@value" type="int" minvalue="0" default="0">current counter state. Can

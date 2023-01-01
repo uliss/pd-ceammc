@@ -20,8 +20,8 @@
 -49933 0;
 #X text 110 323 1\.;
 #X text 150 323 int;
-#X obj 246 324 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 323 N: max stack size. Type: int.;
+#X obj 246 324 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 323 MAX_SIZE: max stack size. Type: int.;
 #X obj 20 353 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 358 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;

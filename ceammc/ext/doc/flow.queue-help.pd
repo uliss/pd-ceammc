@@ -23,8 +23,8 @@
 -49933 0;
 #X text 110 467 1\.;
 #X text 150 467 int;
-#X obj 246 468 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 467 MAX: max queue size. Type: int. Range: 1\...1024;
+#X obj 246 468 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 467 MAX_SIZE: max queue size. Type: int. Range: 1\...1024;
 #X text 110 487 2\.;
 #X text 150 487 int;
 #X obj 246 488 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;

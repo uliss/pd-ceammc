@@ -43,8 +43,8 @@ or [prop.set] object;
 -49933 0;
 #X text 110 789 1\.;
 #X text 150 789 float;
-#X obj 246 790 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 789 MS(ms): init @delay property. Type: float. Min value:
+#X obj 246 790 cnv 1 77 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 789 DELAY(ms): init @delay property. Type: float. Min value:
 0;
 #X obj 20 819 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 824 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
