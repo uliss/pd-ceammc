@@ -19,8 +19,11 @@
         <info>
             <par>Works with data atoms</par>
         </info>
+        <arguments>
+            <argument name="VALUE" type="list">prepend values</argument>
+        </arguments>
         <properties>
-            <property name="@value" type="list">prepend value</property>
+            <property name="@value" type="list">prepend values</property>
         </properties>
         <inlets>
             <inlet>

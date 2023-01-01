@@ -28,7 +28,7 @@
             indexes are wrapped by modulo division.</par>
         </info>
         <arguments>
-            <argument name="position" type="list">single or multiple elements position</argument>
+            <argument name="INDEX" type="list">single or multiple elements position</argument>
         </arguments>
         <properties>
             <property name="@method" type="symbol" enum="rel clip fold wrap" default="rel">methods

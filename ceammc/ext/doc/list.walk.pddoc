@@ -23,7 +23,7 @@
             then output it.</par>
         </info>
         <arguments>
-            <argument type="list" name="INIT">initial list</argument>
+            <argument type="list" name="VALUE">initial list</argument>
         </arguments>
         <properties>
             <property name="@mode" type="symbol" enum="single clip wrap fold" default="single">pass

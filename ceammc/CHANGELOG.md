@@ -15,6 +15,7 @@
 ### Changes:
 - properties:
   - pan.spread~ @ch property renamed to @n (number of channels)
+  - list.repeat @times property renamed to @n
 
 ## [0.9.5]
 ### Added:

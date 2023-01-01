@@ -31,8 +31,8 @@ So various mapping and filtering are possible.;
 -49933 0;
 #X text 110 493 1\.;
 #X text 150 493 int;
-#X obj 246 494 cnv 1 38 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 493 step: see @step property. Type: int. Range: 1\...1024;
+#X obj 246 494 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 493 STEP: see @step property. Type: int. Range: 1\...1024;
 #X obj 20 523 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 528 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;

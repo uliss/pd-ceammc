@@ -16,8 +16,8 @@ it via external object;
 -49933 0;
 #X text 110 294 1\.;
 #X text 150 294 list;
-#X obj 246 295 cnv 1 46 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 294 index: apply index(es) (starting from 0). Negative
+#X obj 246 295 cnv 1 61 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 294 INDEXES: apply index(es) (starting from 0). Negative
 value means position from end of the list. For example: '-1' means
 last element.. Type: list.;
 #X obj 20 354 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

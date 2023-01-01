@@ -19,8 +19,11 @@
                 <xinfo on="data:mlist">input mlist</xinfo>
             </inlet>
         </inlets>
+        <arguments>
+            <argument type="int" name="FROM">enumeration start index</argument>
+        </arguments>
         <properties>
-            <property name="@from" type="int" default="0">start enumeration index</property>
+            <property name="@from" type="int" default="0">enumeration start index</property>
             <property name="@append" type="flag" default="0">put element index after element
             value</property>
         </properties>

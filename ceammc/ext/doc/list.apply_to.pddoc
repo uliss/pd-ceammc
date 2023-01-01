@@ -18,7 +18,7 @@
             </also>
         </meta>
         <arguments>
-            <argument name="index" type="list">apply index(es) (starting from 0). Negative value
+            <argument name="INDEXES" type="list">apply index(es) (starting from 0). Negative value
             means position from end of the list. For example: '-1' means last element.</argument>
         </arguments>
         <properties>

@@ -20,7 +20,7 @@
             <par>Works with data atoms</par>
         </info>
         <arguments>
-            <argument name="LIST" type="list">appended value</argument>
+            <argument name="VALUE" type="list">appended value</argument>
         </arguments>
         <properties>
             <property name="@value" type="list">append value</property>

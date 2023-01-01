@@ -21,7 +21,7 @@
             match</par>
         </info>
         <arguments>
-            <argument name="@type" type="list">list of matched atoms</argument>
+            <argument name="ARGS" type="list">list of matched atoms</argument>
         </arguments>
         <properties>
             <property name="@args" type="list">matching atoms</property>
