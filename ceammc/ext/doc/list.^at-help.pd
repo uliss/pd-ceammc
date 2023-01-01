@@ -24,7 +24,7 @@
 element. If index greater or equal list size - return last element.;
 #X msg 110 377 @default;
 #X text 245 377 Get/Set default output value if element was not found.
-Type: atom. Default value: none.;
+Type: atom. Default value: None.;
 #X msg 110 419 @fold;
 #X text 245 419 alias to @method fold. In range [0 \, LIST_SIZE) ordinal
 elements are returned. [LIST_SIZE \, 2*LIST_SIZE) - returned in negative

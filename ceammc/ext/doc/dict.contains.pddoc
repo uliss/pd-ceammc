@@ -18,7 +18,7 @@
             </also>
         </meta>
         <arguments>
-            <argument name="KEY" type="list">checked keys</argument>
+            <argument name="KEYS" type="list">checked keys</argument>
         </arguments>
         <properties>
             <property name="@keys" type="list">checked keys</property>

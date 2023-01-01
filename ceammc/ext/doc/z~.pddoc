@@ -17,7 +17,8 @@
             </aliases>
         </meta>
         <arguments>
-            <argument name="Z" type="int" minvalue="0" maxvalue="512">delay length</argument>
+            <argument name="Z" type="int" minvalue="0" maxvalue="512" units="sample">delay
+            length</argument>
         </arguments>
         <properties>
             <property name="@z" type="int" minvalue="0" default="1" maxvalue="512" units="sample">

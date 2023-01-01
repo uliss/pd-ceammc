@@ -27,8 +27,8 @@ float values;
 Type: symbol.;
 #X text 110 437 2\.;
 #X text 150 437 float;
-#X obj 246 438 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 437 VAL: preset initial value. Type: float.;
+#X obj 246 438 cnv 1 38 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 437 INIT: preset initial value. Type: float.;
 #X obj 20 467 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 472 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;

@@ -21,7 +21,7 @@
         </arguments>
         <properties>
             <property name="@value" type="list">list contents</property>
-            <property name="@default" type="atom" default="none">default output value if element
+            <property name="@default" type="atom" default="None">default output value if element
             was not found</property>
             <property name="@method" type="symbol" enum="rel clip fold wrap" default="rel">methods
             of processing of negative/invalid indexes</property>

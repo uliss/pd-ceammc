@@ -27,7 +27,7 @@
         <arguments>
             <argument name="ID" type="symbol">preset id (should be unique in most use
             cases)</argument>
-            <argument name="VAL" type="symbol">preset initial value</argument>
+            <argument name="INIT" type="symbol">preset initial value</argument>
         </arguments>
         <properties>
             <property name="@path" type="symbol" readonly="true">property OSC-like path that

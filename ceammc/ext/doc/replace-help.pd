@@ -32,9 +32,10 @@ or first and second arguments.;
 #X obj 20 446 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 481 @from;
-#X text 245 481 Get/Set replace subject. Type: atom.;
+#X text 245 481 Get/Set replace subject. Type: atom. Default value:
+None.;
 #X msg 110 510 @to;
-#X text 245 510 Get/Set replace value. Type: atom.;
+#X text 245 510 Get/Set replace value. Type: atom. Default value: None.;
 #X obj 20 549 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 554 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
