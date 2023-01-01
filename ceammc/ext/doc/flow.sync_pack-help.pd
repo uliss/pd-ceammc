@@ -21,7 +21,7 @@
 #X text 110 279 1\.;
 #X text 150 279 int;
 #X obj 246 280 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 279 N: number of inputs. Type: int. Min value: 1;
+#X text 245 279 N: number of inputs. Type: int. Range: 1\...255;
 #X text 110 299 2\.;
 #X text 150 299 list;
 #X obj 246 300 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
