@@ -21,7 +21,7 @@
 #X text 150 405 float;
 #X obj 246 406 cnv 1 100 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 405 INTERVAL(ms): metro tempo in ms. Type: float. Min value:
-1;
+0;
 #X text 110 425 2\.;
 #X text 150 425 list;
 #X obj 246 426 cnv 1 61 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -35,7 +35,7 @@ on this beat. Type: list.;
 0\. Min value: 0\.;
 #X msg 110 552 @interval;
 #X text 245 552 Get/Set interval between beats. Type: float. Units:
-ms. Default value: 0\. Min value: 1\.;
+ms. Default value: 0\. Min value: 0\.;
 #X msg 110 594 @pattern;
 #X text 245 594 Get/Set list of 1 and 0\. Where 1 means output bang
 on this beat. Type: list.;

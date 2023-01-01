@@ -23,7 +23,8 @@
             <since>0.9</since>
         </meta>
         <arguments>
-            <argument name="NSAMP" type="int">@nsamp property</argument>
+            <argument name="NSAMP" type="int" minvalue="8" maxvalue="32768">@nsamp
+            property</argument>
         </arguments>
         <properties>
             <property name="@nsamp" minvalue="8" maxvalue="32768" type="int" default="512">max

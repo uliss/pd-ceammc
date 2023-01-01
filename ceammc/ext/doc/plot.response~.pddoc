@@ -18,7 +18,7 @@
             <since>0.9</since>
         </meta>
         <arguments>
-            <argument name="N" type="int">@n property</argument>
+            <argument name="N" type="int" minvalue="32" maxvalue="8192">@n property</argument>
         </arguments>
         <properties>
             <property name="@n" minvalue="32" maxvalue="8192" type="int" default="512">number of

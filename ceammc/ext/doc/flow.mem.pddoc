@@ -14,7 +14,8 @@
             <since>0.9.1</since>
         </meta>
         <arguments>
-            <argument type="int" name="N">number of memory cells</argument>
+            <argument type="int" name="N" minvalue="1" maxvalue="32">number of memory
+            cells</argument>
         </arguments>
         <properties>
             <property name="@n" type="int" default="1" minvalue="1" maxvalue="32">number of memory

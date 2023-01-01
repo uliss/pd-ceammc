@@ -18,6 +18,7 @@ MetroSeq::MetroSeq(const PdArgs& a)
     interval_ = new FloatProperty("@interval", 0);
     interval_->setArgIndex(0);
     interval_->setUnitsMs();
+    interval_->checkMinEq(0);
     addProperty(interval_);
 
     createCbIntProperty(

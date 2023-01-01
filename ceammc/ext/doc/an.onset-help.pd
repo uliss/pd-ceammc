@@ -65,9 +65,9 @@ hfc \, energy \, complex \, phase \, wphase \, specdiff \, kl \, mkl
 \, specflux. . Type: symbol.;
 #X text 110 691 4\.;
 #X text 150 691 int;
-#X obj 246 692 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 691 HS: hop size (by default buffer_size/2). Type: int.
-Min value: 0;
+#X obj 246 692 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 691 HS(samp): hop size (by default buffer_size/2). Type:
+int. Min value: 0;
 #X obj 20 736 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 741 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
