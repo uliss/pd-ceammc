@@ -26,7 +26,7 @@
         <arguments>
             <argument name="N" type="int" minvalue="1" maxvalue="8">number of signal inputs
             (multiplied 2)</argument>
-            <argument name="@x" type="float">crossfade init value. Valid value in [0..N-1] range.
+            <argument name="X" type="float">crossfade init value. Valid value in [0..N-1] range.
             See @x property</argument>
         </arguments>
         <properties>

@@ -22,7 +22,7 @@
         </info>
         <arguments>
             <argument name="N" type="int" minvalue="2" maxvalue="16">number of inputs</argument>
-            <argument name="@x" type="float">crossfade init value. Valid value in [0..N-1] range.
+            <argument name="X" type="float">crossfade init value. Valid value in [0..N-1] range.
             See @x property</argument>
         </arguments>
         <properties>
