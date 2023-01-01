@@ -21,8 +21,8 @@
             <par>checks is |x - pattern| &lt;= |epsilon|</par>
         </info>
         <properties>
-            <property name="@value" type="float" default="0">compare pattern</property>
-            <property name="@epsilon" type="float" default="0.01">compare epsilon</property>
+            <property name="@P" type="float" default="0">compare pattern</property>
+            <property name="@E" type="float" default="0.01">compare epsilon</property>
         </properties>
         <arguments>
             <argument name="P" type="float">compare pattern</argument>

@@ -22,7 +22,7 @@
             </aliases>
         </meta>
         <arguments>
-            <argument name="MUL" type="float">multiplier. default is 1</argument>
+            <argument name="K" type="float">multiplier. default is 1</argument>
         </arguments>
         <properties>
             <property type="float" name="@k" default="1">multiplier</property>

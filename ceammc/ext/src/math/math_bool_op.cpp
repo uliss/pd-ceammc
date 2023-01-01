@@ -12,8 +12,6 @@
  * this file belongs to.
  *****************************************************************************/
 #include "math_bool_op.h"
-#include "ceammc_convert.h"
-#include "ceammc_factory.h"
 
 #include <algorithm>
 

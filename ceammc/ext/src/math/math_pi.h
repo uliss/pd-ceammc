@@ -26,7 +26,7 @@ public:
 };
 
 class MathPiTilde : public SoundExternal {
-    const t_float mpi_;
+    FloatProperty* k_;
 
 public:
     MathPiTilde(const PdArgs& args);
