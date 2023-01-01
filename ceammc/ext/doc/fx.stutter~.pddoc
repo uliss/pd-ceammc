@@ -14,7 +14,7 @@
             <since>0.9.6</since>
         </meta>
         <arguments>
-            <argument name="PERIOD" type="float" minvalue="1" maxvalue="1000" units="millisecond">stutter period</argument>
+            <argument name="T" type="float" minvalue="1" maxvalue="1000" units="millisecond">stutter period</argument>
         </arguments>
         <properties>
             <property name="@t" type="float" minvalue="1" maxvalue="1000" default="50" units="millisecond">stutter period</property>
