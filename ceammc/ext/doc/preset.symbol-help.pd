@@ -33,11 +33,11 @@ Type: symbol.;
 #X msg 110 439 @global;
 #X text 245 439 use global path like /ID. Default value: 0\.;
 #X msg 110 468 @id;
-#X text 245 468 (readonly) Get preset id. Type: symbol.;
+#X text 245 468 (initonly) Get/Set preset id. Type: symbol.;
 #X msg 110 497 @init;
 #X text 245 497 Get/Set init symbol value. Type: symbol.;
 #X msg 110 526 @path;
-#X text 245 526 (readonly) Get property OSC-like path that includes
+#X text 245 526 (initonly) Get/Set property OSC-like path that includes
 id \, abstraction name and may be subpatch name separated by slashes.
 Type: symbol.;
 #X msg 110 583 @subpatch;

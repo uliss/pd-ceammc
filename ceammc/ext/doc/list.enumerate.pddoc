@@ -24,7 +24,7 @@
         </arguments>
         <properties>
             <property name="@from" type="int" default="0">enumeration start index</property>
-            <property name="@append" type="flag" default="0">put element index after element
+            <property name="@append" type="flag" default="0" access="initonly">put element index after element
             value</property>
         </properties>
         <outlets>

@@ -40,8 +40,8 @@ int. Default value: 0\. Allowed values: 0 \, 1\.;
 #X msg 110 584 @host;
 #X text 245 584 (readonly) Get OSC server host. Type: symbol.;
 #X msg 110 613 @name;
-#X text 245 613 Get/Set OSC server name. Type: symbol. Default value:
-default.;
+#X text 245 613 (initonly) Get/Set OSC server name. Type: symbol. Default
+value: default.;
 #X msg 110 655 @path;
 #X text 245 655 (readonly) Get OSC server local socket path. Type:
 symbol.;
@@ -52,9 +52,9 @@ value: 9000\.;
 #X text 245 726 (readonly) Get OSC server proto (udp or tcp). Type:
 symbol. Default value: udp.;
 #X msg 110 768 @url;
-#X text 245 768 Get/Set OSC server url in form: PROTO:PORT (udp:12345)
-or just PORT \, or osc.PROTO://:PORT (for ex. osc.tcp://:9001). Type:
-atom. Default value: udp:9000\.;
+#X text 245 768 (initonly) Get/Set OSC server url in form: PROTO:PORT
+(udp:12345) or just PORT \, or osc.PROTO://:PORT (for ex. osc.tcp://:9001).
+Type: atom. Default value: udp:9000\.;
 #X obj 20 835 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 840 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;

@@ -32,7 +32,7 @@
             <property name="@pos" type="float" minvalue="-1" maxvalue="1" default="0">panning
             position. -1 means left, 0 - center, +1 - right</property>
             <property name="@smooth" type="int" minvalue="0" maxvalue="100" default="20"
-            access="readonly">smooth control signal to avoid zipping-noise</property>
+            access="initonly">smooth control signal to avoid zipping-noise</property>
         </properties>
         <inlets>
             <inlet type="audio">

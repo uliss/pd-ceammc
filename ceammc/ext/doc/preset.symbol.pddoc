@@ -30,12 +30,12 @@
             <argument name="INIT" type="symbol">preset initial value</argument>
         </arguments>
         <properties>
-            <property name="@path" type="symbol" access="readonly">property OSC-like path that
+            <property name="@path" type="symbol" access="initonly">property OSC-like path that
             includes id, abstraction name and may be subpatch name separated by slashes.</property>
-            <property name="@id" type="symbol" access="readonly">preset id</property>
+            <property name="@id" type="symbol" access="initonly">preset id</property>
             <property name="@init" type="symbol">init symbol value</property>
-            <property name="@global" type="flag" default="0">use global path like /ID</property>
-            <property name="@subpatch" type="flag" default="0">include subpatch name to
+            <property name="@global" type="flag" default="0" access="initonly">use global path like /ID</property>
+            <property name="@subpatch" type="flag" default="0" access="initonly">include subpatch name to
             path</property>
         </properties>
         <methods>
