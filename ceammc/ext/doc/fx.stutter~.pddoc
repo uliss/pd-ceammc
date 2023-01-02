@@ -21,7 +21,7 @@
             <property name="@t" type="float" minvalue="1" maxvalue="1000" default="50"
             units="millisecond">stutter period</property>
             <property name="@maxsize" type="float" minvalue="1" maxvalue="10000" default="1000"
-            units="millisecond">max stutter period</property>
+            units="millisecond" access="initonly">max stutter period</property>
         </properties>
         <inlets>
             <inlet type="audio">

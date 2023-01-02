@@ -27,8 +27,8 @@
 #X obj 20 386 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 421 @maxsize;
-#X text 245 421 Get/Set max stutter period. Type: float. Units: ms.
-Default value: 1000\. Range: 1\...10000\.;
+#X text 245 421 (initonly) Get/Set max stutter period. Type: float.
+Units: ms. Default value: 1000\. Range: 1\...10000\.;
 #X msg 110 463 @t;
 #X text 245 463 Get/Set stutter period. Type: float. Units: ms. Default
 value: 50\. Range: 1\...1000\.;

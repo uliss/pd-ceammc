@@ -62,7 +62,7 @@ to last outlet if no match;
 #X obj 20 671 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 706 @args;
-#X text 245 706 Get/Set matching atoms. Type: list.;
+#X text 245 706 (initonly) Get/Set matching atoms. Type: list.;
 #X msg 110 735 @as_any;
 #X text 245 735 trim list or symbol selector on output. Default value:
 0\.;

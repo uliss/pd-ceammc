@@ -38,7 +38,7 @@
             on.</property>
             <property name="@pad" type="atom" default="0">pad value for pad method of
             resizing</property>
-            <property name="@n" type="int" minvalue="2" maxvalue="20" default="2">number of
+            <property name="@n" type="int" minvalue="2" maxvalue="20" default="2" access="initonly">number of
             inputs</property>
             <property name="@lists" type="list" access="readonly">input data list: list of
             data:mlist</property>

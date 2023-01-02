@@ -42,7 +42,7 @@ list.;
 #X text 245 649 Get/Set function called every time on connect. Type:
 symbol.;
 #X msg 110 678 @port;
-#X text 245 678 (readonly) Get name of arduino serial port \, eg.:
+#X text 245 678 (initonly) Get/Set name of arduino serial port \, eg.:
 COM3 on Windows \, /dev/ttyACM0 on Linux and /dev/cu.usbmodem411 on
 MacOSX. If specified on creation tries to connect to this device only.
 Type: symbol.;

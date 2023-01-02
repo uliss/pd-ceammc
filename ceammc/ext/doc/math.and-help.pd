@@ -35,8 +35,8 @@
 #X text 245 448 (readonly) Get internal logic state as list of 1 and
 0\. Type: list. Default value: 0 0 0\.;
 #X msg 110 490 @sync;
-#X text 245 490 Get/Set if specified - all inlets are 'hot'. Type:
-int. Default value: 0\. Allowed values: 0 \, 1\.;
+#X text 245 490 (initonly) Get/Set if specified - all inlets are 'hot'.
+Type: int. Default value: 0\. Allowed values: 0 \, 1\.;
 #X obj 20 542 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 547 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;

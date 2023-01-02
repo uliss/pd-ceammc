@@ -14,7 +14,7 @@
             <since>0.9.5</since>
         </meta>
         <properties>
-            <property name="@db" type="int" enum="0 1" default="0">output in decibels</property>
+            <property name="@db" type="flag" default="0" access="initonly">output in decibels</property>
         </properties>
         <inlets>
             <inlet>

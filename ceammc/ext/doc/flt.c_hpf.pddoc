@@ -33,7 +33,7 @@
             units="herz">center frequency</property>
             <property name="@q" type="float" minvalue="0.01" maxvalue="100" default="0.707">quality
             factor: @freq/BANDWIDTH</property>
-            <property name="@rad" type="flag">use angular frequency</property>
+            <property name="@rad" type="flag" access="initonly">use angular frequency</property>
         </properties>
         <methods>
             <method name="bw">set bandwidth in octaves 

@@ -43,7 +43,8 @@ arg list: "@prop+";
 #X text 245 567 Get/Set cut or pass message selector. Type: int. Default
 value: 0\. Allowed values: 0 \, 1\.;
 #X msg 110 609 @patterns;
-#X text 245 609 Get/Set list of regular expressions. Type: list.;
+#X text 245 609 (initonly) Get/Set list of regular expressions. Type:
+list.;
 #X obj 20 648 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 653 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;

@@ -24,7 +24,7 @@
             values given it sets to 0.</argument>
         </arguments>
         <properties>
-            <property name="@n" type="int" minvalue="1" default="1" maxvalue="255">number of
+            <property name="@n" type="int" minvalue="1" default="1" maxvalue="255" access="initonly">number of
             inlets</property>
             <property name="@init" type="list">default init values</property>
         </properties>

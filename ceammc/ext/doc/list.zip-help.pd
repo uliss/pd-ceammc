@@ -45,8 +45,8 @@ symbol. Default value: min. Allowed values: min \, pad \, clip \, wrap
 #X text 245 576 alias for "@oversize min" property. Truncates lists
 to minimal common size.;
 #X msg 110 618 @n;
-#X text 245 618 Get/Set number of inputs. Type: int. Default value:
-2\. Range: 2\...20\.;
+#X text 245 618 (initonly) Get/Set number of inputs. Type: int. Default
+value: 2\. Range: 2\...20\.;
 #X msg 110 660 @pad;
 #X text 245 660 Get/Set pad value for pad method of resizing. Type:
 atom. Default value: 0\.;

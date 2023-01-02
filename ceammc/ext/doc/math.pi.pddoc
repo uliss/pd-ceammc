@@ -25,7 +25,7 @@
             <argument name="K" type="float">multiplier. default is 1</argument>
         </arguments>
         <properties>
-            <property type="float" name="@k" default="1">multiplier</property>
+            <property type="float" name="@k" default="1" access="initonly">multiplier</property>
         </properties>
         <info>
             <par>The number PI is a mathematical constant, the ratio of a circle's circumference to
