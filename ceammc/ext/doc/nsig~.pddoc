@@ -24,7 +24,7 @@
             <argument name="INIT" type="list">init values</argument>
         </arguments>
         <properties>
-            <property name="@n" type="int" minvalue="1" default="1" maxvalue="12">number of
+            <property name="@n" type="int" minvalue="1" default="1" maxvalue="12" access="initonly">number of
             inputs/outputs</property>
             <property name="@values" type="list">current output values. Default: 0</property>
         </properties>

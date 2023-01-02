@@ -23,7 +23,7 @@
             <argument name="N" type="int" minvalue="2" maxvalue="24">number of outlets</argument>
         </arguments>
         <properties>
-            <property name="@n" type="int" minvalue="2" maxvalue="24" default="2">number of
+            <property name="@n" type="int" minvalue="2" maxvalue="24" default="2" access="initonly">number of
             outlets</property>
         </properties>
         <methods>

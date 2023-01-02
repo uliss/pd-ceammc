@@ -49,8 +49,8 @@ value: 1\. Allowed values: 0 \, 1\.;
 #X text 245 625 Get/Set adaptive whitening. Type: int. Default value:
 0\. Allowed values: 0 \, 1\.;
 #X msg 110 667 @bs;
-#X text 245 667 Get/Set buffer size. Type: int. Units: samp. Default
-value: 1024\. Min value: 64\.;
+#X text 245 667 (initonly) Get/Set buffer size. Type: int. Units: samp.
+Default value: 1024\. Min value: 64\.;
 #X msg 110 709 @complex;
 #X text 245 709 alias to @method complex. Complex Domain Method onset
 detection function.;

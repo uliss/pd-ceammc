@@ -53,8 +53,8 @@ int. Min value: 0;
 #X text 245 740 Get/Set audio processing state. Type: int. Default
 value: 1\. Allowed values: 0 \, 1\.;
 #X msg 110 782 @bs;
-#X text 245 782 Get/Set buffer size. Type: int. Units: samp. Default
-value: 1024\. Min value: 64\.;
+#X text 245 782 (initonly) Get/Set buffer size. Type: int. Units: samp.
+Default value: 1024\. Min value: 64\.;
 #X msg 110 824 @complex;
 #X text 245 824 alias to @method complex. Complex Domain Method onset
 detection function.;

@@ -21,7 +21,7 @@
             <argument name="KEYS" type="list">keys</argument>
         </arguments>
         <properties>
-            <property name="@keys" type="list">extracted keys</property>
+            <property name="@keys" type="list" access="initonly">extracted keys</property>
             <property name="@default" type="atom" default="None">default value when key is not
             found in dictionary. If not specified no output is performed.</property>
         </properties>

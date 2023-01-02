@@ -23,11 +23,11 @@
 #X obj 20 532 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 567 @bs;
-#X text 245 567 Get/Set buffer size. Type: int. Units: samp. Default
-value: 1024\. Range: 1\...65536\.;
+#X text 245 567 (initonly) Get/Set buffer size. Type: int. Units: samp.
+Default value: 1024\. Range: 1\...65536\.;
 #X msg 110 609 @clock;
-#X text 245 609 Get/Set alias for @mode count @bs 1\. Output impulse
-at each zero crossing. Type: list. Default value: 0\.;
+#X text 245 609 (initonly) Get/Set alias for @mode count @bs 1\. Output
+impulse at each zero crossing. Type: list. Default value: 0\.;
 #X msg 110 651 @mode;
 #X text 245 651 Get/Set calculation mode: if 'count' - output number
 of zero crossing occured in a period of current block size \, if 'rate'

@@ -28,7 +28,7 @@
             order</argument>
         </arguments>
         <properties>
-            <property name="@values" type="list">compare values: list of floats in descending
+            <property name="@values" type="list" access="initonly">compare values: list of floats in descending
             order</property>
         </properties>
         <inlets>

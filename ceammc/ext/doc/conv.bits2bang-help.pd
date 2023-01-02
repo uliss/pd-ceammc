@@ -36,8 +36,8 @@ to single outlet;
 #X obj 20 627 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 662 @n;
-#X text 245 662 (readonly) Get 123\. Type: int. Default value: 8\.
-Range: 1\...64\.;
+#X text 245 662 (initonly) Get/Set 123\. Type: int. Default value:
+8\. Range: 1\...64\.;
 #X msg 110 704 @poly;
 #X text 245 704 polyphonic mode for using with [clone] object.;
 #X msg 110 733 @rev;

@@ -30,8 +30,8 @@
 #X obj 20 406 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 441 @n;
-#X text 245 441 Get/Set number of inputs/outputs. Type: int. Default
-value: 1\. Range: 1\...12\.;
+#X text 245 441 (initonly) Get/Set number of inputs/outputs. Type:
+int. Default value: 1\. Range: 1\...12\.;
 #X msg 110 483 @values;
 #X text 245 483 Get/Set current output values. Default: 0\. Type: list.;
 #X obj 20 522 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

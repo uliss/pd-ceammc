@@ -23,8 +23,8 @@
 #X obj 20 356 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 391 @n;
-#X text 245 391 Get/Set number of outlets. Type: int. Default value:
-2\. Range: 2\...24\.;
+#X text 245 391 (initonly) Get/Set number of outlets. Type: int. Default
+value: 2\. Range: 2\...24\.;
 #X obj 20 443 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 448 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;

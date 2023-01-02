@@ -24,7 +24,7 @@
             buffer_size/2)</argument>
         </arguments>
         <properties>
-            <property name="@bs" type="int" minvalue="64" default="1024" units="sample">buffer
+            <property name="@bs" type="int" minvalue="64" default="1024" units="sample" access="initonly">buffer
             size</property>
             <property name="@hs" type="int" minvalue="0" default="0" units="sample">hop size. 0
             means @bs/2</property>
