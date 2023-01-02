@@ -39,11 +39,10 @@
 #X obj 20 599 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 634 @keep_value;
-#X text 245 634 Get/Set vakue output mode. If false (by default) acts
+#X text 245 634 Get/Set value output mode. If false (by default) acts
 like vanilla select: output bang on match or full unmatched message
 to last outlet. If true always outputs full matched message to corresponding
-outlet. Type: int. Default value: 0\. Allowed values: 0 \, 1 \, on
-\, off.;
+outlet. Type: int. Default value: 0\. Allowed values: 0 \, 1\.;
 #X msg 110 721 @v;
 #X text 245 721 alias to @keep_value 1\.;
 #X obj 20 760 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
