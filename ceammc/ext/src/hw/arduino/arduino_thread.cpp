@@ -307,25 +307,6 @@ namespace hw {
                 int baudRate = arduino->baudRate();
                 serial.setBaudrate(baudRate);
                 serial.setPort(port_info.port);
-
-                if (port_info.port.empty()) {
-#ifdef DEBUG
-                    std::cerr << "[arduino_thread] can't connect to device: "
-                              << port_info.port << " at baudrate " << baudRate << "\n";
-
-#endif
-                    if (arduino->reconnect()) {
-#ifdef DEBUG
-                        std::cerr << "[arduino_thread] reconnecting...\n";
-#endif
-                        std::this_thread::sleep_for(RECONNECT_TIME_MS);
-                        // try again
-                        continue;
-                    } else {
-                        return 0;
-                    }
-                }
-
                 serial.open();
 
                 // can't open
@@ -392,6 +373,11 @@ namespace hw {
 #endif
             return 0;
         }
+#if defined(__APPLE__) && defined(__arm64__)
+        catch (...) {
+            return 0;
+        }
+#endif
 
         return 0;
     }
