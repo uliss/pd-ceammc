@@ -68,7 +68,7 @@ t_symbol* to_symbol(PropValueUnits u)
         gensym("decibel"),
         gensym("degree"),
         gensym("radian"),
-        gensym("herz"),
+        gensym("hertz"),
         gensym("percent"),
         gensym("cent"),
         gensym("semitone"),

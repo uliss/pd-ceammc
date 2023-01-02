@@ -14,9 +14,7 @@
 #include "ceammc.h"
 #include "ceammc_atomlist.h"
 #include "ceammc_format.h"
-#include "ceammc_object_info.h"
 #include "ceammc_pd.h"
-#include "datatype_dict.h"
 #include "stk/stk/include/Stk.h"
 
 #include <algorithm>
@@ -56,7 +54,7 @@ static std::string pddoc_units(const std::string& u)
     const static std::map<std::string, std::string> um = {
         { "samp", "sample" },
         { "db", "decibel" },
-        { "hz", "herz" },
+        { "hz", "hertz" },
         { "msec", "millisecond" },
         { "sec", "second" },
         { "rad", "radian" },
