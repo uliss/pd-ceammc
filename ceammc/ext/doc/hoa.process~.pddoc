@@ -43,12 +43,12 @@
             <argument name="ARGS" type="list">instance arguments</argument>
         </arguments>
         <properties>
-            <property name="@n" type="int" minvalue="0" maxvalue="63" default="0" access="readonly">
+            <property name="@n" type="int" minvalue="0" maxvalue="63" default="0" access="initonly">
             the order of decomposition/number of planewaves</property>
-            <property name="@patch" type="symbol" access="readonly">patch name</property>
-            <property name="@domain" type="symbol" access="readonly" default="harmonics"
+            <property name="@patch" type="symbol" access="initonly">patch name</property>
+            <property name="@domain" type="symbol" access="initonly" default="harmonics"
             enum="harmonics planewaves">process domain: harmonics or planewaves</property>
-            <property name="@args" type="list" access="readonly">arguments passed to
+            <property name="@args" type="list" access="initonly">arguments passed to
             instances</property>
         </properties>
         <inlets dynamic="true">
