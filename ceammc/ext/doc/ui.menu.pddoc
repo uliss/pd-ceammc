@@ -21,12 +21,12 @@
             <property name="@items" type="list">list of menu items</property>
             <property name="@index" type="int" default="0">current menu item index</property>
             <property name="@value" type="atom">current menu item value</property>
-            <property name="@count" type="int" readonly="true" default="0">number of menu
+            <property name="@count" type="int" access="readonly" default="0">number of menu
             items</property>
             <property name="@max_length" type="int" minvalue="10" maxvalue="1024" default="100">
             maximum displayed item character length</property>
             <property name="@open" type="int" default="0" enum="0 1">opened state</property>
-            <property name="@title" type="symbol" readonly="true">current element text</property>
+            <property name="@title" type="symbol" access="readonly">current element text</property>
             <!-- common -->
             <property name="@presetname" type="symbol" default="(null)">preset name for using with
             [ui.preset]</property>

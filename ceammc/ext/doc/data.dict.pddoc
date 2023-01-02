@@ -29,10 +29,10 @@
             <event editmode="false" type="left-click">open data editor</event>
         </mouse>
         <properties>
-            <property name="@keys" readonly="true" type="list">keys of dictionary</property>
-            <property name="@empty" readonly="true" enum="0 1" type="int" default="1">1 if dict is
+            <property name="@keys" access="readonly" type="list">keys of dictionary</property>
+            <property name="@empty" access="readonly" enum="0 1" type="int" default="1">1 if dict is
             empty, otherwise 0</property>
-            <property name="@size" readonly="true" minvalue="0" type="int" default="0">number of
+            <property name="@size" access="readonly" minvalue="0" type="int" default="0">number of
             entries in dictionary</property>
         </properties>
         <methods>

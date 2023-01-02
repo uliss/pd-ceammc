@@ -209,14 +209,14 @@
             release(ms), release_curve - no sustain point</argument>
         </arguments>
         <properties>
-            <property name="@npoints" type="int" readonly="true" minvalue="0" default="0">number of
+            <property name="@npoints" type="int" access="readonly" minvalue="0" default="0">number of
             points</property>
-            <property name="@length" type="float" units="millisecond" readonly="true" default="0"
+            <property name="@length" type="float" units="millisecond" access="readonly" default="0"
             minvalue="0">total envelope time length</property>
-            <property name="@points" type="list" readonly="true">list of point times
+            <property name="@points" type="list" access="readonly">list of point times
             (ms)</property>
-            <property name="@values" type="list" readonly="true">list of point values</property>
-            <property name="@stops" type="list" readonly="true">list of stop points</property>
+            <property name="@values" type="list" access="readonly">list of point values</property>
+            <property name="@stops" type="list" access="readonly">list of stop points</property>
         </properties>
         <inlets>
             <inlet>

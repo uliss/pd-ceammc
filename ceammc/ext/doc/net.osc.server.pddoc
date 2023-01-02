@@ -40,13 +40,13 @@
             <property name="@url" type="atom" default="udp:9000">OSC server url in form: PROTO:PORT
             (udp:12345) or just PORT, or osc.PROTO://:PORT (for ex. osc.tcp://:9001)</property>
             <property name="@name" type="symbol" default="default">OSC server name</property>
-            <property name="@port" type="int" default="9000" readonly="true">OSC server
+            <property name="@port" type="int" default="9000" access="readonly">OSC server
             port</property>
-            <property name="@path" type="symbol" default="" readonly="true">OSC server local socket
+            <property name="@path" type="symbol" default="" access="readonly">OSC server local socket
             path</property>
-            <property name="@proto" type="symbol" default="udp" readonly="true">OSC server proto
+            <property name="@proto" type="symbol" default="udp" access="readonly">OSC server proto
             (udp or tcp)</property>
-            <property name="@host" type="symbol" default="" readonly="true">OSC server
+            <property name="@host" type="symbol" default="" access="readonly">OSC server
             host</property>
         </properties>
         <inlets>

@@ -42,7 +42,7 @@
             default).</property>
             <property name="@cfmt" type="symbol" default="sec" enum="sec ms samp phase">clock
             output format</property>
-            <property name="@state" type="int" default="0" readonly="true">playing state. 0:
+            <property name="@state" type="int" default="0" access="readonly">playing state. 0:
             stopped, 1: playing, 2: paused.</property>
             <property name="@cursor_ms" type="float" default="0" units="millisecond">current play
             position</property>

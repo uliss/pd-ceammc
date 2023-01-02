@@ -30,7 +30,7 @@
         <properties>
             <property name="@sync" type="int" enum="0 1" default="0">if specified - all inlets are
             'hot'</property>
-            <property name="@state" type="list" readonly="true" default="0 0 0">internal logic
+            <property name="@state" type="list" access="readonly" default="0 0 0">internal logic
             state as list of 1 and 0</property>
         </properties>
         <inlets dynamic="true">

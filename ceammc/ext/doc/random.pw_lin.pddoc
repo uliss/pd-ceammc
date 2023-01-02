@@ -34,8 +34,8 @@
             <property name="@v" type="list">interleaved interval boundaries and boundary
             propabilities. For example: values 0 0 0.5 0 1 0 produce triangle
             distribution</property>
-            <property name="@bounds" type="list" readonly="true">list of boundaries</property>
-            <property name="@weights" type="list" readonly="true">list of weights</property>
+            <property name="@bounds" type="list" access="readonly">list of boundaries</property>
+            <property name="@weights" type="list" access="readonly">list of weights</property>
             <property name="@seed" type="int" minvalue="0" default="0">generator seed</property>
         </properties>
         <inlets>

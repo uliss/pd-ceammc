@@ -45,14 +45,14 @@
             integer fraction - 44100/48000</param></method>
         </methods>
         <properties>
-            <property name="@formats" readonly="true" type="list"
+            <property name="@formats" access="readonly" type="list"
             default="AAC AIFF ALAC AU AVR CAF FLAC HTK IFF MACE3:1 MACE6:1 MAT4 MAT5 MP3 MP4 MPC OGG PAF PVF RAW RF64 SD2 SDS SF VOC W64 WAV WAVEX WVE XI">
             list of supported formats</property>
-            <property name="@sr" readonly="true" type="list">source file samplerate</property>
-            <property name="@filename" readonly="true" type="list">filename</property>
-            <property name="@samples" readonly="true" type="list">list of number of loaded samples
+            <property name="@sr" access="readonly" type="list">source file samplerate</property>
+            <property name="@filename" access="readonly" type="list">filename</property>
+            <property name="@samples" access="readonly" type="list">list of number of loaded samples
             into each array</property>
-            <property name="@channels" readonly="true" type="list">list of loaded channels into
+            <property name="@channels" access="readonly" type="list">list of loaded channels into
             each array</property>
             <property name="@smpte_fr" type="float" minvalue="1" maxvalue="99" default="30">SMPTE
             framerate for SMPTE offset calculations</property>

@@ -19,9 +19,9 @@
         <properties>
             <property name="@max_size" type="int" default="100" minvalue="1">maximum stack grow
             size</property>
-            <property name="@size" type="int" default="0" readonly="true">current number of
+            <property name="@size" type="int" default="0" access="readonly">current number of
             elements in stack</property>
-            <property name="@empty" type="int" default="1" enum="0 1" readonly="true">if stack is
+            <property name="@empty" type="int" default="1" enum="0 1" access="readonly">if stack is
             empty</property>
             <property name="@on_empty" type="list">message send to destination address when stack
             becomes empty. First list element is address to send, other additional elements treated

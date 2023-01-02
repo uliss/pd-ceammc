@@ -31,7 +31,7 @@
         </arguments>
         <properties>
             <property name="@order" type="int" minvalue="1" maxvalue="63" default="1"
-            readonly="true">the order of decomposition</property>
+            access="readonly">the order of decomposition</property>
         </properties>
         <inlets dynamic="true">
             <inlet type="audio">

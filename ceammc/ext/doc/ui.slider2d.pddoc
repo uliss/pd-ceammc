@@ -36,9 +36,9 @@
             <property name="@x_right" type="float" default="1">rightmost x-value</property>
             <property name="@y_top" type="float" default="1">top y-value</property>
             <property name="@y_bottom" type="float" default="-1">bottom y-value</property>
-            <property name="@x_range" type="float" readonly="true" default="2">abs x-value
+            <property name="@x_range" type="float" access="readonly" default="2">abs x-value
             range</property>
-            <property name="@y_range" type="float" readonly="true" default="2">abs y-value
+            <property name="@y_range" type="float" access="readonly" default="2">abs y-value
             range</property>
             <property name="@x_value" type="float" default="0">slider x-value</property>
             <property name="@y_value" type="float" default="0">slider y-value</property>

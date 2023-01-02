@@ -152,13 +152,13 @@
             #tri, #saw, #square, #noise</property>
             <property name="@poly" type="int" minvalue="1" maxvalue="1024" default="64">max number
             of voices</property>
-            <property name="@avoices" type="int" default="0" readonly="true">number midi
+            <property name="@avoices" type="int" default="0" access="readonly">number midi
             channels</property>
             <property name="@freq" type="float" default="440" units="herz">A4 standard
             tuning</property>
-            <property name="@key_labels" readonly="true" type="atom" default="[]">dict of control
+            <property name="@key_labels" access="readonly" type="atom" default="[]">dict of control
             key labels</property>
-            <property name="@cc_labels" readonly="true" type="atom" default="[]">dict of controller
+            <property name="@cc_labels" access="readonly" type="atom" default="[]">dict of controller
             labels</property>
             <property name="@gain" type="float" minvalue="0" maxvalue="10" default="0.429">output
             gain (same as @value but in amp units)</property>

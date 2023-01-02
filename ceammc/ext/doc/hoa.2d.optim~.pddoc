@@ -40,7 +40,7 @@
         </arguments>
         <properties>
             <property name="@order" type="int" minvalue="1" maxvalue="63" default="1"
-            readonly="true">the order of decomposition</property>
+            access="readonly">the order of decomposition</property>
             <property name="@mode" type="symbol" enum="basic maxre inphase" default="basic">
             optimization mode</property>
             <property name="@basic" type="alias">alias for @mode basic (no optimization)</property>

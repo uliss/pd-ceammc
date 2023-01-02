@@ -24,19 +24,19 @@
             properties declared via [prop.declare]</par>
         </info>
         <properties>
-            <property name="@hdegree" type="int" readonly="true" default="0">current harmonic
+            <property name="@hdegree" type="int" access="readonly" default="0">current harmonic
             degree in hoa.process~ instance (only in harmonics mode)</property>
-            <property name="@horder" type="int" readonly="true" default="0">current harmonic order
+            <property name="@horder" type="int" access="readonly" default="0">current harmonic order
             in hoa.process~ instance (only in harmonics mode)</property>
-            <property name="@index" type="int" readonly="true" default="0">current instance index
+            <property name="@index" type="int" access="readonly" default="0">current instance index
             starting from 0</property>
-            <property name="@order" type="int" readonly="true" default="0">order of parent
+            <property name="@order" type="int" access="readonly" default="0">order of parent
             hoa.process~</property>
-            <property name="@pmode" type="symbol" enum="2d 3d" readonly="true">amibisonic
+            <property name="@pmode" type="symbol" enum="2d 3d" access="readonly">amibisonic
             mode</property>
-            <property name="@ptype" type="symbol" enum="harmonics planewaves" readonly="true">
+            <property name="@ptype" type="symbol" enum="harmonics planewaves" access="readonly">
             amibisonic type</property>
-            <property name="@total" type="int" readonly="true" default="0">total number of
+            <property name="@total" type="int" access="readonly" default="0">total number of
             hoa.process~ instances</property>
         </properties>
         <inlets>

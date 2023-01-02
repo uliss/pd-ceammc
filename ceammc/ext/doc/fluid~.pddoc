@@ -26,9 +26,9 @@
         <properties>
             <property name="@sf" type="symbol">soundfont path, you can use **default** value to
             load default soundfont</property>
-            <property name="@version" type="symbol" readonly="true" default="2.0.0">FluidSynth
+            <property name="@version" type="symbol" access="readonly" default="2.0.0">FluidSynth
             version</property>
-            <property name="@soundfonts" type="list" readonly="true">list of found
+            <property name="@soundfonts" type="list" access="readonly">list of found
             soundfonts</property>
             <property name="@gain" type="float" minvalue="0" maxvalue="10" default="0">output
             gain</property>
@@ -42,13 +42,13 @@
             <property name="@reverb_damp" type="float" default="0">reverberation damp</property>
             <property name="@poly" type="float" minvalue="1" maxvalue="1024" default="0">max number
             of voices</property>
-            <property name="@avoices" type="float" default="0" readonly="true">number midi
+            <property name="@avoices" type="float" default="0" access="readonly">number midi
             channels</property>
-            <property name="@n" type="int" default="16" readonly="true">number of active
+            <property name="@n" type="int" default="16" access="readonly">number of active
             voices</property>
-            <property name="@cpuload" type="float" default="0" readonly="true">current cpu
+            <property name="@cpuload" type="float" default="0" access="readonly">current cpu
             load</property>
-            <property name="@bufsize" units="sample" type="float" default="0" readonly="true">
+            <property name="@bufsize" units="sample" type="float" default="0" access="readonly">
             internal buffer size</property>
         </properties>
         <methods>

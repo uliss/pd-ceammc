@@ -27,12 +27,12 @@
             hue</property>
             <property name="@lightness" type="float" default="1" minvalue="0" maxvalue="1">first
             lightness</property>
-            <property name="@pd" type="int" readonly="true" default="0">pd color value</property>
-            <property name="@rgb" type="list" readonly="true">RGB value triplet on 0-1
+            <property name="@pd" type="int" access="readonly" default="0">pd color value</property>
+            <property name="@rgb" type="list" access="readonly">RGB value triplet on 0-1
             range</property>
-            <property name="@hsl" type="list" readonly="true">HSL value triplet on 0-1
+            <property name="@hsl" type="list" access="readonly">HSL value triplet on 0-1
             range</property>
-            <property name="@hex" type="symbol" readonly="true">HEX value in format
+            <property name="@hex" type="symbol" access="readonly">HEX value in format
             #RRGGBB</property>
             <!-- common -->
             <property name="@presetname" type="symbol" default="(null)">preset name for using with

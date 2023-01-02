@@ -22,7 +22,7 @@
             <par>in @poly mode if bit is on - send list (BIT_IDX bang) to single outlet</par>
         </info>
         <properties>
-            <property name="@n" type="int" minvalue="1" maxvalue="64" default="8" readonly="true">
+            <property name="@n" type="int" minvalue="1" maxvalue="64" default="8" access="readonly">
             123</property>
             <property name="@rev" type="int" enum="0 1" default="0">reversed bit order</property>
             <property name="@poly" type="flag">polyphonic mode for using with [clone]
