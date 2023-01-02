@@ -25,7 +25,7 @@ current canvas). Type: symbol.;
 #X msg 110 379 @b;
 #X text 245 379 alias to @type bool.;
 #X msg 110 408 @default;
-#X text 245 408 Get/Set default property value. Type: list.;
+#X text 245 408 (initonly) Get/Set default property value. Type: list.;
 #X msg 110 437 @enum;
 #X text 245 437 (initonly) Get/Set allowed values (without default
 value) (for symbol properties only). Type: list.;

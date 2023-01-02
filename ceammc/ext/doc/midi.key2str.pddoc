@@ -19,7 +19,7 @@
         <properties>
             <property name="@symbol" type="flag" default="0" access="initonly">output as symbol
             instead of string by default</property>
-            <property name="@tonality" type="symbol" default="C major">current tonality</property>
+            <property name="@tonality" type="list" default="C major">current tonality</property>
         </properties>
         <inlets>
             <inlet>

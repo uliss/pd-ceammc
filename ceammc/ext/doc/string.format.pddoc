@@ -23,9 +23,10 @@
             <argument name="FORMAT" type="list">format string</argument>
         </arguments>
         <properties>
-            <property name="@format" type="list" access="initonly">format string</property>
-            <property name="@int" type="flag" default="0">flag for integer mode. If specified all
-            floats are converted to integers. This usefull for hex and octal formatting</property>
+            <property name="@format" type="list">format string</property>
+            <property name="@int" type="flag" default="0" access="initonly">flag for integer mode.
+            If specified all floats are converted to integers. This usefull for hex and octal
+            formatting</property>
         </properties>
         <inlets>
             <inlet>
