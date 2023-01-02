@@ -19,13 +19,13 @@
             </also>
         </meta>
         <arguments>
-            <argument name="freq" type="float" units="herz" minvalue="20" maxvalue="20000">starting
-            frequency for the shelf</argument>
+            <argument name="freq" type="float" units="hertz" minvalue="20" maxvalue="20000">
+            starting frequency for the shelf</argument>
             <argument name="gain" type="float" units="decibel" minvalue="-15" maxvalue="15">amount
             of boost or cut apply to the signal</argument>
         </arguments>
         <properties>
-            <property name="@freq" type="float" units="herz" minvalue="20" maxvalue="20000"
+            <property name="@freq" type="float" units="hertz" minvalue="20" maxvalue="20000"
             default="10000">starting frequency for the shelf</property>
             <property name="@gain" type="float" units="decibel" minvalue="-15" maxvalue="15"
             default="0">amount of boost or cut apply to the signal</property>

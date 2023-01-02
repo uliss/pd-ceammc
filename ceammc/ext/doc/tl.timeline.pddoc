@@ -38,12 +38,12 @@
             timeline length</property>
             <property name="@size" access="readonly" type="int" default="1" minvalue="0">number of
             events in timeline</property>
-            <property name="@current" access="readonly" type="float" units="millisecond" default="0">
-            current time</property>
+            <property name="@current" access="readonly" type="float" units="millisecond"
+            default="0">current time</property>
             <property name="@phase" access="readonly" type="float" minvalue="0" maxvalue="1"
             default="0">current phase in [0-1) range</property>
-            <property name="@events" access="readonly" type="list" default="end">list of event names
-            in chronological order</property>
+            <property name="@events" access="readonly" type="list" default="end">list of event
+            names in chronological order</property>
             <property name="@loop" type="int" enum="0 1" default="0">loop mode</property>
             <property name="@mode" type="symbol" enum="fixed inf" default="fixed">timeline mode. If
             timeline is fixed, when reached, it outputs *end* event and stops after that. Infinite

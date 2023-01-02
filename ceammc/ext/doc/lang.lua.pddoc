@@ -35,10 +35,10 @@
             <param name="ARGS" type="list">function arguments</param></method>
         </methods>
         <properties>
-            <property name="@in" type="int" default="1" minvalue="1" maxvalue="16" access="initonly">number of
-            inputs</property>
-            <property name="@out" type="int" default="1" minvalue="1" maxvalue="16" access="initonly">number of
-            outputs</property>
+            <property name="@in" type="int" default="1" minvalue="1" maxvalue="16"
+            access="initonly">number of inputs</property>
+            <property name="@out" type="int" default="1" minvalue="1" maxvalue="16"
+            access="initonly">number of outputs</property>
         </properties>
         <inlets dynamic="true">
             <inlet number="1">

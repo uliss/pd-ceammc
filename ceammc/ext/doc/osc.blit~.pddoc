@@ -18,7 +18,7 @@
             </also>
         </meta>
         <arguments>
-            <argument name="freq" type="float" units="herz" minvalue="0">default frequency (440hz
+            <argument name="freq" type="float" units="hertz" minvalue="0">default frequency (440hz
             if not specified)</argument>
         </arguments>
         <properties>

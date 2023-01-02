@@ -18,11 +18,11 @@
             algorithm 5 of the TX81Z</par>
         </info>
         <arguments>
-            <argument name="FREQ" type="float" units="herz" minvalue="0">main frequency</argument>
+            <argument name="FREQ" type="float" units="hertz" minvalue="0">main frequency</argument>
         </arguments>
         <properties>
             <property name="@freq" type="float" minvalue="0" maxvalue="10000" default="220"
-            units="herz">frequency</property>
+            units="hertz">frequency</property>
             <property name="@pitch" type="float" minvalue="36" maxvalue="84" default="57">midi
             pitch</property>
             <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">play trigger

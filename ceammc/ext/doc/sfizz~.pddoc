@@ -154,12 +154,12 @@
             of voices</property>
             <property name="@avoices" type="int" default="0" access="readonly">number midi
             channels</property>
-            <property name="@freq" type="float" default="440" units="herz">A4 standard
+            <property name="@freq" type="float" default="440" units="hertz">A4 standard
             tuning</property>
             <property name="@key_labels" access="readonly" type="atom" default="[]">dict of control
             key labels</property>
-            <property name="@cc_labels" access="readonly" type="atom" default="[]">dict of controller
-            labels</property>
+            <property name="@cc_labels" access="readonly" type="atom" default="[]">dict of
+            controller labels</property>
             <property name="@gain" type="float" minvalue="0" maxvalue="10" default="0.429">output
             gain (same as @value but in amp units)</property>
             <property name="@volume" type="float" minvalue="-60" maxvalue="10" default="-7.35"

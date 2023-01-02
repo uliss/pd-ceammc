@@ -24,7 +24,8 @@
         <properties>
             <property name="@pitch" type="float" minvalue="24" maxvalue="96" default="48">midi
             pitch</property>
-            <property name="@freq" type="float" units="herz" default="130.813">frequency</property>
+            <property name="@freq" type="float" units="hertz" default="130.813">
+            frequency</property>
             <property name="@room_size" type="float" minvalue="0.005" maxvalue="1" default="0.36">
             reverb room size</property>
             <property name="@nonlin" type="float" minvalue="0" maxvalue="1" default="0">
@@ -43,7 +44,7 @@
             modulated by a sine wave of frequency @modfreq. 4=theta is modulated by a sine wave of
             frequency @freq</property>
             <property name="@modfreq" type="float" minvalue="20" maxvalue="1000" default="220"
-            units="herz">frequency of the sine wave for the modulation of theta (works if
+            units="hertz">frequency of the sine wave for the modulation of theta (works if
             @modetype=3)</property>
             <property name="@reverb_gain" type="float" minvalue="0" maxvalue="1" default="0.137">
             reverb gain</property>

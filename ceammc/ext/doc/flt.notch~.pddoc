@@ -22,15 +22,15 @@
         </info>
         <properties>
             <property name="@freq" type="float" minvalue="20" maxvalue="20000" default="1000"
-            units="herz">center frequency</property>
-            <property name="@width" type="float" default="50" units="herz" minvalue="1"
+            units="hertz">center frequency</property>
+            <property name="@width" type="float" default="50" units="hertz" minvalue="1"
             maxvalue="10000">band width (approximate)</property>
             <property name="@active" type="int" enum="0 1" default="1">on/off dsp
             processing</property>
         </properties>
         <arguments>
-            <argument name="freq" type="float" units="herz">center frequency</argument>
-            <argument name="width" type="float" units="herz">band width (approximate)</argument>
+            <argument name="freq" type="float" units="hertz">center frequency</argument>
+            <argument name="width" type="float" units="hertz">band width (approximate)</argument>
         </arguments>
         <inlets>
             <inlet type="audio">

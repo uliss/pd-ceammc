@@ -22,9 +22,9 @@
             <property name="@mode" type="symbol" enum="count rate freq" default="count">calculation
             mode: if 'count' - output number of zero crossing occured in a period of current block
             size, if 'rate' - output zero crossing rate (zero crossing number / block size), if
-            'freq' - output zero crossing frequency in herz.</property>
-            <property name="@clock" type="list" default="0" access="initonly">alias for @mode count @bs 1. Output
-            impulse at each zero crossing.</property>
+            'freq' - output zero crossing frequency in hertz.</property>
+            <property name="@clock" type="list" default="0" access="initonly">alias for @mode count
+            @bs 1. Output impulse at each zero crossing.</property>
         </properties>
         <inlets>
             <inlet type="audio">

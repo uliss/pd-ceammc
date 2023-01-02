@@ -14,14 +14,14 @@
             <since>0.9.4</since>
         </meta>
         <arguments>
-            <argument name="FREQ" type="float" units="herz" minvalue="1" maxvalue="10000">main
+            <argument name="FREQ" type="float" units="hertz" minvalue="1" maxvalue="10000">main
             frequency</argument>
             <argument name="DUR" type="float" units="millisecond" minvalue="10" maxvalue="600000">
             duration</argument>
         </arguments>
         <properties>
             <property name="@freq" type="float" minvalue="1" maxvalue="10000" default="440"
-            units="herz">base frequency</property>
+            units="hertz">base frequency</property>
             <property name="@pfreq" type="float" minvalue="0" maxvalue="10" default="1">freq
             multiplication coefficient</property>
             <property name="@dur" type="float" minvalue="10" maxvalue="600000" default="5000"

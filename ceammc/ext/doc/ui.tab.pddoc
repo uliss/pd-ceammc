@@ -25,8 +25,8 @@
             vertical, 0 is horizontal</property>
             <property name="@selected" type="list" access="readonly">list of selected items (in
             toggle mode)</property>
-            <property name="@current" type="int" default="0" access="readonly">current selected index
-            (in switch mode)</property>
+            <property name="@current" type="int" default="0" access="readonly">current selected
+            index (in switch mode)</property>
             <property name="@count" type="int" default="0" access="readonly">number of
             tabs</property>
             <!-- common -->

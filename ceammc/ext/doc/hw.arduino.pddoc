@@ -23,9 +23,9 @@
             /dev/ttyACM0 on Linux and /dev/cu.usbmodem411 on MacOSX</argument>
         </arguments>
         <properties>
-            <property name="@port" type="symbol" access="initonly">name of arduino serial port, eg.:
-            COM3 on Windows, /dev/ttyACM0 on Linux and /dev/cu.usbmodem411 on MacOSX. If specified
-            on creation tries to connect to this device only</property>
+            <property name="@port" type="symbol" access="initonly">name of arduino serial port,
+            eg.: COM3 on Windows, /dev/ttyACM0 on Linux and /dev/cu.usbmodem411 on MacOSX. If
+            specified on creation tries to connect to this device only</property>
             <property name="@serial" type="symbol">USB device serial number. If specified at
             creation, tries to connect to devices only with such serial number</property>
             <property name="@rate" type="int" default="57600" minvalue="0">serial baud rate.
@@ -37,9 +37,10 @@
             <property name="@product_id" type="int" default="0">USB device product id. If vendor
             and product ids are specified at creation, tries to connect to devices only with such
             properties. Note: product id is specified in decimal mode, not in hex</property>
-            <property name="@reconnect" type="flag" default="0" access="initonly">enables hot-pluggin</property>
-            <property name="@connected" type="int" enum="0 1" access="readonly" default="0">state of
-            connection to device</property>
+            <property name="@reconnect" type="flag" default="0" access="initonly">enables
+            hot-pluggin</property>
+            <property name="@connected" type="int" enum="0 1" access="readonly" default="0">state
+            of connection to device</property>
             <property name="@devices" type="list" access="readonly">list of found Arduino
             devices</property>
             <property name="@on_connect" type="symbol">function called every time on

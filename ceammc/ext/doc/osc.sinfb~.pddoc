@@ -14,7 +14,7 @@
             <since>0.1</since>
         </meta>
         <arguments>
-            <argument name="freq" type="float" minvalue="0" maxvalue="20000" units="herz">initial
+            <argument name="freq" type="float" minvalue="0" maxvalue="20000" units="hertz">initial
             frequency</argument>
             <argument name="feedback" type="float" minvalue="0" maxvalue="6.283185">oscillator
             feedback coefficient in range 0..2pi</argument>

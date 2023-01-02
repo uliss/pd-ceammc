@@ -25,9 +25,9 @@
             <property name="@drive" type="float" minvalue="0" maxvalue="1" default="0.5">distortion
             amount</property>
             <!-- filtering-->
-            <property name="@lp_freq" type="float" units="herz" default="10000" minvalue="1000"
+            <property name="@lp_freq" type="float" units="hertz" default="10000" minvalue="1000"
             maxvalue="20000">low pass frequency</property>
-            <property name="@hp_freq" type="float" units="herz" default="30" minvalue="20"
+            <property name="@hp_freq" type="float" units="hertz" default="30" minvalue="20"
             maxvalue="2000">high pass frequency</property>
             <property name="@active" type="int" enum="0 1" default="1">on/off dsp
             processing</property>

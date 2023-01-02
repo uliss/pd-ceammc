@@ -32,8 +32,8 @@ impulse at each zero crossing. Type: list. Default value: 0\.;
 #X text 245 651 Get/Set calculation mode: if 'count' - output number
 of zero crossing occured in a period of current block size \, if 'rate'
 - output zero crossing rate (zero crossing number / block size) \,
-if 'freq' - output zero crossing frequency in herz. Type: symbol. Default
-value: count. Allowed values: count \, rate \, freq.;
+if 'freq' - output zero crossing frequency in hertz. Type: symbol.
+Default value: count. Allowed values: count \, rate \, freq.;
 #X obj 20 763 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 768 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;

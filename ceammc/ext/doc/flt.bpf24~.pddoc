@@ -25,7 +25,7 @@
             <a href="https://en.wikipedia.org/wiki/Butterworth_filter">wiki: Butterworth filter</a>
         </info>
         <properties>
-            <property name="@freq" type="float" units="herz" default="1000" minvalue="20"
+            <property name="@freq" type="float" units="hertz" default="1000" minvalue="20"
             maxvalue="20000">cutoff frequency</property>
             <property name="@q" type="float" minvalue="0.01" maxvalue="100" default="2">quality
             factor: @freq/BANDWIDTH</property>
@@ -33,7 +33,7 @@
             processing</property>
         </properties>
         <arguments>
-            <argument name="freq" type="float" units="herz">center frequency</argument>
+            <argument name="freq" type="float" units="hertz">center frequency</argument>
             <argument name="q" type="float" minvalue="0.01" maxvalue="100">quality factory:
             @freq/BANDWIDTH</argument>
             <argument name="ID" type="symbol">object ID for OSC control</argument>

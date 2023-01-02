@@ -20,23 +20,24 @@
         <properties>
             <property name="@name" access="readonly" type="symbol" default="test_canvas">canvas
             name</property>
-            <property name="@dir" access="readonly" type="symbol" default="/">canvas directory (only
-            if top level or abstraction)</property>
-            <property name="@args" access="readonly" type="list">canvas creation arguments</property>
-            <property name="@root" access="readonly" type="int" enum="0 1" default="1">1 if canvas is
-            top-level (window)</property>
+            <property name="@dir" access="readonly" type="symbol" default="/">canvas directory
+            (only if top level or abstraction)</property>
+            <property name="@args" access="readonly" type="list">canvas creation
+            arguments</property>
+            <property name="@root" access="readonly" type="int" enum="0 1" default="1">1 if canvas
+            is top-level (window)</property>
             <property name="@abstraction" access="readonly" type="int" enum="0 1" default="1">1 if
             canvas is abstraction</property>
-            <property name="@size" access="readonly" type="list" default="600 400">canvas dimensions.
-            If root canvas (window) return window size, if subpatch return Graph on Parent
-            size</property>
+            <property name="@size" access="readonly" type="list" default="600 400">canvas
+            dimensions. If root canvas (window) return window size, if subpatch return Graph on
+            Parent size</property>
             <property name="@font" access="readonly" type="int" default="10">canvas font
             size</property>
             <property name="@paths" access="readonly" type="list">canvas search paths</property>
             <property name="@width" access="readonly" type="int" default="600">canvas width (window
             or GOP)</property>
-            <property name="@height" access="readonly" type="int" default="400">canvas height (window
-            or GOP)</property>
+            <property name="@height" access="readonly" type="int" default="400">canvas height
+            (window or GOP)</property>
             <property name="@x" access="readonly" type="int" default="0">canvas x-pos (window or
             GOP)</property>
             <property name="@y" access="readonly" type="int" default="0">canvas y-pos (window or

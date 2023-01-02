@@ -42,8 +42,8 @@
             <property name="@name" type="symbol" default="default">OSC server name</property>
             <property name="@port" type="int" default="9000" access="readonly">OSC server
             port</property>
-            <property name="@path" type="symbol" default="" access="readonly">OSC server local socket
-            path</property>
+            <property name="@path" type="symbol" default="" access="readonly">OSC server local
+            socket path</property>
             <property name="@proto" type="symbol" default="udp" access="readonly">OSC server proto
             (udp or tcp)</property>
             <property name="@host" type="symbol" default="" access="readonly">OSC server

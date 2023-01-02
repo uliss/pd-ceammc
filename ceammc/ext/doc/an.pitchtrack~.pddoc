@@ -41,7 +41,7 @@
             <property name="@fidthr" type="float" minvalue="0" maxvalue="1" default="0.95">min
             fidelity threshold to report the pitch</property>
             <property name="@maxfreq" type="float" minvalue="10" maxvalue="10000" default="1500"
-            units="herz">max tracked frequency</property>
+            units="hertz">max tracked frequency</property>
         </properties>
         <inlets>
             <inlet type="audio">

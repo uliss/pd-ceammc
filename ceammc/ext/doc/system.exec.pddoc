@@ -19,8 +19,8 @@
             <property name="@low" type="alias">alias to @priority low</property>
             <property name="@priority" type="symbol" enum="normal low" default="normal">subprocess
             priority (not all platforms are supported)</property>
-            <property name="@state" type="int" default="-1" access="readonly">running process state:
-            -1 (no process), 0 (not started), 1 (running), 2 (finished)</property>
+            <property name="@state" type="int" default="-1" access="readonly">running process
+            state: -1 (no process), 0 (not started), 1 (running), 2 (finished)</property>
         </properties>
         <methods>
             <method name="eof">send EOF to running processes</method>

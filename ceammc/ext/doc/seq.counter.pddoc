@@ -33,7 +33,8 @@
             mode</property>
             <property name="@wrap" type="alias">alias to @mode wrap</property>
             <property name="@fold" type="alias">alias to @mode fold</property>
-            <property name="@value" type="int" default="0" access="readonly">current value</property>
+            <property name="@value" type="int" default="0" access="readonly">current
+            value</property>
         </properties>
         <methods>
             <method name="reset">reset counter to start value and repeat counter to 0</method>

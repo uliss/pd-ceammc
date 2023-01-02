@@ -19,7 +19,7 @@
             </also>
         </meta>
         <arguments>
-            <argument name="freq" type="float" units="herz">frequency</argument>
+            <argument name="freq" type="float" units="hertz">frequency</argument>
             <argument name="duty" type="float" minvalue="0" maxvalue="1">duty cycle</argument>
         </arguments>
         <properties>

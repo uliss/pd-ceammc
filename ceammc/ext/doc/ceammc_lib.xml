@@ -219,7 +219,7 @@
     <entry name="conv.bits2pos" descr="convert list of bits to list of bit position" ref_view="object">
       <xi:include href="conv.bits2pos.pddoc" parse="xml"/>
     </entry>
-    <entry name="conv.bpm2hz" descr="converts BPM to frequency in herz" ref_view="object">
+    <entry name="conv.bpm2hz" descr="converts BPM to frequency in hertz" ref_view="object">
       <xi:include href="conv.bpm2hz.pddoc" parse="xml"/>
     </entry>
     <entry name="conv.bpm2ms" descr="convert frequency in BPM to period in milliseconds" ref_view="object">

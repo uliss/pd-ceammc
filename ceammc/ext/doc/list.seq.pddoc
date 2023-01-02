@@ -27,8 +27,8 @@
             <property name="@to" type="float" default="1">end value</property>
             <property name="@step" type="float" default="1">sequence step (always
             positive)</property>
-            <property name="@closed" type="flag" default="0" access="initonly">generate closed range
-            sequence</property>
+            <property name="@closed" type="flag" default="0" access="initonly">generate closed
+            range sequence</property>
         </properties>
         <inlets>
             <inlet>

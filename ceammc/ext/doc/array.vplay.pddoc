@@ -21,8 +21,8 @@
         </arguments>
         <properties>
             <property name="@array" type="symbol" default="">array name</property>
-            <property name="@state" type="symbol" enum="play stop" access="readonly" default="stop">
-            player state</property>
+            <property name="@state" type="symbol" enum="play stop" access="readonly"
+            default="stop">player state</property>
             <property name="@speed" type="float" minvalue="0.1" default="1">play speed</property>
             <property name="@begin" type="int" default="0" units="sample">begin position in
             samples</property>

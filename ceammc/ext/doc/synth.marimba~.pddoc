@@ -23,7 +23,8 @@
         <properties>
             <property name="@pitch" type="float" minvalue="36" maxvalue="84" default="48">midi
             pitch</property>
-            <property name="@freq" type="float" units="herz" default="130.813">frequency</property>
+            <property name="@freq" type="float" units="hertz" default="130.813">
+            frequency</property>
             <property name="@pos" type="float" minvalue="0" maxvalue="4" default="0">excitation
             position</property>
             <property name="@cutoff" type="float" minvalue="1000" maxvalue="10000" default="7000">

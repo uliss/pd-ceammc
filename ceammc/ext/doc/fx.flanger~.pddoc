@@ -19,7 +19,7 @@
             <property name="@offset" type="float" minvalue="0" maxvalue="20" units="millisecond"
             default="1">flange delay offset</property>
             <property name="@speed" type="float" minvalue="0" maxvalue="10" default="0.5"
-            units="herz">flanger frequency</property>
+            units="hertz">flanger frequency</property>
             <property name="@feedback" type="float" minvalue="0" maxvalue="1" default="0">feedback
             gain</property>
             <property name="@invert" type="int" enum="0 1" default="0">0 for normal, 1 to invert

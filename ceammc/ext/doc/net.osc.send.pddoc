@@ -78,8 +78,8 @@
             <property name="@host" type="symbol" default="" access="readonly">destination
             host</property>
             <property name="@url" type="atom" default="">destination url</property>
-            <property name="@path" type="symbol" default="" access="readonly">socket filesystem path
-            (if using unix proto)</property>
+            <property name="@path" type="symbol" default="" access="readonly">socket filesystem
+            path (if using unix proto)</property>
         </properties>
         <inlets>
             <inlet>

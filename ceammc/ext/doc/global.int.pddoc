@@ -23,7 +23,8 @@
             <argument name="ID" type="symbol">object ID</argument>
         </arguments>
         <properties>
-            <property name="@value" access="readonly" type="int" default="0">current value</property>
+            <property name="@value" access="readonly" type="int" default="0">current
+            value</property>
         </properties>
         <methods>
             <method name="set">sets new value without output</method>

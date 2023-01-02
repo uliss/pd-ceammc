@@ -18,7 +18,7 @@
             processing</property>
         </properties>
         <arguments>
-            <argument name="freq" type="float" units="herz">frequency</argument>
+            <argument name="freq" type="float" units="hertz">frequency</argument>
         </arguments>
         <inlets>
             <inlet type="audio">

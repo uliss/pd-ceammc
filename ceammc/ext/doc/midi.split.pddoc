@@ -20,8 +20,8 @@
             <argument name="NOTES" type="list">list of note values (split points)</argument>
         </arguments>
         <properties>
-            <property name="@points" type="list" access="readonly">split points. Should be in strict
-            ascending order</property>
+            <property name="@points" type="list" access="readonly">split points. Should be in
+            strict ascending order</property>
         </properties>
         <inlets>
             <inlet>

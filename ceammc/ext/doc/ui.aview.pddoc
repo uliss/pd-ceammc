@@ -58,8 +58,8 @@
             default="0">array size in samples</property>
             <property name="@size_sec" type="float" minvalue="0" access="readonly" units="second"
             default="0">array size in seconds</property>
-            <property name="@size_ms" type="float" minvalue="0" access="readonly" units="millisecond"
-            default="0">array size in milliseconds</property>
+            <property name="@size_ms" type="float" minvalue="0" access="readonly"
+            units="millisecond" default="0">array size in milliseconds</property>
             <!-- common -->
             <property name="@send" type="symbol" default="(null)">send destination</property>
             <property name="@receive" type="symbol" default="(null)">receive source</property>

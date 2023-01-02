@@ -34,8 +34,8 @@
         <properties>
             <property name="@order" type="int" minvalue="1" maxvalue="63" default="1"
             access="readonly">the order of decomposition</property>
-            <property name="@n" type="int" minvalue="0" maxvalue="63" default="0" access="readonly">
-            number of channels (planewaves)</property>
+            <property name="@n" type="int" minvalue="0" maxvalue="63" default="0"
+            access="readonly">number of channels (planewaves)</property>
         </properties>
         <inlets dynamic="true">
             <inlet type="audio">

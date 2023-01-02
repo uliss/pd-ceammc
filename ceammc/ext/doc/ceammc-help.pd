@@ -159,7 +159,7 @@ interval;
 #X obj 30 2252 conv.bits2pos;
 #X text 200 2252 convert list of bits to list of bit position;
 #X obj 30 2279 conv.bpm2hz;
-#X text 200 2279 converts BPM to frequency in herz;
+#X text 200 2279 converts BPM to frequency in hertz;
 #X obj 30 2306 conv.bpm2ms;
 #X text 200 2306 convert frequency in BPM to period in milliseconds;
 #X obj 30 2333 conv.bpm2sec;

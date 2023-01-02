@@ -29,9 +29,9 @@
             <property name="@decay_mid" type="float" minvalue="1" maxvalue="8" default="2"
             units="second">time (in seconds) to decay 60dB in mid-frequency band</property>
             <property name="@freq_low" type="float" minvalue="50" maxvalue="1000" default="200"
-            units="herz">Crossover frequency (Hz) separating low and middle frequencies</property>
+            units="hertz">Crossover frequency (Hz) separating low and middle frequencies</property>
             <property name="@damp_hf" type="float" minvalue="1500" maxvalue="47040" default="6000"
-            units="herz">Frequency (Hz) at which the high-frequency T60 is half the middle-band's
+            units="hertz">Frequency (Hz) at which the high-frequency T60 is half the middle-band's
             T60</property>
             <property name="@envelope" type="float" minvalue="0.1" maxvalue="3" default="1"
             units="second">amplitude-envelope time-constant going down</property>
@@ -40,7 +40,7 @@
             <property name="@depth" type="float" minvalue="0" maxvalue="1" default="0">pitchshift
             modulation amplitude</property>
             <property name="@speed" type="float" minvalue="0.1" maxvalue="10" default="0.1"
-            units="herz">pitchshift modulation frequency</property>
+            units="hertz">pitchshift modulation frequency</property>
             <property name="@control" type="float" minvalue="0" maxvalue="1" default="0.5">envelope
             follower to pitch shifter influence coefficient</property>
             <property name="@ps_drywet" type="float" minvalue="0" maxvalue="1" default="0.5">

@@ -19,13 +19,13 @@
             on strict timing for this object, especially at high frequencies!</par>
         </info>
         <arguments>
-            <argument name="FREQ" type="float" minvalue="0" maxvalue="100" units="herz">
+            <argument name="FREQ" type="float" minvalue="0" maxvalue="100" units="hertz">
             frequency</argument>
             <argument name="ON" type="int" enum="0 1">on/off initial state</argument>
         </arguments>
         <properties>
             <property name="@freq" type="float" minvalue="0" default="0" maxvalue="100"
-            units="herz">frequency</property>
+            units="hertz">frequency</property>
             <property name="@on" type="int" default="0" enum="0 1">on/off state</property>
             <property name="@invert" type="int" default="0" enum="0 1">saw inversion mode. If true,
             outputs descreasing waveform</property>

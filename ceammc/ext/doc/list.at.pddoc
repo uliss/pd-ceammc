@@ -43,8 +43,8 @@
             <property name="@wrap" type="alias">alias to @method wrap. In range [0, LIST_SIZE)
             ordinal elements are returned. Other indexes are wrapped by modulo division.</property>
             <property name="@index" type="list" default="0">indexes</property>
-            <property name="@default" type="atom" default="null">default output value if not found. If not set,
-            outputs error message to console</property>
+            <property name="@default" type="atom" default="null">default output value if not found.
+            If not set, outputs error message to console</property>
         </properties>
         <inlets>
             <inlet>

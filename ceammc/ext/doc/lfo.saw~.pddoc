@@ -19,7 +19,7 @@
             </also>
         </meta>
         <arguments>
-            <argument name="freq" type="float" units="herz">frequency</argument>
+            <argument name="freq" type="float" units="hertz">frequency</argument>
             <argument name="invert" type="float" minvalue="0" maxvalue="1">wave
             inversion</argument>
         </arguments>

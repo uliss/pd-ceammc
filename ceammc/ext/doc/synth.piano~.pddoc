@@ -24,7 +24,8 @@
         <properties>
             <property name="@pitch" type="float" minvalue="21" maxvalue="108" default="48">midi
             pitch</property>
-            <property name="@freq" type="float" units="herz" default="130.813">frequency</property>
+            <property name="@freq" type="float" units="hertz" default="130.813">
+            frequency</property>
             <property name="@stiffness" type="float" minvalue="0" maxvalue="1" default="0.28">
             stiffness factor</property>
             <property name="@detuning" type="float" minvalue="0" maxvalue="1" default="0.1">

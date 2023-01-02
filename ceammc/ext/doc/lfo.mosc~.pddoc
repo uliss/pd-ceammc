@@ -21,7 +21,7 @@
             <par>switching between waveforms is interpolated and takes 50ms.</par>
         </info>
         <arguments>
-            <argument name="freq" type="float" units="herz">frequency</argument>
+            <argument name="freq" type="float" units="hertz">frequency</argument>
         </arguments>
         <properties>
             <property name="@duty" type="float" minvalue="0" maxvalue="1" default="0.5">duty cycle

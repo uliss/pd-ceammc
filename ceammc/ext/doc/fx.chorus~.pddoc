@@ -21,7 +21,7 @@
             <property name="@delay" type="float" minvalue="0" maxvalue="200" default="25"
             units="millisecond">delay amount</property>
             <property name="@freq" type="float" minvalue="0" maxvalue="10" default="3"
-            units="herz">effect freq</property>
+            units="hertz">effect freq</property>
             <property name="@depth" type="float" minvalue="0" maxvalue="1" default="0.02">effect
             depth</property>
             <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">Ratio

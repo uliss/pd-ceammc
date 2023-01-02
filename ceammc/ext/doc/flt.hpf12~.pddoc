@@ -28,11 +28,11 @@
             <a href="https://en.wikipedia.org/wiki/Butterworth_filter">wiki: Butterworth filter</a>
         </info>
         <arguments>
-            <argument name="freq" type="float" minvalue="20" maxvalue="20000" units="herz">cutoff
+            <argument name="freq" type="float" minvalue="20" maxvalue="20000" units="hertz">cutoff
             frequency</argument>
         </arguments>
         <properties>
-            <property name="@freq" type="float" units="herz" minvalue="20" maxvalue="20000"
+            <property name="@freq" type="float" units="hertz" minvalue="20" maxvalue="20000"
             default="10000">cutoff frequency</property>
             <property name="@active" type="int" enum="0 1" default="1">on/off dsp
             processing</property>

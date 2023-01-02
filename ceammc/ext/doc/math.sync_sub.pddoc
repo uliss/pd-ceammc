@@ -25,7 +25,8 @@
             <argument name="F" type="float">subtrahend</argument>
         </arguments>
         <properties>
-            <property name="@int" type="flag" default="0" access="initonly">operate on integers only</property>
+            <property name="@int" type="flag" default="0" access="initonly">operate on integers
+            only</property>
         </properties>
         <inlets>
             <inlet>

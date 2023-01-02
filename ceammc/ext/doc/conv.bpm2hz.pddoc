@@ -6,7 +6,7 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>converts BPM to frequency in herz</description>
+            <description>converts BPM to frequency in hertz</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>conv</category>
@@ -21,7 +21,7 @@
             </aliases>
         </meta>
         <info>
-            <par>Converts frequency from BPM (beats per minute) to herz. It's simple as /60, but
+            <par>Converts frequency from BPM (beats per minute) to hertz. It's simple as /60, but
             more readable</par>
         </info>
         <inlets>
@@ -30,7 +30,7 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>frequency in herz</outlet>
+            <outlet>frequency in hertz</outlet>
         </outlets>
         <example>
             <pdascii>

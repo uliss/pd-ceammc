@@ -50,8 +50,8 @@
             list of supported formats</property>
             <property name="@sr" access="readonly" type="list">source file samplerate</property>
             <property name="@filename" access="readonly" type="list">filename</property>
-            <property name="@samples" access="readonly" type="list">list of number of loaded samples
-            into each array</property>
+            <property name="@samples" access="readonly" type="list">list of number of loaded
+            samples into each array</property>
             <property name="@channels" access="readonly" type="list">list of loaded channels into
             each array</property>
             <property name="@smpte_fr" type="float" minvalue="1" maxvalue="99" default="30">SMPTE

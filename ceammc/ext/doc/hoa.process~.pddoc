@@ -35,16 +35,15 @@
             on/off all instances, on IDX 0|1 - turn on/off specified instance.</method>
         </methods>
         <arguments>
-            <argument name="N" type="int" minvalue="0">the order of
-            decomposition</argument>
+            <argument name="N" type="int" minvalue="0">the order of decomposition</argument>
             <argument name="PATCH" type="symbol">patch name</argument>
             <argument name="DOMAIN" type="symbol" enum="harmonics planewaves">process domain:
             harmonics or planewaves</argument>
             <argument name="ARGS" type="list">instance arguments</argument>
         </arguments>
         <properties>
-            <property name="@n" type="int" minvalue="0" maxvalue="63" default="0" access="initonly">
-            the order of decomposition/number of planewaves</property>
+            <property name="@n" type="int" minvalue="0" maxvalue="63" default="0"
+            access="initonly">the order of decomposition/number of planewaves</property>
             <property name="@patch" type="symbol" access="initonly">patch name</property>
             <property name="@domain" type="symbol" access="initonly" default="harmonics"
             enum="harmonics planewaves">process domain: harmonics or planewaves</property>

@@ -29,7 +29,7 @@
             <property name="@envwait" type="int" enum="0 1" default="0">ignore new notes until
             previous note is not finished release time</property>
             <property name="@tone" type="float" default="3500" minvalue="400" maxvalue="3500"
-            units="herz">bandpass filter cutoff frequency</property>
+            units="hertz">bandpass filter cutoff frequency</property>
         </properties>
         <methods>
             <method name="reset">reset synth</method>
