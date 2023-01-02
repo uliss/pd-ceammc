@@ -31,8 +31,8 @@ in a logarithmic way to have linear changes.;
 #X obj 20 623 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 658 @order;
-#X text 245 658 (readonly) Get the order of decomposition. Type: int.
-Default value: 1\. Range: 1\...63\.;
+#X text 245 658 (initonly) Get/Set the order of decomposition. Type:
+int. Default value: 1\. Range: 1\...63\.;
 #X obj 20 710 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 715 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;

@@ -31,7 +31,8 @@
         </arguments>
         <properties>
             <property name="@sep" type="symbol">separator</property>
-            <property name="@sym" type="flag" access="initonly">flag to output as list of Pd symbols</property>
+            <property name="@sym" type="flag" access="initonly">flag to output as list of Pd
+            symbols</property>
         </properties>
         <inlets>
             <inlet>

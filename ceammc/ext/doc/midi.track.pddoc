@@ -15,7 +15,8 @@
         </meta>
         <properties>
             <property name="@track" type="int" default="0" minvalue="0">track number</property>
-            <property name="@join" type="flag" default="0" access="initonly">join all tracks into one</property>
+            <property name="@join" type="flag" default="0" access="initonly">join all tracks into
+            one</property>
             <property name="@speed" type="float" minvalue="0.01" default="1">play speed
             factor</property>
             <property name="@tempo" type="int" access="readonly" default="120">current tempo in

@@ -39,7 +39,7 @@ Type: symbol.;
 #X msg 110 554 @init;
 #X text 245 554 Get/Set init list value. Type: list.;
 #X msg 110 583 @path;
-#X text 245 583 (initonly) Get/Set property OSC-like path that includes
+#X text 245 583 (readonly) Get property OSC-like path that includes
 id \, abstraction name and may be subpatch name separated by slashes.
 Type: symbol.;
 #X msg 110 640 @subpatch;

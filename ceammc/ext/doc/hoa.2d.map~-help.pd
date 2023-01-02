@@ -57,11 +57,11 @@ polar. . Type: symbol.;
 #X obj 20 1097 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 1132 @nsrc;
-#X text 245 1132 (readonly) Get number of input sources. Type: int.
-Default value: 1\. Range: 1\...63\.;
+#X text 245 1132 (initonly) Get/Set number of input sources. Type:
+int. Default value: 1\. Range: 1\...63\.;
 #X msg 110 1174 @order;
-#X text 245 1174 (readonly) Get the order of decomposition. Type: int.
-Default value: 1\. Range: 1\...63\.;
+#X text 245 1174 (initonly) Get/Set the order of decomposition. Type:
+int. Default value: 1\. Range: 1\...63\.;
 #X msg 110 1216 @ramp;
 #X text 245 1216 Get/Set ramp time. Type: float. Default value: 100\.
 Min value: 0\.;

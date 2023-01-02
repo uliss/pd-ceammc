@@ -30,13 +30,14 @@
             <argument name="INIT" type="list">preset initial value</argument>
         </arguments>
         <properties>
-            <property name="@path" type="symbol" access="initonly">property OSC-like path that
+            <property name="@path" type="symbol" access="readonly">property OSC-like path that
             includes id, abstraction name and may be subpatch name separated by slashes.</property>
             <property name="@id" type="symbol" access="initonly">preset id</property>
             <property name="@init" type="list">init list value</property>
-            <property name="@global" type="flag" default="0" access="initonly">use global path like /ID</property>
-            <property name="@subpatch" type="flag" default="0" access="initonly">include subpatch name to
-            path</property>
+            <property name="@global" type="flag" default="0" access="initonly">use global path like
+            /ID</property>
+            <property name="@subpatch" type="flag" default="0" access="initonly">include subpatch
+            name to path</property>
         </properties>
         <methods>
             <method name="load">load preset value by specified index and output it</method>

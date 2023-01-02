@@ -44,9 +44,9 @@
         </arguments>
         <properties>
             <property name="@order" type="int" minvalue="1" maxvalue="63" default="1"
-            access="readonly">the order of decomposition</property>
+            access="initonly">the order of decomposition</property>
             <property name="@mode" type="symbol" default="regular"
-            enum="regular irregular binaural" access="readonly">decoding mode</property>
+            enum="regular irregular binaural">decoding mode</property>
             <property name="@regular" type="alias">alias for @mode regular</property>
             <property name="@irregular" type="alias">alias for @mode irregular</property>
             <property name="@binaural" type="alias">alias for @mode binaural</property>
@@ -70,7 +70,7 @@
             soundfield.</property>
             <property name="@nharm" type="int" minvalue="1" access="readonly" default="3">number of
             circular harmonics.</property>
-            <property name="@nwaves" type="int" minvalue="1" access="readonly" default="0">number
+            <property name="@nwaves" type="int" minvalue="1" access="initonly" default="0">number
             of plain waves.</property>
         </properties>
         <inlets dynamic="true">

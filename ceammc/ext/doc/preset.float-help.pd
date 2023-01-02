@@ -40,7 +40,7 @@ Type: symbol.;
 #X text 245 565 (initonly) Get/Set init float value. Type: float. Default
 value: 0\.;
 #X msg 110 607 @path;
-#X text 245 607 (initonly) Get/Set property OSC-like path that includes
+#X text 245 607 (readonly) Get property OSC-like path that includes
 id \, abstraction name and may be subpatch name separated by slashes.
 Type: symbol.;
 #X msg 110 664 @subpatch;

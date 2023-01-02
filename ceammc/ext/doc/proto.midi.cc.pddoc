@@ -188,7 +188,8 @@
             LSB</param></method>
         </methods>
         <properties>
-            <property name="@list" type="flag" enum="0 1" default="0" access="initonly">output as list</property>
+            <property name="@list" type="flag" enum="0 1" default="0" access="initonly">output as
+            list</property>
         </properties>
         <inlets>
             <inlet>
