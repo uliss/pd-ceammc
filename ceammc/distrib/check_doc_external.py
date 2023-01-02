@@ -78,6 +78,8 @@ def read_ext_info(name):
             for p in props:
                 EXT_PROPS_SET.add(p["name"])
                 EXT_PROPS_DICT[p["name"]] = p
+                if p is None:
+                    EXT_PROPS_DICT[p["name"]] = "null"
         except(KeyError):
             pass
 
@@ -86,6 +88,8 @@ def read_ext_info(name):
             args = js["object"]["args"]
             for a in args:
                 EXT_ARGS_DICT[a["name"]] = a
+                if a is None:
+                    EXT_ARGS_DICT[a["name"]] = "null"
         except(KeyError):
             pass
 
@@ -243,6 +247,73 @@ def check_xlets(name, doc_in, doc_out, ext_in, ext_out):
             'magenta')
 
 
+def check_single_prop(name, prop, doc, ext):
+    # access check
+    ro_ext = ext.get("access", "")
+    ro_doc = doc.get("access", "")
+    if ro_ext != ro_doc:
+        cprint(f"[{ext_name}][{prop}] access in doc ({ro_doc}) != access in ext ({ro_ext})", 'red')
+
+    # units checks
+    units_doc = doc.get("units", None)
+    units_ext = ext.get("units", None)
+
+    if units_doc != units_ext:
+        cprint(f"[{ext_name}][{prop}] units in doc ({units_doc}) != units in ext ({units_ext})", 'red')
+
+    # check types
+    type_doc = doc.get("type", None)
+    type_ext = ext.get("type", None)
+
+    if type_doc != type_ext:
+        if type_ext == "bool" and type_doc == "int":
+            if doc.get("enum", "") != "0 1":
+                cprint(f"[{ext_name}][{prop}] missing enum in doc for bool property", 'red')
+            else:
+                pass
+        elif type_ext == "bool" and ro_ext == "initonly":
+            if type_doc != "flag":
+                cprint(f"[{ext_name}][{prop}] should be in doc as flag property", 'red')
+        elif type_doc == "alias":
+            pass
+        else:
+            cprint(f"[{ext_name}][{prop}] type in doc ({type_doc}) != type in ext ({type_ext})", 'red')
+
+
+def check_props(name, doc, ext):
+    ignored_props = {'@*',
+        '@label',
+        '@label_margins',
+        '@label_valign',
+        '@label_align',
+        '@label_inner',
+        '@label_side',
+        '@label_color'
+        }
+
+    doc_props_set = set(doc.keys())
+    ext_props_set = set(ext.keys())
+
+    undoc_props = { x for x in (ext_props_set - doc_props_set - ignored_props) if ext[x].get("visibility", "") != "internal" }
+    unknown_props = doc_props_set - ext_props_set
+
+    if len(undoc_props):
+        cprint(f"[{ext_name}] undocumented properties: {undoc_props}", 'magenta')
+
+    if len(unknown_props):
+        cprint(f"[{ext_name}] unknown properties in doc: {unknown_props}", 'yellow')
+
+    # check internal props
+    internal_props = { x for x in ext_props_set if ext[x].get("visibility", "") == "internal" }
+    for p in internal_props:
+        if p in doc:
+            cprint(f"[{ext_name}] internal property in doc: {p}", 'magenta')
+
+    for prop in doc_props_set & ext_props_set:
+        check_single_prop(name, prop, doc[prop], ext[prop])
+
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='CEAMMC Pd documentation checker')
     parser.add_argument('-a', '--all', help='check all', action='store_true')
@@ -354,9 +425,8 @@ if __name__ == '__main__':
                         doc_props_dict[name]["default"] = p.attrib["default"]
                     if "enum" in p.attrib:
                         doc_props_dict[name]["enum"] = p.attrib["enum"]
-                    if "readonly" in p.attrib:
-                        doc_props_dict[name]["readonly"] = p.attrib["readonly"]
 
+                    doc_props_dict[name]["access"] = p.attrib.get("access", "readwrite")
                     doc_props_dict[name]["type"] = p.attrib["type"]
 
     if args.xlets:
@@ -372,33 +442,9 @@ if __name__ == '__main__':
         check_args(ext_name, doc_args_dict, EXT_ARGS_DICT)
 
     if args.props:
-        ignored_props = {'@*', '@label', '@label_margins', '@label_valign',
-            '@label_align',
-            '@label_inner',
-            '@label_side',
-            '@label_color'
-            }
+        check_props(ext_name, doc_props_dict, EXT_PROPS_DICT)
 
-        ext_props_set = EXT_PROPS_SET
-        ext_props_dict = EXT_PROPS_DICT
-        undoc_props_set = ext_props_set - doc_props_set - ignored_props
-        unknown_props = doc_props_set - ext_props_set
-        exists_props = ext_props_set & doc_props_set
-
-        undoc_props_set = {x for x in undoc_props_set if ext_props_dict[x].get("visibility", "") != "internal" }
-
-        if len(undoc_props_set):
-            cprint(f"[{ext_name}] undocumented properties: {undoc_props_set}", 'magenta')
-
-        if len(unknown_props):
-            cprint(f"[{ext_name}] unknown properties in doc: {unknown_props}", 'yellow')
-
-        # check internal props
-        internal_props = {x for x in ext_props_set if ext_props_dict[x].get("visibility", "") == "internal" }
-        for p in internal_props:
-            if p in doc_props_dict:
-                cprint(f"[{ext_name}] internal property in doc: {p}", 'magenta')
-
+    if False:
         HAVE_PDDOC = -1
         HAVE_EXTERNAL = 1
         HAVE_NONE = 0
@@ -422,31 +468,6 @@ if __name__ == '__main__':
         for p in exists_props:
             p0 = ext_props_dict[p]
             p1 = doc_props_dict[p]
-
-            # readonly in external
-            if p0.get("access", "") == "readonly":
-                # but not in doc
-                if "readonly" not in p1 and p1.get("readonly", "") != "true":
-                    cprint(f"DOC [{ext_name}] missing readonly attribute in \"{p}\"", 'magenta')
-
-            # readonly in docs
-            if "readonly" in p1 and p1["readonly"]:
-                # but not readonly in external
-                if p0.get("access", "") not in ("readonly", "initonly"):
-                    cprint(f"EXT [{ext_name}] non-readonly attribute in \"{p}\"", 'red')
-
-            # units checks
-            if p1.get("units", False):
-                if not p0.get("units", False):
-                    cprint(f"[{ext_name}] missing units attribute in external \"{p}\"", 'magenta')
-                elif p1["units"] != p0["units"]:
-                    u0 = p0["units"]
-                    u1 = p1["units"]
-                    cprint(f"[{ext_name}] non-equal units in \"{p}\": {u0} != {u1}", 'magenta')
-
-            if p0.get("units", False):
-                if not p1.get("units", False):
-                    cprint(f"DOC [{ext_name}] missing units \"{p}\"", 'magenta')
 
             if p0["type"] == "bool":
                 if p1["type"] in ("flag", "alias"):
