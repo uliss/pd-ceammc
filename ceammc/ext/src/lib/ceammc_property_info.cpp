@@ -1060,6 +1060,8 @@ bool PropertyInfo::getDict(DataTypeDict& res) const
             res.insert("default", defaultFloat());
         else if (isInt())
             res.insert("default", defaultInt());
+        else if (isSymbol())
+            res.insert("default", defaultSymbol());
         else if (isVariant())
             res.insert("default", defaultAtom());
         else if (isList())
