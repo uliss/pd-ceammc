@@ -261,13 +261,97 @@ def check_single_prop(name, prop, doc, ext):
     if units_doc != units_ext:
         cprint(f"[{ext_name}][{prop}] units in doc ({units_doc}) != units in ext ({units_ext})", 'red')
 
+    # check minvalue
+    doc_minval = doc.get("min", "")
+    if doc_minval == "π":
+        doc_minval = round(3.1415926, 4)
+    elif doc_minval == "2π":
+        doc_minval = round(3.1415926 * 2, 4)
+    elif len(doc_minval) > 0:
+        doc_minval = float(doc_minval)
+
+    ext_minval = ext.get("min", "")
+    if isinstance(ext_minval, str) and len(ext_minval) > 0:
+        ext_minval = round(float(ext_minval), 4)
+    elif isinstance(ext_minval, float):
+        ext_minval = round(ext_minval, 4)
+
+    if doc_minval != ext_minval:
+        cprint(f"[{ext_name}][{prop}] invalid property minvalue in doc: {doc_minval}, should be: {ext_minval}", 'magenta')
+
+    # check maxvalue
+    doc_maxval = doc.get("max", "")
+    if doc_maxval == "π":
+        doc_maxval = round(3.1415926, 4)
+    elif doc_maxval == "2π":
+        doc_maxval = round(3.1415926 * 2, 4)
+    elif len(doc_maxval) > 0:
+        doc_maxval = float(doc_maxval)
+
+    ext_maxval = ext.get("max", "")
+    if isinstance(ext_maxval, str) and len(ext_maxval) > 0:
+        ext_maxval = round(float(ext_maxval), 4)
+    elif isinstance(ext_maxval, float):
+        ext_maxval = round(ext_maxval, 4)
+
+    if doc_maxval != ext_maxval:
+        cprint(f"[{ext_name}][{prop}] invalid property maxvalue in doc: {doc_maxval}, should be: {ext_maxval}", 'magenta')
+
+    type_doc = doc.get("type", None)
+    type_ext = ext.get("type", None)
+
+    # check default
+    doc_def = doc.get("default", None)
+    # none
+    if doc_def is None:
+        pass
+    # float
+    elif type_doc == "float":
+        if doc_def == "2π":
+            doc_def = round(3.1415926 * 2, 4)
+        elif doc_def == "π":
+            doc_def = round(3.1415926, 4)
+        elif doc_def == "+inf":
+            doc_def = 2147483647
+        elif doc_def == "-inf":
+            doc_def = -2147483648
+        else:
+            doc_def = round(float(doc_def), 4)
+    # int
+    elif type_doc == "int":
+        doc_def = int(doc_def)
+    # null
+    elif doc_def == "null":
+        doc_def = None
+
+    ext_def = ext.get("default", None)
+    if ext_def is None:
+        pass
+    elif type_ext == "float":
+        ext_def = round(ext_def, 4)
+    elif type_ext == "int":
+        ext_def = round(ext_def, 4)
+    elif type_ext == "list":
+        def conv(x):
+            if isinstance(x, (int, float)):
+                return str(round(x, 4))
+            elif x is None:
+                return ""
+            else:
+                return x
+
+        ext_def = " ".join(map(lambda x: conv(x), ext_def))
+
+    if doc_def != ext_def:
+        cprint(f"[{ext_name}][{prop}] invalid property default in doc: {doc_def}, should be: {ext_def}", 'magenta')
+
     # check types
     type_doc = doc.get("type", None)
     type_ext = ext.get("type", None)
 
     if type_doc != type_ext:
         if type_ext == "bool" and type_doc == "int":
-            if doc.get("enum", "") != "0 1":
+            if doc.get("enum", "") not in ("0 1", "1 0"):
                 cprint(f"[{ext_name}][{prop}] missing enum in doc for bool property", 'red')
             else:
                 pass
@@ -418,9 +502,9 @@ if __name__ == '__main__':
                     if "units" in p.attrib:
                         doc_props_dict[name]["units"] = p.attrib["units"]
                     if "minvalue" in p.attrib:
-                        doc_props_dict[name]["minvalue"] = p.attrib["minvalue"]
+                        doc_props_dict[name]["min"] = p.attrib["minvalue"]
                     if "maxvalue" in p.attrib:
-                        doc_props_dict[name]["maxvalue"] = p.attrib["maxvalue"]
+                        doc_props_dict[name]["max"] = p.attrib["maxvalue"]
                     if "default" in p.attrib:
                         doc_props_dict[name]["default"] = p.attrib["default"]
                     if "enum" in p.attrib:
@@ -469,26 +553,6 @@ if __name__ == '__main__':
             p0 = ext_props_dict[p]
             p1 = doc_props_dict[p]
 
-            if p0["type"] == "bool":
-                if p1["type"] in ("flag", "alias"):
-                    continue
-
-                if "enum" not in p1:
-                    cprint(f"[{ext_name}] missing attribute enum for bool in \"{p}\"", 'magenta')
-
-                # no default bool value
-                if ("default" in p0) and ("readonly" not in p0) and ("default" not in p1):
-                    cprint(f"[{ext_name}] missing attribute default for bool in \"{p}\"", 'magenta')
-
-                # non-equal default bool values
-                if "default" in p0 and "default" in p1:
-                    v0 = str(p0["default"])
-                    v1 = str(p1["default"])
-                    if v0 != v1:
-                        cprint(f"[{ext_name}] invalid value for default attribute \"{p}\": {v0} != {v1}", 'magenta')
-
-                continue
-
             # aliases
             if p0["type"] == "int" and p1["type"] in ("flag", "alias"):
                 continue
@@ -505,27 +569,6 @@ if __name__ == '__main__':
                     t0 = p0["type"]
                     t1 = p1["type"]
                     cprint(f"[{ext_name}] different attr types: {t0} != {t1} in \"{p}\"", 'magenta')
-
-            if "min" in p0 and "minvalue" not in p1:
-                cprint(f"[{ext_name}] missing attribute minvalue in \"{p}\"", 'magenta')
-
-            if "max" in p0 and "maxvalue" not in p1:
-                cprint(f"[{ext_name}] missing attribute maxvalue in \"{p}\"", 'magenta')
-
-            if "min" in p0 and "minvalue" in p1:
-                v0 = str(round(p0["min"], 3))
-                v1 = str(p1["minvalue"])
-                if v0 != v1:
-                    cprint(f"DOC [{ext_name}] invalid minvalue \"{p}\": {v1}, in external: {v0}", 'magenta')
-
-            if "max" in p0 and "maxvalue" in p1:
-                v0 = str(round(p0["max"], 3))
-                v1 = str(p1["maxvalue"])
-                if v1 == "2π":
-                    v1 = "6.28319"
-
-                if v0 != v1:
-                    cprint(f"[{ext_name}] invalid value for maxvalue attribute \"{p}\": {v0} != {v1}", 'magenta')
 
             attr = check_attr("default", p0, p1)
             if attr == HAVE_BOTH:
