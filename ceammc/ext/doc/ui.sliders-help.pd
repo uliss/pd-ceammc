@@ -73,7 +73,7 @@ min \, max.;
 Allowed values: 0 \, 1\.;
 #X msg 110 972 @range;
 #X text 245 972 (readonly) Get value range. Type: float. Default value:
-0\.;
+1\.;
 #X msg 110 1001 @receive;
 #X text 245 1001 Get/Set receive source. Type: symbol. Default value:
 (null).;
