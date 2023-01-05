@@ -1322,7 +1322,10 @@ void UIPlotTilde::setup()
 
     obj.addBoolProperty(SYM_YAUTO, _("Auto Y-range"), 0, &UIPlotTilde::yauto_, _("Bounds"));
     obj.addFloatProperty(SYM_YMIN, _("Minimum Y-value"), -1, &UIPlotTilde::ymin_, _("Bounds"));
+    obj.setPropertyRange(SYM_YMIN, -1024, 1024);
     obj.addFloatProperty(SYM_YMAX, _("Maximum Y-value"), 1, &UIPlotTilde::ymax_, _("Bounds"));
+    obj.setPropertyRange(SYM_YMAX, -1024, 1024);
+
     obj.addBoolProperty("xmaj_ticks", _("Major ticks on x-axis"), 1, &UIPlotTilde::xmaj_ticks_, _("Bounds"));
     obj.addBoolProperty("xmin_ticks", _("Minor ticks on x-axis"), 1, &UIPlotTilde::xmin_ticks_, _("Bounds"));
     obj.addBoolProperty("xmaj_grid", _("Major grid on x-axis"), 1, &UIPlotTilde::xmaj_grid_, _("Bounds"));

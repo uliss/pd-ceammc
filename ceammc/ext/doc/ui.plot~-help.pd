@@ -114,7 +114,7 @@ value: 0\. Allowed values: 0 \, 1\.;
 #X text 245 1707 Get/Set fontname. Type: symbol. Default value: Helvetica.;
 #X msg 110 1736 @fontsize;
 #X text 245 1736 Get/Set fontsize. Type: int. Default value: 11\. Range:
-4\...11\.;
+4\...100\.;
 #X msg 110 1778 @fontslant;
 #X text 245 1778 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
