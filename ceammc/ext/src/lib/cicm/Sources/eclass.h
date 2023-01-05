@@ -56,7 +56,7 @@ void eclass_guiinit(t_eclass* c, long flags);
  * \details     Sets the defaults values and initializes the methods of the t_eclass for the GUI behavior.
  * \param c     The t_eclass pointer.
  * \param flags The dummy flags.
-* \deprecated Please use eclass_guiinit.
+ * \deprecated Please use eclass_guiinit.
  */
 void eclass_init(t_eclass* c, long flags) _FUNCTION_DEPRECTAED_;
 
@@ -354,9 +354,9 @@ std::pair<int, int> eclass_tcl_version();
 
 //! CEAMMC
 //! Macros that creates virtual invisible attribute only with getter and setter access
-#define CLASS_ATTR_VIRTUAL(c, name, getter, setter)   \
-    eclass_new_attr_typed(c, name, "float", 1, 0, 0); \
-    eclass_attr_invisible(c, name, 0);                \
+#define CLASS_ATTR_VIRTUAL(c, name, getter, setter)                    \
+    eclass_new_attr_typed(c, name, "float", 1, 0, 0);                  \
+    eclass_attr_set_visible(c, name, 0, ceammc::PropValueVis::HIDDEN); \
     eclass_attr_accessor(c, name, (t_err_method)getter, (t_err_method)setter)
 
 //! Macros that define the category of the attributes
