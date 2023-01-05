@@ -71,9 +71,14 @@
             <property name="@knob_color" type="list" default="0 0.75 1 1">knob color</property>
             <property name="@grid_color" type="list" default="0.6 0.6 0.6 1">knob color</property>
             <property name="@plot_color" type="list" default="0 0 0 1">knob color</property>
-            <property name="@fontsize" type="int" minvalue="4" maxvalue="11" default="11">
+            <!-- font -->
+            <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
             fontsize</property>
             <property name="@fontname" type="symbol" default="Helvetica">fontname</property>
+            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
+            weight</property>
+            <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
+            slant</property>
             <!-- label -->
             <property name="@label" type="symbol" default="(null)">label text</property>
             <property name="@label_color" type="list" default="0.6 0.6 0.6 1">label color in RGB

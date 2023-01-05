@@ -204,6 +204,7 @@ void eclass_guiinit(t_eclass* c, long /*flags*/)
 
     CLASS_ATTR_DEFAULT(c, "fontsize", "11");
     CLASS_ATTR_FILTER_MIN(c, "fontsize", 4);
+    CLASS_ATTR_FILTER_MAX(c, "fontsize", 100);
     CLASS_ATTR_SAVE(c, "fontsize");
     CLASS_ATTR_PAINT(c, "fontsize");
     CLASS_ATTR_CATEGORY(c, "fontsize", _("Label"));

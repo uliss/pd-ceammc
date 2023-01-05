@@ -853,14 +853,14 @@ static PropertyInfo attr_to_prop(t_eattr* a)
         res.setAccess(PropValueAccess::READONLY);
 
     if (a->invisible)
-        res.setVisibility(PropValueVis::INTERNAL);
+        res.setVisibility(PropValueVis::HIDDEN);
 
     return res;
 }
 
 std::vector<PropertyInfo> UIObjectImpl::propsInfo() const
 {
-    const t_eclass* c = reinterpret_cast<const t_eclass*>(box_->b_obj.o_obj.te_g.g_pd);
+    auto c = reinterpret_cast<const t_eclass*>(box_->b_obj.o_obj.te_g.g_pd);
 
     std::vector<PropertyInfo> res;
     res.reserve(c->c_nattr);
