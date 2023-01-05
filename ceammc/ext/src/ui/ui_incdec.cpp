@@ -150,6 +150,7 @@ void UIIncDec::setup()
 
     obj.addProperty("arrow_color", _("Arrow Color"), DEFAULT_BORDER_COLOR, &UIIncDec::prop_color_arrow);
     obj.addFloatProperty("step", _("Step increment"), 1., &UIIncDec::prop_step, _("Main"));
+    obj.setPropertyMin("step", 0);
     obj.addProperty("value", &UIIncDec::propValue, &UIIncDec::propSetValue);
     obj.addMethod("set", &UIIncDec::propSetValue);
     obj.addMethod("inc", &UIIncDec::m_inc);

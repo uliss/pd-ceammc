@@ -43,7 +43,7 @@ gray;
 -49933 0;
 #X msg 110 713 @current;
 #X text 245 713 (readonly) Get current preset index. Type: int. Default
-value: 0\.;
+value: -1\.;
 #X msg 110 755 @receive;
 #X text 245 755 Get/Set receive source. Type: symbol. Default value:
 (null).;

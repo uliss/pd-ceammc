@@ -35,7 +35,7 @@
             actions</event>
         </mouse>
         <properties>
-            <property name="@current" type="int" default="0" access="readonly">current preset
+            <property name="@current" type="int" default="-1" access="readonly">current preset
             index</property>
             <!-- common -->
             <property name="@receive" type="symbol" default="(null)">receive source</property>
