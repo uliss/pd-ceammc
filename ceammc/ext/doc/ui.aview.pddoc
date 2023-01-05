@@ -24,7 +24,7 @@
             <event editmode="false" type="drag" keys="Shift">move selection</event>
         </mouse>
         <properties>
-            <property name="@array" type="symbol">array name</property>
+            <property name="@array" type="symbol" default="">array name</property>
             <property name="@mouse_events" type="int" enum="0 1" default="1">mouse events output
             mode. If on outputs @mouse_down, @mouse_up and @mouse_drag events</property>
             <!-- cursor-->
