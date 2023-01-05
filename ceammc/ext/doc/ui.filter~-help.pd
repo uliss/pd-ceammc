@@ -42,7 +42,7 @@ float. Units: db. Default value: 0\. Range: -24\...24\.;
 Allowed values: 0 \, 1\.;
 #X msg 110 680 @q;
 #X text 245 680 Get/Set quality factor. Type: float. Default value:
-0.707\. Range: 0.016\...64\.;
+0.7071\. Range: 0.0156\...64\.;
 #X msg 110 722 @receive;
 #X text 245 722 Get/Set receive source. Type: symbol. Default value:
 (null).;
