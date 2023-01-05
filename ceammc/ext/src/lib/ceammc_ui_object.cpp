@@ -711,7 +711,7 @@ static void set_constraints(PropertyInfo& info, t_eattr* a)
     }
 }
 
-static PropertyInfo attr_to_prop(t_eattr* a)
+static PropertyInfo attr_to_prop(t_ebox* x, t_eattr* a)
 {
     CEAMMC_DEFINE_CRC32(checkbutton);
     CEAMMC_DEFINE_CRC32(float);
@@ -742,6 +742,16 @@ static PropertyInfo attr_to_prop(t_eattr* a)
 
             if (a->defvals)
                 res.setDefault((t_float)strtod(a->defvals->s_name, NULL));
+            else if (a->getter) {
+                int argc = 0;
+                t_atom* atoms = nullptr;
+                if (a->getter(x, a, &argc, &atoms)) {
+                    if (atoms && argc == 1)
+                        res.setDefault(atom_getfloat(atoms));
+
+                    free(atoms);
+                }
+            }
         } else if (a->size > 1) {
             res.setType(PropValueType::LIST);
 
@@ -750,7 +760,6 @@ static PropertyInfo attr_to_prop(t_eattr* a)
 
             if (a->defvals)
                 res.setDefault(sym_to_list(a->defvals));
-
         } else {
             std::cerr << "invalid float property size: " << a->size << "\n";
         }
@@ -770,6 +779,16 @@ static PropertyInfo attr_to_prop(t_eattr* a)
 
                 if (a->defvals)
                     res.setDefault((int)strtol(a->defvals->s_name, NULL, 10));
+                else if (a->getter) {
+                    int argc = 0;
+                    t_atom* atoms = nullptr;
+                    if (a->getter(x, a, &argc, &atoms)) {
+                        if (atoms && argc == 1)
+                            res.setDefault((int)atom_getint(atoms));
+
+                        free(atoms);
+                    }
+                }
             }
         } else if (a->size > 1) {
             res.setType(PropValueType::LIST);
@@ -865,7 +884,7 @@ std::vector<PropertyInfo> UIObjectImpl::propsInfo() const
     res.reserve(c->c_nattr);
 
     for (size_t i = 0; i < c->c_nattr; i++)
-        res.push_back(attr_to_prop(c->c_attr[i]));
+        res.push_back(attr_to_prop(box_, c->c_attr[i]));
 
     return res;
 }
@@ -876,7 +895,7 @@ boost::optional<PropertyInfo> UIObjectImpl::propertyInfo(t_symbol* name) const
 
     for (size_t i = 0; i < c->c_nattr; i++) {
         if (c->c_attr[i]->name == name)
-            return attr_to_prop(c->c_attr[i]);
+            return attr_to_prop(box_, c->c_attr[i]);
     }
 
     return {};

@@ -50,10 +50,10 @@ and [ui.mouse_filter];
 -49933 0;
 #X msg 110 653 @high;
 #X text 245 653 Get/Set max (right) selection value. Type: float. Default
-value: 0\.;
+value: 0.6\.;
 #X msg 110 695 @low;
 #X text 245 695 Get/Set low (left) selection value. Type: float. Default
-value: 0\.;
+value: 0.4\.;
 #X msg 110 737 @max;
 #X text 245 737 Get/Set maximum allowed slider value. Type: float.
 Default value: 1\.;
@@ -66,7 +66,7 @@ Default value: 0\.;
 Allowed values: 0 \, 1\.;
 #X msg 110 878 @range;
 #X text 245 878 (readonly) Get selected slider value. Type: float.
-Default value: 0\. Min value: 0\.;
+Default value: 0.2\. Min value: 0\.;
 #X msg 110 920 @receive;
 #X text 245 920 Get/Set receive source. Type: symbol. Default value:
 (null).;
