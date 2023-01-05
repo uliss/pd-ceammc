@@ -170,8 +170,8 @@ void UILabel::setup()
     obj.setDefaultSize(300, 47);
     obj.hideLabel();
 
-    obj.hideProperty("border_color");
-    obj.hideProperty("send");
+    obj.internalProperty("border_color");
+    obj.internalProperty("send");
     obj.showProperty("fontname");
     obj.showProperty("fontsize");
     obj.showProperty("fontweight");

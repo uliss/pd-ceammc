@@ -23,8 +23,8 @@
 #include "fmt/format.h"
 #pragma clang diagnostic pop
 
-#include <array>
 #include <algorithm>
+#include <array>
 #include <cstdint>
 #include <iostream>
 #include <vector>
@@ -503,7 +503,7 @@ void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type,
             attr->order = c->c_nattr + 1;
             attr->save = false;
             attr->paint = false;
-            attr->invisible = false;
+            attr->visibility = PropValueVis::PUBLIC;
             attr->offset = offset;
             attr->size = size;
             attr->sizemax = maxsize;
@@ -855,17 +855,6 @@ void eclass_attr_paint(t_eclass* c, const char* attrname)
     for (size_t i = 0; i < c->c_nattr; i++) {
         if (c->c_attr[i]->name == s_attrname) {
             c->c_attr[i]->paint = true;
-            return;
-        }
-    }
-}
-
-void eclass_attr_invisible(t_eclass* c, const char* attrname)
-{
-    auto s_attrname = gensym(attrname);
-    for (size_t i = 0; i < c->c_nattr; i++) {
-        if (c->c_attr[i]->name == s_attrname) {
-            c->c_attr[i]->invisible = true;
             return;
         }
     }
@@ -1648,10 +1637,9 @@ static void eclass_properties_dialog(t_eclass* c)
     // DIALOG WINDOW CREATION //
     sys_vgui("proc pdtk_%s_dialog {id \n", c->c_class.c_name->s_name);
     for (size_t i = 0; i < c->c_nattr; i++) {
-        const char* ATTR_NAME = c->c_attr[i]->name->s_name;
-        if (!c->c_attr[i]->invisible) {
+        auto ATTR_NAME = c->c_attr[i]->name->s_name;
+        if (c->c_attr[i]->visibility == ceammc::PropValueVis::PUBLIC)
             sys_vgui("   %s \n", ATTR_NAME);
-        }
     }
     sys_gui("} {\n");
     sys_gui("   set vid [string trimleft $id .]\n");
@@ -1666,7 +1654,7 @@ static void eclass_properties_dialog(t_eclass* c)
 #endif
     sys_gui("   set cat_dict [dict create]\n");
     for (size_t i = 0; i < c->c_nattr; i++) {
-        if (c->c_attr[i]->invisible)
+        if (c->c_attr[i]->visibility != ceammc::PropValueVis::PUBLIC)
             continue;
 
         auto frame_id = dialog_frame_id(i + 1);
@@ -1687,7 +1675,7 @@ static void eclass_properties_dialog(t_eclass* c)
 #endif
     for (size_t i = 0; i < c->c_nattr; i++) {
         const char* ATTR_NAME = c->c_attr[i]->name->s_name;
-        if (!c->c_attr[i]->invisible) {
+        if (c->c_attr[i]->visibility == ceammc::PropValueVis::PUBLIC) {
             auto str = fmt::format("   set var_{0} [string trim [concat {0}_$vid]]\n"
                                    "   global $var_{0} \n"
                                    "   set $var_{0} [string trim ${0}]\n",
@@ -1735,7 +1723,7 @@ static void eclass_properties_dialog(t_eclass* c)
     for (size_t i = 0; i < c->c_nattr; i++) {
         auto attr = c->c_attr[i];
 
-        if (!attr->invisible) {
+        if (attr->visibility == ceammc::PropValueVis::PUBLIC) {
             const char* FRAME_ID = dialog_frame_id(i + 1);
             const char* LABEL_ID = dialog_label_id(i + 1);
             const char* WIDGET_ID = dialog_widget_id(i + 1);
@@ -1861,7 +1849,7 @@ static void eclass_properties_dialog(t_eclass* c)
         t_symbol* cat = &s_;
         for (size_t i = 0; i < c->c_nattr; i++) {
             auto attr = c->c_attr[i];
-            if (attr->invisible)
+            if (attr->visibility != ceammc::PropValueVis::PUBLIC)
                 continue;
 
             if (cat == attr->category)
@@ -1899,12 +1887,12 @@ void eclass_attr_sort(t_eclass* c)
     qsort(c->c_attr, c->c_nattr, sizeof(t_eattr*), attr_cmp);
 }
 
-void eclass_attr_visible(t_eclass* c, const char* attrname)
+void eclass_attr_set_visibility(t_eclass* c, const char* attrname, ceammc::PropValueVis vis)
 {
     auto sel = gensym(attrname);
     for (size_t i = 0; i < c->c_nattr; i++) {
         if (c->c_attr[i]->name == sel) {
-            c->c_attr[i]->invisible = false;
+            c->c_attr[i]->visibility = vis;
             return;
         }
     }

@@ -852,8 +852,7 @@ static PropertyInfo attr_to_prop(t_eattr* a)
     if (a->getter != 0 && a->setter == 0)
         res.setAccess(PropValueAccess::READONLY);
 
-    if (a->invisible)
-        res.setVisibility(PropValueVis::HIDDEN);
+    res.setVisibility(a->visibility);
 
     return res;
 }

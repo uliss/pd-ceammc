@@ -403,25 +403,6 @@ void UISpectroscope::dspOn(double samplerate, long blocksize)
     graph_layer_.invalidate();
 }
 
-void UISpectroscope::setup()
-{
-    static const bool init = init_hann_window();
-
-    UIObjectFactory<UISpectroscope> obj("ui.spectroscope~", EBOX_GROWINDI);
-    obj.usePopup();
-    obj.addAlias("ui.ssc~");
-    obj.setDefaultSize(150, 100);
-
-    obj.addColorProperty(PROP_ACTIVE_COLOR, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UISpectroscope::prop_color_active);
-    obj.addColorProperty("scale_color", _("Scale Color"), "0.6 0.6 0.6 1", &UISpectroscope::prop_color_scale);
-    obj.addIntProperty("refresh", _("Refresh time (ms)"), 100, &UISpectroscope::prop_refresh, "Main");
-    obj.setPropertyRange("refresh", 20, 1000);
-    obj.setPropertyUnits("refresh", "msec");
-    obj.addBoolProperty("log_scale", _("Log scale"), false, &UISpectroscope::prop_log_scale, "Main");
-
-    obj.hideProperty("send");
-}
-
 void UISpectroscope::updateFFT()
 {
     double t = clock_gettimesince(last_redraw_time_);
@@ -468,6 +449,25 @@ void UISpectroscope::updateLabelColors()
 
     for (size_t i = 0; i < y_labels_.size(); i++)
         y_labels_[i]->setColor(prop_color_scale);
+}
+
+void UISpectroscope::setup()
+{
+    static const bool init = init_hann_window();
+
+    UIObjectFactory<UISpectroscope> obj("ui.spectroscope~", EBOX_GROWINDI);
+    obj.usePopup();
+    obj.addAlias("ui.ssc~");
+    obj.setDefaultSize(150, 100);
+
+    obj.addColorProperty(PROP_ACTIVE_COLOR, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UISpectroscope::prop_color_active);
+    obj.addColorProperty("scale_color", _("Scale Color"), "0.6 0.6 0.6 1", &UISpectroscope::prop_color_scale);
+    obj.addIntProperty("refresh", _("Refresh time (ms)"), 100, &UISpectroscope::prop_refresh, "Main");
+    obj.setPropertyRange("refresh", 20, 1000);
+    obj.setPropertyUnits("refresh", "msec");
+    obj.addBoolProperty("log_scale", _("Log scale"), false, &UISpectroscope::prop_log_scale, "Main");
+
+    obj.internalProperty("send");
 }
 
 void setup_ui_spectroscope()

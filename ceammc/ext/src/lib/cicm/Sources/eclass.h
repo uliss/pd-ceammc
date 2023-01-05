@@ -249,22 +249,13 @@ void eclass_attr_save(t_eclass* c, const char* attrname, bool value = true);
 void eclass_attr_paint(t_eclass* c, const char* attrname);
 
 /*!
- * \fn          void eclass_attr_invisible(t_eclass* c, const char* attrname, long flags)
- * \brief           Sets if the attribute should be displayed in the properties window. 
- * \details         You should prefer to use the MACROS.
- * \param c         The t_eclass pointer
- * \param attrname  The attribute name
- */
-void eclass_attr_invisible(t_eclass* c, const char* attrname);
-
-/*!
  * \fn          void eclass_attr_visible(t_eclass* c, const char* attrname, long flags)
  * \brief           Sets if the attribute should be displayed in the properties window.
  * \details         You should prefer to use the MACROS.
  * \param c         The t_eclass pointer
  * \param attrname  The attribute name
  */
-void eclass_attr_visible(t_eclass* c, const char* attrname);
+void eclass_attr_set_visibility(t_eclass* c, const char* attrname, ceammc::PropValueVis vis);
 
 /*!
  * \fn          void eclass_attr_accessor(t_eclass* c, const char* attrname, t_err_method getter, t_err_method setter)

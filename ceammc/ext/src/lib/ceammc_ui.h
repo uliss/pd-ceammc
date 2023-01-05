@@ -585,7 +585,7 @@ public:
         void (UI::*setter)(t_float))
     {
         eclass_new_attr_typed(pd_ui_class, name, "float", 1, 0, 0);
-        eclass_attr_invisible(pd_ui_class, name);
+        hideProperty(name);
         setPropertyAccessor(name, getter, setter);
     }
 
@@ -600,7 +600,7 @@ public:
         void (UI::*setter)(const AtomList&))
     {
         eclass_new_attr_typed(pd_ui_class, name, "atom", 1, 0, 0);
-        eclass_attr_invisible(pd_ui_class, name);
+        hideProperty(name);
         setPropertyAccessor(name, getter, setter);
     }
 
@@ -708,12 +708,22 @@ public:
 
     void hideProperty(const char* name)
     {
-        eclass_attr_invisible(pd_ui_class, name);
+        eclass_attr_set_visibility(pd_ui_class, name, ceammc::PropValueVis::HIDDEN);
     }
 
     void showProperty(const char* name)
     {
-        eclass_attr_visible(pd_ui_class, name);
+        eclass_attr_set_visibility(pd_ui_class, name, ceammc::PropValueVis::PUBLIC);
+    }
+
+    void setPropertyVis(const char* name, ceammc::PropValueVis vis)
+    {
+        eclass_attr_set_visibility(pd_ui_class, name, vis);
+    }
+
+    void internalProperty(const char* name)
+    {
+        eclass_attr_set_visibility(pd_ui_class, name, ceammc::PropValueVis::INTERNAL);
     }
 
     void setDefaultSize(int w, int h)
@@ -733,21 +743,21 @@ public:
     {
         eclass_new_attr_typed(pd_ui_class, name, "int", 1, 1, 0);
         eclass_attr_style(pd_ui_class, name, str_checkbutton);
-        eclass_attr_invisible(pd_ui_class, name);
+        hideProperty(name);
         setPropertyAccessor(name, getter, setter);
     }
 
     void addProperty(const char* name, propIntGet getter, propIntSet setter = nullptr)
     {
         eclass_new_attr_typed(pd_ui_class, name, "int", 1, 1, 0);
-        eclass_attr_invisible(pd_ui_class, name);
+        hideProperty(name);
         setPropertyAccessor(name, getter, setter);
     }
 
     void addProperty(const char* name, propFloatGet getter, propFloatSet setter = nullptr)
     {
         eclass_new_attr_typed(pd_ui_class, name, "float", 1, 1, 0);
-        eclass_attr_invisible(pd_ui_class, name);
+        hideProperty(name);
         setPropertyAccessor(name, getter, setter);
     }
 
@@ -755,21 +765,21 @@ public:
     {
         eclass_new_attr_typed(pd_ui_class, name, "symbol", 1, 1, 0);
         eclass_attr_style(pd_ui_class, name, str_entry);
-        eclass_attr_invisible(pd_ui_class, name);
+        hideProperty(name);
         setPropertyAccessor(name, getter, setter);
     }
 
     void addProperty(const char* name, propAtomGet getter, propAtomSet setter = nullptr)
     {
         eclass_new_attr_typed(pd_ui_class, name, "atom", 1, 1, 0);
-        eclass_attr_invisible(pd_ui_class, name);
+        hideProperty(name);
         setPropertyAccessor(name, getter, setter);
     }
 
     void addProperty(const char* name, propListGet getter, propListSet setter = nullptr)
     {
         eclass_new_attr_typed(pd_ui_class, name, "atom", 1, 0, 0);
-        eclass_attr_invisible(pd_ui_class, name);
+        hideProperty(name);
         setPropertyAccessor(name, getter, setter);
     }
 

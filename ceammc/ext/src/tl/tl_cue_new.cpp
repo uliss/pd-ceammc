@@ -293,9 +293,9 @@ void TlCue::setup()
     UIObjectFactory<TlCue> obj("tl.cue", EBOX_GROWNO | EBOX_IGNORELOCKCLICK, CLASS_NOINLET);
 
     obj.setDefaultSize(45, 15);
-    obj.hideProperty("size");
-    obj.hideProperty("send");
-    obj.hideProperty("receive");
+    obj.internalProperty("size");
+    obj.internalProperty("send");
+    obj.internalProperty("receive");
 
     obj.setPropertyDefaultValue(PROP_BORDER_COLOR, DEFAULT_ACTIVE_COLOR);
 

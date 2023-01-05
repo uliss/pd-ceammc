@@ -1314,7 +1314,7 @@ void UIPlotTilde::setup()
 {
     UIObjectFactory<UIPlotTilde> obj("ui.plot~");
     obj.hideLabelInner();
-    obj.hideProperty("send");
+    obj.internalProperty("send");
 
     obj.setDefaultSize(200, 200);
     obj.useBang();

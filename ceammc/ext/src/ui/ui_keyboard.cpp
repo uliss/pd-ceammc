@@ -512,7 +512,7 @@ void UIKeyboard::setup()
         | UI_MOUSE_WHEEL | UI_MOUSE_UP);
 
     obj.addProperty("active_color", _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIKeyboard::prop_color_active_);
-    obj.hideProperty(PROP_BACKGROUND_COLOR);
+    obj.internalProperty(PROP_BACKGROUND_COLOR);
 
     obj.addProperty("keys", _("Keys"), 61, &UIKeyboard::prop_keys, _("Main"));
     obj.setDefaultSize(433, DEFAULT_HEIGHT);
