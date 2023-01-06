@@ -20,7 +20,7 @@
         <properties>
             <property name="@matrix" type="list" default="24 13">matrix size</property>
             <property name="@index" type="list">color position in panel</property>
-            <property name="@reverse" type="int" enum="0 1" default="0">matrix reversed</property>
+            <property name="@reverse" type="bool" default="0">matrix reversed</property>
             <property name="@saturation" type="float" default="1" minvalue="0" maxvalue="1">
             saturation</property>
             <property name="@hue" type="float" default="0" minvalue="0" maxvalue="1">first

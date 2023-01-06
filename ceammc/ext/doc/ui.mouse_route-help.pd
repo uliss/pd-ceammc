@@ -25,23 +25,23 @@
 #X msg 110 377 @leave;
 #X text 245 377 alias to @mouse_leave 1 property. Default value: 0\.;
 #X msg 110 406 @mouse_down;
-#X text 245 406 Get/Set passing a @mouse_down events. Type: int. Default
-value: 0\. Allowed values: 0 \, 1\.;
+#X text 245 406 Get/Set passing a @mouse_down events. Type: bool. Default
+value: 0\.;
 #X msg 110 448 @mouse_drag;
-#X text 245 448 Get/Set passing a @mouse_drag events. Type: int. Default
-value: 0\. Allowed values: 0 \, 1\.;
+#X text 245 448 Get/Set passing a @mouse_drag events. Type: bool. Default
+value: 0\.;
 #X msg 110 490 @mouse_enter;
-#X text 245 490 Get/Set passing a @mouse_enter events. Type: int. Default
-value: 0\. Allowed values: 0 \, 1\.;
+#X text 245 490 Get/Set passing a @mouse_enter events. Type: bool.
+Default value: 0\.;
 #X msg 110 532 @mouse_leave;
-#X text 245 532 Get/Set passing a @mouse_leave events. Type: int. Default
-value: 0\. Allowed values: 0 \, 1\.;
+#X text 245 532 Get/Set passing a @mouse_leave events. Type: bool.
+Default value: 0\.;
 #X msg 110 574 @mouse_move;
-#X text 245 574 Get/Set passing a @mouse_move events. Type: int. Default
-value: 0\. Allowed values: 0 \, 1\.;
+#X text 245 574 Get/Set passing a @mouse_move events. Type: bool. Default
+value: 0\.;
 #X msg 110 616 @mouse_up;
-#X text 245 616 Get/Set passing a @mouse_up events. Type: int. Default
-value: 0\. Allowed values: 0 \, 1\.;
+#X text 245 616 Get/Set passing a @mouse_up events. Type: bool. Default
+value: 0\.;
 #X msg 110 658 @move;
 #X text 245 658 alias to @mouse_move 1 property. Default value: 0\.;
 #X msg 110 687 @up;

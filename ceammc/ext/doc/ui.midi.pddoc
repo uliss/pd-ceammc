@@ -23,20 +23,16 @@
             <event editmode="true" type="right-click" keys="Alt">open properties dialog</event>
         </mouse>
         <properties>
-            <property name="@hex" type="int" enum="0 1" default="0">if show values in
-            hex</property>
-            <property name="@notes" type="int" enum="0 1" default="1">if show note on/off
+            <property name="@hex" type="bool" default="0">if show values in hex</property>
+            <property name="@notes" type="bool" default="1">if show note on/off events</property>
+            <property name="@cc" type="bool" default="1">if show control change events</property>
+            <property name="@program" type="bool" default="1">if show program change
             events</property>
-            <property name="@cc" type="int" enum="0 1" default="1">if show control change
+            <property name="@touch" type="bool" default="1">if show aftertouch (poly)
             events</property>
-            <property name="@program" type="int" enum="0 1" default="1">if show program change
+            <property name="@pitchwheel" type="bool" default="1">if show pitch wheel
             events</property>
-            <property name="@touch" type="int" enum="0 1" default="1">if show aftertouch (poly)
-            events</property>
-            <property name="@pitchwheel" type="int" enum="0 1" default="1">if show pitch wheel
-            events</property>
-            <property name="@sysex" type="int" enum="0 1" default="1">if show sysex
-            events</property>
+            <property name="@sysex" type="bool" default="1">if show sysex events</property>
             <!-- common -->
             <property name="@send" type="symbol" default="(null)">send destination</property>
             <property name="@receive" type="symbol" default="(null)">receive source</property>

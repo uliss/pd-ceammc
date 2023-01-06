@@ -29,7 +29,7 @@
             mode. In bang mode - outputs bang on mouse down. In button mode outputs 1 on mouse down
             and 0 on mouse up. In toggle mode outputs 1/0 on mouse down, like vanilla toggle
             object.</property>
-            <property name="@enabled" type="int" enum="0 1" default="1">enabled property</property>
+            <property name="@enabled" type="bool" default="1">enabled property</property>
             <property name="@icon_size" type="int" default="24" enum="18 24 36 48">icons
             size</property>
             <property name="@icon" type="symbol" default="help"

@@ -34,8 +34,7 @@
 float. Units: db. Default value: 0\. Range: -24\...24\.;
 #X msg 110 594 @mouse_events;
 #X text 245 594 Get/Set mouse events output mode. If on outputs @mouse_down
-\, @mouse_up and @mouse_drag events. Type: int. Default value: 0\.
-Allowed values: 0 \, 1\.;
+\, @mouse_up and @mouse_drag events. Type: bool. Default value: 0\.;
 #X msg 110 651 @q;
 #X text 245 651 Get/Set quality factor. Type: float. Default value:
 0.7071\. Range: 0.0156\...64\.;

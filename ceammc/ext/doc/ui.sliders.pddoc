@@ -42,13 +42,12 @@
             <property name="@range" type="float" access="readonly" default="1">value
             range</property>
             <property name="@value" type="list" access="readonly">sliders value</property>
-            <property name="@auto_count" type="int" enum="0 1" default="0">if set numbers of
-            sliders equal to input list length</property>
+            <property name="@auto_count" type="bool" default="0">if set numbers of sliders equal to
+            input list length</property>
             <property name="@auto_range_mode" type="symbol" enum="none both min max"
             default="none">if calculate @min/@max values automatically</property>
-            <property name="@show_range" type="int" enum="0 1" default="1">if show slider
-            range</property>
-            <property name="@show_lines" type="int" enum="0 1" default="0">if show slider ruler
+            <property name="@show_range" type="bool" default="1">if show slider range</property>
+            <property name="@show_lines" type="bool" default="0">if show slider ruler
             lines</property>
             <!-- common -->
             <property name="@presetname" type="symbol" default="(null)">preset name for using with
@@ -59,8 +58,8 @@
             pair)</property>
             <property name="@pinned" type="bool" default="0">pin mode. if 1 - put element to the
             lowest level</property>
-            <property name="@mouse_events" type="int" enum="0 1" default="0">mouse events output
-            mode. If on outputs @mouse_down, @mouse_up and @mouse_drag events</property>
+            <property name="@mouse_events" type="bool" default="0">mouse events output mode. If on
+            outputs @mouse_down, @mouse_up and @mouse_drag events</property>
             <property name="@slider_color" type="list" default="0.75 0.75 0.75 1">slider color
             (list of red, green, blue values in 0-1 range)</property>
             <property name="@select_color" type="list" default="0 0.75 1 1">selection color (list
@@ -81,8 +80,8 @@
             <property name="@label" type="symbol" default="(null)">label text</property>
             <property name="@label_color" type="list" default="0 0 0 1">label color in RGB format
             within 0-1 range, for example: 0.2 0.4 0.1</property>
-            <property name="@label_inner" type="int" enum="0 1" default="0">label position (1 -
-            inner, 0 - outer).</property>
+            <property name="@label_inner" type="bool" default="0">label position (1 - inner, 0 -
+            outer).</property>
             <property name="@label_align" type="symbol" enum="left center right" default="left">
             label horizontal align</property>
             <property name="@label_valign" type="symbol" enum="top center bottom" default="top">

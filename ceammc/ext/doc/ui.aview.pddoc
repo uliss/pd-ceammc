@@ -25,8 +25,8 @@
         </mouse>
         <properties>
             <property name="@array" type="symbol" default="">array name</property>
-            <property name="@mouse_events" type="int" enum="0 1" default="1">mouse events output
-            mode. If on outputs @mouse_down, @mouse_up and @mouse_drag events</property>
+            <property name="@mouse_events" type="bool" default="1">mouse events output mode. If on
+            outputs @mouse_down, @mouse_up and @mouse_drag events</property>
             <!-- cursor-->
             <property name="@cursor_samp" type="int" default="0" units="sample">cursor position in
             samples</property>
@@ -46,9 +46,8 @@
             <property name="@select_phase" type="list">selection range noramlized to 0-1 range,
             pair of values: begin, end</property>
             <!-- view -->
-            <property name="@show_rms" type="int" enum="0 1" default="0">show RMS graph</property>
-            <property name="@show_labels" type="int" enum="0 1" default="0">if show corner
-            labels</property>
+            <property name="@show_rms" type="bool" default="0">show RMS graph</property>
+            <property name="@show_labels" type="bool" default="0">if show corner labels</property>
             <property name="@label_top" type="symbol">top right label if @show_labels is
             on</property>
             <property name="@label_bottom" type="symbol">bottom right label if @show_labels is

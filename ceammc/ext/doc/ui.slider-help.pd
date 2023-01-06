@@ -61,8 +61,8 @@
 #X obj 20 737 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 772 @active_scale;
-#X text 245 772 Get/Set if should draw active scale. Type: int. Default
-value: 0\. Allowed values: 0 \, 1\.;
+#X text 245 772 Get/Set if should draw active scale. Type: bool. Default
+value: 0\.;
 #X msg 110 814 @max;
 #X text 245 814 Get/Set maximum slider value. Type: float. Default
 value: 1\.;
@@ -71,11 +71,10 @@ value: 1\.;
 value: 0\.;
 #X msg 110 872 @mode;
 #X text 245 872 Get/Set relative mode. Do not jump on click to value.
-Type: int. Default value: 0\. Allowed values: 0 \, 1\.;
+Type: bool. Default value: 0\.;
 #X msg 110 914 @mouse_events;
 #X text 245 914 Get/Set mouse events output mode. If on outputs @mouse_down
-\, @mouse_up and @mouse_drag events. Type: int. Default value: 0\.
-Allowed values: 0 \, 1\.;
+\, @mouse_up and @mouse_drag events. Type: bool. Default value: 0\.;
 #X msg 110 971 @receive;
 #X text 245 971 Get/Set receive source. Type: symbol. Default value:
 (null).;
@@ -87,7 +86,7 @@ Default value: linear. Allowed values: linear \, log.;
 (null).;
 #X msg 110 1084 @show_value;
 #X text 245 1084 Get/Set show value (in horizontal mode only). Type:
-int. Default value: 0\. Allowed values: 0 \, 1\.;
+bool. Default value: 0\.;
 #X msg 110 1126 @value;
 #X text 245 1126 Get/Set current value. Type: float. Default value:
 0\.;
@@ -107,7 +106,7 @@ binded to any controller. Type: int. Default value: -1\. Range: -1\...127\.;
 #X text 245 1338 Get/Set pickup current value. If slider is binded
 to value \, first time you should pass over this value to make binding.
 It prevents from sudden value change on first control change. Type:
-int. Default value: 1\. Allowed values: 0 \, 1\.;
+bool. Default value: 1\.;
 #X msg 110 1410 @background_color;
 #X text 245 1410 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0.93 0.93
@@ -131,7 +130,7 @@ blue values in 0-1 range). Type: list. Default value: 0 0 0 1\.;
 value: left. Allowed values: left \, center \, right.;
 #X msg 110 1706 @label_inner;
 #X text 245 1706 Get/Set label position (1 - inner \, 0 - outer). Type:
-int. Default value: 0\. Allowed values: 0 \, 1\.;
+bool. Default value: 0\.;
 #X msg 110 1748 @label_margins;
 #X text 245 1748 Get/Set label offset in pixels. Type: list. Default
 value: 0 0\.;

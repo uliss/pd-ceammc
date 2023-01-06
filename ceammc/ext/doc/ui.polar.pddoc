@@ -26,14 +26,13 @@
             <event editmode="false" type="wheel" keys="Shift">change precisely radius coord</event>
         </mouse>
         <properties>
-            <property name="@clockwise" type="int" default="1" enum="0 1">clockwise positive
+            <property name="@clockwise" type="bool" default="1">clockwise positive
             direction</property>
             <property name="@direction" type="symbol" default="N" enum="N E S W">zero-angle
             direction</property>
-            <property name="@positive" type="int" default="0" enum="0 1">use positive output angle
-            range. For example: [0..360) when using degrees, otherwise using [-180..180)
-            range.</property>
-            <property name="@radians" type="int" default="0" enum="0 1">using radians instead of
+            <property name="@positive" type="bool" default="0">use positive output angle range. For
+            example: [0..360) when using degrees, otherwise using [-180..180) range.</property>
+            <property name="@radians" type="bool" default="0">using radians instead of
             degrees</property>
             <property name="@angle" type="float" default="0">angle</property>
             <property name="@radius" type="float" minvalue="0" maxvalue="1" default="0">
@@ -47,8 +46,8 @@
             pair)</property>
             <property name="@pinned" type="bool" default="0">pin mode. if 1 - put element to the
             lowest level</property>
-            <property name="@mouse_events" type="int" enum="0 1" default="0">mouse events output
-            mode. If on outputs @mouse_down, @mouse_up and @mouse_drag events</property>
+            <property name="@mouse_events" type="bool" default="0">mouse events output mode. If on
+            outputs @mouse_down, @mouse_up and @mouse_drag events</property>
             <property name="@background_color" type="list" default="0.93 0.93 0.93 1">element
             background color (list of red, green, blue values in 0-1 range)</property>
             <property name="@border_color" type="list" default="0.6 0.6 0.6 1">border color (list
@@ -65,8 +64,8 @@
             <property name="@label" type="symbol" default="(null)">label text</property>
             <property name="@label_color" type="list" default="0 0 0 1">label color in RGB format
             within 0-1 range, for example: 0.2 0.4 0.1</property>
-            <property name="@label_inner" type="int" enum="0 1" default="0">label position (1 -
-            inner, 0 - outer).</property>
+            <property name="@label_inner" type="bool" default="0">label position (1 - inner, 0 -
+            outer).</property>
             <property name="@label_align" type="symbol" enum="left center right" default="left">
             label horizontal align</property>
             <property name="@label_valign" type="symbol" enum="top center bottom" default="top">

@@ -41,8 +41,8 @@
         <properties>
             <property name="@nitems" type="int" default="8" minvalue="2" maxvalue="128">number of
             items</property>
-            <property name="@mode" type="int" enum="0 1" default="0">check list mode. If true acts
-            as checklist</property>
+            <property name="@mode" type="bool" default="0">check list mode. If true acts as
+            checklist</property>
             <property name="@value" type="list">widget value (float or list)</property>
             <!-- common -->
             <property name="@presetname" type="symbol" default="(null)">preset name for using with
@@ -67,8 +67,8 @@
             weight</property>
             <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
             slant</property>
-            <property name="@mouse_events" type="int" enum="0 1" default="0">mouse events output
-            mode. If on outputs @mouse_down and @mouse_drag events</property>
+            <property name="@mouse_events" type="bool" default="0">mouse events output mode. If on
+            outputs @mouse_down and @mouse_drag events</property>
         </properties>
         <methods>
             <method name="set">sets radio without output 

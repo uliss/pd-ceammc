@@ -52,15 +52,14 @@
             MIDI channel. 0 means listen to all channels</property>
             <property name="@midi_control" type="int" minvalue="-1" maxvalue="127" default="-1">
             binded MIDI controller number. -1 means not binded to any controller.</property>
-            <property name="@midi_pickup" type="int" enum="0 1" default="1">pickup current value.
-            If slider is binded to value, first time you should pass over this value to make
-            binding. It prevents from sudden value change on first control change</property>
-            <property name="@active_scale" type="int" enum="0 1" default="0">if should draw active
+            <property name="@midi_pickup" type="bool" default="1">pickup current value. If slider
+            is binded to value, first time you should pass over this value to make binding. It
+            prevents from sudden value change on first control change</property>
+            <property name="@active_scale" type="bool" default="0">if should draw active
             scale</property>
             <property name="@value" type="float" default="0">current value</property>
-            <property name="@show_range" type="int" enum="0 1" default="0">show knob
-            range</property>
-            <property name="@show_value" type="int" default="0" enum="0 1">show value</property>
+            <property name="@show_range" type="bool" default="0">show knob range</property>
+            <property name="@show_value" type="bool" default="0">show value</property>
             <property name="@scale" type="symbol" default="linear" enum="linear log">scale mode.
             Linear or logarithmic.</property>
             <!-- common -->
@@ -74,8 +73,8 @@
             (width, height pair)</property>
             <property name="@pinned" type="bool" default="0" category="basic">pin mode. if 1 - put
             element to the lowest level</property>
-            <property name="@mouse_events" type="int" enum="0 1" default="0">mouse events output
-            mode. If on outputs @mouse_down, @mouse_up and @mouse_drag events</property>
+            <property name="@mouse_events" type="bool" default="0">mouse events output mode. If on
+            outputs @mouse_down, @mouse_up and @mouse_drag events</property>
             <property name="@knob_color" type="list" category="color" default="0 0.75 1 1">knob
             color (list of red, green, blue values in 0-1 range)</property>
             <property name="@scale_color" type="list" category="color" default="0.6 0.6 0.6 1">
@@ -97,8 +96,8 @@
             <property name="@label" type="symbol" default="(null)">label text</property>
             <property name="@label_color" type="list" default="0 0 0 1">label color in RGB format
             within 0-1 range, for example: 0.2 0.4 0.1</property>
-            <property name="@label_inner" type="int" enum="0 1" default="0">label position (1 -
-            inner, 0 - outer).</property>
+            <property name="@label_inner" type="bool" default="0">label position (1 - inner, 0 -
+            outer).</property>
             <property name="@label_align" type="symbol" enum="left center right" default="left">
             label horizontal align</property>
             <property name="@label_valign" type="symbol" enum="top center bottom" default="top">

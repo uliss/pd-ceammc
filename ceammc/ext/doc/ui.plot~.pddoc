@@ -36,32 +36,28 @@
             minimal y-axis value</property>
             <property name="@ymax" minvalue="-1024" maxvalue="1024" type="float" default="1">
             minimal y-axis value</property>
-            <property name="@yauto" type="int" enum="0 1" default="0">calculate y-axis range
+            <property name="@yauto" type="bool" default="0">calculate y-axis range
             automatically</property>
-            <property name="@xlabels" type="int" enum="0 1" default="0">draw labels on
+            <property name="@xlabels" type="bool" default="0">draw labels on x-axis</property>
+            <property name="@ylabels" type="bool" default="0">draw labels on y-axis</property>
+            <property name="@xmaj_grid" type="bool" default="1">draw major grid lines on
             x-axis</property>
-            <property name="@ylabels" type="int" enum="0 1" default="0">draw labels on
+            <property name="@xmin_grid" type="bool" default="0">draw minor grid lines on
+            x-axis</property>
+            <property name="@xmaj_ticks" type="bool" default="1">draw minor ticks on
+            x-axis</property>
+            <property name="@xmin_ticks" type="bool" default="1">draw minor ticks on
+            x-axis</property>
+            <property name="@ymaj_grid" type="bool" default="1">draw major grid lines on
             y-axis</property>
-            <property name="@xmaj_grid" type="int" enum="0 1" default="1">draw major grid lines on
-            x-axis</property>
-            <property name="@xmin_grid" type="int" enum="0 1" default="0">draw minor grid lines on
-            x-axis</property>
-            <property name="@xmaj_ticks" type="int" enum="0 1" default="1">draw minor ticks on
-            x-axis</property>
-            <property name="@xmin_ticks" type="int" enum="0 1" default="1">draw minor ticks on
-            x-axis</property>
-            <property name="@ymaj_grid" type="int" enum="0 1" default="1">draw major grid lines on
+            <property name="@ymin_grid" type="bool" default="0">draw minor grid lines on
             y-axis</property>
-            <property name="@ymin_grid" type="int" enum="0 1" default="0">draw minor grid lines on
+            <property name="@ymaj_ticks" type="bool" default="1">draw minor ticks on
             y-axis</property>
-            <property name="@ymaj_ticks" type="int" enum="0 1" default="1">draw minor ticks on
+            <property name="@ymin_ticks" type="bool" default="1">draw minor ticks on
             y-axis</property>
-            <property name="@ymin_ticks" type="int" enum="0 1" default="1">draw minor ticks on
-            y-axis</property>
-            <property name="@xlabels" type="int" enum="0 1" default="0">draw labels on
-            x-axis</property>
-            <property name="@xlabels" type="int" enum="0 1" default="0">draw labels on
-            x-axis</property>
+            <property name="@xlabels" type="bool" default="0">draw labels on x-axis</property>
+            <property name="@xlabels" type="bool" default="0">draw labels on x-axis</property>
             <property name="@mode" type="symbol" default="lines" enum="lines bars">draw
             mode</property>
             <!-- common -->

@@ -29,8 +29,7 @@
         <properties>
             <property name="@refresh" type="int" minvalue="20" maxvalue="1000" default="100"
             units="millisecond">approximate refresh rate</property>
-            <property name="@log_scale" type="int" default="0" enum="0 1">display in log
-            scale</property>
+            <property name="@log_scale" type="bool" default="0">display in log scale</property>
             <!-- common -->
             <property name="@receive" type="symbol" default="(null)">receive source</property>
             <property name="@size" type="list" default="150 100">element size (width, height

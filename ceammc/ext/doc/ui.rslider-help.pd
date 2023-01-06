@@ -62,8 +62,7 @@ Default value: 1\.;
 Default value: 0\.;
 #X msg 110 821 @mouse_events;
 #X text 245 821 Get/Set mouse events output mode. If on outputs @mouse_down
-\, @mouse_up and @mouse_drag events. Type: int. Default value: 0\.
-Allowed values: 0 \, 1\.;
+\, @mouse_up and @mouse_drag events. Type: bool. Default value: 0\.;
 #X msg 110 878 @range;
 #X text 245 878 (readonly) Get selected slider value. Type: float.
 Default value: 0.2\. Min value: 0\.;
@@ -95,7 +94,7 @@ in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
 value: left. Allowed values: left \, center \, right.;
 #X msg 110 1274 @label_inner;
 #X text 245 1274 Get/Set label position (1 - inner \, 0 - outer). Type:
-int. Default value: 0\. Allowed values: 0 \, 1\.;
+bool. Default value: 0\.;
 #X msg 110 1316 @label_margins;
 #X text 245 1316 Get/Set label offset in pixels. Type: list. Default
 value: 0 0\.;

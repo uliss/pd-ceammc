@@ -32,22 +32,21 @@
 #X msg 110 536 @angle;
 #X text 245 536 Get/Set angle. Type: float. Default value: 0\.;
 #X msg 110 565 @clockwise;
-#X text 245 565 Get/Set clockwise positive direction. Type: int. Default
-value: 1\. Allowed values: 0 \, 1\.;
+#X text 245 565 Get/Set clockwise positive direction. Type: bool. Default
+value: 1\.;
 #X msg 110 607 @direction;
 #X text 245 607 Get/Set zero-angle direction. Type: symbol. Default
 value: N. Allowed values: N \, E \, S \, W.;
 #X msg 110 649 @mouse_events;
 #X text 245 649 Get/Set mouse events output mode. If on outputs @mouse_down
-\, @mouse_up and @mouse_drag events. Type: int. Default value: 0\.
-Allowed values: 0 \, 1\.;
+\, @mouse_up and @mouse_drag events. Type: bool. Default value: 0\.;
 #X msg 110 706 @positive;
 #X text 245 706 Get/Set use positive output angle range. For example:
 [0\..360) when using degrees \, otherwise using [-180\..180) range.
-Type: int. Default value: 0\. Allowed values: 0 \, 1\.;
+Type: bool. Default value: 0\.;
 #X msg 110 763 @radians;
-#X text 245 763 Get/Set using radians instead of degrees. Type: int.
-Default value: 0\. Allowed values: 0 \, 1\.;
+#X text 245 763 Get/Set using radians instead of degrees. Type: bool.
+Default value: 0\.;
 #X msg 110 805 @radius;
 #X text 245 805 Get/Set radius. Type: float. Default value: 0\. Range:
 0\...1\.;
@@ -74,7 +73,7 @@ values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
 value: left. Allowed values: left \, center \, right.;
 #X msg 110 1130 @label_inner;
 #X text 245 1130 Get/Set label position (1 - inner \, 0 - outer). Type:
-int. Default value: 0\. Allowed values: 0 \, 1\.;
+bool. Default value: 0\.;
 #X msg 110 1172 @label_margins;
 #X text 245 1172 Get/Set label offset in pixels. Type: list. Default
 value: 0 0\.;

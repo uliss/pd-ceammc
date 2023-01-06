@@ -35,134 +35,133 @@ value: -1\.;
 #X text 245 608 Get/Set maximum displayed item character length. Type:
 int. Default value: 100\. Range: 10\...1024\.;
 #X msg 110 650 @open;
-#X text 245 650 Get/Set opened state. Type: int. Default value: 0\.
-Allowed values: 0 \, 1\.;
-#X msg 110 692 @receive;
-#X text 245 692 Get/Set receive source. Type: symbol. Default value:
+#X text 245 650 Get/Set opened state. Type: bool. Default value: 0\.;
+#X msg 110 679 @receive;
+#X text 245 679 Get/Set receive source. Type: symbol. Default value:
 (null).;
-#X msg 110 721 @send;
-#X text 245 721 Get/Set send destination. Type: symbol. Default value:
+#X msg 110 708 @send;
+#X text 245 708 Get/Set send destination. Type: symbol. Default value:
 (null).;
-#X msg 110 763 @title;
-#X text 245 763 (readonly) Get current element text. Type: symbol.;
-#X msg 110 792 @value;
-#X text 245 792 Get/Set current menu item value. Type: atom.;
-#X msg 110 821 @active_color;
-#X text 245 821 Get/Set active color (list of red \, green \, blue
+#X msg 110 750 @title;
+#X text 245 750 (readonly) Get current element text. Type: symbol.;
+#X msg 110 779 @value;
+#X text 245 779 Get/Set current menu item value. Type: atom.;
+#X msg 110 808 @active_color;
+#X text 245 808 Get/Set active color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
-#X msg 110 863 @background_color;
-#X text 245 863 Get/Set element background color (list of red \, green
+#X msg 110 850 @background_color;
+#X text 245 850 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0.93 0.93
 0.93 1\.;
-#X msg 110 920 @border_color;
-#X text 245 920 Get/Set border color (list of red \, green \, blue
+#X msg 110 907 @border_color;
+#X text 245 907 Get/Set border color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
-#X msg 110 962 @text_color;
-#X text 245 962 Get/Set text color (list of red \, green \, blue values
+#X msg 110 949 @text_color;
+#X text 245 949 Get/Set text color (list of red \, green \, blue values
 in 0-1 range). Type: list. Default value: 0 0 0 1\.;
-#X msg 110 1004 @fontname;
-#X text 245 1004 Get/Set fontname. Type: symbol. Default value: Helvetica.;
-#X msg 110 1033 @fontsize;
-#X text 245 1033 Get/Set fontsize. Type: int. Default value: 11\. Range:
+#X msg 110 991 @fontname;
+#X text 245 991 Get/Set fontname. Type: symbol. Default value: Helvetica.;
+#X msg 110 1020 @fontsize;
+#X text 245 1020 Get/Set fontsize. Type: int. Default value: 11\. Range:
 4\...100\.;
-#X msg 110 1075 @fontslant;
-#X text 245 1075 Get/Set font slant. Type: symbol. Default value: roman.
+#X msg 110 1062 @fontslant;
+#X text 245 1062 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
-#X msg 110 1117 @fontweight;
-#X text 245 1117 Get/Set font weight. Type: symbol. Default value:
+#X msg 110 1104 @fontweight;
+#X text 245 1104 Get/Set font weight. Type: symbol. Default value:
 normal. Allowed values: normal \, bold.;
-#X msg 110 1159 @pinned;
-#X text 245 1159 Get/Set pin mode. if 1 - put element to the lowest
+#X msg 110 1146 @pinned;
+#X text 245 1146 Get/Set pin mode. if 1 - put element to the lowest
 level. Type: bool. Default value: 0\.;
-#X msg 110 1201 @presetname;
-#X text 245 1201 Get/Set preset name for using with [ui.preset]. Type:
+#X msg 110 1188 @presetname;
+#X text 245 1188 Get/Set preset name for using with [ui.preset]. Type:
 symbol. Default value: (null).;
-#X msg 110 1243 @size;
-#X text 245 1243 Get/Set element size (width \, height pair). Type:
+#X msg 110 1230 @size;
+#X text 245 1230 Get/Set element size (width \, height pair). Type:
 list. Default value: 100 16\.;
-#X obj 20 1295 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1300 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1282 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1287 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 1335 append;
-#X text 245 1335 appends new menu item. Arguments are:;
-#X obj 255 1358 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1358 ATOMS: item name. Type: list.;
-#X msg 110 1383 clear;
-#X text 245 1383 clears all items menu.;
-#X msg 110 1410 delete;
-#X text 245 1410 removes item from menu. Arguments are:;
-#X obj 255 1433 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1433 IDX: removed item index. Type: int. Min value: 0\.;
-#X msg 110 1458 file_glob;
-#X text 245 1458 fill menu with filenames. Arguments are:;
-#X obj 255 1481 cnv 1 59 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1481 PATTERN: filename pattern \, like * (all files) \,
+#X msg 110 1322 append;
+#X text 245 1322 appends new menu item. Arguments are:;
+#X obj 255 1345 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1345 ATOMS: item name. Type: list.;
+#X msg 110 1370 clear;
+#X text 245 1370 clears all items menu.;
+#X msg 110 1397 delete;
+#X text 245 1397 removes item from menu. Arguments are:;
+#X obj 255 1420 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1420 IDX: removed item index. Type: int. Min value: 0\.;
+#X msg 110 1445 file_glob;
+#X text 245 1445 fill menu with filenames. Arguments are:;
+#X obj 255 1468 cnv 1 59 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1468 PATTERN: filename pattern \, like * (all files) \,
 *.wav (all wav files) etc. Type: symbol.;
-#X obj 255 1519 cnv 1 39 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1519 [DIR]: search directory. If omitted - search in patch
+#X obj 255 1506 cnv 1 39 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1506 [DIR]: search directory. If omitted - search in patch
 directory. Performs tilde (~) expansion to home directory. To elide
 long filenames see @max_length property. Type: symbol.;
-#X msg 110 1574 insert;
-#X text 245 1574 inserts new menu item before specified position. Arguments
+#X msg 110 1561 insert;
+#X text 245 1561 inserts new menu item before specified position. Arguments
 are:;
-#X obj 255 1612 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1612 IDX: item position. Type: int. Min value: 0\.;
-#X obj 255 1635 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1635 ATOM: item name. Type: atom.;
-#X msg 110 1660 interp;
-#X text 245 1660 for this object acts as *load* \, no interpolation
+#X obj 255 1599 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1599 IDX: item position. Type: int. Min value: 0\.;
+#X obj 255 1622 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1622 ATOM: item name. Type: atom.;
+#X msg 110 1647 interp;
+#X text 245 1647 for this object acts as *load* \, no interpolation
 performed.;
-#X msg 110 1687 load;
-#X text 245 1687 loads specified preset. Arguments are:;
-#X obj 255 1710 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1710 IDX: preset index. Type: int.;
-#X msg 110 1735 pos;
-#X text 245 1735 set UI element position. Arguments are:;
-#X obj 255 1758 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1758 X: top left x-coord. Type: float.;
-#X obj 255 1781 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1781 Y: top right y-coord. Type: float.;
-#X msg 110 1806 set;
-#X text 245 1806 silently sets menu state. Arguments are:;
-#X obj 255 1829 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1829 IDX: item index. Type: int. Min value: 0\.;
-#X msg 110 1854 set_item;
-#X text 245 1854 renames menu item. Arguments are:;
-#X obj 255 1877 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1877 IDX: item index. Type: int. Min value: 0\.;
-#X obj 255 1900 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1900 ATOM: item name. Type: list.;
-#X msg 110 1925 store;
-#X text 245 1925 stores specified preset. Arguments are:;
-#X obj 255 1948 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1948 IDX: preset index. Type: int.;
-#X obj 20 1983 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1988 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X msg 110 1674 load;
+#X text 245 1674 loads specified preset. Arguments are:;
+#X obj 255 1697 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1697 IDX: preset index. Type: int.;
+#X msg 110 1722 pos;
+#X text 245 1722 set UI element position. Arguments are:;
+#X obj 255 1745 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1745 X: top left x-coord. Type: float.;
+#X obj 255 1768 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1768 Y: top right y-coord. Type: float.;
+#X msg 110 1793 set;
+#X text 245 1793 silently sets menu state. Arguments are:;
+#X obj 255 1816 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1816 IDX: item index. Type: int. Min value: 0\.;
+#X msg 110 1841 set_item;
+#X text 245 1841 renames menu item. Arguments are:;
+#X obj 255 1864 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1864 IDX: item index. Type: int. Min value: 0\.;
+#X obj 255 1887 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1887 ATOM: item name. Type: list.;
+#X msg 110 1912 store;
+#X text 245 1912 stores specified preset. Arguments are:;
+#X obj 255 1935 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1935 IDX: preset index. Type: int.;
+#X obj 20 1970 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1975 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1989 1\.;
-#X text 150 1989 *bang*;
-#X text 245 1989 outputs current menu state as list: INDEX ITEM_NAME.;
-#X text 150 2009 *float*;
-#X text 245 2009 change menu state and output list: INDEX ITEM_NAME.;
-#X text 150 2029 *any*;
-#X text 245 2029 selects item equal to given and output list: INDEX
+#X text 110 1976 1\.;
+#X text 150 1976 *bang*;
+#X text 245 1976 outputs current menu state as list: INDEX ITEM_NAME.;
+#X text 150 1996 *float*;
+#X text 245 1996 change menu state and output list: INDEX ITEM_NAME.;
+#X text 150 2016 *any*;
+#X text 245 2016 selects item equal to given and output list: INDEX
 ITEM_NAME.;
-#X obj 20 2059 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2064 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 2046 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2051 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 2065 1\.;
-#X text 245 2065 output.;
+#X text 110 2052 1\.;
+#X text 245 2052 output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 2115 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2118 library: ceammc v0.9.5;
-#X text 606 2130 see also:;
-#X obj 680 2133 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 2102 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2105 library: ceammc v0.9.5;
+#X text 606 2117 see also:;
+#X obj 680 2120 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.radio] @url ui.radio-help.pd;
-#N canvas 10 2137 400 290 info 0;
+#N canvas 10 2124 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -186,7 +185,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 2137 pd info;
+#X restore 10 2124 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;
 #X connect 6 0 7 0;

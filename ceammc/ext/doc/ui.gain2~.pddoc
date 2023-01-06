@@ -45,16 +45,15 @@
             <property name="@db" type="float" units="decibel" default="-60">gain in dbfs
             scale</property>
             <property name="@amp" type="float" default="0">gain as amplitude ratio</property>
-            <property name="@output_value" type="int" enum="0 1" default="0">flag to output @db
-            property after each knob move</property>
-            <property name="@relative" type="int" default="1" enum="0 1">relative input mode. When
-            set do not jump to value on click.</property>
-            <property name="@show_range" type="int" enum="0 1" default="1">if show slider
-            range</property>
+            <property name="@output_value" type="bool" default="0">flag to output @db property
+            after each knob move</property>
+            <property name="@relative" type="bool" default="1">relative input mode. When set do not
+            jump to value on click.</property>
+            <property name="@show_range" type="bool" default="1">if show slider range</property>
             <property name="@presetname" type="symbol" default="(null)">preset name for using with
             [ui.preset]</property>
-            <property name="@mouse_events" type="int" enum="0 1" default="0">mouse events output
-            mode. If on outputs @mouse_down, @mouse_up and @mouse_drag events</property>
+            <property name="@mouse_events" type="bool" default="0">mouse events output mode. If on
+            outputs @mouse_down, @mouse_up and @mouse_drag events</property>
             <property name="@send" type="symbol" default="(null)">send destination</property>
             <property name="@receive" type="symbol" default="(null)">receive source</property>
             <property name="@size" type="list" default="15 120">element size (width, height
@@ -80,9 +79,9 @@
             MIDI channel. 0 means listen to all channels</property>
             <property name="@midi_control" type="int" minvalue="-1" maxvalue="127" default="-1">
             binded MIDI controller number. -1 means not binded to any controller.</property>
-            <property name="@midi_pickup" type="int" enum="0 1" default="1">pickup current value.
-            If slider is binded to value, first time you should pass over this value to make
-            binding. It prevents from sudden value change on first control change</property>
+            <property name="@midi_pickup" type="bool" default="1">pickup current value. If slider
+            is binded to value, first time you should pass over this value to make binding. It
+            prevents from sudden value change on first control change</property>
         </properties>
         <methods>
             <method name="+ N">increase current gain by N db</method>

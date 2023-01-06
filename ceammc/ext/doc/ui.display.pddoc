@@ -42,19 +42,18 @@
             <param name="Y" type="float" required="true">top right y-coord</param></method>
         </methods>
         <properties>
-            <property name="@auto_size" type="int" default="1" enum="0 1">flag if automatically
-            resize contents to feet incoming message</property>
-            <property name="@display_type" type="int" default="0" enum="0 1">flag for displaying
-            incoming message type</property>
-            <property name="@display_events" type="int" default="1" enum="0 1">flag for blinking on
-            incoming messages</property>
+            <property name="@auto_size" type="bool" default="1">flag if automatically resize
+            contents to feet incoming message</property>
+            <property name="@display_type" type="bool" default="0">flag for displaying incoming
+            message type</property>
+            <property name="@display_events" type="bool" default="1">flag for blinking on incoming
+            messages</property>
             <property name="@float_width" type="int" default="-1" minvalue="-1" maxvalue="17">
             number of digits after floating point. If -1: skip trailing zeroes, if 0 - output as
             integers</property>
             <property name="@hex_width" type="int" default="2" minvalue="0" maxvalue="16">hex
             output format width</property>
-            <property name="@hex" type="int" default="0" enum="0 1">output integers in hex
-            format</property>
+            <property name="@hex" type="bool" default="0">output integers in hex format</property>
             <property name="@receive" type="symbol" default="(null)">receive source</property>
             <property name="@size" type="list" default="80 18">element size (width, height
             pair)</property>

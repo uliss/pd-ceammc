@@ -19,10 +19,10 @@
         </meta>
         <properties>
             <property name="@items" type="list">list of tab names</property>
-            <property name="@toggle" type="int" default="0" enum="0 1">toggle mode. In toggle moe
-            multiple selection is possible</property>
-            <property name="@orientation" type="int" enum="0 1" default="0">tab orientation. 1 is
-            vertical, 0 is horizontal</property>
+            <property name="@toggle" type="bool" default="0">toggle mode. In toggle moe multiple
+            selection is possible</property>
+            <property name="@orientation" type="bool" default="0">tab orientation. 1 is vertical, 0
+            is horizontal</property>
             <property name="@selected" type="list" access="readonly">list of selected items (in
             toggle mode)</property>
             <property name="@current" type="int" default="0" access="readonly">current selected
