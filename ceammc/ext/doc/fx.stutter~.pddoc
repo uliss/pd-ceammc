@@ -22,6 +22,9 @@
             units="millisecond">stutter period</property>
             <property name="@maxsize" type="float" minvalue="1" maxvalue="10000" default="1000"
             units="millisecond" access="initonly">max stutter period</property>
+            <property name="@mode" type="symbol" enum="fwd back tri" default="fwd">stutter mode. If 'fwd': play loop fragment forwards,
+            'back': play loop fragment backwards, 'tri': play loop fragment in both directions</property>
+            <property name="@speed" type="float" minvalue="0.25" maxvalue="4" default="1">loop fragment playing speed</property>
         </properties>
         <inlets>
             <inlet type="audio">
