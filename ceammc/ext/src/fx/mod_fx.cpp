@@ -22,6 +22,7 @@ void setup_fx_infrev_tilde();
 void setup_fx_pitchshift_sig_tilde();
 void setup_fx_recho_tilde();
 void setup_fx_room_tilde();
+void setup_fx_satrev_tilde();
 void setup_fx_sdelay_tilde();
 void setup_fx_secho_tilde();
 void setup_fx_shimmer_tilde();
@@ -55,6 +56,7 @@ void ceammc_fx_setup()
     setup_fx_pitchshift_tilde();
     setup_fx_recho_tilde();
     setup_fx_room_tilde();
+    setup_fx_satrev_tilde();
     setup_fx_sdelay_tilde();
     setup_fx_secho_tilde();
     setup_fx_stutter_tilde();

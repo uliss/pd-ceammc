@@ -489,6 +489,7 @@ fx.pitchshift~	simple pitch shifter based on 2 delay lines
 fx.rb_pitchshift~	rubber band pitchshift
 fx.recho~	reversed echo effect
 fx.room~	Gardners room emulation algorithms
+fx.satrev~	Schroeder reverberator from 1971
 fx.sdelay~	smooth delay with a feedback control
 fx.secho~	enchanced echo effect that does not click on delay change
 fx.shimmer~	shimmer reverb effect effect

@@ -234,6 +234,7 @@ set(DOC_FILES
     fx.rb_pitchshift~
     fx.recho~
     fx.room~
+    fx.satrev~
     fx.sdelay~
     fx.secho~
     fx.shimmer~

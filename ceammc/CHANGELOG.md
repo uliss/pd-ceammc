@@ -4,6 +4,7 @@
 ### Added:
 - new objects:
   - fx.stutter~ effect
+  - fx.satrev~ schroeder stereo reverb from 1971 added
 - new arguments:
   - 3rd argument added to fx.zita_rev1~ to specify dry/wet ratio
 - new properties:
