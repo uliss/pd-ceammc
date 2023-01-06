@@ -14,9 +14,9 @@
             <since>0.2</since>
         </meta>
         <arguments>
-            <argument name="drive" type="float" minvalue="0" maxvalue="1">distortion
+            <argument name="DRIVE" type="float" minvalue="0" maxvalue="1">distortion
             amount</argument>
-            <argument name="offset" type="float" minvalue="0" maxvalue="1">constant added before
+            <argument name="OFFSET" type="float" minvalue="0" maxvalue="0.5">constant added before
             nonlinearity to give even harmonics</argument>
         </arguments>
         <properties>

@@ -337,9 +337,6 @@ def check_single_prop(name, prop, doc, ext):
             doc_def = int(doc_def)
         elif type_doc == "bool":
             doc_def = int(doc_def)
-        # null
-        elif doc_def == "null":
-            doc_def = None
 
         ext_def = ext.get("default", None)
         if ext_def is None:

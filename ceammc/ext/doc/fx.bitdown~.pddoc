@@ -15,8 +15,8 @@
             <since>0.7</since>
         </meta>
         <arguments>
-            <argument name="bits" type="int" minvalue="1" maxvalue="16">number of bits</argument>
-            <argument name="downsamp" type="int" minvalue="1" maxvalue="200" units="sample">number
+            <argument name="BITS" type="int" minvalue="1" maxvalue="16">number of bits</argument>
+            <argument name="DOWNSAMP" type="int" minvalue="1" maxvalue="200" units="sample">number
             of samples to skip</argument>
         </arguments>
         <properties>

@@ -15,7 +15,7 @@
             <since>0.6</since>
         </meta>
         <arguments>
-            <argument name="pitch" type="float" minvalue="36" maxvalue="60">drone MIDI
+            <argument name="PITCH" type="float" minvalue="36" maxvalue="60">drone MIDI
             pitch</argument>
         </arguments>
         <properties>

@@ -14,9 +14,9 @@
             <since>0.2</since>
         </meta>
         <arguments>
-            <argument name="decay_low" type="float" minvalue="1" maxvalue="8" units="second">time
+            <argument name="DECAY_LOW" type="float" minvalue="1" maxvalue="60" units="second">time
             (in seconds) to decay 60dB in low-frequency band</argument>
-            <argument name="decay_mid" type="float" minvalue="1" maxvalue="8" units="second">time
+            <argument name="DECAY_MID" type="float" minvalue="1" maxvalue="60" units="second">time
             (in seconds) to decay 60dB in mid-frequency band</argument>
         </arguments>
         <methods>

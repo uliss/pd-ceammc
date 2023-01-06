@@ -17,9 +17,9 @@
             </also>
         </meta>
         <arguments>
-            <argument name="time" type="float" minvalue="0" maxvalue="2000" units="millisecond">
+            <argument name="DELAY" type="float" minvalue="0" maxvalue="2000" units="millisecond">
             echo time</argument>
-            <argument name="feedback" type="float" minvalue="0" maxvalue="0.99">feedback
+            <argument name="FEEDBACK" type="float" minvalue="0" maxvalue="0.99">feedback
             coefficient</argument>
         </arguments>
         <methods>

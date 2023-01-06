@@ -14,9 +14,9 @@
             <since>0.9.4</since>
         </meta>
         <arguments>
-            <argument name="size" type="float" minvalue="0" maxvalue="2000" units="millisecond">
+            <argument name="SIZE" type="float" minvalue="0" maxvalue="2000" units="millisecond">
             echo time</argument>
-            <argument name="diffusion" type="float" minvalue="0" maxvalue="0.99">feedback
+            <argument name="FB" type="float" minvalue="0" maxvalue="0.99">feedback
             coefficient</argument>
         </arguments>
         <methods>

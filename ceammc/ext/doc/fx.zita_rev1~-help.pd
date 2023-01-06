@@ -40,14 +40,14 @@
 -49933 0;
 #X text 110 625 1\.;
 #X text 150 625 float;
-#X obj 246 626 cnv 1 116 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 625 decay_low(sec): time (in seconds) to decay 60dB in
-low-frequency band. Type: float. Range: 1\...8;
+#X obj 246 626 cnv 1 115 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 625 DECAY_LOW(sec): time (in seconds) to decay 60dB in
+low-frequency band. Type: float. Range: 1\...60;
 #X text 110 660 2\.;
 #X text 150 660 float;
-#X obj 246 661 cnv 1 116 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 660 decay_mid(sec): time (in seconds) to decay 60dB in
-mid-frequency band. Type: float. Range: 1\...8;
+#X obj 246 661 cnv 1 115 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 660 DECAY_MID(sec): time (in seconds) to decay 60dB in
+mid-frequency band. Type: float. Range: 1\...60;
 #X obj 20 705 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 710 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
