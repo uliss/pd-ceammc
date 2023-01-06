@@ -28,7 +28,7 @@
 value: 0\.;
 #X msg 110 537 @index;
 #X text 245 537 Get/Set current menu item index. Type: int. Default
-value: 0\.;
+value: -1\.;
 #X msg 110 579 @items;
 #X text 245 579 Get/Set list of menu items. Type: list.;
 #X msg 110 608 @max_length;
