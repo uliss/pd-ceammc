@@ -4,6 +4,8 @@
 ### Added:
 - new objects:
   - fx.stutter~ effect
+- new arguments:
+  - 3rd argument added to fx.zita_rev1~ to specify dry/wet ratio
 - new properties:
   - @cpuload property added to fluid~
 - new aliases:
