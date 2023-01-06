@@ -32,10 +32,10 @@
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
         <arguments>
-            <argument name="freq" type="float" units="hertz">center frequency</argument>
-            <argument name="q" type="float" minvalue="0.01" maxvalue="100">quality factory:
+            <argument name="FREQ" type="float" units="hertz" minvalue="20"
+            maxvalue="20000">center frequency</argument>
+            <argument name="Q" type="float" minvalue="0.01" maxvalue="100">quality factory:
             @freq/BANDWIDTH</argument>
-            <argument name="ID" type="symbol">object ID for OSC control</argument>
         </arguments>
         <methods>
             <method name="reset">reset filter state</method>

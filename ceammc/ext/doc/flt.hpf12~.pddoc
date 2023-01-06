@@ -28,7 +28,7 @@
             <a href="https://en.wikipedia.org/wiki/Butterworth_filter">wiki: Butterworth filter</a>
         </info>
         <arguments>
-            <argument name="freq" type="float" minvalue="20" maxvalue="20000" units="hertz">cutoff
+            <argument name="FREQ" type="float" minvalue="20" maxvalue="20000" units="hertz">cutoff
             frequency</argument>
         </arguments>
         <properties>

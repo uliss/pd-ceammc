@@ -25,7 +25,7 @@
             a1*z⁻¹ + a2*z⁻²)</par>
         </info>
         <arguments>
-            <argument name="freq" type="float" units="hertz" minvalue="20" maxvalue="20000">center
+            <argument name="FREQ" type="float" units="hertz" minvalue="0" maxvalue="22050">center
             frequency</argument>
         </arguments>
         <properties>

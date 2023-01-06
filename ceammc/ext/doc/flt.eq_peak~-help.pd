@@ -22,16 +22,16 @@ or cut near some frequency). Also called a "parametric equalizer" section.;
 #X text 110 423 1\.;
 #X text 150 423 float;
 #X obj 246 424 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 423 freq(Hz): peak frequency. Type: float. Range: 20\...20000;
+#X text 245 423 FREQ(Hz): peak frequency. Type: float. Range: 20\...20000;
 #X text 110 443 2\.;
 #X text 150 443 float;
 #X obj 246 444 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 443 gain(db): level at fx (boost if >0 or cut if <0). Type:
+#X text 245 443 GAIN(db): level at fx (boost if >0 or cut if <0). Type:
 float. Range: -15\...15;
 #X text 110 478 3\.;
 #X text 150 478 float;
-#X obj 246 479 cnv 1 107 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 478 bandwidth(Hz): bandwidth of peak. Type: float. Range:
+#X obj 246 479 cnv 1 108 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 478 BANDWIDTH(Hz): bandwidth of peak. Type: float. Range:
 1\...5000;
 #X obj 20 523 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 528 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144

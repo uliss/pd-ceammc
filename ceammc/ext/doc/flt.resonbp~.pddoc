@@ -17,9 +17,9 @@
             </also>
         </meta>
         <arguments>
-            <argument name="freq" type="float" units="hertz" minvalue="20" maxvalue="20000">center
+            <argument name="FREQ" type="float" units="hertz" minvalue="20" maxvalue="20000">center
             frequency</argument>
-            <argument name="q" type="float" minvalue="0.1" maxvalue="300">Q</argument>
+            <argument name="Q" type="float" minvalue="0.1" maxvalue="300">Q</argument>
         </arguments>
         <properties>
             <property name="@freq" type="float" units="hertz" minvalue="20" maxvalue="20000"

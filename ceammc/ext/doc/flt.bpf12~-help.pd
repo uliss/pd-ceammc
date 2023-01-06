@@ -38,11 +38,11 @@ https://en.wikipedia.org/wiki/Butterworth_filter;
 #X text 110 685 1\.;
 #X text 150 685 float;
 #X obj 246 686 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 685 freq(Hz): center frequency. Type: float. Range: 20\...20000;
+#X text 245 685 FREQ(Hz): center frequency. Type: float. Range: 20\...20000;
 #X text 110 705 2\.;
 #X text 150 705 float;
 #X obj 246 706 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 705 q: quality factory: @freq/BANDWIDTH. Type: float. Range:
+#X text 245 705 Q: quality factory: @freq/BANDWIDTH. Type: float. Range:
 0.01\...100;
 #X obj 20 750 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 755 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144

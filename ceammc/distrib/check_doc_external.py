@@ -205,12 +205,23 @@ def check_single_arg(ext_name, arg_name, doc, ext):
     # check minvalue
     doc_minval = doc.get("min", "")
     ext_minval = ext.get("min", "")
+    if ext_type == "float":
+        if doc_minval != "":
+            doc_minval = round(float(doc_minval), 4)
+        if ext_minval != "":
+            ext_minval = round(float(ext_minval), 4)
+
     if doc_minval != ext_minval:
         cprint(f"[{ext_name}][arg][{arg_name}] invalid argument minvalue in doc: {doc_minval}, should be: {ext_minval}", 'magenta')
 
     # check maxvalue
     doc_maxval = doc.get("max", "")
     ext_maxval = ext.get("max", "")
+    if ext_type == "float":
+        if doc_maxval != "":
+            doc_maxval = round(float(doc_maxval), 4)
+        if ext_maxval != "":
+            ext_maxval = round(float(ext_maxval), 4)
     if doc_maxval != ext_maxval:
         cprint(f"[{ext_name}][arg][{arg_name}] invalid argument maxvalue in doc: {doc_maxval}, should be: {ext_maxval}", 'magenta')
 

@@ -35,7 +35,7 @@ Default value: 256\. Range: 0\...65536\.;
 infinitely. Type: int. Default value: 1\. Min value: -1\.;
 #X msg 110 651 @speed;
 #X text 245 651 Get/Set play speed. Type: float. Default value: 1\.
-Range: 0.016\...64\.;
+Range: 0.0156\...64\.;
 #X msg 110 693 @sync;
 #X text 245 693 Get/Set use external bang pulse to sync recorded events
 with. Type: bool. Default value: 0\.;

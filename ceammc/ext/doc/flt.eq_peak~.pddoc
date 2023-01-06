@@ -21,11 +21,11 @@
             </also>
         </meta>
         <arguments>
-            <argument name="freq" type="float" units="hertz" minvalue="20" maxvalue="20000">peak
+            <argument name="FREQ" type="float" units="hertz" minvalue="20" maxvalue="20000">peak
             frequency</argument>
-            <argument name="gain" type="float" units="decibel" minvalue="-15" maxvalue="15">level
+            <argument name="GAIN" type="float" units="decibel" minvalue="-15" maxvalue="15">level
             at fx (boost if &gt;0 or cut if &lt;0)</argument>
-            <argument name="bandwidth" type="float" units="hertz" minvalue="1" maxvalue="5000">
+            <argument name="BANDWIDTH" type="float" units="hertz" minvalue="1" maxvalue="5000">
             bandwidth of peak</argument>
         </arguments>
         <properties>

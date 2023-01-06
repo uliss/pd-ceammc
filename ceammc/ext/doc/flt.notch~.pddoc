@@ -28,8 +28,8 @@
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
         <arguments>
-            <argument name="freq" type="float" units="hertz">center frequency</argument>
-            <argument name="width" type="float" units="hertz">band width (approximate)</argument>
+            <argument name="FREQ" type="float" units="hertz">center frequency</argument>
+            <argument name="WIDTH" type="float" units="hertz">band width (approximate)</argument>
         </arguments>
         <inlets>
             <inlet type="audio">

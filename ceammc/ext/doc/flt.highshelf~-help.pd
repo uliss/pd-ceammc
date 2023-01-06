@@ -20,12 +20,12 @@
 #X text 110 351 1\.;
 #X text 150 351 float;
 #X obj 246 352 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 351 freq(Hz): starting frequency for the shelf. Type: float.
+#X text 245 351 FREQ(Hz): starting frequency for the shelf. Type: float.
 Range: 20\...20000;
 #X text 110 386 2\.;
 #X text 150 386 float;
 #X obj 246 387 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 386 gain(db): amount of boost or cut apply to the signal.
+#X text 245 386 GAIN(db): amount of boost or cut apply to the signal.
 Type: float. Range: -15\...15;
 #X obj 20 431 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 436 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144

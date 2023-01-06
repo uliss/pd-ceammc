@@ -25,13 +25,13 @@
             a1*z⁻¹ + a2*z⁻²)</par>
         </info>
         <arguments>
-            <argument name="freq" type="float" units="hertz" minvalue="20" maxvalue="20000">center
+            <argument name="FREQ" type="float" units="hertz" minvalue="20" maxvalue="22050">center
             frequency</argument>
         </arguments>
         <properties>
             <property name="@freq" type="float" minvalue="20" maxvalue="22050" default="1000"
             units="hertz">center frequency</property>
-            <property name="@q" type="float" minvalue="0.01" maxvalue="100" default="0.707">quality
+            <property name="@q" type="float" minvalue="0.01" maxvalue="100" default="0.7071">quality
             factor: @freq/BANDWIDTH</property>
             <property name="@rad" type="flag" access="initonly">use angular frequency</property>
         </properties>

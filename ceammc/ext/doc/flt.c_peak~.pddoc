@@ -23,11 +23,11 @@
             a1*z⁻¹ + a2*z⁻²)</par>
         </info>
         <arguments>
-            <argument name="freq" type="float" units="hertz" minvalue="20" maxvalue="20000">center
+            <argument name="FREQ" type="float" units="hertz" minvalue="20" maxvalue="20000">center
             frequency</argument>
-            <argument name="gain" type="float" minvalue="-15" maxvalue="+15" units="decibel">filter
+            <argument name="GAIN" type="float" minvalue="-15" maxvalue="+15" units="decibel">filter
             gain</argument>
-            <argument name="q" type="float" minvalue="0.01" maxvalue="100">quality
+            <argument name="Q" type="float" minvalue="0.01" maxvalue="100">quality
             factory</argument>
         </arguments>
         <properties>

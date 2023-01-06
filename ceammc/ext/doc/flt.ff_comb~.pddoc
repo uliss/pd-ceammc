@@ -25,7 +25,7 @@
             <a href="https://en.wikipedia.org/wiki/Comb_filter">wiki: Comb filter</a>
         </info>
         <arguments>
-            <argument name="a" type="float" minvalue="0" maxvalue="1">scaling factor of delayed
+            <argument name="A" type="float" minvalue="0" maxvalue="1">scaling factor of delayed
             signal</argument>
         </arguments>
         <properties>

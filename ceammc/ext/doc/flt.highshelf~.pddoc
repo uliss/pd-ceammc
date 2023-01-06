@@ -19,9 +19,9 @@
             </also>
         </meta>
         <arguments>
-            <argument name="freq" type="float" units="hertz" minvalue="20" maxvalue="20000">
+            <argument name="FREQ" type="float" units="hertz" minvalue="20" maxvalue="20000">
             starting frequency for the shelf</argument>
-            <argument name="gain" type="float" units="decibel" minvalue="-15" maxvalue="15">amount
+            <argument name="GAIN" type="float" units="decibel" minvalue="-15" maxvalue="15">amount
             of boost or cut apply to the signal</argument>
         </arguments>
         <properties>
