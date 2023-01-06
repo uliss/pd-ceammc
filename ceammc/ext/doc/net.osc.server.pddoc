@@ -33,9 +33,9 @@
             <param name="VAL" type="int" enum="0 1">1: stop, 0: start</param></method>
         </methods>
         <properties>
-            <property name="@dump" type="int" enum="0 1" default="0">dump incoming messages to Pd
+            <property name="@dump" type="bool" default="0">dump incoming messages to Pd
             window</property>
-            <property name="@auto_start" type="int" enum="0 1" default="1">automatically start on
+            <property name="@auto_start" type="bool" default="1">automatically start on
             creation</property>
             <property name="@url" type="atom" default="udp:9000" access="initonly">OSC server url
             in form: PROTO:PORT (udp:12345) or just PORT, or osc.PROTO://:PORT (for ex.

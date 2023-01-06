@@ -14,8 +14,7 @@
             <since>0.1</since>
         </meta>
         <properties>
-            <property name="@normalize" type="int" enum="0 1" default="1">normalize sum to
-            1</property>
+            <property name="@normalize" type="bool" default="1">normalize sum to 1</property>
         </properties>
         <inlets>
             <inlet>

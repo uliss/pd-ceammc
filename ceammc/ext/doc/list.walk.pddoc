@@ -37,8 +37,8 @@
             loop</property>
             <property name="@fold" type="alias">fold pass mode. List values are repeated in a loop
             with folding</property>
-            <property name="@direction" type="int" default="1" enum="0 1">walking direction. "1" -
-            forwards, "0" - backwards.</property>
+            <property name="@direction" type="bool" default="1">walking direction. "1" - forwards,
+            "0" - backwards.</property>
             <property name="@index" type="list" minvalue="0" default="0">current
             position</property>
             <property name="@length" type="int" minvalue="1" default="1">output list

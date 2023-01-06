@@ -28,7 +28,7 @@
 -49933 0;
 #X msg 110 393 @empty;
 #X text 245 393 (readonly) Get 1 if list is empty \, otherwise 0\.
-Type: int. Default value: 1\. Allowed values: 0 \, 1\.;
+Type: bool. Default value: 1\.;
 #X msg 110 435 @value;
 #X text 245 435 Get/Set current value. Type: list.;
 #X msg 110 464 @size;

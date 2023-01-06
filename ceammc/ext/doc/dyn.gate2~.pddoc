@@ -27,8 +27,7 @@
             threshold</property>
             <property name="@release" type="float" units="millisecond" default="20" minvalue="1"
             maxvalue="500">release time = time constant (ms) for gate to close</property>
-            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
-            processing</property>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
         <arguments>
             <argument name="threshold" type="float" units="decibel" minvalue="0" maxvalue="100">dB

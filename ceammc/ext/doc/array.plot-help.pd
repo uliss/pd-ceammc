@@ -42,7 +42,7 @@
 Default value: +inf.;
 #X msg 110 573 @yauto;
 #X text 245 573 Get/Set calculate y-axis range automatically. Type:
-int. Default value: 1\. Allowed values: 0 \, 1\.;
+bool. Default value: 1\.;
 #X msg 110 615 @ymax;
 #X text 245 615 Get/Set maximum y-axis value. Type: float. Default
 value: 1\. Range: -2048\...2048\.;

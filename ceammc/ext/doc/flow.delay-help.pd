@@ -53,7 +53,7 @@ or [prop.set] object;
 #X text 245 859 Get/Set blocking mode. If true \, discards incoming
 messages until scheduled message will output \, after that is ready
 to accept the new one. Otherwise acts like vanilla [del] object. Type:
-int. Default value: 0\. Allowed values: 0 \, 1\.;
+bool. Default value: 0\.;
 #X msg 110 931 @delay;
 #X text 245 931 Get/Set delay time. Type: float. Units: ms. Default
 value: 0\. Min value: 0\.;

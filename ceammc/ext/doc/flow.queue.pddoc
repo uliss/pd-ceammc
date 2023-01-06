@@ -21,8 +21,8 @@
         <properties>
             <property name="@max_size" type="int" minvalue="1" default="32" maxvalue="1024">max
             queue size</property>
-            <property name="@auto_pop" type="int" enum="0 1" default="0">auto pop mode. If true
-            automatically pops oldest elements when queue is full</property>
+            <property name="@auto_pop" type="bool" default="0">auto pop mode. If true automatically
+            pops oldest elements when queue is full</property>
         </properties>
         <inlets dynamic="true">
             <inlet number="1">

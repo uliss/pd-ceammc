@@ -25,8 +25,7 @@
             frequency. Units: MIDI note</property>
             <property name="@range" type="float" minvalue="1" maxvalue="120" default="120">
             glissando range in MIDI note units</property>
-            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
-            processing</property>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
         <methods>
             <method name="reset">reset to start position</method>

@@ -22,8 +22,8 @@
 #X obj 20 316 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 351 @abstraction;
-#X text 245 351 (readonly) Get 1 if canvas is abstraction. Type: int.
-Default value: 1\. Allowed values: 0 \, 1\.;
+#X text 245 351 (readonly) Get 1 if canvas is abstraction. Type: bool.
+Default value: 1\.;
 #X msg 110 393 @args;
 #X text 245 393 (readonly) Get canvas creation arguments. Type: list.;
 #X msg 110 422 @dir;
@@ -39,7 +39,7 @@ test_canvas.;
 #X text 245 548 (readonly) Get canvas search paths. Type: list.;
 #X msg 110 577 @root;
 #X text 245 577 (readonly) Get 1 if canvas is top-level (window). Type:
-int. Default value: 1\. Allowed values: 0 \, 1\.;
+bool. Default value: 1\.;
 #X msg 110 619 @width;
 #X text 245 619 (readonly) Get canvas width (window or GOP). Type:
 int. Default value: 600\.;

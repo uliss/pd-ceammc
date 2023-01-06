@@ -39,8 +39,7 @@
             <property name="@dump_hf" type="float" minvalue="1500" maxvalue="47040" default="6000"
             units="hertz">Frequency (Hz) at which the high-frequency T60 is half the middle-band's
             T60</property>
-            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
-            processing</property>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
         <inlets>
             <inlet type="audio">

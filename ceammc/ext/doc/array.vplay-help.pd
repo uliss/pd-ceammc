@@ -65,8 +65,8 @@ samp. Default value: 0\.;
 #X text 245 706 Get/Set end position in samples. Type: int. Units:
 samp. Default value: -1\.;
 #X msg 110 748 @reversed;
-#X text 245 748 Get/Set playing backwards (if set to 1). Type: int.
-Default value: 0\. Allowed values: 0 \, 1\.;
+#X text 245 748 Get/Set playing backwards (if set to 1). Type: bool.
+Default value: 0\.;
 #X msg 110 790 @speed;
 #X text 245 790 Get/Set play speed. Type: float. Default value: 1\.
 Min value: 0.1\.;

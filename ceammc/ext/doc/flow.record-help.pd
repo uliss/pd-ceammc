@@ -25,7 +25,7 @@
 -49933 0;
 #X msg 110 510 @auto;
 #X text 245 510 Get/Set autostart record on first input atom. Type:
-int. Default value: 0\. Allowed values: 0 \, 1\.;
+bool. Default value: 0\.;
 #X msg 110 552 @max;
 #X text 245 552 Get/Set max number of events \, if 0: no max size check.
 If @auto is set - starts playback when max size reached. Type: int.
@@ -38,7 +38,7 @@ infinitely. Type: int. Default value: 1\. Min value: -1\.;
 Range: 0.016\...64\.;
 #X msg 110 693 @sync;
 #X text 245 693 Get/Set use external bang pulse to sync recorded events
-with. Type: int. Default value: 0\. Allowed values: 0 \, 1\.;
+with. Type: bool. Default value: 0\.;
 #X obj 20 745 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 750 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;

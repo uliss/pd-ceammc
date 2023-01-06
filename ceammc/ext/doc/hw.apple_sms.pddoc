@@ -21,7 +21,7 @@
             us this information</par>
         </info>
         <properties>
-            <property name="@raw" type="int" enum="0 1" default="0">raw data output mode</property>
+            <property name="@raw" type="bool" default="0">raw data output mode</property>
         </properties>
         <inlets>
             <inlet>

@@ -34,8 +34,8 @@
             <property name="@a" type="list">list of atoms</property>
             <property name="@w" type="list">list of atom weights</property>
             <property name="@seed" type="int" minvalue="0" default="0">generator seed</property>
-            <property name="@nonrep" type="int" enum="0 1" default="0">generate non-repeated
-            adjacent values (note: distribution will changed!)</property>
+            <property name="@nonrep" type="bool" default="0">generate non-repeated adjacent values
+            (note: distribution will changed!)</property>
         </properties>
         <inlets>
             <inlet>

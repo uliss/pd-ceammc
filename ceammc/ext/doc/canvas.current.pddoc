@@ -24,10 +24,10 @@
             (only if top level or abstraction)</property>
             <property name="@args" access="readonly" type="list">canvas creation
             arguments</property>
-            <property name="@root" access="readonly" type="int" enum="0 1" default="1">1 if canvas
-            is top-level (window)</property>
-            <property name="@abstraction" access="readonly" type="int" enum="0 1" default="1">1 if
-            canvas is abstraction</property>
+            <property name="@root" access="readonly" type="bool" default="1">1 if canvas is
+            top-level (window)</property>
+            <property name="@abstraction" access="readonly" type="bool" default="1">1 if canvas is
+            abstraction</property>
             <property name="@size" access="readonly" type="list" default="600 400">canvas
             dimensions. If root canvas (window) return window size, if subpatch return Graph on
             Parent size</property>

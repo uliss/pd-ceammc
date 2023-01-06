@@ -26,8 +26,8 @@
 #X obj 20 358 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 393 @empty;
-#X text 245 393 (readonly) Get if stack is empty. Type: int. Default
-value: 1\. Allowed values: 0 \, 1\.;
+#X text 245 393 (readonly) Get if stack is empty. Type: bool. Default
+value: 1\.;
 #X msg 110 435 @max_size;
 #X text 245 435 Get/Set maximum stack grow size. Type: int. Default
 value: 100\. Min value: 1\.;

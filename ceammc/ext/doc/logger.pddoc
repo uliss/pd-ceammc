@@ -27,7 +27,7 @@
         </arguments>
         <properties>
             <property name="@prefix" type="list">log message prefix</property>
-            <property name="@active" type="int" enum="0 1" default="1">enabled/disabled logging
+            <property name="@active" type="bool" default="1">enabled/disabled logging
             state</property>
         </properties>
         <inlets>

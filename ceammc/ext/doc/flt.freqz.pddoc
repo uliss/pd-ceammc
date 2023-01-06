@@ -30,8 +30,7 @@
             <property name="@b" type="list" default="1">numerator (zeros) coefficients</property>
             <property name="@n" type="int" minvalue="4" maxvalue="1024" default="256">number of
             points</property>
-            <property name="@db" type="int" enum="0 1" default="0">output amp response in db
-            scale</property>
+            <property name="@db" type="bool" default="0">output amp response in db scale</property>
         </properties>
         <methods>
             <method name="biquad">set 'b' and 'a' coefficients, no output 

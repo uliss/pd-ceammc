@@ -46,8 +46,8 @@
 #X msg 110 708 @e;
 #X text 245 708 Get/Set alias to @base e. Type: atom.;
 #X msg 110 737 @endpoint;
-#X text 245 737 Get/Set include @stop to interval. Type: int. Default
-value: 1\. Allowed values: 0 \, 1\.;
+#X text 245 737 Get/Set include @stop to interval. Type: bool. Default
+value: 1\.;
 #X msg 110 779 @n;
 #X text 245 779 Get/Set number of points. Type: int. Default value:
 100\. Range: 4\...1024\.;

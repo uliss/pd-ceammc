@@ -18,7 +18,7 @@
             short delay between input and output</par>
         </info>
         <properties>
-            <property name="@async" type="int" enum="0 1" default="1">async mode</property>
+            <property name="@async" type="bool" default="1">async mode</property>
             <property name="@sync" type="alias">alias for @async 0</property>
         </properties>
         <inlets>

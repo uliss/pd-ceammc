@@ -32,11 +32,11 @@ list.;
 #X text 245 766 Get/Set numerator (zeros) coefficients. Type: list.
 Default value: 1\.;
 #X msg 110 808 @db;
-#X text 245 808 Get/Set output amp response in db scale. Type: int.
-Default value: 0\. Allowed values: 0 \, 1\.;
+#X text 245 808 Get/Set output amp response in db scale. Type: bool.
+Default value: 0\.;
 #X msg 110 850 @sr;
-#X text 245 850 Get/Set normalize using current samplerate. Type: int.
-Default value: 0\. Allowed values: 0 \, 1\.;
+#X text 245 850 Get/Set normalize using current samplerate. Type: bool.
+Default value: 0\.;
 #X obj 20 902 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 907 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;

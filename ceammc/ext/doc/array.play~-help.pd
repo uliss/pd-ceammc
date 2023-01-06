@@ -78,8 +78,8 @@ Default value: -1\.;
 linear \, 3: cubic. Type: int. Default value: 1\. Allowed values: 0
 \, 1 \, 3\.;
 #X msg 110 1094 @loop;
-#X text 245 1094 Get/Set samplewise loop playing mode. Type: int. Default
-value: 0\. Allowed values: 0 \, 1\.;
+#X text 245 1094 Get/Set samplewise loop playing mode. Type: bool.
+Default value: 0\.;
 #X msg 110 1136 @select_ms;
 #X text 245 1136 Get/Set selection range. Type: list. Units: ms. Default
 value: 0 0\.;

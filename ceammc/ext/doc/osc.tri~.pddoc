@@ -22,8 +22,7 @@
             <argument name="freq" type="float" units="hertz">frequency</argument>
         </arguments>
         <properties>
-            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
-            processing</property>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
         <inlets>
             <inlet type="audio">

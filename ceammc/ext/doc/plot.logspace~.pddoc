@@ -41,8 +41,7 @@
             <property name="@2" type="atom">alias to @base 2</property>
             <property name="@10" type="atom">alias to @base 10</property>
             <property name="@e" type="atom">alias to @base e</property>
-            <property name="@endpoint" type="int" enum="0 1" default="1">include @stop to
-            interval</property>
+            <property name="@endpoint" type="bool" default="1">include @stop to interval</property>
         </properties>
         <inlets>
             <inlet>

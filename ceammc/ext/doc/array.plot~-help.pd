@@ -43,7 +43,7 @@
 #X text 245 504 Get/Set array name. Type: symbol.;
 #X msg 110 533 @yauto;
 #X text 245 533 Get/Set calculate y-axis range automatically. Type:
-int. Default value: 0\. Allowed values: 0 \, 1\.;
+bool. Default value: 0\.;
 #X msg 110 575 @ymax;
 #X text 245 575 Get/Set minimal y-axis value. Type: float. Default
 value: 1\. Range: -1024\...1024\.;

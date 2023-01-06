@@ -79,8 +79,8 @@ raw.;
 #X msg 110 706 @raw;
 #X text 245 706 alias to @mode raw property.;
 #X msg 110 735 @redraw;
-#X text 245 735 Get/Set redraw after array change. Type: int. Default
-value: 1\. Allowed values: 0 \, 1\.;
+#X text 245 735 Get/Set redraw after array change. Type: bool. Default
+value: 1\.;
 #X msg 110 777 @resize;
 #X text 245 777 alias to @mode resize property.;
 #X obj 20 816 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

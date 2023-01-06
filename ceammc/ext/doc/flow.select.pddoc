@@ -33,9 +33,9 @@
         </arguments>
         <properties>
             <property name="@v" type="alias">alias to @keep_value 1</property>
-            <property name="@keep_value" type="int" default="0" enum="0 1">value output mode. If
-            false (by default) acts like vanilla select: output bang on match or full unmatched
-            message to last outlet. If true always outputs full matched message to corresponding
+            <property name="@keep_value" type="bool" default="0">value output mode. If false (by
+            default) acts like vanilla select: output bang on match or full unmatched message to
+            last outlet. If true always outputs full matched message to corresponding
             outlet.</property>
         </properties>
         <inlets>

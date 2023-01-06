@@ -22,9 +22,8 @@
             <argument name="freq" type="float" units="hertz">frequency</argument>
         </arguments>
         <properties>
-            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
-            processing</property>
-            <property name="@pause" type="int" enum="0 1" default="0">pause oscillator at current
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <property name="@pause" type="bool" default="0">pause oscillator at current
             value</property>
             <property name="@phase" type="float" minvalue="0" maxvalue="1" default="0">initial
             phase</property>

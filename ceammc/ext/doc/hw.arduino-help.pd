@@ -38,7 +38,7 @@ on Linux and /dev/cu.usbmodem411 on MacOSX. Type: symbol.;
 -49933 0;
 #X msg 110 598 @connected;
 #X text 245 598 (readonly) Get state of connection to device. Type:
-int. Default value: 0\. Allowed values: 0 \, 1\.;
+bool. Default value: 0\.;
 #X msg 110 640 @devices;
 #X text 245 640 (readonly) Get list of found Arduino devices. Type:
 list.;

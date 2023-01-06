@@ -25,9 +25,8 @@
         </arguments>
         <properties>
             <property name="@expr" type="list">expression</property>
-            <property name="@clip" type="int" enum="0 1" default="1">clip output to -1..+1 range.
-            Use false value only when you are know what are you doing and at your own
-            risk!</property>
+            <property name="@clip" type="bool" default="1">clip output to -1..+1 range. Use false
+            value only when you are know what are you doing and at your own risk!</property>
         </properties>
         <methods>
             <method name="byte">set expression wrapper to byte() glitch function</method>

@@ -30,7 +30,7 @@
             minimal y-axis value</property>
             <property name="@ymax" minvalue="-1024" maxvalue="1024" type="float" default="1">
             minimal y-axis value</property>
-            <property name="@yauto" type="int" enum="0 1" default="0">calculate y-axis range
+            <property name="@yauto" type="bool" default="0">calculate y-axis range
             automatically</property>
         </properties>
         <inlets>

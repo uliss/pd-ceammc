@@ -38,7 +38,7 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo></xinfo>
+                <xinfo />
             </inlet>
         </inlets>
         <outlets>

@@ -42,7 +42,7 @@
 #X text 245 634 Get/Set value output mode. If false (by default) acts
 like vanilla select: output bang on match or full unmatched message
 to last outlet. If true always outputs full matched message to corresponding
-outlet. Type: int. Default value: 0\. Allowed values: 0 \, 1\.;
+outlet. Type: bool. Default value: 0\.;
 #X msg 110 721 @v;
 #X text 245 721 alias to @keep_value 1\.;
 #X obj 20 760 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

@@ -51,8 +51,8 @@ list.;
 #X text 245 606 Get/Set numerator (zeros) coefficients. Type: list.
 Default value: 1\.;
 #X msg 110 648 @db;
-#X text 245 648 Get/Set output amp response in db scale. Type: int.
-Default value: 0\. Allowed values: 0 \, 1\.;
+#X text 245 648 Get/Set output amp response in db scale. Type: bool.
+Default value: 0\.;
 #X msg 110 690 @n;
 #X text 245 690 Get/Set number of points. Type: int. Default value:
 256\. Range: 4\...1024\.;

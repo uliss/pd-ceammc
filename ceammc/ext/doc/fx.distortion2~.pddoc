@@ -24,15 +24,14 @@
             default="130">speaker emulation low frequency</property>
             <property name="@sp_high_freq" type="float" units="hertz" default="5000"
             minvalue="1000" maxvalue="12000">speaker emulation high frequency</property>
-            <property name="@sp_on_off" type="int" default="0" enum="0 1">speaker emulation turn
+            <property name="@sp_on_off" type="bool" default="0">speaker emulation turn
             on/off</property>
             <!-- filtering-->
             <property name="@lp_freq" type="float" units="hertz" default="5000" minvalue="20"
             maxvalue="12000">low pass frequency</property>
             <property name="@hp_freq" type="float" units="hertz" default="130" minvalue="20"
             maxvalue="7040">high pass frequency</property>
-            <property name="@flt_on_off" type="int" default="0" enum="0 1">filter
-            processing</property>
+            <property name="@flt_on_off" type="bool" default="0">filter processing</property>
             <!-- gain -->
             <property name="@level" type="float" default="0.01" minvalue="0" maxvalue="0.5">effect
             level</property>
@@ -42,13 +41,12 @@
             <property name="@drive" type="float" minvalue="0" maxvalue="1" default="0.64">
             distortion amount</property>
             <!-- resonator -->
-            <property name="@res_on_off" type="int" default="0" enum="0 1">resonator</property>
+            <property name="@res_on_off" type="bool" default="0">resonator</property>
             <property name="@vibrato" type="float" default="1" minvalue="0" maxvalue="1">resonator
             vibration</property>
             <property name="@trigger" type="float" default="0.12" minvalue="0" maxvalue="1">
             resonator trigger</property>
-            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
-            processing</property>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
         <inlets>
             <inlet type="audio">

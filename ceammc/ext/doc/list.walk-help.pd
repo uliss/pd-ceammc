@@ -44,7 +44,7 @@ element and when move to next - use [1( message \, Otherwise - use
 - min/max value repeats perpetually.;
 #X msg 110 649 @direction;
 #X text 245 649 Get/Set walking direction. "1" - forwards \, "0" -
-backwards. Type: int. Default value: 1\. Allowed values: 0 \, 1\.;
+backwards. Type: bool. Default value: 1\.;
 #X msg 110 691 @fold;
 #X text 245 691 fold pass mode. List values are repeated in a loop
 with folding.;

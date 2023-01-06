@@ -31,8 +31,7 @@
             units="decibel">filter gain</property>
             <property name="@q" type="float" minvalue="0.1" maxvalue="100" default="3">quality
             factor: @freq/BANDWIDTH</property>
-            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
-            processing</property>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
         <inlets>
             <inlet type="audio">

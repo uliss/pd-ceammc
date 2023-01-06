@@ -26,13 +26,13 @@
         <properties>
             <property name="@freq" type="float" minvalue="0" default="0" maxvalue="100"
             units="hertz">frequency</property>
-            <property name="@on" type="int" default="0" enum="0 1">on/off state</property>
-            <property name="@invert" type="int" default="0" enum="0 1">saw inversion mode. If true,
-            outputs descreasing waveform</property>
+            <property name="@on" type="bool" default="0">on/off state</property>
+            <property name="@invert" type="bool" default="0">saw inversion mode. If true, outputs
+            descreasing waveform</property>
             <property name="@steps" type="int" default="128" minvalue="3">numbers of
             steps</property>
-            <property name="@open" type="int" default="0" enum="0 1">output in open [0..1) range,
-            otherwise output range is [0..1]</property>
+            <property name="@open" type="bool" default="0">output in open [0..1) range, otherwise
+            output range is [0..1]</property>
         </properties>
         <methods>
             <method name="start">start from current position</method>

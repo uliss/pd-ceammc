@@ -28,8 +28,7 @@
             units="hertz">center frequency</property>
             <property name="@gain" type="float" minvalue="-15" maxvalue="15" default="0"
             units="decibel">filter gain</property>
-            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
-            processing</property>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
         <arguments>
             <argument name="freq" type="float" units="hertz">cutoff frequency</argument>

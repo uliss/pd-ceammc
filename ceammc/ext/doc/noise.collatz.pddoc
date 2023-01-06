@@ -16,7 +16,7 @@
         <info>
             <par>Collatz conjecture output</par>
         </info>
-        <arguments></arguments>
+        <arguments />
         <methods>
             <method name="offset">
                 <param type="float" name="OFFSET" required="true">offset value</param>

@@ -26,8 +26,7 @@
             default="1000">center frequency</property>
             <property name="@q" type="float" minvalue="0.1" maxvalue="300" default="80">
             Q</property>
-            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
-            processing</property>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
         <inlets>
             <inlet type="audio">

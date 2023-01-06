@@ -41,7 +41,7 @@
             <param name="N" type="atom">positive step or 'random'</param></method>
         </methods>
         <properties>
-            <property name="@active" type="int" enum="0 1" default="1">pedal state</property>
+            <property name="@active" type="bool" default="1">pedal state</property>
             <property name="@mode" type="symbol" enum="chords classic" default="classic">pedal mode
             (should corresponde to hardware switch on pedal)</property>
             <property name="@chan" type="int" default="0" minvalue="0" maxvalue="15">output Midi

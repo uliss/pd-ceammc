@@ -29,8 +29,7 @@
             default="10000">starting frequency for the shelf</property>
             <property name="@gain" type="float" units="decibel" minvalue="-15" maxvalue="15"
             default="0">amount of boost or cut apply to the signal</property>
-            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
-            processing</property>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
         <inlets>
             <inlet type="audio">

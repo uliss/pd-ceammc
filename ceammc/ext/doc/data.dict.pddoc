@@ -30,8 +30,8 @@
         </mouse>
         <properties>
             <property name="@keys" access="readonly" type="list">keys of dictionary</property>
-            <property name="@empty" access="readonly" enum="0 1" type="int" default="1">1 if dict
-            is empty, otherwise 0</property>
+            <property name="@empty" access="readonly" type="bool" default="1">1 if dict is empty,
+            otherwise 0</property>
             <property name="@size" access="readonly" minvalue="0" type="int" default="0">number of
             entries in dictionary</property>
         </properties>

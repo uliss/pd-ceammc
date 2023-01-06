@@ -17,19 +17,19 @@ rightmost \, this can be changed with @rev property;
 #X obj 20 270 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 305 @rev;
-#X text 245 305 Get/Set reversed bit order. Type: int. Default value:
-0\. Allowed values: 0 \, 1\.;
-#X obj 20 357 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 362 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X text 245 305 Get/Set reversed bit order. Type: bool. Default value:
+0\.;
+#X obj 20 344 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 349 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 363 1\.;
-#X text 150 363 *list*;
-#X text 245 363 input bit list.;
-#X obj 20 393 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 398 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 350 1\.;
+#X text 150 350 *list*;
+#X text 245 350 input bit list.;
+#X obj 20 380 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 385 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 399 1\.;
-#X text 245 399 list of bits.;
+#X text 110 386 1\.;
+#X text 245 386 list of bits.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

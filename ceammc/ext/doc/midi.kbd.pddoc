@@ -33,7 +33,7 @@
             current layout</property>
             <property name="@custom" type="atom" default="[]">custom layout (Dict data
             type)</property>
-            <property name="@on" type="int" enum="0 1" default="1">on/off state</property>
+            <property name="@on" type="bool" default="1">on/off state</property>
         </properties>
         <inlets>
             <inlet>

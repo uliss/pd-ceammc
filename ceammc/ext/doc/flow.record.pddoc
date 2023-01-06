@@ -24,10 +24,10 @@
             reached.</property>
             <property name="@speed" type="float" minvalue="0.016" default="1" maxvalue="64">play
             speed</property>
-            <property name="@auto" type="int" enum="0 1" default="0">autostart record on first
-            input atom</property>
-            <property name="@sync" type="int" enum="0 1" default="0">use external bang pulse to
-            sync recorded events with.</property>
+            <property name="@auto" type="bool" default="0">autostart record on first input
+            atom</property>
+            <property name="@sync" type="bool" default="0">use external bang pulse to sync recorded
+            events with.</property>
         </properties>
         <inlets>
             <inlet>

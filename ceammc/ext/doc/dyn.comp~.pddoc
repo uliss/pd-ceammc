@@ -40,8 +40,7 @@
             <property name="@gain" type="float" units="decibel" default="0" minvalue="-12"
             maxvalue="12">make up gain: applied to the signal after the compression takes
             place</property>
-            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
-            processing</property>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
         <inlets>
             <inlet type="audio">

@@ -34,8 +34,8 @@ interval;
 #X text 245 548 Get/Set x-axis scale base. Type: atom. Default value:
 0\. Allowed values: 0 \, pi.;
 #X msg 110 590 @endpoint;
-#X text 245 590 Get/Set include @stop to interval. Type: int. Default
-value: 1\. Allowed values: 0 \, 1\.;
+#X text 245 590 Get/Set include @stop to interval. Type: bool. Default
+value: 1\.;
 #X msg 110 632 @n;
 #X text 245 632 Get/Set number of points. Type: int. Default value:
 256\. Range: 4\...1024\.;

@@ -34,7 +34,7 @@
             </method>
         </methods>
         <properties>
-            <property name="@empty" type="int" enum="0 1" access="readonly" default="1">if queue is
+            <property name="@empty" type="bool" access="readonly" default="1">if queue is
             empty</property>
             <property name="@filled" type="int" minvalue="0" access="readonly" default="0">current
             number of elements in queue</property>

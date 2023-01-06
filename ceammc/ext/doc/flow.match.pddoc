@@ -28,8 +28,7 @@
         <properties>
             <property name="@patterns" type="list" access="initonly">list of regular
             expressions</property>
-            <property name="@cut" type="int" default="0" enum="0 1">cut or pass message
-            selector</property>
+            <property name="@cut" type="bool" default="0">cut or pass message selector</property>
         </properties>
         <inlets dynamic="true">
             <inlet number="1">

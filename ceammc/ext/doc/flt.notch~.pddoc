@@ -25,8 +25,7 @@
             units="hertz">center frequency</property>
             <property name="@width" type="float" default="50" units="hertz" minvalue="1"
             maxvalue="10000">band width (approximate)</property>
-            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
-            processing</property>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
         <arguments>
             <argument name="freq" type="float" units="hertz">center frequency</argument>

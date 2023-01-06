@@ -42,8 +42,8 @@
             properties. Note: product id is specified in decimal mode, not in hex</property>
             <property name="@reconnect" type="flag" default="0" access="initonly">enables
             hot-pluggin</property>
-            <property name="@connected" type="int" enum="0 1" access="readonly" default="0">state
-            of connection to device</property>
+            <property name="@connected" type="bool" access="readonly" default="0">state of
+            connection to device</property>
             <property name="@devices" type="list" default="" access="readonly">list of found
             Arduino devices</property>
             <property name="@on_connect" type="symbol" default="">function called every time on

@@ -33,8 +33,7 @@
             points</property>
             <property name="@base" enum="0 pi" type="atom" default="0">x-axis scale base</property>
             <property name="@pi" type="atom">alias to @base pi</property>
-            <property name="@endpoint" type="int" enum="0 1" default="1">include @stop to
-            interval</property>
+            <property name="@endpoint" type="bool" default="1">include @stop to interval</property>
         </properties>
         <inlets>
             <inlet>

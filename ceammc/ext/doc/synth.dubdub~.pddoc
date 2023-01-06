@@ -31,8 +31,7 @@
             &gt;0: on, 0: off. Values greater then zero set output amplitude.</property>
             <property name="@q" type="float" minvalue="0.01" maxvalue="100" default="0.1">quality
             factor</property>
-            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
-            processing</property>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
         <inlets>
             <inlet>

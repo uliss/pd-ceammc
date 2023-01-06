@@ -18,8 +18,7 @@
             </also>
         </meta>
         <properties>
-            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
-            processing</property>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
         <info>
             <par>Mono DC blocker. It has -3dB point near 35 Hz (at 44.1 kHz) and high-frequency

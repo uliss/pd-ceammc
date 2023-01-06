@@ -32,8 +32,8 @@
             <argument name="LENGTH" type="int" units="second">timeline length</argument>
         </arguments>
         <properties>
-            <property name="@is_running" type="int" enum="0 1" access="readonly" default="0">if
-            timeline is running</property>
+            <property name="@is_running" type="bool" access="readonly" default="0">if timeline is
+            running</property>
             <property name="@length" access="readonly" type="float" default="60" units="second">
             timeline length</property>
             <property name="@size" access="readonly" type="int" default="1" minvalue="0">number of
@@ -44,7 +44,7 @@
             default="0">current phase in [0-1) range</property>
             <property name="@events" access="readonly" type="list" default="end">list of event
             names in chronological order</property>
-            <property name="@loop" type="int" enum="0 1" default="0">loop mode</property>
+            <property name="@loop" type="bool" default="0">loop mode</property>
             <property name="@mode" type="symbol" enum="fixed inf" default="fixed">timeline mode. If
             timeline is fixed, when reached, it outputs *end* event and stops after that. Infinite
             timeline never stops by itself. Fixed timeline can have @loop property for

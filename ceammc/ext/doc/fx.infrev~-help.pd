@@ -43,7 +43,7 @@ and 'effected' (wet) signals. Type: float. Range: 0\...1;
 -49933 0;
 #X msg 110 548 @bypass;
 #X text 245 548 Get/Set if set to 1 - bypass 'effected' signal. Type:
-int. Default value: 0\. Allowed values: 0 \, 1\.;
+bool. Default value: 0\.;
 #X msg 110 590 @damp;
 #X text 245 590 Get/Set damping of the lowpass comb filter. Type: float.
 Default value: 0\. Range: 0\...1\.;

@@ -29,7 +29,7 @@
             minimal y-axis value</property>
             <property name="@ymax" minvalue="-2048" maxvalue="2048" type="float" default="1">
             maximum y-axis value</property>
-            <property name="@yauto" type="int" enum="0 1" default="1">calculate y-axis range
+            <property name="@yauto" type="bool" default="1">calculate y-axis range
             automatically</property>
             <property name="@nan" type="float" default="+inf">value to replace nan on
             plot</property>

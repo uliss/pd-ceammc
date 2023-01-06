@@ -23,8 +23,7 @@
         <properties>
             <property name="@res" type="float" minvalue="0" maxvalue="1" default="0.4">normalized
             amount of corner-resonance</property>
-            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
-            processing</property>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
         <inlets>
             <inlet type="audio">

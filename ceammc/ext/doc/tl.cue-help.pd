@@ -37,7 +37,7 @@ values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
 4\...11\.;
 #X msg 110 464 @pinned;
 #X text 245 464 Get/Set pin mode. if 1 - put element to the lowest
-level. Type: int. Default value: 0\. Allowed values: 0 \, 1\.;
+level. Type: bool. Default value: 0\.;
 #X obj 20 516 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 521 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;

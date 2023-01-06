@@ -57,8 +57,8 @@ non-linear envelopes are outputted using linear approximation;
 -49933 0;
 #X msg 110 723 @sync;
 #X text 245 723 Get/Set sync with input data. When set to 1 outputs
-envelope (as fixed) on every input data. Type: int. Default value:
-0\. Allowed values: 0 \, 1\.;
+envelope (as fixed) on every input data. Type: bool. Default value:
+0\.;
 #X obj 20 790 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 795 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;

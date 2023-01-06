@@ -39,13 +39,13 @@ Type: list.;
 -49933 0;
 #X msg 110 675 @async;
 #X text 245 675 Get/Set perform async search in separate thread. Type:
-int. Default value: 1\. Allowed values: 0 \, 1\.;
+bool. Default value: 1\.;
 #X msg 110 717 @depth;
 #X text 245 717 Get/Set search recursion depth (-1: infinite). Type:
 int. Default value: 0\. Min value: -1\.;
 #X msg 110 759 @home;
-#X text 245 759 Get/Set search in home directory. Type: int. Default
-value: 1\. Allowed values: 0 \, 1\.;
+#X text 245 759 Get/Set search in home directory. Type: bool. Default
+value: 1\.;
 #X msg 110 801 @nohome;
 #X text 245 801 alias to @home 0 \, do not search in home directory.;
 #X msg 110 830 @nostd;
@@ -54,7 +54,7 @@ value: 1\. Allowed values: 0 \, 1\.;
 #X text 245 859 Get/Set user defined search paths. Type: list.;
 #X msg 110 888 @std;
 #X text 245 888 Get/Set search in PureData standard directory. Type:
-int. Default value: 1\. Allowed values: 0 \, 1\.;
+bool. Default value: 1\.;
 #X msg 110 930 @sync;
 #X text 245 930 alias to @async 0\.;
 #X obj 20 969 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

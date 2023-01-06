@@ -14,8 +14,8 @@
             <since>0.7</since>
         </meta>
         <properties>
-            <property name="@is_running" type="int" enum="0 1" access="readonly" default="0">is
-            process is running</property>
+            <property name="@is_running" type="bool" access="readonly" default="0">is process is
+            running</property>
             <property name="@low" type="alias">alias to @priority low</property>
             <property name="@priority" type="symbol" enum="normal low" default="normal">subprocess
             priority (not all platforms are supported)</property>

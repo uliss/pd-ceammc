@@ -42,8 +42,8 @@
             <!-- common-->
             <property name="@size" type="list" default="120 120">element size (width, height
             pair)</property>
-            <property name="@pinned" type="int" enum="0 1" default="0">pin mode. if 1 - put element
-            to the lowest level</property>
+            <property name="@pinned" type="bool" default="0">pin mode. if 1 - put element to the
+            lowest level</property>
             <property name="@background_color" type="list" default="0.93 0.93 0.93 1">element
             background color (list of red, green, blue values in 0-1 range)</property>
             <property name="@border_color" type="list" default="0.6 0.6 0.6 1">border color (list
@@ -55,8 +55,8 @@
             <property name="@label" type="symbol" default="(null)">label text</property>
             <property name="@label_color" type="list" default="0 0 0 1">label color in RGB format
             within 0-1 range, for example: 0.2 0.4 0.1</property>
-            <property name="@label_inner" type="int" enum="0 1" default="0">label position (1 -
-            inner, 0 - outer).</property>
+            <property name="@label_inner" type="bool" default="0">label position (1 - inner, 0 -
+            outer).</property>
             <property name="@label_align" type="symbol" enum="left center right" default="left">
             label horizontal align</property>
             <property name="@label_valign" type="symbol" enum="top center bottom" default="top">

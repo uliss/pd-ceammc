@@ -19,12 +19,11 @@
             maximum speed of whistles if @auto enabled</property>
             <property name="@probability" type="float" minvalue="25" maxvalue="100" default="50">
             whistles probability if @auto enabled</property>
-            <property name="@gate" type="int" enum="0 1" default="0">play trigger. Starts playing
-            on release</property>
+            <property name="@gate" type="bool" default="0">play trigger. Starts playing on
+            release</property>
             <property name="@auto" type="int" minvalue="0" maxvalue="1" default="0">auto playing
             mode</property>
-            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
-            processing</property>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
         <inlets>
             <inlet>

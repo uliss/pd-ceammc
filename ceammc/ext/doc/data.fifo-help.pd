@@ -36,8 +36,8 @@ first value in queue.;
 #X obj 20 428 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 463 @empty;
-#X text 245 463 (readonly) Get if queue is empty. Type: int. Default
-value: 1\. Allowed values: 0 \, 1\.;
+#X text 245 463 (readonly) Get if queue is empty. Type: bool. Default
+value: 1\.;
 #X msg 110 505 @filled;
 #X text 245 505 (readonly) Get current number of elements in queue.
 Type: int. Default value: 0\. Min value: 0\.;

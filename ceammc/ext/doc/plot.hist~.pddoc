@@ -33,8 +33,8 @@
             histogram bins</property>
             <property name="@min" type="float" default="-1">minimal input value</property>
             <property name="@max" type="float" default="1">maximum input value</property>
-            <property name="@clip" enum="0 1" type="int" default="1">clip input values into input
-            range, otherwise just ignore them</property>
+            <property name="@clip" type="bool" default="1">clip input values into input range,
+            otherwise just ignore them</property>
         </properties>
         <inlets>
             <inlet type="audio">

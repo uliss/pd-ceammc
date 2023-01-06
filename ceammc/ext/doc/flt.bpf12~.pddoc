@@ -30,8 +30,7 @@
             units="hertz">center frequency</property>
             <property name="@q" type="float" minvalue="0.01" maxvalue="100" default="2">quality
             factor: @freq/BANDWIDTH</property>
-            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
-            processing</property>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
         <arguments>
             <argument name="freq" type="float" units="hertz" minvalue="20" maxvalue="20000">center

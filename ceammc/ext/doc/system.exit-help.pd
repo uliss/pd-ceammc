@@ -13,7 +13,7 @@
 -49933 0;
 #X msg 110 251 @auto;
 #X text 245 251 Get/Set close automatically \, without incoming call.
-Type: int. Default value: 0\. Allowed values: 0 \, 1\.;
+Type: bool. Default value: 0\.;
 #X msg 110 293 @delay;
 #X text 245 293 Get/Set exit PureData after specified delay time. Type:
 float. Units: ms. Default value: 0\. Min value: 0\.;

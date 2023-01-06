@@ -32,8 +32,8 @@
             absolute start position in samples</property>
             <property name="@abs_end" type="int" units="sample" access="readonly" default="0">
             absolute stop position in samples</property>
-            <property name="@reversed" type="int" enum="0 1" default="0">playing backwards (if set
-            to 1)</property>
+            <property name="@reversed" type="bool" default="0">playing backwards (if set to
+            1)</property>
         </properties>
         <methods>
             <method name="play">start playing</method>

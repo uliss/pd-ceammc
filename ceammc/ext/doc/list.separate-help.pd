@@ -18,8 +18,8 @@
 -49933 0;
 #X msg 110 323 @enumerate;
 #X text 245 323 Get/Set enumeration mode. If enumeration is active
-output pairs: INDEX ATOM \, otherwise single atoms. Type: int. Default
-value: 0\. Allowed values: 0 \, 1\.;
+output pairs: INDEX ATOM \, otherwise single atoms. Type: bool. Default
+value: 0\.;
 #X msg 110 380 @from;
 #X text 245 380 Get/Set enumeration starting index. Type: int. Default
 value: 0\.;
