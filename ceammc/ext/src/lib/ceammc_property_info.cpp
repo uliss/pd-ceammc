@@ -15,7 +15,7 @@
 #include "ceammc_json.h"
 #include "ceammc_log.h"
 #include "datatype_dict.h"
-#include "json/json.hpp"
+#include "datatype_json.h"
 
 #include <algorithm>
 #include <numeric>
@@ -1153,9 +1153,9 @@ bool PropertyInfo::getJSON(std::string& str) const
         else if (isVariant())
             obj["default"] = json::to_json_string(defaultAtom());
         else if (isList()) {
-            json::JsonWriteOpts opts;
-            opts.compressSingleList = false;
-            obj["default"] = json::to_json_string(defaultList(), opts);
+            nlohmann::json j;
+            to_json(j, defaultList());
+            obj["default"] = j;
         } else {
         }
     }
