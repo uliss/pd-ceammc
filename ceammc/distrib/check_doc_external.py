@@ -198,6 +198,7 @@ def check_single_arg(ext_name, arg_name, doc, ext):
     # check type
     doc_type = doc.get("type", "")
     ext_type = ext.get("type", "")
+
     if doc_type != ext_type:
         cprint(f"[{ext_name}][arg][{arg_name}] invalid argument type in doc: {doc_type}, should be: {ext_type}", 'magenta')
 
@@ -320,6 +321,8 @@ def check_single_prop(name, prop, doc, ext):
     # int
     elif type_doc == "int":
         doc_def = int(doc_def)
+    elif type_doc == "bool":
+        doc_def = int(doc_def)
     # null
     elif doc_def == "null":
         doc_def = None
@@ -355,17 +358,14 @@ def check_single_prop(name, prop, doc, ext):
 
     if type_doc != type_ext:
         if type_ext == "bool" and type_doc == "int":
-            if doc.get("enum", "") not in ("0 1", "1 0"):
-                cprint(f"[{ext_name}][{prop}] missing enum in doc for bool property", 'red')
-            else:
-                pass
+            cprint(f"[{ext_name}][{prop}] fix bool type property", 'magenta')
         elif type_ext == "bool" and ro_ext == "initonly":
             if type_doc != "flag":
-                cprint(f"[{ext_name}][{prop}] should be in doc as flag property", 'red')
+                cprint(f"[{ext_name}][{prop}] should be in doc as flag property", 'magenta')
         elif type_doc == "alias":
             pass
         else:
-            cprint(f"[{ext_name}][{prop}] type in doc ({type_doc}) != type in ext ({type_ext})", 'red')
+            cprint(f"[{ext_name}][{prop}] type in doc ({type_doc}) != type in ext ({type_ext})", 'magenta')
 
 
 def check_props(name, doc, ext):

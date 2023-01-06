@@ -31,8 +31,8 @@
 #X msg 110 393 @array;
 #X text 245 393 Get/Set array name. Type: symbol.;
 #X msg 110 422 @redraw;
-#X text 245 422 Get/Set array redraw after change. Type: int. Default
-value: 1\. Allowed values: 0 \, 1\.;
+#X text 245 422 Get/Set array redraw after change. Type: bool. Default
+value: 1\.;
 #X obj 20 474 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 479 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;

@@ -30,7 +30,7 @@
             buffer_size/2)</argument>
         </arguments>
         <properties>
-            <property name="@array" type="symbol">name of analyzed array</property>
+            <property name="@array" type="symbol" default="">name of analyzed array</property>
             <property name="@bs" type="int" minvalue="64" default="1024" units="sample"
             access="initonly">buffer size</property>
             <property name="@hs" type="int" minvalue="0" default="0" units="sample">hop size. 0
@@ -66,7 +66,7 @@
             compression factor, 0 to disable</property>
             <property name="@awhitening" type="int" default="0" enum="0 1">adaptive
             whitening</property>
-            <property name="@delay" type="float" minvalue="0" default="49.909" units="millisecond">
+            <property name="@delay" type="float" minvalue="0" default="49.9093" units="millisecond">
             constant system delay to take back from detection time</property>
         </properties>
         <inlets>
