@@ -24,9 +24,9 @@
             = 0, all channels are in the centre, for 1, they have maximum distribution</property>
             <property name="@center" type="float" minvalue="-0.5" maxvalue="0.5" default="0">shift
             the centre of the distribution</property>
-            <property name="@compensate" type="int" enum="0 1" default="0">compensate output level:
+            <property name="@compensate" type="bool" default="0">compensate output level:
             divide amplitude to number of input channels</property>
-            <property name="@coeffs" type="list" access="readonly">list of gain pairs</property>
+            <property name="@coeffs" type="list" access="readonly" default="">list of gain pairs</property>
         </properties>
         <inlets dynamic="true">
             <inlet type="audio" number="1">
