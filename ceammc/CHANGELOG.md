@@ -11,6 +11,8 @@
 - new aliases:
   - round alias added to math.round
   - round~ alias added to math.round~
+- new inlets:
+  - fx.room~: second inlet added to set room size
 - misc:
   - new control outlet added to fluid~ - output current number of active voices (only when changed)
 

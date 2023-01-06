@@ -18,8 +18,8 @@
             (in seconds) to decay 60dB in low-frequency band</argument>
             <argument name="DECAY_MID" type="float" minvalue="1" maxvalue="60" units="second">time
             (in seconds) to decay 60dB in mid-frequency band</argument>
-            <argument name="DRYWET" type="float" minvalue="0" maxvalue="1">ratio
-            between source signal (dry) and processed signal (wet)</argument>
+            <argument name="DRYWET" type="float" minvalue="0" maxvalue="1">ratio between source
+            signal (dry) and processed signal (wet)</argument>
         </arguments>
         <methods>
             <method name="reset">same as reset</method>

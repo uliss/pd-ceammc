@@ -230,7 +230,7 @@ fx.pitchshift_s~		~~		~
 fx.pitchshift~		~.		~
 fx.rb_pitchshift~		~.		~
 fx.recho~		~		~
-fx.room~		~		~
+fx.room~		~.		~
 fx.sdelay~		~		~
 fx.secho~		~		~
 fx.shimmer~		~~		~~
