@@ -22,14 +22,14 @@
             units="hertz">flanger frequency</property>
             <property name="@feedback" type="float" minvalue="0" maxvalue="1" default="0">feedback
             gain</property>
-            <property name="@invert" type="int" enum="0 1" default="0">0 for normal, 1 to invert
+            <property name="@invert" type="bool" default="0">0 for normal, 1 to invert
             sign of flanging sum</property>
             <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">proportion
             of mix between the original (dry) and 'effected' (wet) signals. 0 - dry signal, 1 -
             wet.</property>
-            <property name="@bypass" type="int" enum="0 1" default="0">if set to 1 - bypass
+            <property name="@bypass" type="bool" default="0">if set to 1 - bypass
             'effected' signal.</property>
-            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
+            <property name="@active" type="bool" default="1">on/off dsp
             processing</property>
         </properties>
         <inlets>

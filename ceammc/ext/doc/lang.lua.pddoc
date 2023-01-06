@@ -21,8 +21,8 @@
             <par>Each lang.lua object has own independent context.</par>
         </info>
         <arguments>
-            <argument name="NIN" type="int">number of inputs</argument>
-            <argument name="NOUT" type="int">number of outputs</argument>
+            <argument name="IN" type="int" minvalue="1" maxvalue="16">number of inputs</argument>
+            <argument name="OUT" type="int" minvalue="1" maxvalue="16">number of outputs</argument>
         </arguments>
         <methods>
             <method name="load">load lua file and eval it 

@@ -29,9 +29,9 @@
             <method name="update">update faust object, recompile if needed</method>
         </methods>
         <properties>
-            <property name="@fname" type="symbol">path to faust dsp file</property>
-            <property name="@include" type="list">list of faust include directories</property>
-            <property name="@auto" type="int" enum="0 1" default="1">auto update mode. If on -
+            <property name="@fname" type="symbol" default="">path to faust dsp file</property>
+            <property name="@include" type="list" default="">list of faust include directories</property>
+            <property name="@auto" type="bool" default="0">auto update mode. If on -
             recompiles faust dsp file on change</property>
         </properties>
         <inlets dynamic="true">

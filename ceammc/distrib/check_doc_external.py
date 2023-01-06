@@ -95,7 +95,7 @@ def read_ext_info(name):
 
         return True
     except(subprocess.CalledProcessError):
-        cprint(f"[{name}] can't get methods", "red")
+        cprint(f"[{name}] can't get external info", "red")
         return False
 
 
@@ -301,56 +301,61 @@ def check_single_prop(name, prop, doc, ext):
     type_doc = doc.get("type", None)
     type_ext = ext.get("type", None)
 
-    # check default
-    doc_def = doc.get("default", None)
-    # none
-    if doc_def is None:
+    if type_ext == "bool" and ro_ext == "initonly": # flag type
         pass
-    # float
-    elif type_doc == "float":
-        if doc_def == "2π":
-            doc_def = round(3.1415926 * 2, 4)
-        elif doc_def == "π":
-            doc_def = round(3.1415926, 4)
-        elif doc_def == "+inf":
-            doc_def = 2147483647
-        elif doc_def == "-inf":
-            doc_def = -2147483648
-        else:
-            doc_def = round(float(doc_def), 4)
-    # int
-    elif type_doc == "int":
-        doc_def = int(doc_def)
-    elif type_doc == "bool":
-        doc_def = int(doc_def)
-    # null
-    elif doc_def == "null":
-        doc_def = None
-
-    ext_def = ext.get("default", None)
-    if ext_def is None:
-        pass
-    elif type_ext == "float":
-        ext_def = round(ext_def, 4)
-    elif type_ext == "int":
-        ext_def = round(ext_def, 4)
-    elif type_ext == "list":
-        def conv(x):
-            if isinstance(x, (int, float)):
-                return str(round(x, 4))
-            elif x is None:
-                return ""
+    else:
+        # check default
+        doc_def = doc.get("default", None)
+        # none
+        if doc_def is None:
+            pass
+        # float
+        elif type_doc == "float":
+            if doc_def == "2π":
+                doc_def = round(3.1415926 * 2, 4)
+            elif doc_def == "π":
+                doc_def = round(3.1415926, 4)
+            elif doc_def == "+inf":
+                doc_def = 2147483647
+            elif doc_def == "-inf":
+                doc_def = -2147483648
             else:
-                return x
+                doc_def = round(float(doc_def), 4)
+        # int
+        elif type_doc == "int":
+            doc_def = int(doc_def)
+        elif type_doc == "bool":
+            doc_def = int(doc_def)
+        # null
+        elif doc_def == "null":
+            doc_def = None
 
-        ext_def = " ".join(map(lambda x: conv(x), ext_def))
+        ext_def = ext.get("default", None)
+        if ext_def is None:
+            pass
+        elif type_ext == "float":
+            ext_def = round(ext_def, 4)
+        elif type_ext == "int":
+            ext_def = round(ext_def, 4)
+        elif type_ext == "list":
+            def conv(x):
+                if isinstance(x, (int, float)):
+                    return str(round(x, 4))
+                elif x is None:
+                    return ""
+                else:
+                    return x
 
-    if type_ext == "atom":
-        doc_def = str(doc_def)
-        ext_def = str(ext_def)
+            ext_def = " ".join(map(lambda x: conv(x), ext_def))
 
-    if doc_def != ext_def:
-        cprint(f"[{ext_name}][{prop}] invalid property default in doc: {doc_def}, should be: {ext_def}", 'magenta')
+        if type_ext == "atom":
+            doc_def = str(doc_def)
+            ext_def = str(ext_def)
+
+        if doc_def != ext_def:
+            cprint(f"[{ext_name}][{prop}] invalid property default in doc: {doc_def}, should be: {ext_def}", 'magenta')
+
+        # end default check
 
     # check types
     type_doc = doc.get("type", None)
@@ -450,7 +455,8 @@ if __name__ == '__main__':
     doc_inlets = None
     doc_outlets = None
 
-    read_ext_info(ext_name)
+    if not read_ext_info(ext_name):
+        sys.exit(1)
 
     # parse PDDOC info
     for appt in root:
