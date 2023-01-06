@@ -24,14 +24,16 @@
             <argument name="RATE" type="int">serial baud rate</argument>
         </arguments>
         <properties>
-            <property name="@port" type="symbol" access="initonly" default="">name of arduino serial port,
-            eg.: COM3 on Windows, /dev/ttyACM0 on Linux and /dev/cu.usbmodem411 on MacOSX. If
-            specified on creation tries to connect to this device only</property>
-            <property name="@serial" type="symbol" default="">USB device serial number. If specified at
-            creation, tries to connect to devices only with such serial number</property>
-            <property name="@rate" type="int" default="57600" enum="57600 110 300 600 1200 2400 4800 9600 14400 19200 38400 56000 115200 128000 256000">serial baud rate.
-            Standard value supported by most serial ports: 110, 300, 600, 1200, 2400, 4800, 9600,
-            14400, 19200, 28800, 38400, 56000, 57600, 115200</property>
+            <property name="@port" type="symbol" access="initonly" default="">name of arduino
+            serial port, eg.: COM3 on Windows, /dev/ttyACM0 on Linux and /dev/cu.usbmodem411 on
+            MacOSX. If specified on creation tries to connect to this device only</property>
+            <property name="@serial" type="symbol" default="">USB device serial number. If
+            specified at creation, tries to connect to devices only with such serial
+            number</property>
+            <property name="@rate" type="int" default="57600"
+            enum="57600 110 300 600 1200 2400 4800 9600 14400 19200 38400 56000 115200 128000 256000">
+            serial baud rate. Standard value supported by most serial ports: 110, 300, 600, 1200,
+            2400, 4800, 9600, 14400, 19200, 28800, 38400, 56000, 57600, 115200</property>
             <property name="@vendor_id" type="int" default="0">USB device vendor id. If specified
             at creation, tries to connect to devices only with such vendor. Note: vendor id is
             specified in decimal mode, not in hex</property>
@@ -42,8 +44,8 @@
             hot-pluggin</property>
             <property name="@connected" type="int" enum="0 1" access="readonly" default="0">state
             of connection to device</property>
-            <property name="@devices" type="list" default="" access="readonly">list of found Arduino
-            devices</property>
+            <property name="@devices" type="list" default="" access="readonly">list of found
+            Arduino devices</property>
             <property name="@on_connect" type="symbol" default="">function called every time on
             connect</property>
         </properties>
