@@ -24,7 +24,7 @@
             </aliases>
         </meta>
         <arguments>
-            <argument name="A" type="float" minvalue="200" maxvalue="600">A pitch
+            <argument name="A" type="float" minvalue="200" maxvalue="600" units="hertz">A pitch
             frequency</argument>
         </arguments>
         <properties>

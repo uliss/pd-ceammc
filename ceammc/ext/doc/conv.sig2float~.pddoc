@@ -29,7 +29,7 @@
             <event editmode="false" type="right-click">sample immidiately</event>
         </mouse>
         <arguments>
-            <argument name="INTERVAL" type="float">sampling interval</argument>
+            <argument name="INTERVAL" type="float" minvalue="-1" units="millisecond">sampling interval</argument>
         </arguments>
         <properties>
             <property name="@interval" type="float" minvalue="-1" default="50" units="millisecond">
