@@ -41,10 +41,10 @@
             <property name="@minmax" type="symbol">alias to @clip minmax</property>
         </properties>
         <arguments>
-            <argument name="FROM" type="float">begin of input range</argument>
-            <argument name="TO" type="float">end of input range</argument>
-            <argument name="FROM" type="float">begin of output range</argument>
-            <argument name="TO" type="float">end of output range</argument>
+            <argument name="IN_FROM" type="float">begin of input range</argument>
+            <argument name="IN_TO" type="float">end of input range</argument>
+            <argument name="OUT_FROM" type="float">begin of output range</argument>
+            <argument name="OUT_TO" type="float">end of output range</argument>
             <argument name="CURVE" type="float">curve shape</argument>
         </arguments>
         <inlets>

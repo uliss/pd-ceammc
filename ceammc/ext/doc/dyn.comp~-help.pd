@@ -34,12 +34,12 @@ kicks in (100 dB = max level). Type: float. Range: 0\...100;
 #X text 150 464 float;
 #X obj 246 465 cnv 1 85 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 464 ATTACK(ms): attack time = time constant when level
-& compression going up. Type: float.;
+& compression going up. Type: float. Range: 1\...100;
 #X text 110 499 4\.;
 #X text 150 499 float;
 #X obj 246 500 cnv 1 92 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 499 RELEASE(ms): release time = time constant coming out
-of compression. Type: float.;
+of compression. Type: float. Range: 1\...500;
 #X obj 20 544 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 549 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;

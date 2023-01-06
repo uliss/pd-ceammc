@@ -25,7 +25,7 @@
 #X msg 110 421 @default;
 #X text 245 421 Get/Set default value when key is not found in dictionary.
 If not specified no output is performed. Type: atom. Default value:
-None.;
+null.;
 #X msg 110 478 @keys;
 #X text 245 478 (initonly) Get/Set extracted keys. Type: list.;
 #X obj 20 517 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

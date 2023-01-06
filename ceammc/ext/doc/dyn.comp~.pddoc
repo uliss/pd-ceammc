@@ -22,9 +22,11 @@
             no compression, &gt;1 means compression)</argument>
             <argument name="THRESHOLD" type="float" minvalue="0" maxvalue="100" units="decibel">
             level threshold above which compression kicks in (100 dB = max level)</argument>
-            <argument name="ATTACK" type="float" units="millisecond">attack time = time constant
+            <argument name="ATTACK" type="float" units="millisecond" minvalue="1"
+            maxvalue="100">attack time = time constant
             when level &amp; compression going up</argument>
-            <argument name="RELEASE" type="float" units="millisecond">release time = time constant
+            <argument name="RELEASE" type="float" units="millisecond" minvalue="1"
+            maxvalue="500">release time = time constant
             coming out of compression</argument>
         </arguments>
         <properties>
