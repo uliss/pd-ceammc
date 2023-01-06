@@ -342,6 +342,10 @@ def check_single_prop(name, prop, doc, ext):
 
         ext_def = " ".join(map(lambda x: conv(x), ext_def))
 
+    if type_ext == "atom":
+        doc_def = str(doc_def)
+        ext_def = str(ext_def)
+
     if doc_def != ext_def:
         cprint(f"[{ext_name}][{prop}] invalid property default in doc: {doc_def}, should be: {ext_def}", 'magenta')
 
