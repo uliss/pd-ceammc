@@ -72,8 +72,9 @@
         fx.distortion~ fx.drive~ fx.drone_box~ fx.echo2~ fx.echo~ fx.flanger~
         fx.freeverb2~ fx.freeverb~ fx.freqshift~ fx.granulator~ fx.greyhole~
         fx.infrev~ fx.looper~ fx.pitchshift_s~ fx.pitchshift~
-        fx.rb_pitchshift~ fx.recho~ fx.room~ fx.sdelay~ fx.secho~ fx.shimmer~
-        fx.stutter~ fx.tapiir~ fx.vocoder~ fx.wahwah~ fx.zita_rev1~
+        fx.rb_pitchshift~ fx.recho~ fx.room~ fx.satrev~ fx.sdelay~ fx.secho~
+        fx.shimmer~ fx.stutter~ fx.tapiir~ fx.vocoder~ fx.wahwah~
+        fx.zita_rev1~
     }}
     {global {
         global.dict global.float global.int global.list global.mlist
