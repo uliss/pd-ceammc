@@ -15,10 +15,10 @@
             <since>0.9.4</since>
         </meta>
         <arguments>
-            <argument name="size" type="float" minvalue="0" maxvalue="2000" units="millisecond">
-            echo time</argument>
-            <argument name="diffusion" type="float" minvalue="0" maxvalue="0.99">feedback
-            coefficient</argument>
+            <argument name="DECAY_LOW" type="float" minvalue="1" maxvalue="8" units="second">time
+            to decay 60dB in low-frequency band</argument>
+            <argument name="DECAY_MID" type="float" minvalue="1" maxvalue="8" units="second">time
+            to decay 60dB in mid-frequency band</argument>
         </arguments>
         <methods>
             <method name="reset">reset to initial state</method>

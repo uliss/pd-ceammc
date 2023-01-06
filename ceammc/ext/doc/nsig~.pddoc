@@ -20,7 +20,8 @@
             </aliases>
         </meta>
         <arguments>
-            <argument name="N" type="int" minvalue="1" maxvalue="12">number of inputs/outputs</argument>
+            <argument name="N" type="int" minvalue="1" maxvalue="12">number of
+            inputs/outputs</argument>
             <argument name="VALUES" type="list">init values</argument>
         </arguments>
         <properties>

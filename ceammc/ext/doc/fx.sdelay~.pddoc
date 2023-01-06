@@ -22,7 +22,7 @@
             changed</par>
         </info>
         <arguments>
-            <argument name="DELAY" type="float" minvalue="10" maxvalue="6000" units="millisecond">
+            <argument name="DELAY" type="float" minvalue="0" maxvalue="6000" units="millisecond">
             delay time</argument>
             <argument name="FEEDBACK" type="float" minvalue="0" maxvalue="1">feedback
             coefficient</argument>

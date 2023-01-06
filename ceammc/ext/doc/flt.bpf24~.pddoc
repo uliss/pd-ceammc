@@ -32,8 +32,8 @@
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
         <arguments>
-            <argument name="FREQ" type="float" units="hertz" minvalue="20"
-            maxvalue="20000">center frequency</argument>
+            <argument name="FREQ" type="float" units="hertz" minvalue="20" maxvalue="20000">center
+            frequency</argument>
             <argument name="Q" type="float" minvalue="0.01" maxvalue="100">quality factory:
             @freq/BANDWIDTH</argument>
         </arguments>

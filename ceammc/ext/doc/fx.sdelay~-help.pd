@@ -24,7 +24,7 @@ the delay time is changed;
 #X text 110 434 1\.;
 #X text 150 434 float;
 #X obj 246 435 cnv 1 77 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 434 DELAY(ms): delay time. Type: float. Range: 10\...6000;
+#X text 245 434 DELAY(ms): delay time. Type: float. Range: 0\...6000;
 #X text 110 454 2\.;
 #X text 150 454 float;
 #X obj 246 455 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;

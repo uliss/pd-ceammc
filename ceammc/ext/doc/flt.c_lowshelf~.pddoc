@@ -31,8 +31,8 @@
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
         <arguments>
-            <argument name="FREQ" type="float" units="hertz" minvalue="20"
-            maxvalue="20000">cutoff frequency</argument>
+            <argument name="FREQ" type="float" units="hertz" minvalue="20" maxvalue="20000">cutoff
+            frequency</argument>
             <argument name="GAIN" type="float" minvalue="-15" maxvalue="15" units="decibel">filter
             gain</argument>
         </arguments>

@@ -25,8 +25,8 @@
             accepts all incoming messages</par>
         </info>
         <arguments>
-            <argument name="STATE" type="bool">init gate state. 1 means open, 0 - closed. By default
-            gate is closed</argument>
+            <argument name="STATE" type="bool">init gate state. 1 means open, 0 - closed. By
+            default gate is closed</argument>
         </arguments>
         <properties>
             <property name="@state" type="bool" default="0">gate state. 1 means open, 0 -
