@@ -6,7 +6,7 @@
 0;
 #X obj 681 11 fx.room~;
 #X obj 50 118 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 50 147 metro 250;
+#X obj 50 147 metro 1000;
 #X msg 50 176 60;
 #X obj 50 205 makenote 127 100;
 #X obj 50 234 pack f f;
