@@ -4,7 +4,7 @@
         <title>chaos.std0</title>
         <meta>
             <authors>
-                <author>Serge Poltavski</author>
+                <author>Serge Poltavsky</author>
             </authors>
             <description>Standard map chaotic generator</description>
             <license>GPL3 or later</license>

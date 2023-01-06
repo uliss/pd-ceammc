@@ -35,7 +35,7 @@
             amplitude</property>
             <property name="@loop" type="bool" default="0">samplewise loop playing mode</property>
             <property name="@interp" type="int" enum="0 1 3" default="1">interpolation type. 0: no
-            interpolationm 1: linear, 3: cubic.</property>
+            interpolation 1: linear, 3: cubic.</property>
             <property name="@clock" type="float" default="0" minvalue="0" maxvalue="20"
             units="second">clock output period. Zero means: no clock output (by
             default).</property>

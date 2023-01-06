@@ -74,7 +74,7 @@ sec. Default value: 0\.;
 position relative to the end of the array. Type: float. Units: samp.
 Default value: -1\.;
 #X msg 110 1037 @interp;
-#X text 245 1037 Get/Set interpolation type. 0: no interpolationm 1:
+#X text 245 1037 Get/Set interpolation type. 0: no interpolation 1:
 linear \, 3: cubic. Type: int. Default value: 1\. Allowed values: 0
 \, 1 \, 3\.;
 #X msg 110 1094 @loop;

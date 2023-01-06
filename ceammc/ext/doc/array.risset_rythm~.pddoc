@@ -6,11 +6,11 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>Risset Rythm: accelerando or ritardando</description>
+            <description>Risset Rhythm: accelerando or ritardando</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>array</category>
-            <keywords>array risset rythm</keywords>
+            <keywords>array risset rhythm</keywords>
             <since>0.9.5</since>
         </meta>
         <info>

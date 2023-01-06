@@ -62,7 +62,7 @@ Default value: 50\. Min value: 1\.;
 #X msg 110 1162 align;
 #X text 245 1162 align grain(s) to onset. Arguments are:;
 #X obj 255 1185 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1185 [SUBJ]: if '*' or ommited: align all grains \, if
+#X text 255 1185 [SUBJ]: if '*' or omitted: align all grains \, if
 '.': align finished grains only \, if float: align grain with corresponding
 #id \, if symbol: align grains with corresponding tag. Type: atom.;
 #X msg 110 1255 append;
@@ -74,7 +74,7 @@ Default value: 50\. Min value: 1\.;
 #X msg 110 1326 clear;
 #X text 245 1326 remove grain(s). Arguments are:;
 #X obj 255 1349 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1349 [SUBJ]: if '*' or ommited: remove all grains \, if
+#X text 255 1349 [SUBJ]: if '*' or omitted: remove all grains \, if
 '.': remove finished grains only \, if float: remove grain with corresponding
 #id \, if symbol: remove grains with corresponding tag. Type: atom.;
 #X msg 110 1419 defer;
@@ -126,14 +126,14 @@ are:;
 #X text 255 1940 [N]: number of permutations. If N>0 results N-th next
 permutation \, N<0 - N-th previous permutation. Type: int. Range: -16\...16\.;
 #X obj 255 1993 cnv 1 39 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1993 [TAG]: if '*' or ommited: reverse positions of all
+#X text 255 1993 [TAG]: if '*' or omitted: reverse positions of all
 grains \, if '.': reverse positions of finished grains only \, otherwise
 reverse grains with corresponding tag. Type: symbol.;
 #X msg 110 2048 reverse;
 #X text 245 2048 reverse grain positions (@ta and @tb) values. Arguments
 are:;
 #X obj 255 2071 cnv 1 39 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2071 [TAG]: if '*' or ommited: reverse positions of all
+#X text 255 2071 [TAG]: if '*' or omitted: reverse positions of all
 grains \, if '.': reverse positions of finished grains only \, otherwise
 reverse grains with corresponding tag. Type: symbol.;
 #X msg 110 2126 set;
@@ -148,7 +148,7 @@ tag. Type: atom.;
 #X text 245 2227 shuffle grain positions (@ta and @tb) values. Arguments
 are:;
 #X obj 255 2250 cnv 1 39 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2250 [TAG]: if '*' or ommited: shuffle all grains \, if
+#X text 255 2250 [TAG]: if '*' or omitted: shuffle all grains \, if
 '.': shuffle finished grains only \, otherwise shuffle grains with
 corresponding tag. Type: symbol.;
 #X msg 110 2305 slice;
@@ -172,7 +172,7 @@ Arguments are:;
 millisecond. If not specified - use the whole source array duration.
 Type: atom.;
 #X obj 255 2565 cnv 1 39 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2565 [TAG]: if '*' or ommited: spread all grains \, if
+#X text 255 2565 [TAG]: if '*' or omitted: spread all grains \, if
 '.': spread finished grains only \, otherwise spread grains with corresponding
 tag. Type: symbol.;
 #X obj 20 2630 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

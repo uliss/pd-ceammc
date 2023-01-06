@@ -50,7 +50,7 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">start playing from the begining</xinfo>
+                <xinfo on="bang">start playing from the beginning</xinfo>
                 <xinfo on="float">1 - play, 0 - stop</xinfo>
             </inlet>
         </inlets>

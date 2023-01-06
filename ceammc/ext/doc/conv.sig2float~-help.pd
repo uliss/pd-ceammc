@@ -12,7 +12,7 @@
 #X restore 533 11 pd aliases;
 #X obj 631 11 conv.sig2float~;
 #X obj 210 80 cnv 1 555 35 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 convert signal to float via specified time invervals;
+#X text 215 80 convert signal to float via specified time intervals;
 #X obj 50 143 phasor~ 0.5;
 #X msg 184 143 bang;
 #X obj 50 172 sig->float~ 500;

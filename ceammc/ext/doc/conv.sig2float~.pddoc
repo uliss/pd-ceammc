@@ -23,7 +23,7 @@
             </also>
         </meta>
         <info>
-            <par>convert signal to float via specified time invervals</par>
+            <par>convert signal to float via specified time intervals</par>
         </info>
         <mouse>
             <event editmode="false" type="right-click">sample immidiately</event>
