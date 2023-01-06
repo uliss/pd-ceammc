@@ -13,9 +13,13 @@ p_rsize = hslider("size", 1, 0, 3, 0.05);
 p_rt = hslider("fb", 0.3, 0, 1, 0.05);
 p_hfdamp = 1 - hslider("hfdamp", 1, 0, 1, 0.05);
 
+
 ms2sps(t) = ba.sec2samp(t * 0.001);
 mix2(c,x,y) = (1-c)*x + c*y;
-mix3(val) = _,_,_<:select3(val),select3(val+1):mix2(val-floor(val));
+room_mix3(src) = (_,_,_ <: p_select(src), p_select(src+1)) : mix2(mix_value) with {
+    p_select(src, x,y,z) = ba.selectmulti(ma.SR/20, (0,x,y,z), src) : _;
+    mix_value = (src - floor(src)) : si.smoo;
+};
 
 // Allpasses
 allpass(dt, fb, f_nest) = (+ <:
@@ -59,6 +63,6 @@ with {
     small = small_room(p_rt, p_hfdamp);
     medium = medium_room(p_rt, p_hfdamp);
     large = large_room(p_rt, p_hfdamp);
-    room = pre_delay <: small, medium, large : mix3(p_rsize);
+    room = pre_delay <: small, medium, large : room_mix3(p_rsize);
     fx = _ <: room, _ : mix2(1 - ui.drywet(0.5));
 };

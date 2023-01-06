@@ -54,17 +54,18 @@
 |
 [60(
 |
-[makenote 127 100]
+[makenote 127 100] [ui.hsl 0 3 @show_value 1 #a]
 *|*
-[pack f f]        [ui.hsl 0 3 @show_value 1]
-|                 |
-[synth.eguitar~]  [@size $1(
-|                 |
-[fx.room~         ]
+[pack f f]         [ui.hrd 4]    [T]
+|                  |             |
+[synth.eguitar~]   [@size $1 #b( [@bypass $1(
+|                  |             |
+[fx.room~                        ]
 |
-[ui.hgain~]     [ui.dsp~]
+[ui.hgain~]        [ui.dsp~]
 |\
 [dac~]
+[X a->b]
 ]]>
             </pdascii>
         </example>
