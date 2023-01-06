@@ -55,7 +55,7 @@
             maxvalue="0">onset detection silence threshold</property>
             <property name="@delay" type="float" minvalue="0" default="0" units="millisecond">
             constant system delay to take back from detection time</property>
-            <property name="@active" type="int" default="1" enum="0 1">audio processing
+            <property name="@active" type="bool" default="1">audio processing
             state</property>
         </properties>
         <inlets>

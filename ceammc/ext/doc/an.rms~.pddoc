@@ -23,7 +23,7 @@
         <properties>
             <property name="@period" type="float" minvalue="1" maxvalue="1000" default="200"
             units="millisecond">averaging frame</property>
-            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
+            <property name="@active" type="bool" default="1">on/off dsp
             processing</property>
         </properties>
         <inlets>
