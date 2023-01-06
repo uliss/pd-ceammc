@@ -94,7 +94,7 @@ middle frequencies. Type: float. Units: Hz. Default value: 200\. Range:
 #X msg 110 1319 @predelay;
 #X text 245 1319 Get/Set a delay of 20 to 100 ms operating on the 'wet'
 signal. Large values will provide the impression of a larger room.
-Type: float. Units: ms. Default value: 60\. Range: 0\...100\.;
+Type: float. Units: ms. Default value: 40\. Range: 0\...100\.;
 #X obj 20 1401 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1406 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
