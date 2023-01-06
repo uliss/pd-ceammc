@@ -22,7 +22,7 @@
             means position from end of the list. For example: '-1' means last element.</argument>
         </arguments>
         <properties>
-            <property name="@indexes" type="list">applied index(es)</property>
+            <property name="@indexes" type="list" default="">applied index(es)</property>
         </properties>
         <inlets>
             <inlet>

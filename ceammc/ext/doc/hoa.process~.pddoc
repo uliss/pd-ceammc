@@ -47,7 +47,7 @@
             <property name="@patch" type="symbol" access="initonly">patch name</property>
             <property name="@domain" type="symbol" access="initonly" default="harmonics"
             enum="harmonics planewaves">process domain: harmonics or planewaves</property>
-            <property name="@args" type="list" access="initonly">arguments passed to
+            <property name="@args" type="list" access="initonly" default="">arguments passed to
             instances</property>
         </properties>
         <inlets dynamic="true">

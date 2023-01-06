@@ -24,7 +24,7 @@
             <argument name="EXPR" type="list">Glitch expression</argument>
         </arguments>
         <properties>
-            <property name="@expr" type="list">expression</property>
+            <property name="@expr" type="list" default="">expression</property>
             <property name="@clip" type="bool" default="1">clip output to -1..+1 range. Use false
             value only when you are know what are you doing and at your own risk!</property>
         </properties>

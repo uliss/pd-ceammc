@@ -24,7 +24,7 @@
             <argument name="L" type="list">initial element repeat list</argument>
         </arguments>
         <properties>
-            <property name="@l" type="list">list of repeats</property>
+            <property name="@l" type="list" default="">list of repeats</property>
         </properties>
         <inlets>
             <inlet>

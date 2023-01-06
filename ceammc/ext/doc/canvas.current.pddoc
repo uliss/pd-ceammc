@@ -22,7 +22,7 @@
             name</property>
             <property name="@dir" access="readonly" type="symbol" default="/">canvas directory
             (only if top level or abstraction)</property>
-            <property name="@args" access="readonly" type="list">canvas creation
+            <property name="@args" access="readonly" type="list" default="">canvas creation
             arguments</property>
             <property name="@root" access="readonly" type="bool" default="1">1 if canvas is
             top-level (window)</property>
@@ -33,7 +33,8 @@
             Parent size</property>
             <property name="@font" access="readonly" type="int" default="10">canvas font
             size</property>
-            <property name="@paths" access="readonly" type="list">canvas search paths</property>
+            <property name="@paths" access="readonly" type="list" default="">canvas search
+            paths</property>
             <property name="@width" access="readonly" type="int" default="600">canvas width (window
             or GOP)</property>
             <property name="@height" access="readonly" type="int" default="400">canvas height

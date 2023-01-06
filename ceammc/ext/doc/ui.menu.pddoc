@@ -18,7 +18,7 @@
             </also>
         </meta>
         <properties>
-            <property name="@items" type="list">list of menu items</property>
+            <property name="@items" type="list" default="">list of menu items</property>
             <property name="@index" type="int" default="-1">current menu item index</property>
             <property name="@value" type="atom">current menu item value</property>
             <property name="@count" type="int" access="readonly" default="0">number of menu

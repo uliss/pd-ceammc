@@ -29,7 +29,8 @@
             <property name="@height" access="readonly" type="int" default="400">window
             height</property>
             <property name="@font" access="readonly" type="int" default="10">window font</property>
-            <property name="@paths" access="readonly" type="list">search paths</property>
+            <property name="@paths" access="readonly" type="list" default="">search
+            paths</property>
             <property name="@x" access="readonly" type="int" default="0">window x-pos</property>
             <property name="@y" access="readonly" type="int" default="0">window y-pos</property>
         </properties>

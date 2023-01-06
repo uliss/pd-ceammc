@@ -25,7 +25,7 @@
             <argument name="VALUE" type="list">list contents</argument>
         </arguments>
         <properties>
-            <property name="@value" type="list">list contents</property>
+            <property name="@value" type="list" default="">list contents</property>
             <property name="@start" type="int" minvalue="0" default="0">search start index
             position</property>
             <property name="@end" type="int" minvalue="-1" default="-1">search end index position

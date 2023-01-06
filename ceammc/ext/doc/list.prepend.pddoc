@@ -23,7 +23,7 @@
             <argument name="VALUE" type="list">prepend values</argument>
         </arguments>
         <properties>
-            <property name="@value" type="list">prepend values</property>
+            <property name="@value" type="list" default="">prepend values</property>
         </properties>
         <inlets>
             <inlet>

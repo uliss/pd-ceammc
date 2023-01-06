@@ -22,7 +22,7 @@
             <argument name="VALUES" type="list">sequence elements</argument>
         </arguments>
         <properties>
-            <property name="@v" type="list">sequence elements</property>
+            <property name="@v" type="list" default="">sequence elements</property>
             <property name="@dur" type="float" minvalue="0" default="0">whole sequence duration.
             Changing this property also changes @t interval between bangs.</property>
             <property name="@t" type="float" default="20" minvalue="1" maxvalue="20000"

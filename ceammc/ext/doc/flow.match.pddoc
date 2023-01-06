@@ -26,7 +26,7 @@
             expressions</argument>
         </arguments>
         <properties>
-            <property name="@patterns" type="list" access="initonly">list of regular
+            <property name="@patterns" type="list" access="initonly" default="">list of regular
             expressions</property>
             <property name="@cut" type="bool" default="0">cut or pass message selector</property>
         </properties>

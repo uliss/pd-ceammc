@@ -36,7 +36,7 @@
             <method name="reset">reset all scheduled delays</method>
         </methods>
         <properties>
-            <property name="@t" type="list" minvalue="0" units="millisecond">delay time
+            <property name="@t" type="list" minvalue="0" units="millisecond" default="">delay time
             list</property>
             <property name="@block" type="bool" default="0">blocking mode. If true, discards
             incoming messages until scheduled message will output, after that is ready to accept

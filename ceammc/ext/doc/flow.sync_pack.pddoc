@@ -28,7 +28,8 @@
         <properties>
             <property name="@n" type="int" minvalue="1" default="1" maxvalue="255"
             access="initonly">number of inlets</property>
-            <property name="@init" type="list" access="initonly">default init values</property>
+            <property name="@init" type="list" access="initonly" default="">default init
+            values</property>
         </properties>
         <inlets dynamic="true">
             <inlet number="1">

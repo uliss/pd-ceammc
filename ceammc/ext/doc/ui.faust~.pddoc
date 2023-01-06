@@ -33,7 +33,8 @@
         </methods>
         <properties>
             <property name="@fname" type="symbol">path to faust dsp file</property>
-            <property name="@include" type="list">list of faust include directories</property>
+            <property name="@include" type="list" default="">list of faust include
+            directories</property>
             <property name="@auto" type="bool" default="1">auto update mode. If on - recompiles
             faust dsp file on change</property>
         </properties>

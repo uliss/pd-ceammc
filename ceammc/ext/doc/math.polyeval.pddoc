@@ -17,7 +17,7 @@
             <argument type="float" name="ARGS">coefficient list</argument>
         </arguments>
         <properties>
-            <property name="@coeffs" type="list">coefficient list</property>
+            <property name="@coeffs" type="list" default="">coefficient list</property>
         </properties>
         <inlets>
             <inlet>

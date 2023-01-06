@@ -213,10 +213,12 @@
             of points</property>
             <property name="@length" type="float" units="millisecond" access="readonly" default="0"
             minvalue="0">total envelope time length</property>
-            <property name="@points" type="list" access="readonly">list of point times
+            <property name="@points" type="list" access="readonly" default="">list of point times
             (ms)</property>
-            <property name="@values" type="list" access="readonly">list of point values</property>
-            <property name="@stops" type="list" access="readonly">list of stop points</property>
+            <property name="@values" type="list" access="readonly" default="">list of point
+            values</property>
+            <property name="@stops" type="list" access="readonly" default="">list of stop
+            points</property>
         </properties>
         <inlets>
             <inlet>

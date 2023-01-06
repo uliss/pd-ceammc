@@ -45,7 +45,7 @@
             length</property>
             <property name="@size" type="int" minvalue="0" access="readonly" default="0">current
             list size</property>
-            <property name="@value" type="list">current list</property>
+            <property name="@value" type="list" default="">current list</property>
         </properties>
         <methods>
             <method name="current">outputs current element</method>

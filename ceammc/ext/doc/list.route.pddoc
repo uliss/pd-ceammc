@@ -24,7 +24,8 @@
             <argument name="ARGS" type="list">list of matched atoms</argument>
         </arguments>
         <properties>
-            <property name="@args" type="list" access="initonly">matching atoms</property>
+            <property name="@args" type="list" access="initonly" default="">matching
+            atoms</property>
             <property name="@trim" type="flag" default="0" access="initonly">cut first element from
             list, transform float or symbol to bang</property>
             <property name="@simplify" type="bool" default="1">one element list simplification -

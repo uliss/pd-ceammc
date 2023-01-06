@@ -21,7 +21,7 @@
             also supported</argument>
         </arguments>
         <properties>
-            <property name="@indexes" type="list">indexes to remove</property>
+            <property name="@indexes" type="list" default="">indexes to remove</property>
         </properties>
         <inlets>
             <inlet>

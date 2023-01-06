@@ -20,7 +20,7 @@
             <argument name="VALUE" type="list">list contents</argument>
         </arguments>
         <properties>
-            <property name="@value" type="list">list contents</property>
+            <property name="@value" type="list" default="">list contents</property>
             <property name="@default" type="atom" default="None">default output value if element
             was not found</property>
             <property name="@method" type="symbol" enum="rel clip fold wrap" default="rel">methods

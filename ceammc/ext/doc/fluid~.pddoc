@@ -28,7 +28,7 @@
             load default soundfont</property>
             <property name="@version" type="symbol" access="readonly" default="2.0.0">FluidSynth
             version</property>
-            <property name="@soundfonts" type="list" access="readonly">list of found
+            <property name="@soundfonts" type="list" access="readonly" default="">list of found
             soundfonts</property>
             <property name="@gain" type="float" minvalue="0" maxvalue="10" default="0">output
             gain</property>
