@@ -24,7 +24,7 @@ eight) \, 3/8 (three eights) etc.;
 #X msg 110 453 @bpm;
 #X text 245 453 Get/Set tempo. Type: list. Default value: 60 0.25\.;
 #X msg 110 482 @seq;
-#X text 245 482 Get/Set sequencial durations. Type: bool. Default value:
+#X text 245 482 Get/Set sequential durations. Type: bool. Default value:
 1\.;
 #X obj 20 521 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 526 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933

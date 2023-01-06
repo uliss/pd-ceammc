@@ -37,9 +37,9 @@
             <method name="hamming">generate hamming window</method>
             <method name="hann">generate hann window</method>
             <method name="nuttall">generate nuttall window</method>
-            <method name="rect">generate rectangualar window</method>
+            <method name="rect">generate rectangular window</method>
             <method name="sine">generate sine window</method>
-            <method name="tri">generate triangualar window</method>
+            <method name="tri">generate triangular window</method>
             <method name="welch">generate welch window</method>
         </methods>
         <inlets>

@@ -40,7 +40,7 @@ value: 1\.;
 #X text 150 451 *bang*;
 #X text 245 451 process each element of current array.;
 #X text 150 471 *symbol*;
-#X text 245 471 set new array and then process each element of it.;
+#X text 245 471 set the new array \, then process each element.;
 #X text 110 491 2\.;
 #X text 150 491 *float*;
 #X text 245 491 processed float value from side-chain.;

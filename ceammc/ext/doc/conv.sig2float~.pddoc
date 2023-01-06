@@ -26,7 +26,7 @@
             <par>convert signal to float via specified time intervals</par>
         </info>
         <mouse>
-            <event editmode="false" type="right-click">sample immidiately</event>
+            <event editmode="false" type="right-click">sample immediately</event>
         </mouse>
         <arguments>
             <argument name="INTERVAL" type="float" minvalue="-1" units="millisecond">sampling
@@ -41,7 +41,7 @@
         <inlets>
             <inlet type="audio">
                 <xinfo>input signal</xinfo>
-                <xinfo on="bang">sample immidiately</xinfo>
+                <xinfo on="bang">sample immediately</xinfo>
             </inlet>
             <inlet type="control">
                 <xinfo on="float">set sample interval</xinfo>

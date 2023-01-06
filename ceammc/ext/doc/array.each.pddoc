@@ -26,7 +26,7 @@
         <inlets>
             <inlet>
                 <xinfo on="bang">process each element of current array</xinfo>
-                <xinfo on="symbol">set new array and then process each element of it</xinfo>
+                <xinfo on="symbol">set the new array, then process each element</xinfo>
             </inlet>
             <inlet>
                 <xinfo on="float">processed float value from side-chain</xinfo>
