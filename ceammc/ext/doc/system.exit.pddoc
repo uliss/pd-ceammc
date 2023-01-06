@@ -13,6 +13,9 @@
             <keywords>quit exit</keywords>
             <since>0.9.2</since>
         </meta>
+        <arguments>
+            <argument name="DELAY" type="float" minvalue="0" units="millisecond">exit delay time</argument>
+        </arguments>
         <properties>
             <property name="@delay" type="float" minvalue="0" default="0" units="millisecond">exit
             PureData after specified delay time</property>

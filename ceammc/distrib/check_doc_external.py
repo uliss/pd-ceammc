@@ -346,7 +346,10 @@ def check_single_prop(name, prop, doc, ext):
                 else:
                     return x
 
-            ext_def = " ".join(map(lambda x: conv(x), ext_def))
+            try:
+                ext_def = " ".join(map(lambda x: conv(x), ext_def))
+            except TypeError as e:
+                cprint(f"[{ext_name}][{prop}] exception while checking {e}", 'red')
 
         if type_ext == "atom":
             doc_def = str(doc_def)
@@ -425,14 +428,11 @@ if __name__ == '__main__':
 
     if args.all:
         args.props = True
-        args.spell = True
+        # args.spell = True
         args.aliases = True
         args.methods = True
         args.xlets = True
         args.args = True
-
-    if args.verbose:
-        print(f" - checking [{ext_name}] external ...")
 
     pddoc_path = f"{DOC_PATH}{ext_name}.pddoc"
     if not os.path.exists(pddoc_path):
@@ -444,6 +444,8 @@ if __name__ == '__main__':
 
     with open(pddoc_path) as fobj:
         xml = fobj.read()
+
+    cprint(f"checking [{ext_name}] ...", "blue")
 
     root = etree.fromstring(xml.encode())
 
@@ -657,7 +659,6 @@ if __name__ == '__main__':
             corrector = jamspell.TSpellCorrector()
 
             corrector.LoadLangModel('ceammc.bin')
-            cprint(f"checking [{ext_name}] ...", "blue")
             check_spell(root)
         except ModuleNotFoundError as e:
             cprint(f"{e} ...", "red")
