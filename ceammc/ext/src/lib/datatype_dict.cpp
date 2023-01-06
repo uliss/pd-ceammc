@@ -21,7 +21,6 @@
 #include "ceammc_string.h"
 #include "datatype_json.h"
 #include "fmt/core.h"
-#include "json/json.hpp"
 
 #include <ctime>
 #include <fstream>
@@ -109,7 +108,7 @@ std::string DataTypeDict::toString() const
 
 std::string DataTypeDict::toJsonString() const
 {
-    return json::to_json(*this);
+    return json::to_json_string(*this);
 }
 
 std::string DataTypeDict::toListStringContent() const
@@ -260,15 +259,16 @@ bool DataTypeDict::remove(t_symbol* key)
     return true;
 }
 
-MaybeString DataTypeDict::toJSON(int indent) const
+MaybeString DataTypeDict::toJSON(int indent, bool compressSingleList) const
 {
-    using json = nlohmann::json;
-    json j(*this);
-
-    if (j.empty())
+    if (dict_.empty())
         return {};
 
-    return j.dump(indent);
+    json::JsonWriteOpts opts;
+    opts.indent = indent;
+    opts.compressSingleList = compressSingleList;
+
+    return json::to_json_string(*this, opts);
 }
 
 bool DataTypeDict::fromJSON(const std::string& str)

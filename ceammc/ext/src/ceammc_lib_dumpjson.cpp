@@ -113,18 +113,22 @@ extern "C" CEAMMC_EXTERN bool ceammc_dump_json(int argc, char* argv[])
 
     // add properties
     for (const PropertyInfo& i : ext.properties()) {
-        DataTypeDict info;
-        if (!i.getDict(info)) {
+        std::string info;
+        if (!i.getJSON(info)) {
             std::cerr << "can't get property info: " << i.name()->s_name << std::endl;
             continue;
         }
 
-        jobj["properties"].push_back(json::parse(info.toJsonString()));
+        try {
+            jobj["properties"].push_back(json::parse(info));
 
-        if (i.hasArgIndex()) {
-            obj_args.insert(std::upper_bound(obj_args.begin(), obj_args.end(), i,
-                                [](const PropertyInfo& a, const PropertyInfo& b) { return a.argIndex() < b.argIndex(); }),
-                i);
+            if (i.hasArgIndex()) {
+                obj_args.insert(std::upper_bound(obj_args.begin(), obj_args.end(), i,
+                                    [](const PropertyInfo& a, const PropertyInfo& b) { return a.argIndex() < b.argIndex(); }),
+                    i);
+            }
+        } catch (std::exception& e) {
+            std::cerr << "error: while" << e.what() << std::endl;
         }
     }
 
@@ -139,13 +143,13 @@ extern "C" CEAMMC_EXTERN bool ceammc_dump_json(int argc, char* argv[])
                 { "type", to_symbol(arg_info.type())->s_name },
             });
 
-            DataTypeDict info;
-            if (!arg_info.getDict(info)) {
+            std::string info;
+            if (!arg_info.getJSON(info)) {
                 std::cerr << "can't get argument info: " << arg_info.name()->s_name << std::endl;
                 continue;
             }
 
-            auto jinfo = json::parse(info.toJsonString());
+            auto jinfo = json::parse(info);
             if (jinfo.contains("min"))
                 jobj["args"].back()["min"] = jinfo["min"];
 

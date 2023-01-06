@@ -12,9 +12,10 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_property_info.h"
-#include "ceammc_convert.h"
+#include "ceammc_json.h"
 #include "ceammc_log.h"
 #include "datatype_dict.h"
+#include "json/json.hpp"
 
 #include <algorithm>
 #include <numeric>
@@ -28,100 +29,136 @@ constexpr t_float FLOAT_INF_MAX = std::numeric_limits<t_float>::max();
 constexpr int INT_INF_MIN = std::numeric_limits<int>::lowest();
 constexpr int INT_INF_MAX = std::numeric_limits<int>::max();
 
-t_symbol* to_symbol(PropValueType t)
+const char* to_str(PropValueType t)
 {
-    static t_symbol* SYM[] = {
-        gensym("bool"),
-        gensym("int"),
-        gensym("float"),
-        gensym("symbol"),
-        gensym("atom"),
-        gensym("list")
+    static const char* STR[] = {
+        "bool",
+        "int",
+        "float",
+        "symbol",
+        "atom",
+        "list"
     };
 
-    return SYM[static_cast<size_t>(t)];
+    auto idx = static_cast<size_t>(t);
+    return (idx < sizeof(STR) / (sizeof(const char*))) ? STR[idx] : "?";
+}
+
+const char* to_str(PropValueView v)
+{
+    static const char* STR[] = {
+        "slider",
+        "knob",
+        "numbox",
+        "spinbox",
+        "toggle",
+        "menu",
+        "entry",
+        "color"
+    };
+
+    auto idx = static_cast<size_t>(v);
+    return (idx < sizeof(STR) / (sizeof(const char*))) ? STR[idx] : "?";
+}
+
+const char* to_str(PropValueUnits u)
+{
+    static const char* STR[] = {
+        "unknown",
+        "millisecond",
+        "second",
+        "sample",
+        "decibel",
+        "degree",
+        "radian",
+        "hertz",
+        "percent",
+        "cent",
+        "semitone",
+        "tone",
+        "bpm"
+    };
+
+    auto idx = static_cast<size_t>(u);
+    return (idx < sizeof(STR) / (sizeof(const char*))) ? STR[idx] : "?";
+}
+
+const char* to_str(PropValueAccess v)
+{
+    static const char* STR[] = {
+        "readonly",
+        "initonly",
+        "readwrite"
+    };
+
+    auto idx = static_cast<size_t>(v);
+    return (idx < sizeof(STR) / (sizeof(const char*))) ? STR[idx] : "?";
+}
+
+const char* to_str(PropValueVis v)
+{
+    static const char* STR[] = {
+        "public",
+        "hidden",
+        "internal"
+    };
+
+    auto idx = static_cast<size_t>(v);
+    return (idx < sizeof(STR) / (sizeof(const char*))) ? STR[idx] : "?";
+}
+
+const char* to_str(PropValueConstraints v)
+{
+    static const char* STR[] = {
+        "",
+        ">",
+        ">=",
+        "<",
+        "<=",
+        "[]",
+        "()",
+        "(]",
+        "[)",
+        "!=0",
+        "enum",
+        "min count",
+        "max count",
+        "range count",
+        "..."
+    };
+
+    auto idx = static_cast<size_t>(v);
+    return (idx < sizeof(STR) / (sizeof(const char*))) ? STR[idx] : "?";
+}
+
+t_symbol* to_symbol(PropValueType t)
+{
+    return gensym(to_str(t));
 }
 
 t_symbol* to_symbol(PropValueView v)
 {
-    static t_symbol* SYM[] = {
-        gensym("slider"),
-        gensym("knob"),
-        gensym("numbox"),
-        gensym("spinbox"),
-        gensym("toggle"),
-        gensym("menu"),
-        gensym("entry"),
-        gensym("color")
-    };
-
-    return SYM[static_cast<size_t>(v)];
+    return gensym(to_str(v));
 }
 
 t_symbol* to_symbol(PropValueUnits u)
 {
-    static t_symbol* SYM[] = {
-        gensym("unknown"),
-        gensym("millisecond"),
-        gensym("second"),
-        gensym("sample"),
-        gensym("decibel"),
-        gensym("degree"),
-        gensym("radian"),
-        gensym("hertz"),
-        gensym("percent"),
-        gensym("cent"),
-        gensym("semitone"),
-        gensym("tone"),
-        gensym("bpm")
-    };
-
-    return SYM[static_cast<size_t>(u)];
+    return gensym(to_str(u));
 }
 
 t_symbol* to_symbol(PropValueAccess v)
 {
-    static t_symbol* SYM[] = {
-        gensym("readonly"),
-        gensym("initonly"),
-        gensym("readwrite")
-    };
-
-    return SYM[static_cast<size_t>(v)];
+    return gensym(to_str(v));
 }
 
 t_symbol* to_symbol(PropValueVis v)
 {
-    static t_symbol* SYM[] = {
-        gensym("public"),
-        gensym("hidden"),
-        gensym("internal")
-    };
-
-    return SYM[static_cast<size_t>(v)];
+    return gensym(to_str(v));
 }
 
 t_symbol* to_symbol(PropValueConstraints v)
 {
-    static t_symbol* SYM[] = {
-        gensym(""),
-        gensym(">"),
-        gensym(">="),
-        gensym("<"),
-        gensym("<="),
-        gensym("[]"),
-        gensym("()"),
-        gensym("(]"),
-        gensym("[)"),
-        gensym("!=0"),
-        gensym("enum"),
-        gensym("min count"),
-        gensym("max count"),
-        gensym("range count"),
-        gensym("...")
-    };
-
-    return SYM[static_cast<size_t>(v)];
+    return gensym(to_str(v));
 }
 
 static PropValueView defaultView(PropValueType type)
@@ -1069,6 +1106,61 @@ bool PropertyInfo::getDict(DataTypeDict& res) const
         else {
         }
     }
+
+    return true;
+}
+
+bool PropertyInfo::getJSON(std::string& str) const
+{
+    auto obj = nlohmann::json::object();
+
+    obj["name"] = name()->s_name;
+    obj["type"] = to_str(type());
+    obj["access"] = to_str(access());
+    obj["visibility"] = to_str(visibility());
+    obj["view"] = to_str(view());
+
+    if (constraints() != PropValueConstraints::NONE)
+        obj["constraints"] = to_str(constraints());
+
+    if (units() != PropValueUnits::NONE)
+        obj["units"] = to_str(units());
+
+    if (hasArgIndex())
+        obj["arg_index"] = argIndex();
+
+    if (hasConstraintsMin())
+        obj["min"] = isFloat() ? minFloat() : minInt();
+
+    if (hasConstraintsMax())
+        obj["max"] = isFloat() ? maxFloat() : maxInt();
+
+    if (hasStep())
+        obj["step"] = step();
+
+    if (hasEnumLimit())
+        obj["enum"] = json::to_json_string(enumValues());
+
+    if (!noDefault()) {
+        if (isBool())
+            obj["default"] = defaultBool() ? 1 : 0;
+        else if (isFloat())
+            obj["default"] = defaultFloat();
+        else if (isInt())
+            obj["default"] = defaultInt();
+        else if (isSymbol())
+            obj["default"] = defaultSymbol()->s_name;
+        else if (isVariant())
+            obj["default"] = json::to_json_string(defaultAtom());
+        else if (isList()) {
+            json::JsonWriteOpts opts;
+            opts.compressSingleList = false;
+            obj["default"] = json::to_json_string(defaultList(), opts);
+        } else {
+        }
+    }
+
+    str = obj.dump(-1);
 
     return true;
 }

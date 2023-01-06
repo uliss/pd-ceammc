@@ -312,6 +312,7 @@ public:
     bool validate() const;
 
     bool getDict(DataTypeDict& d) const;
+    bool getJSON(std::string& str) const;
 };
 
 template <>

@@ -104,7 +104,7 @@ bool DataTypeMList::isEqual(const AbstractData* cmp) const noexcept
 
 std::string DataTypeMList::toJsonString() const
 {
-    return ceammc::json::to_json(*this);
+    return ceammc::json::to_json_string(*this);
 }
 
 std::string DataTypeMList::toListStringContent() const noexcept
