@@ -46,8 +46,8 @@
 #X msg 110 606 @array;
 #X text 245 606 Get/Set array name. Type: symbol.;
 #X msg 110 635 @redraw;
-#X text 245 635 Get/Set redraw after array change. Type: int. Default
-value: 1\. Allowed values: 1 \, 0\.;
+#X text 245 635 Get/Set redraw after array change. Type: bool. Default
+value: 1\.;
 #X obj 20 687 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 692 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;

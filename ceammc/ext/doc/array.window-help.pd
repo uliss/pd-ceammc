@@ -35,8 +35,8 @@
 #X msg 110 506 @array;
 #X text 245 506 Get/Set array name. Type: symbol.;
 #X msg 110 535 @redraw;
-#X text 245 535 Get/Set redraw after array change. Type: int. Default
-value: 1\. Allowed values: 1 \, 0\.;
+#X text 245 535 Get/Set redraw after array change. Type: bool. Default
+value: 1\.;
 #X msg 110 577 @type;
 #X text 245 577 Get/Set window type. Type: symbol. Default value: hann.
 Allowed values: tri \, welch \, hann \, sine \, rect \, hamming \,

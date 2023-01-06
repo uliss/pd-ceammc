@@ -21,8 +21,7 @@
         </arguments>
         <properties>
             <property name="@array" type="symbol" default="">array name</property>
-            <property name="@redraw" type="int" enum="1 0" default="1">redraw after array
-            change</property>
+            <property name="@redraw" type="bool" default="1">redraw after array change</property>
         </properties>
         <inlets>
             <inlet>
