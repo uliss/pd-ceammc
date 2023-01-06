@@ -32,9 +32,9 @@
             matrix rows</property>
             <property name="@cols" type="int" minvalue="1" maxvalue="64" default="8">number of
             matrix columns</property>
-            <property name="@current_row" type="int" minvalue="0" default="-1">current row index.
+            <property name="@current_row" type="int" minvalue="-1" default="-1">current row index.
             -1 if not specified. This property is not saved in patch</property>
-            <property name="@current_col" type="int" minvalue="0" default="-1">current column
+            <property name="@current_col" type="int" minvalue="-1" default="-1">current column
             index. -1 if not specified. This property is not saved in patch</property>
             <!-- common -->
             <property name="@presetname" type="symbol" default="(null)">preset name for using with

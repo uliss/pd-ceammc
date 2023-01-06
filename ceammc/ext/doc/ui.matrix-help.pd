@@ -46,11 +46,11 @@ value: 8\. Range: 1\...64\.;
 #X msg 110 692 @current_col;
 #X text 245 692 Get/Set current column index. -1 if not specified.
 This property is not saved in patch. Type: int. Default value: -1\.
-Min value: 0\.;
+Min value: -1\.;
 #X msg 110 749 @current_row;
 #X text 245 749 Get/Set current row index. -1 if not specified. This
 property is not saved in patch. Type: int. Default value: -1\. Min
-value: 0\.;
+value: -1\.;
 #X msg 110 806 @receive;
 #X text 245 806 Get/Set receive source. Type: symbol. Default value:
 (null).;
