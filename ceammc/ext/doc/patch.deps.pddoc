@@ -4,7 +4,7 @@
         <title>patch.deps</title>
         <meta>
             <authors>
-                <author>Serge Poltavski</author>
+                <author>Serge Poltavsky</author>
             </authors>
             <description>patch dependencies: used objects and abstractions</description>
             <license>GPL3 or later</license>

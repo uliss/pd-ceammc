@@ -4,7 +4,7 @@
         <title>proto.sp.alpaca</title>
         <meta>
             <authors>
-                <author>Serge Poltavski</author>
+                <author>Serge Poltavsky</author>
             </authors>
             <description>protocol parser for Arduino-based CEAMMC footswitch</description>
             <license>GPL3 or later</license>

@@ -31,7 +31,8 @@
             <property name="@mode" type="symbol" default="off" enum="off tie raw">mode for repeated
             notes. If 'off' - send note off before retriggering, if 'tie' - ignore repeated events,
             if 'raw' - always send on/off events</property>
-            <property name="@keys" type="list" default="" access="initonly">list of mapped keys</property>
+            <property name="@keys" type="list" default="" access="initonly">list of mapped
+            keys</property>
             <property name="@vel" type="float" minvalue="0" maxvalue="127" default="90">output
             velocity</property>
         </properties>
