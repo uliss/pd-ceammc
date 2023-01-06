@@ -13,6 +13,12 @@
             <keywords>wahwah guitar crybaby</keywords>
             <since>0.6</since>
         </meta>
+        <arguments>
+            <argument name="ANGLE" type="float" minvalue="0" maxvalue="1">
+            pedal angle</argument>
+            <argument name="SPEED" type="float" minvalue="360" maxvalue="780"
+            units="bpm">automatisation speed</argument>
+        </arguments>
         <properties>
             <property name="@angle" type="float" minvalue="0" maxvalue="1" default="0.6">pedal
             angle</property>

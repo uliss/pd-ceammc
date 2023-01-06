@@ -14,7 +14,7 @@
             <since>0.9.4</since>
         </meta>
         <arguments>
-            <argument name="PITCH" type="float">transposition in semitones</argument>
+            <argument name="TRANSPOSE" type="float" minvalue="-24" units="semitone" maxvalue="24">transposition in semitones</argument>
         </arguments>
         <properties>
             <property name="@window" type="symbol" enum="standard short long" default="standard">

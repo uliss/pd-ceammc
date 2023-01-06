@@ -14,7 +14,7 @@
             <since>0.5</since>
         </meta>
         <arguments>
-            <argument name="MAX_LENGTH" units="second" type="float">max loop time</argument>
+            <argument name="CAPACITY" units="second" type="float" minvalue="0" maxvalue="120">max loop time</argument>
         </arguments>
         <properties>
             <property name="@capacity" type="float" minvalue="0" maxvalue="120" default="5"
