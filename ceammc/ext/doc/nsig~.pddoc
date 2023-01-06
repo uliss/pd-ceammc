@@ -20,8 +20,8 @@
             </aliases>
         </meta>
         <arguments>
-            <argument name="NUM" type="float" minvalue="1" maxvalue="12">@n property</argument>
-            <argument name="INIT" type="list">init values</argument>
+            <argument name="N" type="float" minvalue="1" maxvalue="12">@n property</argument>
+            <argument name="VALUES" type="list">init values</argument>
         </arguments>
         <properties>
             <property name="@n" type="int" minvalue="1" default="1" maxvalue="12"

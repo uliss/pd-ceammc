@@ -28,8 +28,8 @@
 -49933 0;
 #X text 110 360 1\.;
 #X text 150 360 float;
-#X obj 246 361 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 360 INTERV: sampling interval. Type: float.;
+#X obj 246 361 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 360 INTERVAL: sampling interval. Type: float.;
 #X obj 20 390 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 395 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;

@@ -20,23 +20,23 @@
 -49933 0;
 #X text 110 394 1\.;
 #X text 150 394 float;
-#X obj 246 395 cnv 1 45 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 394 ratio: compression ratio (1 = no compression \, >1
+#X obj 246 395 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 394 RATIO: compression ratio (1 = no compression \, >1
 means compression). Type: float. Range: 1\...10;
 #X text 110 429 2\.;
 #X text 150 429 float;
 #X obj 246 430 cnv 1 108 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 429 threshold(db): level threshold above which compression
+#X text 245 429 THRESHOLD(db): level threshold above which compression
 kicks in (100 dB = max level). Type: float. Range: 0\...100;
 #X text 110 464 3\.;
 #X text 150 464 float;
 #X obj 246 465 cnv 1 85 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 464 attack(ms): attack time = time constant when level
+#X text 245 464 ATTACK(ms): attack time = time constant when level
 & compression going up. Type: float.;
 #X text 110 499 4\.;
 #X text 150 499 float;
-#X obj 246 500 cnv 1 91 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 499 release(ms): release time = time constant coming out
+#X obj 246 500 cnv 1 92 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 499 RELEASE(ms): release time = time constant coming out
 of compression. Type: float.;
 #X obj 20 544 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 549 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144

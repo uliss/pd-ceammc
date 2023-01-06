@@ -17,7 +17,7 @@
             </also>
         </meta>
         <arguments>
-            <argument name="X" type="atom">searched element</argument>
+            <argument name="SUBJ" type="atom">searched element</argument>
         </arguments>
         <properties>
             <property name="@subj" type="atom" default="null">searched element</property>

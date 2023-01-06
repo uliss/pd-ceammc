@@ -24,8 +24,8 @@
             </aliases>
         </meta>
         <arguments>
-            <argument name="APITCH" type="float" minvalue="200" maxvalue="600">pitch
-            standard</argument>
+            <argument name="A" type="float" minvalue="200" maxvalue="600">A pitch
+            frequency</argument>
         </arguments>
         <properties>
             <property name="@a" type="float" default="440" minvalue="200" maxvalue="600"

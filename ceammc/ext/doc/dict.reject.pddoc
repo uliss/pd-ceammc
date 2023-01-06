@@ -20,7 +20,7 @@
             <argument name="KEYS" type="list">keys</argument>
         </arguments>
         <properties>
-            <property name="@keys" type="list">rejected keys</property>
+            <property name="@keys" type="list" default="">rejected keys</property>
         </properties>
         <inlets>
             <inlet>

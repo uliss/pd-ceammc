@@ -46,8 +46,8 @@
 -49933 0;
 #X text 110 477 1\.;
 #X text 150 477 symbol;
-#X obj 246 478 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 477 NAME: window name: blackman \, blackman-harris \, flattop
+#X obj 246 478 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 477 TYPE: window name: blackman \, blackman-harris \, flattop
 \, gauss \, hamming \, hann \, nuttall \, rect \, sine \, tri \, welch.
 Type: symbol.;
 #X text 110 512 2\.;
