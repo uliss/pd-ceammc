@@ -73,11 +73,12 @@
             MIDI channel, ignored</param>
             <param name="VALUE" required="true" type="float" minvalue="-1" maxvalue="1">value in
             -1..+1 range, with 0 center.</param></method>
-            <method name="bendsens">set pitchbend sensivity (NOT SUPPORTED, this is stub function) 
+            <method name="bendsens">set pitchbend sensitivity (NOT SUPPORTED, this is stub
+            function) 
             <param name="CHAN" required="false" type="int" default="0" minvalue="0" maxvalue="16">
             MIDI channel, ignored</param>
             <param name="RANGE" units="semitone" type="int" minvalue="0" maxvalue="64"
-            required="true">semitones sensivity</param></method>
+            required="true">semitones sensitivity</param></method>
             <!-- tune -->
             <method name="tune:12">set octave tuning program in cents deviations 
             <param name="BANK" required="true" type="int" minvalue="1" maxvalue="256">tuning bank

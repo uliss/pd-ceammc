@@ -37,7 +37,7 @@
 #X obj 255 530 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 530 BANK: bank MSB. Type: int. Range: 0\...127\.;
 #X msg 110 555 bendsens;
-#X text 245 555 send Pitch bend sensivity message. Arguments are:;
+#X text 245 555 send Pitch bend sensitivity message. Arguments are:;
 #X obj 255 578 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 578 CH: midi channel. Type: int. Min value: 0\.;
 #X msg 110 603 exp.;

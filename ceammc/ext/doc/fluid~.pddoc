@@ -111,11 +111,11 @@
             MIDI channel, if zero or ommited set for all channels</param>
             <param name="VALUE" required="true" type="float" minvalue="-1" maxvalue="1">value in
             -1..+1 range, with 0 center.</param></method>
-            <method name="bendsens">set pitchbend sensivity 
+            <method name="bendsens">set pitchbend sensitivity 
             <param name="CHAN" required="false" type="int" default="0" minvalue="0" maxvalue="16">
             MIDI channel, if zero or ommited set for all channels</param>
             <param name="RANGE" units="semitone" type="int" minvalue="0" maxvalue="64"
-            required="true">semitones sensivity</param></method>
+            required="true">semitones sensitivity</param></method>
             <!-- tune:s -->
             <method name="tune:s">set tuninig in semitones 
             <param name="CHAN" required="false" type="int" default="0" minvalue="0" maxvalue="16">

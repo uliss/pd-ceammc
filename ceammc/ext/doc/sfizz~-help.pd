@@ -89,13 +89,13 @@ float. Range: -1\...1\.;
 #X text 255 1212 VALUE: value in -0x2000\..0x1fff range \, with 0 center.
 Type: int. Range: -8192\...8191\.;
 #X msg 110 1252 bendsens;
-#X text 245 1252 set pitchbend sensivity (NOT SUPPORTED \, this is
+#X text 245 1252 set pitchbend sensitivity (NOT SUPPORTED \, this is
 stub function). Arguments are:;
 #X obj 255 1290 cnv 1 62 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1290 [CHAN=0]: MIDI channel \, ignored. Type: int. Range:
 0\...16\.;
 #X obj 255 1313 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1313 RANGE: semitones sensivity. Type: int. Range: 0\...64\.
+#X text 255 1313 RANGE: semitones sensitivity. Type: int. Range: 0\...64\.
 Units: semitone.;
 #X msg 110 1353 cc;
 #X text 245 1353 control change. Arguments are:;

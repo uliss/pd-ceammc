@@ -124,12 +124,12 @@ all channels. Type: int. Range: 0\...16\.;
 #X text 255 1693 VALUE: value in -0x2000\..0x1fff range \, with 0 center.
 Type: int. Range: -8192\...8191\.;
 #X msg 110 1733 bendsens;
-#X text 245 1733 set pitchbend sensivity. Arguments are:;
+#X text 245 1733 set pitchbend sensitivity. Arguments are:;
 #X obj 255 1756 cnv 1 62 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1756 [CHAN=0]: MIDI channel \, if zero or ommited set for
 all channels. Type: int. Range: 0\...16\.;
 #X obj 255 1794 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1794 RANGE: semitones sensivity. Type: int. Range: 0\...64\.
+#X text 255 1794 RANGE: semitones sensitivity. Type: int. Range: 0\...64\.
 Units: semitone.;
 #X msg 110 1834 cc;
 #X text 245 1834 control change. Arguments are:;
