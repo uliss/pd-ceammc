@@ -72,29 +72,29 @@ band. Type: float. Units: sec. Default value: 3\. Range: 1\...60\.;
 #X msg 110 965 @decay_mid;
 #X text 245 965 Get/Set time (in seconds) to decay 60dB in mid-frequency
 band. Type: float. Units: sec. Default value: 2\. Range: 1\...60\.;
-#X msg 110 1022 @delay;
-#X text 245 1022 Get/Set a delay of 20 to 100 ms operating on the 'wet'
-signal. Large values will provide the impression of a larger room.
-Type: float. Units: ms. Default value: 60\. Range: 20\...100\.;
-#X msg 110 1094 @drywet;
-#X text 245 1094 Get/Set Ratio between source signal (dry) and processed
+#X msg 110 1022 @drywet;
+#X text 245 1022 Get/Set Ratio between source signal (dry) and processed
 signal (wet). Type: float. Default value: 1\. Range: 0\...1\.;
-#X msg 110 1136 @fr_ldecay;
-#X text 245 1136 Get/Set time (in seconds) to decay 60dB in low-frequency
+#X msg 110 1064 @fr_ldecay;
+#X text 245 1064 Get/Set time (in seconds) to decay 60dB in low-frequency
 band. Type: float. Units: sec. Default value: 40\. Range: 0\...60\.;
-#X msg 110 1193 @fr_mdecay;
-#X text 245 1193 Get/Set time (in seconds) to decay 60dB in mid-frequency
+#X msg 110 1121 @fr_mdecay;
+#X text 245 1121 Get/Set time (in seconds) to decay 60dB in mid-frequency
 band. Type: float. Units: sec. Default value: 40\. Range: 0\...60\.;
-#X msg 110 1250 @fr_time;
-#X text 245 1250 Get/Set length of freeze tail. Type: float. Units:
+#X msg 110 1178 @fr_time;
+#X text 245 1178 Get/Set length of freeze tail. Type: float. Units:
 ms. Default value: 100\. Range: 0\...1000\.;
-#X msg 110 1292 @freeze;
-#X text 245 1292 Get/Set freeze reverberation tail. Type: bool. Default
+#X msg 110 1220 @freeze;
+#X text 245 1220 Get/Set freeze reverberation tail. Type: bool. Default
 value: 0\.;
-#X msg 110 1334 @freq_low;
-#X text 245 1334 Get/Set Crossover frequency (Hz) separating low and
+#X msg 110 1262 @freq_low;
+#X text 245 1262 Get/Set Crossover frequency (Hz) separating low and
 middle frequencies. Type: float. Units: Hz. Default value: 200\. Range:
 50\...1000\.;
+#X msg 110 1319 @predelay;
+#X text 245 1319 Get/Set a delay of 20 to 100 ms operating on the 'wet'
+signal. Large values will provide the impression of a larger room.
+Type: float. Units: ms. Default value: 60\. Range: 0\...100\.;
 #X obj 20 1401 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1406 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
