@@ -55,7 +55,7 @@ Allowed values: roman \, italic.;
 Allowed values: normal \, bold.;
 #X msg 110 786 @pinned;
 #X text 245 786 Get/Set pin mode. if 1 - put element to the lowest
-level. Type: int. Default value: 0\. Allowed values: 0 \, 1\.;
+level. Type: bool. Default value: 0\.;
 #X obj 20 838 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 843 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;

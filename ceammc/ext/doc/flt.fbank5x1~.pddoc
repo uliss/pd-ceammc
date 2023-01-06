@@ -44,8 +44,7 @@
             units="decibel">fourth filter (bandpass) gain at 2000Hz</property>
             <property name="@f4000" type="float" minvalue="-6" maxvalue="6" default="0"
             units="decibel">fifth filter (highpass) gain at 4000Hz</property>
-            <property name="@active" type="bool" default="1">on/off dsp
-            processing</property>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
         <methods>
             <method name="reset">reset filter state</method>

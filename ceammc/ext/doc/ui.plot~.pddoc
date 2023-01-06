@@ -68,8 +68,8 @@
             <property name="@receive" type="symbol" default="(null)">receive source</property>
             <property name="@size" type="list" default="200 200">element size (width, height
             pair)</property>
-            <property name="@pinned" type="int" enum="0 1" default="0">pin mode. if 1 - put element
-            to the lowest level</property>
+            <property name="@pinned" type="bool" default="0">pin mode. if 1 - put element to the
+            lowest level</property>
             <property name="@plot_color0" type="list" default="0 0.75 1 1">first plot color (list
             of red, green, blue values in 0-1 range)</property>
             <property name="@plot_color1" type="list" default="0.75 0 1 1">second color (list of

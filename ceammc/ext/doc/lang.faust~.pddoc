@@ -30,9 +30,10 @@
         </methods>
         <properties>
             <property name="@fname" type="symbol" default="">path to faust dsp file</property>
-            <property name="@include" type="list" default="">list of faust include directories</property>
-            <property name="@auto" type="bool" default="0">auto update mode. If on -
-            recompiles faust dsp file on change</property>
+            <property name="@include" type="list" default="">list of faust include
+            directories</property>
+            <property name="@auto" type="bool" default="0">auto update mode. If on - recompiles
+            faust dsp file on change</property>
         </properties>
         <inlets dynamic="true">
             <inlet number="1">

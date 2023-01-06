@@ -57,8 +57,8 @@
             <property name="@receive" type="symbol" default="(null)">receive source</property>
             <property name="@size" type="list" default="150 100">element size (width, height
             pair)</property>
-            <property name="@pinned" type="int" enum="0 1" default="0">pin mode. if 1 - put element
-            to the lowest level</property>
+            <property name="@pinned" type="bool" default="0">pin mode. if 1 - put element to the
+            lowest level</property>
             <property name="@mouse_events" type="int" enum="0 1" default="0">mouse events output
             mode. If on outputs @mouse_down, @mouse_up and @mouse_drag events</property>
             <property name="@slider_color" type="list" default="0.75 0.75 0.75 1">slider color

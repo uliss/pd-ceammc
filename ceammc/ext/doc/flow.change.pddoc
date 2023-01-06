@@ -22,7 +22,8 @@
             <par>Note: [list a b c( and [a b c( are different values!</par>
         </info>
         <properties>
-            <property name="@onrepeat" type="symbol" default="">function called when repeat occurs</property>
+            <property name="@onrepeat" type="symbol" default="">function called when repeat
+            occurs</property>
         </properties>
         <inlets>
             <inlet>

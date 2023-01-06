@@ -46,7 +46,7 @@ values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
 value: left. Allowed values: left \, center \, right.;
 #X msg 110 644 @label_inner;
 #X text 245 644 Get/Set label position (1 - inner \, 0 - outer). Type:
-int. Default value: 0\. Allowed values: 0 \, 1\.;
+bool. Default value: 0\.;
 #X msg 110 686 @label_margins;
 #X text 245 686 Get/Set label offset in pixels. Type: list. Default
 value: 0 0\.;
@@ -69,7 +69,7 @@ Allowed values: roman \, italic.;
 Allowed values: normal \, bold.;
 #X msg 110 967 @pinned;
 #X text 245 967 Get/Set pin mode. if 1 - put element to the lowest
-level. Type: int. Default value: 0\. Allowed values: 0 \, 1\.;
+level. Type: bool. Default value: 0\.;
 #X msg 110 1009 @size;
 #X text 245 1009 Get/Set element size (width \, height pair). Type:
 list. Default value: 15 15\.;

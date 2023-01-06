@@ -65,12 +65,10 @@
             maxvalue="0">onset detection silence threshold</property>
             <property name="@compression" type="float" minvalue="0" default="1">lambda logarithmic
             compression factor, 0 to disable</property>
-            <property name="@awhitening" type="bool" default="0">adaptive
-            whitening</property>
-            <property name="@delay" type="float" minvalue="0" default="49.9093" units="millisecond">
-            constant system delay to take back from detection time</property>
-            <property name="@active" type="bool" default="1">audio processing
-            state</property>
+            <property name="@awhitening" type="bool" default="0">adaptive whitening</property>
+            <property name="@delay" type="float" minvalue="0" default="49.9093"
+            units="millisecond">constant system delay to take back from detection time</property>
+            <property name="@active" type="bool" default="1">audio processing state</property>
         </properties>
         <inlets>
             <inlet type="audio">

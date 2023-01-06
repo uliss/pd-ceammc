@@ -99,7 +99,7 @@ Allowed values: roman \, italic.;
 normal. Allowed values: normal \, bold.;
 #X msg 110 1261 @pinned;
 #X text 245 1261 Get/Set pin mode. if 1 - put element to the lowest
-level. Type: int. Default value: 0\. Allowed values: 0 \, 1\.;
+level. Type: bool. Default value: 0\.;
 #X msg 110 1303 @size;
 #X text 245 1303 Get/Set element size (width \, height pair). Type:
 list. Default value: 433 60\.;

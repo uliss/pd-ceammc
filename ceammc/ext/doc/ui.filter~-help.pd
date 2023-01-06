@@ -103,7 +103,7 @@ Allowed values: roman \, italic.;
 normal. Allowed values: normal \, bold.;
 #X msg 110 1500 @pinned;
 #X text 245 1500 Get/Set pin mode. if 1 - put element to the lowest
-level. Type: int. Default value: 0\. Allowed values: 0 \, 1\.;
+level. Type: bool. Default value: 0\.;
 #X msg 110 1542 @presetname;
 #X text 245 1542 Get/Set preset name for using with [ui.preset]. Type:
 symbol. Default value: (null).;

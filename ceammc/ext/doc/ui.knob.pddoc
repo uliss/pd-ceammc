@@ -72,8 +72,8 @@
             source</property>
             <property name="@size" type="list" category="basic" default="40 40">element size
             (width, height pair)</property>
-            <property name="@pinned" type="int" enum="0 1" default="0" category="basic">pin mode.
-            if 1 - put element to the lowest level</property>
+            <property name="@pinned" type="bool" default="0" category="basic">pin mode. if 1 - put
+            element to the lowest level</property>
             <property name="@mouse_events" type="int" enum="0 1" default="0">mouse events output
             mode. If on outputs @mouse_down, @mouse_up and @mouse_drag events</property>
             <property name="@knob_color" type="list" category="color" default="0 0.75 1 1">knob
