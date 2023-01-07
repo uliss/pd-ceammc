@@ -1162,7 +1162,7 @@ roll;
 #X obj 30 15814 noise.lfreq~;
 #X text 200 15814 noise.lfreq0~ smoothed with no overshoot;
 #X obj 30 15841 noise.lorenz;
-#X text 200 15841 Part of a-chaos library;
+#X text 200 15841 Lorenz chaos;
 #X obj 30 15868 noise.lyapunov;
 #X text 200 15868 Part of a-chaos library;
 #X obj 30 15895 noise.navier_stokes;

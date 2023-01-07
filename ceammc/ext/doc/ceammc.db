@@ -525,7 +525,7 @@ noise.henonf		.		..
 noise.ikeda		.		..
 noise.lfreq0~		.		~
 noise.lfreq~		.		~
-noise.lorenz		.		.
+noise.lorenz		.		...
 noise.lyapunov		.		.
 noise.navier_stokes		.		.
 noise.pink~		-		~

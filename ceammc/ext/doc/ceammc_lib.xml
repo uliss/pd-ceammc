@@ -1633,7 +1633,7 @@
     <entry name="noise.lfreq~" descr="noise.lfreq0~ smoothed with no overshoot" ref_view="object">
       <xi:include href="noise.lfreq~.pddoc" parse="xml"/>
     </entry>
-    <entry name="noise.lorenz" descr="Part of a-chaos library" ref_view="object">
+    <entry name="noise.lorenz" descr="Lorenz chaos" ref_view="object">
       <xi:include href="noise.lorenz.pddoc" parse="xml"/>
     </entry>
     <entry name="noise.lyapunov" descr="Part of a-chaos library" ref_view="object">
