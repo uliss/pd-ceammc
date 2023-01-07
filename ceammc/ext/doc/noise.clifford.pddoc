@@ -6,7 +6,7 @@
             <authors>
                 <author>André Sier</author>
             </authors>
-            <description>clifford attractors</description>
+            <description>clifford attractor</description>
             <license>BSD</license>
             <library>ceammc</library>
             <category>noise</category>

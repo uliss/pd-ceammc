@@ -516,7 +516,7 @@ noise.clifford		.		..
 noise.collatz		.		.
 noise.colored~		.		~
 noise.crackle~		.		~
-noise.duffing		.		.
+noise.duffing		.		..
 noise.ginger		.		..
 noise.henon		.		.
 noise.henon_heilles		.		..

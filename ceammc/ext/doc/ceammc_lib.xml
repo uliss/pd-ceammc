@@ -1594,7 +1594,7 @@
     <entry name="noise.baker" descr="Part of a-chaos library" ref_view="object">
       <xi:include href="noise.baker.pddoc" parse="xml"/>
     </entry>
-    <entry name="noise.clifford" descr="clifford attractors" ref_view="object">
+    <entry name="noise.clifford" descr="clifford attractor" ref_view="object">
       <xi:include href="noise.clifford.pddoc" parse="xml"/>
     </entry>
     <entry name="noise.collatz" descr="Part of a-chaos library" ref_view="object">
@@ -1606,7 +1606,7 @@
     <entry name="noise.crackle~" descr="sparse noise generator" ref_view="object">
       <xi:include href="noise.crackle~.pddoc" parse="xml"/>
     </entry>
-    <entry name="noise.duffing" descr="Part of a-chaos library" ref_view="object">
+    <entry name="noise.duffing" descr="duffing attractor" ref_view="object">
       <xi:include href="noise.duffing.pddoc" parse="xml"/>
     </entry>
     <entry name="noise.ginger" descr="Gingerbreadman map chaotic generator" ref_view="object">

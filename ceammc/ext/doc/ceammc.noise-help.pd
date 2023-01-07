@@ -5,7 +5,7 @@
 #X obj 30 116 noise.baker;
 #X text 200 116 Part of a-chaos library;
 #X obj 30 143 noise.clifford;
-#X text 200 143 clifford attractors;
+#X text 200 143 clifford attractor;
 #X obj 30 170 noise.collatz;
 #X text 200 170 Part of a-chaos library;
 #X obj 30 197 noise.colored~;
@@ -14,7 +14,7 @@ roll;
 #X obj 30 224 noise.crackle~;
 #X text 200 224 sparse noise generator;
 #X obj 30 251 noise.duffing;
-#X text 200 251 Part of a-chaos library;
+#X text 200 251 duffing attractor;
 #X obj 30 278 noise.ginger;
 #X text 200 278 Gingerbreadman map chaotic generator;
 #X obj 30 305 noise.henon;
