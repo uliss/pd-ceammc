@@ -29,6 +29,7 @@ ceammc_noise_external(stein)
 ceammc_noise_external(torus)
 ceammc_noise_external(verhulst)
 
+ceammc_faust_noise_obj_ui(colored)
 ceammc_faust_noise_obj_ui(crackle)
 ceammc_faust_noise_obj_ui(lfreq)
 ceammc_faust_noise_obj_ui(lfreq0)
