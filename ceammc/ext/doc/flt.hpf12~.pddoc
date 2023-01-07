@@ -40,6 +40,9 @@
             <inlet type="audio">
                 <xinfo>input signal</xinfo>
             </inlet>
+            <inlet>
+                <xinfo on="float">set frequency</xinfo>
+            </inlet>
         </inlets>
         <outlets>
             <outlet type="audio">filtered signal</outlet>

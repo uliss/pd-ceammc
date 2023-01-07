@@ -17,7 +17,11 @@
   - round~ alias added to math.round~
 - new inlets:
   - fx.room~: second inlet added to set room size
-  - fx.resonbp~: second (freq) and third inlets added (Q-factor)
+  - fx.resonbp~: second (freq) and third (Q-factor) inlets added
+  - fx.hpf12~: second (freq) inlet added
+  - fx.hpf24~: second (freq) inlet added
+  - fx.lpf12~: second (freq) inlet added
+  - fx.lpf24~: second (freq) inlet added
 - misc:
   - new control outlet added to fluid~ - output current number of active voices (only when changed)
 
