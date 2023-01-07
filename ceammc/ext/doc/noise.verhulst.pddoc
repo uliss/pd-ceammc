@@ -6,12 +6,12 @@
             <authors>
                 <author>André Sier</author>
             </authors>
-            <description>Part of a-chaos library</description>
+            <description>verhulst distribution</description>
             <license>%</license>
             <library>ceammc</library>
             <category>noise</category>
             <keywords>noise</keywords>
-            <since>.5</since>
+            <since>0.5</since>
         </meta>
         <info>
             <par>Verhulst distribution</par>

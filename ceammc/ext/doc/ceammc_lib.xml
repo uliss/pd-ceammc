@@ -1648,13 +1648,13 @@
     <entry name="noise.rossler" descr="Rössler attractor" ref_view="object">
       <xi:include href="noise.rossler.pddoc" parse="xml"/>
     </entry>
-    <entry name="noise.stein" descr="Part of a-chaos library" ref_view="object">
+    <entry name="noise.stein" descr="Stein distribution" ref_view="object">
       <xi:include href="noise.stein.pddoc" parse="xml"/>
     </entry>
     <entry name="noise.torus" descr="torus attractor" ref_view="object">
       <xi:include href="noise.torus.pddoc" parse="xml"/>
     </entry>
-    <entry name="noise.verhulst" descr="Part of a-chaos library" ref_view="object">
+    <entry name="noise.verhulst" descr="verhulst distribution" ref_view="object">
       <xi:include href="noise.verhulst.pddoc" parse="xml"/>
     </entry>
     <entry name="noise.white~" descr="White noise generator" ref_view="object">

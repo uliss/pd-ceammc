@@ -889,9 +889,9 @@ noise.lyapunov	lyapunov random attractor
 noise.navier_stokes	Part of a-chaos library
 noise.pink~	Pink noise generator
 noise.rossler	Rössler attractor
-noise.stein	Part of a-chaos library
+noise.stein	Stein distribution
 noise.torus	torus attractor
-noise.verhulst	Part of a-chaos library
+noise.verhulst	verhulst distribution
 noise.white~	White noise generator
 osc.blit~	Bandlimited impulse train oscillator
 osc.impulse~	Bandlimited impulse train generator

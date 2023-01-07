@@ -42,11 +42,11 @@ roll;
 #X obj 30 602 noise.rossler;
 #X text 200 602 Rössler attractor;
 #X obj 30 629 noise.stein;
-#X text 200 629 Part of a-chaos library;
+#X text 200 629 Stein distribution;
 #X obj 30 656 noise.torus;
 #X text 200 656 torus attractor;
 #X obj 30 683 noise.verhulst;
-#X text 200 683 Part of a-chaos library;
+#X text 200 683 verhulst distribution;
 #X obj 30 710 noise.white~;
 #X text 200 710 White noise generator;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::noise 20 20 0 20 -104026

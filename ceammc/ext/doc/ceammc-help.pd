@@ -1172,11 +1172,11 @@ roll;
 #X obj 30 15949 noise.rossler;
 #X text 200 15949 Rössler attractor;
 #X obj 30 15976 noise.stein;
-#X text 200 15976 Part of a-chaos library;
+#X text 200 15976 Stein distribution;
 #X obj 30 16003 noise.torus;
 #X text 200 16003 torus attractor;
 #X obj 30 16030 noise.verhulst;
-#X text 200 16030 Part of a-chaos library;
+#X text 200 16030 verhulst distribution;
 #X obj 30 16057 noise.white~;
 #X text 200 16057 White noise generator;
 #X obj 20 16084 cnv 5 38 31 empty empty osc 4 13 0 17 -262144 -49933
