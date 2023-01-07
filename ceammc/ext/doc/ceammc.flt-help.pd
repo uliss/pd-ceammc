@@ -75,9 +75,11 @@ or cut near some frequency). Also called a "parametric equalizer" section.;
 #X text 200 1062 band-rejection filter;
 #X obj 30 1089 flt.resonbp~;
 #X text 200 1089 Simple resonant bandpass filter;
-#X obj 30 1116 flt.resonlp~;
-#X text 200 1116 Simple resonant lowpass filter;
+#X obj 30 1116 flt.resonhp~;
+#X text 200 1116 Simple resonant highpass filter;
+#X obj 30 1143 flt.resonlp~;
+#X text 200 1143 Simple resonant lowpass filter;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::flt 20 20 0 20 -104026
 -4096 0;
-#X obj 1 1143 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 1153 library: ceammc;
+#X obj 1 1170 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 1180 library: ceammc;

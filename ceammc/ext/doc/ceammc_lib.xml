@@ -736,6 +736,9 @@
     <entry name="flt.resonbp~" descr="Simple resonant bandpass filter" ref_view="object">
       <xi:include href="flt.resonbp~.pddoc" parse="xml"/>
     </entry>
+    <entry name="flt.resonhp~" descr="Simple resonant highpass filter" ref_view="object">
+      <xi:include href="flt.resonhp~.pddoc" parse="xml"/>
+    </entry>
     <entry name="flt.resonlp~" descr="Simple resonant lowpass filter" ref_view="object">
       <xi:include href="flt.resonlp~.pddoc" parse="xml"/>
     </entry>
