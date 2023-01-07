@@ -1600,6 +1600,9 @@
     <entry name="noise.collatz" descr="Part of a-chaos library" ref_view="object">
       <xi:include href="noise.collatz.pddoc" parse="xml"/>
     </entry>
+    <entry name="noise.colored~" descr="colored noise generator with an arbitrary spectral roll" ref_view="object">
+      <xi:include href="noise.colored~.pddoc" parse="xml"/>
+    </entry>
     <entry name="noise.crackle~" descr="sparse noise generator" ref_view="object">
       <xi:include href="noise.crackle~.pddoc" parse="xml"/>
     </entry>

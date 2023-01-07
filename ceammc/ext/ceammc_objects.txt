@@ -869,6 +869,7 @@ net.osc.server
 noise.baker
 noise.clifford
 noise.collatz
+noise.colored~
 noise.crackle~
 noise.duffing
 noise.ginger

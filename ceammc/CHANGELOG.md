@@ -8,6 +8,7 @@
   - fx.jcrev~ schroeder quad reverb from 1972 added  
   - flt.resonlp~ resonant lowpass filter added
   - flt.resonhp~ resonant highpass filter added
+  - noise.colored~ generator of colored noise (brown, pink, white, blue, velvet)
 - new arguments:
   - 3rd argument added to fx.zita_rev1~ to specify dry/wet ratio
 - new properties:

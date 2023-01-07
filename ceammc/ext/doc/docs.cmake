@@ -517,6 +517,7 @@ set(DOC_FILES
     noise.baker
     noise.clifford
     noise.collatz
+    noise.colored~
     noise.crackle~
     noise.duffing
     noise.ginger

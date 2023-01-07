@@ -873,6 +873,7 @@ net.osc	OSC server control
 noise.baker	Part of a-chaos library
 noise.clifford	Part of a-chaos library
 noise.collatz	Part of a-chaos library
+noise.colored~	colored noise generator with an arbitrary spectral roll
 noise.crackle~	sparse noise generator
 noise.duffing	Part of a-chaos library
 noise.ginger	Gingerbreadman map chaotic generator

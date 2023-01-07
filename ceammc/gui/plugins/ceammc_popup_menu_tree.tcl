@@ -183,11 +183,11 @@
         net.osc.server
     }}
     {noise {
-        noise.baker noise.clifford noise.collatz noise.crackle~ noise.duffing
-        noise.ginger noise.henon noise.henon_heilles noise.henon_phase
-        noise.henonf noise.ikeda noise.lfreq0~ noise.lfreq~ noise.lorenz
-        noise.lyapunov noise.navier_stokes noise.pink~ noise.rossler
-        noise.stein noise.torus noise.verhulst noise.white~
+        noise.baker noise.clifford noise.collatz noise.colored~ noise.crackle~
+        noise.duffing noise.ginger noise.henon noise.henon_heilles
+        noise.henon_phase noise.henonf noise.ikeda noise.lfreq0~ noise.lfreq~
+        noise.lorenz noise.lyapunov noise.navier_stokes noise.pink~
+        noise.rossler noise.stein noise.torus noise.verhulst noise.white~
     }}
     {osc {
         osc.blit~ osc.impulse~ osc.pulse~ osc.saw4~ osc.saw~ osc.sinfb~
