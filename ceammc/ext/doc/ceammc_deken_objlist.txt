@@ -881,7 +881,7 @@ noise.henon	henon attractor
 noise.henon_heilles	Hénon–Heiles_system
 noise.henon_phase	henon phase Ddagrams
 noise.henonf	Henon phase
-noise.ikeda	Part of a-chaos library
+noise.ikeda	Ikeda attractor
 noise.lfreq0~	sampled/held noise (piecewise constant)
 noise.lfreq~	noise.lfreq0~ smoothed with no overshoot
 noise.lorenz	Part of a-chaos library

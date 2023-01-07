@@ -1156,7 +1156,7 @@ roll;
 #X obj 30 15733 noise.henonf;
 #X text 200 15733 Henon phase;
 #X obj 30 15760 noise.ikeda;
-#X text 200 15760 Part of a-chaos library;
+#X text 200 15760 Ikeda attractor;
 #X obj 30 15787 noise.lfreq0~;
 #X text 200 15787 sampled/held noise (piecewise constant);
 #X obj 30 15814 noise.lfreq~;

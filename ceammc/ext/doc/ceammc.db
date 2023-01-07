@@ -522,7 +522,7 @@ noise.henon		.		..
 noise.henon_heilles		.		....
 noise.henon_phase		.		..
 noise.henonf		.		..
-noise.ikeda		.		.
+noise.ikeda		.		..
 noise.lfreq0~		.		~
 noise.lfreq~		.		~
 noise.lorenz		.		.
