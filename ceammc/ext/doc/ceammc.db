@@ -519,7 +519,7 @@ noise.crackle~		.		~
 noise.duffing		.		..
 noise.ginger		.		..
 noise.henon		.		..
-noise.henon_heilles		.		..
+noise.henon_heilles		.		....
 noise.henon_phase		.		.
 noise.henonf		.		.
 noise.ikeda		.		.

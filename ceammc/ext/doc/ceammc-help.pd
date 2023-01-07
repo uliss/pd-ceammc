@@ -1150,7 +1150,7 @@ roll;
 #X obj 30 15652 noise.henon;
 #X text 200 15652 henon attractor;
 #X obj 30 15679 noise.henon_heilles;
-#X text 200 15679 Part of a-chaos library;
+#X text 200 15679 Hénon–Heiles_system;
 #X obj 30 15706 noise.henon_phase;
 #X text 200 15706 Part of a-chaos library;
 #X obj 30 15733 noise.henonf;

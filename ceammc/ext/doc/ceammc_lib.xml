@@ -1615,7 +1615,7 @@
     <entry name="noise.henon" descr="henon attractor" ref_view="object">
       <xi:include href="noise.henon.pddoc" parse="xml"/>
     </entry>
-    <entry name="noise.henon_heilles" descr="Part of a-chaos library" ref_view="object">
+    <entry name="noise.henon_heilles" descr="Hénon–Heiles_system" ref_view="object">
       <xi:include href="noise.henon_heilles.pddoc" parse="xml"/>
     </entry>
     <entry name="noise.henon_phase" descr="Part of a-chaos library" ref_view="object">
