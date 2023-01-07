@@ -66,6 +66,7 @@
         flt.fb_comb~ flt.fbank5x1~ flt.ff_comb~ flt.freqz flt.freqz~
         flt.highshelf~ flt.hpf12~ flt.hpf24~ flt.lowshelf~ flt.lpf12~
         flt.lpf24~ flt.median flt.moog_vcf~ flt.notch~ flt.resonbp~
+        flt.resonhp~ flt.resonlp~
     }}
     {fx {
         fx.bitdown~ fx.chorus~ fx.distortion1~ fx.distortion2~ fx.distortion3~

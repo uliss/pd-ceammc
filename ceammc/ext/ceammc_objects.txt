@@ -464,6 +464,8 @@ flt.median
 flt.moog_vcf~
 flt.notch~
 flt.resonbp~
+flt.resonhp~
+flt.resonlp~
 fluid~
 func
 func.call
