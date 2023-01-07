@@ -204,7 +204,7 @@ flt.lpf24~		~		~
 flt.median		.		.
 flt.moog_vcf~		~~		~
 flt.notch~		~		~
-flt.resonbp~		~		~
+flt.resonbp~		~..		~
 flt.resonlp~		~..		~
 fluid~,ceammc/fluid~		.		~~.
 function,func,ceammc/func,ceammc/function		..		..
