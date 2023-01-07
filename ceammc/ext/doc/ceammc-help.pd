@@ -1174,7 +1174,7 @@ roll;
 #X obj 30 15976 noise.stein;
 #X text 200 15976 Part of a-chaos library;
 #X obj 30 16003 noise.torus;
-#X text 200 16003 Part of a-chaos library;
+#X text 200 16003 torus attractor;
 #X obj 30 16030 noise.verhulst;
 #X text 200 16030 Part of a-chaos library;
 #X obj 30 16057 noise.white~;

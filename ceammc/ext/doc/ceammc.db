@@ -531,7 +531,7 @@ noise.navier_stokes		.		.
 noise.pink~		-		~
 noise.rossler		.		...
 noise.stein		.		.
-noise.torus		.		.
+noise.torus		.		..
 noise.verhulst		.		.
 noise.white~		-		~
 nsig~,ceammc/nsig~		?		?

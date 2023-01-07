@@ -890,7 +890,7 @@ noise.navier_stokes	Part of a-chaos library
 noise.pink~	Pink noise generator
 noise.rossler	Rössler attractor
 noise.stein	Part of a-chaos library
-noise.torus	Part of a-chaos library
+noise.torus	torus attractor
 noise.verhulst	Part of a-chaos library
 noise.white~	White noise generator
 osc.blit~	Bandlimited impulse train oscillator

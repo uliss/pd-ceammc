@@ -1651,7 +1651,7 @@
     <entry name="noise.stein" descr="Part of a-chaos library" ref_view="object">
       <xi:include href="noise.stein.pddoc" parse="xml"/>
     </entry>
-    <entry name="noise.torus" descr="Part of a-chaos library" ref_view="object">
+    <entry name="noise.torus" descr="torus attractor" ref_view="object">
       <xi:include href="noise.torus.pddoc" parse="xml"/>
     </entry>
     <entry name="noise.verhulst" descr="Part of a-chaos library" ref_view="object">
