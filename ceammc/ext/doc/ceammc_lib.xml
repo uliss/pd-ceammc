@@ -1639,7 +1639,7 @@
     <entry name="noise.lyapunov" descr="lyapunov random attractor" ref_view="object">
       <xi:include href="noise.lyapunov.pddoc" parse="xml"/>
     </entry>
-    <entry name="noise.navier_stokes" descr="Part of a-chaos library" ref_view="object">
+    <entry name="noise.navier_stokes" descr="navier-stokes diff equations" ref_view="object">
       <xi:include href="noise.navier_stokes.pddoc" parse="xml"/>
     </entry>
     <entry name="noise.pink~" descr="Pink noise generator" ref_view="object">

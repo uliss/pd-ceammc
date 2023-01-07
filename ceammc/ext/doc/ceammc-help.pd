@@ -1166,7 +1166,7 @@ roll;
 #X obj 30 15868 noise.lyapunov;
 #X text 200 15868 lyapunov random attractor;
 #X obj 30 15895 noise.navier_stokes;
-#X text 200 15895 Part of a-chaos library;
+#X text 200 15895 navier-stokes diff equations;
 #X obj 30 15922 noise.pink~;
 #X text 200 15922 Pink noise generator;
 #X obj 30 15949 noise.rossler;
