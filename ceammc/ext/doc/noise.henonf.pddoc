@@ -7,21 +7,21 @@
                 <author>Paul Bourke</author>
                 <author>André Sier</author>
             </authors>
-            <description>Part of a-chaos library</description>
+            <description>Henon phase</description>
             <license>%</license>
             <library>ceammc</library>
             <category>noise</category>
             <keywords>noise</keywords>
-            <since>.5</since>
+            <since>0.5</since>
         </meta>
         <info>
             <par>Another 'Henon phase' implementation by André Sier</par>
         </info>
         <arguments>
-            <argument name="ARG0" type="float">a value (optional)</argument>
-            <argument name="ARG1" type="float">b value (optional)</argument>
-            <argument name="ARG2" type="float">x value (optional)</argument>
-            <argument name="ARG3" type="float">y value (optional)</argument>
+            <argument name="A" type="float">a value (optional)</argument>
+            <argument name="B" type="float">b value (optional)</argument>
+            <argument name="X" type="float">x value (optional)</argument>
+            <argument name="Y" type="float">y value (optional)</argument>
         </arguments>
         <methods>
             <method name="set">
@@ -54,16 +54,15 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>main outlet</outlet>
+            <outlet>x outlet</outlet>
+            <outlet>y outlet</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-
 [T]
 |
 [metro 50 #metro]
-
 
   [T]         [F]
   |           |
@@ -92,7 +91,6 @@
 [X reset:0->noise-obj:0]
 
 [X metro->noise-obj]
-
 ]]>
             </pdascii>
         </example>

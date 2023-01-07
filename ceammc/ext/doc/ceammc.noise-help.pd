@@ -24,7 +24,7 @@ roll;
 #X obj 30 359 noise.henon_phase;
 #X text 200 359 henon phase Ddagrams;
 #X obj 30 386 noise.henonf;
-#X text 200 386 Part of a-chaos library;
+#X text 200 386 Henon phase;
 #X obj 30 413 noise.ikeda;
 #X text 200 413 Part of a-chaos library;
 #X obj 30 440 noise.lfreq0~;

@@ -521,7 +521,7 @@ noise.ginger		.		..
 noise.henon		.		..
 noise.henon_heilles		.		....
 noise.henon_phase		.		..
-noise.henonf		.		.
+noise.henonf		.		..
 noise.ikeda		.		.
 noise.lfreq0~		.		~
 noise.lfreq~		.		~

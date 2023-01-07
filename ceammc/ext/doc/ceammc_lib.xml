@@ -1621,7 +1621,7 @@
     <entry name="noise.henon_phase" descr="henon phase Ddagrams" ref_view="object">
       <xi:include href="noise.henon_phase.pddoc" parse="xml"/>
     </entry>
-    <entry name="noise.henonf" descr="Part of a-chaos library" ref_view="object">
+    <entry name="noise.henonf" descr="Henon phase" ref_view="object">
       <xi:include href="noise.henonf.pddoc" parse="xml"/>
     </entry>
     <entry name="noise.ikeda" descr="Part of a-chaos library" ref_view="object">
