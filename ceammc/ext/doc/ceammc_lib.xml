@@ -789,6 +789,9 @@
     <entry name="fx.infrev~" descr="port of Infinity VST plugin from airwindows" ref_view="object">
       <xi:include href="fx.infrev~.pddoc" parse="xml"/>
     </entry>
+    <entry name="fx.jcrev~" descr="Schroeder quad reverberator from 1972" ref_view="object">
+      <xi:include href="fx.jcrev~.pddoc" parse="xml"/>
+    </entry>
     <entry name="fx.looper~" descr="One track looper" ref_view="object">
       <xi:include href="fx.looper~.pddoc" parse="xml"/>
     </entry>

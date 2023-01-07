@@ -19,6 +19,7 @@ void setup_fx_granulator_tilde();
 void setup_fx_greyhole_tilde();
 void setup_fx_pitchshift_tilde();
 void setup_fx_infrev_tilde();
+void setup_fx_jcrev_tilde();
 void setup_fx_pitchshift_sig_tilde();
 void setup_fx_recho_tilde();
 void setup_fx_room_tilde();
@@ -51,6 +52,7 @@ void ceammc_fx_setup()
     setup_fx_granulator_tilde();
     setup_fx_greyhole_tilde();
     setup_fx_infrev_tilde();
+    setup_fx_jcrev_tilde();
     setup_fx_looper();
     setup_fx_pitchshift_sig_tilde();
     setup_fx_pitchshift_tilde();
