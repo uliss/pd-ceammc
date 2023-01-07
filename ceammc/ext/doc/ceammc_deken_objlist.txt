@@ -466,6 +466,7 @@ flt.median	Median control flow filter
 flt.moog_vcf~	Moog Voltage Controlled Filter
 flt.notch~	band-rejection filter
 flt.resonbp~	Simple resonant bandpass filter
+flt.resonlp~	Simple resonant lowpass filter
 fx.bitdown~	bit downer and downsampler effect
 fx.chorus~	Chorus effect
 fx.distortion1~	distortion #1 from Guitarix effects set

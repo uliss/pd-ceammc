@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="flt.resonlp~">
+        <title>flt.resonlp~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Simple resonant lowpass filter</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>flt</category>
+            <keywords>filter resonant lowpass</keywords>
+            <since>0.9.6</since>
+            <also>
+                <see>flt.resonbp~</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="FREQ" type="float" units="hertz" minvalue="20" maxvalue="20000">center
+            frequency</argument>
+            <argument name="Q" type="float" minvalue="0.1" maxvalue="100">Quality factor</argument>
+        </arguments>
+        <properties>
+            <property name="@freq" type="float" units="hertz" minvalue="20" maxvalue="20000"
+            default="1000">center frequency</property>
+            <property name="@q" type="float" minvalue="0.1" maxvalue="100" default="20">
+            Quality factor</property>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+        </properties>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="float">set frequency</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="float">set Q-factor</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">filtered signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[osc.saw~ 200]            [ui.dsp~]
+|
+|  [ui.hsl 500 5000 @show_value 1]
+|  |
+|  [@freq $1( [ui.hsl 0.5 50 @show_value 1]
+|  |          |
+|  |          [@q $1(
+|  |          |
+[flt.resonlp~ 1000 20 #a]
+|
+[ui.gain~ @size 120 14]  [ui.ssc~ @size 400 120 #x]
+|*
+|*
+|*
+|*
+[dac~]
+[X a->x]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

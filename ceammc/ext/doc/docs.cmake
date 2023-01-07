@@ -208,6 +208,7 @@ set(DOC_FILES
     flt.moog_vcf~
     flt.notch~
     flt.resonbp~
+    flt.resonlp~
     fluid~
     function
     function.call

@@ -6,6 +6,7 @@
   - fx.stutter~ effect
   - fx.satrev~ schroeder stereo reverb from 1971 added
   - fx.jcrev~ schroeder quad reverb from 1972 added  
+  - flt.resonlp~ resonant lowpass filter added
 - new arguments:
   - 3rd argument added to fx.zita_rev1~ to specify dry/wet ratio
 - new properties:
@@ -15,6 +16,7 @@
   - round~ alias added to math.round~
 - new inlets:
   - fx.room~: second inlet added to set room size
+  - fx.resonbp~: second (freq) and third inlets added (Q-factor)
 - misc:
   - new control outlet added to fluid~ - output current number of active voices (only when changed)
 
