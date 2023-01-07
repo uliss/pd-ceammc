@@ -24,8 +24,8 @@
         <properties>
             <property name="@freq" type="float" units="hertz" minvalue="20" maxvalue="20000"
             default="1000">center frequency</property>
-            <property name="@q" type="float" minvalue="0.1" maxvalue="100" default="40">
-            Quality factor</property>
+            <property name="@q" type="float" minvalue="0.1" maxvalue="100" default="40">Quality
+            factor</property>
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
         <inlets>
