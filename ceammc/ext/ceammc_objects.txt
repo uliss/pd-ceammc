@@ -486,6 +486,7 @@ fx.freqshift~
 fx.granulator~
 fx.greyhole~
 fx.infrev~
+fx.jcrev~
 fx.looper~
 fx.pitchshift_s~
 fx.pitchshift~
