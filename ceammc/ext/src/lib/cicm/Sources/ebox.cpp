@@ -1780,7 +1780,7 @@ void ebox_properties(t_ebox* x, t_glist* glist)
     std::string buffer(temp);
 
     for (size_t i = 0; i < c->c_nattr; i++) {
-        if (c->c_attr[i]->visibility != ceammc::PropValueVis::INTERNAL) {
+        if (c->c_attr[i]->visibility == ceammc::PropValueVis::PUBLIC) {
             t_atom* argv = 0;
             int argc = 0;
             eobj_attr_getvalueof(&x->b_obj, c->c_attr[i]->name, &argc, &argv);
