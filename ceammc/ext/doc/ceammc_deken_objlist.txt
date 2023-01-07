@@ -879,7 +879,7 @@ noise.duffing	duffing attractor
 noise.ginger	Gingerbreadman map chaotic generator
 noise.henon	henon attractor
 noise.henon_heilles	Hénon–Heiles_system
-noise.henon_phase	Part of a-chaos library
+noise.henon_phase	henon phase Ddagrams
 noise.henonf	Part of a-chaos library
 noise.ikeda	Part of a-chaos library
 noise.lfreq0~	sampled/held noise (piecewise constant)

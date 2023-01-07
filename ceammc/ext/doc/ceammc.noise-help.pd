@@ -22,7 +22,7 @@ roll;
 #X obj 30 332 noise.henon_heilles;
 #X text 200 332 Hénon–Heiles_system;
 #X obj 30 359 noise.henon_phase;
-#X text 200 359 Part of a-chaos library;
+#X text 200 359 henon phase Ddagrams;
 #X obj 30 386 noise.henonf;
 #X text 200 386 Part of a-chaos library;
 #X obj 30 413 noise.ikeda;
