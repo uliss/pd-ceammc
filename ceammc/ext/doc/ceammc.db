@@ -526,10 +526,10 @@ noise.ikeda		.		..
 noise.lfreq0~		.		~
 noise.lfreq~		.		~
 noise.lorenz		.		...
-noise.lyapunov		.		.
+noise.lyapunov		.		..
 noise.navier_stokes		.		.
 noise.pink~		-		~
-noise.rossler		.		.
+noise.rossler		.		...
 noise.stein		.		.
 noise.torus		.		.
 noise.verhulst		.		.

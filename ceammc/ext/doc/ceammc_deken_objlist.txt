@@ -885,10 +885,10 @@ noise.ikeda	Ikeda attractor
 noise.lfreq0~	sampled/held noise (piecewise constant)
 noise.lfreq~	noise.lfreq0~ smoothed with no overshoot
 noise.lorenz	Lorenz chaos
-noise.lyapunov	Part of a-chaos library
+noise.lyapunov	lyapunov random attractor
 noise.navier_stokes	Part of a-chaos library
 noise.pink~	Pink noise generator
-noise.rossler	Part of a-chaos library
+noise.rossler	Rössler attractor
 noise.stein	Part of a-chaos library
 noise.torus	Part of a-chaos library
 noise.verhulst	Part of a-chaos library

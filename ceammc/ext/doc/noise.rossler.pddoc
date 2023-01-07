@@ -6,24 +6,25 @@
             <authors>
                 <author>André Sier</author>
             </authors>
-            <description>Part of a-chaos library</description>
+            <description>Rössler attractor</description>
             <license>%</license>
             <library>ceammc</library>
             <category>noise</category>
             <keywords>noise</keywords>
-            <since>.5</since>
+            <since>0.5</since>
         </meta>
         <info>
             <par>Heuns' method</par>
+            <a href="https://en.wikipedia.org/wiki/R%C3%B6ssler_attractor">wiki: Rössler attractor</a>
         </info>
         <arguments>
-            <argument name="ARG0" type="float">x value (optional)</argument>
-            <argument name="ARG1" type="float">y value (optional)</argument>
-            <argument name="ARG2" type="float">z value (optional)</argument>
-            <argument name="ARG3" type="float">a value (optional)</argument>
-            <argument name="ARG4" type="float">b value (optional)</argument>
-            <argument name="ARG5" type="float">c value (optional)</argument>
-            <argument name="ARG6" type="float">dt value (optional)</argument>
+            <argument name="X" type="float">x value (optional)</argument>
+            <argument name="Y" type="float">y value (optional)</argument>
+            <argument name="Z" type="float">z value (optional)</argument>
+            <argument name="A" type="float">a value (optional)</argument>
+            <argument name="B" type="float">b value (optional)</argument>
+            <argument name="C" type="float">c value (optional)</argument>
+            <argument name="DT" type="float">dt value (optional)</argument>
         </arguments>
         <methods>
             <method name="set">
@@ -62,12 +63,13 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>main outlet</outlet>
+            <outlet>x outlet</outlet>
+            <outlet>y outlet</outlet>
+            <outlet>z outlet</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-
 [T]
 |
 [metro 50 #metro]

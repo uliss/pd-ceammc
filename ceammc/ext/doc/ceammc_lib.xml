@@ -1636,7 +1636,7 @@
     <entry name="noise.lorenz" descr="Lorenz chaos" ref_view="object">
       <xi:include href="noise.lorenz.pddoc" parse="xml"/>
     </entry>
-    <entry name="noise.lyapunov" descr="Part of a-chaos library" ref_view="object">
+    <entry name="noise.lyapunov" descr="lyapunov random attractor" ref_view="object">
       <xi:include href="noise.lyapunov.pddoc" parse="xml"/>
     </entry>
     <entry name="noise.navier_stokes" descr="Part of a-chaos library" ref_view="object">
@@ -1645,7 +1645,7 @@
     <entry name="noise.pink~" descr="Pink noise generator" ref_view="object">
       <xi:include href="noise.pink~.pddoc" parse="xml"/>
     </entry>
-    <entry name="noise.rossler" descr="Part of a-chaos library" ref_view="object">
+    <entry name="noise.rossler" descr="Rössler attractor" ref_view="object">
       <xi:include href="noise.rossler.pddoc" parse="xml"/>
     </entry>
     <entry name="noise.stein" descr="Part of a-chaos library" ref_view="object">
