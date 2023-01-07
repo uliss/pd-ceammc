@@ -7,7 +7,7 @@
 #X obj 30 143 noise.clifford;
 #X text 200 143 clifford attractor;
 #X obj 30 170 noise.collatz;
-#X text 200 170 Part of a-chaos library;
+#X text 200 170 collatz conjecture output;
 #X obj 30 197 noise.colored~;
 #X text 200 197 colored noise generator with an arbitrary spectral
 roll;
@@ -18,7 +18,7 @@ roll;
 #X obj 30 278 noise.ginger;
 #X text 200 278 Gingerbreadman map chaotic generator;
 #X obj 30 305 noise.henon;
-#X text 200 305 Part of a-chaos library;
+#X text 200 305 henon attractor;
 #X obj 30 332 noise.henon_heilles;
 #X text 200 332 Part of a-chaos library;
 #X obj 30 359 noise.henon_phase;

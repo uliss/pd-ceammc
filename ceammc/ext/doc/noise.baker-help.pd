@@ -31,8 +31,8 @@
 -49933 0;
 #X text 110 563 1\.;
 #X text 150 563 float;
-#X obj 246 564 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 563 ARG0: initial value. Type: float.;
+#X obj 246 564 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 563 VALUE: initial value. Type: float.;
 #X obj 20 593 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 598 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -92,7 +92,7 @@ Type: int.;
 #X text 10 76 category:;
 #X text 120 76 noise;
 #X text 10 98 since:;
-#X text 120 98 .5;
+#X text 120 98 0.5;
 #X text 10 120 authors:;
 #X text 120 120 André Sier;
 #X text 10 142 license:;

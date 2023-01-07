@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 583 50 cnv 1 182 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 583 50 Part of a-chaos library;
+#X obj 569 50 cnv 1 196 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 569 50 collatz conjecture output;
 #X obj 1 1 cnv 5 765 40 empty empty noise.collatz 20 20 0 20 -104026
 -4096 0;
 #X obj 646 11 noise.collatz;
@@ -66,7 +66,7 @@ Type: int.;
 #X text 10 76 category:;
 #X text 120 76 noise;
 #X text 10 98 since:;
-#X text 120 98 .5;
+#X text 120 98 0.5;
 #X text 10 120 authors:;
 #X text 120 120 André Sier;
 #X text 10 142 license:;

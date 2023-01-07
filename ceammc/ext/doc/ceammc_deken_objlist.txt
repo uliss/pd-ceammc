@@ -872,12 +872,12 @@ net.osc.server	OSC server control
 net.osc	OSC server control
 noise.baker	Part of a-chaos library
 noise.clifford	clifford attractor
-noise.collatz	Part of a-chaos library
+noise.collatz	collatz conjecture output
 noise.colored~	colored noise generator with an arbitrary spectral roll
 noise.crackle~	sparse noise generator
 noise.duffing	duffing attractor
 noise.ginger	Gingerbreadman map chaotic generator
-noise.henon	Part of a-chaos library
+noise.henon	henon attractor
 noise.henon_heilles	Part of a-chaos library
 noise.henon_phase	Part of a-chaos library
 noise.henonf	Part of a-chaos library

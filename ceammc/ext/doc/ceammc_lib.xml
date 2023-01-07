@@ -1597,7 +1597,7 @@
     <entry name="noise.clifford" descr="clifford attractor" ref_view="object">
       <xi:include href="noise.clifford.pddoc" parse="xml"/>
     </entry>
-    <entry name="noise.collatz" descr="Part of a-chaos library" ref_view="object">
+    <entry name="noise.collatz" descr="collatz conjecture output" ref_view="object">
       <xi:include href="noise.collatz.pddoc" parse="xml"/>
     </entry>
     <entry name="noise.colored~" descr="colored noise generator with an arbitrary spectral roll" ref_view="object">
@@ -1612,7 +1612,7 @@
     <entry name="noise.ginger" descr="Gingerbreadman map chaotic generator" ref_view="object">
       <xi:include href="noise.ginger.pddoc" parse="xml"/>
     </entry>
-    <entry name="noise.henon" descr="Part of a-chaos library" ref_view="object">
+    <entry name="noise.henon" descr="henon attractor" ref_view="object">
       <xi:include href="noise.henon.pddoc" parse="xml"/>
     </entry>
     <entry name="noise.henon_heilles" descr="Part of a-chaos library" ref_view="object">
