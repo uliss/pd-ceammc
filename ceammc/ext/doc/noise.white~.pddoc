@@ -31,11 +31,17 @@
 [ui.dsp~]
 
 
-[noise.white~]
-|
-|
-|
-[ui.scope~]
+[noise.white~           ]
+|                       |
+[ui.gain~ @size 120 16] [ui.ssc~ @size 300 120 @log_scale 1]
+|*
+|*
+|*
+|*
+|*
+[dac~]
+
+[ui.dsp~]
 ]]>
             </pdascii>
         </example>
