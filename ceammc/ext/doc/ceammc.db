@@ -512,7 +512,7 @@ net.osc.receive,net.osc.r		..		.
 net.osc.send,net.osc.s		.		.
 net.osc.server,net.osc		.		.
 noise.baker		.		.
-noise.clifford		.		.
+noise.clifford		.		..
 noise.collatz		.		.
 noise.colored~		.		~
 noise.crackle~		.		~

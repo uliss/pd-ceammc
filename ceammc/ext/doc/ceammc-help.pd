@@ -1135,7 +1135,7 @@ value;
 #X obj 30 15463 noise.baker;
 #X text 200 15463 Part of a-chaos library;
 #X obj 30 15490 noise.clifford;
-#X text 200 15490 Part of a-chaos library;
+#X text 200 15490 clifford attractors;
 #X obj 30 15517 noise.collatz;
 #X text 200 15517 Part of a-chaos library;
 #X obj 30 15544 noise.colored~;

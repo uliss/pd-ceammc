@@ -871,7 +871,7 @@ net.osc.s	OSC message sender
 net.osc.server	OSC server control
 net.osc	OSC server control
 noise.baker	Part of a-chaos library
-noise.clifford	Part of a-chaos library
+noise.clifford	clifford attractors
 noise.collatz	Part of a-chaos library
 noise.colored~	colored noise generator with an arbitrary spectral roll
 noise.crackle~	sparse noise generator
