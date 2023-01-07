@@ -718,7 +718,7 @@ class flt_resonhp : public flt_resonhp_dsp {
 	
 	virtual void instanceResetUserInterface() {
 		fVslider0 = FAUSTFLOAT(1e+02);
-		fVslider1 = FAUSTFLOAT(4e+01);
+		fVslider1 = FAUSTFLOAT(2e+01);
 	}
 	
 	virtual void instanceClear() {
@@ -755,7 +755,7 @@ class flt_resonhp : public flt_resonhp_dsp {
 		ui_interface->openVerticalBox("flt.resonhp");
 		ui_interface->declare(&fVslider0, "unit", "Hz");
 		ui_interface->addVerticalSlider("freq", &fVslider0, FAUSTFLOAT(1e+02), FAUSTFLOAT(2e+01), FAUSTFLOAT(2e+04), FAUSTFLOAT(0.1));
-		ui_interface->addVerticalSlider("q", &fVslider1, FAUSTFLOAT(4e+01), FAUSTFLOAT(0.1), FAUSTFLOAT(1e+02), FAUSTFLOAT(0.1));
+		ui_interface->addVerticalSlider("q", &fVslider1, FAUSTFLOAT(2e+01), FAUSTFLOAT(0.1), FAUSTFLOAT(1e+02), FAUSTFLOAT(0.1));
 		ui_interface->closeBox();
 	}
 	
