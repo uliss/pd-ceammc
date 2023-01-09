@@ -43,7 +43,7 @@
             items</property>
             <property name="@mode" type="bool" default="0">check list mode. If true acts as
             checklist</property>
-            <property name="@value" type="list" default="">widget value (float or list)</property>
+            <property name="@value" type="list">widget value (float or list)</property>
             <!-- common -->
             <property name="@presetname" type="symbol" default="(null)">preset name for using with
             [ui.preset]</property>

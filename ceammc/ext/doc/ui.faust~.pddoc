@@ -30,13 +30,17 @@
             <method name="open">open faust dsp file in external editor</method>
             <method name="reset">reset object state</method>
             <method name="update">update faust object, recompile if needed</method>
+            <method name="size">resize object 
+            <param name="W" type="int" required="true">new width</param>
+            <param name="H" type="int" required="true">new height</param></method>
         </methods>
         <properties>
-            <property name="@fname" type="symbol">path to faust dsp file</property>
+            <property name="@fname" type="symbol" default="">path to faust dsp file</property>
             <property name="@include" type="list" default="">list of faust include
             directories</property>
-            <property name="@auto" type="bool" default="1">auto update mode. If on - recompiles
+            <property name="@auto" type="bool" default="0">auto update mode. If on - recompiles
             faust dsp file on change</property>
+            <property name="@size" type="list" default="10 10">object size</property>
         </properties>
         <inlets dynamic="true">
             <inlet number="1">

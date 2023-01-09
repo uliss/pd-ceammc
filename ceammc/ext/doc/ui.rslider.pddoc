@@ -44,7 +44,7 @@
         <properties>
             <property name="@min" type="float" default="0">minimum allowed slider value</property>
             <property name="@max" type="float" default="1">maximum allowed slider value</property>
-            <property name="@value" type="list" default="">current slider value</property>
+            <property name="@value" type="list">current slider value</property>
             <property name="@low" type="float" default="0.4">low (left) selection value</property>
             <property name="@high" type="float" default="0.6">max (right) selection
             value</property>
