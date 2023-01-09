@@ -9,7 +9,8 @@
   - flt.resonlp~ resonant lowpass filter
   - flt.resonhp~ resonant highpass filter
   - noise.colored~ generator of colored noise (brown, pink, white, blue, velvet)
-  - synth.voice_fofc~ simple formant synthesizer
+  - synth.voice_fofc~ simple formant synthesizer, using FOF-cycle method
+  - synth.voice_fofs~ simple formant synthesizer, using FOF-smooth method
 - new arguments:
   - 3rd argument added to fx.zita_rev1~ to specify dry/wet ratio
 - new properties:

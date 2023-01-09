@@ -12,14 +12,14 @@ constexpr const char* UI_PROP_VOICE = "@voice";
 constexpr const char* UI_PROP_VOWEL = "@vowel";
 
 class SynthVoiceFOFC : public faust_synth_voice_fofc_tilde {
-    SySynthVoiceFOFSty* voice_;
+    SymbolEnumProperty* voice_;
     SymbolEnumProperty* vowel_;
     UIProperty* ivoice_;
     UIProperty* fvowel_;
 
 public:
     SynthVoiceFOFC(const PdArgs& args)
-    SynthVoiceFOFSSynthVoiceFOFSnth_voice_fofc_tilde(args)
+        : faust_synth_voice_fofc_tilde(args)
         , voice_(nullptr)
         , vowel_(nullptr)
         , ivoice_(static_cast<UIProperty*>(property(gensym(FAUST_PROP_VOICE))))

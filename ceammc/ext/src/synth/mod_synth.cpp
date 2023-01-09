@@ -32,6 +32,7 @@ extern void setup_synth_snare_tilde();
 extern void setup_synth_standard_bell_tilde();
 extern void setup_synth_tube_bell();
 extern void setup_synth_voice_fofc_tilde();
+extern void setup_synth_voice_fofs_tilde();
 
 void ceammc_synth_setup()
 {
@@ -73,6 +74,7 @@ void ceammc_synth_setup()
     setup_synth_snare_tilde();
     setup_synth_standard_bell_tilde();
     setup_synth_voice_fofc_tilde();
+    setup_synth_voice_fofs_tilde();
 
     // Glitch
     setup_synth_glitch();
