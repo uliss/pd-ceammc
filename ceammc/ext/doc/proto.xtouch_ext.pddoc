@@ -159,7 +159,7 @@
             <property name="@n" type="int" access="initonly" minvalue="1" maxvalue="32"
             default="2">number of scenes</property>
             <property name="@scene" type="int" minvalue="0" default="0">current scene</property>
-            <property name="@proto" type="symbol" default="xmidi">connection protocol</property>
+            <property name="@proto" type="symbol" default="xmidi" enum="hui mcu xmidi">connection protocol</property>
         </properties>
         <inlets>
             <inlet>

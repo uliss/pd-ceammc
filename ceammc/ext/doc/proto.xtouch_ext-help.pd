@@ -29,7 +29,7 @@
 value: 2\. Range: 1\...32\.;
 #X msg 110 418 @proto;
 #X text 245 418 Get/Set connection protocol. Type: symbol. Default
-value: xmidi.;
+value: xmidi. Allowed values: hui \, mcu \, xmidi.;
 #X msg 110 460 @scene;
 #X text 245 460 Get/Set current scene. Type: int. Default value: 0\.
 Min value: 0\.;
