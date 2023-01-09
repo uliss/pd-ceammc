@@ -17,6 +17,8 @@
 #include "ceammc_preset.h"
 #include "ceammc_ui.h"
 
+#include <random>
+
 static const size_t MAX_ITEMS = 128;
 
 UITab::UITab()
@@ -404,6 +406,92 @@ void UITab::m_insert(const AtomListView& lv)
     propSetItems(items_);
 }
 
+void UITab::m_minus(t_float f)
+{
+    if (prop_toggle_mode) {
+        UI_ERR << "single check mode expected";
+        return;
+    }
+
+    const size_t N = items_.size();
+    if (N < 2)
+        return;
+
+    int v = item_selected_ - int(f);
+    item_selected_ = (v >= 0) ? v % N : N - (abs(v) % N);
+    output();
+    redrawBGLayer();
+}
+
+void UITab::m_next()
+{
+    if (prop_toggle_mode) {
+        UI_ERR << "single check mode expected";
+        return;
+    }
+
+    if ((item_selected_ + 1) < items_.size()) {
+        item_selected_++;
+        output();
+        redrawBGLayer();
+    }
+}
+
+void UITab::m_plus(t_float f)
+{
+    if (prop_toggle_mode) {
+        UI_ERR << "single check mode expected";
+        return;
+    }
+
+    const size_t N = items_.size();
+    if (N < 2)
+        return;
+
+    int v = item_selected_ + int(f);
+    item_selected_ = (v >= 0) ? v % N : N - (abs(v) % N);
+    output();
+    redrawBGLayer();
+}
+
+void UITab::m_prev()
+{
+    if (prop_toggle_mode) {
+        UI_ERR << "single check mode expected";
+        return;
+    }
+
+    if (item_selected_ > 0) {
+        item_selected_--;
+        output();
+        redrawBGLayer();
+    }
+}
+
+void UITab::m_random()
+{
+    auto seed = std::chrono::system_clock::now().time_since_epoch().count();
+    std::default_random_engine gen(seed);
+
+    if (prop_toggle_mode) {
+        std::uniform_int_distribution<int> dist(0, 1);
+        for (size_t i = 0; i < items_.size(); i++)
+            toggles_.set(0, dist(gen));
+
+        output();
+        redrawBGLayer();
+    } else {
+        const auto N = items_.size();
+        if (N < 1)
+            return;
+
+        std::uniform_int_distribution<int> dist(0, N - 1);
+        item_selected_ = dist(gen);
+        output();
+        redrawBGLayer();
+    }
+}
+
 bool UITab::isSelected(size_t idx) const
 {
     if (idx >= MAX_ITEMS)
@@ -540,6 +628,12 @@ void UITab::setup()
     obj.addMethod("select", &UITab::m_select);
     obj.addMethod("set", &UITab::propSetItems);
     obj.addMethod("set_item", &UITab::m_set_item);
+
+    obj.addMethod("+", &UITab::m_plus);
+    obj.addMethod("-", &UITab::m_minus);
+    obj.addMethod("next", &UITab::m_next);
+    obj.addMethod("prev", &UITab::m_prev);
+    obj.addMethod("random", &UITab::m_random);
 }
 
 void setup_ui_tab()

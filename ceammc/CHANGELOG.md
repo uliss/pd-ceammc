@@ -13,9 +13,11 @@
   - 3rd argument added to fx.zita_rev1~ to specify dry/wet ratio
 - new properties:
   - @cpuload property added to fluid~
+- new methods:
+  - 'next', 'prev', 'random', '+' and '-' methods added to ui.tab
 - new aliases:
-  - round alias added to math.round
-  - round~ alias added to math.round~
+  - 'round' alias added to math.round
+  - 'round~' alias added to math.round~
 - new inlets:
   - fx.room~: second inlet added to set room size
   - fx.resonbp~: second (freq) and third (Q-factor) inlets added
