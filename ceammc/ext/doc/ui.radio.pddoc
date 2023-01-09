@@ -74,7 +74,8 @@
             <method name="set">sets radio without output 
             <param name="V" type="float" required="true">new value</param></method>
             <method name="reset">reset radio (only in checklist mode)</method>
-            <method name="random">select random cells. If called as [random move( moves to another random cell (excluding the current one)</method>
+            <method name="random">select random cells. If called as [random move( moves to another
+            random cell (excluding the current one)</method>
             <method name="flip">flips radio (only in checklist mode)</method>
             <method name="next">moves to next position until last cell is reached (single mode
             only)</method>
