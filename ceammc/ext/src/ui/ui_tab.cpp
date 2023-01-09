@@ -626,16 +626,13 @@ void UITab::setup()
     obj.setPropertySave("items");
 
     obj.addProperty("count", &UITab::propCount);
-    obj.showProperty("count");
     obj.setPropertyDefaultValue("count", "0");
 
     obj.addProperty("current", &UITab::propCurrent);
     obj.setPropertyDefaultValue("current", "0");
-    obj.showProperty("current");
 
     obj.addProperty("selected", &UITab::propSelected);
     obj.setPropertyDefaultValue("selected", "");
-    obj.showProperty("selected");
 
     obj.addProperty(PROP_TEXT_COLOR, _("Text Color"), DEFAULT_TEXT_COLOR, &UITab::prop_color_text);
     obj.addProperty(PROP_ACTIVE_COLOR, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UITab::prop_color_active);
