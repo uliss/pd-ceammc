@@ -18,6 +18,7 @@
 
 #include <bitset>
 #include <memory>
+#include <random>
 
 using namespace ceammc;
 
@@ -30,6 +31,7 @@ class UITab : public UIObject {
     std::vector<Layout> layouts_;
     std::vector<std::string> labels_;
     std::bitset<128> toggles_;
+    std::default_random_engine gen_;
 
 private:
     int prop_is_vertical;
@@ -72,7 +74,7 @@ public:
     void m_next();
     void m_plus(t_float f);
     void m_prev();
-    void m_random();
+    void m_random(const AtomListView& lv);
     void m_select(const AtomListView& lv);
     void m_set_item(const AtomListView& lv);
 

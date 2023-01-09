@@ -29,6 +29,7 @@ UITab::UITab()
     , prop_color_text(rgba_black)
     , prop_color_hover(rgba_grey)
     , prop_color_active(rgba_blue)
+    , gen_(std::time(nullptr))
 {
     createOutlet();
 }
@@ -468,15 +469,12 @@ void UITab::m_prev()
     }
 }
 
-void UITab::m_random()
+void UITab::m_random(const AtomListView& lv)
 {
-    auto seed = std::chrono::system_clock::now().time_since_epoch().count();
-    std::default_random_engine gen(seed);
-
     if (prop_toggle_mode) {
         std::uniform_int_distribution<int> dist(0, 1);
         for (size_t i = 0; i < items_.size(); i++)
-            toggles_.set(0, dist(gen));
+            toggles_.set(0, dist(gen_));
 
         output();
         redrawBGLayer();
@@ -485,9 +483,16 @@ void UITab::m_random()
         if (N < 1)
             return;
 
-        std::uniform_int_distribution<int> dist(0, N - 1);
-        item_selected_ = dist(gen);
-        output();
+        if (lv == gensym("move")) {
+            std::uniform_int_distribution<int> dist(1, N - 1);
+            item_selected_ = (item_selected_ + dist(gen_)) % N;
+            output();
+        } else {
+            std::uniform_int_distribution<int> dist(0, N - 1);
+            item_selected_ = dist(gen_);
+            output();
+        }
+
         redrawBGLayer();
     }
 }
