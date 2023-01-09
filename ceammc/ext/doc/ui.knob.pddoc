@@ -24,8 +24,8 @@
             <par>Simple knob widget with default range 0-1.</par>
         </info>
         <arguments>
-            <argument name="min" type="float">min value</argument>
-            <argument name="max" type="float">max value</argument>
+            <argument name="MIN" type="float">min value</argument>
+            <argument name="MAX" type="float">max value</argument>
         </arguments>
         <mouse>
             <event editmode="false" type="drag">change the knob value (with ⇧ change
@@ -87,7 +87,7 @@
             <!-- font -->
             <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
             fontsize</property>
-            <property name="@fontname" type="symbol" default="Helvetica">fontname</property>
+            <property name="@fontname" type="symbol" default="Helvetica" enum="Courier DejaVu Helvetica Monaco Times">fontname</property>
             <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
             weight</property>
             <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
