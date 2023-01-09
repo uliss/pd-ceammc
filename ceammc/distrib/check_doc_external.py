@@ -377,12 +377,22 @@ def check_single_prop(name, prop, doc, ext):
             doc_enum = set(map(lambda x: float(x), doc_enum))
         elif type_doc == "int":
             doc_enum = set(map(lambda x: int(x), doc_enum))
+        elif type_doc == "atom":
+            def get_atom(x):
+                if isinstance(x, str) and len(x) > 0 and x[0].isdigit():
+                    return float(x)
+                else:
+                    return x
+
+            doc_enum = set(map(lambda x: get_atom(x), doc_enum))
 
     if doc_enum != ext_enum:
         cprint(f"[{ext_name}][{prop}] invalid property enum in doc: {doc_enum}, should be: {ext_enum}", 'magenta')
         doc_miss = ext_enum - doc_enum
         if len(doc_miss) > 0:
             cprint(f"\t- missing {doc_miss}", 'yellow')
+            x = " ".join(sorted(list(doc_miss)))
+            cprint(f"\t  add to doc: enum=\"{x}\"", 'white')
 
         doc_invalid = doc_enum - ext_enum
         if len(doc_invalid) > 0:
