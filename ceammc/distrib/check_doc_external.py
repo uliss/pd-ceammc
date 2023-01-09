@@ -368,6 +368,17 @@ def check_single_prop(name, prop, doc, ext):
 
         # end default check
 
+    # check enums
+    doc_enum = doc.get("enum", [])
+    ext_enum = ext.get("enum", [])
+    if isinstance(doc_enum, str):
+        doc_enum = doc_enum.split(" ")
+        if type_doc in ("float", "int", "bool"):
+            doc_enum = map(lambda x: float(x), doc_enum)
+
+    if doc_enum != ext_enum:
+        cprint(f"[{ext_name}][{prop}] invalid property enum in doc: {doc_enum}, should be: {ext_enum}", 'magenta')
+
     # check types
     type_doc = doc.get("type", None)
     type_ext = ext.get("type", None)

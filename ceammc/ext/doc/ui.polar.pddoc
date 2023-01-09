@@ -28,7 +28,7 @@
         <properties>
             <property name="@clockwise" type="bool" default="1">clockwise positive
             direction</property>
-            <property name="@direction" type="symbol" default="N" enum="N E S W">zero-angle
+            <property name="@direction" type="symbol" default="N" enum="N W S E">zero-angle
             direction</property>
             <property name="@positive" type="bool" default="0">use positive output angle range. For
             example: [0..360) when using degrees, otherwise using [-180..180) range.</property>
@@ -55,7 +55,7 @@
             <!-- font -->
             <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
             fontsize</property>
-            <property name="@fontname" type="symbol" default="Helvetica">fontname</property>
+            <property name="@fontname" type="symbol" default="Helvetica" enum="Helvetica Monaco Courier Times DejaVu">fontname</property>
             <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
             weight</property>
             <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
