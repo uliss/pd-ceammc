@@ -23,22 +23,6 @@ with{
         gender = pm.voiceGender(voiceType); // gender of voice
 };
 
-
-formantFilterFofSmooth(voiceType,vowel,nFormants,i,freq) =
-        pm.fofSmooth(formantFreq(i),formantBw(i),formantSw(i),formantGain(i),tau)
-with{
-        tau = 0.05;
-        index = (voiceType*nFormants)+vowel; // index of formant values
-        // formant center frequency using autobend correction
-        formantFreq(i) = ba.listInterp(pm.formantValues.f(i),index) : pm.autobendFreq(i,freq,voiceType);
-        // formant amplitude using vocal effort correction
-        formantGain(i) = ba.listInterp(pm.formantValues.g(i),index) : pm.vocalEffort(freq,gender);
-        formantBw(i) = ba.listInterp(pm.formantValues.bw(i),index); // formant bandwidth
-        // formant skirtwidth
-        formantSw(i) = pm.skirtWidthMultiplier(vowel,freq,gender)*formantBw(i);
-        gender = pm.voiceGender(voiceType); // gender of voice
-};
-
 process = model * envelope with {
     fofBank(voiceType, vowel, freq) = pm.formantFilterbank(voiceType, vowel, formantFilterFofCycle, freq);
     model = pm.SFFormantModel(voice, vowel, 0, freq2, 50, os.lf_imptrain(freq2), fofBank, 1);

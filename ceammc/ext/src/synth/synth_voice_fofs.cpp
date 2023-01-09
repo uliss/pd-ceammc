@@ -1,4 +1,4 @@
-#include "synth_voice_fofc.h"
+#include "synth_voice_fofs.h"
 #include "ceammc_factory.h"
 #include "ceammc_property_enum.h"
 
@@ -11,15 +11,15 @@ constexpr const char* FAUST_PROP_VOWEL = "@fvowel";
 constexpr const char* UI_PROP_VOICE = "@voice";
 constexpr const char* UI_PROP_VOWEL = "@vowel";
 
-class SynthVoiceFOFC : public faust_synth_voice_fofc_tilde {
-    SySynthVoiceFOFSty* voice_;
+class SynthVoiceFOFS : public faust_synth_voice_fofs_tilde {
+    SymbolEnumProperty* voice_;
     SymbolEnumProperty* vowel_;
     UIProperty* ivoice_;
     UIProperty* fvowel_;
 
 public:
-    SynthVoiceFOFC(const PdArgs& args)
-    SynthVoiceFOFSSynthVoiceFOFSnth_voice_fofc_tilde(args)
+    SynthVoiceFOFS(const PdArgs& args)
+        : faust_synth_voice_fofs_tilde(args)
         , voice_(nullptr)
         , vowel_(nullptr)
         , ivoice_(static_cast<UIProperty*>(property(gensym(FAUST_PROP_VOICE))))
@@ -46,7 +46,7 @@ public:
     }
 };
 
-void setup_synth_voice_fofc_tilde()
+void setup_synth_voice_fofs_tilde()
 {
-    SoundExternalFactory<SynthVoiceFOFC> obj("synth.voice_fofc~", OBJECT_FACTORY_DEFAULT);
+    SoundExternalFactory<SynthVoiceFOFS> obj("synth.voice_fofs~", OBJECT_FACTORY_DEFAULT);
 }
