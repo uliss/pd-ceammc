@@ -25,7 +25,7 @@
             <argument name="NAME" type="symbol">icon name from list</argument>
         </arguments>
         <properties>
-            <property name="@mode" type="symbol" enum="bang button toggle" default="button">output
+            <property name="@mode" type="symbol" enum="toggle button bang" default="button">output
             mode. In bang mode - outputs bang on mouse down. In button mode outputs 1 on mouse down
             and 0 on mouse up. In toggle mode outputs 1/0 on mouse down, like vanilla toggle
             object.</property>
@@ -51,7 +51,7 @@
             <!-- font -->
             <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
             fontsize</property>
-            <property name="@fontname" type="symbol" default="Helvetica">fontname</property>
+            <property name="@fontname" type="symbol" default="Helvetica" enum="Helvetica Monaco Courier Times DejaVu">fontname</property>
             <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
             weight</property>
             <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
