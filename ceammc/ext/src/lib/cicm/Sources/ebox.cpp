@@ -493,7 +493,8 @@ void ebox_free(t_ebox* x)
     if (x->b_receive_id && x->b_receive_id != s_null) {
         // replace #n => $d
         t_symbol* sname = ceammc_realizeraute(eobj_getcanvas(&x->b_obj), x->b_receive_id);
-        pd_unbind(&x->b_obj.o_obj.te_g.g_pd, sname);
+        if (sname && sname->s_thing)
+            pd_unbind(&x->b_obj.o_obj.te_g.g_pd, sname);
     }
     gfxstub_deleteforkey(x);
 
@@ -1310,7 +1311,7 @@ bool ebox_set_receiveid(void* z, t_eattr* /*attr*/, int argc, t_atom* argv)
         if (x->b_receive_id != s_null) {
             // replace #0 => ID
             t_symbol* sname = ceammc_realizeraute(eobj_getcanvas(&x->b_obj), x->b_receive_id);
-            if (sname)
+            if (sname && sname->s_thing)
                 pd_unbind(&x->b_obj.o_obj.ob_pd, sname);
         }
 
@@ -1322,7 +1323,8 @@ bool ebox_set_receiveid(void* z, t_eattr* /*attr*/, int argc, t_atom* argv)
         // unbind
         if (x->b_receive_id != s_null) {
             t_symbol* sname = ceammc_realizeraute(eobj_getcanvas(&x->b_obj), x->b_receive_id);
-            pd_unbind(&x->b_obj.o_obj.ob_pd, sname);
+            if (sname && sname->s_thing)
+                pd_unbind(&x->b_obj.o_obj.ob_pd, sname);
         }
 
         x->b_receive_id = s_null;

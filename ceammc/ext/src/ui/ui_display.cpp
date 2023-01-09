@@ -96,7 +96,8 @@ UIDisplay::UIDisplay()
 
 UIDisplay::~UIDisplay()
 {
-    pd_unbind(asPd(), rid_);
+    if (rid_ && rid_->s_thing)
+        pd_unbind(asPd(), rid_);
 }
 
 void UIDisplay::init(t_symbol* name, const AtomListView& args, bool usePresets)

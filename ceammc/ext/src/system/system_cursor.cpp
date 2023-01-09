@@ -39,7 +39,11 @@ int SystemCursor::instances_polling_ = 0;
 
 SystemCursor::SystemCursor(const PdArgs& args)
     : BaseObject(args)
-    , unbind_([this]() { pd_unbind(&owner()->te_g.g_pd, gensym(STR_CURSOR_BIND)); })
+    , unbind_([this]() {
+        auto sym = gensym(STR_CURSOR_BIND);
+        if (sym->s_thing)
+            pd_unbind(&owner()->te_g.g_pd, sym);
+    })
     , relative_(nullptr)
     , normalize_(nullptr)
     , clip_(nullptr)
@@ -68,7 +72,9 @@ SystemCursor::~SystemCursor()
         instances_polling_--;
         checkPolling();
 
-        pd_unbind(&owner()->te_g.g_pd, gensym(STR_CURSOR_BIND));
+        auto sym = gensym(STR_CURSOR_BIND);
+        if (sym->s_thing)
+            pd_unbind(&owner()->te_g.g_pd, sym);
     }
 }
 

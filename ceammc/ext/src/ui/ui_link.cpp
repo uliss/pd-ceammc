@@ -7,9 +7,9 @@
 //
 
 #include "ui_link.h"
+#include "ceammc_format.h"
 #include "ceammc_ui.h"
 #include "ui_link.tcl.h"
-#include "ceammc_format.h"
 
 UILink::UILink()
     : prop_color_link(rgba_blue)
@@ -29,7 +29,8 @@ UILink::UILink()
 
 UILink::~UILink()
 {
-    pd_unbind(asPd(), rid_);
+    if (rid_ && rid_->s_thing)
+        pd_unbind(asPd(), rid_);
 }
 
 void UILink::init(t_symbol* name, const AtomListView& args, bool usePresets)

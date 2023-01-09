@@ -1074,7 +1074,9 @@ void BaseObject::bindReceive(t_symbol* path)
 void BaseObject::unbindReceive()
 {
     if (receive_from_) {
-        pd_unbind(&owner()->te_g.g_pd, receive_from_);
+        if (receive_from_->s_thing)
+            pd_unbind(&owner()->te_g.g_pd, receive_from_);
+
         receive_from_ = 0;
     }
 }

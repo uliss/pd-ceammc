@@ -537,7 +537,10 @@ void UIObjectImpl::unbindPreset(t_symbol* name)
     post("unbind preset: %s", name->s_name);
 #endif
 
-    pd_unbind(asPd(), gensym(Preset::SYM_PRESET_ALL));
+    auto sym = gensym(Preset::SYM_PRESET_ALL);
+    if (sym->s_thing)
+        pd_unbind(asPd(), sym);
+
     PresetStorage::instance().unbindPreset(name);
     releasePresetName(name);
 }
@@ -912,7 +915,9 @@ void UIObjectImpl::bindTo(t_symbol* s)
 void UIObjectImpl::unbindFrom(t_symbol* s)
 {
     if (binded_signals_.find(s) != binded_signals_.end()) {
-        pd_unbind(asPd(), s);
+        if (s->s_thing)
+            pd_unbind(asPd(), s);
+
         binded_signals_.erase(s);
     }
 }
@@ -920,8 +925,11 @@ void UIObjectImpl::unbindFrom(t_symbol* s)
 void UIObjectImpl::unbindAll()
 {
     for (t_symbol* s : binded_signals_) {
-        pd_unbind(asPd(), s);
+        if (s->s_thing)
+            pd_unbind(asPd(), s);
     }
+
+    binded_signals_.clear();
 }
 
 float UIObjectImpl::fontSize() const

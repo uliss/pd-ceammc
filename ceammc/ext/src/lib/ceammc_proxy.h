@@ -56,7 +56,9 @@ public:
     void unbind()
     {
         if (bind_name_ != &s_) {
-            pd_unbind(pd(), bind_name_);
+            if (bind_name_->s_thing)
+                pd_unbind(pd(), bind_name_);
+
             bind_name_ = &s_;
         }
     }
