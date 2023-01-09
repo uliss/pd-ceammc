@@ -7,8 +7,24 @@ pm = library("physmodels.lib");
 si = library("signals.lib");
 ui = library("ceammc_ui.lib");
 
+my_formantFilterFofSmooth(voiceType, vowel, nFormants, i, freq) =
+        pm.fofSmooth(formantFreq(i),formantBw(i),formantSw(i),formantGain(i),tau)
+with{
+        tau = 0.01;
+        index = (voiceType*nFormants)+vowel; // index of formant values
+        // formant center frequency using autobend correction
+        formantFreq(i) = ba.listInterp(pm.formantValues.f(i),index) : pm.autobendFreq(i,freq,voiceType);
+        // formant amplitude using vocal effort correction
+        formantGain(i) = ba.listInterp(pm.formantValues.g(i),index) : pm.vocalEffort(freq,gender);
+        formantBw(i) = ba.listInterp(pm.formantValues.bw(i),index); // formant bandwidth
+        // formant skirtwidth
+        formantSw(i) = pm.skirtWidthMultiplier(vowel,freq,gender)*formantBw(i);
+        gender = pm.voiceGender(voiceType); // gender of voice
+};
 
-process = pm.SFFormantModelFofSmooth(voice, vowel, freq2, 50) * envelope with {
+process = model * envelope with {
+    fofBank(voiceType, vowel, freq) = pm.formantFilterbank(voiceType, vowel, my_formantFilterFofSmooth, freq);
+    model = pm.SFFormantModel(voice, vowel, 0, freq2, 50, os.lf_imptrain(freq2), fofBank, 1);
     voice = hslider("ivoice", 0, 0, 5, 0.001) : int;
     vowel_smooth = hslider("wsmooth [unit:ms]", 10, 0, 1000, 0.001); // in milliseconds
     vowel = hslider("fvowel", 0, 0, 4, 0.001) : si.smooth(ba.tau2pole(vowel_smooth * 0.001));
