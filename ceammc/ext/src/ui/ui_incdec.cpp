@@ -136,6 +136,23 @@ void UIIncDec::storePreset(size_t idx)
     PresetStorage::instance().setFloatValueAt(presetId(), idx, value_);
 }
 
+void UIIncDec::output()
+{
+    floatTo(0, value_);
+    send(value_);
+}
+
+t_float UIIncDec::propValue() const
+{
+    return value_;
+}
+
+void UIIncDec::propSetValue(t_float f)
+{
+    value_ = f;
+    redrawBGLayer();
+}
+
 void UIIncDec::setup()
 {
     UIObjectFactory<UIIncDec> obj("ui.incdec");
@@ -155,25 +172,6 @@ void UIIncDec::setup()
     obj.addMethod("set", &UIIncDec::propSetValue);
     obj.addMethod("inc", &UIIncDec::m_inc);
     obj.addMethod("dec", &UIIncDec::m_dec);
-
-    obj.showProperty("value");
-}
-
-void UIIncDec::output()
-{
-    floatTo(0, value_);
-    send(value_);
-}
-
-t_float UIIncDec::propValue() const
-{
-    return value_;
-}
-
-void UIIncDec::propSetValue(t_float f)
-{
-    value_ = f;
-    redrawBGLayer();
 }
 
 void setup_ui_incdec()
