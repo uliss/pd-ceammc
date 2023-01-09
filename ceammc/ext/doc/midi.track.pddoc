@@ -13,6 +13,9 @@
             <keywords>midi track</keywords>
             <since>0.4</since>
         </meta>
+        <arguments>
+            <argument name="TRACK" type="int" minvalue="0">init track number</argument>
+        </arguments>
         <properties>
             <property name="@track" type="int" default="0" minvalue="0">track number</property>
             <property name="@join" type="flag" default="0" access="initonly">join all tracks into
