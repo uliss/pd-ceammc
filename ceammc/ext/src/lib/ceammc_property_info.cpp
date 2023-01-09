@@ -1138,8 +1138,11 @@ bool PropertyInfo::getJSON(std::string& str) const
     if (hasStep())
         obj["step"] = step();
 
-    if (hasEnumLimit())
-        obj["enum"] = json::to_json_string(enumValues());
+    if (hasEnumLimit()) {
+        nlohmann::json j;
+        to_json(j, enumValues());
+        obj["enum"] = j;
+    }
 
     if (!noDefault()) {
         if (isBool())
@@ -1150,9 +1153,11 @@ bool PropertyInfo::getJSON(std::string& str) const
             obj["default"] = defaultInt();
         else if (isSymbol())
             obj["default"] = defaultSymbol()->s_name;
-        else if (isVariant())
-            obj["default"] = json::to_json_string(defaultAtom());
-        else if (isList()) {
+        else if (isVariant()) {
+            nlohmann::json j;
+            to_json(j, defaultAtom());
+            obj["default"] = j;
+        } else if (isList()) {
             nlohmann::json j;
             to_json(j, defaultList());
             obj["default"] = j;
