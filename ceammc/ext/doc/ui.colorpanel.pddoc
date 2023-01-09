@@ -19,7 +19,7 @@
         </meta>
         <properties>
             <property name="@matrix" type="list" default="24 13">matrix size</property>
-            <property name="@index" type="list" default="">color position in panel</property>
+            <property name="@index" type="list">color position in panel</property>
             <property name="@reverse" type="bool" default="0">matrix reversed</property>
             <property name="@saturation" type="float" default="1" minvalue="0" maxvalue="1">
             saturation</property>
@@ -28,9 +28,9 @@
             <property name="@lightness" type="float" default="1" minvalue="0" maxvalue="1">first
             lightness</property>
             <property name="@pd" type="int" access="readonly" default="0">pd color value</property>
-            <property name="@rgb" type="list" access="readonly" default="">RGB value triplet on 0-1
+            <property name="@rgb" type="list" access="readonly">RGB value triplet on 0-1
             range</property>
-            <property name="@hsl" type="list" access="readonly" default="">HSL value triplet on 0-1
+            <property name="@hsl" type="list" access="readonly">HSL value triplet on 0-1
             range</property>
             <property name="@hex" type="symbol" access="readonly">HEX value in format
             #RRGGBB</property>
@@ -50,7 +50,7 @@
             <!-- font -->
             <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
             fontsize</property>
-            <property name="@fontname" type="symbol" default="Helvetica">fontname</property>
+            <property name="@fontname" type="symbol" default="Helvetica" enum="Courier DejaVu Helvetica Monaco Times">fontname</property>
             <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
             weight</property>
             <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
