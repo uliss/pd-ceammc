@@ -35,10 +35,12 @@
             <property name="@vibr_gain" type="float" minvalue="0" maxvalue="1" default="0.5">vibrato frequency</property>
             <property name="@voice" type="symbol" default="alto" enum="alto bass countertenor soprano tenor">voice type. Note: can be set by corresponding index.</property>
             <property name="@vowel" type="symbol" default="a" enum="a e i o u">vowel type. Note: can be set by corresponding index.</property>
-            <property name="@attack" type="float" default="10" minvalue="0" maxvalue="1000" units="millisecond">attack time</property>
-            <property name="@release" type="float" default="10" minvalue="0" maxvalue="1000" units="millisecond">release time</property>
+            <property name="@attack" type="float" default="30" minvalue="0" maxvalue="1000" units="millisecond">attack time</property>
+            <property name="@release" type="float" default="50" minvalue="0" maxvalue="1000" units="millisecond">release time</property>
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
             <property name="@portamento" type="float" default="0" minvalue="0" maxvalue="4000" units="millisecond">portamento time</property>
+            <property name="@wsmooth" type="float" default="10" minvalue="0" maxvalue="1000" units="millisecond">vowel smoothing time</property>
+            <property name="@fvowel" type="float" default="0" maxvalue="4" minvalue="0">vowel index: 0=a, 1=e, 2=i, 3=o, 4=u. Float values can be interpoltaed.</property>
 </properties>
         <inlets>
             <inlet>
