@@ -76,6 +76,7 @@ namespace ui {
             draw_canvas_ = T::canvas();
 
             size_ = new ui::SizeProperty("@size", { 10, 10 });
+            size_->setSuccessFn([this](Property*) { resizeWidget(size_->value()); });
             T::addProperty(size_);
         }
 
@@ -128,18 +129,32 @@ namespace ui {
 
         virtual Size fixNewSize(const Size& sz) { return sz.clippedMin({ 10, 10 }); }
 
-        virtual void onWidgetActivation(bool state) { /*LIB_ERR << __FUNCTION__;*/ }
-        virtual void onWidgetMove(int dx, int dy) { /*LIB_ERR << __FUNCTION__;*/ }
-        virtual void onWidgetDelete() { /*LIB_ERR << __FUNCTION__;*/ }
-        virtual void onWidgetSelect(bool state) { /*LIB_ERR << __FUNCTION__;*/ }
-        virtual void onWidgetShow() { /*LIB_ERR << __FUNCTION__;*/ }
+        virtual void onWidgetActivation(bool state)
+        { /*LIB_ERR << __FUNCTION__;*/
+        }
+        virtual void onWidgetMove(int dx, int dy)
+        { /*LIB_ERR << __FUNCTION__;*/
+        }
+        virtual void onWidgetDelete()
+        { /*LIB_ERR << __FUNCTION__;*/
+        }
+        virtual void onWidgetSelect(bool state)
+        { /*LIB_ERR << __FUNCTION__;*/
+        }
+        virtual void onWidgetShow()
+        { /*LIB_ERR << __FUNCTION__;*/
+        }
 
         /**
          * called right after widget resize
          * @param sz - new widget size in model coordinates (without zoom)
          */
-        virtual void onWidgetResize(const Size& sz) { /*LIB_ERR << __FUNCTION__ << ' ' << sz;*/ }
-        virtual void onWidgetHide() { /*LIB_ERR << __FUNCTION__;*/ }
+        virtual void onWidgetResize(const Size& sz)
+        { /*LIB_ERR << __FUNCTION__ << ' ' << sz;*/
+        }
+        virtual void onWidgetHide()
+        { /*LIB_ERR << __FUNCTION__;*/
+        }
 
         virtual void activateWidget(t_glist* owner, bool state)
         {
@@ -205,12 +220,24 @@ namespace ui {
         {
         }
 
-        virtual void onMouseEnter() { /*LIB_ERR << __FUNCTION__;*/ }
-        virtual void onMouseLeave() { /*LIB_ERR << __FUNCTION__;*/ }
-        virtual void onMouseMove() { /*LIB_ERR << __FUNCTION__;*/ }
-        virtual void onMouseDrag(const Point& pt, uint32_t mod) { /*LIB_ERR << __FUNCTION__;*/ }
-        virtual void onMouseDown(const Point& pt, const Point& abspt, uint32_t mod) { /*LIB_ERR << __FUNCTION__;*/ }
-        virtual void onMouseUp(const Point& pt, uint32_t mod) { /*LIB_ERR << __FUNCTION__;*/ }
+        virtual void onMouseEnter()
+        { /*LIB_ERR << __FUNCTION__;*/
+        }
+        virtual void onMouseLeave()
+        { /*LIB_ERR << __FUNCTION__;*/
+        }
+        virtual void onMouseMove()
+        { /*LIB_ERR << __FUNCTION__;*/
+        }
+        virtual void onMouseDrag(const Point& pt, uint32_t mod)
+        { /*LIB_ERR << __FUNCTION__;*/
+        }
+        virtual void onMouseDown(const Point& pt, const Point& abspt, uint32_t mod)
+        { /*LIB_ERR << __FUNCTION__;*/
+        }
+        virtual void onMouseUp(const Point& pt, uint32_t mod)
+        { /*LIB_ERR << __FUNCTION__;*/
+        }
 
         virtual void onRightClick(const Point& pt, const Point& abspt, uint32_t mod)
         {
