@@ -37,14 +37,14 @@
             <property name="@cursor_ms" type="float" units="millisecond" default="0">cursor
             position in milliseconds</property>
             <!-- selection -->
-            <property name="@select_samp" type="list" units="sample" default="">selection range in
-            samples, pair of values: begin, end</property>
-            <property name="@select_sec" type="list" units="second" default="">selection range in
-            seconds, pair of values: begin, end</property>
-            <property name="@select_ms" type="list" units="millisecond" default="">selection range
-            in milliseconds, pair of values: begin, end</property>
-            <property name="@select_phase" type="list" default="">selection range noramlized to 0-1
-            range, pair of values: begin, end</property>
+            <property name="@select_samp" type="list" units="sample">selection range in samples,
+            pair of values: begin, end</property>
+            <property name="@select_sec" type="list" units="second">selection range in seconds,
+            pair of values: begin, end</property>
+            <property name="@select_ms" type="list" units="millisecond">selection range in
+            milliseconds, pair of values: begin, end</property>
+            <property name="@select_phase" type="list">selection range noramlized to 0-1 range,
+            pair of values: begin, end</property>
             <!-- view -->
             <property name="@show_rms" type="bool" default="0">show RMS graph</property>
             <property name="@show_labels" type="bool" default="0">if show corner labels</property>
@@ -78,7 +78,8 @@
             of red, green, blue values in 0-1 range)</property>
             <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
             fontsize</property>
-            <property name="@fontname" type="symbol" default="Helvetica">fontname</property>
+            <property name="@fontname" type="symbol" default="Helvetica"
+            enum="Courier DejaVu Helvetica Monaco Times">fontname</property>
             <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
             weight</property>
             <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
