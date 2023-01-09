@@ -8,7 +8,7 @@
 #X obj 210 80 cnv 1 555 58 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 Heuns' method;
 #X obj 215 105 ui.link @background_color 0.98039 0.98039 0.98039
-@title wiki: Rössler attractor @url
+@title wiki: Rössler             attractor @url
 https://en.wikipedia.org/wiki/R%C3%B6ssler_attractor;
 #X obj 50 166 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 50 195 metro 50;

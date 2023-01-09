@@ -29,8 +29,8 @@
             value</property>
             <property name="@phase" type="float" minvalue="0" maxvalue="1" default="0">initial
             phase</property>
-            <property name="@initfreq" type="float" default="0" access="initonly" units="hertz">initial
-            frequency</property>
+            <property name="@initfreq" type="float" default="0" access="initonly" units="hertz">
+            initial frequency</property>
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
         <methods>

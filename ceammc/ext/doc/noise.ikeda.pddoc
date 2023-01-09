@@ -19,8 +19,7 @@
             <par>where z is a complex number</par>
             <par>real number formula by euler returns:</par>
             <par>===</par>
-            <par>x[n+1] = a + k*(x0*cos(t[n])) - y0*sin(t[n])
-            )</par>
+            <par>x[n+1] = a + k*(x0*cos(t[n])) - y0*sin(t[n]) )</par>
             <par>y[n+1] = k*(x0*sin(t[n])) - y0*cos(t[n])</par>
             <par>===</par>
             <par>where t[n] = b - p/(1 + x[n]^2 + y[n]^2)</par>

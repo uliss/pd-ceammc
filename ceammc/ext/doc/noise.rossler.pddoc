@@ -15,7 +15,8 @@
         </meta>
         <info>
             <par>Heuns' method</par>
-            <a href="https://en.wikipedia.org/wiki/R%C3%B6ssler_attractor">wiki: Rössler attractor</a>
+            <a href="https://en.wikipedia.org/wiki/R%C3%B6ssler_attractor">wiki: Rössler
+            attractor</a>
         </info>
         <arguments>
             <argument name="X" type="float">x value (optional)</argument>

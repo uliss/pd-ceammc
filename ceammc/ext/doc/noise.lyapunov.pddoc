@@ -29,8 +29,10 @@
             <par>About 1% were point attractors, and about 0.5% were periodic basins of
             attraction.</par>
             <par>===</par>
-            <par>x[n+1] = a[0] + a[1]*x[n] + a[2]*x[n]^2 + a[3]*x[n]*y[n] + a[4]*y[n] + a[5]*y[n]^2</par>
-            <par>y[n+1] = b[0] + b[1]*x[n] + b[2]*x[n]^2 + b[3]*x[n]*y[n] + b[4]*y[n] + b[5]*y[n]^2</par>
+            <par>x[n+1] = a[0] + a[1]*x[n] + a[2]*x[n]^2 + a[3]*x[n]*y[n] + a[4]*y[n] +
+            a[5]*y[n]^2</par>
+            <par>y[n+1] = b[0] + b[1]*x[n] + b[2]*x[n]^2 + b[3]*x[n]*y[n] + b[4]*y[n] +
+            b[5]*y[n]^2</par>
             <par>===</par>
         </info>
         <arguments>
