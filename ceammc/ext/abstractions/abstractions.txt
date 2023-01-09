@@ -19,6 +19,8 @@ gflt.lpf24~
 gflt.moog_vcf~
 gflt.notch~
 gflt.resonbp~
+gflt.resonhp~
+gflt.resonlp~
 gflt_fb_comb~
 gflt_ff_comb~
 gfx.bitdown~
@@ -36,8 +38,10 @@ gfx.freeverb2~
 gfx.freeverb~
 gfx.granulator~
 gfx.greyhole~
+gfx.jcrev~
 gfx.pitchshift~
 gfx.recho~
+gfx.satrev~
 gfx.sdelay~
 gfx.secho~
 gfx.tapiir~
@@ -47,6 +51,7 @@ gfx.zita_rev1~
 gfx_reverb_duck~
 gfx_room~
 gfx_shimmer~
+gnoise.colored~
 gnoise.crackle~
 gnoise.lfreq0~
 gnoise.lfreq~
@@ -76,3 +81,5 @@ gsynth.risset_tone~
 gsynth.russian_bell~
 gsynth.snare~
 gsynth.standard_bell~
+gsynth.voice_fofc~
+gsynth.voice_fofs~
