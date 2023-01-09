@@ -14,7 +14,6 @@
 #include "midi_modus.h"
 #include "ceammc_factory.h"
 #include "ceammc_music_scale.h"
-#include "lex/parser_music.h"
 
 #include <algorithm>
 
