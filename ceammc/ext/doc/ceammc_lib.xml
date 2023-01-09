@@ -2164,6 +2164,9 @@
     <entry name="synth.voice_fofc~" descr="Simple formant/vocal synthesizer with FOF-cycle filterbank." ref_view="object">
       <xi:include href="synth.voice_fofc~.pddoc" parse="xml"/>
     </entry>
+    <entry name="synth.voice_fofs~" descr="Simple formant/vocal synthesizer with FOF-smooth filterbank." ref_view="object">
+      <xi:include href="synth.voice_fofs~.pddoc" parse="xml"/>
+    </entry>
     <entry name="synth.wurley~" descr="Wurlitzer electric piano FM synthesis instrument" ref_view="object">
       <xi:include href="synth.wurley~.pddoc" parse="xml"/>
     </entry>

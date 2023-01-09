@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
-    <object name="synth.voice_fofc~">
-        <title>synth.voice_fofc~</title>
+    <object name="synth.voice_fofs~">
+        <title>synth.voice_fofs~</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>Simple formant/vocal synthesizer with FOF-cycle filterbank.</description>
+            <description>Simple formant/vocal synthesizer with FOF-smooth filterbank.</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>synth</category>
             <keywords>voice fof voice cycle</keywords>
             <since>0.9.6</since>
             <also>
-                <see>synth.voice_fofs~</see>
+                <see>synth.voice_fofc~</see>
             </also>
         </meta>
         <info>
@@ -22,10 +22,6 @@
             <par>Formant parameters are linearly interpolated allowing to go smoothly from one
             vowel to another. Voice type can be selected but must correspond to the frequency range
             of the synthesized voice to be realistic.</par>
-            <par>A cycle of 12 FOF filters with sample-and-hold is used so that the fof filter
-            parameters can be varied in realtime.</par>
-            <par>This technique is more robust but more computationally expensive than
-            FofSmooth</par>
         </info>
         <arguments>
             <argument name="VOICE" type="symbol">voice type</argument>
@@ -79,7 +75,7 @@
 | | |          |                   |
 | | [@freq $1( [@vowel $1(         [@wsmooth $1(
 | | |          |                   |
-[synth.voice_fofc~ bass @freq 120  ]
+[synth.voice_fofs~ bass @freq 120  ]
 |
 [flt.lpf24~ 4500]
 |

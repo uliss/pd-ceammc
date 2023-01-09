@@ -224,7 +224,7 @@
         synth.marimba~ synth.piano~ synth.rhodey~ synth.risset_arp~
         synth.risset_bell~ synth.risset_tone~ synth.russian_bell~
         synth.shakers~ synth.sitar~ synth.snare~ synth.standard_bell~
-        synth.tube_bell~ synth.wurley~
+        synth.tube_bell~ synth.voice_fofc~ synth.voice_fofs~ synth.wurley~
     }}
     {system {
         system.colorpanel system.cursor system.exec system.exit system.getenv

@@ -686,6 +686,7 @@ synth.snare~		.		~.
 synth.standard_bell~		.		~
 synth.tube_bell~		.		~
 synth.voice_fofc~		.		~
+synth.voice_fofs~		.		~
 synth.wurley~		.		~
 system.colorpanel		.		.
 system.cursor		.		.

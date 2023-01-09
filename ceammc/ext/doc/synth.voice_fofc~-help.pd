@@ -104,6 +104,8 @@ ms. Default value: 10\. Range: 0\...1000\.;
 #X obj 131 48 ui.link @title synth @url ceammc.synth-help.pd;
 #X obj 1 1400 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1403 library: ceammc v0.9.5;
+#X text 543 1415 see also:;
+#X obj 617 1415 synth.voice_fofs~;
 #N canvas 10 1422 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

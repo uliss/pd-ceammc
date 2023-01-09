@@ -1124,6 +1124,7 @@ synth.snare~	Snare drum synth from Guitarix project
 synth.standard_bell~	german church bell modal model
 synth.tube_bell~	STK tubular bell (orchestral chime) FM synthesis instrument
 synth.voice_fofc~	Simple formant/vocal synthesizer with FOF-cycle filterbank.
+synth.voice_fofs~	Simple formant/vocal synthesizer with FOF-smooth filterbank.
 synth.wurley~	Wurlitzer electric piano FM synthesis instrument
 system.colorpanel	System color panel dialog popup
 system.cursor	Output cursor motion, mousewheel and button clicks
