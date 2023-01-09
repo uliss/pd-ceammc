@@ -51,7 +51,8 @@
             <!-- font -->
             <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
             fontsize</property>
-            <property name="@fontname" type="symbol" default="Helvetica" enum="Courier DejaVu Helvetica Monaco Times">fontname</property>
+            <property name="@fontname" type="symbol" default="Helvetica"
+            enum="Courier DejaVu Helvetica Monaco Times">fontname</property>
             <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
             weight</property>
             <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
@@ -74,15 +75,17 @@
             <param name="IDX" type="int" minvalue="0" required="true">item index</param></method>
             <method name="select">selects specified item in tab 
             <param name="IDX" type="int" minvalue="0" required="true">item index</param></method>
-            <method name="random">select random item. If called [random move( moves to random item (excluding the current one)</method>
+            <method name="random">select random item. If called [random move( moves to random item
+            (excluding the current one)</method>
             <method name="flip">flips radio (only in checklist mode)</method>
-            <method name="next">moves to next item until last item is reached (single mode
-            only). Output new item</method>
+            <method name="next">moves to next item until last item is reached (single mode only).
+            Output new item</method>
             <method name="prev">moves to previous item until first item is reached (single mode
             only). Output new item</method>
-            <method name="+ STEP">moves several steps forward on a loop (single mode only), output newly selected item</method>
-            <method name="- STEP">moves several step backwards on a loop (single mode
-            only), output newly selected item</method>
+            <method name="+ STEP">moves several steps forward on a loop (single mode only), output
+            newly selected item</method>
+            <method name="- STEP">moves several step backwards on a loop (single mode only), output
+            newly selected item</method>
             <!-- presets -->
             <method name="load">loads specified preset 
             <param type="int" name="IDX" required="true">preset index</param></method>
