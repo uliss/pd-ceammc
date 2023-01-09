@@ -42,6 +42,7 @@ ceammc_synth_obj(risset_tone)
 ceammc_synth_obj(russian_bell)
 ceammc_synth_obj(snare)
 ceammc_synth_obj(standard_bell)
+ceammc_synth_obj(voice_fofc)
 
 add_library(ceammc_synth STATIC mod_synth.cpp ${SYNTH_SOURCES} ${SYNTH_STK_SOURCES})
 
