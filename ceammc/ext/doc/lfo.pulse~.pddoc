@@ -19,8 +19,8 @@
             </also>
         </meta>
         <arguments>
-            <argument name="freq" type="float" units="hertz">frequency</argument>
-            <argument name="duty" type="float" minvalue="0" maxvalue="1">duty cycle</argument>
+            <argument name="INITFREQ" type="float" units="hertz">initial frequency</argument>
+            <argument name="DUTY" type="float" minvalue="0" maxvalue="1">duty cycle</argument>
         </arguments>
         <properties>
             <property name="@duty" type="float" minvalue="0" maxvalue="1" default="0.5">duty
@@ -29,6 +29,8 @@
             value</property>
             <property name="@phase" type="float" minvalue="0" maxvalue="1" default="0">initial
             phase</property>
+            <property name="@initfreq" type="float" default="0" access="initonly" units="hertz">initial
+            frequency</property>
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
         <methods>
