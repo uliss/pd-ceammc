@@ -69,62 +69,63 @@ values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
 #X text 245 1066 Get/Set border color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
 #X msg 110 1108 @fontname;
-#X text 245 1108 Get/Set fontname. Type: symbol. Default value: Helvetica.;
-#X msg 110 1137 @fontsize;
-#X text 245 1137 Get/Set fontsize. Type: int. Default value: 11\. Range:
+#X text 245 1108 Get/Set fontname. Type: symbol. Default value: Helvetica.
+Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
+#X msg 110 1150 @fontsize;
+#X text 245 1150 Get/Set fontsize. Type: int. Default value: 11\. Range:
 4\...100\.;
-#X msg 110 1179 @fontslant;
-#X text 245 1179 Get/Set font slant. Type: symbol. Default value: roman.
+#X msg 110 1192 @fontslant;
+#X text 245 1192 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
-#X msg 110 1221 @fontweight;
-#X text 245 1221 Get/Set font weight. Type: symbol. Default value:
+#X msg 110 1234 @fontweight;
+#X text 245 1234 Get/Set font weight. Type: symbol. Default value:
 normal. Allowed values: normal \, bold.;
-#X msg 110 1263 @pinned;
-#X text 245 1263 Get/Set pin mode. if 1 - put element to the lowest
+#X msg 110 1276 @pinned;
+#X text 245 1276 Get/Set pin mode. if 1 - put element to the lowest
 level. Type: bool. Default value: 0\.;
-#X msg 110 1305 @size;
-#X text 245 1305 Get/Set element size (width \, height pair). Type:
+#X msg 110 1318 @size;
+#X text 245 1318 Get/Set element size (width \, height pair). Type:
 list. Default value: 150 100\.;
-#X obj 20 1357 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1362 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1370 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1375 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 1397 freeze;
-#X text 245 1397 stop/start processing. Arguments are:;
-#X obj 255 1420 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1420 [V]: 1 - freeze \, 0 - unfreeze. Type: int. Allowed
+#X msg 110 1410 freeze;
+#X text 245 1410 stop/start processing. Arguments are:;
+#X obj 255 1433 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1433 [V]: 1 - freeze \, 0 - unfreeze. Type: int. Allowed
 values: 0 \, 1\.;
-#X msg 110 1460 pos;
-#X text 245 1460 set UI element position. Arguments are:;
-#X obj 255 1483 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1483 X: top left x-coord. Type: float.;
-#X obj 255 1506 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1506 Y: top right y-coord. Type: float.;
-#X msg 110 1531 scale;
-#X text 245 1531 sets widget scale. Arguments are:;
-#X obj 255 1554 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1554 [N]: 1 - normal scale \, 2 - range from -2\..2 (zoomout)
+#X msg 110 1473 pos;
+#X text 245 1473 set UI element position. Arguments are:;
+#X obj 255 1496 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1496 X: top left x-coord. Type: float.;
+#X obj 255 1519 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1519 Y: top right y-coord. Type: float.;
+#X msg 110 1544 scale;
+#X text 245 1544 sets widget scale. Arguments are:;
+#X obj 255 1567 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1567 [N]: 1 - normal scale \, 2 - range from -2\..2 (zoomout)
 \, 0.1 - range from -0.1\..0.1 (zoomin). Type: float. Min value: 0\.;
-#X obj 20 1604 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1609 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1617 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1622 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1610 1\.;
-#X text 245 1610 signal input.;
+#X text 110 1623 1\.;
+#X text 245 1623 signal input.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 1660 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1663 library: ceammc v0.9.5;
-#X text 548 1675 see also:;
-#X obj 622 1678 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1673 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1676 library: ceammc v0.9.6;
+#X text 548 1688 see also:;
+#X obj 622 1691 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.spectroscope~] @url ui.spectroscope~-help.pd;
-#N canvas 10 1682 400 290 info 0;
+#N canvas 10 1695 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.5;
+#X text 120 32 0.9.6;
 #X text 10 54 object:;
 #X text 120 54 ui.scope~;
 #X text 10 76 category:;
@@ -143,7 +144,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1682 pd info;
+#X restore 10 1695 pd info;
 #X connect 5 0 8 0;
 #X connect 6 0 8 0;
 #X connect 7 0 8 0;

@@ -123,69 +123,70 @@ symbol.;
 #X text 245 1860 Get/Set if show corner labels. Type: bool. Default
 value: 0\.;
 #X msg 110 1889 @fontname;
-#X text 245 1889 Get/Set fontname. Type: symbol. Default value: Helvetica.;
-#X msg 110 1918 @fontsize;
-#X text 245 1918 Get/Set fontsize. Type: int. Default value: 11\. Range:
+#X text 245 1889 Get/Set fontname. Type: symbol. Default value: Helvetica.
+Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
+#X msg 110 1931 @fontsize;
+#X text 245 1931 Get/Set fontsize. Type: int. Default value: 11\. Range:
 4\...100\.;
-#X msg 110 1960 @fontslant;
-#X text 245 1960 Get/Set font slant. Type: symbol. Default value: roman.
+#X msg 110 1973 @fontslant;
+#X text 245 1973 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
-#X msg 110 2002 @fontweight;
-#X text 245 2002 Get/Set font weight. Type: symbol. Default value:
+#X msg 110 2015 @fontweight;
+#X text 245 2015 Get/Set font weight. Type: symbol. Default value:
 normal. Allowed values: normal \, bold.;
-#X msg 110 2044 @pinned;
-#X text 245 2044 Get/Set pin mode. if 1 - put element to the lowest
+#X msg 110 2057 @pinned;
+#X text 245 2057 Get/Set pin mode. if 1 - put element to the lowest
 level. Type: bool. Default value: 0\.;
-#X msg 110 2086 @size;
-#X text 245 2086 Get/Set element size (width \, height pair). Type:
+#X msg 110 2099 @size;
+#X text 245 2099 Get/Set element size (width \, height pair). Type:
 list. Default value: 300 100\.;
-#X obj 20 2138 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2143 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 2151 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2156 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 2178 pos;
-#X text 245 2178 set UI element position. Arguments are:;
-#X obj 255 2201 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2201 X: top left x-coord. Type: float.;
-#X obj 255 2224 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2224 Y: top right y-coord. Type: float.;
-#X msg 110 2249 select;
-#X text 245 2249 set selection. Arguments are:;
-#X obj 255 2272 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2272 BEGIN: selection start in samples. Type: int.;
-#X obj 255 2295 cnv 1 28 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2295 END: selection end in samples. Type: int.;
-#X msg 110 2320 update;
-#X text 245 2320 redraws view.;
-#X msg 110 2347 dump;
-#X text 245 2347 dumps all object info to Pd console window.;
-#X obj 20 2384 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2389 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X msg 110 2191 pos;
+#X text 245 2191 set UI element position. Arguments are:;
+#X obj 255 2214 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2214 X: top left x-coord. Type: float.;
+#X obj 255 2237 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2237 Y: top right y-coord. Type: float.;
+#X msg 110 2262 select;
+#X text 245 2262 set selection. Arguments are:;
+#X obj 255 2285 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2285 BEGIN: selection start in samples. Type: int.;
+#X obj 255 2308 cnv 1 28 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2308 END: selection end in samples. Type: int.;
+#X msg 110 2333 update;
+#X text 245 2333 redraws view.;
+#X msg 110 2360 dump;
+#X text 245 2360 dumps all object info to Pd console window.;
+#X obj 20 2397 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2402 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 2390 1\.;
-#X text 150 2390 *bang*;
-#X text 245 2390 output current cursor positions: @cursor_samp \, @cursor_phase
+#X text 110 2403 1\.;
+#X text 150 2403 *bang*;
+#X text 245 2403 output current cursor positions: @cursor_samp \, @cursor_phase
 \, @cursor_ms \, @cursor_sec and selection (if selected): @select_samp
 \, @select_phase \, @select_ms \, @select_sec \, @begin \, @end.;
-#X text 150 2455 *float*;
-#X text 245 2455 move cursor to specified sample position.;
-#X obj 20 2485 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2490 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 150 2468 *float*;
+#X text 245 2468 move cursor to specified sample position.;
+#X obj 20 2498 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2503 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 2491 1\.;
-#X text 245 2491 output.;
+#X text 110 2504 1\.;
+#X text 245 2504 output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 2541 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2544 library: ceammc v0.9.5;
-#N canvas 10 2563 400 290 info 0;
+#X obj 1 2554 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2557 library: ceammc v0.9.6;
+#N canvas 10 2576 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.5;
+#X text 120 32 0.9.6;
 #X text 10 54 object:;
 #X text 120 54 ui.aview;
 #X text 10 76 category:;
@@ -204,7 +205,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 2563 pd info;
+#X restore 10 2576 pd info;
 #X connect 4 0 6 0;
 #X connect 6 0 7 0;
 #X connect 7 0 8 0;
