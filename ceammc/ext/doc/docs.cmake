@@ -689,6 +689,7 @@ set(DOC_FILES
     synth.sitar~
     synth.snare~
     synth.standard_bell~
+    synth.voice_fofc~
     synth.wurley~
     system.colorpanel
     system.cursor

@@ -5,30 +5,31 @@
 
 using namespace ceammc;
 
+// keep in sync with faust code!
+constexpr const char* FAUST_PROP_VOICE = "@ivoice";
+constexpr const char* FAUST_PROP_VOWEL = "@fvowel";
+// ui props
+constexpr const char* UI_PROP_VOICE = "@voice";
+constexpr const char* UI_PROP_VOWEL = "@vowel";
+
 class SynthVoiceFOFC : public faust_synth_voice_fofc_tilde {
-    UIProperty* gate_;
-    ClockLambdaFunction clock_;
     SymbolEnumProperty* voice_;
     SymbolEnumProperty* vowel_;
     UIProperty* ivoice_;
-    UIProperty* ivowel_;
+    UIProperty* fvowel_;
 
 public:
     SynthVoiceFOFC(const PdArgs& args)
         : faust_synth_voice_fofc_tilde(args)
-        , gate_(static_cast<UIProperty*>(property(gensym("@gate"))))
-        , clock_([this]() { gate_->setValue(0); })
         , voice_(nullptr)
         , vowel_(nullptr)
-        , ivoice_(static_cast<UIProperty*>(property(gensym("@.voice"))))
-        , ivowel_(static_cast<UIProperty*>(property(gensym("@.vowel"))))
+        , ivoice_(static_cast<UIProperty*>(property(gensym(FAUST_PROP_VOICE))))
+        , fvowel_(static_cast<UIProperty*>(property(gensym(FAUST_PROP_VOWEL))))
     {
         if (ivoice_)
             ivoice_->setInternal();
-        if (ivowel_)
-            ivowel_->setInternal();
 
-        voice_ = new SymbolEnumProperty("@voice", { "alto", "bass", "countertenor", "soprano", "tenor" });
+        voice_ = new SymbolEnumProperty(UI_PROP_VOICE, { "alto", "bass", "countertenor", "soprano", "tenor" });
         voice_->setArgIndex(0);
         voice_->setSuccessFn([this](Property* p) {
             if (ivoice_)
@@ -36,19 +37,13 @@ public:
         });
         addProperty(voice_);
 
-        vowel_ = new SymbolEnumProperty("@vowel", { "a", "e", "i", "o", "u" });
+        vowel_ = new SymbolEnumProperty(UI_PROP_VOWEL, { "a", "e", "i", "o", "u" });
         vowel_->setArgIndex(1);
         vowel_->setSuccessFn([this](Property* p) {
-            if (ivowel_)
-                ivowel_->setValue(vowel_->index(), true);
+            if (fvowel_)
+                fvowel_->setValue(vowel_->index(), true);
         });
         addProperty(vowel_);
-    }
-
-    void onBang() override
-    {
-        gate_->setValue(1);
-        clock_.delay(10);
     }
 };
 

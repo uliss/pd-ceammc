@@ -64,9 +64,11 @@ tone bar connected to tube;
 #X text 200 898 german church bell modal model;
 #X obj 30 925 synth.tube_bell~;
 #X text 200 925 STK tubular bell (orchestral chime) FM synthesis instrument;
-#X obj 30 952 synth.wurley~;
-#X text 200 952 Wurlitzer electric piano FM synthesis instrument;
+#X obj 30 952 synth.voice_fofc~;
+#X text 200 952 Simple formant/vocal synthesizer with FOF-cycle filterbank.;
+#X obj 30 979 synth.wurley~;
+#X text 200 979 Wurlitzer electric piano FM synthesis instrument;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::synth 20 20 0 20 -104026
 -4096 0;
-#X obj 1 979 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 989 library: ceammc;
+#X obj 1 1006 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 1016 library: ceammc;

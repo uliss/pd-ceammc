@@ -4,11 +4,12 @@
 ### Added:
 - new objects:
   - fx.stutter~ effect
-  - fx.satrev~ schroeder stereo reverb from 1971 added
-  - fx.jcrev~ schroeder quad reverb from 1972 added  
-  - flt.resonlp~ resonant lowpass filter added
-  - flt.resonhp~ resonant highpass filter added
+  - fx.satrev~ schroeder stereo reverb from 1971
+  - fx.jcrev~ schroeder quad reverb from 1972  
+  - flt.resonlp~ resonant lowpass filter
+  - flt.resonhp~ resonant highpass filter
   - noise.colored~ generator of colored noise (brown, pink, white, blue, velvet)
+  - synth.voice_fofc~ simple formant synthesizer
 - new arguments:
   - 3rd argument added to fx.zita_rev1~ to specify dry/wet ratio
 - new properties:

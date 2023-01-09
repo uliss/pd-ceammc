@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="synth.voice_fofc~">
+        <title>synth.voice_fofc~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Simple formant/vocal synthesizer with FOF-cycle filterbank.</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>synth</category>
+            <keywords>voice fof voice cycle</keywords>
+            <since>0.9.6</since>
+        </meta>
+        <info>
+            <par>Simple formant/vocal synthesizer based on a source/filter model.
+            The source is just a periodic impulse and the "filter" is a bank of FOF filters.</par>
+            <par>Formant parameters are linearly interpolated allowing to go smoothly from one vowel to another.
+            Voice type can be selected but must correspond to the frequency range of the synthesized voice to be realistic.</par>
+            <par>A cycle of 12 FOF filters with sample-and-hold is used so that the fof filter parameters can be varied in realtime.</par>
+            <par>This technique is more robust but more computationally expensive than FofSmooth</par>
+        </info>
+        <arguments>
+            <argument name="VOICE" type="symbol">voice type</argument>
+            <argument name="VOWEL" type="symbol">vowel</argument>
+        </arguments>
+        <properties>
+            <property name="@freq" type="float" minvalue="20" maxvalue="20000.0" default="440"
+            units="hertz">frequency</property>
+            <property name="@gate" type="bool" default="0">synth gate
+            (&gt;0 - play)</property>
+            <property name="@vibr_freq" type="float" minvalue="1" maxvalue="10" default="6"
+            units="hertz">vibrato frequency</property>
+            <property name="@vibr_gain" type="float" minvalue="0" maxvalue="1" default="0.5">vibrato frequency</property>
+            <property name="@voice" type="symbol" default="alto" enum="alto bass countertenor soprano tenor">voice type. Note: can be set by corresponding index.</property>
+            <property name="@vowel" type="symbol" default="a" enum="a e i o u">vowel type. Note: can be set by corresponding index.</property>
+            <property name="@attack" type="float" default="10" minvalue="0" maxvalue="1000" units="millisecond">attack time</property>
+            <property name="@release" type="float" default="10" minvalue="0" maxvalue="1000" units="millisecond">release time</property>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <property name="@portamento" type="float" default="0" minvalue="0" maxvalue="4000" units="millisecond">portamento time</property>
+</properties>
+        <inlets>
+            <inlet>
+                <xinfo>control input</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">synth output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[T]
+|
+[@gate $1(
+|
+| [ui.tab #v]
+| |
+| [@voice $1(  [random move(
+| |            |
+| | [F]        [ui.tab #w]         [ui.hsl 0 40 @show_value 1]
+| | |          |                   |
+| | [@freq $1( [@vowel $1(         [@wsmooth $1(
+| | |          |                   |
+[synth.voice_fofc~ bass @freq 120  ]
+|
+[flt.lpf24~ 4500]
+|
+[ui.gain~ @size 120 16]  [ui.dsp~]
+| \
+[dac~]
+
+#v alto bass countertenor soprano tenor @size 360 17
+#w a e i o u
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
