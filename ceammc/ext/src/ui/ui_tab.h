@@ -69,6 +69,7 @@ public:
     void m_append(const AtomListView& lv);
     void m_clear();
     void m_delete(t_float f);
+    void m_flip();
     void m_insert(const AtomListView& lv);
     void m_minus(t_float f);
     void m_next();

@@ -386,6 +386,19 @@ void UITab::m_delete(t_float f)
     redrawBGLayer();
 }
 
+void UITab::m_flip()
+{
+    if (!prop_toggle_mode) {
+        UI_ERR << "multiple check mode expected";
+        return;
+    }
+
+    toggles_.flip();
+    item_selected_ = -1;
+    output();
+    redrawBGLayer();
+}
+
 void UITab::m_insert(const AtomListView& lv)
 {
     if (lv.size() != 2) {
@@ -474,8 +487,9 @@ void UITab::m_random(const AtomListView& lv)
     if (prop_toggle_mode) {
         std::uniform_int_distribution<int> dist(0, 1);
         for (size_t i = 0; i < items_.size(); i++)
-            toggles_.set(0, dist(gen_));
+            toggles_.set(i, dist(gen_));
 
+        item_selected_ = -1;
         output();
         redrawBGLayer();
     } else {
@@ -517,7 +531,7 @@ void UITab::output()
             res[i] = toggles_.test(i) ? 1 : 0;
         }
 
-        t_symbol* SYM_PROP_SELECTED = gensym("@selected");
+        auto SYM_PROP_SELECTED = gensym("@selected");
         anyTo(0, SYM_PROP_SELECTED, AtomListView(res, N));
         send(SYM_PROP_SELECTED, AtomListView(res, N));
 
@@ -620,6 +634,7 @@ void UITab::setup()
     obj.showProperty("current");
 
     obj.addProperty("selected", &UITab::propSelected);
+    obj.setPropertyDefaultValue("selected", "");
     obj.showProperty("selected");
 
     obj.addProperty(PROP_TEXT_COLOR, _("Text Color"), DEFAULT_TEXT_COLOR, &UITab::prop_color_text);
@@ -639,6 +654,7 @@ void UITab::setup()
     obj.addMethod("next", &UITab::m_next);
     obj.addMethod("prev", &UITab::m_prev);
     obj.addMethod("random", &UITab::m_random);
+    obj.addMethod("flip", &UITab::m_flip);
 }
 
 void setup_ui_tab()

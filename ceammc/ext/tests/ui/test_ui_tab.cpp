@@ -472,4 +472,32 @@ TEST_CASE("ui.tab", "[ui.tab]")
             REQUIRE_OUTPUT_ANY(t, 0, LA("@selected"));
         }
     }
+
+    SECTION("flip")
+    {
+        SECTION("single")
+        {
+            TestExtTab t("ui.tab", LA("A", "B"));
+            t <<= LA("flip");
+            REQUIRE_NO_OUTPUT(t);
+        }
+
+        SECTION("toggle")
+        {
+            TestExtTab t("ui.tab", LA("A", "B", "C", "@toggle", 1));
+            t->m_flip();
+            REQUIRE_OUTPUT_ANY(t, 0, LA("@selected", 1, 1, 1));
+
+            t << "A";
+            t << "B";
+            REQUIRE_UI_LIST_PROPERTY(t, "selected", LA(0., 0., 1));
+            REQUIRE(t.messagesAt(0).size() == 2);
+            REQUIRE(t.messagesAt(0).back() == LF(1, 0));
+            REQUIRE(t.messagesAt(0).front().anyValue() == LA("@selected", 0., 0., 1));
+
+            t.clearAll();
+            t->m_flip();
+            REQUIRE_UI_LIST_PROPERTY(t, "selected", LA(1, 1, 0.));
+        }
+    }
 }
