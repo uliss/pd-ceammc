@@ -23,13 +23,14 @@ UIRadio::UIRadio()
     , prop_checklist_mode_(0)
     , prop_color_active(hex_to_rgba(DEFAULT_ACTIVE_COLOR))
     , items_layer_(asEBox(), gensym("items_layer"))
+    , gen_(std::chrono::system_clock::now().time_since_epoch().count())
 {
     createOutlet();
 
     initPopupMenu("checklist",
         { { _("reset"), [this](const t_pt&) { if(prop_checklist_mode_) m_reset(); } },
             { _("flip"), [this](const t_pt&) { if(prop_checklist_mode_) m_flip(); } },
-            { _("random"), [this](const t_pt&) { if(prop_checklist_mode_) m_random(); } } });
+            { _("random"), [this](const t_pt&) { if(prop_checklist_mode_) m_random(AtomList()); } } });
 }
 
 void UIRadio::init(t_symbol* name, const AtomListView& args, bool usePresets)
@@ -291,22 +292,26 @@ void UIRadio::m_next()
     }
 }
 
-void UIRadio::m_random()
+void UIRadio::m_random(const AtomListView& lv)
 {
-    auto seed = std::chrono::system_clock::now().time_since_epoch().count();
-    std::default_random_engine gen(seed);
-
     if (prop_checklist_mode_) {
         std::uniform_int_distribution<int> dist(0, 1);
 
         for (int i = 0; i < prop_nitems_; i++)
-            items_.set(i, dist(gen));
+            items_.set(i, dist(gen_));
 
         output();
         redrawItems();
     } else {
-        std::uniform_int_distribution<int> dist(0, prop_nitems_ - 1);
-        onFloat(dist(gen));
+        if (lv.isSymbol() && lv == gensym("move")) {
+            std::uniform_int_distribution<int> dist(1, prop_nitems_ - 1);
+            idx_ = (idx_ + dist(gen_)) % prop_nitems_;
+            output();
+            redrawItems();
+        } else {
+            std::uniform_int_distribution<int> dist(0, prop_nitems_ - 1);
+            onFloat(dist(gen_));
+        }
     }
 }
 

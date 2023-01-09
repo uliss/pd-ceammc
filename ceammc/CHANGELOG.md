@@ -17,6 +17,7 @@
   - @cpuload property added to fluid~
 - new methods:
   - 'next', 'prev', 'random', 'flip', '+' and '-' methods added to ui.tab
+  - 'random move' method arg added to ui.radio
 - new aliases:
   - 'round' alias added to math.round
   - 'round~' alias added to math.round~
