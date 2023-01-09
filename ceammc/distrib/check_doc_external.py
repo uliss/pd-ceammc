@@ -380,6 +380,13 @@ def check_single_prop(name, prop, doc, ext):
 
     if doc_enum != ext_enum:
         cprint(f"[{ext_name}][{prop}] invalid property enum in doc: {doc_enum}, should be: {ext_enum}", 'magenta')
+        doc_miss = ext_enum - doc_enum
+        if len(doc_miss) > 0:
+            cprint(f"\t- missing {doc_miss}", 'yellow')
+
+        doc_invalid = doc_enum - ext_enum
+        if len(doc_invalid) > 0:
+            cprint(f"\t- invalid {doc_invalid}", 'yellow')
 
     # check types
     type_doc = doc.get("type", None)
