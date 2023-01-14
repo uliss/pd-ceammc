@@ -16,6 +16,7 @@
 #include "ceammc_music_scale.h"
 
 #include <algorithm>
+#include <cmath>
 
 CEAMMC_DEFINE_HASH(snap)
 CEAMMC_DEFINE_HASH(skip)

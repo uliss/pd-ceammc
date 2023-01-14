@@ -17,6 +17,7 @@
 #include "ceammc_preset.h"
 #include "ceammc_ui.h"
 
+#include <ctime>
 #include <random>
 
 static const size_t MAX_ITEMS = 128;
