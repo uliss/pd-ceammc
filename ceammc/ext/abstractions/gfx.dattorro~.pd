@@ -1,0 +1,151 @@
+#N canvas 0 0 950 600 12;
+#X obj 25 125 fx.dattorro~;
+#X obj 25 25 inlet~;
+#X obj 125 25 inlet~;
+#X obj 525 25 inlet;
+#X obj 525 200 route fx.dattorro;
+#X obj 525 250 route @bw @bypass @damp @ddiff1 @ddiff2 @decay @drywet
+@idiff1 @idiff2 @predelay;
+#X obj 775 350 print unknown property;
+#X msg 425 75 @bw 0.9995 \, @damp 0.0005 \, @ddiff1 0.5 \, @ddiff2 0.7 \, @decay 0.5 \, @drywet 0.33 \, @idiff1 0.625 \, @idiff2 0.75 \, @predelay 40 \,;
+#X obj 425 25 msg.onload;
+#X obj 500 550 outlet~;
+#X obj 600 550 outlet~;
+#X obj 700 550 outlet ctl;
+#X obj 3 202 cnv 8 198 18 empty empty [fx.dattorro~] 3 9 0 12 -104026
+-262144 0;
+#X obj 12 238 ui.slider @size 125 12 @active_scale 1 @label bw:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/fx.dattorro~/slider0 @min 0 @max 1;
+#X obj 190 238 sync;
+#X obj 145 238 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 238 @bw \$1;
+#X obj 12 258 ui.toggle @size 12 12 @label bypass @label_side right
+@label_align left @fontsize 10 @presetname
+/gui/\$1/fx.dattorro~/checkbox1;
+#X msg 260 250 @bypass \$1;
+#X obj 12 288 ui.slider @size 125 12 @active_scale 1 @label damp:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/fx.dattorro~/slider2 @min 0 @max 1;
+#X obj 190 288 sync;
+#X obj 145 288 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 288 @damp \$1;
+#X obj 12 320 ui.slider @size 125 12 @active_scale 1 @label ddiff1:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/fx.dattorro~/slider3 @min 0 @max 1;
+#X obj 190 320 sync;
+#X obj 145 320 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 320 @ddiff1 \$1;
+#X obj 12 352 ui.slider @size 125 12 @active_scale 1 @label ddiff2:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/fx.dattorro~/slider4 @min 0 @max 1;
+#X obj 190 352 sync;
+#X obj 145 352 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 352 @ddiff2 \$1;
+#X obj 12 384 ui.slider @size 125 12 @active_scale 1 @label decay:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/fx.dattorro~/slider5 @min 0 @max 1;
+#X obj 190 384 sync;
+#X obj 145 384 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 384 @decay \$1;
+#X obj 12 416 ui.slider @size 125 12 @active_scale 1 @label drywet:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/fx.dattorro~/slider6 @min 0 @max 1;
+#X obj 190 416 sync;
+#X obj 145 416 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 416 @drywet \$1;
+#X obj 12 448 ui.slider @size 125 12 @active_scale 1 @label idiff1:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/fx.dattorro~/slider7 @min 0 @max 1;
+#X obj 190 448 sync;
+#X obj 145 448 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 448 @idiff1 \$1;
+#X obj 12 480 ui.slider @size 125 12 @active_scale 1 @label idiff2:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/fx.dattorro~/slider8 @min 0 @max 1;
+#X obj 190 480 sync;
+#X obj 145 480 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 480 @idiff2 \$1;
+#X obj 12 512 ui.slider @size 125 12 @active_scale 1 @label
+predelay(ms): @label_side top @label_align left @fontsize 10
+@presetname /gui/\$1/fx.dattorro~/slider9 @min 0 @max 100;
+#X obj 190 512 sync;
+#X obj 145 512 ui.number @size 50 12 @min 0 @max 100 @digits 2;
+#X msg 260 512 @predelay \$1;
+#X connect 1 0 0 0;
+#X connect 2 0 0 1;
+#X connect 3 0 4 0;
+#X connect 4 0 5 0;
+#X connect 5 10 6 0;
+#X connect 7 0 5 0;
+#X connect 8 0 7 0;
+#X connect 0 0 9 0;
+#X connect 0 1 10 0;
+#X connect 4 1 11 0;
+#X connect 13 0 14 0;
+#X connect 14 0 13 0;
+#X connect 15 0 14 1;
+#X connect 14 1 15 0;
+#X connect 13 0 16 0;
+#X connect 16 0 0 0;
+#X connect 5 0 13 0;
+#X connect 17 0 18 0;
+#X connect 18 0 0 0;
+#X connect 5 1 17 0;
+#X connect 19 0 20 0;
+#X connect 20 0 19 0;
+#X connect 21 0 20 1;
+#X connect 20 1 21 0;
+#X connect 19 0 22 0;
+#X connect 22 0 0 0;
+#X connect 5 2 19 0;
+#X connect 23 0 24 0;
+#X connect 24 0 23 0;
+#X connect 25 0 24 1;
+#X connect 24 1 25 0;
+#X connect 23 0 26 0;
+#X connect 26 0 0 0;
+#X connect 5 3 23 0;
+#X connect 27 0 28 0;
+#X connect 28 0 27 0;
+#X connect 29 0 28 1;
+#X connect 28 1 29 0;
+#X connect 27 0 30 0;
+#X connect 30 0 0 0;
+#X connect 5 4 27 0;
+#X connect 31 0 32 0;
+#X connect 32 0 31 0;
+#X connect 33 0 32 1;
+#X connect 32 1 33 0;
+#X connect 31 0 34 0;
+#X connect 34 0 0 0;
+#X connect 5 5 31 0;
+#X connect 35 0 36 0;
+#X connect 36 0 35 0;
+#X connect 37 0 36 1;
+#X connect 36 1 37 0;
+#X connect 35 0 38 0;
+#X connect 38 0 0 0;
+#X connect 5 6 35 0;
+#X connect 39 0 40 0;
+#X connect 40 0 39 0;
+#X connect 41 0 40 1;
+#X connect 40 1 41 0;
+#X connect 39 0 42 0;
+#X connect 42 0 0 0;
+#X connect 5 7 39 0;
+#X connect 43 0 44 0;
+#X connect 44 0 43 0;
+#X connect 45 0 44 1;
+#X connect 44 1 45 0;
+#X connect 43 0 46 0;
+#X connect 46 0 0 0;
+#X connect 5 8 43 0;
+#X connect 47 0 48 0;
+#X connect 48 0 47 0;
+#X connect 49 0 48 1;
+#X connect 48 1 49 0;
+#X connect 47 0 50 0;
+#X connect 50 0 0 0;
+#X connect 5 9 47 0;
+#X coords 0 -1 1 1 200 332 2 2 200;

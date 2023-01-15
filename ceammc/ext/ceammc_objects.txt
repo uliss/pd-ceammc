@@ -473,6 +473,7 @@ function
 function.call
 fx.bitdown~
 fx.chorus~
+fx.dattorro~
 fx.distortion1~
 fx.distortion2~
 fx.distortion3~
