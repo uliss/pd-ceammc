@@ -20,7 +20,7 @@
             https://ccrma.stanford.edu/~dattorro/EffectDesignPart1.pdf</a>
         </info>
         <arguments>
-            <argument name="DECAY" type="float" minvalue="0" maxvalue="1">decay rate; infinite
+            <argument name="DECAY" type="float" minvalue="0" maxvalue="1">decay rate, infinite
             decay = 1.0</argument>
             <argument name="DRYWET" type="float" minvalue="0" maxvalue="1">proportion of mix
             between the original (dry) and 'effected' (wet) signals</argument>
