@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="fx.dattorro~">
+        <title>fx.dattorro~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>dattorro reverb</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>fx</category>
+            <keywords>fx reverb</keywords>
+            <since>0.9.6</since>
+        </meta>
+        <info>
+            <par>Reverberator based on the Dattorro reverb topology with default reverb parameters
+            from the original paper</par>
+            <a href="https://ccrma.stanford.edu/~dattorro/EffectDesignPart1.pdf">
+            https://ccrma.stanford.edu/~dattorro/EffectDesignPart1.pdf</a>
+        </info>
+        <arguments>
+            <argument name="DECAY" type="float" minvalue="0" maxvalue="1">decay rate; infinite
+            decay = 1.0</argument>
+            <argument name="DRYWET" type="float" minvalue="0" maxvalue="1">proportion of mix
+            between the original (dry) and 'effected' (wet) signals</argument>
+        </arguments>
+        <methods>
+            <method name="reset">reset reverb</method>
+        </methods>
+        <properties>
+            <property name="@decay" type="float" minvalue="0" maxvalue="1" default="0.5">decay
+            rate. Infinite decay = 1.0</property>
+            <property name="@damp" type="float" minvalue="0" maxvalue="1" default="0.0005">
+            high-frequency damping. No damping = 0.0</property>
+            <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="0.33">
+            proportion of mix between the original (dry) and 'effected' (wet) signals. 0 - dry
+            signal, 1 - wet</property>
+            <property name="@predelay" type="float" minvalue="0" maxvalue="100" default="40"
+            units="millisecond">a delay operating on the 'wet' signal. Large values will provide
+            the impression of a larger room</property>
+            <property name="@idiff1" type="float" minvalue="0" maxvalue="1" default="0.625">input
+            diffusion factor 1</property>
+            <property name="@idiff2" type="float" minvalue="0" maxvalue="1" default="0.75">input
+            diffusion factor 2</property>
+            <property name="@bypass" type="bool" default="0">if set to 1 - bypass 'effected'
+            signal</property>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <property name="@ddiff1" type="float" minvalue="0" maxvalue="1" default="0.5">decay
+            diffusion factor 1</property>
+            <property name="@ddiff2" type="float" minvalue="0" maxvalue="1" default="0.7">decay
+            diffusion factor 2</property>
+            <property name="@bw" type="float" minvalue="0" maxvalue="1" default="0.9995">band-width
+            filter (pre filtering)</property>
+        </properties>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>left channel</xinfo>
+            </inlet>
+            <inlet type="audio">
+                <xinfo>right channel</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">output left</outlet>
+            <outlet type="audio">output right</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[open %CEAMMC%/guitar1.wav, 1(
+|
+[expand_env #a]
+|
+|            [ui.knob]  [ui.knob]  [ui.knob]
+|            |          |          |
+[readsf~ #b] |          |          |
+|            |          |          |
+|            [@room $1( [@damp $1( [@drywet $1(
+|            |          |          |
+|            |          |          | [T]
+|            |          |          | |
+|            |          |          | [@freeze $1(
+|            |          |          | |
+[fx.freeverb2~  0.95    0.125        ]
+|
+[ui.gain~ @size 120 16] [ui.dsp~]
+| \
+[dac~]
+
+[X a->b]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -212,6 +212,7 @@ function,func,ceammc/func,ceammc/function		..		..
 function.call,func.call		..		.
 fx.bitdown~		~		~
 fx.chorus~		~		~
+fx.dattorro~		~~		~~
 fx.distortion1~		~		~
 fx.distortion2~		~		~
 fx.distortion3~		~		~

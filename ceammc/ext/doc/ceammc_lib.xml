@@ -750,6 +750,9 @@
     <entry name="fx.chorus~" descr="Chorus effect" ref_view="object">
       <xi:include href="fx.chorus~.pddoc" parse="xml"/>
     </entry>
+    <entry name="fx.dattorro~" descr="dattorro reverb" ref_view="object">
+      <xi:include href="fx.dattorro~.pddoc" parse="xml"/>
+    </entry>
     <entry name="fx.distortion1~" descr="distortion #1 from Guitarix effects set" ref_view="object">
       <xi:include href="fx.distortion1~.pddoc" parse="xml"/>
     </entry>

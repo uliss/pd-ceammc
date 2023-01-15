@@ -215,6 +215,7 @@ set(DOC_FILES
     function.call
     fx.bitdown~
     fx.chorus~
+    fx.dattorro~
     fx.distortion~
     fx.distortion1~
     fx.distortion2~

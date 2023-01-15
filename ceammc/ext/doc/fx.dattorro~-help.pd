@@ -1,0 +1,145 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 644 50 cnv 1 121 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 644 50 dattorro reverb;
+#X obj 1 1 cnv 5 765 40 empty empty fx.dattorro~ 20 20 0 20 -104026
+-4096 0;
+#X obj 653 11 fx.dattorro~;
+#X obj 210 80 cnv 1 555 73 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 Reverberator based on the Dattorro reverb topology with
+default reverb parameters from the original paper;
+#X obj 215 120 ui.link @background_color 0.98039 0.98039 0.98039
+@title
+https://ccrma.stanford.edu/~dattorro/EffectDesignPart1.pdf @url
+https://ccrma.stanford.edu/~dattorro/EffectDesignPart1.pdf;
+#X msg 50 181 open %CEAMMC%/guitar1.wav \, 1;
+#X obj 50 210 expand_env;
+#X obj 174 239 ui.knob;
+#X obj 280 239 ui.knob;
+#X obj 386 239 ui.knob;
+#X obj 50 268 readsf~;
+#X msg 174 297 @room \$1;
+#X msg 280 297 @damp \$1;
+#X msg 386 297 @drywet \$1;
+#X obj 405 325 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 405 354 @freeze \$1;
+#X obj 50 383 fx.freeverb2~ 0.95 0.125;
+#X obj 50 412 ui.gain~ @size 120 16;
+#X obj 280 412 ui.dsp~;
+#X obj 50 441 dac~;
+#X obj 20 490 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 495 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+-49933 0;
+#X text 110 530 1\.;
+#X text 150 530 float;
+#X obj 246 531 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 530 DECAY: decay rate; infinite decay = 1.0\. Type: float.
+Range: 0\...1;
+#X text 110 580 2\.;
+#X text 150 580 float;
+#X obj 246 581 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 580 DRYWET: proportion of mix between the original (dry)
+and 'effected' (wet) signals. Type: float. Range: 0\...1;
+#X obj 20 625 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 630 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+-49933 0;
+#X msg 110 665 @active;
+#X text 245 665 Get/Set on/off dsp processing. Type: bool. Default
+value: 1\.;
+#X msg 110 694 @bw;
+#X text 245 694 Get/Set band-width filter (pre filtering). Type: float.
+Default value: 0.9995\. Range: 0\...1\.;
+#X msg 110 736 @bypass;
+#X text 245 736 Get/Set if set to 1 - bypass 'effected' signal. Type:
+bool. Default value: 0\.;
+#X msg 110 778 @damp;
+#X text 245 778 Get/Set high-frequency damping. No damping = 0.0\.
+Type: float. Default value: 0.0005\. Range: 0\...1\.;
+#X msg 110 820 @ddiff1;
+#X text 245 820 Get/Set decay diffusion factor 1\. Type: float. Default
+value: 0.5\. Range: 0\...1\.;
+#X msg 110 862 @ddiff2;
+#X text 245 862 Get/Set decay diffusion factor 2\. Type: float. Default
+value: 0.7\. Range: 0\...1\.;
+#X msg 110 904 @decay;
+#X text 245 904 Get/Set decay rate. Infinite decay = 1.0\. Type: float.
+Default value: 0.5\. Range: 0\...1\.;
+#X msg 110 946 @drywet;
+#X text 245 946 Get/Set proportion of mix between the original (dry)
+and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
+Default value: 0.33\. Range: 0\...1\.;
+#X msg 110 1003 @idiff1;
+#X text 245 1003 Get/Set input diffusion factor 1\. Type: float. Default
+value: 0.625\. Range: 0\...1\.;
+#X msg 110 1045 @idiff2;
+#X text 245 1045 Get/Set input diffusion factor 2\. Type: float. Default
+value: 0.75\. Range: 0\...1\.;
+#X msg 110 1087 @predelay;
+#X text 245 1087 Get/Set a delay operating on the 'wet' signal. Large
+values will provide the impression of a larger room. Type: float. Units:
+ms. Default value: 40\. Range: 0\...100\.;
+#X obj 20 1154 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1159 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+-49933 0;
+#X msg 110 1194 reset;
+#X text 245 1194 reset reverb.;
+#X obj 20 1231 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1236 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+-49933 0;
+#X text 110 1237 1\.;
+#X text 245 1237 left channel.;
+#X text 110 1257 2\.;
+#X text 245 1257 right channel.;
+#X obj 20 1287 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1292 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+-49933 0;
+#X text 110 1293 1\.;
+#X text 245 1293 output left.;
+#X text 110 1313 2\.;
+#X text 245 1313 output right.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 115 45 ::;
+#X obj 131 48 ui.link @title fx @url ceammc.fx-help.pd;
+#X obj 1 1363 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1366 library: ceammc v0.9.6;
+#N canvas 10 1385 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 library:;
+#X text 120 10 ceammc;
+#X text 10 32 version:;
+#X text 120 32 0.9.6;
+#X text 10 54 object:;
+#X text 120 54 fx.dattorro~;
+#X text 10 76 category:;
+#X text 120 76 fx;
+#X text 10 98 since:;
+#X text 120 98 0.9.6;
+#X text 10 120 authors:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 license:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 keywords:;
+#X text 120 164 fx \, reverb;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pure-data @url
+https://github.com/uliss/pure-data;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 generated by pddoc;
+#X restore 10 1385 pd info;
+#X connect 7 0 8 0;
+#X connect 8 0 12 0;
+#X connect 9 0 13 0;
+#X connect 10 0 14 0;
+#X connect 11 0 15 0;
+#X connect 16 0 17 0;
+#X connect 12 0 18 0;
+#X connect 13 0 18 0;
+#X connect 14 0 18 0;
+#X connect 15 0 18 0;
+#X connect 17 0 18 0;
+#X connect 18 0 19 0;
+#X connect 19 0 21 0;
+#X connect 19 0 21 1;
