@@ -25,6 +25,7 @@ gflt_fb_comb~
 gflt_ff_comb~
 gfx.bitdown~
 gfx.chorus~
+gfx.dattorro~
 gfx.distortion1~
 gfx.distortion2~
 gfx.distortion3~
