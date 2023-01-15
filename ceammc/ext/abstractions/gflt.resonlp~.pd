@@ -11,18 +11,18 @@
 #X obj 600 550 outlet ctl;
 #X obj 3 202 cnv 8 198 18 empty empty [flt.resonlp~] 3 9 0 12 -104026
 -262144 0;
-#X obj 12 238 ui.slider @size 125 12 @active_scale 1 @label freq(Hz):
+#X obj 12 236 ui.slider @size 125 12 @active_scale 1 @label freq(Hz):
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/flt.resonlp~/slider0 @min 20 @max 20000;
-#X obj 190 238 sync;
-#X obj 145 238 ui.number @size 50 12 @min 20 @max 20000 @digits 1;
-#X msg 260 238 @freq \$1;
-#X obj 12 270 ui.slider @size 125 12 @active_scale 1 @label q:
+#X obj 215 236 sync;
+#X obj 145 236 ui.number @size 50 12 @min 20 @max 20000 @digits 1;
+#X msg 260 236 @freq \$1;
+#X obj 12 266 ui.slider @size 125 12 @active_scale 1 @label q:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/flt.resonlp~/slider1 @min 0.1 @max 100;
-#X obj 190 270 sync;
-#X obj 145 270 ui.number @size 50 12 @min 0.1 @max 100 @digits 2;
-#X msg 260 270 @q \$1;
+#X obj 215 266 sync;
+#X obj 145 266 ui.number @size 50 12 @min 0.1 @max 100 @digits 2;
+#X msg 260 266 @q \$1;
 #X connect 1 0 0 0;
 #X connect 2 0 3 0;
 #X connect 3 0 4 0;
@@ -45,4 +45,4 @@
 #X connect 15 0 18 0;
 #X connect 18 0 0 0;
 #X connect 4 1 15 0;
-#X coords 0 -1 1 1 200 90 2 2 200;
+#X coords 0 -1 1 1 200 86 2 2 200;

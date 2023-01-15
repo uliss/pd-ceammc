@@ -12,50 +12,50 @@
 #X obj 600 550 outlet ctl;
 #X obj 3 202 cnv 8 198 18 empty empty [fx.freeverb~] 3 9 0 12 -104026
 -262144 0;
-#X obj 12 226 ui.toggle @size 12 12 @label bypass @label_side right
-@label_align left @fontsize 10 @presetname
+#X obj 185 205 ui.toggle @size 12 12 @label bypass @label_side left
+@label_align right @fontsize 10 @presetname
 /gui/\$1/fx.freeverb~/checkbox0;
 #X msg 260 218 @bypass \$1;
-#X obj 12 256 ui.slider @size 125 12 @active_scale 1 @label damp:
+#X obj 12 236 ui.slider @size 125 12 @active_scale 1 @label damp:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.freeverb~/slider1 @min 0 @max 1;
-#X obj 190 256 sync;
-#X obj 145 256 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 256 @damp \$1;
-#X obj 12 288 ui.slider @size 125 12 @active_scale 1 @label drywet:
+#X obj 215 236 sync;
+#X obj 145 236 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 236 @damp \$1;
+#X obj 12 266 ui.slider @size 125 12 @active_scale 1 @label drywet:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.freeverb~/slider2 @min 0 @max 1;
-#X obj 190 288 sync;
-#X obj 145 288 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 288 @drywet \$1;
-#X obj 12 320 ui.slider @size 125 12 @active_scale 1 @label fr_damp:
+#X obj 215 266 sync;
+#X obj 145 266 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 266 @drywet \$1;
+#X obj 12 296 ui.slider @size 125 12 @active_scale 1 @label fr_damp:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.freeverb~/slider3 @min 0 @max 1;
-#X obj 190 320 sync;
-#X obj 145 320 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 320 @fr_damp \$1;
-#X obj 12 352 ui.slider @size 125 12 @active_scale 1 @label fr_room:
+#X obj 215 296 sync;
+#X obj 145 296 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 296 @fr_damp \$1;
+#X obj 12 326 ui.slider @size 125 12 @active_scale 1 @label fr_room:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.freeverb~/slider4 @min 0 @max 1;
-#X obj 190 352 sync;
-#X obj 145 352 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 352 @fr_room \$1;
-#X obj 12 384 ui.slider @size 125 12 @active_scale 1 @label
+#X obj 215 326 sync;
+#X obj 145 326 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 326 @fr_room \$1;
+#X obj 12 356 ui.slider @size 125 12 @active_scale 1 @label
 fr_time(ms): @label_side top @label_align left @fontsize 10
 @presetname /gui/\$1/fx.freeverb~/slider5 @min 0 @max 1000;
-#X obj 190 384 sync;
-#X obj 145 384 ui.number @size 50 12 @min 0 @max 1000 @digits 1;
-#X msg 260 384 @fr_time \$1;
-#X obj 12 404 ui.toggle @size 12 12 @label freeze @label_side right
+#X obj 215 356 sync;
+#X obj 145 356 ui.number @size 50 12 @min 0 @max 1000 @digits 1;
+#X msg 260 356 @fr_time \$1;
+#X obj 12 376 ui.toggle @size 12 12 @label freeze @label_side right
 @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.freeverb~/checkbox6;
-#X msg 260 396 @freeze \$1;
-#X obj 12 434 ui.slider @size 125 12 @active_scale 1 @label room:
+#X msg 260 368 @freeze \$1;
+#X obj 12 404 ui.slider @size 125 12 @active_scale 1 @label room:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.freeverb~/slider7 @min 0 @max 1;
-#X obj 190 434 sync;
-#X obj 145 434 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 434 @room \$1;
+#X obj 215 404 sync;
+#X obj 145 404 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 404 @room \$1;
 #X connect 1 0 0 0;
 #X connect 2 0 3 0;
 #X connect 3 0 4 0;
@@ -112,4 +112,4 @@ fr_time(ms): @label_side top @label_align left @fontsize 10
 #X connect 35 0 38 0;
 #X connect 38 0 0 0;
 #X connect 4 7 35 0;
-#X coords 0 -1 1 1 200 254 2 2 200;
+#X coords 0 -1 1 1 200 224 2 2 200;

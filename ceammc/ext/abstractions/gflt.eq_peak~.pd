@@ -11,24 +11,24 @@
 #X obj 600 550 outlet ctl;
 #X obj 3 202 cnv 8 198 18 empty empty [flt.eq_peak~] 3 9 0 12 -104026
 -262144 0;
-#X obj 12 238 ui.slider @size 125 12 @active_scale 1 @label
+#X obj 12 236 ui.slider @size 125 12 @active_scale 1 @label
 bandwidth(Hz): @label_side top @label_align left @fontsize 10
 @presetname /gui/\$1/flt.eq_peak~/slider0 @min 1 @max 5000;
-#X obj 190 238 sync;
-#X obj 145 238 ui.number @size 50 12 @min 1 @max 5000 @digits 0;
-#X msg 260 238 @bandwidth \$1;
-#X obj 12 270 ui.slider @size 125 12 @active_scale 1 @label freq(Hz):
+#X obj 215 236 sync;
+#X obj 145 236 ui.number @size 50 12 @min 1 @max 5000 @digits 0;
+#X msg 260 236 @bandwidth \$1;
+#X obj 12 266 ui.slider @size 125 12 @active_scale 1 @label freq(Hz):
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/flt.eq_peak~/slider1 @min 20 @max 20000;
-#X obj 190 270 sync;
-#X obj 145 270 ui.number @size 50 12 @min 20 @max 20000 @digits 1;
-#X msg 260 270 @freq \$1;
-#X obj 12 302 ui.slider @size 125 12 @active_scale 1 @label gain(db):
+#X obj 215 266 sync;
+#X obj 145 266 ui.number @size 50 12 @min 20 @max 20000 @digits 1;
+#X msg 260 266 @freq \$1;
+#X obj 12 296 ui.slider @size 125 12 @active_scale 1 @label gain(db):
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/flt.eq_peak~/slider2 @min -15 @max 15;
-#X obj 190 302 sync;
-#X obj 145 302 ui.number @size 50 12 @min -15 @max 15 @digits 2;
-#X msg 260 302 @gain \$1;
+#X obj 215 296 sync;
+#X obj 145 296 ui.number @size 50 12 @min -15 @max 15 @digits 2;
+#X msg 260 296 @gain \$1;
 #X connect 1 0 0 0;
 #X connect 2 0 3 0;
 #X connect 3 0 4 0;
@@ -58,4 +58,4 @@ bandwidth(Hz): @label_side top @label_align left @fontsize 10
 #X connect 19 0 22 0;
 #X connect 22 0 0 0;
 #X connect 4 2 19 0;
-#X coords 0 -1 1 1 200 122 2 2 200;
+#X coords 0 -1 1 1 200 116 2 2 200;

@@ -10,12 +10,12 @@
 #X obj 600 550 outlet ctl;
 #X obj 3 202 cnv 8 198 18 empty empty [noise.lfreq0~] 3 9 0 12 -104026
 -262144 0;
-#X obj 12 238 ui.slider @size 125 12 @active_scale 1 @label freq(Hz):
+#X obj 12 236 ui.slider @size 125 12 @active_scale 1 @label freq(Hz):
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/noise.lfreq0~/slider0 @min 5 @max 22050;
-#X obj 190 238 sync;
-#X obj 145 238 ui.number @size 50 12 @min 5 @max 22050 @digits 1;
-#X msg 260 238 @freq \$1;
+#X obj 215 236 sync;
+#X obj 145 236 ui.number @size 50 12 @min 5 @max 22050 @digits 1;
+#X msg 260 236 @freq \$1;
 #X connect 1 0 2 0;
 #X connect 2 0 3 0;
 #X connect 3 1 4 0;
@@ -30,4 +30,4 @@
 #X connect 10 0 13 0;
 #X connect 13 0 0 0;
 #X connect 3 0 10 0;
-#X coords 0 -1 1 1 200 58 2 2 200;
+#X coords 0 -1 1 1 200 56 2 2 200;

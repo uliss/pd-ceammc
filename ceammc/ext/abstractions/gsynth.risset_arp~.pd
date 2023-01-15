@@ -12,72 +12,72 @@
 #X obj 700 550 outlet ctl;
 #X obj 3 202 cnv 8 198 18 empty empty [synth.risset_arp~] 3 9 0 12
 -104026 -262144 0;
-#X obj 12 238 ui.slider @size 125 12 @active_scale 1 @label detune:
+#X obj 12 236 ui.slider @size 125 12 @active_scale 1 @label detune:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.risset_arp~/slider0 @min 0 @max 1000;
-#X obj 190 238 sync;
-#X obj 145 238 ui.number @size 50 12 @min 0 @max 1000 @digits 1;
-#X msg 260 238 @detune \$1;
-#X obj 12 270 ui.slider @size 125 12 @active_scale 1 @label freq:
+#X obj 215 236 sync;
+#X obj 145 236 ui.number @size 50 12 @min 0 @max 1000 @digits 1;
+#X msg 260 236 @detune \$1;
+#X obj 12 266 ui.slider @size 125 12 @active_scale 1 @label freq:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.risset_arp~/slider1 @min 40 @max 500;
-#X obj 190 270 sync;
-#X obj 145 270 ui.number @size 50 12 @min 40 @max 500 @digits 1;
-#X msg 260 270 @freq \$1;
-#X obj 12 302 ui.slider @size 125 12 @active_scale 1 @label harmonic1:
+#X obj 215 266 sync;
+#X obj 145 266 ui.number @size 50 12 @min 40 @max 500 @digits 1;
+#X msg 260 266 @freq \$1;
+#X obj 12 296 ui.slider @size 125 12 @active_scale 1 @label harmonic1:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.risset_arp~/slider2 @min 0 @max 1;
-#X obj 190 302 sync;
-#X obj 145 302 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 302 @harmonic1 \$1;
-#X obj 12 334 ui.slider @size 125 12 @active_scale 1 @label harmonic2:
+#X obj 215 296 sync;
+#X obj 145 296 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 296 @harmonic1 \$1;
+#X obj 12 326 ui.slider @size 125 12 @active_scale 1 @label harmonic2:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.risset_arp~/slider3 @min 0 @max 1;
-#X obj 190 334 sync;
-#X obj 145 334 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 334 @harmonic2 \$1;
-#X obj 12 366 ui.slider @size 125 12 @active_scale 1 @label harmonic3:
+#X obj 215 326 sync;
+#X obj 145 326 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 326 @harmonic2 \$1;
+#X obj 12 356 ui.slider @size 125 12 @active_scale 1 @label harmonic3:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.risset_arp~/slider4 @min 0 @max 1;
-#X obj 190 366 sync;
-#X obj 145 366 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 366 @harmonic3 \$1;
-#X obj 12 398 ui.slider @size 125 12 @active_scale 1 @label harmonic4:
+#X obj 215 356 sync;
+#X obj 145 356 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 356 @harmonic3 \$1;
+#X obj 12 386 ui.slider @size 125 12 @active_scale 1 @label harmonic4:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.risset_arp~/slider5 @min 0 @max 1;
-#X obj 190 398 sync;
-#X obj 145 398 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 398 @harmonic4 \$1;
-#X obj 12 430 ui.slider @size 125 12 @active_scale 1 @label harmonic5:
+#X obj 215 386 sync;
+#X obj 145 386 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 386 @harmonic4 \$1;
+#X obj 12 416 ui.slider @size 125 12 @active_scale 1 @label harmonic5:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.risset_arp~/slider6 @min 0 @max 1;
-#X obj 190 430 sync;
-#X obj 145 430 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 430 @harmonic5 \$1;
-#X obj 12 462 ui.slider @size 125 12 @active_scale 1 @label harmonic6:
+#X obj 215 416 sync;
+#X obj 145 416 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 416 @harmonic5 \$1;
+#X obj 12 446 ui.slider @size 125 12 @active_scale 1 @label harmonic6:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.risset_arp~/slider7 @min 0 @max 1;
-#X obj 190 462 sync;
-#X obj 145 462 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 462 @harmonic6 \$1;
-#X obj 12 494 ui.slider @size 125 12 @active_scale 1 @label harmonic7:
+#X obj 215 446 sync;
+#X obj 145 446 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 446 @harmonic6 \$1;
+#X obj 12 476 ui.slider @size 125 12 @active_scale 1 @label harmonic7:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.risset_arp~/slider8 @min 0 @max 1;
-#X obj 190 494 sync;
-#X obj 145 494 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 494 @harmonic7 \$1;
-#X obj 12 526 ui.slider @size 125 12 @active_scale 1 @label harmonic8:
+#X obj 215 476 sync;
+#X obj 145 476 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 476 @harmonic7 \$1;
+#X obj 12 506 ui.slider @size 125 12 @active_scale 1 @label harmonic8:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.risset_arp~/slider9 @min 0 @max 1;
-#X obj 190 526 sync;
-#X obj 145 526 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 526 @harmonic8 \$1;
-#X obj 12 558 ui.slider @size 125 12 @active_scale 1 @label spread:
+#X obj 215 506 sync;
+#X obj 145 506 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 506 @harmonic8 \$1;
+#X obj 12 536 ui.slider @size 125 12 @active_scale 1 @label spread:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.risset_arp~/slider10 @min 0 @max 1;
-#X obj 190 558 sync;
-#X obj 145 558 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 558 @spread \$1;
+#X obj 215 536 sync;
+#X obj 145 536 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 536 @spread \$1;
 #X connect 1 0 2 0;
 #X connect 2 0 3 0;
 #X connect 3 11 4 0;
@@ -163,4 +163,4 @@
 #X connect 51 0 54 0;
 #X connect 54 0 0 0;
 #X connect 3 10 51 0;
-#X coords 0 -1 1 1 200 378 2 2 200;
+#X coords 0 -1 1 1 200 356 2 2 200;

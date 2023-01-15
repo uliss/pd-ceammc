@@ -14,64 +14,64 @@
 #X obj 700 550 outlet ctl;
 #X obj 3 202 cnv 8 198 18 empty empty [fx.dattorro~] 3 9 0 12 -104026
 -262144 0;
-#X obj 12 238 ui.slider @size 125 12 @active_scale 1 @label bw:
+#X obj 12 236 ui.slider @size 125 12 @active_scale 1 @label bw:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.dattorro~/slider0 @min 0 @max 1;
-#X obj 190 238 sync;
-#X obj 145 238 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 238 @bw \$1;
-#X obj 12 258 ui.toggle @size 12 12 @label bypass @label_side right
-@label_align left @fontsize 10 @presetname
+#X obj 215 236 sync;
+#X obj 145 236 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 236 @bw \$1;
+#X obj 185 205 ui.toggle @size 12 12 @label bypass @label_side left
+@label_align right @fontsize 10 @presetname
 /gui/\$1/fx.dattorro~/checkbox1;
-#X msg 260 250 @bypass \$1;
-#X obj 12 288 ui.slider @size 125 12 @active_scale 1 @label damp:
+#X msg 260 248 @bypass \$1;
+#X obj 12 266 ui.slider @size 125 12 @active_scale 1 @label damp:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.dattorro~/slider2 @min 0 @max 1;
-#X obj 190 288 sync;
-#X obj 145 288 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 288 @damp \$1;
-#X obj 12 320 ui.slider @size 125 12 @active_scale 1 @label ddiff1:
+#X obj 215 266 sync;
+#X obj 145 266 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 266 @damp \$1;
+#X obj 12 296 ui.slider @size 125 12 @active_scale 1 @label ddiff1:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.dattorro~/slider3 @min 0 @max 1;
-#X obj 190 320 sync;
-#X obj 145 320 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 320 @ddiff1 \$1;
-#X obj 12 352 ui.slider @size 125 12 @active_scale 1 @label ddiff2:
+#X obj 215 296 sync;
+#X obj 145 296 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 296 @ddiff1 \$1;
+#X obj 12 326 ui.slider @size 125 12 @active_scale 1 @label ddiff2:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.dattorro~/slider4 @min 0 @max 1;
-#X obj 190 352 sync;
-#X obj 145 352 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 352 @ddiff2 \$1;
-#X obj 12 384 ui.slider @size 125 12 @active_scale 1 @label decay:
+#X obj 215 326 sync;
+#X obj 145 326 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 326 @ddiff2 \$1;
+#X obj 12 356 ui.slider @size 125 12 @active_scale 1 @label decay:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.dattorro~/slider5 @min 0 @max 1;
-#X obj 190 384 sync;
-#X obj 145 384 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 384 @decay \$1;
-#X obj 12 416 ui.slider @size 125 12 @active_scale 1 @label drywet:
+#X obj 215 356 sync;
+#X obj 145 356 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 356 @decay \$1;
+#X obj 12 386 ui.slider @size 125 12 @active_scale 1 @label drywet:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.dattorro~/slider6 @min 0 @max 1;
-#X obj 190 416 sync;
-#X obj 145 416 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 416 @drywet \$1;
-#X obj 12 448 ui.slider @size 125 12 @active_scale 1 @label idiff1:
+#X obj 215 386 sync;
+#X obj 145 386 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 386 @drywet \$1;
+#X obj 12 416 ui.slider @size 125 12 @active_scale 1 @label idiff1:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.dattorro~/slider7 @min 0 @max 1;
-#X obj 190 448 sync;
-#X obj 145 448 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 448 @idiff1 \$1;
-#X obj 12 480 ui.slider @size 125 12 @active_scale 1 @label idiff2:
+#X obj 215 416 sync;
+#X obj 145 416 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 416 @idiff1 \$1;
+#X obj 12 446 ui.slider @size 125 12 @active_scale 1 @label idiff2:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.dattorro~/slider8 @min 0 @max 1;
-#X obj 190 480 sync;
-#X obj 145 480 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 480 @idiff2 \$1;
-#X obj 12 512 ui.slider @size 125 12 @active_scale 1 @label
+#X obj 215 446 sync;
+#X obj 145 446 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 446 @idiff2 \$1;
+#X obj 12 476 ui.slider @size 125 12 @active_scale 1 @label
 predelay(ms): @label_side top @label_align left @fontsize 10
 @presetname /gui/\$1/fx.dattorro~/slider9 @min 0 @max 100;
-#X obj 190 512 sync;
-#X obj 145 512 ui.number @size 50 12 @min 0 @max 100 @digits 2;
-#X msg 260 512 @predelay \$1;
+#X obj 215 476 sync;
+#X obj 145 476 ui.number @size 50 12 @min 0 @max 100 @digits 2;
+#X msg 260 476 @predelay \$1;
 #X connect 1 0 0 0;
 #X connect 2 0 0 1;
 #X connect 3 0 4 0;
@@ -148,4 +148,4 @@ predelay(ms): @label_side top @label_align left @fontsize 10
 #X connect 47 0 50 0;
 #X connect 50 0 0 0;
 #X connect 5 9 47 0;
-#X coords 0 -1 1 1 200 332 2 2 200;
+#X coords 0 -1 1 1 200 296 2 2 200;

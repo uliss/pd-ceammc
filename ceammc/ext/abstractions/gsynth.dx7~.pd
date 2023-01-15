@@ -32,357 +32,357 @@
 @label_align left @fontsize 10 @presetname /gui/\$1/synth.dx7~/numbox1
 @min 0 @max 99 @step 1;
 #X msg 260 266 @feedback \$1;
-#X obj 12 298 ui.slider @size 125 12 @active_scale 1 @label gain:
+#X obj 12 296 ui.slider @size 125 12 @active_scale 1 @label gain:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/slider2 @min 0 @max 1;
-#X obj 190 298 sync;
-#X obj 145 298 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 298 @gain \$1;
-#X obj 12 318 ui.toggle @size 12 12 @label gate @label_side right
+#X obj 215 296 sync;
+#X obj 145 296 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 296 @gain \$1;
+#X obj 12 316 ui.toggle @size 12 12 @label gate @label_side right
 @label_align left @fontsize 10;
-#X msg 260 310 @gate \$1;
-#X obj 12 346 ui.number @size 60 12 @label op0:detune: @label_side top
+#X msg 260 308 @gate \$1;
+#X obj 12 344 ui.number @size 60 12 @label op0:detune: @label_side top
 @label_align left @fontsize 10 @presetname /gui/\$1/synth.dx7~/numbox4
 @min -10 @max 10 @step 1;
-#X msg 260 346 @op0:detune \$1;
-#X obj 12 376 ui.number @size 60 12 @label op0:egL1: @label_side top
+#X msg 260 344 @op0:detune \$1;
+#X obj 12 374 ui.number @size 60 12 @label op0:egL1: @label_side top
 @label_align left @fontsize 10 @presetname /gui/\$1/synth.dx7~/numbox5
 @min 0 @max 99 @step 1;
-#X msg 260 376 @op0:egL1 \$1;
-#X obj 12 406 ui.number @size 60 12 @label op0:egL2: @label_side top
+#X msg 260 374 @op0:egL1 \$1;
+#X obj 12 404 ui.number @size 60 12 @label op0:egL2: @label_side top
 @label_align left @fontsize 10 @presetname /gui/\$1/synth.dx7~/numbox6
 @min 0 @max 99 @step 1;
-#X msg 260 406 @op0:egL2 \$1;
-#X obj 12 436 ui.number @size 60 12 @label op0:egL3: @label_side top
+#X msg 260 404 @op0:egL2 \$1;
+#X obj 12 434 ui.number @size 60 12 @label op0:egL3: @label_side top
 @label_align left @fontsize 10 @presetname /gui/\$1/synth.dx7~/numbox7
 @min 0 @max 99 @step 1;
-#X msg 260 436 @op0:egL3 \$1;
-#X obj 12 466 ui.number @size 60 12 @label op0:egL4: @label_side top
+#X msg 260 434 @op0:egL3 \$1;
+#X obj 12 464 ui.number @size 60 12 @label op0:egL4: @label_side top
 @label_align left @fontsize 10 @presetname /gui/\$1/synth.dx7~/numbox8
 @min 0 @max 99 @step 1;
-#X msg 260 466 @op0:egL4 \$1;
-#X obj 12 496 ui.number @size 60 12 @label op0:egR1: @label_side top
+#X msg 260 464 @op0:egL4 \$1;
+#X obj 12 494 ui.number @size 60 12 @label op0:egR1: @label_side top
 @label_align left @fontsize 10 @presetname /gui/\$1/synth.dx7~/numbox9
 @min 0 @max 99 @step 1;
-#X msg 260 496 @op0:egR1 \$1;
-#X obj 12 526 ui.number @size 60 12 @label op0:egR2: @label_side top
+#X msg 260 494 @op0:egR1 \$1;
+#X obj 12 524 ui.number @size 60 12 @label op0:egR2: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox10 @min 0 @max 99 @step 1;
-#X msg 260 526 @op0:egR2 \$1;
-#X obj 12 556 ui.number @size 60 12 @label op0:egR3: @label_side top
+#X msg 260 524 @op0:egR2 \$1;
+#X obj 12 554 ui.number @size 60 12 @label op0:egR3: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox11 @min 0 @max 99 @step 1;
-#X msg 260 556 @op0:egR3 \$1;
-#X obj 12 586 ui.number @size 60 12 @label op0:egR4: @label_side top
+#X msg 260 554 @op0:egR3 \$1;
+#X obj 12 584 ui.number @size 60 12 @label op0:egR4: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox12 @min 0 @max 99 @step 1;
-#X msg 260 586 @op0:egR4 \$1;
-#X obj 12 616 ui.number @size 60 12 @label op0:freq: @label_side top
+#X msg 260 584 @op0:egR4 \$1;
+#X obj 12 614 ui.number @size 60 12 @label op0:freq: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox13 @min 0 @max 2 @step 0.01;
-#X msg 260 616 @op0:freq \$1;
-#X obj 12 646 ui.number @size 60 12 @label op0:key_vel_sens:
+#X msg 260 614 @op0:freq \$1;
+#X obj 12 644 ui.number @size 60 12 @label op0:key_vel_sens:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox14 @min 0 @max 8 @step 1;
-#X msg 260 646 @op0:key_vel_sens \$1;
-#X obj 12 676 ui.number @size 60 12 @label op0:level: @label_side top
+#X msg 260 644 @op0:key_vel_sens \$1;
+#X obj 12 674 ui.number @size 60 12 @label op0:level: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox15 @min 0 @max 99 @step 1;
-#X msg 260 676 @op0:level \$1;
-#X obj 12 706 ui.number @size 60 12 @label op0:mode: @label_side top
+#X msg 260 674 @op0:level \$1;
+#X obj 12 704 ui.number @size 60 12 @label op0:mode: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox16 @min 0 @max 1 @step 1;
-#X msg 260 706 @op0:mode \$1;
-#X obj 12 736 ui.number @size 60 12 @label op0:rate_scale: @label_side
+#X msg 260 704 @op0:mode \$1;
+#X obj 12 734 ui.number @size 60 12 @label op0:rate_scale: @label_side
 top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox17 @min 0 @max 10 @step 1;
-#X msg 260 736 @op0:rate_scale \$1;
-#X obj 12 766 ui.number @size 60 12 @label op1:detune: @label_side top
+#X msg 260 734 @op0:rate_scale \$1;
+#X obj 12 764 ui.number @size 60 12 @label op1:detune: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox18 @min -10 @max 10 @step 1;
-#X msg 260 766 @op1:detune \$1;
-#X obj 12 796 ui.number @size 60 12 @label op1:egL1: @label_side top
+#X msg 260 764 @op1:detune \$1;
+#X obj 12 794 ui.number @size 60 12 @label op1:egL1: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox19 @min 0 @max 99 @step 1;
-#X msg 260 796 @op1:egL1 \$1;
-#X obj 12 826 ui.number @size 60 12 @label op1:egL2: @label_side top
+#X msg 260 794 @op1:egL1 \$1;
+#X obj 12 824 ui.number @size 60 12 @label op1:egL2: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox20 @min 0 @max 99 @step 1;
-#X msg 260 826 @op1:egL2 \$1;
-#X obj 12 856 ui.number @size 60 12 @label op1:egL3: @label_side top
+#X msg 260 824 @op1:egL2 \$1;
+#X obj 12 854 ui.number @size 60 12 @label op1:egL3: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox21 @min 0 @max 99 @step 1;
-#X msg 260 856 @op1:egL3 \$1;
-#X obj 12 886 ui.number @size 60 12 @label op1:egL4: @label_side top
+#X msg 260 854 @op1:egL3 \$1;
+#X obj 12 884 ui.number @size 60 12 @label op1:egL4: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox22 @min 0 @max 99 @step 1;
-#X msg 260 886 @op1:egL4 \$1;
-#X obj 12 916 ui.number @size 60 12 @label op1:egR1: @label_side top
+#X msg 260 884 @op1:egL4 \$1;
+#X obj 12 914 ui.number @size 60 12 @label op1:egR1: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox23 @min 0 @max 99 @step 1;
-#X msg 260 916 @op1:egR1 \$1;
-#X obj 12 946 ui.number @size 60 12 @label op1:egR2: @label_side top
+#X msg 260 914 @op1:egR1 \$1;
+#X obj 12 944 ui.number @size 60 12 @label op1:egR2: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox24 @min 0 @max 99 @step 1;
-#X msg 260 946 @op1:egR2 \$1;
-#X obj 12 976 ui.number @size 60 12 @label op1:egR3: @label_side top
+#X msg 260 944 @op1:egR2 \$1;
+#X obj 12 974 ui.number @size 60 12 @label op1:egR3: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox25 @min 0 @max 99 @step 1;
-#X msg 260 976 @op1:egR3 \$1;
-#X obj 12 1006 ui.number @size 60 12 @label op1:egR4: @label_side top
+#X msg 260 974 @op1:egR3 \$1;
+#X obj 12 1004 ui.number @size 60 12 @label op1:egR4: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox26 @min 0 @max 99 @step 1;
-#X msg 260 1006 @op1:egR4 \$1;
-#X obj 12 1036 ui.number @size 60 12 @label op1:freq: @label_side top
+#X msg 260 1004 @op1:egR4 \$1;
+#X obj 12 1034 ui.number @size 60 12 @label op1:freq: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox27 @min 0 @max 2 @step 0.01;
-#X msg 260 1036 @op1:freq \$1;
-#X obj 12 1066 ui.number @size 60 12 @label op1:key_vel_sens:
+#X msg 260 1034 @op1:freq \$1;
+#X obj 12 1064 ui.number @size 60 12 @label op1:key_vel_sens:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox28 @min 0 @max 8 @step 1;
-#X msg 260 1066 @op1:key_vel_sens \$1;
-#X obj 12 1096 ui.number @size 60 12 @label op1:level: @label_side top
+#X msg 260 1064 @op1:key_vel_sens \$1;
+#X obj 12 1094 ui.number @size 60 12 @label op1:level: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox29 @min 0 @max 99 @step 1;
-#X msg 260 1096 @op1:level \$1;
-#X obj 12 1126 ui.number @size 60 12 @label op1:mode: @label_side top
+#X msg 260 1094 @op1:level \$1;
+#X obj 12 1124 ui.number @size 60 12 @label op1:mode: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox30 @min 0 @max 1 @step 1;
-#X msg 260 1126 @op1:mode \$1;
-#X obj 12 1156 ui.number @size 60 12 @label op1:rate_scale:
+#X msg 260 1124 @op1:mode \$1;
+#X obj 12 1154 ui.number @size 60 12 @label op1:rate_scale:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox31 @min 0 @max 10 @step 1;
-#X msg 260 1156 @op1:rate_scale \$1;
-#X obj 12 1186 ui.number @size 60 12 @label op2:detune: @label_side
+#X msg 260 1154 @op1:rate_scale \$1;
+#X obj 12 1184 ui.number @size 60 12 @label op2:detune: @label_side
 top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox32 @min -10 @max 10 @step 1;
-#X msg 260 1186 @op2:detune \$1;
-#X obj 12 1216 ui.number @size 60 12 @label op2:egL1: @label_side top
+#X msg 260 1184 @op2:detune \$1;
+#X obj 12 1214 ui.number @size 60 12 @label op2:egL1: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox33 @min 0 @max 99 @step 1;
-#X msg 260 1216 @op2:egL1 \$1;
-#X obj 12 1246 ui.number @size 60 12 @label op2:egL2: @label_side top
+#X msg 260 1214 @op2:egL1 \$1;
+#X obj 12 1244 ui.number @size 60 12 @label op2:egL2: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox34 @min 0 @max 99 @step 1;
-#X msg 260 1246 @op2:egL2 \$1;
-#X obj 12 1276 ui.number @size 60 12 @label op2:egL3: @label_side top
+#X msg 260 1244 @op2:egL2 \$1;
+#X obj 12 1274 ui.number @size 60 12 @label op2:egL3: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox35 @min 0 @max 99 @step 1;
-#X msg 260 1276 @op2:egL3 \$1;
-#X obj 12 1306 ui.number @size 60 12 @label op2:egL4: @label_side top
+#X msg 260 1274 @op2:egL3 \$1;
+#X obj 12 1304 ui.number @size 60 12 @label op2:egL4: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox36 @min 0 @max 99 @step 1;
-#X msg 260 1306 @op2:egL4 \$1;
-#X obj 12 1336 ui.number @size 60 12 @label op2:egR1: @label_side top
+#X msg 260 1304 @op2:egL4 \$1;
+#X obj 12 1334 ui.number @size 60 12 @label op2:egR1: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox37 @min 0 @max 99 @step 1;
-#X msg 260 1336 @op2:egR1 \$1;
-#X obj 12 1366 ui.number @size 60 12 @label op2:egR2: @label_side top
+#X msg 260 1334 @op2:egR1 \$1;
+#X obj 12 1364 ui.number @size 60 12 @label op2:egR2: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox38 @min 0 @max 99 @step 1;
-#X msg 260 1366 @op2:egR2 \$1;
-#X obj 12 1396 ui.number @size 60 12 @label op2:egR3: @label_side top
+#X msg 260 1364 @op2:egR2 \$1;
+#X obj 12 1394 ui.number @size 60 12 @label op2:egR3: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox39 @min 0 @max 99 @step 1;
-#X msg 260 1396 @op2:egR3 \$1;
-#X obj 12 1426 ui.number @size 60 12 @label op2:egR4: @label_side top
+#X msg 260 1394 @op2:egR3 \$1;
+#X obj 12 1424 ui.number @size 60 12 @label op2:egR4: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox40 @min 0 @max 99 @step 1;
-#X msg 260 1426 @op2:egR4 \$1;
-#X obj 12 1456 ui.number @size 60 12 @label op2:freq: @label_side top
+#X msg 260 1424 @op2:egR4 \$1;
+#X obj 12 1454 ui.number @size 60 12 @label op2:freq: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox41 @min 0 @max 2 @step 0.01;
-#X msg 260 1456 @op2:freq \$1;
-#X obj 12 1486 ui.number @size 60 12 @label op2:key_vel_sens:
+#X msg 260 1454 @op2:freq \$1;
+#X obj 12 1484 ui.number @size 60 12 @label op2:key_vel_sens:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox42 @min 0 @max 8 @step 1;
-#X msg 260 1486 @op2:key_vel_sens \$1;
-#X obj 12 1516 ui.number @size 60 12 @label op2:level: @label_side top
+#X msg 260 1484 @op2:key_vel_sens \$1;
+#X obj 12 1514 ui.number @size 60 12 @label op2:level: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox43 @min 0 @max 99 @step 1;
-#X msg 260 1516 @op2:level \$1;
-#X obj 12 1546 ui.number @size 60 12 @label op2:mode: @label_side top
+#X msg 260 1514 @op2:level \$1;
+#X obj 12 1544 ui.number @size 60 12 @label op2:mode: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox44 @min 0 @max 1 @step 1;
-#X msg 260 1546 @op2:mode \$1;
-#X obj 12 1576 ui.number @size 60 12 @label op2:rate_scale:
+#X msg 260 1544 @op2:mode \$1;
+#X obj 12 1574 ui.number @size 60 12 @label op2:rate_scale:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox45 @min 0 @max 10 @step 1;
-#X msg 260 1576 @op2:rate_scale \$1;
-#X obj 12 1606 ui.number @size 60 12 @label op3:detune: @label_side
+#X msg 260 1574 @op2:rate_scale \$1;
+#X obj 12 1604 ui.number @size 60 12 @label op3:detune: @label_side
 top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox46 @min -10 @max 10 @step 1;
-#X msg 260 1606 @op3:detune \$1;
-#X obj 12 1636 ui.number @size 60 12 @label op3:egL1: @label_side top
+#X msg 260 1604 @op3:detune \$1;
+#X obj 12 1634 ui.number @size 60 12 @label op3:egL1: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox47 @min 0 @max 99 @step 1;
-#X msg 260 1636 @op3:egL1 \$1;
-#X obj 12 1666 ui.number @size 60 12 @label op3:egL2: @label_side top
+#X msg 260 1634 @op3:egL1 \$1;
+#X obj 12 1664 ui.number @size 60 12 @label op3:egL2: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox48 @min 0 @max 99 @step 1;
-#X msg 260 1666 @op3:egL2 \$1;
-#X obj 12 1696 ui.number @size 60 12 @label op3:egL3: @label_side top
+#X msg 260 1664 @op3:egL2 \$1;
+#X obj 12 1694 ui.number @size 60 12 @label op3:egL3: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox49 @min 0 @max 99 @step 1;
-#X msg 260 1696 @op3:egL3 \$1;
-#X obj 12 1726 ui.number @size 60 12 @label op3:egL4: @label_side top
+#X msg 260 1694 @op3:egL3 \$1;
+#X obj 12 1724 ui.number @size 60 12 @label op3:egL4: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox50 @min 0 @max 99 @step 1;
-#X msg 260 1726 @op3:egL4 \$1;
-#X obj 12 1756 ui.number @size 60 12 @label op3:egR1: @label_side top
+#X msg 260 1724 @op3:egL4 \$1;
+#X obj 12 1754 ui.number @size 60 12 @label op3:egR1: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox51 @min 0 @max 99 @step 1;
-#X msg 260 1756 @op3:egR1 \$1;
-#X obj 12 1786 ui.number @size 60 12 @label op3:egR2: @label_side top
+#X msg 260 1754 @op3:egR1 \$1;
+#X obj 12 1784 ui.number @size 60 12 @label op3:egR2: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox52 @min 0 @max 99 @step 1;
-#X msg 260 1786 @op3:egR2 \$1;
-#X obj 12 1816 ui.number @size 60 12 @label op3:egR3: @label_side top
+#X msg 260 1784 @op3:egR2 \$1;
+#X obj 12 1814 ui.number @size 60 12 @label op3:egR3: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox53 @min 0 @max 99 @step 1;
-#X msg 260 1816 @op3:egR3 \$1;
-#X obj 12 1846 ui.number @size 60 12 @label op3:egR4: @label_side top
+#X msg 260 1814 @op3:egR3 \$1;
+#X obj 12 1844 ui.number @size 60 12 @label op3:egR4: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox54 @min 0 @max 99 @step 1;
-#X msg 260 1846 @op3:egR4 \$1;
-#X obj 12 1876 ui.number @size 60 12 @label op3:freq: @label_side top
+#X msg 260 1844 @op3:egR4 \$1;
+#X obj 12 1874 ui.number @size 60 12 @label op3:freq: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox55 @min 0 @max 2 @step 0.01;
-#X msg 260 1876 @op3:freq \$1;
-#X obj 12 1906 ui.number @size 60 12 @label op3:key_vel_sens:
+#X msg 260 1874 @op3:freq \$1;
+#X obj 12 1904 ui.number @size 60 12 @label op3:key_vel_sens:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox56 @min 0 @max 8 @step 1;
-#X msg 260 1906 @op3:key_vel_sens \$1;
-#X obj 12 1936 ui.number @size 60 12 @label op3:level: @label_side top
+#X msg 260 1904 @op3:key_vel_sens \$1;
+#X obj 12 1934 ui.number @size 60 12 @label op3:level: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox57 @min 0 @max 99 @step 1;
-#X msg 260 1936 @op3:level \$1;
-#X obj 12 1966 ui.number @size 60 12 @label op3:mode: @label_side top
+#X msg 260 1934 @op3:level \$1;
+#X obj 12 1964 ui.number @size 60 12 @label op3:mode: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox58 @min 0 @max 1 @step 1;
-#X msg 260 1966 @op3:mode \$1;
-#X obj 12 1996 ui.number @size 60 12 @label op3:rate_scale:
+#X msg 260 1964 @op3:mode \$1;
+#X obj 12 1994 ui.number @size 60 12 @label op3:rate_scale:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox59 @min 0 @max 10 @step 1;
-#X msg 260 1996 @op3:rate_scale \$1;
-#X obj 12 2026 ui.number @size 60 12 @label op4:detune: @label_side
+#X msg 260 1994 @op3:rate_scale \$1;
+#X obj 12 2024 ui.number @size 60 12 @label op4:detune: @label_side
 top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox60 @min -10 @max 10 @step 1;
-#X msg 260 2026 @op4:detune \$1;
-#X obj 12 2056 ui.number @size 60 12 @label op4:egL1: @label_side top
+#X msg 260 2024 @op4:detune \$1;
+#X obj 12 2054 ui.number @size 60 12 @label op4:egL1: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox61 @min 0 @max 99 @step 1;
-#X msg 260 2056 @op4:egL1 \$1;
-#X obj 12 2086 ui.number @size 60 12 @label op4:egL2: @label_side top
+#X msg 260 2054 @op4:egL1 \$1;
+#X obj 12 2084 ui.number @size 60 12 @label op4:egL2: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox62 @min 0 @max 99 @step 1;
-#X msg 260 2086 @op4:egL2 \$1;
-#X obj 12 2116 ui.number @size 60 12 @label op4:egL3: @label_side top
+#X msg 260 2084 @op4:egL2 \$1;
+#X obj 12 2114 ui.number @size 60 12 @label op4:egL3: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox63 @min 0 @max 99 @step 1;
-#X msg 260 2116 @op4:egL3 \$1;
-#X obj 12 2146 ui.number @size 60 12 @label op4:egL4: @label_side top
+#X msg 260 2114 @op4:egL3 \$1;
+#X obj 12 2144 ui.number @size 60 12 @label op4:egL4: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox64 @min 0 @max 99 @step 1;
-#X msg 260 2146 @op4:egL4 \$1;
-#X obj 12 2176 ui.number @size 60 12 @label op4:egR1: @label_side top
+#X msg 260 2144 @op4:egL4 \$1;
+#X obj 12 2174 ui.number @size 60 12 @label op4:egR1: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox65 @min 0 @max 99 @step 1;
-#X msg 260 2176 @op4:egR1 \$1;
-#X obj 12 2206 ui.number @size 60 12 @label op4:egR2: @label_side top
+#X msg 260 2174 @op4:egR1 \$1;
+#X obj 12 2204 ui.number @size 60 12 @label op4:egR2: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox66 @min 0 @max 99 @step 1;
-#X msg 260 2206 @op4:egR2 \$1;
-#X obj 12 2236 ui.number @size 60 12 @label op4:egR3: @label_side top
+#X msg 260 2204 @op4:egR2 \$1;
+#X obj 12 2234 ui.number @size 60 12 @label op4:egR3: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox67 @min 0 @max 99 @step 1;
-#X msg 260 2236 @op4:egR3 \$1;
-#X obj 12 2266 ui.number @size 60 12 @label op4:egR4: @label_side top
+#X msg 260 2234 @op4:egR3 \$1;
+#X obj 12 2264 ui.number @size 60 12 @label op4:egR4: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox68 @min 0 @max 99 @step 1;
-#X msg 260 2266 @op4:egR4 \$1;
-#X obj 12 2296 ui.number @size 60 12 @label op4:freq: @label_side top
+#X msg 260 2264 @op4:egR4 \$1;
+#X obj 12 2294 ui.number @size 60 12 @label op4:freq: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox69 @min 0 @max 2 @step 0.01;
-#X msg 260 2296 @op4:freq \$1;
-#X obj 12 2326 ui.number @size 60 12 @label op4:key_vel_sens:
+#X msg 260 2294 @op4:freq \$1;
+#X obj 12 2324 ui.number @size 60 12 @label op4:key_vel_sens:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox70 @min 0 @max 8 @step 1;
-#X msg 260 2326 @op4:key_vel_sens \$1;
-#X obj 12 2356 ui.number @size 60 12 @label op4:level: @label_side top
+#X msg 260 2324 @op4:key_vel_sens \$1;
+#X obj 12 2354 ui.number @size 60 12 @label op4:level: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox71 @min 0 @max 99 @step 1;
-#X msg 260 2356 @op4:level \$1;
-#X obj 12 2386 ui.number @size 60 12 @label op4:mode: @label_side top
+#X msg 260 2354 @op4:level \$1;
+#X obj 12 2384 ui.number @size 60 12 @label op4:mode: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox72 @min 0 @max 1 @step 1;
-#X msg 260 2386 @op4:mode \$1;
-#X obj 12 2416 ui.number @size 60 12 @label op4:rate_scale:
+#X msg 260 2384 @op4:mode \$1;
+#X obj 12 2414 ui.number @size 60 12 @label op4:rate_scale:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox73 @min 0 @max 10 @step 1;
-#X msg 260 2416 @op4:rate_scale \$1;
-#X obj 12 2446 ui.number @size 60 12 @label op5:detune: @label_side
+#X msg 260 2414 @op4:rate_scale \$1;
+#X obj 12 2444 ui.number @size 60 12 @label op5:detune: @label_side
 top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox74 @min -10 @max 10 @step 1;
-#X msg 260 2446 @op5:detune \$1;
-#X obj 12 2476 ui.number @size 60 12 @label op5:egL1: @label_side top
+#X msg 260 2444 @op5:detune \$1;
+#X obj 12 2474 ui.number @size 60 12 @label op5:egL1: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox75 @min 0 @max 99 @step 1;
-#X msg 260 2476 @op5:egL1 \$1;
-#X obj 12 2506 ui.number @size 60 12 @label op5:egL2: @label_side top
+#X msg 260 2474 @op5:egL1 \$1;
+#X obj 12 2504 ui.number @size 60 12 @label op5:egL2: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox76 @min 0 @max 99 @step 1;
-#X msg 260 2506 @op5:egL2 \$1;
-#X obj 12 2536 ui.number @size 60 12 @label op5:egL3: @label_side top
+#X msg 260 2504 @op5:egL2 \$1;
+#X obj 12 2534 ui.number @size 60 12 @label op5:egL3: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox77 @min 0 @max 99 @step 1;
-#X msg 260 2536 @op5:egL3 \$1;
-#X obj 12 2566 ui.number @size 60 12 @label op5:egL4: @label_side top
+#X msg 260 2534 @op5:egL3 \$1;
+#X obj 12 2564 ui.number @size 60 12 @label op5:egL4: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox78 @min 0 @max 99 @step 1;
-#X msg 260 2566 @op5:egL4 \$1;
-#X obj 12 2596 ui.number @size 60 12 @label op5:egR1: @label_side top
+#X msg 260 2564 @op5:egL4 \$1;
+#X obj 12 2594 ui.number @size 60 12 @label op5:egR1: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox79 @min 0 @max 99 @step 1;
-#X msg 260 2596 @op5:egR1 \$1;
-#X obj 12 2626 ui.number @size 60 12 @label op5:egR2: @label_side top
+#X msg 260 2594 @op5:egR1 \$1;
+#X obj 12 2624 ui.number @size 60 12 @label op5:egR2: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox80 @min 0 @max 99 @step 1;
-#X msg 260 2626 @op5:egR2 \$1;
-#X obj 12 2656 ui.number @size 60 12 @label op5:egR3: @label_side top
+#X msg 260 2624 @op5:egR2 \$1;
+#X obj 12 2654 ui.number @size 60 12 @label op5:egR3: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox81 @min 0 @max 99 @step 1;
-#X msg 260 2656 @op5:egR3 \$1;
-#X obj 12 2686 ui.number @size 60 12 @label op5:egR4: @label_side top
+#X msg 260 2654 @op5:egR3 \$1;
+#X obj 12 2684 ui.number @size 60 12 @label op5:egR4: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox82 @min 0 @max 99 @step 1;
-#X msg 260 2686 @op5:egR4 \$1;
-#X obj 12 2716 ui.number @size 60 12 @label op5:freq: @label_side top
+#X msg 260 2684 @op5:egR4 \$1;
+#X obj 12 2714 ui.number @size 60 12 @label op5:freq: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox83 @min 0 @max 2 @step 0.01;
-#X msg 260 2716 @op5:freq \$1;
-#X obj 12 2746 ui.number @size 60 12 @label op5:key_vel_sens:
+#X msg 260 2714 @op5:freq \$1;
+#X obj 12 2744 ui.number @size 60 12 @label op5:key_vel_sens:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox84 @min 0 @max 8 @step 1;
-#X msg 260 2746 @op5:key_vel_sens \$1;
-#X obj 12 2776 ui.number @size 60 12 @label op5:level: @label_side top
+#X msg 260 2744 @op5:key_vel_sens \$1;
+#X obj 12 2774 ui.number @size 60 12 @label op5:level: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox85 @min 0 @max 99 @step 1;
-#X msg 260 2776 @op5:level \$1;
-#X obj 12 2806 ui.number @size 60 12 @label op5:mode: @label_side top
+#X msg 260 2774 @op5:level \$1;
+#X obj 12 2804 ui.number @size 60 12 @label op5:mode: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox86 @min 0 @max 1 @step 1;
-#X msg 260 2806 @op5:mode \$1;
-#X obj 12 2836 ui.number @size 60 12 @label op5:rate_scale:
+#X msg 260 2804 @op5:mode \$1;
+#X obj 12 2834 ui.number @size 60 12 @label op5:rate_scale:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/numbox87 @min 0 @max 10 @step 1;
-#X msg 260 2836 @op5:rate_scale \$1;
-#X obj 12 2868 ui.slider @size 125 12 @active_scale 1 @label pitch:
+#X msg 260 2834 @op5:rate_scale \$1;
+#X obj 12 2864 ui.slider @size 125 12 @active_scale 1 @label pitch:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dx7~/slider88 @min 24 @max 84;
-#X obj 190 2868 sync;
-#X obj 145 2868 ui.number @size 50 12 @min 24 @max 84 @digits 2;
-#X msg 260 2868 @pitch \$1;
+#X obj 215 2864 sync;
+#X obj 145 2864 ui.number @size 50 12 @min 24 @max 84 @digits 2;
+#X msg 260 2864 @pitch \$1;
 #X connect 1 0 2 0;
 #X connect 2 0 3 0;
 #X connect 3 89 4 0;
@@ -665,4 +665,4 @@ top @label_align left @fontsize 10 @presetname
 #X connect 188 0 191 0;
 #X connect 191 0 0 0;
 #X connect 3 88 188 0;
-#X coords 0 -1 1 1 200 2688 2 2 200;
+#X coords 0 -1 1 1 200 2684 2 2 200;

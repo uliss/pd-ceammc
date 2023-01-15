@@ -13,34 +13,34 @@
 #X obj 700 550 outlet ctl;
 #X obj 3 202 cnv 8 198 18 empty empty [fx.echo2~] 3 9 0 12 -104026
 -262144 0;
-#X obj 12 226 ui.toggle @size 12 12 @label bypass @label_side right
-@label_align left @fontsize 10 @presetname
+#X obj 185 205 ui.toggle @size 12 12 @label bypass @label_side left
+@label_align right @fontsize 10 @presetname
 /gui/\$1/fx.echo2~/checkbox0;
 #X msg 260 218 @bypass \$1;
-#X obj 12 256 ui.slider @size 125 12 @active_scale 1 @label delay(ms):
+#X obj 12 236 ui.slider @size 125 12 @active_scale 1 @label delay(ms):
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.echo2~/slider1 @min 10 @max 5000;
-#X obj 190 256 sync;
-#X obj 145 256 ui.number @size 50 12 @min 10 @max 5000 @digits 0;
-#X msg 260 256 @delay \$1;
-#X obj 12 288 ui.slider @size 125 12 @active_scale 1 @label drywet:
+#X obj 215 236 sync;
+#X obj 145 236 ui.number @size 50 12 @min 10 @max 5000 @digits 0;
+#X msg 260 236 @delay \$1;
+#X obj 12 266 ui.slider @size 125 12 @active_scale 1 @label drywet:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.echo2~/slider2 @min 0 @max 1;
-#X obj 190 288 sync;
-#X obj 145 288 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 288 @drywet \$1;
-#X obj 12 320 ui.slider @size 125 12 @active_scale 1 @label feedback:
+#X obj 215 266 sync;
+#X obj 145 266 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 266 @drywet \$1;
+#X obj 12 296 ui.slider @size 125 12 @active_scale 1 @label feedback:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.echo2~/slider3 @min 0 @max 0.99;
-#X obj 190 320 sync;
-#X obj 145 320 ui.number @size 50 12 @min 0 @max 0.99 @digits 4;
-#X msg 260 320 @feedback \$1;
-#X obj 12 352 ui.slider @size 125 12 @active_scale 1 @label stereo:
+#X obj 215 296 sync;
+#X obj 145 296 ui.number @size 50 12 @min 0 @max 0.99 @digits 4;
+#X msg 260 296 @feedback \$1;
+#X obj 12 326 ui.slider @size 125 12 @active_scale 1 @label stereo:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.echo2~/slider4 @min 0 @max 1;
-#X obj 190 352 sync;
-#X obj 145 352 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 352 @stereo \$1;
+#X obj 215 326 sync;
+#X obj 145 326 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 326 @stereo \$1;
 #X connect 1 0 0 0;
 #X connect 2 0 0 1;
 #X connect 3 0 4 0;
@@ -82,4 +82,4 @@
 #X connect 27 0 30 0;
 #X connect 30 0 0 0;
 #X connect 5 4 27 0;
-#X coords 0 -1 1 1 200 172 2 2 200;
+#X coords 0 -1 1 1 200 146 2 2 200;

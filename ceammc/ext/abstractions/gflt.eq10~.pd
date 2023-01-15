@@ -12,66 +12,66 @@
 #X obj 600 550 outlet ctl;
 #X obj 3 202 cnv 8 198 18 empty empty [flt.eq10~] 3 9 0 12 -104026
 -262144 0;
-#X obj 12 238 ui.slider @size 125 12 @active_scale 1 @label f1000(db):
+#X obj 12 236 ui.slider @size 125 12 @active_scale 1 @label f1000(db):
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/flt.eq10~/slider0 @min -70 @max 10;
-#X obj 190 238 sync;
-#X obj 145 238 ui.number @size 50 12 @min -70 @max 10 @digits 2;
-#X msg 260 238 @f1000 \$1;
-#X obj 12 270 ui.slider @size 125 12 @active_scale 1 @label f125(db):
+#X obj 215 236 sync;
+#X obj 145 236 ui.number @size 50 12 @min -70 @max 10 @digits 2;
+#X msg 260 236 @f1000 \$1;
+#X obj 12 266 ui.slider @size 125 12 @active_scale 1 @label f125(db):
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/flt.eq10~/slider1 @min -70 @max 10;
-#X obj 190 270 sync;
-#X obj 145 270 ui.number @size 50 12 @min -70 @max 10 @digits 2;
-#X msg 260 270 @f125 \$1;
-#X obj 12 302 ui.slider @size 125 12 @active_scale 1 @label
+#X obj 215 266 sync;
+#X obj 145 266 ui.number @size 50 12 @min -70 @max 10 @digits 2;
+#X msg 260 266 @f125 \$1;
+#X obj 12 296 ui.slider @size 125 12 @active_scale 1 @label
 f16000(db): @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/flt.eq10~/slider2 @min -70 @max 10;
-#X obj 190 302 sync;
-#X obj 145 302 ui.number @size 50 12 @min -70 @max 10 @digits 2;
-#X msg 260 302 @f16000 \$1;
-#X obj 12 334 ui.slider @size 125 12 @active_scale 1 @label f2000(db):
+#X obj 215 296 sync;
+#X obj 145 296 ui.number @size 50 12 @min -70 @max 10 @digits 2;
+#X msg 260 296 @f16000 \$1;
+#X obj 12 326 ui.slider @size 125 12 @active_scale 1 @label f2000(db):
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/flt.eq10~/slider3 @min -70 @max 10;
-#X obj 190 334 sync;
-#X obj 145 334 ui.number @size 50 12 @min -70 @max 10 @digits 2;
-#X msg 260 334 @f2000 \$1;
-#X obj 12 366 ui.slider @size 125 12 @active_scale 1 @label f250(db):
+#X obj 215 326 sync;
+#X obj 145 326 ui.number @size 50 12 @min -70 @max 10 @digits 2;
+#X msg 260 326 @f2000 \$1;
+#X obj 12 356 ui.slider @size 125 12 @active_scale 1 @label f250(db):
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/flt.eq10~/slider4 @min -70 @max 10;
-#X obj 190 366 sync;
-#X obj 145 366 ui.number @size 50 12 @min -70 @max 10 @digits 2;
-#X msg 260 366 @f250 \$1;
-#X obj 12 398 ui.slider @size 125 12 @active_scale 1 @label f31(db):
+#X obj 215 356 sync;
+#X obj 145 356 ui.number @size 50 12 @min -70 @max 10 @digits 2;
+#X msg 260 356 @f250 \$1;
+#X obj 12 386 ui.slider @size 125 12 @active_scale 1 @label f31(db):
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/flt.eq10~/slider5 @min -70 @max 10;
-#X obj 190 398 sync;
-#X obj 145 398 ui.number @size 50 12 @min -70 @max 10 @digits 2;
-#X msg 260 398 @f31 \$1;
-#X obj 12 430 ui.slider @size 125 12 @active_scale 1 @label f4000(db):
+#X obj 215 386 sync;
+#X obj 145 386 ui.number @size 50 12 @min -70 @max 10 @digits 2;
+#X msg 260 386 @f31 \$1;
+#X obj 12 416 ui.slider @size 125 12 @active_scale 1 @label f4000(db):
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/flt.eq10~/slider6 @min -70 @max 10;
-#X obj 190 430 sync;
-#X obj 145 430 ui.number @size 50 12 @min -70 @max 10 @digits 2;
-#X msg 260 430 @f4000 \$1;
-#X obj 12 462 ui.slider @size 125 12 @active_scale 1 @label f500(db):
+#X obj 215 416 sync;
+#X obj 145 416 ui.number @size 50 12 @min -70 @max 10 @digits 2;
+#X msg 260 416 @f4000 \$1;
+#X obj 12 446 ui.slider @size 125 12 @active_scale 1 @label f500(db):
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/flt.eq10~/slider7 @min -70 @max 10;
-#X obj 190 462 sync;
-#X obj 145 462 ui.number @size 50 12 @min -70 @max 10 @digits 2;
-#X msg 260 462 @f500 \$1;
-#X obj 12 494 ui.slider @size 125 12 @active_scale 1 @label f62(db):
+#X obj 215 446 sync;
+#X obj 145 446 ui.number @size 50 12 @min -70 @max 10 @digits 2;
+#X msg 260 446 @f500 \$1;
+#X obj 12 476 ui.slider @size 125 12 @active_scale 1 @label f62(db):
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/flt.eq10~/slider8 @min -70 @max 10;
-#X obj 190 494 sync;
-#X obj 145 494 ui.number @size 50 12 @min -70 @max 10 @digits 2;
-#X msg 260 494 @f62 \$1;
-#X obj 12 526 ui.slider @size 125 12 @active_scale 1 @label f8000(db):
+#X obj 215 476 sync;
+#X obj 145 476 ui.number @size 50 12 @min -70 @max 10 @digits 2;
+#X msg 260 476 @f62 \$1;
+#X obj 12 506 ui.slider @size 125 12 @active_scale 1 @label f8000(db):
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/flt.eq10~/slider9 @min -70 @max 10;
-#X obj 190 526 sync;
-#X obj 145 526 ui.number @size 50 12 @min -70 @max 10 @digits 2;
-#X msg 260 526 @f8000 \$1;
+#X obj 215 506 sync;
+#X obj 145 506 ui.number @size 50 12 @min -70 @max 10 @digits 2;
+#X msg 260 506 @f8000 \$1;
 #X connect 1 0 0 0;
 #X connect 2 0 3 0;
 #X connect 3 0 4 0;
@@ -150,4 +150,4 @@ f16000(db): @label_side top @label_align left @fontsize 10 @presetname
 #X connect 47 0 50 0;
 #X connect 50 0 0 0;
 #X connect 4 9 47 0;
-#X coords 0 -1 1 1 200 346 2 2 200;
+#X coords 0 -1 1 1 200 326 2 2 200;

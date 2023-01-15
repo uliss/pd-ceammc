@@ -19,48 +19,48 @@
 #X obj 1300 550 outlet ctl;
 #X obj 3 202 cnv 8 198 18 empty empty [spat.zita8~] 3 9 0 12 -104026
 -262144 0;
-#X obj 12 238 ui.slider @size 125 12 @active_scale 1 @label angle:
+#X obj 12 236 ui.slider @size 125 12 @active_scale 1 @label angle:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/spat.zita8~/slider0 @min 0 @max 1;
-#X obj 190 238 sync;
-#X obj 145 238 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 238 @angle \$1;
-#X obj 12 270 ui.slider @size 125 12 @active_scale 1 @label
+#X obj 215 236 sync;
+#X obj 145 236 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 236 @angle \$1;
+#X obj 12 266 ui.slider @size 125 12 @active_scale 1 @label
 decay_low(sec): @label_side top @label_align left @fontsize 10
 @presetname /gui/\$1/spat.zita8~/slider1 @min 1 @max 60;
-#X obj 190 270 sync;
-#X obj 145 270 ui.number @size 50 12 @min 1 @max 60 @digits 2;
-#X msg 260 270 @decay_low \$1;
-#X obj 12 302 ui.slider @size 125 12 @active_scale 1 @label
+#X obj 215 266 sync;
+#X obj 145 266 ui.number @size 50 12 @min 1 @max 60 @digits 2;
+#X msg 260 266 @decay_low \$1;
+#X obj 12 296 ui.slider @size 125 12 @active_scale 1 @label
 decay_mid(sec): @label_side top @label_align left @fontsize 10
 @presetname /gui/\$1/spat.zita8~/slider2 @min 1 @max 60;
-#X obj 190 302 sync;
-#X obj 145 302 ui.number @size 50 12 @min 1 @max 60 @digits 2;
-#X msg 260 302 @decay_mid \$1;
-#X obj 12 334 ui.slider @size 125 12 @active_scale 1 @label delay(ms):
+#X obj 215 296 sync;
+#X obj 145 296 ui.number @size 50 12 @min 1 @max 60 @digits 2;
+#X msg 260 296 @decay_mid \$1;
+#X obj 12 326 ui.slider @size 125 12 @active_scale 1 @label delay(ms):
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/spat.zita8~/slider3 @min 20 @max 100;
-#X obj 190 334 sync;
-#X obj 145 334 ui.number @size 50 12 @min 20 @max 100 @digits 2;
-#X msg 260 334 @delay \$1;
-#X obj 12 366 ui.slider @size 125 12 @active_scale 1 @label
+#X obj 215 326 sync;
+#X obj 145 326 ui.number @size 50 12 @min 20 @max 100 @digits 2;
+#X msg 260 326 @delay \$1;
+#X obj 12 356 ui.slider @size 125 12 @active_scale 1 @label
 dump_hf(Hz): @label_side top @label_align left @fontsize 10
 @presetname /gui/\$1/spat.zita8~/slider4 @min 1500 @max 47040;
-#X obj 190 366 sync;
-#X obj 145 366 ui.number @size 50 12 @min 1500 @max 47040 @digits 1;
-#X msg 260 366 @dump_hf \$1;
-#X obj 12 398 ui.slider @size 125 12 @active_scale 1 @label
+#X obj 215 356 sync;
+#X obj 145 356 ui.number @size 50 12 @min 1500 @max 47040 @digits 1;
+#X msg 260 356 @dump_hf \$1;
+#X obj 12 386 ui.slider @size 125 12 @active_scale 1 @label
 freq_low(Hz): @label_side top @label_align left @fontsize 10
 @presetname /gui/\$1/spat.zita8~/slider5 @min 50 @max 1000;
-#X obj 190 398 sync;
-#X obj 145 398 ui.number @size 50 12 @min 50 @max 1000 @digits 1;
-#X msg 260 398 @freq_low \$1;
-#X obj 12 430 ui.slider @size 125 12 @active_scale 1 @label radius:
+#X obj 215 386 sync;
+#X obj 145 386 ui.number @size 50 12 @min 50 @max 1000 @digits 1;
+#X msg 260 386 @freq_low \$1;
+#X obj 12 416 ui.slider @size 125 12 @active_scale 1 @label radius:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/spat.zita8~/slider6 @min 0 @max 1;
-#X obj 190 430 sync;
-#X obj 145 430 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 430 @radius \$1;
+#X obj 215 416 sync;
+#X obj 145 416 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 416 @radius \$1;
 #X connect 1 0 0 0;
 #X connect 2 0 3 0;
 #X connect 3 0 4 0;
@@ -125,4 +125,4 @@ freq_low(Hz): @label_side top @label_align left @fontsize 10
 #X connect 42 0 45 0;
 #X connect 45 0 0 0;
 #X connect 4 6 42 0;
-#X coords 0 -1 1 1 200 250 2 2 200;
+#X coords 0 -1 1 1 200 236 2 2 200;

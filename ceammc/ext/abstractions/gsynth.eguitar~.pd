@@ -10,33 +10,33 @@
 #X obj 600 550 outlet ctl;
 #X obj 3 202 cnv 8 198 18 empty empty [synth.eguitar~] 3 9 0 12
 -104026 -262144 0;
-#X obj 12 238 ui.slider @size 125 12 @active_scale 1 @label gain:
+#X obj 12 236 ui.slider @size 125 12 @active_scale 1 @label gain:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.eguitar~/slider0 @min 0 @max 1;
-#X obj 190 238 sync;
-#X obj 145 238 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 238 @gain \$1;
-#X obj 12 258 ui.toggle @size 12 12 @label gate @label_side right
+#X obj 215 236 sync;
+#X obj 145 236 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 236 @gain \$1;
+#X obj 12 256 ui.toggle @size 12 12 @label gate @label_side right
 @label_align left @fontsize 10;
-#X msg 260 250 @gate \$1;
-#X obj 12 288 ui.slider @size 125 12 @active_scale 1 @label mute:
+#X msg 260 248 @gate \$1;
+#X obj 12 284 ui.slider @size 125 12 @active_scale 1 @label mute:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.eguitar~/slider2 @min 0 @max 1;
-#X obj 190 288 sync;
-#X obj 145 288 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 288 @mute \$1;
-#X obj 12 320 ui.slider @size 125 12 @active_scale 1 @label pitch:
+#X obj 215 284 sync;
+#X obj 145 284 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 284 @mute \$1;
+#X obj 12 314 ui.slider @size 125 12 @active_scale 1 @label pitch:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.eguitar~/slider3 @min 36 @max 84;
-#X obj 190 320 sync;
-#X obj 145 320 ui.number @size 50 12 @min 36 @max 84 @digits 2;
-#X msg 260 320 @pitch \$1;
-#X obj 12 352 ui.slider @size 125 12 @active_scale 1 @label pos:
+#X obj 215 314 sync;
+#X obj 145 314 ui.number @size 50 12 @min 36 @max 84 @digits 2;
+#X msg 260 314 @pitch \$1;
+#X obj 12 344 ui.slider @size 125 12 @active_scale 1 @label pos:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.eguitar~/slider4 @min 0 @max 1;
-#X obj 190 352 sync;
-#X obj 145 352 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 352 @pos \$1;
+#X obj 215 344 sync;
+#X obj 145 344 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 344 @pos \$1;
 #X connect 1 0 2 0;
 #X connect 2 0 3 0;
 #X connect 3 5 4 0;
@@ -75,4 +75,4 @@
 #X connect 24 0 27 0;
 #X connect 27 0 0 0;
 #X connect 3 4 24 0;
-#X coords 0 -1 1 1 200 172 2 2 200;
+#X coords 0 -1 1 1 200 164 2 2 200;

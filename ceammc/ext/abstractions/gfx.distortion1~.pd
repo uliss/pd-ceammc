@@ -15,128 +15,128 @@
 #X obj 600 550 outlet ctl;
 #X obj 3 202 cnv 8 198 18 empty empty [fx.distortion1~] 3 9 0 12
 -104026 -262144 0;
-#X obj 12 238 ui.slider @size 125 12 @active_scale 1 @label drive:
+#X obj 12 236 ui.slider @size 125 12 @active_scale 1 @label drive:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.distortion1~/slider0 @min 0 @max 1;
-#X obj 190 238 sync;
-#X obj 145 238 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 238 @drive \$1;
-#X obj 12 270 ui.slider @size 125 12 @active_scale 1 @label gain(db):
+#X obj 215 236 sync;
+#X obj 145 236 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 236 @drive \$1;
+#X obj 12 266 ui.slider @size 125 12 @active_scale 1 @label gain(db):
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.distortion1~/slider1 @min -10 @max 10;
-#X obj 190 270 sync;
-#X obj 145 270 ui.number @size 50 12 @min -10 @max 10 @digits 2;
-#X msg 260 270 @gain \$1;
-#X obj 12 302 ui.slider @size 125 12 @active_scale 1 @label
+#X obj 215 266 sync;
+#X obj 145 266 ui.number @size 50 12 @min -10 @max 10 @digits 2;
+#X msg 260 266 @gain \$1;
+#X obj 12 296 ui.slider @size 125 12 @active_scale 1 @label
 high_drive: @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.distortion1~/slider2 @min 0 @max 1;
-#X obj 190 302 sync;
-#X obj 145 302 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 302 @high_drive \$1;
-#X obj 12 334 ui.slider @size 125 12 @active_scale 1 @label
+#X obj 215 296 sync;
+#X obj 145 296 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 296 @high_drive \$1;
+#X obj 12 326 ui.slider @size 125 12 @active_scale 1 @label
 high_gain(db): @label_side top @label_align left @fontsize 10
 @presetname /gui/\$1/fx.distortion1~/slider3 @min -10 @max 20;
-#X obj 190 334 sync;
-#X obj 145 334 ui.number @size 50 12 @min -10 @max 20 @digits 2;
-#X msg 260 334 @high_gain \$1;
-#X obj 12 366 ui.slider @size 125 12 @active_scale 1 @label level:
+#X obj 215 326 sync;
+#X obj 145 326 ui.number @size 50 12 @min -10 @max 20 @digits 2;
+#X msg 260 326 @high_gain \$1;
+#X obj 12 356 ui.slider @size 125 12 @active_scale 1 @label level:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.distortion1~/slider4 @min 0 @max 0.5;
-#X obj 190 366 sync;
-#X obj 145 366 ui.number @size 50 12 @min 0 @max 0.5 @digits 4;
-#X msg 260 366 @level \$1;
-#X obj 12 398 ui.slider @size 125 12 @active_scale 1 @label low_drive:
+#X obj 215 356 sync;
+#X obj 145 356 ui.number @size 50 12 @min 0 @max 0.5 @digits 4;
+#X msg 260 356 @level \$1;
+#X obj 12 386 ui.slider @size 125 12 @active_scale 1 @label low_drive:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.distortion1~/slider5 @min 0 @max 1;
-#X obj 190 398 sync;
-#X obj 145 398 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 398 @low_drive \$1;
-#X obj 12 430 ui.slider @size 125 12 @active_scale 1 @label
+#X obj 215 386 sync;
+#X obj 145 386 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 386 @low_drive \$1;
+#X obj 12 416 ui.slider @size 125 12 @active_scale 1 @label
 low_gain(db): @label_side top @label_align left @fontsize 10
 @presetname /gui/\$1/fx.distortion1~/slider6 @min -10 @max 20;
-#X obj 190 430 sync;
-#X obj 145 430 ui.number @size 50 12 @min -10 @max 20 @digits 2;
-#X msg 260 430 @low_gain \$1;
-#X obj 12 462 ui.slider @size 125 12 @active_scale 1 @label
+#X obj 215 416 sync;
+#X obj 145 416 ui.number @size 50 12 @min -10 @max 20 @digits 2;
+#X msg 260 416 @low_gain \$1;
+#X obj 12 446 ui.slider @size 125 12 @active_scale 1 @label
 sp_high_freq(Hz): @label_side top @label_align left @fontsize 10
 @presetname /gui/\$1/fx.distortion1~/slider7 @min 1000 @max 12000;
-#X obj 190 462 sync;
-#X obj 145 462 ui.number @size 50 12 @min 1000 @max 12000 @digits 1;
-#X msg 260 462 @sp_high_freq \$1;
-#X obj 12 494 ui.slider @size 125 12 @active_scale 1 @label
+#X obj 215 446 sync;
+#X obj 145 446 ui.number @size 50 12 @min 1000 @max 12000 @digits 1;
+#X msg 260 446 @sp_high_freq \$1;
+#X obj 12 476 ui.slider @size 125 12 @active_scale 1 @label
 sp_low_freq(Hz): @label_side top @label_align left @fontsize 10
 @presetname /gui/\$1/fx.distortion1~/slider8 @min 20 @max 1000;
-#X obj 190 494 sync;
-#X obj 145 494 ui.number @size 50 12 @min 20 @max 1000 @digits 1;
-#X msg 260 494 @sp_low_freq \$1;
-#X obj 12 514 ui.toggle @size 12 12 @label sp_on_off @label_side right
+#X obj 215 476 sync;
+#X obj 145 476 ui.number @size 50 12 @min 20 @max 1000 @digits 1;
+#X msg 260 476 @sp_low_freq \$1;
+#X obj 12 496 ui.toggle @size 12 12 @label sp_on_off @label_side right
 @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.distortion1~/checkbox9;
-#X msg 260 506 @sp_on_off \$1;
-#X obj 12 532 ui.toggle @size 12 12 @label flt_on_off @label_side
+#X msg 260 488 @sp_on_off \$1;
+#X obj 12 514 ui.toggle @size 12 12 @label flt_on_off @label_side
 right @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.distortion1~/checkbox10;
-#X msg 260 524 @flt_on_off \$1;
-#X obj 12 560 ui.number @size 60 12 @label hp_freq: @label_side top
+#X msg 260 506 @flt_on_off \$1;
+#X obj 12 542 ui.number @size 60 12 @label hp_freq: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.distortion1~/numbox11 @min 20 @max 7040 @step 10;
-#X msg 260 560 @hp_freq \$1;
-#X obj 12 590 ui.number @size 60 12 @label lp_freq: @label_side top
+#X msg 260 542 @hp_freq \$1;
+#X obj 12 572 ui.number @size 60 12 @label lp_freq: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.distortion1~/numbox12 @min 20 @max 12000 @step 10;
-#X msg 260 590 @lp_freq \$1;
-#X obj 12 622 ui.slider @size 125 12 @active_scale 1 @label
+#X msg 260 572 @lp_freq \$1;
+#X obj 12 602 ui.slider @size 125 12 @active_scale 1 @label
 middle_h_drive: @label_side top @label_align left @fontsize 10
 @presetname /gui/\$1/fx.distortion1~/slider13 @min 0 @max 1;
-#X obj 190 622 sync;
-#X obj 145 622 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 622 @middle_h_drive \$1;
-#X obj 12 654 ui.slider @size 125 12 @active_scale 1 @label
+#X obj 215 602 sync;
+#X obj 145 602 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 602 @middle_h_drive \$1;
+#X obj 12 632 ui.slider @size 125 12 @active_scale 1 @label
 middle_h_gain(db): @label_side top @label_align left @fontsize 10
 @presetname /gui/\$1/fx.distortion1~/slider14 @min -10 @max 20;
-#X obj 190 654 sync;
-#X obj 145 654 ui.number @size 50 12 @min -10 @max 20 @digits 2;
-#X msg 260 654 @middle_h_gain \$1;
-#X obj 12 686 ui.slider @size 125 12 @active_scale 1 @label
+#X obj 215 632 sync;
+#X obj 145 632 ui.number @size 50 12 @min -10 @max 20 @digits 2;
+#X msg 260 632 @middle_h_gain \$1;
+#X obj 12 662 ui.slider @size 125 12 @active_scale 1 @label
 middle_l_drive: @label_side top @label_align left @fontsize 10
 @presetname /gui/\$1/fx.distortion1~/slider15 @min 0 @max 1;
-#X obj 190 686 sync;
-#X obj 145 686 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 686 @middle_l_drive \$1;
-#X obj 12 718 ui.slider @size 125 12 @active_scale 1 @label
+#X obj 215 662 sync;
+#X obj 145 662 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 662 @middle_l_drive \$1;
+#X obj 12 692 ui.slider @size 125 12 @active_scale 1 @label
 middle_l_gain(db): @label_side top @label_align left @fontsize 10
 @presetname /gui/\$1/fx.distortion1~/slider16 @min -10 @max 20;
-#X obj 190 718 sync;
-#X obj 145 718 ui.number @size 50 12 @min -10 @max 20 @digits 2;
-#X msg 260 718 @middle_l_gain \$1;
-#X obj 12 738 ui.toggle @size 12 12 @label res_on_off @label_side
+#X obj 215 692 sync;
+#X obj 145 692 ui.number @size 50 12 @min -10 @max 20 @digits 2;
+#X msg 260 692 @middle_l_gain \$1;
+#X obj 12 712 ui.toggle @size 12 12 @label res_on_off @label_side
 right @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.distortion1~/checkbox17;
-#X msg 260 730 @res_on_off \$1;
-#X obj 12 766 ui.number @size 60 12 @label split_high_freq:
+#X msg 260 704 @res_on_off \$1;
+#X obj 12 740 ui.number @size 60 12 @label split_high_freq:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.distortion1~/numbox18 @min 1250 @max 12000 @step 10;
-#X msg 260 766 @split_high_freq \$1;
-#X obj 12 796 ui.number @size 60 12 @label split_low_freq: @label_side
+#X msg 260 740 @split_high_freq \$1;
+#X obj 12 770 ui.number @size 60 12 @label split_low_freq: @label_side
 top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.distortion1~/numbox19 @min 20 @max 600 @step 10;
-#X msg 260 796 @split_low_freq \$1;
-#X obj 12 826 ui.number @size 60 12 @label split_middle_freq:
+#X msg 260 770 @split_low_freq \$1;
+#X obj 12 800 ui.number @size 60 12 @label split_middle_freq:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.distortion1~/numbox20 @min 600 @max 1250 @step 10;
-#X msg 260 826 @split_middle_freq \$1;
-#X obj 12 858 ui.slider @size 125 12 @active_scale 1 @label trigger:
+#X msg 260 800 @split_middle_freq \$1;
+#X obj 12 830 ui.slider @size 125 12 @active_scale 1 @label trigger:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.distortion1~/slider21 @min 0 @max 1;
-#X obj 190 858 sync;
-#X obj 145 858 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 858 @trigger \$1;
-#X obj 12 890 ui.slider @size 125 12 @active_scale 1 @label vibrato:
+#X obj 215 830 sync;
+#X obj 145 830 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 830 @trigger \$1;
+#X obj 12 860 ui.slider @size 125 12 @active_scale 1 @label vibrato:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.distortion1~/slider22 @min 0 @max 1;
-#X obj 190 890 sync;
-#X obj 145 890 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 890 @vibrato \$1;
+#X obj 215 860 sync;
+#X obj 145 860 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 860 @vibrato \$1;
 #X connect 1 0 0 0;
 #X connect 2 0 3 0;
 #X connect 3 0 4 0;
@@ -274,4 +274,4 @@ top @label_align left @fontsize 10 @presetname
 #X connect 83 0 86 0;
 #X connect 86 0 0 0;
 #X connect 4 22 83 0;
-#X coords 0 -1 1 1 200 710 2 2 200;
+#X coords 0 -1 1 1 200 680 2 2 200;

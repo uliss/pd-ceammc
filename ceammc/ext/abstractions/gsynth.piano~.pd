@@ -12,63 +12,63 @@
 #X obj 700 550 outlet ctl;
 #X obj 3 202 cnv 8 198 18 empty empty [synth.piano~] 3 9 0 12 -104026
 -262144 0;
-#X obj 12 238 ui.slider @size 125 12 @active_scale 1 @label
+#X obj 12 236 ui.slider @size 125 12 @active_scale 1 @label
 brightness: @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.piano~/slider0 @min 0 @max 1;
-#X obj 190 238 sync;
-#X obj 145 238 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 238 @brightness \$1;
-#X obj 12 270 ui.slider @size 125 12 @active_scale 1 @label detuning:
+#X obj 215 236 sync;
+#X obj 145 236 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 236 @brightness \$1;
+#X obj 12 266 ui.slider @size 125 12 @active_scale 1 @label detuning:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.piano~/slider1 @min 0 @max 1;
-#X obj 190 270 sync;
-#X obj 145 270 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 270 @detuning \$1;
-#X obj 12 290 ui.toggle @size 12 12 @label gate @label_side right
+#X obj 215 266 sync;
+#X obj 145 266 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 266 @detuning \$1;
+#X obj 12 286 ui.toggle @size 12 12 @label gate @label_side right
 @label_align left @fontsize 10;
-#X msg 260 282 @gate \$1;
-#X obj 12 320 ui.slider @size 125 12 @active_scale 1 @label
+#X msg 260 278 @gate \$1;
+#X obj 12 314 ui.slider @size 125 12 @active_scale 1 @label
 hammer_hardness: @label_side top @label_align left @fontsize 10
 @presetname /gui/\$1/synth.piano~/slider3 @min 0 @max 1;
-#X obj 190 320 sync;
-#X obj 145 320 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 320 @hammer_hardness \$1;
-#X obj 12 352 ui.slider @size 125 12 @active_scale 1 @label pan:
+#X obj 215 314 sync;
+#X obj 145 314 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 314 @hammer_hardness \$1;
+#X obj 12 344 ui.slider @size 125 12 @active_scale 1 @label pan:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.piano~/slider4 @min 0 @max 1;
-#X obj 190 352 sync;
-#X obj 145 352 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 352 @pan \$1;
-#X obj 12 384 ui.slider @size 125 12 @active_scale 1 @label pitch:
+#X obj 215 344 sync;
+#X obj 145 344 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 344 @pan \$1;
+#X obj 12 374 ui.slider @size 125 12 @active_scale 1 @label pitch:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.piano~/slider5 @min 21 @max 108;
-#X obj 190 384 sync;
-#X obj 145 384 ui.number @size 50 12 @min 21 @max 108 @digits 2;
-#X msg 260 384 @pitch \$1;
-#X obj 12 416 ui.slider @size 125 12 @active_scale 1 @label
+#X obj 215 374 sync;
+#X obj 145 374 ui.number @size 50 12 @min 21 @max 108 @digits 2;
+#X msg 260 374 @pitch \$1;
+#X obj 12 404 ui.slider @size 125 12 @active_scale 1 @label
 reverb_gain: @label_side top @label_align left @fontsize 10
 @presetname /gui/\$1/synth.piano~/slider6 @min 0 @max 1;
-#X obj 190 416 sync;
-#X obj 145 416 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 416 @reverb_gain \$1;
-#X obj 12 448 ui.slider @size 125 12 @active_scale 1 @label room_size:
+#X obj 215 404 sync;
+#X obj 145 404 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 404 @reverb_gain \$1;
+#X obj 12 434 ui.slider @size 125 12 @active_scale 1 @label room_size:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.piano~/slider7 @min 0.005 @max 1;
-#X obj 190 448 sync;
-#X obj 145 448 ui.number @size 50 12 @min 0.005 @max 1 @digits 4;
-#X msg 260 448 @room_size \$1;
-#X obj 12 480 ui.slider @size 125 12 @active_scale 1 @label stiffness:
+#X obj 215 434 sync;
+#X obj 145 434 ui.number @size 50 12 @min 0.005 @max 1 @digits 4;
+#X msg 260 434 @room_size \$1;
+#X obj 12 464 ui.slider @size 125 12 @active_scale 1 @label stiffness:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.piano~/slider8 @min 0 @max 1;
-#X obj 190 480 sync;
-#X obj 145 480 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 480 @stiffness \$1;
-#X obj 12 512 ui.slider @size 125 12 @active_scale 1 @label width:
+#X obj 215 464 sync;
+#X obj 145 464 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 464 @stiffness \$1;
+#X obj 12 494 ui.slider @size 125 12 @active_scale 1 @label width:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.piano~/slider9 @min 0 @max 1;
-#X obj 190 512 sync;
-#X obj 145 512 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 512 @width \$1;
+#X obj 215 494 sync;
+#X obj 145 494 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 494 @width \$1;
 #X connect 1 0 2 0;
 #X connect 2 0 3 0;
 #X connect 3 10 4 0;
@@ -143,4 +143,4 @@ reverb_gain: @label_side top @label_align left @fontsize 10
 #X connect 45 0 48 0;
 #X connect 48 0 0 0;
 #X connect 3 9 45 0;
-#X coords 0 -1 1 1 200 332 2 2 200;
+#X coords 0 -1 1 1 200 314 2 2 200;

@@ -13,30 +13,30 @@
 #X obj 700 550 outlet ctl;
 #X obj 3 202 cnv 8 198 18 empty empty [dyn.gate2~] 3 9 0 12 -104026
 -262144 0;
-#X obj 12 238 ui.slider @size 125 12 @active_scale 1 @label
+#X obj 12 236 ui.slider @size 125 12 @active_scale 1 @label
 attack(ms): @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/dyn.gate2~/slider0 @min 0 @max 500;
-#X obj 190 238 sync;
-#X obj 145 238 ui.number @size 50 12 @min 0 @max 500 @digits 1;
-#X msg 260 238 @attack \$1;
-#X obj 12 270 ui.slider @size 125 12 @active_scale 1 @label hold(ms):
+#X obj 215 236 sync;
+#X obj 145 236 ui.number @size 50 12 @min 0 @max 500 @digits 1;
+#X msg 260 236 @attack \$1;
+#X obj 12 266 ui.slider @size 125 12 @active_scale 1 @label hold(ms):
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/dyn.gate2~/slider1 @min 1 @max 500;
-#X obj 190 270 sync;
-#X obj 145 270 ui.number @size 50 12 @min 1 @max 500 @digits 1;
-#X msg 260 270 @hold \$1;
-#X obj 12 302 ui.slider @size 125 12 @active_scale 1 @label
+#X obj 215 266 sync;
+#X obj 145 266 ui.number @size 50 12 @min 1 @max 500 @digits 1;
+#X msg 260 266 @hold \$1;
+#X obj 12 296 ui.slider @size 125 12 @active_scale 1 @label
 release(ms): @label_side top @label_align left @fontsize 10
 @presetname /gui/\$1/dyn.gate2~/slider2 @min 1 @max 500;
-#X obj 190 302 sync;
-#X obj 145 302 ui.number @size 50 12 @min 1 @max 500 @digits 1;
-#X msg 260 302 @release \$1;
-#X obj 12 334 ui.slider @size 125 12 @active_scale 1 @label
+#X obj 215 296 sync;
+#X obj 145 296 ui.number @size 50 12 @min 1 @max 500 @digits 1;
+#X msg 260 296 @release \$1;
+#X obj 12 326 ui.slider @size 125 12 @active_scale 1 @label
 threshold(db): @label_side top @label_align left @fontsize 10
 @presetname /gui/\$1/dyn.gate2~/slider3 @min 0 @max 100;
-#X obj 190 334 sync;
-#X obj 145 334 ui.number @size 50 12 @min 0 @max 100 @digits 2;
-#X msg 260 334 @threshold \$1;
+#X obj 215 326 sync;
+#X obj 145 326 ui.number @size 50 12 @min 0 @max 100 @digits 2;
+#X msg 260 326 @threshold \$1;
 #X connect 1 0 0 0;
 #X connect 2 0 0 1;
 #X connect 3 0 4 0;
@@ -75,4 +75,4 @@ threshold(db): @label_side top @label_align left @fontsize 10
 #X connect 25 0 28 0;
 #X connect 28 0 0 0;
 #X connect 5 3 25 0;
-#X coords 0 -1 1 1 200 154 2 2 200;
+#X coords 0 -1 1 1 200 146 2 2 200;

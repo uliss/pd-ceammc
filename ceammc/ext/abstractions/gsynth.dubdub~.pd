@@ -10,27 +10,27 @@
 #X obj 600 550 outlet ctl;
 #X obj 3 202 cnv 8 198 18 empty empty [synth.dubdub~] 3 9 0 12 -104026
 -262144 0;
-#X obj 12 238 ui.slider @size 125 12 @active_scale 1 @label cutoff:
+#X obj 12 236 ui.slider @size 125 12 @active_scale 1 @label cutoff:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dubdub~/slider0 @min 20 @max 20000;
-#X obj 190 238 sync;
-#X obj 145 238 ui.number @size 50 12 @min 20 @max 20000 @digits 1;
-#X msg 260 238 @cutoff \$1;
-#X obj 12 258 ui.toggle @size 12 12 @label gate @label_side right
+#X obj 215 236 sync;
+#X obj 145 236 ui.number @size 50 12 @min 20 @max 20000 @digits 1;
+#X msg 260 236 @cutoff \$1;
+#X obj 12 256 ui.toggle @size 12 12 @label gate @label_side right
 @label_align left @fontsize 10;
-#X msg 260 250 @gate \$1;
-#X obj 12 288 ui.slider @size 125 12 @active_scale 1 @label pitch:
+#X msg 260 248 @gate \$1;
+#X obj 12 284 ui.slider @size 125 12 @active_scale 1 @label pitch:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dubdub~/slider2 @min 24 @max 84;
-#X obj 190 288 sync;
-#X obj 145 288 ui.number @size 50 12 @min 24 @max 84 @digits 2;
-#X msg 260 288 @pitch \$1;
-#X obj 12 320 ui.slider @size 125 12 @active_scale 1 @label q:
+#X obj 215 284 sync;
+#X obj 145 284 ui.number @size 50 12 @min 24 @max 84 @digits 2;
+#X msg 260 284 @pitch \$1;
+#X obj 12 314 ui.slider @size 125 12 @active_scale 1 @label q:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dubdub~/slider3 @min 0.01 @max 100;
-#X obj 190 320 sync;
-#X obj 145 320 ui.number @size 50 12 @min 0.01 @max 100 @digits 2;
-#X msg 260 320 @q \$1;
+#X obj 215 314 sync;
+#X obj 145 314 ui.number @size 50 12 @min 0.01 @max 100 @digits 2;
+#X msg 260 314 @q \$1;
 #X connect 1 0 2 0;
 #X connect 2 0 3 0;
 #X connect 3 4 4 0;
@@ -62,4 +62,4 @@
 #X connect 20 0 23 0;
 #X connect 23 0 0 0;
 #X connect 3 3 20 0;
-#X coords 0 -1 1 1 200 140 2 2 200;
+#X coords 0 -1 1 1 200 134 2 2 200;

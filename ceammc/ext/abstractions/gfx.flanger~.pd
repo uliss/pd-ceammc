@@ -12,44 +12,44 @@
 #X obj 600 550 outlet ctl;
 #X obj 3 202 cnv 8 198 18 empty empty [fx.flanger~] 3 9 0 12 -104026
 -262144 0;
-#X obj 12 226 ui.toggle @size 12 12 @label bypass @label_side right
-@label_align left @fontsize 10 @presetname
+#X obj 185 205 ui.toggle @size 12 12 @label bypass @label_side left
+@label_align right @fontsize 10 @presetname
 /gui/\$1/fx.flanger~/checkbox0;
 #X msg 260 218 @bypass \$1;
-#X obj 12 256 ui.slider @size 125 12 @active_scale 1 @label delay(ms):
+#X obj 12 236 ui.slider @size 125 12 @active_scale 1 @label delay(ms):
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.flanger~/slider1 @min 0 @max 20;
-#X obj 190 256 sync;
-#X obj 145 256 ui.number @size 50 12 @min 0 @max 20 @digits 2;
-#X msg 260 256 @delay \$1;
-#X obj 12 288 ui.slider @size 125 12 @active_scale 1 @label drywet:
+#X obj 215 236 sync;
+#X obj 145 236 ui.number @size 50 12 @min 0 @max 20 @digits 2;
+#X msg 260 236 @delay \$1;
+#X obj 12 266 ui.slider @size 125 12 @active_scale 1 @label drywet:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.flanger~/slider2 @min 0 @max 1;
-#X obj 190 288 sync;
-#X obj 145 288 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 288 @drywet \$1;
-#X obj 12 320 ui.slider @size 125 12 @active_scale 1 @label feedback:
+#X obj 215 266 sync;
+#X obj 145 266 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 266 @drywet \$1;
+#X obj 12 296 ui.slider @size 125 12 @active_scale 1 @label feedback:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.flanger~/slider3 @min 0 @max 1;
-#X obj 190 320 sync;
-#X obj 145 320 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 320 @feedback \$1;
-#X obj 12 340 ui.toggle @size 12 12 @label invert @label_side right
+#X obj 215 296 sync;
+#X obj 145 296 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 296 @feedback \$1;
+#X obj 12 316 ui.toggle @size 12 12 @label invert @label_side right
 @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.flanger~/checkbox4;
-#X msg 260 332 @invert \$1;
-#X obj 12 370 ui.slider @size 125 12 @active_scale 1 @label
+#X msg 260 308 @invert \$1;
+#X obj 12 344 ui.slider @size 125 12 @active_scale 1 @label
 offset(ms): @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.flanger~/slider5 @min 0 @max 20;
-#X obj 190 370 sync;
-#X obj 145 370 ui.number @size 50 12 @min 0 @max 20 @digits 2;
-#X msg 260 370 @offset \$1;
-#X obj 12 402 ui.slider @size 125 12 @active_scale 1 @label speed(Hz):
+#X obj 215 344 sync;
+#X obj 145 344 ui.number @size 50 12 @min 0 @max 20 @digits 2;
+#X msg 260 344 @offset \$1;
+#X obj 12 374 ui.slider @size 125 12 @active_scale 1 @label speed(Hz):
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.flanger~/slider6 @min 0 @max 10;
-#X obj 190 402 sync;
-#X obj 145 402 ui.number @size 50 12 @min 0 @max 10 @digits 3;
-#X msg 260 402 @speed \$1;
+#X obj 215 374 sync;
+#X obj 145 374 ui.number @size 50 12 @min 0 @max 10 @digits 3;
+#X msg 260 374 @speed \$1;
 #X connect 1 0 0 0;
 #X connect 2 0 3 0;
 #X connect 3 0 4 0;
@@ -99,4 +99,4 @@ offset(ms): @label_side top @label_align left @fontsize 10 @presetname
 #X connect 31 0 34 0;
 #X connect 34 0 0 0;
 #X connect 4 6 31 0;
-#X coords 0 -1 1 1 200 222 2 2 200;
+#X coords 0 -1 1 1 200 194 2 2 200;

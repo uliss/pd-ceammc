@@ -14,58 +14,58 @@
 #X obj 700 550 outlet ctl;
 #X obj 3 202 cnv 8 198 18 empty empty [fx.greyhole~] 3 9 0 12 -104026
 -262144 0;
-#X obj 12 226 ui.toggle @size 12 12 @label bypass @label_side right
-@label_align left @fontsize 10 @presetname
+#X obj 185 205 ui.toggle @size 12 12 @label bypass @label_side left
+@label_align right @fontsize 10 @presetname
 /gui/\$1/fx.greyhole~/checkbox0;
 #X msg 260 218 @bypass \$1;
-#X obj 12 256 ui.slider @size 125 12 @active_scale 1 @label damping:
+#X obj 12 236 ui.slider @size 125 12 @active_scale 1 @label damping:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.greyhole~/slider1 @min 0 @max 0.99;
-#X obj 190 256 sync;
-#X obj 145 256 ui.number @size 50 12 @min 0 @max 0.99 @digits 4;
-#X msg 260 256 @damping \$1;
-#X obj 12 288 ui.slider @size 125 12 @active_scale 1 @label
+#X obj 215 236 sync;
+#X obj 145 236 ui.number @size 50 12 @min 0 @max 0.99 @digits 4;
+#X msg 260 236 @damping \$1;
+#X obj 12 266 ui.slider @size 125 12 @active_scale 1 @label
 delaytime(sec): @label_side top @label_align left @fontsize 10
 @presetname /gui/\$1/fx.greyhole~/slider2 @min 0.001 @max 1.45;
-#X obj 190 288 sync;
-#X obj 145 288 ui.number @size 50 12 @min 0.001 @max 1.45 @digits 3;
-#X msg 260 288 @delaytime \$1;
-#X obj 12 320 ui.slider @size 125 12 @active_scale 1 @label diffusion:
+#X obj 215 266 sync;
+#X obj 145 266 ui.number @size 50 12 @min 0.001 @max 1.45 @digits 3;
+#X msg 260 266 @delaytime \$1;
+#X obj 12 296 ui.slider @size 125 12 @active_scale 1 @label diffusion:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.greyhole~/slider3 @min 0 @max 0.99;
-#X obj 190 320 sync;
-#X obj 145 320 ui.number @size 50 12 @min 0 @max 0.99 @digits 4;
-#X msg 260 320 @diffusion \$1;
-#X obj 12 352 ui.slider @size 125 12 @active_scale 1 @label drywet:
+#X obj 215 296 sync;
+#X obj 145 296 ui.number @size 50 12 @min 0 @max 0.99 @digits 4;
+#X msg 260 296 @diffusion \$1;
+#X obj 12 326 ui.slider @size 125 12 @active_scale 1 @label drywet:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.greyhole~/slider4 @min 0 @max 1;
-#X obj 190 352 sync;
-#X obj 145 352 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 352 @drywet \$1;
-#X obj 12 384 ui.slider @size 125 12 @active_scale 1 @label feedback:
+#X obj 215 326 sync;
+#X obj 145 326 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 326 @drywet \$1;
+#X obj 12 356 ui.slider @size 125 12 @active_scale 1 @label feedback:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.greyhole~/slider5 @min 0 @max 1;
-#X obj 190 384 sync;
-#X obj 145 384 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 384 @feedback \$1;
-#X obj 12 416 ui.slider @size 125 12 @active_scale 1 @label moddepth:
+#X obj 215 356 sync;
+#X obj 145 356 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 356 @feedback \$1;
+#X obj 12 386 ui.slider @size 125 12 @active_scale 1 @label moddepth:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.greyhole~/slider6 @min 0 @max 1;
-#X obj 190 416 sync;
-#X obj 145 416 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 416 @moddepth \$1;
-#X obj 12 448 ui.slider @size 125 12 @active_scale 1 @label modfreq:
+#X obj 215 386 sync;
+#X obj 145 386 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 386 @moddepth \$1;
+#X obj 12 416 ui.slider @size 125 12 @active_scale 1 @label modfreq:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.greyhole~/slider7 @min 0 @max 10;
-#X obj 190 448 sync;
-#X obj 145 448 ui.number @size 50 12 @min 0 @max 10 @digits 3;
-#X msg 260 448 @modfreq \$1;
-#X obj 12 480 ui.slider @size 125 12 @active_scale 1 @label size:
+#X obj 215 416 sync;
+#X obj 145 416 ui.number @size 50 12 @min 0 @max 10 @digits 3;
+#X msg 260 416 @modfreq \$1;
+#X obj 12 446 ui.slider @size 125 12 @active_scale 1 @label size:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.greyhole~/slider8 @min 0.5 @max 3;
-#X obj 190 480 sync;
-#X obj 145 480 ui.number @size 50 12 @min 0.5 @max 3 @digits 3;
-#X msg 260 480 @size \$1;
+#X obj 215 446 sync;
+#X obj 145 446 ui.number @size 50 12 @min 0.5 @max 3 @digits 3;
+#X msg 260 446 @size \$1;
 #X connect 1 0 0 0;
 #X connect 2 0 0 1;
 #X connect 3 0 4 0;
@@ -135,4 +135,4 @@ delaytime(sec): @label_side top @label_align left @fontsize 10
 #X connect 43 0 46 0;
 #X connect 46 0 0 0;
 #X connect 5 8 43 0;
-#X coords 0 -1 1 1 200 300 2 2 200;
+#X coords 0 -1 1 1 200 266 2 2 200;

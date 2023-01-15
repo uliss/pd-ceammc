@@ -12,77 +12,77 @@
 #X obj 700 550 outlet ctl;
 #X obj 3 202 cnv 8 198 18 empty empty [synth.glass_harm~] 3 9 0 12
 -104026 -262144 0;
-#X obj 12 238 ui.slider @size 125 12 @active_scale 1 @label bow_press:
+#X obj 12 236 ui.slider @size 125 12 @active_scale 1 @label bow_press:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.glass_harm~/slider0 @min 0 @max 1;
-#X obj 190 238 sync;
-#X obj 145 238 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 238 @bow_press \$1;
-#X obj 12 270 ui.slider @size 125 12 @active_scale 1 @label gain:
+#X obj 215 236 sync;
+#X obj 145 236 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 236 @bow_press \$1;
+#X obj 12 266 ui.slider @size 125 12 @active_scale 1 @label gain:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.glass_harm~/slider1 @min 0 @max 1;
-#X obj 190 270 sync;
-#X obj 145 270 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 270 @gain \$1;
-#X obj 12 290 ui.toggle @size 12 12 @label gate @label_side right
+#X obj 215 266 sync;
+#X obj 145 266 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 266 @gain \$1;
+#X obj 12 286 ui.toggle @size 12 12 @label gate @label_side right
 @label_align left @fontsize 10;
-#X msg 260 282 @gate \$1;
-#X obj 12 320 ui.slider @size 125 12 @active_scale 1 @label
+#X msg 260 278 @gate \$1;
+#X obj 12 314 ui.slider @size 125 12 @active_scale 1 @label
 integration: @label_side top @label_align left @fontsize 10
 @presetname /gui/\$1/synth.glass_harm~/slider3 @min 0 @max 1;
-#X obj 190 320 sync;
-#X obj 145 320 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 320 @integration \$1;
-#X obj 12 352 ui.slider @size 125 12 @active_scale 1 @label
+#X obj 215 314 sync;
+#X obj 145 314 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 314 @integration \$1;
+#X obj 12 344 ui.slider @size 125 12 @active_scale 1 @label
 modfreq(Hz): @label_side top @label_align left @fontsize 10
 @presetname /gui/\$1/synth.glass_harm~/slider4 @min 20 @max 1000;
-#X obj 190 352 sync;
-#X obj 145 352 ui.number @size 50 12 @min 20 @max 1000 @digits 1;
-#X msg 260 352 @modfreq \$1;
-#X obj 12 382 ui.number @size 60 12 @label modtype: @label_side top
+#X obj 215 344 sync;
+#X obj 145 344 ui.number @size 50 12 @min 20 @max 1000 @digits 1;
+#X msg 260 344 @modfreq \$1;
+#X obj 12 374 ui.number @size 60 12 @label modtype: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.glass_harm~/numbox5 @min 0 @max 4 @step 1;
-#X msg 260 382 @modtype \$1;
-#X obj 12 414 ui.slider @size 125 12 @active_scale 1 @label nonlin:
+#X msg 260 374 @modtype \$1;
+#X obj 12 404 ui.slider @size 125 12 @active_scale 1 @label nonlin:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.glass_harm~/slider6 @min 0 @max 1;
-#X obj 190 414 sync;
-#X obj 145 414 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 414 @nonlin \$1;
-#X obj 12 446 ui.slider @size 125 12 @active_scale 1 @label pan:
+#X obj 215 404 sync;
+#X obj 145 404 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 404 @nonlin \$1;
+#X obj 12 434 ui.slider @size 125 12 @active_scale 1 @label pan:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.glass_harm~/slider7 @min 0 @max 1;
-#X obj 190 446 sync;
-#X obj 145 446 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 446 @pan \$1;
-#X obj 12 478 ui.slider @size 125 12 @active_scale 1 @label pitch:
+#X obj 215 434 sync;
+#X obj 145 434 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 434 @pan \$1;
+#X obj 12 464 ui.slider @size 125 12 @active_scale 1 @label pitch:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.glass_harm~/slider8 @min 24 @max 96;
-#X obj 190 478 sync;
-#X obj 145 478 ui.number @size 50 12 @min 24 @max 96 @digits 2;
-#X msg 260 478 @pitch \$1;
-#X obj 12 510 ui.slider @size 125 12 @active_scale 1 @label
+#X obj 215 464 sync;
+#X obj 145 464 ui.number @size 50 12 @min 24 @max 96 @digits 2;
+#X msg 260 464 @pitch \$1;
+#X obj 12 494 ui.slider @size 125 12 @active_scale 1 @label
 reverb_gain: @label_side top @label_align left @fontsize 10
 @presetname /gui/\$1/synth.glass_harm~/slider9 @min 0 @max 1;
-#X obj 190 510 sync;
-#X obj 145 510 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 510 @reverb_gain \$1;
-#X obj 12 542 ui.slider @size 125 12 @active_scale 1 @label room_size:
+#X obj 215 494 sync;
+#X obj 145 494 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 494 @reverb_gain \$1;
+#X obj 12 524 ui.slider @size 125 12 @active_scale 1 @label room_size:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.glass_harm~/slider10 @min 0.005 @max 1;
-#X obj 190 542 sync;
-#X obj 145 542 ui.number @size 50 12 @min 0.005 @max 1 @digits 4;
-#X msg 260 542 @room_size \$1;
-#X obj 12 572 ui.number @size 60 12 @label strike: @label_side top
+#X obj 215 524 sync;
+#X obj 145 524 ui.number @size 50 12 @min 0.005 @max 1 @digits 4;
+#X msg 260 524 @room_size \$1;
+#X obj 12 554 ui.number @size 60 12 @label strike: @label_side top
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.glass_harm~/numbox11 @min 0 @max 1 @step 1;
-#X msg 260 572 @strike \$1;
-#X obj 12 604 ui.slider @size 125 12 @active_scale 1 @label width:
+#X msg 260 554 @strike \$1;
+#X obj 12 584 ui.slider @size 125 12 @active_scale 1 @label width:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.glass_harm~/slider12 @min 0 @max 1;
-#X obj 190 604 sync;
-#X obj 145 604 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 604 @width \$1;
+#X obj 215 584 sync;
+#X obj 145 584 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 584 @width \$1;
 #X connect 1 0 2 0;
 #X connect 2 0 3 0;
 #X connect 3 13 4 0;
@@ -170,4 +170,4 @@ reverb_gain: @label_side top @label_align left @fontsize 10
 #X connect 53 0 56 0;
 #X connect 56 0 0 0;
 #X connect 3 12 53 0;
-#X coords 0 -1 1 1 200 424 2 2 200;
+#X coords 0 -1 1 1 200 404 2 2 200;

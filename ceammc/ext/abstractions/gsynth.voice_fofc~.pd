@@ -11,63 +11,63 @@
 #X obj 600 550 outlet ctl;
 #X obj 3 202 cnv 8 198 18 empty empty [synth.voice_fofc~] 3 9 0 12
 -104026 -262144 0;
-#X obj 12 238 ui.slider @size 125 12 @active_scale 1 @label
+#X obj 12 236 ui.slider @size 125 12 @active_scale 1 @label
 attack(ms): @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.voice_fofc~/slider0 @min 0 @max 1000;
-#X obj 190 238 sync;
-#X obj 145 238 ui.number @size 50 12 @min 0 @max 1000 @digits 1;
-#X msg 260 238 @attack \$1;
-#X obj 12 270 ui.slider @size 125 12 @active_scale 1 @label freq(Hz):
+#X obj 215 236 sync;
+#X obj 145 236 ui.number @size 50 12 @min 0 @max 1000 @digits 1;
+#X msg 260 236 @attack \$1;
+#X obj 12 266 ui.slider @size 125 12 @active_scale 1 @label freq(Hz):
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.voice_fofc~/slider1 @min 20 @max 20000;
-#X obj 190 270 sync;
-#X obj 145 270 ui.number @size 50 12 @min 20 @max 20000 @digits 1;
-#X msg 260 270 @freq \$1;
-#X obj 12 302 ui.slider @size 125 12 @active_scale 1 @label fvowel:
+#X obj 215 266 sync;
+#X obj 145 266 ui.number @size 50 12 @min 20 @max 20000 @digits 1;
+#X msg 260 266 @freq \$1;
+#X obj 12 296 ui.slider @size 125 12 @active_scale 1 @label fvowel:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.voice_fofc~/slider2 @min 0 @max 4;
-#X obj 190 302 sync;
-#X obj 145 302 ui.number @size 50 12 @min 0 @max 4 @digits 3;
-#X msg 260 302 @fvowel \$1;
-#X obj 12 322 ui.toggle @size 12 12 @label gate @label_side right
+#X obj 215 296 sync;
+#X obj 145 296 ui.number @size 50 12 @min 0 @max 4 @digits 3;
+#X msg 260 296 @fvowel \$1;
+#X obj 12 316 ui.toggle @size 12 12 @label gate @label_side right
 @label_align left @fontsize 10;
-#X msg 260 314 @gate \$1;
-#X obj 12 352 ui.slider @size 125 12 @active_scale 1 @label ivoice:
+#X msg 260 308 @gate \$1;
+#X obj 12 344 ui.slider @size 125 12 @active_scale 1 @label ivoice:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.voice_fofc~/slider4 @min 0 @max 5;
-#X obj 190 352 sync;
-#X obj 145 352 ui.number @size 50 12 @min 0 @max 5 @digits 3;
-#X msg 260 352 @ivoice \$1;
-#X obj 12 384 ui.slider @size 125 12 @active_scale 1 @label
+#X obj 215 344 sync;
+#X obj 145 344 ui.number @size 50 12 @min 0 @max 5 @digits 3;
+#X msg 260 344 @ivoice \$1;
+#X obj 12 374 ui.slider @size 125 12 @active_scale 1 @label
 portamento(ms): @label_side top @label_align left @fontsize 10
 @presetname /gui/\$1/synth.voice_fofc~/slider5 @min 0 @max 4000;
-#X obj 190 384 sync;
-#X obj 145 384 ui.number @size 50 12 @min 0 @max 4000 @digits 0;
-#X msg 260 384 @portamento \$1;
-#X obj 12 416 ui.slider @size 125 12 @active_scale 1 @label
+#X obj 215 374 sync;
+#X obj 145 374 ui.number @size 50 12 @min 0 @max 4000 @digits 0;
+#X msg 260 374 @portamento \$1;
+#X obj 12 404 ui.slider @size 125 12 @active_scale 1 @label
 release(ms): @label_side top @label_align left @fontsize 10
 @presetname /gui/\$1/synth.voice_fofc~/slider6 @min 0 @max 1000;
-#X obj 190 416 sync;
-#X obj 145 416 ui.number @size 50 12 @min 0 @max 1000 @digits 1;
-#X msg 260 416 @release \$1;
-#X obj 12 448 ui.slider @size 125 12 @active_scale 1 @label
+#X obj 215 404 sync;
+#X obj 145 404 ui.number @size 50 12 @min 0 @max 1000 @digits 1;
+#X msg 260 404 @release \$1;
+#X obj 12 434 ui.slider @size 125 12 @active_scale 1 @label
 vibr_freq(Hz): @label_side top @label_align left @fontsize 10
 @presetname /gui/\$1/synth.voice_fofc~/slider7 @min 1 @max 10;
-#X obj 190 448 sync;
-#X obj 145 448 ui.number @size 50 12 @min 1 @max 10 @digits 3;
-#X msg 260 448 @vibr_freq \$1;
-#X obj 12 480 ui.slider @size 125 12 @active_scale 1 @label vibr_gain:
+#X obj 215 434 sync;
+#X obj 145 434 ui.number @size 50 12 @min 1 @max 10 @digits 3;
+#X msg 260 434 @vibr_freq \$1;
+#X obj 12 464 ui.slider @size 125 12 @active_scale 1 @label vibr_gain:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.voice_fofc~/slider8 @min 0 @max 1;
-#X obj 190 480 sync;
-#X obj 145 480 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 480 @vibr_gain \$1;
-#X obj 12 512 ui.slider @size 125 12 @active_scale 1 @label
+#X obj 215 464 sync;
+#X obj 145 464 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 464 @vibr_gain \$1;
+#X obj 12 494 ui.slider @size 125 12 @active_scale 1 @label
 wsmooth(ms): @label_side top @label_align left @fontsize 10
 @presetname /gui/\$1/synth.voice_fofc~/slider9 @min 0 @max 1000;
-#X obj 190 512 sync;
-#X obj 145 512 ui.number @size 50 12 @min 0 @max 1000 @digits 1;
-#X msg 260 512 @wsmooth \$1;
+#X obj 215 494 sync;
+#X obj 145 494 ui.number @size 50 12 @min 0 @max 1000 @digits 1;
+#X msg 260 494 @wsmooth \$1;
 #X connect 1 0 2 0;
 #X connect 2 0 3 0;
 #X connect 3 10 4 0;
@@ -141,4 +141,4 @@ wsmooth(ms): @label_side top @label_align left @fontsize 10
 #X connect 44 0 47 0;
 #X connect 47 0 0 0;
 #X connect 3 9 44 0;
-#X coords 0 -1 1 1 200 332 2 2 200;
+#X coords 0 -1 1 1 200 314 2 2 200;

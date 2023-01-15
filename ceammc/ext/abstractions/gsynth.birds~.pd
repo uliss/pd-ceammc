@@ -18,18 +18,18 @@
 #X obj 12 244 ui.toggle @size 12 12 @label gate @label_side right
 @label_align left @fontsize 10;
 #X msg 260 236 @gate \$1;
-#X obj 12 274 ui.slider @size 125 12 @active_scale 1 @label
+#X obj 12 272 ui.slider @size 125 12 @active_scale 1 @label
 probability(%): @label_side top @label_align left @fontsize 10
 @presetname /gui/\$1/synth.birds~/slider2 @min 25 @max 100;
-#X obj 190 274 sync;
-#X obj 145 274 ui.number @size 50 12 @min 25 @max 100 @digits 2;
-#X msg 260 274 @probability \$1;
-#X obj 12 306 ui.slider @size 125 12 @active_scale 1 @label speed:
+#X obj 215 272 sync;
+#X obj 145 272 ui.number @size 50 12 @min 25 @max 100 @digits 2;
+#X msg 260 272 @probability \$1;
+#X obj 12 302 ui.slider @size 125 12 @active_scale 1 @label speed:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.birds~/slider3 @min 120 @max 480;
-#X obj 190 306 sync;
-#X obj 145 306 ui.number @size 50 12 @min 120 @max 480 @digits 1;
-#X msg 260 306 @speed \$1;
+#X obj 215 302 sync;
+#X obj 145 302 ui.number @size 50 12 @min 120 @max 480 @digits 1;
+#X msg 260 302 @speed \$1;
 #X connect 1 0 2 0;
 #X connect 2 0 3 0;
 #X connect 3 4 4 0;
@@ -58,4 +58,4 @@ probability(%): @label_side top @label_align left @fontsize 10
 #X connect 19 0 22 0;
 #X connect 22 0 0 0;
 #X connect 3 3 19 0;
-#X coords 0 -1 1 1 200 126 2 2 200;
+#X coords 0 -1 1 1 200 122 2 2 200;

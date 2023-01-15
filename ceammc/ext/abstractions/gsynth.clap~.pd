@@ -10,27 +10,27 @@
 #X obj 600 550 outlet ctl;
 #X obj 3 202 cnv 8 198 18 empty empty [synth.clap~] 3 9 0 12 -104026
 -262144 0;
-#X obj 12 238 ui.slider @size 125 12 @active_scale 1 @label
+#X obj 12 236 ui.slider @size 125 12 @active_scale 1 @label
 attack(ms): @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.clap~/slider0 @min 0 @max 400;
-#X obj 190 238 sync;
-#X obj 145 238 ui.number @size 50 12 @min 0 @max 400 @digits 1;
-#X msg 260 238 @attack \$1;
-#X obj 12 258 ui.toggle @size 12 12 @label gate @label_side right
+#X obj 215 236 sync;
+#X obj 145 236 ui.number @size 50 12 @min 0 @max 400 @digits 1;
+#X msg 260 236 @attack \$1;
+#X obj 12 256 ui.toggle @size 12 12 @label gate @label_side right
 @label_align left @fontsize 10;
-#X msg 260 250 @gate \$1;
-#X obj 12 288 ui.slider @size 125 12 @active_scale 1 @label
+#X msg 260 248 @gate \$1;
+#X obj 12 284 ui.slider @size 125 12 @active_scale 1 @label
 release(ms): @label_side top @label_align left @fontsize 10
 @presetname /gui/\$1/synth.clap~/slider2 @min 0 @max 4000;
-#X obj 190 288 sync;
-#X obj 145 288 ui.number @size 50 12 @min 0 @max 4000 @digits 0;
-#X msg 260 288 @release \$1;
-#X obj 12 320 ui.slider @size 125 12 @active_scale 1 @label tone(Hz):
+#X obj 215 284 sync;
+#X obj 145 284 ui.number @size 50 12 @min 0 @max 4000 @digits 0;
+#X msg 260 284 @release \$1;
+#X obj 12 314 ui.slider @size 125 12 @active_scale 1 @label tone(Hz):
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.clap~/slider3 @min 400 @max 3500;
-#X obj 190 320 sync;
-#X obj 145 320 ui.number @size 50 12 @min 400 @max 3500 @digits 0;
-#X msg 260 320 @tone \$1;
+#X obj 215 314 sync;
+#X obj 145 314 ui.number @size 50 12 @min 400 @max 3500 @digits 0;
+#X msg 260 314 @tone \$1;
 #X connect 1 0 2 0;
 #X connect 2 0 3 0;
 #X connect 3 4 4 0;
@@ -62,4 +62,4 @@ release(ms): @label_side top @label_align left @fontsize 10
 #X connect 20 0 23 0;
 #X connect 23 0 0 0;
 #X connect 3 3 20 0;
-#X coords 0 -1 1 1 200 140 2 2 200;
+#X coords 0 -1 1 1 200 134 2 2 200;
