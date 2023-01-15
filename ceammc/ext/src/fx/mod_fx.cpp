@@ -3,6 +3,7 @@
 
 void setup_fx_bitdown_tilde();
 void setup_fx_chorus_tilde();
+void setup_fx_dattorro_tilde();
 void setup_fx_distortion1_tilde();
 void setup_fx_distortion2_tilde();
 void setup_fx_distortion3_tilde();
@@ -37,6 +38,7 @@ void ceammc_fx_setup()
 {
     setup_fx_bitdown_tilde();
     setup_fx_chorus_tilde();
+    setup_fx_dattorro_tilde();
     setup_fx_distortion1_tilde();
     setup_fx_distortion2_tilde();
     setup_fx_distortion3_tilde();

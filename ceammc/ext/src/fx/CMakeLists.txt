@@ -14,6 +14,7 @@ ceammc_fx_obj(freqshift)
 
 ceammc_fx_obj_ui(bitdown)
 ceammc_fx_obj_ui(chorus)
+ceammc_fx_obj_ui(dattorro)
 ceammc_fx_obj_ui(distortion)
 ceammc_fx_obj_ui(distortion1)
 ceammc_fx_obj_ui(distortion2)
