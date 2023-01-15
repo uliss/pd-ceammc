@@ -72,23 +72,21 @@
 |
 [expand_env #a]
 |
-|            [ui.knob]  [ui.knob]  [ui.knob]
-|            |          |          |
-[readsf~ #b] |          |          |
-|            |          |          |
-|            [@room $1( [@damp $1( [@drywet $1(
-|            |          |          |
-|            |          |          | [T]
-|            |          |          | |
-|            |          |          | [@freeze $1(
-|            |          |          | |
-[fx.freeverb2~  0.95    0.125        ]
+|            [ui.knob]   [ui.knob]  [ui.knob]
+|            |           |          |
+[readsf~ #b] |           |          |
+|            |           |          |
+|            [@decay $1( [@damp $1( [@drywet $1(
+|            |           |          |
+|            |           |          | [T]
+|            |           |          | |
+|            |           |          | [@bypass $1(
+|            |           |          | |
+[fx.dattorro~  0.5                    ]
 |
 [ui.gain~ @size 120 16] [ui.dsp~]
 | \
 [dac~]
-
-[X a->b]
 ]]>
             </pdascii>
         </example>

@@ -99,19 +99,19 @@
   - [permutate( method added to \[array.grainer~\] - to permutate grains positions
   - [prog( method added to \[sfizz~\] - to send Program Change events
 - misc:
-  - conv.lin2exp: list support added
   - conv.lin2curve: list support added
-  - ui.slider2d: mouse wheel support added: (move x-axis when Alt pressed)
-  - ui.slider2d alias added: ui.s2d
+  - conv.lin2exp: list support added
   - env.asr~: second inlet added for gate control
   - second inlet added to random.atom to set list to choose from
   - sfizz synth updated to version 1.2.0
+  - ui.slider2d alias added: ui.s2d
+  - ui.slider2d: mouse wheel support added: (move x-axis when Alt pressed)
 - TCL editor added for objects:
   - data.list
-  - local.list
-  - global.list
   - data.set
+  - global.list
   - global.set
+  - local.list
   - local.set
 
 ### Fixed:
