@@ -30,8 +30,8 @@
             <property name="@decay_mid" type="float" minvalue="1" maxvalue="60" default="2"
             units="second">time (in seconds) to decay 60dB in mid-frequency band</property>
             <property name="@predelay" type="float" minvalue="0" maxvalue="100" default="40"
-            units="millisecond">a delay of 20 to 100 ms operating on the 'wet' signal. Large values
-            will provide the impression of a larger room</property>
+            units="millisecond">a delay operating on the 'wet' signal. Large values will provide
+            the impression of a larger room</property>
             <property name="@freq_low" type="float" minvalue="50" maxvalue="1000" default="200"
             units="hertz">Crossover frequency (Hz) separating low and middle frequencies</property>
             <property name="@damp_hf" type="float" minvalue="1500" maxvalue="47040" default="6000"
