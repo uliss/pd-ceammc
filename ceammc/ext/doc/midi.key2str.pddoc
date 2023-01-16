@@ -38,9 +38,7 @@
 |    |                   |             |
 [midi.key->str @symbol                ]
 |
-[msg set]
-|
-[ (
+[ui.dt]
 ]]>
             </pdascii>
         </example>

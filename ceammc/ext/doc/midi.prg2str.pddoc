@@ -39,9 +39,7 @@
 |                       |
 [midi.prg->str @symbol] [midi.prg->str @symbol @family]
 |                       |
-[msg set]               [msg set]
-|                       |
-[ (                     [ (
+[ui.dt]                 [ui.dt]
 ]]>
             </pdascii>
         </example>
