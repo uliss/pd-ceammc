@@ -37,12 +37,9 @@
 [B]
 |
 [list.gen 10] X [random 25]
+| |
+| [ui.dt]
 |
-[t b a]
-|   ^|
-|   [msg set]
-|   |
-[   (
 |
 [list.count_if] X [> 10]
 |
