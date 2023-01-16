@@ -47,9 +47,7 @@
 |
 [list.apply_to 1 -2] X [mtof]
 |
-[msg set]
-|
-[ (
+[ui.dt]
 ]]>
             </pdascii>
         </example>

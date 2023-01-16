@@ -59,9 +59,7 @@
 |         ^|        ^^|       ^^^|      ^^^^|
 |          |          |          |          |
 |          |          |          |          |
-[msg set] [msg set] [msg set] [msg set] [msg set]
-|         |         |         |         |
-[ (       [ (       [ (       [ (       [ (
+[ui.dt]    [ui.dt]    [ui.dt]    [ui.dt]    [ui.dt]
 
 
 [100 #x2( [symbol A #a2( [list A #d2(   [1 2 3 #c2(
@@ -70,12 +68,10 @@
 
 
 [list.route A B 100  @trim               #r2]
-| |       ^| ^|     ^^| ^^|   ^^^|
-| [B]      | [B]      | [B]      |
+|         ^|        ^^|       ^^^|
 |          |          |          |
-[msg set] [msg set] [msg set] [msg set]
-|         |         |         |
-[ (       [ (       [ (       [ (
+|          |          |          |
+[ui.dt]    [ui.dt]    [ui.dt]    [ui.dt]
 
 [X a->r]
 [X b->r]
