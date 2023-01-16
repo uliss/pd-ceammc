@@ -12,21 +12,20 @@
 #X floatatom 50 143 5 0 0 0 - - -;
 #X msg 98 143 -2 -1 0 1 2;
 #X obj 50 172 math.neg;
-#X obj 50 201 msg set;
-#X msg 50 230 ;
-#X obj 20 279 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 284 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 50 201 ui.dt;
+#X obj 20 250 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 255 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 285 1\.;
-#X text 150 285 *float*;
-#X text 245 285 input value.;
-#X text 150 305 *list*;
-#X text 245 305 list of numbers.;
-#X obj 20 335 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 340 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 256 1\.;
+#X text 150 256 *float*;
+#X text 245 256 input value.;
+#X text 150 276 *list*;
+#X text 245 276 list of numbers.;
+#X obj 20 306 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 311 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 341 1\.;
-#X text 245 341 result.;
+#X text 110 312 1\.;
+#X text 245 312 result.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
@@ -62,4 +61,3 @@ https://github.com/uliss/pure-data;
 #X connect 8 0 10 0;
 #X connect 9 0 10 0;
 #X connect 10 0 11 0;
-#X connect 11 0 12 0;

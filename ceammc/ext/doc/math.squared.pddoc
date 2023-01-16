@@ -34,9 +34,7 @@
 |    |
 [math.squared]
 |
-[msg set]
-|
-[ (
+[ui.dt]
 ]]>
             </pdascii>
         </example>

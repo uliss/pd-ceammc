@@ -45,9 +45,7 @@
 |    |
 [math.round]
 |
-[msg set]
-|
-[  (
+[ui.dt]
 ]]>
             </pdascii>
         </example>

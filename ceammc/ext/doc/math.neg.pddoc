@@ -36,9 +36,7 @@
 |    |
 [math.neg]
 |
-[msg set]
-|
-[ (
+[ui.dt]
 ]]>
             </pdascii>
         </example>
