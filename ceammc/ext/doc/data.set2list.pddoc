@@ -49,9 +49,7 @@
 |           |
 [set->list] [set->list @sort]
 |           |
-[msg set]   [msg set]
-|           |
-[ (         [ (
+[ui.dt]     [ui.dt]
 ]]>
             </pdascii>
         </example>
