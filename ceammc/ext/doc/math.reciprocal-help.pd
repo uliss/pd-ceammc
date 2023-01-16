@@ -12,11 +12,10 @@
 #X floatatom 50 143 5 0 0 0 - - -;
 #X msg 98 143 1 2 3 4 5;
 #X floatatom 261 143 5 0 0 0 - - -;
-#X obj 50 172 math.reciprocal;
+#X obj 50 172 1/x;
 #X msg 261 172 1 \$1;
-#X obj 50 201 msg set;
+#X obj 50 201 ui.dt;
 #X obj 261 201 /;
-#X msg 50 230 ;
 #X floatatom 261 230 5 0 0 0 - - -;
 #X obj 20 279 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 284 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
@@ -68,5 +67,4 @@ https://github.com/uliss/pure-data;
 #X connect 10 0 12 0;
 #X connect 11 0 13 0;
 #X connect 12 0 14 0;
-#X connect 13 0 15 0;
-#X connect 14 0 16 0;
+#X connect 14 0 15 0;
