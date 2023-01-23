@@ -28,7 +28,7 @@ TEST_CASE("midi.arp", "[externals]")
             TExt t("midi.arp");
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
-            REQUIRE_PROPERTY(t, @delay, 100);
+            REQUIRE_PROPERTY(t, @t, 100);
             REQUIRE_PROPERTY(t, @mode, "up");
             REQUIRE_PROPERTY(t, @external, 0);
             REQUIRE_PROPERTY(t, @pass, 0);
@@ -38,7 +38,7 @@ TEST_CASE("midi.arp", "[externals]")
         SECTION("args")
         {
             TExt t("midi.arp", 200);
-            REQUIRE_PROPERTY(t, @delay, 200);
+            REQUIRE_PROPERTY(t, @t, 200);
         }
     }
 

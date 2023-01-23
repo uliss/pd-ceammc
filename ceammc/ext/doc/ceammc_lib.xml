@@ -1472,6 +1472,9 @@
     <xi:include href="ceammc_category_math.xml" parse="xml"/>
   </category>
   <category name="midi">
+    <entry name="midi.arp" descr="MIDI arpeggiator" ref_view="object">
+      <xi:include href="midi.arp.pddoc" parse="xml"/>
+    </entry>
     <entry name="midi.cc" descr="enhanced version of vanilla ctlin" ref_view="object">
       <xi:include href="midi.cc.pddoc" parse="xml"/>
     </entry>

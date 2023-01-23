@@ -18,10 +18,11 @@ CEAMMC_DEFINE_HASH(random1);
 MidiArp::MidiArp(const PdArgs& args)
     : BaseObject(args)
     , external_clock_(nullptr)
-    , clock_([this]() { playNote(); })
-    , delay_(nullptr)
+    , clock_([this]() { if(on_->value()) playNote(); })
+    , t_(nullptr)
     , min_notes_(nullptr)
     , pass_(nullptr)
+    , on_(nullptr)
     , mode_(nullptr)
     , seed_(nullptr)
     , phase_(0)
@@ -34,12 +35,21 @@ MidiArp::MidiArp(const PdArgs& args)
     external_clock_ = new BoolProperty("@external", false);
     addProperty(external_clock_);
 
-    delay_ = new FloatProperty("@delay", 100);
-    delay_->setArgIndex(0);
-    addProperty(delay_);
+    t_ = new FloatProperty("@t", 100);
+    t_->checkClosedRange(1, 1000);
+    t_->setArgIndex(0);
+    t_->setUnitsMs();
+    addProperty(t_);
 
     pass_ = new BoolProperty("@pass", false);
     addProperty(pass_);
+
+    on_ = new BoolProperty("@on", true);
+    on_->setSuccessFn([this](Property*) {
+        if (on_->value())
+            playNote();
+    });
+    addProperty(on_);
 
     min_notes_ = new IntProperty("@min_notes", 1);
     addProperty(min_notes_);
@@ -176,7 +186,7 @@ void MidiArp::playNote()
     nextNote();
 
     if (!external_clock_->value())
-        clock_.delay(delay_->value());
+        clock_.delay(t_->value());
 }
 
 void MidiArp::sendNote(std::uint8_t note, std::uint8_t vel)

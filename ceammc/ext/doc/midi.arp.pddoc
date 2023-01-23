@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="midi.arp">
+        <title>midi.arp</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>MIDI arpeggiator</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>midi</category>
+            <keywords>midi arpeggiator</keywords>
+            <since>0.9.6</since>
+        </meta>
+        <info>
+            <par>'up' - play notes from bottom to up</par>
+            <par>'down' - play from top to bottom</par>
+            <par>'tri' - play from bottom to up and then back</par>
+            <par>'up1' - play top note, then from bottom to up</par>
+            <par>'down1' - play bottom note, then from top to bottom</par>
+            <par>'tri1' - play from up to bottom, then back</par>
+            <par>'random' - play random note, excluding current one (no repeats)</par>
+            <par>'random1' - play random note (can be repeats)</par>
+        </info>
+        <arguments>
+            <argument name="T" minvalue="1" maxvalue="1000" type="float" units="millisecond">time between arpeggio</argument>
+        </arguments>
+        <properties>
+            <property name="@t" type="float" default="100" minvalue="1" maxvalue="1000" units="millisecond">time between arpeggio</property>
+            <property name="@mode" type="symbol" default="up" enum="up down tri up1 down1 tri1 random random1">
+            argpeggiator mode</property>
+            <property name="@seed" type="int" default="0" minvalue="0">random seed value (to get reproducible random series)</property>
+            <property name="@external" type="bool" default="0">use external clock</property>
+            <property name="@min_notes" type="int" default="1">number of minimal notes to start arpeggio</property>
+            <property name="@on" type="bool" default="1">arpeggiator state: on/off</property>
+            <property name="@pass" type="bool" default="0">bypass arpeggiator</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="list">NOTE VELOCITY</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="bang">play manual arpeggio, if @external = 1</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>list: NOTE VELOCITY</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]      [F]
+|        |
+[@cc $1( [@curve $1(
+|        |
+[midi.cc 10 @min 0 @max 1 @curve -2]
+|
+[ui.hsl]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

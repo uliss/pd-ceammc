@@ -807,6 +807,7 @@ math.tanh~	hyperbolic tangent for signals
 math.tan~	tangent function
 math.trunc	truncate to integer value
 math.trunc~	truncate to integer value
+midi.arp	MIDI arpeggiator
 midi.cc	enhanced version of vanilla ctlin
 midi.clock	midi clock toolbox
 midi.ctl2str	convert Standard MIDI Controllers number to name

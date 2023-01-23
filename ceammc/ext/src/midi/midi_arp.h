@@ -17,9 +17,10 @@ using namespace ceammc;
 class MidiArp : public BaseObject {
     boost::container::static_vector<std::uint8_t, 127> notes_;
     BoolProperty* external_clock_;
-    FloatProperty* delay_;
+    FloatProperty* t_;
     IntProperty* min_notes_;
     BoolProperty* pass_;
+    BoolProperty* on_;
     SymbolEnumProperty* mode_;
     random::SeedProperty* seed_;
     ClockLambdaFunction clock_;

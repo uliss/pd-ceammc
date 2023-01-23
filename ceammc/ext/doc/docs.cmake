@@ -481,6 +481,7 @@ set(DOC_FILES
     metro.pattern
     metro.random
     metro.seq
+    midi.arp
     midi.cc
     midi.clock
     midi.ctl2str
