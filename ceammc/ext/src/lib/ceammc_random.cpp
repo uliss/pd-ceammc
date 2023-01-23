@@ -21,8 +21,9 @@ namespace random {
     static RandomGenPtr default_gen()
     {
         static RandomGenPtr instance_;
-        if (!instance_)
+        if (!instance_) {
             instance_.reset(new DefaultRandomGen(std::time(nullptr)));
+        }
 
         return instance_;
     }

@@ -38,9 +38,9 @@ namespace random {
         uint32_t gen_uniform_uint(uint32_t a, uint32_t b);
     };
 
-
     class SeedProperty : public IntProperty {
         RandomGen& gen_;
+
     public:
         SeedProperty(RandomGen& gen);
     };
