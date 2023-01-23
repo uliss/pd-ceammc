@@ -4,13 +4,15 @@
 #include "ceammc_clock.h"
 #include "ceammc_object.h"
 #include "ceammc_property_enum.h"
-using namespace ceammc;
+#include "ceammc_random.h"
 
 #include <bitset>
 #include <cstdint>
 #include <random>
 
 #include <boost/container/static_vector.hpp>
+
+using namespace ceammc;
 
 class MidiArp : public BaseObject {
     boost::container::static_vector<std::uint8_t, 127> notes_;
@@ -19,11 +21,11 @@ class MidiArp : public BaseObject {
     IntProperty* min_notes_;
     BoolProperty* pass_;
     SymbolEnumProperty* mode_;
-    IntProperty* seed_;
+    random::SeedProperty* seed_;
     ClockLambdaFunction clock_;
-    int cur_note_idx_;
+    int phase_;
     int prev_note_;
-    std::mt19937 gen_;
+    random::RandomGen gen_;
 
     enum MidiArpEvent {
         NOTE_ON,
@@ -53,7 +55,9 @@ public:
     void addNote(std::uint8_t note, std::uint8_t vel);
     void removeNote(std::uint8_t note);
 
-    int nextNote();
+    void nextNote();
+
+    std::uint32_t currentNote();
 };
 
 void setup_midi_arp();

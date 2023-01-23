@@ -1,15 +1,19 @@
 #include "midi_arp.h"
+#include "ceammc_convert.h"
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "fmt/core.h"
 
-#include <ctime>
-#include <random>
+#include <cstdint>
 
 CEAMMC_DEFINE_HASH(up);
+CEAMMC_DEFINE_HASH(up1);
 CEAMMC_DEFINE_HASH(down);
+CEAMMC_DEFINE_HASH(down1);
 CEAMMC_DEFINE_HASH(tri);
+CEAMMC_DEFINE_HASH(tri1);
 CEAMMC_DEFINE_HASH(random);
+CEAMMC_DEFINE_HASH(random1);
 
 MidiArp::MidiArp(const PdArgs& args)
     : BaseObject(args)
@@ -20,10 +24,9 @@ MidiArp::MidiArp(const PdArgs& args)
     , pass_(nullptr)
     , mode_(nullptr)
     , seed_(nullptr)
-    , cur_note_idx_(0)
+    , phase_(0)
     , prev_note_(-1)
     , state_(STATE_EMPTY)
-    , gen_(time(0))
 {
     createInlet();
     createOutlet();
@@ -32,6 +35,7 @@ MidiArp::MidiArp(const PdArgs& args)
     addProperty(external_clock_);
 
     delay_ = new FloatProperty("@delay", 100);
+    delay_->setArgIndex(0);
     addProperty(delay_);
 
     pass_ = new BoolProperty("@pass", false);
@@ -40,16 +44,10 @@ MidiArp::MidiArp(const PdArgs& args)
     min_notes_ = new IntProperty("@min_notes", 1);
     addProperty(min_notes_);
 
-    mode_ = new SymbolEnumProperty("@mode", { str_up, str_down, str_tri, str_random });
+    mode_ = new SymbolEnumProperty("@mode", { str_up, str_up1, str_down, str_down1, str_tri, str_tri1, str_random, str_random1 });
     addProperty(mode_);
 
-    seed_ = new IntProperty("@seed", -1);
-    seed_->setSuccessFn([this](Property*) {
-        if (seed_->value() < 0)
-            gen_.seed(time(0));
-        else
-            gen_.seed(seed_->value());
-    });
+    seed_ = new random::SeedProperty(gen_);
     addProperty(seed_);
 }
 
@@ -105,7 +103,7 @@ void MidiArp::onEvent(MidiArpEvent ev, std::uint8_t note)
                 state_ = STATE_NOARP;
             } else {
                 state_ = STATE_ARP;
-                cur_note_idx_ = 0;
+                phase_ = 0;
             }
             break;
         case NOTE_OFF:
@@ -126,7 +124,7 @@ void MidiArp::onEvent(MidiArpEvent ev, std::uint8_t note)
             addNote(note, 127);
             if (notes_.size() >= min_notes_->value()) {
                 state_ = STATE_ARP;
-                cur_note_idx_ = 0;
+                phase_ = 0;
                 prev_note_ = -1;
             }
         } break;
@@ -145,7 +143,7 @@ void MidiArp::onEvent(MidiArpEvent ev, std::uint8_t note)
             removeNote(note);
             if (notes_.size() < min_notes_->value()) {
                 state_ = STATE_NOARP;
-                cur_note_idx_ = 0;
+                phase_ = 0;
                 if (prev_note_ >= 0) {
                     sendNote(prev_note_, 0);
                     prev_note_ = -1;
@@ -168,15 +166,14 @@ void MidiArp::playNote()
     if (notes_.empty())
         return;
 
-    cur_note_idx_ %= notes_.size();
-
     if (prev_note_ >= 0)
         sendNote(prev_note_, 0);
 
-    sendNote(notes_[cur_note_idx_], 127);
+    auto n = currentNote();
+    sendNote(n, 127);
+    prev_note_ = n;
 
-    prev_note_ = notes_[cur_note_idx_];
-    cur_note_idx_ = nextNote();
+    nextNote();
 
     if (!external_clock_->value())
         clock_.delay(delay_->value());
@@ -200,24 +197,51 @@ void MidiArp::removeNote(std::uint8_t note)
         notes_.erase(it, notes_.end());
 }
 
-int MidiArp::nextNote()
+void MidiArp::nextNote()
 {
     const auto N = notes_.size();
 
-    if (N == 0)
-        return cur_note_idx_;
+    if (N < 2)
+        return;
 
     switch (crc32_hash(mode_->value())) {
-    case hash_up:
-        return (cur_note_idx_ + 1) % N;
-    case hash_down:
-        return (cur_note_idx_ == 0) ? (N - 1) : ((cur_note_idx_ - 1) % N);
-    case hash_random: {
-        std::uniform_int_distribution<int> dist(1, N - 1);
-        return (cur_note_idx_ + dist(gen_)) % N;
-    } break;
+    case hash_random:
+        phase_ = (phase_ + gen_.gen_uniform_uint(1, N - 1)) % N;
+        break;
+    case hash_random1:
+        break;
+    case hash_tri:
+    case hash_tri1:
+        phase_ = (phase_ + 1) % (2 * (N - 1));
+        break;
     default:
-        return cur_note_idx_;
+        phase_ = (phase_ + 1) % N;
+        break;
+    }
+}
+
+std::uint32_t MidiArp::currentNote()
+{
+    const auto N = notes_.size();
+
+    switch (crc32_hash(mode_->value())) {
+    case hash_tri:
+        return notes_[foldInteger(phase_, N)];
+    case hash_tri1:
+        return notes_[foldInteger<int>(phase_ + N - 1, N)];
+    case hash_up:
+        return notes_[wrapInteger(phase_, N)];
+    case hash_up1:
+        return notes_[wrapInteger<int>(phase_ + N - 1, N)];
+    case hash_down:
+        return notes_[N - (wrapInteger(phase_, N) + 1)];
+    case hash_down1:
+        return notes_[N - (wrapInteger<int>(phase_ + N - 1, N) + 1)];
+    case hash_random1:
+        return notes_[gen_.gen_uniform_uint(0, N - 1)];
+    case hash_random:
+    default:
+        return notes_[wrapInteger(phase_, N)];
     }
 }
 
