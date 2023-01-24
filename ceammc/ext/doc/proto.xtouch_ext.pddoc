@@ -155,6 +155,10 @@
             <method name="reset">reset all knobs, faders and buttons to 0, vu to lowest values. Do
             not change display texts</method>
         </methods>
+        <arguments>
+            <argument name="PROTO" type="symbol" enum="hui mcu xmidi">connection
+            protocol</argument>
+        </arguments>
         <properties>
             <property name="@n" type="int" access="initonly" minvalue="1" maxvalue="32"
             default="2">number of scenes</property>
