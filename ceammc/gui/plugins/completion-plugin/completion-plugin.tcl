@@ -567,6 +567,10 @@ proc ::completion::add_user_externals {} {
         if { ! [file isdirectory $dir]} { ;#why Yvan was doing this check?
             continue
         }
+
+        # skip ceammc user folders
+        if {[string match "ceammc*" $pathdir]} { continue }
+
         ::completion::add_user_externalsOnFolder $pathdir 0
         #foreach subdir [glob -directory $dir -nocomplain -types {d} *] {
         #    ::completion::add_user_externalsOnFolder $subdir 1
