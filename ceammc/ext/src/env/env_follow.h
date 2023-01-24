@@ -725,7 +725,9 @@ class env_follow : public env_follow_dsp {
 	
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("env.follow");
+		ui_interface->declare(&fHslider1, "unit", "ms");
 		ui_interface->addHorizontalSlider("attack", &fHslider1, FAUSTFLOAT(2e+02f), FAUSTFLOAT(1.0f), FAUSTFLOAT(1e+03f), FAUSTFLOAT(0.1f));
+		ui_interface->declare(&fHslider0, "unit", "ms");
 		ui_interface->addHorizontalSlider("release", &fHslider0, FAUSTFLOAT(2e+02f), FAUSTFLOAT(1.0f), FAUSTFLOAT(1e+03f), FAUSTFLOAT(0.1f));
 		ui_interface->closeBox();
 	}
