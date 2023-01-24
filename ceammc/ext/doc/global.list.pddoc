@@ -22,7 +22,7 @@
         </info>
         <arguments>
             <argument name="ID" type="symbol">object ID</argument>
-            <argument name="ARGS" type="list">initial values</argument>
+            <argument name="VALUE" type="list">initial values</argument>
         </arguments>
         <properties>
             <property name="@empty" access="readonly" type="bool" default="1">1 if list is empty,

@@ -27,8 +27,8 @@ name.;
 #X text 245 348 ID: object ID. Type: symbol.;
 #X text 110 368 2\.;
 #X text 150 368 list;
-#X obj 246 369 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 368 ARGS: initial values. Type: list.;
+#X obj 246 369 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 368 VALUE: initial values. Type: list.;
 #X obj 20 398 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 403 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
