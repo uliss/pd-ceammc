@@ -20,8 +20,8 @@
             <par>'up1' - play top note, then from bottom to up</par>
             <par>'down1' - play bottom note, then from top to bottom</par>
             <par>'tri1' - play from up to bottom, then back</par>
-            <par>'random' - play random note, excluding current one (no repeats)</par>
-            <par>'random1' - play random note (can be repeats)</par>
+            <par>'random' - play random note, excluding the current one (no repeats)</par>
+            <par>'random1' - play random note (there can be repeats)</par>
         </info>
         <arguments>
             <argument name="T" minvalue="1" maxvalue="1000" type="float" units="millisecond">time between arpeggio</argument>
@@ -32,7 +32,7 @@
             argpeggiator mode</property>
             <property name="@seed" type="int" default="0" minvalue="0">random seed value (to get reproducible random series)</property>
             <property name="@external" type="bool" default="0">use external clock</property>
-            <property name="@min_notes" type="int" default="1">number of minimal notes to start arpeggio</property>
+            <property name="@min_notes" type="int" default="1" minvalue="1">number of minimal notes to perform arpeggio</property>
             <property name="@on" type="bool" default="1">arpeggiator state: on/off</property>
             <property name="@pass" type="bool" default="0">bypass arpeggiator</property>
         </properties>
@@ -41,22 +41,40 @@
                 <xinfo on="list">NOTE VELOCITY</xinfo>
             </inlet>
             <inlet>
-                <xinfo on="bang">play manual arpeggio, if @external = 1</xinfo>
+                <xinfo on="bang">play next note in chord, if @external = 1</xinfo>
             </inlet>
         </inlets>
         <outlets>
             <outlet>list: NOTE VELOCITY</outlet>
+            <outlet>int: note index in chord</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[F]      [F]
-|        |
-[@cc $1( [@curve $1(
-|        |
-[midi.cc 10 @min 0 @max 1 @curve -2]
+[notein]       [ui.dsp~]
+| ^|.
+[pack f f #a]
+
+[ui.keyboard]
 |
-[ui.hsl]
+|
+|
+|
+|   [T]      [ui.tab up down tri up1 down1 tri1 random random1 @size 400 14]
+|   |        |
+|   [@on $1( [@mode $2( [F]     [1( [2( [3(
+|   |        |          |       |   |   |
+|   |        |          [@t $1( [@min_notes $1(
+|   |        |          |       |
+[midi.arp                       ]
+|           ^|
+[msg note]  [F]
+|
+[sfizz~ \#sine]
+*|*
+[ui.hgain2~]
+*|*
+[dac~]
 ]]>
             </pdascii>
         </example>

@@ -26,7 +26,7 @@ class MidiArp : public BaseObject {
     ClockLambdaFunction clock_;
     int phase_;
     int prev_note_;
-    random::RandomGen gen_;
+    mutable random::RandomGen gen_;
 
     enum MidiArpEvent {
         NOTE_ON,
@@ -58,7 +58,8 @@ public:
 
     void nextNote();
 
-    std::uint32_t currentNote();
+    std::uint32_t currentNote() const;
+    void releasePrevious();
 };
 
 void setup_midi_arp();

@@ -31,6 +31,7 @@ MidiArp::MidiArp(const PdArgs& args)
 {
     createInlet();
     createOutlet();
+    createOutlet();
 
     external_clock_ = new BoolProperty("@external", false);
     addProperty(external_clock_);
@@ -48,13 +49,17 @@ MidiArp::MidiArp(const PdArgs& args)
     on_->setSuccessFn([this](Property*) {
         if (on_->value())
             playNote();
+        else
+            releasePrevious();
     });
     addProperty(on_);
 
     min_notes_ = new IntProperty("@min_notes", 1);
+    min_notes_->checkMinEq(1);
     addProperty(min_notes_);
 
     mode_ = new SymbolEnumProperty("@mode", { str_up, str_up1, str_down, str_down1, str_tri, str_tri1, str_random, str_random1 });
+    mode_->setSuccessFn([this](Property*) { phase_ = 0; });
     addProperty(mode_);
 
     seed_ = new random::SeedProperty(gen_);
@@ -63,6 +68,8 @@ MidiArp::MidiArp(const PdArgs& args)
 
 MidiArp::~MidiArp()
 {
+    releasePrevious();
+
     for (auto& n : notes_)
         sendNote(n, 0);
 
@@ -151,13 +158,11 @@ void MidiArp::onEvent(MidiArpEvent ev, std::uint8_t note)
             break;
         case NOTE_OFF: {
             removeNote(note);
+            releasePrevious();
+
             if (notes_.size() < min_notes_->value()) {
                 state_ = STATE_NOARP;
                 phase_ = 0;
-                if (prev_note_ >= 0) {
-                    sendNote(prev_note_, 0);
-                    prev_note_ = -1;
-                }
             }
             if (notes_.empty())
                 state_ = STATE_EMPTY;
@@ -176,10 +181,15 @@ void MidiArp::playNote()
     if (notes_.empty())
         return;
 
-    if (prev_note_ >= 0)
-        sendNote(prev_note_, 0);
+    releasePrevious();
+
+    // note: should be after prev_note off!
+    // if @min_notes changes between notes to prevent hanging notes
+    if (notes_.size() < min_notes_->value())
+        return;
 
     auto n = currentNote();
+    floatTo(1, phase_);
     sendNote(n, 127);
     prev_note_ = n;
 
@@ -203,8 +213,10 @@ void MidiArp::addNote(std::uint8_t note, std::uint8_t vel)
 void MidiArp::removeNote(std::uint8_t note)
 {
     auto it = std::remove(notes_.begin(), notes_.end(), note);
-    if (it != notes_.end())
+    if (it != notes_.end()) {
         notes_.erase(it, notes_.end());
+        sendNote(note, 0);
+    }
 }
 
 void MidiArp::nextNote()
@@ -230,7 +242,7 @@ void MidiArp::nextNote()
     }
 }
 
-std::uint32_t MidiArp::currentNote()
+std::uint32_t MidiArp::currentNote() const
 {
     const auto N = notes_.size();
 
@@ -255,7 +267,16 @@ std::uint32_t MidiArp::currentNote()
     }
 }
 
+void MidiArp::releasePrevious()
+{
+    if (prev_note_ >= 0) {
+        sendNote(prev_note_, 0);
+        prev_note_ = -1;
+    }
+}
+
 void setup_midi_arp()
 {
     ObjectFactory<MidiArp> obj("midi.arp");
+    obj.setXletsInfo({ "list: NOTE VEL", "bang: if @external = 1" }, { "list: NOTE VEL", "int: phase" });
 }
