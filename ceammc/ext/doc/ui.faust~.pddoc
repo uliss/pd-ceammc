@@ -78,6 +78,35 @@
 [ui.hgain~]       [ui.dsp~]
 |\
 [dac~]
+
+[ui.faust~.extra]
+]]>
+            </pdascii>
+            <pdascii id="extra">
+<![CDATA[
+[@fname faust/ks.dsp #a(
+
+[@fname faust/blow.dsp #b(
+
+[ui.faust~ faust/ex0.dsp #x]
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+[ui.hgain~]       [ui.dsp~]
+|\
+[dac~]
+
+[X a->x]
+[X b->x]
 ]]>
             </pdascii>
         </example>
