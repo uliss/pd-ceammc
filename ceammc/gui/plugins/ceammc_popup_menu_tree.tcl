@@ -166,10 +166,10 @@
         math.tanh~ math.tan~ math.trunc math.trunc~
     }}
     {midi {
-        midi.cc midi.clock midi.ctl2str midi.event2ctl midi.event2note
-        midi.event2prg midi.file midi.kbd midi.key2str midi.modus midi.oct
-        midi.prg2str midi.split midi.sustain midi.sysex midi.track midi.tuning
-        midi.vramp midi.vrand
+        midi.arp midi.cc midi.clock midi.ctl2str midi.event2ctl
+        midi.event2note midi.event2prg midi.file midi.kbd midi.key2str
+        midi.modus midi.oct midi.prg2str midi.split midi.sustain midi.sysex
+        midi.track midi.tuning midi.vramp midi.vrand
     }}
     {misc {
         click~ fluid~ modplug~ risset.gliss sfizz~ speech.flite speech.flite~
