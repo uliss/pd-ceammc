@@ -19,9 +19,8 @@
             </also>
         </meta>
         <arguments>
-            <argument name="freq" type="float" units="hertz">frequency</argument>
-            <argument name="invert" type="float" minvalue="0" maxvalue="1">wave
-            inversion</argument>
+            <argument name="FREQ" type="float" units="hertz">frequency</argument>
+            <argument name="INVERT" type="bool">wave inversion</argument>
         </arguments>
         <properties>
             <property name="@invert" type="bool" default="0">wave inversion</property>

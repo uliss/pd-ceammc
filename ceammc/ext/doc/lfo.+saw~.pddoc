@@ -20,7 +20,7 @@
         </meta>
         <arguments>
             <argument name="FREQ" type="float" units="hertz">frequency</argument>
-            <argument name="INVERT" type="int" minvalue="0" maxvalue="1">invert saw</argument>
+            <argument name="INVERT" type="bool">invert saw</argument>
         </arguments>
         <properties>
             <property name="@invert" type="bool" default="0">wave inversion</property>
