@@ -24,15 +24,19 @@
             <par>'random1' - play random note (there can be repeats)</par>
         </info>
         <arguments>
-            <argument name="T" minvalue="1" maxvalue="1000" type="float" units="millisecond">time between arpeggio</argument>
+            <argument name="T" minvalue="1" maxvalue="1000" type="float" units="millisecond">time
+            between arpeggio</argument>
         </arguments>
         <properties>
-            <property name="@t" type="float" default="100" minvalue="1" maxvalue="1000" units="millisecond">time between arpeggio</property>
-            <property name="@mode" type="symbol" default="up" enum="up down tri up1 down1 tri1 random random1">
-            argpeggiator mode</property>
-            <property name="@seed" type="int" default="0" minvalue="0">random seed value (to get reproducible random series)</property>
+            <property name="@t" type="float" default="100" minvalue="1" maxvalue="1000"
+            units="millisecond">time between arpeggio</property>
+            <property name="@mode" type="symbol" default="up"
+            enum="up down tri up1 down1 tri1 random random1">argpeggiator mode</property>
+            <property name="@seed" type="int" default="0" minvalue="0">random seed value (to get
+            reproducible random series)</property>
             <property name="@external" type="bool" default="0">use external clock</property>
-            <property name="@min_notes" type="int" default="1" minvalue="1">number of minimal notes to perform arpeggio</property>
+            <property name="@min_notes" type="int" default="1" minvalue="1">number of minimal notes
+            to perform arpeggio</property>
             <property name="@on" type="bool" default="1">arpeggiator state: on/off</property>
             <property name="@pass" type="bool" default="0">bypass arpeggiator</property>
         </properties>
