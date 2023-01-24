@@ -19,8 +19,8 @@
             </also>
         </meta>
         <arguments>
-            <argument name="freq" type="float" units="hertz">frequency</argument>
-            <argument name="duty" type="float" minvalue="0" maxvalue="1">duty cycle</argument>
+            <argument name="FREQ" type="float" units="hertz">frequency</argument>
+            <argument name="DUTY" type="float" minvalue="0" maxvalue="1">duty cycle</argument>
         </arguments>
         <properties>
             <property name="@duty" type="float" minvalue="0" maxvalue="1" default="0.5">duty
