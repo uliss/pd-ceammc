@@ -1,16 +1,20 @@
 #include "fx_tapiir.h"
-#include "ceammc_args.h"
 #include "ceammc_convert.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
-#include "ceammc_units.h"
 #include "fx_tapiir_priv.h"
-#include "lex/parser_music.h"
 
 #include <algorithm>
 #include <array>
 #include <cctype>
 #include <chrono>
 #include <random>
+
+CEAMMC_DEFINE_HASH(delays)
+CEAMMC_DEFINE_HASH(fb)
+CEAMMC_DEFINE_HASH(gains)
+CEAMMC_DEFINE_HASH(inputs)
+CEAMMC_DEFINE_HASH(outputs)
 
 using namespace ceammc;
 
@@ -212,41 +216,43 @@ void FxTapiir::m_random(t_symbol* s, const AtomListView& lv)
     }
 
     std::mt19937 dev(time(nullptr));
-    auto sel = lv[0].asSymbol();
+    auto sel = crc32_hash(lv[0].asSymbol());
 
-    if (sel == gensym("delays")) {
+    using UFloat = std::uniform_real_distribution<t_float>;
+
+    if (sel == hash_delays) {
         auto min = clip_min<t_float>(lv[1].asFloat(), 0);
         auto max = clip_min<t_float>(lv[2].asFloat(), 0);
 
-        std::uniform_real_distribution<t_float> dist(min, max);
+        UFloat dist(min, max);
         for (auto p : tap_delays_)
             p->setValue(dist(dev), true);
-    } else if (sel == gensym("fb")) {
+    } else if (sel == hash_fb) {
         auto min = clip<t_float>(lv[1].asFloat(), 0, 0.999);
         auto max = clip<t_float>(lv[2].asFloat(), 0, 0.999);
 
-        std::uniform_real_distribution<t_float> dist(min, max);
+        UFloat dist(min, max);
         for (auto p : tap_fb_)
             p->setValue(dist(dev), true);
-    } else if (sel == gensym("inputs")) {
+    } else if (sel == hash_inputs) {
         auto min = clip<t_float>(lv[1].asFloat(), 0, 0.999);
         auto max = clip<t_float>(lv[2].asFloat(), 0, 0.999);
 
-        std::uniform_real_distribution<t_float> dist(min, max);
+        UFloat dist(min, max);
         for (auto p : tap_inputs_)
             p->setValue(dist(dev), true);
-    } else if (sel == gensym("gains")) {
+    } else if (sel == hash_gains) {
         auto min = clip<t_float>(lv[1].asFloat(), -60, 0);
         auto max = clip<t_float>(lv[2].asFloat(), -60, 0);
 
-        std::uniform_real_distribution<t_float> dist(min, max);
+        UFloat dist(min, max);
         for (auto p : tap_gains_)
             p->setValue(dist(dev), true);
-    } else if (sel == gensym("outputs")) {
+    } else if (sel == hash_outputs) {
         auto min = clip<t_float>(lv[1].asFloat(), 0, 0.999);
         auto max = clip<t_float>(lv[2].asFloat(), 0, 0.999);
 
-        std::uniform_real_distribution<t_float> dist(min, max);
+        UFloat dist(min, max);
         for (auto p : tap_outputs_)
             p->setValue(dist(dev), true);
     }
@@ -379,5 +385,5 @@ void setup_fx_tapiir_tilde()
     SoundExternalFactory<FxTapiir> obj("fx.tapiir~");
     obj.addMethod("reset", &FxTapiir::m_reset);
     obj.addMethod("random", &FxTapiir::m_random);
-    obj.addMethod("pingping", &FxTapiir::m_pingpong);
+    obj.addMethod("pingpong", &FxTapiir::m_pingpong);
 }

@@ -22,6 +22,9 @@
             properties.</param>
             <param name="MIN" type="float" minvalue="0">minimal value</param>
             <param name="MAX" type="float" minvalue="0">maximum value</param></method>
+            <method name="pingpong">set pingpong delay values
+            <param name="DELAY" type="float" units="millisecond" required="true">delay time</param>
+            <param name="FB" type="float" minvalue="0">feedback value</param></method>
         </methods>
         <properties>
             <property name="@delays" type="list" default="0 0 0 0 0 0" units="millisecond">list of
@@ -249,7 +252,7 @@
 |
 |   [reset(  [dump(                   [random delays 200 3000, random fb 0.1 0.2 #o6(
 |   |        |
-|   |        |
+|   |        |                        [pingpong 250 0.7 #o10(
 |   |        |
 [fx.tapiir~ #z]
 *|*
@@ -262,6 +265,7 @@
 [X o5->z]
 [X o6->z]
 [X o7->o8]
+[X o10->z]
 [X f1->z:1]
 [X c0->f1]
 #o0 6 @size 84 50 @min 50 @max 1000
