@@ -72,4 +72,4 @@
 	url = https://github.com/uliss/libartnet.git
 [submodule "ceammc/distrib/tcl/tkdnd"]
 	path = ceammc/distrib/tcl/tkdnd
-	url = https://github.com/petasis/tkdnd.git
+	url = https://github.com/uliss/tkdnd.git
