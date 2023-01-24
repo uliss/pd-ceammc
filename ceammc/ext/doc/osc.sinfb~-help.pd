@@ -19,11 +19,11 @@
 #X text 110 434 1\.;
 #X text 150 434 float;
 #X obj 246 435 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 434 freq(Hz): initial frequency. Type: float. Range: 0\...20000;
+#X text 245 434 FREQ(Hz): initial frequency. Type: float. Range: 0\...20000;
 #X text 110 454 2\.;
 #X text 150 454 float;
 #X obj 246 455 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 454 feedback: oscillator feedback coefficient in range
+#X text 245 454 FEEDBACK: oscillator feedback coefficient in range
 0\..2pi. Type: float. Range: 0\...6.283185;
 #X obj 20 499 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 504 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144

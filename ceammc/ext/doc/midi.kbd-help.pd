@@ -27,9 +27,9 @@ custom one;
 #X text 245 463 LAYOUT: layout name. Allowed values: qwerty \, names
 \, custom. . Type: symbol.;
 #X text 110 498 2\.;
-#X text 150 498 int;
+#X text 150 498 bool;
 #X obj 246 499 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 498 ON: init on/off state. Type: int.;
+#X text 245 498 ON: init on/off state. Type: bool.;
 #X obj 20 528 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 533 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;

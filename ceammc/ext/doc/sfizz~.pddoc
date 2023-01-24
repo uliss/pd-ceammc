@@ -151,7 +151,7 @@
         <properties>
             <property name="@sf" type="symbol">soundfont path or builtin waveform name: #sine,
             #tri, #saw, #square, #noise</property>
-            <property name="@poly" type="int" minvalue="1" maxvalue="1024" default="64">max number
+            <property name="@poly" type="int" minvalue="1" maxvalue="256" default="64">max number
             of voices</property>
             <property name="@avoices" type="int" default="0" access="readonly">number midi
             channels</property>
@@ -161,7 +161,7 @@
             key labels</property>
             <property name="@cc_labels" access="readonly" type="atom" default="[]">dict of
             controller labels</property>
-            <property name="@gain" type="float" minvalue="0" maxvalue="10" default="0.429">output
+            <property name="@gain" type="float" minvalue="0" maxvalue="16" default="0.429">output
             gain (same as @value but in amp units)</property>
             <property name="@volume" type="float" minvalue="-60" maxvalue="10" default="-7.35"
             units="decibel">output volume (same as @gain but in db)</property>
