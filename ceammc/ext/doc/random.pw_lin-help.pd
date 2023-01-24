@@ -35,7 +35,7 @@ initialized with current time.;
 #X text 110 530 1\.;
 #X text 150 530 list;
 #X obj 246 531 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 530 P: interleaved interval boundaries and boundary propabilities.
+#X text 245 530 V: interleaved interval boundaries and boundary propabilities.
 Note: number of arguments should be even and >=4\. Boundaries should
 be in strictly increasing order and weights should be non-negative.
 Type: list.;

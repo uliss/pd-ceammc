@@ -16,7 +16,7 @@
         <arguments>
             <argument name="FROM" type="int">start value</argument>
             <argument name="TO" type="int">end value</argument>
-            <argument name="REPEATS" type="int">number of repeats</argument>
+            <argument name="R" type="int">number of repeats</argument>
         </arguments>
         <properties>
             <property name="@from" type="int" default="0">start value. Setting this property resets

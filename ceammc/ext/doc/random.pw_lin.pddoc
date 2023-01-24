@@ -26,7 +26,7 @@
             explicitly set or specified, uses generator initialized with current time.</par>
         </info>
         <arguments>
-            <argument type="list" name="P">interleaved interval boundaries and boundary
+            <argument type="list" name="V">interleaved interval boundaries and boundary
             propabilities. Note: number of arguments should be even and &gt;=4. Boundaries should
             be in strictly increasing order and weights should be non-negative</argument>
         </arguments>

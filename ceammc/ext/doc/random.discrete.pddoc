@@ -25,7 +25,7 @@
             explicitly set or specified, uses generator initialized with current time.</par>
         </info>
         <arguments>
-            <argument type="list" name="W">weights (list of non-negative floats)</argument>
+            <argument type="list" name="WEIGHTS">weights (list of non-negative floats)</argument>
         </arguments>
         <properties>
             <property name="@weights" type="list" default="">list of weights (non-negative
