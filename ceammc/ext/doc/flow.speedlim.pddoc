@@ -24,7 +24,7 @@
             After this interval expiried goes to opened state</par>
         </info>
         <arguments>
-            <argument name="LIMIT" type="int" units="millisecond">limit time</argument>
+            <argument name="LIMIT" type="int" minvalue="0" units="millisecond">limit time</argument>
         </arguments>
         <properties>
             <property name="@limit" type="int" minvalue="0" units="millisecond" default="0">speed

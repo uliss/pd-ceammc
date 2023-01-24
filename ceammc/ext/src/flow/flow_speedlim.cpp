@@ -16,6 +16,7 @@ FlowSpeedLimit::FlowSpeedLimit(const PdArgs& a)
     period_ = new IntProperty("@limit", 0);
     period_->setArgIndex(0);
     period_->setUnitsMs();
+    period_->checkMinEq(0);
     addProperty(period_);
 }
 
