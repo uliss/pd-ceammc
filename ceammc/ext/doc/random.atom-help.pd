@@ -39,14 +39,14 @@ is not uniform or weighted.;
 #X obj 20 643 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 648 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 683 @a;
-#X text 245 683 Get/Set list of atoms. Type: list.;
-#X msg 110 712 @nonrep;
-#X text 245 712 Get/Set generate non-repeated adjacent values (note:
+#X msg 110 683 @nonrep;
+#X text 245 683 Get/Set generate non-repeated adjacent values (note:
 distribution will changed!). Type: bool. Default value: 0\.;
-#X msg 110 754 @seed;
-#X text 245 754 Get/Set generator seed. Type: int. Default value: 0\.
+#X msg 110 725 @seed;
+#X text 245 725 Get/Set generator seed. Type: int. Default value: 0\.
 Min value: 0\.;
+#X msg 110 767 @value;
+#X text 245 767 Get/Set list of atoms. Type: list.;
 #X msg 110 796 @w;
 #X text 245 796 Get/Set list of atom weights. Type: list.;
 #X obj 20 835 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

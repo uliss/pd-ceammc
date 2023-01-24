@@ -40,10 +40,15 @@
             <method name="prev">select previous preset 
             <param name="N" type="atom">positive step or 'random'</param></method>
         </methods>
+        <arguments>
+            <argument name="MODE" type="symbol" enum="chords classic">pedal mode
+            (should correspond to hardware switch on pedal)</argument>
+            <argument name="ACTIVE" type="bool">pedal initial state</argument>
+        </arguments>
         <properties>
             <property name="@active" type="bool" default="1">pedal state</property>
             <property name="@mode" type="symbol" enum="chords classic" default="classic">pedal mode
-            (should corresponde to hardware switch on pedal)</property>
+            (should correspond to hardware switch on pedal)</property>
             <property name="@chan" type="int" default="0" minvalue="0" maxvalue="15">output Midi
             channel</property>
             <property name="@seed" type="int" default="0" minvalue="0">random seed</property>
