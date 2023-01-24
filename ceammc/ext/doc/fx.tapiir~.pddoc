@@ -22,9 +22,10 @@
             properties.</param>
             <param name="MIN" type="float" minvalue="0">minimal value</param>
             <param name="MAX" type="float" minvalue="0">maximum value</param></method>
-            <method name="pingpong">set pingpong delay values
+            <method name="pingpong">set pingpong delay values 
             <param name="DELAY" type="float" units="millisecond" required="true">delay time</param>
-            <param name="FB" type="float" minvalue="0" maxvalue="1" required="true">feedback value</param></method>
+            <param name="FB" type="float" minvalue="0" maxvalue="1" required="true">feedback
+            value</param></method>
         </methods>
         <properties>
             <property name="@delays" type="list" default="0 0 0 0 0 0" units="millisecond">list of

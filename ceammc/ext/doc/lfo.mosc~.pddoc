@@ -22,7 +22,8 @@
         </info>
         <arguments>
             <argument name="FREQ" type="float" units="hertz">frequency</argument>
-            <argument name="WAVE" type="symbol" enum="sin saw tri sqr pulse +sin +saw +tri +sqr +pulse">wave type</argument>
+            <argument name="WAVE" type="symbol"
+            enum="sin saw tri sqr pulse +sin +saw +tri +sqr +pulse">wave type</argument>
         </arguments>
         <properties>
             <property name="@duty" type="float" minvalue="0" maxvalue="1" default="0.5">duty cycle

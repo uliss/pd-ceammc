@@ -31,8 +31,7 @@
             event length is 60 (100-40)</par>
         </info>
         <arguments>
-            <argument name="P" type="list">sequencer pattern in beat duration
-            units</argument>
+            <argument name="P" type="list">sequencer pattern in beat duration units</argument>
         </arguments>
         <properties>
             <property name="@t" type="float" default="100" minvalue="1" maxvalue="20000"

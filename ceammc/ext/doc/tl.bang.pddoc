@@ -25,6 +25,10 @@
             <par>Bang only when nearest left tl.cue was activated. If other cue is activated and
             bang was scheduled by @delay property - it canceled</par>
         </info>
+        <arguments>
+            <argument name="DELAY" type="float" minvalue="0" units="millisecond">timeline
+            length</argument>
+        </arguments>
         <properties>
             <property name="@delay" type="float" minvalue="0" default="0" units="millisecond">bang
             delay after cue activation</property>
