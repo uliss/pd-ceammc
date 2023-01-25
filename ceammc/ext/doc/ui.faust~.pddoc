@@ -88,7 +88,10 @@
 
 [@fname faust/blow.dsp #b(
 
+[@fname faust/xfm.dsp #c(
+
 [ui.faust~ faust/ex0.dsp #x]
+|
 |
 |
 |
@@ -107,6 +110,7 @@
 
 [X a->x]
 [X b->x]
+[X c->x]
 ]]>
             </pdascii>
         </example>
