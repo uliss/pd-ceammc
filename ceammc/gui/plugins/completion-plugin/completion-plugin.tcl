@@ -87,15 +87,15 @@ set ::is_alt_down 0
 set ::waiting_trigger_keyrelease 0
 # =========== [DEBUG mode on/off] ============
 #1 = true 0 = false
-set ::completion_debug 0 ;
+set ::completion_debug 0
 # debug categories
-set ::debug_loaded_externals 0 ;#prints loaded externals
+set ::debug_loaded_externals 1 ;#prints loaded externals
 set ::debug_entering_procs 1 ;#prints a message when entering a proc
 set ::debug_key_event 0 ;#prints a message when a key event is processed
-set ::debug_searches 0 ;#messages about the performed searches
-set ::debug_popup_gui 0 ;#messages related to the popup containing the code suggestions
+set ::debug_searches 1 ;#messages about the performed searches
+set ::debug_popup_gui 1 ;#messages related to the popup containing the code suggestions
 set ::debug_char_manipulation 0 ;#messages related to what we are doing with the text on the obj boxes (inserting/deleting chars)
-set ::debug_unique_names 0 ;#messages related to storing [send/receive] names [tabread] names and alike.
+set ::debug_unique_names 1 ;#messages related to storing [send/receive] names [tabread] names and alike.
 set ::debug_settings 1 ;#messages related to storing [send/receive] names [tabread] names and alike.
 set ::debug_prefix 0 ;#messages related to storing [send/receive] names [tabread] names and alike.
 
@@ -530,13 +530,17 @@ proc ::completion::add_user_externalsOnFolder {{dir .} depth} {
         if {$extension_path ne ""} {
             set extension_path $extension_path\/
         }
-            ::completion::debug_msg "       depth =  $depth" "loaded_externals"
-            ::completion::debug_msg "       filepath = $filepath" "loaded_externals"
-            ::completion::debug_msg "       dir_name = $dir_name" "loaded_externals"
-            ::completion::debug_msg "       folder_name = $folder_name" "loaded_externals"
-            ::completion::debug_msg "       extension_path = $extension_path" "loaded_externals"
-            ::completion::debug_msg "       file_tail = $file_tail" "loaded_externals"
-            ::completion::debug_msg "       name_without_extension = $name_without_extension" "loaded_externals"
+
+        if {[string match "ceammc*" $extension_path]} { continue }
+
+        ::completion::debug_msg "       depth =  $depth" "loaded_externals"
+        ::completion::debug_msg "       filepath = $filepath" "loaded_externals"
+        ::completion::debug_msg "       dir_name = $dir_name" "loaded_externals"
+        ::completion::debug_msg "       folder_name = $folder_name" "loaded_externals"
+        ::completion::debug_msg "       extension_path = $extension_path" "loaded_externals"
+        ::completion::debug_msg "       file_tail = $file_tail" "loaded_externals"
+        ::completion::debug_msg "       name_without_extension = $name_without_extension" "loaded_externals"
+
         if {[string range $name_without_extension end-4 end] ne "-help"} {
             lappend ::all_externals $extension_path$name_without_extension
             lappend ::loaded_libs $extension_path
@@ -545,6 +549,7 @@ proc ::completion::add_user_externalsOnFolder {{dir .} depth} {
     #do the same for each subfolder (recursively)
     set depth [expr {$depth+1}]
     foreach subdir [glob -nocomplain -directory $dir -type d *] {
+        if {[string match "ceammc*" $subdir]} { continue }
         ::completion::add_user_externalsOnFolder $subdir $depth
     }
 }
