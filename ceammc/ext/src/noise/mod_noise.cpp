@@ -23,6 +23,7 @@ extern "C" void setup_noise0x2everhulst();
 
 extern void setup_chaos_gbman();
 extern void setup_chaos_standard();
+extern void setup_noise_chua_tilde();
 extern void setup_noise_colored_tilde();
 extern void setup_noise_crackle_tilde();
 extern void setup_noise_lfreq0_tilde();
@@ -52,6 +53,7 @@ void ceammc_noise_setup()
     setup_noise0x2etorus();
     setup_noise0x2everhulst();
 
+    setup_noise_chua_tilde();
     setup_noise_colored_tilde();
     setup_noise_crackle_tilde();
     setup_noise_lfreq0_tilde();
