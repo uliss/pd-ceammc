@@ -612,6 +612,7 @@ set(DOC_FILES
     random.discrete
     replace
     route.float
+    route.prop
     route.random
     risset.gliss
     rtree.to_list

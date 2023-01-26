@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="route.prop">
+        <title>route.prop</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>separate property messages from other types</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>flow</category>
+            <keywords>route</keywords>
+            <since>0.9.6</since>
+            <also>
+                <see>route.f</see>
+            </also>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="any">property to first outlet, any other messages to second outlet</xinfo>
+                <xinfo on="bang">bang to second outlet</xinfo>
+                <xinfo on="float">float to first outlet</xinfo>
+                <xinfo on="list">list to second outlet</xinfo>
+                <xinfo on="symbol">symbol to second outlet</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>property output</outlet>
+            <outlet>other messages</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B #a]  [100 #b(  [symbol TEST #c(
+
+ [list 1 2 3 #d(  [some message #e(
+
+  [@prop A B #f(  [@prop? #g(
+
+
+
+[route.prop #z]
+|       ^|
+[ui.dt]  |
+         |
+         [ui.dt]
+[X a->z]
+[X b->z]
+[X c->z]
+[X d->z]
+[X e->z]
+[X f->z]
+[X g->z]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

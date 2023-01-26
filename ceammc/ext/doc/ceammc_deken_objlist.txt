@@ -418,6 +418,7 @@ replace	Replace atoms in data stream
 ceammc/replace	Replace atoms in data stream
 route.float	separate float messages from other types
 route.f	separate float messages from other types
+route.prop	separate property messages from other types
 route.random	routes input flow to random outlet
 route.r	routes input flow to random outlet
 flt.a-weight	convert frequency to A-weight value

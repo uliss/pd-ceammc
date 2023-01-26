@@ -609,6 +609,7 @@ random.pw_lin		.		.
 replace,ceammc/replace		...		.
 risset.gliss		.		..
 route.float,route.f		.		..
+route.prop		.		..
 route.random,route.r		.		?
 rtree.to_list,ceammc/rtree->list,rtree->list		.		.
 samp.time~,samp.t~		~.		~
