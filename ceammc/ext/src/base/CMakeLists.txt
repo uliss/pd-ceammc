@@ -50,6 +50,7 @@ list(APPEND BASE_SOURCES
     is_list.cpp
     is_odd.cpp
     is_pointer.cpp
+    is_prop.cpp
     is_symbol.cpp)
 
 # test

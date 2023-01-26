@@ -37,6 +37,7 @@ extern "C" void is_float_setup();
 extern "C" void is_list_setup();
 extern "C" void is_odd_setup();
 extern "C" void is_pointer_setup();
+extern "C" void is_prop_setup();
 extern "C" void is_symbol_setup();
 
 extern "C" void setup_test0x2edata();
@@ -73,6 +74,7 @@ void ceammc_base_setup()
     is_list_setup();
     is_odd_setup();
     is_pointer_setup();
+    is_prop_setup();
     is_symbol_setup();
 
     setup_base_canvas_dir();
