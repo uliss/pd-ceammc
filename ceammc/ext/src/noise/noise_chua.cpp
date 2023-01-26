@@ -25,8 +25,8 @@ public:
     {
         faust_noise_chua_tilde::processBlock(in, out);
 
-        if (std::isnan(out[0][0]))
-            initConstants();
+        if (std::isnan(out[0][0]) || std::isinf(out[0][0]))
+            dsp_->init(samplerate());
     }
 
     void m_start(t_symbol*, const AtomListView&)
