@@ -245,6 +245,7 @@ gfx.zita_rev1~
 gfx_reverb_duck~
 gfx_room~
 gfx_shimmer~
+gnoise.chua~
 gnoise.colored~
 gnoise.crackle~
 gnoise.lfreq0~

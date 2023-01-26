@@ -562,6 +562,7 @@ is_float
 is_list
 is_odd
 is_pointer
+is_prop
 is_symbol
 l->l
 l->l~
@@ -868,6 +869,7 @@ net.osc.s
 net.osc.send
 net.osc.server
 noise.baker
+noise.chua~
 noise.clifford
 noise.collatz
 noise.colored~

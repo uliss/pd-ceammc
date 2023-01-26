@@ -9,7 +9,9 @@
   - fx.jcrev~ schroeder quad reverb from 1972  
   - fx.satrev~ schroeder stereo reverb from 1971
   - fx.stutter~ effect
+  - is_prop - check for property message
   - midi.arp - MIDI arpeggiator added
+  - noise.chua~ : Chua chaotic circut oscillator added
   - noise.colored~ generator of colored noise (brown, pink, white, blue, velvet)
   - synth.voice_fofc~ simple formant synthesizer, using FOF-cycle method
   - synth.voice_fofs~ simple formant synthesizer, using FOF-smooth method
