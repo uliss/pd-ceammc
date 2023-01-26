@@ -287,6 +287,7 @@ set(DOC_FILES
     is_list
     is_odd
     is_pointer
+    is_prop
     is_symbol
     lang.faust~
     lang.lua

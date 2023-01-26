@@ -1791,6 +1791,9 @@
     <entry name="is_pointer" descr="checks if input data has *pointer* type" ref_view="object">
       <xi:include href="is_pointer.pddoc" parse="xml"/>
     </entry>
+    <entry name="is_prop" descr="checks if input message is *property* message" ref_view="object">
+      <xi:include href="is_prop.pddoc" parse="xml"/>
+    </entry>
     <entry name="is_symbol" descr="checks if input data has *symbol* type" ref_view="object">
       <xi:include href="is_symbol.pddoc" parse="xml"/>
     </entry>

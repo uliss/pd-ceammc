@@ -1,6 +1,6 @@
 #include "m_pd.h"
 
-t_class* is_prop_class;
+static t_class* is_prop_class;
 struct t_is_prop {
     t_object x_obj;
     t_outlet* out_value;
@@ -8,8 +8,11 @@ struct t_is_prop {
 
 static void is_prop_anything(t_is_prop* x, t_symbol* s, int argc, t_atom* argv)
 {
-    outlet_anything(x->out_value, s, argc, argv);
-    outlet_float(x->x_obj.te_outlet, s->s_name[0] == '@');
+    auto ok = s->s_name[0] == '@';
+    if (ok)
+        outlet_anything(x->out_value, s, argc, argv);
+
+    outlet_float(x->x_obj.te_outlet, ok);
 }
 
 static void is_prop_bang(t_is_prop* x)

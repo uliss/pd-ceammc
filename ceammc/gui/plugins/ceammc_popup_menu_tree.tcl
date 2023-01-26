@@ -204,7 +204,7 @@
     }}
     {predicates {
         is_any is_bang is_data is_dict is_even is_file is_float is_list is_odd
-        is_pointer is_symbol
+        is_pointer is_prop is_symbol
     }}
     {preset {
         preset.float preset.list preset.storage preset.symbol

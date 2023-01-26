@@ -939,6 +939,7 @@ is_float	checks if input data has *float* type
 is_list	checks if input data has *list* type
 is_odd	checks if input number is odd
 is_pointer	checks if input data has *pointer* type
+is_prop	checks if input message is *property* message
 is_symbol	checks if input data has *symbol* type
 preset.float	load/store float preset
 preset.f	load/store float preset
