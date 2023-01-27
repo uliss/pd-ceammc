@@ -1009,9 +1009,13 @@ route.b
 route.bang
 route.f
 route.float
+route.l
+route.list
 route.prop
 route.r
 route.random
+route.s
+route.symbol
 rtree->list
 rtree.to_list
 s->f~
