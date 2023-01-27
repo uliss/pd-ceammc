@@ -58,6 +58,7 @@ add_flow_test(stack)
 add_flow_test(sync_pack)
 
 target_sources(test_ext_flow PRIVATE
+    test_route_bang.cpp
     test_route_float.cpp
     test_route_random.cpp
     test_seq_arp.cpp
