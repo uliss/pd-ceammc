@@ -1005,6 +1005,8 @@ rhvoice~
 risset.gliss
 round
 round~
+route.b
+route.bang
 route.f
 route.float
 route.prop

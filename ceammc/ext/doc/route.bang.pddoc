@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="route.bang">
+        <title>route.bang</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>separate bang messages from other types</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>flow</category>
+            <keywords>route bang</keywords>
+            <since>0.9.6</since>
+            <aliases>
+                <alias>route.b</alias>
+            </aliases>
+            <also>
+                <see>route.float</see>
+                <see>route.random</see>
+            </also>
+        </meta>
+        <info>
+            <par>to get properties use *prop.get* object, cause all messages (including property
+            requests) are passed thru</par>
+        </info>
+        <properties>
+            <property name="@strict" type="bool" default="0">strict mode. By default empty list
+            treated as bang. Set to true to disable this behavior</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="any">any to second outlet</xinfo>
+                <xinfo on="bang">bang to first outlet</xinfo>
+                <xinfo on="float">float to second outlet</xinfo>
+                <xinfo on="list">list to second outlet</xinfo>
+                <xinfo on="symbol">symbol to second outlet</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>bang output</outlet>
+            <outlet>other messages</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]  [bang( [symbol ABC #a(
+|    |
+|    |   [list 1 2 3(   [T]
+|    |   |              |
+|    |   |  [list(      [prop.set @strict]
+|    |   |  |           |
+|    |   |  | [@any(    |
+|    |   |  | |         |
+[route.bang           #z]
+|       ^|
+[ui.dt]  |
+         |
+         [ui.dt]
+
+[X a->z]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

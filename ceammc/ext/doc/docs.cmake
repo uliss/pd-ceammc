@@ -611,6 +611,7 @@ set(DOC_FILES
     random.pw_const
     random.discrete
     replace
+    route.bang
     route.float
     route.prop
     route.random

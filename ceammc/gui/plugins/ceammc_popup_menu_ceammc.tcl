@@ -56,7 +56,8 @@
         flow.pack flow.pass flow.pass_if flow.pipe flow.queue flow.record
         flow.reject flow.reject_if flow.ring flow.route flow.select
         flow.seqdelay flow.space flow.speedlim flow.split flow.stack flow.sync
-        flow.sync_pack flow.tee~ replace route.float route.prop route.random
+        flow.sync_pack flow.tee~ replace route.bang route.float route.prop
+        route.random
     }}
     {flt {
         flt.a-weight flt.biquad~ flt.bpf12~ flt.bpf24~ flt.c_apf flt.c_bpf~

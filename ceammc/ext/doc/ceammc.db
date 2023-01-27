@@ -608,6 +608,7 @@ random.pw_const		.		.
 random.pw_lin		.		.
 replace,ceammc/replace		...		.
 risset.gliss		.		..
+route.bang,route.b		.		..
 route.float,route.f		.		..
 route.prop		.		..
 route.random,route.r		.		?
