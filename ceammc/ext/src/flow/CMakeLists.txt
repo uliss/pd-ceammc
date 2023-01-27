@@ -4,6 +4,7 @@ set(FLOW_SOURCES mod_flow.h mod_flow.cpp
     route_float.cpp
     route_prop.cpp
     route_random.cpp
+    route_symbol.cpp
     seq_arp.cpp
     seq_bangs.cpp
     seq_base.cpp
