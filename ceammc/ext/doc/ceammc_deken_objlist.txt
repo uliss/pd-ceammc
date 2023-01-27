@@ -423,6 +423,8 @@ route.f	separate float messages from other types
 route.prop	separate property messages from other types
 route.random	routes input flow to random outlet
 route.r	routes input flow to random outlet
+route.symbol	separate symbol messages from other types
+route.s	separate symbol messages from other types
 flt.a-weight	convert frequency to A-weight value
 flt.biquad~	second order IIR filter.
 flt.bpf12~	Two pole band-pass butterworth filter

@@ -615,6 +615,7 @@ set(DOC_FILES
     route.float
     route.prop
     route.random
+    route.symbol
     risset.gliss
     rtree.to_list
     samp.time~

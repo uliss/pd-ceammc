@@ -60,6 +60,7 @@ void setup_route_bang();
 void setup_route_float();
 void setup_route_prop();
 void setup_route_random();
+void setup_route_symbol();
 
 void ceammc_flow_setup()
 {
@@ -122,4 +123,5 @@ void ceammc_flow_setup()
     setup_route_float();
     setup_route_prop();
     setup_route_random();
+    setup_route_symbol();
 }

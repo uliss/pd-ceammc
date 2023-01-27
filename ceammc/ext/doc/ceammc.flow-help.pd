@@ -101,7 +101,9 @@ time;
 #X text 200 1385 separate property messages from other types;
 #X obj 30 1412 route.random;
 #X text 200 1412 routes input flow to random outlet;
+#X obj 30 1439 route.symbol;
+#X text 200 1439 separate symbol messages from other types;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::flow 20 20 0 20 -104026
 -4096 0;
-#X obj 1 1439 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 1449 library: ceammc;
+#X obj 1 1466 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 1476 library: ceammc;

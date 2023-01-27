@@ -15,6 +15,7 @@
   - noise.colored~ generator of colored noise (brown, pink, white, blue, velvet)
   - route.bang: bang router added
   - route.prop: property message router added
+  - route.symbol: symbol message router added
   - synth.voice_fofc~ simple formant synthesizer, using FOF-cycle method
   - synth.voice_fofs~ simple formant synthesizer, using FOF-smooth method
 - new arguments:
