@@ -610,6 +610,7 @@ replace,ceammc/replace		...		.
 risset.gliss		.		..
 route.bang,route.b		.		..
 route.float,route.f		.		..
+route.list,route.l		.		..
 route.prop		.		..
 route.random,route.r		.		?
 route.symbol,route.s		.		..

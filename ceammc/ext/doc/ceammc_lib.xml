@@ -626,6 +626,9 @@
     <entry name="route.float" descr="separate float messages from other types" ref_view="object">
       <xi:include href="route.float.pddoc" parse="xml"/>
     </entry>
+    <entry name="route.list" descr="separate list messages from other types" ref_view="object">
+      <xi:include href="route.list.pddoc" parse="xml"/>
+    </entry>
     <entry name="route.prop" descr="separate property messages from other types" ref_view="object">
       <xi:include href="route.prop.pddoc" parse="xml"/>
     </entry>

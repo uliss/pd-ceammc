@@ -420,6 +420,8 @@ route.bang	separate bang messages from other types
 route.b	separate bang messages from other types
 route.float	separate float messages from other types
 route.f	separate float messages from other types
+route.list	separate list messages from other types
+route.l	separate list messages from other types
 route.prop	separate property messages from other types
 route.random	routes input flow to random outlet
 route.r	routes input flow to random outlet
