@@ -37,7 +37,7 @@ default reset;
 damp_hf(Hz): @label_side top @label_align left @fontsize 10
 @presetname /gui/\$1/fx_shimmer~/slider2 @min 1500 @max 47040;
 #X obj 215 266 sync;
-#X obj 145 266 ui.number @size 50 12 @min 1500 @max 47040 @digits 1;
+#X obj 145 266 ui.number @size 50 12 @min 1500 @max 47040 @digits 0;
 #X msg 260 266 @damp_hf \$1;
 #X obj 12 296 ui.slider @size 125 12 @active_scale 1 @label
 decay_low(sec): @label_side top @label_align left @fontsize 10
@@ -73,13 +73,13 @@ envelope(sec): @label_side top @label_align left @fontsize 10
 freq_low(Hz): @label_side top @label_align left @fontsize 10
 @presetname /gui/\$1/fx_shimmer~/slider8 @min 50 @max 1000;
 #X obj 215 446 sync;
-#X obj 145 446 ui.number @size 50 12 @min 50 @max 1000 @digits 1;
+#X obj 145 446 ui.number @size 50 12 @min 50 @max 1000 @digits 0;
 #X msg 260 446 @freq_low \$1;
 #X obj 12 476 ui.slider @size 125 12 @active_scale 1 @label mode:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx_shimmer~/slider9 @min -3 @max 3;
 #X obj 215 476 sync;
-#X obj 145 476 ui.number @size 50 12 @min -3 @max 3 @digits 3;
+#X obj 145 476 ui.number @size 50 12 @min -3 @max 3 @digits 0;
 #X msg 260 476 @mode \$1;
 #X obj 12 506 ui.slider @size 125 12 @active_scale 1 @label ps_drywet:
 @label_side top @label_align left @fontsize 10 @presetname

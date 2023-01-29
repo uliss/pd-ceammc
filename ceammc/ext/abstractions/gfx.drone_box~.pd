@@ -27,7 +27,7 @@
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.drone_box~/slider1 @min 100 @max 120000;
 #X obj 215 236 sync;
-#X obj 145 236 ui.number @size 50 12 @min 100 @max 120000 @digits 2;
+#X obj 145 236 ui.number @size 50 12 @min 100 @max 120000 @digits 0;
 #X msg 260 236 @decay \$1;
 #X obj 12 266 ui.slider @size 125 12 @active_scale 1 @label drywet:
 @label_side top @label_align left @fontsize 10 @presetname

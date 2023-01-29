@@ -49,19 +49,19 @@ decay_mid(sec): @label_side top @label_align left @fontsize 10
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/spat.zita8~/slider3 @min 20 @max 100;
 #X obj 215 326 sync;
-#X obj 145 326 ui.number @size 50 12 @min 20 @max 100 @digits 2;
+#X obj 145 326 ui.number @size 50 12 @min 20 @max 100 @digits 0;
 #X msg 260 326 @delay \$1;
 #X obj 12 356 ui.slider @size 125 12 @active_scale 1 @label
 dump_hf(Hz): @label_side top @label_align left @fontsize 10
 @presetname /gui/\$1/spat.zita8~/slider4 @min 1500 @max 47040;
 #X obj 215 356 sync;
-#X obj 145 356 ui.number @size 50 12 @min 1500 @max 47040 @digits 1;
+#X obj 145 356 ui.number @size 50 12 @min 1500 @max 47040 @digits 0;
 #X msg 260 356 @dump_hf \$1;
 #X obj 12 386 ui.slider @size 125 12 @active_scale 1 @label
 freq_low(Hz): @label_side top @label_align left @fontsize 10
 @presetname /gui/\$1/spat.zita8~/slider5 @min 50 @max 1000;
 #X obj 215 386 sync;
-#X obj 145 386 ui.number @size 50 12 @min 50 @max 1000 @digits 1;
+#X obj 145 386 ui.number @size 50 12 @min 50 @max 1000 @digits 0;
 #X msg 260 386 @freq_low \$1;
 #X obj 12 416 ui.slider @size 125 12 @active_scale 1 @label radius:
 @label_side top @label_align left @fontsize 10 @presetname

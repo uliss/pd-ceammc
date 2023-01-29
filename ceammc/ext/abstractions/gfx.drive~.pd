@@ -27,7 +27,7 @@
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.drive~/slider1 @min 1 @max 10;
 #X obj 215 236 sync;
-#X obj 145 236 ui.number @size 50 12 @min 1 @max 10 @digits 3;
+#X obj 145 236 ui.number @size 50 12 @min 1 @max 10 @digits 0;
 #X msg 260 236 @drive \$1;
 #X connect 1 0 0 0;
 #X connect 2 0 3 0;

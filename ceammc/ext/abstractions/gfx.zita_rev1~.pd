@@ -31,7 +31,7 @@ reset;
 damp_hf(Hz): @label_side top @label_align left @fontsize 10
 @presetname /gui/\$1/fx.zita_rev1~/slider1 @min 1500 @max 47040;
 #X obj 215 236 sync;
-#X obj 145 236 ui.number @size 50 12 @min 1500 @max 47040 @digits 1;
+#X obj 145 236 ui.number @size 50 12 @min 1500 @max 47040 @digits 0;
 #X msg 260 236 @damp_hf \$1;
 #X obj 12 266 ui.slider @size 125 12 @active_scale 1 @label
 decay_low(sec): @label_side top @label_align left @fontsize 10
@@ -77,13 +77,13 @@ fr_time(ms): @label_side top @label_align left @fontsize 10
 freq_low(Hz): @label_side top @label_align left @fontsize 10
 @presetname /gui/\$1/fx.zita_rev1~/slider9 @min 50 @max 1000;
 #X obj 215 464 sync;
-#X obj 145 464 ui.number @size 50 12 @min 50 @max 1000 @digits 1;
+#X obj 145 464 ui.number @size 50 12 @min 50 @max 1000 @digits 0;
 #X msg 260 464 @freq_low \$1;
 #X obj 12 494 ui.slider @size 125 12 @active_scale 1 @label
 predelay(ms): @label_side top @label_align left @fontsize 10
 @presetname /gui/\$1/fx.zita_rev1~/slider10 @min 0 @max 100;
 #X obj 215 494 sync;
-#X obj 145 494 ui.number @size 50 12 @min 0 @max 100 @digits 2;
+#X obj 145 494 ui.number @size 50 12 @min 0 @max 100 @digits 0;
 #X msg 260 494 @predelay \$1;
 #X connect 1 0 0 0;
 #X connect 2 0 0 1;

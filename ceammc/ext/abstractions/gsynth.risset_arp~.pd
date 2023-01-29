@@ -31,7 +31,7 @@ reset;
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.risset_arp~/slider1 @min 40 @max 500;
 #X obj 215 266 sync;
-#X obj 145 266 ui.number @size 50 12 @min 40 @max 500 @digits 1;
+#X obj 145 266 ui.number @size 50 12 @min 40 @max 500 @digits 0;
 #X msg 260 266 @freq \$1;
 #X obj 12 296 ui.slider @size 125 12 @active_scale 1 @label harmonic1:
 @label_side top @label_align left @fontsize 10 @presetname

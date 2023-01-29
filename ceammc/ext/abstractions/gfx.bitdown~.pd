@@ -23,7 +23,7 @@
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.bitdown~/slider0 @min 1 @max 16;
 #X obj 215 236 sync;
-#X obj 145 236 ui.number @size 50 12 @min 1 @max 16 @digits 2;
+#X obj 145 236 ui.number @size 50 12 @min 1 @max 16 @digits 0;
 #X msg 260 236 @bits \$1;
 #X obj 185 205 ui.toggle @size 12 12 @label bypass @label_side left
 @label_align right @fontsize 10 @presetname
@@ -33,7 +33,7 @@
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.bitdown~/slider2 @min 1 @max 200;
 #X obj 215 266 sync;
-#X obj 145 266 ui.number @size 50 12 @min 1 @max 200 @digits 1;
+#X obj 145 266 ui.number @size 50 12 @min 1 @max 200 @digits 0;
 #X msg 260 266 @downsamp \$1;
 #X connect 1 0 0 0;
 #X connect 2 0 3 0;

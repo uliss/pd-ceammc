@@ -22,7 +22,7 @@
 attack(ms): @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.clap~/slider0 @min 0 @max 400;
 #X obj 215 236 sync;
-#X obj 145 236 ui.number @size 50 12 @min 0 @max 400 @digits 1;
+#X obj 145 236 ui.number @size 50 12 @min 0 @max 400 @digits 0;
 #X msg 260 236 @attack \$1;
 #X obj 12 256 ui.toggle @size 12 12 @label gate @label_side right
 @label_align left @fontsize 10;

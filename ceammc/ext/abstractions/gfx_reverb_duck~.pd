@@ -36,7 +36,7 @@ decay(sec): @label_side top @label_align left @fontsize 10 @presetname
 dump_hf(Hz): @label_side top @label_align left @fontsize 10
 @presetname /gui/\$1/fx_reverb_duck~/slider2 @min 1500 @max 47040;
 #X obj 215 296 sync;
-#X obj 145 296 ui.number @size 50 12 @min 1500 @max 47040 @digits 1;
+#X obj 145 296 ui.number @size 50 12 @min 1500 @max 47040 @digits 0;
 #X msg 260 296 @dump_hf \$1;
 #X obj 12 326 ui.slider @size 125 12 @active_scale 1 @label level(db):
 @label_side top @label_align left @fontsize 10 @presetname

@@ -30,7 +30,7 @@
 probability(%): @label_side top @label_align left @fontsize 10
 @presetname /gui/\$1/synth.birds~/slider2 @min 25 @max 100;
 #X obj 215 272 sync;
-#X obj 145 272 ui.number @size 50 12 @min 25 @max 100 @digits 2;
+#X obj 145 272 ui.number @size 50 12 @min 25 @max 100 @digits 0;
 #X msg 260 272 @probability \$1;
 #X obj 12 302 ui.slider @size 125 12 @active_scale 1 @label speed:
 @label_side top @label_align left @fontsize 10 @presetname

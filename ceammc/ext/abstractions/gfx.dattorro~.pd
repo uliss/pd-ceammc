@@ -78,7 +78,7 @@
 predelay(ms): @label_side top @label_align left @fontsize 10
 @presetname /gui/\$1/fx.dattorro~/slider9 @min 0 @max 100;
 #X obj 215 476 sync;
-#X obj 145 476 ui.number @size 50 12 @min 0 @max 100 @digits 2;
+#X obj 145 476 ui.number @size 50 12 @min 0 @max 100 @digits 0;
 #X msg 260 476 @predelay \$1;
 #X connect 1 0 0 0;
 #X connect 2 0 0 1;

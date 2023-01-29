@@ -22,7 +22,7 @@
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.dubdub~/slider0 @min 20 @max 20000;
 #X obj 215 236 sync;
-#X obj 145 236 ui.number @size 50 12 @min 20 @max 20000 @digits 1;
+#X obj 145 236 ui.number @size 50 12 @min 20 @max 20000 @digits 0;
 #X msg 260 236 @cutoff \$1;
 #X obj 12 256 ui.toggle @size 12 12 @label gate @label_side right
 @label_align left @fontsize 10;

@@ -46,7 +46,7 @@ default reset;
 predelay(ms): @label_side top @label_align left @fontsize 10
 @presetname /gui/\$1/fx_room~/slider4 @min 1 @max 200;
 #X obj 215 326 sync;
-#X obj 145 326 ui.number @size 50 12 @min 1 @max 200 @digits 1;
+#X obj 145 326 ui.number @size 50 12 @min 1 @max 200 @digits 0;
 #X msg 260 326 @predelay \$1;
 #X obj 12 356 ui.slider @size 125 12 @active_scale 1 @label size:
 @label_side top @label_align left @fontsize 10 @presetname

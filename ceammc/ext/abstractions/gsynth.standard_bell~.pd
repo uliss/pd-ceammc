@@ -23,7 +23,7 @@
 cutoff(Hz): @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.standard_bell~/slider0 @min 20 @max 20000;
 #X obj 215 236 sync;
-#X obj 145 236 ui.number @size 50 12 @min 20 @max 20000 @digits 1;
+#X obj 145 236 ui.number @size 50 12 @min 20 @max 20000 @digits 0;
 #X msg 260 236 @cutoff \$1;
 #X obj 12 266 ui.slider @size 125 12 @active_scale 1 @label
 decay_ratio: @label_side top @label_align left @fontsize 10
