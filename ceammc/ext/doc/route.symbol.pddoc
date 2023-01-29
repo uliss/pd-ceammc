@@ -20,14 +20,10 @@
                 <see>route.random</see>
             </also>
         </meta>
-        <info>
-            <par>to get properties use *prop.get* object, cause all messages (including property
-            requests) are passed thru</par>
-        </info>
         <inlets>
             <inlet>
                 <xinfo on="any">any to second outlet</xinfo>
-                <xinfo on="bang">bang to first outlet</xinfo>
+                <xinfo on="bang">bang to second outlet</xinfo>
                 <xinfo on="float">float to second outlet</xinfo>
                 <xinfo on="list">list to second outlet</xinfo>
                 <xinfo on="symbol">symbol to *first* outlet</xinfo>
