@@ -56,6 +56,7 @@ void setup_seq_sequencer();
 void setup_seq_toggles();
 void setup_seq_life();
 
+void setup_route_any();
 void setup_route_bang();
 void setup_route_float();
 void setup_route_list();
@@ -120,6 +121,7 @@ void ceammc_flow_setup()
     setup_seq_toggles();
     setup_seq_life();
 
+    setup_route_any();
     setup_route_bang();
     setup_route_float();
     setup_route_list();
