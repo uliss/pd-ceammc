@@ -620,6 +620,9 @@
     <entry name="replace" descr="Replace atoms in data stream" ref_view="object">
       <xi:include href="replace.pddoc" parse="xml"/>
     </entry>
+    <entry name="route.any" descr="separate any messages from bangs, floats, symbols and lists" ref_view="object">
+      <xi:include href="route.any.pddoc" parse="xml"/>
+    </entry>
     <entry name="route.bang" descr="separate bang messages from other types" ref_view="object">
       <xi:include href="route.bang.pddoc" parse="xml"/>
     </entry>

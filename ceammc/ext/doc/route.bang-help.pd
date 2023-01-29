@@ -34,11 +34,12 @@ value: 0\.;
 #X text 150 493 *any*;
 #X text 245 493 any to second outlet.;
 #X text 150 513 *bang*;
-#X text 245 513 bang to first outlet.;
+#X text 245 513 bang to *first* outlet.;
 #X text 150 533 *float*;
 #X text 245 533 float to second outlet.;
 #X text 150 553 *list*;
-#X text 245 553 list to second outlet.;
+#X text 245 553 list to second outlet. See @strict property for more
+info.;
 #X text 150 573 *symbol*;
 #X text 245 573 symbol to second outlet.;
 #X obj 20 603 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

@@ -21,8 +21,8 @@
 0;
 #X text 110 346 1\.;
 #X text 150 346 *any*;
-#X text 245 346 property to first outlet \, any other messages to second
-outlet.;
+#X text 245 346 property to *first* outlet \, any other messages to
+second outlet.;
 #X text 150 381 *bang*;
 #X text 245 381 bang to second outlet.;
 #X text 150 401 *float*;
@@ -45,8 +45,9 @@ outlet.;
 #X obj 131 48 ui.link @title flow @url ceammc.flow-help.pd;
 #X obj 1 547 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 550 library: ceammc v0.9.6;
-#X text 617 562 see also:;
-#X obj 691 562 route.f;
+#X text 509 562 see also:;
+#X obj 583 562 route.float;
+#X obj 676 562 route.any;
 #N canvas 10 569 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

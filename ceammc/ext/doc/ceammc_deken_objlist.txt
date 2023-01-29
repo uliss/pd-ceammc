@@ -416,6 +416,7 @@ ceammc/~->	separate audio and control streams
 ~->	separate audio and control streams
 replace	Replace atoms in data stream
 ceammc/replace	Replace atoms in data stream
+route.any	separate any messages from bangs, floats, symbols and lists
 route.bang	separate bang messages from other types
 route.b	separate bang messages from other types
 route.float	separate float messages from other types

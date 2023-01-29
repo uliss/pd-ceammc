@@ -26,7 +26,7 @@ messages (including property requests) are passed thru;
 #X text 150 386 *any*;
 #X text 245 386 any to second outlet.;
 #X text 150 406 *bang*;
-#X text 245 406 bang to first outlet.;
+#X text 245 406 bang to second outlet.;
 #X text 150 426 *float*;
 #X text 245 426 float to second outlet.;
 #X text 150 446 *list*;

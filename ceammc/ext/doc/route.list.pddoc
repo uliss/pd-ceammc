@@ -27,7 +27,7 @@
         <inlets>
             <inlet>
                 <xinfo on="any">any to second outlet</xinfo>
-                <xinfo on="bang">bang to first outlet</xinfo>
+                <xinfo on="bang">bang to second outlet</xinfo>
                 <xinfo on="float">float to second outlet</xinfo>
                 <xinfo on="list">list to *first* outlet</xinfo>
                 <xinfo on="symbol">symbol to second outlet</xinfo>

@@ -609,6 +609,7 @@ set(DOC_FILES
     random.pw_lin
     replace
     risset.gliss
+    route.any
     route.bang
     route.float
     route.list

@@ -13,6 +13,7 @@
   - midi.arp - MIDI arpeggiator added
   - noise.chua~ : Chua chaotic circut oscillator added
   - noise.colored~ generator of colored noise (brown, pink, white, blue, velvet)
+  - route.any: message router
   - route.bang: bang router added
   - route.list: list router added
   - route.prop: property message router added
