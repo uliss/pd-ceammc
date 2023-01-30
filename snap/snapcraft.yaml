@@ -1,5 +1,5 @@
 name: pd-ceammc
-version: "2022.11"
+version: "2023.01"
 license: "GPL-3.0"
 summary: "Pure Data CEAMMC distribution"
 description: |
@@ -128,6 +128,8 @@ parts:
             - lsb-release
             - llvm-dev
             - librubberband-dev
+            - tk-dev
+            - tcl-dev
         stage-packages:
             - libsndfile1
             - libfftw3-single3

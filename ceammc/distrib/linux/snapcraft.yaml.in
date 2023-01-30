@@ -128,6 +128,8 @@ parts:
             - lsb-release
             - llvm-dev
             - librubberband-dev
+            - tk-dev
+            - tcl-dev
         stage-packages:
             - libsndfile1
             - libfftw3-single3
