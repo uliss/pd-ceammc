@@ -5,6 +5,7 @@ set(BASE_SOURCES
     base_sync.cpp
     base_spring.cpp
     base_clone.cpp
+    canvas_active.cpp
     canvas_current.cpp
     canvas_dir.cpp
     canvas_name.cpp
@@ -70,10 +71,20 @@ list(APPEND BASE_SOURCES
     xfade_tilde.cpp
     xfade2_tilde.cpp)
 
+find_package(RAGEL 6.6)
+if(RAGEL_FOUND)
+    RAGEL_TARGET(parser_canvas_id
+        parser_canvas_id.rl parser_canvas_id.cpp
+        COMPILE_FLAGS "-G2 -s")
+
+    add_custom_target(ragel_base SOURCES parser_canvas_id.rl)
+endif()
+
 add_library(ceammc_base STATIC mod_base.cpp ${BASE_SOURCES})
 target_compile_definitions(ceammc_base PUBLIC -DWITH_SND_FILE)
-target_sources(ceammc_base PRIVATE snd_file.cpp)
+target_sources(ceammc_base PRIVATE snd_file.cpp parser_canvas_id.cpp)
 target_include_directories(ceammc_base PRIVATE "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>")
+
 
 # separate external:
 # because it use CEAMMC Pd API
