@@ -3,6 +3,7 @@
 ## [Unrelesed]
 ### Added:
 - new objects:
+  - canvas.active - check if canvas windows is active
   - flt.resonhp~ resonant highpass filter
   - flt.resonlp~ resonant lowpass filter
   - fx.dattorro~ reverb based on the Dattorro reverb topology

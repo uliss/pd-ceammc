@@ -31,6 +31,7 @@ array.sum2		.		.
 array.variance		.		.
 array.vplay		.		..
 array.window		.		.
+canvas.active		.		.
 canvas.current		.		.
 canvas.dir		.		.
 canvas.name		.		.

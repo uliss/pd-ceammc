@@ -32,6 +32,7 @@ set(DOC_FILES
     array.variance
     array.vplay
     array.window
+    canvas.active
     canvas.current
     canvas.dir
     canvas.name

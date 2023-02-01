@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="canvas.active">
+        <title>canvas.active</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>checks if canvas window is on top and active</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>patch</category>
+            <keywords>canvas</keywords>
+            <also>
+                <see>patch.args</see>
+                <see>canvas.top</see>
+            </also>
+            <since>0.9.6</since>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">output canvas active state</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>int: 1 or 0</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]
+|
+[del 1000]
+|
+[canvas.active]
+|
+[ui.dt]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

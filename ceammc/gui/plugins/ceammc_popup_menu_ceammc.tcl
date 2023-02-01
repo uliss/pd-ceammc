@@ -163,8 +163,8 @@
         osc.sin~ osc.square~ osc.tri~
     }}
     {patch {
-        canvas.current canvas.dir canvas.name canvas.path canvas.top
-        patch.args patch.deps patch.tree
+        canvas.active canvas.current canvas.dir canvas.name canvas.path
+        canvas.top patch.args patch.deps patch.tree
     }}
     {path {
         file.size path.basename path.dirname path.exists path.file path.is_dir

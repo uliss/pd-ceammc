@@ -1712,6 +1712,9 @@
     </entry>
   </category>
   <category name="patch">
+    <entry name="canvas.active" descr="checks if canvas window is on top and active" ref_view="object">
+      <xi:include href="canvas.active.pddoc" parse="xml"/>
+    </entry>
     <entry name="canvas.current" descr="verbose information about current canvas" ref_view="object">
       <xi:include href="canvas.current.pddoc" parse="xml"/>
     </entry>
