@@ -1,6 +1,6 @@
 [![pd-ceammc](https://snapcraft.io/pd-ceammc/badge.svg)](https://snapcraft.io/pd-ceammc)
 
-CEAMMC PureData distribution 2021.11
+CEAMMC PureData distribution 2023.01
 ------------------------------------
 
 General purpose Pd distribution and library used for work and education purposes 

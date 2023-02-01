@@ -31,9 +31,11 @@ layout:
 apps:
     pd-ceammc:
         command: usr/bin/pd.wrapper
+        common-id: com.ceammc.pd
         plugs:
             - alsa
             - pulseaudio # for audio output
+            - jack1
             - home
             - unity7
             - x11
@@ -99,7 +101,7 @@ parts:
             - -DWITH_BENCHMARK=OFF
             - -DWITH_ALSA_AUDIO=ON
             - -DWITH_ALSA_MIDI=ON
-            - -DWITH_JACK=OFF
+            - -DWITH_JACK=ON
             - -DENABLE_TESTS=OFF
         source: .
         build-packages:
@@ -130,6 +132,7 @@ parts:
             - librubberband-dev
             - tk-dev
             - tcl-dev
+            - libjack-jackd2-dev
         stage-packages:
             - libsndfile1
             - libfftw3-single3
@@ -147,3 +150,4 @@ parts:
             - llvm-runtime
             - llvm
             - librubberband2
+            - libjack-jackd2-0
