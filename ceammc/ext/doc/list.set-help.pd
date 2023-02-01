@@ -16,13 +16,13 @@
 -49933 0;
 #X text 110 308 1\.;
 #X text 150 308 int;
-#X obj 246 309 cnv 1 31 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 308 IDX: element position. Negative indexes are supported.
+#X obj 246 309 cnv 1 46 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 308 INDEX: element position. Negative indexes are supported.
 -1 means last element. Type: int.;
 #X text 110 343 2\.;
 #X text 150 343 atom;
-#X obj 246 344 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 343 VAL: element value. Type: atom.;
+#X obj 246 344 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 343 VALUE: element value. Type: atom.;
 #X obj 20 373 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 378 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -55,13 +55,13 @@
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
 #X obj 1 633 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 636 library: ceammc v0.9.4;
+#X text 10 636 library: ceammc v0.9.6;
 #N canvas 10 655 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.4;
+#X text 120 32 0.9.6;
 #X text 10 54 object:;
 #X text 120 54 list.set;
 #X text 10 76 category:;

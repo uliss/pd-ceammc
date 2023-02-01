@@ -20,12 +20,12 @@
         <arguments>
             <argument name="BS" type="int" minvalue="64" units="sample">buffer size</argument>
             <argument name="METHOD" type="symbol" enum="1">onset detection method</argument>
-            <argument name="HS" type="int" minvalue="0">hop size (by default
+            <argument name="HS" type="int" minvalue="0" units="sample">hop size (by default
             buffer_size/2)</argument>
         </arguments>
         <properties>
-            <property name="@bs" type="int" minvalue="64" default="1024" units="sample">buffer
-            size</property>
+            <property name="@bs" type="int" minvalue="64" default="1024" units="sample"
+            access="initonly">buffer size</property>
             <property name="@hs" type="int" minvalue="0" default="0" units="sample">hop size. 0
             means @bs/2</property>
             <property name="@method" type="symbol"
@@ -55,8 +55,7 @@
             maxvalue="0">onset detection silence threshold</property>
             <property name="@delay" type="float" minvalue="0" default="0" units="millisecond">
             constant system delay to take back from detection time</property>
-            <property name="@active" type="int" default="1" enum="0 1">audio processing
-            state</property>
+            <property name="@active" type="bool" default="1">audio processing state</property>
         </properties>
         <inlets>
             <inlet type="audio">

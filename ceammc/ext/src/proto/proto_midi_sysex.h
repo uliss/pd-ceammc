@@ -42,7 +42,7 @@ public:
     ProtoMidiSysex(const PdArgs& args);
 
     void onFloat(t_float f) override;
-    void onList(const AtomList& lst) override;
+    void onList(const AtomListView& lv) override;
 
     void m_id_request(t_symbol*, const AtomListView&);
     void m_id_reply(t_symbol*, const AtomListView&);

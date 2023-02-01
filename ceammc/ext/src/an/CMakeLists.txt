@@ -11,6 +11,7 @@ ceammc_an_external(aubio_onset)
 ceammc_an_external(aubio_onset_tilde)
 ceammc_an_external(aubio_tempo_tilde)
 ceammc_an_external(pitchtrack)
+ceammc_an_external(zero_tilde)
 
 add_library(ceammc_analyze STATIC ${ANALYZE_SOURCES})
 target_include_directories(ceammc_analyze

@@ -7,96 +7,104 @@
 #X obj 660 11 seq.counter;
 #X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 222 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
--1;
-#X obj 357 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
--1;
+#X msg 107 118 prev;
+#X msg 174 118 next;
 #X obj 50 147 seq.counter 1 4;
-#X obj 222 147 seq.counter 1 4 @r 2;
-#X text 434 147 repeat two times;
-#X floatatom 50 176 5 0 0 0 - - -;
-#X floatatom 222 176 5 0 0 0 - - -;
-#X obj 357 176 route done;
-#X obj 357 205 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 50 176 ui.dt;
+#X obj 50 205 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X floatatom 434 205 5 0 0 0 - - -;
-#X obj 20 254 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 259 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 194 205 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 50 234 seq.counter 1 4 @r 2;
+#X text 261 234 repeat two times;
+#X floatatom 50 262 5 0 0 0 - - -;
+#X obj 194 262 ui.dt;
+#X obj 20 311 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 316 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 294 1\.;
-#X text 150 294 int;
-#X obj 246 295 cnv 1 38 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 294 FROM: start value. Type: int.;
-#X text 110 314 2\.;
-#X text 150 314 int;
-#X obj 246 315 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 314 TO: end value. Type: int.;
-#X text 110 334 3\.;
-#X text 150 334 int;
-#X obj 246 335 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 334 REPEATS: number of repeats. Type: int.;
-#X obj 20 364 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 369 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 351 1\.;
+#X text 150 351 int;
+#X obj 246 352 cnv 1 38 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 351 FROM: start value. Type: int.;
+#X text 110 371 2\.;
+#X text 150 371 int;
+#X obj 246 372 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 371 TO: end value. Type: int.;
+#X text 110 391 3\.;
+#X text 150 391 int;
+#X obj 246 392 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 391 R: number of repeats. Type: int.;
+#X obj 20 421 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 426 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 404 @fold;
-#X text 245 404 alias to @mode fold.;
-#X msg 110 433 @from;
-#X text 245 433 Get/Set start value. Type: int. Default value: 0\.;
-#X msg 110 462 @i;
-#X text 245 462 (readonly) Get current iteration. Type: int. Default
-value: 0\.;
-#X msg 110 504 @inf;
-#X text 245 504 alias to @r -1 \, repeats infinitely.;
-#X msg 110 533 @mode;
-#X text 245 533 Get/Set repeat counter mode. Type: symbol. Default
-value: wrap. Allowed values: wrap \, fold.;
-#X msg 110 575 @once;
-#X text 245 575 alias to @r 1 \, play once.;
-#X msg 110 604 @r;
-#X text 245 604 Get/Set number of repeats. If -1: repeat infinitely.
-Type: int. Default value: -1\. Min value: -1\.;
-#X msg 110 646 @ri;
-#X text 245 646 (readonly) Get current repeat iteration. Type: int.
-Default value: 0\.;
-#X msg 110 688 @to;
-#X text 245 688 Get/Set end value. Type: int. Default value: 0\.;
-#X msg 110 717 @wrap;
-#X text 245 717 alias to @mode wrap.;
-#X obj 20 756 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 761 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
--49933 0;
-#X msg 110 796 reset;
-#X text 245 796 reset counter to start value and repeat counter to
+#X msg 110 461 @fold;
+#X text 245 461 alias to @mode fold.;
+#X msg 110 490 @from;
+#X text 245 490 Get/Set start value. Setting this property resets @i
+to 0\. Type: int. Default value: 0\.;
+#X msg 110 532 @i;
+#X text 245 532 Get/Set current iteration. Type: int. Default value:
 0\.;
-#X obj 20 833 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 838 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
-0;
-#X text 110 839 1\.;
-#X text 150 839 *bang*;
-#X text 245 839 output current value and increment counter.;
-#X text 110 859 2\.;
-#X text 150 859 *bang*;
-#X text 245 859 reset counter to start value.;
-#X obj 20 889 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 894 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X msg 110 561 @inf;
+#X text 245 561 alias to @r -1 \, repeats infinitely.;
+#X msg 110 590 @mode;
+#X text 245 590 Get/Set repeat counter mode. Type: symbol. Default
+value: wrap. Allowed values: wrap \, fold.;
+#X msg 110 632 @once;
+#X text 245 632 alias to @r 1 \, play once.;
+#X msg 110 661 @r;
+#X text 245 661 Get/Set number of repeats. If -1: repeat infinitely.
+Type: int. Default value: -1\. Min value: -1\.;
+#X msg 110 703 @ri;
+#X text 245 703 (readonly) Get current repeat iteration. Type: int.
+Default value: 0\.;
+#X msg 110 745 @to;
+#X text 245 745 Get/Set end value (inclusive). Type: int. Default value:
+0\.;
+#X msg 110 774 @value;
+#X text 245 774 (readonly) Get current value. Type: int. Default value:
+0\.;
+#X msg 110 803 @wrap;
+#X text 245 803 alias to @mode wrap.;
+#X obj 20 842 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 847 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X text 110 895 1\.;
-#X text 245 895 int: counter value.;
-#X text 110 915 2\.;
-#X text 245 915 int: repeat counter \, done: when done.;
+#X msg 110 882 next;
+#X text 245 882 increment counter then output.;
+#X msg 110 909 prev;
+#X text 245 909 decrement counter then output.;
+#X msg 110 936 reset;
+#X text 245 936 reset counter to start value and repeat counter to
+0\.;
+#X obj 20 973 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 978 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+0;
+#X text 110 979 1\.;
+#X text 150 979 *bang*;
+#X text 245 979 output current value then increment counter.;
+#X text 110 999 2\.;
+#X text 150 999 *bang*;
+#X text 245 999 reset counter to start value.;
+#X obj 20 1029 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1034 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+-49933 0;
+#X text 110 1035 1\.;
+#X text 245 1035 int: counter value.;
+#X text 110 1055 2\.;
+#X text 245 1055 int: repeat counter \, done: when done.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title seq @url ceammc.seq-help.pd;
-#X obj 1 965 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 968 library: ceammc v0.9.4;
-#N canvas 10 987 400 290 info 0;
+#X obj 1 1105 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1108 library: ceammc v0.9.6;
+#N canvas 10 1127 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.4;
+#X text 120 32 0.9.6;
 #X text 10 54 object:;
 #X text 120 54 seq.counter;
 #X text 10 76 category:;
@@ -115,12 +123,12 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 987 pd info;
+#X restore 10 1127 pd info;
 #X connect 4 0 7 0;
-#X connect 5 0 8 0;
-#X connect 6 0 8 1;
-#X connect 7 0 10 0;
-#X connect 8 0 11 0;
-#X connect 8 1 12 0;
-#X connect 12 0 13 0;
-#X connect 12 1 14 0;
+#X connect 5 0 7 0;
+#X connect 6 0 7 0;
+#X connect 7 0 8 0;
+#X connect 9 0 11 0;
+#X connect 10 0 11 1;
+#X connect 11 0 13 0;
+#X connect 11 1 14 0;

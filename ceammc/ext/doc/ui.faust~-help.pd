@@ -17,78 +17,87 @@ https://faust.grame.fr/ @url https://faust.grame.fr/;
 #X obj 50 300 ui.hgain~;
 #X obj 222 300 ui.dsp~;
 #X obj 50 328 dac~;
-#X obj 20 377 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 382 cnv 5 115 26 empty empty mouse_events: 4 10 0 14 -262144
+#X obj 50 357 ui.faust~.extra;
+#X obj 20 406 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 411 cnv 5 115 26 empty empty mouse_events: 4 10 0 14 -262144
 -49933 0;
-#X text 110 417 Left-click + ⌥;
-#X text 285 417 open faust dsp file in external editor.;
-#X text 110 437 Right-click;
-#X text 285 437 open popup menu.;
-#X text 110 457 Right-click + ⇧;
-#X text 285 457 open object help.;
-#X text 110 477 Right-click + ⇧;
-#X text 285 477 open object help.;
-#X text 61 477 [Edit];
-#X obj 20 507 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 512 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X text 110 446 Left-click + ⌥;
+#X text 285 446 open faust dsp file in external editor.;
+#X text 110 466 Right-click;
+#X text 285 466 open popup menu.;
+#X text 110 486 Right-click + ⇧;
+#X text 285 486 open object help.;
+#X text 110 506 Right-click + ⇧;
+#X text 285 506 open object help.;
+#X text 61 506 [Edit];
+#X obj 20 536 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 541 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 547 1\.;
-#X text 150 547 symbol;
-#X obj 246 548 cnv 1 46 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 547 FNAME: path to faust dsp file. Type: symbol.;
-#X obj 20 577 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 582 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 576 1\.;
+#X text 150 576 symbol;
+#X obj 246 577 cnv 1 46 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 576 FNAME: path to faust dsp file. Type: symbol.;
+#X obj 20 606 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 611 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 617 @auto;
-#X text 245 617 Get/Set auto update mode. If on - recompiles faust
-dsp file on change. Type: int. Default value: 1\. Allowed values: 0
-\, 1\.;
-#X msg 110 674 @fname;
-#X text 245 674 Get/Set path to faust dsp file. Type: symbol.;
-#X msg 110 703 @include;
-#X text 245 703 Get/Set list of faust include directories. Type: list.;
-#X obj 20 742 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 747 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X msg 110 646 @auto;
+#X text 245 646 Get/Set auto update mode. If on - recompiles faust
+dsp file on change. Type: bool. Default value: 0\.;
+#X msg 110 688 @fname;
+#X text 245 688 Get/Set path to faust dsp file. Type: symbol.;
+#X msg 110 717 @include;
+#X text 245 717 Get/Set list of faust include directories. Type: list.;
+#X msg 110 746 @size;
+#X text 245 746 Get/Set object size. Type: list. Default value: 10
+10\.;
+#X obj 20 785 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 790 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 782 open;
-#X text 245 782 open faust dsp file in external editor.;
-#X msg 110 809 reset;
-#X text 245 809 reset object state.;
-#X msg 110 836 update;
-#X text 245 836 update faust object \, recompile if needed.;
-#X obj 20 873 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 878 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 110 825 open;
+#X text 245 825 open faust dsp file in external editor.;
+#X msg 110 852 reset;
+#X text 245 852 reset object state.;
+#X msg 110 879 size;
+#X text 245 879 resize object. Arguments are:;
+#X obj 255 902 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 902 W: new width. Type: int.;
+#X obj 255 925 cnv 1 13 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 925 H: new height. Type: int.;
+#X msg 110 950 update;
+#X text 245 950 update faust object \, recompile if needed.;
+#X obj 20 987 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 992 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 879 1\.;
-#X text 245 879 control input.;
-#X text 110 899 2\.;
-#X text 245 899 first faust input.;
-#X text 110 919 ....;
-#X text 245 919 ... faust input.;
-#X text 110 939 n+1\.;
-#X text 245 939 n-th faust input.;
-#X obj 20 969 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 974 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 993 1\.;
+#X text 245 993 control input.;
+#X text 110 1013 2\.;
+#X text 245 1013 first faust input.;
+#X text 110 1033 ....;
+#X text 245 1033 ... faust input.;
+#X text 110 1053 n+1\.;
+#X text 245 1053 n-th faust input.;
+#X obj 20 1083 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1088 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 975 1\.;
-#X text 245 975 first faust output.;
-#X text 110 995 ....;
-#X text 245 995 ... faust output.;
-#X text 110 1015 n.;
-#X text 245 1015 n-th faust output.;
+#X text 110 1089 1\.;
+#X text 245 1089 first faust output.;
+#X text 110 1109 ....;
+#X text 245 1109 ... faust output.;
+#X text 110 1129 n.;
+#X text 245 1129 n-th faust output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title lang @url ceammc.lang-help.pd;
-#X obj 1 1065 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1068 library: ceammc v0.9.4;
-#N canvas 10 1087 400 290 info 0;
+#X obj 1 1179 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1182 library: ceammc v0.9.6;
+#N canvas 10 1201 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.4;
+#X text 120 32 0.9.6;
 #X text 10 54 object:;
 #X text 120 54 ui.faust~;
 #X text 10 76 category:;
@@ -107,7 +116,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1087 pd info;
+#X restore 10 1201 pd info;
 #X connect 7 0 9 0;
 #X connect 6 0 10 0;
 #X connect 9 0 10 0;

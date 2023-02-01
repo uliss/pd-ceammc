@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="flow.seqdelay">
+        <title>flow.seqdelay</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>sequential delay/router for input flow</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>flow</category>
+            <keywords>flow seq delay</keywords>
+            <since>0.9.5</since>
+            <aliases>
+                <alias>flow.seqdel</alias>
+            </aliases>
+            <also>
+                <see>flow.delay</see>
+            </also>
+        </meta>
+        <info>
+            <par>Delay any route incoming message by specified relative time list. If @block=0 if
+            new message has arrived while delay time is not expired, old message is discarded and
+            new delay time is set from current moment.</par>
+            <par>Zero delay time means output message on next Pd runloop iteration (as soon as
+            possible)</par>
+            <par>Note: @t and @block property can be set only via right inlet or with [prop.set]
+            object</par>
+        </info>
+        <arguments>
+            <argument name="T" type="list" units="millisecond">List of delay times. See @t
+            property.</argument>
+        </arguments>
+        <methods>
+            <method name="reset">reset all scheduled delays</method>
+        </methods>
+        <properties>
+            <property name="@t" type="list" minvalue="0" units="millisecond" default="">delay time
+            list</property>
+            <property name="@block" type="bool" default="0">blocking mode. If true, discards
+            incoming messages until scheduled message will output, after that is ready to accept
+            the new one.</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo>incoming message</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="list">set delay times</xinfo>
+                <xinfo on="any">'reset' - reset all scheduled delays, '@t' - set @t property,
+                '@block' - set @block property, 'dump' - dump object info to Pd window.</xinfo>
+            </inlet>
+        </inlets>
+        <outlets dynamic="true">
+            <outlet number="1">first delayed output</outlet>
+            <outlet number="...">...-th delayed output</outlet>
+            <outlet number="n">n-th delayed output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[bang(              [list 0 500 120 110( /*- change pattern*/
+|                   |
+|       [T]         |  [list 0 400 100 300(
+|       |           |  |
+|       [@block $1( |  |
+|       |.          |. |.
+[flow.seqdel 0 0 0 0 {i=2,o=4}]
+|   ^|   ^^| ^^^|
+|    |     |    [synth.church_bell~ #d]
+|    |     |
+|    |     [synth.german_bell~ #c]
+|    |
+|    [synth.english_bell~ #b]
+|
+[synth.russian_bell~ #a] [ui.dsp~]
+|
+[pan.spread~ 4 {w=21} #x]
+*|*
+[ui.hgain2~ @size 15 151]
+*|*
+[dac~ 1 2 {w=21}]
+[X b->x:1] [X c->x:2] [X d->x:3]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

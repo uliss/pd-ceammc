@@ -64,6 +64,8 @@ void pdPrintToStdError(bool value)
 
 void pdSetPrintFunction(pdPrintFunction fn)
 {
+    sys_verbose = 1;
+    STUFF->st_printhook = fn; // update for Pd-0.53
     sys_printhook = fn;
 }
 

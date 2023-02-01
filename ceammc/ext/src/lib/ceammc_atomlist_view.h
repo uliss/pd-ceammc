@@ -18,14 +18,29 @@
 
 #include <algorithm>
 #include <functional>
+#include <initializer_list>
+
+#include <boost/container/small_vector.hpp>
+#include <boost/optional.hpp>
 
 namespace ceammc {
 
+using MaybeFloat = boost::optional<t_float>;
+
 class AtomList;
+
+enum class AtomListMapType {
+    FILTER,
+    KEEP
+};
 
 class AtomListView {
     const Atom* data_;
     size_t n_;
+
+public:
+    using iterator = const Atom*;
+    using const_iterator = const Atom*;
 
 public:
     AtomListView() noexcept;
@@ -52,7 +67,7 @@ public:
     bool operator!=(int v) const { return !operator==(v); }
     bool operator==(t_symbol* s) const { return isSymbol() && asSymbol() == s; }
     bool operator!=(t_symbol* s) const { return !operator==(s); }
-    bool operator==(const Atom& a) const { return isAtom() && asAtom() == a; }
+    bool operator==(const Atom& a) const { return isAtom() && front() == a; }
     bool operator!=(const Atom& a) const { return !operator==(a); }
 
     // containter checks
@@ -70,6 +85,39 @@ public:
     bool isDataType(int t) const { return data_ && n_ == 1 && data_->isDataType(t); }
     template <typename T>
     bool isA() const { return n_ == 1 && data_ && data_->isA<T>(); }
+
+    /// value access
+    /**
+     * @brief returns pointer to element at specified relative position
+     * @param pos - positive value means position from the begining, negative position - from end.
+     * @example pos == -1 means last element (if exists)
+     * @return pointer to element, or NULL if no element at given position
+     */
+    const Atom* relativeAt(int pos) const;
+
+    /**
+     * Same as at(), but values for index greater than the size of the
+     * List will be clipped to the last index.
+     * @param pos - position index
+     * @return pointer to element, or NULL if empty
+     */
+    const Atom* clipAt(int pos) const;
+
+    /**
+     * Same as at(), but values for index greater than the size of the
+     * List will be wrapped around to 0.
+     * @param pos - position index
+     * @return pointer to element, or NULL if empty
+     */
+    const Atom* wrapAt(int pos) const;
+
+    /**
+     * Same as at(), but values for index greater than the size of the
+     * List will be folded back.
+     * @param pos - position index
+     * @return pointer to element, or NULL if empty
+     */
+    const Atom* foldAt(int pos) const;
 
     /**
      * Convert atomlist to parametrised type
@@ -112,8 +160,8 @@ public:
     }
 
     // iterators
-    const Atom* begin() const { return data_; }
-    const Atom* end() const { return &data_[n_]; }
+    const_iterator begin() const { return data_; }
+    const_iterator end() const { return data_ + n_; }
 
     // no range checks!!!
     /** returns first atom in view, no range check */
@@ -126,12 +174,10 @@ public:
     const Atom& operator[](size_t pos) const { return data_[pos]; }
     const Atom& relativeAt(long pos) const;
 
-    // no type checks!!!
-    inline bool asBool() const { return front().asBool(); }
-    inline t_symbol* asSymbol() const { return atom().a_w.w_symbol; }
-    inline t_float asFloat() const { return atom().a_w.w_float; }
-    inline int asInt() const { return static_cast<int>(atom().a_w.w_float); }
-    inline const Atom& asAtom() const { return front(); }
+    inline bool asBool(bool def = false) const { return empty() ? def : front().asBool(def); }
+    inline t_symbol* asSymbol(t_symbol* def = &s_) const { return empty() ? def : front().asSymbol(def); }
+    inline t_float asFloat(t_float def = 0) const { return empty() ? def : front().asFloat(def); }
+    inline t_int asInt(t_int def = 0) const { return empty() ? def : static_cast<t_int>(front().asFloat(def)); }
 
     // with range checks
     /**
@@ -274,13 +320,6 @@ public:
     bool contains(const Atom& a) const;
 
     /**
-     * Returns list with unquoted atoms
-     * @param quoted_props - if true leaves quoted properties quoted if false - unquoed all atoms
-     * @return unquoted list
-     */
-    AtomList parseQuoted(bool quoted_props = false) const;
-
-    /**
      * Check if all atoms satisfies to predicate
      * @param pred - predicate function
      * @return true if for all atoms predicate returns true
@@ -305,6 +344,132 @@ public:
 
     /** pointer to pd raw t_atoms */
     t_atom* toPdData() const { return reinterpret_cast<t_atom*>(const_cast<Atom*>(data_)); }
+
+    /**
+     * Returns sum of floats in list or boost::none if empty
+     */
+    MaybeFloat sum() const noexcept;
+
+    /**
+     * Returns product of floats in list or boost::none if empty
+     */
+    MaybeFloat product() const noexcept;
+
+    /**
+     * Reduce to t_float
+     * @param init - init value
+     * @param fn - reduce function
+     * @return - result, or boost::none if no floats in list
+     */
+    MaybeFloat reduceFloat(t_float init, std::function<t_float(t_float, t_float)> fn) const;
+
+    /**
+     * Get min and max elements from list
+     * @param min - min destination
+     * @param max - max destination
+     * @return false if empty
+     */
+    bool range(Atom& min, Atom& max) const noexcept;
+
+    /**
+     * Map atom values
+     * @param fn - atom map function
+     * @param out - map output
+     */
+    template <typename T>
+    void map(const AtomMapFunction& fn, T& out) const
+    {
+        if (!fn)
+            return;
+
+        out.reserve(n_);
+
+        for (auto& a : *this)
+            out.push_back(fn(a));
+    }
+
+    /**
+     * Map float values
+     * @param fn - function
+     * @param out - map output
+     * @param t - AtomListMapType::KEEP - non-float values are left untouched,
+     *            if AtomListMapType::FILTER - non-float values are removed
+     */
+    template <typename T>
+    void mapFloat(const FloatMapFunction& fn, T& out, AtomListMapType t = AtomListMapType::KEEP) const
+    {
+        if (!fn)
+            return;
+
+        out.reserve(n_);
+        for (auto& a : *this) {
+            if (a.isFloat())
+                out.push_back(fn(a.asT<t_float>()));
+            else if (t == AtomListMapType::KEEP)
+                out.push_back(a);
+        }
+    }
+
+    /**
+     * Map symbol values
+     * @param fn - function
+     * @param out - map output
+     * @param t - AtomListMapType::KEEP - non-symbol values are left untouched,
+     *            if AtomListMapType::FILTER - non-symbol values are removed
+     */
+    template <typename T>
+    void mapSymbol(const SymbolMapFunction& fn, T& out, AtomListMapType t = AtomListMapType::KEEP) const
+    {
+        if (!fn)
+            return;
+
+        out.reserve(n_);
+        for (auto& a : *this) {
+            if (a.isSymbol())
+                out.push_back(fn(a.asT<t_symbol*>()));
+            else if (t == AtomListMapType::KEEP)
+                out.push_back(a);
+        }
+    }
+
+    /**
+     * Select values for which atom predicate returns true
+     */
+    template <typename T>
+    void filter(const AtomPredicate& fn, T& out) const
+    {
+        out.reserve(n_);
+        for (auto& a : *this) {
+            if (!fn || fn(a))
+                out.push_back(a);
+        }
+    }
+
+    /**
+     * Select values for which float predicate returns true
+     */
+    template <typename T>
+    void filterFloat(const FloatPredicate& fn, T& out) const
+    {
+        out.reserve(n_);
+        for (auto& a : *this) {
+            if (!fn || (a.isFloat() && fn(a.asT<t_float>())))
+                out.push_back(a);
+        }
+    }
+
+    /**
+     * Select values for which symbol predicate returns true
+     */
+    template <typename T>
+    void filterSymbol(const SymbolPredicate& fn, T& out) const
+    {
+        out.reserve(n_);
+        for (auto& a : *this) {
+            if (!fn || (a.isSymbol() && fn(a.asT<t_symbol*>())))
+                out.push_back(a);
+        }
+    }
 
 private:
     inline const t_atom& atom() const { return data_->atom(); }

@@ -26,9 +26,9 @@ add_library(serial STATIC ${serial_SRCS})
 if(APPLE)
     target_link_libraries(serial PRIVATE ${FOUNDATION_LIBRARY} ${IOKIT_LIBRARY})
 elseif(UNIX)
-    target_link_libraries(serial rt pthread)
+    target_link_libraries(serial PUBLIC rt pthread)
 else()
-    target_link_libraries(serial setupapi)
+    target_link_libraries(serial PRIVATE setupapi)
 endif()
 
 if(UNIX)
@@ -36,4 +36,4 @@ if(UNIX)
 endif()
 
 ## Include headers
-target_include_directories(serial PRIVATE serial/include)
+target_include_directories(serial PUBLIC serial/include)

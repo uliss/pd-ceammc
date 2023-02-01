@@ -27,8 +27,8 @@ static t_symbol* SYM_OUTPUT_ALL_CELLS;
 static const int CELL_MARGIN = 0;
 
 namespace {
-    auto random_seed = std::chrono::system_clock::now().time_since_epoch().count();
-    std::default_random_engine random_gen(random_seed);
+auto random_seed = std::chrono::system_clock::now().time_since_epoch().count();
+std::default_random_engine random_gen(random_seed);
 }
 
 UIMatrix::UIMatrix()
@@ -118,19 +118,19 @@ bool UIMatrix::cell(size_t row, size_t col) const
     return matrix_[row * UI_MAX_MATRIX_SIZE + col];
 }
 
-void UIMatrix::setCell(const AtomList& lst)
+void UIMatrix::setCell(const AtomListView& lv)
 {
-    if (lst.size() != 3) {
+    if (lv.size() != 3) {
         UI_ERR << "usage set cell ROW COL VALUE";
         return;
     }
 
-    int row = lst[0].asInt(-1);
-    int col = lst[1].asInt(-1);
-    int v = lst[2].asInt(0);
+    int row = lv[0].asInt(-1);
+    int col = lv[1].asInt(-1);
+    int v = lv[2].asInt(0);
 
     if (row < 0 || row >= prop_rows_ || col < 0 || col >= prop_cols_) {
-        UI_ERR << "invalid indexes: " << lst;
+        UI_ERR << "invalid indexes: " << lv;
         return;
     }
 
@@ -380,12 +380,10 @@ void UIMatrix::eraseCells()
 
 std::pair<int, int> UIMatrix::cellAt(const t_pt& pt)
 {
-    std::pair<int, int> res;
-    res.first = -1;
-    res.second = -1;
+    std::pair<int, int> res { -1, -1 };
 
-    res.first = clip<int>(std::floor((pt.x - 2 * CELL_MARGIN) / cellWidth()), 0, prop_cols_ - 1);
-    res.second = clip<int>(std::floor((pt.y - 2 * CELL_MARGIN) / cellHeight()), 0, prop_rows_ - 1);
+    res.first = clip<int>(std::floor((pt.x - 2 * CELL_MARGIN) * prop_cols_ / width()), 0, prop_cols_ - 1);
+    res.second = clip<int>(std::floor((pt.y - 2 * CELL_MARGIN) * prop_rows_ / height()), 0, prop_rows_ - 1);
     return res;
 }
 
@@ -567,9 +565,9 @@ void UIMatrix::onBang()
     outputAllCells();
 }
 
-void UIMatrix::onList(const AtomListView& lst)
+void UIMatrix::onList(const AtomListView& lv)
 {
-    setList(lst);
+    setList(lv);
     outputAllCells();
     drawActiveCells();
 }
@@ -836,6 +834,9 @@ void UIMatrix::loadPreset(size_t idx)
             setCell(ri, wi * NBITS + bi, v);
         }
     }
+
+    drawActiveCells();
+    outputAllCells();
 }
 
 void UIMatrix::storePreset(size_t idx)
@@ -978,9 +979,11 @@ void UIMatrix::setup()
 
     obj.addProperty("current_row", "", -1, &UIMatrix::current_row_);
     obj.hideProperty("current_row");
+    obj.setPropertyMin("current_row", -1);
     obj.setPropertySave("current_row", false);
     obj.addProperty("current_col", "", -1, &UIMatrix::current_col_);
     obj.hideProperty("current_col");
+    obj.setPropertyMin("current_col", -1);
     obj.setPropertySave("current_col", false);
 
     obj.addMethod("flip", &UIMatrix::m_flip);

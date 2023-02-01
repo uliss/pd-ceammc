@@ -1,16 +1,23 @@
 {
 	"name": "synth.dx7",
 	"filename": "synth_dx7.dsp",
+	"version": "2.53.1",
+	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn synth_dx7 -scn synth_dx7_dsp -es 1 -mcd 16 -single -ftz 0",
+	"library_list": ["/usr/local/share/faust/dx7.lib","/Users/serge/work/music/pure-data/ceammc/faust/spn.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/envelopes.lib","/usr/local/share/faust/platform.lib","/usr/local/share/faust/oscillators.lib"],
+	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
 	"inputs": 0,
 	"outputs": 1,
 	"meta": [ 
 		{ "basics.lib/name": "Faust Basic Element Library" },
-		{ "basics.lib/version": "0.2" },
+		{ "basics.lib/sAndH:author": "Romain Michon" },
+		{ "basics.lib/version": "0.8" },
+		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn synth_dx7 -scn synth_dx7_dsp -es 1 -mcd 16 -single -ftz 0" },
 		{ "envelopes.lib/author": "GRAME" },
 		{ "envelopes.lib/copyright": "GRAME" },
+		{ "envelopes.lib/dx7envelope:author": "Romain Michon" },
 		{ "envelopes.lib/license": "LGPL with exception" },
 		{ "envelopes.lib/name": "Faust Envelope Library" },
-		{ "envelopes.lib/version": "0.1" },
+		{ "envelopes.lib/version": "0.2" },
 		{ "filename": "synth_dx7.dsp" },
 		{ "maths.lib/author": "GRAME" },
 		{ "maths.lib/copyright": "GRAME" },
@@ -19,7 +26,7 @@
 		{ "maths.lib/version": "2.5" },
 		{ "name": "synth.dx7" },
 		{ "oscillators.lib/name": "Faust Oscillator Library" },
-		{ "oscillators.lib/version": "0.1" },
+		{ "oscillators.lib/version": "0.3" },
 		{ "platform.lib/name": "Generic Platform Library" },
 		{ "platform.lib/version": "0.2" },
 		{ "spn.lib/name": "Standart Pitch Notation constants" },
@@ -33,6 +40,7 @@
 				{
 					"type": "nentry",
 					"label": "algorithm",
+					"shortname": "algorithm",
 					"address": "/synth.dx7/algorithm",
 					"meta": [
 						{ "type": "int" }
@@ -45,6 +53,7 @@
 				{
 					"type": "nentry",
 					"label": "feedback",
+					"shortname": "feedback",
 					"address": "/synth.dx7/feedback",
 					"init": 0,
 					"min": 0,
@@ -54,6 +63,7 @@
 				{
 					"type": "hslider",
 					"label": "gain",
+					"shortname": "gain",
 					"address": "/synth.dx7/gain",
 					"init": 0.8,
 					"min": 0,
@@ -63,11 +73,13 @@
 				{
 					"type": "button",
 					"label": "gate",
+					"shortname": "gate",
 					"address": "/synth.dx7/gate"
 				},
 				{
 					"type": "nentry",
 					"label": "op0:detune",
+					"shortname": "op0_detune",
 					"address": "/synth.dx7/op0:detune",
 					"init": 1,
 					"min": -10,
@@ -77,6 +89,7 @@
 				{
 					"type": "nentry",
 					"label": "op0:egL1",
+					"shortname": "op0_egL1",
 					"address": "/synth.dx7/op0:egL1",
 					"init": 0,
 					"min": 0,
@@ -86,6 +99,7 @@
 				{
 					"type": "nentry",
 					"label": "op0:egL2",
+					"shortname": "op0_egL2",
 					"address": "/synth.dx7/op0:egL2",
 					"init": 90,
 					"min": 0,
@@ -95,6 +109,7 @@
 				{
 					"type": "nentry",
 					"label": "op0:egL3",
+					"shortname": "op0_egL3",
 					"address": "/synth.dx7/op0:egL3",
 					"init": 90,
 					"min": 0,
@@ -104,6 +119,7 @@
 				{
 					"type": "nentry",
 					"label": "op0:egL4",
+					"shortname": "op0_egL4",
 					"address": "/synth.dx7/op0:egL4",
 					"init": 0,
 					"min": 0,
@@ -113,6 +129,7 @@
 				{
 					"type": "nentry",
 					"label": "op0:egR1",
+					"shortname": "op0_egR1",
 					"address": "/synth.dx7/op0:egR1",
 					"init": 90,
 					"min": 0,
@@ -122,6 +139,7 @@
 				{
 					"type": "nentry",
 					"label": "op0:egR2",
+					"shortname": "op0_egR2",
 					"address": "/synth.dx7/op0:egR2",
 					"init": 90,
 					"min": 0,
@@ -131,6 +149,7 @@
 				{
 					"type": "nentry",
 					"label": "op0:egR3",
+					"shortname": "op0_egR3",
 					"address": "/synth.dx7/op0:egR3",
 					"init": 90,
 					"min": 0,
@@ -140,6 +159,7 @@
 				{
 					"type": "nentry",
 					"label": "op0:egR4",
+					"shortname": "op0_egR4",
 					"address": "/synth.dx7/op0:egR4",
 					"init": 90,
 					"min": 0,
@@ -149,6 +169,7 @@
 				{
 					"type": "nentry",
 					"label": "op0:freq",
+					"shortname": "op0_freq",
 					"address": "/synth.dx7/op0:freq",
 					"meta": [
 						{ "unit": "Hz" }
@@ -161,6 +182,7 @@
 				{
 					"type": "nentry",
 					"label": "op0:key_vel_sens",
+					"shortname": "op0_key_vel_sens",
 					"address": "/synth.dx7/op0:key_vel_sens",
 					"init": 1,
 					"min": 0,
@@ -170,6 +192,7 @@
 				{
 					"type": "nentry",
 					"label": "op0:level",
+					"shortname": "op0_level",
 					"address": "/synth.dx7/op0:level",
 					"init": 95,
 					"min": 0,
@@ -179,6 +202,7 @@
 				{
 					"type": "nentry",
 					"label": "op0:mode",
+					"shortname": "op0_mode",
 					"address": "/synth.dx7/op0:mode",
 					"init": 0,
 					"min": 0,
@@ -188,6 +212,7 @@
 				{
 					"type": "nentry",
 					"label": "op0:rate_scale",
+					"shortname": "op0_rate_scale",
 					"address": "/synth.dx7/op0:rate_scale",
 					"init": 0,
 					"min": 0,
@@ -197,6 +222,7 @@
 				{
 					"type": "nentry",
 					"label": "op1:detune",
+					"shortname": "op1_detune",
 					"address": "/synth.dx7/op1:detune",
 					"init": 1,
 					"min": -10,
@@ -206,6 +232,7 @@
 				{
 					"type": "nentry",
 					"label": "op1:egL1",
+					"shortname": "op1_egL1",
 					"address": "/synth.dx7/op1:egL1",
 					"init": 0,
 					"min": 0,
@@ -215,6 +242,7 @@
 				{
 					"type": "nentry",
 					"label": "op1:egL2",
+					"shortname": "op1_egL2",
 					"address": "/synth.dx7/op1:egL2",
 					"init": 90,
 					"min": 0,
@@ -224,6 +252,7 @@
 				{
 					"type": "nentry",
 					"label": "op1:egL3",
+					"shortname": "op1_egL3",
 					"address": "/synth.dx7/op1:egL3",
 					"init": 90,
 					"min": 0,
@@ -233,6 +262,7 @@
 				{
 					"type": "nentry",
 					"label": "op1:egL4",
+					"shortname": "op1_egL4",
 					"address": "/synth.dx7/op1:egL4",
 					"init": 0,
 					"min": 0,
@@ -242,6 +272,7 @@
 				{
 					"type": "nentry",
 					"label": "op1:egR1",
+					"shortname": "op1_egR1",
 					"address": "/synth.dx7/op1:egR1",
 					"init": 90,
 					"min": 0,
@@ -251,6 +282,7 @@
 				{
 					"type": "nentry",
 					"label": "op1:egR2",
+					"shortname": "op1_egR2",
 					"address": "/synth.dx7/op1:egR2",
 					"init": 90,
 					"min": 0,
@@ -260,6 +292,7 @@
 				{
 					"type": "nentry",
 					"label": "op1:egR3",
+					"shortname": "op1_egR3",
 					"address": "/synth.dx7/op1:egR3",
 					"init": 90,
 					"min": 0,
@@ -269,6 +302,7 @@
 				{
 					"type": "nentry",
 					"label": "op1:egR4",
+					"shortname": "op1_egR4",
 					"address": "/synth.dx7/op1:egR4",
 					"init": 90,
 					"min": 0,
@@ -278,6 +312,7 @@
 				{
 					"type": "nentry",
 					"label": "op1:freq",
+					"shortname": "op1_freq",
 					"address": "/synth.dx7/op1:freq",
 					"meta": [
 						{ "unit": "Hz" }
@@ -290,6 +325,7 @@
 				{
 					"type": "nentry",
 					"label": "op1:key_vel_sens",
+					"shortname": "op1_key_vel_sens",
 					"address": "/synth.dx7/op1:key_vel_sens",
 					"init": 1,
 					"min": 0,
@@ -299,6 +335,7 @@
 				{
 					"type": "nentry",
 					"label": "op1:level",
+					"shortname": "op1_level",
 					"address": "/synth.dx7/op1:level",
 					"init": 95,
 					"min": 0,
@@ -308,6 +345,7 @@
 				{
 					"type": "nentry",
 					"label": "op1:mode",
+					"shortname": "op1_mode",
 					"address": "/synth.dx7/op1:mode",
 					"init": 0,
 					"min": 0,
@@ -317,6 +355,7 @@
 				{
 					"type": "nentry",
 					"label": "op1:rate_scale",
+					"shortname": "op1_rate_scale",
 					"address": "/synth.dx7/op1:rate_scale",
 					"init": 0,
 					"min": 0,
@@ -326,6 +365,7 @@
 				{
 					"type": "nentry",
 					"label": "op2:detune",
+					"shortname": "op2_detune",
 					"address": "/synth.dx7/op2:detune",
 					"init": 1,
 					"min": -10,
@@ -335,6 +375,7 @@
 				{
 					"type": "nentry",
 					"label": "op2:egL1",
+					"shortname": "op2_egL1",
 					"address": "/synth.dx7/op2:egL1",
 					"init": 0,
 					"min": 0,
@@ -344,6 +385,7 @@
 				{
 					"type": "nentry",
 					"label": "op2:egL2",
+					"shortname": "op2_egL2",
 					"address": "/synth.dx7/op2:egL2",
 					"init": 90,
 					"min": 0,
@@ -353,6 +395,7 @@
 				{
 					"type": "nentry",
 					"label": "op2:egL3",
+					"shortname": "op2_egL3",
 					"address": "/synth.dx7/op2:egL3",
 					"init": 90,
 					"min": 0,
@@ -362,6 +405,7 @@
 				{
 					"type": "nentry",
 					"label": "op2:egL4",
+					"shortname": "op2_egL4",
 					"address": "/synth.dx7/op2:egL4",
 					"init": 0,
 					"min": 0,
@@ -371,6 +415,7 @@
 				{
 					"type": "nentry",
 					"label": "op2:egR1",
+					"shortname": "op2_egR1",
 					"address": "/synth.dx7/op2:egR1",
 					"init": 90,
 					"min": 0,
@@ -380,6 +425,7 @@
 				{
 					"type": "nentry",
 					"label": "op2:egR2",
+					"shortname": "op2_egR2",
 					"address": "/synth.dx7/op2:egR2",
 					"init": 90,
 					"min": 0,
@@ -389,6 +435,7 @@
 				{
 					"type": "nentry",
 					"label": "op2:egR3",
+					"shortname": "op2_egR3",
 					"address": "/synth.dx7/op2:egR3",
 					"init": 90,
 					"min": 0,
@@ -398,6 +445,7 @@
 				{
 					"type": "nentry",
 					"label": "op2:egR4",
+					"shortname": "op2_egR4",
 					"address": "/synth.dx7/op2:egR4",
 					"init": 90,
 					"min": 0,
@@ -407,6 +455,7 @@
 				{
 					"type": "nentry",
 					"label": "op2:freq",
+					"shortname": "op2_freq",
 					"address": "/synth.dx7/op2:freq",
 					"meta": [
 						{ "unit": "Hz" }
@@ -419,6 +468,7 @@
 				{
 					"type": "nentry",
 					"label": "op2:key_vel_sens",
+					"shortname": "op2_key_vel_sens",
 					"address": "/synth.dx7/op2:key_vel_sens",
 					"init": 1,
 					"min": 0,
@@ -428,6 +478,7 @@
 				{
 					"type": "nentry",
 					"label": "op2:level",
+					"shortname": "op2_level",
 					"address": "/synth.dx7/op2:level",
 					"init": 95,
 					"min": 0,
@@ -437,6 +488,7 @@
 				{
 					"type": "nentry",
 					"label": "op2:mode",
+					"shortname": "op2_mode",
 					"address": "/synth.dx7/op2:mode",
 					"init": 0,
 					"min": 0,
@@ -446,6 +498,7 @@
 				{
 					"type": "nentry",
 					"label": "op2:rate_scale",
+					"shortname": "op2_rate_scale",
 					"address": "/synth.dx7/op2:rate_scale",
 					"init": 0,
 					"min": 0,
@@ -455,6 +508,7 @@
 				{
 					"type": "nentry",
 					"label": "op3:detune",
+					"shortname": "op3_detune",
 					"address": "/synth.dx7/op3:detune",
 					"init": 1,
 					"min": -10,
@@ -464,6 +518,7 @@
 				{
 					"type": "nentry",
 					"label": "op3:egL1",
+					"shortname": "op3_egL1",
 					"address": "/synth.dx7/op3:egL1",
 					"init": 0,
 					"min": 0,
@@ -473,6 +528,7 @@
 				{
 					"type": "nentry",
 					"label": "op3:egL2",
+					"shortname": "op3_egL2",
 					"address": "/synth.dx7/op3:egL2",
 					"init": 90,
 					"min": 0,
@@ -482,6 +538,7 @@
 				{
 					"type": "nentry",
 					"label": "op3:egL3",
+					"shortname": "op3_egL3",
 					"address": "/synth.dx7/op3:egL3",
 					"init": 90,
 					"min": 0,
@@ -491,6 +548,7 @@
 				{
 					"type": "nentry",
 					"label": "op3:egL4",
+					"shortname": "op3_egL4",
 					"address": "/synth.dx7/op3:egL4",
 					"init": 0,
 					"min": 0,
@@ -500,6 +558,7 @@
 				{
 					"type": "nentry",
 					"label": "op3:egR1",
+					"shortname": "op3_egR1",
 					"address": "/synth.dx7/op3:egR1",
 					"init": 90,
 					"min": 0,
@@ -509,6 +568,7 @@
 				{
 					"type": "nentry",
 					"label": "op3:egR2",
+					"shortname": "op3_egR2",
 					"address": "/synth.dx7/op3:egR2",
 					"init": 90,
 					"min": 0,
@@ -518,6 +578,7 @@
 				{
 					"type": "nentry",
 					"label": "op3:egR3",
+					"shortname": "op3_egR3",
 					"address": "/synth.dx7/op3:egR3",
 					"init": 90,
 					"min": 0,
@@ -527,6 +588,7 @@
 				{
 					"type": "nentry",
 					"label": "op3:egR4",
+					"shortname": "op3_egR4",
 					"address": "/synth.dx7/op3:egR4",
 					"init": 90,
 					"min": 0,
@@ -536,6 +598,7 @@
 				{
 					"type": "nentry",
 					"label": "op3:freq",
+					"shortname": "op3_freq",
 					"address": "/synth.dx7/op3:freq",
 					"meta": [
 						{ "unit": "Hz" }
@@ -548,6 +611,7 @@
 				{
 					"type": "nentry",
 					"label": "op3:key_vel_sens",
+					"shortname": "op3_key_vel_sens",
 					"address": "/synth.dx7/op3:key_vel_sens",
 					"init": 1,
 					"min": 0,
@@ -557,6 +621,7 @@
 				{
 					"type": "nentry",
 					"label": "op3:level",
+					"shortname": "op3_level",
 					"address": "/synth.dx7/op3:level",
 					"init": 95,
 					"min": 0,
@@ -566,6 +631,7 @@
 				{
 					"type": "nentry",
 					"label": "op3:mode",
+					"shortname": "op3_mode",
 					"address": "/synth.dx7/op3:mode",
 					"init": 0,
 					"min": 0,
@@ -575,6 +641,7 @@
 				{
 					"type": "nentry",
 					"label": "op3:rate_scale",
+					"shortname": "op3_rate_scale",
 					"address": "/synth.dx7/op3:rate_scale",
 					"init": 0,
 					"min": 0,
@@ -584,6 +651,7 @@
 				{
 					"type": "nentry",
 					"label": "op4:detune",
+					"shortname": "op4_detune",
 					"address": "/synth.dx7/op4:detune",
 					"init": 1,
 					"min": -10,
@@ -593,6 +661,7 @@
 				{
 					"type": "nentry",
 					"label": "op4:egL1",
+					"shortname": "op4_egL1",
 					"address": "/synth.dx7/op4:egL1",
 					"init": 0,
 					"min": 0,
@@ -602,6 +671,7 @@
 				{
 					"type": "nentry",
 					"label": "op4:egL2",
+					"shortname": "op4_egL2",
 					"address": "/synth.dx7/op4:egL2",
 					"init": 90,
 					"min": 0,
@@ -611,6 +681,7 @@
 				{
 					"type": "nentry",
 					"label": "op4:egL3",
+					"shortname": "op4_egL3",
 					"address": "/synth.dx7/op4:egL3",
 					"init": 90,
 					"min": 0,
@@ -620,6 +691,7 @@
 				{
 					"type": "nentry",
 					"label": "op4:egL4",
+					"shortname": "op4_egL4",
 					"address": "/synth.dx7/op4:egL4",
 					"init": 0,
 					"min": 0,
@@ -629,6 +701,7 @@
 				{
 					"type": "nentry",
 					"label": "op4:egR1",
+					"shortname": "op4_egR1",
 					"address": "/synth.dx7/op4:egR1",
 					"init": 90,
 					"min": 0,
@@ -638,6 +711,7 @@
 				{
 					"type": "nentry",
 					"label": "op4:egR2",
+					"shortname": "op4_egR2",
 					"address": "/synth.dx7/op4:egR2",
 					"init": 90,
 					"min": 0,
@@ -647,6 +721,7 @@
 				{
 					"type": "nentry",
 					"label": "op4:egR3",
+					"shortname": "op4_egR3",
 					"address": "/synth.dx7/op4:egR3",
 					"init": 90,
 					"min": 0,
@@ -656,6 +731,7 @@
 				{
 					"type": "nentry",
 					"label": "op4:egR4",
+					"shortname": "op4_egR4",
 					"address": "/synth.dx7/op4:egR4",
 					"init": 90,
 					"min": 0,
@@ -665,6 +741,7 @@
 				{
 					"type": "nentry",
 					"label": "op4:freq",
+					"shortname": "op4_freq",
 					"address": "/synth.dx7/op4:freq",
 					"meta": [
 						{ "unit": "Hz" }
@@ -677,6 +754,7 @@
 				{
 					"type": "nentry",
 					"label": "op4:key_vel_sens",
+					"shortname": "op4_key_vel_sens",
 					"address": "/synth.dx7/op4:key_vel_sens",
 					"init": 1,
 					"min": 0,
@@ -686,6 +764,7 @@
 				{
 					"type": "nentry",
 					"label": "op4:level",
+					"shortname": "op4_level",
 					"address": "/synth.dx7/op4:level",
 					"init": 95,
 					"min": 0,
@@ -695,6 +774,7 @@
 				{
 					"type": "nentry",
 					"label": "op4:mode",
+					"shortname": "op4_mode",
 					"address": "/synth.dx7/op4:mode",
 					"init": 0,
 					"min": 0,
@@ -704,6 +784,7 @@
 				{
 					"type": "nentry",
 					"label": "op4:rate_scale",
+					"shortname": "op4_rate_scale",
 					"address": "/synth.dx7/op4:rate_scale",
 					"init": 0,
 					"min": 0,
@@ -713,6 +794,7 @@
 				{
 					"type": "nentry",
 					"label": "op5:detune",
+					"shortname": "op5_detune",
 					"address": "/synth.dx7/op5:detune",
 					"init": 1,
 					"min": -10,
@@ -722,6 +804,7 @@
 				{
 					"type": "nentry",
 					"label": "op5:egL1",
+					"shortname": "op5_egL1",
 					"address": "/synth.dx7/op5:egL1",
 					"init": 0,
 					"min": 0,
@@ -731,6 +814,7 @@
 				{
 					"type": "nentry",
 					"label": "op5:egL2",
+					"shortname": "op5_egL2",
 					"address": "/synth.dx7/op5:egL2",
 					"init": 90,
 					"min": 0,
@@ -740,6 +824,7 @@
 				{
 					"type": "nentry",
 					"label": "op5:egL3",
+					"shortname": "op5_egL3",
 					"address": "/synth.dx7/op5:egL3",
 					"init": 90,
 					"min": 0,
@@ -749,6 +834,7 @@
 				{
 					"type": "nentry",
 					"label": "op5:egL4",
+					"shortname": "op5_egL4",
 					"address": "/synth.dx7/op5:egL4",
 					"init": 0,
 					"min": 0,
@@ -758,6 +844,7 @@
 				{
 					"type": "nentry",
 					"label": "op5:egR1",
+					"shortname": "op5_egR1",
 					"address": "/synth.dx7/op5:egR1",
 					"init": 90,
 					"min": 0,
@@ -767,6 +854,7 @@
 				{
 					"type": "nentry",
 					"label": "op5:egR2",
+					"shortname": "op5_egR2",
 					"address": "/synth.dx7/op5:egR2",
 					"init": 90,
 					"min": 0,
@@ -776,6 +864,7 @@
 				{
 					"type": "nentry",
 					"label": "op5:egR3",
+					"shortname": "op5_egR3",
 					"address": "/synth.dx7/op5:egR3",
 					"init": 90,
 					"min": 0,
@@ -785,6 +874,7 @@
 				{
 					"type": "nentry",
 					"label": "op5:egR4",
+					"shortname": "op5_egR4",
 					"address": "/synth.dx7/op5:egR4",
 					"init": 90,
 					"min": 0,
@@ -794,6 +884,7 @@
 				{
 					"type": "nentry",
 					"label": "op5:freq",
+					"shortname": "op5_freq",
 					"address": "/synth.dx7/op5:freq",
 					"meta": [
 						{ "unit": "Hz" }
@@ -806,6 +897,7 @@
 				{
 					"type": "nentry",
 					"label": "op5:key_vel_sens",
+					"shortname": "op5_key_vel_sens",
 					"address": "/synth.dx7/op5:key_vel_sens",
 					"init": 1,
 					"min": 0,
@@ -815,6 +907,7 @@
 				{
 					"type": "nentry",
 					"label": "op5:level",
+					"shortname": "op5_level",
 					"address": "/synth.dx7/op5:level",
 					"init": 95,
 					"min": 0,
@@ -824,6 +917,7 @@
 				{
 					"type": "nentry",
 					"label": "op5:mode",
+					"shortname": "op5_mode",
 					"address": "/synth.dx7/op5:mode",
 					"init": 0,
 					"min": 0,
@@ -833,6 +927,7 @@
 				{
 					"type": "nentry",
 					"label": "op5:rate_scale",
+					"shortname": "op5_rate_scale",
 					"address": "/synth.dx7/op5:rate_scale",
 					"init": 0,
 					"min": 0,
@@ -842,6 +937,7 @@
 				{
 					"type": "hslider",
 					"label": "pitch",
+					"shortname": "pitch",
 					"address": "/synth.dx7/pitch",
 					"init": 48,
 					"min": 24,

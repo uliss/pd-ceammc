@@ -37,6 +37,7 @@ extern "C" void is_float_setup();
 extern "C" void is_list_setup();
 extern "C" void is_odd_setup();
 extern "C" void is_pointer_setup();
+extern "C" void is_prop_setup();
 extern "C" void is_symbol_setup();
 
 extern "C" void setup_test0x2edata();
@@ -45,10 +46,12 @@ extern "C" void setup_test0x2eexpect();
 void setup_base_canvas_dir();
 void setup_base_canvas_name();
 void setup_base_canvas_path();
+void setup_base_clone();
 void setup_base_expand_env();
 void setup_base_msg();
 void setup_base_replace();
 void setup_base_sync();
+void setup_base_z_tilde();
 void setup_is_data();
 void setup_is_file();
 void setup_load_expr();
@@ -71,11 +74,13 @@ void ceammc_base_setup()
     is_list_setup();
     is_odd_setup();
     is_pointer_setup();
+    is_prop_setup();
     is_symbol_setup();
 
     setup_base_canvas_dir();
     setup_base_canvas_name();
     setup_base_canvas_path();
+    setup_base_clone();
     setup_base_dac();
     setup_base_expand_env();
     setup_base_function();
@@ -90,6 +95,7 @@ void ceammc_base_setup()
     setup_base_sync();
     setup_base_xfade2_tilde();
     setup_base_xfade_tilde();
+    setup_base_z_tilde();
     setup_canvas_current();
     setup_canvas_top();
     setup_ceammc_search();

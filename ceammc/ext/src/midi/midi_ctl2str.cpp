@@ -15,19 +15,18 @@ MidiCtl2Str::MidiCtl2Str(const PdArgs& args)
 
 void MidiCtl2Str::onFloat(t_float f)
 {
-    size_t n = f;
-
-    if (n > 127) {
+    if (f < 0 || f > 127) {
         OBJ_ERR << "invalid controller number: " << f;
         return;
     }
 
-    t_symbol* name = midi::controller_name(n);
+    size_t n = f;
+    auto name = midi::controller_name(n);
 
     if (as_symbol_->value())
-        symbolTo(0, name);
+        symbolTo(0, gensym(name));
     else
-        atomTo(0, new DataTypeString(name->s_name));
+        atomTo(0, new DataTypeString(name));
 }
 
 void setup_midi_ctl2str()

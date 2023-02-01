@@ -21,7 +21,7 @@ using namespace ceammc;
 class ListRLEncode : public BaseObject {
 public:
     ListRLEncode(const PdArgs& args);
-    void onList(const AtomList& l) override;
+    void onList(const AtomListView& lv) override;
 };
 
 void setup_list_rlencode();

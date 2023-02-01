@@ -14,6 +14,7 @@
 #include "midi_octave.h"
 #include "ceammc_args.h"
 #include "ceammc_convert.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 
 #include <memory>
@@ -22,9 +23,8 @@
 static std::unique_ptr<ArgChecker> onlist_chk;
 static std::mt19937 oct_gen;
 
-static t_symbol* SYM_TRANSPOSE;
-static t_symbol* SYM_SET;
-static t_symbol* SYM_RANDOM;
+CEAMMC_DEFINE_STR(transpose);
+CEAMMC_DEFINE_HASH(set);
 
 constexpr int MIN_OCT = -11;
 constexpr int MAX_OCT = 11;
@@ -42,22 +42,22 @@ MidiOctave::MidiOctave(const PdArgs& args)
     oct_->checkClosedRange(MIN_OCT, MAX_OCT);
     addProperty(oct_);
 
-    mode_ = new SymbolEnumProperty("@mode", { SYM_TRANSPOSE, SYM_SET });
+    mode_ = new SymbolEnumProperty("@mode", { str_transpose, str_set });
     addProperty(mode_);
-    addProperty(new SymbolEnumAlias("@set", mode_, SYM_SET));
-    addProperty(new SymbolEnumAlias("@transpose", mode_, SYM_TRANSPOSE));
+    addProperty(new SymbolEnumAlias("@set", mode_, gensym(str_set)));
+    addProperty(new SymbolEnumAlias("@transpose", mode_, gensym(str_transpose)));
 
     createCbListProperty(
         "@random",
         [this]() -> AtomList { return random_ ? AtomList { (t_float)a_, (t_float)b_ } : AtomList(); },
-        [this](const AtomList& lst) -> bool {
-            if (lst.empty()) {
+        [this](const AtomListView& lv) -> bool {
+            if (lv.empty()) {
                 random_ = false;
                 return true;
-            } else if (lst.size() == 2) {
-                if (lst[0].isFloat() && lst[1].isFloat()) {
-                    auto a = lst[0].asInt();
-                    auto b = lst[1].asInt();
+            } else if (lv.size() == 2) {
+                if (lv[0].isFloat() && lv[1].isFloat()) {
+                    auto a = lv[0].asInt();
+                    auto b = lv[1].asInt();
 
                     if (a == 0 && b == 0) {
                         random_ = false;
@@ -75,7 +75,7 @@ MidiOctave::MidiOctave(const PdArgs& args)
                     }
 
                     if (a >= b) {
-                        OBJ_ERR << "MIN<MAX expected, got: " << lst;
+                        OBJ_ERR << "MIN<MAX expected, got: " << lv;
                         return false;
                     }
 
@@ -102,17 +102,17 @@ void MidiOctave::onFloat(t_float note)
     floatTo(0, octave(note));
 }
 
-void MidiOctave::onList(const AtomList& lst)
+void MidiOctave::onList(const AtomListView& lv)
 {
-    if (!onlist_chk->check(lst.view())) {
-        OBJ_ERR << "NOTE VEL [DUR] expected, got: " << lst;
+    if (!onlist_chk->check(lv)) {
+        OBJ_ERR << "NOTE VEL [DUR] expected, got: " << lv;
         return;
     }
 
-    const size_t N = lst.size();
+    const size_t N = lv.size();
     assert(N == 2 || N == 3);
 
-    Atom msg[3] = { octave(lst[0].asFloat()), lst[1], N == 3 ? lst[2] : 0. };
+    Atom msg[3] = { octave(lv[0].asFloat()), lv[1], N == 3 ? lv[2] : 0. };
     listTo(0, AtomListView(msg, N));
 }
 
@@ -123,14 +123,19 @@ void MidiOctave::onInlet(size_t, const AtomListView& lv)
 
 t_float MidiOctave::octave(t_float note) const
 {
+    note = clip<t_float, 0, 127>(note);
+
     const int oct = random_
         ? std::uniform_int_distribution<int>(a_, b_)(oct_gen)
         : oct_->value();
 
-    note = clip<t_float, 0, 127>(note);
-
-    if (mode_->value() == SYM_SET)
+    switch (crc32_hash(mode_->value())) {
+    case hash_set:
         note = std::fmod(note, 12);
+        break;
+    default:
+        break;
+    }
 
     auto res = note + 12 * oct;
     return (res < 0 || res > 127) ? note : res;
@@ -139,10 +144,6 @@ t_float MidiOctave::octave(t_float note) const
 void setup_midi_octave()
 {
     onlist_chk.reset(new ArgChecker("f0..127 f0..127 f?"));
-
-    SYM_TRANSPOSE = gensym("transpose");
-    SYM_SET = gensym("set");
-    SYM_RANDOM = gensym("random");
 
     ObjectFactory<MidiOctave> obj("midi.oct");
     obj.setXletsInfo({ "float: note\n"

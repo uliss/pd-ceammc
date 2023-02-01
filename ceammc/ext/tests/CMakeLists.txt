@@ -49,8 +49,12 @@ if(WITH_LIBSNDFILE)
     if(LIBSNDFILE_FOUND)
         include_directories(${LIBSNDFILE_INCLUDE_DIRS})
         ceammc_add_core_test("ceammc::libsndfile" test_libsndfile)
-        ceammc_add_test_linked(NAME test_sound TITLE "ceammc::sound" SRC test_sound_minimp3.cpp)
     endif()
+endif()
+
+ceammc_add_test_linked(NAME test_sound TITLE "ceammc::sound" SRC test_sound_minimp3.cpp)
+if(WITH_LIBSAMPLERATE)
+    target_compile_definitions(test_sound PRIVATE WITH_LIBSAMPLERATE)
 endif()
 
 ceammc_add_test_linked(TITLE "ceammc::pd" NAME test_pd SRC "../src/base/debug_gensym.cpp" LINK ceammc_core puredata-core)
@@ -85,13 +89,11 @@ endif()
 ceammc_add_test_linked(
     TITLE "Serial"
     NAME test_serialport
-    INCLUDE_DIRECTORIES ${CMAKE_SOURCE_DIR}/ceammc/extra/serial/serial/include
     LINK serial)
 
 ceammc_add_test_linked(TITLE "ArduinoThread"
     NAME test_arduino_thread
-    INCLUDE_DIRECTORIES ${CMAKE_SOURCE_DIR}/ceammc/extra/serial/serial/include
-    LINK tests_main_lib hw_arduino ceammc_core puredata-core)
+    LINK tests_main_lib serial hw_arduino ceammc_core puredata-core)
 ceammc_add_test_linked(TITLE "Arduino" NAME test_arduino LINK tests_main_lib hw_arduino ceammc_core puredata-core)
 
 add_custom_target(test_src SOURCES gen_test_wav.py)
@@ -110,6 +112,7 @@ add_subdirectory(env)
 add_subdirectory(flow)
 add_subdirectory(flt)
 add_subdirectory(fx)
+add_subdirectory(lang)
 add_subdirectory(list)
 add_subdirectory(math)
 add_subdirectory(midi)

@@ -149,7 +149,7 @@ void midi_parser_send(MidiFSMParser* parser)
 Boolean midi_parser_append_byte(MidiFSMParser* parser, Byte byte)
 {
     if (parser->data_written >= parser->max_data_len) {
-        error("[coremidi] extra midi byte: %d", (int)byte);
+        pd_error(0, "[coremidi] extra midi byte: %d", (int)byte);
         return FALSE;
     }
 
@@ -159,7 +159,7 @@ Boolean midi_parser_append_byte(MidiFSMParser* parser, Byte byte)
     if (parser->current_packet->length >= sizeof(parser->current_packet->data)) {
         MIDIPacket* res = MIDIPacketListAdd(parser->packetlist, sizeof(parser->buffer), parser->current_packet, 0, 1, &byte);
         if (res == NULL) { // no room
-            error("[coremidi] packet is too big");
+            pd_error(0, "[coremidi] packet is too big");
             return FALSE;
         } else {
             parser->current_packet = res;
@@ -179,7 +179,7 @@ void midi_parser_input(MidiFSMParser* parser, Byte byte)
     case MIDI_FSM_STATE_INIT: {
         const Boolean is_status_byte = 0x80 & byte;
         if (!is_status_byte) {
-            error("[coremidi] unexpected raw midi value: %d", (int)byte);
+            pd_error(0, "[coremidi] unexpected raw midi value: %d", (int)byte);
             return;
         }
 
@@ -231,14 +231,14 @@ void midi_parser_input(MidiFSMParser* parser, Byte byte)
                 parser->current_packet->timeStamp = 0;
                 parser->max_data_len = 1;
                 if (!midi_parser_append_byte(parser, byte)) {
-                    error("[coremidi] sysex error");
+                    pd_error(0, "[coremidi] sysex error");
                     midi_parser_reset(parser);
                 }
             }
             break;
         default:
             // not a status byte in init state
-            error("[coremidi] unexpected raw midi value: %d", (int)byte);
+            pd_error(0, "[coremidi] unexpected raw midi value: %d", (int)byte);
             midi_parser_reset(parser);
             break;
         }
@@ -259,10 +259,10 @@ void midi_parser_input(MidiFSMParser* parser, Byte byte)
                 parser->max_data_len++; // increase packet length
                 if (!midi_parser_append_byte(parser, byte)) {
                     midi_parser_reset(parser);
-                    error("[coremidi] sysex realtime error");
+                    pd_error(0, "[coremidi] sysex realtime error");
                 }
             } else {
-                error("[coremidi] unexpected status byte value: %d", (int)byte);
+                pd_error(0, "[coremidi] unexpected status byte value: %d", (int)byte);
                 midi_parser_reset(parser);
             }
         } else {
@@ -283,23 +283,23 @@ void midi_parser_input(MidiFSMParser* parser, Byte byte)
                 if (midi_parser_append_byte(parser, byte))
                     midi_parser_send(parser);
                 else
-                    error("[coremidi] sysex error");
+                    pd_error(0, "[coremidi] sysex error");
 
                 midi_parser_reset(parser);
             } else if (byte > MIDI_SYSEXEND) {
                 parser->max_data_len++; // increase packet length
                 if (!midi_parser_append_byte(parser, byte)) {
                     midi_parser_reset(parser);
-                    error("[coremidi] sysex realtime error");
+                    pd_error(0, "[coremidi] sysex realtime error");
                 }
             } else {
                 midi_parser_reset(parser);
-                error("[coremidi] unexpetced status byte while sysex");
+                pd_error(0, "[coremidi] unexpetced status byte while sysex");
             }
         } else { // append sysex data
             parser->max_data_len++;
             if (!midi_parser_append_byte(parser, byte)) {
-                error("[coremidi] sysex error");
+                pd_error(0, "[coremidi] sysex error");
                 midi_parser_reset(parser);
             }
         }
@@ -326,7 +326,7 @@ void coremidi_print_error(OSStatus err, const char* operation)
     } else
         sprintf(error_str, "%d", (int)err);
 
-    error("[coremidi] system error: %s (%s)", operation, error_str);
+    pd_error(0, "[coremidi] system error: %s (%s)", operation, error_str);
 }
 
 void coremidi_append_src_device(MIDIEntityRef src)
@@ -471,7 +471,7 @@ Boolean coremidi_init_sources()
     for (ItemCount i = 0; i < N; i++) {
         MIDIEndpointRef src = MIDIGetSource(i);
         if (!src) {
-            error("[coremidi] can't open source: %d", (int)i);
+            pd_error(0, "[coremidi] can't open source: %d", (int)i);
             break;
         }
 
@@ -488,7 +488,7 @@ Boolean coremidi_init_destinations()
     for (ItemCount i = 0; i < N; i++) {
         MIDIEndpointRef dest = MIDIGetDestination(i);
         if (!dest) {
-            error("[coremidi] can't open destination: %d", (int)i);
+            pd_error(0, "[coremidi] can't open destination: %d", (int)i);
             break;
         }
 
@@ -770,7 +770,7 @@ void coremidi_connect_sources(int nmidiin, int* midiinvec)
     for (int i = 0; i < nmidiin; i++) {
         int dev_idx = midiinvec[i];
         if (dev_idx < 0 || dev_idx >= coremidi_nsrc) {
-            error("[coremidi] invalid device index: %d", dev_idx);
+            pd_error(0, "[coremidi] invalid device index: %d", dev_idx);
             continue;
         }
 
@@ -794,7 +794,7 @@ void coremidi_disconnect_sources()
         OSStatus err = MIDIPortDisconnectSource(input_port, coremidi_src[i].ref);
         if (err != noErr) {
             coremidi_print_error(err, "MIDIPortDisconnectSource");
-            error("[coremidi] can't disconnect from source: %d", (int)i);
+            pd_error(0, "[coremidi] can't disconnect from source: %d", (int)i);
             continue;
         }
 

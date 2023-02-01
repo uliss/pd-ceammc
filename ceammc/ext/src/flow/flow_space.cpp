@@ -12,12 +12,22 @@
  * this file belongs to.
  *****************************************************************************/
 #include "flow_space.h"
+#include "ceammc_containers.h"
 #include "ceammc_factory.h"
+
+#include <chrono>
+#include <random>
+
+namespace {
+std::mt19937 random_dev(std::time(nullptr));
+
+}
 
 FlowSpace::FlowSpace(const PdArgs& a)
     : BaseObject(a)
     , packet_sched_([this]() { packetSchedule(); })
     , delay_(nullptr)
+    , deviation_(nullptr)
     , done_(nullptr)
     , done_fn_([this]() {
         bangTo(1);
@@ -35,6 +45,10 @@ FlowSpace::FlowSpace(const PdArgs& a)
     delay_->setUnits(PropValueUnits::MSEC);
     addProperty(delay_);
 
+    deviation_ = new FloatProperty("@dev", 0);
+    deviation_->checkClosedRange(0, 1);
+    addProperty(deviation_);
+
     done_ = new IntProperty("@done", 1);
     done_->checkNonNegative();
     done_->setArgIndex(1);
@@ -43,6 +57,10 @@ FlowSpace::FlowSpace(const PdArgs& a)
 
 void FlowSpace::packetSchedule()
 {
+    const t_float b = deviation_->value() * 0.49;
+    const t_float a = -b;
+    std::uniform_real_distribution<t_float> dist(a, b);
+
     // finalize scheduled clocks
     // as we add events from back to beginning
     // we need to process them from begining to end
@@ -53,9 +71,13 @@ void FlowSpace::packetSchedule()
 
                 it->new_one = false;
 
-                if (packet_count_ != 0)
-                    it->clock.delay(packet_count_ * delay_->value());
-                else // exec immidiately
+                if (packet_count_ != 0) {
+                    t_float t = packet_count_ * delay_->value();
+                    if (deviation_->value() > 0)
+                        t += (dist(random_dev) * delay_->value());
+
+                    it->clock.delay(t);
+                } else // exec immidiately
                     it->clock.exec();
 
             } else
@@ -70,9 +92,9 @@ void FlowSpace::clockDone()
 {
     if (--num_active_ == 0) {
         const auto n = done_->value();
-        if (n > 0)
+        if (n > 0) {
             done_fn_.delay(n * delay_->value());
-        else
+        } else
             bangTo(1);
     }
 }
@@ -125,12 +147,15 @@ void FlowSpace::onSymbol(t_symbol* s)
     addClock(fn);
 }
 
-void FlowSpace::onList(const AtomList& l)
+void FlowSpace::onList(const AtomListView& lv)
 {
     if (packet_count_ == 0)
         packet_sched_.delay(0);
 
-    auto fn = [l, this]() { listTo(0, l); clockDone(); };
+    // make a copy for lambda capture
+    AtomList16 l;
+    l.insert_back(lv);
+    auto fn = [l, this]() { listTo(0, l.view()); clockDone(); };
     addClock(fn);
 }
 
@@ -139,8 +164,10 @@ void FlowSpace::onAny(t_symbol* s, const AtomListView& lv)
     if (packet_count_ == 0)
         packet_sched_.delay(0);
 
-    AtomList l(lv); // lambda capture copy
-    auto fn = [this, s, l]() { anyTo(0, s, l); clockDone(); };
+    // make a copy for lambda capture
+    AtomList16 l;
+    l.insert_back(lv);
+    auto fn = [this, s, l]() { anyTo(0, s, l.view()); clockDone(); };
     addClock(fn);
 }
 
@@ -166,7 +193,7 @@ void FlowSpace::m_prop_done(const AtomListView& lv)
     done_->set(lv);
 }
 
-void FlowSpace::setInterval(t_float f)
+void FlowSpace::setInterval(int, t_float f)
 {
     delay_->setValue(f);
 }

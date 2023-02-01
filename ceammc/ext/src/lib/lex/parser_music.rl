@@ -61,8 +61,8 @@ bool BpmFullMatch::parse(const char* str)
     const char* p = str;
     const char* pe = p + len;
     const char* eof = pe;
-    int cat_ = 0;
-    AtomType type_;
+
+    DECLARE_RAGEL_COMMON_VARS;
     fsm::BpmData bpm;
 
     reset();
@@ -120,8 +120,8 @@ bool SpnFullMatch::parse(const char* str)
     const char* p = str;
     const char* pe = p + len;
     const char* eof = pe;
-    int cat_ = 0;
-    AtomType type_;
+
+    DECLARE_RAGEL_COMMON_VARS;
     fsm::SpnData spn;
 
     reset();
@@ -161,6 +161,61 @@ size_t SpnFullMatch::parse(const AtomListView& lv, SmallSpnVec& out)
 }
 
 %%{
+    machine pitch;
+    include music_common "ragel_music.rl";
+
+    main := pitch;
+    write data;
+}%%
+
+PitchFullMatch::PitchFullMatch()
+{
+    reset();
+}
+
+void PitchFullMatch::reset()
+{
+    spn_ = { };
+}
+
+bool PitchFullMatch::parse(const char* str)
+{
+    const auto len = strlen(str);
+    if (len == 0)
+        return false;
+
+    const char* p = str;
+    const char* pe = p + len;
+    const char* eof = pe;
+
+    DECLARE_RAGEL_COMMON_VARS;
+    fsm::SpnData spn;
+
+    reset();
+
+    %% write init;
+    %% write exec;
+
+    const bool ok = cs >= %%{ write first_final; }%%;
+
+    if (ok)
+        spn_ = spn;
+
+    return ok;
+}
+
+bool PitchFullMatch::parse(const Atom& a)
+{
+    if (a.isSymbol())
+        return parse(a.asT<t_symbol*>()->s_name);
+    else if(a.isInteger() && a.asT<int>() >= 0 && a.asT<int>() < 12) {
+        spn_.setSemitones(a.asT<int>());
+        return true;
+    } else
+        return false;
+}
+
+%%{
     machine notation;
     include music_common "ragel_music.rl";
 
@@ -188,8 +243,8 @@ bool NotationSingle::parse(const char* str)
     const char* p = str;
     const char* pe = p + len;
     const char* eof = pe;
-    int cat_ = 0;
-    AtomType type_;
+
+    DECLARE_RAGEL_COMMON_VARS;
     fsm::NotationData note;
     fsm::SpnData spn;
 

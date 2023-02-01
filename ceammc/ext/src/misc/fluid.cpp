@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "fluid.h"
 #include "ceammc_args.h"
+#include "ceammc_containers.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 #include "ceammc_platform.h"
@@ -113,14 +114,14 @@ public:
         return setter_(synth_, v);
     }
 
-    bool setList(const AtomListView& lst) override
+    bool setList(const AtomListView& lv) override
     {
-        if (!lst.isFloat()) {
-            PROP_ERR() << "float value expected, got: " << lst;
+        if (!lv.isFloat()) {
+            PROP_ERR() << "float value expected, got: " << lv;
             return false;
         }
 
-        return setFloat(lst.asT<t_float>());
+        return setFloat(lv.asT<t_float>());
     }
 };
 
@@ -128,9 +129,12 @@ Fluid::Fluid(const PdArgs& args)
     : SoundExternal(args)
     , synth_(nullptr)
     , sound_font_(&s_)
+    , nvoices_cb_([this]() { floatTo(2, nvoices_); })
+    , nvoices_(0)
 {
     createSignalOutlet();
     createSignalOutlet();
+    createOutlet();
 
     fluid_settings_t* settings = new_fluid_settings();
     if (settings == nullptr) {
@@ -139,7 +143,7 @@ Fluid::Fluid(const PdArgs& args)
     }
 
     // settings:
-    fluid_settings_setnum(settings, "synth.midi-channels", 16);
+    //    fluid_settings_setnum(settings, "synth.midi-channels", 16);
 
     // Create fluidsynth instance:
     synth_ = new_fluid_synth(settings);
@@ -260,6 +264,17 @@ Fluid::Fluid(const PdArgs& args)
         addProperty(p);
     }
 
+    {
+        auto p = new FluidSynthProperty(
+            "@cpuload", synth_,
+            [](fluid_synth_t* synth) -> t_float {
+                return fluid_synth_get_cpu_load(synth);
+            },
+            nullptr);
+
+        addProperty(p);
+    }
+
     createCbIntProperty("@n", [this]() {
         return (!synth_) ? 0 : fluid_synth_count_midi_channels(synth_);
     });
@@ -286,17 +301,15 @@ void Fluid::initDone()
         propSetSoundFont(gensym(DEFAULT_SOUNDFONT));
 }
 
-void Fluid::onList(const AtomList& lst)
+void Fluid::onList(const AtomListView& lv)
 {
-    m_note(&s_, lst);
+    m_note(&s_, lv);
 }
 
 void Fluid::setupDSP(t_signal** sp)
 {
     SoundExternal::setupDSP(sp);
-
-    if (synth_)
-        fluid_synth_set_sample_rate(synth_, samplerate());
+    nvoices_ = 0;
 }
 
 bool Fluid::propSetSoundFont(t_symbol* s)
@@ -349,6 +362,9 @@ AtomList Fluid::propSoundFonts() const
 
 void Fluid::m_note(t_symbol* s, const AtomListView& lv)
 {
+    if (!synth_ || !pd_getdspstate())
+        return;
+
     auto res = midiByteValue3(s, "NOTE", "VEL", lv);
     if (!res.ok)
         return;
@@ -357,8 +373,12 @@ void Fluid::m_note(t_symbol* s, const AtomListView& lv)
     if (res.chan == -1)
         res.chan = 0;
 
-    auto fn = [&res](fluid_synth_t* synth, int chan, uint8_t val) -> bool {
-        return fluid_synth_noteon(synth, chan, res.n, val) == FLUID_OK;
+    auto fn = [&res](fluid_synth_t* synth, int chan, uint8_t vel) -> bool {
+        if (vel == 0) {
+            fluid_synth_noteoff(synth, chan, res.n);
+            return true;
+        } else
+            return fluid_synth_noteon(synth, chan, res.n, vel) == FLUID_OK;
     };
     callFluidChannelFn(s, res.chan, fn, res.value, "note", lv);
 }
@@ -539,23 +559,23 @@ void Fluid::m_bend_float(t_symbol* s, const AtomListView& lv)
     setBend(s, ch.chan, float_to_uint14(ch.value), lv);
 }
 
-void Fluid::m_gen(t_symbol* s, const AtomListView& lst)
+void Fluid::m_gen(t_symbol* s, const AtomListView& lv)
 {
     if (synth_ == nullptr)
         return;
 
-    if (lst.size() == 3 && lst[0].isFloat() && lst[1].isFloat() && lst[2].isFloat()) {
-        int chan = lst[0].asInt();
-        int param = lst[1].asInt();
-        int value = lst[2].asInt();
+    if (lv.size() == 3 && lv[0].isFloat() && lv[1].isFloat() && lv[2].isFloat()) {
+        int chan = lv[0].asInt();
+        int param = lv[1].asInt();
+        int value = lv[2].asInt();
 
         fluid_synth_set_gen(synth_, chan - 1, param, value);
-    } else if (lst.size() == 2 && lst[0].isFloat() && lst[1].isFloat()) {
-        int param = lst[0].asInt();
-        int value = lst[1].asInt();
+    } else if (lv.size() == 2 && lv[0].isFloat() && lv[1].isFloat()) {
+        int param = lv[0].asInt();
+        int value = lv[1].asInt();
         fluid_synth_set_gen(synth_, 0, param, value);
     } else {
-        METHOD_ERR(s) << "CHAN PARAM VAL or PARAM VAL expected: " << lst;
+        METHOD_ERR(s) << "CHAN PARAM VAL or PARAM VAL expected: " << lv;
     }
 }
 
@@ -637,21 +657,25 @@ void Fluid::m_sysex(t_symbol* s, const AtomListView& lv)
         char big_reply[reply_len];
         auto res = fluid_synth_sysex(synth_, data, N, big_reply, &reply_len, nullptr, 0);
         if (res == FLUID_OK) {
-            Atom res[reply_len];
-            for (int i = 0; i < reply_len; i++)
-                res[i] = big_reply[i];
+            AtomList512 res;
+            res.reserve(reply_len);
 
-            anyTo(0, gensym("sysex"), AtomListView(res, reply_len));
+            for (int i = 0; i < reply_len; i++)
+                res.push_back(big_reply[i]);
+
+            anyTo(0, gensym("sysex"), res.view());
         }
     } else if (res == FLUID_OK) {
         METHOD_ERR(s) << "ok";
 
         if (reply_len > 0) {
-            Atom res[reply_len];
-            for (int i = 0; i < reply_len; i++)
-                res[i] = small_reply[i];
+            AtomList512 res;
+            res.reserve(reply_len);
 
-            anyTo(0, gensym("sysex"), AtomListView(res, reply_len));
+            for (int i = 0; i < reply_len; i++)
+                res.push_back(small_reply[i]);
+
+            anyTo(0, gensym("sysex"), res.view());
         } else {
             METHOD_ERR(s) << "no reply: " << reply_len;
         }
@@ -1031,10 +1055,24 @@ void Fluid::processBlock(const t_sample** in, t_sample** out)
     for (size_t i = 0; i < bs; i++)
         out[1][i] = right[i];
 #endif
+
+    auto nv = fluid_synth_get_active_voice_count(synth_);
+    if (nv != nvoices_) {
+        nvoices_ = nv;
+        nvoices_cb_.delay(0);
+    }
+}
+
+void Fluid::samplerateChanged(size_t sr)
+{
+    if (synth_)
+        fluid_synth_set_sample_rate(synth_, sr);
 }
 
 void setup_misc_fluid()
 {
+    LIB_DBG << fmt::format("fluidsynth version: {}", fluid_version_str());
+
     SoundExternalFactory<Fluid> obj("fluid~", OBJECT_FACTORY_DEFAULT);
 
     obj.addMethod("note", &Fluid::m_note);

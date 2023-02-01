@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="route.symbol">
+        <title>route.symbol</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>separate symbol messages from other types</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>flow</category>
+            <keywords>route symbol</keywords>
+            <since>0.9.6</since>
+            <aliases>
+                <alias>route.s</alias>
+            </aliases>
+            <also>
+                <see>route.float</see>
+                <see>route.random</see>
+            </also>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="any">any to second outlet</xinfo>
+                <xinfo on="bang">bang to second outlet</xinfo>
+                <xinfo on="float">float to second outlet</xinfo>
+                <xinfo on="list">list to second outlet</xinfo>
+                <xinfo on="symbol">symbol to *first* outlet</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>symbol output</outlet>
+            <outlet>other messages</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]  [bang( [symbol ABC #a(
+|    |
+|    |   [list 1 2 3(
+|    |   |
+|    |   |  [list(
+|    |   |  |
+|    |   |  | [@any(
+|    |   |  | |
+[route.symbol #z]
+|       ^|
+[ui.dt]  |
+         |
+         [ui.dt]
+
+[X a->z]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -25,7 +25,7 @@ class DictReject : public DictBase {
 public:
     DictReject(const PdArgs& args);
 
-    void onInlet(size_t, const AtomListView& lst) override;
+    void onInlet(size_t, const AtomListView& lv) override;
     void onDataT(const DictAtom& dict) final;
 };
 

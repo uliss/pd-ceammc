@@ -347,4 +347,157 @@ TEST_CASE("ui.tab", "[ui.tab]")
             REQUIRE_UI_LIST_PROPERTY(t, "selected", LA(0.f, 1, 0.f, 1));
         }
     }
+
+    SECTION("+ - next prev")
+    {
+        SECTION("single")
+        {
+            TestExtTab t("ui.tab");
+            t <<= LA("+", 1);
+
+            REQUIRE(t->propCurrent() == -1);
+            t <<= LA("@items", "A");
+            t << "A";
+            t <<= LA("+", 1);
+            REQUIRE(t->propCurrent() == 0);
+            t <<= LA("-", 1);
+            REQUIRE(t->propCurrent() == 0);
+            t <<= LA("next");
+            REQUIRE(t->propCurrent() == 0);
+            t <<= LA("prev");
+            REQUIRE(t->propCurrent() == 0);
+            t <<= LA("random");
+            REQUIRE(t->propCurrent() == 0);
+
+            t <<= LA("@items", "A", "B", "C");
+            // +
+            t <<= LA("+", 1);
+            REQUIRE(t->propCurrent() == 1);
+            REQUIRE_OUTPUT_LIST(t, 0, LA(1, "B"));
+            t <<= LA("+", 1);
+            REQUIRE(t->propCurrent() == 2);
+            REQUIRE_OUTPUT_LIST(t, 0, LA(2, "C"));
+            t <<= LA("+", 1);
+            REQUIRE(t->propCurrent() == 0);
+            REQUIRE_OUTPUT_LIST(t, 0, LA(0.0, "A"));
+            t <<= LA("+", 1);
+            REQUIRE(t->propCurrent() == 1);
+            REQUIRE_OUTPUT_LIST(t, 0, LA(1, "B"));
+            t <<= LA("+", 0.0);
+            REQUIRE(t->propCurrent() == 1);
+            REQUIRE_OUTPUT_LIST(t, 0, LA(1, "B"));
+            t <<= LA("+", -1);
+            REQUIRE(t->propCurrent() == 0);
+            REQUIRE_OUTPUT_LIST(t, 0, LA(0.0, "A"));
+            t <<= LA("+", -1);
+            REQUIRE(t->propCurrent() == 2);
+            t <<= LA("+", -2);
+            REQUIRE(t->propCurrent() == 0);
+            t <<= LA("+", 3);
+            REQUIRE(t->propCurrent() == 0);
+            t <<= LA("+", 4);
+            REQUIRE(t->propCurrent() == 1);
+            // -
+            t <<= LA("-", 1);
+            REQUIRE(t->propCurrent() == 0);
+            REQUIRE_OUTPUT_LIST(t, 0, LA(0.0, "A"));
+            t <<= LA("-", 1);
+            REQUIRE(t->propCurrent() == 2);
+            REQUIRE_OUTPUT_LIST(t, 0, LA(2, "C"));
+            t <<= LA("-", 1);
+            REQUIRE(t->propCurrent() == 1);
+            REQUIRE_OUTPUT_LIST(t, 0, LA(1, "B"));
+            t <<= LA("-", 3);
+            REQUIRE(t->propCurrent() == 1);
+            REQUIRE_OUTPUT_LIST(t, 0, LA(1, "B"));
+            t <<= LA("-", 6);
+            REQUIRE(t->propCurrent() == 1);
+            t <<= LA("-", 5);
+            REQUIRE(t->propCurrent() == 2);
+            // next
+            t <<= LA("next");
+            REQUIRE(t->propCurrent() == 2);
+            REQUIRE_NO_OUTPUT(t);
+            t <<= LA("next");
+            REQUIRE(t->propCurrent() == 2);
+            REQUIRE_NO_OUTPUT(t);
+            t << "A";
+            t <<= LA("next");
+            REQUIRE(t->propCurrent() == 1);
+            REQUIRE_OUTPUT_LIST(t, 0, LA(1, "B"));
+            t <<= LA("next");
+            REQUIRE(t->propCurrent() == 2);
+            REQUIRE_OUTPUT_LIST(t, 0, LA(2, "C"));
+            // prev
+            t <<= LA("prev");
+            REQUIRE(t->propCurrent() == 1);
+            REQUIRE_OUTPUT_LIST(t, 0, LA(1, "B"));
+            t <<= LA("prev");
+            REQUIRE(t->propCurrent() == 0);
+            REQUIRE_OUTPUT_LIST(t, 0, LA(0.0, "A"));
+            t <<= LA("prev");
+            REQUIRE(t->propCurrent() == 0);
+            REQUIRE_NO_OUTPUT(t);
+        }
+
+        SECTION("toggle")
+        {
+            TestExtTab t("ui.tab", LA("A", "B", "@toggle", 1));
+            t <<= LA("+", 1);
+            t <<= LA("-", 1);
+            t <<= LA("next");
+            t <<= LA("prev");
+        }
+    }
+
+    SECTION("random")
+    {
+        SECTION("single")
+        {
+            TestExtTab t("ui.tab");
+            t <<= LA("random");
+            REQUIRE_NO_OUTPUT(t);
+
+            t <<= LA("@items", "A");
+            t <<= LA("random");
+            REQUIRE_OUTPUT_LIST(t, 0, LA(0.0, "A"));
+            t <<= LA("random");
+            REQUIRE_OUTPUT_LIST(t, 0, LA(0.0, "A"));
+        }
+
+        SECTION("toggle")
+        {
+            TestExtTab t("ui.tab", LA("@toggle", 1));
+            t <<= LA("random");
+            REQUIRE_OUTPUT_ANY(t, 0, LA("@selected"));
+        }
+    }
+
+    SECTION("flip")
+    {
+        SECTION("single")
+        {
+            TestExtTab t("ui.tab", LA("A", "B"));
+            t <<= LA("flip");
+            REQUIRE_NO_OUTPUT(t);
+        }
+
+        SECTION("toggle")
+        {
+            TestExtTab t("ui.tab", LA("A", "B", "C", "@toggle", 1));
+            t->m_flip();
+            REQUIRE_OUTPUT_ANY(t, 0, LA("@selected", 1, 1, 1));
+
+            t << "A";
+            t << "B";
+            REQUIRE_UI_LIST_PROPERTY(t, "selected", LA(0., 0., 1));
+            REQUIRE(t.messagesAt(0).size() == 2);
+            REQUIRE(t.messagesAt(0).back() == LF(1, 0));
+            REQUIRE(t.messagesAt(0).front().anyValue() == LA("@selected", 0., 0., 1));
+
+            t.clearAll();
+            t->m_flip();
+            REQUIRE_UI_LIST_PROPERTY(t, "selected", LA(1, 1, 0.));
+        }
+    }
 }

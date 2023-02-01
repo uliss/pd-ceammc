@@ -28,6 +28,10 @@ TEST_CASE("xdac~", "[extension]")
             TExt t("xdac~");
             REQUIRE(t->numInputChannels() == 2);
             REQUIRE(t->numOutputChannels() == 0);
+            REQUIRE_PROPERTY(t, @channels, LF(1, 2));
+
+            REQUIRE(t->setProperty("@channels", LF(2, 1)));
+            REQUIRE_PROPERTY(t, @channels, LF(2, 1));
         }
 
         SECTION("single")
@@ -49,6 +53,89 @@ TEST_CASE("xdac~", "[extension]")
             TExt t("xdac~", LA("2:6"));
             REQUIRE(t->numInputChannels() == 5);
             REQUIRE(t->numOutputChannels() == 0);
+        }
+    }
+
+    SECTION("reverse")
+    {
+        TExt t("xdac~", LF(1, 2, 3, 4, 5));
+
+        t.call("reverse");
+        REQUIRE_PROPERTY(t, @channels, LF(5, 4, 3, 2, 1));
+    }
+
+    SECTION("rotate")
+    {
+        TExt t("xdac~", LF(1, 2, 3, 4, 5));
+
+        t.call("rotate");
+        REQUIRE_PROPERTY(t, @channels, LF(1, 2, 3, 4, 5));
+
+        t.call("rotate", LF(0));
+        REQUIRE_PROPERTY(t, @channels, LF(1, 2, 3, 4, 5));
+
+        t.call("rotate", LF(1));
+        REQUIRE_PROPERTY(t, @channels, LF(2, 3, 4, 5, 1));
+
+        t.call("rotate", LF(4));
+        REQUIRE_PROPERTY(t, @channels, LF(1, 2, 3, 4, 5));
+
+        t.call("rotate", LF(5));
+        REQUIRE_PROPERTY(t, @channels, LF(1, 2, 3, 4, 5));
+
+        t.call("rotate", LF(-1));
+        REQUIRE_PROPERTY(t, @channels, LF(5, 1, 2, 3, 4));
+    }
+
+    SECTION("side2circle")
+    {
+        SECTION("1")
+        {
+            TExt t("xdac~", LF(1));
+            t.call("side2circle");
+            REQUIRE_PROPERTY(t, @channels, LF(1));
+        }
+
+        SECTION("2")
+        {
+            TExt t("xdac~", LF(1, 2));
+            t.call("side2circle");
+            REQUIRE_PROPERTY(t, @channels, LF(1, 2));
+        }
+
+        SECTION("4")
+        {
+            TExt t("xdac~", LF(1, 2, 3, 4));
+            t.call("side2circle");
+            REQUIRE_PROPERTY(t, @channels, LF(1, 3, 4, 2));
+        }
+
+        SECTION("6")
+        {
+            TExt t("xdac~", LF(1, 2, 3, 4, 5, 6));
+            t.call("side2circle");
+            REQUIRE_PROPERTY(t, @channels, LF(1, 3, 5, 6, 4, 2));
+        }
+
+        SECTION("8")
+        {
+            TExt t("xdac~", LF(1, 2, 3, 4, 5, 6, 7, 8));
+            t.call("side2circle");
+            REQUIRE_PROPERTY(t, @channels, LF(1, 3, 5, 7, 8, 6, 4, 2));
+        }
+
+        SECTION("3")
+        {
+            TExt t("xdac~", LF(1, 2, 3));
+            t.call("side2circle");
+            REQUIRE_PROPERTY(t, @channels, LF(1, 2, 3));
+        }
+
+        SECTION("5")
+        {
+            TExt t("xdac~", LF(1, 2, 3, 4, 5));
+            t.call("side2circle");
+            REQUIRE_PROPERTY(t, @channels, LF(1, 3, 4, 2, 5));
         }
     }
 }

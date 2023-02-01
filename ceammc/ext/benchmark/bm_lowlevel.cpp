@@ -12,9 +12,11 @@
  * this file belongs to.
  *****************************************************************************/
 
-#include "fmt/include/fmt/format.h"
+#include "fmt/include/fmt/core.h"
+#include "ceammc_datatypes.h"
 
 #include <boost/unordered_map.hpp>
+#include <boost/container/static_vector.hpp>
 #include <climits>
 #include <cstdio>
 #include <map>
@@ -125,6 +127,47 @@ NONIUS_BENCHMARK("std::stringstream @l%s", [] {
 
 NONIUS_BENCHMARK("fmt::format @l%s", [] {
     fmt::format("@l{}", str[str_rand(gen)]);
+    return 0;
+})
+
+NONIUS_BENCHMARK("fmt::format_to @l%s (static_string)", [] {
+    ceammc::BoostStaticString<1024> buf;
+    fmt::format_to(std::back_inserter(buf), "@l{}", str[str_rand(gen)]);
+    return 0;
+})
+
+NONIUS_BENCHMARK("fmt::format_to @l%f (static_string)", [] {
+    ceammc::BoostStaticString<1024> buf;
+    fmt::format_to(std::back_inserter(buf), "@l{}", frand(gen));
+    return 0;
+})
+
+NONIUS_BENCHMARK("fmt::format_to {:g} (static_string)", [] {
+    ceammc::BoostStaticString<1024> buf;
+    fmt::format_to(std::back_inserter(buf), "{:g}", frand(gen));
+    return 0;
+})
+
+NONIUS_BENCHMARK("fmt::format_to {:g} (static_vector)", [] {
+    boost::container::static_vector<char, 1024> buf;
+    fmt::format_to(std::back_inserter(buf), "{:g}", frand(gen));
+    return 0;
+})
+
+NONIUS_BENCHMARK("fmt::format_to {} (static_string)", [] {
+    ceammc::BoostStaticString<1024> buf;
+    fmt::format_to(std::back_inserter(buf), "{}", frand(gen));
+    return 0;
+})
+
+NONIUS_BENCHMARK("fmt::format {:g} (std::string)", [] {
+    std::string str = fmt::format("{:g}", frand(gen));
+    return 0;
+})
+
+NONIUS_BENCHMARK("printf %g", [] {
+    char buf[1024];
+    sprintf(buf, "%g", frand(gen));
     return 0;
 })
 

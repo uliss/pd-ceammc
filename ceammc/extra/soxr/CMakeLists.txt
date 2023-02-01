@@ -6,4 +6,8 @@ set(BUILD_TESTS OFF CACHE BOOL " " FORCE)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/code/cmake/Modules")
 
 cmake_policy(SET CMP0075 NEW)
-add_subdirectory(code)
+add_subdirectory(code EXCLUDE_FROM_ALL)
+
+if(APPLE AND ${CMAKE_HOST_SYSTEM_PROCESSOR} STREQUAL arm64)
+   target_compile_definitions(soxr PRIVATE __arm__)
+endif()

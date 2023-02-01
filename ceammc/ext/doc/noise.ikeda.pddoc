@@ -6,35 +6,34 @@
             <authors>
                 <author>André Sier</author>
             </authors>
-            <description>Part of a-chaos library</description>
+            <description>Ikeda attractor</description>
             <license>%</license>
             <library>ceammc</library>
             <category>noise</category>
             <keywords>noise</keywords>
-            <since>.5</since>
+            <since>0.5</since>
         </meta>
         <info>
             <par>Ikeda attractor</par>
-            <par>---------------</par>
-            <par>zn+1 = a + b zn exp[ i k - i p / (1 + | zn2 | ) ]</par>
-            <par>---</par>
+            <par>z[n+1] = a + b*z[n]*exp(kj - pj/(1+|z[n]^2|))</par>
             <par>where z is a complex number</par>
             <par>real number formula by euler returns:</par>
             <par>===</par>
-            <par>xn+1 = a + k*( x0*cos(b-(p/(1+x0*x0+y0*y0))) - y0*sin(b-(p/(1*x0*x0+y0*y0)))
-            )</par>
-            <par>yn+1 = k*( x0*sin(b-(p/(1+x0*x0+y0*y0))) - y0*cos(b-(p/(1*x0*x0+y0*y0))) )</par>
+            <par>x[n+1] = a + k*(x0*cos(t[n])) - y0*sin(t[n]) )</par>
+            <par>y[n+1] = k*(x0*sin(t[n])) - y0*cos(t[n])</par>
             <par>===</par>
+            <par>where t[n] = b - p/(1 + x[n]^2 + y[n]^2)</par>
             <par>a = 0.85, b = 0.9, k = 0.4, p = 7.7</par>
             <par>a = 1.0, b = 0.9, k = 0.4, p = 6.0</par>
+            <a href="https://en.wikipedia.org/wiki/Ikeda_map">wiki: Ikeda map</a>
         </info>
         <arguments>
-            <argument name="ARG0" type="float">a value (optional)</argument>
-            <argument name="ARG1" type="float">b value (optional)</argument>
-            <argument name="ARG2" type="float">k value (optional)</argument>
-            <argument name="ARG3" type="float">p value (optional)</argument>
-            <argument name="ARG4" type="float">nx value (optional)</argument>
-            <argument name="ARG5" type="float">ny value (optional)</argument>
+            <argument name="A" type="float">a value (optional)</argument>
+            <argument name="B" type="float">b value (optional)</argument>
+            <argument name="K" type="float">k value (optional)</argument>
+            <argument name="P" type="float">p value (optional)</argument>
+            <argument name="NX" type="float">nx value (optional)</argument>
+            <argument name="NY" type="float">ny value (optional)</argument>
         </arguments>
         <methods>
             <method name="set">
@@ -68,26 +67,18 @@
         <inlets>
             <inlet>
                 <xinfo on="bang">output value</xinfo>
-                <xinfo on="any">a: a value</xinfo>
-                <xinfo on="any">b: b value</xinfo>
-                <xinfo on="any">c: c value</xinfo>
-                <xinfo on="any">d: d value</xinfo>
-                <xinfo on="any">r: r value</xinfo>
-                <xinfo on="any">dt: dt value</xinfo>
-                <xinfo on="any">om: enables output when any value is changed</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>main outlet</outlet>
+            <outlet>x outlet</outlet>
+            <outlet>y outlet</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-
 [T]
 |
 [metro 50 #metro]
-
 
   [T]         [F]
   |           |

@@ -28,6 +28,7 @@ using ConvImpl = std::unique_ptr<fftconvolver::FFTConvolver>;
 class ArrayConvolve : public ArrayBase {
     ConvImpl conv_;
     SymbolProperty* ir_name_;
+    BoolProperty* norm_;
     std::vector<float> ir_data_;
 
 public:

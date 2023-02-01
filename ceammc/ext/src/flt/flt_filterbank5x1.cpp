@@ -5,51 +5,45 @@
 
 using namespace ceammc;
 
-static t_symbol* SYM_PROP_FREQ_250;
-static t_symbol* SYM_PROP_FREQ_500;
-static t_symbol* SYM_PROP_FREQ_1000;
-static t_symbol* SYM_PROP_FREQ_2000;
-static t_symbol* SYM_PROP_FREQ_4000;
-
-static std::array<t_symbol**, 5> freq_props {
-    &SYM_PROP_FREQ_250,
-    &SYM_PROP_FREQ_500,
-    &SYM_PROP_FREQ_1000,
-    &SYM_PROP_FREQ_2000,
-    &SYM_PROP_FREQ_4000,
+constexpr size_t NUM_BANDS = 5;
+static const std::array<const char*, NUM_BANDS> STR_BANDS = {
+    "@f250",
+    "@f500",
+    "@f1000",
+    "@f2000",
+    "@f4000",
 };
 
 class FltFilterBank5x1 : public faust_flt_filterbank5x1_tilde {
+    std::array<Property*, NUM_BANDS> bands_;
+
 public:
     FltFilterBank5x1(const PdArgs& args)
         : faust_flt_filterbank5x1_tilde(args)
     {
         bindPositionalArgsToProps({
-            SYM_PROP_FREQ_250,
-            SYM_PROP_FREQ_500,
-            SYM_PROP_FREQ_1000,
-            SYM_PROP_FREQ_2000,
-            SYM_PROP_FREQ_4000,
+            gensym(STR_BANDS[0]),
+            gensym(STR_BANDS[1]),
+            gensym(STR_BANDS[2]),
+            gensym(STR_BANDS[3]),
+            gensym(STR_BANDS[4]),
         });
+
+        for (size_t i = 0; i < NUM_BANDS; i++)
+            bands_[i] = property(STR_BANDS[i]);
     }
 
-    void onList(const AtomList& lst) override
+    void onList(const AtomListView& lv) override
     {
-        const size_t N = std::min<size_t>(lst.size(), freq_props.size());
-        for (size_t i = 0; i < N; i++) {
-            setProperty(*freq_props[i], lst.view(i, 1));
-        }
+        const size_t N = std::min<size_t>(lv.size(), bands_.size());
+
+        for (size_t i = 0; i < N; i++)
+            bands_[i]->set(lv.subView(i, 1));
     }
 };
 
 void setup_flt_filterbank5x1_tilde()
 {
-    SYM_PROP_FREQ_250 = gensym("@f250");
-    SYM_PROP_FREQ_500 = gensym("@f500");
-    SYM_PROP_FREQ_1000 = gensym("@f1000");
-    SYM_PROP_FREQ_2000 = gensym("@f2000");
-    SYM_PROP_FREQ_4000 = gensym("@f4000");
-
     SoundExternalFactory<FltFilterBank5x1> obj("flt.fbank5x1~");
     obj.addMethod("reset", &FltFilterBank5x1::m_reset);
     obj.setXletsInfo({ "input signal" },

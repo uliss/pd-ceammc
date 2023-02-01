@@ -17,13 +17,20 @@
             </also>
             <since>0.9</since>
         </meta>
+        <arguments>
+            <argument name="ARRAY" type="symbol">array name</argument>
+            <argument name="YMIN" type="float" minvalue="-1024" maxvalue="1024">minimal y-axis
+            value</argument>
+            <argument name="YMAX" type="float" minvalue="-1024" maxvalue="1024">maximum y-axis
+            value</argument>
+        </arguments>
         <properties>
             <property name="@array" type="symbol" default="">array name</property>
             <property name="@ymin" minvalue="-1024" maxvalue="1024" type="float" default="-1">
             minimal y-axis value</property>
             <property name="@ymax" minvalue="-1024" maxvalue="1024" type="float" default="1">
             minimal y-axis value</property>
-            <property name="@yauto" type="int" enum="0 1" default="0">calculate y-axis range
+            <property name="@yauto" type="bool" default="0">calculate y-axis range
             automatically</property>
         </properties>
         <inlets>

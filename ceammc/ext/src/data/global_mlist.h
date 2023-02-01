@@ -14,16 +14,23 @@
 #ifndef GLOBAL_MLIST_H
 #define GLOBAL_MLIST_H
 
+#include "editor_data.h"
 #include "global_base.h"
 #include "mlist_iface.h"
 
-typedef DataMListIFace<GlobalBase<MListAtom>> GlobalMListBase;
+using GlobalMListBase = EditorDataT<DataMListIFace<GlobalBase<MListAtom>>, DataTypeMList>;
 
 class GlobalMList : public GlobalMListBase {
 public:
     GlobalMList(const PdArgs& args);
+
     MListAtom& mlist() override { return ref(); }
     const MListAtom& mlist() const override { return ref(); }
+
+    const DataTypeMList& editorData() const final { return *ref(); }
+    DataTypeMList& editorData() final { return *ref(); }
+
+    EditorTitleString editorTitle() const final;
 };
 
 void setup_global_mlist();

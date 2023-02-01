@@ -14,6 +14,7 @@
 #include "list_rlencode.h"
 #include "ceammc_factory.h"
 #include "ceammc_fn_list.h"
+#include "ceammc_containers.h"
 
 ListRLEncode::ListRLEncode(const PdArgs& args)
     : BaseObject(args)
@@ -22,22 +23,21 @@ ListRLEncode::ListRLEncode(const PdArgs& args)
     createOutlet();
 }
 
-void ListRLEncode::onList(const AtomList& l)
+void ListRLEncode::onList(const AtomListView& lv)
 {
-    auto rle = list::rleEncode(l);
+    auto rle = list::rleEncode(lv);
 
-    AtomList seq;
-    AtomList len;
+    AtomList32 seq, len;
     seq.reserve(rle.size());
     len.reserve(rle.size());
 
     for (auto& el : rle) {
-        seq.append(el.first);
-        len.append(el.second);
+        seq.push_back(el.first);
+        len.push_back(el.second);
     }
 
-    listTo(1, len);
-    listTo(0, seq);
+    listTo(1, len.view());
+    listTo(0, seq.view());
 }
 
 void setup_list_rlencode()

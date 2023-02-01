@@ -85,7 +85,7 @@ ${RAGEL_version_error}")
       endif()
     endif()
 
-    add_custom_command(OUTPUT ${Output}
+    add_custom_command(OUTPUT "${CMAKE_CURRENT_SOURCE_DIR}/${Output}"
       COMMAND ${RAGEL_EXECUTABLE}
       ARGS    ${RAGEL_EXECUTABLE_opts} -o${Output} ${Input}
       DEPENDS ${Input}

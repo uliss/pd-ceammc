@@ -28,58 +28,58 @@ DataStorage& DataStorage::instance()
     return s;
 }
 
-int DataStorage::registerNewType(const std::string& name,
+DataTypeId DataStorage::registerNewType(const DataTypeName& name,
     CreateFromListFn fromListFn,
     CreateFromDictFn fromDictFn)
 {
     constexpr auto FIRST_TYPE_ID = 256;
 
     if (type_list_.empty()) {
-        type_list_.emplace_back(FIRST_TYPE_ID, name, fromListFn, fromDictFn);
+        type_list_.push_back({FIRST_TYPE_ID, name, fromListFn, fromDictFn});
         return FIRST_TYPE_ID;
     } else {
         const auto LAST_ID = type_list_.back().type;
 
         if (LAST_ID >= type_list_.capacity()) {
             LIB_ERR << fmt::format(
-                "can't register type {}, max number of types ({}) is exceed: {}",
-                name, type_list_.capacity(), __FUNCTION__);
+                "can't register type '{}', max number of types ({}) is exceed: {}",
+                name.c_str(), type_list_.capacity(), __FUNCTION__);
             return data::DATA_INVALID;
         }
 
         if (type_list_.capacity() == type_list_.size()) {
-            LIB_ERR << fmt::format("can't register type {}, datastorage overflow: {}", name, __FUNCTION__);
+            LIB_ERR << fmt::format("can't register type '{}', datastorage overflow: {}", name.c_str(), __FUNCTION__);
             return data::DATA_INVALID;
         }
 
         if (findByName(name) != type_list_.cend()) {
-            LIB_ERR << fmt::format("can't register type {}, it already exists: {}", name, __FUNCTION__);
+            LIB_ERR << fmt::format("can't register type '{}', it already exists: {}", name.c_str(), __FUNCTION__);
             return data::DATA_INVALID;
         }
 
-        const auto NEW_ID = LAST_ID + 1;
-        LIB_LOG << fmt::format("new data type {} is registered with id: {}", name, NEW_ID);
+        const DataTypeId NEW_ID = LAST_ID + 1;
+        LIB_LOG << fmt::format("new data type '{}' is registered with id: {}", name.c_str(), NEW_ID);
 
-        type_list_.emplace_back(NEW_ID, name, fromListFn, fromDictFn);
+        type_list_.push_back({NEW_ID, name, fromListFn, fromDictFn});
         return NEW_ID;
     }
 }
 
-int DataStorage::typeByName(const std::string& name) const
+DataTypeId DataStorage::typeByName(const DataTypeName& name) const
 {
     auto it = findByName(name);
     return (it == type_list_.cend()) ? data::DATA_INVALID
                                      : it->type;
 }
 
-std::string DataStorage::nameByType(int type) const
+DataTypeName DataStorage::nameByType(DataTypeId type) const
 {
     auto it = findByType(type);
-    return (it == type_list_.cend()) ? std::string()
+    return (it == type_list_.cend()) ? DataTypeName {}
                                      : it->name;
 }
 
-CreateFromListFn DataStorage::fromListFunction(const std::string& name) const
+CreateFromListFn DataStorage::fromListFunction(const DataTypeName& name) const
 {
     auto it = std::find_if(type_list_.begin(), type_list_.end(),
         [&name](const DataTypeRecord& r) { return r.name == name; });
@@ -87,7 +87,7 @@ CreateFromListFn DataStorage::fromListFunction(const std::string& name) const
     return (it == type_list_.end()) ? nullptr : it->from_list_fn;
 }
 
-CreateFromDictFn DataStorage::fromDictFunction(const std::string& name) const
+CreateFromDictFn DataStorage::fromDictFunction(const DataTypeName& name) const
 {
     auto it = std::find_if(type_list_.begin(), type_list_.end(),
         [&name](const DataTypeRecord& r) { return r.name == name; });
@@ -104,7 +104,7 @@ DataStorage::DataStorage()
 {
 }
 
-DataStorage::type_iterator DataStorage::findByName(const std::string& name) const
+DataStorage::type_iterator DataStorage::findByName(const DataTypeName& name) const
 {
     return std::find_if(
         type_list_.begin(),
@@ -112,7 +112,7 @@ DataStorage::type_iterator DataStorage::findByName(const std::string& name) cons
         [name](const DataTypeRecord& r) { return r.name == name; });
 }
 
-DataStorage::type_iterator DataStorage::findByType(int type) const
+DataStorage::type_iterator DataStorage::findByType(DataTypeId type) const
 {
     return std::find_if(
         type_list_.begin(),

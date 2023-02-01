@@ -45,16 +45,13 @@ public:
     Result(const std::string& errMsg, int code = 1);
     Result();
 
-    operator bool() const
-    {
-        return rc_ == 0;
-    }
+    operator bool() const { return rc_ == 0; }
 
     /**
      * check for success
      * @return true if no error
      */
-    bool isOk() const;
+    bool isOk() const { return rc_ == 0; }
 
     /**
      * check for error
@@ -67,7 +64,7 @@ public:
     /**
      * result code
      */
-    int code() const;
+    int code() const { return rc_; }
 };
 
 /**
@@ -172,9 +169,9 @@ public:
      * @param l - input list
      * @return operation result
      */
-    virtual Result setFromList(const ceammc::AtomList& l)
+    virtual Result setFromList(const ceammc::AtomListView& lv)
     {
-        return Result(std::string("unexpected list: ") + ceammc::to_string(l), NOT_SUPPORTED);
+        return Result(std::string("unexpected list: ") + ceammc::to_string(lv), NOT_SUPPORTED);
     }
 
     /**
@@ -183,17 +180,17 @@ public:
      * @param l - message content
      * @return operation result
      */
-    virtual Result setFromAny(t_symbol* s, const ceammc::AtomList& l)
+    virtual Result setFromAny(t_symbol* s, const ceammc::AtomListView& lv)
     {
         return Result("unexpected message", NOT_SUPPORTED);
     }
 
     /**
      * @brief set data value from PureData list
-     * @param lst - input list
+     * @param lv - input list
      * @return operation result
      */
-    Result setFromPd(const ceammc::AtomList& lst);
+    Result setFromPd(const ceammc::AtomListView& lv);
 
     /**
      * @brief toJsonString

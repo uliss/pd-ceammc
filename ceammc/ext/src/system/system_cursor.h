@@ -20,10 +20,12 @@
 using namespace ceammc;
 
 class SystemCursor : public BaseObject {
-    ClockMemberFunction<SystemCursor> clock_;
+    ClockLambdaFunction unbind_;
     BoolProperty* relative_;
     BoolProperty* normalize_;
+    BoolProperty* clip_;
     bool is_polling_;
+    t_canvas* topcanvas_;
 
 public:
     SystemCursor(const PdArgs& args);
@@ -36,8 +38,9 @@ public:
     void m_motion(t_symbol* s, const AtomListView& lv);
     void m_wheel(t_symbol* s, const AtomListView& lv);
 
+    void m_polltime(t_symbol* s, const AtomListView& lv);
+
 private:
-    void clockTick();
     void checkPolling();
     void startPolling();
     void stopPolling();

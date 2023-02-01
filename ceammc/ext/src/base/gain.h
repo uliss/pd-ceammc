@@ -27,30 +27,35 @@ class Gain : public SoundExternal {
     OutBlocks outs_;
     size_t prev_bs_; // previous block size
     FloatProperty* smooth_;
+    std::vector<std::string> info_in_;
+    std::vector<std::string> info_out_;
 
 public:
     Gain(const PdArgs& args);
 
-    void onInlet(size_t n, const AtomListView& lst) override;
-    void onList(const AtomList& lst) override;
+    void onInlet(size_t n, const AtomListView& lv) override;
+    void onList(const AtomListView& lv) override;
 
     void processBlock(const t_sample** in, t_sample** out) override;
     void setupDSP(t_signal** sp) override;
 
     AtomList propDb() const;
     AtomList propGain() const;
-    void propSetDb(const AtomList& lst);
-    void propSetGain(const AtomList& lst);
+    void propSetDb(const AtomListView& lv);
+    void propSetGain(const AtomListView& lv);
 
-    void m_plus(t_symbol* s, const AtomListView& lst);
-    void m_minus(t_symbol* s, const AtomListView& lst);
-    void m_plusDb(t_symbol* s, const AtomListView& lst);
-    void m_minusDb(t_symbol* s, const AtomListView& lst);
-    void m_plusAll(t_symbol* s, const AtomListView& lst);
-    void m_minusAll(t_symbol* s, const AtomListView& lst);
+    void m_plus(t_symbol* s, const AtomListView& lv);
+    void m_minus(t_symbol* s, const AtomListView& lv);
+    void m_plusDb(t_symbol* s, const AtomListView& lv);
+    void m_minusDb(t_symbol* s, const AtomListView& lv);
+    void m_plusAll(t_symbol* s, const AtomListView& lv);
+    void m_minusAll(t_symbol* s, const AtomListView& lv);
 
-    void m_set(t_symbol* s, const AtomListView& lst);
-    void m_setDb(t_symbol* s, const AtomListView& lst);
+    void m_set(t_symbol* s, const AtomListView& lv);
+    void m_setDb(t_symbol* s, const AtomListView& lv);
+
+    const char* annotateInlet(size_t n) const override;
+    const char* annotateOutlet(size_t n) const override;
 
 private:
     void allocateOutBlocks();

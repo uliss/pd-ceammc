@@ -15,15 +15,11 @@
 #define LANG_FAUST_UI_TILDE_H
 
 #include "ceammc_clock.h"
-#include "ceammc_sound_external.h"
 #include "lang_faust_tilde.h"
-#include "nui/button_view.h"
-#include "nui/label_view.h"
-#include "nui/nui.h"
+#include "nui/button_model.h"
+#include "nui/label_model.h"
 #include "nui/property.h"
-#include "nui/rect.h"
-#include "nui/slider_view.h"
-#include "nui/tk_view_impl.h"
+#include "nui/slider_model.h"
 #include "nui/view.h"
 #include "nui/widget.h"
 
@@ -120,5 +116,15 @@ protected:
     void compile() override;
     void createCustomUI() override;
 };
+
+#ifdef _WIN32
+#define FAUST_UI_EXPORT extern "C"  __declspec(dllexport)
+#else
+#define FAUST_UI_EXPORT extern "C"
+#endif
+
+FAUST_UI_EXPORT void setup_ui0x2efaust_tilde();
+
+t_class* setup_ui_faust_non_external();
 
 #endif // LANG_FAUST_UI_TILDE_H

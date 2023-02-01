@@ -39,6 +39,6 @@ public:
     bool setPropBrightness(t_float v);
 };
 
-void setup_hw_display();
+extern "C" void setup_hw_display();
 
 #endif // HW_DISPLAY_H

@@ -42,21 +42,21 @@ public:
         onBang();
     }
 
-    void onList(const AtomList& lst) override
+    void onList(const AtomListView& lv) override
     {
-        mlist()->setRaw(lst);
+        mlist()->setRaw(lv);
         onBang();
     }
 
-    void onAny(t_symbol* s, const AtomListView& lst) override
+    void onAny(t_symbol* s, const AtomListView& lv) override
     {
-        Message msg(s, lst);
+        Message msg(s, lv);
         if (s->s_name[0] != '\(') {
             OBJ_ERR << "opening parenthesis expected: " << to_string(msg);
             return;
         }
 
-        mlist()->setParsed(msg.anyValue());
+        mlist()->setFromDataList(msg.anyValue());
     }
 
     void onDataT(const MListAtom& ml)
@@ -67,9 +67,31 @@ public:
         onBang();
     }
 
-    void proto_set(const AtomListView& lst) override
+    bool proto_front(Atom& res) const override
     {
-        mlist()->setRaw(lst);
+        if (mlist()->size() > 0) {
+            res = mlist()->at(0);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    bool proto_back(Atom& res) const override
+    {
+        const auto size = mlist()->size();
+
+        if (size > 0) {
+            res = mlist()->at(size - 1);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    void proto_set(const AtomListView& lv) override
+    {
+        mlist()->setRaw(lv);
     }
 
     void proto_clear() override
@@ -77,19 +99,19 @@ public:
         mlist()->clear();
     }
 
-    void proto_append(const AtomListView& lst) override
+    void proto_append(const AtomListView& lv) override
     {
-        mlist()->append(lst);
+        mlist()->append(lv);
     }
 
-    void proto_prepend(const AtomListView& lst) override
+    void proto_prepend(const AtomListView& lv) override
     {
-        mlist()->prepend(lst);
+        mlist()->prepend(lv);
     }
 
-    bool proto_insert(size_t idx, const AtomListView& lst) override
+    bool proto_insert(size_t idx, const AtomListView& lv) override
     {
-        return mlist()->insert(idx, lst);
+        return mlist()->insert(idx, lv);
     }
 
     bool proto_pop() override
@@ -126,17 +148,28 @@ public:
         mlist()->shuffle();
     }
 
-    void proto_choose() override
+    bool proto_choose(Atom& a) const override
     {
         using RandomGenT = std::mt19937;
         static RandomGenT gen(time(0));
 
         auto N = mlist()->size();
         if (N < 1)
-            return;
+            return false;
 
         auto idx = std::uniform_int_distribution<size_t>(0, N - 1)(gen);
-        this->atomTo(0, mlist()->at(idx));
+        a = mlist()->at(idx);
+        return true;
+    }
+
+    bool proto_at(int idx, Atom& res) const override
+    {
+        const auto N = mlist()->size();
+        if (idx < -N || idx >= N)
+            return false;
+
+        res = mlist()->at(idx < 0 ? N + idx : idx);
+        return true;
     }
 
     void proto_fill(const Atom& v) override

@@ -20,7 +20,7 @@ using namespace ceammc;
 class ListRunningSum : public BaseObject {
 public:
     ListRunningSum(const PdArgs& args);
-    void onList(const AtomList& lst) override;
+    void onList(const AtomListView& lv) override;
 };
 
 void setup_list_runsum();

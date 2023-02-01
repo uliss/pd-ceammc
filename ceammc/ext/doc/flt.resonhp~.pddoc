@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="flt.resonhp~">
+        <title>flt.resonhp~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Simple resonant highpass filter</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>flt</category>
+            <keywords>filter resonant highpass</keywords>
+            <since>0.9.6</since>
+            <also>
+                <see>flt.resonbp~</see>
+                <see>flt.resonlp~</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="FREQ" type="float" units="hertz" minvalue="20" maxvalue="20000">center
+            frequency</argument>
+            <argument name="Q" type="float" minvalue="0.1" maxvalue="100">Quality factor</argument>
+        </arguments>
+        <properties>
+            <property name="@freq" type="float" units="hertz" minvalue="20" maxvalue="20000"
+            default="100">center frequency</property>
+            <property name="@q" type="float" minvalue="0.1" maxvalue="100" default="20">Quality
+            factor</property>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+        </properties>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="float">set frequency</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="float">set Q-factor</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">filtered signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[osc.saw~ 15] [noise~]   [ui.dsp~]
+|             |
+|             |  [T]
+|             |. |..
+[mux~ 2       {i=3,o=1}]
+|
+|  [ui.hsl 20 4000 @show_value 1]
+|  |
+|  [@freq $1( [ui.hsl 0.5 50 @show_value 1]
+|  |          |
+|  |          [@q $1(
+|  |          |
+[flt.resonhp~ 440 10 #a]
+|
+[dyn.limit~]
+|
+[ui.gain~ @size 120 14]  [ui.ssc~ @size 400 120 @log_scale 1 #x]
+|*
+|*
+|*
+|*
+|*
+[dac~]
+[X a->x]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

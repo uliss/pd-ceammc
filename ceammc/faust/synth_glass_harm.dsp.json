@@ -1,8 +1,8 @@
 {
 	"name": "synth.glass_harm",
 	"filename": "synth_glass_harm.dsp",
-	"version": "2.37.3",
-	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0",
+	"version": "2.53.1",
+	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn synth_glass_harm -scn synth_glass_harm_dsp -es 1 -mcd 16 -single -ftz 0",
 	"library_list": ["/usr/local/share/faust/instruments.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc_ui.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc.lib","/usr/local/share/faust/signals.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib","/usr/local/share/faust/envelopes.lib","/usr/local/share/faust/delays.lib","/Users/serge/work/music/pure-data/ceammc/faust/spn.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/filters.lib","/usr/local/share/faust/oscillators.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc_instruments.lib","/usr/local/share/faust/reverbs.lib","/usr/local/share/faust/routes.lib"],
 	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
 	"inputs": 0,
@@ -10,14 +10,14 @@
 	"meta": [ 
 		{ "author": "Romain Michon" },
 		{ "basics.lib/name": "Faust Basic Element Library" },
-		{ "basics.lib/version": "0.2" },
+		{ "basics.lib/version": "0.8" },
 		{ "ceammc.lib/name": "Ceammc PureData misc utils" },
 		{ "ceammc.lib/version": "0.1.2" },
 		{ "ceammc_instruments.lib/name": "CEAMMC replacement for intruments.lib" },
 		{ "ceammc_instruments.lib/version": "0.3" },
 		{ "ceammc_ui.lib/name": "CEAMMC faust default UI elements" },
 		{ "ceammc_ui.lib/version": "0.1.2" },
-		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0" },
+		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn synth_glass_harm -scn synth_glass_harm_dsp -es 1 -mcd 16 -single -ftz 0" },
 		{ "copyright": "Romain Michon (rmichon@ccrma.stanford.edu)" },
 		{ "delays.lib/name": "Faust Delay Library" },
 		{ "delays.lib/version": "0.1" },
@@ -27,7 +27,7 @@
 		{ "envelopes.lib/copyright": "GRAME" },
 		{ "envelopes.lib/license": "LGPL with exception" },
 		{ "envelopes.lib/name": "Faust Envelope Library" },
-		{ "envelopes.lib/version": "0.1" },
+		{ "envelopes.lib/version": "0.2" },
 		{ "filename": "synth_glass_harm.dsp" },
 		{ "filters.lib/allpass_comb:author": "Julius O. Smith III" },
 		{ "filters.lib/allpass_comb:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
@@ -61,15 +61,16 @@
 		{ "maths.lib/version": "2.5" },
 		{ "name": "synth.glass_harm" },
 		{ "oscillators.lib/name": "Faust Oscillator Library" },
-		{ "oscillators.lib/version": "0.1" },
+		{ "oscillators.lib/version": "0.3" },
 		{ "platform.lib/name": "Generic Platform Library" },
 		{ "platform.lib/version": "0.2" },
 		{ "reverbs.lib/name": "Faust Reverb Library" },
 		{ "reverbs.lib/version": "0.2" },
+		{ "routes.lib/hadamard:author": "Remy Muller, revised by Romain Michon" },
 		{ "routes.lib/name": "Faust Signal Routing Library" },
 		{ "routes.lib/version": "0.2" },
 		{ "signals.lib/name": "Faust Signal Routing Library" },
-		{ "signals.lib/version": "0.1" },
+		{ "signals.lib/version": "0.3" },
 		{ "spn.lib/name": "Standart Pitch Notation constants" },
 		{ "spn.lib/version": "0.2" },
 		{ "version": "1.0" }
@@ -82,6 +83,7 @@
 				{
 					"type": "hslider",
 					"label": "bow_press",
+					"shortname": "bow_press",
 					"address": "/synth.glass_harm/bow_press",
 					"meta": [
 						{ "tooltip": "Bow pressure on the instrument (Value between 0 and 1)" }
@@ -94,6 +96,7 @@
 				{
 					"type": "hslider",
 					"label": "gain",
+					"shortname": "gain",
 					"address": "/synth.glass_harm/gain",
 					"meta": [
 						{ "tooltip": "A value between 0 and 1" }
@@ -106,6 +109,7 @@
 				{
 					"type": "checkbox",
 					"label": "gate",
+					"shortname": "gate",
 					"address": "/synth.glass_harm/gate",
 					"meta": [
 						{ "type": "float" }
@@ -114,6 +118,7 @@
 				{
 					"type": "hslider",
 					"label": "integration",
+					"shortname": "integration",
 					"address": "/synth.glass_harm/integration",
 					"meta": [
 						{ "tooltip": "A value between 0 and 1" }
@@ -126,6 +131,7 @@
 				{
 					"type": "hslider",
 					"label": "modfreq",
+					"shortname": "modfreq",
 					"address": "/synth.glass_harm/modfreq",
 					"meta": [
 						{ "tooltip": "Frequency of the sine wave for the modulation of theta (works if Modulation Type=3)" },
@@ -139,6 +145,7 @@
 				{
 					"type": "nentry",
 					"label": "modtype",
+					"shortname": "modtype",
 					"address": "/synth.glass_harm/modtype",
 					"meta": [
 						{ "tooltip": "0=theta is modulated by the incoming signal; 1=theta is modulated by the averaged incoming signal; 2=theta is modulated by the squared incoming signal; 3=theta is modulated by a sine wave of frequency freqMod; 4=theta is modulated by a sine wave of frequency freq;" },
@@ -152,6 +159,7 @@
 				{
 					"type": "hslider",
 					"label": "nonlin",
+					"shortname": "nonlin",
 					"address": "/synth.glass_harm/nonlin",
 					"meta": [
 						{ "tooltip": "Nonlinearity factor (value between 0 and 1)" }
@@ -164,6 +172,7 @@
 				{
 					"type": "hslider",
 					"label": "pan",
+					"shortname": "pan",
 					"address": "/synth.glass_harm/pan",
 					"init": 0.6,
 					"min": 0,
@@ -173,6 +182,7 @@
 				{
 					"type": "hslider",
 					"label": "pitch",
+					"shortname": "pitch",
 					"address": "/synth.glass_harm/pitch",
 					"init": 48,
 					"min": 24,
@@ -182,6 +192,7 @@
 				{
 					"type": "hslider",
 					"label": "reverb_gain",
+					"shortname": "reverb_gain",
 					"address": "/synth.glass_harm/reverb_gain",
 					"init": 0.137,
 					"min": 0,
@@ -191,6 +202,7 @@
 				{
 					"type": "hslider",
 					"label": "room_size",
+					"shortname": "room_size",
 					"address": "/synth.glass_harm/room_size",
 					"init": 0.36,
 					"min": 0.005,
@@ -200,6 +212,7 @@
 				{
 					"type": "nentry",
 					"label": "strike",
+					"shortname": "strike",
 					"address": "/synth.glass_harm/strike",
 					"meta": [
 						{ "tooltip": "0=Bow; 1=Strike" },
@@ -213,6 +226,7 @@
 				{
 					"type": "hslider",
 					"label": "width",
+					"shortname": "width",
 					"address": "/synth.glass_harm/width",
 					"init": 0.5,
 					"min": 0,

@@ -68,50 +68,49 @@ value: 0\. Range: -12\...12\.;
 value: -60\. Range: -90\...-15\.;
 #X msg 110 844 @mouse_events;
 #X text 245 844 Get/Set mouse events output mode. If on outputs @mouse_down
-\, @mouse_up and @mouse_drag events. Type: int. Default value: 0\.
-Allowed values: 0 \, 1\.;
+\, @mouse_up and @mouse_drag events. Type: bool. Default value: 0\.;
 #X msg 110 901 @output_value;
 #X text 245 901 Get/Set flag to output @db property after each knob
-move. Type: int. Default value: 0\. Allowed values: 0 \, 1\.;
+move. Type: bool. Default value: 0\.;
 #X msg 110 943 @receive;
 #X text 245 943 Get/Set receive source. Type: symbol. Default value:
 (null).;
 #X msg 110 972 @relative;
 #X text 245 972 Get/Set relative input mode. When set do not jump to
-value on click. Type: int. Default value: 1\. Allowed values: 0 \,
-1\.;
+value on click. Type: bool. Default value: 1\.;
 #X msg 110 1014 @send;
 #X text 245 1014 Get/Set send destination. Type: symbol. Default value:
 (null).;
 #X msg 110 1056 @show_range;
-#X text 245 1056 Get/Set if show slider range. Type: int. Default value:
-1\. Allowed values: 0 \, 1\.;
-#X msg 110 1098 @midi_channel;
-#X text 245 1098 Get/Set binded MIDI channel. 0 means listen to all
+#X text 245 1056 Get/Set if show slider range. Type: bool. Default
+value: 1\.;
+#X msg 110 1085 @midi_channel;
+#X text 245 1085 Get/Set binded MIDI channel. 0 means listen to all
 channels. Type: int. Default value: 0\. Range: 0\...16\.;
-#X msg 110 1140 @midi_control;
-#X text 245 1140 Get/Set binded MIDI controller number. 0 means not
-binded to any controller. Type: int. Default value: 0\. Range: 0\...128\.;
-#X msg 110 1197 @midi_pickup;
-#X text 245 1197 Get/Set pickup current value. If slider is binded
+#X msg 110 1127 @midi_control;
+#X text 245 1127 Get/Set binded MIDI controller number. -1 means not
+binded to any controller. Type: int. Default value: -1\. Range: -1\...127\.;
+#X msg 110 1184 @midi_pickup;
+#X text 245 1184 Get/Set pickup current value. If slider is binded
 to value \, first time you should pass over this value to make binding.
 It prevents from sudden value change on first control change. Type:
-int. Default value: 1\. Allowed values: 0 \, 1\.;
-#X msg 110 1269 @background_color;
-#X text 245 1269 Get/Set element background color (list of red \, green
+bool. Default value: 1\.;
+#X msg 110 1256 @background_color;
+#X text 245 1256 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0.93 0.93
 0.93 1\.;
-#X msg 110 1326 @border_color;
-#X text 245 1326 Get/Set border color (list of red \, green \, blue
+#X msg 110 1313 @border_color;
+#X text 245 1313 Get/Set border color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
-#X msg 110 1368 @knob_color;
-#X text 245 1368 Get/Set knob color (list of red \, green \, blue values
+#X msg 110 1355 @knob_color;
+#X text 245 1355 Get/Set knob color (list of red \, green \, blue values
 in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
-#X msg 110 1410 @fontname;
-#X text 245 1410 Get/Set fontname. Type: symbol. Default value: Helvetica.;
+#X msg 110 1397 @fontname;
+#X text 245 1397 Get/Set fontname. Type: symbol. Default value: Helvetica.
+Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
 #X msg 110 1439 @fontsize;
 #X text 245 1439 Get/Set fontsize. Type: int. Default value: 11\. Range:
-4\...11\.;
+4\...100\.;
 #X msg 110 1481 @fontslant;
 #X text 245 1481 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
@@ -120,7 +119,7 @@ Allowed values: roman \, italic.;
 normal. Allowed values: normal \, bold.;
 #X msg 110 1565 @pinned;
 #X text 245 1565 Get/Set pin mode. if 1 - put element to the lowest
-level. Type: int. Default value: 0\. Allowed values: 0 \, 1\.;
+level. Type: bool. Default value: 0\.;
 #X msg 110 1607 @presetname;
 #X text 245 1607 Get/Set preset name for using with [ui.preset]. Type:
 symbol. Default value: (null).;
@@ -184,13 +183,13 @@ list. Default value: 15 120\.;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
 #X obj 1 2301 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2304 library: ceammc v0.9.4;
+#X text 10 2304 library: ceammc v0.9.6;
 #N canvas 10 2323 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.4;
+#X text 120 32 0.9.6;
 #X text 10 54 object:;
 #X text 120 54 ui.gain2~;
 #X text 10 76 category:;

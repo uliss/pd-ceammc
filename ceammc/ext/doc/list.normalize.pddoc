@@ -43,12 +43,9 @@
 |  |             |        |
 |  |             |        |
 [list.normalize       @sum]
+| |
+| [ui.dt]
 |
-[t b a]
-|    ^|
-|    [msg set]
-|    |
-[      (
 |
 [list.sum]
 |

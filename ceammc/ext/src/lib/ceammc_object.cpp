@@ -15,6 +15,7 @@
 #include "ceammc_convert.h"
 #include "ceammc_data.h"
 #include "ceammc_datatypes.h"
+#include "ceammc_deprecated.h"
 #include "ceammc_format.h"
 #include "ceammc_log.h"
 #include "ceammc_object_info.h"
@@ -24,6 +25,7 @@
 #include "ceammc_property_enum.h"
 #include "datatype_string.h"
 #include "fmt/format.h"
+#include "lex/parser_strings.h"
 
 #include <cstdarg>
 #include <cstring>
@@ -139,32 +141,32 @@ Property* BaseObject::addProperty(Property* p)
     return p;
 }
 
-Property* BaseObject::createCbFloatProperty(const std::string& name, PropertyFloatGetter g, PropertyFloatSetter s)
+Property* BaseObject::createCbFloatProperty(const char* name, PropertyFloatGetter g, PropertyFloatSetter s)
 {
     return addProperty(new CallbackProperty(name, g, s));
 }
 
-Property* BaseObject::createCbIntProperty(const std::string& name, PropertyIntGetter g, PropertyIntSetter s)
+Property* BaseObject::createCbIntProperty(const char* name, PropertyIntGetter g, PropertyIntSetter s)
 {
     return addProperty(new CallbackProperty(name, g, s));
 }
 
-Property* BaseObject::createCbBoolProperty(const std::string& name, PropertyBoolGetter g, PropertyBoolSetter s)
+Property* BaseObject::createCbBoolProperty(const char* name, PropertyBoolGetter g, PropertyBoolSetter s)
 {
     return addProperty(new CallbackProperty(name, g, s));
 }
 
-Property* BaseObject::createCbSymbolProperty(const std::string& name, PropertySymbolGetter g, PropertySymbolSetter s)
+Property* BaseObject::createCbSymbolProperty(const char* name, PropertySymbolGetter g, PropertySymbolSetter s)
 {
     return addProperty(new CallbackProperty(name, g, s));
 }
 
-Property* BaseObject::createCbAtomProperty(const std::string& name, PropertyAtomGetter g, PropertyAtomSetter s)
+Property* BaseObject::createCbAtomProperty(const char* name, PropertyAtomGetter g, PropertyAtomSetter s)
 {
     return addProperty(new CallbackProperty(name, g, s));
 }
 
-Property* BaseObject::createCbListProperty(const std::string& name, PropertyListGetter g, PropertyListSetter s)
+Property* BaseObject::createCbListProperty(const char* name, PropertyListGetter g, PropertyListSetter s)
 {
     return addProperty(new CallbackProperty(name, g, s));
 }
@@ -245,24 +247,14 @@ void BaseObject::atomTo(size_t n, const Atom& a)
     outletAtom(outlets_[n], a);
 }
 
-void BaseObject::listTo(size_t n, const AtomList& l)
+void BaseObject::listTo(size_t n, const AtomListView& lv)
 {
     if (n >= outlets_.size()) {
         OBJ_ERR << "invalid outlet index: " << n;
         return;
     }
 
-    outletAtomList(outlets_[n], l);
-}
-
-void BaseObject::listTo(size_t n, const AtomListView& v)
-{
-    if (n >= outlets_.size()) {
-        OBJ_ERR << "invalid outlet index: " << n;
-        return;
-    }
-
-    outletAtomListView(outlets_[n], v);
+    outletAtomList(outlets_[n], lv);
 }
 
 void BaseObject::messageTo(size_t n, const Message& msg)
@@ -275,26 +267,15 @@ void BaseObject::messageTo(size_t n, const Message& msg)
     msg.output(outlets_[n]);
 }
 
-void BaseObject::anyTo(size_t n, const AtomList& l)
+void BaseObject::anyTo(size_t n, const AtomListView& lv)
 {
     if (n >= outlets_.size()) {
         OBJ_ERR << "invalid outlet index: " << n;
         return;
     }
 
-    if (!outletAny(outlets_[n], l))
-        OBJ_ERR << "invalid message: " << l;
-}
-
-void BaseObject::anyTo(size_t n, const AtomListView& l)
-{
-    if (n >= outlets_.size()) {
-        OBJ_ERR << "invalid outlet index: " << n;
-        return;
-    }
-
-    if (!outletAny(outlets_[n], l))
-        OBJ_ERR << "invalid message: " << l;
+    if (!outletAny(outlets_[n], lv))
+        OBJ_ERR << "invalid message: " << lv;
 }
 
 void BaseObject::anyTo(size_t n, t_symbol* s, const Atom& a)
@@ -305,16 +286,6 @@ void BaseObject::anyTo(size_t n, t_symbol* s, const Atom& a)
     }
 
     outletAny(outlets_[n], s, a);
-}
-
-void BaseObject::anyTo(size_t n, t_symbol* s, const AtomList& l)
-{
-    if (n >= outlets_.size()) {
-        OBJ_ERR << "invalid outlet index: " << n;
-        return;
-    }
-
-    outletAny(outlets_[n], s, l);
 }
 
 void BaseObject::anyTo(size_t n, t_symbol* s, const AtomListView& l)
@@ -340,7 +311,7 @@ t_inlet* BaseObject::createInlet()
     return in;
 }
 
-bool BaseObject::processAnyInlets(t_symbol* sel, const AtomListView& lst)
+bool BaseObject::processAnyInlets(t_symbol* sel, const AtomListView& lv)
 {
     // format '_:%02x'
     const bool ok = sel->s_name[0] == '_'
@@ -360,11 +331,11 @@ bool BaseObject::processAnyInlets(t_symbol* sel, const AtomListView& lst)
         return false;
     }
 
-    onInlet(N, lst);
+    onInlet(N, lv);
     return true;
 }
 
-bool BaseObject::processAnyProps(t_symbol* sel, const AtomListView& lst)
+bool BaseObject::processAnyProps(t_symbol* sel, const AtomListView& lv)
 {
     if (sel->s_name[0] != '@')
         return false;
@@ -377,7 +348,7 @@ bool BaseObject::processAnyProps(t_symbol* sel, const AtomListView& lst)
             return true;
 
         // single property request
-        if (lst.empty()) {
+        if (lv.empty()) {
             AtomList res;
             if (!queryProperty(get_key, res))
                 return false;
@@ -388,7 +359,7 @@ bool BaseObject::processAnyProps(t_symbol* sel, const AtomListView& lst)
             AtomList res;
             queryProperty(get_key, res);
 
-            for (auto& pname : lst) {
+            for (auto& pname : lv) {
                 t_symbol* s;
                 if (!pname.getSymbol(&s))
                     continue;
@@ -415,12 +386,12 @@ bool BaseObject::processAnyProps(t_symbol* sel, const AtomListView& lst)
         bool rc = false;
 
         // support for string for property
-        if (p->isSymbol() && lst.isA<DataTypeString>()) {
-            auto str = lst.asD<DataTypeString>();
+        if (p->isSymbol() && lv.isA<DataTypeString>()) {
+            auto str = lv.asD<DataTypeString>();
             const Atom sym(gensym(str->str().c_str()));
             rc = p->set(AtomListView(sym));
         } else
-            rc = p->set(lst);
+            rc = p->set(lv);
 
         if (!rc)
             OBJ_ERR << "can't set property: " << sel;
@@ -573,6 +544,8 @@ BaseObject::BaseObject(const PdArgs& args)
 {
     if (pd_.parseArgs)
         parsePosArgs(pd_.parseArgsMode);
+
+    Deprecated::instance().checkAlias(args.className, args.creationName);
 }
 
 BaseObject::~BaseObject()
@@ -676,13 +649,22 @@ bool BaseObject::parseProperty(Property* p, const AtomListView& props, PdArgs::P
                             return true;
                         }
                     } break;
-                    case PdArgs::PARSE_UNQUOTE:
-                        if (!p->setInit(v.parseQuoted().view())) {
-                            OBJ_ERR << "can't set property: " << name->s_name;
-                            return false;
-                        } else
-                            return true;
-                        break;
+                    case PdArgs::PARSE_UNQUOTE: {
+                        if (string::maybe_ceammc_quoted_string(v)) {
+                            auto unquoted = string::parse_ceammc_quoted_string(v);
+                            if (!p->setInit(unquoted.view())) {
+                                OBJ_ERR << fmt::format("can't set property: '{}'", name->s_name);
+                                return false;
+                            } else
+                                return true;
+                        } else { // no quoted atoms
+                            if (!p->setInit(v)) {
+                                OBJ_ERR << fmt::format("can't set property: '{}'", name->s_name);
+                                return false;
+                            } else
+                                return true;
+                        }
+                    } break;
                     default:
 
                         if (!p->setInit(v)) {
@@ -779,9 +761,12 @@ void BaseObject::parsePosArgs(PdArgs::ParseMode mode)
     case PdArgs::PARSE_COPY:
         pos_args_parsed_ = args;
         break;
-    case PdArgs::PARSE_UNQUOTE:
-        pos_args_parsed_ = args.parseQuoted();
-        break;
+    case PdArgs::PARSE_UNQUOTE: {
+        if (string::maybe_ceammc_quoted_string(args))
+            pos_args_parsed_ = string::parse_ceammc_quoted_string(args);
+        else
+            pos_args_parsed_ = args;
+    } break;
     case PdArgs::PARSE_EXPR: {
         auto parse_result = parseDataList(args);
         if (parse_result) { // parse ok
@@ -855,7 +840,7 @@ bool BaseObject::checkArg(const Atom& atom, BaseObject::ArgumentType type, int p
         break;
     case ARG_BYTE:
         if (!atom.isFloat())
-            ARG_ERROR("byte value expexted");
+            ARG_ERROR("byte value expected");
 
         if (atom.asFloat() < 0 || atom.asFloat() > 255)
             ARG_ERROR("byte range expected: [0-255]");
@@ -887,10 +872,10 @@ static const char* to_string(BaseObject::ArgumentType a)
     return names[a];
 }
 
-bool BaseObject::checkArgs(const AtomListView& lst, ArgumentType a1, t_symbol* method) const
+bool BaseObject::checkArgs(const AtomListView& lv, ArgumentType a1, t_symbol* method) const
 {
-    if (lst.size() < 1
-        || !checkArg(lst[0], a1, 0)) {
+    if (lv.size() < 1
+        || !checkArg(lv[0], a1, 0)) {
 
         if (method)
             OBJ_ERR << "Usage: " << method->s_name << " " << to_string(a1);
@@ -901,12 +886,12 @@ bool BaseObject::checkArgs(const AtomListView& lst, ArgumentType a1, t_symbol* m
     return true;
 }
 
-bool BaseObject::checkArgs(const AtomListView& lst, BaseObject::ArgumentType a1,
+bool BaseObject::checkArgs(const AtomListView& lv, BaseObject::ArgumentType a1,
     BaseObject::ArgumentType a2, t_symbol* method) const
 {
-    if (lst.size() < 2
-        || !checkArg(lst[0], a1, 0)
-        || !checkArg(lst[1], a2, 1)) {
+    if (lv.size() < 2
+        || !checkArg(lv[0], a1, 0)
+        || !checkArg(lv[1], a2, 1)) {
 
         if (method)
             OBJ_ERR << "Usage: " << method->s_name
@@ -919,13 +904,13 @@ bool BaseObject::checkArgs(const AtomListView& lst, BaseObject::ArgumentType a1,
     return true;
 }
 
-bool BaseObject::checkArgs(const AtomListView& lst, BaseObject::ArgumentType a1,
+bool BaseObject::checkArgs(const AtomListView& lv, BaseObject::ArgumentType a1,
     BaseObject::ArgumentType a2, BaseObject::ArgumentType a3, t_symbol* method) const
 {
-    if (lst.size() < 3
-        || !checkArg(lst[0], a1, 0)
-        || !checkArg(lst[1], a2, 1)
-        || !checkArg(lst[2], a3, 2)) {
+    if (lv.size() < 3
+        || !checkArg(lv[0], a1, 0)
+        || !checkArg(lv[1], a2, 1)
+        || !checkArg(lv[2], a3, 2)) {
 
         if (method)
             OBJ_ERR << "Usage: " << method->s_name
@@ -939,16 +924,16 @@ bool BaseObject::checkArgs(const AtomListView& lst, BaseObject::ArgumentType a1,
     return true;
 }
 
-bool BaseObject::checkArgs(const AtomListView& lst, BaseObject::ArgumentType a1,
+bool BaseObject::checkArgs(const AtomListView& lv, BaseObject::ArgumentType a1,
     BaseObject::ArgumentType a2, BaseObject::ArgumentType a3,
     BaseObject::ArgumentType a4, t_symbol* method) const
 {
 
-    if (lst.size() < 4
-        || !checkArg(lst[0], a1, 0)
-        || !checkArg(lst[1], a2, 1)
-        || !checkArg(lst[2], a3, 2)
-        || !checkArg(lst[3], a4, 3)) {
+    if (lv.size() < 4
+        || !checkArg(lv[0], a1, 0)
+        || !checkArg(lv[1], a2, 1)
+        || !checkArg(lv[2], a3, 2)
+        || !checkArg(lv[3], a4, 3)) {
 
         if (method)
             OBJ_ERR << "Usage: " << method->s_name
@@ -1033,7 +1018,7 @@ void BaseObject::onSymbol(t_symbol*)
     OBJ_ERR << "symbol is not expected";
 }
 
-void BaseObject::onList(const AtomList&)
+void BaseObject::onList(const AtomListView&)
 {
     OBJ_ERR << "list is not expected";
 }
@@ -1089,7 +1074,9 @@ void BaseObject::bindReceive(t_symbol* path)
 void BaseObject::unbindReceive()
 {
     if (receive_from_) {
-        pd_unbind(&owner()->te_g.g_pd, receive_from_);
+        if (receive_from_->s_thing)
+            pd_unbind(&owner()->te_g.g_pd, receive_from_);
+
         receive_from_ = 0;
     }
 }

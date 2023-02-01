@@ -1,4 +1,5 @@
 #include "path_exists.h"
+#include "ceammc_containers.h"
 #include "ceammc_factory.h"
 #include "ceammc_object.h"
 #include "ceammc_platform.h"
@@ -25,9 +26,11 @@ void PathExists::onSymbol(t_symbol* s)
     boolTo(0, platform::path_exists(s->s_name));
 }
 
-void PathExists::onList(const AtomList& l)
+void PathExists::onList(const AtomListView& lv)
 {
-    listTo(0, l.map(exists));
+    SmallAtomList out;
+    lv.map(exists, out);
+    listTo(0, out.view());
 }
 
 void PathExists::onDataT(const StringAtom& str)

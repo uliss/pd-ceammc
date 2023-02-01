@@ -28,43 +28,43 @@
 value: 0\.;
 #X msg 110 537 @index;
 #X text 245 537 Get/Set current menu item index. Type: int. Default
-value: 0\.;
+value: -1\.;
 #X msg 110 579 @items;
 #X text 245 579 Get/Set list of menu items. Type: list.;
 #X msg 110 608 @max_length;
 #X text 245 608 Get/Set maximum displayed item character length. Type:
 int. Default value: 100\. Range: 10\...1024\.;
 #X msg 110 650 @open;
-#X text 245 650 Get/Set opened state. Type: int. Default value: 0\.
-Allowed values: 0 \, 1\.;
-#X msg 110 692 @receive;
-#X text 245 692 Get/Set receive source. Type: symbol. Default value:
+#X text 245 650 Get/Set opened state. Type: bool. Default value: 0\.;
+#X msg 110 679 @receive;
+#X text 245 679 Get/Set receive source. Type: symbol. Default value:
 (null).;
-#X msg 110 721 @send;
-#X text 245 721 Get/Set send destination. Type: symbol. Default value:
+#X msg 110 708 @send;
+#X text 245 708 Get/Set send destination. Type: symbol. Default value:
 (null).;
-#X msg 110 763 @title;
-#X text 245 763 (readonly) Get current element text. Type: symbol.;
-#X msg 110 792 @value;
-#X text 245 792 Get/Set current menu item value. Type: atom.;
-#X msg 110 821 @active_color;
-#X text 245 821 Get/Set active color (list of red \, green \, blue
+#X msg 110 750 @title;
+#X text 245 750 (readonly) Get current element text. Type: symbol.;
+#X msg 110 779 @value;
+#X text 245 779 Get/Set current menu item value. Type: atom.;
+#X msg 110 808 @active_color;
+#X text 245 808 Get/Set active color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
-#X msg 110 863 @background_color;
-#X text 245 863 Get/Set element background color (list of red \, green
+#X msg 110 850 @background_color;
+#X text 245 850 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0.93 0.93
 0.93 1\.;
-#X msg 110 920 @border_color;
-#X text 245 920 Get/Set border color (list of red \, green \, blue
+#X msg 110 907 @border_color;
+#X text 245 907 Get/Set border color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
-#X msg 110 962 @text_color;
-#X text 245 962 Get/Set text color (list of red \, green \, blue values
+#X msg 110 949 @text_color;
+#X text 245 949 Get/Set text color (list of red \, green \, blue values
 in 0-1 range). Type: list. Default value: 0 0 0 1\.;
-#X msg 110 1004 @fontname;
-#X text 245 1004 Get/Set fontname. Type: symbol. Default value: Helvetica.;
+#X msg 110 991 @fontname;
+#X text 245 991 Get/Set fontname. Type: symbol. Default value: Helvetica.
+Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
 #X msg 110 1033 @fontsize;
 #X text 245 1033 Get/Set fontsize. Type: int. Default value: 11\. Range:
-4\...11\.;
+4\...100\.;
 #X msg 110 1075 @fontslant;
 #X text 245 1075 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
@@ -73,7 +73,7 @@ Allowed values: roman \, italic.;
 normal. Allowed values: normal \, bold.;
 #X msg 110 1159 @pinned;
 #X text 245 1159 Get/Set pin mode. if 1 - put element to the lowest
-level. Type: int. Default value: 0\. Allowed values: 0 \, 1\.;
+level. Type: bool. Default value: 0\.;
 #X msg 110 1201 @presetname;
 #X text 245 1201 Get/Set preset name for using with [ui.preset]. Type:
 symbol. Default value: (null).;
@@ -158,7 +158,7 @@ ITEM_NAME.;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
 #X obj 1 2115 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2118 library: ceammc v0.9.4;
+#X text 10 2118 library: ceammc v0.9.6;
 #X text 606 2130 see also:;
 #X obj 680 2133 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.radio] @url ui.radio-help.pd;
@@ -167,7 +167,7 @@ ITEM_NAME.;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.4;
+#X text 120 32 0.9.6;
 #X text 10 54 object:;
 #X text 120 54 ui.menu;
 #X text 10 76 category:;

@@ -1,5 +1,4 @@
 #include "soundtouch_tilde.h"
-#include "ceammc_convert.h"
 #include "ceammc_factory.h"
 
 #include <cmath>
@@ -99,4 +98,6 @@ extern "C" void soundtouch_tilde_setup()
     PROP_ANTIALIAS_LENGTH = gensym("@aalength");
 
     SoundExternalFactory<SoundTouchExt> obj("soundtouch~");
+
+    LIB_DBG << "Soundtouch version: " << SOUNDTOUCH_VERSION;
 }

@@ -26,7 +26,7 @@ public:
      */
     void onFloat(t_float phase) override;
 
-    void onList(const AtomList& lst) override;
+    void onList(const AtomListView& lv) override;
 };
 
 void setup_array_p2s();

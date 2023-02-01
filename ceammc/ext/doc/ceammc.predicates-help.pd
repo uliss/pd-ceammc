@@ -22,8 +22,10 @@
 #X text 200 332 checks if input number is odd;
 #X obj 30 359 is_pointer;
 #X text 200 359 checks if input data has *pointer* type;
-#X obj 30 386 is_symbol;
-#X text 200 386 checks if input data has *symbol* type;
+#X obj 30 386 is_prop;
+#X text 200 386 checks if input message is *property* message;
+#X obj 30 413 is_symbol;
+#X text 200 413 checks if input data has *symbol* type;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::predicates 20 20 0 20
 -104026 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

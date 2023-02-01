@@ -16,7 +16,8 @@
 #include "ceammc_ui.h"
 #include "ui_meter.tcl.h"
 
-static const t_float MIN_DB_VALUE = -90;
+constexpr t_float MIN_DB_VALUE = -90;
+constexpr int MIN_UI_DB_VALUE = -50;
 
 static t_symbol* SYM_HMETER;
 static t_symbol* SYM_VMETER;
@@ -138,22 +139,36 @@ void UIMeter::onDblClick(t_object* view, const t_pt&, long)
     }
 }
 
+static bool fuzzy_equal_dbfs(double a, double b)
+{
+    return std::abs(a - b) < 0.125;
+}
+
 void UIMeter::calc()
 {
-    double rms = num_samples_ ? sqrt(raw_square_sum_ / num_samples_) : 0;
-    rms_dbfs_ = (rms > 0) ? convert::amp2dbfs(rms) : MIN_DB_VALUE;
-    peak_dbfs_ = (raw_peak_ > 0) ? convert::amp2dbfs(raw_peak_) : MIN_DB_VALUE;
+    const double rms = num_samples_ ? sqrt(raw_square_sum_ / num_samples_) : 0;
+    // clip to min UI value: -50db
+    const double new_rms = clip_min<double, MIN_UI_DB_VALUE>((rms > 0) ? convert::amp2dbfs(rms) : MIN_DB_VALUE);
+    const double new_peak = clip_min<double, MIN_UI_DB_VALUE>((raw_peak_ > 0) ? convert::amp2dbfs(raw_peak_) : MIN_DB_VALUE);
 
-    if (peak_dbfs_ >= 0)
-        overload_ = 1;
-    else if (overload_ > 0)
-        overload_++;
+    int new_overload = overload_;
+
+    if (new_peak >= 0)
+        new_overload = 1;
+    else if (new_overload > 0)
+        new_overload++;
 
     // reset overload after 1 second
-    if (overload_ >= 1000. / prop_interval_ms)
-        overload_ = 0;
+    if (new_overload >= (1000. / prop_interval_ms))
+        new_overload = 0;
 
-    redraw();
+    // redraw only if changed
+    if (!fuzzy_equal_dbfs(new_rms, rms_dbfs_) || !fuzzy_equal_dbfs(new_peak, peak_dbfs_) || new_overload != overload_) {
+        rms_dbfs_ = new_rms;
+        peak_dbfs_ = new_peak;
+        overload_ = new_overload;
+        redraw();
+    }
 }
 
 void UIMeter::reset()
@@ -165,7 +180,7 @@ void UIMeter::reset()
 
 void UIMeter::clockTick()
 {
-    if (canvas_dspstate) {
+    if (pd_getdspstate()) {
         calc();
         output();
         reset();
@@ -208,6 +223,7 @@ void UIMeter::setup()
     obj.addColorProperty("over_color", _("Overload signal color"), "1 0 0 1", &UIMeter::prop_color_over);
 
     obj.addIntProperty("interval", _("Refresh interval (ms)"), 50, &UIMeter::prop_interval_ms, _("Main"));
+    obj.setPropertyMin("interval", 20);
     obj.setPropertyUnits("interval", "msec");
 }
 

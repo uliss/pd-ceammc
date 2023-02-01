@@ -19,8 +19,8 @@
             </also>
         </meta>
         <arguments>
-            <argument name="AT" type="int">size of first list. The size of the list on the second
-            output is the size of input list - this value</argument>
+            <argument name="AT" type="int" minvalue="0">size of first list. The size of the list on
+            the second output is the size of input list - this value</argument>
         </arguments>
         <properties>
             <property name="@at" type="int" minvalue="0" default="0">split point</property>
@@ -44,10 +44,8 @@
 |            |
 [list.split      2]
 |              ^|
-[msg set]       [msg set]
-|               |
-[ (             [ (
-                ]]>
+[ui.dt]        [ui.dt]
+]]>
             </pdascii>
         </example>
     </object>

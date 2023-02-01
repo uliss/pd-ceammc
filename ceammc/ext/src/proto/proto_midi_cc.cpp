@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "proto_midi_cc.h"
-#include "ceammc_args.h"
+#include "ceammc_containers.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 
@@ -70,9 +70,9 @@ void ProtoMidiCC::onFloat(t_float f)
     }
 }
 
-void ProtoMidiCC::onList(const AtomList& lst)
+void ProtoMidiCC::onList(const AtomListView& lv)
 {
-    for (auto& a : lst)
+    for (auto& a : lv)
         onFloat(a.asT<t_float>());
 }
 
@@ -436,11 +436,13 @@ void ProtoMidiCC::ccSend()
 {
     if (as_list_->value()) {
         const auto N = buffer_.size();
-        Atom buf[N];
-        for (size_t i = 0; i < N; i++)
-            buf[i] = buffer_[i];
+        AtomList256 buf;
+        buf.reserve(N);
 
-        listTo(0, AtomListView(buf, N));
+        for (size_t i = 0; i < N; i++)
+            buf.push_back(buffer_[i]);
+
+        listTo(0, buf.view());
         buffer_.clear();
     }
 }

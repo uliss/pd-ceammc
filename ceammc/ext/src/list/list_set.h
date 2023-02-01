@@ -26,8 +26,8 @@ class ListSet : public BaseObject {
 public:
     ListSet(const PdArgs& args);
 
-    void onList(const AtomList&) override;
-    void onInlet(size_t n, const AtomListView& lst) override;
+    void onList(const AtomListView &) override;
+    void onInlet(size_t n, const AtomListView& lv) override;
     void onDataT(const MListAtom& ml);
 };
 

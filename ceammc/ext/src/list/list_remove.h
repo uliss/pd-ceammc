@@ -26,14 +26,14 @@ class ListRemove : public BaseObject {
 public:
     ListRemove(const PdArgs& args);
 
-    void onInlet(size_t, const AtomListView&) final;
-    void onList(const AtomList& lst) final;
+    void onInlet(size_t, const AtomListView& lv) final;
+    void onList(const AtomListView& lv) final;
 
     void onDataT(const MListAtom& ml);
 
 private:
     void precalcIndexes(size_t N);
-    void setRemoveList(const AtomList& lst);
+    void setRemoveList(const AtomListView& lv);
 };
 
 void setup_list_remove();

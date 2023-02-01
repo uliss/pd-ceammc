@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ui_icon.h"
+#include "ceammc_crc32.h"
 #include "ceammc_preset.h"
 #include "ceammc_ui.h"
 #include "icons/generated_icons.h"
@@ -19,14 +20,14 @@
 
 #include <sstream>
 
-static t_symbol* SYM_CEAMMC;
-static t_symbol* SYM_MODE_BANG;
-static t_symbol* SYM_MODE_BUTTON;
-static t_symbol* SYM_MODE_TOGGLE;
+CEAMMC_DEFINE_SYM_HASH(ceammc);
+CEAMMC_DEFINE_HASH(bang);
+CEAMMC_DEFINE_SYM_HASH(button);
+CEAMMC_DEFINE_SYM_HASH(toggle);
 
 static const t_rgba COLOR_DISABLED(hex_to_rgba("#D0D0D0"));
 
-static const int SPEC_SIZE = 64;
+constexpr const int SPEC_SIZE = 64;
 
 static icon_entry* iconByName(t_symbol* name)
 {
@@ -62,7 +63,7 @@ UIIcon::UIIcon()
     : clock_(this, &UIIcon::clockTick)
     , current_(&icons_list[0])
     , prop_icon(gensym("help"))
-    , prop_mode(SYM_MODE_BUTTON)
+    , prop_mode(sym_button())
     , prop_color_active(rgba_blue)
     , prop_size(24)
     , is_active_(false)
@@ -138,7 +139,7 @@ void UIIcon::onBang()
     if (!is_enabled_)
         return;
 
-    if (prop_mode == SYM_MODE_BANG || prop_mode == SYM_MODE_TOGGLE) {
+    if (prop_mode == sym_bang() || prop_mode == sym_toggle()) {
         t_pt pt;
         onMouseDown(0, pt, pt, 0);
     } else {
@@ -151,7 +152,7 @@ void UIIcon::onFloat(t_float f)
     if (!is_enabled_)
         return;
 
-    if (prop_mode == SYM_MODE_BANG) {
+    if (prop_mode == sym_bang()) {
         onBang();
     } else {
         is_active_ = (f != 0.f);
@@ -171,16 +172,18 @@ void UIIcon::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, lon
     if (!is_enabled_)
         return;
 
-    if (prop_mode == SYM_MODE_BANG) {
+    auto mode = crc32_hash(prop_mode);
+
+    if (mode == ::hash_bang) {
         is_active_ = true;
         clock_.delay(100);
         outputBang();
         redrawAll();
-    } else if (prop_mode == SYM_MODE_BUTTON) {
+    } else if (mode == hash_button) {
         is_active_ = true;
         outputState(1);
         redrawAll();
-    } else if (prop_mode == SYM_MODE_TOGGLE) {
+    } else if (mode == hash_toggle) {
         is_active_ = !is_active_;
         outputState(is_active_ ? 1 : 0);
         redrawAll();
@@ -197,7 +200,7 @@ void UIIcon::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
     if (modifiers & EMOD_ALT)
         return;
 
-    if (prop_mode == SYM_MODE_BUTTON) {
+    if (crc32_hash(prop_mode) == hash_button) {
         is_active_ = false;
         outputState(0);
         redrawAll();
@@ -246,31 +249,6 @@ void UIIcon::storePreset(size_t idx)
     PresetStorage::instance().setSymbolValueAt(presetId(), idx, prop_icon);
 }
 
-void UIIcon::setup()
-{
-    UIObjectFactory<UIIcon> obj("ui.icon", EBOX_GROWLINK);
-    obj.setDefaultSize(24, 24);
-    obj.hideProperty("size");
-    obj.hideLabelInner();
-    obj.usePresets();
-    obj.useBang();
-    obj.useFloat();
-    obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_UP);
-
-    obj.setPropertyDefaultValue(PROP_BACKGROUND_COLOR, "1 1 1 1");
-    obj.setPropertyDefaultValue(PROP_BORDER_COLOR, "1 1 1 1");
-
-    obj.addProperty("icon", _("Icon"), "help", &UIIcon::prop_icon, icons_string, _("Main"));
-    obj.addPropertyIntMenu("icon_size", _("Size"), "24", &UIIcon::prop_size, "48 36 24 18", _("Basic"));
-    obj.addProperty(PROP_ACTIVE_COLOR, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIIcon::prop_color_active);
-
-    obj.addProperty("mode", _("Mode"), "button", &UIIcon::prop_mode, "toggle button bang", _("Main"));
-    obj.addProperty("enabled", &UIIcon::propEnabled, &UIIcon::propSetEnabled);
-    obj.setPropertyDefaultValue("enabled", "1");
-
-    obj.addMethod("set", &UIIcon::m_set);
-}
-
 void UIIcon::updateIconProp()
 {
     icon_entry* entry = iconByName(prop_icon);
@@ -309,7 +287,7 @@ void UIIcon::outputState(bool state)
 
 bool UIIcon::isSpecialIcon() const
 {
-    return prop_icon == SYM_CEAMMC;
+    return prop_icon == sym_ceammc();
 }
 
 void UIIcon::clockTick()
@@ -339,13 +317,33 @@ void UIIcon::propSetEnabled(bool v)
     }
 }
 
+void UIIcon::setup()
+{
+    UIObjectFactory<UIIcon> obj("ui.icon", EBOX_GROWLINK);
+    obj.setDefaultSize(24, 24);
+    obj.internalProperty("size");
+    obj.hideLabelInner();
+    obj.usePresets();
+    obj.useBang();
+    obj.useFloat();
+    obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_UP);
+
+    obj.setPropertyDefaultValue(PROP_BACKGROUND_COLOR, "1 1 1 1");
+    obj.setPropertyDefaultValue(PROP_BORDER_COLOR, "1 1 1 1");
+
+    obj.addProperty("icon", _("Icon"), "help", &UIIcon::prop_icon, icons_string, _("Main"));
+    obj.addPropertyIntMenu("icon_size", _("Size"), "24", &UIIcon::prop_size, "18 24 36 48", _("Basic"));
+    obj.addProperty(PROP_ACTIVE_COLOR, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIIcon::prop_color_active);
+
+    obj.addProperty("mode", _("Mode"), "button", &UIIcon::prop_mode, "toggle button bang", _("Main"));
+    obj.addProperty("enabled", &UIIcon::propEnabled, &UIIcon::propSetEnabled);
+    obj.setPropertyDefaultValue("enabled", "1");
+
+    obj.addMethod("set", &UIIcon::m_set);
+}
+
 void setup_ui_icon()
 {
-    SYM_CEAMMC = gensym("ceammc");
-    SYM_MODE_BANG = gensym("bang");
-    SYM_MODE_BUTTON = gensym("button");
-    SYM_MODE_TOGGLE = gensym("toggle");
-
     init_icon_list();
 
     sys_gui(ui_icon_tcl);

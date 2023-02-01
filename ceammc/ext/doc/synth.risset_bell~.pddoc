@@ -14,20 +14,21 @@
             <since>0.9.4</since>
         </meta>
         <arguments>
-            <argument name="FREQ" type="float" units="herz">main frequency</argument>
-            <argument name="DUR" type="float" units="millisecond">duration</argument>
+            <argument name="FREQ" type="float" units="hertz" minvalue="1" maxvalue="10000">main
+            frequency</argument>
+            <argument name="DUR" type="float" units="millisecond" minvalue="10" maxvalue="600000">
+            duration</argument>
         </arguments>
         <properties>
             <property name="@freq" type="float" minvalue="1" maxvalue="10000" default="440"
-            units="herz">base frequency</property>
+            units="hertz">base frequency</property>
             <property name="@pfreq" type="float" minvalue="0" maxvalue="10" default="1">freq
             multiplication coefficient</property>
             <property name="@dur" type="float" minvalue="10" maxvalue="600000" default="5000"
             units="millisecond">duration</property>
             <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">play trigger
             - 1: on, 0: off</property>
-            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
-            processing</property>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
         <methods>
             <method name="reset">reset synth</method>

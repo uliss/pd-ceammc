@@ -26,6 +26,7 @@ extern "C" {
 using json = nlohmann::json;
 
 #include <algorithm>
+#include <boost/algorithm/string.hpp>
 #include <cstdlib>
 #include <iostream>
 #include <string>
@@ -47,11 +48,11 @@ extern "C" CEAMMC_EXTERN bool ceammc_dump_json(int argc, char* argv[])
     }
 
     AtomList args;
-    if (argc > 2) {
+    if (argc >= 2) {
         t_binbuf* b = binbuf_new();
 
         std::string str;
-        for (int i = 2; i < argc; i++) {
+        for (int i = 1; i < argc; i++) {
             str += argv[i];
             str += " ";
         }
@@ -107,15 +108,57 @@ extern "C" CEAMMC_EXTERN bool ceammc_dump_json(int argc, char* argv[])
         jobj["methods"].push_back(name);
     }
 
+    // arguments
+    std::vector<PropertyInfo> obj_args;
+
     // add properties
     for (const PropertyInfo& i : ext.properties()) {
-        DataTypeDict info;
-        if (!i.getDict(info)) {
+        std::string info;
+        if (!i.getJSON(info)) {
             std::cerr << "can't get property info: " << i.name()->s_name << std::endl;
             continue;
         }
 
-        jobj["properties"].push_back(json::parse(info.valueToJsonString()));
+        try {
+            jobj["properties"].push_back(json::parse(info));
+
+            if (i.hasArgIndex()) {
+                obj_args.insert(std::upper_bound(obj_args.begin(), obj_args.end(), i,
+                                    [](const PropertyInfo& a, const PropertyInfo& b) { return a.argIndex() < b.argIndex(); }),
+                    i);
+            }
+        } catch (std::exception& e) {
+            std::cerr << "error: while" << e.what() << std::endl;
+        }
+    }
+
+    // output args
+    if (obj_args.size() > 0) {
+        for (auto& arg_info : obj_args) {
+            auto name = boost::to_upper_copy(std::string(arg_info.name()->s_name + 1));
+            jobj["args"].push_back({
+                { "name", name },
+                { "property", arg_info.name()->s_name },
+                { "index", arg_info.argIndex() },
+                { "type", to_symbol(arg_info.type())->s_name },
+            });
+
+            std::string info;
+            if (!arg_info.getJSON(info)) {
+                std::cerr << "can't get argument info: " << arg_info.name()->s_name << std::endl;
+                continue;
+            }
+
+            auto jinfo = json::parse(info);
+            if (jinfo.contains("min"))
+                jobj["args"].back()["min"] = jinfo["min"];
+
+            if (jinfo.contains("max"))
+                jobj["args"].back()["max"] = jinfo["max"];
+
+            if (jinfo.contains("units"))
+                jobj["args"].back()["units"] = jinfo["units"];
+        }
     }
 
     // add info

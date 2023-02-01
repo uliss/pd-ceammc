@@ -1,3 +1,4 @@
+#include "ceammc_containers.h"
 #include "ceammc_factory.h"
 #include "ceammc_object.h"
 
@@ -26,9 +27,13 @@ public:
         floatTo(0, do_sign(f));
     }
 
-    void onList(const AtomList& lst) final
+    void onList(const AtomListView& lv) final
     {
-        listTo(0, lst.mapFloat(do_sign));
+        SmallAtomList res;
+        res.reserve(lv.size());
+        lv.mapFloat(do_sign, res);
+
+        listTo(0, res.view());
     }
 };
 

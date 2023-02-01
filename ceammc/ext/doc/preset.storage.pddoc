@@ -39,8 +39,8 @@
             <method name="duplicate">fill empty presets by coping exiting values</method>
         </methods>
         <properties>
-            <property name="@keys" type="list" readonly="true">list of all existing preset
-            keys</property>
+            <property name="@keys" type="list" access="readonly" default="">list of all existing
+            preset keys</property>
         </properties>
         <inlets>
             <inlet>

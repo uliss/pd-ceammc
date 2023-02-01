@@ -13,16 +13,12 @@ static t_rgba DELETE_COLOR = hex_to_rgba("#F00030");
 static t_rgba LINE_SELECTION_COLOR = hex_to_rgba("#AAFFFF");
 static const char* DEFAULT_LINE_COLOR = "0.1 0.1 0.1 1.0";
 static const char* PROP_LENGTH = "length";
+constexpr const char* PROP_NORM = "norm";
 
-static t_symbol* SYM_ADSR;
-static t_symbol* SYM_ASR;
-static t_symbol* SYM_AR;
-static t_symbol* SYM_EADSR;
-static t_symbol* SYM_EASR;
-static t_symbol* SYM_EAR;
 static t_symbol* SYM_LENGTH;
-static t_symbol* SYM_MODE_ON_MOUSE_UP;
 static t_symbol* SYM_MODE_ON_DRAG;
+static t_symbol* SYM_MODE_ON_MOUSE_UP;
+static t_symbol* SYM_NORM;
 
 using namespace ui;
 
@@ -62,12 +58,12 @@ UIEnv::UIEnv()
     updateNodes();
 
     initPopupMenu("env",
-        { { "ADSR(10 20 30 500)", [this](const t_pt&) { setNamedEnvelope(SYM_ADSR, AtomList { 10, 20, 30, 500 }); } },
-            { "ASR (500 500)", [this](const t_pt&) { setNamedEnvelope(SYM_ASR, AtomList { 500, 500 }); } },
-            { "AR (500 500)", [this](const t_pt&) { setNamedEnvelope(SYM_AR, AtomList { 500, 500 }); } } });
+        { { "ADSR(10 20 30 500)", [this](const t_pt&) { setNamedEnvelope(str_adsr, AtomList { 10, 20, 30, 500 }); } },
+            { "ASR (500 500)", [this](const t_pt&) { setNamedEnvelope(str_asr, AtomList { 500, 500 }); } },
+            { "AR (500 500)", [this](const t_pt&) { setNamedEnvelope(str_ar, AtomList { 500, 500 }); } } });
 
     initPopupMenu("point",
-        { { "toggle stop", [this](const t_pt& pt) {
+        { { "toggle stop", [this](const t_pt& /*pt*/) {
                auto idx = findSelectedNodeIdx();
                // ignore first node too
                if (idx < 1)
@@ -76,7 +72,7 @@ UIEnv::UIEnv()
                nodes_[idx].is_stop = !nodes_[idx].is_stop;
                redrawLayer(envelope_layer_);
            } },
-            { "toggle fixed Y", [this](const t_pt& pt) {
+            { "toggle fixed Y", [this](const t_pt& /*pt*/) {
                  auto idx = findSelectedNodeIdx();
                  // ignore first node too
                  if (idx < 1)
@@ -154,7 +150,11 @@ void UIEnv::onData(const Atom& data)
         return;
     }
 
-    env_ = env->normalize();
+    if (prop_normalize)
+        env_ = env->normalize();
+    else
+        env_ = *env;
+
     updateNodes();
     redrawAll();
     onBang();
@@ -177,7 +177,7 @@ void UIEnv::drawCursor(const t_rect& r)
             char buf[100];
 
             snprintf(buf, sizeof(buf) - 1, "%d(ms) : %0.2f",
-                (int)lin2lin(cursor_pos_.x, 0, width(), 0, prop_length),
+                (int)std::round(lin2lin(cursor_pos_.x, 0, width(), 0, prop_length)),
                 lin2lin(cursor_pos_.y, 0, height(), max_env_value_, 0));
 
             cursor_txt_pos_.setColor(prop_color_border);
@@ -270,7 +270,7 @@ void UIEnv::drawEnvelope(const t_rect& r)
 
                     int i = n.x * z;
                     for (; i < next.x * z; i += 4 * z) {
-                        float y = convert::lin2curve(float(i), n.x* z, next.x* z, n.y* z, next.y* z, n.curve);
+                        float y = convert::lin2curve(float(i), n.x * z, next.x * z, n.y * z, next.y * z, n.curve);
                         ep.drawLineTo(i, y);
                     }
 
@@ -570,7 +570,7 @@ void UIEnv::onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long mod)
                     nodes_[idx].select = SelectType::LINE;
 
                 for (size_t i = 0; i < nodes_.size(); i++) {
-                    if (i == idx)
+                    if ((long)i == idx)
                         continue;
 
                     nodes_[i].select = SelectType::NONE;
@@ -746,36 +746,6 @@ bool UIEnv::selectNode(size_t idx)
     return num_changes > 0;
 }
 
-void UIEnv::m_adsr(const AtomListView& lv)
-{
-    setNamedEnvelope(SYM_ADSR, lv);
-}
-
-void UIEnv::m_asr(const AtomListView& lv)
-{
-    setNamedEnvelope(SYM_ASR, lv);
-}
-
-void UIEnv::m_ar(const AtomListView& lv)
-{
-    setNamedEnvelope(SYM_AR, lv);
-}
-
-void UIEnv::m_eadsr(const AtomListView& lv)
-{
-    setNamedEnvelope(SYM_EADSR, lv);
-}
-
-void UIEnv::m_easr(const AtomListView& lv)
-{
-    setNamedEnvelope(SYM_EASR, lv);
-}
-
-void UIEnv::m_ear(const AtomListView& lv)
-{
-    setNamedEnvelope(SYM_EAR, lv);
-}
-
 void UIEnv::m_at(const AtomListView& lv)
 {
     using namespace ceammc::parser;
@@ -811,10 +781,10 @@ void UIEnv::m_at(const AtomListView& lv)
     floatTo(1, time_ms);
 }
 
-void UIEnv::setNamedEnvelope(t_symbol* env, const AtomListView& lv)
+void UIEnv::setNamedEnvelope(const char* env, const AtomListView& lv)
 {
     if (!env_.setNamedEnvelope(env, lv)) {
-        UI_ERR << "unknown envelope: " << Atom(env) + lv;
+        UI_ERR << "unknown envelope: " << env << lv;
         return;
     }
 
@@ -826,8 +796,8 @@ void UIEnv::setNamedEnvelope(t_symbol* env, const AtomListView& lv)
 void UIEnv::loadPreset(size_t idx)
 {
     auto lv = PresetStorage::instance().listValueAt(presetId(), idx);
-    DataTypeEnv env = DataTypeEnv::fromListView(lv);
-    if (env.empty())
+    DataTypeEnv env;
+    if (!env.setFromDataList(lv))
         return;
 
     env_ = env;
@@ -837,7 +807,7 @@ void UIEnv::loadPreset(size_t idx)
 
 void UIEnv::storePreset(size_t idx)
 {
-    PresetStorage::instance().setListValueAt(presetId(), idx, env_.toList());
+    PresetStorage::instance().setListValueAt(presetId(), idx, AtomList::parseString(env_.toDictString().c_str()));
 }
 
 void UIEnv::onPropChange(t_symbol* prop_name)
@@ -880,26 +850,29 @@ void UIEnv::setup()
     obj.addFloatProperty(PROP_LENGTH, _("Length (ms)"), 400, &UIEnv::prop_length, _("Main"));
     obj.setPropertyMin(PROP_LENGTH, 10);
     obj.setPropertyUnits(gensym(PROP_LENGTH), gensym("msec"));
+    obj.addBoolProperty(PROP_NORM, _("Normalize input"), true, &UIEnv::prop_normalize, _("Main"));
 
     obj.addMenuProperty("output_mode", _("Output Mode"), "mouse_up", &UIEnv::output_mode_, "mouse_up drag", _("Main"));
 
-    obj.addMethod(SYM_ADSR, &UIEnv::m_adsr);
-    obj.addMethod(SYM_ASR, &UIEnv::m_asr);
-    obj.addMethod(SYM_AR, &UIEnv::m_ar);
-    obj.addMethod(SYM_EADSR, &UIEnv::m_eadsr);
-    obj.addMethod(SYM_EASR, &UIEnv::m_easr);
-    obj.addMethod(SYM_EAR, &UIEnv::m_ear);
+#define ADD_METHOD(name) obj.addMethod(str_##name, &UIEnv::m_##name)
+
+    ADD_METHOD(adsr);
+    ADD_METHOD(ar);
+    ADD_METHOD(asr);
+    ADD_METHOD(eadsr);
+    ADD_METHOD(ear);
+    ADD_METHOD(easr);
+    ADD_METHOD(exp);
+    ADD_METHOD(line);
+    ADD_METHOD(sigmoid);
+    ADD_METHOD(sin2);
+    ADD_METHOD(step);
+
     obj.addMethod(gensym("at"), &UIEnv::m_at);
 }
 
 void setup_ui_env()
 {
-    SYM_ADSR = gensym("adsr");
-    SYM_ASR = gensym("asr");
-    SYM_AR = gensym("ar");
-    SYM_EADSR = gensym("eadsr");
-    SYM_EASR = gensym("easr");
-    SYM_EAR = gensym("ear");
     SYM_LENGTH = gensym("length");
     // keep in sync with @output_mode property!
     SYM_MODE_ON_MOUSE_UP = gensym("mouse_up");

@@ -15,17 +15,24 @@
 #define LOCAL_DICT_H
 
 #include "dict_iface.h"
+#include "editor_data.h"
 #include "local_base.h"
 
 using namespace ceammc;
 
-typedef DictIFace<LocalBase<DictAtom>> LocalDictBase;
+using LocalDictIFace = DictIFace<LocalBase<DictAtom>>;
+using LocalDictBase = EditorDataT<LocalDictIFace, DataTypeDict>;
 
 class LocalDict : public LocalDictBase {
 public:
     LocalDict(const PdArgs& args);
     const DictAtom& dict() const final { return ref(); }
     DictAtom& dict() final { return ref(); }
+
+    const DataTypeDict& editorData() const final { return *ref(); }
+    DataTypeDict& editorData() final { return *ref(); }
+
+    EditorTitleString editorTitle() const final;
 };
 
 void setup_local_dict();

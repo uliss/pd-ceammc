@@ -1,56 +1,46 @@
 #include "flt_eq10.h"
 #include "ceammc_factory.h"
 
-using namespace ceammc;
-;
+#include <array>
 
-template <typename T, std::size_t N>
-constexpr std::size_t countof(T const (&)[N]) noexcept
-{
-    return N;
-}
+using namespace ceammc;
+
+constexpr auto NUM_BANDS = 10;
+static const std::array<const char*, NUM_BANDS> STR_BANDS = {
+    "@f31",
+    "@f62",
+    "@f125",
+    "@f250",
+    "@f500",
+    "@f1000",
+    "@f2000",
+    "@f4000",
+    "@f8000",
+    "@f16000",
+};
 
 class FltEq10 : public faust_flt_eq10_tilde {
+    std::array<Property*, NUM_BANDS> bands_;
+
 public:
     FltEq10(const PdArgs& args)
         : faust_flt_eq10_tilde(args)
     {
         dsp_->instanceClear();
+
+        for (size_t i = 0; i < NUM_BANDS; i++)
+            bands_[i] = property(STR_BANDS[i]);
     }
 
-    void onList(const AtomList& l) override
+    void onList(const AtomListView& lv) override
     {
-        static t_symbol* SYM_PROP_FREQ_31 = gensym("@f31");
-        static t_symbol* SYM_PROP_FREQ_62 = gensym("@f62");
-        static t_symbol* SYM_PROP_FREQ_125 = gensym("@f125");
-        static t_symbol* SYM_PROP_FREQ_250 = gensym("@f250");
-        static t_symbol* SYM_PROP_FREQ_500 = gensym("@f500");
-        static t_symbol* SYM_PROP_FREQ_1000 = gensym("@f1000");
-        static t_symbol* SYM_PROP_FREQ_2000 = gensym("@f2000");
-        static t_symbol* SYM_PROP_FREQ_4000 = gensym("@f4000");
-        static t_symbol* SYM_PROP_FREQ_8000 = gensym("@f8000");
-        static t_symbol* SYM_PROP_FREQ_16000 = gensym("@f16000");
-
-        static t_symbol* freq_pack[] = {
-            SYM_PROP_FREQ_31,
-            SYM_PROP_FREQ_62,
-            SYM_PROP_FREQ_125,
-            SYM_PROP_FREQ_250,
-            SYM_PROP_FREQ_500,
-            SYM_PROP_FREQ_1000,
-            SYM_PROP_FREQ_2000,
-            SYM_PROP_FREQ_4000,
-            SYM_PROP_FREQ_8000,
-            SYM_PROP_FREQ_16000
-        };
-
-        const size_t N = std::min<size_t>(l.size(), countof(freq_pack));
+        const size_t N = std::min<size_t>(lv.size(), bands_.size());
 
         for (size_t i = 0; i < N; i++) {
-            if (!l[i].isFloat())
+            if (!lv[i].isFloat())
                 continue;
 
-            setProperty(freq_pack[i], l.view(i, 1));
+            bands_[i]->set(lv.subView(i, 1));
         }
     }
 };

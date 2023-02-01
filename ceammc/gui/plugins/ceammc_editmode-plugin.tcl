@@ -5,6 +5,11 @@ namespace eval ::editmode_look {
     set edit_mode_color "#FFFFFF"
 }
 
+if {[tk windowingsystem] eq "aqua"} {
+    set ::editmode_look::run_mode_color systemWindowBackgroundColor
+    set ::editmode_look::edit_mode_color systemTextBackgroundColor
+}
+
 proc ::editmode_look::set_edit_style {mytoplevel} {
     set tkcanvas [tkcanvas_name $mytoplevel]
     $tkcanvas configure -background $::editmode_look::edit_mode_color
@@ -28,6 +33,6 @@ proc ::editmode_look::set_style {mytoplevel} {
 }
 
 bind PatchWindow <<EditMode>> {+::editmode_look::set_style %W}
-bind PatchWindow <<Loaded>> {+::editmode_look::set_edit_style %W}
+bind PatchWindow <<Loaded>>   {+::editmode_look::set_edit_style %W}
 
 ::pdwindow::debug "\[ceammc\]: ceammc_editmode-plugin loaded\n"

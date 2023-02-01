@@ -52,7 +52,7 @@ mode). Type: int.;
 -49933 0;
 #X msg 110 739 @angles;
 #X text 245 739 Get/Set angles of loudspeakers. Only available for
-@irregular mode. Type: list. Units: deg.;
+@irregular mode. Type: list. Units: deg. Default value: 0 90 180 270\.;
 #X msg 110 781 @binaural;
 #X text 245 781 alias for @mode binaural.;
 #X msg 110 810 @crop;
@@ -61,36 +61,36 @@ Type: int. Units: samp. Default value: 16\. Range: 0\...512\.;
 #X msg 110 852 @irregular;
 #X text 245 852 alias for @mode irregular.;
 #X msg 110 881 @mode;
-#X text 245 881 (readonly) Get decoding mode. Type: symbol. Default
-value: regular. Allowed values: regular \, irregular \, binaural.;
+#X text 245 881 Get/Set decoding mode. Type: symbol. Default value:
+regular. Allowed values: regular \, irregular \, binaural.;
 #X msg 110 923 @nharm;
 #X text 245 923 (readonly) Get number of circular harmonics. Type:
 int. Default value: 3\. Min value: 1\.;
 #X msg 110 965 @nwaves;
-#X text 245 965 (readonly) Get number of plain waves. Type: int. Default
-value: 0\. Min value: 1\.;
+#X text 245 965 (initonly) Get/Set number of plain waves. Type: int.
+Default value: 0\. Min value: 1\.;
 #X msg 110 1007 @offset;
 #X text 245 1007 Get/Set rotation of loudspeakers. Only available for
 @regular and @irregular mode. Type: float. Units: deg. Default value:
 0\.;
 #X msg 110 1064 @order;
-#X text 245 1064 (readonly) Get the order of decomposition. Type: int.
-Default value: 1\. Range: 1\...63\.;
+#X text 245 1064 (initonly) Get/Set the order of decomposition. Type:
+int. Default value: 1\. Range: 1\...63\.;
 #X msg 110 1106 @pw_x;
 #X text 245 1106 (readonly) Get list of plain wave x-coordinates (abscissas).
 -1 is the left of the soundfield \, 0 is the center of the soundfield
-and 1 is the right of the soundfield. Type: list. Units: rad. Range:
--1\...1\.;
+and 1 is the right of the soundfield. Type: list. Units: rad. Default
+value: 0 -1 0 1\. Range: -1\...1\.;
 #X msg 110 1178 @pw_y;
 #X text 245 1178 (readonly) Get list of plain wave y-coordinates (ordinatas).
 -1 is the back of the soundfield \, 0 is the center of the soundfield
-and 1 is the front of the soundfield. Type: list. Units: rad. Range:
--1\...1\.;
+and 1 is the front of the soundfield. Type: list. Units: rad. Default
+value: 1 0 -1 0\. Range: -1\...1\.;
 #X msg 110 1250 @pw_z;
 #X text 245 1250 (readonly) Get list of plain wave z-coordinates (heights).
 -1 is the bottom of the soundfield \, 0 is the center of the soundfield
-and 1 is the top of the soundfield. Type: list. Units: rad. Range:
--1\...1\.;
+and 1 is the top of the soundfield. Type: list. Units: rad. Default
+value: 0 0 0 0\. Range: -1\...1\.;
 #X msg 110 1322 @regular;
 #X text 245 1322 alias for @mode regular.;
 #X obj 20 1361 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -117,7 +117,7 @@ and 1 is the top of the soundfield. Type: list. Units: rad. Range:
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title spat @url ceammc.spat-help.pd;
 #X obj 1 1533 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1536 library: ceammc v0.9.4;
+#X text 10 1536 library: ceammc v0.9.6;
 #X text 579 1548 see also:;
 #X obj 653 1548 hoa.encoder~;
 #N canvas 10 1555 400 290 info 0;
@@ -125,7 +125,7 @@ and 1 is the top of the soundfield. Type: list. Units: rad. Range:
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.4;
+#X text 120 32 0.9.6;
 #X text 10 54 object:;
 #X text 120 54 hoa.2d.decoder~;
 #X text 10 76 category:;

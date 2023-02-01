@@ -19,15 +19,15 @@
         </meta>
         <properties>
             <property name="@items" type="list">list of tab names</property>
-            <property name="@toggle" type="int" default="0" enum="0 1">toggle mode. In toggle moe
-            multiple selection is possible</property>
-            <property name="@orientation" type="int" enum="0 1" default="0">tab orientation. 1 is
-            vertical, 0 is horizontal</property>
-            <property name="@selected" type="list" readonly="true">list of selected items (in
-            toggle mode)</property>
-            <property name="@current" type="int" default="0" readonly="true">current selected index
-            (in switch mode)</property>
-            <property name="@count" type="int" default="0" readonly="true">number of
+            <property name="@toggle" type="bool" default="0">toggle mode. In toggle moe multiple
+            selection is possible</property>
+            <property name="@orientation" type="bool" default="0">tab orientation. 1 is vertical, 0
+            is horizontal</property>
+            <property name="@selected" type="list" access="readonly" default="">list of selected
+            items (in toggle mode)</property>
+            <property name="@current" type="int" default="0" access="readonly">current selected
+            index (in switch mode)</property>
+            <property name="@count" type="int" default="0" access="readonly">number of
             tabs</property>
             <!-- common -->
             <property name="@presetname" type="symbol" default="(null)">preset name for using with
@@ -36,8 +36,8 @@
             <property name="@receive" type="symbol" default="(null)">receive source</property>
             <property name="@size" type="list" default="100 15">element size (width, height
             pair)</property>
-            <property name="@pinned" type="int" enum="0 1" default="0">pin mode. if 1 - put element
-            to the lowest level</property>
+            <property name="@pinned" type="bool" default="0">pin mode. if 1 - put element to the
+            lowest level</property>
             <property name="@active_color" type="list" default="0 0.75 1 1">active color (list of
             red, green, blue values in 0-1 range)</property>
             <property name="@text_color" type="list" default="0 0 0 1">text color (list of red,
@@ -48,9 +48,11 @@
             background color (list of red, green, blue values in 0-1 range)</property>
             <property name="@border_color" type="list" default="0.6 0.6 0.6 1">border color (list
             of red, green, blue values in 0-1 range)</property>
-            <property name="@fontsize" type="int" minvalue="4" maxvalue="11" default="11">
+            <!-- font -->
+            <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
             fontsize</property>
-            <property name="@fontname" type="symbol" default="Helvetica">fontname</property>
+            <property name="@fontname" type="symbol" default="Helvetica"
+            enum="Courier DejaVu Helvetica Monaco Times">fontname</property>
             <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
             weight</property>
             <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
@@ -73,6 +75,17 @@
             <param name="IDX" type="int" minvalue="0" required="true">item index</param></method>
             <method name="select">selects specified item in tab 
             <param name="IDX" type="int" minvalue="0" required="true">item index</param></method>
+            <method name="random">select random item. If called [random move( moves to random item
+            (excluding the current one)</method>
+            <method name="flip">flips radio (only in checklist mode)</method>
+            <method name="next">moves to next item until last item is reached (single mode only).
+            Output new item</method>
+            <method name="prev">moves to previous item until first item is reached (single mode
+            only). Output new item</method>
+            <method name="+ STEP">moves several steps forward on a loop (single mode only), output
+            newly selected item</method>
+            <method name="- STEP">moves several step backwards on a loop (single mode only), output
+            newly selected item</method>
             <!-- presets -->
             <method name="load">loads specified preset 
             <param type="int" name="IDX" required="true">preset index</param></method>
@@ -103,17 +116,22 @@
         <example>
             <pdascii>
 <![CDATA[
-[append sqrt(    [set_item 0 white_noise(
+[append sqrt( [set_item 0 white_noise(      [next #d(
 |                |
-| [insert 0 saw( |  [delete 1(
-| |              |  |
-| | [clear( [F]  |  | [B]  [tri (   [T]
-| | |       |    |  | |    |        |
-| | |       |    |  | |    |        [@toggle $1(
-| | |       |    |  | |    |        |
-[ui.tab      @items sin tri @size 350 15]
-|
-[ui.d]
+| [insert 0 saw( | [delete 1(  [+ 1 #c(     [random move #e(
+| |              | |
+| | [clear( [F]  | | [B] [tri( [T]          [random #a(
+| | |       |    | | |   |     |
+| | |       |    | | |   |     [@toggle $1( [flip #b(
+| | |       |    | | |   |     |
+[ui.tab      @items sin tri @size 350 15 #x]
+|       |
+[print] [ui.dt]
+[X a->x]
+[X b->x]
+[X c->x]
+[X d->x]
+[X e->x]
 ]]>
             </pdascii>
         </example>

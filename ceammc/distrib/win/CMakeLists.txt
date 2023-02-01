@@ -80,6 +80,10 @@ if(WIN32)
         COMMAND bash -c "${PROJECT_BINARY_DIR}/dist/build_all.sh"
         USES_TERMINAL)
 
+    add_custom_target(dev_run
+        COMMAND "${CMAKE_INSTALL_PREFIX}/${PD_EXE_INSTALL_PATH}/pd"
+        USES_TERMINAL)
+
     # deploy to github
     # deploy INNO installer
     set(GIT_RELEASE_TAG "v${CEAMMC_DISTRIB_VERSION}")

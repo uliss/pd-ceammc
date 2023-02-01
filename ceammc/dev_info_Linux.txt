@@ -1,0 +1,7 @@
+dev targets: 
+  * dev_dpkg - reinstall dpkg package
+  * dev_touch_version - touch external info file, to update compilation date/time in load message
+  * dev_faust         - list all faust targets
+  * dev_tcl           - copy tcl files to install tcl directory
+  * dev_pd            - copy pd executable to install bin directory
+

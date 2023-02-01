@@ -30,6 +30,8 @@ public:
     bool setList(const AtomListView& lv) override;
 
     bool isFinite() const { return value() >= 0; }
+    bool isInfinite() const { return value() < 0; }
+    bool shouldRepeat(int n) const { return isInfinite() || n < value(); }
 };
 
 class SeqTimeGrain : public FloatProperty {

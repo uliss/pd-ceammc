@@ -14,6 +14,7 @@
 #ifndef HOA_OPTIM_H
 #define HOA_OPTIM_H
 
+#include "ceammc_property_enum.h"
 #include "hoa_common.h"
 
 #include <memory>

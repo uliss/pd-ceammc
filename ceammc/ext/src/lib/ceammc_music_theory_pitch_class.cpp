@@ -116,6 +116,27 @@ unsigned int PitchName::absolutePitch() const
                       : value_ * 2 - 1;
 }
 
+char PitchName::letterName() const
+{
+    switch (value_) {
+    case PITCH_NAME_A:
+        return 'A';
+    case PITCH_NAME_B:
+        return 'B';
+    case PITCH_NAME_C:
+        return 'C';
+    case PITCH_NAME_D:
+        return 'D';
+    case PITCH_NAME_E:
+        return 'E';
+    case PITCH_NAME_F:
+        return 'F';
+    case PITCH_NAME_G:
+    default:
+        return 'G';
+    }
+}
+
 size_t PitchName::distance(const PitchName& p1, const PitchName& p2)
 {
     return abs(int(p1.value_) - int(p2.value_));

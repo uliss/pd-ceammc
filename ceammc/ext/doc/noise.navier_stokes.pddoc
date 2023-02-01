@@ -7,12 +7,12 @@
                 <author>Richard Dudas</author>
                 <author>André Sier</author>
             </authors>
-            <description>Part of a-chaos library</description>
+            <description>navier-stokes diff equations</description>
             <license>%</license>
             <library>ceammc</library>
             <category>noise</category>
             <keywords>noise</keywords>
-            <since>.5</since>
+            <since>0.5</since>
         </meta>
         <info>
             <par>A model obtained by a suitable five-mode truncation of the Navier-Stokes equations
@@ -29,12 +29,12 @@
             &lt; &lt;reyn&gt; &lt; R2. With 28.73 &lt; R1 &gt; 29.0 and R2 ± = 33.43.</par>
         </info>
         <arguments>
-            <argument name="ARG0" type="float">a value (optional)</argument>
-            <argument name="ARG1" type="float">b value (optional)</argument>
-            <argument name="ARG2" type="float">c value (optional)</argument>
-            <argument name="ARG3" type="float">d value (optional)</argument>
-            <argument name="ARG4" type="float">r value (optional)</argument>
-            <argument name="ARG5" type="float">dt value (optional)</argument>
+            <argument name="A" type="float">a value (optional)</argument>
+            <argument name="B" type="float">b value (optional)</argument>
+            <argument name="C" type="float">c value (optional)</argument>
+            <argument name="D" type="float">d value (optional)</argument>
+            <argument name="R" type="float">r value (optional)</argument>
+            <argument name="DT" type="float">dt value (optional)</argument>
         </arguments>
         <methods>
             <method name="set">
@@ -74,7 +74,11 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>main outlet</outlet>
+            <outlet>a outlet</outlet>
+            <outlet>b outlet</outlet>
+            <outlet>c outlet</outlet>
+            <outlet>d outlet</outlet>
+            <outlet>e outlet</outlet>
         </outlets>
         <example>
             <pdascii>

@@ -22,9 +22,9 @@ SetUnion::SetUnion(const PdArgs& a)
     createOutlet();
 }
 
-void SetUnion::onList(const AtomList& lst)
+void SetUnion::onList(const AtomListView& lv)
 {
-    onDataT(SetAtom(lst));
+    onDataT(SetAtom(lv));
 }
 
 void SetUnion::onDataT(const SetAtom& set)
@@ -32,12 +32,12 @@ void SetUnion::onDataT(const SetAtom& set)
     atomTo(0, SetAtom(DataTypeSet::set_union(*set, set1_)));
 }
 
-void SetUnion::onInlet(size_t, const AtomListView& lst)
+void SetUnion::onInlet(size_t, const AtomListView& lv)
 {
-    if (lst.isA<DataTypeSet>())
-        set1_ = *lst.asD<DataTypeSet>();
+    if (lv.isA<DataTypeSet>())
+        set1_ = *lv.asD<DataTypeSet>();
     else
-        set1_ = DataTypeSet(lst);
+        set1_ = DataTypeSet(lv);
 }
 
 void setup_set_union()

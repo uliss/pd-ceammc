@@ -22,14 +22,17 @@ SVG="`pwd`/$1"
 make_icon() {
     sz=$1
     sz2=$((${sz} * 2))
-    $INK -z -D -e "${BASE}_${sz}x${sz}.png"    -f $SVG -w ${sz} -h ${sz}
-    $INK -z -D -e "${BASE}_${sz}x${sz}@2x.png" -f $SVG -w ${sz2} -h ${sz2}
+    $INK --export-area-drawing --export-margin=0 --export-filename="${BASE}_${sz}x${sz}.png" \
+        -w ${sz} -h ${sz} $SVG
+    $INK --export-area-drawing --export-margin=0 --export-filename="${BASE}_${sz}x${sz}@2x.png" \
+        -w ${sz2} -h ${sz2} $SVG
 }
 
 make_win_icon() {
     svg=$1
     sz=$2
-    $INK -z -C -e "${ICONSET_WIN}/icon_${sz}x${sz}.png" -f `pwd`/$svg -w ${sz} -h ${sz}
+    $INK --export-area-page --export-filename="${ICONSET_WIN}/icon_${sz}x${sz}.png" \
+        -w ${sz} -h ${sz} `pwd`/$svg
 }
 
 make_icon 16

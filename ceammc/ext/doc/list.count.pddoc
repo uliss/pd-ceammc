@@ -17,7 +17,7 @@
             </also>
         </meta>
         <arguments>
-            <argument name="pattern" type="any">count pattern value</argument>
+            <argument name="PATTERN" type="atom">count pattern value</argument>
         </arguments>
         <properties>
             <property name="@pattern" type="atom">new pattern value</property>

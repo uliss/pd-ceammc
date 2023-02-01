@@ -254,7 +254,7 @@ t_sample ArrayPositionProperty::phase() const
 bool ArrayPositionProperty::setSamples(t_float pos, bool check)
 {
     if (check) {
-        if (!array_ || !array_->isValid())
+        if (!array_ || !array_->update())
             return false;
 
         const auto N = static_cast<double>(array_->size());

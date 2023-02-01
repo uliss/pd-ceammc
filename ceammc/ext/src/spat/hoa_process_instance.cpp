@@ -13,7 +13,7 @@
  *****************************************************************************/
 #include "hoa_process_instance.h"
 #include "ceammc_canvas.h"
-#include "fmt/format.h"
+#include "fmt/core.h"
 #include "hoa_process.h"
 
 #include <algorithm>
@@ -51,7 +51,7 @@ void ProcessInstance::doScanCanvas(t_canvas* cnv)
 {
     for (t_gobj* y = cnv->gl_list; y; y = y->g_next) {
         const t_symbol* name = y->g_pd->c_name;
-        if (name == HoaProcess::SYM_CANVAS) {
+        if (name == gensym(HOA_STR_CANVAS)) {
             // recursive load
             doScanCanvas((t_canvas*)y);
         } else if (HoaIn::isA(y)) {
@@ -74,15 +74,16 @@ void ProcessInstance::createSwitch()
     Canvas cnv(canvas_);
 
     // find [switch~]
-    switch_ = cnv.findIf([](t_object* x) { return pd::object_name(x) == HoaProcess::SYM_BLOCK; });
+    auto sym_block = gensym(HOA_STR_BLOCK);
+    switch_ = cnv.findIf([sym_block](t_object* x) { return pd::object_name(x) == sym_block; });
     if (switch_)
         return;
 
     // create [switch~] object on instance canvas
-    cnv.createPdObject(10, 10, HoaProcess::SYM_SWITCH);
+    cnv.createPdObject(10, 10, gensym(HOA_STR_SWITCH));
 
     // find [switch~] again
-    switch_ = cnv.findIf([](t_object* x) { return pd::object_name(x) == HoaProcess::SYM_BLOCK; });
+    switch_ = cnv.findIf([sym_block](t_object* x) { return pd::object_name(x) == sym_block; });
 
     if (!switch_) {
         LIB_ERR << "[hoa.process~] can't create [switch~] for instance";

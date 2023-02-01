@@ -16,29 +16,34 @@
         <arguments>
             <argument name="FROM" type="int">start value</argument>
             <argument name="TO" type="int">end value</argument>
-            <argument name="REPEATS" type="int">number of repeats</argument>
+            <argument name="R" type="int">number of repeats</argument>
         </arguments>
         <properties>
-            <property name="@from" type="int" default="0">start value</property>
-            <property name="@to" type="int" default="0">end value</property>
+            <property name="@from" type="int" default="0">start value. Setting this property resets
+            @i to 0</property>
+            <property name="@to" type="int" default="0">end value (inclusive)</property>
             <property name="@r" type="int" default="-1" minvalue="-1">number of repeats. If -1:
             repeat infinitely.</property>
             <property name="@inf" type="alias">alias to @r -1, repeats infinitely</property>
             <property name="@once" type="alias">alias to @r 1, play once</property>
-            <property name="@i" type="int" readonly="true" default="0">current iteration</property>
-            <property name="@ri" type="int" readonly="true" default="0">current repeat
+            <property name="@i" type="int" default="0">current iteration</property>
+            <property name="@ri" type="int" access="readonly" default="0">current repeat
             iteration</property>
             <property name="@mode" type="symbol" enum="wrap fold" default="wrap">repeat counter
             mode</property>
             <property name="@wrap" type="alias">alias to @mode wrap</property>
             <property name="@fold" type="alias">alias to @mode fold</property>
+            <property name="@value" type="int" default="0" access="readonly">current
+            value</property>
         </properties>
         <methods>
             <method name="reset">reset counter to start value and repeat counter to 0</method>
+            <method name="next">increment counter then output</method>
+            <method name="prev">decrement counter then output</method>
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">output current value and increment counter</xinfo>
+                <xinfo on="bang">output current value then increment counter</xinfo>
             </inlet>
             <inlet>
                 <xinfo on="bang">reset counter to start value</xinfo>
@@ -51,13 +56,17 @@
         <example>
             <pdascii>
 <![CDATA[
-[bng]             [bng]         [bng]
-|                 |             |.
-[seq.counter 1 4] [seq.counter 1 4 @r 2]/*repeat two times*/
-|                 |             ^|
-[F]               [F]           [route done]
-                                |       ^|
-                                [bng]   [F]
+[B]   [prev( [next(
+|     |      |
+[seq.counter 1 4]
+|
+[ui.dt]
+
+[B]            [B]
+|              |.
+[seq.counter 1 4 @r 2]/*repeat two times*/
+|              ^|
+[F]            [ui.dt]
 ]]>
             </pdascii>
         </example>

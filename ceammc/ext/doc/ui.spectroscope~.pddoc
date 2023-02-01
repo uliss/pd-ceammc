@@ -29,14 +29,13 @@
         <properties>
             <property name="@refresh" type="int" minvalue="20" maxvalue="1000" default="100"
             units="millisecond">approximate refresh rate</property>
-            <property name="@log_scale" type="int" default="0" enum="0 1">display in log
-            scale</property>
+            <property name="@log_scale" type="bool" default="0">display in log scale</property>
             <!-- common -->
             <property name="@receive" type="symbol" default="(null)">receive source</property>
             <property name="@size" type="list" default="150 100">element size (width, height
             pair)</property>
-            <property name="@pinned" type="int" enum="0 1" default="0">pin mode. if 1 - put element
-            to the lowest level</property>
+            <property name="@pinned" type="bool" default="0">pin mode. if 1 - put element to the
+            lowest level</property>
             <property name="@active_color" type="list" default="0 0.75 1 1">active color (list of
             red, green, blue values in 0-1 range)</property>
             <property name="@label_color" type="list" default="0 0 0 1">label color (list of red,
@@ -47,9 +46,15 @@
             of red, green, blue values in 0-1 range)</property>
             <property name="@scale_color" type="list" default="0.6 0.6 0.6 1">scale color (list of
             red, green, blue values in 0-1 range)</property>
-            <property name="@fontsize" type="int" minvalue="4" maxvalue="11" default="11">
+            <!-- font -->
+            <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
             fontsize</property>
-            <property name="@fontname" type="symbol" default="Helvetica">fontname</property>
+            <property name="@fontname" type="symbol" default="Helvetica"
+            enum="Courier DejaVu Helvetica Monaco Times">fontname</property>
+            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
+            weight</property>
+            <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
+            slant</property>
         </properties>
         <inlets>
             <inlet type="audio">

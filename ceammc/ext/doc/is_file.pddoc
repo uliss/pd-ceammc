@@ -27,6 +27,7 @@
         </inlets>
         <outlets>
             <outlet>0 or 1</outlet>
+            <outlet>symbol os String: pass filename if file exists</outlet>
         </outlets>
         <example>
             <pdascii>

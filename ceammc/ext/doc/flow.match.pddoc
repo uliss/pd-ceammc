@@ -22,13 +22,13 @@
             <a href="https://github.com/google/re2">Regexp library: RE2</a>
         </info>
         <arguments>
-            <argument name="RE_LST" type="list" required="true">list of regular
+            <argument name="PATTERNS" type="list" required="true">list of regular
             expressions</argument>
         </arguments>
         <properties>
-            <property name="@patterns" type="list">list of regular expressions</property>
-            <property name="@cut" type="int" default="0" enum="0 1">cut or pass message
-            selector</property>
+            <property name="@patterns" type="list" access="initonly" default="">list of regular
+            expressions</property>
+            <property name="@cut" type="bool" default="0">cut or pass message selector</property>
         </properties>
         <inlets dynamic="true">
             <inlet number="1">

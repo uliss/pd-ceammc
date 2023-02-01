@@ -14,7 +14,7 @@
             <since>0.4</since>
         </meta>
         <arguments>
-            <argument name="N" type="int" minvalue="0">counter init value</argument>
+            <argument name="VALUE" type="int" minvalue="0">counter init value</argument>
         </arguments>
         <properties>
             <property name="@value" type="int" minvalue="0" default="0">current counter state. Can
@@ -25,9 +25,12 @@
                 <xinfo on="any">input messages</xinfo>
             </inlet>
             <inlet>
-                <xinfo on="bang">reset counter to init value</xinfo>
-                <xinfo on="int">set current value</xinfo>
-                <xinfo>@value X - set current value</xinfo>
+                <xinfo on="bang">reset counter to init value (no output)</xinfo>
+                <xinfo on="int">set current value (no output)</xinfo>
+                <xinfo>@value X - set current value (no output)</xinfo>
+                <xinfo>@value? - output current value</xinfo>
+                <xinfo>+ X - add specified value (no output)</xinfo>
+                <xinfo>- X - subtract specified value (no output)</xinfo>
             </inlet>
         </inlets>
         <outlets>

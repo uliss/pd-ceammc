@@ -14,12 +14,12 @@
 #include "data_mlist.h"
 #include "ceammc_data.h"
 #include "ceammc_factory.h"
-#include "ceammc_format.h"
 
 DataMList::DataMList(const PdArgs& args)
     : DataMListBase(args)
 {
-    mlist()->setParsed(args.args);
+    setSpecialSymbolEscape(EDITOR_ESC_MODE_DATA);
+    mlist_->setFromDataList(args.args);
 
     createOutlet();
 }
@@ -31,4 +31,6 @@ void setup_data_mlist()
     obj.addAlias("ml");
     obj.processData<DataTypeMList>();
     obj.noArgsAndPropsParse();
+
+    DataMList::registerMethods(obj);
 }

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="path.monitor">
+        <title>path.monitor</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>filesystem event monitor</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>path</category>
+            <keywords>path filesystem</keywords>
+            <since>0.9.5</since>
+        </meta>
+        <arguments>
+            <argument name="PATH" type="symbol">directory to monitor filesystem events</argument>
+        </arguments>
+        <properties>
+            <property name="@path" type="symbol" default="">directory to monitor filesystem
+            events</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo>...</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>messages: [create fname(, [update fname(, [move fname(, [remove fname(</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[path.monitor "%PD%"]
+|
+[ui.dt]
+
+[open "%PD%/test.txt" w(
+|
+| [write 1 2 3, close(
+| |
+| | [remove "%PD%/test.txt"(
+| | |
+[file]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -22,14 +22,22 @@
 #include <sstream>
 
 #ifdef __WIN32
-static const int FONT_SIZE_CORR = 4;
+static int font_size_corr(float h) {
+    return std::floor(0.6 * h);
+}
 #else
-static const int FONT_SIZE_CORR = 8;
+static int font_size_corr(float h) {
+    return 0.875 * h;
+}
 #endif
+
+constexpr const char* DEFAULT_FONT_FAMILY = "Helvetica";
+constexpr int DEFAULT_FONT_SIZE = 13;
 
 UINumber::UINumber()
     : clock_(this, &UINumber::updateTextValue)
-    , text_(&asEBox()->b_font, ColorRGBA::black(), ETEXT_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP)
+    , font_(gensym(DEFAULT_FONT_FAMILY), DEFAULT_FONT_SIZE)
+    , text_(font_.font(), ColorRGBA::black(), ETEXT_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP)
     , text_layer_(asEBox(), gensym("text_layer"))
     , enter_value_("...")
     , value_(0)
@@ -54,11 +62,10 @@ void UINumber::okSize(t_rect* newrect)
     float border_min = std::min<float>(newrect->width, newrect->height);
     border_min = std::max<float>(10, border_min);
     newrect->height = border_min;
-    newrect->width = pd_clip_min(newrect->width, sys_fontwidth(fontSize()) * 3 + 8);
+    newrect->width = pd_clip_min(newrect->width, sys_fontwidth(font_.size()) * 3 + 8);
 
-    t_atom a;
-    SETFLOAT(&a, (newrect->height - newrect->height / FONT_SIZE_CORR));
-    ebox_set_fontsize(asEBox(), 0, 1, &a);
+    auto new_val_font_size = font_size_corr(newrect->height);
+    font_.setSize(new_val_font_size);
 }
 
 void UINumber::onPropChange(t_symbol* prop_name)

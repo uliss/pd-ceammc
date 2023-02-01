@@ -29,9 +29,9 @@ void Vline2Env::onBang()
     atomTo(0, EnvAtom(env_));
 }
 
-void Vline2Env::onList(const AtomList& lst)
+void Vline2Env::onList(const AtomListView& lv)
 {
-    if (lst.empty())
+    if (lv.empty())
         onBang();
 
     auto tm = clock_getlogicaltime();
@@ -43,9 +43,9 @@ void Vline2Env::onList(const AtomList& lst)
     }
 
     // value, dur, offset
-    auto v = lst.floatAt(0, 0);
-    size_t dur_us = lst.floatAt(1, 0) * 1000;
-    size_t off_us = lst.floatAt(2, 0) * 1000;
+    auto v = lv.floatAt(0, 0);
+    size_t dur_us = lv.floatAt(1, 0) * 1000;
+    size_t off_us = lv.floatAt(2, 0) * 1000;
 
     // add prev value
     env_.insertPoint(EnvelopePoint(len_, v_, false, CURVE_LINE));

@@ -16,9 +16,9 @@
 #X obj 20 259 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 110 294 1\.;
-#X text 150 294 any;
-#X obj 246 295 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 294 pattern: count pattern value. Type: any.;
+#X text 150 294 atom;
+#X obj 246 295 cnv 1 61 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 294 PATTERN: count pattern value. Type: atom.;
 #X obj 20 324 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 329 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -45,7 +45,7 @@
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
 #X obj 1 535 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 538 library: ceammc v0.9.4;
+#X text 10 538 library: ceammc v0.9.6;
 #X text 572 550 see also:;
 #X obj 646 550 list.count_if;
 #N canvas 10 557 400 290 info 0;
@@ -53,7 +53,7 @@
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.4;
+#X text 120 32 0.9.6;
 #X text 10 54 object:;
 #X text 120 54 list.count;
 #X text 10 76 category:;

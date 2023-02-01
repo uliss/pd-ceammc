@@ -15,22 +15,19 @@ static AtomList vector2list(const std::vector<t_float>& v)
 
 RandomPWConst::RandomPWConst(const PdArgs& a)
     : BaseObject(a)
-    , seed_(nullptr)
 {
     createOutlet();
 
     createCbListProperty(
         "@v",
         [this]() -> AtomList { return values_; },
-        [this](const AtomList& l) -> bool { return set(l); })
+        [this](const AtomListView& lv) -> bool { return set(lv); })
         ->setArgIndex(0);
 
     createCbListProperty("@bounds", [this]() { return vector2list(bounds_); });
     createCbListProperty("@weights", [this]() { return vector2list(weights_); });
 
-    seed_ = new SizeTProperty("@seed", 0);
-    seed_->setSuccessFn([this](Property* p) { gen_.setSeed(seed_->value()); });
-    addProperty(seed_);
+    addProperty(new random::SeedProperty(gen_));
 }
 
 void RandomPWConst::onBang()
@@ -46,13 +43,13 @@ void RandomPWConst::onBang()
     floatTo(0, dist(gen_.get()));
 }
 
-void RandomPWConst::onList(const AtomList& v)
+void RandomPWConst::onList(const AtomListView& lv)
 {
-    if (set(v))
+    if (set(lv))
         onBang();
 }
 
-bool RandomPWConst::set(const AtomList& data)
+bool RandomPWConst::set(const AtomListView& data)
 {
     if (data.size() % 2 == 0) {
         OBJ_ERR << "expected odd number of arguments: boundary0, weight0, boundary1 etc...";
@@ -78,7 +75,7 @@ bool RandomPWConst::set(const AtomList& data)
         return false;
     }
 
-    if (std::count_if(w.begin(), w.end(), std::bind2nd(std::less<t_float>(), 0))) {
+    if (std::count_if(w.begin(), w.end(), [](t_float x) -> bool { return x < 0; })) {
         OBJ_ERR << "negative weights are found: " << w;
         return false;
     }

@@ -17,7 +17,7 @@
 
 #include <sstream>
 
-static ceammc::Atom newIntData(const ceammc::AtomList& args)
+static ceammc::Atom newIntData(const ceammc::AtomListView& args)
 {
     if (args.isInteger())
         return new IntData(args.asT<int>());
@@ -28,7 +28,7 @@ static ceammc::Atom newIntData(const ceammc::AtomList& args)
     }
 }
 
-static ceammc::Atom newStrData(const ceammc::AtomList& args)
+static ceammc::Atom newStrData(const ceammc::AtomListView& args)
 {
     if (args.isSymbol())
         return new StrData(args.asT<t_symbol*>()->s_name);
@@ -86,19 +86,29 @@ bool IntData::isLess(const ceammc::AbstractData* d) const noexcept
     return v_ < dt->v_;
 }
 
-std::string IntData::toString() const
+std::string IntData::toListStringContent() const
 {
     std::ostringstream buf;
     buf << v_;
     return buf.str();
 }
 
-std::string IntData::valueToJsonString() const
+std::string IntData::toDictStringContent() const
 {
-    return toString();
+    return "value: " + toListStringContent();
 }
 
-int IntData::type() const noexcept { return dataType; }
+bool IntData::set(const AbstractData* d) noexcept
+{
+    return setDataT<IntData>(d);
+}
+
+std::string IntData::toJsonString() const
+{
+    return toListStringContent();
+}
+
+ceammc::DataTypeId IntData::type() const noexcept { return dataType; }
 
 IntData* IntData::clone() const { return new IntData(v_); }
 
@@ -150,14 +160,19 @@ bool StrData::isEqual(const ceammc::AbstractData* d) const noexcept
     return v_ == dt->v_;
 }
 
-std::string StrData::toString() const
-{
-    return v_;
-}
-
-int StrData::type() const noexcept { return dataType; }
+ceammc::DataTypeId StrData::type() const noexcept { return dataType; }
 
 StrData* StrData::clone() const { return new StrData(v_); }
+
+std::string StrData::toDictStringContent() const
+{
+    return "value: " + v_;
+}
+
+bool StrData::set(const AbstractData* d) noexcept
+{
+    return setDataT<StrData>(d);
+}
 
 bool StrData::operator==(const StrData& d) const noexcept
 {

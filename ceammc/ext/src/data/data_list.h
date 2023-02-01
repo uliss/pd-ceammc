@@ -15,15 +15,19 @@
 #define DATA_LIST_H
 
 #include "datatype_mlist.h"
+#include "editor_list.h"
 #include "list_iface.h"
 
-class DataList : public DataListIFace<BaseObject> {
+class DataList : public EditorListT<DataListIFace<BaseObject>> {
     AtomList list_;
 
 public:
     DataList(const PdArgs& a);
+
     AtomList& list() final { return list_; }
     const AtomList& list() const final { return list_; }
+
+    EditorTitleString editorTitle() const final { return "DATA.LIST"; }
 };
 
 void setup_data_list();

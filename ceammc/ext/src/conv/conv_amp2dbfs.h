@@ -23,7 +23,7 @@ class Amp2dbfs : public BaseObject {
 public:
     Amp2dbfs(const PdArgs& args);
     void onFloat(t_float v) override;
-    void onList(const AtomList& lst) override;
+    void onList(const AtomListView& lv) override;
 };
 
 class Amp2dbfsTilde : public SoundExternal {

@@ -32,6 +32,7 @@
 #include "flow_ring.h"
 #include "flow_route.h"
 #include "flow_select.h"
+#include "flow_seqdelay.h"
 #include "flow_speedlim.h"
 #include "flow_split.h"
 #include "flow_stack.h"
@@ -55,7 +56,13 @@ void setup_seq_sequencer();
 void setup_seq_toggles();
 void setup_seq_life();
 
+void setup_route_any();
+void setup_route_bang();
 void setup_route_float();
+void setup_route_list();
+void setup_route_prop();
+void setup_route_random();
+void setup_route_symbol();
 
 void ceammc_flow_setup()
 {
@@ -95,6 +102,7 @@ void ceammc_flow_setup()
     setup_flow_reject_if();
     setup_flow_route();
     setup_flow_select();
+    setup_flow_seqdelay();
     setup_flow_space();
     setup_flow_speedlim();
     setup_flow_split();
@@ -113,5 +121,11 @@ void ceammc_flow_setup()
     setup_seq_toggles();
     setup_seq_life();
 
+    setup_route_any();
+    setup_route_bang();
     setup_route_float();
+    setup_route_list();
+    setup_route_prop();
+    setup_route_random();
+    setup_route_symbol();
 }

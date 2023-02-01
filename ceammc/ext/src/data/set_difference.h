@@ -24,9 +24,9 @@ class SetDifference : public BaseObject {
 
 public:
     SetDifference(const PdArgs& a);
-    void onList(const AtomList& l) override;
+    void onList(const AtomListView& lv) override;
     void onDataT(const SetAtom& set);
-    void onInlet(size_t, const AtomListView& l) override;
+    void onInlet(size_t, const AtomListView& lv) override;
 };
 
 void setup_set_difference();

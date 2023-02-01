@@ -32,7 +32,7 @@ public:
     SndFile(const PdArgs& a);
 
 public:
-    void m_load(t_symbol* s, const AtomListView& lst);
+    void m_load(t_symbol* s, const AtomListView& lv);
 
 private:
     void postInfoUsage();
@@ -40,7 +40,7 @@ private:
 
     MaybeString fullLoadPath(const std::string& fname) const;
 
-    bool extractLoadArgs(const AtomListView& lst, std::string& fname, std::string& array_opts);
+    bool extractLoadArgs(const AtomListView& lv, std::string& fname, std::string& array_opts);
 };
 
 void setup_snd_file();

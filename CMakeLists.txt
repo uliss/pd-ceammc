@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.1)
+cmake_minimum_required(VERSION 3.13)
 project(puredata)
 
 if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
@@ -15,7 +15,12 @@ if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
 endif()
 
 if(APPLE)
-    set(CMAKE_OSX_ARCHITECTURES "x86_64")
+    if(CMAKE_HOST_SYSTEM_PROCESSOR STREQUAL "arm64")
+        set(CMAKE_OSX_ARCHITECTURES "arm64")
+    else()
+        set(CMAKE_OSX_ARCHITECTURES "x86_64")
+    endif()
+
     if(MACOSX_SDK)
         set(CMAKE_OSX_SYSROOT ${MACOSX_SDK})
     endif()
@@ -52,7 +57,9 @@ if(UNIX)
         set(CMAKE_MACOSX_RPATH TRUE)
         # @rpath on macosx
         # set(CMAKE_SKIP_RPATH True)
-        # set(CMAKE_OSX_DEPLOYMENT_TARGET "10.6")
+        if(CMAKE_OSX_ARCHITECTURES STREQUAL "x86_64")
+            set(CMAKE_OSX_DEPLOYMENT_TARGET "10.12")
+        endif()
         # set(CMAKE_SKIP_BUILD_RPATH FALSE)
         # set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
         # set(CMAKE_BUILD_WITH_INSTALL_NAME_DIR TRUE)
@@ -73,6 +80,7 @@ set(CMAKE_CXX_STANDARD 11)
 
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
+include(CheckLSBTypes)
 include(build_options)
 include(ceammc/external_version.cmake)
 include(version)
@@ -122,6 +130,7 @@ add_subdirectory(extra)
 add_subdirectory(doc)
 add_subdirectory(mac)
 
+
 if(GETTEXT_FOUND)
     add_subdirectory(po)
 endif()
@@ -132,12 +141,12 @@ endif()
 
 add_subdirectory(ceammc)
 
-include(summary)
 include(package)
+include(summary)
 
 add_custom_target(puredata_changelog SOURCES CHANGELOG.md)
 
 file(GLOB _DEB_FILES "debian/*")
 add_custom_target(deb_files SOURCES ${_DEB_FILES})
 
-add_custom_target(ci_files SOURCES .travis.yml appveyor.yml)
+add_custom_target(ci_files SOURCES appveyor.yml)

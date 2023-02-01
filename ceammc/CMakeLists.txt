@@ -16,6 +16,7 @@ find_program(PD_LIB2DEKEN pd_lib2deken)
 find_program(PD_CAT2PD pd_cat2pd)
 
 set(CEAMMC_INSTALL_PATH ${PD_INTERNAL_EXT_INSTALL_PATH}/ceammc)
+set(CEAMMC_FAUST_TARGETS "" CACHE INTERNAL "")
 
 add_subdirectory(extra)
 add_subdirectory(gui)
@@ -36,6 +37,7 @@ if(XGETTEXT)
     file(GLOB _UI_FILES RELATIVE ${CMAKE_SOURCE_DIR}/po "${CMAKE_CURRENT_SOURCE_DIR}/ext/src/ui/*.cpp" "${CMAKE_CURRENT_SOURCE_DIR}/ext/src/ui/*.h")
     file(GLOB _HOA_FILES RELATIVE ${CMAKE_SOURCE_DIR}/po "${CMAKE_CURRENT_SOURCE_DIR}/ext/src/spat/*.cpp" "${CMAKE_CURRENT_SOURCE_DIR}/ext/src/spat/*.h")
     file(GLOB _TCL_PLUGIN_FILES RELATIVE ${CMAKE_SOURCE_DIR}/po "${CMAKE_CURRENT_SOURCE_DIR}/gui/plugins/ceammc_*-plugin.tcl")
+    list(APPEND _TCL_PLUGIN_FILES "${CMAKE_CURRENT_SOURCE_DIR}/gui/plugins/completion-plugin/completion-plugin.tcl")
 
     set(XGETTEXT_EMAIL "serge.uliss at gmail.com")
     set(XGETTEXT_COPYRIGHT "This file is put in the public domain")
@@ -61,17 +63,24 @@ if(XGETTEXT)
     )
 endif()
 
-add_custom_target(ceammc_extra_files SOURCES CHANGELOG.md cppcheck_suppressions.txt)
+add_custom_target(ceammc_extra_files
+    SOURCES
+        CHANGELOG.md
+        cppcheck_suppressions.txt
+        dev_info_Darwin.txt
+        dev_info_Linux.txt
+        dev_info_Windows.txt
+)
 
-add_custom_target(dev
-    COMMAND ${CMAKE_COMMAND} -E cat "${CMAKE_CURRENT_SOURCE_DIR}/dev_info_${CMAKE_SYSTEM_NAME}.txt")
 
-if(APPLE)
-    add_custom_target(dev_run
-        COMMAND ${BUNDLE_FULL_PATH}/Contents/Resources/bin/pd
-        DEPENDS dev_ceammc)
-    add_custom_target(dev_open
-        COMMAND open ${BUNDLE_FULL_PATH}
-        DEPENDS dev_ceammc)
+set(DEV_INFO_TXT "${CMAKE_CURRENT_SOURCE_DIR}/dev_info_${CMAKE_SYSTEM_NAME}.txt")
+
+if(${CMAKE_VERSION} VERSION_LESS "3.18.0")
+    add_custom_target(dev COMMAND cat "${DEV_INFO_TXT}")
+else()
+    add_custom_target(dev COMMAND ${CMAKE_COMMAND} -E cat "${DEV_INFO_TXT}")
 endif()
+
+add_custom_target(dev_faust
+    COMMAND ${CMAKE_COMMAND} -D ALL_TARGETS="${CEAMMC_FAUST_TARGETS}" -P "${CMAKE_CURRENT_SOURCE_DIR}/scripts/list_faust_targets.cmake")
 

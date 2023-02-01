@@ -7,7 +7,7 @@
 
 #include "test_base.h"
 
-#include <boost/bind.hpp>
+#include <boost/bind/bind.hpp>
 #include <boost/typeof/typeof.hpp>
 #include <chrono>
 #include <iostream>

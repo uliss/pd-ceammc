@@ -1,23 +1,24 @@
 {
 	"name": "synth.dubdub",
 	"filename": "synth_dubdub.dsp",
-	"version": "2.37.3",
-	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0",
+	"version": "2.53.1",
+	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn synth_dubdub -scn synth_dubdub_dsp -es 1 -mcd 16 -single -ftz 0",
 	"library_list": ["/usr/local/share/faust/synths.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc_ui.lib","/usr/local/share/faust/signals.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib","/Users/serge/work/music/pure-data/ceammc/faust/spn.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/oscillators.lib","/usr/local/share/faust/envelopes.lib","/usr/local/share/faust/filters.lib"],
 	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
 	"inputs": 0,
 	"outputs": 1,
 	"meta": [ 
 		{ "basics.lib/name": "Faust Basic Element Library" },
-		{ "basics.lib/version": "0.2" },
+		{ "basics.lib/version": "0.8" },
 		{ "ceammc_ui.lib/name": "CEAMMC faust default UI elements" },
 		{ "ceammc_ui.lib/version": "0.1.2" },
-		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0" },
+		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn synth_dubdub -scn synth_dubdub_dsp -es 1 -mcd 16 -single -ftz 0" },
 		{ "envelopes.lib/author": "GRAME" },
 		{ "envelopes.lib/copyright": "GRAME" },
 		{ "envelopes.lib/license": "LGPL with exception" },
 		{ "envelopes.lib/name": "Faust Envelope Library" },
-		{ "envelopes.lib/version": "0.1" },
+		{ "envelopes.lib/smoothEnvelope:author": "Romain Michon" },
+		{ "envelopes.lib/version": "0.2" },
 		{ "filename": "synth_dubdub.dsp" },
 		{ "filters.lib/fir:author": "Julius O. Smith III" },
 		{ "filters.lib/fir:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
@@ -44,15 +45,16 @@
 		{ "maths.lib/version": "2.5" },
 		{ "name": "synth.dubdub" },
 		{ "oscillators.lib/name": "Faust Oscillator Library" },
-		{ "oscillators.lib/version": "0.1" },
+		{ "oscillators.lib/version": "0.3" },
 		{ "platform.lib/name": "Generic Platform Library" },
 		{ "platform.lib/version": "0.2" },
 		{ "signals.lib/name": "Faust Signal Routing Library" },
-		{ "signals.lib/version": "0.1" },
+		{ "signals.lib/version": "0.3" },
 		{ "spn.lib/name": "Standart Pitch Notation constants" },
 		{ "spn.lib/version": "0.2" },
+		{ "synths.lib/dubDub:author": "Romain Michon" },
 		{ "synths.lib/name": "Faust Synthesizer Library" },
-		{ "synths.lib/version": "0.0" }
+		{ "synths.lib/version": "0.1" }
 	],
 	"ui": [ 
 		{
@@ -62,6 +64,7 @@
 				{
 					"type": "hslider",
 					"label": "cutoff",
+					"shortname": "cutoff",
 					"address": "/synth.dubdub/cutoff",
 					"init": 3000,
 					"min": 20,
@@ -71,11 +74,13 @@
 				{
 					"type": "button",
 					"label": "gate",
+					"shortname": "gate",
 					"address": "/synth.dubdub/gate"
 				},
 				{
 					"type": "hslider",
 					"label": "pitch",
+					"shortname": "pitch",
 					"address": "/synth.dubdub/pitch",
 					"init": 48,
 					"min": 24,
@@ -85,6 +90,7 @@
 				{
 					"type": "vslider",
 					"label": "q",
+					"shortname": "q",
 					"address": "/synth.dubdub/q",
 					"init": 0.1,
 					"min": 0.01,

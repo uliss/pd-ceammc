@@ -1,4 +1,5 @@
 #include "ceammc_preset.h"
+#include "ceammc_containers.h"
 #include "ceammc_convert.h"
 #include "ceammc_format.h"
 #include "ceammc_log.h"
@@ -9,6 +10,7 @@ extern "C" {
 }
 
 #include <algorithm>
+#include <boost/container/small_vector.hpp>
 #include <cmath>
 #include <cstring>
 
@@ -184,8 +186,6 @@ bool PresetStorage::write(t_canvas* c, const std::string& path) const
 
 bool PresetStorage::write(const char* path) const
 {
-    t_symbol* SYM_WITH_SPACES = gensym("_symbol_s");
-
     if (params_.empty()) {
         LIB_DBG << "no presets in storage";
         return false;
@@ -205,18 +205,11 @@ bool PresetStorage::write(const char* path) const
             if (ptr->hasFloatAt(i))
                 binbuf_addv(content, "sf", &s_float, ptr->floatAt(i));
             else if (ptr->hasSymbolAt(i)) {
-                t_symbol* sym = ptr->symbolAt(i);
-                if (strchr(sym->s_name, ' ')) {
-                    // has spaces
-                    binbuf_addv(content, "ss", SYM_WITH_SPACES, sym);
-                } else {
-                    // no spaces
-                    binbuf_addv(content, "ss", &s_symbol, sym);
-                }
+                binbuf_addv(content, "ss", &s_symbol, ptr->symbolAt(i));
             } else if (ptr->hasListAt(i)) {
-                AtomList l = ptr->listAt(i);
+                auto lv = ptr->listAt(i);
                 binbuf_addv(content, "s", &s_list);
-                binbuf_add(content, l.size(), l.toPdData());
+                binbuf_add(content, lv.size(), lv.toPdData());
             } else if (ptr->hasAnyAt(i)) {
                 AtomList l = ptr->anyAt(i);
                 binbuf_add(content, l.size(), l.toPdData());
@@ -249,28 +242,31 @@ bool PresetStorage::read(t_canvas* c, const std::string& path)
 
 bool PresetStorage::read(const char* path)
 {
-    t_symbol* SYM_WITH_SPACES = gensym("_symbol_s");
-
+    using SmallAtomList = SmallAtomListN<16>;
+    using LineList = boost::container::small_vector<SmallAtomList, 64>;
     // RAII
-    std::unique_ptr<t_binbuf, void (*)(t_binbuf*)> content(binbuf_new(), binbuf_free);
+    using BinbufPtr = std::unique_ptr<t_binbuf, void (*)(t_binbuf*)>;
+    BinbufPtr content(binbuf_new(), binbuf_free);
+    BinbufPtr bb_sym(binbuf_new(), binbuf_free);
 
     int err = binbuf_read(content.get(), (char*)path, (char*)"", 0);
 
     if (err)
         return false;
 
-    std::vector<AtomList> lines;
-    lines.push_back(AtomList());
+    LineList lines;
+    lines.push_back({});
 
     const int N = binbuf_getnatom(content.get());
     lines.reserve(N);
 
     t_atom* lst = binbuf_getvec(content.get());
+
     for (int i = 0; i < N; i++) {
-        lines.back().append(lst[i]);
+        lines.back().push_back(lst[i]);
 
         if (lst[i].a_type == A_SEMI) {
-            lines.push_back(AtomList());
+            lines.push_back({});
             continue;
         }
     }
@@ -282,15 +278,15 @@ bool PresetStorage::read(const char* path)
         lines.pop_back();
 
     for (size_t i = 0; i < lines.size(); i++) {
-        AtomList& line = lines[i];
+        auto& line = lines[i];
 
         if (line.size() < 4)
             continue;
 
         if (line[0].isSymbol() && line[1].isFloat() && line[2].isSymbol()) {
-            t_symbol* name = line[0].asSymbol();
-            size_t index = line[1].asSizeT();
-            t_symbol* sel = line[2].asSymbol();
+            auto name = line[0].asT<t_symbol*>();
+            auto index = line[1].asT<size_t>();
+            auto sel = line[2].asT<t_symbol*>();
 
             if (!hasPreset(name))
                 continue;
@@ -300,23 +296,19 @@ bool PresetStorage::read(const char* path)
             } else if (sel == &s_symbol) {
                 setSymbolValueAt(name, index, line[3].asSymbol());
             } else {
-                AtomList lst = line.slice(3);
-                if (lst.last() && lst.last()->isSemicolon())
-                    lst.remove(lst.size() - 1);
+                auto lv = line.view().subView(3);
+                if (!lv.empty() && lv.back().isSemicolon())
+                    lv = lv.subView(0, lv.size() - 1);
 
-                if (sel == SYM_WITH_SPACES) {
-                    std::string str = to_string(lst);
-
-                    setSymbolValueAt(name, index, gensym(str.c_str()));
-                } else if (sel == &s_list) {
-                    setListValueAt(name, index, lst);
+                if (sel == &s_list) {
+                    setListValueAt(name, index, lv);
                 } else {
-                    setAnyValueAt(name, index, sel, lst);
+                    setAnyValueAt(name, index, sel, lv);
                 }
             }
 
         } else {
-            LIB_ERR << "invalid preset line: " << line;
+            LIB_ERR << "invalid preset line: " << line.view();
         }
     }
 

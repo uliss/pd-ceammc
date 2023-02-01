@@ -11,9 +11,9 @@
 #include "egraphics.h"
 
 #include "ceammc_convert.h"
+#include "ceammc_syms.h"
 
 static const float k = 0.55228474983079356430692996582365594804286956787109f;
-static char ColBuf[10];
 static const char HexDigits[] = "0123456789ABCDEF";
 
 const t_rgba rgba_black = { 0.f, 0.f, 0.f, 1.f };
@@ -24,11 +24,6 @@ const t_rgba rgba_white = { 1.f, 1.f, 1.f, 1.f };
 const t_rgba rgba_blue = { 0.f, 0.f, 1.f, 1.f };
 const t_rgba rgba_green = { 0.f, 1.f, 0.f, 1.f };
 const t_rgba rgba_red = { 1.f, 0.f, 0.f, 1.f };
-
-static const char* SYM_ITALIC = "italic";
-static const char* SYM_ROMAN = "roman";
-static const char* SYM_BOLD = "bold";
-static const char* SYM_NORMAL = "normal";
 
 static void egraphics_apply_matrix(t_elayer* g, t_egobj* gobj);
 
@@ -460,11 +455,14 @@ int rgb_to_hex_int(const t_rgb& color)
     return (r << 16) | (g << 8) | b;
 }
 
-char* rgba_to_hex(t_rgba color)
+char* rgba_to_hex(const t_rgba& color)
 {
-    int r = (int)(color.red * 255.f);
-    int g = (int)(color.green * 255.f);
-    int b = (int)(color.blue * 255.f);
+    static char ColBuf[10];
+
+    auto r = (std::uint16_t)(color.red * 255.f);
+    auto g = (std::uint16_t)(color.green * 255.f);
+    auto b = (std::uint16_t)(color.blue * 255.f);
+
     ColBuf[0] = '#';
     ColBuf[1] = HexDigits[(r >> 4) & 15];
     ColBuf[2] = HexDigits[r & 15];
@@ -872,18 +870,21 @@ void etext_layout_settextcolor(t_etext* textlayout, t_rgba* color)
 
 t_efont* efont_create(t_symbol* family, t_symbol* slant, t_symbol* weight, float size)
 {
-    t_efont* new_font = (t_efont*)malloc(sizeof(t_efont));
+    using namespace ceammc;
+
+    auto new_font = (t_efont*)malloc(sizeof(t_efont));
     if (new_font) {
-        new_font[0].c_family = family;
-        new_font[0].c_slant = slant;
-        if (new_font[0].c_slant != gensym(SYM_ITALIC))
-            new_font[0].c_slant = gensym(SYM_ROMAN);
+        new_font->c_family = family;
+        new_font->c_slant = slant;
+        if (slant != sym_italic())
+            new_font->c_slant = sym_roman();
 
-        new_font[0].c_weight = weight;
-        if (new_font[0].c_weight != gensym(SYM_BOLD))
-            new_font[0].c_weight = gensym(SYM_NORMAL);
+        new_font->c_weight = weight;
+        if (weight != sym_bold())
+            new_font->c_weight = sym_normal();
 
-        new_font[0].c_size = pd_clip_min(size, 1.f);
+        new_font->c_size = pd_clip_min(size, 1);
+        new_font->c_sizereal = new_font->c_size;
     }
     return new_font;
 }

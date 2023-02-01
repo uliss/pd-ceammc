@@ -21,12 +21,12 @@
             <par>Works with data atoms</par>
         </info>
         <arguments>
-            <argument name="LIST" type="list">list content</argument>
+            <argument name="VALUE" type="list">list content</argument>
         </arguments>
         <properties>
             <property name="@index" type="int" default="0" minvalue="0">insert element
             index</property>
-            <property name="@value" type="list">list contents</property>
+            <property name="@value" type="list" default="">list content</property>
         </properties>
         <inlets>
             <inlet>

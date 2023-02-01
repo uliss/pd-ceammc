@@ -25,6 +25,7 @@ TEST_CASE("local.list", "[externals]")
         TestLocalList t("local.list");
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numInlets() == 1);
+        REQUIRE_PROPERTY_LIST(t, @value, L());
     }
 
     SECTION("do")
@@ -68,7 +69,7 @@ TEST_CASE("local.list", "[externals]")
         REQUIRE(t.object());
 
         t << BANG;
-        REQUIRE(t.outputListAt(0) == L());
+        REQUIRE(t.outputListAt(0) == LA(1, 2));
 
         t <<= LA("set", 1, 2, 3, 4, 5, 6, 7, 8, 9);
         REQUIRE_FALSE(t.hasOutput());

@@ -103,19 +103,14 @@ namespace parser {
         t_float value() const { return bpm; }
         t_float freqHz() const { return value() / 60.0; }
 
-        t_float periodMs(t_float def = 0) const
+        t_float beatPeriodMs(t_float def = 0) const
         {
-            return (bpm > 0) ? 60000.0 / value() : def;
+            return (bpm > 0) ? (60000.0 / bpm) * (beatlen * 4) : def;
         }
 
-        t_float periodSamp(t_float sr, t_float def = 0) const
+        t_float beatPeriodSamp(t_float sr, t_float def = 0) const
         {
             return (bpm > 0) ? sr * 60.0 / value() : def;
-        }
-
-        t_float periodWholeMs(t_float def = 0) const
-        {
-            return (beatlen > 0) ? (periodMs(def) / beatlen) : def;
         }
     };
 
@@ -208,8 +203,24 @@ namespace parser {
             return (clip<int8_t, MIN_OCTAVE, MAX_OCTAVE>(noct) + 1) * 12 + p + alt + t_float(dev) / 100;
         }
 
+        int pitch() const { return (12 + p + alt) % 12; }
+
         bool isRest() const { return p < 0; }
         bool isAbsOctave() const { return octtype == OCTAVE_ABS; }
+
+        /**
+         * set spn in semitones
+         * @param n - number of semitones from C
+         * @note not MIDI value
+         */
+        void setSemitones(uint8_t n)
+        {
+            dev = 0;
+            oct = n / 12;
+            alt = !(((n % 12) < 5) ^ (n & 1));
+            p = n - alt;
+            note = (p + (p > 4)) >> 1;
+        }
 
         void setAbsOctave(int8_t noct)
         {
@@ -295,6 +306,20 @@ namespace parser {
         }
     };
 
+    class PitchFullMatch {
+        int cs { 0 };
+        Spn spn_;
+
+    public:
+        PitchFullMatch();
+        void reset();
+
+        const Spn& spn() const { return spn_; }
+
+        bool parse(const char* str);
+        bool parse(const Atom& a);
+    };
+
     struct Duration {
         int16_t num;
         int16_t den;
@@ -321,12 +346,12 @@ namespace parser {
 
         t_float timeMs(const Bpm& bpm = { 60, 0.25 }) const
         {
-            return bpm.periodMs() * ratio() / bpm.beatlen;
+            return (num * 60000.0) / (bpm.bpm * bpm.beatlen * den);
         }
 
         t_float timeSamp(t_float sr, const Bpm& bpm = { 60, 0.25 }) const
         {
-            return bpm.periodSamp(sr) * ratio() * den;
+            return timeMs(bpm) * sr / 1000.0;
         }
 
         bool isAbs() const { return durtype == DURATION_ABS; }

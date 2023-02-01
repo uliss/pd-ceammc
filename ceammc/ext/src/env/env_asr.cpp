@@ -6,9 +6,12 @@
 
 using namespace ceammc;
 
-class EnvAsr : public faust_env_asr_tilde {
-    ClockMemberFunction<EnvAsr> attack_done_;
-    ClockMemberFunction<EnvAsr> release_done_;
+constexpr int ATTACK_DONE = 1;
+constexpr int RELEASE_DONE = 0;
+
+class EnvAsr : public EnvAutoplay<faust_env_asr_tilde> {
+    ClockLambdaFunction attack_done_;
+    ClockLambdaFunction release_done_;
 
     UIProperty* prop_attack_;
     UIProperty* prop_sustain_;
@@ -17,9 +20,9 @@ class EnvAsr : public faust_env_asr_tilde {
 
 public:
     EnvAsr(const PdArgs& args)
-        : faust_env_asr_tilde(args)
-        , attack_done_(this, &EnvAsr::attackDone)
-        , release_done_(this, &EnvAsr::releaseDone)
+        : EnvAutoplay<faust_env_asr_tilde>(args)
+        , attack_done_([this]() { floatTo(1, ATTACK_DONE); })
+        , release_done_([this]() { floatTo(1, RELEASE_DONE); })
         , prop_attack_((UIProperty*)property(gensym("@attack")))
         , prop_sustain_((UIProperty*)property(gensym("@sustain")))
         , prop_release_((UIProperty*)property(gensym("@release")))
@@ -29,13 +32,14 @@ public:
         addProperty(new CombinedProperty("@asr",
             { property(gensym("@attack")), property(gensym("@sustain")), property(gensym("@release")) }));
 
+        createInlet();
         createOutlet();
     }
 
-    bool processAnyProps(t_symbol* sel, const AtomListView& lst) override
+    bool processAnyProps(t_symbol* sel, const AtomListView& lv) override
     {
         if (sel == gensym("@gate")) {
-            if (lst.boolAt(0, false)) {
+            if (lv.boolAt(0, false)) {
                 clockReset();
                 attack_done_.delay(prop_attack_->value());
             } else {
@@ -44,17 +48,17 @@ public:
             }
         }
 
-        return faust_env_asr_tilde::processAnyProps(sel, lst);
+        return faust_env_asr_tilde::processAnyProps(sel, lv);
     }
 
-    void onList(const AtomList& l) override
+    void onList(const AtomListView& lv) override
     {
-        if (!checkArgs(l, ARG_FLOAT, ARG_FLOAT, ARG_FLOAT)) {
-            OBJ_ERR << "ATTACK SUSTAIN RELEASE values expected: " << l;
+        if (!checkArgs(lv, ARG_FLOAT, ARG_FLOAT, ARG_FLOAT)) {
+            OBJ_ERR << "ATTACK SUSTAIN RELEASE values expected: " << lv;
             return;
         }
 
-        if (!set(l[0].asFloat(), l[1].asFloat(), l[2].asFloat()))
+        if (!set(lv[0].asFloat(), lv[1].asFloat(), lv[2].asFloat()))
             OBJ_ERR << "can't set envelope";
     }
 
@@ -73,6 +77,16 @@ public:
             OBJ_ERR << "can't set envelope: " << *env;
     }
 
+    void onInlet(size_t n, const AtomListView& lv) final
+    {
+        if (!checkArgs(lv, ARG_FLOAT)) {
+            OBJ_ERR << "float value expected, got: " << lv;
+            return;
+        }
+
+        sendGate(lv[0].asT<t_float>());
+    }
+
     void m_reset(t_symbol*, const AtomListView&)
     {
         dsp_->instanceClear();
@@ -81,16 +95,6 @@ public:
     }
 
 private:
-    void attackDone()
-    {
-        floatTo(1, 1);
-    }
-
-    void releaseDone()
-    {
-        floatTo(1, 0);
-    }
-
     void clockReset()
     {
         attack_done_.unset();
@@ -116,12 +120,14 @@ private:
     }
 };
 
-typedef EnvAutoplay<EnvAsr> EnvAsrP;
-
 void setup_env_asr_tilde()
 {
-    SoundExternalFactory<EnvAsrP> obj("env.asr~");
+    SoundExternalFactory<EnvAsr> obj("env.asr~");
     obj.processData<DataTypeEnv>();
-    obj.addMethod("play", &EnvAsrP::m_play);
-    obj.addMethod("reset", &EnvAsrP::m_reset);
+    obj.addMethod("play", &EnvAsr::m_play);
+    obj.addMethod("reset", &EnvAsr::m_reset);
+
+    obj.setXletsInfo(
+        { "signal: input", "float: start (if >0) or stop(if =0) envelope" },
+        { "signal: output", "float: 1 on attack done, 0 on release done" });
 }

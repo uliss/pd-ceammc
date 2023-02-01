@@ -1,22 +1,26 @@
 {
 	"name": "fx.greyhole",
 	"filename": "fx_greyhole.dsp",
-	"version": "2.37.3",
-	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0",
+	"version": "2.53.1",
+	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn fx_greyhole -scn fx_greyhole_dsp -es 1 -mcd 16 -single -ftz 0",
 	"library_list": ["/usr/local/share/faust/stdfaust.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc.lib","/usr/local/share/faust/signals.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/delays.lib","/usr/local/share/faust/platform.lib","/usr/local/share/faust/oscillators.lib","/usr/local/share/faust/filters.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc_ui.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/routes.lib"],
 	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
 	"inputs": 2,
 	"outputs": 2,
 	"meta": [ 
 		{ "author": "Julian Parker, bug fixes by Till Bovermann" },
+		{ "basics.lib/bypass2:author": "Julius Smith" },
 		{ "basics.lib/name": "Faust Basic Element Library" },
-		{ "basics.lib/version": "0.2" },
+		{ "basics.lib/version": "0.8" },
 		{ "ceammc.lib/name": "Ceammc PureData misc utils" },
 		{ "ceammc.lib/version": "0.1.2" },
 		{ "ceammc_ui.lib/name": "CEAMMC faust default UI elements" },
 		{ "ceammc_ui.lib/version": "0.1.2" },
-		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0" },
+		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn fx_greyhole -scn fx_greyhole_dsp -es 1 -mcd 16 -single -ftz 0" },
 		{ "copyright": "(c) Julian Parker 2013" },
+		{ "delays.lib/fdelay1a:author": "Julius O. Smith III" },
+		{ "delays.lib/fdelay4:author": "Julius O. Smith III" },
+		{ "delays.lib/fdelayltv:author": "Julius O. Smith III" },
 		{ "delays.lib/name": "Faust Delay Library" },
 		{ "delays.lib/version": "0.1" },
 		{ "filename": "fx_greyhole.dsp" },
@@ -37,13 +41,13 @@
 		{ "maths.lib/version": "2.5" },
 		{ "name": "fx.greyhole" },
 		{ "oscillators.lib/name": "Faust Oscillator Library" },
-		{ "oscillators.lib/version": "0.1" },
+		{ "oscillators.lib/version": "0.3" },
 		{ "platform.lib/name": "Generic Platform Library" },
 		{ "platform.lib/version": "0.2" },
 		{ "routes.lib/name": "Faust Signal Routing Library" },
 		{ "routes.lib/version": "0.2" },
 		{ "signals.lib/name": "Faust Signal Routing Library" },
-		{ "signals.lib/version": "0.1" },
+		{ "signals.lib/version": "0.3" },
 		{ "version": "1.0" }
 	],
 	"ui": [ 
@@ -54,11 +58,13 @@
 				{
 					"type": "checkbox",
 					"label": "bypass",
+					"shortname": "bypass",
 					"address": "/fx.greyhole/bypass"
 				},
 				{
 					"type": "hslider",
 					"label": "damping",
+					"shortname": "damping",
 					"address": "/fx.greyhole/damping",
 					"init": 0,
 					"min": 0,
@@ -68,6 +74,7 @@
 				{
 					"type": "hslider",
 					"label": "delaytime",
+					"shortname": "delaytime",
 					"address": "/fx.greyhole/delaytime",
 					"meta": [
 						{ "unit": "sec" }
@@ -80,6 +87,7 @@
 				{
 					"type": "hslider",
 					"label": "diffusion",
+					"shortname": "diffusion",
 					"address": "/fx.greyhole/diffusion",
 					"init": 0.5,
 					"min": 0,
@@ -89,6 +97,7 @@
 				{
 					"type": "hslider",
 					"label": "drywet",
+					"shortname": "drywet",
 					"address": "/fx.greyhole/drywet",
 					"meta": [
 						{ "style": "knob" }
@@ -101,6 +110,7 @@
 				{
 					"type": "hslider",
 					"label": "feedback",
+					"shortname": "feedback",
 					"address": "/fx.greyhole/feedback",
 					"init": 0.9,
 					"min": 0,
@@ -110,6 +120,7 @@
 				{
 					"type": "hslider",
 					"label": "moddepth",
+					"shortname": "moddepth",
 					"address": "/fx.greyhole/moddepth",
 					"init": 0.1,
 					"min": 0,
@@ -119,6 +130,7 @@
 				{
 					"type": "hslider",
 					"label": "modfreq",
+					"shortname": "modfreq",
 					"address": "/fx.greyhole/modfreq",
 					"init": 2,
 					"min": 0,
@@ -128,6 +140,7 @@
 				{
 					"type": "hslider",
 					"label": "size",
+					"shortname": "size",
 					"address": "/fx.greyhole/size",
 					"init": 1,
 					"min": 0.5,

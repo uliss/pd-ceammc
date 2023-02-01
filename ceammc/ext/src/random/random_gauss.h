@@ -15,15 +15,14 @@
 #define RANDOM_GAUSS_H
 
 #include "ceammc_object.h"
-#include "rnd_gen.h"
+#include "ceammc_random.h"
 
 using namespace ceammc;
 
 class RandomGauss : public BaseObject {
     FloatProperty* mu_;
     FloatProperty* sigma_;
-    RandomGen gen_;
-    SizeTProperty* seed_;
+    random::RandomGen gen_;
 
 public:
     RandomGauss(const PdArgs& a);

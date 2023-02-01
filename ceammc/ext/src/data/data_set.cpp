@@ -17,13 +17,12 @@
 DataSet::DataSet(const PdArgs& a)
     : DataSetBase(a)
 {
-    auto p = createCbListProperty(
-        "@value",
-        [this]() -> AtomList { return set_.toList(); },
-        [this](const AtomList& l) -> bool { set_ = DataTypeSet(l); return true; });
+    setSpecialSymbolEscape(EDITOR_ESC_MODE_DATA);
 
-    p->setArgIndex(0);
-    p->setInitOnly();
+    if (set_.looksLikeCtor(a.args))
+        set_.setFromDataList(a.args);
+    else
+        set_ = DataTypeSet(a.args);
 
     createOutlet();
 }
@@ -32,4 +31,6 @@ void setup_data_set()
 {
     ColectionIFaceFactory<DataSet> obj("data.set");
     obj.processData<DataTypeSet>();
+
+    DataSet::registerMethods(obj);
 }

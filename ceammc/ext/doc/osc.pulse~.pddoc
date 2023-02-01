@@ -17,12 +17,11 @@
             </also>
         </meta>
         <arguments>
-            <argument name="freq" type="float" units="herz" minvalue="20">frequency</argument>
-            <argument name="duty" type="float" minvalue="0" maxvalue="1">duty cycle</argument>
+            <argument name="FREQ" type="float" units="hertz" minvalue="20">frequency</argument>
+            <argument name="DUTY" type="float" minvalue="0" maxvalue="1">duty cycle</argument>
         </arguments>
         <properties>
-            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
-            processing</property>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
             <property name="@duty" type="float" minvalue="0" maxvalue="1" default="0.5">duty
             cycle</property>
         </properties>

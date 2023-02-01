@@ -82,17 +82,17 @@ public:
         return listFrom(value());
     }
 
-    bool setList(const AtomListView& lst) override
+    bool setList(const AtomListView& lv) override
     {
-        if (!emptyCheck(lst))
+        if (!emptyCheck(lv))
             return false;
 
-        if (lst.size() > 1) {
-            LogPdObject(owner(), LogLevel::LOG_ERROR).stream() << errorPrefix() << "single value expected, got: " << lst;
+        if (lv.size() > 1) {
+            LogPdObject(owner(), LogLevel::LOG_ERROR).stream() << errorPrefix() << "single value expected, got: " << lv;
             return false;
         }
 
-        const Atom& a = lst[0];
+        const Atom& a = lv[0];
         if (!a.template isA<T>()) {
             LogPdObject(owner(), LogLevel::LOG_ERROR).stream() << errorPrefix() << "invalid value type: " << a;
             return false;

@@ -32,7 +32,7 @@ typedef struct test_expect {
 static void test_expect_equal(t_test_expect* x, t_symbol* s, int argc, t_atom* argv)
 {
     if (argc != x->data->argc) {
-        error("test.expect: expected data length not equal to given: %d != %d", argc, x->data->argc);
+        pd_error(0, "test.expect: expected data length not equal to given: %d != %d", argc, x->data->argc);
 
         outlet_float(x->x_obj.te_outlet, 0.0f);
         return;
@@ -40,7 +40,7 @@ static void test_expect_equal(t_test_expect* x, t_symbol* s, int argc, t_atom* a
 
     for (int i = 0; i < argc; i++) {
         if (argv->a_type != x->data->at(i)->a_type) {
-            error("test.expect: data type not equal for index %i", i);
+            pd_error(0, "test.expect: data type not equal for index %i", i);
             outlet_float(x->x_obj.te_outlet, 0.0f);
             return;
         }
@@ -49,7 +49,7 @@ static void test_expect_equal(t_test_expect* x, t_symbol* s, int argc, t_atom* a
             t_float expected = atom_getfloat(&argv[i]);
             t_float real = atom_getfloat(x->data->at(i));
             if (expected != real) {
-                error("test.expect: expected value is %f, but get %f", expected, real);
+                pd_error(0, "test.expect: expected value is %f, but get %f", expected, real);
                 outlet_float(x->x_obj.te_outlet, 0.0f);
                 return;
             }

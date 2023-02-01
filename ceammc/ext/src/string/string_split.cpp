@@ -57,15 +57,21 @@ void StringSplit::onDataT(const StringAtom& str)
 void StringSplit::split(const DataTypeString& s)
 {
     tokens_.clear();
-    std::vector<std::string> tokens;
-    s.split(tokens, str_sep_);
+    string::StringSplitResult tokens;
+    s.split(tokens, str_sep_.c_str());
 
     if (sym_->value()) {
-        for (auto& x : tokens)
-            tokens_.append(gensym(x.c_str()));
+        string::SmallString buf;
+
+        for (auto& x : tokens) {
+            buf.assign(x.begin(), x.end());
+            buf.push_back('\0');
+            tokens_.append(gensym(buf.data()));
+        }
     } else {
-        for (auto& x : tokens)
-            tokens_.append(new DataTypeString(x));
+        for (auto& x : tokens) {
+            tokens_.append(new DataTypeString(x.to_string()));
+        }
     }
 }
 

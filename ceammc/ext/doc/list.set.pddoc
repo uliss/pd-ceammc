@@ -14,9 +14,9 @@
             <since>0.6</since>
         </meta>
         <arguments>
-            <argument name="IDX" type="int">element position. Negative indexes are supported. -1
+            <argument name="INDEX" type="int">element position. Negative indexes are supported. -1
             means last element</argument>
-            <argument name="VAL" type="atom">element value</argument>
+            <argument name="VALUE" type="atom">element value</argument>
         </arguments>
         <properties>
             <property name="@index" type="int" default="0">element index</property>

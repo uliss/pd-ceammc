@@ -12,13 +12,13 @@
  * this file belongs to.
  *****************************************************************************/
 #include "seq_counter.h"
+#include "ceammc_convert.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 
-static t_symbol* SYM_DONE;
-static t_symbol* SYM_WRAP;
-static t_symbol* SYM_FOLD;
-
-constexpr int R_INFINITE = -1;
+CEAMMC_DEFINE_STR(done)
+CEAMMC_DEFINE_HASH(wrap)
+CEAMMC_DEFINE_HASH(fold)
 
 SeqCounter::SeqCounter(const PdArgs& args)
     : BaseObject(args)
@@ -29,11 +29,10 @@ SeqCounter::SeqCounter(const PdArgs& args)
     , ri_(0)
     , i_(0)
     , done_(false)
-    , dir_(DIR_FORWARD)
 {
     from_ = new IntProperty("@from", 0);
     from_->setArgIndex(0);
-    from_->setSuccessFn([this](Property*) { i_ = from_->value(); });
+    from_->setSuccessFn([this](Property*) { i_ = 0; });
     addProperty(from_);
 
     to_ = new IntProperty("@to", 0);
@@ -45,17 +44,27 @@ SeqCounter::SeqCounter(const PdArgs& args)
     repeat_->setArgIndex(2);
     addProperty(repeat_);
 
-    mode_ = new SymbolEnumProperty("@mode", { SYM_WRAP, SYM_FOLD });
+    mode_ = new SymbolEnumProperty("@mode", { str_wrap, str_fold });
     addProperty(mode_);
 
-    addProperty(new SymbolEnumAlias("@wrap", mode_, SYM_WRAP));
-    addProperty(new SymbolEnumAlias("@fold", mode_, SYM_FOLD));
+    addProperty(new SymbolEnumAlias("@wrap", mode_, gensym(str_wrap)));
+    addProperty(new SymbolEnumAlias("@fold", mode_, gensym(str_fold)));
 
     addProperty(new AliasProperty<RepeatProperty>("@inf", repeat_, -1));
     addProperty(new AliasProperty<RepeatProperty>("@once", repeat_, 1));
 
-    createCbIntProperty("@i", [this]() -> int { return i_; });
+    createCbIntProperty(
+        "@i", [this]() -> int { return i_; },
+        [this](int val) -> bool {
+            if (crc32_hash(mode_->value()) == hash_fold)
+                i_ = wrapInteger<int>(val, 2 * absRange());
+            else
+                i_ = wrapInteger<int>(val, absRange() + 1);
+
+            return true;
+        });
     createCbIntProperty("@ri", [this]() -> int { return ri_; });
+    createCbIntProperty("@value", [this]() -> int { return currentValue(); });
 
     createInlet();
     createOutlet();
@@ -64,158 +73,180 @@ SeqCounter::SeqCounter(const PdArgs& args)
 
 void SeqCounter::onBang()
 {
-    const auto IS_CONST = (to_->value() - from_->value()) == 0;
+    if (!shouldRepeat())
+        return;
 
-    if (!IS_CONST && mode_->value() == SYM_WRAP)
-        nextWrapped();
-    else if (!IS_CONST && mode_->value() == SYM_FOLD)
-        nextFolded();
-    else
+    if (range() == 0) {
         nextConst();
+    } else {
+        outputCycleCounter();
+        outputCurrent();
+        next();
+    }
 }
 
-void SeqCounter::onInlet(size_t n, const AtomListView& l)
+void SeqCounter::m_next(t_symbol*, const AtomListView& lv)
 {
-    if (l.empty())
+    if (!shouldRepeat())
+        return;
+
+    if (range() == 0) {
+        nextConst();
+    } else {
+        next();
+
+        if (shouldRepeat()) {
+            outputCycleCounter();
+            outputCurrent();
+        }
+    }
+}
+
+void SeqCounter::onInlet(size_t n, const AtomListView& lv)
+{
+    if (lv.empty())
         reset();
 }
 
-void SeqCounter::m_reset(t_symbol*, const AtomListView& lv)
+void SeqCounter::m_reset(t_symbol*, const AtomListView& /*lv*/)
 {
     reset();
 }
 
-void SeqCounter::nextWrapped()
+void SeqCounter::m_prev(t_symbol*, const AtomListView& lv)
 {
     if (!shouldRepeat())
         return;
 
-    if (i_ == from_->value())
-        floatTo(1, ri_);
-
-    floatTo(0, i_);
-
-    const auto N = to_->value() - from_->value();
-
-    if (i_ == to_->value()) {
-        const auto nr = repeat_->value();
-
-        if (nr == R_INFINITE || ri_ < nr) {
-            ri_++;
-
-            if (ri_ == nr) { // should stop
-                done_ = true;
-                anyTo(1, SYM_DONE, AtomListView {});
-            } else { // continue: reset counter
-                i_ = from_->value();
-            }
-        }
+    if (range() == 0) {
+        nextConst();
     } else {
-        if (N > 0)
-            i_++;
-        else if (N < 0)
-            i_--;
+        prev();
+
+        if (shouldRepeat()) {
+            outputCycleCounter();
+            outputCurrent();
+        }
     }
+}
+
+void SeqCounter::nextWrapped()
+{
+    if (i_ < absRange())
+        i_++;
+    else if (nextCycle())
+        i_ = 0;
 }
 
 void SeqCounter::nextFolded()
 {
-    if (!shouldRepeat())
-        return;
-
-    const auto RANGE = to_->value() - from_->value();
-    const auto NR = repeat_->value();
-    const auto BEGIN = from_->value();
-    const auto END = to_->value();
-
-    int LAST = 0;
-    if (RANGE > 1)
-        LAST = BEGIN + 1;
-    else if (RANGE < -1)
-        LAST = END + 1;
-    else {
-        dir_ = DIR_BACK;
-        LAST = END;
-    }
-
-    // repeat counter
-    if (i_ == BEGIN) {
-        dir_ = DIR_FORWARD;
-        floatTo(1, ri_);
-    }
-
-    // output sequence counter
-    floatTo(0, i_);
-
-    // update
-    if (i_ == LAST && dir_ == DIR_BACK) { // last element in folded sequence
-        dir_ = DIR_FORWARD;
-
-        if (NR == R_INFINITE || ri_ < NR) {
-            if (++ri_ == NR) { // should stop
-                done_ = true;
-                anyTo(1, SYM_DONE, AtomListView {});
-            }
-        }
-
-        i_ = from_->value();
-    } else if (i_ == to_->value()) { // going down
-        dir_ = DIR_BACK;
-
-        if (RANGE > 0)
-            i_ = to_->value() - 1;
-        else if (RANGE < 0)
-            i_ = to_->value() + 1;
-    } else {
-        const bool up = (RANGE > 0 && dir_) || (RANGE < 0 && !dir_);
-        const bool down = (RANGE > 0 && !dir_) || (RANGE < 0 && dir_);
-
-        if (up)
-            i_++;
-        else if (down)
-            i_--;
-    }
+    if (i_ < (2 * absRange() - 1))
+        i_++;
+    else if (nextCycle())
+        i_ = 0;
 }
 
 void SeqCounter::nextConst()
 {
-    if (!shouldRepeat())
-        return;
-
-    floatTo(1, ri_++);
+    floatTo(1, ri_);
     floatTo(0, from_->value());
 
-    if (ri_ == repeat_->value()) {
+    nextCycle();
+}
+
+bool SeqCounter::nextCycle()
+{
+    if (!repeat_->shouldRepeat(++ri_)) {
         done_ = true;
-        anyTo(1, SYM_DONE, AtomListView {});
+        anyTo(1, gensym(str_done), AtomListView {});
+        return false;
+    } else
+        return true;
+}
+
+void SeqCounter::prev()
+{
+    switch (crc32_hash(mode_->value())) {
+    case hash_wrap:
+        return prevWrapped();
+    case hash_fold:
+        return prevFolded();
+    default:
+        OBJ_ERR << "unknown wrap mode: " << mode_->value();
+        break;
     }
+}
+
+void SeqCounter::prevWrapped()
+{
+    if (i_ > 0)
+        i_--;
+    else if (nextCycle())
+        i_ = absRange();
+}
+
+void SeqCounter::prevFolded()
+{
+    if (i_ > 0)
+        i_--;
+    else if (nextCycle())
+        i_ = (2 * absRange()) - 1;
 }
 
 void SeqCounter::reset()
 {
     done_ = false;
-    dir_ = DIR_FORWARD;
     ri_ = 0;
-    i_ = from_->value();
+    i_ = 0;
 }
 
-bool SeqCounter::shouldRepeat() const
+void SeqCounter::outputCurrent()
 {
-    const auto n = repeat_->value();
-    return !done_ && (n == R_INFINITE || ri_ < n);
+    floatTo(0, currentValue());
+}
+
+void SeqCounter::outputCycleCounter()
+{
+    if (i_ == 0)
+        floatTo(1, ri_);
+}
+
+void SeqCounter::next()
+{
+    switch (crc32_hash(mode_->value())) {
+    case hash_wrap:
+        return nextWrapped();
+    case hash_fold:
+        return nextFolded();
+    default:
+        OBJ_ERR << "unknown wrap mode: " << mode_->value();
+        break;
+    }
+}
+
+int SeqCounter::currentValue() const
+{
+    const auto R = range();
+    const auto rsign = (0 < R) - (R < 0);
+
+    const auto idx = (crc32_hash(mode_->value()) == hash_fold)
+        ? std::min(i_, (2 * std::abs(R)) - i_)
+        : i_;
+
+    return from_->value() + (idx * rsign);
 }
 
 void setup_seq_counter()
 {
-    SYM_DONE = gensym("done");
-    SYM_WRAP = gensym("wrap");
-    SYM_FOLD = gensym("fold");
-
     ObjectFactory<SeqCounter> obj("seq.counter");
 
     obj.addMethod("reset", &SeqCounter::m_reset);
+    obj.addMethod("next", &SeqCounter::m_next);
+    obj.addMethod("prev", &SeqCounter::m_prev);
 
-    obj.setXletsInfo({ "bang: increment and output\n"
+    obj.setXletsInfo({ "bang: output current element then increment\n"
+                       "bang: increment then output\n"
+                       "prev: decrement then output\n"
                        "reset: reset counter to start value",
                          "bang: reset counter to start value" },
         { "int: counter value",

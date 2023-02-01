@@ -19,7 +19,7 @@
 #include "ceammc_platform.h"
 #include "ceammc_rtree.h"
 #include "fmt/format.h"
-#include "muparser/muparser/include/muParser.h"
+#include "muParser.h"
 
 #include <algorithm>
 #include <cmath>
@@ -28,7 +28,7 @@ namespace {
 
 using namespace ceammc;
 
-AtomList fn_seq(const AtomList& a)
+AtomList fn_seq(const AtomListView& a)
 {
     constexpr int MAXN = 1024;
 
@@ -95,7 +95,7 @@ AtomList fn_seq(const AtomList& a)
     }
 }
 
-AtomList fn_db2amp(const AtomList& args)
+AtomList fn_db2amp(const AtomListView& args)
 {
     if (!args.isFloat()) {
         LIB_ERR << fmt::format("db2amp(): float expected, got: '{}'", to_string(args));
@@ -105,7 +105,7 @@ AtomList fn_db2amp(const AtomList& args)
     return { convert::dbfs2amp(args[0].asT<t_float>()) };
 }
 
-AtomList fn_amp2db(const AtomList& args)
+AtomList fn_amp2db(const AtomListView& args)
 {
     if (!args.isFloat()) {
         LIB_ERR << fmt::format("amp2db(): float expected, got: '{}'", to_string(args));
@@ -121,7 +121,7 @@ AtomList fn_amp2db(const AtomList& args)
     return { convert::amp2dbfs(f) };
 }
 
-AtomList fn_repeat(const AtomList& args)
+AtomList fn_repeat(const AtomListView& args)
 {
     constexpr size_t MAX_RESULT_LEN = 1024;
 
@@ -142,10 +142,10 @@ AtomList fn_repeat(const AtomList& args)
         return {};
     }
 
-    return list::repeat(args.slice(1), N);
+    return list::repeat(args.subView(1), N);
 }
 
-AtomList fn_reverse(const AtomList& args)
+AtomList fn_reverse(const AtomListView& args)
 {
     AtomList res(args);
     res.reverse();
@@ -154,7 +154,7 @@ AtomList fn_reverse(const AtomList& args)
 
 #define RTREE_FN_NAME "rtree"
 
-AtomList fn_rythm_tree(const AtomList& args)
+AtomList fn_rythm_tree(const AtomListView& args)
 {
     const bool ok = args.size() == 2 && args[0].isFloat() && args[1].isDataType(DataTypeMList::dataType);
     if (!ok) {
@@ -167,7 +167,7 @@ AtomList fn_rythm_tree(const AtomList& args)
     return rtree::rythm_tree(len, ml, RTREE_FN_NAME "(): ", LIB_ERR);
 }
 
-AtomList fn_euclid(const AtomList& args)
+AtomList fn_euclid(const AtomListView& args)
 {
     const bool ok = args.size() == 2 && args[0].isInteger() && args[1].isInteger();
     if (!ok) {
@@ -220,7 +220,7 @@ BuiltinFunctionMap::BuiltinFunctionMap()
 
     registerFn(gensym("seq"), fn_seq);
     registerFn(gensym("expr"),
-        [this](const AtomList& expr) -> AtomList {
+        [this](const AtomListView& expr) -> AtomList {
             const std::string str = to_string(expr, " ");
             try {
                 math_parser_->SetExpr(str);
@@ -232,7 +232,7 @@ BuiltinFunctionMap::BuiltinFunctionMap()
             }
         });
 
-    registerFn(gensym("env"), [](const AtomList& name) -> AtomList {
+    registerFn(gensym("env"), [](const AtomListView& name) -> AtomList {
         if (!name.isSymbol()) {
             LIB_ERR << fmt::format("env(): environment variable name expected, got '{}'. usage: env(NAME)", to_string(name));
             return {};
@@ -242,17 +242,19 @@ BuiltinFunctionMap::BuiltinFunctionMap()
         return { gensym(venv.c_str()) };
     });
 
-    registerFn(gensym("pi"), [](const AtomList& l) -> AtomList { return { m_pi * l.floatAt(0, 1) }; });
-    registerFn(gensym("e"), [](const AtomList&) -> AtomList { return { m_exp }; });
-    registerFn(gensym("sr"), [](const AtomList&) -> AtomList { return { sys_getsr() }; });
-    registerFn(gensym("bs"), [](const AtomList&) -> AtomList { return { (t_float)sys_getblksize() }; });
+    registerFn(gensym("pi"), [](const AtomListView& lv) -> AtomList { return { m_pi * lv.floatAt(0, 1) }; });
+    registerFn(gensym("e"), [](const AtomListView&) -> AtomList { return { m_exp }; });
+    registerFn(gensym("sr"), [](const AtomListView&) -> AtomList { return { sys_getsr() }; });
+    registerFn(gensym("bs"), [](const AtomListView&) -> AtomList { return { (t_float)sys_getblksize() }; });
     registerFn(gensym("mtof"),
-        [](const AtomList& a) -> AtomList {
-            return a.mapFloat([](t_float f) { return convert::midi2freq(f); });
+        [](const AtomListView& a) -> AtomList {
+            AtomList res;
+            a.mapFloat([](t_float f) { return convert::midi2freq(f); }, res);
+            return res;
         });
-    registerFn(gensym("ftom"), [](const AtomList& a) -> AtomList { return { convert::freq2midi(a.floatAt(0, 0)) }; });
-    registerFn(gensym("ms2bpm"), [](const AtomList& a) -> AtomList { return { t_float(60000 / a.floatAt(0, 1)) }; });
-    registerFn(gensym("bpm2ms"), [](const AtomList& a) -> AtomList { return { t_float(60000 / a.floatAt(0, 1)) }; });
+    registerFn(gensym("ftom"), [](const AtomListView& a) -> AtomList { return { convert::freq2midi(a.floatAt(0, 0)) }; });
+    registerFn(gensym("ms2bpm"), [](const AtomListView& a) -> AtomList { return { t_float(60000 / a.floatAt(0, 1)) }; });
+    registerFn(gensym("bpm2ms"), [](const AtomListView& a) -> AtomList { return { t_float(60000 / a.floatAt(0, 1)) }; });
     registerFn(gensym("db2amp"), fn_db2amp);
     registerFn(gensym("amp2db"), fn_amp2db);
     registerFn(gensym("repeat"), fn_repeat);
@@ -271,7 +273,7 @@ BuiltinFunctionMap& BuiltinFunctionMap::instance()
     return instance_;
 }
 
-AtomList BuiltinFunctionMap::call(t_symbol* name, const AtomList& args) const
+AtomList BuiltinFunctionMap::call(t_symbol* name, const AtomListView& args) const
 {
     auto it = std::find_if(
         fn_map_.cbegin(),

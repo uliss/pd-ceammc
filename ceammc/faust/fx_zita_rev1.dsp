@@ -22,7 +22,7 @@ with {
     gate = (1 - ui_freeze) : smoo;
     in_level = *(gate),*(gate);
 
-    rdel = vslider("delay [unit:ms] [style:knob]", 60, 20, 100, 1) : si.smoo;
+    rdel = vslider("predelay [unit:ms] [style:knob]", 40, 0, 100, 1) : si.smoo;
     f1 = vslider("freq_low [unit:Hz] [style:knob] [scale:log]", 200, 50, 1000, 1);
     f2 = vslider("damp_hf [unit:Hz] [style:knob] [scale:log]", 6000, 1500, 0.49 * fsmax, 1);
 

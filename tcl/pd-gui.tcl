@@ -57,6 +57,9 @@ package require pd_guiprefs
 # TODO eliminate this kludge:
 package require wheredoesthisgo
 
+# ceammc
+package require pd_colors
+
 #------------------------------------------------------------------------------#
 # import functions into the global namespace
 
@@ -123,6 +126,9 @@ set windowingsystem ""
 set loglevel 2
 set stderr 0
 
+#args to pass to pd if we're starting it up
+set pd_startup_args ""
+
 # connection between 'pd' and 'pd-gui'
 set host ""
 set port 0
@@ -161,7 +167,7 @@ set sys_guidir {}
 set sys_searchpath {}
 # user-specified search paths from the commandline -path option
 set sys_temppath {}
-# hard-coded search patchs for objects, help, plugins, etc.
+# hard-coded search paths for objects, help, plugins, etc.
 set sys_staticpath {}
 # the path to the folder where the current plugin is being loaded from
 set current_plugin_loadpath {}
@@ -316,15 +322,11 @@ proc init_for_platform {} {
                     ]
             # some platforms have a menubar on the top, so place below them
             set ::menubarsize 0
-            # Tk handles the window placement differently on each
-            # platform. With X11, the x,y placement refers to the window
-            # frame's upper left corner. http://wiki.tcl.tk/11502
-            set ::windowframex 3
-            set ::windowframey 53
             # trying loading icon in the GUI directory
             if {$::tcl_version >= 8.5} {
                 # ceammc: using other icon
                 set icon [file join $::sys_guidir "puredata-ceammc.png"]
+                # ceammc end
                 if {[file readable $icon]} {
                     catch {
                         wm iconphoto . -default [image create photo -file "$icon"]
@@ -371,11 +373,6 @@ proc init_for_platform {} {
                 ]
             # some platforms have a menubar on the top, so place below them
             set ::menubarsize 22
-            # Tk handles the window placement differently on each platform, on
-            # Mac OS X, the x,y placement refers to the content window's upper
-            # left corner (not of the window frame) http://wiki.tcl.tk/11502
-            set ::windowframex 0
-            set ::windowframey 0
             # mouse cursors for all the different modes
             set ::cursor_runmode_nothing "arrow"
             set ::cursor_runmode_clickme "center_ptr"
@@ -406,20 +403,15 @@ proc init_for_platform {} {
                     ]
             # some platforms have a menubar on the top, so place below them
             set ::menubarsize 0
-            # Tk handles the window placement differently on each platform, on
-            # Mac OS X, the x,y placement refers to the content window's upper
-            # left corner. http://wiki.tcl.tk/11502
-            # TODO this probably needs a script layer: http://wiki.tcl.tk/11291
-            set ::windowframex 0
-            set ::windowframey 0
             # TODO use 'winico' package for full, hicolor icon support
             # ceammc: using other icon
             wm iconbitmap . -default [file join $::sys_guidir pd_ceammc.ico]
+            # ceammc end
             # add local fonts to Tk's font list using pdfontloader
             if {[file exists [file join "$::sys_libdir" "font"]]} {
                 catch {
                     load [file join "$::sys_libdir" "bin/pdfontloader.dll"]
-                    set localfonts {"DejaVuSansMono.ttf" "DejaVuSansMono-Bold.ttf"}
+                    set localfonts {"DejaVuSansMono.ttf" "DejaVuSansMono-Bold.ttf" "DejaVuSansMono-Oblique.ttf" "DejaVuSansMono-BoldOblique.ttf"}
                     foreach font $localfonts {
                         set path [file join "$::sys_libdir" "font/$font"]
                         pdfontloader::load $path
@@ -501,66 +493,68 @@ proc find_default_font {} {
             break
         }
     }
-    ::pdwindow::verbose 0 "detected font: $::font_family\n"
+    set msg [_ "detected font: %s" ]
+    ::pdwindow::verbose 0 [format "${msg}\n" $::font_family ]
 }
 
 proc set_base_font {family weight} {
     if {[lsearch -exact [font families] $family] > -1} {
         set ::font_family $family
     } else {
-        ::pdwindow::post [format \
-            [_ "WARNING: font family '%s' not found, using default (%s)\n"] \
-                $family $::font_family]
+        set msg [_ "WARNING: font family '%1\$s' not found, using default (%2\$s)"]
+        ::pdwindow::post [format "${msg}\n" $family $::font_family]
     }
     if {[lsearch -exact {bold normal} $weight] > -1} {
         set ::font_weight $weight
         set using_defaults 0
     } else {
-        ::pdwindow::post [format \
-            [_ "WARNING: font weight '%s' not found, using default (%s)\n"] \
-                $weight $::font_weight]
+        set msg [_ "WARNING: font weight '%1\$s' not found, using default (%2\$s)"]
+        ::pdwindow::post [format "${msg}\n" $weight $::font_weight]
     }
-    ::pdwindow::verbose 0 "using font: $::font_family $::font_weight\n"
+    set msg [_ "using font: %1\$s %2\$s" ]
+    ::pdwindow::verbose 0 [ format "${msg}\n" $::font_family $::font_weight ]
 }
 
-# create all the base fonts (i.e. pd_font_8 thru pd_font_36) so that they fit
-# into the metrics given by $::font_fixed_metrics for any given font/weight
-proc fit_font_into_metrics {} {
+# finds sizes of the chosen font that just fit into the required metrics
+# e.g. if the metric requires the 'M' to be 15x10 pixels,
+# and the given font at size 12 is 15x7 and at size 16 it is 19x10,
+# then we would pick size 12.
+# <wantmetrics> is a list of <w> <h> pairs for which we are seeking font-sizes.
+# the proc returns a list of matching <size0> <width0> <height0> <size1> ...
+proc fit_font_into_metrics {family weight wantmetrics} {
     set lastsize 0
     set lastwidth 0
     set lastheight 0
-
-    for {set fsize 6} {$fsize < 120 && [llength $::font_zoom2_metrics] > 1} \
-            {incr fsize} {
-        set foo [list $::font_family -$fsize $::font_weight]
+    set result {}
+    if { [llength $wantmetrics] < 2} {
+        return $result
+    }
+    for {set fsize 1} {$fsize < 120} {incr fsize} {
+        set foo [list $family -$fsize $weight]
         set height [font metrics $foo -linespace]
         set width [font measure $foo M]
-        # puts stderr [concat $fsize $width $height]
-        if {[llength $::font_metrics] > 1 && \
-            ( $width > [lindex $::font_metrics 0] || \
-            $height > [lindex $::font_metrics 1] )} {
-                # puts [concat SINGLE $fsize]
-                lappend ::font_measured $lastsize $lastwidth $lastheight
-                set ::font_metrics [lrange $::font_metrics 2 end]
+        if { $lastsize < 1 } {
+            # just in case even the smallest font does not fit,
+            # we just use it nevertheless
+            set lastsize $fsize
+            set lastwidth $width
+            set lastheight $height
         }
-        if {$width > [lindex $::font_zoom2_metrics 0] || \
-            $height > [lindex $::font_zoom2_metrics 1]} {
-                # puts [concat DOUBLE $fsize]
-                lappend ::font_zoom2_measured $lastsize $lastwidth $lastheight
-                set ::font_zoom2_metrics [lrange $::font_zoom2_metrics 2 end]
+
+        if { $width > [lindex $wantmetrics 0] || $height > [lindex $wantmetrics 1] } {
+            # oops, this font is already too big; use the last one
+            lappend result $lastsize $lastwidth $lastheight
+            # and search for the next one
+            set wantmetrics [lrange $wantmetrics 2 end]
+            if { [llength $wantmetrics] < 2} {
+                break
+            }
         }
         set lastsize $fsize
         set lastwidth $width
         set lastheight $height
     }
-    # ::pdwindow::verbose 0 "measured font metrics:\n"
-    # foreach {size width height} $::font_measured {
-    #     ::pdwindow::verbose 0 "$size $width $height\n"
-    # }
-    # ::pdwindow::verbose 0 "measured zoom2 font metrics:\n"
-    # foreach {size width height} $::font_zoom2_measured {
-    #     ::pdwindow::verbose 0 "$size $width $height\n"
-    # }
+    return $result
 }
 
 # ------------------------------------------------------------------------------
@@ -579,7 +573,8 @@ proc pdtk_pd_startup {major minor bugfix test floatsize
     ::pdwindow::verbose 0 "Tk [info patchlevel]\n"
     if {$::tcl_version >= 8.5} {find_default_font}
     set_base_font $sys_font $sys_fontweight
-    fit_font_into_metrics
+    set ::font_measured [fit_font_into_metrics $::font_family $::font_weight $::font_metrics]
+    set ::font_zoom2_measured [fit_font_into_metrics $::font_family $::font_weight $::font_zoom2_metrics]
     ::pd_guiprefs::init
     pdsend "pd init [enquote_path [pwd]] $oldtclversion \
         $::font_measured $::font_zoom2_measured"
@@ -615,9 +610,25 @@ proc pdtk_yesnodialog {mytoplevel message default} {
     }
     return 0
 }
-##### routine to ask user if OK and, if so, send a message on to Pd ######
+
+# routine to ask user if OK and, if so, send a message on to Pd ######
+# with built-informatting+ translation
+# modern usage:
+## pdtk_check .pdwindow {"Hello world!"} "pd dsp 1" no
+# legacy:
+## pdtk_check .pdwindow "Hello world!" "pd dsp 1" no
 proc pdtk_check {mytoplevel message reply_to_pd default} {
-    if {[ pdtk_yesnodialog $mytoplevel $message $default ]} {
+    # example: 'pdtk_check . [list "Switch compatibility to %s?" $compat] [list pd compatibility $compat ] no'
+    if {[lindex $message 0] == [lindex [lindex $message 0] 0]} {
+        set message [ list $message ]
+    }
+
+    if {[ catch {
+              set msg [format [_ [ lindex $message 0 ] ] {*}[lrange $message 1 end] ]
+          } ]} {
+           set msg [_ $message]
+       }
+    if {[ pdtk_yesnodialog $mytoplevel $msg $default ]} {
         pdsend $reply_to_pd
     }
 }
@@ -639,6 +650,7 @@ proc parse_args {argc argv} {
     opt_parser::init {
         {-stderr    set {::stderr}}
         {-open      lappend {- ::filestoopen_list}}
+        {-pdarg     lappend {- ::pd_startup_args}}
     }
     set unflagged_files [opt_parser::get_options $argv]
     # if we have a single arg that is not a file, its a port or host:port combo
@@ -800,7 +812,12 @@ proc load_plugin_script {filename} {
 proc load_startup_plugins {} {
     # load built-in plugins
     load_plugin_script [file join $::sys_guidir pd_deken.tcl]
-    load_plugin_script [file join $::sys_guidir pd_docsdir.tcl]
+
+    if { $::port > 0 && $::host ne "" } { } else {
+        # only run the docsdir plugin if Pd is started via the GUI
+        # (to prevent a dialog from popping up on systems without keyboard/mouse)
+        load_plugin_script [file join $::sys_guidir pd_docsdir.tcl]
+    }
 
     # ceammc
     # load other installed plugins
@@ -833,6 +850,7 @@ proc load_startup_plugins {} {
                ::pdwindow::debug "\n"
            }
     }
+    # ceammc end
 }
 
 # ------------------------------------------------------------------------------
@@ -852,14 +870,23 @@ proc main {argc argv} {
     init_for_platform
 
     # ::host and ::port are parsed from argv by parse_args
-    if { $::port > 0 && $::host ne "" } {
-        # 'pd' started first and launched us, so get the port to connect to
-        ::pd_connect::to_pd $::port $::host
+    if { $::port > 0 } {
+        if { $::host ne "" } {
+            # 'pd' started a server and launched us, so connect to it as client
+            ::pd_connect::to_pd $::port $::host
+        } else {
+            # wait for a client 'pd' to connect to us; we're the server
+            # to do this, invoke as "pd-gui.tcl :1234" and start pd separately.
+            ::pd_connect::create_socket $::port
+        }
     } else {
         # the GUI is starting first, so create socket and exec 'pd'
-        set ::port [::pd_connect::create_socket]
+        set ::port [::pd_connect::create_socket 0]
         set pd_exec [file join [file dirname [info script]] ../bin/pd]
-        exec -- $pd_exec -guiport $::port &
+        set ::pd_startup_args \
+        [string map {\{ "" \} ""} $::pd_startup_args]
+        ::pd_connect::set_pid \
+            [exec -- $pd_exec -guiport $::port {*}$::pd_startup_args &]
         # if 'pd-gui' first, then initial dir is home
         set ::filenewdir $::env(HOME)
         set ::fileopendir $::env(HOME)

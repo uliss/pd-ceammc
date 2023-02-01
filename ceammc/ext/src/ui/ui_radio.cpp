@@ -8,8 +8,8 @@
 #include <chrono>
 #include <random>
 
-static const int MAX_ITEMS = 128;
-static t_symbol* SYM_PROP_NITEMS;
+constexpr int DEFAULT_CELL_SIZE = 15;
+constexpr int MAX_ITEMS = 128;
 
 void setup_ui_radio()
 {
@@ -23,21 +23,22 @@ UIRadio::UIRadio()
     , prop_checklist_mode_(0)
     , prop_color_active(hex_to_rgba(DEFAULT_ACTIVE_COLOR))
     , items_layer_(asEBox(), gensym("items_layer"))
+    , gen_(std::chrono::system_clock::now().time_since_epoch().count())
 {
     createOutlet();
 
     initPopupMenu("checklist",
         { { _("reset"), [this](const t_pt&) { if(prop_checklist_mode_) m_reset(); } },
             { _("flip"), [this](const t_pt&) { if(prop_checklist_mode_) m_flip(); } },
-            { _("random"), [this](const t_pt&) { if(prop_checklist_mode_) m_random(); } } });
+            { _("random"), [this](const t_pt&) { if(prop_checklist_mode_) m_random(AtomList()); } } });
 }
 
 void UIRadio::init(t_symbol* name, const AtomListView& args, bool usePresets)
 {
-    static t_symbol* SYM_VRD = gensym("ui.vrd");
-    static t_symbol* SYM_VRD_MULT = gensym("ui.vrd*");
-    static t_symbol* SYM_HRD_MULT = gensym("ui.hrd*");
-    static t_symbol* SYM_RADIO_MULT = gensym("ui.radio*");
+    t_symbol* SYM_VRD = gensym("ui.vrd");
+    t_symbol* SYM_VRD_MULT = gensym("ui.vrd*");
+    t_symbol* SYM_HRD_MULT = gensym("ui.hrd*");
+    t_symbol* SYM_RADIO_MULT = gensym("ui.radio*");
 
     UIObject::init(name, args, usePresets);
 
@@ -53,7 +54,7 @@ void UIRadio::init(t_symbol* name, const AtomListView& args, bool usePresets)
     int n = args.intAt(0, -1);
     if (n > 0) {
         prop_nitems_ = clip<int>(n, 2, MAX_ITEMS);
-        const int dim1 = 15;
+        const int dim1 = DEFAULT_CELL_SIZE;
         const int dim2 = dim1 * prop_nitems_;
         if (isVertical()) {
             asEBox()->b_rect.width = dim1;
@@ -63,28 +64,42 @@ void UIRadio::init(t_symbol* name, const AtomListView& args, bool usePresets)
             asEBox()->b_rect.height = dim1;
         }
     } else {
-        const size_t N = args.size();
-        for (size_t i = 0; i < N; i++) {
-            const auto& a = args[i];
-            if (!a.isProperty())
-                continue;
+        bool prop_size_found = false;
+        auto SYM_SIZE = gensym("@size");
 
-            if (a.asSymbol() != SYM_PROP_NITEMS)
-                continue;
-
-            size_t inext = i + 1;
-            if (inext >= N)
+        // check for size property
+        for (auto& a : args) {
+            if (a.isProperty() && a.asT<t_symbol*>() == SYM_SIZE) {
+                prop_size_found = true;
                 break;
+            }
+        }
 
-            prop_nitems_ = clip<int>(args[inext].asInt(0), 2, MAX_ITEMS);
-            int h = 15;
-            int w = h * prop_nitems_;
-            if (isVertical())
-                std::swap(h, w);
+        // no @size property:
+        // should calc size from @nitems
+        if (!prop_size_found) {
+            auto SYM_PROP_NITEMS = gensym("@nitems");
+            const size_t N = args.size();
+            for (size_t i = 0; i < N; i++) {
+                const auto& a = args[i];
+                if (a.asSymbol() != SYM_PROP_NITEMS)
+                    continue;
 
-            asEBox()->b_rect.width = w;
-            asEBox()->b_rect.height = h;
-            break;
+                // @nitems prop index
+                size_t inext = i + 1;
+                if (inext >= N)
+                    break;
+
+                prop_nitems_ = clip<int>(args[inext].asInt(0), 2, MAX_ITEMS);
+                int h = DEFAULT_CELL_SIZE;
+                int w = h * prop_nitems_;
+                if (isVertical())
+                    std::swap(h, w);
+
+                asEBox()->b_rect.width = w;
+                asEBox()->b_rect.height = h;
+                break;
+            }
         }
     }
 }
@@ -277,22 +292,26 @@ void UIRadio::m_next()
     }
 }
 
-void UIRadio::m_random()
+void UIRadio::m_random(const AtomListView& lv)
 {
-    auto seed = std::chrono::system_clock::now().time_since_epoch().count();
-    std::default_random_engine gen(seed);
-
     if (prop_checklist_mode_) {
         std::uniform_int_distribution<int> dist(0, 1);
 
         for (int i = 0; i < prop_nitems_; i++)
-            items_.set(i, dist(gen));
+            items_.set(i, dist(gen_));
 
         output();
         redrawItems();
     } else {
-        std::uniform_int_distribution<int> dist(0, prop_nitems_ - 1);
-        onFloat(dist(gen));
+        if (lv.isSymbol() && lv == gensym("move")) {
+            std::uniform_int_distribution<int> dist(1, prop_nitems_ - 1);
+            idx_ = (idx_ + dist(gen_)) % prop_nitems_;
+            output();
+            redrawItems();
+        } else {
+            std::uniform_int_distribution<int> dist(0, prop_nitems_ - 1);
+            onFloat(dist(gen_));
+        }
     }
 }
 
@@ -419,20 +438,15 @@ void UIRadio::okSize(t_rect* newrect)
 {
     assert(prop_nitems_ > 0);
 
-    //    if (isPatchLoading()) {
-    //        newrect->height = pd_clip_min(newrect->height, 8);
-    //        newrect->width = pd_clip_min(newrect->width, 8);
-    //    } else {
     if (isVertical()) {
-        const int box_size = pd_clip_min(static_cast<int>(newrect->height / prop_nitems_), 8);
+        const int box_size = std::round(pd_clip_min(newrect->height / prop_nitems_, 8));
         newrect->height = prop_nitems_ * box_size;
         newrect->width = box_size;
     } else {
-        const int box_size = pd_clip_min(static_cast<int>(newrect->width / prop_nitems_), 8);
+        const int box_size = std::round(pd_clip_min(newrect->width / prop_nitems_, 8));
         newrect->width = prop_nitems_ * box_size;
         newrect->height = box_size;
     }
-    //    }
 }
 
 void UIRadio::redrawAll()
@@ -457,8 +471,6 @@ void UIRadio::setup()
 {
     sys_vgui(ui_radio_tcl);
 
-    SYM_PROP_NITEMS = gensym("@nitems");
-
     UIObjectFactory<UIRadio> obj("ui.radio");
     obj.addAlias("ui.hrd");
     obj.addAlias("ui.vrd");
@@ -474,7 +486,7 @@ void UIRadio::setup()
     obj.outputMouseEvents(MouseEventsOutput::DEFAULT_OFF);
     obj.usePopup();
 
-    obj.setDefaultSize(120, 15);
+    obj.setDefaultSize(120, DEFAULT_CELL_SIZE);
     obj.hideLabelInner();
 
     obj.addProperty("active_color", _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIRadio::prop_color_active);

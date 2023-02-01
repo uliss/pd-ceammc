@@ -21,7 +21,7 @@
             <argument name="CHORD" type="list">list of pitches to arpeggiate</argument>
         </arguments>
         <properties>
-            <property name="@chord" type="list">list of pitches to arpeggiate</property>
+            <property name="@chord" type="list" default="">list of pitches to arpeggiate</property>
         </properties>
         <methods>
             <method name="reset">reset all notes to off without output</method>
@@ -51,7 +51,7 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">starts sequencer</xinfo>
+                <xinfo on="bang">play one note in sequence (same as [on( message)</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -61,12 +61,14 @@
         <example>
             <pdascii>
 <![CDATA[
-[on(  [on last 80 #a(      [ui.dsp~]
-|     |
-[flow.dup 6 #x]
+[asr 100 first 10 last(      [ui.dsp~]
 |
-[flow.space 130] [on all(  [off all(
-|                |         |
+| [asr 200 first 10 first(
+| |
+| |  [asr 150 all 10 last(
+| |  |
+| |  | [on( [off(
+| |  | |    |
 [seq.arp 60 64 67 79 54 80 #y]
 |
 [msg note] [loadmsg prog 1 12]

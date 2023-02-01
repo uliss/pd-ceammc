@@ -17,20 +17,33 @@
 #include "ceammc_format.h"
 #include "ceammc_log.h"
 #include "ceammc_string.h"
+#include "fmt/core.h"
+#include "lex/parser_strings.h"
 
 #include <algorithm>
 #include <iostream>
+
+namespace {
+using namespace ceammc;
+
+constexpr const char* TYPE_NAME = "String";
+
+DataTypeId initType()
+{
+    DataTypeId id = DataStorage::instance().typeByName(TYPE_NAME);
+    if (id == data::DATA_INVALID)
+        id = DataStorage::instance().registerNewType(TYPE_NAME,
+            [](const AtomListView& lv) -> Atom { return new DataTypeString(lv); });
+
+    return id;
+}
+}
 
 namespace ceammc {
 
 #define NDEBUG 1
 
-static Atom newString(const AtomList& l)
-{
-    return new DataTypeString(l);
-}
-
-const int DataTypeString::dataType = DataStorage::instance().registerNewType("String", newString);
+const DataTypeId DataTypeString::dataType = initType();
 
 DataTypeString::DataTypeString(t_symbol* s)
     : str_(s->s_name)
@@ -48,8 +61,8 @@ DataTypeString::DataTypeString(const Atom& a)
 #endif
 }
 
-DataTypeString::DataTypeString(const AtomList& l)
-    : str_(to_string(l, " "))
+DataTypeString::DataTypeString(const AtomListView& lv)
+    : str_(to_string(lv, " "))
 {
 #ifndef NDEBUG
     LIB_DBG << "string created: " << str_;
@@ -110,9 +123,48 @@ void DataTypeString::clear() noexcept
     str_.clear();
 }
 
-int DataTypeString::type() const noexcept
+DataTypeId DataTypeString::type() const noexcept
 {
     return dataType;
+}
+
+void DataTypeString::setFromQuotedList(const AtomListView& lv)
+{
+    string::MediumString res;
+    quotedListToString(lv, res);
+    str_.assign(res.data(), res.size());
+}
+
+void DataTypeString::appendFromQuotedList(const AtomListView& lv)
+{
+    string::MediumString res;
+    quotedListToString(lv, res);
+    str_.append(res.data(), res.size());
+}
+
+void DataTypeString::quotedListToString(const AtomListView& lv, string::MediumString& res)
+{
+    auto astr = [](const Atom& a, string::MediumString& res) {
+        if (a.isA<DataTypeString>()) {
+            auto& str = a.asD<DataTypeString>()->str();
+            res.insert(res.end(), str.begin(), str.end());
+            res.push_back(' ');
+        } else if (string::atom_to_string(a, res)) {
+            res.push_back(' ');
+        }
+    };
+
+    if (string::maybe_ceammc_quoted_string(lv)) {
+        auto unquoted = string::parse_ceammc_quoted_string(lv);
+        for (auto& a : unquoted)
+            astr(a, res);
+    } else {
+        for (auto& a : lv)
+            astr(a, res);
+    }
+
+    if (res.size() > 0 && res.back() == ' ')
+        res.pop_back();
 }
 
 DataTypeString* DataTypeString::clone() const
@@ -120,14 +172,41 @@ DataTypeString* DataTypeString::clone() const
     return new DataTypeString(str_);
 }
 
-std::string DataTypeString::toString() const
+std::string DataTypeString::toJsonString() const
 {
-    return str();
+    return fmt::format("\"{}\"", string::escape_for_json(str_));
 }
 
-std::string DataTypeString::valueToJsonString() const
+std::string DataTypeString::toListStringContent() const
 {
-    return "\"" + string::escape_for_json(str()) + '"';
+    string::SmallString str;
+    string::escape_and_quote(str_.c_str(), str);
+    return std::string(str.data(), str.size());
+}
+
+std::string DataTypeString::toDictStringContent() const
+{
+    string::SmallString str;
+    string::escape_and_quote(str_.c_str(), str);
+    str.push_back('\0');
+    return fmt::format("value: {}", str.data());
+}
+
+bool DataTypeString::set(const AbstractData* d) noexcept
+{
+    return setDataT<DataTypeString>(d);
+}
+
+std::string DataTypeString::toString() const
+{
+    if (str_.empty())
+        return "S\"\"";
+    else {
+        string::MediumString str;
+        str.push_back('S');
+        string::escape_and_quote(str_.c_str(), str);
+        return std::string(str.data(), str.size());
+    }
 }
 
 void DataTypeString::set(t_symbol* s)
@@ -140,9 +219,16 @@ void DataTypeString::set(const std::string& s)
     str_ = s;
 }
 
-void DataTypeString::split(std::vector<std::string>& res, const std::string& sep) const
+void DataTypeString::append(const std::string& str)
 {
-    if (sep.empty())
+    str_.append(str);
+}
+
+void DataTypeString::split(string::StringSplitResult& res, const char* sep) const
+{
+    res.clear();
+
+    if (sep == 0 || sep[0] == '\0')
         splitEveryChar(res);
     else
         splitBySep(res, sep);
@@ -224,14 +310,14 @@ bool DataTypeString::isLess(const AbstractData* d) const noexcept
     return str_ < (d->as<DataTypeString>()->str_);
 }
 
-void DataTypeString::splitEveryChar(std::vector<std::string>& res) const
+void DataTypeString::splitEveryChar(string::StringSplitResult& res) const
 {
-    string::utf8_split_by_char(res, str_.c_str());
+    string::split_every_char(res, str_.c_str());
 }
 
-void DataTypeString::splitBySep(std::vector<std::string>& res, const std::string& sep) const
+void DataTypeString::splitBySep(string::StringSplitResult& res, const char* sep) const
 {
-    string::split(res, str_, sep.c_str());
+    string::split_by_sep(res, string::StringView(str_.c_str()), sep);
 }
 
 std::ostream& operator<<(std::ostream& os, const DataTypeString& d)

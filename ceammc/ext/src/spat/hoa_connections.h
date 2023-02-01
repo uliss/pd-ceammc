@@ -33,7 +33,7 @@ public:
     void onBang() final;
     void onFloat(t_float v) final;
     void onSymbol(t_symbol* s) final;
-    void onList(const AtomList& l) final;
+    void onList(const AtomListView& lv) final;
     void onAny(t_symbol* s, const AtomListView& lv) final;
 
 public:
@@ -49,10 +49,10 @@ public:
     void onBang() final;
     void onFloat(t_float v) final;
     void onSymbol(t_symbol* s) final;
-    void onList(const AtomList& l) final;
+    void onList(const AtomListView& lv) final;
     void onAny(t_symbol* s, const AtomListView& l) final;
 
-    bool processAnyProps(t_symbol* sel, const AtomListView& lst) override;
+    bool processAnyProps(t_symbol* sel, const AtomListView& lv) override;
 
     void setOutlet(t_outlet* x);
 

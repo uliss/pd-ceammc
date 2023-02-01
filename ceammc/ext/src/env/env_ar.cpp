@@ -32,14 +32,14 @@ public:
         createOutlet();
     }
 
-    bool processAnyProps(t_symbol* sel, const AtomListView& lst) override
+    bool processAnyProps(t_symbol* sel, const AtomListView& lv) override
     {
-        if (sel == gensym("@gate") && lst.boolAt(0, false)) {
+        if (sel == gensym("@gate") && lv.boolAt(0, false)) {
             auto_release_.unset();
             done_.delay(length());
         }
 
-        return faust_env_ar_tilde::processAnyProps(sel, lst);
+        return faust_env_ar_tilde::processAnyProps(sel, lv);
     }
 
     void onBang() override
@@ -49,14 +49,14 @@ public:
         done_.delay(length());
     }
 
-    void onList(const AtomList& l) override
+    void onList(const AtomListView& lv) override
     {
-        if (!checkArgs(l, ARG_FLOAT, ARG_FLOAT)) {
-            OBJ_ERR << "ATTACK RELEASE values expected: " << l;
+        if (!checkArgs(lv, ARG_FLOAT, ARG_FLOAT)) {
+            OBJ_ERR << "ATTACK RELEASE values expected: " << lv;
             return;
         }
 
-        if (!set(l[0].asFloat(), l[1].asFloat()))
+        if (!set(lv[0].asFloat(), lv[1].asFloat()))
             OBJ_ERR << "can't set envelope";
     }
 
@@ -138,4 +138,17 @@ void setup_env_ar_tilde()
     obj.addMethod("play", &EnvAr::m_play);
     obj.addMethod("reset", &EnvAr::m_reset);
     obj.useClick();
+
+    obj.setXletsInfo(
+        {
+            "bang: run envelope\n"
+            "list: ATTACK RELEASE\n"
+            "play: run envelope\n"
+            "reset: reset evenlope\n"
+            "signal: input",
+        },
+        {
+            "output signal",
+            "bang on done",
+        });
 }

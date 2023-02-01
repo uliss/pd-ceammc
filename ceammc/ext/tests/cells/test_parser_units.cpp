@@ -399,11 +399,29 @@ TEST_CASE("parser_units", "[ceammc::ceammc_units]")
         REQUIRE(p.parse("120bpm"));
         REQUIRE(p.bpm().bpm == 120);
         REQUIRE(p.bpm().beatlen == 0.25);
+        REQUIRE(p.bpm().beatPeriodMs() == 500);
+        REQUIRE(p.type() == TYPE_BPM);
+
+        REQUIRE(p.parse("120|4._bpm"));
+        REQUIRE(p.bpm().bpm == 120);
+        REQUIRE(p.bpm().beatlen == 0.375);
+        REQUIRE(p.bpm().beatPeriodMs() == 750);
+        REQUIRE(p.type() == TYPE_BPM);
+
+        REQUIRE(p.parse("120|1/8_bpm"));
+        REQUIRE(p.bpm().bpm == 120);
+        REQUIRE(p.bpm().beatlen == 0.125);
+        REQUIRE(p.bpm().beatPeriodMs() == 250);
         REQUIRE(p.type() == TYPE_BPM);
 
         REQUIRE(p.parse("60|8_bpm"));
         REQUIRE(p.bpm().bpm == 60);
         REQUIRE(p.bpm().beatlen == 0.125);
+        REQUIRE(p.bpm().beatPeriodMs() == 500);
+        REQUIRE(p.type() == TYPE_BPM);
+
+        REQUIRE(p.parse("40|4_bpm"));
+        REQUIRE(p.bpm().beatPeriodMs() == 1500);
         REQUIRE(p.type() == TYPE_BPM);
 
         REQUIRE(p.parse("144|4._bpm"));

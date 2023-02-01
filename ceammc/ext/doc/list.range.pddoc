@@ -21,8 +21,15 @@
             </aliases>
         </meta>
         <info>
-            <par>Note: numbers are smaller then symbols</par>
+            <par>Note: if @type = any, numbers are smaller then symbols</par>
         </info>
+        <properties>
+            <property name="@type" type="symbol" enum="float symbol any" default="float">type of
+            accepted atoms</property>
+            <property name="@f" type="alias">alias to @type float, accept only floats</property>
+            <property name="@s" type="alias">alias to @type symbol, accept only symbols</property>
+            <property name="@a" type="alias">alias to @type any, accept all</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo on="list">input list</xinfo>
@@ -30,20 +37,28 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>list of two elements: first is a smallest values, second - largest</outlet>
+            <outlet>list of two elements: first is a smallest value, second - largest</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[list a b z( [1 2 b c(
-|            |
-| [F]        |  [2 -1 6 -2(    [-3 0 10 2 -5 11(
-| |          |  |              |
-[list.range     ]              [list.range     ]
-|                              |
-[msg set]                      [!-]
-|                              |
-[ (                            [F]
+[-3 0 10 2 -5 11 a b c(
+|
+[list.range @f]
+|
+[ui.dt]
+
+[-3 0 10 2 -5 11 a b c(
+|
+[list.range @s]
+|
+[ui.dt]
+
+[-3 0 10 2 -5 11 a b c(
+|
+[list.range @a]
+|
+[ui.dt]
 ]]>
             </pdascii>
         </example>

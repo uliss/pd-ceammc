@@ -21,7 +21,7 @@ FlowMultiplex::FlowMultiplex(const PdArgs& args)
     inlets_.reserve(total_ - 1);
 
     for (size_t i = 1; i < total_; i++) {
-        inlets_.emplace_back(this);
+        inlets_.emplace_back(this, i);
         inlet_new(owner(), &inlets_.back().x_obj, nullptr, nullptr);
     }
 
@@ -58,9 +58,9 @@ void FlowMultiplex::onSymbol(t_symbol* s)
     symbolTo(0, s);
 }
 
-void FlowMultiplex::onList(const AtomList& l)
+void FlowMultiplex::onList(const AtomListView& lv)
 {
-    onInlet(0, l);
+    onInlet(0, lv);
 }
 
 void FlowMultiplex::onAny(t_symbol* sel, const AtomListView& lv)
@@ -106,15 +106,11 @@ const char* FlowMultiplex::annotateInlet(size_t n) const
         return nullptr;
 }
 
-void FlowMultiplex::proxy_any(Inlet* x, t_symbol* s, const AtomListView& lv)
+void FlowMultiplex::proxy_any(int idx, t_symbol* s, const AtomListView& lv)
 {
     for (size_t i = 0; i < inlets_.size(); i++) {
-        if (&inlets_[i] == x) {
-            if (i + 1 == index_->value())
-                anyTo(0, s, lv);
-
-            return;
-        }
+        if (idx == index_->value())
+            return anyTo(0, s, lv);
     }
 
     OBJ_ERR << "invalid inlet";

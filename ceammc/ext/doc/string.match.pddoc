@@ -25,7 +25,7 @@
             <par>For example, all digits: `d+, two or three chars: [a-z]((2..3)) etc.</par>
         </info>
         <arguments>
-            <argument name="RE" type="symbol">regular expression</argument>
+            <argument name="RE" type="list">regular expression</argument>
         </arguments>
         <properties>
             <property name="@re" type="list" default="">regular expression</property>

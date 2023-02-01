@@ -35,7 +35,7 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>current sample number</outlet>
+            <outlet type="audio">current sample number</outlet>
         </outlets>
         <example>
             <pdascii>

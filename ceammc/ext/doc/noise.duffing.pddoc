@@ -7,17 +7,16 @@
                 <author>Paul Bourke</author>
                 <author>André Sier</author>
             </authors>
-            <description>Part of a-chaos library</description>
+            <description>duffing attractor</description>
             <license>%</license>
             <library>ceammc</library>
             <category>noise</category>
             <keywords>noise</keywords>
-            <since>.5</since>
+            <since>0.5</since>
         </meta>
         <info>
             <par>Duffing Attractor</par>
             <par>Written by Paul Bourke</par>
-            <par>March 1998</par>
             <par>---</par>
             <par>The solution to the Duffing equations is often used as an example of a classic
             chaotic system.</par>
@@ -30,10 +29,10 @@
             <par>The following shows a "typical" segment of (x,y) values.</par>
         </info>
         <arguments>
-            <argument name="ARG0" type="float">a value (default 0.25), optional</argument>
-            <argument name="ARG1" type="float">b value (default 0.3), optional</argument>
-            <argument name="ARG2" type="float">w value (default 1.0), optional</argument>
-            <argument name="ARG3" type="float">dt value (default 0.01), optional</argument>
+            <argument name="A" type="float">a value (default 0.25), optional</argument>
+            <argument name="B" type="float">b value (default 0.3), optional</argument>
+            <argument name="W" type="float">w value (default 1.0), optional</argument>
+            <argument name="DT" type="float">dt value (default 0.01), optional</argument>
         </arguments>
         <methods>
             <method name="set">
@@ -63,7 +62,8 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>main outlet</outlet>
+            <outlet>dx output</outlet>
+            <outlet>dy output</outlet>
         </outlets>
         <example>
             <pdascii>

@@ -18,19 +18,22 @@
             </also>
             <since>0.9</since>
         </meta>
+        <arguments>
+            <argument name="START" type="float">@start property</argument>
+            <argument name="STOP" type="float">@stop property</argument>
+            <argument name="N" type="int" minvalue="4" maxvalue="1024">@n property</argument>
+        </arguments>
         <properties>
-            <property name="@start" minvalue="0" type="float" default="0">the starting value of the
+            <property name="@start" type="float" default="0">the starting value of the
             sequence</property>
-            <property name="@stop" minvalue="0" type="float" default="255">the final value of the
-            sequence, unless @endpoint is false. In that case, @n + 1 values are spaced over the
-            interval in lin-space, of which all but the last (a sequence of length @n) are
-            returned.</property>
+            <property name="@stop" type="float" default="255">the final value of the sequence,
+            unless @endpoint is false. In that case, @n + 1 values are spaced over the interval in
+            lin-space, of which all but the last (a sequence of length @n) are returned.</property>
             <property name="@n" minvalue="4" maxvalue="1024" type="int" default="256">number of
             points</property>
             <property name="@base" enum="0 pi" type="atom" default="0">x-axis scale base</property>
             <property name="@pi" type="atom">alias to @base pi</property>
-            <property name="@endpoint" type="int" enum="0 1" default="1">include @stop to
-            interval</property>
+            <property name="@endpoint" type="bool" default="1">include @stop to interval</property>
         </properties>
         <inlets>
             <inlet>
@@ -46,7 +49,7 @@
         <example>
             <pdascii>
 <![CDATA[
-[B]          [ui.dsp~]
+[B]
 |
 |
 [plot.linspace~ -5 5]

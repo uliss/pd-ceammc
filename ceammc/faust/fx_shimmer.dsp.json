@@ -1,28 +1,29 @@
 {
 	"name": "fx_shimmer",
 	"filename": "fx_shimmer.dsp",
-	"version": "2.37.3",
-	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0",
+	"version": "2.53.1",
+	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn fx_shimmer -scn fx_shimmer_dsp -es 1 -mcd 16 -single -ftz 0",
 	"library_list": ["/usr/local/share/faust/basics.lib","/usr/local/share/faust/signals.lib","/usr/local/share/faust/filters.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib","/usr/local/share/faust/delays.lib","/usr/local/share/faust/routes.lib","/usr/local/share/faust/analyzers.lib","/usr/local/share/faust/oscillators.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc_ui.lib"],
 	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
 	"inputs": 2,
 	"outputs": 2,
 	"meta": [ 
 		{ "analyzers.lib/name": "Faust Analyzer Library" },
-		{ "analyzers.lib/version": "0.1" },
+		{ "analyzers.lib/version": "0.2" },
 		{ "author": "thedrgreenthumb" },
+		{ "basics.lib/bypass2:author": "Julius Smith" },
 		{ "basics.lib/name": "Faust Basic Element Library" },
-		{ "basics.lib/version": "0.1" },
+		{ "basics.lib/version": "0.8" },
 		{ "ceammc_ui.lib/name": "CEAMMC faust default UI elements" },
 		{ "ceammc_ui.lib/version": "0.1.2" },
-		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0" },
+		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn fx_shimmer -scn fx_shimmer_dsp -es 1 -mcd 16 -single -ftz 0" },
 		{ "delays.lib/name": "Faust Delay Library" },
 		{ "delays.lib/version": "0.1" },
 		{ "filename": "fx_shimmer.dsp" },
 		{ "filters.lib/allpass_comb:author": "Julius O. Smith III" },
 		{ "filters.lib/allpass_comb:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
 		{ "filters.lib/allpass_comb:license": "MIT-style STK-4.3 license" },
-		{ "filters.lib/lowpass0_highpass1": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/lowpass0_highpass1": "MIT-style STK-4.3 license" },
 		{ "filters.lib/lowpass0_highpass1:author": "Julius O. Smith III" },
 		{ "filters.lib/lowpass:author": "Julius O. Smith III" },
 		{ "filters.lib/lowpass:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
@@ -41,16 +42,17 @@
 		{ "maths.lib/copyright": "GRAME" },
 		{ "maths.lib/license": "LGPL with exception" },
 		{ "maths.lib/name": "Faust Math Library" },
-		{ "maths.lib/version": "2.3" },
+		{ "maths.lib/version": "2.5" },
 		{ "name": "fx_shimmer" },
 		{ "oscillators.lib/name": "Faust Oscillator Library" },
-		{ "oscillators.lib/version": "0.1" },
+		{ "oscillators.lib/version": "0.3" },
 		{ "platform.lib/name": "Generic Platform Library" },
-		{ "platform.lib/version": "0.1" },
+		{ "platform.lib/version": "0.2" },
+		{ "routes.lib/hadamard:author": "Remy Muller, revised by Romain Michon" },
 		{ "routes.lib/name": "Faust Signal Routing Library" },
 		{ "routes.lib/version": "0.2" },
 		{ "signals.lib/name": "Faust Signal Routing Library" },
-		{ "signals.lib/version": "0.0" }
+		{ "signals.lib/version": "0.3" }
 	],
 	"ui": [ 
 		{
@@ -60,11 +62,13 @@
 				{
 					"type": "checkbox",
 					"label": "bypass",
+					"shortname": "bypass",
 					"address": "/fx_shimmer/bypass"
 				},
 				{
 					"type": "hslider",
 					"label": "control",
+					"shortname": "control",
 					"address": "/fx_shimmer/control",
 					"init": 0.5,
 					"min": 0,
@@ -74,6 +78,7 @@
 				{
 					"type": "hslider",
 					"label": "damp_hf",
+					"shortname": "damp_hf",
 					"address": "/fx_shimmer/damp_hf",
 					"meta": [
 						{ "unit": "Hz" }
@@ -86,6 +91,7 @@
 				{
 					"type": "hslider",
 					"label": "decay_low",
+					"shortname": "decay_low",
 					"address": "/fx_shimmer/decay_low",
 					"meta": [
 						{ "unit": "sec" }
@@ -98,6 +104,7 @@
 				{
 					"type": "hslider",
 					"label": "decay_mid",
+					"shortname": "decay_mid",
 					"address": "/fx_shimmer/decay_mid",
 					"meta": [
 						{ "unit": "sec" }
@@ -110,6 +117,7 @@
 				{
 					"type": "hslider",
 					"label": "depth",
+					"shortname": "depth",
 					"address": "/fx_shimmer/depth",
 					"init": 0,
 					"min": 0,
@@ -119,6 +127,7 @@
 				{
 					"type": "hslider",
 					"label": "drywet",
+					"shortname": "drywet",
 					"address": "/fx_shimmer/drywet",
 					"meta": [
 						{ "style": "knob" }
@@ -131,6 +140,7 @@
 				{
 					"type": "hslider",
 					"label": "envelope",
+					"shortname": "envelope",
 					"address": "/fx_shimmer/envelope",
 					"meta": [
 						{ "unit": "sec" }
@@ -143,6 +153,7 @@
 				{
 					"type": "hslider",
 					"label": "freq_low",
+					"shortname": "freq_low",
 					"address": "/fx_shimmer/freq_low",
 					"meta": [
 						{ "unit": "Hz" }
@@ -155,6 +166,7 @@
 				{
 					"type": "hslider",
 					"label": "mode",
+					"shortname": "mode",
 					"address": "/fx_shimmer/mode",
 					"meta": [
 						{ "type": "int" }
@@ -167,6 +179,7 @@
 				{
 					"type": "hslider",
 					"label": "ps_drywet",
+					"shortname": "ps_drywet",
 					"address": "/fx_shimmer/ps_drywet",
 					"init": 0.5,
 					"min": 0,
@@ -176,6 +189,7 @@
 				{
 					"type": "hslider",
 					"label": "shift",
+					"shortname": "shift",
 					"address": "/fx_shimmer/shift",
 					"meta": [
 						{ "unit": "semitone" }
@@ -188,6 +202,7 @@
 				{
 					"type": "hslider",
 					"label": "speed",
+					"shortname": "speed",
 					"address": "/fx_shimmer/speed",
 					"meta": [
 						{ "unit": "Hz" }

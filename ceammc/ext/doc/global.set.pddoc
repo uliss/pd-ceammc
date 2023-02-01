@@ -20,13 +20,16 @@
         <info>
             <par>Defines global scope set variable, accessed by ID name</par>
         </info>
+        <mouse>
+            <event editmode="false" type="left-click">open data editor</event>
+        </mouse>
         <arguments>
             <argument name="ID" type="symbol">object ID</argument>
         </arguments>
         <properties>
-            <property name="@empty" readonly="true" enum="0 1" type="int" default="1">1 if list is
-            empty, otherwise 0</property>
-            <property name="@size" readonly="true" minvalue="0" type="int" default="0">number of
+            <property name="@empty" access="readonly" type="bool" default="1">1 if list is empty,
+            otherwise 0</property>
+            <property name="@size" access="readonly" minvalue="0" type="int" default="0">number of
             elements in list</property>
         </properties>
         <methods>
@@ -37,6 +40,7 @@
             <param name="VAL" type="list" required="true">elements</param></method>
             <method name="set">sets new set content without output 
             <param name="LIST" type="list" required="true">new set content</param></method>
+            <method name="choose">choose random element and output it</method>
         </methods>
         <inlets>
             <inlet>
@@ -59,7 +63,18 @@
 |     |       |   |          |
 [global.set     s1]          [global.set s1]
 |                            |
-[ui.display @display_type 1] [ui.display @display_type 1]
+[ui.dt]                      [ui.dt]
+
+[global.set.abs]
+]]>
+            </pdascii>
+            <pdascii id="abs">
+<![CDATA[
+[bang(
+|
+[global.set s1]
+|
+[ui.dt]
 ]]>
             </pdascii>
         </example>

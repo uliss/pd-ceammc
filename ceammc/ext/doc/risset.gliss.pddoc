@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="risset.gliss">
+        <title>risset.gliss</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Sheppard/Risset glissando calculator</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>misc</category>
+            <keywords>misc risset glissando</keywords>
+            <since>0.9.5</since>
+        </meta>
+        <arguments>
+            <argument name="PITCH" type="float" units="semitone">base pitch</argument>
+        </arguments>
+        <properties>
+            <property name="@base" type="float" default="60" minvalue="10" maxvalue="100"
+            units="semitone">base pitch</property>
+            <property name="@n" type="int" default="5" access="initonly">number of bands</property>
+            <property name="@interval" type="float" default="12" units="semitone">interval between
+            bands</property>
+            <property name="@shift" type="float" default="0">band shift in octaves</property>
+            <property name="@ampexp" type="float" default="2">amplitude exponent</property>
+        </properties>
+        <methods />
+        <inlets>
+            <inlet>
+                <xinfo on="float">glissando phase</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>list of midi pitches</outlet>
+            <outlet>list of amplitudes</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[0, 1 10000(  [F]               [F]
+|             |                 |
+[line 0 20]   [@interval $1 #a( [@shift $1 #b(
+|
+|
+|
+[risset.gliss 60 #x]
+|          ^|
+[msg \#:0] [msg \#:0]
+|.         |..
+[hoa.process~ 5 risset.gliss.osc~ planewaves {i:3,o:5}]
+| ^| ^^| ^^^| ^^^^|
+|  |   |    |     |
+[ui.hgain~        ]             [ui.dsp~]
+|\
+[dac~ 1 2]
+
+[X a->x]
+[X b->x]
+]]>
+            </pdascii>
+            <pdascii id="osc~">
+<![CDATA[
+[hoa.in 1] [hoa.in 2]
+|      |   | |
+[mtof] [F] | [F]
+|          |
+[osc~]     |
+|          |.
+[*~         ]
+|
+[hoa.out~ {i=1}]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

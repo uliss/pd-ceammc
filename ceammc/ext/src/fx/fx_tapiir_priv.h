@@ -36,6 +36,9 @@ class FxTapiir : public faust_fx_tapiir_tilde {
 public:
     FxTapiir(const PdArgs& args);
 
+    void m_random(t_symbol* s, const AtomListView& lv);
+    void m_pingpong(t_symbol* s, const AtomListView& lv);
+
 private:
     void initTapGroupProps();
 
@@ -53,8 +56,8 @@ private:
                 AtomList res;
                 getTapFb(N, res);
                 return res; },
-            [this](const AtomList& l) -> bool {
-                return setTapFb(N, l);
+            [this](const AtomListView& lv) -> bool {
+                return setTapFb(N, lv);
             });
     }
 };

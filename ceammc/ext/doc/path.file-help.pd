@@ -1,0 +1,139 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 630 50 cnv 1 135 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 630 50 file input/output;
+#X obj 1 1 cnv 5 765 40 empty empty path.file 20 20 0 20 -104026 -4096
+0;
+#X obj 675 11 path.file;
+#X msg 50 118 open ~/test.txt w+ \, write_line 1 2 3 4 5;
+#X msg 69 147 close;
+#X msg 146 147 write_bytes 67 69 0x41 0x4D 0x43;
+#X msg 165 176 seek_read 0;
+#X msg 184 205 read_line;
+#X msg 299 205 remove ~/test.txt;
+#X obj 50 234 path.file;
+#X obj 50 262 ui.dt;
+#X obj 165 262 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 20 311 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 316 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+-49933 0;
+#X msg 110 351 @path;
+#X text 245 351 Get/Set file path. Type: symbol.;
+#X obj 20 390 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 395 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+-49933 0;
+#X msg 110 430 close;
+#X text 245 430 close file.;
+#X msg 110 457 open;
+#X text 245 457 open file \, updates @path property. Arguments are:;
+#X obj 255 480 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 480 FNAME: file path: absolute or relative. Type: symbol.;
+#X obj 255 503 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 503 [MODE]: open mode \, 'r': open text file for reading
+only. 'w': truncate to 0 length \, if existent \, or create text file
+for writing only. 'a': append \, open or create text file only for
+writing at end of file. 'r+': open text file for reading and writing.
+'w+': truncate to 0 length \, if existent \, or create text file for
+reading and writing. 'a+': append \, open or create text file for reading
+and writing \, writing at end of file. Type: symbol. Allowed values:
+r \, w \, a \, r+ \, w+ \, a+.;
+#X msg 110 633 read_bytes;
+#X text 245 633 read bytes from file \, output as list of integers.
+Arguments are:;
+#X obj 255 671 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 671 [N]: number of bytes to read \, if omitted read all
+content. Type: int.;
+#X msg 110 711 read_line;
+#X text 245 711 read line from file \, output as list as atoms.;
+#X msg 110 738 remove;
+#X text 245 738 remove file. Arguments are:;
+#X obj 255 761 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 761 NAME: file path. Type: symbol.;
+#X msg 110 786 rename;
+#X text 245 786 rename file. Arguments are:;
+#X obj 255 809 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 809 PATH: old file path. Type: symbol.;
+#X obj 255 832 cnv 1 68 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 832 NEW_PATH: new file path. Type: symbol.;
+#X msg 110 857 seek_read;
+#X text 245 857 change reading position. Arguments are:;
+#X obj 255 880 cnv 1 28 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 880 POS: offset position. Type: int.;
+#X obj 255 903 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 903 [ORIG]: offset origin \, if omitted offset from the
+beginning. Type: symbol. Allowed values: beg|cur|end.;
+#X msg 110 943 seek_write;
+#X text 245 943 change writing position. Arguments are:;
+#X obj 255 966 cnv 1 28 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 966 POS: offset position. Type: int.;
+#X obj 255 989 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 989 [ORIG]: offset origin \, if omitted offset from the
+beginning. Type: symbol. Allowed values: beg|cur|end.;
+#X msg 110 1029 write;
+#X text 245 1029 write space separated atoms to file \, no newline
+added. Arguments are:;
+#X obj 255 1067 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1067 ARGS: atoms to write. Type: list.;
+#X msg 110 1092 write_bytes;
+#X text 245 1092 write given bytes to file. Arguments are:;
+#X obj 255 1115 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1115 ARGS: list of bytes: integers in 0-255 or symbols
+with '0x' prefix: 0x11 \, 0xFF etc.. Type: list.;
+#X msg 110 1155 write_line;
+#X text 245 1155 write space separated atoms to file \, newline added.
+Arguments are:;
+#X obj 255 1193 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1193 ARGS: atoms to write. Type: list.;
+#X obj 20 1228 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1233 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+-49933 0;
+#X text 110 1234 1\.;
+#X text 245 1234 ...;
+#X obj 20 1264 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1269 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+-49933 0;
+#X text 110 1270 1\.;
+#X text 245 1270 list: read output.;
+#X text 110 1290 2\.;
+#X text 245 1290 bang on EOF reached.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 115 45 ::;
+#X obj 131 48 ui.link @title path @url ceammc.path-help.pd;
+#X obj 1 1340 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1343 library: ceammc v0.9.6;
+#N canvas 10 1362 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 library:;
+#X text 120 10 ceammc;
+#X text 10 32 version:;
+#X text 120 32 0.9.6;
+#X text 10 54 object:;
+#X text 120 54 path.file;
+#X text 10 76 category:;
+#X text 120 76 path;
+#X text 10 98 since:;
+#X text 120 98 0.9.5;
+#X text 10 120 authors:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 license:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 keywords:;
+#X text 120 164 path \, file;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pure-data @url
+https://github.com/uliss/pure-data;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 generated by pddoc;
+#X restore 10 1362 pd info;
+#X connect 4 0 10 0;
+#X connect 5 0 10 0;
+#X connect 6 0 10 0;
+#X connect 7 0 10 0;
+#X connect 8 0 10 0;
+#X connect 9 0 10 0;
+#X connect 10 0 11 0;
+#X connect 10 1 12 0;

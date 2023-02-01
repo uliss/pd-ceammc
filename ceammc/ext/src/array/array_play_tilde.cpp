@@ -12,15 +12,16 @@
  * this file belongs to.
  *****************************************************************************/
 #include "array_play_tilde.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
-#include "fmt/format.h"
+#include "fmt/core.h"
 
-static t_symbol* SYM_MS;
-static t_symbol* SYM_SEC;
-static t_symbol* SYM_SAMP;
-static t_symbol* SYM_PHASE;
+CEAMMC_DEFINE_HASH(ms);
+CEAMMC_DEFINE_HASH(sec);
+CEAMMC_DEFINE_HASH(samp);
+CEAMMC_DEFINE_HASH(phase);
 
-FSM ArrayPlayTilde::fsm_ = {
+const FSM ArrayPlayTilde::fsm_ = {
     StateTransitions {
         // STATE_STOPPED
         [](ArrayPlayTilde* ap) -> PlayState { // stop->stop
@@ -93,16 +94,22 @@ ArrayPlayTilde::ArrayPlayTilde(const PdArgs& args)
     })
     , cursor_tick_([this]() {
         auto* s = clock_format_->value();
-        if (s == SYM_SEC)
+        switch (crc32_hash(s)) {
+        case hash_sec:
             floatTo(1, cursor_->seconds(sys_getsr()));
-        else if (s == SYM_MS)
+            break;
+        case hash_ms:
             floatTo(1, cursor_->seconds(sys_getsr()));
-        else if (s == SYM_SAMP)
+            break;
+        case hash_samp:
             floatTo(1, cursor_->samples());
-        else if (s == SYM_PHASE)
+            break;
+        case hash_phase:
             floatTo(1, cursor_->phase());
-        else
-            ; // none
+            break;
+        default:
+            break;
+        }
     })
 {
     speed_ = new FloatProperty("@speed", 1);
@@ -130,7 +137,7 @@ ArrayPlayTilde::ArrayPlayTilde(const PdArgs& args)
     clock_interval_->setUnits(PropValueUnits::SEC);
     addProperty(clock_interval_);
 
-    clock_format_ = new SymbolEnumProperty("@cfmt", { "sec", "ms", "samp", "phase" });
+    clock_format_ = new SymbolEnumProperty("@cfmt", { str_sec, str_ms, str_samp, str_phase });
     addProperty(clock_format_);
 
     cursor_ = new ArrayPositionProperty(&array_, "@cursor_samp", 0);
@@ -167,20 +174,20 @@ ArrayPlayTilde::ArrayPlayTilde(const PdArgs& args)
     createCbListProperty(
         "@select_phase",
         [this]() -> AtomList { return { begin_->phase(), end_->phase() }; },
-        [this](const AtomList& pos) -> bool {
+        [this](const AtomListView& pos) -> bool {
             return begin_->setPhase(pos.floatAt(0, 0))
                 && end_->setPhase(pos.floatAt(1, -1));
         })
-        ->setListCheckFn([](const AtomList& l) -> bool { return l.size() == 2 && l[0].isFloat() && l[1].isFloat(); });
+        ->setListCheckFn([](const AtomListView& lv) -> bool { return lv.size() == 2 && lv[0].isFloat() && lv[1].isFloat(); });
 
     {
         auto p = createCbListProperty(
             "@select_sec",
             [this]() -> AtomList { return { begin_->seconds(sys_getsr()), end_->seconds(sys_getsr()) }; },
-            [this](const AtomList& pos) -> bool { return begin_->setSeconds(pos.floatAt(0, 0), sys_getsr())
-                                                      && end_->setSeconds(pos.floatAt(1, -1), sys_getsr()); });
+            [this](const AtomListView& pos) -> bool { return begin_->setSeconds(pos.floatAt(0, 0), sys_getsr())
+                                                          && end_->setSeconds(pos.floatAt(1, -1), sys_getsr()); });
 
-        p->setListCheckFn([](const AtomList& l) -> bool { return l.size() == 2 && l[0].isFloat() && l[1].isFloat(); });
+        p->setListCheckFn([](const AtomListView& lv) -> bool { return lv.size() == 2 && lv[0].isFloat() && lv[1].isFloat(); });
         p->setUnits(PropValueUnits::SEC);
     }
 
@@ -188,10 +195,10 @@ ArrayPlayTilde::ArrayPlayTilde(const PdArgs& args)
         auto p = createCbListProperty(
             "@select_ms",
             [this]() -> AtomList { return { begin_->ms(sys_getsr()), end_->seconds(sys_getsr()) }; },
-            [this](const AtomList& pos) -> bool { return begin_->setMs(pos.floatAt(0, 0), sys_getsr())
-                                                      && end_->setMs(pos.floatAt(1, -1), sys_getsr()); });
+            [this](const AtomListView& pos) -> bool { return begin_->setMs(pos.floatAt(0, 0), sys_getsr())
+                                                          && end_->setMs(pos.floatAt(1, -1), sys_getsr()); });
 
-        p->setListCheckFn([](const AtomList& l) -> bool { return l.size() == 2 && l[0].isFloat() && l[1].isFloat(); });
+        p->setListCheckFn([](const AtomListView& lv) -> bool { return lv.size() == 2 && lv[0].isFloat() && lv[1].isFloat(); });
         p->setUnits(PropValueUnits::MSEC);
     }
 
@@ -199,10 +206,10 @@ ArrayPlayTilde::ArrayPlayTilde(const PdArgs& args)
         auto p = createCbListProperty(
             "@select_samp",
             [this]() -> AtomList { return { begin_->samples(), end_->samples() }; },
-            [this](const AtomList& pos) -> bool { return begin_->setSamples(pos.floatAt(0, 0))
-                                                      && end_->setSamples(pos.floatAt(1, -1)); });
+            [this](const AtomListView& pos) -> bool { return begin_->setSamples(pos.floatAt(0, 0))
+                                                          && end_->setSamples(pos.floatAt(1, -1)); });
 
-        p->setListCheckFn([](const AtomList& l) -> bool { return l.size() == 2 && l[0].isFloat() && l[1].isFloat(); });
+        p->setListCheckFn([](const AtomListView& lv) -> bool { return lv.size() == 2 && lv[0].isFloat() && lv[1].isFloat(); });
         p->setUnits(PropValueUnits::SAMP);
     }
 
@@ -248,7 +255,7 @@ void ArrayPlayTilde::onFloat(t_float pos)
 void ArrayPlayTilde::setupDSP(t_signal** sig)
 {
     ArraySoundBase::setupDSP(sig);
-    if (checkArray() && cursor_->value() >= array_.size())
+    if (array_.isValid() && cursor_->value() >= array_.size())
         resetPlayPosition();
 }
 
@@ -442,11 +449,6 @@ void ArrayPlayTilde::blockDone()
 
 void setup_array_play_tilde()
 {
-    SYM_MS = gensym("ms");
-    SYM_SEC = gensym("sec");
-    SYM_PHASE = gensym("phase");
-    SYM_SAMP = gensym("samp");
-
     SoundExternalFactory<ArrayPlayTilde> obj("array.play~", OBJECT_FACTORY_DEFAULT);
     obj.addAlias("array.p~");
 

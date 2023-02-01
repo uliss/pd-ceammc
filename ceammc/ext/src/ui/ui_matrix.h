@@ -40,7 +40,7 @@ public:
     void init(t_symbol* name, const AtomListView& args, bool usePresets);
 
     bool cell(size_t row, size_t column) const;
-    void setCell(const AtomList& lst);
+    void setCell(const AtomListView& lv);
     void setColumn(size_t column, const AtomListView& lv);
     void setColumn(const AtomListView& lv);
     void setRow(size_t row, const AtomListView& lv);
@@ -67,7 +67,7 @@ public:
     void outputAllList();
 
     void onBang();
-    void onList(const AtomListView& lst);
+    void onList(const AtomListView& lv);
     void onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers);
     void onMouseDrag(t_object* view, const t_pt& pt, long modifiers);
     void onMouseLeave(t_object*, const t_pt&, long);

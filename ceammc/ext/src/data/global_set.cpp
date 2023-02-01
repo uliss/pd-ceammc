@@ -17,10 +17,20 @@
 GlobalSet::GlobalSet(const PdArgs& a)
     : GlobalSetBase(a)
 {
+    setSpecialSymbolEscape(EDITOR_ESC_MODE_DATA);
+}
+
+EditorTitleString GlobalSet::editorTitle() const
+{
+    char buf[STATIC_STRING_SIZE(EditorTitleString)];
+    snprintf(buf, sizeof(buf) - 1, "global Set (%s)", id()->s_name);
+    return buf;
 }
 
 void setup_global_set()
 {
     ColectionIFaceFactory<GlobalSet> obj("global.set");
     obj.processData<DataTypeSet>();
+
+    GlobalSet::registerMethods(obj);
 }

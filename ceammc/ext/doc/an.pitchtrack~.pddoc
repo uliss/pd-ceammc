@@ -27,10 +27,8 @@
             function (SNAC)</par>
         </info>
         <arguments>
-            <argument name="FRAME" type="int" enum="128 256 512 1024 2048">frame size in
-            samples</argument>
-            <argument name="OVERLAP" type="int" enum="1 2 4 8">overlap of analysis
-            frames</argument>
+            <argument name="FRAMESIZE" type="int" enum="128 256 512 1024 2048" units="sample">frame
+            size in samples</argument>
         </arguments>
         <properties>
             <property name="@framesize" type="int" enum="128 256 512 1024 2048" default="1024"
@@ -43,7 +41,7 @@
             <property name="@fidthr" type="float" minvalue="0" maxvalue="1" default="0.95">min
             fidelity threshold to report the pitch</property>
             <property name="@maxfreq" type="float" minvalue="10" maxvalue="10000" default="1500"
-            units="herz">max tracked frequency</property>
+            units="hertz">max tracked frequency</property>
         </properties>
         <inlets>
             <inlet type="audio">

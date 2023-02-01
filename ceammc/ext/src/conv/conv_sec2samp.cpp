@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "conv_sec2samp.h"
+#include "ceammc_containers.h"
 #include "ceammc_factory.h"
 
 SecondToSample::SecondToSample(const PdArgs& a)
@@ -25,9 +26,14 @@ void SecondToSample::onFloat(t_float v)
     floatTo(0, v * sys_getsr());
 }
 
-void SecondToSample::onList(const AtomList& lst)
+void SecondToSample::onList(const AtomListView& lv)
 {
-    listTo(0, lst * sys_getsr());
+    SmallAtomList res;
+    res.reserve(lv.size());
+    for (auto& a : lv)
+        res.push_back(a * sys_getsr());
+
+    listTo(0, res.view());
 }
 
 void setup_conv_sec2samp()

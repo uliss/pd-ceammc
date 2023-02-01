@@ -73,6 +73,7 @@ private:
 
 private:
     ClockMemberFunction<UINumber> clock_;
+    UIFont font_;
     UITextLayout text_;
     UILayer text_layer_;
     std::string enter_value_;

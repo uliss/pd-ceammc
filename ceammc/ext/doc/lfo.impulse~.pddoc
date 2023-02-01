@@ -14,15 +14,17 @@
             <since>0.1</since>
         </meta>
         <properties>
-            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
-            processing</property>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
         <arguments>
-            <argument name="freq" type="float" units="herz">frequency</argument>
+            <argument name="freq" type="float" units="hertz">frequency</argument>
         </arguments>
         <inlets>
             <inlet type="audio">
                 <xinfo>frequency in Hz</xinfo>
+            </inlet>
+            <inlet type="control">
+                <xinfo on="bang">reset phase</xinfo>
             </inlet>
         </inlets>
         <outlets>

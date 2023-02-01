@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "hw_display.h"
 #include "ceammc_factory.h"
+#include "ceammc_stub.h"
 
 HwDisplay::HwDisplay(const PdArgs& args)
     : BaseObject(args)
@@ -66,7 +67,12 @@ bool HwDisplay::setPropBrightness(t_float v)
     return false;
 }
 
-void setup_hw_display()
+#if (!defined(__arm64__) && defined(WITH_IODISPLAY)) || defined(WITH_X11DISPLAY)
+extern "C" void setup_hw_display()
 {
     ObjectFactory<HwDisplay> obj("hw.display");
 }
+#else
+CONTROL_OBJECT_STUB(1, 1, "not supported on this platform");
+OBJECT_STUB_SETUP("hw.display", hw_display);
+#endif

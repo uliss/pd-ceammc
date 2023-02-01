@@ -22,6 +22,8 @@ if(APPLE)
     set(BUNDLE_FULL_PATH "${PROJECT_BINARY_DIR}/dist/${BUNDLE}")
     set(PD_BUNDLE_FULL_PATH ${BUNDLE_FULL_PATH}/Contents/Resources/bin/pd)
 
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/make_bundle.sh
+                   ${PROJECT_BINARY_DIR}/dist/make_bundle.sh @ONLY)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/make_lib_mac.sh
                    ${PROJECT_BINARY_DIR}/dist/make_lib_mac.sh @ONLY)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/install_external.sh
@@ -39,6 +41,20 @@ if(APPLE)
         COMMAND ${PROJECT_BINARY_DIR}/dist/make_lib_mac.sh "${PROJECT_BINARY_DIR}/dist"
         USES_TERMINAL)
 
+    add_custom_target(dev_run
+        COMMAND ${BUNDLE_FULL_PATH}/Contents/Resources/bin/pd
+        DEPENDS dev_ceammc
+        USES_TERMINAL)
+
+    add_custom_target(dev_debug
+        COMMAND ${BUNDLE_FULL_PATH}/Contents/Resources/bin/pd -verbose -d 1
+        DEPENDS dev_ceammc
+        USES_TERMINAL)
+
+    add_custom_target(dev_open
+        COMMAND open ${BUNDLE_FULL_PATH}
+        DEPENDS dev_ceammc)
+
     add_custom_target(dev_ext
         COMMAND ${PROJECT_BINARY_DIR}/dist/install_external.sh
         DEPENDS ceammc_lib)
@@ -49,6 +65,14 @@ if(APPLE)
     add_custom_target(dev_check_app
         COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/check_bundle.sh "${PROJECT_BINARY_DIR}/dist/${PD_MACOSX_APP}"
         USES_TERMINAL)
+
+    find_program(LLDB lldb)
+    if(LLDB)
+        add_custom_target(dev_lldb
+            COMMAND ${LLDB} --one-line run -- ${BUNDLE_FULL_PATH}/Contents/Resources/bin/pd
+            DEPENDS dev_ceammc
+            USES_TERMINAL)
+    endif()
 
     find_program(GITHUB_CLI NAMES gh gh.exe)
     if(GITHUB_CLI)

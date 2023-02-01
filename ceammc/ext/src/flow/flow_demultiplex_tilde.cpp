@@ -66,13 +66,13 @@ void DemultiplexTilde::setupDSP(t_signal** in)
     }
 }
 
-void DemultiplexTilde::onInlet(size_t /*n*/, const AtomListView& lst)
+void DemultiplexTilde::onInlet(size_t /*n*/, const AtomListView& lv)
 {
-    const int idx = lst.intAt(0, -1);
-    const t_float fidx = lst.floatAt(0, -1);
+    const int idx = lv.intAt(0, -1);
+    const t_float fidx = lv.floatAt(0, -1);
 
     if (idx < 0 || idx >= gain_.size()) {
-        OBJ_ERR << "invalid index: " << lst;
+        OBJ_ERR << "invalid index: " << lv;
         return;
     }
 
@@ -91,10 +91,10 @@ void DemultiplexTilde::onInlet(size_t /*n*/, const AtomListView& lst)
     }
 }
 
-void DemultiplexTilde::onList(const AtomList& lst)
+void DemultiplexTilde::onList(const AtomListView& lv)
 {
     for (size_t i = 0; i < gain_.size(); i++)
-        gain_[i].setTargetValue(clip<t_float>(lst.floatAt(i, 0), 0, 1));
+        gain_[i].setTargetValue(clip<t_float>(lv.floatAt(i, 0), 0, 1));
 }
 
 AtomList DemultiplexTilde::propValue() const
@@ -108,9 +108,9 @@ AtomList DemultiplexTilde::propValue() const
     return res;
 }
 
-void DemultiplexTilde::propSetValue(const AtomList& lst)
+void DemultiplexTilde::propSetValue(const AtomListView& lv)
 {
-    onList(lst);
+    onList(lv);
 }
 
 void setup_flow_demultiplex_tilde()

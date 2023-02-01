@@ -53,7 +53,7 @@
 -49933 0;
 #X msg 110 716 @auto_count;
 #X text 245 716 Get/Set if set numbers of sliders equal to input list
-length. Type: int. Default value: 0\. Allowed values: 0 \, 1\.;
+length. Type: bool. Default value: 0\.;
 #X msg 110 758 @auto_range_mode;
 #X text 245 758 Get/Set if calculate @min/@max values automatically.
 Type: symbol. Default value: none. Allowed values: none \, both \,
@@ -69,11 +69,10 @@ min \, max.;
 0\.;
 #X msg 110 915 @mouse_events;
 #X text 245 915 Get/Set mouse events output mode. If on outputs @mouse_down
-\, @mouse_up and @mouse_drag events. Type: int. Default value: 0\.
-Allowed values: 0 \, 1\.;
+\, @mouse_up and @mouse_drag events. Type: bool. Default value: 0\.;
 #X msg 110 972 @range;
 #X text 245 972 (readonly) Get value range. Type: float. Default value:
-0\.;
+1\.;
 #X msg 110 1001 @receive;
 #X text 245 1001 Get/Set receive source. Type: symbol. Default value:
 (null).;
@@ -81,51 +80,52 @@ Allowed values: 0 \, 1\.;
 #X text 245 1030 Get/Set send destination. Type: symbol. Default value:
 (null).;
 #X msg 110 1072 @show_lines;
-#X text 245 1072 Get/Set if show slider ruler lines. Type: int. Default
-value: 0\. Allowed values: 0 \, 1\.;
+#X text 245 1072 Get/Set if show slider ruler lines. Type: bool. Default
+value: 0\.;
 #X msg 110 1114 @show_range;
-#X text 245 1114 Get/Set if show slider range. Type: int. Default value:
-1\. Allowed values: 0 \, 1\.;
-#X msg 110 1156 @value;
-#X text 245 1156 (readonly) Get sliders value. Type: list.;
-#X msg 110 1185 @background_color;
-#X text 245 1185 Get/Set element background color (list of red \, green
+#X text 245 1114 Get/Set if show slider range. Type: bool. Default
+value: 1\.;
+#X msg 110 1143 @value;
+#X text 245 1143 (readonly) Get sliders value. Type: list.;
+#X msg 110 1172 @background_color;
+#X text 245 1172 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0.93 0.93
 0.93 1\.;
-#X msg 110 1242 @border_color;
-#X text 245 1242 Get/Set border color (list of red \, green \, blue
+#X msg 110 1229 @border_color;
+#X text 245 1229 Get/Set border color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
-#X msg 110 1284 @label_color;
-#X text 245 1284 Get/Set label color in RGB format within 0-1 range
+#X msg 110 1271 @label_color;
+#X text 245 1271 Get/Set label color in RGB format within 0-1 range
 \, for example: 0.2 0.4 0.1\. Type: list. Default value: 0 0 0 1\.;
-#X msg 110 1326 @select_color;
-#X text 245 1326 Get/Set selection color (list of red \, green \, blue
+#X msg 110 1313 @select_color;
+#X text 245 1313 Get/Set selection color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
-#X msg 110 1368 @slider_color;
-#X text 245 1368 Get/Set slider color (list of red \, green \, blue
+#X msg 110 1355 @slider_color;
+#X text 245 1355 Get/Set slider color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 0.75 0.75 0.75 1\.;
-#X msg 110 1410 @label;
-#X text 245 1410 Get/Set label text. Type: symbol. Default value: (null).;
-#X msg 110 1439 @label_align;
-#X text 245 1439 Get/Set label horizontal align. Type: symbol. Default
+#X msg 110 1397 @label;
+#X text 245 1397 Get/Set label text. Type: symbol. Default value: (null).;
+#X msg 110 1426 @label_align;
+#X text 245 1426 Get/Set label horizontal align. Type: symbol. Default
 value: left. Allowed values: left \, center \, right.;
-#X msg 110 1481 @label_inner;
-#X text 245 1481 Get/Set label position (1 - inner \, 0 - outer). Type:
-int. Default value: 0\. Allowed values: 0 \, 1\.;
-#X msg 110 1523 @label_margins;
-#X text 245 1523 Get/Set label offset in pixels. Type: list. Default
+#X msg 110 1468 @label_inner;
+#X text 245 1468 Get/Set label position (1 - inner \, 0 - outer). Type:
+bool. Default value: 0\.;
+#X msg 110 1510 @label_margins;
+#X text 245 1510 Get/Set label offset in pixels. Type: list. Default
 value: 0 0\.;
-#X msg 110 1565 @label_side;
-#X text 245 1565 Get/Set label snap side. Type: symbol. Default value:
+#X msg 110 1552 @label_side;
+#X text 245 1552 Get/Set label snap side. Type: symbol. Default value:
 top. Allowed values: left \, top \, right \, bottom.;
-#X msg 110 1607 @label_valign;
-#X text 245 1607 Get/Set label vertical align. Type: symbol. Default
+#X msg 110 1594 @label_valign;
+#X text 245 1594 Get/Set label vertical align. Type: symbol. Default
 value: top. Allowed values: top \, center \, bottom.;
-#X msg 110 1649 @fontname;
-#X text 245 1649 Get/Set fontname. Type: symbol. Default value: Helvetica.;
+#X msg 110 1636 @fontname;
+#X text 245 1636 Get/Set fontname. Type: symbol. Default value: Helvetica.
+Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
 #X msg 110 1678 @fontsize;
 #X text 245 1678 Get/Set fontsize. Type: int. Default value: 11\. Range:
-4\...11\.;
+4\...100\.;
 #X msg 110 1720 @fontslant;
 #X text 245 1720 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
@@ -134,7 +134,7 @@ Allowed values: roman \, italic.;
 normal. Allowed values: normal \, bold.;
 #X msg 110 1804 @pinned;
 #X text 245 1804 Get/Set pin mode. if 1 - put element to the lowest
-level. Type: int. Default value: 0\. Allowed values: 0 \, 1\.;
+level. Type: bool. Default value: 0\.;
 #X msg 110 1846 @presetname;
 #X text 245 1846 Get/Set preset name for using with [ui.preset]. Type:
 symbol. Default value: (null).;
@@ -239,7 +239,7 @@ are:;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
 #X obj 1 3006 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 3009 library: ceammc v0.9.4;
+#X text 10 3009 library: ceammc v0.9.6;
 #X text 515 3021 see also:;
 #X obj 589 3024 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.slider] @url ui.slider-help.pd;
@@ -250,7 +250,7 @@ are:;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.4;
+#X text 120 32 0.9.6;
 #X text 10 54 object:;
 #X text 120 54 ui.sliders;
 #X text 10 76 category:;

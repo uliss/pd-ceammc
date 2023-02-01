@@ -4,7 +4,7 @@
         <title>system.exit</title>
         <meta>
             <authors>
-                <author>Serge Poltavski</author>
+                <author>Serge Poltavsky</author>
             </authors>
             <description>quit PureData</description>
             <license>GPL3 or later</license>
@@ -13,12 +13,16 @@
             <keywords>quit exit</keywords>
             <since>0.9.2</since>
         </meta>
+        <arguments>
+            <argument name="DELAY" type="float" minvalue="0" units="millisecond">exit delay
+            time</argument>
+        </arguments>
         <properties>
             <property name="@delay" type="float" minvalue="0" default="0" units="millisecond">exit
             PureData after specified delay time</property>
             <property name="@rc" type="int" default="0">exit code</property>
-            <property name="@auto" type="int" enum="0 1" default="0">close automatically, without
-            incoming call</property>
+            <property name="@auto" type="bool" default="0">close automatically, without incoming
+            call</property>
         </properties>
         <methods>
             <method name="exit">exit PureData 

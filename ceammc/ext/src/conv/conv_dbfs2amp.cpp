@@ -12,13 +12,15 @@
  * this file belongs to.
  *****************************************************************************/
 #include "conv_dbfs2amp.h"
+#include "ceammc_containers.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 
+constexpr t_float MIN_DBFS = -144;
+
 static t_float dbfs2amp_(t_float v)
 {
-    static const t_float threshold = -144;
-    if (v <= threshold)
+    if (v <= MIN_DBFS)
         return 0;
 
     return convert::dbfs2amp(v);
@@ -35,9 +37,11 @@ void Dbfs2amp::onFloat(t_float v)
     floatTo(0, dbfs2amp_(v));
 }
 
-void Dbfs2amp::onList(const AtomList& args)
+void Dbfs2amp::onList(const AtomListView& args)
 {
-    listTo(0, args.mapFloat(dbfs2amp_));
+    SmallAtomList res;
+    args.mapFloat(dbfs2amp_, res);
+    listTo(0, res.view());
 }
 
 Dbfs2ampTilde::Dbfs2ampTilde(const PdArgs& args)
@@ -59,6 +63,6 @@ void setup_conv_dbfs2amp()
     ObjectFactory<Dbfs2amp> obj1("conv.dbfs2amp");
     obj1.addAlias("dbfs->amp");
 
-    ObjectFactory<Dbfs2amp> obj2("conv.dbfs2amp~");
+    SoundExternalFactory<Dbfs2ampTilde> obj2("conv.dbfs2amp~");
     obj2.addAlias("dbfs->amp~");
 }

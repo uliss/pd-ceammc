@@ -45,11 +45,11 @@ void FlowSplit::onSymbol(t_symbol* s)
     symbolTo(split_, s);
 }
 
-void FlowSplit::onList(const AtomList& l)
+void FlowSplit::onList(const AtomListView& lv)
 {
     split_ = 1;
-    listTo(2, l);
-    listTo(split_, l);
+    listTo(2, lv);
+    listTo(split_, lv);
 }
 
 void FlowSplit::onAny(t_symbol* s, const AtomListView& lv)

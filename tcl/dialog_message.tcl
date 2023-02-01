@@ -56,7 +56,8 @@ proc ::dialog_message::open_message_dialog {mytoplevel} {
 }
 
 proc ::dialog_message::create_dialog {mytoplevel} {
-    toplevel .message -class DialogWindow
+    # ceammc background
+    toplevel .message -class DialogWindow -background $::pd_colors::window_background
     wm group .message .
     wm transient .message
     wm title .message [_ "Send a Pd message"]
@@ -67,15 +68,22 @@ proc ::dialog_message::create_dialog {mytoplevel} {
     .message configure -padx 10 -pady 5
     ::pd_bindings::dialog_bindings .message "message"
 
-    frame .message.f
+    # ceammc: ttk styles
+    ttk::style configure SearchEntry.TEntry -padding 5
+    ttk::style configure SearchLabel.TLabel -font {$::font_family 24}
+    # ceammc end
+
+    # ceammc: ttk
+    ttk::frame .message.f
     pack .message.f -side top -fill x -expand 1
-    entry .message.f.entry -width 54 -font {$::font_family 18} -relief sunken \
-        -highlightthickness 1 -highlightcolor blue
-    label .message.f.semicolon -text ";" -font {$::font_family 24}
+    # ceammc: ttk
+    ttk::entry .message.f.entry -width 54 -font {$::font_family 18} -style SearchEntry.TEntry
+    ttk::label .message.f.semicolon -text ";" -style SearchLabel.TLabel
     pack .message.f.semicolon -side left
     pack .message.f.entry -side left -padx 10 -fill x -expand 1
     focus .message.f.entry
-    label .message.label -text [_ "(use arrow keys for history)"]
+    # ceammc
+    ttk::label .message.label -text [_ "(use arrow keys for history)"]
     pack .message.label -side bottom
 
     bind .message <$::modifier-Key-w> "::dialog_message::cancel %W"

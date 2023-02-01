@@ -110,8 +110,8 @@ void UINumberTilde::setup()
 
     obj.setPropertyDefaultValue(PROP_BACKGROUND_COLOR, "0.3 0.3 0.3 1");
     obj.setPropertyDefaultValue(PROP_BORDER_COLOR, DEFAULT_TEXT_COLOR);
-    obj.hideProperty("send");
-    obj.hideProperty("receive");
+    obj.internalProperty("send");
+    obj.internalProperty("receive");
 }
 
 void setup_ui_number_tilde()

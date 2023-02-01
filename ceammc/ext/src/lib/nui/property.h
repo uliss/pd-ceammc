@@ -118,7 +118,7 @@ namespace ui {
         SizeProperty(t_symbol* name, const Size& init, PropValueAccess access = PropValueAccess::READWRITE);
 
         AtomList get() const override;
-        bool setList(const AtomListView& l) override;
+        bool setList(const AtomListView& lv) override;
         bool getList(AtomList& l) const override;
 
         inline const Size& value() const { return size_; }

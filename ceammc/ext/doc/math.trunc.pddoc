@@ -22,12 +22,12 @@
             <par>Outputs the integral value nearest to but no larger in magnitude than x</par>
         </info>
         <inlets>
-            <inlet type="audio">
+            <inlet>
                 <xinfo>input signal</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">result signal</outlet>
+            <outlet>result signal</outlet>
         </outlets>
         <example>
             <pdascii>

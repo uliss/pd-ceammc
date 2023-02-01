@@ -111,7 +111,7 @@ proc ::dialog_midi::pdtk_midi_dialog {id \
     set midi_alsain [llength $midi_indevlist]
     set midi_alsaout [llength $midi_outdevlist]
 
-    toplevel $id -class DialogWindow
+    toplevel $id -class DialogWindow -background $::pd_colors::window_background
     wm withdraw $id
     wm title $id [_ "MIDI Settings"]
     wm group $id .
@@ -121,28 +121,26 @@ proc ::dialog_midi::pdtk_midi_dialog {id \
     $id configure -menu $::dialog_menubar
     $id configure -padx 10 -pady 5
     ::pd_bindings::dialog_bindings $id "midi"
-    # not all Tcl/Tk versions or platforms support -topmost, so catch the error
-    catch {wm attributes $id -topmost 1}
 
     # input devices
-    labelframe $id.inputs -text [_ "Input Devices"] -padx 5 -pady 5 -borderwidth 1
+    ttk::labelframe $id.inputs -text [_ "Input Devices"]
     pack $id.inputs -side top -fill x -pady 5
 
     # input device 1
-    frame $id.inputs.in1f
+    ttk::frame $id.inputs.in1f
     pack $id.inputs.in1f -side top -fill x
-    label $id.inputs.in1f.l1 -text "1:"
-    button $id.inputs.in1f.x1 -text [lindex $midi_indevlist $midi_indev1] \
+    ttk::label $id.inputs.in1f.l1 -text "1:"
+    ttk::button $id.inputs.in1f.x1 -text [lindex $midi_indevlist $midi_indev1] \
         -command [list midi_popup $id $id.inputs.in1f.x1 midi_indev1 $midi_indevlist]
     pack $id.inputs.in1f.l1 -side left
     pack $id.inputs.in1f.x1 -side left -fill x -expand 1
 
     # input device 2
     if {$longform && [llength $midi_indevlist] > 2} {
-        frame $id.inputs.in2f
+        ttk::frame $id.inputs.in2f
         pack $id.inputs.in2f -side top -fill x
-        label $id.inputs.in2f.l1 -text "2:"
-        button $id.inputs.in2f.x1 -text [lindex $midi_indevlist $midi_indev2] \
+        ttk::label $id.inputs.in2f.l1 -text "2:"
+        ttk::button $id.inputs.in2f.x1 -text [lindex $midi_indevlist $midi_indev2] \
             -command [list midi_popup $id $id.inputs.in2f.x1 midi_indev2 \
                 $midi_indevlist]
         pack $id.inputs.in2f.l1 -side left
@@ -151,10 +149,10 @@ proc ::dialog_midi::pdtk_midi_dialog {id \
 
     # input device 3
     if {$longform && [llength $midi_indevlist] > 3} {
-        frame $id.inputs.in3f
+        ttk::frame $id.inputs.in3f
         pack $id.inputs.in3f -side top -fill x
-        label $id.inputs.in3f.l1 -text "3:"
-        button $id.inputs.in3f.x1 -text [lindex $midi_indevlist $midi_indev3] \
+        ttk::label $id.inputs.in3f.l1 -text "3:"
+        ttk::button $id.inputs.in3f.x1 -text [lindex $midi_indevlist $midi_indev3] \
             -command [list midi_popup $id $id.inputs.in3f.x1 midi_indev3 \
                 $midi_indevlist]
         pack $id.inputs.in3f.l1 -side left
@@ -163,10 +161,10 @@ proc ::dialog_midi::pdtk_midi_dialog {id \
 
     # input device 4
     if {$longform && [llength $midi_indevlist] > 4} {
-        frame $id.inputs.in4f
+        ttk::frame $id.inputs.in4f
         pack $id.inputs.in4f -side top -fill x
-        label $id.inputs.in4f.l1 -text "4:"
-        button $id.inputs.in4f.x1 -text [lindex $midi_indevlist $midi_indev4] \
+        ttk::label $id.inputs.in4f.l1 -text "4:"
+        ttk::button $id.inputs.in4f.x1 -text [lindex $midi_indevlist $midi_indev4] \
             -command [list midi_popup $id $id.inputs.in4f.x1 midi_indev4 \
                 $midi_indevlist]
         pack $id.inputs.in4f.l1 -side left
@@ -175,10 +173,10 @@ proc ::dialog_midi::pdtk_midi_dialog {id \
 
     # input device 5
     if {$longform && [llength $midi_indevlist] > 5} {
-        frame $id.inputs.in5f
+        ttk::frame $id.inputs.in5f
         pack $id.inputs.in5f -side top -fill x
-        label $id.inputs.in5f.l1 -text "5:"
-        button $id.inputs.in5f.x1 -text [lindex $midi_indevlist $midi_indev5] \
+        ttk::label $id.inputs.in5f.l1 -text "5:"
+        ttk::button $id.inputs.in5f.x1 -text [lindex $midi_indevlist $midi_indev5] \
             -command [list midi_popup $id $id.inputs.in5f.x1 midi_indev5 \
                 $midi_indevlist]
         pack $id.inputs.in5f.l1 -side left
@@ -187,10 +185,10 @@ proc ::dialog_midi::pdtk_midi_dialog {id \
 
     # input device 6
     if {$longform && [llength $midi_indevlist] > 6} {
-        frame $id.inputs.in6f
+        ttk::frame $id.inputs.in6f
         pack $id.inputs.in6f -side top -fill x
-        label $id.inputs.in6f.l1 -text "6:"
-        button $id.inputs.in6f.x1 -text [lindex $midi_indevlist $midi_indev6] \
+        ttk::label $id.inputs.in6f.l1 -text "6:"
+        ttk::button $id.inputs.in6f.x1 -text [lindex $midi_indevlist $midi_indev6] \
             -command [list midi_popup $id $id.inputs.in6f.x1 midi_indev6 \
                 $midi_indevlist]
         pack $id.inputs.in6f.l1 -side left
@@ -199,10 +197,10 @@ proc ::dialog_midi::pdtk_midi_dialog {id \
 
     # input device 7
     if {$longform && [llength $midi_indevlist] > 7} {
-        frame $id.inputs.in7f
+        ttk::frame $id.inputs.in7f
         pack $id.inputs.in7f -side top -fill x
-        label $id.inputs.in7f.l1 -text "7:"
-        button $id.inputs.in7f.x1 -text [lindex $midi_indevlist $midi_indev7] \
+        ttk::label $id.inputs.in7f.l1 -text "7:"
+        ttk::button $id.inputs.in7f.x1 -text [lindex $midi_indevlist $midi_indev7] \
             -command [list midi_popup $id $id.inputs.in7f.x1 midi_indev7 \
                 $midi_indevlist]
         pack $id.inputs.in7f.l1 -side left
@@ -211,10 +209,10 @@ proc ::dialog_midi::pdtk_midi_dialog {id \
 
     # input device 8
     if {$longform && [llength $midi_indevlist] > 8} {
-        frame $id.inputs.in8f
+        ttk::frame $id.inputs.in8f
         pack $id.inputs.in8f -side top -fill x
-        label $id.inputs.in8f.l1 -text "8:"
-        button $id.inputs.in8f.x1 -text [lindex $midi_indevlist $midi_indev8] \
+        ttk::label $id.inputs.in8f.l1 -text "8:"
+        ttk::button $id.inputs.in8f.x1 -text [lindex $midi_indevlist $midi_indev8] \
             -command [list midi_popup $id $id.inputs.in8f.x1 midi_indev8 \
                 $midi_indevlist]
         pack $id.inputs.in8f.l1 -side left
@@ -223,10 +221,10 @@ proc ::dialog_midi::pdtk_midi_dialog {id \
 
     # input device 9
     if {$longform && [llength $midi_indevlist] > 9} {
-        frame $id.inputs.in9f
+        ttk::frame $id.inputs.in9f
         pack $id.inputs.in9f -side top -fill x
-        label $id.inputs.in9f.l1 -text "9:"
-        button $id.inputs.in9f.x1 -text [lindex $midi_indevlist $midi_indev9] \
+        ttk::label $id.inputs.in9f.l1 -text "9:"
+        ttk::button $id.inputs.in9f.x1 -text [lindex $midi_indevlist $midi_indev9] \
             -command [list midi_popup $id $id.inputs.in9f.x1 midi_indev9 \
                 $midi_indevlist]
         pack $id.inputs.in9f.l1 -side left
@@ -234,14 +232,14 @@ proc ::dialog_midi::pdtk_midi_dialog {id \
     }
 
     # output devices
-    labelframe $id.outputs -text [_ "Output Devices"] -padx 5 -pady 5 -borderwidth 1
+    ttk::labelframe $id.outputs -text [_ "Output Devices"]
     pack $id.outputs -side top -fill x -pady 5
 
     # output device 1
-    frame $id.outputs.out1f
+    ttk::frame $id.outputs.out1f
     pack $id.outputs.out1f -side top -fill x
-    label $id.outputs.out1f.l1 -text "1:"
-    button $id.outputs.out1f.x1 -text [lindex $midi_outdevlist $midi_outdev1] \
+    ttk::label $id.outputs.out1f.l1 -text "1:"
+    ttk::button $id.outputs.out1f.x1 -text [lindex $midi_outdevlist $midi_outdev1] \
         -command [list midi_popup $id $id.outputs.out1f.x1 midi_outdev1 \
             $midi_outdevlist]
     pack $id.outputs.out1f.l1 -side left
@@ -249,10 +247,10 @@ proc ::dialog_midi::pdtk_midi_dialog {id \
 
     # output device 2
     if {$longform && [llength $midi_outdevlist] > 2} {
-        frame $id.outputs.out2f
+        ttk::frame $id.outputs.out2f
         pack $id.outputs.out2f -side top -fill x
-        label $id.outputs.out2f.l1 -text "2:"
-        button $id.outputs.out2f.x1 -text [lindex $midi_outdevlist $midi_outdev2] \
+        ttk::label $id.outputs.out2f.l1 -text "2:"
+        ttk::button $id.outputs.out2f.x1 -text [lindex $midi_outdevlist $midi_outdev2] \
             -command \
             [list midi_popup $id $id.outputs.out2f.x1 midi_outdev2 $midi_outdevlist]
         pack $id.outputs.out2f.l1 -side left
@@ -261,10 +259,10 @@ proc ::dialog_midi::pdtk_midi_dialog {id \
 
     # output device 3
     if {$longform && [llength $midi_outdevlist] > 3} {
-        frame $id.outputs.out3f
+        ttk::frame $id.outputs.out3f
         pack $id.outputs.out3f -side top -fill x
-        label $id.outputs.out3f.l1 -text "3:"
-        button $id.outputs.out3f.x1 -text [lindex $midi_outdevlist $midi_outdev3] \
+        ttk::label $id.outputs.out3f.l1 -text "3:"
+        ttk::button $id.outputs.out3f.x1 -text [lindex $midi_outdevlist $midi_outdev3] \
             -command \
             [list midi_popup $id $id.outputs.out3f.x1 midi_outdev3 $midi_outdevlist]
         pack $id.outputs.out3f.l1 -side left
@@ -273,10 +271,10 @@ proc ::dialog_midi::pdtk_midi_dialog {id \
 
     # output device 4
     if {$longform && [llength $midi_outdevlist] > 4} {
-        frame $id.outputs.out4f
+        ttk::frame $id.outputs.out4f
         pack $id.outputs.out4f -side top -fill x
-        label $id.outputs.out4f.l1 -text "4:"
-        button $id.outputs.out4f.x1 -text [lindex $midi_outdevlist $midi_outdev4] \
+        ttk::label $id.outputs.out4f.l1 -text "4:"
+        ttk::button $id.outputs.out4f.x1 -text [lindex $midi_outdevlist $midi_outdev4] \
             -command \
             [list midi_popup $id $id.outputs.out4f.x1 midi_outdev4 $midi_outdevlist]
         pack $id.outputs.out4f.l1 -side left
@@ -285,10 +283,10 @@ proc ::dialog_midi::pdtk_midi_dialog {id \
 
     # output device 5
     if {$longform && [llength $midi_outdevlist] > 5} {
-        frame $id.outputs.out5f
+        ttk::frame $id.outputs.out5f
         pack $id.outputs.out5f -side top -fill x
-        label $id.outputs.out5f.l1 -text "5:"
-        button $id.outputs.out5f.x1 -text [lindex $midi_outdevlist $midi_outdev5] \
+        ttk::label $id.outputs.out5f.l1 -text "5:"
+        ttk::button $id.outputs.out5f.x1 -text [lindex $midi_outdevlist $midi_outdev5] \
             -command \
             [list midi_popup $id $id.outputs.out5f.x1 midi_outdev5 $midi_outdevlist]
         pack $id.outputs.out5f.l1 -side left
@@ -297,10 +295,10 @@ proc ::dialog_midi::pdtk_midi_dialog {id \
 
     # output device 6
     if {$longform && [llength $midi_outdevlist] > 6} {
-        frame $id.outputs.out6f
+        ttk::frame $id.outputs.out6f
         pack $id.outputs.out6f -side top -fill x
-        label $id.outputs.out6f.l1 -text "6:"
-        button $id.outputs.out6f.x1 -text [lindex $midi_outdevlist $midi_outdev6] \
+        ttk::label $id.outputs.out6f.l1 -text "6:"
+        ttk::button $id.outputs.out6f.x1 -text [lindex $midi_outdevlist $midi_outdev6] \
             -command \
             [list midi_popup $id $id.outputs.out6f.x1 midi_outdev6 $midi_outdevlist]
         pack $id.outputs.out6f.l1 -side left
@@ -309,10 +307,10 @@ proc ::dialog_midi::pdtk_midi_dialog {id \
 
     # output device 7
     if {$longform && [llength $midi_outdevlist] > 7} {
-        frame $id.outputs.out7f
+        ttk::frame $id.outputs.out7f
         pack $id.outputs.out7f -side top -fill x
-        label $id.outputs.out7f.l1 -text "7:"
-        button $id.outputs.out7f.x1 -text [lindex $midi_outdevlist $midi_outdev7] \
+        ttk::label $id.outputs.out7f.l1 -text "7:"
+        ttk::button $id.outputs.out7f.x1 -text [lindex $midi_outdevlist $midi_outdev7] \
             -command \
             [list midi_popup $id $id.outputs.out7f.x1 midi_outdev7 $midi_outdevlist]
         pack $id.outputs.out7f.l1 -side left
@@ -321,10 +319,10 @@ proc ::dialog_midi::pdtk_midi_dialog {id \
 
     # output device 8
     if {$longform && [llength $midi_outdevlist] > 8} {
-        frame $id.outputs.out8f
+        ttk::frame $id.outputs.out8f
         pack $id.outputs.out8f -side top -fill x
-        label $id.outputs.out8f.l1 -text "8:"
-        button $id.outputs.out8f.x1 -text [lindex $midi_outdevlist $midi_outdev8] \
+        ttk::label $id.outputs.out8f.l1 -text "8:"
+        ttk::button $id.outputs.out8f.x1 -text [lindex $midi_outdevlist $midi_outdev8] \
             -command \
             [list midi_popup $id $id.outputs.out8f.x1 midi_outdev8 $midi_outdevlist]
         pack $id.outputs.out8f.l1 -side left
@@ -333,10 +331,10 @@ proc ::dialog_midi::pdtk_midi_dialog {id \
 
     # output device 9
     if {$longform && [llength $midi_outdevlist] > 9} {
-        frame $id.outputs.out9f
+        ttk::frame $id.outputs.out9f
         pack $id.outputs.out9f -side top -fill x
-        label $id.outputs.out9f.l1 -text "9:"
-        button $id.outputs.out9f.x1 -text [lindex $midi_outdevlist $midi_outdev9] \
+        ttk::label $id.outputs.out9f.l1 -text "9:"
+        ttk::button $id.outputs.out9f.x1 -text [lindex $midi_outdevlist $midi_outdev9] \
             -command \
             [list midi_popup $id $id.outputs.out9f.x1 midi_outdev9 $midi_outdevlist]
         pack $id.outputs.out9f.l1 -side left
@@ -346,30 +344,30 @@ proc ::dialog_midi::pdtk_midi_dialog {id \
     # if not the "long form" make a button to
     # restart with longform set.
     if {$longform == 0} {
-        frame $id.longbutton
+        ttk::frame $id.longbutton
         pack $id.longbutton -side top -fill x
-        button $id.longbutton.b -text [_ "Use Multiple Devices"] \
+        ttk::button $id.longbutton.b -text [_ "Use Multiple Devices"] \
             -command  {pdsend "pd midi-properties 1"}
         pack $id.longbutton.b -expand 1 -ipadx 10 -pady 5
     }
 
     # save all settings button
-    button $id.saveall -text [_ "Save All Settings"] \
+    ttk::button $id.saveall -text [_ "Save All Settings"] \
         -command "::dialog_midi::apply $id; pdsend \"pd save-preferences\""
     pack $id.saveall -side top -expand 1 -ipadx 10 -pady 5
 
     # buttons
-    frame $id.buttonframe
+    ttk::frame $id.buttonframe
     pack $id.buttonframe -side top -after $id.saveall -pady 2m
-    button $id.buttonframe.cancel -text [_ "Cancel"] \
+    ttk::button $id.buttonframe.cancel -text [_ "Cancel"] \
         -command "::dialog_midi::cancel $id"
     pack $id.buttonframe.cancel -side left -expand 1 -fill x -padx 15 -ipadx 10
     if {$::windowingsystem ne "aqua"} {
-        button $id.buttonframe.apply -text [_ "Apply"] \
+        ttk::button $id.buttonframe.apply -text [_ "Apply"] \
             -command "::dialog_midi::apply $id"
         pack $id.buttonframe.apply -side left -expand 1 -fill x -padx 15 -ipadx 10
     }
-    button $id.buttonframe.ok -text [_ "OK"] \
+    ttk::button $id.buttonframe.ok -text [_ "OK"] \
         -command "::dialog_midi::ok $id" -default active
     pack $id.buttonframe.ok -side left -expand 1 -fill x -padx 15 -ipadx 10
 
@@ -401,11 +399,11 @@ proc ::dialog_midi::pdtk_midi_dialog {id \
 
         # since we show the active focus, disable the highlight outline
         if {[winfo exists $id.longbutton.b]} {
-            $id.longbutton.b config -highlightthickness 0
+            # $id.longbutton.b config -highlightthickness 0
         }
-        $id.saveall config -highlightthickness 0
-        $id.buttonframe.ok config -highlightthickness 0
-        $id.buttonframe.cancel config -highlightthickness 0
+        # $id.saveall config -highlightthickness 0
+        # $id.buttonframe.ok config -highlightthickness 0
+        # $id.buttonframe.cancel config -highlightthickness 0
     }
 
     # set min size based on widget sizing & pos over pdwindow

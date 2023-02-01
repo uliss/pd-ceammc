@@ -31,7 +31,7 @@ TEST_CASE("misc.fluid~", "[externals]")
     {
         TestExtFluid t("fluid~");
         REQUIRE(t.numInlets() == 1);
-        REQUIRE(t.numOutlets() == 2);
+        REQUIRE(t.numOutlets() == 3);
         REQUIRE(t.numOutputChannels() == 2);
         REQUIRE_PROPERTY(t, @sf, "");
         REQUIRE_PROPERTY_LIST(t, @soundfonts, L());
@@ -45,11 +45,23 @@ TEST_CASE("misc.fluid~", "[externals]")
 
         REQUIRE_PROPERTY(t, @avoices, 0);
         REQUIRE_PROPERTY(t, @bufsize, 64);
+        REQUIRE(t.hasProperty("@cpuload"));
     }
 
     SECTION("load")
     {
         TestExtFluid t("fluid~", LA("@sf", "\"" SF_FILE "\""));
         REQUIRE_PROPERTY(t, @sf, SF_FILE);
+    }
+
+    SECTION("note on/off")
+    {
+        TExt t("fluid~", LA("@sf", "\"" SF_FILE "\""));
+
+        t.m_note(SYM("note"), LF(60, 100));
+        t.m_note(SYM("note"), LF(60, 0));
+
+        t.m_note(SYM("note"), LF(1, 60, 100));
+        t.m_note(SYM("note"), LF(1, 60, 0));
     }
 }

@@ -45,18 +45,18 @@ public:
         onList(AtomList(s));
     }
 
-    void onList(const AtomList& l) override
+    void onList(const AtomListView& lv) override
     {
-        list() = l;
+        list() = lv;
         onBang();
     }
 
-    void onInlet(size_t n, const AtomListView& l) override
+    void onInlet(size_t n, const AtomListView& lv) override
     {
         if (n != 1)
             return;
 
-        list() = l;
+        list() = lv;
     }
 
     void onDataT(const MListAtom& ml)
@@ -64,9 +64,31 @@ public:
         onList(ml->data());
     }
 
-    void proto_set(const AtomListView& lst) override
+    bool proto_front(Atom& res) const override
     {
-        list() = lst;
+        auto a = list().first();
+
+        if (a) {
+            res = *a;
+            return true;
+        } else
+            return false;
+    }
+
+    bool proto_back(Atom& res) const override
+    {
+        auto a = list().last();
+
+        if (a) {
+            res = *a;
+            return true;
+        } else
+            return false;
+    }
+
+    void proto_set(const AtomListView& lv) override
+    {
+        list() = lv;
     }
 
     void proto_clear() override
@@ -74,19 +96,19 @@ public:
         list().clear();
     }
 
-    void proto_append(const AtomListView& lst) override
+    void proto_append(const AtomListView& lv) override
     {
-        list().append(lst);
+        list().append(lv);
     }
 
-    void proto_prepend(const AtomListView& lst) override
+    void proto_prepend(const AtomListView& lv) override
     {
-        list().insert(0, lst);
+        list().insert(0, lv);
     }
 
-    bool proto_insert(size_t idx, const AtomListView& lst) override
+    bool proto_insert(size_t idx, const AtomListView& lv) override
     {
-        return list().insert(idx, lst);
+        return list().insert(idx, lv);
     }
 
     bool proto_pop() override
@@ -128,17 +150,28 @@ public:
         list().fill(v);
     }
 
-    void proto_choose() override
+    bool proto_choose(Atom& res) const override
     {
         using RandomGenT = std::mt19937;
         static RandomGenT gen(time(0));
 
         auto N = list().size();
         if (N < 1)
-            return;
+            return false;
 
         auto idx = std::uniform_int_distribution<size_t>(0, N - 1)(gen);
-        this->atomTo(0, list().at(idx));
+        res = list().at(idx);
+        return true;
+    }
+
+    bool proto_at(int idx, Atom& res) const override
+    {
+        const auto a = list().relativeAt(idx);
+        if (a) {
+            res = *a;
+            return true;
+        } else
+            return true;
     }
 
     void dump() const override

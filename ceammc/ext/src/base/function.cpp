@@ -96,10 +96,10 @@ void Function::onFloat(t_float f)
     floatTo(1, f);
 }
 
-void Function::onList(const AtomList& l)
+void Function::onList(const AtomListView& lv)
 {
     result_.clear();
-    listTo(1, l);
+    listTo(1, lv);
 }
 
 void Function::onSymbol(t_symbol* s)
@@ -118,7 +118,7 @@ const std::vector<Message>& Function::result() const
     return result_;
 }
 
-void Function::proxy_any(InletProxy<Function>* x, t_symbol* s, const AtomListView& v)
+void Function::proxy_any(int, t_symbol* s, const AtomListView& v)
 {
     if (s == &s_bang) {
         result_.push_back(Message::makeBang());

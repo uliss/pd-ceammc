@@ -22,8 +22,8 @@
         </meta>
         <arguments>
             <argument name="N" type="int" minvalue="0">number of bangs</argument>
-            <argument name="T" type="float" minvalue="1" units="millisecond">time interval between
-            bangs</argument>
+            <argument name="T" type="float" minvalue="1" maxvalue="20000" units="millisecond">time
+            interval between bangs</argument>
         </arguments>
         <properties>
             <property name="@dur" type="float" minvalue="0" default="0">sequence duration. Changing

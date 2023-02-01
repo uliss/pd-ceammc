@@ -19,6 +19,12 @@
 LocalMList::LocalMList(const PdArgs& args)
     : LocalMListBase(args)
 {
+    setSpecialSymbolEscape(EDITOR_ESC_MODE_DATA);
+}
+
+EditorTitleString LocalMList::editorTitle() const
+{
+    return makeEditorTitleString("local MList", binbufArgs().symbolAt(0, gensym("default"))->s_name);
 }
 
 void setup_local_mlist()
@@ -27,4 +33,6 @@ void setup_local_mlist()
     obj.processData<DataTypeMList>();
     obj.useDefaultPdFloatFn();
     obj.useDefaultPdSymbolFn();
+
+    LocalMList::registerMethods(obj);
 }

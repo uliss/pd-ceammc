@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="proto.feelworld">
+        <title>proto.feelworld</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>protocol for FeelWorld LivePro L1 HDMI mixer</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>proto</category>
+            <keywords>video mixer fellworld</keywords>
+            <since>0.9.5</since>
+        </meta>
+        <properties />
+        <methods>
+            <method name="input">select HDMI input 
+            <param name="N" type="int" required="true" minvalue="0" maxvalue="3">input
+            index</param></method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo>commands</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>list: bytes to send to UDP port 1000</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[ui.hrd 4]
+|
+[input $1(
+|
+[proto.feelworld]
+|
+[msg send]
+|
+| [S digits=20]
+| |
+| [connect $1 1000(
+| |
+[netsend -u -b]
+|
+[T]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

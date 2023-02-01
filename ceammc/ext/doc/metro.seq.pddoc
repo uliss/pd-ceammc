@@ -21,15 +21,15 @@
             <par>Easy way to build beat machines</par>
         </info>
         <arguments>
-            <argument name="INTERVAL" units="millisecond" minvalue="1" type="float">metro tempo in
+            <argument name="INTERVAL" units="millisecond" minvalue="0" type="float">metro tempo in
             ms</argument>
             <argument name="PATTERN" type="list">list of 1 and 0. Where 1 means output bang on this
             beat</argument>
         </arguments>
         <properties>
-            <property name="@pattern" type="list">list of 1 and 0. Where 1 means output bang on
-            this beat</property>
-            <property name="@interval" units="millisecond" minvalue="1" type="float" default="0">
+            <property name="@pattern" type="list" default="">list of 1 and 0. Where 1 means output
+            bang on this beat</property>
+            <property name="@interval" units="millisecond" minvalue="0" type="float" default="0">
             interval between beats</property>
             <property name="@current" type="int" minvalue="0" default="0">current pattern
             index</property>

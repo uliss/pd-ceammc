@@ -211,9 +211,6 @@ namespace platform {
 
     std::string find_in_std_path(t_canvas* cnv, const char* path)
     {
-        if (!is_path_relative(path))
-            return path;
-
         char dirname[MAXPDSTRING], *filename;
         int fd = canvas_open(cnv, path, "", dirname, &filename, MAXPDSTRING, 1);
         if (fd < 0)

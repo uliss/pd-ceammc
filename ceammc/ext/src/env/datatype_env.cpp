@@ -1,48 +1,44 @@
 #include "datatype_env.h"
 #include "ceammc_convert.h"
+#include "ceammc_crc32.h"
 #include "ceammc_datastorage.h"
 #include "ceammc_log.h"
-
-#include "../string/tinyformat.h"
+#include "datatype_dict.h"
+#include "datatype_mlist.h"
+#include "fmt/format.h"
 
 #include <algorithm>
 #include <boost/range.hpp>
 #include <unordered_map>
 
-static const char* SYM_ADSR = "adsr";
-static const char* SYM_ASR = "asr";
-static const char* SYM_AR = "ar";
+constexpr const char* TYPE_NAME = "Env";
 
-static const char* SYM_EADSR = "eadsr";
-static const char* SYM_EASR = "easr";
-static const char* SYM_EAR = "ear";
+CEAMMC_DEFINE_HASH(adsr);
+CEAMMC_DEFINE_HASH(asr);
+CEAMMC_DEFINE_HASH(ar);
+CEAMMC_DEFINE_HASH(eadsr);
+CEAMMC_DEFINE_HASH(easr);
+CEAMMC_DEFINE_HASH(ear);
+CEAMMC_DEFINE_HASH(step)
+CEAMMC_DEFINE_HASH(line)
+CEAMMC_DEFINE_HASH(exp)
+CEAMMC_DEFINE_HASH(sin2)
+CEAMMC_DEFINE_HASH(sigmoid)
 
-static const char* SYM_ENVELOPE_POINT = "EnvelopePoint";
+CEAMMC_DEFINE_HASH(all)
+CEAMMC_DEFINE_HASH(none)
+CEAMMC_DEFINE_HASH(time)
+CEAMMC_DEFINE_HASH(value)
 
-static const char* SYM_CURVE_STEP = "step";
-static const char* SYM_CURVE_LINE = "line";
-static const char* SYM_CURVE_EXP = "exp";
-static const char* SYM_CURVE_SIN2 = "sin2";
-static const char* SYM_CURVE_SIGMOID = "sigmoid";
+namespace {
 
-static const char* CURVE_TYPES[] = {
-    SYM_CURVE_STEP, SYM_CURVE_LINE, SYM_CURVE_EXP, SYM_CURVE_SIN2, SYM_CURVE_SIGMOID
+const char* CURVE_TYPES[] = {
+    str_step, str_line, str_exp, str_sin2, str_sigmoid
 };
 
-static bool compareByTime(const EnvelopePoint& n0, const EnvelopePoint& n1)
-{
-    return n0.utime < n1.utime;
-}
-
-static bool compareByValue(const EnvelopePoint& n0, const EnvelopePoint& n1)
-{
-    return n0.value < n1.value;
-}
-
-static bool has_stop(const EnvelopePoint& n)
-{
-    return n.stop;
-}
+const char* FIX_TYPES[] = {
+    str_none, str_all, str_time, str_value
+};
 
 struct find_by_time {
     size_t t;
@@ -54,7 +50,22 @@ struct find_by_time {
     bool operator()(const EnvelopePoint& n) { return n.utime == t; }
 };
 
-static bool isValidAttack(const Atom& p)
+bool compareByTime(const EnvelopePoint& n0, const EnvelopePoint& n1)
+{
+    return n0.utime < n1.utime;
+}
+
+bool compareByValue(const EnvelopePoint& n0, const EnvelopePoint& n1)
+{
+    return n0.value < n1.value;
+}
+
+bool has_stop(const EnvelopePoint& n)
+{
+    return n.stop;
+}
+
+bool isValidAttack(const Atom& p)
 {
     if (!p.isFloat() || p.asFloat() < 0) {
         LIB_ERR << "invalid attack time: " << p;
@@ -64,7 +75,7 @@ static bool isValidAttack(const Atom& p)
     return true;
 }
 
-static bool isValidDecay(const Atom& p)
+bool isValidDecay(const Atom& p)
 {
     if (!p.isFloat() || p.asFloat() < 0) {
         LIB_ERR << "invalid decay time: " << p;
@@ -74,7 +85,7 @@ static bool isValidDecay(const Atom& p)
     return true;
 }
 
-static bool isValidRelease(const Atom& p)
+bool isValidRelease(const Atom& p)
 {
     if (!p.isFloat() || p.asFloat() < 0) {
         LIB_ERR << "invalid release time: " << p;
@@ -84,7 +95,7 @@ static bool isValidRelease(const Atom& p)
     return true;
 }
 
-static bool isValidSustain(const Atom& p)
+bool isValidSustain(const Atom& p)
 {
     if (!p.isFloat() || p.asFloat() < 0 || p.asFloat() > 100) {
         LIB_ERR << "invalid sustain level value: " << p;
@@ -156,7 +167,137 @@ static bool isValidSustain(const Atom& p)
         }                                                    \
     }
 
-int DataTypeEnv::dataType = DataStorage::instance().registerNewType("Env");
+const char* fixToStr(uint8_t f)
+{
+    switch (f) {
+    case EnvelopePoint::FIX_TIME:
+        return str_time;
+    case EnvelopePoint::FIX_VALUE:
+        return str_value;
+    case EnvelopePoint::FIX_BOTH:
+        return str_all;
+    case EnvelopePoint::FIX_NONE:
+    default:
+        return str_none;
+    }
+}
+
+void symbolToFix(t_symbol* s, std::uint8_t& fix)
+{
+    switch (crc32_hash(s)) {
+    case hash_time:
+        fix = EnvelopePoint::FIX_TIME;
+        break;
+    case hash_value:
+        fix = EnvelopePoint::FIX_VALUE;
+        break;
+    case hash_all:
+        fix = EnvelopePoint::FIX_BOTH;
+        break;
+    case hash_none:
+    default:
+        fix = EnvelopePoint::FIX_NONE;
+        break;
+    }
+}
+
+void exportPoint(const EnvelopePoint& pt, std::string& res)
+{
+    auto str = std::back_inserter(res);
+    fmt::format_to(str, "    [time: {0:.7g} value: {1:.7g} type: {2}",
+        pt.timeMs(), pt.value, CURVE_TYPES[pt.type]);
+    if (pt.type != CURVE_LINE || pt.type != CURVE_STEP)
+        fmt::format_to(str, " curve: {}",
+            (pt.type == CURVE_SIGMOID) ? pt.sigmoid_skew : pt.data);
+
+    if (pt.fix_pos != EnvelopePoint::FIX_NONE)
+        fmt::format_to(str, " fix: {}", fixToStr(pt.fix_pos));
+    fmt::format_to(str, " stop: {}]", pt.stop ? 1 : 0);
+}
+
+EnvelopePoint pointFromDict(const DataTypeDict& dict)
+{
+    EnvelopePoint pt { 0, 0 };
+
+    for (auto& kv : dict) {
+        const auto key = kv.first;
+        const auto& val = kv.second;
+        switch (crc32_hash(key)) {
+        case "time"_hash:
+            pt.utime = val.floatAt(0, 0) * 1000;
+            break;
+        case "value"_hash:
+            pt.value = val.floatAt(0, 0);
+            break;
+        case "type"_hash:
+            symbol2curve(val.symbolAt(0, gensym(str_line)), pt.type);
+            break;
+        case "stop"_hash:
+            pt.stop = val.boolAt(0, false);
+            break;
+        case "curve"_hash:
+            pt.data = val.floatAt(0, 0);
+            break;
+        case "skew"_hash:
+            pt.sigmoid_skew = val.floatAt(0, 0);
+            break;
+        case "fix"_hash:
+            symbolToFix(val.symbolAt(0, gensym(str_none)), pt.fix_pos);
+            break;
+        default:
+            LIB_ERR << fmt::format("[{}] invalid key '{}'", TYPE_NAME, key->s_name);
+            break;
+        }
+    }
+
+    return pt;
+}
+
+Atom createEnv(const DictAtom& dict)
+{
+    EnvAtom res;
+
+    for (auto& kv : *dict) {
+        const auto key = kv.first;
+        const auto& val = kv.second;
+
+        switch (crc32_hash(key)) {
+        case hash_adsr:
+            res->setADSR(val);
+            return res;
+        case hash_asr:
+            res->setASR(val);
+            return res;
+        case hash_ar:
+            res->setAR(val);
+            return res;
+        case hash_step:
+            res->setStep(val);
+            return res;
+        case hash_line:
+            res->setLine(val);
+            return res;
+        case hash_ear:
+            res->setEAR(val);
+            return res;
+        case "points"_hash: {
+            for (auto& a : val) {
+                auto dict = a.asDataT<DataTypeDict>();
+                if (dict)
+                    res->insertPoint(pointFromDict(*dict));
+            }
+        } break;
+        default:
+            LIB_ERR << fmt::format("invalid key: '{}'", key->s_name);
+            break;
+        }
+    }
+
+    return res;
+}
+}
+
+DataTypeId DataTypeEnv::dataType = DataStorage::instance().registerNewType(TYPE_NAME, nullptr, createEnv);
 
 DataTypeEnv::DataTypeEnv()
 {
@@ -172,7 +313,7 @@ DataTypeEnv::DataTypeEnv(DataTypeEnv&& env)
 {
 }
 
-int DataTypeEnv::type() const noexcept
+DataTypeId DataTypeEnv::type() const noexcept
 {
     return dataType;
 }
@@ -185,20 +326,19 @@ static const char* to_string(CurveType t)
     return "?";
 }
 
-std::string DataTypeEnv::toString() const
-{
-    std::string res("Envelope:\n");
-
-    for (size_t i = 0; i < points_.size(); i++) {
-        res += tfm::format("    %c point: % 8g(ms) % 8g %s\n",
-            points_[i].stop ? '*' : ' ',
-            points_[i].utime / 1000.f,
-            points_[i].value,
-            to_string(points_[i].type));
-    }
-
-    return res;
-}
+const DataTypeEnv::NamedMethodList DataTypeEnv::named_methods = {
+    NamedMethod { hash_adsr, &DataTypeEnv::setADSR },
+    NamedMethod { hash_ar, &DataTypeEnv::setAR },
+    NamedMethod { hash_asr, &DataTypeEnv::setASR },
+    NamedMethod { hash_eadsr, &DataTypeEnv::setEADSR },
+    NamedMethod { hash_ear, &DataTypeEnv::setEAR },
+    NamedMethod { hash_easr, &DataTypeEnv::setEASR },
+    NamedMethod { hash_exp, &DataTypeEnv::setExponential },
+    NamedMethod { hash_line, &DataTypeEnv::setLine },
+    NamedMethod { hash_sigmoid, &DataTypeEnv::setSigmoid },
+    NamedMethod { hash_sin2, &DataTypeEnv::setSin2 },
+    NamedMethod { hash_step, &DataTypeEnv::setStep },
+};
 
 bool DataTypeEnv::isEqual(const AbstractData* d) const noexcept
 {
@@ -332,7 +472,7 @@ void DataTypeEnv::shiftTime(long time_us)
         points_[i].utime += time_us;
 }
 
-void DataTypeEnv::scaleTime(double factor)
+void DataTypeEnv::scaleTime(float factor)
 {
     if (factor < 0)
         return;
@@ -341,7 +481,7 @@ void DataTypeEnv::scaleTime(double factor)
         points_[i].utime = round(factor * points_[i].utime);
 }
 
-void DataTypeEnv::scaleValue(double factor)
+void DataTypeEnv::scaleValue(float factor)
 {
     for (size_t i = 0; i < points_.size(); i++)
         points_[i].value *= factor;
@@ -349,12 +489,14 @@ void DataTypeEnv::scaleValue(double factor)
 
 DataTypeEnv DataTypeEnv::normalize() const
 {
+    DataTypeEnv res;
+
     std::pair<float, float> yr = valueRange();
     float vrange = yr.second - yr.first;
     if (vrange == 0 || totalLength() == 0)
-        return DataTypeEnv();
+        return res;
 
-    DataTypeEnv res(*this);
+    res = *this;
 
     // shift
     if (points_[0].utime > 0)
@@ -477,7 +619,7 @@ void DataTypeEnv::clear()
     points_.clear();
 }
 
-void DataTypeEnv::setAR(size_t attack_us, size_t release_us, double value)
+void DataTypeEnv::setAR(size_t attack_us, size_t release_us, float value)
 {
     clear();
     points_.push_back(EnvelopePoint(0, 0, false, CURVE_LINE));
@@ -615,56 +757,56 @@ bool DataTypeEnv::setEAR(const AtomListView& lv)
     return true;
 }
 
-bool DataTypeEnv::setEASR(const AtomListView& lst)
+bool DataTypeEnv::setEASR(const AtomListView& lv)
 {
     static const char* usage = "Usage: EASR attack(ms) attack_curve release(ms) release_curve";
 
-    if (lst.size() != 4) {
+    if (lv.size() != 4) {
         LIB_ERR << usage;
         return false;
     }
 
-    VALIDATE_ATTACK(lst, 0, usage);
-    VALIDATE_ATTACK_CURVE(lst, 1, usage);
-    VALIDATE_RELEASE(lst, 2, usage);
-    VALIDATE_RELEASE_CURVE(lst, 3, usage);
+    VALIDATE_ATTACK(lv, 0, usage);
+    VALIDATE_ATTACK_CURVE(lv, 1, usage);
+    VALIDATE_RELEASE(lv, 2, usage);
+    VALIDATE_RELEASE_CURVE(lv, 3, usage);
 
-    setEASR(lst[0].asFloat() * 1000, lst[1].asFloat(), lst[2].asFloat() * 1000, lst[3].asFloat());
+    setEASR(lv[0].asFloat() * 1000, lv[1].asFloat(), lv[2].asFloat() * 1000, lv[3].asFloat());
 
     return true;
 }
 
-bool DataTypeEnv::setEADSR(const AtomListView& lst)
+bool DataTypeEnv::setEADSR(const AtomListView& lv)
 {
     static const char* usage = "Usage: EADSR attack(ms) attack_curve "
                                "decay(ms) decay_curve sustain_level "
                                "release(ms) release_curve";
 
-    if (lst.size() != 7) {
+    if (lv.size() != 7) {
         LIB_ERR << usage;
         return false;
     }
 
-    VALIDATE_ATTACK(lst, 0, usage);
-    VALIDATE_ATTACK_CURVE(lst, 1, usage);
-    VALIDATE_DECAY(lst, 2, usage);
-    VALIDATE_DECAY_CURVE(lst, 3, usage);
-    VALIDATE_SUSTAIN(lst, 4, usage);
-    VALIDATE_RELEASE(lst, 5, usage);
-    VALIDATE_RELEASE_CURVE(lst, 6, usage);
+    VALIDATE_ATTACK(lv, 0, usage);
+    VALIDATE_ATTACK_CURVE(lv, 1, usage);
+    VALIDATE_DECAY(lv, 2, usage);
+    VALIDATE_DECAY_CURVE(lv, 3, usage);
+    VALIDATE_SUSTAIN(lv, 4, usage);
+    VALIDATE_RELEASE(lv, 5, usage);
+    VALIDATE_RELEASE_CURVE(lv, 6, usage);
 
-    setEADSR(lst[0].asFloat() * 1000, lst[1].asFloat(),
-        lst[2].asFloat() * 1000, lst[3].asFloat(),
-        lst[4].asFloat() / 100,
-        lst[5].asFloat() * 1000, lst[6].asFloat());
+    setEADSR(lv[0].asFloat() * 1000, lv[1].asFloat(),
+        lv[2].asFloat() * 1000, lv[3].asFloat(),
+        lv[4].asFloat() / 100,
+        lv[5].asFloat() * 1000, lv[6].asFloat());
 
     return true;
 }
 
-bool DataTypeEnv::setStep(const AtomListView& lst)
+bool DataTypeEnv::setStep(const AtomListView& lv)
 {
     // check args
-    if (lst.size() % 2 != 1) {
+    if (lv.size() % 2 != 1) {
         LIB_ERR << "Usage: step VAL_0 LEN_0 VAL_1 [LEN_1 VAL_2] ...";
         return false;
     }
@@ -673,13 +815,13 @@ bool DataTypeEnv::setStep(const AtomListView& lst)
     points_.clear();
 
     // insert start point
-    points_.push_back(EnvelopePoint(0, lst[0].asFloat(), false, CURVE_STEP));
+    points_.push_back(EnvelopePoint(0, lv[0].asFloat(), false, CURVE_STEP));
 
     t_float offset_ms = 0;
 
     // inserts remaining
-    for (size_t i = 1; i < (lst.size() - 1); i += 2) {
-        t_float time_ms = lst[i].asFloat() * 1000;
+    for (size_t i = 1; i < (lv.size() - 1); i += 2) {
+        t_float time_ms = lv[i].asFloat() * 1000;
 
         if (time_ms < 1) {
             LIB_ERR << "invalid segment, skipping...";
@@ -687,16 +829,16 @@ bool DataTypeEnv::setStep(const AtomListView& lst)
         }
 
         offset_ms += time_ms;
-        points_.push_back(EnvelopePoint(offset_ms, lst[i + 1].asFloat(), false, CURVE_STEP));
+        points_.push_back(EnvelopePoint(offset_ms, lv[i + 1].asFloat(), false, CURVE_STEP));
     }
 
     return true;
 }
 
-bool DataTypeEnv::setLine(const AtomListView& lst)
+bool DataTypeEnv::setLine(const AtomListView& lv)
 {
     // check args
-    if (lst.size() % 2 != 1) {
+    if (lv.size() % 2 != 1) {
         LIB_ERR << "Usage: line VAL_0 LEN_0 VAL_1 [LEN_1 VAL_2] ...";
         return false;
     }
@@ -705,13 +847,13 @@ bool DataTypeEnv::setLine(const AtomListView& lst)
     points_.clear();
 
     // insert start point
-    points_.push_back(EnvelopePoint(0, lst[0].asFloat(), false, CURVE_LINE));
+    points_.push_back(EnvelopePoint(0, lv[0].asFloat(), false, CURVE_LINE));
 
     t_float offset_us = 0;
 
     // inserts remaining
-    for (size_t i = 1; i < (lst.size() - 1); i += 2) {
-        t_float time_us = lst[i].asFloat() * 1000;
+    for (size_t i = 1; i < (lv.size() - 1); i += 2) {
+        t_float time_us = lv[i].asFloat() * 1000;
 
         if (time_us < 1) {
             LIB_ERR << "invalid segment, skipping...";
@@ -719,7 +861,7 @@ bool DataTypeEnv::setLine(const AtomListView& lst)
         }
 
         offset_us += time_us;
-        points_.push_back(EnvelopePoint(offset_us, lst[i + 1].asFloat(), false, CURVE_LINE));
+        points_.push_back(EnvelopePoint(offset_us, lv[i + 1].asFloat(), false, CURVE_LINE));
     }
 
     return true;
@@ -826,45 +968,27 @@ bool DataTypeEnv::setSigmoid(const AtomListView& lv)
     return true;
 }
 
-struct NameEntry {
-    t_symbol* s;
-    bool (DataTypeEnv::*m)(const AtomListView&);
-};
-
-bool DataTypeEnv::setNamedEnvelope(t_symbol* name, const AtomListView& args)
+bool DataTypeEnv::setNamedEnvelope(const char* name, const AtomListView& args)
 {
-    static const NameEntry envs[] = {
-        { gensym(SYM_EADSR), &DataTypeEnv::setEADSR },
-        { gensym(SYM_EASR), &DataTypeEnv::setEASR },
-        { gensym(SYM_EAR), &DataTypeEnv::setEAR },
-        { gensym(SYM_ADSR), &DataTypeEnv::setADSR },
-        { gensym(SYM_ASR), &DataTypeEnv::setASR },
-        { gensym(SYM_AR), &DataTypeEnv::setAR },
-        { gensym(SYM_CURVE_EXP), &DataTypeEnv::setExponential },
-        { gensym(SYM_CURVE_LINE), &DataTypeEnv::setLine },
-        { gensym(SYM_CURVE_SIGMOID), &DataTypeEnv::setSigmoid },
-        { gensym(SYM_CURVE_SIN2), &DataTypeEnv::setSin2 },
-        { gensym(SYM_CURVE_STEP), &DataTypeEnv::setStep },
-    };
+    const auto hash = crc32_hash(name);
 
-    for (const NameEntry& e : envs) {
-        if (e.s == name)
-            return (this->*e.m)(args);
+    for (const auto& n : named_methods) {
+        if (n.crc32_hash == hash)
+            return (this->*n.m)(args);
     }
 
     return false;
 }
 
-bool DataTypeEnv::isNamedEnvelope(t_symbol* name) const
+bool DataTypeEnv::isNamedEnvelope(const char* name) const
 {
-    static t_symbol* names[] = {
-        gensym(SYM_AR), gensym(SYM_ASR), gensym(SYM_ADSR),
-        gensym(SYM_EAR), gensym(SYM_EASR), gensym(SYM_EADSR),
-        gensym(SYM_CURVE_EXP), gensym(SYM_CURVE_LINE),
-        gensym(SYM_CURVE_SIGMOID), gensym(SYM_CURVE_SIN2), gensym(SYM_CURVE_STEP)
-    };
+    const auto hash = crc32_hash(name);
 
-    return std::find(std::begin(names), std::end(names), name) != std::end(names);
+    return std::find_if(
+               named_methods.begin(),
+               named_methods.end(),
+               [hash](const NamedMethod& m) { return m.crc32_hash == hash; })
+        != named_methods.end();
 }
 
 bool DataTypeEnv::hasStopPoints() const
@@ -932,47 +1056,6 @@ DataTypeEnv& DataTypeEnv::operator=(DataTypeEnv&& env)
         points_ = std::move(env.points_);
 
     return *this;
-}
-
-DataTypeEnv DataTypeEnv::fromListView(const AtomListView& lv)
-{
-    DataTypeEnv env;
-
-    if (lv.size() % 7 != 0)
-        return env;
-
-    size_t n = lv.size() / 7;
-    for (size_t i = 0; i < n; i++) {
-
-        if (lv[i * 7].asSymbol() != gensym(SYM_ENVELOPE_POINT)) {
-            LIB_ERR << "invalid preset data: " << lv;
-            return env;
-        }
-
-        size_t tm = lv[i * 7 + 1].asFloat();
-        float value = lv[i * 7 + 2].asFloat();
-        float curve_data = lv[i * 7 + 3].asFloat();
-        float sigmoid_data = lv[i * 7 + 4].asFloat();
-        CurveType t = static_cast<CurveType>(lv[i * 7 + 5].asInt());
-        bool stop = lv[i * 7 + 6].asFloat();
-
-        EnvelopePoint pt(tm, value, stop, t, curve_data);
-        pt.sigmoid_skew = sigmoid_data;
-
-        env.points_.push_back(pt);
-    }
-
-    return env;
-}
-
-AtomList DataTypeEnv::toList() const
-{
-    AtomList res;
-
-    for (size_t i = 0; i < points_.size(); i++)
-        res.append(points_[i].toList());
-
-    return res;
 }
 
 void DataTypeEnv::sort()
@@ -1052,6 +1135,109 @@ bool DataTypeEnv::isADSR(bool checkVal) const
     return true;
 }
 
+bool DataTypeEnv::checkAR() const
+{
+    return points_.size() == 3
+        && (points_[0].utime == 0
+            && points_[0].value == 0
+            && points_[0].stop == false
+            && points_[0].type == CURVE_LINE
+            && points_[0].fix_pos == EnvelopePoint::FIX_BOTH)
+        && (points_[1].value == 1
+            && points_[1].stop == false
+            && points_[1].type == CURVE_LINE)
+        && (points_[2].value == 0
+            && points_[2].stop == false
+            && points_[2].type == CURVE_LINE
+            && points_[2].fix_pos == EnvelopePoint::FIX_VALUE);
+}
+
+bool DataTypeEnv::checkASR() const
+{
+    return points_.size() == 3
+        && (points_[0].utime == 0
+            && points_[0].value == 0
+            && points_[0].stop == false
+            && points_[0].type == CURVE_LINE
+            && points_[0].fix_pos == EnvelopePoint::FIX_BOTH)
+        && (points_[1].value == 1
+            && points_[1].stop == true
+            && points_[1].type == CURVE_LINE)
+        && (points_[2].value == 0
+            && points_[2].stop == false
+            && points_[2].type == CURVE_LINE
+            && points_[2].fix_pos == EnvelopePoint::FIX_VALUE);
+}
+
+bool DataTypeEnv::checkADSR() const
+{
+    return points_.size() == 4
+        && (points_[0].utime == 0
+            && points_[0].value == 0
+            && points_[0].stop == false
+            && points_[0].type == CURVE_LINE
+            && points_[0].fix_pos == EnvelopePoint::FIX_BOTH)
+        && (points_[1].value == 1
+            && points_[1].stop == false
+            && points_[1].type == CURVE_LINE)
+        && (points_[2].stop == true
+            && points_[2].type == CURVE_LINE)
+        && (points_[3].value == 0
+            && points_[3].stop == false
+            && points_[3].type == CURVE_LINE
+            && points_[3].fix_pos == EnvelopePoint::FIX_VALUE);
+}
+
+std::string DataTypeEnv::toString() const noexcept
+{
+    return toDictString();
+}
+
+std::string DataTypeEnv::toListStringContent() const noexcept
+{
+    return " ";
+}
+
+std::string DataTypeEnv::toDictStringContent() const noexcept
+{
+    std::string res;
+
+    try {
+        if (checkAR()) {
+            const auto A = points_[1].timeMs();
+            const auto R = points_[2].timeMs() - A;
+            res = fmt::format("ar: {:.3g} {:.3g}", A, R);
+        } else if (checkASR()) {
+            const auto A = points_[1].timeMs();
+            const auto R = points_[2].timeMs() - A;
+            res = fmt::format("asr: {:.3g} {:.3g}", A, R);
+        } else if (checkADSR()) {
+            const auto A = points_[1].timeMs();
+            const auto D = points_[2].timeMs() - A;
+            const auto S = points_[2].value * 100;
+            const auto R = points_[3].timeMs() - (A + D);
+            res = fmt::format("adsr: {:.3g} {:.3g} {:.3g} {:.3g}", A, D, S, R);
+        } else if (!points_.empty()) {
+            res = fmt::format("points:\n");
+            for (auto& pt : points_) {
+                exportPoint(pt, res);
+                res.push_back('\n');
+            }
+
+        } else
+            res = " ";
+    } catch (std::exception& e) {
+        LIB_ERR << e.what();
+    }
+
+    return res;
+}
+
+bool DataTypeEnv::set(const AbstractData* d) noexcept
+{
+    return setDataT<DataTypeEnv>(d);
+}
+
 bool operator==(const EnvelopePoint& p0, const EnvelopePoint& p1)
 {
     return p0.utime == p1.utime
@@ -1066,22 +1252,6 @@ std::ostream& operator<<(std::ostream& os, const DataTypeEnv& env)
 {
     os << env.toString();
     return os;
-}
-
-AtomList EnvelopePoint::toList() const
-{
-    AtomList res;
-    res.fill(Atom(), 7);
-
-    res[0].setSymbol(gensym(SYM_ENVELOPE_POINT), true);
-    res[1] = Atom(utime);
-    res[2] = Atom(value);
-    res[3] = Atom(data);
-    res[4] = Atom(sigmoid_skew);
-    res[5] = Atom(type);
-    res[6] = Atom(stop);
-
-    return res;
 }
 
 bool symbol2curve(t_symbol* s, CurveType& t)

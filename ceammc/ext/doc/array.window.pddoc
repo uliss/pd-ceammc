@@ -16,10 +16,12 @@
             </also>
             <since>0.7</since>
         </meta>
+        <arguments>
+            <argument name="ARRAY" type="symbol">array name</argument>
+        </arguments>
         <properties>
             <property name="@array" type="symbol" default="">array name</property>
-            <property name="@redraw" type="int" enum="1 0" default="1">redraw after array
-            change</property>
+            <property name="@redraw" type="bool" default="1">redraw after array change</property>
             <property name="@type" type="symbol"
             enum="tri welch hann sine rect hamming blackman nuttall blackman-harris flattop gauss"
             default="hann">window type</property>
@@ -35,9 +37,9 @@
             <method name="hamming">generate hamming window</method>
             <method name="hann">generate hann window</method>
             <method name="nuttall">generate nuttall window</method>
-            <method name="rect">generate rectangualar window</method>
+            <method name="rect">generate rectangular window</method>
             <method name="sine">generate sine window</method>
-            <method name="tri">generate triangualar window</method>
+            <method name="tri">generate triangular window</method>
             <method name="welch">generate welch window</method>
         </methods>
         <inlets>

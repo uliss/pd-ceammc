@@ -15,7 +15,6 @@
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
-#include "ceammc_output.h"
 
 #include <array>
 #include <cstdlib>

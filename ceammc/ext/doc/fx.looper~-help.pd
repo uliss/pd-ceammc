@@ -22,8 +22,8 @@
 -49933 0;
 #X text 110 351 1\.;
 #X text 150 351 float;
-#X obj 246 352 cnv 1 124 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 351 MAX_LENGTH(sec): max loop time. Type: float.;
+#X obj 246 352 cnv 1 108 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 351 CAPACITY(sec): max loop time. Type: float. Range: 0\...120;
 #X obj 20 381 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 386 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -43,8 +43,8 @@ to stop. Type: float. Units: ms. Default value: 20\. Min value: 0\.;
 #X text 245 604 (readonly) Get recorded loop length. Type: float. Units:
 sec. Default value: 0\. Min value: 0\.;
 #X msg 110 646 @loop_bang;
-#X text 245 646 Get/Set output bang on each loop start. Type: int.
-Default value: 1\. Allowed values: 0 \, 1\.;
+#X text 245 646 Get/Set output bang on each loop start. Type: bool.
+Default value: 1\.;
 #X msg 110 688 @loop_smooth;
 #X text 245 688 Get/Set time of lin fadein/fadeout applied to recorded
 loop for smooth playing. Type: float. Units: ms. Default value: 10\.
@@ -121,13 +121,13 @@ true.;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title fx @url ceammc.fx-help.pd;
 #X obj 1 1598 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1601 library: ceammc v0.9.4;
+#X text 10 1601 library: ceammc v0.9.6;
 #N canvas 10 1620 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.4;
+#X text 120 32 0.9.6;
 #X text 10 54 object:;
 #X text 120 54 fx.looper~;
 #X text 10 76 category:;

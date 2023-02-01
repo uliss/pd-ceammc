@@ -27,17 +27,17 @@ AtomList randomList(size_t n)
 }
 
 NONIUS_BENCHMARK("AtomList::sum", [] {
-    return randomList(100).sum();
+    return randomList(100).view().sum();
 })
 
 NONIUS_BENCHMARK("AtomList::reduce +", [] {
-    return randomList(100).reduceFloat(0, [](t_float f0, t_float f1) { return f0 + f1; });
+    return randomList(100).view().reduceFloat(0, [](t_float f0, t_float f1) { return f0 + f1; });
 })
 
 NONIUS_BENCHMARK("AtomList::product", [] {
-    return randomList(100).product();
+    return randomList(100).view().product();
 })
 
 NONIUS_BENCHMARK("AtomList::reduce *", [] {
-    return randomList(100).reduceFloat(1, [](t_float f0, t_float f1) { return f0 * f1; });
+    return randomList(100).view().reduceFloat(1, [](t_float f0, t_float f1) { return f0 * f1; });
 })

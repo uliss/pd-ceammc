@@ -18,23 +18,33 @@
 #include "ceammc_format.h"
 #include "ceammc_json.h"
 #include "ceammc_log.h"
-#include "ceammc_output.h"
-#include "datatype_mlist.h"
-#include "datatype_string.h"
-#include "fmt/format.h"
-#include "json/json.hpp"
+#include "ceammc_string.h"
+#include "datatype_json.h"
+#include "fmt/core.h"
 
+#include <ctime>
 #include <fstream>
+#include <random>
+
+namespace {
+using namespace ceammc;
+
+constexpr const char* TYPE_NAME = "Dict";
+
+DataTypeId initType()
+{
+    DataTypeId id = DataStorage::instance().typeByName(TYPE_NAME);
+    if (id == data::DATA_INVALID)
+        id = DataStorage::instance().registerNewType(TYPE_NAME,
+            nullptr,
+            [](const DictAtom& datom) -> Atom { return datom; });
+
+    return id;
+}
+
+}
 
 namespace ceammc {
-
-void to_json(nlohmann::json& out, const Atom& atom);
-void to_json(nlohmann::json& out, const AtomList& lst);
-void to_json(nlohmann::json& out, const DataTypeDict& dict);
-
-void from_json(const nlohmann::json& j, Atom& atom);
-void from_json(const nlohmann::json& json, AtomList& lst);
-void from_json(const nlohmann::json& j, DataTypeDict::DictMap& dict);
 
 static t_symbol* atom_to_symbol(const Atom& a)
 {
@@ -44,22 +54,7 @@ static t_symbol* atom_to_symbol(const Atom& a)
         return gensym(to_string(a).c_str());
 }
 
-static Atom newFromDict(const Dict& d)
-{
-    auto dict = new DataTypeDict;
-
-    for (auto& kv : d) {
-        auto key = gensym(kv.first.c_str());
-        if (kv.second.isAtom())
-            dict->insert(key, kv.second.asT<Atom>());
-        else
-            dict->insert(key, kv.second);
-    }
-
-    return dict;
-}
-
-const int DataTypeDict::dataType = DataStorage::instance().registerNewType("Dict", nullptr, newFromDict);
+const DataTypeId DataTypeDict::dataType = initType();
 
 DataTypeDict::DataTypeDict() noexcept = default;
 
@@ -75,7 +70,7 @@ DataTypeDict::DataTypeDict(DataTypeDict&& dict) noexcept
 
 DataTypeDict::DataTypeDict(const std::string& str)
 {
-    fromString(str);
+    setFromDataString(str);
 }
 
 DataTypeDict::DataTypeDict(std::initializer_list<DictKeyValue> pairs)
@@ -101,40 +96,85 @@ DataTypeDict* DataTypeDict::clone() const
     return new DataTypeDict(*this);
 }
 
-int DataTypeDict::type() const noexcept
+DataTypeId DataTypeDict::type() const noexcept
 {
     return dataType;
 }
 
 std::string DataTypeDict::toString() const
 {
-    std::string res;
+    return fmt::format("[{}]", toDictStringContent());
+}
 
-    res += '[';
+std::string DataTypeDict::toJsonString() const
+{
+    return json::to_json_string(*this);
+}
+
+std::string DataTypeDict::toListStringContent() const
+{
+    string::MediumString res;
+    string::SmallString buf;
+
     for (auto& kv : dict_) {
-        res += to_string_quoted(kv.first);
-        res += ':';
+        auto k = kv.first->s_name;
+        buf.insert(buf.end(), k, k + strlen(k));
+        buf.push_back(' ');
+        buf.push_back('(');
 
         for (auto& atom : kv.second) {
-            res += ' ';
-            res += to_string_quoted(atom);
+            string::parsed_atom_to_string(atom, buf);
+            buf.push_back(' ');
         }
 
-        res += ' ';
+        // replace traling space to closing bracket
+        if (buf.size() > 0 && buf.back() == ' ')
+            buf.back() = ')';
+        else
+            buf.push_back(')');
+
+        buf.push_back(' ');
+        res.insert(res.end(), buf.data(), buf.data() + buf.size());
+        buf.clear();
     }
 
     // remove last space
-    if (res.size() > 1)
-        res.resize(res.size() - 1);
+    if (res.size() > 0)
+        res.pop_back();
 
-    res += ']';
-
-    return res;
+    return std::string(res.data(), res.size());
 }
 
-std::string DataTypeDict::valueToJsonString() const
+std::string DataTypeDict::toDictStringContent() const
 {
-    return json::to_json(*this);
+    string::MediumString res;
+    string::SmallString buf;
+
+    for (auto& kv : dict_) {
+        auto k = kv.first->s_name;
+        buf.insert(buf.end(), k, k + strlen(k));
+        buf.push_back(':');
+
+        for (auto& atom : kv.second) {
+            buf.push_back(' ');
+            string::parsed_atom_to_string(atom, buf);
+        }
+
+        buf.push_back(' ');
+        res.insert(res.end(), buf.data(), buf.data() + buf.size());
+        buf.clear();
+    }
+
+    // remove last space
+    if (res.size() > 0)
+        res.pop_back();
+
+    return std::string(res.data(), res.size());
+}
+
+bool DataTypeDict::set(const AbstractData* d) noexcept
+{
+    return setDataT<DataTypeDict>(d);
 }
 
 bool DataTypeDict::isEqual(const AbstractData* d) const noexcept
@@ -219,140 +259,16 @@ bool DataTypeDict::remove(t_symbol* key)
     return true;
 }
 
-bool DataTypeDict::fromString(const std::string& str)
+MaybeString DataTypeDict::toJSON(int indent, bool compressSingleList) const
 {
-    auto ob_pos = str.find('[');
-    if (ob_pos == std::string::npos) {
-        LIB_ERR << "can't parse dict string: " << str;
-        return false;
-    }
-
-    auto parse_result = parseDataString(str.substr(ob_pos));
-    if (!parse_result) {
-        LIB_ERR << "parse error: " << parse_result.err();
-        return false;
-    }
-
-    if (parse_result.result().isA<DataTypeDict>()) {
-        *this = *(parse_result.result().asD<DataTypeDict>());
-        return true;
-    } else {
-        LIB_ERR << "dict is expected, got: " << str;
-        return false;
-    }
-}
-
-void to_json(nlohmann::json& out, const DataTypeDict& dict)
-{
-    using json = nlohmann::json;
-    for (auto& kv : dict) {
-        auto key = kv.first->s_name;
-        auto& value = kv.second;
-
-        if (value.isAtom())
-            out[key] = json(value[0]);
-        else
-            out[key] = json(value);
-    }
-}
-
-void to_json(nlohmann::json& out, const Atom& atom)
-{
-    using json = nlohmann::json;
-
-    try {
-
-        if (atom.isFloat() && !atom.isInteger())
-            out = atom.asFloat();
-        else if (atom.isInteger())
-            out = atom.asInt();
-        else if (atom.isSymbol())
-            out = atom.asSymbol()->s_name;
-        else if (atom.isA<DataTypeString>())
-            out = atom.asD<DataTypeString>()->str();
-        else if (atom.isA<DataTypeDict>())
-            out = json(*atom.asD<DataTypeDict>());
-        else if (atom.isData())
-            out = json::parse(atom.asData()->valueToJsonString());
-        else
-            out = json();
-
-    } catch (json::exception& e) {
-        LIB_ERR << "[dict] JSON exception: " << e.what();
-        out = json();
-    }
-}
-
-void to_json(nlohmann::json& out, const AtomList& lst)
-{
-    using json = nlohmann::json;
-    out = json::array();
-
-    for (auto& x : lst)
-        out.push_back(json(x));
-}
-
-MaybeString DataTypeDict::toJSON(int indent) const
-{
-    using json = nlohmann::json;
-    json j(*this);
-
-    if (j.empty())
+    if (dict_.empty())
         return {};
 
-    return j.dump(indent);
-}
+    json::JsonWriteOpts opts;
+    opts.indent = indent;
+    opts.compressSingleList = compressSingleList;
 
-void from_json(const nlohmann::json& json, AtomList& lst)
-{
-    bool simple_array = std::all_of(json.begin(), json.end(),
-        [](const decltype(json.begin())::value_type& v) { return v.is_primitive(); });
-
-    if (simple_array) {
-        for (auto& x : json)
-            lst.append(x.get<Atom>());
-    } else {
-        DataTypeMList* ptr = new DataTypeMList;
-        Atom mlist(ptr);
-
-        for (auto& x : json)
-            ptr->append(x.get<Atom>());
-    }
-}
-
-void from_json(const nlohmann::json& j, Atom& atom)
-{
-    if (j.is_boolean())
-        atom = Atom(j.get<bool>() ? 1 : 0);
-    else if (j.is_number())
-        atom = Atom(j.get<t_float>());
-    else if (j.is_string())
-        atom = Atom(gensym(j.get<std::string>().c_str()));
-    else if (j.is_object()) {
-        DataTypeDict* d = new DataTypeDict;
-        atom = Atom(d);
-        *d = j.get<DataTypeDict>();
-    } else
-        atom = Atom();
-}
-
-void from_json(const nlohmann::json& j, DataTypeDict& dict)
-{
-    from_json(j, dict.innerData());
-}
-
-void from_json(const nlohmann::json& j, DataTypeDict::DictMap& dict)
-{
-    for (auto it = j.begin(); it != j.end(); ++it) {
-        t_symbol* key = gensym(it.key().c_str());
-
-        if (it->is_boolean() || it->is_number() || it->is_string() || it->is_object())
-            dict[key] = AtomList(it->get<Atom>());
-        else if (it->is_array())
-            dict[key] = it->get<AtomList>();
-        else
-            dict[key] = AtomList();
-    }
+    return json::to_json_string(*this, opts);
 }
 
 bool DataTypeDict::fromJSON(const std::string& str)
@@ -419,7 +335,24 @@ bool DataTypeDict::write(const std::string& path) const
     return true;
 }
 
-DataTypeDict DataTypeDict::fromList(const AtomList& l, size_t step)
+bool DataTypeDict::choose(Atom& key) const noexcept
+{
+    if (dict_.empty())
+        return false;
+
+    const auto N = dict_.size();
+    std::mt19937 gen(time(0));
+    const auto offset = std::uniform_int_distribution<size_t>(0, N - 1)(gen);
+    auto it = dict_.begin();
+
+    for (size_t i = 0; i < offset; i++)
+        ++it;
+
+    key = it->first;
+    return true;
+}
+
+DataTypeDict DataTypeDict::fromList(const AtomListView& lv, size_t step)
 {
     DataTypeDict res;
 
@@ -428,18 +361,18 @@ DataTypeDict DataTypeDict::fromList(const AtomList& l, size_t step)
         return res;
     }
 
-    const size_t N = l.size();
+    const size_t N = lv.size();
     const size_t T = (N / step) * step;
 
     if (step == 1) {
         for (size_t i = 0; i < T; i++)
-            res.insert(atom_to_symbol(l[i]), AtomList());
+            res.insert(atom_to_symbol(lv[i]), AtomList());
     } else if (step == 2) {
         for (size_t i = 0; i < T; i += 2)
-            res.insert(atom_to_symbol(l[i]), l[i + 1]);
+            res.insert(atom_to_symbol(lv[i]), lv[i + 1]);
     } else {
         for (size_t i = 0; i < T; i += step)
-            res.insert(atom_to_symbol(l[i]), l.slice(i + 1, i + step - 1));
+            res.insert(atom_to_symbol(lv[i]), lv.subView(i + 1, i + step - 1));
     }
 
     return res;

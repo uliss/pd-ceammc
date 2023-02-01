@@ -13,25 +13,31 @@
             <keywords>filter resonant</keywords>
             <since>0.1</since>
             <also>
+                <see>flt.resonlp~</see>
                 <see>flt.bpf12~</see>
             </also>
         </meta>
         <arguments>
-            <argument name="freq" type="float" units="herz" minvalue="20" maxvalue="20000">center
+            <argument name="FREQ" type="float" units="hertz" minvalue="20" maxvalue="20000">center
             frequency</argument>
-            <argument name="q" type="float" minvalue="0.1" maxvalue="300">Q</argument>
+            <argument name="Q" type="float" minvalue="0.1" maxvalue="300">Q</argument>
         </arguments>
         <properties>
-            <property name="@freq" type="float" units="herz" minvalue="20" maxvalue="20000"
+            <property name="@freq" type="float" units="hertz" minvalue="20" maxvalue="20000"
             default="1000">center frequency</property>
             <property name="@q" type="float" minvalue="0.1" maxvalue="300" default="80">
             Q</property>
-            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
-            processing</property>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
         <inlets>
             <inlet type="audio">
                 <xinfo>input signal</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="float">set frequency</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="float">set Q-factor</xinfo>
             </inlet>
         </inlets>
         <outlets>

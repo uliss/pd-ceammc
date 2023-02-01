@@ -166,7 +166,7 @@ static void test_data_load(t_test_data* x, t_symbol* s)
             add_single_check(x->data, input, cond, expect);
         }
     } catch (std::exception const& e) {
-        error("test.data: %s", e.what());
+        pd_error(0, "test.data: %s", e.what());
     }
 }
 

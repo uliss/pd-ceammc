@@ -22,71 +22,70 @@
 #X obj 20 417 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 452 @active;
-#X text 245 452 Get/Set on/off dsp processing. Type: int. Default value:
-1\. Allowed values: 0 \, 1\.;
-#X msg 110 494 @drive;
-#X text 245 494 Get/Set distortion amount. Type: float. Default value:
+#X text 245 452 Get/Set on/off dsp processing. Type: bool. Default
+value: 1\.;
+#X msg 110 481 @drive;
+#X text 245 481 Get/Set distortion amount. Type: float. Default value:
 0.64\. Range: 0\...1\.;
-#X msg 110 536 @flt_on_off;
-#X text 245 536 Get/Set filter processing. Type: int. Default value:
-0\. Allowed values: 0 \, 1\.;
-#X msg 110 578 @gain;
-#X text 245 578 Get/Set total effect gain. Type: float. Units: db.
+#X msg 110 523 @flt_on_off;
+#X text 245 523 Get/Set filter processing. Type: bool. Default value:
+0\.;
+#X msg 110 552 @gain;
+#X text 245 552 Get/Set total effect gain. Type: float. Units: db.
 Default value: 2\. Range: -10\...10\.;
-#X msg 110 620 @hp_freq;
-#X text 245 620 Get/Set high pass frequency. Type: float. Units: Hz.
+#X msg 110 594 @hp_freq;
+#X text 245 594 Get/Set high pass frequency. Type: float. Units: Hz.
 Default value: 130\. Range: 20\...7040\.;
-#X msg 110 662 @level;
-#X text 245 662 Get/Set effect level. Type: float. Default value: 0.01\.
+#X msg 110 636 @level;
+#X text 245 636 Get/Set effect level. Type: float. Default value: 0.01\.
 Range: 0\...0.5\.;
-#X msg 110 704 @lp_freq;
-#X text 245 704 Get/Set low pass frequency. Type: float. Units: Hz.
+#X msg 110 678 @lp_freq;
+#X text 245 678 Get/Set low pass frequency. Type: float. Units: Hz.
 Default value: 5000\. Range: 20\...12000\.;
-#X msg 110 746 @res_on_off;
-#X text 245 746 Get/Set resonator. Type: int. Default value: 0\. Allowed
-values: 0 \, 1\.;
-#X msg 110 788 @sp_high_freq;
-#X text 245 788 Get/Set speaker emulation high frequency. Type: float.
+#X msg 110 720 @res_on_off;
+#X text 245 720 Get/Set resonator. Type: bool. Default value: 0\.;
+#X msg 110 749 @sp_high_freq;
+#X text 245 749 Get/Set speaker emulation high frequency. Type: float.
 Units: Hz. Default value: 5000\. Range: 1000\...12000\.;
-#X msg 110 830 @sp_low_freq;
-#X text 245 830 Get/Set speaker emulation low frequency. Type: float.
+#X msg 110 791 @sp_low_freq;
+#X text 245 791 Get/Set speaker emulation low frequency. Type: float.
 Units: Hz. Default value: 130\. Range: 20\...1000\.;
-#X msg 110 872 @sp_on_off;
-#X text 245 872 Get/Set speaker emulation turn on/off. Type: int. Default
-value: 0\. Allowed values: 0 \, 1\.;
-#X msg 110 914 @trigger;
-#X text 245 914 Get/Set resonator trigger. Type: float. Default value:
+#X msg 110 833 @sp_on_off;
+#X text 245 833 Get/Set speaker emulation turn on/off. Type: bool.
+Default value: 0\.;
+#X msg 110 875 @trigger;
+#X text 245 875 Get/Set resonator trigger. Type: float. Default value:
 0.12\. Range: 0\...1\.;
-#X msg 110 956 @vibrato;
-#X text 245 956 Get/Set resonator vibration. Type: float. Default value:
+#X msg 110 917 @vibrato;
+#X text 245 917 Get/Set resonator vibration. Type: float. Default value:
 1\. Range: 0\...1\.;
-#X obj 20 1008 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1013 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 969 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 974 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+0;
+#X text 110 975 1\.;
+#X text 245 975 input signal.;
+#X obj 20 1005 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1010 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1014 1\.;
-#X text 245 1014 input signal.;
-#X obj 20 1044 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1049 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
--49933 0;
-#X text 110 1050 1\.;
-#X text 245 1050 output signal.;
+#X text 110 1011 1\.;
+#X text 245 1011 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 1100 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1103 library: ceammc v0.9.4;
-#X text 316 1115 see also:;
-#X obj 390 1115 fx.distortion~;
-#X obj 507 1115 fx.distortion1~;
-#X obj 631 1115 fx.distortion3~;
-#N canvas 10 1122 400 290 info 0;
+#X obj 1 1061 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1064 library: ceammc v0.9.6;
+#X text 316 1076 see also:;
+#X obj 390 1076 fx.distortion~;
+#X obj 507 1076 fx.distortion1~;
+#X obj 631 1076 fx.distortion3~;
+#N canvas 10 1083 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.4;
+#X text 120 32 0.9.6;
 #X text 10 54 object:;
 #X text 120 54 fx.distortion2~;
 #X text 10 76 category:;
@@ -105,7 +104,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1122 pd info;
+#X restore 10 1083 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;
 #X connect 7 0 10 0;

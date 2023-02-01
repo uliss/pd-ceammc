@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "dict_get.h"
+#include "ceammc_containers.h"
 #include "ceammc_factory.h"
 
 static const size_t MAX_KEYS = 32;
@@ -30,8 +31,8 @@ DictGet::DictGet(const PdArgs& args)
 
             return res;
         },
-        [this](const AtomList& l) -> bool {
-            for (auto it = l.begin_atom_filter(isSymbol); it != l.end_atom_filter(); ++it)
+        [this](const AtomListView& lv) -> bool {
+            for (auto it = atom_filter_it_begin(lv, isSymbol); it != atom_filter_it_end(lv); ++it)
                 keys_.push_back(it->asSymbol());
 
             return true;
@@ -40,14 +41,14 @@ DictGet::DictGet(const PdArgs& args)
     p->setInitOnly();
     p->setArgIndex(0);
 
-    p->setListCheckFn([this](const AtomList& l) {
-        if (!l.anyOf(isSymbol)) {
-            OBJ_ERR << "only symbols are allowed as key, got: " << l;
+    p->setListCheckFn([this](const AtomListView& lv) {
+        if (!lv.anyOf(isSymbol)) {
+            OBJ_ERR << "only symbols are allowed as key, got: " << lv;
             return false;
         }
 
-        if (l.size() > MAX_KEYS) {
-            OBJ_ERR << "only " << MAX_KEYS << " max keys are allowed, got: " << l.size();
+        if (lv.size() > MAX_KEYS) {
+            OBJ_ERR << "only " << MAX_KEYS << " max keys are allowed, got: " << lv.size();
             return false;
         }
 

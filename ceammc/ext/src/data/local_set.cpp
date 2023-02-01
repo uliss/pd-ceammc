@@ -14,13 +14,23 @@
 #include "local_set.h"
 #include "ceammc_factory.h"
 
-LocalDataSet::LocalDataSet(const PdArgs& a)
+LocalSet::LocalSet(const PdArgs& a)
     : LocalSetBase(a)
 {
+    setSpecialSymbolEscape(EDITOR_ESC_MODE_DATA);
+}
+
+EditorTitleString LocalSet::editorTitle() const
+{
+    char buf[STATIC_STRING_SIZE(EditorTitleString)];
+    snprintf(buf, sizeof(buf) - 1, "local Set (%s)", binbufArgs().symbolAt(0, gensym("default"))->s_name);
+    return buf;
 }
 
 void setup_local_set()
 {
-    ColectionIFaceFactory<LocalDataSet> obj("local.set");
+    ColectionIFaceFactory<LocalSet> obj("local.set");
     obj.processData<DataTypeSet>();
+
+    LocalSet::registerMethods(obj);
 }

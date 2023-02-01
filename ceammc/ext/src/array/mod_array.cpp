@@ -14,6 +14,7 @@
 #include "array_vline_play.h"
 #include "array_window.h"
 
+void setup_array_circular();
 void setup_array_circular_tilde();
 void setup_array_copy();
 void setup_array_do();
@@ -25,6 +26,7 @@ void setup_array_play_tilde();
 void setup_array_plot();
 void setup_array_plot_tilde();
 void setup_array_resample();
+void setup_array_risset_rythm_tilde();
 void setup_array_s2p();
 void setup_plot_geomspace_tilde();
 void setup_plot_hist_tilde();
@@ -34,8 +36,8 @@ void setup_plot_response_tilde();
 
 void ceammc_array_setup()
 {
-    setup_array0x2eset();
     setup_array_bpm();
+    setup_array_circular();
     setup_array_circular_tilde();
     setup_array_convolve();
     setup_array_copy();
@@ -52,7 +54,9 @@ void ceammc_array_setup()
     setup_array_plot_tilde();
     setup_array_resample();
     setup_array_rms();
+    setup_array_risset_rythm_tilde();
     setup_array_s2p();
+    setup_array_set();
     setup_array_stddev();
     setup_array_stretch();
     setup_array_sum();

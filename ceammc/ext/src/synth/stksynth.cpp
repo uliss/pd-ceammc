@@ -94,16 +94,14 @@ StkSynth::StkSynth(const PdArgs& args, stk::Instrmnt* instr)
         [this](t_float p) -> bool { return freq_->setValue(convert::midi2freq(p)); });
 }
 
-void StkSynth::onList(const AtomList& lst)
+void StkSynth::onList(const AtomListView& lv)
 {
-    static t_symbol* SYM_NOTE = gensym("note");
-
-    if (lst.size() != 2) {
-        OBJ_ERR << "list: NOTE VEL expected, got: " << lst;
+    if (lv.size() != 2) {
+        OBJ_ERR << "list: NOTE VEL expected, got: " << lv;
         return;
     }
 
-    m_note(SYM_NOTE, lst.view());
+    m_note(gensym("note"), lv);
 }
 
 bool StkSynth::propSetGate(t_float f)
@@ -136,12 +134,12 @@ void StkSynth::m_note(t_symbol* s, const AtomListView& lv)
     propSetGate(convert::lin2lin_clip<t_float, 0, 127>(vel, 0, 1));
 }
 
-void StkBase::m_cc(t_symbol* s, const AtomListView& lst)
+void StkBase::m_cc(t_symbol* s, const AtomListView& lv)
 {
-    if (!checkArgs(lst, ARG_INT, ARG_FLOAT, s))
+    if (!checkArgs(lv, ARG_INT, ARG_FLOAT, s))
         return;
 
-    controlChange(lst[0].asInt(), lst[1].asFloat());
+    controlChange(lv[0].asInt(), lv[1].asFloat());
 }
 
 void StkBase::controlChange(int n, t_float val)

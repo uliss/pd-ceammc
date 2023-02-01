@@ -32,23 +32,13 @@ static t_symbol* toSymbol(FontWeight w)
 }
 
 UIFont::UIFont(t_symbol* family, int size, FontDecoration decoration, FontWeight w)
-    : font_(0)
-    , family_(family)
-    , size_(size)
-    , dec_(decoration)
-    , w_(w)
+    : font_(efont_create(family, toSymbol(decoration), toSymbol(w), size))
 {
-    font_ = efont_create(family_, toSymbol(dec_), toSymbol(w_), size_);
 }
 
 UIFont::UIFont(const UIFont& font)
-    : font_(0)
-    , family_(font.family_)
-    , size_(font.size_)
-    , dec_(font.dec_)
-    , w_(font.w_)
+    : font_(efont_create(font.font_->c_family, font.font_->c_slant, font.font_->c_weight, font.font_->c_sizereal))
 {
-    font_ = efont_create(family_, toSymbol(dec_), toSymbol(w_), size_);
 }
 
 void UIFont::operator=(const UIFont& font)
@@ -58,11 +48,7 @@ void UIFont::operator=(const UIFont& font)
         return;
 
     efont_destroy(font_);
-    family_ = font.family_;
-    size_ = font.size_;
-    dec_ = font.dec_;
-    w_ = font.w_;
-    font_ = efont_create(family_, toSymbol(dec_), toSymbol(w_), size_);
+    font_ = efont_create(font.font_->c_family, font.font_->c_slant, font.font_->c_weight, font.font_->c_sizereal);
 }
 
 UIFont::~UIFont() noexcept

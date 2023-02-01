@@ -684,4 +684,21 @@ TEST_CASE("array.play~", "[externals]")
         REQUIRE_PROPERTY_FLOAT(t, @begin, 7.25);
         REQUIRE_PROPERTY_FLOAT(t, @end, Approx(29));
     }
+
+    SECTION("array resize set samples")
+    {
+        ArrayPtr aptr = cnv->createArray("array_play~10", 40);
+
+        TExt t("array.play~", LA("array_play~10"));
+
+        REQUIRE(t.setProperty("@cursor_samp", LF(30)));
+        REQUIRE_PROPERTY_FLOAT(t, @cursor_samp, 30);
+
+        REQUIRE_FALSE(t.setProperty("@cursor_samp", LF(50)));
+        REQUIRE_PROPERTY_FLOAT(t, @cursor_samp, 30);
+
+        REQUIRE(aptr->resize(100));
+        REQUIRE(t.setProperty("@cursor_samp", LF(90)));
+        REQUIRE_PROPERTY_FLOAT(t, @cursor_samp, 90);
+    }
 }

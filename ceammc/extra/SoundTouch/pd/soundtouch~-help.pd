@@ -1,69 +1,67 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 516 50 cnv 1 179 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 516 50 realtime pitch shifter;
-#X obj 1 1 cnv 5 712 40 empty empty soundtouch~ 20 20 0 20 -104026
+#X obj 592 50 cnv 1 173 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 592 50 realtime pitch shifter;
+#X obj 1 1 cnv 5 765 40 empty empty soundtouch~ 20 20 0 20 -104026
 -4096 0;
-#X obj 607 11 soundtouch~;
-#X obj 205 80 cnv 1 490 33 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 210 80 Based on SoundTouch library.;
-#X msg 50 141 open %CEAMMC%/guitar1.wav \, 1;
-#X obj 50 170 expand_env;
-#X obj 50 199 readsf~;
-#X obj 165 228 hslider 128 15 -24.0 24.0 0 0 empty empty empty 17 7 0
+#X obj 660 11 soundtouch~;
+#X obj 210 80 cnv 1 555 35 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 Based on SoundTouch library.;
+#X msg 50 143 open %CEAMMC%/guitar1.wav \, 1;
+#X obj 50 172 expand_env;
+#X obj 50 201 readsf~;
+#X obj 165 230 hslider 128 15 -24.0 24.0 0 0 empty empty empty 17 7 0
 10 -262144 -1 -1 0 0;
-#X floatatom 165 257 5 0 0 0 - - -;
-#X obj 50 285 soundtouch~ -12;
-#X obj 50 314 ui.gain~ @size 120 16;
-#X obj 280 314 ui.dsp~;
-#X obj 50 343 dac~;
-#X obj 20 382 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 387 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X floatatom 165 259 5 0 0 0 - - -;
+#X obj 50 287 soundtouch~ -12;
+#X obj 50 316 ui.gain~ @size 120 16;
+#X obj 280 316 ui.dsp~;
+#X obj 50 345 dac~;
+#X obj 20 394 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 399 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 120 392 1\.;
-#X text 150 392 float;
-#X obj 241 393 cnv 1 48 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 392 PITCH: pitch shift in semitones.;
-#X obj 20 420 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 425 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 434 1\.;
+#X text 150 434 float;
+#X obj 246 435 cnv 1 46 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 434 PITCH: pitch shift in semitones. Type: float.;
+#X obj 20 464 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 469 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 430 @pitch;
-#X text 240 430 Get/Set relative pitch change in semitones. Type:
-float. Default value: 0;
-#X msg 120 467 @speech;
-#X text 240 467 optimize for speech sound source;
-#X msg 120 494 @antialias;
-#X text 240 494 Get/Set use of anti-alias filter. Anti-alias filter is
-used to prevent folding of high frequencies when transposing the
+#X msg 110 504 @aalength;
+#X text 245 504 Get/Set pitch transposer anti-alias filter length.
+Type: int. Default value: 64\. Range: 8\...128\.;
+#X msg 110 546 @antialias;
+#X text 245 546 Get/Set use of anti-alias filter. Anti-alias filter
+is used to prevent folding of high frequencies when transposing the
 sample rate with interpolation. Type: int. Default value: 0\. Allowed
-values: 0 \, 1;
-#X msg 120 559 @aalength;
-#X text 240 559 Get/Set pitch transposer anti-alias filter length.
-Type: int. Default value: 64\. Value range: 8-128;
-#X msg 120 596 @bypass;
-#X text 240 596 Get/Set if set to 1 - bypass 'effected' signal. Type:
-int. Default value: 0\. Allowed values: 0 \, 1;
-#X obj 20 643 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 648 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+values: 0 \, 1\.;
+#X msg 110 618 @bypass;
+#X text 245 618 Get/Set if set to 1 - bypass 'effected' signal. Type:
+int. Default value: 0\. Allowed values: 0 \, 1\.;
+#X msg 110 660 @pitch;
+#X text 245 660 Get/Set relative pitch change in semitones. Type: float.
+Default value: 0\.;
+#X obj 20 712 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 717 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 653 1\.;
-#X text 240 653 input signal.;
-#X text 120 671 2\.;
-#X text 150 671 *float*;
-#X text 240 671 pitch shift in semitones.;
-#X obj 20 699 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 704 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 718 1\.;
+#X text 245 718 input signal.;
+#X text 110 738 2\.;
+#X text 150 738 *float*;
+#X text 245 738 pitch shift in semitones.;
+#X obj 20 768 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 773 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 709 1\.;
-#X text 240 709 output signal;
+#X text 110 774 1\.;
+#X text 245 774 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title soundtouch @url soundtouch-help.pd;
 #X text 143 45 ::;
 #X obj 159 48 ui.link @title pitch @url soundtouch.pitch-help.pd;
-#X obj 1 757 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 760 library: soundtouch v0.1;
-#N canvas 10 779 400 290 info 0;
+#X obj 1 824 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 827 library: soundtouch v0.1;
+#N canvas 10 846 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 soundtouch;
@@ -87,7 +85,7 @@ https://www.surina.net/soundtouch/;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 779 pd info;
+#X restore 10 846 pd info;
 #X connect 6 0 7 0;
 #X connect 7 0 8 0;
 #X connect 9 0 10 0;

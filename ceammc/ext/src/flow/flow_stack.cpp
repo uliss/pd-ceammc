@@ -34,21 +34,21 @@ FlowStack::FlowStack(const PdArgs& a)
     createCbBoolProperty("@empty", [this]() { return stack_.empty(); });
 
     on_full_ = new ListProperty("@on_full");
-    on_full_->setListCheckFn([this](const AtomList& l) -> bool {
-        if (l.empty() || l[0].isSymbol())
+    on_full_->setListCheckFn([this](const AtomListView& lv) -> bool {
+        if (lv.empty() || lv[0].isSymbol())
             return true;
 
-        OBJ_ERR << "[@on_full] symbol expected as first argument, got: " << l[0];
+        OBJ_ERR << "[@on_full] symbol expected as first argument, got: " << lv[0];
         return false;
     });
     addProperty(on_full_);
 
     on_empty_ = new ListProperty("@on_empty");
-    on_empty_->setListCheckFn([this](const AtomList& l) -> bool {
-        if (l.empty() || l[0].isSymbol())
+    on_empty_->setListCheckFn([this](const AtomListView& lv) -> bool {
+        if (lv.empty() || lv[0].isSymbol())
             return true;
 
-        OBJ_ERR << "[@on_empty] symbol expected as first argument, got: " << l[0];
+        OBJ_ERR << "[@on_empty] symbol expected as first argument, got: " << lv[0];
         return false;
     });
     addProperty(on_empty_);
@@ -84,13 +84,13 @@ void FlowStack::onSymbol(t_symbol* s)
     check_full();
 }
 
-void FlowStack::onList(const AtomList& l)
+void FlowStack::onList(const AtomListView& lv)
 {
     if (stack_.size() >= max_size_->value()) {
         return;
     }
 
-    stack_.push_back(Message(l));
+    stack_.push_back(Message(lv));
     check_full();
 }
 
@@ -159,7 +159,7 @@ void FlowStack::m_flush(const AtomListView&)
     check_empty();
 }
 
-void FlowStack::m_poptop()
+void FlowStack::m_poptop(int)
 {
     if (stack_.empty()) {
         OBJ_ERR << "stack is empty";

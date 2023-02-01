@@ -20,7 +20,7 @@
             <par>Values outside of range @min...@max are ignored</par>
         </info>
         <arguments>
-            <argument name="NAME" type="symbol">array name</argument>
+            <argument name="ARRAY" type="symbol">array name</argument>
             <argument name="BINS" type="int" minvalue="2" maxvalue="1000">number of bins</argument>
             <argument name="MIN" type="float">minimal value</argument>
             <argument name="MAX" type="float">maximum value</argument>

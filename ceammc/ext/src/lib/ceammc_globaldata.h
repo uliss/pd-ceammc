@@ -42,7 +42,7 @@ private:
     static T* ref_val(iterator it) { return it->second.second; }
 
 public:
-    NamedDataDict() {}
+    NamedDataDict() { }
 
     ~NamedDataDict()
     {
@@ -165,8 +165,7 @@ public:
 template <typename T>
 class GlobalData {
 private:
-    typedef typename NamedDataDict<T>::iterator iterator;
-    const static int log_level = 0;
+    using iterator = typename NamedDataDict<T>::iterator;
 
 private:
     static NamedDataDict<T>& data()
@@ -195,20 +194,12 @@ public:
         if (ptr_ == 0) { // if not found
             data().create(name, new T());
             ptr_ = data().acquire(name);
-
-            verbose(log_level, "[%s %s] created", descr_.c_str(), name_->s_name);
         }
-
-        verbose(log_level, "[%s %s] +1", descr_.c_str(), name_->s_name);
     }
 
     ~GlobalData()
     {
-        verbose(log_level, "[%s %s] -1", descr_.c_str(), name_->s_name);
         data().release(name_);
-
-        if (!data().contains(name_))
-            verbose(log_level, "[%s %s] destroyed", descr_.c_str(), name_->s_name);
     }
 
     /**

@@ -24,6 +24,7 @@ class Lin2Curve : public BaseRangeConverter {
 public:
     Lin2Curve(const PdArgs& a);
     void onFloat(t_float value) override;
+    void onList(const AtomListView& lv) override;
 };
 
 #endif // CONV_LIN2CURVE_H

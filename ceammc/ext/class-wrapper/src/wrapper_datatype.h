@@ -87,20 +87,34 @@ public:
     /**
      * Data type
      */
-    int type() const noexcept final { return AbstractDataWrapper<T>::dataType; }
-
-    /**
-     * Polymorphic convertion to string
-     */
-    std::string toString() const final { return value_.toString(); }
+    DataTypeId type() const noexcept final { return AbstractDataWrapper<T>::dataType; }
 
     /**
      * Polymorphic convertsion to json string
      */
-    std::string valueToJsonString() const final { return value_.toJsonString(); }
+    std::string toJsonString() const final { return value_.toJsonString(); }
+
+    std::string toListStringContent() const override { return value_.toString(); }
+    std::string toDictStringContent() const override { return "value: " + value_.toString(); }
+    bool set(const AbstractData* d) noexcept override { return setWrapperData(d); }
+
+    /**
+     * Assign function: set data from pointer to other data
+     * @param d - pointer to real data
+     * @return true on success, false on error
+     */
+    bool setWrapperData(const AbstractData* d) noexcept
+    {
+        if (!d || d->type() != AbstractDataWrapper<T>::dataType)
+            return false;
+
+        auto t = static_cast<const AbstractDataWrapper<T>*>(d);
+        value_ = t->value_;
+        return true;
+    }
 
 public:
-    static const int dataType;
+    static const DataTypeId dataType;
 };
 
 template <typename T>
@@ -158,11 +172,11 @@ AbstractDataWrapper<T>& AbstractDataWrapper<T>::operator=(AbstractDataWrapper&& 
 }
 
 template <typename T>
-const int AbstractDataWrapper<T>::dataType = ceammc::DataStorage::instance().registerNewType(
+const DataTypeId AbstractDataWrapper<T>::dataType = ceammc::DataStorage::instance().registerNewType(
     T::typeName(),
-    [](const AtomList& lst) -> Atom {
+    [](const AtomListView& lv) -> Atom {
         T data;
-        auto st = data.setFromPd(lst);
+        auto st = data.setFromPd(lv);
         std::string err;
         if (st.error(&err)) {
             LIB_ERR << err;

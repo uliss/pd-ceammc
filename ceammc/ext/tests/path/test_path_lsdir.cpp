@@ -36,8 +36,8 @@ TEST_CASE("path.lsdir", "[externals]")
     pd_test_init();
 
     FileList files;
-    files.push_back("test_data0.mp3");
-    files.push_back("test_data0_vbr.mp3");
+    files.push_back("S\"test_data0.mp3\"");
+    files.push_back("S\"test_data0_vbr.mp3\"");
 
     SECTION("test create with:")
     {

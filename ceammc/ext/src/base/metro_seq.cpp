@@ -18,6 +18,7 @@ MetroSeq::MetroSeq(const PdArgs& a)
     interval_ = new FloatProperty("@interval", 0);
     interval_->setArgIndex(0);
     interval_->setUnitsMs();
+    interval_->checkMinEq(0);
     addProperty(interval_);
 
     createCbIntProperty(
@@ -36,11 +37,12 @@ MetroSeq::MetroSeq(const PdArgs& a)
     createCbListProperty(
         "@pattern",
         [this]() -> AtomList { return pattern_; },
-        [this](const AtomList& l) {
-            if (l.empty())
+        [this](const AtomListView& lv) {
+            if (lv.empty())
                 return false;
             else {
-                pattern_ = l.map(toDigit);
+                pattern_.clear();
+                lv.map(toDigit, pattern_);
                 return true;
             }
         })

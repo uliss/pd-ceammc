@@ -1763,10 +1763,10 @@ public:
         return "Matrix";
     }
 
-    Result setFromList(const ceammc::AtomList& lst) override
+    Result setFromList(const ceammc::AtomListView& lv) override
     {
         try {
-            m_ = fromList(ceammc::list::extractByType<t_float>(lst)).m_;
+            m_ = fromList(ceammc::list::extractByType<t_float>(lv)).m_;
         } catch (std::exception& e) {
             return error(e.what());
         }

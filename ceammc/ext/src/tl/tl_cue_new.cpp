@@ -159,9 +159,9 @@ void TlCue::onPropChange(t_symbol* prop_name)
     return UIObject::onPropChange(prop_name);
 }
 
-void TlCue::m_updateLine(const AtomListView& l)
+void TlCue::m_updateLine(const AtomListView& lv)
 {
-    if (l.symbolAt(0, &s_) != asEBox()->b_canvas_id)
+    if (lv.symbolAt(0, &s_) != asEBox()->b_canvas_id)
         return;
 
     updateLineCoords();
@@ -293,14 +293,14 @@ void TlCue::setup()
     UIObjectFactory<TlCue> obj("tl.cue", EBOX_GROWNO | EBOX_IGNORELOCKCLICK, CLASS_NOINLET);
 
     obj.setDefaultSize(45, 15);
-    obj.hideProperty("size");
-    obj.hideProperty("send");
-    obj.hideProperty("receive");
+    obj.internalProperty("size");
+    obj.internalProperty("send");
+    obj.internalProperty("receive");
 
     obj.setPropertyDefaultValue(PROP_BORDER_COLOR, DEFAULT_ACTIVE_COLOR);
 
-    obj.pd_class->c_widget.w_displacefn = tl_cue_displace;
-    obj.pd_class->c_widget.w_visfn = tl_cue_wvis;
+    obj.pd_ui_class->c_widget.w_displacefn = tl_cue_displace;
+    obj.pd_ui_class->c_widget.w_visfn = tl_cue_wvis;
     obj.addMethod(".update_line", &TlCue::m_updateLine);
 }
 

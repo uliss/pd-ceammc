@@ -22,10 +22,10 @@ void IsData::onSymbol(t_symbol* s)
     boolTo(0, false);
 }
 
-void IsData::onList(const AtomList& lst)
+void IsData::onList(const AtomListView& lv)
 {
-    if (in_list_->value() && lst.findPos(isData) >= 0) {
-        listTo(1, lst);
+    if (in_list_->value() && lv.anyOf(isData)) {
+        listTo(1, lv);
         boolTo(0, true);
     } else
         boolTo(0, false);
@@ -42,7 +42,7 @@ void IsData::onData(const Atom& d)
     boolTo(0, true);
 }
 
-bool IsData::processAnyProps(t_symbol* sel, const AtomListView& lst)
+bool IsData::processAnyProps(t_symbol* sel, const AtomListView&)
 {
     return false;
 }

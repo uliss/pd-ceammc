@@ -17,6 +17,7 @@
 #include "ceammc_numeric.h"
 #include "ceammc_string.h"
 #include "fmt/format.h"
+#include "lex/parser_strings.h"
 
 #include <cmath>
 #include <cstring>
@@ -278,24 +279,25 @@ Atom Atom::parseQuoted() const
     if (a_w.w_symbol->s_name[0] == '"' && a_w.w_symbol->s_name[1] == '@')
         return *this;
 
-    std::string m;
-    if (string::pd_string_parse(a_w.w_symbol->s_name, m))
-        return gensym(m.c_str());
-    else
+    string::SmallString buf;
+    if (string::unquote_and_unescape(a_w.w_symbol->s_name, buf)) {
+        buf.push_back('\0');
+        return gensym(buf.data());
+    } else
         return *this;
 }
 
 bool Atom::isQuoted() const
 {
-    if (a_type != A_SYMBOL)
+    if (a_type != A_SYMBOL && a_type != A_DOLLSYM)
         return false;
     else
-        return string::is_pd_string(a_w.w_symbol->s_name);
+        return string::is_quoted_string(a_w.w_symbol->s_name);
 }
 
 bool Atom::beginQuote() const
 {
-    if (a_type != A_SYMBOL)
+    if (a_type != A_SYMBOL && a_type != A_DOLLSYM)
         return false;
 
     return a_w.w_symbol->s_name[0] == '"';
@@ -303,10 +305,10 @@ bool Atom::beginQuote() const
 
 bool Atom::endQuote() const
 {
-    if (a_type != A_SYMBOL)
+    if (a_type != A_SYMBOL && a_type != A_DOLLSYM)
         return false;
 
-    return string::pd_string_end_quote(a_w.w_symbol->s_name);
+    return string::quoted_string_end(a_w.w_symbol->s_name);
 }
 
 bool Atom::is_data(const t_atom& a) noexcept
@@ -723,8 +725,8 @@ std::ostream& operator<<(std::ostream& os, const Atom& a)
             auto name = DataStorage::instance().nameByType(dptr->type());
 
             os << fmt::format(
-                "{}(type={},id=0x{}) {}",
-                (name.empty()) ? "Data???" : name,
+                "{}(type={:d},id={}) {}",
+                (name.empty()) ? "Data???" : name.c_str(),
                 a.dataType(),
                 (void*)dptr, dptr->toString());
         } else {

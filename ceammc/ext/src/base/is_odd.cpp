@@ -1,6 +1,6 @@
-#include "ceammc.h"
-#include <m_pd.h>
-#include <stdlib.h>
+#include "m_pd.h"
+
+#include <cstdlib>
 
 t_class* is_odd_class;
 struct t_is_odd {

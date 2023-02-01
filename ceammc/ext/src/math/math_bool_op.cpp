@@ -12,26 +12,38 @@
  * this file belongs to.
  *****************************************************************************/
 #include "math_bool_op.h"
-#include "ceammc_convert.h"
-#include "ceammc_factory.h"
 
 #include <algorithm>
+
+constexpr const size_t MIN_ARGS = 3;
+constexpr const size_t MAX_ARGS = 16;
 
 MathBoolOp::MathBoolOp(const PdArgs& a)
     : BaseObject(a)
     , sync_(0)
-    , arg_num_(positionalConstant<MIN_ARGS, MIN_ARGS, MAX_ARGS>(0))
+    , n_(nullptr)
 {
-    vars_.assign(arg_num_, false);
+    createOutlet();
+
+    n_ = new IntProperty("@n", MIN_ARGS, PropValueAccess::INITONLY);
+    n_->checkClosedRange(MIN_ARGS, MAX_ARGS);
+    n_->setArgIndex(0);
+    addProperty(n_);
 
     sync_ = new FlagProperty("@sync");
     addProperty(sync_);
-    createCbProperty("@state", &MathBoolOp::p_state);
 
-    for (size_t i = 1; i < arg_num_; i++)
+    createCbProperty("@state", &MathBoolOp::p_state);
+}
+
+void MathBoolOp::initDone()
+{
+    BaseObject::initDone();
+
+    for (int i = 1; i < n_->value(); i++)
         createInlet();
 
-    createOutlet();
+    vars_.assign(n_->value(), false);
 }
 
 void MathBoolOp::onFloat(t_float f)
@@ -45,7 +57,7 @@ void MathBoolOp::onInlet(size_t n, const AtomListView& l)
     if (l.empty())
         return;
 
-    if (n < arg_num_)
+    if (n < n_->value())
         vars_[n] = l[0].asSizeT(0) != 0;
 
     if (sync_->value())
@@ -54,20 +66,21 @@ void MathBoolOp::onInlet(size_t n, const AtomListView& l)
 
 void MathBoolOp::m_reset(t_symbol* /*m*/, const AtomListView&)
 {
-    vars_.assign(arg_num_, false);
+    vars_.assign(n_->value(), false);
 }
 
 int MathBoolOp::operate() const
 {
-    return (std::find(vars_.begin(), vars_.begin() + long(arg_num_), false) == vars_.end()) ? 1 : 0;
+    return (std::find(begin(), end(), false) == vars_.end()) ? 1 : 0;
 }
 
 AtomList MathBoolOp::p_state() const
 {
     AtomList res;
-    res.reserve(arg_num_);
-    for (size_t i = 0; i < arg_num_; i++)
-        res.append(Atom(vars_[i] ? 1 : 0));
+    res.reserve(n_->value());
+
+    for (auto b : vars_)
+        res.append(b ? 1 : 0);
 
     return res;
 }

@@ -22,7 +22,7 @@ class ListShuffle : public BaseObject {
 public:
     ListShuffle(const PdArgs& args);
 
-    void onList(const AtomList& lst) override;
+    void onList(const AtomListView& lv) override;
     void onDataT(const MListAtom& ml);
 };
 

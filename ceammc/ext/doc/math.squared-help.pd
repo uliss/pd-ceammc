@@ -11,34 +11,33 @@
 #X floatatom 50 118 5 0 0 0 - - -;
 #X msg 98 118 -2 -1 0 1 2;
 #X obj 50 147 math.squared;
-#X obj 50 176 msg set;
-#X msg 50 205 ;
-#X obj 20 254 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 259 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 50 176 ui.dt;
+#X obj 20 225 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 230 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 260 1\.;
-#X text 150 260 *float*;
-#X text 245 260 input value.;
-#X text 150 280 *list*;
-#X text 245 280 list of numbers.;
-#X obj 20 310 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 315 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 231 1\.;
+#X text 150 231 *float*;
+#X text 245 231 input value.;
+#X text 150 251 *list*;
+#X text 245 251 list of numbers.;
+#X obj 20 281 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 286 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 316 1\.;
-#X text 245 316 result.;
+#X text 110 287 1\.;
+#X text 245 287 result.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title math @url ceammc.math-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 508 library: ceammc v0.9.4;
+#X text 10 508 library: ceammc v0.9.6;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.4;
+#X text 120 32 0.9.6;
 #X text 10 54 object:;
 #X text 120 54 math.squared;
 #X text 10 76 category:;
@@ -61,4 +60,3 @@ https://github.com/uliss/pure-data;
 #X connect 7 0 9 0;
 #X connect 8 0 9 0;
 #X connect 9 0 10 0;
-#X connect 10 0 11 0;

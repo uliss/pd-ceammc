@@ -21,15 +21,18 @@
             </aliases>
         </meta>
         <arguments>
-            <argument name="MUL" type="float">multiplier. default is 1</argument>
+            <argument name="K" type="float">multiplier. default is 1</argument>
         </arguments>
+        <properties>
+            <property type="float" name="@k" default="1" access="initonly">multiplier</property>
+        </properties>
         <info>
             <par>The number PI is a mathematical constant, the ratio of a circle's circumference to
             its diameter, commonly approximated as 3.14159.</par>
         </info>
         <inlets />
         <outlets>
-            <outlet>output value</outlet>
+            <outlet type="audio">output value</outlet>
         </outlets>
         <example>
             <pdascii>

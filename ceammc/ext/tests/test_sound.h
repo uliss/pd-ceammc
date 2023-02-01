@@ -3,6 +3,10 @@
 
 #include "test_base.h"
 
+#include <algorithm>
+#include <initializer_list>
+#include <iosfwd>
+
 struct ConstGen {
     double v;
     ConstGen(double val)
@@ -24,8 +28,10 @@ struct FRandGen {
 
 template <size_t IN, size_t OUT>
 struct TestSignal {
-    t_sample buf_in[IN][64];
-    t_sample buf_out[OUT][64];
+    static const size_t BS = 64;
+
+    t_sample buf_in[IN][BS];
+    t_sample buf_out[OUT][BS];
     const t_sample* in_ptr[IN];
     t_sample* out_ptr[OUT];
     const t_sample** in;
@@ -48,22 +54,34 @@ struct TestSignal {
     void fillInput(float v)
     {
         for (size_t c = 0; c < IN; c++)
-            for (size_t s = 0; s < 64; s++)
+            for (size_t s = 0; s < BS; s++)
                 buf_in[c][s] = v;
     }
 
     void fillInput(double v)
     {
         for (size_t c = 0; c < IN; c++)
-            for (size_t s = 0; s < 64; s++)
+            for (size_t s = 0; s < BS; s++)
                 buf_in[c][s] = v;
     }
 
     void fillOutput(t_sample v)
     {
         for (size_t c = 0; c < OUT; c++)
-            for (size_t s = 0; s < 64; s++)
+            for (size_t s = 0; s < BS; s++)
                 buf_out[c][s] = v;
+    }
+
+    std::ostream& dumpOutput(std::ostream& os, size_t idx)
+    {
+        if (idx >= OUT) {
+            os << "invalid output: " << idx;
+        } else {
+            for (size_t i = 0; i < BS; i++)
+                os << buf_out[idx][i] << ' ';
+        }
+
+        return os;
     }
 
     void fillInput(int v)
@@ -73,10 +91,56 @@ struct TestSignal {
 
     void setInput(size_t idx, t_sample v)
     {
-        if (idx >= 64)
+        if (idx >= BS)
             return;
 
         buf_in[0][idx] = v;
+    }
+
+    void setInput(size_t input, std::initializer_list<t_sample> values)
+    {
+        if (input >= IN)
+            return;
+
+        for (size_t i = 0; i < std::min(blocksize(), values.size()); i++)
+            buf_in[input][i] = *(values.begin() + i);
+    }
+
+    t_sample* lastOut(size_t output)
+    {
+        if (output >= OUT)
+            return nullptr;
+
+        return buf_out[output] + blocksize() - 1;
+    }
+
+    t_sample* lastIn(size_t input)
+    {
+        if (input >= IN)
+            return nullptr;
+
+        return buf_in[input] + blocksize() - 1;
+    }
+
+    bool outputStartsWith(size_t output, std::initializer_list<t_sample> values)
+    {
+        if (output >= OUT)
+            return false;
+
+        for (size_t i = 0; i < std::min(blocksize(), values.size()); i++) {
+            if (buf_out[output][i] != *(values.begin() + i))
+                return false;
+        }
+
+        return true;
+    }
+
+    bool isOutputZero(bool output)
+    {
+        if (output >= OUT)
+            return false;
+
+        return std::all_of(buf_out[output], buf_out[output] + blocksize(), [](t_sample s) { return s == 0; });
     }
 
     template <class B, class E>
@@ -87,7 +151,7 @@ struct TestSignal {
             return;
 
         for (size_t c = 0; c < IN; c++) {
-            for (size_t s = 0; s < 64; s++) {
+            for (size_t s = 0; s < BS; s++) {
                 buf_in[c][s] = *it;
 
                 if (it != end)
@@ -100,7 +164,7 @@ struct TestSignal {
     void fillInput(Gen fn)
     {
         for (size_t c = 0; c < IN; c++)
-            for (size_t s = 0; s < 64; s++)
+            for (size_t s = 0; s < BS; s++)
                 buf_in[c][s] = fn(s);
     }
 
@@ -110,7 +174,7 @@ struct TestSignal {
         if (n >= IN)
             return;
 
-        for (size_t s = 0; s < 64; s++)
+        for (size_t s = 0; s < BS; s++)
             buf_in[n][s] = fn(s);
     }
 
@@ -124,7 +188,7 @@ struct TestSignal {
         if (n >= IN)
             return;
 
-        for (size_t s = 0; s < 64; s++)
+        for (size_t s = 0; s < BS; s++)
             buf_in[n][s] = v;
     }
 
@@ -133,14 +197,14 @@ struct TestSignal {
         if (n >= IN)
             return;
 
-        for (size_t s = 0; s < 64; s++)
+        for (size_t s = 0; s < BS; s++)
             buf_in[n][s] = v;
     }
 
     t_sample* beginOut(size_t i) { return &buf_out[i][0]; }
-    t_sample* endOut(size_t i) { return &buf_out[i][64]; }
+    t_sample* endOut(size_t i) { return &buf_out[i][BS]; }
 
-    size_t blocksize() const { return 64; }
+    size_t blocksize() const { return BS; }
 };
 
 template <class T, class E>

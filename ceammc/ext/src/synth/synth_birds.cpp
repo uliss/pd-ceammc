@@ -4,8 +4,6 @@
 
 using namespace ceammc;
 
-static t_symbol* PROP_GATE;
-
 class SynthBirds : public faust_synth_birds_tilde {
     UIProperty* gate_;
     ClockLambdaFunction clock_;
@@ -13,7 +11,7 @@ class SynthBirds : public faust_synth_birds_tilde {
 public:
     SynthBirds(const PdArgs& args)
         : faust_synth_birds_tilde(args)
-        , gate_(static_cast<UIProperty*>(property(PROP_GATE)))
+        , gate_(static_cast<UIProperty*>(property(gensym("@gate"))))
         , clock_([this]() { gate_->setValue(0); })
     {
         bindPositionalArgsToProps({ gensym("@speed"), gensym("@probability") });
@@ -28,7 +26,5 @@ public:
 
 void setup_synth_birds_tilde()
 {
-    PROP_GATE = gensym("@gate");
-
     SoundExternalFactory<SynthBirds> obj("synth.birds~", OBJECT_FACTORY_DEFAULT);
 }

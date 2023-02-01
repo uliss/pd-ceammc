@@ -20,6 +20,10 @@ target_link_libraries(test_ext_path PUBLIC
     ceammc_core
     puredata-core)
 
+if(APPLE)
+    target_link_libraries(test_ext_path PRIVATE "-framework CoreServices")
+endif()
+
 add_test(NAME test_ext_path
     COMMAND test_ext_path
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
@@ -29,8 +33,11 @@ function(add_path_test src)
 endfunction()
 
 add_path_test(exists)
+add_path_test(file)
 add_path_test(is_dir)
 add_path_test(lsdir)
+add_path_test(monitor)
 add_path_test(normalize)
+add_path_test(pattern)
 add_path_test(search)
 add_path_test(split)

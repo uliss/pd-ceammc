@@ -35,6 +35,9 @@ TEST_CASE("data.set", "[externals]")
             DSet s;
             REQUIRE(s.size() == 0);
             REQUIRE(!s.contains(1.5));
+
+            REQUIRE(s.canInitWithList());
+            REQUIRE(!s.canInitWithDict());
         }
 
         SECTION("operate")
@@ -128,11 +131,11 @@ TEST_CASE("data.set", "[externals]")
                 DSet a0;
                 a0.add(1);
 
-                REQUIRE(a0.toString() == "Set 1");
+                REQUIRE(a0.toString() == "Set(1)");
 
                 a0.remove(1);
                 a0.add(S("ABC"));
-                REQUIRE(a0.toString() == "Set ABC");
+                REQUIRE(a0.toString() == "Set(ABC)");
             }
 
             SECTION("data")
@@ -140,7 +143,7 @@ TEST_CASE("data.set", "[externals]")
                 DSet a0;
                 a0.add(IntA(100));
 
-                REQUIRE(a0.toString() == "Set 100");
+                REQUIRE(a0.toString() == "Set(IntData(100))");
             }
         }
 

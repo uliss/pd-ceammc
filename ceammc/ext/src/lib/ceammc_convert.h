@@ -20,6 +20,7 @@
 
 #include <algorithm>
 #include <cmath>
+#include <cstdlib> // std::ldiv
 #include <string>
 #include <type_traits>
 

@@ -50,13 +50,14 @@ public:
         return ok();
     }
 
-    Result setFromList(const ceammc::AtomList& l) override
+    Result setFromList(const ceammc::AtomListView& lv) override
     {
-        if (l.isFloat()) {
-            v_ = static_cast<decltype(v_)>(l[0].asFloat());
+        LIB_ERR << lv;
+        if (lv.isFloat()) {
+            v_ = static_cast<decltype(v_)>(lv[0].asFloat());
             return ok();
         } else
-            return error(std::string("float expected, got: ") + to_string(l));
+            return error(std::string("float expected, got: ") + to_string(lv));
     }
 
     static const char* typeName()
@@ -67,15 +68,6 @@ public:
     int get() const { return v_; }
 
 public:
-    static AbstractData* initFromList(const AtomList& l)
-    {
-        WrapperInt wint;
-        if (wint.setFromList(l))
-            return new AbstractDataWrapper<WrapperInt>(wint);
-        else
-            return nullptr;
-    }
-
     static WrapperInt parse(const std::string& str)
     {
         return WrapperInt(strtol(str.c_str(), nullptr, 0));
@@ -396,8 +388,9 @@ TEST_CASE("wrapper static method", "[class-wrapper]")
 
         {
             auto lst = parseDataString("DataInt(1 2)");
-            REQUIRE_FALSE(lst);
-            REQUIRE(lst.result().empty());
+            REQUIRE(lst);
+            REQUIRE(lst.result().size() == 1);
+            REQUIRE(lst.result()[0].isNone());
         }
     }
 }

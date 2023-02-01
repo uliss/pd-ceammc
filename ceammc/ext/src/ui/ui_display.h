@@ -54,6 +54,7 @@ public:
     ~UIDisplay();
 
     void paint();
+    void paint(const char* txt);
     void okSize(::t_rect* newrect);
     void init(t_symbol* name, const AtomListView& args, bool usePresets);
 

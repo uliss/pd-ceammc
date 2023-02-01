@@ -85,17 +85,17 @@ void StringFormat::onSymbol(t_symbol* s)
     onBang();
 }
 
-void StringFormat::onList(const AtomList& lst)
+void StringFormat::onList(const AtomListView& lv)
 {
     VFormatList args;
-    for (size_t i = 0; i < lst.size(); i++) {
-        if (lst[i].isFloat()) {
+    for (size_t i = 0; i < lv.size(); i++) {
+        if (lv[i].isFloat()) {
             if (int_mode_->value())
-                args.add(lst[i].asInt());
+                args.add(lv[i].asInt());
             else
-                args.add(lst[i].asFloat());
+                args.add(lv[i].asFloat());
         } else
-            args.add(to_string(lst[i]));
+            args.add(to_string(lv[i]));
     }
 
     try {
@@ -121,10 +121,10 @@ AtomList StringFormat::propGetFormat() const
     return fmt_atoms_;
 }
 
-void StringFormat::propSetFormat(const AtomList& lst)
+void StringFormat::propSetFormat(const AtomListView& lv)
 {
-    fmt_atoms_ = lst;
-    fmt_str_ = to_string(lst, " ");
+    fmt_atoms_ = lv;
+    fmt_str_ = to_string(lv, " ");
 }
 
 void setup_string_format()

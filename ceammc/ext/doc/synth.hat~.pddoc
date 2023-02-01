@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="synth.hat~">
+        <title>synth.hat~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>hi-hat synth from faust librariest</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>synth</category>
+            <keywords>synth kick</keywords>
+            <since>0.9.5</since>
+            <also>
+                <see>synth.kick2~</see>
+            </also>
+        </meta>
+        <properties>
+            <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">play trigger
+            &gt;0: on, 0: off. To set output gain to 0.5 you can 0.5 as trigger value</property>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <property name="@attack" type="float" minvalue="5" maxvalue="400" default="20"
+            units="millisecond">attack time</property>
+            <property name="@release" type="float" minvalue="5" maxvalue="4000" default="100"
+            units="millisecond">release time</property>
+            <property name="@envwait" type="bool" default="0">ignore new notes until previous note
+            is not finished release time</property>
+            <property name="@freq" type="float" default="317" minvalue="300" maxvalue="4000"
+            units="hertz">base frequency</property>
+            <property name="@tone" type="float" default="6400" minvalue="800" maxvalue="18000"
+            units="hertz">bandpass filter cutoff frequency</property>
+        </properties>
+        <methods>
+            <method name="reset">reset synth</method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">play with default duration and full gain</xinfo>
+                <xinfo on="float">play with default duration and specified gain</xinfo>
+                <xinfo on="list">GAIN(0..1) DUR(ms) pair expected</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">synth output</outlet>
+            <outlet type="control">bang after release finished</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[T]    [F]   [ui.k #a]  [ui.k #b]    [ui.k #c]     [ui.k #d]
+|      |.    |          |            |             |
+[metro 150]  |          |            |             |
+|            |          |            |             |
+[T]          [@freq $1( [@attack $1( [@release $1( [@tone $1(
+|            |          |            |             |
+[@gate $1(   |          |            |             |
+|            |          |            |             |
+[synth.hat~                                        ]
+|               ^|
+|               [B]
+|
+[ui.hgain~]     [ui.dsp~]
+| \
+[dac~]
+
+#a 300 4000 @show_value 1
+#b 5 100 @show_value 1
+#c 5 500 @show_value 1
+#d 800 18000 @show_value 1
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

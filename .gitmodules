@@ -61,3 +61,15 @@
 [submodule "ceammc/extra/faust/faust"]
 	path = ceammc/extra/faust/faust
 	url = https://github.com/grame-cncm/faust.git
+[submodule "ceammc/extra/httplib/cpp-httplib"]
+	path = ceammc/extra/httplib/cpp-httplib
+	url = https://github.com/yhirose/cpp-httplib.git
+[submodule "ceammc/extra/miniz/miniz"]
+	path = ceammc/extra/miniz/miniz
+	url = https://github.com/richgel999/miniz.git
+[submodule "ceammc/extra/artnet/libartnet"]
+	path = ceammc/extra/artnet/libartnet
+	url = https://github.com/uliss/libartnet.git
+[submodule "ceammc/distrib/tcl/tkdnd"]
+	path = ceammc/distrib/tcl/tkdnd
+	url = https://github.com/uliss/tkdnd.git

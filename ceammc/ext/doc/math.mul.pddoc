@@ -42,9 +42,7 @@
 |             |    |.
 [math.* 2           ]
 |
-[msg set]
-|
-[ (
+[ui.dt]
 ]]>
             </pdascii>
         </example>

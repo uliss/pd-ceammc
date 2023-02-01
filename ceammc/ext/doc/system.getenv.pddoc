@@ -18,8 +18,11 @@
             </also>
         </meta>
         <arguments>
-            <argument name="VAR" type="symbol">environment variable name</argument>
+            <argument name="NAME" type="symbol">environment variable name</argument>
         </arguments>
+        <properties>
+            <property name="@name" type="symbol" default="">environment variable name</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo on="bang">outputs variable value</xinfo>

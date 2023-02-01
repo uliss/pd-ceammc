@@ -7,8 +7,6 @@ add_subdirectory(aubio)
 add_subdirectory(comport)
 add_subdirectory(fftconv)
 add_subdirectory(helmholtz)
-add_subdirectory(import)
-add_subdirectory(libdir)
 add_subdirectory(airwindows)
 
 if(WITH_EXT_AUTOTUNE)
@@ -27,6 +25,10 @@ if(WITH_EXT_LYONPOTPOURRI)
     add_subdirectory(lyonpotpourri)
 endif()
 
+if(WITH_ARTNET)
+    add_subdirectory(artnet)
+endif()
+
 add_subdirectory(glitch)
 add_subdirectory(midifile)
 add_subdirectory(muparser)
@@ -36,6 +38,10 @@ add_subdirectory(sf2)
 add_subdirectory(soxr)
 add_subdirectory(stk)
 add_subdirectory(subprocess)
+add_subdirectory(httplib)
+add_subdirectory(miniz)
+add_subdirectory(readerwriterqueue)
+add_subdirectory(tcltk)
 
 if(WITH_FAUST)
     add_subdirectory(faust)
@@ -48,7 +54,7 @@ set_target_properties(fmt PROPERTIES DEBUG_POSTFIX "")
 
 option(RE2_BUILD_TESTING "" OFF)
 set(RE2_BUILD_TESTING OFF CACHE BOOL "" FORCE)
-add_subdirectory(re2)
+add_subdirectory(re2 EXCLUDE_FROM_ALL)
 
 option(HOA_BUILD_TESTS "" OFF)
 set(HOA_BUILD_TESTS OFF CACHE BOOL "" FORCE)
@@ -60,6 +66,8 @@ if(UNIX)
 endif()
 
 if(WITH_EXPERIMENTAL)
+    add_subdirectory(import)
+    add_subdirectory(libdir)
     add_subdirectory(libusb)
 endif()
 
@@ -96,8 +104,8 @@ if(WITH_SFIZZ)
 
     FetchContent_Declare(
       sfizz
-      URL      https://github.com/sfztools/sfizz/releases/download/1.1.1/sfizz-1.1.1.tar.gz
-      URL_HASH MD5=cc4770c287d52da517a7ae25fd826a3e
+      URL      https://github.com/sfztools/sfizz/releases/download/1.2.0/sfizz-1.2.0.tar.gz
+      URL_HASH MD5=13725a41a811dc81c973f303eaaea86b
     )
     FetchContent_GetProperties(sfizz)
     if(NOT sfizz_POPULATED)

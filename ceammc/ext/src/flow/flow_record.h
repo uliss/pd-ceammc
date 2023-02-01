@@ -67,7 +67,7 @@ public:
     void onBang() override;
     void onFloat(t_float v) override;
     void onSymbol(t_symbol* s) override;
-    void onList(const AtomList& lst) override;
+    void onList(const AtomListView& lv) override;
     void onAny(t_symbol* s, const AtomListView& lv) override;
 
     void m_play(const AtomListView& lv);
@@ -85,6 +85,8 @@ public:
 
     double recStartMs() const { return rec_start_; }
     double recLengthMs() const { return rec_stop_ - rec_start_; }
+
+    void onInletBang(int) { m_bang(); }
 
 public:
     const Events& events() const { return events_; }

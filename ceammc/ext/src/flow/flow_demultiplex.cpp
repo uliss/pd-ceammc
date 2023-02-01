@@ -46,12 +46,12 @@ void FlowDemultiplex::onSymbol(t_symbol* s)
     symbolTo(index_->value(), s);
 }
 
-void FlowDemultiplex::onList(const AtomList& l)
+void FlowDemultiplex::onList(const AtomListView& lv)
 {
     if (!checkIndex())
         return;
 
-    listTo(index_->value(), l);
+    listTo(index_->value(), lv);
 }
 
 void FlowDemultiplex::onAny(t_symbol* s, const AtomListView& lv)

@@ -18,6 +18,12 @@
             </also>
             <since>0.9</since>
         </meta>
+        <arguments>
+            <argument name="START" type="float" minvalue="0">@start property</argument>
+            <argument name="STOP" type="float" minvalue="0">@stop property</argument>
+            <argument name="N" type="int" minvalue="4" maxvalue="1024">@n property</argument>
+            <argument name="BASE" type="atom" enum="10 2 e">x-axis scale base</argument>
+        </arguments>
         <properties>
             <property name="@start" minvalue="0" type="float" default="0.1">the starting value of
             the sequence</property>
@@ -32,8 +38,7 @@
             <property name="@2" type="atom">alias to @base 2</property>
             <property name="@10" type="atom">alias to @base 10</property>
             <property name="@e" type="atom">alias to @base e</property>
-            <property name="@endpoint" type="int" enum="0 1" default="1">include @stop to
-            interval</property>
+            <property name="@endpoint" type="bool" default="1">include @stop to interval</property>
         </properties>
         <inlets>
             <inlet>

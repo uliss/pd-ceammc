@@ -13,6 +13,7 @@
             <keywords>math round~</keywords>
             <aliases>
                 <alias>round~</alias>
+                <alias>ceammc/round~</alias>
             </aliases>
             <also>
                 <see>math.round</see>
@@ -20,12 +21,12 @@
             <since>0.4</since>
         </meta>
         <inlets>
-            <inlet>
+            <inlet type="audio">
                 <xinfo>input signal</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output rounded signal</outlet>
+            <outlet type="audio">output rounded signal</outlet>
         </outlets>
         <example>
             <pdascii>

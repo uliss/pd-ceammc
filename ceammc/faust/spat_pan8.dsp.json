@@ -1,14 +1,14 @@
 {
 	"name": "spat.pan8",
 	"filename": "spat_pan8.dsp",
-	"version": "2.37.3",
-	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0",
+	"version": "2.53.1",
+	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn spat_pan8 -scn spat_pan8_dsp -es 1 -mcd 16 -single -ftz 0",
 	"library_list": ["/usr/local/share/faust/maths.lib","/usr/local/share/faust/signals.lib"],
 	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
 	"inputs": 1,
 	"outputs": 8,
 	"meta": [ 
-		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0" },
+		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn spat_pan8 -scn spat_pan8_dsp -es 1 -mcd 16 -single -ftz 0" },
 		{ "filename": "spat_pan8.dsp" },
 		{ "maths.lib/author": "GRAME" },
 		{ "maths.lib/copyright": "GRAME" },
@@ -17,7 +17,7 @@
 		{ "maths.lib/version": "2.5" },
 		{ "name": "spat.pan8" },
 		{ "signals.lib/name": "Faust Signal Routing Library" },
-		{ "signals.lib/version": "0.1" }
+		{ "signals.lib/version": "0.3" }
 	],
 	"ui": [ 
 		{
@@ -27,6 +27,7 @@
 				{
 					"type": "vslider",
 					"label": "angle",
+					"shortname": "angle",
 					"address": "/spat.pan8/angle",
 					"meta": [
 						{ "unit": "rad" }
@@ -39,6 +40,7 @@
 				{
 					"type": "vslider",
 					"label": "radius",
+					"shortname": "radius",
 					"address": "/spat.pan8/radius",
 					"init": 1,
 					"min": 0,

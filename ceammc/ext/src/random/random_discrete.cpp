@@ -1,22 +1,30 @@
 #include "random_discrete.h"
 #include "ceammc_factory.h"
 
+static AtomList vector2list(const std::vector<t_float>& v)
+{
+    AtomList res;
+    res.reserve(v.size());
+    for (size_t i = 0; i < v.size(); i++)
+        res.append(v[i]);
+
+    return res;
+}
+
 RandomDiscrete::RandomDiscrete(const PdArgs& a)
     : BaseObject(a)
-    , seed_(nullptr)
 {
     createOutlet();
+    weights_.reserve(16);
 
     // the interval boundaries interleaved with weights
     createCbListProperty(
         "@weights",
-        [this]() -> AtomList { return propWeights(); },
-        [this](const AtomList& l) -> bool { setPropWeights(l); return true; })
+        [this]() -> AtomList { return vector2list(weights_); },
+        [this](const AtomListView& lv) -> bool { return set(lv); })
         ->setArgIndex(0);
 
-    seed_ = new SizeTProperty("@seed", 0);
-    seed_->setSuccessFn([this](Property* p) { gen_.setSeed(seed_->value()); });
-    addProperty(seed_);
+    addProperty(new random::SeedProperty(gen_));
 }
 
 void RandomDiscrete::onBang()
@@ -30,55 +38,29 @@ void RandomDiscrete::onBang()
     floatTo(0, dist(gen_.get()));
 }
 
-void RandomDiscrete::onList(const AtomList& l)
+void RandomDiscrete::onList(const AtomListView& lv)
 {
-    if (set(l))
+    if (set(lv))
         onBang();
 }
 
-static AtomList vector2list(const std::vector<t_float>& v)
+bool RandomDiscrete::set(const AtomListView& lv)
 {
-    AtomList res;
-    res.reserve(v.size());
-    for (size_t i = 0; i < v.size(); i++)
-        res.append(v[i]);
-
-    return res;
-}
-
-AtomList RandomDiscrete::propWeights() const
-{
-    return vector2list(weights_);
-}
-
-void RandomDiscrete::setPropWeights(const AtomList& l)
-{
-    set(l);
-}
-
-static bool invalidWeight(const Atom& a)
-{
-    return !a.isFloat() || a.asFloat() < 0;
-}
-
-bool RandomDiscrete::set(const AtomList& l)
-{
-    if (l.empty()) {
+    if (lv.empty()) {
         OBJ_ERR << "empty list";
         return false;
     }
 
-    if (l.anyOf(invalidWeight)) {
-        OBJ_ERR << "invalid weight values: " << l;
+    if (lv.anyOf([](const Atom& a) { return !a.isFloat() || a.asT<t_float>() < 0; })) {
+        OBJ_ERR << "invalid weight values: " << lv;
         return false;
     }
 
-    std::vector<t_float> w;
-    for (size_t i = 0; i < l.size(); i++) {
-        w.push_back(l[i].asFloat());
+    weights_.clear();
+    for (size_t i = 0; i < lv.size(); i++) {
+        weights_.push_back(lv[i].asT<t_float>());
     }
 
-    weights_ = w;
     return true;
 }
 

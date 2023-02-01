@@ -12,18 +12,19 @@
  * this file belongs to.
  *****************************************************************************/
 #include "math_polyeval.h"
+#include "ceammc_containers.h"
 #include "ceammc_factory.h"
 #include "ceammc_fn_list.h"
 
 #include <boost/math/tools/rational.hpp>
 
-static FloatList atomlist2coeffs(const AtomList& lst)
+static FloatList atomlist2coeffs(const AtomListView& lv)
 {
-    FloatList res(lst.size(), 0);
+    FloatList res(lv.size(), 0);
 
-    const size_t N = lst.size();
+    const size_t N = lv.size();
     for (size_t i = 0; i < N; i++)
-        res[N - 1 - i] = lst[i].asFloat();
+        res[N - 1 - i] = lv[i].asFloat();
 
     return res;
 }
@@ -55,20 +56,16 @@ void MathPolyEval::onFloat(t_float v)
     floatTo(0, eval(v));
 }
 
-void MathPolyEval::onList(const AtomList& v)
+void MathPolyEval::onList(const AtomListView& lv)
 {
     if (coeffs_.empty()) {
         OBJ_ERR << "no polynomial coefficents specified";
         return;
     }
 
-    AtomList res;
-    res.reserve(v.size());
-
-    for (auto& a : v)
-        res.append(eval(a.asFloat()));
-
-    listTo(0, res);
+    SmallAtomList res;
+    lv.mapFloat([this](t_float v) { return eval(v); }, res);
+    listTo(0, res.view());
 }
 
 void MathPolyEval::onInlet(size_t n, const AtomListView& lst)
@@ -86,14 +83,14 @@ AtomList MathPolyEval::propCoeffs() const
     return lst;
 }
 
-void MathPolyEval::propSetCoeffs(const AtomList& lst)
+void MathPolyEval::propSetCoeffs(const AtomListView& lv)
 {
-    if (lst.empty()) {
+    if (lv.empty()) {
         OBJ_ERR << "no polynomial coefficents specified";
         return;
     }
 
-    coeffs_ = atomlist2coeffs(lst);
+    coeffs_ = atomlist2coeffs(lv);
 }
 
 t_float MathPolyEval::eval(t_float v) const

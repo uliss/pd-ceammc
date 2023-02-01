@@ -1,20 +1,21 @@
 {
 	"name": "dyn.comp",
 	"filename": "dyn_comp.dsp",
-	"version": "2.37.3",
-	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0",
-	"library_list": ["/Users/serge/work/music/pure-data/ceammc/faust/ceammc.lib","/usr/local/share/faust/compressors.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib","/usr/local/share/faust/analyzers.lib","/usr/local/share/faust/signals.lib","/usr/local/share/faust/basics.lib"],
+	"version": "2.53.1",
+	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn dyn_comp -scn dyn_comp_dsp -es 1 -mcd 16 -single -ftz 0",
+	"library_list": ["/Users/serge/work/music/pure-data/ceammc/faust/ceammc.lib","/usr/local/share/faust/compressors.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/signals.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib","/usr/local/share/faust/analyzers.lib"],
 	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
 	"inputs": 1,
 	"outputs": 1,
 	"meta": [ 
+		{ "analyzers.lib/amp_follower_ar:author": "Jonatan Liljedahl, revised by Romain Michon" },
 		{ "analyzers.lib/name": "Faust Analyzer Library" },
-		{ "analyzers.lib/version": "0.1" },
+		{ "analyzers.lib/version": "0.2" },
 		{ "basics.lib/name": "Faust Basic Element Library" },
-		{ "basics.lib/version": "0.2" },
+		{ "basics.lib/version": "0.8" },
 		{ "ceammc.lib/name": "Ceammc PureData misc utils" },
 		{ "ceammc.lib/version": "0.1.2" },
-		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0" },
+		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn dyn_comp -scn dyn_comp_dsp -es 1 -mcd 16 -single -ftz 0" },
 		{ "compressors.lib/compression_gain_mono:author": "Julius O. Smith III" },
 		{ "compressors.lib/compression_gain_mono:copyright": "Copyright (C) 2014-2020 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
 		{ "compressors.lib/compression_gain_mono:license": "MIT-style STK-4.3 license" },
@@ -25,7 +26,7 @@
 		{ "compressors.lib/compressor_mono:copyright": "Copyright (C) 2014-2020 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
 		{ "compressors.lib/compressor_mono:license": "MIT-style STK-4.3 license" },
 		{ "compressors.lib/name": "Faust Compressor Effect Library" },
-		{ "compressors.lib/version": "0.1" },
+		{ "compressors.lib/version": "0.4" },
 		{ "filename": "dyn_comp.dsp" },
 		{ "maths.lib/author": "GRAME" },
 		{ "maths.lib/copyright": "GRAME" },
@@ -36,7 +37,9 @@
 		{ "platform.lib/name": "Generic Platform Library" },
 		{ "platform.lib/version": "0.2" },
 		{ "signals.lib/name": "Faust Signal Routing Library" },
-		{ "signals.lib/version": "0.1" }
+		{ "signals.lib/onePoleSwitching:author": "Jonatan Liljedahl, revised by Dario Sanfilippo" },
+		{ "signals.lib/onePoleSwitching:licence": "STK-4.3" },
+		{ "signals.lib/version": "0.3" }
 	],
 	"ui": [ 
 		{
@@ -46,6 +49,7 @@
 				{
 					"type": "vslider",
 					"label": "attack",
+					"shortname": "attack",
 					"address": "/dyn.comp/attack",
 					"meta": [
 						{ "unit": "ms" }
@@ -57,7 +61,21 @@
 				},
 				{
 					"type": "vslider",
+					"label": "gain",
+					"shortname": "gain",
+					"address": "/dyn.comp/gain",
+					"meta": [
+						{ "unit": "db" }
+					],
+					"init": 0,
+					"min": -12,
+					"max": 12,
+					"step": 0.1
+				},
+				{
+					"type": "vslider",
 					"label": "ratio",
+					"shortname": "ratio",
 					"address": "/dyn.comp/ratio",
 					"init": 1,
 					"min": 1,
@@ -67,6 +85,7 @@
 				{
 					"type": "vslider",
 					"label": "release",
+					"shortname": "release",
 					"address": "/dyn.comp/release",
 					"meta": [
 						{ "unit": "ms" }
@@ -79,6 +98,7 @@
 				{
 					"type": "vslider",
 					"label": "threshold",
+					"shortname": "threshold",
 					"address": "/dyn.comp/threshold",
 					"meta": [
 						{ "unit": "db" }

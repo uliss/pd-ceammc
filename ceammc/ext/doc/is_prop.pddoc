@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="is_prop">
+        <title>is_prop</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>checks if input message is *property* message</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>predicates</category>
+            <keywords>predicate float</keywords>
+            <also>
+                <see>is_any</see>
+                <see>is_bang</see>
+                <see>is_symbol</see>
+                <see>is_list</see>
+            </also>
+            <since>0.9.6</since>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="any">outputs '1' to 1st outlet, otherwise '0'</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>0 or 1</outlet>
+            <outlet>passes only *property* messages</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B #a]  [100 #b(  [symbol TEST #c(
+
+ [list 1 2 3 #d(  [some message #e(
+
+  [@prop A B #f(  [@prop? #g(
+
+
+
+[is_prop #x]
+|       ^|
+[ui.d]  [ui.dt]
+
+[X a->x]
+[X b->x]
+[X c->x]
+[X d->x]
+[X e->x]
+[X f->x]
+[X g->x]
+]]>
+            </pdascii>
+        </example>
+    </object> </pddoc>

@@ -3,8 +3,9 @@ macro(ceammc_misc_external mod name)
     ceammc_faust_gen_obj(${mod} ${name})
 endmacro()
 
-ceammc_misc_external(live capture)
 ceammc_misc_external(aubio pitchshift_tilde)
+ceammc_misc_external(live capture)
+ceammc_misc_external(risset glissando)
 
 add_library(ceammc_misc STATIC mod_misc.cpp ${MISC_SOURCES})
 target_compile_definitions(ceammc_misc PRIVATE -DFAUST_MACRO)
@@ -28,8 +29,11 @@ endif()
 find_package(PkgConfig QUIET)
 
 if(WITH_SFIZZ)
+    target_include_directories(ceammc_misc PRIVATE ${SFIZZ_INCLUDE_DIRS})
+    target_compile_definitions(ceammc_misc PRIVATE -DWITH_SFIZZ)
+    target_link_libraries(ceammc_misc PUBLIC ${SFIZZ_LIBRARIES})
     target_sources(ceammc_misc PRIVATE sfizz_tilde.cpp)
-    target_compile_definitions(ceammc_misc PRIVATE -DWITH_SFIZZ -DSFIZZ_VERSION="1.1.1")
+    target_compile_definitions(ceammc_misc PRIVATE -DWITH_SFIZZ -DSFIZZ_VERSION="1.2.0")
 
     target_include_directories(ceammc_misc PUBLIC ${sfizz_SOURCE_DIR}/src)
     if(WIN32)
@@ -50,9 +54,35 @@ endif()
 if(WITH_TTS_FLITE)
     target_include_directories(ceammc_misc PRIVATE
         ${FLITE_INCLUDES}
-        ${PROJECT_SOURCE_DIR}/ceammc/extra
     )
 
-    target_link_libraries(ceammc_misc PUBLIC ${FLITE_LIBRARIES})
+    target_link_libraries(ceammc_misc PUBLIC ${FLITE_LIBRARIES} readerwriterqueue)
     target_sources(ceammc_misc PRIVATE speech_flite.cpp fliterender.cpp speech_flite_tilde.cpp)
 endif()
+
+if(WITH_TTS_RHVOICE)
+    find_package(RHVoice REQUIRED)
+
+    if(RHVOICE_FOUND)
+        set(CMAKE_BUILD_WITH_INSTALL_RPATH ON)
+        target_include_directories(ceammc_misc PRIVATE ${RHVOICE_INCLUDE_DIRS})
+        target_compile_definitions(ceammc_misc PRIVATE -DWITH_RHVOICE)
+        target_link_libraries(ceammc_misc PRIVATE ${RHVOICE_LIBRARIES} sox)
+        target_link_libraries(ceammc_misc PUBLIC readerwriterqueue)
+        target_sources(ceammc_misc PRIVATE speech_rhvoice_tilde.cpp)
+    endif()
+else()
+    target_sources(ceammc_misc PRIVATE speech_rhvoice_tilde_stub.cpp)
+endif()
+
+if(WIN32)
+    set(DOC_INSTALL_PATH "extra/ceammc")
+else()
+    set(DOC_INSTALL_PATH "${PD_DOC_INSTALL_PATH}/extra/ceammc")
+endif()
+add_custom_target(misc_tts_files SOURCES "RHVoice.conf")
+# install extra files
+install(FILES
+    "RHVoice.conf"
+    DESTINATION ${DOC_INSTALL_PATH}/
+    PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)

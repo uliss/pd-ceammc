@@ -1,8 +1,8 @@
 /* ------------------------------------------------------------
 author: "Alain Bonardi & Paul Goutmann"
-name: "synth.risset_bell", "abc_rissetsbell"
-Code generated with Faust 2.37.3 (https://faust.grame.fr)
-Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0
+name: "synth.risset_bell"
+Code generated with Faust 2.53.1 (https://faust.grame.fr)
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn synth_risset_bell -scn synth_risset_bell_dsp -es 1 -mcd 16 -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __synth_risset_bell_H__
@@ -15,23 +15,23 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_ds
 #include <memory>
 #include <string>
 
-/************************** BEGIN synth_risset_bell_dsp.h **************************/
-/************************************************************************
+/************************** BEGIN synth_risset_bell_dsp.h ********************************
  FAUST Architecture File
- Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
+ Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
  ---------------------------------------------------------------------
- This Architecture section is free software; you can redistribute it
- and/or modify it under the terms of the GNU General Public License
- as published by the Free Software Foundation; either version 3 of
- the License, or (at your option) any later version.
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation; either version 2.1 of the License, or
+ (at your option) any later version.
  
  This program is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU Lesser General Public License for more details.
  
- You should have received a copy of the GNU General Public License
- along with this program; If not, see <http://www.gnu.org/licenses/>.
+ You should have received a copy of the GNU Lesser General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  
  EXCEPTION : As a special exception, you may create a larger work
  that contains this FAUST architecture section and distribute
@@ -45,22 +45,107 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_ds
 #include <string>
 #include <vector>
 
+/************************************************************************
+ FAUST Architecture File
+ Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
+ ---------------------------------------------------------------------
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation; either version 2.1 of the License, or
+ (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU Lesser General Public License for more details.
+ 
+ You should have received a copy of the GNU Lesser General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ 
+ EXCEPTION : As a special exception, you may create a larger work
+ that contains this FAUST architecture section and distribute
+ that work under terms of your choice, so long as this FAUST
+ architecture section is not modified.
+ ***************************************************************************/
+
+#ifndef __export__
+#define __export__
+
+#define FAUSTVERSION "2.53.1"
+
+// Use FAUST_API for code that is part of the external API but is also compiled in faust and libfaust
+// Use LIBFAUST_API for code that is compiled in faust and libfaust
+
+#ifdef _WIN32
+    #pragma warning (disable: 4251)
+    #ifdef FAUST_EXE
+        #define FAUST_API
+        #define LIBFAUST_API
+    #elif FAUST_LIB
+        #define FAUST_API __declspec(dllexport)
+        #define LIBFAUST_API __declspec(dllexport)
+    #else
+        #define FAUST_API
+        #define LIBFAUST_API 
+    #endif
+#else
+    #ifdef FAUST_EXE
+        #define FAUST_API
+        #define LIBFAUST_API
+    #else
+        #define FAUST_API __attribute__((visibility("default")))
+        #define LIBFAUST_API __attribute__((visibility("default")))
+    #endif
+#endif
+
+#endif
+
 #ifndef FAUSTFLOAT
 #define FAUSTFLOAT float
 #endif
 
-struct UI;
-struct Meta;
+struct FAUST_API UI;
+struct FAUST_API Meta;
 
 /**
  * DSP memory manager.
  */
 
-struct dsp_memory_manager {
+struct FAUST_API dsp_memory_manager {
     
     virtual ~dsp_memory_manager() {}
     
+    /**
+     * Inform the Memory Manager with the number of expected memory zones.
+     * @param count - the number of expected memory zones
+     */
+    virtual void begin(size_t /*count*/) {}
+    
+    /**
+     * Give the Memory Manager information on a given memory zone.
+     * @param size - the size in bytes of the memory zone
+     * @param reads - the number of Read access to the zone used to compute one frame
+     * @param writes - the number of Write access to the zone used to compute one frame
+     */
+    virtual void info(size_t /*size*/, size_t /*reads*/, size_t /*writes*/) {}
+
+    /**
+     * Inform the Memory Manager that all memory zones have been described,
+     * to possibly start a 'compute the best allocation strategy' step.
+     */
+    virtual void end() {}
+    
+    /**
+     * Allocate a memory zone.
+     * @param size - the memory zone size in bytes
+     */
     virtual void* allocate(size_t size) = 0;
+    
+    /**
+     * Destroy a memory zone.
+     * @param ptr - the memory zone pointer to be deallocated
+     */
     virtual void destroy(void* ptr) = 0;
     
 };
@@ -69,7 +154,7 @@ struct dsp_memory_manager {
 * Signal processor definition.
 */
 
-class synth_risset_bell_dsp {
+class FAUST_API synth_risset_bell_dsp {
 
     public:
 
@@ -163,7 +248,7 @@ class synth_risset_bell_dsp {
  * Generic DSP decorator.
  */
 
-class decorator_dsp : public synth_risset_bell_dsp {
+class FAUST_API decorator_dsp : public synth_risset_bell_dsp {
 
     protected:
 
@@ -196,7 +281,7 @@ class decorator_dsp : public synth_risset_bell_dsp {
  * to create DSP instances from a compiled DSP program.
  */
 
-class dsp_factory {
+class FAUST_API dsp_factory {
     
     protected:
     
@@ -225,18 +310,21 @@ class dsp_factory {
 #include <xmmintrin.h>
 #endif
 
-class ScopedNoDenormals
-{
+class FAUST_API ScopedNoDenormals {
+    
     private:
     
-        intptr_t fpsr;
+        intptr_t fpsr = 0;
         
         void setFpStatusRegister(intptr_t fpsr_aux) noexcept
         {
         #if defined (__arm64__) || defined (__aarch64__)
-           asm volatile("msr fpcr, %0" : : "ri" (fpsr_aux));
+            asm volatile("msr fpcr, %0" : : "ri" (fpsr_aux));
         #elif defined (__SSE__)
-            _mm_setcsr(static_cast<uint32_t>(fpsr_aux));
+            // The volatile keyword here is needed to workaround a bug in AppleClang 13.0
+            // which aggressively optimises away the variable otherwise
+            volatile uint32_t fpsr_w = static_cast<uint32_t>(fpsr_aux);
+            _mm_setcsr(fpsr_w);
         #endif
         }
         
@@ -244,7 +332,7 @@ class ScopedNoDenormals
         {
         #if defined (__arm64__) || defined (__aarch64__)
             asm volatile("mrs %0, fpcr" : "=r" (fpsr));
-        #elif defined ( __SSE__)
+        #elif defined (__SSE__)
             fpsr = static_cast<intptr_t>(_mm_getcsr());
         #endif
         }
@@ -255,16 +343,14 @@ class ScopedNoDenormals
         {
         #if defined (__arm64__) || defined (__aarch64__)
             intptr_t mask = (1 << 24 /* FZ */);
+        #elif defined (__SSE__)
+        #if defined (__SSE2__)
+            intptr_t mask = 0x8040;
         #else
-            #if defined(__SSE__)
-            #if defined(__SSE2__)
-                intptr_t mask = 0x8040;
-            #else
-                intptr_t mask = 0x8000;
-            #endif
-            #else
-                intptr_t mask = 0x0000;
-            #endif
+            intptr_t mask = 0x8000;
+        #endif
+        #else
+            intptr_t mask = 0x0000;
         #endif
             getFpStatusRegister();
             setFpStatusRegister(fpsr | mask);
@@ -277,37 +363,38 @@ class ScopedNoDenormals
 
 };
 
-#define AVOIDDENORMALS ScopedNoDenormals();
+#define AVOIDDENORMALS ScopedNoDenormals ftz_scope;
 
 #endif
 
 /************************** END synth_risset_bell_dsp.h **************************/
-/************************** BEGIN UI.h **************************/
-/************************************************************************
+/************************** BEGIN UI.h *****************************
  FAUST Architecture File
- Copyright (C) 2003-2020 GRAME, Centre National de Creation Musicale
+ Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
  ---------------------------------------------------------------------
- This Architecture section is free software; you can redistribute it
- and/or modify it under the terms of the GNU General Public License
- as published by the Free Software Foundation; either version 3 of
- the License, or (at your option) any later version.
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation; either version 2.1 of the License, or
+ (at your option) any later version.
  
  This program is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU Lesser General Public License for more details.
  
- You should have received a copy of the GNU General Public License
- along with this program; If not, see <http://www.gnu.org/licenses/>.
+ You should have received a copy of the GNU Lesser General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  
  EXCEPTION : As a special exception, you may create a larger work
  that contains this FAUST architecture section and distribute
  that work under terms of your choice, so long as this FAUST
  architecture section is not modified.
- ************************************************************************/
+ ********************************************************************/
 
 #ifndef __UI_H__
 #define __UI_H__
+
 
 #ifndef FAUSTFLOAT
 #define FAUSTFLOAT float
@@ -323,8 +410,8 @@ class ScopedNoDenormals
 struct Soundfile;
 
 template <typename REAL>
-struct UIReal
-{
+struct FAUST_API UIReal {
+    
     UIReal() {}
     virtual ~UIReal() {}
     
@@ -354,37 +441,36 @@ struct UIReal
     
     // -- metadata declarations
     
-    virtual void declare(REAL* zone, const char* key, const char* val) {}
-    
+    virtual void declare(REAL* /*zone*/, const char* /*key*/, const char* /*val*/) {}
+
     // To be used by LLVM client
     virtual int sizeOfFAUSTFLOAT() { return sizeof(FAUSTFLOAT); }
 };
 
-struct UI : public UIReal<FAUSTFLOAT>
-{
+struct FAUST_API UI : public UIReal<FAUSTFLOAT> {
     UI() {}
     virtual ~UI() {}
 };
 
 #endif
 /**************************  END  UI.h **************************/
-/************************** BEGIN meta.h **************************/
-/************************************************************************
+/************************** BEGIN meta.h *******************************
  FAUST Architecture File
- Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
+ Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
  ---------------------------------------------------------------------
- This Architecture section is free software; you can redistribute it
- and/or modify it under the terms of the GNU General Public License
- as published by the Free Software Foundation; either version 3 of
- the License, or (at your option) any later version.
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation; either version 2.1 of the License, or
+ (at your option) any later version.
  
  This program is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU Lesser General Public License for more details.
  
- You should have received a copy of the GNU General Public License
- along with this program; If not, see <http://www.gnu.org/licenses/>.
+ You should have received a copy of the GNU Lesser General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  
  EXCEPTION : As a special exception, you may create a larger work
  that contains this FAUST architecture section and distribute
@@ -395,40 +481,40 @@ struct UI : public UIReal<FAUSTFLOAT>
 #ifndef __meta__
 #define __meta__
 
+
 /**
  The base class of Meta handler to be used in synth_risset_bell_dsp::metadata(Meta* m) method to retrieve (key, value) metadata.
  */
-struct Meta
-{
-    virtual ~Meta() {};
+struct FAUST_API Meta {
+    virtual ~Meta() {}
     virtual void declare(const char* key, const char* value) = 0;
 };
 
 #endif
 /**************************  END  meta.h **************************/
-/************************** BEGIN misc.h **************************/
-/************************************************************************
- FAUST Architecture File
- Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
- ---------------------------------------------------------------------
- This Architecture section is free software; you can redistribute it
- and/or modify it under the terms of the GNU General Public License
- as published by the Free Software Foundation; either version 3 of
- the License, or (at your option) any later version.
- 
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
- 
- You should have received a copy of the GNU General Public License
- along with this program; If not, see <http://www.gnu.org/licenses/>.
- 
- EXCEPTION : As a special exception, you may create a larger work
- that contains this FAUST architecture section and distribute
- that work under terms of your choice, so long as this FAUST
- architecture section is not modified.
- ************************************************************************/
+/************************** BEGIN misc.h *******************************
+FAUST Architecture File
+Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
+---------------------------------------------------------------------
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation; either version 2.1 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+
+EXCEPTION : As a special exception, you may create a larger work
+that contains this FAUST architecture section and distribute
+that work under terms of your choice, so long as this FAUST
+architecture section is not modified.
+***************************************************************************/
 
 #ifndef __misc__
 #define __misc__
@@ -440,14 +526,6 @@ struct Meta
 #include <fstream>
 #include <string>
 
-
-using std::max;
-using std::min;
-
-struct XXXX_Meta : std::map<const char*, const char*>
-{
-    void declare(const char* key, const char* value) { (*this)[key] = value; }
-};
 
 struct MY_Meta : Meta, std::map<const char*, const char*>
 {
@@ -550,6 +628,21 @@ struct synth_risset_bell : public synth_risset_bell_dsp {
 #include <cstdint>
 #include <math.h>
 
+#ifndef FAUSTCLASS 
+#define FAUSTCLASS synth_risset_bell
+#endif
+
+#ifdef __APPLE__ 
+#define exp10f __exp10f
+#define exp10 __exp10
+#endif
+
+#if defined(_WIN32)
+#define RESTRICT __restrict
+#else
+#define RESTRICT __restrict__
+#endif
+
 class synth_risset_bellSIG0 {
 	
   private:
@@ -567,19 +660,19 @@ class synth_risset_bellSIG0 {
 	}
 	
 	void instanceInitsynth_risset_bellSIG0(int sample_rate) {
-		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
+		for (int l3 = 0; l3 < 2; l3 = l3 + 1) {
 			iVec2[l3] = 0;
 		}
-		for (int l4 = 0; (l4 < 2); l4 = (l4 + 1)) {
+		for (int l4 = 0; l4 < 2; l4 = l4 + 1) {
 			iRec1[l4] = 0;
 		}
 	}
 	
 	void fillsynth_risset_bellSIG0(int count, float* table) {
-		for (int i1 = 0; (i1 < count); i1 = (i1 + 1)) {
+		for (int i1 = 0; i1 < count; i1 = i1 + 1) {
 			iVec2[0] = 1;
-			iRec1[0] = ((iVec2[1] + iRec1[1]) % 65536);
-			table[i1] = std::cos((9.58738019e-05f * float(iRec1[0])));
+			iRec1[0] = (iVec2[1] + iRec1[1]) % 65536;
+			table[i1] = std::cos(9.58738e-05f * float(iRec1[0]));
 			iVec2[1] = iVec2[0];
 			iRec1[1] = iRec1[0];
 		}
@@ -592,17 +685,8 @@ static void deletesynth_risset_bellSIG0(synth_risset_bellSIG0* dsp) { delete dsp
 
 static float ftbl0synth_risset_bellSIG0[65536];
 static float synth_risset_bell_faustpower4_f(float value) {
-	return (((value * value) * value) * value);
+	return value * value * value * value;
 }
-
-#ifndef FAUSTCLASS 
-#define FAUSTCLASS synth_risset_bell
-#endif
-
-#ifdef __APPLE__ 
-#define exp10f __exp10f
-#define exp10 __exp10
-#endif
 
 class synth_risset_bell : public synth_risset_bell_dsp {
 	
@@ -671,16 +755,16 @@ class synth_risset_bell : public synth_risset_bell_dsp {
 	void metadata(Meta* m) { 
 		m->declare("author", "Alain Bonardi & Paul Goutmann");
 		m->declare("basics.lib/name", "Faust Basic Element Library");
-		m->declare("basics.lib/version", "0.2");
+		m->declare("basics.lib/version", "0.8");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
 		m->declare("ceammc.lib/version", "0.1.2");
-		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn synth_risset_bell -scn synth_risset_bell_dsp -es 1 -mcd 16 -single -ftz 0");
 		m->declare("envelopes.lib/ar:author", "Yann Orlarey, Stéphane Letz");
 		m->declare("envelopes.lib/author", "GRAME");
 		m->declare("envelopes.lib/copyright", "GRAME");
 		m->declare("envelopes.lib/license", "LGPL with exception");
 		m->declare("envelopes.lib/name", "Faust Envelope Library");
-		m->declare("envelopes.lib/version", "0.1");
+		m->declare("envelopes.lib/version", "0.2");
 		m->declare("filename", "synth_risset_bell.dsp");
 		m->declare("licence", "LGPLv3");
 		m->declare("maths.lib/author", "GRAME");
@@ -690,11 +774,11 @@ class synth_risset_bell : public synth_risset_bell_dsp {
 		m->declare("maths.lib/version", "2.5");
 		m->declare("name", "synth.risset_bell");
 		m->declare("oscillators.lib/name", "Faust Oscillator Library");
-		m->declare("oscillators.lib/version", "0.1");
+		m->declare("oscillators.lib/version", "0.3");
 		m->declare("platform.lib/name", "Generic Platform Library");
 		m->declare("platform.lib/version", "0.2");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
-		m->declare("signals.lib/version", "0.1");
+		m->declare("signals.lib/version", "0.3");
 	}
 
 	virtual int getNumInputs() {
@@ -713,121 +797,121 @@ class synth_risset_bell : public synth_risset_bell_dsp {
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
-		float fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
-		fConst1 = (0.560000002f / fConst0);
-		fConst2 = (44.0999985f / fConst0);
-		fConst3 = (1.0f - fConst2);
-		fConst4 = std::max<float>(1.0f, (0.00499999989f * fConst0));
-		fConst5 = (1.0f / fConst4);
-		fConst6 = (0.00100000005f * fConst0);
-		fConst7 = (1.0f / fConst0);
-		fConst8 = (0.000899999985f * fConst0);
-		fConst9 = (0.920000017f / fConst0);
-		fConst10 = (0.000650000002f * fConst0);
-		fConst11 = (0.000549999997f * fConst0);
-		fConst12 = (1.19000006f / fConst0);
-		fConst13 = (0.000325000001f * fConst0);
-		fConst14 = (1.70000005f / fConst0);
-		fConst15 = (0.000349999988f * fConst0);
-		fConst16 = (2.0f / fConst0);
-		fConst17 = (0.000250000012f * fConst0);
-		fConst18 = (2.74000001f / fConst0);
-		fConst19 = (0.000199999995f * fConst0);
-		fConst20 = (3.0f / fConst0);
-		fConst21 = (0.000150000007f * fConst0);
-		fConst22 = (3.75999999f / fConst0);
-		fConst23 = (9.99999975e-05f * fConst0);
-		fConst24 = (4.07000017f / fConst0);
-		fConst25 = (7.50000036e-05f * fConst0);
+		float fConst0 = std::min<float>(1.92e+05f, std::max<float>(1.0f, float(fSampleRate)));
+		fConst1 = 0.56f / fConst0;
+		fConst2 = 44.1f / fConst0;
+		fConst3 = 1.0f - fConst2;
+		fConst4 = std::max<float>(1.0f, 0.005f * fConst0);
+		fConst5 = 1.0f / fConst4;
+		fConst6 = 0.001f * fConst0;
+		fConst7 = 1.0f / fConst0;
+		fConst8 = 0.0009f * fConst0;
+		fConst9 = 0.92f / fConst0;
+		fConst10 = 0.00065f * fConst0;
+		fConst11 = 0.00055f * fConst0;
+		fConst12 = 1.19f / fConst0;
+		fConst13 = 0.000325f * fConst0;
+		fConst14 = 1.7f / fConst0;
+		fConst15 = 0.00035f * fConst0;
+		fConst16 = 2.0f / fConst0;
+		fConst17 = 0.00025f * fConst0;
+		fConst18 = 2.74f / fConst0;
+		fConst19 = 0.0002f * fConst0;
+		fConst20 = 3.0f / fConst0;
+		fConst21 = 0.00015f * fConst0;
+		fConst22 = 3.76f / fConst0;
+		fConst23 = 0.0001f * fConst0;
+		fConst24 = 4.07f / fConst0;
+		fConst25 = 7.5e-05f * fConst0;
 	}
 	
 	virtual void instanceResetUserInterface() {
 		fButton0 = FAUSTFLOAT(0.0f);
-		fHslider0 = FAUSTFLOAT(440.0f);
+		fHslider0 = FAUSTFLOAT(4.4e+02f);
 		fHslider1 = FAUSTFLOAT(1.0f);
-		fHslider2 = FAUSTFLOAT(5000.0f);
+		fHslider2 = FAUSTFLOAT(5e+03f);
 	}
 	
 	virtual void instanceClear() {
-		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
+		for (int l0 = 0; l0 < 2; l0 = l0 + 1) {
 			fVec0[l0] = 0.0f;
 		}
-		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
+		for (int l1 = 0; l1 < 2; l1 = l1 + 1) {
 			iVec1[l1] = 0;
 		}
-		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
+		for (int l2 = 0; l2 < 2; l2 = l2 + 1) {
 			fRec0[l2] = 0.0f;
 		}
-		for (int l5 = 0; (l5 < 2); l5 = (l5 + 1)) {
+		for (int l5 = 0; l5 < 2; l5 = l5 + 1) {
 			fRec2[l5] = 0.0f;
 		}
-		for (int l6 = 0; (l6 < 2); l6 = (l6 + 1)) {
+		for (int l6 = 0; l6 < 2; l6 = l6 + 1) {
 			fRec3[l6] = 0.0f;
 		}
-		for (int l7 = 0; (l7 < 2); l7 = (l7 + 1)) {
+		for (int l7 = 0; l7 < 2; l7 = l7 + 1) {
 			fRec4[l7] = 0.0f;
 		}
-		for (int l8 = 0; (l8 < 2); l8 = (l8 + 1)) {
+		for (int l8 = 0; l8 < 2; l8 = l8 + 1) {
 			iRec5[l8] = 0;
 		}
-		for (int l9 = 0; (l9 < 2); l9 = (l9 + 1)) {
+		for (int l9 = 0; l9 < 2; l9 = l9 + 1) {
 			fRec6[l9] = 0.0f;
 		}
-		for (int l10 = 0; (l10 < 2); l10 = (l10 + 1)) {
+		for (int l10 = 0; l10 < 2; l10 = l10 + 1) {
 			fRec7[l10] = 0.0f;
 		}
-		for (int l11 = 0; (l11 < 2); l11 = (l11 + 1)) {
+		for (int l11 = 0; l11 < 2; l11 = l11 + 1) {
 			fRec8[l11] = 0.0f;
 		}
-		for (int l12 = 0; (l12 < 2); l12 = (l12 + 1)) {
+		for (int l12 = 0; l12 < 2; l12 = l12 + 1) {
 			fRec9[l12] = 0.0f;
 		}
-		for (int l13 = 0; (l13 < 2); l13 = (l13 + 1)) {
+		for (int l13 = 0; l13 < 2; l13 = l13 + 1) {
 			fRec10[l13] = 0.0f;
 		}
-		for (int l14 = 0; (l14 < 2); l14 = (l14 + 1)) {
+		for (int l14 = 0; l14 < 2; l14 = l14 + 1) {
 			fRec11[l14] = 0.0f;
 		}
-		for (int l15 = 0; (l15 < 2); l15 = (l15 + 1)) {
+		for (int l15 = 0; l15 < 2; l15 = l15 + 1) {
 			fRec12[l15] = 0.0f;
 		}
-		for (int l16 = 0; (l16 < 2); l16 = (l16 + 1)) {
+		for (int l16 = 0; l16 < 2; l16 = l16 + 1) {
 			fRec13[l16] = 0.0f;
 		}
-		for (int l17 = 0; (l17 < 2); l17 = (l17 + 1)) {
+		for (int l17 = 0; l17 < 2; l17 = l17 + 1) {
 			fRec14[l17] = 0.0f;
 		}
-		for (int l18 = 0; (l18 < 2); l18 = (l18 + 1)) {
+		for (int l18 = 0; l18 < 2; l18 = l18 + 1) {
 			fRec15[l18] = 0.0f;
 		}
-		for (int l19 = 0; (l19 < 2); l19 = (l19 + 1)) {
+		for (int l19 = 0; l19 < 2; l19 = l19 + 1) {
 			fRec16[l19] = 0.0f;
 		}
-		for (int l20 = 0; (l20 < 2); l20 = (l20 + 1)) {
+		for (int l20 = 0; l20 < 2; l20 = l20 + 1) {
 			fRec17[l20] = 0.0f;
 		}
-		for (int l21 = 0; (l21 < 2); l21 = (l21 + 1)) {
+		for (int l21 = 0; l21 < 2; l21 = l21 + 1) {
 			fRec18[l21] = 0.0f;
 		}
-		for (int l22 = 0; (l22 < 2); l22 = (l22 + 1)) {
+		for (int l22 = 0; l22 < 2; l22 = l22 + 1) {
 			fRec19[l22] = 0.0f;
 		}
-		for (int l23 = 0; (l23 < 2); l23 = (l23 + 1)) {
+		for (int l23 = 0; l23 < 2; l23 = l23 + 1) {
 			fRec20[l23] = 0.0f;
 		}
-		for (int l24 = 0; (l24 < 2); l24 = (l24 + 1)) {
+		for (int l24 = 0; l24 < 2; l24 = l24 + 1) {
 			fRec21[l24] = 0.0f;
 		}
-		for (int l25 = 0; (l25 < 2); l25 = (l25 + 1)) {
+		for (int l25 = 0; l25 < 2; l25 = l25 + 1) {
 			fRec22[l25] = 0.0f;
 		}
-		for (int l26 = 0; (l26 < 2); l26 = (l26 + 1)) {
+		for (int l26 = 0; l26 < 2; l26 = l26 + 1) {
 			fRec23[l26] = 0.0f;
 		}
-		for (int l27 = 0; (l27 < 2); l27 = (l27 + 1)) {
+		for (int l27 = 0; l27 < 2; l27 = l27 + 1) {
 			fRec24[l27] = 0.0f;
 		}
-		for (int l28 = 0; (l28 < 2); l28 = (l28 + 1)) {
+		for (int l28 = 0; l28 < 2; l28 = l28 + 1) {
 			fRec25[l28] = 0.0f;
 		}
 	}
@@ -853,91 +937,91 @@ class synth_risset_bell : public synth_risset_bell_dsp {
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("synth.risset_bell");
 		ui_interface->declare(&fHslider2, "unit", "ms");
-		ui_interface->addHorizontalSlider("dur", &fHslider2, FAUSTFLOAT(5000.0f), FAUSTFLOAT(10.0f), FAUSTFLOAT(600000.0f), FAUSTFLOAT(1.0f));
+		ui_interface->addHorizontalSlider("dur", &fHslider2, FAUSTFLOAT(5e+03f), FAUSTFLOAT(1e+01f), FAUSTFLOAT(6e+05f), FAUSTFLOAT(1.0f));
 		ui_interface->declare(&fHslider0, "unit", "Hz");
-		ui_interface->addHorizontalSlider("freq", &fHslider0, FAUSTFLOAT(440.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(10000.0f), FAUSTFLOAT(0.00999999978f));
+		ui_interface->addHorizontalSlider("freq", &fHslider0, FAUSTFLOAT(4.4e+02f), FAUSTFLOAT(1.0f), FAUSTFLOAT(1e+04f), FAUSTFLOAT(0.01f));
 		ui_interface->addButton("gate", &fButton0);
-		ui_interface->addHorizontalSlider("pfreq", &fHslider1, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(10.0f), FAUSTFLOAT(0.00100000005f));
+		ui_interface->addHorizontalSlider("pfreq", &fHslider1, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1e+01f), FAUSTFLOAT(0.001f));
 		ui_interface->closeBox();
 	}
 	
-	virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
+	virtual void compute(int count, FAUSTFLOAT** RESTRICT inputs, FAUSTFLOAT** RESTRICT outputs) {
 		FAUSTFLOAT* output0 = outputs[0];
 		float fSlow0 = float(fButton0);
 		float fSlow1 = std::min<float>(1.0f, std::max<float>(0.0f, fSlow0));
 		float fSlow2 = float(fHslider0);
-		float fSlow3 = (fConst1 * fSlow2);
-		float fSlow4 = (fConst2 * float(fHslider1));
+		float fSlow3 = fConst1 * fSlow2;
+		float fSlow4 = fConst2 * float(fHslider1);
 		float fSlow5 = float(fHslider2);
-		float fSlow6 = (1.0f / std::max<float>(1.0f, (fConst6 * fSlow5)));
-		float fSlow7 = (fConst7 * ((0.560000002f * fSlow2) + 1.0f));
-		float fSlow8 = (1.0f / std::max<float>(1.0f, (fConst8 * fSlow5)));
-		float fSlow9 = (fConst9 * fSlow2);
-		float fSlow10 = (1.0f / std::max<float>(1.0f, (fConst10 * fSlow5)));
-		float fSlow11 = (fConst7 * ((0.920000017f * fSlow2) + 1.70000005f));
-		float fSlow12 = (1.0f / std::max<float>(1.0f, (fConst11 * fSlow5)));
-		float fSlow13 = (fConst12 * fSlow2);
-		float fSlow14 = (1.0f / std::max<float>(1.0f, (fConst13 * fSlow5)));
-		float fSlow15 = (fConst14 * fSlow2);
-		float fSlow16 = (1.0f / std::max<float>(1.0f, (fConst15 * fSlow5)));
-		float fSlow17 = (fConst16 * fSlow2);
-		float fSlow18 = (1.0f / std::max<float>(1.0f, (fConst17 * fSlow5)));
-		float fSlow19 = (fConst18 * fSlow2);
-		float fSlow20 = (1.0f / std::max<float>(1.0f, (fConst19 * fSlow5)));
-		float fSlow21 = (fConst20 * fSlow2);
-		float fSlow22 = (1.0f / std::max<float>(1.0f, (fConst21 * fSlow5)));
-		float fSlow23 = (fConst22 * fSlow2);
-		float fSlow24 = (1.0f / std::max<float>(1.0f, (fConst23 * fSlow5)));
-		float fSlow25 = (fConst24 * fSlow2);
-		float fSlow26 = (1.0f / std::max<float>(1.0f, (fConst25 * fSlow5)));
-		for (int i0 = 0; (i0 < count); i0 = (i0 + 1)) {
+		float fSlow6 = 1.0f / std::max<float>(1.0f, fConst6 * fSlow5);
+		float fSlow7 = fConst7 * (0.56f * fSlow2 + 1.0f);
+		float fSlow8 = 1.0f / std::max<float>(1.0f, fConst8 * fSlow5);
+		float fSlow9 = fConst9 * fSlow2;
+		float fSlow10 = 1.0f / std::max<float>(1.0f, fConst10 * fSlow5);
+		float fSlow11 = fConst7 * (0.92f * fSlow2 + 1.7f);
+		float fSlow12 = 1.0f / std::max<float>(1.0f, fConst11 * fSlow5);
+		float fSlow13 = fConst12 * fSlow2;
+		float fSlow14 = 1.0f / std::max<float>(1.0f, fConst13 * fSlow5);
+		float fSlow15 = fConst14 * fSlow2;
+		float fSlow16 = 1.0f / std::max<float>(1.0f, fConst15 * fSlow5);
+		float fSlow17 = fConst16 * fSlow2;
+		float fSlow18 = 1.0f / std::max<float>(1.0f, fConst17 * fSlow5);
+		float fSlow19 = fConst18 * fSlow2;
+		float fSlow20 = 1.0f / std::max<float>(1.0f, fConst19 * fSlow5);
+		float fSlow21 = fConst20 * fSlow2;
+		float fSlow22 = 1.0f / std::max<float>(1.0f, fConst21 * fSlow5);
+		float fSlow23 = fConst22 * fSlow2;
+		float fSlow24 = 1.0f / std::max<float>(1.0f, fConst23 * fSlow5);
+		float fSlow25 = fConst24 * fSlow2;
+		float fSlow26 = 1.0f / std::max<float>(1.0f, fConst25 * fSlow5);
+		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
 			fVec0[0] = fSlow0;
-			int iTemp0 = (fSlow0 > fVec0[1]);
+			int iTemp0 = fSlow0 > fVec0[1];
 			iVec1[0] = iTemp0;
-			int iTemp1 = ((iVec1[1] <= 0) & (iTemp0 > 0));
-			fRec0[0] = ((fRec0[1] * float((1 - iTemp1))) + (fSlow1 * float(iTemp1)));
-			fRec2[0] = (fSlow3 + (fRec2[1] - std::floor((fSlow3 + fRec2[1]))));
-			fRec3[0] = (fSlow4 + (fConst3 * fRec3[1]));
-			int iTemp2 = (fRec3[0] == 1.0f);
-			float fTemp3 = float((iTemp2 + 1));
-			float fTemp4 = float((1 - iTemp2));
-			float fTemp5 = (fRec4[1] + (fSlow3 * fRec3[0]));
-			fRec4[0] = (fTemp5 - std::floor(fTemp5));
-			iRec5[0] = (iTemp0 + ((iRec5[1] + (iRec5[1] > 0)) * (fSlow0 <= fVec0[1])));
+			int iTemp1 = (iVec1[1] <= 0) & (iTemp0 > 0);
+			fRec0[0] = fRec0[1] * float(1 - iTemp1) + fSlow1 * float(iTemp1);
+			fRec2[0] = fSlow3 + (fRec2[1] - std::floor(fSlow3 + fRec2[1]));
+			fRec3[0] = fSlow4 + fConst3 * fRec3[1];
+			int iTemp2 = fRec3[0] == 1.0f;
+			float fTemp3 = float(iTemp2 + 1);
+			float fTemp4 = float(1 - iTemp2);
+			float fTemp5 = fRec4[1] + fSlow3 * fRec3[0];
+			fRec4[0] = fTemp5 - std::floor(fTemp5);
+			iRec5[0] = iTemp0 + (iRec5[1] + (iRec5[1] > 0)) * (fSlow0 <= fVec0[1]);
 			float fTemp6 = float(iRec5[0]);
-			float fTemp7 = (fConst5 * fTemp6);
-			float fTemp8 = (fConst4 - fTemp6);
-			fRec6[0] = (fSlow7 + (fRec6[1] - std::floor((fSlow7 + fRec6[1]))));
-			float fTemp9 = (fRec7[1] + (fSlow7 * fRec3[0]));
-			fRec7[0] = (fTemp9 - std::floor(fTemp9));
-			fRec8[0] = (fSlow9 + (fRec8[1] - std::floor((fSlow9 + fRec8[1]))));
-			float fTemp10 = (fRec9[1] + (fSlow9 * fRec3[0]));
-			fRec9[0] = (fTemp10 - std::floor(fTemp10));
-			fRec10[0] = (fSlow11 + (fRec10[1] - std::floor((fSlow11 + fRec10[1]))));
-			float fTemp11 = (fRec11[1] + (fSlow11 * fRec3[0]));
-			fRec11[0] = (fTemp11 - std::floor(fTemp11));
-			fRec12[0] = (fSlow13 + (fRec12[1] - std::floor((fSlow13 + fRec12[1]))));
-			float fTemp12 = (fRec13[1] + (fSlow13 * fRec3[0]));
-			fRec13[0] = (fTemp12 - std::floor(fTemp12));
-			fRec14[0] = (fSlow15 + (fRec14[1] - std::floor((fSlow15 + fRec14[1]))));
-			float fTemp13 = (fRec15[1] + (fSlow15 * fRec3[0]));
-			fRec15[0] = (fTemp13 - std::floor(fTemp13));
-			fRec16[0] = (fSlow17 + (fRec16[1] - std::floor((fSlow17 + fRec16[1]))));
-			float fTemp14 = (fRec17[1] + (fSlow17 * fRec3[0]));
-			fRec17[0] = (fTemp14 - std::floor(fTemp14));
-			fRec18[0] = (fSlow19 + (fRec18[1] - std::floor((fSlow19 + fRec18[1]))));
-			float fTemp15 = (fRec19[1] + (fSlow19 * fRec3[0]));
-			fRec19[0] = (fTemp15 - std::floor(fTemp15));
-			fRec20[0] = (fSlow21 + (fRec20[1] - std::floor((fSlow21 + fRec20[1]))));
-			float fTemp16 = (fRec21[1] + (fSlow21 * fRec3[0]));
-			fRec21[0] = (fTemp16 - std::floor(fTemp16));
-			fRec22[0] = (fSlow23 + (fRec22[1] - std::floor((fSlow23 + fRec22[1]))));
-			float fTemp17 = (fRec23[1] + (fSlow23 * fRec3[0]));
-			fRec23[0] = (fTemp17 - std::floor(fTemp17));
-			fRec24[0] = (fSlow25 + (fRec24[1] - std::floor((fSlow25 + fRec24[1]))));
-			float fTemp18 = (fRec25[1] + (fSlow25 * fRec3[0]));
-			fRec25[0] = (fTemp18 - std::floor(fTemp18));
-			output0[i0] = FAUSTFLOAT((fRec0[0] * (((((((((((0.0500000007f * (((ftbl0synth_risset_bellSIG0[int((65536.0f * fRec2[0]))] * fTemp3) + (fTemp4 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec4[0]))])) * synth_risset_bell_faustpower4_f(std::max<float>(0.0f, std::min<float>(fTemp7, ((fSlow6 * fTemp8) + 1.0f)))))) + (0.0335000008f * (((fTemp3 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec6[0]))]) + (fTemp4 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec7[0]))])) * synth_risset_bell_faustpower4_f(std::max<float>(0.0f, std::min<float>(fTemp7, ((fSlow8 * fTemp8) + 1.0f))))))) + (0.0500000007f * (((fTemp3 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec8[0]))]) + (fTemp4 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec9[0]))])) * synth_risset_bell_faustpower4_f(std::max<float>(0.0f, std::min<float>(fTemp7, ((fSlow10 * fTemp8) + 1.0f))))))) + (0.0900000036f * (((fTemp3 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec10[0]))]) + (fTemp4 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec11[0]))])) * synth_risset_bell_faustpower4_f(std::max<float>(0.0f, std::min<float>(fTemp7, ((fSlow12 * fTemp8) + 1.0f))))))) + (0.133499995f * (((fTemp3 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec12[0]))]) + (fTemp4 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec13[0]))])) * synth_risset_bell_faustpower4_f(std::max<float>(0.0f, std::min<float>(fTemp7, ((fSlow14 * fTemp8) + 1.0f))))))) + (0.0834999979f * (((fTemp3 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec14[0]))]) + (fTemp4 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec15[0]))])) * synth_risset_bell_faustpower4_f(std::max<float>(0.0f, std::min<float>(fTemp7, ((fSlow16 * fTemp8) + 1.0f))))))) + (0.0729999989f * (((fTemp3 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec16[0]))]) + (fTemp4 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec17[0]))])) * synth_risset_bell_faustpower4_f(std::max<float>(0.0f, std::min<float>(fTemp7, ((fSlow18 * fTemp8) + 1.0f))))))) + (0.0665000007f * (((fTemp3 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec18[0]))]) + (fTemp4 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec19[0]))])) * synth_risset_bell_faustpower4_f(std::max<float>(0.0f, std::min<float>(fTemp7, ((fSlow20 * fTemp8) + 1.0f))))))) + (0.0665000007f * (((fTemp3 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec20[0]))]) + (fTemp4 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec21[0]))])) * synth_risset_bell_faustpower4_f(std::max<float>(0.0f, std::min<float>(fTemp7, ((fSlow22 * fTemp8) + 1.0f))))))) + (0.0500000007f * (((fTemp3 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec22[0]))]) + (fTemp4 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec23[0]))])) * synth_risset_bell_faustpower4_f(std::max<float>(0.0f, std::min<float>(fTemp7, ((fSlow24 * fTemp8) + 1.0f))))))) + (0.0665000007f * (((fTemp3 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec24[0]))]) + (fTemp4 * ftbl0synth_risset_bellSIG0[int((65536.0f * fRec25[0]))])) * synth_risset_bell_faustpower4_f(std::max<float>(0.0f, std::min<float>(fTemp7, ((fSlow26 * fTemp8) + 1.0f)))))))));
+			float fTemp7 = fConst5 * fTemp6;
+			float fTemp8 = fConst4 - fTemp6;
+			fRec6[0] = fSlow7 + (fRec6[1] - std::floor(fSlow7 + fRec6[1]));
+			float fTemp9 = fRec7[1] + fSlow7 * fRec3[0];
+			fRec7[0] = fTemp9 - std::floor(fTemp9);
+			fRec8[0] = fSlow9 + (fRec8[1] - std::floor(fSlow9 + fRec8[1]));
+			float fTemp10 = fRec9[1] + fSlow9 * fRec3[0];
+			fRec9[0] = fTemp10 - std::floor(fTemp10);
+			fRec10[0] = fSlow11 + (fRec10[1] - std::floor(fSlow11 + fRec10[1]));
+			float fTemp11 = fRec11[1] + fSlow11 * fRec3[0];
+			fRec11[0] = fTemp11 - std::floor(fTemp11);
+			fRec12[0] = fSlow13 + (fRec12[1] - std::floor(fSlow13 + fRec12[1]));
+			float fTemp12 = fRec13[1] + fSlow13 * fRec3[0];
+			fRec13[0] = fTemp12 - std::floor(fTemp12);
+			fRec14[0] = fSlow15 + (fRec14[1] - std::floor(fSlow15 + fRec14[1]));
+			float fTemp13 = fRec15[1] + fSlow15 * fRec3[0];
+			fRec15[0] = fTemp13 - std::floor(fTemp13);
+			fRec16[0] = fSlow17 + (fRec16[1] - std::floor(fSlow17 + fRec16[1]));
+			float fTemp14 = fRec17[1] + fSlow17 * fRec3[0];
+			fRec17[0] = fTemp14 - std::floor(fTemp14);
+			fRec18[0] = fSlow19 + (fRec18[1] - std::floor(fSlow19 + fRec18[1]));
+			float fTemp15 = fRec19[1] + fSlow19 * fRec3[0];
+			fRec19[0] = fTemp15 - std::floor(fTemp15);
+			fRec20[0] = fSlow21 + (fRec20[1] - std::floor(fSlow21 + fRec20[1]));
+			float fTemp16 = fRec21[1] + fSlow21 * fRec3[0];
+			fRec21[0] = fTemp16 - std::floor(fTemp16);
+			fRec22[0] = fSlow23 + (fRec22[1] - std::floor(fSlow23 + fRec22[1]));
+			float fTemp17 = fRec23[1] + fSlow23 * fRec3[0];
+			fRec23[0] = fTemp17 - std::floor(fTemp17);
+			fRec24[0] = fSlow25 + (fRec24[1] - std::floor(fSlow25 + fRec24[1]));
+			float fTemp18 = fRec25[1] + fSlow25 * fRec3[0];
+			fRec25[0] = fTemp18 - std::floor(fTemp18);
+			output0[i0] = FAUSTFLOAT(fRec0[0] * (0.05f * (ftbl0synth_risset_bellSIG0[int(65536.0f * fRec2[0])] * fTemp3 + fTemp4 * ftbl0synth_risset_bellSIG0[int(65536.0f * fRec4[0])]) * synth_risset_bell_faustpower4_f(std::max<float>(0.0f, std::min<float>(fTemp7, fSlow6 * fTemp8 + 1.0f))) + 0.0335f * (fTemp3 * ftbl0synth_risset_bellSIG0[int(65536.0f * fRec6[0])] + fTemp4 * ftbl0synth_risset_bellSIG0[int(65536.0f * fRec7[0])]) * synth_risset_bell_faustpower4_f(std::max<float>(0.0f, std::min<float>(fTemp7, fSlow8 * fTemp8 + 1.0f))) + 0.05f * (fTemp3 * ftbl0synth_risset_bellSIG0[int(65536.0f * fRec8[0])] + fTemp4 * ftbl0synth_risset_bellSIG0[int(65536.0f * fRec9[0])]) * synth_risset_bell_faustpower4_f(std::max<float>(0.0f, std::min<float>(fTemp7, fSlow10 * fTemp8 + 1.0f))) + 0.09f * (fTemp3 * ftbl0synth_risset_bellSIG0[int(65536.0f * fRec10[0])] + fTemp4 * ftbl0synth_risset_bellSIG0[int(65536.0f * fRec11[0])]) * synth_risset_bell_faustpower4_f(std::max<float>(0.0f, std::min<float>(fTemp7, fSlow12 * fTemp8 + 1.0f))) + 0.1335f * (fTemp3 * ftbl0synth_risset_bellSIG0[int(65536.0f * fRec12[0])] + fTemp4 * ftbl0synth_risset_bellSIG0[int(65536.0f * fRec13[0])]) * synth_risset_bell_faustpower4_f(std::max<float>(0.0f, std::min<float>(fTemp7, fSlow14 * fTemp8 + 1.0f))) + 0.0835f * (fTemp3 * ftbl0synth_risset_bellSIG0[int(65536.0f * fRec14[0])] + fTemp4 * ftbl0synth_risset_bellSIG0[int(65536.0f * fRec15[0])]) * synth_risset_bell_faustpower4_f(std::max<float>(0.0f, std::min<float>(fTemp7, fSlow16 * fTemp8 + 1.0f))) + 0.073f * (fTemp3 * ftbl0synth_risset_bellSIG0[int(65536.0f * fRec16[0])] + fTemp4 * ftbl0synth_risset_bellSIG0[int(65536.0f * fRec17[0])]) * synth_risset_bell_faustpower4_f(std::max<float>(0.0f, std::min<float>(fTemp7, fSlow18 * fTemp8 + 1.0f))) + 0.0665f * (fTemp3 * ftbl0synth_risset_bellSIG0[int(65536.0f * fRec18[0])] + fTemp4 * ftbl0synth_risset_bellSIG0[int(65536.0f * fRec19[0])]) * synth_risset_bell_faustpower4_f(std::max<float>(0.0f, std::min<float>(fTemp7, fSlow20 * fTemp8 + 1.0f))) + 0.0665f * (fTemp3 * ftbl0synth_risset_bellSIG0[int(65536.0f * fRec20[0])] + fTemp4 * ftbl0synth_risset_bellSIG0[int(65536.0f * fRec21[0])]) * synth_risset_bell_faustpower4_f(std::max<float>(0.0f, std::min<float>(fTemp7, fSlow22 * fTemp8 + 1.0f))) + 0.05f * (fTemp3 * ftbl0synth_risset_bellSIG0[int(65536.0f * fRec22[0])] + fTemp4 * ftbl0synth_risset_bellSIG0[int(65536.0f * fRec23[0])]) * synth_risset_bell_faustpower4_f(std::max<float>(0.0f, std::min<float>(fTemp7, fSlow24 * fTemp8 + 1.0f))) + 0.0665f * (fTemp3 * ftbl0synth_risset_bellSIG0[int(65536.0f * fRec24[0])] + fTemp4 * ftbl0synth_risset_bellSIG0[int(65536.0f * fRec25[0])]) * synth_risset_bell_faustpower4_f(std::max<float>(0.0f, std::min<float>(fTemp7, fSlow26 * fTemp8 + 1.0f)))));
 			fVec0[1] = fVec0[0];
 			iVec1[1] = iVec1[0];
 			fRec0[1] = fRec0[0];

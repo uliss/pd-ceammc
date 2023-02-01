@@ -31,9 +31,9 @@
         </methods>
         <properties>
             <property name="@inputs" type="int" minvalue="2" maxvalue="16" default="2"
-            readonly="true">number of matrix inputs</property>
+            access="readonly">number of matrix inputs</property>
             <property name="@outputs" type="int" minvalue="2" maxvalue="16" default="2"
-            readonly="true">number of matrix outputs</property>
+            access="readonly">number of matrix outputs</property>
         </properties>
         <inlets dynamic="true">
             <inlet number="1" type="audio">

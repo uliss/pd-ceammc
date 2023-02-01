@@ -83,8 +83,7 @@
             units="decibel">5th source reverb sound level</property>
             <property name="@wet5" type="float" minvalue="-60" maxvalue="0" default="-8"
             units="decibel">6th source reverb sound level</property>
-            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
-            processing</property>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
         <inlets>
             <inlet type="audio">

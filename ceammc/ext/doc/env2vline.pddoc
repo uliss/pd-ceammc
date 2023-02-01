@@ -27,8 +27,8 @@
             outputted using linear approximation</par>
         </info>
         <properties>
-            <property name="@sync" type="int" enum="0 1" default="0">sync with input data. When set
-            to 1 outputs envelope (as fixed) on every input data</property>
+            <property name="@sync" type="bool" default="0">sync with input data. When set to 1
+            outputs envelope (as fixed) on every input data</property>
         </properties>
         <methods>
             <!-- next point -->

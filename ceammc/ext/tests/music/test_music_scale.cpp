@@ -11,6 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
+#include "ceammc_crc32.h"
 #include "ceammc_music_scale.h"
 #include "test_base.h"
 
@@ -25,11 +26,11 @@ TEST_CASE("scale", "[ceammc::music]")
     {
         SECTION("chromatic 12")
         {
-            auto ch12 = ScaleLibrary::instance().find(SYM("chromatic"));
+            auto ch12 = ScaleLibrary::instance().find("chromatic");
             REQUIRE(ch12);
             REQUIRE(ch12->size() == 12);
             REQUIRE(ch12->pitchesPerOctave() == 12);
-            REQUIRE(ch12->name() == SYM("chromatic"));
+            REQUIRE(ch12->name() == "chromatic");
             REQUIRE(ch12->degrees() == LF(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11));
 
             for (int i = -100; i < 100; i++)
@@ -38,11 +39,11 @@ TEST_CASE("scale", "[ceammc::music]")
 
         SECTION("chromatic 24")
         {
-            auto ch24 = ScaleLibrary::instance().find(SYM("chromatic24"));
+            auto ch24 = ScaleLibrary::instance().find("chromatic24");
             REQUIRE(ch24);
             REQUIRE(ch24->size() == 24);
             REQUIRE(ch24->pitchesPerOctave() == 24);
-            REQUIRE(ch24->name() == SYM("chromatic24"));
+            REQUIRE(ch24->name() == "chromatic24");
 
             for (int i = -100; i < 100; i++)
                 REQUIRE(ch24->degreeToKey(i) == i);
@@ -50,12 +51,12 @@ TEST_CASE("scale", "[ceammc::music]")
 
         SECTION("major")
         {
-            auto maj = ScaleLibrary::instance().find(SYM("major"));
+            auto maj = ScaleLibrary::instance().find("major");
             REQUIRE(maj);
             REQUIRE(maj->size() == 7);
             REQUIRE(maj->pitchesPerOctave() == 12);
             REQUIRE(maj->degrees() == LF(0, 2, 4, 5, 7, 9, 11));
-            REQUIRE(maj->name() == SYM("major"));
+            REQUIRE(maj->name() == "major");
 
             REQUIRE(maj->degreeToKey(0) == 0);
             REQUIRE(maj->degreeToKey(1) == 2);
@@ -81,15 +82,117 @@ TEST_CASE("scale", "[ceammc::music]")
 
         SECTION("whole")
         {
-            auto whole = ScaleLibrary::instance().find(SYM("whole"));
+            auto whole = ScaleLibrary::instance().find("whole");
             REQUIRE(whole);
             REQUIRE(whole->size() == 6);
             REQUIRE(whole->pitchesPerOctave() == 12);
             REQUIRE(whole->degrees() == LF(0, 2, 4, 6, 8, 10));
-            REQUIRE(whole->name() == SYM("whole"));
+            REQUIRE(whole->name() == "whole");
 
             for (int i = -16; i < 16; i++)
                 REQUIRE(whole->degreeToKey(i) == i * 2);
+        }
+
+        SECTION("all")
+        {
+            for (auto& s : ScaleLibrary::instance().all()) {
+                REQUIRE(ScaleLibrary::instance().find(s->name().c_str()));
+                REQUIRE(ScaleLibrary::instance().find(s->name().c_str())->name() == s->name());
+            }
+        }
+    }
+
+    SECTION("Scale")
+    {
+        SECTION("find")
+        {
+            auto scale = ScaleLibrary::instance().findByHash("chromatic"_hash);
+            REQUIRE(scale);
+
+            for (int i = 0; i < 12; i++) {
+                REQUIRE(scale->find(i));
+            }
+
+            REQUIRE_FALSE(scale->find(-1));
+            REQUIRE_FALSE(scale->find(12));
+        }
+
+        SECTION("find nearest")
+        {
+            t_float res = 0;
+            auto s0 = ScaleLibrary::instance().findByHash("chromatic"_hash);
+            REQUIRE(s0);
+
+            for (int i = 0; i < 12; i++) {
+                REQUIRE(s0->findNearest(i, res));
+                REQUIRE(i == res);
+            }
+
+            REQUIRE_FALSE(s0->findNearest(-1, res));
+            REQUIRE_FALSE(s0->findNearest(12, res));
+
+            auto maj = ScaleLibrary::instance().findByHash("major"_hash);
+            REQUIRE(maj);
+            REQUIRE(maj->findNearest(0, res));
+            REQUIRE(res == 0);
+            REQUIRE(maj->findNearest(1, res));
+            REQUIRE(res == 2);
+            REQUIRE(maj->findNearest(2, res));
+            REQUIRE(res == 2);
+            REQUIRE(maj->findNearest(3, res));
+            REQUIRE(res == 4);
+            REQUIRE(maj->findNearest(4, res));
+            REQUIRE(res == 4);
+            REQUIRE(maj->findNearest(5, res));
+            REQUIRE(res == 5);
+            REQUIRE(maj->findNearest(6, res));
+            REQUIRE(res == 7);
+            REQUIRE(maj->findNearest(7, res));
+            REQUIRE(res == 7);
+            REQUIRE(maj->findNearest(8, res));
+            REQUIRE(res == 9);
+            REQUIRE(maj->findNearest(9, res));
+            REQUIRE(res == 9);
+            REQUIRE(maj->findNearest(10, res));
+            REQUIRE(res == 11);
+            REQUIRE(maj->findNearest(11, res));
+            REQUIRE(res == 11);
+
+            // 0, 2, 4, 7, 9
+            auto pent = ScaleLibrary::instance().findByHash("major_pentatonic"_hash);
+            REQUIRE(pent);
+
+            REQUIRE(pent->findNearest(0, res));
+            REQUIRE(res == 0);
+            REQUIRE(pent->findNearest(1, res));
+            REQUIRE(res == 2);
+            REQUIRE(pent->findNearest(2, res));
+            REQUIRE(res == 2);
+            REQUIRE(pent->findNearest(3, res));
+            REQUIRE(res == 4);
+            REQUIRE(pent->findNearest(4, res));
+            REQUIRE(res == 4);
+            REQUIRE(pent->findNearest(5, res));
+            REQUIRE(res == 4);
+            REQUIRE(pent->findNearest(6, res));
+            REQUIRE(res == 7);
+            REQUIRE(pent->findNearest(7, res));
+            REQUIRE(res == 7);
+            REQUIRE(pent->findNearest(8, res));
+            REQUIRE(res == 9);
+            REQUIRE(pent->findNearest(9, res));
+            REQUIRE(res == 9);
+            REQUIRE(pent->findNearest(10, res));
+            REQUIRE(res == 9);
+            REQUIRE(pent->findNearest(11, res));
+            REQUIRE(res == 12);
+
+            auto min = ScaleLibrary::instance().findByHash("minor"_hash);
+            REQUIRE(min);
+            REQUIRE(min->findNearest(10, res));
+            REQUIRE(res == 10);
+            REQUIRE(min->findNearest(11, res));
+            REQUIRE(res == 10);
         }
     }
 }

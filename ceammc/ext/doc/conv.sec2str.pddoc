@@ -22,9 +22,10 @@
             </aliases>
         </meta>
         <properties>
-            <property name="@ms" type="flag" default="0">output milliseconds</property>
-            <property name="@symbol" type="flag" default="0">if specified - output formatted time
-            as symbol, otherwise as string.</property>
+            <property name="@ms" type="flag" default="0" access="initonly">output
+            milliseconds</property>
+            <property name="@symbol" type="flag" default="0" access="initonly">if specified -
+            output formatted time as symbol, otherwise as string.</property>
         </properties>
         <inlets>
             <inlet>

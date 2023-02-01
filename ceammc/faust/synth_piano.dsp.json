@@ -1,8 +1,8 @@
 {
 	"name": "synth.piano",
 	"filename": "synth_piano.dsp",
-	"version": "2.37.3",
-	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0",
+	"version": "2.53.1",
+	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn synth_piano -scn synth_piano_dsp -es 1 -mcd 16 -single -ftz 0",
 	"library_list": ["/usr/local/share/faust/instruments.lib","/Users/serge/work/music/pure-data/ceammc/faust/spn.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib","/usr/local/share/faust/noises.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/filters.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc_instruments.lib","/usr/local/share/faust/delays.lib","/usr/local/share/faust/signals.lib","/usr/local/share/faust/reverbs.lib","/usr/local/share/faust/routes.lib"],
 	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
 	"inputs": 0,
@@ -10,12 +10,12 @@
 	"meta": [ 
 		{ "author": "Romain Michon (rmichon@ccrma.stanford.edu)" },
 		{ "basics.lib/name": "Faust Basic Element Library" },
-		{ "basics.lib/version": "0.2" },
+		{ "basics.lib/version": "0.8" },
 		{ "ceammc.lib/name": "Ceammc PureData misc utils" },
 		{ "ceammc.lib/version": "0.1.2" },
 		{ "ceammc_instruments.lib/name": "CEAMMC replacement for intruments.lib" },
 		{ "ceammc_instruments.lib/version": "0.3" },
-		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0" },
+		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn synth_piano -scn synth_piano_dsp -es 1 -mcd 16 -single -ftz 0" },
 		{ "copyright": "Romain Michon" },
 		{ "delays.lib/name": "Faust Delay Library" },
 		{ "delays.lib/version": "0.1" },
@@ -24,7 +24,7 @@
 		{ "filters.lib/allpass_comb:author": "Julius O. Smith III" },
 		{ "filters.lib/allpass_comb:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
 		{ "filters.lib/allpass_comb:license": "MIT-style STK-4.3 license" },
-		{ "filters.lib/lowpass0_highpass1": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/lowpass0_highpass1": "MIT-style STK-4.3 license" },
 		{ "filters.lib/lowpass0_highpass1:author": "Julius O. Smith III" },
 		{ "filters.lib/lowpass:author": "Julius O. Smith III" },
 		{ "filters.lib/lowpass:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
@@ -50,15 +50,16 @@
 		{ "maths.lib/version": "2.5" },
 		{ "name": "synth.piano" },
 		{ "noises.lib/name": "Faust Noise Generator Library" },
-		{ "noises.lib/version": "0.1" },
+		{ "noises.lib/version": "0.4" },
 		{ "platform.lib/name": "Generic Platform Library" },
 		{ "platform.lib/version": "0.2" },
 		{ "reverbs.lib/name": "Faust Reverb Library" },
 		{ "reverbs.lib/version": "0.2" },
+		{ "routes.lib/hadamard:author": "Remy Muller, revised by Romain Michon" },
 		{ "routes.lib/name": "Faust Signal Routing Library" },
 		{ "routes.lib/version": "0.2" },
 		{ "signals.lib/name": "Faust Signal Routing Library" },
-		{ "signals.lib/version": "0.1" },
+		{ "signals.lib/version": "0.3" },
 		{ "spn.lib/name": "Standart Pitch Notation constants" },
 		{ "spn.lib/version": "0.2" },
 		{ "version": "1.0" }
@@ -71,6 +72,7 @@
 				{
 					"type": "hslider",
 					"label": "brightness",
+					"shortname": "brightness",
 					"address": "/synth.piano/brightness",
 					"init": 0,
 					"min": 0,
@@ -80,6 +82,7 @@
 				{
 					"type": "hslider",
 					"label": "detuning",
+					"shortname": "detuning",
 					"address": "/synth.piano/detuning",
 					"init": 0.1,
 					"min": 0,
@@ -89,11 +92,13 @@
 				{
 					"type": "button",
 					"label": "gate",
+					"shortname": "gate",
 					"address": "/synth.piano/gate"
 				},
 				{
 					"type": "hslider",
 					"label": "hammer_hardness",
+					"shortname": "hammer_hardness",
 					"address": "/synth.piano/hammer_hardness",
 					"init": 0.1,
 					"min": 0,
@@ -103,6 +108,7 @@
 				{
 					"type": "hslider",
 					"label": "pan",
+					"shortname": "pan",
 					"address": "/synth.piano/pan",
 					"init": 0.6,
 					"min": 0,
@@ -112,6 +118,7 @@
 				{
 					"type": "hslider",
 					"label": "pitch",
+					"shortname": "pitch",
 					"address": "/synth.piano/pitch",
 					"init": 48,
 					"min": 21,
@@ -121,6 +128,7 @@
 				{
 					"type": "hslider",
 					"label": "reverb_gain",
+					"shortname": "reverb_gain",
 					"address": "/synth.piano/reverb_gain",
 					"init": 0.137,
 					"min": 0,
@@ -130,6 +138,7 @@
 				{
 					"type": "hslider",
 					"label": "room_size",
+					"shortname": "room_size",
 					"address": "/synth.piano/room_size",
 					"init": 0.36,
 					"min": 0.005,
@@ -139,6 +148,7 @@
 				{
 					"type": "hslider",
 					"label": "stiffness",
+					"shortname": "stiffness",
 					"address": "/synth.piano/stiffness",
 					"init": 0.28,
 					"min": 0,
@@ -148,6 +158,7 @@
 				{
 					"type": "hslider",
 					"label": "width",
+					"shortname": "width",
 					"address": "/synth.piano/width",
 					"init": 0.5,
 					"min": 0,

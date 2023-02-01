@@ -23,7 +23,7 @@
             possible.</par>
         </info>
         <arguments>
-            <argument name="step" type="int" minvalue="1" maxvalue="1024">see @step
+            <argument name="STEP" type="int" minvalue="1" maxvalue="1024">see @step
             property</argument>
         </arguments>
         <properties>

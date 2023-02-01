@@ -290,11 +290,11 @@ void ProtoMidiCasio::m_instr(t_symbol* s, const AtomListView& lv)
         t_symbol* instr = &s_;
         uint32_t id = 0;
 
-        if (lv.size() == 3 && lv[0].isInteger() && lv[1].isSymbol()) {
+        if (lv.size() == 3 && lv[0].isInteger() && lv[1].isSymbol()) { // CHAN INSTR BANK
             chan = lv[0].asT<int>();
             instr = lv[1].asSymbol();
             id = lv[2].isFloat() ? lv[2].asT<int>() : crc32_hash(lv[2].asT<t_symbol*>()->s_name);
-        } else if (lv.size() == 2 && lv[0].isSymbol()) {
+        } else if (lv.size() == 2 && lv[0].isSymbol()) { // INSTR BANK
             instr = lv[0].asSymbol();
             id = lv[1].isFloat() ? lv[1].asT<int>() : crc32_hash(lv[1].asT<t_symbol*>()->s_name);
         } else {
@@ -400,6 +400,9 @@ void ProtoMidiCasio::m_instr(t_symbol* s, const AtomListView& lv)
             case "elec2"_hash:
                 bankSelect(chan, 0, 0);
                 progChange(chan, 0x10);
+                break;
+            default:
+                METHOD_ERR(s) << "unknown organ name, expected (pipe|jass|elec1|elec2|0..3), got: " << lv[1];
                 break;
             }
             break;

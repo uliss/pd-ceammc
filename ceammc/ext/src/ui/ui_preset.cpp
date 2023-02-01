@@ -314,7 +314,7 @@ void UIPreset::setup()
     UIObjectFactory<UIPreset> obj("ui.preset");
     obj.setDefaultSize(102, 42);
 
-    obj.hideProperty("send");
+    obj.internalProperty("send");
     obj.hideLabelInner();
 
     obj.addProperty("text_color", _("Text Color"), "0. 0. 0. 1.", &UIPreset::prop_color_text);

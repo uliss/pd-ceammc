@@ -31,13 +31,13 @@ class Car2Pol : public BaseObject {
 
 public:
     Car2Pol(const PdArgs& args);
-    void onList(const AtomList& lst) override;
+    void onList(const AtomListView& lv) override;
 };
 
 class Pol2Car : public BaseObject {
 public:
     Pol2Car(const PdArgs& args);
-    void onList(const AtomList& lst) override;
+    void onList(const AtomListView& lv) override;
 };
 
 class Phase2RadTilde : public SimpleConverterTilde {

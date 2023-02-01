@@ -43,7 +43,23 @@ ArduinoExternal::ArduinoExternal(const PdArgs& args)
     on_connect_ = new SymbolProperty("@on_connect", &s_);
     addProperty(on_connect_);
 
-    baud_rate_ = new IntEnumProperty("@rate", { 57600, 110, 300, 600, 1200, 2400, 4800, 9600, 14400, 19200, 38400, 56000, 115200, 128000, 256000 });
+    baud_rate_ = new IntEnumProperty("@rate", {
+                                                  57600,
+                                                  110,
+                                                  300,
+                                                  600,
+                                                  1200,
+                                                  2400,
+                                                  4800,
+                                                  9600,
+                                                  14400,
+                                                  19200,
+                                                  38400,
+                                                  56000,
+                                                  115200,
+                                                  128000,
+                                                  256000,
+                                              });
     baud_rate_->setArgIndex(1);
     addProperty(baud_rate_);
 
@@ -90,13 +106,13 @@ void ArduinoExternal::onFloat(t_float f)
         OBJ_ERR << "can't send data: device is not connected";
 }
 
-void ArduinoExternal::onList(const AtomList& lst)
+void ArduinoExternal::onList(const AtomListView& lv)
 {
     std::string data;
-    data.reserve(lst.size());
+    data.reserve(lv.size());
 
-    for (size_t i = 0; i < lst.size(); i++) {
-        const Atom& a = lst[i];
+    for (size_t i = 0; i < lv.size(); i++) {
+        const Atom& a = lv[i];
 
         t_float f = 0;
         if (!a.getFloat(&f)) {

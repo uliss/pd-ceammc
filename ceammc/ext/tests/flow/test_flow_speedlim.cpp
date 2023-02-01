@@ -42,7 +42,7 @@ TEST_CASE("flow.speedlim", "[externals]")
 
         {
             TObj t("flow.speedlim", LF(-100));
-            REQUIRE_PROPERTY(t, @limit, -100);
+            REQUIRE_PROPERTY(t, @limit, 0);
         }
 
         {
@@ -78,14 +78,14 @@ TEST_CASE("flow.speedlim", "[externals]")
             WHEN_SEND_BANG_TO(0, t);
             REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
-            t.proxy_reset();
+            t.onInletBang(1);
             WHEN_SEND_BANG_TO(0, t);
             REQUIRE_BANG_AT_OUTLET(0, t);
 
             WHEN_SEND_FLOAT_TO(0, t, 200);
             REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
-            t.proxy_reset();
+            t.onInletBang(1);
             WHEN_SEND_FLOAT_TO(0, t, 200);
             REQUIRE_FLOAT_AT_OUTLET(0, t, 200);
 

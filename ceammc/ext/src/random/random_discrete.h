@@ -2,24 +2,20 @@
 #define RANDOM_DISCRETE_H
 
 #include "ceammc_object.h"
-#include "rnd_gen.h"
+#include "ceammc_random.h"
 using namespace ceammc;
 
 class RandomDiscrete : public BaseObject {
     std::vector<t_float> weights_;
-    RandomGen gen_;
-    SizeTProperty* seed_;
+    random::RandomGen gen_;
 
 public:
     RandomDiscrete(const PdArgs& a);
     void onBang() override;
-    void onList(const AtomList& l) override;
-
-    AtomList propWeights() const;
-    void setPropWeights(const AtomList& l);
+    void onList(const AtomListView& lv) override;
 
 private:
-    bool set(const AtomList& l);
+    bool set(const AtomListView& lv);
 };
 
 void setup_random_discrete();

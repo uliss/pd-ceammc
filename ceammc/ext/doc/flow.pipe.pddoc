@@ -21,15 +21,15 @@
             <par>Note: @delay property can be set only via right inlet or [prop.set] object</par>
         </info>
         <arguments>
-            <argument name="MS" type="float" minvalue="0" units="millisecond">init @delay
+            <argument name="DELAY" type="float" minvalue="0" units="millisecond">init @delay
             property</argument>
         </arguments>
         <properties>
             <property name="@delay" type="float" minvalue="0" default="0" units="millisecond">delay
             time</property>
-            <property name="@empty" type="int" enum="0 1" default="1" readonly="true">1 if pipe is
-            empty, otherwise 0.</property>
-            <property name="@size" type="int" default="0" readonly="true">pipe size</property>
+            <property name="@empty" type="bool" default="1" access="readonly">1 if pipe is empty,
+            otherwise 0.</property>
+            <property name="@size" type="int" default="0" access="readonly">pipe size</property>
         </properties>
         <inlets>
             <inlet>

@@ -31,12 +31,12 @@ public:
     void onBang() override;
     void onFloat(t_float v) override;
     void onSymbol(t_symbol* s) override;
-    void onList(const AtomList& lst) override;
+    void onList(const AtomListView& lv) override;
 
     void dump() const override;
 
     AtomList propGetFormat() const;
-    void propSetFormat(const AtomList& lst);
+    void propSetFormat(const AtomListView& lv);
 };
 
 void setup_string_format();

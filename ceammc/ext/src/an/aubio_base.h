@@ -19,8 +19,8 @@
 #include <stack>
 
 #include "aubio.h"
-#include "ceammc_property_callback.h"
 #include "ceammc_property.h"
+#include "ceammc_property_callback.h"
 #include "ceammc_property_enum.h"
 
 using namespace ceammc;
@@ -29,9 +29,26 @@ struct FVecDeleter {
     void operator()(fvec_t* v) { del_fvec(v); }
 };
 
+// vector of size=1 (for onset output)
+class FVec1 {
+    smpl_t v_;
+    fvec_t vec_;
+
+public:
+    FVec1(smpl_t v = 0)
+        : v_(v)
+        , vec_ { 1, &v_ }
+    {
+    }
+
+    smpl_t& value() { return v_; }
+    const smpl_t& value() const { return v_; }
+    fvec_t& vec() { return vec_; }
+};
+
 using FVecPtr = std::unique_ptr<fvec_t, FVecDeleter>;
 using OnsetPtr = std::shared_ptr<aubio_onset_t>;
-using TempoPtr = std::unique_ptr<aubio_tempo_t, void(*)(aubio_tempo_t*)>;
+using TempoPtr = std::unique_ptr<aubio_tempo_t, void (*)(aubio_tempo_t*)>;
 
 class HopSizeProperty : public IntProperty {
     IntProperty* bs_;

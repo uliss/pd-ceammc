@@ -14,22 +14,23 @@
             <since>0.5</since>
         </meta>
         <arguments>
-            <argument name="MAX_LENGTH" units="second" type="float">max loop time</argument>
+            <argument name="CAPACITY" units="second" type="float" minvalue="0" maxvalue="120">max
+            loop time</argument>
         </arguments>
         <properties>
             <property name="@capacity" type="float" minvalue="0" maxvalue="120" default="5"
             units="second">max loop time</property>
             <property name="@length" type="float" units="second" minvalue="0" default="0"
-            readonly="true">recorded loop length</property>
+            access="readonly">recorded loop length</property>
             <property name="@array" type="symbol" default="">use specified array for record instead
             of internal buffer</property>
             <property name="@play_pos" type="float" units="second" minvalue="0" default="0"
-            readonly="true">current playing position</property>
+            access="readonly">current playing position</property>
             <property name="@play_phase" type="float" minvalue="0" maxvalue="1" default="0"
-            readonly="true">current playing phase position</property>
+            access="readonly">current playing phase position</property>
             <property name="@state" type="symbol" enum="init stop record play overdub"
-            readonly="true" default="init">current state</property>
-            <property name="@loop_bang" type="int" enum="0 1" default="1">output bang on each loop
+            access="readonly" default="init">current state</property>
+            <property name="@loop_bang" type="bool" default="1">output bang on each loop
             start</property>
             <property name="@loop_smooth" type="float" units="millisecond" default="10"
             minvalue="0">time of lin fadein/fadeout applied to recorded loop for smooth

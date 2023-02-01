@@ -17,6 +17,7 @@
 #include "ceammc_sound.h"
 #include "ceammc_window.h"
 
+#include "fmt/core.h"
 #include "grain_expr_parser.h"
 #include "grain_random.h"
 
@@ -57,6 +58,11 @@ static const char* interp2str(GrainInterp i)
     return txt[i];
 }
 
+static std::string tag2str(t_symbol* tag)
+{
+    return tag ? (std::string(1, '.') + tag->s_name) : std::string {};
+}
+
 Grain::Grain()
     : pan_(0.5)
     , state_(GRAIN_FINISHED)
@@ -64,10 +70,11 @@ Grain::Grain()
     , pan_mode_(GRAIN_PAN_LINEAR)
     , play_interp_(GRAIN_INTERP_NONE)
     , win_type_(GRAIN_WIN_RECT)
+    , pre_delay_done_(false)
 {
 }
 
-Grain::Grain(size_t array_pos, size_t length, size_t time_before)
+Grain::Grain(size_t array_pos, size_t length, size_t pre_delay)
     : pan_(0.5)
     , state_(GRAIN_FINISHED)
     , pan_overflow_(GRAIN_PROP_OVERFLOW_CLIP)
@@ -77,7 +84,7 @@ Grain::Grain(size_t array_pos, size_t length, size_t time_before)
 {
     src_pos_ = array_pos;
     length_ = length;
-    time_before_ = time_before;
+    pre_delay_ = pre_delay;
 }
 
 bool Grain::matchTag(const std::regex& rx) const
@@ -148,7 +155,7 @@ GrainState Grain::done()
         if (ondone_->evalPropAction(*this, GRAIN_PROP_PAN, res))
             setPan(res);
 
-        res = time_before_;
+        res = pre_delay_;
         if (ondone_->evalPropAction(*this, GRAIN_PROP_TIME_BEFORE, res))
             setTimeBefore(std::max<double>(0, res));
 
@@ -170,38 +177,52 @@ GrainState Grain::done()
     }
 
     play_pos_ = 0;
+    pre_delay_done_ = true;
     return state_;
 }
 
 std::ostream& operator<<(std::ostream& os, const Grain& g)
 {
-    os << "grain(#" << g.id();
 
-    if (g.tag())
-        os << '.' << g.tag()->s_name;
+    os << fmt::format("grain(#{}{},"
+                      "@at={},@l={},@dur={},@tb={},@ta={},"
+                      "@amp={},@s={},@p={},@r={},@cnt={},"
+                      "panmode={},"
+                      "interp={})",
+        g.id(),
+        tag2str(g.tag()),
+        g.arrayPosInSamples(),
+        g.lengthInSamples(),
+        g.durationInSamples(),
+        g.timeBefore(),
+        g.timeAfter(),
+        g.amplitude(),
+        g.speed(),
+        g.pan(),
+        g.repeats(),
+        g.doneCounter(),
+        panMode2str(g.panMode()),
+        interp2str(g.playInterpolation()));
 
-    os << ",@at=" << g.arrayPosInSamples()
-       << ",@l=" << g.lengthInSamples()
-       << ",@d=" << g.durationInSamples()
-       << ",@tb=" << g.timeBefore()
-       << ",@ta=" << g.timeAfter()
-       << ",@amp=" << g.amplitude()
-       << ",@s=" << g.speed()
-       << ",@p=" << g.pan()
-       << ",panmode=" << panMode2str(g.panMode())
-       << ",interp=" << interp2str(g.playInterpolation())
-       << ')';
     return os;
 }
 
-GrainState Grain::process(ArrayIterator in, size_t in_size, t_sample** buf, uint32_t bs, uint32_t sr)
+GrainState Grain::process(ArrayIterator in, size_t in_size, t_sample** buf, uint32_t bs, uint32_t sr, uint32_t buf_offset, uint32_t* done_samp)
 {
     constexpr float SLOW_LIMIT = 0.001;
     constexpr float QUIT_LIMIT = 0.00001;
 
+    if (done_samp)
+        *done_samp = 0;
+
     // invalid
-    if (state_ == GRAIN_FINISHED)
+    if (state_ == GRAIN_FINISHED || state_ == GRAIN_PAUSE)
         return state_;
+
+    if (buf_offset < bs)
+        bs -= buf_offset;
+    else
+        buf_offset = 0;
 
     // optimization: silence before grain
     const double next_block = play_pos_ + bs;
@@ -210,14 +231,12 @@ GrainState Grain::process(ArrayIterator in, size_t in_size, t_sample** buf, uint
         return state_;
     }
 
-    const size_t WHOLE_GRAIN_END = time_before_ + length_ + time_after_;
-
     // optim: silence after grain
-    if (play_pos_ >= grainEndInSamples()) {
+    if (afterGrain()) {
         play_pos_ += bs;
 
         // should finish
-        if (play_pos_ >= WHOLE_GRAIN_END)
+        if (shouldDone())
             return done();
 
         return state_;
@@ -232,23 +251,23 @@ GrainState Grain::process(ArrayIterator in, size_t in_size, t_sample** buf, uint
     const auto pan_coeffs = panSample(1);
     const double step_incr = std::abs(play_speed_);
 
-    // before grain
+    // silence before grain in current block
     size_t i = 0;
-    if (play_pos_ < time_before_) {
-        i = time_before_ - play_pos_;
-        play_pos_ += i;
+    if (beforeGrain()) {
+        i = pre_delay_ - play_pos_;
+        play_pos_ = pre_delay_;
+        if (done_samp)
+            (*done_samp) += i;
     }
 
     for (; i < bs && play_pos_ < grainEndInSamples(); i++) {
         // only grain itself expected here, without silence before/after
-        assert(play_pos_ >= grainStartInSamples() && play_pos_ < grainEndInSamples());
+        assert(!beforeGrain() && !afterGrain());
 
         // array play position
         const double arr_idx = currentArrayPlayPos();
-        if (arr_idx < 0 || arr_idx >= in_size)
+        if (!validArrayPos(arr_idx, in_size))
             return done();
-
-        assert(arr_idx >= 0 && arr_idx < in_size);
 
         t_sample value = 0;
         const auto idx = static_cast<size_t>(arr_idx);
@@ -328,7 +347,7 @@ GrainState Grain::process(ArrayIterator in, size_t in_size, t_sample** buf, uint
         }
 
         if (mods_) {
-            const double t = play_pos_ - time_before_;
+            const double t = play_pos_ - pre_delay_;
             if (mods_->modAmp())
                 amp_ = mods_->mod(GRAIN_PROP_AMP, sr, t);
 
@@ -343,19 +362,31 @@ GrainState Grain::process(ArrayIterator in, size_t in_size, t_sample** buf, uint
         const auto vamp = value * amp_;
 
         // apply pan
-        buf[0][i] += pan_coeffs.first * vamp;
-        buf[1][i] += pan_coeffs.second * vamp;
+        buf[0][i + buf_offset] += pan_coeffs.first * vamp;
+        buf[1][i + buf_offset] += pan_coeffs.second * vamp;
 
         play_pos_ += step_incr;
 
-        if (play_pos_ >= WHOLE_GRAIN_END)
+        // increment done samples
+        if (done_samp)
+            (*done_samp)++;
+
+        if (shouldDone())
             return done();
     }
 
-    if (play_pos_ >= WHOLE_GRAIN_END)
+    if (shouldDone())
         return done();
-    else if (play_pos_ >= grainEndInSamples())
-        play_pos_ += (bs - i);
+    else if (afterGrain()) {
+        auto left_samp = (bs - 1) - i;
+        play_pos_ += left_samp;
+        if (done_samp && time_after_ <= left_samp)
+            (*done_samp) += time_after_;
+
+        // need to check again
+        if (shouldDone())
+            return done();
+    }
 
     return GRAIN_PLAYING;
 }
@@ -375,7 +406,7 @@ void Grain::initByteCodeConst(ByteCode& bc) const
     bc.setConst(2, length_);
     bc.setConst(3, pan_);
     bc.setConst(4, play_speed_);
-    bc.setConst(5, time_before_);
+    bc.setConst(5, pre_delay_);
     bc.setConst(6, sys_getsr());
     bc.setConst(7, 64);
     bc.setConst(8, array_size_);

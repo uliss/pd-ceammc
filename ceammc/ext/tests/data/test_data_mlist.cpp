@@ -106,7 +106,7 @@ TEST_CASE("data.mlist", "[externals]")
 
         SECTION("construct")
         {
-            Obj t("data.mlist", LA("(1 2 3 4)"));
+            Obj t("data.mlist", LP("(1 2 3 4)"));
             WHEN_SEND_BANG_TO(0, t);
             REQUIRE_DATA_AT(0, t, ML(1, 2, 3, 4));
         }
@@ -125,7 +125,7 @@ TEST_CASE("data.mlist", "[externals]")
 
     SECTION("clear")
     {
-        Obj t("data.mlist", LA("(1 2 3 4 (1 2))"));
+        Obj t("data.mlist", LP("(1 2 3 4 (1 2))"));
 
         REQUIRE_PROPERTY_FLOAT(t, @size, 5);
 

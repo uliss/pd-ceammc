@@ -18,7 +18,7 @@
 #include "ceammc_string.h"
 #include "ceammc_ui.h"
 
-#include <boost/make_shared.hpp>
+#include <memory>
 
 UIMenu::UIMenu()
     : prop_color_text(rgba_black)
@@ -551,6 +551,7 @@ void UIMenu::setup()
     obj.addProperty("value", &UIMenu::propValue, &UIMenu::propSetValue);
     obj.addProperty("count", &UIMenu::propCount);
     obj.addProperty("open", &UIMenu::propOpen, &UIMenu::propSetOpen);
+    obj.setPropertyDefaultValue("open", "0");
     obj.addProperty("title", &UIMenu::propTitle);
 
     obj.addMethod("append", &UIMenu::m_append);

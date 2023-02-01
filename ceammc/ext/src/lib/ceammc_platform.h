@@ -95,7 +95,9 @@ namespace platform {
     std::string strip_extension(const std::string& name);
 
     /**
-     * Search file in standard PureData locations and tries to open it.
+     * Search file in standard PureData locations and tries to open it, return true on success
+     * @param cnv - pointer to current canvas, that can contain search paths declared with [declare]
+     * @param path - path relative to canvas or full file path
      * @return On success returns full path to file, else returns empty string
      */
     std::string find_in_std_path(t_canvas* cnv, const char* path);

@@ -1,8 +1,8 @@
 {
 	"name": "flt.hpf12",
 	"filename": "flt_hpf12.dsp",
-	"version": "2.37.3",
-	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0",
+	"version": "2.53.1",
+	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn flt_hpf12 -scn flt_hpf12_dsp -es 1 -mcd 16 -single -ftz 0",
 	"library_list": ["/usr/local/share/faust/filters.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc_ui.lib","/usr/local/share/faust/signals.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib"],
 	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
 	"inputs": 1,
@@ -10,7 +10,7 @@
 	"meta": [ 
 		{ "ceammc_ui.lib/name": "CEAMMC faust default UI elements" },
 		{ "ceammc_ui.lib/version": "0.1.2" },
-		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0" },
+		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn flt_hpf12 -scn flt_hpf12_dsp -es 1 -mcd 16 -single -ftz 0" },
 		{ "filename": "flt_hpf12.dsp" },
 		{ "filters.lib/fir:author": "Julius O. Smith III" },
 		{ "filters.lib/fir:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
@@ -39,7 +39,7 @@
 		{ "platform.lib/name": "Generic Platform Library" },
 		{ "platform.lib/version": "0.2" },
 		{ "signals.lib/name": "Faust Signal Routing Library" },
-		{ "signals.lib/version": "0.1" }
+		{ "signals.lib/version": "0.3" }
 	],
 	"ui": [ 
 		{
@@ -49,6 +49,7 @@
 				{
 					"type": "vslider",
 					"label": "freq",
+					"shortname": "freq",
 					"address": "/flt.hpf12/freq",
 					"meta": [
 						{ "unit": "Hz" }

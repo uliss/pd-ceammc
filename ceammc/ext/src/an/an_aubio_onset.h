@@ -33,7 +33,6 @@ public:
 
 private:
     AtomList propArray() const;
-    void propSetArray(const AtomList& l);
     void resetAubioOnset(uint_t sr);
     void saveSteadyProperties();
     void restoreSteadyProperties();

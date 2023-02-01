@@ -30,7 +30,7 @@ namespace details {
     constexpr auto HASH_SAME = "same"_hash;
     constexpr auto HASH_FULL = "full"_hash;
 
-    static_assert(check_crc32_unique(HASH_VALID, HASH_SAME, HASH_FULL), "");
+    crc32_assert_unique(HASH_VALID, HASH_SAME, HASH_FULL);
 }
 }
 
@@ -44,7 +44,7 @@ public:
     ListConvolveBase(const PdArgs& args);
 
     void onInlet(size_t n, const AtomListView& lv) override;
-    void onList(const AtomList& lst) override;
+    void onList(const AtomListView& lv) override;
     void onFloat(t_float f) override;
     void onDataT(const MListAtom& ml);
 

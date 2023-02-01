@@ -26,7 +26,7 @@
         </methods>
         <properties>
             <property name="@by" type="int" minvalue="1" default="1">group size</property>
-            <property name="@free" type="int" readonly="true" default="0" minvalue="0">free space
+            <property name="@free" type="int" access="readonly" default="0" minvalue="0">free space
             left in group</property>
         </properties>
         <inlets>

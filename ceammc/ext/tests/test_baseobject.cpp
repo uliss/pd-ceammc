@@ -718,7 +718,7 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
 
                 SECTION("3 quoted")
                 {
-                    TestExtEXT_C t("ext.c", 0xBEEF, 10, "\"a space\"");
+                    TestExtEXT_C t("ext.c", LP("0xBEEF 10 \"a space\""));
                     REQUIRE_PROPERTY(t, @c, 0xBEEF);
                     REQUIRE_PROPERTY(t, @d, 10);
                     REQUIRE_PROPERTY(t, @s, "a space");
@@ -728,7 +728,7 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
 
                 SECTION("3 quoted")
                 {
-                    TestExtEXT_C t("ext.c", 0xBEEF, 10, "\"quoted", "string\"");
+                    TestExtEXT_C t("ext.c", LP("0xBEEF 10 \"quoted string\""));
                     REQUIRE_PROPERTY(t, @c, 0xBEEF);
                     REQUIRE_PROPERTY(t, @d, 10);
                     REQUIRE_PROPERTY(t, @s, "quoted string");
@@ -898,45 +898,45 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
             REQUIRE(t.outputListAt(0) == LF(1, 2, 3));
         }
 
-        SECTION("outletAtomListView ")
+        SECTION("outletAtomList ")
         {
             TestExtEXT_C t("ext.c");
 
-            REQUIRE_FALSE(outletAtomListView(nullptr, L().view()));
+            REQUIRE_FALSE(outletAtomList(nullptr, L().view()));
 
-            REQUIRE(outletAtomListView(t->outletAt(0), L().view(), true));
+            REQUIRE(outletAtomList(t->outletAt(0), L().view(), true));
             REQUIRE(t.isOutputBangAt(0));
             REQUIRE(t.outputListAt(0) == L());
 
-            REQUIRE(outletAtomListView(t->outletAt(0), LF(11).view(), true));
+            REQUIRE(outletAtomList(t->outletAt(0), LF(11).view(), true));
             REQUIRE(t.isOutputFloatAt(0));
             REQUIRE(t.outputFloatAt(0) == 11);
 
-            REQUIRE(outletAtomListView(t->outletAt(0), LA("abc").view(), true));
+            REQUIRE(outletAtomList(t->outletAt(0), LA("abc").view(), true));
             REQUIRE(t.isOutputSymbolAt(0));
             REQUIRE(t.outputSymbolAt(0) == SYM("abc"));
 
-            REQUIRE(outletAtomListView(t->outletAt(0), LF(1, 2, 3).view(), true));
+            REQUIRE(outletAtomList(t->outletAt(0), LF(1, 2, 3).view(), true));
             REQUIRE(t.isOutputListAt(0));
             REQUIRE(t.outputListAt(0) == LF(1, 2, 3));
         }
 
-        SECTION("outletAtomListView ")
+        SECTION("outletAtomList ")
         {
             TestExtEXT_C t("ext.c");
 
-            REQUIRE(outletAtomListView(t->outletAt(0), L().view(), false));
+            REQUIRE(outletAtomList(t->outletAt(0), L().view(), false));
             REQUIRE(t.outputListAt(0) == L());
 
-            REQUIRE(outletAtomListView(t->outletAt(0), LF(11).view(), false));
+            REQUIRE(outletAtomList(t->outletAt(0), LF(11).view(), false));
             REQUIRE(t.isOutputFloatAt(0));
             REQUIRE(t.outputFloatAt(0) == 11);
 
-            REQUIRE(outletAtomListView(t->outletAt(0), LA("abc").view(), false));
+            REQUIRE(outletAtomList(t->outletAt(0), LA("abc").view(), false));
             REQUIRE(t.isOutputSymbolAt(0));
             REQUIRE(t.outputSymbolAt(0) == SYM("abc"));
 
-            REQUIRE(outletAtomListView(t->outletAt(0), LF(1, 2, 3).view(), false));
+            REQUIRE(outletAtomList(t->outletAt(0), LF(1, 2, 3).view(), false));
             REQUIRE(t.isOutputListAt(0));
             REQUIRE(t.outputListAt(0) == LF(1, 2, 3));
         }

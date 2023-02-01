@@ -1,23 +1,23 @@
 {
 	"name": "spat.zita8",
 	"filename": "spat_zita6x8.dsp",
-	"version": "2.37.3",
-	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0",
+	"version": "2.53.1",
+	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn spat_zita6x8 -scn spat_zita6x8_dsp -es 1 -mcd 16 -single -ftz 0",
 	"library_list": ["/usr/local/share/faust/signals.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/reverbs.lib","/usr/local/share/faust/delays.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib","/usr/local/share/faust/filters.lib","/usr/local/share/faust/routes.lib"],
 	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
 	"inputs": 6,
 	"outputs": 8,
 	"meta": [ 
 		{ "basics.lib/name": "Faust Basic Element Library" },
-		{ "basics.lib/version": "0.2" },
-		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0" },
+		{ "basics.lib/version": "0.8" },
+		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn spat_zita6x8 -scn spat_zita6x8_dsp -es 1 -mcd 16 -single -ftz 0" },
 		{ "delays.lib/name": "Faust Delay Library" },
 		{ "delays.lib/version": "0.1" },
 		{ "filename": "spat_zita6x8.dsp" },
 		{ "filters.lib/allpass_comb:author": "Julius O. Smith III" },
 		{ "filters.lib/allpass_comb:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
 		{ "filters.lib/allpass_comb:license": "MIT-style STK-4.3 license" },
-		{ "filters.lib/lowpass0_highpass1": "MIT-style STK-4.3 license" },
+		{ "filters.lib/lowpass0_highpass1": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
 		{ "filters.lib/lowpass0_highpass1:author": "Julius O. Smith III" },
 		{ "filters.lib/lowpass:author": "Julius O. Smith III" },
 		{ "filters.lib/lowpass:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
@@ -40,10 +40,11 @@
 		{ "platform.lib/version": "0.2" },
 		{ "reverbs.lib/name": "Faust Reverb Library" },
 		{ "reverbs.lib/version": "0.2" },
+		{ "routes.lib/hadamard:author": "Remy Muller, revised by Romain Michon" },
 		{ "routes.lib/name": "Faust Signal Routing Library" },
 		{ "routes.lib/version": "0.2" },
 		{ "signals.lib/name": "Faust Signal Routing Library" },
-		{ "signals.lib/version": "0.1" }
+		{ "signals.lib/version": "0.3" }
 	],
 	"ui": [ 
 		{
@@ -53,6 +54,7 @@
 				{
 					"type": "vslider",
 					"label": "a0",
+					"shortname": "a0",
 					"address": "/spat.zita8/a0",
 					"init": 0,
 					"min": 0,
@@ -62,6 +64,7 @@
 				{
 					"type": "vslider",
 					"label": "a1",
+					"shortname": "a1",
 					"address": "/spat.zita8/a1",
 					"init": 0,
 					"min": 0,
@@ -71,6 +74,7 @@
 				{
 					"type": "vslider",
 					"label": "a2",
+					"shortname": "a2",
 					"address": "/spat.zita8/a2",
 					"init": 0,
 					"min": 0,
@@ -80,6 +84,7 @@
 				{
 					"type": "vslider",
 					"label": "a3",
+					"shortname": "a3",
 					"address": "/spat.zita8/a3",
 					"init": 0,
 					"min": 0,
@@ -89,6 +94,7 @@
 				{
 					"type": "vslider",
 					"label": "a4",
+					"shortname": "a4",
 					"address": "/spat.zita8/a4",
 					"init": 0,
 					"min": 0,
@@ -98,6 +104,7 @@
 				{
 					"type": "vslider",
 					"label": "a5",
+					"shortname": "a5",
 					"address": "/spat.zita8/a5",
 					"init": 0,
 					"min": 0,
@@ -107,6 +114,7 @@
 				{
 					"type": "vslider",
 					"label": "dry0",
+					"shortname": "dry0",
 					"address": "/spat.zita8/dry0",
 					"meta": [
 						{ "scale": "log" },
@@ -121,6 +129,7 @@
 				{
 					"type": "vslider",
 					"label": "dry1",
+					"shortname": "dry1",
 					"address": "/spat.zita8/dry1",
 					"meta": [
 						{ "scale": "log" },
@@ -135,6 +144,7 @@
 				{
 					"type": "vslider",
 					"label": "dry2",
+					"shortname": "dry2",
 					"address": "/spat.zita8/dry2",
 					"meta": [
 						{ "scale": "log" },
@@ -149,6 +159,7 @@
 				{
 					"type": "vslider",
 					"label": "dry3",
+					"shortname": "dry3",
 					"address": "/spat.zita8/dry3",
 					"meta": [
 						{ "scale": "log" },
@@ -163,6 +174,7 @@
 				{
 					"type": "vslider",
 					"label": "dry4",
+					"shortname": "dry4",
 					"address": "/spat.zita8/dry4",
 					"meta": [
 						{ "scale": "log" },
@@ -177,6 +189,7 @@
 				{
 					"type": "vslider",
 					"label": "dry5",
+					"shortname": "dry5",
 					"address": "/spat.zita8/dry5",
 					"meta": [
 						{ "scale": "log" },
@@ -191,6 +204,7 @@
 				{
 					"type": "vslider",
 					"label": "r0",
+					"shortname": "r0",
 					"address": "/spat.zita8/r0",
 					"init": 1,
 					"min": 0,
@@ -200,6 +214,7 @@
 				{
 					"type": "vslider",
 					"label": "r1",
+					"shortname": "r1",
 					"address": "/spat.zita8/r1",
 					"init": 1,
 					"min": 0,
@@ -209,6 +224,7 @@
 				{
 					"type": "vslider",
 					"label": "r2",
+					"shortname": "r2",
 					"address": "/spat.zita8/r2",
 					"init": 1,
 					"min": 0,
@@ -218,6 +234,7 @@
 				{
 					"type": "vslider",
 					"label": "r3",
+					"shortname": "r3",
 					"address": "/spat.zita8/r3",
 					"init": 1,
 					"min": 0,
@@ -227,6 +244,7 @@
 				{
 					"type": "vslider",
 					"label": "r4",
+					"shortname": "r4",
 					"address": "/spat.zita8/r4",
 					"init": 1,
 					"min": 0,
@@ -236,6 +254,7 @@
 				{
 					"type": "vslider",
 					"label": "r5",
+					"shortname": "r5",
 					"address": "/spat.zita8/r5",
 					"init": 1,
 					"min": 0,
@@ -245,6 +264,7 @@
 				{
 					"type": "vslider",
 					"label": "t0",
+					"shortname": "t0",
 					"address": "/spat.zita8/t0",
 					"meta": [
 						{ "scale": "log" },
@@ -259,6 +279,7 @@
 				{
 					"type": "vslider",
 					"label": "t1",
+					"shortname": "t1",
 					"address": "/spat.zita8/t1",
 					"meta": [
 						{ "scale": "log" },
@@ -273,6 +294,7 @@
 				{
 					"type": "vslider",
 					"label": "t2",
+					"shortname": "t2",
 					"address": "/spat.zita8/t2",
 					"meta": [
 						{ "scale": "log" },
@@ -287,6 +309,7 @@
 				{
 					"type": "vslider",
 					"label": "t3",
+					"shortname": "t3",
 					"address": "/spat.zita8/t3",
 					"meta": [
 						{ "scale": "log" },
@@ -301,6 +324,7 @@
 				{
 					"type": "vslider",
 					"label": "t4",
+					"shortname": "t4",
 					"address": "/spat.zita8/t4",
 					"meta": [
 						{ "scale": "log" },
@@ -315,6 +339,7 @@
 				{
 					"type": "vslider",
 					"label": "t5",
+					"shortname": "t5",
 					"address": "/spat.zita8/t5",
 					"meta": [
 						{ "scale": "log" },
@@ -329,6 +354,7 @@
 				{
 					"type": "vslider",
 					"label": "wet0",
+					"shortname": "wet0",
 					"address": "/spat.zita8/wet0",
 					"meta": [
 						{ "scale": "log" },
@@ -343,6 +369,7 @@
 				{
 					"type": "vslider",
 					"label": "wet1",
+					"shortname": "wet1",
 					"address": "/spat.zita8/wet1",
 					"meta": [
 						{ "scale": "log" },
@@ -357,6 +384,7 @@
 				{
 					"type": "vslider",
 					"label": "wet2",
+					"shortname": "wet2",
 					"address": "/spat.zita8/wet2",
 					"meta": [
 						{ "scale": "log" },
@@ -371,6 +399,7 @@
 				{
 					"type": "vslider",
 					"label": "wet3",
+					"shortname": "wet3",
 					"address": "/spat.zita8/wet3",
 					"meta": [
 						{ "scale": "log" },
@@ -385,6 +414,7 @@
 				{
 					"type": "vslider",
 					"label": "wet4",
+					"shortname": "wet4",
 					"address": "/spat.zita8/wet4",
 					"meta": [
 						{ "scale": "log" },
@@ -399,6 +429,7 @@
 				{
 					"type": "vslider",
 					"label": "wet5",
+					"shortname": "wet5",
 					"address": "/spat.zita8/wet5",
 					"meta": [
 						{ "scale": "log" },

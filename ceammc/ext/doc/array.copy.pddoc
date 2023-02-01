@@ -17,8 +17,8 @@
             <since>0.3</since>
         </meta>
         <properties>
-            <property name="@resize" type="int" enum="1 0" default="0">resize of destination array
-            on overflow</property>
+            <property name="@resize" type="bool" default="0">resize of destination array on
+            overflow</property>
         </properties>
         <methods>
             <method name="copy">copy whole array content 

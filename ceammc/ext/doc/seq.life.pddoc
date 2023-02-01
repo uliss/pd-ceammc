@@ -27,7 +27,7 @@
             rows</property>
             <property name="@cols" type="int" minvalue="1" maxvalue="32" default="16">number of
             columns</property>
-            <property name="@size" type="int" readonly="true" default="256">total cell
+            <property name="@size" type="int" access="readonly" default="256">total cell
             count</property>
         </properties>
         <methods>

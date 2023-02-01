@@ -1,24 +1,20 @@
 add_subdirectory(arduino)
-include_directories(${PROJECT_BINARY_DIR}/ceammc/extra/libusb)
-include_directories(${CMAKE_SOURCE_DIR}/ceammc/extra/serial/serial/include)
-include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra/SMSLib)
-include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra) # for readerwriterqueue
 
-macro(ceammc_hw_external name)
-    list(APPEND HW_SOURCES "hw_${name}.cpp")
-endmacro()
+add_library(ceammc_hw STATIC mod_hw.cpp)
 
-set(HW_LINK_LIBRARIES)
+function(ceammc_hw_external name)
+    target_sources(ceammc_hw PRIVATE "hw_${name}.cpp")
+endfunction()
 
 # Sudden motion sensor on macbook's
 if(APPLE)
     add_compile_definitions(WITH_SMS)
     add_compile_definitions(WITH_SMC)
     add_compile_definitions(WITH_IODISPLAY)
-    list(APPEND HW_SOURCES apple/suddenmotionsensor.cpp)
-    list(APPEND HW_SOURCES apple/smc.cpp)
-    list(APPEND HW_SOURCES apple/fn_strings.cpp)
-    list(APPEND HW_SOURCES apple/iodisplay.cpp)
+    target_sources(ceammc_hw PRIVATE apple/suddenmotionsensor.cpp)
+    target_sources(ceammc_hw PRIVATE apple/smc.cpp)
+    target_sources(ceammc_hw PRIVATE apple/fn_strings.cpp)
+    target_sources(ceammc_hw PRIVATE apple/iodisplay.cpp)
 elseif(UNIX AND NOT APPLE)
 #    find_package(XCB)
 #    if(XCB_FOUND AND XCB_RANDR_FOUND AND XCB_UTIL_FOUND)
@@ -35,6 +31,7 @@ ceammc_hw_external(arduino)
 ceammc_hw_external(cpu_temp)
 ceammc_hw_external(display)
 ceammc_hw_external(kbd_light)
+ceammc_hw_external(motu_avb)
 ceammc_hw_external(serial)
 
 #if(LIBUSB_1_FOUND)
@@ -45,11 +42,18 @@ ceammc_hw_external(serial)
 #    list(APPEND HW_SOURCES usb/libusb_wrapper.cpp)
 #endif()
 
-add_library(ceammc_hw STATIC mod_hw.cpp ${HW_SOURCES})
-target_link_libraries(ceammc_hw hw_arduino ${HW_LINK_LIBRARIES})
 target_include_directories(ceammc_hw
     PRIVATE
         ${PROJECT_BINARY_DIR} # for config.h
+        "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>"
+)
+
+target_link_libraries(ceammc_hw
+    PRIVATE
+        serial
+        readerwriterqueue
+        hw_arduino
+        http_lib
 )
 
 #if(WITH_EXPERIMENTAL)

@@ -28,7 +28,7 @@ class MidiTuning : public BaseObject {
 public:
     MidiTuning(const PdArgs& args);
 
-    void onList(const AtomList& l) override;
+    void onList(const AtomListView& lv) override;
 };
 
 void setup_midi_tuning();

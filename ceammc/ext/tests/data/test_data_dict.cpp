@@ -84,7 +84,7 @@ TEST_CASE("data.dict", "[externals]")
 
         SECTION("nesting")
         {
-            DataTypeDict t("[a: ([b: c d][e: f])]");
+            DataTypeDict t("[a: ([b: c d] [e: f])]");
             REQUIRE(t.size() == 1);
             REQUIRE(t.contains("a"));
             REQUIRE(*t.toJSON(-1) == "{\"a\":[{\"b\":[\"c\",\"d\"]},{\"e\":\"f\"}]}");
@@ -98,7 +98,7 @@ TEST_CASE("data.dict", "[externals]")
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_DATA_EQUAL_AT_OUTLET(0, t, DictA());
 
-        WHEN_SEND_ANY_TO(t, LA("[a: b c: d e: 2.81]"));
+        WHEN_SEND_ANY_TO(t, LP("[a: b c: d e: 2.81]"));
         REQUIRE_NO_MSG(t);
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_DATA_EQUAL_AT_OUTLET(0, t, DictA("[a: b c: d e: 2.81]"));
@@ -108,7 +108,7 @@ TEST_CASE("data.dict", "[externals]")
 
         SECTION("construct")
         {
-            TObj t("data.mlist", LA("[a: 100]"));
+            TObj t("data.mlist", LP("[a: 100]"));
             WHEN_SEND_BANG_TO(0, t);
             REQUIRE_DATA_EQUAL_AT_OUTLET(0, t, DictA("[a: 100]"));
         }

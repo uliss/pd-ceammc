@@ -1,5 +1,4 @@
 #include "list_unpack.h"
-#include "ceammc_convert.h"
 #include "ceammc_factory.h"
 #include "datatype_mlist.h"
 
@@ -18,12 +17,12 @@ ListUnpack::ListUnpack(const PdArgs& a)
         createOutlet();
 }
 
-void ListUnpack::onList(const AtomList& l)
+void ListUnpack::onList(const AtomListView& lv)
 {
-    const size_t N = std::min<size_t>(l.size(), n_);
+    const size_t N = std::min<size_t>(lv.size(), n_);
 
     for (size_t i = N; i > 0; i--)
-        atomTo(i - 1, l[i - 1]);
+        atomTo(i - 1, lv[i - 1]);
 }
 
 void ListUnpack::onDataT(const MListAtom& ml)

@@ -13,19 +13,10 @@
  *****************************************************************************/
 #include "hoa_process.h"
 #include "ceammc_factory.h"
-#include "fmt/format.h"
+#include "fmt/core.h"
 
 #include <cmath>
 #include <stdexcept>
-
-t_symbol* HoaProcess::SYM_SWITCH;
-t_symbol* HoaProcess::SYM_BLOCK;
-t_symbol* HoaProcess::SYM_OBJ;
-t_symbol* HoaProcess::SYM_HARMONICS;
-t_symbol* HoaProcess::SYM_PLANEWAVES;
-t_symbol* HoaProcess::SYM_2D;
-t_symbol* HoaProcess::SYM_CANVAS;
-t_symbol* HoaProcess::SYM_DSP;
 
 HoaProcess::HoaProcess(const PdArgs& args)
     : SoundExternal(args)
@@ -40,7 +31,7 @@ HoaProcess::HoaProcess(const PdArgs& args)
     args_->setArgIndex(3);
     addProperty(args_);
 
-    domain_ = new SymbolEnumProperty("@domain", { SYM_HARMONICS, SYM_PLANEWAVES });
+    domain_ = new SymbolEnumProperty("@domain", { HOA_STR_HARMONICS, HOA_STR_PLANEWAVES });
     domain_->setInitOnly();
     domain_->setArgIndex(2);
     addProperty(domain_);
@@ -64,13 +55,13 @@ void HoaProcess::initDone()
             throw std::invalid_argument("@patch property required");
 
         if (num_->value() < 1) {
-            if (domain_->value() == SYM_HARMONICS)
+            if (domain_->value() == gensym(HOA_STR_HARMONICS))
                 throw std::invalid_argument("order required");
             else
                 throw std::invalid_argument("number of planewaves required");
         }
 
-        if (domain_->value() == SYM_HARMONICS) {
+        if (domain_->value() == gensym(HOA_STR_HARMONICS)) {
             if (!loadHarmonics(patch_->value(), args_->value().view())) {
                 throw std::runtime_error(fmt::format("can't load the patch {0}.pd", patch_->value()->s_name));
             }
@@ -89,6 +80,10 @@ void HoaProcess::initDone()
         else
             OBJ_LOG << e.what(); // object without args - used in help
     }
+    // strange exception handling bug
+#if defined(__APPLE__) && defined(__arm64__)
+    catch(...) { }
+#endif
 
     // call loadbang in 5 ticks
     clock_.delay(5);
@@ -423,8 +418,8 @@ bool HoaProcess::loadHarmonics(t_symbol* name, const AtomListView& patch_args)
     instances_.assign(NINSTANCE, ProcessInstance());
 
     AtomList load_args;
-    load_args.append(Atom(SYM_2D));
-    load_args.append(Atom(SYM_HARMONICS));
+    load_args.append(Atom(gensym(HOA_STR_2D)));
+    load_args.append(Atom(gensym(HOA_STR_HARMONICS)));
     load_args.append(Atom(num_->value())); // decomposition order
     load_args.append(Atom()); // harmonic index (0, 1, 1, 2, 2..)
     load_args.append(Atom()); // harmonic order (0, -1, 1, -2, 2..)
@@ -449,8 +444,8 @@ bool HoaProcess::loadPlaneWaves(t_symbol* name, const AtomListView& patch_args)
     instances_.assign(NINSTANCE, ProcessInstance());
 
     AtomList load_args;
-    load_args.append(Atom(SYM_2D));
-    load_args.append(Atom(SYM_PLANEWAVES));
+    load_args.append(Atom(gensym(HOA_STR_2D)));
+    load_args.append(Atom(gensym(HOA_STR_PLANEWAVES)));
     load_args.append(Atom(NINSTANCE)); // number of channels
     load_args.append(Atom()); // channel index
     load_args.append(Atom()); // channel index
@@ -608,15 +603,6 @@ void HoaProcess::m_dsp_on(t_symbol* m, const AtomListView& lv)
 
 void setup_spat_hoa_process()
 {
-    HoaProcess::SYM_SWITCH = gensym("switch~");
-    HoaProcess::SYM_BLOCK = gensym("block~");
-    HoaProcess::SYM_CANVAS = gensym("canvas");
-    HoaProcess::SYM_OBJ = gensym("obj");
-    HoaProcess::SYM_HARMONICS = gensym("harmonics");
-    HoaProcess::SYM_PLANEWAVES = gensym("planewaves");
-    HoaProcess::SYM_2D = gensym("2d");
-    HoaProcess::SYM_DSP = gensym("dsp");
-
     SoundExternalFactory<HoaProcess> obj("hoa.process~");
     obj.useClick();
     obj.addMethod("open", &HoaProcess::m_open);

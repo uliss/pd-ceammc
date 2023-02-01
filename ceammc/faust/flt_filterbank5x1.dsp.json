@@ -1,18 +1,18 @@
 {
 	"name": "flt.fbank5x1",
 	"filename": "flt_filterbank5x1.dsp",
-	"version": "2.37.3",
-	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0",
+	"version": "2.53.1",
+	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn flt_filterbank5x1 -scn flt_filterbank5x1_dsp -es 1 -mcd 16 -single -ftz 0",
 	"library_list": ["/usr/local/share/faust/filters.lib","/usr/local/share/faust/analyzers.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/signals.lib"],
 	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
 	"inputs": 1,
 	"outputs": 5,
 	"meta": [ 
 		{ "analyzers.lib/name": "Faust Analyzer Library" },
-		{ "analyzers.lib/version": "0.1" },
+		{ "analyzers.lib/version": "0.2" },
 		{ "basics.lib/name": "Faust Basic Element Library" },
-		{ "basics.lib/version": "0.2" },
-		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0" },
+		{ "basics.lib/version": "0.8" },
+		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn flt_filterbank5x1 -scn flt_filterbank5x1_dsp -es 1 -mcd 16 -single -ftz 0" },
 		{ "filename": "flt_filterbank5x1.dsp" },
 		{ "filters.lib/fir:author": "Julius O. Smith III" },
 		{ "filters.lib/fir:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
@@ -56,7 +56,7 @@
 		{ "platform.lib/name": "Generic Platform Library" },
 		{ "platform.lib/version": "0.2" },
 		{ "signals.lib/name": "Faust Signal Routing Library" },
-		{ "signals.lib/version": "0.1" }
+		{ "signals.lib/version": "0.3" }
 	],
 	"ui": [ 
 		{
@@ -66,6 +66,7 @@
 				{
 					"type": "vslider",
 					"label": "f1000",
+					"shortname": "f1000",
 					"address": "/flt.fbank5x1/f1000",
 					"meta": [
 						{ "unit": "db" }
@@ -78,6 +79,7 @@
 				{
 					"type": "vslider",
 					"label": "f2000",
+					"shortname": "f2000",
 					"address": "/flt.fbank5x1/f2000",
 					"meta": [
 						{ "unit": "db" }
@@ -90,6 +92,7 @@
 				{
 					"type": "vslider",
 					"label": "f250",
+					"shortname": "f250",
 					"address": "/flt.fbank5x1/f250",
 					"meta": [
 						{ "unit": "db" }
@@ -102,6 +105,7 @@
 				{
 					"type": "vslider",
 					"label": "f4000",
+					"shortname": "f4000",
 					"address": "/flt.fbank5x1/f4000",
 					"meta": [
 						{ "unit": "db" }
@@ -114,6 +118,7 @@
 				{
 					"type": "vslider",
 					"label": "f500",
+					"shortname": "f500",
 					"address": "/flt.fbank5x1/f500",
 					"meta": [
 						{ "unit": "db" }

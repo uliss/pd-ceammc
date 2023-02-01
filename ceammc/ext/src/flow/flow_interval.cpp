@@ -47,7 +47,7 @@ void FlowInterval::onSymbol(t_symbol* s)
     onBang();
 }
 
-void FlowInterval::onList(const AtomList& lst)
+void FlowInterval::onList(const AtomListView& lv)
 {
     onBang();
 }

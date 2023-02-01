@@ -5,8 +5,11 @@ ceammc/helmholtz~	pitch tracker
 helmholtz~	pitch tracker
 an.rms~	root mean square with moving-average algorithm.
 an.tempo~	tempo detector
+an.zero~	zero crossing count/rate/freq calculator
 array.bpm	BPM calculator
+array.circular	array read/write as circular buffer
 array.circular~	circular buffer for arrays
+array.convolve	array FFT convolution
 array.copy	copy samples from one array to another
 array.do	iterate and modify array content via side-chain
 array.each	process each array elements via side-chain
@@ -82,6 +85,8 @@ xfade2~	multi stereo-signal crossfade
 ceammc/xfade2~	multi stereo-signal crossfade
 xfade~	multi signal crossfade
 ceammc/xfade~	multi signal crossfade
+z~	sample delay
+ceammc/z~	sample delay
 chaos.gbman0	Gingerbreadman map chaotic generator
 chaos.gbman0~	Gingerbreadman map chaotic generator
 chaos.jong	Peter de Jong attractor
@@ -114,9 +119,9 @@ bits->note	convert list of bits to note events
 conv.bits2pos	convert list of bits to list of bit position
 ceammc/bits->pos	convert list of bits to list of bit position
 bits->pos	convert list of bits to list of bit position
-conv.bpm2hz	converts BPM to frequency in herz
-ceammc/bpm->hz	converts BPM to frequency in herz
-bpm->hz	converts BPM to frequency in herz
+conv.bpm2hz	converts BPM to frequency in hertz
+ceammc/bpm->hz	converts BPM to frequency in hertz
+bpm->hz	converts BPM to frequency in hertz
 conv.bpm2ms	convert frequency in BPM to period in milliseconds
 ceammc/bpm->ms	convert frequency in BPM to period in milliseconds
 bpm->ms	convert frequency in BPM to period in milliseconds
@@ -182,6 +187,9 @@ ms->samp	convert time in milliseconds to number of samples according to current 
 conv.ms2samp~	convert time in milliseconds to number of samples according to current samplerate
 ceammc/ms->samp~	convert time in milliseconds to number of samples according to current samplerate
 ms->samp~	convert time in milliseconds to number of samples according to current samplerate
+conv.note2guido	convert MIDI note to Guido notation
+ceammc/note->guido	convert MIDI note to Guido notation
+note->guido	convert MIDI note to Guido notation
 conv.phase2rad	convert phase value [0-1] to radians [0-2π]
 ceammc/phase->rad	convert phase value [0-1] to radians [0-2π]
 phase->rad	convert phase value [0-1] to radians [0-2π]
@@ -387,6 +395,8 @@ flow.>>	dataflow ring buffer
 flow.route	advanced message router
 flow.select	vanilla flow on steroids
 flow.sel	vanilla flow on steroids
+flow.seqdelay	sequential delay/router for input flow
+flow.seqdel	sequential delay/router for input flow
 flow.space	space in time messages received at the same logical time
 flow.speedlim	control stream speed limiter
 ceammc/speedlim	control stream speed limiter
@@ -406,8 +416,19 @@ ceammc/~->	separate audio and control streams
 ~->	separate audio and control streams
 replace	Replace atoms in data stream
 ceammc/replace	Replace atoms in data stream
+route.any	separate any messages from bangs, floats, symbols and lists
+route.bang	separate bang messages from other types
+route.b	separate bang messages from other types
 route.float	separate float messages from other types
 route.f	separate float messages from other types
+route.list	separate list messages from other types
+route.l	separate list messages from other types
+route.prop	separate property messages from other types
+route.random	routes input flow to random outlet
+route.r	routes input flow to random outlet
+route.symbol	separate symbol messages from other types
+route.s	separate symbol messages from other types
+flt.a-weight	convert frequency to A-weight value
 flt.biquad~	second order IIR filter.
 flt.bpf12~	Two pole band-pass butterworth filter
 flt.bpf24~	Four pole band-pass butterworth filter
@@ -453,8 +474,11 @@ flt.median	Median control flow filter
 flt.moog_vcf~	Moog Voltage Controlled Filter
 flt.notch~	band-rejection filter
 flt.resonbp~	Simple resonant bandpass filter
+flt.resonhp~	Simple resonant highpass filter
+flt.resonlp~	Simple resonant lowpass filter
 fx.bitdown~	bit downer and downsampler effect
 fx.chorus~	Chorus effect
+fx.dattorro~	dattorro reverb
 fx.distortion1~	distortion #1 from Guitarix effects set
 fx.distortion2~	distortion #2 from Guitarix effects set
 fx.distortion3~	simple distortion #3 from Guitarix effects set
@@ -470,15 +494,18 @@ fx.freqshift~	frequency shifter or single-sideband ring modulation
 fx.granulator~	simple input stream granulator
 fx.greyhole~	A complex echo-like effect
 fx.infrev~	port of Infinity VST plugin from airwindows
+fx.jcrev~	Schroeder quad reverberator from 1972
 fx.looper~	One track looper
 fx.pitchshift_s~	signal version of fx.pitchshift~
 fx.pitchshift~	simple pitch shifter based on 2 delay lines
 fx.rb_pitchshift~	rubber band pitchshift
 fx.recho~	reversed echo effect
 fx.room~	Gardners room emulation algorithms
+fx.satrev~	Schroeder reverberator from 1971
 fx.sdelay~	smooth delay with a feedback control
 fx.secho~	enchanced echo effect that does not click on delay change
 fx.shimmer~	shimmer reverb effect effect
+fx.stutter~	stutter effect
 fx.tapiir~	multi-tap delay
 fx.vocoder~	very simple vocoder where the spectrum of the modulation signal is analyzed using a 32-band filter bank
 fx.wahwah~	digitized CryBaby wah pedal
@@ -496,8 +523,10 @@ hw.arduino	Arduino device
 hw.cpu_temp	get CPU temperature
 hw.display	get/set display properties
 hw.kbd_light	Get/set keyboard light on some devices
+hw.motu.avb	controls Motu AVB devices over http requests
 hw.serial	serial port device
 lang.faust~	faust realtime compilation
+lang.lua	Lua JIT language bindings
 ui.faust~	faust compiled ui object
 lfo.+pulse~	Unit-amplitude nonnegative low frequency pulse train
 lfo.+saw~	Positive unit-amplitude low frequency saw wave
@@ -538,12 +567,14 @@ list.integrator	returns the sum of the previously stored list and the current on
 list.last	output last list element
 list.length	output the number of atoms in the list
 list.size	output the number of atoms in the list
+list.map	map list values by specified dictionary
 list.max	output largest element in the list
 list.mean	calculates average of list of floats
 list.average	calculates average of list of floats
 list.min	returns smallest element in the list
 list.none_of	checks if none of list atoms is accepted by predicate
 list.normalize	normalizes float list values to get their sum = 1.0
+list.pass	leave in list only specified elements
 list.pass_if	leave only elements accepted by predicate
 list.filter	leave only elements accepted by predicate
 list.prepend	prepend atom or list before input list
@@ -552,6 +583,7 @@ list.range	output list smallest and largest value
 list.minmax	output list smallest and largest value
 list.reduce	apply function of two arguments cumulatively to the list
 list.foldl	apply function of two arguments cumulatively to the list
+list.reject	remove specified element from list
 list.remove	remove list element(s) at specified positions
 list.remove_if	remove elements by predicate
 list.repack	repack list to specified size
@@ -693,8 +725,11 @@ math.reciprocal~	calculate reciprocal number for signals
 ceammc/1/x~	calculate reciprocal number for signals
 1/x~	calculate reciprocal number for signals
 math.round	round to integral value, regardless of rounding direction
+round	round to integral value, regardless of rounding direction
+ceammc/round	round to integral value, regardless of rounding direction
 math.round~	signal round
 round~	signal round
+ceammc/round~	signal round
 math.sign	sign function
 math.sin	sine function
 math.sinh	hyperbolic sine function
@@ -780,6 +815,7 @@ math.tanh~	hyperbolic tangent for signals
 math.tan~	tangent function
 math.trunc	truncate to integer value
 math.trunc~	truncate to integer value
+midi.arp	MIDI arpeggiator
 midi.cc	enhanced version of vanilla ctlin
 midi.clock	midi clock toolbox
 midi.ctl2str	convert Standard MIDI Controllers number to name
@@ -794,9 +830,11 @@ midi.file	standard midi file SMF reader and writer
 midi.kbd	computer keyboard midi
 midi.key2str	convert key number to SPN name according to tonality
 midi.key->str	convert key number to SPN name according to tonality
+midi.modus	snap/skip midi pitches according modus
 midi.oct	midi octave transpose
 midi.prg2str	convert GM Instrument number to name (string or symbol)
 midi.prg->str	convert GM Instrument number to name (string or symbol)
+midi.split	midi note splitter
 midi.sustain	sustain pedal emulation
 midi.sysex	sysex input messages as list
 midi.track	extract track from MidiFile
@@ -809,10 +847,14 @@ fluid~	FluidSynth SoundFont 2 player
 ceammc/fluid~	FluidSynth SoundFont 2 player
 modplug~	MOD file player (using libmodplug)
 ceammc/modplug~	MOD file player (using libmodplug)
+risset.gliss	Sheppard/Risset glissando calculator
 sfizz~	SFZ format sample player
 ceammc/sfizz~	SFZ format sample player
 speech.flite	render speech to array
 speech.flite~	render speech to array
+speech.rhvoice~	RHVoice text to speech synthesis
+ceammc/rhvoice~	RHVoice text to speech synthesis
+rhvoice~	RHVoice text to speech synthesis
 loadexpr	send message when patch loads
 ceammc/loadexpr	send message when patch loads
 msg	message constructor
@@ -826,29 +868,40 @@ msg.onload	send message when patch loads
 ceammc/loadmsg	send message when patch loads
 loadmsg	send message when patch loads
 msg.sched	message scheduler
+net.artnet.send	ArtNet DMX message sender
+artnet.send	ArtNet DMX message sender
 net.host2ip	returns IP address by DNS name
 net.host->ip	returns IP address by DNS name
+net.http.send	HTTP request sender
+http.send	HTTP request sender
+net.osc.receive	OSC message listener
+net.osc.r	OSC message listener
+net.osc.send	OSC message sender
+net.osc.s	OSC message sender
+net.osc.server	OSC server control
+net.osc	OSC server control
 noise.baker	Part of a-chaos library
-noise.clifford	Part of a-chaos library
-noise.collatz	Part of a-chaos library
+noise.clifford	clifford attractor
+noise.collatz	collatz conjecture output
+noise.colored~	colored noise generator with an arbitrary spectral roll
 noise.crackle~	sparse noise generator
-noise.duffing	Part of a-chaos library
+noise.duffing	duffing attractor
 noise.ginger	Gingerbreadman map chaotic generator
-noise.henon	Part of a-chaos library
-noise.henon_heilles	Part of a-chaos library
-noise.henon_phase	Part of a-chaos library
-noise.henonf	Part of a-chaos library
-noise.ikeda	Part of a-chaos library
+noise.henon	henon attractor
+noise.henon_heilles	Hénon–Heiles_system
+noise.henon_phase	henon phase Ddagrams
+noise.henonf	Henon phase
+noise.ikeda	Ikeda attractor
 noise.lfreq0~	sampled/held noise (piecewise constant)
 noise.lfreq~	noise.lfreq0~ smoothed with no overshoot
-noise.lorenz	Part of a-chaos library
-noise.lyapunov	Part of a-chaos library
-noise.navier_stokes	Part of a-chaos library
+noise.lorenz	Lorenz chaos
+noise.lyapunov	lyapunov random attractor
+noise.navier_stokes	navier-stokes diff equations
 noise.pink~	Pink noise generator
-noise.rossler	Part of a-chaos library
-noise.stein	Part of a-chaos library
-noise.torus	Part of a-chaos library
-noise.verhulst	Part of a-chaos library
+noise.rossler	Rössler attractor
+noise.stein	Stein distribution
+noise.torus	torus attractor
+noise.verhulst	verhulst distribution
 noise.white~	White noise generator
 osc.blit~	Bandlimited impulse train oscillator
 osc.impulse~	Bandlimited impulse train generator
@@ -871,11 +924,14 @@ file.size	output file size
 path.basename	outputs filename portion of pathname
 path.dirname	outputs directory portion of pathname
 path.exists	checks if given path exists
+path.file	file input/output
 path.is_dir	check if path is directory
 path.lsdir	list directory contents
 path.ls	list directory contents
+path.monitor	filesystem event monitor
 path.normalize	normalize file paths
 path.norm	normalize file paths
+path.pattern	pattern filename generator
 path.search	file search
 path.split	file path split
 is_any	checks if input data has *any* type
@@ -891,6 +947,7 @@ is_float	checks if input data has *float* type
 is_list	checks if input data has *list* type
 is_odd	checks if input number is odd
 is_pointer	checks if input data has *pointer* type
+is_prop	checks if input message is *property* message
 is_symbol	checks if input data has *symbol* type
 preset.float	load/store float preset
 preset.f	load/store float preset
@@ -908,6 +965,8 @@ p.get	get property from connected object/subpatch/abstraction
 prop.get~	Property extractor from sound stream
 prop~>	Property extractor from sound stream
 @~>	Property extractor from sound stream
+ceammc/prop~>	Property extractor from sound stream
+ceammc/@~>	Property extractor from sound stream
 prop.join	join property to main data flow
 prop<-	join property to main data flow
 prop.random	property randomizer
@@ -916,12 +975,19 @@ p.set	set property for connected object/subpatch/abstraction
 prop.split	separate properties from dataflow
 prop->	separate properties from dataflow
 @->	separate properties from dataflow
+ceammc/prop->	separate properties from dataflow
+ceammc/@->	separate properties from dataflow
+proto.feelworld	protocol for FeelWorld LivePro L1 HDMI mixer
 proto.firmata	Firmata Arduino protocol support
+proto.inscore	INScore message creator
 proto.midi	raw midi encoder/parser
 proto.midi.cc	raw midi CC encoder/parser
 proto.midi.sysex	raw midi SYSex encoder/parser
+proto.moppy	protocol for Musical flOPPY controller
 proto.mpv	mpv video player control
 proto.sp.alpaca	protocol parser for Arduino-based CEAMMC footswitch
+proto.vlc	VLC video player control over HTTP
+proto.whammy	Control for Digitech Whammy pedal
 proto.xtouch_ext	Behringer XTouch Extender XMidi protocol
 random.atom	weighted atom generation from specified list
 random.a	weighted atom generation from specified list
@@ -1002,8 +1068,8 @@ string.equal	check strings or symbols for equality
 str.equal	check strings or symbols for equality
 string.format	formats string like printf.
 str.format	formats string like printf.
-string.join	joins (concatenates) strings with separator
-str.join	joins (concatenates) strings with separator
+string.join	joins (concatenates) list to string with separator
+str.join	joins (concatenates) list to string with separator
 string.length	number of characters in string (unicode supported)
 str.length	number of characters in string (unicode supported)
 string.match	check if string match regular expression
@@ -1041,6 +1107,7 @@ sym->ilist	converts symbol to list of character codes
 synth.bee3~	Hammond-oid organ FM synthesis instrument
 synth.birds~	bird singing generator
 synth.church_bell~	generic church bell modal model
+synth.clap~	clap synth from faust librariest
 synth.dubdub~	simple synth based on a sawtooth wave filtered by a resonant lowpass
 synth.dx7~	FAUST dx7 implementation
 synth.eguitar~	simple electric guitar model with steel strings
@@ -1051,6 +1118,8 @@ synth.german_bell~	german church bell modal model
 synth.glass_harm~	nonlinear banded waveguide modeled Glass Harmonica
 synth.glitch~	Glitch synthesizer by naivesound
 synth.harpsichord~	waveguide commuted harpsichord
+synth.hat~	hi-hat synth from faust librariest
+synth.kick2~	low-kick synth from faust librariest
 synth.kick~	low-kick synth from Guitarix project
 synth.ks~	Karplus-Strong string
 synth.marimba~	simple marimba physical model implementing a single tone bar connected to tube
@@ -1065,6 +1134,8 @@ synth.sitar~	STK sitar
 synth.snare~	Snare drum synth from Guitarix project
 synth.standard_bell~	german church bell modal model
 synth.tube_bell~	STK tubular bell (orchestral chime) FM synthesis instrument
+synth.voice_fofc~	Simple formant/vocal synthesizer with FOF-cycle filterbank.
+synth.voice_fofs~	Simple formant/vocal synthesizer with FOF-smooth filterbank.
 synth.wurley~	Wurlitzer electric piano FM synthesis instrument
 system.colorpanel	System color panel dialog popup
 system.cursor	Output cursor motion, mousewheel and button clicks
@@ -1144,6 +1215,7 @@ ui.slider	counterpart of the vanilla slider
 ui.hsl	counterpart of the vanilla slider
 ui.vsl	counterpart of the vanilla slider
 ui.slider2d	2D slider widget
+ui.s2d	2D slider widget
 ui.sliders	Multiple slider widget
 ui.vsliders	Multiple slider widget
 ui.spectroscope~	Spectroscope GUI object

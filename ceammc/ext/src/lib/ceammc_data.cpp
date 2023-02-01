@@ -14,14 +14,12 @@
 #include "ceammc_data.h"
 #include "ceammc_datastorage.h"
 #include "ceammc_format.h"
-#include "ceammc_json.h"
 #include "ceammc_log.h"
-#include "lex/data_string.lexer.h"
-#include "lex/data_string.parser.hpp"
+#include "ceammc_string.h"
+#include "fmt/format.h"
+#include "lex/lemon_data_string_parser.h"
 
 #include <algorithm>
-
-using namespace ceammc::ds;
 
 namespace ceammc {
 
@@ -35,7 +33,8 @@ DataParseResult parseDataList(const AtomListView& view) noexcept
     if (view.isNull() || view.empty())
         return DataParseResult(AtomList());
 
-    // do not parse floats or booleans
+    // do not parse single floats, booleans or data
+    // return as is
     if (view.isFloat() || view.isBool() || view.isData())
         return DataParseResult(view);
 
@@ -44,33 +43,39 @@ DataParseResult parseDataList(const AtomListView& view) noexcept
     if (std::all_of(view.begin(), view.end(), &isFloat))
         return DataParseResult(view);
 
-    auto str = to_string(view, " ");
-    if (str.empty())
-        return DataParseResult(AtomList());
-
-    return parseDataString(str);
+    // Try to reduce memory allocations:
+    // first try using on-stack static string.
+    // The logic is: for long strings parsing time is will be also longer then
+    // string alloc/deallocations
+    string::StaticString str;
+    if (string::list_to_string(view, str)) {
+        return parseDataString(str.c_str());
+    } else {
+        // string is rather long, using slower method
+        string::MediumString str;
+        string::list_to_string(view, str);
+        // put zero string terminator
+        str.push_back('\0');
+        return parseDataString(str.data());
+    }
 }
 
-DataParseResult parseDataString(const std::string& str) noexcept
+DataParseResult parseDataString(const char* str) noexcept
 {
-    if (str.empty())
+    if (!str || str[0] == '\0')
         return DataParseResult(AtomList());
 
     try {
-        std::ostringstream ss;
+        parser::LemonDataStringParser p;
+        if (!p.parse(str))
+            return DataParseResult(p.errorString());
 
-        AtomList res;
-        DataStringLexer lex(str);
-        lex.out(ss);
-        DataStringParser p(lex, res);
+        auto res = p.result();
 
-        if (p.parse() != 0)
-            return DataParseResult(ss.str());
-
-        if (!res.empty() && res[0].isNone())
+        if (res.empty())
             return DataParseResult("parse error");
-
-        return DataParseResult(std::move(res));
+        else
+            return DataParseResult(res);
 
     } catch (std::exception& e) {
         return DataParseResult(e.what());

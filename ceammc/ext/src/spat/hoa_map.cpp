@@ -13,7 +13,6 @@
  *****************************************************************************/
 #include <cmath>
 
-#include "ceammc_convert.h"
 #include "ceammc_factory.h"
 #include "hoa_map.h"
 
@@ -59,8 +58,8 @@ void HoaMap::initDone()
     lines_vec_.resize(map_->getNumberOfSources() * 2);
 
     if (nins_->value() > 1) {
-        for (int i = 0; i < nins_->value(); i++) {
-            in_info_.emplace_back("in: %d", i + 1);
+        for (short i = 0; i < nins_->value(); i++) {
+            in_info_.emplace_back("in: %h", i + 1);
         }
     }
 }

@@ -4,6 +4,7 @@ set(BASE_SOURCES
     base_log.cpp
     base_sync.cpp
     base_spring.cpp
+    base_clone.cpp
     canvas_current.cpp
     canvas_dir.cpp
     canvas_name.cpp
@@ -49,6 +50,7 @@ list(APPEND BASE_SOURCES
     is_list.cpp
     is_odd.cpp
     is_pointer.cpp
+    is_prop.cpp
     is_symbol.cpp)
 
 # test
@@ -60,6 +62,7 @@ list(APPEND BASE_SOURCES
 list(APPEND BASE_SOURCES
     base_click.cpp
     base_dac.cpp
+    base_z_tilde.cpp
     gain.cpp
     matrix.cpp
     mix.cpp

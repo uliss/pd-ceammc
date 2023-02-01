@@ -12,31 +12,33 @@
  * this file belongs to.
  *****************************************************************************/
 #include "proto_midi.h"
+#include "ceammc_containers.h"
 #include "ceammc_convert.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "ceammc_units.h"
 
 #include <tuple>
 
-static t_symbol* SYM_ACTIVESENSE;
-static t_symbol* SYM_AFTOUCH_MONO;
-static t_symbol* SYM_AFTOUCH_POLY;
-static t_symbol* SYM_CLOCK;
-static t_symbol* SYM_CONTINUE;
-static t_symbol* SYM_CONTROLCHANGE;
-static t_symbol* SYM_NOTEOFF;
-static t_symbol* SYM_NOTEON;
-static t_symbol* SYM_PITCHWHEEL;
-static t_symbol* SYM_PROGRAMCHANGE;
-static t_symbol* SYM_SONGPOS;
-static t_symbol* SYM_SONGSELECT;
-static t_symbol* SYM_START;
-static t_symbol* SYM_STOP;
-static t_symbol* SYM_SYSRESET;
-static t_symbol* SYM_SYSEX;
-static t_symbol* SYM_TICK;
-static t_symbol* SYM_TIMECODE;
-static t_symbol* SYM_TUNEREQUEST;
+CEAMMC_DEFINE_SYM_HASH(activesense);
+CEAMMC_DEFINE_SYM_HASH(aftertouch);
+CEAMMC_DEFINE_SYM_HASH(polytouch);
+CEAMMC_DEFINE_SYM_HASH(clock);
+CEAMMC_DEFINE_SYM_HASH(continue);
+CEAMMC_DEFINE_SYM_HASH(cc);
+CEAMMC_DEFINE_SYM_HASH(noteoff);
+CEAMMC_DEFINE_SYM_HASH(noteon);
+CEAMMC_DEFINE_SYM_HASH(pitchwheel);
+CEAMMC_DEFINE_SYM_HASH(program);
+CEAMMC_DEFINE_SYM_HASH(songsel);
+CEAMMC_DEFINE_SYM_HASH(songpos);
+CEAMMC_DEFINE_SYM_HASH(start);
+CEAMMC_DEFINE_SYM_HASH(stop);
+CEAMMC_DEFINE_SYM_HASH(sysreset);
+CEAMMC_DEFINE_SYM_HASH(sysex);
+CEAMMC_DEFINE_SYM_HASH(tick);
+CEAMMC_DEFINE_SYM_HASH(timecode);
+CEAMMC_DEFINE_SYM_HASH(tunerequest);
 
 static std::tuple<uint8_t, uint8_t> floatToBit14(t_float v)
 {
@@ -48,7 +50,7 @@ static std::tuple<uint8_t, uint8_t> floatToBit14(t_float v)
     const uint8_t lsb = 0x7F & uval;
     const uint8_t msb = 0x7F & (uval >> 7);
 
-    return { lsb, msb };
+    return std::make_pair(lsb, msb);
 }
 
 t_float MidiQuaterFrame::floatFps() const
@@ -146,48 +148,48 @@ ProtoMidi::ProtoMidi(const PdArgs& args)
 
     parser_.setNoteOnFn([this](Byte b, Byte n, Byte v) {
         Atom msg[3] = { 0x0F & b, n, v };
-        msgTo(SYM_NOTEON, msg, 3);
+        msgTo(sym_noteon(), msg, 3);
     });
 
     parser_.setNoteOffFn([this](Byte b, Byte n, Byte v) {
         Atom msg[3] = { 0x0F & b, n, v };
-        msgTo(SYM_NOTEOFF, msg, 3);
+        msgTo(sym_noteoff(), msg, 3);
     });
 
     parser_.setAfterTouchFn([this](Byte b, Byte v) {
         Atom msg[2] = { 0x0F & b, v };
-        msgTo(SYM_AFTOUCH_MONO, msg, 2);
+        msgTo(sym_aftertouch(), msg, 2);
     });
 
     parser_.setPolyTouchFn([this](Byte b, Byte n, Byte v) {
         Atom msg[3] = { 0x0F & b, n, v };
-        msgTo(SYM_AFTOUCH_POLY, msg, 3);
+        msgTo(sym_polytouch(), msg, 3);
     });
 
     parser_.setControlChangeFn([this](Byte b, Byte c, Byte v) {
         Atom msg[3] = { 0x0F & b, c, v };
-        msgTo(SYM_CONTROLCHANGE, msg, 3);
+        msgTo(sym_cc(), msg, 3);
     });
 
     parser_.setProgramChangeFn([this](Byte b, Byte v) {
         Atom msg[2] = { 0x0F & b, v };
-        msgTo(SYM_PROGRAMCHANGE, msg, 2);
+        msgTo(sym_program(), msg, 2);
     });
 
     parser_.setPitchWheelFn([this](Byte b, Byte lsb, Byte msb) {
         const t_float v = ((msb << 7) | lsb) - 0x2000;
         Atom msg[2] = { 0x0F & b, v };
-        msgTo(SYM_PITCHWHEEL, msg, 2);
+        msgTo(sym_pitchwheel(), msg, 2);
     });
 
     parser_.setSysCommonFn([this](Byte b, Byte d0, Byte d1) {
         switch (b) {
         case midi::MIDI_TUNEREQUEST:
-            return anyTo(0, SYM_TUNEREQUEST, AtomListView());
+            return anyTo(0, sym_tunerequest(), AtomListView());
         case midi::MIDI_SONGSELECT:
-            return anyTo(0, SYM_SONGSELECT, Atom(0x7F & d0));
+            return anyTo(0, sym_songsel(), Atom(0x7F & d0));
         case midi::MIDI_SONGPOS:
-            return anyTo(0, SYM_SONGPOS, Atom((d1 << 7) | d0));
+            return anyTo(0, sym_songpos(), Atom((d1 << 7) | d0));
         case midi::MIDI_TIMECODE:
             return handleTimecode(d0);
         default:
@@ -199,19 +201,19 @@ ProtoMidi::ProtoMidi(const PdArgs& args)
     parser_.setRealtimeFn([this](Byte msg) {
         switch (msg) {
         case midi::MIDI_TIMECLOCK:
-            return anyTo(0, SYM_CLOCK, AtomListView());
+            return anyTo(0, sym_clock(), AtomListView());
         case midi::MIDI_TIMETICK:
-            return anyTo(0, SYM_TICK, AtomListView());
+            return anyTo(0, sym_tick(), AtomListView());
         case midi::MIDI_START:
-            return anyTo(0, SYM_START, AtomListView());
+            return anyTo(0, sym_start(), AtomListView());
         case midi::MIDI_STOP:
-            return anyTo(0, SYM_STOP, AtomListView());
+            return anyTo(0, sym_stop(), AtomListView());
         case midi::MIDI_CONTINUE:
-            return anyTo(0, SYM_CONTINUE, AtomListView());
+            return anyTo(0, sym_continue(), AtomListView());
         case midi::MIDI_ACTIVE_SENSE:
-            return anyTo(0, SYM_ACTIVESENSE, AtomListView());
+            return anyTo(0, sym_activesense(), AtomListView());
         case midi::MIDI_SYSTEM_RESET:
-            return anyTo(0, SYM_SYSRESET, AtomListView());
+            return anyTo(0, sym_sysreset(), AtomListView());
         default:
             OBJ_ERR << "unknown realtime message: " << (int)msg;
             break;
@@ -219,11 +221,12 @@ ProtoMidi::ProtoMidi(const PdArgs& args)
     });
 
     parser_.setSysExFn([this](size_t n, const Byte* b) {
-        Atom msg[n];
+        AtomList256 msg;
+        msg.reserve(n);
         for (size_t i = 0; i < n; i++)
-            msg[i] = b[i];
+            msg.push_back(b[i]);
 
-        msgTo(SYM_SYSEX, msg, n);
+        msgTo(sym_sysex(), msg.data(), n);
     });
 }
 
@@ -240,9 +243,9 @@ void ProtoMidi::onFloat(t_float f)
     }
 }
 
-void ProtoMidi::onList(const AtomList& lst)
+void ProtoMidi::onList(const AtomListView& lv)
 {
-    for (auto& a : lst) {
+    for (auto& a : lv) {
         if (a.isFloat())
             onFloat(a.asT<t_float>());
     }
@@ -565,52 +568,32 @@ void ProtoMidi::handleTimecode(uint8_t data)
 {
     if (mqf_.pushByte(data)) {
         Atom msg[5] = { mqf_.hours(), mqf_.minutes(), mqf_.seconds(), mqf_.frames(), mqf_.floatFps() };
-        msgTo(SYM_TIMECODE, msg, 5);
+        msgTo(sym_timecode(), msg, 5);
     }
 }
 
 void setup_proto_midi()
 {
-    SYM_ACTIVESENSE = gensym("activesense");
-    SYM_AFTOUCH_MONO = gensym("aftertouch");
-    SYM_AFTOUCH_POLY = gensym("polytouch");
-    SYM_CLOCK = gensym("clock");
-    SYM_CONTINUE = gensym("continue");
-    SYM_CONTROLCHANGE = gensym("cc");
-    SYM_NOTEOFF = gensym("noteoff");
-    SYM_NOTEON = gensym("noteon");
-    SYM_PITCHWHEEL = gensym("pitchwheel");
-    SYM_PROGRAMCHANGE = gensym("program");
-    SYM_SONGSELECT = gensym("songsel");
-    SYM_SONGPOS = gensym("songpos");
-    SYM_START = gensym("start");
-    SYM_STOP = gensym("stop");
-    SYM_SYSRESET = gensym("sysreset");
-    SYM_SYSEX = gensym("sysex");
-    SYM_TICK = gensym("tick");
-    SYM_TIMECODE = gensym("timecode");
-    SYM_TUNEREQUEST = gensym("tunerequest");
-
     ObjectFactory<ProtoMidi> obj("proto.midi");
 
     obj.addMethod("note", &ProtoMidi::m_noteOn);
-    obj.addMethod(SYM_ACTIVESENSE->s_name, &ProtoMidi::m_activeSense);
-    obj.addMethod(SYM_AFTOUCH_MONO->s_name, &ProtoMidi::m_afterTouchMono);
-    obj.addMethod(SYM_AFTOUCH_POLY->s_name, &ProtoMidi::m_afterTouchPoly);
-    obj.addMethod(SYM_CLOCK->s_name, &ProtoMidi::m_clock);
-    obj.addMethod(SYM_CONTINUE->s_name, &ProtoMidi::m_continue);
-    obj.addMethod(SYM_CONTROLCHANGE->s_name, &ProtoMidi::m_cc);
-    obj.addMethod(SYM_NOTEOFF->s_name, &ProtoMidi::m_noteOff);
-    obj.addMethod(SYM_NOTEON->s_name, &ProtoMidi::m_noteOn);
-    obj.addMethod(SYM_PITCHWHEEL->s_name, &ProtoMidi::m_pitchWheel);
-    obj.addMethod(SYM_PROGRAMCHANGE->s_name, &ProtoMidi::m_programChange);
-    obj.addMethod(SYM_SONGPOS->s_name, &ProtoMidi::m_songPosition);
-    obj.addMethod(SYM_SONGSELECT->s_name, &ProtoMidi::m_songSelect);
-    obj.addMethod(SYM_START->s_name, &ProtoMidi::m_start);
-    obj.addMethod(SYM_STOP->s_name, &ProtoMidi::m_stop);
-    obj.addMethod(SYM_SYSEX->s_name, &ProtoMidi::m_sysex);
-    obj.addMethod(SYM_SYSRESET->s_name, &ProtoMidi::m_sysReset);
-    obj.addMethod(SYM_TICK->s_name, &ProtoMidi::m_tick);
-    obj.addMethod(SYM_TIMECODE->s_name, &ProtoMidi::m_timecode);
-    obj.addMethod(SYM_TUNEREQUEST->s_name, &ProtoMidi::m_tuneRequest);
+    obj.addMethod(str_activesense, &ProtoMidi::m_activeSense);
+    obj.addMethod(str_aftertouch, &ProtoMidi::m_afterTouchMono);
+    obj.addMethod(str_polytouch, &ProtoMidi::m_afterTouchPoly);
+    obj.addMethod(str_clock, &ProtoMidi::m_clock);
+    obj.addMethod(str_continue, &ProtoMidi::m_continue);
+    obj.addMethod(str_cc, &ProtoMidi::m_cc);
+    obj.addMethod(str_noteoff, &ProtoMidi::m_noteOff);
+    obj.addMethod(str_noteon, &ProtoMidi::m_noteOn);
+    obj.addMethod(str_pitchwheel, &ProtoMidi::m_pitchWheel);
+    obj.addMethod(str_program, &ProtoMidi::m_programChange);
+    obj.addMethod(str_songpos, &ProtoMidi::m_songPosition);
+    obj.addMethod(str_songsel, &ProtoMidi::m_songSelect);
+    obj.addMethod(str_start, &ProtoMidi::m_start);
+    obj.addMethod(str_stop, &ProtoMidi::m_stop);
+    obj.addMethod(str_sysex, &ProtoMidi::m_sysex);
+    obj.addMethod(str_sysreset, &ProtoMidi::m_sysReset);
+    obj.addMethod(str_tick, &ProtoMidi::m_tick);
+    obj.addMethod(str_timecode, &ProtoMidi::m_timecode);
+    obj.addMethod(str_tunerequest, &ProtoMidi::m_tuneRequest);
 }

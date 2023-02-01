@@ -133,6 +133,7 @@ if(WIN32)
     install_tcl_dir(tcllib1.18)
     install_tcl_dir(tcllib1.19)
     install_tcl_dir(tcllib1.20)
+    install_tcl_dir(tcllib1.21)
     # try different tooltip location
     install_tcl_dir(tklib0.6)
     install_tcl_dir(tklib0.6/tooltip)
@@ -195,14 +196,14 @@ if(APPLE)
     set(BUNDLE ${PD_MACOSX_APP})
     set(BUNDLE_FULL_PATH "${PROJECT_BINARY_DIR}/dist/${BUNDLE}")
     set(DMG_FULL_PATH "${PROJECT_BINARY_DIR}/dist/${PD_MACOSX_DMG}")
-    set(MAKE_BUNDLE_SCRIPT ${PROJECT_BINARY_DIR}/dist/ceammc_build.sh)
+    set(MAKE_BUNDLE_SCRIPT ${PROJECT_BINARY_DIR}/dist/make_bundle.sh)
 
     # copy and substitute variables to Info.plist
     file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/dist)
     configure_file(${PROJECT_SOURCE_DIR}/ceammc/gui/Info.plist ${PROJECT_BINARY_DIR}/dist/Info.plist)
 
     # tk versions later then 8.6.8 have problems with russian keyboard shortcuts
-    set(TK_VERSION "8.6.12")
+    set(TK_VERSION ${WISH_VERSION})
     set(EMBEDDED_WISH "${PROJECT_SOURCE_DIR}/mac/Wish-${TK_VERSION}.app")
 
     if(EXISTS ${EMBEDDED_WISH})
@@ -222,28 +223,21 @@ if(APPLE)
         COMMAND ${CMAKE_COMMAND}
             -DBUNDLE=${BUNDLE_FULL_PATH}
             -P ${PROJECT_SOURCE_DIR}/cmake/bundle.cmake
-        DEPENDS pd)
+        DEPENDS pd
+        USES_TERMINAL
+    )
 
     # app target
     # `make app` creates MacOSX bundle
     add_custom_target(app)
 
     add_custom_command(TARGET app PRE_BUILD
-        COMMAND ${CMAKE_COMMAND}
-            -DPROJECT_SOURCE_DIR="${PROJECT_SOURCE_DIR}"
-            -DPROJECT_BINARY_DIR="${PROJECT_BINARY_DIR}"
-            -DBUNDLE=${BUNDLE_FULL_PATH}
-            -DWISH_APP=${WISH_APP}
-            -DTK_VERSION=${TK_VERSION}
-            -DLEAPMOTION_LIBRARY=${LEAPMOTION_LIBRARY}
-            -DDYLIBBUNDLER="${CMAKE_BINARY_DIR}/ceammc/distrib/mac/dylibbundler"
-            -DCEAMMC_LIB_VERSION=${CEAMMC_LIB_VERSION}
-            -P ${PROJECT_SOURCE_DIR}/cmake/cmake_build_mac.cmake
         COMMAND ${CMAKE_COMMAND} -E rm -rf ${BUNDLE_FULL_PATH}
         COMMAND sh ${MAKE_BUNDLE_SCRIPT}
         COMMAND ${CMAKE_COMMAND}
             -DBUNDLE=${BUNDLE_FULL_PATH}
             -P ${PROJECT_SOURCE_DIR}/cmake/bundle.cmake
+        USES_TERMINAL
         )
 
     add_custom_target(app-zip

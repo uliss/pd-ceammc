@@ -17,23 +17,23 @@
             <since>0.5</since>
         </meta>
         <arguments>
-            <argument name="NAME" type="symbol">array name</argument>
+            <argument name="ARRAY" type="symbol">array name</argument>
         </arguments>
         <properties>
             <property name="@array" type="symbol" default="">array name</property>
-            <property name="@state" type="symbol" enum="play stop" readonly="true" default="stop">
-            player state</property>
+            <property name="@state" type="symbol" enum="play stop" access="readonly"
+            default="stop">player state</property>
             <property name="@speed" type="float" minvalue="0.1" default="1">play speed</property>
             <property name="@begin" type="int" default="0" units="sample">begin position in
             samples</property>
             <property name="@end" type="int" default="-1" units="sample">end position in
             samples</property>
-            <property name="@abs_begin" type="int" units="sample" readonly="true" default="0">
+            <property name="@abs_begin" type="int" units="sample" access="readonly" default="0">
             absolute start position in samples</property>
-            <property name="@abs_end" type="int" units="sample" readonly="true" default="0">
+            <property name="@abs_end" type="int" units="sample" access="readonly" default="0">
             absolute stop position in samples</property>
-            <property name="@reversed" type="int" enum="0 1" default="0">playing backwards (if set
-            to 1)</property>
+            <property name="@reversed" type="bool" default="0">playing backwards (if set to
+            1)</property>
         </properties>
         <methods>
             <method name="play">start playing</method>
@@ -50,7 +50,7 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">start playing from the begining</xinfo>
+                <xinfo on="bang">start playing from the beginning</xinfo>
                 <xinfo on="float">1 - play, 0 - stop</xinfo>
             </inlet>
         </inlets>

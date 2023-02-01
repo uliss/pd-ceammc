@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="net.osc.receive">
+        <title>net.osc.receive</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>OSC message listener</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>net</category>
+            <keywords>osc net receive</keywords>
+            <since>0.9.5</since>
+            <also>
+                <see>net.osc.server</see>
+                <see>net.osc.send</see>
+            </also>
+            <aliases>
+                <alias>net.osc.r</alias>
+            </aliases>
+        </meta>
+        <arguments>
+            <argument name="PATH" type="symbol">OSC path to listen</argument>
+            <argument name="SERVER" type="symbol">OSC server name</argument>
+            <argument name="TYPES" type="symbol">expected OSC type string</argument>
+        </arguments>
+        <methods />
+        <properties>
+            <property name="@server" type="symbol" default="default">OSC server name</property>
+            <property name="@path" type="symbol" default="">OSC listen path</property>
+            <property name="@types" type="symbol" default="none">expected OSC type
+            string</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo>message input</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="symbol">set OSC listen path</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>OSC output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+/*default OSC server: osc.udp://:9000*/ [net.osc.server TCP osc.tcp://:9001]
+
+[net.osc.receive /x]                    [net.osc.receive /y TCP]
+|                                       |
+[ui.dt]                                 [ui.dt]
+
+
+[send /x 1 2 3 4( [send /* 4 3 2 1(     [send /y ABC(
+|                 |                     |
+[net.osc.send osc.udp://:9000]          [net.osc.send osc.tcp://:9001]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

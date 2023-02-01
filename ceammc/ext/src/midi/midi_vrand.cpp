@@ -13,7 +13,9 @@
  *****************************************************************************/
 #include "midi_vrand.h"
 #include "ceammc_args.h"
+#include "ceammc_containers.h"
 #include "ceammc_convert.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 
 #include <algorithm>
@@ -22,16 +24,16 @@
 #include <ctime>
 #include <memory>
 
-static t_symbol* SYM_UNIFORM;
-static t_symbol* SYM_GAUSS;
-static t_symbol* SYM_LINUP;
-static t_symbol* SYM_LINDOWN;
-static t_symbol* SYM_CONST_MIN;
-static t_symbol* SYM_CONST_MAX;
-static t_symbol* SYM_CONST_MEAN;
-static t_symbol* SYM_ADD;
-static t_symbol* SYM_SUBTRACT;
-static t_symbol* SYM_ASSIGN;
+CEAMMC_DEFINE_SYM_HASH(uniform);
+CEAMMC_DEFINE_SYM_HASH(gauss);
+CEAMMC_DEFINE_SYM_HASH(linup);
+CEAMMC_DEFINE_SYM_HASH(lindown);
+CEAMMC_DEFINE_SYM_HASH(cmin);
+CEAMMC_DEFINE_SYM_HASH(cmax);
+CEAMMC_DEFINE_SYM_HASH(cmean);
+CEAMMC_DEFINE_SYM_HASH(add);
+CEAMMC_DEFINE_SYM_HASH(sub);
+CEAMMC_DEFINE_SYM_HASH(assign);
 
 static std::unique_ptr<ArgChecker> onlist_chk;
 
@@ -52,21 +54,21 @@ MidiVRrand::MidiVRrand(const PdArgs& args)
     addProperty(max_);
 
     dist_ = new SymbolEnumProperty("@dist", {
-                                                SYM_UNIFORM,
-                                                SYM_GAUSS,
-                                                SYM_LINUP,
-                                                SYM_LINDOWN,
-                                                SYM_CONST_MIN,
-                                                SYM_CONST_MAX,
-                                                SYM_CONST_MEAN,
+                                                str_uniform,
+                                                str_gauss,
+                                                str_linup,
+                                                str_lindown,
+                                                str_cmin,
+                                                str_cmax,
+                                                str_cmean,
                                             });
     addProperty(dist_);
 
-    mode_ = new SymbolEnumProperty("@mode", { SYM_ASSIGN, SYM_ADD, SYM_SUBTRACT });
+    mode_ = new SymbolEnumProperty("@mode", { str_assign, str_add, str_sub });
     addProperty(mode_);
-    addProperty(new SymbolEnumAlias("@assign", mode_, SYM_ASSIGN));
-    addProperty(new SymbolEnumAlias("@add", mode_, SYM_ADD));
-    addProperty(new SymbolEnumAlias("@sub", mode_, SYM_SUBTRACT));
+    addProperty(new SymbolEnumAlias("@assign", mode_, sym_assign()));
+    addProperty(new SymbolEnumAlias("@add", mode_, sym_add()));
+    addProperty(new SymbolEnumAlias("@sub", mode_, sym_sub()));
 
     seed_ = new SizeTProperty("@seed", 0);
     seed_->setSuccessFn([this](Property*) {
@@ -85,34 +87,39 @@ void MidiVRrand::onFloat(t_float note)
         return;
     }
 
-    Atom msg[2] = { note, velocity(64) };
-    listTo(0, AtomListView(msg, 2));
+    StaticAtomList<2> msg { note, velocity(64) };
+    listTo(0, msg.view());
 }
 
-void MidiVRrand::onList(const AtomList& lst)
+void MidiVRrand::onList(const AtomListView& lv)
 {
-    if (!onlist_chk->check(lst.view())) {
-        OBJ_ERR << "NOTE VEL [DUR] expected, got: " << lst;
+    if (!onlist_chk->check(lv)) {
+        OBJ_ERR << "NOTE VEL [DUR] expected, got: " << lv;
         return;
     }
 
-    const size_t N = lst.size();
+    const size_t N = lv.size();
     assert(N == 2 || N == 3);
 
-    Atom msg[3] = { lst[0], velocity(lst[1].asFloat()), N > 2 ? lst[2] : 0. };
-    listTo(0, AtomListView(msg, N));
+    StaticAtomList<3> msg { lv[0], velocity(lv[1].asFloat()) };
+    if (N > 2)
+        msg.push_back(lv[2]);
+
+    listTo(0, msg.view());
 }
 
 t_float MidiVRrand::generate()
 {
     const auto d = dist_->value();
-    if (d == SYM_UNIFORM) {
+    switch (crc32_hash(d)) {
+    case hash_uniform:
         return std::uniform_int_distribution<int>(min_->value(), max_->value())(gen_);
-    } else if (d == SYM_GAUSS) {
+    case hash_gauss: {
         const t_float mu = (min_->value() + max_->value()) / 2;
         const t_float sigma = (max_->value() - min_->value()) / 3;
         return std::normal_distribution<t_float>(mu, sigma)(gen_);
-    } else if (d == SYM_LINUP) {
+    }
+    case hash_linup: {
         const std::array<t_float, 2> i = { min_->value(), max_->value() };
         const std::array<t_float, 2> w = { 0, 1 };
 
@@ -120,7 +127,8 @@ t_float MidiVRrand::generate()
             i.begin(),
             i.end(),
             w.begin())(gen_);
-    } else if (d == SYM_LINDOWN) {
+    }
+    case hash_lindown: {
         const std::array<t_float, 2> i = { min_->value(), max_->value() };
         const std::array<t_float, 2> w = { 1, 0 };
 
@@ -128,13 +136,14 @@ t_float MidiVRrand::generate()
             i.begin(),
             i.end(),
             w.begin())(gen_);
-    } else if (d == SYM_CONST_MIN) {
+    }
+    case hash_cmin:
         return min_->value();
-    } else if (d == SYM_CONST_MAX) {
+    case hash_cmax:
         return max_->value();
-    } else if (d == SYM_CONST_MEAN) {
+    case hash_cmean:
         return ((max_->value() + min_->value()) / 2);
-    } else {
+    default:
         OBJ_ERR << "unknown distribution: " << d;
         return 0;
     }
@@ -145,31 +154,20 @@ t_float MidiVRrand::velocity(t_float orig)
     if (orig == 0)
         return 0;
 
-    auto m = mode_->value();
-
-    if (m == SYM_ASSIGN)
+    switch (crc32_hash(mode_->value())) {
+    case hash_assign:
         return clip<int, 0, 127>(generate());
-    else if (m == SYM_ADD)
+    case hash_add:
         return clip<int, 0, 127>(orig + generate());
-    else if (m == SYM_SUBTRACT)
+    case hash_sub:
         return clip<int, 0, 127>(orig - generate());
-    else
+    default:
         return clip<int, 0, 127>(generate());
+    }
 }
 
 void setup_midi_vrand()
 {
-    SYM_UNIFORM = gensym("uniform");
-    SYM_GAUSS = gensym("gauss");
-    SYM_LINUP = gensym("linup");
-    SYM_LINDOWN = gensym("lindown");
-    SYM_CONST_MIN = gensym("cmin");
-    SYM_CONST_MAX = gensym("cmax");
-    SYM_CONST_MEAN = gensym("cmean");
-    SYM_ADD = gensym("add");
-    SYM_SUBTRACT = gensym("sub");
-    SYM_ASSIGN = gensym("assign");
-
     onlist_chk.reset(new ArgChecker("f0..127 f0..127 f?"));
 
     ObjectFactory<MidiVRrand> obj("midi.vrand");

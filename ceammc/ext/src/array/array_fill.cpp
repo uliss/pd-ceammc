@@ -42,18 +42,18 @@ void ArrayFill::onFloat(t_float f)
     finish();
 }
 
-void ArrayFill::onList(const AtomList& l)
+void ArrayFill::onList(const AtomListView& lv)
 {
-    m_fill(gensym("fill"), l);
+    m_fill(gensym("fill"), lv);
 }
 
-void ArrayFill::m_gauss(t_symbol* m, const AtomListView& l)
+void ArrayFill::m_gauss(t_symbol* m, const AtomListView& lv)
 {
     if (!checkArray())
         return;
 
-    const t_float mean = l.floatAt(0, 0);
-    const t_float stddev = l.floatAt(1, 1);
+    const t_float mean = lv.floatAt(0, 0);
+    const t_float stddev = lv.floatAt(1, 1);
 
     if (stddev <= 0) {
         METHOD_ERR(m) << "standart deviation (sigma) should be > 0";
@@ -71,13 +71,13 @@ void ArrayFill::m_gauss(t_symbol* m, const AtomListView& l)
     finish();
 }
 
-void ArrayFill::m_uniform(t_symbol* m, const AtomListView& l)
+void ArrayFill::m_uniform(t_symbol* m, const AtomListView& lv)
 {
     if (!checkArray())
         return;
 
-    const t_float a = l.floatAt(0, 0);
-    const t_float b = l.floatAt(1, 1);
+    const t_float a = lv.floatAt(0, 0);
+    const t_float b = lv.floatAt(1, 1);
 
     if (!(a < b)) {
         METHOD_ERR(m) << "a should be less then b";
@@ -228,11 +228,11 @@ void ArrayFill::m_tri(t_symbol* m, const AtomListView& l)
     finish();
 }
 
-void ArrayFill::fillRange(size_t from, size_t to, const AtomList& l)
+void ArrayFill::fillRange(size_t from, size_t to, const AtomListView& lv)
 {
-    size_t step = l.size();
+    size_t step = lv.size();
     for (size_t i = from; i < to; i++)
-        array_[i] = l[i % step].asFloat();
+        array_[i] = lv[i % step].asFloat();
 
     finish();
 }

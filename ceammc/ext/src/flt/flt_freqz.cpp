@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "flt_freqz.h"
+#include "ceammc_containers.h"
 #include "ceammc_factory.h"
 #include "ceammc_filter.h"
 
@@ -31,7 +32,7 @@ FltFreqZ::FltFreqZ(const PdArgs& args)
     createOutlet();
 
     cb_ = new ListProperty("@b", { 1 });
-    cb_->setListCheckFn([](const AtomList& l) -> bool { return l.size() > 0 && l.allOf(isFloat); }, "invalid list");
+    cb_->setListCheckFn([](const AtomListView& lv) -> bool { return lv.size() > 0 && lv.allOf(isFloat); }, "invalid list");
     cb_->setSuccessFn([this](Property*) {
         kb_.clear();
         kb_.reserve(cb_->value().size());
@@ -43,7 +44,7 @@ FltFreqZ::FltFreqZ(const PdArgs& args)
     addProperty(cb_);
 
     ca_ = new ListProperty("@a");
-    ca_->setListCheckFn([](const AtomList& l) -> bool { return l.empty() || l.allOf(isFloat); }, "invalid list");
+    ca_->setListCheckFn([](const AtomListView& lv) -> bool { return lv.empty() || lv.allOf(isFloat); }, "invalid list");
     ca_->setSuccessFn([this](Property*) {
         ka_.clear();
         ka_.reserve(ca_->value().size() + 1);
@@ -70,20 +71,22 @@ void FltFreqZ::onBang()
     const size_t N = n_->value();
     const bool db = db_scale_->value();
 
-    Atom amp[N];
-    Atom phase[N];
+    AtomList512 amp;
+    amp.reserve(N);
+    AtomList512 phase;
+    phase.reserve(N);
     floatTo(2, N);
 
     for (size_t i = 0; i < N; i++) {
         t_float w = flt::freq2ang<t_float>(i, 2 * N);
         const auto Hw = flt::freqz(w, kb_.begin(), kb_.end(), ka_.begin(), ka_.end());
 
-        amp[i] = db ? 20 * std::log(std::abs(Hw)) : std::abs(Hw);
-        phase[i] = std::arg(Hw);
+        amp.push_back(db ? 20 * std::log(std::abs(Hw)) : std::abs(Hw));
+        phase.push_back(std::arg(Hw));
     }
 
-    listTo(1, AtomListView(phase, N));
-    listTo(0, AtomListView(amp, N));
+    listTo(1, phase.view());
+    listTo(0, amp.view());
 }
 
 void FltFreqZ::dump() const

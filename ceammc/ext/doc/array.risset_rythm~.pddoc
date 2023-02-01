@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="array.risset_rythm~">
+        <title>array.risset_rythm~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Risset Rhythm: accelerando or ritardando</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>array</category>
+            <keywords>array risset rhythm</keywords>
+            <since>0.9.5</since>
+        </meta>
+        <info>
+            <par>not finished yet</par>
+        </info>
+        <properties />
+        <methods />
+        <inlets>
+            <inlet>
+                <xinfo on="symbol">change array name</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[loadmsg load %CEAMMC%/guitar1.wav to ARR @resize] [table ARR]
+|
+[expand_env] [B]
+|            |
+|            [openpanel]
+|            |
+[snd.file    ]
+
+[T]
+|
+[array.risset_rythm~ ARR]
+|
+[ui.hgain~]       [ui.dsp~]
+|\
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -2,93 +2,116 @@
 #X obj 25 125 fx.distortion3~;
 #X obj 25 25 inlet~;
 #X obj 425 25 inlet;
-#X obj 425 200 route fx.distortion3;
-#X obj 425 250 route @bypass @drive @drywet @gain @hp_freq @lp_freq;
-#X obj 675 350 print unknown property;
+#X obj 425 125 route fx.distortion3 * .;
+#X obj 625 150 route.prop;
+#X obj 475 200 msg *;
+#X obj 425 250 route @bypass @drive @drywet @gain @hp_freq @lp_freq
+default reset;
+#X obj 675 350 t b a;
+#X msg 675 375 supported messages are: @bypass @drive @drywet @gain @hp_freq @lp_freq default reset;
+#X obj 675 425 print;
+#X obj 725 425 print [gfx.distortion3~] unknown message;
 #X msg 325 75 @drive 0.5 \, @drywet 1 \, @gain 0 \, @hp_freq 30 \, @lp_freq 10000 \,;
+#X obj 25 50 t b b;
+#X msg 25 75 reset;
 #X obj 325 25 msg.onload;
 #X obj 500 550 outlet~;
 #X obj 600 550 outlet ctl;
+#X obj 3 202 cnv 8 198 171 empty empty empty 17 7 0 10 -174763 -1 0;
 #X obj 3 202 cnv 8 198 18 empty empty [fx.distortion3~] 3 9 0 12
 -104026 -262144 0;
-#X obj 12 226 ui.toggle @size 12 12 @label bypass @label_side right
-@label_align left @fontsize 10 @presetname
+#X obj 185 205 ui.toggle @size 12 12 @label bypass @label_side left
+@label_align right @fontsize 10 @presetname
 /gui/\$1/fx.distortion3~/checkbox0;
 #X msg 260 218 @bypass \$1;
-#X obj 12 256 ui.slider @size 125 12 @active_scale 1 @label drive:
+#X obj 12 236 ui.slider @size 125 12 @active_scale 1 @label drive:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.distortion3~/slider1 @min 0 @max 1;
-#X obj 190 256 sync;
-#X obj 145 256 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 256 @drive \$1;
-#X obj 12 288 ui.slider @size 125 12 @active_scale 1 @label drywet:
+#X obj 215 236 sync;
+#X obj 145 236 ui.number @size 50 12 @min 0 @max 1 @digits 0;
+#X msg 260 236 @drive \$1;
+#X obj 12 266 ui.slider @size 125 12 @active_scale 1 @label drywet:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.distortion3~/slider2 @min 0 @max 1;
-#X obj 190 288 sync;
-#X obj 145 288 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 288 @drywet \$1;
-#X obj 12 320 ui.slider @size 125 12 @active_scale 1 @label gain(db):
+#X obj 215 266 sync;
+#X obj 145 266 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 266 @drywet \$1;
+#X obj 12 296 ui.slider @size 125 12 @active_scale 1 @label gain(db):
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.distortion3~/slider3 @min -30 @max 10;
-#X obj 190 320 sync;
-#X obj 145 320 ui.number @size 50 12 @min -30 @max 10 @digits 2;
-#X msg 260 320 @gain \$1;
-#X obj 12 352 ui.slider @size 125 12 @active_scale 1 @label
+#X obj 215 296 sync;
+#X obj 145 296 ui.number @size 50 12 @min -30 @max 10 @digits 2;
+#X msg 260 296 @gain \$1;
+#X obj 12 326 ui.slider @size 125 12 @active_scale 1 @label
 hp_freq(Hz): @label_side top @label_align left @fontsize 10
 @presetname /gui/\$1/fx.distortion3~/slider4 @min 20 @max 2000;
-#X obj 190 352 sync;
-#X obj 145 352 ui.number @size 50 12 @min 20 @max 2000 @digits 0;
-#X msg 260 352 @hp_freq \$1;
-#X obj 12 384 ui.slider @size 125 12 @active_scale 1 @label
+#X obj 215 326 sync;
+#X obj 145 326 ui.number @size 50 12 @min 20 @max 2000 @digits 0;
+#X msg 260 326 @hp_freq \$1;
+#X obj 12 356 ui.slider @size 125 12 @active_scale 1 @label
 lp_freq(Hz): @label_side top @label_align left @fontsize 10
 @presetname /gui/\$1/fx.distortion3~/slider5 @min 1000 @max 20000;
-#X obj 190 384 sync;
-#X obj 145 384 ui.number @size 50 12 @min 1000 @max 20000 @digits 1;
-#X msg 260 384 @lp_freq \$1;
+#X obj 215 356 sync;
+#X obj 145 356 ui.number @size 50 12 @min 1000 @max 20000 @digits 1;
+#X msg 260 356 @lp_freq \$1;
 #X connect 1 0 0 0;
 #X connect 2 0 3 0;
-#X connect 3 0 4 0;
-#X connect 4 6 5 0;
-#X connect 6 0 4 0;
-#X connect 7 0 6 0;
-#X connect 0 0 8 0;
-#X connect 3 1 9 0;
-#X connect 11 0 12 0;
-#X connect 12 0 0 0;
-#X connect 4 0 11 0;
-#X connect 13 0 14 0;
-#X connect 14 0 13 0;
-#X connect 15 0 14 1;
-#X connect 14 1 15 0;
-#X connect 13 0 16 0;
-#X connect 16 0 0 0;
-#X connect 4 1 13 0;
-#X connect 17 0 18 0;
-#X connect 18 0 17 0;
-#X connect 19 0 18 1;
-#X connect 18 1 19 0;
-#X connect 17 0 20 0;
+#X connect 3 3 4 0;
+#X connect 3 1 5 0;
+#X connect 3 0 6 0;
+#X connect 3 1 6 0;
+#X connect 3 2 6 0;
+#X connect 4 0 6 0;
+#X connect 6 8 7 0;
+#X connect 7 0 8 0;
+#X connect 8 0 9 0;
+#X connect 7 1 10 0;
+#X connect 11 0 6 0;
+#X connect 6 6 11 0;
+#X connect 12 1 13 0;
+#X connect 12 0 11 0;
+#X connect 13 0 0 0;
+#X connect 6 7 12 0;
+#X connect 14 0 11 0;
+#X connect 0 0 15 0;
+#X connect 4 1 16 0;
+#X connect 5 0 16 0;
+#X connect 19 0 20 0;
 #X connect 20 0 0 0;
-#X connect 4 2 17 0;
+#X connect 6 0 19 0;
 #X connect 21 0 22 0;
 #X connect 22 0 21 0;
 #X connect 23 0 22 1;
 #X connect 22 1 23 0;
 #X connect 21 0 24 0;
 #X connect 24 0 0 0;
-#X connect 4 3 21 0;
+#X connect 6 1 21 0;
 #X connect 25 0 26 0;
 #X connect 26 0 25 0;
 #X connect 27 0 26 1;
 #X connect 26 1 27 0;
 #X connect 25 0 28 0;
 #X connect 28 0 0 0;
-#X connect 4 4 25 0;
+#X connect 6 2 25 0;
 #X connect 29 0 30 0;
 #X connect 30 0 29 0;
 #X connect 31 0 30 1;
 #X connect 30 1 31 0;
 #X connect 29 0 32 0;
 #X connect 32 0 0 0;
-#X connect 4 5 29 0;
-#X coords 0 -1 1 1 200 204 2 2 200;
+#X connect 6 3 29 0;
+#X connect 33 0 34 0;
+#X connect 34 0 33 0;
+#X connect 35 0 34 1;
+#X connect 34 1 35 0;
+#X connect 33 0 36 0;
+#X connect 36 0 0 0;
+#X connect 6 4 33 0;
+#X connect 37 0 38 0;
+#X connect 38 0 37 0;
+#X connect 39 0 38 1;
+#X connect 38 1 39 0;
+#X connect 37 0 40 0;
+#X connect 40 0 0 0;
+#X connect 6 5 37 0;
+#X coords 0 -1 1 1 200 176 2 2 200;

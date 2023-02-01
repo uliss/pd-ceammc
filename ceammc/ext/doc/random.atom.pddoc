@@ -21,21 +21,29 @@
             </aliases>
         </meta>
         <info>
-            <par>Choose random atom from specified list (with weights) and output it</par>
+            <par>Choose random atom from specified list (with weights) and output it.</par>
+            <par>If no weights specified, choose elements with random uniform distribution.</par>
             <par>Use @seed property to get reproducible sequences. If @seed property was not
             explicitly set or specified, uses generator initialized with current time.</par>
+            <par>Note: when @nonrep property is set, distribution is not uniform or weighted.</par>
         </info>
         <arguments>
-            <argument name="ARG" type="list">list of atoms</argument>
+            <argument name="VALUE" type="list">list of atoms</argument>
         </arguments>
         <properties>
-            <property name="@a" type="list">list of atoms</property>
-            <property name="@w" type="list">list of atom weights</property>
+            <property name="@value" type="list" default="">list of atoms</property>
+            <property name="@w" type="list" default="">list of atom weights</property>
             <property name="@seed" type="int" minvalue="0" default="0">generator seed</property>
+            <property name="@nonrep" type="bool" default="0">generate non-repeated adjacent values
+            (note: distribution will changed!)</property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="bang">output random atom</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="list">set list of elements to choose from. Note: clear all
+                weights.</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -44,10 +52,10 @@
         <example>
             <pdascii>
 <![CDATA[
-[T]
-|
-[metro 110]
-|
+[T]           [T]
+|             |
+[metro 110]   [@nonrep $1(
+|             |
 [random.atom C5 D5 C6 Eb4 @w 2 1 6 3]
 |
 [pitch->midi]

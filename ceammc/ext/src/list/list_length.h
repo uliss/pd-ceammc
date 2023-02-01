@@ -21,6 +21,9 @@ using namespace ceammc;
 class ListLength : public BaseObject {
 public:
     ListLength(const PdArgs& args);
+
+    void onList(const AtomListView& lv) final;
+    void onDataT(const MListAtom& ml);
 };
 
 void setup_list_length();

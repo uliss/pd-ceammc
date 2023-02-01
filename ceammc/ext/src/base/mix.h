@@ -32,21 +32,21 @@ class Mix : public SoundExternal {
 public:
     Mix(const PdArgs& args);
 
-    void onList(const AtomList& lst) override;
+    void onList(const AtomListView& lv) override;
     void processBlock(const t_sample** in, t_sample** out) override;
     void setupDSP(t_signal** in) override;
 
     AtomList propValue() const;
-    void setPropValue(const AtomList& lst);
+    void setPropValue(const AtomListView& lv);
     AtomList propDb() const;
-    void setPropDb(const AtomList& lst);
+    void setPropDb(const AtomListView& lv);
     AtomList propMute() const;
-    void setPropMute(const AtomList& lst);
+    void setPropMute(const AtomListView& lv);
     AtomList propSolo() const;
-    void setPropSolo(const AtomList& lst);
+    void setPropSolo(const AtomListView& lv);
 
-    void m_mute(t_symbol* s, const AtomListView& lst);
-    void m_solo(t_symbol* s, const AtomListView& lst);
+    void m_mute(t_symbol* s, const AtomListView& lv);
+    void m_solo(t_symbol* s, const AtomListView& lv);
 };
 
 void setup_base_mix();

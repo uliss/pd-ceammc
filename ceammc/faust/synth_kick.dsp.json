@@ -1,18 +1,18 @@
 {
 	"name": "synth.kick",
 	"filename": "synth_kick.dsp",
-	"version": "2.37.3",
-	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0",
+	"version": "2.53.1",
+	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn synth_kick -scn synth_kick_dsp -es 1 -mcd 16 -single -ftz 0",
 	"library_list": ["/usr/local/share/faust/stdfaust.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib","/usr/local/share/faust/oscillators.lib","/usr/local/share/faust/filters.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc.lib","/usr/local/share/faust/noises.lib","/usr/local/share/faust/basics.lib"],
 	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
 	"inputs": 0,
 	"outputs": 1,
 	"meta": [ 
 		{ "basics.lib/name": "Faust Basic Element Library" },
-		{ "basics.lib/version": "0.2" },
+		{ "basics.lib/version": "0.8" },
 		{ "ceammc.lib/name": "Ceammc PureData misc utils" },
 		{ "ceammc.lib/version": "0.1.2" },
-		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -es 1 -single -ftz 0" },
+		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn synth_kick -scn synth_kick_dsp -es 1 -mcd 16 -single -ftz 0" },
 		{ "filename": "synth_kick.dsp" },
 		{ "filters.lib/fir:author": "Julius O. Smith III" },
 		{ "filters.lib/fir:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
@@ -51,9 +51,9 @@
 		{ "maths.lib/version": "2.5" },
 		{ "name": "synth.kick" },
 		{ "noises.lib/name": "Faust Noise Generator Library" },
-		{ "noises.lib/version": "0.1" },
+		{ "noises.lib/version": "0.4" },
 		{ "oscillators.lib/name": "Faust Oscillator Library" },
-		{ "oscillators.lib/version": "0.1" },
+		{ "oscillators.lib/version": "0.3" },
 		{ "platform.lib/name": "Generic Platform Library" },
 		{ "platform.lib/version": "0.2" }
 	],
@@ -65,6 +65,7 @@
 				{
 					"type": "vslider",
 					"label": "attack",
+					"shortname": "attack",
 					"address": "/synth.kick/attack",
 					"meta": [
 						{ "unit": "ms" }
@@ -77,9 +78,10 @@
 				{
 					"type": "vslider",
 					"label": "freq",
+					"shortname": "freq",
 					"address": "/synth.kick/freq",
 					"meta": [
-						{ "unit": "hz" }
+						{ "unit": "Hz" }
 					],
 					"init": 50,
 					"min": 10,
@@ -89,6 +91,7 @@
 				{
 					"type": "checkbox",
 					"label": "gate",
+					"shortname": "gate",
 					"address": "/synth.kick/gate",
 					"meta": [
 						{ "type": "float" }
@@ -97,6 +100,7 @@
 				{
 					"type": "vslider",
 					"label": "release",
+					"shortname": "release",
 					"address": "/synth.kick/release",
 					"meta": [
 						{ "unit": "ms" }

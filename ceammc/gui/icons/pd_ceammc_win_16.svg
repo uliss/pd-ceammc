@@ -2,24 +2,24 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    version="1.0"
    width="16"
    height="16"
    id="svg2408"
-   inkscape:version="0.91 r13725"
+   inkscape:version="1.2.1 (9c6d41e, 2022-07-14)"
    sodipodi:docname="pd_ceammc_win_16.svg"
    inkscape:export-filename="/Users/serj/Desktop/pd_ceammc_16.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90"
-   style="shape-rendering:crispEdges">
+   style="shape-rendering:crispEdges"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
   <sodipodi:namedview
      pagecolor="#ffffff"
      bordercolor="#666666"
@@ -33,11 +33,11 @@
      inkscape:window-height="749"
      id="namedview60"
      showgrid="true"
-     inkscape:zoom="1.4142136"
-     inkscape:cx="10.598966"
-     inkscape:cy="10.118521"
+     inkscape:zoom="90.509672"
+     inkscape:cx="4.5354269"
+     inkscape:cy="3.2316988"
      inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-y="25"
      inkscape:window-maximized="0"
      inkscape:current-layer="layer4"
      fit-margin-top="0"
@@ -49,7 +49,10 @@
      inkscape:snap-grids="true"
      inkscape:snap-to-guides="false"
      inkscape:bbox-nodes="true"
-     showguides="true">
+     showguides="true"
+     inkscape:showpageshadow="2"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1">
     <inkscape:grid
        type="xygrid"
        id="grid4216"
@@ -101,7 +104,11 @@
     </linearGradient>
     <filter
        id="filter3174"
-       style="color-interpolation-filters:sRGB">
+       style="color-interpolation-filters:sRGB"
+       x="-0.047720931"
+       y="-0.048282354"
+       width="1.0954419"
+       height="1.0965647">
       <feGaussianBlur
          id="feGaussianBlur3176"
          stdDeviation="1.71" />
@@ -245,6 +252,11 @@
          style="stop-color:#5dceff;stop-opacity:1"
          offset="1" />
     </linearGradient>
+    <inkscape:path-effect
+       effect="fill_between_many"
+       method="originald"
+       linkedpaths="#rect4196,0,1|#path4200,0,1|"
+       id="path-effect2375" />
   </defs>
   <metadata
      id="metadata2413">
@@ -276,26 +288,6 @@
     </rdf:RDF>
   </metadata>
   <g
-     id="layer2"
-     style="display:none"
-     transform="translate(-129.96874,16.968752)">
-    <rect
-       width="86"
-       height="85"
-       rx="6"
-       ry="6"
-       x="5"
-       y="7"
-       id="rect3745"
-       style="opacity:0.9;fill:url(#ButtonShadow);fill-opacity:1;fill-rule:nonzero;stroke:none;filter:url(#filter3174)" />
-  </g>
-  <g
-     inkscape:groupmode="layer"
-     id="layer6"
-     inkscape:label="BACKGROUND"
-     style="display:inline"
-     transform="translate(-129.96874,16.968752)" />
-  <g
      inkscape:groupmode="layer"
      id="layer4"
      inkscape:label="LAYER"
@@ -305,25 +297,21 @@
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:0.07386363"
        d="m 132.96874,-2.968752 11,0 0,-7 0,0 0,0 0,0"
        id="path4186"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       inkscape:label="shadow" />
     <g
        id="g4238"
        transform="matrix(0.2343892,0,0,0.23551017,100.19958,-1.7445764)"
-       style="stroke-width:1.86700177;stroke-miterlimit:4;stroke-dasharray:none">
-      <rect
-         y="-59.463787"
-         x="136.47372"
-         height="15.157944"
-         width="15.158472"
+       style="stroke-width:1.86700177;stroke-miterlimit:4;stroke-dasharray:none"
+       inkscape:label="bang">
+      <path
          id="rect4196"
-         style="fill:#00ffff;fill-opacity:1;stroke:#333333;stroke-width:1.86700177;stroke-miterlimit:4;stroke-dasharray:none" />
-      <ellipse
-         ry="7.574749"
-         rx="7.5750132"
-         cy="-51.884815"
-         cx="144.04887"
+         style="display:inline;fill:#333333;stroke:#333333;stroke-width:1.867;fill-opacity:1"
+         d="m 136.47372,-59.463787 h 15.15848 v 15.157944 h -15.15848 z" />
+      <path
          id="path4200"
-         style="fill:#00ffff;fill-opacity:1;stroke:#333333;stroke-width:1.86700177;stroke-miterlimit:4;stroke-dasharray:none" />
+         style="display:inline;fill:#00ffff;stroke:#333333;stroke-width:1.867"
+         d="m 151.62389,-51.884815 a 7.5750132,7.574749 0 0 1 -7.57502,7.574749 7.5750132,7.574749 0 0 1 -7.57501,-7.574749 7.5750132,7.574749 0 0 1 7.57501,-7.574749 7.5750132,7.574749 0 0 1 7.57502,7.574749 z" />
     </g>
     <path
        style="fill:#4d4d4d;fill-rule:evenodd;stroke:#333333;stroke-width:0.50927854;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
@@ -339,18 +327,17 @@
        y="-10.736024" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:7.35231733px;line-height:100%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#1a1a1a;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#1a1a1a;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        x="123.91398"
        y="-5.3513427"
        id="text3390"
-       sodipodi:linespacing="100%"
        transform="scale(1.0769994,0.92850562)"><tspan
          dx="0 -0.19805603"
          sodipodi:role="line"
          id="tspan3392"
          x="123.91398"
          y="-5.3513427"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.7439971px;line-height:100%;font-family:Silom;-inkscape-font-specification:'Silom, Normal';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#1a1a1a;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none">Pd</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.744px;line-height:100%;font-family:Silom;-inkscape-font-specification:'Silom, Normal';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#1a1a1a;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none">Pd</tspan></text>
     <rect
        style="fill:#333333;fill-opacity:1;stroke:#333333;stroke-width:0.37370667;stroke-miterlimit:4;stroke-dasharray:none"
        id="rect4247"
@@ -372,29 +359,7 @@
        width="1.4787741"
        id="rect4255"
        style="fill:#333333;fill-opacity:1;stroke:#333333;stroke-width:0.52123356;stroke-miterlimit:4;stroke-dasharray:none" />
-    <flowRoot
-       transform="matrix(0.0631579,0,0,0.0631579,128.02904,-66.418407)"
-       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       id="flowRoot4207"
-       xml:space="preserve"><flowRegion
-         id="flowRegion4209"><rect
-           y="251.46623"
-           x="1102.0375"
-           height="246.4355"
-           width="96.912842"
-           id="rect4211" /></flowRegion><flowPara
-         id="flowPara4213" /></flowRoot>    <flowRoot
-       xml:space="preserve"
-       id="flowRoot4208"
-       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       transform="matrix(0.0631579,0,0,0.0631579,127.68244,-66.544723)"><flowRegion
-         id="flowRegion4210"><rect
-           id="rect4212"
-           width="96.912842"
-           height="246.4355"
-           x="1102.0375"
-           y="251.46623" /></flowRegion><flowPara
-         id="flowPara4214" /></flowRoot>    <path
+    <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:0.02272727"
        d="m 129.96874,-16.968752 16,0 0,16 -16,0 z"
        id="path4188"

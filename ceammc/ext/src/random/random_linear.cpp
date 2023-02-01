@@ -7,7 +7,6 @@ RandomLinear::RandomLinear(const PdArgs& a)
     , v1_(0)
     , p0_(0)
     , p1_(0)
-    , seed_(nullptr)
 {
     createOutlet();
 
@@ -21,9 +20,7 @@ RandomLinear::RandomLinear(const PdArgs& a)
     addProperty(p0_);
     addProperty(p1_);
 
-    seed_ = new SizeTProperty("@seed", 0);
-    seed_->setSuccessFn([this](Property* p) { gen_.setSeed(seed_->value()); });
-    addProperty(seed_);
+    addProperty(new random::SeedProperty(gen_));
 }
 
 void RandomLinear::onBang()

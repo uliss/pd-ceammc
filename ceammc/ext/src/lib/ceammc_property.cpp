@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_property.h"
+#include "ceammc_containers.h"
 #include "ceammc_crc32.h"
 #include "ceammc_format.h"
 #include "ceammc_log.h"
@@ -35,7 +36,10 @@
             PROP_ERR() << "check error, " << err_msg_ << ", got: " << v; \
     }
 
-#define PROP_USED(x) { const auto r = x; }
+#define PROP_USED(x)      \
+    {                     \
+        const auto r = x; \
+    }
 
 namespace ceammc {
 
@@ -66,24 +70,24 @@ Property::Property(const PropertyInfo& info, PropValueAccess access)
     info_.setAccess(access);
 }
 
-bool Property::set(const AtomListView& lst)
+bool Property::set(const AtomListView& lv)
 {
     if (!writeCheck())
         return false;
 
-    auto res = setList(lst);
+    auto res = setList(lv);
     if (res && ok_fn_ptr_ && *ok_fn_ptr_)
         (*ok_fn_ptr_)(this);
 
     return res;
 }
 
-bool Property::setInit(const AtomListView& view)
+bool Property::setInit(const AtomListView& lv)
 {
     if (!initCheck())
         return false;
 
-    auto res = setList(view);
+    auto res = setList(lv);
     if (res && ok_fn_ptr_ && *ok_fn_ptr_)
         (*ok_fn_ptr_)(this);
 
@@ -134,9 +138,9 @@ bool Property::getDefault(Atom& a) const
     return info_.getDefault(a);
 }
 
-bool Property::getDefault(AtomList& l) const
+bool Property::getDefault(AtomList& lv) const
 {
-    return info_.getDefault(l);
+    return info_.getDefault(lv);
 }
 
 void Property::updateDefault()
@@ -624,7 +628,8 @@ bool Property::checkFloat(t_float v) const
         }
     }
 
-    if (!std::isnormal(v) && v != 0) {
+    const auto ft = std::fpclassify(v);
+    if (!(ft == FP_NORMAL || ft == FP_ZERO)) {
         PROP_ERR() << "ignore denormal value: " << v;
         return false;
     }
@@ -671,15 +676,15 @@ bool Property::checkAtom(const Atom& a) const
     return true;
 }
 
-bool Property::checkList(const AtomListView& l) const
+bool Property::checkList(const AtomListView& lv) const
 {
     if (!check_fn_ptr_)
         return true;
 
     PropListCheckFn list_fn = std::get<4>(*check_fn_ptr_);
     if (list_fn) {
-        if (!list_fn(l)) {
-            PROP_CHECK_ERR(l);
+        if (!list_fn(lv)) {
+            PROP_CHECK_ERR(lv);
             return false;
         } else
             return true;
@@ -688,14 +693,14 @@ bool Property::checkList(const AtomListView& l) const
     PropFloatCheckFn float_fn = std::get<0>(*check_fn_ptr_);
     if (float_fn) {
         // check for all floats
-        for (auto& a : l) {
+        for (auto& a : lv) {
             if (!a.isFloat()) {
-                LogPdObject(owner(), LogLevel::LOG_ERROR).stream() << errorPrefix() << "list of floats expected, got: " << l;
+                LogPdObject(owner(), LogLevel::LOG_ERROR).stream() << errorPrefix() << "list of floats expected, got: " << lv;
                 return false;
             }
 
             if (!float_fn(a.asFloat())) {
-                PROP_CHECK_ERR(l);
+                PROP_CHECK_ERR(lv);
                 return false;
             }
         }
@@ -706,15 +711,15 @@ bool Property::checkList(const AtomListView& l) const
     PropIntCheckFn int_fn = std::get<1>(*check_fn_ptr_);
     if (int_fn) {
         // check for all ints
-        for (auto& a : l) {
+        for (auto& a : lv) {
             if (!a.isInteger()) {
                 LogPdObject(owner(), LogLevel::LOG_ERROR).stream()
-                    << errorPrefix() << "list of integers expected, got: " << l;
+                    << errorPrefix() << "list of integers expected, got: " << lv;
                 return false;
             }
 
             if (!int_fn(a.asInt())) {
-                PROP_CHECK_ERR(l);
+                PROP_CHECK_ERR(lv);
                 return false;
             }
         }
@@ -725,15 +730,15 @@ bool Property::checkList(const AtomListView& l) const
     PropSymbolCheckFn sym_fn = std::get<2>(*check_fn_ptr_);
     if (sym_fn) {
         // check for all symbols
-        for (auto& a : l) {
+        for (auto& a : lv) {
             if (!a.isSymbol()) {
                 LogPdObject(owner(), LogLevel::LOG_ERROR).stream()
-                    << errorPrefix() << "list of symbols expected, got: " << l;
+                    << errorPrefix() << "list of symbols expected, got: " << lv;
                 return false;
             }
 
             if (!sym_fn(a.asSymbol())) {
-                PROP_CHECK_ERR(l);
+                PROP_CHECK_ERR(lv);
                 return false;
             }
         }
@@ -759,17 +764,17 @@ AtomProperty::AtomProperty(const std::string& name, const Atom& def, PropValueAc
     info().setDefault(def);
 }
 
-bool AtomProperty::setList(const AtomListView& lst)
+bool AtomProperty::setList(const AtomListView& lv)
 {
-    if (!emptyCheck(lst))
+    if (!emptyCheck(lv))
         return false;
 
-    if (lst.size() > 1) {
-        PROP_ERR() << "single atom value expected, got: " << lst;
+    if (lv.size() > 1) {
+        PROP_ERR() << "single atom value expected, got: " << lv;
         return false;
     }
 
-    return setValue(lst[0]);
+    return setValue(lv[0]);
 }
 
 AtomList AtomProperty::get() const
@@ -829,9 +834,9 @@ ListProperty::ListProperty(const std::string& name, const AtomList& init, PropVa
     info().setDefault(init);
 }
 
-bool ListProperty::setList(const AtomListView& l)
+bool ListProperty::setList(const AtomListView& lv)
 {
-    return setValue(l);
+    return setValue(lv);
 }
 
 bool ListProperty::getList(AtomList& l) const
@@ -842,19 +847,38 @@ bool ListProperty::getList(AtomList& l) const
 
 bool ListProperty::setValue(const AtomList& l)
 {
-    AtomList args = l;
+    if (filter_ || map_) {
+        using SmallList = SmallAtomListN<16>;
 
-    if (filter_)
-        args = args.filtered(filter_);
+        SmallList args;
+        args.reserve(l.size());
 
-    if (map_)
-        args = args.map(map_);
+        if (filter_) {
+            for (auto& a : l) {
+                if (filter_(a))
+                    args.push_back(a);
+            }
+        } else
+            args.assign(l.begin(), l.end());
 
-    if (!checkList(args))
-        return false;
+        if (map_) {
+            for (auto& a : args)
+                a = map_(a);
+        }
 
-    lst_ = args;
-    return true;
+        if (!checkList(args.view()))
+            return false;
+
+        lst_ = args.view();
+        return true;
+
+    } else {
+        if (!checkList(l))
+            return false;
+
+        lst_ = l;
+        return true;
+    }
 }
 
 const AtomList& ListProperty::defaultValue() const
@@ -879,9 +903,9 @@ bool ListProperty::checkNegative()
 
 bool ListProperty::checkMinElementCount(size_t n)
 {
-    bool res = setListCheckFn([this, n](const AtomList& l) -> bool {
-        if (l.size() < n) {
-            PROP_ERR() << fmt::format("list is too short, min {} elements expected, got: {}", n, l.size());
+    bool res = setListCheckFn([this, n](const AtomListView& lv) -> bool {
+        if (lv.size() < n) {
+            PROP_ERR() << fmt::format("list is too short, min {} elements expected, got: {}", n, lv.size());
             return false;
         } else
             return true;
@@ -897,9 +921,9 @@ bool ListProperty::checkMinElementCount(size_t n)
 
 bool ListProperty::checkMaxElementCount(size_t n)
 {
-    bool res = setListCheckFn([this, n](const AtomList& l) -> bool {
-        if (l.size() > n) {
-            PROP_ERR() << fmt::format("list is too long, max {} elements expected, got: {}", n, l.size());
+    bool res = setListCheckFn([this, n](const AtomListView& lv) -> bool {
+        if (lv.size() > n) {
+            PROP_ERR() << fmt::format("list is too long, max {} elements expected, got: {}", n, lv.size());
             return false;
         } else
             return true;
@@ -920,13 +944,13 @@ bool ListProperty::checkRangeElementCount(size_t min, size_t max)
         return false;
     }
 
-    bool res = setListCheckFn([this, min, max](const AtomList& l) -> bool {
-        if (l.size() < min || l.size() > max) {
+    bool res = setListCheckFn([this, min, max](const AtomListView& lv) -> bool {
+        if (lv.size() < min || lv.size() > max) {
 
             if (min == max)
-                PROP_ERR() << fmt::format("expected list size {}, got: {}", min, l.size());
+                PROP_ERR() << fmt::format("expected list size {}, got: {}", min, lv.size());
             else
-                PROP_ERR() << fmt::format("expected list size in [{}-{}] range, got: {}", min, max, l.size());
+                PROP_ERR() << fmt::format("expected list size in [{}-{}] range, got: {}", min, max, lv.size());
 
             return false;
         } else
@@ -1254,16 +1278,16 @@ SizeTProperty::SizeTProperty(const std::string& n, size_t init, PropValueAccess 
     info().setDefault(int(init));
 }
 
-bool SizeTProperty::setList(const AtomListView& lst)
+bool SizeTProperty::setList(const AtomListView& lv)
 {
-    if (!emptyCheck(lst))
+    if (!emptyCheck(lv))
         return false;
 
-    if (lst.size() == 1)
-        return setValue(lst[0]);
-    else if (lst.size() == 2 && lst[0].isSymbol() && lst[1].isFloat()) {
-        const auto val = lst[1].asT<int>();
-        const auto op = lst[0].asT<t_symbol*>()->s_name;
+    if (lv.size() == 1)
+        return setValue(lv[0]);
+    else if (lv.size() == 2 && lv[0].isSymbol() && lv[1].isFloat()) {
+        const auto val = lv[1].asT<int>();
+        const auto op = lv[0].asT<t_symbol*>()->s_name;
         if (is_op(op, '+'))
             return setValue(value() + val);
         else if (is_op(op, '-'))
@@ -1277,11 +1301,11 @@ bool SizeTProperty::setList(const AtomListView& lst)
             } else
                 return setValue(value() / val);
         } else {
-            PROP_ERR() << "expected +-*/, got: " << lst[0];
+            PROP_ERR() << "expected +-*/, got: " << lv[0];
             return false;
         }
     } else {
-        PROP_ERR() << "unsigned value expected, got " << lst;
+        PROP_ERR() << "unsigned value expected, got " << lv;
         return false;
     }
 }
@@ -1389,17 +1413,17 @@ AtomList SymbolProperty::get() const
     return Atom(value_);
 }
 
-bool SymbolProperty::setList(const AtomListView& lst)
+bool SymbolProperty::setList(const AtomListView& lv)
 {
-    if (!emptyCheck(lst))
+    if (!emptyCheck(lv))
         return false;
 
-    if (lst.size() != 1) {
-        PROP_ERR() << "symbol expected, got " << lst;
+    if (lv.size() != 1) {
+        PROP_ERR() << "symbol expected, got " << lv;
         return false;
     }
 
-    return setValue(lst[0]);
+    return setValue(lv[0]);
 }
 
 bool SymbolProperty::setSymbol(t_symbol* s)

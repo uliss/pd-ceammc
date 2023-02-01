@@ -1,4 +1,5 @@
 #include "replace.h"
+#include "ceammc_factory.h"
 
 using namespace ceammc;
 
@@ -16,19 +17,19 @@ Replace::Replace(const PdArgs& a)
         ->setArgIndex(1);
 }
 
-void Replace::onInlet(size_t n, const AtomListView& l)
+void Replace::onInlet(size_t n, const AtomListView& lv)
 {
     if (n == 1)
-        from_ = l.empty() ? Atom() : l[0];
+        from_ = lv.empty() ? Atom() : lv[0];
     else if (n == 2)
-        to_ = l.empty() ? Atom() : l[0];
+        to_ = lv.empty() ? Atom() : lv[0];
 }
 
-void Replace::onAny(t_symbol* sel, const AtomListView& l)
+void Replace::onAny(t_symbol* sel, const AtomListView& lv)
 {
     if (validateArgs()) {
         AtomList res(sel);
-        res.append(l);
+        res.append(lv);
         if (!to_.isNone())
             res.replaceAll(from_, to_);
         else
@@ -39,23 +40,23 @@ void Replace::onAny(t_symbol* sel, const AtomListView& l)
 
         anyTo(0, res);
     } else {
-        anyTo(0, sel, l);
+        anyTo(0, sel, lv);
     }
 }
 
-void Replace::onList(const AtomList& l)
+void Replace::onList(const AtomListView& lv)
 {
     if (validateArgs()) {
-        AtomList res(l);
+        AtomList res(lv);
 
         if (!to_.isNone())
             res.replaceAll(from_, to_);
         else
             res.removeAll(from_);
 
-        listTo(0, res);
+        listTo(0, res.view());
     } else {
-        listTo(0, l);
+        listTo(0, lv);
     }
 }
 
@@ -88,7 +89,7 @@ void setup_base_replace()
 
     obj.setDescription("Replace atoms in data stream");
     obj.addAuthor("Serge Poltavsky");
-    obj.setKeywords({"replace", "test"});
+    obj.setKeywords({ "replace", "test" });
     obj.setCategory("flow");
     obj.setSinceVersion(0, 1);
 }

@@ -32,15 +32,15 @@
             <wiki name="All-pass_filter">Allpass filter</wiki>
         </info>
         <arguments>
-            <argument name="freq" type="float" units="herz" minvalue="0" maxvalue="22050">center
+            <argument name="FREQ" type="float" units="hertz" minvalue="0" maxvalue="22050">center
             frequency</argument>
         </arguments>
         <properties>
             <property name="@freq" type="float" minvalue="0" maxvalue="22050" default="0"
-            units="herz">center frequency</property>
-            <property name="@q" type="float" minvalue="0.01" maxvalue="100" default="0.707107">
+            units="hertz">center frequency</property>
+            <property name="@q" type="float" minvalue="0.01" maxvalue="100" default="0.7071">
             quality factor: @freq/BANDWIDTH</property>
-            <property name="@rad" type="flag">use angular frequency</property>
+            <property name="@rad" type="flag" access="initonly">use angular frequency</property>
         </properties>
         <methods>
             <method name="bw">set bandwidth in octaves 

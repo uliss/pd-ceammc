@@ -29,15 +29,15 @@ first value in queue.;
 -49933 0;
 #X text 110 378 1\.;
 #X text 150 378 int;
-#X obj 246 379 cnv 1 38 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 378 size: if specified \, creates fixed-size queue. Value
+#X obj 246 379 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 378 SIZE: if specified \, creates fixed-size queue. Value
 '0' means default size (1024). Type: int. Min value: 0;
 #X obj 20 423 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 428 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 463 @empty;
-#X text 245 463 (readonly) Get if queue is empty. Type: int. Default
-value: 1\. Allowed values: 0 \, 1\.;
+#X text 245 463 (readonly) Get if queue is empty. Type: bool. Default
+value: 1\.;
 #X msg 110 505 @filled;
 #X text 245 505 (readonly) Get current number of elements in queue.
 Type: int. Default value: 0\. Min value: 0\.;
@@ -78,7 +78,7 @@ any) are silently removed. Type: int. Min value: 0\.;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title data @url ceammc.data-help.pd;
 #X obj 1 927 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 930 library: ceammc v0.9.4;
+#X text 10 930 library: ceammc v0.9.6;
 #X text 601 942 see also:;
 #X obj 675 942 data.list;
 #N canvas 10 949 400 290 info 0;
@@ -86,7 +86,7 @@ any) are silently removed. Type: int. Min value: 0\.;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.4;
+#X text 120 32 0.9.6;
 #X text 10 54 object:;
 #X text 120 54 data.fifo;
 #X text 10 76 category:;

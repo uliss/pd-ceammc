@@ -16,6 +16,16 @@
         </meta>
         <methods>
             <method name="reset">reset to initial state</method>
+            <method name="random">randomize values 
+            <param name="TYPE" type="symbol" enum="delays fb inputs outputs gains" required="true">
+            group name. If 'delays' - randomize @delays properties, if 'fb' - randomize @fb*
+            properties.</param>
+            <param name="MIN" type="float" minvalue="0">minimal value</param>
+            <param name="MAX" type="float" minvalue="0">maximum value</param></method>
+            <method name="pingpong">set pingpong delay values 
+            <param name="DELAY" type="float" units="millisecond" required="true">delay time</param>
+            <param name="FB" type="float" minvalue="0" maxvalue="1" required="true">feedback
+            value</param></method>
         </methods>
         <properties>
             <property name="@delays" type="list" default="0 0 0 0 0 0" units="millisecond">list of
@@ -210,8 +220,7 @@
             <property name="@tap5.fb5" type="float" default="0" minvalue="0" maxvalue="1">tap5
             feedback to tap5</property>
             <!-- -->
-            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
-            processing</property>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
         <inlets>
             <inlet type="audio">
@@ -228,11 +237,11 @@
         <example>
             <pdascii>
 <![CDATA[
-[B]
+[B]                                   [list 2 4_ 4 8_ 8 16_ 16 #o7(
 |
-[click~ #c0]                          [list 8_ 16 8_ 16 8_ 16(
+[click~ #c0]                          [list 4_ 8 4_ 8 4_ 8(
 |                                     |
-[flt.resonbp~ #f0]                    [music.d->t @bpm 60 1 {i=1,o=1}]
+[flt.resonbp~ #f0]                    [music.d->t @bpm 120 1 {i=1,o=1} #o8]
 |                                     |
 |  [flt.resonbp~ #f1]                 |
 |                                     |
@@ -242,23 +251,29 @@
 |   |                                 |
 |   [m #o3]          [m #o5]          [m @delays #o1]
 |
-|
+|   [reset(  [dump(                   [random delays 200 3000, random fb 0.1 0.2 #o6(
+|   |        |
+|   |        |                        [pingpong 250 0.7 #o10(
+|   |        |
 [fx.tapiir~ #z]
 *|*
-[ui.hgain2~]    [ui.dsp~]
+[ui.hgain2~]                          [ui.dsp~]
 *|*
 [dac~]
 [X o1->z]
 [X o3->z]
 [X o4->o5]
 [X o5->z]
+[X o6->z]
+[X o7->o8]
+[X o10->z]
 [X f1->z:1]
 [X c0->f1]
 #o0 6 @size 84 50 @min 50 @max 1000
 #o2 6 @size 84 50 @min 0 @max 1
 #o4 6 @size 84 50 @min 0 @max 1
 #f0 1000 50
-#f1 2000 50
+#f1 1700 50
 #o3 @outs0
 #o5 @outs1
 #z @out0.in0 1 @out1.in1 1

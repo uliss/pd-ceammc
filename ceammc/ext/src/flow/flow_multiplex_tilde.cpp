@@ -75,15 +75,15 @@ void MultiplexTilde::setupDSP(t_signal** in)
         g.setDurationMs(20, SR);
 }
 
-void MultiplexTilde::onInlet(size_t n, const AtomListView& lst)
+void MultiplexTilde::onInlet(size_t n, const AtomListView& lv)
 {
-    const int idx = lst.intAt(0, -1);
-    const t_float fidx = lst.floatAt(0, -1);
+    const int idx = lv.intAt(0, -1);
+    const t_float fidx = lv.floatAt(0, -1);
 
     if (idx < 0 || idx >= gain_.size()) {
         OBJ_ERR << fmt::format(
             "expected input channel index in range [0-{}], got: {}",
-            gain_.size() - 1, to_string(lst));
+            gain_.size() - 1, to_string(lv));
 
         return;
     }
@@ -103,10 +103,10 @@ void MultiplexTilde::onInlet(size_t n, const AtomListView& lst)
     }
 }
 
-void MultiplexTilde::onList(const AtomList& lst)
+void MultiplexTilde::onList(const AtomListView& lv)
 {
     for (size_t i = 0; i < gain_.size(); i++)
-        gain_[i].setTargetValue(clip<t_float>(lst[i].asFloat(), 0, 1));
+        gain_[i].setTargetValue(clip<t_float>(lv[i].asFloat(), 0, 1));
 }
 
 AtomList MultiplexTilde::propValue() const
@@ -120,9 +120,9 @@ AtomList MultiplexTilde::propValue() const
     return res;
 }
 
-void MultiplexTilde::propSetValue(const AtomList& lst)
+void MultiplexTilde::propSetValue(const AtomListView& lv)
 {
-    onList(lst);
+    onList(lv);
 }
 
 const char* MultiplexTilde::annotateInlet(size_t n) const

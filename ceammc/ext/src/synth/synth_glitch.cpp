@@ -1,4 +1,5 @@
 #include "synth_glitch.h"
+#include "ceammc_containers.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
@@ -9,6 +10,8 @@
 #include <stdexcept>
 
 constexpr size_t MAX_GLITCH_FILE_SIZE = 4 * 1024;
+constexpr const char* STR_BYTE_BEGIN = "byte(";
+constexpr const char* STR_BYTE_END = ")";
 
 static std::future<std::string> readFile(const std::string& fullPath)
 {
@@ -39,10 +42,6 @@ static std::future<std::string> readFile(const std::string& fullPath)
     thread.detach();
     return future;
 }
-
-static t_symbol* SYM_BYTE_BEGIN;
-static t_symbol* SYM_BYTE_END;
-static t_symbol* SYM_FILE;
 
 SynthGlitch::SynthGlitch(const PdArgs& args)
     : SoundExternal(args)
@@ -79,8 +78,8 @@ SynthGlitch::SynthGlitch(const PdArgs& args)
 
     expr_ = new ListProperty("@expr");
     if (!expr_->setListCheckFn(
-            [this](const AtomList& l) -> bool {
-                const auto str = to_string(l);
+            [this](const AtomListView& lv) -> bool {
+                const auto str = to_string(lv);
                 return glitch_.setExpr(str);
             })) {
         OBJ_ERR << "can't set list check...";
@@ -128,13 +127,16 @@ void SynthGlitch::m_byte(t_symbol* /*s*/, const AtomListView& lv)
     const size_t n = lv.size() + 2;
 
     // using stack allocation
-    Atom atoms[n];
-    atoms[0].setSymbol(SYM_BYTE_BEGIN, true);
-    atoms[n - 1].setSymbol(SYM_BYTE_END, true);
-    for (size_t i = 0; i < lv.size(); i++)
-        atoms[i + 1] = lv[i];
+    AtomList256 atoms;
+    atoms.reserve(n);
+    atoms.push_back(gensym(STR_BYTE_BEGIN));
 
-    expr_->setList(AtomListView(atoms, n));
+    for (auto& a : lv)
+        atoms.push_back(a);
+
+    atoms.push_back(gensym(STR_BYTE_END));
+
+    expr_->setList(atoms.view());
 }
 
 void SynthGlitch::m_reset(t_symbol* s, const AtomListView& lv)
@@ -169,10 +171,6 @@ void SynthGlitch::m_read(t_symbol* s, const AtomListView& lv)
 
 void setup_synth_glitch()
 {
-    SYM_BYTE_BEGIN = gensym("byte(");
-    SYM_BYTE_END = gensym(")");
-    SYM_FILE = gensym("file");
-
     SoundExternalFactory<SynthGlitch> obj("synth.glitch~", OBJECT_FACTORY_DEFAULT);
     obj.addMethod("byte", &SynthGlitch::m_byte);
     obj.addMethod("reset", &SynthGlitch::m_reset);

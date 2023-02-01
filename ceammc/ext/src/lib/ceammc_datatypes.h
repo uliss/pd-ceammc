@@ -14,14 +14,39 @@
 #ifndef CEAMMC_DATATYPES_H
 #define CEAMMC_DATATYPES_H
 
+#include <boost/version.hpp>
+#if BOOST_VERSION < 107500
+#define USE_BOOST_BEAST
+#include <boost/beast/core/static_string.hpp>
+#else
+#include <boost/static_string.hpp>
+#endif
+
 #include <cstdint>
 
 namespace ceammc {
+
+#if BOOST_VERSION < 107500
+#define STATIC_STRING_SIZE(type) type::max_size_n
+template<size_t N>
+using BoostStaticString = boost::beast::static_string<N>;
+#else
+#define STATIC_STRING_SIZE(type) type::static_capacity
+template<size_t N>
+using BoostStaticString = boost::static_string<N>;
+#endif
+
+constexpr size_t DATA_TYPE_NAME_MAX_LENGTH = 14;
+
 namespace data {
-    static const uint16_t DATA_INVALID = uint16_t(-1);
-    static const uint16_t DATA_PROPERTY = 31;
-    static const uint16_t DATA_WRAPPER = 32;
+    constexpr uint16_t DATA_INVALID = uint16_t(-1);
+    constexpr uint16_t DATA_PROPERTY = 31;
+    constexpr uint16_t DATA_WRAPPER = 32;
 }
+
+using DataTypeName = BoostStaticString<DATA_TYPE_NAME_MAX_LENGTH>;
+using DataTypeId = uint16_t;
+
 }
 
 #endif // CEAMMC_DATATYPES_H

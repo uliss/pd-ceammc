@@ -439,7 +439,7 @@ void hsl_set(t_hsl* color, float hue, float saturation, float lightness);
  * \param color The t_rgba color.
  * \return The hexadecimal color.
  */
-char* rgba_to_hex(t_rgba color);
+char* rgba_to_hex(const t_rgba& color);
 
 /*!
  * \fn          char* rgba_to_hex(t_rgba color)

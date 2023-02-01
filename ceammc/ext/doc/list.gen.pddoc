@@ -22,7 +22,7 @@
             <par>Note, that maximum length limited to 1024 elements.</par>
         </info>
         <arguments>
-            <argument type="int" minvalue="1" maxvalue="1024" name="N">length of generated
+            <argument type="int" minvalue="1" maxvalue="1024" name="COUNT">length of generated
             list</argument>
         </arguments>
         <methods>

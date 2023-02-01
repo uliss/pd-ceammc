@@ -407,7 +407,15 @@ TEST_CASE("array_grain", "[externals]")
             REQUIRE(g.timeBefore() == 54);
 
             GrainRandom::seed(0);
+            REQUIRE(p.parse(AtomList::parseString("@tb rand(0..100)")));
+            REQUIRE(g.timeBefore() == 54);
+
+            GrainRandom::seed(0);
             REQUIRE(p.parse(AtomList::parseString("@tb rand(0s\\,1sec)")));
+            REQUIRE(g.timeBefore() == 26343);
+
+            GrainRandom::seed(0);
+            REQUIRE(p.parse(AtomList::parseString("@tb rand(0s..1sec)")));
             REQUIRE(g.timeBefore() == 26343);
         }
 
@@ -885,7 +893,6 @@ TEST_CASE("array_grain", "[externals]")
         REQUIRE(bl[2] == 4);
         REQUIRE(bl[3] == 4.5);
         REQUIRE(g.currentLogicPlayPos() == 2);
-        REQUIRE(g.currentAbsPlayPos() == 2);
         REQUIRE(g.currentArrayPlayPos() == 5);
 
         std::fill(br, br + BS, 0);
@@ -896,7 +903,6 @@ TEST_CASE("array_grain", "[externals]")
         REQUIRE(br[2] == 6);
         REQUIRE(br[3] == 6.5);
         REQUIRE(g.currentLogicPlayPos() == 4);
-        REQUIRE(g.currentAbsPlayPos() == 4);
         REQUIRE(g.currentArrayPlayPos() == 7);
 
         std::fill(br, br + BS, 0);
@@ -907,7 +913,6 @@ TEST_CASE("array_grain", "[externals]")
         REQUIRE(br[2] == 0);
         REQUIRE(br[3] == 0);
         REQUIRE(g.currentLogicPlayPos() == 0);
-        REQUIRE(g.currentAbsPlayPos() == 0);
         REQUIRE(g.currentArrayPlayPos() == 3);
     }
 
@@ -937,7 +942,6 @@ TEST_CASE("array_grain", "[externals]")
         REQUIRE(bl[2] == 0);
         REQUIRE(bl[3] == 3);
         REQUIRE(g.currentLogicPlayPos() == 2);
-        REQUIRE(g.currentAbsPlayPos() == 2);
         REQUIRE(g.currentArrayPlayPos() == 5);
 
         std::fill(br, br + BS, 0);
@@ -947,9 +951,8 @@ TEST_CASE("array_grain", "[externals]")
         REQUIRE(br[1] == 7);
         REQUIRE(br[2] == 9);
         REQUIRE(br[3] == 11);
-        REQUIRE(g.currentLogicPlayPos() == -3);
-        REQUIRE(g.currentAbsPlayPos() == -3);
-        REQUIRE(g.currentArrayPlayPos() == 0);
+        REQUIRE(g.currentLogicPlayPos() == 0);
+        REQUIRE(g.currentArrayPlayPos() == 3);
     }
 
     SECTION("play 6")
@@ -957,6 +960,7 @@ TEST_CASE("array_grain", "[externals]")
         constexpr size_t SZ = 64;
         Array arr("array_gexp1");
         Grain g;
+        uint32_t samp_done = 0;
 
         constexpr size_t BS = 8;
         constexpr size_t SR = 48000;
@@ -970,10 +974,10 @@ TEST_CASE("array_grain", "[externals]")
         g.setLengthInSamples(8);
         g.setArrayPosInSamples(3);
         g.setTimeBefore(2);
-        g.setTimeAfter(8);
+        g.setTimeAfter(6);
         g.setPanMode(GRAIN_PAN_NONE);
 
-        REQUIRE(g.process(arr.begin(), SZ, buf, BS, SR) == GRAIN_PLAYING);
+        REQUIRE(g.process(arr.begin(), SZ, buf, BS, SR, 0, &samp_done) == GRAIN_PLAYING);
         REQUIRE(bl[0] == 0);
         REQUIRE(bl[1] == 0);
         REQUIRE(bl[2] == 3);
@@ -983,12 +987,13 @@ TEST_CASE("array_grain", "[externals]")
         REQUIRE(bl[6] == 7);
         REQUIRE(bl[7] == 8);
         REQUIRE(g.currentLogicPlayPos() == 6);
-        REQUIRE(g.currentAbsPlayPos() == 6);
         REQUIRE(g.currentArrayPlayPos() == 9);
+        REQUIRE(samp_done == 8);
 
         std::fill(br, br + BS, 0);
         std::fill(bl, bl + BS, 0);
-        REQUIRE(g.process(arr.begin(), SZ, buf, BS, SR) == GRAIN_PLAYING);
+        samp_done = 0;
+        REQUIRE(g.process(arr.begin(), SZ, buf, BS, SR, 0, &samp_done) == GRAIN_PLAYING);
         REQUIRE(bl[0] == 9);
         REQUIRE(bl[1] == 10);
         REQUIRE(bl[2] == 0);
@@ -997,13 +1002,13 @@ TEST_CASE("array_grain", "[externals]")
         REQUIRE(bl[5] == 0);
         REQUIRE(bl[6] == 0);
         REQUIRE(bl[7] == 0);
-        REQUIRE(g.currentLogicPlayPos() == 14);
-        REQUIRE(g.currentAbsPlayPos() == 14);
-        REQUIRE(g.currentArrayPlayPos() == 17);
+        REQUIRE(samp_done == 2);
+        REQUIRE(g.currentLogicPlayPos() == 13);
+        REQUIRE(g.currentArrayPlayPos() == 16);
 
         std::fill(br, br + BS, 0);
         std::fill(bl, bl + BS, 0);
-        REQUIRE(g.process(arr.begin(), SZ, buf, BS, SR) == GRAIN_FINISHED);
+        REQUIRE(g.process(arr.begin(), SZ, buf, BS, SR, 0, &samp_done) == GRAIN_FINISHED);
         REQUIRE(bl[0] == 0);
         REQUIRE(bl[1] == 0);
         REQUIRE(bl[2] == 0);
@@ -1012,9 +1017,8 @@ TEST_CASE("array_grain", "[externals]")
         REQUIRE(bl[5] == 0);
         REQUIRE(bl[6] == 0);
         REQUIRE(bl[7] == 0);
-        REQUIRE(g.currentLogicPlayPos() == -2);
-        REQUIRE(g.currentAbsPlayPos() == -2);
-        REQUIRE(g.currentArrayPlayPos() == 1);
+        REQUIRE(g.currentLogicPlayPos() == 0);
+        REQUIRE(g.currentArrayPlayPos() == 3);
     }
 
     SECTION("play 6")
@@ -1043,7 +1047,6 @@ TEST_CASE("array_grain", "[externals]")
         REQUIRE(bl[2] == 3);
         REQUIRE(bl[3] == 2);
         REQUIRE(g.currentLogicPlayPos() == 4);
-        REQUIRE(g.currentAbsPlayPos() == 1);
         REQUIRE(g.currentArrayPlayPos() == 1);
 
         std::fill(br, br + BS, 0);

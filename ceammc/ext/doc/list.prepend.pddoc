@@ -19,6 +19,12 @@
         <info>
             <par>Works with data atoms</par>
         </info>
+        <arguments>
+            <argument name="VALUE" type="list">prepend values</argument>
+        </arguments>
+        <properties>
+            <property name="@value" type="list" default="">prepend values</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo on="bang">treated as empty input list</xinfo>
@@ -43,7 +49,7 @@
 |   |    [str test1]   |    [str ANOTHER STRING]
 |   |    |             |    |
 |   |    |             |    |.
-[list.prepend @prop ABC       ]
+[list.prepend "@prop" ABC       ]
 |
 [ui.display @display_type 1]
 ]]>

@@ -22,7 +22,7 @@
 #include <limits>
 #include <sstream>
 
-const int DataTypeProperty::dataType = data::DATA_PROPERTY;
+const DataTypeId DataTypeProperty::dataType = data::DATA_PROPERTY;
 
 constexpr auto min_fdefault = std::numeric_limits<t_float>::lowest();
 constexpr auto max_fdefault = std::numeric_limits<t_float>::max();
@@ -61,7 +61,7 @@ DataTypeProperty::DataTypeProperty(const DataTypeProperty& p)
 {
 }
 
-int DataTypeProperty::type() const noexcept
+DataTypeId DataTypeProperty::type() const noexcept
 {
     return dataType;
 }
@@ -109,7 +109,7 @@ void DataTypeProperty::setTypeSymbol(t_symbol* def)
     value_ = default_;
 }
 
-void DataTypeProperty::setTypeList(const AtomList& def)
+void DataTypeProperty::setTypeList(const AtomListView& def)
 {
     type_ = PropValueType::LIST;
     default_ = def;
@@ -159,12 +159,12 @@ bool DataTypeProperty::setSymbol(t_symbol* s)
     return true;
 }
 
-bool DataTypeProperty::setList(const AtomList& lst)
+bool DataTypeProperty::setList(const AtomListView& lv)
 {
     if (type_ != PropValueType::LIST)
         return false;
 
-    value_ = lst;
+    value_ = lv;
     updateAll();
     return true;
 }
@@ -332,14 +332,14 @@ bool DataTypeProperty::setIntRange(int min, int max)
     return true;
 }
 
-bool DataTypeProperty::setEnumValues(const AtomList& lst)
+bool DataTypeProperty::setEnumValues(const AtomListView& lv)
 {
     if (type_ != PropValueType::SYMBOL)
         return false;
 
     enum_.clear();
     enum_.append(boost::get<t_symbol*>(default_));
-    enum_.append(lst.filtered(ceammc::isSymbol));
+    lv.filter(ceammc::isSymbol, enum_);
     return true;
 }
 
@@ -472,6 +472,21 @@ PropertyInfo DataTypeProperty::info() const
     }
 
     return res;
+}
+
+std::string DataTypeProperty::toListStringContent() const
+{
+    return {};
+}
+
+std::string DataTypeProperty::toDictStringContent() const
+{
+    return {};
+}
+
+bool DataTypeProperty::set(const AbstractData* d) noexcept
+{
+    return setDataT<DataTypeProperty>(d);
 }
 
 void DataTypeProperty::updateAll()

@@ -17,14 +17,9 @@
 #include "ceammc_object.h"
 #include "seq_base.h"
 
-#include <cstdint>
+#include <cstdlib> // for std::abs
 
 class SeqCounter : public BaseObject {
-    enum Direction : uint8_t {
-        DIR_FORWARD = 1,
-        DIR_BACK = 0
-    };
-
 private:
     IntProperty* from_;
     IntProperty* to_;
@@ -32,7 +27,6 @@ private:
     SymbolEnumProperty* mode_;
     int ri_, i_;
     bool done_;
-    Direction dir_;
 
 public:
     SeqCounter(const PdArgs& args);
@@ -40,13 +34,28 @@ public:
     void onInlet(size_t n, const AtomListView& l) override;
 
     void m_reset(t_symbol*, const AtomListView& lv);
+    void m_next(t_symbol*, const AtomListView& lv);
+    void m_prev(t_symbol*, const AtomListView& lv);
 
 private:
+    void next();
     void nextWrapped();
     void nextFolded();
     void nextConst();
+    //
+    void prev();
+    void prevWrapped();
+    void prevFolded();
     void reset();
-    bool shouldRepeat() const;
+    void outputCurrent();
+    void outputCycleCounter();
+
+    inline bool shouldRepeat() const { return !done_ && repeat_->shouldRepeat(ri_); }
+    bool nextCycle();
+
+    inline int range() const { return to_->value() - from_->value(); }
+    inline int absRange() const { return std::abs(range()); }
+    int currentValue() const;
 };
 
 void setup_seq_counter();

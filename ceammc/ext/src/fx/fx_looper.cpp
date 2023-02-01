@@ -93,6 +93,7 @@ FxLooper::FxLooper(const PdArgs& args)
 
     capacity_sec_ = new FloatProperty("@capacity", DEFAULT_CAPACITY_SEC);
     capacity_sec_->setArgIndex(0);
+    capacity_sec_->checkClosedRange(0, 120);
     capacity_sec_->setUnitsSec();
     addProperty(capacity_sec_);
 
@@ -123,6 +124,7 @@ FxLooper::FxLooper(const PdArgs& args)
     addProperty(x_dub_to_stop_);
 
     round_ = new IntProperty("@round", 0);
+    round_->checkMin(0);
     round_->setUnits(PropValueUnits::SAMP);
     addProperty(round_);
 
@@ -496,25 +498,25 @@ void FxLooper::m_clear(t_symbol*, const AtomListView&)
     state_ = STATE_STOP;
 }
 
-void FxLooper::m_adjust(t_symbol* s, const AtomListView& lst)
+void FxLooper::m_adjust(t_symbol* s, const AtomListView& lv)
 {
-    if (!checkArgs(lst, ARG_FLOAT))
+    if (!checkArgs(lv, ARG_FLOAT))
         return;
 
-    long samples = lst[0].asFloat() * sys_getsr();
+    long samples = lv[0].asFloat() * sys_getsr();
 
     if (labs(samples) >= loop_len_) {
-        METHOD_ERR(s) << "adjust value is too big: " << lst[0];
+        METHOD_ERR(s) << "adjust value is too big: " << lv[0];
         return;
     }
 
     loop_len_ = long(loop_len_) + samples;
 }
 
-void FxLooper::m_smooth(t_symbol* s, const AtomListView& lst)
+void FxLooper::m_smooth(t_symbol* s, const AtomListView& lv)
 {
     using namespace ceammc::units;
-    auto res = TimeValue::parse(lst);
+    auto res = TimeValue::parse(lv);
     UnitParseError err;
     if (res.matchError(err)) {
         METHOD_ERR(s) << err.msg;
@@ -924,9 +926,9 @@ void XFadeProperty::reset()
     phase_ = 0;
 }
 
-bool XFadeProperty::set(const AtomListView& lst)
+bool XFadeProperty::set(const AtomListView& lv)
 {
-    auto rc = FloatProperty::set(lst);
+    auto rc = FloatProperty::set(lv);
     if (rc)
         calc(sr_, bs_);
 

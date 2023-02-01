@@ -2,23 +2,23 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    version="1.0"
    width="1024"
    height="1024"
    id="svg2408"
-   inkscape:version="0.91 r13725"
+   inkscape:version="1.2.1 (9c6d41e, 2022-07-14)"
    sodipodi:docname="pd_ceammc5.svg"
    inkscape:export-filename="/Users/serj/Desktop/pd_ceammc_512.png"
    inkscape:export-xdpi="480"
-   inkscape:export-ydpi="480">
+   inkscape:export-ydpi="480"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
   <sodipodi:namedview
      pagecolor="#ffffff"
      bordercolor="#666666"
@@ -32,17 +32,20 @@
      inkscape:window-height="749"
      id="namedview60"
      showgrid="false"
-     inkscape:zoom="0.031921386"
-     inkscape:cx="512.40232"
-     inkscape:cy="464.35349"
+     inkscape:zoom="0.25537109"
+     inkscape:cx="509.06311"
+     inkscape:cy="522.76866"
      inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-y="25"
      inkscape:window-maximized="0"
-     inkscape:current-layer="g4216"
+     inkscape:current-layer="layer4"
      fit-margin-top="0"
      fit-margin-left="0"
      fit-margin-right="0"
-     fit-margin-bottom="0" />
+     fit-margin-bottom="0"
+     inkscape:showpageshadow="2"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1" />
   <defs
      id="defs2410">
     <linearGradient
@@ -86,7 +89,11 @@
     </linearGradient>
     <filter
        id="filter3174"
-       style="color-interpolation-filters:sRGB">
+       style="color-interpolation-filters:sRGB"
+       x="-0.047720931"
+       y="-0.048282354"
+       width="1.0954419"
+       height="1.0965647">
       <feGaussianBlur
          id="feGaussianBlur3176"
          stdDeviation="1.71" />
@@ -244,26 +251,6 @@
     </rdf:RDF>
   </metadata>
   <g
-     id="layer2"
-     style="display:none"
-     transform="translate(-1.96875,928.96875)">
-    <rect
-       width="86"
-       height="85"
-       rx="6"
-       ry="6"
-       x="5"
-       y="7"
-       id="rect3745"
-       style="opacity:0.9;fill:url(#ButtonShadow);fill-opacity:1;fill-rule:nonzero;stroke:none;filter:url(#filter3174)" />
-  </g>
-  <g
-     inkscape:groupmode="layer"
-     id="layer6"
-     inkscape:label="BACKGROUND"
-     style="display:inline"
-     transform="translate(-1.96875,928.96875)" />
-  <g
      inkscape:groupmode="layer"
      id="layer4"
      inkscape:label="LAYER"
@@ -275,7 +262,8 @@
       <g
          transform="matrix(9.561168,0,0,9.561168,59.757594,-883.55696)"
          style="fill:#00ffff;stroke:#333333;stroke-width:1.50701472;stroke-miterlimit:4;stroke-dasharray:none"
-         id="g4241">
+         id="g4241"
+         inkscape:label="bang">
         <rect
            style="fill:#00ffff;fill-opacity:1;stroke:#333333;stroke-width:1.50701472;stroke-miterlimit:4;stroke-dasharray:none"
            id="rect4196"
@@ -294,7 +282,8 @@
          inkscape:connector-curvature="0"
          id="path4245"
          d="m 232.98446,-555.21709 0,76.48934"
-         style="fill:#4d4d4d;fill-rule:evenodd;stroke:#333333;stroke-width:16.46722412;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+         style="fill:#4d4d4d;fill-rule:evenodd;stroke:#333333;stroke-width:16.46722412;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         inkscape:label="cord" />
       <g
          id="g4215"
          transform="translate(-4.7731717,0)">
@@ -307,50 +296,42 @@
            y="-477.30444" />
         <text
            xml:space="preserve"
-           style="font-style:normal;font-weight:normal;font-size:371.22396851px;line-height:100%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#1a1a1a;fill-opacity:1;stroke:none;stroke-width:14.40882111;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#1a1a1a;fill-opacity:1;stroke:none;stroke-width:14.4088;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
            x="268.32767"
            y="-178.94342"
            id="text3390"
-           sodipodi:linespacing="100%"
            transform="scale(0.99088132,1.0092026)"><tspan
              dx="0 -10"
              sodipodi:role="line"
              id="tspan3392"
              x="268.32767"
              y="-178.94342"
-             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:290.01870728px;line-height:100%;font-family:Silom;-inkscape-font-specification:'Silom, Normal';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#1a1a1a;stroke:none;stroke-width:14.40882111;stroke-miterlimit:4;stroke-dasharray:none">Pd</tspan></text>
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:290.019px;line-height:100%;font-family:Silom;-inkscape-font-specification:'Silom, Normal';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#1a1a1a;stroke:none;stroke-width:14.4088;stroke-miterlimit:4;stroke-dasharray:none">Pd</tspan></text>
         <rect
            style="fill:#ffffff;fill-opacity:1;stroke:#333333;stroke-width:14.40882111;stroke-miterlimit:4;stroke-dasharray:none"
            id="rect4247"
            width="67.676727"
            height="29.432056"
            x="215.21271"
-           y="-475.93484" />
+           y="-475.93484"
+           inkscape:label="inlet0" />
         <rect
            y="-475.93484"
            x="744.05115"
            height="29.432055"
            width="67.676727"
            id="rect4253"
-           style="fill:#ffffff;fill-opacity:1;stroke:#333333;stroke-width:14.40882111;stroke-miterlimit:4;stroke-dasharray:none" />
+           style="fill:#ffffff;fill-opacity:1;stroke:#333333;stroke-width:14.40882111;stroke-miterlimit:4;stroke-dasharray:none"
+           inkscape:label="inlet1" />
         <rect
            y="-136.67294"
            x="215.21271"
            height="29.432056"
            width="67.676727"
            id="rect4255"
-           style="fill:#333333;fill-opacity:1;stroke:#333333;stroke-width:14.40882111;stroke-miterlimit:4;stroke-dasharray:none" />
+           style="fill:#333333;fill-opacity:1;stroke:#333333;stroke-width:14.40882111;stroke-miterlimit:4;stroke-dasharray:none"
+           inkscape:label="outlet" />
       </g>
-      <flowRoot
-         xml:space="preserve"
-         id="flowRoot4207"
-         style="fill:black;stroke:none;stroke-opacity:1;stroke-width:1px;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;font-family:sans-serif;font-style:normal;font-weight:normal;font-size:40px;line-height:125%;letter-spacing:0px;word-spacing:0px"><flowRegion
-           id="flowRegion4209"><rect
-             id="rect4211"
-             width="96.912842"
-             height="246.4355"
-             x="1102.0375"
-             y="251.46623" /></flowRegion><flowPara
-           id="flowPara4213"></flowPara></flowRoot>    </g>
+    </g>
   </g>
 </svg>

@@ -23,48 +23,51 @@
 #   CoR-Lab, Research Institute for Cognition and Robotics
 #     Bielefeld University
 
-SET(LSB_DISTRIBUTOR_ID "unknown")
-SET(LSB_RELEASE "unknown")
-SET(LSB_CODENAME "unknown")
-SET(LSB_BIT_TYPE "unknown")
-SET(LSB_ARCH_TYPE "unknown")
-
-# ---- (mgoettin 10/17/2011) TODO: Update this to match all OS ----
-SET(LSB_PROCESSOR_ARCH ${CMAKE_SYSTEM_PROCESSOR})
-
-# ---- Get the system bit type ----
-IF(CMAKE_SIZEOF_VOID_P EQUAL 8)
-    SET(LSB_BIT_TYPE 64)
-ELSE()
-    SET(LSB_BIT_TYPE 32)    
-ENDIF() 
-
 # ---- Get the system LSB data ----
-IF(UNIX)
-  
-    FIND_PROGRAM(LSB_RELEASE_EXECUTABLE lsb_release)
-    IF(LSB_RELEASE_EXECUTABLE)
+if(UNIX AND NOT APPLE)
+
+    set(LSB_DISTRIBUTOR_ID "unknown")
+    set(LSB_DESCRIPTION "unknown")
+    set(LSB_RELEASE "unknown")
+    set(LSB_CODENAME "unknown")
+    set(LSB_BIT_TYPE "unknown")
+    set(LSB_PROCESSOR_ARCH ${CMAKE_SYSTEM_PROCESSOR})
+
+    if(CMAKE_SIZEOF_VOID_P EQUAL 8)
+        set(LSB_BIT_TYPE 64)
+    else()
+        set(LSB_BIT_TYPE 32)
+    endif()
+
+    find_program(LSB_RELEASE_EXECUTABLE lsb_release)
+    if(LSB_RELEASE_EXECUTABLE)
         # ---- Get the distribution codename ----
-        EXECUTE_PROCESS(COMMAND ${LSB_RELEASE_EXECUTABLE} -s -c
+        execute_process(COMMAND ${LSB_RELEASE_EXECUTABLE} -s -c
                         OUTPUT_VARIABLE TMP_LSB_CODENAME
                         OUTPUT_STRIP_TRAILING_WHITESPACE)
-        STRING(TOLOWER ${TMP_LSB_CODENAME} LSB_CODENAME)
+        string(TOLOWER ${TMP_LSB_CODENAME} LSB_CODENAME)
         # ---- Get the release name ----
-        EXECUTE_PROCESS(COMMAND ${LSB_RELEASE_EXECUTABLE} -s -r
+        execute_process(COMMAND ${LSB_RELEASE_EXECUTABLE} -s -r
                         OUTPUT_VARIABLE TMP_LSB_RELEASE
                         OUTPUT_STRIP_TRAILING_WHITESPACE)
-        STRING(TOLOWER ${TMP_LSB_RELEASE} LSB_RELEASE)
+        string(TOLOWER ${TMP_LSB_RELEASE} LSB_RELEASE)
         # ---- Get the distributor id ----
-        EXECUTE_PROCESS(COMMAND ${LSB_RELEASE_EXECUTABLE} -s -i
+        execute_process(COMMAND ${LSB_RELEASE_EXECUTABLE} -s -i
                         OUTPUT_VARIABLE TMP_LSB_DISTRIBUTOR_ID
                         OUTPUT_STRIP_TRAILING_WHITESPACE)
-        STRING(TOLOWER ${TMP_LSB_DISTRIBUTOR_ID} LSB_DISTRIBUTOR_ID)
+        string(TOLOWER ${TMP_LSB_DISTRIBUTOR_ID} LSB_DISTRIBUTOR_ID)
+        # ---- Get the description ----
+        execute_process(COMMAND ${LSB_RELEASE_EXECUTABLE} -s -d
+                        OUTPUT_VARIABLE LSB_DESCRIPTION
+                        OUTPUT_STRIP_TRAILING_WHITESPACE)
         
-        MESSAGE(STATUS "LSB-Release system information::
+        message(STATUS "LSB-Release system information::
            LSB Distributor-ID: ${LSB_DISTRIBUTOR_ID}
+           LSB Description: ${LSB_DESCRIPTION}
            LSB Release: ${LSB_RELEASE}
            LSB Codename: ${LSB_CODENAME}
+           LSB Arch: ${LSB_PROCESSOR_ARCH}
            System bit type: ${LSB_BIT_TYPE} bit")
        
-    ENDIF(LSB_RELEASE_EXECUTABLE) 
-ENDIF(UNIX)
+    endif()
+endif()

@@ -15,8 +15,12 @@
 #define CEAMMC_CONTAINERS_H
 
 #include <algorithm>
-#include <boost/container/small_vector.hpp>
 #include <cstdint>
+#include <initializer_list>
+
+#include <boost/container/small_vector.hpp>
+#include <boost/container/static_vector.hpp>
+#include <boost/iterator/filter_iterator.hpp>
 
 #include "ceammc_atom.h"
 #include "ceammc_atomlist_view.h"
@@ -25,7 +29,74 @@
 namespace ceammc {
 
 template <size_t N = 4>
-using SmallAtomListN = boost::container::small_vector<Atom, N>;
+class SmallAtomListN : public boost::container::small_vector<Atom, N> {
+public:
+    SmallAtomListN() { }
+
+    SmallAtomListN(std::initializer_list<Atom> atoms)
+        : boost::container::small_vector<Atom, N>(atoms.begin(), atoms.end())
+    {
+    }
+
+    template <typename... Args>
+    explicit SmallAtomListN(Args... args)
+        : boost::container::small_vector<Atom, N>({ atomFrom(args)... })
+    {
+    }
+
+    AtomListView view() const
+    {
+        if (this->empty())
+            return {};
+        else
+            return { this->data(), this->size() };
+    }
+
+    template <typename It>
+    void insert_back(It begin, It end)
+    {
+        this->insert(this->end(), begin, end);
+    }
+
+    template <typename Cont>
+    void insert_back(const Cont& c)
+    {
+        this->insert(this->end(), std::begin(c), std::end(c));
+    }
+};
+
+using SmallAtomList = SmallAtomListN<8>;
+using AtomList16 = SmallAtomListN<16>;
+using AtomList32 = SmallAtomListN<32>;
+using AtomList64 = SmallAtomListN<64>;
+using AtomList128 = SmallAtomListN<128>;
+using AtomList256 = SmallAtomListN<256>;
+using AtomList512 = SmallAtomListN<512>;
+
+template <size_t MAX_SIZE>
+class StaticAtomList : public boost::container::static_vector<Atom, MAX_SIZE> {
+public:
+    StaticAtomList() { }
+
+    StaticAtomList(std::initializer_list<Atom> atoms)
+        : boost::container::static_vector<Atom, MAX_SIZE>(atoms.begin(), atoms.end())
+    {
+    }
+
+    template <typename... Args>
+    explicit StaticAtomList(Args... args)
+        : boost::container::static_vector<Atom, MAX_SIZE>({ atomFrom(args)... })
+    {
+    }
+
+    AtomListView view() const
+    {
+        if (this->empty())
+            return {};
+        else
+            return { this->data(), this->size() };
+    }
+};
 
 template <size_t N = 4>
 class SmallMessageN {
@@ -132,20 +203,46 @@ private:
 };
 
 template <typename T>
-class SingletonMeyers {
+class SingletonMeyers : public T {
 public:
-    static T& instance()
+    static SingletonMeyers<T>& instance()
     {
-        static T instance_;
+        static SingletonMeyers<T> instance_;
         return instance_;
     }
 
     SingletonMeyers(const SingletonMeyers&) = delete;
+    SingletonMeyers(SingletonMeyers&&) = delete;
     SingletonMeyers& operator=(const SingletonMeyers&) = delete;
+    SingletonMeyers& operator=(SingletonMeyers&&) = delete;
 
 protected:
     SingletonMeyers() { }
 };
+
+template <typename Cont>
+inline boost::filter_iterator<AtomPredicate, typename Cont::iterator> atom_filter_it_begin(const Cont& c, AtomPredicate pred)
+{
+    return boost::filter_iterator<AtomPredicate, typename Cont::const_iterator>(pred, std::begin(c), std::end(c));
+}
+
+template <typename Cont>
+inline boost::filter_iterator<AtomPredicate, typename Cont::iterator> atom_filter_it_end(const Cont& c)
+{
+    return boost::filter_iterator<AtomPredicate, typename Cont::const_iterator>(nullptr, std::end(c), std::end(c));
+}
+
+template <typename Cont>
+inline boost::filter_iterator<AtomPredicate, typename Cont::iterator> atom_filter_it_begin(Cont& c, AtomPredicate pred)
+{
+    return boost::filter_iterator<AtomPredicate, typename Cont::iterator>(pred, std::begin(c), std::end(c));
+}
+
+template <typename Cont>
+inline boost::filter_iterator<AtomPredicate, typename Cont::iterator> atom_filter_it_end(Cont& c)
+{
+    return boost::filter_iterator<AtomPredicate, typename Cont::iterator>(nullptr, std::end(c), std::end(c));
+}
 
 }
 

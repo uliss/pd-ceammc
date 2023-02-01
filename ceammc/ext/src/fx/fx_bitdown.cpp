@@ -8,8 +8,8 @@ public:
     FxBitdown(const PdArgs& args)
         : faust_fx_bitdown_tilde(args)
     {
-        static t_symbol* SYM_PROP_BITS = gensym("@bits");
-        static t_symbol* SYM_PROP_DOWNSAMP = gensym("@downsamp");
+        auto SYM_PROP_BITS = gensym("@bits");
+        auto SYM_PROP_DOWNSAMP = gensym("@downsamp");
 
         bindPositionalArgsToProps({ SYM_PROP_BITS, SYM_PROP_DOWNSAMP });
         property(SYM_PROP_DOWNSAMP)->setUnitsSamp();

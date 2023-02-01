@@ -21,8 +21,7 @@
             units="millisecond">release time</property>
             <property name="@bwratio" type="float" minvalue="0.1" maxvalue="2" default="0.5">
             coefficient to adjust the bandwidth of each band</property>
-            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
-            processing</property>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
         <inlets>
             <inlet type="audio">

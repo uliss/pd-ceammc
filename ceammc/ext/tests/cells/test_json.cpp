@@ -30,59 +30,71 @@ using MA = MListAtom;
 using SA = StringAtom;
 using DA = DictAtom;
 
+JsonWriteOpts iopt(int n)
+{
+    JsonWriteOpts res;
+    res.indent = n;
+    return res;
+}
+
 TEST_CASE("json", "[core]")
 {
-    SECTION("to_json pd types")
+    SECTION("to_json_string pd types")
     {
-        REQUIRE(to_json(Atom()) == "null");
-        REQUIRE(to_json(Atom(), 4) == "null");
+        REQUIRE(to_json_string(Atom()) == "null");
+        REQUIRE(to_json_string(Atom(), iopt(4)) == "null");
 
-        REQUIRE(to_json(A(10)) == "10");
-        REQUIRE(to_json(A(10), 4) == "10");
-        REQUIRE(to_json(A(-2.5)) == "-2.5");
-        REQUIRE(to_json(A("abc")) == "\"abc\"");
+        REQUIRE(to_json_string(A(10)) == "10");
+        REQUIRE(to_json_string(A(10), iopt(4)) == "10");
+        REQUIRE(to_json_string(A(-2.5)) == "-2.5");
+        REQUIRE(to_json_string(A("abc")) == "\"abc\"");
 
-        REQUIRE(to_json(L()) == "[]");
-        REQUIRE(to_json(LF(1, 2, 3)) == "[1,2,3]");
-        REQUIRE(to_json(LA("a", 2.5, 3)) == "[\"a\",2.5,3]");
+        REQUIRE(to_json_string(L()) == "[]");
+        REQUIRE(to_json_string(LF(100)) == "[100]");
+        REQUIRE(to_json_string(LF(1, 2, 3)) == "[1,2,3]");
+        REQUIRE(to_json_string(LA("a", 2.5, 3)) == "[\"a\",2.5,3]");
     }
 
     SECTION("String")
     {
-        REQUIRE(to_json(SA("")) == "\"\"");
-        REQUIRE(to_json(SA("a b c")) == "\"a b c\"");
-        REQUIRE(to_json(SA("\\")) == R"("\\")");
-        REQUIRE(to_json(SA("\"")) == R"("\"")");
-        REQUIRE(to_json(LA(SA("a b c"), SA("d e f"))) == "[\"a b c\",\"d e f\"]");
+        REQUIRE(to_json_string(SA("")) == "\"\"");
+        REQUIRE(to_json_string(SA("a b c")) == "\"a b c\"");
+        REQUIRE(to_json_string(SA("\\")) == R"("\\")");
+        REQUIRE(to_json_string(SA("\"")) == R"("\"")");
+        REQUIRE(to_json_string(LA(SA("a b c"), SA("d e f"))) == "[\"a b c\",\"d e f\"]");
     }
 
     SECTION("MList")
     {
-        REQUIRE(to_json(MA()) == "[]");
-        REQUIRE(to_json(MA(1)) == "[1]");
-        REQUIRE(to_json(MA(2.5)) == "[2.5]");
-        REQUIRE(to_json(MA(1, 2, 3)) == "[1,2,3]");
-        REQUIRE(to_json(MA("abc")) == "[\"abc\"]");
-        REQUIRE(to_json(MA("abc", SA("abc"))) == "[\"abc\",\"abc\"]");
+        REQUIRE(to_json_string(MA()) == "[]");
+        REQUIRE(to_json_string(MA(1)) == "[1]");
+        REQUIRE(to_json_string(MA(2.5)) == "[2.5]");
+        REQUIRE(to_json_string(MA(1, 2, 3)) == "[1,2,3]");
+        REQUIRE(to_json_string(MA("abc")) == "[\"abc\"]");
+        REQUIRE(to_json_string(MA("abc", SA("abc"))) == "[\"abc\",\"abc\"]");
     }
 
     SECTION("Dict")
     {
+        json::JsonWriteOpts opts;
+        opts.compressSingleList = false;
+
         DataTypeDict dict("[a: b]");
         REQUIRE(dict.size() == 1);
         REQUIRE(dict.keys() == LA("a"));
         REQUIRE(dict.contains("a"));
         REQUIRE(dict.at("a") == A("b"));
-        REQUIRE(dict.valueToJsonString() == R"({"a":"b"})");
+        REQUIRE(to_json_string(dict) == R"({"a":"b"})");
+        REQUIRE(to_json_string(dict, opts) == R"({"a":["b"]})");
 
         using DT = DataTypeDict;
         DT dict1;
         dict1.insert("a", A("b"));
-        REQUIRE(dict1.valueToJsonString() == R"({"a":"b"})");
+        REQUIRE(dict1.toJsonString() == R"({"a":"b"})");
         dict1.at("a") = LF(1, 2);
-        REQUIRE(dict1.valueToJsonString() == R"({"a":[1,2]})");
+        REQUIRE(dict1.toJsonString() == R"({"a":[1,2]})");
         dict1.at("a") = DA("[b: c]");
-        REQUIRE(dict1.valueToJsonString() == R"({"a":{"b":"c"}})");
+        REQUIRE(dict1.toJsonString() == R"({"a":{"b":"c"}})");
     }
 }
 

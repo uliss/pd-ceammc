@@ -16,7 +16,7 @@
 #include "ceammc_convert.h"
 #include "ceammc_ui.h"
 
-static const size_t N_SAMPLES = 150;
+constexpr size_t N_SAMPLES = 150;
 
 UIScope::UIScope()
     : data_(N_SAMPLES, 0)
@@ -199,17 +199,13 @@ void UIScope::onDblClick(t_object* view, const t_pt& pt, long modifiers)
 
 void UIScope::onMouseWheel(const t_pt& pt, long modifiers, float delta)
 {
-    static t_symbol* SYM_MIN = gensym("min");
-    static t_symbol* SYM_MAX = gensym("max");
-    static t_symbol* SYM_WINDOW = gensym("window");
-
     if (modifiers == EMOD_SHIFT) {
         float k = (1 + delta * 0.05);
-        setProperty(SYM_WINDOW, AtomList(prop_window * k));
+        setProperty(gensym("window"), AtomList(prop_window * k));
     } else {
         float k = (1 + delta * 0.05);
-        setProperty(SYM_MIN, AtomList(prop_min * k));
-        setProperty(SYM_MAX, AtomList(prop_max * k));
+        setProperty(gensym("min"), AtomList(prop_min * k));
+        setProperty(gensym("max"), AtomList(prop_max * k));
     }
 }
 
@@ -232,7 +228,7 @@ void UIScope::setup()
     obj.setPropertyRange("refresh", 10, 1000);
     obj.setPropertyUnits("refresh", "msec");
 
-    obj.hideProperty("send");
+    obj.internalProperty("send");
 }
 
 void UIScope::redrawTick()

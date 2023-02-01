@@ -16,14 +16,17 @@
 
 #include "ceammc_data.h"
 #include "ceammc_object.h"
+#include "ceammc_property_enum.h"
 
 using namespace ceammc;
 
 class ListRange : public BaseObject {
+    SymbolEnumProperty* type_;
+
 public:
     ListRange(const PdArgs& a);
 
-    void onList(const AtomList& l) override;
+    void onList(const AtomListView& lv) override;
     void onDataT(const MListAtom& ml);
 };
 

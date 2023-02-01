@@ -123,11 +123,19 @@ public:
     bool setInt(int i) final;
     bool setSymbol(t_symbol* s) final;
     bool setAtom(const Atom& a) final;
-    bool setList(const AtomListView& lst) final;
+    bool setList(const AtomListView& lv) final;
 
     bool checkPositive() final;
     bool checkNegative() final;
     bool checkNonNegative() final;
+
+    bool checkMin(t_float v);
+    bool checkMinEq(t_float v);
+    bool checkMax(t_float v);
+    bool checkMaxEq(t_float v);
+    bool checkClosedRange(t_float a, t_float b);
+    bool checkOpenedRange(t_float a, t_float b);
+    bool checkNonZero();
 
     void updateDefault() override;
 

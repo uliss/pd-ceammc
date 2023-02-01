@@ -1,6 +1,9 @@
 #include "list_sort.h"
+#include "ceammc_containers.h"
 #include "ceammc_factory.h"
 #include "datatype_mlist.h"
+
+#include <algorithm>
 
 ListSort::ListSort(const PdArgs& args)
     : BaseObject(args)
@@ -8,11 +11,12 @@ ListSort::ListSort(const PdArgs& args)
     createOutlet();
 }
 
-void ListSort::onList(const AtomList& lst)
+void ListSort::onList(const AtomListView& lv)
 {
-    AtomList res(lst);
-    res.sort();
-    listTo(0, res);
+    AtomList32 res;
+    res.insert_back(lv);
+    std::sort(res.begin(), res.end());
+    listTo(0, res.view());
 }
 
 void ListSort::onDataT(const MListAtom& ml)

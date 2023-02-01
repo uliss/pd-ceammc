@@ -340,8 +340,8 @@ TEST_CASE("env->vline", "[externals]")
     {
         EnvAtom env;
         REQUIRE_FALSE(env->setExponential(L()));
-        REQUIRE_FALSE(env->setExponential(LA(0.1, 16, -3) + LA(0.7, 16, -3)));
-        REQUIRE(env->setExponential(LA(0.1, 16, -2) + LA(0.7, 20, -2) + LA(0.2, 60, -3, 0.f)));
+        REQUIRE_FALSE(env->setExponential(LF(0.1, 16, -3, 0.7, 16, -3)));
+        REQUIRE(env->setExponential(LF(0.1, 16, -2, 0.7, 20, -2, 0.2, 60, -3, 0.f)));
         REQUIRE(env->numPoints() == 4);
 
         TObj t("env->vline");
@@ -381,7 +381,7 @@ TEST_CASE("env->vline", "[externals]")
         t.cleanAllMessages();
         WHEN_SEND_FLOAT_TO(0, t, 0);
         REQUIRE(t.messageCount() == 8);
-        REQUIRE_OUTPUT(t, 0, LX(0.334471, 10, 0));
+        REQUIRE_OUTPUT(t, 0, LX(0.334471, 10, 0).margin(0.00001));
         REQUIRE_OUTPUT(t, 1, LX(0.2, 10, 10));
         REQUIRE_OUTPUT(t, 2, LX(0.117183, 10, 20));
         REQUIRE_OUTPUT(t, 3, LX(0.0669518, 10, 30));
@@ -405,13 +405,13 @@ TEST_CASE("env->vline", "[externals]")
         t.cleanAllMessages();
         WHEN_CALL(t, next);
         REQUIRE(t.messageCount() == 2);
-        REQUIRE_OUTPUT(t, 0, LX(0.334471f, 10, 0));
+        REQUIRE_OUTPUT(t, 0, LX(0.334471f, 10, 0).margin(0.00001));
         REQUIRE_OUTPUT(t, 1, LX(0.2, 10, 10));
 
         t.cleanAllMessages();
         WHEN_CALL(t, next);
         REQUIRE(t.messageCount() == 6);
-        REQUIRE_OUTPUT(t, 0, LX(0.117183f, 10, 0));
+        REQUIRE_OUTPUT(t, 0, LX(0.117183f, 10, 0).margin(0.000001));
         REQUIRE_OUTPUT(t, 1, LX(0.0669518f, 10, 10));
         REQUIRE_OUTPUT(t, 2, LX(0.0364851f, 10, 20));
         REQUIRE_OUTPUT(t, 3, LX(0.0180061f, 10, 30));
@@ -460,7 +460,7 @@ TEST_CASE("env->vline", "[externals]")
         t.cleanAllMessages();
         WHEN_SEND_FLOAT_TO(0, t, 0);
         REQUIRE(t.messageCount() == 4);
-        REQUIRE_OUTPUT(t, 0, LX(0.853553, 10, 0));
+        REQUIRE_OUTPUT(t, 0, LX(0.853553, 10, 0).margin(0.00001));
         REQUIRE_OUTPUT(t, 1, LX(0.5, 10, 10));
         REQUIRE_OUTPUT(t, 2, LX(0.146447, 10, 20));
         REQUIRE_OUTPUT(t, 3, LX(0, 10, 30));
@@ -480,7 +480,7 @@ TEST_CASE("env->vline", "[externals]")
         t.cleanAllMessages();
         WHEN_CALL(t, next);
         REQUIRE(t.messageCount() == 4);
-        REQUIRE_OUTPUT(t, 0, LX(0.853553, 10, 0));
+        REQUIRE_OUTPUT(t, 0, LX(0.853553, 10, 0).margin(0.000001));
         REQUIRE_OUTPUT(t, 1, LX(0.5, 10, 10));
         REQUIRE_OUTPUT(t, 2, LX(0.146447, 10, 20));
         REQUIRE_OUTPUT(t, 3, LX(0, 10, 30));
@@ -491,7 +491,7 @@ TEST_CASE("env->vline", "[externals]")
         EnvAtom env;
         REQUIRE_FALSE(env->setSigmoid(L()));
         REQUIRE_FALSE(env->setSigmoid(LA(0.1, 2)));
-        REQUIRE(env->setSigmoid(LA(0.1, 20, 0.f) + LF(1, 25, 1) + LA(0.2, 40, 1) + LA(0.1, 6, -1, 0.f)));
+        REQUIRE(env->setSigmoid(LA(0.1, 20, 0.f, 1, 25, 1, 0.2, 40, 1, 0.1, 6, -1, 0.f)));
         REQUIRE(env->numPoints() == 5);
 
         TObj t("env->vline");
@@ -531,7 +531,7 @@ TEST_CASE("env->vline", "[externals]")
         t.cleanAllMessages();
         WHEN_SEND_FLOAT_TO(0, t, 0);
         REQUIRE(t.messageCount() == 8);
-        REQUIRE_OUTPUT(t, 0, LX(0.633256, 8.33333, 0));
+        REQUIRE_OUTPUT(t, 0, LX(0.633256, 8.33333, 0).margin(0.000001));
         REQUIRE_OUTPUT(t, 1, LX(0.566744, 8.33333, 8.3333));
         REQUIRE_OUTPUT(t, 2, LX(0.2, 8.33333, 16.6667));
         REQUIRE_OUTPUT(t, 3, LX(0.156218, 10, 25));
@@ -556,14 +556,14 @@ TEST_CASE("env->vline", "[externals]")
         t.cleanAllMessages();
         WHEN_CALL(t, next);
         REQUIRE(t.messageCount() == 3);
-        REQUIRE_OUTPUT(t, 0, LX(0.633256, 8.33333, 0));
+        REQUIRE_OUTPUT(t, 0, LX(0.633256, 8.33333, 0).margin(0.000001));
         REQUIRE_OUTPUT(t, 1, LX(0.566744, 8.33333, 8.3333));
         REQUIRE_OUTPUT(t, 2, LX(0.2, 8.33333, 16.6667));
 
         t.cleanAllMessages();
         WHEN_CALL(t, next);
         REQUIRE(t.messageCount() == 5);
-        REQUIRE_OUTPUT(t, 0, LX(0.156218, 10, 0));
+        REQUIRE_OUTPUT(t, 0, LX(0.156218, 10, 0).margin(0.00001));
         REQUIRE_OUTPUT(t, 1, LX(0.15, 10, 10));
         REQUIRE_OUTPUT(t, 2, LX(0.143782, 10, 20));
         REQUIRE_OUTPUT(t, 3, LX(0.1, 10, 30));

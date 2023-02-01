@@ -1,11 +1,12 @@
 #include "list_normalize.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "ceammc_fn_list.h"
 #include "ceammc_log.h"
 #include "datatype_mlist.h"
 
-static t_symbol* BY_RANGE;
-static t_symbol* BY_SUM;
+CEAMMC_DEFINE_SYM_HASH(range);
+CEAMMC_DEFINE_SYM_HASH(sum)
 
 ListNormalize::ListNormalize(const PdArgs& a)
     : ListBase(a)
@@ -13,27 +14,30 @@ ListNormalize::ListNormalize(const PdArgs& a)
 {
     createOutlet();
 
-    by_ = new SymbolEnumProperty("@by", { BY_SUM, BY_RANGE });
+    by_ = new SymbolEnumProperty("@by", { sym_sum(), sym_range() });
     addProperty(by_);
 
-    addProperty(new SymbolEnumAlias("@sum", by_, BY_SUM));
-    addProperty(new SymbolEnumAlias("@range", by_, BY_RANGE));
+    addProperty(new SymbolEnumAlias("@sum", by_, sym_sum()));
+    addProperty(new SymbolEnumAlias("@range", by_, sym_range()));
 }
 
-void ListNormalize::onList(const AtomList& lst)
+void ListNormalize::onList(const AtomListView& lv)
 {
     AtomList out;
 
-    if (by_->value() == BY_SUM) {
-        if (!list::normalizeBySum(lst, out)) {
+    switch (crc32_hash(by_->value())) {
+    case hash_sum:
+        if (!list::normalizeBySum(lv, out)) {
             OBJ_ERR << "Invalid list values: " << out;
             return;
         }
-    } else if (by_->value() == BY_RANGE) {
-        if (!list::normalizeByRange(lst, out)) {
+        break;
+    case hash_range:
+        if (!list::normalizeByRange(lv, out)) {
             OBJ_ERR << "Invalid list values: " << out;
             return;
         }
+        break;
     }
 
     listTo(0, out);
@@ -41,9 +45,6 @@ void ListNormalize::onList(const AtomList& lst)
 
 void setup_list_normalize()
 {
-    BY_RANGE = gensym("range");
-    BY_SUM = gensym("sum");
-
     ObjectFactory<ListNormalize> obj("list.normalize");
     obj.processData<DataTypeMList>();
 }

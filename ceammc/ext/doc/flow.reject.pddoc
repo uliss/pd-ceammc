@@ -23,16 +23,16 @@
             </also>
         </meta>
         <arguments>
-            <argument type="list" name="values">list of atoms to reject</argument>
+            <argument type="list" name="VALUES">list of atoms to reject</argument>
         </arguments>
         <properties>
-            <property name="@values" type="list">atoms to reject</property>
+            <property name="@values" type="list" default="">atoms to reject</property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="bang">pass</xinfo>
                 <xinfo on="float">reject if float is in reject list</xinfo>
-                <xinfo on="symbol">reject if float is in reject list</xinfo>
+                <xinfo on="symbol">reject if symbol is in reject list</xinfo>
                 <xinfo on="list">reject if first atom is in reject list</xinfo>
                 <xinfo on="any">reject if message selector is in reject list</xinfo>
             </inlet>

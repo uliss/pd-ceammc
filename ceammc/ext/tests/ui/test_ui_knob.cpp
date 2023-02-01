@@ -26,7 +26,7 @@ TEST_CASE("ui.knob", "[ui.knob]")
         TestKnob t("ui.knob");
         REQUIRE(t->numOutlets() == 1);
         REQUIRE(t->midiChannel() == 0);
-        REQUIRE(t->midiControl() == 0);
+        REQUIRE(t->midiControl() == -1);
         REQUIRE(t->knobPhase() == 0);
         REQUIRE(t->value() == 0);
 
@@ -62,7 +62,7 @@ TEST_CASE("ui.knob", "[ui.knob]")
         REQUIRE(t->getProperty(gensym("midi_channel"), f));
         REQUIRE(f == 0);
         REQUIRE(t->getProperty(gensym("midi_control"), f));
-        REQUIRE(f == 0);
+        REQUIRE(f == -1);
         REQUIRE(t->getProperty(gensym("midi_pickup"), f));
         REQUIRE(f == 1);
         REQUIRE_FALSE(t->getProperty(gensym("size"), f));
@@ -521,13 +521,13 @@ TEST_CASE("ui.knob", "[ui.knob]")
         REQUIRE(t.hasOutput());
         auto props = t.outputAnyAt(0);
         props.sort();
-        const auto desired = LA("@*", "@active_scale", "@background_color", "@border_color",
-                                 "@fontname", "@fontsize", "@fontslant", "@fontweight",
-                                 "@knob_color", "@label", "@label_align", "@label_color")
-            + LA("@label_inner", "@label_margins", "@label_side", "@label_valign",
-                "@max", "@midi_channel", "@midi_control")
-            + LA("@midi_pickup", "@min", "@mouse_events", "@pinned", "@presetname", "@receive",
-                "@scale", "@scale_color", "@send", "@show_range", "@show_value", "@size", "@value");
+        const auto desired = AtomList("@*", "@active_scale", "@background_color", "@border_color",
+            "@fontname", "@fontsize", "@fontslant", "@fontweight",
+            "@knob_color", "@label", "@label_align", "@label_color",
+            "@label_inner", "@label_margins", "@label_side", "@label_valign",
+            "@max", "@midi_channel", "@midi_control",
+            "@midi_pickup", "@min", "@mouse_events", "@pinned", "@presetname", "@receive",
+            "@scale", "@scale_color", "@send", "@show_range", "@show_value", "@size", "@value");
         REQUIRE(props == desired);
 
         t.call("@max?", LA("@min?", "@xxx?", "", "@non", "unknown", 100, "@receive?"));

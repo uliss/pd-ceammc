@@ -47,9 +47,9 @@ void HoaIn::onSymbol(t_symbol* s)
     symbolTo(0, s);
 }
 
-void HoaIn::onList(const AtomList& l)
+void HoaIn::onList(const AtomListView& lv)
 {
-    listTo(0, l);
+    listTo(0, lv);
 }
 
 void HoaIn::onAny(t_symbol* s, const AtomListView& lv)
@@ -95,10 +95,10 @@ void HoaOut::onSymbol(t_symbol* s)
         outlet_symbol(outlet_, s);
 }
 
-void HoaOut::onList(const AtomList& l)
+void HoaOut::onList(const AtomListView& lv)
 {
     if (outlet_)
-        outlet_list(outlet_, &s_list, l.size(), l.toPdData());
+        outlet_list(outlet_, &s_list, lv.size(), lv.toPdData());
 }
 
 void HoaOut::onAny(t_symbol* s, const AtomListView& l)

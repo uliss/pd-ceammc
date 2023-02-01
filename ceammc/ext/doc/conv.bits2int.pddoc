@@ -25,7 +25,7 @@
             with @rev property</par>
         </info>
         <properties>
-            <property name="@rev" type="int" enum="0 1" default="0">reversed bit order</property>
+            <property name="@rev" type="bool" default="0">reversed bit order</property>
         </properties>
         <inlets>
             <inlet>

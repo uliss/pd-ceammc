@@ -36,7 +36,7 @@ initialized with current time.;
 #X text 110 530 1\.;
 #X text 150 530 list;
 #X obj 246 531 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 530 P: interleaved interval boundaries and boundary propabilities.
+#X text 245 530 V: interleaved interval boundaries and boundary propabilities.
 Note: number of arguments should be odd and >=5\. Boundaries should
 be in strictly increasing order and weights should be non-negative.
 Type: list.;
@@ -72,7 +72,7 @@ propabilities. Type: list.;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title random @url ceammc.random-help.pd;
 #X obj 1 909 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 912 library: ceammc v0.9.4;
+#X text 10 912 library: ceammc v0.9.6;
 #X text 465 924 see also:;
 #X obj 539 924 random.linear;
 #X obj 647 924 random.pw_lin;
@@ -81,7 +81,7 @@ propabilities. Type: list.;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.4;
+#X text 120 32 0.9.6;
 #X text 10 54 object:;
 #X text 120 54 random.pw_const;
 #X text 10 76 category:;

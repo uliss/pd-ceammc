@@ -34,11 +34,11 @@ public:
     void processBlock(const t_sample** in, t_sample** out) override;
     void setupDSP(t_signal** in) override;
 
-    void onInlet(size_t n, const AtomListView& lst) override;
-    void onList(const AtomList& lst) override;
+    void onInlet(size_t n, const AtomListView& lv) override;
+    void onList(const AtomListView& lv) override;
 
     AtomList propValue() const;
-    void propSetValue(const AtomList& lst);
+    void propSetValue(const AtomListView& lv);
 
     const char* annotateInlet(size_t) const override;
 };

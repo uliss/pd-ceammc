@@ -21,19 +21,7 @@
 
 namespace ceammc {
 
-static PdArgs make_local_id(const PdArgs& a)
-{
-    PdArgs res(a);
-    void* cnv = static_cast<void*>(canvas_getcurrent());
-    char buf[32];
-    snprintf(buf, sizeof(buf), "%p-", cnv);
-    if (res.args.empty())
-        res.args.append(atomFrom(std::string(buf) + "default"));
-    else
-        res.args[0] = atomFrom(std::string(buf) + to_string(res.args[0]));
-
-    return res;
-}
+PdArgs make_local_id(const PdArgs& a);
 
 template <typename T>
 class LocalBase : public GlobalBase<T> {

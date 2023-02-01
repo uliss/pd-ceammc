@@ -12,13 +12,8 @@
  * this file belongs to.
  *****************************************************************************/
 #include "flow_count.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
-
-#ifdef PD_INSTANCE
-#define PROP_SYM(name) t_symbol* prop_##name = gensym("@" #name);
-#else
-#define PROP_SYM(name) static t_symbol* prop_##name = gensym("@" #name);
-#endif
 
 FlowCount::FlowCount(const PdArgs& a)
     : BaseObject(a)
@@ -51,7 +46,7 @@ void FlowCount::onSymbol(t_symbol* s)
     tick();
 }
 
-void FlowCount::onList(const AtomList& l)
+void FlowCount::onList(const AtomListView& lv)
 {
     tick();
 }
@@ -66,18 +61,30 @@ void FlowCount::onData(const Atom&)
     tick();
 }
 
-void FlowCount::onInletAny(Inlet* inl, t_symbol* s, const AtomListView& lv)
+void FlowCount::onInletAny(int id, t_symbol* s, const AtomListView& lv)
 {
-    PROP_SYM(value);
-
-    if (s == &s_bang)
+    switch (crc32_hash(s)) {
+    case "bang"_hash:
         counter_->setValue(default_value_);
-    else if (s == &s_float)
-        counter_->setValue(lv.asFloat());
-    else if (s == prop_value)
+        break;
+    case "float"_hash:
+        counter_->setValue(lv.floatAt(0, 0));
+        break;
+    case "@value"_hash:
         counter_->set(lv);
-    else {
-        OBJ_ERR << "bang, int or @value message expected, got: " << s->s_name << ' ' << lv;
+        break;
+    case "@value?"_hash:
+        floatTo(0, counter_->value());
+        break;
+    case "-"_hash:
+        counter_->setValue(counter_->value() - lv.floatAt(0, 0));
+        break;
+    case "+"_hash:
+        counter_->setValue(counter_->value() + lv.floatAt(0, 0));
+        break;
+    default:
+        OBJ_ERR << "bang, int, +, - or @value message expected, got: " << s->s_name << ' ' << lv;
+        break;
     }
 }
 
@@ -102,7 +109,10 @@ void setup_flow_count()
     ObjectFactory<FlowCount> obj("flow.count");
     obj.setXletsInfo({ "any: message", "bang: reset counter\n"
                                        "int: set current value\n"
-                                       "@value X: set current value" },
+                                       "@value X: set current value\n"
+                                       "@value?: output current value\n"
+                                       "+ X: add value\n"
+                                       "- X: substract value" },
         { "int: number of received messages" });
 
     InletProxy<FlowCount>::init();

@@ -25,11 +25,11 @@
             <argument name="NAME" type="symbol">icon name from list</argument>
         </arguments>
         <properties>
-            <property name="@mode" type="symbol" enum="bang button toggle" default="button">output
+            <property name="@mode" type="symbol" enum="toggle button bang" default="button">output
             mode. In bang mode - outputs bang on mouse down. In button mode outputs 1 on mouse down
             and 0 on mouse up. In toggle mode outputs 1/0 on mouse down, like vanilla toggle
             object.</property>
-            <property name="@enabled" type="int" enum="0 1" default="1">enabled property</property>
+            <property name="@enabled" type="bool" default="1">enabled property</property>
             <property name="@icon_size" type="int" default="24" enum="18 24 36 48">icons
             size</property>
             <property name="@icon" type="symbol" default="help"
@@ -40,19 +40,19 @@
             [ui.preset]</property>
             <property name="@send" type="symbol" default="(null)">send destination</property>
             <property name="@receive" type="symbol" default="(null)">receive source</property>
-            <property name="@size" type="list" default="24 24">element size (width, height
-            pair)</property>
-            <property name="@pinned" type="int" enum="0 1" default="0">pin mode. if 1 - put element
-            to the lowest level</property>
+            <property name="@pinned" type="bool" default="0">pin mode. if 1 - put element to the
+            lowest level</property>
             <property name="@active_color" type="list" default="0 0.75 1 1">active color (list of
             red, green, blue values in 0-1 range)</property>
             <property name="@background_color" type="list" default="1 1 1 1">element background
             color (list of red, green, blue values in 0-1 range)</property>
             <property name="@border_color" type="list" default="1 1 1 1">border color (list of red,
             green, blue values in 0-1 range)</property>
-            <property name="@fontsize" type="int" minvalue="4" maxvalue="11" default="11">
+            <!-- font -->
+            <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
             fontsize</property>
-            <property name="@fontname" type="symbol" default="Helvetica">fontname</property>
+            <property name="@fontname" type="symbol" default="Helvetica"
+            enum="Helvetica Monaco Courier Times DejaVu">fontname</property>
             <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
             weight</property>
             <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font

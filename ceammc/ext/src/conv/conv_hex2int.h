@@ -24,7 +24,7 @@ public:
     ConvHex2Int(const PdArgs& args);
 
     void onSymbol(t_symbol* s) override;
-    void onList(const AtomList& l) override;
+    void onList(const AtomListView& lv) override;
 };
 
 void setup_conv_hex2int();

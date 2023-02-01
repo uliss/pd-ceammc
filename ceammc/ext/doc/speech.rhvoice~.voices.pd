@@ -1,0 +1,11 @@
+#N canvas 0 0 544 299 12;
+#X text 20 48 Pd Documents directory structure for RHVoice;
+#X text 20 77 rhvoice/;
+#X text 58 92 |;
+#X text 58 106 languages/;
+#X text 58 120 | |;
+#X text 58 135 | English... etc.;
+#X text 58 149 |;
+#X text 58 164 voices/;
+#X text 96 178 |;
+#X text 96 192 voice1...;

@@ -24,8 +24,8 @@ class ListShift : public BaseObject {
 public:
     ListShift(const PdArgs& args);
 
-    void onList(const AtomList& lst) override;
-    void onInlet(size_t n, const AtomListView& lst) override;
+    void onList(const AtomListView& lv) override;
+    void onInlet(size_t n, const AtomListView& lv) override;
     void onDataT(const MListAtom& ml);
 };
 

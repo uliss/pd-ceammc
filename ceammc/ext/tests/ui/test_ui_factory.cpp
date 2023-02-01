@@ -41,9 +41,9 @@ TEST_CASE("UIObjectFactory", "[ceammc::UIObjectFactory]")
 {
     SECTION("base")
     {
-        REQUIRE(UIObjectFactory<UIObject>::pd_class == 0);
+        REQUIRE(UIObjectFactory<UIObject>::pd_ui_class == 0);
         UIObjectFactory<UIObject> obj("test");
-        REQUIRE(UIObjectFactory<UIObject>::pd_class != 0);
+        REQUIRE(UIObjectFactory<UIObject>::pd_ui_class != 0);
         REQUIRE(UIObjectFactory<UIObject>::use_presets == false);
 
         UIObject* ui = UIObjectFactory<UIObject>::alloc(gensym("test"), 0, 0);

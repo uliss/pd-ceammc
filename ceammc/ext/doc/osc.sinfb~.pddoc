@@ -14,16 +14,15 @@
             <since>0.1</since>
         </meta>
         <arguments>
-            <argument name="freq" type="float" minvalue="0" maxvalue="20000" units="herz">initial
+            <argument name="FREQ" type="float" minvalue="0" maxvalue="20000" units="hertz">initial
             frequency</argument>
-            <argument name="feedback" type="float" minvalue="0" maxvalue="6.283185">oscillator
+            <argument name="FEEDBACK" type="float" minvalue="0" maxvalue="6.283185">oscillator
             feedback coefficient in range 0..2pi</argument>
         </arguments>
         <properties>
-            <property name="@feedback" type="float" minvalue="0" maxvalue="6.28319" default="0">
+            <property name="@feedback" type="float" minvalue="0" maxvalue="6.283" default="0">
             oscillator feedback coefficient</property>
-            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
-            processing</property>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
         <inlets>
             <inlet type="audio">

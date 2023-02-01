@@ -37,12 +37,12 @@ public:
     void onBang() override;
     void onFloat(t_float f) override;
     void onSymbol(t_symbol* s) override;
-    void onList(const AtomList& l) override;
+    void onList(const AtomListView& lv) override;
     void onAny(t_symbol* s, const AtomListView& lv) override;
 
 public:
-    void proxy_bang();
-    void proxy_float(t_float f);
+    void proxy_bang(int);
+    void proxy_float(int, t_float f);
     void proxy_flush(const AtomListView& v);
     void proxy_reset(const AtomListView& v);
 

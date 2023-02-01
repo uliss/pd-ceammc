@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="net.osc.send">
+        <title>net.osc.send</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>OSC message sender</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>net</category>
+            <keywords>osc net send</keywords>
+            <since>0.9.5</since>
+            <also>
+                <see>net.osc.server</see>
+                <see>net.osc.receive</see>
+            </also>
+            <aliases>
+                <alias>net.osc.s</alias>
+            </aliases>
+        </meta>
+        <arguments>
+            <argument name="NAME" type="symbol">OSC server name (for using with other
+            objects)</argument>
+            <argument name="URL" type="atom">OSC server url (like
+            osc.udp://localhost:12345)</argument>
+        </arguments>
+        <methods>
+            <method name="send">send input values (autotyped) 
+            <param name="PATH" type="symbol" required="true">OSC path</param>
+            <param name="VALUES" type="list" required="true">values</param></method>
+            <method name="send_bool">send boolean value 
+            <param name="PATH" type="symbol" required="true">OSC path</param>
+            <param name="VAL" type="int" enum="0 1" required="true">value</param></method>
+            <method name="send_i32">send int32 value 
+            <param name="PATH" type="symbol" required="true">OSC path</param>
+            <param name="VAL" type="int" required="true">value</param></method>
+            <method name="send_i64">send int64 value 
+            <param name="PATH" type="symbol" required="true">OSC path</param>
+            <param name="VAL" type="int" required="true">value</param></method>
+            <method name="send_float">send float value 
+            <param name="PATH" type="symbol" required="true">OSC path</param>
+            <param name="VAL" type="float" required="true">value</param></method>
+            <method name="send_double">send double value 
+            <param name="PATH" type="symbol" required="true">OSC path</param>
+            <param name="VAL" type="float" required="true">value</param></method>
+            <method name="send_null">send null value 
+            <param name="PATH" type="symbol" required="true">OSC path</param></method>
+            <method name="send_inf">send inf value 
+            <param name="PATH" type="symbol" required="true">OSC path</param></method>
+            <method name="send_string">send string value 
+            <param name="PATH" type="symbol" required="true">OSC path</param>
+            <param name="VAL" type="list" required="true">value</param></method>
+            <method name="send_typed">send list of typed values 
+            <param name="PATH" type="symbol" required="true">OSC path</param>
+            <param name="TYPES" type="symbol" required="true">type string, 'i': int32, 'f': 32-bit
+            float, 's': string, 'h': int64, 'd': 64-bit float, 'T': #true value, 'F': #false value,
+            'N': #null value, 'I': #inf value</param>
+            <param name="VAL" type="list" required="true">values</param></method>
+            <method name="send_char">send character 
+            <param name="PATH" type="symbol" required="true">OSC path</param>
+            <param name="VAL" type="atom" required="true">ASCII code in 0-127 range or single
+            symbol</param></method>
+            <method name="send_blob">send character 
+            <param name="PATH" type="symbol" required="true">OSC path</param>
+            <param name="VAL" type="list" required="true">list of bytes</param></method>
+            <method name="send_midi">send midi message (4 bytes) 
+            <param name="PATH" type="symbol" required="true">OSC path</param>
+            <param name="VAL" type="list" required="true">hex symbol (0xAAFF1122) or list of 4
+            bytes</param></method>
+        </methods>
+        <properties>
+            <property name="@proto" type="symbol" default="udp" access="readonly">sending
+            protocol</property>
+            <property name="@port" type="int" default="0" access="readonly">destination
+            port</property>
+            <property name="@host" type="symbol" default="" access="readonly">destination
+            host</property>
+            <property name="@url" type="atom" default="">destination url</property>
+            <property name="@path" type="symbol" default="" access="readonly">socket filesystem
+            path (if using unix proto)</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo>message input</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>none</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+/*default OSC server: osc.udp://:9000*/
+
+[tgl]
+|
+[@dump $1(  /*open Pd window to see OSC dump output*/
+|
+[net.osc.server]
+
+/*send list of floats*/
+
+[send /l 1 2 3 4 #a( [send_typed /t ifs 0.5 -100 symbol #i(
+
+ [T]                 [F]                   [F]
+ |                   |                     |
+[send_bool /b $1 #b( [send_float /f $1 #e( [send_double /d $1 #g(
+
+[send_inf /inf #c(   [F]                   [F]
+                     |                     |
+[send_null /null #d( [send_i32 /i32 $1 #f( [send_i64 /i64 $1 #h(
+
+                                           [send_string /s with spaces #j(
+
+
+[net.osc.send osc.udp://localhost:9000 #x]
+
+[X a->x]
+[X b->x]
+[X c->x]
+[X d->x]
+[X e->x]
+[X f->x]
+[X g->x]
+[X h->x]
+[X i->x]
+[X j->x]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -24,17 +24,18 @@
             <property name="@t" type="float" default="100" minvalue="1" maxvalue="20000"
             units="millisecond">time between beats. Unit values like 100ms or 240bpm also can be
             used</property>
-            <property name="@p" type="list">sequencer pattern in beat duration units</property>
+            <property name="@p" type="list" default="">sequencer pattern in beat duration
+            units</property>
             <property name="@r" type="int" minvalue="-1" default="1">number of whole sequence
             repeats. If -1: repeat infinitely</property>
             <property name="@inf" type="alias">alias to @r -1, repeats infinitely</property>
             <property name="@once" type="alias">alias to @r 1, play once</property>
             <property name="@dur" type="float" default="0" minvalue="0" units="millisecond">whole
             sequence duration. (Recalculates @t property accordingly)</property>
-            <property name="@i" type="int" minvalue="0" readonly="true" default="0">current
+            <property name="@i" type="int" minvalue="0" access="readonly" default="0">current
             sequence iteration</property>
-            <property name="@ri" type="int" minvalue="0" readonly="true" default="0">current repeat
-            iteration</property>
+            <property name="@ri" type="int" minvalue="0" access="readonly" default="0">current
+            repeat iteration</property>
             <property name="@mode" type="symbol" enum="inc dec tri" default="inc">sequencer mode.
             'inc': from first to last, 'dec': from last to first, 'tri': from first to last, then
             back</property>

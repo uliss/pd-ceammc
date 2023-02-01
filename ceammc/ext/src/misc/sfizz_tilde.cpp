@@ -15,6 +15,7 @@
 #include "ceammc_args.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
+#include "ceammc_property_callback.h"
 #include "midi/midi_names.h"
 #include "proto/proto_midi_cc.h"
 #include "proto/proto_midi_cc_rpn_parser.h"
@@ -134,21 +135,36 @@ SfizzTilde::SfizzTilde(const PdArgs& args)
         [this](t_float f) { sfz_.setTuningFrequency(f); return true; })
         ->setUnits(PropValueUnits::HZ);
 
-    createCbFloatProperty(
-        "@volume",
-        [this]() { return sfz_.getVolume(); },
-        [this](t_float v) { sfz_.setVolume(v); return true; })
-        ->setUnits(PropValueUnits::DB);
+    {
+        auto cb = static_cast<CallbackProperty*>(createCbFloatProperty(
+            "@volume",
+            [this]() { return sfz_.getVolume(); },
+            [this](t_float v) { sfz_.setVolume(v); return true; }));
 
-    createCbFloatProperty(
-        "@gain",
-        [this]() { return convert::dbfs2amp(sfz_.getVolume()); },
-        [this](t_float v) { sfz_.setVolume(convert::amp2dbfs(v)); return true; });
+        cb->setUnits(PropValueUnits::DB);
+        cb->checkClosedRange(-60, 10);
+    }
 
-    createCbIntProperty(
-        "@poly",
-        [this]() { return sfz_.getNumVoices(); },
-        [this](int n) { sfz_.setNumVoices(n); return true; });
+    {
+        auto cb = static_cast<CallbackProperty*>(createCbFloatProperty(
+            "@gain",
+            [this]() { return convert::dbfs2amp(sfz_.getVolume()); },
+            [this](t_float v) {
+                sfz_.setVolume(v <= 0 ? -60 : convert::amp2dbfs(v));
+                return true;
+            }));
+
+        cb->checkClosedRange(0, 16);
+    }
+
+    {
+        auto cb = static_cast<CallbackProperty*>(createCbIntProperty(
+            "@poly",
+            [this]() { return sfz_.getNumVoices(); },
+            [this](int n) { sfz_.setNumVoices(n); return true; }));
+
+        cb->checkClosedRange(1, 256);
+    }
 
     createCbIntProperty(
         "@avoices",
@@ -253,6 +269,25 @@ void SfizzTilde::m_cc(t_symbol* s, const AtomListView& lv)
     }
 
     sfz_.hdcc(0, cc, val / 127.0);
+}
+
+void SfizzTilde::m_prog(t_symbol* s, const AtomListView& lv)
+{
+    int val = 0;
+
+    if (lv.size() == 2 && lv[0].isInteger() && lv[1].isInteger()) {
+        // NOTE: channel is ignored, but leaved for compatibility with fluid~ external
+        // that accepts both [prog CHAN VAL( and [prog VAL( messages
+
+        val = lv[1].asInt();
+    } else if (lv.size() == 1 && lv[0].isInteger()) {
+        val = lv[0].asInt();
+    } else {
+        METHOD_ERR(s) << "CHAN? VAL expected, got: " << lv;
+        return;
+    }
+
+    sfz_.programChange(0, val);
 }
 
 void SfizzTilde::m_midi(t_symbol* s, const AtomListView& lv)
@@ -654,6 +689,7 @@ void setup_misc_sfizz_tilde()
 
     obj.addMethod("note", &SfizzTilde::m_note);
     obj.addMethod("cc", &SfizzTilde::m_cc);
+    obj.addMethod("prog", &SfizzTilde::m_prog);
     obj.addMethod("midi", &SfizzTilde::m_midi);
     obj.addMethod(M_AFTER_TOUCH, &SfizzTilde::m_aftertouch);
     obj.addMethod(M_POLY_TOUCH, &SfizzTilde::m_polytouch);

@@ -1,0 +1,16 @@
+#N canvas 0 0 462 313 12;
+#X obj 20 48 hoa.in 1;
+#X obj 125 48 hoa.in 2;
+#X obj 20 77 mtof;
+#X floatatom 87 77 5 0 0 0 - - -;
+#X floatatom 144 77 5 0 0 0 - - -;
+#X obj 20 106 osc~;
+#X obj 20 135 *~;
+#X obj 20 164 hoa.out~;
+#X connect 0 0 2 0;
+#X connect 0 0 3 0;
+#X connect 1 0 4 0;
+#X connect 2 0 5 0;
+#X connect 5 0 6 0;
+#X connect 1 0 6 1;
+#X connect 6 0 7 0;

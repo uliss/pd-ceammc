@@ -45,32 +45,33 @@
             <property name="@db" type="float" units="decibel" default="-60">gain in dbfs
             scale</property>
             <property name="@amp" type="float" default="0">gain as amplitude ratio</property>
-            <property name="@output_value" type="int" enum="0 1" default="0">flag to output @db
-            property after each knob move</property>
-            <property name="@relative" type="int" default="1" enum="0 1">relative input mode. When
-            set do not jump to value on click</property>
+            <property name="@output_value" type="bool" default="0">flag to output @db property
+            after each knob move</property>
+            <property name="@relative" type="bool" default="1">relative input mode. When set do not
+            jump to value on click</property>
             <property name="@presetname" type="symbol" default="(null)">preset name for using with
             [ui.preset]</property>
-            <property name="@show_range" type="int" enum="0 1" default="1">if show slider
-            range</property>
-            <property name="@mouse_events" type="int" enum="0 1" default="0">mouse events output
-            mode. If on outputs @mouse_down, @mouse_up and @mouse_drag events</property>
+            <property name="@show_range" type="bool" default="1">if show slider range</property>
+            <property name="@mouse_events" type="bool" default="0">mouse events output mode. If on
+            outputs @mouse_down, @mouse_up and @mouse_drag events</property>
             <!-- common -->
             <property name="@send" type="symbol" default="(null)">send destination</property>
             <property name="@receive" type="symbol" default="(null)">receive source</property>
             <property name="@size" type="list" default="15 120">element size (width, height
             pair)</property>
-            <property name="@pinned" type="int" enum="0 1" default="0">pin mode. if 1 - put element
-            to the lowest level</property>
+            <property name="@pinned" type="bool" default="0">pin mode. if 1 - put element to the
+            lowest level</property>
             <property name="@knob_color" type="list" default="0 0.75 1 1">knob color (list of red,
             green, blue values in 0-1 range)</property>
             <property name="@background_color" type="list" default="0.93 0.93 0.93 1">element
             background color (list of red, green, blue values in 0-1 range)</property>
             <property name="@border_color" type="list" default="0.6 0.6 0.6 1">border color (list
             of red, green, blue values in 0-1 range)</property>
-            <property name="@fontsize" type="int" minvalue="4" maxvalue="11" default="11">
+            <!-- font -->
+            <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
             fontsize</property>
-            <property name="@fontname" type="symbol" default="Helvetica">fontname</property>
+            <property name="@fontname" type="symbol" default="Helvetica"
+            enum="Courier DejaVu Helvetica Monaco Times">fontname</property>
             <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
             weight</property>
             <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
@@ -78,11 +79,11 @@
             <!-- MIDI -->
             <property name="@midi_channel" type="int" minvalue="0" maxvalue="16" default="0">binded
             MIDI channel. 0 means listen to all channels</property>
-            <property name="@midi_control" type="int" minvalue="0" maxvalue="128" default="0">
-            binded MIDI controller number. 0 means not binded to any controller.</property>
-            <property name="@midi_pickup" type="int" enum="0 1" default="1">pickup current value.
-            If slider is binded to value, first time you should pass over this value to make
-            binding. It prevents from sudden value change on first control change</property>
+            <property name="@midi_control" type="int" minvalue="-1" maxvalue="127" default="-1">
+            binded MIDI controller number. -1 means not binded to any controller.</property>
+            <property name="@midi_pickup" type="bool" default="1">pickup current value. If slider
+            is binded to value, first time you should pass over this value to make binding. It
+            prevents from sudden value change on first control change</property>
         </properties>
         <methods>
             <method name="+ N">increase current gain by N db</method>

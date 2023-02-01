@@ -5,9 +5,13 @@ dev targets:
   * dev_pddoc  - build target `ceammc_pddoc` (rebuild pddoc) and install it to ./dist app folder
   * dev_run    - build target `dev_ceammc` then run via command line app in './dist' folder 
   * dev_open   - build target `dev_ceammc` then open app bundle in './dist' folder 
+  * dev_lldb   - build target `dev_ceammc` then run in lldb debugger app in './dist' folder
   * dev_check_app     - check app bundle for external references
   * dev_touch_version - touch external info file, to update compilation date/time in load message
   * dev_build_all     - build targets: `ceammc_lib`, `app`, `app-zip` and `dmg`
+  * dev_faust         - list all faust targets
+  * dev_tcl           - copy tcl files to ./dist app folder
+  * dev_pd            - copy pd executable to ./dist app folder
 
 deploy target:
   * deploy_github_appzip - upload PureData zipped app to github release

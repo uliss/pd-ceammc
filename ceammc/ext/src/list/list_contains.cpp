@@ -47,21 +47,23 @@ ListContains::ListContains(const PdArgs& args)
     createOutlet();
 }
 
-void ListContains::onList(const AtomList& lst)
+void ListContains::onList(const AtomListView& lv)
 {
     switch (mode_) {
     case MODE_ALL:
-        boolTo(0, list::containsAllOff(lst, all_of_->value()));
+        boolTo(0, list::containsAllOff(lv, all_of_->value()));
         break;
     case MODE_ANY:
-        boolTo(0, list::containsAnyOff(lst, any_of_->value()));
+        boolTo(0, list::containsAnyOff(lv, any_of_->value()));
         break;
     case MODE_NONE:
-        boolTo(0, !list::containsAnyOff(lst, none_of_->value()));
+        boolTo(0, !list::containsAnyOff(lv, none_of_->value()));
         break;
-    case MODE_SUBLIST:
-        boolTo(0, lst.contains(sublist_->value()));
-        break;
+    case MODE_SUBLIST:{
+        auto& needle = sublist_->value();
+        auto found = std::search(lv.begin(), lv.end(), needle.begin(), needle.end()) != lv.end();
+        boolTo(0, found);
+    }   break;
     }
 }
 
@@ -70,20 +72,20 @@ void ListContains::onDataT(const MListAtom& ml)
     onList(ml->data());
 }
 
-void ListContains::onInlet(size_t n, const AtomListView& lst)
+void ListContains::onInlet(size_t n, const AtomListView& lv)
 {
     switch (mode_) {
     case MODE_ALL:
-        all_of_->set(lst);
+        all_of_->set(lv);
         break;
     case MODE_ANY:
-        any_of_->set(lst);
+        any_of_->set(lv);
         break;
     case MODE_NONE:
-        none_of_->set(lst);
+        none_of_->set(lv);
         break;
     case MODE_SUBLIST:
-        sublist_->set(lst);
+        sublist_->set(lv);
         break;
     }
 }

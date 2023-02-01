@@ -42,7 +42,7 @@ std::vector<PropertyInfo> ceammc_abstraction_properties(t_object* x);
 enum class PropertySetState {
     OK,
     OTHER_TYPE,
-    ERROR_NOT_FOUND,
+    ERROR_PROP_NOT_FOUND,
     ERROR_INVALID_TYPE,
     ERROR_NO_RANGE,
     ERROR_SET_VALUE,

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="path.pattern">
+        <title>path.pattern</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>pattern filename generator</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>path</category>
+            <keywords>path environment pattern filename</keywords>
+            <since>0.9.5</since>
+        </meta>
+        <info>
+            <par>Note: generate NEW filename (checks that generated filename not exists)</par>
+            <par>### sequence is replaced with number</par>
+            <par>Following variables in pattern expanded:</par>
+            <par>• %YEAR% - current year (4-digits)</par>
+            <par>• %MONTH% - current month (2-digits)</par>
+            <par>• %DAY% - current day (2-digits)</par>
+            <par>• %HOUR% - current hour (2-digits)</par>
+            <par>• %MIN% - current minute (2-digits)</par>
+            <par>• %SEC% - current second (2-digits)</par>
+            <par>• %TIME% - current time: %HOUR%-%MIN%-%SEC%</par>
+            <par>• %DATE% - current date: %YEAR%-%MONTH%-%DAY%</par>
+            <par>• %NOW% - current datetime: %DATE%_%TIME%</par>
+        </info>
+        <arguments>
+            <argument name="PATTERN" type="symbol">filename generation pattern</argument>
+        </arguments>
+        <properties>
+            <property name="@pattern" type="symbol">filename pattern</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">output generated filename pattern</xinfo>
+                <xinfo on="symbol">set new pattern and generate filename pattern</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>symbol: filename</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[symbol file-###.wav(
+|
+|  [symbol ~/test-%NOW%.wav(
+|  |
+|  |  [bang(
+|  |  |
+[path.pattern]
+|
+[ui.dt @auto_size 0 @size 400 40]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

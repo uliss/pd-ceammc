@@ -28,7 +28,7 @@ class ListMin : public BaseObject {
 public:
     ListMin(const PdArgs& a);
 
-    void onList(const AtomList& l) override;
+    void onList(const AtomListView& lv) override;
     void onDataT(const MListAtom& ml);
 
     template <typename Iterator>

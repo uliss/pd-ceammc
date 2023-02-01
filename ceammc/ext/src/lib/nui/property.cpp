@@ -25,6 +25,7 @@ namespace ui {
         : Property(PropertyInfo(name, PropValueType::LIST, access), access)
         , size_(init)
     {
+        setDefault(AtomList(init.width(), init.height()));
     }
 
     AtomList SizeProperty::get() const
@@ -32,14 +33,14 @@ namespace ui {
         return { (t_float)size_.width(), (t_float)size_.height() };
     }
 
-    bool SizeProperty::setList(const AtomListView& l)
+    bool SizeProperty::setList(const AtomListView& lv)
     {
-        const bool ok = l.size() == 2 && l[0].isFloat() && l[1].isFloat();
+        const bool ok = ((lv.size() == 2) && lv[0].isFloat() && lv[1].isFloat());
         if (!ok)
             return false;
 
-        size_.setWidth(l[0].asT<t_float>());
-        size_.setHeight(l[1].asT<t_float>());
+        size_.setWidth(lv[0].asT<t_float>());
+        size_.setHeight(lv[1].asT<t_float>());
         return true;
     }
 

@@ -30,7 +30,7 @@ class FlowRoute : public BaseObject {
 public:
     FlowRoute(const PdArgs& args);
 
-    void onList(const AtomList& lst) override;
+    void onList(const AtomListView& lv) override;
     void onAny(t_symbol* s, const AtomListView& lv) override;
     void onData(const Atom& data) override;
 

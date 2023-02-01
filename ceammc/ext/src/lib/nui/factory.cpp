@@ -12,29 +12,9 @@
  * this file belongs to.
  *****************************************************************************/
 #include "nui/factory.h"
-#include "nui/tk_view_impl.h"
 
 namespace ceammc {
 namespace ui {
-
-    SymTable::SymTable()
-    {
-        mouseenter = gensym("mouseenter");
-        mouseleave = gensym("mouseleave");
-        mousemove = gensym("mousemove");
-        mousedown = gensym("mousedown");
-        mouseup = gensym("mouseup");
-        mouseright = gensym("rightclick");
-        m_size = gensym("size");
-
-        tcl_nui_init();
-    }
-
-    const SymTable& SymTable::instance()
-    {
-        static SymTable tab_;
-        return tab_;
-    }
 
     namespace utils {
         uint32_t platform_modifier(uint32_t mod)

@@ -82,6 +82,12 @@ const _glist* canvas_root(const _glist* c);
  */
 bool canvas_info_is_abstraction(const _glist* c);
 
+/**
+ * Checks is canvas is modified
+ * @param c - pointer to root canvas
+ */
+bool canvas_info_is_dirty(const _glist* c);
+
 AtomList canvas_info_paths(const _glist* c);
 AtomList canvas_info_args(const _glist* c);
 
@@ -123,12 +129,20 @@ struct t_rect {
  */
 t_rect canvas_info_rect(const _glist* c);
 
+using CanvasClassPredicate = std::function<bool(const _glist*, const t_object*)>;
 /**
  * Returns canvas object tree
  * @param c - pointer to canvas
  * @return tree
  */
-std::unique_ptr<pd::CanvasTree> canvas_info_tree(const _glist* c);
+std::unique_ptr<pd::CanvasTree> canvas_info_tree(const _glist* c, CanvasClassPredicate pred = {});
+
+/**
+ * Returns canvas object satisfied to predicate
+ * @param c - pointer to canvas
+ * @return vector of pointers
+ */
+std::vector<t_object*> canvas_find(const _glist* c, CanvasClassPredicate pred);
 
 class BaseObject;
 typedef std::shared_ptr<Array> ArrayPtr;

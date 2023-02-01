@@ -1,8 +1,13 @@
-set(DATA_SOURCES datatype_set.cpp dict_base.cpp)
+add_library(ceammc_data STATIC
+    mod_data.h mod_data.cpp
+    dict_base.cpp
+    local_base.cpp
+    editor_data.cpp
+)
 
-macro(ceammc_data_external mod name)
-    list(APPEND DATA_SOURCES "${mod}_${name}.cpp")
-endmacro()
+function(ceammc_data_external mod name)
+    target_sources(ceammc_data PRIVATE "${mod}_${name}.cpp")
+endfunction()
 
 ceammc_data_external(data copy)
 ceammc_data_external(data dict)
@@ -52,4 +57,5 @@ ceammc_data_external(local set)
 
 ceammc_data_external(rtree to_list)
 
-add_library(ceammc_data STATIC mod_data.h mod_data.cpp ${DATA_SOURCES})
+target_include_directories(ceammc_data PRIVATE "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>")
+

@@ -6,24 +6,28 @@
 
 #include <boost/algorithm/string/case_conv.hpp>
 #include <boost/algorithm/string/predicate.hpp>
-#include <boost/bind.hpp>
-#include <boost/foreach.hpp>
+#include <boost/bind/bind.hpp>
 #include <pthread.h>
 
 #include <cassert>
 #include <chrono>
+#include <cstdint>
 #include <cstdio>
 #include <iostream>
 #include <stdexcept>
-#include <stdint.h>
 #include <thread>
 
 using namespace ceammc::platform;
+using namespace boost::placeholders;
+
+#ifndef NDEBUG
+#define DEBUG
+#endif
 
 namespace ceammc {
 namespace hw {
 
-    static const int DEFAULT_TIMEOUT = 10;
+    constexpr const int DEFAULT_TIMEOUT = 10;
     static std::chrono::milliseconds RECONNECT_TIME_MS(1000);
 
     struct usb_info {
@@ -38,12 +42,16 @@ namespace hw {
         ThreadTracker(Arduino* a)
             : a_(a)
         {
+#ifdef DEBUG
             std::cerr << "[arduino_thread] " << pthread_self() << " started\n";
+#endif
         }
 
         ~ThreadTracker()
         {
+#ifdef DEBUG
             std::cerr << "[arduino_thread] " << pthread_self() << " finished\n";
+#endif
             a_->threadFinished();
         }
     };
@@ -80,7 +88,7 @@ namespace hw {
 
     serial::PortInfo ArduinoThread::findDeviceById(const PortList& lst, int vendorId, int productId)
     {
-        PortList::const_iterator it = std::find_if(lst.begin(), lst.end(),
+        auto it = std::find_if(lst.begin(), lst.end(),
             boost::bind(hasVendorAndProduct, _1, vendorId, productId));
 
         return it == lst.end() ? serial::PortInfo() : *it;
@@ -88,7 +96,7 @@ namespace hw {
 
     serial::PortInfo ArduinoThread::findDeviceByVendorId(const PortList& lst, int id)
     {
-        PortList::const_iterator it = std::find_if(lst.begin(), lst.end(),
+        auto it = std::find_if(lst.begin(), lst.end(),
             boost::bind(hasVendor, _1, id));
 
         return it == lst.end() ? serial::PortInfo() : *it;
@@ -96,7 +104,7 @@ namespace hw {
 
     serial::PortInfo ArduinoThread::findDeviceBySerialNo(const PortList& lst, const std::string& serialNo)
     {
-        PortList::const_iterator it = std::find_if(lst.begin(), lst.end(),
+        auto it = std::find_if(lst.begin(), lst.end(),
             boost::bind(hasSerial, _1, serialNo));
 
         return it == lst.end() ? serial::PortInfo() : *it;
@@ -150,7 +158,7 @@ namespace hw {
     {
         assert(arduino);
 
-        serial::PortInfo dev = pred(lsfn());
+        auto dev = pred(lsfn());
 
         while (dev.port.empty()) {
             if (arduino->shouldStopThread())
@@ -303,11 +311,15 @@ namespace hw {
 
                 // can't open
                 if (!serial.isOpen()) {
+#ifdef DEBUG
                     std::cerr << "[arduino_thread] can't connect to device: "
                               << port_info.port << " at baudrate " << baudRate << "\n";
 
+#endif
                     if (arduino->reconnect()) {
+#ifdef DEBUG
                         std::cerr << "[arduino_thread] reconnecting...\n";
+#endif
                         std::this_thread::sleep_for(RECONNECT_TIME_MS);
                         // try again
                         continue;
@@ -315,9 +327,11 @@ namespace hw {
                         return 0;
                 }
 
+#ifdef DEBUG
                 // connection is ok
-                std::cout << "[arduino_thread] connected to device: "
+                std::cerr << "[arduino_thread] connected to device: "
                           << port_info.port << " with baudrate: " << baudRate << "\n";
+#endif
 
                 serial.setDTR(false);
                 serial.setStopbits(stopbits_one);
@@ -339,7 +353,9 @@ namespace hw {
 
                     // reconnect on error
                     if (arduino->reconnect()) {
+#ifdef DEBUG
                         std::cerr << "[arduino_thread] reconnecting...\n";
+#endif
                         std::this_thread::sleep_for(RECONNECT_TIME_MS);
                         continue;
                     } else
@@ -352,9 +368,16 @@ namespace hw {
             } while (true);
 
         } catch (std::exception& e) {
+#ifdef DEBUG
             std::cerr << "[arduino_thread] exception: " << e.what() << "\n";
+#endif
             return 0;
         }
+#if defined(__APPLE__) && defined(__arm64__)
+        catch (...) {
+            return 0;
+        }
+#endif
 
         return 0;
     }
@@ -383,7 +406,11 @@ namespace hw {
     {
         static usb_info const info[] = {
             // CP2102 USB to UART Bridge Controller
-            { 0x10c4, /*(Silicon Laboratories, Inc.)*/ 0xea60 }
+            {
+                0x10c4,
+                /*(Silicon Laboratories, Inc.)*/
+                0xea60,
+            }
         };
 
         using namespace boost::algorithm;
@@ -396,7 +423,7 @@ namespace hw {
         if (!parseArduinoId(p.hardware_id, vid, pid, serial))
             return false;
 
-        BOOST_FOREACH (const usb_info& i, info) {
+        for (const usb_info& i : info) {
             if (i.vid == vid && i.pid == pid)
                 return true;
         }
