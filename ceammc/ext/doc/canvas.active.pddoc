@@ -17,6 +17,9 @@
             </also>
             <since>0.9.6</since>
         </meta>
+        <properties>
+            <property name="@abs" type="bool" default="0">use canvas for abstractions</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo on="bang">output canvas active state</xinfo>
@@ -32,6 +35,19 @@
 |
 [del 1000]
 |
+[canvas.active]
+|
+[ui.dt]
+
+[canvas.active.abs]
+]]>
+            </pdascii>
+            <pdascii id="abs">
+<![CDATA[
+[B]         [T]
+|           |
+[del 1000]  [@abs $1(
+|           |.
 [canvas.active]
 |
 [ui.dt]

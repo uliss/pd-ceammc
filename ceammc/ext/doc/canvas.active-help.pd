@@ -10,17 +10,24 @@
 #X obj 50 147 del 1000;
 #X obj 50 176 canvas.active;
 #X obj 50 205 ui.dt;
-#X obj 20 254 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 259 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
-0;
-#X text 110 260 1\.;
-#X text 150 260 *bang*;
-#X text 245 260 output canvas active state.;
-#X obj 20 290 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 295 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X obj 50 234 canvas.active.abs;
+#X obj 20 283 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 288 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X text 110 296 1\.;
-#X text 245 296 int: 1 or 0\.;
+#X msg 110 323 @abs;
+#X text 245 323 Get/Set use canvas for abstractions. Type: bool. Default
+value: 0\.;
+#X obj 20 375 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 380 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+0;
+#X text 110 381 1\.;
+#X text 150 381 *bang*;
+#X text 245 381 output canvas active state.;
+#X obj 20 411 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 416 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+-49933 0;
+#X text 110 417 1\.;
+#X text 245 417 int: 1 or 0\.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

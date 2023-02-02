@@ -10,8 +10,9 @@ namespace ceammc {
 machine canvas_id;
 
 hex = [0-9a-f]+ @{ (canvas_id <<= 4) |= parser::xchar2digit(fc); };
+canvas = '.ecanvas' [0-9a-f]+;
 
-main := '.x' hex '.c' 0 @{ fbreak; };
+main := '.x' hex '.c' canvas? 0 @{ fbreak; };
 write data;
 
 }%%

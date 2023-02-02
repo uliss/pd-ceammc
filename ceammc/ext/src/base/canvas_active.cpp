@@ -6,6 +6,16 @@ extern "C" {
 #include "g_canvas.h"
 }
 
+static t_canvas* canvas_get_root(t_canvas* x, bool abstractions = true)
+{
+    if (!x)
+        return x;
+    else if ((!x->gl_owner) || (abstractions && canvas_isabstraction(x)))
+        return x;
+    else
+        return canvas_get_root(x->gl_owner, abstractions);
+}
+
 static inline std::uintptr_t ptr_to_uint(void* x)
 {
     return reinterpret_cast<std::uintptr_t>(x);
@@ -13,9 +23,13 @@ static inline std::uintptr_t ptr_to_uint(void* x)
 
 CanvasActive::CanvasActive(const PdArgs& args)
     : BaseObject(args)
+    , abstractions_(nullptr)
 {
     createOutlet();
     bindReceive(gensym("#canvas_active"));
+
+    abstractions_ = new BoolProperty("@abs", false);
+    addProperty(abstractions_);
 }
 
 void CanvasActive::onBang()
@@ -32,9 +46,14 @@ void CanvasActive::m_active(t_symbol* s, const AtomListView& lv)
     if (!try_parse_canvas_id(lv.asSymbol()->s_name, given_id))
         return boolTo(0, false);
 
-    auto my_cnv_id = ptr_to_uint(rootCanvas());
+    auto my_cnv_id = ptr_to_uint(currentCanvas());
 
     boolTo(0, given_id == my_cnv_id);
+}
+
+t_canvas* CanvasActive::currentCanvas()
+{
+    return canvas_get_root(canvas(), abstractions_->value());
 }
 
 void setup_base_canvas_active()
