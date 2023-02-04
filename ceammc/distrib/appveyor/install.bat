@@ -16,7 +16,7 @@ REM Update
 bash -lc "pacman -Syu --noconfirm"
 
 REM build tools
-bash -lc "pacman -Sy --needed --noconfirm mingw-w64-${MSYS2_ARCH}-{binutils,crt,headers-git,libgccjit,libmangle-git,libwinpthread-git,tools-git,winpthreads-git,winstorecompat-git} git make patch"
+bash -lc "pacman -Sy --needed --noconfirm mingw-w64-${MSYS2_ARCH}-{binutils,crt,tools-git} git make patch"
 REM dependencies
 bash -lc "pacman -Sy --needed --noconfirm mingw-w64-${MSYS2_ARCH}-{cmake,ninja,glib2,libmodplug,tcllib,tcl,tk,tklib,portaudio,fftw,libsndfile,boost,dlfcn,armadillo,llvm,polly,luajit}"
 
