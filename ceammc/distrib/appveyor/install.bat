@@ -23,7 +23,7 @@ bash -lc "pacman -Sy --needed --noconfirm mingw-w64-${MSYS2_ARCH}-{cmake,ninja,g
 bash -lc "echo ${APPVEYOR_BUILD_FOLDER}"
 bash -lc "ls ${APPVEYOR_BUILD_FOLDER}"
 bash -lc "mkdir ${APPVEYOR_BUILD_FOLDER}/build"
-bash -lc "cd ${APPVEYOR_BUILD_FOLDER}/build && cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DWITH_FFTW=ON -DWITH_BENCHMARK=OFF -DENABLE_TESTS=OFF -DWITH_DOUBLE_PRECISION=${DOUBLE_PRECISION} -DWITH_FAUST=OFF-DCMAKE_INSTALL_PREFIX=/opt/local/release/pd ${APPVEYOR_BUILD_FOLDER}"
+bash -lc "cd ${APPVEYOR_BUILD_FOLDER}/build && cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DWITH_FFTW=ON -DWITH_BENCHMARK=OFF -DENABLE_TESTS=OFF -DWITH_DOUBLE_PRECISION=${DOUBLE_PRECISION} -DWITH_EXT_FLEXT=OFF -DWITH_FAUST=OFF -DCMAKE_INSTALL_PREFIX=/opt/local/release/pd ${APPVEYOR_BUILD_FOLDER}"
 bash -lc "ls ${APPVEYOR_BUILD_FOLDER}/build"
 bash -lc "cd ${APPVEYOR_BUILD_FOLDER}/build && ninja install && ./fix_dll_deps.sh && ./win_fix_pddoc_key_modifiers.sh"
 bash -lc "cd ${APPVEYOR_BUILD_FOLDER}/build && ninja inno && ninja ceammc_lib"
