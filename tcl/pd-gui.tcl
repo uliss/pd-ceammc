@@ -57,6 +57,9 @@ package require pd_guiprefs
 # TODO eliminate this kludge:
 package require wheredoesthisgo
 
+# ceammc
+package require pd_colors
+
 #------------------------------------------------------------------------------#
 # import functions into the global namespace
 

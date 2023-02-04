@@ -12,7 +12,6 @@
  * this file belongs to.
  *****************************************************************************/
 #include "property_pitch.h"
-#include "ceammc_music_theory_names.h"
 #include "lex/parser_music.h"
 
 namespace ceammc {

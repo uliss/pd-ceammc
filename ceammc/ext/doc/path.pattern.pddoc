@@ -28,7 +28,7 @@
             <par>• %NOW% - current datetime: %DATE%_%TIME%</par>
         </info>
         <arguments>
-            <argument name="PATT" type="symbol">filename generation pattern</argument>
+            <argument name="PATTERN" type="symbol">filename generation pattern</argument>
         </arguments>
         <properties>
             <property name="@pattern" type="symbol">filename pattern</property>

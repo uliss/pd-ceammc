@@ -31,14 +31,14 @@
             event length is 60 (100-40)</par>
         </info>
         <arguments>
-            <argument name="PATTERN" type="list">sequencer pattern in beat duration
-            units</argument>
+            <argument name="P" type="list">sequencer pattern in beat duration units</argument>
         </arguments>
         <properties>
             <property name="@t" type="float" default="100" minvalue="1" maxvalue="20000"
             units="millisecond">time between beats. Unit values like 100ms, 240bpm or 60|4bpm also
             can be used</property>
-            <property name="@p" type="list">sequencer pattern in beat duration units</property>
+            <property name="@p" type="list" default="">sequencer pattern in beat duration
+            units</property>
             <property name="@r" type="int" minvalue="-1" default="1">number of whole sequence
             repeats. If -1: repeat infinitely</property>
             <property name="@inf" type="alias">alias to @r -1, repeats infinitely</property>
@@ -50,10 +50,10 @@
             @length expected to be in 0..100 range and event length is percent of duration. In case
             of negative @length event duration is calculated as duration+@length, but not less then
             1</property>
-            <property name="@i" type="int" minvalue="0" readonly="true" default="0">current
+            <property name="@i" type="int" minvalue="0" access="readonly" default="0">current
             sequence iteration</property>
-            <property name="@ri" type="int" minvalue="0" readonly="true" default="0">current repeat
-            iteration</property>
+            <property name="@ri" type="int" minvalue="0" access="readonly" default="0">current
+            repeat iteration</property>
             <property name="@mode" type="symbol" enum="inc dec tri" default="inc">sequencer mode.
             'inc': from first to last, 'dec': from last to first, 'tri': from first to last, then
             back</property>

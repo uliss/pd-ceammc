@@ -18,8 +18,6 @@
 
 #include "ceammc_atomlist.h"
 #include "ceammc_convert.h"
-#include "ceammc_fn_list.h"
-#include "ceammc_format.h"
 #include "ceammc_preset.h"
 #include "ceammc_ui.h"
 #include "ui_sliders.h"

@@ -31,7 +31,7 @@ TEST_CASE("misc.fluid~", "[externals]")
     {
         TestExtFluid t("fluid~");
         REQUIRE(t.numInlets() == 1);
-        REQUIRE(t.numOutlets() == 2);
+        REQUIRE(t.numOutlets() == 3);
         REQUIRE(t.numOutputChannels() == 2);
         REQUIRE_PROPERTY(t, @sf, "");
         REQUIRE_PROPERTY_LIST(t, @soundfonts, L());
@@ -45,6 +45,7 @@ TEST_CASE("misc.fluid~", "[externals]")
 
         REQUIRE_PROPERTY(t, @avoices, 0);
         REQUIRE_PROPERTY(t, @bufsize, 64);
+        REQUIRE(t.hasProperty("@cpuload"));
     }
 
     SECTION("load")

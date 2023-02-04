@@ -12,28 +12,30 @@
  * this file belongs to.
  *****************************************************************************/
 #include "system_getenv.h"
+#include "ceammc_factory.h"
 
 #include <cstdlib>
 #include <cstring>
 
 SystemGetEnv::SystemGetEnv(const PdArgs& a)
     : BaseObject(a)
-    , var_name_(0)
+    , var_(nullptr)
 {
     createOutlet();
 
-    if (!a.args.empty() && a.args[0].isSymbol())
-        var_name_ = a.args[0].asSymbol();
+    var_ = new SymbolProperty("@name", &s_);
+    var_->setArgIndex(0);
+    addProperty(var_);
 }
 
 void SystemGetEnv::onBang()
 {
-    if (!var_name_) {
+    if (var_->value() == &s_) {
         OBJ_ERR << "no variable name given";
         return;
     }
 
-    const char* v = getenv(var_name_->s_name);
+    auto v = getenv(var_->value()->s_name);
 
     if (v != NULL && strlen(v) > 0)
         symbolTo(0, gensym(v));
@@ -43,8 +45,8 @@ void SystemGetEnv::onBang()
 
 void SystemGetEnv::onSymbol(t_symbol* s)
 {
-    var_name_ = s;
-    onBang();
+    if (var_->setValue(s))
+        onBang();
 }
 
 void setup_system_getenv()

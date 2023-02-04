@@ -22,9 +22,13 @@
 #include <sstream>
 
 #ifdef __WIN32
-constexpr int FONT_SIZE_CORR = 4;
+static int font_size_corr(float h) {
+    return std::floor(0.6 * h);
+}
 #else
-constexpr int FONT_SIZE_CORR = 8;
+static int font_size_corr(float h) {
+    return 0.875 * h;
+}
 #endif
 
 constexpr const char* DEFAULT_FONT_FAMILY = "Helvetica";
@@ -60,7 +64,7 @@ void UINumber::okSize(t_rect* newrect)
     newrect->height = border_min;
     newrect->width = pd_clip_min(newrect->width, sys_fontwidth(font_.size()) * 3 + 8);
 
-    auto new_val_font_size = newrect->height - (newrect->height / FONT_SIZE_CORR);
+    auto new_val_font_size = font_size_corr(newrect->height);
     font_.setSize(new_val_font_size);
 }
 

@@ -20,7 +20,7 @@ PanSpread::PanSpread(const PdArgs& args)
     spread_.setTargetValue(SPREAD_DEFAULT);
     center_.setTargetValue(CENTER_DEFAULT);
 
-    channels_ = new IntProperty("@ch", DEF_NCHAN, PropValueAccess::INITONLY);
+    channels_ = new IntProperty("@n", DEF_NCHAN, PropValueAccess::INITONLY);
     channels_->checkClosedRange(MIN_NCHAN, MAX_NCHAN);
     channels_->setArgIndex(0);
     addProperty(channels_);

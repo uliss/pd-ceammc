@@ -24,9 +24,9 @@
             <event editmode="false" type="drag" keys="Shift">move selection</event>
         </mouse>
         <properties>
-            <property name="@array" type="symbol">array name</property>
-            <property name="@mouse_events" type="int" enum="0 1" default="1">mouse events output
-            mode. If on outputs @mouse_down, @mouse_up and @mouse_drag events</property>
+            <property name="@array" type="symbol" default="">array name</property>
+            <property name="@mouse_events" type="bool" default="1">mouse events output mode. If on
+            outputs @mouse_down, @mouse_up and @mouse_drag events</property>
             <!-- cursor-->
             <property name="@cursor_samp" type="int" default="0" units="sample">cursor position in
             samples</property>
@@ -46,27 +46,26 @@
             <property name="@select_phase" type="list">selection range noramlized to 0-1 range,
             pair of values: begin, end</property>
             <!-- view -->
-            <property name="@show_rms" type="int" enum="0 1" default="0">show RMS graph</property>
-            <property name="@show_labels" type="int" enum="0 1" default="0">if show corner
-            labels</property>
+            <property name="@show_rms" type="bool" default="0">show RMS graph</property>
+            <property name="@show_labels" type="bool" default="0">if show corner labels</property>
             <property name="@label_top" type="symbol">top right label if @show_labels is
             on</property>
             <property name="@label_bottom" type="symbol">bottom right label if @show_labels is
             on</property>
             <!-- size -->
-            <property name="@size_samp" type="int" minvalue="0" readonly="true" units="sample"
+            <property name="@size_samp" type="int" minvalue="0" access="readonly" units="sample"
             default="0">array size in samples</property>
-            <property name="@size_sec" type="float" minvalue="0" readonly="true" units="second"
+            <property name="@size_sec" type="float" minvalue="0" access="readonly" units="second"
             default="0">array size in seconds</property>
-            <property name="@size_ms" type="float" minvalue="0" readonly="true" units="millisecond"
-            default="0">array size in milliseconds</property>
+            <property name="@size_ms" type="float" minvalue="0" access="readonly"
+            units="millisecond" default="0">array size in milliseconds</property>
             <!-- common -->
             <property name="@send" type="symbol" default="(null)">send destination</property>
             <property name="@receive" type="symbol" default="(null)">receive source</property>
             <property name="@size" type="list" default="300 100">element size (width, height
             pair)</property>
-            <property name="@pinned" type="int" enum="0 1" default="0">pin mode. if 1 - put element
-            to the lowest level</property>
+            <property name="@pinned" type="bool" default="0">pin mode. if 1 - put element to the
+            lowest level</property>
             <property name="@selection_color" type="list" default="0 0.75 1 1">selection color
             (list of red, green, blue values in 0-1 range)</property>
             <property name="@cursor_color" type="list" default="0 0.75 1 1">cursor color (list of
@@ -77,9 +76,10 @@
             background color (list of red, green, blue values in 0-1 range)</property>
             <property name="@border_color" type="list" default="0.6 0.6 0.6 1">border color (list
             of red, green, blue values in 0-1 range)</property>
-            <property name="@fontsize" type="int" minvalue="4" maxvalue="11" default="11">
+            <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
             fontsize</property>
-            <property name="@fontname" type="symbol" default="Helvetica">fontname</property>
+            <property name="@fontname" type="symbol" default="Helvetica"
+            enum="Courier DejaVu Helvetica Monaco Times">fontname</property>
             <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
             weight</property>
             <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font

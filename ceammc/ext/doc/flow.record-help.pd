@@ -25,7 +25,7 @@
 -49933 0;
 #X msg 110 510 @auto;
 #X text 245 510 Get/Set autostart record on first input atom. Type:
-int. Default value: 0\. Allowed values: 0 \, 1\.;
+bool. Default value: 0\.;
 #X msg 110 552 @max;
 #X text 245 552 Get/Set max number of events \, if 0: no max size check.
 If @auto is set - starts playback when max size reached. Type: int.
@@ -35,10 +35,10 @@ Default value: 256\. Range: 0\...65536\.;
 infinitely. Type: int. Default value: 1\. Min value: -1\.;
 #X msg 110 651 @speed;
 #X text 245 651 Get/Set play speed. Type: float. Default value: 1\.
-Range: 0.015625\...64\.;
+Range: 0.0156\...64\.;
 #X msg 110 693 @sync;
 #X text 245 693 Get/Set use external bang pulse to sync recorded events
-with. Type: int. Default value: 0\. Allowed values: 0 \, 1\.;
+with. Type: bool. Default value: 0\.;
 #X obj 20 745 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 750 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
@@ -67,13 +67,13 @@ after specified length).;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title flow @url ceammc.flow-help.pd;
 #X obj 1 1012 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1015 library: ceammc v0.9.5;
+#X text 10 1015 library: ceammc v0.9.6;
 #N canvas 10 1034 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.5;
+#X text 120 32 0.9.6;
 #X text 10 54 object:;
 #X text 120 54 flow.record;
 #X text 10 76 category:;

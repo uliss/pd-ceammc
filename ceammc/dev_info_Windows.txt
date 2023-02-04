@@ -9,6 +9,8 @@ dev targets:
   * dev_build_all     - update version, fix dll, fix doc, then build targets: `ceammc_lib`, `inno`
   * dev_faust         - list all faust targets
   * dev_run           - run installed Pd
+  * dev_tcl           - copy tcl files to tcl app folder
+  * dev_pd            - copy pd executable to bin app folder
 
 deploy target:
   * deploy_github_exe - upload PureData installer to github release

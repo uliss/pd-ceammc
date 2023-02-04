@@ -25,10 +25,10 @@ current canvas). Type: symbol.;
 #X msg 110 379 @b;
 #X text 245 379 alias to @type bool.;
 #X msg 110 408 @default;
-#X text 245 408 Get/Set default property value. Type: list.;
+#X text 245 408 (initonly) Get/Set default property value. Type: list.;
 #X msg 110 437 @enum;
-#X text 245 437 Get/Set allowed values (without default value) (for
-symbol properties only). Type: list.;
+#X text 245 437 (initonly) Get/Set allowed values (without default
+value) (for symbol properties only). Type: list.;
 #X msg 110 479 @f;
 #X text 245 479 alias to @type float.;
 #X msg 110 508 @i;
@@ -36,11 +36,11 @@ symbol properties only). Type: list.;
 #X msg 110 537 @l;
 #X text 245 537 alias to @type list.;
 #X msg 110 566 @max;
-#X text 245 566 Get/Set maximum value (for float and int properties
-only). Type: float. Default value: +inf.;
+#X text 245 566 (initonly) Get/Set maximum value (for float and int
+properties only). Type: float. Default value: +inf.;
 #X msg 110 608 @min;
-#X text 245 608 Get/Set minimal value (for float and int properties
-only). Type: float. Default value: -inf.;
+#X text 245 608 (initonly) Get/Set minimal value (for float and int
+properties only). Type: float. Default value: -inf.;
 #X msg 110 650 @s;
 #X text 245 650 alias to @type symbol.;
 #X msg 110 679 @type;
@@ -52,7 +52,7 @@ float. Allowed values: float \, int \, bool \, enum \, symbol \, list.;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title property @url ceammc.property-help.pd;
 #X obj 1 751 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 754 library: ceammc v0.9.5;
+#X text 10 754 library: ceammc v0.9.6;
 #X text 543 766 see also:;
 #X obj 617 766 prop;
 #X obj 661 766 patch.props;
@@ -61,7 +61,7 @@ float. Allowed values: float \, int \, bool \, enum \, symbol \, list.;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.5;
+#X text 120 32 0.9.6;
 #X text 10 54 object:;
 #X text 120 54 prop.declare;
 #X text 10 76 category:;

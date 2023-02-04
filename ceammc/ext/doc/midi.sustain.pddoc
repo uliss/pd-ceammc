@@ -21,8 +21,8 @@
             <argument name="STATE" type="int" minvalue="0" maxvalue="1">initial state</argument>
         </arguments>
         <properties>
-            <property name="@on" type="int" enum="0 1" default="0">pedal state</property>
-            <property name="@ctlin" type="int" enum="0 1" default="0">listen to CTL64 from MIDI
+            <property name="@on" type="bool" default="0">pedal state</property>
+            <property name="@ctlin" type="bool" default="0">listen to CTL64 from MIDI
             controller</property>
         </properties>
         <inlets>

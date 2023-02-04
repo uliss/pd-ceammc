@@ -56,7 +56,8 @@
         flow.pack flow.pass flow.pass_if flow.pipe flow.queue flow.record
         flow.reject flow.reject_if flow.ring flow.route flow.select
         flow.seqdelay flow.space flow.speedlim flow.split flow.stack flow.sync
-        flow.sync_pack flow.tee~ replace route.float route.random
+        flow.sync_pack flow.tee~ replace route.any route.bang route.float
+        route.list route.prop route.random route.symbol
     }}
     {flt {
         flt.a-weight flt.biquad~ flt.bpf12~ flt.bpf24~ flt.c_apf flt.c_bpf~
@@ -66,14 +67,16 @@
         flt.fb_comb~ flt.fbank5x1~ flt.ff_comb~ flt.freqz flt.freqz~
         flt.highshelf~ flt.hpf12~ flt.hpf24~ flt.lowshelf~ flt.lpf12~
         flt.lpf24~ flt.median flt.moog_vcf~ flt.notch~ flt.resonbp~
+        flt.resonhp~ flt.resonlp~
     }}
     {fx {
-        fx.bitdown~ fx.chorus~ fx.distortion1~ fx.distortion2~ fx.distortion3~
-        fx.distortion~ fx.drive~ fx.drone_box~ fx.echo2~ fx.echo~ fx.flanger~
-        fx.freeverb2~ fx.freeverb~ fx.freqshift~ fx.granulator~ fx.greyhole~
-        fx.infrev~ fx.looper~ fx.pitchshift_s~ fx.pitchshift~
-        fx.rb_pitchshift~ fx.recho~ fx.room~ fx.sdelay~ fx.secho~ fx.shimmer~
-        fx.tapiir~ fx.vocoder~ fx.wahwah~ fx.zita_rev1~
+        fx.bitdown~ fx.chorus~ fx.dattorro~ fx.distortion1~ fx.distortion2~
+        fx.distortion3~ fx.distortion~ fx.drive~ fx.drone_box~ fx.echo2~
+        fx.echo~ fx.flanger~ fx.freeverb2~ fx.freeverb~ fx.freqshift~
+        fx.granulator~ fx.greyhole~ fx.infrev~ fx.jcrev~ fx.looper~
+        fx.pitchshift_s~ fx.pitchshift~ fx.rb_pitchshift~ fx.recho~ fx.room~
+        fx.satrev~ fx.sdelay~ fx.secho~ fx.shimmer~ fx.stutter~ fx.tapiir~
+        fx.vocoder~ fx.wahwah~ fx.zita_rev1~
     }}
     {global {
         global.dict global.float global.int global.list global.mlist
@@ -132,10 +135,10 @@
         math.tanh~ math.tan~ math.trunc math.trunc~
     }}
     {midi {
-        midi.cc midi.clock midi.ctl2str midi.event2ctl midi.event2note
-        midi.event2prg midi.file midi.kbd midi.key2str midi.modus midi.oct
-        midi.prg2str midi.split midi.sustain midi.sysex midi.track midi.tuning
-        midi.vramp midi.vrand
+        midi.arp midi.cc midi.clock midi.ctl2str midi.event2ctl
+        midi.event2note midi.event2prg midi.file midi.kbd midi.key2str
+        midi.modus midi.oct midi.prg2str midi.split midi.sustain midi.sysex
+        midi.track midi.tuning midi.vramp midi.vrand
     }}
     {misc {
         click~ fluid~ modplug~ risset.gliss sfizz~ speech.flite speech.flite~
@@ -149,19 +152,19 @@
         net.osc.server
     }}
     {noise {
-        noise.baker noise.clifford noise.collatz noise.crackle~ noise.duffing
-        noise.ginger noise.henon noise.henon_heilles noise.henon_phase
-        noise.henonf noise.ikeda noise.lfreq0~ noise.lfreq~ noise.lorenz
-        noise.lyapunov noise.navier_stokes noise.pink~ noise.rossler
-        noise.stein noise.torus noise.verhulst noise.white~
+        noise.baker noise.clifford noise.collatz noise.colored~ noise.crackle~
+        noise.duffing noise.ginger noise.henon noise.henon_heilles
+        noise.henon_phase noise.henonf noise.ikeda noise.lfreq0~ noise.lfreq~
+        noise.lorenz noise.lyapunov noise.navier_stokes noise.pink~
+        noise.rossler noise.stein noise.torus noise.verhulst noise.white~
     }}
     {osc {
         osc.blit~ osc.impulse~ osc.pulse~ osc.saw4~ osc.saw~ osc.sinfb~
         osc.sin~ osc.square~ osc.tri~
     }}
     {patch {
-        canvas.current canvas.dir canvas.name canvas.path canvas.top
-        patch.args patch.deps patch.tree
+        canvas.active canvas.current canvas.dir canvas.name canvas.path
+        canvas.top patch.args patch.deps patch.tree
     }}
     {path {
         file.size path.basename path.dirname path.exists path.file path.is_dir
@@ -170,7 +173,7 @@
     }}
     {predicates {
         is_any is_bang is_data is_dict is_even is_file is_float is_list is_odd
-        is_pointer is_symbol
+        is_pointer is_prop is_symbol
     }}
     {preset {
         preset.float preset.list preset.storage preset.symbol
@@ -222,7 +225,7 @@
         synth.marimba~ synth.piano~ synth.rhodey~ synth.risset_arp~
         synth.risset_bell~ synth.risset_tone~ synth.russian_bell~
         synth.shakers~ synth.sitar~ synth.snare~ synth.standard_bell~
-        synth.tube_bell~ synth.wurley~
+        synth.tube_bell~ synth.voice_fofc~ synth.voice_fofs~ synth.wurley~
     }}
     {system {
         system.colorpanel system.cursor system.exec system.exit system.getenv

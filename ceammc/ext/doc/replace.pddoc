@@ -28,8 +28,8 @@
             <argument name="TO" type="atom">replace value</argument>
         </arguments>
         <properties>
-            <property name="@from" type="atom">replace subject</property>
-            <property name="@to" type="atom">replace value</property>
+            <property name="@from" type="atom" default="None">replace subject</property>
+            <property name="@to" type="atom" default="None">replace value</property>
         </properties>
         <inlets>
             <inlet>

@@ -1,14 +1,14 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 507 50 cnv 1 258 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 507 50 converts BPM to frequency in herz;
+#X obj 500 50 cnv 1 265 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 500 50 converts BPM to frequency in hertz;
 #X obj 1 1 cnv 5 765 40 empty empty conv.bpm2hz 20 20 0 20 -104026
 -4096 0;
 #X obj 460 11 ceammc/bpm->hz;
 #X obj 586 11 bpm->hz;
 #X obj 661 11 conv.bpm2hz;
 #X obj 210 80 cnv 1 555 50 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 Converts frequency from BPM (beats per minute) to herz.
+#X text 215 80 Converts frequency from BPM (beats per minute) to hertz.
 It's simple as /60 \, but more readable;
 #X msg 50 158 120;
 #X floatatom 50 187 5 0 0 0 - - -;
@@ -30,14 +30,14 @@ It's simple as /60 \, but more readable;
 #X obj 20 450 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 110 451 1\.;
-#X text 245 451 frequency in herz.;
+#X text 245 451 frequency in hertz.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title conv @url ceammc.conv-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 508 library: ceammc v0.9.5;
+#X text 10 508 library: ceammc v0.9.6;
 #X text 587 520 see also:;
 #X obj 661 520 conv.bpm2ms;
 #N canvas 10 527 400 290 info 0;
@@ -45,7 +45,7 @@ It's simple as /60 \, but more readable;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.5;
+#X text 120 32 0.9.6;
 #X text 10 54 object:;
 #X text 120 54 conv.bpm2hz;
 #X text 10 76 category:;

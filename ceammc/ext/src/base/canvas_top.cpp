@@ -2,7 +2,6 @@
 #include "ceammc_canvas.h"
 #include "ceammc_factory.h"
 #include "ceammc_platform.h"
-#include "ceammc_property_callback.h"
 #include "datatype_dict.h"
 
 CanvasTop::CanvasTop(const PdArgs& a)

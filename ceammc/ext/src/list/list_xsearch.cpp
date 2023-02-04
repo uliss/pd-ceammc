@@ -13,9 +13,8 @@
  *****************************************************************************/
 #include "list_xsearch.h"
 #include "ceammc_factory.h"
-#include "ceammc_fn_list.h"
 #include "datatype_mlist.h"
-#include "fmt/format.h"
+#include "fmt/core.h"
 
 ListXSearch::ListXSearch(const PdArgs& args)
     : BaseObject(args)
@@ -39,7 +38,8 @@ ListXSearch::ListXSearch(const PdArgs& args)
 
             lst_ = lv;
             return true;
-        });
+        })
+        ->setArgIndex(0);
 
     start_ = new SizeTProperty("@start", 0);
     addProperty(start_);

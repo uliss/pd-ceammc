@@ -22,7 +22,8 @@
         </meta>
         <arguments>
             <argument name="PATH" type="symbol">OSC path to listen</argument>
-            <argument name="NAME" type="symbol">OSC server name</argument>
+            <argument name="SERVER" type="symbol">OSC server name</argument>
+            <argument name="TYPES" type="symbol">expected OSC type string</argument>
         </arguments>
         <methods />
         <properties>

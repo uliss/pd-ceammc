@@ -74,12 +74,12 @@ sec. Default value: 0\.;
 position relative to the end of the array. Type: float. Units: samp.
 Default value: -1\.;
 #X msg 110 1037 @interp;
-#X text 245 1037 Get/Set interpolation type. 0: no interpolationm 1:
+#X text 245 1037 Get/Set interpolation type. 0: no interpolation 1:
 linear \, 3: cubic. Type: int. Default value: 1\. Allowed values: 0
 \, 1 \, 3\.;
 #X msg 110 1094 @loop;
-#X text 245 1094 Get/Set samplewise loop playing mode. Type: int. Default
-value: 0\. Allowed values: 0 \, 1\.;
+#X text 245 1094 Get/Set samplewise loop playing mode. Type: bool.
+Default value: 0\.;
 #X msg 110 1136 @select_ms;
 #X text 245 1136 Get/Set selection range. Type: list. Units: ms. Default
 value: 0 0\.;
@@ -145,7 +145,7 @@ property. By default output seconds.;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title array @url ceammc.array-help.pd;
 #X obj 1 1878 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1881 library: ceammc v0.9.5;
+#X text 10 1881 library: ceammc v0.9.6;
 #X text 607 1893 see also:;
 #X obj 681 1893 tabplay~;
 #N canvas 10 1900 400 290 info 0;
@@ -153,7 +153,7 @@ property. By default output seconds.;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.5;
+#X text 120 32 0.9.6;
 #X text 10 54 object:;
 #X text 120 54 array.play~;
 #X text 10 76 category:;

@@ -33,16 +33,15 @@
             reversed playback</property>
             <property name="@amp" type="float" default="1" minvalue="0">playback
             amplitude</property>
-            <property name="@loop" type="int" default="0" enum="0 1">samplewise loop playing
-            mode</property>
+            <property name="@loop" type="bool" default="0">samplewise loop playing mode</property>
             <property name="@interp" type="int" enum="0 1 3" default="1">interpolation type. 0: no
-            interpolationm 1: linear, 3: cubic.</property>
+            interpolation 1: linear, 3: cubic.</property>
             <property name="@clock" type="float" default="0" minvalue="0" maxvalue="20"
             units="second">clock output period. Zero means: no clock output (by
             default).</property>
             <property name="@cfmt" type="symbol" default="sec" enum="sec ms samp phase">clock
             output format</property>
-            <property name="@state" type="int" default="0" readonly="true">playing state. 0:
+            <property name="@state" type="int" default="0" access="readonly">playing state. 0:
             stopped, 1: playing, 2: paused.</property>
             <property name="@cursor_ms" type="float" default="0" units="millisecond">current play
             position</property>

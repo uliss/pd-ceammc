@@ -63,12 +63,29 @@ target_include_directories(ceammc_faust PRIVATE
     ${PROJECT_SOURCE_DIR}/src)
 
 if(COMMAND llvm_map_components_to_libnames)
-    llvm_map_components_to_libnames(llvm_libs
+    set(llvm_libs)
+    if(APPLE)
+        if(CMAKE_OSX_ARCHITECTURES STREQUAL "arm64")
+            llvm_map_components_to_libnames(llvm_libs_arm64
+                AArch64AsmParser AArch64Info AArch64Desc AArch64CodeGen)
+            list(APPEND llvm_libs ${llvm_libs_arm64})
+        else (CMAKE_OSX_ARCHITECTURES STREQUAL "x86_64")
+            llvm_map_components_to_libnames(llvm_libs_x86
+                x86asmparser x86info x86desc x86codegen)
+            list(APPEND llvm_libs ${llvm_libs_x86})
+        endif()
+    elseif(WIN32 OR UNIX)
+        llvm_map_components_to_libnames(llvm_libs_x86
+            x86asmparser x86info x86desc x86codegen)
+        list(APPEND llvm_libs ${llvm_libs_x86})
+    endif()
+    llvm_map_components_to_libnames(llvm_libs_base
         support core irreader executionengine
-        x86asmparser asmprinter x86info x86desc x86codegen mcjit ipo
-        objcarcopts)
+        asmprinter mcjit ipo objcarcopts)
+    list(APPEND llvm_libs ${llvm_libs_base})
+
     message(STATUS "llvm-libs: ${llvm_libs}")
-    target_link_libraries(ceammc_faust PUBLIC ${llvm_libs})
+    target_link_libraries(ceammc_faust PRIVATE ${llvm_libs})
 endif()
 
 set(DOC_INSTALL_PATH "${PD_DOC_INSTALL_PATH}/extra/ceammc")

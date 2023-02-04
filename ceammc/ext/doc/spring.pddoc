@@ -17,8 +17,9 @@
             </aliases>
         </meta>
         <arguments>
-            <argument name="VAL" type="float">target value</argument>
-            <argument name="TIME" type="float">time to reach the target value</argument>
+            <argument name="VALUE" type="float">target value</argument>
+            <argument name="TIME" type="float" minvalue="50" maxvalue="5000" units="millisecond">
+            time to reach the target value</argument>
         </arguments>
         <properties>
             <property name="@value" type="float" default="0">target value</property>

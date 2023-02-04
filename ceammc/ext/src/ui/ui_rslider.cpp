@@ -408,6 +408,7 @@ void UIRSlider::setup()
 
     obj.addProperty("value", &UIRSlider::propValue, &UIRSlider::propSetValue);
     obj.addProperty("range", &UIRSlider::propRange, 0);
+    obj.setPropertyMin("range", 0);
     obj.addProperty("low", &UIRSlider::propLow, &UIRSlider::propSetLow);
     obj.addProperty("high", &UIRSlider::propHigh, &UIRSlider::propSetHigh);
 

@@ -38,7 +38,7 @@ with {
 // BIRD TRIGGER
 noteTrig = trigger
 with {
-    auto = checkbox("auto [type:int]");
+    auto = checkbox("auto [type:bool]");
     trigger = ba.if(auto, autoTrig, cm.igate);
 };
 

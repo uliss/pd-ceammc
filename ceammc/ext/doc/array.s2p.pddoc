@@ -24,7 +24,7 @@
             <par>with this object you can get relative position in array</par>
         </info>
         <arguments>
-            <argument name="NAME" type="symbol">array name</argument>
+            <argument name="ARRAY" type="symbol">array name</argument>
         </arguments>
         <properties>
             <property name="@array" type="symbol" default="">array name</property>

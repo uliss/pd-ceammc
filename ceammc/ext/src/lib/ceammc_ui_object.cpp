@@ -537,7 +537,10 @@ void UIObjectImpl::unbindPreset(t_symbol* name)
     post("unbind preset: %s", name->s_name);
 #endif
 
-    pd_unbind(asPd(), gensym(Preset::SYM_PRESET_ALL));
+    auto sym = gensym(Preset::SYM_PRESET_ALL);
+    if (sym->s_thing)
+        pd_unbind(asPd(), sym);
+
     PresetStorage::instance().unbindPreset(name);
     releasePresetName(name);
 }
@@ -711,7 +714,7 @@ static void set_constraints(PropertyInfo& info, t_eattr* a)
     }
 }
 
-static PropertyInfo attr_to_prop(t_eattr* a)
+static PropertyInfo attr_to_prop(t_ebox* x, t_eattr* a)
 {
     CEAMMC_DEFINE_CRC32(checkbutton);
     CEAMMC_DEFINE_CRC32(float);
@@ -742,6 +745,16 @@ static PropertyInfo attr_to_prop(t_eattr* a)
 
             if (a->defvals)
                 res.setDefault((t_float)strtod(a->defvals->s_name, NULL));
+            else if (a->getter) {
+                int argc = 0;
+                t_atom* atoms = nullptr;
+                if (a->getter(x, a, &argc, &atoms)) {
+                    if (atoms && argc == 1)
+                        res.setDefault(atom_getfloat(atoms));
+
+                    free(atoms);
+                }
+            }
         } else if (a->size > 1) {
             res.setType(PropValueType::LIST);
 
@@ -750,7 +763,6 @@ static PropertyInfo attr_to_prop(t_eattr* a)
 
             if (a->defvals)
                 res.setDefault(sym_to_list(a->defvals));
-
         } else {
             std::cerr << "invalid float property size: " << a->size << "\n";
         }
@@ -770,6 +782,16 @@ static PropertyInfo attr_to_prop(t_eattr* a)
 
                 if (a->defvals)
                     res.setDefault((int)strtol(a->defvals->s_name, NULL, 10));
+                else if (a->getter) {
+                    int argc = 0;
+                    t_atom* atoms = nullptr;
+                    if (a->getter(x, a, &argc, &atoms)) {
+                        if (atoms && argc == 1)
+                            res.setDefault((int)atom_getint(atoms));
+
+                        free(atoms);
+                    }
+                }
             }
         } else if (a->size > 1) {
             res.setType(PropValueType::LIST);
@@ -852,21 +874,20 @@ static PropertyInfo attr_to_prop(t_eattr* a)
     if (a->getter != 0 && a->setter == 0)
         res.setAccess(PropValueAccess::READONLY);
 
-    if (a->invisible)
-        res.setVisibility(PropValueVis::INTERNAL);
+    res.setVisibility(a->visibility);
 
     return res;
 }
 
 std::vector<PropertyInfo> UIObjectImpl::propsInfo() const
 {
-    const t_eclass* c = reinterpret_cast<const t_eclass*>(box_->b_obj.o_obj.te_g.g_pd);
+    auto c = reinterpret_cast<const t_eclass*>(box_->b_obj.o_obj.te_g.g_pd);
 
     std::vector<PropertyInfo> res;
     res.reserve(c->c_nattr);
 
     for (size_t i = 0; i < c->c_nattr; i++)
-        res.push_back(attr_to_prop(c->c_attr[i]));
+        res.push_back(attr_to_prop(box_, c->c_attr[i]));
 
     return res;
 }
@@ -877,7 +898,7 @@ boost::optional<PropertyInfo> UIObjectImpl::propertyInfo(t_symbol* name) const
 
     for (size_t i = 0; i < c->c_nattr; i++) {
         if (c->c_attr[i]->name == name)
-            return attr_to_prop(c->c_attr[i]);
+            return attr_to_prop(box_, c->c_attr[i]);
     }
 
     return {};
@@ -894,7 +915,9 @@ void UIObjectImpl::bindTo(t_symbol* s)
 void UIObjectImpl::unbindFrom(t_symbol* s)
 {
     if (binded_signals_.find(s) != binded_signals_.end()) {
-        pd_unbind(asPd(), s);
+        if (s->s_thing)
+            pd_unbind(asPd(), s);
+
         binded_signals_.erase(s);
     }
 }
@@ -902,8 +925,11 @@ void UIObjectImpl::unbindFrom(t_symbol* s)
 void UIObjectImpl::unbindAll()
 {
     for (t_symbol* s : binded_signals_) {
-        pd_unbind(asPd(), s);
+        if (s->s_thing)
+            pd_unbind(asPd(), s);
     }
+
+    binded_signals_.clear();
 }
 
 float UIObjectImpl::fontSize() const

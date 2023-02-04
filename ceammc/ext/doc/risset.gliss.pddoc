@@ -19,7 +19,7 @@
         <properties>
             <property name="@base" type="float" default="60" minvalue="10" maxvalue="100"
             units="semitone">base pitch</property>
-            <property name="@n" type="int" default="5">number of bands</property>
+            <property name="@n" type="int" default="5" access="initonly">number of bands</property>
             <property name="@interval" type="float" default="12" units="semitone">interval between
             bands</property>
             <property name="@shift" type="float" default="0">band shift in octaves</property>

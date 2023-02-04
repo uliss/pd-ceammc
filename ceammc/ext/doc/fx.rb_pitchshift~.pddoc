@@ -14,7 +14,8 @@
             <since>0.9.4</since>
         </meta>
         <arguments>
-            <argument name="PITCH" type="float">transposition in semitones</argument>
+            <argument name="TRANSPOSE" type="float" minvalue="-24" units="semitone" maxvalue="24">
+            transposition in semitones</argument>
         </arguments>
         <properties>
             <property name="@window" type="symbol" enum="standard short long" default="standard">
@@ -32,26 +33,25 @@
             where the pitch scale is exactly 1.0.</property>
             <property name="@transpose" type="float" minvalue="-24" units="semitone" maxvalue="24"
             default="0">transposition in semitones</property>
-            <property name="@phase" type="int" enum="0 1" default="1">control the adjustment of
-            component frequency phases from one analysis window to the next during non-transient
-            segments. 'False' adjust the phase in each frequency bin independently from its
-            neighbours. This usually results in a slightly softer, phasier sound. 'True' adjust
-            phases when stretching in such a way as to try to retain the continuity of phase
-            relationships between adjacent frequency bins whose phases are behaving in similar
-            ways</property>
-            <property name="@smooth" type="int" enum="0 1" default="0">control the use of
-            window-presum FFT and time-domain smoothing. If true result in a softer sound with some
-            audible artifacts around sharp transients, but it may be appropriate for longer
-            stretches of some instruments and can mix well with @window short</property>
+            <property name="@phase" type="bool" default="1">control the adjustment of component
+            frequency phases from one analysis window to the next during non-transient segments.
+            'False' adjust the phase in each frequency bin independently from its neighbours. This
+            usually results in a slightly softer, phasier sound. 'True' adjust phases when
+            stretching in such a way as to try to retain the continuity of phase relationships
+            between adjacent frequency bins whose phases are behaving in similar ways</property>
+            <property name="@smooth" type="bool" default="0">control the use of window-presum FFT
+            and time-domain smoothing. If true result in a softer sound with some audible artifacts
+            around sharp transients, but it may be appropriate for longer stretches of some
+            instruments and can mix well with @window short</property>
             <property name="@scale" type="float" minvalue="0.25" maxvalue="4" default="1">
             transposition as ratio</property>
-            <property name="@formant" type="int" enum="0 1" default="0">control the handling of
-            formant shape (spectral envelope) when pitch-shifting. If 'true' preserve the spectral
-            envelope of the unshifted signal. This permits shifting the note frequency without so
-            substantially affecting the perceived pitch profile of the voice or instrument. 'False'
-            apply no special formant processing. The spectral envelope will be pitch shifted as
+            <property name="@formant" type="bool" default="0">control the handling of formant shape
+            (spectral envelope) when pitch-shifting. If 'true' preserve the spectral envelope of
+            the unshifted signal. This permits shifting the note frequency without so substantially
+            affecting the perceived pitch profile of the voice or instrument. 'False' apply no
+            special formant processing. The spectral envelope will be pitch shifted as
             normal.</property>
-            <property name="@latency" type="float" units="sample" default="1024" readonly="true">
+            <property name="@latency" type="float" units="sample" default="1024" access="readonly">
             object latency</property>
             <property name="@trans" type="symbol" enum="crisp mixed smooth" default="crisp">control
             the component frequency phase-reset mechanism that may be used at transient points to

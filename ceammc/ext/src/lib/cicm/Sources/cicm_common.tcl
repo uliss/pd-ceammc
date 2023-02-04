@@ -154,6 +154,20 @@ if { [catch {package require tooltip} ] } {
 namespace eval ::ceammc {
 namespace eval ui {
 
+namespace eval colors {
+    variable window_background      [ttk::style lookup TFrame -background]
+}
+
+# colors
+switch -- [tk windowingsystem] {
+    "aqua" {
+        set colors::window_background  systemWindowBackgroundColor
+    }
+    "win32" {
+        set colors::window_background  systemWindow
+    }
+}
+
 # border
 proc border_tag { id }   { return "bd${id}" }
 proc border_w { w zoom } { expr $w * $zoom }
@@ -501,22 +515,16 @@ proc comboboxScroll {id delta} {
 namespace eval sframe {
    # Create a scrollable frame or window.
    proc new {path args} {
-       # Use the ttk theme's background for the canvas and toplevel
-       set bg [ttk::style lookup TFrame -background]
-       if { [ttk::style theme use] eq "aqua" } {
-           # Use a specific color on the aqua theme as 'ttk::style lookup' is not accurate.
-           set bg "#e9e9e9"
-       }
-
        # Create the main frame or toplevel.
        if { [dict exists $args -toplevel]  &&  [dict get $args -toplevel] } {
-           toplevel $path -bg $bg
+           toplevel $path -background $::ceammc::ui::colors::window_background
        } else {
            ttk::frame $path
        }
 
        # Create a scrollable canvas with scrollbars which will always be the same size as the main frame.
-       set canvas [canvas $path.canvas -bg $bg -bd 0 -highlightthickness 0 -yscrollcommand [list $path.scrolly set]]
+       set canvas [canvas $path.canvas -bg $::ceammc::ui::colors::window_background -bd 0 \
+            -highlightthickness 0 -yscrollcommand [list $path.scrolly set]]
        ttk::scrollbar $path.scrolly -orient vertical -command [list $canvas yview]
 
        # Create a container frame which will always be the same size as the canvas or content, whichever is greater.

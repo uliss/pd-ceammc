@@ -26,9 +26,9 @@
         <properties>
             <property name="@sf" type="symbol">soundfont path, you can use **default** value to
             load default soundfont</property>
-            <property name="@version" type="symbol" readonly="true" default="2.0.0">FluidSynth
+            <property name="@version" type="symbol" access="readonly" default="2.0.0">FluidSynth
             version</property>
-            <property name="@soundfonts" type="list" readonly="true">list of found
+            <property name="@soundfonts" type="list" access="readonly" default="">list of found
             soundfonts</property>
             <property name="@gain" type="float" minvalue="0" maxvalue="10" default="0">output
             gain</property>
@@ -42,11 +42,13 @@
             <property name="@reverb_damp" type="float" default="0">reverberation damp</property>
             <property name="@poly" type="float" minvalue="1" maxvalue="1024" default="0">max number
             of voices</property>
-            <property name="@avoices" type="float" default="0" readonly="true">number midi
+            <property name="@avoices" type="float" default="0" access="readonly">number midi
             channels</property>
-            <property name="@n" type="int" default="16" readonly="true">number of active
+            <property name="@n" type="int" default="16" access="readonly">number of active
             voices</property>
-            <property name="@bufsize" units="sample" type="float" default="0" readonly="true">
+            <property name="@cpuload" type="float" default="0" access="readonly">current cpu
+            load</property>
+            <property name="@bufsize" units="sample" type="float" default="0" access="readonly">
             internal buffer size</property>
         </properties>
         <methods>
@@ -109,11 +111,11 @@
             MIDI channel, if zero or ommited set for all channels</param>
             <param name="VALUE" required="true" type="float" minvalue="-1" maxvalue="1">value in
             -1..+1 range, with 0 center.</param></method>
-            <method name="bendsens">set pitchbend sensivity 
+            <method name="bendsens">set pitchbend sensitivity 
             <param name="CHAN" required="false" type="int" default="0" minvalue="0" maxvalue="16">
             MIDI channel, if zero or ommited set for all channels</param>
             <param name="RANGE" units="semitone" type="int" minvalue="0" maxvalue="64"
-            required="true">semitones sensivity</param></method>
+            required="true">semitones sensitivity</param></method>
             <!-- tune:s -->
             <method name="tune:s">set tuninig in semitones 
             <param name="CHAN" required="false" type="int" default="0" minvalue="0" maxvalue="16">
@@ -214,6 +216,7 @@
         <outlets>
             <outlet type="audio">left channel and property output</outlet>
             <outlet type="audio">right channel</outlet>
+            <outlet type="control">int: number of active voices (output only on change)</outlet>
         </outlets>
         <example>
             <pdascii>

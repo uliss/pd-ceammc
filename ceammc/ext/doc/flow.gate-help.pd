@@ -20,16 +20,16 @@ object \, since object accepts all incoming messages;
 #X obj 20 299 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 110 334 1\.;
-#X text 150 334 int;
-#X obj 246 335 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 334 PASS: init gate state. 1 means open \, 0 - closed.
-By default gate is closed. Type: int.;
+#X text 150 334 bool;
+#X obj 246 335 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 334 STATE: init gate state. 1 means open \, 0 - closed.
+By default gate is closed. Type: bool.;
 #X obj 20 379 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 384 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 419 @state;
 #X text 245 419 Get/Set gate state. 1 means open \, 0 - closed. Type:
-int. Default value: 0\. Allowed values: 0 \, 1\.;
+bool. Default value: 0\.;
 #X obj 20 471 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 476 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
@@ -51,7 +51,7 @@ closes.;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title flow @url ceammc.flow-help.pd;
 #X obj 1 583 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 586 library: ceammc v0.9.5;
+#X text 10 586 library: ceammc v0.9.6;
 #X text 601 598 see also:;
 #X obj 675 598 flow.pass;
 #N canvas 10 605 400 290 info 0;
@@ -59,7 +59,7 @@ closes.;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.5;
+#X text 120 32 0.9.6;
 #X text 10 54 object:;
 #X text 120 54 flow.gate;
 #X text 10 76 category:;

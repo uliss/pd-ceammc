@@ -16,8 +16,11 @@
                 <see>list.pass_if</see>
             </also>
         </meta>
+        <arguments>
+            <argument name="ARGS" type="list">list of passed value</argument>
+        </arguments>
         <properties>
-            <property name="@args" type="list">list of passed value</property>
+            <property name="@args" type="list" default="">list of passed value</property>
         </properties>
         <inlets>
             <inlet>

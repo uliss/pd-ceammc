@@ -28,7 +28,7 @@ TEST_CASE("pan.spread~", "[externals]")
         SECTION("default")
         {
             TExt t("pan.spread~", L(), true);
-            REQUIRE_PROPERTY(t, @ch, 2);
+            REQUIRE_PROPERTY(t, @n, 2);
             REQUIRE_PROPERTY(t, @spread, 1);
             REQUIRE_PROPERTY(t, @center, 0.f);
             REQUIRE_PROPERTY(t, @compensate, 0.f);
@@ -42,7 +42,7 @@ TEST_CASE("pan.spread~", "[externals]")
         SECTION("num")
         {
             TExt t("pan.spread~", LF(3), true);
-            REQUIRE_PROPERTY(t, @ch, 3);
+            REQUIRE_PROPERTY(t, @n, 3);
 
             REQUIRE(t.numInlets() == 3);
             REQUIRE(t.numOutlets() == 2);
@@ -52,8 +52,8 @@ TEST_CASE("pan.spread~", "[externals]")
 
         SECTION("prop")
         {
-            TExt t("pan.spread~", LA("@ch", 6), true);
-            REQUIRE_PROPERTY(t, @ch, 6);
+            TExt t("pan.spread~", LA("@n", 6), true);
+            REQUIRE_PROPERTY(t, @n, 6);
 
             REQUIRE(t.numInlets() == 6);
             REQUIRE(t.numInputChannels() == 6);
@@ -70,37 +70,37 @@ TEST_CASE("pan.spread~", "[externals]")
             SECTION("min")
             {
                 TExt t("pan.spread~", LF(1), true);
-                REQUIRE_PROPERTY(t, @ch, 2);
+                REQUIRE_PROPERTY(t, @n, 2);
             }
 
             SECTION("max")
             {
                 TExt t("pan.spread~", LF(32), true);
-                REQUIRE_PROPERTY(t, @ch, 2);
+                REQUIRE_PROPERTY(t, @n, 2);
             }
 
             SECTION("min prop")
             {
-                TExt t("pan.spread~", LA("@ch", -6), true);
-                REQUIRE_PROPERTY(t, @ch, 2);
+                TExt t("pan.spread~", LA("@n", -6), true);
+                REQUIRE_PROPERTY(t, @n, 2);
             }
 
             SECTION("max prop")
             {
-                TExt t("pan.spread~", LA("@ch", 32), true);
-                REQUIRE_PROPERTY(t, @ch, 2);
+                TExt t("pan.spread~", LA("@n", 32), true);
+                REQUIRE_PROPERTY(t, @n, 2);
             }
 
             SECTION("other")
             {
                 TExt t("pan.spread~", LA("ABC"), true);
-                REQUIRE_PROPERTY(t, @ch, 2);
+                REQUIRE_PROPERTY(t, @n, 2);
             }
 
             SECTION("mixed")
             {
-                TExt t("pan.spread~", LA(5, "@ch", 3), true);
-                REQUIRE_PROPERTY(t, @ch, 3);
+                TExt t("pan.spread~", LA(5, "@n", 3), true);
+                REQUIRE_PROPERTY(t, @n, 3);
             }
         }
     }

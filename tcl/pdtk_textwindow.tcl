@@ -16,17 +16,22 @@ proc pdtk_textwindow_open {name geometry title font} {
  if {[winfo exists $name]} {
         $name.text delete 1.0 end
     } else {
-        toplevel $name
+        # ceammc: bg
+        toplevel $name -background $::pd_colors::window_background
         wm title $name $title
         wm geometry $name $geometry
         wm protocol $name WM_DELETE_WINDOW \
             [concat pdtk_textwindow_close $name 1]
         bind $name <<Modified>> "pdtk_textwindow_dodirty $name"
+        # ceammc: colors
         text $name.text -relief raised -highlightthickness 0 -bd 2 \
             -font [get_font_for_size $font] \
             -exportselection 1 -undo 1 \
-            -yscrollcommand "$name.scroll set" -background white
-        scrollbar $name.scroll -command "$name.text yview"
+            -yscrollcommand "$name.scroll set" \
+            -background $::pd_colors::text_background \
+            -foreground $::pd_colors::text
+        # ceammc: ttk
+        ttk::scrollbar $name.scroll -command "$name.text yview"
         pack $name.scroll -side right -fill y
         pack $name.text -side left -fill both -expand 1
         bind $name.text <$::modifier-Key-s> "pdtk_textwindow_send $name"

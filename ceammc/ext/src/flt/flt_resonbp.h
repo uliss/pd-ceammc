@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "flt.resonbp"
 Code generated with Faust 2.53.1 (https://faust.grame.fr)
-Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn flt_resonbp -scn flt_resonbp_dsp -es 1 -mcd 16 -single -ftz 0
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn flt_resonbp -scn flt_resonbp_dsp -es 1 -mcd 16 -double -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __flt_resonbp_H__
@@ -642,7 +642,7 @@ struct flt_resonbp : public flt_resonbp_dsp {
 #define RESTRICT __restrict__
 #endif
 
-static float flt_resonbp_faustpower2_f(float value) {
+static double flt_resonbp_faustpower2_f(double value) {
 	return value * value;
 }
 
@@ -651,19 +651,19 @@ class flt_resonbp : public flt_resonbp_dsp {
  private:
 	
 	int fSampleRate;
-	float fConst1;
-	float fConst2;
+	double fConst1;
+	double fConst2;
 	FAUSTFLOAT fVslider0;
-	float fConst3;
-	float fRec1[2];
+	double fConst3;
+	double fRec1[2];
 	FAUSTFLOAT fVslider1;
-	float fRec2[2];
-	float fRec0[3];
+	double fRec2[2];
+	double fRec0[3];
 	
  public:
 	
 	void metadata(Meta* m) { 
-		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn flt_resonbp -scn flt_resonbp_dsp -es 1 -mcd 16 -single -ftz 0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn flt_resonbp -scn flt_resonbp_dsp -es 1 -mcd 16 -double -ftz 0");
 		m->declare("filename", "flt_resonbp.dsp");
 		m->declare("filters.lib/fir:author", "Julius O. Smith III");
 		m->declare("filters.lib/fir:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -707,26 +707,26 @@ class flt_resonbp : public flt_resonbp_dsp {
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
-		float fConst0 = std::min<float>(1.92e+05f, std::max<float>(1.0f, float(fSampleRate)));
-		fConst1 = 3.1415927f / fConst0;
-		fConst2 = 44.1f / fConst0;
-		fConst3 = 1.0f - fConst2;
+		double fConst0 = std::min<double>(1.92e+05, std::max<double>(1.0, double(fSampleRate)));
+		fConst1 = 3.141592653589793 / fConst0;
+		fConst2 = 44.1 / fConst0;
+		fConst3 = 1.0 - fConst2;
 	}
 	
 	virtual void instanceResetUserInterface() {
-		fVslider0 = FAUSTFLOAT(1e+03f);
-		fVslider1 = FAUSTFLOAT(8e+01f);
+		fVslider0 = FAUSTFLOAT(1e+03);
+		fVslider1 = FAUSTFLOAT(8e+01);
 	}
 	
 	virtual void instanceClear() {
 		for (int l0 = 0; l0 < 2; l0 = l0 + 1) {
-			fRec1[l0] = 0.0f;
+			fRec1[l0] = 0.0;
 		}
 		for (int l1 = 0; l1 < 2; l1 = l1 + 1) {
-			fRec2[l1] = 0.0f;
+			fRec2[l1] = 0.0;
 		}
 		for (int l2 = 0; l2 < 3; l2 = l2 + 1) {
-			fRec0[l2] = 0.0f;
+			fRec0[l2] = 0.0;
 		}
 	}
 	
@@ -751,26 +751,26 @@ class flt_resonbp : public flt_resonbp_dsp {
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("flt.resonbp");
 		ui_interface->declare(&fVslider0, "unit", "Hz");
-		ui_interface->addVerticalSlider("freq", &fVslider0, FAUSTFLOAT(1e+03f), FAUSTFLOAT(2e+01f), FAUSTFLOAT(2e+04f), FAUSTFLOAT(0.1f));
-		ui_interface->addVerticalSlider("q", &fVslider1, FAUSTFLOAT(8e+01f), FAUSTFLOAT(0.1f), FAUSTFLOAT(3e+02f), FAUSTFLOAT(0.1f));
+		ui_interface->addVerticalSlider("freq", &fVslider0, FAUSTFLOAT(1e+03), FAUSTFLOAT(2e+01), FAUSTFLOAT(2e+04), FAUSTFLOAT(0.1));
+		ui_interface->addVerticalSlider("q", &fVslider1, FAUSTFLOAT(8e+01), FAUSTFLOAT(0.1), FAUSTFLOAT(3e+02), FAUSTFLOAT(0.1));
 		ui_interface->closeBox();
 	}
 	
 	virtual void compute(int count, FAUSTFLOAT** RESTRICT inputs, FAUSTFLOAT** RESTRICT outputs) {
 		FAUSTFLOAT* input0 = inputs[0];
 		FAUSTFLOAT* output0 = outputs[0];
-		float fSlow0 = fConst2 * float(fVslider0);
-		float fSlow1 = fConst2 * float(fVslider1);
+		double fSlow0 = fConst2 * double(fVslider0);
+		double fSlow1 = fConst2 * double(fVslider1);
 		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
 			fRec1[0] = fSlow0 + fConst3 * fRec1[1];
-			float fTemp0 = std::tan(fConst1 * fRec1[0]);
-			float fTemp1 = 1.0f / fTemp0;
+			double fTemp0 = std::tan(fConst1 * fRec1[0]);
+			double fTemp1 = 1.0 / fTemp0;
 			fRec2[0] = fSlow1 + fConst3 * fRec2[1];
-			float fTemp2 = 1.0f / fRec2[0];
-			float fTemp3 = (fTemp2 + fTemp1) / fTemp0 + 1.0f;
-			fRec0[0] = float(input0[i0]) - (fRec0[2] * ((fTemp1 - fTemp2) / fTemp0 + 1.0f) + 2.0f * fRec0[1] * (1.0f - 1.0f / flt_resonbp_faustpower2_f(fTemp0))) / fTemp3;
-			float fTemp4 = fTemp0 * fTemp3;
-			output0[i0] = FAUSTFLOAT(fRec0[0] / fTemp4 + fRec0[2] * (0.0f - 1.0f / fTemp4));
+			double fTemp2 = 1.0 / fRec2[0];
+			double fTemp3 = (fTemp2 + fTemp1) / fTemp0 + 1.0;
+			fRec0[0] = double(input0[i0]) - (fRec0[2] * ((fTemp1 - fTemp2) / fTemp0 + 1.0) + 2.0 * fRec0[1] * (1.0 - 1.0 / flt_resonbp_faustpower2_f(fTemp0))) / fTemp3;
+			double fTemp4 = fTemp0 * fTemp3;
+			output0[i0] = FAUSTFLOAT(fRec0[0] / fTemp4 + fRec0[2] * (0.0 - 1.0 / fTemp4));
 			fRec1[1] = fRec1[0];
 			fRec2[1] = fRec2[0];
 			fRec0[2] = fRec0[1];

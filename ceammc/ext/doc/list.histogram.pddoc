@@ -16,6 +16,10 @@
         <info>
             <par>Histogram outputted as list of probabilities in specified number of bins</par>
         </info>
+        <arguments>
+            <argument name="BINS" type="int" minvalue="2" maxvalue="1024">number of histogram
+            bins</argument>
+        </arguments>
         <properties>
             <property name="@bins" type="int" minvalue="2" default="100" maxvalue="1024">number of
             histogram bins</property>
@@ -24,6 +28,9 @@
             <inlet>
                 <xinfo on="list">input list</xinfo>
                 <xinfo on="data:mlist">input mlist</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="int">set number of bins</xinfo>
             </inlet>
         </inlets>
         <outlets>

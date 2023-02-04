@@ -10,6 +10,7 @@ ListEqual::ListEqual(const PdArgs& a)
     createOutlet();
 
     pattern_ = new ListProperty("@pattern", a.args);
+    pattern_->setArgIndex(0);
     addProperty(pattern_);
 }
 

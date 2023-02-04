@@ -17,8 +17,7 @@
             </also>
         </meta>
         <properties>
-            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
-            processing</property>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
         <info>
             <par>outputs random numbers between -1 and 1 at signal rate.</par>
@@ -32,11 +31,17 @@
 [ui.dsp~]
 
 
-[noise.white~]
-|
-|
-|
-[ui.scope~]
+[noise.white~           ]
+|                       |
+[ui.gain~ @size 120 16] [ui.ssc~ @size 300 120 @log_scale 1]
+|*
+|*
+|*
+|*
+|*
+[dac~]
+
+[ui.dsp~]
 ]]>
             </pdascii>
         </example>

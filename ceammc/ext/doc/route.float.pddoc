@@ -21,15 +21,15 @@
             requests) are passed thru</par>
         </info>
         <properties>
-            <property name="@strict" type="int" enum="0 1" default="0">strict mode. By default list
-            with single float treated as float. Set to true to disable this behavior</property>
+            <property name="@strict" type="bool" default="0">strict mode. By default list with
+            single float treated as float. Set to true to disable this behavior</property>
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">float to first outlet</xinfo>
+                <xinfo on="float">float to *first* outlet</xinfo>
                 <xinfo on="bang">bang to second outlet</xinfo>
                 <xinfo on="symbol">symbol to second outlet</xinfo>
-                <xinfo on="list">list to second outlet</xinfo>
+                <xinfo on="list">list to second outlet. See @strict property for details</xinfo>
                 <xinfo on="any">any to second outlet</xinfo>
             </inlet>
         </inlets>

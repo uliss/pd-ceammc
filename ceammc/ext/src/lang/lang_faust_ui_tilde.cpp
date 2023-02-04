@@ -15,8 +15,12 @@
 #include "ceammc_factory.h"
 #include "ceammc_platform.h"
 
-#include "fmt/format.h"
+#include "fmt/core.h"
+#include "nui/button_view.h"
 #include "nui/factory.h"
+#include "nui/label_view.h"
+#include "nui/slider_view.h"
+#include "nui/tk_view_impl.h"
 
 extern "C" {
 int ceammc_init_done();
@@ -46,7 +50,7 @@ void initFaustStyle()
     const HexColor PALLETE1 = 0x457b9d;
     const HexColor PALLETE2 = 0xa8dadc;
     const HexColor PALLETE3 = 0xf1faee;
-    const HexColor PALLETE4 = 0xe63946; //e63946
+    const HexColor PALLETE4 = 0xe63946; // e63946
 
     st.insertColor("box:fill_color"_hash, PALLETE0);
     st.insertColor("label:color"_hash, PALLETE3);
@@ -437,16 +441,21 @@ void FaustMasterView::createButtonEntry(faust::UIProperty* p)
     vgroup->appendChild(std::move(hgroup));
 }
 
-#ifdef _WIN32
-#define EXPORT extern "C"  __declspec(dllexport)
-#else
-#define EXPORT extern "C"
-#endif
-
-EXPORT void setup_ui0x2efaust_tilde()
+void setup_ui0x2efaust_tilde()
 {
     if (!ceammc_init_done())
         ceammc_setup();
+
+    auto cls = setup_ui_faust_non_external();
+
+    std::string path = class_gethelpdir(cls);
+    path += "/faust";
+    LangFaustUiTilde::addIncludePath(path);
+}
+
+t_class* setup_ui_faust_non_external()
+{
+    tcl_nui_init();
 
     ui::UIFactory<SoundExternalFactory, LangFaustUiTilde> obj("ui.faust~");
     obj.useMouseEnter();
@@ -462,8 +471,5 @@ EXPORT void setup_ui0x2efaust_tilde()
 
     initFaustStyle();
 
-    obj.classPointer();
-    std::string path = class_gethelpdir(obj.classPointer());
-    path += "/faust";
-    LangFaustUiTilde::addIncludePath(path);
+    return obj.classPointer();
 }

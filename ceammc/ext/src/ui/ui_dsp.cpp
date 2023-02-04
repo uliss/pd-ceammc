@@ -30,7 +30,7 @@ void UIDsp::paint()
 {
     // first time only to draw in right state
     if (!init_) {
-        state_ = canvas_dspstate;
+        state_ = pd_getdspstate();
         init_ = true;
     }
 
@@ -42,7 +42,7 @@ void UIDsp::paint()
 
 void UIDsp::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
-    if (canvas_dspstate)
+    if (pd_getdspstate())
         m_stop(AtomList());
     else
         m_start(AtomList());

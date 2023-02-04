@@ -25,8 +25,8 @@
             output</par>
         </info>
         <properties>
-            <property name="@sort" type="flag" default="0">if specified - sort output
-            list</property>
+            <property name="@sort" type="flag" default="0" access="initonly">if specified - sort
+            output list</property>
         </properties>
         <inlets>
             <inlet>
@@ -49,9 +49,7 @@
 |           |
 [set->list] [set->list @sort]
 |           |
-[msg set]   [msg set]
-|           |
-[ (         [ (
+[ui.dt]     [ui.dt]
 ]]>
             </pdascii>
         </example>

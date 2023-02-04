@@ -14,6 +14,7 @@
 #ifndef FLUID_H
 #define FLUID_H
 
+#include "ceammc_clock.h"
 #include "ceammc_sound_external.h"
 #include "proto/proto_midi_parser.h"
 
@@ -33,6 +34,8 @@ class Fluid : public SoundExternal {
     fluid_synth_t* synth_;
     t_symbol* sound_font_;
     midi::MidiParser midi_parser_;
+    ClockLambdaFunction nvoices_cb_;
+    int nvoices_;
 
 public:
     Fluid(const PdArgs& args);
@@ -44,6 +47,7 @@ public:
 
     void setupDSP(t_signal** sp) final;
     void processBlock(const t_sample** in, t_sample** out) final;
+    void samplerateChanged(size_t sr) final;
 
     bool propSetSoundFont(t_symbol* s);
     AtomList propVersion() const;

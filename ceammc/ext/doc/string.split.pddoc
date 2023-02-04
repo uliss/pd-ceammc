@@ -26,17 +26,21 @@
             Pd symbols use @sym flag or use alias [symbol.split]</par>
         </info>
         <arguments>
-            <argument name="SEP" type="atom">separator. If nonspecified - separate by every char.
+            <argument name="SEP" type="symbol">separator. If nonspecified - separate by every char.
             To separate by space - use " " argument</argument>
         </arguments>
         <properties>
             <property name="@sep" type="symbol">separator</property>
-            <property name="@sym" type="flag">flag to output as list of Pd symbols</property>
+            <property name="@sym" type="flag" access="initonly">flag to output as list of Pd
+            symbols</property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="symbol">input symbol</xinfo>
                 <xinfo on="data:string">input symbol</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="symbol">set split symbol</xinfo>
             </inlet>
         </inlets>
         <outlets>

@@ -13,7 +13,6 @@
  *****************************************************************************/
 #include <cmath>
 
-#include "ceammc_convert.h"
 #include "ceammc_factory.h"
 #include "hoa_map.h"
 

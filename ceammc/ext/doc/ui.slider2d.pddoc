@@ -36,15 +36,14 @@
             <property name="@x_right" type="float" default="1">rightmost x-value</property>
             <property name="@y_top" type="float" default="1">top y-value</property>
             <property name="@y_bottom" type="float" default="-1">bottom y-value</property>
-            <property name="@x_range" type="float" readonly="true" default="2">abs x-value
+            <property name="@x_range" type="float" access="readonly" default="2">abs x-value
             range</property>
-            <property name="@y_range" type="float" readonly="true" default="2">abs y-value
+            <property name="@y_range" type="float" access="readonly" default="2">abs y-value
             range</property>
             <property name="@x_value" type="float" default="0">slider x-value</property>
             <property name="@y_value" type="float" default="0">slider y-value</property>
-            <property name="@show_range" type="int" enum="0 1" default="1">if show slider
-            range</property>
-            <property name="@show_grid" type="int" enum="0 1" default="0">if show grid</property>
+            <property name="@show_range" type="bool" default="1">if show slider range</property>
+            <property name="@show_grid" type="bool" default="0">if show grid</property>
             <!-- common -->
             <property name="@presetname" type="symbol" default="(null)">preset name for using with
             [ui.preset]</property>
@@ -52,17 +51,19 @@
             <property name="@receive" type="symbol" default="(null)">receive source</property>
             <property name="@size" type="list" default="100 100">element size (width, height
             pair)</property>
-            <property name="@pinned" type="int" enum="0 1" default="0">pin mode. if 1 - put element
-            to the lowest level</property>
-            <property name="@mouse_events" type="int" enum="0 1" default="0">mouse events output
-            mode. If on outputs @mouse_down, @mouse_up and @mouse_drag events</property>
+            <property name="@pinned" type="bool" default="0">pin mode. if 1 - put element to the
+            lowest level</property>
+            <property name="@mouse_events" type="bool" default="0">mouse events output mode. If on
+            outputs @mouse_down, @mouse_up and @mouse_drag events</property>
             <property name="@background_color" type="list" default="0.93 0.93 0.93 1">element
             background color (list of red, green, blue values in 0-1 range)</property>
             <property name="@border_color" type="list" default="0.6 0.6 0.6 1">border color (list
             of red, green, blue values in 0-1 range)</property>
-            <property name="@fontsize" type="int" minvalue="4" maxvalue="11" default="11">
+            <!-- font -->
+            <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
             fontsize</property>
-            <property name="@fontname" type="symbol" default="Helvetica">fontname</property>
+            <property name="@fontname" type="symbol" default="Helvetica"
+            enum="Courier DejaVu Helvetica Monaco Times">fontname</property>
             <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
             weight</property>
             <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
@@ -71,8 +72,8 @@
             <property name="@label" type="symbol" default="(null)">label text</property>
             <property name="@label_color" type="list" default="0 0 0 1">label color in RGB format
             within 0-1 range, for example: 0.2 0.4 0.1</property>
-            <property name="@label_inner" type="int" enum="0 1" default="0">label position (1 -
-            inner, 0 - outer).</property>
+            <property name="@label_inner" type="bool" default="0">label position (1 - inner, 0 -
+            outer).</property>
             <property name="@label_align" type="symbol" enum="left center right" default="left">
             label horizontal align</property>
             <property name="@label_valign" type="symbol" enum="top center bottom" default="top">

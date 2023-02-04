@@ -16,8 +16,11 @@
                 <see>list.reject_if</see>
             </also>
         </meta>
+        <arguments>
+            <argument name="ARGS" type="list">list of rejected values</argument>
+        </arguments>
         <properties>
-            <property name="@args" type="list">list of rejected values</property>
+            <property name="@args" type="list" default="">list of rejected values</property>
         </properties>
         <inlets>
             <inlet>

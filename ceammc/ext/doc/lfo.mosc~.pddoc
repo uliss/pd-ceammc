@@ -21,12 +21,14 @@
             <par>switching between waveforms is interpolated and takes 50ms.</par>
         </info>
         <arguments>
-            <argument name="freq" type="float" units="herz">frequency</argument>
+            <argument name="FREQ" type="float" units="hertz">frequency</argument>
+            <argument name="WAVE" type="symbol"
+            enum="sin saw tri sqr pulse +sin +saw +tri +sqr +pulse">wave type</argument>
         </arguments>
         <properties>
             <property name="@duty" type="float" minvalue="0" maxvalue="1" default="0.5">duty cycle
             for pulse waveform</property>
-            <property name="@pause" type="int" enum="0 1" default="0">pause oscillator at current
+            <property name="@pause" type="bool" default="0">pause oscillator at current
             value</property>
             <property name="@phase" type="float" minvalue="0" maxvalue="1" default="0">initial
             phase</property>
@@ -35,8 +37,7 @@
             +pulse.</property>
             <property name="@wave" type="symbol" default="sin"
             enum="sin saw tri sqr pulse +sin +saw +tri +sqr +pulse">wave type</property>
-            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
-            processing</property>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
         <methods>
             <method name="reset">reset to initial state</method>

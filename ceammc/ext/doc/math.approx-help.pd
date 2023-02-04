@@ -8,7 +8,7 @@
 #X obj 591 11 approx;
 #X obj 660 11 math.approx;
 #X obj 210 80 cnv 1 555 35 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 checks is |x - pattern| <= |epsilon|;
+#X text 215 80 checks if |x - pattern| <= |epsilon|;
 #X obj 50 143 hslider 128 15 0.0 127.0 0 0 empty empty empty 17 7 0 10
 -262144 -1 -1 0 0;
 #X msg 88 172 1.99 2 0.01;
@@ -21,12 +21,12 @@
 -49933 0;
 #X text 110 348 1\.;
 #X text 150 348 float;
-#X obj 246 349 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 348 P: compare pattern. Type: float.;
+#X obj 246 349 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 348 VALUE: compare pattern. Type: float.;
 #X text 110 368 2\.;
 #X text 150 368 float;
-#X obj 246 369 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 368 E: compare epsilon. Type: float.;
+#X obj 246 369 cnv 1 61 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 368 EPSILON: compare epsilon. Type: float.;
 #X obj 20 398 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 403 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -62,13 +62,13 @@
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title math @url ceammc.math-help.pd;
 #X obj 1 673 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 676 library: ceammc v0.9.5;
+#X text 10 676 library: ceammc v0.9.6;
 #N canvas 10 695 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.5;
+#X text 120 32 0.9.6;
 #X text 10 54 object:;
 #X text 120 54 math.approx;
 #X text 10 76 category:;

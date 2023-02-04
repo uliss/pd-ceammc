@@ -31,8 +31,10 @@ proc ::pdwindow::set_layout {} {
     variable maxloglevel
     .pdwindow.text.internal tag configure log0 -foreground "#d00" -background "#ffe0e8"
     .pdwindow.text.internal tag configure log1 -foreground "#d00"
-    # log2 messages are normal black on white
-    .pdwindow.text.internal tag configure log3 -foreground "#484848"
+    # ceammc: dark theme support for mac
+    .pdwindow.text.internal tag configure log2 -foreground $::pd_colors::log_print
+    .pdwindow.text.internal tag configure log3 -foreground $::pd_colors::log_debug
+    # ceammc end
 
     # 0-20(4-24) is a rough useful range of 'verbose' levels for impl debugging
     set start 4
@@ -239,11 +241,13 @@ proc ::pdwindow::pdtk_pd_dsp {value} {
 }
 
 proc ::pdwindow::pdtk_pd_dio {red} {
+    # ceammc
     if {$red == 1} {
-        .pdwindow.header.ioframe.dio configure -foreground red
+        .pdwindow.header.ioframe.dio configure -text [_ "Audio I/O error"]
     } else {
-        .pdwindow.header.ioframe.dio configure -foreground lightgray
+        .pdwindow.header.ioframe.dio configure -text {}
     }
+    # ceammc end
 }
 
 proc ::pdwindow::pdtk_pd_audio {state} {
@@ -376,13 +380,15 @@ proc ::pdwindow::create_window {} {
     set ::loaded(.pdwindow) 0
 
     # colorize by class before creating anything
-    option add *PdWindow*Entry.highlightBackground "grey" startupFile
-    option add *PdWindow*Frame.background "grey" startupFile
-    option add *PdWindow*Label.background "grey" startupFile
-    option add *PdWindow*Checkbutton.background "grey" startupFile
-    option add *PdWindow*Menubutton.background "grey" startupFile
-    option add *PdWindow*Text.background "white" startupFile
-    option add *PdWindow*Entry.background "white" startupFile
+    # ceammc: dark theme support
+    # option add *PdWindow*Entry.highlightBackground "grey" startupFile
+    option add *PdWindow*Frame.background $::pd_colors::window_background startupFile
+    option add *PdWindow*Label.background $::pd_colors::window_background startupFile
+    # option add *PdWindow*Checkbutton.background "grey" startupFile
+    # option add *PdWindow*Menubutton.background "grey" startupFile
+    option add *PdWindow*Text.background $::pd_colors::text_background startupFile
+    option add *PdWindow*Entry.background $::pd_colors::window_background startupFile
+    # ceammc end
 
     toplevel .pdwindow -class PdWindow
     wm title .pdwindow [_ "Pd"]
@@ -394,38 +400,37 @@ proc ::pdwindow::create_window {} {
     }
     wm geometry .pdwindow =500x400
 
-    frame .pdwindow.header -borderwidth 1 -relief flat -background lightgray
+    # ceammc tcl dark theme
+    ttk::frame .pdwindow.header
     pack .pdwindow.header -side top -fill x -ipady 5
 
-    frame .pdwindow.header.pad1
+    ttk::frame .pdwindow.header.pad1
     pack .pdwindow.header.pad1 -side left -padx 12
 
-    checkbutton .pdwindow.header.dsp -text [_ "DSP"] -variable ::dsp \
-        -takefocus 1 -background lightgray \
-        -borderwidth 0  -command {pdsend "pd dsp $::dsp"}
+    # ceammc: using ttk
+    ttk::checkbutton .pdwindow.header.dsp -text [_ "DSP"] -variable ::dsp \
+        -takefocus 1 -command {pdsend "pd dsp $::dsp"}
     pack .pdwindow.header.dsp -side right -fill y -anchor e -padx 5 -pady 0
 
 # frame for DIO error and audio in/out labels
-    frame .pdwindow.header.ioframe -background lightgray
+    # ceammc: tcl dark theme
+    ttk::frame .pdwindow.header.ioframe
     pack .pdwindow.header.ioframe -side right -padx 30
 
 # I/O state label (shows I/O on/off/in-only/out-only)
-    label .pdwindow.header.ioframe.iostate \
-        -text [_ "Audio off"] -borderwidth 1 \
-        -background lightgray -foreground black \
-        -takefocus 0
+    # ceammc: tcl dark theme
+    ttk::label .pdwindow.header.ioframe.iostate \
+        -text [_ "Audio off"] -takefocus 0
 
 # DIO error label
-    label .pdwindow.header.ioframe.dio \
-        -text [_ "Audio I/O error"] -borderwidth 1 \
-        -background lightgray -foreground lightgray \
-        -takefocus 0
+    # ceammc colors
+    ttk::label .pdwindow.header.ioframe.dio -takefocus 0
 
     pack .pdwindow.header.ioframe.iostate .pdwindow.header.ioframe.dio \
         -side top
 
-    label .pdwindow.header.loglabel -text [_ "Log:"] -anchor e \
-        -background lightgray
+    # ceammc: tcl dark theme
+    ttk::label .pdwindow.header.loglabel -text [_ "Log:"] -anchor e
     pack .pdwindow.header.loglabel -side left
 
     set loglevels {0 1 2 3 4}
@@ -434,9 +439,10 @@ proc ::pdwindow::create_window {} {
     lappend logmenuitems "2 [_ normal]"
     lappend logmenuitems "3 [_ debug]"
     lappend logmenuitems "4 [_ all]"
+    # ceammc colors
     set logmenu \
         [eval tk_optionMenu .pdwindow.header.logmenu ::loglevel $loglevels]
-    .pdwindow.header.logmenu configure -background lightgray
+    .pdwindow.header.logmenu configure -background $::pd_colors::window_background
     foreach i $loglevels {
         $logmenu entryconfigure $i -label [lindex $logmenuitems $i]
     }
@@ -452,7 +458,8 @@ proc ::pdwindow::create_window {} {
         -highlightthickness 0 -borderwidth 1 -relief flat \
         -yscrollcommand ".pdwindow.scroll set" -width 60 \
         -undo false -autoseparators false -maxundo 1 -takefocus 0
-    scrollbar .pdwindow.scroll -command ".pdwindow.text.internal yview"
+    # ceammc: using ttk scrollbar
+    ttk::scrollbar .pdwindow.scroll -command ".pdwindow.text.internal yview"
     pack .pdwindow.scroll -side right -fill y
     pack .pdwindow.text -side right -fill both -expand 1
     raise .pdwindow

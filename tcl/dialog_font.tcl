@@ -126,11 +126,12 @@ proc ::dialog_font::pdtk_canvas_dofont {gfxstub initsize} {
     } else {
         create_dialog $gfxstub
     }
-    .font.fontsize.radio$fontsize select
+    .font.fontsize.radio$fontsize invoke
 }
 
 proc ::dialog_font::create_dialog {gfxstub} {
-    toplevel .font -class DialogWindow
+    # ceammc: bg
+    toplevel .font -class DialogWindow -background $::pd_colors::window_background
     .font configure -menu $::dialog_menubar
     .font configure -padx 10 -pady 5
     wm group .font .
@@ -147,44 +148,51 @@ proc ::dialog_font::create_dialog {gfxstub} {
     bind .font <Up> "::dialog_font::arrow_fontchange -1"
     bind .font <Down> "::dialog_font::arrow_fontchange 1"
 
-    frame .font.buttonframe
+    # ceammc: ttk
+    ttk::frame .font.buttonframe
     pack .font.buttonframe -side bottom -pady 2m
-    button .font.buttonframe.ok -text [_ "Close"] \
+    ttk::button .font.buttonframe.ok -text [_ "Close"] \
         -command "::dialog_font::cancel $gfxstub" -default active
     pack .font.buttonframe.ok -side left -expand 1 -fill x -ipadx 10
 
-    labelframe .font.fontsize -text [_ "Font Size"] -padx 5 -pady 4 -borderwidth 1 \
+    # ceammc: ttk
+    ttk::labelframe .font.fontsize -text [_ "Font Size"] \
         -width [::msgcat::mcmax "Font Size"] -labelanchor n
     pack .font.fontsize -side left -padx 5
 
     # this is whacky Tcl at its finest, but I couldn't resist...
     foreach size $::dialog_font::sizes {
-        radiobutton .font.fontsize.radio$size -value $size -text $size \
-            -command [format {::dialog_font::radio_apply \
-                $::dialog_font::canvaswindow %s} $size]
+        # ceammc: ttk
+        ttk::radiobutton .font.fontsize.radio$size -value $size -text $size \
+            -state normal \
+            -command [format {::dialog_font::radio_apply $::dialog_font::canvaswindow %s} $size]
         pack .font.fontsize.radio$size -side top -anchor w
     }
 
-    labelframe .font.stretch -text [_ "Stretch"] -padx 5 -pady 5 -borderwidth 1 \
+    # ceammc: ttk
+    ttk::labelframe .font.stretch -text [_ "Stretch"] \
         -width [::msgcat::mcmax "Stretch"] -labelanchor n
     pack .font.stretch -side left -padx 5 -fill y
 
-    entry .font.stretch.entry -textvariable ::dialog_font::stretchval -width 5 \
-        -validate key -vcmd {string is int %P}
+    # ceammc: ttk
+    ttk::entry .font.stretch.entry -textvariable ::dialog_font::stretchval -width 5 \
+        -validate key -validatecommand {string is int %P}
     pack .font.stretch.entry -side top -pady 5
 
-    radiobutton .font.stretch.radio1 -text [_ "X and Y"] \
+    # ceammc: ttk
+    ttk::radiobutton .font.stretch.radio1 -text [_ "X and Y"] \
         -value 1 -variable ::dialog_font::whichstretch
-    radiobutton .font.stretch.radio2 -text [_ "X only"] \
+    ttk::radiobutton .font.stretch.radio2 -text [_ "X only"] \
         -value 2 -variable ::dialog_font::whichstretch
-    radiobutton .font.stretch.radio3 -text [_ "Y only"] \
+    ttk::radiobutton .font.stretch.radio3 -text [_ "Y only"] \
         -value 3 -variable ::dialog_font::whichstretch
 
     pack .font.stretch.radio1 -side top -anchor w
     pack .font.stretch.radio2 -side top -anchor w
     pack .font.stretch.radio3 -side top -anchor w
 
-    button .font.stretch.apply -text [_ "Apply"] \
+    # ceammc: ttk
+    ttk::button .font.stretch.apply -text [_ "Apply"] \
         -command "::dialog_font::stretch_apply $gfxstub" -default active
     pack .font.stretch.apply -side left -expand 1 -fill x -ipadx 10 \
         -anchor s
@@ -192,7 +200,8 @@ proc ::dialog_font::create_dialog {gfxstub} {
     # for focus handling on OSX
     if {$::windowingsystem eq "aqua"} {
         # since we show the active focus, disable the highlight outline
-        .font.buttonframe.ok config -highlightthickness 0
+        # ceammc: ttk
+        # .font.buttonframe.ok config -highlightthickness 0
     }
 
     position_over_window .font $::focused_window

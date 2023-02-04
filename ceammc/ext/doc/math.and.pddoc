@@ -21,17 +21,18 @@
             <since>0.2</since>
         </meta>
         <arguments>
-            <argument name="NUM" type="int" minvalue="3" maxvalue="16">number of
-            arguments</argument>
+            <argument name="N" type="int" minvalue="3" maxvalue="16">number of arguments</argument>
         </arguments>
         <methods>
             <method name="reset">resets all input states to false</method>
         </methods>
         <properties>
-            <property name="@sync" type="int" enum="0 1" default="0">if specified - all inlets are
+            <property name="@n" type="int" access="initonly" minvalue="3" maxvalue="16"
+            default="3">number of arguments</property>
+            <property name="@sync" type="flag" access="initonly">if specified - all inlets are
             'hot'</property>
-            <property name="@state" type="list" readonly="true" default="0 0 0">internal logic
-            state as list of 1 and 0</property>
+            <property name="@state" type="list" access="readonly" default="">internal logic state
+            as list of 1 and 0</property>
         </properties>
         <inlets dynamic="true">
             <inlet>

@@ -25,7 +25,7 @@
             <par>defines a signal inlet for a patcher loaded by a hoa.process~ object</par>
         </info>
         <arguments>
-            <argument name="EXTRA" type="int" minvalue="1">shortcut for @extra property</argument>
+            <argument name="EXTRA" type="int" minvalue="0">shortcut for @extra property</argument>
         </arguments>
         <properties>
             <property name="@extra" type="int" minvalue="0" default="0">extra inlet. Extra inlet

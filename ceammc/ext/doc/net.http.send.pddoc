@@ -18,7 +18,8 @@
         </meta>
         <arguments>
             <argument name="HOST" type="symbol">destination host</argument>
-            <argument name="PORT" type="int">destination port</argument>
+            <argument name="PORT" type="int" minvalue="1" maxvalue="32768">destination
+            port</argument>
         </arguments>
         <methods>
             <method name="get">send GET request 

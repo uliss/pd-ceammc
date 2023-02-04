@@ -37,6 +37,7 @@ if(XGETTEXT)
     file(GLOB _UI_FILES RELATIVE ${CMAKE_SOURCE_DIR}/po "${CMAKE_CURRENT_SOURCE_DIR}/ext/src/ui/*.cpp" "${CMAKE_CURRENT_SOURCE_DIR}/ext/src/ui/*.h")
     file(GLOB _HOA_FILES RELATIVE ${CMAKE_SOURCE_DIR}/po "${CMAKE_CURRENT_SOURCE_DIR}/ext/src/spat/*.cpp" "${CMAKE_CURRENT_SOURCE_DIR}/ext/src/spat/*.h")
     file(GLOB _TCL_PLUGIN_FILES RELATIVE ${CMAKE_SOURCE_DIR}/po "${CMAKE_CURRENT_SOURCE_DIR}/gui/plugins/ceammc_*-plugin.tcl")
+    list(APPEND _TCL_PLUGIN_FILES "${CMAKE_CURRENT_SOURCE_DIR}/gui/plugins/completion-plugin/completion-plugin.tcl")
 
     set(XGETTEXT_EMAIL "serge.uliss at gmail.com")
     set(XGETTEXT_COPYRIGHT "This file is put in the public domain")
@@ -73,8 +74,12 @@ add_custom_target(ceammc_extra_files
 
 
 set(DEV_INFO_TXT "${CMAKE_CURRENT_SOURCE_DIR}/dev_info_${CMAKE_SYSTEM_NAME}.txt")
-add_custom_target(dev
-    COMMAND ${CMAKE_COMMAND} -E cat "${DEV_INFO_TXT}")
+
+if(${CMAKE_VERSION} VERSION_LESS "3.18.0")
+    add_custom_target(dev COMMAND cat "${DEV_INFO_TXT}")
+else()
+    add_custom_target(dev COMMAND ${CMAKE_COMMAND} -E cat "${DEV_INFO_TXT}")
+endif()
 
 add_custom_target(dev_faust
     COMMAND ${CMAKE_COMMAND} -D ALL_TARGETS="${CEAMMC_FAUST_TARGETS}" -P "${CMAKE_CURRENT_SOURCE_DIR}/scripts/list_faust_targets.cmake")

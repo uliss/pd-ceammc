@@ -23,15 +23,15 @@
         <properties>
             <property name="@pitch" type="float" minvalue="24" maxvalue="84" default="48">midi
             pitch</property>
-            <property name="@freq" type="float" units="herz" default="130.813">frequency</property>
+            <property name="@freq" type="float" units="hertz" default="130.813">
+            frequency</property>
             <property name="@cutoff" type="float" minvalue="20" maxvalue="20000" default="3000">
             cutoff frequency</property>
             <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">play trigger
             &gt;0: on, 0: off. Values greater then zero set output amplitude.</property>
             <property name="@q" type="float" minvalue="0.01" maxvalue="100" default="0.1">quality
             factor</property>
-            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
-            processing</property>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
         <inlets>
             <inlet>

@@ -18,8 +18,8 @@
         </meta>
         <arguments>
             <argument name="N" type="int" minvalue="0">number of steps</argument>
-            <argument name="T" type="float" minvalue="0">time interval between steps or
-            bpm</argument>
+            <argument name="T" type="float" minvalue="1" maxvalue="20000" units="millisecond">time
+            interval between steps or bpm</argument>
         </arguments>
         <properties>
             <property name="@t" type="float" default="250" minvalue="1" maxvalue="20000"
@@ -31,10 +31,10 @@
             <property name="@once" type="alias">alias to @r 1, play once</property>
             <property name="@dur" type="float" default="4000" minvalue="0" units="millisecond">
             whole sequence duration. (Recalculates @t property accordingly)</property>
-            <property name="@i" type="int" minvalue="0" readonly="true" default="0">current
+            <property name="@i" type="int" minvalue="0" access="readonly" default="0">current
             sequence iteration</property>
-            <property name="@ri" type="int" minvalue="0" readonly="true" default="0">current repeat
-            iteration</property>
+            <property name="@ri" type="int" minvalue="0" access="readonly" default="0">current
+            repeat iteration</property>
             <property name="@mode" type="symbol" enum="inc dec tri" default="inc">sequencer mode.
             'inc': from first to last, 'dec': from last to first, 'tri': from first to last, then
             back</property>

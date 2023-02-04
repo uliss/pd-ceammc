@@ -93,6 +93,7 @@ FxLooper::FxLooper(const PdArgs& args)
 
     capacity_sec_ = new FloatProperty("@capacity", DEFAULT_CAPACITY_SEC);
     capacity_sec_->setArgIndex(0);
+    capacity_sec_->checkClosedRange(0, 120);
     capacity_sec_->setUnitsSec();
     addProperty(capacity_sec_);
 
@@ -123,6 +124,7 @@ FxLooper::FxLooper(const PdArgs& args)
     addProperty(x_dub_to_stop_);
 
     round_ = new IntProperty("@round", 0);
+    round_->checkMin(0);
     round_->setUnits(PropValueUnits::SAMP);
     addProperty(round_);
 

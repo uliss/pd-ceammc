@@ -18,7 +18,6 @@
 #include "ceammc_containers.h"
 #include "ceammc_faust.h"
 #include "ceammc_output.h"
-#include "ceammc_property_callback.h"
 
 namespace ceammc {
 namespace faust {

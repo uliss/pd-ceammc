@@ -1,16 +1,21 @@
-#N canvas 0 0 715 500 12;
+#N canvas 0 0 760 555 12;
 #X text 30 50 SoundTouch is an open-source audio processing library
-for changing the Tempo \, Pitch and Playback Rates of audio streams or
-audio files. The library additionally supports estimating stable
+for changing the Tempo \, Pitch and Playback Rates of audio streams
+or audio files. The library additionally supports estimating stable
 beats-per-minute rates for audio tracks.;
-#X obj 20 115 cnv 5 58 31 empty empty pitch 4 13 0 17 -262144 -49933
+#X obj 20 120 cnv 5 58 31 empty empty pitch 4 13 0 17 -262144 -49933
 0;
-#X obj 20 156 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 167 soundtouch~;
-#X text 175 167 realtime pitch shifter;
-#X obj 1 1 cnv 5 712 40 empty empty soundtouch 20 20 0 20 -104026
+#X obj 20 161 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 30 172 soundtouch~;
+#X text 200 172 realtime pitch shifter;
+#X obj 1 1 cnv 5 740 40 empty empty soundtouch 20 20 0 20 -104026
 -4096 0;
-#X obj 1 458 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 458 version: v0.1 \, license: LGPL2.1;
-#X obj 20 477 ui.link @title https://www.surina.net/soundtouch/ @url
+#X obj 1 473 cnv 5 740 80 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 473 version: v0.1 \, license: LGPL2.1;
+#X obj 20 227 ui.link @title https://www.surina.net/soundtouch/ @url
 https://www.surina.net/soundtouch/;
+#X obj 20 250 ui.link @title Generated with pddoc @url
+http://github.com/uliss/pddoc;
+#X obj 670 488 msg 0;
+#X obj 670 523 switch~;
+#X connect 10 0 11 0;

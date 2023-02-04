@@ -102,7 +102,7 @@ void Hoa2dScope::tick()
 
     harm_layer_.invalidate();
     redraw();
-    if (canvas_dspstate)
+    if (pd_getdspstate())
         clock_.delay(prop_refresh_);
 }
 
@@ -270,8 +270,8 @@ void Hoa2dScope::setup()
     obj.setDefaultSize(120, 120);
 
     // hide some properties
-    obj.hideProperty("send");
-    obj.hideProperty("receive");
+    obj.internalProperty("send");
+    obj.internalProperty("receive");
 
     // @order
     obj.addIntProperty("order", _("Ambisonic Order"), HOA_DEFAULT_ORDER, &Hoa2dScope::prop_order_, "Ambisonic");

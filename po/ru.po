@@ -1,10 +1,12 @@
-# Serge Poltavski <serge.poltavski@gmail.com>, 2016-2017.
+#
+# Serge Poltavski <serge.poltavski@gmail.com>, 2016-2022.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Pure Data 0.47.1_ceammc\n"
 "Report-Msgid-Bugs-To: serge.uliss at gmail.com\n"
-"POT-Creation-Date: 2021-11-06 06:29+0300\n"
-"PO-Revision-Date: 2021-11-06 06:30+0300\n"
+"POT-Creation-Date: 2022-12-02 02:32+0300\n"
+"PO-Revision-Date: 2022-12-02 02:34+0300\n"
 "Last-Translator: Serge Poltavski <serge.poltavski@gmail.com>\n"
 "Language-Team: Russian\n"
 "Language: ru\n"
@@ -17,7 +19,7 @@ msgstr ""
 "X-Language: ru_RU\n"
 "X-Source-Language: C\n"
 "X-Loco-Parser: loco_parse_po\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 3.2\n"
 
 #: ../tcl/dialog_font.tcl
 #, tcl-format
@@ -29,10 +31,15 @@ msgstr "Шрифт %s"
 msgid "%s Properties"
 msgstr "Свойства %s"
 
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "%s%% of download completed"
+msgstr "%s%% загрузки завершено"
+
 #: ../tcl/pd-gui.tcl
 #, tcl-format
 msgid "'%1$s' already loaded, ignoring: '%2$s'"
-msgstr ""
+msgstr "‘%1$s’ уже загружено, игнорирую: ‘%2$s’"
 
 #: ../tcl/pd_menus.tcl
 msgid "(Dis)Connect Selection"
@@ -44,11 +51,11 @@ msgstr "(Tcl) НЕВЕРНОЕ ИМЯ КОМАНДЫ: "
 
 #: ../tcl/pd_connect.tcl ../tcl/pdwindow.tcl
 msgid "(Tcl) MISSING CLOSE-BRACE '}': "
-msgstr ""
+msgstr "(Tcl) ПРОПУЩЕНА ЗАКРЫВАЮЩАЯ СКОБКА ‘}’: "
 
 #: ../tcl/pdwindow.tcl
 msgid "(Tcl) MISSING CLOSE-BRACKET ']': "
-msgstr ""
+msgstr "(Tcl) ПРОПУЩЕНА ЗАКРЫВАЮЩАЯ СКОБКА ‘]’: "
 
 #: ../tcl/pd_connect.tcl ../tcl/pdwindow.tcl
 msgid "(Tcl) UNHANDLED ERROR: "
@@ -66,55 +73,10 @@ msgstr "(такие же как у входного устройства)"
 msgid "(use arrow keys for history)"
 msgstr "(используйте стрелки для навигации по истории)"
 
-#: ../tcl/dialog_message.tcl
-msgid "(use arrow keys ↑↓ for history)"
-msgstr "(используйте стрелки ↑↓ для навигации по истории)"
-
-#: iemgui_dynamic_strings.tcl
-msgid "-----------output-range:-----------"
-msgstr ""
-
-#: iemgui_dynamic_strings.tcl
-msgid "----------dimensions(pix):-----------"
-msgstr ""
-
-#: iemgui_dynamic_strings.tcl
-msgid "--------dimensions(pix)(pix):--------"
-msgstr ""
-
-#: iemgui_dynamic_strings.tcl
-msgid "--------flash-time(ms)(ms):---------"
-msgstr ""
-
-#: iemgui_dynamic_strings.tcl
-msgid "-------dimensions(digits)(pix):-------"
-msgstr ""
-
-#: iemgui_dynamic_strings.tcl
-msgid "------selectable_dimensions(pix):------"
-msgstr ""
-
-#: iemgui_dynamic_strings.tcl
-msgid "------visible_rectangle(pix)(pix):------"
-msgstr ""
-
-#: ../tcl/pd_deken.tcl
-msgid "... aborting"
-msgstr ""
-
 #: ../tcl/pd_deken.tcl
 #, tcl-format
 msgid "1. Unzip %s."
 msgstr "Распаковка %s."
-
-#: ../tcl/pd_deken.tcl
-#, tcl-format
-msgid "1. unzip %s"
-msgstr "1. распаковка %s"
-
-#: ../tcl/dialog_audio.tcl
-msgid "1:"
-msgstr "1:"
 
 #: ../tcl/pd_deken.tcl
 #, tcl-format
@@ -123,24 +85,24 @@ msgstr "2. Копирую содержимое в %s."
 
 #: ../tcl/pd_deken.tcl
 #, tcl-format
-msgid "2. copy the contents into %s"
-msgstr "2. копирование содержимого в %s"
+msgid "3. Remove %s. (optional)"
+msgstr "3. Удалить %s. (опционально)"
 
 #: ../tcl/dialog_audio.tcl
-msgid "2:"
-msgstr "2:"
+msgid "44.1k"
+msgstr "44.1k"
 
 #: ../tcl/dialog_audio.tcl
-msgid "3:"
-msgstr "3:"
-
-#: ../tcl/dialog_audio.tcl
-msgid "4:"
-msgstr "4:"
+msgid "48k"
+msgstr "48k"
 
 #: ../ceammc/ext/src/ui/ui_keyboard.cpp
 msgid "7"
 msgstr "7"
+
+#: ../tcl/dialog_audio.tcl
+msgid "96k"
+msgstr "96k"
 
 #: ../tcl/dialog_midi.tcl
 msgid "ALSA MIDI Settings"
@@ -176,6 +138,10 @@ msgid "Add new library"
 msgstr "Добавить новую библиотеку"
 
 #: ../tcl/pd_deken.tcl
+msgid "Add newly installed libraries to Pd's search path"
+msgstr "Добавлять новые установленные библиотеки к путям поиска Pd"
+
+#: ../tcl/pd_deken.tcl
 #, tcl-format
 msgid "Added %s to search paths"
 msgstr "Добавлен %s к путям поиска"
@@ -183,6 +149,10 @@ msgstr "Добавлен %s к путям поиска"
 #: ../ceammc/ext/src/ui/ui_label.cpp
 msgid "Align"
 msgstr "Выравнивание"
+
+#: ../tcl/pd_deken.tcl
+msgid "All Files"
+msgstr "Все файлы"
 
 #: ../ceammc/ext/src/spat/hoa_2d_scope.cpp
 msgid "Ambisonic Order"
@@ -193,22 +163,19 @@ msgid "Appearance on parent patch"
 msgstr "Вид на родительском патче"
 
 #: ../tcl/dialog_array.tcl ../tcl/dialog_audio.tcl ../tcl/dialog_canvas.tcl
-#: ../tcl/dialog_gatom.tcl ../tcl/dialog_iemgui.tcl ../tcl/dialog_midi.tcl
-#: ../tcl/pd_deken.tcl ../tcl/scrollboxwindow.tcl
+#: ../tcl/dialog_font.tcl ../tcl/dialog_gatom.tcl ../tcl/dialog_iemgui.tcl
+#: ../tcl/dialog_midi.tcl ../tcl/pd_deken.tcl ../tcl/scrollboxwindow.tcl
 msgid "Apply"
 msgstr "Применить"
 
-#: ../tcl/pd_deken.tcl
-msgid "Are you online?"
-msgstr "Вы онлайн?"
-
-#: ../tcl/dialog_array.tcl ../tcl/pd_menus.tcl
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl ../tcl/dialog_array.tcl
+#: ../tcl/pd_menus.tcl
 msgid "Array"
-msgstr ""
+msgstr "Массив"
 
 #: ../tcl/dialog_array.tcl
 msgid "Array Properties"
-msgstr "Свойства Array"
+msgstr "Свойства массива"
 
 #: ../ceammc/ext/src/ui/ui_arrayview.cpp
 msgid "Array name"
@@ -221,10 +188,6 @@ msgstr "Цвет стрелки"
 #: ../tcl/pd-gui.tcl
 msgid "Associated Files"
 msgstr "Все поддерживаемые форматы"
-
-#: ../tcl/dialog_gatom.tcl
-msgid "Atom Box Properties"
-msgstr "Свойста AtomBox"
 
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 msgid "Attach side"
@@ -254,6 +217,10 @@ msgstr "Включить звук"
 msgid "Audio..."
 msgstr "Аудио..."
 
+#: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
+msgid "Auto Complete settings"
+msgstr "Настройки автодополнения"
+
 #: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
 msgid "Auto Y-range"
 msgstr "Автоматический Y-диапазон"
@@ -261,10 +228,6 @@ msgstr "Автоматический Y-диапазон"
 #: ../ceammc/ext/src/ui/ui_sliders.cpp
 msgid "Auto count"
 msgstr "Автоматическое число ползунков"
-
-#: ../ceammc/ext/src/ui/ui_sliders.cpp
-msgid "Auto range"
-msgstr "Автоматический диапазон"
 
 #: ../ceammc/ext/src/ui/ui_sliders.cpp
 msgid "Auto range mode"
@@ -340,19 +303,17 @@ msgid "Browser..."
 msgstr "Обзор справки..."
 
 #: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Button"
+msgstr "Кнопка"
+
+#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
 msgid "Button Bar"
 msgstr "Панель кнопок"
 
+#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
 #: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
 msgid "Button Bar Settings"
-msgstr "Настройки панели кнопок"
-
-#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
-msgid "ButtonBar Settings"
-msgstr "Настройки панели кнопок"
-
-#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
-msgid "ButtonBar settings"
 msgstr "Настройки панели кнопок"
 
 #: ../tcl/pd_menus.tcl
@@ -365,7 +326,13 @@ msgstr "CEAMMC объекты"
 msgid "Cancel"
 msgstr "Отмена"
 
-#: ../tcl/dialog_iemgui.tcl ../tcl/pd_menus.tcl
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "Cancelling download of '%s': No installation directory given."
+msgstr "Отмена установки ‘%s’: Не указана директория установки."
+
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl ../tcl/dialog_iemgui.tcl
+#: ../tcl/pd_menus.tcl
 msgid "Canvas"
 msgstr "Canvas"
 
@@ -384,6 +351,15 @@ msgstr "Проверить"
 #: ../ceammc/ext/src/ui/ui_radio.cpp
 msgid "Check List Mode"
 msgstr "Множественный выбор"
+
+#: ../tcl/pd_menus.tcl
+msgid "Check for updates"
+msgstr "Проверить обновления"
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "Checksum mismatch for '%s'"
+msgstr "Чексумма не совпадает для ‘%s’"
 
 #: ../tcl/dialog_path.tcl ../tcl/pd_docsdir.tcl
 msgid "Choose Pd documents directory:"
@@ -405,7 +381,7 @@ msgstr "Очистить меню"
 msgid "Clockwise"
 msgstr "По часовой стрелке"
 
-#: ../tcl/dialog_find.tcl ../tcl/pd_menus.tcl
+#: ../tcl/dialog_find.tcl ../tcl/dialog_font.tcl ../tcl/pd_menus.tcl
 msgid "Close"
 msgstr "Закрыть"
 
@@ -423,16 +399,10 @@ msgstr "Столбцы"
 
 #: ../tcl/pd_deken.tcl
 #, tcl-format
-msgid ""
-"Commencing downloading of:\n"
-"%1$s\n"
-"Into %2$s..."
-msgstr ""
-"Начало загрузки:\n"
-"%1$s\n"
-"в %2$s..."
+msgid "Commencing download of '%1$s' into '%2$s'..."
+msgstr "Начало загрузки ‘%1$s’ в ‘%2$s’…"
 
-#: ../tcl/pd_menus.tcl
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl ../tcl/pd_menus.tcl
 msgid "Comment"
 msgstr "Комментарий"
 
@@ -444,15 +414,17 @@ msgstr "Выбрать цвет"
 msgid "Copy"
 msgstr "Копировать"
 
-#: ../tcl/pd_docsdir.tcl
-#, tcl-format
-msgid "Couldn't create \"externals\" directory in: %s\n"
-msgstr "Невозможно создать каталог «externals» в %s\n"
+#: ../tcl/pd_deken.tcl
+msgid "Copy OpenGPG signature URL"
+msgstr "Копировать URL OpenGPG подписи"
 
-#: ../tcl/pd_docsdir.tcl
-#, tcl-format
-msgid "Couldn't create Pd documents directory: %s\n"
-msgstr "Невозможно создать каталог для Pd документов: %s\n"
+#: ../tcl/pd_deken.tcl
+msgid "Copy SHA256 checksum URL"
+msgstr "Копировать URL SHA256 чексуммы"
+
+#: ../tcl/pd_deken.tcl
+msgid "Copy package URL"
+msgstr "Копировать URL пакета"
 
 #: ../tcl/pd_guiprefs.tcl
 #, tcl-format
@@ -496,9 +468,17 @@ msgstr "Включить звук"
 msgid "Data Properties"
 msgstr "Свойства данных"
 
+#: ../tcl/pd_deken.tcl
+msgid "Date"
+msgstr "Дата"
+
 #: ../ceammc/ext/src/ui/ui_number_tilde.cpp
 msgid "Decimal precision"
 msgstr "Десятичная точность"
+
+#: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
+msgid "Default"
+msgstr "По умолчанию"
 
 #: ../tcl/pd_deken.tcl
 #, tcl-format
@@ -507,12 +487,16 @@ msgstr "Платформа по умолчанию: %s"
 
 #: ../tcl/dialog_startup.tcl
 msgid "Defeat real-time scheduling"
-msgstr ""
+msgstr "Отключить планировщик реального времени"
 
 #: ../tcl/pd_deken.tcl
 #, tcl-format
 msgid "Deken %s Preferences"
 msgstr "Настройки deken %s"
+
+#: ../tcl/pd_deken.tcl
+msgid "Deken Packages"
+msgstr "Пакеты Deken"
 
 #: ../tcl/dialog_audio.tcl
 msgid "Delay (msec):"
@@ -534,6 +518,14 @@ msgstr ""
 msgid "Delete array"
 msgstr "Удалить array"
 
+#: ../tcl/pd_deken.tcl
+msgid "Description"
+msgstr "Описание"
+
+#: ../tcl/pd_deken.tcl
+msgid "Deselect package"
+msgstr "Отменить выбор пакета"
+
 #: ../ceammc/ext/src/ui/ui_number.cpp
 msgid "Digits"
 msgstr "Число разрядов"
@@ -542,14 +534,30 @@ msgstr "Число разрядов"
 msgid "Direction"
 msgstr "Направление"
 
+#: ../tcl/pd_deken.tcl
+msgid "Directory does not exist!"
+msgstr "Директория не существует!"
+
+#: ../tcl/pd_deken.tcl
+msgid "Directory is not writable!"
+msgstr "Невозможна запись в директорию!"
+
 #: ../tcl/dialog_path.tcl
 msgid "Disable"
 msgstr "Отключить"
+
+#: ../tcl/pd_deken.tcl
+msgid "Disabling tabbed view: incompatible Tcl/Tk detected"
+msgstr "Отключаем отображение  в виде таблицы: несовместимая версия Tcl/Tk"
 
 #: pd_dynamic_strings.tcl
 #, tcl-format
 msgid "Discard changes to '%s'?"
 msgstr "Отменить изменения в «%s»?"
+
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Display"
+msgstr "Объект показа"
 
 #: ../ceammc/ext/src/ui/ui_display.cpp
 msgid "Display events"
@@ -575,10 +583,53 @@ msgstr ""
 "\n"
 "Вы можете изменить или отключить это в настройках Путей."
 
-#: pd_dynamic_strings.tcl
+#: ../tcl/pd_docsdir.tcl
+#, tcl-format
+msgid ""
+"Do you want Pd to use the existing documents directory for patches and "
+"external libraries?\n"
+"\n"
+"Location: %s\n"
+"\n"
+"You can change or disable this later in the Path preferences."
+msgstr ""
+"Вы  использовать существующий каталог для документов для патчей и внешних "
+"библиотек?\n"
+"\n"
+"Расположение: %s\n"
+"\n"
+"Вы можете изменить или отключить это позже в настройках Путей."
+
+#: ../tcl/pdtk_canvas.tcl
 #, tcl-format
 msgid "Do you want to save the changes you made in '%s'?"
 msgstr "Сохранить изменения в '%s'?"
+
+#: ../tcl/dialog_data.tcl
+msgid "Done"
+msgstr "Завершено"
+
+#: ../tcl/pd_deken.tcl
+msgid "Download completed! Verifying..."
+msgstr "Загрузка завершена! Проверка..."
+
+#: ../tcl/pd_deken.tcl
+msgid "Download failed"
+msgstr "Ошибка загрузки"
+
+#: ../tcl/pd_deken.tcl
+msgid "Download failed!"
+msgstr "Ошибка загрузки!"
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "Downloading '%s'"
+msgstr "Загрузка ’%s’"
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "Downloading '%s' failed"
+msgstr "Загрузка '%s' не удалась"
 
 #: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_slider.cpp
 msgid "Draw active scale"
@@ -600,6 +651,11 @@ msgstr "Правка"
 msgid "Edit Mode"
 msgstr "Режим редактирования"
 
+#: ../tcl/dialog_path.tcl
+#, tcl-format
+msgid "Edit existing path [%s]"
+msgstr "Редактировать существующий путь [%s]"
+
 #: ../tcl/dialog_startup.tcl
 msgid "Edit library"
 msgstr "Изменить библиотеку"
@@ -611,6 +667,14 @@ msgstr "Правка..."
 #: ../ceammc/ext/src/ui/ui_preset.cpp
 msgid "Empty Button Color"
 msgstr "Цвет пустой ячейки"
+
+#: ../tcl/pd_deken.tcl
+msgid "Enter an exact library or object name."
+msgstr "Введите точное название библиотеки или объекта."
+
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Envelope"
+msgstr "Огибающая"
 
 #: ../ceammc/gui/plugins/patch2svg-plugin.tcl
 msgid "Export patch as SVG..."
@@ -625,14 +689,24 @@ msgstr "Каталог установки расширений"
 msgid "FAILED TO LOAD %s"
 msgstr "НЕВОЗМОЖНО ЗАГРУЗИТЬ %s"
 
-#: ../tcl/pd_menus.tcl
-msgid "FLOSS Manual..."
-msgstr "FLOSS руководство..."
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid ""
+"Failed to completely remove %1$s.\n"
+"Please manually remove the directory %2$s after quitting Pd."
+msgstr ""
+"Не удалось полностью удалить %1$s.\n"
+"Пожалуйста, удалите директорию %2$s после выхода из Pd."
 
 #: ../tcl/pd-gui.tcl
 #, tcl-format
 msgid "Failed to find plugins in %s ...skipping!"
 msgstr "Не удалось найти плагины в %s ... пропуск!"
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "Failed to install '%s'!"
+msgstr "Ошибка установки в ’%s’!"
 
 #: ../tcl/pd-gui.tcl
 #, tcl-format
@@ -684,10 +758,6 @@ msgid "Flash Time (msec)"
 msgstr "Время индикации нажатия (мкс)"
 
 #: ../ceammc/ext/src/ui/ui_display.cpp
-msgid "Float formatting width"
-msgstr "Число разрядов форматирования"
-
-#: ../ceammc/ext/src/ui/ui_display.cpp
 msgid "Float precision"
 msgstr "Десятичная точность"
 
@@ -700,6 +770,7 @@ msgid "Font Name"
 msgstr "Имя шрифта"
 
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp ../tcl/dialog_font.tcl
+#: ../tcl/dialog_gatom.tcl
 msgid "Font Size"
 msgstr "Размер шрифта"
 
@@ -719,6 +790,11 @@ msgstr "Цвет переднего плана"
 msgid "Forget All..."
 msgstr "Удалить все..."
 
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "Found %1$d usable packages (of %2$d packages in total)."
+msgstr "Найдено %1$d пригодных пакетов (из общего числа пакетов %2$d )."
+
 #: ../tcl/dialog_find.tcl
 #, tcl-format
 msgid "Found '%1$s' in %2$s"
@@ -736,6 +812,10 @@ msgstr "Частота"
 msgid "Front"
 msgstr "Передний план"
 
+#: ../tcl/dialog_gatom.tcl
+msgid "GUI Box Properties"
+msgstr "Свойства GUI элемента"
+
 #: ../ceammc/ext/src/spat/hoa_2d_scope.cpp ../ceammc/ext/src/ui/ui_filter_t.h
 msgid "Gain"
 msgstr "Чувствительность"
@@ -746,7 +826,7 @@ msgstr ""
 
 #: ../tcl/dialog_canvas.tcl
 msgid "Graph-On-Parent"
-msgstr ""
+msgstr "Показывать в родительском патче (Graph-On-Parent)"
 
 #: ../ceammc/ext/src/ui/ui_filter_t.h
 msgid "Grid Color"
@@ -760,7 +840,9 @@ msgstr "Руководство в формате HTML..."
 msgid "Height:"
 msgstr "Высота:"
 
-#: ../tcl/pdtk_canvas.tcl pd_dynamic_strings.tcl
+#: ../tcl/pdtk_canvas.tcl
+#: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
+#: pd_dynamic_strings.tcl
 msgid "Help"
 msgstr "Справка"
 
@@ -773,9 +855,10 @@ msgid "Hex format width"
 msgstr "Ширина форматирования в HEX"
 
 #: ../tcl/pd_deken.tcl
-msgid "Hide foreign architectures?"
-msgstr "Скрывать другие архитектуры?"
+msgid "Hide foreign architectures"
+msgstr "Скрывать архитектуры отличные от текущей"
 
+#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
 #: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
 msgid "Hide in runmode"
 msgstr "Скрывать в режиме исполнения"
@@ -792,13 +875,17 @@ msgstr "ФВЧ"
 msgid "High Shelf"
 msgstr "Высокочастотный шельфовый"
 
-#: ../tcl/dialog_iemgui.tcl
-msgid "Hold:"
-msgstr ""
-
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 msgid "Horizontal align"
 msgstr "Горизонтальное выравнивание"
+
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Horizontal radio"
+msgstr "Горизонтальный переключатель"
+
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Horizontal slider"
+msgstr "Горизонтальный ползунок"
 
 #: ../ceammc/ext/src/ui/ui_meter.cpp
 msgid "Hot signal color"
@@ -810,25 +897,19 @@ msgstr "Цвет наведения"
 
 #: ../tcl/dialog_iemgui.tcl ../tcl/pd_menus.tcl
 msgid "Hradio"
-msgstr ""
+msgstr "Hradio"
 
 #: ../tcl/dialog_iemgui.tcl ../tcl/pd_menus.tcl
 msgid "Hslider"
-msgstr ""
+msgstr "Hslider"
 
 #: ../ceammc/ext/src/ui/ui_icon.cpp
 msgid "Icon"
 msgstr "Иконка"
 
-#: ../tcl/wheredoesthisgo.tcl
-#, tcl-format
-msgid "Ignoring '%s': doesn't exist"
-msgstr "Игнорирование \" %s\": не существует"
-
-#: ../tcl/wheredoesthisgo.tcl
-#, tcl-format
-msgid "Ignoring '%s': doesn't look like a Pd-file"
-msgstr "Пропускаю ‘%s’: не формат Pd-файла"
+#: ../tcl/pd_deken.tcl
+msgid "Ignoring checksum mismatch"
+msgstr "Игнорирую несовпадение чексуммы"
 
 #: ../tcl/dialog_midi.tcl
 msgid "In Ports:"
@@ -836,7 +917,7 @@ msgstr "Порты ввода:"
 
 #: ../tcl/dialog_iemgui.tcl
 msgid "Init"
-msgstr ""
+msgstr "Начальное значение"
 
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 msgid "Inner position"
@@ -847,29 +928,60 @@ msgid "Input Devices"
 msgstr "Устройства ввода"
 
 #: ../tcl/pd_deken.tcl
+msgid "Install"
+msgstr "Установить"
+
+#: ../tcl/pd_deken.tcl
 #, tcl-format
 msgid "Install %1$s to %2$s?"
 msgstr "Установить %1$s в директорию «%2$s»?"
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "Install (%d)"
+msgstr "Установить (%d)"
+
+#: ../tcl/pd_deken.tcl
+msgid "Install DEK file..."
+msgstr "Установить DEK файл..."
 
 #: ../tcl/dialog_path.tcl ../tcl/pd_deken.tcl
 msgid "Install externals to directory:"
 msgstr "Устанавливать расширения в каталог:"
 
 #: ../tcl/pd_deken.tcl
-msgid "Install package"
-msgstr "Установить пакет"
+msgid "Installation completed!"
+msgstr "Установка завершена!"
+
+#: ../tcl/pd_deken.tcl
+msgid "Installation failed!"
+msgstr "Ошибка установки!"
 
 #: ../tcl/pd_deken.tcl
 msgid "Installation options:"
 msgstr "Опции установки:"
 
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "Installing '%s'"
+msgstr "Установка ’%s’"
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "Installing package '%s'"
+msgstr "Установка пакета '%s'"
+
+#: ../tcl/pd_deken.tcl
+msgid "Installing to non-existant directory failed"
+msgstr "Ошибка при установке в несуществующую директорию"
+
 #: ../ceammc/ext/src/ui/ui_display.cpp
 msgid "Integer in hex format"
 msgstr "Целые в шестнадцатеричном формате"
 
-#: ../tcl/dialog_iemgui.tcl
-msgid "Intrrpt:"
-msgstr ""
+#: ../tcl/pd_deken.tcl
+msgid "It appears that there are no matching packages for your architecture."
+msgstr "Не найдены пакеты подходящие под текущую архитектуру."
 
 #: ../ceammc/ext/src/ui/ui_menu.cpp ../ceammc/ext/src/ui/ui_tab.cpp
 msgid "Items"
@@ -879,9 +991,21 @@ msgstr "Элементы"
 msgid "Jump on click"
 msgstr "Переход при клике"
 
+#: ../tcl/pd_deken.tcl
+msgid "Keep package files after installation"
+msgstr "Оставлять файлы пакета после установки"
+
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Keyboard"
+msgstr "Клавиатура"
+
 #: ../ceammc/ext/src/ui/ui_keyboard.cpp
 msgid "Keys"
 msgstr "Число клавиш"
+
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Knob"
+msgstr "Поворотный контроллер"
 
 #: ../ceammc/ext/src/ui/ui_filter_t.h ../ceammc/ext/src/ui/ui_gain.cpp
 #: ../ceammc/ext/src/ui/ui_gain2.cpp ../ceammc/ext/src/ui/ui_knob.cpp
@@ -930,6 +1054,10 @@ msgstr "Начальная MIDI нота"
 msgid "Length (ms)"
 msgstr "Длина (мс)"
 
+#: ../tcl/pd_deken.tcl
+msgid "Library"
+msgstr "Библиотека"
+
 #: ../tcl/dialog_gatom.tcl
 msgid "Limits"
 msgstr "Диапазон"
@@ -951,6 +1079,14 @@ msgid "Link Color"
 msgstr "Цвет ссылки"
 
 #: ../tcl/pd_menus.tcl
+msgid "List"
+msgstr "Список"
+
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "List box"
+msgstr "Списковый бокс"
+
+#: ../tcl/pd_menus.tcl
 msgid "List of objects..."
 msgstr "Список объектов..."
 
@@ -967,9 +1103,9 @@ msgstr "Загрузить из..."
 msgid "Loading plugin: %s"
 msgstr "Загрузка плагина: %s"
 
-#: ../ceammc/ext/src/ui/ui_filter_t.h
+#: ../ceammc/ext/src/ui/ui_filter_t.h ../tcl/pd_deken.tcl
 msgid "Log"
-msgstr "Логарифмически"
+msgstr "Log"
 
 #: ../tcl/dialog_iemgui.tcl
 msgid "Log height:"
@@ -1098,18 +1234,22 @@ msgstr "Размер матрицы"
 
 #: ../tcl/pd-gui.tcl
 msgid "Max Patch Files"
-msgstr ""
+msgstr "Файлы патчей Max"
 
 #: ../tcl/pd-gui.tcl
 msgid "Max Patch Files (.pat)"
-msgstr ""
+msgstr "Файлы патчей Max (.pat)"
 
 #: ../tcl/pd-gui.tcl
 msgid "Max Text Files"
-msgstr ""
+msgstr "Файлы текстовых патчей Max"
 
 #: ../tcl/pd-gui.tcl
 msgid "Max Text Files (.mxt)"
+msgstr "Файлы текстовых патчей Max (.mxt)"
+
+#: ../tcl/dialog_iemgui.tcl
+msgid "Max:"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_number.cpp
@@ -1135,7 +1275,7 @@ msgstr "Максимальное значение"
 msgid "Media"
 msgstr "Медиа"
 
-#: ../tcl/pd_menus.tcl
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl ../tcl/pd_menus.tcl
 msgid "Message"
 msgstr "Сообщение"
 
@@ -1150,6 +1290,10 @@ msgstr "Сообщения"
 #: ../ceammc/ext/src/ui/ui_midi.cpp
 msgid "Midi Settings"
 msgstr "Настройки MIDI"
+
+#: ../tcl/dialog_iemgui.tcl
+msgid "Min:"
+msgstr ""
 
 #: ../tcl/pd_menus.tcl
 msgid "Minimize"
@@ -1226,9 +1370,21 @@ msgstr ""
 msgid "No matching externals found."
 msgstr "Подходящие расширения не найдены."
 
+#: ../tcl/pd_deken.tcl
+msgid "No packages selected for installation."
+msgstr "Не выбраны пакеты для установки."
+
+#: ../tcl/pd_deken.tcl
+msgid "No usable servers for searching found..."
+msgstr "Не найдены серверы для поиска..."
+
 #: ../tcl/dialog_iemgui.tcl
 msgid "Non Zero Value"
 msgstr "Активное значение"
+
+#: ../ceammc/ext/src/ui/ui_env.cpp
+msgid "Normalize input"
+msgstr "Нормализовать входные данные"
 
 #: ../ceammc/ext/src/ui/ui_filter_t.h
 msgid "Notch"
@@ -1242,6 +1398,14 @@ msgstr "Число ячеек:"
 msgid "Number"
 msgstr "Число"
 
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Number box"
+msgstr "Числовой бокс"
+
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Number box2"
+msgstr "Числовой бокс #2"
+
 #: ../ceammc/ext/src/ui/ui_radio.cpp
 msgid "Number of Items"
 msgstr "Число элементов"
@@ -1252,12 +1416,11 @@ msgstr "Число входов"
 
 #: ../tcl/dialog_iemgui.tcl ../tcl/pd_menus.tcl
 msgid "Number2"
-msgstr ""
+msgstr "Number2"
 
 #: ../tcl/dialog_array.tcl ../tcl/dialog_audio.tcl ../tcl/dialog_canvas.tcl
-#: ../tcl/dialog_font.tcl ../tcl/dialog_gatom.tcl ../tcl/dialog_iemgui.tcl
-#: ../tcl/dialog_midi.tcl ../tcl/dialog_startup.tcl ../tcl/pd_deken.tcl
-#: ../tcl/scrollboxwindow.tcl
+#: ../tcl/dialog_gatom.tcl ../tcl/dialog_iemgui.tcl ../tcl/dialog_midi.tcl
+#: ../tcl/dialog_startup.tcl ../tcl/pd_deken.tcl ../tcl/scrollboxwindow.tcl
 msgid "OK"
 msgstr "OK"
 
@@ -1278,6 +1441,14 @@ msgstr "Вкл. значение"
 msgid "Only install externals uploaded by people you trust."
 msgstr "Устанавливайте расширения только от людей, которым вы доверяете."
 
+#: ../tcl/pd_deken.tcl
+msgid ""
+"Only show the newest version of a library\n"
+"(treats other versions like foreign architectures)"
+msgstr ""
+"Показывать только новую версию библиотеки\n"
+"(считать предыдущие версии неподдерживаемыми архитектурами)"
+
 #: ../tcl/pd_menus.tcl ../tcl/pdtk_canvas.tcl
 msgid "Open"
 msgstr "Открыть"
@@ -1291,12 +1462,16 @@ msgid "Open Recent"
 msgstr "Недавние файлы"
 
 #: ../tcl/pd_deken.tcl
-msgid "Open webpage"
-msgstr "Открыть веб-страницу"
+msgid "Open package webpage"
+msgstr "Открыть веб-страницу пакета"
 
 #: ../tcl/dialog_array.tcl
 msgid "Options"
 msgstr "Опции"
+
+#: ../tcl/pd_deken.tcl
+msgid "Or use wildcards like 'freeverb*'."
+msgstr "Или используйте шаблоны подстановки, например 'freeverb*'."
 
 #: ../tcl/dialog_midi.tcl
 msgid "Out Ports:"
@@ -1326,6 +1501,14 @@ msgstr "Выводить значение"
 msgid "Overload signal color"
 msgstr "Цвет перегрузки"
 
+#: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
+msgid "PD AutoComplete Settings"
+msgstr "Настройки автодополнения"
+
+#: ../tcl/pd_deken.tcl
+msgid "Package installation failed"
+msgstr "Ошибка установки пакета"
+
 #: ../tcl/dialog_iemgui.tcl
 msgid "Parameters"
 msgstr "Параметры"
@@ -1352,7 +1535,11 @@ msgstr "Пути..."
 
 #: ../tcl/pdwindow.tcl
 msgid "Pd"
-msgstr ""
+msgstr "Pd"
+
+#: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
+msgid "Pd AutoComplete Settings"
+msgstr "Настройки автодополнения Pd"
 
 #: ../tcl/dialog_path.tcl
 msgid "Pd Documents Directory"
@@ -1382,12 +1569,8 @@ msgid "Pd libraries to load on startup"
 msgstr "Библиотеки Pd, загружаемые при старте"
 
 #: ../tcl/dialog_path.tcl
-msgid "Pd search path for objects, help, fonts, and other files"
+msgid "Pd search path for objects, help, audio, text and other files"
 msgstr "Пути поиска для объектов, справки, шрифтов и других файлов"
-
-#: ../tcl/pd_menus.tcl
-msgid "Pd tutorial by Johannes Kreidler"
-msgstr "Руководство по Pd от Johannes Kreidler"
 
 #: ../tcl/dialog_find.tcl ../tcl/pd_menus.tcl
 msgid "Pd window"
@@ -1400,6 +1583,11 @@ msgstr "Пиковый"
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 msgid "Pinned"
 msgstr "Закрепить на нижнем слое"
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "Platform re-detected: %s"
+msgstr "Платформа определена заново: %s"
 
 #: ../tcl/pd_deken.tcl
 msgid "Platform settings:"
@@ -1437,14 +1625,22 @@ msgstr "Положительный вывод"
 msgid "Precision"
 msgstr "Десятичная точность"
 
-#: ../tcl/pd_deken.tcl ../tcl/pd_menus.tcl
+#: ../tcl/pd_menus.tcl
 msgid "Preferences"
 msgstr "Настройки"
+
+#: ../tcl/pd_deken.tcl
+msgid "Preferences..."
+msgstr "Настройки..."
 
 #: ../ceammc/ext/src/lib/ceammc_ui.h
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 msgid "Preset Name"
 msgstr "Имя для пресета"
+
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Presets"
+msgstr "Пресеты"
 
 #: ../tcl/pd_menus.tcl
 msgid "Previous Window"
@@ -1453,6 +1649,11 @@ msgstr "Предыдущее окно"
 #: ../tcl/pd_menus.tcl
 msgid "Print..."
 msgstr "Печать..."
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "Processed %d packages selected for installation."
+msgstr "Обработка пакетов %d выбранных для установки."
 
 #: ../tcl/pdtk_canvas.tcl
 msgid "Properties"
@@ -1469,10 +1670,6 @@ msgstr "Поместить array в:"
 #: ../ceammc/ext/src/ui/ui_filter_t.h
 msgid "Quality factor"
 msgstr "Добротность"
-
-#: ../ceammc/ext/src/ui/ui_filter_t.h
-msgid "Quality factory"
-msgstr ""
 
 #: ../tcl/pd_menus.tcl
 msgid "Quit"
@@ -1543,9 +1740,18 @@ msgstr "Относительный режим"
 msgid "Relative mode"
 msgstr "Относительный режим"
 
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "Removing '%s'"
+msgstr "Удаление '%s'"
+
 #: ../tcl/pd_menus.tcl
 msgid "Report a bug"
 msgstr "Сообщить об ошибке"
+
+#: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
+msgid "Rescan"
+msgstr "Пересканировать"
 
 #: ../tcl/dialog_path.tcl
 msgid "Reset"
@@ -1559,9 +1765,27 @@ msgstr "Справа"
 msgid "Right X-value"
 msgstr "Правое X-значение"
 
+#: ../tcl/pd_deken.tcl
+msgid "Right-clicking a search result will give you more options..."
+msgstr "Кликните правой кнопкой мыши для показа других вариантов..."
+
 #: ../ceammc/ext/src/ui/ui_matrix.cpp
 msgid "Rows"
 msgstr "Ряды"
+
+#: ../tcl/pd_deken.tcl
+msgid "SHA256 verification failed"
+msgstr "Проверка SHA256 не удалась"
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "SHA256 verification of '%s'"
+msgstr "Проверка SHA256 '%s'"
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "SHA256 verification of '%s' failed!"
+msgstr "Проверка SHA256 пакета '%s' не удалась!"
 
 #: ../tcl/dialog_audio.tcl
 msgid "Sample rate:"
@@ -1591,9 +1815,14 @@ msgstr "Сохранить как..."
 msgid "Save contents"
 msgstr "Сохранять содержимое"
 
+#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
 #: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
 msgid "Save settings"
 msgstr "Сохранить настройки"
+
+#: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
+msgid "Save to file"
+msgstr "Сохранить в файл"
 
 #: ../tcl/pd_menus.tcl
 msgid "Save to..."
@@ -1611,14 +1840,50 @@ msgstr "Цвет шкалы"
 msgid "Scale Mode"
 msgstr "Режим вывода"
 
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Scope"
+msgstr ""
+
 #: ../tcl/pd_deken.tcl
 msgid "Search"
 msgstr "Поиск"
+
+#: ../tcl/pd_deken.tcl
+msgid "Search Results"
+msgstr "Результаты поиска"
+
+#: ../tcl/pd_deken.tcl
+msgid "Search failed"
+msgstr "Не найдено"
+
+#: ../tcl/pd_deken.tcl
+msgid "Search for: "
+msgstr "Искать: "
 
 #: ../tcl/dialog_find.tcl
 #, tcl-format
 msgid "Search in %s for:"
 msgstr "Поиск в %s:"
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "Searching for \"%s\"..."
+msgstr "Производим поиск «%s»..."
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "Searching for '%s' failed!"
+msgstr "Не найдено «%s»!"
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "Searching on %1$s returned %2$d results"
+msgstr "При поиске %1$s найдено %2$d результатов"
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "Searching on %s..."
+msgstr "Производим поиск «%s»..."
 
 #: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
 msgid "Second plot color"
@@ -1636,9 +1901,17 @@ msgstr "Выделить все"
 msgid "Select color"
 msgstr "Цвет выделения"
 
+#: ../tcl/pd_deken.tcl
+msgid "Select package for installation"
+msgstr "Выберите пакет для установки"
+
 #: ../ceammc/ext/src/ui/ui_arrayview.cpp
 msgid "Selection Color"
 msgstr "Цвет выделения"
+
+#: ../tcl/dialog_data.tcl
+msgid "Send"
+msgstr "Отправлять"
 
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 msgid "Send Symbol"
@@ -1656,10 +1929,7 @@ msgstr "Отправлять:"
 msgid "Settings"
 msgstr "Настройки"
 
-#: ../tcl/pd_deken.tcl
-msgid "Should newly installed libraries be added to Pd's search path?"
-msgstr "Добавлять установленные библиотеки к путям поиска Pd?"
-
+#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
 #: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
 msgid "Show"
 msgstr "Показать"
@@ -1693,8 +1963,8 @@ msgid "Show Program"
 msgstr "Показывать Program"
 
 #: ../tcl/pd_deken.tcl
-msgid "Show README of newly installed libraries (if present)?"
-msgstr "Показать README только установленных библиотек (если существует)?"
+msgid "Show README of newly installed libraries (if present)"
+msgstr "Показывать README для новых установленных библиотек (если существует)"
 
 #: ../ceammc/ext/src/ui/ui_arrayview.cpp
 msgid "Show RMS"
@@ -1752,13 +2022,30 @@ msgstr "Размер"
 msgid "Size:"
 msgstr "Размер:"
 
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "Skipping SHA256 verification of '%s'."
+msgstr "Пропускаем проверку   '%s'."
+
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Slider 2D"
+msgstr "Ползунки 2D"
+
 #: ../ceammc/ext/src/ui/ui_sliders.cpp
 msgid "Slider color"
 msgstr "Цвет ползунков"
 
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Sliders"
+msgstr "Слайдеры"
+
 #: ../ceammc/ext/src/ui/ui_sliders.cpp
 msgid "Sliders count"
 msgstr "Число ползунков"
+
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Spectroscope"
+msgstr "Спектроскоп"
 
 #: ../tcl/dialog_startup.tcl
 msgid "Startup flags:"
@@ -1786,6 +2073,11 @@ msgstr "Масштаб"
 
 #: ../tcl/pd_deken.tcl
 #, tcl-format
+msgid "Successfully installed '%s'!"
+msgstr "Успешно установлен '%s'!"
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
 msgid "Successfully unzipped %1$s into %2$s."
 msgstr "Файл %1$s успешно распакован в директорию %2$s."
 
@@ -1793,9 +2085,22 @@ msgstr "Файл %1$s успешно распакован в директори�
 msgid "Symbol"
 msgstr "Символ"
 
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Symbol box"
+msgstr "Символьный бокс"
+
+#: ../tcl/pd_deken.tcl
+msgid "TAR Files"
+msgstr "Файлы TAR"
+
 #: ../tcl/pdwindow.tcl
 msgid "Tcl:"
-msgstr ""
+msgstr "Tcl:"
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "Temporarily moving %1$s into %2$s failed."
+msgstr "Перемещение временных файлов их %1$s в %2$s завершилось ошибкой."
 
 #: ../ceammc/ext/src/ui/ui_meter.cpp
 msgid "Tepid signal color"
@@ -1807,7 +2112,7 @@ msgstr "Проверка аудио и MIDI..."
 
 #: ../tcl/dialog_iemgui.tcl
 msgid "Test label"
-msgstr ""
+msgstr "Образец ярлыка"
 
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 #: ../ceammc/ext/src/ui/ui_label.cpp
@@ -1842,7 +2147,8 @@ msgid "To get a list of all available externals, try an empty search."
 msgstr ""
 "Чтобы получить список всех доступных расширений используйте пустой запрос."
 
-#: ../tcl/dialog_iemgui.tcl ../tcl/pd_menus.tcl
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl ../tcl/dialog_iemgui.tcl
+#: ../tcl/pd_menus.tcl
 msgid "Toggle"
 msgstr "Toggle"
 
@@ -1863,12 +2169,16 @@ msgid "Triggerize"
 msgstr "Триггеризовать"
 
 #: ../tcl/pd_deken.tcl
-msgid "Try to remove libraries before (re)installing them?"
-msgstr "Пытаться удалить установленные библиотеки перед их (пере)установкой?"
+msgid "Try to remove libraries before (re)installing them"
+msgstr "Удалять библиотеки перед их (пере)установкой"
 
 #: ../tcl/pd_deken.tcl
-msgid "Try using the full name e.g. 'freeverb'."
-msgstr "Попробуйте использовать полное имя, например ‘freeverb’."
+msgid "Try to verify the libraries' checksum before (re)installing them"
+msgstr "Проверять чексуммы библиотек перед их (пере)установкой"
+
+#: ../tcl/pd_deken.tcl
+msgid "Try using the full name e.g. 'freeverb~'."
+msgstr "Попробуйте использовать полное имя, например ‘freeverb~’."
 
 #: ../tcl/pd-gui.tcl
 #, tcl-format
@@ -1890,18 +2200,46 @@ msgid "Unable to download from %1$s [%2$s]"
 msgstr "Невозможно загрузить из %1$s [%2$s]"
 
 #: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "Unable to download from '%s'!"
+msgstr "Невозможно загрузить '%s'!"
+
+#: ../tcl/pd_deken.tcl
+msgid "Unable to extract package automatically."
+msgstr "Невозможно автоматически распаковать пакет."
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "Unable to fetch reference SHA256 for '%s'."
+msgstr "Невозможно получить чексумму SHA256 для '%s'."
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "Unable to install to '%s'"
+msgstr "Не удалось установить в '%s'"
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "Unable to perform SHA256 verification for '%s'."
+msgstr "Невозможно произвести проверку SHA256 для '%s'."
+
+#: ../tcl/pd_deken.tcl
 msgid "Unable to perform search."
 msgstr "Невозможно выполнить поиск."
 
 #: ../tcl/pd_deken.tcl
-#, tcl-format
-msgid "Unable to remove stray file %s"
-msgstr "Невозможно удалить оставшийся файл %s"
+msgid "Unable to perform search. Are you online?"
+msgstr "Невозможно выполнить поиск. Вы онлайн?"
 
 #: ../tcl/pd_deken.tcl
 #, tcl-format
-msgid "Unable to rename downloaded file to %s"
-msgstr "Невозможно переименовать загруженный файл в %s"
+msgid "Unable to remove stray file '%s'"
+msgstr "Невозможно удалить оставшийся файл '%s'"
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "Unable to rename downloaded file to '%s'"
+msgstr "Невозможно переименовать загруженный файл в '%s'"
 
 #: ../tcl/pd_menus.tcl
 msgid "Undo"
@@ -1941,13 +2279,27 @@ msgstr "Отменить ввод"
 
 #: ../tcl/pd_deken.tcl
 #, tcl-format
+msgid "Uninstall '%s'"
+msgstr "Удаление ’%s’"
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
 msgid "Uninstalling %1$s from %2$s failed!"
 msgstr "Не удалось удалить %1$s из %2$s!"
 
 #: ../tcl/pd_deken.tcl
 #, tcl-format
+msgid "Uninstalling previous installation of '%s'"
+msgstr "Удаление ранее установленного пакета '%s'"
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
 msgid "Uploaded by %1$s @ %2$s"
 msgstr "Добавлено пользователем %1$s @ %2$s"
+
+#: ../tcl/pd_deken.tcl
+msgid "Uploader"
+msgstr "Загрузил"
 
 #: ../tcl/dialog_gatom.tcl ../tcl/dialog_iemgui.tcl
 msgid "Upper:"
@@ -1970,12 +2322,17 @@ msgid "Use standard paths"
 msgstr "Использовать стандартные расширения"
 
 #: ../tcl/pd_deken.tcl
+msgid "Use the '*' wildcard to match any number of characters."
+msgstr ""
+"Используйте шаблон подстановки '*' для соответствия любому числу символов."
+
+#: ../tcl/pd_deken.tcl
 msgid "User-defined platform:"
 msgstr "Платформа указанная пользователем:"
 
 #: ../tcl/dialog_iemgui.tcl ../tcl/pd_menus.tcl
 msgid "VU Meter"
-msgstr ""
+msgstr "VU измеритель"
 
 #: ../ceammc/ext/src/ui/ui_slider.cpp
 msgid "Value position"
@@ -1989,6 +2346,14 @@ msgstr "Значение:"
 msgid "Verbose"
 msgstr "Подробный вывод"
 
+#: ../tcl/pd_deken.tcl
+msgid "Version"
+msgstr "Версия"
+
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Vertial slider"
+msgstr "Вертикальный ползунок"
+
 #: ../ceammc/ext/src/ui/ui_tab.cpp
 msgid "Vertical Orientation"
 msgstr "Вертикально"
@@ -1996,6 +2361,10 @@ msgstr "Вертикально"
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 msgid "Vertical align"
 msgstr "Вертикальное выравнивание"
+
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Vertical radio"
+msgstr "Вертикальный переключатель"
 
 #: ../ceammc/ext/src/spat/hoa_2d_scope.cpp
 msgid "View rotation"
@@ -2007,7 +2376,7 @@ msgstr "Видимый размер (в пикселях)"
 
 #: ../tcl/dialog_iemgui.tcl ../tcl/pd_menus.tcl
 msgid "Vradio"
-msgstr ""
+msgstr "Vradio"
 
 #: ../tcl/dialog_iemgui.tcl ../tcl/pd_menus.tcl
 msgid "Vslider"
@@ -2015,31 +2384,23 @@ msgstr "Vertial Slider"
 
 #: ../tcl/pd-gui.tcl
 #, tcl-format
-msgid "WARNING: Font family '%s' not found, using default (%s)\n"
+msgid "WARNING: font family '%1$s' not found, using default (%2$s)"
 msgstr ""
-"ВНИМАНИЕ: Шрифт «%s» не найден, используется шрифт по умолчанию (%s)\n"
+"ПРЕДУПРЕЖДЕНИЕ:  шрифт ‘%1$s’ не найден, используется шрифт по умолчанию "
+"(%2$s)"
 
 #: ../tcl/pd-gui.tcl
 #, tcl-format
-msgid "WARNING: Font weight '%s' not found, using default (%s)\n"
+msgid "WARNING: font weight '%1$s' not found, using default (%2$s)"
 msgstr ""
-"ВНИМАНИЕ: Жирность шрифта «%s» не найдена, используется по умолчанию (%s)\n"
-
-#: ../tcl/pd-gui.tcl
-#, tcl-format
-msgid "WARNING: font family '%s' not found, using default (%s)\n"
-msgstr ""
-"ВНИМАНИЕ: Шрифт ‘%s’ не найден, используется шрифт по умолчанию (%s)\n"
-
-#: ../tcl/pd-gui.tcl
-#, tcl-format
-msgid "WARNING: font weight '%s' not found, using default (%s)\n"
-msgstr ""
-"ВНИМАНИЕ: Толщина шрифта ‘%s’ не найдена, используется по умолчанию (%s)\n"
+"ПРЕДУПРЕЖДЕНИЕ: толщина шрифта ‘%1$s’ не найдена, используется по умолчанию "
+"(%2$s)"
 
 #: ../tcl/dialog_canvas.tcl
 msgid "WARNING: unknown graphme flags received in pdtk_canvas_dialog"
 msgstr ""
+"ПРЕДУПРЕЖДЕНИЕ: неподдерживаемый graphme флаг получен в функции "
+"pdtk_canvas_dialog"
 
 #: ../ceammc/ext/src/ui/ui_meter.cpp
 msgid "Warm signal color"
@@ -2101,6 +2462,22 @@ msgstr "Y диапазон: от"
 msgid "Y units per pixel:"
 msgstr "Y единиц на пиксель:"
 
+#: ../tcl/pd_deken.tcl
+msgid "You can also search for libraries & objects via your web browser:"
+msgstr "Вы можете выполнять поиск библиотек и объектов через веб-броузер:"
+
+#: ../tcl/pd_deken.tcl
+msgid "You can restrict the search to only-libraries or only-objects."
+msgstr "Вы можете ограничить поиск только библиотеками или только объектами."
+
+#: ../tcl/pd_deken.tcl
+msgid "You might need to change the file-extension from .dek to .zip"
+msgstr "Необходимо изменить расширение файла с .dek на .zip"
+
+#: ../tcl/pd_deken.tcl
+msgid "ZIP Files"
+msgstr "Файлы ZIP"
+
 #: ../tcl/pd_menus.tcl
 msgid "Zoom"
 msgstr "Раскрыть"
@@ -2136,67 +2513,31 @@ msgstr "[deken] Платформа определена: %s"
 
 #: ../tcl/pd_deken.tcl
 #, tcl-format
-msgid "[deken] Platform re-detected: %s"
-msgstr "[deken] платформа определена заново: %s"
-
-#: ../tcl/pd_deken.tcl
-#, tcl-format
 msgid "[deken] deken-plugin.tcl (Pd externals search) loaded from %s."
 msgstr "[deken] deken-plugin.tcl (поиск расширений Pd) загружен из %s."
 
 #: ../tcl/pd_deken.tcl
 #, tcl-format
-msgid "[deken] uninstalling '%s'"
-msgstr "[deken] удаление ’%s’"
-
-#: ../tcl/pd_deken.tcl
-msgid "[deken]: "
-msgstr ""
-
-#: ../tcl/pd_deken.tcl
-msgid "[deken]: No matching externals found."
-msgstr "[deken]: Подходящие расширения не найдены."
-
-#: ../tcl/pd_deken.tcl
-msgid "[deken]: Start searching for externals..."
-msgstr "[deken]: Начинаю поиск расширений..."
-
-#: ../tcl/pd_deken.tcl
-msgid "[deken]: Unable to extract package automatically."
-msgstr "[deken]: Невозможно распаковать пакет автоматически."
+msgid "[deken] installed version [%1$s] < %2$s...overwriting!"
+msgstr "[deken]: установленнная версия [%1$s] < %2$s...перезаписываю!"
 
 #: ../tcl/pd_deken.tcl
 #, tcl-format
-msgid "[deken]: installed version [%1$s] < %2$s...overwriting!"
-msgstr "[deken]: установленная версия [%1$s] < %2$s…перезаписываю!"
+msgid "[deken] installed version [%1$s] == %2$s...skipping!"
+msgstr "[deken]: установленная версия [%1$s] == %2$s...пропускаю!"
 
 #: ../tcl/pd_deken.tcl
 #, tcl-format
-msgid "[deken]: installed version [%1$s] == %2$s...skipping!"
-msgstr "[deken]: установленная версия [%1$s] == %2$s…пропускаю!"
-
-#: ../tcl/pd_deken.tcl
-#, tcl-format
-msgid "[deken]: installed version [%1$s] > %2$s...skipping!"
-msgstr "[deken]: установленная версия [%1$s] > %2$s… пропускаю!"
-
-#: ../tcl/pd_deken.tcl
-#, tcl-format
-msgid "[deken]: online? %s"
-msgstr "[deken]: онлайн? %s"
+msgid "[deken] installed version [%1$s] > %2$s...skipping!"
+msgstr "[deken]: установленная версия [%1$s] > %2$s...пропускаю!"
 
 #: ../tcl/pd_deken.tcl
 msgid "_"
 msgstr ""
 
 #: ../tcl/pd_deken.tcl
-msgid "aborting.\n"
-msgstr ""
-
-#: ../tcl/pd_deken.tcl
-#, tcl-format
-msgid "added %s to search paths"
-msgstr "добавлен %s к путям поиска"
+msgid "aborting."
+msgstr "отмена."
 
 #: ../tcl/pdwindow.tcl
 msgid "all"
@@ -2204,45 +2545,50 @@ msgstr "все"
 
 #: ../ceammc/ext/src/ui/ui_keyboard.cpp
 msgid "aug"
-msgstr ""
+msgstr "aug"
 
 #: ../ceammc/ext/src/ui/ui_keyboard.cpp
 msgid "aug7"
-msgstr ""
+msgstr "aug7"
+
+#: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
+msgid "auto complete library names"
+msgstr "автоматически дополнять названия библиотек"
+
+#: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
+msgid "background color"
+msgstr "цвет фона"
+
+#: ../tcl/pd_deken.tcl
+msgid "both"
+msgstr "одновременно"
 
 #: ../ceammc/ext/src/ui/ui_polar.cpp ../ceammc/ext/src/ui/ui_slider2d.cpp
 msgid "bottom center"
 msgstr "внизу по центру"
-
-#: iemgui_dynamic_strings.tcl
-msgid "bottom:"
-msgstr "снизу:"
 
 #: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_polar.cpp
 #: ../ceammc/ext/src/ui/ui_slider2d.cpp
 msgid "center"
 msgstr "по центру"
 
-#: ../tcl/pd_deken.tcl
-#, tcl-format
+#: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
 msgid ""
-"commencing downloading of:\n"
-"%1$s\n"
-"into %2$s..."
+"click to\n"
+"choose"
 msgstr ""
-"начало загрузки:\n"
-"%1$s\n"
-"в %2$s..."
+"кликните для\n"
+"выбора цвета"
 
 #: ../tcl/pd_docsdir.tcl
 #, tcl-format
-msgid "couldn't create \"externals\" directory in: %s\n"
-msgstr "невозможно создать каталог «externals» в %s\n"
+msgid "couldn't create \"externals\" directory in: %s"
+msgstr "невозможно создать каталог «externals» в %s"
 
 #: ../tcl/pd_docsdir.tcl
 #, tcl-format
-msgid "couldn't create Pd documents directory: %s\n"
-msgstr "невозможно создать каталог для Pd документов: %s\n"
+msgid "couldn't create Pd documents directory: %s"
+msgstr "невозможно создать каталог для Pd документов: %s"
 
 #: pd_dynamic_strings.tcl
 msgid "couldn't delete .pdsettings file"
@@ -2252,18 +2598,31 @@ msgstr "невозможно удалить файл .pdsettings"
 msgid "debug"
 msgstr "отладка"
 
-#: ../tcl/pd_deken.tcl
+#: ../tcl/pd-gui.tcl
 #, tcl-format
-msgid "deken-plugin.tcl (Pd externals search) loaded from %s"
-msgstr "deken-plugin.tcl (поиск расширений Pd) загружен из %s"
+msgid "detected font: %s"
+msgstr "обнаружен шрифт: %s"
 
 #: ../ceammc/ext/src/ui/ui_keyboard.cpp
 msgid "dim"
-msgstr ""
+msgstr "dim"
+
+#: ../tcl/pdwindow.tcl
+#, tcl-format
+msgid "dropped %d lines from the Pd window"
+msgstr "удалено %d строк вывода в окне Pd"
 
 #: ../ceammc/ext/src/ui/ui_preset.cpp
 msgid "duplicate all"
 msgstr "дублировать все"
+
+#: ../tcl/pd_deken.tcl
+msgid "e.g. '*-plugin' will match 'deken-plugin' (and more)."
+msgstr "например, '*-plugin' даст совпадение с 'deken-plugin' (и другими)."
+
+#: ../tcl/pd_deken.tcl
+msgid "e.g. 'freeverb~'"
+msgstr "например, 'freeverb~'"
 
 #: pd_dynamic_strings.tcl
 msgid "erased Pd settings"
@@ -2305,13 +2664,13 @@ msgstr "инвертировать столбец"
 msgid "flip row"
 msgstr "инвертировать строку"
 
-#: iemgui_dynamic_strings.tcl
-msgid "height:"
-msgstr "высота:"
+#: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
+msgid "font size"
+msgstr "размер шрифта"
 
-#: iemgui_dynamic_strings.tcl
-msgid "hold:"
-msgstr ""
+#: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
+msgid "hotkey (require save&restart)"
+msgstr "горячая клавиша (требует сохранения и перезапуска)"
 
 #: ../tcl/wheredoesthisgo.tcl
 #, tcl-format
@@ -2325,34 +2684,25 @@ msgstr "пропускаю ‘%s’: не формат Pd-файла"
 
 #: ../tcl/pd_deken.tcl
 #, tcl-format
-msgid "installed version [%1$s] < %2$s...overwriting!"
-msgstr "установленная версия [%1$s] < %2$s…перезаписываю!"
+msgid "ignoring '%s': doesn't look like a deken package"
+msgstr "игнорирую ‘%s’: не возможно определить как пакет deken"
 
 #: ../tcl/pd_deken.tcl
 #, tcl-format
-msgid "installed version [%1$s] == %2$s...skipping!"
-msgstr "установленная версия [%1$s] == %2$s…пропускаю!"
-
-#: ../tcl/pd_deken.tcl
-#, tcl-format
-msgid "installed version [%1$s] > %2$s...skipping!"
-msgstr "установленная версия [%1$s] > %2$s… пропускаю!"
-
-#: iemgui_dynamic_strings.tcl
-msgid "intrrpt:"
-msgstr ""
+msgid "installing deken package '%s'"
+msgstr "установка пакета ’%s’"
 
 #: ../ceammc/ext/src/ui/ui_polar.cpp ../ceammc/ext/src/ui/ui_slider2d.cpp
 msgid "left center"
 msgstr "по центре левой стороны"
 
-#: iemgui_dynamic_strings.tcl
-msgid "left:"
-msgstr "слева:"
+#: ../tcl/pd_deken.tcl
+msgid "libraries"
+msgstr "библиотеки"
 
 #: iemgui_dynamic_strings.tcl
-msgid "lin"
-msgstr "lin"
+msgid "linear"
+msgstr "линейно"
 
 #: ../ceammc/ext/src/ui/ui_sliders.cpp
 msgid "linear down"
@@ -2370,33 +2720,29 @@ msgstr "линейно наверх"
 msgid "load"
 msgstr "загрузить"
 
-#: iemgui_dynamic_strings.tcl
-msgid "log"
-msgstr "log"
-
 #: ../ceammc/ext/src/ui/ui_spectroscope.cpp
 msgid "log scale"
 msgstr "логарифмическая шкала"
 
 #: iemgui_dynamic_strings.tcl
-msgid "log-height:"
-msgstr ""
+msgid "logarithmic"
+msgstr "логарифмически"
 
 #: ../ceammc/ext/src/ui/ui_keyboard.cpp
 msgid "maj"
-msgstr ""
+msgstr "maj"
 
 #: ../ceammc/ext/src/ui/ui_keyboard.cpp
 msgid "maj7"
-msgstr ""
+msgstr "maj7"
 
 #: ../ceammc/ext/src/ui/ui_knob.cpp
 msgid "max"
 msgstr "max"
 
-#: iemgui_dynamic_strings.tcl
-msgid "max:"
-msgstr "макс:"
+#: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
+msgid "maximum scan depth"
+msgstr "максимальная глубина сканирования"
 
 #: ../ceammc/ext/src/ui/ui_keyboard.cpp ../ceammc/ext/src/ui/ui_knob.cpp
 msgid "min"
@@ -2404,11 +2750,19 @@ msgstr "min"
 
 #: ../ceammc/ext/src/ui/ui_keyboard.cpp
 msgid "min7"
-msgstr ""
+msgstr "min7"
+
+#: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
+msgid "mono-object background color"
+msgstr "цвет фона моно-объектов"
 
 #: iemgui_dynamic_strings.tcl
-msgid "min:"
-msgstr "мин:"
+msgid "new&old"
+msgstr "новые и старые"
+
+#: iemgui_dynamic_strings.tcl
+msgid "new-only"
+msgstr "только новые"
 
 #: pd_dynamic_strings.tcl
 msgid "no Pd settings to clear"
@@ -2418,32 +2772,30 @@ msgstr "нет настроек для очистки"
 msgid "no Pd settings to erase"
 msgstr "нет настроек для удаления"
 
-#: ../tcl/pd_deken.tcl
-msgid "no matching externals found"
-msgstr "подходящие расширения не найдены"
+#: ../tcl/pd_menus.tcl
+msgid "no Pd-GUI settings to clear"
+msgstr "нет настроек Pd-GUI для очистки"
+
+#: iemgui_dynamic_strings.tcl
+msgid "no scale"
+msgstr "без шкалы"
 
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp ../tcl/pdwindow.tcl
 msgid "normal"
 msgstr "обычный"
 
+#: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
+msgid "number of lines to display"
+msgstr "число строк для показа"
+
+#: ../tcl/pd_deken.tcl
+msgid "objects"
+msgstr "объекты"
+
 #: ../tcl/pd_deken.tcl
 #, tcl-format
 msgid "online? %s"
 msgstr "онлайн? %s"
-
-#: ../tcl/pd_deken.tcl
-#, tcl-format
-msgid "platform detected: %s"
-msgstr "платформа определена: %s"
-
-#: ../tcl/pd_deken.tcl
-#, tcl-format
-msgid "platform re-detected: %s"
-msgstr "платформа определена заново: %s"
-
-#: ../tcl/pd_deken.tcl
-msgid "please perform the following steps manually:"
-msgstr "пожалуйста, сделайте вручную следующие шаги:"
 
 #: ../tcl/pd_menus.tcl
 msgid "puredata.info"
@@ -2458,6 +2810,10 @@ msgstr "случайное значение"
 msgid "read"
 msgstr "читать"
 
+#: ../tcl/pd_guiprefs.tcl
+msgid "refusing to delete empty domain"
+msgstr "невозможно удалить пустую категорию"
+
 #: ../ceammc/ext/src/ui/ui_keyboard.cpp
 msgid "release all"
 msgstr "отпустить все"
@@ -2465,6 +2821,10 @@ msgstr "отпустить все"
 #: pd_dynamic_strings.tcl
 msgid "removed .pdsettings file"
 msgstr "файл настроек .pdsettings удален"
+
+#: ../tcl/pd_menus.tcl
+msgid "removed GUI settings"
+msgstr "удаление настроек GUI"
 
 #: ../ceammc/ext/src/ui/ui_matrix.cpp ../ceammc/ext/src/ui/ui_radio.cpp
 msgid "reset"
@@ -2482,36 +2842,27 @@ msgstr "сбросить строку"
 msgid "right center"
 msgstr "по центру правой стороны"
 
-#: iemgui_dynamic_strings.tcl
-msgid "right:"
-msgstr "справа:"
-
 #: ../ceammc/ext/src/ui/ui_matrix.cpp
 msgid "save"
 msgstr "сохранить"
 
-#: ../tcl/pd_deken.tcl
-#, tcl-format
-msgid "searching for '%s'"
-msgstr "поиск «%s»"
-
 #: iemgui_dynamic_strings.tcl
-msgid "size:"
-msgstr "размер:"
+msgid "scale"
+msgstr "шкала"
+
+#: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
+msgid "skipping background color"
+msgstr "цвет фона пропущенных объектов"
 
 #: pd_dynamic_strings.tcl
 msgid "skipping loading preferences... Pd seems to have crashed on startup"
 msgstr ""
 "пропускаю загрузку настроек... Возможно прошлый запуск Pd был с ошибкой"
 
-#: ../tcl/pd_deken.tcl
-msgid "start searching for externals..."
-msgstr "начинаю поиск расширений..."
-
-#: ../tcl/pd_deken.tcl
+#: ../tcl/pdwindow.tcl
 #, tcl-format
-msgid "successfully unzipped %1$s into %2$s"
-msgstr "файл %1$s успешно распакован в директорию %2$s"
+msgid "the Pd window filtered %d lines"
+msgstr "отфильтровано %d строк в окне Pd"
 
 #: ../tcl/dialog_canvas.tcl
 msgid "to"
@@ -2521,59 +2872,14 @@ msgstr "до"
 msgid "top center"
 msgstr "вверху по центру"
 
-#: iemgui_dynamic_strings.tcl
-msgid "top:"
-msgstr "сверху:"
-
 #: ../tcl/pd_deken.tcl
-msgid "try using the full name e.g. 'freeverb'"
-msgstr "попробуйте использовать полное имя, например ‘freeverb’."
+msgid "translations"
+msgstr "переводы"
 
-#: ../tcl/pd_deken.tcl
+#: ../tcl/pd-gui.tcl
 #, tcl-format
-msgid "unable to add %s to search paths"
-msgstr "невозможно добавить %s в пути поиска"
-
-#: ../tcl/pd_deken.tcl
-#, tcl-format
-msgid "unable to download from %1$s [%2$s]"
-msgstr "невозможно загрузить из %1$s [%2$s]"
-
-#: ../tcl/pd_deken.tcl
-msgid "unable to extract package automatically"
-msgstr "невозможно распаковать пакет автоматически"
-
-#: ../tcl/pd_deken.tcl
-msgid "unable to perform search"
-msgstr "невозможно выполнить поиск"
-
-#: ../tcl/pd_deken.tcl
-#, tcl-format
-msgid "unable to remove stray file %s"
-msgstr "невозможно удалить оставшийся файл %s"
-
-#: ../tcl/pd_deken.tcl
-#, tcl-format
-msgid "unable to rename downloaded file to %s"
-msgstr "невозможно переименовать загруженный файл в %s"
-
-#: ../tcl/pd_deken.tcl
-#, tcl-format
-msgid "uninstalling %1$s from %2$s failed!"
-msgstr "не удалось удалить %1$s из %2$s!"
-
-#: ../tcl/pd_deken.tcl
-#, tcl-format
-msgid "uninstalling '%s'"
-msgstr "удаление ’%s’"
-
-#: iemgui_dynamic_strings.tcl
-msgid "value:"
-msgstr "значение:"
-
-#: iemgui_dynamic_strings.tcl
-msgid "width:"
-msgstr "ширина:"
+msgid "using font: %1$s %2$s"
+msgstr "использование шрифта: %1$s %2$s"
 
 #: ../ceammc/ext/src/ui/ui_preset.cpp
 msgid "write"
@@ -2582,8 +2888,31 @@ msgstr "записать"
 #~ msgid "%s properties"
 #~ msgstr "Свойства %s"
 
+#~ msgid "(use arrow keys ↑↓ for history)"
+#~ msgstr "(используйте стрелки ↑↓ для навигации по истории)"
+
+#, tcl-format
+#~ msgid "1. unzip %s"
+#~ msgstr "1. распаковка %s"
+
+#~ msgid "1:"
+#~ msgstr "1:"
+
 #~ msgid "2. Copy the contents into %s.\n"
 #~ msgstr "2. Копирую содержимое в %s.\n"
+
+#, tcl-format
+#~ msgid "2. copy the contents into %s"
+#~ msgstr "2. копирование содержимого в %s"
+
+#~ msgid "2:"
+#~ msgstr "2:"
+
+#~ msgid "3:"
+#~ msgstr "3:"
+
+#~ msgid "4:"
+#~ msgstr "4:"
 
 #~ msgid "5:"
 #~ msgstr "5:"
@@ -2606,6 +2935,18 @@ msgstr "записать"
 #~ msgid "Align To Grid"
 #~ msgstr "Выровнять по сетке"
 
+#~ msgid "Are you online?"
+#~ msgstr "Вы онлайн?"
+
+#~ msgid "Auto range"
+#~ msgstr "Автоматический диапазон"
+
+#~ msgid "ButtonBar Settings"
+#~ msgstr "Настройки панели кнопок"
+
+#~ msgid "ButtonBar settings"
+#~ msgstr "Настройки панели кнопок"
+
 #~ msgid "Cannot download/install libraries!"
 #~ msgstr "Невозможно загрузить/установить библиотеки!"
 
@@ -2618,6 +2959,14 @@ msgstr "записать"
 #~ "%s\n"
 #~ "в %s..."
 
+#, tcl-format
+#~ msgid "Couldn't create \"externals\" directory in: %s\n"
+#~ msgstr "Невозможно создать каталог «externals» в %s\n"
+
+#, tcl-format
+#~ msgid "Couldn't create Pd documents directory: %s\n"
+#~ msgstr "Невозможно создать каталог для Pd документов: %s\n"
+
 #~ msgid "Couldn't find '%s' in %s"
 #~ msgstr "Не удалось найти '%s' в %s"
 
@@ -2627,14 +2976,25 @@ msgstr "записать"
 #~ msgid "Draw Grid"
 #~ msgstr "Показывать сетку"
 
+#~ msgid "FLOSS Manual..."
+#~ msgstr "FLOSS руководство..."
+
+#~ msgid "Float formatting width"
+#~ msgstr "Число разрядов форматирования"
+
 #~ msgid "Hover Mode"
 #~ msgstr "Режим наведения"
 
+#, tcl-format
+#~ msgid "Ignoring '%s': doesn't exist"
+#~ msgstr "Игнорирование \" %s\": не существует"
+
+#, tcl-format
+#~ msgid "Ignoring '%s': doesn't look like a Pd-file"
+#~ msgstr "Пропускаю ‘%s’: не формат Pd-файла"
+
 #~ msgid "Install libraries to directory:"
 #~ msgstr "Установить в директорию:"
-
-#~ msgid "Install to directory %s?"
-#~ msgstr "Установить в директорию «%s»?"
 
 #~ msgid "Item Color"
 #~ msgstr "Цвет элемента"
@@ -2690,14 +3050,14 @@ msgstr "записать"
 #~ msgid "Output on mouse up"
 #~ msgstr "Выводить при отпускании мыши"
 
+#~ msgid "Pd tutorial by Johannes Kreidler"
+#~ msgstr "Руководство по Pd от Johannes Kreidler"
+
 #~ msgid "Position"
 #~ msgstr "Положение"
 
 #~ msgid "Save Current Patch As..."
 #~ msgstr "Сохранить текущий патч как..."
-
-#~ msgid "Search in"
-#~ msgstr "Поиск в"
 
 #~ msgid "Selected Button Color"
 #~ msgstr "Цвет выделенной кнопки"
@@ -2710,12 +3070,6 @@ msgstr "записать"
 
 #~ msgid "Showing '%d' out of %d items in %s"
 #~ msgstr "Показано ‘%d’ из %d элементов в %s"
-
-#~ msgid "Successfully unzipped %s into %s.\n"
-#~ msgstr "Успешно распакован файл %s в директорию %s.\n"
-
-#~ msgid "Unable to perform search. Are you online?"
-#~ msgstr "Невозможно выполнить поиск. Вы онлайн?"
 
 #~ msgid "Uploaded by %s @ %s"
 #~ msgstr "Добавлено пользователем %s @ %s"
@@ -2732,11 +3086,148 @@ msgstr "записать"
 #~ msgid "Value range"
 #~ msgstr "Диапазон значений"
 
+#, tcl-format
+#~ msgid "WARNING: Font family '%s' not found, using default (%s)\n"
+#~ msgstr ""
+#~ "ВНИМАНИЕ: Шрифт «%s» не найден, используется шрифт по умолчанию (%s)\n"
+
+#, tcl-format
+#~ msgid "WARNING: Font weight '%s' not found, using default (%s)\n"
+#~ msgstr ""
+#~ "ВНИМАНИЕ: Жирность шрифта «%s» не найдена, используется по умолчанию "
+#~ "(%s)\n"
+
 #~ msgid "Zoom new windows"
 #~ msgstr "Увеличенный шрифт в новых окнах"
+
+#, tcl-format
+#~ msgid "[deken] Platform re-detected: %s"
+#~ msgstr "[deken] платформа определена заново: %s"
+
+#, tcl-format
+#~ msgid "[deken] uninstalling '%s'"
+#~ msgstr "[deken] удаление ’%s’"
+
+#~ msgid "[deken]: No matching externals found."
+#~ msgstr "[deken]: Подходящие расширения не найдены."
+
+#~ msgid "[deken]: Start searching for externals..."
+#~ msgstr "[deken]: Начинаю поиск расширений..."
+
+#~ msgid "[deken]: Unable to extract package automatically."
+#~ msgstr "[deken]: Невозможно распаковать пакет автоматически."
+
+#, tcl-format
+#~ msgid "[deken]: online? %s"
+#~ msgstr "[deken]: онлайн? %s"
+
+#, tcl-format
+#~ msgid "added %s to search paths"
+#~ msgstr "добавлен %s к путям поиска"
+
+#~ msgid "bottom:"
+#~ msgstr "снизу:"
+
+#, tcl-format
+#~ msgid ""
+#~ "commencing downloading of:\n"
+#~ "%1$s\n"
+#~ "into %2$s..."
+#~ msgstr ""
+#~ "начало загрузки:\n"
+#~ "%1$s\n"
+#~ "в %2$s..."
+
+#, tcl-format
+#~ msgid "deken-plugin.tcl (Pd externals search) loaded from %s"
+#~ msgstr "deken-plugin.tcl (поиск расширений Pd) загружен из %s"
 
 #~ msgid "fill with %f"
 #~ msgstr "заполнить %f"
 
 #~ msgid "for:"
 #~ msgstr ":"
+
+#~ msgid "height:"
+#~ msgstr "высота:"
+
+#, tcl-format
+#~ msgid "installed version [%1$s] < %2$s...overwriting!"
+#~ msgstr "установленная версия [%1$s] < %2$s…перезаписываю!"
+
+#, tcl-format
+#~ msgid "installed version [%1$s] == %2$s...skipping!"
+#~ msgstr "установленная версия [%1$s] == %2$s…пропускаю!"
+
+#, tcl-format
+#~ msgid "installed version [%1$s] > %2$s...skipping!"
+#~ msgstr "установленная версия [%1$s] > %2$s… пропускаю!"
+
+#~ msgid "left:"
+#~ msgstr "слева:"
+
+#~ msgid "lin"
+#~ msgstr "lin"
+
+#~ msgid "log"
+#~ msgstr "log"
+
+#~ msgid "max:"
+#~ msgstr "макс:"
+
+#~ msgid "min:"
+#~ msgstr "мин:"
+
+#~ msgid "no matching externals found"
+#~ msgstr "подходящие расширения не найдены"
+
+#~ msgid "please perform the following steps manually:"
+#~ msgstr "пожалуйста, сделайте вручную следующие шаги:"
+
+#~ msgid "right:"
+#~ msgstr "справа:"
+
+#~ msgid "size:"
+#~ msgstr "размер:"
+
+#~ msgid "start searching for externals..."
+#~ msgstr "начинаю поиск расширений..."
+
+#, tcl-format
+#~ msgid "successfully unzipped %1$s into %2$s"
+#~ msgstr "файл %1$s успешно распакован в директорию %2$s"
+
+#~ msgid "top:"
+#~ msgstr "сверху:"
+
+#~ msgid "try using the full name e.g. 'freeverb'"
+#~ msgstr "попробуйте использовать полное имя, например ‘freeverb’."
+
+#, tcl-format
+#~ msgid "unable to add %s to search paths"
+#~ msgstr "невозможно добавить %s в пути поиска"
+
+#, tcl-format
+#~ msgid "unable to download from %1$s [%2$s]"
+#~ msgstr "невозможно загрузить из %1$s [%2$s]"
+
+#~ msgid "unable to perform search"
+#~ msgstr "невозможно выполнить поиск"
+
+#, tcl-format
+#~ msgid "unable to remove stray file %s"
+#~ msgstr "невозможно удалить оставшийся файл %s"
+
+#, tcl-format
+#~ msgid "unable to rename downloaded file to %s"
+#~ msgstr "невозможно переименовать загруженный файл в %s"
+
+#, tcl-format
+#~ msgid "uninstalling %1$s from %2$s failed!"
+#~ msgstr "не удалось удалить %1$s из %2$s!"
+
+#~ msgid "value:"
+#~ msgstr "значение:"
+
+#~ msgid "width:"
+#~ msgstr "ширина:"

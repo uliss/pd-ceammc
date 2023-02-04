@@ -25,15 +25,17 @@
             explicitly set or specified, uses generator initialized with current time.</par>
         </info>
         <arguments>
-            <argument type="list" name="P">interleaved interval boundaries and boundary
+            <argument type="list" name="V">interleaved interval boundaries and boundary
             propabilities. Note: number of arguments should be odd and &gt;=5. Boundaries should be
             in strictly increasing order and weights should be non-negative</argument>
         </arguments>
         <properties>
-            <property name="@v" type="list">interleaved interval boundaries and boundary
+            <property name="@v" type="list" default="">interleaved interval boundaries and boundary
             propabilities.</property>
-            <property name="@bounds" type="list" readonly="true">list of boundaries</property>
-            <property name="@weights" type="list" readonly="true">list of weights</property>
+            <property name="@bounds" type="list" access="readonly" default="">list of
+            boundaries</property>
+            <property name="@weights" type="list" access="readonly" default="">list of
+            weights</property>
             <property name="@seed" type="int" minvalue="0" default="0">generator seed</property>
         </properties>
         <inlets>

@@ -25,13 +25,13 @@
             a1*z⁻¹ + a2*z⁻²)</par>
         </info>
         <arguments>
-            <argument name="freq" type="float" units="herz" minvalue="20" maxvalue="20000">center
+            <argument name="FREQ" type="float" units="hertz" minvalue="0" maxvalue="22050">center
             frequency</argument>
         </arguments>
         <properties>
             <property name="@freq" type="float" minvalue="0" maxvalue="22050" default="1000"
-            units="herz">center frequency</property>
-            <property name="@rad" type="flag">use angular frequency</property>
+            units="hertz">center frequency</property>
+            <property name="@rad" type="flag" access="initonly">use angular frequency</property>
             <property name="@mode" type="symbol" enum="hpf lpf" default="lpf">filter
             modey</property>
             <property name="@lpf" type="alias">to @mode lpf</property>

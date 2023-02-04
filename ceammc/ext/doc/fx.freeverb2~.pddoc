@@ -37,12 +37,10 @@
             signal, 1 - wet</property>
             <property name="@spread" type="float" minvalue="0" maxvalue="1" default="0.5">spatial
             spread between 0 and 1 with 1 for maximum spread</property>
-            <property name="@bypass" type="int" enum="0 1" default="0">if set to 1 - bypass
-            'effected' signal</property>
-            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
-            processing</property>
-            <property name="@freeze" type="int" enum="0 1" default="0">freeze reverberation
-            tail</property>
+            <property name="@bypass" type="bool" default="0">if set to 1 - bypass 'effected'
+            signal</property>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <property name="@freeze" type="bool" default="0">freeze reverberation tail</property>
             <property name="@fr_room" type="float" minvalue="0" maxvalue="1" default="0.999">freeze
             room size</property>
             <property name="@fr_damp" type="float" minvalue="0" maxvalue="1" default="0.0001">

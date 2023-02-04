@@ -42,7 +42,7 @@ TEST_CASE("flow.speedlim", "[externals]")
 
         {
             TObj t("flow.speedlim", LF(-100));
-            REQUIRE_PROPERTY(t, @limit, -100);
+            REQUIRE_PROPERTY(t, @limit, 0);
         }
 
         {

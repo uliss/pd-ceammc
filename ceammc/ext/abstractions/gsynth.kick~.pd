@@ -1,65 +1,87 @@
 #N canvas 0 0 950 600 12;
 #X obj 25 125 synth.kick~;
 #X obj 325 25 inlet;
-#X obj 325 200 route synth.kick;
-#X obj 325 250 route @attack @freq @gate @release;
-#X obj 575 350 print unknown property;
+#X obj 325 125 route synth.kick * .;
+#X obj 525 150 route.prop;
+#X obj 375 200 msg *;
+#X obj 325 250 route @attack @freq @gate @release default reset;
+#X obj 575 350 t b a;
+#X msg 575 375 supported messages are: @attack @freq @gate @release default reset;
+#X obj 575 425 print;
+#X obj 625 425 print [gsynth.kick~] unknown message;
 #X msg 225 75 @attack 10 \, @freq 50 \, @release 1000 \,;
+#X obj 25 50 t b b;
+#X msg 25 75 reset;
 #X obj 225 25 msg.onload;
 #X obj 500 550 outlet~;
 #X obj 600 550 outlet ctl;
+#X obj 3 202 cnv 8 198 129 empty empty empty 17 7 0 10 -174763 -1 0;
 #X obj 3 202 cnv 8 198 18 empty empty [synth.kick~] 3 9 0 12 -104026
 -262144 0;
-#X obj 12 238 ui.slider @size 125 12 @active_scale 1 @label
+#X obj 12 236 ui.slider @size 125 12 @active_scale 1 @label
 attack(ms): @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.kick~/slider0 @min 1 @max 50;
-#X obj 190 238 sync;
-#X obj 145 238 ui.number @size 50 12 @min 1 @max 50 @digits 2;
-#X msg 260 238 @attack \$1;
-#X obj 12 270 ui.slider @size 125 12 @active_scale 1 @label freq(Hz):
+#X obj 215 236 sync;
+#X obj 145 236 ui.number @size 50 12 @min 1 @max 50 @digits 2;
+#X msg 260 236 @attack \$1;
+#X obj 12 266 ui.slider @size 125 12 @active_scale 1 @label freq(Hz):
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.kick~/slider1 @min 10 @max 5000;
-#X obj 190 270 sync;
-#X obj 145 270 ui.number @size 50 12 @min 10 @max 5000 @digits 0;
-#X msg 260 270 @freq \$1;
-#X obj 12 290 ui.toggle @size 12 12 @label gate @label_side right
+#X obj 215 266 sync;
+#X obj 145 266 ui.number @size 50 12 @min 10 @max 5000 @digits 0;
+#X msg 260 266 @freq \$1;
+#X obj 12 286 ui.toggle @size 12 12 @label gate @label_side right
 @label_align left @fontsize 10;
-#X msg 260 282 @gate \$1;
-#X obj 12 320 ui.slider @size 125 12 @active_scale 1 @label
+#X msg 260 278 @gate \$1;
+#X obj 12 314 ui.slider @size 125 12 @active_scale 1 @label
 release(ms): @label_side top @label_align left @fontsize 10
 @presetname /gui/\$1/synth.kick~/slider3 @min 10 @max 8000;
-#X obj 190 320 sync;
-#X obj 145 320 ui.number @size 50 12 @min 10 @max 8000 @digits 0;
-#X msg 260 320 @release \$1;
+#X obj 215 314 sync;
+#X obj 145 314 ui.number @size 50 12 @min 10 @max 8000 @digits 0;
+#X msg 260 314 @release \$1;
 #X connect 1 0 2 0;
-#X connect 2 0 3 0;
-#X connect 3 4 4 0;
-#X connect 5 0 3 0;
-#X connect 6 0 5 0;
-#X connect 0 0 7 0;
-#X connect 2 1 8 0;
-#X connect 10 0 11 0;
-#X connect 11 0 10 0;
-#X connect 12 0 11 1;
+#X connect 2 3 3 0;
+#X connect 2 1 4 0;
+#X connect 2 0 5 0;
+#X connect 2 1 5 0;
+#X connect 2 2 5 0;
+#X connect 3 0 5 0;
+#X connect 5 6 6 0;
+#X connect 6 0 7 0;
+#X connect 7 0 8 0;
+#X connect 6 1 9 0;
+#X connect 10 0 5 0;
+#X connect 5 4 10 0;
 #X connect 11 1 12 0;
-#X connect 10 0 13 0;
-#X connect 13 0 0 0;
-#X connect 3 0 10 0;
-#X connect 14 0 15 0;
-#X connect 15 0 14 0;
-#X connect 16 0 15 1;
-#X connect 15 1 16 0;
-#X connect 14 0 17 0;
-#X connect 17 0 0 0;
-#X connect 3 1 14 0;
+#X connect 11 0 10 0;
+#X connect 12 0 0 0;
+#X connect 5 5 11 0;
+#X connect 13 0 10 0;
+#X connect 0 0 14 0;
+#X connect 3 1 15 0;
+#X connect 4 0 15 0;
 #X connect 18 0 19 0;
-#X connect 19 0 0 0;
-#X connect 3 2 18 0;
-#X connect 20 0 21 0;
-#X connect 21 0 20 0;
-#X connect 22 0 21 1;
-#X connect 21 1 22 0;
-#X connect 20 0 23 0;
-#X connect 23 0 0 0;
-#X connect 3 3 20 0;
-#X coords 0 -1 1 1 200 140 2 2 200;
+#X connect 19 0 18 0;
+#X connect 20 0 19 1;
+#X connect 19 1 20 0;
+#X connect 18 0 21 0;
+#X connect 21 0 0 0;
+#X connect 5 0 18 0;
+#X connect 22 0 23 0;
+#X connect 23 0 22 0;
+#X connect 24 0 23 1;
+#X connect 23 1 24 0;
+#X connect 22 0 25 0;
+#X connect 25 0 0 0;
+#X connect 5 1 22 0;
+#X connect 26 0 27 0;
+#X connect 27 0 0 0;
+#X connect 5 2 26 0;
+#X connect 28 0 29 0;
+#X connect 29 0 28 0;
+#X connect 30 0 29 1;
+#X connect 29 1 30 0;
+#X connect 28 0 31 0;
+#X connect 31 0 0 0;
+#X connect 5 3 28 0;
+#X coords 0 -1 1 1 200 134 2 2 200;

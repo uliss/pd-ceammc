@@ -19,8 +19,8 @@
 -49933 0;
 #X text 110 337 1\.;
 #X text 150 337 list;
-#X obj 246 338 cnv 1 38 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 337 LIST: initial value. Type: list.;
+#X obj 246 338 cnv 1 61 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 337 PATTERN: initial value. Type: list.;
 #X obj 20 367 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 372 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -53,13 +53,13 @@
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
 #X obj 1 655 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 658 library: ceammc v0.9.5;
+#X text 10 658 library: ceammc v0.9.6;
 #N canvas 10 677 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.5;
+#X text 120 32 0.9.6;
 #X text 10 54 object:;
 #X text 120 54 list.equal;
 #X text 10 76 category:;

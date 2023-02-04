@@ -14,7 +14,6 @@
 #include "ceammc_atomlist_view.h"
 #include "ceammc_atomlist.h"
 #include "ceammc_convert.h"
-#include "ceammc_log.h"
 #include "ceammc_numeric.h"
 
 #include <cmath>
@@ -120,11 +119,8 @@ bool AtomListView::operator==(const AtomListView& v) const
 
 bool AtomListView::isBool() const
 {
-    static t_symbol* SYM_TRUE = gensym("true");
-    static t_symbol* SYM_FALSE = gensym("false");
-
     return (isFloat() && (asFloat() == 1 || asFloat() == 0))
-        || ((isSymbol() && (asSymbol() == SYM_TRUE || asSymbol() == SYM_FALSE)));
+        || ((isSymbol() && (asSymbol() == gensym("true") || asSymbol() == gensym("false"))));
 }
 
 bool AtomListView::isInteger() const

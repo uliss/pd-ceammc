@@ -494,4 +494,88 @@ TEST_CASE("seq.counter", "[externals]")
             }
         }
     }
+
+    SECTION("next")
+    {
+        using M = Message;
+        using ML = std::vector<M>;
+
+        SECTION("simple")
+        {
+            TExt t("seq.counter", LA("@from", 1, "@to", 3, "@r", 2));
+            REQUIRE_PROPERTY(t, @value, 1);
+            REQUIRE_PROPERTY(t, @i, 0);
+            REQUIRE_PROPERTY(t, @ri, 0);
+
+            t.sendMessage("next");
+            REQUIRE(t.messagesAt(0) == ML { M(2) });
+            t.sendMessage("next");
+            REQUIRE(t.messagesAt(0) == ML { M(2), M(3) });
+            t.sendMessage("next");
+            REQUIRE(t.messagesAt(0) == ML { M(2), M(3), M(1) });
+            t.sendMessage("next");
+            REQUIRE(t.messagesAt(0) == ML { M(2), M(3), M(1), M(2) });
+            t.sendMessage("next");
+            REQUIRE(t.messagesAt(0) == ML { M(2), M(3), M(1), M(2), M(3) });
+            t.sendMessage("next");
+            REQUIRE(t.messagesAt(0) == ML { M(2), M(3), M(1), M(2), M(3) });
+        }
+    }
+
+    SECTION("prev")
+    {
+        using M = Message;
+        using ML = std::vector<M>;
+        //        const auto bng = M::makeBang();
+        const auto done = M(SYM("done"), L());
+        auto i = [](int i) { return M(t_float(i)); };
+
+        SECTION("simple")
+        {
+            TExt t("seq.counter", LA("@from", 1, "@to", 3, "@r", 3));
+            REQUIRE_PROPERTY(t, @value, 1);
+            REQUIRE_PROPERTY(t, @i, 0);
+            REQUIRE_PROPERTY(t, @ri, 0);
+
+            t.sendMessage("prev");
+            REQUIRE(t.messagesAt(0) == ML { M(3) });
+            t.sendMessage("prev");
+            REQUIRE(t.messagesAt(0) == ML { M(3), M(2) });
+            t.sendMessage("prev");
+            REQUIRE(t.messagesAt(0) == ML { M(3), M(2), M(1) });
+            t.sendMessage("prev");
+            REQUIRE(t.messagesAt(0) == ML { M(3), M(2), M(1), M(3) });
+            t.sendMessage("prev");
+            REQUIRE(t.messagesAt(0) == ML { M(3), M(2), M(1), M(3), M(2) });
+            t.sendMessage("prev");
+            REQUIRE(t.messagesAt(0) == ML { M(3), M(2), M(1), M(3), M(2), M(1) });
+            t.sendMessage("prev");
+            REQUIRE(t.messagesAt(0) == ML { M(3), M(2), M(1), M(3), M(2), M(1) });
+        }
+
+        SECTION("<->")
+        {
+            TExt t("seq.counter", LA("@from", 1, "@to", 3));
+            REQUIRE_PROPERTY(t, @value, 1);
+            REQUIRE_PROPERTY(t, @i, 0);
+            REQUIRE_PROPERTY(t, @ri, 0);
+
+            t.sendMessage("prev");
+            REQUIRE(t.messagesAt(0) == ML { M(3) });
+            t.sendMessage("prev");
+            REQUIRE(t.messagesAt(0) == ML { M(3), M(2) });
+            t.sendMessage("prev");
+            REQUIRE(t.messagesAt(0) == ML { M(3), M(2), M(1) });
+            t.sendMessage("next");
+            REQUIRE(t.messagesAt(0) == ML { M(3), M(2), M(1), M(2) });
+            t.sendMessage("prev");
+            REQUIRE(t.messagesAt(0) == ML { M(3), M(2), M(1), M(2), M(1) });
+            t.sendMessage("next");
+            REQUIRE(t.messagesAt(0) == ML { M(3), M(2), M(1), M(2), M(1), M(2) });
+            t.sendMessage("next");
+            REQUIRE(t.messagesAt(0) == ML { M(3), M(2), M(1), M(2), M(1), M(2), M(3) });
+            t.sendMessage("next");
+            REQUIRE(t.messagesAt(0) == ML { M(3), M(2), M(1), M(2), M(1), M(2), M(3), M(1) });
+        }
+    }
 }

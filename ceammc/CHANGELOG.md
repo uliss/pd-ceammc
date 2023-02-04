@@ -1,11 +1,58 @@
 # CEAMMC external library changelog
 
+## [Unrelesed]
+### Added:
+- new objects:
+  - canvas.active - check if canvas windows is active
+  - flt.resonhp~ resonant highpass filter
+  - flt.resonlp~ resonant lowpass filter
+  - fx.dattorro~ reverb based on the Dattorro reverb topology
+  - fx.jcrev~ schroeder quad reverb from 1972  
+  - fx.satrev~ schroeder stereo reverb from 1971
+  - fx.stutter~ effect
+  - is_prop - check for property message
+  - midi.arp - MIDI arpeggiator added
+  - noise.chua~ : Chua chaotic circut oscillator added
+  - noise.colored~ generator of colored noise (brown, pink, white, blue, velvet)
+  - route.any: message router
+  - route.bang: bang router added
+  - route.list: list router added
+  - route.prop: property message router added
+  - route.symbol: symbol message router added
+  - synth.voice_fofc~ simple formant synthesizer, using FOF-cycle method
+  - synth.voice_fofs~ simple formant synthesizer, using FOF-smooth method
+- new arguments:
+  - 3rd argument added to fx.zita_rev1~ to specify dry/wet ratio
+- new properties:
+  - @cpuload property added to fluid~
+- new methods:
+  - 'next', 'prev', 'random', 'flip', '+' and '-' methods added to ui.tab
+  - 'random move' method arg added to ui.radio
+- new aliases:
+  - 'round' alias added to math.round
+  - 'round~' alias added to math.round~
+- new inlets:
+  - fx.hpf12~: second (freq) inlet added
+  - fx.hpf24~: second (freq) inlet added
+  - fx.lpf12~: second (freq) inlet added
+  - fx.lpf24~: second (freq) inlet added
+  - fx.resonbp~: second (freq) and third (Q-factor) inlets added
+  - fx.room~: second inlet added to set room size
+- misc:
+  - new control outlet added to fluid~ - output current number of active voices (only when changed)
+
+### Changes:
+- properties:
+  - fx.zita_rev1~ @delay property renamed to @predelay
+  - list.repeat @times property renamed to @n
+  - pan.spread~ @ch property renamed to @n (number of channels)
+  - random.atom @a property renamed to @value
+
 ## [0.9.5]
 ### Added:
 - new objects:
   - an.zero~: zero crossing count/rate/freq
   - array.circular: array circular read/write
-  - path.file: file object added
   - flow.seqdelay: sequential message delay/router
   - flt.a-weight: A-weight amplitude/decibel value calculator
   - hw.motu.avb: Motu AVB http control added
@@ -20,6 +67,7 @@
   - net.osc.receive: receive OSC
   - net.osc.send: send OSC messages
   - net.osc.server: OSC server control
+  - path.file: file object added
   - path.pattern: generate unique filenames by pattern
   - proto.feelworld: control Feelworld Livepro L1 HDMI video mixer
   - proto.moppy: MOPPY floppy controller
@@ -32,14 +80,14 @@
   - synth.kick2~ added
   - z~: sample delay added
 - new properties:
-  - @clip property added to system.cursor to clip cursor XY coords
-  - @norm property added to ui.env to do envelope value normalization on input
-  - @value property added to seq.counter
-  - @dev property added to flow.space: to set deviation
   - @channels property added to xdac~: live-channel remapping
-  - @nonrep property added to random.atom to generate non equal adjacent elements
+  - @clip property added to system.cursor to clip cursor XY coords
+  - @dev property added to flow.space: to set deviation
   - @fade property added to live.capture~ to control loop crossfading (fix #171)
   - @gain: make up gain applied to the signal after the compression takes place
+  - @nonrep property added to random.atom to generate non equal adjacent elements
+  - @norm property added to ui.env to do envelope value normalization on input
+  - @value property added to seq.counter
   - @x property added to \[xfade~\] and \[xfade2~\] for setting crossfade
 - new methods:
   - [polltime( method added to system.cursor to change global polltime
@@ -60,19 +108,19 @@
   - [permutate( method added to \[array.grainer~\] - to permutate grains positions
   - [prog( method added to \[sfizz~\] - to send Program Change events
 - misc:
-  - conv.lin2exp: list support added
   - conv.lin2curve: list support added
-  - ui.slider2d: mouse wheel support added: (move x-axis when Alt pressed)
-  - ui.slider2d alias added: ui.s2d
+  - conv.lin2exp: list support added
   - env.asr~: second inlet added for gate control
   - second inlet added to random.atom to set list to choose from
-  - sfizz synth udpated to version 1.2.0
+  - sfizz synth updated to version 1.2.0
+  - ui.slider2d alias added: ui.s2d
+  - ui.slider2d: mouse wheel support added: (move x-axis when Alt pressed)
 - TCL editor added for objects:
   - data.list
-  - local.list
-  - global.list
   - data.set
+  - global.list
   - global.set
+  - local.list
   - local.set
 
 ### Fixed:

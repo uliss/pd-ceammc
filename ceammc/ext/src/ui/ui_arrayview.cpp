@@ -1024,6 +1024,7 @@ void UIArrayView::setup()
 
     obj.addProperty("cursor_samp", &UIArrayView::cursorPosSample, &UIArrayView::setCursorPosSample);
     obj.addProperty("cursor_phase", &UIArrayView::cursorPosPhase, &UIArrayView::setCursorPosPhase);
+    obj.setPropertyRange("cursor_phase", 0, 1);
     obj.addProperty("cursor_sec", &UIArrayView::cursorPosSec, &UIArrayView::setCursorPosSec);
     obj.addProperty("cursor_ms", &UIArrayView::cursorPosMs, &UIArrayView::setCursorPosMs);
     obj.setPropertyUnits(gensym("cursor_samp"), gensym("samp"));
@@ -1042,8 +1043,11 @@ void UIArrayView::setup()
     obj.addProperty("label_bottom", &UIArrayView::labelBottomRight, &UIArrayView::setLabelBottomRight);
 
     obj.addProperty("size_samp", &UIArrayView::sizeSamples);
+    obj.setPropertyMin("size_samp", 0);
     obj.addProperty("size_sec", &UIArrayView::sizeSec);
+    obj.setPropertyMin("size_sec", 0);
     obj.addProperty("size_ms", &UIArrayView::sizeMs);
+    obj.setPropertyMin("size_ms", 0);
     obj.setPropertyUnits(gensym("size_samp"), gensym("samp"));
     obj.setPropertyUnits(gensym("size_sec"), gensym("sec"));
     obj.setPropertyUnits(gensym("size_ms"), gensym("msec"));

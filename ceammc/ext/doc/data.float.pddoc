@@ -21,10 +21,10 @@
             </aliases>
         </meta>
         <arguments>
-            <argument name="VAL" type="float">set initial value</argument>
+            <argument name="VALUE" type="float">set initial value</argument>
         </arguments>
         <properties>
-            <property name="@value" readonly="true" type="float" default="0">current
+            <property name="@value" access="readonly" type="float" default="0">current
             value</property>
         </properties>
         <methods>

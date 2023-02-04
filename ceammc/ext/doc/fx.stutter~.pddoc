@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="fx.stutter~">
+        <title>fx.stutter~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>stutter effect</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>fx</category>
+            <keywords>fx stutter glitch</keywords>
+            <since>0.9.6</since>
+        </meta>
+        <arguments>
+            <argument name="T" type="float" minvalue="1" maxvalue="1000" units="millisecond">
+            stutter period</argument>
+        </arguments>
+        <properties>
+            <property name="@t" type="float" minvalue="1" maxvalue="1000" default="50"
+            units="millisecond">stutter period</property>
+            <property name="@maxsize" type="float" minvalue="1" maxvalue="10000" default="1000"
+            units="millisecond" access="initonly">max stutter period</property>
+            <property name="@mode" type="symbol" enum="fwd back tri" default="fwd">stutter mode. If
+            'fwd': play loop fragment forwards, 'back': play loop fragment backwards, 'tri': play
+            loop fragment in both directions</property>
+            <property name="@speed" type="float" minvalue="0.25" maxvalue="4" default="1">loop
+            fragment playing speed</property>
+        </properties>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>left channel</xinfo>
+            </inlet>
+            <inlet type="control">
+                <xinfo on="bang">turn on effect for 3 periods</xinfo>
+                <xinfo on="float">1: turn on, 0: turn off</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[open %CEAMMC%/guitar1.wav, 1 #c(
+|
+[expand_env]  [stop #b(
+|
+[readsf~ #a]  [ui.btn] [B]
+|             |.       |.
+[fx.stutter~          60]
+|
+[ui.gain~ @size 120 14] [ui.dsp~]
+|\
+[dac~]
+
+[X a:1->c]
+[X b->a]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

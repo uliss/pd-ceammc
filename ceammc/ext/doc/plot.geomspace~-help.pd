@@ -13,63 +13,83 @@ progression);
 1 @ymin_ticks 0 @xmin_ticks 0 @yauto 1;
 #X obj 50 349 ui.dsp~;
 #X obj 20 398 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 403 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 20 403 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 438 @10;
-#X text 245 438 Get/Set alias to @base 10\. Type: atom.;
-#X msg 110 467 @2;
-#X text 245 467 Get/Set alias to @base 2\. Type: atom.;
-#X msg 110 496 @base;
-#X text 245 496 Get/Set x-axis scale base. Type: atom. Default value:
+#X text 110 438 1\.;
+#X text 150 438 float;
+#X obj 246 439 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 438 START: @start property. Type: float. Min value: 0;
+#X text 110 458 2\.;
+#X text 150 458 float;
+#X obj 246 459 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 458 STOP: @stop property. Type: float. Min value: 0;
+#X text 110 478 3\.;
+#X text 150 478 int;
+#X obj 246 479 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 478 N: @n property. Type: int. Range: 4\...1024;
+#X text 110 498 4\.;
+#X text 150 498 atom;
+#X obj 246 499 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 498 BASE: x-axis scale base. Allowed values: 10 \, 2 \,
+e. . Type: atom.;
+#X obj 20 543 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 548 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+-49933 0;
+#X msg 110 583 @10;
+#X text 245 583 Get/Set alias to @base 10\. Type: atom.;
+#X msg 110 612 @2;
+#X text 245 612 Get/Set alias to @base 2\. Type: atom.;
+#X msg 110 641 @base;
+#X text 245 641 Get/Set x-axis scale base. Type: atom. Default value:
 10\. Allowed values: 10 \, 2 \, e.;
-#X msg 110 538 @e;
-#X text 245 538 Get/Set alias to @base e. Type: atom.;
-#X msg 110 567 @endpoint;
-#X text 245 567 Get/Set include @stop to interval. Type: int. Default
-value: 1\. Allowed values: 0 \, 1\.;
-#X msg 110 609 @n;
-#X text 245 609 Get/Set number of points. Type: int. Default value:
+#X msg 110 683 @e;
+#X text 245 683 Get/Set alias to @base e. Type: atom.;
+#X msg 110 712 @endpoint;
+#X text 245 712 Get/Set include @stop to interval. Type: bool. Default
+value: 1\.;
+#X msg 110 754 @n;
+#X text 245 754 Get/Set number of points. Type: int. Default value:
 100\. Range: 4\...1024\.;
-#X msg 110 651 @start;
-#X text 245 651 Get/Set the starting value of the sequence. Type: float.
+#X msg 110 796 @start;
+#X text 245 796 Get/Set the starting value of the sequence. Type: float.
 Default value: 0.1\. Min value: 0\.;
-#X msg 110 693 @stop;
-#X text 245 693 Get/Set the final value of the sequence \, unless @endpoint
+#X msg 110 838 @stop;
+#X text 245 838 Get/Set the final value of the sequence \, unless @endpoint
 is false. In that case \, @n + 1 values are spaced over the interval
 in log-space \, of which all but the last (a sequence of length @n)
 are returned. Type: float. Default value: 100\. Min value: 0\.;
-#X obj 20 790 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 795 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 935 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 940 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 796 1\.;
-#X text 150 796 *bang*;
-#X text 245 796 starts output.;
-#X text 150 816 *float*;
-#X text 245 816 output specified number of values \, change @n property
+#X text 110 941 1\.;
+#X text 150 941 *bang*;
+#X text 245 941 starts output.;
+#X text 150 961 *float*;
+#X text 245 961 output specified number of values \, change @n property
 valuue.;
-#X obj 20 846 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 851 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 991 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 996 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 852 1\.;
-#X text 245 852 signal output.;
-#X text 110 872 2\.;
-#X text 245 872 output to [array.plot~] or [ui.plot~].;
+#X text 110 997 1\.;
+#X text 245 997 signal output.;
+#X text 110 1017 2\.;
+#X text 245 1017 output to [array.plot~] or [ui.plot~].;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 922 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 925 library: ceammc v0.9.5;
-#X text 447 937 see also:;
-#X obj 521 937 plot.linspace~;
-#X obj 638 937 plot.logspace~;
-#N canvas 10 944 400 290 info 0;
+#X obj 1 1067 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1070 library: ceammc v0.9.6;
+#X text 447 1082 see also:;
+#X obj 521 1082 plot.linspace~;
+#X obj 638 1082 plot.logspace~;
+#N canvas 10 1089 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.5;
+#X text 120 32 0.9.6;
 #X text 10 54 object:;
 #X text 120 54 plot.geomspace~;
 #X text 10 76 category:;
@@ -88,7 +108,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 944 pd info;
+#X restore 10 1089 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;
 #X connect 5 1 6 1;

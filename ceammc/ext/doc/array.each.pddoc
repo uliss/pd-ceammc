@@ -17,17 +17,16 @@
             <since>0.3</since>
         </meta>
         <arguments>
-            <argument name="NAME" type="symbol">array name</argument>
+            <argument name="ARRAY" type="symbol">array name</argument>
         </arguments>
         <properties>
             <property name="@array" type="symbol" default="">array name</property>
-            <property name="@redraw" type="int" enum="1 0" default="1">redraw after array
-            change</property>
+            <property name="@redraw" type="bool" default="1">redraw after array change</property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="bang">process each element of current array</xinfo>
-                <xinfo on="symbol">set new array and then process each element of it</xinfo>
+                <xinfo on="symbol">set the new array, then process each element</xinfo>
             </inlet>
             <inlet>
                 <xinfo on="float">processed float value from side-chain</xinfo>

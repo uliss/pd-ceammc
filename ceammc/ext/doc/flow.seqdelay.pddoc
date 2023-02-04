@@ -29,18 +29,18 @@
             object</par>
         </info>
         <arguments>
-            <argument name="TIME" type="list" units="millisecond">List of delay times. See @t
+            <argument name="T" type="list" units="millisecond">List of delay times. See @t
             property.</argument>
         </arguments>
         <methods>
             <method name="reset">reset all scheduled delays</method>
         </methods>
         <properties>
-            <property name="@t" type="list" minvalue="0" units="millisecond">delay time
+            <property name="@t" type="list" minvalue="0" units="millisecond" default="">delay time
             list</property>
-            <property name="@block" type="int" enum="0 1" default="0">blocking mode. If true,
-            discards incoming messages until scheduled message will output, after that is ready to
-            accept the new one.</property>
+            <property name="@block" type="bool" default="0">blocking mode. If true, discards
+            incoming messages until scheduled message will output, after that is ready to accept
+            the new one.</property>
         </properties>
         <inlets>
             <inlet>

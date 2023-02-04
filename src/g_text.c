@@ -281,22 +281,57 @@ void canvas_ceammcgui(t_glist *gl, t_symbol *guiobjname)
         (void *)canvas_undo_set_create(glist_getcanvas(gl)));
 }
 
-void canvas_knob(t_glist *gl, t_symbol *s, int argc, t_atom *argv)
+void canvas_ui_knob(t_glist *gl, t_symbol *s, int argc, t_atom *argv)
 {
     canvas_ceammcgui(gl, gensym("ui.knob"));
 }
 
-void canvas_keyboard(t_glist *gl, t_symbol *s, int argc, t_atom *argv)
+void canvas_ui_bang(t_glist *gl, t_symbol *s, int argc, t_atom *argv)
+{
+    canvas_ceammcgui(gl, gensym("ui.bang"));
+}
+
+void canvas_ui_toggle(t_glist *gl, t_symbol *s, int argc, t_atom *argv)
+{
+    canvas_ceammcgui(gl, gensym("ui.toggle"));
+}
+
+void canvas_ui_number(t_glist *gl, t_symbol *s, int argc, t_atom *argv)
+{
+    canvas_ceammcgui(gl, gensym("ui.number"));
+}
+
+void canvas_ui_hslider(t_glist *gl, t_symbol *s, int argc, t_atom *argv)
+{
+    canvas_ceammcgui(gl, gensym("ui.hsl"));
+}
+
+void canvas_ui_hradio(t_glist *gl, t_symbol *s, int argc, t_atom *argv)
+{
+    canvas_ceammcgui(gl, gensym("ui.hrd"));
+}
+
+void canvas_ui_vradio(t_glist *gl, t_symbol *s, int argc, t_atom *argv)
+{
+    canvas_ceammcgui(gl, gensym("ui.vrd"));
+}
+
+void canvas_ui_vslider(t_glist *gl, t_symbol *s, int argc, t_atom *argv)
+{
+    canvas_ceammcgui(gl, gensym("ui.vsl"));
+}
+
+void canvas_ui_keyboard(t_glist *gl, t_symbol *s, int argc, t_atom *argv)
 {
     canvas_ceammcgui(gl, gensym("ui.keyboard"));
 }
 
-void canvas_sliders(t_glist *gl, t_symbol *s, int argc, t_atom *argv)
+void canvas_ui_sliders(t_glist *gl, t_symbol *s, int argc, t_atom *argv)
 {
     canvas_ceammcgui(gl, gensym("ui.sliders"));
 }
 
-void canvas_slider2d(t_glist *gl, t_symbol *s, int argc, t_atom *argv)
+void canvas_ui_slider2d(t_glist *gl, t_symbol *s, int argc, t_atom *argv)
 {
     canvas_ceammcgui(gl, gensym("ui.slider2d"));
 }
@@ -306,22 +341,22 @@ void canvas_ui_env(t_glist *gl, t_symbol *s, int argc, t_atom *argv)
     canvas_ceammcgui(gl, gensym("ui.env"));
 }
 
-void canvas_display(t_glist *gl, t_symbol *s, int argc, t_atom *argv)
+void canvas_ui_display(t_glist *gl, t_symbol *s, int argc, t_atom *argv)
 {
     canvas_ceammcgui(gl, gensym("ui.display"));
 }
 
-void canvas_scope(t_glist *gl, t_symbol *s, int argc, t_atom *argv)
+void canvas_ui_scope(t_glist *gl, t_symbol *s, int argc, t_atom *argv)
 {
     canvas_ceammcgui(gl, gensym("ui.scope~"));
 }
 
-void canvas_spectroscope(t_glist *gl, t_symbol *s, int argc, t_atom *argv)
+void canvas_ui_spectroscope(t_glist *gl, t_symbol *s, int argc, t_atom *argv)
 {
     canvas_ceammcgui(gl, gensym("ui.spectroscope~"));
 }
 
-void canvas_preset(t_glist *gl, t_symbol *s, int argc, t_atom *argv)
+void canvas_ui_preset(t_glist *gl, t_symbol *s, int argc, t_atom *argv)
 {
     canvas_ceammcgui(gl, gensym("ui.preset"));
 }

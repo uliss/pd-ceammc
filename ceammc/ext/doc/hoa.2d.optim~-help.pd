@@ -38,8 +38,8 @@ your ears.;
 #X text 110 791 1\.;
 #X text 150 791 int;
 #X obj 246 792 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 791 ORDER: the order of decomposition. Type: int. Min value:
-1;
+#X text 245 791 ORDER: the order of decomposition. Type: int. Range:
+1\...63;
 #X text 110 811 2\.;
 #X text 150 811 symbol;
 #X obj 246 812 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -58,8 +58,8 @@ your ears.;
 #X text 245 983 Get/Set optimization mode. Type: symbol. Default value:
 basic. Allowed values: basic \, maxre \, inphase.;
 #X msg 110 1025 @order;
-#X text 245 1025 (readonly) Get the order of decomposition. Type: int.
-Default value: 1\. Range: 1\...63\.;
+#X text 245 1025 (initonly) Get/Set the order of decomposition. Type:
+int. Default value: 1\. Range: 1\...63\.;
 #X obj 20 1077 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1082 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
@@ -84,7 +84,7 @@ Default value: 1\. Range: 1\...63\.;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title spat @url ceammc.spat-help.pd;
 #X obj 1 1249 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1252 library: ceammc v0.9.5;
+#X text 10 1252 library: ceammc v0.9.6;
 #X text 557 1264 see also:;
 #X obj 631 1264 hoa.2d.decoder~;
 #N canvas 10 1271 400 290 info 0;
@@ -92,7 +92,7 @@ Default value: 1\. Range: 1\...63\.;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.5;
+#X text 120 32 0.9.6;
 #X text 10 54 object:;
 #X text 120 54 hoa.2d.optim~;
 #X text 10 76 category:;

@@ -25,13 +25,12 @@
             <argument name="N" type="int" minvalue="4" maxvalue="1024">number of points</argument>
         </arguments>
         <properties>
-            <property name="@a" type="list">denominator (poles) coefficients. 'a0' always
-            implicitly set to 1, property value set a1...an coefficients</property>
+            <property name="@a" type="list" default="">denominator (poles) coefficients. 'a0'
+            always implicitly set to 1, property value set a1...an coefficients</property>
             <property name="@b" type="list" default="1">numerator (zeros) coefficients</property>
             <property name="@n" type="int" minvalue="4" maxvalue="1024" default="256">number of
             points</property>
-            <property name="@db" type="int" enum="0 1" default="0">output amp response in db
-            scale</property>
+            <property name="@db" type="bool" default="0">output amp response in db scale</property>
         </properties>
         <methods>
             <method name="biquad">set 'b' and 'a' coefficients, no output 

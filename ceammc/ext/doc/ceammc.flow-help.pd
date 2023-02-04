@@ -93,11 +93,22 @@ time;
 #X text 200 1277 separate audio and control streams;
 #X obj 30 1304 replace;
 #X text 200 1304 Replace atoms in data stream;
-#X obj 30 1331 route.float;
-#X text 200 1331 separate float messages from other types;
-#X obj 30 1358 route.random;
-#X text 200 1358 routes input flow to random outlet;
+#X obj 30 1331 route.any;
+#X text 200 1331 separate any messages from bangs \, floats \, symbols
+and lists;
+#X obj 30 1358 route.bang;
+#X text 200 1358 separate bang messages from other types;
+#X obj 30 1385 route.float;
+#X text 200 1385 separate float messages from other types;
+#X obj 30 1412 route.list;
+#X text 200 1412 separate list messages from other types;
+#X obj 30 1439 route.prop;
+#X text 200 1439 separate property messages from other types;
+#X obj 30 1466 route.random;
+#X text 200 1466 routes input flow to random outlet;
+#X obj 30 1493 route.symbol;
+#X text 200 1493 separate symbol messages from other types;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::flow 20 20 0 20 -104026
 -4096 0;
-#X obj 1 1385 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 1395 library: ceammc;
+#X obj 1 1520 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 1530 library: ceammc;

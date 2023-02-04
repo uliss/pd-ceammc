@@ -17,7 +17,7 @@
             </also>
         </meta>
         <arguments>
-            <argument name="ARGS" type="any">right set elements</argument>
+            <argument name="SUBJ" type="any">right set elements</argument>
         </arguments>
         <properties>
             <property name="@subj" type="list" default="Set()">right set elements of

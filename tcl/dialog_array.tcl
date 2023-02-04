@@ -117,16 +117,17 @@ proc ::dialog_array::pdtk_array_listview_new {id arrayName page} {
     set windowName [listview_windowname ${arrayName}]
     destroy $windowName
 
-    toplevel $windowName -class DialogWindow
+    # ceammc: color
+    toplevel $windowName -class DialogWindow -background $::pd_colors::window_background
     wm group $windowName .
     wm protocol $windowName WM_DELETE_WINDOW \
         "::dialog_array::listview_close $id \{$arrayName\}"
     wm title $windowName [concat $arrayName "(list view)"]
 
-
-    frame $windowName.data
+    # ceammc: ttk
+    ttk::frame $windowName.data
     pack $windowName.data -fill "both" -side top
-    frame $windowName.buttons
+    ttk::frame $windowName.buttons
     pack $windowName.buttons -fill "x" -side bottom
 
     set lb $windowName.data.lb
@@ -145,10 +146,10 @@ proc ::dialog_array::pdtk_array_listview_new {id arrayName page} {
         # listview
         listbox $lb -height 20 -width 25 \
             -selectmode extended \
-            -relief solid -background white -borderwidth 1 \
+            -relief solid -background $::pd_colors::text_background -borderwidth 1 \
             -yscrollcommand "$sb set"
     }
-    scrollbar $sb \
+    ttk::scrollbar $sb \
         -command "$lb yview" -orient vertical
     pack $lb -expand 1 -fill both -side left
     pack $sb -fill y -side right
@@ -168,14 +169,17 @@ proc ::dialog_array::pdtk_array_listview_new {id arrayName page} {
     bind $lb <<Copy>> \
         "::dialog_array::listview_copy \{$arrayName\}; break"
 
-    button $windowName.buttons.prev -text "\u2190" \
+    # ceammc: ttk
+    ttk::button $windowName.buttons.prev -text "\u2190" \
         -command "::dialog_array::listview_changepage \{$arrayName\} -1"
-    button $windowName.buttons.next -text "\u2192" \
+    # ceammc: ttk
+    ttk::button $windowName.buttons.next -text "\u2192" \
         -command "::dialog_array::listview_changepage \{$arrayName\} 1"
 
-    entry $windowName.buttons.page -textvariable ::dialog_array::listview_page($arrayName) \
+    # ceammc: ttk
+    ttk::entry $windowName.buttons.page -textvariable ::dialog_array::listview_page($arrayName) \
         -validate key -validatecommand "string is double %P" \
-        -justify "right" -width 5
+        -width 5
     bind $windowName.buttons.page <Return> \
         "::dialog_array::listview_changepage \{$arrayName\} 0"
 
@@ -381,7 +385,8 @@ proc ::dialog_array::pdtk_array_dialog {mytoplevel name size flags newone} {
 
 # ceammc additional args: xabs, yabs
 proc ::dialog_array::create_dialog {mytoplevel newone xabs yabs} {
-    toplevel $mytoplevel -class DialogWindow
+    # ceammc: color
+    toplevel $mytoplevel -class DialogWindow -background $::pd_colors::window_background
     wm title $mytoplevel [_ "Array Properties"]
     wm group $mytoplevel .
     wm resizable $mytoplevel 0 0
@@ -394,32 +399,35 @@ proc ::dialog_array::create_dialog {mytoplevel newone xabs yabs} {
     ::pd_bindings::dialog_bindings $mytoplevel "array"
 
     # array
-    labelframe $mytoplevel.array -borderwidth 1 -text [_ "Array"] -padx 5
+    # ceammc: ttk
+    ttk::labelframe $mytoplevel.array -borderwidth 1 -text [_ "Array"]
     pack $mytoplevel.array -side top -fill x
-    frame $mytoplevel.array.name -height 7 -padx 5
+    ttk::frame $mytoplevel.array.name
     pack $mytoplevel.array.name -side top -anchor e
-    label $mytoplevel.array.name.label -text [_ "Name:"]
-    entry $mytoplevel.array.name.entry -width 17
+    ttk::label $mytoplevel.array.name.label -text [_ "Name:"]
+    ttk::entry $mytoplevel.array.name.entry -width 17
     pack $mytoplevel.array.name.entry $mytoplevel.array.name.label -side right
 
-    frame $mytoplevel.array.size -height 7 -padx 5
+    # ceammc: ttk
+    ttk::frame $mytoplevel.array.size
     pack $mytoplevel.array.size -side top -anchor e
-    label $mytoplevel.array.size.label -text [_ "Size:"]
-    entry $mytoplevel.array.size.entry -width 17
+    ttk::label $mytoplevel.array.size.label -text [_ "Size:"]
+    ttk::entry $mytoplevel.array.size.entry -width 17
     pack $mytoplevel.array.size.entry $mytoplevel.array.size.label -side right
 
-    checkbutton $mytoplevel.array.saveme -text [_ "Save contents"] \
-        -variable ::dialog_array::saveme_button($mytoplevel) -anchor w
+    # ceammc: ttk
+    ttk::checkbutton $mytoplevel.array.saveme -text [_ "Save contents"] \
+        -variable ::dialog_array::saveme_button($mytoplevel)
     pack $mytoplevel.array.saveme -side top
 
     # draw as
-    labelframe $mytoplevel.drawas -text [_ "Draw as:"] -padx 20 -borderwidth 1
+    ttk::labelframe $mytoplevel.drawas -text [_ "Draw as:"]
     pack $mytoplevel.drawas -side top -fill x
-    radiobutton $mytoplevel.drawas.points -value 0 \
+    ttk::radiobutton $mytoplevel.drawas.points -value 0 \
         -variable ::dialog_array::drawas_button($mytoplevel) -text [_ "Polygon"]
-    radiobutton $mytoplevel.drawas.polygon -value 1 \
+    ttk::radiobutton $mytoplevel.drawas.polygon -value 1 \
         -variable ::dialog_array::drawas_button($mytoplevel) -text [_ "Points"]
-    radiobutton $mytoplevel.drawas.bezier -value 2 \
+    ttk::radiobutton $mytoplevel.drawas.bezier -value 2 \
         -variable ::dialog_array::drawas_button($mytoplevel) -text [_ "Bezier curve"]
     pack $mytoplevel.drawas.points -side top -anchor w
     pack $mytoplevel.drawas.polygon -side top -anchor w
@@ -427,37 +435,37 @@ proc ::dialog_array::create_dialog {mytoplevel newone xabs yabs} {
 
     # options
     if {$newone == 1} {
-        labelframe $mytoplevel.options -text [_ "Put array into:"] -padx 20 -borderwidth 1
+        ttk::labelframe $mytoplevel.options -text [_ "Put array into:"]
         pack $mytoplevel.options -side top -fill x
-        radiobutton $mytoplevel.options.radio0 -value 0 \
+        ttk::radiobutton $mytoplevel.options.radio0 -value 0 \
             -variable ::dialog_array::otherflag_button($mytoplevel) -text [_ "New graph"]
-        radiobutton $mytoplevel.options.radio1 -value 1 \
+        ttk::radiobutton $mytoplevel.options.radio1 -value 1 \
             -variable ::dialog_array::otherflag_button($mytoplevel) -text [_ "Last graph"]
         pack $mytoplevel.options.radio0 -side top -anchor w
         pack $mytoplevel.options.radio1 -side top -anchor w
     } else {
-        labelframe $mytoplevel.options -text [_ "Options"] -padx 20 -borderwidth 1
+        ttk::labelframe $mytoplevel.options -text [_ "Options"]
         pack $mytoplevel.options -side top -fill x
-        button $mytoplevel.options.listview -text [_ "Open List View..."] \
+        ttk::button $mytoplevel.options.listview -text [_ "Open List View..."] \
             -command "::dialog_array::openlistview $mytoplevel [$mytoplevel.array.name.entry get]"
         pack $mytoplevel.options.listview -side top
-        checkbutton $mytoplevel.options.deletearray -text [_ "Delete array"] \
-            -variable ::dialog_array::otherflag_button($mytoplevel) -anchor w
+        ttk::checkbutton $mytoplevel.options.deletearray -text [_ "Delete array"] \
+            -variable ::dialog_array::otherflag_button($mytoplevel)
         pack $mytoplevel.options.deletearray -side top
     }
 
     # buttons
-    frame $mytoplevel.buttonframe
+    ttk::frame $mytoplevel.buttonframe
     pack $mytoplevel.buttonframe -side bottom -pady 2m
-    button $mytoplevel.buttonframe.cancel -text [_ "Cancel"] \
+    ttk::button $mytoplevel.buttonframe.cancel -text [_ "Cancel"] \
         -command "::dialog_array::cancel $mytoplevel"
     pack $mytoplevel.buttonframe.cancel -side left -expand 1 -fill x -padx 15 -ipadx 10
     if {$newone == 0 && $::windowingsystem ne "aqua"} {
-        button $mytoplevel.buttonframe.apply -text [_ "Apply"] \
+        ttk::button $mytoplevel.buttonframe.apply -text [_ "Apply"] \
             -command "::dialog_array::apply $mytoplevel"
         pack $mytoplevel.buttonframe.apply -side left -expand 1 -fill x -padx 15 -ipadx 10
     }
-    button $mytoplevel.buttonframe.ok -text [_ "OK"]\
+    ttk::button $mytoplevel.buttonframe.ok -text [_ "OK"]\
         -command "::dialog_array::ok $mytoplevel" -default active
     pack $mytoplevel.buttonframe.ok -side left -expand 1 -fill x -padx 15 -ipadx 10
 
@@ -478,8 +486,8 @@ proc ::dialog_array::create_dialog {mytoplevel newone xabs yabs} {
             bind $mytoplevel.array.size.entry <KeyPress-Return> "::dialog_array::apply_and_rebind_return $mytoplevel"
 
             # unbind Return from ok button when an entry takes focus
-            $mytoplevel.array.name.entry config -validate focusin -vcmd "::dialog_array::unbind_return $mytoplevel"
-            $mytoplevel.array.size.entry config -validate focusin -vcmd "::dialog_array::unbind_return $mytoplevel"
+            $mytoplevel.array.name.entry config -validate focusin -validatecommand "::dialog_array::unbind_return $mytoplevel"
+            $mytoplevel.array.size.entry config -validate focusin -validatecommand "::dialog_array::unbind_return $mytoplevel"
         }
 
         # remove cancel button from focus list since it's not activated on Return
@@ -491,8 +499,8 @@ proc ::dialog_array::create_dialog {mytoplevel newone xabs yabs} {
         bind $mytoplevel.buttonframe.ok <FocusOut> "$mytoplevel.buttonframe.ok config -default normal"
 
         # since we show the active focus, disable the highlight outline
-        $mytoplevel.buttonframe.ok config -highlightthickness 0
-        $mytoplevel.buttonframe.cancel config -highlightthickness 0
+        # $mytoplevel.buttonframe.ok config -highlightthickness 0
+        # $mytoplevel.buttonframe.cancel config -highlightthickness 0
     }
 
     position_over_window ${mytoplevel} ${::focused_window}

@@ -22,41 +22,42 @@
 -49933 0;
 #X text 110 409 1\.;
 #X text 150 409 float;
-#X obj 246 410 cnv 1 46 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 409 PITCH: transposition in semitones. Type: float.;
-#X obj 20 439 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 444 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 246 410 cnv 1 154 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 409 TRANSPOSE(semitone): transposition in semitones. Type:
+float. Range: -24\...24;
+#X obj 20 454 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 459 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 479 @detector;
-#X text 245 479 Get/Set control the type of transient detector used.
+#X msg 110 494 @detector;
+#X text 245 494 Get/Set control the type of transient detector used.
 'compound' a general-purpose transient detector which is likely to
 be good for most situations. 'precussive' detect percussive transients.
 'piano' use an onset detector with less of a bias toward percussive
 transients. This may give better results with certain material (e.g.
 relatively monophonic piano music). Type: symbol. Default value: compound.
 Allowed values: compound \, percussive \, soft.;
-#X msg 110 611 @formant;
-#X text 245 611 Get/Set control the handling of formant shape (spectral
+#X msg 110 626 @formant;
+#X text 245 626 Get/Set control the handling of formant shape (spectral
 envelope) when pitch-shifting. If 'true' preserve the spectral envelope
 of the unshifted signal. This permits shifting the note frequency without
 so substantially affecting the perceived pitch profile of the voice
 or instrument. 'False' apply no special formant processing. The spectral
-envelope will be pitch shifted as normal. Type: int. Default value:
-0\. Allowed values: 0 \, 1\.;
-#X msg 110 743 @latency;
-#X text 245 743 (readonly) Get object latency. Type: float. Units:
+envelope will be pitch shifted as normal. Type: bool. Default value:
+0\.;
+#X msg 110 758 @latency;
+#X text 245 758 (readonly) Get object latency. Type: float. Units:
 samp. Default value: 1024\.;
-#X msg 110 785 @phase;
-#X text 245 785 Get/Set control the adjustment of component frequency
+#X msg 110 800 @phase;
+#X text 245 800 Get/Set control the adjustment of component frequency
 phases from one analysis window to the next during non-transient segments.
 'False' adjust the phase in each frequency bin independently from its
 neighbours. This usually results in a slightly softer \, phasier sound.
 'True' adjust phases when stretching in such a way as to try to retain
 the continuity of phase relationships between adjacent frequency bins
-whose phases are behaving in similar ways. Type: int. Default value:
-1\. Allowed values: 0 \, 1\.;
-#X msg 110 932 @quality;
-#X text 245 932 Get/Set method used for pitch shifting. 'speed' may
+whose phases are behaving in similar ways. Type: bool. Default value:
+1\.;
+#X msg 110 947 @quality;
+#X text 245 947 Get/Set method used for pitch shifting. 'speed' may
 sound less clear than 'quality' \, especially for large pitch shifts.
 'quality' method has a CPU cost approximately proportional to the required
 frequency shift. 'consistency' gives greatest consistency when used
@@ -66,15 +67,15 @@ across the 1.0 pitch scale in real-time; it also consumes more CPU
 than the others in the case where the pitch scale is exactly 1.0\.
 Type: symbol. Default value: speed. Allowed values: speed \, quality
 \, consistency.;
-#X msg 110 1125 @scale;
-#X text 245 1125 Get/Set transposition as ratio. Type: float. Default
+#X msg 110 1140 @scale;
+#X text 245 1140 Get/Set transposition as ratio. Type: float. Default
 value: 1\. Range: 0.25\...4\.;
-#X msg 110 1167 @smooth;
-#X text 245 1167 Get/Set control the use of window-presum FFT and time-domain
+#X msg 110 1182 @smooth;
+#X text 245 1182 Get/Set control the use of window-presum FFT and time-domain
 smoothing. If true result in a softer sound with some audible artifacts
 around sharp transients \, but it may be appropriate for longer stretches
-of some instruments and can mix well with @window short. Type: int.
-Default value: 0\. Allowed values: 0 \, 1\.;
+of some instruments and can mix well with @window short. Type: bool.
+Default value: 0\.;
 #X msg 110 1269 @trans;
 #X text 245 1269 Get/Set control the component frequency phase-reset
 mechanism that may be used at transient points to provide clarity and
@@ -121,13 +122,13 @@ standard. Allowed values: standard \, short \, long.;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title fx @url ceammc.fx-help.pd;
 #X obj 1 1863 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1866 library: ceammc v0.9.5;
+#X text 10 1866 library: ceammc v0.9.6;
 #N canvas 10 1885 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.5;
+#X text 120 32 0.9.6;
 #X text 10 54 object:;
 #X text 120 54 fx.rb_pitchshift~;
 #X text 10 76 category:;

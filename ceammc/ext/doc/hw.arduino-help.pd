@@ -29,79 +29,85 @@ hotplug and reconnects to it.;
 #X obj 246 494 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 493 PORT: serial port name \, eg.: COM3 on Windows \, /dev/ttyACM0
 on Linux and /dev/cu.usbmodem411 on MacOSX. Type: symbol.;
-#X obj 20 538 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 543 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 528 2\.;
+#X text 150 528 int;
+#X obj 246 529 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 528 RATE: serial baud rate. Type: int.;
+#X obj 20 558 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 563 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 578 @connected;
-#X text 245 578 (readonly) Get state of connection to device. Type:
-int. Default value: 0\. Allowed values: 0 \, 1\.;
-#X msg 110 620 @devices;
-#X text 245 620 (readonly) Get list of found Arduino devices. Type:
+#X msg 110 598 @connected;
+#X text 245 598 (readonly) Get state of connection to device. Type:
+bool. Default value: 0\.;
+#X msg 110 640 @devices;
+#X text 245 640 (readonly) Get list of found Arduino devices. Type:
 list.;
-#X msg 110 649 @on_connect;
-#X text 245 649 Get/Set function called every time on connect. Type:
+#X msg 110 669 @on_connect;
+#X text 245 669 Get/Set function called every time on connect. Type:
 symbol.;
-#X msg 110 678 @port;
-#X text 245 678 (readonly) Get name of arduino serial port \, eg.:
+#X msg 110 698 @port;
+#X text 245 698 (initonly) Get/Set name of arduino serial port \, eg.:
 COM3 on Windows \, /dev/ttyACM0 on Linux and /dev/cu.usbmodem411 on
 MacOSX. If specified on creation tries to connect to this device only.
 Type: symbol.;
-#X msg 110 750 @product_id;
-#X text 245 750 Get/Set USB device product id. If vendor and product
+#X msg 110 770 @product_id;
+#X text 245 770 Get/Set USB device product id. If vendor and product
 ids are specified at creation \, tries to connect to devices only with
 such properties. Note: product id is specified in decimal mode \, not
 in hex. Type: int. Default value: 0\.;
-#X msg 110 822 @rate;
-#X text 245 822 Get/Set serial baud rate. Standard value supported
+#X msg 110 842 @rate;
+#X text 245 842 Get/Set serial baud rate. Standard value supported
 by most serial ports: 110 \, 300 \, 600 \, 1200 \, 2400 \, 4800 \,
 9600 \, 14400 \, 19200 \, 28800 \, 38400 \, 56000 \, 57600 \, 115200\.
-Type: int. Default value: 57600\. Min value: 0\.;
-#X msg 110 894 @reconnect;
-#X text 245 894 enables hot-pluggin. Default value: 0\.;
-#X msg 110 923 @serial;
-#X text 245 923 Get/Set USB device serial number. If specified at creation
+Type: int. Default value: 57600\. Allowed values: 57600 \, 110 \, 300
+\, 600 \, 1200 \, 2400 \, 4800 \, 9600 \, 14400 \, 19200 \, 38400 \,
+56000 \, 115200 \, 128000 \, 256000\.;
+#X msg 110 944 @reconnect;
+#X text 245 944 enables hot-pluggin. Default value: 0\.;
+#X msg 110 973 @serial;
+#X text 245 973 Get/Set USB device serial number. If specified at creation
 \, tries to connect to devices only with such serial number. Type:
 symbol.;
-#X msg 110 980 @vendor_id;
-#X text 245 980 Get/Set USB device vendor id. If specified at creation
+#X msg 110 1030 @vendor_id;
+#X text 245 1030 Get/Set USB device vendor id. If specified at creation
 \, tries to connect to devices only with such vendor. Note: vendor
 id is specified in decimal mode \, not in hex. Type: int. Default value:
 0\.;
-#X obj 20 1062 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1067 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1112 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1117 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 1102 connect;
-#X text 245 1102 manually connect to device.;
-#X msg 110 1129 disconnect;
-#X text 245 1129 disconnect from device.;
-#X obj 20 1166 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1171 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X msg 110 1152 connect;
+#X text 245 1152 manually connect to device.;
+#X msg 110 1179 disconnect;
+#X text 245 1179 disconnect from device.;
+#X obj 20 1216 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1221 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1172 1\.;
-#X text 150 1172 *float*;
-#X text 245 1172 sends float value in byte range [0-255] to arduino
+#X text 110 1222 1\.;
+#X text 150 1222 *float*;
+#X text 245 1222 sends float value in byte range [0-255] to arduino
 device.;
-#X text 150 1192 *list*;
-#X text 245 1192 sends list of floats in byte range [0-255] to arduino
+#X text 150 1242 *list*;
+#X text 245 1242 sends list of floats in byte range [0-255] to arduino
 device.;
-#X obj 20 1222 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1227 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1272 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1277 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1228 1\.;
-#X text 245 1228 outputs received byte from arduino.;
+#X text 110 1278 1\.;
+#X text 245 1278 outputs received byte from arduino.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 1278 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1281 library: ceammc v0.9.5;
-#N canvas 10 1300 400 290 info 0;
+#X obj 1 1328 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1331 library: ceammc v0.9.6;
+#N canvas 10 1350 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.5;
+#X text 120 32 0.9.6;
 #X text 10 54 object:;
 #X text 120 54 hw.arduino;
 #X text 10 76 category:;
@@ -120,7 +126,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1300 pd info;
+#X restore 10 1350 pd info;
 #X connect 6 0 11 0;
 #X connect 8 0 11 0;
 #X connect 10 0 11 0;

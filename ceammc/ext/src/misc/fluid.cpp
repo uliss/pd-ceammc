@@ -129,9 +129,12 @@ Fluid::Fluid(const PdArgs& args)
     : SoundExternal(args)
     , synth_(nullptr)
     , sound_font_(&s_)
+    , nvoices_cb_([this]() { floatTo(2, nvoices_); })
+    , nvoices_(0)
 {
     createSignalOutlet();
     createSignalOutlet();
+    createOutlet();
 
     fluid_settings_t* settings = new_fluid_settings();
     if (settings == nullptr) {
@@ -261,6 +264,17 @@ Fluid::Fluid(const PdArgs& args)
         addProperty(p);
     }
 
+    {
+        auto p = new FluidSynthProperty(
+            "@cpuload", synth_,
+            [](fluid_synth_t* synth) -> t_float {
+                return fluid_synth_get_cpu_load(synth);
+            },
+            nullptr);
+
+        addProperty(p);
+    }
+
     createCbIntProperty("@n", [this]() {
         return (!synth_) ? 0 : fluid_synth_count_midi_channels(synth_);
     });
@@ -295,9 +309,7 @@ void Fluid::onList(const AtomListView& lv)
 void Fluid::setupDSP(t_signal** sp)
 {
     SoundExternal::setupDSP(sp);
-
-    if (synth_)
-        fluid_synth_set_sample_rate(synth_, samplerate());
+    nvoices_ = 0;
 }
 
 bool Fluid::propSetSoundFont(t_symbol* s)
@@ -350,6 +362,9 @@ AtomList Fluid::propSoundFonts() const
 
 void Fluid::m_note(t_symbol* s, const AtomListView& lv)
 {
+    if (!synth_ || !pd_getdspstate())
+        return;
+
     auto res = midiByteValue3(s, "NOTE", "VEL", lv);
     if (!res.ok)
         return;
@@ -1040,6 +1055,18 @@ void Fluid::processBlock(const t_sample** in, t_sample** out)
     for (size_t i = 0; i < bs; i++)
         out[1][i] = right[i];
 #endif
+
+    auto nv = fluid_synth_get_active_voice_count(synth_);
+    if (nv != nvoices_) {
+        nvoices_ = nv;
+        nvoices_cb_.delay(0);
+    }
+}
+
+void Fluid::samplerateChanged(size_t sr)
+{
+    if (synth_)
+        fluid_synth_set_sample_rate(synth_, sr);
 }
 
 void setup_misc_fluid()

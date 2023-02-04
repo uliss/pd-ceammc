@@ -22,14 +22,14 @@
         </info>
         <arguments>
             <argument name="ID" type="symbol">object ID</argument>
-            <argument name="ARGS" type="list">initial values</argument>
+            <argument name="VALUE" type="list">initial values</argument>
         </arguments>
         <properties>
-            <property name="@empty" readonly="true" enum="0 1" type="int" default="1">1 if list is
-            empty, otherwise 0</property>
-            <property name="@size" readonly="true" minvalue="0" type="int" default="0">number of
+            <property name="@empty" access="readonly" type="bool" default="1">1 if list is empty,
+            otherwise 0</property>
+            <property name="@size" access="readonly" minvalue="0" type="int" default="0">number of
             elements in list</property>
-            <property name="@value" type="list">current value</property>
+            <property name="@value" type="list" default="">current value</property>
         </properties>
         <methods>
             <method name="append">adds values to the end of the list 

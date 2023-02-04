@@ -161,7 +161,7 @@ BUNDLE_VERSION="${BUNDLE_VERSION} [tcl:${TK_VERSION} git:${GIT_COMMIT}]"
 /usr/libexec/PlistBuddy -c "Set :CFBundleDisplayName '${BUNDLE_VERSION}'" "${BUNDLE_INFO_PLIST}"
 
 # format plist XML
-tidy -xml -m -i -wrap 128 "${BUNDLE_INFO_PLIST}"
+tidy -errors -quiet -xml -m -i -wrap 128 "${BUNDLE_INFO_PLIST}"
 
 section "Update Wish icon"
 cd "${BUNDLE_RESOURCES}"
@@ -247,6 +247,15 @@ for cfg in ${SRC_DIR}/ceammc/gui/plugins/completion-plugin/*.cfg
 do
     copy ${cfg} "${BUNDLE_TCL}/ceammc"
 done
+
+section "Copying Tk Drag-and-Drop plugin"
+mkdir -p "${BUNDLE_TCL}/tkdnd"
+for tcl in ${SRC_DIR}/ceammc/distrib/tcl/tkdnd/library/*.tcl
+do
+    copy ${tcl} "${BUNDLE_TCL}/tkdnd"
+done
+copy ${BUILD_DIR}/ceammc/distrib/tcl/tkdnd/*.dylib "${BUNDLE_TCL}/tkdnd"
+copy ${BUILD_DIR}/ceammc/distrib/tcl/tkdnd/library/*.tcl "${BUNDLE_TCL}/tkdnd"
 
 section "Copying CEAMMC tcl completion"
 copy $SRC_DIR/ceammc/ext/ceammc_objects.txt "${BUNDLE_COMPLETIONS}"

@@ -4,6 +4,7 @@
 #include "ceammc_ui_object.h"
 
 #include <bitset>
+#include <random>
 
 using namespace ceammc;
 
@@ -17,6 +18,7 @@ class UIRadio : public UIObject {
     int prop_checklist_mode_;
     t_rgba prop_color_active;
     UILayer items_layer_;
+    std::default_random_engine gen_;
 
 public:
     UIRadio();
@@ -61,7 +63,7 @@ public:
     void m_reset();
     void m_next();
     void m_prev();
-    void m_random();
+    void m_random(const AtomListView& lv);
     void m_plus(t_float f);
     void m_minus(t_float f);
 

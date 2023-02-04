@@ -20,8 +20,6 @@ extern "C" {
 
 #include "m_pd.h"
 
-#include "g_all_guis.h"
-
 typedef enum dash_pattern {
     DASH_PATTERN_SOLID = 0, // no dash
     DASH_PATTERN_2_4, // two dots, four spaces: -  -  -
@@ -83,40 +81,6 @@ void g_commentbar_draw(t_canvas* canvas, const char* tag, int x1, int y1, int x2
 void g_commentbar_move(t_canvas* canvas, const char* tag, int x1, int y1, int x2, int y2);
 void g_commentbar_erase_all(t_canvas* canvas);
 
-// cirlce
-void g_circle_draw_filled(t_canvas* canvas, void* x, const char* figure_id,
-    int xpos, int ypos, int w, int h, int zoom, int color);
-void g_circle_move(t_canvas* canvas, void* x, const char* figure_id, int xpos, int ypos, int w, int h);
-
-// rect
-void g_rect_draw_filled(t_canvas* canvas, void* x, const char* figure_id,
-    int xpos, int ypos, int w, int h, int color);
-void g_rect_draw_outlined(t_canvas* canvas, void* x, const char* figure_id,
-    int xpos, int ypos, int w, int h, int line_width, int color);
-void g_rect_draw_outfilled(t_canvas* canvas, void* x, const char* figure_id,
-    int xpos, int ypos, int w, int h, int color);
-void g_rect_move(t_canvas* canvas, void* x, const char* figure_id, int xpos, int ypos, int w, int h);
-
-// polygon
-void g_polygon_draw(t_canvas* canvas, void* x, const char* figure_id, unsigned ncoords, ...);
-
-// text
-void g_text_draw(t_canvas* canvas, void* x, const char* figure_id, int xpos, int ypos, const char* txt);
-void g_text_move(t_canvas* canvas, void* x, const char* figure_id, int xpos, int ypos);
-void g_text_set(t_canvas* canvas, void* x, const char* figure_id, const char* txt);
-void g_text_color(t_canvas* canvas, void* x, const char* figure_id, int color);
-void g_text_font(t_canvas* canvas, void* x, const char* figure_id,
-    const char* font, int size, const char* weight);
-void g_text_anchor(t_canvas* canvas, void* x, const char* figure_id, const char* anchor);
-
-// line
-void g_line_draw(t_canvas* canvas, void* x, const char* figure_id,
-    int xpos0, int ypos0, int xpos1, int ypos1, int width, int color);
-void g_line_move(t_canvas* canvas, void* x, const char* figure_id,
-    int xpos0, int ypos0, int xpos1, int ypos1);
-void g_line_draw_var(t_canvas* canvas, void* x, const char* figure_id, unsigned ncoords, ...);
-
-void g_figure_fill(t_canvas* canvas, void* x, const char* figure_id, int color);
 size_t g_int2str(int v, char* dest);
 int g_va_int2str(char* dest, size_t n, unsigned argc, ...);
 

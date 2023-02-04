@@ -17,13 +17,13 @@
                 <see>list.shift</see>
             </also>
         </meta>
+        <arguments>
+            <argument name="SIZE" type="int" minvalue="0">New size of output list. Input list will
+            be stretched to the new size with linear interpolation</argument>
+        </arguments>
         <properties>
             <property name="@size" type="int" minvalue="0" default="1">new size</property>
         </properties>
-        <arguments>
-            <argument name="stretch" type="int" minvalue="1">New size of output list. Input list
-            will be stretched to the new size with linear interpolation</argument>
-        </arguments>
         <inlets>
             <inlet>
                 <xinfo on="list">input list.</xinfo>

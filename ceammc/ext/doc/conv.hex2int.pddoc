@@ -18,7 +18,7 @@
             </aliases>
         </meta>
         <properties>
-            <property name="@strict" type="flag">ignore parsing error</property>
+            <property name="@strict" type="flag" access="initonly">ignore parsing error</property>
         </properties>
         <inlets>
             <inlet>

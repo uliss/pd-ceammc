@@ -117,9 +117,9 @@ TEST_CASE("ui.aview", "[ui.aview]")
         REQUIRE_UI_FLOAT_PROPERTY(t, "cursor_ms", 10);
 
         t << $1("@cursor_phase", -0.1);
-        REQUIRE_UI_FLOAT_PROPERTY(t, "cursor_samp", 100);
-        REQUIRE_UI_FLOAT_PROPERTY(t, "cursor_phase", 1);
-        REQUIRE_UI_FLOAT_PROPERTY(t, "cursor_ms", 10);
+        REQUIRE_UI_FLOAT_PROPERTY(t, "cursor_samp", 0);
+        REQUIRE_UI_FLOAT_PROPERTY(t, "cursor_phase", 0);
+        REQUIRE_UI_FLOAT_PROPERTY(t, "cursor_ms", 0);
 
         t << $1("@cursor_phase", 1.1);
         REQUIRE_UI_FLOAT_PROPERTY(t, "cursor_samp", 100);

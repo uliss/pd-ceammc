@@ -21,7 +21,7 @@
             <property name="@pitch" type="float" minvalue="36" maxvalue="84" default="57">midi
             pitch</property>
             <property name="@freq" type="float" minvalue="0" maxvalue="480" default="220"
-            units="herz">maximum speed of whistles</property>
+            units="hertz">maximum speed of whistles</property>
             <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">synth gate
             (&gt;0 - play)</property>
             <property name="@mod" type="int" minvalue="0" maxvalue="127" default="0">modulator

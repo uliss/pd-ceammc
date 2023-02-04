@@ -32,10 +32,12 @@
             are added to the "normal" instance inlet and can be used to send signal to all
             instances</property>
         </properties>
-        <outlets>
-            <outlet type="audio">output signal in the corresponding hoa.process~ object's signal
-            outlet</outlet>
-        </outlets>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>output signal in the corresponding hoa.process~ object's signal
+                outlet</xinfo>
+            </inlet>
+        </inlets>
         <example>
             <pdascii>
 <![CDATA[

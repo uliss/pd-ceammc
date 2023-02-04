@@ -88,7 +88,7 @@ extern "C" t_float* get_sys_dacsr();
     PD_TEST_FULL_INIT(mod, name);
 
 struct BANG__ {
-    BANG__() {}
+    BANG__() { }
 };
 
 extern const BANG__ BANG;
@@ -191,6 +191,18 @@ public:
     TestPdExternal(const char* name, Args... args)
         : TestPdExternal(name, AtomList(args...))
     {
+    }
+
+    ~TestPdExternal()
+    {
+        for (size_t i = 0; i < outs_.size(); i++) {
+            auto& p = outs_[i];
+            obj_disconnect(object(), i, p->object(), 0);
+            delete p;
+        }
+
+        for (auto& kv : listeners_)
+            delete kv.second;
     }
 
     const t_object* pdObject() const { return object(); }
@@ -622,15 +634,6 @@ public:
         AtomList res;
         operator->()->getProperty(p, res);
         return res;
-    }
-
-    ~TestPdExternal()
-    {
-        for (auto p : outs_)
-            delete p;
-
-        for (auto& kv : listeners_)
-            delete kv.second;
     }
 
     TestPdExternal& operator<<(const PropertySetter& p)

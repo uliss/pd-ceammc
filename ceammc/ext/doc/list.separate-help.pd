@@ -18,8 +18,8 @@
 -49933 0;
 #X msg 110 323 @enumerate;
 #X text 245 323 Get/Set enumeration mode. If enumeration is active
-output pairs: INDEX ATOM \, otherwise single atoms. Type: int. Default
-value: 0\. Allowed values: 0 \, 1\.;
+output pairs: INDEX ATOM \, otherwise single atoms. Type: bool. Default
+value: 0\.;
 #X msg 110 380 @from;
 #X text 245 380 Get/Set enumeration starting index. Type: int. Default
 value: 0\.;
@@ -45,7 +45,7 @@ mode).;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
 #X obj 1 579 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 582 library: ceammc v0.9.5;
+#X text 10 582 library: ceammc v0.9.6;
 #X text 491 594 see also:;
 #X obj 565 594 list.repack;
 #X obj 660 594 list.unpack;
@@ -54,7 +54,7 @@ mode).;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.5;
+#X text 120 32 0.9.6;
 #X text 10 54 object:;
 #X text 120 54 list.separate;
 #X text 10 76 category:;

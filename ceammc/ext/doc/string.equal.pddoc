@@ -20,7 +20,7 @@
             </also>
         </meta>
         <arguments>
-            <argument name="STR" type="symbol">second string initial value</argument>
+            <argument name="SUBJ" type="symbol">second string initial value</argument>
         </arguments>
         <properties>
             <property name="@subj" type="symbol" default="">string to compare</property>

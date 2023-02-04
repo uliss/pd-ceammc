@@ -25,15 +25,15 @@
         </info>
         <properties>
             <property name="@freq" type="float" minvalue="20" maxvalue="20000" default="10000"
-            units="herz">center frequency</property>
+            units="hertz">center frequency</property>
             <property name="@gain" type="float" minvalue="-15" maxvalue="15" default="0"
             units="decibel">filter gain</property>
-            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
-            processing</property>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
         <arguments>
-            <argument name="freq" type="float" units="herz">cutoff frequency</argument>
-            <argument name="gain" type="float" minvalue="-15" maxvalue="+15" units="decibel">filter
+            <argument name="FREQ" type="float" units="hertz" minvalue="20" maxvalue="20000">cutoff
+            frequency</argument>
+            <argument name="GAIN" type="float" minvalue="-15" maxvalue="+15" units="decibel">filter
             gain</argument>
         </arguments>
         <inlets>

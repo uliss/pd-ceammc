@@ -25,20 +25,20 @@ messages (including property requests) are passed thru;
 -49933 0;
 #X msg 110 391 @strict;
 #X text 245 391 Get/Set strict mode. By default list with single float
-treated as float. Set to true to disable this behavior. Type: int.
-Default value: 0\. Allowed values: 0 \, 1\.;
+treated as float. Set to true to disable this behavior. Type: bool.
+Default value: 0\.;
 #X obj 20 458 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 463 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 110 464 1\.;
 #X text 150 464 *float*;
-#X text 245 464 float to first outlet.;
+#X text 245 464 float to *first* outlet.;
 #X text 150 484 *bang*;
 #X text 245 484 bang to second outlet.;
 #X text 150 504 *symbol*;
 #X text 245 504 symbol to second outlet.;
 #X text 150 524 *list*;
-#X text 245 524 list to second outlet.;
+#X text 245 524 list to second outlet. See @strict property for details.;
 #X text 150 544 *any*;
 #X text 245 544 any to second outlet.;
 #X obj 20 574 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -54,13 +54,13 @@ Default value: 0\. Allowed values: 0 \, 1\.;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title flow @url ceammc.flow-help.pd;
 #X obj 1 650 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 653 library: ceammc v0.9.5;
+#X text 10 653 library: ceammc v0.9.6;
 #N canvas 10 672 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.5;
+#X text 120 32 0.9.6;
 #X text 10 54 object:;
 #X text 120 54 route.float;
 #X text 10 76 category:;

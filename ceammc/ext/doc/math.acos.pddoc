@@ -42,9 +42,7 @@
 |      |
 [math.acos]
 |
-[msg set]
-|
-[  (
+[ui.dt]
 ]]>
             </pdascii>
         </example>

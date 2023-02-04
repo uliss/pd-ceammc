@@ -128,13 +128,15 @@ proc pdtk_canvas_new {mytoplevel width height geometry editable} {
     wm minsize $mytoplevel $::canvas_minwidth $::canvas_minheight
 
     set tkcanvas [tkcanvas_name $mytoplevel]
+    # ceammc color
     canvas $tkcanvas -width $width -height $height \
         -highlightthickness 0 -scrollregion [list 0 0 $width $height] \
         -xscrollcommand "$mytoplevel.xscroll set" \
         -yscrollcommand "$mytoplevel.yscroll set" \
-        -background white
-    scrollbar $mytoplevel.xscroll -orient horizontal -command "$tkcanvas xview"
-    scrollbar $mytoplevel.yscroll -orient vertical -command "$tkcanvas yview"
+        -background $::pd_colors::window_background
+    # ceammc ttk
+    ttk::scrollbar $mytoplevel.xscroll -orient horizontal -command "$tkcanvas xview"
+    ttk::scrollbar $mytoplevel.yscroll -orient vertical -command "$tkcanvas yview"
     pack $tkcanvas -side left -expand 1 -fill both
 
     # for some crazy reason, win32 mousewheel scrolling is in units of

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<library xmlns:xi="http://www.w3.org/2001/XInclude" name="soundtouch" version="1.0">
+<library xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0" name="soundtouch">
   <category name="pitch">
-    <entry descr="realtime pitch shifter" name="soundtouch~" ref_view="object">
+    <entry name="soundtouch~" descr="realtime pitch shifter" ref_view="object">
       <xi:include href="soundtouch~.pddoc" parse="xml"/>
     </entry>
   </category>

@@ -57,9 +57,7 @@
 |  |      | |
 [list.integrator]
 |
-[msg set]
-|
-[ (
+[ui.dt]
 ]]>
             </pdascii>
         </example>

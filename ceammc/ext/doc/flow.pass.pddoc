@@ -21,8 +21,11 @@
                 <see>flow.reject</see>
             </also>
         </meta>
+        <arguments>
+            <argument name="VALUES" type="list">atoms to pass</argument>
+        </arguments>
         <properties>
-            <property name="@values" type="list">atoms to pass</property>
+            <property name="@values" type="list" default="">atoms to pass</property>
         </properties>
         <inlets>
             <inlet>

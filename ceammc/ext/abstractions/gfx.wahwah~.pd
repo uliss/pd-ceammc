@@ -2,67 +2,89 @@
 #X obj 25 125 fx.wahwah~;
 #X obj 25 25 inlet~;
 #X obj 425 25 inlet;
-#X obj 425 200 route fx.wahwah;
-#X obj 425 250 route @angle @bypass @drywet @speed;
-#X obj 675 350 print unknown property;
+#X obj 425 125 route fx.wahwah * .;
+#X obj 625 150 route.prop;
+#X obj 475 200 msg *;
+#X obj 425 250 route @angle @bypass @drywet @speed default reset;
+#X obj 675 350 t b a;
+#X msg 675 375 supported messages are: @angle @bypass @drywet @speed default reset;
+#X obj 675 425 print;
+#X obj 725 425 print [gfx.wahwah~] unknown message;
 #X msg 325 75 @angle 0.6 \, @drywet 1 \, @speed 540 \,;
+#X obj 25 50 t b b;
+#X msg 25 75 reset;
 #X obj 325 25 msg.onload;
 #X obj 500 550 outlet~;
 #X obj 600 550 outlet ctl;
+#X obj 3 202 cnv 8 198 111 empty empty empty 17 7 0 10 -174763 -1 0;
 #X obj 3 202 cnv 8 198 18 empty empty [fx.wahwah~] 3 9 0 12 -104026
 -262144 0;
-#X obj 12 238 ui.slider @size 125 12 @active_scale 1 @label angle:
+#X obj 12 236 ui.slider @size 125 12 @active_scale 1 @label angle:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.wahwah~/slider0 @min 0 @max 1;
-#X obj 190 238 sync;
-#X obj 145 238 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 238 @angle \$1;
-#X obj 12 258 ui.toggle @size 12 12 @label bypass @label_side right
-@label_align left @fontsize 10 @presetname
+#X obj 215 236 sync;
+#X obj 145 236 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 236 @angle \$1;
+#X obj 185 205 ui.toggle @size 12 12 @label bypass @label_side left
+@label_align right @fontsize 10 @presetname
 /gui/\$1/fx.wahwah~/checkbox1;
-#X msg 260 250 @bypass \$1;
-#X obj 12 288 ui.slider @size 125 12 @active_scale 1 @label drywet:
+#X msg 260 248 @bypass \$1;
+#X obj 12 266 ui.slider @size 125 12 @active_scale 1 @label drywet:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.wahwah~/slider2 @min 0 @max 1;
-#X obj 190 288 sync;
-#X obj 145 288 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 288 @drywet \$1;
-#X obj 12 320 ui.slider @size 125 12 @active_scale 1 @label
+#X obj 215 266 sync;
+#X obj 145 266 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 266 @drywet \$1;
+#X obj 12 296 ui.slider @size 125 12 @active_scale 1 @label
 speed(bpm): @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.wahwah~/slider3 @min 360 @max 780;
-#X obj 190 320 sync;
-#X obj 145 320 ui.number @size 50 12 @min 360 @max 780 @digits 1;
-#X msg 260 320 @speed \$1;
+#X obj 215 296 sync;
+#X obj 145 296 ui.number @size 50 12 @min 360 @max 780 @digits 1;
+#X msg 260 296 @speed \$1;
 #X connect 1 0 0 0;
 #X connect 2 0 3 0;
-#X connect 3 0 4 0;
-#X connect 4 4 5 0;
-#X connect 6 0 4 0;
-#X connect 7 0 6 0;
-#X connect 0 0 8 0;
-#X connect 3 1 9 0;
-#X connect 11 0 12 0;
-#X connect 12 0 11 0;
-#X connect 13 0 12 1;
+#X connect 3 3 4 0;
+#X connect 3 1 5 0;
+#X connect 3 0 6 0;
+#X connect 3 1 6 0;
+#X connect 3 2 6 0;
+#X connect 4 0 6 0;
+#X connect 6 6 7 0;
+#X connect 7 0 8 0;
+#X connect 8 0 9 0;
+#X connect 7 1 10 0;
+#X connect 11 0 6 0;
+#X connect 6 4 11 0;
 #X connect 12 1 13 0;
-#X connect 11 0 14 0;
-#X connect 14 0 0 0;
-#X connect 4 0 11 0;
-#X connect 15 0 16 0;
-#X connect 16 0 0 0;
-#X connect 4 1 15 0;
-#X connect 17 0 18 0;
-#X connect 18 0 17 0;
-#X connect 19 0 18 1;
-#X connect 18 1 19 0;
-#X connect 17 0 20 0;
-#X connect 20 0 0 0;
-#X connect 4 2 17 0;
-#X connect 21 0 22 0;
-#X connect 22 0 21 0;
-#X connect 23 0 22 1;
-#X connect 22 1 23 0;
-#X connect 21 0 24 0;
+#X connect 12 0 11 0;
+#X connect 13 0 0 0;
+#X connect 6 5 12 0;
+#X connect 14 0 11 0;
+#X connect 0 0 15 0;
+#X connect 4 1 16 0;
+#X connect 5 0 16 0;
+#X connect 19 0 20 0;
+#X connect 20 0 19 0;
+#X connect 21 0 20 1;
+#X connect 20 1 21 0;
+#X connect 19 0 22 0;
+#X connect 22 0 0 0;
+#X connect 6 0 19 0;
+#X connect 23 0 24 0;
 #X connect 24 0 0 0;
-#X connect 4 3 21 0;
-#X coords 0 -1 1 1 200 140 2 2 200;
+#X connect 6 1 23 0;
+#X connect 25 0 26 0;
+#X connect 26 0 25 0;
+#X connect 27 0 26 1;
+#X connect 26 1 27 0;
+#X connect 25 0 28 0;
+#X connect 28 0 0 0;
+#X connect 6 2 25 0;
+#X connect 29 0 30 0;
+#X connect 30 0 29 0;
+#X connect 31 0 30 1;
+#X connect 30 1 31 0;
+#X connect 29 0 32 0;
+#X connect 32 0 0 0;
+#X connect 6 3 29 0;
+#X coords 0 -1 1 1 200 116 2 2 200;

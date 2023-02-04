@@ -13,7 +13,6 @@
  *****************************************************************************/
 #include "plot_linspace_tilde.h"
 #include "ceammc_factory.h"
-#include "fmt/format.h"
 
 using PropAlias = AliasProperty<EnumProperty<Atom>>;
 

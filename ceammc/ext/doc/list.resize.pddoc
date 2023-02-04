@@ -33,6 +33,9 @@
             <inlet>
                 <xinfo on="list">input list</xinfo>
             </inlet>
+            <inlet>
+                <xinfo on="int">set desired list size</xinfo>
+            </inlet>
         </inlets>
         <outlets>
             <outlet>resized list</outlet>

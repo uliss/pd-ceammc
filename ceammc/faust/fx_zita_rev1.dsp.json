@@ -22,7 +22,7 @@
 		{ "filters.lib/allpass_comb:author": "Julius O. Smith III" },
 		{ "filters.lib/allpass_comb:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
 		{ "filters.lib/allpass_comb:license": "MIT-style STK-4.3 license" },
-		{ "filters.lib/lowpass0_highpass1": "MIT-style STK-4.3 license" },
+		{ "filters.lib/lowpass0_highpass1": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
 		{ "filters.lib/lowpass0_highpass1:author": "Julius O. Smith III" },
 		{ "filters.lib/lowpass:author": "Julius O. Smith III" },
 		{ "filters.lib/lowpass:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
@@ -108,20 +108,6 @@
 					"step": 0.1
 				},
 				{
-					"type": "vslider",
-					"label": "delay",
-					"shortname": "delay",
-					"address": "/fx.zita_rev1/delay",
-					"meta": [
-						{ "style": "knob" },
-						{ "unit": "ms" }
-					],
-					"init": 60,
-					"min": 20,
-					"max": 100,
-					"step": 1
-				},
-				{
 					"type": "hslider",
 					"label": "drywet",
 					"shortname": "drywet",
@@ -198,6 +184,20 @@
 					"init": 200,
 					"min": 50,
 					"max": 1000,
+					"step": 1
+				},
+				{
+					"type": "vslider",
+					"label": "predelay",
+					"shortname": "predelay",
+					"address": "/fx.zita_rev1/predelay",
+					"meta": [
+						{ "style": "knob" },
+						{ "unit": "ms" }
+					],
+					"init": 40,
+					"min": 0,
+					"max": 100,
 					"step": 1
 				}
 			]

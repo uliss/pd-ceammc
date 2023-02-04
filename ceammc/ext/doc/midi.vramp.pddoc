@@ -24,8 +24,8 @@
             <property name="@to" type="int" default="127" maxvalue="127" minvalue="0">end
             value</property>
             <property name="@n" type="int" default="0" minvalue="0">number of steps</property>
-            <property name="@auto" type="int" default="0" enum="0 1">auto reset mode. If true:
-            reset to @start value after ramp is finished</property>
+            <property name="@auto" type="bool" default="0">auto reset mode. If true: reset to
+            @start value after ramp is finished</property>
         </properties>
         <methods>
             <method name="reset">reset to start value</method>

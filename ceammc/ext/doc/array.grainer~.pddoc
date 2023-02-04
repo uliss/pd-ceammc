@@ -30,12 +30,12 @@
             <par>@tag - grain tag</par>
         </info>
         <arguments>
-            <argument name="NAME" type="symbol">array name</argument>
+            <argument name="ARRAY" type="symbol">array name</argument>
         </arguments>
         <methods>
             <!--clear-->
             <method name="clear">remove grain(s) 
-            <param name="SUBJ" type="atom" required="false">if '*' or ommited: remove all grains,
+            <param name="SUBJ" type="atom" required="false">if '*' or omitted: remove all grains,
             if '.': remove finished grains only, if float: remove grain with corresponding #id, if
             symbol: remove grains with corresponding tag</param></method>
             <!--set-->
@@ -65,7 +65,7 @@
             silence level</param></method>
             <!--align-->
             <method name="align">align grain(s) to onset 
-            <param name="SUBJ" type="atom" required="false">if '*' or ommited: align all grains, if
+            <param name="SUBJ" type="atom" required="false">if '*' or omitted: align all grains, if
             '.': align finished grains only, if float: align grain with corresponding #id, if
             symbol: align grains with corresponding tag</param></method>
             <!--pause-->
@@ -88,24 +88,24 @@
             <param name="DUR" type="atom">time space. Positive time values are expected, for
             example: 100ms, 1.02s, 400samp etc. Float value treat as millisecond. If not specified
             - use the whole source array duration</param>
-            <param name="TAG" type="symbol" required="false">if '*' or ommited: spread all grains,
+            <param name="TAG" type="symbol" required="false">if '*' or omitted: spread all grains,
             if '.': spread finished grains only, otherwise spread grains with corresponding
             tag</param></method>
             <!--shuffle-->
             <method name="shuffle">shuffle grain positions (@ta and @tb) values 
-            <param name="TAG" type="symbol" required="false">if '*' or ommited: shuffle all grains,
+            <param name="TAG" type="symbol" required="false">if '*' or omitted: shuffle all grains,
             if '.': shuffle finished grains only, otherwise shuffle grains with corresponding
             tag</param></method>
             <!--reverse-->
             <method name="reverse">reverse grain positions (@ta and @tb) values 
-            <param name="TAG" type="symbol" required="false">if '*' or ommited: reverse positions
+            <param name="TAG" type="symbol" required="false">if '*' or omitted: reverse positions
             of all grains, if '.': reverse positions of finished grains only, otherwise reverse
             grains with corresponding tag</param></method>
             <!--permutate-->
             <method name="permutate">permutate grain positions (@ta and @tb) values 
             <param name="N" type="int" minvalue="-16" maxvalue="16">number of permutations. If
             N&gt;0 results N-th next permutation, N&lt;0 - N-th previous permutation</param>
-            <param name="TAG" type="symbol" required="false">if '*' or ommited: reverse positions
+            <param name="TAG" type="symbol" required="false">if '*' or omitted: reverse positions
             of all grains, if '.': reverse positions of finished grains only, otherwise reverse
             grains with corresponding tag</param></method>
             <!--defer-->

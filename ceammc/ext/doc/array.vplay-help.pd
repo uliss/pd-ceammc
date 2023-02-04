@@ -45,8 +45,8 @@
 -49933 0;
 #X text 110 481 1\.;
 #X text 150 481 symbol;
-#X obj 246 482 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 481 NAME: array name. Type: symbol.;
+#X obj 246 482 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 481 ARRAY: array name. Type: symbol.;
 #X obj 20 511 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 516 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -65,8 +65,8 @@ samp. Default value: 0\.;
 #X text 245 706 Get/Set end position in samples. Type: int. Units:
 samp. Default value: -1\.;
 #X msg 110 748 @reversed;
-#X text 245 748 Get/Set playing backwards (if set to 1). Type: int.
-Default value: 0\. Allowed values: 0 \, 1\.;
+#X text 245 748 Get/Set playing backwards (if set to 1). Type: bool.
+Default value: 0\.;
 #X msg 110 790 @speed;
 #X text 245 790 Get/Set play speed. Type: float. Default value: 1\.
 Min value: 0.1\.;
@@ -99,7 +99,7 @@ sample. Type: float.;
 -49933 0;
 #X text 110 1171 1\.;
 #X text 150 1171 *bang*;
-#X text 245 1171 start playing from the begining.;
+#X text 245 1171 start playing from the beginning.;
 #X text 150 1191 *float*;
 #X text 245 1191 1 - play \, 0 - stop.;
 #X obj 20 1221 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -115,7 +115,7 @@ sample. Type: float.;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title array @url ceammc.array-help.pd;
 #X obj 1 1297 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1300 library: ceammc v0.9.5;
+#X text 10 1300 library: ceammc v0.9.6;
 #X text 601 1312 see also:;
 #X obj 675 1312 list.each;
 #N canvas 10 1319 400 290 info 0;
@@ -123,7 +123,7 @@ sample. Type: float.;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.5;
+#X text 120 32 0.9.6;
 #X text 10 54 object:;
 #X text 120 54 array.vplay;
 #X text 10 76 category:;

@@ -136,26 +136,6 @@ void UIIncDec::storePreset(size_t idx)
     PresetStorage::instance().setFloatValueAt(presetId(), idx, value_);
 }
 
-void UIIncDec::setup()
-{
-    UIObjectFactory<UIIncDec> obj("ui.incdec");
-    obj.setDefaultSize(15, 20);
-    obj.hideLabelInner();
-
-    obj.useBang();
-    obj.useFloat();
-    obj.usePresets();
-
-    obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_UP);
-
-    obj.addProperty("arrow_color", _("Arrow Color"), DEFAULT_BORDER_COLOR, &UIIncDec::prop_color_arrow);
-    obj.addFloatProperty("step", _("Step increment"), 1., &UIIncDec::prop_step, _("Main"));
-    obj.addProperty("value", &UIIncDec::propValue, &UIIncDec::propSetValue);
-    obj.addMethod("set", &UIIncDec::propSetValue);
-    obj.addMethod("inc", &UIIncDec::m_inc);
-    obj.addMethod("dec", &UIIncDec::m_dec);
-}
-
 void UIIncDec::output()
 {
     floatTo(0, value_);
@@ -171,6 +151,27 @@ void UIIncDec::propSetValue(t_float f)
 {
     value_ = f;
     redrawBGLayer();
+}
+
+void UIIncDec::setup()
+{
+    UIObjectFactory<UIIncDec> obj("ui.incdec");
+    obj.setDefaultSize(15, 20);
+    obj.hideLabelInner();
+
+    obj.useBang();
+    obj.useFloat();
+    obj.usePresets();
+
+    obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_UP);
+
+    obj.addProperty("arrow_color", _("Arrow Color"), DEFAULT_BORDER_COLOR, &UIIncDec::prop_color_arrow);
+    obj.addFloatProperty("step", _("Step increment"), 1., &UIIncDec::prop_step, _("Main"));
+    obj.setPropertyMin("step", 0);
+    obj.addProperty("value", &UIIncDec::propValue, &UIIncDec::propSetValue);
+    obj.addMethod("set", &UIIncDec::propSetValue);
+    obj.addMethod("inc", &UIIncDec::m_inc);
+    obj.addMethod("dec", &UIIncDec::m_dec);
 }
 
 void setup_ui_incdec()

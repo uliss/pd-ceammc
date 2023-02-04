@@ -228,7 +228,7 @@ void UIScope::setup()
     obj.setPropertyRange("refresh", 10, 1000);
     obj.setPropertyUnits("refresh", "msec");
 
-    obj.hideProperty("send");
+    obj.internalProperty("send");
 }
 
 void UIScope::redrawTick()

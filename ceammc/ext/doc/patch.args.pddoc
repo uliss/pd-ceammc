@@ -18,6 +18,9 @@
             </also>
             <since>0.4</since>
         </meta>
+        <arguments>
+            <argument name="FROM" minvalue="0" type="int">starting args index</argument>
+        </arguments>
         <properties>
             <property name="@from" minvalue="0" type="int" default="0">starting args
             index</property>

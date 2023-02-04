@@ -25,9 +25,8 @@
             <argument name="ARRAY" type="symbol">array name</argument>
         </arguments>
         <properties>
-            <property name="@array" type="symbol">target array name</property>
-            <property name="@redraw" type="int" enum="0 1" default="1">redraw after array
-            change</property>
+            <property name="@array" type="symbol" default="">target array name</property>
+            <property name="@redraw" type="bool" default="1">redraw after array change</property>
             <property name="@mode" type="symbol" enum="fit resize raw" default="fit">rendering
             mode: *fit* to array size, *resize* array to envelope length or *raw* render while
             enough space in array</property>

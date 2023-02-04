@@ -17,8 +17,9 @@
             <par>first message is delayed to next scheduler time</par>
         </info>
         <arguments>
-            <argument type="float" name="MS" units="msec">time space between messages</argument>
-            <argument type="int" name="N" minvalue="0">time space = N*space after last outputted
+            <argument type="float" name="DELAY" units="millisecond" minvalue="1">time space between
+            messages</argument>
+            <argument type="int" name="DONE" minvalue="0">time space = N*space after last outputted
             message</argument>
         </arguments>
         <properties>

@@ -17,7 +17,7 @@
             <argument name="N" type="int" minvalue="0" maxvalue="10000">repeat times</argument>
         </arguments>
         <properties>
-            <property name="@times" type="int" default="1" minvalue="0" maxvalue="10000">repeat
+            <property name="@n" type="int" default="1" minvalue="0" maxvalue="10000">repeat
             times</property>
         </properties>
         <inlets>

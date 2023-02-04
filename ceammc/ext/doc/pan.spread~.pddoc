@@ -18,15 +18,16 @@
             channels</argument>
         </arguments>
         <properties>
-            <property name="@ch" type="int" minvalue="2" maxvalue="16" default="2">number of input
-            channels</property>
+            <property name="@n" type="int" minvalue="2" maxvalue="16" default="2"
+            access="initonly">number of input channels</property>
             <property name="@spread" type="float" minvalue="0" maxvalue="1" default="1">for @spread
             = 0, all channels are in the centre, for 1, they have maximum distribution</property>
             <property name="@center" type="float" minvalue="-0.5" maxvalue="0.5" default="0">shift
             the centre of the distribution</property>
-            <property name="@compensate" type="int" enum="0 1" default="0">compensate output level:
-            divide amplitude to number of input channels</property>
-            <property name="@coeffs" type="list" readonly="true">list of gain pairs</property>
+            <property name="@compensate" type="bool" default="0">compensate output level: divide
+            amplitude to number of input channels</property>
+            <property name="@coeffs" type="list" access="readonly" default="">list of gain
+            pairs</property>
         </properties>
         <inlets dynamic="true">
             <inlet type="audio" number="1">

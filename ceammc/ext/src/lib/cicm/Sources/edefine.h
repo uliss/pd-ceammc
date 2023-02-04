@@ -19,6 +19,7 @@
 #ifndef DEF_ESTRUCT
 #define DEF_ESTRUCT
 
+#include "ceammc_property_info.h"
 #ifdef _WINDOWS
 #include <io.h>
 #define _FUNCTION_DEPRECTAED_
@@ -619,7 +620,7 @@ struct t_eattr {
     eclip_flags clipped; /*!< If the attribute is clipped if it's value or an array of numerical values. */
     bool save; /*!< If the attribute should be saved. */
     bool paint; /*!< If the attribute should repaint the t_ebox when it has changed. */
-    bool invisible; /*!< If the attribute is invisible. */
+    ceammc::PropValueVis visibility; /*!< the attribute is visibility. */
 };
 
 enum t_eattr_op : std::int8_t {

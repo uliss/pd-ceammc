@@ -21,22 +21,21 @@
             </also>
         </meta>
         <arguments>
-            <argument name="freq" type="float" units="herz" minvalue="20" maxvalue="20000">peak
+            <argument name="FREQ" type="float" units="hertz" minvalue="20" maxvalue="20000">peak
             frequency</argument>
-            <argument name="gain" type="float" units="decibel" minvalue="-15" maxvalue="15">level
+            <argument name="GAIN" type="float" units="decibel" minvalue="-15" maxvalue="15">level
             at fx (boost if &gt;0 or cut if &lt;0)</argument>
-            <argument name="bandwidth" type="float" units="herz" minvalue="1" maxvalue="5000">
+            <argument name="BANDWIDTH" type="float" units="hertz" minvalue="1" maxvalue="5000">
             bandwidth of peak</argument>
         </arguments>
         <properties>
-            <property name="@freq" type="float" units="herz" minvalue="20" maxvalue="20000"
+            <property name="@freq" type="float" units="hertz" minvalue="20" maxvalue="20000"
             default="1000">peak frequency</property>
             <property name="@gain" type="float" units="decibel" minvalue="-15" maxvalue="15"
             default="0">level at fx (boost if &gt;0 or cut if &lt;0)</property>
-            <property name="@bandwidth" type="float" units="herz" minvalue="1" maxvalue="5000"
+            <property name="@bandwidth" type="float" units="hertz" minvalue="1" maxvalue="5000"
             default="100">bandwidth of peak</property>
-            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
-            processing</property>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
         <inlets>
             <inlet type="audio">

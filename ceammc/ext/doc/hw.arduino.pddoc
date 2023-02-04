@@ -21,28 +21,32 @@
         <arguments>
             <argument name="PORT" type="symbol">serial port name, eg.: COM3 on Windows,
             /dev/ttyACM0 on Linux and /dev/cu.usbmodem411 on MacOSX</argument>
+            <argument name="RATE" type="int">serial baud rate</argument>
         </arguments>
         <properties>
-            <property name="@port" type="symbol" readonly="true">name of arduino serial port, eg.:
-            COM3 on Windows, /dev/ttyACM0 on Linux and /dev/cu.usbmodem411 on MacOSX. If specified
-            on creation tries to connect to this device only</property>
-            <property name="@serial" type="symbol">USB device serial number. If specified at
-            creation, tries to connect to devices only with such serial number</property>
-            <property name="@rate" type="int" default="57600" minvalue="0">serial baud rate.
-            Standard value supported by most serial ports: 110, 300, 600, 1200, 2400, 4800, 9600,
-            14400, 19200, 28800, 38400, 56000, 57600, 115200</property>
+            <property name="@port" type="symbol" access="initonly" default="">name of arduino
+            serial port, eg.: COM3 on Windows, /dev/ttyACM0 on Linux and /dev/cu.usbmodem411 on
+            MacOSX. If specified on creation tries to connect to this device only</property>
+            <property name="@serial" type="symbol" default="">USB device serial number. If
+            specified at creation, tries to connect to devices only with such serial
+            number</property>
+            <property name="@rate" type="int" default="57600"
+            enum="57600 110 300 600 1200 2400 4800 9600 14400 19200 38400 56000 115200 128000 256000">
+            serial baud rate. Standard value supported by most serial ports: 110, 300, 600, 1200,
+            2400, 4800, 9600, 14400, 19200, 28800, 38400, 56000, 57600, 115200</property>
             <property name="@vendor_id" type="int" default="0">USB device vendor id. If specified
             at creation, tries to connect to devices only with such vendor. Note: vendor id is
             specified in decimal mode, not in hex</property>
             <property name="@product_id" type="int" default="0">USB device product id. If vendor
             and product ids are specified at creation, tries to connect to devices only with such
             properties. Note: product id is specified in decimal mode, not in hex</property>
-            <property name="@reconnect" type="flag" default="0">enables hot-pluggin</property>
-            <property name="@connected" type="int" enum="0 1" readonly="true" default="0">state of
+            <property name="@reconnect" type="flag" default="0" access="initonly">enables
+            hot-pluggin</property>
+            <property name="@connected" type="bool" access="readonly" default="0">state of
             connection to device</property>
-            <property name="@devices" type="list" readonly="true">list of found Arduino
-            devices</property>
-            <property name="@on_connect" type="symbol">function called every time on
+            <property name="@devices" type="list" default="" access="readonly">list of found
+            Arduino devices</property>
+            <property name="@on_connect" type="symbol" default="">function called every time on
             connect</property>
         </properties>
         <methods>

@@ -22,8 +22,8 @@
         </info>
         <arguments>
             <argument name="N" type="int" minvalue="2" maxvalue="16">number of inputs</argument>
-            <argument name="@x" type="float">crossfade init value. Valid value in [0..N-1] range.
-            See @x property</argument>
+            <argument name="X" type="float" minvalue="0" maxvalue="1">crossfade init value. Valid
+            value in [0..N-1] range. See @x property</argument>
         </arguments>
         <properties>
             <property name="@smooth" type="float" minvalue="1" default="20" units="millisecond">

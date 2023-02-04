@@ -15,10 +15,9 @@
 -49933 0;
 #X text 110 495 1\.;
 #X text 150 495 int;
-#X obj 246 496 cnv 1 61 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 495 stretch: New size of output list. Input list will be
-stretched to the new size with linear interpolation. Type: int. Min
-value: 1;
+#X obj 246 496 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 495 SIZE: New size of output list. Input list will be stretched
+to the new size with linear interpolation. Type: int. Min value: 0;
 #X obj 20 555 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 560 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -46,7 +45,7 @@ value: 0\.;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
 #X obj 1 779 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 782 library: ceammc v0.9.5;
+#X text 10 782 library: ceammc v0.9.6;
 #X text 594 794 see also:;
 #X obj 668 794 list.shift;
 #N canvas 10 801 400 290 info 0;
@@ -54,7 +53,7 @@ value: 0\.;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.5;
+#X text 120 32 0.9.6;
 #X text 10 54 object:;
 #X text 120 54 list.stretch;
 #X text 10 76 category:;

@@ -1,4 +1,5 @@
 #include "mod_midi.h"
+#include "midi_arp.h"
 #include "midi_cc.h"
 #include "midi_clock.h"
 #include "midi_ctl2str.h"
@@ -20,6 +21,7 @@
 
 void ceammc_midi_setup()
 {
+    setup_midi_arp();
     setup_midi_cc();
     setup_midi_clock();
     setup_midi_ctl2str();

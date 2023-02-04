@@ -32,7 +32,7 @@
             <property name="@sharp" type="float" minvalue="0.01" maxvalue="5" default="0.5">strike
             sharpness</property>
             <property name="@cutoff" type="float" minvalue="20" maxvalue="20000" default="6500"
-            units="herz">strike cutoff frequency</property>
+            units="hertz">strike cutoff frequency</property>
             <property name="@t60" type="float" minvalue="0.1" maxvalue="30" default="20"
             units="second">time to decay to -60db level</property>
             <property name="@decay_ratio" type="float" minvalue="0" maxvalue="1" default="1">decay
@@ -41,8 +41,7 @@
             decay slope</property>
             <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">play trigger
             - 1: on, 0: off</property>
-            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
-            processing</property>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
         <inlets>
             <inlet>

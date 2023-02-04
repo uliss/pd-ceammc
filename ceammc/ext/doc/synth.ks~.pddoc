@@ -22,7 +22,8 @@
         <properties>
             <property name="@pitch" type="float" minvalue="36" maxvalue="84" default="48">midi
             pitch</property>
-            <property name="@freq" type="float" units="herz" default="130.813">frequency</property>
+            <property name="@freq" type="float" units="hertz" default="130.813">
+            frequency</property>
             <property name="@pos" type="float" minvalue="0" maxvalue="1" default="0.7">pluck
             position (1 is on the bridge)</property>
             <property name="@mute" type="float" minvalue="0" maxvalue="1" default="0">mute
@@ -37,8 +38,7 @@
             mode: 0 - pluck, 1 - strike</property>
             <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">play trigger
             - 1: on, 0: off</property>
-            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
-            processing</property>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
         <inlets>
             <inlet>

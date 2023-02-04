@@ -2,24 +2,24 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    version="1.0"
    width="64"
    height="64"
    id="svg2408"
-   inkscape:version="0.91 r13725"
+   inkscape:version="1.2.1 (9c6d41e, 2022-07-14)"
    sodipodi:docname="pd_ceammc_win_64.svg"
    inkscape:export-filename="/Users/serj/Desktop/pd_ceammc_512.png"
    inkscape:export-xdpi="480"
    inkscape:export-ydpi="480"
-   style="shape-rendering:crispEdges">
+   style="shape-rendering:crispEdges"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
   <sodipodi:namedview
      pagecolor="#ffffff"
      bordercolor="#666666"
@@ -29,15 +29,15 @@
      guidetolerance="10000"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1150"
+     inkscape:window-width="1261"
      inkscape:window-height="749"
      id="namedview60"
      showgrid="true"
-     inkscape:zoom="5"
-     inkscape:cx="38.027876"
-     inkscape:cy="20.430123"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:zoom="3.7969568"
+     inkscape:cx="28.97057"
+     inkscape:cy="18.567501"
+     inkscape:window-x="109"
+     inkscape:window-y="25"
      inkscape:window-maximized="0"
      inkscape:current-layer="layer4"
      fit-margin-top="0"
@@ -49,7 +49,10 @@
      inkscape:snap-grids="true"
      inkscape:snap-to-guides="false"
      inkscape:bbox-nodes="true"
-     showguides="true">
+     showguides="true"
+     inkscape:showpageshadow="2"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1">
     <inkscape:grid
        type="xygrid"
        id="grid4216"
@@ -101,7 +104,11 @@
     </linearGradient>
     <filter
        id="filter3174"
-       style="color-interpolation-filters:sRGB">
+       style="color-interpolation-filters:sRGB"
+       x="-0.047720931"
+       y="-0.048282354"
+       width="1.0954419"
+       height="1.0965647">
       <feGaussianBlur
          id="feGaussianBlur3176"
          stdDeviation="1.71" />
@@ -248,7 +255,11 @@
     <filter
        style="color-interpolation-filters:sRGB;"
        inkscape:label="Drop Shadow"
-       id="filter4270">
+       id="filter4270"
+       x="-1.7305482"
+       y="-0.91332179"
+       width="3.3715671"
+       height="3.2617714">
       <feFlood
          flood-opacity="0.498039"
          flood-color="rgb(74,0,0)"
@@ -319,12 +330,11 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
         <cc:license
-           rdf:resource="http://creativecommons.org/licenses/by-sa/3.0/" />
+           rdf:resource="http://creativecommons.org/licenses/by-sa/4.0/" />
       </cc:Work>
       <cc:License
-         rdf:about="http://creativecommons.org/licenses/by-sa/3.0/">
+         rdf:about="http://creativecommons.org/licenses/by-sa/4.0/">
         <cc:permits
            rdf:resource="http://creativecommons.org/ns#Reproduction" />
         <cc:permits
@@ -341,26 +351,6 @@
     </rdf:RDF>
   </metadata>
   <g
-     id="layer2"
-     style="display:none"
-     transform="translate(-129.96874,64.968752)">
-    <rect
-       width="86"
-       height="85"
-       rx="6"
-       ry="6"
-       x="5"
-       y="7"
-       id="rect3745"
-       style="opacity:0.9;fill:url(#ButtonShadow);fill-opacity:1;fill-rule:nonzero;stroke:none;filter:url(#filter3174)" />
-  </g>
-  <g
-     inkscape:groupmode="layer"
-     id="layer6"
-     inkscape:label="BACKGROUND"
-     style="display:inline"
-     transform="translate(-129.96874,64.968752)" />
-  <g
      inkscape:groupmode="layer"
      id="layer4"
      inkscape:label="LAYER"
@@ -368,7 +358,8 @@
      transform="translate(-129.96874,64.968752)">
     <g
        id="g4238"
-       transform="matrix(0.98959291,0,0,0.98926025,3.4150206,0.36171521)">
+       transform="matrix(0.98959291,0,0,0.98926025,3.4150206,0.36171521)"
+       inkscape:label="bang">
       <rect
          y="-59.463787"
          x="136.47372"
@@ -388,76 +379,59 @@
        style="fill:#4d4d4d;fill-rule:evenodd;stroke:#333333;stroke-width:1.06270242;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 140.46874,-42.968753 0,8.731772"
        id="path4245"
-       inkscape:connector-curvature="0" />
-    <rect
-       style="fill:#ffffff;fill-opacity:1;stroke:#333333;stroke-width:1.00209045;stroke-miterlimit:4;stroke-dasharray:none"
-       id="rect3388"
-       width="46.99791"
-       height="30.99791"
-       x="138.46979"
-       y="-38.467709" />
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:29.47485924px;line-height:100%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#1a1a1a;fill-opacity:1;stroke:none;stroke-width:18.11394691;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       x="149.18161"
-       y="-13.40257"
-       id="text3390"
-       sodipodi:linespacing="100%"
-       transform="scale(0.95946785,1.0422444)"><tspan
-         dx="0 -0.79399103"
-         sodipodi:role="line"
-         id="tspan3392"
+       inkscape:connector-curvature="0"
+       inkscape:label="cord" />
+    <g
+       id="g1066"
+       inkscape:label="object"
+       style="display:inline">
+      <rect
+         style="fill:#ffffff;fill-opacity:1;stroke:#333333;stroke-width:1.00209;stroke-miterlimit:4;stroke-dasharray:none"
+         id="rect3388"
+         width="46.99791"
+         height="30.99791"
+         x="138.46979"
+         y="-38.467709"
+         inkscape:label="box" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#1a1a1a;fill-opacity:1;stroke:none;stroke-width:18.1139;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
          x="149.18161"
          y="-13.40257"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:23.02722931px;line-height:100%;font-family:Silom;-inkscape-font-specification:'Silom, Normal';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#1a1a1a;stroke:none;stroke-width:18.11394691;stroke-miterlimit:4;stroke-dasharray:none">Pd</tspan></text>
-    <rect
-       style="fill:#ffffff;fill-opacity:1;stroke:#333333;stroke-width:0.99299997;stroke-miterlimit:4;stroke-dasharray:none"
-       id="rect4247"
-       width="5.0066404"
-       height="2.0066407"
-       x="138.46542"
-       y="-38.472069" />
-    <rect
-       y="-38.442947"
-       x="180.46567"
-       height="1.9772825"
-       width="5.0349512"
-       id="rect4253"
-       style="fill:#ffffff;fill-opacity:1;stroke:#333333;stroke-width:0.99382359;stroke-miterlimit:4;stroke-dasharray:none" />
-    <rect
-       y="-9.369379"
-       x="138.56813"
-       height="1.8012536"
-       width="4.8012533"
-       id="rect4255"
-       style="fill:#333333;fill-opacity:1;stroke:#333333;stroke-width:1.19874656;stroke-miterlimit:4;stroke-dasharray:none" />
-    <flowRoot
-       transform="matrix(0.0631579,0,0,0.0631579,128.02904,-66.418407)"
-       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       id="flowRoot4207"
-       xml:space="preserve"><flowRegion
-         id="flowRegion4209"><rect
-           y="251.46623"
-           x="1102.0375"
-           height="246.4355"
-           width="96.912842"
-           id="rect4211" /></flowRegion><flowPara
-         id="flowPara4213" /></flowRoot>    <flowRoot
-       xml:space="preserve"
-       id="flowRoot4208"
-       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       transform="matrix(0.0631579,0,0,0.0631579,127.68244,-66.544723)"><flowRegion
-         id="flowRegion4210"><rect
-           id="rect4212"
-           width="96.912842"
-           height="246.4355"
-           x="1102.0375"
-           y="251.46623" /></flowRegion><flowPara
-         id="flowPara4214" /></flowRoot>    <path
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2.98461676;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.04545456;filter:url(#filter4270)"
-       d="m 139.97275,-5.9650923 44.52864,0 1.97905,0 0,-31.0076917"
-       id="path4188"
-       inkscape:connector-curvature="0" />
+         id="text3390"
+         transform="scale(0.95946785,1.0422444)"
+         inkscape:label="Pd"><tspan
+           dx="0 -0.79399103"
+           sodipodi:role="line"
+           id="tspan3392"
+           x="149.18161"
+           y="-13.40257"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:23.0272px;line-height:100%;font-family:Silom;-inkscape-font-specification:'Silom, Normal';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#1a1a1a;stroke:none;stroke-width:18.1139;stroke-miterlimit:4;stroke-dasharray:none">Pd</tspan></text>
+      <rect
+         style="fill:#ffffff;fill-opacity:1;stroke:#333333;stroke-width:0.993;stroke-miterlimit:4;stroke-dasharray:none"
+         id="rect4247"
+         width="5.0066404"
+         height="2.0066407"
+         x="138.46542"
+         y="-38.472069"
+         inkscape:label="inlet1" />
+      <rect
+         y="-38.442947"
+         x="180.46567"
+         height="1.9772825"
+         width="5.0349512"
+         id="rect4253"
+         style="fill:#ffffff;fill-opacity:1;stroke:#333333;stroke-width:0.993824;stroke-miterlimit:4;stroke-dasharray:none"
+         inkscape:label="inlet2" />
+      <rect
+         y="-9.369379"
+         x="138.56813"
+         height="1.8012536"
+         width="4.8012533"
+         id="rect4255"
+         style="fill:#333333;fill-opacity:1;stroke:#333333;stroke-width:1.19875;stroke-miterlimit:4;stroke-dasharray:none"
+         inkscape:label="outlet1" />
+    </g>
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.02272727"
        d="m 129.96874,-64.968752 64,0 0,0 0,0"

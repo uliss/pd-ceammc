@@ -493,7 +493,8 @@ void ebox_free(t_ebox* x)
     if (x->b_receive_id && x->b_receive_id != s_null) {
         // replace #n => $d
         t_symbol* sname = ceammc_realizeraute(eobj_getcanvas(&x->b_obj), x->b_receive_id);
-        pd_unbind(&x->b_obj.o_obj.te_g.g_pd, sname);
+        if (sname && sname->s_thing)
+            pd_unbind(&x->b_obj.o_obj.te_g.g_pd, sname);
     }
     gfxstub_deleteforkey(x);
 
@@ -1310,7 +1311,7 @@ bool ebox_set_receiveid(void* z, t_eattr* /*attr*/, int argc, t_atom* argv)
         if (x->b_receive_id != s_null) {
             // replace #0 => ID
             t_symbol* sname = ceammc_realizeraute(eobj_getcanvas(&x->b_obj), x->b_receive_id);
-            if (sname)
+            if (sname && sname->s_thing)
                 pd_unbind(&x->b_obj.o_obj.ob_pd, sname);
         }
 
@@ -1322,7 +1323,8 @@ bool ebox_set_receiveid(void* z, t_eattr* /*attr*/, int argc, t_atom* argv)
         // unbind
         if (x->b_receive_id != s_null) {
             t_symbol* sname = ceammc_realizeraute(eobj_getcanvas(&x->b_obj), x->b_receive_id);
-            pd_unbind(&x->b_obj.o_obj.ob_pd, sname);
+            if (sname && sname->s_thing)
+                pd_unbind(&x->b_obj.o_obj.ob_pd, sname);
         }
 
         x->b_receive_id = s_null;
@@ -1780,7 +1782,7 @@ void ebox_properties(t_ebox* x, t_glist* glist)
     std::string buffer(temp);
 
     for (size_t i = 0; i < c->c_nattr; i++) {
-        if (!c->c_attr[i]->invisible) {
+        if (c->c_attr[i]->visibility == ceammc::PropValueVis::PUBLIC) {
             t_atom* argv = 0;
             int argc = 0;
             eobj_attr_getvalueof(&x->b_obj, c->c_attr[i]->name, &argc, &argv);
@@ -2280,9 +2282,15 @@ static void ebox_draw_border(t_ebox* x)
         color);
 }
 
-static void do_draw_inlets(const char* cnv, t_object* x, int w, int h, int zoom, ceammc::XletGetAnnotationFn fn)
+static void do_draw_inlets(const char* cnv, t_object* x, int w, int h, int zoom, bool hide, ceammc::XletGetAnnotationFn fn)
 {
     const int N_IN = obj_ninlets(x);
+    if (N_IN < 1)
+        return;
+
+    if (hide && N_IN == 1) // do not draw in case of hide flag and single inlet
+        return;
+
     char buf[N_IN + 1];
 
     for (int i = 0; i < N_IN; i++)
@@ -2302,9 +2310,15 @@ static void do_draw_inlets(const char* cnv, t_object* x, int w, int h, int zoom,
     }
 }
 
-static void do_draw_outlets(const char* cnv, t_object* x, int w, int h, int zoom, ceammc::XletGetAnnotationFn fn)
+static void do_draw_outlets(const char* cnv, t_object* x, int w, int h, int zoom, bool hide, ceammc::XletGetAnnotationFn fn)
 {
     const int N_OUT = obj_noutlets(x);
+    if (N_OUT < 1)
+        return;
+
+    if (hide && N_OUT == 1) // do not draw in case of hide flag and single outlet
+        return;
+
     char buf[N_OUT + 1];
 
     for (int i = 0; i < N_OUT; i++)
@@ -2334,10 +2348,10 @@ static void ebox_draw_iolets(t_ebox* x)
             auto ann_fn = ceammc::ceammc_get_annotation_fn(&obj->te_g.g_pd);
 
             do_draw_inlets(x->b_canvas_id->s_name, obj,
-                x->b_rect.width, x->b_rect.height, x->b_zoom, ann_fn);
+                x->b_rect.width, x->b_rect.height, x->b_zoom, (x->b_receive_id != s_null), ann_fn);
 
             do_draw_outlets(x->b_canvas_id->s_name, obj,
-                x->b_rect.width, x->b_rect.height, x->b_zoom, ann_fn);
+                x->b_rect.width, x->b_rect.height, x->b_zoom, (x->b_send_id != s_null), ann_fn);
         }
     }
 }

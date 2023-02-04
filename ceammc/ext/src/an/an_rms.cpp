@@ -21,7 +21,7 @@ public:
     AnRms(const PdArgs& args)
         : faust_an_rms_tilde(args)
     {
-        static t_symbol* SYM_PROP_PERIOD = gensym("@period");
+        auto SYM_PROP_PERIOD = gensym("@period");
 
         bindPositionalArgsToProps({ SYM_PROP_PERIOD });
     }

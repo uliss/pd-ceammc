@@ -20,7 +20,7 @@
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="list">Input list.</xinfo>
+                <xinfo on="list">input list.</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -33,10 +33,8 @@
 |              |
 [list.sort     ]
 |
-[msg set]
-|
-[ (
-                ]]>
+[ui.dt]
+]]>
             </pdascii>
         </example>
     </object>

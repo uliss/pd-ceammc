@@ -180,7 +180,8 @@ proc ::dialog_iemgui::choose_col_bkfrlb {mytoplevel} {
 proc ::dialog_iemgui::popupmenu {path varname labels {command {}}} {
     upvar 1 $varname var
 
-    menubutton ${path} -menu ${path}.menu -indicatoron 1 -relief raised -text [lindex $labels $var]
+    # ceammc: dark mode
+    menubutton ${path} -menu ${path}.menu -indicatoron 1 -relief raised -text [lindex $labels $var] -background $::pd_colors::window_background
     menu ${path}.menu -tearoff 0
     set idx 0
     foreach l $labels {
@@ -388,7 +389,8 @@ proc ::dialog_iemgui::pdtk_iemgui_dialog {mytoplevel mainheader dim_header_UNUSE
             set label_range_max [_ "Height:"] }
     }
 
-    toplevel $mytoplevel -class DialogWindow
+    # ceammc: bg
+    toplevel $mytoplevel -class DialogWindow -background $::pd_colors::window_background
     wm title $mytoplevel [format [_ "%s Properties"] $iemgui_type]
     wm group $mytoplevel .
     wm resizable $mytoplevel 0 0
@@ -398,44 +400,53 @@ proc ::dialog_iemgui::pdtk_iemgui_dialog {mytoplevel mainheader dim_header_UNUSE
     ::pd_bindings::dialog_bindings $mytoplevel "iemgui"
 
     # dimensions
-    frame $mytoplevel.dim -height 7
+    # ceammc: ttk
+    ttk::frame $mytoplevel.dim
     pack $mytoplevel.dim -side top
-    label $mytoplevel.dim.w_lab -text [_ $label_width]
-    entry $mytoplevel.dim.w_ent -textvariable ::dialog_iemgui::var_width($vid) -width 4
-    label $mytoplevel.dim.dummy1 -text "" -width 1
-    label $mytoplevel.dim.h_lab -text [_ $label_height]
-    entry $mytoplevel.dim.h_ent -textvariable ::dialog_iemgui::var_height($vid) -width 4
+    # ceammc: ttk
+    ttk::label $mytoplevel.dim.w_lab -text [_ $label_width]
+    ttk::entry $mytoplevel.dim.w_ent -textvariable ::dialog_iemgui::var_width($vid) -width 4
+    ttk::label $mytoplevel.dim.dummy1 -text "" -width 1
+    ttk::label $mytoplevel.dim.h_lab -text [_ $label_height]
+    ttk::entry $mytoplevel.dim.h_ent -textvariable ::dialog_iemgui::var_height($vid) -width 4
+    # ceammc end
     pack $mytoplevel.dim.w_lab $mytoplevel.dim.w_ent -side left
     if { $label_height ne "" } {
         pack $mytoplevel.dim.dummy1 $mytoplevel.dim.h_lab $mytoplevel.dim.h_ent -side left }
 
     # range
-    labelframe $mytoplevel.rng
+    # ceammc: ttk
+    ttk::labelframe $mytoplevel.rng
     pack $mytoplevel.rng -side top -fill x
-    frame $mytoplevel.rng.min
-    label $mytoplevel.rng.min.lab -text $label_range_min
-    entry $mytoplevel.rng.min.ent -textvariable ::dialog_iemgui::var_range_min($vid) -width 7
-    label $mytoplevel.rng.dummy1 -text "" -width 1
-    label $mytoplevel.rng.max_lab -text [_ $label_range_max]
-    entry $mytoplevel.rng.max_ent -textvariable ::dialog_iemgui::var_range_max($vid) -width 7
+    # ceammc: ttk
+    ttk::frame $mytoplevel.rng.min
+    ttk::label $mytoplevel.rng.min.lab -text $label_range_min
+    ttk::entry $mytoplevel.rng.min.ent -textvariable ::dialog_iemgui::var_range_min($vid) -width 7
+    ttk::label $mytoplevel.rng.dummy1 -text "" -width 1
+    ttk::label $mytoplevel.rng.max_lab -text [_ $label_range_max]
+    ttk::entry $mytoplevel.rng.max_ent -textvariable ::dialog_iemgui::var_range_max($vid) -width 7
+    # ceammc end
     if { $label_range ne "" } {
-        $mytoplevel.rng config -borderwidth 1 -pady 4 -text [_ $label_range]
+        $mytoplevel.rng config -text [_ $label_range]
         if { $label_range_min ne "" } {
             pack $mytoplevel.rng.min
             pack $mytoplevel.rng.min.lab $mytoplevel.rng.min.ent -side left }
         if { $label_range_max ne "" } {
-            $mytoplevel.rng config -padx 26
+            $mytoplevel.rng config
             pack configure $mytoplevel.rng.min -side left
             pack $mytoplevel.rng.dummy1 $mytoplevel.rng.max_lab $mytoplevel.rng.max_ent -side left}
     }
 
     # parameters
-    labelframe $mytoplevel.para -borderwidth 1 -padx 5 -pady 5 -text [_ "Parameters"]
+    # ceammc: ttk
+    ttk::labelframe $mytoplevel.para -text [_ "Parameters"]
     pack $mytoplevel.para -side top -fill x -pady 5
 
-    frame $mytoplevel.para.num
-    label $mytoplevel.para.num.lab -text [_ $label_number]
-    entry $mytoplevel.para.num.ent -textvariable ::dialog_iemgui::var_number($vid) -width 4
+    # ceammc: ttk
+    ttk::frame $mytoplevel.para.num
+    ttk::label $mytoplevel.para.num.lab -text [_ $label_number]
+    ttk::entry $mytoplevel.para.num.ent -textvariable ::dialog_iemgui::var_number($vid) -width 4
+    # ceammc end
     pack $mytoplevel.para.num.ent $mytoplevel.para.num.lab -side right -anchor e
 
     set applycmd ""
@@ -467,21 +478,27 @@ proc ::dialog_iemgui::pdtk_iemgui_dialog {mytoplevel mainheader dim_header_UNUSE
     }
 
     # messages
-    labelframe $mytoplevel.s_r -borderwidth 1 -padx 5 -pady 5 -text [_ "Messages"]
+    # ceammc: ttk
+    ttk::labelframe $mytoplevel.s_r -text [_ "Messages"]
     pack $mytoplevel.s_r -side top -fill x
-    frame $mytoplevel.s_r.send
+    # ceammc: ttk
+    ttk::frame $mytoplevel.s_r.send
     pack $mytoplevel.s_r.send -side top -anchor e -padx 5
-    label $mytoplevel.s_r.send.lab -text [_ "Send symbol:"]
-    entry $mytoplevel.s_r.send.ent -textvariable ::dialog_iemgui::var_snd($vid) -width 21
+    ttk::label $mytoplevel.s_r.send.lab -text [_ "Send symbol:"]
+    ttk::entry $mytoplevel.s_r.send.ent -textvariable ::dialog_iemgui::var_snd($vid) -width 21
+    # ceammc end
     if { $snd ne "nosndno" } {
         pack $mytoplevel.s_r.send.lab $mytoplevel.s_r.send.ent -side left \
             -fill x -expand 1
     }
 
-    frame $mytoplevel.s_r.receive
+    # ceammc: ttk
+    ttk::frame $mytoplevel.s_r.receive
     pack $mytoplevel.s_r.receive -side top -anchor e -padx 5
-    label $mytoplevel.s_r.receive.lab -text [_ "Receive symbol:"]
-    entry $mytoplevel.s_r.receive.ent -textvariable ::dialog_iemgui::var_rcv($vid) -width 21
+    # ceammc: ttk
+    ttk::label $mytoplevel.s_r.receive.lab -text [_ "Receive symbol:"]
+    ttk::entry $mytoplevel.s_r.receive.ent -textvariable ::dialog_iemgui::var_rcv($vid) -width 21
+    # ceammc end
     if { $rcv ne "norcvno" } {
         pack $mytoplevel.s_r.receive.lab $mytoplevel.s_r.receive.ent -side left \
             -fill x -expand 1
@@ -495,19 +512,24 @@ proc ::dialog_iemgui::pdtk_iemgui_dialog {mytoplevel mainheader dim_header_UNUSE
         { set current_font "Times" }
 
     # label
-    labelframe $mytoplevel.label -borderwidth 1 -text [_ "Label"] -padx 5 -pady 5
+    # ceammc: ttk
+    ttk::labelframe $mytoplevel.label -text [_ "Label"]
     pack $mytoplevel.label -side top -fill x -pady 5
-    entry $mytoplevel.label.name_entry -textvariable ::dialog_iemgui::var_label($vid) \
+    # ceammc: ttk
+    ttk::entry $mytoplevel.label.name_entry -textvariable ::dialog_iemgui::var_label($vid) \
         -width 30 -font [list $current_font 14 $::font_weight]
     pack $mytoplevel.label.name_entry -side top -fill both -padx 5
 
-    frame $mytoplevel.label.xy -padx 20 -pady 1
+    # ceammc: ttk
+    ttk::frame $mytoplevel.label.xy
     pack $mytoplevel.label.xy -side top
-    label $mytoplevel.label.xy.x_lab -text [_ "X offset:"]
-    entry $mytoplevel.label.xy.x_entry -textvariable ::dialog_iemgui::var_label_dx($vid) -width 5
-    label $mytoplevel.label.xy.dummy1 -text " " -width 1
-    label $mytoplevel.label.xy.y_lab -text [_ "Y offset:"]
-    entry $mytoplevel.label.xy.y_entry -textvariable ::dialog_iemgui::var_label_dy($vid) -width 5
+    # ceammc: ttk
+    ttk::label $mytoplevel.label.xy.x_lab -text [_ "X offset:"]
+    ttk::entry $mytoplevel.label.xy.x_entry -textvariable ::dialog_iemgui::var_label_dx($vid) -width 5
+    ttk::label $mytoplevel.label.xy.dummy1 -text " " -width 1
+    ttk::label $mytoplevel.label.xy.y_lab -text [_ "Y offset:"]
+    ttk::entry $mytoplevel.label.xy.y_entry -textvariable ::dialog_iemgui::var_label_dy($vid) -width 5
+    # ceammc end
     pack $mytoplevel.label.xy.x_lab $mytoplevel.label.xy.x_entry $mytoplevel.label.xy.dummy1 \
         $mytoplevel.label.xy.y_lab $mytoplevel.label.xy.y_entry -side left
 
@@ -516,10 +538,13 @@ proc ::dialog_iemgui::pdtk_iemgui_dialog {mytoplevel mainheader dim_header_UNUSE
         -command "::dialog_iemgui::font_popup $mytoplevel"
     pack $mytoplevel.label.fontpopup_label -side left -anchor w \
         -expand 1 -fill x -padx 5
-    frame $mytoplevel.label.fontsize
+    # ceammc: ttk
+    ttk::frame $mytoplevel.label.fontsize
     pack $mytoplevel.label.fontsize -side right -padx 5 -pady 5
-    label $mytoplevel.label.fontsize.label -text [_ "Size:"]
-    entry $mytoplevel.label.fontsize.entry -textvariable ::dialog_iemgui::var_label_fontsize($vid) -width 4
+    # ceammc: ttk
+    ttk::label $mytoplevel.label.fontsize.label -text [_ "Size:"]
+    ttk::entry $mytoplevel.label.fontsize.entry -textvariable ::dialog_iemgui::var_label_fontsize($vid) -width 4
+    # ceammc end
     pack $mytoplevel.label.fontsize.entry $mytoplevel.label.fontsize.label \
         -side right -anchor e
     menu $mytoplevel.popup
@@ -537,20 +562,25 @@ proc ::dialog_iemgui::pdtk_iemgui_dialog {mytoplevel mainheader dim_header_UNUSE
         -command "::dialog_iemgui::toggle_font $mytoplevel 2"
 
     # colors
-    labelframe $mytoplevel.colors -borderwidth 1 -text [_ "Colors"] -padx 5 -pady 5
+    # ceammc: ttk
+    ttk::labelframe $mytoplevel.colors -text [_ "Colors"]
     pack $mytoplevel.colors -fill x
 
-    frame $mytoplevel.colors.select
+    # ceammc: ttk
+    ttk::frame $mytoplevel.colors.select
     pack $mytoplevel.colors.select -side top
-    radiobutton $mytoplevel.colors.select.radio0 \
+    # ceammc: ttk
+    ttk::radiobutton $mytoplevel.colors.select.radio0 \
         -value 0 -variable ::dialog_iemgui::var_colortype($vid) \
-        -text [_ "Background"] -justify left
-    radiobutton $mytoplevel.colors.select.radio1 \
+        -text [_ "Background"]
+    ttk::radiobutton $mytoplevel.colors.select.radio1 \
         -value 1 -variable ::dialog_iemgui::var_colortype($vid) \
-        -text [_ "Front"] -justify left
-    radiobutton $mytoplevel.colors.select.radio2 \
+        -text [_ "Front"]
+    ttk::radiobutton $mytoplevel.colors.select.radio2 \
         -value 2 -variable ::dialog_iemgui::var_colortype($vid) \
-        -text [_ "Label"] -justify left
+        -text [_ "Label"]
+    # ceammc end
+
     if { $::dialog_iemgui::var_color_foreground($vid) ne "none" } {
         pack $mytoplevel.colors.select.radio0 $mytoplevel.colors.select.radio1 \
             $mytoplevel.colors.select.radio2 -side left
@@ -558,13 +588,18 @@ proc ::dialog_iemgui::pdtk_iemgui_dialog {mytoplevel mainheader dim_header_UNUSE
         pack $mytoplevel.colors.select.radio0 $mytoplevel.colors.select.radio2 -side left
     }
 
-    frame $mytoplevel.colors.sections
+    # ceammc: ttk
+    ttk::frame $mytoplevel.colors.sections
     pack $mytoplevel.colors.sections -side top
-    button $mytoplevel.colors.sections.but -text [_ "Compose color"] \
+
+    # ceammc: ttk
+    ttk::button $mytoplevel.colors.sections.but -text [_ "Compose color"] \
         -command "::dialog_iemgui::choose_col_bkfrlb $mytoplevel"
     pack $mytoplevel.colors.sections.but -side left -anchor w -pady 5 \
         -expand yes -fill x
-    frame $mytoplevel.colors.sections.exp
+
+    # ceammc: ttk
+    ttk::frame $mytoplevel.colors.sections.exp
     pack $mytoplevel.colors.sections.exp -side right -padx 5
     if { $::dialog_iemgui::var_color_foreground($vid) ne "none" } {
         label $mytoplevel.colors.sections.exp.fr_bk -text "o=||=o" -width 6 \
@@ -609,22 +644,24 @@ proc ::dialog_iemgui::pdtk_iemgui_dialog {mytoplevel mainheader dim_header_UNUSE
     }
 
     # buttons
-    frame $mytoplevel.cao -pady 10
+    # ceammc: ttk
+    ttk::frame $mytoplevel.cao
     pack $mytoplevel.cao -side top
-    button $mytoplevel.cao.cancel -text [_ "Cancel"] \
+    # ceammc: ttk
+    ttk::button $mytoplevel.cao.cancel -text [_ "Cancel"] \
         -command "::dialog_iemgui::cancel $mytoplevel"
     pack $mytoplevel.cao.cancel -side left -expand 1 -fill x -padx 15 -ipadx 10
     if {$::windowingsystem ne "aqua"} {
-        button $mytoplevel.cao.apply -text [_ "Apply"] \
+        ttk::button $mytoplevel.cao.apply -text [_ "Apply"] \
             -command "::dialog_iemgui::apply $mytoplevel"
         pack $mytoplevel.cao.apply -side left -expand 1 -fill x -padx 15 -ipadx 10
     }
-    button $mytoplevel.cao.ok -text [_ "OK"] \
+    # ceammc: ttk
+    ttk::button $mytoplevel.cao.ok -text [_ "OK"] \
         -command "::dialog_iemgui::ok $mytoplevel" -default active
     pack $mytoplevel.cao.ok -side left -expand 1 -fill x -padx 15 -ipadx 10
 
-    $mytoplevel.dim.w_ent select from 0
-    $mytoplevel.dim.w_ent select adjust end
+    $mytoplevel.dim.w_ent select range 0 end
     focus $mytoplevel.dim.w_ent
 
     # live widget updates on OSX in lieu of Apply button
@@ -644,17 +681,17 @@ proc ::dialog_iemgui::pdtk_iemgui_dialog {mytoplevel mainheader dim_header_UNUSE
         bind $mytoplevel.label.fontsize.entry <KeyPress-Return> "::dialog_iemgui::apply_and_rebind_return $mytoplevel"
 
         # unbind Return from ok button when an entry takes focus
-        $mytoplevel.dim.w_ent config -validate focusin -vcmd "::dialog_iemgui::unbind_return $mytoplevel"
-        $mytoplevel.dim.h_ent config -validate focusin -vcmd "::dialog_iemgui::unbind_return $mytoplevel"
-        $mytoplevel.rng.min.ent config -validate focusin -vcmd "::dialog_iemgui::unbind_return $mytoplevel"
-        $mytoplevel.rng.max_ent config -validate focusin -vcmd "::dialog_iemgui::unbind_return $mytoplevel"
-        $mytoplevel.para.num.ent config -validate focusin -vcmd "::dialog_iemgui::unbind_return $mytoplevel"
-        $mytoplevel.label.name_entry config -validate focusin -vcmd "::dialog_iemgui::unbind_return $mytoplevel"
-        $mytoplevel.s_r.send.ent config -validate focusin -vcmd "::dialog_iemgui::unbind_return $mytoplevel"
-        $mytoplevel.s_r.receive.ent config -validate focusin -vcmd "::dialog_iemgui::unbind_return $mytoplevel"
-        $mytoplevel.label.xy.x_entry config -validate focusin -vcmd "::dialog_iemgui::unbind_return $mytoplevel"
-        $mytoplevel.label.xy.y_entry config -validate focusin -vcmd "::dialog_iemgui::unbind_return $mytoplevel"
-        $mytoplevel.label.fontsize.entry config -validate focusin -vcmd "::dialog_iemgui::unbind_return $mytoplevel"
+        $mytoplevel.dim.w_ent config -validate focusin -validatecommand "::dialog_iemgui::unbind_return $mytoplevel"
+        $mytoplevel.dim.h_ent config -validate focusin -validatecommand "::dialog_iemgui::unbind_return $mytoplevel"
+        $mytoplevel.rng.min.ent config -validate focusin -validatecommand "::dialog_iemgui::unbind_return $mytoplevel"
+        $mytoplevel.rng.max_ent config -validate focusin -validatecommand "::dialog_iemgui::unbind_return $mytoplevel"
+        $mytoplevel.para.num.ent config -validate focusin -validatecommand "::dialog_iemgui::unbind_return $mytoplevel"
+        $mytoplevel.label.name_entry config -validate focusin -validatecommand "::dialog_iemgui::unbind_return $mytoplevel"
+        $mytoplevel.s_r.send.ent config -validate focusin -validatecommand "::dialog_iemgui::unbind_return $mytoplevel"
+        $mytoplevel.s_r.receive.ent config -validate focusin -validatecommand "::dialog_iemgui::unbind_return $mytoplevel"
+        $mytoplevel.label.xy.x_entry config -validate focusin -validatecommand "::dialog_iemgui::unbind_return $mytoplevel"
+        $mytoplevel.label.xy.y_entry config -validate focusin -validatecommand "::dialog_iemgui::unbind_return $mytoplevel"
+        $mytoplevel.label.fontsize.entry config -validate focusin -validatecommand "::dialog_iemgui::unbind_return $mytoplevel"
 
         # remove cancel button from focus list since it's not activated on Return
         $mytoplevel.cao.cancel config -takefocus 0
@@ -665,8 +702,10 @@ proc ::dialog_iemgui::pdtk_iemgui_dialog {mytoplevel mainheader dim_header_UNUSE
         bind $mytoplevel.cao.ok <FocusOut> "$mytoplevel.cao.ok config -default normal"
 
         # since we show the active focus, disable the highlight outline
-        $mytoplevel.cao.ok config -highlightthickness 0
-        $mytoplevel.cao.cancel config -highlightthickness 0
+        # ceammc: ttk
+        # $mytoplevel.cao.ok config -highlightthickness 0
+        # $mytoplevel.cao.cancel config -highlightthickness 0
+        # ceammc end
     }
 
     position_over_window $mytoplevel $::focused_window

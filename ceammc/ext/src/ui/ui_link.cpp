@@ -7,9 +7,9 @@
 //
 
 #include "ui_link.h"
+#include "ceammc_format.h"
 #include "ceammc_ui.h"
 #include "ui_link.tcl.h"
-#include "ceammc_format.h"
 
 UILink::UILink()
     : prop_color_link(rgba_blue)
@@ -29,7 +29,8 @@ UILink::UILink()
 
 UILink::~UILink()
 {
-    pd_unbind(asPd(), rid_);
+    if (rid_ && rid_->s_thing)
+        pd_unbind(asPd(), rid_);
 }
 
 void UILink::init(t_symbol* name, const AtomListView& args, bool usePresets)
@@ -88,12 +89,12 @@ void UILink::p_setTitle(const AtomListView& lv)
 void UILink::setup()
 {
     UIObjectFactory<UILink> obj("ui.link", EBOX_GROWNO, CLASS_NOINLET);
-    obj.hideProperty("send");
-    obj.hideProperty("receive");
-    obj.hideProperty("size");
+    obj.internalProperty("send");
+    obj.internalProperty("receive");
+    obj.internalProperty("size");
     obj.hideLabel();
-    obj.hideProperty(PROP_BACKGROUND_COLOR);
-    obj.hideProperty(PROP_BORDER_COLOR);
+    obj.internalProperty(PROP_BACKGROUND_COLOR);
+    obj.internalProperty(PROP_BORDER_COLOR);
     obj.setPropertySave("@size", false);
 
     obj.setDefaultSize(120, 15);

@@ -1,5 +1,4 @@
 #include "list_repeat.h"
-#include "ceammc_convert.h"
 #include "ceammc_factory.h"
 #include "ceammc_fn_list.h"
 #include "datatype_mlist.h"
@@ -15,7 +14,7 @@ ListRepeat::ListRepeat(const ceammc::PdArgs& a)
     createInlet();
     createOutlet();
 
-    times_ = new IntProperty("@times", REPEAT_DEF);
+    times_ = new IntProperty("@n", REPEAT_DEF);
     times_->setArgIndex(0);
     times_->checkClosedRange(REPEAT_MIN, REPEAT_MAX);
     addProperty(times_);

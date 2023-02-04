@@ -11,13 +11,13 @@
             <library>ceammc</library>
             <category>noise</category>
             <keywords>noise</keywords>
-            <since>.5</since>
+            <since>0.5</since>
         </meta>
         <info>
             <par>Port of Richard's chaos-baker from chaos collection</par>
         </info>
         <arguments>
-            <argument name="ARG0" type="float">initial value</argument>
+            <argument name="VALUE" type="float">initial value</argument>
         </arguments>
         <methods>
             <method name="seed">

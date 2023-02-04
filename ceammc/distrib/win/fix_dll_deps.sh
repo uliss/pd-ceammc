@@ -26,9 +26,9 @@ find_all_dll_deps() {
     list_dll "@PROJECT_BINARY_DIR@/src/pd.exe"
     list_dll "@PROJECT_BINARY_DIR@/src/pd.dll"
 
-    find "@PROJECT_BINARY_DIR@/ceammc/ext" -path '*/tests' -prune \
-        -o -name "*\.dll" \
-        -o -name "*\.m_i386" \
+    find "@CMAKE_INSTALL_PREFIX@/" \
+        -name "*\.dll" -print \
+        -o -name "*\.m_i386" -print \
         -o -name "*\.m_amd64" -print | while read dll
     do
         list_dll "$dll"

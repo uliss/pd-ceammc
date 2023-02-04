@@ -21,16 +21,17 @@
             match</par>
         </info>
         <arguments>
-            <argument name="@type" type="list">list of matched atoms</argument>
+            <argument name="ARGS" type="list">list of matched atoms</argument>
         </arguments>
         <properties>
-            <property name="@args" type="list">matching atoms</property>
-            <property name="@trim" type="flag" default="0">cut first element from list, transform
-            float or symbol to bang</property>
-            <property name="@simplify" type="int" enum="0 1" default="1">one element list
-            simplification - transform them to floats or symbols</property>
-            <property name="@as_any" type="flag" default="0">trim list or symbol selector on
-            output</property>
+            <property name="@args" type="list" access="initonly" default="">matching
+            atoms</property>
+            <property name="@trim" type="flag" default="0" access="initonly">cut first element from
+            list, transform float or symbol to bang</property>
+            <property name="@simplify" type="bool" default="1">one element list simplification -
+            transform them to floats or symbols</property>
+            <property name="@as_any" type="flag" default="0" access="initonly">trim list or symbol
+            selector on output</property>
         </properties>
         <inlets>
             <inlet>
@@ -58,9 +59,7 @@
 |         ^|        ^^|       ^^^|      ^^^^|
 |          |          |          |          |
 |          |          |          |          |
-[msg set] [msg set] [msg set] [msg set] [msg set]
-|         |         |         |         |
-[ (       [ (       [ (       [ (       [ (
+[ui.dt]    [ui.dt]    [ui.dt]    [ui.dt]    [ui.dt]
 
 
 [100 #x2( [symbol A #a2( [list A #d2(   [1 2 3 #c2(
@@ -69,12 +68,10 @@
 
 
 [list.route A B 100  @trim               #r2]
-| |       ^| ^|     ^^| ^^|   ^^^|
-| [B]      | [B]      | [B]      |
+|         ^|        ^^|       ^^^|
 |          |          |          |
-[msg set] [msg set] [msg set] [msg set]
-|         |         |         |
-[ (       [ (       [ (       [ (
+|          |          |          |
+[ui.dt]    [ui.dt]    [ui.dt]    [ui.dt]
 
 [X a->r]
 [X b->r]

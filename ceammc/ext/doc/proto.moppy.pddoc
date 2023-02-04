@@ -46,7 +46,7 @@
             <method name="freq">set floppy frequency. Note: moppy.v1 version only. 
             <param name="CHAN" required="false" type="int">optional floppy id (overrides @floppy
             property)</param>
-            <param name="FREQ" required="true" type="float" units="herz">freq</param></method>
+            <param name="FREQ" required="true" type="float" units="hertz">freq</param></method>
             <method name="period">directly set floppy drive period. Note: moppy.v1 version only. 
             <param name="CHAN" required="false" type="int">optional floppy id (overrides @floppy
             property)</param>

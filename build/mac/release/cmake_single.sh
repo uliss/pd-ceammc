@@ -4,8 +4,8 @@ export LLVM_DIR=/opt/local/libexec/llvm-10/lib/cmake/llvm
 # M1 apple check (Faust not build at this moment)
 BUILD_WITH_FAUST=ON
 if [[ $(uname -m) == 'arm64' ]]; then
-  BUILD_WITH_FAUST=OFF
-  export LLVM_DIR=/opt/local/libexec/llvm-14/lib/cmake/llvm
+  BUILD_WITH_FAUST=ON
+  export LLVM_DIR=/opt/local/libexec/llvm-11/lib/cmake/llvm
 fi
 
 cmake -G Ninja \

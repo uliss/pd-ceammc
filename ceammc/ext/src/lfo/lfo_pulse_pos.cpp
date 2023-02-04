@@ -7,11 +7,9 @@ public:
     LfoPulsePos(const PdArgs& args)
         : faust_lfo_pulse_pos_tilde(args)
     {
-        static t_symbol* SYM_PROP_DUTY = gensym("@duty");
-
         createInlet();
         setInitSignalValue(parsedPosArgs().floatAt(0, 0));
-        bindPositionalArgToProperty(1, SYM_PROP_DUTY);
+        bindPositionalArgToProperty(1, gensym("@duty"));
     }
 
     void onInlet(size_t n, const AtomListView&) override

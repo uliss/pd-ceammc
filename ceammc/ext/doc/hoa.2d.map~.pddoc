@@ -28,13 +28,12 @@
             <argument name="ORDER" type="int" minvalue="1" maxvalue="63">the order of
             decomposition</argument>
             <argument name="NSRC" type="int" minvalue="1">number of sources</argument>
-            <argument name="MODE" type="symbol" enum="cartesian polar">decoding mode</argument>
         </arguments>
         <properties>
             <property name="@order" type="int" minvalue="1" maxvalue="63" default="1"
-            readonly="true">the order of decomposition</property>
-            <property name="@nsrc" type="int" minvalue="1" maxvalue="63" default="1"
-            readonly="true">number of input sources</property>
+            access="initonly">the order of decomposition</property>
+            <property name="@nsrc" type="int" minvalue="1" default="1" access="initonly">number of
+            input sources</property>
             <property name="@ramp" type="float" minvalue="0" default="100">ramp time</property>
         </properties>
         <methods>

@@ -119,9 +119,9 @@ bits->note	convert list of bits to note events
 conv.bits2pos	convert list of bits to list of bit position
 ceammc/bits->pos	convert list of bits to list of bit position
 bits->pos	convert list of bits to list of bit position
-conv.bpm2hz	converts BPM to frequency in herz
-ceammc/bpm->hz	converts BPM to frequency in herz
-bpm->hz	converts BPM to frequency in herz
+conv.bpm2hz	converts BPM to frequency in hertz
+ceammc/bpm->hz	converts BPM to frequency in hertz
+bpm->hz	converts BPM to frequency in hertz
 conv.bpm2ms	convert frequency in BPM to period in milliseconds
 ceammc/bpm->ms	convert frequency in BPM to period in milliseconds
 bpm->ms	convert frequency in BPM to period in milliseconds
@@ -416,10 +416,18 @@ ceammc/~->	separate audio and control streams
 ~->	separate audio and control streams
 replace	Replace atoms in data stream
 ceammc/replace	Replace atoms in data stream
+route.any	separate any messages from bangs, floats, symbols and lists
+route.bang	separate bang messages from other types
+route.b	separate bang messages from other types
 route.float	separate float messages from other types
 route.f	separate float messages from other types
+route.list	separate list messages from other types
+route.l	separate list messages from other types
+route.prop	separate property messages from other types
 route.random	routes input flow to random outlet
 route.r	routes input flow to random outlet
+route.symbol	separate symbol messages from other types
+route.s	separate symbol messages from other types
 flt.a-weight	convert frequency to A-weight value
 flt.biquad~	second order IIR filter.
 flt.bpf12~	Two pole band-pass butterworth filter
@@ -466,8 +474,11 @@ flt.median	Median control flow filter
 flt.moog_vcf~	Moog Voltage Controlled Filter
 flt.notch~	band-rejection filter
 flt.resonbp~	Simple resonant bandpass filter
+flt.resonhp~	Simple resonant highpass filter
+flt.resonlp~	Simple resonant lowpass filter
 fx.bitdown~	bit downer and downsampler effect
 fx.chorus~	Chorus effect
+fx.dattorro~	dattorro reverb
 fx.distortion1~	distortion #1 from Guitarix effects set
 fx.distortion2~	distortion #2 from Guitarix effects set
 fx.distortion3~	simple distortion #3 from Guitarix effects set
@@ -483,15 +494,18 @@ fx.freqshift~	frequency shifter or single-sideband ring modulation
 fx.granulator~	simple input stream granulator
 fx.greyhole~	A complex echo-like effect
 fx.infrev~	port of Infinity VST plugin from airwindows
+fx.jcrev~	Schroeder quad reverberator from 1972
 fx.looper~	One track looper
 fx.pitchshift_s~	signal version of fx.pitchshift~
 fx.pitchshift~	simple pitch shifter based on 2 delay lines
 fx.rb_pitchshift~	rubber band pitchshift
 fx.recho~	reversed echo effect
 fx.room~	Gardners room emulation algorithms
+fx.satrev~	Schroeder reverberator from 1971
 fx.sdelay~	smooth delay with a feedback control
 fx.secho~	enchanced echo effect that does not click on delay change
 fx.shimmer~	shimmer reverb effect effect
+fx.stutter~	stutter effect
 fx.tapiir~	multi-tap delay
 fx.vocoder~	very simple vocoder where the spectrum of the modulation signal is analyzed using a 32-band filter bank
 fx.wahwah~	digitized CryBaby wah pedal
@@ -711,8 +725,11 @@ math.reciprocal~	calculate reciprocal number for signals
 ceammc/1/x~	calculate reciprocal number for signals
 1/x~	calculate reciprocal number for signals
 math.round	round to integral value, regardless of rounding direction
+round	round to integral value, regardless of rounding direction
+ceammc/round	round to integral value, regardless of rounding direction
 math.round~	signal round
 round~	signal round
+ceammc/round~	signal round
 math.sign	sign function
 math.sin	sine function
 math.sinh	hyperbolic sine function
@@ -798,6 +815,7 @@ math.tanh~	hyperbolic tangent for signals
 math.tan~	tangent function
 math.trunc	truncate to integer value
 math.trunc~	truncate to integer value
+midi.arp	MIDI arpeggiator
 midi.cc	enhanced version of vanilla ctlin
 midi.clock	midi clock toolbox
 midi.ctl2str	convert Standard MIDI Controllers number to name
@@ -863,26 +881,27 @@ net.osc.s	OSC message sender
 net.osc.server	OSC server control
 net.osc	OSC server control
 noise.baker	Part of a-chaos library
-noise.clifford	Part of a-chaos library
-noise.collatz	Part of a-chaos library
+noise.clifford	clifford attractor
+noise.collatz	collatz conjecture output
+noise.colored~	colored noise generator with an arbitrary spectral roll
 noise.crackle~	sparse noise generator
-noise.duffing	Part of a-chaos library
+noise.duffing	duffing attractor
 noise.ginger	Gingerbreadman map chaotic generator
-noise.henon	Part of a-chaos library
-noise.henon_heilles	Part of a-chaos library
-noise.henon_phase	Part of a-chaos library
-noise.henonf	Part of a-chaos library
-noise.ikeda	Part of a-chaos library
+noise.henon	henon attractor
+noise.henon_heilles	Hénon–Heiles_system
+noise.henon_phase	henon phase Ddagrams
+noise.henonf	Henon phase
+noise.ikeda	Ikeda attractor
 noise.lfreq0~	sampled/held noise (piecewise constant)
 noise.lfreq~	noise.lfreq0~ smoothed with no overshoot
-noise.lorenz	Part of a-chaos library
-noise.lyapunov	Part of a-chaos library
-noise.navier_stokes	Part of a-chaos library
+noise.lorenz	Lorenz chaos
+noise.lyapunov	lyapunov random attractor
+noise.navier_stokes	navier-stokes diff equations
 noise.pink~	Pink noise generator
-noise.rossler	Part of a-chaos library
-noise.stein	Part of a-chaos library
-noise.torus	Part of a-chaos library
-noise.verhulst	Part of a-chaos library
+noise.rossler	Rössler attractor
+noise.stein	Stein distribution
+noise.torus	torus attractor
+noise.verhulst	verhulst distribution
 noise.white~	White noise generator
 osc.blit~	Bandlimited impulse train oscillator
 osc.impulse~	Bandlimited impulse train generator
@@ -893,6 +912,7 @@ osc.sinfb~	Sine oscilator with feedback
 osc.sin~	Sine wave oscillator
 osc.square~	Bandlimited square wave oscillator
 osc.tri~	Bandlimited triangle wave oscillator
+canvas.active	checks if canvas window is on top and active
 canvas.current	verbose information about current canvas
 canvas.dir	current canvas directory
 canvas.name	current canvas name
@@ -928,6 +948,7 @@ is_float	checks if input data has *float* type
 is_list	checks if input data has *list* type
 is_odd	checks if input number is odd
 is_pointer	checks if input data has *pointer* type
+is_prop	checks if input message is *property* message
 is_symbol	checks if input data has *symbol* type
 preset.float	load/store float preset
 preset.f	load/store float preset
@@ -945,6 +966,8 @@ p.get	get property from connected object/subpatch/abstraction
 prop.get~	Property extractor from sound stream
 prop~>	Property extractor from sound stream
 @~>	Property extractor from sound stream
+ceammc/prop~>	Property extractor from sound stream
+ceammc/@~>	Property extractor from sound stream
 prop.join	join property to main data flow
 prop<-	join property to main data flow
 prop.random	property randomizer
@@ -953,6 +976,8 @@ p.set	set property for connected object/subpatch/abstraction
 prop.split	separate properties from dataflow
 prop->	separate properties from dataflow
 @->	separate properties from dataflow
+ceammc/prop->	separate properties from dataflow
+ceammc/@->	separate properties from dataflow
 proto.feelworld	protocol for FeelWorld LivePro L1 HDMI mixer
 proto.firmata	Firmata Arduino protocol support
 proto.inscore	INScore message creator
@@ -1110,6 +1135,8 @@ synth.sitar~	STK sitar
 synth.snare~	Snare drum synth from Guitarix project
 synth.standard_bell~	german church bell modal model
 synth.tube_bell~	STK tubular bell (orchestral chime) FM synthesis instrument
+synth.voice_fofc~	Simple formant/vocal synthesizer with FOF-cycle filterbank.
+synth.voice_fofs~	Simple formant/vocal synthesizer with FOF-smooth filterbank.
 synth.wurley~	Wurlitzer electric piano FM synthesis instrument
 system.colorpanel	System color panel dialog popup
 system.cursor	Output cursor motion, mousewheel and button clicks

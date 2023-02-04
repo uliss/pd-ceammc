@@ -22,7 +22,6 @@ set(DOC_FILES
     array.plot
     array.plot~
     array.resample
-#    array.risset_rythm~
     array.rms
     array.s2p
     array.set
@@ -33,6 +32,7 @@ set(DOC_FILES
     array.variance
     array.vplay
     array.window
+    canvas.active
     canvas.current
     canvas.dir
     canvas.name
@@ -60,9 +60,9 @@ set(DOC_FILES
     conv.dbfs2amp
     conv.dbfs2amp~
     conv.degree2key
-    conv.int2bits
     conv.edge2bang
     conv.hex2int
+    conv.int2bits
     conv.lin2curve
     conv.lin2exp
     conv.lin2lin
@@ -88,9 +88,9 @@ set(DOC_FILES
     conv.sig2float~
     conv.str2sec
     data.copy
+    data.dict
     data.fifo
     data.float
-    data.dict
     data.int
     data.list
     data.mlist
@@ -113,20 +113,19 @@ set(DOC_FILES
     dyn.limit2~
     dyn.limit~
     dyn.softclip~
-    envelope
-    env.mix
-    env.tshift
-    env.tscale
-    env.vscale
-    env.concat
     env.adsr~
-    env.asr~
     env.ar~
+    env.asr~
+    env.concat
     env.follow~
+    env.mix
     env.smooth~
+    env.tscale
+    env.tshift
+    env.vscale
     env2array
     env2vline
-    vline2env
+    envelope
     expand_env
     file.size
     flow.append
@@ -157,12 +156,12 @@ set(DOC_FILES
     flow.pass
     flow.pass_if
     flow.pipe
+    flow.queue
     flow.record
     flow.reject
     flow.reject_if
     flow.ring
     flow.route
-    flow.queue
     flow.select
     flow.seqdelay
     flow.space
@@ -186,8 +185,8 @@ set(DOC_FILES
     flt.c_lpf~
     flt.c_notch
     flt.c_notch~
-    flt.c_pole
     flt.c_peak~
+    flt.c_pole
     flt.dcblock2~
     flt.dcblock~
     flt.eq10~
@@ -208,19 +207,22 @@ set(DOC_FILES
     flt.moog_vcf~
     flt.notch~
     flt.resonbp~
+    flt.resonhp~
+    flt.resonlp~
     fluid~
     function
     function.call
     fx.bitdown~
     fx.chorus~
-    fx.distortion~
+    fx.dattorro~
     fx.distortion1~
     fx.distortion2~
     fx.distortion3~
+    fx.distortion~
     fx.drive~
     fx.drone_box~
-    fx.echo~
     fx.echo2~
+    fx.echo~
     fx.flanger~
     fx.freeverb2~
     fx.freeverb~
@@ -228,22 +230,25 @@ set(DOC_FILES
     fx.granulator~
     fx.greyhole~
     fx.infrev~
+    fx.jcrev~
     fx.looper~
-    fx.pitchshift~
     fx.pitchshift_s~
+    fx.pitchshift~
     fx.rb_pitchshift~
     fx.recho~
     fx.room~
+    fx.satrev~
     fx.sdelay~
     fx.secho~
     fx.shimmer~
+    fx.stutter~
     fx.tapiir~
     fx.vocoder~
     fx.wahwah~
     fx.zita_rev1~
     gain~
-    global.float
     global.dict
+    global.float
     global.int
     global.list
     global.mlist
@@ -256,13 +261,13 @@ set(DOC_FILES
     hoa.2d.recomposer~
     hoa.2d.rotate~
     hoa.2d.wider~
+    hoa.@process
     hoa.in
     hoa.in~
     hoa.out
     hoa.out~
     hoa.process~
     hoa.scope~
-    hoa.@process
     hw.apple_smc
     hw.apple_sms
     hw.arduino
@@ -281,6 +286,7 @@ set(DOC_FILES
     is_list
     is_odd
     is_pointer
+    is_prop
     is_symbol
     lang.faust~
     lang.lua
@@ -290,10 +296,10 @@ set(DOC_FILES
     lfo.+tri~
     lfo.impulse~
     lfo.mosc~
+    lfo.pulse~
     lfo.saw~
     lfo.square~
     lfo.tri~
-    lfo.pulse~
     list.^at
     list.^contains
     list.^search
@@ -349,8 +355,8 @@ set(DOC_FILES
     list.runsum
     list.search
     list.separate
-    list.set
     list.seq
+    list.set
     list.shift
     list.shuffle
     list.slice
@@ -366,8 +372,8 @@ set(DOC_FILES
     list.zip
     live.capture~
     loadexpr
-    local.float
     local.dict
+    local.float
     local.int
     local.list
     local.mlist
@@ -376,19 +382,19 @@ set(DOC_FILES
     math.abs
     math.abs~
     math.acos
-    math.acos~
     math.acosh
     math.acosh~
+    math.acos~
     math.and
     math.approx
     math.asin
-    math.asin~
     math.asinh
     math.asinh~
+    math.asin~
     math.atan
-    math.atan~
     math.atanh
     math.atanh~
+    math.atan~
     math.binomial
     math.cabs~
     math.carg~
@@ -400,18 +406,18 @@ set(DOC_FILES
     math.cexp~
     math.cmul~
     math.cos
-    math.cos~
     math.cosh
     math.cosh~
+    math.cos~
     math.div
     math.e
     math.erf
     math.erf~
     math.exp
-    math.exp~
     math.exp2
     math.exp2~
     math.expr
+    math.exp~
     math.floor
     math.floor~
     math.gamma
@@ -423,11 +429,11 @@ set(DOC_FILES
     math.lgamma
     math.lgamma~
     math.log
-    math.log~
     math.log10
     math.log10~
     math.log2
     math.log2~
+    math.log~
     math.mul
     math.nan
     math.nan~
@@ -442,9 +448,9 @@ set(DOC_FILES
     math.round~
     math.sign
     math.sin
-    math.sin~
     math.sinh
     math.sinh~
+    math.sin~
     math.sqrt
     math.sqrt~
     math.squared
@@ -456,25 +462,26 @@ set(DOC_FILES
     math.sync_ge
     math.sync_gt
     math.sync_le
+    math.sync_lshift
     math.sync_lt
     math.sync_mod
     math.sync_mul
     math.sync_ne
     math.sync_or
+    math.sync_rshift
     math.sync_sub
     math.sync_xor
-    math.sync_lshift
-    math.sync_rshift
     math.tan
-    math.tan~
     math.tanh
     math.tanh~
+    math.tan~
     math.trunc
     math.trunc~
     matrix~
     metro.pattern
     metro.random
     metro.seq
+    midi.arp
     midi.cc
     midi.clock
     midi.ctl2str
@@ -512,6 +519,7 @@ set(DOC_FILES
     noise.baker
     noise.clifford
     noise.collatz
+    noise.colored~
     noise.crackle~
     noise.duffing
     noise.ginger
@@ -536,15 +544,15 @@ set(DOC_FILES
     osc.blit~
     osc.impulse~
     osc.pulse~
-    osc.saw~
     osc.saw4~
-    osc.sin~
+    osc.saw~
     osc.sinfb~
+    osc.sin~
     osc.square~
     osc.tri~
     pan.cos~
-    pan.lin~
     pan.linsig~
+    pan.lin~
     pan.spread~
     pan.sqrt~
     patch.args
@@ -562,8 +570,8 @@ set(DOC_FILES
     path.pattern
     path.search
     path.split
-    plot.hist~
     plot.geomspace~
+    plot.hist~
     plot.linspace~
     plot.logspace~
     plot.response~
@@ -583,38 +591,34 @@ set(DOC_FILES
     proto.firmata
     proto.inscore
     proto.midi
-#    proto.midi.casio
     proto.midi.cc
     proto.midi.sysex
     proto.moppy
     proto.mpv
-    proto.xtouch_ext
     proto.sp.alpaca
     proto.vlc
     proto.whammy
+    proto.xtouch_ext
     radio
     random.atom
+    random.discrete
     random.float
     random.gauss
     random.int
     random.linear
-    random.pw_lin
     random.pw_const
-    random.discrete
+    random.pw_lin
     replace
-    route.float
-    route.random
     risset.gliss
+    route.any
+    route.bang
+    route.float
+    route.list
+    route.prop
+    route.random
+    route.symbol
     rtree.to_list
     samp.time~
-    set.contains
-    set.diff
-    set.equal
-    set.intersect
-    set.size
-    set.symdiff
-    set.union
-    sequencer
     seq.arp
     seq.bangs
     seq.counter
@@ -623,12 +627,20 @@ set(DOC_FILES
     seq.nbangs
     seq.phasor
     seq.toggles
+    sequencer
+    set.contains
+    set.diff
+    set.equal
+    set.intersect
+    set.size
+    set.symdiff
+    set.union
     sfizz~
     snd.file
     spat.pan4~
     spat.pan8~
-    spat.zita8~
     spat.zita6x8~
+    spat.zita8~
     speech.flite
     speech.flite~
     speech.rhvoice~
@@ -650,8 +662,8 @@ set(DOC_FILES
     symbol.equal
     symbol.length
     symbol.num_compare
-    symbol2intlist
     symbol2any
+    symbol2intlist
     sync
     synth.bee3~
     synth.birds~
@@ -663,13 +675,13 @@ set(DOC_FILES
     synth.english_bell~
     synth.fgrain~
     synth.french_bell~
-    synth.harpsichord~
-    synth.hat~
     synth.german_bell~
     synth.glass_harm~
     synth.glitch~
-    synth.kick~
+    synth.harpsichord~
+    synth.hat~
     synth.kick2~
+    synth.kick~
     synth.ks~
     synth.marimba~
     synth.piano~
@@ -678,21 +690,23 @@ set(DOC_FILES
     synth.risset_bell~
     synth.risset_tone~
     synth.russian_bell~
-    synth.tube_bell~
     synth.shakers~
     synth.sitar~
     synth.snare~
     synth.standard_bell~
+    synth.tube_bell~
+    synth.voice_fofc~
+    synth.voice_fofs~
     synth.wurley~
     system.colorpanel
     system.cursor
+    system.exec
+    system.exit
     system.exit
     system.getenv
     system.hostname
     system.memsize
     system.memused
-    system.exec
-    system.exit
     system.screen_size
     tl.bang
     tl.cue
@@ -709,37 +723,40 @@ set(DOC_FILES
     ui.faust~
     ui.filter
     ui.filter~
-    ui.gain~
     ui.gain2~
+    ui.gain~
     ui.icon
     ui.incdec
     ui.keyboard
     ui.knob
+    ui.label
+    ui.link
     ui.matrix
     ui.menu
+    ui.meter~
     ui.midi
     ui.mouse_filter
     ui.mouse_route
     ui.number
-    ui.label
-    ui.link
     ui.number~
     ui.plot~
     ui.polar
     ui.preset
+    ui.radio
+    ui.rslider
     ui.scope~
     ui.slider
     ui.slider2d
     ui.sliders
-    ui.radio
-    ui.rslider
-    ui.tab
     ui.spectroscope~
+    ui.tab
     ui.toggle
-    ui.meter~
+    vline2env
     window
-    xfade~
-    xfade2~
     xdac~
+    xfade2~
+    xfade~
     z~
+#    array.risset_rythm~
+#    proto.midi.casio
 )

@@ -19,9 +19,9 @@
             </aliases>
         </meta>
         <arguments>
-            <argument name="NAME" type="symbol">window name: blackman, blackman-harris, flattop,
+            <argument name="TYPE" type="symbol">window name: blackman, blackman-harris, flattop,
             gauss, hamming, hann, nuttall, rect, sine, tri, welch</argument>
-            <argument name="SIZE" type="int" minvalue="16">window size</argument>
+            <argument name="SIZE" type="int" minvalue="16" units="sample">window size</argument>
         </arguments>
         <methods>
             <method name="blackman">Sets Blackman window type</method>

@@ -9,8 +9,99 @@ namespace eval ::pd_bindings:: {
     namespace export dialog_bindings
     namespace export patch_bindings
     variable key2iso
+    # ceammc
+    variable cyrbind
+    switch -- [tk::windowingsystem] {
+        "aqua" {
+            array set cyrbind {
+                a "ef"
+                b "i"
+                c "es"
+                d "ve"
+                e "u"
+                f "a"
+                g "pe"
+                h "er"
+                i "sha"
+                j "o"
+                k "el"
+                l "de"
+                m "softsign"
+                n "te"
+                o "shcha"
+                p "ze"
+                q "shorti"
+                r "ka"
+                s "yeru"
+                t "ie"
+                u "ghe"
+                v "em"
+                w "tse"
+                x "che"
+                y "en"
+                z "ya"
+                period "yu"
+            }
+        }
+        "win32" {
+            array set cyrbind {
+                a 65
+                b 66
+                c 67
+                d 68
+                e 69
+                f 70
+                g 71
+                h 72
+                i 73
+                j 74
+                k 75
+                l 76
+                m 77
+                n 78
+                o 79
+                p 80
+                q 81
+                r 82
+                s 83
+                t 84
+                u 85
+                v 86
+                w 87
+                x 88
+                y 89
+                z 90
+                period 190
+                slash 191
+            }
+        }
+    }
+    # ceammc end
 }
 set ::pd_bindings::key2iso ""
+
+# ceammc
+proc ::pd_bindings::scheduleAction {key seq args} {
+    if { $key eq $seq } { eval ::pd_menucommands::scheduleAction $args }
+}
+
+proc ::pd_bindings::bind_cyrillic {tag seq_prefix seq script} {
+    switch -- $::windowingsystem {
+        "aqua" {
+            if {[info exists ::pd_bindings::cyrbind($seq)]} {
+                set key $::pd_bindings::cyrbind($seq)
+                bind $tag <${seq_prefix}-Cyrillic_$key> "::pd_menucommands::scheduleAction $script"
+            }
+        }
+        "win32" {
+            if {[info exists ::pd_bindings::cyrbind($seq)]} {
+                set key $::pd_bindings::cyrbind($seq)
+                bind $tag <${seq_prefix}> "+::pd_bindings::scheduleAction %k $key $script"
+            }
+        }
+    }
+}
+# ceammc end
 
 
 # wrapper around bind(3tk)to deal with CapsLock
@@ -19,6 +110,8 @@ set ::pd_bindings::key2iso ""
 proc ::pd_bindings::bind_capslock {tag seq_prefix seq_nocase script} {
     bind $tag <${seq_prefix}-[string tolower ${seq_nocase}]> "::pd_menucommands::scheduleAction $script"
     bind $tag <${seq_prefix}-[string toupper ${seq_nocase}]> "::pd_menucommands::scheduleAction $script"
+    # ceammc
+    bind_cyrillic $tag $seq_prefix [string tolower ${seq_nocase}] $script
 }
 
 # TODO rename pd_bindings to window_bindings after merge is done
@@ -75,6 +168,10 @@ proc ::pd_bindings::global_bindings {} {
     bind all <$::modifier-Key-5>        {::pd_menucommands::scheduleAction menu_send_float %W text 0}
     bind all <$::modifier-Key-slash>    {::pd_menucommands::scheduleAction pdsend "pd dsp 1"}
     bind all <$::modifier-Key-period>   {::pd_menucommands::scheduleAction pdsend "pd dsp 0"}
+    # ceammc cyrillic layout fix
+    ::pd_bindings::bind_cyrillic        all $::modifier-Shift-Key slash  {::pd_menucommands::scheduleAction pdsend "pd dsp 1"}
+    ::pd_bindings::bind_cyrillic        all $::modifier-Shift-Key period {::pd_menucommands::scheduleAction pdsend "pd dsp 0"}
+    # ceammc end
 
     # take the '=' key as a zoom-in accelerator, because '=' is the non-shifted
     # "+" key... this only makes sense on US keyboards but some users

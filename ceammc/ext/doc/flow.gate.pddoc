@@ -25,9 +25,13 @@
             accepts all incoming messages</par>
         </info>
         <arguments>
-            <argument name="PASS" type="int">init gate state. 1 means open, 0 - closed. By default
-            gate is closed</argument>
+            <argument name="STATE" type="bool">init gate state. 1 means open, 0 - closed. By
+            default gate is closed</argument>
         </arguments>
+        <properties>
+            <property name="@state" type="bool" default="0">gate state. 1 means open, 0 -
+            closed</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo on="any">input flow</xinfo>
@@ -36,10 +40,6 @@
                 <xinfo on="float">gate control inlet. Sending *1* opens gate, *0* - closes</xinfo>
             </inlet>
         </inlets>
-        <properties>
-            <property name="@state" type="int" default="0" enum="0 1">gate state. 1 means open, 0 -
-            closed</property>
-        </properties>
         <outlets>
             <outlet>output flow</outlet>
         </outlets>

@@ -282,7 +282,7 @@ TEST_CASE("FloatProperty", "[core]")
 
     SECTION("denormals")
     {
-#ifndef NDEBUG
+#ifndef __FAST_MATH__
 
         REQUIRE_FALSE(p.setList(LF(std::numeric_limits<t_float>::infinity())));
         REQUIRE(p.value() == 0.5);

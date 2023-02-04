@@ -73,11 +73,12 @@
             MIDI channel, ignored</param>
             <param name="VALUE" required="true" type="float" minvalue="-1" maxvalue="1">value in
             -1..+1 range, with 0 center.</param></method>
-            <method name="bendsens">set pitchbend sensivity (NOT SUPPORTED, this is stub function) 
+            <method name="bendsens">set pitchbend sensitivity (NOT SUPPORTED, this is stub
+            function) 
             <param name="CHAN" required="false" type="int" default="0" minvalue="0" maxvalue="16">
             MIDI channel, ignored</param>
             <param name="RANGE" units="semitone" type="int" minvalue="0" maxvalue="64"
-            required="true">semitones sensivity</param></method>
+            required="true">semitones sensitivity</param></method>
             <!-- tune -->
             <method name="tune:12">set octave tuning program in cents deviations 
             <param name="BANK" required="true" type="int" minvalue="1" maxvalue="256">tuning bank
@@ -150,18 +151,18 @@
         <properties>
             <property name="@sf" type="symbol">soundfont path or builtin waveform name: #sine,
             #tri, #saw, #square, #noise</property>
-            <property name="@poly" type="int" minvalue="1" maxvalue="1024" default="64">max number
+            <property name="@poly" type="int" minvalue="1" maxvalue="256" default="64">max number
             of voices</property>
-            <property name="@avoices" type="int" default="0" readonly="true">number midi
+            <property name="@avoices" type="int" default="0" access="readonly">number midi
             channels</property>
-            <property name="@freq" type="float" default="440" units="herz">A4 standard
+            <property name="@freq" type="float" default="440" units="hertz">A4 standard
             tuning</property>
-            <property name="@key_labels" readonly="true" type="atom" default="[]">dict of control
+            <property name="@key_labels" access="readonly" type="atom" default="[]">dict of control
             key labels</property>
-            <property name="@cc_labels" readonly="true" type="atom" default="[]">dict of controller
-            labels</property>
-            <property name="@gain" type="float" minvalue="0" maxvalue="10" default="0.429042">
-            output gain (same as @value but in amp units)</property>
+            <property name="@cc_labels" access="readonly" type="atom" default="[]">dict of
+            controller labels</property>
+            <property name="@gain" type="float" minvalue="0" maxvalue="16" default="0.429">output
+            gain (same as @value but in amp units)</property>
             <property name="@volume" type="float" minvalue="-60" maxvalue="10" default="-7.35"
             units="decibel">output volume (same as @gain but in db)</property>
         </properties>

@@ -32,19 +32,19 @@
             <argument name="LENGTH" type="int" units="second">timeline length</argument>
         </arguments>
         <properties>
-            <property name="@is_running" type="int" enum="0 1" readonly="true" default="0">if
-            timeline is running</property>
-            <property name="@length" readonly="true" type="float" default="60" units="second">
+            <property name="@is_running" type="bool" access="readonly" default="0">if timeline is
+            running</property>
+            <property name="@length" access="readonly" type="float" default="60" units="second">
             timeline length</property>
-            <property name="@size" readonly="true" type="int" default="1" minvalue="0">number of
+            <property name="@size" access="readonly" type="int" default="1" minvalue="0">number of
             events in timeline</property>
-            <property name="@current" readonly="true" type="float" units="millisecond" default="0">
-            current time</property>
-            <property name="@phase" readonly="true" type="float" minvalue="0" maxvalue="1"
+            <property name="@current" access="readonly" type="float" units="millisecond"
+            default="0">current time</property>
+            <property name="@phase" access="readonly" type="float" minvalue="0" maxvalue="1"
             default="0">current phase in [0-1) range</property>
-            <property name="@events" readonly="true" type="list" default="end">list of event names
-            in chronological order</property>
-            <property name="@loop" type="int" enum="0 1" default="0">loop mode</property>
+            <property name="@events" access="readonly" type="list" default="end">list of event
+            names in chronological order</property>
+            <property name="@loop" type="bool" default="0">loop mode</property>
             <property name="@mode" type="symbol" enum="fixed inf" default="fixed">timeline mode. If
             timeline is fixed, when reached, it outputs *end* event and stops after that. Infinite
             timeline never stops by itself. Fixed timeline can have @loop property for

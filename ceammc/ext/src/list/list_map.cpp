@@ -5,17 +5,11 @@
 #include "ceammc_numeric.h"
 #include "datatype_dict.h"
 #include "datatype_mlist.h"
-#include "fmt/format.h"
+#include "fmt/core.h"
 
 ListMap::ListMap(const PdArgs& args)
     : BaseObject(args)
 {
-    auto& d = parsedPosArgs();
-    if (d.isA<DataTypeDict>())
-        dict_ = DictAtom(d[0]);
-    else if (!d.empty())
-        OBJ_ERR << "dict expected, got: " << d;
-
     createCbListProperty(
         "@dict",
         [this]() -> AtomList { return dict_; },
@@ -29,7 +23,7 @@ ListMap::ListMap(const PdArgs& args)
             }
 
             return true;
-        });
+        })->setArgIndex(0);
 
     createInlet();
     createOutlet();

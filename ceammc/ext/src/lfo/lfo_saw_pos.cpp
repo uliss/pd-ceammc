@@ -7,11 +7,9 @@ public:
     LfoSawPos(const PdArgs& args)
         : faust_lfo_saw_pos_tilde(args)
     {
-        static t_symbol* SYM_PROP_INVERT = gensym("@invert");
-
         createInlet();
         setInitSignalValue(parsedPosArgs().floatAt(0, 0));
-        bindPositionalArgToProperty(1, SYM_PROP_INVERT);
+        bindPositionalArgToProperty(1, gensym("@invert"));
     }
 
     void onInlet(size_t n, const AtomListView&) override

@@ -19,9 +19,9 @@
 one character from the end of stirng. Type: int.;
 #X text 110 300 2\.;
 #X text 150 300 int;
-#X obj 246 301 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 300 LENGTH: substring length. If -1 given (by default)
-\, means 'till string end'.. Type: int. Min value: 0;
+#X obj 246 301 cnv 1 31 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 300 LEN: substring length. If -1 given (by default) \,
+means 'till string end'.. Type: int. Min value: 0;
 #X obj 20 345 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 350 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -51,7 +51,7 @@ to the end of string. Type: int. Default value: -1\. Min value: 0\.;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title string @url ceammc.string-help.pd;
 #X obj 1 611 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 614 library: ceammc v0.9.5;
+#X text 10 614 library: ceammc v0.9.6;
 #X text 580 626 see also:;
 #X obj 654 626 string.split;
 #N canvas 10 633 400 290 info 0;
@@ -59,7 +59,7 @@ to the end of string. Type: int. Default value: -1\. Min value: 0\.;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.5;
+#X text 120 32 0.9.6;
 #X text 10 54 object:;
 #X text 120 54 string.substr;
 #X text 10 76 category:;

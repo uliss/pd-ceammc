@@ -18,15 +18,15 @@
             <since>0.9</since>
         </meta>
         <arguments>
-            <argument name="N" type="int">@n property</argument>
+            <argument name="N" type="int" minvalue="32" maxvalue="8192">@n property</argument>
         </arguments>
         <properties>
             <property name="@n" minvalue="32" maxvalue="8192" type="int" default="512">number of
             processed samples</property>
-            <property name="@db" enum="0 1" type="int" default="0">decibel mode. It true outputs
-            amplitude in decibels</property>
-            <property name="@sr" enum="0 1" type="int" default="0">using samplerate. If true output
-            in [0..SR/2] instead of [0..pi]</property>
+            <property name="@db" type="bool" default="0">decibel mode. It true outputs amplitude in
+            decibels</property>
+            <property name="@sr" type="bool" default="0">using samplerate. If true output in
+            [0..SR/2] instead of [0..pi]</property>
         </properties>
         <inlets>
             <inlet type="audio">

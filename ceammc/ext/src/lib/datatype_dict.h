@@ -183,7 +183,7 @@ public:
      */
     void clear() noexcept { dict_.clear(); }
 
-    MaybeString toJSON(int indent = -1) const;
+    MaybeString toJSON(int indent = -1, bool compressSingleList = true) const;
     bool fromJSON(const std::string& str);
 
     bool read(const std::string& path);

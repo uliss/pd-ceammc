@@ -14,9 +14,9 @@
 #include "midi_modus.h"
 #include "ceammc_factory.h"
 #include "ceammc_music_scale.h"
-#include "lex/parser_music.h"
 
 #include <algorithm>
+#include <cmath>
 
 CEAMMC_DEFINE_HASH(snap)
 CEAMMC_DEFINE_HASH(skip)

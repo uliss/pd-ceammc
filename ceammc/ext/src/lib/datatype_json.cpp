@@ -1,8 +1,6 @@
 #include "datatype_json.h"
-#include "ceammc_data.h"
 #include "ceammc_log.h"
 #include "datatype_mlist.h"
-#include "fmt/core.h"
 
 namespace ceammc {
 

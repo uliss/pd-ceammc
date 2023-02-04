@@ -23,16 +23,16 @@
 -49933 0;
 #X text 110 294 1\.;
 #X text 150 294 symbol;
-#X obj 246 295 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 294 NAME: array name. Type: symbol.;
+#X obj 246 295 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 294 ARRAY: array name. Type: symbol.;
 #X obj 20 324 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 329 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 364 @array;
 #X text 245 364 Get/Set array name. Type: symbol.;
 #X msg 110 393 @redraw;
-#X text 245 393 Get/Set redraw after array change. Type: int. Default
-value: 1\. Allowed values: 1 \, 0\.;
+#X text 245 393 Get/Set redraw after array change. Type: bool. Default
+value: 1\.;
 #X obj 20 445 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 450 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
@@ -40,7 +40,7 @@ value: 1\. Allowed values: 1 \, 0\.;
 #X text 150 451 *bang*;
 #X text 245 451 process each element of current array.;
 #X text 150 471 *symbol*;
-#X text 245 471 set new array and then process each element of it.;
+#X text 245 471 set the new array \, then process each element.;
 #X text 110 491 2\.;
 #X text 150 491 *float*;
 #X text 245 491 processed float value from side-chain.;
@@ -57,7 +57,7 @@ value: 1\. Allowed values: 1 \, 0\.;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title array @url ceammc.array-help.pd;
 #X obj 1 597 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 600 library: ceammc v0.9.5;
+#X text 10 600 library: ceammc v0.9.6;
 #X text 601 612 see also:;
 #X obj 675 612 list.each;
 #N canvas 10 619 400 290 info 0;
@@ -65,7 +65,7 @@ value: 1\. Allowed values: 1 \, 0\.;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.5;
+#X text 120 32 0.9.6;
 #X text 10 54 object:;
 #X text 120 54 array.each;
 #X text 10 76 category:;

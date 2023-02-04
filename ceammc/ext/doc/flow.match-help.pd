@@ -34,16 +34,17 @@ arg list: "@prop+";
 -49933 0;
 #X text 110 497 1\.;
 #X text 150 497 list;
-#X obj 246 498 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 497 RE_LST: list of regular expressions. Type: list.;
+#X obj 246 498 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 497 PATTERNS: list of regular expressions. Type: list.;
 #X obj 20 527 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 532 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 567 @cut;
-#X text 245 567 Get/Set cut or pass message selector. Type: int. Default
-value: 0\. Allowed values: 0 \, 1\.;
+#X text 245 567 Get/Set cut or pass message selector. Type: bool. Default
+value: 0\.;
 #X msg 110 609 @patterns;
-#X text 245 609 Get/Set list of regular expressions. Type: list.;
+#X text 245 609 (initonly) Get/Set list of regular expressions. Type:
+list.;
 #X obj 20 648 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 653 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
@@ -80,7 +81,7 @@ value: 0\. Allowed values: 0 \, 1\.;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title flow @url ceammc.flow-help.pd;
 #X obj 1 900 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 903 library: ceammc v0.9.5;
+#X text 10 903 library: ceammc v0.9.6;
 #X text 580 915 see also:;
 #X obj 654 915 string.match;
 #N canvas 10 922 400 290 info 0;
@@ -88,7 +89,7 @@ value: 0\. Allowed values: 0 \, 1\.;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.5;
+#X text 120 32 0.9.6;
 #X text 10 54 object:;
 #X text 120 54 flow.match;
 #X text 10 76 category:;

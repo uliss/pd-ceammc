@@ -24,8 +24,8 @@
             <argument type="list" name="B">second argument values</argument>
         </arguments>
         <properties>
-            <property name="@a" type="list">first argument</property>
-            <property name="@b" type="list">second argument</property>
+            <property name="@a" type="list" default="">first argument</property>
+            <property name="@b" type="list" default="">second argument</property>
             <property name="@mode" type="symbol" enum="valid same full" default="full">output mode.
             'full' - output the convolution at each point of overlap, with an output length of
             (M+N-1). At the end-points of the convolution, the signals do not overlap completely,

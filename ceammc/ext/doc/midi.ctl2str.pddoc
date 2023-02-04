@@ -17,8 +17,8 @@
             <since>0.4</since>
         </meta>
         <properties>
-            <property name="@symbol" type="flag" default="0">output as symbol instead of string by
-            default</property>
+            <property name="@symbol" type="flag" default="0" access="initonly">output as symbol
+            instead of string by default</property>
         </properties>
         <inlets>
             <inlet>
@@ -37,9 +37,7 @@
 |
 [midi.ctl->str @symbol]
 |
-[msg set]
-|
-[ (
+[ui.dt]
 ]]>
             </pdascii>
         </example>

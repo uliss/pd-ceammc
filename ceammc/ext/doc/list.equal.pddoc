@@ -14,13 +14,13 @@
             <since>0.1</since>
         </meta>
         <arguments>
-            <argument name="LIST" type="list">initial value</argument>
+            <argument name="PATTERN" type="list">initial value</argument>
         </arguments>
         <methods>
             <method name="dump">dumps object state to PD console window</method>
         </methods>
         <properties>
-            <property name="@pattern" type="list">current pattern</property>
+            <property name="@pattern" type="list" default="">current pattern</property>
         </properties>
         <inlets>
             <inlet>

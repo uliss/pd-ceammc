@@ -487,24 +487,22 @@ std::string LangFaustTilde::canvasDir() const
     return cnv ? canvas_getdir(cnv)->s_name : std::string();
 }
 
-#ifdef _WIN32
-#define EXPORT extern "C" __declspec(dllexport)
-#else
-#define EXPORT extern "C"
-#endif
-
-EXPORT void setup_lang0x2efaust_tilde()
+void setup_lang0x2efaust_tilde()
 {
     if (!ceammc_init_done())
         ceammc_setup();
 
+    setup_lang_faust_non_external();
+}
+
+void setup_lang_faust_non_external()
+{
     SoundExternalFactory<LangFaustTilde> obj("lang.faust~", OBJECT_FACTORY_DEFAULT);
     obj.addMethod("reset", &LangFaustTilde::m_reset);
     obj.addMethod("open", &LangFaustTilde::m_open);
     obj.addMethod("update", &LangFaustTilde::m_update);
     obj.useClick();
 
-    obj.classPointer();
     std::string path = class_gethelpdir(obj.classPointer());
     path += "/faust";
     LangFaustTilde::addIncludePath(path);

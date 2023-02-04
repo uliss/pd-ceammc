@@ -20,15 +20,15 @@
 #X obj 20 288 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 110 323 1\.;
-#X text 150 323 any;
-#X obj 246 324 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 323 X: initial list values. Type: any.;
+#X text 150 323 list;
+#X obj 246 324 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 323 VALUE: initial list values. Type: list.;
 #X obj 20 353 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 358 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 393 @empty;
 #X text 245 393 (readonly) Get 1 if list is empty \, otherwise 0\.
-Type: int. Default value: 1\. Allowed values: 0 \, 1\.;
+Type: bool. Default value: 1\.;
 #X msg 110 435 @value;
 #X text 245 435 Get/Set current value. Type: list.;
 #X msg 110 464 @size;
@@ -116,7 +116,7 @@ indexes are supported.;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title data @url ceammc.data-help.pd;
 #X obj 1 1390 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1393 library: ceammc v0.9.5;
+#X text 10 1393 library: ceammc v0.9.6;
 #X text 601 1405 see also:;
 #X obj 675 1405 data.fifo;
 #N canvas 10 1412 400 290 info 0;
@@ -124,7 +124,7 @@ indexes are supported.;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.5;
+#X text 120 32 0.9.6;
 #X text 10 54 object:;
 #X text 120 54 data.list;
 #X text 10 76 category:;

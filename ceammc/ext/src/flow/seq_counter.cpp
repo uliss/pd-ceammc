@@ -73,19 +73,31 @@ SeqCounter::SeqCounter(const PdArgs& args)
 
 void SeqCounter::onBang()
 {
+    if (!shouldRepeat())
+        return;
+
     if (range() == 0) {
         nextConst();
     } else {
-        switch (crc32_hash(mode_->value())) {
-        case hash_wrap:
-            nextWrapped();
-            break;
-        case hash_fold:
-            nextFolded();
-            break;
-        default:
-            OBJ_ERR << "unknown wrap mode: " << mode_->value();
-            break;
+        outputCycleCounter();
+        outputCurrent();
+        next();
+    }
+}
+
+void SeqCounter::m_next(t_symbol*, const AtomListView& lv)
+{
+    if (!shouldRepeat())
+        return;
+
+    if (range() == 0) {
+        nextConst();
+    } else {
+        next();
+
+        if (shouldRepeat()) {
+            outputCycleCounter();
+            outputCurrent();
         }
     }
 }
@@ -101,68 +113,84 @@ void SeqCounter::m_reset(t_symbol*, const AtomListView& /*lv*/)
     reset();
 }
 
-void SeqCounter::nextWrapped()
+void SeqCounter::m_prev(t_symbol*, const AtomListView& lv)
 {
     if (!shouldRepeat())
         return;
 
-    // output repeat counter
-    if (i_ == 0)
-        floatTo(1, ri_);
-
-    floatTo(0, currentValue());
-
-    if (i_ < absRange()) {
-        i_++;
+    if (range() == 0) {
+        nextConst();
     } else {
-        if (++ri_ == repeat_->value()) { // should stop
-            done_ = true;
-            anyTo(1, gensym(str_done), AtomListView {});
-        } else { // continue: reset counter
-            i_ = 0;
+        prev();
+
+        if (shouldRepeat()) {
+            outputCycleCounter();
+            outputCurrent();
         }
     }
+}
+
+void SeqCounter::nextWrapped()
+{
+    if (i_ < absRange())
+        i_++;
+    else if (nextCycle())
+        i_ = 0;
 }
 
 void SeqCounter::nextFolded()
 {
-    if (!shouldRepeat())
-        return;
-
-    if (range() == 0)
-        return nextConst();
-
-    // output repeat counter
-    if (i_ == 0)
-        floatTo(1, ri_);
-
-    // output current sequence counter
-    floatTo(0, currentValue());
-
-    if (i_ < (2 * absRange() - 1)) {
+    if (i_ < (2 * absRange() - 1))
         i_++;
-    } else {
-        if (++ri_ >= repeat_->value()) {
-            done_ = true;
-            anyTo(1, gensym(str_done), AtomListView {});
-        } else {
-            i_ = 0;
-        }
-    }
+    else if (nextCycle())
+        i_ = 0;
 }
 
 void SeqCounter::nextConst()
 {
-    if (!shouldRepeat())
-        return;
-
-    floatTo(1, ri_++);
+    floatTo(1, ri_);
     floatTo(0, from_->value());
 
-    if (ri_ == repeat_->value()) {
+    nextCycle();
+}
+
+bool SeqCounter::nextCycle()
+{
+    if (!repeat_->shouldRepeat(++ri_)) {
         done_ = true;
         anyTo(1, gensym(str_done), AtomListView {});
+        return false;
+    } else
+        return true;
+}
+
+void SeqCounter::prev()
+{
+    switch (crc32_hash(mode_->value())) {
+    case hash_wrap:
+        return prevWrapped();
+    case hash_fold:
+        return prevFolded();
+    default:
+        OBJ_ERR << "unknown wrap mode: " << mode_->value();
+        break;
     }
+}
+
+void SeqCounter::prevWrapped()
+{
+    if (i_ > 0)
+        i_--;
+    else if (nextCycle())
+        i_ = absRange();
+}
+
+void SeqCounter::prevFolded()
+{
+    if (i_ > 0)
+        i_--;
+    else if (nextCycle())
+        i_ = (2 * absRange()) - 1;
 }
 
 void SeqCounter::reset()
@@ -170,6 +198,30 @@ void SeqCounter::reset()
     done_ = false;
     ri_ = 0;
     i_ = 0;
+}
+
+void SeqCounter::outputCurrent()
+{
+    floatTo(0, currentValue());
+}
+
+void SeqCounter::outputCycleCounter()
+{
+    if (i_ == 0)
+        floatTo(1, ri_);
+}
+
+void SeqCounter::next()
+{
+    switch (crc32_hash(mode_->value())) {
+    case hash_wrap:
+        return nextWrapped();
+    case hash_fold:
+        return nextFolded();
+    default:
+        OBJ_ERR << "unknown wrap mode: " << mode_->value();
+        break;
+    }
 }
 
 int SeqCounter::currentValue() const
@@ -189,8 +241,12 @@ void setup_seq_counter()
     ObjectFactory<SeqCounter> obj("seq.counter");
 
     obj.addMethod("reset", &SeqCounter::m_reset);
+    obj.addMethod("next", &SeqCounter::m_next);
+    obj.addMethod("prev", &SeqCounter::m_prev);
 
-    obj.setXletsInfo({ "bang: increment and output\n"
+    obj.setXletsInfo({ "bang: output current element then increment\n"
+                       "bang: increment then output\n"
+                       "prev: decrement then output\n"
                        "reset: reset counter to start value",
                          "bang: reset counter to start value" },
         { "int: counter value",

@@ -63,6 +63,9 @@ public:
 void setup_math_round()
 {
     ObjectFactory<MathRound> obj0("math.round");
+    obj0.addAlias("round");
+
     SoundExternalFactory<MathRoundTilde> obj1("math.round~");
+    obj1.addAlias("round~");
 }
         

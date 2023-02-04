@@ -98,4 +98,6 @@ extern "C" void soundtouch_tilde_setup()
     PROP_ANTIALIAS_LENGTH = gensym("@aalength");
 
     SoundExternalFactory<SoundTouchExt> obj("soundtouch~");
+
+    LIB_DBG << "Soundtouch version: " << SOUNDTOUCH_VERSION;
 }

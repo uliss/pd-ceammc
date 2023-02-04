@@ -373,6 +373,11 @@ namespace hw {
 #endif
             return 0;
         }
+#if defined(__APPLE__) && defined(__arm64__)
+        catch (...) {
+            return 0;
+        }
+#endif
 
         return 0;
     }

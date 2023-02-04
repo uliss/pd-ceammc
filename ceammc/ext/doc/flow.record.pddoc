@@ -22,12 +22,12 @@
             <property name="@max" type="int" minvalue="0" default="256" maxvalue="65536">max number
             of events, if 0: no max size check. If @auto is set - starts playback when max size
             reached.</property>
-            <property name="@speed" type="float" minvalue="0.015625" default="1" maxvalue="64">play
+            <property name="@speed" type="float" minvalue="0.0156" default="1" maxvalue="64">play
             speed</property>
-            <property name="@auto" type="int" enum="0 1" default="0">autostart record on first
-            input atom</property>
-            <property name="@sync" type="int" enum="0 1" default="0">use external bang pulse to
-            sync recorded events with.</property>
+            <property name="@auto" type="bool" default="0">autostart record on first input
+            atom</property>
+            <property name="@sync" type="bool" default="0">use external bang pulse to sync recorded
+            events with.</property>
         </properties>
         <inlets>
             <inlet>

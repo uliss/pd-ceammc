@@ -15,8 +15,8 @@
             <since>0.7</since>
         </meta>
         <arguments>
-            <argument name="bits" type="int" minvalue="1" maxvalue="16">number of bits</argument>
-            <argument name="downsamp" type="int" minvalue="1" maxvalue="200" units="sample">number
+            <argument name="BITS" type="int" minvalue="1" maxvalue="16">number of bits</argument>
+            <argument name="DOWNSAMP" type="int" minvalue="1" maxvalue="200" units="sample">number
             of samples to skip</argument>
         </arguments>
         <properties>
@@ -24,10 +24,9 @@
             bits</property>
             <property name="@downsamp" type="int" minvalue="1" maxvalue="200" default="1"
             units="sample">number samples to skip</property>
-            <property name="@bypass" type="int" enum="0 1" default="0">if set to 1 - bypass
-            'effected' signal.</property>
-            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
-            processing</property>
+            <property name="@bypass" type="bool" default="0">if set to 1 - bypass 'effected'
+            signal.</property>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
         <inlets>
             <inlet type="audio">

@@ -43,8 +43,8 @@ or [prop.set] object;
 -49933 0;
 #X text 110 789 1\.;
 #X text 150 789 float;
-#X obj 246 790 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 789 MS(ms): init @delay property. Type: float. Min value:
+#X obj 246 790 cnv 1 77 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 789 DELAY(ms): init @delay property. Type: float. Min value:
 0;
 #X obj 20 819 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 824 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
@@ -53,7 +53,7 @@ or [prop.set] object;
 #X text 245 859 Get/Set blocking mode. If true \, discards incoming
 messages until scheduled message will output \, after that is ready
 to accept the new one. Otherwise acts like vanilla [del] object. Type:
-int. Default value: 0\. Allowed values: 0 \, 1\.;
+bool. Default value: 0\.;
 #X msg 110 931 @delay;
 #X text 245 931 Get/Set delay time. Type: float. Units: ms. Default
 value: 0\. Min value: 0\.;
@@ -79,7 +79,7 @@ value: 0\. Min value: 0\.;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title flow @url ceammc.flow-help.pd;
 #X obj 1 1135 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1138 library: ceammc v0.9.5;
+#X text 10 1138 library: ceammc v0.9.6;
 #X text 629 1150 see also:;
 #X obj 703 1150 delay;
 #N canvas 10 1157 400 290 info 0;
@@ -87,7 +87,7 @@ value: 0\. Min value: 0\.;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.5;
+#X text 120 32 0.9.6;
 #X text 10 54 object:;
 #X text 120 54 flow.delay;
 #X text 10 76 category:;

@@ -56,7 +56,7 @@ void eclass_guiinit(t_eclass* c, long flags);
  * \details     Sets the defaults values and initializes the methods of the t_eclass for the GUI behavior.
  * \param c     The t_eclass pointer.
  * \param flags The dummy flags.
-* \deprecated Please use eclass_guiinit.
+ * \deprecated Please use eclass_guiinit.
  */
 void eclass_init(t_eclass* c, long flags) _FUNCTION_DEPRECTAED_;
 
@@ -249,22 +249,13 @@ void eclass_attr_save(t_eclass* c, const char* attrname, bool value = true);
 void eclass_attr_paint(t_eclass* c, const char* attrname);
 
 /*!
- * \fn          void eclass_attr_invisible(t_eclass* c, const char* attrname, long flags)
- * \brief           Sets if the attribute should be displayed in the properties window. 
- * \details         You should prefer to use the MACROS.
- * \param c         The t_eclass pointer
- * \param attrname  The attribute name
- */
-void eclass_attr_invisible(t_eclass* c, const char* attrname);
-
-/*!
  * \fn          void eclass_attr_visible(t_eclass* c, const char* attrname, long flags)
  * \brief           Sets if the attribute should be displayed in the properties window.
  * \details         You should prefer to use the MACROS.
  * \param c         The t_eclass pointer
  * \param attrname  The attribute name
  */
-void eclass_attr_visible(t_eclass* c, const char* attrname);
+void eclass_attr_set_visibility(t_eclass* c, const char* attrname, ceammc::PropValueVis vis);
 
 /*!
  * \fn          void eclass_attr_accessor(t_eclass* c, const char* attrname, t_err_method getter, t_err_method setter)
@@ -363,9 +354,9 @@ std::pair<int, int> eclass_tcl_version();
 
 //! CEAMMC
 //! Macros that creates virtual invisible attribute only with getter and setter access
-#define CLASS_ATTR_VIRTUAL(c, name, getter, setter)   \
-    eclass_new_attr_typed(c, name, "float", 1, 0, 0); \
-    eclass_attr_invisible(c, name, 0);                \
+#define CLASS_ATTR_VIRTUAL(c, name, getter, setter)                    \
+    eclass_new_attr_typed(c, name, "float", 1, 0, 0);                  \
+    eclass_attr_set_visible(c, name, 0, ceammc::PropValueVis::HIDDEN); \
     eclass_attr_accessor(c, name, (t_err_method)getter, (t_err_method)setter)
 
 //! Macros that define the category of the attributes

@@ -20,7 +20,8 @@ proc ::helpbrowser::open_helpbrowser {} {
         wm deiconify .helpbrowser
         raise .helpbrowser
     } else {
-        toplevel .helpbrowser -class HelpBrowser
+        # ceammc: bg
+        toplevel .helpbrowser -class HelpBrowser -background $::pd_colors::window_background
         wm group .helpbrowser .
         wm transient .helpbrowser
         wm title .helpbrowser [_ "Help Browser"]
@@ -85,11 +86,12 @@ proc ::helpbrowser::make_rootlistbox {{select true}} {
     variable helplist
 
     # exportselection 0 looks good, but selection gets easily out-of-sync
+    # ceammc: color
     set current_listbox [listbox "[set b .helpbrowser.frame.root0]" -yscrollcommand "$b-scroll set" \
-                             -highlightbackground white -highlightthickness 5 \
-                             -highlightcolor white -selectborderwidth 0 \
+                             -highlightbackground $::pd_colors::text_background -highlightthickness 5 \
+                             -highlightcolor $::pd_colors::text_background -selectborderwidth 0 \
                              -height 20 -width 24 -exportselection 0 -bd 0]
-    pack $current_listbox [scrollbar "$b-scroll" -command [list $current_listbox yview]] \
+    pack $current_listbox [ttk::scrollbar "$b-scroll" -command [list $current_listbox yview]] \
         -side left -fill both -expand 1
     # first show the directories (for easier navigation)
     foreach item [lsort  $libdirlist] {
@@ -218,11 +220,12 @@ proc ::helpbrowser::make_liblistbox {dir {select true}} {
 
     check_destroy 1
     # exportselection 0 looks good, but selection gets easily out-of-sync
+    # ceammc: color
     set current_listbox [listbox "[set b .helpbrowser.frame.root1]" -yscrollcommand "$b-scroll set" \
-                             -highlightbackground white -highlightthickness 5 \
-                             -highlightcolor white -selectborderwidth 0 \
+                             -highlightbackground $::pd_colors::text_background -highlightthickness 5 \
+                             -highlightcolor $::pd_colors::text_background -selectborderwidth 0 \
                              -height 20 -width 24 -exportselection 0 -bd 0]
-    pack $current_listbox [scrollbar "$b-scroll" -command [list $current_listbox yview]] \
+    pack $current_listbox [ttk::scrollbar "$b-scroll" -command [list $current_listbox yview]] \
         -side left -fill both -expand 1
     foreach item [lsort -dictionary [glob -directory $dir -nocomplain -types {d} -- *]] {
         if {[glob -directory $item -nocomplain -types {f} -- $doctypes] ne "" ||
@@ -275,12 +278,13 @@ proc ::helpbrowser::make_doclistbox {dir count {select true}} {
 
     check_destroy $count
     # exportselection 0 looks good, but selection gets easily out-of-sync
+    # ceammc: color
     set current_listbox [listbox "[set b .helpbrowser.frame.root$count]" \
                              -yscrollcommand "$b-scroll set" \
-                             -highlightbackground white -highlightthickness 5 \
-                             -highlightcolor white -selectborderwidth 0 \
+                             -highlightbackground $::pd_colors::text_background -highlightthickness 5 \
+                             -highlightcolor $::pd_colors::text_background -selectborderwidth 0 \
                              -height 20 -width 24 -exportselection 0 -bd 0]
-    pack $current_listbox [scrollbar "$b-scroll" -command "$current_listbox yview"] \
+    pack $current_listbox [ttk::scrollbar "$b-scroll" -command "$current_listbox yview"] \
         -side left -fill both -expand 1
     foreach item [lsort -dictionary [glob -directory $dir -nocomplain -types {d} -- *]] {
         $current_listbox insert end "[file tail $item]/"

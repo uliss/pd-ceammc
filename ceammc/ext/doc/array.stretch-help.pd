@@ -69,8 +69,7 @@ Type: int. Default value: 64\. Range: 8\...128\.;
 #X msg 110 797 @antialias;
 #X text 245 797 Get/Set use of anti-alias filter. Anti-alias filter
 is used to prevent folding of high frequencies when transposing the
-sample rate with interpolation. Type: int. Default value: 0\. Allowed
-values: 0 \, 1\.;
+sample rate with interpolation. Type: bool. Default value: 0\.;
 #X msg 110 869 @dest;
 #X text 245 869 Get/Set destination array. Type: symbol.;
 #X msg 110 898 @overlap;
@@ -112,7 +111,7 @@ tempo and vice versa. Increasing this value reduces computational burden
 parameter value according to tempo setting (recommended). Type: int.
 Units: ms. Default value: 0\. Range: 0\...100\.;
 #X msg 110 1529 @speech;
-#X text 245 1529 optimize for speech sound source.;
+#X text 245 1529 Get/Set optimize for speech sound source. Type: bool.;
 #X msg 110 1558 @src;
 #X text 245 1558 Get/Set source array. Type: symbol.;
 #X msg 110 1587 @tempo;
@@ -135,13 +134,13 @@ sound pitch. Type: float. Units: %. Default value: 0\. Range: -50\...100\.;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title array @url ceammc.array-help.pd;
 #X obj 1 1746 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1749 library: ceammc v0.9.5;
+#X text 10 1749 library: ceammc v0.9.6;
 #N canvas 10 1768 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.5;
+#X text 120 32 0.9.6;
 #X text 10 54 object:;
 #X text 120 54 array.stretch;
 #X text 10 76 category:;

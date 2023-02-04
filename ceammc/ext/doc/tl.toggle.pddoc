@@ -25,7 +25,7 @@
             <par>Output 1 when cue section activated, 0 when switched to other cue section</par>
         </info>
         <properties>
-            <property name="@cue" type="symbol" readonly="true">related cue</property>
+            <property name="@cue" type="symbol" access="readonly">related cue</property>
         </properties>
         <inlets>
             <inlet>
