@@ -33,14 +33,25 @@ set(INCLUDE_STATIC ON CACHE BOOL "" FORCE)
 set(USE_LLVM_CONFIG OFF CACHE BOOL "" FORCE)
 
 if(APPLE)
-    find_path(MACPORTS_LLVM
-        NAMES llvm
-        PATHS /opt/local/libexec
-        PATH_SUFFIXES llvm-14/lib/cmake llvm-10/lib/cmake llvm-11/lib/cmake llvm-12/lib/cmake llvm-9.0/lib/cmake
-        NO_DEFAULT_PATH
-        NO_CMAKE_SYSTEM_PATH
-        REQUIRED
-        NO_CACHE)
+    if(CMAKE_OSX_ARCHITECTURES STREQUAL "arm64")
+        find_path(MACPORTS_LLVM
+            NAMES llvm
+            PATHS /opt/local/libexec
+            PATH_SUFFIXES llvm-11/lib/cmake
+            NO_DEFAULT_PATH
+            NO_CMAKE_SYSTEM_PATH
+            REQUIRED
+            NO_CACHE)
+    else()
+        find_path(MACPORTS_LLVM
+            NAMES llvm
+            PATHS /opt/local/libexec
+            PATH_SUFFIXES llvm-14/lib/cmake llvm-11/lib/cmake llvm-12/lib/cmake llvm-9.0/lib/cmake
+            NO_DEFAULT_PATH
+            NO_CMAKE_SYSTEM_PATH
+            REQUIRED
+            NO_CACHE)
+    endif()
 
     set(LLVM_DIR ${MACPORTS_LLVM}/llvm)
     find_package(LLVM REQUIRED CONFIG)
