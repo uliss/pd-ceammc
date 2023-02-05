@@ -6,7 +6,7 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>clap synth from faust libraries</description>
+            <description>clap synth from faust librariest</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>synth</category>

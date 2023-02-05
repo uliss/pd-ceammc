@@ -667,7 +667,6 @@ set(DOC_FILES
     sync
     synth.bee3~
     synth.birds~
-    synth.chua~
     synth.church_bell~
     synth.clap~
     synth.dubdub~
