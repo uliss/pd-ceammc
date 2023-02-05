@@ -80,6 +80,7 @@ bpm->hz
 bpm->ms
 bpm->sec
 cabs~
+canvas.active
 canvas.current
 canvas.dir
 canvas.name

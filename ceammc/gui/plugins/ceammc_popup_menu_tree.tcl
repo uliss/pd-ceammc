@@ -195,8 +195,8 @@
         osc.sin~ osc.square~ osc.tri~
     }}
     {patch {
-        canvas.current canvas.dir canvas.name canvas.path canvas.top
-        patch.args patch.deps patch.tree
+        canvas.active canvas.current canvas.dir canvas.name canvas.path
+        canvas.top patch.args patch.deps patch.tree
     }}
     {path {
         file.size path.basename path.dirname path.exists path.file path.is_dir
@@ -250,11 +250,11 @@
         symbol2intlist
     }}
     {synth {
-        synth.bee3~ synth.birds~ synth.church_bell~ synth.clap~ synth.dubdub~
-        synth.dx7~ synth.eguitar~ synth.english_bell~ synth.fgrain~
-        synth.french_bell~ synth.german_bell~ synth.glass_harm~ synth.glitch~
-        synth.harpsichord~ synth.hat~ synth.kick2~ synth.kick~ synth.ks~
-        synth.marimba~ synth.piano~ synth.rhodey~ synth.risset_arp~
+        noise.chua~ synth.bee3~ synth.birds~ synth.church_bell~ synth.clap~
+        synth.dubdub~ synth.dx7~ synth.eguitar~ synth.english_bell~
+        synth.fgrain~ synth.french_bell~ synth.german_bell~ synth.glass_harm~
+        synth.glitch~ synth.harpsichord~ synth.hat~ synth.kick2~ synth.kick~
+        synth.ks~ synth.marimba~ synth.piano~ synth.rhodey~ synth.risset_arp~
         synth.risset_bell~ synth.risset_tone~ synth.russian_bell~
         synth.shakers~ synth.sitar~ synth.snare~ synth.standard_bell~
         synth.tube_bell~ synth.voice_fofc~ synth.voice_fofs~ synth.wurley~

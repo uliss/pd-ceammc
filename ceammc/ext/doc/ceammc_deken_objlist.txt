@@ -912,6 +912,7 @@ osc.sinfb~	Sine oscilator with feedback
 osc.sin~	Sine wave oscillator
 osc.square~	Bandlimited square wave oscillator
 osc.tri~	Bandlimited triangle wave oscillator
+canvas.active	checks if canvas window is on top and active
 canvas.current	verbose information about current canvas
 canvas.dir	current canvas directory
 canvas.name	current canvas name
@@ -1104,10 +1105,11 @@ symbol2intlist	converts symbol to list of character codes
 ceammc/symbol2intlist	converts symbol to list of character codes
 ceammc/sym->ilist	converts symbol to list of character codes
 sym->ilist	converts symbol to list of character codes
+noise.chua~	Chua's diode circuit
 synth.bee3~	Hammond-oid organ FM synthesis instrument
 synth.birds~	bird singing generator
 synth.church_bell~	generic church bell modal model
-synth.clap~	clap synth from faust librariest
+synth.clap~	clap synth from faust libraries
 synth.dubdub~	simple synth based on a sawtooth wave filtered by a resonant lowpass
 synth.dx7~	FAUST dx7 implementation
 synth.eguitar~	simple electric guitar model with steel strings

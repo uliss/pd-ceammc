@@ -31,6 +31,7 @@ array.sum2		.		.
 array.variance		.		.
 array.vplay		.		..
 array.window		.		.
+canvas.active		.		.
 canvas.current		.		.
 canvas.dir		.		.
 canvas.name		.		.
@@ -515,6 +516,7 @@ net.osc.receive,net.osc.r		..		.
 net.osc.send,net.osc.s		.		.
 net.osc.server,net.osc		.		.
 noise.baker		.		.
+noise.chua~		.		~~
 noise.clifford		.		..
 noise.collatz		.		.
 noise.colored~		.		~

@@ -43,6 +43,7 @@ extern "C" void is_symbol_setup();
 extern "C" void setup_test0x2edata();
 extern "C" void setup_test0x2eexpect();
 
+void setup_base_canvas_active();
 void setup_base_canvas_dir();
 void setup_base_canvas_name();
 void setup_base_canvas_path();
@@ -77,6 +78,7 @@ void ceammc_base_setup()
     is_prop_setup();
     is_symbol_setup();
 
+    setup_base_canvas_active();
     setup_base_canvas_dir();
     setup_base_canvas_name();
     setup_base_canvas_path();

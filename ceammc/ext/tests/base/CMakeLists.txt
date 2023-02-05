@@ -25,6 +25,7 @@ function(add_base_test src)
 endfunction()
 
 
+add_base_test(canvas_active)
 add_base_test(canvas_current)
 add_base_test(canvas_top)
 add_base_test(dac)

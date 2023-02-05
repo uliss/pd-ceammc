@@ -1,0 +1,12 @@
+#N canvas 0 0 256 213 12;
+#X obj 20 48 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 135 48 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 20 77 del 1000;
+#X msg 135 77 @abs \$1;
+#X obj 20 106 canvas.active;
+#X obj 20 135 ui.dt;
+#X connect 0 0 2 0;
+#X connect 1 0 3 0;
+#X connect 2 0 4 0;
+#X connect 4 0 5 0;

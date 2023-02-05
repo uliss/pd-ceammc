@@ -3,6 +3,7 @@
 ## [Unrelesed]
 ### Added:
 - new objects:
+  - canvas.active - check if canvas windows is active
   - flt.resonhp~ resonant highpass filter
   - flt.resonlp~ resonant lowpass filter
   - fx.dattorro~ reverb based on the Dattorro reverb topology
@@ -72,7 +73,7 @@
   - proto.moppy: MOPPY floppy controller
   - proto.vlc: control VLC player over HTTP
   - proto.whammy: Digitech Whammy pedal control
-  - route.random: random router added (with route.r alias) 
+  - route.random: random router added (with route.r alias)
   - speech.rhvoice~: RHVoice TTS engine added
   - synth.clap~ added
   - synth.hat~ added
@@ -185,7 +186,7 @@
   - system.cursor: @norm property added for cursor coordinates normalization by screen (or window) size
   - ui.knob: @show_value property added
   - ui.sliders: @show_lines to show central line ruler
-  
+
 - new methods:
   - random.float: [gen N( method added for generating list of random numbers
   - random.int: [gen N( method added for generating list of random numbers
@@ -219,7 +220,7 @@
   - ui.env: second outlet added for getting single value
   - ui.hsl: mouse wheel support added (with Shift: change slowly)
   - ui.link: show @url property in tooltip on mouse over
-  - ui.number: Up/Down key support 
+  - ui.number: Up/Down key support
   - ui.preset: preset display now is zero-base
   - ui.sliders: locked movemenet added with ALT pressed
   - ui.sliders: snap to center while dragging with pressed SHIFT

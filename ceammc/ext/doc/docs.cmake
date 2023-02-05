@@ -32,6 +32,7 @@ set(DOC_FILES
     array.variance
     array.vplay
     array.window
+    canvas.active
     canvas.current
     canvas.dir
     canvas.name
@@ -516,6 +517,7 @@ set(DOC_FILES
     net.osc.send
     net.osc.server
     noise.baker
+    noise.chua~
     noise.clifford
     noise.collatz
     noise.colored~

@@ -1712,6 +1712,9 @@
     </entry>
   </category>
   <category name="patch">
+    <entry name="canvas.active" descr="checks if canvas window is on top and active" ref_view="object">
+      <xi:include href="canvas.active.pddoc" parse="xml"/>
+    </entry>
     <entry name="canvas.current" descr="verbose information about current canvas" ref_view="object">
       <xi:include href="canvas.current.pddoc" parse="xml"/>
     </entry>
@@ -2095,6 +2098,9 @@
     </entry>
   </category>
   <category name="synth">
+    <entry name="noise.chua~" descr="Chua's diode circuit" ref_view="object">
+      <xi:include href="noise.chua~.pddoc" parse="xml"/>
+    </entry>
     <entry name="synth.bee3~" descr="Hammond-oid organ FM synthesis instrument" ref_view="object">
       <xi:include href="synth.bee3~.pddoc" parse="xml"/>
     </entry>
@@ -2104,7 +2110,7 @@
     <entry name="synth.church_bell~" descr="generic church bell modal model" ref_view="object">
       <xi:include href="synth.church_bell~.pddoc" parse="xml"/>
     </entry>
-    <entry name="synth.clap~" descr="clap synth from faust librariest" ref_view="object">
+    <entry name="synth.clap~" descr="clap synth from faust libraries" ref_view="object">
       <xi:include href="synth.clap~.pddoc" parse="xml"/>
     </entry>
     <entry name="synth.dubdub~" descr="simple synth based on a sawtooth wave filtered by a resonant lowpass" ref_view="object">
