@@ -37,10 +37,10 @@ TEST_CASE("canvas.active", "[externals]")
         REQUIRE(try_parse_canvas_id(".xdeadbeef.c", id));
         REQUIRE(id == 0xDEADBEEF);
 
-        auto uip = (std::uintptr_t)(void*)(&id);
+        auto uip = CanvasActive::ptr_to_uint(&id);
         char buf[40];
         sprintf(buf, ".x%lx.c", uip);
         REQUIRE(try_parse_canvas_id(buf, id));
-        REQUIRE(id == (std::uintptr_t)(void*)(&id));
+        REQUIRE(id == CanvasActive::ptr_to_uint(&id));
     }
 }

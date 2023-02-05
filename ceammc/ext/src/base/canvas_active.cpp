@@ -16,11 +16,6 @@ static t_canvas* canvas_get_root(t_canvas* x, bool abstractions = true)
         return canvas_get_root(x->gl_owner, abstractions);
 }
 
-static inline std::uintptr_t ptr_to_uint(void* x)
-{
-    return reinterpret_cast<std::uintptr_t>(x);
-}
-
 CanvasActive::CanvasActive(const PdArgs& args)
     : BaseObject(args)
     , abstractions_(nullptr)
