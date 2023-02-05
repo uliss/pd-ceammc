@@ -2,6 +2,7 @@
 # include "lex/ragel_common.h"
 
 # include <cstring>
+# include <limits>
 
 namespace ceammc {
 
@@ -26,8 +27,13 @@ bool try_parse_canvas_id(const char* str, CanvasId& id) {
     %% write exec noend;
 
     const auto ok = cs >= %%{ write first_final; }%%;
-    if (ok)
+    if (ok) {
+#ifdef __WIN32__
+        id = (std::numeric_limits<std::uint32_t>::max() & canvas_id);
+#else
         id = canvas_id;
+#endif
+    }
 
     return ok;
 }

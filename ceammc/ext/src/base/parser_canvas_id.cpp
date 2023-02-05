@@ -4,11 +4,12 @@
 # include "lex/ragel_common.h"
 
 # include <cstring>
+# include <limits>
 
 namespace ceammc {
 
 
-#line 12 "parser_canvas_id.cpp"
+#line 13 "parser_canvas_id.cpp"
 static const int canvas_id_start = 1;
 static const int canvas_id_first_final = 16;
 static const int canvas_id_error = 0;
@@ -16,7 +17,7 @@ static const int canvas_id_error = 0;
 static const int canvas_id_en_main = 1;
 
 
-#line 18 "parser_canvas_id.rl"
+#line 19 "parser_canvas_id.rl"
 
 
 bool try_parse_canvas_id(const char* str, CanvasId& id) {
@@ -25,14 +26,14 @@ bool try_parse_canvas_id(const char* str, CanvasId& id) {
     CanvasId canvas_id = 0;
 
     
-#line 29 "parser_canvas_id.cpp"
+#line 30 "parser_canvas_id.cpp"
 	{
 	cs = canvas_id_start;
 	}
 
-#line 26 "parser_canvas_id.rl"
+#line 27 "parser_canvas_id.rl"
     
-#line 36 "parser_canvas_id.cpp"
+#line 37 "parser_canvas_id.cpp"
 	{
 	switch ( cs )
 	{
@@ -59,13 +60,13 @@ case 3:
 		goto tr3;
 	goto st0;
 tr3:
-#line 12 "parser_canvas_id.rl"
+#line 13 "parser_canvas_id.rl"
 	{ (canvas_id <<= 4) |= parser::xchar2digit((*p)); }
 	goto st4;
 st4:
 	p += 1;
 case 4:
-#line 69 "parser_canvas_id.cpp"
+#line 70 "parser_canvas_id.cpp"
 	if ( (*p) == 46 )
 		goto st5;
 	if ( (*p) > 57 ) {
@@ -89,13 +90,13 @@ case 6:
 	}
 	goto st0;
 tr6:
-#line 15 "parser_canvas_id.rl"
+#line 16 "parser_canvas_id.rl"
 	{ {p++; cs = 16; goto _out;} }
 	goto st16;
 st16:
 	p += 1;
 case 16:
-#line 99 "parser_canvas_id.cpp"
+#line 100 "parser_canvas_id.cpp"
 	goto st0;
 st7:
 	p += 1;
@@ -164,11 +165,16 @@ case 15:
 	_out: {}
 	}
 
-#line 27 "parser_canvas_id.rl"
+#line 28 "parser_canvas_id.rl"
 
     const auto ok = cs >= 16;
-    if (ok)
+    if (ok) {
+#ifdef __WIN32__
+        id = (std::numeric_limits<std::uint32_t>::max() & canvas_id);
+#else
         id = canvas_id;
+#endif
+    }
 
     return ok;
 }

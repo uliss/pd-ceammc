@@ -18,7 +18,7 @@ public:
     t_canvas* currentCanvas();
 
 public:
-    static inline std::uint32_t ptr_to_uint(const void* x)
+    static inline std::uintptr_t ptr_to_uint(const void* x)
     {
         return reinterpret_cast<std::uintptr_t>(x) & std::numeric_limits<std::uint32_t>::max();
     }
