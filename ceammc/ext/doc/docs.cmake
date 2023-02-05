@@ -517,6 +517,7 @@ set(DOC_FILES
     net.osc.send
     net.osc.server
     noise.baker
+    noise.chua~
     noise.clifford
     noise.collatz
     noise.colored~
