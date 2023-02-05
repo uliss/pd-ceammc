@@ -47,7 +47,7 @@
 [B]         [T]
 |           |
 [del 1000]  [@abs $1(
-|           |.
+|           |
 [canvas.active]
 |
 [ui.dt]
