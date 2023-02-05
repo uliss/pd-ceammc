@@ -666,6 +666,7 @@ symbol2intlist,ceammc/symbol2intlist,ceammc/sym->ilist,sym->ilist		.		.
 sync,ceammc/sync		?		?
 synth.bee3~		.		~
 synth.birds~		.		~~
+synth.chua~		.		~
 synth.church_bell~		.		~
 synth.clap~		.		~.
 synth.dubdub~		.		~

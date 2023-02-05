@@ -1,21 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
-    <object name="synth.clap~">
-        <title>synth.clap~</title>
+    <object name="synth.chua~">
+        <title>synth.chua~</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>clap synth from faust libraries</description>
+            <description>Chua's diode circuit</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>synth</category>
-            <keywords>synth kick</keywords>
-            <since>0.9.5</since>
-            <also>
-                <see>synth.kick2~</see>
-                <see>synth.hat~</see>
-            </also>
+            <keywords>synth chua chaos</keywords>
+            <since>0.9.6</since>
         </meta>
         <properties>
             <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">play trigger
@@ -42,30 +38,27 @@
         </inlets>
         <outlets>
             <outlet type="audio">synth output</outlet>
-            <outlet type="control">bang after release finished</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[T]    [F]   [ui.k #a]    [ui.k #b]     [ui.k #c]
-|      |.    |            |             |
-[metro 150]  |            |             |
-|            |            |             |
-[T]          [@attack $1( [@release $1( [@tone $1(
-|            |            |             |
-[@gate $1(   |            |             |
-|            |            |             |
-[synth.clap~                            ]
-|               ^|
-|               [B]
+/*gsynth.chua~*/
+
+[gsynth.chua~]
+|
+|
+|
+|
+|
+|
+|
+|
 |
 [ui.hgain~]     [ui.dsp~]
 | \
 [dac~]
 
-#a 0 100 @show_value 1
-#b 0 100 @show_value 1
-#c 400 3500 @show_value 1
+[synth.chua~]
 ]]>
             </pdascii>
         </example>

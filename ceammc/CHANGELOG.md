@@ -12,7 +12,7 @@
   - fx.stutter~ effect
   - is_prop - check for property message
   - midi.arp - MIDI arpeggiator added
-  - noise.chua~ : Chua chaotic circut oscillator added
+  - noise.chua~ : Chua chaotic circuit oscillator added
   - noise.colored~ generator of colored noise (brown, pink, white, blue, velvet)
   - route.any: message router
   - route.bang: bang router added

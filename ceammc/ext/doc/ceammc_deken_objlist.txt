@@ -1107,8 +1107,9 @@ ceammc/sym->ilist	converts symbol to list of character codes
 sym->ilist	converts symbol to list of character codes
 synth.bee3~	Hammond-oid organ FM synthesis instrument
 synth.birds~	bird singing generator
+synth.chua~	Chua's diode circuit
 synth.church_bell~	generic church bell modal model
-synth.clap~	clap synth from faust librariest
+synth.clap~	clap synth from faust libraries
 synth.dubdub~	simple synth based on a sawtooth wave filtered by a resonant lowpass
 synth.dx7~	FAUST dx7 implementation
 synth.eguitar~	simple electric guitar model with steel strings

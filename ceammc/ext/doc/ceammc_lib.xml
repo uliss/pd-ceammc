@@ -2104,10 +2104,13 @@
     <entry name="synth.birds~" descr="bird singing generator" ref_view="object">
       <xi:include href="synth.birds~.pddoc" parse="xml"/>
     </entry>
+    <entry name="synth.chua~" descr="Chua's diode circuit" ref_view="object">
+      <xi:include href="synth.chua~.pddoc" parse="xml"/>
+    </entry>
     <entry name="synth.church_bell~" descr="generic church bell modal model" ref_view="object">
       <xi:include href="synth.church_bell~.pddoc" parse="xml"/>
     </entry>
-    <entry name="synth.clap~" descr="clap synth from faust librariest" ref_view="object">
+    <entry name="synth.clap~" descr="clap synth from faust libraries" ref_view="object">
       <xi:include href="synth.clap~.pddoc" parse="xml"/>
     </entry>
     <entry name="synth.dubdub~" descr="simple synth based on a sawtooth wave filtered by a resonant lowpass" ref_view="object">
