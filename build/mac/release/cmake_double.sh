@@ -22,4 +22,3 @@ cmake -G Ninja \
 	-DWITH_FAUST=${BUILD_WITH_FAUST}\
 	-DWITH_TTS_RHVOICE=ON \
 	../../../..
-

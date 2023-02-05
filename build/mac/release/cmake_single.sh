@@ -23,4 +23,3 @@ cmake -G Ninja \
 	-DWITH_LIBSAMPLERATE=ON \
 	-DWITH_BENCHMARK=ON\
 	../../../..
-
