@@ -5,12 +5,12 @@
 #X obj 425 125 route fx.overdrive * .;
 #X obj 625 150 route.prop;
 #X obj 475 200 msg *;
-#X obj 425 250 route @bypass @drive @drywet default reset;
+#X obj 425 250 route @bypass @drywet @gain default reset;
 #X obj 675 350 t b a;
-#X msg 675 375 supported messages are: @bypass @drive @drywet default reset;
+#X msg 675 375 supported messages are: @bypass @drywet @gain default reset;
 #X obj 675 425 print;
 #X obj 725 425 print [gfx.overdrive~] unknown message;
-#X msg 325 75 @drive 1 \, @drywet 1 \,;
+#X msg 325 75 @drywet 1 \, @gain 1 \,;
 #X obj 25 50 t b b;
 #X msg 25 75 reset;
 #X obj 325 25 msg.onload;
@@ -23,18 +23,18 @@
 @label_align right @fontsize 10 @presetname
 /gui/\$1/fx.overdrive~/checkbox0;
 #X msg 260 218 @bypass \$1;
-#X obj 12 236 ui.slider @size 125 12 @active_scale 1 @label drive:
+#X obj 12 236 ui.slider @size 125 12 @active_scale 1 @label drywet:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/fx.overdrive~/slider1 @min 1 @max 5;
+/gui/\$1/fx.overdrive~/slider1 @min 0 @max 1;
 #X obj 215 236 sync;
-#X obj 145 236 ui.number @size 50 12 @min 1 @max 5 @digits 3;
-#X msg 260 236 @drive \$1;
-#X obj 12 266 ui.slider @size 125 12 @active_scale 1 @label drywet:
+#X obj 145 236 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 236 @drywet \$1;
+#X obj 12 266 ui.slider @size 125 12 @active_scale 1 @label gain:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/fx.overdrive~/slider2 @min 0 @max 1;
+/gui/\$1/fx.overdrive~/slider2 @min 1 @max 5;
 #X obj 215 266 sync;
-#X obj 145 266 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 266 @drywet \$1;
+#X obj 145 266 ui.number @size 50 12 @min 1 @max 5 @digits 3;
+#X msg 260 266 @gain \$1;
 #X connect 1 0 0 0;
 #X connect 2 0 3 0;
 #X connect 3 3 4 0;

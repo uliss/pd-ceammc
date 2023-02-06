@@ -17,28 +17,28 @@
 using namespace ceammc;
 
 class FxOverdrive : public faust_fx_overdrive_tilde {
-    UIProperty* drive_;
+    UIProperty* gain_;
 
 public:
     FxOverdrive(const PdArgs& args)
         : faust_fx_overdrive_tilde(args)
-        , drive_(static_cast<UIProperty*>(property("@drive")))
+        , gain_(static_cast<UIProperty*>(property("@gain")))
     {
         createInlet();
 
-        if (drive_)
-            drive_->setArgIndex(0);
+        if (gain_)
+            gain_->setArgIndex(0);
     }
 
     void onInlet(size_t n, const AtomListView& lv)
     {
-        if (drive_)
-            drive_->set(lv);
+        if (gain_)
+            gain_->set(lv);
     }
 };
 
 void setup_fx_overdrive_tilde()
 {
     SoundExternalFactory<FxOverdrive> obj("fx.overdrive~");
-    obj.setXletsInfo({ "signal: input", "float(1-5): drive" }, { "signal: output" });
+    obj.setXletsInfo({ "signal: input", "float(1-5): gain" }, { "signal: output" });
 }

@@ -739,9 +739,9 @@ class fx_overdrive : public fx_overdrive_dsp {
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("fx.overdrive");
 		ui_interface->addCheckButton("bypass", &fCheckbox0);
-		ui_interface->addVerticalSlider("drive", &fVslider0, FAUSTFLOAT(1.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(5.0f), FAUSTFLOAT(0.001f));
 		ui_interface->declare(&fHslider0, "style", "knob");
 		ui_interface->addHorizontalSlider("drywet", &fHslider0, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.01f));
+		ui_interface->addVerticalSlider("gain", &fVslider0, FAUSTFLOAT(1.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(5.0f), FAUSTFLOAT(0.001f));
 		ui_interface->closeBox();
 	}
 	

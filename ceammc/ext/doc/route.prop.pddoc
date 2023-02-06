@@ -19,7 +19,8 @@
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="any">property to *first* outlet, any other messages to second outlet</xinfo>
+                <xinfo on="any">property to *first* outlet, any other messages to second
+                outlet</xinfo>
                 <xinfo on="bang">bang to second outlet</xinfo>
                 <xinfo on="float">float to first outlet</xinfo>
                 <xinfo on="list">list to second outlet</xinfo>
