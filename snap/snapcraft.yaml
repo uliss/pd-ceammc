@@ -105,49 +105,54 @@ parts:
             - -DENABLE_TESTS=OFF
         source: .
         build-packages:
-            - g++
-            - make
-            - cmake
-            - pkg-config
-            - libasound2-dev
-            - libmodplug-dev
-            - libboost-dev
-            - gettext
-            - libavahi-compat-libdnssd-dev
-            - libsndfile1-dev
-            - libfftw3-dev
-            - tcllib
-            - tklib
             - alsa-utils
             - build-essential
-            - patchelf
+            - cmake
+            - g++
+            - gettext
             - libarmadillo-dev
+            - libasound2-dev
+            - libavahi-compat-libdnssd-dev
+            - libboost-dev
+            - libfftw3-dev
             - libglib2.0-dev
+            - libjack-jackd2-dev
+            - libluajit-5.1-dev
+            - libmodplug-dev
+            - librubberband-dev
+            - libsamplerate0-dev
+            - libsndfile1-dev
             - libxcb-randr0-dev
             - libxcb-util-dev
             - libxcb1-dev
-            - x11proto-dev
-            - lsb-release
             - llvm-dev
-            - librubberband-dev
-            - tk-dev
+            - lsb-release
+            - make
+            - patchelf
+            - pkg-config
             - tcl-dev
-            - libjack-jackd2-dev
-        stage-packages:
-            - libsndfile1
-            - libfftw3-single3
-            - libmodplug1
-            - libasound2
-            - tcl
-            - tk
-            - libtcl8.6
-            - tklib
             - tcllib
+            - tk-dev
+            - tklib
+            - x11proto-dev
+        stage-packages:
+            - libasound2
             - libatm1
-            - libxtables12
-            - libxcb-randr0
+            - libfftw3-single3
             - libice6
-            - llvm-runtime
-            - llvm
-            - librubberband2
             - libjack-jackd2-0
+            - libluajit-5.1-2
+            - libluajit-5.1-common
+            - libmodplug1
+            - librubberband2
+            - libsamplerate0
+            - libsndfile1
+            - libtcl8.6
+            - libxcb-randr0
+            - libxtables12
+            - llvm
+            - llvm-runtime
+            - tcl
+            - tcllib
+            - tk
+            - tklib

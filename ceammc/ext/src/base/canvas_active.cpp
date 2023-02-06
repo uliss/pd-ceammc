@@ -34,6 +34,8 @@ void CanvasActive::onBang()
 
 void CanvasActive::m_active(t_symbol* s, const AtomListView& lv)
 {
+    // METHOD_DBG(s) << lv;
+
     if (!lv.isSymbol())
         return;
 
@@ -42,6 +44,7 @@ void CanvasActive::m_active(t_symbol* s, const AtomListView& lv)
         return boolTo(0, false);
 
     auto my_cnv_id = ptr_to_uint(currentCanvas());
+    // METHOD_DBG(s) << std::hex << my_cnv_id;
 
     boolTo(0, given_id == my_cnv_id);
 }

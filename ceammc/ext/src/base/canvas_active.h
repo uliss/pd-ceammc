@@ -20,7 +20,12 @@ public:
 public:
     static inline std::uintptr_t ptr_to_uint(const void* x)
     {
-        return reinterpret_cast<std::uintptr_t>(x) & std::numeric_limits<std::uint32_t>::max();
+#ifdef __WIN32__
+        using CanvasIntPtr = std::uint32_t;
+#else
+        using CanvasIntPtr = std::uint64_t;
+#endif
+        return reinterpret_cast<std::uintptr_t>(x) & std::numeric_limits<CanvasIntPtr>::max();
     }
 };
 
