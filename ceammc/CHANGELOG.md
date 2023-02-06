@@ -1,6 +1,11 @@
 # CEAMMC external library changelog
 
-## [Unrelesed]
+## [Unreleased]
+### Added:
+- new objects:
+  - fx.overdrive~ - overdrive effect
+
+## [0.9.6]
 ### Added:
 - new objects:
   - canvas.active - check if canvas windows is active
