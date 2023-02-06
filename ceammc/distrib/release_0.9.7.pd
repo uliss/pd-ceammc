@@ -89,7 +89,7 @@
 #X connect 14 4 13 0;
 #X connect 14 5 15 0;
 #X restore 405 86 pd luactl;
-#N canvas 463 191 700 500 reverb~ 1;
+#N canvas 463 191 700 500 reverb~ 0;
 #X obj 85 106 inlet~;
 #X obj 85 242 mux~ 4, f 19;
 #X obj 287 165 fx.satrev~;
