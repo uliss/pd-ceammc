@@ -819,6 +819,9 @@
     <entry name="fx.looper~" descr="One track looper" ref_view="object">
       <xi:include href="fx.looper~.pddoc" parse="xml"/>
     </entry>
+    <entry name="fx.overdrive~" descr="overdrive effect" ref_view="object">
+      <xi:include href="fx.overdrive~.pddoc" parse="xml"/>
+    </entry>
     <entry name="fx.pitchshift_s~" descr="signal version of fx.pitchshift~" ref_view="object">
       <xi:include href="fx.pitchshift_s~.pddoc" parse="xml"/>
     </entry>

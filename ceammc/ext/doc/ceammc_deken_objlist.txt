@@ -496,6 +496,7 @@ fx.greyhole~	A complex echo-like effect
 fx.infrev~	port of Infinity VST plugin from airwindows
 fx.jcrev~	Schroeder quad reverberator from 1972
 fx.looper~	One track looper
+fx.overdrive~	overdrive effect
 fx.pitchshift_s~	signal version of fx.pitchshift~
 fx.pitchshift~	simple pitch shifter based on 2 delay lines
 fx.rb_pitchshift~	rubber band pitchshift

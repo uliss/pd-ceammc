@@ -232,6 +232,7 @@ set(DOC_FILES
     fx.infrev~
     fx.jcrev~
     fx.looper~
+    fx.overdrive~
     fx.pitchshift_s~
     fx.pitchshift~
     fx.rb_pitchshift~

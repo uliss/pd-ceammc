@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="fx.overdrive~">
+        <title>fx.overdrive~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>overdrive effect</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>fx</category>
+            <keywords>fx overdrive</keywords>
+            <since>0.9.7</since>
+        </meta>
+        <properties>
+            <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">Ratio
+            between processed signal (wet) and source signal</property>
+            <property name="@bypass" type="bool" default="0">if set to 1 - bypass 'effected'
+            signal.</property>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+        </properties>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[open %CEAMMC%/guitar1.wav, 1(
+|
+[expand_env]
+|
+[readsf~] [ui.hsl 1 4 @show_value 1]
+|         |.
+[*~ 4      ]
+|
+[fx.overdrive~]
+|
+[ui.gain~ @size 120 14] [ui.dsp~]
+|\
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

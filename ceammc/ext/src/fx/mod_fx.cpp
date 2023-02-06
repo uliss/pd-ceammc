@@ -18,21 +18,22 @@ void setup_fx_freeverb_tilde();
 void setup_fx_freqshift_tilde();
 void setup_fx_granulator_tilde();
 void setup_fx_greyhole_tilde();
-void setup_fx_pitchshift_tilde();
 void setup_fx_infrev_tilde();
 void setup_fx_jcrev_tilde();
+void setup_fx_overdrive_tilde();
 void setup_fx_pitchshift_sig_tilde();
+void setup_fx_pitchshift_tilde();
 void setup_fx_recho_tilde();
 void setup_fx_room_tilde();
 void setup_fx_satrev_tilde();
 void setup_fx_sdelay_tilde();
 void setup_fx_secho_tilde();
 void setup_fx_shimmer_tilde();
+void setup_fx_stutter_tilde();
+void setup_fx_tapiir_tilde();
 void setup_fx_vocoder_tilde();
 void setup_fx_wahwah_tilde();
 void setup_fx_zita_rev1_tilde();
-void setup_fx_tapiir_tilde();
-void setup_fx_stutter_tilde();
 
 void ceammc_fx_setup()
 {
@@ -56,6 +57,7 @@ void ceammc_fx_setup()
     setup_fx_infrev_tilde();
     setup_fx_jcrev_tilde();
     setup_fx_looper();
+    setup_fx_overdrive_tilde();
     setup_fx_pitchshift_sig_tilde();
     setup_fx_pitchshift_tilde();
     setup_fx_recho_tilde();
