@@ -103,6 +103,7 @@ parts:
             - -DWITH_ALSA_MIDI=ON
             - -DWITH_JACK=ON
             - -DENABLE_TESTS=OFF
+            - -DWITH_EXT_FLEXT=OFF
         source: .
         build-packages:
             - alsa-utils
