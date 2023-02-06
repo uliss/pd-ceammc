@@ -658,6 +658,8 @@ class fx_overdrive : public fx_overdrive_dsp {
 	FAUSTFLOAT fHslider0;
 	float fConst1;
 	float fRec0[2];
+	FAUSTFLOAT fVslider0;
+	float fRec1[2];
 	
  public:
 	
@@ -704,11 +706,15 @@ class fx_overdrive : public fx_overdrive_dsp {
 	virtual void instanceResetUserInterface() {
 		fCheckbox0 = FAUSTFLOAT(0.0f);
 		fHslider0 = FAUSTFLOAT(1.0f);
+		fVslider0 = FAUSTFLOAT(1.0f);
 	}
 	
 	virtual void instanceClear() {
 		for (int l0 = 0; l0 < 2; l0 = l0 + 1) {
 			fRec0[l0] = 0.0f;
+		}
+		for (int l1 = 0; l1 < 2; l1 = l1 + 1) {
+			fRec1[l1] = 0.0f;
 		}
 	}
 	
@@ -733,6 +739,7 @@ class fx_overdrive : public fx_overdrive_dsp {
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("fx.overdrive");
 		ui_interface->addCheckButton("bypass", &fCheckbox0);
+		ui_interface->addVerticalSlider("drive", &fVslider0, FAUSTFLOAT(1.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(5.0f), FAUSTFLOAT(0.001f));
 		ui_interface->declare(&fHslider0, "style", "knob");
 		ui_interface->addHorizontalSlider("drywet", &fHslider0, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.01f));
 		ui_interface->closeBox();
@@ -743,13 +750,16 @@ class fx_overdrive : public fx_overdrive_dsp {
 		FAUSTFLOAT* output0 = outputs[0];
 		int iSlow0 = int(float(fCheckbox0));
 		float fSlow1 = fConst0 * float(fHslider0);
+		float fSlow2 = fConst0 * float(fVslider0);
 		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
 			float fTemp0 = float(input0[i0]);
 			float fTemp1 = ((iSlow0) ? 0.0f : fTemp0);
 			fRec0[0] = fSlow1 + fConst1 * fRec0[1];
-			float fTemp2 = std::fabs(fTemp1);
+			fRec1[0] = fSlow2 + fConst1 * fRec1[1];
+			float fTemp2 = std::fabs(fRec1[0] * fTemp1);
 			output0[i0] = FAUSTFLOAT(((iSlow0) ? fTemp0 : fTemp1 * (1.0f - fRec0[0]) + fRec0[0] * float((fTemp1 > 0.0f) - (fTemp1 < 0.0f)) * ((fTemp2 < 0.33333334f) ? 2.0f * fTemp2 : ((fTemp2 < 0.6666667f) ? 0.33333334f * (3.0f - fx_overdrive_faustpower2_f(2.0f - 3.0f * fTemp2)) : 1.0f))));
 			fRec0[1] = fRec0[0];
+			fRec1[1] = fRec1[0];
 		}
 	}
 

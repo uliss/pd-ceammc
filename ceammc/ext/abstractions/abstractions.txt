@@ -40,6 +40,7 @@ gfx.freeverb~
 gfx.granulator~
 gfx.greyhole~
 gfx.jcrev~
+gfx.overdrive~
 gfx.pitchshift~
 gfx.recho~
 gfx.satrev~

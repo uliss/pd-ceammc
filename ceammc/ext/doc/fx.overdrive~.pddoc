@@ -13,16 +13,24 @@
             <keywords>fx overdrive</keywords>
             <since>0.9.7</since>
         </meta>
+        <arguments>
+            <argument name="DRIVE" type="float" minvalue="1" maxvalue="5">fx amount</argument>
+        </arguments>
         <properties>
             <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">Ratio
             between processed signal (wet) and source signal</property>
             <property name="@bypass" type="bool" default="0">if set to 1 - bypass 'effected'
             signal.</property>
+            <property name="@drive" type="float" minvalue="1" maxvalue="5" default="1">overdrive
+            amount</property>
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
         <inlets>
             <inlet type="audio">
                 <xinfo>input signal</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="float">drive value</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -35,10 +43,10 @@
 |
 [expand_env]
 |
-[readsf~] [ui.hsl 1 4 @show_value 1]
-|         |.
-[*~ 4      ]
-|
+[readsf~] [ui.hsl 1 5 @show_value 1]
+|         |
+|         [@drive $1(
+|         |
 [fx.overdrive~]
 |
 [ui.gain~ @size 120 14] [ui.dsp~]

@@ -1,0 +1,77 @@
+#N canvas 0 0 950 600 12;
+#X obj 25 125 fx.overdrive~;
+#X obj 25 25 inlet~;
+#X obj 425 25 inlet;
+#X obj 425 125 route fx.overdrive * .;
+#X obj 625 150 route.prop;
+#X obj 475 200 msg *;
+#X obj 425 250 route @bypass @drive @drywet default reset;
+#X obj 675 350 t b a;
+#X msg 675 375 supported messages are: @bypass @drive @drywet default reset;
+#X obj 675 425 print;
+#X obj 725 425 print [gfx.overdrive~] unknown message;
+#X msg 325 75 @drive 1 \, @drywet 1 \,;
+#X obj 25 50 t b b;
+#X msg 25 75 reset;
+#X obj 325 25 msg.onload;
+#X obj 500 550 outlet~;
+#X obj 600 550 outlet ctl;
+#X obj 3 202 cnv 8 198 81 empty empty empty 17 7 0 10 -174763 -1 0;
+#X obj 3 202 cnv 8 198 18 empty empty [fx.overdrive~] 3 9 0 12 -104026
+-262144 0;
+#X obj 185 205 ui.toggle @size 12 12 @label bypass @label_side left
+@label_align right @fontsize 10 @presetname
+/gui/\$1/fx.overdrive~/checkbox0;
+#X msg 260 218 @bypass \$1;
+#X obj 12 236 ui.slider @size 125 12 @active_scale 1 @label drive:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/fx.overdrive~/slider1 @min 1 @max 5;
+#X obj 215 236 sync;
+#X obj 145 236 ui.number @size 50 12 @min 1 @max 5 @digits 3;
+#X msg 260 236 @drive \$1;
+#X obj 12 266 ui.slider @size 125 12 @active_scale 1 @label drywet:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/fx.overdrive~/slider2 @min 0 @max 1;
+#X obj 215 266 sync;
+#X obj 145 266 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 266 @drywet \$1;
+#X connect 1 0 0 0;
+#X connect 2 0 3 0;
+#X connect 3 3 4 0;
+#X connect 3 1 5 0;
+#X connect 3 0 6 0;
+#X connect 3 1 6 0;
+#X connect 3 2 6 0;
+#X connect 4 0 6 0;
+#X connect 6 5 7 0;
+#X connect 7 0 8 0;
+#X connect 8 0 9 0;
+#X connect 7 1 10 0;
+#X connect 11 0 6 0;
+#X connect 6 3 11 0;
+#X connect 12 1 13 0;
+#X connect 12 0 11 0;
+#X connect 13 0 0 0;
+#X connect 6 4 12 0;
+#X connect 14 0 11 0;
+#X connect 0 0 15 0;
+#X connect 4 1 16 0;
+#X connect 5 0 16 0;
+#X connect 19 0 20 0;
+#X connect 20 0 0 0;
+#X connect 6 0 19 0;
+#X connect 21 0 22 0;
+#X connect 22 0 21 0;
+#X connect 23 0 22 1;
+#X connect 22 1 23 0;
+#X connect 21 0 24 0;
+#X connect 24 0 0 0;
+#X connect 6 1 21 0;
+#X connect 25 0 26 0;
+#X connect 26 0 25 0;
+#X connect 27 0 26 1;
+#X connect 26 1 27 0;
+#X connect 25 0 28 0;
+#X connect 28 0 0 0;
+#X connect 6 2 25 0;
+#X coords 0 -1 1 1 200 86 2 2 200;
