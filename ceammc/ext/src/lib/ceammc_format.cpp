@@ -18,7 +18,7 @@
 #include "ceammc_atomlist_view.h"
 #include "ceammc_message.h"
 #include "ceammc_string.h"
-#include "fmt/format.h"
+#include "fmt/core.h"
 #include "lex/parser_strings.h"
 
 #include <algorithm>
