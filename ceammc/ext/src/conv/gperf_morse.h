@@ -155,7 +155,7 @@ MorsePerfectHash::in_word_set (const char *str, size_t len)
 #line 71 "morse.gperf"
       {"L", MORSE(0100)},
 #line 159 "morse.gperf"
-      {"\321\213", MORSE(1101)},
+      {"\321\213", MORSE(1011)},
 #line 135 "morse.gperf"
       {"\320\277", MORSE(0110)},
       {""}, {""},
@@ -239,7 +239,7 @@ MorsePerfectHash::in_word_set (const char *str, size_t len)
 #line 47 "morse.gperf"
       {"@", MORSE(011010)},
 #line 98 "morse.gperf"
-      {"y", MORSE(1101)},
+      {"y", MORSE(1011)},
 #line 109 "morse.gperf"
       {"\320\263", MORSE(110)},
       {""}, {""},
@@ -297,7 +297,7 @@ MorsePerfectHash::in_word_set (const char *str, size_t len)
 #line 82 "morse.gperf"
       {"q", MORSE(1101)},
 #line 158 "morse.gperf"
-      {"\320\253", MORSE(1101)},
+      {"\320\253", MORSE(1011)},
       {""}, {""},
 #line 34 "morse.gperf"
       {"4", MORSE(11110)},
@@ -403,7 +403,7 @@ MorsePerfectHash::in_word_set (const char *str, size_t len)
       {"\320\232", MORSE(101)},
       {""}, {""}, {""},
 #line 97 "morse.gperf"
-      {"Y", MORSE(1101)},
+      {"Y", MORSE(1011)},
 #line 122 "morse.gperf"
       {"\320\231", MORSE(0111)},
       {""}, {""}, {""},

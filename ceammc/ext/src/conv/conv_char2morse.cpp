@@ -14,8 +14,8 @@
 #include "conv_char2morse.h"
 #include "ceammc_containers.h"
 #include "ceammc_factory.h"
+#include "ceammc_string.h"
 #include "gperf_morse.h"
-#include "utf8rewind/utf8rewind.h"
 
 ConvChar2Morse::ConvChar2Morse(const PdArgs& args)
     : BaseObject(args)
@@ -30,7 +30,7 @@ ConvChar2Morse::ConvChar2Morse(const PdArgs& args)
 void ConvChar2Morse::onSymbol(t_symbol* s)
 {
     auto str = s->s_name;
-    auto next_char = utf8seek(str, strlen(str), str, 1, SEEK_SET);
+    auto next_char = string::utf8_next(str, strlen(str));
     if (next_char == str) {
         OBJ_ERR << "can't seek string";
         return;
