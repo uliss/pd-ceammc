@@ -7,7 +7,7 @@ endmacro()
 find_package(Gperf)
 if(Gperf_FOUND)
     ecm_gperf_generate(morse.gperf gperf_morse.h MySources
-        GENERATION_FLAGS "-L C++ --enum --readonly-tables --class-name=MorsePerfectHash --includes --struct-type --no-strlen")
+        GENERATION_FLAGS "-L C++ --class-name=MorsePerfectHash --struct-type")
 
     add_custom_target(gen_morse DEPENDS gperf_morse.h)
 endif()

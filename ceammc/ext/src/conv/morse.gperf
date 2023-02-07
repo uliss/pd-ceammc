@@ -1,3 +1,7 @@
+%compare-strncmp
+%readonly-tables
+%includes
+%enum
 %{
 #include <cstdint>
 struct MorseBitCode {

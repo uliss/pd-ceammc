@@ -17,6 +17,10 @@
 
 PD_COMPLETE_TEST_SETUP(ConvChar2Morse, conv, char2morse)
 
+namespace {
+#include "gperf_morse.h"
+}
+
 using namespace ceammc;
 
 TEST_CASE("conv.char2morse", "[externals]")
@@ -100,5 +104,10 @@ TEST_CASE("conv.char2morse", "[externals]")
     SECTION("alias")
     {
         TExt obj("conv.char2morse");
+    }
+
+    SECTION("gperf")
+    {
+        REQUIRE(MorsePerfectHash::in_word_set("AA", 1));
     }
 }
