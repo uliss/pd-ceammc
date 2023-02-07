@@ -73,8 +73,14 @@ void ArrayReadwriteTilde::processBlock(const t_sample** in, t_sample** out)
         out[0][i] = read_buf[i];
 }
 
+void ArrayReadwriteTilde::m_redraw(t_symbol *s, const AtomListView &lv)
+{
+    array_.redraw();
+}
+
 void setup_array_readwrite_tilde()
 {
     SoundExternalFactory<ArrayReadwriteTilde> obj("array.readwrite~");
     obj.addAlias("array.rw~");
+    obj.addMethod("redraw", &ArrayReadwriteTilde::m_redraw);
 }

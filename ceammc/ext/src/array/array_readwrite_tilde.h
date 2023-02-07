@@ -20,6 +20,8 @@ class ArrayReadwriteTilde : public ArraySoundBase {
 public:
     ArrayReadwriteTilde(const PdArgs& args);
     void processBlock(const t_sample** in, t_sample** out) final;
+
+    void m_redraw(t_symbol* s, const AtomListView& lv);
 };
 
 void setup_array_readwrite_tilde();
