@@ -1,6 +1,6 @@
 # CEAMMC external library changelog
 
-## [Unrelesed]
+## [0.9.6]
 ### Added:
 - new objects:
   - canvas.active - check if canvas windows is active
