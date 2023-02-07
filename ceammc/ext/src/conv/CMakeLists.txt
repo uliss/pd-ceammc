@@ -4,6 +4,14 @@ macro(ceammc_conv_external name)
     list(APPEND CONV_SOURCES "conv_${name}.cpp")
 endmacro()
 
+find_package(Gperf)
+if(Gperf_FOUND)
+    ecm_gperf_generate(morse.gperf gperf_morse.h MySources
+        GENERATION_FLAGS "-L C++ --enum --readonly-tables --class-name=MorsePerfectHash --includes --struct-type --no-strlen")
+
+    add_custom_target(gen_morse DEPENDS gperf_morse.h)
+endif()
+
 ceammc_conv_external(amp2dbfs)
 ceammc_conv_external(angles)
 ceammc_conv_external(bits2bang)
@@ -14,6 +22,7 @@ ceammc_conv_external(bpm2hz)
 ceammc_conv_external(bpm2ms)
 ceammc_conv_external(bpm2sec)
 ceammc_conv_external(cc2amp)
+ceammc_conv_external(char2morse)
 ceammc_conv_external(dbfs2amp)
 ceammc_conv_external(degree2key)
 ceammc_conv_external(edge2bang)

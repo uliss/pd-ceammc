@@ -39,6 +39,7 @@ void setup_conv_bits2note();
 void setup_conv_bits2pos();
 
 void setup_conv_note2guido();
+void setup_conv_char2morse();
 
 void ceammc_conv_setup()
 {
@@ -82,4 +83,5 @@ void ceammc_conv_setup()
     setup_conv_edge2bang();
 
     setup_conv_note2guido();
+    setup_conv_char2morse();
 }
