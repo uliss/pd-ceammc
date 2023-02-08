@@ -18,7 +18,7 @@
 #include "ceammc_log.h"
 #include "ceammc_platform.h"
 #include "ceammc_rtree.h"
-#include "fmt/format.h"
+#include "fmt/core.h"
 #include "muParser.h"
 
 #include <algorithm>
@@ -154,7 +154,7 @@ AtomList fn_reverse(const AtomListView& args)
 
 #define RTREE_FN_NAME "rtree"
 
-AtomList fn_rythm_tree(const AtomListView& args)
+AtomList fn_rhythm_tree(const AtomListView& args)
 {
     const bool ok = args.size() == 2 && args[0].isFloat() && args[1].isDataType(DataTypeMList::dataType);
     if (!ok) {
@@ -164,7 +164,7 @@ AtomList fn_rythm_tree(const AtomListView& args)
 
     const auto len = args[0].asT<t_float>();
     auto ml = args[1].asD<DataTypeMList>();
-    return rtree::rythm_tree(len, ml, RTREE_FN_NAME "(): ", LIB_ERR);
+    return rtree::rhythm_tree(len, ml, RTREE_FN_NAME "(): ", LIB_ERR);
 }
 
 AtomList fn_euclid(const AtomListView& args)
@@ -259,7 +259,7 @@ BuiltinFunctionMap::BuiltinFunctionMap()
     registerFn(gensym("amp2db"), fn_amp2db);
     registerFn(gensym("repeat"), fn_repeat);
     registerFn(gensym("reverse"), fn_reverse);
-    registerFn(gensym(RTREE_FN_NAME), fn_rythm_tree);
+    registerFn(gensym(RTREE_FN_NAME), fn_rhythm_tree);
     registerFn(gensym("euclid"), fn_euclid);
 }
 

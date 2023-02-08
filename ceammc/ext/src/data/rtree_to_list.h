@@ -19,14 +19,14 @@
 
 using namespace ceammc;
 
-class RythmTreeToList : public BaseObject {
+class RhythmTreeToList : public BaseObject {
     FloatProperty* dur_;
     AtomProperty* rtree_;
     AtomList cached_;
     bool changed_ = { false };
 
 public:
-    RythmTreeToList(const PdArgs& args);
+    RhythmTreeToList(const PdArgs& args);
 
     void onBang() override;
     void onFloat(t_float f) override;

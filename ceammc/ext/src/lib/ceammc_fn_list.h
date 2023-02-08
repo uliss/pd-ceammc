@@ -110,7 +110,7 @@ namespace list {
     };
 
     /**
-     * Generate euclidean rythm pattern using bresenham line algorithm
+     * Generate euclidean rhythm pattern using bresenham line algorithm
      * @see https://en.wikipedia.org/wiki/Euclidean_rhythm
      * @see https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm
      * @param onsets- number of onsets, should be <= pulses

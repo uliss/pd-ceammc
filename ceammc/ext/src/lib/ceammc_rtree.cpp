@@ -12,14 +12,14 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_rtree.h"
-#include "fmt/format.h"
+#include "fmt/core.h"
 
 #include <iostream>
 
 namespace ceammc {
 namespace rtree {
 
-    AtomList rythm_tree(t_float duration, const DataTypeMList* ml, const char* errPrefix, std::ostream& err)
+    AtomList rhythm_tree(t_float duration, const DataTypeMList* ml, const char* errPrefix, std::ostream& err)
     {
         if (!ml || ml->empty())
             return { duration };
@@ -49,7 +49,7 @@ namespace rtree {
                     const auto subdur = (duration * f) / sum;
                     // number followed by mlist
                     if ((i + 1 < N) && ml->at(i + 1).isDataType(DataTypeMList::dataType)) {
-                        res.append(rythm_tree(subdur, ml->at(i + 1).asDataT<DataTypeMList>(), errPrefix, err));
+                        res.append(rhythm_tree(subdur, ml->at(i + 1).asDataT<DataTypeMList>(), errPrefix, err));
                         i += 1;
                     } else {
                         res.append(subdur);

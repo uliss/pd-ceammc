@@ -22,14 +22,14 @@ namespace ceammc {
 namespace rtree {
 
     /**
-     * Converts rythm tree to plain list of divisions
+     * Converts rhythm tree to plain list of divisions
      * @param duration - total duration, the sum of output divisions will be equal this value
      * @param ml
      * @param errPrefix - error prefix
      * @param error output stream
      * @return division list
      */
-    AtomList rythm_tree(t_float duration, const DataTypeMList* ml, const char* errPrefix = "", std::ostream& err = std::cerr);
+    AtomList rhythm_tree(t_float duration, const DataTypeMList* ml, const char* errPrefix = "", std::ostream& err = std::cerr);
 
 }
 }
