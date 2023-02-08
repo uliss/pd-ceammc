@@ -5,6 +5,9 @@
 - new objects:
   - fx.overdrive~ - overdrive effect
 
+### Changes:
+- array.risset_rythm~ renamed to array.risset_rhythm~
+
 ## [0.9.6]
 ### Added:
 - new objects:
