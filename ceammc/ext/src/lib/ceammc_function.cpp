@@ -153,6 +153,7 @@ AtomList fn_reverse(const AtomListView& args)
 }
 
 #define RTREE_FN_NAME "rtree"
+#define HEXBEAT_FN_NAME "hexbeat"
 
 AtomList fn_rhythm_tree(const AtomListView& args)
 {
@@ -194,6 +195,16 @@ AtomList fn_euclid(const AtomListView& args)
     }
 
     return list::bresenham(onsets, pulses);
+}
+
+AtomList fn_hexbeat(const AtomListView& args)
+{
+    if (!args.isSymbol()) {
+        LIB_ERR << fmt::format(HEXBEAT_FN_NAME "(): usage " HEXBEAT_FN_NAME "(HEX)");
+        return {};
+    }
+
+    return list::hexbeat(args[0].asT<t_symbol*>()->s_name);
 }
 
 }
@@ -261,6 +272,7 @@ BuiltinFunctionMap::BuiltinFunctionMap()
     registerFn(gensym("reverse"), fn_reverse);
     registerFn(gensym(RTREE_FN_NAME), fn_rhythm_tree);
     registerFn(gensym("euclid"), fn_euclid);
+    registerFn(gensym(HEXBEAT_FN_NAME), fn_hexbeat);
 }
 
 BuiltinFunctionMap::~BuiltinFunctionMap()

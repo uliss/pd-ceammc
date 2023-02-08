@@ -61,7 +61,7 @@ TEST_CASE("DataStringParser", "[core]")
         REQUIRE(parse("0x1A") == LF(0x1A));
         REQUIRE(parse("0b000101") == LF(5));
         REQUIRE(parse("0b11111111") == LF(0xFF));
-//        REQUIRE(parse("0xffffffffffffffff") == L());
+        //        REQUIRE(parse("0xffffffffffffffff") == L());
         REQUIRE(parse("\"a b c\"") == LA("a b c"));
         REQUIRE(parse(R"("a b `"c")") == LA("a b \"c"));
         // empty quoted
@@ -308,5 +308,18 @@ TEST_CASE("DataStringParser", "[core]")
         REQUIRE(parse("euclid(3 5)") == LF(1, 0, 1, 0, 1));
         REQUIRE(parse("euclid(3 8)") == LF(1, 0, 0, 1, 0, 0, 1, 0));
         //        REQUIRE(parse("euclid(3 7)") == LF(1, 0, 1, 0, 0, 1, 0));
+    }
+
+    SECTION("hexbeat()")
+    {
+        REQUIRE(parse("hexbeat()").empty());
+        REQUIRE(parse("hexbeat(1)").empty());
+        REQUIRE(parse("hexbeat(F1)") == LF(1, 1, 1, 1, 0, 0, 0, 1));
+        REQUIRE(parse("hexbeat(1F)") == LF(0, 0, 0, 1, 1, 1, 1, 1));
+        REQUIRE(parse("hexbeat(#F2)") == LF(1, 1, 1, 1, 0, 0, 1, 0));
+        REQUIRE(parse("hexbeat(#2)") == LF(0, 0, 1, 0));
+        REQUIRE(parse("hexbeat(0x3)").empty());
+        REQUIRE(parse("hexbeat(\"0x3\")") == LF(0, 0, 1, 1));
+        REQUIRE(parse("hexbeat(\"4\")") == LF(0, 1, 0, 0));
     }
 }
