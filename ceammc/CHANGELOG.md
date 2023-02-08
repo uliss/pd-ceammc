@@ -4,6 +4,13 @@
 ### Added:
 - new objects:
   - fx.overdrive~ - overdrive effect
+  - rhythm.hexbeat - hexbeat pattern generator
+  - array.tramp~ - triggered array ramp generator
+  - array.readwrite~ - ordered array reader/writer (read first, then write)
+  - conv.char2morse - single character to morse code converter
+  - proto.morse - morse encoder with specified speed and other settings
+- new init argument functions:
+  - hexbeat(HEX) function added - expands to list of 1 and 0
 
 ### Changes:
 - array.risset_rythm~ renamed to array.risset_rhythm~
