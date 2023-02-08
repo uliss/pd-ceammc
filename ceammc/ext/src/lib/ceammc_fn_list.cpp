@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_fn_list.h"
+#include "lex/parser_hexbeat.h"
 #include "soxr.h"
 
 #include <algorithm>
@@ -682,5 +683,23 @@ namespace list {
 
         return res;
     }
+
+    AtomList hexbeat(const char* str)
+    {
+        AtomList res;
+        parser::HexBeatResult bits;
+        auto nbits = parser::parse_hexbeat(str, bits);
+        if (!nbits)
+            return res;
+
+//        bits.to
+
+        res.reserve(nbits);
+        for (int i = nbits - 1; i >= 0; i--)
+            res.append(bits[i] ? 1 : 0);
+
+        return res;
+    }
+
 }
 }

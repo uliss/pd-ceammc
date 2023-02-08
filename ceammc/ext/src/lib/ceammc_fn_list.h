@@ -120,6 +120,13 @@ namespace list {
      */
     AtomList bresenham(size_t onsets, size_t pulses);
 
+    /**
+     * Generate rhythm pattern based on hex value bits
+     * @param str - hex string with options 0[Xx] prefix
+     * @return list of 1 and 0
+     */
+    AtomList hexbeat(const char* str);
+
     AtomList enumerate(const AtomListView& lv, int from = 0, enumerateMode mode = PREPEND);
 
     // preserves element order but not suitable for data atoms

@@ -150,6 +150,9 @@ if(RAGEL_FOUND)
     RAGEL_TARGET(parser_color
         lex/parser_color.rl lex/parser_color.cpp
         COMPILE_FLAGS "-G2 -s")
+    RAGEL_TARGET(parser_hexbeat
+        lex/parser_hexbeat.rl lex/parser_hexbeat.cpp
+        COMPILE_FLAGS "-G2 -s")
     RAGEL_TARGET(parser_music
         lex/parser_music.rl lex/parser_music.cpp
         COMPILE_FLAGS "-G2 -s")
@@ -185,12 +188,13 @@ target_sources(ceammc_core
     PRIVATE
         lex/parser_clone.cpp
         lex/parser_color.cpp
+        lex/parser_hexbeat.cpp
         lex/parser_music.cpp
         lex/parser_numeric.cpp
         lex/parser_props.cpp
         lex/parser_props_details.cpp
-        lex/parser_units.cpp
         lex/parser_strings.cpp
+        lex/parser_units.cpp
         lex/lemon_data_parser_impl.h
         lex/lemon_data_parser_impl.cpp
         lex/lemon_data_string_parser.h

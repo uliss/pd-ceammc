@@ -386,4 +386,39 @@ TEST_CASE("list functions2", "[core]")
             res = list::findProperty(res.second);
         }
     }
+
+    SECTION("hexbeat")
+    {
+        REQUIRE(list::hexbeat("") == L());
+        REQUIRE(list::hexbeat("?") == L());
+        REQUIRE(list::hexbeat("#") == L());
+        REQUIRE(list::hexbeat("#?") == L());
+        REQUIRE(list::hexbeat("0x0") == LF(0, 0, 0, 0));
+        REQUIRE(list::hexbeat("#0") == LF(0, 0, 0, 0));
+        REQUIRE(list::hexbeat("#1") == LF(0, 0, 0, 1));
+        REQUIRE(list::hexbeat("#2") == LF(0, 0, 1, 0));
+        REQUIRE(list::hexbeat("#3") == LF(0, 0, 1, 1));
+        REQUIRE(list::hexbeat("#4") == LF(0, 1, 0, 0));
+        REQUIRE(list::hexbeat("#5") == LF(0, 1, 0, 1));
+        REQUIRE(list::hexbeat("#6") == LF(0, 1, 1, 0));
+        REQUIRE(list::hexbeat("#7") == LF(0, 1, 1, 1));
+        REQUIRE(list::hexbeat("#8") == LF(1, 0, 0, 0));
+        REQUIRE(list::hexbeat("#9") == LF(1, 0, 0, 1));
+        REQUIRE(list::hexbeat("#A") == LF(1, 0, 1, 0));
+        REQUIRE(list::hexbeat("#B") == LF(1, 0, 1, 1));
+        REQUIRE(list::hexbeat("#C") == LF(1, 1, 0, 0));
+        REQUIRE(list::hexbeat("#D") == LF(1, 1, 0, 1));
+        REQUIRE(list::hexbeat("#E") == LF(1, 1, 1, 0));
+        REQUIRE(list::hexbeat("#F") == LF(1, 1, 1, 1));
+        REQUIRE(list::hexbeat("#a") == LF(1, 0, 1, 0));
+        REQUIRE(list::hexbeat("#b") == LF(1, 0, 1, 1));
+        REQUIRE(list::hexbeat("#c") == LF(1, 1, 0, 0));
+        REQUIRE(list::hexbeat("#d") == LF(1, 1, 0, 1));
+        REQUIRE(list::hexbeat("#e") == LF(1, 1, 1, 0));
+        REQUIRE(list::hexbeat("#f") == LF(1, 1, 1, 1));
+        REQUIRE(list::hexbeat("#BEEF") == LF(1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1));
+        REQUIRE(list::hexbeat("0xBEEF") == LF(1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1));
+        REQUIRE(list::hexbeat("#B?E?E?F???") == LF(1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1));
+        REQUIRE(list::hexbeat("#кириллица") == L());
+    }
 }

@@ -1,4 +1,6 @@
-add_executable(test_ext_music test_music_base.h)
+add_executable(test_ext_music test_music_base.h
+    test_rhythm_hexbeat.cpp
+)
 
 target_compile_definitions(test_ext_music
     PRIVATE -DPROJECT_SOURCE_DIR="${PROJECT_SOURCE_DIR}"
