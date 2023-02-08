@@ -18,11 +18,16 @@
 
 ArrayReadwriteTilde::ArrayReadwriteTilde(const PdArgs& args)
     : ArraySoundBase(args)
+    , mix_(nullptr)
 {
     createSignalInlet();
     createSignalInlet();
 
     createSignalOutlet();
+
+    mix_ = new FloatProperty("@mix", 0);
+    mix_->checkClosedRange(0, 1);
+    addProperty(mix_);
 }
 
 void ArrayReadwriteTilde::processBlock(const t_sample** in, t_sample** out)
@@ -59,13 +64,14 @@ void ArrayReadwriteTilde::processBlock(const t_sample** in, t_sample** out)
             read_buf[i] = 0;
     }
 
+    auto mix = mix_->value();
     // write
     for (size_t i = 0; i < BS; i++) {
         std::int64_t widx = std::round(write_idx[i]);
         if (widx < 0 || widx >= ASIZE)
             continue;
 
-        array_.at(widx) = write_sig[i];
+        array_.at(widx) = ((1 - mix) * write_sig[i]) + (mix * array_.at(widx));
     }
 
     // output
@@ -73,7 +79,7 @@ void ArrayReadwriteTilde::processBlock(const t_sample** in, t_sample** out)
         out[0][i] = read_buf[i];
 }
 
-void ArrayReadwriteTilde::m_redraw(t_symbol *s, const AtomListView &lv)
+void ArrayReadwriteTilde::m_redraw(t_symbol* s, const AtomListView& lv)
 {
     array_.redraw();
 }

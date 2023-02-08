@@ -17,6 +17,8 @@
 #include "array_base.h"
 
 class ArrayReadwriteTilde : public ArraySoundBase {
+    FloatProperty* mix_;
+
 public:
     ArrayReadwriteTilde(const PdArgs& args);
     void processBlock(const t_sample** in, t_sample** out) final;
