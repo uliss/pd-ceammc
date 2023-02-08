@@ -10,7 +10,7 @@
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>seq</category>
-            <keywords>seq sequencer toggle pattern rythm</keywords>
+            <keywords>seq sequencer toggle pattern rhythm</keywords>
             <since>0.9.1</since>
             <aliases>
                 <alias>seq.t</alias>

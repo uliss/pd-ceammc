@@ -1,14 +1,15 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 346 50 cnv 1 419 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 346 50 convert OpenMusic-like rythm tree to list of fractions;
+#X obj 339 50 cnv 1 426 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 339 50 convert OpenMusic-like rhythm tree to list of fractions;
 #X obj 1 1 cnv 5 765 40 empty empty rtree.to_list 20 20 0 20 -104026
 -4096 0;
 #X obj 389 11 ceammc/rtree->list;
 #X obj 544 11 rtree->list;
 #X obj 647 11 rtree.to_list;
 #X obj 210 80 cnv 1 555 60 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 Rythm tree is structure to define complex rythmic patterns;
+#X text 215 80 rhythm tree is structure to define complex rhythmic
+patterns;
 #X text 215 105 Examples: (1 1 1) - triplet \, (2 1) - swing;
 #X msg 50 168 bang;
 #X floatatom 117 168 5 0 0 0 - - -;
@@ -40,7 +41,7 @@ ceammc object instead of list arguments;
 #X text 110 594 2\.;
 #X text 150 594 atom;
 #X obj 246 595 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 594 RTREE: rythm tree. Type: atom.;
+#X text 245 594 RTREE: rhythm tree. Type: atom.;
 #X obj 20 624 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 629 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -48,7 +49,7 @@ ceammc object instead of list arguments;
 #X text 245 664 Get/Set total pattern duration. Type: float. Default
 value: 1\.;
 #X msg 110 706 @rtree;
-#X text 245 706 Get/Set rythm tree. (MList). Type: atom. Default value:
+#X text 245 706 Get/Set rhythm tree. (MList). Type: atom. Default value:
 ().;
 #X obj 20 745 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 750 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
@@ -91,7 +92,7 @@ value: 1\.;
 #X text 10 142 license:;
 #X text 120 142 GPL3 or later;
 #X text 10 164 keywords:;
-#X text 120 164 rythm \, rtree \, openmusic \, pattern;
+#X text 120 164 rhythm \, rtree \, openmusic \, pattern;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pure-data @url
 https://github.com/uliss/pure-data;

@@ -281,7 +281,7 @@ to current samplerate;
 #X obj 30 3895 mlist.flatten;
 #X text 200 3895 flatten nested mlist;
 #X obj 30 3922 rtree.to_list;
-#X text 200 3922 convert OpenMusic-like rythm tree to list of fractions;
+#X text 200 3922 convert OpenMusic-like rhythm tree to list of fractions;
 #X obj 30 3949 set.contains;
 #X text 200 3949 check if specified element is in set;
 #X obj 30 3976 set.diff;

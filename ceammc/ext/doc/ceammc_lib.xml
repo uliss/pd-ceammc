@@ -392,7 +392,7 @@
     <entry name="mlist.flatten" descr="flatten nested mlist" ref_view="object">
       <xi:include href="mlist.flatten.pddoc" parse="xml"/>
     </entry>
-    <entry name="rtree.to_list" descr="convert OpenMusic-like rythm tree to list of fractions" ref_view="object">
+    <entry name="rtree.to_list" descr="convert OpenMusic-like rhythm tree to list of fractions" ref_view="object">
       <xi:include href="rtree.to_list.pddoc" parse="xml"/>
     </entry>
     <entry name="set.contains" descr="check if specified element is in set" ref_view="object">

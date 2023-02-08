@@ -144,7 +144,7 @@ when done.;
 #X text 10 142 license:;
 #X text 120 142 GPL3 or later;
 #X text 10 164 keywords:;
-#X text 120 164 seq \, sequencer \, toggle \, pattern \, rythm;
+#X text 120 164 seq \, sequencer \, toggle \, pattern \, rhythm;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pure-data @url
 https://github.com/uliss/pure-data;

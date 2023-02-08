@@ -43,7 +43,7 @@
 #X obj 30 629 mlist.flatten;
 #X text 200 629 flatten nested mlist;
 #X obj 30 656 rtree.to_list;
-#X text 200 656 convert OpenMusic-like rythm tree to list of fractions;
+#X text 200 656 convert OpenMusic-like rhythm tree to list of fractions;
 #X obj 30 683 set.contains;
 #X text 200 683 check if specified element is in set;
 #X obj 30 710 set.diff;

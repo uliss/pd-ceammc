@@ -274,9 +274,9 @@ ceammc/dict->list	converts dictionary to plain list
 dict->list	converts dictionary to plain list
 dict.values	dictionary values as mlist
 mlist.flatten	flatten nested mlist
-rtree.to_list	convert OpenMusic-like rythm tree to list of fractions
-ceammc/rtree->list	convert OpenMusic-like rythm tree to list of fractions
-rtree->list	convert OpenMusic-like rythm tree to list of fractions
+rtree.to_list	convert OpenMusic-like rhythm tree to list of fractions
+ceammc/rtree->list	convert OpenMusic-like rhythm tree to list of fractions
+rtree->list	convert OpenMusic-like rhythm tree to list of fractions
 set.contains	check if specified element is in set
 set.diff	difference between two sets
 set.equal	checks if two sets are equal (contains same elements)

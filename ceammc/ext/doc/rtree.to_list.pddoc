@@ -6,11 +6,11 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>convert OpenMusic-like rythm tree to list of fractions</description>
+            <description>convert OpenMusic-like rhythm tree to list of fractions</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>data</category>
-            <keywords>rythm rtree openmusic pattern</keywords>
+            <keywords>rhythm rtree openmusic pattern</keywords>
             <since>0.9.1</since>
             <aliases>
                 <alias>ceammc/rtree-&gt;list</alias>
@@ -18,16 +18,16 @@
             </aliases>
         </meta>
         <info>
-            <par>Rythm tree is structure to define complex rythmic patterns</par>
+            <par>rhythm tree is structure to define complex rhythmic patterns</par>
             <par>Examples: (1 1 1) - triplet, (2 1) - swing</par>
         </info>
         <arguments>
             <argument name="DUR" type="float">total pattern duration</argument>
-            <argument name="RTREE" type="atom">rythm tree</argument>
+            <argument name="RTREE" type="atom">rhythm tree</argument>
         </arguments>
         <properties>
             <property name="@dur" type="float" default="1">total pattern duration</property>
-            <property name="@rtree" type="atom" default="()">rythm tree. (MList)</property>
+            <property name="@rtree" type="atom" default="()">rhythm tree. (MList)</property>
         </properties>
         <inlets>
             <inlet>
