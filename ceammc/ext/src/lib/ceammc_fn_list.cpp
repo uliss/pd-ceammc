@@ -692,8 +692,6 @@ namespace list {
         if (!nbits)
             return res;
 
-//        bits.to
-
         res.reserve(nbits);
         for (int i = nbits - 1; i >= 0; i--)
             res.append(bits[i] ? 1 : 0);

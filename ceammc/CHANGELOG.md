@@ -9,6 +9,8 @@
   - array.readwrite~ - ordered array reader/writer (read first, then write)
   - conv.char2morse - single character to morse code converter
   - proto.morse - morse encoder with specified speed and other settings
+- new object inlets:
+  - metro.seq - second inlet added to set sequence pattern
 - new init argument functions:
   - hexbeat(HEX) function added - expands to list of 1 and 0
 

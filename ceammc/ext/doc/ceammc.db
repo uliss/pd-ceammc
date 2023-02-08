@@ -481,7 +481,7 @@ math.trunc~		~		~
 matrix~,ceammc/matrix~		?		?
 metro.pattern		.		..
 metro.random		..		.
-metro.seq		.		.
+metro.seq		..		.
 midi.arp		..		..
 midi.cc		.		.
 midi.clock		.		..

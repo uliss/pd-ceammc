@@ -1,10 +1,9 @@
 #include "metro_seq.h"
 #include "ceammc_factory.h"
-#include "ceammc_property_callback.h"
 
-static Atom toDigit(const Atom& l)
+static Atom toDigit(const Atom& a)
 {
-    return Atom(l.asFloat() == 0 ? 0.f : 1.f);
+    return Atom(a.asFloat() == 0 ? 0.f : 1.f);
 }
 
 MetroSeq::MetroSeq(const PdArgs& a)
@@ -13,6 +12,7 @@ MetroSeq::MetroSeq(const PdArgs& a)
     , interval_(0)
     , current_(0)
 {
+    createInlet();
     createOutlet();
 
     interval_ = new FloatProperty("@interval", 0);
@@ -37,15 +37,7 @@ MetroSeq::MetroSeq(const PdArgs& a)
     createCbListProperty(
         "@pattern",
         [this]() -> AtomList { return pattern_; },
-        [this](const AtomListView& lv) {
-            if (lv.empty())
-                return false;
-            else {
-                pattern_.clear();
-                lv.map(toDigit, pattern_);
-                return true;
-            }
-        })
+        [this](const AtomListView& lv) { return setPattern(lv); })
         ->setArgIndex(1);
 }
 
@@ -63,6 +55,11 @@ void MetroSeq::onFloat(t_float f)
     }
 }
 
+void MetroSeq::onInlet(size_t n, const AtomListView& lv)
+{
+    setPattern(lv);
+}
+
 void MetroSeq::clockTick()
 {
     if (current_ >= pattern_.size()) {
@@ -76,6 +73,17 @@ void MetroSeq::clockTick()
     clock_.delay(interval_->value());
 
     current_ = (current_ + 1) % pattern_.size();
+}
+
+bool MetroSeq::setPattern(const AtomListView& lv)
+{
+    if (lv.empty()) {
+        return false;
+    } else {
+        pattern_.clear();
+        lv.map(toDigit, pattern_);
+        return true;
+    }
 }
 
 void setup_metro_seq()

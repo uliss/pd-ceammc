@@ -16,7 +16,12 @@ public:
     MetroSeq(const PdArgs& a);
 
     void onFloat(t_float f) override;
+    void onInlet(size_t n, const AtomListView& lv) override;
+
     void clockTick();
+
+private:
+    bool setPattern(const AtomListView& lv);
 };
 
 void setup_metro_seq();

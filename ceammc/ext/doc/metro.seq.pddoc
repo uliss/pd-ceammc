@@ -38,6 +38,9 @@
             <inlet>
                 <xinfo on="float">starts (on 1) or stops (on 0) metro</xinfo>
             </inlet>
+            <inlet>
+                <xinfo on="list">set new pattern</xinfo>
+            </inlet>
         </inlets>
         <outlets>
             <outlet>outputs *bang*</outlet>
@@ -51,8 +54,8 @@
 |
 [msg @pattern]
 |
-|  [T]
-|  |
+|  [T]          [1 0 1(
+|  |            |.
 [metro.seq 100 1 0 0 1]
 |
 [click~]

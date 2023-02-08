@@ -24,7 +24,6 @@ array.plot	array data plotter
 array.plot~	plot signal on specified array
 array.resample	array resampler
 array.r	array resampler
-array.risset_rhythm~	Risset Rhythm: accelerando or ritardando
 array.rms	calculates root mean square value for array
 array.set	set array content from list
 ceammc/list->array	set array content from list
