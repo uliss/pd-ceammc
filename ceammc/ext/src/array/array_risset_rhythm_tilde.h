@@ -11,13 +11,13 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef ARRAY_RISSET_RYTHM_TILDE_H
-#define ARRAY_RISSET_RYTHM_TILDE_H
+#ifndef ARRAY_RISSET_RHYTHM_TILDE_H
+#define ARRAY_RISSET_RHYTHM_TILDE_H
 
 #include "array_base.h"
 using namespace ceammc;
 
-class ArrayRissetRythmTilde : public ArraySoundBase {
+class ArrayRissetRhythmTilde : public ArraySoundBase {
     size_t T_;
     t_sample tl0_, tl1_, tl2_, tl3_, tl4_, te_;
     IntProperty* bandwidth_;
@@ -25,13 +25,13 @@ class ArrayRissetRythmTilde : public ArraySoundBase {
     bool run_;
 
 public:
-    ArrayRissetRythmTilde(const PdArgs& args);
+    ArrayRissetRhythmTilde(const PdArgs& args);
 
     void onFloat(t_float f) override;
     void setupDSP(t_signal** sp) override;
     void processBlock(const t_sample** in, t_sample** out) override;
 };
 
-void setup_array_risset_rythm_tilde();
+void setup_array_risset_rhythm_tilde();
 
-#endif // ARRAY_RISSET_RYTHM_TILDE_H
+#endif // ARRAY_RISSET_RHYTHM_TILDE_H

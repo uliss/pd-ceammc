@@ -759,6 +759,6 @@ set(DOC_FILES
     xfade2~
     xfade~
     z~
-#    array.risset_rythm~
+#    array.risset_rhythm~
 #    proto.midi.casio
 )

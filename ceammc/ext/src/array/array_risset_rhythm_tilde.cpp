@@ -11,11 +11,11 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "array_risset_rythm_tilde.h"
+#include "array_risset_rhythm_tilde.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 
-ArrayRissetRythmTilde::ArrayRissetRythmTilde(const PdArgs& args)
+ArrayRissetRhythmTilde::ArrayRissetRhythmTilde(const PdArgs& args)
     : ArraySoundBase(args)
     , T_(0)
     , te_(0)
@@ -32,12 +32,12 @@ ArrayRissetRythmTilde::ArrayRissetRythmTilde(const PdArgs& args)
     createSignalOutlet();
 }
 
-void ArrayRissetRythmTilde::onFloat(t_float f)
+void ArrayRissetRhythmTilde::onFloat(t_float f)
 {
     run_ = (f > 0);
 }
 
-void ArrayRissetRythmTilde::setupDSP(t_signal** sp)
+void ArrayRissetRhythmTilde::setupDSP(t_signal** sp)
 {
     ArraySoundBase::setupDSP(sp);
 
@@ -55,7 +55,7 @@ void ArrayRissetRythmTilde::setupDSP(t_signal** sp)
     }
 }
 
-void ArrayRissetRythmTilde::processBlock(const t_sample** in, t_sample** out)
+void ArrayRissetRhythmTilde::processBlock(const t_sample** in, t_sample** out)
 {
     const auto bs = blockSize();
 
@@ -118,7 +118,7 @@ void ArrayRissetRythmTilde::processBlock(const t_sample** in, t_sample** out)
     te_ += bs;
 }
 
-void setup_array_risset_rythm_tilde()
+void setup_array_risset_rhythm_tilde()
 {
-    SoundExternalFactory<ArrayRissetRythmTilde> obj("array.risset_rythm~", OBJECT_FACTORY_DEFAULT);
+    SoundExternalFactory<ArrayRissetRhythmTilde> obj("array.risset_rhythm~", OBJECT_FACTORY_DEFAULT);
 }

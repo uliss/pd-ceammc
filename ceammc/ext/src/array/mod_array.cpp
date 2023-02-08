@@ -27,7 +27,7 @@ void setup_array_plot();
 void setup_array_plot_tilde();
 void setup_array_readwrite_tilde();
 void setup_array_resample();
-void setup_array_risset_rythm_tilde();
+void setup_array_risset_rhythm_tilde();
 void setup_array_s2p();
 void setup_array_tramp_tilde();
 void setup_plot_geomspace_tilde();
@@ -56,7 +56,7 @@ void ceammc_array_setup()
     setup_array_plot_tilde();
     setup_array_readwrite_tilde();
     setup_array_resample();
-    setup_array_risset_rythm_tilde();
+    setup_array_risset_rhythm_tilde();
     setup_array_rms();
     setup_array_s2p();
     setup_array_set();
