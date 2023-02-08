@@ -1,10 +1,10 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 461 50 cnv 1 304 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 461 50 Risset Rythm: accelerando or ritardando;
-#X obj 1 1 cnv 5 765 40 empty empty array.risset_rythm~ 20 20 0 20
+#X obj 453 50 cnv 1 312 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 453 50 Risset Rhythm: accelerando or ritardando;
+#X obj 1 1 cnv 5 765 40 empty empty array.risset_rhythm~ 20 20 0 20
 -104026 -4096 0;
-#X obj 602 11 array.risset_rythm~;
+#X obj 594 11 array.risset_rhythm~;
 #X obj 210 80 cnv 1 555 35 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 not finished yet;
 #X obj 50 143 loadmsg load %CEAMMC%/guitar1.wav to ARR @resize;
@@ -15,7 +15,7 @@
 #X obj 174 201 openpanel;
 #X obj 50 230 snd.file;
 #X obj 50 259 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 50 287 array.risset_rythm~ ARR;
+#X obj 50 287 array.risset_rhythm~ ARR;
 #X obj 50 316 ui.hgain~;
 #X obj 222 316 ui.dsp~;
 #X obj 50 345 dac~;
@@ -42,15 +42,15 @@
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title array @url ceammc.array-help.pd;
 #X obj 1 606 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 609 library: ceammc v0.9.4;
+#X text 10 609 library: ceammc v0.9.6;
 #N canvas 10 628 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.4;
+#X text 120 32 0.9.6;
 #X text 10 54 object:;
-#X text 120 54 array.risset_rythm~;
+#X text 120 54 array.risset_rhythm~;
 #X text 10 76 category:;
 #X text 120 76 array;
 #X text 10 98 since:;
@@ -60,7 +60,7 @@
 #X text 10 142 license:;
 #X text 120 142 GPL3 or later;
 #X text 10 164 keywords:;
-#X text 120 164 array \, risset \, rythm;
+#X text 120 164 array \, risset \, rhythm;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pure-data @url
 https://github.com/uliss/pure-data;

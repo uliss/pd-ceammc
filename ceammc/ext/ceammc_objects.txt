@@ -57,9 +57,11 @@ array.plot
 array.plot~
 array.p~
 array.r
+array.readwrite~
 array.resample
-array.risset_rythm~
+array.risset_rhythm~
 array.rms
+array.rw~
 array.s->p
 array.s2p
 array.sample->phase
@@ -68,6 +70,7 @@ array.stddev
 array.stretch
 array.sum
 array.sum2
+array.tramp~
 array.variance
 array.vplay
 array.window
@@ -132,6 +135,7 @@ ceammc/carg~
 ceammc/cc->amp
 ceammc/cdiv~
 ceammc/cexp~
+ceammc/char->morse
 ceammc/click~
 ceammc/clone:
 ceammc/cmul~
@@ -269,6 +273,7 @@ chaos.jong
 chaos.logistic
 chaos.std0
 chaos.std0~
+char->morse
 click~
 clone:
 cmul~
@@ -283,6 +288,7 @@ conv.bpm2ms
 conv.bpm2sec
 conv.car2pol
 conv.cc2amp
+conv.char2morse
 conv.dbfs2amp
 conv.dbfs2amp~
 conv.degree2key
@@ -981,6 +987,7 @@ proto.midi.casio
 proto.midi.cc
 proto.midi.sysex
 proto.moppy
+proto.morse
 proto.mpv
 proto.sp.alpaca
 proto.vlc

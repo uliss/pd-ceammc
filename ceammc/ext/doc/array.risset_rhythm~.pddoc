@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
-    <object name="array.risset_rythm~">
-        <title>array.risset_rythm~</title>
+    <object name="array.risset_rhythm~">
+        <title>array.risset_rhythm~</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
@@ -39,7 +39,7 @@
 
 [T]
 |
-[array.risset_rythm~ ARR]
+[array.risset_rhythm~ ARR]
 |
 [ui.hgain~]       [ui.dsp~]
 |\

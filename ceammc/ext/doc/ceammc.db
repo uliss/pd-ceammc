@@ -21,6 +21,7 @@ array.play~,array.p~		.		~..
 array.plot		..		.
 array.plot~		~.		-
 array.resample,array.r		.		.
+array.risset_rhythm~		.		.
 array.rms		.		.
 array.s2p,array.s->p,array.sample->phase		.		.
 array.set,ceammc/list->array,list->array		.		-
