@@ -95,4 +95,5 @@ void setup_metro_seq()
     obj.setKeywords({ "metro", "sequencer" });
     obj.setCategory("base");
     obj.setSinceVersion(0, 5);
+    obj.setXletsInfo({ "float: 1|0 to start or stop metro", "list: set new pattern" }, { "bang" });
 }
