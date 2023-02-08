@@ -37,7 +37,7 @@ inline int int_version(int maj, int min, int fix)
 void ceammc_info_message()
 {
     post("\nCEAMMC library\n"
-         "       Centre for Electroacoustic Music Moscow Conservatory, © 2016-2022\n"
+         "       Centre for Electroacoustic Music Moscow Conservatory, © 2016-2023\n"
          "       authors: Serge Poltavsky and Alex Nadzharov\n"
          "       arch: %d-bit\n"
          "       precision: %s\n"
@@ -45,9 +45,9 @@ void ceammc_info_message()
          "       version: %s\n"
          "       url: %s\n"
 #ifdef PD_INSTANCE
-         "        pd instance: true\n"
+         "       pd instance: true\n"
 #else
-         "        pd instance: false\n"
+         "       pd instance: false\n"
 #endif
          "       license: GPL-3\n"
          "       build date: '%s'\n",
