@@ -46,4 +46,7 @@ void setup_array_s2p()
     obj.addAlias("array.sample->phase");
     obj.setXletsInfo({ "float: sample position in array" },
         { "float: position in \\[0..1\\] range" });
+
+    obj.setDescription("convert sample position to phase range [0..1]");
+    obj.setCategory("conv");
 }

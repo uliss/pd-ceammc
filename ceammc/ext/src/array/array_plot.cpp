@@ -317,4 +317,7 @@ void setup_array_plot()
                          "bang: plot samples\n"
                          "int: resize array and plot samples" },
         { "bang: on done" });
+
+    obj.setDescription("array data plotter");
+    obj.setCategory("array");
 }

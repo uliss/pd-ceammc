@@ -327,4 +327,7 @@ void setup_array_vline_play()
     obj.addMethod("play", &ArrayVlinePlay::m_play);
     obj.addMethod("stop", &ArrayVlinePlay::m_stop);
     obj.addMethod("range", &ArrayVlinePlay::m_range);
+
+    obj.setDescription("simple array player for using with vline~");
+    obj.setCategory("array");
 }

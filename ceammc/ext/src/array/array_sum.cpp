@@ -35,4 +35,7 @@ void ArraySum::onBang()
 void setup_array_sum()
 {
     ObjectFactory<ArraySum> obj("array.sum");
+
+    obj.setDescription("calculates sum of array elements");
+    obj.setCategory("array");
 }

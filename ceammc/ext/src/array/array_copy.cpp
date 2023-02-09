@@ -177,4 +177,7 @@ void setup_array_copy()
 {
     ObjectFactory<ArrayCopy> obj("array.copy");
     obj.addMethod("copy", &ArrayCopy::m_copy);
+
+    obj.setDescription("copy samples from one array to another");
+    obj.setCategory("array");
 }

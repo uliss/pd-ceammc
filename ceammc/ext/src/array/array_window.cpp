@@ -219,4 +219,7 @@ void setup_array_window()
     obj.addMethod("blackman-harris", &ArrayWindow::m_blackman_harris);
     obj.addMethod("flattop", &ArrayWindow::m_flattop);
     obj.addMethod("gauss", &ArrayWindow::m_gauss);
+
+    obj.setDescription("fill array with window");
+    obj.setCategory("array");
 }

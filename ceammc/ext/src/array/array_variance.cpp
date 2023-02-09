@@ -46,4 +46,7 @@ void ArrayVariance::onBang()
 void setup_array_variance()
 {
     ObjectFactory<ArrayVariance> obj("array.variance");
+
+    obj.setDescription("calculates variance of array values");
+    obj.setCategory("array");
 }

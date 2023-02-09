@@ -44,4 +44,7 @@ void setup_array_p2s()
     ObjectFactory<ArrayPhaseToSample> obj("array.p2s");
     obj.addAlias("array.p->s");
     obj.addAlias("array.phase->sample");
+
+    obj.setDescription("convert array phase [0..1] to sample position");
+    obj.setCategory("conv");
 }

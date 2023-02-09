@@ -346,4 +346,7 @@ void setup_array_fill()
     obj.addMethod("pulse", &ArrayFill::m_pulse);
     obj.addMethod("saw", &ArrayFill::m_saw);
     obj.addMethod("tri", &ArrayFill::m_tri);
+
+    obj.setDescription("fill array with single value or pattern");
+    obj.setCategory("array");
 }

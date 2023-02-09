@@ -121,4 +121,7 @@ void ArrayRissetRhythmTilde::processBlock(const t_sample** in, t_sample** out)
 void setup_array_risset_rhythm_tilde()
 {
     SoundExternalFactory<ArrayRissetRhythmTilde> obj("array.risset_rhythm~", OBJECT_FACTORY_DEFAULT);
+
+    obj.setDescription("Risset Rhythm: accelerando or ritardando");
+    obj.setCategory("array");
 }

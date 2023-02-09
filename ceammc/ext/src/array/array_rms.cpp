@@ -43,4 +43,7 @@ void ArrayRMS::onBang()
 void setup_array_rms()
 {
     ObjectFactory<ArrayRMS> obj("array.rms");
+
+    obj.setDescription("calculates root mean square value for array");
+    obj.setCategory("array");
 }

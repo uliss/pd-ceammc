@@ -269,4 +269,7 @@ void setup_array_stretch()
     ObjectFactory<ArrayStretch> obj("array.stretch");
     soundtouch::SoundTouch st;
     LIB_DBG << "SoundTouch " << st.getVersionString();
+
+    obj.setDescription("array time-stretch, pitch-shift or rate-change");
+    obj.setCategory("array");
 }

@@ -38,4 +38,7 @@ void ArrayCircular::onFloat(t_float f)
 void setup_array_circular()
 {
     ObjectFactory<ArrayCircular> obj("array.circular");
+
+    obj.setDescription("array read/write as circular buffer");
+    obj.setCategory("array");
 }

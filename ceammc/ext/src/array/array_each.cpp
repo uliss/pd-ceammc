@@ -65,4 +65,7 @@ void ArrayEach::finish()
 void setup_array_each()
 {
     ObjectFactory<ArrayEach> obj("array.each");
+
+    obj.setDescription("process each array elements via side-chain");
+    obj.setCategory("array");
 }

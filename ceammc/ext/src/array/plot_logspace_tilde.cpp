@@ -120,4 +120,7 @@ void PlotLogTilde::processBlock(const t_sample** in, t_sample** out)
 void setup_plot_logspace_tilde()
 {
     SoundExternalFactory<PlotLogTilde> obj("plot.logspace~", OBJECT_FACTORY_DEFAULT);
+
+    obj.setDescription("outputs numbers spaced evenly on a log scale");
+    obj.setCategory("array");
 }

@@ -73,4 +73,7 @@ void ArrayDo::finish()
 void setup_array_do()
 {
     ObjectFactory<ArrayDo> obj("array.do");
+
+    obj.setDescription("iterate and modify array content via side-chain");
+    obj.setCategory("array");
 }

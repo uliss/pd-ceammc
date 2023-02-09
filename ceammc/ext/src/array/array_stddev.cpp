@@ -49,4 +49,7 @@ void ArrayStdDeviation::onBang()
 void setup_array_stddev()
 {
     ObjectFactory<ArrayStdDeviation> obj("array.stddev");
+
+    obj.setDescription("calculates standard deviation for array values");
+    obj.setCategory("array");
 }

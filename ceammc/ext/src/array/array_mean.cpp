@@ -42,4 +42,7 @@ void ArrayMean::onBang()
 void setup_array_mean()
 {
     ObjectFactory<ArrayMean> obj("array.mean");
+
+    obj.setDescription("calculates array arithmetic mean value");
+    obj.setCategory("array");
 }

@@ -253,4 +253,7 @@ void setup_array_play()
     obj.addMethod("play", &ArrayPlayTilde::m_play);
     obj.addMethod("pause", &ArrayPlayTilde::m_pause);
     obj.addMethod("stop", &ArrayPlayTilde::m_stop);
+
+    obj.setDescription("array player with variable speed and amplitude");
+    obj.setCategory("array");
 }

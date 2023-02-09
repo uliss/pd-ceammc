@@ -121,4 +121,7 @@ void PlotResponseTilde::processBlock(const t_sample** in, t_sample** out)
 void setup_plot_response_tilde()
 {
     SoundExternalFactory<PlotResponseTilde> obj("plot.response~");
+
+    obj.setDescription("output amp/phase freq response to impulse");
+    obj.setCategory("array");
 }

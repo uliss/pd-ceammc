@@ -245,4 +245,7 @@ void setup_array_plot_tilde()
                          "bang: plot samples\n"
                          "int: resize array and plot samples" },
         { "" });
+
+    obj.setDescription("plot signal on specified array");
+    obj.setCategory("array");
 }
