@@ -81,4 +81,5 @@ void setup_prop_set()
     obj.addOutletInfo("connect to target objects");
 
     obj.setDescription("set property for connected object/subpatch/abstraction");
+    obj.setCategory("property");
 }

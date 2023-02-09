@@ -195,4 +195,5 @@ void setup_patch_props()
     obj.addMethod("default", &PatchProps::m_default);
 
     obj.setDescription("patch properties manager");
+    obj.setCategory("property");
 }

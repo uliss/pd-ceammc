@@ -233,4 +233,5 @@ void setup_prop_random()
     obj.parsePropsMode(PdArgs::PARSE_NONE);
 
     obj.setDescription("property randomizer");
+    obj.setCategory("property");
 }

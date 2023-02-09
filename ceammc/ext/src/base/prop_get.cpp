@@ -182,4 +182,5 @@ void setup_prop_get()
     obj.noArgsAndPropsParse();
 
     obj.setDescription("get property from connected object/subpatch/abstraction");
+    obj.setCategory("property");
 }

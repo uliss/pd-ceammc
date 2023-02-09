@@ -66,4 +66,5 @@ void setup_base_sync()
     ObjectFactory<BaseSync> obj("sync", OBJECT_FACTORY_NO_DEFAULT_INLET);
 
     obj.setDescription("value synchronization");
+    obj.setCategory("base");
 }

@@ -171,4 +171,5 @@ void setup_base_log()
     obj.setXletsInfo({ "input", "1: to enable logging, 0 to disable" }, {});
 
     obj.setDescription("advanced data logger");
+    obj.setCategory("base");
 }

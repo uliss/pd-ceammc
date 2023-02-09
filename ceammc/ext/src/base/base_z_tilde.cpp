@@ -53,4 +53,5 @@ void setup_base_z_tilde()
     obj.setXletsInfo({ "signal: input", "int: delay in samples" }, { "signal: output" });
 
     obj.setDescription("sample delay");
+    obj.setCategory("base");
 }

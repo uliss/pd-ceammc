@@ -144,4 +144,5 @@ void setup_base_spring()
     obj.setXletsInfo({ "float: in value", "float: set target value" }, { "float: out value", "bang: on done" });
 
     obj.setDescription("float value \"spring\"");
+    obj.setCategory("base");
 }

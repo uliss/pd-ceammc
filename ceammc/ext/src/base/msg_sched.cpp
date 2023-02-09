@@ -96,4 +96,5 @@ void setup_msg_sched()
     InletProxy<MsgSched>::set_method_callback(gensym("flush"), &MsgSched::proxy_flush);
 
     obj.setDescription("message scheduler");
+    obj.setCategory("msg");
 }

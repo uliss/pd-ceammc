@@ -61,4 +61,5 @@ void setup_base_canvas_active()
     obj.addMethod(".active", &CanvasActive::m_active);
 
     obj.setDescription("checks if canvas window is on top and active");
+    obj.setCategory("patch");
 }
