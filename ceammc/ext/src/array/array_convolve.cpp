@@ -119,4 +119,5 @@ void setup_array_convolve()
 
     obj.setDescription("array FFT convolution");
     obj.setCategory("array");
+    obj.setKeywords({"array", "fft", "convolution"});
 }

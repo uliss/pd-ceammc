@@ -248,4 +248,5 @@ void setup_array_plot_tilde()
 
     obj.setDescription("plot signal on specified array");
     obj.setCategory("array");
+    obj.setKeywords({"array", "plot"});
 }

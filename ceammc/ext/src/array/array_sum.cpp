@@ -38,4 +38,5 @@ void setup_array_sum()
 
     obj.setDescription("calculates sum of array elements");
     obj.setCategory("array");
+    obj.setKeywords({"array", "sum"});
 }

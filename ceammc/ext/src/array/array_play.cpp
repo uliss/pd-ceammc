@@ -256,4 +256,5 @@ void setup_array_play()
 
     obj.setDescription("array player with variable speed and amplitude");
     obj.setCategory("array");
+    obj.setKeywords({"array", "play"});
 }

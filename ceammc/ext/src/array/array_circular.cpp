@@ -41,4 +41,5 @@ void setup_array_circular()
 
     obj.setDescription("array read/write as circular buffer");
     obj.setCategory("array");
+    obj.setKeywords({"array", "circular"});
 }

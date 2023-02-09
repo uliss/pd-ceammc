@@ -47,4 +47,5 @@ void setup_array_p2s()
 
     obj.setDescription("convert array phase [0..1] to sample position");
     obj.setCategory("conv");
+    obj.setKeywords({"array", "phase", "sample"});
 }

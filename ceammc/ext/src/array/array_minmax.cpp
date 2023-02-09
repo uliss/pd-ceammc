@@ -59,4 +59,5 @@ void setup_array_minmax()
 
     obj.setDescription("find array min and max element value");
     obj.setCategory("array");
+    obj.setKeywords({"array", "minmax"});
 }

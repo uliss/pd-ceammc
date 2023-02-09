@@ -68,4 +68,5 @@ void setup_array_each()
 
     obj.setDescription("process each array elements via side-chain");
     obj.setCategory("array");
+    obj.setKeywords({"array", "each"});
 }

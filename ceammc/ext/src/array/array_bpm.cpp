@@ -40,4 +40,5 @@ void setup_array_bpm()
 
     obj.setDescription("BPM calculator");
     obj.setCategory("array");
+    obj.setKeywords({"array", "bpm"});
 }

@@ -349,4 +349,5 @@ void setup_array_fill()
 
     obj.setDescription("fill array with single value or pattern");
     obj.setCategory("array");
+    obj.setKeywords({"array", "fill"});
 }

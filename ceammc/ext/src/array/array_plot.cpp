@@ -320,4 +320,5 @@ void setup_array_plot()
 
     obj.setDescription("array data plotter");
     obj.setCategory("array");
+    obj.setKeywords({"array", "plot"});
 }

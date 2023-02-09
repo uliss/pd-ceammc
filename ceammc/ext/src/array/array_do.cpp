@@ -76,4 +76,5 @@ void setup_array_do()
 
     obj.setDescription("iterate and modify array content via side-chain");
     obj.setCategory("array");
+    obj.setKeywords({"array", "do"});
 }

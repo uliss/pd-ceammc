@@ -222,4 +222,5 @@ void setup_array_window()
 
     obj.setDescription("fill array with window");
     obj.setCategory("array");
+    obj.setKeywords({"array", "window"});
 }

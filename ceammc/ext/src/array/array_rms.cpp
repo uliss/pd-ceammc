@@ -46,4 +46,5 @@ void setup_array_rms()
 
     obj.setDescription("calculates root mean square value for array");
     obj.setCategory("array");
+    obj.setKeywords({"array", "mean", "rms", "square"});
 }

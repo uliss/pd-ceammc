@@ -180,4 +180,5 @@ void setup_array_copy()
 
     obj.setDescription("copy samples from one array to another");
     obj.setCategory("array");
+    obj.setKeywords({"array", "copy"});
 }

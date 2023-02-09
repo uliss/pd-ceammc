@@ -124,4 +124,5 @@ void setup_array_risset_rhythm_tilde()
 
     obj.setDescription("Risset Rhythm: accelerando or ritardando");
     obj.setCategory("array");
+    obj.setKeywords({"array", "risset", "rhythm"});
 }

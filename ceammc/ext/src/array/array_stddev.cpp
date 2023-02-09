@@ -52,4 +52,5 @@ void setup_array_stddev()
 
     obj.setDescription("calculates standard deviation for array values");
     obj.setCategory("array");
+    obj.setKeywords({"array", "deviation"});
 }

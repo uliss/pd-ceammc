@@ -124,4 +124,5 @@ void setup_plot_response_tilde()
 
     obj.setDescription("output amp/phase freq response to impulse");
     obj.setCategory("array");
+    obj.setKeywords({"array", "histogram"});
 }

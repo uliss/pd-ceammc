@@ -57,4 +57,5 @@ void setup_array_set()
 
     obj.setDescription("set array content from list");
     obj.setCategory("array");
+    obj.setKeywords({"array", "set"});
 }

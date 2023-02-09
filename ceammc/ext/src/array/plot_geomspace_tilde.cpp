@@ -121,4 +121,5 @@ void setup_plot_geomspace_tilde()
 
     obj.setDescription("outputs numbers spaced evenly on a log scale (a geometric progression)");
     obj.setCategory("array");
+    obj.setKeywords({"array", "geom", "log", "scale"});
 }

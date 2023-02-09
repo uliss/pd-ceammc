@@ -330,4 +330,5 @@ void setup_array_vline_play()
 
     obj.setDescription("simple array player for using with vline~");
     obj.setCategory("array");
+    obj.setKeywords({"array", "play", "vline"});
 }

@@ -97,4 +97,5 @@ void setup_array_hist()
 
     obj.setDescription("calculates array histogram");
     obj.setCategory("array");
+    obj.setKeywords({"array", "histogram"});
 }

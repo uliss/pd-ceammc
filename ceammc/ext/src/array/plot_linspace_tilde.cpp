@@ -101,4 +101,5 @@ void setup_plot_linspace_tilde()
 
     obj.setDescription("outputs numbers spaced evenly spaced over a specified interval");
     obj.setCategory("array");
+    obj.setKeywords({"array", "linear", "scale"});
 }

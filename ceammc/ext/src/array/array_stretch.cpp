@@ -272,4 +272,5 @@ void setup_array_stretch()
 
     obj.setDescription("array time-stretch, pitch-shift or rate-change");
     obj.setCategory("array");
+    obj.setKeywords({"array", "stretch"});
 }

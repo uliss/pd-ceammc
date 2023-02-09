@@ -49,4 +49,5 @@ void setup_array_s2p()
 
     obj.setDescription("convert sample position to phase range [0..1]");
     obj.setCategory("conv");
+    obj.setKeywords({"array", "phase", "sample"});
 }

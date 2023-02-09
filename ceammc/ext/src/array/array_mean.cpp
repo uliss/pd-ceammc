@@ -45,4 +45,5 @@ void setup_array_mean()
 
     obj.setDescription("calculates array arithmetic mean value");
     obj.setCategory("array");
+    obj.setKeywords({"array", "mean"});
 }

@@ -571,4 +571,5 @@ void setup_array_grainer()
 
     obj.setDescription("array granulator");
     obj.setCategory("array");
+    obj.setKeywords({"array", "grain", "particle", "granular"});
 }

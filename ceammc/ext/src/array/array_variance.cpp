@@ -49,4 +49,5 @@ void setup_array_variance()
 
     obj.setDescription("calculates variance of array values");
     obj.setCategory("array");
+    obj.setKeywords({"array", "deviation", "variance"});
 }

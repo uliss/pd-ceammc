@@ -146,4 +146,5 @@ void setup_plot_hist_tilde()
 
     obj.setDescription("calculate and output signal histogram");
     obj.setCategory("array");
+    obj.setKeywords({"array", "histogram"});
 }

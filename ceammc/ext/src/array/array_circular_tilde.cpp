@@ -132,4 +132,5 @@ void setup_array_circular_tilde()
 
     obj.setDescription("circular buffer for arrays");
     obj.setCategory("array");
+    obj.setKeywords({"array", "circular", "ring"});
 }
