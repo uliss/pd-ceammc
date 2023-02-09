@@ -85,6 +85,16 @@
             <method name="+ STEP">moves several steps forward on a loop (single mode only)</method>
             <method name="- STEP">moves several step backwards on a loop (single mode
             only)</method>
+            <!-- checklist mode -->
+            <method name="rotate">left rotate (checklist mode only) 
+            <param name="STEPS" required="true" type="int">number of steps</param></method>
+            <method name="hexbeat">set hexbeat pattern (checklist mode only) 
+            <param name="HEXSTR" required="true" type="symbol">hex string. For example, 0xF1 will
+            set 1 1 1 1 0 0 0 1 pattern</param></method>
+            <method name="euclid">set euclid pattern (checklist mode only) 
+            <param name="BEATS" required="true" type="int">requested number of beats</param>
+            <param name="OFFSET" required="false" type="int">pattern offset (rotation to the
+            right)</param></method>
             <!-- presets -->
             <method name="load">loads specified preset 
             <param type="int" name="IDX" required="true">preset index</param></method>
@@ -112,10 +122,11 @@
         <example>
             <pdascii>
 <![CDATA[
-[F]  [set 2(         [flip( [reset( [1 1 0 1 0 0 1(
+[F]  [set 2(         [flip( [reset( [1 1 0 1 0 0 1( [euclid 3 1 #a(
 |    |               |      |       |
-|    |               |      |       |
-[ui.radio ]          [ui.radio @mode 1]
+|    |               |      |       |  [rotate 1(   [hexbeat BE #b(
+|    |               |      |       |  |
+[ui.radio ]          [ui.radio*         #x]
 |                    |
 [F]                  [ui.dt]
 
@@ -125,6 +136,9 @@
 [ui.radio 4                        ]
 |
 [ui.dt]
+
+[X a->x]
+[X b->x]
 ]]>
             </pdascii>
         </example>

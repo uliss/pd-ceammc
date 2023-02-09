@@ -11,6 +11,10 @@
   - proto.morse - morse encoder with specified speed and other settings
 - new object inlets:
   - metro.seq - second inlet added to set sequence pattern
+- new object methods:
+  - euclid method added to ui.radio to set euclid pattern when in checklist mode
+  - hexbeat method added to ui.radio to set hexbeat pattern when in checklist mode
+  - rotate method added to ui.radio: rotation to the left in checklist mode
 - new init argument functions:
   - hexbeat(HEX) - expand hex to list of 1 and 0
   - rotate(N ...) - list rotation (N>0: to the left)

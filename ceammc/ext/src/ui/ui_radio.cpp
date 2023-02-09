@@ -1,7 +1,10 @@
 #include "ui_radio.h"
 #include "ceammc_convert.h"
+#include "ceammc_fn_list.h"
+#include "ceammc_numeric.h"
 #include "ceammc_preset.h"
 #include "ceammc_ui.h"
+#include "fmt/core.h"
 #include "ui_radio.tcl.h"
 
 #include <cassert>
@@ -355,6 +358,63 @@ void UIRadio::m_minus(t_float f)
     redrawItems();
 }
 
+void UIRadio::m_hexbeat(const AtomListView& lv)
+{
+    if (!prop_checklist_mode_) {
+        UI_ERR << "check list mode required";
+        return;
+    }
+
+    if (!lv.isSymbol()) {
+        UI_ERR << "hex symbol expexted, got: " << lv;
+        return;
+    }
+
+    setListValue(list::hexbeat(lv.asSymbol()->s_name));
+    output();
+    redrawItems();
+}
+
+void UIRadio::m_euclid(const AtomListView& lv)
+{
+    if (!prop_checklist_mode_) {
+        UI_ERR << "check list mode required";
+        return;
+    }
+
+    if (lv.size() < 1 || lv.size() > 2) {
+        UI_ERR << fmt::format("usage: euclid(N ROTATE=0?)");
+        return;
+    }
+
+    auto nbeats = lv.intAt(0, -1);
+    if (nbeats < 0 || nbeats > prop_nitems_) {
+        UI_ERR << fmt::format("integer number of beats expected in [{}...{}] range, got: ", 0, prop_nitems_) << lv[0];
+        return;
+    }
+
+    auto rot = lv.intAt(1, 0);
+    if (!rot)
+        setListValue(list::bresenham(nbeats, prop_nitems_));
+    else
+        setListValue(list::rotate(list::bresenham(nbeats, prop_nitems_), -rot));
+
+    output();
+    redrawItems();
+}
+
+void UIRadio::m_rotate(t_float f)
+{
+    if (!prop_checklist_mode_) {
+        UI_ERR << "check list mode required";
+        return;
+    }
+
+    setListValue(list::rotate(listValue(), f));
+    output();
+    redrawItems();
+}
+
 void UIRadio::loadPreset(size_t idx)
 {
     if (prop_checklist_mode_) {
@@ -505,4 +565,7 @@ void UIRadio::setup()
     obj.addMethod("random", &UIRadio::m_random);
     obj.addMethod("reset", &UIRadio::m_reset);
     obj.addMethod("set", &UIRadio::p_setValue);
+    obj.addMethod("euclid", &UIRadio::m_euclid);
+    obj.addMethod("hexbeat", &UIRadio::m_hexbeat);
+    obj.addMethod("rotate", &UIRadio::m_rotate);
 }
