@@ -322,4 +322,23 @@ TEST_CASE("DataStringParser", "[core]")
         REQUIRE(parse("hexbeat(\"0x3\")") == LF(0, 0, 1, 1));
         REQUIRE(parse("hexbeat(\"4\")") == LF(0, 1, 0, 0));
     }
+
+    SECTION("shift()")
+    {
+        REQUIRE(parse("rotate()").empty());
+        REQUIRE(parse("rotate(1)").empty());
+        REQUIRE(parse("rotate(0 A)") == LA("A"));
+        REQUIRE(parse("rotate(1 A)") == LA("A"));
+        REQUIRE(parse("rotate(-1 A)") == LA("A"));
+        REQUIRE(parse("rotate(0 A B)") == LA("A", "B"));
+        REQUIRE(parse("rotate(1 A B)") == LA("B", "A"));
+        REQUIRE(parse("rotate(-1 A B)") == LA("B", "A"));
+        REQUIRE(parse("rotate(0 1 2 3)") == LF(1, 2, 3));
+        REQUIRE(parse("rotate(1 1 2 3)") == LF(2, 3, 1));
+        REQUIRE(parse("rotate(2 1 2 3)") == LF(3, 1, 2));
+        REQUIRE(parse("rotate(3 1 2 3)") == LF(1, 2, 3));
+        REQUIRE(parse("rotate(-1 1 2 3)") == LF(3, 1, 2));
+        REQUIRE(parse("rotate(-2 1 2 3)") == LF(2, 3, 1));
+        REQUIRE(parse("rotate(-3 1 2 3)") == LF(1, 2, 3));
+    }
 }

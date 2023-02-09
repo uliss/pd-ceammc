@@ -152,20 +152,21 @@ AtomList fn_reverse(const AtomListView& args)
     return res;
 }
 
-#define RTREE_FN_NAME "rtree"
-#define HEXBEAT_FN_NAME "hexbeat"
+#define FN_RTREE "rtree"
+#define FN_HEXBEAT "hexbeat"
+#define FN_ROTATE "rotate"
 
 AtomList fn_rhythm_tree(const AtomListView& args)
 {
     const bool ok = args.size() == 2 && args[0].isFloat() && args[1].isDataType(DataTypeMList::dataType);
     if (!ok) {
-        LIB_ERR << fmt::format(RTREE_FN_NAME "(): invalid arguments, usage: " RTREE_FN_NAME "(DUR MList), got: {}", to_string(args));
+        LIB_ERR << fmt::format(FN_RTREE "(): invalid arguments, usage: " FN_RTREE "(DUR MList), got: {}", to_string(args));
         return {};
     }
 
     const auto len = args[0].asT<t_float>();
     auto ml = args[1].asD<DataTypeMList>();
-    return rtree::rhythm_tree(len, ml, RTREE_FN_NAME "(): ", LIB_ERR);
+    return rtree::rhythm_tree(len, ml, FN_RTREE "(): ", LIB_ERR);
 }
 
 AtomList fn_euclid(const AtomListView& args)
@@ -200,11 +201,22 @@ AtomList fn_euclid(const AtomListView& args)
 AtomList fn_hexbeat(const AtomListView& args)
 {
     if (!args.isSymbol()) {
-        LIB_ERR << fmt::format(HEXBEAT_FN_NAME "(): usage " HEXBEAT_FN_NAME "(HEX)");
+        LIB_ERR << fmt::format(FN_HEXBEAT "(): usage " FN_HEXBEAT "(HEX)");
         return {};
     }
 
     return list::hexbeat(args[0].asT<t_symbol*>()->s_name);
+}
+
+AtomList fn_rotate(const AtomListView& args)
+{
+    const auto ok = args.size() > 1 && args[0].isFloat();
+    if (!ok) {
+        LIB_ERR << fmt::format(FN_ROTATE "(): usage " FN_ROTATE "(AMOUNT ARGS...)");
+        return {};
+    }
+
+    return list::rotate(args.subView(1), args[0].asFloat());
 }
 
 }
@@ -270,9 +282,10 @@ BuiltinFunctionMap::BuiltinFunctionMap()
     registerFn(gensym("amp2db"), fn_amp2db);
     registerFn(gensym("repeat"), fn_repeat);
     registerFn(gensym("reverse"), fn_reverse);
-    registerFn(gensym(RTREE_FN_NAME), fn_rhythm_tree);
+    registerFn(gensym(FN_RTREE), fn_rhythm_tree);
     registerFn(gensym("euclid"), fn_euclid);
-    registerFn(gensym(HEXBEAT_FN_NAME), fn_hexbeat);
+    registerFn(gensym(FN_HEXBEAT), fn_hexbeat);
+    registerFn(gensym(FN_ROTATE), fn_rotate);
 }
 
 BuiltinFunctionMap::~BuiltinFunctionMap()

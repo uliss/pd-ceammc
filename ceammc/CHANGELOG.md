@@ -12,7 +12,8 @@
 - new object inlets:
   - metro.seq - second inlet added to set sequence pattern
 - new init argument functions:
-  - hexbeat(HEX) function added - expands to list of 1 and 0
+  - hexbeat(HEX) expand hex to list of 1 and 0
+  - rotate(N ...) list rotation
 
 ### Changes:
 - array.risset_rythm~ renamed to array.risset_rhythm~
