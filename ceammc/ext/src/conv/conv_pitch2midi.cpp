@@ -73,4 +73,8 @@ void setup_conv_pitch2midi()
                        "String: SPN note\n"
                        "MList: list of SPN notes" },
         { "int: MIDI pitch 0..127 or -1 on rest" });
+
+    obj.setDescription("converts symbol pitch name to MIDI note number");
+    obj.setCategory("conv");
+    obj.setKeywords({"conv", "pitch", "midi"});
 }

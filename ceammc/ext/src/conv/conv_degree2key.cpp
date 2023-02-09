@@ -89,4 +89,8 @@ void setup_conv_degree2key()
     ObjectFactory<ConvDegree2Key> obj("conv.degree2key");
     obj.addAlias("degree->key");
     obj.addMethod("random", &ConvDegree2Key::m_random);
+
+    obj.setDescription("convert scale degree to key");
+    obj.setCategory("conv");
+    obj.setKeywords({"conv", "degree", "key", "modus"});
 }

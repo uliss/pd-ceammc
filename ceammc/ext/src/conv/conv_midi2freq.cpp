@@ -85,4 +85,8 @@ void setup_conv_midi2freq()
     ObjectFactory<Midi2Freq> obj("conv.midi2freq");
     obj.addAlias("midi->freq");
     obj.addAlias("m->f");
+
+    obj.setDescription("convert from midi pitch to frequency in hz (with various base A and temperament)");
+    obj.setCategory("conv");
+    obj.setKeywords({"conv", "freq", "midi"});
 }

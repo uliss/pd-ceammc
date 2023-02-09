@@ -105,4 +105,8 @@ void setup_conv_note2guido()
     obj.addAlias("note->guido");
 
     obj.addMethod("note", &ConvNote2Guido::m_note);
+
+    obj.setDescription("convert MIDI note to Guido notation");
+    obj.setCategory("conv");
+    obj.setKeywords({"conv", "guido", "midi"});
 }

@@ -25,4 +25,8 @@ void setup_conv_ms2bpm()
     obj.addAlias("ms->bpm");
 
     obj.setXletsInfo({ "float: period in ms" }, { "float: bpm" });
+
+    obj.setDescription("convert period in milliseconds to frequency in BPM");
+    obj.setCategory("conv");
+    obj.setKeywords({"conv", "time"});
 }

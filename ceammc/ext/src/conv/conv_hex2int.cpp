@@ -71,4 +71,8 @@ void setup_conv_hex2int()
     obj.addAlias("hex->int");
     obj.setInletsInfo({ "symbol or list of hex values" });
     obj.setOutletsInfo({ "int or list of ints" });
+
+    obj.setDescription("hex symbol to int value");
+    obj.setCategory("conv");
+    obj.setKeywords({"conv", "int", "hex"});
 }

@@ -65,4 +65,8 @@ void setup_conv_lin2lin()
     obj.addAlias("l->l");
 
     obj.setXletsInfo({ "float or list" }, { "list" });
+
+    obj.setDescription("convert from one linear range to another");
+    obj.setCategory("conv");
+    obj.setKeywords({"convert", "linear"});
 }

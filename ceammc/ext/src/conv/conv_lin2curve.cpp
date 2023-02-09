@@ -77,4 +77,8 @@ void setup_conv_lin2curve()
     obj.addAlias("lin->curve");
 
     obj.setXletsInfo({ "float or list" }, { "list" });
+
+    obj.setDescription("map linear to exponential range with 0 allowed.");
+    obj.setCategory("conv");
+    obj.setKeywords({"convert", "exponential", "curve"});
 }

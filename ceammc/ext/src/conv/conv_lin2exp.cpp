@@ -69,4 +69,8 @@ void setup_conv_lin2exp()
     obj.addAlias("lin->exp");
 
     obj.setXletsInfo({ "float or list" }, { "list" });
+
+    obj.setDescription("maps linear range to exponential range");
+    obj.setCategory("conv");
+    obj.setKeywords({"convert", "exponential"});
 }

@@ -40,4 +40,8 @@ void setup_conv_samp2sec()
 {
     ObjectFactory<SampleToSec> obj("conv.samp2sec");
     obj.addAlias("samp->sec");
+
+    obj.setDescription("convert samples to time according to samplerate");
+    obj.setCategory("conv");
+    obj.setKeywords({"conv", "samp"});
 }

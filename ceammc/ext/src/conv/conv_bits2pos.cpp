@@ -59,4 +59,8 @@ void setup_conv_bits2pos()
     ObjectFactory<ConvBits2Pos> obj("conv.bits2pos");
     obj.addAlias("bits->pos");
     obj.setXletsInfo({ "list: list of bits (0|1)" }, { "list: list of bit positions" });
+
+    obj.setDescription("convert list of bits to list of bit position");
+    obj.setCategory("conv");
+    obj.setKeywords({"conv", "bits", "position"});
 }

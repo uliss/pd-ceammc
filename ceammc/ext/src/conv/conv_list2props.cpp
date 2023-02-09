@@ -73,4 +73,8 @@ void setup_conv_list2props()
     ObjectFactory<ConvList2Props> obj("conv.list2props");
     obj.addAlias("list->props");
     obj.addAlias("any->props");
+
+    obj.setDescription("converts list to series of property messages");
+    obj.setCategory("conv");
+    obj.setKeywords({"conv", "properties"});
 }

@@ -92,4 +92,8 @@ void setup_conv_bits2bang()
     ObjectFactory<ConvBits2Bang> obj("conv.bits2bang");
     obj.addAlias("bits->bang");
     obj.setXletsInfo({ "list: bit list (0|1)" }, {});
+
+    obj.setDescription("convert list of bits to bang events");
+    obj.setCategory("conv");
+    obj.setKeywords({"conv", "bits", "bangs"});
 }

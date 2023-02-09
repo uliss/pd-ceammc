@@ -92,4 +92,8 @@ void setup_conv_sig2float()
     obj.setXletsInfo({ "signal: input", "float: set calc interval" }, { "float: sample value" });
 
     obj.useClick();
+
+    obj.setDescription("convert signal to floats");
+    obj.setCategory("conv");
+    obj.setKeywords({"conv", "signal", "float", "snapshot"});
 }

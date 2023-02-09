@@ -65,4 +65,8 @@ void setup_conv_ms2samp()
 
     SoundExternalFactory<MsToSampleTilde> obj1("conv.ms2samp~");
     obj1.addAlias("ms->samp~");
+
+    obj.setDescription("convert time in milliseconds to number of samples according to current samplerate");
+    obj.setCategory("conv");
+    obj.setKeywords({"conv", "samp", "ms"});
 }

@@ -122,4 +122,8 @@ void setup_conv_bits2note()
 
     ObjectFactory<ConvBits2Note> obj("conv.bits2note");
     obj.addAlias("bits->note");
+
+    obj.setDescription("convert list of bits to note events");
+    obj.setCategory("conv");
+    obj.setKeywords({"conv", "bits", "note", "poly"});
 }

@@ -40,4 +40,8 @@ void setup_conv_bpm2hz()
 {
     ObjectFactory<BpmToHz> obj("conv.bpm2hz");
     obj.addAlias("bpm->hz");
+
+    obj.setDescription("converts BPM to frequency in hertz");
+    obj.setCategory("conv");
+    obj.setKeywords({"conv", "time"});
 }

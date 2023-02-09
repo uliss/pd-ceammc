@@ -68,4 +68,8 @@ void setup_conv_amp2dbfs()
 
     SoundExternalFactory<Amp2dbfsTilde> obj1("conv.amp2dbfs~");
     obj1.addAlias("amp->dbfs~");
+
+    obj.setDescription("convert from amplitude to decibel full scale");
+    obj.setCategory("conv");
+    obj.setKeywords({"conv", "amp", "dbfs", "decibel"});
 }
