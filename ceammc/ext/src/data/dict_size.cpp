@@ -32,4 +32,5 @@ void setup_dict_size()
 
     obj.setDescription("dictionary size");
     obj.setCategory("data");
+    obj.setKeywords({"size", "dictionary"});
 }

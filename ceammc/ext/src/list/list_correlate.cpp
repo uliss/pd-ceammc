@@ -68,4 +68,5 @@ void setup_list_correlate()
 
     obj.setDescription("list cross-correlation");
     obj.setCategory("list");
+    obj.setKeywords({"list", "correlation", "cross"});
 }

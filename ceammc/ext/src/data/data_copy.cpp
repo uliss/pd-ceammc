@@ -45,4 +45,5 @@ void setup_data_copy()
 
     obj.setDescription("make copy for any data types: MList, Set etc...");
     obj.setCategory("data");
+    obj.setKeywords({"data", "copy"});
 }

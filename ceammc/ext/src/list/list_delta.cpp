@@ -84,4 +84,5 @@ void setup_list_delta()
 
     obj.setDescription("returns the difference between the current list of floats and the previous            one.");
     obj.setCategory("list");
+    obj.setKeywords({"list", "delta"});
 }

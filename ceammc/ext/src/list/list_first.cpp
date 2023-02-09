@@ -31,4 +31,5 @@ void setup_list_first()
 
     obj.setDescription("returns first list element");
     obj.setCategory("list");
+    obj.setKeywords({"list", "first"});
 }

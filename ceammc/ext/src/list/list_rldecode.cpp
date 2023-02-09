@@ -56,4 +56,5 @@ void setup_list_rldecode()
 
     obj.setDescription("Run-length list decoder (RLE)");
     obj.setCategory("list");
+    obj.setKeywords({"list", "rle", "decode"});
 }

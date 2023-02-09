@@ -29,4 +29,5 @@ void setup_local_list()
 
     obj.setDescription("local named list object");
     obj.setCategory("local");
+    obj.setKeywords({"list", "global"});
 }

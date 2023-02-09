@@ -56,4 +56,5 @@ void setup_set_equal()
 
     obj.setDescription("checks if two sets are equal (contains same elements)");
     obj.setCategory("data");
+    obj.setKeywords({"data", "equal", "set"});
 }

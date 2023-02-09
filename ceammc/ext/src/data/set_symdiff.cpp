@@ -48,4 +48,5 @@ void setup_set_symdiff()
 
     obj.setDescription("symmetric difference between two sets");
     obj.setCategory("data");
+    obj.setKeywords({"data", "symmetric", "difference", "set"});
 }

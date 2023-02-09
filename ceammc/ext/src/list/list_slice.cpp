@@ -54,4 +54,5 @@ void setup_list_slice()
 
     obj.setDescription("extract sublist");
     obj.setCategory("list");
+    obj.setKeywords({"list", "slice", "sublist"});
 }

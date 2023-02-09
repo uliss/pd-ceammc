@@ -11,4 +11,5 @@ void setup_local_int()
 
     obj.setDescription("canvas-scoped named integer variable");
     obj.setCategory("local");
+    obj.setKeywords({"int", "local"});
 }

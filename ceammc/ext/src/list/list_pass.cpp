@@ -86,4 +86,5 @@ void setup_list_pass()
 
     obj.setDescription("leave in list only specified elements");
     obj.setCategory("list");
+    obj.setKeywords({"list", "pass", "filter"});
 }

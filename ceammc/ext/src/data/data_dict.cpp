@@ -35,4 +35,5 @@ void setup_data_dict()
 
     obj.setDescription("dictionary container: store values by key");
     obj.setCategory("data");
+    obj.setKeywords({"data", "dictionary"});
 }

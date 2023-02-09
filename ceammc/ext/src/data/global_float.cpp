@@ -12,4 +12,5 @@ void setup_global_float()
 
     obj.setDescription("global named float object");
     obj.setCategory("global");
+    obj.setKeywords({"float", "global"});
 }

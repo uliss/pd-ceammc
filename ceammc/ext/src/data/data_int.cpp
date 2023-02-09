@@ -29,4 +29,5 @@ void setup_data_int()
 
     obj.setDescription("robust int object");
     obj.setCategory("data");
+    obj.setKeywords({"data", "int"});
 }

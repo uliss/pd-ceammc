@@ -28,4 +28,5 @@ void setup_global_list()
 
     obj.setDescription("global named list object");
     obj.setCategory("global");
+    obj.setKeywords({"list", "global"});
 }

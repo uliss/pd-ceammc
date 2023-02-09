@@ -56,4 +56,5 @@ void setup_dict_each()
 
     obj.setDescription("map each value in dict");
     obj.setCategory("data");
+    obj.setKeywords({"each", "iterate", "dictionary"});
 }

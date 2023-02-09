@@ -36,4 +36,5 @@ void setup_data_mlist()
 
     obj.setDescription("multidimensional list container");
     obj.setCategory("data");
+    obj.setKeywords({"data", "multilist"});
 }

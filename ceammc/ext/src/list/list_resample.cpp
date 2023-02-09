@@ -66,4 +66,5 @@ void setup_list_resample()
 
     obj.setDescription("resample list with specified ratio");
     obj.setCategory("list");
+    obj.setKeywords({"list"});
 }

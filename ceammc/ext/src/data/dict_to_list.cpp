@@ -41,4 +41,5 @@ void setup_dict_to_list()
 
     obj.setDescription("converts dictionary to plain list");
     obj.setCategory("data");
+    obj.setKeywords({"dictionary"});
 }

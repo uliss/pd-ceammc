@@ -86,4 +86,5 @@ void setup_list_reject()
 
     obj.setDescription("remove specified element from list");
     obj.setCategory("list");
+    obj.setKeywords({"list", "pass", "reject"});
 }

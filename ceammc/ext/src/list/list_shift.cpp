@@ -37,4 +37,5 @@ void setup_list_shift()
 
     obj.setDescription("shifts the contents of the list with linear interpolation");
     obj.setCategory("list");
+    obj.setKeywords({"list"});
 }

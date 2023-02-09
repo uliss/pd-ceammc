@@ -96,4 +96,5 @@ void setup_list_prepend()
 
     obj.setDescription("prepend atom or list before input list");
     obj.setCategory("list");
+    obj.setKeywords({"list", "prepend"});
 }

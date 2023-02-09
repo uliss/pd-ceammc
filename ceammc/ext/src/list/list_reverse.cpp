@@ -35,4 +35,5 @@ void setup_list_reverse()
 
     obj.setDescription("reverses the order of the elements in the list");
     obj.setCategory("list");
+    obj.setKeywords({"list", "reverse"});
 }

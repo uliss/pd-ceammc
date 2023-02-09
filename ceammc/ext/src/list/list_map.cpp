@@ -127,4 +127,5 @@ void setup_list_map()
 
     obj.setDescription("map list values by specified dictionary");
     obj.setCategory("list");
+    obj.setKeywords({"list", "map", "dict"});
 }

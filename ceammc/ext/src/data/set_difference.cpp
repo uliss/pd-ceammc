@@ -50,4 +50,5 @@ void setup_set_difference()
 
     obj.setDescription("difference between two sets");
     obj.setCategory("data");
+    obj.setKeywords({"data", "difference", "set"});
 }

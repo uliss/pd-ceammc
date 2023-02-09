@@ -43,4 +43,5 @@ void setup_set_contains()
 
     obj.setDescription("check if specified element is in set");
     obj.setCategory("data");
+    obj.setKeywords({"data", "predicate", "contains"});
 }

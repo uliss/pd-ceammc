@@ -47,4 +47,5 @@ void setup_list_rlencode()
 
     obj.setDescription("RLE (run-length encoding) for lists");
     obj.setCategory("list");
+    obj.setKeywords({"list", "functional"});
 }

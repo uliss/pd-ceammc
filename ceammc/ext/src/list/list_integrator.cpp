@@ -79,4 +79,5 @@ void setup_list_integrator()
 
     obj.setDescription("returns the sum of the previously stored list and the current one then            stores this sum");
     obj.setCategory("list");
+    obj.setKeywords({"list", "integrator"});
 }

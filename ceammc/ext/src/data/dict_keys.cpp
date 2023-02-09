@@ -32,4 +32,5 @@ void setup_dict_keys()
 
     obj.setDescription("get list of dict keys");
     obj.setCategory("data");
+    obj.setKeywords({"list", "keys", "dictionary"});
 }

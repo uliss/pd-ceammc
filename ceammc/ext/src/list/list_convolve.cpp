@@ -67,4 +67,5 @@ void setup_list_convolve()
 
     obj.setDescription("convolution for lists");
     obj.setCategory("list");
+    obj.setKeywords({"list", "convolve", "convolution"});
 }

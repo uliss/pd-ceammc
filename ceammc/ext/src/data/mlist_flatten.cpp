@@ -38,4 +38,5 @@ void setup_mlist_flatten()
 
     obj.setDescription("flatten nested mlist");
     obj.setCategory("data");
+    obj.setKeywords({"flatten", "list"});
 }

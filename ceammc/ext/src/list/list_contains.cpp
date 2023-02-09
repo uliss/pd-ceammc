@@ -97,4 +97,5 @@ void setup_list_contains()
 
     obj.setDescription("checks if input list contains specified atoms");
     obj.setCategory("list");
+    obj.setKeywords({"list", "predicate", "any"});
 }

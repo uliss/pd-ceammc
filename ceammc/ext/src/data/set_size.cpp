@@ -37,4 +37,5 @@ void setup_set_size()
 
     obj.setDescription("get number of elements in set");
     obj.setCategory("data");
+    obj.setKeywords({"data", "set", "size"});
 }

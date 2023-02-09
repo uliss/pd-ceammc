@@ -91,4 +91,5 @@ void setup_rtree_to_list()
 
     obj.setDescription("convert OpenMusic-like rhythm tree to list of fractions");
     obj.setCategory("data");
+    obj.setKeywords({"rhythm", "rtree", "openmusic", "pattern"});
 }

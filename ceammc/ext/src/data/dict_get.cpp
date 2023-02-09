@@ -87,4 +87,5 @@ void setup_dict_get()
 
     obj.setDescription("output dict values");
     obj.setCategory("data");
+    obj.setKeywords({"get", "dictionary"});
 }

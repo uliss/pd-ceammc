@@ -44,4 +44,5 @@ void setup_list_stretch()
 
     obj.setDescription("stretches list - changes its size with linear interpolation");
     obj.setCategory("list");
+    obj.setKeywords({"list"});
 }

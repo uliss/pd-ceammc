@@ -38,4 +38,5 @@ void setup_local_dict()
 
     obj.setDescription("local named dict object");
     obj.setCategory("local");
+    obj.setKeywords({"dict", "local", "global"});
 }

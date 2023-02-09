@@ -42,4 +42,5 @@ void setup_list_runsum()
 
     obj.setDescription("running sum");
     obj.setCategory("list");
+    obj.setKeywords({"list", "running", "total", "sum", "partial", "cumulative"});
 }

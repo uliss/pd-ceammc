@@ -85,4 +85,5 @@ void setup_list_sort_with()
 
     obj.setDescription("sort list with user defined side-chain");
     obj.setCategory("list");
+    obj.setKeywords({"list", "sort_with"});
 }

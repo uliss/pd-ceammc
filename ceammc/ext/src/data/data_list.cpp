@@ -25,4 +25,5 @@ void setup_data_list()
 
     obj.setDescription("list container");
     obj.setCategory("data");
+    obj.setKeywords({"data", "list"});
 }

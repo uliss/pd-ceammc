@@ -197,4 +197,5 @@ void setup_data_fifo()
 
     obj.setDescription("First-In-First-Out (FIFO) queue data container");
     obj.setCategory("data");
+    obj.setKeywords({"data", "fifo"});
 }

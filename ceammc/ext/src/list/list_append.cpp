@@ -72,4 +72,5 @@ void setup_list_append()
 
     obj.setDescription("append atom or list to the end of input list");
     obj.setCategory("list");
+    obj.setKeywords({"list", "append"});
 }

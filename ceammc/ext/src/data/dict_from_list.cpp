@@ -51,4 +51,5 @@ void setup_dict_from_list()
 
     obj.setDescription("creates dictionary from list");
     obj.setCategory("data");
+    obj.setKeywords({"dictionary"});
 }

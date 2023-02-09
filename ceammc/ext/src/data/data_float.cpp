@@ -29,4 +29,5 @@ void setup_data_float()
 
     obj.setDescription("robust float object");
     obj.setCategory("data");
+    obj.setKeywords({"data", "float"});
 }

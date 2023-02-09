@@ -12,4 +12,5 @@ void setup_local_float()
 
     obj.setDescription("canvas-scoped named float variable");
     obj.setCategory("local");
+    obj.setKeywords({"float", "local"});
 }

@@ -51,4 +51,5 @@ void setup_list_rundiff()
 
     obj.setDescription("running difference");
     obj.setCategory("list");
+    obj.setKeywords({"list", "running", "difference", "partial", "cumulative"});
 }

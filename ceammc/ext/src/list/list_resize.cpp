@@ -92,4 +92,5 @@ void setup_list_resize()
 
     obj.setDescription("changes list size");
     obj.setCategory("list");
+    obj.setKeywords({"list", "size", "resize"});
 }

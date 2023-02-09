@@ -36,4 +36,5 @@ void setup_local_set()
 
     obj.setDescription("local named set object");
     obj.setCategory("local");
+    obj.setKeywords({"set", "local", "global"});
 }

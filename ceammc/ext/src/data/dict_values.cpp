@@ -38,4 +38,5 @@ void setup_dict_values()
 
     obj.setDescription("dictionary values as mlist");
     obj.setCategory("data");
+    obj.setKeywords({"size", "dictionary"});
 }

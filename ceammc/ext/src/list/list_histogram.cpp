@@ -46,4 +46,5 @@ void setup_list_histogram()
 
     obj.setDescription("outputs distribution histogram");
     obj.setCategory("list");
+    obj.setKeywords({"list", "histogram"});
 }

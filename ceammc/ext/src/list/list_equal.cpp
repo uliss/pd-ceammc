@@ -34,4 +34,5 @@ void setup_list_equal()
 
     obj.setDescription("checks if given lists are equal");
     obj.setCategory("list");
+    obj.setKeywords({"list", "compare", "equal"});
 }

@@ -48,4 +48,5 @@ void setup_set_intersection()
 
     obj.setDescription("output intersection of given sets");
     obj.setCategory("data");
+    obj.setKeywords({"data", "intersection", "set"});
 }

@@ -25,4 +25,5 @@ void setup_list_distribution()
 
     obj.setDescription("list value distribution");
     obj.setCategory("list");
+    obj.setKeywords({"list", "distribution"});
 }

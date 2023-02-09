@@ -36,4 +36,5 @@ void setup_data_set()
 
     obj.setDescription("container that store unique elements");
     obj.setCategory("data");
+    obj.setKeywords({"data", "set"});
 }

@@ -36,4 +36,5 @@ void setup_list_unique()
 
     obj.setDescription("removes duplicates from input list");
     obj.setCategory("list");
+    obj.setKeywords({"list", "unique", "sort"});
 }

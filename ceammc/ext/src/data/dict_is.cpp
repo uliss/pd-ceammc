@@ -59,4 +59,5 @@ void setup_is_dict()
 
     obj.setDescription("checks if input data has *dict* type");
     obj.setCategory("predicates");
+    obj.setKeywords({"dictionary"});
 }

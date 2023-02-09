@@ -37,4 +37,5 @@ void setup_list_shuffle()
 
     obj.setDescription("randomly rearranges elements in list");
     obj.setCategory("list");
+    obj.setKeywords({"list", "shuffle", "random"});
 }

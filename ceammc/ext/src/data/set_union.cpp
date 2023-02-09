@@ -47,4 +47,5 @@ void setup_set_union()
 
     obj.setDescription("output union of given sets");
     obj.setCategory("data");
+    obj.setKeywords({"data", "union", "set"});
 }

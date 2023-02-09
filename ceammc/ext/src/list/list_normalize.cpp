@@ -50,4 +50,5 @@ void setup_list_normalize()
 
     obj.setDescription("normalizes float list values to get their sum = 1.0");
     obj.setCategory("list");
+    obj.setKeywords({"list", "normalize"});
 }

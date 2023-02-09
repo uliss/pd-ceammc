@@ -153,4 +153,5 @@ void setup_list_zip()
 
     obj.setDescription("takes n lists from n inlets (specified by argument) and output their            elements sequentially (list1-1 list2-1 list1-2 list2-2 etc.).");
     obj.setCategory("list");
+    obj.setKeywords({"list", "functional"});
 }

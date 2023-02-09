@@ -33,4 +33,5 @@ void setup_list_sort()
 
     obj.setDescription("sorts list values by ascending order");
     obj.setCategory("list");
+    obj.setKeywords({"list", "sort"});
 }

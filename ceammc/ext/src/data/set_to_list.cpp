@@ -37,4 +37,5 @@ void setup_set_list()
 
     obj.setDescription("converts set to list");
     obj.setCategory("data");
+    obj.setKeywords({"data", "set", "list"});
 }
