@@ -118,4 +118,8 @@ void setup_flow_demultiplex_tilde()
     SoundExternalFactory<DemultiplexTilde> obj("flow.demultiplex~");
     obj.addAlias("flow.demux~");
     obj.addAlias("demux~");
+
+    obj.setDescription("audio stream demultiplexer");
+    obj.setCategory("flow");
+    obj.setKeywords({"flow", "demultiplex"});
 }

@@ -15,4 +15,8 @@ public:
 void setup_noise_white_tilde()
 {
     SoundExternalFactory<WhiteNoise> obj("noise.white~", OBJECT_FACTORY_NO_DEFAULT_INLET);
+
+    obj.setDescription("White noise generator");
+    obj.setCategory("noise");
+    obj.setKeywords({"noise", "white"});
 }

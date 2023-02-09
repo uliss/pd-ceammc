@@ -131,4 +131,8 @@ void setup_seq_matrix()
         { "any: output for ui.matrix", "\\[i IDX N( - sequence iteration\n"
                                        "\\[ri IDX N( - repeat iteration\n"
                                        "\\[done( - when done" });
+
+    obj.setDescription("sequencer control for ui.matrix");
+    obj.setCategory("seq");
+    obj.setKeywords({"seq", "sequencer", "bang", "pattern", "rhythm", "matrix"});
 }

@@ -45,4 +45,8 @@ void setup_noise_chua_tilde()
     SoundExternalFactory<NoiseChua> obj("noise.chua~", OBJECT_FACTORY_DEFAULT);
     obj.addMethod("reset", &NoiseChua::m_reset);
     obj.addMethod("start", &NoiseChua::m_start);
+
+    obj.setDescription("Chua's diode circuit");
+    obj.setCategory("synth");
+    obj.setKeywords({"noise", "chua", "chaos"});
 }

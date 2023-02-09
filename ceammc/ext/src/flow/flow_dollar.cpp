@@ -80,4 +80,8 @@ void setup_flow_dollar()
 {
     ObjectFactory<FlowDollar> obj("flow.dollar");
     obj.addAlias("flow.$$");
+
+    obj.setDescription("data flow dollar converter");
+    obj.setCategory("flow");
+    obj.setKeywords({"dollar"});
 }

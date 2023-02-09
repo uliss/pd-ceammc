@@ -126,4 +126,8 @@ void setup_seq_bangs()
                                   "\\[ri IDX N( - repeat iteration\n"
                                   "\\[ed MS( - event duration\n"
                                   "\\[done( - when done" });
+
+    obj.setDescription("bang sequencer");
+    obj.setCategory("seq");
+    obj.setKeywords({"seq", "sequencer", "bang", "pattern", "rhythm"});
 }

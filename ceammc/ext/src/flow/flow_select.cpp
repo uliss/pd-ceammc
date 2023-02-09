@@ -367,4 +367,8 @@ void setup_flow_select()
     obj.noPropsDispatch();
 
     obj.addInletInfo("input flow");
+
+    obj.setDescription("vanilla flow on steroids");
+    obj.setCategory("flow");
+    obj.setKeywords({"select"});
 }

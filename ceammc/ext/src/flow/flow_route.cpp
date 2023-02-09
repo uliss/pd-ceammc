@@ -189,4 +189,8 @@ void setup_flow_route()
     obj.noArgsAndPropsParse();
     obj.useDefaultPdFloatFn();
     obj.useDefaultPdSymbolFn();
+
+    obj.setDescription("advanced message router");
+    obj.setCategory("flow");
+    obj.setKeywords({"route"});
 }

@@ -32,4 +32,8 @@ void setup_flow_pass_float()
     obj.noPropsDispatch();
 
     obj.setXletsInfo({ "float" }, { "float" });
+
+    obj.setDescription("pass floats");
+    obj.setCategory("flow");
+    obj.setKeywords({"pass"});
 }

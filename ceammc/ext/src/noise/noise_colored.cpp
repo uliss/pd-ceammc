@@ -21,4 +21,8 @@ void setup_noise_colored_tilde()
 {
     SoundExternalFactory<NoiseColored> obj("noise.colored~", OBJECT_FACTORY_DEFAULT);
     obj.setXletsInfo({ "float: set roll-off factor" }, { "signal: output" });
+
+    obj.setDescription("colored noise generator with an arbitrary spectral roll");
+    obj.setCategory("noise");
+    obj.setKeywords({"noise", "colored", "white", "red", "brown", "blue", "velvet"});
 }

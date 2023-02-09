@@ -142,4 +142,8 @@ void setup_flow_match()
     ObjectFactory<FlowMatch> obj("flow.match");
     obj.processData<DataTypeString>();
     obj.parseArgsMode(PdArgs::PARSE_UNQUOTE);
+
+    obj.setDescription("route data flow by regexp match");
+    obj.setCategory("flow");
+    obj.setKeywords({"regexp"});
 }

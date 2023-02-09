@@ -103,4 +103,8 @@ void setup_flow_group()
                        "clear:  clear without output",
                          "int: set output group size" },
         { "list: groupped input flow" });
+
+    obj.setDescription("group input atoms in list of specified size");
+    obj.setCategory("flow");
+    obj.setKeywords({"flow", "group"});
 }

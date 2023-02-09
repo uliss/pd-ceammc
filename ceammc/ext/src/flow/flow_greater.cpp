@@ -28,4 +28,8 @@ void setup_flow_greater()
 {
     ObjectFactory<FlowGreater> obj("flow.greater");
     obj.addAlias("flow.>");
+
+    obj.setDescription("numeric stream router");
+    obj.setCategory("flow");
+    obj.setKeywords({"gate", "greater"});
 }

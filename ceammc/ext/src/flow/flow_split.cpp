@@ -77,4 +77,8 @@ void setup_flow_split()
         { "output message for which side-chain returned true (1)",
             "output message for which side-chain returned false (0)",
             "message to side-chain predicate" });
+
+    obj.setDescription("split data flow by external side-chain predicate");
+    obj.setCategory("flow");
+    obj.setKeywords({"pass", "functional"});
 }

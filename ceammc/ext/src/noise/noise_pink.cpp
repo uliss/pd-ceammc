@@ -14,4 +14,8 @@ public:
 void setup_noise_pink_tilde()
 {
     SoundExternalFactory<PinkNoise> obj("noise.pink~", OBJECT_FACTORY_NO_DEFAULT_INLET);
+
+    obj.setDescription("Pink noise generator");
+    obj.setCategory("noise");
+    obj.setKeywords({"noise", "pink"});
 }

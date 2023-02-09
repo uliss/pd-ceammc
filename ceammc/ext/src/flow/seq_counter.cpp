@@ -252,4 +252,8 @@ void setup_seq_counter()
         { "int: counter value",
             "int: repeat index when iteration starts\n"
             "done: bang when done" });
+
+    obj.setDescription("sequencer counter");
+    obj.setCategory("seq");
+    obj.setKeywords({"counter", "modulo"});
 }

@@ -231,4 +231,8 @@ void setup_flow_stack()
                                              "clear: remove all\n"
                                              "flush: output and remove all" },
         { "any: output" });
+
+    obj.setDescription("any message stack");
+    obj.setCategory("flow");
+    obj.setKeywords({"stack"});
 }

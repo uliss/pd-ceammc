@@ -20,4 +20,8 @@ public:
 void setup_noise_crackle_tilde()
 {
     SoundExternalFactory<NoiseCrackle> obj("noise.crackle~", OBJECT_FACTORY_DEFAULT);
+
+    obj.setDescription("sparse noise generator");
+    obj.setCategory("noise");
+    obj.setKeywords({"noise", "crackle"});
 }

@@ -171,4 +171,8 @@ void setup_seq_toggles()
                     "\\[ed MS( - event duration\n"
                     "\\[el MS( - event length\n"
                     "\\[done( - when done" });
+
+    obj.setDescription("toggle sequencer");
+    obj.setCategory("seq");
+    obj.setKeywords({"seq", "sequencer", "toggle", "pattern", "rhythm"});
 }

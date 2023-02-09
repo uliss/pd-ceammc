@@ -107,4 +107,8 @@ void setup_flow_demultiplex()
     obj.addAlias("flow.demux");
     obj.addInletInfo("any: input data flow");
     obj.addInletInfo("int: select output number");
+
+    obj.setDescription("control flow demultiplexer");
+    obj.setCategory("flow");
+    obj.setKeywords({"demultiplex"});
 }

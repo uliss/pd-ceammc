@@ -73,4 +73,8 @@ void setup_flow_once()
     obj.addAlias("once");
     obj.noPropsDispatch();
     obj.setXletsInfo({ "any: input flow", "bang: reset" }, { "any: output flow" });
+
+    obj.setDescription("one message pass thru");
+    obj.setCategory("flow");
+    obj.setKeywords({"once", "pass"});
 }

@@ -52,4 +52,8 @@ void setup_route_prop()
 
     obj.setXletsInfo({ "any" }, { "properties", "other messages" });
     obj.noPropsDispatch();
+
+    obj.setDescription("separate property messages from other types");
+    obj.setCategory("flow");
+    obj.setKeywords({"route"});
 }

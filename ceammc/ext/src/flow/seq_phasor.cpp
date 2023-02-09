@@ -185,4 +185,8 @@ void setup_seq_phasor()
             "bang: reset to start" },
         { "float: value in \\[0, 1) range",
             "bang: at the end of cycle" });
+
+    obj.setDescription("control rate phasor (saw) generator");
+    obj.setCategory("seq");
+    obj.setKeywords({"seq", "lfo", "phasor", "saw"});
 }

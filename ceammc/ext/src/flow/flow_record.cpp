@@ -455,4 +455,8 @@ void setup_flow_record()
     FlowRecord::ControlProxy::set_method_callback(gensym("quant"), &FlowRecord::m_quant);
     FlowRecord::ControlProxy::set_method_callback(gensym("qlist"), &FlowRecord::m_qlist);
     FlowRecord::ControlProxy::set_method_callback(gensym("length"), &FlowRecord::m_length);
+
+    obj.setDescription("flow stream recorder/player");
+    obj.setCategory("flow");
+    obj.setKeywords({"flow", "record"});
 }

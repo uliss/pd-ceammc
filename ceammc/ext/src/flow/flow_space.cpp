@@ -212,4 +212,8 @@ void setup_flow_space()
     obj.setXletsInfo({ "any message", "float: set interval (ms)\n"
                                       "reset: remove scheduled output" },
         { "any message", "bang: after @done*@delay (ms)" });
+
+    obj.setDescription("space in time messages received at the same logical time");
+    obj.setCategory("flow");
+    obj.setKeywords({"space"});
 }

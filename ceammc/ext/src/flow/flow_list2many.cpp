@@ -64,4 +64,8 @@ void setup_flow_list2many()
     obj.addAlias("list->many");
     obj.noArgsAndPropsParse();
     obj.addInletInfo("list: input list");
+
+    obj.setDescription("routes list element with message selectors");
+    obj.setCategory("flow");
+    obj.setKeywords({"conv", "map", "list"});
 }

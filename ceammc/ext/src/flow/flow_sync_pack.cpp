@@ -28,4 +28,8 @@ void setup_flow_sync_pack()
 {
     ObjectFactory<FlowSyncPack> obj("flow.sync_pack");
     obj.addAlias("flow.pack'");
+
+    obj.setDescription("flow pack with all hot inlets");
+    obj.setCategory("flow");
+    obj.setKeywords({"flow", "pack", "hot"});
 }

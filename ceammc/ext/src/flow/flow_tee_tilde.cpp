@@ -68,4 +68,8 @@ void setup_flow_tee_tilde()
     obj.addAlias("~->");
 
     obj.setXletsInfo({ "intermixed control/signal" }, { "output signal", "output control messages" });
+
+    obj.setDescription("separate audio and control streams");
+    obj.setCategory("flow");
+    obj.setKeywords({"flow", "tee", "separate"});
 }

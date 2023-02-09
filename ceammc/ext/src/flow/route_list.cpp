@@ -53,4 +53,8 @@ void setup_route_list()
 
     obj.setXletsInfo({ "any" }, { "list", "other messages" });
     obj.noPropsDispatch();
+
+    obj.setDescription("separate list messages from other types");
+    obj.setCategory("flow");
+    obj.setKeywords({"route", "list"});
 }

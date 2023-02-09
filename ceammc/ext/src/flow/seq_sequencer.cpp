@@ -116,4 +116,8 @@ void setup_seq_sequencer()
         { "atom or list output", "\\[i IDX N( - sequence iteration\n"
                                  "\\[ri IDX N( - repeat iteration\n"
                                  "\\[done( - when done" });
+
+    obj.setDescription("basic sequence player");
+    obj.setCategory("seq");
+    obj.setKeywords({"sequencer"});
 }

@@ -97,4 +97,8 @@ void setup_flow_append()
 
     InletProxy<FlowAppend>::init();
     InletProxy<FlowAppend>::set_any_callback(&FlowAppend::proxy_any);
+
+    obj.setDescription("append message to flow stream");
+    obj.setCategory("flow");
+    obj.setKeywords({"flow", "append"});
 }

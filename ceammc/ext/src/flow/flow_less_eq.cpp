@@ -28,4 +28,8 @@ void setup_flow_less_eq()
 {
     ObjectFactory<FlowLessEq> obj("flow.less_eq");
     obj.addAlias("flow.<=");
+
+    obj.setDescription("numeric stream router, like many [moses]");
+    obj.setCategory("flow");
+    obj.setKeywords({"gate"});
 }

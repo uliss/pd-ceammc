@@ -186,4 +186,8 @@ void setup_flow_seqdelay()
     obj.addAlias("flow.seqdel");
     obj.setInletsInfo({ "input message", "control inlet for properties" });
     obj.addMethod("reset", &FlowSeqDelay::m_reset);
+
+    obj.setDescription("sequential delay/router for input flow");
+    obj.setCategory("flow");
+    obj.setKeywords({"flow", "seq", "delay"});
 }

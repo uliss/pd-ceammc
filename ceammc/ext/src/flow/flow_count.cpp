@@ -117,4 +117,8 @@ void setup_flow_count()
 
     InletProxy<FlowCount>::init();
     InletProxy<FlowCount>::set_any_callback(&FlowCount::onInletAny);
+
+    obj.setDescription("control flow event counter");
+    obj.setCategory("flow");
+    obj.setKeywords({"counter"});
 }

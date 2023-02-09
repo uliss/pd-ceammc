@@ -142,4 +142,8 @@ void setup_flow_ring()
                                           "get IDX: output specified outlet\n"
                                           "fill VALUE: fill buffer with sepcified value (no output)\n" },
         { "" });
+
+    obj.setDescription("dataflow ring buffer");
+    obj.setCategory("flow");
+    obj.setKeywords({"ring", "buffer", "dataflow"});
 }

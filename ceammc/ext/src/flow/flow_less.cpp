@@ -28,4 +28,8 @@ void setup_flow_less()
 {
     ObjectFactory<FlowLess> obj("flow.less");
     obj.addAlias("flow.<");
+
+    obj.setDescription("numeric stream router, like many [moses]");
+    obj.setCategory("flow");
+    obj.setKeywords({"gate"});
 }

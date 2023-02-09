@@ -135,4 +135,8 @@ void setup_seq_nbangs()
                          "float: set number of bangs" },
         { "bang", "\\[i IDX N( - sequence iteration\n"
                   "\\[done( - when done" });
+
+    obj.setDescription("output specified number of bang with time intervals");
+    obj.setCategory("seq");
+    obj.setKeywords({"seq", "bang", "until"});
 }

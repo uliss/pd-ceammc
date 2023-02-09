@@ -53,4 +53,8 @@ void setup_route_symbol()
 
     obj.setXletsInfo({ "any" }, { "symbol", "other messages" });
     obj.noPropsDispatch();
+
+    obj.setDescription("separate symbol messages from other types");
+    obj.setCategory("flow");
+    obj.setKeywords({"route", "symbol"});
 }

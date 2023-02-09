@@ -52,4 +52,8 @@ void setup_route_any()
 
     obj.setXletsInfo({ "any" }, { "any messages", "bangs, floats, symbols and lists" });
     obj.noPropsDispatch();
+
+    obj.setDescription("separate any messages from bangs, floats, symbols and lists");
+    obj.setCategory("flow");
+    obj.setKeywords({"route", "list"});
 }

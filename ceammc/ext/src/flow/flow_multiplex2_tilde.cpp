@@ -76,4 +76,8 @@ void setup_flow_multiplex2_tilde()
     obj.addAlias("mux2~");
     obj.addOutletInfo("signal: left");
     obj.addOutletInfo("signal: right");
+
+    obj.setDescription("audio stream stereo multiplexer");
+    obj.setCategory("flow");
+    obj.setKeywords({"flow", "multiplex"});
 }

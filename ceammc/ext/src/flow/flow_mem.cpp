@@ -133,10 +133,13 @@ void setup_flow_mem()
         outlet_info[i] = buf;
     }
 
-    ObjectFactory<FlowMem>
-        obj("flow.mem", OBJECT_FACTORY_NO_DEFAULT_INLET);
+    ObjectFactory<FlowMem> obj("flow.mem", OBJECT_FACTORY_NO_DEFAULT_INLET);
     obj.noPropsDispatch();
 
     InletProxy<FlowMem>::init();
     InletProxy<FlowMem>::set_any_callback(&FlowMem::proxy_any);
+
+    obj.setDescription("store data flow in memory");
+    obj.setCategory("flow");
+    obj.setKeywords({"memory", "store"});
 }

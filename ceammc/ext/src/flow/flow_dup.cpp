@@ -68,4 +68,8 @@ void setup_flow_dup()
     obj.noPropsDispatch();
 
     obj.setXletsInfo({ "input messages", "int: number of repeats for each message" }, { "output messages" });
+
+    obj.setDescription("message duplicator");
+    obj.setCategory("flow");
+    obj.setKeywords({"flow", "duplicate", "repeat"});
 }
