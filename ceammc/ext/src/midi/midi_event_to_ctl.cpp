@@ -28,4 +28,8 @@ void setup_midi_event2ctl()
 {
     ObjectFactory<MidiEventToCtl> obj("midi.event2ctl");
     obj.addAlias("midi.ev->ctl");
+
+    obj.setDescription("convert MidiEvent message to controller channel/value pair");
+    obj.setCategory("midi");
+    obj.setKeywords({"midi", "event", "control"});
 }

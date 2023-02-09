@@ -92,4 +92,8 @@ void setup_midi_sysex()
     obj.addMethod("reset", &MidiSysex::m_reset);
 
     obj.setXletsInfo({ "reset: reset parser" }, { "list: sysex bytes" });
+
+    obj.setDescription("sysex input messages as list");
+    obj.setCategory("midi");
+    obj.setKeywords({"midi", "sysexin"});
 }

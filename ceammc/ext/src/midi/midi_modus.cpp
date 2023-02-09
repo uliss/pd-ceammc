@@ -130,4 +130,8 @@ void setup_midi_modus()
     obj.setXletsInfo({ "float: PITCH\n"
                        "list: PITCH VEL DUR?" },
         { "float or list: accepted note", "float or list: discarded note" });
+
+    obj.setDescription("snap/skip midi pitches according modus");
+    obj.setCategory("midi");
+    obj.setKeywords({"midi", "modus", "tonality", "pitch"});
 }

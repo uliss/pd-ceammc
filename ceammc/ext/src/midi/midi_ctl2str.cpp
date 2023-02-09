@@ -33,4 +33,8 @@ void setup_midi_ctl2str()
 {
     ObjectFactory<MidiCtl2Str> obj("midi.ctl2str");
     obj.addAlias("midi.ctl->str");
+
+    obj.setDescription("convert Standard MIDI Controllers number to name");
+    obj.setCategory("midi");
+    obj.setKeywords({"midi", "controller", "name"});
 }

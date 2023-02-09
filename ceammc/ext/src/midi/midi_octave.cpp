@@ -151,4 +151,8 @@ void setup_midi_octave()
                          "int: set octave transposition" },
         { "float: note\n"
           "list: NOTE VEL \\[DUR\\]" });
+
+    obj.setDescription("midi octave transpose");
+    obj.setCategory("midi");
+    obj.setKeywords({"midi", "octave", "transpose"});
 }

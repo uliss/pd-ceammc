@@ -82,4 +82,8 @@ void setup_midi_clock()
 
     obj.addMethod("reset", &MidiClock::m_reset);
     obj.setXletsInfo({ "control inlet" }, { "bang: on midi clock message", "float: measured tempo in bpm" });
+
+    obj.setDescription("midi clock toolbox");
+    obj.setCategory("midi");
+    obj.setKeywords({"midi", "clock"});
 }

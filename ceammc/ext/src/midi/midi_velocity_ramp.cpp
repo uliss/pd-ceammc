@@ -100,4 +100,8 @@ void setup_midi_vel_ramp()
     obj.setXletsInfo({ "float: midi note\n"
                        "list: note vel" },
         { "list: note vel", "bang: when last value is reached" });
+
+    obj.setDescription("apply crescendo or diminuendo for midi message flow");
+    obj.setCategory("midi");
+    obj.setKeywords({"midi", "ramp", "crescendo", "diminuendo"});
 }

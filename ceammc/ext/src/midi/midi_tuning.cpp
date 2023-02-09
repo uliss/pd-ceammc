@@ -107,4 +107,8 @@ void setup_midi_tuning()
     TEMPS.push_back({ gensym("zarlino"), music::TemperamentType::ZARLINO_2_7 });
 
     ObjectFactory<MidiTuning> obj("midi.tuning");
+
+    obj.setDescription("apply tuning to midi messages");
+    obj.setCategory("midi");
+    obj.setKeywords({"midi", "tuning"});
 }

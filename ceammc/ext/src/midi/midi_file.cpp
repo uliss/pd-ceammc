@@ -116,4 +116,8 @@ void setup_midi_file()
     obj.addMethod("read", &XMidiFile::m_read);
     obj.addMethod("clear", &XMidiFile::m_clear);
     obj.addMethod("write", &XMidiFile::m_write);
+
+    obj.setDescription("standard midi file SMF reader and writer");
+    obj.setCategory("midi");
+    obj.setKeywords({"midi", "file"});
 }

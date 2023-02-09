@@ -95,4 +95,8 @@ void setup_midi_split()
 
     ObjectFactory<MidiSplit> obj("midi.split");
     obj.setInletsInfo({ "list: PITCH VEL DUR?" });
+
+    obj.setDescription("midi note splitter");
+    obj.setCategory("midi");
+    obj.setKeywords({"midi", "note", "splitter"});
 }

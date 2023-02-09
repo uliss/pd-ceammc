@@ -279,4 +279,8 @@ void setup_midi_arp()
 {
     ObjectFactory<MidiArp> obj("midi.arp");
     obj.setXletsInfo({ "list: NOTE VEL", "bang: if @external = 1" }, { "list: NOTE VEL", "int: phase" });
+
+    obj.setDescription("MIDI arpeggiator");
+    obj.setCategory("midi");
+    obj.setKeywords({"midi", "arpeggiator"});
 }
