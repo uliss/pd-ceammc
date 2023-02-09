@@ -72,4 +72,8 @@ void setup_vline_to_env()
     obj.addAlias("vline->env");
 
     obj.useDefaultPdFloatFn();
+
+    obj.setDescription("Converts vline messages to env");
+    obj.setCategory("env");
+    obj.setKeywords({"envelope", "vline"});
 }

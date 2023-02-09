@@ -76,4 +76,8 @@ void setup_env_to_array()
     ObjectFactory<Env2Array> obj("env2array");
     obj.addAlias("env->array");
     obj.processData<DataTypeEnv>();
+
+    obj.setDescription("Renders envelope to specified array");
+    obj.setCategory("env");
+    obj.setKeywords({"envelope", "array"});
 }

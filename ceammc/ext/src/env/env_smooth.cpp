@@ -58,4 +58,8 @@ void setup_env_smooth_tilde()
     obj.addMethod("play", &EnvSmooth2::m_play);
     obj.addMethod("reset", &EnvSmooth2::m_reset);
     obj.setXletsInfo({ "input signal" }, { "enveloped signal", "bang when done" });
+
+    obj.setDescription("An envelope with an exponential attack and release");
+    obj.setCategory("env");
+    obj.setKeywords({"envelope", "smooth"});
 }

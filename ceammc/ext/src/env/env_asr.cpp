@@ -130,4 +130,8 @@ void setup_env_asr_tilde()
     obj.setXletsInfo(
         { "signal: input", "float: start (if >0) or stop(if =0) envelope" },
         { "signal: output", "float: 1 on attack done, 0 on release done" });
+
+    obj.setDescription("Attack/Sustain/Release envelope generator");
+    obj.setCategory("env");
+    obj.setKeywords({"envelope", "asr"});
 }

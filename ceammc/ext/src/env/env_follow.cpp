@@ -20,4 +20,8 @@ public:
 void setup_env_follow_tilde()
 {
     SoundExternalFactory<EnvFollow> obj("env.follow~");
+
+    obj.setDescription("Envelope follower with independent attack and release times");
+    obj.setCategory("env");
+    obj.setKeywords({"envelope", "amplitude", "follower"});
 }

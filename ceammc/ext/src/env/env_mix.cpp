@@ -55,4 +55,8 @@ void EnvMix::dump() const
 void setup_env_mix()
 {
     ObjectFactory<EnvMix> obj("env.mix");
+
+    obj.setDescription("Mix between two envelopes. Envelopes should contain equal number of segments");
+    obj.setCategory("env");
+    obj.setKeywords({"mix"});
 }

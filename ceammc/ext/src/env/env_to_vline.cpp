@@ -297,4 +297,8 @@ void setup_env_to_vline()
 
     obj.addMethod("next", &Env2VLine::m_next);
     obj.addMethod("reset", &Env2VLine::m_reset);
+
+    obj.setDescription("Converts envelope to bunch of vline messages");
+    obj.setCategory("env");
+    obj.setKeywords({"envelope", "vline"});
 }

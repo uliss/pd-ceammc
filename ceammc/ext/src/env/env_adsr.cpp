@@ -135,4 +135,8 @@ void setup_env_adsr_tilde()
     obj.processData<DataTypeEnv>();
     obj.addMethod("reset", &EnvADSR2::m_reset);
     obj.addMethod("play", &EnvADSR2::m_play);
+
+    obj.setDescription("ADSR (Attack, Decay, Sustain, Release) envelope generator");
+    obj.setCategory("env");
+    obj.setKeywords({"envelope", "adsr"});
 }

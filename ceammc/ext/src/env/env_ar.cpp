@@ -151,4 +151,8 @@ void setup_env_ar_tilde()
             "output signal",
             "bang on done",
         });
+
+    obj.setDescription("Attack/Release envelope generator");
+    obj.setCategory("env");
+    obj.setKeywords({"envelope", "ar"});
 }

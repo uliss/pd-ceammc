@@ -24,4 +24,8 @@ void setup_env_vscale()
 {
     ObjectFactory<EnvValueScale> obj("env.vscale");
     obj.processData<DataTypeEnv>();
+
+    obj.setDescription("Envelope value-scale");
+    obj.setCategory("env");
+    obj.setKeywords({"value", "scale"});
 }

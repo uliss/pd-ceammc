@@ -36,4 +36,8 @@ void setup_env_tshift()
 {
     ObjectFactory<EnvTimeShift> obj("env.tshift");
     obj.processData<DataTypeEnv>();
+
+    obj.setDescription("Envelope time-shift (horizontal)");
+    obj.setCategory("env");
+    obj.setKeywords({"time", "shift"});
 }
