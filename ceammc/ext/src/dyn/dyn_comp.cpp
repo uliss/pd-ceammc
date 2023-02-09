@@ -17,4 +17,8 @@ public:
 void setup_dyn_comp_tilde()
 {
     SoundExternalFactory<DynComp> obj("dyn.comp~");
+
+    obj.setDescription("mono dynamic range compressors");
+    obj.setCategory("dyn");
+    obj.setKeywords({"compressor"});
 }

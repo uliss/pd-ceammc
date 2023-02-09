@@ -13,4 +13,8 @@ public:
 void setup_dyn_limit_tilde()
 {
     SoundExternalFactory<DynLimit> obj("dyn.limit~");
+
+    obj.setDescription("mono 1176LN Peak Limiter");
+    obj.setCategory("dyn");
+    obj.setKeywords({"limiter"});
 }

@@ -17,4 +17,8 @@ public:
 void setup_dyn_gate_tilde()
 {
     SoundExternalFactory<DynGate> obj("dyn.gate~");
+
+    obj.setDescription("mono signal gate");
+    obj.setCategory("dyn");
+    obj.setKeywords({"gate"});
 }

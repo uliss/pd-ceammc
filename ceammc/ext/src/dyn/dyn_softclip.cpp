@@ -13,4 +13,8 @@ public:
 void setup_dyn_softclip_tilde()
 {
     SoundExternalFactory<DynSoftClip> obj("dyn.softclip~");
+
+    obj.setDescription("soft signal clip");
+    obj.setCategory("dyn");
+    obj.setKeywords({"dyn", "clip", "limiter"});
 }
