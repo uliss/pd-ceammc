@@ -19,4 +19,8 @@ void setup_fx_echo2_tilde()
 {
     SoundExternalFactory<FxEcho2> obj("fx.echo2~");
     obj.addMethod("reset", &FxEcho2::m_reset);
+
+    obj.setDescription("stereo echo effect");
+    obj.setCategory("fx");
+    obj.setKeywords({"fx", "echo", "stereo", "delay"});
 }

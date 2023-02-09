@@ -104,4 +104,8 @@ void setup_fx_infrev_tilde()
 {
     SoundExternalFactory<FxInfReverb> obj("fx.infrev~");
     obj.addMethod("reset", &FxInfReverb::m_reset);
+
+    obj.setDescription("port of Infinity VST plugin from airwindows");
+    obj.setCategory("fx");
+    obj.setKeywords({"fx", "reverb", "airwindows", "infinity"});
 }

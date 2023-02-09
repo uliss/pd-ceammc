@@ -988,4 +988,8 @@ void setup_fx_looper()
     obj.addMethod("adjust", &FxLooper::m_adjust);
     obj.addMethod("pause", &FxLooper::m_pause);
     obj.addMethod("smooth", &FxLooper::m_smooth);
+
+    obj.setDescription("One track looper");
+    obj.setCategory("fx");
+    obj.setKeywords({"fx", "looper"});
 }

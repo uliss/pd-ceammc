@@ -386,4 +386,8 @@ void setup_fx_tapiir_tilde()
     obj.addMethod("reset", &FxTapiir::m_reset);
     obj.addMethod("random", &FxTapiir::m_random);
     obj.addMethod("pingpong", &FxTapiir::m_pingpong);
+
+    obj.setDescription("multi-tap delay");
+    obj.setCategory("fx");
+    obj.setKeywords({"fx", "delay", "tapiir"});
 }

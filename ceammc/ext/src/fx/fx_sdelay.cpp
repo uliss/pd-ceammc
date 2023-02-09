@@ -20,4 +20,8 @@ void setup_fx_sdelay_tilde()
     SoundExternalFactory<FxSmoothDelay> obj("fx.sdelay~");
     obj.addMethod("clear", &FxSmoothDelay::m_reset);
     obj.addMethod("reset", &FxSmoothDelay::m_reset);
+
+    obj.setDescription("smooth delay with a feedback control");
+    obj.setCategory("fx");
+    obj.setKeywords({"fx", "echo", "delay"});
 }

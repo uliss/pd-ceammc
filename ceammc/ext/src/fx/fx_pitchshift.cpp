@@ -22,4 +22,8 @@ void setup_fx_pitchshift_tilde()
 {
     SoundExternalFactory<FxPitchShift> obj("fx.pitchshift~");
     obj.addMethod("reset", &FxPitchShift::m_reset);
+
+    obj.setDescription("simple pitch shifter based on 2 delay lines");
+    obj.setCategory("fx");
+    obj.setKeywords({"fx", "pitchshift"});
 }

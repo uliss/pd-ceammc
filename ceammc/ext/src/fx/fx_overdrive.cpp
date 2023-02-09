@@ -41,4 +41,8 @@ void setup_fx_overdrive_tilde()
 {
     SoundExternalFactory<FxOverdrive> obj("fx.overdrive~");
     obj.setXletsInfo({ "signal: input", "float(1-5): gain" }, { "signal: output" });
+
+    obj.setDescription("overdrive effect");
+    obj.setCategory("fx");
+    obj.setKeywords({"fx", "overdrive"});
 }

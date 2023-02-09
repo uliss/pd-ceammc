@@ -16,4 +16,8 @@ void setup_fx_zita_rev1_tilde()
 {
     SoundExternalFactory<FxZitaRev1> obj("fx.zita_rev1~");
     obj.addMethod("reset", &FxZitaRev1::m_reset);
+
+    obj.setDescription("Zita stereo reverb");
+    obj.setCategory("fx");
+    obj.setKeywords({"fx", "reverb"});
 }

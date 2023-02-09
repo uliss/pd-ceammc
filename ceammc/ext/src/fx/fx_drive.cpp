@@ -17,4 +17,8 @@ public:
 void setup_fx_drive_tilde()
 {
     SoundExternalFactory<FxDrive> obj("fx.drive~");
+
+    obj.setDescription("Guitarix drive effect");
+    obj.setCategory("fx");
+    obj.setKeywords({"fx", "drive"});
 }

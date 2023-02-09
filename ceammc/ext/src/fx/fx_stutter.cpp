@@ -245,4 +245,8 @@ void setup_fx_stutter_tilde()
         { "signal: input", "1|0: turn fx on/off\n"
                            "bang: run fx twice" },
         { "signal: output" });
+
+    obj.setDescription("stutter effect");
+    obj.setCategory("fx");
+    obj.setKeywords({"fx", "stutter", "glitch"});
 }

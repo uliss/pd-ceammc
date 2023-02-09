@@ -18,4 +18,8 @@ public:
 void setup_fx_wahwah_tilde()
 {
     SoundExternalFactory<FxWahwah> obj("fx.wahwah~");
+
+    obj.setDescription("digitized CryBaby wah pedal");
+    obj.setCategory("fx");
+    obj.setKeywords({"wahwah", "guitar", "crybaby"});
 }

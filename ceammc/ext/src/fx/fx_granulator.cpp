@@ -15,4 +15,8 @@ void setup_fx_granulator_tilde()
 {
     SoundExternalFactory<FxGranulator> obj("fx.granulator~");
     obj.addMethod("reset", &FxGranulator::m_reset);
+
+    obj.setDescription("simple input stream granulator");
+    obj.setCategory("fx");
+    obj.setKeywords({"fx", "bits", "granulator"});
 }

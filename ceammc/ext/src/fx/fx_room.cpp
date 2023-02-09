@@ -30,4 +30,8 @@ void setup_fx_room_tilde()
     obj.addMethod("reset", &FxRoom::m_reset);
 
     obj.setXletsInfo({ "signal: input", "float: set room size (0..3)" }, { "signal: output" });
+
+    obj.setDescription("Gardners room emulation algorithms");
+    obj.setCategory("fx");
+    obj.setKeywords({"fx", "room", "reverb"});
 }

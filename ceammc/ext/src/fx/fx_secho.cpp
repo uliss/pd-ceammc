@@ -19,4 +19,8 @@ void setup_fx_secho_tilde()
 {
     SoundExternalFactory<FxSEcho> obj("fx.secho~");
     obj.addMethod("reset", &FxSEcho::m_reset);
+
+    obj.setDescription("enchanced echo effect that does not click on delay change");
+    obj.setCategory("fx");
+    obj.setKeywords({"fx", "echo", "delay"});
 }

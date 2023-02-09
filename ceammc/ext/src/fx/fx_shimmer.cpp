@@ -16,4 +16,8 @@ void setup_fx_shimmer_tilde()
 {
     SoundExternalFactory<FxShimmer> obj("fx.shimmer~");
     obj.addMethod("reset", &FxShimmer::m_reset);
+
+    obj.setDescription("shimmer reverb effect effect");
+    obj.setCategory("fx");
+    obj.setKeywords({"fx", "echo", "shimmer", "reverb"});
 }

@@ -17,4 +17,8 @@ public:
 void setup_fx_drone_box_tilde()
 {
     SoundExternalFactory<FxDroneBox> obj("fx.drone_box~");
+
+    obj.setDescription("mono sympathetic resonance generator");
+    obj.setCategory("fx");
+    obj.setKeywords({"fx", "drone"});
 }

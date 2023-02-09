@@ -34,4 +34,8 @@ void setup_fx_freeverb_tilde()
 {
     SoundExternalFactory<FxFreeverb> obj("fx.freeverb~");
     obj.addMethod("reset", &FxFreeverb::m_reset);
+
+    obj.setDescription("freeverb - common used open-source reverb");
+    obj.setCategory("fx");
+    obj.setKeywords({"fx", "reverb"});
 }

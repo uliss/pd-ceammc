@@ -34,4 +34,8 @@ void setup_fx_freeverb2_tilde()
 {
     SoundExternalFactory<FxFreeverb2> obj("fx.freeverb2~");
     obj.addMethod("reset", &FxFreeverb2::m_reset);
+
+    obj.setDescription("freeverb2 - stereo version of freeverb");
+    obj.setCategory("fx");
+    obj.setKeywords({"fx", "reverb"});
 }

@@ -40,4 +40,8 @@ void setup_fx_jcrev_tilde()
             "signal: 3 output",
             "signal: 4 output",
         });
+
+    obj.setDescription("Schroeder quad reverberator from 1972");
+    obj.setCategory("fx");
+    obj.setKeywords({"fx", "room", "reverb", "schroeder"});
 }

@@ -15,4 +15,8 @@ void setup_fx_pitchshift_sig_tilde()
 {
     SoundExternalFactory<FxPitchShiftSig> obj("fx.pitchshift_s~");
     obj.addMethod("reset", &FxPitchShiftSig::m_reset);
+
+    obj.setDescription("signal version of fx.pitchshift~");
+    obj.setCategory("fx");
+    obj.setKeywords({"fx", "pitchshift"});
 }

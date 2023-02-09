@@ -30,4 +30,8 @@ void setup_fx_satrev_tilde()
     obj.addMethod("reset", &FxSatReverb::m_reset);
 
     obj.setXletsInfo({ "signal: input", "float: drywet mix" }, { "signal: left output", "signal: right output" });
+
+    obj.setDescription("Schroeder reverberator from 1971");
+    obj.setCategory("fx");
+    obj.setKeywords({"fx", "room", "reverb", "schroeder"});
 }

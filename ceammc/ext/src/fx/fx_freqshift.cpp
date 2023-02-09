@@ -16,4 +16,8 @@ void setup_fx_freqshift_tilde()
     SoundExternalFactory<FxFreqShift> obj("fx.freqshift~");
 
     obj.setXletsInfo({ "input signal", "freqshift (hz)" }, { "output (freq+shift)", "output (freq-shift)" });
+
+    obj.setDescription("frequency shifter or single-sideband ring modulation");
+    obj.setCategory("fx");
+    obj.setKeywords({"fx", "freqshift"});
 }

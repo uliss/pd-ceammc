@@ -14,4 +14,8 @@ public:
 void setup_fx_flanger_tilde()
 {
     SoundExternalFactory<FxFlanger> obj("fx.flanger~");
+
+    obj.setDescription("mono flanging effect");
+    obj.setCategory("fx");
+    obj.setKeywords({"fx", "flanger"});
 }

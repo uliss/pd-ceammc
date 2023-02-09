@@ -31,4 +31,8 @@ void setup_fx_dattorro_tilde()
 {
     SoundExternalFactory<FxDattorro> obj("fx.dattorro~");
     obj.addMethod("reset", &FxDattorro::m_reset);
+
+    obj.setDescription("dattorro reverb");
+    obj.setCategory("fx");
+    obj.setKeywords({"fx", "reverb"});
 }

@@ -28,4 +28,8 @@ void setup_fx_greyhole_tilde()
 {
     SoundExternalFactory<FxGreyhole> obj("fx.greyhole~");
     obj.addMethod("reset", &FxGreyhole::m_reset);
+
+    obj.setDescription("A complex echo-like effect");
+    obj.setCategory("fx");
+    obj.setKeywords({"fx", "reverb", "echo"});
 }

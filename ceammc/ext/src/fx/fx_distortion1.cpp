@@ -14,4 +14,8 @@ public:
 void setup_fx_distortion1_tilde()
 {
     SoundExternalFactory<FxDistortion1> obj("fx.distortion1~");
+
+    obj.setDescription("distortion #1 from Guitarix effects set");
+    obj.setCategory("fx");
+    obj.setKeywords({"fx", "distortion"});
 }

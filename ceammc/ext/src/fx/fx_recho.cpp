@@ -19,4 +19,8 @@ void setup_fx_recho_tilde()
 {
     SoundExternalFactory<FxREcho> obj("fx.recho~");
     obj.addMethod("reset", &FxREcho::m_reset);
+
+    obj.setDescription("reversed echo effect");
+    obj.setCategory("fx");
+    obj.setKeywords({"fx", "echo", "reversed"});
 }

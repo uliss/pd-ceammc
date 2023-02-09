@@ -15,4 +15,8 @@ void setup_fx_chorus_tilde()
 {
     SoundExternalFactory<FxChorus> obj("fx.chorus~");
     obj.addMethod("reset", &FxChorus::m_reset);
+
+    obj.setDescription("Chorus effect");
+    obj.setCategory("fx");
+    obj.setKeywords({"fx", "chorus"});
 }
