@@ -9,4 +9,7 @@ GlobalFloat::GlobalFloat(const PdArgs& a)
 void setup_global_float()
 {
     NumericIFaceFactory<GlobalFloat> obj("global.float");
+
+    obj.setDescription("global named float object");
+    obj.setCategory("global");
 }

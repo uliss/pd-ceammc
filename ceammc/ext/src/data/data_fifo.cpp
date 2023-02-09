@@ -194,4 +194,7 @@ void setup_data_fifo()
     obj.addMethod("resize", &DataFifo::m_resize);
 
     DataFifo::registerMethods(obj);
+
+    obj.setDescription("First-In-First-Out (FIFO) queue data container");
+    obj.setCategory("data");
 }

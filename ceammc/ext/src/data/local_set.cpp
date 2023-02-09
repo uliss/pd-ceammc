@@ -33,4 +33,7 @@ void setup_local_set()
     obj.processData<DataTypeSet>();
 
     LocalSet::registerMethods(obj);
+
+    obj.setDescription("local named set object");
+    obj.setCategory("local");
 }

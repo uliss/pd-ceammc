@@ -35,4 +35,7 @@ void setup_global_dict()
         { "data: dict" });
 
     GlobalDict::registerMethods(obj);
+
+    obj.setDescription("global named dict object");
+    obj.setCategory("global");
 }

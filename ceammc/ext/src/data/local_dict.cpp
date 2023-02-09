@@ -35,4 +35,7 @@ void setup_local_dict()
         { "data: dict" });
 
     LocalDict::registerMethods(obj);
+
+    obj.setDescription("local named dict object");
+    obj.setCategory("local");
 }

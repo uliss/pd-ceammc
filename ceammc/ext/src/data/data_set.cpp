@@ -33,4 +33,7 @@ void setup_data_set()
     obj.processData<DataTypeSet>();
 
     DataSet::registerMethods(obj);
+
+    obj.setDescription("container that store unique elements");
+    obj.setCategory("data");
 }

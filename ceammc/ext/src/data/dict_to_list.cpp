@@ -38,4 +38,7 @@ void setup_dict_to_list()
     ObjectFactory<DictToList> obj("dict.to_list");
     obj.addAlias("dict->list");
     obj.processData<DataTypeDict>();
+
+    obj.setDescription("converts dictionary to plain list");
+    obj.setCategory("data");
 }

@@ -35,4 +35,7 @@ void setup_local_mlist()
     obj.useDefaultPdSymbolFn();
 
     LocalMList::registerMethods(obj);
+
+    obj.setDescription("local named mlist object");
+    obj.setCategory("local");
 }

@@ -44,4 +44,7 @@ void setup_set_union()
 {
     ObjectFactory<SetUnion> obj("set.union");
     obj.processData<DataTypeSet>();
+
+    obj.setDescription("output union of given sets");
+    obj.setCategory("data");
 }

@@ -29,4 +29,7 @@ void setup_dict_size()
 {
     ObjectFactory<DictSize> obj("dict.size");
     obj.processData<DataTypeDict>();
+
+    obj.setDescription("dictionary size");
+    obj.setCategory("data");
 }

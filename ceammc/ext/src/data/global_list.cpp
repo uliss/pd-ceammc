@@ -25,4 +25,7 @@ void setup_global_list()
     obj.processData<DataTypeMList>();
 
     GlobalList::registerMethods(obj);
+
+    obj.setDescription("global named list object");
+    obj.setCategory("global");
 }

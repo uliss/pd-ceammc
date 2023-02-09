@@ -8,4 +8,7 @@ LocalInt::LocalInt(const PdArgs& a)
 void setup_local_int()
 {
     NumericIFaceFactory<LocalInt> obj("local.int");
+
+    obj.setDescription("canvas-scoped named integer variable");
+    obj.setCategory("local");
 }

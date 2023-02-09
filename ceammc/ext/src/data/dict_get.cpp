@@ -84,4 +84,7 @@ void setup_dict_get()
 {
     ObjectFactory<DictGet> obj("dict.get");
     obj.processData<DataTypeDict>();
+
+    obj.setDescription("output dict values");
+    obj.setCategory("data");
 }

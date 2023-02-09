@@ -53,4 +53,7 @@ void setup_dict_each()
 {
     ObjectFactory<DictEach> obj("dict.each");
     obj.processData<DataTypeDict>();
+
+    obj.setDescription("map each value in dict");
+    obj.setCategory("data");
 }

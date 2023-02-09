@@ -48,4 +48,7 @@ void setup_dict_from_list()
     ObjectFactory<DictFromList> obj("dict.from_list");
     obj.addAlias("list->dict");
     obj.processData<DataTypeMList>();
+
+    obj.setDescription("creates dictionary from list");
+    obj.setCategory("data");
 }

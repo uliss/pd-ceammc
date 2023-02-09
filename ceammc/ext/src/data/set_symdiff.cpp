@@ -45,4 +45,7 @@ void setup_set_symdiff()
 {
     ObjectFactory<SetSymmetricDifference> obj("set.symdiff");
     obj.processData<DataTypeSet>();
+
+    obj.setDescription("symmetric difference between two sets");
+    obj.setCategory("data");
 }

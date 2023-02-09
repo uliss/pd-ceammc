@@ -88,4 +88,7 @@ void setup_rtree_to_list()
           "float: set duration, calc and output\n"
           "any:   try to set rhythm tree, no output" },
         { "list: list of rhythm fractions" });
+
+    obj.setDescription("convert OpenMusic-like rhythm tree to list of fractions");
+    obj.setCategory("data");
 }

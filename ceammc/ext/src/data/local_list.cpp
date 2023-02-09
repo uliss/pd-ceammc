@@ -26,4 +26,7 @@ void setup_local_list()
     obj.processData<DataTypeMList>();
 
     LocalList::registerMethods(obj);
+
+    obj.setDescription("local named list object");
+    obj.setCategory("local");
 }

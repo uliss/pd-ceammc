@@ -33,4 +33,7 @@ void setup_data_mlist()
     obj.noArgsAndPropsParse();
 
     DataMList::registerMethods(obj);
+
+    obj.setDescription("multidimensional list container");
+    obj.setCategory("data");
 }

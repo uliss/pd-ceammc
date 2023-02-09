@@ -22,4 +22,7 @@ void setup_data_list()
     obj.processData<DataTypeMList>();
 
     DataList::registerMethods(obj);
+
+    obj.setDescription("list container");
+    obj.setCategory("data");
 }

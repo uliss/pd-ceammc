@@ -35,4 +35,7 @@ void setup_dict_values()
 {
     ObjectFactory<DictValues> obj("dict.values");
     obj.processData<DataTypeDict>();
+
+    obj.setDescription("dictionary values as mlist");
+    obj.setCategory("data");
 }

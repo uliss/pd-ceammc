@@ -34,4 +34,7 @@ void setup_set_size()
 {
     ObjectFactory<SetSize> obj("set.size");
     obj.processData<DataTypeSet>();
+
+    obj.setDescription("get number of elements in set");
+    obj.setCategory("data");
 }

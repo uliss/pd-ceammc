@@ -35,4 +35,7 @@ void setup_mlist_flatten()
 {
     ObjectFactory<MListFlatten> obj("mlist.flatten");
     obj.processData<DataTypeMList>();
+
+    obj.setDescription("flatten nested mlist");
+    obj.setCategory("data");
 }

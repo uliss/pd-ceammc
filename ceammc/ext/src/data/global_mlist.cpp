@@ -33,4 +33,7 @@ void setup_global_mlist()
     obj.useDefaultPdSymbolFn();
 
     GlobalMList::registerMethods(obj);
+
+    obj.setDescription("global named mlist object");
+    obj.setCategory("global");
 }

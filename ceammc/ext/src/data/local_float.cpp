@@ -9,4 +9,7 @@ LocalFloat::LocalFloat(const PdArgs& a)
 void setup_local_float()
 {
     NumericIFaceFactory<LocalFloat> obj("local.float");
+
+    obj.setDescription("canvas-scoped named float variable");
+    obj.setCategory("local");
 }

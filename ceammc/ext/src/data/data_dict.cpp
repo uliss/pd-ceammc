@@ -32,4 +32,7 @@ void setup_data_dict()
         { "data: dict" });
 
     DataDict::registerMethods(obj);
+
+    obj.setDescription("dictionary container: store values by key");
+    obj.setCategory("data");
 }

@@ -9,4 +9,7 @@ GlobalInt::GlobalInt(const PdArgs& a)
 void setup_global_int()
 {
     NumericIFaceFactory<GlobalInt> obj("global.int");
+
+    obj.setDescription("global named integer object");
+    obj.setCategory("global");
 }

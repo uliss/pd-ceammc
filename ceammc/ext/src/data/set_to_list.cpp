@@ -34,4 +34,7 @@ void setup_set_list()
     ObjectFactory<SetToList> obj("data.set2list");
     obj.processData<DataTypeSet>();
     obj.addAlias("set->list");
+
+    obj.setDescription("converts set to list");
+    obj.setCategory("data");
 }

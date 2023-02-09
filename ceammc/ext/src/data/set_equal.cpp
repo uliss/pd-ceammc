@@ -53,4 +53,7 @@ void setup_set_equal()
 {
     ObjectFactory<SetEqual> obj("set.equal");
     obj.processData<DataTypeSet>();
+
+    obj.setDescription("checks if two sets are equal (contains same elements)");
+    obj.setCategory("data");
 }

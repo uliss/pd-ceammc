@@ -33,4 +33,7 @@ void setup_global_set()
     obj.processData<DataTypeSet>();
 
     GlobalSet::registerMethods(obj);
+
+    obj.setDescription("global named set object");
+    obj.setCategory("global");
 }
