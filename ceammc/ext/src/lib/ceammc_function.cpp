@@ -24,6 +24,8 @@
 #include <algorithm>
 #include <cmath>
 
+constexpr size_t MAX_LIST_LEN = 256;
+
 namespace {
 
 using namespace ceammc;
@@ -183,7 +185,7 @@ AtomList fn_euclid(const AtomListView& args)
     }
 
     const auto onsets = args[0].asT<int>();
-    const auto pulses = args.intAt(1, 8);
+    const auto pulses = clip_max<int>(args.intAt(1, 8), MAX_LIST_LEN);
     const auto rotate = args.intAt(2, 0);
 
     if (onsets < 0) {
@@ -239,7 +241,7 @@ AtomList fn_ones(const AtomListView& args)
         return {};
     }
 
-    return AtomList::ones(args[0].asInt());
+    return AtomList::ones(clip_max<int>(args[0].asInt(), MAX_LIST_LEN));
 }
 
 AtomList fn_zeros(const AtomListView& args)
@@ -253,7 +255,7 @@ AtomList fn_zeros(const AtomListView& args)
         return {};
     }
 
-    return AtomList::zeroes(args[0].asInt());
+    return AtomList::zeroes(clip_max<int>(args[0].asInt(), MAX_LIST_LEN));
 }
 
 }
