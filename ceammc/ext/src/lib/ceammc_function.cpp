@@ -153,6 +153,7 @@ AtomList fn_reverse(const AtomListView& args)
 }
 
 #define FN_RTREE "rtree"
+#define FN_EUCLID "euclid"
 #define FN_HEXBEAT "hexbeat"
 #define FN_ROTATE "rotate"
 
@@ -173,7 +174,7 @@ AtomList fn_euclid(const AtomListView& args)
 {
     const bool ok = args.size() == 2 && args[0].isInteger() && args[1].isInteger();
     if (!ok) {
-        LIB_ERR << fmt::format("euclid(): usage euclid(ONSETS N)");
+        LIB_ERR << fmt::format(FN_EUCLID "(): usage " FN_EUCLID "(ONSETS N)");
         return {};
     }
 
@@ -181,17 +182,17 @@ AtomList fn_euclid(const AtomListView& args)
     const auto pulses = args[1].asT<int>();
 
     if (onsets < 0) {
-        LIB_ERR << fmt::format("euclid(): number of onsets should be >0, got {}", onsets);
+        LIB_ERR << fmt::format(FN_EUCLID "(): number of onsets should be >0, got {}", onsets);
         return {};
     }
 
     if (pulses < 1) {
-        LIB_ERR << fmt::format("euclid(): pattern length should be >1, got {}", pulses);
+        LIB_ERR << fmt::format(FN_EUCLID "(): pattern length should be >1, got {}", pulses);
         return {};
     }
 
     if (onsets > pulses) {
-        LIB_ERR << fmt::format("euclid(): number of pulses should be <={}, got {}", pulses, onsets);
+        LIB_ERR << fmt::format(FN_EUCLID "(): number of pulses should be <={}, got {}", pulses, onsets);
         return {};
     }
 
@@ -212,7 +213,7 @@ AtomList fn_rotate(const AtomListView& args)
 {
     const auto ok = args.size() > 1 && args[0].isFloat();
     if (!ok) {
-        LIB_ERR << fmt::format(FN_ROTATE "(): usage " FN_ROTATE "(AMOUNT ARGS...)");
+        LIB_ERR << fmt::format(FN_ROTATE "(): usage " FN_ROTATE "(N args...)");
         return {};
     }
 
@@ -283,7 +284,7 @@ BuiltinFunctionMap::BuiltinFunctionMap()
     registerFn(gensym("repeat"), fn_repeat);
     registerFn(gensym("reverse"), fn_reverse);
     registerFn(gensym(FN_RTREE), fn_rhythm_tree);
-    registerFn(gensym("euclid"), fn_euclid);
+    registerFn(gensym(FN_EUCLID), fn_euclid);
     registerFn(gensym(FN_HEXBEAT), fn_hexbeat);
     registerFn(gensym(FN_ROTATE), fn_rotate);
 }
