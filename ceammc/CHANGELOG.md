@@ -15,6 +15,8 @@
   - hexbeat(HEX) - expand hex to list of 1 and 0
   - rotate(N ...) - list rotation (N>0: to the left)
   - sort(...) - sort list in ascending order
+  - ones(N) - list of length N, filled with 1
+  - zeros(N) - list of legnth N, filled with 0
 
 ### Changes:
 - array.risset_rythm~ renamed to array.risset_rhythm~

@@ -156,6 +156,8 @@ AtomList fn_reverse(const AtomListView& args)
 #define FN_EUCLID "euclid"
 #define FN_HEXBEAT "hexbeat"
 #define FN_ROTATE "rotate"
+#define FN_ONES "ones"
+#define FN_ZEROS "zeros"
 
 AtomList fn_rhythm_tree(const AtomListView& args)
 {
@@ -226,6 +228,34 @@ AtomList fn_rotate(const AtomListView& args)
     return list::rotate(args.subView(1), args[0].asFloat());
 }
 
+AtomList fn_ones(const AtomListView& args)
+{
+    const auto ok = (args.size() == 1)
+        && args[0].isInteger()
+        && (args[0].asInt() >= 0);
+
+    if (!ok) {
+        LIB_ERR << fmt::format(FN_ONES "(): usage " FN_ONES "(N)");
+        return {};
+    }
+
+    return AtomList::ones(args[0].asInt());
+}
+
+AtomList fn_zeros(const AtomListView& args)
+{
+    const auto ok = (args.size() == 1)
+        && args[0].isInteger()
+        && (args[0].asInt() >= 0);
+
+    if (!ok) {
+        LIB_ERR << fmt::format(FN_ZEROS "(): usage " FN_ZEROS "(N)");
+        return {};
+    }
+
+    return AtomList::zeroes(args[0].asInt());
+}
+
 }
 
 namespace ceammc {
@@ -294,6 +324,8 @@ BuiltinFunctionMap::BuiltinFunctionMap()
     registerFn(gensym(FN_EUCLID), fn_euclid);
     registerFn(gensym(FN_HEXBEAT), fn_hexbeat);
     registerFn(gensym(FN_ROTATE), fn_rotate);
+    registerFn(gensym(FN_ONES), fn_ones);
+    registerFn(gensym(FN_ZEROS), fn_zeros);
 }
 
 BuiltinFunctionMap::~BuiltinFunctionMap() = default;

@@ -352,4 +352,24 @@ TEST_CASE("DataStringParser", "[core]")
         REQUIRE(parse("sort(3 2 -1)") == LF(-1, 2, 3));
         REQUIRE(parse("sort(B A C H)") == LA("A", "B", "C", "H"));
     }
+
+    SECTION("ones()")
+    {
+        REQUIRE(parse("ones()").empty());
+        REQUIRE(parse("ones(-1)").empty());
+        REQUIRE(parse("ones(0)").empty());
+        REQUIRE(parse("ones(1)") == LF(1));
+        REQUIRE(parse("ones(2)") == LF(1, 1));
+        REQUIRE(parse("ones(3)") == LF(1, 1, 1));
+    }
+
+    SECTION("zeros()")
+    {
+        REQUIRE(parse("zeros()").empty());
+        REQUIRE(parse("zeros(-1)").empty());
+        REQUIRE(parse("zeros(0)").empty());
+        REQUIRE(parse("zeros(1)") == LF(0));
+        REQUIRE(parse("zeros(2)") == LF(0, 0));
+        REQUIRE(parse("zeros(3)") == LF(0, 0, 0));
+    }
 }
