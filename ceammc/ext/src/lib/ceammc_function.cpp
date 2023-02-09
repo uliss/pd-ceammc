@@ -289,6 +289,7 @@ BuiltinFunctionMap::BuiltinFunctionMap()
     registerFn(gensym("amp2db"), fn_amp2db);
     registerFn(gensym("repeat"), fn_repeat);
     registerFn(gensym("reverse"), fn_reverse);
+    registerFn(gensym("sort"), [](const AtomListView& lv) -> AtomList {  AtomList res(lv); res.sort(); return res; });
     registerFn(gensym(FN_RTREE), fn_rhythm_tree);
     registerFn(gensym(FN_EUCLID), fn_euclid);
     registerFn(gensym(FN_HEXBEAT), fn_hexbeat);

@@ -344,4 +344,12 @@ TEST_CASE("DataStringParser", "[core]")
         REQUIRE(parse("rotate(-2 1 2 3)") == LF(2, 3, 1));
         REQUIRE(parse("rotate(-3 1 2 3)") == LF(1, 2, 3));
     }
+
+    SECTION("sort()")
+    {
+        REQUIRE(parse("sort()").empty());
+        REQUIRE(parse("sort(1)") == LF(1));
+        REQUIRE(parse("sort(3 2 -1)") == LF(-1, 2, 3));
+        REQUIRE(parse("sort(B A C H)") == LA("A", "B", "C", "H"));
+    }
 }
