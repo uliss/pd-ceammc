@@ -196,4 +196,5 @@ void setup_patch_props()
 
     obj.setDescription("patch properties manager");
     obj.setCategory("property");
+    obj.setKeywords({"property"});
 }

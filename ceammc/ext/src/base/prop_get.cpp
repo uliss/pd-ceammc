@@ -183,4 +183,5 @@ void setup_prop_get()
 
     obj.setDescription("get property from connected object/subpatch/abstraction");
     obj.setCategory("property");
+    obj.setKeywords({"property"});
 }

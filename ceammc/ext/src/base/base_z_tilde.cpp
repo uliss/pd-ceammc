@@ -54,4 +54,5 @@ void setup_base_z_tilde()
 
     obj.setDescription("sample delay");
     obj.setCategory("base");
+    obj.setKeywords({"delay", "z"});
 }

@@ -145,4 +145,5 @@ void setup_base_spring()
 
     obj.setDescription("float value \"spring\"");
     obj.setCategory("base");
+    obj.setKeywords({"spring", "float"});
 }

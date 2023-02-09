@@ -172,4 +172,5 @@ void setup_base_log()
 
     obj.setDescription("advanced data logger");
     obj.setCategory("base");
+    obj.setKeywords({"log"});
 }

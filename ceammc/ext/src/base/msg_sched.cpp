@@ -97,4 +97,5 @@ void setup_msg_sched()
 
     obj.setDescription("message scheduler");
     obj.setCategory("msg");
+    obj.setKeywords({"message", "scheduler"});
 }

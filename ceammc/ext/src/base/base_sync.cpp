@@ -67,4 +67,5 @@ void setup_base_sync()
 
     obj.setDescription("value synchronization");
     obj.setCategory("base");
+    obj.setKeywords({"sync"});
 }

@@ -234,4 +234,5 @@ void setup_prop_random()
 
     obj.setDescription("property randomizer");
     obj.setCategory("property");
+    obj.setKeywords({"property", "random"});
 }

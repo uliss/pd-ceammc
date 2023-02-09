@@ -82,4 +82,5 @@ void setup_prop_set()
 
     obj.setDescription("set property for connected object/subpatch/abstraction");
     obj.setCategory("property");
+    obj.setKeywords({"property"});
 }
