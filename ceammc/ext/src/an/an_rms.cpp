@@ -31,4 +31,8 @@ void setup_an_rms_tilde()
 {
     SoundExternalFactory<AnRms> obj("an.rms~");
     obj.addMethod("reset", &AnRms::m_reset);
+
+    obj.setDescription("root mean square with moving-average algorithm.");
+    obj.setCategory("an");
+    obj.setKeywords({"rms", "root", "mean", "square"});
 }

@@ -202,4 +202,8 @@ void setup_an_tempo_tilde()
 {
     SoundExternalFactory<AubioTempoTilde> obj("an.tempo~");
     obj.setXletsInfo({ "input signal" }, { "float: BPM value", "float: detection confidence" });
+
+    obj.setDescription("tempo detector");
+    obj.setCategory("an");
+    obj.setKeywords({"tempo", "aubio", "bpm"});
 }

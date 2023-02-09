@@ -248,4 +248,8 @@ void AubioOnset::restoreSteadyProperties()
 void setup_an_onset()
 {
     ObjectFactory<AubioOnset> obj("an.onset");
+
+    obj.setDescription("onset detector for arrays");
+    obj.setCategory("an");
+    obj.setKeywords({"onset"});
 }
