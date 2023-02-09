@@ -28,4 +28,8 @@ void setup_synth_sitar()
 {
     StkSynthFactory<SynthSitar> obj("synth.sitar~");
     obj.addMethod("note", &SynthSitar::m_note);
+
+    obj.setDescription("STK sitar");
+    obj.setCategory("synth");
+    obj.setKeywords({"sitar", "string", "pluck", "karplus"});
 }

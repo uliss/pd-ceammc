@@ -120,4 +120,8 @@ void setup_synth_clap_tilde()
                        "float: play with GAIN\n"
                        "list: play with GAIN DUR" },
         { "audio: output", "bang: on finish" });
+
+    obj.setDescription("clap synth from faust libraries");
+    obj.setCategory("synth");
+    obj.setKeywords({"synth", "kick"});
 }

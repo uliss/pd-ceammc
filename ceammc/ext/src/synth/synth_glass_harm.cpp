@@ -35,4 +35,8 @@ void setup_synth_glass_harm_tilde()
     SoundExternalFactory<SynthGlassHarm> obj("synth.glass_harm~", OBJECT_FACTORY_DEFAULT);
     obj.addMethod("reset", &SynthGlassHarm::m_reset);
     obj.addMethod("note", &SynthGlassHarm::m_note);
+
+    obj.setDescription("nonlinear banded waveguide modeled Glass Harmonica");
+    obj.setCategory("synth");
+    obj.setKeywords({"model", "synth", "glass", "harmonica"});
 }

@@ -227,4 +227,8 @@ void setup_synth_shakers()
         type_list.push_back(std::make_pair(gensym(SHAKER_NAMES[i]), SHAKER_TYPES[i]));
 
     StkSynthFactory<SynthShakers> obj("synth.shakers~");
+
+    obj.setDescription("various percussion sounds from STK library");
+    obj.setCategory("synth");
+    obj.setKeywords({"shakers", "percussion"});
 }

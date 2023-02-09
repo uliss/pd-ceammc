@@ -122,4 +122,8 @@ void setup_synth_snare_tilde()
                        "float: play with GAIN\n"
                        "list: play with GAIN DUR" },
         { "audio: output" });
+
+    obj.setDescription("Snare drum synth from Guitarix project");
+    obj.setCategory("synth");
+    obj.setKeywords({"synth", "snare", "drum"});
 }

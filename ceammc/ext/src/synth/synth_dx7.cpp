@@ -9,4 +9,8 @@ void setup_synth_dx7_tilde()
 {
     SoundExternalFactory<SynthDx7> obj("synth.dx7~", OBJECT_FACTORY_DEFAULT);
     obj.addMethod("note", &SynthDx7::m_note);
+
+    obj.setDescription("FAUST dx7 implementation");
+    obj.setCategory("synth");
+    obj.setKeywords({"dx7", "synth", "fm"});
 }

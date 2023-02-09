@@ -178,4 +178,8 @@ void setup_synth_glitch()
     obj.useDefaultPdFloatFn();
     obj.parseArgsMode(PdArgs::PARSE_COPY);
     obj.parsePropsMode(PdArgs::PARSE_COPY);
+
+    obj.setDescription("Glitch synthesizer by naivesound");
+    obj.setCategory("synth");
+    obj.setKeywords({"glitch"});
 }

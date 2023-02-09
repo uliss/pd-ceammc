@@ -21,4 +21,8 @@ void setup_synth_risset_tone_tilde()
 {
     SoundExternalFactory<SynthRissetGliss> obj("synth.risset_tone~", OBJECT_FACTORY_DEFAULT);
     obj.addMethod("reset", &SynthRissetGliss::m_reset);
+
+    obj.setDescription("Jean Claude Risset's endless glissando");
+    obj.setCategory("synth");
+    obj.setKeywords({"risset"});
 }

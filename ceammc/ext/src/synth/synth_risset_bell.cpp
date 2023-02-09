@@ -67,4 +67,8 @@ void setup_synth_risset_bell_tilde()
 {
     SoundExternalFactory<SynthRissetBell> obj("synth.risset_bell~", OBJECT_FACTORY_DEFAULT);
     obj.addMethod("reset", &SynthRissetBell::m_reset);
+
+    obj.setDescription("Jean Claude Risset's bell synth");
+    obj.setCategory("synth");
+    obj.setKeywords({"risset", "bell"});
 }

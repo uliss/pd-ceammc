@@ -49,4 +49,8 @@ public:
 void setup_synth_voice_fofc_tilde()
 {
     SoundExternalFactory<SynthVoiceFOFC> obj("synth.voice_fofc~", OBJECT_FACTORY_DEFAULT);
+
+    obj.setDescription("Simple formant/vocal synthesizer with FOF-cycle filterbank.");
+    obj.setCategory("synth");
+    obj.setKeywords({"voice", "fof", "voice", "cycle"});
 }

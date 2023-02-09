@@ -27,4 +27,8 @@ public:
 void setup_synth_birds_tilde()
 {
     SoundExternalFactory<SynthBirds> obj("synth.birds~", OBJECT_FACTORY_DEFAULT);
+
+    obj.setDescription("bird singing generator");
+    obj.setCategory("synth");
+    obj.setKeywords({"birds"});
 }

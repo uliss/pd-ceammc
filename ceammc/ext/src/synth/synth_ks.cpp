@@ -9,4 +9,8 @@ void setup_synth_ks_tilde()
 {
     SoundExternalFactory<SynthKs> obj("synth.ks~", OBJECT_FACTORY_DEFAULT);
     obj.addMethod("note", &SynthKs::m_note);
+
+    obj.setDescription("Karplus-Strong string");
+    obj.setCategory("synth");
+    obj.setKeywords({"karplus", "strong"});
 }

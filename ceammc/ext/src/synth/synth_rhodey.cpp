@@ -33,4 +33,8 @@ void setup_synth_rhodey()
 {
     StkSynthFactory<SynthRhodey> obj("synth.rhodey~");
     obj.addMethod("note", &SynthRhodey::m_note);
+
+    obj.setDescription("STK Fender Rhodes electric piano FM synthesis instrument");
+    obj.setCategory("synth");
+    obj.setKeywords({"rhodes", "fender", "synth", "fm"});
 }

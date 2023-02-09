@@ -120,4 +120,8 @@ void setup_synth_hat_tilde()
                        "float: play with GAIN\n"
                        "list: play with GAIN DUR" },
         { "audio: output", "bang: on finish" });
+
+    obj.setDescription("hi-hat synth from faust librariest");
+    obj.setCategory("synth");
+    obj.setKeywords({"synth", "kick"});
 }

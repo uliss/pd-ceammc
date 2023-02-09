@@ -27,4 +27,8 @@ void setup_synth_german_bell_tilde()
 {
     SoundExternalFactory<SynthGermanBell> obj("synth.german_bell~", OBJECT_FACTORY_DEFAULT);
     obj.addMethod("reset", &SynthGermanBell::m_reset);
+
+    obj.setDescription("german church bell modal model");
+    obj.setCategory("synth");
+    obj.setKeywords({"bell", "church", "german"});
 }

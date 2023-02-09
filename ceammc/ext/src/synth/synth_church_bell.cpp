@@ -27,4 +27,8 @@ void setup_synth_church_bell_tilde()
 {
     SoundExternalFactory<SynthChurchBell> obj("synth.church_bell~", OBJECT_FACTORY_DEFAULT);
     obj.addMethod("reset", &SynthChurchBell::m_reset);
+
+    obj.setDescription("generic church bell modal model");
+    obj.setCategory("synth");
+    obj.setKeywords({"bell", "church"});
 }

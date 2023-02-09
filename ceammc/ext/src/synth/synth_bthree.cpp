@@ -33,4 +33,8 @@ void setup_synth_bthree()
 {
     StkSynthFactory<SynthBThree> obj("synth.bee3~");
     obj.addMethod("note", &SynthBThree::m_note);
+
+    obj.setDescription("Hammond-oid organ FM synthesis instrument");
+    obj.setCategory("synth");
+    obj.setKeywords({"hammond", "synth", "fm"});
 }

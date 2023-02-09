@@ -9,4 +9,8 @@ void setup_synth_dubdub_tilde()
 {
     SoundExternalFactory<SynthDubDub> obj("synth.dubdub~", OBJECT_FACTORY_DEFAULT);
     obj.addMethod("note", &SynthDubDub::m_note);
+
+    obj.setDescription("simple synth based on a sawtooth wave filtered by a resonant lowpass");
+    obj.setCategory("synth");
+    obj.setKeywords({"dubdub", "saw"});
 }

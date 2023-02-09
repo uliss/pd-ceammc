@@ -120,4 +120,8 @@ void setup_synth_kick2_tilde()
                        "float: play with GAIN\n"
                        "list: play with GAIN DUR" },
         { "audio: output", "bang: on finish" });
+
+    obj.setDescription("low-kick synth from faust librariest");
+    obj.setCategory("synth");
+    obj.setKeywords({"synth", "kick"});
 }

@@ -36,4 +36,8 @@ void setup_synth_harpsichord_tilde()
     SoundExternalFactory<SynthHarpsichord> obj("synth.harpsichord~", OBJECT_FACTORY_DEFAULT);
     obj.addMethod("reset", &SynthHarpsichord::m_reset);
     obj.addMethod("note", &SynthHarpsichord::m_note);
+
+    obj.setDescription("waveguide commuted harpsichord");
+    obj.setCategory("synth");
+    obj.setKeywords({"model", "synth", "harpsichord"});
 }

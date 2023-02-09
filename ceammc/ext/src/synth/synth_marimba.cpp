@@ -9,4 +9,8 @@ void setup_synth_marimba_tilde()
 {
     SoundExternalFactory<SynthMarimba> obj("synth.marimba~", OBJECT_FACTORY_DEFAULT);
     obj.addMethod("note", &SynthMarimba::m_note);
+
+    obj.setDescription("simple marimba physical model implementing a single tone bar connected to tube");
+    obj.setCategory("synth");
+    obj.setKeywords({"marimba"});
 }
