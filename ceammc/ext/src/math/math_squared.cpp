@@ -59,4 +59,7 @@ void setup_math_squared()
     SoundExternalFactory<MathSquaredTilde> obj1("math.squared~");
     obj1.addAlias("math.^2~");
     obj1.addAlias("^2~");
+
+    obj.setDescription("value square");
+    obj.setCategory("math");
 }

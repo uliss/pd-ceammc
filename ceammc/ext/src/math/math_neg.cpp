@@ -32,4 +32,7 @@ void setup_math_neg()
 {
     ObjectFactory<MathNegate> obj("math.neg");
     obj.addAlias("-x");
+
+    obj.setDescription("negate function");
+    obj.setCategory("math");
 }

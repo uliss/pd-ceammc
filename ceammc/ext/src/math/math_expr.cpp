@@ -114,4 +114,7 @@ void setup_math_expr()
                        "list: input values",
                          "list: set new expression" },
         { "float: result expression" });
+
+    obj.setDescription("dynamic [expr]");
+    obj.setCategory("math");
 }

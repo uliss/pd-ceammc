@@ -37,4 +37,7 @@ void setup_math_carg_tilde()
 {
     SoundExternalFactory<MathComplexArgTilde> obj("math.carg~");
     obj.addAlias("carg~");
+
+    obj.setDescription("phase angle of a complex signals");
+    obj.setCategory("math");
 }

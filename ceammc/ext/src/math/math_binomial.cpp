@@ -85,4 +85,7 @@ void setup_math_binomial()
 {
     ObjectFactory<MathBinomial> obj("math.binomial");
     obj.addAlias("math.nck");
+
+    obj.setDescription("binomial coefficient calculator");
+    obj.setCategory("math");
 }

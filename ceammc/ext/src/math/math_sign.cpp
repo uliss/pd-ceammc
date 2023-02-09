@@ -40,4 +40,7 @@ public:
 void setup_math_sign()
 {
     ObjectFactory<MathSign> obj("math.sign");
+
+    obj.setDescription("sign function");
+    obj.setCategory("math");
 }

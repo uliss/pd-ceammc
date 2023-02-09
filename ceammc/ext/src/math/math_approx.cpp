@@ -76,4 +76,7 @@ void setup_math_approx()
 {
     ObjectFactory<MathApprox> obj("math.approx");
     obj.addAlias("approx");
+
+    obj.setDescription("check if input value approximately equal to pattern");
+    obj.setCategory("math");
 }

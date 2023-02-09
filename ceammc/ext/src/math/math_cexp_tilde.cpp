@@ -41,4 +41,7 @@ void setup_math_cexp_tilde()
 {
     SoundExternalFactory<MathComplexExpTilde> obj("math.cexp~");
     obj.addAlias("cexp~");
+
+    obj.setDescription("exponent of a complex signals");
+    obj.setCategory("math");
 }

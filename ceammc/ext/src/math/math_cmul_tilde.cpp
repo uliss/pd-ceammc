@@ -47,4 +47,7 @@ void setup_math_cmul_tilde()
 {
     SoundExternalFactory<MathComplexMulTilde> obj("math.cmul~");
     obj.addAlias("cmul~");
+
+    obj.setDescription("multiplication of complex signals");
+    obj.setCategory("math");
 }

@@ -31,4 +31,7 @@ void setup_math_or()
     ObjectFactory<MathOr> obj("math.or");
     obj.addAlias("or");
     obj.addMethod("reset", &MathOr::m_reset);
+
+    obj.setDescription("operation OR for multiple arguments");
+    obj.setCategory("math");
 }
