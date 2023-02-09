@@ -33,4 +33,7 @@ void setup_list_unique()
 {
     ObjectFactory<ListUnique> obj("list.unique");
     obj.processData<DataTypeMList>();
+
+    obj.setDescription("removes duplicates from input list");
+    obj.setCategory("list");
 }

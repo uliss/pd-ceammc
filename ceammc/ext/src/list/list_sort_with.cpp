@@ -82,4 +82,7 @@ void setup_list_sort_with()
 {
     ObjectFactory<ListSortWith> obj("list.sort_with");
     obj.processData<DataTypeMList>();
+
+    obj.setDescription("sort list with user defined side-chain");
+    obj.setCategory("list");
 }

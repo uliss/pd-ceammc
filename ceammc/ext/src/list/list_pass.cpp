@@ -83,4 +83,7 @@ void setup_list_pass()
     obj.processData<DataTypeMList>();
 
     obj.setXletsInfo({ "float, symbol, list or Mlist", "list: set passed values" }, { "list: with passed values" });
+
+    obj.setDescription("leave in list only specified elements");
+    obj.setCategory("list");
 }

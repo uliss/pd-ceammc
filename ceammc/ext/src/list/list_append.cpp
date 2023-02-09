@@ -69,4 +69,7 @@ void setup_list_append()
     obj.useDefaultPdSymbolFn();
 
     obj.setXletsInfo({ "list: input list", "atom or list: set appended value" }, { "list: output" });
+
+    obj.setDescription("append atom or list to the end of input list");
+    obj.setCategory("list");
 }

@@ -48,4 +48,7 @@ void setup_list_rundiff()
 {
     ObjectFactory<ListRunningDiff> obj("list.rundiff");
     obj.setXletsInfo({ "list: input" }, { "list: result" });
+
+    obj.setDescription("running difference");
+    obj.setCategory("list");
 }

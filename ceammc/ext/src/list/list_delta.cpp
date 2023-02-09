@@ -81,4 +81,7 @@ void setup_list_delta()
 {
     ObjectFactory<ListDelta> obj("list.delta");
     obj.addMethod("clear", &ListDelta::m_clear);
+
+    obj.setDescription("returns the difference between the current list of floats and the previous            one.");
+    obj.setCategory("list");
 }

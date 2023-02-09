@@ -44,4 +44,7 @@ void setup_list_rlencode()
 {
     ObjectFactory<ListRLEncode> obj("list.rlencode");
     obj.addAlias("list.wrap");
+
+    obj.setDescription("RLE (run-length encoding) for lists");
+    obj.setCategory("list");
 }

@@ -41,4 +41,7 @@ void setup_list_stretch()
 {
     ObjectFactory<ListStretch> obj("list.stretch");
     obj.processData<DataTypeMList>();
+
+    obj.setDescription("stretches list - changes its size with linear interpolation");
+    obj.setCategory("list");
 }

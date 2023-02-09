@@ -94,4 +94,7 @@ void setup_list_contains()
 {
     ObjectFactory<ListContains> obj("list.contains");
     obj.processData<DataTypeMList>();
+
+    obj.setDescription("checks if input list contains specified atoms");
+    obj.setCategory("list");
 }

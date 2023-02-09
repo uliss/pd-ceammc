@@ -31,4 +31,7 @@ void setup_list_equal()
 {
     ObjectFactory<ListEqual> obj("list.equal");
     obj.processData<DataTypeMList>();
+
+    obj.setDescription("checks if given lists are equal");
+    obj.setCategory("list");
 }

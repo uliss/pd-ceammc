@@ -64,4 +64,7 @@ void setup_list_convolve()
         { "list: set first convolution arg then calculate",
             "list: set second convolution arg" },
         { "list: convolution result" });
+
+    obj.setDescription("convolution for lists");
+    obj.setCategory("list");
 }

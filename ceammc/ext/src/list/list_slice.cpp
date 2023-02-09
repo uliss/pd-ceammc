@@ -51,4 +51,7 @@ void ListSlice::onDataT(const MListAtom& ml)
 void setup_list_slice()
 {
     ObjectFactory<ListSlice> obj("list.slice");
+
+    obj.setDescription("extract sublist");
+    obj.setCategory("list");
 }

@@ -30,4 +30,7 @@ void setup_list_sort()
 {
     ObjectFactory<ListSort> obj("list.sort");
     obj.processData<DataTypeMList>();
+
+    obj.setDescription("sorts list values by ascending order");
+    obj.setCategory("list");
 }

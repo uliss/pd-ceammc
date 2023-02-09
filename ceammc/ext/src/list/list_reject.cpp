@@ -83,4 +83,7 @@ void setup_list_reject()
     obj.processData<DataTypeMList>();
 
     obj.setXletsInfo({ "float, symbol, list or Mlist", "list: set rejected values" }, { "list: without rejected values" });
+
+    obj.setDescription("remove specified element from list");
+    obj.setCategory("list");
 }

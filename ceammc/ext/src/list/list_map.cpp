@@ -124,4 +124,7 @@ void setup_list_map()
     obj.processData<DataTypeMList>();
 
     obj.setXletsInfo({ "float, symbol, list or Mlist", "dict: set mapping data" }, { "list or Mlist" });
+
+    obj.setDescription("map list values by specified dictionary");
+    obj.setCategory("list");
 }

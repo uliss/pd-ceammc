@@ -89,4 +89,7 @@ void setup_list_resize()
     SYM_FOLD = gensym("fold");
 
     ObjectFactory<ListResize> obj("list.resize");
+
+    obj.setDescription("changes list size");
+    obj.setCategory("list");
 }

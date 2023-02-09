@@ -28,4 +28,7 @@ void setup_list_first()
 {
     ObjectFactory<ListFirst> obj("list.first");
     obj.processData<DataTypeMList>();
+
+    obj.setDescription("returns first list element");
+    obj.setCategory("list");
 }
