@@ -169,4 +169,6 @@ void setup_base_log()
     obj.addAlias("log.stderr");
     obj.noPropsDispatch();
     obj.setXletsInfo({ "input", "1: to enable logging, 0 to disable" }, {});
+
+    obj.setDescription("advanced data logger");
 }

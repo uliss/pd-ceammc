@@ -193,4 +193,6 @@ void setup_patch_props()
     ObjectFactory<PatchProps> obj("patch.props");
     obj.addMethod("@*?", &PatchProps::m_all_props);
     obj.addMethod("default", &PatchProps::m_default);
+
+    obj.setDescription("patch properties manager");
 }

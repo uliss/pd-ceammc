@@ -231,4 +231,6 @@ void setup_prop_random()
 {
     ObjectFactory<PropRandom> obj("prop.random", OBJECT_FACTORY_NO_DEFAULT_INLET);
     obj.parsePropsMode(PdArgs::PARSE_NONE);
+
+    obj.setDescription("property randomizer");
 }

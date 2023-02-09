@@ -79,4 +79,6 @@ void setup_prop_set()
     ObjectFactory<PropSet> obj("prop.set", OBJECT_FACTORY_DEFAULT | OBJECT_FACTORY_NO_DEFAULT_INLET);
     obj.addAlias("p.set");
     obj.addOutletInfo("connect to target objects");
+
+    obj.setDescription("set property for connected object/subpatch/abstraction");
 }

@@ -180,4 +180,6 @@ void setup_prop_get()
     obj.useClick();
     obj.noPropsDispatch();
     obj.noArgsAndPropsParse();
+
+    obj.setDescription("get property from connected object/subpatch/abstraction");
 }

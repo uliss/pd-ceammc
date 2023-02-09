@@ -51,4 +51,6 @@ void setup_base_z_tilde()
 {
     SoundExternalFactory<BaseZTilde> obj("z~");
     obj.setXletsInfo({ "signal: input", "int: delay in samples" }, { "signal: output" });
+
+    obj.setDescription("sample delay");
 }
