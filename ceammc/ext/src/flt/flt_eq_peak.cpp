@@ -19,4 +19,8 @@ public:
 void setup_flt_eq_peak_tilde()
 {
     SoundExternalFactory<FxEqPeak> obj("flt.eq_peak~");
+
+    obj.setDescription("second order \"peaking equalizer\" section (gain boost or cut near some frequency). Also called a \"parametric equalizer\" section.");
+    obj.setCategory("flt");
+    obj.setKeywords({"filter", "equalizer"});
 }

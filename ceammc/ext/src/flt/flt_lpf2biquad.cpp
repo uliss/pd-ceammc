@@ -32,4 +32,8 @@ void setup_flt_lpf2biquad()
     obj.addMethod("bw", &FltLpf2Biquad::m_bandwidth);
 
     obj.setXletsInfo({ "float: freq cutoff" }, { "list: biquad coeffs: b0 b1 b2 a1 a2" });
+
+    obj.setDescription("LPF coefficient calculator for biquad filter");
+    obj.setCategory("flt");
+    obj.setKeywords({"filter", "biquad", "lowpass"});
 }

@@ -15,4 +15,8 @@ public:
 void setup_flt_c_hpf_tilde()
 {
     SoundExternalFactory<FltCHpf> obj("flt.c_hpf~", OBJECT_FACTORY_DEFAULT);
+
+    obj.setDescription("HPF coefficient calculator for biquad filter");
+    obj.setCategory("flt");
+    obj.setKeywords({"filter", "biquad", "highpass"});
 }

@@ -18,4 +18,8 @@ public:
 void setup_flt_lowshelf_tilde()
 {
     SoundExternalFactory<FltLowShelf> obj("flt.lowshelf~");
+
+    obj.setDescription("gain boost|cut below some frequency");
+    obj.setCategory("flt");
+    obj.setKeywords({"filter", "lowshelf"});
 }

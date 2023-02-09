@@ -36,4 +36,8 @@ void setup_flt_resonbp_tilde()
 {
     SoundExternalFactory<FltResonBp> obj("flt.resonbp~");
     obj.setXletsInfo({ "signal: input", "float: freq", "float: Q-factor" }, { "signal: output" });
+
+    obj.setDescription("Simple resonant bandpass filter");
+    obj.setCategory("flt");
+    obj.setKeywords({"filter", "resonant"});
 }

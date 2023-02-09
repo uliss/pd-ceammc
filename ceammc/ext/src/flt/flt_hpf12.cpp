@@ -26,4 +26,8 @@ void setup_flt_hpf12_tilde()
 {
     SoundExternalFactory<FltHpf12> obj("flt.hpf12~");
     obj.setXletsInfo({ "signal: input", "float: freq" }, { "signal: output" });
+
+    obj.setDescription("High-pass second order Butterworth filter");
+    obj.setCategory("flt");
+    obj.setKeywords({"filter", "highpass"});
 }

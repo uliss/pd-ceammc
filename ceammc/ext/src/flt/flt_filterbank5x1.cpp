@@ -54,4 +54,8 @@ void setup_flt_filterbank5x1_tilde()
             "BandPass: 2000Hz",
             "HighPass: 4000Hz",
         });
+
+    obj.setDescription("5 band one octave butterworth filterbank");
+    obj.setCategory("flt");
+    obj.setKeywords({"filter", "filterbank"});
 }

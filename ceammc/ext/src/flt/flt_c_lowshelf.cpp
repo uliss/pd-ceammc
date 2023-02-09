@@ -16,4 +16,8 @@ public:
 void setup_flt_c_lowshelf_tilde()
 {
     SoundExternalFactory<FltCLowShelf> obj("flt.c_lowshelf~", OBJECT_FACTORY_DEFAULT);
+
+    obj.setDescription("Lowshelf filter coefficient calculator for biquad");
+    obj.setCategory("flt");
+    obj.setKeywords({"filter", "lowshelf"});
 }

@@ -18,4 +18,8 @@ void setup_flt_fb_comb_tilde()
 {
     SoundExternalFactory<FltFbComb> obj("flt.fb_comb~");
     obj.addMethod("reset", &FltFbComb::m_reset);
+
+    obj.setDescription("feedback comb filter");
+    obj.setCategory("flt");
+    obj.setKeywords({"filter", "comb"});
 }

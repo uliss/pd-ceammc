@@ -26,4 +26,8 @@ void setup_flt_lpf24_tilde()
 {
     SoundExternalFactory<FltLpf24> obj("flt.lpf24~");
     obj.setXletsInfo({ "signal: input", "float: freq" }, { "signal: output" });
+
+    obj.setDescription("Low-pass fourth order Butterworth filter");
+    obj.setCategory("flt");
+    obj.setKeywords({"filter", "lowpass"});
 }

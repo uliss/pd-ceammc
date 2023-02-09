@@ -33,4 +33,8 @@ void setup_flt_hpf2biquad()
 
     obj.setXletsInfo({ "float: freq cutoff in herz or radians" },
         { "list: biquad coeffs: b0 b1 b2 a1 a2" });
+
+    obj.setDescription("HPF coefficient calculator for biquad filter");
+    obj.setCategory("flt");
+    obj.setKeywords({"filter", "biquad", "hpf", "highpass"});
 }

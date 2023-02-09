@@ -16,4 +16,8 @@ void setup_flt_bpf12_tilde()
 {
     SoundExternalFactory<FltBpf12> obj("flt.bpf12~");
     obj.addMethod("reset", &FltBpf12::m_reset);
+
+    obj.setDescription("Two pole band-pass butterworth filter");
+    obj.setCategory("flt");
+    obj.setKeywords({"filter", "biquad", "bpf"});
 }

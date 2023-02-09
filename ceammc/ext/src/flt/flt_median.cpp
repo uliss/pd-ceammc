@@ -75,4 +75,8 @@ void FltMedian::updateSize()
 void setup_flt_median()
 {
     ObjectFactory<FltMedian> obj("flt.median");
+
+    obj.setDescription("Median control flow filter");
+    obj.setCategory("flt");
+    obj.setKeywords({"filter", "median"});
 }

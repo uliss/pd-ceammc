@@ -18,4 +18,8 @@ public:
 void setup_flt_notch_tilde()
 {
     SoundExternalFactory<FltNotch> obj("flt.notch~");
+
+    obj.setDescription("band-rejection filter");
+    obj.setCategory("flt");
+    obj.setKeywords({"filter", "lowshelf"});
 }

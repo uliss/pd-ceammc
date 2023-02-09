@@ -15,4 +15,8 @@ public:
 void setup_flt_c_notch_tilde()
 {
     SoundExternalFactory<FltCNotch> obj("flt.c_notch~", OBJECT_FACTORY_DEFAULT);
+
+    obj.setDescription("Band-reject coefficient calculator for biquad filter");
+    obj.setCategory("flt");
+    obj.setKeywords({"filter", "biquad", "notch", "reject"});
 }

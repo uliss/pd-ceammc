@@ -16,4 +16,8 @@ void setup_flt_bpf24_tilde()
 {
     SoundExternalFactory<FltBpf24> obj("flt.bpf24~");
     obj.addMethod("reset", &FltBpf24::m_reset);
+
+    obj.setDescription("Four pole band-pass butterworth filter");
+    obj.setCategory("flt");
+    obj.setKeywords({"filter", "biquad", "bpf"});
 }

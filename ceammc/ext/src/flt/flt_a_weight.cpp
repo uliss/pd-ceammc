@@ -73,4 +73,8 @@ bool FltAWeight::getValue(t_float freqHz, t_float& res) const
 void setup_flt_a_weight()
 {
     ObjectFactory<FltAWeight> obj("flt.a-weight");
+
+    obj.setDescription("convert frequency to A-weight value");
+    obj.setCategory("flt");
+    obj.setKeywords({"filter", "weight", "A"});
 }

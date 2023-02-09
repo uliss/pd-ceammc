@@ -26,4 +26,8 @@ void setup_flt_lpf12_tilde()
 {
     SoundExternalFactory<FltLpf12> obj("flt.lpf12~");
     obj.setXletsInfo({ "signal: input", "float: freq" }, { "signal: output" });
+
+    obj.setDescription("Low-pass second order Butterworth filter");
+    obj.setCategory("flt");
+    obj.setKeywords({"filter", "lowpass"});
 }

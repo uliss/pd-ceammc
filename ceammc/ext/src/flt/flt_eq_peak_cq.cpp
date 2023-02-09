@@ -19,4 +19,8 @@ public:
 void setup_flt_eq_peak_cq_tilde()
 {
     SoundExternalFactory<FxEqPeakCq> obj("flt.eq_peak_cq~");
+
+    obj.setDescription("constant-Q second order peaking equalizer section");
+    obj.setCategory("flt");
+    obj.setKeywords({"filter", "equalizer"});
 }

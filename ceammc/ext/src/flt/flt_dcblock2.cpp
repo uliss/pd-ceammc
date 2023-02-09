@@ -14,4 +14,8 @@ public:
 void setup_flt_dcblock2_tilde()
 {
     SoundExternalFactory<FltDcBlock2> obj("flt.dcblock2~");
+
+    obj.setDescription("stereo DC blocker");
+    obj.setCategory("flt");
+    obj.setKeywords({"filter", "dcblock"});
 }
