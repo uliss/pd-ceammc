@@ -13,10 +13,11 @@
   - metro.seq - second inlet added to set sequence pattern
 - new init argument functions:
   - hexbeat(HEX) expand hex to list of 1 and 0
-  - rotate(N ...) list rotation
+  - rotate(N ...) list rotation (N>0: to the left)
 
 ### Changes:
 - array.risset_rythm~ renamed to array.risset_rhythm~
+- euclid() init function third arg added: rotation to the right
 
 ## [0.9.6]
 ### Added:

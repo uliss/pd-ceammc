@@ -172,14 +172,17 @@ AtomList fn_rhythm_tree(const AtomListView& args)
 
 AtomList fn_euclid(const AtomListView& args)
 {
-    const bool ok = args.size() == 2 && args[0].isInteger() && args[1].isInteger();
+    const bool ok = (args.size() >= 1 && args.size() <= 3)
+        && args[0].isInteger();
+
     if (!ok) {
-        LIB_ERR << fmt::format(FN_EUCLID "(): usage " FN_EUCLID "(ONSETS N)");
+        LIB_ERR << fmt::format(FN_EUCLID "(): usage " FN_EUCLID "(BEATS N=8? ROTATE=0?)");
         return {};
     }
 
     const auto onsets = args[0].asT<int>();
-    const auto pulses = args[1].asT<int>();
+    const auto pulses = args.intAt(1, 8);
+    const auto rotate = args.intAt(2, 0);
 
     if (onsets < 0) {
         LIB_ERR << fmt::format(FN_EUCLID "(): number of onsets should be >0, got {}", onsets);
@@ -196,7 +199,10 @@ AtomList fn_euclid(const AtomListView& args)
         return {};
     }
 
-    return list::bresenham(onsets, pulses);
+    if (!rotate)
+        return list::bresenham(onsets, pulses);
+    else
+        return list::rotate(list::bresenham(onsets, pulses), -rotate);
 }
 
 AtomList fn_hexbeat(const AtomListView& args)
@@ -289,9 +295,7 @@ BuiltinFunctionMap::BuiltinFunctionMap()
     registerFn(gensym(FN_ROTATE), fn_rotate);
 }
 
-BuiltinFunctionMap::~BuiltinFunctionMap()
-{
-}
+BuiltinFunctionMap::~BuiltinFunctionMap() = default;
 
 BuiltinFunctionMap& BuiltinFunctionMap::instance()
 {

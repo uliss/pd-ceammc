@@ -291,11 +291,11 @@ TEST_CASE("DataStringParser", "[core]")
     SECTION("euclid()")
     {
         REQUIRE(parse("euclid()").empty());
-        REQUIRE(parse("euclid(1)").empty());
         REQUIRE(parse("euclid(A B)").empty());
         REQUIRE(parse("euclid(10 1)").empty());
         REQUIRE(parse("euclid(-1 10)").empty());
         REQUIRE(parse("euclid(1 -2)").empty());
+        REQUIRE(parse("euclid(1)") == LF(1, 0, 0, 0, 0, 0, 0, 0));
         REQUIRE(parse("euclid(0 4)") == LF(0, 0, 0, 0));
         REQUIRE(parse("euclid(1 1)") == LF(1));
         REQUIRE(parse("euclid(2 2)") == LF(1, 1));
@@ -307,7 +307,10 @@ TEST_CASE("DataStringParser", "[core]")
         REQUIRE(parse("euclid(3 4)") == LF(1, 0, 1, 1));
         REQUIRE(parse("euclid(3 5)") == LF(1, 0, 1, 0, 1));
         REQUIRE(parse("euclid(3 8)") == LF(1, 0, 0, 1, 0, 0, 1, 0));
-        //        REQUIRE(parse("euclid(3 7)") == LF(1, 0, 1, 0, 0, 1, 0));
+        REQUIRE(parse("euclid(3 4 0)") == LF(1, 0, 1, 1));
+        REQUIRE(parse("euclid(3 4 1)") == LF(1, 1, 0, 1));
+        REQUIRE(parse("euclid(3 4 2)") == LF(1, 1, 1, 0));
+        REQUIRE(parse("euclid(3 4 -1)") == LF(0, 1, 1, 1));
     }
 
     SECTION("hexbeat()")
@@ -323,7 +326,7 @@ TEST_CASE("DataStringParser", "[core]")
         REQUIRE(parse("hexbeat(\"4\")") == LF(0, 1, 0, 0));
     }
 
-    SECTION("shift()")
+    SECTION("rotate()")
     {
         REQUIRE(parse("rotate()").empty());
         REQUIRE(parse("rotate(1)").empty());
