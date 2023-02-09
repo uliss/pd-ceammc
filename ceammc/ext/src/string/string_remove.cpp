@@ -69,4 +69,8 @@ void setup_string_remove()
     ObjectFactory<StringRemove> obj("string.remove");
     obj.processData<DataTypeString>();
     obj.addAlias("str.remove");
+
+    obj.setDescription("remove substring from input string");
+    obj.setCategory("string");
+    obj.setKeywords({"remove"});
 }

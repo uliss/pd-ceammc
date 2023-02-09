@@ -132,4 +132,8 @@ void setup_string_format()
     ObjectFactory<StringFormat> obj("string.format");
     obj.processData();
     obj.addAlias("str.format");
+
+    obj.setDescription("formats string like printf.");
+    obj.setCategory("string");
+    obj.setKeywords({"string", "format"});
 }

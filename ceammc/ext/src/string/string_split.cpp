@@ -90,4 +90,8 @@ void setup_string_split()
     obj.parsePropsMode(PdArgs::PARSE_UNQUOTE);
 
     obj.setXletsInfo({ "symbol or data:String", "symbol: set split symbol" }, { "list of data:Strings or symbols" });
+
+    obj.setDescription("split string or symbol by separator");
+    obj.setCategory("string");
+    obj.setKeywords({"split"});
 }
