@@ -21,6 +21,7 @@ set(BASE_SOURCES
     metro_pattern.cpp
     metro_random.cpp
     metro_seq.cpp
+    metro_wchoice.cpp
     msg.cpp
     msg_after.cpp
     msg_sched.cpp
