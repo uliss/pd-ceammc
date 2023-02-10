@@ -11,7 +11,7 @@
         plot.linspace~ plot.logspace~ plot.response~
     }}
     {base {
-        ceammc.search function function.call gain~ logger matrix~
+        ceammc.search function function.call gain~ logger matrix~ metro.choice
         metro.pattern metro.random metro.seq mix~ nsig~ obj.props radio spring
         sync window xdac~ xfade2~ xfade~ z~
     }}
