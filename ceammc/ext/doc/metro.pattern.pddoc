@@ -32,10 +32,13 @@
             <inlet>
                 <xinfo on="float">starts (on 1) or stops (on 0) metro</xinfo>
             </inlet>
+            <inlet>
+                <xinfo on="list">set new pattern</xinfo>
+            </inlet>
         </inlets>
         <outlets>
             <outlet>outputs *bang*</outlet>
-            <outlet>outputs current pattern index and bang on loop return</outlet>
+            <outlet>outputs current pattern index and bang on each cycle</outlet>
         </outlets>
         <example>
             <pdascii>

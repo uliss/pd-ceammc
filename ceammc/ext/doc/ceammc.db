@@ -479,7 +479,7 @@ math.tan~		~		~
 math.trunc		.		.
 math.trunc~		~		~
 matrix~,ceammc/matrix~		?		?
-metro.pattern		.		..
+metro.pattern		..		..
 metro.random		..		.
 metro.seq		...		.
 midi.arp		..		..
