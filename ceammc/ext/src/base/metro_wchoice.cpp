@@ -72,7 +72,7 @@ MetroWChoice::MetroWChoice(const PdArgs& args)
         auto args = createCbListProperty(
             "@init", []() { return AtomList(); },
             [this](const AtomListView& lv) -> bool {
-                std::vector<AtomList> out(2, {});
+                std::vector<AtomList> out(2, AtomList());
                 list::deinterleavePadWith(lv, Atom(0.0), out);
                 return timeset_->set(out[0]) && weights_->set(out[1]);
             });
