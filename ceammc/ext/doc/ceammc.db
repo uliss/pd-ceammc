@@ -483,6 +483,7 @@ metro.choice		..		.
 metro.pattern		..		..
 metro.random		...		.
 metro.seq		...		.
+metro.wchoice		...		.
 midi.arp		..		..
 midi.cc		.		.
 midi.clock		.		..

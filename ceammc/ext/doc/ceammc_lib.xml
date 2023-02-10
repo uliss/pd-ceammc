@@ -143,6 +143,9 @@
     <entry name="metro.seq" descr="metro sequencer" ref_view="object">
       <xi:include href="metro.seq.pddoc" parse="xml"/>
     </entry>
+    <entry name="metro.wchoice" descr="metro with weighted random choice from timeset" ref_view="object">
+      <xi:include href="metro.wchoice.pddoc" parse="xml"/>
+    </entry>
     <entry name="mix~" descr="multislot signal mixer" ref_view="object">
       <xi:include href="mix~.pddoc" parse="xml"/>
     </entry>

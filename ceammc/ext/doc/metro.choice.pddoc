@@ -24,7 +24,8 @@
             <argument name="TIMESET" units="millisecond" type="list">timeset (&gt;0)</argument>
         </arguments>
         <properties>
-            <property name="@timeset" units="millisecond" type="list" default="">timeset (&gt;0)</property>
+            <property name="@timeset" units="millisecond" type="list" default="">timeset
+            (&gt;0)</property>
             <property name="@seed" type="int" minvalue="0" default="0">generator seed</property>
         </properties>
         <inlets>

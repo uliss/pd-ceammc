@@ -65,6 +65,7 @@ metro.choice	metro with random choice from timeset
 metro.pattern	metro with rhythmic patterns
 metro.random	metro random bang with specified range
 metro.seq	metro sequencer
+metro.wchoice	metro with weighted random choice from timeset
 mix~	multislot signal mixer
 ceammc/mix~	multislot signal mixer
 nsig~	Mulitchannel converter from control to audio rate

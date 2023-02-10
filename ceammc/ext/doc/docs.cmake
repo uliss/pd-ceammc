@@ -482,6 +482,7 @@ set(DOC_FILES
     metro.choice
     metro.pattern
     metro.random
+    metro.wchoice
     metro.seq
     midi.arp
     midi.cc

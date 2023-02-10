@@ -822,6 +822,7 @@ metro.choice
 metro.pattern
 metro.random
 metro.seq
+metro.wchoice
 midi->freq
 midi.arp
 midi.cc

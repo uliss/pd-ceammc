@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="metro.wchoice">
+        <title>metro.wchoice</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>metro with weighted random choice from timeset</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>base</category>
+            <keywords>metro random weight</keywords>
+            <also>
+                <see>metro.choice</see>
+                <see>metro.random</see>
+            </also>
+            <since>0.9.7</since>
+        </meta>
+        <arguments>
+            <argument name="INIT" type="list">TIME and WEIGHT list in format: T0 W1... Weight
+            values can be floats or percent</argument>
+        </arguments>
+        <properties>
+            <property name="@t" units="millisecond" type="list" default="">timeset
+            (&gt;0)</property>
+            <property name="@w" type="list" default="">weight list, float or percent
+            values</property>
+            <property name="@seed" type="int" minvalue="0" default="0">generator seed</property>
+            <property name="@init" type="list" default="" access="initonly">intermixed list of time
+            and weights values</property>
+            <property name="@calc_w" type="list" default="1" access="readonly">normalized list of
+            probabilities</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="float">starts (on &gt;0) or stops (on &lt;=0) metro</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="list">set timeset</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="list">set weights</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>outputs *bang*</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[T]        [L]              [L]
+|          |.               |..
+[metro.wchoice 100 20% 200 80%]
+|
+[click~]
+|
+[flt.resonbp~ 1000 40] [ui.dsp~]
+|
+[ui.hgain~]
+|\
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
