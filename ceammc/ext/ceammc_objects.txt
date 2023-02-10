@@ -818,6 +818,7 @@ math.trunc
 math.trunc~
 math.||'
 matrix~
+metro.choice
 metro.pattern
 metro.random
 metro.seq
@@ -1011,6 +1012,8 @@ reject
 reject_if
 replace
 rhvoice~
+rhythm.euclid
+rhythm.hexbeat
 risset.gliss
 round
 round~

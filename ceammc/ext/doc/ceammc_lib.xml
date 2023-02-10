@@ -131,6 +131,9 @@
     <entry name="matrix~" descr="signal routing matrix" ref_view="object">
       <xi:include href="matrix~.pddoc" parse="xml"/>
     </entry>
+    <entry name="metro.choice" descr="metro with random choice from timeset" ref_view="object">
+      <xi:include href="metro.choice.pddoc" parse="xml"/>
+    </entry>
     <entry name="metro.pattern" descr="metro with rhythmic patterns" ref_view="object">
       <xi:include href="metro.pattern.pddoc" parse="xml"/>
     </entry>

@@ -19,14 +19,14 @@
 MetroChoice::MetroChoice(const PdArgs& args)
     : BaseObject(args)
     , clock_([this]() {
-        auto N = pattern_->value().size();
+        auto N = timeset_->value().size();
         if (N == 0) {
-            OBJ_ERR << "empty time choice set";
+            OBJ_ERR << "empty timeset";
             return;
         }
 
         auto idx = gen_.gen_uniform_uint(0, N - 1);
-        auto atom = pattern_->value()[idx];
+        auto atom = timeset_->value()[idx];
         auto choice = atom.asFloat(-1);
         if (choice <= 0) {
             OBJ_ERR << "invalid delay time value, expected positive float, got: " << atom;
@@ -36,19 +36,19 @@ MetroChoice::MetroChoice(const PdArgs& args)
         clock_.delay(choice);
         bangTo(0);
     })
-    , pattern_(nullptr)
+    , timeset_(nullptr)
 {
-    createInlet(); // choice set
+    createInlet(); // timeset
     createOutlet();
 
-    pattern_ = new ListProperty("@set");
-    pattern_->setArgIndex(0);
-    pattern_->setListCheckFn([](const AtomListView& lv) -> bool {
+    timeset_ = new ListProperty("@timeset");
+    timeset_->setArgIndex(0);
+    timeset_->setListCheckFn([](const AtomListView& lv) -> bool {
         return lv.allOf([](const Atom& a) { return a.isFloat() && a.asT<t_float>() > 0; });
     },
         "list of positive floats expected");
-    pattern_->setUnitsMs();
-    addProperty(pattern_);
+    timeset_->setUnitsMs();
+    addProperty(timeset_);
 
     addProperty(new random::SeedProperty(gen_));
 }
@@ -63,10 +63,21 @@ void MetroChoice::onFloat(t_float f)
 
 void MetroChoice::onInlet(size_t n, const AtomListView& lv)
 {
-    pattern_->set(lv);
+    timeset_->set(lv);
 }
 
 void setup_metro_choice()
 {
     ObjectFactory<MetroChoice> obj("metro.choice");
+
+    obj.setDescription("metro with random choice from timeset");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "metro", "random", "choice", "set", "uniform" });
+    obj.setCategory("base");
+    obj.setSinceVersion(0, 9);
+
+    obj.setXletsInfo(
+        { "float: 1 - start metronome, 0 - stop",
+            "list: set timeset" },
+        { "bang" });
 }

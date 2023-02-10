@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="metro.choice">
+        <title>metro.choice</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>metro with random choice from timeset</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>base</category>
+            <keywords>metro random</keywords>
+            <also>
+                <see>metro.random</see>
+                <see>metro.pattern</see>
+            </also>
+            <since>0.9.7</since>
+        </meta>
+        <info>
+            <par>Random distribution: uniform</par>
+        </info>
+        <arguments>
+            <argument name="TIMESET" units="millisecond" type="list">timeset (&gt;0)</argument>
+        </arguments>
+        <properties>
+            <property name="@timeset" units="millisecond" type="list" default="">timeset (&gt;0)</property>
+            <property name="@seed" type="int" minvalue="0" default="0">generator seed</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="float">starts (on &gt;0) or stops (on &lt;=0) metro</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="float">set @min property</xinfo>
+                <xinfo on="list">set time set.</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>outputs *bang*</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[T]                [L]
+|                  |.
+[metro.choice 100 200]
+|
+[click~]
+|
+[flt.resonbp~ 1000 40] [ui.dsp~]
+|
+[ui.hgain~]
+|\
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

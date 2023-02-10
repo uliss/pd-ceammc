@@ -22,7 +22,7 @@ using namespace ceammc;
 class MetroChoice : public BaseObject {
     ClockLambdaFunction clock_;
     random::RandomGen gen_;
-    ListProperty* pattern_;
+    ListProperty* timeset_;
 
 public:
     MetroChoice(const PdArgs& args);

@@ -479,6 +479,7 @@ set(DOC_FILES
     math.trunc
     math.trunc~
     matrix~
+    metro.choice
     metro.pattern
     metro.random
     metro.seq

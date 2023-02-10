@@ -479,6 +479,7 @@ math.tan~		~		~
 math.trunc		.		.
 math.trunc~		~		~
 matrix~,ceammc/matrix~		?		?
+metro.choice		..		.
 metro.pattern		..		..
 metro.random		...		.
 metro.seq		...		.
