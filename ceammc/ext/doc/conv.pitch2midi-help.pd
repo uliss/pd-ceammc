@@ -10,7 +10,7 @@
 #X obj 210 80 cnv 1 555 65 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 Convert Scientific Pitch Notation to MIDI note numbers.
 SPN consist of pitch class (C \, C# \, D \, Eb etc.) and octave (0-9).
-C4 is middle C (MIDI: 60). The rest symtol is R (-1 output);
+C4 is middle C (MIDI: 60). The rest symbol is R (-1 output);
 #X obj 50 173 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 184 173 ui.dsp~;
 #X obj 50 202 metro 100;
