@@ -291,7 +291,7 @@ void u8_dec(const char *s, int *i)
 int u8_nativetoutf8(char *dest, int sz, const char *src, int srcsz)
 {
     int len;
-#ifdef _WIN32
+#if 0 // ceammc: disable re-encoding, seem that portaudio in msys2 distribution returns utf-8 _WIN32
     int res;
     wchar_t*wbuf = 0;
     if(srcsz < 0) {
