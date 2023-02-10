@@ -45,8 +45,8 @@
 <![CDATA[
 [@pattern 100 290 110 70(
 |
-| [T]   [@pattern 500 150(
-| |     |
+| [T]          [500 150(
+| |            |.
 [metro.pattern 268 200]
 |                    ^|
 [click~]             [route.b]

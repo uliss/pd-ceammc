@@ -7,7 +7,7 @@
 #X obj 646 11 metro.pattern;
 #X msg 50 118 @pattern 100 290 110 70;
 #X obj 69 147 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X msg 126 147 @pattern 500 150;
+#X msg 194 147 500 150;
 #X obj 50 176 metro.pattern 268 200;
 #X obj 50 205 click~;
 #X obj 251 205 route.b;
@@ -89,7 +89,7 @@ https://github.com/uliss/pure-data;
 #X restore 10 740 pd info;
 #X connect 4 0 7 0;
 #X connect 5 0 7 0;
-#X connect 6 0 7 0;
+#X connect 6 0 7 1;
 #X connect 7 0 8 0;
 #X connect 7 1 9 0;
 #X connect 8 0 10 0;
