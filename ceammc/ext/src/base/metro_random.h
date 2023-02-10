@@ -16,12 +16,15 @@
 
 #include "ceammc_clock.h"
 #include "ceammc_object.h"
+#include "ceammc_random.h"
 using namespace ceammc;
 
 class MetroRandom : public BaseObject {
-    ClockMemberFunction<MetroRandom> clock_;
+    ClockLambdaFunction clock_;
+    random::RandomGen gen_;
     IntProperty* min_;
     IntProperty* max_;
+    random::SeedProperty* seed_;
 
 public:
     MetroRandom(const PdArgs& args);
@@ -30,8 +33,7 @@ public:
     void onInlet(size_t n, const AtomListView& lv) final;
 
 private:
-    void tick();
-    double gen() const;
+    double gen();
 };
 
 void setup_metro_random();

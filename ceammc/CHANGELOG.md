@@ -12,6 +12,7 @@
 - new object inlets:
   - metro.seq - second inlet added to set interval and third inlet to set pattern
   - metro.pattern - second inlet added to set pattern
+  - metro.random - third inlet added to set max property
 - new object methods:
   - euclid method added to ui.radio to set euclid pattern when in checklist mode
   - hexbeat method added to ui.radio to set hexbeat pattern when in checklist mode

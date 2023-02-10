@@ -31,13 +31,18 @@
             bang interval</property>
             <property name="@max" units="millisecond" minvalue="1" type="int" default="200">maximum
             bang interval</property>
+            <property name="@seed" type="int" minvalue="0" default="0">generator seed</property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="float">starts (on &gt; 0) or stops (on &lt;= 0) metro</xinfo>
             </inlet>
             <inlet>
+                <xinfo on="float">set @min property</xinfo>
                 <xinfo on="list">set random range. min max pair expected.</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="float">set @max property</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -47,6 +52,8 @@
             <pdascii>
 <![CDATA[
 [T]  [ui.rsl @min 50 @max 1000]
+|    |
+|    |
 |    |.
 [metro.random 100 140]
 |
