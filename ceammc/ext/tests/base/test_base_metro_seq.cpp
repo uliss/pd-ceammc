@@ -28,7 +28,7 @@ TEST_CASE("metro.seq", "[externals]")
         SECTION("default")
         {
             TExt t("metro.seq");
-            REQUIRE(t.numInlets() == 2);
+            REQUIRE(t.numInlets() == 3);
             REQUIRE(t.numOutlets() == 1);
 
             REQUIRE_PROPERTY_LIST(t, @pattern, L());
@@ -66,17 +66,27 @@ TEST_CASE("metro.seq", "[externals]")
         REQUIRE_PROPERTY_LIST(t, @pattern, LF(0, 0, 1, 1));
     }
 
-    SECTION("set pattern 2nd inlet")
+    SECTION("set interval 2nd inlet")
+    {
+        TExt t("metro.seq");
+        REQUIRE_PROPERTY_FLOAT(t, @interval, 0);
+
+        t.sendFloatTo(10, 1);
+        REQUIRE_PROPERTY_FLOAT(t, @interval, 10);
+    }
+
+    SECTION("set pattern 3rd inlet")
     {
         TExt t("metro.seq");
         REQUIRE_PROPERTY_LIST(t, @pattern, L());
 
-        t.sendListTo(LF(1, 1, 0, 1), 1);
+        t.sendListTo(LF(1, 1, 0, 1), 2);
         REQUIRE_PROPERTY_LIST(t, @pattern, LF(1, 1, 0, 1));
-        t.sendListTo(LA("A", "B", -100, 10), 1);
+        t.sendListTo(LA("A", "B", -100, 10), 2);
         REQUIRE_PROPERTY_LIST(t, @pattern, LF(0, 0, 1, 1));
-        t.sendListTo(L(), 1);
+        t.sendListTo(L(), 2);
         REQUIRE_PROPERTY_LIST(t, @pattern, LF(0, 0.f, 1, 1));
+        REQUIRE_PROPERTY_FLOAT(t, @interval, 0);
     }
 
     SECTION("set current")

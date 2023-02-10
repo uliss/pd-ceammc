@@ -39,6 +39,9 @@
                 <xinfo on="float">starts (on 1) or stops (on 0) metro</xinfo>
             </inlet>
             <inlet>
+                <xinfo on="float">set new step interval</xinfo>
+            </inlet>
+            <inlet>
                 <xinfo on="list">set new pattern</xinfo>
             </inlet>
         </inlets>
@@ -50,16 +53,20 @@
 <![CDATA[
 [1 0 1 1 0 1 0 1(
 |
-[ui.radio @mode 1]
+[ui.radio*]
 |
 [msg @pattern]
 |
-|  [T]          [1 0 1(
-|  |            |.
+|  [T]  [F]        [1 0 1(
+|  |    |.         |..
 [metro.seq 100 1 0 0 1]
 |
 [click~]
 |
+[flt.resonbp~ 440 80]  [ui.dsp~]
+|
+[ui.hgain~]
+|\
 [dac~]
 ]]>
             </pdascii>

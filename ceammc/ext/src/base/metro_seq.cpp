@@ -12,7 +12,8 @@ MetroSeq::MetroSeq(const PdArgs& a)
     , interval_(0)
     , current_(0)
 {
-    createInlet();
+    createInlet(); // period
+    createInlet(); // pattern
     createOutlet();
 
     interval_ = new FloatProperty("@interval", 0);
@@ -57,7 +58,14 @@ void MetroSeq::onFloat(t_float f)
 
 void MetroSeq::onInlet(size_t n, const AtomListView& lv)
 {
-    setPattern(lv);
+    switch (n) {
+    case 1:
+        interval_->set(lv);
+        break;
+    case 2:
+        setPattern(lv);
+        break;
+    }
 }
 
 void MetroSeq::clockTick()
@@ -82,6 +90,10 @@ bool MetroSeq::setPattern(const AtomListView& lv)
     } else {
         pattern_.clear();
         lv.map(toDigit, pattern_);
+
+        if (current_ >= pattern_.size())
+            current_ = 0;
+
         return true;
     }
 }
@@ -95,5 +107,5 @@ void setup_metro_seq()
     obj.setKeywords({ "metro", "sequencer" });
     obj.setCategory("base");
     obj.setSinceVersion(0, 5);
-    obj.setXletsInfo({ "float: 1|0 to start or stop metro", "list: set new pattern" }, { "bang" });
+    obj.setXletsInfo({ "float: 1|0 to start or stop metro", "float: set new interval", "list: set new pattern" }, { "bang" });
 }
