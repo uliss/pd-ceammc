@@ -12,7 +12,6 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_property_info.h"
-#include "ceammc_json.h"
 #include "ceammc_log.h"
 #include "datatype_dict.h"
 #include "datatype_json.h"

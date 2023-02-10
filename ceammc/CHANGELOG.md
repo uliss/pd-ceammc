@@ -9,6 +9,7 @@
   - array.readwrite~ - ordered array reader/writer (read first, then write)
   - conv.char2morse - single character to morse code converter
   - proto.morse - morse encoder with specified speed and other settings
+  - metro.choice - randomly (uniformly) choose time interval from specified set
 - new object inlets:
   - metro.seq - second inlet added to set interval and third inlet to set pattern
   - metro.pattern - second inlet added to set pattern
