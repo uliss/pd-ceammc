@@ -45,12 +45,12 @@
 | [T]   [@pattern 500 150(
 | |     |
 [metro.pattern 268 200]
-|                   ^|
-[click~]            [is_bang]
-|                         ^|
-[flt.resonbp~ 1600]       [B]
+|                    ^|
+[click~]             [route.b]
+|                    |
+[flt.resonbp~ 1600]  [B]
 |
-[ui.gain~ @size 120 16] [ui.dsp~]
+[ui.hgain~]          [ui.dsp~]
 | \
 [dac~]
 ]]>
