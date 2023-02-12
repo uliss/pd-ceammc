@@ -1,5 +1,6 @@
 add_executable(test_ext_music test_music_base.h
     test_rhythm_hexbeat.cpp
+    test_rhythm_euclid.cpp
 )
 
 target_compile_definitions(test_ext_music

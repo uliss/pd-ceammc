@@ -29,12 +29,13 @@ public:
 
     void initDone() override;
     void onBang() override;
+    void onFloat(t_float f) override;
     void onList(const AtomListView& lv) override;
 
     void onInlet(size_t n, const AtomListView& lv) override;
 
 private:
-    bool updatePattern();
+    void updatePattern();
 };
 
 void setup_rhythm_euclid();
