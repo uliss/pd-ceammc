@@ -116,4 +116,9 @@ void RhythmEuclid::updatePattern()
 void setup_rhythm_euclid()
 {
     ObjectFactory<RhythmEuclid> obj("rhythm.euclid");
+
+    obj.setDescription("euclid pattern generator");
+    obj.setCategory("music");
+    obj.setSinceVersion(0, 9);
+    obj.setKeywords({ "conv", "rhythm", "euclid", "bresenham" });
 }
