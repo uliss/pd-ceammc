@@ -16,7 +16,7 @@ patterns;
 #X msg 165 168 (1 2 2 1) \, bang;
 #X msg 357 168 (2 1 1) \, bang;
 #X msg 530 168 (3 1) \, bang;
-#X obj 50 212 rtree->list 1 (1 1 1 1(2 1 1));
+#X obj 50 212 rtree->list 1 (1 1 1 1 (2 1 1));
 #X obj 50 240 ui.dt;
 #X text 50 284 built-in funciton rtree() \, that can be used in any
 ceammc object instead of list arguments;
@@ -24,8 +24,8 @@ ceammc object instead of list arguments;
 #X msg 50 341 bang;
 #X msg 126 341 stop;
 #X msg 290 341 @t \$1;
-#X obj 50 370 seq.bangs rtree(2 \(1 1 1\(1 1\) 1\(1 1 1\) 1\(1 1 1 1
-1\)\)\) @inf @t 90bpm, f 70;
+#X obj 50 370 seq.bangs rtree(2 \(1 1 1 \(1 1\) 1 \(1 1 1\) 1 \(1 1 1
+1 1\)\)\) @inf @t 90bpm, f 70;
 #X obj 50 399 click~;
 #X obj 50 428 flt.resonbp~ 1000 60;
 #X obj 270 428 ui.dsp~;
