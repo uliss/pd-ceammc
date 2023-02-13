@@ -613,6 +613,7 @@ set(DOC_FILES
     random.pw_const
     random.pw_lin
     replace
+    rhythm.euclid
     risset.gliss
     route.any
     route.bang

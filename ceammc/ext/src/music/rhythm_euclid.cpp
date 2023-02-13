@@ -72,7 +72,8 @@ void RhythmEuclid::onFloat(t_float f)
         return;
     }
 
-    changed_ = beats_->setInt(f);
+    updatePattern();
+    listTo(0, pattern_);
 }
 
 void RhythmEuclid::onList(const AtomListView& lv)
@@ -87,6 +88,9 @@ void RhythmEuclid::onList(const AtomListView& lv)
 
     if (N > 2)
         offset_->set(lv.subView(2, 1));
+
+    updatePattern();
+    listTo(0, pattern_);
 }
 
 void RhythmEuclid::onInlet(size_t n, const AtomListView& lv)

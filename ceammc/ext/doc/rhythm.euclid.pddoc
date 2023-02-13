@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="rhythm.euclid">
+        <title>rhythm.euclid</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>euclid pattern generator</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>music</category>
+            <keywords>conv rhythm euclid bresenham</keywords>
+            <since>0.9.7</since>
+        </meta>
+        <info>
+            <par>Fast Bresenham algorithm is used</par>
+        </info>
+        <properties>
+            <property name="@beats" type="int" default="3">number of beats inside the sequence</property>
+            <property name="@n" type="int" default="8">the whole sequence length</property>
+            <property name="@offset" type="int" default="0">sequence offset</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">output generated sequence</xinfo>
+                <xinfo on="int">set number of beats in the sequence</xinfo>
+                <xinfo on="list">list of sequence</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="int">set sequence lenghth</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="int">set sequence offset</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>converted value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B] [3 5 1(  [L]
+|   |        |
+|   [msg.after bang]
+|   |
+[rhythm.euclid 3 7]
+|
+[t l l]
+|   ^|
+|   [list.size]
+|   |
+|   [@nitems $1, @size 150 15(
+|   |
+[ui.hrd*]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

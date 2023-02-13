@@ -1600,6 +1600,11 @@
       <xi:include href="msg.sched.pddoc" parse="xml"/>
     </entry>
   </category>
+  <category name="music">
+    <entry name="rhythm.euclid" descr="euclid pattern generator" ref_view="object">
+      <xi:include href="rhythm.euclid.pddoc" parse="xml"/>
+    </entry>
+  </category>
   <category name="net">
     <entry name="net.artnet.send" descr="ArtNet DMX message sender" ref_view="object">
       <xi:include href="net.artnet.send.pddoc" parse="xml"/>
