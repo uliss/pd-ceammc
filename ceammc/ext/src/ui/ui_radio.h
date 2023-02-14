@@ -69,6 +69,7 @@ public:
     void m_hexbeat(const AtomListView& lv);
     void m_euclid(const AtomListView& lv);
     void m_rotate(t_float f);
+    void m_cellsize(t_float f);
 
 public:
     static void setup();

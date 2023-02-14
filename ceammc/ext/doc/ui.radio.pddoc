@@ -85,6 +85,8 @@
             <method name="+ STEP">moves several steps forward on a loop (single mode only)</method>
             <method name="- STEP">moves several step backwards on a loop (single mode
             only)</method>
+            <method name="cellsize">set cell size (resize widget)
+            <param name="X" required="true" type="int">cell size in pixels</param></method>
             <!-- checklist mode -->
             <method name="rotate">left rotate (checklist mode only) 
             <param name="STEPS" required="true" type="int">number of steps</param></method>

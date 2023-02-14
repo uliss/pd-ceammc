@@ -19,6 +19,7 @@
   - euclid method added to ui.radio to set euclid pattern when in checklist mode
   - hexbeat method added to ui.radio to set hexbeat pattern when in checklist mode
   - rotate method added to ui.radio: rotation to the left in checklist mode
+  - cellsize method added to ui.radio: resize widget by specifying cell size
 - new init argument functions:
   - hexbeat(HEX) - expand hex to list of 1 and 0
   - rotate(N ...) - list rotation (N>0: to the left)

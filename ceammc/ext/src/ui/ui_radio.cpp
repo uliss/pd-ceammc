@@ -1,7 +1,6 @@
 #include "ui_radio.h"
 #include "ceammc_convert.h"
 #include "ceammc_fn_list.h"
-#include "ceammc_numeric.h"
 #include "ceammc_preset.h"
 #include "ceammc_ui.h"
 #include "fmt/core.h"
@@ -38,10 +37,10 @@ UIRadio::UIRadio()
 
 void UIRadio::init(t_symbol* name, const AtomListView& args, bool usePresets)
 {
-    t_symbol* SYM_VRD = gensym("ui.vrd");
-    t_symbol* SYM_VRD_MULT = gensym("ui.vrd*");
-    t_symbol* SYM_HRD_MULT = gensym("ui.hrd*");
-    t_symbol* SYM_RADIO_MULT = gensym("ui.radio*");
+    auto SYM_VRD = gensym("ui.vrd");
+    auto SYM_VRD_MULT = gensym("ui.vrd*");
+    auto SYM_HRD_MULT = gensym("ui.hrd*");
+    auto SYM_RADIO_MULT = gensym("ui.radio*");
 
     UIObject::init(name, args, usePresets);
 
@@ -415,6 +414,18 @@ void UIRadio::m_rotate(t_float f)
     redrawItems();
 }
 
+void UIRadio::m_cellsize(t_float f)
+{
+    const int cell_size = pd_clip_min(f, 8);
+
+    asEBox()->b_resize_redraw_all = true;
+
+    if (isVertical())
+        resize(cell_size, prop_nitems_ * cell_size);
+    else
+        resize(prop_nitems_ * cell_size, cell_size);
+}
+
 void UIRadio::loadPreset(size_t idx)
 {
     if (prop_checklist_mode_) {
@@ -568,4 +579,5 @@ void UIRadio::setup()
     obj.addMethod("euclid", &UIRadio::m_euclid);
     obj.addMethod("hexbeat", &UIRadio::m_hexbeat);
     obj.addMethod("rotate", &UIRadio::m_rotate);
+    obj.addMethod("cellsize", &UIRadio::m_cellsize);
 }

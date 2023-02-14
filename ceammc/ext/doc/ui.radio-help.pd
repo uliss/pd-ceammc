@@ -113,94 +113,98 @@ list. Default value: 120 15\.;
 #X obj 20 1300 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1305 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 1340 clear;
-#X text 245 1340 clears specified preset. Arguments are:;
-#X obj 255 1363 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1363 IDX: preset index. Type: int.;
-#X msg 110 1388 euclid;
-#X text 245 1388 set euclid pattern (checklist mode only). Arguments
+#X msg 110 1340 cellsize;
+#X text 245 1340 set cell size (resize widget). Arguments are:;
+#X obj 255 1363 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1363 X: cell size in pixels. Type: int.;
+#X msg 110 1388 clear;
+#X text 245 1388 clears specified preset. Arguments are:;
+#X obj 255 1411 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1411 IDX: preset index. Type: int.;
+#X msg 110 1436 euclid;
+#X text 245 1436 set euclid pattern (checklist mode only). Arguments
 are:;
-#X obj 255 1411 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1411 BEATS: requested number of beats. Type: int.;
-#X obj 255 1434 cnv 1 62 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1434 [OFFSET]: pattern offset (rotation to the right).
+#X obj 255 1459 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1459 BEATS: requested number of beats. Type: int.;
+#X obj 255 1482 cnv 1 62 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1482 [OFFSET]: pattern offset (rotation to the right).
 Type: int.;
-#X msg 110 1459 flip;
-#X text 245 1459 flips radio (only in checklist mode).;
-#X msg 110 1486 hexbeat;
-#X text 245 1486 set hexbeat pattern (checklist mode only). Arguments
+#X msg 110 1507 flip;
+#X text 245 1507 flips radio (only in checklist mode).;
+#X msg 110 1534 hexbeat;
+#X text 245 1534 set hexbeat pattern (checklist mode only). Arguments
 are:;
-#X obj 255 1509 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1509 HEXSTR: hex string. For example \, 0xF1 will set 1
+#X obj 255 1557 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1557 HEXSTR: hex string. For example \, 0xF1 will set 1
 1 1 1 0 0 0 1 pattern. Type: symbol.;
-#X msg 110 1549 interp;
-#X text 245 1549 for this object acts as *load* \, no interpolation
+#X msg 110 1597 interp;
+#X text 245 1597 for this object acts as *load* \, no interpolation
 performed.;
-#X msg 110 1576 load;
-#X text 245 1576 loads specified preset. Arguments are:;
-#X obj 255 1599 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1599 IDX: preset index. Type: int.;
-#X msg 110 1624 next;
-#X text 245 1624 moves to next position until last cell is reached
+#X msg 110 1624 load;
+#X text 245 1624 loads specified preset. Arguments are:;
+#X obj 255 1647 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1647 IDX: preset index. Type: int.;
+#X msg 110 1672 next;
+#X text 245 1672 moves to next position until last cell is reached
 (single mode only).;
-#X msg 110 1664 pos;
-#X text 245 1664 set UI element position. Arguments are:;
-#X obj 255 1687 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1687 X: top left x-coord. Type: float.;
-#X obj 255 1710 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1710 Y: top right y-coord. Type: float.;
-#X msg 110 1735 prev;
-#X text 245 1735 moves to previous position until first cell is reached
+#X msg 110 1712 pos;
+#X text 245 1712 set UI element position. Arguments are:;
+#X obj 255 1735 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1735 X: top left x-coord. Type: float.;
+#X obj 255 1758 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1758 Y: top right y-coord. Type: float.;
+#X msg 110 1783 prev;
+#X text 245 1783 moves to previous position until first cell is reached
 (single mode only).;
-#X msg 110 1775 random;
-#X text 245 1775 select random cells. If called as [random move( moves
+#X msg 110 1823 random;
+#X text 245 1823 select random cells. If called as [random move( moves
 to another random cell (excluding the current one).;
-#X msg 110 1815 reset;
-#X text 245 1815 reset radio (only in checklist mode).;
-#X msg 110 1842 rotate;
-#X text 245 1842 left rotate (checklist mode only). Arguments are:;
-#X obj 255 1865 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1865 STEPS: number of steps. Type: int.;
-#X msg 110 1890 set;
-#X text 245 1890 sets radio without output. Arguments are:;
-#X obj 255 1913 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1913 V: new value. Type: float.;
-#X msg 110 1938 store;
-#X text 245 1938 stores specified preset. Arguments are:;
-#X obj 255 1961 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1961 IDX: preset index. Type: int.;
-#X msg 110 1986 + STEP;
-#X text 245 1986 moves several steps forward on a loop (single mode
+#X msg 110 1863 reset;
+#X text 245 1863 reset radio (only in checklist mode).;
+#X msg 110 1890 rotate;
+#X text 245 1890 left rotate (checklist mode only). Arguments are:;
+#X obj 255 1913 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1913 STEPS: number of steps. Type: int.;
+#X msg 110 1938 set;
+#X text 245 1938 sets radio without output. Arguments are:;
+#X obj 255 1961 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1961 V: new value. Type: float.;
+#X msg 110 1986 store;
+#X text 245 1986 stores specified preset. Arguments are:;
+#X obj 255 2009 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2009 IDX: preset index. Type: int.;
+#X msg 110 2034 + STEP;
+#X text 245 2034 moves several steps forward on a loop (single mode
 only).;
-#X msg 110 2013 - STEP;
-#X text 245 2013 moves several step backwards on a loop (single mode
+#X msg 110 2061 - STEP;
+#X text 245 2061 moves several step backwards on a loop (single mode
 only).;
-#X obj 20 2050 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2055 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 2098 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2103 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 2056 1\.;
-#X text 150 2056 *bang*;
-#X text 245 2056 outputs current radio state.;
-#X text 150 2076 *float*;
-#X text 245 2076 set radio and output.;
-#X text 150 2096 *list*;
-#X text 245 2096 set radio and output (only in checklist mode).;
-#X obj 20 2126 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2131 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 2104 1\.;
+#X text 150 2104 *bang*;
+#X text 245 2104 outputs current radio state.;
+#X text 150 2124 *float*;
+#X text 245 2124 set radio and output.;
+#X text 150 2144 *list*;
+#X text 245 2144 set radio and output (only in checklist mode).;
+#X obj 20 2174 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2179 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 2132 1\.;
-#X text 245 2132 output value.;
+#X text 110 2180 1\.;
+#X text 245 2180 output value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 2182 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2185 library: ceammc v0.9.6;
-#X text 598 2197 see also:;
-#X obj 672 2200 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 2230 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2233 library: ceammc v0.9.6;
+#X text 598 2245 see also:;
+#X obj 672 2248 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.matrix] @url ui.matrix-help.pd;
-#N canvas 10 2204 400 290 info 0;
+#N canvas 10 2252 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -224,7 +228,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 2204 pd info;
+#X restore 10 2252 pd info;
 #X connect 7 0 15 0;
 #X connect 8 0 15 0;
 #X connect 9 0 16 0;
