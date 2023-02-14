@@ -9,7 +9,7 @@
 #X text 215 80 Fast Bresenham algorithm is used;
 #X obj 50 143 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X msg 88 143 3 5 2;
+#X msg 88 143 3 5 1;
 #X listbox 174 143 20 0 0 0 - - -;
 #X obj 88 172 msg.after bang;
 #X obj 50 201 rhythm.euclid 3 7;
