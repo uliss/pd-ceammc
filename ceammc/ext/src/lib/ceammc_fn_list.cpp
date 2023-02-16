@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_fn_list.h"
+#include "datatype_dict.h"
 #include "lex/parser_hexbeat.h"
 #include "soxr.h"
 
@@ -695,6 +696,25 @@ namespace list {
         res.reserve(nbits);
         for (int i = nbits - 1; i >= 0; i--)
             res.append(bits[i] ? 1 : 0);
+
+        return res;
+    }
+
+    AtomList lsystem(const AtomListView& state, const DataTypeDict& dict)
+    {
+        AtomList res;
+        res.reserve(state.size() * dict.size());
+        for (auto& a : state) {
+            for (auto& kv : dict) {
+                auto k = kv.first->s_name;
+                if (std::isdigit(k[0])) {
+                    auto num = std::strtol(k, nullptr, 10);
+                    if (a == num)
+                        res.append(kv.second);
+                } else if (a == kv.first)
+                    res.append(kv.second);
+            }
+        }
 
         return res;
     }

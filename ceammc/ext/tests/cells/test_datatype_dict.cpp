@@ -77,6 +77,15 @@ TEST_CASE("DataTypeDict", "[core]")
             REQUIRE(d.flattenToList() == LA("a", DictAtom("[b: c]")));
             REQUIRE(d.toString() == "[a: [b: c]]");
         }
+
+        SECTION("int keys")
+        {
+            DataTypeDict d("[1: 1 0: 0]");
+            REQUIRE(d.size() == 2);
+            auto keys = d.keys();
+            keys.sort();
+            REQUIRE(keys == LA("0", "1"));
+        }
     }
 
     SECTION("kv")

@@ -22,6 +22,7 @@
 
 namespace ceammc {
 class AtomListView;
+class DataTypeDict;
 
 namespace list {
 
@@ -126,6 +127,8 @@ namespace list {
      * @return list of 1 and 0
      */
     AtomList hexbeat(const char* str);
+
+    AtomList lsystem(const AtomListView& state, const DataTypeDict& rules);
 
     AtomList enumerate(const AtomListView& lv, int from = 0, enumerateMode mode = PREPEND);
 
