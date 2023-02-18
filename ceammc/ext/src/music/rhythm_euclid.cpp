@@ -72,8 +72,11 @@ void RhythmEuclid::onFloat(t_float f)
         return;
     }
 
-    updatePattern();
-    listTo(0, pattern_);
+    if (!beats_->setInt(f))
+        return;
+
+    if (updatePattern())
+        listTo(0, pattern_);
 }
 
 void RhythmEuclid::onList(const AtomListView& lv)
@@ -89,8 +92,8 @@ void RhythmEuclid::onList(const AtomListView& lv)
     if (N > 2)
         offset_->set(lv.subView(2, 1));
 
-    updatePattern();
-    listTo(0, pattern_);
+    if (updatePattern())
+        listTo(0, pattern_);
 }
 
 void RhythmEuclid::onInlet(size_t n, const AtomListView& lv)
@@ -101,16 +104,18 @@ void RhythmEuclid::onInlet(size_t n, const AtomListView& lv)
         offset_->set(lv);
 }
 
-void RhythmEuclid::updatePattern()
+bool RhythmEuclid::updatePattern()
 {
     if (beats_->value() > n_->value()) {
         OBJ_ERR << fmt::format("number of beats expected to be <={}, got {}", n_->value(), beats_->value());
-        return;
+        return false;
     }
 
     pattern_ = list::bresenham(beats_->value(), n_->value());
     if (offset_->value())
         pattern_ = list::rotate(pattern_, -offset_->value());
+
+    return true;
 }
 
 void setup_rhythm_euclid()

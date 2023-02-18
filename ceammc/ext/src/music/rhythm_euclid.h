@@ -35,7 +35,7 @@ public:
     void onInlet(size_t n, const AtomListView& lv) override;
 
 private:
-    void updatePattern();
+    bool updatePattern();
 };
 
 void setup_rhythm_euclid();
