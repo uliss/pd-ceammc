@@ -158,6 +158,28 @@ void UILcd::m_clear()
     redrawBGLayer();
 }
 
+void UILcd::m_invert(const AtomListView& lv)
+{
+    if (lv.empty()) {
+        pixels_.flip();
+        redrawBGLayer();
+        return;
+    }
+
+    auto sel = crc32_hash(lv.symbolAt(0, &s_));
+
+    switch (sel) {
+    case "pixel"_hash:
+        pixels_.flip(pixelIndex(lv.intAt(1, 0), lv.intAt(2, 0)));
+        break;
+    default:
+        pixels_.flip();
+        break;
+    }
+
+    redrawBGLayer();
+}
+
 void UILcd::p_setNumCols(t_float n)
 {
     int num = clip<int>(n, MIN_COLS, MAX_COLS);
@@ -195,6 +217,7 @@ void UILcd::setup()
 
     obj.addMethod("set", &UILcd::m_set);
     obj.addMethod("clear", &UILcd::m_clear);
+    obj.addMethod("invert", &UILcd::m_invert);
 }
 
 }

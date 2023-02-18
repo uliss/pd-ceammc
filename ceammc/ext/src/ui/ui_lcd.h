@@ -40,6 +40,7 @@ public:
 
     void m_set(const AtomListView& lv);
     void m_clear();
+    void m_invert(const AtomListView& lv);
 
     t_float p_numCols() const { return prop_ncols; }
     void p_setNumCols(t_float n);
