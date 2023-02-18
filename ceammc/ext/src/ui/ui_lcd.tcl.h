@@ -8,7 +8,6 @@ const char* ui_lcd_tcl =
 "    set c [::ceammc::ui::widget_canvas $cnv $id]\n"
 "    set t [::ceammc::ui::widget_tag $id]\n"
 "    $c delete $t\n"
-"    set nbits 32\n"
 "    set nargs [llength $args]\n"
 "    for {set j 0} {$j < $rows} {incr j} {\n"
 "        for {set i 0} {$i < $cols} {incr i} {\n"

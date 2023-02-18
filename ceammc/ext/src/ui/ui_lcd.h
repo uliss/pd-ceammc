@@ -21,11 +21,13 @@
 
 namespace ceammc {
 
+using Pixels = boost::dynamic_bitset<std::uint32_t>;
+
 class UILcd : public UIObject {
 private:
     t_rgba prop_color_active;
-    int prop_x, prop_y, pixel_size;
-    boost::dynamic_bitset<std::uint32_t> pixels_;
+    int prop_ncols, prop_nrows, pixel_size;
+    Pixels pixels_;
 
 public:
     UILcd();
@@ -39,13 +41,19 @@ public:
     void m_set(const AtomListView& lv);
     void m_clear();
 
+    t_float p_numCols() const { return prop_ncols; }
+    void p_setNumCols(t_float n);
+
+    t_float p_numRows() const { return prop_nrows; }
+    void p_setNumRows(t_float n);
+
 public:
     static void setup();
 
 private:
     std::uint32_t pixelIndex(std::uint32_t x, std::uint32_t y) const
     {
-        return x + prop_x * y;
+        return x + prop_ncols * y;
     }
 
     bool pixelAt(std::uint32_t x, std::uint32_t y) const

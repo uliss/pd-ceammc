@@ -4,7 +4,6 @@ proc lcd_update {cnv id w h zoom cols rows sz args} {
     set c [::ceammc::ui::widget_canvas $cnv $id]
     set t [::ceammc::ui::widget_tag $id]
     $c delete $t
-    set nbits 32
     set nargs [llength $args]
 
     for {set j 0} {$j < $rows} {incr j} {

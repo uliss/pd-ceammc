@@ -86,6 +86,7 @@ add_custom_target(ceammc_ui_tcl_gen
         ui_icon.tcl
         ui_keyboard.tcl
         ui_knob.tcl
+        ui_lcd.tcl
         ui_link.tcl
         ui_meter.tcl
         ui_number_tilde.tcl
