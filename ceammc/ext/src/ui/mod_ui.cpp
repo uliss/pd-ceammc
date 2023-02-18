@@ -39,6 +39,7 @@
 
 void setup_ui_filter();
 void setup_ui_filter_tilde();
+void setup_ui_lcd();
 
 void setup_nui_bang();
 void setup_nui_toggle();
@@ -61,6 +62,7 @@ void ceammc_ui_setup()
     setup_ui_keyboard();
     setup_ui_knob();
     setup_ui_label();
+    setup_ui_lcd();
     setup_ui_link();
     setup_ui_matrix();
     setup_ui_menu();

@@ -26,6 +26,7 @@ ceammc_ui_external(incdec)
 ceammc_ui_external(keyboard)
 ceammc_ui_external(knob)
 ceammc_ui_external(label)
+ceammc_ui_external(lcd)
 ceammc_ui_external(link)
 ceammc_ui_external(matrix)
 ceammc_ui_external(menu)
@@ -68,6 +69,7 @@ add_custom_target(ceammc_ui_tcl_gen
     COMMAND ${TCL_GEN_SCRIPT} ui_icon.tcl
     COMMAND ${TCL_GEN_SCRIPT} ui_keyboard.tcl
     COMMAND ${TCL_GEN_SCRIPT} ui_knob.tcl
+    COMMAND ${TCL_GEN_SCRIPT} ui_lcd.tcl
     COMMAND ${TCL_GEN_SCRIPT} ui_link.tcl
     COMMAND ${TCL_GEN_SCRIPT} ui_meter.tcl
     COMMAND ${TCL_GEN_SCRIPT} ui_number_tilde.tcl
