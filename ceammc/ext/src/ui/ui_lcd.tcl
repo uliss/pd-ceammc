@@ -1,6 +1,6 @@
 namespace eval ::ui {
 
-proc lcd_update {cnv id w h zoom cols rows sz args} {
+proc lcd_update {cnv id w h cols rows sz args} {
     set c [::ceammc::ui::widget_canvas $cnv $id]
     set t [::ceammc::ui::widget_tag $id]
     $c delete $t
@@ -19,7 +19,7 @@ proc lcd_update {cnv id w h zoom cols rows sz args} {
 
             if { $bitval } {
                 $c create rectangle $x0 $y0 $x1 $y1 \
-                    -outline black -fill black -width $zoom -tags [list $t]
+                    -outline black -fill black -width 1 -tags [list $t]
             }
         }
     }

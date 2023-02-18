@@ -65,11 +65,11 @@ void UILcd::okSize(t_rect* newrect)
 void UILcd::paint()
 {
     sys_vgui("::ui::lcd_update %s %lx"
-             " %d %d %d"
+             " %d %d"
              " %d %d %d",
         asEBox()->b_canvas_id->s_name, asEBox(),
-        (int)width(), (int)height(), (int)zoom(),
-        prop_ncols, prop_nrows, pixel_size);
+        (int)width(), (int)height(),
+        prop_ncols, prop_nrows, (int)(pixel_size * zoom()));
 
     auto bits = sizeof(std::uint32_t) * 8;
 
@@ -133,6 +133,18 @@ void UILcd::m_set(const AtomListView& lv)
                 break;
 
             pixels_.set(idx, lv.boolAt(i + 2, false));
+        }
+    } break;
+    default: {
+        auto N = pixels_.size();
+        for (size_t i = 0; i < std::min(lv.size(), N); i++) {
+            auto row = i / prop_ncols;
+            auto col = i % prop_ncols;
+            auto idx = pixelIndex(col, row);
+            if (idx >= N)
+                break;
+
+            pixels_.set(idx, lv.boolAt(i, false));
         }
     } break;
     }

@@ -4,7 +4,7 @@
 #define ui_lcd_tcl_h_
 const char* ui_lcd_tcl = 
 "namespace eval ::ui {\n"
-"proc lcd_update {cnv id w h zoom cols rows sz args} {\n"
+"proc lcd_update {cnv id w h cols rows sz args} {\n"
 "    set c [::ceammc::ui::widget_canvas $cnv $id]\n"
 "    set t [::ceammc::ui::widget_tag $id]\n"
 "    $c delete $t\n"
@@ -21,7 +21,7 @@ const char* ui_lcd_tcl =
 "            set bitval [expr $intarg&(1<<$bitpos)]\n"
 "            if { $bitval } {\n"
 "                $c create rectangle $x0 $y0 $x1 $y1 \\\n"
-"                    -outline black -fill black -width $zoom -tags [list $t]\n"
+"                    -outline black -fill black -width 1 -tags [list $t]\n"
 "            }\n"
 "        }\n"
 "    }\n"
