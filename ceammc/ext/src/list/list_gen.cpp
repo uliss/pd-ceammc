@@ -1,7 +1,6 @@
 #include "list_gen.h"
 #include "ceammc_factory.h"
 #include "ceammc_log.h"
-#include "ceammc_numeric.h"
 
 constexpr int DEF_COUNT = 1;
 constexpr int MIN_COUNT = 1;
@@ -50,7 +49,7 @@ void ListGenerate::onFloat(t_float v)
     if (loopbackDetected())
         return;
 
-    if (!setCount(v))
+    if (!count_->setValue(v))
         return;
 
     onBang();
@@ -62,22 +61,6 @@ void ListGenerate::onInlet(size_t n, const AtomListView& lv)
         gen_values_.append(lv);
         return;
     }
-}
-
-bool ListGenerate::setCount(float v)
-{
-    if (!math::is_natural(v)) {
-        OBJ_ERR << "invalid argument! natural number expected: " << v;
-        return false;
-    }
-
-    int c = static_cast<int>(v);
-    if (c > MAX_COUNT) {
-        OBJ_ERR << "count should be less then " << MAX_COUNT << ". Setting to " << MAX_COUNT;
-    }
-
-    count_->setValue(std::min(c, MAX_COUNT));
-    return true;
 }
 
 void setup_list_gen()

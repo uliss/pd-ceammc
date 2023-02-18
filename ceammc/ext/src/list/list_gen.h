@@ -31,9 +31,6 @@ public:
     void onInlet(size_t n, const AtomListView& lv) override;
 
     bool loopbackDetected();
-
-private:
-    bool setCount(float v);
 };
 
 void setup_list_gen();
