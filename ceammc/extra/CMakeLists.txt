@@ -42,6 +42,7 @@ add_subdirectory(httplib)
 add_subdirectory(miniz)
 add_subdirectory(readerwriterqueue)
 add_subdirectory(tcltk)
+add_subdirectory(qrcode)
 
 if(WITH_FAUST)
     add_subdirectory(faust)
