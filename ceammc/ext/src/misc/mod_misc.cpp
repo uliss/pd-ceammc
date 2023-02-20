@@ -21,11 +21,16 @@ extern "C" void setup_speech_rhvoice_tilde();
 #include "risset_glissando.h"
 
 extern void setup_live_capture_tilde();
+extern void setup_misc_qrcode();
 extern void setup_misc_sfizz_tilde();
 
 void ceammc_misc_setup()
 {
+    setup_aubio_pitchshift_tilde();
     setup_live_capture_tilde();
+    setup_misc_qrcode();
+    setup_misc_risset_glissando();
+    setup_speech_rhvoice_tilde();
 
 #ifdef WITH_MODPLUG
     setup_misc_modplug_tilde();
@@ -39,13 +44,8 @@ void ceammc_misc_setup()
     setup_misc_sfizz_tilde();
 #endif
 
-    setup_aubio_pitchshift_tilde();
-
 #ifdef CEAMMC_HAVE_TTS_FLITE
     setup_misc_speech_flite();
     setup_misc_speech_filte_tilde();
 #endif
-
-    setup_speech_rhvoice_tilde();
-    setup_misc_risset_glissando();
 }
