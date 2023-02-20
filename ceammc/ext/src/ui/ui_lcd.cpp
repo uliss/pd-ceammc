@@ -90,7 +90,6 @@ void UILcd::paint()
         sys_vgui(" %#x", n);
     }
 
-end:
     sys_vgui("\n");
 }
 
