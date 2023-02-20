@@ -14,7 +14,9 @@ proc lcd_update {cnv id w h cols rows sz args} {
             set y1 [expr $y0+$sz]
             set bitidx [expr $i+($j*$cols)]
             set bitpos [expr $bitidx%32]
-            set intarg [lindex $args [expr min($nargs-1,int($bitidx/32))]]
+            set argidx [expr int($bitidx/32)]
+            if {$argidx >= $nargs} { break }
+            set intarg [lindex $args $argidx]
             set bitval [expr $intarg&(1<<$bitpos)]
 
             if { $bitval } {

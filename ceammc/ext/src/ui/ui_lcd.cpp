@@ -71,19 +71,23 @@ void UILcd::paint()
         (int)width(), (int)height(),
         prop_ncols, prop_nrows, (int)(pixel_size * zoom()));
 
-    auto bits = sizeof(std::uint32_t) * 8;
+    const auto NBITS = sizeof(std::uint32_t) * 8;
+    const auto NPIX = pixels_.size();
+    auto num_args = NPIX / NBITS;
+    if (NPIX % NBITS != 0)
+        num_args++;
 
-    for (size_t i = 0; i < pixels_.size(); i += bits) {
+    for (size_t i = 0; i < num_args; i++) {
         std::uint32_t n = 0;
-        for (size_t b = 0; b < bits; b++) {
-            auto idx = i + b;
+        for (size_t b = 0; b < NBITS; b++) {
+            auto idx = i * NBITS + b;
             if (idx >= pixels_.size())
-                goto end;
+                break;
             else if (pixels_.test(idx))
                 n |= (1 << b);
         }
 
-        sys_vgui(" %#08X", n);
+        sys_vgui(" %#x", n);
     }
 
 end:
@@ -214,6 +218,8 @@ void UILcd::setup()
     obj.addIntProperty("rows", _("Number of rows"), DEF_ROWS, &UILcd::prop_nrows);
     obj.setPropertyRange("rows", MIN_ROWS, MAX_ROWS);
     obj.setPropertyAccessor("rows", &UILcd::p_numRows, &UILcd::p_setNumRows);
+
+    obj.addHiddenFloatCbProperty("pixels", &UILcd::p_pixels, nullptr);
 
     obj.addMethod("set", &UILcd::m_set);
     obj.addMethod("clear", &UILcd::m_clear);

@@ -48,6 +48,8 @@ public:
     t_float p_numRows() const { return prop_nrows; }
     void p_setNumRows(t_float n);
 
+    t_float p_pixels() const { return pixels_.size(); }
+
 public:
     static void setup();
 
