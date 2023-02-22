@@ -65,8 +65,8 @@ class Helmholtz
 public:
     Helmholtz(int periodarg = DEFFRAMESIZE, int overlaparg = DEFOVERLAP, t_float biasarg = DEFBIAS); 
     
-    ~Helmholtz();                                            
-    void iosamples(t_float *in, t_float *out, int size);
+    ~Helmholtz();
+    void iosamples(const t_float *in, t_float *out, int size);
     void setframesize(int frame);
     void setoverlap(int lap);
     void setbias(t_float bias);
