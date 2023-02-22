@@ -13,7 +13,6 @@
  *****************************************************************************/
 #include "an_aubio_onset.h"
 #include "ceammc_factory.h"
-#include "ceammc_property_callback.h"
 
 constexpr int DEFAULT_BUFFER_SIZE = 1024;
 constexpr int MIN_BUFFER_SIZE = 64;
@@ -22,18 +21,18 @@ constexpr uint_t AUBIO_OK = 0;
 AubioOnset::AubioOnset(const PdArgs& args)
     : BaseObject(args)
     , array_name_(&s_)
-    , buffer_size_(nullptr)
-    , hop_size_(nullptr)
-    , method_(nullptr)
-    , threshold_(nullptr)
-    , silence_threshold_(nullptr)
-    , speedlim_(nullptr)
     , onset_(new_aubio_onset(
                  DEFAULT_METHOD,
                  DEFAULT_BUFFER_SIZE,
                  DEFAULT_BUFFER_SIZE / 2,
                  44100),
           del_aubio_onset)
+    , buffer_size_(nullptr)
+    , hop_size_(nullptr)
+    , method_(nullptr)
+    , threshold_(nullptr)
+    , silence_threshold_(nullptr)
+    , speedlim_(nullptr)
 {
     createCbSymbolProperty(
         "@array",
