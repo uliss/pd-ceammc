@@ -13,7 +13,6 @@
  *****************************************************************************/
 #include "an_aubio_onset_tilde.h"
 #include "ceammc_factory.h"
-#include "fmt/include/fmt/format.h"
 
 constexpr int DEFAULT_BUFFER_SIZE = 1024;
 constexpr int MIN_BUFFER_SIZE = 64;
