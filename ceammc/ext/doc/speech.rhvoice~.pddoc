@@ -31,6 +31,9 @@
         <methods>
             <method name="stop">stops speech and clear TTS queue</method>
             <method name="clear">clear TTS queue</method>
+            <method name="read">read TTS file (text or SSML)
+            <param name="FILE" type="symbol" required="true">absolute or relative path to the file</param></method>
+            <method name="ssml">speak SSML text markup</method>
         </methods>
         <properties>
             <property name="@voice" type="symbol" default="Anna">voice</property>
@@ -55,7 +58,7 @@
         <example>
             <pdascii>
 <![CDATA[
-[T]          [speech.rhvoice~.voices] /*<-- see here*/
+[T]          [speech.rhvoice~.voices]/*<-- see here*/
 |
 [metro 1000]
 |
@@ -63,6 +66,8 @@
 |            |               |
 |            [@pitch $1(     [@rate $1(
 |            |               |
+|            |      [L]      |
+|            |      |        |
 [speech.rhvoice~             ]
 |          ^|
 |          [B]
@@ -70,6 +75,8 @@
 [ui.gain~ @size 120 16]   [ui.dsp~]
 |\
 [dac~]
+
+[speech.rhvoice~.extra]
 
 #a -1 1 @show_value 1
 ]]>
@@ -87,6 +94,23 @@
     /*voices/ */
         /*| */
         /*voice1... */
+]]>
+            </pdascii>
+            <pdascii id="extra">
+<![CDATA[
+[ssml <speak><voice name="Pavel">Я Павел</voice><voice name="Anna">а я Анна</voice></speak>(
+|
+|                                         [all( [!(
+|                                         |     |
+|  [list з+амок и зам+ок(                 [symbol] [symbol(
+|  |                                      |        |
+|  |  [list казнить нельзя\, помиловать!( [@punct $1(
+|  |  |                                   |
+[speech.rhvoice~                          ]
+|
+[ui.hgain~]
+|\
+[dac~]
 ]]>
             </pdascii>
         </example>

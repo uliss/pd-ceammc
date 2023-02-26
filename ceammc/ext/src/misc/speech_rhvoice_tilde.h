@@ -35,10 +35,24 @@ public:
     soxr_error_t process(const short* in, size_t ilen, size_t* idone, float* out, size_t olen, size_t* odone);
 };
 
+struct RhvoiceMsg {
+    std::string txt;
+    RHVoice_synth_params params;
+    RHVoice_message_type type { RHVoice_message_text };
+    RhvoiceMsg() = default;
+    RhvoiceMsg& operator=(const RhvoiceMsg&) = default;
+
+    RhvoiceMsg(const std::string& t, const RHVoice_synth_params& p)
+        : txt(t)
+        , params(p)
+    {
+    }
+};
+
 class SpeechRhvoiceTilde : public SoundExternal, public NotifiedObject {
     using TtsEngine = std::unique_ptr<RHVoice_tts_engine_struct, void (*)(RHVoice_tts_engine)>;
     using TtsQueue = moodycamel::ReaderWriterQueue<float, TtsQueueSize>;
-    using Msg = std::pair<std::string, RHVoice_synth_params>;
+    using Msg = RhvoiceMsg;
     using TxtQueue = moodycamel::ReaderWriterQueue<Msg>;
 
 private:
@@ -49,6 +63,7 @@ private:
     TxtQueue txt_queue_;
     std::future<void> proc_;
     std::atomic_bool quit_, stop_;
+    SymbolProperty* punct_;
     AtomList voices_;
     Resampler resampler_;
     ThreadNotify notify_;
@@ -69,6 +84,8 @@ public:
 
     void m_stop(t_symbol* s, const AtomListView& lv);
     void m_clear(t_symbol* s, const AtomListView& lv);
+    void m_read(t_symbol* s, const AtomListView& lv);
+    void m_ssml(t_symbol* s, const AtomListView& lv);
 
 private:
     // called from worker thread

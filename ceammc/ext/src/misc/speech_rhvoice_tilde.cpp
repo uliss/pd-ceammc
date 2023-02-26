@@ -1,5 +1,7 @@
 #include "speech_rhvoice_tilde.h"
 #include "ceammc_factory.h"
+#include "ceammc_format.h"
+#include "ceammc_string.h"
 #include "ceammc_string_types.h"
 #include "fmt/core.h"
 
@@ -7,11 +9,23 @@
 #include "soxr.h"
 
 #include <chrono>
+#include <fstream>
 #include <thread>
 
 #define RHVOICE_DEBUG 1
 
 static inline SpeechRhvoiceTilde* toThis(void* x) { return static_cast<SpeechRhvoiceTilde*>(x); }
+
+static inline FloatProperty* propRange(FloatProperty* p, t_float a, t_float b)
+{
+    p->checkClosedRange(a, b);
+    return p;
+}
+
+static inline bool looks_like_ssml(const std::string& str)
+{
+    return string::starts_with(str, "<?xml") || string::starts_with(str, "<speak");
+}
 
 static const std::array<const char*, 3> RHVOICE_CONFIG_PATHS {
     "~/.local/etc/RHVoice.conf",
@@ -95,11 +109,28 @@ SpeechRhvoiceTilde::SpeechRhvoiceTilde(const PdArgs& args)
     , tts_(nullptr, &RHVoice_delete_tts_engine)
     , quit_(false)
     , stop_(false)
+    , punct_(nullptr)
     , dsp_queue_(TtsQueueSize)
     , txt_queue_(16)
 {
     createSignalOutlet();
     createOutlet();
+
+    punct_ = new SymbolProperty("@punct", &s_);
+    punct_->setSuccessFn([this](Property*) {
+        auto sym = punct_->value();
+        if (sym == &s_) {
+            synth_params_.punctuation_mode = RHVoice_punctuation_none;
+            synth_params_.punctuation_list = nullptr;
+        } else if (sym == gensym("all")) {
+            synth_params_.punctuation_mode = RHVoice_punctuation_all;
+            synth_params_.punctuation_list = nullptr;
+        } else {
+            synth_params_.punctuation_mode = RHVoice_punctuation_some;
+            synth_params_.punctuation_list = sym->s_name;
+        }
+    });
+    addProperty(punct_);
 
     initEngineParams();
     tts_.reset(RHVoice_new_tts_engine(&engine_params_));
@@ -222,6 +253,70 @@ void SpeechRhvoiceTilde::m_clear(t_symbol* s, const AtomListView& lv)
         ;
 }
 
+void SpeechRhvoiceTilde::m_read(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_SYMBOL, s))
+        return;
+
+    auto cstr_path = lv.symbolAt(0, &s_)->s_name;
+    auto path = findInStdPaths(cstr_path);
+
+    std::ifstream ifs(path.c_str());
+    if (!ifs) {
+        METHOD_ERR(s) << fmt::format("can't open file: '{}'", cstr_path);
+        return;
+    }
+
+    std::vector<std::string> pars;
+    std::string line;
+    int nl = 0;
+    while (std::getline(ifs, line)) {
+        if (line.size() > 0) {
+            if (nl != 0 || pars.empty())
+                pars.push_back({});
+
+            nl = 0;
+            pars.back().append(line);
+            pars.back().push_back(' ');
+        } else
+            nl++;
+    }
+
+    stop_ = false;
+    const bool ssml = pars.size() > 0 && looks_like_ssml(pars.front());
+
+    if (ssml) {
+        std::string all;
+        for (auto& l : pars) {
+            all.append(l);
+            all.push_back(' ');
+        }
+
+        Msg msg(all, synth_params_);
+        msg.type = RHVoice_message_ssml;
+        txt_queue_.emplace(msg);
+    } else {
+        for (auto& l : pars)
+            txt_queue_.emplace(l, synth_params_);
+    }
+
+    notify_.notifyOne();
+}
+
+void SpeechRhvoiceTilde::m_ssml(t_symbol* s, const AtomListView& lv)
+{
+    if (lv.empty()) {
+        METHOD_ERR(s) << "empty list";
+        return;
+    }
+
+    stop_ = false;
+    Msg msg(to_string(lv), synth_params_);
+    msg.type = RHVoice_message_ssml;
+    txt_queue_.emplace(msg);
+    notify_.notifyOne();
+}
+
 void SpeechRhvoiceTilde::onDone()
 {
     Dispatcher::instance().send({ reinterpret_cast<SubscriberId>(this), NOTIFY_DONE });
@@ -230,7 +325,6 @@ void SpeechRhvoiceTilde::onDone()
 void SpeechRhvoiceTilde::onWordStart(int pos, int len)
 {
     Dispatcher::instance().send({ reinterpret_cast<SubscriberId>(this), NOTIFY_UPDATE });
-    std::cerr << fmt::format("word start: {} {}\n", pos, len);
 }
 
 void SpeechRhvoiceTilde::onTtsSampleRate(int sr)
@@ -320,20 +414,26 @@ void SpeechRhvoiceTilde::initEngineParams()
     conf_path_ = platform::pd_user_directory();
     conf_path_ += "/rhvoice/RHVoice.conf";
     if (!platform::path_exists(conf_path_.c_str())) {
-        conf_path_ = findInStdPaths("RHVoice.conf");
-        if (conf_path_.empty()) {
-            for (auto& p : RHVOICE_CONFIG_PATHS) {
-                if (platform::path_exists(platform::expand_tilde_path(p).c_str())) {
-                    OBJ_DBG << "RHVoice.conf path: " << p;
-                    conf_path_ = p;
-                    break;
-                }
+        bool found = false;
+        for (auto& p : RHVOICE_CONFIG_PATHS) {
+            auto exp_p = platform::expand_tilde_path(p);
+            if (platform::path_exists(exp_p.c_str())) {
+                conf_path_ = exp_p;
+                found = true;
+                break;
             }
         }
+
+        if (!found)
+            conf_path_ = findInStdPaths("RHVoice.conf");
     }
 
-    if (conf_path_.empty())
+    if (conf_path_.empty()) {
         OBJ_DBG << "RHVoice.conf not found";
+    } else {
+        conf_path_ = platform::dirname(conf_path_.c_str());
+        OBJ_DBG << "RHVoice.conf dir: " << conf_path_;
+    }
 
     memset(&engine_params_, 0, sizeof(engine_params_));
     engine_params_.data_path = data_dir_.c_str();
@@ -372,9 +472,9 @@ void SpeechRhvoiceTilde::initSynthParams()
 
 void SpeechRhvoiceTilde::initProperties()
 {
-    addProperty(new SynthFloatProperty("@rate", &synth_params_.absolute_rate));
-    addProperty(new SynthFloatProperty("@pitch", &synth_params_.absolute_pitch));
-    addProperty(new SynthFloatProperty("@volume", &synth_params_.absolute_volume));
+    addProperty(propRange(new SynthFloatProperty("@rate", &synth_params_.absolute_rate), -1, 1));
+    addProperty(propRange(new SynthFloatProperty("@pitch", &synth_params_.absolute_pitch), -1, 1));
+    addProperty(propRange(new SynthFloatProperty("@volume", &synth_params_.absolute_volume), 0, 1));
 
     auto nprofiles = RHVoice_get_number_of_voice_profiles(tts_.get());
     auto profiles = RHVoice_get_voice_profiles(tts_.get());
@@ -409,15 +509,15 @@ void SpeechRhvoiceTilde::initWorker()
                 if (txt_queue_.try_dequeue(txt)) {
                     auto msg = RHVoice_new_message(
                         tts_.get(),
-                        txt.first.c_str(),
-                        txt.first.size(),
-                        RHVoice_message_text,
-                        &txt.second,
+                        txt.txt.c_str(),
+                        txt.txt.size(),
+                        txt.type,
+                        &txt.params,
                         this);
 
                     auto rc = RHVoice_speak(msg);
 #if RHVOICE_DEBUG
-                    std::cerr << fmt::format("speak '{}':  {}\n", txt.first, rc);
+                    std::cerr << fmt::format("speak '{}':  {}\n", txt.txt, rc);
 #endif
                     RHVoice_delete_message(msg);
                 }
@@ -438,6 +538,8 @@ void setup_speech_rhvoice_tilde()
     obj.addAlias("rhvoice~");
     obj.addMethod("stop", &SpeechRhvoiceTilde::m_stop);
     obj.addMethod("clear", &SpeechRhvoiceTilde::m_clear);
+    obj.addMethod("read", &SpeechRhvoiceTilde::m_read);
+    obj.addMethod("ssml", &SpeechRhvoiceTilde::m_ssml);
 
     obj.setXletsInfo({ "float: speak number\n"
                        "symbol: speak symbol\n"
