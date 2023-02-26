@@ -23,6 +23,8 @@
   - cellsize method added to ui.radio: resize widget by specifying cell size
   - ssml method added to speech.rhvoice~: support for SSML text markup
   - read method added to speech.rhvoice~: read text from files
+- new objct properties:
+  - @punct added to rhvoice~, to specify pronounced characters
 - new init argument functions:
   - hexbeat(HEX) - expand hex to list of 1 and 0
   - rotate(N ...) - list rotation (N>0: to the left)

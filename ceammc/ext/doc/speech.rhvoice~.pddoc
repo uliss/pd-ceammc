@@ -43,6 +43,8 @@
             pitch</property>
             <property name="@volume" type="float" default="1" minvalue="0" maxvalue="1">voice
             volume</property>
+            <property name="@punct" type="symbol" default="">punctuation for pronunciation.
+            If 'all' - pronounce all, otherwise pronounce only specified punctuation characters.</property>
         </properties>
         <inlets>
             <inlet>
