@@ -10,11 +10,12 @@
   - conv.char2morse - single character to morse code converter
   - proto.morse - morse encoder with specified speed and other settings
   - metro.choice - randomly (uniformly) metronome time interval choice from specified set
-  - metro.wchoice - weigthed metronome time interval choice from specified set
+  - metro.wchoice - weighted metronome time interval choice from specified set
 - new object inlets:
   - metro.seq - second inlet added to set interval and third inlet to set pattern
   - metro.pattern - second inlet added to set pattern
   - metro.random - third inlet added to set max property
+  - fx.drone_box~ - second inlet added for setting resonance frequency
 - new object methods:
   - euclid method added to ui.radio to set euclid pattern when in checklist mode
   - hexbeat method added to ui.radio to set hexbeat pattern when in checklist mode
@@ -25,7 +26,7 @@
   - rotate(N ...) - list rotation (N>0: to the left)
   - sort(...) - sort list in ascending order
   - ones(N) - list of length N, filled with 1
-  - zeros(N) - list of legnth N, filled with 0
+  - zeros(N) - list of length N, filled with 0
 
 ### Changes:
 - array.risset_rythm~ renamed to array.risset_rhythm~

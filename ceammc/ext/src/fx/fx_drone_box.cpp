@@ -3,14 +3,23 @@
 
 using namespace ceammc;
 
+constexpr const char* STR_PROP_PITCH = "@pitch";
+
 class FxDroneBox : public faust_fx_drone_box_tilde {
+    UIProperty* pitch_;
+
 public:
     FxDroneBox(const PdArgs& args)
         : faust_fx_drone_box_tilde(args)
+        , pitch_(static_cast<UIProperty*>(property(STR_PROP_PITCH)))
     {
-        static t_symbol* SYM_PROP_PITCH = gensym("@pitch");
+        createInlet();
+        bindPositionalArgsToProps({ gensym(STR_PROP_PITCH) });
+    }
 
-        bindPositionalArgsToProps({ SYM_PROP_PITCH });
+    void onInlet(size_t n, const AtomListView& lv)
+    {
+        pitch_->set(lv);
     }
 };
 
@@ -20,5 +29,6 @@ void setup_fx_drone_box_tilde()
 
     obj.setDescription("mono sympathetic resonance generator");
     obj.setCategory("fx");
-    obj.setKeywords({"fx", "drone"});
+    obj.setKeywords({ "fx", "drone" });
+    obj.setXletsInfo({ "signal: input", "float: resonance pitch (MIDI pitch)" }, { "signal: output" });
 }
