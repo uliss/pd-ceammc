@@ -17,7 +17,8 @@
             <par>Fast Bresenham algorithm is used</par>
         </info>
         <properties>
-            <property name="@beats" type="int" default="3">number of beats inside the sequence</property>
+            <property name="@beats" type="int" default="3">number of beats inside the
+            sequence</property>
             <property name="@n" type="int" default="8">the whole sequence length</property>
             <property name="@offset" type="int" default="0">sequence offset</property>
         </properties>

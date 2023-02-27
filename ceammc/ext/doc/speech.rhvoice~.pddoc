@@ -31,8 +31,9 @@
         <methods>
             <method name="stop">stops speech and clear TTS queue</method>
             <method name="clear">clear TTS queue</method>
-            <method name="read">read TTS file (text or SSML)
-            <param name="FILE" type="symbol" required="true">absolute or relative path to the file</param></method>
+            <method name="read">read TTS file (text or SSML) 
+            <param name="FILE" type="symbol" required="true">absolute or relative path to the
+            file</param></method>
             <method name="ssml">speak SSML text markup</method>
         </methods>
         <properties>
@@ -43,8 +44,9 @@
             pitch</property>
             <property name="@volume" type="float" default="1" minvalue="0" maxvalue="1">voice
             volume</property>
-            <property name="@punct" type="symbol" default="">punctuation for pronunciation.
-            If 'all' - pronounce all, otherwise pronounce only specified punctuation characters.</property>
+            <property name="@punct" type="symbol" default="">punctuation for pronunciation. If
+            'all' - pronounce all, otherwise pronounce only specified punctuation
+            characters.</property>
         </properties>
         <inlets>
             <inlet>
