@@ -232,22 +232,18 @@ bool SpeechRhvoiceTilde::notify(int code)
     case RHVOICE_DONE:
         bangTo(1);
         break;
-    case RHVOICE_WORD_START: {
-        StaticAtomList<2> res { gensym("word"), 1 };
-        listTo(1, res.view());
-    } break;
-    case RHVOICE_WORD_END: {
-        StaticAtomList<2> res { gensym("word"), 0. };
-        listTo(1, res.view());
-    } break;
-    case RHVOICE_SENTENCE_START: {
-        StaticAtomList<2> res { gensym("sentence"), 1. };
-        listTo(1, res.view());
-    } break;
-    case RHVOICE_SENTENCE_END: {
-        StaticAtomList<2> res { gensym("sentence"), 0. };
-        listTo(1, res.view());
-    } break;
+    case RHVOICE_WORD_START:
+        anyTo(1, gensym("word"), 1);
+        break;
+    case RHVOICE_WORD_END:
+        anyTo(1, gensym("word"), 0.);
+        break;
+    case RHVOICE_SENTENCE_START:
+        anyTo(1, gensym("sentence"), 1);
+        break;
+    case RHVOICE_SENTENCE_END:
+        anyTo(1, gensym("sentence"), 0.);
+        break;
     default:
         return true;
     }
@@ -282,45 +278,14 @@ void SpeechRhvoiceTilde::m_read(t_symbol* s, const AtomListView& lv)
 
     auto cstr_path = lv.symbolAt(0, &s_)->s_name;
     auto path = findInStdPaths(cstr_path);
-
-    std::ifstream ifs(path.c_str());
-    if (!ifs) {
-        METHOD_ERR(s) << fmt::format("can't open file: '{}'", cstr_path);
+    if (path.empty()) {
+        METHOD_ERR(s) << fmt::format("file not found: '{}'", cstr_path);
         return;
     }
 
-    std::vector<std::string> pars;
-    std::string line;
-    int nl = 0;
-    while (std::getline(ifs, line)) {
-        if (line.size() > 0) {
-            if (nl != 0 || pars.empty())
-                pars.push_back({});
-
-            nl = 0;
-            pars.back().append(line);
-            pars.back().push_back(' ');
-        } else
-            nl++;
-    }
-
-    stop_ = false;
-    const bool ssml = pars.size() > 0 && looks_like_ssml(pars.front());
-
-    if (ssml) {
-        std::string all;
-        for (auto& l : pars) {
-            all.append(l);
-            all.push_back(' ');
-        }
-
-        Msg msg(all, synth_params_);
-        msg.type = RHVoice_message_ssml;
-        txt_queue_.emplace(msg);
-    } else {
-        for (auto& l : pars)
-            txt_queue_.emplace(l, synth_params_);
-    }
+    Msg msg(path, synth_params_);
+    msg.cmd = RHVOICE_CMD_READ_FILE;
+    txt_queue_.emplace(msg);
 
     notify_.notifyOne();
 }
@@ -334,7 +299,7 @@ void SpeechRhvoiceTilde::m_ssml(t_symbol* s, const AtomListView& lv)
 
     stop_ = false;
     Msg msg(to_string(lv), synth_params_);
-    msg.type = RHVoice_message_ssml;
+    msg.cmd = RHVOICE_CMD_SAY_SSML;
     txt_queue_.emplace(msg);
     notify_.notifyOne();
 }
@@ -542,6 +507,23 @@ void SpeechRhvoiceTilde::initProperties()
     });
 }
 
+static inline void speakText(const std::string& txt, RHVoice_message_type type, RHVoice_tts_engine_struct* tts, const RHVoice_synth_params& params, SpeechRhvoiceTilde* obj)
+{
+    auto msg = RHVoice_new_message(
+        tts,
+        txt.c_str(),
+        txt.size(),
+        type,
+        &params,
+        obj);
+
+    auto rc = RHVoice_speak(msg);
+#if RHVOICE_DEBUG
+    std::cerr << fmt::format("speak '{}':  {}\n", txt, rc);
+#endif
+    RHVoice_delete_message(msg);
+}
+
 void SpeechRhvoiceTilde::initWorker()
 {
     proc_ = std::async(
@@ -550,19 +532,57 @@ void SpeechRhvoiceTilde::initWorker()
             while (!quit_) {
                 Msg txt;
                 if (txt_queue_.try_dequeue(txt)) {
-                    auto msg = RHVoice_new_message(
-                        tts_.get(),
-                        txt.txt.c_str(),
-                        txt.txt.size(),
-                        txt.type,
-                        &txt.params,
-                        this);
+                    switch (txt.cmd) {
+                    case RHVOICE_CMD_READ_FILE: {
+                        std::ifstream ifs(txt.txt.c_str());
+                        if (!ifs) {
+                            logger_.error(fmt::format("can't open file: '{}'", txt.txt));
+                            return;
+                        }
 
-                    auto rc = RHVoice_speak(msg);
-#if RHVOICE_DEBUG
-                    std::cerr << fmt::format("speak '{}':  {}\n", txt.txt, rc);
-#endif
-                    RHVoice_delete_message(msg);
+                        std::vector<std::string> pars;
+                        std::string line;
+                        int nl = 0;
+                        while (std::getline(ifs, line)) {
+                            if (line.size() > 0) {
+                                if (nl != 0 || pars.empty())
+                                    pars.push_back({});
+
+                                nl = 0;
+                                pars.back().append(line);
+                                pars.back().push_back(' ');
+                            } else
+                                nl++;
+                        }
+
+                        stop_ = false;
+                        const bool ssml = pars.size() > 0 && looks_like_ssml(pars.front());
+
+                        if (ssml) {
+                            std::string all;
+                            for (auto& l : pars) {
+                                all.append(l);
+                                all.push_back(' ');
+                            }
+
+                            speakText(all, RHVoice_message_ssml, tts_.get(), txt.params, this);
+                        } else {
+                            for (auto& p : pars) {
+                                if (stop_)
+                                    break;
+
+                                speakText(p, RHVoice_message_text, tts_.get(), txt.params, this);
+                            }
+                        }
+                    } break;
+                    case RHVOICE_CMD_SAY_SSML:
+                        speakText(txt.txt, RHVoice_message_ssml, tts_.get(), txt.params, this);
+                        break;
+                    case RHVOICE_CMD_SAY_TEXT:
+                    default:
+                        speakText(txt.txt, RHVoice_message_text, tts_.get(), txt.params, this);
+                        break;
+                    }
                 }
 
                 if (stop_) {

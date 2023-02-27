@@ -36,10 +36,16 @@ public:
     soxr_error_t process(const short* in, size_t ilen, size_t* idone, float* out, size_t olen, size_t* odone);
 };
 
+enum RhvoiceCmd {
+    RHVOICE_CMD_SAY_TEXT,
+    RHVOICE_CMD_SAY_SSML,
+    RHVOICE_CMD_READ_FILE,
+};
+
 struct RhvoiceMsg {
     std::string txt;
     RHVoice_synth_params params;
-    RHVoice_message_type type { RHVoice_message_text };
+    RhvoiceCmd cmd { RHVOICE_CMD_SAY_TEXT };
     RhvoiceMsg() = default;
     RhvoiceMsg& operator=(const RhvoiceMsg&) = default;
 
@@ -68,6 +74,7 @@ private:
     AtomList voices_;
     Resampler resampler_;
     ThreadNotify notify_;
+    ThreadPdLogger logger_;
     std::string data_dir_;
     std::string conf_path_;
 
