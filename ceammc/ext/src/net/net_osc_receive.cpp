@@ -15,7 +15,7 @@
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "ceammc_output.h"
-#include "fmt/format.h"
+#include "fmt/core.h"
 
 #include <cstring>
 
@@ -98,11 +98,10 @@ public:
 namespace net {
 
     NetOscReceive::NetOscReceive(const PdArgs& args)
-        : BaseObject(args)
+        : DispatchedObject<BaseObject>(args)
         , server_(nullptr)
         , path_(nullptr)
         , types_(nullptr)
-        , disp_(this)
     {
         createInlet();
         createOutlet();
@@ -130,7 +129,7 @@ namespace net {
     {
         auto osc = OscServerList::instance().findByName(server_->value());
         if (osc)
-            osc->unsubscribeAll(disp_.id());
+            osc->unsubscribeAll(subscriberId());
     }
 
     const char* NetOscReceive::types() const
@@ -142,7 +141,7 @@ namespace net {
     bool NetOscReceive::subscribe(const net::OscServerList::OscServerPtr& osc, t_symbol* path)
     {
         if (osc && osc->isValid() && path != &s_) {
-            osc->subscribeMethod(path->s_name, types(), disp_.id(), &pipe_);
+            osc->subscribeMethod(path->s_name, types(), subscriberId(), &pipe_);
             LIB_LOG << fmt::format("[osc] subscribed to {} at \"{}\"", path->s_name, osc->name());
             return true;
         } else if (path != &s_) {
@@ -155,7 +154,7 @@ namespace net {
     bool NetOscReceive::unsubscribe(const net::OscServerList::OscServerPtr& osc, t_symbol* path)
     {
         if (osc && osc->isValid() && path != &s_) {
-            osc->unsubscribeMethod(path->s_name, types(), disp_.id());
+            osc->unsubscribeMethod(path->s_name, types(), subscriberId());
             LIB_LOG << fmt::format("[osc] unsubscribed from {} at \"{}\"", path->s_name, osc->name());
             return true;
         } else if (path != &s_) {
@@ -178,17 +177,12 @@ namespace net {
         });
     }
 
-    bool NetOscReceive::notify(NotifyEventType code)
+    bool NetOscReceive::notify(int code)
     {
-        switch (code) {
-        case NOTIFY_UPDATE: {
-            OscMessage msg;
-            while (pipe_.try_dequeue(msg))
-                processMessage(msg);
-        } break;
-        default:
-            break;
-        }
+        OscMessage msg;
+        while (pipe_.try_dequeue(msg))
+            processMessage(msg);
+
         return true;
     }
 

@@ -233,8 +233,6 @@ HwMotuAvb::HwMotuAvb(const PdArgs& args)
 
     port_ = new IntProperty("@port", MOTU_DEFAULT_HTTP_PORT);
     addProperty(port_);
-
-    Dispatcher::instance().subscribe(this, subscriberId());
 }
 
 HwMotuAvb::Future HwMotuAvb::createTask()
@@ -280,7 +278,7 @@ HwMotuAvb::Future HwMotuAvb::createTask()
                     break;
                 }
 
-                Dispatcher::instance().send({ subscriberId(), NOTIFY_UPDATE });
+                Dispatcher::instance().send({ subscriberId(), 0 });
             }
         } catch (std::exception& e) {
             TERR_FMT("run thread exception: {}", e.what());

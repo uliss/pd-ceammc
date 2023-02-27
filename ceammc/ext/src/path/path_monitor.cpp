@@ -112,9 +112,9 @@ public:
 
         for (auto& w : mon->watch_map_) {
             if (w.second.id == watch_id.id) {
-                auto id = w.first->id();
+                auto id = w.first->subscriberId();
                 w.first->setPath(filepath);
-                if (!Dispatcher::instance().send({ id, (NotifyEventType)action })) {
+                if (!Dispatcher::instance().send({ id, action })) {
                     DMON_DEBUG(fmt::format("can't send to dispatcher: #{} -> {}", id, action));
                     return;
                 }
@@ -126,7 +126,7 @@ public:
 };
 
 PathMonitor::PathMonitor(const PdArgs& args)
-    : BaseObject(args)
+    : DispatchedObject<BaseObject>(args)
     , path_(nullptr)
 {
     createOutlet();
@@ -139,23 +139,20 @@ PathMonitor::PathMonitor(const PdArgs& args)
         if (path == &s_)
             return;
 
-        DMonitor::instance().addRef(this, path, id());
+        DMonitor::instance().addRef(this, path, subscriberId());
     });
-
-    Dispatcher::instance().subscribe(this, id());
 }
 
 PathMonitor::~PathMonitor()
 {
     DMonitor::instance().removeRef(this);
-    Dispatcher::instance().unsubscribe(this);
 }
 
-bool PathMonitor::notify(NotifyEventType code)
+bool PathMonitor::notify(int code)
 {
     Lock l(mtx_);
 
-    switch (static_cast<dmon_action>(code)) {
+    switch (code) {
     case DMON_ACTION_CREATE:
         OBJ_DBG << "file created: " << path_info_;
         anyTo(0, gensym("create"), gensym(path_info_.c_str()));

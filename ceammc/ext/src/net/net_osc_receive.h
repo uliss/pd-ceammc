@@ -21,30 +21,10 @@ namespace ceammc {
 namespace net {
     class OscServer;
 
-    template <typename T>
-    class DispatcherSubscriber {
-        T* ptr_;
-
-    public:
-        DispatcherSubscriber(T* p)
-            : ptr_(p)
-        {
-            Dispatcher::instance().subscribe(ptr_, id());
-        }
-
-        ~DispatcherSubscriber()
-        {
-            Dispatcher::instance().unsubscribe(ptr_);
-        }
-
-        SubscriberId id() const { return reinterpret_cast<SubscriberId>(ptr_); }
-    };
-
-    class NetOscReceive : public BaseObject, public NotifiedObject {
+    class NetOscReceive : public DispatchedObject<BaseObject> {
         SymbolProperty* server_;
         SymbolProperty* path_;
         SymbolProperty* types_;
-        DispatcherSubscriber<NetOscReceive> disp_;
         OscMethodPipe pipe_;
 
     public:
@@ -52,7 +32,7 @@ namespace net {
         ~NetOscReceive();
 
         void initDone() override;
-        bool notify(NotifyEventType code) final;
+        bool notify(int code) final;
         void processMessage(const OscMessage& msg);
 
         void onInlet(size_t n, const AtomListView& lv) override;

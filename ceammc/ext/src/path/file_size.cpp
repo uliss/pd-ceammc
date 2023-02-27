@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "file_size.h"
 #include "ceammc_factory.h"
+#include "datatype_string.h"
 
 #include "filesystem.hpp"
 namespace fs = ghc::filesystem;

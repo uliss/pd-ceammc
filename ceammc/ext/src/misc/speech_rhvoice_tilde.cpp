@@ -1,4 +1,5 @@
 #include "speech_rhvoice_tilde.h"
+#include "ceammc_containers.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
 #include "ceammc_string.h"
@@ -13,6 +14,15 @@
 #include <thread>
 
 #define RHVOICE_DEBUG 1
+
+enum RhvoiceEventType {
+    RHVOICE_DONE,
+    RHVOICE_WORD_START,
+    RHVOICE_WORD_END,
+    RHVOICE_SENTENCE_START,
+    RHVOICE_SENTENCE_END,
+    RHVOICE_FILE_READ
+};
 
 static inline SpeechRhvoiceTilde* toThis(void* x) { return static_cast<SpeechRhvoiceTilde*>(x); }
 
@@ -105,7 +115,7 @@ soxr_error_t Resampler::process(const short* in, size_t ilen, size_t* idone, flo
 }
 
 SpeechRhvoiceTilde::SpeechRhvoiceTilde(const PdArgs& args)
-    : SoundExternal(args)
+    : DispatchedObject<SoundExternal>(args)
     , tts_(nullptr, &RHVoice_delete_tts_engine)
     , quit_(false)
     , stop_(false)
@@ -139,16 +149,12 @@ SpeechRhvoiceTilde::SpeechRhvoiceTilde(const PdArgs& args)
     initProperties();
 
     initWorker();
-
-    Dispatcher::instance().subscribe(this, reinterpret_cast<SubscriberId>(this));
 }
 
 SpeechRhvoiceTilde::~SpeechRhvoiceTilde()
 {
     quit_ = true;
     proc_.get();
-
-    Dispatcher::instance().unsubscribe(this);
 }
 
 void SpeechRhvoiceTilde::onFloat(t_float f)
@@ -220,12 +226,28 @@ void SpeechRhvoiceTilde::samplerateChanged(size_t sr)
     resampler_.setOutRate(sr);
 }
 
-bool SpeechRhvoiceTilde::notify(NotifyEventType code)
+bool SpeechRhvoiceTilde::notify(int code)
 {
     switch (code) {
-    case NOTIFY_DONE:
+    case RHVOICE_DONE:
         bangTo(1);
         break;
+    case RHVOICE_WORD_START: {
+        StaticAtomList<2> res { gensym("word"), 1 };
+        listTo(1, res.view());
+    } break;
+    case RHVOICE_WORD_END: {
+        StaticAtomList<2> res { gensym("word"), 0. };
+        listTo(1, res.view());
+    } break;
+    case RHVOICE_SENTENCE_START: {
+        StaticAtomList<2> res { gensym("sentence"), 1. };
+        listTo(1, res.view());
+    } break;
+    case RHVOICE_SENTENCE_END: {
+        StaticAtomList<2> res { gensym("sentence"), 0. };
+        listTo(1, res.view());
+    } break;
     default:
         return true;
     }
@@ -319,12 +341,27 @@ void SpeechRhvoiceTilde::m_ssml(t_symbol* s, const AtomListView& lv)
 
 void SpeechRhvoiceTilde::onDone()
 {
-    Dispatcher::instance().send({ reinterpret_cast<SubscriberId>(this), NOTIFY_DONE });
+    Dispatcher::instance().send({ reinterpret_cast<SubscriberId>(this), RHVOICE_DONE });
 }
 
 void SpeechRhvoiceTilde::onWordStart(int pos, int len)
 {
-    Dispatcher::instance().send({ reinterpret_cast<SubscriberId>(this), NOTIFY_UPDATE });
+    Dispatcher::instance().send({ reinterpret_cast<SubscriberId>(this), RHVOICE_WORD_START });
+}
+
+void SpeechRhvoiceTilde::onWordEnd(int pos, int len)
+{
+    Dispatcher::instance().send({ reinterpret_cast<SubscriberId>(this), RHVOICE_WORD_END });
+}
+
+void SpeechRhvoiceTilde::onSentenceStart(int pos, int len)
+{
+    Dispatcher::instance().send({ reinterpret_cast<SubscriberId>(this), RHVOICE_SENTENCE_START });
+}
+
+void SpeechRhvoiceTilde::onSentenceEnd(int pos, int len)
+{
+    Dispatcher::instance().send({ reinterpret_cast<SubscriberId>(this), RHVOICE_SENTENCE_END });
 }
 
 void SpeechRhvoiceTilde::onTtsSampleRate(int sr)
@@ -444,6 +481,12 @@ void SpeechRhvoiceTilde::initEngineParams()
         [](void* obj) { toThis(obj)->onDone(); };
     engine_params_.callbacks.word_starts =
         [](unsigned int pos, unsigned int len, void* obj) -> int { toThis(obj)->onWordStart(pos, len); return 1; };
+    engine_params_.callbacks.word_ends =
+        [](unsigned int pos, unsigned int len, void* obj) -> int { toThis(obj)->onWordEnd(pos, len); return 1; };
+    engine_params_.callbacks.sentence_starts =
+        [](unsigned int pos, unsigned int len, void* obj) -> int { toThis(obj)->onSentenceStart(pos, len); return 1; };
+    engine_params_.callbacks.sentence_ends =
+        [](unsigned int pos, unsigned int len, void* obj) -> int { toThis(obj)->onSentenceEnd(pos, len); return 1; };
     engine_params_.callbacks.play_audio = nullptr;
     engine_params_.callbacks.process_mark = nullptr;
     engine_params_.callbacks.set_sample_rate = [](int sr, void* obj) -> int {

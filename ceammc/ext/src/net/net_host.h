@@ -50,7 +50,7 @@ public:
     void processMessage(const HostResult& msg) final;
     Future createTask() final;
 
-    bool notify(NotifyEventType event) final;
+    bool notify(int event) final;
 };
 
 }

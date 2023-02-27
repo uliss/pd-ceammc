@@ -1,7 +1,7 @@
 #include "ceammc_thread.h"
 #include "ceammc_poll_dispatcher.h"
 #include "ceammc_pollfd.h"
-#include "fmt/format.h"
+#include "fmt/core.h"
 
 #include <cerrno>
 #include <chrono>
@@ -44,7 +44,7 @@ ThreadPdLogger::~ThreadPdLogger()
     Dispatcher::instance().unsubscribe(this);
 }
 
-bool ThreadPdLogger::notify(NotifyEventType /*code*/)
+bool ThreadPdLogger::notify(int /*code*/)
 {
     Lock g(mtx_);
 
@@ -83,7 +83,7 @@ void ThreadPdLogger::error(const std::string& msg)
             msg_.emplace_back(fmt::format("[{}] [error] {}", prefix_, msg), LOG_ERROR);
     }
 
-    Dispatcher::instance().send({ reinterpret_cast<SubscriberId>(this), NOTIFY_UPDATE });
+    Dispatcher::instance().send({ reinterpret_cast<SubscriberId>(this), 0 });
 }
 
 void ThreadPdLogger::post(const std::string& msg)
@@ -96,7 +96,7 @@ void ThreadPdLogger::post(const std::string& msg)
             msg_.emplace_back(fmt::format("[{}] {}", prefix_, msg), LOG_POST);
     }
 
-    Dispatcher::instance().send({ reinterpret_cast<SubscriberId>(this), NOTIFY_UPDATE });
+    Dispatcher::instance().send({ reinterpret_cast<SubscriberId>(this), 0 });
 }
 
 void ThreadPdLogger::debug(const std::string& msg)
@@ -109,7 +109,7 @@ void ThreadPdLogger::debug(const std::string& msg)
             msg_.emplace_back(fmt::format("[{}] [debug] {}", prefix_, msg), LOG_DEBUG);
     }
 
-    Dispatcher::instance().send({ reinterpret_cast<SubscriberId>(this), NOTIFY_UPDATE });
+    Dispatcher::instance().send({ reinterpret_cast<SubscriberId>(this), 0 });
 }
 
 void ThreadPdLogger::verbose(const std::string& msg)
@@ -122,7 +122,7 @@ void ThreadPdLogger::verbose(const std::string& msg)
             msg_.emplace_back(fmt::format("[{}] [verbose] {}", prefix_, msg), LOG_ALL);
     }
 
-    Dispatcher::instance().send({ reinterpret_cast<SubscriberId>(this), NOTIFY_UPDATE });
+    Dispatcher::instance().send({ reinterpret_cast<SubscriberId>(this), 0 });
 }
 
 void ThreadExternalBase::processCommand(int code)

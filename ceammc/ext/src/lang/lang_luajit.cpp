@@ -61,8 +61,6 @@ LangLuaJit::LangLuaJit(const PdArgs& args)
     nout_->setArgIndex(1);
     addProperty(nout_);
 
-    Dispatcher::instance().subscribe(this, subscriberId());
-
     if (!runTask())
         OBJ_ERR << "can't start LUA event loop";
 
@@ -203,7 +201,7 @@ LangLuaJit::Future LangLuaJit::createTask()
         });
 }
 
-void LangLuaJit::processTask(NotifyEventType)
+void LangLuaJit::processTask(int)
 {
     lua::LuaCmd msg;
     while (this->outPipe().try_dequeue(msg))

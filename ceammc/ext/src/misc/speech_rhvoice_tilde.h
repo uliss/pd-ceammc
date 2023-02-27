@@ -7,6 +7,7 @@
 #include <mutex>
 
 #include "RHVoice.h"
+#include "ceammc_filesystem.h"
 #include "ceammc_poll_dispatcher.h"
 #include "ceammc_sound_external.h"
 #include "ceammc_thread.h"
@@ -49,7 +50,7 @@ struct RhvoiceMsg {
     }
 };
 
-class SpeechRhvoiceTilde : public SoundExternal, public NotifiedObject {
+class SpeechRhvoiceTilde : public DispatchedObject<SoundExternal> {
     using TtsEngine = std::unique_ptr<RHVoice_tts_engine_struct, void (*)(RHVoice_tts_engine)>;
     using TtsQueue = moodycamel::ReaderWriterQueue<float, TtsQueueSize>;
     using Msg = RhvoiceMsg;
@@ -80,7 +81,7 @@ public:
     void processBlock(const t_sample** in, t_sample** out) final;
     void samplerateChanged(size_t sr) final;
 
-    bool notify(NotifyEventType code) final;
+    bool notify(int code) final;
 
     void m_stop(t_symbol* s, const AtomListView& lv);
     void m_clear(t_symbol* s, const AtomListView& lv);
@@ -91,6 +92,9 @@ private:
     // called from worker thread
     void onDone();
     void onWordStart(int pos, int len);
+    void onWordEnd(int pos, int len);
+    void onSentenceStart(int pos, int len);
+    void onSentenceEnd(int pos, int len);
     void onTtsSampleRate(int sr);
     int onDsp(const short* data, unsigned int n);
 

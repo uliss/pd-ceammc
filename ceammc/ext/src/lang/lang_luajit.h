@@ -60,7 +60,7 @@ public:
     void dump() const override;
 
     Future createTask() override;
-    void processTask(NotifyEventType) override;
+    void processTask(int) override;
     void processMessage(const lua::LuaCmd& msg);
 
     void m_load(t_symbol* s, const AtomListView& lv);

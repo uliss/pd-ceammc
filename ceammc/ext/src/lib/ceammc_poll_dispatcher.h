@@ -26,7 +26,7 @@ using SubscriberId = uint64_t;
 
 struct NotifyMessage {
     SubscriberId id;
-    NotifyEventType event;
+    int event;
 };
 
 struct SubscriberInfo {
@@ -52,7 +52,7 @@ private:
     Dispatcher(const Dispatcher&) = delete;
     Dispatcher& operator=(const Dispatcher&) = delete;
 
-    bool notify(SubscriberId id, NotifyEventType t);
+    bool notify(SubscriberId id, int t);
 
 private:
     static void pollFn(void* x, int fd);
@@ -68,6 +68,24 @@ public:
     void unsubscribe(NotifiedObject* x);
 
     bool send(const NotifyMessage& msg);
+};
+
+template <typename T>
+class DispatchedObject : public T, public NotifiedObject {
+public:
+    template <typename... Args>
+    DispatchedObject(Args&& ... args)
+        : T(std::forward<Args>(args)...)
+    {
+        Dispatcher::instance().subscribe(this, subscriberId());
+    }
+
+    ~DispatchedObject()
+    {
+        Dispatcher::instance().unsubscribe(this);
+    }
+
+    SubscriberId subscriberId() const { return reinterpret_cast<SubscriberId>(this); }
 };
 
 }

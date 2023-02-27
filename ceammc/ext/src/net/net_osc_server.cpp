@@ -104,7 +104,7 @@ namespace net {
             pipe_->try_enqueue(msg);
         }
 
-        Dispatcher::instance().send({ id_, NOTIFY_UPDATE });
+        Dispatcher::instance().send({ id_, 0 });
     }
 
     OscServerSubscriberList::OscServerSubscriberList()
@@ -172,7 +172,7 @@ namespace net {
         return log;
     }
 
-    bool OscServerLogger::notify(NotifyEventType /*code*/)
+    bool OscServerLogger::notify(int /*event*/)
     {
         LogEntry log_msg;
 
@@ -197,13 +197,13 @@ namespace net {
             ? fmt::format("error #{}: '{}'", errNo, msg).c_str()
             : fmt::format("error #{}: '{}' at {}", errNo, msg, where).c_str();
         err_pipe_.enqueue({ LOG_ERROR, str });
-        Dispatcher::instance().send({ id(), NOTIFY_UPDATE });
+        Dispatcher::instance().send({ id(), 0 });
     }
 
     void OscServerLogger::print(const char* str)
     {
         err_pipe_.enqueue({ LOG_POST, str });
-        Dispatcher::instance().send({ id(), NOTIFY_UPDATE });
+        Dispatcher::instance().send({ id(), 0 });
     }
 
     OscServer::OscServer(const char* name, int port, OscProto proto)

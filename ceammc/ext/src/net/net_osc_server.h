@@ -127,7 +127,7 @@ namespace net {
     public:
         static OscServerLogger& instance();
 
-        bool notify(NotifyEventType code) final;
+        bool notify(int event) final;
         SubscriberId id() const { return reinterpret_cast<SubscriberId>(this); }
         void error(int errNo, const char* msg, const char* where);
         void print(const char* str);

@@ -78,7 +78,7 @@ public:
     ThreadPdLogger(const std::string& prefix = "");
     ~ThreadPdLogger();
 
-    bool notify(NotifyEventType /*code*/) final;
+    bool notify(int /*code*/) final;
 
     /**
      * put error message to logger

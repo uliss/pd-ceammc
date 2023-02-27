@@ -37,8 +37,6 @@ NetHttpSend::NetHttpSend(const PdArgs& args)
     timeout_->checkClosedRange(1, 10);
     timeout_->setUnits(PropValueUnits::SEC);
     addProperty(timeout_);
-
-    Dispatcher::instance().subscribe(this, subscriberId());
 }
 
 void NetHttpSend::processMessage(const HttpResult& msg)
@@ -69,7 +67,7 @@ NetHttpSend::Future NetHttpSend::createTask()
                     }
                 }
 
-                Dispatcher::instance().send({ subscriberId(), NOTIFY_UPDATE });
+                Dispatcher::instance().send({ subscriberId(), 0 });
 
             } catch (std::exception& e) {
                 logger_.error(fmt::format("http request exception: '{}'", e.what()));

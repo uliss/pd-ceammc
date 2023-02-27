@@ -46,7 +46,7 @@ Dispatcher::Dispatcher()
 {
 }
 
-bool Dispatcher::notify(SubscriberId id, NotifyEventType t)
+bool Dispatcher::notify(SubscriberId id, int t)
 {
     DISPATCHER_DEBUG(fmt::format("notify: #{} -> {}", id, t));
 

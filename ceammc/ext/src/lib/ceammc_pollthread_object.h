@@ -26,7 +26,7 @@
 namespace ceammc {
 
 template <typename In, typename Out>
-class PollThreadTaskObject : public BaseObject, public NotifiedObject {
+class PollThreadTaskObject : public DispatchedObject<BaseObject> {
 public:
     using Future = std::future<void>;
 
@@ -44,7 +44,7 @@ private:
 
 public:
     PollThreadTaskObject(const PdArgs& args)
-        : BaseObject(args)
+        : DispatchedObject<BaseObject>(args)
     {
     }
 
@@ -57,8 +57,6 @@ public:
     {
         quit_ = true;
 
-        Dispatcher::instance().unsubscribe(this);
-
         if (future_.valid()) {
             try {
                 future_.get();
@@ -68,10 +66,8 @@ public:
         }
     }
 
-    inline SubscriberId subscriberId() const { return reinterpret_cast<SubscriberId>(this); }
-
     virtual Future createTask() = 0;
-    virtual void processTask(NotifyEventType event) = 0;
+    virtual void processTask(int event) = 0;
 
     TaskState taskState() const
     {
@@ -115,7 +111,7 @@ public:
         return true;
     }
 
-    bool notify(NotifyEventType event) override
+    bool notify(int event) override
     {
         processTask(event);
         processResultIfReady();
@@ -159,7 +155,7 @@ public:
     {
     }
 
-    void processTask(NotifyEventType /*event*/) override
+    void processTask(int /*event*/) override
     {
         Out msg;
         while (this->outPipe().try_dequeue(msg))

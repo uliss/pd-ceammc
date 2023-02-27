@@ -16,7 +16,10 @@
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
 #include "ceammc_platform.h"
+#include "ceammc_poll_dispatcher.h"
+#include "ceammc_thread.h"
 
+//#include "ceammc_thread.h"
 #include "fmt/core.h"
 #include "httplib.h"
 
@@ -42,71 +45,10 @@ constexpr int TOUCH_OSC_HTTP_PORT = 9658;
 
 namespace ceammc {
 
-class Logger : public NotifiedObject {
-    std::list<std::pair<NotifyEventType, std::string>> messages_;
-    std::mutex mtx_;
-
-public:
-    Logger()
-    {
-        Dispatcher::instance().subscribe(this, id());
-    }
-
-    ~Logger()
-    {
-        Dispatcher::instance().unsubscribe(this);
-    }
-
-    SubscriberId id() const { return reinterpret_cast<SubscriberId>(this); }
-
-    bool notify(NotifyEventType code)
-    {
-        MutexLock lock(mtx_);
-        while (!messages_.empty()) {
-            auto& msg = messages_.front();
-
-            switch (msg.first) {
-            case NOTIFY_LOG_ERROR:
-                LIB_ERR << TOUCH_OSC_LOG_PREFIX << msg.second;
-                break;
-            case NOTIFY_LOG_DEBUG:
-                LIB_DBG << TOUCH_OSC_LOG_PREFIX << msg.second;
-                break;
-            default:
-                break;
-            }
-
-            messages_.pop_front();
-        }
-
-        return true;
-    }
-
-    void error(const std::string& msg)
-    {
-        {
-            MutexLock lock(mtx_);
-            messages_.push_back({ NOTIFY_LOG_ERROR, msg });
-        }
-
-        Dispatcher::instance().send({ id(), NOTIFY_LOG_ERROR });
-    }
-
-    void debug(const std::string& msg)
-    {
-        {
-            MutexLock lock(mtx_);
-            messages_.push_back({ NOTIFY_LOG_DEBUG, msg });
-        }
-
-        Dispatcher::instance().send({ id(), NOTIFY_LOG_DEBUG });
-    }
-};
-
 class TouchOscHttpServer {
     httplib::Server http_;
     std::future<bool> rc_;
-    Logger log_;
+    ThreadPdLogger log_;
     std::string content_;
     std::string filename_;
     std::mutex content_mtx_;
