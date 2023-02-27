@@ -16,6 +16,7 @@
   - metro.pattern - second inlet added to set pattern
   - metro.random - third inlet added to set max property
   - fx.drone_box~ - second inlet added for setting resonance frequency
+  - fx.notch~: second (freq) inlet added
 - new object methods:
   - euclid method added to ui.radio to set euclid pattern when in checklist mode
   - hexbeat method added to ui.radio to set hexbeat pattern when in checklist mode
