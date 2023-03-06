@@ -15,7 +15,6 @@
 #include "ceammc_syms.h"
 #include "egraphics.h"
 #include "eobj.h"
-#include "fmt/format.h"
 
 #include "ceammc.h"
 

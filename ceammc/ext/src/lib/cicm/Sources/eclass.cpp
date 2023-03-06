@@ -424,7 +424,7 @@ void eclass_addmethod(t_eclass* c, t_typ_method m, t_symbol* sname, t_atomtype t
     case hash_oksize:
         c->c_widget.w_oksize = reinterpret_cast<t_oksize_method>(m);
         break;
-    case hash_zoom:
+    case hash_onzoom:
         c->c_widget.w_onzoom = reinterpret_cast<t_zoom_method>(m);
         break;
     case hash_save:
