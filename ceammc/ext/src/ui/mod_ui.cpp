@@ -37,6 +37,7 @@
 #include "ui_toggle.h"
 #include "ui_touchosc.h"
 
+void setup_ui_canvas();
 void setup_ui_filter();
 void setup_ui_filter_tilde();
 void setup_ui_lcd();
@@ -49,6 +50,7 @@ void ceammc_ui_setup()
     setup_ui_arrayview();
     setup_ui_bang();
     setup_ui_button();
+    setup_ui_canvas();
     setup_ui_colorpanel();
     setup_ui_display();
     setup_ui_dsp();

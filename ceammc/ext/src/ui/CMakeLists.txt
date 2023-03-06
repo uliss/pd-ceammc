@@ -13,6 +13,7 @@ add_subdirectory(touchosc)
 ceammc_ui_external(arrayview)
 ceammc_ui_external(bang)
 ceammc_ui_external(button)
+ceammc_ui_external(canvas)
 ceammc_ui_external(colorpanel)
 ceammc_ui_external(display)
 ceammc_ui_external(dsp)
@@ -53,16 +54,26 @@ ceammc_ui_external(touchosc)
 
 add_library(ceammc_ui STATIC mod_ui.cpp ${NUI_SOURCES} ${UI_SOURCES})
 
-target_link_libraries(ceammc_ui ceammc_nui ceammc_env http_lib readerwriterqueue touchosc)
+target_link_libraries(ceammc_ui PRIVATE ceammc_nui ceammc_env http_lib readerwriterqueue touchosc)
+
+find_package(Cairo)
+if(CAIRO_FOUND)
+    target_include_directories(ceammc_ui PRIVATE ${CAIRO_INCLUDE_DIRS})
+    target_link_libraries(ceammc_ui PUBLIC ${CAIRO_LIBRARIES})
+endif()
+
 target_include_directories(ceammc_ui
     PRIVATE
-        "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>")
+        "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>"
+        ${PROJECT_BINARY_DIR} # for config.h
+    )
 
 set(TCL_GEN_SCRIPT ${PROJECT_SOURCE_DIR}/ceammc/scripts/filecontent_to_cxx_header.sh)
 
 add_custom_target(ceammc_ui_tcl_gen
     COMMAND ${TCL_GEN_SCRIPT} ui_bang.tcl
     COMMAND ${TCL_GEN_SCRIPT} ui_button.tcl
+    COMMAND ${TCL_GEN_SCRIPT} ui_canvas.tcl
     COMMAND ${TCL_GEN_SCRIPT} ui_display.tcl
     COMMAND ${TCL_GEN_SCRIPT} ui_dsp.tcl
     COMMAND ${TCL_GEN_SCRIPT} ui_filter.tcl
@@ -80,6 +91,7 @@ add_custom_target(ceammc_ui_tcl_gen
     SOURCES
         ui_bang.tcl
         ui_button.tcl
+        ui_canvas.tcl
         ui_display.tcl
         ui_dsp.tcl
         ui_filter.tcl
