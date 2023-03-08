@@ -57,7 +57,7 @@ action color_hex_set  { color.x = xchar2digit(fc); }
 
 color_xhex = xdigit >color_hex_set;
 
-color_rgb = '#'
+color_rgba = '#'
           (color_xhex %{color.r = color.x;}
            color_xhex %{color.g = color.x;}
            color_xhex %{color.b = color.x;}

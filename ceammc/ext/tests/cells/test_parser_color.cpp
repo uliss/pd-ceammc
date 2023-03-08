@@ -213,4 +213,22 @@ TEST_CASE("parser_color", "[ceammc::ceammc_units]")
         REQUIRE(res[1] == 0xABABBACC);
         REQUIRE(res[2] == 0x123456DD);
     }
+
+    SECTION("short")
+    {
+        using namespace ceammc::parser;
+        RgbaHexFullMatch p;
+
+        REQUIRE(p.parse("#0000"));
+        REQUIRE(p.red() == 0);
+        REQUIRE(p.green() == 0);
+        REQUIRE(p.blue() == 0);
+        REQUIRE(p.alpha() == 0);
+
+        REQUIRE(p.parse("#1234"));
+        REQUIRE(p.red() == 0x11);
+        REQUIRE(p.green() == 0x22);
+        REQUIRE(p.blue() == 0x33);
+        REQUIRE(p.alpha() == 0x44);
+    }
 }

@@ -153,6 +153,10 @@ namespace parser {
 
             return res;
         }
+
+    private:
+        bool parseShort(const char* str, size_t length);
+        bool parseFull(const char* str, size_t length);
     };
 }
 }

@@ -128,14 +128,6 @@ bool RgbHexFullMatch::parseShort(const char* str, size_t length)
     return false;
 }
 
-%%{
-    machine rgba_color;
-    include color_rgba_hex "ragel_color.rl";
-
-    main := color_rgba;
-    write data;
-}%%
-
 RgbaHexFullMatch::RgbaHexFullMatch()
 {
     reset();
@@ -156,13 +148,28 @@ bool RgbaHexFullMatch::parse(const Atom& a)
 
 bool RgbaHexFullMatch::parse(const char* str)
 {
-    const auto len = strlen(str);
-    if (len == 0)
+    auto len = strlen(str);
+    if (len == 5)
+        return parseShort(str, len);
+    else if(len == 9)
+        return parseFull(str, len);
+    else
         return false;
+}
 
+%%{
+    machine rgba_color;
+    include color_rgba_hex "ragel_color.rl";
+
+    main := color_rgba;
+    write data;
+}%%
+
+bool RgbaHexFullMatch::parseFull(const char* str, size_t length)
+{
     int cs = 0;
     const char* p = str;
-    const char* pe = p + len;
+    const char* pe = p + length;
     const char* eof = pe;
     ColorRagelData color;
     AtomCategory cat_ {CAT_UNKNOWN};
@@ -179,6 +186,40 @@ bool RgbaHexFullMatch::parse(const char* str)
         color_.g = color.g;
         color_.b = color.b;
         color_.a = color.a;
+    }
+
+    return ok;
+}
+
+%%{
+    machine rgba_color_short;
+    include color_rgba_hex_short "ragel_color.rl";
+
+    main := color_rgba;
+    write data;
+}%%
+
+bool RgbaHexFullMatch::parseShort(const char* str, size_t length)
+{
+    int cs = 0;
+    const char* p = str;
+    const char* pe = p + length;
+    const char* eof = pe;
+    ColorRagelData color;
+    AtomCategory cat_ {CAT_UNKNOWN};
+    AtomType type_ = {TYPE_UNKNOWN};
+
+    reset();
+
+    %% write init;
+    %% write exec;
+
+    const auto ok = cs >= %%{ write first_final; }%%;
+    if(ok) {
+        color_.r = color.r | (color.r << 4);
+        color_.g = color.g | (color.g << 4);
+        color_.b = color.b | (color.b << 4);
+        color_.a = color.a | (color.a << 4);
     }
 
     return ok;
