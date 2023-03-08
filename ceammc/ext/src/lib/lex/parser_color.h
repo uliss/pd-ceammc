@@ -72,7 +72,6 @@ namespace parser {
     };
 
     class RgbHexFullMatch {
-        int cs { 0 };
         RgbColor color_ { 0, 0, 0 };
 
     public:
@@ -113,7 +112,6 @@ namespace parser {
     };
 
     class RgbaHexFullMatch {
-        int cs { 0 };
         RgbaColor color_ { 0, 0, 0, 0 };
 
     public:
