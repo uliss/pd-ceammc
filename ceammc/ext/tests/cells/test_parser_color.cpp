@@ -58,6 +58,27 @@ TEST_CASE("parser_color", "[ceammc::ceammc_units]")
         REQUIRE(!p.parse("#1234567"));
     }
 
+    SECTION("short")
+    {
+        using namespace ceammc::parser;
+        RgbHexFullMatch p;
+
+        REQUIRE(p.parse("#000"));
+        REQUIRE(p.red() == 0);
+        REQUIRE(p.green() == 0);
+        REQUIRE(p.blue() == 0);
+
+        REQUIRE(p.parse("#123"));
+        REQUIRE(p.red() == 0x11);
+        REQUIRE(p.green() == 0x22);
+        REQUIRE(p.blue() == 0x33);
+
+        REQUIRE(p.parse("#ABC"));
+        REQUIRE(p.red() == 0xAA);
+        REQUIRE(p.green() == 0xBB);
+        REQUIRE(p.blue() == 0xCC);
+    }
+
     SECTION("atom")
     {
         using namespace ceammc::parser;
@@ -106,7 +127,6 @@ TEST_CASE("parser_color", "[ceammc::ceammc_units]")
         REQUIRE(res[1] == 0xABABBA);
         REQUIRE(res[2] == 0x123456);
     }
-
 
     SECTION("rgba hex")
     {

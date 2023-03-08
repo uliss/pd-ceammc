@@ -16,14 +16,6 @@ struct ColorRagelData {
     int x { 0 };
 };
 
-%%{
-    machine color;
-    include color_common "ragel_color.rl";
-
-    main := color_rgb;
-    write data;
-}%%
-
 RgbHexFullMatch::RgbHexFullMatch()
 {
     reset();
@@ -42,12 +34,42 @@ bool RgbHexFullMatch::parse(const Atom& a)
         return false;
 }
 
+size_t RgbHexFullMatch::parse(const AtomListView& lv, SmallColorVec& out)
+{
+    const size_t N = lv.size();
+
+    for (size_t i = 0; i < N; i++) {
+        const auto& a = lv[i];
+        if (!parse(a))
+            return i;
+
+        out.push_back(asInt());
+    }
+
+    return N;
+}
+
 bool RgbHexFullMatch::parse(const char* str)
 {
-    const auto len = strlen(str);
-    if (len == 0)
+    auto len = strlen(str);
+    if (len == 4)
+        return parseShort(str, len);
+    else if(len == 7)
+        return parseFull(str, len);
+    else
         return false;
+}
 
+%%{
+    machine color;
+    include color_rgb_hex "ragel_color.rl";
+
+    main := color_rgb;
+    write data;
+}%%
+
+bool RgbHexFullMatch::parseFull(const char* str, size_t len)
+{
     int cs = 0;
     const char* p = str;
     const char* pe = p + len;
@@ -71,19 +93,39 @@ bool RgbHexFullMatch::parse(const char* str)
     return ok;
 }
 
-size_t RgbHexFullMatch::parse(const AtomListView& lv, SmallColorVec& out)
+%%{
+    machine rgb_color_short;
+    include color_rgb_hex_short "ragel_color.rl";
+
+    main := color_rgb;
+    write data;
+}%%
+
+bool RgbHexFullMatch::parseShort(const char* str, size_t length)
 {
-    const size_t N = lv.size();
+    int cs = 0;
+    const char* p = str;
+    const char* pe = p + length;
+    const char* eof = pe;
+    ColorRagelData color;
+    AtomCategory cat_ {CAT_UNKNOWN};
+    AtomType type_ = {TYPE_UNKNOWN};
 
-    for (size_t i = 0; i < N; i++) {
-        const auto& a = lv[i];
-        if (!parse(a))
-            return i;
+    reset();
 
-        out.push_back(asInt());
+    %% write init;
+    %% write exec;
+
+    const auto ok = cs >= %%{ write first_final; }%%;
+    if(ok) {
+        color_.r = color.r | (color.r << 4);
+        color_.g = color.g | (color.g << 4);
+        color_.b = color.b | (color.b << 4);
     }
 
-    return N;
+    return ok;
+
+    return false;
 }
 
 %%{
