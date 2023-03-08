@@ -106,4 +106,91 @@ TEST_CASE("parser_color", "[ceammc::ceammc_units]")
         REQUIRE(res[1] == 0xABABBA);
         REQUIRE(res[2] == 0x123456);
     }
+
+
+    SECTION("rgba hex")
+    {
+        using namespace ceammc::parser;
+        RgbaHexFullMatch p;
+
+        REQUIRE(p.parse("#00000000"));
+        REQUIRE(p.red() == 0);
+        REQUIRE(p.green() == 0);
+        REQUIRE(p.blue() == 0);
+        REQUIRE(p.alpha() == 0);
+
+        REQUIRE(p.parse("#090000DA"));
+        REQUIRE(p.red() == 9);
+        REQUIRE(p.green() == 0);
+        REQUIRE(p.blue() == 0);
+        REQUIRE(p.alpha() == 0xDA);
+
+        REQUIRE(p.parse("#f90000FF"));
+        REQUIRE(p.red() == 0xf9);
+        REQUIRE(p.green() == 0);
+        REQUIRE(p.blue() == 0);
+        REQUIRE(p.alpha() == 255);
+        REQUIRE(p.norm_alpha() == 1);
+
+        REQUIRE(p.parse("#F91c0010"));
+        REQUIRE(p.red() == 0xf9);
+        REQUIRE(p.green() == 0x1C);
+        REQUIRE(p.blue() == 0);
+        REQUIRE(p.alpha() == 0x10);
+        REQUIRE(p.asInt() == 0xF91C0010);
+
+        REQUIRE(p.parse("#00003aF0"));
+        REQUIRE(p.red() == 0);
+        REQUIRE(p.green() == 0);
+        REQUIRE(p.blue() == 0x3A);
+        REQUIRE(p.alpha() == 0xF0);
+
+        REQUIRE(!p.parse(""));
+        REQUIRE(!p.parse("000000"));
+        REQUIRE(!p.parse("#000000"));
+        REQUIRE(!p.parse("#12345"));
+        REQUIRE(!p.parse("#1234567"));
+    }
+
+    SECTION("atom")
+    {
+        using namespace ceammc::parser;
+        RgbaHexFullMatch p;
+
+        REQUIRE(p.parse(A("#01234567")));
+        REQUIRE(p.asInt() == 0x01234567);
+
+        REQUIRE_FALSE(p.parse(A(0x112233)));
+    }
+
+    SECTION("N")
+    {
+        using namespace ceammc::parser;
+        RgbaHexFullMatch p;
+
+        auto res = p.parseN<3>(L(), 0x000000);
+        REQUIRE(res[0] == 0x000000);
+        REQUIRE(res[1] == 0x000000);
+        REQUIRE(res[2] == 0x000000);
+
+        res = p.parseN<3>(LA("#FF11AADD"), 0x000001);
+        REQUIRE(res[0] == 0xFF11AADD);
+        REQUIRE(res[1] == 0x000001);
+        REQUIRE(res[2] == 0x000001);
+
+        res = p.parseN<3>(LA("#FF11AABB", "#ababbacc"), 0x000002);
+        REQUIRE(res[0] == 0xFF11AABB);
+        REQUIRE(res[1] == 0xABABBACC);
+        REQUIRE(res[2] == 0x000002);
+
+        res = p.parseN<3>(LA("#FF11AABB", "#ababbacc", "#123456DD"), 0x000003);
+        REQUIRE(res[0] == 0xFF11AABB);
+        REQUIRE(res[1] == 0xABABBACC);
+        REQUIRE(res[2] == 0x123456DD);
+
+        res = p.parseN<3>(LA("#FF11AABB", "#ababbacc", "#123456DD", "#12345678"), 0x000003);
+        REQUIRE(res[0] == 0xFF11AABB);
+        REQUIRE(res[1] == 0xABABBACC);
+        REQUIRE(res[2] == 0x123456DD);
+    }
 }
