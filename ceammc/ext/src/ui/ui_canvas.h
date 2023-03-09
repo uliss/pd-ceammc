@@ -75,7 +75,7 @@ public:
     void paint();
 
     void m_background(const AtomListView& lv);
-    void m_cicle(const AtomListView& lv);
+    void m_circle(const AtomListView& lv);
     void m_clear();
     void m_fill(const AtomListView& lv);
     void m_line(const AtomListView& lv);

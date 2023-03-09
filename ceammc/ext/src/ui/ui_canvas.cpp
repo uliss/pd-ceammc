@@ -410,7 +410,7 @@ void UICanvas::m_rect(const AtomListView& lv)
     out_queue_.enqueue(cmd);
 }
 
-void UICanvas::m_cicle(const AtomListView& lv)
+void UICanvas::m_circle(const AtomListView& lv)
 {
     static const args::ArgChecker chk("X:f Y:f R:f>0");
 
@@ -676,7 +676,7 @@ void UICanvas::setup()
     obj.setDefaultSize(60, 60);
 
     obj.addMethod("bg", &UICanvas::m_background);
-    obj.addMethod("circle", &UICanvas::m_cicle);
+    obj.addMethod("circle", &UICanvas::m_circle);
     obj.addMethod("clear", &UICanvas::m_clear);
     obj.addMethod("color", &UICanvas::m_color);
     obj.addMethod("fill", &UICanvas::m_fill);
