@@ -19,7 +19,7 @@
 
 #include <boost/container/small_vector.hpp>
 
-#include "ceammc_atomlist.h"
+#include "ceammc_atomlist_view.h"
 #include "ragel_common.h"
 
 namespace ceammc {

@@ -269,7 +269,7 @@ TEST_CASE("parser_color", "[ceammc::ceammc_units]")
         REQUIRE(p.parse("red"));
         REQUIRE(p.asInt() == 0xFF0000FF);
 
-        REQUIRE(p.parse("green"));
+        REQUIRE(p.parse("lime"));
         REQUIRE(p.asInt() == 0x00FF00FF);
 
         REQUIRE(p.parse("blue"));

@@ -21,10 +21,8 @@
 
 #include <boost/container/small_vector.hpp>
 
-#include "ceammc_atomlist.h"
-#include "ceammc_convert.h"
+#include "ceammc_atomlist_view.h"
 #include "parser_music.h"
-#include "parser_numeric.h"
 #include "ragel_common.h"
 
 namespace ceammc {
