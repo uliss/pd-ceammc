@@ -116,6 +116,7 @@ namespace parser {
 
         bool parse(const char* str);
         bool parse(const Atom& a);
+        bool parseAs(const Atom& a, AtomType t);
         bool parseAll(const AtomListView& lv, SmallFVec& out);
         size_t parseSome(const AtomListView& lv, SmallFVec& out);
     };

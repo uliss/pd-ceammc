@@ -25,6 +25,12 @@ void NumericFullMatch::reset()
     res_ = {};
 }
 
+bool NumericFullMatch::parseAs(const Atom& a, AtomType t)
+{
+    const bool ok = parse(a);
+    return ok && (res_.t == t || res_.t == TYPE_INT || res_.t == TYPE_FLOAT);
+}
+
 bool NumericFullMatch::parse(const Atom& a)
 {
     reset();

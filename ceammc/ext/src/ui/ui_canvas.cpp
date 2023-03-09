@@ -20,7 +20,7 @@
 #include "ceammc_ui.h"
 #include "fmt/core.h"
 #include "lex/parser_color.h"
-#include "lex/parser_units.h"
+#include "lex/parser_numeric.h"
 #include "ui_canvas.tcl.h"
 
 namespace {
@@ -362,16 +362,61 @@ void UICanvas::m_fill(const AtomListView& lv)
 
 void UICanvas::m_line(const AtomListView& lv)
 {
-    static const args::ArgChecker chk("X0:f Y0:f X1:f Y1:f");
-
-    if (!chk.check(lv, nullptr))
-        return chk.usage();
+    if (lv.size() != 4) {
+        UI_ERR << "usage: line X0 Y0 X1 Y1";
+        return;
+    }
 
     draw::DrawLine cmd;
-    cmd.x0 = lv.floatAt(0, 0);
-    cmd.y0 = lv.floatAt(1, 0);
-    cmd.x1 = lv.floatAt(2, 0);
-    cmd.y1 = lv.floatAt(3, 0);
+    parser::NumericFullMatch p;
+
+    if (!p.parseAs(lv[0], parser::TYPE_PERCENT)) {
+        UI_ERR << fmt::format("line: can't parse X0: '{}'", to_string(lv[0]));
+        return;
+    } else {
+        cmd.x0 = p.asFloat();
+        if (p.isPercent())
+            cmd.x0 *= width();
+
+        p.reset();
+    }
+
+    if (!p.parseAs(lv[1], parser::TYPE_PERCENT)) {
+        UI_ERR << fmt::format("line: can't parse Y0: '{}'", to_string(lv[1]));
+        return;
+    } else {
+        cmd.y0 = p.asFloat();
+
+        if (p.isPercent())
+            cmd.y0 *= height();
+
+        p.reset();
+    }
+
+    if (!p.parseAs(lv[2], parser::TYPE_PERCENT)) {
+        UI_ERR << fmt::format("line: can't parse X1: '{}'", to_string(lv[2]));
+        return;
+    } else {
+        cmd.x1 = p.asFloat();
+
+        if (p.isPercent())
+            cmd.x1 *= width();
+
+        p.reset();
+    }
+
+    if (!p.parseAs(lv[3], parser::TYPE_PERCENT)) {
+        UI_ERR << fmt::format("line: can't parse Y1: '{}'", to_string(lv[3]));
+        return;
+    } else {
+        cmd.y1 = p.asFloat();
+
+        if (p.isPercent())
+            cmd.y1 *= height();
+
+        p.reset();
+    }
+
     out_queue_.enqueue(cmd);
 }
 
