@@ -58,6 +58,7 @@ bool NumericFullMatch::parse(const char* str)
     if (len == 0)
         return false;
 
+    int cs = 0;
     const char* p = str;
     const char* pe = p + len;
     const char* eof = pe;
@@ -173,7 +174,6 @@ NumericMatchSome::NumericMatchSome()
 
 void NumericMatchSome::reset()
 {
-    %% write init;
     res_.clear();
 }
 
@@ -183,6 +183,7 @@ bool NumericMatchSome::parseSingle(const char* str, const char*& endptr)
     if (len == 0)
         return false;
 
+    int cs = 0;
     const char* p = str;
     const char* pe = p + len;
     const char* eof = pe;

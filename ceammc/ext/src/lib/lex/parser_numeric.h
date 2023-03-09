@@ -87,7 +87,6 @@ namespace parser {
     };
 
     class NumericFullMatch {
-        int cs { 0 };
         NumericResult res_;
 
     public:
@@ -127,7 +126,6 @@ namespace parser {
 
     private:
         ResultList res_;
-        int cs { 0 };
 
     public:
         NumericMatchSome();

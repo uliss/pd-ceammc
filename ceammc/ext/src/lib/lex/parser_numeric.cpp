@@ -64,6 +64,7 @@ bool NumericFullMatch::parse(const char* str)
     if (len == 0)
         return false;
 
+    int cs = 0;
     const char* p = str;
     const char* pe = p + len;
     const char* eof = pe;
@@ -74,14 +75,14 @@ bool NumericFullMatch::parse(const char* str)
     reset();
 
     
-#line 78 "lex/parser_numeric.cpp"
+#line 79 "lex/parser_numeric.cpp"
 	{
 	cs = numeric_full_start;
 	}
 
-#line 71 "lex/parser_numeric.rl"
+#line 72 "lex/parser_numeric.rl"
     
-#line 85 "lex/parser_numeric.cpp"
+#line 86 "lex/parser_numeric.cpp"
 	{
 	if ( p == pe )
 		goto _test_eof;
@@ -108,7 +109,7 @@ st2:
 	if ( ++p == pe )
 		goto _test_eof2;
 case 2:
-#line 112 "lex/parser_numeric.cpp"
+#line 113 "lex/parser_numeric.cpp"
 	switch( (*p) ) {
 		case 48: goto tr5;
 		case 105: goto st10;
@@ -126,7 +127,7 @@ st14:
 	if ( ++p == pe )
 		goto _test_eof14;
 case 14:
-#line 130 "lex/parser_numeric.cpp"
+#line 131 "lex/parser_numeric.cpp"
 	switch( (*p) ) {
 		case 37: goto tr19;
 		case 42: goto tr20;
@@ -159,7 +160,7 @@ st15:
 	if ( ++p == pe )
 		goto _test_eof15;
 case 15:
-#line 163 "lex/parser_numeric.cpp"
+#line 164 "lex/parser_numeric.cpp"
 	goto st0;
 tr20:
 #line 30 "lex/ragel_numeric.rl"
@@ -184,7 +185,7 @@ st16:
 	if ( ++p == pe )
 		goto _test_eof16;
 case 16:
-#line 188 "lex/parser_numeric.cpp"
+#line 189 "lex/parser_numeric.cpp"
 	goto st0;
 tr21:
 #line 30 "lex/ragel_numeric.rl"
@@ -203,7 +204,7 @@ st3:
 	if ( ++p == pe )
 		goto _test_eof3;
 case 3:
-#line 207 "lex/parser_numeric.cpp"
+#line 208 "lex/parser_numeric.cpp"
 	if ( 48 <= (*p) && (*p) <= 57 )
 		goto tr6;
 	goto st0;
@@ -218,7 +219,7 @@ st17:
 	if ( ++p == pe )
 		goto _test_eof17;
 case 17:
-#line 222 "lex/parser_numeric.cpp"
+#line 223 "lex/parser_numeric.cpp"
 	switch( (*p) ) {
 		case 37: goto tr25;
 		case 42: goto tr26;
@@ -253,7 +254,7 @@ st4:
 	if ( ++p == pe )
 		goto _test_eof4;
 case 4:
-#line 257 "lex/parser_numeric.cpp"
+#line 258 "lex/parser_numeric.cpp"
 	switch( (*p) ) {
 		case 37: goto st15;
 		case 112: goto st5;
@@ -282,7 +283,7 @@ st5:
 	if ( ++p == pe )
 		goto _test_eof5;
 case 5:
-#line 286 "lex/parser_numeric.cpp"
+#line 287 "lex/parser_numeric.cpp"
 	if ( (*p) == 104 )
 		goto st6;
 	goto st0;
@@ -324,7 +325,7 @@ st18:
 	if ( ++p == pe )
 		goto _test_eof18;
 case 18:
-#line 328 "lex/parser_numeric.cpp"
+#line 329 "lex/parser_numeric.cpp"
 	goto st0;
 tr14:
 #line 43 "lex/ragel_numeric.rl"
@@ -334,7 +335,7 @@ st19:
 	if ( ++p == pe )
 		goto _test_eof19;
 case 19:
-#line 338 "lex/parser_numeric.cpp"
+#line 339 "lex/parser_numeric.cpp"
 	if ( 48 <= (*p) && (*p) <= 57 )
 		goto tr14;
 	goto st0;
@@ -348,7 +349,7 @@ st20:
 	if ( ++p == pe )
 		goto _test_eof20;
 case 20:
-#line 352 "lex/parser_numeric.cpp"
+#line 353 "lex/parser_numeric.cpp"
 	switch( (*p) ) {
 		case 37: goto tr19;
 		case 42: goto tr20;
@@ -389,7 +390,7 @@ st22:
 	if ( ++p == pe )
 		goto _test_eof22;
 case 22:
-#line 393 "lex/parser_numeric.cpp"
+#line 394 "lex/parser_numeric.cpp"
 	switch( (*p) ) {
 		case 37: goto tr19;
 		case 42: goto tr20;
@@ -416,7 +417,7 @@ st23:
 	if ( ++p == pe )
 		goto _test_eof23;
 case 23:
-#line 420 "lex/parser_numeric.cpp"
+#line 421 "lex/parser_numeric.cpp"
 	if ( 48 <= (*p) && (*p) <= 49 )
 		goto tr17;
 	goto st0;
@@ -441,7 +442,7 @@ st24:
 	if ( ++p == pe )
 		goto _test_eof24;
 case 24:
-#line 445 "lex/parser_numeric.cpp"
+#line 446 "lex/parser_numeric.cpp"
 	if ( (*p) < 65 ) {
 		if ( 48 <= (*p) && (*p) <= 57 )
 			goto tr18;
@@ -543,14 +544,14 @@ case 24:
         ragel_cat = CAT_NUMBER;
     }
 	break;
-#line 547 "lex/parser_numeric.cpp"
+#line 548 "lex/parser_numeric.cpp"
 	}
 	}
 
 	_out: {}
 	}
 
-#line 72 "lex/parser_numeric.rl"
+#line 73 "lex/parser_numeric.rl"
 
     switch(ragel_type) {
     case TYPE_PHASE:
@@ -636,7 +637,7 @@ size_t NumericFullMatch::parseSome(const AtomListView& lv, SmallFVec& out)
 }
 
 
-#line 640 "lex/parser_numeric.cpp"
+#line 641 "lex/parser_numeric.cpp"
 static const int numeric_some_start = 1;
 static const int numeric_some_first_final = 14;
 static const int numeric_some_error = 0;
@@ -644,7 +645,7 @@ static const int numeric_some_error = 0;
 static const int numeric_some_en_main = 1;
 
 
-#line 167 "lex/parser_numeric.rl"
+#line 168 "lex/parser_numeric.rl"
 
 
 NumericMatchSome::NumericMatchSome()
@@ -654,13 +655,6 @@ NumericMatchSome::NumericMatchSome()
 
 void NumericMatchSome::reset()
 {
-    
-#line 659 "lex/parser_numeric.cpp"
-	{
-	cs = numeric_some_start;
-	}
-
-#line 177 "lex/parser_numeric.rl"
     res_.clear();
 }
 
@@ -670,6 +664,7 @@ bool NumericMatchSome::parseSingle(const char* str, const char*& endptr)
     if (len == 0)
         return false;
 
+    int cs = 0;
     const char* p = str;
     const char* pe = p + len;
     const char* eof = pe;
@@ -680,14 +675,14 @@ bool NumericMatchSome::parseSingle(const char* str, const char*& endptr)
     bool ok = false;
 
     
-#line 684 "lex/parser_numeric.cpp"
+#line 679 "lex/parser_numeric.cpp"
 	{
 	cs = numeric_some_start;
 	}
 
-#line 196 "lex/parser_numeric.rl"
+#line 197 "lex/parser_numeric.rl"
     
-#line 691 "lex/parser_numeric.cpp"
+#line 686 "lex/parser_numeric.cpp"
 	{
 	if ( p == pe )
 		goto _test_eof;
@@ -719,7 +714,7 @@ st2:
 	if ( ++p == pe )
 		goto _test_eof2;
 case 2:
-#line 723 "lex/parser_numeric.cpp"
+#line 718 "lex/parser_numeric.cpp"
 	switch( (*p) ) {
 		case 48: goto tr6;
 		case 105: goto st10;
@@ -737,7 +732,7 @@ st14:
 	if ( ++p == pe )
 		goto _test_eof14;
 case 14:
-#line 741 "lex/parser_numeric.cpp"
+#line 736 "lex/parser_numeric.cpp"
 	switch( (*p) ) {
 		case 9: goto tr20;
 		case 32: goto tr20;
@@ -813,9 +808,9 @@ st15:
 	if ( ++p == pe )
 		goto _test_eof15;
 case 15:
-#line 160 "lex/parser_numeric.rl"
+#line 161 "lex/parser_numeric.rl"
 	{if((*p)!=' '&&(*p)!='\t'){p--;{p++; cs = 15; goto _out;}}}
-#line 819 "lex/parser_numeric.cpp"
+#line 814 "lex/parser_numeric.cpp"
 	switch( (*p) ) {
 		case 9: goto st15;
 		case 32: goto st15;
@@ -849,7 +844,7 @@ st17:
 	if ( ++p == pe )
 		goto _test_eof17;
 case 17:
-#line 853 "lex/parser_numeric.cpp"
+#line 848 "lex/parser_numeric.cpp"
 	switch( (*p) ) {
 		case 9: goto tr29;
 		case 32: goto tr29;
@@ -878,7 +873,7 @@ st18:
 	if ( ++p == pe )
 		goto _test_eof18;
 case 18:
-#line 882 "lex/parser_numeric.cpp"
+#line 877 "lex/parser_numeric.cpp"
 	switch( (*p) ) {
 		case 9: goto tr30;
 		case 32: goto tr30;
@@ -901,7 +896,7 @@ st3:
 	if ( ++p == pe )
 		goto _test_eof3;
 case 3:
-#line 905 "lex/parser_numeric.cpp"
+#line 900 "lex/parser_numeric.cpp"
 	if ( 48 <= (*p) && (*p) <= 57 )
 		goto tr7;
 	goto st0;
@@ -916,7 +911,7 @@ st19:
 	if ( ++p == pe )
 		goto _test_eof19;
 case 19:
-#line 920 "lex/parser_numeric.cpp"
+#line 915 "lex/parser_numeric.cpp"
 	switch( (*p) ) {
 		case 9: goto tr31;
 		case 32: goto tr31;
@@ -953,7 +948,7 @@ st4:
 	if ( ++p == pe )
 		goto _test_eof4;
 case 4:
-#line 957 "lex/parser_numeric.cpp"
+#line 952 "lex/parser_numeric.cpp"
 	switch( (*p) ) {
 		case 37: goto st17;
 		case 112: goto st5;
@@ -982,7 +977,7 @@ st5:
 	if ( ++p == pe )
 		goto _test_eof5;
 case 5:
-#line 986 "lex/parser_numeric.cpp"
+#line 981 "lex/parser_numeric.cpp"
 	if ( (*p) == 104 )
 		goto st6;
 	goto st0;
@@ -1024,7 +1019,7 @@ st20:
 	if ( ++p == pe )
 		goto _test_eof20;
 case 20:
-#line 1028 "lex/parser_numeric.cpp"
+#line 1023 "lex/parser_numeric.cpp"
 	switch( (*p) ) {
 		case 9: goto tr36;
 		case 32: goto tr36;
@@ -1038,7 +1033,7 @@ st21:
 	if ( ++p == pe )
 		goto _test_eof21;
 case 21:
-#line 1042 "lex/parser_numeric.cpp"
+#line 1037 "lex/parser_numeric.cpp"
 	switch( (*p) ) {
 		case 9: goto tr36;
 		case 32: goto tr36;
@@ -1056,7 +1051,7 @@ st22:
 	if ( ++p == pe )
 		goto _test_eof22;
 case 22:
-#line 1060 "lex/parser_numeric.cpp"
+#line 1055 "lex/parser_numeric.cpp"
 	switch( (*p) ) {
 		case 9: goto tr20;
 		case 32: goto tr20;
@@ -1103,7 +1098,7 @@ st24:
 	if ( ++p == pe )
 		goto _test_eof24;
 case 24:
-#line 1107 "lex/parser_numeric.cpp"
+#line 1102 "lex/parser_numeric.cpp"
 	switch( (*p) ) {
 		case 9: goto tr20;
 		case 32: goto tr20;
@@ -1132,7 +1127,7 @@ st25:
 	if ( ++p == pe )
 		goto _test_eof25;
 case 25:
-#line 1136 "lex/parser_numeric.cpp"
+#line 1131 "lex/parser_numeric.cpp"
 	switch( (*p) ) {
 		case 9: goto tr40;
 		case 32: goto tr40;
@@ -1161,7 +1156,7 @@ st26:
 	if ( ++p == pe )
 		goto _test_eof26;
 case 26:
-#line 1165 "lex/parser_numeric.cpp"
+#line 1160 "lex/parser_numeric.cpp"
 	switch( (*p) ) {
 		case 9: goto tr41;
 		case 32: goto tr41;
@@ -1270,14 +1265,14 @@ case 26:
         ragel_cat = CAT_NUMBER;
     }
 	break;
-#line 1274 "lex/parser_numeric.cpp"
+#line 1269 "lex/parser_numeric.cpp"
 	}
 	}
 
 	_out: {}
 	}
 
-#line 197 "lex/parser_numeric.rl"
+#line 198 "lex/parser_numeric.rl"
 
     ok = cs >= 14;
 
