@@ -50,6 +50,20 @@ inline bool operator==(const Atom& a, const char* str)
     return std::strcmp(a.asT<t_symbol*>()->s_name, str) == 0;
 }
 
+#define PARSE_PERCENT(method_name, arg_name, atom, field, total)                                    \
+    {                                                                                               \
+        if (!p.parseAs(atom, parser::TYPE_PERCENT)) {                                               \
+            UI_ERR << fmt::format(method_name ": can't parse " arg_name ": '{}'", to_string(atom)); \
+            return;                                                                                 \
+        } else {                                                                                    \
+            field = p.asFloat();                                                                    \
+            if (p.isPercent())                                                                      \
+                field *= total;                                                                     \
+                                                                                                    \
+            p.reset();                                                                              \
+        }                                                                                           \
+    }
+
 }
 
 UINotify::UINotify(UICanvas* cnv)
@@ -370,52 +384,10 @@ void UICanvas::m_line(const AtomListView& lv)
     draw::DrawLine cmd;
     parser::NumericFullMatch p;
 
-    if (!p.parseAs(lv[0], parser::TYPE_PERCENT)) {
-        UI_ERR << fmt::format("line: can't parse X0: '{}'", to_string(lv[0]));
-        return;
-    } else {
-        cmd.x0 = p.asFloat();
-        if (p.isPercent())
-            cmd.x0 *= width();
-
-        p.reset();
-    }
-
-    if (!p.parseAs(lv[1], parser::TYPE_PERCENT)) {
-        UI_ERR << fmt::format("line: can't parse Y0: '{}'", to_string(lv[1]));
-        return;
-    } else {
-        cmd.y0 = p.asFloat();
-
-        if (p.isPercent())
-            cmd.y0 *= height();
-
-        p.reset();
-    }
-
-    if (!p.parseAs(lv[2], parser::TYPE_PERCENT)) {
-        UI_ERR << fmt::format("line: can't parse X1: '{}'", to_string(lv[2]));
-        return;
-    } else {
-        cmd.x1 = p.asFloat();
-
-        if (p.isPercent())
-            cmd.x1 *= width();
-
-        p.reset();
-    }
-
-    if (!p.parseAs(lv[3], parser::TYPE_PERCENT)) {
-        UI_ERR << fmt::format("line: can't parse Y1: '{}'", to_string(lv[3]));
-        return;
-    } else {
-        cmd.y1 = p.asFloat();
-
-        if (p.isPercent())
-            cmd.y1 *= height();
-
-        p.reset();
-    }
+    PARSE_PERCENT("line", "X0", lv[0], cmd.x0, width());
+    PARSE_PERCENT("line", "Y0", lv[1], cmd.y0, height());
+    PARSE_PERCENT("line", "X1", lv[2], cmd.x1, width());
+    PARSE_PERCENT("line", "Y1", lv[3], cmd.y1, height());
 
     out_queue_.enqueue(cmd);
 }
@@ -492,15 +464,18 @@ void UICanvas::m_text(const AtomListView& lv)
 
 void UICanvas::m_moveto(const AtomListView& lv)
 {
-    static const args::ArgChecker chk("X:f Y:f");
+    if (lv.size() != 2) {
+        UI_ERR << "usage: line X Y";
+        return;
+    }
 
-    if (!chk.check(lv, nullptr))
-        return chk.usage();
+    draw::MoveTo cmd;
+    parser::NumericFullMatch p;
 
-    draw::MoveTo c;
-    c.x = lv.floatAt(0, 0);
-    c.y = lv.floatAt(1, 0);
-    out_queue_.enqueue(c);
+    PARSE_PERCENT("moveto", "X", lv[0], cmd.x, width());
+    PARSE_PERCENT("moveto", "Y", lv[1], cmd.y, height());
+
+    out_queue_.enqueue(cmd);
 }
 
 void UICanvas::m_color(const AtomListView& lv)
