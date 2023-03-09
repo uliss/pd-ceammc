@@ -72,22 +72,22 @@ color_rgba = '#'
 
 machine color_named;
 
-black    = 'black' %{ color.setHex(0x000000); };
-blue     = 'blue'  %{ color.setHex(0x0000FF); };
-cyan     = 'cyan'  %{ color.setHex(0x00FFFF); };
-gold     = 'gold'  %{ color.setHex(0xFFD700); };
-gray     = 'gray'  %{ color.setHex(0x808080); };
-green    = 'green' %{ color.setHex(0x008000); };
-lime     = 'lime' %{ color.setHex(0x00FF00); };
+black    = 'black'    %{ color.setHex(0x000000); };
+blue     = 'blue'     %{ color.setHex(0x0000FF); };
+cyan     = 'cyan'     %{ color.setHex(0x00FFFF); };
+gold     = 'gold'     %{ color.setHex(0xFFD700); };
+gray     = 'gray'     %{ color.setHex(0x808080); };
+green    = 'green'    %{ color.setHex(0x008000); };
+lime     = 'lime'     %{ color.setHex(0x00FF00); };
 magenta  = 'magenta'  %{ color.setHex(0xFF00FF); };
-navy     = 'navy'  %{ color.setHex(0x000080); };
-olive    = 'olive' %{ color.setHex(0x808000); };
-orange   = 'orange' % { color.setHex(0xFFA500); };
-pink     = 'pink'  %{ color.setHex(0xFFC0CB); };
-purple   = 'purple'  %{ color.setHex(0x800080); };
-red      = 'red'   %{ color.setHex(0xFF0000); };
-white    = 'white' %{ color.setHex(0xFFFFFF); };
-yellow   = 'yellow'  %{ color.setHex(0xFFFF00); };
+navy     = 'navy'     %{ color.setHex(0x000080); };
+olive    = 'olive'    %{ color.setHex(0x808000); };
+orange   = 'orange'   %{ color.setHex(0xFFA500); };
+pink     = 'pink'     %{ color.setHex(0xFFC0CB); };
+purple   = 'purple'   %{ color.setHex(0x800080); };
+red      = 'red'      %{ color.setHex(0xFF0000); };
+white    = 'white'    %{ color.setHex(0xFFFFFF); };
+yellow   = 'yellow'   %{ color.setHex(0xFFFF00); };
 
 color_named =
     black |
