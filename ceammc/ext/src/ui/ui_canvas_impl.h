@@ -43,6 +43,10 @@ namespace draw {
         float x, y;
     };
 
+    struct MoveBy {
+        float dx, dy;
+    };
+
     struct SetStrokeWidth {
         float w;
     };
@@ -60,10 +64,23 @@ namespace draw {
     };
 
     struct DrawBackground { };
-    struct DrawFill { };
-    struct DrawStroke { };
+    struct DrawFill {
+        DrawFill(bool v)
+            : preserve(v)
+        {
+        }
+        bool preserve;
+    };
+    struct DrawStroke {
+        DrawStroke(bool v)
+            : preserve(v)
+        {
+        }
+        bool preserve;
+    };
     struct DrawSave { };
     struct DrawRestore { };
+
     struct SyncImage {
         SyncImage(SubscriberId pid, float pzoom)
             : id(pid)
@@ -81,10 +98,11 @@ namespace draw {
         DrawFill,
         DrawLine,
         DrawRect,
-        DrawStroke,
-        DrawSave,
         DrawRestore,
+        DrawSave,
+        DrawStroke,
         DrawText,
+        MoveBy,
         MoveTo,
         SetColorRGBA,
         SetFontSize,

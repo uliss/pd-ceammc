@@ -27,8 +27,14 @@
 
 using namespace ceammc;
 
+enum DrawResultType {
+    DRAW_RESULT_IMAGE,
+    DRAW_RESULT_DEBUG,
+    DRAW_RESULT_ERROR
+};
+
 struct DrawResult {
-    int type;
+    DrawResultType type;
     std::string data;
 };
 using CairoContext = std::unique_ptr<cairo_t, void (*)(cairo_t*)>;
@@ -86,10 +92,7 @@ public:
     void m_restore();
     void m_font_size(t_float sz);
 
-    bool set_color(const AtomListView& lv);
-
     bool notify();
-
     void onZoom(t_float z);
 
 public:

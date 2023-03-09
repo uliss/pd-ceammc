@@ -14,11 +14,13 @@
 #include "ui_canvas.h"
 #include "args/argcheck2.h"
 #include "ceammc_base64.h"
+#include "ceammc_containers.h"
 #include "ceammc_format.h"
 #include "ceammc_poll_dispatcher.h"
 #include "ceammc_ui.h"
 #include "fmt/core.h"
 #include "lex/parser_color.h"
+#include "lex/parser_units.h"
 #include "ui_canvas.tcl.h"
 
 namespace {
@@ -38,6 +40,14 @@ void set_parsed_color(cairo_t* c, const AtomListView& lv, double r = 0, double g
         cairo_set_source_rgb(c, lv[0].asFloat(), lv[1].asFloat(), lv[2].asFloat());
     else
         cairo_set_source_rgb(c, r, g, b);
+}
+
+inline bool operator==(const Atom& a, const char* str)
+{
+    if (!a.isSymbol())
+        return false;
+
+    return std::strcmp(a.asT<t_symbol*>()->s_name, str) == 0;
 }
 
 }
@@ -123,6 +133,12 @@ public:
             cairo_move_to(ctx_.get(), c.x, c.y);
     }
 
+    void operator()(const draw::MoveBy& c) const
+    {
+        if (ctx_)
+            cairo_rel_move_to(ctx_.get(), c.dx, c.dy);
+    }
+
     void operator()(const draw::SetStrokeWidth& c) const
     {
         if (ctx_)
@@ -155,16 +171,31 @@ public:
 
     void operator()(const draw::CreateImage& c) const
     {
+        bool do_update = surface_ && ctx_;
 
-        if (surface_ && ctx_) {
+        if (do_update) {
             auto cur_w = cairo_image_surface_get_width(surface_.get());
             auto cur_h = cairo_image_surface_get_height(surface_.get());
 
             const bool same_size = (c.w == cur_w && c.h == cur_h);
 
             if (!same_size) {
-                surface_.reset(cairo_image_surface_create(CAIRO_FORMAT_RGB24, c.w * GLOBAL_SCALE, c.h * GLOBAL_SCALE));
-                ctx_.reset(cairo_create(surface_.get()));
+                CairoSurface new_image(cairo_image_surface_create(CAIRO_FORMAT_RGB24,
+                                           c.w * GLOBAL_SCALE, c.h * GLOBAL_SCALE),
+                    &cairo_surface_destroy);
+                CairoContext new_ctx(cairo_create(new_image.get()), &cairo_destroy);
+
+                cairo_save(new_ctx.get());
+                cairo_set_source_rgb(new_ctx.get(), 1, 1, 1);
+                cairo_rectangle(new_ctx.get(), 0, 0, c.w * GLOBAL_SCALE, c.h * GLOBAL_SCALE);
+                cairo_fill(new_ctx.get());
+                cairo_set_source_surface(new_ctx.get(), surface_.get(), 0, 0);
+                cairo_paint(new_ctx.get());
+                cairo_restore(new_ctx.get());
+                cairo_surface_flush(new_image.get());
+
+                surface_ = std::move(new_image);
+                ctx_ = std::move(new_ctx);
             }
         } else {
             surface_.reset(cairo_image_surface_create(CAIRO_FORMAT_RGB24, c.w * GLOBAL_SCALE, c.h * GLOBAL_SCALE));
@@ -174,17 +205,22 @@ public:
         cairo_set_antialias(ctx_.get(), CAIRO_ANTIALIAS_BEST);
         cairo_scale(ctx_.get(), GLOBAL_SCALE, GLOBAL_SCALE);
 
-        cairo_save(ctx_.get());
-        cairo_set_source_rgb(ctx_.get(), 1, 1, 1);
-        cairo_rectangle(ctx_.get(), 0, 0, c.w, c.h);
-        cairo_fill(ctx_.get());
-        cairo_restore(ctx_.get());
+        if (!do_update) {
+            cairo_save(ctx_.get());
+            cairo_set_source_rgb(ctx_.get(), 1, 1, 1);
+            cairo_rectangle(ctx_.get(), 0, 0, c.w * GLOBAL_SCALE, c.h * GLOBAL_SCALE);
+            cairo_fill(ctx_.get());
+            cairo_restore(ctx_.get());
+        }
     }
 
-    void operator()(const draw::DrawFill&) const
+    void operator()(const draw::DrawFill& f) const
     {
-        if (ctx_)
-            cairo_fill(ctx_.get());
+        if (ctx_) {
+            f.preserve
+                ? cairo_fill_preserve(ctx_.get())
+                : cairo_fill(ctx_.get());
+        }
     }
 
     void operator()(const draw::DrawLine& l) const
@@ -195,10 +231,13 @@ public:
         }
     }
 
-    void operator()(const draw::DrawStroke&) const
+    void operator()(const draw::DrawStroke& s) const
     {
-        if (ctx_)
-            cairo_stroke(ctx_.get());
+        if (ctx_) {
+            s.preserve
+                ? cairo_stroke_preserve(ctx_.get())
+                : cairo_stroke(ctx_.get());
+        }
     }
 
     void operator()(const draw::DrawText& t) const
@@ -212,9 +251,9 @@ public:
 
     void operator()(const draw::SyncImage& c) const
     {
-        auto fn = [](void* closure,
-                      const unsigned char* data,
-                      unsigned int length)
+        auto write_mem_fn = [](void* closure,
+                                const unsigned char* data,
+                                unsigned int length)
             -> cairo_status_t {
             auto buf = static_cast<std::vector<std::uint8_t>*>(closure);
             std::copy(data, data + length, std::back_inserter(*buf));
@@ -233,13 +272,17 @@ public:
             cairo_scale(new_ctx.get(), 1 / GLOBAL_SCALE, 1 / GLOBAL_SCALE);
             cairo_set_source_surface(new_ctx.get(), surface_.get(), 0, 0);
             cairo_paint(new_ctx.get());
-            auto st = cairo_surface_write_to_png_stream(new_image.get(), fn, &buf);
-            if (CAIRO_STATUS_SUCCESS == st)
-                queue_.enqueue(DrawResult { 0, base64_encode(buf.data(), buf.size()) });
+            auto st = cairo_surface_write_to_png_stream(new_image.get(), write_mem_fn, &buf);
+            if (CAIRO_STATUS_SUCCESS == st) {
+                queue_.enqueue(DrawResult { DRAW_RESULT_IMAGE, base64_encode(buf.data(), buf.size()) });
+                queue_.enqueue(DrawResult { DRAW_RESULT_DEBUG, "SyncImage added" });
+            }
 
         } else {
-            if (CAIRO_STATUS_SUCCESS == cairo_surface_write_to_png_stream(surface_.get(), fn, &buf))
-                queue_.enqueue(DrawResult { 0, base64_encode(buf.data(), buf.size()) });
+            if (CAIRO_STATUS_SUCCESS == cairo_surface_write_to_png_stream(surface_.get(), write_mem_fn, &buf)) {
+                queue_.enqueue(DrawResult { DRAW_RESULT_IMAGE, base64_encode(buf.data(), buf.size()) });
+                queue_.enqueue(DrawResult { DRAW_RESULT_DEBUG, "SyncImage added" });
+            }
         }
 
         Dispatcher::instance().send({ c.id, 0 });
@@ -292,8 +335,29 @@ void UICanvas::paint()
 
 void UICanvas::m_fill(const AtomListView& lv)
 {
-    if (set_color(lv))
-        out_queue_.enqueue(draw::DrawFill());
+    draw::SetColorRGBA color;
+
+    if ((lv.size() == 1 || lv.size() == 2) && lv[0].isSymbol()) {
+        parser::ColorFullMatch p;
+        auto str = lv[0].asT<t_symbol*>()->s_name;
+        if (p.parse(str)) {
+            color.a = p.norm_alpha();
+            color.b = p.norm_blue();
+            color.g = p.norm_green();
+            color.r = p.norm_red();
+        } else {
+            UI_ERR << fmt::format("fill: can't parse color '{}'", str);
+            return;
+        }
+    } else {
+        UI_ERR << "usage: fill COLOR preserve?";
+        return;
+    }
+
+    bool preserve = (lv.size() == 2 && lv[1] == "preserve");
+
+    out_queue_.enqueue(color);
+    out_queue_.enqueue(draw::DrawFill(preserve));
 }
 
 void UICanvas::m_line(const AtomListView& lv)
@@ -342,8 +406,29 @@ void UICanvas::m_cicle(const AtomListView& lv)
 
 void UICanvas::m_stroke(const AtomListView& lv)
 {
-    if (set_color(lv))
-        out_queue_.enqueue(draw::DrawStroke());
+    draw::SetColorRGBA color;
+
+    if ((lv.size() == 1 || lv.size() == 2) && lv[0].isSymbol()) {
+        parser::ColorFullMatch p;
+        auto str = lv[0].asT<t_symbol*>()->s_name;
+        if (p.parse(str)) {
+            color.a = p.norm_alpha();
+            color.b = p.norm_blue();
+            color.g = p.norm_green();
+            color.r = p.norm_red();
+        } else {
+            UI_ERR << fmt::format("stroke: can't parse color '{}'", str);
+            return;
+        }
+    } else {
+        UI_ERR << "usage: stroke COLOR preserve?";
+        return;
+    }
+
+    bool preserve = (lv.size() == 2 && lv[1] == "preserve");
+
+    out_queue_.enqueue(color);
+    out_queue_.enqueue(draw::DrawStroke(preserve));
 }
 
 void UICanvas::m_text(const AtomListView& lv)
@@ -375,20 +460,42 @@ void UICanvas::m_moveto(const AtomListView& lv)
 
 void UICanvas::m_color(const AtomListView& lv)
 {
-    set_color(lv);
+    if (lv.size() == 3 || lv.size() == 4) {
+        draw::SetColorRGBA rgba;
+        rgba.r = lv.floatAt(0, 0);
+        rgba.g = lv.floatAt(1, 0);
+        rgba.b = lv.floatAt(2, 0);
+        rgba.a = lv.floatAt(3, 1);
+        out_queue_.enqueue(rgba);
+    } else if (lv.isSymbol()) {
+        auto str = lv[0].asT<t_symbol*>()->s_name;
+        parser::ColorFullMatch p;
+        if (p.parse(str)) {
+            draw::SetColorRGBA rgba;
+            rgba.r = p.norm_red();
+            rgba.g = p.norm_green();
+            rgba.b = p.norm_blue();
+            rgba.a = p.norm_alpha();
+            out_queue_.enqueue(rgba);
+        } else {
+            UI_ERR << fmt::format("can't parse color: '{}'", str);
+        }
+    } else {
+        UI_ERR << "usage: color COLOR or color RED[0-1] GREEN[0-1] BLUE[0-1] ALPHA[0-1]?";
+    }
 }
 
 void UICanvas::m_moveby(const AtomListView& lv)
 {
-    static const args::ArgChecker chk("X:f Y:f");
-
-    if (!ctx_)
-        return;
+    static const args::ArgChecker chk("DX:f DY:f");
 
     if (!chk.check(lv, nullptr))
         return chk.usage();
 
-    //    cairo_rel_move_to(ctx_, lv.floatAt(0, 0), lv.floatAt(1, 0));
+    draw::MoveBy c;
+    c.dx = lv.floatAt(0, 0);
+    c.dy = lv.floatAt(1, 0);
+    out_queue_.enqueue(c);
 }
 
 void UICanvas::m_update()
@@ -416,17 +523,14 @@ void UICanvas::m_font_size(t_float sz)
 
 void UICanvas::m_background(const AtomListView& lv)
 {
-    if (set_color(lv))
-        out_queue_.enqueue(draw::DrawBackground());
+    out_queue_.enqueue(draw::DrawBackground());
 }
 
 void UICanvas::m_clear()
 {
-    draw::CreateImage c;
-    c.w = width();
-    c.h = height();
-
-    out_queue_.enqueue(c);
+    StaticAtomList<3> data = { 1, 1, 1 };
+    m_color(data.view());
+    m_background({});
     m_update();
 }
 
@@ -503,40 +607,25 @@ void UICanvas::m_node(const AtomListView& lv)
     //    }
 }
 
-bool UICanvas::set_color(const AtomListView& lv)
-{
-    if (lv.size() == 3) {
-        draw::SetColorRGBA rgba;
-        rgba.r = lv.floatAt(0, 0);
-        rgba.g = lv.floatAt(1, 0);
-        rgba.b = lv.floatAt(2, 0);
-        rgba.a = 1;
-        return out_queue_.enqueue(rgba);
-    } else if (lv.size() == 1 && lv[0].isSymbol()) {
-        auto str = lv[0].asT<t_symbol*>()->s_name;
-        parser::RgbHexFullMatch p;
-        if (p.parse(str)) {
-            draw::SetColorRGBA rgba;
-            rgba.r = p.red() / 255.0;
-            rgba.g = p.green() / 255.0;
-            rgba.b = p.blue() / 255.0;
-            rgba.a = 1;
-            return out_queue_.enqueue(rgba);
-        }
-    } else if (lv.empty())
-        return true;
-
-    return false;
-}
-
 bool UICanvas::notify()
 {
     DrawResult res;
-    int i = 0;
+
     while (in_queue_.try_dequeue(res)) {
-        data_ = res.data;
-        redraw();
-        UI_DBG << ++i << ". notify: " << data_;
+        switch (res.type) {
+        case DRAW_RESULT_DEBUG:
+            UI_DBG << res.data;
+            break;
+        case DRAW_RESULT_ERROR:
+            UI_ERR << res.data;
+            break;
+        case DRAW_RESULT_IMAGE:
+            if (data_ != res.data) {
+                data_ = res.data;
+                redraw();
+            }
+            break;
+        }
     }
 
     return true;
@@ -546,7 +635,6 @@ void UICanvas::onZoom(t_float z)
 {
     UIObject::onZoom(z);
     m_update();
-    UI_ERR << z;
 }
 
 void UICanvas::clearDrawQueue()
@@ -564,7 +652,7 @@ void UICanvas::setup()
     obj.hideLabelInner();
     obj.setDefaultSize(60, 60);
 
-    obj.addMethod("background", &UICanvas::m_background);
+    obj.addMethod("bg", &UICanvas::m_background);
     obj.addMethod("circle", &UICanvas::m_cicle);
     obj.addMethod("clear", &UICanvas::m_clear);
     obj.addMethod("color", &UICanvas::m_color);
