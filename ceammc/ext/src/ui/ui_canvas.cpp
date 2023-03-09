@@ -179,6 +179,25 @@ public:
             cairo_set_line_cap(ctx_.get(), static_cast<cairo_line_cap_t>(cap.type));
     }
 
+    void operator()(const draw::SetDash& dash) const
+    {
+        if (ctx_) {
+            const auto N = dash.n;
+            double dashes[draw::SetDash::MAX_DASHES] = { 0 };
+            for (size_t i = 0; i < N; i++)
+                dashes[i] = dash.dashes[i];
+
+            if (N > 0
+                && (std::any_of(dashes, dashes + N, [](double x) { return x < 0; })
+                    || std::all_of(dashes, dashes + N, [](double x) { return x == 0; }))) {
+                queue_.enqueue(DrawResult { DRAW_RESULT_ERROR, "invalid dash values" });
+                return;
+            }
+
+            cairo_set_dash(ctx_.get(), dashes, dash.n, 1);
+        }
+    }
+
     void operator()(const draw::SetFontSize& sz) const
     {
         if (ctx_)
@@ -569,6 +588,21 @@ void UICanvas::m_color(const AtomListView& lv)
     }
 }
 
+void UICanvas::m_dash(const AtomListView& lv)
+{
+    static const args::ArgChecker chk("DASHES:i>=0{0,4}");
+
+    if (!chk.check(lv, nullptr))
+        return chk.usage();
+
+    draw::SetDash dash;
+    dash.n = lv.size();
+    for (size_t i = 0; i < std::min(lv.size(), dash.MAX_DASHES); i++)
+        dash.dashes[i] = lv[i].asInt();
+
+    out_queue_.enqueue(dash);
+}
+
 void UICanvas::m_moveby(const AtomListView& lv)
 {
     static const args::ArgChecker chk("DX:f DY:f");
@@ -769,6 +803,7 @@ void UICanvas::setup()
     obj.addMethod("circle", &UICanvas::m_circle);
     obj.addMethod("clear", &UICanvas::m_clear);
     obj.addMethod("color", &UICanvas::m_color);
+    obj.addMethod("dash", &UICanvas::m_dash);
     obj.addMethod("fill", &UICanvas::m_fill);
     obj.addMethod("font_size", &UICanvas::m_font_size);
     obj.addMethod("line", &UICanvas::m_line);
@@ -792,4 +827,5 @@ void setup_ui_canvas()
     sys_gui(ui_canvas_tcl);
 
     UICanvas::setup();
+    LIB_DBG << "cairo version: " << cairo_version_string();
 }

@@ -67,6 +67,12 @@ namespace draw {
         }
     };
 
+    struct SetDash {
+        static const size_t MAX_DASHES = 4;
+        std::uint8_t dashes[MAX_DASHES] { 2, 0, 0, 0 };
+        std::uint8_t n { 1 };
+    };
+
     struct SetFontSize {
         float size;
     };
@@ -122,9 +128,10 @@ namespace draw {
         MoveTo,
         Rotate,
         SetColorRGBA,
+        SetDash,
         SetFontSize,
-        SetStrokeWidth,
         SetLineCap,
+        SetStrokeWidth,
         SyncImage,
         Translate
 
