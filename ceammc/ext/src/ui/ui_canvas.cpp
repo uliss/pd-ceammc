@@ -412,16 +412,19 @@ void UICanvas::m_rect(const AtomListView& lv)
 
 void UICanvas::m_circle(const AtomListView& lv)
 {
-    static const args::ArgChecker chk("X:f Y:f R:f>0");
+    if (lv.size() != 3) {
+        UI_ERR << "usage: circle X Y RADIUS";
+        return;
+    }
 
-    if (!chk.check(lv, nullptr))
-        return chk.usage();
+    draw::DrawCircle cmd;
+    parser::NumericFullMatch p;
 
-    draw::DrawCircle c;
-    c.x = lv.floatAt(0, 0);
-    c.y = lv.floatAt(1, 0);
-    c.r = lv.floatAt(2, 0);
-    out_queue_.enqueue(c);
+    PARSE_PERCENT("circle", "X", lv[0], cmd.x, width());
+    PARSE_PERCENT("circle", "Y", lv[1], cmd.y, height());
+    PARSE_PERCENT("circle", "RADIUS", lv[2], cmd.r, width());
+
+    out_queue_.enqueue(cmd);
 }
 
 void UICanvas::m_stroke(const AtomListView& lv)
