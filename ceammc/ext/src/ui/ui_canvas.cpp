@@ -394,17 +394,20 @@ void UICanvas::m_line(const AtomListView& lv)
 
 void UICanvas::m_rect(const AtomListView& lv)
 {
-    static const args::ArgChecker chk("LEFT:f TOP:f WIDTH:f HEIGHT:f");
+    if (lv.size() != 4) {
+        UI_ERR << "usage: rect X Y WIDTH HEIGHT";
+        return;
+    }
 
-    if (!chk.check(lv, nullptr))
-        return chk.usage();
+    draw::DrawRect cmd;
+    parser::NumericFullMatch p;
 
-    draw::DrawRect r;
-    r.x = lv.floatAt(0, 0);
-    r.y = lv.floatAt(1, 0);
-    r.w = lv.floatAt(2, 0);
-    r.h = lv.floatAt(3, 0);
-    out_queue_.enqueue(r);
+    PARSE_PERCENT("rect", "X", lv[0], cmd.x, width());
+    PARSE_PERCENT("rect", "Y", lv[1], cmd.y, height());
+    PARSE_PERCENT("rect", "WIDTH", lv[2], cmd.w, width());
+    PARSE_PERCENT("rect", "HEIGHT", lv[3], cmd.h, height());
+
+    out_queue_.enqueue(cmd);
 }
 
 void UICanvas::m_cicle(const AtomListView& lv)
