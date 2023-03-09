@@ -21,6 +21,7 @@
 #include "fmt/core.h"
 #include "lex/parser_color.h"
 #include "lex/parser_numeric.h"
+#include "lex/parser_units.h"
 #include "ui_canvas.tcl.h"
 
 namespace {
@@ -48,6 +49,19 @@ inline bool operator==(const Atom& a, const char* str)
         return false;
 
     return std::strcmp(a.asT<t_symbol*>()->s_name, str) == 0;
+}
+
+inline cairo_line_cap_t sym2line_cap(t_symbol* s)
+{
+    switch (crc32_hash(s)) {
+    case "square"_hash:
+        return CAIRO_LINE_CAP_SQUARE;
+    case "round"_hash:
+        return CAIRO_LINE_CAP_ROUND;
+    case "butt"_hash:
+    default:
+        return CAIRO_LINE_CAP_BUTT;
+    }
 }
 
 #define PARSE_PERCENT(method_name, arg_name, atom, field, total)                                    \
@@ -159,6 +173,12 @@ public:
             cairo_set_line_width(ctx_.get(), c.w);
     }
 
+    void operator()(const draw::SetLineCap& cap) const
+    {
+        if (ctx_)
+            cairo_set_line_cap(ctx_.get(), static_cast<cairo_line_cap_t>(cap.type));
+    }
+
     void operator()(const draw::SetFontSize& sz) const
     {
         if (ctx_)
@@ -181,6 +201,18 @@ public:
     {
         if (ctx_)
             cairo_restore(ctx_.get());
+    }
+
+    void operator()(const draw::Rotate& r) const
+    {
+        if (ctx_)
+            cairo_rotate(ctx_.get(), r.angle);
+    }
+
+    void operator()(const draw::Translate& r) const
+    {
+        if (ctx_)
+            cairo_translate(ctx_.get(), r.x, r.y);
     }
 
     void operator()(const draw::CreateImage& c) const
@@ -392,6 +424,16 @@ void UICanvas::m_line(const AtomListView& lv)
     out_queue_.enqueue(cmd);
 }
 
+void UICanvas::m_line_cap(const AtomListView& lv)
+{
+    static const args::ArgChecker chk("TYPE:s=butt|round|square");
+
+    if (!chk.check(lv, nullptr))
+        return chk.usage(nullptr, gensym("line_cap"));
+
+    out_queue_.enqueue(draw::SetLineCap(sym2line_cap(lv[0].asT<t_symbol*>())));
+}
+
 void UICanvas::m_rect(const AtomListView& lv)
 {
     if (lv.size() != 4) {
@@ -468,6 +510,22 @@ void UICanvas::m_text(const AtomListView& lv)
     out_queue_.enqueue(c);
 }
 
+void UICanvas::m_translate(const AtomListView& lv)
+{
+    if (lv.size() != 2) {
+        UI_ERR << "usage: translate X Y";
+        return;
+    }
+
+    draw::Translate cmd;
+    parser::NumericFullMatch p;
+
+    PARSE_PERCENT("translate", "X", lv[0], cmd.x, width());
+    PARSE_PERCENT("translate", "Y", lv[1], cmd.y, height());
+
+    out_queue_.enqueue(cmd);
+}
+
 void UICanvas::m_moveto(const AtomListView& lv)
 {
     if (lv.size() != 2) {
@@ -540,6 +598,34 @@ void UICanvas::m_restore()
     out_queue_.enqueue(draw::DrawRestore());
 }
 
+void UICanvas::m_rotate(const AtomListView& lv)
+{
+    if (lv.size() != 1) {
+        UI_ERR << "usage: rotate ANGLE";
+        return;
+    }
+
+    draw::Rotate cmd;
+    parser::UnitsFullMatch p;
+    if (!p.parse(lv[0])) {
+        UI_ERR << fmt::format("can't parse angle value: '{}'", to_string(lv[0]));
+        return;
+    } else if (p.type() != parser::TYPE_INT
+        && p.type() != parser::TYPE_FLOAT
+        && p.type() != parser::TYPE_RADIAN
+        && p.type() != parser::TYPE_DEGREE) {
+        UI_ERR << fmt::format("invalid angle value: '{}', radians or degrees are expected", to_string(lv[0]));
+        return;
+    }
+
+    if (p.type() != parser::TYPE_RADIAN)
+        cmd.angle = (p.value() / 180.0) * M_PI;
+    else
+        cmd.angle = p.value();
+
+    out_queue_.enqueue(cmd);
+}
+
 void UICanvas::m_font_size(t_float sz)
 {
     draw::SetFontSize c;
@@ -589,7 +675,8 @@ void UICanvas::m_node(const AtomListView& lv)
     //    switch (crc32_hash(lv.symbolAt(3, &s_))) {
     //    case "circle"_hash: {
     //        set_parsed_color(ctx_, lv.subView(4), 0.5, 0.5, 0.5);
-    //        cairo_arc(ctx_, x, y, 10, 0, 2 * M_PI);
+    //    cairo_rota
+    //            cairo_arc(ctx_, x, y, 10, 0, 2 * M_PI);
     //        cairo_fill_preserve(ctx_);
     //        cairo_set_source_rgb(ctx_, 0, 0, 0);
     //        cairo_set_line_width(ctx_, 1);
@@ -685,15 +772,18 @@ void UICanvas::setup()
     obj.addMethod("fill", &UICanvas::m_fill);
     obj.addMethod("font_size", &UICanvas::m_font_size);
     obj.addMethod("line", &UICanvas::m_line);
+    obj.addMethod("line_cap", &UICanvas::m_line_cap);
     obj.addMethod("line_width", &UICanvas::m_line_width);
     obj.addMethod("moveby", &UICanvas::m_moveby);
     obj.addMethod("moveto", &UICanvas::m_moveto);
     obj.addMethod("node", &UICanvas::m_node);
     obj.addMethod("rect", &UICanvas::m_rect);
     obj.addMethod("restore", &UICanvas::m_restore);
+    obj.addMethod("rotate", &UICanvas::m_rotate);
     obj.addMethod("save", &UICanvas::m_save);
     obj.addMethod("stroke", &UICanvas::m_stroke);
     obj.addMethod("text", &UICanvas::m_text);
+    obj.addMethod("translate", &UICanvas::m_translate);
     obj.addMethod("update", &UICanvas::m_update);
 }
 

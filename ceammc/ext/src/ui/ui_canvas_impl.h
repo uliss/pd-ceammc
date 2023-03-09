@@ -47,8 +47,24 @@ namespace draw {
         float dx, dy;
     };
 
+    struct Rotate {
+        float angle;
+    };
+
+    struct Translate {
+        float x, y;
+    };
+
     struct SetStrokeWidth {
         float w;
+    };
+
+    struct SetLineCap {
+        int type;
+        SetLineCap(int t)
+            : type(t)
+        {
+        }
     };
 
     struct SetFontSize {
@@ -104,13 +120,15 @@ namespace draw {
         DrawText,
         MoveBy,
         MoveTo,
+        Rotate,
         SetColorRGBA,
         SetFontSize,
         SetStrokeWidth,
-        SyncImage
+        SetLineCap,
+        SyncImage,
+        Translate
 
         >;
-
 }
 }
 
