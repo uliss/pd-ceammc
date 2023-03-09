@@ -139,6 +139,12 @@ TEST_CASE("parser_color", "[ceammc::ceammc_units]")
         REQUIRE(p.blue() == 0);
         REQUIRE(p.alpha() == 0);
 
+        REQUIRE(p.parse("#000000"));
+        REQUIRE(p.red() == 0);
+        REQUIRE(p.green() == 0);
+        REQUIRE(p.blue() == 0);
+        REQUIRE(p.alpha() == 0xff);
+
         REQUIRE(p.parse("#090000DA"));
         REQUIRE(p.red() == 9);
         REQUIRE(p.green() == 0);
@@ -165,9 +171,14 @@ TEST_CASE("parser_color", "[ceammc::ceammc_units]")
         REQUIRE(p.blue() == 0x3A);
         REQUIRE(p.alpha() == 0xF0);
 
+        REQUIRE(p.parse("#00003a"));
+        REQUIRE(p.red() == 0);
+        REQUIRE(p.green() == 0);
+        REQUIRE(p.blue() == 0x3A);
+        REQUIRE(p.alpha() == 0xFF);
+
         REQUIRE(!p.parse(""));
         REQUIRE(!p.parse("000000"));
-        REQUIRE(!p.parse("#000000"));
         REQUIRE(!p.parse("#12345"));
         REQUIRE(!p.parse("#1234567"));
     }
@@ -230,5 +241,50 @@ TEST_CASE("parser_color", "[ceammc::ceammc_units]")
         REQUIRE(p.green() == 0x22);
         REQUIRE(p.blue() == 0x33);
         REQUIRE(p.alpha() == 0x44);
+
+        REQUIRE(p.parse("#000"));
+        REQUIRE(p.red() == 0);
+        REQUIRE(p.green() == 0);
+        REQUIRE(p.blue() == 0);
+        REQUIRE(p.alpha() == 0xFF);
+
+        REQUIRE(p.parse("#123"));
+        REQUIRE(p.red() == 0x11);
+        REQUIRE(p.green() == 0x22);
+        REQUIRE(p.blue() == 0x33);
+        REQUIRE(p.alpha() == 0xFF);
+    }
+
+    SECTION("named colors")
+    {
+        using namespace ceammc::parser;
+        ColorFullMatch p;
+
+        REQUIRE(p.parse("black"));
+        REQUIRE(p.asInt() == 0x000000FF);
+
+        REQUIRE(p.parse("white"));
+        REQUIRE(p.asInt() == 0xFFFFFFFF);
+
+        REQUIRE(p.parse("red"));
+        REQUIRE(p.asInt() == 0xFF0000FF);
+
+        REQUIRE(p.parse("green"));
+        REQUIRE(p.asInt() == 0x00FF00FF);
+
+        REQUIRE(p.parse("blue"));
+        REQUIRE(p.asInt() == 0x0000FFFF);
+
+        REQUIRE(p.parse("#123"));
+        REQUIRE(p.red() == 0x11);
+        REQUIRE(p.green() == 0x22);
+        REQUIRE(p.blue() == 0x33);
+        REQUIRE(p.alpha() == 0xFF);
+
+        REQUIRE(p.parse("#ABCD"));
+        REQUIRE(p.red() == 0xAA);
+        REQUIRE(p.green() == 0xBB);
+        REQUIRE(p.blue() == 0xCC);
+        REQUIRE(p.alpha() == 0xDD);
     }
 }

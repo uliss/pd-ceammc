@@ -16,6 +16,11 @@ struct ColorRagelData {
     int b { 0 };
     int a { 0 };
     int x { 0 };
+    void setHex(std::uint32_t c) {
+        r = (c & 0xFF0000) >> 16;
+        g = (c & 0x00FF00) >> 8;
+        b = c & 0x0000FF;
+    }
 };
 
 RgbHexFullMatch::RgbHexFullMatch()
@@ -63,7 +68,7 @@ bool RgbHexFullMatch::parse(const char* str)
 }
 
 
-#line 67 "lex/parser_color.cpp"
+#line 72 "lex/parser_color.cpp"
 static const int color_start = 1;
 static const int color_first_final = 8;
 static const int color_error = 0;
@@ -71,7 +76,7 @@ static const int color_error = 0;
 static const int color_en_main = 1;
 
 
-#line 69 "lex/parser_color.rl"
+#line 74 "lex/parser_color.rl"
 
 
 bool RgbHexFullMatch::parseFull(const char* str, size_t len)
@@ -87,14 +92,14 @@ bool RgbHexFullMatch::parseFull(const char* str, size_t len)
     reset();
 
     
-#line 91 "lex/parser_color.cpp"
+#line 96 "lex/parser_color.cpp"
 	{
 	cs = color_start;
 	}
 
-#line 84 "lex/parser_color.rl"
+#line 89 "lex/parser_color.rl"
     
-#line 98 "lex/parser_color.cpp"
+#line 103 "lex/parser_color.cpp"
 	{
 	if ( p == pe )
 		goto _test_eof;
@@ -130,7 +135,7 @@ st3:
 	if ( ++p == pe )
 		goto _test_eof3;
 case 3:
-#line 134 "lex/parser_color.cpp"
+#line 139 "lex/parser_color.cpp"
 	if ( (*p) < 65 ) {
 		if ( 48 <= (*p) && (*p) <= 57 )
 			goto tr3;
@@ -148,7 +153,7 @@ st4:
 	if ( ++p == pe )
 		goto _test_eof4;
 case 4:
-#line 152 "lex/parser_color.cpp"
+#line 157 "lex/parser_color.cpp"
 	if ( (*p) < 65 ) {
 		if ( 48 <= (*p) && (*p) <= 57 )
 			goto tr4;
@@ -170,7 +175,7 @@ st5:
 	if ( ++p == pe )
 		goto _test_eof5;
 case 5:
-#line 174 "lex/parser_color.cpp"
+#line 179 "lex/parser_color.cpp"
 	if ( (*p) < 65 ) {
 		if ( 48 <= (*p) && (*p) <= 57 )
 			goto tr5;
@@ -188,7 +193,7 @@ st6:
 	if ( ++p == pe )
 		goto _test_eof6;
 case 6:
-#line 192 "lex/parser_color.cpp"
+#line 197 "lex/parser_color.cpp"
 	if ( (*p) < 65 ) {
 		if ( 48 <= (*p) && (*p) <= 57 )
 			goto tr6;
@@ -210,7 +215,7 @@ st7:
 	if ( ++p == pe )
 		goto _test_eof7;
 case 7:
-#line 214 "lex/parser_color.cpp"
+#line 219 "lex/parser_color.cpp"
 	if ( (*p) < 65 ) {
 		if ( 48 <= (*p) && (*p) <= 57 )
 			goto tr7;
@@ -228,7 +233,7 @@ st8:
 	if ( ++p == pe )
 		goto _test_eof8;
 case 8:
-#line 232 "lex/parser_color.cpp"
+#line 237 "lex/parser_color.cpp"
 	goto st0;
 	}
 	_test_eof2: cs = 2; goto _test_eof; 
@@ -249,14 +254,14 @@ case 8:
 #line 14 "lex/ragel_color.rl"
 	{ cat_ = CAT_COLOR; type_ = TYPE_HEX; }
 	break;
-#line 253 "lex/parser_color.cpp"
+#line 258 "lex/parser_color.cpp"
 	}
 	}
 
 	_out: {}
 	}
 
-#line 85 "lex/parser_color.rl"
+#line 90 "lex/parser_color.rl"
 
     const auto ok = cs >= 8;
     if(ok) {
@@ -269,7 +274,7 @@ case 8:
 }
 
 
-#line 273 "lex/parser_color.cpp"
+#line 278 "lex/parser_color.cpp"
 static const int rgb_color_short_start = 1;
 static const int rgb_color_short_first_final = 5;
 static const int rgb_color_short_error = 0;
@@ -277,7 +282,7 @@ static const int rgb_color_short_error = 0;
 static const int rgb_color_short_en_main = 1;
 
 
-#line 102 "lex/parser_color.rl"
+#line 107 "lex/parser_color.rl"
 
 
 bool RgbHexFullMatch::parseShort(const char* str, size_t length)
@@ -293,14 +298,14 @@ bool RgbHexFullMatch::parseShort(const char* str, size_t length)
     reset();
 
     
-#line 297 "lex/parser_color.cpp"
+#line 302 "lex/parser_color.cpp"
 	{
 	cs = rgb_color_short_start;
 	}
 
-#line 117 "lex/parser_color.rl"
+#line 122 "lex/parser_color.rl"
     
-#line 304 "lex/parser_color.cpp"
+#line 309 "lex/parser_color.cpp"
 	{
 	if ( p == pe )
 		goto _test_eof;
@@ -334,7 +339,7 @@ st3:
 	if ( ++p == pe )
 		goto _test_eof3;
 case 3:
-#line 338 "lex/parser_color.cpp"
+#line 343 "lex/parser_color.cpp"
 	if ( (*p) < 65 ) {
 		if ( 48 <= (*p) && (*p) <= 57 )
 			goto tr3;
@@ -354,7 +359,7 @@ st4:
 	if ( ++p == pe )
 		goto _test_eof4;
 case 4:
-#line 358 "lex/parser_color.cpp"
+#line 363 "lex/parser_color.cpp"
 	if ( (*p) < 65 ) {
 		if ( 48 <= (*p) && (*p) <= 57 )
 			goto tr4;
@@ -374,7 +379,7 @@ st5:
 	if ( ++p == pe )
 		goto _test_eof5;
 case 5:
-#line 378 "lex/parser_color.cpp"
+#line 383 "lex/parser_color.cpp"
 	goto st0;
 	}
 	_test_eof2: cs = 2; goto _test_eof; 
@@ -392,14 +397,14 @@ case 5:
 #line 30 "lex/ragel_color.rl"
 	{ cat_ = CAT_COLOR; type_ = TYPE_HEX; }
 	break;
-#line 396 "lex/parser_color.cpp"
+#line 401 "lex/parser_color.cpp"
 	}
 	}
 
 	_out: {}
 	}
 
-#line 118 "lex/parser_color.rl"
+#line 123 "lex/parser_color.rl"
 
     const auto ok = cs >= 5;
     if(ok) {
@@ -434,24 +439,24 @@ bool RgbaHexFullMatch::parse(const Atom& a)
 bool RgbaHexFullMatch::parse(const char* str)
 {
     auto len = strlen(str);
-    if (len == 5)
+    if (len == 4 || len == 5)
         return parseShort(str, len);
-    else if(len == 9)
+    else if(len == 7 || len == 9)
         return parseFull(str, len);
     else
         return false;
 }
 
 
-#line 447 "lex/parser_color.cpp"
+#line 452 "lex/parser_color.cpp"
 static const int rgba_color_start = 1;
-static const int rgba_color_first_final = 10;
+static const int rgba_color_first_final = 9;
 static const int rgba_color_error = 0;
 
 static const int rgba_color_en_main = 1;
 
 
-#line 166 "lex/parser_color.rl"
+#line 171 "lex/parser_color.rl"
 
 
 bool RgbaHexFullMatch::parseFull(const char* str, size_t length)
@@ -461,20 +466,21 @@ bool RgbaHexFullMatch::parseFull(const char* str, size_t length)
     const char* pe = p + length;
     const char* eof = pe;
     ColorRagelData color;
+    color.a = 0xff;
     AtomCategory cat_ {CAT_UNKNOWN};
     AtomType type_ = {TYPE_UNKNOWN};
 
     reset();
 
     
-#line 471 "lex/parser_color.cpp"
+#line 477 "lex/parser_color.cpp"
 	{
 	cs = rgba_color_start;
 	}
 
-#line 181 "lex/parser_color.rl"
+#line 187 "lex/parser_color.rl"
     
-#line 478 "lex/parser_color.cpp"
+#line 484 "lex/parser_color.cpp"
 	{
 	if ( p == pe )
 		goto _test_eof;
@@ -510,7 +516,7 @@ st3:
 	if ( ++p == pe )
 		goto _test_eof3;
 case 3:
-#line 514 "lex/parser_color.cpp"
+#line 520 "lex/parser_color.cpp"
 	if ( (*p) < 65 ) {
 		if ( 48 <= (*p) && (*p) <= 57 )
 			goto tr3;
@@ -528,7 +534,7 @@ st4:
 	if ( ++p == pe )
 		goto _test_eof4;
 case 4:
-#line 532 "lex/parser_color.cpp"
+#line 538 "lex/parser_color.cpp"
 	if ( (*p) < 65 ) {
 		if ( 48 <= (*p) && (*p) <= 57 )
 			goto tr4;
@@ -539,7 +545,7 @@ case 4:
 		goto tr4;
 	goto st0;
 tr4:
-#line 44 "lex/ragel_color.rl"
+#line 45 "lex/ragel_color.rl"
 	{color.r = color.x;}
 #line 38 "lex/ragel_color.rl"
 	{ color.x = xchar2digit((*p)); }
@@ -550,7 +556,7 @@ st5:
 	if ( ++p == pe )
 		goto _test_eof5;
 case 5:
-#line 554 "lex/parser_color.cpp"
+#line 560 "lex/parser_color.cpp"
 	if ( (*p) < 65 ) {
 		if ( 48 <= (*p) && (*p) <= 57 )
 			goto tr5;
@@ -568,7 +574,7 @@ st6:
 	if ( ++p == pe )
 		goto _test_eof6;
 case 6:
-#line 572 "lex/parser_color.cpp"
+#line 578 "lex/parser_color.cpp"
 	if ( (*p) < 65 ) {
 		if ( 48 <= (*p) && (*p) <= 57 )
 			goto tr6;
@@ -579,7 +585,7 @@ case 6:
 		goto tr6;
 	goto st0;
 tr6:
-#line 45 "lex/ragel_color.rl"
+#line 46 "lex/ragel_color.rl"
 	{color.g = color.x;}
 #line 38 "lex/ragel_color.rl"
 	{ color.x = xchar2digit((*p)); }
@@ -590,7 +596,7 @@ st7:
 	if ( ++p == pe )
 		goto _test_eof7;
 case 7:
-#line 594 "lex/parser_color.cpp"
+#line 600 "lex/parser_color.cpp"
 	if ( (*p) < 65 ) {
 		if ( 48 <= (*p) && (*p) <= 57 )
 			goto tr7;
@@ -603,34 +609,12 @@ case 7:
 tr7:
 #line 39 "lex/ragel_color.rl"
 	{ (color.x *= 16) += xchar2digit((*p)); }
-	goto st8;
-st8:
-	if ( ++p == pe )
-		goto _test_eof8;
-case 8:
-#line 612 "lex/parser_color.cpp"
-	if ( (*p) < 65 ) {
-		if ( 48 <= (*p) && (*p) <= 57 )
-			goto tr8;
-	} else if ( (*p) > 70 ) {
-		if ( 97 <= (*p) && (*p) <= 102 )
-			goto tr8;
-	} else
-		goto tr8;
-	goto st0;
-tr8:
-#line 46 "lex/ragel_color.rl"
-	{color.b = color.x;}
-#line 38 "lex/ragel_color.rl"
-	{ color.x = xchar2digit((*p)); }
-#line 39 "lex/ragel_color.rl"
-	{ (color.x *= 16) += xchar2digit((*p)); }
 	goto st9;
 st9:
 	if ( ++p == pe )
 		goto _test_eof9;
 case 9:
-#line 634 "lex/parser_color.cpp"
+#line 618 "lex/parser_color.cpp"
 	if ( (*p) < 65 ) {
 		if ( 48 <= (*p) && (*p) <= 57 )
 			goto tr9;
@@ -641,6 +625,28 @@ case 9:
 		goto tr9;
 	goto st0;
 tr9:
+#line 47 "lex/ragel_color.rl"
+	{color.b = color.x;}
+#line 38 "lex/ragel_color.rl"
+	{ color.x = xchar2digit((*p)); }
+#line 39 "lex/ragel_color.rl"
+	{ (color.x *= 16) += xchar2digit((*p)); }
+	goto st8;
+st8:
+	if ( ++p == pe )
+		goto _test_eof8;
+case 8:
+#line 640 "lex/parser_color.cpp"
+	if ( (*p) < 65 ) {
+		if ( 48 <= (*p) && (*p) <= 57 )
+			goto tr8;
+	} else if ( (*p) > 70 ) {
+		if ( 97 <= (*p) && (*p) <= 102 )
+			goto tr8;
+	} else
+		goto tr8;
+	goto st0;
+tr8:
 #line 39 "lex/ragel_color.rl"
 	{ (color.x *= 16) += xchar2digit((*p)); }
 	goto st10;
@@ -648,7 +654,7 @@ st10:
 	if ( ++p == pe )
 		goto _test_eof10;
 case 10:
-#line 652 "lex/parser_color.cpp"
+#line 658 "lex/parser_color.cpp"
 	goto st0;
 	}
 	_test_eof2: cs = 2; goto _test_eof; 
@@ -657,30 +663,36 @@ case 10:
 	_test_eof5: cs = 5; goto _test_eof; 
 	_test_eof6: cs = 6; goto _test_eof; 
 	_test_eof7: cs = 7; goto _test_eof; 
-	_test_eof8: cs = 8; goto _test_eof; 
 	_test_eof9: cs = 9; goto _test_eof; 
+	_test_eof8: cs = 8; goto _test_eof; 
 	_test_eof10: cs = 10; goto _test_eof; 
 
 	_test_eof: {}
 	if ( p == eof )
 	{
 	switch ( cs ) {
-	case 10: 
+	case 9: 
 #line 47 "lex/ragel_color.rl"
-	{color.a = color.x;}
-#line 48 "lex/ragel_color.rl"
+	{color.b = color.x;}
+#line 50 "lex/ragel_color.rl"
 	{ cat_ = CAT_COLOR; type_ = TYPE_HEX; }
 	break;
-#line 675 "lex/parser_color.cpp"
+	case 10: 
+#line 48 "lex/ragel_color.rl"
+	{color.a = color.x;}
+#line 50 "lex/ragel_color.rl"
+	{ cat_ = CAT_COLOR; type_ = TYPE_HEX; }
+	break;
+#line 687 "lex/parser_color.cpp"
 	}
 	}
 
 	_out: {}
 	}
 
-#line 182 "lex/parser_color.rl"
+#line 188 "lex/parser_color.rl"
 
-    const auto ok = cs >= 10;
+    const auto ok = cs >= 9;
     if(ok) {
         color_.r = color.r;
         color_.g = color.g;
@@ -692,15 +704,15 @@ case 10:
 }
 
 
-#line 696 "lex/parser_color.cpp"
+#line 708 "lex/parser_color.cpp"
 static const int rgba_color_short_start = 1;
-static const int rgba_color_short_first_final = 6;
+static const int rgba_color_short_first_final = 5;
 static const int rgba_color_short_error = 0;
 
 static const int rgba_color_short_en_main = 1;
 
 
-#line 200 "lex/parser_color.rl"
+#line 206 "lex/parser_color.rl"
 
 
 bool RgbaHexFullMatch::parseShort(const char* str, size_t length)
@@ -710,20 +722,21 @@ bool RgbaHexFullMatch::parseShort(const char* str, size_t length)
     const char* pe = p + length;
     const char* eof = pe;
     ColorRagelData color;
+    color.a = 0xff;
     AtomCategory cat_ {CAT_UNKNOWN};
     AtomType type_ = {TYPE_UNKNOWN};
 
     reset();
 
     
-#line 720 "lex/parser_color.cpp"
+#line 733 "lex/parser_color.cpp"
 	{
 	cs = rgba_color_short_start;
 	}
 
-#line 215 "lex/parser_color.rl"
+#line 222 "lex/parser_color.rl"
     
-#line 727 "lex/parser_color.cpp"
+#line 740 "lex/parser_color.cpp"
 	{
 	if ( p == pe )
 		goto _test_eof;
@@ -750,14 +763,14 @@ case 2:
 		goto tr2;
 	goto st0;
 tr2:
-#line 56 "lex/ragel_color.rl"
+#line 58 "lex/ragel_color.rl"
 	{ color.x = xchar2digit((*p)); }
 	goto st3;
 st3:
 	if ( ++p == pe )
 		goto _test_eof3;
 case 3:
-#line 761 "lex/parser_color.cpp"
+#line 774 "lex/parser_color.cpp"
 	if ( (*p) < 65 ) {
 		if ( 48 <= (*p) && (*p) <= 57 )
 			goto tr3;
@@ -768,16 +781,16 @@ case 3:
 		goto tr3;
 	goto st0;
 tr3:
-#line 61 "lex/ragel_color.rl"
+#line 63 "lex/ragel_color.rl"
 	{color.r = color.x;}
-#line 56 "lex/ragel_color.rl"
+#line 58 "lex/ragel_color.rl"
 	{ color.x = xchar2digit((*p)); }
 	goto st4;
 st4:
 	if ( ++p == pe )
 		goto _test_eof4;
 case 4:
-#line 781 "lex/parser_color.cpp"
+#line 794 "lex/parser_color.cpp"
 	if ( (*p) < 65 ) {
 		if ( 48 <= (*p) && (*p) <= 57 )
 			goto tr4;
@@ -788,16 +801,16 @@ case 4:
 		goto tr4;
 	goto st0;
 tr4:
-#line 62 "lex/ragel_color.rl"
+#line 64 "lex/ragel_color.rl"
 	{color.g = color.x;}
-#line 56 "lex/ragel_color.rl"
+#line 58 "lex/ragel_color.rl"
 	{ color.x = xchar2digit((*p)); }
 	goto st5;
 st5:
 	if ( ++p == pe )
 		goto _test_eof5;
 case 5:
-#line 801 "lex/parser_color.cpp"
+#line 814 "lex/parser_color.cpp"
 	if ( (*p) < 65 ) {
 		if ( 48 <= (*p) && (*p) <= 57 )
 			goto tr5;
@@ -808,16 +821,16 @@ case 5:
 		goto tr5;
 	goto st0;
 tr5:
-#line 63 "lex/ragel_color.rl"
+#line 65 "lex/ragel_color.rl"
 	{color.b = color.x;}
-#line 56 "lex/ragel_color.rl"
+#line 58 "lex/ragel_color.rl"
 	{ color.x = xchar2digit((*p)); }
 	goto st6;
 st6:
 	if ( ++p == pe )
 		goto _test_eof6;
 case 6:
-#line 821 "lex/parser_color.cpp"
+#line 834 "lex/parser_color.cpp"
 	goto st0;
 	}
 	_test_eof2: cs = 2; goto _test_eof; 
@@ -830,22 +843,28 @@ case 6:
 	if ( p == eof )
 	{
 	switch ( cs ) {
-	case 6: 
-#line 64 "lex/ragel_color.rl"
-	{color.a = color.x;}
+	case 5: 
 #line 65 "lex/ragel_color.rl"
+	{color.b = color.x;}
+#line 67 "lex/ragel_color.rl"
 	{ cat_ = CAT_COLOR; type_ = TYPE_HEX; }
 	break;
-#line 840 "lex/parser_color.cpp"
+	case 6: 
+#line 66 "lex/ragel_color.rl"
+	{color.a = color.x;}
+#line 67 "lex/ragel_color.rl"
+	{ cat_ = CAT_COLOR; type_ = TYPE_HEX; }
+	break;
+#line 859 "lex/parser_color.cpp"
 	}
 	}
 
 	_out: {}
 	}
 
-#line 216 "lex/parser_color.rl"
+#line 223 "lex/parser_color.rl"
 
-    const auto ok = cs >= 6;
+    const auto ok = cs >= 5;
     if(ok) {
         color_.r = color.r | (color.r << 4);
         color_.g = color.g | (color.g << 4);
@@ -854,6 +873,283 @@ case 6:
     }
 
     return ok;
+}
+
+ColorFullMatch::ColorFullMatch()
+{
+    reset();
+}
+
+void ColorFullMatch::reset()
+{
+    color_ = {};
+}
+
+bool ColorFullMatch::parse(const Atom& a)
+{
+    if (a.isSymbol())
+        return parse(a.asT<t_symbol*>()->s_name);
+    else
+        return false;
+}
+
+
+#line 898 "lex/parser_color.cpp"
+static const int named_color_start = 1;
+static const int named_color_first_final = 17;
+static const int named_color_error = 0;
+
+static const int named_color_en_main = 1;
+
+
+#line 259 "lex/parser_color.rl"
+
+
+bool ColorFullMatch::parse(const char* str)
+{
+    auto len = strlen(str);
+    if (len == 0)
+        return false;
+
+    if (str[0] == '#') {
+        RgbaHexFullMatch p;
+        if (p.parse(str)) {
+            color_ = p.color();
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        int cs = 0;
+        const char* p = str;
+        const char* pe = p + strlen(str);
+        const char* eof = pe;
+        ColorRagelData color;
+
+        reset();
+
+        
+#line 933 "lex/parser_color.cpp"
+	{
+	cs = named_color_start;
+	}
+
+#line 285 "lex/parser_color.rl"
+        
+#line 940 "lex/parser_color.cpp"
+	{
+	if ( p == pe )
+		goto _test_eof;
+	switch ( cs )
+	{
+case 1:
+	switch( (*p) ) {
+		case 98: goto st2;
+		case 103: goto st7;
+		case 114: goto st11;
+		case 119: goto st13;
+	}
+	goto st0;
+st0:
+cs = 0;
+	goto _out;
+st2:
+	if ( ++p == pe )
+		goto _test_eof2;
+case 2:
+	if ( (*p) == 108 )
+		goto st3;
+	goto st0;
+st3:
+	if ( ++p == pe )
+		goto _test_eof3;
+case 3:
+	switch( (*p) ) {
+		case 97: goto st4;
+		case 117: goto st6;
+	}
+	goto st0;
+st4:
+	if ( ++p == pe )
+		goto _test_eof4;
+case 4:
+	if ( (*p) == 99 )
+		goto st5;
+	goto st0;
+st5:
+	if ( ++p == pe )
+		goto _test_eof5;
+case 5:
+	if ( (*p) == 107 )
+		goto st17;
+	goto st0;
+st17:
+	if ( ++p == pe )
+		goto _test_eof17;
+case 17:
+	goto st0;
+st6:
+	if ( ++p == pe )
+		goto _test_eof6;
+case 6:
+	if ( (*p) == 101 )
+		goto st18;
+	goto st0;
+st18:
+	if ( ++p == pe )
+		goto _test_eof18;
+case 18:
+	goto st0;
+st7:
+	if ( ++p == pe )
+		goto _test_eof7;
+case 7:
+	if ( (*p) == 114 )
+		goto st8;
+	goto st0;
+st8:
+	if ( ++p == pe )
+		goto _test_eof8;
+case 8:
+	if ( (*p) == 101 )
+		goto st9;
+	goto st0;
+st9:
+	if ( ++p == pe )
+		goto _test_eof9;
+case 9:
+	if ( (*p) == 101 )
+		goto st10;
+	goto st0;
+st10:
+	if ( ++p == pe )
+		goto _test_eof10;
+case 10:
+	if ( (*p) == 110 )
+		goto st19;
+	goto st0;
+st19:
+	if ( ++p == pe )
+		goto _test_eof19;
+case 19:
+	goto st0;
+st11:
+	if ( ++p == pe )
+		goto _test_eof11;
+case 11:
+	if ( (*p) == 101 )
+		goto st12;
+	goto st0;
+st12:
+	if ( ++p == pe )
+		goto _test_eof12;
+case 12:
+	if ( (*p) == 100 )
+		goto st20;
+	goto st0;
+st20:
+	if ( ++p == pe )
+		goto _test_eof20;
+case 20:
+	goto st0;
+st13:
+	if ( ++p == pe )
+		goto _test_eof13;
+case 13:
+	if ( (*p) == 104 )
+		goto st14;
+	goto st0;
+st14:
+	if ( ++p == pe )
+		goto _test_eof14;
+case 14:
+	if ( (*p) == 105 )
+		goto st15;
+	goto st0;
+st15:
+	if ( ++p == pe )
+		goto _test_eof15;
+case 15:
+	if ( (*p) == 116 )
+		goto st16;
+	goto st0;
+st16:
+	if ( ++p == pe )
+		goto _test_eof16;
+case 16:
+	if ( (*p) == 101 )
+		goto st21;
+	goto st0;
+st21:
+	if ( ++p == pe )
+		goto _test_eof21;
+case 21:
+	goto st0;
+	}
+	_test_eof2: cs = 2; goto _test_eof; 
+	_test_eof3: cs = 3; goto _test_eof; 
+	_test_eof4: cs = 4; goto _test_eof; 
+	_test_eof5: cs = 5; goto _test_eof; 
+	_test_eof17: cs = 17; goto _test_eof; 
+	_test_eof6: cs = 6; goto _test_eof; 
+	_test_eof18: cs = 18; goto _test_eof; 
+	_test_eof7: cs = 7; goto _test_eof; 
+	_test_eof8: cs = 8; goto _test_eof; 
+	_test_eof9: cs = 9; goto _test_eof; 
+	_test_eof10: cs = 10; goto _test_eof; 
+	_test_eof19: cs = 19; goto _test_eof; 
+	_test_eof11: cs = 11; goto _test_eof; 
+	_test_eof12: cs = 12; goto _test_eof; 
+	_test_eof20: cs = 20; goto _test_eof; 
+	_test_eof13: cs = 13; goto _test_eof; 
+	_test_eof14: cs = 14; goto _test_eof; 
+	_test_eof15: cs = 15; goto _test_eof; 
+	_test_eof16: cs = 16; goto _test_eof; 
+	_test_eof21: cs = 21; goto _test_eof; 
+
+	_test_eof: {}
+	if ( p == eof )
+	{
+	switch ( cs ) {
+	case 17: 
+#line 75 "lex/ragel_color.rl"
+	{ color.setHex(0x000000); }
+	break;
+	case 21: 
+#line 76 "lex/ragel_color.rl"
+	{ color.setHex(0xFFFFFF); }
+	break;
+	case 18: 
+#line 77 "lex/ragel_color.rl"
+	{ color.setHex(0x0000FF); }
+	break;
+	case 20: 
+#line 78 "lex/ragel_color.rl"
+	{ color.setHex(0xFF0000); }
+	break;
+	case 19: 
+#line 79 "lex/ragel_color.rl"
+	{ color.setHex(0x00FF00); }
+	break;
+#line 1135 "lex/parser_color.cpp"
+	}
+	}
+
+	_out: {}
+	}
+
+#line 286 "lex/parser_color.rl"
+
+        const auto ok = cs >= 17;
+        if (ok) {
+            color_.r = color.r;
+            color_.g = color.g;
+            color_.b = color.b;
+            color_.a = 0xff;
+        }
+
+        return ok;
+    }
 }
 
 }

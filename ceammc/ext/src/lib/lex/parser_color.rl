@@ -14,6 +14,11 @@ struct ColorRagelData {
     int b { 0 };
     int a { 0 };
     int x { 0 };
+    void setHex(std::uint32_t c) {
+        r = (c & 0xFF0000) >> 16;
+        g = (c & 0x00FF00) >> 8;
+        b = c & 0x0000FF;
+    }
 };
 
 RgbHexFullMatch::RgbHexFullMatch()
@@ -149,9 +154,9 @@ bool RgbaHexFullMatch::parse(const Atom& a)
 bool RgbaHexFullMatch::parse(const char* str)
 {
     auto len = strlen(str);
-    if (len == 5)
+    if (len == 4 || len == 5)
         return parseShort(str, len);
-    else if(len == 9)
+    else if(len == 7 || len == 9)
         return parseFull(str, len);
     else
         return false;
@@ -172,6 +177,7 @@ bool RgbaHexFullMatch::parseFull(const char* str, size_t length)
     const char* pe = p + length;
     const char* eof = pe;
     ColorRagelData color;
+    color.a = 0xff;
     AtomCategory cat_ {CAT_UNKNOWN};
     AtomType type_ = {TYPE_UNKNOWN};
 
@@ -206,6 +212,7 @@ bool RgbaHexFullMatch::parseShort(const char* str, size_t length)
     const char* pe = p + length;
     const char* eof = pe;
     ColorRagelData color;
+    color.a = 0xff;
     AtomCategory cat_ {CAT_UNKNOWN};
     AtomType type_ = {TYPE_UNKNOWN};
 
@@ -223,6 +230,70 @@ bool RgbaHexFullMatch::parseShort(const char* str, size_t length)
     }
 
     return ok;
+}
+
+ColorFullMatch::ColorFullMatch()
+{
+    reset();
+}
+
+void ColorFullMatch::reset()
+{
+    color_ = {};
+}
+
+bool ColorFullMatch::parse(const Atom& a)
+{
+    if (a.isSymbol())
+        return parse(a.asT<t_symbol*>()->s_name);
+    else
+        return false;
+}
+
+%%{
+    machine named_color;
+    include color_named "ragel_color.rl";
+
+    main := color_named;
+    write data;
+}%%
+
+bool ColorFullMatch::parse(const char* str)
+{
+    auto len = strlen(str);
+    if (len == 0)
+        return false;
+
+    if (str[0] == '#') {
+        RgbaHexFullMatch p;
+        if (p.parse(str)) {
+            color_ = p.color();
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        int cs = 0;
+        const char* p = str;
+        const char* pe = p + strlen(str);
+        const char* eof = pe;
+        ColorRagelData color;
+
+        reset();
+
+        %% write init;
+        %% write exec;
+
+        const auto ok = cs >= %%{ write first_final; }%%;
+        if (ok) {
+            color_.r = color.r;
+            color_.g = color.g;
+            color_.b = color.b;
+            color_.a = 0xff;
+        }
+
+        return ok;
+    }
 }
 
 }
