@@ -13,7 +13,6 @@
  *****************************************************************************/
 #include "ui_canvas.h"
 #include "args/argcheck2.h"
-#include "ceammc_base64.h"
 #include "ceammc_containers.h"
 #include "ceammc_format.h"
 #include "ceammc_poll_dispatcher.h"
@@ -25,8 +24,6 @@
 #include "ui_canvas.tcl.h"
 
 namespace {
-
-constexpr float GLOBAL_SCALE = 2;
 
 void set_parsed_color(cairo_t* c, const AtomListView& lv, double r = 0, double g = 0, double b = 0)
 {
@@ -64,18 +61,10 @@ inline cairo_line_cap_t sym2line_cap(t_symbol* s)
     }
 }
 
-#define PARSE_PERCENT(method_name, arg_name, atom, field, total)                                    \
-    {                                                                                               \
-        if (!p.parseAs(atom, parser::TYPE_PERCENT)) {                                               \
-            UI_ERR << fmt::format(method_name ": can't parse " arg_name ": '{}'", to_string(atom)); \
-            return;                                                                                 \
-        } else {                                                                                    \
-            field = p.asFloat();                                                                    \
-            if (p.isPercent())                                                                      \
-                field *= total;                                                                     \
-                                                                                                    \
-            p.reset();                                                                              \
-        }                                                                                           \
+#define PARSE_PERCENT(method, arg, value, res, total)      \
+    {                                                      \
+        if (!parsePercent(method, arg, value, res, total)) \
+            return;                                        \
     }
 
 }
@@ -119,253 +108,6 @@ UICanvas::~UICanvas()
         }
     }
 }
-
-class DrawCommandVisitor : public boost::static_visitor<void> {
-    CairoSurface& surface_;
-    CairoContext& ctx_;
-    UICanvasInQueue& queue_;
-
-public:
-    DrawCommandVisitor(CairoSurface& surface, CairoContext& ctx, UICanvasInQueue& in)
-        : surface_(surface)
-        , ctx_(ctx)
-        , queue_(in)
-    {
-    }
-
-    void operator()(const draw::DrawNextVariant& n) const
-    {
-        n.apply_visitor(*this);
-    }
-
-    void operator()(const draw::DrawCircle& c) const
-    {
-        if (ctx_)
-            cairo_arc(ctx_.get(), c.x, c.y, c.r, 0, M_PI * 2);
-    }
-
-    void operator()(const draw::DrawCurve& c) const
-    {
-        if (ctx_) {
-            cairo_move_to(ctx_.get(), c.x0, c.y0);
-            cairo_curve_to(ctx_.get(), c.x1, c.y1, c.x2, c.y2, c.x3, c.y3);
-        }
-    }
-
-    void operator()(const draw::DrawRect& c) const
-    {
-        if (ctx_)
-            cairo_rectangle(ctx_.get(), c.x, c.y, c.w, c.h);
-    }
-
-    void operator()(const draw::DrawBackground&) const
-    {
-        if (ctx_ && surface_) {
-            cairo_rectangle(ctx_.get(), 0, 0,
-                cairo_image_surface_get_width(surface_.get()),
-                cairo_image_surface_get_height(surface_.get()));
-            cairo_fill(ctx_.get());
-        }
-    }
-
-    void operator()(const draw::MoveTo& c) const
-    {
-        if (ctx_)
-            cairo_move_to(ctx_.get(), c.x, c.y);
-    }
-
-    void operator()(const draw::MoveBy& c) const
-    {
-        if (ctx_)
-            cairo_rel_move_to(ctx_.get(), c.dx, c.dy);
-    }
-
-    void operator()(const draw::SetStrokeWidth& c) const
-    {
-        if (ctx_)
-            cairo_set_line_width(ctx_.get(), c.w);
-    }
-
-    void operator()(const draw::SetLineCap& cap) const
-    {
-        if (ctx_)
-            cairo_set_line_cap(ctx_.get(), static_cast<cairo_line_cap_t>(cap.type));
-    }
-
-    void operator()(const draw::SetDash& dash) const
-    {
-        if (ctx_) {
-            const auto N = dash.n;
-            double dashes[draw::SetDash::MAX_DASHES] = { 0 };
-            for (size_t i = 0; i < N; i++)
-                dashes[i] = dash.dashes[i];
-
-            if (N > 0
-                && (std::any_of(dashes, dashes + N, [](double x) { return x < 0; })
-                    || std::all_of(dashes, dashes + N, [](double x) { return x == 0; }))) {
-                queue_.enqueue(DrawResult { DRAW_RESULT_ERROR, "invalid dash values" });
-                return;
-            }
-
-            cairo_set_dash(ctx_.get(), dashes, dash.n, 1);
-        }
-    }
-
-    void operator()(const draw::SetFontSize& sz) const
-    {
-        if (ctx_)
-            cairo_set_font_size(ctx_.get(), sz.size);
-    }
-
-    void operator()(const draw::SetColorRGBA& c) const
-    {
-        if (ctx_)
-            cairo_set_source_rgba(ctx_.get(), c.r, c.g, c.b, c.a);
-    }
-
-    void operator()(const draw::DrawSave&) const
-    {
-        if (ctx_)
-            cairo_save(ctx_.get());
-    }
-
-    void operator()(const draw::DrawRestore&) const
-    {
-        if (ctx_)
-            cairo_restore(ctx_.get());
-    }
-
-    void operator()(const draw::Rotate& r) const
-    {
-        if (ctx_)
-            cairo_rotate(ctx_.get(), r.angle);
-    }
-
-    void operator()(const draw::Translate& r) const
-    {
-        if (ctx_)
-            cairo_translate(ctx_.get(), r.x, r.y);
-    }
-
-    void operator()(const draw::CreateImage& c) const
-    {
-        bool do_update = surface_ && ctx_;
-
-        if (do_update) {
-            auto cur_w = cairo_image_surface_get_width(surface_.get());
-            auto cur_h = cairo_image_surface_get_height(surface_.get());
-
-            const bool same_size = (c.w == cur_w && c.h == cur_h);
-
-            if (!same_size) {
-                CairoSurface new_image(cairo_image_surface_create(CAIRO_FORMAT_RGB24,
-                                           c.w * GLOBAL_SCALE, c.h * GLOBAL_SCALE),
-                    &cairo_surface_destroy);
-                CairoContext new_ctx(cairo_create(new_image.get()), &cairo_destroy);
-
-                cairo_save(new_ctx.get());
-                cairo_set_source_rgb(new_ctx.get(), 1, 1, 1);
-                cairo_rectangle(new_ctx.get(), 0, 0, c.w * GLOBAL_SCALE, c.h * GLOBAL_SCALE);
-                cairo_fill(new_ctx.get());
-                cairo_set_source_surface(new_ctx.get(), surface_.get(), 0, 0);
-                cairo_paint(new_ctx.get());
-                cairo_restore(new_ctx.get());
-                cairo_surface_flush(new_image.get());
-
-                surface_ = std::move(new_image);
-                ctx_ = std::move(new_ctx);
-            }
-        } else {
-            surface_.reset(cairo_image_surface_create(CAIRO_FORMAT_RGB24, c.w * GLOBAL_SCALE, c.h * GLOBAL_SCALE));
-            ctx_.reset(cairo_create(surface_.get()));
-        }
-
-        cairo_set_antialias(ctx_.get(), CAIRO_ANTIALIAS_BEST);
-        cairo_scale(ctx_.get(), GLOBAL_SCALE, GLOBAL_SCALE);
-
-        if (!do_update) {
-            cairo_save(ctx_.get());
-            cairo_set_source_rgb(ctx_.get(), 1, 1, 1);
-            cairo_rectangle(ctx_.get(), 0, 0, c.w * GLOBAL_SCALE, c.h * GLOBAL_SCALE);
-            cairo_fill(ctx_.get());
-            cairo_restore(ctx_.get());
-        }
-    }
-
-    void operator()(const draw::DrawFill& f) const
-    {
-        if (ctx_) {
-            f.preserve
-                ? cairo_fill_preserve(ctx_.get())
-                : cairo_fill(ctx_.get());
-        }
-    }
-
-    void operator()(const draw::DrawLine& l) const
-    {
-        if (ctx_) {
-            cairo_move_to(ctx_.get(), l.x0, l.y0);
-            cairo_line_to(ctx_.get(), l.x1, l.y1);
-        }
-    }
-
-    void operator()(const draw::DrawStroke& s) const
-    {
-        if (ctx_) {
-            s.preserve
-                ? cairo_stroke_preserve(ctx_.get())
-                : cairo_stroke(ctx_.get());
-        }
-    }
-
-    void operator()(const draw::DrawText& t) const
-    {
-        if (ctx_) {
-            cairo_move_to(ctx_.get(), t.x, t.y);
-            cairo_show_text(ctx_.get(), t.str.c_str());
-            cairo_stroke(ctx_.get());
-        }
-    }
-
-    void operator()(const draw::SyncImage& c) const
-    {
-        auto write_mem_fn = [](void* closure,
-                                const unsigned char* data,
-                                unsigned int length)
-            -> cairo_status_t {
-            auto buf = static_cast<std::vector<std::uint8_t>*>(closure);
-            std::copy(data, data + length, std::back_inserter(*buf));
-            return CAIRO_STATUS_SUCCESS;
-        };
-
-        std::vector<std::uint8_t> buf;
-        if (c.zoom == 1) {
-            CairoSurface new_image(cairo_image_surface_create(
-                                       cairo_image_surface_get_format(surface_.get()),
-                                       cairo_image_surface_get_width(surface_.get()) / GLOBAL_SCALE,
-                                       cairo_image_surface_get_height(surface_.get()) / GLOBAL_SCALE),
-                &cairo_surface_destroy);
-
-            CairoContext new_ctx(cairo_create(new_image.get()), &cairo_destroy);
-            cairo_scale(new_ctx.get(), 1 / GLOBAL_SCALE, 1 / GLOBAL_SCALE);
-            cairo_set_source_surface(new_ctx.get(), surface_.get(), 0, 0);
-            cairo_paint(new_ctx.get());
-            auto st = cairo_surface_write_to_png_stream(new_image.get(), write_mem_fn, &buf);
-            if (CAIRO_STATUS_SUCCESS == st) {
-                queue_.enqueue(DrawResult { DRAW_RESULT_IMAGE, base64_encode(buf.data(), buf.size()) });
-                queue_.enqueue(DrawResult { DRAW_RESULT_DEBUG, "SyncImage added" });
-            }
-
-        } else {
-            if (CAIRO_STATUS_SUCCESS == cairo_surface_write_to_png_stream(surface_.get(), write_mem_fn, &buf)) {
-                queue_.enqueue(DrawResult { DRAW_RESULT_IMAGE, base64_encode(buf.data(), buf.size()) });
-                queue_.enqueue(DrawResult { DRAW_RESULT_DEBUG, "SyncImage added" });
-            }
-        }
-
-        Dispatcher::instance().send({ c.id, 0 });
-    }
-};
 
 void UICanvas::init(t_symbol* name, const AtomListView& args, bool usePresets)
 {
@@ -446,12 +188,26 @@ void UICanvas::m_line(const AtomListView& lv)
     }
 
     draw::DrawLine cmd;
-    parser::NumericFullMatch p;
 
-    PARSE_PERCENT("line", "X0", lv[0], cmd.x0, width());
-    PARSE_PERCENT("line", "Y0", lv[1], cmd.y0, height());
-    PARSE_PERCENT("line", "X1", lv[2], cmd.x1, width());
-    PARSE_PERCENT("line", "Y1", lv[3], cmd.y1, height());
+    PARSE_PERCENT("line", "X0", lv[0], &cmd.x0, boxW());
+    PARSE_PERCENT("line", "Y0", lv[1], &cmd.y0, boxH());
+    PARSE_PERCENT("line", "X1", lv[2], &cmd.x1, boxW());
+    PARSE_PERCENT("line", "Y1", lv[3], &cmd.y1, boxH());
+
+    out_queue_.enqueue(cmd);
+}
+
+void UICanvas::m_line_to(const AtomListView& lv)
+{
+    if (lv.size() != 2) {
+        UI_ERR << "usage: line X Y";
+        return;
+    }
+
+    draw::DrawLineTo cmd;
+
+    PARSE_PERCENT("line", "X", lv[0], &cmd.x, boxW());
+    PARSE_PERCENT("line", "Y", lv[1], &cmd.y, boxH());
 
     out_queue_.enqueue(cmd);
 }
@@ -474,12 +230,11 @@ void UICanvas::m_rect(const AtomListView& lv)
     }
 
     draw::DrawRect cmd;
-    parser::NumericFullMatch p;
 
-    PARSE_PERCENT("rect", "X", lv[0], cmd.x, width());
-    PARSE_PERCENT("rect", "Y", lv[1], cmd.y, height());
-    PARSE_PERCENT("rect", "WIDTH", lv[2], cmd.w, width());
-    PARSE_PERCENT("rect", "HEIGHT", lv[3], cmd.h, height());
+    PARSE_PERCENT("rect", "X", lv[0], &cmd.x, boxW());
+    PARSE_PERCENT("rect", "Y", lv[1], &cmd.y, boxH());
+    PARSE_PERCENT("rect", "WIDTH", lv[2], &cmd.w, boxW());
+    PARSE_PERCENT("rect", "HEIGHT", lv[3], &cmd.h, boxH());
 
     out_queue_.enqueue(cmd);
 }
@@ -492,11 +247,10 @@ void UICanvas::m_circle(const AtomListView& lv)
     }
 
     draw::DrawCircle cmd;
-    parser::NumericFullMatch p;
 
-    PARSE_PERCENT("circle", "X", lv[0], cmd.x, width());
-    PARSE_PERCENT("circle", "Y", lv[1], cmd.y, height());
-    PARSE_PERCENT("circle", "RADIUS", lv[2], cmd.r, width());
+    PARSE_PERCENT("circle", "X", lv[0], &cmd.x, boxW());
+    PARSE_PERCENT("circle", "Y", lv[1], &cmd.y, boxH());
+    PARSE_PERCENT("circle", "RADIUS", lv[2], &cmd.r, boxW());
 
     out_queue_.enqueue(cmd);
 }
@@ -550,15 +304,14 @@ void UICanvas::m_translate(const AtomListView& lv)
     }
 
     draw::Translate cmd;
-    parser::NumericFullMatch p;
 
-    PARSE_PERCENT("translate", "X", lv[0], cmd.x, width());
-    PARSE_PERCENT("translate", "Y", lv[1], cmd.y, height());
+    PARSE_PERCENT("translate", "X", lv[0], &cmd.x, boxW());
+    PARSE_PERCENT("translate", "Y", lv[1], &cmd.y, boxH());
 
     out_queue_.enqueue(cmd);
 }
 
-void UICanvas::m_moveto(const AtomListView& lv)
+void UICanvas::m_move_to(const AtomListView& lv)
 {
     if (lv.size() != 2) {
         UI_ERR << "usage: line X Y";
@@ -566,10 +319,9 @@ void UICanvas::m_moveto(const AtomListView& lv)
     }
 
     draw::MoveTo cmd;
-    parser::NumericFullMatch p;
 
-    PARSE_PERCENT("moveto", "X", lv[0], cmd.x, width());
-    PARSE_PERCENT("moveto", "Y", lv[1], cmd.y, height());
+    PARSE_PERCENT("moveto", "X", lv[0], &cmd.x, boxW());
+    PARSE_PERCENT("moveto", "Y", lv[1], &cmd.y, boxH());
 
     out_queue_.enqueue(cmd);
 }
@@ -609,16 +361,15 @@ void UICanvas::m_curve(const AtomListView& lv)
     }
 
     draw::DrawCurve cmd;
-    parser::NumericFullMatch p;
 
-    PARSE_PERCENT("curve", "X0", lv[0], cmd.x0, width());
-    PARSE_PERCENT("curve", "Y0", lv[1], cmd.y0, height());
-    PARSE_PERCENT("curve", "X1", lv[2], cmd.x1, width());
-    PARSE_PERCENT("curve", "Y1", lv[3], cmd.y1, height());
-    PARSE_PERCENT("curve", "X2", lv[4], cmd.x2, width());
-    PARSE_PERCENT("curve", "Y2", lv[5], cmd.y2, height());
-    PARSE_PERCENT("curve", "X3", lv[6], cmd.x3, width());
-    PARSE_PERCENT("curve", "Y3", lv[7], cmd.y3, height());
+    PARSE_PERCENT("curve", "X0", lv[0], &cmd.x0, boxW());
+    PARSE_PERCENT("curve", "Y0", lv[1], &cmd.y0, boxH());
+    PARSE_PERCENT("curve", "X1", lv[2], &cmd.x1, boxW());
+    PARSE_PERCENT("curve", "Y1", lv[3], &cmd.y1, boxH());
+    PARSE_PERCENT("curve", "X2", lv[4], &cmd.x2, boxW());
+    PARSE_PERCENT("curve", "Y2", lv[5], &cmd.y2, boxH());
+    PARSE_PERCENT("curve", "X3", lv[6], &cmd.x3, boxW());
+    PARSE_PERCENT("curve", "Y3", lv[7], &cmd.y3, boxH());
 
     out_queue_.enqueue(cmd);
 }
@@ -638,7 +389,7 @@ void UICanvas::m_dash(const AtomListView& lv)
     out_queue_.enqueue(dash);
 }
 
-void UICanvas::m_moveby(const AtomListView& lv)
+void UICanvas::m_move_by(const AtomListView& lv)
 {
     static const args::ArgChecker chk("DX:f DY:f");
 
@@ -657,12 +408,12 @@ void UICanvas::m_update()
     worker_notify_.notifyOne();
 }
 
-void UICanvas::m_save()
+void UICanvas::m_ctx_save()
 {
     out_queue_.enqueue(draw::DrawSave());
 }
 
-void UICanvas::m_restore()
+void UICanvas::m_ctx_restore()
 {
     out_queue_.enqueue(draw::DrawRestore());
 }
@@ -789,6 +540,33 @@ void UICanvas::m_node(const AtomListView& lv)
     //    }
 }
 
+void UICanvas::m_polygon(const AtomListView& lv)
+{
+    if (lv.size() < 6 || (lv.size() & 0x1)) {
+        UI_ERR << fmt::format("invalid number of arguments ({}), usage: polygon X0 Y0 X1 Y1 ... XN YN", lv.size());
+        return;
+    }
+
+    auto w = boxW();
+    auto h = boxH();
+    draw::DrawPolygon cmd;
+    cmd.data.reserve(lv.size());
+
+    for (size_t i = 0; i < lv.size(); i++) {
+        auto& a = lv[i];
+        auto arg_name = (i & 1) ? "Y" : "X";
+        float res = 0;
+        if (!parsePercent("polygon", arg_name, a, &res, (i & 1) ? h : w)) {
+            UI_ERR << fmt::format("can't parse coord {} at {}: {}", arg_name, i, to_string(a));
+            return;
+        }
+
+        cmd.data.push_back(res);
+    }
+
+    out_queue_.enqueue(cmd);
+}
+
 bool UICanvas::notify()
 {
     DrawResult res;
@@ -826,6 +604,21 @@ void UICanvas::clearDrawQueue()
         ;
 }
 
+bool UICanvas::parsePercent(const char* methodName, const char* argName, const Atom& a, float* res, float total)
+{
+    parser::NumericFullMatch p;
+    if (!p.parseAs(a, parser::TYPE_PERCENT)) {
+        UI_ERR << fmt::format("[{}( can't parse {}: '{}'", methodName, argName, to_string(a));
+        return false;
+    } else {
+        *res = p.asFloat();
+        if (p.isPercent())
+            *res *= total;
+
+        return true;
+    }
+}
+
 void UICanvas::setup()
 {
     ceammc::UIObjectFactory<UICanvas> obj("ui.canvas", EBOX_GROWINDI);
@@ -838,20 +631,22 @@ void UICanvas::setup()
     obj.addMethod("circle", &UICanvas::m_circle);
     obj.addMethod("clear", &UICanvas::m_clear);
     obj.addMethod("color", &UICanvas::m_color);
+    obj.addMethod("ctx_restore", &UICanvas::m_ctx_restore);
+    obj.addMethod("ctx_save", &UICanvas::m_ctx_save);
     obj.addMethod("curve", &UICanvas::m_curve);
     obj.addMethod("dash", &UICanvas::m_dash);
     obj.addMethod("fill", &UICanvas::m_fill);
     obj.addMethod("font_size", &UICanvas::m_font_size);
     obj.addMethod("line", &UICanvas::m_line);
+    obj.addMethod("line_to", &UICanvas::m_line_to);
     obj.addMethod("line_cap", &UICanvas::m_line_cap);
     obj.addMethod("line_width", &UICanvas::m_line_width);
-    obj.addMethod("moveby", &UICanvas::m_moveby);
-    obj.addMethod("moveto", &UICanvas::m_moveto);
+    obj.addMethod("move_by", &UICanvas::m_move_by);
+    obj.addMethod("move_to", &UICanvas::m_move_to);
     obj.addMethod("node", &UICanvas::m_node);
+    obj.addMethod("polygon", &UICanvas::m_polygon);
     obj.addMethod("rect", &UICanvas::m_rect);
-    obj.addMethod("restore", &UICanvas::m_restore);
     obj.addMethod("rotate", &UICanvas::m_rotate);
-    obj.addMethod("save", &UICanvas::m_save);
     obj.addMethod("stroke", &UICanvas::m_stroke);
     obj.addMethod("text", &UICanvas::m_text);
     obj.addMethod("translate", &UICanvas::m_translate);

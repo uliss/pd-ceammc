@@ -18,27 +18,13 @@
 #include "ceammc_thread.h"
 #include "ceammc_ui_object.h"
 #include "readerwriterqueue.h"
+#include "ui_canvas_cairo.h"
 #include "ui_canvas_impl.h"
 
-#include <boost/variant.hpp>
-#include <cairo.h>
 #include <memory>
 #include <thread>
 
 using namespace ceammc;
-
-enum DrawResultType {
-    DRAW_RESULT_IMAGE,
-    DRAW_RESULT_DEBUG,
-    DRAW_RESULT_ERROR
-};
-
-struct DrawResult {
-    DrawResultType type;
-    std::string data;
-};
-using CairoContext = std::unique_ptr<cairo_t, void (*)(cairo_t*)>;
-using CairoSurface = std::unique_ptr<cairo_surface_t, void (*)(cairo_surface_t*)>;
 
 class UICanvas;
 class UINotify : public NotifiedObject {
@@ -51,7 +37,6 @@ public:
     bool notify(int code) final;
 };
 
-using UICanvasInQueue = moodycamel::ReaderWriterQueue<DrawResult>;
 using UICanvasOutQueue = moodycamel::ReaderWriterQueue<draw::DrawCommand>;
 
 class UICanvas : public UIObject {
@@ -83,15 +68,17 @@ public:
     void m_fill(const AtomListView& lv);
     void m_font_size(t_float sz);
     void m_line(const AtomListView& lv);
+    void m_line_to(const AtomListView& lv);
     void m_line_cap(const AtomListView& lv);
     void m_line_width(const AtomListView& lv);
-    void m_moveby(const AtomListView& lv);
-    void m_moveto(const AtomListView& lv);
+    void m_move_by(const AtomListView& lv);
+    void m_move_to(const AtomListView& lv);
     void m_node(const AtomListView& lv);
+    void m_polygon(const AtomListView& lv);
     void m_rect(const AtomListView& lv);
-    void m_restore();
+    void m_ctx_restore();
     void m_rotate(const AtomListView& lv);
-    void m_save();
+    void m_ctx_save();
     void m_stroke(const AtomListView& lv);
     void m_text(const AtomListView& lv);
     void m_translate(const AtomListView& lv);
@@ -104,6 +91,11 @@ public:
     static void setup();
     void clearDrawQueue();
     SubscriberId subscriberId() const { return reinterpret_cast<SubscriberId>(this); }
+
+private:
+    bool parsePercent(const char* methodName, const char* argName, const Atom& a, float* res, float total);
+    float boxW() const { return asEBox()->b_rect.width; }
+    float boxH() const { return asEBox()->b_rect.height; }
 };
 
 void setup_ui_canvas();

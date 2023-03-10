@@ -34,8 +34,16 @@ namespace draw {
         float x0, y0, x1, y1;
     };
 
+    struct DrawLineTo {
+        float x, y;
+    };
+
     struct DrawCurve {
         float x0, y0, x1, y1, x2, y2, x3, y3;
+    };
+
+    struct DrawPolygon {
+        std::vector<float> data;
     };
 
     struct DrawText {
@@ -117,7 +125,13 @@ namespace draw {
         float zoom;
     };
 
-    using DrawNextVariant = boost::variant<DrawSave, DrawCurve>;
+    using DrawNextVariant = boost::variant<
+        DrawSave,
+        DrawCurve,
+        DrawLineTo,
+        DrawPolygon
+        //
+        >;
 
     using DrawCommand = boost::variant<
         CreateImage,
