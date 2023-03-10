@@ -446,6 +446,29 @@ void UICanvas::m_rotate(const AtomListView& lv)
     out_queue_.enqueue(cmd);
 }
 
+void UICanvas::m_rpolygon(const AtomListView& lv)
+{
+    static const args::ArgChecker chk("X:a Y:a N:i>=3 RADIUS:f>0?");
+    if (!chk.check(lv, nullptr))
+        return chk.usage();
+
+    float x = 0, y = 0;
+    PARSE_PERCENT("rpolygon", "X", lv[0], &x, boxW());
+    PARSE_PERCENT("rpolygon", "Y", lv[1], &y, boxH());
+
+    draw::DrawPolygon cmd;
+    auto N = lv.intAt(2, 0);
+    auto R = lv.floatAt(3, std::min(boxH(), boxW()) * 0.5);
+
+    for (int i = 0; i < N; i++) {
+        float a = ((2 * M_PI) * i / N) + M_PI_2;
+        cmd.data.push_back(x + std::cos(a) * R);
+        cmd.data.push_back(y - std::sin(a) * R);
+    }
+
+    out_queue_.enqueue(cmd);
+}
+
 void UICanvas::m_font_size(t_float sz)
 {
     draw::SetFontSize c;
@@ -647,6 +670,7 @@ void UICanvas::setup()
     obj.addMethod("polygon", &UICanvas::m_polygon);
     obj.addMethod("rect", &UICanvas::m_rect);
     obj.addMethod("rotate", &UICanvas::m_rotate);
+    obj.addMethod("rpolygon", &UICanvas::m_rpolygon);
     obj.addMethod("stroke", &UICanvas::m_stroke);
     obj.addMethod("text", &UICanvas::m_text);
     obj.addMethod("translate", &UICanvas::m_translate);

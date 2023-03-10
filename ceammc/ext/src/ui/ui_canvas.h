@@ -78,6 +78,7 @@ public:
     void m_rect(const AtomListView& lv);
     void m_ctx_restore();
     void m_rotate(const AtomListView& lv);
+    void m_rpolygon(const AtomListView& lv);
     void m_ctx_save();
     void m_stroke(const AtomListView& lv);
     void m_text(const AtomListView& lv);
