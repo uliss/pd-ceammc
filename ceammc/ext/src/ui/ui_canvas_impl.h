@@ -34,6 +34,10 @@ namespace draw {
         float x0, y0, x1, y1;
     };
 
+    struct DrawCurve {
+        float x0, y0, x1, y1, x2, y2, x3, y3;
+    };
+
     struct DrawText {
         float x, y;
         std::string str;
@@ -113,6 +117,8 @@ namespace draw {
         float zoom;
     };
 
+    using DrawNextVariant = boost::variant<DrawSave, DrawCurve>;
+
     using DrawCommand = boost::variant<
         CreateImage,
         DrawBackground,
@@ -121,7 +127,6 @@ namespace draw {
         DrawLine,
         DrawRect,
         DrawRestore,
-        DrawSave,
         DrawStroke,
         DrawText,
         MoveBy,
@@ -133,7 +138,8 @@ namespace draw {
         SetLineCap,
         SetStrokeWidth,
         SyncImage,
-        Translate
+        Translate,
+        DrawNextVariant
 
         >;
 }

@@ -133,10 +133,23 @@ public:
     {
     }
 
+    void operator()(const draw::DrawNextVariant& n) const
+    {
+        n.apply_visitor(*this);
+    }
+
     void operator()(const draw::DrawCircle& c) const
     {
         if (ctx_)
             cairo_arc(ctx_.get(), c.x, c.y, c.r, 0, M_PI * 2);
+    }
+
+    void operator()(const draw::DrawCurve& c) const
+    {
+        if (ctx_) {
+            cairo_move_to(ctx_.get(), c.x0, c.y0);
+            cairo_curve_to(ctx_.get(), c.x1, c.y1, c.x2, c.y2, c.x3, c.y3);
+        }
     }
 
     void operator()(const draw::DrawRect& c) const
@@ -588,6 +601,28 @@ void UICanvas::m_color(const AtomListView& lv)
     }
 }
 
+void UICanvas::m_curve(const AtomListView& lv)
+{
+    if (lv.size() != 8) {
+        UI_ERR << "usage: line X0 Y0 X1 Y1 X2 Y2 X3 Y3";
+        return;
+    }
+
+    draw::DrawCurve cmd;
+    parser::NumericFullMatch p;
+
+    PARSE_PERCENT("curve", "X0", lv[0], cmd.x0, width());
+    PARSE_PERCENT("curve", "Y0", lv[1], cmd.y0, height());
+    PARSE_PERCENT("curve", "X1", lv[2], cmd.x1, width());
+    PARSE_PERCENT("curve", "Y1", lv[3], cmd.y1, height());
+    PARSE_PERCENT("curve", "X2", lv[4], cmd.x2, width());
+    PARSE_PERCENT("curve", "Y2", lv[5], cmd.y2, height());
+    PARSE_PERCENT("curve", "X3", lv[6], cmd.x3, width());
+    PARSE_PERCENT("curve", "Y3", lv[7], cmd.y3, height());
+
+    out_queue_.enqueue(cmd);
+}
+
 void UICanvas::m_dash(const AtomListView& lv)
 {
     static const args::ArgChecker chk("DASHES:i>=0{0,4}");
@@ -803,6 +838,7 @@ void UICanvas::setup()
     obj.addMethod("circle", &UICanvas::m_circle);
     obj.addMethod("clear", &UICanvas::m_clear);
     obj.addMethod("color", &UICanvas::m_color);
+    obj.addMethod("curve", &UICanvas::m_curve);
     obj.addMethod("dash", &UICanvas::m_dash);
     obj.addMethod("fill", &UICanvas::m_fill);
     obj.addMethod("font_size", &UICanvas::m_font_size);
