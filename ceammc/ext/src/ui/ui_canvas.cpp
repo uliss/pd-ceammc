@@ -577,6 +577,23 @@ void UICanvas::m_line_width(const AtomListView& lv)
     out_queue_.enqueue(c);
 }
 
+void UICanvas::m_matrix(const AtomListView& lv)
+{
+    static const args::ArgChecker chk("XX:f XY:f YY:f YX:f X0:f Y0:f");
+
+    if (!chk.check(lv, nullptr))
+        return chk.usage();
+
+    draw::SetMatrix cmd;
+    cmd.xx = lv.floatAt(0, 1);
+    cmd.xy = lv.floatAt(1, 1);
+    cmd.yy = lv.floatAt(2, 1);
+    cmd.yx = lv.floatAt(3, 1);
+    cmd.x0 = lv.floatAt(4, 1);
+    cmd.y0 = lv.floatAt(5, 1);
+    out_queue_.enqueue(cmd);
+}
+
 void UICanvas::m_node(const AtomListView& lv)
 {
     static const args::ArgChecker chk("X:f Y:f TEXT:s SHAPE:s? COLOR:s?");
@@ -742,6 +759,7 @@ void UICanvas::setup()
     obj.addMethod("line_cap", &UICanvas::m_line_cap);
     obj.addMethod("line_to", &UICanvas::m_line_to);
     obj.addMethod("line_width", &UICanvas::m_line_width);
+    obj.addMethod("matrix", &UICanvas::m_matrix);
     obj.addMethod("move_by", &UICanvas::m_move_by);
     obj.addMethod("move_to", &UICanvas::m_move_to);
     obj.addMethod("node", &UICanvas::m_node);

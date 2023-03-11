@@ -103,6 +103,15 @@ namespace draw {
         float r, g, b, a;
     };
 
+    struct SetMatrix {
+        float xx;
+        float yx;
+        float xy;
+        float yy;
+        float x0;
+        float y0;
+    };
+
     struct CreateImage {
         int w, h;
     };
@@ -141,7 +150,8 @@ namespace draw {
         DrawLineTo,
         DrawPolygon,
         DrawSave,
-        SetFont
+        SetFont,
+        SetMatrix
         //
         >;
 

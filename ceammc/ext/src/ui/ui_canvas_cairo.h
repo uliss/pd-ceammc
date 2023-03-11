@@ -111,10 +111,14 @@ public:
     void operator()(const draw::DrawBackground&) const
     {
         if (ctx_ && surface_) {
+            cairo_save(ctx_.get());
+            cairo_identity_matrix(ctx_.get());
+            cairo_scale(ctx_.get(), GLOBAL_SCALE, GLOBAL_SCALE);
             cairo_rectangle(ctx_.get(), 0, 0,
                 cairo_image_surface_get_width(surface_.get()),
                 cairo_image_surface_get_height(surface_.get()));
             cairo_fill(ctx_.get());
+            cairo_restore(ctx_.get());
         }
     }
 
@@ -185,6 +189,20 @@ public:
     {
         if (ctx_)
             cairo_set_source_rgba(ctx_.get(), c.r, c.g, c.b, c.a);
+    }
+
+    void operator()(const draw::SetMatrix& m) const
+    {
+        if (ctx_) {
+            cairo_matrix_t mtx;
+            mtx.x0 = m.x0;
+            mtx.y0 = m.y0;
+            mtx.xx = m.xx;
+            mtx.xy = m.xy;
+            mtx.yx = m.yx;
+            mtx.yy = m.yy;
+            cairo_set_matrix(ctx_.get(), &mtx);
+        }
     }
 
     void operator()(const draw::DrawSave&) const

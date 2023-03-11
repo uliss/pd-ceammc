@@ -73,6 +73,7 @@ public:
     void m_line_to(const AtomListView& lv);
     void m_line_cap(const AtomListView& lv);
     void m_line_width(const AtomListView& lv);
+    void m_matrix(const AtomListView& lv);
     void m_move_by(const AtomListView& lv);
     void m_move_to(const AtomListView& lv);
     void m_node(const AtomListView& lv);
