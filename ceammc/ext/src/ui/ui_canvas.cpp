@@ -61,6 +61,29 @@ inline cairo_line_cap_t sym2line_cap(t_symbol* s)
     }
 }
 
+inline bool set_font_options(t_symbol* s, draw::SetFont* res)
+{
+    if (strcmp(s->s_name, "italic") == 0) {
+        res->slant = CAIRO_FONT_SLANT_ITALIC;
+        return true;
+    } else if (strcmp(s->s_name, "bold") == 0) {
+        res->weight = CAIRO_FONT_WEIGHT_BOLD;
+        return true;
+    } else
+        return false;
+}
+
+inline cairo_font_weight_t sym2weight(t_symbol* s)
+{
+    switch (crc32_hash(s)) {
+    case "bold"_hash:
+        return CAIRO_FONT_WEIGHT_BOLD;
+    case "normal"_hash:
+    default:
+        return CAIRO_FONT_WEIGHT_NORMAL;
+    }
+}
+
 #define PARSE_PERCENT(method, arg, value, res, total)      \
     {                                                      \
         if (!parsePercent(method, arg, value, res, total)) \
@@ -178,6 +201,34 @@ void UICanvas::m_fill(const AtomListView& lv)
 
     out_queue_.enqueue(color);
     out_queue_.enqueue(draw::DrawFill(preserve));
+}
+
+void UICanvas::m_font(const AtomListView& lv)
+{
+    static const args::ArgChecker chk("FAMILY:s s=italic|bold? s=italic|bold?");
+
+    if (!chk.check(lv, nullptr))
+        return chk.usage();
+
+    draw::SetFont cmd;
+    cmd.slant = CAIRO_FONT_SLANT_NORMAL;
+    cmd.weight = CAIRO_FONT_WEIGHT_NORMAL;
+    cmd.family = lv.symbolAt(0, &s_)->s_name;
+    if (lv.size() > 1) {
+        if (!set_font_options(lv.symbolAt(1, &s_), &cmd)) {
+            UI_ERR << fmt::format("invalid font option: '{}', expected italic|bold", to_string(lv[1]));
+            return;
+        }
+    }
+
+    if (lv.size() > 2) {
+        if (!set_font_options(lv.symbolAt(2, &s_), &cmd)) {
+            UI_ERR << fmt::format("invalid font option: '{}', expected italic|bold", to_string(lv[2]));
+            return;
+        }
+    }
+
+    out_queue_.enqueue(cmd);
 }
 
 void UICanvas::m_line(const AtomListView& lv)
@@ -476,6 +527,31 @@ void UICanvas::m_font_size(t_float sz)
     out_queue_.enqueue(c);
 }
 
+void UICanvas::m_image(const AtomListView& lv)
+{
+    static const args::ArgChecker chk("X:a Y:a FILE:s SCALE:f>0?");
+    if (!chk.check(lv, nullptr))
+        return chk.usage();
+
+    float x = 0, y = 0;
+    PARSE_PERCENT("image", "X", lv[0], &x, boxW());
+    PARSE_PERCENT("image", "Y", lv[1], &y, boxH());
+    auto path = lv.symbolAt(2, &s_)->s_name;
+
+    auto full_path = platform::find_in_std_path(canvas(), path);
+    if (full_path.empty()) {
+        UI_ERR << fmt::format("can't find file: '{}'", path);
+        return;
+    }
+
+    draw::DrawImage cmd;
+    cmd.path = std::move(full_path);
+    cmd.scale = lv.floatAt(3, 1);
+    cmd.x = x;
+    cmd.y = y;
+    out_queue_.enqueue(cmd);
+}
+
 void UICanvas::m_background(const AtomListView& lv)
 {
     out_queue_.enqueue(draw::DrawBackground());
@@ -659,10 +735,12 @@ void UICanvas::setup()
     obj.addMethod("curve", &UICanvas::m_curve);
     obj.addMethod("dash", &UICanvas::m_dash);
     obj.addMethod("fill", &UICanvas::m_fill);
+    obj.addMethod("font", &UICanvas::m_font);
     obj.addMethod("font_size", &UICanvas::m_font_size);
+    obj.addMethod("image", &UICanvas::m_image);
     obj.addMethod("line", &UICanvas::m_line);
-    obj.addMethod("line_to", &UICanvas::m_line_to);
     obj.addMethod("line_cap", &UICanvas::m_line_cap);
+    obj.addMethod("line_to", &UICanvas::m_line_to);
     obj.addMethod("line_width", &UICanvas::m_line_width);
     obj.addMethod("move_by", &UICanvas::m_move_by);
     obj.addMethod("move_to", &UICanvas::m_move_to);

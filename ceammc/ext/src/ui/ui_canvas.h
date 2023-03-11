@@ -66,7 +66,9 @@ public:
     void m_curve(const AtomListView& lv);
     void m_dash(const AtomListView& lv);
     void m_fill(const AtomListView& lv);
+    void m_font(const AtomListView& lv);
     void m_font_size(t_float sz);
+    void m_image(const AtomListView& lv);
     void m_line(const AtomListView& lv);
     void m_line_to(const AtomListView& lv);
     void m_line_cap(const AtomListView& lv);

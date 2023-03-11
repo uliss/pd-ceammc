@@ -51,6 +51,11 @@ namespace draw {
         std::string str;
     };
 
+    struct DrawImage {
+        float x, y, scale;
+        std::string path;
+    };
+
     struct MoveTo {
         float x, y;
     };
@@ -83,6 +88,11 @@ namespace draw {
         static const size_t MAX_DASHES = 4;
         std::uint8_t dashes[MAX_DASHES] { 2, 0, 0, 0 };
         std::uint8_t n { 1 };
+    };
+
+    struct SetFont {
+        std::string family;
+        std::uint8_t slant, weight;
     };
 
     struct SetFontSize {
@@ -126,10 +136,12 @@ namespace draw {
     };
 
     using DrawNextVariant = boost::variant<
-        DrawSave,
         DrawCurve,
+        DrawImage,
         DrawLineTo,
-        DrawPolygon
+        DrawPolygon,
+        DrawSave,
+        SetFont
         //
         >;
 
@@ -153,8 +165,8 @@ namespace draw {
         SetStrokeWidth,
         SyncImage,
         Translate,
-        DrawNextVariant
 
+        DrawNextVariant //
         >;
 }
 }

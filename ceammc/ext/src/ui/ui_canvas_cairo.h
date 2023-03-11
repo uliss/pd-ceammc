@@ -19,6 +19,7 @@
 #include <memory>
 
 #include "ceammc_base64.h"
+#include "fmt/core.h"
 #include "readerwriterqueue.h"
 #include "ui_canvas_impl.h"
 
@@ -95,6 +96,18 @@ public:
         }
     }
 
+    void operator()(const draw::DrawImage& c) const
+    {
+        if (ctx_) {
+            CairoSurface img(cairo_image_surface_create_from_png(c.path.c_str()), &cairo_surface_destroy);
+            cairo_save(ctx_.get());
+            cairo_scale(ctx_.get(), c.scale, c.scale);
+            cairo_set_source_surface(ctx_.get(), img.get(), c.x, c.y);
+            cairo_paint(ctx_.get());
+            cairo_restore(ctx_.get());
+        }
+    }
+
     void operator()(const draw::DrawBackground&) const
     {
         if (ctx_ && surface_) {
@@ -152,6 +165,20 @@ public:
     {
         if (ctx_)
             cairo_set_font_size(ctx_.get(), sz.size);
+    }
+
+    void operator()(const draw::SetFont& ft) const
+    {
+        if (ctx_) {
+            auto fc = cairo_toy_font_face_create(ft.family.c_str(),
+                static_cast<cairo_font_slant_t>(ft.slant),
+                static_cast<cairo_font_weight_t>(ft.weight));
+
+            if (fc)
+                cairo_set_font_face(ctx_.get(), fc);
+            else
+                queue_.enqueue(DrawResult { DRAW_RESULT_ERROR, fmt::format("unknown font: {}", ft.family) });
+        }
     }
 
     void operator()(const draw::SetColorRGBA& c) const
