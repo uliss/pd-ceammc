@@ -84,11 +84,12 @@ TEST_CASE("rhythm.hexbeat", "[ceammc::music]")
     {
         TExt t("rhythm.hexbeat");
 
-        t << LA("1", "2");
-        REQUIRE(t.messagesAt(0).size() == 2);
-        REQUIRE(t.messagesAt(0).at(0).listValue() == LF(0, 0, 0, 1));
-        REQUIRE(t.messagesAt(0).at(1).listValue() == LF(0, 0, 1, 0));
-        REQUIRE_PROPERTY_LIST(t, @hex, LA("2"));
+        t << LA("1", "2", "3");
+        REQUIRE(t.messagesAt(0).size() == 3);
+        REQUIRE(t.messagesAt(0).at(0).listValue() == LF(0, 0, 0, 0, 1));
+        REQUIRE(t.messagesAt(0).at(1).listValue() == LF(1, 0, 0, 1, 0));
+        REQUIRE(t.messagesAt(0).at(2).listValue() == LF(2, 0, 0, 1, 1));
+        REQUIRE_PROPERTY_LIST(t, @hex, LA("3"));
     }
 
     SECTION("any")
