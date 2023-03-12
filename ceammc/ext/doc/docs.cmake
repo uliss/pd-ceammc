@@ -618,6 +618,7 @@ set(DOC_FILES
     replace
     rhythm.euclid
     rhythm.hexbeat
+    rhythm.lsystem
     risset.gliss
     route.any
     route.bang

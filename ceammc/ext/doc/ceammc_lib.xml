@@ -1616,6 +1616,9 @@
     <entry name="rhythm.hexbeat" descr="hexbeat pattern generator" ref_view="object">
       <xi:include href="rhythm.hexbeat.pddoc" parse="xml"/>
     </entry>
+    <entry name="rhythm.lsystem" descr="L-system pattern generator" ref_view="object">
+      <xi:include href="rhythm.lsystem.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="net">
     <entry name="net.artnet.send" descr="ArtNet DMX message sender" ref_view="object">

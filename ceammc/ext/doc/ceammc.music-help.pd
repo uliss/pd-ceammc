@@ -6,6 +6,8 @@
 #X text 200 116 euclid pattern generator;
 #X obj 30 143 rhythm.hexbeat;
 #X text 200 143 hexbeat pattern generator;
+#X obj 30 170 rhythm.lsystem;
+#X text 200 170 L-system pattern generator;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::music 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

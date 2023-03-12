@@ -14,7 +14,8 @@
   - proto.morse - morse encoder with specified speed and other settings
   - qrcode - QR code encoder
   - rhythm.hexbeat - hexbeat pattern generator
-  - rhythm.euclid - euclid pattern generator (using bresenham algorithm)
+  - rhythm.euclid - euclid pattern generator (using fast bresenham algorithm)
+  - rhythm.lsystem - L-system pattern generator
 - new object inlets:
   - fx.drone_box~ - second inlet added for setting resonance frequency
   - fx.notch~: second (freq) inlet added

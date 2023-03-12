@@ -881,6 +881,7 @@ loadmsg	send message when patch loads
 msg.sched	message scheduler
 rhythm.euclid	euclid pattern generator
 rhythm.hexbeat	hexbeat pattern generator
+rhythm.lsystem	L-system pattern generator
 net.artnet.send	ArtNet DMX message sender
 artnet.send	ArtNet DMX message sender
 net.host2ip	returns IP address by DNS name
