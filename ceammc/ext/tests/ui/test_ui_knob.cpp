@@ -50,6 +50,7 @@ TEST_CASE("ui.knob", "[ui.knob]")
         HAS_PROPERTY(t, "midi_pickup");
         HAS_PROPERTY(t, "send");
         HAS_PROPERTY(t, "receive");
+        HAS_PROPERTY(t, "nosave");
 
         REQUIRE_FALSE(t->hasProperty(gensym("not-exists")));
 
@@ -526,7 +527,7 @@ TEST_CASE("ui.knob", "[ui.knob]")
             "@knob_color", "@label", "@label_align", "@label_color",
             "@label_inner", "@label_margins", "@label_side", "@label_valign",
             "@max", "@midi_channel", "@midi_control",
-            "@midi_pickup", "@min", "@mouse_events", "@pinned", "@presetname", "@receive",
+            "@midi_pickup", "@min", "@mouse_events", "@nosave", "@pinned", "@presetname", "@receive",
             "@scale", "@scale_color", "@send", "@show_range", "@show_value", "@size", "@value");
         REQUIRE(props == desired);
 
