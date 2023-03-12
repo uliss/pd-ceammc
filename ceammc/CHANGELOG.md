@@ -7,12 +7,14 @@
   - array.tramp~ - triggered array ramp generator
   - conv.char2morse - single character to morse code converter
   - conv.color2rgba - color converter added from named or hex colors to separate RGBA values
+  - conv.rgb2hex - convert RGB separate values to #RRGGBB symbol
   - fx.overdrive~ - overdrive effect
   - metro.choice - randomly (uniformly) metronome time interval choice from specified set
   - metro.wchoice - weighted metronome time interval choice from specified set
   - proto.morse - morse encoder with specified speed and other settings
   - qrcode - QR code encoder
   - rhythm.hexbeat - hexbeat pattern generator
+  - rhythm.euclid - euclid pattern generator (using bresenham algorithm)
 - new object inlets:
   - fx.drone_box~ - second inlet added for setting resonance frequency
   - fx.notch~: second (freq) inlet added
