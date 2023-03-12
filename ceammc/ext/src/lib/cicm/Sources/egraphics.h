@@ -11,7 +11,7 @@
 #ifndef DEF_EGRAPHICS
 #define DEF_EGRAPHICS
 
-#include "ecommon.h"
+#include "edefine.h"
 
 #include <vector>
 

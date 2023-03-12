@@ -13,6 +13,7 @@
 #include "ceammc_crc32.h"
 #include "ceammc_impl.h"
 #include "ceammc_syms.h"
+#include "ecommon.h"
 #include "egraphics.h"
 #include "eobj.h"
 
