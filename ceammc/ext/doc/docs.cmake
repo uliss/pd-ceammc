@@ -601,6 +601,7 @@ set(DOC_FILES
     proto.midi.cc
     proto.midi.sysex
     proto.moppy
+    proto.morse
     proto.mpv
     proto.sp.alpaca
     proto.vlc

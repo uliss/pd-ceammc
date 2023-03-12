@@ -1002,6 +1002,7 @@ proto.midi	raw midi encoder/parser
 proto.midi.cc	raw midi CC encoder/parser
 proto.midi.sysex	raw midi SYSex encoder/parser
 proto.moppy	protocol for Musical flOPPY controller
+proto.morse	Morse encoder
 proto.mpv	mpv video player control
 proto.sp.alpaca	protocol parser for Arduino-based CEAMMC footswitch
 proto.vlc	VLC video player control over HTTP

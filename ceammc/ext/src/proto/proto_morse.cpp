@@ -38,6 +38,7 @@ ProtoMorse::ProtoMorse(const PdArgs& args)
     dot_space_ = new FloatProperty("@dot", 100);
     dot_space_->checkClosedRange(5, 1000);
     dot_space_->setArgIndex(0);
+    dot_space_->setUnitsMs();
     addProperty(dot_space_);
 
     word_space_ = new IntProperty("@word", 5);
@@ -81,6 +82,7 @@ void ProtoMorse::m_reset(t_symbol* s, const AtomListView& lv)
 {
     clock_.unset();
     queue_.clear();
+    floatTo(0, 0);
 }
 
 void ProtoMorse::processWord(const char* str)
@@ -155,4 +157,6 @@ bool ProtoMorse::popBit()
 void setup_proto_morse()
 {
     ObjectFactory<ProtoMorse> obj("proto.morse");
+    obj.addMethod("reset", &ProtoMorse::m_reset);
+    obj.setXletsInfo({ "list: add words to encoder", "bang: external clock" }, { "float: 1 or 0" });
 }

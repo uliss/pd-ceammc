@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="proto.morse">
+        <title>proto.morse</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Morse encoder</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>proto</category>
+            <keywords>morse proto</keywords>
+            <since>0.9.7</since>
+        </meta>
+        <arguments>
+            <argument name="DOT" type="float" units="millisecond" minvalue="5" maxvalue="1000">dot
+            length</argument>
+        </arguments>
+        <properties>
+            <property name="@dot" type="float" default="100" minvalue="5" maxvalue="1000"
+            units="millisecond">dot length</property>
+            <property name="@letter" type="int" default="3" minvalue="2" maxvalue="20">space
+            between letters in dot units</property>
+            <property name="@word" type="int" default="5" minvalue="2" maxvalue="20">space between
+            words in dot units</property>
+            <property name="@external" type="bool" default="0">use external clock</property>
+        </properties>
+        <methods>
+            <method name="reset">reset encoder</method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="list">add words to encoder</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="bang">external clock</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>float: 1 or 0</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[L]
+|
+| [reset(
+| |
+[proto.morse]
+|
+[lop~ 10] [osc~ 1000]
+|         |.
+[*~        ]
+|
+[ui.hgain~]      [ui.dsp~]
+|\
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

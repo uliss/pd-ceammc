@@ -22,14 +22,15 @@
     {conv {
         array.p2s array.s2p conv.amp2dbfs conv.amp2dbfs~ conv.bits2bang
         conv.bits2int conv.bits2note conv.bits2pos conv.bpm2hz conv.bpm2ms
-        conv.bpm2sec conv.car2pol conv.cc2amp conv.color2rgba conv.dbfs2amp
-        conv.dbfs2amp~ conv.degree2key conv.edge2bang conv.hex2int
-        conv.int2bits conv.lin2curve conv.lin2exp conv.lin2lin conv.lin2lin~
-        conv.list2props conv.midi2freq conv.ms2bpm conv.ms2samp conv.ms2samp~
-        conv.note2guido conv.phase2rad conv.phase2rad~ conv.pitch2midi
-        conv.pol2car conv.rad2phase conv.rad2phase~ conv.rgb2hex conv.samp2ms
-        conv.samp2ms~ conv.samp2sec conv.sec2bpm conv.sec2samp conv.sec2str
-        conv.sig2float~ conv.str2sec music.dur2time music.voice2midi
+        conv.bpm2sec conv.car2pol conv.cc2amp conv.char2morse conv.color2rgba
+        conv.dbfs2amp conv.dbfs2amp~ conv.degree2key conv.edge2bang
+        conv.hex2int conv.int2bits conv.lin2curve conv.lin2exp conv.lin2lin
+        conv.lin2lin~ conv.list2props conv.midi2freq conv.ms2bpm conv.ms2samp
+        conv.ms2samp~ conv.note2guido conv.phase2rad conv.phase2rad~
+        conv.pitch2midi conv.pol2car conv.rad2phase conv.rad2phase~
+        conv.rgb2hex conv.samp2ms conv.samp2ms~ conv.samp2sec conv.sec2bpm
+        conv.sec2samp conv.sec2str conv.sig2float~ conv.str2sec music.dur2time
+        music.voice2midi
     }}
     {data {
         data.copy data.dict data.fifo data.float data.int data.list data.mlist
@@ -187,8 +188,8 @@
     }}
     {proto {
         proto.feelworld proto.firmata proto.inscore proto.midi proto.midi.cc
-        proto.midi.sysex proto.moppy proto.mpv proto.sp.alpaca proto.vlc
-        proto.whammy proto.xtouch_ext
+        proto.midi.sysex proto.moppy proto.morse proto.mpv proto.sp.alpaca
+        proto.vlc proto.whammy proto.xtouch_ext
     }}
     {random {
         random.atom random.discrete random.float random.gauss random.int

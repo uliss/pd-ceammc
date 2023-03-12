@@ -1913,6 +1913,9 @@
     <entry name="proto.moppy" descr="protocol for Musical flOPPY controller" ref_view="object">
       <xi:include href="proto.moppy.pddoc" parse="xml"/>
     </entry>
+    <entry name="proto.morse" descr="Morse encoder" ref_view="object">
+      <xi:include href="proto.morse.pddoc" parse="xml"/>
+    </entry>
     <entry name="proto.mpv" descr="mpv video player control" ref_view="object">
       <xi:include href="proto.mpv.pddoc" parse="xml"/>
     </entry>
