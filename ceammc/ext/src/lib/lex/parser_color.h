@@ -21,6 +21,7 @@
 #include <boost/container/small_vector.hpp>
 
 #include "ceammc_atomlist_view.h"
+#include "ceammc_convert.h"
 
 namespace ceammc {
 namespace parser {
@@ -78,7 +79,7 @@ namespace parser {
         RgbHexFullMatch();
         void reset();
 
-        t_float asPdColor() const;
+        t_float asPdColor() const { return convert::color::rgb2pd(color_.r, color_.g, color_.b); }
         std::uint8_t red() const { return color_.r; }
         std::uint8_t green() const { return color_.g; }
         std::uint8_t blue() const { return color_.b; }
@@ -166,7 +167,7 @@ namespace parser {
         ColorFullMatch();
         void reset();
 
-        t_float asPdColor() const;
+        t_float asPdColor() const { return convert::color::rgb2pd(color_.r, color_.g, color_.b); }
         std::uint8_t red() const { return color_.r; }
         std::uint8_t green() const { return color_.g; }
         std::uint8_t blue() const { return color_.b; }

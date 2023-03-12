@@ -18,7 +18,6 @@
 
 CEAMMC_DEFINE_SYM_HASH(int);
 CEAMMC_DEFINE_SYM_HASH(float);
-CEAMMC_DEFINE_SYM_HASH(pd);
 
 ConvColor2RGBA::ConvColor2RGBA(const PdArgs& args)
     : BaseObject(args)
@@ -29,7 +28,7 @@ ConvColor2RGBA::ConvColor2RGBA(const PdArgs& args)
     createOutlet();
     createOutlet();
 
-    mode_ = new SymbolEnumProperty("@mode", { str_int, str_float, str_pd });
+    mode_ = new SymbolEnumProperty("@mode", { str_int, str_float });
     addProperty(mode_);
 
     addProperty(new SymbolEnumAlias("@int", mode_, sym_int()));
@@ -56,9 +55,6 @@ void ConvColor2RGBA::onSymbol(t_symbol* s)
         floatTo(2, parser_.norm_blue());
         floatTo(1, parser_.norm_green());
         floatTo(0, parser_.norm_red());
-        break;
-    case hash_pd:
-        //        floatTo(0, parser_.asPdColor());
         break;
     default:
         OBJ_ERR << fmt::format("invalid mode: '{}'", mode_->value()->s_name);

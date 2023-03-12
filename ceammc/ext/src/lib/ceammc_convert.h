@@ -209,6 +209,14 @@ namespace convert {
         float str2sec(const std::string& str, float def = 0.f);
     }
 
+    namespace color {
+        static inline int rgb2pd(int r, int g, int b)
+        {
+            return -(r * 65536 + g * 256 + b + 1);
+        }
+
+    }
+
     template <class T>
     T lin2lin(T v, T x0, T x1, T y0, T y1)
     {

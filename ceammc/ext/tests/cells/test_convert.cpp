@@ -12,7 +12,6 @@
  * this file belongs to.
  *****************************************************************************/
 #include "catch.hpp"
-#include "ceammc.h"
 #include "ceammc_convert.h"
 
 #include <cmath>
@@ -753,5 +752,16 @@ TEST_CASE("convert", "[PureData]")
         REQUIRE(normalizeIndex(4, 3) == 1);
         REQUIRE(normalizeIndex(5, 3) == 2);
         REQUIRE(normalizeIndex(6, 3) == 0);
+    }
+
+    SECTION("color")
+    {
+        using namespace ceammc::convert::color;
+        REQUIRE(rgb2pd(0, 0, 0) == -1);
+        REQUIRE(rgb2pd(0, 0, 1) == -2);
+        REQUIRE(rgb2pd(0, 0, 2) == -3);
+
+        REQUIRE(rgb2pd(0, 1, 0) == -257);
+        REQUIRE(rgb2pd(0, 2, 0) == -513);
     }
 }
