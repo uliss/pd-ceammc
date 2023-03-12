@@ -90,7 +90,7 @@
 |          |
 |          |  [invert( [clear(
 |          |  |        |
-[ui.lcd @size 120 120  ]
+[ui.lcd @size 120 120 @nosave 1]
 
 
 

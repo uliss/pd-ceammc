@@ -865,6 +865,8 @@ struct t_ebox {
     int label_inner;
     int label_margins[2];
 
+    int no_save;
+
     t_edrawparams b_boxparameters; /*!< The ebox parameters. */
 
     bool b_mouse_down; /*!< The mouse state. */

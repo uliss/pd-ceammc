@@ -158,6 +158,7 @@ void eclass_guiinit(t_eclass* c, long /*flags*/)
     CLASS_ATTR_SYMBOL(c, "label_align", t_ebox, label_align);
     CLASS_ATTR_SYMBOL(c, "label_valign", t_ebox, label_valign);
     CLASS_ATTR_INT_ARRAY(c, "label_margins", t_ebox, label_margins, 2);
+    CLASS_ATTR_INT(c, "nosave", t_ebox, no_save);
 
     CLASS_ATTR_DEFAULT(c, "size", "100. 100.");
     CLASS_ATTR_FILTER_MIN(c, "size", 4);
@@ -268,6 +269,10 @@ void eclass_guiinit(t_eclass* c, long /*flags*/)
     CLASS_ATTR_CATEGORY(c, "label_margins", _("Label"));
     CLASS_ATTR_LABEL(c, "label_margins", _("Margins"));
     CLASS_ATTR_ACCESSORS(c, "label_margins", NULL, ebox_set_label_margins);
+
+    CLASS_ATTR_DEFAULT(c, "nosave", "0");
+    CLASS_ATTR_SAVE(c, "nosave");
+    eclass_attr_set_visibility(c, "nosave", ceammc::PropValueVis::INTERNAL);
 
     // GUI always need this methods //
     t_class* cc = &c->c_class;
@@ -1490,7 +1495,7 @@ int eclass_attr_setter(t_object* x, t_symbol* s, int argc, t_atom* argv)
         }
 
         // mark as changed for gui objects
-        if (attr->save && eobj_isbox(&z->b_obj) && ebox_isdrawable(z))
+        if (attr->save && eobj_isbox(&z->b_obj) && ebox_isdrawable(z) && !z->no_save)
             canvas_dirty(eobj_getcanvas(&z->b_obj), 1);
 
         return 1;

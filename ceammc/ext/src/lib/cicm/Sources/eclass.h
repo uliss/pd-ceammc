@@ -383,8 +383,6 @@ std::pair<int, int> eclass_tcl_version();
 #define CLASS_ATTR_SAVE(c, name) eclass_attr_save(c, name)
 //! Macros that define the paint behavior of the attributes
 #define CLASS_ATTR_PAINT(c, name) eclass_attr_paint(c, name)
-//! Macros that define the visible behavior of the attributes
-#define CLASS_ATTR_INVISIBLE(c, name) eclass_attr_invisible(c, name)
 //! Macros that define the setter and getter of the attributes
 #define CLASS_ATTR_ACCESSORS(c, name, getter, setter) eclass_attr_accessor(c, name, getter, setter)
 //! Macros that define the items list of the attributes
