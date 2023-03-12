@@ -141,8 +141,8 @@
         midi.track midi.tuning midi.vramp midi.vrand
     }}
     {misc {
-        click~ fluid~ modplug~ risset.gliss sfizz~ speech.flite speech.flite~
-        speech.rhvoice~
+        click~ fluid~ modplug~ qrcode risset.gliss sfizz~ speech.flite
+        speech.flite~ speech.rhvoice~
     }}
     {msg {
         loadexpr msg msg.after msg.onload msg.sched
