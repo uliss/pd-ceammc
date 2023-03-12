@@ -3,20 +3,21 @@
 ## [Unreleased]
 ### Added:
 - new objects:
-  - fx.overdrive~ - overdrive effect
-  - rhythm.hexbeat - hexbeat pattern generator
-  - array.tramp~ - triggered array ramp generator
   - array.readwrite~ - ordered array reader/writer (read first, then write)
+  - array.tramp~ - triggered array ramp generator
   - conv.char2morse - single character to morse code converter
-  - proto.morse - morse encoder with specified speed and other settings
+  - conv.color2rgba - color converter added from named or hex colors to separate RGBA values
+  - fx.overdrive~ - overdrive effect
   - metro.choice - randomly (uniformly) metronome time interval choice from specified set
   - metro.wchoice - weighted metronome time interval choice from specified set
+  - proto.morse - morse encoder with specified speed and other settings
+  - rhythm.hexbeat - hexbeat pattern generator
 - new object inlets:
-  - metro.seq - second inlet added to set interval and third inlet to set pattern
-  - metro.pattern - second inlet added to set pattern
-  - metro.random - third inlet added to set max property
   - fx.drone_box~ - second inlet added for setting resonance frequency
   - fx.notch~: second (freq) inlet added
+  - metro.pattern - second inlet added to set pattern
+  - metro.random - third inlet added to set max property
+  - metro.seq - second inlet added to set interval and third inlet to set pattern
 - new object methods:
   - euclid method added to ui.radio to set euclid pattern when in checklist mode
   - hexbeat method added to ui.radio to set hexbeat pattern when in checklist mode
@@ -28,9 +29,9 @@
   - @punct added to rhvoice~, to specify pronounced characters
 - new init argument functions:
   - hexbeat(HEX) - expand hex to list of 1 and 0
+  - ones(N) - list of length N, filled with 1
   - rotate(N ...) - list rotation (N>0: to the left)
   - sort(...) - sort list in ascending order
-  - ones(N) - list of length N, filled with 1
   - zeros(N) - list of length N, filled with 0
 
 ### Changes:
