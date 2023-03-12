@@ -23,6 +23,7 @@ ceammc_conv_external(bpm2ms)
 ceammc_conv_external(bpm2sec)
 ceammc_conv_external(cc2amp)
 ceammc_conv_external(char2morse)
+ceammc_conv_external(color2rgba)
 ceammc_conv_external(dbfs2amp)
 ceammc_conv_external(degree2key)
 ceammc_conv_external(edge2bang)
@@ -47,4 +48,8 @@ ceammc_conv_external(sig2float)
 ceammc_conv_external(str2sec)
 
 add_library(ceammc_conv STATIC  ${CONV_SOURCES})
-target_include_directories(ceammc_conv PRIVATE ${PROJECT_SOURCE_DIR}/src)
+target_include_directories(ceammc_conv
+    PRIVATE ${PROJECT_SOURCE_DIR}/src
+            "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>"
+
+)

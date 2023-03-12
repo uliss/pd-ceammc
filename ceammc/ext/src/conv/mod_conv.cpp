@@ -25,6 +25,7 @@ void setup_conv_sec2bpm();
 void setup_conv_sec2samp();
 
 void setup_conv_angles();
+void setup_conv_color2rgba();
 
 void setup_conv_lin2curve();
 void setup_conv_lin2exp();
@@ -63,6 +64,8 @@ void ceammc_conv_setup()
 
     setup_conv_amp2dbfs();
     setup_conv_dbfs2amp();
+
+    setup_conv_color2rgba();
 
     setup_conv_cc2amp();
     setup_conv_pitch2midi();
