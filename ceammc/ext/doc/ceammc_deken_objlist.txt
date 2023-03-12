@@ -213,6 +213,9 @@ rad->phase	convert radians value to phase
 conv.rad2phase~	convert radians value to phase
 ceammc/rad->phase~	convert radians value to phase
 rad->phase~	convert radians value to phase
+conv.rgb2hex	convert separate RGB values to hex color
+ceammc/rgb->hex	convert separate RGB values to hex color
+rgb->hex	convert separate RGB values to hex color
 conv.samp2ms	convert samples to time according to samplerate
 ceammc/samp->ms	convert samples to time according to samplerate
 samp->ms	convert samples to time according to samplerate

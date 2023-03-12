@@ -80,6 +80,7 @@ set(DOC_FILES
     conv.pol2car
     conv.rad2phase
     conv.rad2phase~
+    conv.rgb2hex
     conv.samp2ms
     conv.samp2ms~
     conv.samp2sec

@@ -80,6 +80,7 @@ conv.pitch2midi,ceammc/pitch->midi,pitch->midi		.		.
 conv.pol2car,ceammc/pol->car,pol->car		.		.
 conv.rad2phase,ceammc/rad->phase,rad->phase		.		.
 conv.rad2phase~,ceammc/rad->phase~,rad->phase~		~		~
+conv.rgb2hex,ceammc/rgb->hex,rgb->hex		...		.
 conv.samp2ms,ceammc/samp->ms,samp->ms		.		.
 conv.samp2ms~,ceammc/samp->ms~,samp->ms~		~		~
 conv.samp2sec,ceammc/samp->sec,samp->sec		.		.

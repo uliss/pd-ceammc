@@ -225,6 +225,7 @@ ceammc/radio
 ceammc/reject
 ceammc/reject_if
 ceammc/replace
+ceammc/rgb->hex
 ceammc/rhvoice~
 ceammc/round
 ceammc/round~
@@ -315,6 +316,7 @@ conv.pitch2midi
 conv.pol2car
 conv.rad2phase
 conv.rad2phase~
+conv.rgb2hex
 conv.samp2ms
 conv.samp2ms~
 conv.samp2sec
@@ -1017,6 +1019,7 @@ random.pw_lin
 reject
 reject_if
 replace
+rgb->hex
 rhvoice~
 rhythm.euclid
 rhythm.hexbeat

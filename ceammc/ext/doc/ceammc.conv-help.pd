@@ -77,29 +77,31 @@ to current samplerate;
 #X text 200 1073 convert radians value to phase;
 #X obj 30 1100 conv.rad2phase~;
 #X text 200 1100 convert radians value to phase;
-#X obj 30 1127 conv.samp2ms;
-#X text 200 1127 convert samples to time according to samplerate;
-#X obj 30 1154 conv.samp2ms~;
-#X text 200 1154 convert samples to milliseconds according to samplerate;
-#X obj 30 1181 conv.samp2sec;
-#X text 200 1181 convert samples to time according to samplerate;
-#X obj 30 1208 conv.sec2bpm;
-#X text 200 1208 convert period in seconds to frequency in BPM;
-#X obj 30 1235 conv.sec2samp;
-#X text 200 1235 convert time in seconds to number of samples according
+#X obj 30 1127 conv.rgb2hex;
+#X text 200 1127 convert separate RGB values to hex color;
+#X obj 30 1154 conv.samp2ms;
+#X text 200 1154 convert samples to time according to samplerate;
+#X obj 30 1181 conv.samp2ms~;
+#X text 200 1181 convert samples to milliseconds according to samplerate;
+#X obj 30 1208 conv.samp2sec;
+#X text 200 1208 convert samples to time according to samplerate;
+#X obj 30 1235 conv.sec2bpm;
+#X text 200 1235 convert period in seconds to frequency in BPM;
+#X obj 30 1262 conv.sec2samp;
+#X text 200 1262 convert time in seconds to number of samples according
 to current samplerate;
-#X obj 30 1275 conv.sec2str;
-#X text 200 1275 converts float time in seconds to formated symbol
+#X obj 30 1302 conv.sec2str;
+#X text 200 1302 converts float time in seconds to formated symbol
 (or string);
-#X obj 30 1302 conv.sig2float~;
-#X text 200 1302 convert signal to floats;
-#X obj 30 1329 conv.str2sec;
-#X text 200 1329 converts formatted time to float value in seconds;
-#X obj 30 1356 music.dur2time;
-#X text 200 1356 convert duration list to time;
-#X obj 30 1383 music.voice2midi;
-#X text 200 1383 convert voice music list of midi pitches;
+#X obj 30 1329 conv.sig2float~;
+#X text 200 1329 convert signal to floats;
+#X obj 30 1356 conv.str2sec;
+#X text 200 1356 converts formatted time to float value in seconds;
+#X obj 30 1383 music.dur2time;
+#X text 200 1383 convert duration list to time;
+#X obj 30 1410 music.voice2midi;
+#X text 200 1410 convert voice music list of midi pitches;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::conv 20 20 0 20 -104026
 -4096 0;
-#X obj 1 1410 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 1420 library: ceammc;
+#X obj 1 1437 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 1447 library: ceammc;

@@ -309,6 +309,9 @@
     <entry name="conv.rad2phase~" descr="convert radians value to phase" ref_view="object">
       <xi:include href="conv.rad2phase~.pddoc" parse="xml"/>
     </entry>
+    <entry name="conv.rgb2hex" descr="convert separate RGB values to hex color" ref_view="object">
+      <xi:include href="conv.rgb2hex.pddoc" parse="xml"/>
+    </entry>
     <entry name="conv.samp2ms" descr="convert samples to time according to samplerate" ref_view="object">
       <xi:include href="conv.samp2ms.pddoc" parse="xml"/>
     </entry>

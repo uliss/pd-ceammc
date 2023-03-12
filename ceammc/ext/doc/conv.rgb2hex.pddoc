@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="conv.rgb2hex">
+        <title>conv.rgb2hex</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>convert separate RGB values to hex color</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>conv</category>
+            <keywords>conv color hex rgb rgba</keywords>
+            <since>0.9.7</since>
+            <aliases>
+                <alias>ceammc/rgb-&gt;hex</alias>
+                <alias>rgb-&gt;hex</alias>
+            </aliases>
+        </meta>
+        <properties>
+            <property name="@mode" type="symbol" default="int" enum="int float">input
+            mode</property>
+            <property name="@int" type="alias">alias to @mode int. Expected input values are in [0-255]
+            range</property>
+            <property name="@float" type="alias">alias to @mode float. Expected input values are in [0-1]
+            range</property>
+            <property name="@sync" type="flag">output value on any inlet change</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="int">red channel value in [0-255] range</xinfo>
+                <xinfo on="float">red channel value in [0-1] range</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="int">green channel value in [0-255] range</xinfo>
+                <xinfo on="float">green channel value in [0-1] range</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="int">blue channel value in [0-255] range</xinfo>
+                <xinfo on="float">blue channel value in [0-1] range</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>symbol: #RRGGBB color value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[ui.hsl]
+|
+|       [ui.hsl]
+|       |
+|       |      [ui.hsl]
+|       |.     |..
+[rgb->hex @sync @float]
+|
+[color $1 0 -1(
+|
+[bng]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
