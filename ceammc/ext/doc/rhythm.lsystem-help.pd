@@ -19,7 +19,7 @@
 #X obj 414 234 click~;
 #X msg 88 262 @nitems \$1 \, @size 150 15;
 #X obj 414 262 flt.resonlp~ 1000 40;
-#X obj 50 291 ui.hrd*;
+#X obj 50 291 ui.hrd* @nosave 1;
 #X obj 414 291 ui.hgain~;
 #X obj 50 320 s lsys;
 #X obj 414 320 dac~;
