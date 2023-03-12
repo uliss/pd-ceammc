@@ -57,6 +57,40 @@ void ConvRgb2Hex::onFloat(t_float f)
     }
 }
 
+void ConvRgb2Hex::onList(const AtomListView& lv)
+{
+    if (lv.size() == 0 || lv.size() > 3) {
+        OBJ_ERR << fmt::format("R G B list expected, got: {}", to_string(lv));
+        return;
+    }
+
+    switch (crc32_hash(mode_->value())) {
+    case hash_int:
+
+        r_ = clip<t_float, 0, 255>(std::round(lv.floatAt(0, 0)));
+        if (lv.size() > 1)
+            g_ = clip<t_float, 0, 255>(std::round(lv.floatAt(1, 0)));
+        if (lv.size() > 2)
+            b_ = clip<t_float, 0, 255>(std::round(lv.floatAt(2, 0)));
+
+        outputInt();
+        break;
+    case hash_float:
+
+        r_ = clip01(lv.floatAt(0, 0));
+        if (lv.size() > 1)
+            g_ = clip01(lv.floatAt(1, 0));
+        if (lv.size() > 2)
+            b_ = clip01(lv.floatAt(2, 0));
+
+        outputFloat();
+        break;
+    default:
+        OBJ_ERR << fmt::format("invalid mode: '{}'", mode_->value()->s_name);
+        return;
+    }
+}
+
 void ConvRgb2Hex::onInlet(size_t n, const AtomListView& lv)
 {
     if (!lv.isFloat()) {

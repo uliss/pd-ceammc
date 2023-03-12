@@ -27,6 +27,7 @@ public:
     ConvRgb2Hex(const PdArgs& args);
 
     void onFloat(t_float f) override;
+    void onList(const AtomListView& lv) override;
     void onInlet(size_t n, const AtomListView& lv) override;
 
 private:
