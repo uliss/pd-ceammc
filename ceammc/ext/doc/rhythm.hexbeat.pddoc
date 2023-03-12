@@ -24,7 +24,7 @@
             <inlet>
                 <xinfo on="bang">output last pattern</xinfo>
                 <xinfo on="symbol">set new pattern and output</xinfo>
-                <xinfo on="list">output for each list argument</xinfo>
+                <xinfo on="list">output enumerated patterns for each list argument</xinfo>
             </inlet>
             <inlet>
                 <xinfo on="symbol">set new pattern</xinfo>
@@ -51,6 +51,19 @@
 [ui.hrd*]                       [ui.hgain~]
 |                               |\
 [s hexpat]                      [dac~]
+
+[rhythm.hexbeat.list]
+]]>
+            </pdascii>
+            <pdascii id="list">
+<![CDATA[
+[list \#1 \#2 \#4 \#8(
+|
+[rhythm.hexbeat]
+|
+[msg set row]
+|
+[ui.matrix 4 4]
 ]]>
             </pdascii>
         </example>

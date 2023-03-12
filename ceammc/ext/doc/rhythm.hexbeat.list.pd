@@ -1,0 +1,8 @@
+#N canvas 0 0 640 328 12;
+#X msg 20 48 list #1 #2 #4 #8;
+#X obj 20 77 rhythm.hexbeat;
+#X obj 20 106 msg set row;
+#X obj 20 135 ui.matrix 4 4;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
+#X connect 2 0 3 0;

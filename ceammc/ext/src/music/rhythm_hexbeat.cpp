@@ -47,9 +47,19 @@ void RhythmHexBeat::onSymbol(t_symbol* s)
 
 void RhythmHexBeat::onList(const AtomListView& lv)
 {
+    AtomList output;
+    output.push_back(Atom(0.));
+
+    int i = 0;
     for (auto& a : lv) {
-        if (a.isSymbol())
-            onSymbol(a.asT<t_symbol*>());
+        output[0] = i++;
+
+        if (a.isSymbol() && hex_->setValue(a.asT<t_symbol*>())) {
+            updatePattern();
+            output.append(pattern_);
+            listTo(0, output);
+            output.resizeClip(1);
+        }
     }
 }
 
@@ -78,7 +88,7 @@ void setup_rhythm_hexbeat()
     ObjectFactory<RhythmHexBeat> obj("rhythm.hexbeat");
     obj.setXletsInfo({ "bang: output last pattern\n"
                        "symbol: set new pattern and output\n"
-                       "list: output for each list argument",
+                       "list: output enumerated for each list argument",
                          "symbol: set new pattern" },
         { "list: 1 and 0 pattern" });
 
