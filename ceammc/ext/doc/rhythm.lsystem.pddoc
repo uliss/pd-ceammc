@@ -17,11 +17,13 @@
             <argument name="INIT" type="list">init pattern</argument>
         </arguments>
         <properties>
-            <property name="@init" type="list" default="" access="readwrite">init pattern value</property>
-            <property name="@value" type="list" default="" access="readonly">current pattern value</property>
+            <property name="@init" type="list" default="" access="readwrite">init pattern
+            value</property>
+            <property name="@value" type="list" default="" access="readonly">current pattern
+            value</property>
             <property name="@rule" type="atom">generation rule dict</property>
-            <property name="@max" type="int" minvalue="1" maxvalue="32768" default="256">
-            max generated pattern length</property>
+            <property name="@max" type="int" minvalue="1" maxvalue="32768" default="256">max
+            generated pattern length</property>
         </properties>
         <methods>
             <method name="reset">reset to init state</method>
