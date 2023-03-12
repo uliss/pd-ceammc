@@ -617,6 +617,7 @@ set(DOC_FILES
     random.pw_lin
     replace
     rhythm.euclid
+    rhythm.hexbeat
     risset.gliss
     route.any
     route.bang

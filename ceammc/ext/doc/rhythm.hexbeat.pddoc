@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="rhythm.hexbeat">
+        <title>rhythm.hexbeat</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>hexbeat pattern generator</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>music</category>
+            <keywords>conv rhythm hexbeat</keywords>
+            <since>0.9.7</since>
+        </meta>
+        <arguments>
+            <argument name="HEX" type="symbol">init pattern value</argument>
+        </arguments>
+        <properties>
+            <property name="@pattern" type="list" default="" access="readonly">list pattern</property>
+            <property name="@hex" type="symbol" default="">hex pattern</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">output last pattern</xinfo>
+                <xinfo on="symbol">set new pattern and output</xinfo>
+                <xinfo on="list">output for each list argument</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="symbol">set new pattern</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>list output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B] [S digits=10]               [T]
+|   |                           |
+|   |                           [metro.pattern 100] [r hexpat]
+|   |                           |                   |
+[rhythm.hexbeat \#D1]           [list.walk @fold     ]
+|                               |
+[t l l]                         [sel 1]
+|   ^|                          |
+|   [list.size]                 [click~]
+|   |                           |
+|   [@nitems $1, @size 150 15(  [flt.resonlp~ 1000 40]
+|   |                           |
+[ui.hrd*]                       [ui.hgain~]
+|                               |\
+[s hexpat]                      [dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

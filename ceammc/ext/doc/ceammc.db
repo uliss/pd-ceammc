@@ -617,6 +617,7 @@ random.pw_const		.		.
 random.pw_lin		.		.
 replace,ceammc/replace		...		.
 rhythm.euclid		...		.
+rhythm.hexbeat		..		.
 risset.gliss		.		..
 route.any		.		..
 route.bang,route.b		.		..

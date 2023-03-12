@@ -148,7 +148,7 @@
         loadexpr msg msg.after msg.onload msg.sched
     }}
     {music {
-        rhythm.euclid
+        rhythm.euclid rhythm.hexbeat
     }}
     {net {
         net.artnet.send net.host2ip net.http.send net.osc.receive net.osc.send
