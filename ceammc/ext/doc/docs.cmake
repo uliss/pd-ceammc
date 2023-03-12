@@ -604,6 +604,7 @@ set(DOC_FILES
     proto.vlc
     proto.whammy
     proto.xtouch_ext
+    qrcode
     radio
     random.atom
     random.discrete

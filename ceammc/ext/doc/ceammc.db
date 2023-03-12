@@ -604,6 +604,7 @@ proto.sp.alpaca		.		.
 proto.vlc		.		..
 proto.whammy		.		.
 proto.xtouch_ext		.		..
+qrcode,ceammc/qrcode		.		..
 radio,ceammc/radio		.		?
 random.atom,random.a		..		.
 random.discrete		.		.

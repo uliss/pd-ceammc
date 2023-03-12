@@ -11,6 +11,7 @@
   - metro.choice - randomly (uniformly) metronome time interval choice from specified set
   - metro.wchoice - weighted metronome time interval choice from specified set
   - proto.morse - morse encoder with specified speed and other settings
+  - qrcode - QR code encoder
   - rhythm.hexbeat - hexbeat pattern generator
 - new object inlets:
   - fx.drone_box~ - second inlet added for setting resonance frequency

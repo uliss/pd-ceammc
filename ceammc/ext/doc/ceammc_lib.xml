@@ -1570,6 +1570,9 @@
     <entry name="modplug~" descr="MOD file player (using libmodplug)" ref_view="object">
       <xi:include href="modplug~.pddoc" parse="xml"/>
     </entry>
+    <entry name="qrcode" descr="QR code generator" ref_view="object">
+      <xi:include href="qrcode.pddoc" parse="xml"/>
+    </entry>
     <entry name="risset.gliss" descr="Sheppard/Risset glissando calculator" ref_view="object">
       <xi:include href="risset.gliss.pddoc" parse="xml"/>
     </entry>

@@ -122,4 +122,8 @@ void MiscQrCode::output()
 void setup_misc_qrcode()
 {
     ObjectFactory<MiscQrCode> obj("qrcode");
+    obj.setCategory("misc");
+    obj.setKeywords({ "qrcode", "generator" });
+    obj.addAuthor("Serge Poltavski");
+    obj.setSinceVersion(0, 9);
 }

@@ -853,6 +853,8 @@ fluid~	FluidSynth SoundFont 2 player
 ceammc/fluid~	FluidSynth SoundFont 2 player
 modplug~	MOD file player (using libmodplug)
 ceammc/modplug~	MOD file player (using libmodplug)
+qrcode	QR code generator
+ceammc/qrcode	QR code generator
 risset.gliss	Sheppard/Risset glissando calculator
 sfizz~	SFZ format sample player
 ceammc/sfizz~	SFZ format sample player

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="qrcode">
+        <title>qrcode</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>QR code generator</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>misc</category>
+            <keywords>qrcode</keywords>
+            <since>0.9.7</since>
+            <aliases>
+                <alias>ceammc/qrcode</alias>
+            </aliases>
+        </meta>
+        <arguments>
+            <argument name="VALUE" type="symbol">initial string value</argument>
+        </arguments>
+        <properties>
+            <property name="@value" type="symbol" default="">string value</property>
+            <property name="@quality" type="symbol" enum="low medium quartile high" default="low">
+            encoding quality</property>
+            <property name="@low" type="alias">alias to @quality low</property>
+            <property name="@medium" type="alias">alias to @quality medium</property>
+            <property name="@quartile" type="alias">alias to @quality quartile</property>
+            <property name="@high" type="alias">alias to @quality high</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">output encoded data</xinfo>
+                <xinfo on="symbol">set new value and output encoded data</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>list of 1 and 0</outlet>
+            <outlet>int: qr code size</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[S digits=15 #a]
+
+[symbol https://github.com/uliss/pure-data/releases(
+|
+[qrcode #x]                            [ui.lcd @receive qrcode @size 125 125]
+|      ^|
+|     [@cols $1, @rows $1, @size 125 125(
+|           |
+[msg set]   |
+|           |
+[s    qrcode]
+
+[X a->x]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
