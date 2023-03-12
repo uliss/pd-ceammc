@@ -5,9 +5,9 @@
 #include "ceammc_atomlist.h"
 #include "ceammc_externals.h"
 #include "ceammc_log.h"
-#include "ceammc_ui_object.h"
 #include "ceammc_object_info.h"
 #include "ceammc_syms.h"
+#include "ceammc_ui_object.h"
 
 #include <stdexcept>
 #include <string>
@@ -585,6 +585,21 @@ public:
         void (UI::*setter)(t_float))
     {
         eclass_new_attr_typed(pd_ui_class, name, "float", 1, 0, 0);
+        hideProperty(name);
+        setPropertyAccessor(name, getter, setter);
+    }
+
+    /**
+     * @brief adds hidden float property with callbacks
+     * @param name - property name
+     * @param getter - member pointer to getter function
+     * @param setter - member pointer to setter function
+     */
+    void addHiddenIntCbProperty(const char* name,
+        t_int (UI::*getter)() const,
+        void (UI::*setter)(t_int))
+    {
+        eclass_new_attr_typed(pd_ui_class, name, "int", 1, 0, 0);
         hideProperty(name);
         setPropertyAccessor(name, getter, setter);
     }

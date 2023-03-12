@@ -2334,6 +2334,9 @@
     <entry name="ui.label" descr="simple label widget" ref_view="link">
       <xi:include href="ui.label.pddoc" parse="xml"/>
     </entry>
+    <entry name="ui.lcd" descr="black and white bitmap display" ref_view="link">
+      <xi:include href="ui.lcd.pddoc" parse="xml"/>
+    </entry>
     <entry name="ui.link" descr="Hyperlink widget" ref_view="link">
       <xi:include href="ui.link.pddoc" parse="xml"/>
     </entry>
@@ -2417,6 +2420,7 @@
       <author>Pierre Guillot</author>
       <author>Richard Dudas</author>
       <author>Romain Michon</author>
+      <author>Serge Poltavski</author>
       <author>Serge Poltavsky</author>
       <author>Serge Potlavsky</author>
       <author>Thomas Le Meur</author>

@@ -742,6 +742,7 @@ ui.incdec		.		.
 ui.keyboard,ui.hk,ui.vkeyboard,ui.vk		.		.
 ui.knob,ui.k		.		.
 ui.label		-		-
+ui.lcd		.		.
 ui.link		-		-
 ui.matrix		.		.
 ui.menu		.		.

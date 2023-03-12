@@ -64,7 +64,7 @@ purposes in centre of electroacoustic music of Moscow Conservatory
 #X obj 30 938 array.sum2;
 #X text 200 938 calculates sum of squares of array elements;
 #X obj 30 965 array.tramp~;
-#X text 200 965 triggered ramp generator for arrays;
+#X text 200 965 triggered ramp generator for array;
 #X obj 30 992 array.variance;
 #X text 200 992 calculates variance of array values;
 #X obj 30 1019 array.vplay;
@@ -1668,58 +1668,60 @@ ui.colorpanel-help.pd;
 #X text 200 22762 knob widget;
 #X obj 30 22790 ui.link @title [ui.label] @url ui.label-help.pd;
 #X text 200 22787 simple label widget;
-#X obj 30 22815 ui.link @title [ui.link] @url ui.link-help.pd;
-#X text 200 22812 Hyperlink widget;
-#X obj 30 22840 ui.link @title [ui.matrix] @url ui.matrix-help.pd;
-#X text 200 22837 The matrix of toggles has you.;
-#X obj 30 22865 ui.link @title [ui.menu] @url ui.menu-help.pd;
-#X text 200 22862 Dropdown menu;
-#X obj 30 22890 ui.link @title [ui.meter~] @url ui.meter~-help.pd;
-#X text 200 22887 Shows peak and rms signal level;
-#X obj 30 22915 ui.link @title [ui.midi] @url ui.midi-help.pd;
-#X text 200 22912 incoming MIDI message viewport;
-#X obj 30 22940 ui.link @title [ui.mouse_filter] @url
+#X obj 30 22815 ui.link @title [ui.lcd] @url ui.lcd-help.pd;
+#X text 200 22812 black and white bitmap display;
+#X obj 30 22840 ui.link @title [ui.link] @url ui.link-help.pd;
+#X text 200 22837 Hyperlink widget;
+#X obj 30 22865 ui.link @title [ui.matrix] @url ui.matrix-help.pd;
+#X text 200 22862 The matrix of toggles has you.;
+#X obj 30 22890 ui.link @title [ui.menu] @url ui.menu-help.pd;
+#X text 200 22887 Dropdown menu;
+#X obj 30 22915 ui.link @title [ui.meter~] @url ui.meter~-help.pd;
+#X text 200 22912 Shows peak and rms signal level;
+#X obj 30 22940 ui.link @title [ui.midi] @url ui.midi-help.pd;
+#X text 200 22937 incoming MIDI message viewport;
+#X obj 30 22965 ui.link @title [ui.mouse_filter] @url
 ui.mouse_filter-help.pd;
-#X text 200 22937 filter mouse events from ui objects;
-#X obj 30 22965 ui.link @title [ui.mouse_route] @url
+#X text 200 22962 filter mouse events from ui objects;
+#X obj 30 22990 ui.link @title [ui.mouse_route] @url
 ui.mouse_route-help.pd;
-#X text 200 22962 routes mouse events from ui objects;
-#X obj 30 22990 ui.link @title [ui.number] @url ui.number-help.pd;
-#X text 200 22987 counterpart of the vanilla [nbx];
-#X obj 30 23015 ui.link @title [ui.number~] @url ui.number~-help.pd;
-#X text 200 23012 counterpart of the vanilla [nbx] for signal;
-#X obj 30 23040 ui.link @title [ui.plot~] @url ui.plot~-help.pd;
-#X text 200 23037 signal plotter;
-#X obj 30 23065 ui.link @title [ui.polar] @url ui.polar-help.pd;
-#X text 200 23062 2D slider in polar coordinates;
-#X obj 30 23090 ui.link @title [ui.preset] @url ui.preset-help.pd;
-#X text 200 23087 Preset manager;
-#X obj 30 23115 ui.link @title [ui.radio] @url ui.radio-help.pd;
-#X text 200 23112 counterpart of the vanilla radio toggle;
-#X obj 30 23140 ui.link @title [ui.rslider] @url ui.rslider-help.pd;
-#X text 200 23137 range slider;
-#X obj 30 23165 ui.link @title [ui.scope~] @url ui.scope~-help.pd;
-#X text 200 23162 Scope GUI object;
-#X obj 30 23190 ui.link @title [ui.slider] @url ui.slider-help.pd;
-#X text 200 23187 counterpart of the vanilla slider;
-#X obj 30 23215 ui.link @title [ui.slider2d] @url ui.slider2d-help.pd;
-#X text 200 23212 2D slider widget;
-#X obj 30 23240 ui.link @title [ui.sliders] @url ui.sliders-help.pd;
-#X text 200 23237 Multiple slider widget;
-#X obj 30 23265 ui.link @title [ui.spectroscope~] @url
+#X text 200 22987 routes mouse events from ui objects;
+#X obj 30 23015 ui.link @title [ui.number] @url ui.number-help.pd;
+#X text 200 23012 counterpart of the vanilla [nbx];
+#X obj 30 23040 ui.link @title [ui.number~] @url ui.number~-help.pd;
+#X text 200 23037 counterpart of the vanilla [nbx] for signal;
+#X obj 30 23065 ui.link @title [ui.plot~] @url ui.plot~-help.pd;
+#X text 200 23062 signal plotter;
+#X obj 30 23090 ui.link @title [ui.polar] @url ui.polar-help.pd;
+#X text 200 23087 2D slider in polar coordinates;
+#X obj 30 23115 ui.link @title [ui.preset] @url ui.preset-help.pd;
+#X text 200 23112 Preset manager;
+#X obj 30 23140 ui.link @title [ui.radio] @url ui.radio-help.pd;
+#X text 200 23137 counterpart of the vanilla radio toggle;
+#X obj 30 23165 ui.link @title [ui.rslider] @url ui.rslider-help.pd;
+#X text 200 23162 range slider;
+#X obj 30 23190 ui.link @title [ui.scope~] @url ui.scope~-help.pd;
+#X text 200 23187 Scope GUI object;
+#X obj 30 23215 ui.link @title [ui.slider] @url ui.slider-help.pd;
+#X text 200 23212 counterpart of the vanilla slider;
+#X obj 30 23240 ui.link @title [ui.slider2d] @url ui.slider2d-help.pd;
+#X text 200 23237 2D slider widget;
+#X obj 30 23265 ui.link @title [ui.sliders] @url ui.sliders-help.pd;
+#X text 200 23262 Multiple slider widget;
+#X obj 30 23290 ui.link @title [ui.spectroscope~] @url
 ui.spectroscope~-help.pd;
-#X text 200 23262 Spectroscope GUI object;
-#X obj 30 23290 ui.link @title [ui.tab] @url ui.tab-help.pd;
-#X text 200 23287 displays a list of text buttons or text toggles;
-#X obj 30 23315 ui.link @title [ui.toggle] @url ui.toggle-help.pd;
-#X text 200 23312 modern toggle widget;
+#X text 200 23287 Spectroscope GUI object;
+#X obj 30 23315 ui.link @title [ui.tab] @url ui.tab-help.pd;
+#X text 200 23312 displays a list of text buttons or text toggles;
+#X obj 30 23340 ui.link @title [ui.toggle] @url ui.toggle-help.pd;
+#X text 200 23337 modern toggle widget;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc 20 20 0 20 -104026 -4096 0;
-#X obj 1 23337 cnv 5 740 80 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 23337 version: v0.9.6 \, license: GPL3;
-#X obj 20 23365 ui.link @title https://github.com/uliss/pure-data @url
+#X obj 1 23362 cnv 5 740 80 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 23362 version: v0.9.6 \, license: GPL3;
+#X obj 20 23390 ui.link @title https://github.com/uliss/pure-data @url
 https://github.com/uliss/pure-data;
-#X obj 20 23388 ui.link @title Generated with pddoc @url
+#X obj 20 23413 ui.link @title Generated with pddoc @url
 http://github.com/uliss/pddoc;
-#X obj 670 23352 msg 0;
-#X obj 670 23387 switch~;
-#X connect 1632 0 1633 0;
+#X obj 670 23377 msg 0;
+#X obj 670 23412 switch~;
+#X connect 1634 0 1635 0;

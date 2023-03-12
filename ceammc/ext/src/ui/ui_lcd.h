@@ -42,13 +42,13 @@ public:
     void m_clear();
     void m_invert(const AtomListView& lv);
 
-    t_float p_numCols() const { return prop_ncols; }
-    void p_setNumCols(t_float n);
+    t_int p_numCols() const { return prop_ncols; }
+    void p_setNumCols(t_int n);
 
-    t_float p_numRows() const { return prop_nrows; }
-    void p_setNumRows(t_float n);
+    t_int p_numRows() const { return prop_nrows; }
+    void p_setNumRows(t_int n);
 
-    t_float p_pixels() const { return pixels_.size(); }
+    t_int p_pixels() const { return pixels_.size(); }
 
 public:
     static void setup();

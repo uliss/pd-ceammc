@@ -183,7 +183,7 @@ void UILcd::m_invert(const AtomListView& lv)
     redrawBGLayer();
 }
 
-void UILcd::p_setNumCols(t_float n)
+void UILcd::p_setNumCols(t_int n)
 {
     int num = clip<int>(n, MIN_COLS, MAX_COLS);
     if (num != prop_ncols) {
@@ -193,7 +193,7 @@ void UILcd::p_setNumCols(t_float n)
     }
 }
 
-void UILcd::p_setNumRows(t_float n)
+void UILcd::p_setNumRows(t_int n)
 {
     int num = clip<int>(n, MIN_ROWS, MAX_ROWS);
     if (num != prop_nrows) {
@@ -209,6 +209,8 @@ void UILcd::setup()
 
     UIObjectFactory<UILcd> obj("ui.lcd", EBOX_GROWLINK);
 
+    obj.setPropertyDefaultValue("background_color", "1 1 1 1");
+
     obj.setDefaultSize(DEF_COLS * DEF_PIXEL_SIZE, DEF_ROWS * DEF_PIXEL_SIZE);
     obj.addIntProperty("cols", _("Number of columns"), DEF_COLS, &UILcd::prop_ncols);
     obj.setPropertyRange("cols", MIN_COLS, MAX_COLS);
@@ -218,7 +220,7 @@ void UILcd::setup()
     obj.setPropertyRange("rows", MIN_ROWS, MAX_ROWS);
     obj.setPropertyAccessor("rows", &UILcd::p_numRows, &UILcd::p_setNumRows);
 
-    obj.addHiddenFloatCbProperty("pixels", &UILcd::p_pixels, nullptr);
+    obj.addHiddenIntCbProperty("pixels", &UILcd::p_pixels, nullptr);
 
     obj.addMethod("set", &UILcd::m_set);
     obj.addMethod("clear", &UILcd::m_clear);

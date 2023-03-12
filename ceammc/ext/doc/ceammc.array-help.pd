@@ -47,7 +47,7 @@
 #X obj 30 683 array.sum2;
 #X text 200 683 calculates sum of squares of array elements;
 #X obj 30 710 array.tramp~;
-#X text 200 710 triggered ramp generator for arrays;
+#X text 200 710 triggered ramp generator for array;
 #X obj 30 737 array.variance;
 #X text 200 737 calculates variance of array values;
 #X obj 30 764 array.vplay;

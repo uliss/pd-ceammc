@@ -743,6 +743,7 @@ set(DOC_FILES
     ui.keyboard
     ui.knob
     ui.label
+    ui.lcd
     ui.link
     ui.matrix
     ui.menu
