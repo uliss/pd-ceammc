@@ -240,6 +240,9 @@
     <entry name="conv.cc2amp" descr="convert from MIDI Control Change range" ref_view="object">
       <xi:include href="conv.cc2amp.pddoc" parse="xml"/>
     </entry>
+    <entry name="conv.color2rgba" descr="convert named or hex color to separate RGBA values" ref_view="object">
+      <xi:include href="conv.color2rgba.pddoc" parse="xml"/>
+    </entry>
     <entry name="conv.dbfs2amp" descr="convert decibel full scale to amplitude" ref_view="object">
       <xi:include href="conv.dbfs2amp.pddoc" parse="xml"/>
     </entry>

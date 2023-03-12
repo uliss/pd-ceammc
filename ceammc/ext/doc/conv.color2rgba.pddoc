@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="conv.color2rgba">
+        <title>conv.color2rgba</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>convert named or hex color to separate RGBA values</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>conv</category>
+            <keywords>conv color hex rgb rgba</keywords>
+            <since>0.9.7</since>
+            <aliases>
+                <alias>ceammc/color-&gt;rgba</alias>
+                <alias>color-&gt;rgba</alias>
+            </aliases>
+        </meta>
+        <info>
+            <par>Supported named colors are:
+            black blue cyan gold gray green lime magenta navy olive orange pink purple red white yellow</par>
+        </info>
+        <properties>
+            <property name="@mode" type="symbol" default="int" enum="int float">output mode</property>
+            <property name="@int" type="alias">alias to @mode int. Output values in [0-255] range</property>
+            <property name="@float" type="alias">alias to @mode float. Output values in [0-1] range</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="symbol">color name or hex value in full (#RRGGBB or #RRGGBBAA) or short (#RGB or #RGBA) format</xinfo>
+                <xinfo on="any">use message selector as color name</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>int[0-255] or float[0-1]: red channel value</outlet>
+            <outlet>int[0-255] or float[0-1]: green channel value</outlet>
+            <outlet>int[0-255] or float[0-1]: blue channel value</outlet>
+            <outlet>int[0-255] or float[0-1]: alpha channel value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[ui.menu black blue cyan gold gray green lime magenta navy olive orange pink purple red white yellow]
+|
+| [\#FF3399 #a( [\#39F #b( [\#444A #c(
+|
+|    [L]
+|    |
+[$2( [$1( [@float #d( [@int #e(
+|    |
+[color->rgba @float #x]
+|    ^|   ^^| ^^^|
+[F]  [F]  [F]  [F]
+
+[X a->x]
+[X b->x]
+[X c->x]
+[X d->x]
+[X e->x]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
