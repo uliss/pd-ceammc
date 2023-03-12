@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="array.tramp~">
+        <title>array.tramp~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>triggered ramp generator for array</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>array</category>
+            <keywords>array ramp trigger</keywords>
+            <since>0.9.7</since>
+        </meta>
+        <arguments>
+            <argument name="ARRAY" type="symbol">array name</argument>
+            <argument name="SPEED" type="float">playing speed</argument>
+        </arguments>
+        <properties>
+            <property name="@array" type="symbol" default="">array name</property>
+            <property name="@speed" type="float" default="1">ramp speed</property>
+            <property name="@from" type="float" minvalue="0" default="0" maxvalue="1">normalized to
+            [0-1] range ramp start</property>
+            <property name="@to" type="float" minvalue="0" default="1" maxvalue="1">normalized to
+            [0-1] range ramp end</property>
+            <property name="@range" type="list" default="0 1">ramp range</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">start ramp for array</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">ramp signal</outlet>
+            <outlet type="control">bang on done</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[loadmsg load guitar1.wav to ARAMP @resize]  [table ARAMP 44100]
+|
+[snd.file]
+
+
+[B]   [ui.rslider]
+|     |
+|     [msg @range]
+|     |
+[array.tramp~ ARAMP]
+|                ^|
+|                [B]
+|
+[tabread4~ ARAMP]
+|
+[flt.dcblock~]
+|
+[ui.hgain2~]     [ui.dsp~]
+*|*
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

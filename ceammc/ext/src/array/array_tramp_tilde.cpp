@@ -46,6 +46,21 @@ ArrayTRampTilde::ArrayTRampTilde(const PdArgs& args)
     to_->checkClosedRange(0, 1);
     addProperty(to_);
 
+    createCbListProperty(
+        "@range",
+        [this]() -> AtomList {
+            return AtomList(from_->value(), to_->value());
+        },
+        [this](const AtomListView& lv) -> bool {
+            if (lv.size() != 2)
+                return false;
+
+            if (!from_->setList(lv.subView(0, 1)))
+                return false;
+
+            return to_->setList(lv.subView(1, 1));
+        });
+
     createSignalOutlet();
     createOutlet();
 }
@@ -109,4 +124,5 @@ size_t ArrayTRampTilde::rampStart() const
 void setup_array_tramp_tilde()
 {
     SoundExternalFactory<ArrayTRampTilde> obj("array.tramp~", OBJECT_FACTORY_DEFAULT);
+    obj.setXletsInfo({ "bang: start ramp" }, { "signal: ramp signal", "bang: on done" });
 }

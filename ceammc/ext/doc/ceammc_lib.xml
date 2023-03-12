@@ -87,6 +87,9 @@
     <entry name="array.sum2" descr="calculates sum of squares of array elements" ref_view="object">
       <xi:include href="array.sum2.pddoc" parse="xml"/>
     </entry>
+    <entry name="array.tramp~" descr="triggered ramp generator for array" ref_view="object">
+      <xi:include href="array.tramp~.pddoc" parse="xml"/>
+    </entry>
     <entry name="array.variance" descr="calculates variance of array values" ref_view="object">
       <xi:include href="array.variance.pddoc" parse="xml"/>
     </entry>

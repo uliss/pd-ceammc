@@ -32,6 +32,7 @@ array.stddev	calculates standard deviation for array values
 array.stretch	array time-stretch, pitch-shift or rate-change
 array.sum	calculates sum of array elements
 array.sum2	calculates sum of squares of array elements
+array.tramp~	triggered ramp generator for arrays
 array.variance	calculates variance of array values
 array.vplay	simple array player for using with vline~
 array.window	fill array with window
