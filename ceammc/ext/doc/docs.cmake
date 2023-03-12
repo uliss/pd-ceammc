@@ -57,6 +57,7 @@ set(DOC_FILES
     conv.bpm2sec
     conv.car2pol
     conv.cc2amp
+    conv.char2morse
     conv.color2rgba
     conv.dbfs2amp
     conv.dbfs2amp~

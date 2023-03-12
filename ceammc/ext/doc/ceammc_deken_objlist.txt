@@ -136,6 +136,9 @@ car->pol	convert cartesian coords to polar
 conv.cc2amp	convert from MIDI Control Change range
 ceammc/cc->amp	convert from MIDI Control Change range
 cc->amp	convert from MIDI Control Change range
+conv.char2morse	convert character to morse code
+ceammc/char->morse	convert character to morse code
+char->morse	convert character to morse code
 conv.color2rgba	convert named or hex color to separate RGBA values
 ceammc/color->rgba	convert named or hex color to separate RGBA values
 color->rgba	convert named or hex color to separate RGBA values

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="conv.char2morse">
+        <title>conv.char2morse</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>convert character to morse code</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>conv</category>
+            <keywords>conv char morse</keywords>
+            <since>0.9.7</since>
+            <also>
+                <see>proto.morse</see>
+            </also>
+            <aliases>
+                <alias>ceammc/char-&gt;morse</alias>
+                <alias>char-&gt;morse</alias>
+            </aliases>
+        </meta>
+        <info>
+            <par>Note: cyrillic utf-8 characters are also supported.</par>
+        </info>
+        <properties>
+            <property name="@sym" type="bool" default="0">symbol output mode. If on - output as
+            list of dots and dashes, otherwise as 0 and 1.</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="symbol">single characted</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>list of 0 and 1 (or dots and dashes)</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[S digits=5] [T]
+|            |
+|            [@sym $1(
+|            |
+[conv.char2morse]
+|
+[ui.dt]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

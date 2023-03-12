@@ -57,6 +57,7 @@ conv.bpm2ms,ceammc/bpm->ms,bpm->ms		.		.
 conv.bpm2sec,ceammc/bpm->sec,bpm->sec		.		.
 conv.car2pol,ceammc/car->pol,car->pol		.		.
 conv.cc2amp,ceammc/cc->amp,cc->amp		.		.
+conv.char2morse,ceammc/char->morse,char->morse		.		.
 conv.color2rgba,ceammc/color->rgba,color->rgba		.		....
 conv.dbfs2amp,ceammc/dbfs->amp,dbfs->amp		.		.
 conv.dbfs2amp~,ceammc/dbfs->amp~,dbfs->amp~		~		~
