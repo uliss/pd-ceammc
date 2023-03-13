@@ -27,6 +27,7 @@ void setup_conv_sec2samp();
 void setup_conv_angles();
 
 void setup_conv_color2rgba();
+void setup_conv_hsl2rgb();
 void setup_conv_rgb2hex();
 
 void setup_conv_lin2curve();
@@ -68,6 +69,7 @@ void ceammc_conv_setup()
     setup_conv_dbfs2amp();
 
     setup_conv_color2rgba();
+    setup_conv_hsl2rgb();
     setup_conv_rgb2hex();
 
     setup_conv_cc2amp();
