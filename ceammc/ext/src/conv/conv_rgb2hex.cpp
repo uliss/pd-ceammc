@@ -139,6 +139,7 @@ void ConvRgb2Hex::outputRGB(std::uint8_t r, std::uint8_t g, std::uint8_t b)
 {
     char buf[8];
     fmt::format_to(buf, "#{:02X}{:02X}{:02X}", r, g, b);
+    buf[7] = '\0';
     symbolTo(0, gensym(buf));
 }
 
