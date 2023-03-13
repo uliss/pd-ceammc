@@ -73,3 +73,6 @@
 [submodule "ceammc/distrib/tcl/tkdnd"]
 	path = ceammc/distrib/tcl/tkdnd
 	url = https://github.com/uliss/tkdnd.git
+[submodule "ceammc/extra/colorm/colorm"]
+	path = ceammc/extra/colorm/colorm
+	url = https://github.com/soreja/colorm.git

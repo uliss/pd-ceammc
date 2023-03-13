@@ -8,6 +8,7 @@ add_subdirectory(comport)
 add_subdirectory(fftconv)
 add_subdirectory(helmholtz)
 add_subdirectory(airwindows)
+add_subdirectory(colorm)
 
 if(WITH_EXT_AUTOTUNE)
     add_subdirectory(autotune)
