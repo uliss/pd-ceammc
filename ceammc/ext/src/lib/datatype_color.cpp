@@ -165,7 +165,7 @@ DataTypeColor& DataTypeColor::setRgbf(float r, float g, float b, float a)
 
 DataTypeColor& DataTypeColor::setHsl(float h, float s, float l, float a)
 {
-    fromRGB(data_, colorm::Srgb(colorm::Hsl(h, s * 100, l * 100, a)));
+    fromRGB(data_, colorm::Srgb(colorm::Hsl(h, s * 100, l * 100, a).clip()));
     return *this;
 }
 
