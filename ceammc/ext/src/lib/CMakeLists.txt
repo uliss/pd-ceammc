@@ -104,8 +104,9 @@ set(CEAMMC_LIB_SOURCES
     ceammc_transport.cpp
     ceammc_units.cpp
     ceammc_window.cpp
-    datatype_json.cpp
+    datatype_color.cpp
     datatype_dict.cpp
+    datatype_json.cpp
     datatype_mlist.cpp
     datatype_property.cpp
     datatype_set.cpp
@@ -254,6 +255,7 @@ target_link_libraries(ceammc_core PRIVATE re2)
 target_link_libraries(ceammc_core PRIVATE reflex)
 target_link_libraries(ceammc_core PRIVATE muparser)
 target_link_libraries(ceammc_core PRIVATE readerwriterqueue)
+target_link_libraries(ceammc_core PRIVATE colorm)
 #target_link_libraries(ceammc_core PRIVATE ${Boost_FILESYSTEM_LIBRARY} ${Boost_SYSTEM_LIBRARY})
 #target_link_libraries(ceammc_core PRIVATE puredata-core)
 

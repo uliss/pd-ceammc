@@ -33,6 +33,7 @@ add_cell_test(atomlist_view)
 add_cell_test(message)
 
 add_cell_test(data)
+add_cell_test(datatype_color)
 add_cell_test(datatype_dict)
 add_cell_test(datatype_mlist)
 add_cell_test(datatype_set)
