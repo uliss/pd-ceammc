@@ -46,7 +46,50 @@ public:
     std::uint8_t blue8() const { return std::round(data_[2] * 255); }
     std::uint8_t alpha8() const { return std::round(data_[3] * 255); }
 
-    void setRgb8(std::uint8_t r, std::uint8_t g, std::uint8_t b, std::uint8_t a = 255);
+    /**
+     * set RGB color with integers values in [0,255] range
+     * @param r - red [0,255]
+     * @param g - green [0,255]
+     * @param b - blue [0,255]
+     * @param a - alpha [0,255]
+     */
+    DataTypeColor& setRgb8(std::uint8_t r, std::uint8_t g, std::uint8_t b, std::uint8_t a = 255);
+
+    /**
+     * set RGB color with float values in [0,1] range
+     * @param r - red [0,1]
+     * @param g - green [0,1]
+     * @param b - blue [0,1]
+     * @param a - alpha [0,1]
+     */
+    DataTypeColor& setRgbf(float r, float g, float b, float a = 1);
+
+    /**
+     * set HSL color
+     * @param h - hue [0,360]
+     * @param s - saturation [0,1]
+     * @param l - luminosity [0,1]
+     * @param a - alpha [0,1]
+     */
+    DataTypeColor& setHsl(float h, float s, float l, float a = 1);
+
+    /**
+     * set HWB color
+     * @param h - hue [0,360]
+     * @param w - whiteness [0,1]
+     * @param b - brightness [0,1]
+     * @param a - alpha [0,1]
+     */
+    DataTypeColor& setHwb(float h, float w, float b, float a = 1);
+
+    /**
+     * set OkLab color
+     * @param l - lightness [0,1]
+     * @param a [-1,+1]
+     * @param b [-1,+1]
+     * @param alpha - alpha [0,1]
+     */
+    DataTypeColor& setOkLab(float l, float a, float b, float alpha = 1);
 
     /**
      * set color brighter
@@ -109,6 +152,11 @@ public:
      * @see https://www.w3.org/TR/WCAG20-TECHS/G18.html
      */
     float contrast(const DataTypeColor& c) const;
+
+    /**
+     * returns the luminance of this color
+     */
+    float calculateLuminance() const;
 
     /** pure virtual implementations*/
     DataTypeId type() const noexcept;

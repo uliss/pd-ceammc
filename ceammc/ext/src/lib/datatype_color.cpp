@@ -47,11 +47,10 @@ colorm::Srgb toRGB(const DataTypeColor& color)
 
 void fromRGB(float* data, const colorm::Srgb& c)
 {
-    auto c0 = c.clip();
-    data[0] = c0.red();
-    data[1] = c0.green();
-    data[2] = c0.blue();
-    data[3] = c0.alpha();
+    data[0] = clip01<float>(c.red());
+    data[1] = clip01<float>(c.green());
+    data[2] = clip01<float>(c.blue());
+    data[3] = clip01<float>(c.alpha());
 }
 
 }
@@ -149,12 +148,37 @@ DataTypeColor::DataTypeColor(const DataTypeColor& c)
     std::memcpy(data_, c.data_, sizeof(c.data_));
 }
 
-void DataTypeColor::setRgb8(std::uint8_t r, std::uint8_t g, std::uint8_t b, std::uint8_t a)
+DataTypeColor& DataTypeColor::setRgb8(std::uint8_t r, std::uint8_t g, std::uint8_t b, std::uint8_t a)
 {
     data_[0] = r / 255.0;
     data_[1] = g / 255.0;
     data_[2] = b / 255.0;
     data_[3] = a / 255.0;
+    return *this;
+}
+
+DataTypeColor& DataTypeColor::setRgbf(float r, float g, float b, float a)
+{
+    fromRGB(data_, colorm::Srgb(colorm::Rgb(r * 255, g * 255, b * 255, a).clip()));
+    return *this;
+}
+
+DataTypeColor& DataTypeColor::setHsl(float h, float s, float l, float a)
+{
+    fromRGB(data_, colorm::Srgb(colorm::Hsl(h, s * 100, l * 100, a)));
+    return *this;
+}
+
+DataTypeColor& DataTypeColor::setHwb(float h, float w, float b, float a)
+{
+    fromRGB(data_, colorm::Srgb(colorm::Hwb(h, w, b * 100, a * 100)));
+    return *this;
+}
+
+DataTypeColor& DataTypeColor::setOkLab(float l, float a, float b, float alpha)
+{
+    fromRGB(data_, colorm::Srgb(colorm::Oklab(l, a, b, alpha).clip()));
+    return *this;
 }
 
 DataTypeColor& DataTypeColor::brighten(float v)
@@ -221,6 +245,11 @@ DataTypeColor& DataTypeColor::invert()
 float DataTypeColor::contrast(const DataTypeColor& c) const
 {
     return toRGB(*this).contrast(toRGB(c));
+}
+
+float DataTypeColor::calculateLuminance() const
+{
+    return toRGB(*this).calculateLuminance();
 }
 
 std::string DataTypeColor::toListStringContent() const noexcept

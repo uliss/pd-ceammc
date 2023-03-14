@@ -190,6 +190,13 @@ TEST_CASE("DataTypeColor", "[core]")
         CHECK(Color(0x000001FF).maximizeLightness().toString() == "#E9F1FF");
     }
 
+    SECTION("calculateLuminance")
+    {
+        CHECK(Color().calculateLuminance() == 0);
+        CHECK(Color(0xFFFFFFFF).calculateLuminance() == 1);
+        CHECK(Color().setHsl(56, 0.38, 0.58).calculateLuminance() == Approx(0.45771));
+    }
+
     SECTION("mix")
     {
         CHECK(Color().mix(Color(0x808080FF), 0.5).toString() == "#404040");
@@ -204,5 +211,20 @@ TEST_CASE("DataTypeColor", "[core]")
         CHECK(Color().invert().toString() == "#FFFFFF");
         CHECK(Color(0xFFFFFFFF).invert().toString() == "#000000");
         CHECK(Color(0x0F0F0FFF).invert().toString() == "#F0F0F0");
+    }
+
+    SECTION("set")
+    {
+        CHECK(Color().setRgb8(3, 2, 1, 0x80).toString() == "#03020180");
+        CHECK(Color().setRgbf(1, 0, 1, 1).toString() == "#FF00FF");
+        CHECK(Color().setRgbf(1, 0, 1, 0.5).toString() == "#FF00FF80");
+        CHECK(Color().setRgbf(2, -1, 1.1, 0.5).toString() == "#FF00FF80");
+        CHECK(Color().setHsl(0, 1, 1).toString() == "#FFFFFF");
+        CHECK(Color().setHwb(0, 1, 0).toString() == "#FF0303");
+        CHECK(Color().setHwb(180, 1, 0).toString() == "#03FFFF");
+        CHECK(Color().setOkLab(1, -1, -1).toString() == "#0000FF");
+        CHECK(Color().setOkLab(1, -1, 1).toString() == "#00FF00");
+        CHECK(Color().setOkLab(1, 1, 1).toString() == "#FF0000");
+        CHECK(Color().setOkLab(1, 1, -1).toString() == "#FF00FF");
     }
 }
