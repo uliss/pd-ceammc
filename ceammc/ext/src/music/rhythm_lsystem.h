@@ -16,49 +16,8 @@
 
 #include "ceammc_data.h"
 #include "ceammc_object.h"
+#include "ceammc_property_data.h"
 using namespace ceammc;
-
-template <class T>
-class DataPropertyT : public Property {
-    DataAtom<T> v_;
-
-public:
-    DataPropertyT(const std::string& name, const T& def, PropValueAccess access = PropValueAccess::READWRITE)
-        : Property(PropertyInfo(name, PropValueType::ATOM), access)
-        , v_(def)
-    {
-    }
-
-    bool setList(const AtomListView& lv) override
-    {
-        if (!lv.isA<T>())
-            return false;
-
-        return setValue(*lv[0].asDataT<T>());
-    }
-
-    AtomList get() const override { return v_; }
-    bool getAtom(Atom& a) const override
-    {
-        a = v_;
-        return true;
-    }
-
-    bool setBool(bool b) override { return false; }
-    bool setFloat(t_float f) override { return false; }
-    bool setInt(int i) override { return false; }
-    bool setSymbol(t_symbol* s) override { return false; }
-    //    bool setAtom(const Atom& a) override { return false; }
-
-    inline T& value() { return *v_; }
-    inline const T& value() const { return *v_; }
-    bool setValue(const T& v)
-    {
-        v_ = DataAtom<T>(v);
-        return true;
-    }
-    //    T defaultValue() const;
-};
 
 using DictProperty = DataPropertyT<DataTypeDict>;
 

@@ -15,11 +15,12 @@
 #define DATA_COLOR_H
 
 #include "ceammc_object.h"
+#include "ceammc_property_data.h"
 #include "datatype_color.h"
 using namespace ceammc;
 
 class DataColor : public BaseObject {
-    DataTypeColor color_;
+    DataPropertyT<DataTypeColor>* color_;
 
 public:
     DataColor(const PdArgs& args);
@@ -29,6 +30,19 @@ public:
 
     void m_brighten(t_symbol* s, const AtomListView& lv);
     void m_darken(t_symbol* s, const AtomListView& lv);
+    void m_grayscale(t_symbol* s, const AtomListView&);
+    void m_saturate(t_symbol* s, const AtomListView& lv);
+    void m_desaturate(t_symbol* s, const AtomListView& lv);
+    void m_invert(t_symbol* s, const AtomListView&);
+    void m_rotate(t_symbol* s, const AtomListView& lv);
+    void m_flip(t_symbol* s, const AtomListView& lv);
+
+    void m_hex(t_symbol* s, const AtomListView& lv);
+    void m_rgb8(t_symbol* s, const AtomListView& lv);
+    void m_rgb(t_symbol* s, const AtomListView& lv);
+    void m_hsl(t_symbol* s, const AtomListView& lv);
+    void m_hwb(t_symbol* s, const AtomListView& lv);
+    void m_oklab(t_symbol* s, const AtomListView& lv);
 };
 
 void setup_data_color();

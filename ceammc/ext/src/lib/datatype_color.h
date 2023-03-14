@@ -92,6 +92,11 @@ public:
     DataTypeColor& setOkLab(float l, float a, float b, float alpha = 1);
 
     /**
+     * Set color from hex string: #RGB, #RGBA, #RRGGBB, #RRGGBBAA
+     */
+    bool setHex(const char* str);
+
+    /**
      * set color brighter
      * @param v - [0-1] range
      */

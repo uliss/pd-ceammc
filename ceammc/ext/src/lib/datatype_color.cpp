@@ -181,6 +181,16 @@ DataTypeColor& DataTypeColor::setOkLab(float l, float a, float b, float alpha)
     return *this;
 }
 
+bool DataTypeColor::setHex(const char* str)
+{
+    parser::RgbaHexFullMatch p;
+    if (!p.parse(str))
+        return false;
+
+    setRgb8(p.red(), p.green(), p.blue(), p.alpha());
+    return true;
+}
+
 DataTypeColor& DataTypeColor::brighten(float v)
 {
     fromRGB(data_, toRGB(*this).brighten(v));

@@ -226,5 +226,15 @@ TEST_CASE("DataTypeColor", "[core]")
         CHECK(Color().setOkLab(1, -1, 1).toString() == "#00FF00");
         CHECK(Color().setOkLab(1, 1, 1).toString() == "#FF0000");
         CHECK(Color().setOkLab(1, 1, -1).toString() == "#FF00FF");
+
+        Color c;
+        CHECK(c.setHex("#ABC"));
+        REQUIRE(c.toString() == "#AABBCC");
+        CHECK(c.setHex("#ABCD"));
+        REQUIRE(c.toString() == "#AABBCCDD");
+        CHECK(c.setHex("#ABCABC"));
+        REQUIRE(c.toString() == "#ABCABC");
+        CHECK(c.setHex("#ABCABCDE"));
+        REQUIRE(c.toString() == "#ABCABCDE");
     }
 }
