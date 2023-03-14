@@ -37,6 +37,11 @@ public:
     void m_rotate(t_symbol* s, const AtomListView& lv);
     void m_flip(t_symbol* s, const AtomListView& lv);
 
+    void m_red(t_symbol* s, const AtomListView& lv);
+    void m_green(t_symbol* s, const AtomListView& lv);
+    void m_blue(t_symbol* s, const AtomListView& lv);
+    void m_alpha(t_symbol* s, const AtomListView& lv);
+
     void m_hex(t_symbol* s, const AtomListView& lv);
     void m_rgb8(t_symbol* s, const AtomListView& lv);
     void m_rgb(t_symbol* s, const AtomListView& lv);

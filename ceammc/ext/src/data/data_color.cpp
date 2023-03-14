@@ -100,6 +100,42 @@ void DataColor::m_flip(t_symbol* s, const AtomListView& lv)
     color_->value().flip(lv.floatAt(0, 0));
 }
 
+void DataColor::m_red(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("R:f[0,1]");
+    if (!chk.check(lv, this))
+        return chk.usage(this);
+
+    color_->value().setRed(lv.floatAt(0, 0));
+}
+
+void DataColor::m_green(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("G:f[0,1]");
+    if (!chk.check(lv, this))
+        return chk.usage(this);
+
+    color_->value().setGreen(lv.floatAt(0, 0));
+}
+
+void DataColor::m_blue(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("B:f[0,1]");
+    if (!chk.check(lv, this))
+        return chk.usage(this);
+
+    color_->value().setBlue(lv.floatAt(0, 0));
+}
+
+void DataColor::m_alpha(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("A:f[0,1]");
+    if (!chk.check(lv, this))
+        return chk.usage(this);
+
+    color_->value().setAlpha(lv.floatAt(0, 0));
+}
+
 void DataColor::m_hex(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("HEX:s");
@@ -178,4 +214,9 @@ void setup_data_color()
     obj.addMethod("hsl", &DataColor::m_hsl);
     obj.addMethod("hwb", &DataColor::m_hwb);
     obj.addMethod("oklab", &DataColor::m_oklab);
+
+    obj.addMethod("red", &DataColor::m_red);
+    obj.addMethod("green", &DataColor::m_green);
+    obj.addMethod("blue", &DataColor::m_blue);
+    obj.addMethod("alpha", &DataColor::m_alpha);
 }

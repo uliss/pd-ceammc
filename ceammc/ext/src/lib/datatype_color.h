@@ -16,6 +16,7 @@
 
 #include "ceammc_abstractdata.h"
 #include "ceammc_atomlist.h"
+#include "ceammc_convert.h"
 #include "ceammc_data.h"
 
 #include <cstdint>
@@ -37,14 +38,24 @@ public:
     DataTypeColor(const DataTypeColor& c);
 
     float dataAt(size_t n) const { return data_[n]; }
+
     float red() const { return data_[0]; }
     float green() const { return data_[1]; }
     float blue() const { return data_[2]; }
     float alpha() const { return data_[3]; };
+    void setRed(float v) { data_[0] = clip01<float>(v); }
+    void setGreen(float v) { data_[1] = clip01<float>(v); }
+    void setBlue(float v) { data_[2] = clip01<float>(v); }
+    void setAlpha(float v) { data_[3] = clip01<float>(v); };
+
     std::uint8_t red8() const { return std::round(data_[0] * 255); }
     std::uint8_t green8() const { return std::round(data_[1] * 255); }
     std::uint8_t blue8() const { return std::round(data_[2] * 255); }
     std::uint8_t alpha8() const { return std::round(data_[3] * 255); }
+    void setRed8(std::uint8_t v) { data_[0] = clip01<float>(v / 255.0); }
+    void setGreen8(std::uint8_t v) { data_[1] = clip01<float>(v / 255.0); }
+    void setBlue8(std::uint8_t v) { data_[2] = clip01<float>(v / 255.0); }
+    void setAlpha8(std::uint8_t v) { data_[3] = clip01<float>(v / 255.0); }
 
     /**
      * set RGB color with integers values in [0,255] range
