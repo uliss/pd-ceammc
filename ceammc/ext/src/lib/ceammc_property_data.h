@@ -82,6 +82,73 @@ public:
 
     DataAtom<T> asDataAtom() const { return DataAtom<T>(v_); }
 };
+
+template <class T>
+class DataPropertyListT : public Property {
+    std::vector<T> v_;
+    bool parse_messages_;
+
+public:
+    DataPropertyListT(
+        const std::string& name,
+        const std::vector<T>& def,
+        bool parse = true,
+        PropValueAccess access = PropValueAccess::READWRITE)
+        : Property(PropertyInfo(name, PropValueType::LIST), access)
+        , v_(def)
+        , parse_messages_(parse)
+    {
+    }
+
+    bool setList(const AtomListView& lv) override
+    {
+        if (lv.empty()) {
+            v_.clear();
+            return true;
+        }
+
+        if (!lv.allOf([](const Atom& a) { return a.isA<T>(); })) {
+            if (!parse_messages_)
+                return false;
+
+            std::vector<T> data;
+            data.reserve(lv.size());
+
+            for (auto& a : lv) {
+                auto res = parseDataList(AtomListView(a));
+                if (!res || !res.result().isA<T>())
+                    return false;
+
+                data.push_back(*res.result().asD<T>());
+            }
+
+            v_ = std::move(data);
+            return true;
+        } else {
+            v_.clear();
+            v_.reserve(lv.size());
+
+            for (auto& a : lv)
+                v_.push_back(*a.asD<T>());
+
+            return true;
+        }
+    }
+
+    AtomList get() const final
+    {
+        AtomList res;
+        res.reserve(v_.size());
+        for (auto& x : v_)
+            res.push_back(DataAtom<T>(x));
+
+        return res;
+    }
+
+    std::vector<T>& value() { return v_; }
+    const std::vector<T>& value() const { return v_; }
+    void setValue(const std::vector<T>& v) { v_ = v; }
+};
 }
 
 #endif // CEAMMC_PROPERTY_DATA_H
