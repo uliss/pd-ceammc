@@ -12,11 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_data.h"
-#include "ceammc_datastorage.h"
-#include "ceammc_format.h"
-#include "ceammc_log.h"
 #include "ceammc_string.h"
-#include "fmt/format.h"
 #include "lex/lemon_data_string_parser.h"
 
 #include <algorithm>

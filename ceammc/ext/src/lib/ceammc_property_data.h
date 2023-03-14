@@ -21,18 +21,32 @@ namespace ceammc {
 template <class T>
 class DataPropertyT : public Property {
     DataAtom<T> v_;
+    bool parse_messages_;
 
 public:
-    DataPropertyT(const std::string& name, const T& def, PropValueAccess access = PropValueAccess::READWRITE)
+    DataPropertyT(
+        const std::string& name,
+        const T& def,
+        bool parse = true,
+        PropValueAccess access = PropValueAccess::READWRITE)
         : Property(PropertyInfo(name, PropValueType::ATOM), access)
         , v_(def)
+        , parse_messages_(parse)
     {
     }
 
     bool setList(const AtomListView& lv) override
     {
-        if (!lv.isA<T>())
-            return false;
+        if (!lv.isA<T>()) {
+            if (parse_messages_) {
+                auto res = parseDataList(lv);
+                if (!res || !res.result().isA<T>())
+                    return false;
+
+                return setValue(*res.result()[0].asDataT<T>());
+            } else
+                return false;
+        }
 
         return setValue(*lv[0].asDataT<T>());
     }

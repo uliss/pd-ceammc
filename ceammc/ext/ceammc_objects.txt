@@ -139,6 +139,7 @@ ceammc/char->morse
 ceammc/click~
 ceammc/clone:
 ceammc/cmul~
+ceammc/color
 ceammc/color->rgba
 ceammc/dbfs->amp
 ceammc/dbfs->amp~
@@ -165,12 +166,14 @@ ceammc/helmholtz~
 ceammc/hex->int
 ceammc/hist~
 ceammc/hpf->biquad
+ceammc/hsl->rgb
 ceammc/int->bits
 ceammc/is_data
 ceammc/is_dict
 ceammc/is_file
 ceammc/l->l
 ceammc/l->l~
+ceammc/lab->rgb
 ceammc/lin->curve
 ceammc/lin->exp
 ceammc/lin->lin
@@ -280,7 +283,9 @@ char->morse
 click~
 clone:
 cmul~
+color
 color->rgba
+color.mix
 conv.amp2dbfs
 conv.amp2dbfs~
 conv.bits2bang
@@ -299,7 +304,9 @@ conv.dbfs2amp~
 conv.degree2key
 conv.edge2bang
 conv.hex2int
+conv.hsl2rgb
 conv.int2bits
+conv.lab2rgb
 conv.lin2curve
 conv.lin2exp
 conv.lin2lin
@@ -325,6 +332,7 @@ conv.sec2samp
 conv.sec2str
 conv.sig2float~
 conv.str2sec
+data.color
 data.copy
 data.dict
 data.fifo
@@ -556,6 +564,7 @@ hoa.rotate~
 hoa.scope~
 hoa.wider~
 hpf->biquad
+hsl->rgb
 http.send
 hw.apple_smc
 hw.apple_sms
@@ -580,6 +589,7 @@ is_prop
 is_symbol
 l->l
 l->l~
+lab->rgb
 lang.faust~
 lang.lua
 lfo.+pulse~
