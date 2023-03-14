@@ -77,7 +77,7 @@ public:
      * set HWB color
      * @param h - hue [0,360]
      * @param w - whiteness [0,1]
-     * @param b - brightness [0,1]
+     * @param b - blackness [0,1]
      * @param a - alpha [0,1]
      */
     DataTypeColor& setHwb(float h, float w, float b, float a = 1);

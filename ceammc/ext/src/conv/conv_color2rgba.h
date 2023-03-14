@@ -16,6 +16,7 @@
 
 #include "ceammc_object.h"
 #include "ceammc_property_enum.h"
+#include "datatype_color.h"
 #include "lex/parser_color.h"
 using namespace ceammc;
 
@@ -28,6 +29,8 @@ public:
 
     void onSymbol(t_symbol* s) override;
     void onAny(t_symbol* s, const AtomListView& lv) override;
+
+    void onDataT(const DataAtom<DataTypeColor>& data);
 };
 
 void setup_conv_color2rgba();

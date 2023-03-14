@@ -220,8 +220,8 @@ TEST_CASE("DataTypeColor", "[core]")
         CHECK(Color().setRgbf(1, 0, 1, 0.5).toString() == "#FF00FF80");
         CHECK(Color().setRgbf(2, -1, 1.1, 0.5).toString() == "#FF00FF80");
         CHECK(Color().setHsl(0, 1, 1).toString() == "#FFFFFF");
-        CHECK(Color().setHwb(0, 1, 0).toString() == "#FF0303");
-        CHECK(Color().setHwb(180, 1, 0).toString() == "#03FFFF");
+        CHECK(Color().setHwb(0, 1, 0).toString() == "#FFFFFF");
+        CHECK(Color().setHwb(180, 0.5, 0).toString() == "#80FFFF");
         CHECK(Color().setOkLab(1, -1, -1).toString() == "#0000FF");
         CHECK(Color().setOkLab(1, -1, 1).toString() == "#00FF00");
         CHECK(Color().setOkLab(1, 1, 1).toString() == "#FF0000");

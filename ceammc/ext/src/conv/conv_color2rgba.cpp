@@ -67,10 +67,33 @@ void ConvColor2RGBA::onAny(t_symbol* s, const AtomListView&)
     onSymbol(s);
 }
 
+void ConvColor2RGBA::onDataT(const DataAtom<DataTypeColor>& data)
+{
+    auto c = *data;
+    switch (crc32_hash(mode_->value())) {
+    case hash_int:
+        floatTo(3, c.alpha8());
+        floatTo(2, c.blue8());
+        floatTo(1, c.green8());
+        floatTo(0, c.red8());
+        break;
+    case hash_float:
+        floatTo(3, c.alpha());
+        floatTo(2, c.blue());
+        floatTo(1, c.green());
+        floatTo(0, c.red());
+        break;
+    default:
+        OBJ_ERR << fmt::format("invalid mode: '{}'", mode_->value()->s_name);
+        break;
+    }
+}
+
 void setup_conv_color2rgba()
 {
     ObjectFactory<ConvColor2RGBA> obj("conv.color2rgba");
     obj.addAlias("color->rgba");
+    obj.processData<DataTypeColor>();
 
     obj.setXletsInfo({ "symbol: named or hex RGBA color" }, { "red", "green", "blue", "alpha" });
     obj.setCategory("conv");
