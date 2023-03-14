@@ -197,6 +197,12 @@ TEST_CASE("DataTypeColor", "[core]")
         CHECK(Color().mix(Color(0x808080FF), 2).toString() == "#808080");
         CHECK(Color().mix(Color(0x808080FF), 0).toString() == "#000000");
         CHECK(Color().mix(Color(0x808080FF), -1).toString() == "#000000");
+    }
 
+    SECTION("invert")
+    {
+        CHECK(Color().invert().toString() == "#FFFFFF");
+        CHECK(Color(0xFFFFFFFF).invert().toString() == "#000000");
+        CHECK(Color(0x0F0F0FFF).invert().toString() == "#F0F0F0");
     }
 }

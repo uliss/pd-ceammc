@@ -212,6 +212,12 @@ DataTypeColor DataTypeColor::mix(const DataTypeColor& c, float f) const
     return res;
 }
 
+DataTypeColor& DataTypeColor::invert()
+{
+    fromRGB(data_, colorm::Srgb(colorm::Rgb(toRGB(*this)).invert()));
+    return *this;
+}
+
 float DataTypeColor::contrast(const DataTypeColor& c) const
 {
     return toRGB(*this).contrast(toRGB(c));

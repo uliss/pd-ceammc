@@ -100,6 +100,11 @@ public:
     DataTypeColor mix(const DataTypeColor& c, float f = 0.5) const;
 
     /**
+     * invert color
+     */
+    DataTypeColor& invert();
+
+    /**
      * return the WCAG contrast ratio of this color to another color
      * @see https://www.w3.org/TR/WCAG20-TECHS/G18.html
      */
