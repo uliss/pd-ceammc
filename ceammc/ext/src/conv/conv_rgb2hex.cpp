@@ -126,6 +126,16 @@ void ConvRgb2Hex::onInlet(size_t n, const AtomListView& lv)
     }
 }
 
+void ConvRgb2Hex::onDataT(const DataAtom<DataTypeColor>& data)
+{
+    auto c = *data;
+    r_ = c.red();
+    g_ = c.green();
+    b_ = c.blue();
+
+    outputFloat();
+}
+
 void ConvRgb2Hex::outputFloat()
 {
     std::uint8_t R = clip<int, 0, 255>(std::round(r_ * 255));
@@ -152,5 +162,6 @@ void setup_conv_rgb2hex()
 {
     ObjectFactory<ConvRgb2Hex> obj("conv.rgb2hex");
     obj.addAlias("rgb->hex");
+    obj.processData<DataTypeColor>();
     obj.setXletsInfo({ "int or float: red", "int or float: green", "int or float: blue" }, { "symbol: #RRGGBB" });
 }

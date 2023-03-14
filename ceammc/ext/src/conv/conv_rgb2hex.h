@@ -16,6 +16,7 @@
 
 #include "ceammc_object.h"
 #include "ceammc_property_enum.h"
+#include "datatype_color.h"
 using namespace ceammc;
 
 class ConvRgb2Hex : public BaseObject {
@@ -29,6 +30,7 @@ public:
     void onFloat(t_float f) override;
     void onList(const AtomListView& lv) override;
     void onInlet(size_t n, const AtomListView& lv) override;
+    void onDataT(const DataAtom<DataTypeColor>& data);
 
 private:
     void outputInt();
