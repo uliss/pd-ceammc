@@ -41,6 +41,7 @@
 
 void setup_rtree_to_list();
 void setup_data_copy();
+void setup_data_color();
 
 void ceammc_data_setup()
 {
@@ -53,6 +54,7 @@ void ceammc_data_setup()
     setup_set_union();
     setup_set_symdiff();
 
+    setup_data_color();
     setup_data_copy();
     setup_data_dict();
     setup_data_fifo();

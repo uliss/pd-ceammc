@@ -9,6 +9,7 @@ function(ceammc_data_external mod name)
     target_sources(ceammc_data PRIVATE "${mod}_${name}.cpp")
 endfunction()
 
+ceammc_data_external(data color)
 ceammc_data_external(data copy)
 ceammc_data_external(data dict)
 ceammc_data_external(data fifo)

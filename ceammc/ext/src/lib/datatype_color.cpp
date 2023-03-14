@@ -42,7 +42,16 @@ DataTypeId initType()
 
 colorm::Srgb toRGB(const DataTypeColor& color)
 {
-    return colorm::Srgb(color.dataAt(0), color.dataAt(1), color.dataAt(2), color.dataAt(3));
+    return colorm::Srgb(color.dataAt(0), color.dataAt(1), color.dataAt(2), color.dataAt(3)).clip();
+}
+
+void fromRGB(float* data, const colorm::Srgb& c)
+{
+    auto c0 = c.clip();
+    data[0] = c0.red();
+    data[1] = c0.green();
+    data[2] = c0.blue();
+    data[3] = c0.alpha();
 }
 
 }
@@ -138,6 +147,74 @@ DataTypeColor& DataTypeColor::operator=(const DataTypeColor& c)
 DataTypeColor::DataTypeColor(const DataTypeColor& c)
 {
     std::memcpy(data_, c.data_, sizeof(c.data_));
+}
+
+void DataTypeColor::setRgb8(std::uint8_t r, std::uint8_t g, std::uint8_t b, std::uint8_t a)
+{
+    data_[0] = r / 255.0;
+    data_[1] = g / 255.0;
+    data_[2] = b / 255.0;
+    data_[3] = a / 255.0;
+}
+
+DataTypeColor& DataTypeColor::brighten(float v)
+{
+    fromRGB(data_, toRGB(*this).brighten(v));
+    return *this;
+}
+
+DataTypeColor& DataTypeColor::darken(float v)
+{
+    fromRGB(data_, toRGB(*this).darken(v));
+    return *this;
+}
+
+DataTypeColor& DataTypeColor::saturate(float v)
+{
+    fromRGB(data_, toRGB(*this).saturate(v));
+    return *this;
+}
+
+DataTypeColor& DataTypeColor::desaturate(float v)
+{
+    fromRGB(data_, toRGB(*this).desaturate(v));
+    return *this;
+}
+
+DataTypeColor& DataTypeColor::rotate(float v)
+{
+    fromRGB(data_, toRGB(*this).rotate(v));
+    return *this;
+}
+
+DataTypeColor& DataTypeColor::flip(float v)
+{
+    fromRGB(data_, toRGB(*this).flip(v));
+    return *this;
+}
+
+DataTypeColor& DataTypeColor::grayscale()
+{
+    fromRGB(data_, toRGB(*this).grayscale());
+    return *this;
+}
+
+DataTypeColor& DataTypeColor::maximizeLightness()
+{
+    fromRGB(data_, toRGB(*this).maximizeLightness());
+    return *this;
+}
+
+DataTypeColor DataTypeColor::mix(const DataTypeColor& c, float f) const
+{
+    DataTypeColor res;
+    fromRGB(res.data_, toRGB(*this).mix(toRGB(c), f));
+    return res;
+}
+
+float DataTypeColor::contrast(const DataTypeColor& c) const
+{
+    return toRGB(*this).contrast(toRGB(c));
 }
 
 std::string DataTypeColor::toListStringContent() const noexcept

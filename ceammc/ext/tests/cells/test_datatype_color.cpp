@@ -138,4 +138,65 @@ TEST_CASE("DataTypeColor", "[core]")
             CHECK(Color().toDictString() == "Color[hex: #000000]");
         }
     }
+
+    SECTION("brigther")
+    {
+        CHECK(Color().brighten(0.1).toString() == "#030303");
+        CHECK(Color().brighten(0.2).toString() == "#161616");
+        CHECK(Color().brighten(0.2).brighten(-0.1).toString() == "#030303");
+    }
+
+    SECTION("darken")
+    {
+        CHECK(Color(0xFFFFFFFF).darken(0.1).toString() == "#DEDEDE");
+        CHECK(Color(0xFFFFFFFF).darken(0.2).toString() == "#BEBEBE");
+        CHECK(Color(0xFFFFFFFF).darken(0.2).darken(-0.1).toString() == "#DEDEDE");
+    }
+
+    SECTION("saturate")
+    {
+        CHECK(Color(0x330011FF).saturate(0.1).toString() == "#4C0009");
+        CHECK(Color(0x330011FF).desaturate(-0.1).toString() == "#4C0009");
+        CHECK(Color(0x4C0009FF).saturate(-0.1).toString() == "#282423");
+        CHECK(Color(0x4C0009FF).desaturate(0.1).toString() == "#282423");
+    }
+
+    SECTION("rotate")
+    {
+        Color c(0x330011FF);
+        CHECK(c.rotate(360).toString() == "#330011");
+        CHECK(c.rotate(-360).toString() == "#330011");
+        CHECK(c.rotate(180).toString() == "#00221E");
+    }
+
+    SECTION("flip")
+    {
+        Color c(0xFF0000FF);
+        CHECK(c.flip(0).toString() == "#D82DCE");
+    }
+
+    SECTION("contrast")
+    {
+        Color c0, c1;
+        c0.setRgb8(100, 100, 100);
+        c1.setRgb8(105, 100, 88);
+        CHECK(c0.contrast(c1) == Approx(1.00442));
+    }
+
+    SECTION("maximizeLightness")
+    {
+        CHECK(Color(0xAA0011FF).maximizeLightness().toString() == "#FF665C");
+        CHECK(Color().maximizeLightness().toString() == "#000000");
+        CHECK(Color(0x000001FF).maximizeLightness().toString() == "#E9F1FF");
+    }
+
+    SECTION("mix")
+    {
+        CHECK(Color().mix(Color(0x808080FF), 0.5).toString() == "#404040");
+        CHECK(Color().mix(Color(0x808080FF), 1).toString() == "#808080");
+        CHECK(Color().mix(Color(0x808080FF), 2).toString() == "#808080");
+        CHECK(Color().mix(Color(0x808080FF), 0).toString() == "#000000");
+        CHECK(Color().mix(Color(0x808080FF), -1).toString() == "#000000");
+
+    }
 }

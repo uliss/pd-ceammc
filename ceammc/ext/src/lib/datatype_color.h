@@ -46,6 +46,65 @@ public:
     std::uint8_t blue8() const { return std::round(data_[2] * 255); }
     std::uint8_t alpha8() const { return std::round(data_[3] * 255); }
 
+    void setRgb8(std::uint8_t r, std::uint8_t g, std::uint8_t b, std::uint8_t a = 255);
+
+    /**
+     * set color brighter
+     * @param v - [0-1] range
+     */
+    DataTypeColor& brighten(float v);
+
+    /**
+     * set color darker
+     * @param v - [0-1] range
+     */
+    DataTypeColor& darken(float v);
+
+    /**
+     * set color more saturate
+     * @param v - [0-1] range
+     */
+    DataTypeColor& saturate(float v);
+
+    /**
+     * set color less saturate
+     * @param v - [0-1] range
+     */
+    DataTypeColor& desaturate(float v);
+
+    /**
+     * rotate color hue
+     * @param v: [0-360] range
+     */
+    DataTypeColor& rotate(float v);
+
+    /**
+     * flip color hue
+     * @param v
+     */
+    DataTypeColor& flip(float v);
+
+    /**
+     * convert to grayscale
+     */
+    DataTypeColor& grayscale();
+
+    /**
+     * set color in the sRGB where one of the red, green, or blue values is about 255
+     */
+    DataTypeColor& maximizeLightness();
+
+    /**
+     * returns a mixture of this color and another color
+     */
+    DataTypeColor mix(const DataTypeColor& c, float f = 0.5) const;
+
+    /**
+     * return the WCAG contrast ratio of this color to another color
+     * @see https://www.w3.org/TR/WCAG20-TECHS/G18.html
+     */
+    float contrast(const DataTypeColor& c) const;
+
     /** pure virtual implementations*/
     DataTypeId type() const noexcept;
     bool isEqual(const AbstractData* d) const noexcept;
