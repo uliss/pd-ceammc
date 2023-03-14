@@ -5,9 +5,11 @@
 - new objects:
   - array.readwrite~ - ordered array reader/writer (read first, then write)
   - array.tramp~ - triggered array ramp generator
+  - color.mix - color mixer
   - conv.char2morse - single character to morse code converter
   - conv.color2rgba - color converter added from named or hex colors to separate RGBA values
   - conv.rgb2hex - convert RGB separate values to #RRGGBB symbol
+  - data.color - Color datatype
   - fx.overdrive~ - overdrive effect
   - metro.choice - randomly (uniformly) metronome time interval choice from specified set
   - metro.wchoice - weighted metronome time interval choice from specified set
