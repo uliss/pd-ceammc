@@ -27,48 +27,59 @@ CEAMMC_DEFINE_SYM_HASH(longer);
 CEAMMC_DEFINE_SYM_HASH(increasing);
 CEAMMC_DEFINE_SYM_HASH(decreasing);
 
-using DefaultColorScale = colorm::ColorScale<colorm::Oklab>;
+using ColorT = colorm::Oklab;
+using ColorList = std::vector<ColorT>;
+using ColorScaleT = colorm::ColorScale<ColorT>;
 
 struct ColorScaleImpl {
-    DefaultColorScale scale;
+    ColorScaleT scale;
+    ColorT color(float f) const { return scale(f); }
+    void correctLightness() { scale = scale.correctLightness(); }
+    void setColors(const ColorList& colors, t_symbol* s)
+    {
+        switch (crc32_hash(s)) {
+        case hash_shorter:
+            scale = ColorScaleT(colors).shorter();
+            break;
+        case hash_longer:
+            scale = ColorScaleT(colors).longer();
+            break;
+        case hash_increasing:
+            scale = ColorScaleT(colors).increasing();
+            break;
+        case hash_decreasing:
+            scale = ColorScaleT(colors).decreasing();
+            break;
+        case hash_none:
+        default:
+            scale = ColorScaleT(colors);
+            break;
+        }
+    }
 };
 
 ColorScale::ColorScale(const PdArgs& args)
     : BaseObject(args)
-    , scale_(nullptr)
+    , colors_(nullptr)
     , mode_(nullptr)
     , interp_(nullptr)
     , impl_(new ColorScaleImpl)
 {
-    scale_ = new DataPropertyListT<DataTypeColor>("@scale", {});
-    scale_->setArgIndex(0);
-    scale_->setSuccessFn([this](Property* p) {
+    colors_ = new ColorListProperty("@scale", {});
+    colors_->setArgIndex(0);
+    colors_->setSuccessFn([this](Property* p) {
         if (!impl_)
             return;
 
-        std::vector<colorm::Oklab> colors;
-        for (auto& c : scale_->value())
-            colors.push_back(colorm::Oklab(colorm::Srgb(c.red(), c.green(), c.blue(), c.alpha())));
+        ColorList colors;
+        colors.reserve(colors_->size());
+        for (auto& c : colors_->value())
+            colors.push_back(ColorT(colorm::Srgb(c.red(), c.green(), c.blue(), c.alpha())));
 
-        switch (crc32_hash(interp_->value())) {
-        case hash_none:
-            impl_->scale = DefaultColorScale(colors);
-            break;
-        case hash_shorter:
-            impl_->scale = DefaultColorScale(colors).shorter();
-            break;
-        case hash_longer:
-            impl_->scale = DefaultColorScale(colors).longer();
-            break;
-        case hash_increasing:
-            impl_->scale = DefaultColorScale(colors).increasing();
-            break;
-        case hash_decreasing:
-            impl_->scale = DefaultColorScale(colors).decreasing();
-            break;
-        }
+        impl_->setColors(colors, mode_->value());
+        impl_->correctLightness();
     });
-    addProperty(scale_);
+    addProperty(colors_);
 
     mode_ = new SymbolEnumProperty("@mode", { sym_color(), sym_hex(), sym_rgb() });
     addProperty(mode_);
@@ -89,7 +100,7 @@ void ColorScale::onFloat(t_float f)
     if (!impl_)
         return;
 
-    auto color = colorm::Srgb(impl_->scale(f));
+    auto color = colorm::Srgb(impl_->color(f));
 
     switch (crc32_hash(mode_->value())) {
     case hash_color:

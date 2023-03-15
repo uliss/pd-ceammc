@@ -15,7 +15,9 @@
 #define CEAMMC_PROPERTY_DATA_H
 
 #include "ceammc_data.h"
+#include "ceammc_format.h"
 #include "ceammc_property.h"
+#include "fmt/core.h"
 
 namespace ceammc {
 template <class T>
@@ -40,8 +42,13 @@ public:
         if (!lv.isA<T>()) {
             if (parse_messages_) {
                 auto res = parseDataList(lv);
-                if (!res || !res.result().isA<T>())
+                if (!res || !res.result().isA<T>()) {
+                    LIB_ERR << fmt::format("[{}] only {} datatype is expected, got: {}",
+                        name()->s_name,
+                        v_->typeName().c_str(),
+                        to_string(lv));
                     return false;
+                }
 
                 return setValue(*res.result()[0].asDataT<T>());
             } else
@@ -108,16 +115,25 @@ public:
         }
 
         if (!lv.allOf([](const Atom& a) { return a.isA<T>(); })) {
-            if (!parse_messages_)
+            if (!parse_messages_) {
+                LIB_ERR << fmt::format("[{}] only {} datatypes are expected",
+                    name()->s_name,
+                    T().typeName().c_str());
                 return false;
+            }
 
             std::vector<T> data;
             data.reserve(lv.size());
 
             for (auto& a : lv) {
                 auto res = parseDataList(AtomListView(a));
-                if (!res || !res.result().isA<T>())
+                if (!res || !res.result().isA<T>()) {
+                    LIB_ERR << fmt::format("[{}] only {} datatypes are expected, got: {}",
+                        name()->s_name,
+                        T().typeName().c_str(),
+                        to_string(a));
                     return false;
+                }
 
                 data.push_back(*res.result().asD<T>());
             }
@@ -148,6 +164,8 @@ public:
     std::vector<T>& value() { return v_; }
     const std::vector<T>& value() const { return v_; }
     void setValue(const std::vector<T>& v) { v_ = v; }
+
+    size_t size() const { return v_.size(); }
 };
 }
 

@@ -24,9 +24,10 @@ using namespace ceammc;
 
 struct ColorScaleImpl;
 using ColorScalePtr = std::unique_ptr<ColorScaleImpl>;
+using ColorListProperty = DataPropertyListT<DataTypeColor>;
 
 class ColorScale : public BaseObject {
-    DataPropertyListT<DataTypeColor>* scale_;
+    ColorListProperty* colors_;
     SymbolEnumProperty* mode_;
     SymbolEnumProperty* interp_;
     ColorScalePtr impl_;
