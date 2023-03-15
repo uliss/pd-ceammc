@@ -15,7 +15,7 @@
 #define DATASTRING_H
 
 #include "ceammc_abstractdata.h"
-#include "ceammc_atomlist.h"
+#include "ceammc_atomlist_view.h"
 #include "ceammc_string_split.h"
 #include "ceammc_string_types.h"
 
@@ -29,20 +29,22 @@ class DataTypeString : public AbstractData {
     std::string str_;
 
 public:
+    DataTypeString();
+
     /**
      * Creates from pd symbol
      */
-    DataTypeString(t_symbol* s);
+    explicit DataTypeString(t_symbol* s);
 
     /**
      * Creates from string
      */
-    DataTypeString(const char* str);
+    explicit DataTypeString(const char* str);
 
     /**
      * Creates from string
      */
-    DataTypeString(const std::string& str);
+    explicit DataTypeString(const std::string& str);
     DataTypeString(std::string&& str)
         : str_(std::move(str))
     {
@@ -52,13 +54,13 @@ public:
      * Creates from atom
      *  - if atom is data, uses data->toString() result
      */
-    DataTypeString(const Atom& a);
+    explicit DataTypeString(const Atom& a);
 
     /**
      * Create string from list of atoms - converts using to_string with space separator
      * @example list [1,2,3] -> string "1 2 3"
      */
-    DataTypeString(const AtomListView& lv);
+    explicit DataTypeString(const AtomListView& lv);
 
     // copy/move
     DataTypeString(const DataTypeString& d);

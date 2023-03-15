@@ -45,6 +45,13 @@ namespace ceammc {
 
 const DataTypeId DataTypeString::dataType = initType();
 
+DataTypeString::DataTypeString()
+{
+#ifndef NDEBUG
+    LIB_DBG << "string created: " << str_;
+#endif
+}
+
 DataTypeString::DataTypeString(t_symbol* s)
     : str_(s->s_name)
 {

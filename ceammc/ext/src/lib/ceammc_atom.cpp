@@ -15,8 +15,7 @@
 #include "ceammc_datastorage.h"
 #include "ceammc_log.h"
 #include "ceammc_numeric.h"
-#include "ceammc_string.h"
-#include "fmt/format.h"
+#include "fmt/core.h"
 #include "lex/parser_strings.h"
 
 #include <cmath>

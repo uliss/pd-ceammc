@@ -349,6 +349,11 @@ namespace string {
      * Output atomlist to given stream with type annotated info
      */
     std::ostream& list_to_stream_typed(const AtomListView& lv, std::ostream& os);
+
+    /**
+     * returns atom type name as string
+     */
+    DataTypeName atom_type_name(const Atom& a);
 }
 }
 

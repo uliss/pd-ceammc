@@ -14,8 +14,9 @@
 #include "ceammc_string.h"
 #include "ceammc_abstractdata.h"
 #include "ceammc_atomlist.h"
+#include "ceammc_datastorage.h"
 #include "ceammc_log.h"
-#include "fmt/format.h"
+#include "fmt/core.h"
 #include "lex/parser_strings.h"
 #include "utf8rewind/utf8rewind.h"
 
@@ -689,5 +690,28 @@ namespace string {
         return os;
     }
 
+    DataTypeName atom_type_name(const Atom& a)
+    {
+        switch (a.type()) {
+        case Atom::NONE:
+            return "none";
+        case Atom::FLOAT:
+            return "float";
+        case Atom::SYMBOL:
+            return "symbol";
+        case Atom::PROPERTY:
+            return "property";
+        case Atom::DATA:
+            return DataStorage::instance().nameByType(a.dataType());
+        case Atom::POINTER:
+            return "pointer";
+        case Atom::SEMICOLON:
+            return "semicolon";
+        case Atom::COMMA:
+            return "comma";
+        default:
+            return "?";
+        }
+    }
 }
 }

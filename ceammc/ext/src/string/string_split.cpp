@@ -38,7 +38,7 @@ StringSplit::StringSplit(const PdArgs& a)
 
 void StringSplit::onSymbol(t_symbol* s)
 {
-    split(s);
+    split(DataTypeString(s));
     output();
 }
 
