@@ -17,7 +17,7 @@
 #include "ceammc_data.h"
 #include "ceammc_format.h"
 #include "ceammc_property.h"
-#include "fmt/core.h"
+#include "ceammc_string.h"
 
 namespace ceammc {
 template <class T>
@@ -37,44 +37,42 @@ public:
     {
     }
 
-    bool setList(const AtomListView& lv) override
+    AtomList get() const final { return v_; }
+    bool setList(const AtomListView& lv) final
     {
-        if (!lv.isA<T>()) {
-            if (parse_messages_) {
-                auto res = parseDataList(lv);
-                if (!res || !res.result().isA<T>()) {
-                    LIB_ERR << fmt::format("[{}] only {} datatype is expected, got: {}",
-                        name()->s_name,
-                        v_->typeName().c_str(),
-                        to_string(lv));
-                    return false;
-                }
-
-                return setValue(*res.result()[0].asDataT<T>());
-            } else
-                return false;
-        }
-
-        return setValue(*lv[0].asDataT<T>());
+        if (!lv.isAtom())
+            return false;
+        else
+            return setAtom(lv.front());
     }
 
-    AtomList get() const override { return v_; }
-    bool getAtom(Atom& a) const override
+    bool getAtom(Atom& a) const final
     {
         a = v_;
         return true;
     }
 
-    bool setBool(bool b) override { return false; }
-    bool setFloat(t_float f) override { return false; }
-    bool setInt(int i) override { return false; }
-    bool setSymbol(t_symbol* s) override { return false; }
-    bool setAtom(const Atom& a) override
+    bool setAtom(const Atom& a) final
     {
-        if (!a.isDataType(T::dataType))
-            return false;
-        else {
-            v_ = std::move(DataAtom<T>(a));
+        if (!a.isA<T>()) {
+            if (parse_messages_) {
+                auto res = parseDataList(AtomListView(a));
+                if (!res)
+                    return false;
+
+                if (!res.result().isA<T>()) {
+                    LIB_ERR << '[' << name()->s_name << "] only "
+                            << string::atom_type_name(v_).c_str() << " datatype is expected, got: "
+                            << string::atom_type_name(a).c_str();
+                    return false;
+                }
+
+                v_ = DataAtom<T>(*res.result().asD<T>());
+                return true;
+            } else
+                return false;
+        } else {
+            v_ = DataAtom<T>(a);
             return true;
         }
     }
@@ -107,7 +105,27 @@ public:
     {
     }
 
-    bool setList(const AtomListView& lv) override
+    AtomList get() const final
+    {
+        AtomList res;
+        res.reserve(v_.size());
+        for (auto& x : v_)
+            res.push_back(DataAtom<T>(x));
+
+        return res;
+    }
+
+    bool getList(AtomList& lst) const final
+    {
+        lst.clear();
+        lst.reserve(v_.size());
+        for (auto& x : v_)
+            lst.push_back(DataAtom<T>(x));
+
+        return true;
+    }
+
+    bool setList(const AtomListView& lv) final
     {
         if (lv.empty()) {
             v_.clear();
@@ -116,9 +134,8 @@ public:
 
         if (!lv.allOf([](const Atom& a) { return a.isA<T>(); })) {
             if (!parse_messages_) {
-                LIB_ERR << fmt::format("[{}] only {} datatypes are expected",
-                    name()->s_name,
-                    T().typeName().c_str());
+                LIB_ERR << '[' << name()->s_name << "] only "
+                        << T().typeName().c_str() << " datatypes are expected";
                 return false;
             }
 
@@ -127,11 +144,15 @@ public:
 
             for (auto& a : lv) {
                 auto res = parseDataList(AtomListView(a));
-                if (!res || !res.result().isA<T>()) {
-                    LIB_ERR << fmt::format("[{}] only {} datatypes are expected, got: {}",
-                        name()->s_name,
-                        T().typeName().c_str(),
-                        to_string(a));
+                if (!res)
+                    return false;
+
+                if (!res.result().isA<T>()) {
+                    LIB_ERR << '[' << name()->s_name << "] only "
+                            << T().typeName().c_str() << " datatypes are expected, got: "
+                            << (res.result().isData()
+                                       ? string::atom_type_name(res.result()[0]).c_str()
+                                       : string::atom_type_name(a).c_str());
                     return false;
                 }
 
@@ -149,16 +170,6 @@ public:
 
             return true;
         }
-    }
-
-    AtomList get() const final
-    {
-        AtomList res;
-        res.reserve(v_.size());
-        for (auto& x : v_)
-            res.push_back(DataAtom<T>(x));
-
-        return res;
     }
 
     std::vector<T>& value() { return v_; }
