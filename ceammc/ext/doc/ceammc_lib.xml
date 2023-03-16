@@ -350,6 +350,9 @@
     </entry>
   </category>
   <category name="data">
+    <entry name="data.color" descr="Color datatype" ref_view="object">
+      <xi:include href="data.color.pddoc" parse="xml"/>
+    </entry>
     <entry name="data.copy" descr="make copy for any data types: MList, Set etc..." ref_view="object">
       <xi:include href="data.copy.pddoc" parse="xml"/>
     </entry>

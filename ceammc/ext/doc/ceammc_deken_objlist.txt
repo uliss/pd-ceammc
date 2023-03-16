@@ -250,6 +250,9 @@ music.dur2time	convert duration list to time
 music.d->t	convert duration list to time
 music.voice2midi	convert voice music list of midi pitches
 music.v->m	convert voice music list of midi pitches
+data.color	Color datatype
+color	Color datatype
+ceammc/color	Color datatype
 data.copy	make copy for any data types: MList, Set etc...
 data.dict	dictionary container: store values by key
 ceammc/dict	dictionary container: store values by key

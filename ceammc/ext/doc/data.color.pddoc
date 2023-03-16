@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="data.color">
+        <title>data.color</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Color datatype</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>data</category>
+            <keywords>data color</keywords>
+            <since>0.9.7</since>
+            <aliases>
+                <alias>color</alias>
+                <alias>ceammc/color</alias>
+            </aliases>
+        </meta>
+        <arguments>
+            <argument name="VALUE" type="atom">initial value</argument>
+        </arguments>
+        <properties>
+            <property name="@value" type="atom" default="">current
+            value</property>
+        </properties>
+        <methods>
+            <method name="blue">set blue channel value
+            <param name="BLUE" type="float" minvalue="0" maxvalue="1" required="true">value</param></method>
+            <method name="red">set red channel value
+            <param name="RED" type="float" minvalue="0" maxvalue="1" required="true">value</param></method>
+            <method name="green">set green channel value
+            <param name="GREEN" type="float" minvalue="0" maxvalue="1" required="true">value</param></method>
+            <method name="alpha">set alpha channel value
+            <param name="ALPHA" type="float" minvalue="0" maxvalue="1" required="true">value</param></method>
+            <method name="rgb">set RGB with floats
+            <param name="RED" type="float" minvalue="0" maxvalue="1" required="true">red value</param>
+            <param name="GREEN" type="float" minvalue="0" maxvalue="1" required="true">green value</param>
+            <param name="BLUE" type="float" minvalue="0" maxvalue="1" required="true">blue value</param>
+            <param name="ALPHA" type="float" minvalue="0" maxvalue="1" required="false">alpha value</param>
+            </method>
+            <method name="rgb8">set RGB with int values
+            <param name="RED" type="int" minvalue="0" maxvalue="255" required="true">red value</param>
+            <param name="GREEN" type="int" minvalue="0" maxvalue="255" required="true">green value</param>
+            <param name="BLUE" type="int" minvalue="0" maxvalue="255" required="true">blue value</param>
+            <param name="ALPHA" type="int" minvalue="0" maxvalue="255" required="false">alpha value</param>
+            </method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="data:color">input data</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>data:color output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[data.color]
+|
+[conv.color->hex]
+|
+[color $1 -1 -1]
+|
+[B]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

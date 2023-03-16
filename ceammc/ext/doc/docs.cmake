@@ -91,6 +91,7 @@ set(DOC_FILES
     conv.sec2str
     conv.sig2float~
     conv.str2sec
+    data.color
     data.copy
     data.dict
     data.fifo
