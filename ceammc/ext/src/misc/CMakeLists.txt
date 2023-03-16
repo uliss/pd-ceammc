@@ -63,6 +63,16 @@ if(WITH_TTS_FLITE)
     target_sources(ceammc_misc PRIVATE speech_flite.cpp fliterender.cpp speech_flite_tilde.cpp)
 endif()
 
+if(WITH_LTC)
+    find_package(LTC)
+    if(LTC_FOUND)
+        target_include_directories(ceammc_misc PRIVATE ${LTC_INCLUDE_DIRS})
+        target_compile_definitions(ceammc_misc PRIVATE -DWITH_LIBLTC)
+        target_link_libraries(ceammc_misc PUBLIC ${LTC_LIBRARIES})
+        target_sources(ceammc_misc PRIVATE misc_ltcout_tilde.cpp)
+    endif()
+endif()
+
 if(WITH_TTS_RHVOICE)
     find_package(RHVoice REQUIRED)
 
