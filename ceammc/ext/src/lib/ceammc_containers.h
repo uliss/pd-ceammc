@@ -98,6 +98,28 @@ public:
     }
 };
 
+template <size_t SIZE>
+class AtomArray : public std::array<Atom, SIZE> {
+public:
+    AtomArray() { this->fill(Atom(0.)); }
+
+    template <typename... Args>
+    explicit AtomArray(Args... args)
+        : std::array<Atom, SIZE>({ atomFrom(args)... })
+    {
+        constexpr auto NARGS = sizeof...(Args);
+        static_assert(NARGS == SIZE, "");
+    }
+
+    AtomListView view() const
+    {
+        if (this->empty())
+            return {};
+        else
+            return { this->data(), SIZE };
+    }
+};
+
 template <size_t N = 4>
 class SmallMessageN {
 public:
