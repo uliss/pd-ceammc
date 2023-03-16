@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "misc_ltcout_tilde.h"
+#include "args/argcheck2.h"
 #include "ceammc_containers.h"
 #include "ceammc_factory.h"
 #include "fmt/core.h"
@@ -151,6 +152,15 @@ void LtcOutTilde::dump() const
         tc.years, tc.months, tc.days, tc.timezone, tc.hours, tc.mins, tc.secs, tc.frame);
 }
 
+void LtcOutTilde::m_smpte(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("H:i[0,23] M:i[0,59] S:i[0,59] F:i[0,30]?");
+    if (!chk.check(lv, this))
+        return chk.usage(this);
+
+    setTime(lv.intAt(0, 0), lv.intAt(1, 0), lv.intAt(2, 0), lv.intAt(3, 0));
+}
+
 void LtcOutTilde::setTime(std::uint8_t hour, std::uint8_t min, std::uint8_t sec, std::uint8_t frame)
 {
     SMPTETimecode tc;
@@ -201,4 +211,5 @@ void setup_misc_ltcout_tilde()
 
     SoundExternalFactory<LtcOutTilde> obj("misc.ltcout~", OBJECT_FACTORY_DEFAULT);
     obj.addAlias("ltc.in~");
+    obj.addMethod("smpte", &LtcOutTilde::m_smpte);
 }
