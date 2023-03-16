@@ -20,17 +20,14 @@
 using namespace ceammc;
 
 struct LTCEncoder;
-struct SMPTETimecode;
 using LTCEncoderPtr = std::unique_ptr<LTCEncoder, void (*)(LTCEncoder*)>;
-using SMPTEPtr = std::unique_ptr<SMPTETimecode>;
 
 class LtcOutTilde : public SoundExternal {
     LTCEncoderPtr encoder_;
-    SMPTEPtr smpte_;
-    size_t cnt_;
     BoolProperty* on_;
     FloatProperty* volume_;
     FloatProperty* speed_;
+    FloatProperty* fps_;
     std::uint8_t *buf_beg_, *buf_end_;
 
 public:
@@ -39,9 +36,12 @@ public:
 
     void setupDSP(t_signal** sp) final;
     void processBlock(const t_sample** in, t_sample** out) final;
+    void onBang() override;
     void onFloat(t_float t) override;
 
     void dump() const override;
+
+    void setTime(std::uint8_t hour, std::uint8_t min, std::uint8_t sec, std::uint8_t frame);
 
 private:
     void encodeFrame();

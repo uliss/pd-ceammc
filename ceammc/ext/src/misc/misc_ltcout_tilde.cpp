@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "misc_ltcout_tilde.h"
+#include "ceammc_containers.h"
 #include "ceammc_factory.h"
 #include "fmt/core.h"
 
@@ -19,11 +20,25 @@
 
 #include <limits>
 
+constexpr t_float PROP_SPEED_MIN = 1 / 4.0;
+constexpr t_float PROP_SPEED_MAX = 2;
+
 namespace {
-static inline t_sample toSample(ltcsnd_sample_t v)
+
+inline t_sample toSample(ltcsnd_sample_t v)
 {
     constexpr t_sample IN_MAX = std::numeric_limits<ltcsnd_sample_t>::max();
     return (2 * v / IN_MAX) - 1;
+}
+
+inline LTC_TV_STANDARD toTvStandard(float fps)
+{
+    if (fps == 24)
+        return LTC_TV_FILM_24;
+    else if (fps == 25)
+        return LTC_TV_625_50;
+    else
+        return LTC_TV_525_60;
 }
 
 }
@@ -31,27 +46,18 @@ static inline t_sample toSample(ltcsnd_sample_t v)
 LtcOutTilde::LtcOutTilde(const PdArgs& args)
     : SoundExternal(args)
     , encoder_(nullptr, &ltc_encoder_free)
-    , smpte_(new SMPTETimecode)
     , on_(nullptr)
     , volume_(nullptr)
     , speed_(nullptr)
+    , fps_(nullptr)
     , buf_beg_(nullptr)
     , buf_end_(nullptr)
 {
     createSignalOutlet();
+    createOutlet();
 
-    encoder_.reset(ltc_encoder_create(1, 1, LTC_TV_625_50, LTC_USE_DATE));
-
-    const char timezone[6] = "+0100";
-    auto st = smpte_.get();
-    strcpy(st->timezone, timezone);
-    st->years = 0;
-    st->months = 0;
-    st->days = 0;
-    st->hours = 0;
-    st->mins = 0;
-    st->secs = 0;
-    st->frame = 0;
+    encoder_.reset(ltc_encoder_create(1, 25, toTvStandard(25), LTC_USE_DATE));
+    setTime(0, 0, 0, 0);
 
     on_ = new BoolProperty("@on", false);
     addProperty(on_);
@@ -66,22 +72,29 @@ LtcOutTilde::LtcOutTilde(const PdArgs& args)
     addProperty(volume_);
 
     speed_ = new FloatProperty("@speed", 1);
-    speed_->checkClosedRange(0.25, 4);
+    speed_->setFloatCheckFn([this](t_float v) -> bool {
+        auto x = std::abs(v);
+        return PROP_SPEED_MIN <= x && x <= PROP_SPEED_MAX;
+    });
     addProperty(speed_);
+
+    fps_ = new FloatProperty("@fps", 25);
+    fps_->setFloatCheckFn([this](t_float v) -> bool {
+        return (v == 24 || v == 25 || v == 30 || (std::round(100 * v) == 2997));
+    },
+        "fps set error");
+    addProperty(fps_);
 }
 
 void LtcOutTilde::setupDSP(t_signal** sp)
 {
     SoundExternal::setupDSP(sp);
-    ltc_encoder_set_buffersize(encoder_.get(), samplerate(), 25);
-    ltc_encoder_reinit(encoder_.get(), samplerate(), 25, LTC_TV_625_50, LTC_USE_DATE);
+    ltc_encoder_set_buffersize(encoder_.get(), PROP_SPEED_MAX * samplerate(), fps_->value());
+    ltc_encoder_reinit(encoder_.get(), samplerate(), fps_->value(), toTvStandard(fps_->value()), LTC_USE_DATE);
 
-    //        ltc_encoder_set_filter(encoder_.get(), 10);
     ltc_encoder_set_filter(encoder_.get(), 0);
     ltc_encoder_set_volume(encoder_.get(), volume_->value());
-
-    ltc_encoder_set_timecode(encoder_.get(), smpte_.get());
-    cnt_ = 0;
+    setTime(0, 0, 0, 0);
 
     buf_beg_ = nullptr;
     buf_end_ = nullptr;
@@ -113,6 +126,15 @@ void LtcOutTilde::processBlock(const t_sample** in, t_sample** out)
     }
 }
 
+void LtcOutTilde::onBang()
+{
+    SMPTETimecode tc;
+    ltc_encoder_get_timecode(encoder_.get(), &tc);
+
+    AtomArray<4> data(tc.hours, tc.mins, tc.secs, tc.frame);
+    listTo(1, data.view());
+}
+
 void LtcOutTilde::onFloat(t_float t)
 {
     on_->setValue(t > 0);
@@ -125,8 +147,23 @@ void LtcOutTilde::dump() const
     SMPTETimecode tc;
     ltc_encoder_get_timecode(encoder_.get(), &tc);
 
-    OBJ_POST << fmt::format("SMPTE: {:02d}.{:02d}.{:02}{} {:02d}:{:02d}:{:02d}.{:02}",
+    OBJ_POST << fmt::format("SMPTE: {:02d}-{:02d}-{:02}{} {:02d}:{:02d}:{:02d}:{:02}",
         tc.years, tc.months, tc.days, tc.timezone, tc.hours, tc.mins, tc.secs, tc.frame);
+}
+
+void LtcOutTilde::setTime(std::uint8_t hour, std::uint8_t min, std::uint8_t sec, std::uint8_t frame)
+{
+    SMPTETimecode tc;
+    fmt::format_to(tc.timezone, "+{:02}{:02}\0", 0, 0);
+    tc.years = 0;
+    tc.months = 0;
+    tc.days = 0;
+    tc.hours = hour;
+    tc.mins = min;
+    tc.secs = sec;
+    tc.frame = frame;
+
+    ltc_encoder_set_timecode(encoder_.get(), &tc);
 }
 
 void LtcOutTilde::encodeFrame()
