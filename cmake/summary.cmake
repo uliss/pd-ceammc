@@ -71,6 +71,7 @@ message(STATUS "       flite:          ${WITH_TTS_FLITE} (WITH_TTS_FLITE=${WITH_
 message(STATUS "       RHVoice:        ${WITH_TTS_RHVOICE} (WITH_TTS_RHVOICE=${WITH_TTS_RHVOICE})")
 message(STATUS "       libusb:         ${LIBUSB_1_FOUND}")
 message(STATUS "       libartnet:      ${WITH_ARTNET}")
+message(STATUS "       libltc:         ${WITH_LTC} (WITH_LTC=${WITH_LTC})")
 message(STATUS "  3rd party externals:")
 message(STATUS "       lyonpotpourri:  ${WITH_EXT_LYONPOTPOURRI} (WITH_EXT_LYONPOTPOURRI=${WITH_EXT_LYONPOTPOURRI})")
 message(STATUS "       FFTease:        ${WITH_EXT_FFTEASE} (WITH_EXT_FFTEASE=${WITH_EXT_FFTEASE})")
