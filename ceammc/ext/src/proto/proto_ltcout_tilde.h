@@ -14,7 +14,6 @@
 #ifndef MISC_LTCOUT_TILDE_H
 #define MISC_LTCOUT_TILDE_H
 
-#include "ceammc_clock.h"
 #include "ceammc_property_callback.h"
 #include "ceammc_sound_external.h"
 #ifdef WITH_LIBLTC
@@ -32,7 +31,6 @@ class LtcOutTilde : public SoundExternal {
     FloatProperty* fps_;
     CallbackProperty* filter_;
     std::uint8_t *buf_beg_, *buf_end_;
-    ClockLambdaFunction err_clock_;
 
 public:
     LtcOutTilde(const PdArgs& args);

@@ -63,9 +63,6 @@ LtcOutTilde::LtcOutTilde(const PdArgs& args)
     , filter_(nullptr)
     , buf_beg_(nullptr)
     , buf_end_(nullptr)
-    , err_clock_([this]() {
-        OBJ_ERR << "LTC buffer overtflow";
-    })
 {
     createSignalOutlet();
     createOutlet();
@@ -239,10 +236,8 @@ void LtcOutTilde::encodeFrame()
 
     for (int i = 0; i < 10; i++) {
         auto rc = ltc_encoder_encode_byte(e, i, std::abs(v));
-        if (rc != 0) {
-            err_clock_.delay(0);
-            return;
-        }
+        if (rc != 0)
+            break;
     }
 }
 
