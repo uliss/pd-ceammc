@@ -16,15 +16,22 @@
 #include "ceammc_containers.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
-#include "ceammc_format.h"
 #include "fmt/core.h"
 
 #include "ltc.h"
 
 #include <limits>
 
+constexpr t_float PROP_SPEED_DEF = 1;
 constexpr t_float PROP_SPEED_MIN = 1 / 4.0;
-constexpr t_float PROP_SPEED_MAX = 2;
+constexpr t_float PROP_SPEED_MAX = 4;
+constexpr t_float PROP_VOLUME_DEF = -3;
+constexpr t_float PROP_VOLUME_MIN = -42;
+constexpr t_float PROP_VOLUME_MAX = 0;
+constexpr t_float PROP_FPS_DEF = 25;
+constexpr t_float PROP_FILTER_MIN_MS = 0;
+constexpr t_float PROP_FILTER_MAX_MS = 500;
+constexpr t_float PROP_FILTER_DEF_MS = 40;
 
 namespace {
 
@@ -53,20 +60,24 @@ LtcOutTilde::LtcOutTilde(const PdArgs& args)
     , volume_(nullptr)
     , speed_(nullptr)
     , fps_(nullptr)
+    , filter_(nullptr)
     , buf_beg_(nullptr)
     , buf_end_(nullptr)
+    , err_clock_([this]() {
+        OBJ_ERR << "LTC buffer overtflow";
+    })
 {
     createSignalOutlet();
     createOutlet();
 
-    encoder_.reset(ltc_encoder_create(1, 25, toTvStandard(25), LTC_USE_DATE));
+    encoder_.reset(ltc_encoder_create(1, PROP_FPS_DEF, toTvStandard(PROP_FPS_DEF), LTC_USE_DATE));
     setTime(0, 0, 0, 0);
 
     on_ = new BoolProperty("@on", false);
     addProperty(on_);
 
-    volume_ = new FloatProperty("@volume", -3);
-    volume_->checkClosedRange(-42, 0);
+    volume_ = new FloatProperty("@volume", PROP_VOLUME_DEF);
+    volume_->checkClosedRange(PROP_VOLUME_MIN, PROP_VOLUME_MAX);
     volume_->setSuccessFn([this](Property*) {
         if (encoder_)
             ltc_encoder_set_volume(encoder_.get(), volume_->value());
@@ -74,28 +85,46 @@ LtcOutTilde::LtcOutTilde(const PdArgs& args)
     volume_->setUnitsDb();
     addProperty(volume_);
 
-    speed_ = new FloatProperty("@speed", 1);
+    speed_ = new FloatProperty("@speed", PROP_SPEED_DEF);
     speed_->setFloatCheckFn([this](t_float v) -> bool {
         auto x = std::abs(v);
         return PROP_SPEED_MIN <= x && x <= PROP_SPEED_MAX;
     });
     addProperty(speed_);
 
-    fps_ = new FloatProperty("@fps", 25);
+    fps_ = new FloatProperty("@fps", PROP_FPS_DEF);
     fps_->setFloatCheckFn([this](t_float v) -> bool {
         return (v == 24 || v == 25 || v == 30 || (std::round(100 * v) == 2997));
     },
         "fps set error");
     addProperty(fps_);
+
+    filter_ = static_cast<CallbackProperty*>(createCbFloatProperty(
+        "@filter",
+        [this]() -> t_float {
+            auto enc = encoder_.get();
+            return enc ? ltc_encoder_get_filter(enc) : 0;
+        },
+        [this](t_float v) -> bool {
+            auto enc = encoder_.get();
+            if (enc) {
+                OBJ_DBG << "set filter: " << v;
+                ltc_encoder_set_filter(enc, v);
+                return true;
+            } else
+                return false;
+        }));
+    filter_->checkClosedRange(PROP_FILTER_MIN_MS, PROP_FILTER_MAX_MS);
 }
 
 void LtcOutTilde::setupDSP(t_signal** sp)
 {
     SoundExternal::setupDSP(sp);
-    ltc_encoder_set_buffersize(encoder_.get(), PROP_SPEED_MAX * samplerate(), fps_->value());
+    ltc_encoder_set_buffersize(encoder_.get(), samplerate() / PROP_SPEED_MIN, fps_->value());
     ltc_encoder_reinit(encoder_.get(), samplerate(), fps_->value(), toTvStandard(fps_->value()), LTC_USE_DATE);
 
-    ltc_encoder_set_filter(encoder_.get(), 0);
+    updateFilter();
+
     ltc_encoder_set_volume(encoder_.get(), volume_->value());
 
     buf_beg_ = nullptr;
@@ -114,7 +143,7 @@ void LtcOutTilde::processBlock(const t_sample** in, t_sample** out)
             flushBuffer();
             encodeFrame();
             if (on)
-                frameInc();
+                updateFrame();
 
             updateBuffer();
         }
@@ -203,10 +232,15 @@ void LtcOutTilde::setTime(std::uint8_t hour, std::uint8_t min, std::uint8_t sec,
 void LtcOutTilde::encodeFrame()
 {
     auto e = encoder_.get();
-    auto v = speed_->value();
+    auto v = 1 / speed_->value();
 
-    for (int i = 0; i < 10; i++)
-        ltc_encoder_encode_byte(e, i, v);
+    for (int i = 0; i < 10; i++) {
+        auto rc = ltc_encoder_encode_byte(e, i, std::abs(v));
+        if (rc != 0) {
+            err_clock_.delay(0);
+            return;
+        }
+    }
 }
 
 void LtcOutTilde::updateBuffer()
@@ -224,9 +258,17 @@ void LtcOutTilde::flushBuffer()
     ltc_encoder_buffer_flush(encoder_.get());
 }
 
-void LtcOutTilde::frameInc()
+void LtcOutTilde::updateFrame()
 {
-    ltc_encoder_inc_timecode(encoder_.get());
+    if (speed_->value() > 0)
+        ltc_encoder_inc_timecode(encoder_.get());
+    else
+        ltc_encoder_dec_timecode(encoder_.get());
+}
+
+void LtcOutTilde::updateFilter()
+{
+    filter_->set(filter_->get());
 }
 
 void setup_proto_ltcout_tilde()
