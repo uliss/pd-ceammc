@@ -181,7 +181,7 @@ void LtcOutTilde::dump() const
         tc.years, tc.months, tc.days, tc.timezone, tc.hours, tc.mins, tc.secs, tc.frame);
 }
 
-void LtcOutTilde::m_smpte(t_symbol* s, const AtomListView& lv)
+void LtcOutTilde::m_time(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("H:i[0,23] M:i[0,59] S:i[0,59] F:i[0,30]?");
     if (!chk.check(lv, this))
@@ -271,6 +271,6 @@ void setup_proto_ltcout_tilde()
 
     SoundExternalFactory<LtcOutTilde> obj("proto.ltc.out~", OBJECT_FACTORY_DEFAULT);
     obj.addAlias("ltc.out~");
-    obj.addMethod("smpte", &LtcOutTilde::m_smpte);
+    obj.addMethod("time", &LtcOutTilde::m_time);
     obj.addMethod("date", &LtcOutTilde::m_date);
 }
