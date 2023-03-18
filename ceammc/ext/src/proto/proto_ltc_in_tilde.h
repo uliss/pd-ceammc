@@ -14,11 +14,57 @@
 #ifndef MISC_LTC_IN_TILDE_H
 #define MISC_LTC_IN_TILDE_H
 
+#include "ceammc_clock.h"
+#include "ceammc_sound_external.h"
+#ifdef WITH_LIBLTC
 
-class misc_ltc_in_tilde
-{
-public:
-    misc_ltc_in_tilde();
+using namespace ceammc;
+
+struct LTCDecoder;
+using LTCDecoderPtr = std::unique_ptr<LTCDecoder, int (*)(LTCDecoder*)>;
+
+struct LTCFrameExt;
+struct LtcDecoderData {
+    float volume;
+    std::uint8_t year, month, day;
+    std::uint8_t hour, min, sec, frame;
 };
+
+class LtcInTilde : public SoundExternal {
+    LTCDecoderPtr decoder_;
+    BoolProperty* use_date_;
+    size_t off_;
+    ClockLambdaFunction clock_;
+    LtcDecoderData data_;
+
+public:
+    LtcInTilde(const PdArgs& args);
+    ~LtcInTilde();
+
+    void setupDSP(t_signal** sp) final;
+    void processBlock(const t_sample** in, t_sample** out) final;
+    //    void onBang() override;
+    //    void onFloat(t_float t) override;
+
+    //    void dump() const override;
+
+    //    void m_smpte(t_symbol* s, const AtomListView& lv);
+    //    void m_date(t_symbol* s, const AtomListView& lv);
+
+    //    void setTime(std::uint8_t hour, std::uint8_t min, std::uint8_t sec, std::uint8_t frame);
+
+private:
+    void updateData(const LTCFrameExt& frame);
+    void outputData();
+};
+
+void setup_proto_ltcin_tilde();
+
+#else
+#include "ceammc_stub.h"
+
+AUDIO_OBJECT_STUB(1, 0, 0, 1, "compiled without libltc support")
+OBJECT_STUB_SETUP("proto.ltc.in~", proto_ltcin_tilde, "ltc.in~");
+#endif
 
 #endif // MISC_LTC_IN_TILDE_H

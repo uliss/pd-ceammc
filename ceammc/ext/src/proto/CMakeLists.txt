@@ -35,14 +35,14 @@ if(RAGEL_FOUND)
 endif()
 
 if(WITH_LTC)
+    target_sources(ceammc_proto PRIVATE proto_ltc_in_tilde.cpp)
+    target_sources(ceammc_proto PRIVATE proto_ltcout_tilde.cpp)
     find_package(LTC)
     if(LTC_FOUND)
         target_include_directories(ceammc_proto PRIVATE ${LTC_INCLUDE_DIRS})
         target_compile_definitions(ceammc_proto PRIVATE -DWITH_LIBLTC)
         target_link_libraries(ceammc_proto PUBLIC ${LTC_LIBRARIES})
     endif()
-    target_sources(ceammc_proto PRIVATE proto_ltc_in_tilde.cpp)
-    target_sources(ceammc_proto PRIVATE proto_ltcout_tilde.cpp)
 endif()
 
 target_sources(ceammc_proto
