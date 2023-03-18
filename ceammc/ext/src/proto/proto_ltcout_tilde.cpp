@@ -23,7 +23,7 @@
 #include <limits>
 
 constexpr t_float PROP_SPEED_DEF = 1;
-constexpr t_float PROP_SPEED_MIN = 1 / 4.0;
+constexpr t_float PROP_SPEED_MIN = 0.5;
 constexpr t_float PROP_SPEED_MAX = 4;
 constexpr t_float PROP_VOLUME_DEF = -3;
 constexpr t_float PROP_VOLUME_MIN = -42;
@@ -120,7 +120,10 @@ LtcOutTilde::LtcOutTilde(const PdArgs& args)
 void LtcOutTilde::setupDSP(t_signal** sp)
 {
     SoundExternal::setupDSP(sp);
-    ltc_encoder_set_buffersize(encoder_.get(), samplerate() / PROP_SPEED_MIN, fps_->value());
+    if (0 != ltc_encoder_set_buffersize(encoder_.get(), samplerate() / PROP_SPEED_MIN, fps_->value())) {
+        OBJ_ERR << fmt::format("can't init encoder with SR={} and FPS={}", samplerate(), fps_->value());
+    }
+
     ltc_encoder_reinit(encoder_.get(), samplerate(), fps_->value(), toTvStandard(fps_->value()), LTC_USE_DATE);
 
     updateFilter();
