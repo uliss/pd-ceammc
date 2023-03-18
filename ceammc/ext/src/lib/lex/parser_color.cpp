@@ -86,8 +86,8 @@ bool RgbHexFullMatch::parseFull(const char* str, size_t len)
     const char* pe = p + len;
     const char* eof = pe;
     ColorRagelData color;
-    AtomCategory cat_ {CAT_UNKNOWN};
-    AtomType type_ = {TYPE_UNKNOWN};
+    AtomCategory ragel_cat {CAT_UNKNOWN};
+    AtomType ragel_type    {TYPE_UNKNOWN};
 
     reset();
 
@@ -252,7 +252,7 @@ case 8:
 #line 13 "lex/ragel_color.rl"
 	{color.b = color.x;}
 #line 14 "lex/ragel_color.rl"
-	{ cat_ = CAT_COLOR; type_ = TYPE_HEX; }
+	{ ragel_cat = CAT_COLOR; ragel_type = TYPE_HEX; }
 	break;
 #line 258 "lex/parser_color.cpp"
 	}
@@ -292,8 +292,8 @@ bool RgbHexFullMatch::parseShort(const char* str, size_t length)
     const char* pe = p + length;
     const char* eof = pe;
     ColorRagelData color;
-    AtomCategory cat_ {CAT_UNKNOWN};
-    AtomType type_ = {TYPE_UNKNOWN};
+    AtomCategory ragel_cat {CAT_UNKNOWN};
+    AtomType ragel_type    {TYPE_UNKNOWN};
 
     reset();
 
@@ -395,7 +395,7 @@ case 5:
 #line 29 "lex/ragel_color.rl"
 	{color.b = color.x;}
 #line 30 "lex/ragel_color.rl"
-	{ cat_ = CAT_COLOR; type_ = TYPE_HEX; }
+	{ ragel_cat = CAT_COLOR; ragel_type = TYPE_HEX; }
 	break;
 #line 401 "lex/parser_color.cpp"
 	}
@@ -467,8 +467,8 @@ bool RgbaHexFullMatch::parseFull(const char* str, size_t length)
     const char* eof = pe;
     ColorRagelData color;
     color.a = 0xff;
-    AtomCategory cat_ {CAT_UNKNOWN};
-    AtomType type_ = {TYPE_UNKNOWN};
+    AtomCategory ragel_cat {CAT_UNKNOWN};
+    AtomType ragel_type = {TYPE_UNKNOWN};
 
     reset();
 
@@ -675,13 +675,13 @@ case 10:
 #line 47 "lex/ragel_color.rl"
 	{color.b = color.x;}
 #line 50 "lex/ragel_color.rl"
-	{ cat_ = CAT_COLOR; type_ = TYPE_HEX; }
+	{ ragel_cat = CAT_COLOR; ragel_type = TYPE_HEX; }
 	break;
 	case 10: 
 #line 48 "lex/ragel_color.rl"
 	{color.a = color.x;}
 #line 50 "lex/ragel_color.rl"
-	{ cat_ = CAT_COLOR; type_ = TYPE_HEX; }
+	{ ragel_cat = CAT_COLOR; ragel_type = TYPE_HEX; }
 	break;
 #line 687 "lex/parser_color.cpp"
 	}
@@ -723,8 +723,8 @@ bool RgbaHexFullMatch::parseShort(const char* str, size_t length)
     const char* eof = pe;
     ColorRagelData color;
     color.a = 0xff;
-    AtomCategory cat_ {CAT_UNKNOWN};
-    AtomType type_ = {TYPE_UNKNOWN};
+    AtomCategory ragel_cat {CAT_UNKNOWN};
+    AtomType ragel_type = {TYPE_UNKNOWN};
 
     reset();
 
@@ -847,13 +847,13 @@ case 6:
 #line 65 "lex/ragel_color.rl"
 	{color.b = color.x;}
 #line 67 "lex/ragel_color.rl"
-	{ cat_ = CAT_COLOR; type_ = TYPE_HEX; }
+	{ ragel_cat = CAT_COLOR; ragel_type = TYPE_HEX; }
 	break;
 	case 6: 
 #line 66 "lex/ragel_color.rl"
 	{color.a = color.x;}
 #line 67 "lex/ragel_color.rl"
-	{ cat_ = CAT_COLOR; type_ = TYPE_HEX; }
+	{ ragel_cat = CAT_COLOR; ragel_type = TYPE_HEX; }
 	break;
 #line 859 "lex/parser_color.cpp"
 	}

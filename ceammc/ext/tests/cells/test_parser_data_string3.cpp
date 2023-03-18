@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "catch.hpp"
 #include "ceammc_platform.h"
+#include "datatype_color.h"
 #include "datatype_dict.h"
 #include "datatype_mlist.h"
 #include "datatype_string.h"
@@ -200,5 +201,14 @@ TEST_CASE("datastring3", "[ceammc::data]")
         REQUIRE_PARSE_STR("#[(1 0 0) (0 1 0) (0 0 1)]", Atom());
         REQUIRE_PARSE_STR("#3:4[(1 2) (3 4)]", Atom());
         REQUIRE_PARSE_STR("#10:11[(1 2) (3 4)]", Atom());
+    }
+
+    SECTION("Color")
+    {
+        REQUIRE_PARSE_STR("#123456FA", ColorAtom(0x123456FA));
+        REQUIRE_PARSE_STR("#000000FE", ColorAtom(0x000000FE));
+        REQUIRE_PARSE_STR("#ABCDEF00", ColorAtom(0xABCDEF00));
+        REQUIRE_PARSE_STR("#abcdef00", ColorAtom(0xABCDEF00));
+        REQUIRE_PARSE_STR("#FF11bb", ColorAtom(0xFF11BBFF));
     }
 }

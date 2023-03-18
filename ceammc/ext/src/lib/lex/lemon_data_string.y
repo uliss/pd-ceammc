@@ -17,6 +17,7 @@
 # include "datatype_dict.h"
 # include "datatype_mlist.h"
 # include "datatype_string.h"
+# include "datatype_color.h"
 # include "fmt/format.h"
 
 # define YYCOVERAGE
@@ -47,6 +48,7 @@ struct token {
 
 namespace {
     void dstring(Parser* p, token& tok, const token& str);
+    void dcolor(Parser* p, token& tok, const token& r, const token& g, const token& b, const token& a);
     void linit(Parser* p, token& tok);
     void lcall(token& res, const token& fn, token& args);
     void assign(token& a, token& b);
@@ -135,6 +137,9 @@ matrix_row(A)  ::= LIST_OPEN list(B) LIST_CLOSE.                         { assig
 matrix_rows(A) ::= matrix_row(B).                                        { mtxinit(p, A); mtxappend(A, B); }
 matrix_rows(A) ::= matrix_rows(B) SPACE matrix_row(C).                   { assign(A, B);  mtxappend(A, C); }
 data(A)        ::= MATRIX FLOAT(R) FLOAT(C) matrix_rows(D) MATRIX_CLOSE. { matrix(A, R, C, D); }
+
+// color
+data(X)        ::= COLOR FLOAT(R) FLOAT(G) FLOAT(B) FLOAT(A).           { dcolor(p, X, R, G, B, A); }
 
 func_call(A) ::= FUNC_LIST_CALL(B) LIST_OPEN zlist(C) LIST_CLOSE. { linit(p, A); lcall(A, B, C); }
 
@@ -328,6 +333,19 @@ namespace {
             tok.list->push_back(StringAtom(satom.asT<t_symbol*>()->s_name));
         else
             tok.list->push_back(StringAtom(""));
+
+        tok.atom = tok.list->front().atom();
+    }
+
+    // color
+    void dcolor(Parser* p, token& tok, const token& r, const token& g, const token& b, const token& a) {
+        tok.list = p->makeList();
+        DataTypeColor color;
+        color.setRed8(Atom(r.atom).asT<int>());
+        color.setGreen8(Atom(g.atom).asT<int>());
+        color.setBlue8(Atom(b.atom).asT<int>());
+        color.setAlpha8(Atom(a.atom).asT<int>());
+        tok.list->push_back(DataAtom<DataTypeColor>(color));
 
         tok.atom = tok.list->front().atom();
     }

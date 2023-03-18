@@ -11,4 +11,5 @@
 #define TK_SPACE                           11
 #define TK_MATRIX                          12
 #define TK_MATRIX_CLOSE                    13
-#define TK_FUNC_LIST_CALL                  14
+#define TK_COLOR                           14
+#define TK_FUNC_LIST_CALL                  15

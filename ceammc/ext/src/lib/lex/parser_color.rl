@@ -80,8 +80,8 @@ bool RgbHexFullMatch::parseFull(const char* str, size_t len)
     const char* pe = p + len;
     const char* eof = pe;
     ColorRagelData color;
-    AtomCategory cat_ {CAT_UNKNOWN};
-    AtomType type_ = {TYPE_UNKNOWN};
+    AtomCategory ragel_cat {CAT_UNKNOWN};
+    AtomType ragel_type    {TYPE_UNKNOWN};
 
     reset();
 
@@ -113,8 +113,8 @@ bool RgbHexFullMatch::parseShort(const char* str, size_t length)
     const char* pe = p + length;
     const char* eof = pe;
     ColorRagelData color;
-    AtomCategory cat_ {CAT_UNKNOWN};
-    AtomType type_ = {TYPE_UNKNOWN};
+    AtomCategory ragel_cat {CAT_UNKNOWN};
+    AtomType ragel_type    {TYPE_UNKNOWN};
 
     reset();
 
@@ -178,8 +178,8 @@ bool RgbaHexFullMatch::parseFull(const char* str, size_t length)
     const char* eof = pe;
     ColorRagelData color;
     color.a = 0xff;
-    AtomCategory cat_ {CAT_UNKNOWN};
-    AtomType type_ = {TYPE_UNKNOWN};
+    AtomCategory ragel_cat {CAT_UNKNOWN};
+    AtomType ragel_type = {TYPE_UNKNOWN};
 
     reset();
 
@@ -201,7 +201,7 @@ bool RgbaHexFullMatch::parseFull(const char* str, size_t length)
     machine rgba_color_short;
     include color_rgba_hex_short "ragel_color.rl";
 
-    main := color_rgba;
+    main := color_rgba_short;
     write data;
 }%%
 
@@ -213,8 +213,8 @@ bool RgbaHexFullMatch::parseShort(const char* str, size_t length)
     const char* eof = pe;
     ColorRagelData color;
     color.a = 0xff;
-    AtomCategory cat_ {CAT_UNKNOWN};
-    AtomType type_ = {TYPE_UNKNOWN};
+    AtomCategory ragel_cat {CAT_UNKNOWN};
+    AtomType ragel_type = {TYPE_UNKNOWN};
 
     reset();
 
