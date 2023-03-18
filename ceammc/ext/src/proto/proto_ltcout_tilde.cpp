@@ -23,7 +23,7 @@
 #include <limits>
 
 constexpr t_float PROP_SPEED_DEF = 1;
-constexpr t_float PROP_SPEED_MIN = 0.5;
+constexpr t_float PROP_SPEED_MIN = 0.125;
 constexpr t_float PROP_SPEED_MAX = 4;
 constexpr t_float PROP_VOLUME_DEF = -3;
 constexpr t_float PROP_VOLUME_MIN = -42;
@@ -105,7 +105,6 @@ LtcOutTilde::LtcOutTilde(const PdArgs& args)
         [this](t_float v) -> bool {
             auto enc = encoder_.get();
             if (enc) {
-                OBJ_DBG << "set filter: " << v;
                 ltc_encoder_set_filter(enc, v);
                 return true;
             } else
@@ -217,15 +216,12 @@ void LtcOutTilde::m_date(t_symbol* s, const AtomListView& lv)
 void LtcOutTilde::setTime(std::uint8_t hour, std::uint8_t min, std::uint8_t sec, std::uint8_t frame)
 {
     SMPTETimecode tc;
+    ltc_encoder_get_timecode(encoder_.get(), &tc);
     fmt::format_to(tc.timezone, "+{:02}{:02}\0", 0, 0);
-    tc.years = 0;
-    tc.months = 0;
-    tc.days = 0;
     tc.hours = hour;
     tc.mins = min;
     tc.secs = sec;
     tc.frame = frame;
-
     ltc_encoder_set_timecode(encoder_.get(), &tc);
 }
 
