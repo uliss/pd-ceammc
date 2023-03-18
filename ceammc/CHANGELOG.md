@@ -15,6 +15,8 @@
   - metro.wchoice - weighted metronome time interval choice from specified set
   - proto.morse - morse encoder with specified speed and other settings
   - qrcode - QR code encoder
+  - proto.ltc.in~ - LTC decoder
+  - proto.ltc.out~ - LTC encoder
   - rhythm.hexbeat - hexbeat pattern generator
   - rhythm.euclid - euclid pattern generator (using fast bresenham algorithm)
   - rhythm.lsystem - L-system pattern generator
