@@ -43,15 +43,6 @@ public:
 
     void setupDSP(t_signal** sp) final;
     void processBlock(const t_sample** in, t_sample** out) final;
-    //    void onBang() override;
-    //    void onFloat(t_float t) override;
-
-    //    void dump() const override;
-
-    //    void m_smpte(t_symbol* s, const AtomListView& lv);
-    //    void m_date(t_symbol* s, const AtomListView& lv);
-
-    //    void setTime(std::uint8_t hour, std::uint8_t min, std::uint8_t sec, std::uint8_t frame);
 
 private:
     void updateData(const LTCFrameExt& frame);
