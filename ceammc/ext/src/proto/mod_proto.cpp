@@ -1,6 +1,7 @@
 #include "mod_proto.h"
 #include "proto_firmata.h"
 #include "proto_hui.h"
+#include "proto_ltcout_tilde.h"
 #include "proto_sp_alpaca.h"
 #include "proto_whammy.h"
 
@@ -33,4 +34,5 @@ void ceammc_proto_setup()
     setup_proto_vlc();
     setup_proto_whammy();
     setup_proto_xtouch_ext();
+    setup_proto_ltcout_tilde();
 }

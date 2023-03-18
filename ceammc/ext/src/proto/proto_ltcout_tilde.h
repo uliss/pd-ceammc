@@ -55,13 +55,13 @@ private:
     void frameInc();
 };
 
-void setup_misc_ltcout_tilde();
+void setup_proto_ltcout_tilde();
 
 #else
 #include "ceammc_stub.h"
 
 AUDIO_OBJECT_STUB(0, 1, 1, 0, "compiled without libltc support")
-OBJECT_STUB_SETUP("misc.ltcout~", misc_ltcout_tilde, "ltcout~");
+OBJECT_STUB_SETUP("proto.ltc.out~", proto_ltcout_tilde, "ltc.out~");
 #endif
 
 #endif // MISC_LTCOUT_TILDE_H

@@ -11,7 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "misc_ltcout_tilde.h"
+#include "proto_ltcout_tilde.h"
 #include "args/argcheck2.h"
 #include "ceammc_containers.h"
 #include "ceammc_factory.h"
@@ -95,7 +95,6 @@ void LtcOutTilde::setupDSP(t_signal** sp)
 
     ltc_encoder_set_filter(encoder_.get(), 0);
     ltc_encoder_set_volume(encoder_.get(), volume_->value());
-    setTime(0, 0, 0, 0);
 
     buf_beg_ = nullptr;
     buf_end_ = nullptr;
@@ -205,11 +204,11 @@ void LtcOutTilde::frameInc()
     ltc_encoder_inc_timecode(encoder_.get());
 }
 
-void setup_misc_ltcout_tilde()
+void setup_proto_ltcout_tilde()
 {
     LIB_DBG << fmt::format("libltc version: {}", LIBLTC_VERSION);
 
-    SoundExternalFactory<LtcOutTilde> obj("misc.ltcout~", OBJECT_FACTORY_DEFAULT);
-    obj.addAlias("ltc.in~");
+    SoundExternalFactory<LtcOutTilde> obj("proto.ltc.out~", OBJECT_FACTORY_DEFAULT);
+    obj.addAlias("ltc.out~");
     obj.addMethod("smpte", &LtcOutTilde::m_smpte);
 }

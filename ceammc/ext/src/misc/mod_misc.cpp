@@ -18,7 +18,6 @@ extern "C" void setup_speech_rhvoice_tilde();
 
 #include "aubio_pitchshift_tilde.h"
 #include "fluid.h"
-#include "misc_ltcout_tilde.h"
 #include "risset_glissando.h"
 
 extern void setup_live_capture_tilde();
@@ -49,6 +48,4 @@ void ceammc_misc_setup()
     setup_misc_speech_flite();
     setup_misc_speech_filte_tilde();
 #endif
-
-    setup_misc_ltcout_tilde();
 }
