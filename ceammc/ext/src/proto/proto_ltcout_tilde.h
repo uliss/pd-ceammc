@@ -42,6 +42,7 @@ public:
     void dump() const override;
 
     void m_smpte(t_symbol* s, const AtomListView& lv);
+    void m_date(t_symbol* s, const AtomListView& lv);
 
     void setTime(std::uint8_t hour, std::uint8_t min, std::uint8_t sec, std::uint8_t frame);
 

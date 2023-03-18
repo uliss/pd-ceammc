@@ -14,7 +14,9 @@
 #include "proto_ltcout_tilde.h"
 #include "args/argcheck2.h"
 #include "ceammc_containers.h"
+#include "ceammc_convert.h"
 #include "ceammc_factory.h"
+#include "ceammc_format.h"
 #include "fmt/core.h"
 
 #include "ltc.h"
@@ -160,6 +162,29 @@ void LtcOutTilde::m_smpte(t_symbol* s, const AtomListView& lv)
     setTime(lv.intAt(0, 0), lv.intAt(1, 0), lv.intAt(2, 0), lv.intAt(3, 0));
 }
 
+void LtcOutTilde::m_date(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("YEAR:i[0,3000] MONTH:i[1,12] DAY:i[1,31] ZONE:s?");
+    if (!chk.check(lv, this))
+        return chk.usage(this);
+
+    SMPTETimecode tc;
+    ltc_encoder_get_timecode(encoder_.get(), &tc);
+
+    auto zone = lv.symbolAt(3, &s_);
+    int h = 0, m = 0;
+    if (zone != &s_ && 2 != sscanf(zone->s_name, "+%02d%02d", &h, &m)) {
+        OBJ_ERR << "timezone in +HHMM format expected, got: " << zone->s_name;
+        return;
+    }
+    fmt::format_to(tc.timezone, "+{:02}{:02}\0", clip<int, 0, 99>(h % 100), clip<int, 0, 59>(m));
+    tc.years = lv.intAt(0, 0);
+    tc.months = lv.intAt(1, 0);
+    tc.days = lv.intAt(2, 0);
+
+    ltc_encoder_set_timecode(encoder_.get(), &tc);
+}
+
 void LtcOutTilde::setTime(std::uint8_t hour, std::uint8_t min, std::uint8_t sec, std::uint8_t frame)
 {
     SMPTETimecode tc;
@@ -211,4 +236,5 @@ void setup_proto_ltcout_tilde()
     SoundExternalFactory<LtcOutTilde> obj("proto.ltc.out~", OBJECT_FACTORY_DEFAULT);
     obj.addAlias("ltc.out~");
     obj.addMethod("smpte", &LtcOutTilde::m_smpte);
+    obj.addMethod("date", &LtcOutTilde::m_date);
 }
