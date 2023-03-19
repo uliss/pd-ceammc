@@ -100,4 +100,5 @@ void setup_proto_ltcin_tilde()
 {
     SoundExternalFactory<LtcInTilde> obj("proto.ltc.in~");
     obj.addAlias("ltc.in~");
+    obj.setXletsInfo({ "signal: LTC input" }, { "list: HOUR MIN SEC FRAME", "list: YEAR MONTH DAY" });
 }
