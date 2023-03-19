@@ -288,6 +288,9 @@ TEST_CASE("data.color", "[externals]")
             REQUIRE_PROPERTY_LIST(t, @value, ColorAtom(0x116699FF));
             t.call("mix", LA("green", 0.5));
             REQUIRE_PROPERTY_LIST(t, @value, ColorAtom(0x09734DFF));
+
+            t.sendBang();
+            REQUIRE_PROPERTY_LIST(t, @value, ColorAtom(0x09734DFF));
         }
     }
 }

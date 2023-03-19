@@ -20,12 +20,12 @@
             <param name="Y" type="float" required="true">top right y-coord</param></method>
             <method name="clear">clear display</method>
             <method name="invert">invert display</method>
-            <method name="set">set display content
+            <method name="set">set display content 
             <param name="PIXELS" type="list" required="true">pixel values</param></method>
-            <method name="set col">set column content
+            <method name="set col">set column content 
             <param name="N" type="int" required="true">column index</param>
             <param name="PIXELS" type="list" required="true">column pixel values</param></method>
-            <method name="set row">set row content
+            <method name="set row">set row content 
             <param name="N" type="int" required="true">row index</param>
             <param name="PIXELS" type="list" required="true">row pixel values</param></method>
         </methods>
@@ -64,12 +64,12 @@
             <property name="@label_margins" type="list" default="0 0">label offset in
             pixels</property>
             <!-- main -->
-            <property name="@cols" type="int" minvalue="2" maxvalue="128" default="8">
-            number of columns</property>
-            <property name="@rows" type="int" minvalue="2" maxvalue="128" default="8">
-            number of rows</property>
-            <property name="@pixels" type="int" default="64" access="readonly">
-            number of pixels</property>
+            <property name="@cols" type="int" minvalue="2" maxvalue="128" default="8">number of
+            columns</property>
+            <property name="@rows" type="int" minvalue="2" maxvalue="128" default="8">number of
+            rows</property>
+            <property name="@pixels" type="int" default="64" access="readonly">number of
+            pixels</property>
         </properties>
         <inlets>
             <inlet>

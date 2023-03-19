@@ -91,7 +91,7 @@ conv.sec2samp,ceammc/sec->samp,sec->samp		.		.
 conv.sec2str,ceammc/sec->str,sec->str		.		.
 conv.sig2float~,ceammc/sig->float~,sig->float~,ceammc/s->f~,s->f~		~.		.
 conv.str2sec,ceammc/str->sec,str->sec		.		.
-data.color,color,ceammc/color		.		.
+data.color,color,ceammc/color		..		.
 data.copy		.		.
 data.dict,ceammc/dict,dict		.		.
 data.fifo		.		.
