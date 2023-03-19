@@ -263,5 +263,14 @@ TEST_CASE("data.color", "[externals]")
             t.call("grayscale", L());
             REQUIRE_PROPERTY_LIST(t, @value, ColorAtom(0x888888FF));
         }
+
+        SECTION("invert")
+        {
+            t.call("hex", LA("#F00"));
+            t.call("invert", L());
+            REQUIRE_PROPERTY_LIST(t, @value, ColorAtom(0x00FFFFFF));
+            t.call("invert", L());
+            REQUIRE_PROPERTY_LIST(t, @value, ColorAtom(0xFF0000FF));
+        }
     }
 }
