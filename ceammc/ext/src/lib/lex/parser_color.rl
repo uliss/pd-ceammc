@@ -151,15 +151,19 @@ bool RgbaHexFullMatch::parse(const Atom& a)
         return false;
 }
 
-bool RgbaHexFullMatch::parse(const char* str)
+bool RgbaHexFullMatch::parse(const char* str, size_t len)
 {
-    auto len = strlen(str);
     if (len == 4 || len == 5)
         return parseShort(str, len);
     else if(len == 7 || len == 9)
         return parseFull(str, len);
     else
         return false;
+}
+
+bool RgbaHexFullMatch::parse(const char* str)
+{
+    return parse(str, strlen(str));
 }
 
 %%{
@@ -258,9 +262,8 @@ bool ColorFullMatch::parse(const Atom& a)
     write data;
 }%%
 
-bool ColorFullMatch::parse(const char* str)
+bool ColorFullMatch::parse(const char* str, size_t len)
 {
-    auto len = strlen(str);
     if (len == 0)
         return false;
 
@@ -294,6 +297,11 @@ bool ColorFullMatch::parse(const char* str)
 
         return ok;
     }
+}
+
+bool ColorFullMatch::parse(const char* str)
+{
+    return parse(str, strlen(str));
 }
 
 }

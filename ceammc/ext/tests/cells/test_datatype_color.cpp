@@ -237,4 +237,24 @@ TEST_CASE("DataTypeColor", "[core]")
         CHECK(c.setHex("#ABCABCDE"));
         REQUIRE(c.toString() == "#ABCABCDE");
     }
+
+    SECTION("named")
+    {
+        REQUIRE(Color(LA("red")).toString() == "#FF0000");
+        REQUIRE(Color(LA("green")).toString() == "#008000");
+        REQUIRE(Color(LA("lime")).toString() == "#00FF00");
+        REQUIRE(Color(LA("blue")).toString() == "#0000FF");
+        REQUIRE(Color(LA("navy")).toString() == "#000080");
+        REQUIRE(Color(LA("magenta")).toString() == "#FF00FF");
+        REQUIRE(Color(LA("black")).toString() == "#000000");
+        REQUIRE(Color(LA("white")).toString() == "#FFFFFF");
+        REQUIRE(Color(LA("gray")).toString() == "#808080");
+        REQUIRE(Color(LA("cyan")).toString() == "#00FFFF");
+        REQUIRE(Color(LA("orange")).toString() == "#FFA500");
+        REQUIRE(Color(LA("gold")).toString() == "#FFD700");
+        REQUIRE(Color(LA("olive")).toString() == "#808000");
+        REQUIRE(Color(LA("pink")).toString() == "#FFC0CB");
+        REQUIRE(Color(LA("purple")).toString() == "#800080");
+        REQUIRE(Color(LA("yellow")).toString() == "#FFFF00");
+    }
 }

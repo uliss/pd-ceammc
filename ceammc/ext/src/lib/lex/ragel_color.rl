@@ -101,7 +101,7 @@ color_named =
     navy |
     olive |
     orange |
-    pink
+    pink |
     purple |
     red |
     white |

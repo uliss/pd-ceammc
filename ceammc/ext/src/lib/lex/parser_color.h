@@ -137,6 +137,7 @@ namespace parser {
         uint32_t asInt() const { return color_.asInt(); }
 
         bool parse(const char* str);
+        bool parse(const char* str, size_t len);
         bool parse(const Atom& a);
 
         template <size_t N>
@@ -182,6 +183,7 @@ namespace parser {
         uint32_t asInt() const { return color_.asInt(); }
 
         bool parse(const char* str);
+        bool parse(const char* str, size_t len);
         bool parse(const Atom& a);
 
         template <size_t N>
