@@ -218,6 +218,21 @@ void DataColor::m_set(t_symbol* s, const AtomListView& lv)
     color_->setAtom(lv.front());
 }
 
+void DataColor::m_mix(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("COLOR:a MIX:f[0,1]");
+    if (!chk.check(lv, this))
+        return chk.usage(this);
+
+    DataTypeColor mix_color;
+    if (DataTypeColor::parseFromList(lv.subView(0, 1), mix_color)) {
+        auto new_color = color_->value().mix(mix_color, lv.floatAt(1, 0));
+        color_->setValue(new_color);
+    } else {
+        METHOD_ERR(s) << "can't parse color: " << lv;
+    }
+}
+
 void setup_data_color()
 {
     ObjectFactory<DataColor> obj("data.color");
@@ -250,4 +265,5 @@ void setup_data_color()
     obj.addMethod("alpha", &DataColor::m_alpha);
 
     obj.addMethod("set", &DataColor::m_set);
+    obj.addMethod("mix", &DataColor::m_mix);
 }

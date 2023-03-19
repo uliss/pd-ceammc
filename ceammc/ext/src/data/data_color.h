@@ -51,6 +51,7 @@ public:
     void m_oklab(t_symbol* s, const AtomListView& lv);
 
     void m_set(t_symbol* s, const AtomListView& lv);
+    void m_mix(t_symbol* s, const AtomListView& lv);
 };
 
 void setup_data_color();

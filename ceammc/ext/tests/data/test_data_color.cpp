@@ -272,5 +272,22 @@ TEST_CASE("data.color", "[externals]")
             t.call("invert", L());
             REQUIRE_PROPERTY_LIST(t, @value, ColorAtom(0xFF0000FF));
         }
+
+        SECTION("mix")
+        {
+            t.call("hex", LA("#F00"));
+            t.call("mix", L());
+            REQUIRE_PROPERTY_LIST(t, @value, ColorAtom(0xFF0000FF));
+            t.call("mix", LA("#169"));
+            REQUIRE_PROPERTY_LIST(t, @value, ColorAtom(0xFF0000FF));
+            t.call("mix", LA("#169", 0.));
+            REQUIRE_PROPERTY_LIST(t, @value, ColorAtom(0xFF0000FF));
+            t.call("mix", LA("#169", 0.5));
+            REQUIRE_PROPERTY_LIST(t, @value, ColorAtom(0x88334DFF));
+            t.call("mix", LA("#169", 1));
+            REQUIRE_PROPERTY_LIST(t, @value, ColorAtom(0x116699FF));
+            t.call("mix", LA("green", 0.5));
+            REQUIRE_PROPERTY_LIST(t, @value, ColorAtom(0x09734DFF));
+        }
     }
 }

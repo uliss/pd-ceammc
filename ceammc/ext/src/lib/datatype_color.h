@@ -194,6 +194,7 @@ public:
 
 public:
     static bool looksLikeCtor(const AtomListView& lv) noexcept;
+    static bool parseFromList(const AtomListView& lv, DataTypeColor& res);
 
 public:
     static const DataTypeId dataType;

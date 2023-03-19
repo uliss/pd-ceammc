@@ -83,22 +83,7 @@ DataTypeColor::DataTypeColor(std::uint32_t value)
 DataTypeColor::DataTypeColor(const AtomListView& lv)
     : data_ { 0, 0, 0, 0 }
 {
-    if (lv.isSymbol()) {
-        parser::ColorFullMatch p;
-        if (p.parse(lv[0])) {
-            data_[0] = p.norm_red();
-            data_[1] = p.norm_green();
-            data_[2] = p.norm_blue();
-            data_[3] = p.norm_alpha();
-        }
-    } else if (lv.isA<DataTypeColor>()) {
-        std::memcpy(data_, lv.asD<DataTypeColor>()->data_, sizeof(data_));
-    } else {
-        data_[0] = clip01<float>(lv.floatAt(0, 0));
-        data_[1] = clip01<float>(lv.floatAt(1, 0));
-        data_[2] = clip01<float>(lv.floatAt(2, 0));
-        data_[3] = clip01<float>(lv.floatAt(3, 1));
-    }
+    parseFromList(lv, *this);
 }
 
 DataTypeId DataTypeColor::type() const noexcept
@@ -301,6 +286,31 @@ bool DataTypeColor::looksLikeCtor(const AtomListView& lv) noexcept
 
     auto name = lv[0].asT<t_symbol*>()->s_name;
     return boost::starts_with(name, TYPE_NAME);
+}
+
+bool DataTypeColor::parseFromList(const AtomListView& lv, DataTypeColor& res)
+{
+    if (lv.isSymbol()) {
+        parser::ColorFullMatch p;
+        if (p.parse(lv[0])) {
+            res.data_[0] = p.norm_red();
+            res.data_[1] = p.norm_green();
+            res.data_[2] = p.norm_blue();
+            res.data_[3] = p.norm_alpha();
+            return true;
+        } else
+            return false;
+    } else if (lv.isA<DataTypeColor>()) {
+        std::memcpy(res.data_, lv.asD<DataTypeColor>()->data_, sizeof(data_));
+        return true;
+    } else if (lv.allOf(isFloat)) {
+        res.data_[0] = clip01<float>(lv.floatAt(0, 0));
+        res.data_[1] = clip01<float>(lv.floatAt(1, 0));
+        res.data_[2] = clip01<float>(lv.floatAt(2, 0));
+        res.data_[3] = clip01<float>(lv.floatAt(3, 1));
+        return true;
+    } else
+        return false;
 }
 
 std::ostream& operator<<(std::ostream& os, const DataTypeColor& color)
