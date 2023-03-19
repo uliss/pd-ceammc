@@ -28,7 +28,13 @@ LtcInTilde::LtcInTilde(const PdArgs& args)
     createOutlet();
     createOutlet();
 
-    createCbFloatProperty("@volume", [this]() -> t_float { return clip<t_float, -60, 0>(data_.volume); });
+    {
+        auto p = createCbFloatProperty("@volume",
+            [this]() -> t_float { return clip<t_float, -60, 0>(data_.volume); });
+        p->setUnitsDb();
+        p->infoT().setConstraints(PropValueConstraints::CLOSED_RANGE);
+        (void)p->infoT().setRangeFloat(-60, 0);
+    }
 
     use_date_ = new BoolProperty("@use_date", true);
     addProperty(use_date_);

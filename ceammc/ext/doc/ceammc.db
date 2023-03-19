@@ -599,6 +599,7 @@ prop.split,prop->,@->,ceammc/prop->,ceammc/@->		.		?
 proto.feelworld		.		.
 proto.firmata		.		.
 proto.inscore		.		.
+proto.ltc.in~,ltc.in~		~		..
 proto.midi		.		.
 proto.midi.cc		.		.
 proto.midi.sysex		.		.

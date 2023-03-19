@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="proto.ltc.in~">
+        <title>proto.ltc.in~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>LTC decoder</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>proto</category>
+            <keywords>parser midi</keywords>
+            <since>0.9.7</since>
+            <aliases>
+                <alias>ltc.in~</alias>
+            </aliases>
+        </meta>
+        <properties>
+            <property name="@use_date" type="bool" default="1">decode date</property>
+            <property name="@volume" type="float" default="0" minvalue="-60" maxvalue="0" units="decibel"
+            access="readonly">input signal level</property>
+        </properties>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>list: HOUR MINUTE SECOND FRAME</outlet>
+            <outlet>list: YEAR MONTH DAY</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[T] [date 83 1 11(   [ui.hsl 0.5 4]    [ui.dsp~]
+|   |                |
+|   | [time 0 4 15(  [@speed $1(
+|   | |              |
+[ltc.out~    {i=1,o=1}]
+|
+|        [T]
+|        |
+| [dump( [@use_date $1(
+| |      |
+[ltc.in~ #y]
+|
+[ui.dt]       [ui.dt #x]
+
+[X y:1->x]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

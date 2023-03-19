@@ -599,6 +599,7 @@ set(DOC_FILES
     proto.feelworld
     proto.firmata
     proto.inscore
+    proto.ltc.in~
     proto.midi
     proto.midi.cc
     proto.midi.sysex
