@@ -226,5 +226,20 @@ TEST_CASE("data.color", "[externals]")
             t.call("alpha", LF(0.5));
             REQUIRE_PROPERTY_LIST(t, @value, ColorAtom(0x00000080));
         }
+
+        SECTION("darken")
+        {
+            t.call("hex", LA("#F00"));
+            t.call("darken", L());
+            REQUIRE_PROPERTY_LIST(t, @value, ColorAtom(0xFF0000FF));
+            t.call("darken", LF(0.25));
+            REQUIRE_PROPERTY_LIST(t, @value, ColorAtom(0xA10000FF));
+            t.call("darken", LF(0.25));
+            REQUIRE_PROPERTY_LIST(t, @value, ColorAtom(0x4B0000FF));
+            t.call("darken", LF(0.5));
+            REQUIRE_PROPERTY_LIST(t, @value, ColorAtom(0x010000FF));
+            t.call("darken", LF(0.5));
+            REQUIRE_PROPERTY_LIST(t, @value, ColorAtom(0x000000FF));
+        }
     }
 }
