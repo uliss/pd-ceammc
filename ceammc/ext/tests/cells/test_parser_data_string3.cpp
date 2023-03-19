@@ -210,5 +210,10 @@ TEST_CASE("datastring3", "[ceammc::data]")
         REQUIRE_PARSE_STR("#ABCDEF00", ColorAtom(0xABCDEF00));
         REQUIRE_PARSE_STR("#abcdef00", ColorAtom(0xABCDEF00));
         REQUIRE_PARSE_STR("#FF11bb", ColorAtom(0xFF11BBFF));
+        REQUIRE_PARSE_STR("#ABC", ColorAtom(0xAABBCCFF));
+        REQUIRE_PARSE_STR("#ABC3", ColorAtom(0xAABBCC33));
+        REQUIRE_PARSE_STR("Color(red)", ColorAtom(0xFF0000FF));
+        REQUIRE_PARSE_STR("Color(lime)", ColorAtom(0x00FF00FF));
+        REQUIRE_PARSE_STR("Color(#FED)", ColorAtom(0xFFEEDDFF));
     }
 }

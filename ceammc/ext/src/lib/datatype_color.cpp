@@ -85,6 +85,8 @@ DataTypeColor::DataTypeColor(const AtomListView& lv)
             data_[2] = p.norm_blue();
             data_[3] = p.norm_alpha();
         }
+    } else if (lv.isA<DataTypeColor>()) {
+        std::memcpy(data_, lv.asD<DataTypeColor>()->data_, sizeof(data_));
     } else {
         data_[0] = clip01<float>(lv.floatAt(0, 0));
         data_[1] = clip01<float>(lv.floatAt(1, 0));
