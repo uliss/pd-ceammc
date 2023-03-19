@@ -19,11 +19,17 @@
 #include "fmt/core.h"
 #include "lex/parser_color.h"
 
-//#include <algorithm>
 #include <boost/algorithm/string/predicate.hpp>
-//#include <boost/functional/hash.hpp>
+#include <cmath>
 #include <ctime>
 #include <random>
+
+namespace {
+inline bool approx_eq(float a, float b)
+{
+    return std::fabs(a - b) < (1 / 256.0);
+}
+}
 
 namespace {
 using namespace ceammc;
@@ -133,7 +139,10 @@ AbstractData* DataTypeColor::clone() const
 
 bool DataTypeColor::operator==(const DataTypeColor& c) const noexcept
 {
-    return std::memcmp(data_, c.data_, sizeof(c.data_)) == 0;
+    return approx_eq(data_[0], c.data_[0])
+        && approx_eq(data_[1], c.data_[1])
+        && approx_eq(data_[2], c.data_[2])
+        && approx_eq(data_[3], c.data_[3]);
 }
 
 DataTypeColor& DataTypeColor::operator=(const DataTypeColor& c)

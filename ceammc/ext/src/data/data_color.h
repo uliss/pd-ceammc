@@ -27,6 +27,7 @@ public:
 
     void onBang() final;
     void onDataT(const ColorAtom& a);
+    void onInlet(size_t n, const AtomListView& lv) final;
 
     void m_brighten(t_symbol* s, const AtomListView& lv);
     void m_darken(t_symbol* s, const AtomListView& lv);
@@ -48,6 +49,8 @@ public:
     void m_hsl(t_symbol* s, const AtomListView& lv);
     void m_hwb(t_symbol* s, const AtomListView& lv);
     void m_oklab(t_symbol* s, const AtomListView& lv);
+
+    void m_set(t_symbol* s, const AtomListView& lv);
 };
 
 void setup_data_color();

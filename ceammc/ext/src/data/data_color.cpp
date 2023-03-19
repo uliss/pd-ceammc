@@ -14,6 +14,7 @@
 #include "data_color.h"
 #include "args/argcheck2.h"
 #include "ceammc_factory.h"
+#include "fmt/core.h"
 
 DataColor::DataColor(const PdArgs& args)
     : BaseObject(args)
@@ -23,6 +24,7 @@ DataColor::DataColor(const PdArgs& args)
     color_->setArgIndex(0);
     addProperty(color_);
 
+    createInlet();
     createOutlet();
 }
 
@@ -34,6 +36,17 @@ void DataColor::onBang()
 void DataColor::onDataT(const ColorAtom& a)
 {
     color_->setValue(*a);
+    atomTo(0, a);
+}
+
+void DataColor::onInlet(size_t n, const AtomListView& lv)
+{
+    if (lv.empty()) {
+        OBJ_ERR << "Color datatype expected";
+        return;
+    }
+
+    color_->setAtom(lv.front());
 }
 
 void DataColor::m_brighten(t_symbol* s, const AtomListView& lv)
@@ -142,8 +155,10 @@ void DataColor::m_hex(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this))
         return chk.usage(this);
 
-    if (!color_->value().setHex(lv[0].asSymbol()->s_name)) {
-        OBJ_ERR << "can't parse color value";
+    auto str = lv[0].asSymbol()->s_name;
+
+    if (!color_->value().setHex(str)) {
+        OBJ_ERR << fmt::format("can't parse color value: '{}'", str);
         return;
     }
 }
@@ -193,11 +208,25 @@ void DataColor::m_oklab(t_symbol* s, const AtomListView& lv)
     color_->value().setOkLab(lv.floatAt(0, 0), lv.floatAt(1, 0), lv.floatAt(2, 0), lv.floatAt(3, 1));
 }
 
+void DataColor::m_set(t_symbol* s, const AtomListView& lv)
+{
+    if (lv.empty()) {
+        METHOD_ERR(s) << "Color datatype expected";
+        return;
+    }
+
+    color_->setAtom(lv.front());
+}
+
 void setup_data_color()
 {
     ObjectFactory<DataColor> obj("data.color");
     obj.addAlias("color");
     obj.processData<DataTypeColor>();
+    obj.setXletsInfo({ "data:Color\n"
+                       "hex, rgb, rgb8 ...",
+                         "data:Color" },
+        { "data:Color" });
 
     obj.addMethod("brighten", &DataColor::m_brighten);
     obj.addMethod("darken", &DataColor::m_darken);
@@ -219,4 +248,6 @@ void setup_data_color()
     obj.addMethod("green", &DataColor::m_green);
     obj.addMethod("blue", &DataColor::m_blue);
     obj.addMethod("alpha", &DataColor::m_alpha);
+
+    obj.addMethod("set", &DataColor::m_set);
 }
