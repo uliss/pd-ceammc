@@ -9,6 +9,7 @@ add_subdirectory(fftconv)
 add_subdirectory(helmholtz)
 add_subdirectory(airwindows)
 add_subdirectory(colorm)
+add_subdirectory(date)
 
 if(WITH_EXT_AUTOTUNE)
     add_subdirectory(autotune)

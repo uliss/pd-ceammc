@@ -17,9 +17,12 @@
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 #include "fmt/core.h"
+#include "lex/parser_units.h"
 
+#include "date.h"
 #include "ltc.h"
 
+#include <chrono>
 #include <limits>
 
 constexpr t_float PROP_SPEED_DEF = 1;
@@ -49,6 +52,32 @@ inline LTC_TV_STANDARD toTvStandard(float fps)
         return LTC_TV_625_50;
     else
         return LTC_TV_525_60;
+}
+
+void smpte_add(SMPTETimecode& tc, int sec)
+{
+    if (tc.months == 0)
+        tc.months = 1;
+    if (tc.days == 0)
+        tc.days = 1;
+
+    using namespace date;
+    date::year_month_day date(year(tc.years + 2000), month(tc.months), day(tc.days));
+    auto tp = date::local_days(date)
+        + std::chrono::hours(tc.hours)
+        + std::chrono::minutes(tc.mins)
+        + std::chrono::seconds(tc.secs + sec);
+
+    auto dp = date::floor<date::days>(tp);
+    auto date_new = date::year_month_day { dp };
+    tc.years = (int)date_new.year() - 2000;
+    tc.months = (unsigned)date_new.month();
+    tc.days = (unsigned)date_new.day();
+
+    auto tp_new = date::make_time(tp - dp);
+    tc.hours = tp_new.hours().count();
+    tc.mins = tp_new.minutes().count();
+    tc.secs = tp_new.seconds().count();
 }
 
 }
@@ -207,10 +236,68 @@ void LtcOutTilde::m_date(t_symbol* s, const AtomListView& lv)
     }
     fmt::format_to(tc.timezone, "+{:02}{:02}\0", clip<int, 0, 99>(h % 100), clip<int, 0, 59>(m));
     tc.years = lv.intAt(0, 0);
-    tc.months = lv.intAt(1, 0);
-    tc.days = lv.intAt(2, 0);
+    tc.months = lv.intAt(1, 1);
+    tc.days = lv.intAt(2, 1);
 
     ltc_encoder_set_timecode(encoder_.get(), &tc);
+}
+
+void LtcOutTilde::m_seek(t_symbol* s, const AtomListView& lv)
+{
+    using namespace ceammc::parser;
+
+    if (!lv.isAtom()) {
+        METHOD_ERR(s) << "";
+        return;
+    }
+
+    auto enc = encoder_.get();
+    if (!enc)
+        return;
+
+    UnitsFullMatch p;
+    if (p.parse(lv.front())) {
+        switch (p.type()) {
+        case AtomType::TYPE_FLOAT:
+        case AtomType::TYPE_INT: {
+            int n = p.value();
+            if (n > 0) {
+                for (int i = 0; i < n; i++)
+                    ltc_encoder_inc_timecode(enc);
+            } else {
+                for (int i = 0; i < -n; i++)
+                    ltc_encoder_dec_timecode(enc);
+            }
+        } break;
+        case AtomType::TYPE_DAY: {
+            SMPTETimecode tc;
+            ltc_encoder_get_timecode(encoder_.get(), &tc);
+            smpte_add(tc, 24 * 3600 * p.value());
+            ltc_encoder_set_timecode(encoder_.get(), &tc);
+        } break;
+        case AtomType::TYPE_HOUR: {
+            SMPTETimecode tc;
+            ltc_encoder_get_timecode(encoder_.get(), &tc);
+            smpte_add(tc, 3600 * p.value());
+            ltc_encoder_set_timecode(encoder_.get(), &tc);
+        } break;
+        case AtomType::TYPE_MIN: {
+            SMPTETimecode tc;
+            ltc_encoder_get_timecode(encoder_.get(), &tc);
+            smpte_add(tc, 60 * p.value());
+            ltc_encoder_set_timecode(encoder_.get(), &tc);
+        } break;
+        case AtomType::TYPE_SEC: {
+            SMPTETimecode tc;
+            ltc_encoder_get_timecode(encoder_.get(), &tc);
+            smpte_add(tc, p.value());
+            ltc_encoder_set_timecode(encoder_.get(), &tc);
+        } break;
+        default:
+            OBJ_ERR << "invalid unit type: " << p.type();
+            break;
+        }
+    }
 }
 
 void LtcOutTilde::setTime(std::uint8_t hour, std::uint8_t min, std::uint8_t sec, std::uint8_t frame)
@@ -273,4 +360,5 @@ void setup_proto_ltcout_tilde()
     obj.addAlias("ltc.out~");
     obj.addMethod("time", &LtcOutTilde::m_time);
     obj.addMethod("date", &LtcOutTilde::m_date);
+    obj.addMethod("seek", &LtcOutTilde::m_seek);
 }

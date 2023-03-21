@@ -59,4 +59,4 @@ target_include_directories(ceammc_proto
         ${CMAKE_CURRENT_SOURCE_DIR}/../midi
         "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>"
 )
-target_link_libraries(ceammc_proto PRIVATE proto_firmata http_lib)
+target_link_libraries(ceammc_proto PRIVATE date proto_firmata http_lib)

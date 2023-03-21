@@ -46,6 +46,8 @@ public:
     void m_time(t_symbol* s, const AtomListView& lv);
     void m_date(t_symbol* s, const AtomListView& lv);
 
+    void m_seek(t_symbol* s, const AtomListView& lv);
+
     void setTime(std::uint8_t hour, std::uint8_t min, std::uint8_t sec, std::uint8_t frame);
 
 private:
