@@ -18,7 +18,7 @@
 #include "ceammc_format.h"
 #include "ceammc_inlet.h"
 #include "ceammc_outlet.h"
-#include "fmt/format.h"
+#include "fmt/core.h"
 #include "lex/parser_clone.h"
 
 #include <boost/container/small_vector.hpp>
