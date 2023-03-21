@@ -341,13 +341,17 @@ public:
             auto st = cairo_surface_write_to_png_stream(new_image.get(), write_mem_fn, &buf);
             if (CAIRO_STATUS_SUCCESS == st) {
                 queue_.enqueue(DrawResult { DRAW_RESULT_IMAGE, base64_encode(buf.data(), buf.size()) });
+#ifndef NDEBUG
                 queue_.enqueue(DrawResult { DRAW_RESULT_DEBUG, "SyncImage added" });
+#endif
             }
 
         } else {
             if (CAIRO_STATUS_SUCCESS == cairo_surface_write_to_png_stream(surface_.get(), write_mem_fn, &buf)) {
                 queue_.enqueue(DrawResult { DRAW_RESULT_IMAGE, base64_encode(buf.data(), buf.size()) });
+#ifndef NDEBUG
                 queue_.enqueue(DrawResult { DRAW_RESULT_DEBUG, "SyncImage added" });
+#endif
             }
         }
 
