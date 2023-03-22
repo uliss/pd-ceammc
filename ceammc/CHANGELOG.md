@@ -5,6 +5,7 @@
 - new objects:
   - array.readwrite~ - ordered array reader/writer (read first, then write)
   - array.tramp~ - triggered array ramp generator
+  - chrono.datetime - get current date/time information
   - color.mix - color mixer
   - conv.char2morse - single character to morse code converter
   - conv.color2rgba - color converter added from named or hex colors to separate RGBA values

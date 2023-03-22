@@ -12,6 +12,7 @@ set(BASE_SOURCES
     canvas_path.cpp
     canvas_top.cpp
     ceammc_search.cpp
+    chrono_datetime.cpp
     expand_env.cpp
     function.cpp
     function_call.cpp
