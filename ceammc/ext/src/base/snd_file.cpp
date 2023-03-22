@@ -1,11 +1,9 @@
 #include "snd_file.h"
-#include "ceammc_array.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
 #include "ceammc_platform.h"
-#include "ceammc_property_callback.h"
 #include "ceammc_sound.h"
-#include "ceammc_string.h"
 #include "fmt/format.h"
 #include "lex/array_loader.h"
 #include "lex/parser_strings.h"
@@ -173,12 +171,17 @@ MaybeString SndFile::fullLoadPath(const std::string& fname) const
 
 bool SndFile::extractLoadArgs(const AtomListView& lv, std::string& fname, std::string& array_opts)
 {
-    static t_symbol* SYM_TO = gensym("to");
+    CEAMMC_DEFINE_HASH(to);
 
     if (lv.size() < 3)
         return false;
 
-    auto it = std::find_if(lv.begin(), lv.end(), [](const Atom& a) { return a.isProperty() || a == Atom(SYM_TO); });
+    auto it = std::find_if(lv.begin(), lv.end(),
+        [](const Atom& a) {
+            return a.isProperty()
+                || (a.isSymbol() && crc32_hash(a.asT<t_symbol*>()) == hash_to);
+        });
+
     if (it == lv.end())
         return false;
 
