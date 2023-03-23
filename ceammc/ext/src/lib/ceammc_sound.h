@@ -48,9 +48,9 @@ namespace sound {
 
     struct SoundFileWriteOptions {
         int samplerate;
-        SoundFileFormat outFmt;
-        SampleFormat outSampFmt;
-        std::uint8_t numCh;
+        SoundFileFormat outputFileFormat;
+        SampleFormat outputSampleFormat;
+        std::uint8_t numChannels;
     };
 
     const char* to_string(SoundFileFormat f);

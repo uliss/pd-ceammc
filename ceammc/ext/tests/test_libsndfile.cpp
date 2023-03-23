@@ -227,9 +227,9 @@ TEST_CASE("ceammc::libsndfile", "sndfile")
         const t_word* data[] = { buf.data() };
 
         SoundFileWriteOptions opts;
-        opts.outFmt = FORMAT_RAW;
-        opts.outSampFmt = ceammc::sound::SAMPLE_PCM_32;
-        opts.numCh = 1;
+        opts.outputFileFormat = FORMAT_RAW;
+        opts.outputSampleFormat = ceammc::sound::SAMPLE_PCM_32;
+        opts.numChannels = 1;
         opts.samplerate = SR;
 
         REQUIRE(sf.write(data, BUF_SIZE, opts) == -1);

@@ -137,18 +137,18 @@ namespace sound {
     long LibSndFile::write(const t_word** src, size_t len, const SoundFileWriteOptions& opts)
     {
         int sf_fmt = 0;
-        if (!setFormats(sf_fmt, opts.outFmt, opts.outSampFmt)) {
+        if (!setFormats(sf_fmt, opts.outputFileFormat, opts.outputSampleFormat)) {
             return -1;
         }
 
-        if (!handle_.formatCheck(sf_fmt, opts.numCh, opts.samplerate)) {
+        if (!handle_.formatCheck(sf_fmt, opts.numChannels, opts.samplerate)) {
             LIB_ERR << fmt::format("[SNDFILE] invalid options for format {}: "
                                    "num_channels={} samplerate={}",
-                to_string(opts.outFmt), opts.numCh, opts.samplerate);
+                to_string(opts.outputFileFormat), opts.numChannels, opts.samplerate);
             return -1;
         }
 
-        handle_ = SndfileHandle(fname_.c_str(), SFM_WRITE, sf_fmt, opts.numCh, opts.samplerate);
+        handle_ = SndfileHandle(fname_.c_str(), SFM_WRITE, sf_fmt, opts.numChannels, opts.samplerate);
         if (handle_.rawHandle() == 0) {
             LIB_ERR << fmt::format("[SNDFILE] error while opening \"{}\": {}", fname_, sf_strerror(0));
             return -1;
@@ -156,14 +156,14 @@ namespace sound {
 
         long nframes = 0;
         constexpr sf_count_t FRAME_COUNT = 256;
-        const sf_count_t OUT_BUF_SIZE = FRAME_COUNT * opts.numCh;
+        const sf_count_t OUT_BUF_SIZE = FRAME_COUNT * opts.numChannels;
         float frame_buf[OUT_BUF_SIZE];
         std::int64_t frame_idx = 0;
 
         for (size_t i = 0; i < len; i++) {
             frame_idx = i % FRAME_COUNT;
             // fill frame
-            for (size_t j = 0; j < opts.numCh; j++)
+            for (size_t j = 0; j < opts.numChannels; j++)
                 frame_buf[frame_idx + j] = src[j][i].w_float * gain();
 
             // frame buffer is full
