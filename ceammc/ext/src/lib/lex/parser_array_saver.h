@@ -38,8 +38,8 @@ namespace parser {
         float in_sr { 44100 }; // input (source array) samplerate
         float out_sr { 44100 }; // output (target file) samplerate
         sound::SoundFileFormat format { sound::FORMAT_UNKNOWN }; // output file format
+        sound::SampleFormat sample_format { sound::SAMPLE_DEFAULT }; // sample format
         ArrayOffsetOrigin origin { ORIGIN_BEGIN }; // array offset origin
-        uint8_t bits { 0 };
         bool normalize { false }; // do output normalization
     };
 

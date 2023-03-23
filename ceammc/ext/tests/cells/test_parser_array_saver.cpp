@@ -99,18 +99,20 @@ TEST_CASE("parser_array_saver", "[ceammc::ceammc_units]")
         REQUIRE(params.format == sound::FORMAT_TEXT);
     }
 
-    SECTION("bits")
+    SECTION("samp")
     {
-        REQUIRE(parse_array_saver_params("array1 @to filename.wav @bits 0", 100, params));
-        REQUIRE(params.bits == 0);
-        REQUIRE(parse_array_saver_params("array1 @to filename.wav @bits 8", 100, params));
-        REQUIRE(params.bits == 8);
-        REQUIRE(parse_array_saver_params("array1 @to filename.wav @bits 16", 100, params));
-        REQUIRE(params.bits == 16);
-        REQUIRE(parse_array_saver_params("array1 @to filename.wav @bits 24", 100, params));
-        REQUIRE(params.bits == 24);
-        REQUIRE(parse_array_saver_params("array1 @to filename.wav @bits 32", 100, params));
-        REQUIRE(params.bits == 32);
+        REQUIRE(parse_array_saver_params("array1 @to filename.wav @samp 0", 100, params));
+        REQUIRE(params.sample_format == sound::SAMPLE_DEFAULT);
+        REQUIRE(parse_array_saver_params("array1 @to filename.wav @samp 8", 100, params));
+        REQUIRE(params.sample_format == sound::SAMPLE_PCM_8);
+        REQUIRE(parse_array_saver_params("array1 @to filename.wav @samp 16", 100, params));
+        REQUIRE(params.sample_format == sound::SAMPLE_PCM_16);
+        REQUIRE(parse_array_saver_params("array1 @to filename.wav @samp 24", 100, params));
+        REQUIRE(params.sample_format == sound::SAMPLE_PCM_24);
+        REQUIRE(parse_array_saver_params("array1 @to filename.wav @samp 32", 100, params));
+        REQUIRE(params.sample_format == sound::SAMPLE_PCM_32);
+        REQUIRE(parse_array_saver_params("array1 @to filename.wav @samp f", 100, params));
+        REQUIRE(params.sample_format == sound::SAMPLE_PCM_FLOAT);
     }
 
     SECTION("begin")
@@ -226,7 +228,7 @@ TEST_CASE("parser_array_saver", "[ceammc::ceammc_units]")
     SECTION("all")
     {
         REQUIRE(parse_array_saver_params("array2 array1 @to filename.wav @in_sr 100 @out_sr 200 "
-                                         "@begin $-90 @end 0.75s @mp3 @norm @bits 16 @gain 0.25",
+                                         "@begin $-90 @end 0.75s @mp3 @norm @samp 16 @gain 0.25",
             100, params));
         REQUIRE(params.arrays == std::vector<std::string> { "array2", "array1" });
         REQUIRE(params.filename == "filename.wav");
@@ -237,7 +239,7 @@ TEST_CASE("parser_array_saver", "[ceammc::ceammc_units]")
         REQUIRE(params.in_sr == 100);
         REQUIRE(params.out_sr == 200);
         REQUIRE(params.gain == 0.25);
-        REQUIRE(params.bits == 16);
+        REQUIRE(params.sample_format == sound::SAMPLE_PCM_16);
     }
 
     SECTION("auto format")

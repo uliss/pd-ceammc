@@ -76,11 +76,12 @@ atom_char0 = atom_char - '@';
 atom = (atom_char0 atom_char*);
 val = num_float | num_int;
 ws = space+;
-bits_val     = '0'  %{ params.bits = 0; }
-             | '8'  %{ params.bits = 8; }
-             | '16' %{ params.bits = 16; }
-             | '24' %{ params.bits = 24; }
-             | '32' %{ params.bits = 32; }
+samp_fmt     = '0'  %{ params.sample_format = sound::SAMPLE_DEFAULT; }
+             | '8'  %{ params.sample_format = sound::SAMPLE_PCM_8; }
+             | '16' %{ params.sample_format = sound::SAMPLE_PCM_16; }
+             | '24' %{ params.sample_format = sound::SAMPLE_PCM_24; }
+             | '32' %{ params.sample_format = sound::SAMPLE_PCM_32; }
+             | 'f'  %{ params.sample_format = sound::SAMPLE_PCM_FLOAT; }
              ;
 
 opt_gain     = '@gain'   ws val;
@@ -88,7 +89,7 @@ opt_begin    = '@begin'  >{ params.origin = ORIGIN_BEGIN; } ws array_unit_value;
 opt_end      = '@end'    >{ params.origin = ORIGIN_BEGIN; } ws array_unit_value;
 opt_in_sr    = '@in_sr'  ws val;
 opt_out_sr   = '@out_sr' ws val;
-opt_bits     = '@bits'   ws bits_val;
+opt_samp     = '@samp'   ws samp_fmt;
 opt_norm     = '@norm';
 opt_wav      = '@wav';
 opt_mp3      = '@mp3';
@@ -102,7 +103,7 @@ opt_flac     = '@flac';
 opt = opt_gain   %{ params.gain = getValue<float>(ragel_num, ragel_type); }
     | opt_begin  %{ params.begin = getArrayPos(params, ragel_num, ragel_type, arraySize); }
     | opt_end    %{ params.end = getArrayPos(params, ragel_num, ragel_type, arraySize); }
-    | opt_bits
+    | opt_samp
     | opt_in_sr  %{ params.in_sr  = getValue<float>(ragel_num, ragel_type); }
     | opt_out_sr %{ params.out_sr = getValue<float>(ragel_num, ragel_type); }
     | opt_norm   %{ params.normalize = true; }
@@ -148,6 +149,7 @@ bool parse_array_saver_params(const char* str, size_t arraySize, ArraySaverParam
     const char* eof = p + len;
 
     params.format = sound::FORMAT_UNKNOWN;
+    params.sample_format = sound::SAMPLE_DEFAULT;
 
     std::string ragel_atom;
     double val = 0;
