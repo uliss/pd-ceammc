@@ -135,18 +135,36 @@ namespace sound {
         return res;
     }
 
-    SoundFilePtr SoundFileFactory::open(const std::string& path)
+    SoundFilePtr SoundFileFactory::openRead(const std::string& path, const SoundFileOpenParams& params)
     {
         SoundFilePtr ptr;
 
         if (backends().empty()) {
-            std::cerr << "no loaders registered";
+            std::cerr << "no backends registered";
             return ptr;
         }
 
         for (auto& l : backends()) {
             auto ptr = l.make_sndfile();
-            if (ptr && ptr->open(path, SoundFile::READ, {}))
+            if (ptr && ptr->open(path, SoundFile::READ, params))
+                return ptr;
+        }
+
+        return ptr;
+    }
+
+    SoundFilePtr SoundFileFactory::openWrite(const std::string& path, const SoundFileOpenParams& params)
+    {
+        SoundFilePtr ptr;
+
+        if (backends().empty()) {
+            std::cerr << "no backends registered";
+            return ptr;
+        }
+
+        for (auto& l : backends()) {
+            auto ptr = l.make_sndfile();
+            if (ptr && ptr->open(path, SoundFile::WRITE, params))
                 return ptr;
         }
 

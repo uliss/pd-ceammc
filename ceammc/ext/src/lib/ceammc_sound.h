@@ -177,7 +177,8 @@ namespace sound {
         static FormatList supportedReadFormats();
         static FormatList supportedWriteFormats();
 
-        static SoundFilePtr open(const std::string& path);
+        static SoundFilePtr openRead(const std::string& path, const SoundFileOpenParams& params = {});
+        static SoundFilePtr openWrite(const std::string& path, const SoundFileOpenParams& params);
 
     private:
         using BackendList = std::vector<SoundFileBackend>;

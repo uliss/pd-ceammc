@@ -236,7 +236,7 @@ bool ArrayLoader::setArrayOffset(long n, ArrayLoader::OffsetType t)
 
 sound::SoundFilePtr ArrayLoader::openFile(const std::string& path)
 {
-    sound::SoundFilePtr f = sound::SoundFileFactory::open(path);
+    sound::SoundFilePtr f = sound::SoundFileFactory::openRead(path);
 
     if (f) {
         src_samplerate_ = f->sampleRate();

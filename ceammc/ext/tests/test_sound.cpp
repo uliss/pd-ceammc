@@ -40,7 +40,7 @@ TEST_CASE("ceammc_sound", "[ceammc_sound]")
 
     SECTION("open")
     {
-        SoundFilePtr ptr = SoundFileFactory::open(TEST_DATA_DIR "/test_data1.wav");
+        SoundFilePtr ptr = SoundFileFactory::openRead(TEST_DATA_DIR "/test_data1.wav");
         REQUIRE(ptr);
         REQUIRE(ptr->isOpened());
     }
