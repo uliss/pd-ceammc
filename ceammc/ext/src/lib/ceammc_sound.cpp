@@ -153,5 +153,31 @@ namespace sound {
     {
         return l.func == func;
     }
+
+    const char* to_string(SoundFileFormat f)
+    {
+        switch (f) {
+        case FORMAT_WAV:
+            return "WAV";
+        case FORMAT_AIFF:
+            return "AIFF";
+        case FORMAT_RAW:
+            return "RAW";
+        case FORMAT_FLAC:
+            return "FLAC";
+        case FORMAT_OGG:
+            return "OGG";
+        case FORMAT_OPUS:
+            return "OPUS";
+        case FORMAT_MP3:
+            return "MP3";
+        case FORMAT_TEXT:
+            return "TEXT";
+        case FORMAT_UNKNOWN:
+        default:
+            return "???";
+        };
+    }
+
 }
 }

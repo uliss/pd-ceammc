@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "array_saver.h"
+#include "ceammc_log.h"
 #include "lex/parser_array_saver.h"
 #include "m_pd.h"
 
@@ -32,6 +33,12 @@ bool ArraySaver::parse(const std::string& str)
     params.out_sr = file_samplerate_;
 
     if (!parser::parse_array_saver_params(str.c_str(), 0, params)) {
+        LIB_ERR << "can't parse options: " << str;
+        return false;
+    }
+
+    if (params.format == sound::FORMAT_UNKNOWN) {
+        LIB_ERR << "unknown output format";
         return false;
     }
 

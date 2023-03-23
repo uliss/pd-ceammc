@@ -23,8 +23,12 @@ namespace sound {
     class LibSndFile : public SoundFile {
         mutable SndfileHandle handle_;
         std::string fname_;
+        int user_format_ { 0 };
+        int user_channels_ { 0 };
+        int user_samplerate_ { 0 };
 
     public:
+        LibSndFile();
         LibSndFile(const std::string& fname);
         size_t sampleCount() const override;
         size_t sampleRate() const override;
@@ -32,11 +36,16 @@ namespace sound {
         bool isOpened() const override;
         bool close() override;
 
+        void setFilename(const std::string& file);
+
         long read(t_word* dest, size_t sz, size_t channel, long offset, size_t max_samples) override;
+
+        long write(const t_word** src, size_t len, SoundFileFormat fmt, size_t num_ch, int samplerate) final;
 
     public:
         static FormatList supportedFormats();
         long readResampled(t_word* dest, size_t sz, size_t ch, long offset, size_t max_samples);
+        void setLibOptions(int fmt, int nch, int sr);
     };
 }
 }

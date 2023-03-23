@@ -19,9 +19,16 @@
 
 #include "ceammc_loader_sndfile.h"
 
+#include <array>
 #include <iostream>
 
 using namespace ceammc::sound;
+
+static void fill_with(t_word* data, size_t len, float v)
+{
+    for (size_t i = 0; i < len; i++)
+        data[i].w_float = v;
+}
 
 TEST_CASE("ceammc::libsndfile", "sndfile")
 {
@@ -201,5 +208,36 @@ TEST_CASE("ceammc::libsndfile", "sndfile")
         t_word buf[500];
         REQUIRE(sf.read(buf, 500, 0, 0, 500) == 480);
         REQUIRE(sf.read(buf, 500, 0, 0, 250) == 250);
+    }
+
+    SECTION("write")
+    {
+        using namespace ceammc::sound;
+
+        LibSndFile sf;
+        REQUIRE_FALSE(sf.isOpened());
+        REQUIRE(sf.channels() == 0);
+        REQUIRE(sf.sampleCount() == 0);
+        REQUIRE(sf.sampleRate() == 0);
+
+        constexpr int SR = 44100;
+        constexpr size_t BUF_SIZE = 100;
+        std::array<t_word, BUF_SIZE> buf;
+        fill_with(buf.data(), buf.size(), 0.125);
+        const t_word* data[] = { buf.data() };
+
+        REQUIRE(sf.write(data, BUF_SIZE, FORMAT_RAW, 1, SR) == -1);
+        sf.setFilename(TEST_BIN_DIR "/test_write0.raw");
+        sf.setGain(2);
+        REQUIRE(sf.write(data, BUF_SIZE, FORMAT_RAW, 1, SR) == BUF_SIZE);
+
+        sf.setFilename(TEST_BIN_DIR "/test_write0.raw");
+        sf.setLibOptions(SF_FORMAT_RAW | SF_FORMAT_PCM_32, 1, SR);
+        sf.setGain(1);
+        fill_with(buf.data(), buf.size(), 0);
+
+        REQUIRE(sf.read(buf.data(), BUF_SIZE, 0, 0, BUF_SIZE) == BUF_SIZE);
+        for (auto& b : buf)
+            REQUIRE(b.w_float == Approx(0.25));
     }
 }

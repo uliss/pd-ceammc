@@ -12,6 +12,8 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_loader_sndfile.h"
+#include "ceammc_log.h"
+#include "fmt/core.h"
 #include "soxr.h"
 
 #include <cmath>
@@ -20,6 +22,11 @@
 namespace ceammc {
 
 namespace sound {
+
+    LibSndFile::LibSndFile()
+        : SoundFile("")
+    {
+    }
 
     LibSndFile::LibSndFile(const std::string& fname)
         : SoundFile(fname)
@@ -56,26 +63,40 @@ namespace sound {
         return true;
     }
 
+    void LibSndFile::setFilename(const std::string& file)
+    {
+        fname_ = file;
+    }
+
     long LibSndFile::read(t_word* dest, size_t sz, size_t ch, long offset, size_t max_samples)
     {
-        if (!handle_)
-            return -1;
+        if (!handle_) {
+            handle_ = SndfileHandle(fname_, SFM_READ, user_format_, user_channels_, user_samplerate_);
+            if (handle_.rawHandle() == 0) {
+                LIB_ERR << fmt::format("[SNDFILE] can't open file for reading: '{}'", fname_);
+                return -1;
+            }
+        }
 
-        if (ch >= channels())
+        if (ch >= channels()) {
+            LIB_ERR << fmt::format("[SNDFILE] invalid channel number: {}", ch);
             return -1;
+        }
 
         if (resampleRatio() != 1)
             return readResampled(dest, sz, ch, offset, max_samples);
 
         t_word* x = dest;
-        const sf_count_t FRAME_COUNT = 256;
+        constexpr sf_count_t FRAME_COUNT = 256;
         const int n = channels();
         const sf_count_t IN_BUF_SIZE = FRAME_COUNT * n;
         float frame_buf[IN_BUF_SIZE];
 
         // move to beginning
-        if (handle_.seek(offset, SEEK_SET) == -1)
+        if (handle_.seek(offset, SEEK_SET) == -1) {
+            LIB_ERR << fmt::format("[SNDFILE] can't seek to pos: {}", offset);
             return -1;
+        }
 
         // read frames
         sf_count_t frames_read_total = 0;
@@ -111,6 +132,64 @@ namespace sound {
         }
 
         return frames_read_total;
+    }
+
+    long LibSndFile::write(const t_word** src, size_t len, SoundFileFormat fmt, size_t num_ch, int samplerate)
+    {
+        // clang-format off
+        int sf_fmt = 0;
+        switch (fmt) {
+        case FORMAT_WAV:  sf_fmt = SF_FORMAT_WAV;  break;
+        case FORMAT_AIFF: sf_fmt = SF_FORMAT_AIFF; break;
+        case FORMAT_OGG:  sf_fmt = SF_FORMAT_OGG; break;
+        case FORMAT_OPUS: sf_fmt = SF_FORMAT_OPUS; break;
+        case FORMAT_RAW:  sf_fmt = SF_FORMAT_RAW | SF_FORMAT_PCM_32; break;
+        case FORMAT_FLAC: sf_fmt = SF_FORMAT_FLAC | SF_FORMAT_PCM_24; break;
+        default:
+            LIB_ERR << fmt::format("[SNDFILE] unsupported format: {}", to_string(fmt));
+            return -1;
+        }
+        // clang-format on
+
+        if (!handle_.formatCheck(sf_fmt, num_ch, samplerate)) {
+            LIB_ERR << fmt::format("[SNDFILE] invalid options for format {}: "
+                                   "num_channels={} samplerate={}",
+                to_string(fmt), num_ch, samplerate);
+            return -1;
+        }
+
+        handle_ = SndfileHandle(fname_.c_str(), SFM_WRITE, sf_fmt, num_ch, samplerate);
+        if (handle_.rawHandle() == 0) {
+            LIB_ERR << fmt::format("[SNDFILE] error while opening \"{}\": {}", fname_, sf_strerror(0));
+            return -1;
+        }
+
+        long nframes = 0;
+        constexpr sf_count_t FRAME_COUNT = 256;
+        const sf_count_t OUT_BUF_SIZE = FRAME_COUNT * num_ch;
+        float frame_buf[OUT_BUF_SIZE];
+        std::int64_t frame_idx = 0;
+
+        for (size_t i = 0; i < len; i++) {
+            frame_idx = i % FRAME_COUNT;
+            // fill frame
+            for (size_t j = 0; j < num_ch; j++)
+                frame_buf[frame_idx + j] = src[j][i].w_float * gain();
+
+            // frame buffer is full
+            if (frame_idx + 1 == FRAME_COUNT) {
+                frame_idx = -1;
+                nframes += handle_.write(frame_buf, FRAME_COUNT);
+            }
+        }
+
+        // write remaining frames
+        if (frame_idx >= 0)
+            nframes += handle_.write(frame_buf, frame_idx + 1);
+
+        handle_.writeSync();
+        handle_ = {};
+        return nframes;
     }
 
     long LibSndFile::readResampled(t_word* dest, size_t sz, size_t ch, long offset, size_t max_samples)
@@ -193,7 +272,6 @@ namespace sound {
                 for (sf_count_t j = 0; j < odone && frames_resampled_total < max_samples; j++) {
                     x->w_float = resampled_buf[j * n + ch] * gain();
                     x++;
-
                 }
             } else
                 std::cerr << "soxr: " << error << "\n";
@@ -223,6 +301,13 @@ namespace sound {
         soxr_delete(soxr);
 
         return frames_resampled_total;
+    }
+
+    void LibSndFile::setLibOptions(int fmt, int nch, int sr)
+    {
+        user_format_ = fmt;
+        user_channels_ = nch;
+        user_samplerate_ = sr;
     }
 
     FormatList LibSndFile::supportedFormats()

@@ -37,6 +37,8 @@ namespace sound {
         FORMAT_TEXT,
     };
 
+    const char* to_string(SoundFileFormat f);
+
     class SoundFile;
 
     using SoundFilePtr = std::shared_ptr<SoundFile>;
@@ -83,7 +85,7 @@ namespace sound {
 
         virtual bool isOpened() const = 0;
 
-        virtual long write(float** src, size_t len, size_t num_ch, int samplerate) { return 0; }
+        virtual long write(const t_word** src, size_t len, SoundFileFormat fmt, size_t num_ch, int samplerate) { return 0; }
     };
 
     using loadFunc = SoundFilePtr (*)(const std::string& path);
