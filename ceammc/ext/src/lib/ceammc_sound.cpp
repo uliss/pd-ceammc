@@ -14,6 +14,8 @@
 
 #include "ceammc_sound.h"
 #include "ceammc_config.h"
+#include "ceammc_log.h"
+#include "fmt/core.h"
 
 #ifdef CEAMMC_HAVE_LIBSNDFILE
 #include "ceammc_loader_sndfile.h"
@@ -72,7 +74,7 @@ namespace sound {
     {
         if (std::find(loaders().begin(), loaders().end(), l) == loaders().end()) {
             loaders().push_back(l);
-            std::cerr << "register loader: " << l.name << std::endl;
+            LIB_DBG << fmt::format("register soundfile loader: {}", l.name);
             return true;
         } else {
             std::cerr << "loader already registered: " << l.name << std::endl;
