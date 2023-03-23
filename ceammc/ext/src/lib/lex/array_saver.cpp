@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "array_saver.h"
+#include "lex/parser_array_saver.h"
 #include "m_pd.h"
 
 #include <algorithm>
@@ -26,6 +27,23 @@ ArraySaver::ArraySaver()
 bool ArraySaver::parse(const std::string& str)
 {
     arrays_.clear();
+    parser::ArraySaverParams params;
+    params.in_sr = array_samplerate_;
+    params.out_sr = file_samplerate_;
+
+    if (!parser::parse_array_saver_params(str.c_str(), 0, params)) {
+        return false;
+    }
+
+    arrays_ = std::move(params.arrays);
+    filename_ = std::move(params.filename);
+    array_begin_ = params.begin;
+    array_begin_ = params.end;
+    gain_ = params.gain;
+    array_samplerate_ = params.in_sr;
+    file_samplerate_ = params.out_sr;
+
+    return true;
 }
 
 bool ArraySaver::removeInvalidArrays()

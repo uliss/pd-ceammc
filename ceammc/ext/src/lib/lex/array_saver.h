@@ -47,6 +47,7 @@ public:
 
 private:
     std::vector<std::string> arrays_;
+    std::string filename_;
 
     float gain_ { 1 };
     float array_samplerate_ = { 44100 };

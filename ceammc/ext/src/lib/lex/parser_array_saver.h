@@ -14,6 +14,8 @@
 #ifndef PARSER_ARRAY_SAVER_H
 #define PARSER_ARRAY_SAVER_H
 
+#include "ceammc_sound.h"
+
 #include <cstdint>
 #include <cstdlib>
 #include <string>
@@ -21,17 +23,6 @@
 
 namespace ceammc {
 namespace parser {
-
-    enum ArraySaverFormat : uint8_t {
-        FORMAT_NONE,
-        FORMAT_WAV,
-        FORMAT_AIFF,
-        FORMAT_RAW,
-        FORMAT_TEXT,
-        FORMAT_MP3,
-        FORMAT_VORBIS,
-        FORMAT_OPUS,
-    };
 
     enum ArrayOffsetOrigin : uint8_t {
         ORIGIN_BEGIN,
@@ -46,7 +37,7 @@ namespace parser {
         float gain { 1 }; // apply gain
         float in_sr { 44100 }; // input (source array) samplerate
         float out_sr { 44100 }; // output (target file) samplerate
-        ArraySaverFormat format { FORMAT_NONE }; // output file format
+        sound::SoundFileFormat format { sound::FORMAT_UNKNOWN }; // output file format
         ArrayOffsetOrigin origin { ORIGIN_BEGIN }; // array offset origin
         uint8_t bits { 0 };
         bool normalize { false }; // do output normalization

@@ -16,6 +16,7 @@
 
 #include "m_pd.h"
 
+#include <cstdint>
 #include <memory>
 #include <string>
 #include <utility>
@@ -23,10 +24,24 @@
 
 namespace ceammc {
 namespace sound {
+
+    enum SoundFileFormat : std::uint8_t {
+        FORMAT_UNKNOWN,
+        FORMAT_WAV,
+        FORMAT_AIFF,
+        FORMAT_RAW,
+        FORMAT_FLAC,
+        FORMAT_OGG,
+        FORMAT_OPUS,
+        FORMAT_MP3,
+        FORMAT_TEXT,
+    };
+
+    class SoundFile;
+
+    using SoundFilePtr = std::shared_ptr<SoundFile>;
     using FormatDescription = std::pair<std::string, std::string>;
     using FormatList = std::vector<FormatDescription>;
-    class SoundFile;
-    using SoundFilePtr = std::shared_ptr<SoundFile>;
 
     class SoundFile {
         std::string fname_;
@@ -67,10 +82,13 @@ namespace sound {
         virtual long read(t_word* dest, size_t sz, size_t channel, long offset, size_t max_samples) = 0;
 
         virtual bool isOpened() const = 0;
+
+        virtual long write(float** src, size_t len, size_t num_ch, int samplerate) { return 0; }
     };
 
-    typedef SoundFilePtr (*loadFunc)(const std::string& path);
-    typedef FormatList (*formatFunc)();
+    using loadFunc = SoundFilePtr (*)(const std::string& path);
+    using formatFunc = FormatList (*)();
+
     struct LoaderDescr {
         LoaderDescr(const std::string& n, loadFunc f, formatFunc ff)
             : name(n)
@@ -92,7 +110,7 @@ namespace sound {
         static SoundFilePtr open(const std::string& path);
 
     private:
-        typedef std::vector<LoaderDescr> LoaderList;
+        using LoaderList = std::vector<LoaderDescr>;
         static LoaderList& loaders(); // singleton
     };
 }

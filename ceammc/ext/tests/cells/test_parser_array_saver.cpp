@@ -84,19 +84,19 @@ TEST_CASE("parser_array_saver", "[ceammc::ceammc_units]")
     SECTION("formats")
     {
         REQUIRE(parse_array_saver_params("array1 @to filename.wav @wav", 100, params));
-        REQUIRE(params.format == FORMAT_WAV);
+        REQUIRE(params.format == sound::FORMAT_WAV);
         REQUIRE(parse_array_saver_params("array1 @to filename.wav @mp3", 100, params));
-        REQUIRE(params.format == FORMAT_MP3);
+        REQUIRE(params.format == sound::FORMAT_MP3);
         REQUIRE(parse_array_saver_params("array1 @to filename.wav @ogg", 100, params));
-        REQUIRE(params.format == FORMAT_VORBIS);
+        REQUIRE(params.format == sound::FORMAT_OGG);
         REQUIRE(parse_array_saver_params("array1 @to filename.wav @opus", 100, params));
-        REQUIRE(params.format == FORMAT_OPUS);
+        REQUIRE(params.format == sound::FORMAT_OPUS);
         REQUIRE(parse_array_saver_params("array1 @to filename.wav @aiff", 100, params));
-        REQUIRE(params.format == FORMAT_AIFF);
+        REQUIRE(params.format == sound::FORMAT_AIFF);
         REQUIRE(parse_array_saver_params("array1 @to filename.wav @raw", 100, params));
-        REQUIRE(params.format == FORMAT_RAW);
+        REQUIRE(params.format == sound::FORMAT_RAW);
         REQUIRE(parse_array_saver_params("array1 @to filename.wav @txt", 100, params));
-        REQUIRE(params.format == FORMAT_TEXT);
+        REQUIRE(params.format == sound::FORMAT_TEXT);
     }
 
     SECTION("bits")
@@ -232,11 +232,25 @@ TEST_CASE("parser_array_saver", "[ceammc::ceammc_units]")
         REQUIRE(params.filename == "filename.wav");
         REQUIRE(params.begin == 10);
         REQUIRE(params.end == 75);
-        REQUIRE(params.format == FORMAT_MP3);
+        REQUIRE(params.format == sound::FORMAT_MP3);
         REQUIRE(params.normalize);
         REQUIRE(params.in_sr == 100);
         REQUIRE(params.out_sr == 200);
         REQUIRE(params.gain == 0.25);
         REQUIRE(params.bits == 16);
+    }
+
+    SECTION("auto format")
+    {
+        REQUIRE(parse_array_saver_params("array1 @to filename.wav", 100, params));
+        REQUIRE(params.format == sound::FORMAT_WAV);
+        REQUIRE(parse_array_saver_params("array1 @to filename.WAV", 100, params));
+        REQUIRE(params.format == sound::FORMAT_WAV);
+        REQUIRE(parse_array_saver_params("array1 @to filename.aif", 100, params));
+        REQUIRE(params.format == sound::FORMAT_AIFF);
+        REQUIRE(parse_array_saver_params("array1 @to filename.AIFF", 100, params));
+        REQUIRE(params.format == sound::FORMAT_AIFF);
+        REQUIRE(parse_array_saver_params("array1 @to filename.flac", 100, params));
+        REQUIRE(params.format == sound::FORMAT_FLAC);
     }
 }

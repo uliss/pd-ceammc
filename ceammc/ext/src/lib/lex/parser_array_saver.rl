@@ -8,16 +8,19 @@
 # include <string>
 
 namespace {
+
+using namespace ceammc::parser;
+
 struct NumCleaner {
-    ceammc::parser::fsm::NumericData& num_;
+    fsm::NumericData& num_;
     ~NumCleaner() { num_ = {}; }
 };
 
 template<typename T>
-inline T getValue(ceammc::parser::fsm::NumericData& num, ceammc::parser::AtomType type)
+inline T getValue(fsm::NumericData& num, AtomType type)
 {
     NumCleaner cleaner { num };
-    return (type != ceammc::parser::TYPE_FLOAT) ? num.getInteger() : num.getFloat();
+    return (type != TYPE_FLOAT) ? num.getInteger() : num.getFloat();
 }
 
 inline size_t clipArraySize(std::int64_t v, size_t arraySize)
@@ -25,39 +28,32 @@ inline size_t clipArraySize(std::int64_t v, size_t arraySize)
     return std::min<std::int64_t>(arraySize - 1, std::max<std::int64_t>(0, v));
 }
 
-inline std::int64_t getUnitValue(
-    ceammc::parser::ArraySaverParams& params,
-    ceammc::parser::fsm::NumericData& num,
-    ceammc::parser::AtomType type,
-    size_t arraySize)
+inline std::int64_t getUnitValue(ArraySaverParams& params, fsm::NumericData& num, AtomType type, size_t arraySize)
 {
     switch (type) {
-    case ceammc::parser::TYPE_PERCENT:
+    case TYPE_PERCENT:
         return std::round(num.getFloat() * arraySize * 0.01);
-    case ceammc::parser::TYPE_PHASE:
+    case TYPE_PHASE:
         return std::round(num.getFloat() * arraySize);
-    case ceammc::parser::TYPE_FLOAT:
-    case ceammc::parser::TYPE_INT:
-    case ceammc::parser::TYPE_SAMP:
+    case TYPE_FLOAT:
+    case TYPE_INT:
+    case TYPE_SAMP:
         return std::round(num.getFloat());
-    case ceammc::parser::TYPE_MSEC:
+    case TYPE_MSEC:
         return std::round(num.getFloat() * 0.001 * params.in_sr);
-    case ceammc::parser::TYPE_SEC:
+    case TYPE_SEC:
         return std::round(num.getFloat() * params.in_sr);
     default:
         return 0;
     }
 }
 
-inline size_t getArrayAbsPos(ceammc::parser::ArraySaverParams& params, std::int64_t pos, std::int64_t arraySize)
+inline size_t getArrayAbsPos(ArraySaverParams& params, std::int64_t pos, std::int64_t arraySize)
 {
-    return (params.origin == ceammc::parser::ORIGIN_BEGIN) ? pos : (arraySize + pos);
+    return (params.origin == ORIGIN_BEGIN) ? pos : (arraySize + pos);
 }
 
-inline size_t getArrayPos(ceammc::parser::ArraySaverParams& params,
-    ceammc::parser::fsm::NumericData& num,
-    ceammc::parser::AtomType type,
-    size_t arraySize)
+inline size_t getArrayPos(ArraySaverParams& params, fsm::NumericData& num, AtomType type, size_t arraySize)
 {
     NumCleaner cleaner { num };
 
@@ -101,6 +97,7 @@ opt_opus     = '@opus';
 opt_aiff     = '@aiff';
 opt_txt      = '@txt';
 opt_raw      = '@raw';
+opt_flac     = '@flac';
 
 opt = opt_gain   %{ params.gain = getValue<float>(ragel_num, ragel_type); }
     | opt_begin  %{ params.begin = getArrayPos(params, ragel_num, ragel_type, arraySize); }
@@ -109,13 +106,14 @@ opt = opt_gain   %{ params.gain = getValue<float>(ragel_num, ragel_type); }
     | opt_in_sr  %{ params.in_sr  = getValue<float>(ragel_num, ragel_type); }
     | opt_out_sr %{ params.out_sr = getValue<float>(ragel_num, ragel_type); }
     | opt_norm   %{ params.normalize = true; }
-    | opt_wav    %{ params.format = FORMAT_WAV; }
-    | opt_mp3    %{ params.format = FORMAT_MP3; }
-    | opt_ogg    %{ params.format = FORMAT_VORBIS; }
-    | opt_opus   %{ params.format = FORMAT_OPUS; }
-    | opt_aiff   %{ params.format = FORMAT_AIFF; }
-    | opt_txt    %{ params.format = FORMAT_TEXT; }
-    | opt_raw    %{ params.format = FORMAT_RAW; }
+    | opt_wav    %{ params.format = sound::FORMAT_WAV; }
+    | opt_mp3    %{ params.format = sound::FORMAT_MP3; }
+    | opt_ogg    %{ params.format = sound::FORMAT_OGG; }
+    | opt_opus   %{ params.format = sound::FORMAT_OPUS; }
+    | opt_aiff   %{ params.format = sound::FORMAT_AIFF; }
+    | opt_txt    %{ params.format = sound::FORMAT_TEXT; }
+    | opt_raw    %{ params.format = sound::FORMAT_RAW; }
+    | opt_flac   %{ params.format = sound::FORMAT_FLAC; }
     ;
 
 options = opt (ws opt)*;
@@ -139,6 +137,8 @@ write data;
 namespace ceammc {
 namespace parser {
 
+static sound::SoundFileFormat detect_format(const char* str, size_t len);
+
 bool parse_array_saver_params(const char* str, size_t arraySize, ArraySaverParams& params)
 {
     auto len = strlen(str);
@@ -146,6 +146,8 @@ bool parse_array_saver_params(const char* str, size_t arraySize, ArraySaverParam
     const char* p = str;
     const char* pe = p + len;
     const char* eof = p + len;
+
+    params.format = sound::FORMAT_UNKNOWN;
 
     std::string ragel_atom;
     double val = 0;
@@ -158,9 +160,46 @@ bool parse_array_saver_params(const char* str, size_t arraySize, ArraySaverParam
     write exec;
 }%%
 
-    return cs >= %%{ write first_final; }%%;
+    if (cs >= %%{ write first_final; }%%) {
+        if (params.format == sound::FORMAT_UNKNOWN)
+            params.format = detect_format(params.filename.c_str(), params.filename.size());
+
+        return true;
+    } else
+        return false;
 }
 
+%%{
+machine auto_format_detector;
+
+formats = ('mp3'|'MP3')     %{ fmt = sound::FORMAT_MP3; }
+        | ('wav'|'WAV')     %{ fmt = sound::FORMAT_WAV; }
+        | [aA][iI][fF][fF]? %{ fmt = sound::FORMAT_AIFF; }
+        | ('opus'|'OPUS')   %{ fmt = sound::FORMAT_OPUS; }
+        | ('ogg'|'OGG')     %{ fmt = sound::FORMAT_OGG; }
+        | ('flac'|'FLAC')   %{ fmt = sound::FORMAT_FLAC; }
+        | ('raw'|'RAW')     %{ fmt = sound::FORMAT_RAW; };
+
+main := (any-0)* :>> ('.' formats);
+write data;
+}%%
+
+sound::SoundFileFormat detect_format(const char* str, size_t len)
+{
+    int cs = 0;
+    const char* p = str;
+    const char* pe = p + len;
+    const char* eof = p + len;
+
+    sound::SoundFileFormat fmt = sound::FORMAT_UNKNOWN;
+
+    %%{
+        write init;
+        write exec;
+    }%%
+
+    return fmt;
+}
 
 }
 }
