@@ -85,7 +85,7 @@ std::int64_t CoreAudioFile::read(t_word* dest, size_t sz, size_t channel, std::i
 
 FormatList CoreAudioFile::supportedFormats()
 {
-    FormatList fmts {
+    return {
         { "AIFF", "Audio Interchange File Format" },
         { "ALAC", "AppleLossless" },
         { "AAC", "MPEG 4 Audio - AAC" },
@@ -97,5 +97,4 @@ FormatList CoreAudioFile::supportedFormats()
         { "MACE6:1", "Macintosh Audio Compression/Expansion" },
         { "WAV", "Waveform Audio File Format " },
     };
-    return fmts;
 }
