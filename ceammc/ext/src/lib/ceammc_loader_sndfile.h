@@ -45,7 +45,8 @@ namespace sound {
     public:
         static FormatList supportedFormats();
         long readResampled(t_word* dest, size_t sz, size_t ch, long offset, size_t max_samples);
-        void setLibOptions(int fmt, int nch, int sr);
+        bool setLibOptions(SoundFileFormat outFmt, SampleFormat outSampFmt, int nch, int sr);
+        bool setFormats(int& res, SoundFileFormat outFmt, SampleFormat outSampFmt);
     };
 }
 }

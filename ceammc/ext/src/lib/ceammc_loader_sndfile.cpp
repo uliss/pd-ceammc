@@ -136,39 +136,10 @@ namespace sound {
 
     long LibSndFile::write(const t_word** src, size_t len, SoundFileFormat outFmt, SampleFormat outSampFmt, size_t numCh, int sr)
     {
-        // clang-format off
         int sf_fmt = 0;
-        switch (outFmt) {
-            case FORMAT_WAV:  sf_fmt = SF_FORMAT_WAV;  break;
-            case FORMAT_AIFF: sf_fmt = SF_FORMAT_AIFF; break;
-            case FORMAT_OGG:  sf_fmt = SF_FORMAT_OGG; break;
-            case FORMAT_OPUS: sf_fmt = SF_FORMAT_OPUS; break;
-            case FORMAT_RAW:  sf_fmt = SF_FORMAT_RAW; break;
-            case FORMAT_FLAC: sf_fmt = SF_FORMAT_FLAC; break;
-            default:
-                LIB_ERR << fmt::format("[SNDFILE] unsupported output format: {}", to_string(outFmt));
-                return -1;
+        if (!setFormats(sf_fmt, outFmt, outSampFmt)) {
+            return -1;
         }
-
-        switch(outSampFmt) {
-            case SAMPLE_PCM_8: sf_fmt |= SF_FORMAT_PCM_S8; break;
-            case SAMPLE_PCM_16: sf_fmt |= SF_FORMAT_PCM_16; break;
-            case SAMPLE_PCM_24: sf_fmt |= SF_FORMAT_PCM_24; break;
-            case SAMPLE_PCM_32: sf_fmt |= SF_FORMAT_PCM_32; break;
-            case SAMPLE_PCM_FLOAT: sf_fmt |= SF_FORMAT_FLOAT; break;
-            default:
-                switch(outFmt) {
-                    case FORMAT_WAV:  sf_fmt |= SF_FORMAT_PCM_24;  break;
-                    case FORMAT_AIFF: sf_fmt |= SF_FORMAT_PCM_24; break;
-                    case FORMAT_OGG:  sf_fmt |= SF_FORMAT_PCM_24; break;
-                    case FORMAT_OPUS: sf_fmt |= SF_FORMAT_PCM_24; break;
-                    case FORMAT_RAW:  sf_fmt |= SF_FORMAT_PCM_24; break;
-                    case FORMAT_FLAC: sf_fmt |= SF_FORMAT_FLOAT; break;
-                    default: break;
-                }
-            break;
-        }
-        // clang-format on
 
         if (!handle_.formatCheck(sf_fmt, numCh, sr)) {
             LIB_ERR << fmt::format("[SNDFILE] invalid options for format {}: "
@@ -322,11 +293,52 @@ namespace sound {
         return frames_resampled_total;
     }
 
-    void LibSndFile::setLibOptions(int fmt, int nch, int sr)
+    bool LibSndFile::setLibOptions(SoundFileFormat outFmt, SampleFormat outSampFmt, int nch, int sr)
     {
-        user_format_ = fmt;
+        if (!setFormats(user_format_, outFmt, outSampFmt))
+            return false;
+
         user_channels_ = nch;
         user_samplerate_ = sr;
+        return true;
+    }
+
+    bool LibSndFile::setFormats(int& res, SoundFileFormat outFmt, SampleFormat outSampFmt)
+    {
+        // clang-format off
+        switch (outFmt) {
+            case FORMAT_WAV:  res = SF_FORMAT_WAV;  break;
+            case FORMAT_AIFF: res = SF_FORMAT_AIFF; break;
+            case FORMAT_OGG:  res = SF_FORMAT_OGG; break;
+            case FORMAT_OPUS: res = SF_FORMAT_OPUS; break;
+            case FORMAT_RAW:  res = SF_FORMAT_RAW; break;
+            case FORMAT_FLAC: res = SF_FORMAT_FLAC; break;
+            default:
+                LIB_ERR << fmt::format("[SNDFILE] unsupported output format: {}", to_string(outFmt));
+                return false;
+        }
+
+        switch(outSampFmt) {
+            case SAMPLE_PCM_8:     res |= SF_FORMAT_PCM_S8; break;
+            case SAMPLE_PCM_16:    res |= SF_FORMAT_PCM_16; break;
+            case SAMPLE_PCM_24:    res |= SF_FORMAT_PCM_24; break;
+            case SAMPLE_PCM_32:    res |= SF_FORMAT_PCM_32; break;
+            case SAMPLE_PCM_FLOAT: res |= SF_FORMAT_FLOAT; break;
+            default:
+                switch(outFmt) {
+                    case FORMAT_WAV:  res |= SF_FORMAT_PCM_24;  break;
+                    case FORMAT_AIFF: res |= SF_FORMAT_PCM_24; break;
+                    case FORMAT_OGG:  res |= SF_FORMAT_PCM_24; break;
+                    case FORMAT_OPUS: res |= SF_FORMAT_PCM_24; break;
+                    case FORMAT_RAW:  res |= SF_FORMAT_PCM_24; break;
+                    case FORMAT_FLAC: res |= SF_FORMAT_FLOAT; break;
+                    default: break;
+                }
+            break;
+        }
+        // clang-format on
+
+        return true;
     }
 
     FormatList LibSndFile::supportedFormats()

@@ -232,7 +232,7 @@ TEST_CASE("ceammc::libsndfile", "sndfile")
         REQUIRE(sf.write(data, BUF_SIZE, FORMAT_RAW, SAMPLE_PCM_32, 1, SR) == BUF_SIZE);
 
         sf.setFilename(TEST_BIN_DIR "/test_write0.raw");
-        sf.setLibOptions(SF_FORMAT_RAW | SF_FORMAT_PCM_32, 1, SR);
+        sf.setLibOptions(FORMAT_RAW, SAMPLE_PCM_32, 1, SR);
         sf.setGain(1);
         fill_with(buf.data(), buf.size(), 0);
 
