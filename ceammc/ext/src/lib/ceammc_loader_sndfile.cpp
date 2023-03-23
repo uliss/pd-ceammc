@@ -134,7 +134,7 @@ namespace sound {
         return frames_read_total;
     }
 
-    long LibSndFile::write(const t_word** src, size_t len, const SoundFileWriteOptions& opts)
+    std::int64_t LibSndFile::write(const t_word** src, size_t len, const SoundFileWriteOptions& opts)
     {
         int sf_fmt = 0;
         if (!setFormats(sf_fmt, opts.outputFileFormat, opts.outputSampleFormat)) {
@@ -154,7 +154,7 @@ namespace sound {
             return -1;
         }
 
-        long nframes = 0;
+        std::int64_t frames_written = 0;
         constexpr sf_count_t FRAME_COUNT = 256;
         const sf_count_t OUT_BUF_SIZE = FRAME_COUNT * opts.numChannels;
         float frame_buf[OUT_BUF_SIZE];
@@ -169,17 +169,17 @@ namespace sound {
             // frame buffer is full
             if (frame_idx + 1 == FRAME_COUNT) {
                 frame_idx = -1;
-                nframes += handle_.write(frame_buf, FRAME_COUNT);
+                frames_written += handle_.write(frame_buf, FRAME_COUNT);
             }
         }
 
         // write remaining frames
         if (frame_idx >= 0)
-            nframes += handle_.write(frame_buf, frame_idx + 1);
+            frames_written += handle_.write(frame_buf, frame_idx + 1);
 
         handle_.writeSync();
         handle_ = {};
-        return nframes;
+        return frames_written;
     }
 
     long LibSndFile::readResampled(t_word* dest, size_t sz, size_t ch, long offset, size_t max_samples)

@@ -102,7 +102,14 @@ namespace sound {
 
         virtual bool isOpened() const = 0;
 
-        virtual long write(const t_word** src, size_t len, const SoundFileWriteOptions& opts) { return 0; }
+        /**
+         * Write arrays to soundfile
+         * @param src - pointer to array of sources
+         * @param len - length of arrays
+         * @param opts - write options (output format, samplerate etc.)
+         * @return number of bytes written or -1 on error
+         */
+        virtual std::int64_t write(const t_word** src, size_t len, const SoundFileWriteOptions& opts) { return -1; }
     };
 
     using loadFunc = SoundFilePtr (*)(const std::string& path);
