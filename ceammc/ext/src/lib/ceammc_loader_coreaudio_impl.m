@@ -37,7 +37,7 @@ static int checkError(OSStatus error, const char* op)
     if (error == noErr)
         return 0;
 
-    char errorString[20];
+    char errorString[20] = { 0 };
     *(UInt32*)(errorString + 1) = CFSwapInt32HostToBig(error);
 
     if (isprint(errorString[1])
@@ -266,7 +266,7 @@ int64_t ceammc_coreaudio_load(const char* path, size_t channel, size_t offset, s
         return PROPERTY_ERR;
     }
 
-    UInt32 numSamples = 1024; //How many samples to read in at a time
+    UInt32 numSamples = 1024; // How many samples to read in at a time
     UInt32 sizePerPacket = audioOutFmt.mBytesPerPacket;
     UInt32 packetsPerBuffer = numSamples;
     UInt32 outputBufferSize = packetsPerBuffer * sizePerPacket;
