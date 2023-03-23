@@ -24,11 +24,6 @@ using namespace ceammc::sound;
 
 extern "C" int* array_load_parse(const char* input);
 
-SoundFilePtr testLoadFunc(const std::string& path)
-{
-    return SoundFilePtr();
-}
-
 FormatList testFormatFunc()
 {
     return FormatList();
@@ -52,7 +47,8 @@ TEST_CASE("ceammc_sound", "[ceammc_sound]")
 
     SECTION("register")
     {
-        LoaderDescr ld("test_loader", testLoadFunc, testFormatFunc);
+        LoaderDescr ld(
+            "test_loader", []() { return SoundFilePtr(); }, testFormatFunc);
         REQUIRE(SoundFileLoader::registerLoader(ld));
         // double register
         REQUIRE_FALSE(SoundFileLoader::registerLoader(ld));

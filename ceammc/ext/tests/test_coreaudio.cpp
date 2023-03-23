@@ -22,6 +22,7 @@
 #include <cstring>
 
 using namespace ceammc;
+using namespace ceammc::sound;
 
 TEST_CASE("CoreAudio", "[ceammc::ceammc_loader_coreaudio]")
 {
@@ -129,7 +130,8 @@ TEST_CASE("CoreAudio", "[ceammc::ceammc_loader_coreaudio]")
 
     SECTION("offset")
     {
-        sound::CoreAudioFile sf(TEST_DATA_DIR "/test_data0.wav");
+        sound::CoreAudioFile sf;
+        REQUIRE(sf.open(TEST_DATA_DIR "/test_data0.wav", SoundFile::READ, {}));
         REQUIRE(sf.resampleRatio() == 1);
         REQUIRE(sf.gain() == 1);
 
@@ -147,10 +149,12 @@ TEST_CASE("CoreAudio", "[ceammc::ceammc_loader_coreaudio]")
 
         REQUIRE(sf.read(buf, 1024, 0, -100, 1024) == -1);
 
-        sound::CoreAudioFile sf2(TEST_DATA_DIR "/test_data0.mp3");
+        CoreAudioFile sf2;
+        REQUIRE(sf2.open(TEST_DATA_DIR "/test_data0.mp3", SoundFile::READ, {}));
         REQUIRE(sf2.read(buf, 1024, 0, 100, 1024) == 341);
 
-        sound::CoreAudioFile sf3(TEST_DATA_DIR "/test_data0.m4a");
+        CoreAudioFile sf3;
+        REQUIRE(sf3.open(TEST_DATA_DIR "/test_data0.m4a", SoundFile::READ, {}));
         REQUIRE(sf3.read(buf, 1024, 0, 100, 1024) == 341);
 
         t_word buf2[10];
@@ -159,7 +163,8 @@ TEST_CASE("CoreAudio", "[ceammc::ceammc_loader_coreaudio]")
 
     SECTION("gain")
     {
-        sound::CoreAudioFile sf(TEST_DATA_DIR "/test_data0.wav");
+        CoreAudioFile sf;
+        REQUIRE(sf.open(TEST_DATA_DIR "/test_data0.wav", SoundFile::READ, {}));
         REQUIRE(sf.gain() == 1);
 
         t_word buf[1024];
@@ -172,7 +177,8 @@ TEST_CASE("CoreAudio", "[ceammc::ceammc_loader_coreaudio]")
 
     SECTION("resample")
     {
-        sound::CoreAudioFile sf(TEST_DATA_DIR "/test_data0.wav");
+        CoreAudioFile sf;
+        REQUIRE(sf.open(TEST_DATA_DIR "/test_data0.wav", SoundFile::READ, {}));
         REQUIRE(sf.resampleRatio() == 1);
 
         t_word buf[1024];

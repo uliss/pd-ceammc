@@ -37,18 +37,21 @@ TEST_CASE("ceammc::libsndfile", "sndfile")
         FormatList fmt(LibSndFile::supportedFormats());
         REQUIRE(!fmt.empty());
 
-        LibSndFile sf("not-exists");
-        REQUIRE(!sf.isOpened());
+        LibSndFile sf;
+        REQUIRE_FALSE(sf.isOpened());
         REQUIRE(sf.sampleCount() == 0);
         REQUIRE(sf.sampleRate() == 0);
         REQUIRE(sf.channels() == 0);
-        REQUIRE(sf.filename() == "not-exists");
+        REQUIRE(sf.filename().empty());
         REQUIRE(sf.read(nullptr, 100, 1, 0, 100) == -1);
+
+        REQUIRE_FALSE(sf.open("not-exists", SoundFile::READ, {}));
     }
 
     SECTION("test 48k wav mono")
     {
-        LibSndFile sf(TEST_DATA_DIR "/snd_mono_48k.wav");
+        LibSndFile sf;
+        REQUIRE(sf.open(TEST_DATA_DIR "/snd_mono_48k.wav", SoundFile::READ, {}));
         REQUIRE(sf.isOpened());
         REQUIRE(sf.channels() == 1);
         REQUIRE(sf.sampleRate() == 48000);
@@ -65,7 +68,8 @@ TEST_CASE("ceammc::libsndfile", "sndfile")
 
     SECTION("test 48k wav stereo")
     {
-        LibSndFile sf(TEST_DATA_DIR "/snd_stereo_48k.wav");
+        LibSndFile sf;
+        REQUIRE(sf.open(TEST_DATA_DIR "/snd_stereo_48k.wav", SoundFile::READ, {}));
         REQUIRE(sf.isOpened());
         REQUIRE(sf.channels() == 2);
         REQUIRE(sf.sampleRate() == 48000);
@@ -84,7 +88,8 @@ TEST_CASE("ceammc::libsndfile", "sndfile")
 
     SECTION("test 48k flac mono")
     {
-        LibSndFile sf(TEST_DATA_DIR "/snd_mono_48k.flac");
+        LibSndFile sf;
+        REQUIRE(sf.open(TEST_DATA_DIR "/snd_mono_48k.flac", SoundFile::READ, {}));
         REQUIRE(sf.isOpened());
         REQUIRE(sf.channels() == 1);
         REQUIRE(sf.sampleRate() == 48000);
@@ -93,7 +98,8 @@ TEST_CASE("ceammc::libsndfile", "sndfile")
 
     SECTION("test 48k flac stereo")
     {
-        LibSndFile sf(TEST_DATA_DIR "/snd_stereo_48k.flac");
+        LibSndFile sf;
+        REQUIRE(sf.open(TEST_DATA_DIR "/snd_stereo_48k.flac", SoundFile::READ, {}));
         REQUIRE(sf.isOpened());
         REQUIRE(sf.channels() == 2);
         REQUIRE(sf.sampleRate() == 48000);
@@ -102,7 +108,8 @@ TEST_CASE("ceammc::libsndfile", "sndfile")
 
     SECTION("test 44.1k ogg mono")
     {
-        LibSndFile sf(TEST_DATA_DIR "/snd_mono_44k.ogg");
+        LibSndFile sf;
+        REQUIRE(sf.open(TEST_DATA_DIR "/snd_mono_44k.ogg", SoundFile::READ, {}));
         REQUIRE(sf.isOpened());
         REQUIRE(sf.channels() == 1);
         REQUIRE(sf.sampleRate() == 44100);
@@ -111,7 +118,8 @@ TEST_CASE("ceammc::libsndfile", "sndfile")
 
     SECTION("test 44.1k ogg stereo")
     {
-        LibSndFile sf(TEST_DATA_DIR "/snd_stereo_44k.ogg");
+        LibSndFile sf;
+        REQUIRE(sf.open(TEST_DATA_DIR "/snd_stereo_44k.ogg", SoundFile::READ, {}));
         REQUIRE(sf.isOpened());
         REQUIRE(sf.channels() == 2);
         REQUIRE(sf.sampleRate() == 44100);
@@ -120,7 +128,8 @@ TEST_CASE("ceammc::libsndfile", "sndfile")
 
     SECTION("test line mono")
     {
-        LibSndFile sf(TEST_DATA_DIR "/test_data0.wav");
+        LibSndFile sf;
+        REQUIRE(sf.open(TEST_DATA_DIR "/test_data0.wav", SoundFile::READ, {}));
         REQUIRE(sf.isOpened());
         REQUIRE(sf.channels() == 1);
         REQUIRE(sf.sampleRate() == 44100);
@@ -137,7 +146,8 @@ TEST_CASE("ceammc::libsndfile", "sndfile")
 
     SECTION("test line stereo")
     {
-        LibSndFile sf(TEST_DATA_DIR "/test_data1.wav");
+        LibSndFile sf;
+        REQUIRE(sf.open(TEST_DATA_DIR "/test_data1.wav", SoundFile::READ, {}));
         REQUIRE(sf.isOpened());
         REQUIRE(sf.channels() == 2);
         REQUIRE(sf.sampleRate() == 44100);
@@ -157,7 +167,8 @@ TEST_CASE("ceammc::libsndfile", "sndfile")
 
     SECTION("test line stereo @gain")
     {
-        LibSndFile sf(TEST_DATA_DIR "/test_data1.wav");
+        LibSndFile sf;
+        REQUIRE(sf.open(TEST_DATA_DIR "/test_data1.wav", SoundFile::READ, {}));
         sf.setGain(0.5);
         REQUIRE(sf.isOpened());
         REQUIRE(sf.channels() == 2);
@@ -178,7 +189,8 @@ TEST_CASE("ceammc::libsndfile", "sndfile")
 
     SECTION("test offset")
     {
-        LibSndFile sf(TEST_DATA_DIR "/test_data0.wav");
+        LibSndFile sf;
+        REQUIRE(sf.open(TEST_DATA_DIR "/test_data0.wav", SoundFile::READ, {}));
 
         t_word buf[1024];
         REQUIRE(sf.read(buf, 1024, 0, 0, 1024) == 441);
@@ -197,7 +209,8 @@ TEST_CASE("ceammc::libsndfile", "sndfile")
 
     SECTION("test 48k/44.1k resample")
     {
-        LibSndFile sf(TEST_DATA_DIR "/test_data1.wav");
+        LibSndFile sf;
+        REQUIRE(sf.open(TEST_DATA_DIR "/test_data1.wav", SoundFile::READ, {}));
         REQUIRE(sf.isOpened());
         REQUIRE(sf.channels() == 2);
         REQUIRE(sf.sampleRate() == 44100);
@@ -226,19 +239,18 @@ TEST_CASE("ceammc::libsndfile", "sndfile")
         fill_with(buf.data(), buf.size(), 0.125);
         const t_word* data[] = { buf.data() };
 
-        SoundFileWriteOptions opts;
-        opts.outputFileFormat = FORMAT_RAW;
-        opts.outputSampleFormat = ceammc::sound::SAMPLE_PCM_32;
-        opts.numChannels = 1;
-        opts.samplerate = SR;
-
-        REQUIRE(sf.write(data, BUF_SIZE, opts) == -1);
-        sf.setFilename(TEST_BIN_DIR "/test_write0.raw");
+        SoundFileOpenParams params;
+        params.samplerate = SR;
+        params.file_format = FORMAT_RAW;
+        params.sample_format = SAMPLE_PCM_32;
+        params.num_channels = 1;
+        REQUIRE(sf.open(TEST_BIN_DIR "/test_write0.raw", SoundFile::WRITE, params));
         sf.setGain(2);
-        REQUIRE(sf.write(data, BUF_SIZE, opts) == BUF_SIZE);
+        REQUIRE(sf.write(data, BUF_SIZE, 0) == BUF_SIZE);
+        REQUIRE(sf.close());
+        REQUIRE_FALSE(sf.isOpened());
 
-        sf.setFilename(TEST_BIN_DIR "/test_write0.raw");
-        sf.setLibOptions(FORMAT_RAW, SAMPLE_PCM_32, 1, SR);
+        REQUIRE(sf.open(TEST_BIN_DIR "/test_write0.raw", SoundFile::READ, params));
         sf.setGain(1);
         fill_with(buf.data(), buf.size(), 0);
 

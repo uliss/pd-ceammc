@@ -34,7 +34,8 @@ TEST_CASE("minimp3", "[ceammc_sound]")
 
     SECTION("load constant rate")
     {
-        MiniMp3 loader(TEST_DATA_DIR "/test_data0.mp3");
+        MiniMp3 loader;
+        REQUIRE(loader.open(TEST_DATA_DIR "/test_data0.mp3", SoundFile::READ, {}));
         REQUIRE(loader.channels() == 1);
         REQUIRE(loader.filename() == TEST_DATA_DIR "/test_data0.mp3");
         REQUIRE(loader.isOpened());
@@ -54,7 +55,8 @@ TEST_CASE("minimp3", "[ceammc_sound]")
 
     SECTION("load vbr")
     {
-        MiniMp3 loader(TEST_DATA_DIR "/test_data0_vbr.mp3");
+        MiniMp3 loader;
+        REQUIRE(loader.open(TEST_DATA_DIR "/test_data0_vbr.mp3", SoundFile::READ, {}));
         REQUIRE(loader.channels() == 1);
         REQUIRE(loader.filename() == TEST_DATA_DIR "/test_data0_vbr.mp3");
         REQUIRE(loader.isOpened());
@@ -78,7 +80,8 @@ TEST_CASE("minimp3", "[ceammc_sound]")
         {
             SECTION("1")
             {
-                MiniMp3 loader(TEST_DATA_DIR "/mp3/test_1ch_12000_128.mp3");
+                MiniMp3 loader;
+                REQUIRE(loader.open(TEST_DATA_DIR "/mp3/test_1ch_12000_128.mp3", SoundFile::READ, {}));
                 REQUIRE(loader.channels() == 1);
                 REQUIRE(loader.isOpened());
                 REQUIRE(loader.sampleRate() == 12000);
@@ -102,7 +105,8 @@ TEST_CASE("minimp3", "[ceammc_sound]")
 
             SECTION("1")
             {
-                MiniMp3 loader(TEST_DATA_DIR "/mp3/test_1ch_44100_192.mp3");
+                MiniMp3 loader;
+                REQUIRE(loader.open(TEST_DATA_DIR "/mp3/test_1ch_44100_192.mp3", SoundFile::READ, {}));
                 REQUIRE(loader.channels() == 1);
                 REQUIRE(loader.isOpened());
                 REQUIRE(loader.sampleRate() == 44100);
@@ -126,7 +130,8 @@ TEST_CASE("minimp3", "[ceammc_sound]")
 
             SECTION("2ch: first")
             {
-                MiniMp3 loader(TEST_DATA_DIR "/mp3/test_2ch_44100_192.mp3");
+                MiniMp3 loader;
+                REQUIRE(loader.open(TEST_DATA_DIR "/mp3/test_2ch_44100_192.mp3", SoundFile::READ, {}));
                 REQUIRE(loader.channels() == 2);
                 REQUIRE(loader.isOpened());
                 REQUIRE(loader.sampleRate() == 44100);
@@ -150,7 +155,8 @@ TEST_CASE("minimp3", "[ceammc_sound]")
 
             SECTION("2ch: second")
             {
-                MiniMp3 loader(TEST_DATA_DIR "/mp3/test_2ch_44100_192.mp3");
+                MiniMp3 loader;
+                REQUIRE(loader.open(TEST_DATA_DIR "/mp3/test_2ch_44100_192.mp3", SoundFile::READ, {}));
                 REQUIRE(loader.channels() == 2);
                 REQUIRE(loader.isOpened());
                 REQUIRE(loader.sampleRate() == 44100);
@@ -175,7 +181,8 @@ TEST_CASE("minimp3", "[ceammc_sound]")
 
         SECTION("vbr")
         {
-            MiniMp3 loader(TEST_DATA_DIR "/mp3/test_1ch_24000_vbr.mp3");
+            MiniMp3 loader;
+            REQUIRE(loader.open(TEST_DATA_DIR "/mp3/test_1ch_24000_vbr.mp3", SoundFile::READ, {}));
             loader.setGain(0.5);
             REQUIRE(loader.channels() == 1);
             REQUIRE(loader.isOpened());
@@ -200,7 +207,8 @@ TEST_CASE("minimp3", "[ceammc_sound]")
 
         SECTION("resample to 12000 (x0.5)")
         {
-            MiniMp3 loader(TEST_DATA_DIR "/mp3/test_1ch_24000_vbr.mp3");
+            MiniMp3 loader;
+            REQUIRE(loader.open(TEST_DATA_DIR "/mp3/test_1ch_24000_vbr.mp3", SoundFile::READ, {}));
             REQUIRE(loader.isOpened());
             REQUIRE(loader.channels() == 1);
             REQUIRE(loader.sampleRate() == 24000);
@@ -240,7 +248,8 @@ TEST_CASE("minimp3", "[ceammc_sound]")
 
         SECTION("resample to 48000 (x2)")
         {
-            MiniMp3 loader(TEST_DATA_DIR "/mp3/test_1ch_24000_vbr.mp3");
+            MiniMp3 loader;
+            REQUIRE(loader.open(TEST_DATA_DIR "/mp3/test_1ch_24000_vbr.mp3", SoundFile::READ, {}));
             REQUIRE(loader.isOpened());
             REQUIRE(loader.channels() == 1);
             REQUIRE(loader.sampleRate() == 24000);

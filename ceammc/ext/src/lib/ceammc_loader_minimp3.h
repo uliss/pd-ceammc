@@ -15,31 +15,32 @@
 #define CEAMMC_LOADER_MINIMP3_H
 
 #include "ceammc_sound.h"
+
 #include <memory>
 
 struct mp3dec_ex_t;
+using Mp3DecoderPtr = std::unique_ptr<mp3dec_ex_t>;
 
 namespace ceammc {
 namespace sound {
     class MiniMp3 : public SoundFile {
-        std::string fname_;
-        std::unique_ptr<mp3dec_ex_t> decoder_;
+        Mp3DecoderPtr decoder_;
 
     public:
-        MiniMp3(const std::string& fname);
+        MiniMp3();
         ~MiniMp3();
 
-        size_t sampleCount() const override;
-        size_t sampleRate() const override;
-        size_t channels() const override;
-        bool isOpened() const override;
-        bool close() override;
+        bool open(const std::string& fname, OpenMode mode, const SoundFileOpenParams& params) final;
+        size_t sampleCount() const final;
+        size_t sampleRate() const final;
+        size_t channels() const final;
+        bool isOpened() const final;
+        bool close() final;
 
-        long read(t_word* dest, size_t sz, size_t channel, long offset, size_t max_samples) override;
+        std::int64_t read(t_word* dest, size_t sz, size_t channel, std::int64_t offset, size_t max_samples) final;
 
     public:
         static FormatList supportedFormats();
-        long readResampled(t_word* dest, size_t sz, size_t ch, long offset, size_t max_samples);
 
     public:
         struct buffer {
@@ -48,6 +49,7 @@ namespace sound {
         };
 
     private:
+        std::int64_t readResampled(t_word* dest, size_t sz, size_t ch, std::int64_t offset, size_t max_samples);
         buffer buf_;
     };
 }

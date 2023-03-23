@@ -13,39 +13,51 @@
  *****************************************************************************/
 #include "ceammc_loader_coreaudio.h"
 #include "ceammc_loader_coreaudio_impl.h"
+#include "ceammc_log.h"
+#include "fmt/core.h"
 
 using namespace ceammc;
 using namespace ceammc::sound;
 
-CoreAudioFile::CoreAudioFile(const std::string& fname)
-    : SoundFile(fname)
-    , sample_rate_(0)
+#define CA_PREFIX "[coreaudio] "
+
+CoreAudioFile::CoreAudioFile()
+    : sample_rate_(0)
     , channels_(0)
     , sample_count_(0)
     , is_opened_(false)
 {
-    audiofile_info_t fi = { 0 };
-    if (ceammc_coreaudio_getinfo(fname.c_str(), &fi) == 0)
-        is_opened_ = true;
+}
 
-    sample_rate_ = fi.sampleRate;
-    sample_count_ = fi.sampleCount;
-    channels_ = fi.channels;
+bool CoreAudioFile::open(const std::string& fname, OpenMode mode, const SoundFileOpenParams& params)
+{
+    audiofile_info_t fi = { 0 };
+    if (ceammc_coreaudio_getinfo(fname.c_str(), &fi) == 0) {
+        sample_rate_ = fi.sampleRate;
+        sample_count_ = fi.sampleCount;
+        channels_ = fi.channels;
+        is_opened_ = true;
+        fname_ = fname;
+        setOpenMode(mode);
+        return true;
+    }
+
+    return false;
 }
 
 size_t CoreAudioFile::sampleCount() const
 {
-    return sample_count_;
+    return is_opened_ ? sample_count_ : 0;
 }
 
 size_t CoreAudioFile::sampleRate() const
 {
-    return sample_rate_;
+    return is_opened_ ? sample_rate_ : 0;
 }
 
 size_t CoreAudioFile::channels() const
 {
-    return channels_;
+    return is_opened_ ? channels_ : 0;
 }
 
 bool CoreAudioFile::isOpened() const
@@ -55,27 +67,35 @@ bool CoreAudioFile::isOpened() const
 
 bool CoreAudioFile::close()
 {
+    fname_.clear();
+    is_opened_ = false;
     return true;
 }
 
-long CoreAudioFile::read(t_word* dest, size_t sz, size_t channel, long offset, size_t max_samples)
+std::int64_t CoreAudioFile::read(t_word* dest, size_t sz, size_t channel, std::int64_t offset, size_t max_samples)
 {
+    if (!isOpened() || openMode() != READ) {
+        LIB_ERR << fmt::format(CA_PREFIX "not opened for reading");
+        return -1;
+    }
+
     int64_t res = ceammc_coreaudio_load(filename().c_str(), channel, offset, sz, dest, gain(), resampleRatio(), max_samples);
     return res < 0 ? -1 : res;
 }
 
 FormatList CoreAudioFile::supportedFormats()
 {
-    FormatList fmts;
-    fmts.push_back(std::make_pair<std::string>("AIFF", "Audio Interchange File Format"));
-    fmts.push_back(std::make_pair<std::string>("ALAC", "AppleLossless"));
-    fmts.push_back(std::make_pair<std::string>("AAC", "MPEG 4 Audio - AAC"));
-    fmts.push_back(std::make_pair<std::string>("CAF", "Apple Core Audio Format"));
-    fmts.push_back(std::make_pair<std::string>("MP3", "MPEG Layer 3"));
-    fmts.push_back(std::make_pair<std::string>("MP4", "MPEG 4 Audio"));
-    fmts.push_back(std::make_pair<std::string>("SD2", "Sound Designer II"));
-    fmts.push_back(std::make_pair<std::string>("MACE3:1", "Macintosh Audio Compression/Expansion"));
-    fmts.push_back(std::make_pair<std::string>("MACE6:1", "Macintosh Audio Compression/Expansion"));
-    fmts.push_back(std::make_pair<std::string>("WAV", "Waveform Audio File Format "));
+    FormatList fmts {
+        { "AIFF", "Audio Interchange File Format" },
+        { "ALAC", "AppleLossless" },
+        { "AAC", "MPEG 4 Audio - AAC" },
+        { "CAF", "Apple Core Audio Format" },
+        { "MP3", "MPEG Layer 3" },
+        { "MP4", "MPEG 4 Audio" },
+        { "SD2", "Sound Designer II" },
+        { "MACE3:1", "Macintosh Audio Compression/Expansion" },
+        { "MACE6:1", "Macintosh Audio Compression/Expansion" },
+        { "WAV", "Waveform Audio File Format " },
+    };
     return fmts;
 }

@@ -40,7 +40,7 @@ namespace sound {
     static const bool libsndfile_register = SoundFileLoader::registerLoader(
         LoaderDescr(
             "libsndfile",
-            [](const std::string& path) { return SoundFilePtr(new LibSndFile(path)); },
+            []() { return SoundFilePtr(new LibSndFile()); },
             LibSndFile::supportedFormats));
 #endif
 
@@ -49,7 +49,7 @@ namespace sound {
     static const bool coreaudio_register = SoundFileLoader::registerLoader(
         LoaderDescr(
             "coreaudio",
-            [](const std::string& path) { return SoundFilePtr(new CoreAudioFile(path)); },
+            []() { return SoundFilePtr(new CoreAudioFile()); },
             CoreAudioFile::supportedFormats));
 
 #endif
@@ -58,15 +58,10 @@ namespace sound {
     static const bool minimp3_register = SoundFileLoader::registerLoader(
         LoaderDescr(
             "minimp3",
-            [](const std::string& path) { return SoundFilePtr(new MiniMp3(path)); },
+            []() { return SoundFilePtr(new MiniMp3()); },
             MiniMp3::supportedFormats));
 
-    SoundFile::SoundFile(const std::string& fname)
-        : fname_(fname)
-    {
-    }
-
-    SoundFile::~SoundFile()
+    SoundFile::SoundFile()
     {
     }
 
@@ -128,11 +123,10 @@ namespace sound {
             return ptr;
         }
 
-        for (size_t i = 0; i < loaders().size(); i++) {
-            ptr = loaders().at(i).func(path);
-            if (ptr && ptr->isOpened()) {
+        for (auto& l : loaders()) {
+            auto ptr = l.func();
+            if (ptr && ptr->open(path, SoundFile::READ, {}))
                 return ptr;
-            }
         }
 
         return ptr;
@@ -142,11 +136,6 @@ namespace sound {
     {
         static SoundFileLoader::LoaderList loaders;
         return loaders;
-    }
-
-    std::string SoundFile::filename()
-    {
-        return fname_;
     }
 
     bool LoaderDescr::operator==(const LoaderDescr& l)

@@ -19,21 +19,22 @@
 namespace ceammc {
 namespace sound {
     class CoreAudioFile : public SoundFile {
-        std::string fname_;
         size_t sample_rate_;
         size_t channels_;
         size_t sample_count_;
         bool is_opened_;
 
     public:
-        CoreAudioFile(const std::string& fname);
-        size_t sampleCount() const override;
-        size_t sampleRate() const override;
-        size_t channels() const override;
-        bool isOpened() const override;
-        bool close() override;
+        CoreAudioFile();
 
-        long read(t_word* dest, size_t sz, size_t channel, long offset, size_t max_samples) override;
+        bool open(const std::string& fname, OpenMode mode, const SoundFileOpenParams& params) final;
+        size_t sampleCount() const final;
+        size_t sampleRate() const final;
+        size_t channels() const final;
+        bool isOpened() const final;
+        bool close() final;
+
+        std::int64_t read(t_word* dest, size_t sz, size_t channel, std::int64_t offset, size_t max_samples) final;
 
     public:
         static FormatList supportedFormats();

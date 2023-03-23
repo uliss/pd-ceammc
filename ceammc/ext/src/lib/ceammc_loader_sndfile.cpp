@@ -24,17 +24,43 @@ namespace ceammc {
 namespace sound {
 
     LibSndFile::LibSndFile()
-        : SoundFile("")
     {
     }
 
-    LibSndFile::LibSndFile(const std::string& fname)
-        : SoundFile(fname)
-        , handle_(fname, SFM_READ, 0, 0, 0)
+    bool LibSndFile::open(const std::string& fname, OpenMode mode, const SoundFileOpenParams& params)
     {
-        if (handle_.rawHandle() == 0) {
-            std::cerr << "[SNDFILE] error while opening \"" << fname << "\": " << sf_strerror(0) << "\n";
+        int sf_fmt = 0;
+        setFormats(sf_fmt, params.file_format, params.sample_format);
+
+        switch (mode) {
+        case WRITE: {
+            if (!handle_.formatCheck(sf_fmt, params.num_channels, params.samplerate)) {
+                LIB_ERR << fmt::format("[SNDFILE] invalid options for format {}: "
+                                       "num_channels={} samplerate={}",
+                    to_string(params.file_format), params.num_channels, params.samplerate);
+                return false;
+            }
+
+            handle_ = SndfileHandle(fname, SFM_WRITE, sf_fmt, params.num_channels, params.samplerate);
+            if (handle_.rawHandle() == 0) {
+                LIB_ERR << fmt::format("[SNDFILE] can't open file '{}' for writing. {}", fname, handle_.strError());
+                return false;
+            }
+        } break;
+        case READ:
+        default:
+            // auto detect soundfile format
+            handle_ = SndfileHandle(fname, SFM_READ, sf_fmt, params.num_channels, params.samplerate);
+            if (handle_.rawHandle() == 0) {
+                LIB_ERR << fmt::format("[SNDFILE] can't open file '{}' for reading. {}", fname, handle_.strError());
+                return false;
+            }
+            break;
         }
+
+        setOpenMode(mode);
+        fname_ = fname;
+        return true;
     }
 
     size_t LibSndFile::sampleCount() const
@@ -59,23 +85,16 @@ namespace sound {
 
     bool LibSndFile::close()
     {
+        fname_.clear();
         handle_ = SndfileHandle();
         return true;
     }
 
-    void LibSndFile::setFilename(const std::string& file)
+    std::int64_t LibSndFile::read(t_word* dest, size_t sz, size_t ch, std::int64_t offset, size_t max_samples)
     {
-        fname_ = file;
-    }
-
-    long LibSndFile::read(t_word* dest, size_t sz, size_t ch, long offset, size_t max_samples)
-    {
-        if (!handle_) {
-            handle_ = SndfileHandle(fname_, SFM_READ, user_format_, user_channels_, user_samplerate_);
-            if (handle_.rawHandle() == 0) {
-                LIB_ERR << fmt::format("[SNDFILE] can't open file for reading: '{}'", fname_);
-                return -1;
-            }
+        if (!isOpened()) {
+            LIB_ERR << fmt::format("[SNDFILE] not opened");
+            return -1;
         }
 
         if (ch >= channels()) {
@@ -134,36 +153,23 @@ namespace sound {
         return frames_read_total;
     }
 
-    std::int64_t LibSndFile::write(const t_word** src, size_t len, const SoundFileWriteOptions& opts)
+    std::int64_t LibSndFile::write(const t_word** src, size_t len, std::int64_t offset)
     {
-        int sf_fmt = 0;
-        if (!setFormats(sf_fmt, opts.outputFileFormat, opts.outputSampleFormat)) {
-            return -1;
-        }
-
-        if (!handle_.formatCheck(sf_fmt, opts.numChannels, opts.samplerate)) {
-            LIB_ERR << fmt::format("[SNDFILE] invalid options for format {}: "
-                                   "num_channels={} samplerate={}",
-                to_string(opts.outputFileFormat), opts.numChannels, opts.samplerate);
-            return -1;
-        }
-
-        handle_ = SndfileHandle(fname_.c_str(), SFM_WRITE, sf_fmt, opts.numChannels, opts.samplerate);
-        if (handle_.rawHandle() == 0) {
-            LIB_ERR << fmt::format("[SNDFILE] error while opening \"{}\": {}", fname_, sf_strerror(0));
+        if (!isOpened()) {
+            LIB_ERR << fmt::format("[SNDFILE] not opened");
             return -1;
         }
 
         std::int64_t frames_written = 0;
         constexpr sf_count_t FRAME_COUNT = 256;
-        const sf_count_t OUT_BUF_SIZE = FRAME_COUNT * opts.numChannels;
+        const sf_count_t OUT_BUF_SIZE = FRAME_COUNT * channels();
         float frame_buf[OUT_BUF_SIZE];
         std::int64_t frame_idx = 0;
 
         for (size_t i = 0; i < len; i++) {
             frame_idx = i % FRAME_COUNT;
             // fill frame
-            for (size_t j = 0; j < opts.numChannels; j++)
+            for (size_t j = 0; j < channels(); j++)
                 frame_buf[frame_idx + j] = src[j][i].w_float * gain();
 
             // frame buffer is full
@@ -182,7 +188,7 @@ namespace sound {
         return frames_written;
     }
 
-    long LibSndFile::readResampled(t_word* dest, size_t sz, size_t ch, long offset, size_t max_samples)
+    std::int64_t LibSndFile::readResampled(t_word* dest, size_t sz, size_t ch, long offset, size_t max_samples)
     {
         if (resampleRatio() < 0.001) {
             LIB_ERR << fmt::format("[SNDFILE] invalid resample ratio: {}", resampleRatio());
@@ -220,7 +226,7 @@ namespace sound {
 
         // read frames
         sf_count_t frames_read_total = 0;
-        size_t frames_resampled_total = 0;
+        std::int64_t frames_resampled_total = 0;
         const sf_count_t steps = sf_count_t(sz) / FRAME_COUNT;
 
         // read full buffers
@@ -298,20 +304,12 @@ namespace sound {
         return frames_resampled_total;
     }
 
-    bool LibSndFile::setLibOptions(SoundFileFormat outFmt, SampleFormat outSampFmt, int nch, int sr)
+    void LibSndFile::setFormats(int& res, SoundFileFormat fileFmt, SampleFormat sampFmt)
     {
-        if (!setFormats(user_format_, outFmt, outSampFmt))
-            return false;
+        res = 0;
 
-        user_channels_ = nch;
-        user_samplerate_ = sr;
-        return true;
-    }
-
-    bool LibSndFile::setFormats(int& res, SoundFileFormat outFmt, SampleFormat outSampFmt)
-    {
         // clang-format off
-        switch (outFmt) {
+        switch (fileFmt) {
             case FORMAT_WAV:  res = SF_FORMAT_WAV;  break;
             case FORMAT_AIFF: res = SF_FORMAT_AIFF; break;
             case FORMAT_OGG:  res = SF_FORMAT_OGG; break;
@@ -319,18 +317,17 @@ namespace sound {
             case FORMAT_RAW:  res = SF_FORMAT_RAW; break;
             case FORMAT_FLAC: res = SF_FORMAT_FLAC; break;
             default:
-                LIB_ERR << fmt::format("[SNDFILE] unsupported output format: {}", to_string(outFmt));
-                return false;
+                return;
         }
 
-        switch(outSampFmt) {
+        switch(sampFmt) {
             case SAMPLE_PCM_8:     res |= SF_FORMAT_PCM_S8; break;
             case SAMPLE_PCM_16:    res |= SF_FORMAT_PCM_16; break;
             case SAMPLE_PCM_24:    res |= SF_FORMAT_PCM_24; break;
             case SAMPLE_PCM_32:    res |= SF_FORMAT_PCM_32; break;
             case SAMPLE_PCM_FLOAT: res |= SF_FORMAT_FLOAT; break;
             default:
-                switch(outFmt) {
+                switch(fileFmt) {
                     case FORMAT_WAV:  res |= SF_FORMAT_PCM_24;  break;
                     case FORMAT_AIFF: res |= SF_FORMAT_PCM_24; break;
                     case FORMAT_OGG:  res |= SF_FORMAT_PCM_24; break;
@@ -342,8 +339,6 @@ namespace sound {
             break;
         }
         // clang-format on
-
-        return true;
     }
 
     FormatList LibSndFile::supportedFormats()

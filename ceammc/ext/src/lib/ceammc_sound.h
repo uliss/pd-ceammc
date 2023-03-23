@@ -46,11 +46,11 @@ namespace sound {
         SAMPLE_PCM_FLOAT,
     };
 
-    struct SoundFileWriteOptions {
-        int samplerate;
-        SoundFileFormat outputFileFormat;
-        SampleFormat outputSampleFormat;
-        std::uint8_t numChannels;
+    struct SoundFileOpenParams {
+        int samplerate { 0 };
+        SoundFileFormat file_format { FORMAT_UNKNOWN };
+        SampleFormat sample_format { SAMPLE_DEFAULT };
+        std::uint8_t num_channels { 0 };
     };
 
     const char* to_string(SoundFileFormat f);
@@ -63,16 +63,18 @@ namespace sound {
     using FormatList = std::vector<FormatDescription>;
 
     class SoundFile {
-        std::string fname_;
-        t_float gain_ = { 1.f };
-        double resample_ratio_ = { 1 };
+    public:
+        enum OpenMode : std::uint8_t {
+            NONE,
+            READ,
+            WRITE,
+        };
 
     public:
-        SoundFile(const std::string& fname);
-        virtual ~SoundFile();
+        SoundFile();
+        virtual ~SoundFile() = default;
 
-        virtual std::string filename();
-        virtual bool close() = 0;
+        const std::string& filename() const { return fname_; }
 
         t_float gain() const { return gain_; }
         void setGain(t_float g) { gain_ = g; }
@@ -81,38 +83,73 @@ namespace sound {
         void setResampleRatio(double r) { resample_ratio_ = r; }
 
         /**
+         * open soundfile
+         * @param fname - full path to the soundfile
+         * @param mode - open mode
+         * @return true on success, false on error
+         */
+        virtual bool open(const std::string& fname, OpenMode mode, const SoundFileOpenParams& params) = 0;
+
+        /**
+         * check if file was successfully opened
+         */
+        virtual bool isOpened() const = 0;
+
+        /**
+         * close soundfile and free system resources
+         * @return true on success, false on error
+         */
+        virtual bool close() = 0;
+
+        /**
          * @brief size in samples
          */
         virtual size_t sampleCount() const = 0;
 
+        /**
+         * @return soundfile samplerate
+         */
         virtual size_t sampleRate() const = 0;
 
+        /**
+         * @return number of channels
+         */
         virtual size_t channels() const = 0;
 
         /**
-         * @brief read samples to given buffer
+         * @brief read samples to given array
+         * @param fname - input filepath
          * @param dest - pointer to destination
          * @param sz - destination buffer size
          * @param channel - input channel
          * @param offset - start position to read in samples
-         * @param max_samples - max samples to write to array
-         * @return
+         * @param max_samples - max samples to write to the array
+         * @return number of readed samples or -1 on error
          */
-        virtual long read(t_word* dest, size_t sz, size_t channel, long offset, size_t max_samples) = 0;
-
-        virtual bool isOpened() const = 0;
+        virtual std::int64_t read(t_word* dest, size_t sz, size_t channel, std::int64_t offset, size_t max_samples) = 0;
 
         /**
-         * Write arrays to soundfile
+         * write arrays content to the soundfile
+         * @param fname - output soundfile path
          * @param src - pointer to array of sources
          * @param len - length of arrays
          * @param opts - write options (output format, samplerate etc.)
-         * @return number of bytes written or -1 on error
+         * @return number of samples written or -1 on error
          */
-        virtual std::int64_t write(const t_word** src, size_t len, const SoundFileWriteOptions& opts) { return -1; }
+        virtual std::int64_t write(const t_word** src, size_t len, std::int64_t offset) { return -1; }
+
+    private:
+        t_float gain_ = { 1.f };
+        double resample_ratio_ = { 1 };
+        OpenMode open_mode_ { NONE };
+
+    protected:
+        std::string fname_;
+        OpenMode openMode() const { return open_mode_; }
+        void setOpenMode(OpenMode m) { open_mode_ = m; }
     };
 
-    using loadFunc = SoundFilePtr (*)(const std::string& path);
+    using loadFunc = SoundFilePtr (*)();
     using formatFunc = FormatList (*)();
 
     struct LoaderDescr {

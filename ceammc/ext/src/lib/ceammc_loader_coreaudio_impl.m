@@ -11,8 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-
 #include "ceammc_loader_coreaudio_impl.h"
+#include "m_pd.h"
 
 #include <AudioToolbox/AudioToolbox.h>
 #include <CoreFoundation/CoreFoundation.h>
@@ -50,7 +50,7 @@ static int checkError(OSStatus error, const char* op)
         sprintf(errorString, "%d", (int)error);
     }
 
-    fprintf(stderr, "Error: %s (%s)\n", op, errorString);
+    pd_error(NULL, "[coreaudio] %s (%s)", op, errorString);
     return -1;
 }
 

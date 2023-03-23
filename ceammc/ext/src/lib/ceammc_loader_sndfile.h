@@ -22,31 +22,24 @@ namespace ceammc {
 namespace sound {
     class LibSndFile : public SoundFile {
         mutable SndfileHandle handle_;
-        std::string fname_;
-        int user_format_ { 0 };
-        int user_channels_ { 0 };
-        int user_samplerate_ { 0 };
 
     public:
         LibSndFile();
-        LibSndFile(const std::string& fname);
-        size_t sampleCount() const override;
-        size_t sampleRate() const override;
-        size_t channels() const override;
-        bool isOpened() const override;
-        bool close() override;
 
-        void setFilename(const std::string& file);
+        bool open(const std::string& fname, OpenMode mode, const SoundFileOpenParams& params) final;
+        size_t sampleCount() const final;
+        size_t sampleRate() const final;
+        size_t channels() const final;
+        bool isOpened() const final;
+        bool close() final;
 
-        long read(t_word* dest, size_t sz, size_t channel, long offset, size_t max_samples) override;
-
-        std::int64_t write(const t_word** src, size_t len, const SoundFileWriteOptions& opts) final;
+        std::int64_t read(t_word* dest, size_t sz, size_t channel, std::int64_t offset, size_t max_samples) final;
+        std::int64_t write(const t_word** src, size_t len, std::int64_t offset) final;
 
     public:
         static FormatList supportedFormats();
-        long readResampled(t_word* dest, size_t sz, size_t ch, long offset, size_t max_samples);
-        bool setLibOptions(SoundFileFormat outFmt, SampleFormat outSampFmt, int nch, int sr);
-        bool setFormats(int& res, SoundFileFormat outFmt, SampleFormat outSampFmt);
+        std::int64_t readResampled(t_word* dest, size_t sz, size_t ch, long offset, size_t max_samples);
+        void setFormats(int& res, SoundFileFormat fileFmt, SampleFormat sampFmt);
     };
 }
 }

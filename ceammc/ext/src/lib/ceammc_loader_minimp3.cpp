@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "ceammc_loader_minimp3.h"
 #include "ceammc_log.h"
+#include "fmt/core.h"
 #include "soxr.h"
 
 #include <cmath>
@@ -32,6 +33,8 @@
 using SampleRatePtr = std::unique_ptr<SRC_STATE, decltype(&src_delete)>;
 
 #endif
+
+#define MINI_PREFIX "[minimp3] "
 
 namespace {
 
@@ -53,19 +56,29 @@ namespace ceammc {
 
 namespace sound {
 
-    MiniMp3::MiniMp3(const std::string& fname)
-        : SoundFile(fname)
-        , decoder_(new mp3dec_ex_t)
+    MiniMp3::MiniMp3()
+        : decoder_(new mp3dec_ex_t)
     {
-        if (mp3dec_ex_open(decoder_.get(), fname.c_str(), MP3D_SEEK_TO_SAMPLE)) {
-            LIB_ERR << "can't open file: " << fname;
-            decoder_.reset();
-        }
     }
 
-    MiniMp3::~MiniMp3()
+    bool MiniMp3::open(const std::string& fname, OpenMode mode, const SoundFileOpenParams& params)
     {
+        if (mode != READ) {
+            LIB_ERR << fmt::format(MINI_PREFIX "can't open for writing: '{}'", fname);
+            return false;
+        }
+
+        if (mp3dec_ex_open(decoder_.get(), fname.c_str(), MP3D_SEEK_TO_SAMPLE)) {
+            LIB_ERR << fmt::format(MINI_PREFIX "can't open file: '{}'", fname);
+            decoder_.reset();
+        }
+
+        setOpenMode(mode);
+        fname_ = fname;
+        return true;
     }
+
+    MiniMp3::~MiniMp3() = default;
 
     size_t MiniMp3::sampleCount() const
     {
@@ -104,24 +117,26 @@ namespace sound {
         return true;
     }
 
-    long MiniMp3::read(t_word* dest, size_t sz, size_t ch, long offset, size_t max_samples)
+    std::int64_t MiniMp3::read(t_word* dest, size_t sz, size_t ch, std::int64_t offset, size_t max_samples)
     {
-        if (resampleRatio() != 1)
-            return readResampled(dest, sz, ch, offset, max_samples);
-
-        if (!decoder_)
+        if (!(isOpened() && openMode() == READ)) {
+            LIB_ERR << fmt::format(MINI_PREFIX "not opened for reading");
             return -1;
+        }
 
         const auto NUM_CH = channels();
         if (ch >= NUM_CH) {
-            LIB_ERR << "[minimp3] invalid channel number: " << ch;
+            LIB_ERR << fmt::format(MINI_PREFIX "invalid channel number: {}", ch);
             return -1;
         }
+
+        if (resampleRatio() != 1)
+            return readResampled(dest, sz, ch, offset, max_samples);
 
         // seek to offset
         const auto pos = std::min<size_t>(offset * NUM_CH, sampleCount());
         if (mp3dec_ex_seek(decoder_.get(), pos)) {
-            LIB_ERR << "[minimp3] can't seek to pos #" << offset;
+            LIB_ERR << fmt::format(MINI_PREFIX "can't seek to sample #{}", offset);
             return -1;
         }
 
@@ -130,7 +145,7 @@ namespace sound {
         size_t readed = mp3dec_ex_read(decoder_.get(), buffer.data(), buffer.size());
         if (readed != buffer.size()) { /* normal eof or error condition */
             if (decoder_->last_error) {
-                LIB_ERR << "[minimp3] read error";
+                LIB_ERR << MINI_PREFIX "read error";
                 return -1;
             }
         }
@@ -144,30 +159,25 @@ namespace sound {
     }
 
 #ifdef WITH_LIBSAMPLERATE
-    long MiniMp3::readResampled(t_word* dest, size_t sz, size_t ch, long offset, size_t max_samples)
+    std::int64_t MiniMp3::readResampled(t_word* dest, size_t sz, size_t ch, std::int64_t offset, size_t max_samples)
     {
         static_assert(std::is_same<mp3d_sample_t, float>::value, "");
 
         if (resampleRatio() < 0.001) {
-            LIB_ERR << "[minimp3] invalid resample ratio: " << resampleRatio();
-            return -1;
-        }
-
-        if (!decoder_) {
-            LIB_ERR << "[minimp3] decoder init error";
+            LIB_ERR << MINI_PREFIX "invalid resample ratio: " << resampleRatio();
             return -1;
         }
 
         const auto NUM_CH = channels();
         if (ch >= NUM_CH) {
-            LIB_ERR << "[minimp3] invalid channel number: " << ch;
+            LIB_ERR << MINI_PREFIX "[minimp3] invalid channel number: " << ch;
             return -1;
         }
 
         // seek to position
         const auto pos = std::min<size_t>(offset * NUM_CH * resampleRatio(), sampleCount());
         if (pos > 0 && mp3dec_ex_seek(decoder_.get(), pos)) {
-            LIB_ERR << "[minimp3] can't seek to pos #" << offset;
+            LIB_ERR << MINI_PREFIX "can't seek to pos #" << offset;
             return -1;
         }
 
@@ -280,15 +290,10 @@ namespace sound {
         return total_output_samples;
     }
 #else
-    long MiniMp3::readResampled(t_word* dest, size_t sz, size_t ch, long offset, size_t max_samples)
+    std::int64_t MiniMp3::readResampled(t_word* dest, size_t sz, size_t ch, std::int64_t offset, size_t max_samples)
     {
         if (resampleRatio() < 0.001) {
             LIB_ERR << "[minimp3] invalid resample ratio: " << resampleRatio();
-            return -1;
-        }
-
-        if (!decoder_) {
-            LIB_ERR << "[minimp3] decoder init error";
             return -1;
         }
 
