@@ -184,8 +184,10 @@ namespace sound {
 
     long LibSndFile::readResampled(t_word* dest, size_t sz, size_t ch, long offset, size_t max_samples)
     {
-        if (resampleRatio() < 0.001)
+        if (resampleRatio() < 0.001) {
+            LIB_ERR << fmt::format("[SNDFILE] invalid resample ratio: {}", resampleRatio());
             return -1;
+        }
 
         t_word* x = dest;
         const sf_count_t FRAME_COUNT = 256;
@@ -194,8 +196,10 @@ namespace sound {
         float frame_buf[IN_BUF_SIZE];
 
         // move to beginning
-        if (handle_.seek(offset, SEEK_SET) == -1)
+        if (handle_.seek(offset, SEEK_SET) == -1) {
+            LIB_ERR << fmt::format("[SNDFILE] can't seek to sample: {}", offset);
             return -1;
+        }
 
         // SoxR
         soxr_error_t error;
@@ -205,6 +209,7 @@ namespace sound {
             nullptr, nullptr, nullptr); /* Use configuration defaults.*/
 
         if (error) {
+            LIB_ERR << fmt::format("[SoxR] init error: {}", soxr_strerror(error));
             soxr_delete(soxr);
             return -1;
         }
