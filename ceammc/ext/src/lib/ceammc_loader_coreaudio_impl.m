@@ -286,6 +286,7 @@ int64_t ceammc_coreaudio_load(const char* path, size_t channel, size_t offset, s
     if (err != noErr) {
         checkError(err, "error: ExtAudioFileSeek");
         ExtAudioFileDispose(converter);
+        free(outputBuffer);
         return OFFSET_ERR;
     }
 
@@ -294,6 +295,7 @@ int64_t ceammc_coreaudio_load(const char* path, size_t channel, size_t offset, s
         if (err != noErr) {
             checkError(err, "error: ExtAudioFileRead");
             ExtAudioFileDispose(converter);
+            free(outputBuffer);
             return OFFSET_ERR;
         }
 
@@ -309,7 +311,6 @@ int64_t ceammc_coreaudio_load(const char* path, size_t channel, size_t offset, s
     }
 
     ExtAudioFileDispose(converter);
-
     free(outputBuffer);
 
     return frameIdx;
