@@ -94,7 +94,7 @@ namespace sound {
 
         // move to beginning
         if (handle_.seek(offset, SEEK_SET) == -1) {
-            LIB_ERR << fmt::format("[SNDFILE] can't seek to pos: {}", offset);
+            LIB_ERR << fmt::format("[SNDFILE] can't seek to sample: {}", offset);
             return -1;
         }
 
@@ -134,31 +134,50 @@ namespace sound {
         return frames_read_total;
     }
 
-    long LibSndFile::write(const t_word** src, size_t len, SoundFileFormat fmt, size_t num_ch, int samplerate)
+    long LibSndFile::write(const t_word** src, size_t len, SoundFileFormat outFmt, SampleFormat outSampFmt, size_t numCh, int sr)
     {
         // clang-format off
         int sf_fmt = 0;
-        switch (fmt) {
-        case FORMAT_WAV:  sf_fmt = SF_FORMAT_WAV;  break;
-        case FORMAT_AIFF: sf_fmt = SF_FORMAT_AIFF; break;
-        case FORMAT_OGG:  sf_fmt = SF_FORMAT_OGG; break;
-        case FORMAT_OPUS: sf_fmt = SF_FORMAT_OPUS; break;
-        case FORMAT_RAW:  sf_fmt = SF_FORMAT_RAW | SF_FORMAT_PCM_32; break;
-        case FORMAT_FLAC: sf_fmt = SF_FORMAT_FLAC | SF_FORMAT_PCM_24; break;
-        default:
-            LIB_ERR << fmt::format("[SNDFILE] unsupported format: {}", to_string(fmt));
-            return -1;
+        switch (outFmt) {
+            case FORMAT_WAV:  sf_fmt = SF_FORMAT_WAV;  break;
+            case FORMAT_AIFF: sf_fmt = SF_FORMAT_AIFF; break;
+            case FORMAT_OGG:  sf_fmt = SF_FORMAT_OGG; break;
+            case FORMAT_OPUS: sf_fmt = SF_FORMAT_OPUS; break;
+            case FORMAT_RAW:  sf_fmt = SF_FORMAT_RAW; break;
+            case FORMAT_FLAC: sf_fmt = SF_FORMAT_FLAC; break;
+            default:
+                LIB_ERR << fmt::format("[SNDFILE] unsupported output format: {}", to_string(outFmt));
+                return -1;
+        }
+
+        switch(outSampFmt) {
+            case SAMPLE_PCM_8: sf_fmt |= SF_FORMAT_PCM_S8; break;
+            case SAMPLE_PCM_16: sf_fmt |= SF_FORMAT_PCM_16; break;
+            case SAMPLE_PCM_24: sf_fmt |= SF_FORMAT_PCM_24; break;
+            case SAMPLE_PCM_32: sf_fmt |= SF_FORMAT_PCM_32; break;
+            case SAMPLE_PCM_FLOAT: sf_fmt |= SF_FORMAT_FLOAT; break;
+            default:
+                switch(outFmt) {
+                    case FORMAT_WAV:  sf_fmt |= SF_FORMAT_PCM_24;  break;
+                    case FORMAT_AIFF: sf_fmt |= SF_FORMAT_PCM_24; break;
+                    case FORMAT_OGG:  sf_fmt |= SF_FORMAT_PCM_24; break;
+                    case FORMAT_OPUS: sf_fmt |= SF_FORMAT_PCM_24; break;
+                    case FORMAT_RAW:  sf_fmt |= SF_FORMAT_PCM_24; break;
+                    case FORMAT_FLAC: sf_fmt |= SF_FORMAT_FLOAT; break;
+                    default: break;
+                }
+            break;
         }
         // clang-format on
 
-        if (!handle_.formatCheck(sf_fmt, num_ch, samplerate)) {
+        if (!handle_.formatCheck(sf_fmt, numCh, sr)) {
             LIB_ERR << fmt::format("[SNDFILE] invalid options for format {}: "
                                    "num_channels={} samplerate={}",
-                to_string(fmt), num_ch, samplerate);
+                to_string(outFmt), numCh, sr);
             return -1;
         }
 
-        handle_ = SndfileHandle(fname_.c_str(), SFM_WRITE, sf_fmt, num_ch, samplerate);
+        handle_ = SndfileHandle(fname_.c_str(), SFM_WRITE, sf_fmt, numCh, sr);
         if (handle_.rawHandle() == 0) {
             LIB_ERR << fmt::format("[SNDFILE] error while opening \"{}\": {}", fname_, sf_strerror(0));
             return -1;
@@ -166,14 +185,14 @@ namespace sound {
 
         long nframes = 0;
         constexpr sf_count_t FRAME_COUNT = 256;
-        const sf_count_t OUT_BUF_SIZE = FRAME_COUNT * num_ch;
+        const sf_count_t OUT_BUF_SIZE = FRAME_COUNT * numCh;
         float frame_buf[OUT_BUF_SIZE];
         std::int64_t frame_idx = 0;
 
         for (size_t i = 0; i < len; i++) {
             frame_idx = i % FRAME_COUNT;
             // fill frame
-            for (size_t j = 0; j < num_ch; j++)
+            for (size_t j = 0; j < numCh; j++)
                 frame_buf[frame_idx + j] = src[j][i].w_float * gain();
 
             // frame buffer is full

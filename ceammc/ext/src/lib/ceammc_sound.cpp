@@ -179,5 +179,24 @@ namespace sound {
         };
     }
 
+    const char* to_string(SampleFormat f)
+    {
+        switch (f) {
+        case SAMPLE_PCM_8:
+            return "pcm8";
+        case SAMPLE_PCM_16:
+            return "pcm16";
+        case SAMPLE_PCM_24:
+            return "pcm24";
+        case SAMPLE_PCM_32:
+            return "pcm32";
+        case SAMPLE_PCM_FLOAT:
+            return "pcm_float";
+        case SAMPLE_DEFAULT:
+        default:
+            return "";
+        };
+    }
+
 }
 }

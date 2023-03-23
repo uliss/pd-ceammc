@@ -37,7 +37,17 @@ namespace sound {
         FORMAT_TEXT,
     };
 
+    enum SampleFormat : std::uint8_t {
+        SAMPLE_DEFAULT,
+        SAMPLE_PCM_8,
+        SAMPLE_PCM_16,
+        SAMPLE_PCM_24,
+        SAMPLE_PCM_32,
+        SAMPLE_PCM_FLOAT,
+    };
+
     const char* to_string(SoundFileFormat f);
+    const char* to_string(SampleFormat f);
 
     class SoundFile;
 
@@ -85,7 +95,7 @@ namespace sound {
 
         virtual bool isOpened() const = 0;
 
-        virtual long write(const t_word** src, size_t len, SoundFileFormat fmt, size_t num_ch, int samplerate) { return 0; }
+        virtual long write(const t_word** src, size_t len, SoundFileFormat outFmt, SampleFormat outSampFmt, size_t num_ch, int samplerate) { return 0; }
     };
 
     using loadFunc = SoundFilePtr (*)(const std::string& path);

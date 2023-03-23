@@ -226,10 +226,10 @@ TEST_CASE("ceammc::libsndfile", "sndfile")
         fill_with(buf.data(), buf.size(), 0.125);
         const t_word* data[] = { buf.data() };
 
-        REQUIRE(sf.write(data, BUF_SIZE, FORMAT_RAW, 1, SR) == -1);
+        REQUIRE(sf.write(data, BUF_SIZE, FORMAT_RAW, SAMPLE_PCM_32, 1, SR) == -1);
         sf.setFilename(TEST_BIN_DIR "/test_write0.raw");
         sf.setGain(2);
-        REQUIRE(sf.write(data, BUF_SIZE, FORMAT_RAW, 1, SR) == BUF_SIZE);
+        REQUIRE(sf.write(data, BUF_SIZE, FORMAT_RAW, SAMPLE_PCM_32, 1, SR) == BUF_SIZE);
 
         sf.setFilename(TEST_BIN_DIR "/test_write0.raw");
         sf.setLibOptions(SF_FORMAT_RAW | SF_FORMAT_PCM_32, 1, SR);
