@@ -175,6 +175,9 @@ if(RAGEL_FOUND)
     RAGEL_TARGET(parser_argcheck
         args/argcheck2.rl args/argcheck2.cpp
         COMPILE_FLAGS "-G2 -s")
+    RAGEL_TARGET(parser_array_saver
+        lex/parser_array_saver.rl lex/parser_array_saver.cpp
+        COMPILE_FLAGS "-G2 -s")
 
     add_custom_target(lemon_data_parser
         COMMAND $<TARGET_FILE:lemon> -s -q lemon_data_string.y
@@ -187,6 +190,7 @@ endif()
 # ragel generated sources
 target_sources(ceammc_core
     PRIVATE
+        lex/parser_array_saver.cpp
         lex/parser_clone.cpp
         lex/parser_color.cpp
         lex/parser_hexbeat.cpp
@@ -289,6 +293,7 @@ set(CEAMMC_LOAD_SRC
     lex/array_loader.lexer.cpp
     lex/array_loader.parser.cpp
     lex/array_loader.cpp
+    lex/array_saver.cpp
     lex/select.lexer.cpp
     lex/select.parser.cpp
     lex/score.lexer.cpp

@@ -39,6 +39,7 @@ add_cell_test(datatype_mlist)
 add_cell_test(datatype_set)
 add_cell_test(datatype_string)
 
+add_cell_test(parser_array_saver)
 add_cell_test(parser_clone)
 add_cell_test(parser_color)
 add_cell_test(parser_data_string)
