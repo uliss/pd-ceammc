@@ -46,6 +46,13 @@ namespace sound {
         SAMPLE_PCM_FLOAT,
     };
 
+    struct SoundFileWriteOptions {
+        int samplerate;
+        SoundFileFormat outFmt;
+        SampleFormat outSampFmt;
+        std::uint8_t numCh;
+    };
+
     const char* to_string(SoundFileFormat f);
     const char* to_string(SampleFormat f);
 
@@ -95,7 +102,7 @@ namespace sound {
 
         virtual bool isOpened() const = 0;
 
-        virtual long write(const t_word** src, size_t len, SoundFileFormat outFmt, SampleFormat outSampFmt, size_t num_ch, int samplerate) { return 0; }
+        virtual long write(const t_word** src, size_t len, const SoundFileWriteOptions& opts) { return 0; }
     };
 
     using loadFunc = SoundFilePtr (*)(const std::string& path);

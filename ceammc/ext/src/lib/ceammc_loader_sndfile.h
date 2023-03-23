@@ -40,7 +40,7 @@ namespace sound {
 
         long read(t_word* dest, size_t sz, size_t channel, long offset, size_t max_samples) override;
 
-        long write(const t_word** src, size_t len, SoundFileFormat outFmt, SampleFormat outSampFmt, size_t numCh, int sr) final;
+        long write(const t_word** src, size_t len, const SoundFileWriteOptions& opts) final;
 
     public:
         static FormatList supportedFormats();

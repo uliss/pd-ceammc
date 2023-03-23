@@ -226,10 +226,16 @@ TEST_CASE("ceammc::libsndfile", "sndfile")
         fill_with(buf.data(), buf.size(), 0.125);
         const t_word* data[] = { buf.data() };
 
-        REQUIRE(sf.write(data, BUF_SIZE, FORMAT_RAW, SAMPLE_PCM_32, 1, SR) == -1);
+        SoundFileWriteOptions opts;
+        opts.outFmt = FORMAT_RAW;
+        opts.outSampFmt = ceammc::sound::SAMPLE_PCM_32;
+        opts.numCh = 1;
+        opts.samplerate = SR;
+
+        REQUIRE(sf.write(data, BUF_SIZE, opts) == -1);
         sf.setFilename(TEST_BIN_DIR "/test_write0.raw");
         sf.setGain(2);
-        REQUIRE(sf.write(data, BUF_SIZE, FORMAT_RAW, SAMPLE_PCM_32, 1, SR) == BUF_SIZE);
+        REQUIRE(sf.write(data, BUF_SIZE, opts) == BUF_SIZE);
 
         sf.setFilename(TEST_BIN_DIR "/test_write0.raw");
         sf.setLibOptions(FORMAT_RAW, SAMPLE_PCM_32, 1, SR);
