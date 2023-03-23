@@ -34,32 +34,30 @@ namespace ceammc {
 namespace sound {
 
 #ifdef CEAMMC_HAVE_LIBSNDFILE
-    static SoundFilePtr libsndfile_load_func(const std::string& path)
-    {
-        return SoundFilePtr(new LibSndFile(path));
-    }
-
+    // LIBSNDFILE
     static const bool libsndfile_register = SoundFileLoader::registerLoader(
-        LoaderDescr("libsndfile", &libsndfile_load_func, LibSndFile::supportedFormats));
+        LoaderDescr(
+            "libsndfile",
+            [](const std::string& path) { return SoundFilePtr(new LibSndFile(path)); },
+            LibSndFile::supportedFormats));
 #endif
 
 #if defined(__APPLE__) && defined(__clang__)
-    static SoundFilePtr coreaudio_load_func(const std::string& path)
-    {
-        return SoundFilePtr(new CoreAudioFile(path));
-    }
-
+    // COREAUDIO
     static const bool coreaudio_register = SoundFileLoader::registerLoader(
-        LoaderDescr("coreaudio", &coreaudio_load_func, CoreAudioFile::supportedFormats));
+        LoaderDescr(
+            "coreaudio",
+            [](const std::string& path) { return SoundFilePtr(new CoreAudioFile(path)); },
+            CoreAudioFile::supportedFormats));
+
 #endif
 
-    static SoundFilePtr minimp3_load_func(const std::string& path)
-    {
-        return SoundFilePtr(new MiniMp3(path));
-    }
-
+    // MINIMP3
     static const bool minimp3_register = SoundFileLoader::registerLoader(
-        LoaderDescr("minimp3", &minimp3_load_func, MiniMp3::supportedFormats));
+        LoaderDescr(
+            "minimp3",
+            [](const std::string& path) { return SoundFilePtr(new MiniMp3(path)); },
+            MiniMp3::supportedFormats));
 
     SoundFile::SoundFile(const std::string& fname)
         : fname_(fname)
@@ -196,6 +194,36 @@ namespace sound {
         default:
             return "";
         };
+    }
+
+    bool SoundFileWriter::registerWriter(const SoundFileWriterDescr& desc)
+    {
+        writers().push_back(desc);
+        return true;
+    }
+
+    SoundFilePtr SoundFileWriter::open(const std::string& path)
+    {
+        SoundFilePtr ptr;
+
+        if (writers().empty()) {
+            std::cerr << "no registered writers";
+            return ptr;
+        }
+
+        for (size_t i = 0; i < writers().size(); i++) {
+            ptr = writers().at(i).func(path);
+            if (ptr && ptr->isOpened())
+                return ptr;
+        }
+
+        return ptr;
+    }
+
+    SoundFileWriter::WriterList& SoundFileWriter::writers()
+    {
+        static WriterList l;
+        return l;
     }
 
 }

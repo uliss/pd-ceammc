@@ -50,7 +50,6 @@ bool ArraySaver::parse(const std::string& str)
     array_samplerate_ = params.in_sr;
     file_samplerate_ = params.out_sr;
 
-
     return true;
 }
 

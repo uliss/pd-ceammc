@@ -125,6 +125,27 @@ namespace sound {
         using LoaderList = std::vector<LoaderDescr>;
         static LoaderList& loaders(); // singleton
     };
+
+    using soundFileWriterCreateFn = SoundFilePtr (*)(const std::string& path);
+    struct SoundFileWriterDescr {
+        SoundFileWriterDescr(const std::string& n, soundFileWriterCreateFn f)
+            : name(n)
+            , func(f)
+        {
+        }
+        std::string name;
+        soundFileWriterCreateFn func;
+    };
+
+    class SoundFileWriter {
+    public:
+        static bool registerWriter(const SoundFileWriterDescr& desc);
+        static SoundFilePtr open(const std::string& path);
+
+    private:
+        using WriterList = std::vector<SoundFileWriterDescr>;
+        static WriterList& writers(); // singleton
+    };
 }
 }
 
