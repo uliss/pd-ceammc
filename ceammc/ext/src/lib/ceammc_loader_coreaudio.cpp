@@ -83,7 +83,7 @@ std::int64_t CoreAudioFile::read(t_word* dest, size_t sz, size_t channel, std::i
     return res < 0 ? -1 : res;
 }
 
-FormatList CoreAudioFile::supportedFormats()
+FormatList CoreAudioFile::supportedReadFormats()
 {
     return {
         { "AIFF", "Audio Interchange File Format" },

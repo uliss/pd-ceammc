@@ -34,7 +34,7 @@ TEST_CASE("ceammc::libsndfile", "sndfile")
 {
     SECTION("supported formats")
     {
-        FormatList fmt(LibSndFile::supportedFormats());
+        FormatList fmt(LibSndFile::supportedReadFormats());
         REQUIRE(!fmt.empty());
 
         LibSndFile sf;

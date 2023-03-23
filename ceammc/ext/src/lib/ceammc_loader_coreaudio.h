@@ -37,7 +37,7 @@ namespace sound {
         std::int64_t read(t_word* dest, size_t sz, size_t channel, std::int64_t offset, size_t max_samples) final;
 
     public:
-        static FormatList supportedFormats();
+        static FormatList supportedReadFormats();
     };
 }
 }

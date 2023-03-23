@@ -27,7 +27,7 @@ TEST_CASE("minimp3", "[ceammc_sound]")
 {
     SECTION("supportedFormats")
     {
-        FormatList lst = MiniMp3::supportedFormats();
+        FormatList lst = MiniMp3::supportedReadFormats();
         REQUIRE(lst.size() == 1);
         REQUIRE(lst[0].first == "MP3");
     }

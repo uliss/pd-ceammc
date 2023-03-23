@@ -341,7 +341,7 @@ namespace sound {
         // clang-format on
     }
 
-    FormatList LibSndFile::supportedFormats()
+    FormatList LibSndFile::supportedReadFormats()
     {
         FormatList res;
 

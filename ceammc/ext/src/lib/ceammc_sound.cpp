@@ -37,42 +37,45 @@ namespace sound {
 
 #ifdef CEAMMC_HAVE_LIBSNDFILE
     // LIBSNDFILE
-    static const bool libsndfile_register = SoundFileLoader::registerLoader(
-        LoaderDescr(
+    static const bool libsndfile_register = SoundFileFactory::registerBackend(
+        SoundFileBackend(
             "libsndfile",
             []() { return SoundFilePtr(new LibSndFile()); },
-            LibSndFile::supportedFormats));
+            LibSndFile::supportedReadFormats,
+            []() { return FormatList {}; }));
 #endif
 
 #if defined(__APPLE__) && defined(__clang__)
     // COREAUDIO
-    static const bool coreaudio_register = SoundFileLoader::registerLoader(
-        LoaderDescr(
+    static const bool coreaudio_register = SoundFileFactory::registerBackend(
+        SoundFileBackend(
             "coreaudio",
             []() { return SoundFilePtr(new CoreAudioFile()); },
-            CoreAudioFile::supportedFormats));
+            CoreAudioFile::supportedReadFormats,
+            []() { return FormatList {}; }));
 
 #endif
 
     // MINIMP3
-    static const bool minimp3_register = SoundFileLoader::registerLoader(
-        LoaderDescr(
+    static const bool minimp3_register = SoundFileFactory::registerBackend(
+        SoundFileBackend(
             "minimp3",
             []() { return SoundFilePtr(new MiniMp3()); },
-            MiniMp3::supportedFormats));
+            MiniMp3::supportedReadFormats,
+            []() { return FormatList {}; }));
 
     SoundFile::SoundFile()
     {
     }
 
-    bool SoundFileLoader::registerLoader(const LoaderDescr& l)
+    bool SoundFileFactory::registerBackend(const SoundFileBackend& backend)
     {
-        if (std::find(loaders().begin(), loaders().end(), l) == loaders().end()) {
-            loaders().push_back(l);
-            LIB_DBG << fmt::format("register soundfile loader: {}", l.name);
+        if (std::find(backends().begin(), backends().end(), backend) == backends().end()) {
+            backends().push_back(backend);
+            LIB_DBG << fmt::format("register soundfile loader: {}", backend.name);
             return true;
         } else {
-            std::cerr << "loader already registered: " << l.name << std::endl;
+            std::cerr << "loader already registered: " << backend.name << std::endl;
             return false;
         }
     }
@@ -92,20 +95,18 @@ namespace sound {
         return d1.first.compare(d2.first) < 0;
     }
 
-    FormatList SoundFileLoader::supportedFormats()
+    FormatList SoundFileFactory::supportedReadFormats()
     {
         FormatList res;
 
-        if (loaders().empty())
+        if (backends().empty())
             return res;
 
-        for (size_t i = 0; i < loaders().size(); i++) {
-            FormatList formats = loaders().at(i).formats();
-            for (size_t j = 0; j < formats.size(); j++) {
-                FormatDescription fd = formats[j];
-
-                if (!hasFormatInList(fd.first, res))
-                    res.push_back(fd);
+        for (auto& b : backends()) {
+            auto formats = b.list_read_formats();
+            for (auto& f : formats) {
+                if (!hasFormatInList(f.first, res))
+                    res.push_back(f);
             }
         }
 
@@ -114,17 +115,37 @@ namespace sound {
         return res;
     }
 
-    SoundFilePtr SoundFileLoader::open(const std::string& path)
+    FormatList SoundFileFactory::supportedWriteFormats()
+    {
+        FormatList res;
+
+        if (backends().empty())
+            return res;
+
+        for (auto& b : backends()) {
+            auto formats = b.list_write_formats();
+            for (auto& f : formats) {
+                if (!hasFormatInList(f.first, res))
+                    res.push_back(f);
+            }
+        }
+
+        std::sort(res.begin(), res.end(), compareFmt);
+
+        return res;
+    }
+
+    SoundFilePtr SoundFileFactory::open(const std::string& path)
     {
         SoundFilePtr ptr;
 
-        if (loaders().empty()) {
+        if (backends().empty()) {
             std::cerr << "no loaders registered";
             return ptr;
         }
 
-        for (auto& l : loaders()) {
-            auto ptr = l.func();
+        for (auto& l : backends()) {
+            auto ptr = l.make_sndfile();
             if (ptr && ptr->open(path, SoundFile::READ, {}))
                 return ptr;
         }
@@ -132,15 +153,15 @@ namespace sound {
         return ptr;
     }
 
-    SoundFileLoader::LoaderList& SoundFileLoader::loaders()
+    SoundFileFactory::BackendList& SoundFileFactory::backends()
     {
-        static SoundFileLoader::LoaderList loaders;
+        static SoundFileFactory::BackendList loaders;
         return loaders;
     }
 
-    bool LoaderDescr::operator==(const LoaderDescr& l)
+    bool SoundFileBackend::operator==(const SoundFileBackend& l)
     {
-        return l.func == func;
+        return l.make_sndfile == make_sndfile;
     }
 
     const char* to_string(SoundFileFormat f)
@@ -186,36 +207,5 @@ namespace sound {
             return "";
         };
     }
-
-    bool SoundFileWriter::registerWriter(const SoundFileWriterDescr& desc)
-    {
-        writers().push_back(desc);
-        return true;
-    }
-
-    SoundFilePtr SoundFileWriter::open(const std::string& path)
-    {
-        SoundFilePtr ptr;
-
-        if (writers().empty()) {
-            std::cerr << "no registered writers";
-            return ptr;
-        }
-
-        for (size_t i = 0; i < writers().size(); i++) {
-            ptr = writers().at(i).func(path);
-            if (ptr && ptr->isOpened())
-                return ptr;
-        }
-
-        return ptr;
-    }
-
-    SoundFileWriter::WriterList& SoundFileWriter::writers()
-    {
-        static WriterList l;
-        return l;
-    }
-
 }
 }

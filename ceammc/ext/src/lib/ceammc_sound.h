@@ -149,53 +149,39 @@ namespace sound {
         void setOpenMode(OpenMode m) { open_mode_ = m; }
     };
 
-    using loadFunc = SoundFilePtr (*)();
-    using formatFunc = FormatList (*)();
+    using createSoundFileFn = SoundFilePtr (*)();
+    using listReadFormatsFn = FormatList (*)();
+    using listWriteFormatsFn = FormatList (*)();
 
-    struct LoaderDescr {
-        LoaderDescr(const std::string& n, loadFunc f, formatFunc ff)
+    struct SoundFileBackend {
+        SoundFileBackend(const std::string& n,
+            createSoundFileFn create_fn,
+            listReadFormatsFn ls_read_fmt,
+            listWriteFormatsFn ls_write_fmt)
             : name(n)
-            , func(f)
-            , formats(ff)
+            , make_sndfile(create_fn)
+            , list_read_formats(ls_read_fmt)
+            , list_write_formats(ls_write_fmt)
         {
         }
-        std::string name;
-        loadFunc func;
-        formatFunc formats;
-        bool operator==(const LoaderDescr& l);
+        std::string name; // backend name
+        createSoundFileFn make_sndfile;
+        listReadFormatsFn list_read_formats;
+        listWriteFormatsFn list_write_formats;
+        bool operator==(const SoundFileBackend& l);
     };
 
-    class SoundFileLoader {
+    class SoundFileFactory {
     public:
-        static bool registerLoader(const LoaderDescr& l);
-        static FormatList supportedFormats();
+        static bool registerBackend(const SoundFileBackend& backend);
+        static FormatList supportedReadFormats();
+        static FormatList supportedWriteFormats();
 
         static SoundFilePtr open(const std::string& path);
 
     private:
-        using LoaderList = std::vector<LoaderDescr>;
-        static LoaderList& loaders(); // singleton
-    };
-
-    using soundFileWriterCreateFn = SoundFilePtr (*)(const std::string& path);
-    struct SoundFileWriterDescr {
-        SoundFileWriterDescr(const std::string& n, soundFileWriterCreateFn f)
-            : name(n)
-            , func(f)
-        {
-        }
-        std::string name;
-        soundFileWriterCreateFn func;
-    };
-
-    class SoundFileWriter {
-    public:
-        static bool registerWriter(const SoundFileWriterDescr& desc);
-        static SoundFilePtr open(const std::string& path);
-
-    private:
-        using WriterList = std::vector<SoundFileWriterDescr>;
-        static WriterList& writers(); // singleton
+        using BackendList = std::vector<SoundFileBackend>;
+        static BackendList& backends(); // singleton
     };
 }
 }

@@ -404,7 +404,7 @@ namespace sound {
     }
 #endif
 
-    FormatList MiniMp3::supportedFormats()
+    FormatList MiniMp3::supportedReadFormats()
     {
         return { { "MP3", "MPEG Layer 3" } };
     }

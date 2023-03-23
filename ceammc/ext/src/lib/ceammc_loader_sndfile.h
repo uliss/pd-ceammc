@@ -37,7 +37,7 @@ namespace sound {
         std::int64_t write(const t_word** src, size_t len, std::int64_t offset) final;
 
     public:
-        static FormatList supportedFormats();
+        static FormatList supportedReadFormats();
         std::int64_t readResampled(t_word* dest, size_t sz, size_t ch, long offset, size_t max_samples);
         void setFormats(int& res, SoundFileFormat fileFmt, SampleFormat sampFmt);
     };
