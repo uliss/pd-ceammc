@@ -199,20 +199,22 @@ namespace platform {
 
     std::string expand_tilde_path(const std::string& path)
     {
-        if (path.empty() || path[0] != '~')
-            return path;
-
-        if (path.size() > 1 && path[1] != '/')
+        if (!is_tilde_path(path.c_str()))
             return path;
 
         std::string res(path);
         return res.replace(0, 1, home_directory());
     }
 
+    bool is_tilde_path(const char* path)
+    {
+        return (path[0] == '~' && (path[1] == '\0' || path[1] == '/'));
+    }
+
     std::string find_in_std_path(t_canvas* cnv, const char* path)
     {
         std::string fname = path;
-        if (path && path[0] == '~' && path[1] == '/')
+        if (is_tilde_path(path))
             fname = expand_tilde_path(path);
 
         char dirname[MAXPDSTRING], *filename;
@@ -301,12 +303,12 @@ namespace platform {
         return full_path;
     }
 
-    std::string make_abs_filepath_with_canvas(t_canvas* cnv, const std::string& path)
+    std::string make_abs_filepath_with_canvas(const t_canvas* cnv, const std::string& path)
     {
         if (path.empty() || path == "~" || path == "~/")
-            return std::string();
+            return {};
 
-        std::string p = expand_tilde_path(path);
+        auto p = expand_tilde_path(path);
         if (!is_path_relative(p.c_str()))
             return p;
 
@@ -359,6 +361,5 @@ namespace platform {
     {
         return NS(current_working_directory());
     }
-
 }
 }
