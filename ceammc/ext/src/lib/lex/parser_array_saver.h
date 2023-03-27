@@ -41,6 +41,7 @@ namespace parser {
         sound::SampleFormat sample_format { sound::SAMPLE_DEFAULT }; // sample format
         ArrayOffsetOrigin origin { ORIGIN_BEGIN }; // array offset origin
         bool normalize { false }; // do output normalization
+        bool overwrite { false }; // overwrite existing files
     };
 
     bool parse_array_saver_params(const char* str, size_t arraySize, ArraySaverParams& params);

@@ -34,7 +34,7 @@ namespace sound {
         bool close() final;
 
         std::int64_t read(t_word* dest, size_t sz, size_t channel, std::int64_t offset, size_t max_samples) final;
-        std::int64_t write(const t_word** src, size_t len, std::int64_t offset) final;
+        std::int64_t write(const t_word** src, size_t num_frames, std::int64_t offset) final;
 
     public:
         static FormatList supportedReadFormats();

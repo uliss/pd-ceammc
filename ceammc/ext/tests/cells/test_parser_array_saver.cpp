@@ -31,6 +31,7 @@ TEST_CASE("parser_array_saver", "[ceammc::ceammc_units]")
         REQUIRE(parse_array_saver_params("array1 @to filename.wav", 100, params));
         REQUIRE(params.arrays == std::vector<std::string> { "array1" });
         REQUIRE(params.filename == "filename.wav");
+        REQUIRE(params.overwrite == false);
     }
 
     SECTION("base2")
@@ -228,7 +229,7 @@ TEST_CASE("parser_array_saver", "[ceammc::ceammc_units]")
     SECTION("all")
     {
         REQUIRE(parse_array_saver_params("array2 array1 @to filename.wav @in_sr 100 @out_sr 200 "
-                                         "@begin $-90 @end 0.75s @mp3 @norm @samp 16 @gain 0.25",
+                                         "@begin $-90 @end 0.75s @mp3 @norm @samp 16 @gain 0.25 @overwrite",
             100, params));
         REQUIRE(params.arrays == std::vector<std::string> { "array2", "array1" });
         REQUIRE(params.filename == "filename.wav");
@@ -240,6 +241,7 @@ TEST_CASE("parser_array_saver", "[ceammc::ceammc_units]")
         REQUIRE(params.out_sr == 200);
         REQUIRE(params.gain == 0.25);
         REQUIRE(params.sample_format == sound::SAMPLE_PCM_16);
+        REQUIRE(params.overwrite);
     }
 
     SECTION("auto format")

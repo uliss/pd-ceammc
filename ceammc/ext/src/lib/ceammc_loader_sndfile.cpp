@@ -153,7 +153,7 @@ namespace sound {
         return frames_read_total;
     }
 
-    std::int64_t LibSndFile::write(const t_word** src, size_t len, std::int64_t offset)
+    std::int64_t LibSndFile::write(const t_word** src, size_t num_frames, std::int64_t offset)
     {
         if (!isOpened()) {
             LIB_ERR << fmt::format("[SNDFILE] not opened");
@@ -166,7 +166,7 @@ namespace sound {
         float frame_buf[OUT_BUF_SIZE];
         std::int64_t frame_idx = 0;
 
-        for (size_t i = 0; i < len; i++) {
+        for (size_t i = 0; i < num_frames; i++) {
             frame_idx = i % FRAME_COUNT;
             // fill frame
             for (size_t j = 0; j < channels(); j++)
@@ -175,13 +175,13 @@ namespace sound {
             // frame buffer is full
             if (frame_idx + 1 == FRAME_COUNT) {
                 frame_idx = -1;
-                frames_written += handle_.write(frame_buf, FRAME_COUNT);
+                frames_written += handle_.write(frame_buf, OUT_BUF_SIZE);
             }
         }
 
         // write remaining frames
         if (frame_idx >= 0)
-            frames_written += handle_.write(frame_buf, frame_idx + 1);
+            frames_written += handle_.write(frame_buf, (frame_idx + 1) * channels());
 
         handle_.writeSync();
         handle_ = {};

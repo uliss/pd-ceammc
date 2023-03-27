@@ -84,37 +84,39 @@ samp_fmt     = '0'  %{ params.sample_format = sound::SAMPLE_DEFAULT; }
              | 'f'  %{ params.sample_format = sound::SAMPLE_PCM_FLOAT; }
              ;
 
-opt_gain     = '@gain'   ws val;
-opt_begin    = '@begin'  >{ params.origin = ORIGIN_BEGIN; } ws array_unit_value;
-opt_end      = '@end'    >{ params.origin = ORIGIN_BEGIN; } ws array_unit_value;
-opt_in_sr    = '@in_sr'  ws val;
-opt_out_sr   = '@out_sr' ws val;
-opt_samp     = '@samp'   ws samp_fmt;
-opt_norm     = '@norm';
-opt_wav      = '@wav';
-opt_mp3      = '@mp3';
-opt_ogg      = '@ogg';
-opt_opus     = '@opus';
-opt_aiff     = '@aiff';
-opt_txt      = '@txt';
-opt_raw      = '@raw';
-opt_flac     = '@flac';
+opt_gain      = '@gain'   ws val;
+opt_begin     = '@begin'  >{ params.origin = ORIGIN_BEGIN; } ws array_unit_value;
+opt_end       = '@end'    >{ params.origin = ORIGIN_BEGIN; } ws array_unit_value;
+opt_in_sr     = '@in_sr'  ws val;
+opt_out_sr    = '@out_sr' ws val;
+opt_samp      = '@samp'   ws samp_fmt;
+opt_norm      = '@norm';
+opt_overwrite = '@overwrite';
+opt_wav       = '@wav';
+opt_mp3       = '@mp3';
+opt_ogg       = '@ogg';
+opt_opus      = '@opus';
+opt_aiff      = '@aiff';
+opt_txt       = '@txt';
+opt_raw       = '@raw';
+opt_flac      = '@flac';
 
-opt = opt_gain   %{ params.gain = getValue<float>(ragel_num, ragel_type); }
-    | opt_begin  %{ params.begin = getArrayPos(params, ragel_num, ragel_type, arraySize); }
-    | opt_end    %{ params.end = getArrayPos(params, ragel_num, ragel_type, arraySize); }
+opt = opt_gain      %{ params.gain = getValue<float>(ragel_num, ragel_type); }
+    | opt_begin     %{ params.begin = getArrayPos(params, ragel_num, ragel_type, arraySize); }
+    | opt_end       %{ params.end = getArrayPos(params, ragel_num, ragel_type, arraySize); }
     | opt_samp
-    | opt_in_sr  %{ params.in_sr  = getValue<float>(ragel_num, ragel_type); }
-    | opt_out_sr %{ params.out_sr = getValue<float>(ragel_num, ragel_type); }
-    | opt_norm   %{ params.normalize = true; }
-    | opt_wav    %{ params.format = sound::FORMAT_WAV; }
-    | opt_mp3    %{ params.format = sound::FORMAT_MP3; }
-    | opt_ogg    %{ params.format = sound::FORMAT_OGG; }
-    | opt_opus   %{ params.format = sound::FORMAT_OPUS; }
-    | opt_aiff   %{ params.format = sound::FORMAT_AIFF; }
-    | opt_txt    %{ params.format = sound::FORMAT_TEXT; }
-    | opt_raw    %{ params.format = sound::FORMAT_RAW; }
-    | opt_flac   %{ params.format = sound::FORMAT_FLAC; }
+    | opt_in_sr     %{ params.in_sr  = getValue<float>(ragel_num, ragel_type); }
+    | opt_out_sr    %{ params.out_sr = getValue<float>(ragel_num, ragel_type); }
+    | opt_norm      %{ params.normalize = true; }
+    | opt_wav       %{ params.format = sound::FORMAT_WAV; }
+    | opt_mp3       %{ params.format = sound::FORMAT_MP3; }
+    | opt_ogg       %{ params.format = sound::FORMAT_OGG; }
+    | opt_opus      %{ params.format = sound::FORMAT_OPUS; }
+    | opt_aiff      %{ params.format = sound::FORMAT_AIFF; }
+    | opt_txt       %{ params.format = sound::FORMAT_TEXT; }
+    | opt_raw       %{ params.format = sound::FORMAT_RAW; }
+    | opt_flac      %{ params.format = sound::FORMAT_FLAC; }
+    | opt_overwrite %{ params.overwrite = true; }
     ;
 
 options = opt (ws opt)*;
