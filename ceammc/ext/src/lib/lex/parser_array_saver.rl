@@ -1,6 +1,7 @@
 # include "parser_array_saver.h"
 # include "parser_numeric.h"
 # include "ragel_common.h"
+# include "ceammc_convert.h"
 
 # include <algorithm>
 # include <cmath>
@@ -75,6 +76,9 @@ atom_char = (any - space) @{ ragel_atom += fc; };
 atom_char0 = atom_char - '@';
 atom = (atom_char0 atom_char*);
 val = num_float | num_int;
+gain_val = val %{ params.gain = getValue<float>(ragel_num, ragel_type); }
+            '_'?
+            (unit_dbfs %{ params.gain = convert::dbfs2amp(params.gain); })?;
 ws = space+;
 samp_fmt     = '0'  %{ params.sample_format = sound::SAMPLE_DEFAULT; }
              | '8'  %{ params.sample_format = sound::SAMPLE_PCM_8; }
@@ -84,7 +88,8 @@ samp_fmt     = '0'  %{ params.sample_format = sound::SAMPLE_DEFAULT; }
              | 'f'  %{ params.sample_format = sound::SAMPLE_PCM_FLOAT; }
              ;
 
-opt_gain      = '@gain'   ws val;
+
+opt_gain      = '@gain'   ws gain_val;
 opt_begin     = '@begin'  >{ params.origin = ORIGIN_BEGIN; } ws array_unit_value;
 opt_end       = '@end'    >{ params.origin = ORIGIN_BEGIN; } ws array_unit_value;
 opt_in_sr     = '@in_sr'  ws val;
@@ -101,7 +106,7 @@ opt_txt       = '@txt';
 opt_raw       = '@raw';
 opt_flac      = '@flac';
 
-opt = opt_gain      %{ params.gain = getValue<float>(ragel_num, ragel_type); }
+opt = opt_gain
     | opt_begin     %{ params.begin = getArrayPos(params, ragel_num, ragel_type, arraySize); }
     | opt_end       %{ params.end = getArrayPos(params, ragel_num, ragel_type, arraySize); }
     | opt_samp

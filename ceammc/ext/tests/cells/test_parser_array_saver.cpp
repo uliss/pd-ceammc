@@ -56,6 +56,8 @@ TEST_CASE("parser_array_saver", "[ceammc::ceammc_units]")
         REQUIRE(params.gain == 2.5);
         REQUIRE(parse_array_saver_params("array1 array2 array3 @to filename.wav @gain -2.5", 100, params));
         REQUIRE(params.gain == -2.5);
+        REQUIRE(parse_array_saver_params("array1 array2 array3 @to filename.wav @gain -6db", 100, params));
+        REQUIRE(params.gain == Approx(0.50119));
     }
 
     SECTION("@in_sr")
