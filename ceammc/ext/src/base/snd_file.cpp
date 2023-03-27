@@ -1,4 +1,5 @@
 #include "snd_file.h"
+#include "args/argcheck2.h"
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
@@ -6,6 +7,7 @@
 #include "ceammc_sound.h"
 #include "fmt/format.h"
 #include "lex/array_loader.h"
+#include "lex/array_saver.h"
 #include "lex/parser_strings.h"
 
 #include "config.h"
@@ -42,7 +44,7 @@ SndFile::SndFile(const PdArgs& a)
     createCbListProperty("@formats",
         []() -> AtomList {
             AtomList res;
-            FormatList lst = SoundFileLoader::supportedFormats();
+            FormatList lst = SoundFileFactory::supportedReadFormats();
             res.reserve(lst.size());
             for (size_t i = 0; i < lst.size(); i++)
                 res.append(gensym(lst[i].first.c_str()));
@@ -142,11 +144,46 @@ void SndFile::m_load(t_symbol* s, const AtomListView& lv)
     listTo(0, samplecount_);
 }
 
+void SndFile::m_save(t_symbol* s, const AtomListView& lv)
+{
+    ArraySaver saver;
+    if (!saver.parse(to_string(lv), this))
+        return;
+
+    if (!saver.checkArrays())
+        return;
+
+    auto mfull_path = makeSavePath(saver.filename().c_str(), saver.overwrite());
+    if (!mfull_path)
+        return;
+
+    auto file = saver.open(*mfull_path);
+    if (!file) {
+        OBJ_ERR << fmt::format("can't open file: '{}'", *mfull_path);
+        return;
+    }
+
+    auto arr = saver.data();
+    auto n = file->write(arr.first.data(), arr.second, 0);
+    floatTo(0, n);
+}
+
 void SndFile::postLoadUsage()
 {
     OBJ_DBG << fmt::format(
         "usage: load <FILENAME> (to | @to) <ARRAY>... \n\t{}\n",
         fmt::join(ArrayLoader::optionsList(), "\n\t"));
+}
+
+MaybeString SndFile::makeSavePath(const char* fname, bool overwrite) const
+{
+    auto path = platform::make_abs_filepath_with_canvas(canvas(), fname);
+    if (!overwrite && platform::path_exists(path.c_str())) {
+        OBJ_ERR << fmt::format("file already exists: '{}', use @overwrite option", path);
+        return {};
+    }
+
+    return path;
 }
 
 MaybeString SndFile::fullLoadPath(const std::string& fname) const
@@ -202,6 +239,7 @@ void setup_snd_file()
 {
     ObjectFactory<SndFile> obj("snd.file");
     obj.addMethod("load", &SndFile::m_load);
+    obj.addMethod("save", &SndFile::m_save);
 
     obj.setDescription("Sound file loader on steroids");
     obj.addAuthor("Serge Poltavsky");

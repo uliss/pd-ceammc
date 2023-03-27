@@ -12,7 +12,10 @@
  * this file belongs to.
  *****************************************************************************/
 #include "array_saver.h"
+#include "ceammc_array.h"
 #include "ceammc_log.h"
+#include "ceammc_sound.h"
+#include "fmt/core.h"
 #include "lex/parser_array_saver.h"
 #include "m_pd.h"
 
@@ -25,45 +28,74 @@ ArraySaver::ArraySaver()
     //    arrays_.
 }
 
-bool ArraySaver::parse(const std::string& str)
+bool ArraySaver::parse(const std::string& str, BaseObject* obj)
 {
-    arrays_.clear();
-    parser::ArraySaverParams params;
-    params.in_sr = array_samplerate_;
-    params.out_sr = file_samplerate_;
+    params_.arrays.clear();
 
-    if (!parser::parse_array_saver_params(str.c_str(), 0, params)) {
-        LIB_ERR << "can't parse options: " << str;
+    if (!parser::parse_array_saver_params(str.c_str(), 0, params_)) {
+        LogPdObject(nullptr, LOG_ERROR).stream() << "can't parse options: " << str;
         return false;
     }
 
-    if (params.format == sound::FORMAT_UNKNOWN) {
-        LIB_ERR << "unknown output format";
+    if (params_.format == sound::FORMAT_UNKNOWN) {
+        LogPdObject(nullptr, LOG_ERROR).stream() << "unknown output format";
         return false;
     }
-
-    arrays_ = std::move(params.arrays);
-    filename_ = std::move(params.filename);
-    array_begin_ = params.begin;
-    array_begin_ = params.end;
-    gain_ = params.gain;
-    array_samplerate_ = params.in_sr;
-    file_samplerate_ = params.out_sr;
 
     return true;
 }
 
-bool ArraySaver::removeInvalidArrays()
+bool ArraySaver::checkArrays() const
 {
-    auto end = arrays_.end();
-    auto it = std::remove_if(arrays_.begin(), end, [](const std::string& s) {
-        return !pd_findbyclass(gensym(s.c_str()), garray_class);
-    });
+    if (params_.arrays.empty()) {
+        LIB_ERR << "empty array list";
+        return false;
+    }
 
-    bool removed = (it != end);
+    bool ok = true;
+    for (auto& name : params_.arrays) {
+        Array arr(name.c_str());
+        if (!arr.isValid()) {
+            LIB_ERR << fmt::format("array not found: '{}'", name);
+            ok = false;
+        }
+    }
 
-    arrays_.erase(it, end);
-    return removed;
+    return ok;
+}
+
+sound::SoundFilePtr ArraySaver::open(const std::string& path)
+{
+    sound::SoundFileOpenParams params;
+    params.samplerate = params_.out_sr;
+    params.num_channels = params_.arrays.size();
+    params.file_format = params_.format;
+    params.sample_format = params_.sample_format;
+
+    auto res = sound::SoundFileFactory::openWrite(path, params);
+
+    if (res) {
+        res->setGain(params_.gain);
+        res->setResampleRatio(params_.in_sr / params_.out_sr);
+    }
+
+    return res;
+}
+
+std::pair<std::vector<const t_word*>, size_t> ArraySaver::data()
+{
+    std::vector<const t_word*> res;
+    res.reserve(params_.arrays.size());
+
+    size_t len = std::numeric_limits<size_t>::max();
+    for (auto& name : params_.arrays) {
+        Array arr(name.c_str());
+        if (arr.isValid()) {
+            res.push_back(arr.begin().data());
+            len = std::min(arr.size(), len);
+        }
+    }
+    return { res, len };
 }
 
 }

@@ -32,12 +32,14 @@ public:
 
 public:
     void m_load(t_symbol* s, const AtomListView& lv);
+    void m_save(t_symbol* s, const AtomListView& lv);
 
 private:
     void postInfoUsage();
     void postLoadUsage();
 
     MaybeString fullLoadPath(const std::string& fname) const;
+    MaybeString makeSavePath(const char* fname, bool overwrite = false) const;
 
     bool extractLoadArgs(const AtomListView& lv, std::string& fname, std::string& array_opts);
 };

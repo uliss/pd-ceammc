@@ -14,10 +14,15 @@
 #ifndef ARRAY_SAVER_H
 #define ARRAY_SAVER_H
 
+#include "ceammc_sound.h"
+#include "lex/parser_array_saver.h"
+
 #include <string>
 #include <vector>
 
 namespace ceammc {
+
+class BaseObject;
 
 class ArraySaver {
     ArraySaver(const ArraySaver&) = delete;
@@ -27,33 +32,44 @@ public:
     ArraySaver();
 
     /**
-     * parse input string: arrays to FILE OPTIONS...
+     * parse input string: arrays... @to FILE OPTIONS...
      */
-    bool parse(const std::string& str);
+    bool parse(const std::string& str, BaseObject* obj = nullptr);
 
     /**
-     * Removes invalid arrays from list
+     * Check arrays in list
      */
-    bool removeInvalidArrays();
+    bool checkArrays() const;
 
     /** source array samplerate */
-    float arraySamplerate() const { return array_samplerate_; }
+    float arraySamplerate() const { return params_.in_sr; }
+
+    /** set source array samplerate */
+    void setArraySamplerate(float sr) { params_.in_sr = sr; }
 
     /** output file samplerate */
-    float fileSamplerate() const { return file_samplerate_; }
+    float fileSamplerate() const { return params_.out_sr; }
+
+    /** set output file samplerate */
+    void setFileSamplerate(float sr) { params_.out_sr = sr; }
 
     /** return loading gain */
-    float gain() const { return gain_; }
+    float gain() const { return params_.gain; }
+
+    float resampleRatio() const { return params_.in_sr / params_.out_sr; }
+
+    /** open file for writing */
+    sound::SoundFilePtr open(const std::string& path);
+
+    const std::string& filename() const { return params_.filename; }
+
+    /** should overwrite existing files */
+    bool overwrite() const { return params_.overwrite; }
+
+    std::pair<std::vector<const t_word*>, size_t> data();
 
 private:
-    std::vector<std::string> arrays_;
-    std::string filename_;
-
-    float gain_ { 1 };
-    float array_samplerate_ = { 44100 };
-    float file_samplerate_ = { 44100 };
-    size_t array_begin_ = { 0 };
-    size_t array_end_ = { 0 };
+    parser::ArraySaverParams params_;
 };
 
 }
