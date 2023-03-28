@@ -22,6 +22,25 @@
 
 namespace ceammc {
 
+struct ArrayDataView {
+    std::vector<const t_word*> data;
+    std::vector<size_t> lengths;
+
+    bool empty() const
+    {
+        return data.empty() || lengths.empty();
+    }
+
+    void reserve(size_t n)
+    {
+        data.reserve(n);
+        lengths.reserve(n);
+    }
+
+    size_t minSize() const;
+    size_t maxSize() const;
+};
+
 class BaseObject;
 
 class ArraySaver {
@@ -66,7 +85,7 @@ public:
     /** should overwrite existing files */
     bool overwrite() const { return params_.overwrite; }
 
-    std::pair<std::vector<const t_word*>, size_t> data();
+    ArrayDataView arrayData() const;
 
 private:
     parser::ArraySaverParams params_;

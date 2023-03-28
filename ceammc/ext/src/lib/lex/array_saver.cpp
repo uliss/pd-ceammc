@@ -81,23 +81,36 @@ sound::SoundFilePtr ArraySaver::open(const std::string& path)
     return res;
 }
 
-std::pair<std::vector<const t_word*>, size_t> ArraySaver::data()
+ArrayDataView ArraySaver::arrayData() const
 {
+    ArrayDataView res;
+
     if (params_.arrays.empty())
-        return { {}, 0 };
+        return res;
 
-    std::vector<const t_word*> res;
-    res.reserve(params_.arrays.size());
+    auto N = params_.arrays.size();
+    res.reserve(N);
 
-    size_t len = std::numeric_limits<size_t>::max();
     for (auto& name : params_.arrays) {
         Array arr(name.c_str());
         if (arr.isValid()) {
-            res.push_back(arr.begin().data());
-            len = std::min(arr.size(), len);
+            res.data.push_back(arr.begin().data());
+            res.lengths.push_back(arr.size());
         }
     }
-    return { res, len };
+    return res;
+}
+
+size_t ArrayDataView::minSize() const
+{
+    auto it = std::min_element(lengths.begin(), lengths.end());
+    return it == lengths.end() ? 0 : *it;
+}
+
+size_t ArrayDataView::maxSize() const
+{
+    auto it = std::max_element(lengths.begin(), lengths.end());
+    return it == lengths.end() ? 0 : *it;
 }
 
 }

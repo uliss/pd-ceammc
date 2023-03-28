@@ -34,9 +34,8 @@ TEST_CASE("ArraySaver", "[ceammc::core]")
         REQUIRE(x.resampleRatio() == 1);
         REQUIRE(x.gain());
         REQUIRE_FALSE(x.overwrite());
-        auto data = x.data();
-        REQUIRE(data.first.empty());
-        REQUIRE(data.second == 0);
+        REQUIRE(x.arrayData().data.empty());
+        REQUIRE(x.arrayData().lengths.empty());
     }
 
     SECTION("")

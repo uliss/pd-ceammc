@@ -1,5 +1,4 @@
 #include "snd_file.h"
-#include "args/argcheck2.h"
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
@@ -163,8 +162,13 @@ void SndFile::m_save(t_symbol* s, const AtomListView& lv)
         return;
     }
 
-    auto arr = saver.data();
-    auto n = file->write(arr.first.data(), arr.second, 0);
+    auto arr = saver.arrayData();
+    if (arr.empty()) {
+        OBJ_ERR << "empty data";
+        return;
+    }
+
+    auto n = file->write(arr.data.data(), arr.minSize(), 0);
     floatTo(0, n);
 }
 
