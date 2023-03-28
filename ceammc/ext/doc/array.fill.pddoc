@@ -58,7 +58,8 @@
             <method name="saw">fill all array with saw wave 
             <param name="T" type="float" required="true" minvalue="1" units="sample">wave
             period</param>
-            <param name="A" type="float" default="1">wave amplitude</param></method>
+            <param name="A" type="float" default="1">wave amplitude</param>
+            <param name="PHASE" type="float" default="0" minvalue="0" maxvalue="1">wave phase</param></method>
         </methods>
         <inlets>
             <inlet>

@@ -30,7 +30,7 @@ public:
     void m_fill(t_symbol* m, const AtomListView& lv);
     void m_sin(t_symbol* m, const AtomListView& lv);
     void m_pulse(t_symbol* m, const AtomListView& lv);
-    void m_saw(t_symbol* m, const AtomListView& lv);
+    void m_saw(t_symbol* s, const AtomListView& lv);
     void m_tri(t_symbol* m, const AtomListView& lv);
     AtomListView parseRange(const AtomListView& args, size_t* from, size_t* to) const;
 

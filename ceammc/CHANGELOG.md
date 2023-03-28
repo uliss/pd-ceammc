@@ -42,6 +42,8 @@
   - rotate(N ...) - list rotation (N>0: to the left)
   - sort(...) - sort list in ascending order
   - zeros(N) - list of length N, filled with 0
+- new method arguments:
+  - PHASE argument (3rd) added to \[saw( method in array.fill 
 
 ### Changes:
 - array.risset_rythm~ renamed to array.risset_rhythm~

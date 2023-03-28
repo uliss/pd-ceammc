@@ -333,4 +333,34 @@ TEST_CASE("array.fill", "[externals]")
         REQUIRE(to == 3);
         from = to = 0;
     }
+
+    SECTION("saw")
+    {
+        TObj t("array.fill", LA("array_fill1"));
+
+        Array a("array_fill1");
+        a.resize(5);
+        a.fillWith(0.f);
+
+        t.m_saw(&s_, LA(4, 1));
+        REQUIRE(a[0] == -1);
+        REQUIRE(a[1] == Approx(-0.5));
+        REQUIRE(a[2] == 0);
+        REQUIRE(a[3] == 0.5);
+        REQUIRE(a[4] == -1);
+
+        t.m_saw(&s_, LA(4, 2));
+        REQUIRE(a[0] == -2);
+        REQUIRE(a[1] == Approx(-1));
+        REQUIRE(a[2] == 0);
+        REQUIRE(a[3] == 1);
+        REQUIRE(a[4] == -2);
+
+        t.m_saw(&s_, LA(4, 2, 0.25));
+        REQUIRE(a[0] == Approx(-1));
+        REQUIRE(a[1] == Approx(0));
+        REQUIRE(a[2] == Approx(1));
+        REQUIRE(a[3] == Approx(-2));
+        REQUIRE(a[4] == Approx(-1));
+    }
 }

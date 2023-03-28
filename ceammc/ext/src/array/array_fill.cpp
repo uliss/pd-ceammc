@@ -170,28 +170,29 @@ void ArrayFill::m_pulse(t_symbol* m, const AtomListView& l)
     finish();
 }
 
-void ArrayFill::m_saw(t_symbol* m, const AtomListView& l)
+void ArrayFill::m_saw(t_symbol* s, const AtomListView& lv)
 {
     if (!checkArray())
         return;
 
-    if (l.empty()) {
-        METHOD_ERR(m) << "usage: " << m << " PERIOD [AMPLITUDE] [PHASE]";
+    if (lv.empty()) {
+        METHOD_ERR(s) << "usage: " << s << " PERIOD [AMPLITUDE] [PHASE]";
         return;
     }
 
-    const t_float period = l.floatAt(0, 0);
-    const t_float amp = l.floatAt(1, 1);
+    const auto period = lv.floatAt(0, 0);
+    const auto amp = lv.floatAt(1, 1);
+    const auto phase = lv.floatAt(2, 0);
 
     if (period <= 1) {
-        METHOD_ERR(m) << "invalid period value: " << period;
+        METHOD_ERR(s) << "invalid period value: " << period;
         return;
     }
 
     int i = 0;
     for (auto& v : array_) {
         t_float n = (i++ / period);
-        auto frac = std::fmod(n, 1);
+        auto frac = std::fmod(n + phase, 1);
         v = convert::lin2lin<t_sample>(frac, 0, 1, -amp, amp);
     }
 
