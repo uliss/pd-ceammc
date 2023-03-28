@@ -25,6 +25,7 @@ function(add_cell_test src)
 endfunction()
 
 add_cell_test(array)
+add_cell_test(array_saver)
 add_cell_test(atom)
 add_cell_test(atom2)
 add_cell_test(atomlist)

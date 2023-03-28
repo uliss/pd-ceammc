@@ -25,7 +25,6 @@ namespace ceammc {
 
 ArraySaver::ArraySaver()
 {
-    //    arrays_.
 }
 
 bool ArraySaver::parse(const std::string& str, BaseObject* obj)
@@ -84,6 +83,9 @@ sound::SoundFilePtr ArraySaver::open(const std::string& path)
 
 std::pair<std::vector<const t_word*>, size_t> ArraySaver::data()
 {
+    if (params_.arrays.empty())
+        return { {}, 0 };
+
     std::vector<const t_word*> res;
     res.reserve(params_.arrays.size());
 
