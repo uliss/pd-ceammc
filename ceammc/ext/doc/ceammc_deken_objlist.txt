@@ -13,7 +13,7 @@ array.convolve	array FFT convolution
 array.copy	copy samples from one array to another
 array.do	iterate and modify array content via side-chain
 array.each	process each array elements via side-chain
-array.fill	fill array with single value or pattern
+array.fill	fill array with single value, pattern or function
 array.grainer~	array granulator
 array.hist	calculates array histogram
 array.mean	calculates array arithmetic mean value

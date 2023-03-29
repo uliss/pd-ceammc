@@ -18,8 +18,8 @@
         </meta>
         <properties>
             <property name="@use_date" type="bool" default="1">decode date</property>
-            <property name="@volume" type="float" default="0" minvalue="-60" maxvalue="0" units="decibel"
-            access="readonly">input signal level</property>
+            <property name="@volume" type="float" default="0" minvalue="-60" maxvalue="0"
+            units="decibel" access="readonly">input signal level</property>
         </properties>
         <inlets>
             <inlet type="audio">

@@ -362,5 +362,12 @@ TEST_CASE("array.fill", "[externals]")
         REQUIRE(a[2] == Approx(1));
         REQUIRE(a[3] == Approx(-2));
         REQUIRE(a[4] == Approx(-1));
+
+        t.m_saw(&s_, LA(4, -1));
+        REQUIRE(a[0] == Approx(1));
+        REQUIRE(a[1] == Approx(0.5));
+        REQUIRE(a[2] == Approx(0));
+        REQUIRE(a[3] == Approx(-0.5));
+        REQUIRE(a[4] == Approx(1));
     }
 }

@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 461 50 cnv 1 304 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 461 50 fill array with single value or pattern;
+#X obj 385 50 cnv 1 380 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 385 50 fill array with single value \, pattern or function;
 #X obj 1 1 cnv 5 765 40 empty empty array.fill 20 20 0 20 -104026
 -4096 0;
 #X obj 667 11 array.fill;

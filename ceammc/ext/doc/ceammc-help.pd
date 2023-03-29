@@ -34,7 +34,7 @@ purposes in centre of electroacoustic music of Moscow Conservatory
 #X obj 30 533 array.each;
 #X text 200 533 process each array elements via side-chain;
 #X obj 30 560 array.fill;
-#X text 200 560 fill array with single value or pattern;
+#X text 200 560 fill array with single value \, pattern or function;
 #X obj 30 587 array.grainer~;
 #X text 200 587 array granulator;
 #X obj 30 614 array.hist;
