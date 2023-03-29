@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "array_fill.h"
+#include "args/argcheck2.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 
@@ -175,19 +176,13 @@ void ArrayFill::m_saw(t_symbol* s, const AtomListView& lv)
     if (!checkArray())
         return;
 
-    if (lv.empty()) {
-        METHOD_ERR(s) << "usage: " << s << " PERIOD [AMPLITUDE] [PHASE]";
-        return;
-    }
+    static const args::ArgChecker chk("PERIOD:f>=1 AMP:f? PHASE:f?");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
 
     const auto period = lv.floatAt(0, 0);
     const auto amp = lv.floatAt(1, 1);
     const auto phase = lv.floatAt(2, 0);
-
-    if (period <= 1) {
-        METHOD_ERR(s) << "invalid period value: " << period;
-        return;
-    }
 
     int i = 0;
     for (auto& v : array_) {
@@ -350,5 +345,5 @@ void setup_array_fill()
 
     obj.setDescription("fill array with single value or pattern");
     obj.setCategory("array");
-    obj.setKeywords({"array", "fill"});
+    obj.setKeywords({ "array", "fill" });
 }
