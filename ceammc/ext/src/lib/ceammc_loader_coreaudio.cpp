@@ -31,15 +31,21 @@ CoreAudioFile::CoreAudioFile()
 
 bool CoreAudioFile::open(const std::string& fname, OpenMode mode, const SoundFileOpenParams& params)
 {
-    audiofile_info_t fi = { 0 };
-    if (ceammc_coreaudio_getinfo(fname.c_str(), &fi) == 0) {
-        sample_rate_ = fi.sampleRate;
-        sample_count_ = fi.sampleCount;
-        channels_ = fi.channels;
-        is_opened_ = true;
-        fname_ = fname;
-        setOpenMode(mode);
-        return true;
+    switch (mode) {
+    case SoundFile::READ: {
+        audiofile_info_t fi = { 0 };
+        if (ceammc_coreaudio_getinfo(fname.c_str(), &fi) == 0) {
+            sample_rate_ = fi.sampleRate;
+            sample_count_ = fi.sampleCount;
+            channels_ = fi.channels;
+            is_opened_ = true;
+            fname_ = fname;
+            setOpenMode(mode);
+            return true;
+        }
+    } break;
+    default:
+        return false;
     }
 
     return false;

@@ -29,30 +29,30 @@ namespace sound {
 
     bool LibSndFile::open(const std::string& fname, OpenMode mode, const SoundFileOpenParams& params)
     {
-        int sf_fmt = 0;
-        setFormats(sf_fmt, params.file_format, params.sample_format);
+        auto fmt = makeLibFormat(params.file_format, params.sample_format);
 
         switch (mode) {
         case WRITE: {
-            if (!handle_.formatCheck(sf_fmt, params.num_channels, params.samplerate)) {
-                LIB_ERR << fmt::format("[SNDFILE] invalid options for format {}: "
+
+            if (!handle_.formatCheck(fmt, params.num_channels, params.samplerate)) {
+                LIB_ERR << fmt::format("[sndfile] invalid options for format {} (0x{:0x}): "
                                        "num_channels={} samplerate={}",
-                    to_string(params.file_format), params.num_channels, params.samplerate);
+                    to_string(params.file_format), fmt, params.num_channels, params.samplerate);
                 return false;
             }
 
-            handle_ = SndfileHandle(fname, SFM_WRITE, sf_fmt, params.num_channels, params.samplerate);
+            handle_ = SndfileHandle(fname, SFM_WRITE, fmt, params.num_channels, params.samplerate);
             if (handle_.rawHandle() == 0) {
-                LIB_ERR << fmt::format("[SNDFILE] can't open file '{}' for writing. {}", fname, handle_.strError());
+                LIB_ERR << fmt::format("[sndfile] can't open file '{}' for writing. {}", fname, handle_.strError());
                 return false;
             }
         } break;
         case READ:
         default:
             // auto detect soundfile format
-            handle_ = SndfileHandle(fname, SFM_READ, sf_fmt, params.num_channels, params.samplerate);
+            handle_ = SndfileHandle(fname, SFM_READ, fmt, params.num_channels, params.samplerate);
             if (handle_.rawHandle() == 0) {
-                LIB_ERR << fmt::format("[SNDFILE] can't open file '{}' for reading. {}", fname, handle_.strError());
+                LIB_ERR << fmt::format("[sndfile] can't open file '{}' for reading. {}", fname, handle_.strError());
                 return false;
             }
             break;
@@ -93,12 +93,12 @@ namespace sound {
     std::int64_t LibSndFile::read(t_word* dest, size_t sz, size_t ch, std::int64_t offset, size_t max_samples)
     {
         if (!isOpened()) {
-            LIB_ERR << fmt::format("[SNDFILE] not opened");
+            LIB_ERR << fmt::format("[sndfile] not opened");
             return -1;
         }
 
         if (ch >= channels()) {
-            LIB_ERR << fmt::format("[SNDFILE] invalid channel number: {}", ch);
+            LIB_ERR << fmt::format("[sndfile] invalid channel number: {}", ch);
             return -1;
         }
 
@@ -113,7 +113,7 @@ namespace sound {
 
         // move to beginning
         if (handle_.seek(offset, SEEK_SET) == -1) {
-            LIB_ERR << fmt::format("[SNDFILE] can't seek to sample: {}", offset);
+            LIB_ERR << fmt::format("[sndfile] can't seek to sample: {}", offset);
             return -1;
         }
 
@@ -156,7 +156,7 @@ namespace sound {
     std::int64_t LibSndFile::write(const t_word** src, size_t num_frames, std::int64_t offset)
     {
         if (!isOpened()) {
-            LIB_ERR << fmt::format("[SNDFILE] not opened");
+            LIB_ERR << fmt::format("[sndfile] not opened");
             return -1;
         }
 
@@ -191,7 +191,7 @@ namespace sound {
     std::int64_t LibSndFile::readResampled(t_word* dest, size_t sz, size_t ch, long offset, size_t max_samples)
     {
         if (resampleRatio() < 0.001) {
-            LIB_ERR << fmt::format("[SNDFILE] invalid resample ratio: {}", resampleRatio());
+            LIB_ERR << fmt::format("[sndfile] invalid resample ratio: {}", resampleRatio());
             return -1;
         }
 
@@ -203,7 +203,7 @@ namespace sound {
 
         // move to beginning
         if (handle_.seek(offset, SEEK_SET) == -1) {
-            LIB_ERR << fmt::format("[SNDFILE] can't seek to sample: {}", offset);
+            LIB_ERR << fmt::format("[sndfile] can't seek to sample: {}", offset);
             return -1;
         }
 
@@ -304,40 +304,40 @@ namespace sound {
         return frames_resampled_total;
     }
 
-    void LibSndFile::setFormats(int& res, SoundFileFormat fileFmt, SampleFormat sampFmt)
+    int LibSndFile::makeLibFormat(SoundFileFormat fileFormat, SampleFormat sampFormat) const
     {
-        res = 0;
+        int fmt = 0;
 
         // clang-format off
-        switch (fileFmt) {
-            case FORMAT_WAV:  res = SF_FORMAT_WAV;  break;
-            case FORMAT_AIFF: res = SF_FORMAT_AIFF; break;
-            case FORMAT_OGG:  res = SF_FORMAT_OGG; break;
-            case FORMAT_OPUS: res = SF_FORMAT_OPUS; break;
-            case FORMAT_RAW:  res = SF_FORMAT_RAW; break;
-            case FORMAT_FLAC: res = SF_FORMAT_FLAC; break;
+        switch (fileFormat) {
+            case FORMAT_WAV:  fmt = SF_FORMAT_WAV;  break;
+            case FORMAT_AIFF: fmt = SF_FORMAT_AIFF; break;
+            case FORMAT_OGG:  fmt = SF_FORMAT_OGG | SF_FORMAT_VORBIS; break;
+            case FORMAT_OPUS: fmt = SF_FORMAT_OGG | SF_FORMAT_OPUS; break;
+            case FORMAT_RAW:  fmt = SF_FORMAT_RAW; break;
+            case FORMAT_FLAC: fmt = SF_FORMAT_FLAC; break;
             default:
-                return;
+                return fmt;
         }
 
-        switch(sampFmt) {
-            case SAMPLE_PCM_8:     res |= SF_FORMAT_PCM_S8; break;
-            case SAMPLE_PCM_16:    res |= SF_FORMAT_PCM_16; break;
-            case SAMPLE_PCM_24:    res |= SF_FORMAT_PCM_24; break;
-            case SAMPLE_PCM_32:    res |= SF_FORMAT_PCM_32; break;
-            case SAMPLE_PCM_FLOAT: res |= SF_FORMAT_FLOAT; break;
+        switch(sampFormat) {
+            case SAMPLE_PCM_8:     fmt |= SF_FORMAT_PCM_S8; break;
+            case SAMPLE_PCM_16:    fmt |= SF_FORMAT_PCM_16; break;
+            case SAMPLE_PCM_24:    fmt |= SF_FORMAT_PCM_24; break;
+            case SAMPLE_PCM_32:    fmt |= SF_FORMAT_PCM_32; break;
+            case SAMPLE_PCM_FLOAT: fmt |= SF_FORMAT_FLOAT; break;
             default:
-                switch(fileFmt) {
-                    case FORMAT_WAV:  res |= SF_FORMAT_PCM_24;  break;
-                    case FORMAT_AIFF: res |= SF_FORMAT_PCM_24; break;
-                    case FORMAT_OGG:  res |= SF_FORMAT_PCM_24; break;
-                    case FORMAT_OPUS: res |= SF_FORMAT_PCM_24; break;
-                    case FORMAT_RAW:  res |= SF_FORMAT_PCM_24; break;
-                    case FORMAT_FLAC: res |= SF_FORMAT_FLOAT; break;
+                switch(fileFormat) {
+                    case FORMAT_WAV:  fmt |= SF_FORMAT_PCM_24;  break;
+                    case FORMAT_AIFF: fmt |= SF_FORMAT_PCM_24; break;
+                    case FORMAT_RAW:  fmt |= SF_FORMAT_PCM_24; break;
+                    case FORMAT_FLAC: fmt |= SF_FORMAT_PCM_24; break;
                     default: break;
                 }
             break;
         }
+
+        return fmt;
         // clang-format on
     }
 

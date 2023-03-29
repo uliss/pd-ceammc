@@ -63,6 +63,9 @@ namespace sound {
 
     bool MiniMp3::open(const std::string& fname, OpenMode mode, const SoundFileOpenParams& params)
     {
+        if (params.file_format != FORMAT_MP3)
+            return false;
+
         if (mode != READ) {
             LIB_ERR << fmt::format(MINI_PREFIX "can't open for writing: '{}'", fname);
             return false;

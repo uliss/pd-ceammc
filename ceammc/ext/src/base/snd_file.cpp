@@ -146,10 +146,7 @@ void SndFile::m_load(t_symbol* s, const AtomListView& lv)
 void SndFile::m_save(t_symbol* s, const AtomListView& lv)
 {
     ArraySaver saver;
-    if (!saver.parse(to_string(lv), this))
-        return;
-
-    if (!saver.checkArrays())
+    if (!saver.parse(lv, this))
         return;
 
     auto mfull_path = makeSavePath(saver.filename().c_str(), saver.overwrite());
@@ -168,7 +165,7 @@ void SndFile::m_save(t_symbol* s, const AtomListView& lv)
         return;
     }
 
-    auto n = file->write(arr.data.data(), arr.minSize(), 0);
+    auto n = file->write(arr.data.data(), arr.length, 0);
     floatTo(0, n);
 }
 

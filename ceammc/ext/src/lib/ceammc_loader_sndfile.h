@@ -39,7 +39,7 @@ namespace sound {
     public:
         static FormatList supportedReadFormats();
         std::int64_t readResampled(t_word* dest, size_t sz, size_t ch, long offset, size_t max_samples);
-        void setFormats(int& res, SoundFileFormat fileFmt, SampleFormat sampFmt);
+        int makeLibFormat(SoundFileFormat fileFormat, SampleFormat sampFormat) const;
     };
 }
 }
