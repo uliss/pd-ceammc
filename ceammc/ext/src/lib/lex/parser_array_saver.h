@@ -18,8 +18,6 @@
 
 #include <cstdint>
 #include <cstdlib>
-#include <string>
-#include <vector>
 
 namespace ceammc {
 namespace parser {
@@ -31,7 +29,6 @@ namespace parser {
 
     struct ArraySaverParams {
         std::string filename; // output filename
-        std::vector<std::string> arrays; // input arrays
         std::size_t begin { 0 };
         std::size_t end { 0 };
         float gain { 1 }; // apply gain
@@ -42,6 +39,8 @@ namespace parser {
         ArrayOffsetOrigin origin { ORIGIN_BEGIN }; // array offset origin
         bool normalize { false }; // do output normalization
         bool overwrite { false }; // overwrite existing files
+
+        std::size_t length() const { return (begin <= end) ? (end - begin) : 0; }
     };
 
     bool parse_array_saver_params(const char* str, size_t arraySize, ArraySaverParams& params);

@@ -14,6 +14,7 @@
 #ifndef ARRAY_SAVER_H
 #define ARRAY_SAVER_H
 
+#include "ceammc_atomlist_view.h"
 #include "ceammc_sound.h"
 #include "lex/parser_array_saver.h"
 
@@ -24,21 +25,17 @@ namespace ceammc {
 
 struct ArrayDataView {
     std::vector<const t_word*> data;
-    std::vector<size_t> lengths;
+    size_t length { 0 };
 
     bool empty() const
     {
-        return data.empty() || lengths.empty();
+        return data.empty() || length == 0;
     }
 
     void reserve(size_t n)
     {
         data.reserve(n);
-        lengths.reserve(n);
     }
-
-    size_t minSize() const;
-    size_t maxSize() const;
 };
 
 class BaseObject;
@@ -53,12 +50,7 @@ public:
     /**
      * parse input string: arrays... @to FILE OPTIONS...
      */
-    bool parse(const std::string& str, BaseObject* obj = nullptr);
-
-    /**
-     * Check arrays in list
-     */
-    bool checkArrays() const;
+    bool parse(const AtomListView& lv, BaseObject* obj = nullptr);
 
     /** source array samplerate */
     float arraySamplerate() const { return params_.in_sr; }
@@ -89,6 +81,7 @@ public:
 
 private:
     parser::ArraySaverParams params_;
+    std::vector<t_symbol*> arrays_;
 };
 
 }

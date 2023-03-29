@@ -15,11 +15,14 @@
 #include "ceammc_array.h"
 #include "ceammc_log.h"
 #include "ceammc_sound.h"
+#include "ceammc_string.h"
 #include "fmt/core.h"
 #include "lex/parser_array_saver.h"
 #include "m_pd.h"
 
 #include <algorithm>
+
+#define PD_ERR(obj) Error(obj).stream()
 
 namespace ceammc {
 
@@ -27,47 +30,77 @@ ArraySaver::ArraySaver()
 {
 }
 
-bool ArraySaver::parse(const std::string& str, BaseObject* obj)
+bool ArraySaver::parse(const AtomListView& lv, BaseObject* obj)
 {
-    params_.arrays.clear();
+    auto sym_to = gensym("@to");
+    arrays_.clear();
+    int file_arg_pos = -1;
 
-    if (!parser::parse_array_saver_params(str.c_str(), 0, params_)) {
-        LogPdObject(nullptr, LOG_ERROR).stream() << "can't parse options: " << str;
+    size_t array_size = 0;
+    for (size_t i = 0; i < lv.size(); i++) {
+        auto& a = lv[i];
+
+        if (!a.isSymbol()) {
+            PD_ERR(obj) << "array name expected, got: " << a;
+            return false;
+        }
+
+        auto name = a.asT<t_symbol*>();
+
+        if (name == sym_to) {
+            file_arg_pos = i + 1;
+            break;
+        }
+
+        Array arr(name);
+        if (!arr.isValid()) {
+            PD_ERR(obj) << fmt::format("array not found: '{}'", name->s_name);
+            return false;
+        } else {
+            arrays_.push_back(name);
+            auto N = arr.size();
+            if (array_size == 0)
+                array_size = N;
+            else if (N < array_size)
+                array_size = N;
+        }
+    }
+
+    if (arrays_.empty()) {
+        PD_ERR(obj) << "no arrays specified";
+        return false;
+    }
+
+    if (file_arg_pos < 1) {
+        PD_ERR(obj) << "destination file not specified";
+        return false;
+    }
+
+    params_.begin = 0;
+    params_.end = array_size;
+
+    string::MediumString str;
+    if (string::list_to_string(lv.subView(file_arg_pos), str))
+        str.push_back(0);
+
+    if (!parser::parse_array_saver_params(str.data(), array_size, params_)) {
+        PD_ERR(obj) << "can't parse options: " << str.data();
         return false;
     }
 
     if (params_.format == sound::FORMAT_UNKNOWN) {
-        LogPdObject(nullptr, LOG_ERROR).stream() << "unknown output format";
+        PD_ERR(obj) << "unknown output format";
         return false;
     }
 
     return true;
 }
 
-bool ArraySaver::checkArrays() const
-{
-    if (params_.arrays.empty()) {
-        LIB_ERR << "empty array list";
-        return false;
-    }
-
-    bool ok = true;
-    for (auto& name : params_.arrays) {
-        Array arr(name.c_str());
-        if (!arr.isValid()) {
-            LIB_ERR << fmt::format("array not found: '{}'", name);
-            ok = false;
-        }
-    }
-
-    return ok;
-}
-
 sound::SoundFilePtr ArraySaver::open(const std::string& path)
 {
     sound::SoundFileOpenParams params;
     params.samplerate = params_.out_sr;
-    params.num_channels = params_.arrays.size();
+    params.num_channels = arrays_.size();
     params.file_format = params_.format;
     params.sample_format = params_.sample_format;
 
@@ -85,32 +118,19 @@ ArrayDataView ArraySaver::arrayData() const
 {
     ArrayDataView res;
 
-    if (params_.arrays.empty())
+    if (arrays_.empty())
         return res;
 
-    auto N = params_.arrays.size();
+    auto N = arrays_.size();
     res.reserve(N);
+    res.length = params_.length() + 1;
 
-    for (auto& name : params_.arrays) {
-        Array arr(name.c_str());
-        if (arr.isValid()) {
-            res.data.push_back(arr.begin().data());
-            res.lengths.push_back(arr.size());
-        }
+    for (auto& name : arrays_) {
+        Array arr(name);
+        if (arr.isValid())
+            res.data.push_back((arr.begin() + params_.begin).data());
     }
     return res;
-}
-
-size_t ArrayDataView::minSize() const
-{
-    auto it = std::min_element(lengths.begin(), lengths.end());
-    return it == lengths.end() ? 0 : *it;
-}
-
-size_t ArrayDataView::maxSize() const
-{
-    auto it = std::max_element(lengths.begin(), lengths.end());
-    return it == lengths.end() ? 0 : *it;
 }
 
 }

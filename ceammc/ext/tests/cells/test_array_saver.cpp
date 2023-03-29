@@ -12,6 +12,8 @@
  * this file belongs to.
  *****************************************************************************/
 #include "catch.hpp"
+#include "ceammc_array.h"
+#include "ceammc_pd.h"
 #include "lex/array_saver.h"
 #include "test_base.h"
 
@@ -35,13 +37,17 @@ TEST_CASE("ArraySaver", "[ceammc::core]")
         REQUIRE(x.gain());
         REQUIRE_FALSE(x.overwrite());
         REQUIRE(x.arrayData().data.empty());
-        REQUIRE(x.arrayData().lengths.empty());
+        REQUIRE(x.arrayData().length == 0);
     }
 
     SECTION("")
     {
+        auto cnv = PureData::instance().createTopCanvas("array_test");
+        auto as1 = cnv->createArray("as1", 10);
+        auto as2 = cnv->createArray("as2", 20);
+
         ArraySaver x;
-        REQUIRE(x.parse("a1 a2 a3 @to filename.wav @overwrite"));
+        REQUIRE(x.parse(AtomList::parseString("as1 as2 as1 @to filename.wav @overwrite")));
         REQUIRE(x.filename() == "filename.wav");
         REQUIRE(x.overwrite());
     }

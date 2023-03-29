@@ -127,16 +127,8 @@ opt = opt_gain
 options = opt (ws opt)*;
 
 file =  atom >{ ragel_atom.clear(); } %{ params.filename = ragel_atom; };
-array = atom >{ ragel_atom.clear(); } %{ params.arrays.push_back(ragel_atom); };
-array_list = array (ws array)*;
 
-main :=
-    array_list
-    ws
-    '@to'
-    ws
-    file
-    (ws options)?;
+main := file (ws options)?;
 
 write data;
 
