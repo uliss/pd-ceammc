@@ -86,23 +86,41 @@ struct Period {
         events.back().to = to;
         return *this;
     }
+
+    std::string toString() const
+    {
+        std::string res;
+        res.reserve(events.size());
+
+        if (events.size() == 1) {
+            if (events.front().type == Event::EVENT_OFF)
+                res += ' ';
+            else if (events.front().type == Event::EVENT_ON)
+                res += '+';
+        } else {
+            auto n = std::count_if(events.begin(), events.end(), [](const Event& e) { return e.type == Event::EVENT_ON; });
+            res += '0' + ((n > 0) ? n - 1 : 0);
+        }
+
+        return res;
+    }
 };
 
 using PeriodList = std::vector<Period>;
 
 struct Cycle {
     PeriodList mic1, mic2, fb1, fb2, out1, out2;
-    float abs_bar_length_sec;
+    float abs_period_length; // seconds
 
-    void set(size_t n, float barLen)
+    void set(size_t n, float periodLengthSec)
     {
         mic1.assign(n, {});
         mic2.assign(n, {});
         fb1.assign(n, {});
         fb2.assign(n, {});
         out1.assign(n, {});
-        out1.assign(n, {});
-        abs_bar_length_sec = barLen;
+        out2.assign(n, {});
+        abs_period_length = periodLengthSec;
     }
 
     void clear()
@@ -115,18 +133,19 @@ struct Cycle {
         out2.clear();
     }
 
-    static void addBarSimpleEvents(PeriodList& bars, std::initializer_list<int> init)
+    static void addPeriodSimpleEvents(PeriodList& periods, std::initializer_list<int> init)
     {
-        if (init.size() != bars.size())
-            LIB_DBG << fmt::format("warning: bar number mismatch: {} != {}", bars.size(), init.size());
+        if (init.size() != periods.size())
+            LIB_DBG << fmt::format("warning: period number mismatch: {} != {}", periods.size(), init.size());
 
-        for (size_t i = 0; i < std::min<size_t>(init.size(), bars.size()); i++) {
-            auto& bar = bars[i];
+        const auto N = std::min<size_t>(init.size(), periods.size());
+        for (size_t i = 0; i < N; i++) {
+            auto& p = periods[i];
             auto x = *(init.begin() + i);
             if (x == 0)
-                bar.addOff();
+                p.addOff();
             else
-                bar.addOn(x == NO_PERFORATION ? 0 : x); // negative no perf
+                p.addOn(x == NO_PERFORATION ? 0 : x); // negative no perf
         }
     }
 
@@ -135,17 +154,54 @@ struct Cycle {
         std::initializer_list<int> f1, std::initializer_list<int> f2,
         std::initializer_list<int> o1, std::initializer_list<int> o2)
     {
-        addBarSimpleEvents(mic1, m1);
-        addBarSimpleEvents(mic2, m2);
-        addBarSimpleEvents(fb1, f1);
-        addBarSimpleEvents(fb2, f2);
-        addBarSimpleEvents(out1, o1);
-        addBarSimpleEvents(out2, o2);
+        addPeriodSimpleEvents(mic1, m1);
+        addPeriodSimpleEvents(mic2, m2);
+        addPeriodSimpleEvents(fb1, f1);
+        addPeriodSimpleEvents(fb2, f2);
+        addPeriodSimpleEvents(out1, o1);
+        addPeriodSimpleEvents(out2, o2);
     }
 
     float length() const
     {
-        return mic1.size() * abs_bar_length_sec;
+        return periodCount() * abs_period_length;
+    }
+
+    size_t periodCount() const
+    {
+        return mic1.size();
+    }
+
+    std::string toString(size_t n) const
+    {
+        std::string res;
+        switch (n) {
+        case 0:
+            for (auto& x : mic1)
+                res += x.toString();
+            break;
+        case 1:
+            for (auto& x : mic2)
+                res += x.toString();
+        case 2:
+            for (auto& x : fb1)
+                res += x.toString();
+        case 3:
+            for (auto& x : fb2)
+                res += x.toString();
+        case 4:
+            for (auto& x : out1)
+                res += x.toString();
+        case 5:
+            for (auto& x : out2)
+                res += x.toString();
+        default:
+            break;
+        }
+
+        res += '|';
+
+        return res;
     }
 };
 
@@ -165,7 +221,7 @@ struct Scheme {
         set(i);
     }
 
-    void set(int i)
+    bool set(int i)
     {
         switch (i) {
         case 1:
@@ -175,8 +231,10 @@ struct Scheme {
             setScheme2();
             break;
         default:
-            break;
+            return false;
         }
+
+        return true;
     }
 
     void setScheme1()
@@ -251,6 +309,17 @@ struct Scheme {
     float length() const
     {
         return a.length() + b.length() + c.length() + d.length() + e.length() + f.length();
+    }
+
+    std::string toString(size_t part) const
+    {
+        return '|'
+            + a.toString(part)
+            + b.toString(part)
+            + c.toString(part)
+            + d.toString(part)
+            + e.toString(part)
+            + f.toString(part);
     }
 };
 
