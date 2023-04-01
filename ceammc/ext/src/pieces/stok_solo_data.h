@@ -213,6 +213,8 @@ struct Scheme {
     Cycle e;
     Cycle f;
     const int E = NO_PERFORATION;
+    const int C = '<';
+    const int D = '>';
 
     Scheme() { }
 
@@ -269,8 +271,8 @@ struct Scheme {
             { 1, 4, 1, 2, 1, 3, 0 },
             { 0, 2, 1, 1, 1, 1, E },
             { 0, 1, 1, 1, 1, 1, E },
-            { 0, E, 0, E, 0, E, 0 },
-            { 0, 0, E, 0, E, 0, E } //
+            { C, E, 0, E, 0, E, 0 },
+            { 0, C, E, 0, E, 0, E } //
         );
         c.addSimpleEvents(
             { 2, 0, 1, 0, 1, 1, 0, 2, 0, E, 0 },
@@ -321,6 +323,8 @@ struct Scheme {
             + e.toString(part)
             + f.toString(part);
     }
+
+    //    Event
 };
 
 }

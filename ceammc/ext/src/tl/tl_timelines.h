@@ -269,7 +269,7 @@ namespace tl {
 
             // not last event
             if (event_idx_ < (N - 1)) {
-                owner_->event(event_idx_, events_[event_idx_].abs_time);
+                owner_->event(event_idx_, events_[event_idx_]);
                 clock_.delay(events_[++event_idx_].next_time);
             } else {
                 // last event

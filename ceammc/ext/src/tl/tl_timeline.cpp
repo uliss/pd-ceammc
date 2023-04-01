@@ -100,20 +100,22 @@ void TlTimeLine::onFloat(t_float v)
     (v != 0) ? tl_.start() : tl_.stop();
 }
 
-void TlTimeLine::event(size_t n, t_float at)
+void TlTimeLine::event(size_t n, const tl::Event& e)
 {
-    listTo(0, AtomList(n, at));
+    AtomArray<2> lst { n, e.abs_time };
+    listTo(0, lst.view());
 }
 
 void TlTimeLine::eventStart()
 {
-    SmallAtomList lst { gensym(SYM_START), 0.f };
+    AtomArray<2> lst { gensym(SYM_START), 0.f };
     listTo(0, lst.view());
 }
 
 void TlTimeLine::eventEnd()
 {
-    listTo(0, AtomList(gensym(SYM_END), tl_.length()));
+    AtomArray<2> lst { gensym(SYM_END), tl_.length() };
+    listTo(0, lst.view());
 }
 
 void TlTimeLine::m_add(t_symbol* s, const AtomListView& lv)

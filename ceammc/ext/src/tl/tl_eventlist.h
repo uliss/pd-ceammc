@@ -14,6 +14,7 @@
 #ifndef TL_EVENTLIST_H
 #define TL_EVENTLIST_H
 
+#include <cstdint>
 #include <iostream>
 #include <vector>
 

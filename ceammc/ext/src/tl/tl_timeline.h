@@ -31,7 +31,7 @@ public:
 
     void onFloat(t_float v) override;
 
-    void event(size_t n, t_float at);
+    void event(size_t n, const tl::Event& e);
     void eventStart();
     void eventEnd();
 
